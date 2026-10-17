@@ -1,73 +1,197 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-157.mta0.migadu.com [91.218.175.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1853EA942;
-	Sat, 17 Oct 2026 07:41:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED9E27144B
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:42:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792222871; cv=none; b=nNuukKJrYgCVtzm/YZ4buphre5xscvKScOo35vk6iz/ejRhXY56fis7LJG4JZG4WkADdZWEgBYLhVwOm/2hBzuXmSZ5eX9n1Hrigk01dqGQFKMQsA+BbjV7zuHGm8IK6kAF4WYwB+Qc/BOtL47U37fVlN47lsnSPU/zNoTLDpzI=
+	t=1792222926; cv=none; b=NFZB0J/s+D18mAq/sa2G9KBQ6CcILttBAM03NH9iv0fOpUm1qZf9Q6bwKR7G/CLX4wzWbEkeyqIvnl4OvZoWHbTuiiopmBBT0iD5fEoAsvlIzaQwJ0xMnSzFzDrJmiwYPWPAoXeHqIqVY/Znc+0A0JuHdqfRCNj6NvpycwJBK+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792222871; c=relaxed/simple;
-	bh=IwjlrqWkRswrl0eUuI23hZ1RaCjZOI+5bKih4kQSfjo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=DZ5kw/VAmAY/KSSMgsqMirNzwJjCdsUElZuTaYTDUH4c7TajIzHvQHLazaOeL8lliEGkTgc0gswhHvj0SWVffsLP+x3SYT5FH6vL6eyL22PDP7PiiIV/9C/6Brjw55y2CdsuEVS8V6/zoiGCl1u/hoUMEXi3iMhsP+lS94iz93w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Vm0twJ1Y; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792222926; c=relaxed/simple;
+	bh=cTmbWpIBmFSm4lFwnUIH2uqFavf981pVZQE+4xBkCvg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XU+DaN3kFeA4J0lkTR/1DgHSgTluocAMqwlP1T4C7MMjqAqfKXusuKq4G6tBO64/E6ULx41yZLbDT00Pl1tOtfVqouk972lEVU8R2fO2fr8wDy5P048JE0gTdCKHxoKpfEQJIA7pA0GxXRcW7AW4oe7AhM5u0kKiiTBFSWM9EtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TsC+TMYs; arc=none smtp.client-ip=91.218.175.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Vm0twJ1Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=IwjlrqWkRswrl0eUuI23hZ1RaCjZOI+5bKih4kQSfjo=; b=V
-	m0twJ1YLDABn5KoNB46p0qjFg3mQ+M5RL4eBQ7Q/b9/GLYlwibZHbgpXVCMr5jJN
-	3qUkcAhTUwAIoImEdRaVlJz+SN/kV3ShJcS9ro1R7VBCg3foWz3c0J/ijHp02DcV
-	fwPW/v60NSPMcFHIcAS+6lMnO1jmICAwSwCNiF/mP0=
-Date: Sat, 17 Oct 2026 15:40:45 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Haiyang Zhang" <haiyangz@microsoft.com>, "Wei Liu" <wei.liu@kernel.org>,
-	"Dexuan Cui" <decui@microsoft.com>, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re:[PATCH] Drivers: hv: vmbus: Check ACPI companion before use
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261017064313.3816553-1-yaojiale02@163.com>
-References: <20261017064313.3816553-1-yaojiale02@163.com>
-X-NTES-SC: AL_Qu2SAP6ZvUAv4yWfbekdnEkQgO0/WsS1vfQu2Y5Wc+wEgCbN4z0YdHxaDHHN8e6DOSarnDiOagNHzNRcb4JHQEamNL2nZuS3kSC7JbHqdQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TsC+TMYs"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cTmbWpIBmFSm4lFwnUIH2uqFavf981pVZQE+4xBkCvg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792222923; v=1; x=1792827723;
+ b=TsC+TMYsEi+Hn8G9fawH3emMTlVT+1BkS3/mdmZqzQ2ZoXJk6Sa7Vz3BxX3GcLiKso3t8OBU
+ 9ILWDRU172KSQ2NRNBgMaLF6Hc/o+DWOHHt/JQzR/ZFuAyfc+Sl11abni2eFF1x68x8EH3myGlc
+ MN+wnqBA226O+RHcJpww4rLQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 822507f423bfaa6f;
+	Sat, 17 Oct 2026 07:42:01 +0000
+X-Mizu-Trace-ID: 822507f423bfaa6f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <cd6637db-7b30-4cbc-b07f-c2a2b32480fa@linux.dev>
+Date: Sat, 17 Oct 2026 15:41:49 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <3f41f884.18f3.1a148ce5a95.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZygvCgDnX2V9JtNqSfxaAA--.146W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzR04cmrTJn0uUgAA3E
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in
+ collapse_file()
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Pedro Falcato <pfalcato@suse.de>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com,
+ liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
+ dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org,
+ jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, hch@lst.de,
+ syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
+ ngocthang2710.1999@gmail.com, willy@infradead.org, rppt@kernel.org,
+ ljs@kernel.org
+References: <20261016065920.4153-1-lance.yang@linux.dev>
+ <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
+ <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
+ <atIiR1NWNssDvgt6@pedro-suse.tail5790ac.ts.net>
+ <6a005d89-df5b-4524-a4b9-c637cb15f1ee@linux.alibaba.com>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <6a005d89-df5b-4524-a4b9-c637cb15f1ee@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-QXQgMjAyNi0xMC0xNyAxNDo0MzoxMywgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
-d3JvdGU6Cj5QbGF0Zm9ybSBkcml2ZXJzIGNhbiBiZSBmb3JjZWQgdG8gYmluZCB0byBkZXZpY2Vz
-IG91dHNpZGUgdGhlaXIgbWF0Y2gKPnRhYmxlcyB0aHJvdWdoIGRyaXZlcl9vdmVycmlkZS4gdm1i
-dXNfYWNwaV9hZGQoKSBhc3N1bWVzIHRoYXQgZXZlcnkgYm91bmQKPmRldmljZSBoYXMgYW4gQUNQ
-SSBjb21wYW5pb24gYW5kIGRlcmVmZXJlbmNlcyBpdCB3aXRob3V0IGNoZWNraW5nLgo+Cj5SZXR1
-cm4gLUVOT0RFViB3aGVuIHRoZSBjb21wYW5pb24gaXMgYWJzZW50IHRvIGF2b2lkIGEgTlVMTCBw
-b2ludGVyCj5kZXJlZmVyZW5jZS4KPgoKRml4ZXM6IDljODQzNDIzODA0MSAoIkRyaXZlcnM6IGh2
-OiB2bWJ1czogQ29udmVydCBhY3BpX2RldmljZSB0byBtb3JlIGdlbmVyaWMgcGxhdGZvcm1fZGV2
-aWNlIikKCj5TaWduZWQtb2ZmLWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPi0t
-LQo+IGRyaXZlcnMvaHYvdm1idXNfZHJ2LmMgfCA4ICsrKysrKy0tCj4gMSBmaWxlIGNoYW5nZWQs
-IDYgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPgo+ZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-aHYvdm1idXNfZHJ2LmMgYi9kcml2ZXJzL2h2L3ZtYnVzX2Rydi5jCj5pbmRleCA0NjkyNjg3Y2Ri
-ZjMuLjI4ZjQ1OTY3OTQwNiAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvaHYvdm1idXNfZHJ2LmMKPisr
-KyBiL2RyaXZlcnMvaHYvdm1idXNfZHJ2LmMKPkBAIC0yNTcxLDEwICsyNTcxLDE0IEBAIEVYUE9S
-VF9TWU1CT0xfR1BMKHZtYnVzX2ZyZWVfbW1pbyk7Cj4gI2lmZGVmIENPTkZJR19BQ1BJCj4gc3Rh
-dGljIGludCB2bWJ1c19hY3BpX2FkZChzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+IHsK
-PisJc3RydWN0IGFjcGlfZGV2aWNlICphbmNlc3RvcjsKPisJc3RydWN0IGFjcGlfZGV2aWNlICpk
-ZXZpY2U7Cj4gCWFjcGlfc3RhdHVzIHJlc3VsdDsKPiAJaW50IHJldF92YWwgPSAtRU5PREVWOwo+
-LQlzdHJ1Y3QgYWNwaV9kZXZpY2UgKmFuY2VzdG9yOwo+LQlzdHJ1Y3QgYWNwaV9kZXZpY2UgKmRl
-dmljZSA9IEFDUElfQ09NUEFOSU9OKCZwZGV2LT5kZXYpOwo+Kwo+KwlkZXZpY2UgPSBBQ1BJX0NP
-TVBBTklPTigmcGRldi0+ZGV2KTsKPisJaWYgKCFkZXZpY2UpCj4rCQlyZXR1cm4gLUVOT0RFVjsK
-PiAKPiAJdm1idXNfcm9vdF9kZXZpY2UgPSAmZGV2aWNlLT5kZXY7Cj4gCj4tLSAKPjIuMzQuMQo=
+
+
+On 2026/10/17 13:43, Baolin Wang wrote:
+> 
+> 
+> On 10/16/26 9:18 PM, Pedro Falcato wrote:
+>> On Fri, Oct 16, 2026 at 12:00:24PM +0100, Pedro Falcato wrote:
+>>> On Fri, Oct 16, 2026 at 05:57:48PM +0800, Baolin Wang wrote:
+>>>>
+>>>>
+>>>> On 10/16/26 2:59 PM, Lance Yang wrote:
+>>>>> collapse_file() can end up calling page_cache_sync_readahead() with
+>>>>> source folios from earlier in the range still locked. If truncate 
+>>>>> already
+>>>>> holds mapping->invalidate_lock exclusively and is waiting for one of
+>>>>> those folios, readahead blocks on the same invalidate_lock and neither
+>>>>> side can make progress.
+>>>>>
+>>>>> Do readahead in a separate pass before we start holding source folios
+>>>>> locked for collapse. Keep page_cache_sync_readahead() and its existing
+>>>>> policy, and drop each folio's lock and reference after checking 
+>>>>> that it
+>>>>> is uptodate. If truncate or reclaim removes a folio between the two
+>>>>> passes, roll back instead of doing readahead again with source folios
+>>>>> locked.
+>>>>>
+>>>>> Shmem handles swapin and fallocated folios through shmem_get_folio()
+>>>>> without taking mapping->invalidate_lock, so it isn't affected by this
+>>>>> lock inversion.
+>>>>>
+>>>>> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+>>>>> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+>>>>> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page 
+>>>>> cache with invalidate_lock")
+>>>>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>>>>> ---
+>>>>
+>>>> Thanks for the fix.
+>>>>
+>>>>> Thanks to Nguyen Ngoc Thang for v2. David asked for volunteers, so I'm
+>>>>> happy to take this over.
+>>>>>
+>>>>> Some older stable trees lack the folio infrastructure used here, 
+>>>>> and the
+>>>>> code will differ for each stable tree, so each backport will need 
+>>>>> quite a
+>>>>> bit of rework and its own review. I'm not sure whether to Cc stable 
+>>>>> here.
+>>>>> Once we agree on the fix, I'll send a separate backport for each 
+>>>>> maintained
+>>>>> stable tree except 5.10, which isn't affected.
+>>>>>
+>>>>> v2 -> v3:
+>>>>>    - Replace the scan-wide invalidate_lock and 
+>>>>> page_cache_ra_unbounded() with
+>>>>>      a preparation pass using page_cache_sync_readahead().
+>>>>>    - Roll back on a new page cache miss during collapse.
+>>>>>    - https://lore.kernel.org/all/20260913163644.122133-1- 
+>>>>> ngocthang2710.1999@gmail.com/
+>>>>>
+>>>>>    mm/khugepaged.c | 42 +++++++++++++++++++++++++++++++-----------
+>>>>>    1 file changed, 31 insertions(+), 11 deletions(-)
+>>>>>
+>>>>> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>>>>> index ef5cd6fda34f..b3f67617caf0 100644
+>>>>> --- a/mm/khugepaged.c
+>>>>> +++ b/mm/khugepaged.c
+>>>>> @@ -2262,6 +2262,34 @@ static enum scan_result collapse_file(struct 
+>>>>> mm_struct *mm, unsigned long addr,
+>>>>>        new_folio->index = start;
+>>>>>        new_folio->mapping = mapping;
+>>>>> +    if (!is_shmem) {
+>>>>> +        /*
+>>>>> +         * Populate the range before accumulating locked source 
+>>>>> folios:
+>>>>> +         * readahead may block on invalidate_lock.
+>>>>> +         */
+>>>>> +        for (index = start; index < end;) {
+>>>>
+>>>> why drop xas_unlock_irq()?
+>>>>
+>>>>> +            folio = filemap_lock_folio(mapping, index);
+>>>>> +            if (IS_ERR(folio)) {
+>>>>> +                page_cache_sync_readahead(mapping, &file->f_ra,
+>>>>> +                              file, index, end - index);
+>>>>> +                folio = filemap_lock_folio(mapping, index);
+>>>>> +                if (IS_ERR(folio)) {
+>>>>> +                    result = SCAN_FAIL;
+>>>>> +                    goto rollback;
+>>>>> +                }
+>>>>> +            }
+>>>>> +            if (!folio_test_uptodate(folio))
+>>>>> +                result = SCAN_FAIL;
+>>>>
+>>>> Do we need to check PG_uptodate after locking the folio? If we 
+>>>> successfully
+>>>> lock the folio, doesn't that mean the read I/O has completed? The 
+>>>> following
+>>>
+>>> Yes, you do; a read can "complete" without the IO having completed 
+>>> successfully,
+>>> and in those cases PG_uptodate is not set, but the folio is unlocked.
+> 
+> OK.
+> 
+>>> Either way, why are we checking for uptodate here? We only care for 
+>>> starting readahead.
+>>> Anyway, I would possibly recommend we do this as post-processing, not 
+>>> pre-processing.
+>>> The current loop is a little overhead-happy.
+>>
+>> To clarify: I would do this kind of RA as an error path if isolation 
+>> failed.
+> 
+> Sounds good.
+> 
+>> Namely, at the end of rollback, after unlocking folios. It doesn't 
+>> make sense
+>> to me to do this kind of checking upfront. I don't think it's 
+>> particularly
+>> realistic that, starting RA upfront, you'd see uptodate completed 
+>> folio reads
+>> when doing the actual isolation.
+> 
+> But why not add RA logic in collapse_pmd(), as we do for 
+> SCAN_PAGE_DIRTY_OR_WRITEBACK? There's already retry logic there, and 
+> this would also simplify the long collapse_file().
+
+That would be cleaner, yeah. Some older stable trees don't have that
+outer retry loop, though ... I'd prefer to get the fix backported first,
+then move the RA/retry logic out in a follow-up, wdyt?
+
+Cheers, Lance
 
