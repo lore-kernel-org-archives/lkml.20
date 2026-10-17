@@ -1,141 +1,167 @@
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084843B2FD9
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792257470; cv=none; b=MTEDQYMSiLXRkP6b00i/262PeXBtY5yXP8HF6RD+xao19UvbWUOu8H4MucUjfvoz9LyCcugzpAwes1rdTuV4dqqsIxh/5pBETeehS6ANyY//xs0oHWPY7ktwkGlGKzlr45ERsTcwl4jxS5d44BGy3eASDhyBUaQm0AzeRAM9WUU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792257470; c=relaxed/simple;
-	bh=dzyiSRz4+xBFKPvndD/3jeiT3Eok+8jZG/7BgH78V4g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rUmBmB8XkUPtml9EweFwuaPcyWvPBlRs4MgUXEX6Q6ztL5rv7fypK6G2sdzNjoXJL0Sa6i6gR9V5Fp+cJ8l8DPQyiXloJu4Xwe+NZt7mA3exWPhpVWEMfLuFe6ZgEkHxphIeaMwFNBxbnisZZsB/4lqn27prrqcAfFZglePc66Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RsZLAZUI; arc=none smtp.client-ip=74.125.82.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E863C1979
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792257473; cv=pass; b=osHhmH4R9+0OTXm5mSKbs6Qm2qBuJpo4sDcz8LAU35TCCeIIn6jeQwzB6RBURb5ZH9YP3p9aZPxsixHWyuXOIQHZg/wRLmuZnX+QCyldbsgZxzuU5469xZn8Z2mKs98qN/Y1wxsM1m7an4Uko3OaImlYu3xOQFkRmd7WSPDgTB4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792257473; c=relaxed/simple;
+	bh=w2T8FHdfNF5NvbmlR5/foiz0hmQwj34PxDR30yrTsuA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BQdxnWbHm2R6cY7FCJE38pqHYMWfRfEPZacs6BKovoKOnIjAbGFISqkZ361gjnhDNEYQbK2emj5eTRg3buRabspQHHrIFd96FkaFJ7+xnRhDtnFEWC94IceOo12vIhpg+aJfpzYbwVgAyLPJSaeM3upvN7va8+WLR5cS+rkgpRw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nBH9I7To; arc=pass smtp.client-ip=74.125.82.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RsZLAZUI"
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15dd124bbe7so1656782c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:17:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nBH9I7To"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35943f55c06so1222527eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:17:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792257471; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W/Fo0qL14Rs+24HX35xIf+1QS8W69rk7uLB/68yYDkfPwiHmX6gnyDZoWDbH3/fbtf
+         ij3Iwf53xHE4JHkg15L89Pd23XZ+lnUjfgdiUnr8p6VSCrXWnkNtSwsoi+b77UzYcu1Q
+         cJargMgchZJQbq/AGeMI0LloOlfqINmOWEEVpIqoV7lb7ydfdOLLKDou7z+1XvHaAD96
+         t3yHNcG92iiyeNynq8lkGK1R1jz3rSuEj8hGk2tf5R5jNvHlOdakTTXF6yIed3Zqu6Bf
+         +thUS4064sNeTCwT5XrA4dwhyJLV63430QQwBXRaG9tNob6P/RVxiaGu9nlHY1b8orBW
+         2RoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=w2T8FHdfNF5NvbmlR5/foiz0hmQwj34PxDR30yrTsuA=;
+        fh=gIoLNNuo1X8AwBMLdri5YxlUBOtDPyGOyNNvKSDAHmQ=;
+        b=oyK0PsQw/nVcfuBfin76wkeXx6WiNmctdc/agpbqwiuV6bddnrZZyvWDvSwt/48v3m
+         cp/Yf+asXQgznI2NzIm3Fz8sIS82mxCYcUNvxRwR8i4G/UKogMXslSN98AZSGwOLrhXo
+         lNFsR34XfnH5jF8fF944iwp7G8Cn5fjWjkj+TStLOLZdpGFlpe6lwjMlfI78UHqbgEoq
+         51wiySz3YyA3E1AQuW5x7o5uJsnozwn7jtRtZe+xZ/QLoyw21MFIF63zSMwIanVAHKSX
+         eU3iyx4EGXMfdCNE/XMGm1iJ3GpxVnyQc/C/JlBNdOYhoVGk7JfW69elnOhdO5SkS2QY
+         b54g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792257468; x=1792862268; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hDa9JjAt9pCFlYhBjZKvcPCh0gjBULFSTkPmO/Bq8MA=;
-        b=RsZLAZUIZIrApSgGRfnsdNVG8OpGlLeYSzIZbQWm3bNTY2nKP1AFxZ/lr6D2FK7dZ2
-         0m2vKdD2obhIzuR1vREY0njveHfO7nAXT8Pcal88q4I110WO2rAyMdhwbnh7aemZKveU
-         xYi1UzUTcqwY3OY9hRjtBYUHeSaNZ3LUhoVEDQlBa+cZZDGEalprEYe1ieytCcXY8VAZ
-         eJOz9YXG+7z5ukvKOJR7FLOeL91xndSCvBVw2ReR22ZwzubaQzNqJu3428ZE1ecwPERW
-         tBy9oOfMB/l3wm9/jebNrOT3922Sc4+gJDV/wS2MZ5IMMb0b/xMbjeQ77LdpzTdM7mDt
-         ciQg==
+        d=gmail.com; s=20251104; t=1792257471; x=1792862271; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w2T8FHdfNF5NvbmlR5/foiz0hmQwj34PxDR30yrTsuA=;
+        b=nBH9I7ToBPazLmK4KOED9iC1+yglSlOE55oq0Uulb85R/fos9Gr7XiHZP6y5PqTPBX
+         eh71OlUqwhxhZXnJ9Fx2bbyP+kIUT5QRd98+ewhSvPlOtiK8Pw7KYu2LqHQe7E69OJaD
+         4SzH2wAJ4kD7jSbR6pCQWeehND/JWH1N6PiYTmhgQZd95ftKmO0Yx9Uu44q6AX7Jo0E0
+         MqnwxiVDeXFEDkgZG4tP+XZ/Jz2m/AyVsie76xAtda64h0IOuG0rkwgPolikbsEroU2D
+         LFK8fQJqKcsrS/Yk0bDjYDH9VNkWNH1Qdf5LS/Z3tZUOoGU6epxkEkuexeD9SIqz4M8D
+         wXtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792257468; x=1792862268;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hDa9JjAt9pCFlYhBjZKvcPCh0gjBULFSTkPmO/Bq8MA=;
-        b=mur464EFcs0fjRE4Y7+BouV+eDpF7pBuVX9ZzBjwWa+T5AuIccf2HnwlojEL+cgtvj
-         VJFlD8bsUQWpqk3prCiUTdiwhHtHXiEZZtfxE0eCBrEaLmJrqCyB6ikKNN1YTudUy52H
-         dqXbbKshETGcupsEkeOQHf3aXnm6kdxepY91FleLyLRliJXz5qLSl2xTC0hS4kwdIgWU
-         rSIsyrsUj6dPSrnOcSUhd6qWdd07Tv/7roeC+TWX+cUOZkK3fk4rGWsBZ37nS6c0SDkQ
-         awT+VoTkgGryWcv1ZKz6ITchSSJsJI7gsXFYeRq0YHHtVOJCEmv5ORkIc5L+dTyAAGj/
-         tBxA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1mO2CmZ2uvcrH47RiX8blKQFaJcuDXvIYlmwIajh/DKXWbX950Yr4pz6//DoI43e+4OzjS4LBnqZcVYw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFldIowfrJ653K9gCu0mHI91kOiUarAyRgT6eE+Z+0B++7ZrVc
-	S3flBCvEuXXomqn8VqVX2Rt+OMlfa7HFUTrDOkOnGw0o860jKSMBT9F6
-X-Gm-Gg: AYBFou2hvkA9xOcCaAvNxZm9aQbYh+HBgQlE/2cXIKm/2oM0Pq8yULwRIuxdWcMcpBA
-	1LuSr8Qu6RfVsOWv3KQfyV0vx/en2nqs8HwVY6j6M97ZKXjYya3WHaZNznnwnkpYIuJtAXSA1J1
-	JMFNE2kHxpNMNdb9cD9XK452d3X9fBZC7Bp8hyrLFTUGSASI85Dw1hhfIRAswKGSPtHv+QTGWwc
-	REYaUOAdjfK+fkhBSgqmv18HdStc3N6jUDqeO9Qtvs2CWF+cBvFJ7AkgX+vPzzzXvPeqd4yHy56
-	l80Kgy/HwLiD68tL2xSN38G6iTnUS4CHD4HXAGhQti7Xz8F8QMMHm+3Krg7YQdlZ/Z1FPtakIic
-	lP8q9Dj9nNKb4XVJ9+WfPgI6W5iKECJuXSrD+IX7DuD59182Jt/JgcYMRwM3FCcRdNpOK5GvTXC
-	b7sJlqvNLw8tmzvbWnogbHiUauOOJ/Melm5JYLRDGVzxZ6LYno26Ay4j2V3Qf+6Qz2pfqHXtg=
-X-Received: by 2002:a05:701b:4308:b0:15a:2b63:a0cb with SMTP id a92af1059eb24-18511ad8bacmr5174627c88.13.1792257467699;
-        Sat, 17 Oct 2026 10:17:47 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45a:263c::3cf:8])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831a6f58c2sm24518865c88.11.2026.10.17.10.17.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 10:17:47 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: greybus-dev@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH] greybus: operation: arm the timeout timer before sending the request
-Date: Sun, 18 Oct 2026 00:17:43 +0700
-Message-ID: <20261017171743.24612-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1792257471; x=1792862271;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w2T8FHdfNF5NvbmlR5/foiz0hmQwj34PxDR30yrTsuA=;
+        b=HgnkjGdOGMTwbNmysHGIw9COfb43L57Txs949uke7MtVnTBU22OFKuA4wq1McRoHoq
+         97OhU7aPDs/FWmyJ8rvUMOclVDDLJ/LRU+6pB5NlGjmBQuWGNiF38BtqeJEA9VxpGXp1
+         +k4osRGB61WEp024gLNgEBHGMvnoT/rggz9CPGzZthxVHKJuEnWMY8yls8y89T7uSiPF
+         BWJR7GCe2Eb+LQ/5JQWx3vFpwN7Rhikzom6hw1VbGmsQC7IvAn+EP6KTrpli1VlyTQZG
+         yafL7hXhCpK78pHV6LB69q6TpKCx9TK72h2z2dUVtJWH21fu5XiyhMLrOL66d+EPdRoF
+         guow==
+X-Forwarded-Encrypted: i=1; AKwUvBz5hUkUjeC5gC9U3BzKy9mD9zGBF7otFlGSKF1u+9rX5NeZhTrph1yXFlREcnIfe/gSBP1k4p5e8+GPAp0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGTLjXNbvxb8lEAaGV0QviSCxQdvXdWmljA0p3zlR+qwEdKqKq
+	mGe5F7U5KfkaSE7B9yuuM7WZIJSmlQgyPeHm2UkjfbIJlRqrXQgSnepr2sNnFhmCzbXlToZID0r
+	1EPx1gPtKJ7+zBgy98Rv5i4+XVXII44g=
+X-Gm-Gg: AYBFou2c5OYQhLeJX9Ydf/ncE/NnMJGPTUIi5Ly+s7k29se5CYE7ftN8JvOmNF085MT
+	Mr5v5pct/ZbauVMQgZIUIaCfN3wlmMa+Kvepeo6FYgRhLy6MwrZ5JQTnkra5I2osquaB2hlrr6Z
+	jPB2xIGIWtSP09+QZaSEKKDC0atoutZqqXCmXY1ZAdFFmXwn7SsLHl3q/6y9pxxY/OVaxk1f2K3
+	K92HOewoBJQReQN7AuPxH3+3N3MEdnk6xLJbR1cSdxcenySwFsuY8OBOP78CgKGEBKThu02+gJT
+	+yBfCik0AB9LBxi1Pu+j5AiQfydea/QEZISme9PK/8iGxri0BauE3cTRwGdq+N7bg0GO64J6bXN
+	Lr59G3caI38Ov
+X-Received: by 2002:a05:693c:42d2:b0:34b:3f7d:6105 with SMTP id
+ 5a478bee46e88-3602e3a6861mr7547000eec.14.1792257471057; Sat, 17 Oct 2026
+ 10:17:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20251013060018.43851-1-clamor95@gmail.com> <w3bn5bqxqjhf4uvxov47rwlvmnbic6xnlk25xbpnbmi2eyup7q@tjuiu7pl3mmo>
+ <CAPVz0n1-jN5WLFq4e0CZrneExrN_A=GNeGTwGHTCj14NAta+jQ@mail.gmail.com>
+ <aPCfiJxyKOXsgNJe@shikoro> <20251021132529.GA4133357-robh@kernel.org>
+In-Reply-To: <20251021132529.GA4133357-robh@kernel.org>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sat, 17 Oct 2026 20:17:39 +0300
+X-Gm-Features: AclHuK8PuqDaMJH61jp9QkgVw3Jnjuhi4eCGIeZsSWyWbl9ymhpiZkdInIAvvRk
+Message-ID: <CAPVz0n3jt04xEwGr1aiDTJ7OonYYgOy3QneteLXgdGruXGMP_A@mail.gmail.com>
+Subject: Re: [PATCH v1 0/2 RESEND] i2c: muxes: Add GPIO-detected hotplug I2C
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>, Luca Ceresoli <luca@lucaceresoli.net>, 
+	Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>, 
+	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	=?UTF-8?Q?Jonas_Schw=C3=B6bel?= <jonasschwoebel@yahoo.de>, 
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-gb_operation_request_send() sends the request message and only then arms
-the operation timer. The host driver can complete the operation before
-add_timer() runs, e.g. when the transfer fails right away. The completion
-work then calls timer_delete_sync() on a timer that is not armed yet,
-the synchronous caller wakes up and drops the last reference, and
-the operation is freed while the timer is still pending:
+=D0=B2=D1=82, 21 =D0=B6=D0=BE=D0=B2=D1=82. 2025=E2=80=AF=D1=80. =D0=BE 16:2=
+5 Rob Herring <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, Oct 16, 2025 at 09:32:24AM +0200, Wolfram Sang wrote:
+> > Hi Svyatoslav,
+> >
+> > > Herve and Luca did not come up with anything meaningful, they provide=
+d
+> > > just a few rough ideas. It will take an inconsiderate amount of time
+> >
+> > Well, IIRC they said that your use case can be mapped onto their
+> > approach. Which is meaningful in my book.
+> >
+> > > before there will be any consensus between them and schema
+> > > maintainers, and even more time would be requited to settle this into
+> > > schemas and implement into drivers. Why should I suffer from this? Wh=
+y
+> > > should changes I need be halted due to some incomplete 'ideas'? This
+> > > driver uses existing i2c mux framework and fits into it just fine.
+> >
+> > I am sorry to bring you bad news, but you need to suffer because this i=
+s
+> > how development goes. If I get presented a generic solution (see Herve'=
+s
+> > mail) and a specific solution (your driver), for this case I as a
+> > maintainer will prefer the generic solution. Generic solutions need mor=
+e
+> > time because there are more things to handle, of course. This is typica=
+l
+> > for development, I would say, it is not Linux or Free Software specific=
+.
+> >
+> > I appreciate that you tackled your issue and were open to share it with
+> > the community. I see the work being done there. However, there are so
+> > many things going on independently that I can't really prevent double
+> > development from happening despite it having a high priority for me. As
+> > soon as I get aware of people working on similar issues, I connect them=
+.
+> > That's what I did here as well.
+> >
+> > So, if you want upstream supported I2C hot-plugging, you need to wait
+> > for Luca's and Herve's work being accepted. Or provide a superior
+> > solution. Or, if you want, join the ride. You already have experience i=
+n
+> > this field (and hardware plus use case), you would be a very welcome
+> > contributor, I would say.
+>
+> Agreed.
+>
+> What really slows things down is when there is only 1 user of a new
+> binding. Too many times have I accepted one only for the 2nd user to
+> show up right after accepting it and wanting something different. So
+> now I just require more than 1 user and it is on the submitter(s) to do
+> that. After all, it is their itch, not mine.
+>
+> Rob
 
-  ODEBUG: free active (active state 0) object type: timer_list
-          hint: gb_operation_timeout+0x0/0xc0
-  WARNING: lib/debugobjects.c:629 at debug_print_object+0x198/0x2b0
-   kmem_cache_free+0xfd/0x6d0
-   gb_operation_sync_timeout+0x1c7/0x270
-   gb_svc_process_deferred_request+0x5f3/0x1150
+Hello there!
 
-Arm the timer before the message is sent. If sending fails, delete the
-timer again. If it has already fired, its work is queued and drops the
-active and operation references itself, so the error path must not drop
-them a second time.
-
-Fixes: dbec27298b0d ("staging: greybus: operation: add generic timeout support")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- drivers/greybus/operation.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-index 7e12ffb2dd60..19b0cdeca498 100644
---- a/drivers/greybus/operation.c
-+++ b/drivers/greybus/operation.c
-@@ -766,17 +766,22 @@ int gb_operation_request_send(struct gb_operation *operation,
- 	if (ret)
- 		goto err_put;
- 
--	ret = gb_message_send(operation->request, gfp);
--	if (ret)
--		goto err_put_active;
--
-+	/* Arm before sending, as the response may complete the operation at once. */
- 	if (timeout) {
- 		operation->timer.expires = jiffies + msecs_to_jiffies(timeout);
- 		add_timer(&operation->timer);
- 	}
- 
-+	ret = gb_message_send(operation->request, gfp);
-+	if (ret)
-+		goto err_del_timer;
-+
- 	return 0;
- 
-+err_del_timer:
-+	/* A timer that already fired has queued work which drops our references. */
-+	if (timeout && !timer_delete_sync(&operation->timer))
-+		return ret;
- err_put_active:
- 	gb_operation_put_active(operation);
- err_put:
--- 
-2.43.0
-
+Were there any advancements with i2c-bus-extension so that I could
+finally configure and make my tablet work? Could anyone point me in
+the right direction? Thanks.
