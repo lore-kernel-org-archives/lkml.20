@@ -1,76 +1,79 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE1E33938D
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:08:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038563812F4
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792246093; cv=none; b=SAe7e32hUsBX/7z1TFdoEh408rAeIHIwHU0vVGcARXdBQ7qE/UDievScO9pDf4oGKDdGpUgtQR383LVpJszXZf7j0j1BmMIoJcR7XFptswCoFzzjIaBI++x5zqNBf5O7fiWoFKizE45rISlZN66XkusN2NdgyMx2OPWenxRGiL4=
+	t=1792246120; cv=none; b=DimkE+60W5Q0+kqrFQn58Du+lCJapcpbSjPsVoyKglzEwqTi1dU3ME1fL8DDtSN/AiERiqvBo2y7W7R4baav2nEAPM3SJrt8QB05/IPVivZdqNqHRawBFqYJlQUEnHvbAtZyQQMGIKxi6MPpt+INitRetH6M+bpvdiZ7gZ9VPg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792246093; c=relaxed/simple;
-	bh=c3zAGnbXG00dTHAYCXYMyd4rQBtIZC6Bxn8dsZvWsHk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Evfx13hpdTcpx18Sv5xQxm8MPutujOl3mE6+W8K/GhC7girAO0/icBC1PIISYMd6lyeBFAoqnwjsWHAyAtxr7L/3+dfFUfXMap/7vjCz7MBisbSb3x/TlVslICRl00d7WzLuNA1PIDO8c+IT7T9P1/HEo5HbwPMFHzgGp64S8pU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eiIlhsU/; arc=none smtp.client-ip=74.125.82.176
+	s=arc-20240116; t=1792246120; c=relaxed/simple;
+	bh=xwgUPno0Hmk2RqvQzb6DqmcZ3JYTRMeMpDvenuilM58=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GstESbB7pJstIAP91SbH6hxBwofvrGdTQp/A4HxmT/6lXR3LeO4vt/GuEhSOZn6C4kgjw4/oWOqiB+tM+WEfLLEtwuKtisLEEd2AaMc9rGxFWKwBIkJsK/UZ6R+DLvgZhOViEb5aGTOMQSxJcrLIt5PuGevJB/KPnC1O7BlOdjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k/ohMPZW; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eiIlhsU/"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso1905648eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:08:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k/ohMPZW"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so9015545e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:08:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792246091; x=1792850891; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792246116; x=1792850916; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6GqqVEdUv42zaBEqCnBmiwK+siq8auSXn02n9bIP0WE=;
-        b=eiIlhsU/AqmxCJlhtHep1inxoRnfphOw6lDkS8Z4Q+y+ZTln8ZWrnnQo2djTaN01T7
-         BW26+KI5D0casQPRe9DeNB6meFk9zQYx1b8aCiyEK82WhMZptullnxjdrmLCqaAn/ROC
-         8aUsVnJ9wec3PcuSCdHzRroCdthvWZSUvBedvLWSVnellKTezrKWFElWfPe/qlbhGQjC
-         9QgOrunTN1fEIxM5IVtUKuLY0WaVsy1dXtEDuFEDJ76fR5NFALl58P9WgMkrP7Md6ZO4
-         JFTUAJDZqwlkSfYwpLQsY+YSqBYJojehKp7Gv93RIJXmO9DuolvK9gaQPt55g9ghy81Z
-         Jdmg==
+        bh=HsS7zD1Uucl5hqez+slw3pwoFAUHw9mJSijEO6l6OA0=;
+        b=k/ohMPZWbrnzGftwk/mZJYJOf3NBSncQN3xM7RjjpFZwEuZ2cf6DwekpSd4GPR8KUU
+         pXU3qhWvY3p5LXPpDn9hX54bY/PhhL8mFOPDvzJMeBV5DDIhw7ckm7WT/bEGgskzX32J
+         3DPDQ0uCk30a3bfQGixBu/nVKuI/1u7CMMlZq50OxCDsPj7sLw/vtqfU4uihh/uYN9wA
+         ZcJmVyCPNl0X94jQ9V9nOd2GYPP22ljhL68c/HQTTucyNxzNICEsnlKRfielVRobjlpR
+         2OyXp5dG49P3xVBuU37DuIO1A6RlGc3Fp+T4SuLXLhn49D8fRGANve3ntxiBdZjmG336
+         xe0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792246091; x=1792850891;
+        d=1e100.net; s=20260707; t=1792246116; x=1792850916;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6GqqVEdUv42zaBEqCnBmiwK+siq8auSXn02n9bIP0WE=;
-        b=ysoSRdpQa65LvFqThDumvOvtwqm+itW29e5Q7tRwBEwJO/dcfbgrJqS//eX48EKx9N
-         vjfJR3nSWLhotBcy3WF6EJQ3AMvG1AdIlb+1/BdZg84Qh5I2nTfWtxEYJZuRSwMevEVv
-         b/CvplbNvsTTMlvWHdLHLtgvNvitRmXK0EL3vOoRByT2ZgTB6SLjLgAq1e+a0uJssvId
-         dtWWkJNHJMmFtQzfIVW/7NswTZX4q17YQnvfgiNLmjDxwMphBu+0m9nwtkOmNBKF4Vmk
-         jZ/jo6yVpFLD7QMaJNk8NFwR2/fuGnk6CKZsSJeKzHkc+Nnspd+l5RQvQdlKPQTddnVk
-         wqag==
-X-Forwarded-Encrypted: i=1; AKwUvBzzvNQyBo0e2YC1AM0xb8jR31qBsXcYuxTGhTi1rgODoyoxaRuVlGbLhrKZboo5OHj4qLS7xaqUU3StrkY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKINKWjAcNsgaESTB6wKUi5EDP5XH7Ab8pvA2zXMqgzxENbyydm
-	dmfFK8z9kS5VqsgtKZAcjvdIb8PE2Uo5NyS6LdFYkADRp2V2iuTBR3VZ
-X-Gm-Gg: AYBFou1o1h5jhFRDSl62EtFgPv0FH2cEwwVTGLjWqfoRVZB6SjFfWN8X/GZLPvVWJpZ
-	Th6Nnw+Sn303v2H4cs7DQffC7FBxj3ZhYhrcpuELOdoveSZZjvZNhnIx6aKT8yLWTXD1ISm0Ix7
-	jOkA1BI2nM2S/Mukuo6Xs4sCa4HQ3q9dJw89qOVrIdKgo98b+9sY9rSpFMsbmKHf96W1NE8ZkKc
-	+cw8XoYn/XsqydSzQoERZ6zQs/PVhuRk/1Ms8myniGrYwEjJQ8bJHI7jS87OSb+Uh8ZeBxqBYcn
-	BZiRSmDo/ldfgbfIuRUljsuAade9DzAMiWRLaGnTxAN4QNHCErT8q4nlf/44Vw10ii6ZUr+gMBR
-	9Wyjkc86GfPrUBTAIinrIgML1vtHxaxvd7Kslc/ZHii36vbxm6XvlV6QTiaRQXW2tMjbp7o/hNH
-	sCeo1o3fqQ4rhQyaxVu7ga7vFAZ0brFz4FD6y5YrG4YgluWNP4Q6F6L2SVkTppWpTnJFTU0+lZw
-	cB4aSrKWCxVJ3TXGyzg/6OfsNBke9OiYTi/X7TQ+6AXdbOS1KV9YWX3Jd/lefUhZzaU2MA65NC6
-	S3vrNE4oLCbwvqN6J4P8+gcUrdu2HTEXQxFZc/cGbaVV3N8lq7zSvg==
-X-Received: by 2002:a05:693c:8943:10b0:351:4a80:d94c with SMTP id 5a478bee46e88-361a2054e07mr4084483eec.21.1792246090528;
-        Sat, 17 Oct 2026 07:08:10 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360820a02b8sm17766277eec.17.2026.10.17.07.08.07
+        bh=HsS7zD1Uucl5hqez+slw3pwoFAUHw9mJSijEO6l6OA0=;
+        b=m73BzUZqHpx6WBxDuGxYt06gQv1mtySdOpdQyw4FGbU8S8hLGJBcn/MNk8tFl9zay3
+         KwXoZ0sPd4/FFdUlpws2FFVaf6Z5iOlnoexH6eihcpUs7Rzda9Yga80alIRSW3BtjStt
+         fIQXYY6bh67zjGBfi6/PooK+ZATUeR16QIBA+7ec6fucph6t/r0aLn8Hv5IBinOuMq1P
+         muxZMumW3fn0p2/Ck27wRilaf7dyb8o5McGIQlpcVJUd4zW7ETq+NZomktxUrFdQvAYZ
+         xqPI/iVnoMGn82qwADw4lB7cO6X9u6B+AGsKMsKf5sMVBtu7htpCFFgUTP9PzGeGEIVG
+         CF1w==
+X-Forwarded-Encrypted: i=1; AKwUvBwxHLWa4+4L5b576sAgpIyQP/Q2KN3Xldtuf/Kjq4PlUDku5mJqWXNw4gX4l8OaI5IpcUceJTuZAMMFErQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXaouR/dbQq8dbehMaIZl6z1RKVt/8eDHv5nV96uNRwD2slqug
+	ApVPifc+jrV7Mw/g6+HYWxZqp2DA2E831d40oHv9Lr0DD0KGu/8yMDcS
+X-Gm-Gg: AYBFou0g0qQGDua2fDYXqzNavqyH/zw1hP4KBdYTjMSgeoo/TGVL4u+t3VMP1pFmi1p
+	nRzM34KSzZfQ3SPJNX+Wi46mnMT2bU5zmUSI0VVjnSA5Al+x4NISZG5/Pt8NRgVYBrRmfKspoDs
+	SQc8EUUj4FD468L9N4EsUWzIyNJ6Xbb92d0vOSbDtOppwPLrZlnU59XJiZupSQqiDQsj/l255qh
+	dhZWW/w/kk7AgW9BeNjh6of/Hy2okbZYFmaD/+qSL//VCMOgsta4/QlVGQB7wHcBaEf7/ZA/Ho/
+	TrJwwkAUYRFrOLMnpEilvRvDrmQcehguSvdwEhNK2Ulg9QtRvUsdpIa/ZUIjN/SyIdDErSNkxIF
+	PtEnZdzpWPEc82HBKSOOr0QLReHOfUoP3bIx6n2fVBsa/SqVeAkEi0+dJszPKnbXrXMdLRxzS+c
+	eGxso7q5/SZzyftWBQbMYT7JySBHLcxrGd8cs1j2uMG6YnGehbIMp6JOipy/r33x/bca3Xu92f5
+	i5gAITpUHGRdo+8UtGMnD9/3QVwldT5vn5AY2U8+UwnvG7YotOxeFLSBd9lUr3oSzpD5Pj7e2rC
+	/g==
+X-Received: by 2002:a05:600c:34c3:b0:4a1:df11:45a9 with SMTP id 5b1f17b1804b1-4a1df11472emr20823185e9.4.1792246115663;
+        Sat, 17 Oct 2026 07:08:35 -0700 (PDT)
+Received: from machine.home.arpa ([2a0d:3344:57f6::1046])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce3302b5sm84430745e9.4.2026.10.17.07.08.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:08:09 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>,
-	Guodong Xu <docular.xu@gmail.com>,
-	Yixun Lan <dlan@kernel.org>
-Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Alex Elder <elder@riscstar.com>,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] reset: spacemit: Fix the RCPU2 PWM reset registers
-Date: Sat, 17 Oct 2026 22:08:05 +0800
-Message-ID: <20261017140805.3278709-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sat, 17 Oct 2026 07:08:35 -0700 (PDT)
+From: Luka Panio <lukapanio@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Henrik Rydberg <rydberg@bitmath.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Luka Panio <lukapanio@gmail.com>
+Subject: [PATCH 0/7] Input: edt-ft5x06 - add SPI transport and FocalTech FT8722 support
+Date: Sat, 17 Oct 2026 16:07:48 +0200
+Message-ID: <20261017140827.290666-1-lukapanio@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,62 +82,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Every entry in k1_rcpu2_resets[] uses RCPU2_PWM9_CLK_RST, so asserting
-or deasserting the reset of any RCPU2 PWM from 0 to 8 acts on PWM9
-instead. Each PWM has its own register, RCPU2_PWMn_CLK_RST at offset
-4 * n, as k1-syscon.h already defines.
+The FocalTech FT8722 is a touch and display driver (TDDI) found in the
+Nexphone (QCM6490). Its touch controller speaks the usual FocalTech
+register protocol handled by edt-ft5x06, but it is connected over SPI,
+has no flash and runs its firmware from RAM, and shares its power and
+reset with the display panel.
 
-On a Milk-V Jupiter running the vendor kernel, which uses RCPU2 PWM2
-for the fan, the RCPU2 registers read:
+This series:
 
-  0x00: 0x4  0x04: 0x4  0x08: 0x1  0x0c: 0x4  ...  0x24: 0x4
+ - splits the bus independent core of edt-ft5x06 from the I2C driver
+   (patch 1) and moves the controller bring-up into a helper (patch 2),
+ - adds an optional per-chip boot hook, used to download the firmware
+   after every reset (patch 3), and a per-chip touch data register
+   (patch 4),
+ - documents the FT8722 touch controller as focaltech,ft8722-ts, keeping
+   it distinct from the display side of the chip (patch 5),
+ - adds an SPI transport with the FT8722 firmware loader (patch 6),
+ - lets the driver follow a DRM panel, like i2c-hid does, so the touch
+   controller is powered down and re-initialised together with the panel
+   (patch 7).
 
-Only PWM2's register has its reset deasserted, which matches one
-register per PWM.
+Tested on the Nexphone by Nex Computers. A board DTS using it will
+follow separately.
 
-Use the matching register for each reset. No in-tree device tree uses
-the RCPU2 PWMs yet, so this has no effect on current boards, but it
-would break the first one that does.
+Luka Panio (7):
+  Input: edt-ft5x06 - split the bus independent core from the I2C driver
+  Input: edt-ft5x06 - move the controller bring-up into a helper
+  Input: edt-ft5x06 - add an optional controller boot hook
+  Input: edt-ft5x06 - allow a chip specific touch data register
+  dt-bindings: input: touchscreen: edt-ft5x06: Add FocalTech FT8722
+  Input: edt-ft5x06 - add SPI transport and FT8722 support
+  Input: edt-ft5x06 - support following a DRM panel
 
-Build-tested only (riscv defconfig, W=1); the fix could not be tested
-at runtime, as mainline has no RCPU2 PWM node to exercise it.
+ .../input/touchscreen/edt-ft5x06.yaml         |  37 ++
+ drivers/input/touchscreen/Kconfig             |  15 +
+ drivers/input/touchscreen/Makefile            |   1 +
+ drivers/input/touchscreen/edt-ft5x06-spi.c    | 475 ++++++++++++++
+ drivers/input/touchscreen/edt-ft5x06.c        | 585 ++++++++++++------
+ drivers/input/touchscreen/edt-ft5x06.h        |  33 +
+ 6 files changed, 957 insertions(+), 189 deletions(-)
+ create mode 100644 drivers/input/touchscreen/edt-ft5x06-spi.c
+ create mode 100644 drivers/input/touchscreen/edt-ft5x06.h
 
-Fixes: c479d7cf06c3 ("reset: spacemit: add support for SpacemiT CCU resets")
-Assisted-by: claude-opus-5-5
-Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
----
- drivers/reset/spacemit/reset-spacemit-k1.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/reset/spacemit/reset-spacemit-k1.c b/drivers/reset/spacemit/reset-spacemit-k1.c
-index 8f3b5329e..dbd783c13 100644
---- a/drivers/reset/spacemit/reset-spacemit-k1.c
-+++ b/drivers/reset/spacemit/reset-spacemit-k1.c
-@@ -154,15 +154,15 @@ static const struct ccu_reset_controller_data k1_rcpu_reset_data = {
- };
- 
- static const struct ccu_reset_data k1_rcpu2_resets[] = {
--	[RESET_RCPU2_PWM0]	= RESET_DATA(RCPU2_PWM9_CLK_RST, BIT(2), BIT(0)),
--	[RESET_RCPU2_PWM1]	= RESET_DATA(RCPU2_PWM9_CLK_RST, BIT(2), BIT(0)),
--	[RESET_RCPU2_PWM2]	= RESET_DATA(RCPU2_PWM9_CLK_RST, BIT(2), BIT(0)),
--	[RESET_RCPU2_PWM3]	= RESET_DATA(RCPU2_PWM9_CLK_RST, BIT(2), BIT(0)),
--	[RESET_RCPU2_PWM4]	= RESET_DATA(RCPU2_PWM9_CLK_RST, BIT(2), BIT(0)),
--	[RESET_RCPU2_PWM5]	= RESET_DATA(RCPU2_PWM9_CLK_RST, BIT(2), BIT(0)),
--	[RESET_RCPU2_PWM6]	= RESET_DATA(RCPU2_PWM9_CLK_RST, BIT(2), BIT(0)),
--	[RESET_RCPU2_PWM7]	= RESET_DATA(RCPU2_PWM9_CLK_RST, BIT(2), BIT(0)),
--	[RESET_RCPU2_PWM8]	= RESET_DATA(RCPU2_PWM9_CLK_RST, BIT(2), BIT(0)),
-+	[RESET_RCPU2_PWM0]	= RESET_DATA(RCPU2_PWM0_CLK_RST, BIT(2), BIT(0)),
-+	[RESET_RCPU2_PWM1]	= RESET_DATA(RCPU2_PWM1_CLK_RST, BIT(2), BIT(0)),
-+	[RESET_RCPU2_PWM2]	= RESET_DATA(RCPU2_PWM2_CLK_RST, BIT(2), BIT(0)),
-+	[RESET_RCPU2_PWM3]	= RESET_DATA(RCPU2_PWM3_CLK_RST, BIT(2), BIT(0)),
-+	[RESET_RCPU2_PWM4]	= RESET_DATA(RCPU2_PWM4_CLK_RST, BIT(2), BIT(0)),
-+	[RESET_RCPU2_PWM5]	= RESET_DATA(RCPU2_PWM5_CLK_RST, BIT(2), BIT(0)),
-+	[RESET_RCPU2_PWM6]	= RESET_DATA(RCPU2_PWM6_CLK_RST, BIT(2), BIT(0)),
-+	[RESET_RCPU2_PWM7]	= RESET_DATA(RCPU2_PWM7_CLK_RST, BIT(2), BIT(0)),
-+	[RESET_RCPU2_PWM8]	= RESET_DATA(RCPU2_PWM8_CLK_RST, BIT(2), BIT(0)),
- 	[RESET_RCPU2_PWM9]	= RESET_DATA(RCPU2_PWM9_CLK_RST, BIT(2), BIT(0)),
- };
- 
+base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
 -- 
-2.43.0
+2.55.0
 
