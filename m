@@ -1,272 +1,240 @@
-Received: from mta1.migadu.com (out-150.mta1.migadu.com [95.215.58.150])
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F005E3D3492
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:14:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9194825CD
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239275; cv=none; b=HchDaZgJCSIk4ZZ1LJ+a671q5NKv7Nb4tmg9VdtjRq9nHXVl/UIl1zdBTs0TJpcqGWf09ohQN3dDNpWr0F9sTXC3DnmFO+m8U3w1A2GXx8Q1/z4ADQf9XHN2WqiEvp/L+ESsPyx+0YdsY20xsLWp+0uif5LYB4raCzXV35SR+4M=
+	t=1792239276; cv=none; b=aDMm3PPQ8MdXgmFKhhF4boEOMYqMw1L/MV/JMiBOo9YGxMgaYRx5TvvObPHsrMX8i4J4Vk3Z6XvDLRf7ZQT1dFqI/pnS7zXFaSOITIE2qSRe4uXx4Je/sy3dJ+lqmwOUBR8WH86l1cqAN/MYg33yjpRQTCC/rUtjlfjv/hMdpNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792239275; c=relaxed/simple;
-	bh=O2UYZUCWbDSKof+yS8T8rxW6apZXqTol7muI8jUTw7o=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=S8Oc1I5+DQf9YPcMnzl4D5eE1opWEbtzmcklo94Fz+ObZeAlkUuzdzeVXQ9AnTsts9a1cocKOKXxkgDGfB/8AJ24pFy4qMHVQYL/HH/N6+k0+1n8BbPrZjnj9vj2B38FXTm7QQWbuZomFwSXwYF/uxbudNDgv7AoxSfnCOWU3NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qwPLE0Hk; arc=none smtp.client-ip=95.215.58.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792239276; c=relaxed/simple;
+	bh=YSk8+ZJeyU6lUWnetAhWqjXfnDgXJ+FhsYf+NkXzx/M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qNgY2G9dsHJYPWduXMau+7mcDLUWgYWNzZeFXa5iUbdL26KqApja3bE3AzVcSCGMWDuatMtNRA/ugnMl/kFeIQ0j6uTUXlgkExd4Fv9fml5jU79PysXMREg4Bduqs3j4O71Afc4X/DnOCbLt7AlnV79yF3iLh/tq8vRx1jScL2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YaoTpNAF; arc=none smtp.client-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qwPLE0Hk"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=O2UYZUCWbDSKof+yS8T8rxW6apZXqTol7muI8jUTw7o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792239269; v=1; x=1792844069;
- b=qwPLE0HknS+1VG8xUQ9TVWSx6f+jQJCQb3cHT4b1g6fwoVD6uKmbjWVM03ahidwrqcdLkpQY
- dy6noGfNhoDdkpMJ6J9loGsCg81+OkfWwZfgD0JT0MQwsciRr3YlWLghf32XU4zMnEbd4Y8/GfO
- LMK6wvMVBVHCYgKJo7s9mhM8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3a16678bb6dfea46;
-	Sat, 17 Oct 2026 12:14:29 +0000
-X-Mizu-Trace-ID: 3a16678bb6dfea46
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YaoTpNAF"
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15ea896ddc8so852237c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:14:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792239273; x=1792844073; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z66yztvANzuR9me/cFTc8jCAnqYHFfuYz2a0mwZJbfI=;
+        b=YaoTpNAFQmAnFqbV9HyNnLhoSSxYBMSfworzXbO2Ar/m6gpRDmr7fpGiuWPLRkQ64S
+         Eh8DSO+x8FZdhP886JD9C9z0IkNvrQacpO+1Mw1OnV2fiWHayvAN6CVJYIp1pYiRL/Uf
+         fPCExMElGAFlisVZ5ocjdfa3W8cOmeE4nP9fxAIktDM1QfM/VNE/DScREtUxRIy+ckOH
+         qrfQrIWxROe6uPgm3A1DizQbTVv6pu+sConfaZD7WPbOeQl77XYPqJE8/p3k23ptUu1o
+         HC/BKPwcKHoxp57QDYV4rMNXgNPP3QTAs/TX37KtAOW91QTL6N97OFA6Jtxm0mQ2RIKM
+         7lQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792239273; x=1792844073;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z66yztvANzuR9me/cFTc8jCAnqYHFfuYz2a0mwZJbfI=;
+        b=tifH9nO4R4ATs7essjQMfEkIJ3FQIvxhFb2R9AOzTga/oUIaVg7yfa9PLqEvufw0G2
+         ePX8IJefeU8nS891pS86s83QS5vtAVU40Gvn08/MU4WM381AIoG1ueUp533dzSDCujYc
+         3wQ4Oj7GJrsvArE+oeWm8ch5sZgICagm7SzuL9CFC0mgrLWc5yYh348Bq3GZfZxnIjA0
+         8lZZyy0nHDhGRbVDl56W+t7oB7g7IyFSHOGV1hPf4BE4Tr7R0Oh7XUmp50b2veD/aWYi
+         UHv1RDIU36TxxgY5oZnXCr6GLcnBGFseDJA7WU2S7PqGMWG5fwwLHUSyywssubIjgfff
+         k0Fg==
+X-Forwarded-Encrypted: i=1; AKwUvBza8R1EnbiKP3gyp3FJ0u0kT0IfyAqruJtAs2dD+UOvUER+pGPjOw24luZ7H8w9l54Ijuyo6zTQ/DuRUVw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIETqjdf3IiHJLFc7i04mHNWDUlyB8x7dO4xdG8ADRAEJ5/fWIr
+	nSmCkMVMHvwT3QYtuA7XHMc4LeS+tgwZTpcZtuMhrV22qaiyT+pkkUHp
+X-Gm-Gg: AYBFou1ixDjJu6jzwIB1xJhv10ZeD1nVPoXDD4vbThcMZQBu9xANrl+ii2Yn6/2GIQV
+	JiyLBtIcADIr4oK3/UXmR/whjyG46PFeC7toW6swUTKGPhs9+hCMAUwlPtZ4UIwhpkgzqApF+U2
+	QFqZW1A1nXYsl8JJ2epTAvEvD8003xdrP7Xq5meQaVfSgg9zHtEf8wtzdTZBpMXTzGVKJCsy3ls
+	zkYWAPXmVsTqALnRUriRDtOr/t6NY1r38AF9KYXkcE4Qb3biy+PiCEytunyd2cIB0hRb03uU0MT
+	CYQXOUke4UD15atWAVBY21tsaNRd4UZ6oyEc4Jc7C0iQ3LUZU1fB9UkA9tGGb4Km4DiLUZ2cram
+	p+9nshLeKsMkw6RcQBeeRRPGV/Vu02ovHSH71TGjej0YoVr/uLDkx/M5o47aJ8IFyyp1mrP0D6f
+	TKuWCWpUb2SawVOuPQ3r2DDoC2Qcmkj2Mcvst1HIeU/sc+5AmlpdM0nhrTEuT1JUegZPO8jyvvV
+	8YPEpzJ44FIWgIScRUkFUHXT3vhIWIN56/zlKie3WzuHXg=
+X-Received: by 2002:a05:701b:4651:20b0:137:5b9d:cf87 with SMTP id a92af1059eb24-1850714476fmr3704983c88.0.1792239273223;
+        Sat, 17 Oct 2026 05:14:33 -0700 (PDT)
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan ([183.242.161.82])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18314ef8ed8sm13101116c88.3.2026.10.17.05.14.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 05:14:32 -0700 (PDT)
+From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: Martin King <martin3kx@gmail.com>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-rt-users@vger.kernel.org
+Subject: [PATCH] sched/rt: queue a push when a queued RT task is boosted
+Date: Sat, 17 Oct 2026 20:14:23 +0800
+Message-ID: <20261017121423.393837-1-chaosheng.qu.linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261015061915.126442-1-chaosheng.qu.linux@gmail.com>
+References: <CAEB5A_91hob8ddOhW=PrO1=O7GrFmSxY3r1-_Ard6x8KHHuJGA@mail.gmail.com> <20260814183652.611e7ecf@gandalf.local.home> <6db9c47f-a1f8-49dd-9e80-f9014d75f9e8@leemhuis.info> <20260903092037.5b739980@gandalf.local.home> <20261015061915.126442-1-chaosheng.qu.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 17 Oct 2026 12:14:29 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Zqiang" <qiang.zhang@linux.dev>
-Message-ID: <aa11c41ba0458bda078c6cdff9e2b155bee1a59b@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] rcu-tasks: Warn on too-short RCU Tasks Rude grace period
-To: "Bradley Morgan" <brads@mainlining.org>
-Cc: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
- linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org,
- paulmck@kernel.org, rcu@vger.kernel.org, urezki@gmail.com
-In-Reply-To: <2247C12C-EE02-46CC-922F-D6A62D1E77C1@mainlining.org>
-References: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org>
- <8d7f265cd1320bf7996bcffea07ffdea69cfd625@linux.dev>
- <2247C12C-EE02-46CC-922F-D6A62D1E77C1@mainlining.org>
+Content-Transfer-Encoding: 8bit
 
->=20
->=20On 17 October 2026 00:41:00 BST, Zqiang <qiang.zhang@linux.dev> wrote=
-:
->=20
->=20>=20
->=20> >=20
->=20> > On 15 October 2026 10:46:19 BST, Zqiang <qiang.zhang@linux.dev> w=
-rote:
-> > >=20=20
->=20> >  >=20
->=20> >  > The RCU Tasks Rude grace period is implemented by invoking the
-> > >  > schedule_on_each_cpu() with an empty work function, which forces
-> > >  > a context switch on every online CPU and guarantees that all
-> > >  > rude-tasks read-side critical sections have completed. However,
-> > >  > schedule_on_each_cpu() can fail (via alloc_percpu() returning
-> > >  > -ENOMEM) and returns immediately, in which case those context
-> > >  > switches never happen, too-short grace period happen.
-> > >  >=20
->=20> >  > This commit therefore wraps the schedule_on_each_cpu() call in
-> > >  > WARN_ONCE() so that this failure is reported as a "Too-short
-> > >  > grace period" warning.
-> > >  >=20
->=20> >  NAK, this seems like a edge case, and potentially panicking the =
-system
-> > >  with panic on oops doesn't seem right to me, because we would rese=
-rve
-> > >=20
->=20> that
-> >=20
->=20> >=20
->=20> > for when something definitely goes really wrong and we need to no=
-tify
-> > >  the user.
-> > >=20=20
->=20> >  I don't believe this patch should go in for this reason, it's a =
-heavy
-> > >=20
->=20> edge
-> >=20
->=20> >=20
->=20> > case, that doesn't *have* nessesarily need to be accounted for.
-> > >=20
->=20> Indeed, this is a rare event, so I use WARN_ONCE() to mark it, the
-> > WARN_ONCE()
-> > not panicking system unless you set warn_on_oops true, this can help =
-us
-> > troubleshoot
-> > UAF issues caused by a too short tasks-rude grace period.
-> >=20
->=20> or maybe we can use DEFINE_PER_CPU(struct work_struct, rude_work) t=
-o
-> > replace
-> > alloc_percpu(struct work_struct) queue to all online CPUs.
-> >=20
->=20> Anyway, Thank you for your reply. I would also like to hear the opi=
-nions
-> > of others.
-> >=20
->=20Fair enough, but me and Paul done some discussions:
->=20
->=20Here is the TL;DR
->=20
->=20My ^W^Wai slop^W^W tool helped me with this: if the too short grace
-> happens,
-> it falls back.
->=20
->=20root@p10-linux-brads:~/linux# mailto:root@p10-linux-brads:~/linux#  g=
-it diff kernel/rcu
-> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
-> index 627295396cd9..65bb7d4ed632 100644
-> --- a/kernel/rcu/tasks.h
-> +++ b/kernel/rcu/tasks.h
-> @@ -1344,15 +1344,23 @@ void exit_tasks_rcu_finish(void) { }
->  // Ordering is provided by the scheduler's context-switch code.
->=20
->=20 // Empty function to allow workqueues to force a context switch.
-> -static void rcu_tasks_be_rude(struct work_struct *work)
-> +static void __maybe_unused rcu_tasks_be_rude(struct work_struct *work)
->  {
->  }
->=20
->=20 // Wait for one rude RCU-tasks grace period.
-> +static void rcu_tasks_rude_ipi(void *info)
-> +{
-> +}
-> +
->  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
->  {
-> + int cpu;
->  rtp->n_ipis +=3D cpumask_weight(cpu_online_mask);
-> - schedule_on_each_cpu(rcu_tasks_be_rude);
-> + cpus_read_lock();
-> + for_each_online_cpu(cpu)
-> + smp_call_function_single(cpu, rcu_tasks_rude_ipi, NULL, 1);
-> + cpus_read_unlock();
->  }
+Hi Steve, Peter, Martin,
 
-RCU Tasks Rude use preempt_disable/enable as the read critical section,
-you use smp_call_function_single() to send ipi to each online CPUs,=20
-it's=20not forces a context sched switch, and not wait the preempt_disabl=
-e/enable
-read critical section to exit, this is the wrong mechanism. ;-(
+Two things: a correction to my previous message, and a patch that follows
+from your suggestion.
 
-Obviously, we only need to not apply alloc_percpu dynamic allocation:
+First, the correction. In my last mail I quoted this trace pair to argue
+that the non-PUSH push only happens when the hog leaves:
 
-diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
-index fcac7361ec51..49b629b0010b 100644
---- a/kernel/rcu/tasks.h
-+++ b/kernel/rcu/tasks.h
-@@ -1357,11 +1357,25 @@ static void rcu_tasks_be_rude(struct work_struct =
-*work)
- {
+  hog-113 [001] d..3. 50.615178: sched_migrate_task: comm=owner prio=9 orig_cpu=1 dest_cpu=3
+  hog-131 [001] d..2. 70.614471: sched_switch: prev_comm=hog prev_state=X
+
+The second line is wrong. It does not appear in any of my logs; I
+assembled it from a different run and mislabelled the timestamps. The
+first line is real (aff-multi.log, the 4 s dwell run). It does not change
+the conclusion - in the 1.5 s dwell runs the owner still resumes at a
+median of 1499.6 ms and 0/8 meet a 100 ms bound - but the quoted trace was
+not what I said it was, and I would rather correct that now than have it
+found later.
+
+Second, the instrumented follow-up you asked for. I put kprobes on
+pull_rt_task(), push_rt_task(), push_rt_tasks(), prio_changed_rt(),
+enqueue_pushable_task(), pick_next_pushable_task() and
+find_lock_lowest_rq(), on the same 4-vCPU non-PREEMPT_RT config. The
+picture is tighter than what I described before:
+
+- pull is reached, and immediately. On the boost, waiter blocks, cpu2
+  goes idle, and pull_rt_task(cpu2) runs between 5 and 99 us later. It
+  comes back empty. The reason it comes back empty is the affinity test in
+  task_is_pushable(): pick_highest_pushable_task(src_rq=cpu1,
+  this_cpu=cpu2) requires cpu2 to be in the boosted task's cpus_mask. In
+  my scenario the mask is {1,3}, so it is not. When I widen the mask to
+  {1,2} the very same code pulls the owner to cpu2 within 2 us, so the
+  affinity test is the whole difference.
+- push is not queued at the boost. prio_changed_rt() runs, and nothing
+  queues a push from it. I kept the full trace for three clean runs: in
+  all three the first balancer event after the boost is pull_rt_task(cpu2)
+  at +5..+99 us, there is no push_rt_task()/push_rt_tasks() for the whole
+  1.5 s dwell, and the owner never migrates - it just waits the hog out.
+  Being precise, OFF is not "never pushes": in other runs a push does
+  appear on cpu1, but it is entered from the hog's own scheduling path
+  (the trace attributes it to the hog thread), not from the boost, and it
+  lands whenever that path next happens to run - which is why the few
+  runs that do escape land anywhere between 62 ms and 1.2 s. Across all my
+  OFF runs (n=17) only one met a 100 ms bound; the median is 1498.5 ms.
+
+So the non-PUSH path loses the task because both sides miss it: pull
+cannot select it (affinity), and push is not requested at the boost. That
+matches what you wrote - the boost should trigger another analysis of RT
+migration, and we do not do that.
+
+The patch below does exactly that: when a queued, non-current RT task's
+priority is raised, ask its rq for a push. The push selects a target from
+the task's own cpus_mask via find_lowest_rq(), which is the selection the
+pull side could not make. rt_mutex_setprio() already ends with
+__balance_callbacks(), so the callback runs inside the same rq->lock
+section, on the same path as the existing rt_queue_pull_task().
+
+A/B on the same tree, same config, same probe, only this patch different:
+
+  OFF, mask {1,3}       before: 1/17 timely, median 1498.5 ms
+                        after: 13/13 timely, median 4.8 ms (0.6-59.6)
+  no boost (control)    before: 0/2 migrated, median 1498.2 ms
+                        after: 0/3 migrated, median 1499.2 ms
+  ON (RT_PUSH_IPI)      before: 3/3, median 3.06 ms
+                        after: 5/5, median 0.72 ms
+
+The control row is the one I would look at: with no boost there is no
+legal target (cpu3's spare at FIFO 60 is more urgent than the owner at
+FIFO 10), so the new push finds nothing and I did not observe any
+migration, same as before the patch. The patch only acts when a real
+migration opportunity exists.
+
+With the patch, the mechanism is visible in trace:
+
+  waiter-109 [002] 51.667482: prio_changed_rt
+  waiter-109 [002] 51.667695: push_rt_tasks
+  waiter-109 [002] 51.667739: pick_next_pushable_task
+  waiter-109 [002] 51.667955: find_lock_lowest_rq
+  waiter-109 [002] 51.669068: sched_migrate_task: comm=owner prio=9 orig_cpu=1 dest_cpu=3
+
+Caveats, since this is a first cut: measured only on a KASAN +
+PROVE_LOCKING debug config, only non-PREEMPT_RT, only this synthetic
+topology, not on Martin's REAPER workload. I did compile-test the UP
+build (build_policy.o, CONFIG_SMP=n) and it builds; the PREEMPT_RT
+combination I could not build here because this tree has no RT patch set,
+so it is untested.
+One scope note: prio_changed_rt() is reached from sched_change_end() for
+ordinary sched_setscheduler()/sched_setattr() priority changes as well,
+not just PI boosts, so this would also queue a push when a queued RT task
+is raised by userspace. That case looks symmetric to me but I have not
+A/B'd it; say the word if you would rather gate this on pi_top_task. I
+have not flipped any default and I am not proposing to.
+
+One more thing, in case it is useful, and it may be the real reason
+nobody has touched this: the prio_changed_rt() push omission is not
+recent. I walked the function through 15 revisions back to 2007 and none
+of them queued a push, so this looks like it has been there since the
+non-PUSH fallback was introduced, which is consistent with your guess
+that the PUSH path was covering for it.
+
+Happy to respin, narrow it, or drop it if the direction is wrong.
+
+Thanks,
+Chaosheng
+
+
+A PI boost can leave a queued RT task stuck on a runqueue it cannot run
+on. The pull side cannot help: pull_rt_task() on another CPU only picks
+tasks whose affinity includes that CPU, so when the boosted task's
+cpus_mask excludes the CPU that just went idle it is never selected. The
+push side is never asked either: prio_changed_rt() only queues a pull.
+
+In a four-vCPU non-PREEMPT_RT guest with RT_PUSH_IPI off, a FIFO-10 task
+holding a PI mutex, boosted to FIFO 90 by a waiter on another CPU while a
+FIFO-99 hog keeps its own CPU busy, stayed queued for the whole 1.5 s
+dwell while a FIFO-60 spare sat idle on a CPU that was in its mask. With
+RT_PUSH_IPI on the same setup resumed in under 6 ms.
+
+Queue a push from prio_changed_rt() when a queued, non-current RT task has
+its priority raised. The push selects its target from the task's own
+cpus_mask, which is exactly the selection the pulling CPU cannot make.
+RT_MUTEXES already arranges for __balance_callbacks() to run inside the
+same rq->lock section, so this is the same delivery path as the existing
+rt_queue_pull_task().
+
+With no boost present there is no legal target and the push finds
+nothing, so behaviour is unchanged.
+
+Signed-off-by: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
+---
+ kernel/sched/rt.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 85303add7..13d505470 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -2499,6 +2499,17 @@ prio_changed_rt(struct rq *rq, struct task_struct *p, u64 oldprio)
+ 		 */
+ 		if (p->prio < rq->donor->prio)
+ 			resched_curr(rq);
++
++		/*
++		 * A boost can create a migration opportunity that the pull
++		 * side cannot reach: pull_rt_task() on another CPU only picks
++		 * tasks whose affinity includes that CPU, so a task that gets
++		 * boosted while its CPUs are busy can stay queued until it
++		 * becomes current. Queue a push on this rq instead, which
++		 * selects a target from the task's own affinity.
++		 */
++		if (p->prio < oldprio && rq->rt.overloaded)
++			rt_queue_push_tasks(rq);
+ 	}
  }
-
-+static DEFINE_PER_CPU(struct work_struct, tasks_rude_work);
-+
- // Wait for one rude RCU-tasks grace period.
- static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
- {
-+       int cpu;
-+
-+       guard(cpus_read_lock)();
-        rtp->n_ipis +=3D cpumask_weight(cpu_online_mask);
--       schedule_on_each_cpu(rcu_tasks_be_rude);
-+
-+       for_each_online_cpu(cpu) {
-+               struct work_struct *work =3D &per_cpu(tasks_rude_work, cp=
-u);
-+
-+               INIT_WORK(work, rcu_tasks_be_rude);
-+               schedule_work_on(cpu, work);
-+       }
-+
-+       for_each_online_cpu(cpu)
-+               flush_work(&per_cpu(tasks_rude_work, cpu));
- }
-
- static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t fun=
-c);
-
-
-Thanks
-Zqiang
-
-
-
->=20
->=20 static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t=
- func);
-> root@p10-linux-brads:~/linux# mailto:root@p10-linux-brads:~/linux#=20
->=20
-> On POWERPC, this passes 12 hours of rcutorture on the RUDE01 config.
->=20
->=20If you plan on submitting this into a patch, please add my authorship=
-, or
-> my c-d-b.=20
->=20
-> Feel free to rcutorture test it ;d
->=20
->=20BTW: have you reproduced this on your own system?
->=20
->=20>=20
->=20> Thanks
-> > Zqiang
-> >=20
->=20> >=20
->=20> > Zqiang, have you reproduced this OOM on your own system, if so, c=
-ould
-> > >=20
->=20> you
-> >=20
->=20> >=20
->=20> > tell me more details, you may turn my frown into a smiley face ;)
-> > >=20=20
->=20> >  >=20
->=20> >  > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
-> > >  > ---
-> > >  > kernel/rcu/tasks.h | 3 ++-
-> > >  > 1 file changed, 2 insertions(+), 1 deletion(-)
-> > >  >=20
->=20> >  > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
-> > >  > index fcac7361ec51..91c25717402e 100644
-> > >  > --- a/kernel/rcu/tasks.h
-> > >  > +++ b/kernel/rcu/tasks.h
-> > >  > @@ -1361,7 +1361,8 @@ static void rcu_tasks_be_rude(struct work_=
-struct
-> > >=20
->=20> *work)
-> >=20
->=20> >=20
->=20> > > static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
-> > >  > {
-> > >  > rtp->n_ipis +=3D cpumask_weight(cpu_online_mask);
-> > >  > - schedule_on_each_cpu(rcu_tasks_be_rude);
-> > >  > + WARN_ONCE(schedule_on_each_cpu(rcu_tasks_be_rude),
-> > >  > + "%s: Too-short grace period, OOM is now expected behavior!!!\n=
-",
-> > >=20
->=20> rtp->name);
-> >=20
->=20> >=20
->=20> > >=20
->=20> >  Good message, makes sense. But I don't think this is right, see =
-above.
-> > >=20=20
->=20> >  >=20
->=20> >  > }
-> > >  >=20
->=20> >  > static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_call=
-back_t
-> > >  > func);
-> > >  >=20
->=20> >  --- Thanks!
-> > >  "I'm not a very positive person" - Linus torvalds
-> > >
-> >=20
->=20--- Thanks!
-> "I'm not a very positive person" - Linus torvalds
->
+ 
+-- 
+2.43.0
