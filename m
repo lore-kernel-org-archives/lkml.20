@@ -1,96 +1,102 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492403E49F7;
-	Sat, 17 Oct 2026 07:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99343EDAB5;
+	Sat, 17 Oct 2026 07:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792223046; cv=none; b=VcOAwBnAYNZJCPi/U1dTvcKEDcQpggKjo85O2uY+CzYAVakzJCRFcEtemdGND6K00uf+D/HAr/NwYjkHwN/Jpi7YyvbKzKOuljPovdld0egQybEyulZOzjpFShwqtdGnjAr3TTmI5mY3tLy1sLArV4xkyXCorPQ0k12vkg3jRdg=
+	t=1792223082; cv=none; b=VkT7gVDmkdKeROEuGIGUmupTssFNhLhGfnEe8mqyoqPdOCq74A0p7lUUORj2KOp+hVtOT56G+uVLPXrZk4BzGPJhs1b4E0ocYOtJ6GJP5h27DZcJ9u+rlQtDNBKyfqzUVku20YDdqLO/SfRYZ83o4BZ4bER7AaCKcUmxxVwdzDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792223046; c=relaxed/simple;
-	bh=d5s+U1xynEBidcfTy3l1a0UGpJ0XIBZFfRngrNU0RW8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QEN9dWJkV/WzQfUinZitQClLlFWeU8+c+2Df+SfKzGe22lXTdaQqnrkTZDIkUIvI1lLlDw40rgDDe8Zm97f4svCvCgVpCZjNOjPpoVIEW4kqrC9wzK7EURzXAgV69AA7y8ourxn25QJ/ddHuPrHmGEseW8IFxeAHb5l7oxxNMSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=h1GS5RGj; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792223082; c=relaxed/simple;
+	bh=291nnlJ2ANXIkHog4GOPHVnZIK2PUIsTEONTZP9X7aM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZgZ9p2HvW2lcmcQIBwXJ/0hJkUOCNaIl8qWa5cXZJdcPKz/2C8UGxtchFXBmAJPgz+K3RXfCpLpWDgJhTqwcZ0wrhmz8RltPrBobZggnHHnHffbIapWv02eIN+xWBOnbzxrwG0gysQbcoi12LWNQ5ksl1T8kdhhJBebhHLmez/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=gfmaTwWU; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="h1GS5RGj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=SZ
-	c5AhPFvmF7qT8nRXpWlmKEX66dB4gon7/zJcUhDh4=; b=h1GS5RGjCvNRj1bU6m
-	GsPpSFU/TZ11Up6TAehjaXL9AyZWcumAErTL8DkyIAYAwziH/eADmIvskggaxFYa
-	77OZGs+oS42KRcCdI9gDn8QWjFmVdxkLFrtejZbwHqKYP8oWy+5wtnDpBOlPAZdv
-	7LUi5eUTImOPG1uNqswyM08AI=
-Received: from 163.com (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgC3n7QzJ9NqcoFrAQ--.45846S2;
-	Sat, 17 Oct 2026 15:43:47 +0800 (CST)
-From: zhanghao <zh_exit@163.com>
-To: song@kernel.org,
-	yukuai@fygo.io
-Cc: magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	zhanghao <zh_exit@163.com>
-Subject: [PATCH] md/raid5: fix inverted condition in rdev_set_badblocks call
-Date: Sat, 17 Oct 2026 15:43:43 +0800
-Message-ID: <20261017074343.59513-1-zh_exit@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="gfmaTwWU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=o6FKGoFI9ZLraUFvxn9dm9AZK7JTm5eV660SsApFeIo=; t=1792223079;
+	x=1792827879; b=gfmaTwWU/o0fp5Uj/CCjkx0xoY24vzA4QWSkm6GqvAjjSZXg1neAwGjw8A/9o
+	2Bmtie6PeUtyJ4YgIOtTiXA/bMpG3ZD8TwAt/ISyhamV3OoUF5ex97fYw/oX9iqtqGgOPNfy+1KTS
+	/6I+/74XcsKSd293Ya8+CHMlgmhdUlJ8KvQHRuukY7JLUIO60XCBDkfECAGVXbLvGG/z7/bpeNByW
+	cUkvZaSOUOwq/57GPAl6arld0LQ/YhnMXiGLMZRR3YU/NmppAF1bwkKn9TccRJ7TeHXCuX8pqMu/A
+	T0OiswnZGo0I/MsJUk+34mLI7EoHBBvOvyLj2PJzpnkaVrG4tQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xHz5o-000000019Pn-2n9b; Sat, 17 Oct 2026 09:44:36 +0200
+Received: from dynamic-002-242-066-005.2.242.pool.telefonica.de ([2.242.66.5] helo=[192.168.178.50])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xHz5o-00000002bYt-1uc6; Sat, 17 Oct 2026 09:44:36 +0200
+Message-ID: <ec13408c2971b387f37b61e5c6e647b04f16a109.camel@physik.fu-berlin.de>
+Subject: Preservation of alpha history - Re: [PATCH 1/4] alpha: replace dead
+ links in Kconfig help text
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Matt Turner <mattst88@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: linux-alpha@vger.kernel.org, Magnus Lindholm <linmag7@gmail.com>, 
+	linux-kernel@vger.kernel.org
+Date: Sat, 17 Oct 2026 09:44:35 +0200
+In-Reply-To: <CAEdQ38FRnjHSSAWxFJqUBUL2zMRg5_GDcJJC3fx8i=K8ZWWK3Q@mail.gmail.com>
+References: <20261001165018.415526-1-mattst88@gmail.com>
+	 <alpine.DEB.2.21.2610162207360.22065@angie.orcam.me.uk>
+	 <CAEdQ38FOXiV+Sz8fdPswRN=m2dKkYzgF2-9OWx3WskdsmWUGtQ@mail.gmail.com>
+	 <alpine.DEB.2.21.2610162254380.22065@angie.orcam.me.uk>
+	 <CAEdQ38FRnjHSSAWxFJqUBUL2zMRg5_GDcJJC3fx8i=K8ZWWK3Q@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgC3n7QzJ9NqcoFrAQ--.45846S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJrWfXw1xKry3Xw1rGrWDCFg_yoW8Aryxpr
-	Z8Ga4Yv34DWr95Aa1DXrWkAFy8ua17ta9F9ay3A3W29as0qF4IqF4rXFyUZFyUXF1ft3Wv
-	qF17WrWqvFyrGw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pE-eO9UUUUU=
-X-CM-SenderInfo: p2kbv5llw6il2tof0z/xtbC9hRmzmrTJzStpQAA3o
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-Commit fd4d44c14ff6 ("md: mark rdev Faulty when badblocks setting fails")
-attempted to unify badblock handling but introduced a logic inversion in
-raid5_end_read_request().
+Hi Matt,
 
-The original check was:
+On Fri, 2026-10-16 at 19:54 -0400, Matt Turner wrote:
+> Yeah, I feel that. I did everything I could to preserve history and
+> sources for the wiki content. I spent months waiting on GitHub support
+> to transfer the "alphalinux" organization that the late Peter Petrakis
+> set up a decade ago
+>=20
+> https://github.com/alphalinux/
+>=20
+> It now hosts various repositories, including the wiki content:
+>=20
+> https://github.com/alphalinux/alphalinux.org-wiki-content
+>=20
+> and all of the Alpha-related mailing list archives I could find:
+>=20
+> https://github.com/alphalinux/mailing-list-archives
+>=20
+> My intention is that even if I (and alphalinux.org) disappear, the
+> wiki content won't.
 
-    if (!(set_bad && In_sync && rdev_set_badblocks(...)))
-            md_error(...);
+Wow, I didn't know you put so much efforts and resources into this,
+that is true dedication. Thanks a lot for doing this!
 
-which records badblocks when `set_bad && In_sync`, and calls md_error()
-either when recording fails or when the rdev is not In_sync. The new
-condition `if (!(set_bad && In_sync))` skips rdev_set_badblocks() exactly
-during recovery/reshape (In_sync is set), so failed badblock updates no
-longer trigger md_error() and the rdev is not marked Faulty. This allows
-reconstruction to continue on a disk with a saturated badblock table,
-potentially propagating corrupted data to the replacement disk.
+Might be an idea to also upload any of these documents to archive.org
+to preserve them there as well. They probably have better long-term
+archival mechanism compared to Github.
 
-Fix the condition to match the intended behavior: call rdev_set_badblocks()
-when `set_bad && In_sync`, and let the callee handle md_error() on failure.
+Adrian
 
-Fixes: fd4d44c14ff6 ("md: mark rdev Faulty when badblocks setting fails")
-Cc: stable@vger.kernel.org
-Signed-off-by: zhanghao <zh_exit@163.com>
----
- drivers/md/raid5.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index d52adf81065a..dcfb1bfa9ebf 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -2866,7 +2866,7 @@ static void raid5_end_read_request(struct bio * bi)
- 		else {
- 			clear_bit(R5_ReadError, &sh->dev[i].flags);
- 			clear_bit(R5_ReWrite, &sh->dev[i].flags);
--			if (!(set_bad && test_bit(In_sync, &rdev->flags)))
-+			if (set_bad && test_bit(In_sync, &rdev->flags))
- 				rdev_set_badblocks(rdev, sh->sector,
- 						   RAID5_STRIPE_SECTORS(conf), 0);
- 		}
--- 
-2.43.0
-
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
