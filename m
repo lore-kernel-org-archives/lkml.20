@@ -1,204 +1,79 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90ABF81724;
-	Sat, 17 Oct 2026 08:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8BC27A462;
+	Sat, 17 Oct 2026 08:50:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792226886; cv=none; b=WG2naa/N48IwNP4J02Wakfk1WLKh6O15bpSU7Lta+t7FivL/M3DHpV9/fbKjoecia+G4/9sPAgp1ASIbgly4g80LIdXcX9EZRMVB4cwn9shcIV4kw7E42Tx+gntolFETBuDOVQDCnp7g3sKRRIj88DNKFQiMG4u+YiL88cmi3YU=
+	t=1792227002; cv=none; b=W9WQcCCOtw/V6AjSdG/Bfo5G33tV/H9I7gynfrvxSZxpujrF0QsHHWwUJ1X8zuEZ2PUJKIPqx7TDzdoH6ov30cvDz1eeadG6mUksRCYOaE6GvMuArATP3f0eNqI0nbpqjnODknBNpBJa/w9McA8pQImgmSMPsVThXZ350xFiOcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792226886; c=relaxed/simple;
-	bh=eb7Ig0qo/zGxknvWhWUA4DQPAYbJBTbHJPRgb52Kevw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=OcM66r3sxrWYZWxlrV6XbxRy4liINPXaVpxAo0qWWBoQTdXUZnlzdZYfyoMcvfUkrGkziikASqFjVtEnnu5HshKVsk8MdXRxQEaJ5k374/KN4C2pIORNzq3BAPJoZkvUVUSfTEtW9cPVr68rpNgXBZiX/HqIqzNnTeQxDZnHeRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=qiUS7PAR; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1792227002; c=relaxed/simple;
+	bh=3ys5Ya/RmwpUblvy7iecYXS67oy6RhchdlsbYx1vUYU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mtPmoEZuI0fliYqpz+wwzrCURJS/WqcDeIozfpgF4t9k+giV9KpCRIa1bsS0BVmIsad4xt1ZxOmMpol7SCZHmU8+n0YFGEayuMWuvidiyhpHO0HyUPOMW9Xc+Ysx2jxnMKzIN06VUuV6P3800qzEZ9ARFQnsnKrv2ltx8OrIGWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=d6sa6H4R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="qiUS7PAR"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69H8jDTm9003939, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1792226713; bh=eb7Ig0qo/zGxknvWhWUA4DQPAYbJBTbHJPRgb52Kevw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=qiUS7PAR+2F/biGcL4FNnMd14aCKJj6fUJV3Gf00QLs3Na2iR5DrQQJyX5NUdmTqE
-	 AgKd1GhFg55exsLyXipsam40LruZ1s+k5UYM78VWXxq/0ImwZB4uEY2q5TA7+CwXnP
-	 A8B5b5defYlkWtvbpLRvcwz3Qe3tOQwu1lOffCZrDn23agNK2rGCGjOPhVoc5onpXL
-	 GhdaQk/n3IwwQLYVP/foomKvzYJU2lAGjqm79ncVLKxKqsuvQFfBwc+DrA7wxUHvaX
-	 q23zYM8o+iKrwVqbsO1HloIX9n//2s+gbB/iAAI5TucGy0RDsaNY1OC50+Wkxf3l6i
-	 KpWWs240Dz1gw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69H8jDTm9003939
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sat, 17 Oct 2026 16:45:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sat, 17 Oct 2026 16:45:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Sat, 17 Oct 2026 16:45:13 +0800
-From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-CC: "jbrunet+clk@baylibre.com" <jbrunet+clk@baylibre.com>, "sboyd@kernel.org"
-	<sboyd@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	=?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
-	"afaerber@suse.com" <afaerber@suse.com>,
-	=?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
-	"bmasney+clk@redhat.com" <bmasney+clk@redhat.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>,
-	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
-	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>,
-	Brian Masney <bmasney@redhat.com>
-Subject: RE: [PATCH v15 05/11] clk: realtek: Add support for phase locked
- loops (PLLs)
-Thread-Topic: [PATCH v15 05/11] clk: realtek: Add support for phase locked
- loops (PLLs)
-Thread-Index: AQHdUkG5pIovDIXk2kS/vNd36/pXPbb1DaWAgAx0y/A=
-Date: Sat, 17 Oct 2026 08:45:12 +0000
-Message-ID: <a53104475f414e12a69c3a942ad249b1@realtek.com>
-References: <20261002074331.3066919-1-eleanor.lin@realtek.com>
- <20261002074331.3066919-6-eleanor.lin@realtek.com>
- <179157057524.266328.7662236812996349329.b4-review@b4>
-In-Reply-To: <179157057524.266328.7662236812996349329.b4-review@b4>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="d6sa6H4R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4867D1F000C4;
+	Sat, 17 Oct 2026 08:49:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792227000;
+	bh=18BIlR+nJTPwNxyUfX/vUQaYlygqxxeuSnrDn0lht7Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d6sa6H4RycAVSN17uMwk8wdmG24fdGGcluuOi4SLY/jw10K5R9EX4tSMth2F322Wo
+	 wOpGSvTapjSv4bjS6T5RiIBpyULdhixkQuEn/iPPM7E+WOX8kWGGKWJ1GuJeWaEfnt
+	 XO6ekCD9i4F70ySUWtovd1rF/G0GYEvOPtNVKEo4=
+Date: Sat, 17 Oct 2026 10:49:57 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] USB: core: document purpose of interface parent reference
+Message-ID: <2026101737-distort-harsh-1cb4@gregkh>
+References: <20261015074831.1418677-1-johan@kernel.org>
+ <DM6K85ZAWSUG.VCF8TRYUDHJ0@kernel.org>
+ <2026101759-charger-elite-39fb@gregkh>
+ <atMxsLDLjo9rVjs7@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atMxsLDLjo9rVjs7@hovoldconsulting.com>
 
-SGkgSmVyb21lLA0KDQo+ID4gK3N0YXRpYyBpbmxpbmUgc3RydWN0IHJ0a19jbGtfcmVnbWFwX3Bs
-bCAqdG9fcnRrX2Nsa19yZWdtYXBfcGxsKHN0cnVjdA0KPiA+ICtjbGtfaHcgKmh3KSB7DQo+ID4g
-KyAgICAgc3RydWN0IHJ0a19jbGtfcmVnbWFwICpjbGtyID0gdG9fcnRrX2Nsa19yZWdtYXAoaHcp
-Ow0KPiA+ICsNCj4gPiArICAgICByZXR1cm4gY29udGFpbmVyX29mKGNsa3IsIHN0cnVjdCBydGtf
-Y2xrX3JlZ21hcF9wbGwsIGNsa3IpOyB9DQo+ID4gKw0KPiA+ICtzdGF0aWMgaW50IHdhaXRfZnJl
-cV9yZWFkeShzdHJ1Y3QgcnRrX2Nsa19yZWdtYXBfcGxsICpjbGtwKSB7DQo+ID4gKyAgICAgdTMy
-IHBvbGx2YWw7DQo+ID4gKw0KPiA+ICsgICAgIC8qIHJlZyA9PSAwIG1lYW5zIG5vdCBjb25maWd1
-cmVkLg0KPiA+ICsgICAgICAqIFJlZ2lzdGVyIG9mZnNldCAwIGlzIG5ldmVyIGEgdmFsaWQgYWRk
-cmVzcyBvbiBSZWFsdGVrIFNvQ3MuDQo+IA0KPiBGaXggdGhlIGNvbW1lbnQgc3R5bGUgcGxlYXNl
-DQo+IA0KDQpBY2suDQoNCj4gPiArICAgICAgKi8NCj4gPiArICAgICBpZiAoIWNsa3AtPmZyZXFf
-cmVhZHlfcmVnKQ0KPiA+ICsgICAgICAgICAgICAgcmV0dXJuIDA7DQo+IA0KPiBEbyB5b3UgbmVl
-ZCB0byBwcm90ZWN0IGFnYWluc3QgeW91ciBvd24gZHJpdmVyIHByb3ZpZGluZyBiYWQgb2Zmc2V0
-ID8NCj4gDQoNCldpbGwgY2hhbmdlIHRoZSBjb21tZW50IHRvDQoNCi8qDQogKiBPcHRpb25hbCBy
-ZWdpc3RlcjogcmV0dXJuIHN1Y2Nlc3MgaWYgbm90IHByb3ZpZGVkLg0KICovDQoNCj4gPiArDQo+
-ID4gKyAgICAgcmV0dXJuIHJlZ21hcF9yZWFkX3BvbGxfdGltZW91dF9hdG9taWMoY2xrcC0+Y2xr
-ci5yZWdtYXAsDQo+IGNsa3AtPmZyZXFfcmVhZHlfcmVnLCBwb2xsdmFsLA0KPiA+ICsgICAgICAg
-ICAgICAgKHBvbGx2YWwgJiBjbGtwLT5mcmVxX3JlYWR5X21hc2spID09DQo+ID4gK2Nsa3AtPmZy
-ZXFfcmVhZHlfdmFsLCAxLCBUSU1FT1VUKTsgfQ0KPiA+ICsNCj4gPiArc3RhdGljIGJvb2wgaXNf
-cG93ZXJfb24oc3RydWN0IHJ0a19jbGtfcmVnbWFwX3BsbCAqY2xrcCkgew0KPiA+ICsgICAgIHUz
-MiB2YWw7DQo+ID4gKw0KPiA+ICsgICAgIC8qIHJlZyA9PSAwIG1lYW5zIG5vdCBjb25maWd1cmVk
-IChhc3N1bWUgYWx3YXlzIG9uKS4NCj4gPiArICAgICAgKiBSZWdpc3RlciBvZmZzZXQgMCBpcyBu
-ZXZlciBhIHZhbGlkIGFkZHJlc3Mgb24gUmVhbHRlayBTb0NzLg0KPiA+ICsgICAgICAqLw0KPiAN
-Cj4gWW91J3ZlIGFscmVhZHkgc2FpZCB0aGlzLiBJdCB3b3VsZCBiZSBtb3JlIGhlbHBmdWwgdG8g
-dGVsbCB1cyB0aGF0IFBMTCB0aGF0IGRvZXMNCj4gbm90IHByb3ZpZGVyIGEgcG93ZXIgcmVnIGlz
-IGNvbnNpZGVyZWQgdG8gYmUgYWx3YXlzIHBvd2VyZWQsIGlmIHRoYXQgaXMgdGhlIGNhc2UNCj4g
-DQoNCldpbGwgY2hhbmdlIHRoZSBjb21tZW50IHRvIA0KDQovKg0KICogSWYgdGhlIFBMTCBkb2Vz
-IG5vdCBwcm92aWRlIGEgcG93ZXIgcmVnaXN0ZXIsIGl0IGlzIGNvbnNpZGVyZWQNCiAqIHRvIGJl
-IGFsd2F5cyBwb3dlcmVkLg0KICovDQoNCg0KPiA+ICsgICAgIGlmICghY2xrcC0+cG93ZXJfcmVn
-KQ0KPiA+ICsgICAgICAgICAgICAgcmV0dXJuIHRydWU7DQo+ID4gKw0KPiA+ICsgICAgIGlmIChy
-ZWdtYXBfcmVhZChjbGtwLT5jbGtyLnJlZ21hcCwgY2xrcC0+cG93ZXJfcmVnLCAmdmFsKSkNCj4g
-PiArICAgICAgICAgICAgIHJldHVybiBmYWxzZTsNCj4gPiArDQo+ID4gKyAgICAgcmV0dXJuICh2
-YWwgJiBjbGtwLT5wb3dlcl9tYXNrKSA9PSBjbGtwLT5wb3dlcl92YWxfb247IH0NCj4gPiArDQo+
-ID4gK3N0YXRpYyB2b2lkIHJ0a19jbGtfcmVnbWFwX3BsbF9kaXNhYmxlKHN0cnVjdCBjbGtfaHcg
-Kmh3KSB7DQo+ID4gKyAgICAgc3RydWN0IHJ0a19jbGtfcmVnbWFwX3BsbCAqY2xrcCA9IHRvX3J0
-a19jbGtfcmVnbWFwX3BsbChodyk7DQo+ID4gKyAgICAgdW5zaWduZWQgbG9uZyBmbGFnczsNCj4g
-PiArDQo+ID4gKyAgICAgaWYgKCFjbGtwLT5zZXFfcG93ZXJfb2ZmKQ0KPiA+ICsgICAgICAgICAg
-ICAgcmV0dXJuOw0KPiA+ICsNCj4gPiArICAgICBzcGluX2xvY2tfaXJxc2F2ZSgmY2xrcC0+bG9j
-aywgZmxhZ3MpOw0KPiANCj4gV2hhdCBkbyB5b3UgcHJvdGVjdCB3aXRoIHRoaXMgPw0KPiByZWdt
-YXAgZG9lcyBwcm92aWRlIHNvbWUgbG9ja2luZyBhbHJlYWR5IGFuZCBDQ0YgdG9vLiBEbyB5b3Ug
-ZXhwZWN0DQo+IHNvbWV0aGluZyB0byBwb2tlIHRoZSByZWdpc3RlcnMgeW91IGFyZSB3cml0aW5n
-ID8NCj4gDQoNClRoaXMgc3BpbmxvY2sgd2FzIGFkZGVkIGJhc2VkIG9uIEJyaWFuJ3MgZmVlZGJh
-Y2sgWzFdIHRvIHByZXZlbnQgYSByYWNlDQpjb25kaXRpb24gYmV0d2VlbiAnLnNldF9yYXRlKCkn
-IGFuZCAnLmVuYWJsZSgpJy8nLmRpc2FibGUoKScuDQoNClNpbmNlIG91ciAnLnNldF9yYXRlKCkn
-IGludm9sdmVzIGEgbXVsdGktc3RlcCByZWdpc3RlciBzZXF1ZW5jZSBhbmQgYQ0KcG9sbGluZyBs
-b29wLCBhbiBpbnRlcmxlYXZlZCAnLmVuYWJsZSgpJyBvciAnLmRpc2FibGUoKScgb3BlcmF0aW9u
-IGNvdWxkDQpkaXNydXB0IHRoZSBoYXJkd2FyZSBzdGF0ZS4gVGh1cywgd2UgbmVlZCB0aGlzIHNo
-YXJlZCBzcGlubG9jayB0byBzZXJpYWxpemUNCnRoZW0uDQoNClsxXSBodHRwczovL2xvcmUua2Vy
-bmVsLm9yZy9sa21sL2FjX1NYMVVKUnFpQkgyaU1AcmVkaGF0LmNvbS8NCg0KDQo+ID4gKw0KPiA+
-ICsgICAgIHJlZ21hcF9tdWx0aV9yZWdfd3JpdGUoY2xrcC0+Y2xrci5yZWdtYXAsIGNsa3AtPnNl
-cV9wb3dlcl9vZmYsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGtwLT5udW1f
-c2VxX3Bvd2VyX29mZik7DQo+ID4gKw0KPiA+ICsgICAgIHNwaW5fdW5sb2NrX2lycXJlc3RvcmUo
-JmNsa3AtPmxvY2ssIGZsYWdzKTsgfQ0KPiA+ICsNCj4gPiArc3RhdGljIGludCBydGtfY2xrX3Jl
-Z21hcF9wbGxfaXNfZW5hYmxlZChzdHJ1Y3QgY2xrX2h3ICpodykgew0KPiA+ICsgICAgIHN0cnVj
-dCBydGtfY2xrX3JlZ21hcF9wbGwgKmNsa3AgPSB0b19ydGtfY2xrX3JlZ21hcF9wbGwoaHcpOw0K
-PiA+ICsgICAgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7DQo+ID4gKyAgICAgaW50IHJldDsNCj4gPiAr
-DQo+ID4gKyAgICAgc3Bpbl9sb2NrX2lycXNhdmUoJmNsa3AtPmxvY2ssIGZsYWdzKTsNCj4gPiAr
-DQo+ID4gKyAgICAgcmV0ID0gaXNfcG93ZXJfb24oY2xrcCk7DQo+ID4gKw0KPiA+ICsgICAgIHNw
-aW5fdW5sb2NrX2lycXJlc3RvcmUoJmNsa3AtPmxvY2ssIGZsYWdzKTsNCj4gPiArDQo+ID4gKyAg
-ICAgcmV0dXJuIHJldDsNCj4gPiArfQ0KPiA+ICsNCj4gPiArc3RhdGljIGludCBydGtfY2xrX3Jl
-Z21hcF9wbGxfZGV0ZXJtaW5lX3JhdGUoc3RydWN0IGNsa19odyAqaHcsDQo+ID4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBjbGtfcmF0ZV9yZXF1ZXN0
-DQo+ID4gKypyZXEpIHsNCj4gPiArICAgICBzdHJ1Y3QgcnRrX2Nsa19yZWdtYXBfcGxsICpjbGtw
-ID0gdG9fcnRrX2Nsa19yZWdtYXBfcGxsKGh3KTsNCj4gPiArICAgICBjb25zdCBzdHJ1Y3QgcnRr
-X2ZyZXFfdGFibGUgKmZ0Ymx2ID0gTlVMTDsNCj4gPiArDQo+ID4gKyAgICAgZnRibHYgPSBmdGJs
-X2ZpbmRfYnlfcmF0ZShjbGtwLT5mcmVxX3RibCwgcmVxLT5yYXRlKTsNCj4gDQo+IERvZXNuJ3Qg
-dGhpcyBjb21wbGV0bHkgZGlzcmVnYXJkIHRoZSBwYXJlbnQgcmF0ZSA/DQo+IA0KDQpZZXMsIHRo
-ZSBsb29rdXAgd29ya3Mgb24gdGhlIHByb2dyYW1tZWQgY29kZSwgbm90IG9uIHRoZSBwYXJlbnQg
-cmF0ZS4NCkluIG91ciBoYXJkd2FyZSwgdGhlc2UgUExMcyBhcmUgaGFyZHdpcmVkIHRvIGEgc2lu
-Z2xlIDI3TUh6IGNyeXN0YWwNCigib3NjMjdtIikgd2l0aG91dCBhbnkgbXV4Lg0KVGhlcmVmb3Jl
-LCB0aGUgInBhcmVudCByYXRlIiBpcyBhIGZpeGVkIHByb3BlcnR5IG9mIHRoZSBoYXJkd2FyZSBy
-YXRoZXINCnRoYW4gZHluYW1pY2FsbHkgc2VsZWN0YWJsZSBzb3VyY2UsIHdoaWNoIGlzIHdoeSB0
-aGUgY29kZSBvcGVyYXRlcyBvbg0KcHJlZGVmaW5lZCB2YWx1ZXMuDQoNCj4gSSB1bmRlcnN0YW5k
-IHRoYXQgU29DIHZlbmRvciBtYXkgZXhwZWN0IGEgc2luZ2xlIGZyZXF1ZW5jeSBhcyBpbnB1dCBi
-dXQgaXQgaXQgaXMNCj4gcHJldHR5IGZyYWdpbGUgdG8gZG8gc28uDQo+IA0KDQpBZ3JlZWQuIHdp
-bGwgYWRkIGFuIGV4cGxpY2l0IGNoZWNrIGFnYWluc3QgdGhlIGV4cGVjdGVkIHBhcmVudCByYXRl
-LiBUaGlzDQplbnN1cmVzIHRoYXQgaWYgYSBib2FyZCBkZWNsYXJlcyBhIGRpZmZlcmVudCBvc2Np
-bGxhdG9yLCBpdCB3aWxsIGZhaWwgc2FmZWx5DQphbmQgZXhwbGljaXRseSwgcmF0aGVyIHRoYW4g
-c2lsZW50bHkgcHJvZ3JhbW1pbmcgdW52YWxpZGF0ZWQgdmFsdWVzLg0KDQo+IEEgUExMIGlzIHVz
-dWFsbHkgc29tZSBzb3J0IG9mIChmcmFjdGlvbmFsKSBtdWx0aXBsaWVyLg0KPiBJdCBpcyB3YXkg
-YmV0dGVyIHRvIHByb3ZpZGUgdGhlIHRhYmxlIG9mIG11bHRpcGxpZXIgeW91IHN1cHBvcnQsIGFs
-b25nIHdpdGggdGhlaXINCj4gc2VxdWVuY2UgYW5kIHByb3Blcmx5IGRvaW5nIHRoZSBjYWxjdWxh
-dGlvbiBoZXJlLg0KPiANCj4gPiArDQo+ID4gKyAgICAgaWYgKGZ0Ymx2ICYmIGZ0Ymx2LT5yYXRl
-ID49IHJlcS0+bWluX3JhdGUpIHsNCj4gPiArICAgICAgICAgICAgIHJlcS0+cmF0ZSA9IGZ0Ymx2
-LT5yYXRlOw0KPiA+ICsgICAgICAgICAgICAgcmV0dXJuIDA7DQo+ID4gKyAgICAgfQ0KPiA+ICsN
-Cj4gPiArICAgICAvKiBmbG9vciByZXN1bHQgaXMgYmVsb3cgbWluX3JhdGU7IGZpbmQgdGhlIHNt
-YWxsZXN0IHJhdGUgPj0gbWluX3JhdGUNCj4gKi8NCj4gPiArICAgICBmdGJsdiA9IGZ0YmxfZmlu
-ZF9jZWlsX2J5X3JhdGUoY2xrcC0+ZnJlcV90YmwsIHJlcS0+bWluX3JhdGUpOw0KPiA+ICsgICAg
-IGlmICghZnRibHYgfHwgZnRibHYtPnJhdGUgPiByZXEtPm1heF9yYXRlKQ0KPiA+ICsgICAgICAg
-ICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+IA0KPiBUaGlzIGlzIG5vdCBob3cgZGV0ZXJtaW5lX3Jh
-dGUoKSB3b3Jrcy4gWW91IGp1c3Qgcm91bmQgdG8gdGhlIGNsb3Nlc3QgcmF0ZSB0aGUNCj4gUExM
-IHN1cHBvcnRzLiBZb3UgYXJlIGZyZWUgdG8gcm91bmQgYXMgeW91IHdpc2ggKGJlbGxvdyBvciBj
-bG9zZXN0KQ0KPiANCj4gSnVzdCB0ZXN0IHRoZSBkaWZmZXJlbnQgbXVsdGlwbGllcnMgeW91IHN1
-cHBvcnQgYW5kIHJldHVybiB3aGF0IGlzIGJlc3QgY29tcGFyZWQNCj4gdG8gdGhlIHJlcXVlc3Qu
-IFRoZXJlIGlzIG5vIHJlYXNvbiB0byByZXR1cm4gRUlOVkFMIGZvciB0aGlzLg0KPiANCg0KV2ls
-bCBkcm9wIHRoZSBjb21wbGV4IGZsb29yLXRoZW4tY2VpbCBzZWFyY2ggYW5kIGRvIGEgcGxhaW4g
-Y2xvc2VzdCBtYXRjaA0Kd2l0aGluIHRoZSAnW21pbl9yYXRlLCBtYXhfcmF0ZV0nIGJvdW5kYXJp
-ZXMuDQoNClJlZ2FyZGluZyB0aGUgbXVsdGlwbGllciB0YWJsZToNCldlIHByZWZlciB0byBrZWVw
-IHRoaXMgYXMgYSBwcmVkZWZpbmVkIGxpc3QgcmF0aGVyIHRoYW4gZGVyaXZpbmcgYSBuZXcgcG9p
-bnQNCmZyb20gYW4gYXJiaXRyYXJ5IHJhdGUuIFRoaXMgaXMgYmVjYXVzZSB0aGVzZSByb3dzIGlu
-ICdmcmVxX3RibFtdJyBhcmUgdGhlDQpleGFjdCBvcGVyYXRpbmcgcG9pbnRzIHdoZXJlIHRoZSBz
-dXJyb3VuZGluZyBzZXF1ZW5jZXMgKHBvd2VyLCBTU0MsIHJlYWR5DQpmbG93KSB3ZXJlIHZhbGlk
-YXRlZC4NCg0KV2UgaG9wZSB0aGlzIGRlc2lnbiBjaG9pY2UgbWFrZXMgc2Vuc2UgdG8geW91Lg0K
-DQpUaGVyZWZvcmUsIHRoZSB1cGRhdGVkIGxvZ2ljIHdpbGwgbG9vayBsaWtlIHRoaXM6DQoNCnN0
-YXRpYyBpbnQgcnRrX2Nsa19yZWdtYXBfcGxsX2RldGVybWluZV9yYXRlKHN0cnVjdCBjbGtfaHcg
-Kmh3LA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0
-IGNsa19yYXRlX3JlcXVlc3QgKnJlcSkNCnsNCiAgICAgICAgc3RydWN0IHJ0a19jbGtfcmVnbWFw
-X3BsbCAqY2xrcCA9IHRvX3J0a19jbGtfcmVnbWFwX3BsbChodyk7DQogICAgICAgIGNvbnN0IHN0
-cnVjdCBydGtfZnJlcV90YWJsZSAqZnRibHYgPSBOVUxMOw0KDQogICAgICAgIGlmIChjbGtwLT5l
-eHBlY3RlZF9wYXJlbnRfcmF0ZSAmJg0KICAgICAgICAgICAgcmVxLT5iZXN0X3BhcmVudF9yYXRl
-ICE9IGNsa3AtPmV4cGVjdGVkX3BhcmVudF9yYXRlKQ0KICAgICAgICAgICAgICAgIHJldHVybiAt
-RUlOVkFMOw0KDQogICAgICAgIGZ0Ymx2ID0gZnRibF9maW5kX2Nsb3Nlc3RfYnlfcmF0ZShjbGtw
-LT5mcmVxX3RibCwgcmVxLT5yYXRlLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcmVxLT5taW5fcmF0ZSwgcmVxLT5tYXhfcmF0ZSk7DQogICAgICAgIGlmICghZnRi
-bHYpDQogICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQoNCiAgICAgICAgcmVxLT5yYXRl
-ID0gZnRibHYtPnJhdGU7DQoNCiAgICAgICAgcmV0dXJuIDA7DQp9DQoNCj4gPiArDQo+ID4gKyAg
-ICAgcmVxLT5yYXRlID0gZnRibHYtPnJhdGU7DQo+ID4gKw0KPiA+ICsgICAgIHJldHVybiAwOw0K
-PiA+ICt9DQo+ID4gKw0KDQpbLi4uXQ0KDQo+ID4gK0VYUE9SVF9TWU1CT0xfTlNfR1BMKHJ0a19j
-bGtfcGxsX29wcywgIkNMS19SRUFMVEVLIik7DQo+ID4gKw0KPiA+ICtjb25zdCBzdHJ1Y3QgY2xr
-X29wcyBydGtfY2xrX3BsbF9yb19vcHMgPSB7DQo+ID4gKyAgICAgLnJlY2FsY19yYXRlID0gcnRr
-X2Nsa19yZWdtYXBfcGxsX3JlY2FsY19yYXRlLA0KPiANCj4gaXNfZW5hYmxlZCA/DQoNCkFjay4g
-V2lsbCBhZGQuDQoNCkJlc3QgUmVnYXJkcywNCll1LUNodW4NCj4gDQo+IC0tDQo+IEplcm9tZQ0K
+On Sat, Oct 17, 2026 at 10:28:32AM +0200, Johan Hovold wrote:
+> On Sat, Oct 17, 2026 at 10:18:08AM +0200, Greg Kroah-Hartman wrote:
+> > On Fri, Oct 16, 2026 at 10:54:17PM +0200, Danilo Krummrich wrote:
+> > > On Thu Oct 15, 2026 at 9:48 AM CEST, Johan Hovold wrote:
+> > > > See commits:
+> > > >
+> > > >   524134d42231 ("USB: don't cancel queued resets when unbinding drivers")
+> > > >   af61396a992b ("driver core: fix parent lock use-after-free on USB disconnect")
+> > > >
+> > > > for further details.
+> > > 
+> > > The last one is now 0f554506a3fc ("driver core: fix parent lock use-after-free
+> > > on USB disconnect"), and queued for a -fixes PR mid merge window.
+> > > 
+> > > Greg, please let me know if you want me to include this one, or if you will take
+> > > it after -rc1 ist out.
+> > 
+> > I just grabbed it now, thanks.
+> 
+> I should have waited a bit with posting this one.
+> 
+> The commit id mentioned in the commit message above was changed when the
+> driver core commit was moved from driver-core-testing to the
+> driver-core-linus branch. I guess we can always find it via the patch
+> link (or commit summary).
+
+I can still edit this as it's not really lived long in my branch, what
+should the text be here?
+
+thanks,
+
+greg k-h
