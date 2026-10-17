@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB5245FFD2;
-	Sat, 17 Oct 2026 09:07:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE843C6A38;
+	Sat, 17 Oct 2026 09:08:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792228046; cv=none; b=osDNfM8ytH9ErsPGeIAwBZ/R4NV+pVMOE35JKtWVUtAI63v+4MU3QC4YaiyUU3myGJy/L7VhdKD3iKFmJVaKE3HT9s/Df2kQ9ilRrXvR5cJdLOh7GSEQ6RJswJx32y2eXObRSkQwg2nUlProyOiL5y7fky7Cqr3sWEfX8nxhOd4=
+	t=1792228084; cv=none; b=uh6iWJ3AL6NHPmBTO6oxtzawD6uW1dBywT/pl82gmf3UjXa6eFLkZvmwm+A0u9n5rQ7YtCNDxSvILg6xxIj38gyUh1FREBwS6niuQrLB36Gdsdx8nFIJtfIz4ihCzMB5qYj3jDSnEggwgy/U6Lf2iKJfKcKQfAhZJukiBjgmnkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792228046; c=relaxed/simple;
-	bh=2bVN6WI79XRdOP2nDuYaFcE6l7huJ0b+vVJuL50Wn0E=;
+	s=arc-20240116; t=1792228084; c=relaxed/simple;
+	bh=s17Y+eEygbJxJHYFOG4EUS2X3meP6qyfSz7dIH0f6HY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uqiPP88iasmPSIue5JfswCd3REk/D7rpRkBd62tZXKiuy90Sr1skZ/Gyr33LkO/8lUO3meGgESvraiPAhi7qLbLWjaYeOK8QG57yR2Mc7TbhuMFmJ9BJpPY2ezXeunFdxYOWA6vykWnYANTteaqdh54gMOPAEdrMu5kMImti5e4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Em2/xzCG; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=MH5iMlXMSuyfj/gfYkf9dce3MLfrBbq0fimqBGxsplCCS0t4Dv8rhGXLJoRiV/NbhWQRMnsgT3oHTSDfUUD+DHcYe778AhXJX/gvkcUzX8LhSz8OvBHmtgKihDrNvys+oxt2/D0n4GX46aB88IUNTiHKw3Jq1bNOeQqhuEb4uDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hMSRuIBb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Em2/xzCG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6718A1F000C4;
-	Sat, 17 Oct 2026 09:07:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hMSRuIBb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041EB1F000C4;
+	Sat, 17 Oct 2026 09:07:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792228044;
-	bh=c4wmaPbMvA830uvvTHJtacKZjJZnACFWxcTC1JdWfNg=;
+	s=k20260515; t=1792228082;
+	bh=cMu4NM+/CEhtUaI70z07WGXUuAG+G0ovLr8PkXueSTk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Em2/xzCG3JxvodjG7wIzquF+omxAaQZeIVacZFC/O6Dg3mmbPqw8rsifnSymTbuxi
-	 zWHZYSRhA/XDfTYPU5K5NoFkynhq0cnIBSCgXFYPKRxKpGPpCkEWT+gSlOOiZevvrf
-	 5p+A6zhLeK3qQv84hGxqrthjYSinujmxSGvfi0jc3Gk/loorjMrZdP8oIrycHK1I/c
-	 fH15ea282smGpkpIkveacE37FsuYhJKy2KK8tz8lwyAxLVtTkdjsltKDqcp86G/p7+
-	 zUW7LWu3hmsHZqmRnD6mCe/IIdRjo7rJJpdOX2DIWcZIwuOH98qic2pMynZxP88LQy
-	 izWV6b84iTpeg==
-Message-ID: <5c4211d0-94cf-4e53-8a4b-3f3c154228d2@kernel.org>
-Date: Sat, 17 Oct 2026 11:07:18 +0200
+	b=hMSRuIBbcolgp+WYye+OGxHcV/E4tMP5A+A5/LAxe7cwLvygi6EoyM7L5sy5gKt/J
+	 E4E4bl/cehxEzHhV5p5ICPbnk8Y5bCrENf2zNE1hgnjvkA224qBxoqgt5XeAm9B2b0
+	 giQWMugr5AekupEH4lBlNMTWyxoR5PANxGInOvcBrecYgk7530J09cITxhmJf3q32v
+	 8hG/wMDQoG6LmnfRaI+Qcm5IKW722pS87JJ/75iK/M0zKMEqGSkjqUgg0iWEj2/8Ax
+	 amwjGdHiXQLnuFJ07ELSHvnjTQ7DIsw15UFH9TU1FLGXZ+eYJIsSZYIvbYnkeisgXz
+	 cewSB7yLMHD0A==
+Message-ID: <75940331-40fc-40ef-906a-97ceccfd576c@kernel.org>
+Date: Sat, 17 Oct 2026 11:07:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: vendor-prefixes: add smartisan
+Subject: Re: [PATCH 2/3] dt-bindings: display: panel: add Smartisan TD4362
 To: tianshi12127 <tianshi12127@gmail.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org
 Cc: Jessica Zhang <jesszhan0024@gmail.com>,
@@ -45,7 +45,7 @@ Cc: Jessica Zhang <jesszhan0024@gmail.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org
 References: <20261017083531.766557-1-tianshi12127@gmail.com>
- <20261017083531.766557-2-tianshi12127@gmail.com>
+ <20261017083531.766557-3-tianshi12127@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,20 +91,21 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261017083531.766557-2-tianshi12127@gmail.com>
+In-Reply-To: <20261017083531.766557-3-tianshi12127@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 17/10/2026 10:35, tianshi12127 wrote:
 > From: Lu Chen <tianshi12127@gmail.com>
 > 
-> Add a vendor prefix for Smartisan Technology, used by Smartisan
-> devices such as the R1 (trident).
+> Document the Smartisan TD4362, a 1080x2242 command mode panel
+> found in the Smartisan R1 (trident) smartphone.
 > 
 > Signed-off-by: Lu Chen <tianshi12127@gmail.com>
+> ---
 
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
