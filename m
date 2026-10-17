@@ -1,113 +1,100 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C2F4848BE
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0C6383984;
+	Sat, 17 Oct 2026 12:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239859; cv=none; b=JBVWusa/6LchQ2UTYyprmvvoVWiK0A2Jv42HBJDNUcFcvp+JgB/9bRIKZNAWSneubYm1AlGmVxwrCUC9ur/R2F3pGkNHiJ07K/yMAsWVbPnXiDUbZ7WTqT0IcClvHX4c1Fzfxoscr5V3fJZAeoBNoys5Z8h/iulY8seOHj1BGoU=
+	t=1792239907; cv=none; b=LTAK2ecxZf1betdSiltrlKTBzZJNMZllqp8A5v4Ok7iamH1f5TQwPaTEpzrpLn81Or9WXhWobK7fmnBqjbDksyx3Pp1EiktLgtMinZ6ZY+6NFLYNWIz074VbeMACxMbhtALZMilFMGlOIaCF3br527P6TkwcDWRvAcaT3YFgxmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792239859; c=relaxed/simple;
-	bh=iIAFp9XLLpWBg1VBc2h/xbYWjU/67rR5/frCRJudeDk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cEfoH/kug4+sY18kqh3s/NrtRIDRqAFZZaHZra0Qw1Ah7G/23HPmZfNn8YDgjfrpk0U5Nsd9W5vHjZ8g5Q2UMVf9RNwLvi7RfpCCvOxQWiNK3Llvx8Yt0p9+OoVvCf7gKdfe5h9SjjVF4k6VpdAbWtfxzgMs4JCDOpP+qdycVCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b=AYk3Erz6; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+	s=arc-20240116; t=1792239907; c=relaxed/simple;
+	bh=d0lRRxmXLnUsJtatii7z2pOxUgVx3Rg6HZ2/8Trpm9c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KNKd4dRRXtiZfANz8XS2KdHHYu6ndYE+dk30tsEKFMMlsQyHen4JzZ6HSM/Dl75vG2UlH6eMErKVSAi2FFBGy0usZjHgCzndd0XnwjZvomq0Xd8x4692M9jC5eSO1ptcApuoHi7K7xAUnl54cVm19RtStAtHH2meJidwmjTpy04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=tr2xttvj; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b="AYk3Erz6"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="tr2xttvj"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
-	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
-	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=llVt+F8HaFCu44DBrdXSlZ8OVlshoVuRrPSCHUpQ4Ew=; t=1792239857; x=1793103857; 
-	b=AYk3Erz6HyEj7oBCX+Wm/Ivp+GncmxsjaVOqWn/GFvAFzpSKF9ENfK4+MRB3gF8hH6JyvasN2Va
-	hNXn4EAauzpyVjZvYTFTLGATAL3+MsW/xploLJSLKwUEB54vNkwpl6rVxdO17A8tmNoLFYPwibziI
-	4IB10saokCOn4sdHnFuj4/ShTfpGUzFl1CREc2uL1Qd8kA8viMcZfE64W/NkJLTZv+DG8NanWC6DG
-	Na2a02qrjWpXPCAJBsNgrSz3fDfrv13B26BgxG9e7wPMJbrIMZfuJoqFe8R6TU/hB3F1bu7mc7uA6
-	3bqIclMGkMP6O07Hv6fJZYgfrCdMswkpGoOg==;
-Received: from mail-dy1-f169.google.com ([74.125.82.169])
-	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xI3SS-001jAV-IK
-	for linux-kernel@vger.kernel.org;
-	Sat, 17 Oct 2026 08:24:16 -0400
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33fb4680717so661974eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:24:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwLiDBRE7gbtMOkGFUICxNawQnxumhzftOZC6B4Uclgr0FlbPKOrRi2+UhhxGlIXDOQZMz8/ZZVcuZ85Bg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfKGYbvrdXH0dt2pmolvyqOkCaUm744EpwqxFhPOqz+GshK+7Q
-	FaG1LtwYlwpqBohKPa6WL1nzUFW9KEFbm/LsqNoj4XuvcNbjdYuq90tfDc/2AULG+QYzGO2ic/Z
-	eJTFh7DlrBw1NlAOg1mJFLjU7HJvjoUc=
-X-Received: by 2002:a05:7023:88d:b0:13b:2f26:6881 with SMTP id
- a92af1059eb24-1850c8da5d9mr4120200c88.4.1792239855579; Sat, 17 Oct 2026
- 05:24:15 -0700 (PDT)
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=QBt9n5EhoF4ytefL+NqOdtVCXxj2E+IaiHKYLwHYwdQ=; b=tr2xttvjtFbuxnSu06mhWznsxe
+	eTga23DNzmSDqKHqOACNQeuc3kb6FlBYW6PqlNxmgQjOdd1p/4UBaWDWl0naljuBKNOuaQYr23sa0
+	qs3GFKWKpMd3gBLEAe63Zx1RT5CFZ7T2lLicEiLFT9salRDKb4Xvx4+JQ9fK3cG+IGP714sA8q2tS
+	twY+WhNxhvG77Ogwv1eHUJq/F7QYHpdUvU7XrkAYB+WdBER9oNRPPmU+Whnqly2kGnvVEKvZKkFan
+	npMS8FcWIafqsJP43iITbnGDDMO5lpF7JjEpocKb0kr+eZL+G7/075jgAR4/TcjCN5SDppxoHi2MS
+	EuUQGCOQ==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xI3TC-0000000CVCI-2BZw;
+	Sat, 17 Oct 2026 12:25:02 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xI3TC-00000002YlS-1Nvm;
+	Sat, 17 Oct 2026 13:25:02 +0100
+From: David Woodhouse <dwmw2@infradead.org>
+To: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Thara Gopinath <tgopinath@linux.microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Nicolas Saenz Julienne <nsaenz@amazon.com>,
+	Nikolas Wipper <nik.wipper@gmx.de>,
+	Mushahid Hussain <hmushi@amazon.co.uk>,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	nh-open-source@amazon.com
+Subject: [RFC PATCH 10/55] KVM: x86: Allow MP state ioctls on plane vCPU fds
+Date: Sat, 17 Oct 2026 13:24:16 +0100
+Message-ID: <20261017122501.610248-11-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261017122501.610248-1-dwmw2@infradead.org>
+References: <20261017122501.610248-1-dwmw2@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261017020935.792500-1-nickolai@csail.mit.edu> <2026101755-mangy-flatterer-3d87@gregkh>
-In-Reply-To: <2026101755-mangy-flatterer-3d87@gregkh>
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Date: Sat, 17 Oct 2026 08:24:03 -0400
-X-Gmail-Original-Message-ID: <CADGQE7EpdbtkzzH53Jh1yZ+nv6oCQsLiH6FDN=DxyFCwTjFE=Q@mail.gmail.com>
-X-Gm-Features: AclHuK8iZfBvAYDQEDzkzDSxhtneAJiFsBHTblh6rHaf5sfiqiIVGrNdarvADIw
-Message-ID: <CADGQE7EpdbtkzzH53Jh1yZ+nv6oCQsLiH6FDN=DxyFCwTjFE=Q@mail.gmail.com>
-Subject: Re: [PATCH v1] driver core: unbind only the driver whose unbind file
- was written
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Sat, Oct 17, 2026 at 5:49=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
-> > The pattern is as old as the unbind file: the check was never under the
-> > lock and the release never named the driver.  The locked variant has
-> > existed since commit 4bdb35506b89 ("driver core: Add a wrapper around
-> > __device_release_driver()") added the drv argument to
-> > device_release_driver_internal() for driver_detach(), which has the
-> > same requirement.
->
-> Because this has always been present, and no one has actually reported
-> this, perhaps it is not really a problem at all?  In other words, what
-> real-life-use requires this?  Again, bind/unbind is for developers only.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-The goal was to pin down a precise spec of what should happen when
-writing a device name A to /sys/bus/B/drivers/D/unbind.  I think the
-intended effect is that it should unbind driver D from device A.  The
-code already has a check that tries to ensure this.  However, the
-check isn't technically enough to achieve this precise effect, in the
-presence of concurrent operations on other cores (like
-binding/unbinding other drivers to the same device).
+A new plane vCPU for an AP starts, like any non-boot x86 vCPU, in the
+uninitialised wait-for-INIT state, and nothing ever sends INIT/SIPI to
+the higher plane of an AP. The VMM placing an initial VTL context on
+it has to mark it runnable itself.
 
-It sounds like this level of precise specification under weird
-concurrent operations isn't useful for developer-facing interfaces.
-I'll stick to more clear-cut bugs.
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Assisted-by: LLM
+---
+ arch/x86/kvm/x86.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> ...
-> > Found by formal verification of drivers/base/bus.c.
->
-> Where is the formal verification proof?  Please don't have your LLM
-> claim this without that as it's pointless.
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index ca5d8e081fdc..970c738558f2 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -6278,6 +6278,8 @@ bool kvm_arch_is_vcpu_plane_ioctl(unsigned ioctl)
+ 	case KVM_SET_ONE_REG:
+ 	case KVM_GET_SREGS2:
+ 	case KVM_SET_SREGS2:
++	case KVM_GET_MP_STATE:
++	case KVM_SET_MP_STATE:
+ 	case KVM_GET_VCPU_EVENTS:
+ 	case KVM_SET_VCPU_EVENTS:
+ 	case KVM_GET_XCRS:
+-- 
+2.50.1
 
-The intended point was to give some indication of where this patch is
-coming from: it aims to formally prove something about the behavior of
-the kernel, rather than fix any specific issue encountered by a Linux
-user.  There isn't a formal spec for the Linux user-kernel boundary,
-though (as in the above example: what exactly should happen in this
-weird concurrent scenario?), so for many cases I'm trying to infer
-what the expected spec is.
-
-Happy to describe it in more detail once I have a coherent checkpoint.
-The current proofs aren't complete for Linux yet; we'll see if it's
-possible to get there.  We verified a smaller OS kernel
-(https://arxiv.org/abs/2609.04043) and now I'm trying to do the same
-for Linux, roughly speaking.
-
-Nickolai.
