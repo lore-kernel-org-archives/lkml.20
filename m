@@ -1,298 +1,160 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FAC3B7B79
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:54:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF38C36AB6B
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792205674; cv=none; b=bYsNk8W4uMgk9TJz4V5O5UO2OPreeWx4Ew5BboM8jcA+2yAAPF1CRG32Y76hArRhRCRxdoPJwyGsRc7+YGDjwTMc4IyxZKXhyKuITeAwNRr5FC64ZOJ5zdbWh18ADNXq3yxJiS8giSr41hD+kWqr8wR8v9/wJl0VONqZxLUL2hY=
+	t=1792206014; cv=none; b=maJywgXPHHsqRF2C0WuSzqsRVKnPdpzOMmJUnxuQb70xwTShzOnawu8l1utqDKD5gJhx5yFn86I+UMyJrcJldZwphYR+6phUDJMwEKnVIjxPUd03tsqDBeRgeaoRpSrXnHfEGe/L7/W4LJDD7eN1uZtbOAHmmZnh5MpUEcztzC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792205674; c=relaxed/simple;
-	bh=8V4KEEoD051nOMGpLrxMUSDSwZLv8SijsOKAy9BqOto=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IlV3qoCVIf4YnkmwGFMIQMWkD6iJ2L0RoWGUSag8BrutghZeHxH2PPDFVGf5ahu3+J7ngx5ehJsqG9WirSrsUtFR6kqAvNIokzVmfw9fCFW6rNz1M2iCjlMGepFv/2PJ+4aq1QLqBSyDsb3Qd4c433lk9szY1IDRWgoV7Ph5jak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xHuYu-00HXl9-Hx;
-	Fri, 16 Oct 2026 22:54:20 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>,
-	Anup Patel <apatel@ventanamicro.com>,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] genirq/msi: Fix the mapping race of wire to MSI interrupts
-Date: Fri, 16 Oct 2026 22:54:20 -0400
-Message-ID: <20261017025420.792976-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1792206014; c=relaxed/simple;
+	bh=RnyUtaj56FacvXKJT/5BOE5uL4aLHIIMeKqQgZyyy3w=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=lnWccWJnPNyun88RNZpqj3mJrPFi9dWoz/emDKvPUZU23Ytx1c5aigSSPmQFkdH2PpeyO1YcIQ6ZyX6LxUIpkP+eydv8Bu1O6afS4UY6WyLy2MO/0dqu5nEW7JJJ+k4C5BOFHlG8QMCcIsA6GSSnuNKvpvbwpuW3xB3O/KkTmgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=SkyKkWWj; arc=none smtp.client-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="SkyKkWWj"
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f20c3aaa5so47304785a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:00:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1792206006; x=1792810806; darn=vger.kernel.org;
+        h=subject:cc:to:from:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H7TFgfiFf6FEXV3J7Inq1lkdC8JNBzhySk1rzqW+t48=;
+        b=SkyKkWWj35bDcts8jT/Vm8ebaAmtwQIQ2aldBjUveWiFsnhPtE2VD0UHBM2h+63BMI
+         wHOSrBjN5DZr4EyOYc8VMQCHCVh6mueA0IX4/i0giSK7bBzkRGGMQautk4BBAOOt21Ig
+         vLVnT5fVS/TGo9mBBCDKKU1YvI+9gtXlIu6P0/e9MklAsUxTO2VxMtF9f9hV73u9pKwy
+         GQaIZa7rkJRP6gHb7/nORUOF/hLYirjJcN81gf/LRtgiCva7zkj8K4RYXuSCv/EinZsi
+         kS9sy+YCmmbIM68+/qDwnjh4g8AFfUwZnkv0fujgMWfSt856edmHxDNlOiGuDoWOoNjy
+         +LuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792206006; x=1792810806;
+        h=subject:cc:to:from:message-id:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H7TFgfiFf6FEXV3J7Inq1lkdC8JNBzhySk1rzqW+t48=;
+        b=dKKsYa9GVjzMvXYAQ/Y9Z04Se/vh4lUwJ3pATKAM/+JukbZeFVZipFGfLBZDq0jOwk
+         NHtU/2S8TjC932CT4HHM1bXvQI+il33eVMWhOI0X1xbpklZsXoi4DhDdz8CDuYol5QXz
+         HANDTZVHdNQDb5hK8DRvAv2UuvMn59iNXvDDOoJoEMF435B9uPBcLrXhlfNXYzKu6qnX
+         JQiqhSPIc7GsgBTSDWynQEIoICicWMgsDjcL2s9K9AWCTBu4MD4vfiH1PlvxQdi4nl19
+         QOGByoOc8wyDWUKpdb7BI/2z5trdUNC/bzV4VZr8FgzDv6pQkT3kjn33i/Gt+DkMJAFH
+         wR/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwXoLaYf0g1MCA3DsovEq9SiXfJWyWnqCpWtTeavufTQvzJLj3Nk/yP+w7B5Yj4RbHPCi87clBwlFS8n2g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRW/WNBrxEFuQGzqGU/Sn1QBygYruIwwBaYEAVNQS/MfzpZpu5
+	ZjhHCXdFGy7oKIpF0Z1lVI6I24vLzXTtfl75A1qQnvOcClNuTSdbYsO9kFJOZbOtNQ==
+X-Gm-Gg: AYBFou1L6GtK6KPRNUqmDr9vPbyg4KfDU2gK2f69qYi1dtJ/BIjBPW2DYazljGBVRz1
+	XSaAHyT/LgNxR5GVmJts0DoI4Vb8RqBzrQvlFb6Ef3lNgOXkB3VQ4xzlAB0FNlvjv/3mDXD3pvA
+	8hXRlZroXlKBjo/CNY1KEGCatK+zoUwUrx97U5b7n+zCswvbhjzSwzfZE2i3RiFf2mjzaitVv5W
+	tr8anQOS+5SEWzd+mOibH2ZQO4AAjN05nNiAtQdQPy/DJG3lLvGZQXfmgmRO37lshVt9XmaQmGH
+	bIfZH8AwKFZheP4jYq9hPmGoImvYApgVkbYpuJFHWz9mEb0rq7cjdxgggjStix3E0k3dCi+UgkF
+	6NNwreJBdNLhOu7xooXpcOQa8Bu7+0/66OtxM8ImzC1qviOgq44Ms0QWEzggz5S2la0SwgVGbOB
+	SEGLjzHJ9qi9ZddoS22UZ2shY2wm5OBThWo1/etc2JjhSbcuneQSKryggaBpDhMD4Ms1Nmew0jZ
+	tmLGkxx991ykedLfxL0/KrKr5i6azo1txxkmlvhxV0jXXGGqoe7+kFUDgxD2OojY3eCjS27Cp4=
+X-Received: by 2002:a05:620a:439b:b0:939:9edf:edb7 with SMTP id af79cd13be357-93f29b73708mr304873385a.6.1792206006258;
+        Fri, 16 Oct 2026 20:00:06 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a1850cbsm361980985a.24.2026.10.16.20.00.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 20:00:05 -0700 (PDT)
+Date: Fri, 16 Oct 2026 23:00:05 -0400
+Message-ID: <e30c2a29706391f16d9ac9446907193c@paul-moore.com>
+From: Paul Moore <paul@paul-moore.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: selinux@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] selinux/selinux-pr-20261015
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On every platform whose wired interrupts go through a wire to MSI bridge
-(the RISC-V APLIC in MSI mode and the RPMI system MSI controller, the
-HiSilicon MBIGEN and the GICv5 IWB on arm64, the Marvell ICU), two
-devices which share an interrupt line and probe at the same time
-(asynchronous probing, the deferred probe worker, parallel module
-loading) race in irq_create_fwspec_mapping(), and the loser's probe
-fails with a misleading error: platform_get_irq() returns -ENXIO ("IRQ
-index 0 not found"), or request_irq() on irq 0 returns -EINVAL for a
-PCI device. The bridges route every wired peripheral interrupt of their
-platform through this path, and the mapping is created in driver probe
-context: platform_get_irq() through of_irq_get(), and pci_device_probe()
-through pci_assign_irq() for the legacy interrupt line of every PCI
-device. On the QEMU RISC-V virt machine with aia=aplic-imsic, two
-virtio-net-pci devices on the same INTx line (slots 1 and 5, MSI-X
-disabled) booted with driver_async_probe=virtio-pci lose one of the two
-devices in 17 of 20 boots, and in 0 of 20 with the patch:
+Linus,
 
-  virtio_net virtio0: probe with driver virtio_net failed with error -22
+Thirteen SELinux patches for the Linux v7.4 merge window:
 
-Two kernel threads on two CPUs mapping the same unmapped APLIC wire at
-the same moment lose one of the two callers for 6 of 30 wires without
-any added delay and for 8 of 8 with a 100 ms delay in the window, for 0
-of 30 and 0 of 8 with the patch. This exists since the wire to MSI
-bridges moved to per device MSI domains in v6.9.
+- Continue to improve the load time validation of SELinux policies
 
-irq_create_fwspec_mapping() looks the hardware interrupt up under the
-domain lock and allocates a new interrupt when there is none. For a
-wire to MSI domain it has to drop the domain lock before invoking
-msi_device_domain_alloc_wired(), because the MSI allocation takes the
-device's MSI descriptor lock first and the domain lock below it. When
-two callers map the same wire in that window, both find no mapping and
-both allocate. msi_domain_alloc() detects the duplicate hardware
-interrupt number for the second one and fails with -EEXIST,
-msi_handle_pci_fail() turns that into -ENOSPC for a non-PCI domain, and
-irq_create_fwspec_mapping() returns 0: the second caller sees no
-interrupt for a wire which is mapped and working. The legacy and the
-non-MSI hierarchical paths keep the domain lock across the allocation
-and are not affected.
+While SELinux policy loading remains a privileged operation, we continue
+the recent trend of hardening the policy parsing and validation code in
+the kernel to ensure that invalid, or poorly formatted policies are
+rejected at load time.
 
-Repeat the lookup in msi_device_domain_alloc_wired() under the MSI
-descriptor lock, which serializes all wired allocations of the device,
-and return the mapping a concurrent caller created instead of
-allocating a second one. The returned interrupt may already carry a
-trigger type, so let irq_create_fwspec_mapping() apply the same trigger
-type checks to it as to a mapping it found itself: the type handling
-becomes common to both, and a newly created interrupt, which starts
-with IRQ_TYPE_NONE, ends up with the requested type as before.
+- Correctly incorporate "neveraudit" into the xperms code
 
-Found while formally verifying irq_create_fwspec_mapping() against the
-kernel binary.
+This change aligns the xperms neveraudit handling with the conventional
+permission handling code, exiting early from the SELinux auditing
+code when neveraudit is enabled for the domain.
 
-Fixes: e49312fe09df ("genirq/irqdomain: Reroute device MSI create_mapping")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
+- Mark the selinuxfs "status" and "policy" files immutable
 
-Notes:
-    The duplicate is already caught deep in the allocation: msi_domain_alloc()
-    returns -EEXIST when irq_resolve_mapping() finds the hardware interrupt,
-    but msi_handle_pci_fail() maps that to -ENOSPC for every non-PCI bus
-    token, so the error cannot be told apart in irq_create_fwspec_mapping()
-    and the only place where the race can be resolved without an allocate-
-    and-free cycle is under the descriptor lock, which every wired
-    allocation and free of the device takes.
-    
-    Making the trigger type handling common to the found and the created
-    interrupt is required by the change, not a cleanup: a type of
-    IRQ_TYPE_NONE from the loser would otherwise clear the type the winner
-    stored, and a differing type would overwrite it instead of being
-    rejected as it is for a mapping found by the lookup. The WARN_ON on a
-    missing irq_data after a fresh allocation goes away with it; the common
-    path returns 0 for that case like the lookup path always did.
-    
-    Reproduced on riscv64 under QEMU only (TCG, 2 and 4 harts): with a
-    kernel thread pair and with two virtio-net-pci devices sharing an INTx
-    line probed asynchronously. With all eight slots populated the pairs
-    sharing a line are four probes apart and the window was not hit in 11
-    boots; with the two devices back to back it was hit in 17 of 20. Not
-    reproduced on hardware.
-    
-    Reproducer (QEMU, no kernel change): two legacy-INTx PCI devices on one
-    line, probed asynchronously; the loser's probe fails on the unpatched
-    kernel in 17 of 20 boots, 0 of 20 with the patch:
-    
-      qemu-system-riscv64 -M virt,aia=aplic-imsic -smp 4 -m 1G -nographic \
-        -kernel arch/riscv/boot/Image \
-        -device virtio-net-pci,vectors=0,addr=1 \
-        -device virtio-net-pci,vectors=0,addr=5 \
-        -append "console=ttyS0 driver_async_probe=virtio-pci"
-      # before: "virtio_net virtio0: probe with driver virtio_net failed with
-      # error -22" and /proc/interrupts lists one device on line 33
-      # after:  both devices on line 33 ("virtio0, virtio1")
-    
-    Deterministic variant (throwaway test, not in the series): a
-    late_initcall_sync starting two kthreads on CPUs 0 and 1 that both call
-    irq_create_fwspec_mapping() for the same unmapped APLIC source; 8 of 8
-    wires lose a caller with a 100 ms delay in the window, 6 of 30 without,
-    0 with the patch (repro/hook.sh, repro/run-kthread.sh).
+These are read-only kernel/userspace interfaces that could successfully
+be opened at the VFS layer through the use of CAP_DAC_OVERRIDE.  With
+this pull request we are marking these two files as immutable so that
+the requests to open these file with write permissions now fail at the
+VFS layer.  This also allows us to drop some of our mmap() checks around
+write permissions as the VFS will now also handle this for us.
 
- kernel/irq/irqdomain.c | 84 +++++++++++++++++++++---------------------
- kernel/irq/msi.c       | 18 +++++++--
- 2 files changed, 56 insertions(+), 46 deletions(-)
+The existing SELinux permissions checks remain untouched.
 
-diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
-index 57c819da30c2..2a7868d71778 100644
---- a/kernel/irq/irqdomain.c
-+++ b/kernel/irq/irqdomain.c
-@@ -942,63 +942,61 @@ unsigned int irq_create_fwspec_mapping(struct irq_fwspec *fwspec)
- 	 * don't do it again, or hell will break loose.
- 	 */
- 	virq = irq_find_mapping(domain, hwirq);
--	if (virq) {
--		/*
--		 * If the trigger type is not specified or matches the
--		 * current trigger type then we are done so return the
--		 * interrupt number.
--		 */
--		if (type == IRQ_TYPE_NONE || type == irq_get_trigger_type(virq))
--			goto out;
--
--		/*
--		 * If the trigger type has not been set yet, then set
--		 * it now and return the interrupt number.
--		 */
--		if (irq_get_trigger_type(virq) == IRQ_TYPE_NONE) {
--			irq_data = irq_get_irq_data(virq);
--			if (!irq_data) {
-+	if (!virq) {
-+		if (irq_domain_is_hierarchy(domain)) {
-+			if (irq_domain_is_msi_device(domain)) {
-+				/*
-+				 * The MSI code takes the descriptor lock
-+				 * before the domain lock and resolves a
-+				 * concurrent mapping of the same wire, so
-+				 * the returned interrupt may already be
-+				 * configured.
-+				 */
-+				mutex_unlock(&domain->root->mutex);
-+				virq = msi_device_domain_alloc_wired(domain, hwirq, type);
-+				mutex_lock(&domain->root->mutex);
-+			} else {
-+				virq = irq_domain_alloc_irqs_locked(domain, -1, 1, NUMA_NO_NODE,
-+								    fwspec, false, NULL);
-+			}
-+			if (virq <= 0) {
- 				virq = 0;
- 				goto out;
- 			}
--
--			irqd_set_trigger_type(irq_data, type);
--			goto out;
-+		} else {
-+			/* Create mapping */
-+			virq = irq_create_mapping_affinity_locked(domain, hwirq, NULL);
-+			if (!virq)
-+				goto out;
- 		}
-+	}
- 
--		pr_warn("type mismatch, failed to map hwirq-%lu for %s!\n",
--			hwirq, of_node_full_name(to_of_node(fwspec->fwnode)));
--		virq = 0;
-+	/*
-+	 * If the trigger type is not specified or matches the
-+	 * current trigger type then we are done so return the
-+	 * interrupt number.
-+	 */
-+	if (type == IRQ_TYPE_NONE || type == irq_get_trigger_type(virq))
- 		goto out;
--	}
- 
--	if (irq_domain_is_hierarchy(domain)) {
--		if (irq_domain_is_msi_device(domain)) {
--			mutex_unlock(&domain->root->mutex);
--			virq = msi_device_domain_alloc_wired(domain, hwirq, type);
--			mutex_lock(&domain->root->mutex);
--		} else
--			virq = irq_domain_alloc_irqs_locked(domain, -1, 1, NUMA_NO_NODE,
--							    fwspec, false, NULL);
--		if (virq <= 0) {
-+	/*
-+	 * If the trigger type has not been set yet, then set
-+	 * it now and return the interrupt number.
-+	 */
-+	if (irq_get_trigger_type(virq) == IRQ_TYPE_NONE) {
-+		irq_data = irq_get_irq_data(virq);
-+		if (!irq_data) {
- 			virq = 0;
- 			goto out;
- 		}
--	} else {
--		/* Create mapping */
--		virq = irq_create_mapping_affinity_locked(domain, hwirq, NULL);
--		if (!virq)
--			goto out;
--	}
- 
--	irq_data = irq_get_irq_data(virq);
--	if (WARN_ON(!irq_data)) {
--		virq = 0;
-+		irqd_set_trigger_type(irq_data, type);
- 		goto out;
- 	}
- 
--	/* Store trigger type */
--	irqd_set_trigger_type(irq_data, type);
-+	pr_warn("type mismatch, failed to map hwirq-%lu for %s!\n",
-+		hwirq, of_node_full_name(to_of_node(fwspec->fwnode)));
-+	virq = 0;
- out:
- 	mutex_unlock(&domain->root->mutex);
- 
-diff --git a/kernel/irq/msi.c b/kernel/irq/msi.c
-index fb5f372215bf..dac36ba6667b 100644
---- a/kernel/irq/msi.c
-+++ b/kernel/irq/msi.c
-@@ -1571,6 +1571,12 @@ struct msi_map msi_domain_alloc_irq_at(struct device *dev, unsigned int domid, u
-  * msi_desc::cookie so the underlying interrupt chip and domain code can
-  * retrieve it.
-  *
-+ * The caller looks @hwirq up before invoking this function, but it cannot
-+ * hold the domain lock across the call. Allocations are serialized by the
-+ * MSI descriptor lock, so the lookup is repeated under it and a mapping
-+ * which a concurrent caller created in the meantime is returned instead
-+ * of a second one.
-+ *
-  * Return: The Linux interrupt number (> 0) or an error code
-  */
- int msi_device_domain_alloc_wired(struct irq_domain *domain, unsigned int hwirq,
-@@ -1580,6 +1586,7 @@ int msi_device_domain_alloc_wired(struct irq_domain *domain, unsigned int hwirq,
- 	union msi_instance_cookie icookie = { };
- 	struct device *dev = domain->dev;
- 	struct msi_map map = { };
-+	unsigned int virq;
- 
- 	if (WARN_ON_ONCE(!dev || domain->bus_token != DOMAIN_BUS_WIRED_TO_MSI))
- 		return -EINVAL;
-@@ -1588,9 +1595,14 @@ int msi_device_domain_alloc_wired(struct irq_domain *domain, unsigned int hwirq,
- 
- 	guard(msi_descs_lock)(dev);
- 	if (WARN_ON_ONCE(msi_get_device_domain(dev, domid) != domain))
--		map.index = -EINVAL;
--	else
--		map = __msi_domain_alloc_irq_at(dev, domid, MSI_ANY_INDEX, NULL, &icookie);
-+		return -EINVAL;
-+
-+	/* Lost the race against a concurrent mapping of the same wire? */
-+	virq = irq_find_mapping(domain, hwirq);
-+	if (virq)
-+		return virq;
-+
-+	map = __msi_domain_alloc_irq_at(dev, domid, MSI_ANY_INDEX, NULL, &icookie);
- 	return map.index >= 0 ? map.virq : map.index;
- }
- 
+- Convert the selinuxfs inode numbers to u64
 
-base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
--- 
-2.53.0
+Bring selinuxfs current with other filesystems in using u64 for inode
+numbering as opposed to the architecture dependent unsigned long.
 
+- Constify a number of the SELinux AVC function parameters
+
+- Remove a SELinux MLS function that was no longer used
+
+Paul
+
+--
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux.git
+    tags/selinux-pr-20261015
+
+for you to fetch changes up to b73b967b0fc44707f39faa4f298f1f9d9b7bfac5:
+
+  selinux: validate permissive and neveraudit map types at load
+    (2026-09-30 16:59:44 -0400)
+
+----------------------------------------------------------------
+selinux/stable-7.4 PR 20261015
+----------------------------------------------------------------
+
+Christian Göttsche (8):
+      selinux: constify avc function parameters
+      selinux: reject a policy that both rejects and allows unknown
+         classes
+      selinux: reject duplicate symbol values during policy load
+      selinux: bounds-check filename transition source types at load
+      selinux: check neveraudit in avc_xperms_audit_required()
+      selinux: bounds-check role and user membership bitmaps at load
+      selinux: validate user MLS range and default level at load
+      selinux: validate permissive and neveraudit map types at load
+
+Paul Moore (2):
+      selinux: convert selinuxfs inode numbers from unsigned long to u64
+      selinux: avoid 64-bit division of inode numbers
+
+Stephen Smalley (3):
+      selinux: tighten policydb_context_isvalid() checks
+      selinux: remove unused mls_setup_user_range()
+      selinux: mark status and policy inodes as immutable, drop status
+         mmap write checks
+
+ security/selinux/avc.c          |   37 ++++----
+ security/selinux/include/avc.h  |    7 -
+ security/selinux/selinuxfs.c    |   59 +++++++------
+ security/selinux/ss/mls.c       |   38 --------
+ security/selinux/ss/mls.h       |    3 
+ security/selinux/ss/mls_types.h |    3 
+ security/selinux/ss/policydb.c  |  137 ++++++++++++++++++++++++++++----
+ 7 files changed, 183 insertions(+), 101 deletions(-)
+
+--
+paul-moore.com
