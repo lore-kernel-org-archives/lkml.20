@@ -1,96 +1,75 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8BB37B018
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:04:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02031925BC;
+	Sat, 17 Oct 2026 05:07:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792213451; cv=none; b=h11/oynptR/T8zgKTcEdVBpyhD/W2sWrCXXpWNMc5xlDTrNvvuN4JMUkNE3yJg/wvhFCzTz5BsrNEan1MrNrLF2PJFPZa0yCN8deNyHQDftbEDnlOwjDXuLn5dKXsI3lOahUaxgBqqZ5g7ANLxUI+MUjVNWdoO0BfEL17nZRRDs=
+	t=1792213621; cv=none; b=NVZdA6KLo3unh3NdNoimHWkry+OKfOdGOY6CuMs8ULbylsdYgN829SrYXcsRVShKJiIxdmZ9fjdrT3Mu1kTjirujDS7hKNWfyazGvMYY6f26RUcJR8Uuho346gzWJ4owVLWKt5gcvv/R1JOys2q4nRrY+NjlaQKqlJxf5UQPilc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792213451; c=relaxed/simple;
-	bh=8BLUOuobsXVPK0Hk4WClUwg69wNv/LObwP6VEuCQQpk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=grU1S3FiOgMCt1x4PKjWPJq3/C+xfZFtXyeoQq8iXvPnsznkbbCgiHX33r29DMYor1XxLFnXWM6/4T539IQNbafebtx7SCo9E6BdWKI32cpgy+LKTE46HKUXeNohKQn/wCxpjjFiwj9PKGkedQJY4/OKSj7Z+zuEs88OoDaadjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vuFAi4DJ; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	s=arc-20240116; t=1792213621; c=relaxed/simple;
+	bh=6AibX6YCngIJcN/yXS5xOBZtVb3XeCfFM8NCLdf3Cr8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=qq3DkAEiL5S706CbDgRsxsXjXgdPJ5Rs4wvp5n2ac5xz/ALJWhB+djA+gETSlrNzD1YcH+NkY5Cc5DJbFdp9gP0TPhfaR3NZpeu/y2rep5NWSFfos7bajJFtd1jtZvHWC9BKZY52v2qz1NN7HIlnGyNIJXIyrNrBMlIVlPR/YuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EIXuIoXy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vuFAi4DJ"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e954d87b48so6254675ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 22:04:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792213449; x=1792818249; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gV9/cHPnIlfRbaMaPitg64wMYECZnHJw7L0U4tqnfHE=;
-        b=vuFAi4DJZ3XmakwcmpGKv0lcssWG4LtJUbgyNBHPfk0cJswBAE71rjmLlge6JknNij
-         z7yxz4PyXTYr+H5tr/54ENmWbB3973pECVnzStvnUsRZ4aqYOAlo0cEtPVOVpMC4uuh5
-         QlpWLZIInRvg0LsOWmXAo7hcX8g8Km4gc1OYddz/KlNZ2fee6aVmHaJz+9c52KTu44oo
-         euBZTJQjdAzKpE0JnjWfQXtIZqc+UI8HX7JkvTd/OGkbEI4VObrThX8hC85RKX29lk2r
-         tr/047uTvpJTcwHheKedmxp0VyfUaa0OcEiIRkcmR/hZAMtZbd4Q8RsKLCfEw18NwtAJ
-         bP+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792213449; x=1792818249;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gV9/cHPnIlfRbaMaPitg64wMYECZnHJw7L0U4tqnfHE=;
-        b=Bfju1lU08yWh7HGjqbw27px6zcfKMvLs7Dtondtsdhi4maRcaxrD3CenuIbo0xxlbj
-         gJT+gLUhRFHehshEnm519Xu2k+IBAeuhYt+mINtbkEgrdW0KRt+K5RBdXiCH2RDvEbZp
-         QhZjeNt1KSlvFMpbiB99jxpWmeZX7UNU3hboYhB5jUK84zvBs44UM6fIX2Mf6MSkeXgj
-         lMrMyQtYBdQz14GS9rLkfsbHp4JtgJqbAG3NPCPYttS740qt2tKwer7+fjGEjoykI2dc
-         L0KYsD0xEU9GVncG4XKdmm54wjGTycPRwcDjAv99NRF5KNY62TwZRtxz5eYJl1jijvu8
-         4GVw==
-X-Forwarded-Encrypted: i=1; AKwUvBwrwinqFFQVHnyRNtwPXD/IZGafp2NeFqIJyxAd0VkSp7q3ybWL2ZgJIueZWyZAkkLqeKMvLSfkRN1QDnQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9wHXIXWsiLmKJuGxtLN7TBu5gFVt9dVyy6NIbdpMVucwaFaCV
-	vzfnyg7md3TeKUGqqnYLiHbOtC/5n9eOWIGSV2m3QouTHFguw8cRls7amINhwv1yt+ldKtWQ+pD
-	YKjpNfw==
-X-Received: from plbkm15.prod.google.com ([2002:a17:903:27cf:b0:2e9:5442:b91a])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:22c1:b0:2e9:6788:9372
- with SMTP id d9443c01a7336-2e9a6d3668fmr18323965ad.62.1792213448706; Fri, 16
- Oct 2026 22:04:08 -0700 (PDT)
-Date: Sat, 17 Oct 2026 05:04:08 +0000
-In-Reply-To: <tencent_A643419B56079E9A448D97922763FF069F08@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EIXuIoXy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99FF1F000C4;
+	Sat, 17 Oct 2026 05:06:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792213620;
+	bh=4UCDTeoeo6cYiyxMe9fYq1aH8U/k4xUlpfLtsbN67hA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=EIXuIoXy3+29oJgMgyp8pD7E1RqhrdvTx66dg09UFZxu3s/lF9aLfGDZNGCa2SIF/
+	 oxowfoZns3iT4cOk03+0TzbAIqvJgnhTELjWmgnPXr8oUwdtYNBAfAmefJSg/Zq/RO
+	 oX6Oq5lwVWDP6vcZXmtuKSm8q0d0U9Zr+vJwJ6weNPcY8h1/1je4bFGIU2Lv5BefoM
+	 kiYy0UcTAGlJnGXFuqr2PP2emuszSh1RF69p8Dzq8BD25ApyI0/XQ+aXRv2qYK3VJ0
+	 9/07h1MunZMohHlmZmRm+vYyil2kI8jPGST8vA5xnptPNV+UMBUhuNqI/o1sbliX2Z
+	 rlw6Pxg5Sx9Gg==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
+ jingoohan1@gmail.com, Hans Zhang <18255117159@163.com>
+Cc: robh@kernel.org, a-garg7@ti.com, linux-pci@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260930013842.82476-1-18255117159@163.com>
+References: <20260930013842.82476-1-18255117159@163.com>
+Subject: Re: [PATCH] PCI: dwc: Describe DWC PCIe fields with full masks and
+ FIELD_PREP()
+Message-Id: <179221360235.2165.13933379659986541066.b4-ty@b4>
+Date: Sat, 17 Oct 2026 10:36:42 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <tencent_A643419B56079E9A448D97922763FF069F08@qq.com>
-Message-ID: <atMBc9DNAnFhsR9V@google.com>
-Subject: Re: [PATCH net v3] net: unix: reject negative max_dgram_qlen values
-From: kuniyu@google.com
-To: Yingjie Wang <1075151112@qq.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, stable@vger.kernel.org, skhan@linuxfoundation.org, 
-	rdunlap@infradead.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=355;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=UNjcYDt4Eez7Rct3x9msn07EXLMBl1+K916IzfnTGS8=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq0wJvl8Ay+Jvq3whqz6n62/7yWs1n6YmtzzehT
+ NrlkVwLT4GJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCatMCbwAKCRBVnxHm/pHO
+ 9esZB/4uBJ1bGH4foyQieZE9iqZAzSGWjWIBZARh/xU8s5PZ4QXB6YGXjOM3LWaJMy/wyd3KlrZ
+ ZCu6QLuOyIoJkGyRfhYMC4YXZv5XGrvPEKn84LNNb+xlQl4u1KnujQAEjzH5v+BWXPEib0fQyy9
+ 9eXWgYqsv3V3CVFemFZ5/unQJYfaxh/caBobWBYyyp9QBWm69hfYGLmR3IHTd35Bik3H9a86Jb6
+ vnKXe5FiOAT+KVPSH682SoZyusVs8EZWF/URsVUzhkyobvUOkap2R4UFr5QDc1fIB6YUZzlfmQs
+ Db1o7u9H8G4KONLK06iQyyGk0DstR9dluFCDV2cAwpyCu8w6
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On Fri, 16 Oct 2026 11:02:58 +0800, Yingjie Wang wrote:
-> net.unix.max_dgram_qlen is parsed as a signed int and copied to the u32
-> sock::sk_max_ack_backlog when an AF_UNIX socket is created.  Consequently,
-> a negative value such as -1 is accepted and converted to UINT_MAX.  Since
-> the receive queue length is also u32, its fullness check cannot become true
-> for that limit.
-> 
-> max_dgram_qlen has no documented negative sentinel.  Its existing signed
-> interface represents nonnegative values only through INT_MAX; negative bit
-> patterns are not a supported encoding for the upper half of the u32
-> consumer range.
-> 
-> Switch to proc_dointvec_minmax and make the established 0..INT_MAX input
-> range explicit.  This rejects negative values without adding new accepted
-> values or changing the default and zero-value behavior.  Very large valid
-> values can still make the queue limit impractical to reach; this change
-> corrects the input domain rather than imposing a new resource ceiling.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Yingjie Wang <1075151112@qq.com>
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+On Wed, 30 Sep 2026 09:38:42 +0800, Hans Zhang wrote:
+> PCI: dwc: Describe DWC PCIe fields with full masks and FIELD_PREP()
+
+Applied, thanks!
+
+[1/1] PCI: dwc: Describe DWC PCIe fields with full masks and FIELD_PREP()
+      commit: 0bb385e6f5bc3f172097ec16392fc19493725c25
+
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
+
+
