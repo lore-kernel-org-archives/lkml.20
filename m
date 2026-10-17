@@ -1,77 +1,67 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mta1.migadu.com (out-75.mta1.migadu.com [95.215.58.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F7348D874
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:38:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF5E3CCFB2
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792247917; cv=none; b=MjhhVrYb4oHxYjJiuG6mXiP7tOcKU98cP7FD39NvZuIfZvKK3qxkBOZf6JOozDHF2Nu5OeZ2FZ37knt49jV9g38ghPA8Y4AG7JhI18OFwc737Rwoq258+DXiX2/obdDfvqv6cUdmEbdarXY5ZwBl5QWKGyzDO1LaJYMGFQPlBa8=
+	t=1792247922; cv=none; b=rXG6wjego3rBhfcBMz3mN0aoPzMTU7w9pNUmjpK43C39comhpnTpL6HRTysB0qVzQuRCuBIQRI+ikFRruQpTU2wU6wq5S1hS7ajTTMLW+kKNVkLP4sQczl7GSO2HFAt34eKMMYZcoVPqa4qeEScnYq5nL86/1cupGCkb3Y9lJLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792247917; c=relaxed/simple;
-	bh=pzHYCNoq9J/xjDTIZm1GzwKAg0a5eysa5HPlMSXc4zM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ThpBv+YcPJoixeymYqlcXbEEy1F3PEpGXyhVJJjd93PYkyOG7kbLNKAZ/UAhFLTe32+bmnNw+3vb7W93Qcj6iBDTHQBQQQpoqRleVn2ZnwHbmOxbC8rMGyTjzJJ1pFwXcxKWXKNe7YItLiZYWftDo0x6bjuolthp0PN7ugLFTCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qvO/TU5f; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792247922; c=relaxed/simple;
+	bh=EpvuBxKqKA4laIc2RRTTydYfpNhHi/D1qOfWR0z9OUo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dYVGIp9wTvdV/wjmqlD9uA/iMLQTElU49Plw/I9tBFs07ZsQcYLU4nNQi34Rsx6d3fgHaGl1jqCwkM6RClr3LQCKXbcp/txD3oMO1+UM016tcO2F4MBehF5gmWZXIc0Fv4Hfxyj1m4oEQc5DPbgnr7SoMgW9IkvYN6HxuIa3Bds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QtEdAY3O; arc=none smtp.client-ip=95.215.58.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qvO/TU5f"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35ef6b49813so1593009eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:38:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792247915; x=1792852715; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nt2I2LjFkGPbme+OwhKJrbwORKBaSL5qspjiblTND8U=;
-        b=qvO/TU5fM5R5qvUwyT7zYJgVFkTmuuuofvZ/L8CXG+ULU+6XD7aaH4PAaDXtdu593W
-         l75hTIyk3U8wYKMCd9mNhY3d/0cC0t2LIJBC5kOTKvCeuZRzUexF9tPZttN8+1cAQeaN
-         NNcGEqX5tBQ+TRvOAU1KXJYmSJ/YvtwB9anNU63H8aRfL73j3i99EbMj3pqbJylhAzvm
-         77nHSHHytoQy3aI7129cNMa7ITYIDVhCuOWWoDQ2fsGyuWvYgNRiTGaDd7BSflxuwSDb
-         I7HI8q5rrhM4aB57vOpAQyndZJDSbHrL0EqaPB5/Yi0oHInVm3nUMQ2jeeCRSs8Rl2Jh
-         0FzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792247915; x=1792852715;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nt2I2LjFkGPbme+OwhKJrbwORKBaSL5qspjiblTND8U=;
-        b=qXfzqDbpKG/Rhy34odZrzgEn5EBN6H70h4qIh1FkVOJu4FJnh6mkzL5Y2Ljctyqep/
-         k9hguiHOWdg62OklNoGjoCB4x8xoDBUhJnAlGAmqNWgimuPn3tiuietVnrMlM/M6Ep8G
-         Vstnu/HU7I8TYZUl3yaR5RmF+qOZvy5qUDq1Cl1tqaLZVLIIGcYyjnElhzv/aFzxDMYC
-         xDFWjxYP415DpvDBz5ttPsJxuC/cht1fA+rdzF0GS39YdDV9USrAQ/V7gu0MqskGCXCv
-         1BkN5nz8Hl9qStyPrKPaAcol774dNsyX8LwjXcM5+hSz1oFOy7Zxeb1hvux79Ou+jy2L
-         n5Yg==
-X-Forwarded-Encrypted: i=1; AKwUvByQyiqwaPM78TO9uk9vblvNte0EKXy1b2tdC52yzt2ApXCaSc4tDNP6fAijWmnQ5jF1mckb4d5MsoXzGCM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/S5ZUtq3mY22FcJHt0RgHoaGFg1G3LuNNeBkFsRMVuCaZ7P0w
-	Ob/MzDrzMUZslUENNWKnVJD6tcmQhtGa37ETYr/acwdgHriN9vVamCLu
-X-Gm-Gg: AYBFou2F5SkeXcr24A1XxsPRjU3MCvY+qVjzJdNIMyH67t7qguntuCd73UbLziHSEoJ
-	a33rEdJCp8Yth41zaVzOM3V6nT1rScjBnLQPXxLxmLibqWFgZQ2YuPFvk9ctpxVOviOvQ/3kbO/
-	MyQzzZeYlBXJ5jy2wSOxHSasXvlVdwMaaBIBRjh/KAqbQoU/54lOPSx7YmXlVPxh67KmAxaE3NM
-	pnomOO1e8KY/+BvGWNHH7U8Z1mEgNOqefS4IGSTNIPInBd4TmD3L7RONwROshZ289M1s5zafktS
-	Fc95iE3tlAtXyCMSpEl7MqfPsSFtazV59JtrEW8kCQeo2rlWv6pR71G88R69nzuG5xlQ8lqi1gN
-	c0RGee/zKns2p2db6LjQXESemz0Im9qrk8W9ZOGiFgQ8Q/BaiQ8+6b4nbyjWl0wfbhoGePqjFhI
-	TaaZbtNKDcMoUANCD7I1dvTKYSwFjeBxOmGtSG1nbKdHiyLdz6W3FRqYJ+Dhn8
-X-Received: by 2002:a05:693c:65d2:b0:35c:cd26:3066 with SMTP id 5a478bee46e88-361a36162a3mr4238189eec.41.1792247914782;
-        Sat, 17 Oct 2026 07:38:34 -0700 (PDT)
-Received: from beelink ([186.22.57.86])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081ab80f9sm26652075eec.12.2026.10.17.07.38.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:38:34 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	linux-input@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QtEdAY3O"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EpvuBxKqKA4laIc2RRTTydYfpNhHi/D1qOfWR0z9OUo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792247918; v=1; x=1792852718;
+ b=QtEdAY3OKyScLag+Z2Jpk2i75ZuZqwAmCGbx7Q1Rfp48QMfKBunGUNeycxjU1W81kTuV4fSZ
+ hvr3H4h1w8jOBzsQHpJ46kgcD97JdN9dtuc9fNPILBmKhNokXA9+6MBkdMypMh63NQpJgwmC1Eo
+ UQsImNvcSI2Kc9XhZryLPCY0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 826e6dd93e69ed21;
+	Sat, 17 Oct 2026 14:38:37 +0000
+X-Mizu-Trace-ID: 826e6dd93e69ed21
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Kaiyan Mei <M202472210@hust.edu.cn>,
+	Yinhao Hu <dddddd@hust.edu.cn>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Amery Hung <ameryhung@gmail.com>,
+	Martin Teichmann <martin.teichmann@xfel.eu>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v10 1/2] HID: haptic: make FF creation the last fallible init step
-Date: Sat, 17 Oct 2026 11:38:09 -0300
-Message-ID: <20261017143810.1567677-2-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261017143810.1567677-1-qwe.aldo@gmail.com>
-References: <20261017143810.1567677-1-qwe.aldo@gmail.com>
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf v2 1/2] bpf: Fix verifier WARN on narrow read of bpf_tcp_sock u64 fields
+Date: Sat, 17 Oct 2026 22:38:12 +0800
+Message-ID: <20261017143819.209510-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,176 +70,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The caller holds the module while setting up the device. Use
-__module_get() after input_ff_create() succeeds, leaving no fallible
-step after the FF callbacks are installed.
+A BPF program can read the middle of a u64 field in struct bpf_tcp_sock:
 
-Drain haptic work through ff->stop when the input device is
-unregistered, before it drops its parent reference. The destroy
-callback also drains work for devices that were never registered.
-After unregistration, that callback only frees local allocations, so
-remove the extra HID device reference and its error path.
+	tp = bpf_tcp_sock(listener);
+	/* +0x54 is in the middle of the u64 bytes_received */
+	unsigned hi = *(unsigned *)((char *)tp + 0x54);
 
-Clear the FF capability bits if input_ff_create() fails. Return the
-error from hid_haptic_input_configured() and save it in the multitouch
-driver. Probe must fail even if hidraw lets hid_connect() succeed after
-hidinput_connect() has unwound.
+bpf_tcp_sock_is_valid_access() allows this 4-byte read (the default case
+only checks size == 4), but bpf_tcp_sock_convert_ctx_access() only knows
+the field starts and has no idea how to handle such an offset. It emits
+no instruction, cnt stays 0 and the fixup pass trips verifier_bug():
 
-Fixes: 8d0bf7908b5a ("HID: multitouch: add haptic multitouch support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+	verifier bug: error during ctx access conversion (0)
+
+Just disallow the narrower access by matching the whole u64 range of the
+two fields, so it is turned down at check time:
+
+	invalid tcp_sock access off=84 size=4
+
+Fixes: 655a51e536c0 ("bpf: Add struct bpf_tcp_sock and BPF_FUNC_tcp_sock")
+Reported-by: Kaiyan Mei <M202472210@hust.edu.cn>
+Reported-by: Yinhao Hu <dddddd@hust.edu.cn>
+Reported-by: Dongliang Mu <dzm91@hust.edu.cn>
+Closes: https://lore.kernel.org/bpf/7a8ff335.1024c.1a14395f3e5.Coremail.kaiyanm@hust.edu.cn/
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
- drivers/hid/hid-haptic.c     | 48 ++++++++++++++----------------------
- drivers/hid/hid-multitouch.c | 18 ++++++++++++--
- 2 files changed, 35 insertions(+), 31 deletions(-)
+v1 -> v2: Add a selftest (Alexei).
+v1: https://lore.kernel.org/bpf/DM6CTQQV55G1.1AU1HIBPQYW8J@gmail.com/T/#t
+---
+ net/core/filter.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index 8760eeb..0a6126e 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -96,7 +96,7 @@ int hid_haptic_input_configured(struct hid_device *hdev,
- 	if (error) {
- 		dev_warn(&hdev->dev, "Cannot allocate haptic for %s\n",
- 			 hdev->name);
--		return 0;
-+		return error;
- 	}
+diff --git a/net/core/filter.c b/net/core/filter.c
+index ba536be2915f..f0eae1c14b2f 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -7600,8 +7600,8 @@ bool bpf_tcp_sock_is_valid_access(int off, int size, enum bpf_access_type type,
+ 		return false;
  
- 	return 1;
-@@ -377,14 +377,22 @@ static int hid_haptic_erase(struct input_dev *dev, int effect_id)
- 	return 0;
- }
- 
-+static void hid_haptic_stop(struct ff_device *ff)
-+{
-+	struct hid_haptic_device *haptic = ff->private;
-+
-+	if (haptic->wq) {
-+		destroy_workqueue(haptic->wq);
-+		haptic->wq = NULL;
-+	}
-+}
-+
- static void hid_haptic_destroy(struct ff_device *ff)
- {
- 	struct hid_haptic_device *haptic = ff->private;
--	struct hid_device *hdev = haptic->hdev;
- 	int r;
- 
--	if (hdev)
--		put_device(&hdev->dev);
-+	hid_haptic_stop(ff);
- 
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
-@@ -396,9 +404,6 @@ static void hid_haptic_destroy(struct ff_device *ff)
- 	}
- 	haptic->effect = NULL;
- 
--	destroy_workqueue(haptic->wq);
--	haptic->wq = NULL;
--
- 	kfree(haptic->duration_map);
- 	haptic->duration_map = NULL;
- 
-@@ -419,8 +424,6 @@ int hid_haptic_init(struct hid_device *hdev,
- 	};
- 	const char *prefix = "hid-haptic";
- 	char *name;
--	int (*flush)(struct input_dev *dev, struct file *file);
--	int (*event)(struct input_dev *dev, unsigned int type, unsigned int code, int value);
- 
- 	haptic->hdev = hdev;
- 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
-@@ -501,38 +504,25 @@ int hid_haptic_init(struct hid_device *hdev,
- 
- 	input_set_capability(dev, EV_FF, FF_HAPTIC);
- 
--	flush = dev->flush;
--	event = dev->event;
- 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
- 	if (ret) {
- 		dev_err(&hdev->dev, "Failed to create ff device.\n");
--		goto stop_buffer_free;
-+		goto ff_cap_clear;
- 	}
- 
- 	ff = dev->ff;
--	ff->private = haptic;
- 	ff->upload = hid_haptic_upload_effect;
- 	ff->playback = hid_haptic_playback;
- 	ff->erase = hid_haptic_erase;
-+	ff->stop = hid_haptic_stop;
- 	ff->destroy = hid_haptic_destroy;
--	if (!try_module_get(THIS_MODULE)) {
--		dev_err(&hdev->dev, "Failed to increase module count.\n");
--		goto input_free;
--	}
--	if (!get_device(&hdev->dev)) {
--		dev_err(&hdev->dev, "Failed to get hdev device.\n");
--		module_put(THIS_MODULE);
--		goto input_free;
--	}
-+	__module_get(THIS_MODULE);
-+	ff->private = haptic;
- 	return 0;
- 
--input_free:
--	input_ff_destroy(dev);
--	/* Restore dev flush and event */
--	dev->flush = flush;
--	dev->event = event;
--	return ret;
--stop_buffer_free:
-+ff_cap_clear:
-+	__clear_bit(FF_HAPTIC, dev->ffbit);
-+	__clear_bit(EV_FF, dev->evbit);
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
- buffer_free:
-diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index 4e19a0c..154dc94 100644
---- a/drivers/hid/hid-multitouch.c
-+++ b/drivers/hid/hid-multitouch.c
-@@ -174,6 +174,7 @@ struct mt_device {
- 	struct mt_class mtclass;	/* our mt device class */
- 	struct timer_list release_timer;	/* to release sticky fingers */
- 	struct hid_haptic_device *haptic;	/* haptic related configuration */
-+	int haptic_init_error;
- 	struct hid_device *hdev;	/* hid_device we're attached to */
- 	unsigned long mt_io_flags;	/* mt flags (MT_IO_FLAGS_RUNNING) */
- 	unsigned long *active_slots;	/* bitmap of slots with an active
-@@ -1958,8 +1959,16 @@ static int mt_input_configured(struct hid_device *hdev, struct hid_input *hi)
- 	if (td->is_haptic_touchpad && (td->mtclass.name == MT_CLS_WIN_8 ||
- 	    td->mtclass.name == MT_CLS_WIN_8_FORCE_MULTI_INPUT ||
- 	    td->mtclass.name == MT_CLS_WIN_8_KEEP_LATENCY_ON_CLOSE)) {
--		if (hid_haptic_input_configured(hdev, td->haptic, hi) == 0)
--			td->is_haptic_touchpad = false;
-+		if (hi->application == HID_DG_TOUCHPAD) {
-+			ret = hid_haptic_input_configured(hdev, td->haptic, hi);
-+			if (ret < 0) {
-+				td->haptic_init_error = ret;
-+				td->is_haptic_touchpad = false;
-+				return ret;
-+			}
-+			if (ret == 0)
-+				td->is_haptic_touchpad = false;
-+		}
- 	} else {
- 		td->is_haptic_touchpad = false;
- 	}
-@@ -2197,6 +2206,11 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
- 	if (ret)
- 		return ret;
-+	if (td->haptic_init_error) {
-+		ret = td->haptic_init_error;
-+		hid_hw_stop(hdev);
-+		return ret;
-+	}
- 
- 	ret = sysfs_create_group(&hdev->dev.kobj, &mt_attribute_group);
- 	if (ret)
+ 	switch (off) {
+-	case offsetof(struct bpf_tcp_sock, bytes_received):
+-	case offsetof(struct bpf_tcp_sock, bytes_acked):
++	case bpf_ctx_range(struct bpf_tcp_sock, bytes_received):
++	case bpf_ctx_range(struct bpf_tcp_sock, bytes_acked):
+ 		return size == sizeof(__u64);
+ 	default:
+ 		return size == sizeof(__u32);
 -- 
-2.53.0
+2.43.0
 
