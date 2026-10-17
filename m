@@ -1,302 +1,404 @@
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E003384CCB
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:56:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EE838654F
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792202184; cv=none; b=PPwqJNSC06jwZKIEGMVvIl8CMEDLr+Z/RjQ/sSK+/KO2KCJ5DLZ7SsgbuDvrLw+664CuhDRvvSMi+upm4OgODnI1lepX/yfJfhdo0EXNABmcYyd+n/mMylFZnUGZFWRcmeR0AlJfwh4/Fx+TAH9gvjaCertOCO5QWUDupm9fAt0=
+	t=1792202188; cv=none; b=DvflGNat0Oqae5L/ItG+tfgVCpQUc9hbIp1VTLwMW6BhRYbqYHRQYYqNeB36c630OHjeIIJ4MhD2x3+arUv4GH8zY0Qv78rToBudgUItVAenlX9ibvK0YLRrEaScbFZf6jTfr4RAyXznLK1NsNfBdv3KV8T/5JYhuAuBL7StCbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792202184; c=relaxed/simple;
-	bh=0sfPDDT0jECZIMZZ9J0nFJ+B721wObM7DqWeHH9xcrk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=arWY8NbnEm9Zf1f1siUcCcdrl6abEXZ5KK0ehn+hAAEo2r20x0rpKpgNQT15mzFhhLIiDW+K0BD+MdvV4LMPyP5MqLgMtwScD+VgJhGexDwwuIAjkLrTYPcYHXt5LXbYdh4R1y+AG5/YqvJBy/oSJe990BCKl+mDZYtAyCUNlRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ScACKjkJ; arc=none smtp.client-ip=74.125.224.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792202188; c=relaxed/simple;
+	bh=/+uWIo0AOwwHseK6ggMSFkFP4XhbUdmKdJ6Qx7yQ6mA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PxJIWK2E/P+rSyaMpJOkJAxzduOkuIkdwpRUNtmRYV3WTFwyjbKsFoQs5JYmHXfrQAKGGrHQxsmsgkSBD36PeySmPbO8ZhxDrVsIQ2SkHethQP/EmvUazfdoW5+vLc/RXcvjmLSfNxVoGSlY6c572GlX3HUqKPiwAbEohtAlY+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDLdALXP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ScACKjkJ"
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-679334baa1fso564376d50.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 18:56:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792202181; x=1792806981; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uQsk+DrjtKX2noPiCRNVvYKJ7WY0cqf+gtD3vyGOBkg=;
-        b=ScACKjkJzCzHGy/9ydwQSyLBsKOCu0Pdi6uFaYGpgjpxFf7YPP3c4XpaBqeLwqGxSy
-         jVjQUdFvguiTPq7kVDWbV835dLpwuCZYYhtpQ9Sx1mHJvUQUUmljuiXKzL3Pkhjcs/35
-         q9dcfa+kVYHxlPLIvf0eeGxnj4BIw4tr6RaDtznImBNx6G9cto2eEYJjEua88waUW0p4
-         +ax/rrHw4ooPIKJN5hOvUdjVRMV51IAJGb6DFnSpaYWunXnqaYF/tInfrOP0CROd46S8
-         8hQNpa6QZAy4GGQnwm6RDQHFCb+CUoPSTXbPV1IqfYFhUE3vgVbO1sW24bsIn5in9HQL
-         Rv4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792202181; x=1792806981;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uQsk+DrjtKX2noPiCRNVvYKJ7WY0cqf+gtD3vyGOBkg=;
-        b=u1MTxOI9gE2N3FWEVV3y6l9I1ll0bmvjPip0tDZ09rHbHBOqe1SL1lt8NJIUz3UXje
-         vB2r9rLzPwYdkk6W5MBTlRqVcH3g3+cFLpjngNt5T6dlegecktJtc5RhzoK49XxQaUGK
-         ++csmhIza1LMkAonx/pqxWT/o0URphGXeOeJBCeNbuTnMJRdTlZTHOcLiUtZMomuHsWR
-         NgENNbqF5pWiTFK4ep9Uy8wgk9wz6fxM917Fs7UzENS+hSyqClyCIW79uaBjMC0zBM24
-         EIQCfis8iMmCJ4cUNVZqDav4VYUKygyatAehkkHupI16QhwzgZHja2UbPmazupNBzEsF
-         jJ1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzT/CLkQkdG5AKWL5+xFhL8k6IkpITdYgfwhBv3XirkIGF9pcg8Ng5hYQdl4UFnDO2dhcINMwXip7/gKOc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILIhq/xr7VHhTBFev0l27Jksqs45whhYNsVW3ovCmOF5Z4T+CU
-	iE0nhbQXUXWRhoyf0k+JTStUxOZWbRLXEq2g7ZoNPN53IBvaiC8m0JseEhzmvw==
-X-Gm-Gg: AYBFou3vcWWwHWbyg6NcWeFIc/NSYwcGn8Bi2+zqMRGL4P4AeRrkF1b/zWSYTN/S5zV
-	W7hNxuD8zhObt9PdFpWCP4Vx/yMVfky1jXh/1HtyqfXWvbrFaaNKlAuBJb1oPNFthJT+2fwyey4
-	6SPuiCWxjTIsslbYsnHh8J4jpksgZrAJynqT04cg3qRNktE4jmHnrNdheiNWmQ4o7exme2cWXqH
-	3C1CwVrISwVKGPq2XJUKObiXf07Q/IysdD9Pq65l2scGd8C8lAHc0nkWA+by5ELB5dfpVkhWsfr
-	MNn9ZIGnMfeKWmj7kZR04b/r8av0pey9kdyoB+X26zRY474sY1B8EKjCwn2DfiC9g9/x6Ki0tS0
-	BKIpb77GubPcWmACuD/J0ONSHxOouYqrTwfbf9zZNakEpL3ZrAKY1t6HOX8cm8lK6+1XklVsEGL
-	PN8TbL3h6eNdZE/uJS/35hqgDvyf5uxH9wjycpv9SomvQKdSXjyJ1npmrJQLWKYzfgLEYbPDOe3
-	WSE9/Xe+fpnDWm16k8e6m9eGrZA74EHfI9ddCMtBO+grPB2Ph18nHsJ2okoqgOaisNr6ajZFl1p
-	q8zylyHkh6TppmfStI8JBQinAZmSRyZO5DYJIxw74lvLAV8G+vnjSNSqeCM9KdqtTNTa1/K+EA5
-	GGUBame+rm6zFYWlAFna1LO5aeLXjfDA=
-X-Received: by 2002:a05:690e:4184:b0:679:8f96:ee34 with SMTP id 956f58d0204a3-679ca572478mr317726d50.22.1792202181284;
-        Fri, 16 Oct 2026 18:56:21 -0700 (PDT)
-Received: from localhost (108-93-236-139.lightspeed.chtnsc.sbcglobal.net. [108.93.236.139])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e58d93a0sm16403857b3.23.2026.10.16.18.56.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 18:56:19 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-Date: Fri, 16 Oct 2026 21:55:50 -0400
-Subject: [PATCH v2 4/5] alpha: add HAVE_PERF_REGS and
- HAVE_PERF_USER_STACK_DUMP support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDLdALXP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3B3B1F000C4;
+	Sat, 17 Oct 2026 01:56:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792202184;
+	bh=0rWnZr7Z4gcmdUZczrbV6bnoyNCH/GLlyErDBCOrRLQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VDLdALXPlt/3oa2XhyECDiriUm78Eq1aMqrSvQsaFQ+xgSs9K6NIxrTNv79VV31Hx
+	 cQs/God6VUdzjhmZyqSsPXrGihcJeM+7Hd/geIyqMLmwVpzVXNOwjuYktj9ijXVUhf
+	 akWfhm0ANdelnKfrP5F6lqebBDQhmm5TkLw0NzLfe/kvZR2/AKgam1pHSuwryk8Aq0
+	 IPZDY+Zn9V/aHAo94ZHxF07fO2Xa7vw0NjHzXDYwDECANg3uOZqZzkLySb3MclAnpK
+	 cGF0nXhJJdOp/CV+NiWWhlSmBzd0IwiF0dvdhIs1obs4dkJBNXXuH3bORlKUqkj1DN
+	 4mIWjGHHLj9wA==
+From: Gao Xiang <xiang@kernel.org>
+To: linux-erofs@lists.ozlabs.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	Gao Xiang <xiang@kernel.org>
+Subject: [PATCH v3] erofs: enable iomap for file-backed mounts on unencoded inodes
+Date: Sat, 17 Oct 2026 03:55:35 +0200
+Message-ID: <20261017015535.65416-1-xiang@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261017002758.52193-1-xiang@kernel.org>
+References: <20261017002758.52193-1-xiang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-alpha-perf-regs-v3-v2-4-17654742226a@gmail.com>
-References: <20261016-alpha-perf-regs-v3-v2-0-17654742226a@gmail.com>
-In-Reply-To: <20261016-alpha-perf-regs-v3-v2-0-17654742226a@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- Ian Rogers <irogers@google.com>, Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6937; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=0sfPDDT0jECZIMZZ9J0nFJ+B721wObM7DqWeHH9xcrk=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLIuXV1cHabXfPv/wXlZq7fs/RC+psz6NZ/GZi3p0+/ij
- 99YeenR+Y6PLAxiXAwzxRRZ4tYrssxq27HU57T0L5g5rEwgQ6RFGhiAgIWBLzcxr9RIx0jPVNtQ
- zxDI0DGKh8jpMWhkFheXphbpphUUOeTllySWZObnFevlF6TmFaQX6KVlppVkZOQXFacCjdDLSy0
- xdXV0MzI0MLF0tDBzsnA0NXF2djJ0cnN0dHZ1MrI0NzFwtnQ0cbU0Z+DiFIC55pMxI8P7pj9rRV
- qZbRfXLGe69Ezk9eV8XnOP9qlr25OiJu9LyL7JyLB11g5H/z3/17CuOBU2/+ejjMvbP/E+OK916
- PmZCwLM2634AA==
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
+Content-Transfer-Encoding: 8bit
 
-Let perf sample registers and dump the user stack, which is what the
-perf tool needs for --call-graph dwarf.
+Iomap supports non-bdev I/O through fs-provided callbacks since
+commit b2f35ac4146d ("iomap: add caller-provided callbacks for read
+and readahead"), making it suitable for file-backed mounts on unencoded
+inodes.
 
-The register indices follow the hardware numbering, so r0-r30 map
-directly to DWARF register numbers, with pc after them. r9-r15
-are callee-saved and live in switch_stack rather than pt_regs, so they
-cannot be sampled. Without r15 an unwinder cannot recover the CFA of a
-first frame that uses $15 as its frame pointer.
+Enable iomap for this case to support sub-folio buffered I/Os on
+file-backed mounts and simplify the codebase.
 
-sp is not in pt_regs either: for user frames it comes from
-user_stack_pointer(), and for kernel frames (PERF_SAMPLE_REGS_INTR) it
-is the end of the trap frame, as in stacktrace.c.
-
-Software events such as context switches and tracepoints hand perf a
-per-CPU pt_regs filled in by perf_fetch_caller_regs() instead of a
-trap frame. It is not on the stack and has no room for sp, so report
-sp as 0 there rather than the address of the per-CPU buffer.
-
-Assisted-by: Claude:claude-opus-5-5
-Acked-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Matt Turner <mattst88@gmail.com>
+Signed-off-by: Gao Xiang (Docker) <xiang@kernel.org>
 ---
- .../features/perf/perf-regs/arch-support.txt       |  2 +-
- .../features/perf/perf-stackdump/arch-support.txt  |  2 +-
- arch/alpha/Kconfig                                 |  2 +
- arch/alpha/include/uapi/asm/perf_regs.h            | 45 +++++++++++++++
- arch/alpha/kernel/Makefile                         |  1 +
- arch/alpha/kernel/perf_regs.c                      | 64 ++++++++++++++++++++++
- 6 files changed, 114 insertions(+), 2 deletions(-)
+v3:
+ - meta fileIOs shouldn't go into iomap for now.
 
-diff --git a/Documentation/features/perf/perf-regs/arch-support.txt b/Documentation/features/perf/perf-regs/arch-support.txt
-index 4c9a5a012075..7d736d678fd4 100644
---- a/Documentation/features/perf/perf-regs/arch-support.txt
-+++ b/Documentation/features/perf/perf-regs/arch-support.txt
-@@ -6,7 +6,7 @@
-     -----------------------
-     |         arch |status|
-     -----------------------
--    |       alpha: | TODO |
-+    |       alpha: |  ok  |
-     |         arc: | TODO |
-     |         arm: |  ok  |
-     |       arm64: |  ok  |
-diff --git a/Documentation/features/perf/perf-stackdump/arch-support.txt b/Documentation/features/perf/perf-stackdump/arch-support.txt
-index dd362b5cb638..17b84ea7769d 100644
---- a/Documentation/features/perf/perf-stackdump/arch-support.txt
-+++ b/Documentation/features/perf/perf-stackdump/arch-support.txt
-@@ -6,7 +6,7 @@
-     -----------------------
-     |         arch |status|
-     -----------------------
--    |       alpha: | TODO |
-+    |       alpha: |  ok  |
-     |         arc: | TODO |
-     |         arm: |  ok  |
-     |       arm64: |  ok  |
-diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
-index b2c359b947f6..8fafbfabd1e5 100644
---- a/arch/alpha/Kconfig
-+++ b/arch/alpha/Kconfig
-@@ -41,6 +41,8 @@ config ALPHA
- 	select HAVE_PAGE_SIZE_8KB
- 	select HAVE_PCSPKR_PLATFORM
- 	select HAVE_PERF_EVENTS
-+	select HAVE_PERF_REGS
-+	select HAVE_PERF_USER_STACK_DUMP
- 	select NEED_DMA_MAP_STATE
- 	select NEED_SG_DMA_LENGTH
- 	select GENERIC_IRQ_PROBE
-diff --git a/arch/alpha/include/uapi/asm/perf_regs.h b/arch/alpha/include/uapi/asm/perf_regs.h
-new file mode 100644
-index 000000000000..da96a31b12fb
---- /dev/null
-+++ b/arch/alpha/include/uapi/asm/perf_regs.h
-@@ -0,0 +1,45 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+#ifndef _UAPI_ASM_ALPHA_PERF_REGS_H
-+#define _UAPI_ASM_ALPHA_PERF_REGS_H
-+
-+/*
-+ * Indices 0-30 match the hardware (and DWARF) register numbers.
-+ * r9-r15 are not saved in pt_regs and cannot be sampled.
-+ */
-+enum perf_event_alpha_regs {
-+	PERF_REG_ALPHA_R0,
-+	PERF_REG_ALPHA_R1,
-+	PERF_REG_ALPHA_R2,
-+	PERF_REG_ALPHA_R3,
-+	PERF_REG_ALPHA_R4,
-+	PERF_REG_ALPHA_R5,
-+	PERF_REG_ALPHA_R6,
-+	PERF_REG_ALPHA_R7,
-+	PERF_REG_ALPHA_R8,
-+	PERF_REG_ALPHA_R9,
-+	PERF_REG_ALPHA_R10,
-+	PERF_REG_ALPHA_R11,
-+	PERF_REG_ALPHA_R12,
-+	PERF_REG_ALPHA_R13,
-+	PERF_REG_ALPHA_R14,
-+	PERF_REG_ALPHA_R15,
-+	PERF_REG_ALPHA_R16,
-+	PERF_REG_ALPHA_R17,
-+	PERF_REG_ALPHA_R18,
-+	PERF_REG_ALPHA_R19,
-+	PERF_REG_ALPHA_R20,
-+	PERF_REG_ALPHA_R21,
-+	PERF_REG_ALPHA_R22,
-+	PERF_REG_ALPHA_R23,
-+	PERF_REG_ALPHA_R24,
-+	PERF_REG_ALPHA_R25,
-+	PERF_REG_ALPHA_R26,
-+	PERF_REG_ALPHA_R27,
-+	PERF_REG_ALPHA_R28,
-+	PERF_REG_ALPHA_GP,
-+	PERF_REG_ALPHA_SP,
-+	PERF_REG_ALPHA_PC,
-+	PERF_REG_ALPHA_MAX,
-+};
-+
-+#endif /* _UAPI_ASM_ALPHA_PERF_REGS_H */
-diff --git a/arch/alpha/kernel/Makefile b/arch/alpha/kernel/Makefile
-index 4ea5c189e60e..0c04b89676ed 100644
---- a/arch/alpha/kernel/Makefile
-+++ b/arch/alpha/kernel/Makefile
-@@ -18,6 +18,7 @@ obj-$(CONFIG_PCI)	+= pci.o pci_iommu.o pci-sysfs.o
- obj-$(CONFIG_SRM_ENV)	+= srm_env.o
- obj-$(CONFIG_MODULES)	+= module.o
- obj-$(CONFIG_PERF_EVENTS) += perf_event.o
-+obj-$(CONFIG_HAVE_PERF_REGS) += perf_regs.o
- obj-$(CONFIG_RTC_DRV_ALPHA) += rtc.o
- obj-$(CONFIG_AUDIT)	+= audit.o
+ fs/erofs/data.c     |  29 ++++----
+ fs/erofs/fileio.c   | 157 ++++++++++++++------------------------------
+ fs/erofs/internal.h |  11 ++--
+ 3 files changed, 70 insertions(+), 127 deletions(-)
+
+diff --git a/fs/erofs/data.c b/fs/erofs/data.c
+index a726be5e27ca..f09c152d5516 100644
+--- a/fs/erofs/data.c
++++ b/fs/erofs/data.c
+@@ -281,12 +281,6 @@ void erofs_onlinefolio_end(struct folio *folio, int err, bool dirty)
+ 	folio_end_read(folio, !(v & BIT(EROFS_ONLINEFOLIO_EIO)));
+ }
  
-diff --git a/arch/alpha/kernel/perf_regs.c b/arch/alpha/kernel/perf_regs.c
-new file mode 100644
-index 000000000000..33ea2e831ba0
---- /dev/null
-+++ b/arch/alpha/kernel/perf_regs.c
-@@ -0,0 +1,64 @@
-+// SPDX-License-Identifier: GPL-2.0
+-struct erofs_iomap_iter_ctx {
+-	struct page *page;
+-	void *base;
+-	struct inode *realinode;
+-};
+-
+ static int erofs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 		unsigned int flags, struct iomap *iomap, struct iomap *srcmap)
+ {
+@@ -308,6 +302,7 @@ static int erofs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 	iomap->length = map.m_llen;
+ 	iomap->flags = 0;
+ 	iomap->addr = IOMAP_NULL_ADDR;
++	iomap->private = NULL;
+ 	if (!(map.m_flags & EROFS_MAP_MAPPED)) {
+ 		iomap->type = IOMAP_HOLE;
+ 		return 0;
+@@ -322,6 +317,7 @@ static int erofs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 		if (ret)
+ 			return ret;
+ 
++		iomap->private = mdev.m_dif;
+ 		if (flags & IOMAP_DAX)
+ 			iomap->dax_dev = mdev.m_dif->dax_dev;
+ 		else
+@@ -396,14 +392,16 @@ int erofs_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
+  */
+ static int erofs_read_folio(struct file *file, struct folio *folio)
+ {
+-	struct iomap_read_folio_ctx read_ctx = {
+-		.ops		= &iomap_bio_read_ops,
+-		.cur_folio	= folio,
+-	};
+ 	bool need_iput;
+ 	struct erofs_iomap_iter_ctx iter_ctx = {
+ 		.realinode = erofs_real_inode(folio_inode(folio), &need_iput),
+ 	};
++	struct erofs_sb_info *sbi = EROFS_I_SB(iter_ctx.realinode);
++	struct iomap_read_folio_ctx read_ctx = {
++		.ops = erofs_is_fileio_mode(sbi) ?
++			&erofs_fileio_iomap_read_ops : &iomap_bio_read_ops,
++		.cur_folio = folio,
++	};
+ 
+ 	trace_erofs_read_folio(iter_ctx.realinode, folio, true);
+ 	iomap_read_folio(&erofs_iomap_ops, &read_ctx, &iter_ctx);
+@@ -414,14 +412,16 @@ static int erofs_read_folio(struct file *file, struct folio *folio)
+ 
+ static void erofs_readahead(struct readahead_control *rac)
+ {
+-	struct iomap_read_folio_ctx read_ctx = {
+-		.ops		= &iomap_bio_read_ops,
+-		.rac		= rac,
+-	};
+ 	bool need_iput;
+ 	struct erofs_iomap_iter_ctx iter_ctx = {
+ 		.realinode = erofs_real_inode(rac->mapping->host, &need_iput),
+ 	};
++	struct erofs_sb_info *sbi = EROFS_I_SB(iter_ctx.realinode);
++	struct iomap_read_folio_ctx read_ctx = {
++		.ops = erofs_is_fileio_mode(sbi) ?
++			&erofs_fileio_iomap_read_ops : &iomap_bio_read_ops,
++		.rac = rac,
++	};
+ 
+ 	trace_erofs_readahead(iter_ctx.realinode, readahead_index(rac),
+ 			      readahead_count(rac), true);
+@@ -457,7 +457,6 @@ static ssize_t erofs_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+ 	return filemap_read(iocb, to, 0);
+ }
+ 
+-/* for uncompressed (aligned) files and raw access for other files */
+ const struct address_space_operations erofs_aops = {
+ 	.read_folio = erofs_read_folio,
+ 	.readahead = erofs_readahead,
+diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
+index ebb81a7ffd4c..c36a90a1a4cb 100644
+--- a/fs/erofs/fileio.c
++++ b/fs/erofs/fileio.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
+  * Copyright (C) 2024, Alibaba Cloud
++ * Copyright 2026 Docker, Inc.
+  */
+ #include "internal.h"
+ #include <trace/events/erofs.h>
+@@ -30,7 +31,8 @@ static void erofs_fileio_ki_complete(struct kiocb *iocb, long ret)
+ 	if (!rq->bio.bi_end_io) {
+ 		bio_for_each_folio_all(fi, &rq->bio) {
+ 			DBG_BUGON(folio_test_uptodate(fi.folio));
+-			erofs_onlinefolio_end(fi.folio, ret < 0, false);
++			iomap_finish_folio_read(fi.folio, fi.offset, fi.length,
++						ret < 0 ? ret : 0);
+ 		}
+ 	} else if (ret < 0 && !rq->bio.bi_status) {
+ 		rq->bio.bi_status = errno_to_blk_status(ret);
+@@ -64,137 +66,76 @@ static void erofs_fileio_rq_submit(struct erofs_fileio_rq *rq)
+ 		kfree(rq);
+ }
+ 
+-static struct erofs_fileio_rq *erofs_fileio_rq_alloc(struct erofs_map_dev *mdev)
++static struct erofs_fileio_rq *erofs_fileio_rq_alloc(struct super_block *sb,
++						     struct file *file)
+ {
+ 	struct erofs_fileio_rq *rq = kzalloc_obj(*rq, GFP_KERNEL | __GFP_NOFAIL);
+ 
+ 	bio_init(&rq->bio, NULL, rq->bvecs, ARRAY_SIZE(rq->bvecs), REQ_OP_READ);
+-	rq->iocb.ki_filp = mdev->m_dif->file;
+-	rq->sb = mdev->m_sb;
++	rq->iocb.ki_filp = file;
++	rq->sb = sb;
+ 	refcount_set(&rq->ref, 2);
+ 	return rq;
+ }
+ 
+ struct bio *erofs_fileio_bio_alloc(struct erofs_map_dev *mdev)
+ {
+-	return &erofs_fileio_rq_alloc(mdev)->bio;
++	return &erofs_fileio_rq_alloc(mdev->m_sb, mdev->m_dif->file)->bio;
+ }
+ 
+ void erofs_fileio_submit_bio(struct bio *bio)
+ {
+-	return erofs_fileio_rq_submit(container_of(bio, struct erofs_fileio_rq,
+-						   bio));
++	erofs_fileio_rq_submit(container_of(bio, struct erofs_fileio_rq, bio));
+ }
+ 
+-static int erofs_fileio_scan_folio(struct erofs_fileio *io,
+-				   struct inode *inode, struct folio *folio)
++static void erofs_fileio_iomap_submit_read(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx)
+ {
+-	struct erofs_map_blocks *map = &io->map;
+-	unsigned int cur = 0, end = folio_size(folio), len, attached = 0;
+-	loff_t pos = folio_pos(folio), ofs;
+-	int err = 0;
+-
+-	erofs_onlinefolio_init(folio);
+-	while (cur < end) {
+-		if (!in_range(pos + cur, map->m_la, map->m_llen)) {
+-			map->m_la = pos + cur;
+-			map->m_llen = end - cur;
+-			err = erofs_map_blocks(inode, map);
+-			if (err)
+-				break;
+-		}
+-
+-		ofs = folio_pos(folio) + cur - map->m_la;
+-		len = min_t(loff_t, map->m_llen - ofs, end - cur);
+-		if (map->m_flags & EROFS_MAP_META) {
+-			struct erofs_buf buf = __EROFS_BUF_INITIALIZER;
+-			void *src;
+-
+-			src = erofs_read_metabuf(&buf, inode->i_sb,
+-				map->m_pa + ofs, erofs_inode_in_metabox(inode));
+-			if (IS_ERR(src)) {
+-				err = PTR_ERR(src);
+-				break;
+-			}
+-			memcpy_to_folio(folio, cur, src, len);
+-			erofs_put_metabuf(&buf);
+-		} else if (!(map->m_flags & EROFS_MAP_MAPPED)) {
+-			folio_zero_segment(folio, cur, cur + len);
+-			attached = 0;
+-		} else {
+-			if (io->rq && (map->m_pa + ofs != io->dev.m_pa ||
+-				       map->m_deviceid != io->dev.m_deviceid)) {
+-io_retry:
+-				erofs_fileio_rq_submit(io->rq);
+-				io->rq = NULL;
+-			}
+-
+-			if (!io->rq) {
+-				io->dev = (struct erofs_map_dev) {
+-					.m_pa = io->map.m_pa + ofs,
+-					.m_deviceid = io->map.m_deviceid,
+-				};
+-				err = erofs_map_dev(inode->i_sb, &io->dev);
+-				if (err)
+-					break;
+-				io->rq = erofs_fileio_rq_alloc(&io->dev);
+-				io->rq->bio.bi_iter.bi_sector =
+-					(io->dev.m_dif->fsoff + io->dev.m_pa) >> 9;
+-				attached = 0;
+-			}
+-			if (!bio_add_folio(&io->rq->bio, folio, len, cur))
+-				goto io_retry;
+-			if (!attached++)
+-				erofs_onlinefolio_split(folio);
+-			io->dev.m_pa += len;
+-		}
+-		cur += len;
+-	}
+-	erofs_onlinefolio_end(folio, err, false);
+-	return err;
++	erofs_fileio_rq_submit((struct erofs_fileio_rq *)ctx->read_ctx);
++	ctx->read_ctx = NULL;
+ }
+ 
+-static int erofs_fileio_read_folio(struct file *file, struct folio *folio)
++static int erofs_fileio_iomap_read_folio_range(const struct iomap_iter *iter,
++		struct iomap_read_folio_ctx *ctx, size_t plen)
+ {
+-	bool need_iput;
+-	struct inode *realinode = erofs_real_inode(folio_inode(folio), &need_iput);
+-	struct erofs_fileio io = {};
+-	int err;
+-
+-	trace_erofs_read_folio(realinode, folio, true);
+-	err = erofs_fileio_scan_folio(&io, realinode, folio);
+-	erofs_fileio_rq_submit(io.rq);
+-	if (need_iput)
+-		iput(realinode);
+-	return err;
++	struct erofs_iomap_iter_ctx *iter_ctx = iter->private;
++	struct folio *folio = ctx->cur_folio;
++	struct erofs_fileio_rq *rq = ctx->read_ctx;
++	sector_t sector = iomap_sector(&iter->iomap, iter->pos);
 +
-+#include <linux/bits.h>
-+#include <linux/perf_event.h>
-+#include <linux/sched/task_stack.h>
-+#include <asm/perf_regs.h>
++	if (!rq || bio_end_sector(&rq->bio) != sector ||
++	    !bio_add_folio(&rq->bio, folio, plen,
++			   offset_in_folio(folio, iter->pos))) {
++		struct super_block *sb = iter_ctx->realinode->i_sb;
++		struct erofs_device_info *dif = iter->iomap.private;
 +
-+#define REG(idx, field) \
-+	[PERF_REG_ALPHA_##idx] = offsetof(struct pt_regs, field)
-+
-+#define REG_RESERVED	(~GENMASK_ULL(PERF_REG_ALPHA_MAX - 1, 0) | \
-+			 GENMASK_ULL(PERF_REG_ALPHA_R15, PERF_REG_ALPHA_R9))
-+
-+static const unsigned int pt_regs_offset[PERF_REG_ALPHA_MAX] = {
-+	REG(R0, r0),	REG(R1, r1),	REG(R2, r2),	REG(R3, r3),
-+	REG(R4, r4),	REG(R5, r5),	REG(R6, r6),	REG(R7, r7),
-+	REG(R8, r8),	REG(R16, r16),	REG(R17, r17),	REG(R18, r18),
-+	REG(R19, r19),	REG(R20, r20),	REG(R21, r21),	REG(R22, r22),
-+	REG(R23, r23),	REG(R24, r24),	REG(R25, r25),	REG(R26, r26),
-+	REG(R27, r27),	REG(R28, r28),	REG(GP, gp),	REG(PC, pc),
++		/* submit the existing range if there was one. */
++		if (ctx->read_ctx)
++			erofs_fileio_iomap_submit_read(iter, ctx);
++		rq = erofs_fileio_rq_alloc(sb, dif->file);
++		rq->bio.bi_iter.bi_sector = sector;
++		bio_add_folio_nofail(&rq->bio, folio, plen,
++				offset_in_folio(folio, iter->pos));
++		ctx->read_ctx = rq;
++		ctx->read_ctx_file_offset = iter->pos;
++	}
++	return 0;
+ }
+ 
+-static void erofs_fileio_readahead(struct readahead_control *rac)
++const struct iomap_read_ops erofs_fileio_iomap_read_ops = {
++	.read_folio_range	= erofs_fileio_iomap_read_folio_range,
++	.submit_read		= erofs_fileio_iomap_submit_read,
 +};
 +
-+u64 perf_reg_value(struct pt_regs *regs, int idx)
-+{
-+	if (idx == PERF_REG_ALPHA_SP) {
-+		if (user_mode(regs))
-+			return user_stack_pointer(regs);
-+		/*
-+		 * Software events built by perf_fetch_caller_regs() use a
-+		 * per-CPU pt_regs rather than a trap frame, and pt_regs has
-+		 * nowhere to record sp, so report none.
-+		 */
-+		if (!object_is_on_stack(regs))
-+			return 0;
-+		/* Same kernel sp approximation as stacktrace.c. */
-+		return (unsigned long)(regs + 1);
-+	}
++static void erofs_fileio_meta_endio(struct bio *bio)
+ {
+-	bool need_iput;
+-	struct inode *realinode = erofs_real_inode(rac->mapping->host, &need_iput);
+-	struct erofs_fileio io = {};
+-	struct folio *folio;
+-	int err;
++	bool uptodate = !bio->bi_status;
++	struct folio_iter fi;
+ 
+-	trace_erofs_readahead(realinode, readahead_index(rac),
+-			      readahead_count(rac), true);
+-	while ((folio = readahead_folio(rac))) {
+-		err = erofs_fileio_scan_folio(&io, realinode, folio);
+-		if (err && err != -EINTR)
+-			erofs_err(realinode->i_sb, "readahead error at folio %lu @ nid %llu",
+-				  folio->index, EROFS_I(realinode)->nid);
+-	}
+-	erofs_fileio_rq_submit(io.rq);
+-	if (need_iput)
+-		iput(realinode);
++	bio_for_each_folio_all(fi, bio)
++		folio_end_read(fi.folio, uptodate);
+ }
+ 
+-const struct address_space_operations erofs_fileio_aops = {
+-	.read_folio = erofs_fileio_read_folio,
+-	.readahead = erofs_fileio_readahead,
+-};
+-
+ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+ {
+ 	struct erofs_fileio io = {
+@@ -207,10 +148,10 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+ 	if (err)
+ 		return err;
+ 
+-	io.rq = erofs_fileio_rq_alloc(&io.dev);
++	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
++	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
+ 	io.rq->bio.bi_iter.bi_sector =
+ 		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
+-	erofs_onlinefolio_init(folio);
+ 	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
+ 	erofs_fileio_rq_submit(io.rq);
+ 	return 0;
+diff --git a/fs/erofs/internal.h b/fs/erofs/internal.h
+index da58053c1116..924b37e06e1c 100644
+--- a/fs/erofs/internal.h
++++ b/fs/erofs/internal.h
+@@ -380,7 +380,6 @@ struct erofs_map_dev {
+ 
+ extern const struct super_operations erofs_sops;
+ extern const struct address_space_operations erofs_aops;
+-extern const struct address_space_operations erofs_fileio_aops;
+ extern const struct address_space_operations z_erofs_aops;
+ 
+ extern const struct inode_operations erofs_generic_iops;
+@@ -392,7 +391,14 @@ extern const struct file_operations erofs_file_fops;
+ extern const struct file_operations erofs_dir_fops;
+ extern const struct file_operations erofs_ishare_fops;
+ 
++struct erofs_iomap_iter_ctx {
++	struct page *page;
++	void *base;
++	struct inode *realinode;
++};
 +
-+	if (WARN_ON_ONCE((u32)idx >= PERF_REG_ALPHA_MAX ||
-+			 BIT_ULL(idx) & REG_RESERVED))
-+		return 0;
-+
-+	return *(unsigned long *)((void *)regs + pt_regs_offset[idx]);
-+}
-+
-+int perf_reg_validate(u64 mask)
-+{
-+	if (!mask || mask & REG_RESERVED)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+u64 perf_reg_abi(struct task_struct *task)
-+{
-+	return PERF_SAMPLE_REGS_ABI_64;
-+}
-+
-+void perf_get_regs_user(struct perf_regs *regs_user,
-+			struct pt_regs *regs)
-+{
-+	regs_user->regs = task_pt_regs(current);
-+	regs_user->abi = perf_reg_abi(current);
-+}
-
+ extern const struct iomap_ops z_erofs_iomap_report_ops;
++extern const struct iomap_read_ops erofs_fileio_iomap_read_ops;
+ 
+ int erofs_setup_managed_cache(struct super_block *sb);
+ #ifdef CONFIG_EROFS_FS_BACKED_BY_FILE
+@@ -450,9 +456,6 @@ erofs_get_aops(struct inode *realinode)
+ 			  "EXPERIMENTAL EROFS subpage compressed block support in use. Use at your own risk!");
+ 		return &z_erofs_aops;
+ 	}
+-	if (IS_ENABLED(CONFIG_EROFS_FS_BACKED_BY_FILE) &&
+-	    erofs_is_fileio_mode(EROFS_SB(realinode->i_sb)))
+-		return &erofs_fileio_aops;
+ 	return &erofs_aops;
+ }
+ 
 -- 
-2.55.0
+2.47.3
 
