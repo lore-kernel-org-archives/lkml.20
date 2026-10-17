@@ -1,120 +1,208 @@
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC4D3A7F4D
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848DD35E93B;
+	Sat, 17 Oct 2026 17:50:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792259356; cv=none; b=iqjnGcZ8yL7bABfMY8KZ1ek5b/O8ko6ugGsjS2Ckx7zRX1E23Wno5yypTnO5lEeKJ3MtgHBR3wSu6k33VthOZdv8rdvT+1hW9+Y/r7YDAnLf01C31lsi+52wROTpFpEkZcKGZBOsiOB3UyPr0MuwQ8t3hQu7pmJnJjKbtyXTJlo=
+	t=1792259403; cv=none; b=te6qbP4fzN9ut2ibeMz6+P1UeoaGfpvoNmx4dmIQUQpVIVrmjifBq/8zkgn3RUyvSMSUy9/thEYBRNfCt5veLLO26BBYM3hcuckSIX7+Kwd+IVm3cVoJyrkFB6tKi+iilSV23LBouzIqLVAHHdFLleGNgVDTsAXO4cq5NLZIhdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792259356; c=relaxed/simple;
-	bh=9iVYwkAnCtZ3hFTHC7pQKEPigp9IEaagz00Mkpk73RY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OdjRrrL22hkwmtkdC0xcrQV5AFRw9bIodr/9KqdXPZqaLsc3yT6lTR00f8wUdNr4N8PC1Zs14FuJqAR+2HlIQikX9SuFgOLTuDri4c4skE59kBWyzx6oilGn+DCLioN9aSfbyiKd3Heyzfoglt8NT+5YndudU3XylvFEL+zPSV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=NRyAzGFy; arc=none smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1792259403; c=relaxed/simple;
+	bh=WomyPTJOf7S6kPc9z8XyViMr1A04acnVLxGEefz8QuQ=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=sGR2SnNrTjB6QDkAqONdIfNLK2nAf4/YGBJHsDvhZGCvwiokxHtgRsKkxLZV8MM3Qp9y9TH+p219uTA1MXeGUqjKAzRcKFZIvZjC9YpWdHzLF0QnHrIisIUbCTJIX0s80SF2xY0bnWvz4J0/rm5S09Jxvau2r6fRu+zLTvNwYGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=a5Mn7W6/; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=XC0HNqzp; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="NRyAzGFy"
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-917997ab0d9so4281186d6.3
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:49:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792259354; x=1792864154; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6ZKiIqr2wNuyAPe6hCnVLHZyBqqQ8TWVMIEldJ82jWw=;
-        b=NRyAzGFywlf+ipFSkikeU1QJNkmpIa6EXsxE7+o7jrUMJwkna2NQbS0i6CDrzKuziq
-         psUDgr5fFUjCbFn5Z0o7CdRmuU/DbCiLGCKKX/hpmeUL2U7oJE3UITKw3Pw4wn/N45/Q
-         YHf1HlBso1n07ntQMSElPSX6T3YXss1oNmpm4GU7EuBoKpyVGaNgAgDo257Pon9Ygv9w
-         ZNBVia5CXt5bw1UdncCvS5t2IgUKzmknh33OgewHLvfZAJuIi7pmCtYv4N0a4GpvoZMH
-         ILm6LX2s+NXpb/KSr9bjW/jWVFEUqry6horlblCLB3Yo/LkcHY0MwO7Urk3DBr/dHaVO
-         cMYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792259354; x=1792864154;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6ZKiIqr2wNuyAPe6hCnVLHZyBqqQ8TWVMIEldJ82jWw=;
-        b=wKerkqbGHwuxSdrafpVEz/QSC4kW/me8Wtm+eWV4/POdXLFX+hooAlIKITWz3JolWj
-         lSLvcSA0IBPNzg6b6QTj4KkZM2GXPz+vuBjAXx2aIxmkFL2yhTAKsmmT+skMFWBF2CqW
-         az4azEDzEMPJ6osuBEGHV8SOQ3Nxskmgq0u72FusIOrO7yD7hhzFs4DvrMcFHhhkEA4X
-         N8G0sdslYcBO6yk44c3nmyjkD/7vBSkoScsp8o53HSaDVjmdvc5oylkAMJz16E9QtucC
-         wuRPoRl3TWE3al5UPTx9Cj50BWEHd0SLIVPObsQ0Z88SNUWMbwFMbfxHEutyZmew+zyh
-         28JA==
-X-Forwarded-Encrypted: i=1; AKwUvBw8vESrnSfrghCaM4lYTzs9+jyYaBQztpz8rt4IYkj3G2GnMojswjUnAlc41yqi9qXadXuGjAoLQZIicoY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRERw426LP8AB0ClH6WO79d/YAWA0dlbMFcKbu+XKhgdloBhZ+
-	q+G5y4BR2I9E6zZVfOUZ7cTcwJhptheqJMoWQvnPpDCtU64oHK4JlL9NiE+1zswVGwI7kqjt0eu
-	/AiOP
-X-Gm-Gg: AYBFou0Ri2S4Bc+zpPZ0YdjhzNbLVUgmK1kQoWaWY/OxSSI2cIuj0sNn+T4WHXy86S/
-	6HDgVA7q/VDsPWW+EUrAuYKnmaFWlClHJoW/0DpNT3CqZp4zuGmjk9sNoFgiEM1SYnv/HhUeDGg
-	bMlmXDnZLkqWC1hGfgs2pZRYy4vo/rqrbq8VlG2dScIO47pijaC5UVB2I8iEtL81Kkqs9U4od5F
-	ZCRtcSutPpgP3Ylo+vRP7eS1VbenHqNXwiowu1VzDAnt/MuzAFR+FnAkP1z21+wh/1zpeRRImFU
-	XpPOQZ60PFCENijlnI8U2FUc63zFwmPE2rLrn1V4j0MfCcXwR0K0HuRvBVk1eJRn2Fo6sV+yCsJ
-	/mCGSjBUx8BQDaRvGP3Zb0WGrQ6eG5IcbE2gHl5nVTNRjDkTsMpuwY/OO1I6PI+odORzLXPzkIP
-	9ib0vn2ExPoryM99Dq3Pa1VKm0rxkZUnhjYoMFuyt/S6JFK26Cq6RxjB8dH537pOoBskaVR0zCN
-	XOB9JALaJb/4auHC07VVEncuOKZzbbzoj63vVGJ4FYbTENAQJLSgKMb
-X-Received: by 2002:a05:620a:45a2:b0:93e:c12c:9dcd with SMTP id af79cd13be357-93f29deb855mr546221985a.77.1792259353931;
-        Sat, 17 Oct 2026 10:49:13 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f2f045ca4sm171937385a.29.2026.10.17.10.49.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 10:49:13 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xI8Wu-00000004sUa-33rg;
-	Sat, 17 Oct 2026 14:49:12 -0300
-Date: Sat, 17 Oct 2026 14:49:12 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: Pranjal Shrivastava <praan@google.com>, iommu@lists.linux.dev,
-	Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Daniel Mentz <danielmentz@google.com>,
-	Ashish Mhetre <amhetre@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rafael@kernel.org,
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev
-Subject: Re: [PATCH v11 11/16] iommu/arm-smmu-v3: Add CMDQ_PROD_STOP_FLAG to
- gate CMDQ submissions
-Message-ID: <20261017174912.GK14213@ziepe.ca>
-References: <20260929034510.2023173-1-praan@google.com>
- <20260929034510.2023173-12-praan@google.com>
- <ar1yNtr7Kp2OTcDd@nvidia.com>
- <ar3yWUmi8E0k37Ml@google.com>
- <ar6gY9grmdMZcN/M@nvidia.com>
- <20261002164748.GD3481470@ziepe.ca>
- <asAeCz_rmpe5hbsh@google.com>
- <asUvUf4PZJ7JCLXp@nvidia.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="a5Mn7W6/";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="XC0HNqzp"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792259383; bh=lFWRw1M0xQeR8VHphjUrnfw
+	TJEkg/MDrPe6wHSJ5D2k=; b=a5Mn7W6/X3ufD6GkM85wlwq32g2oPYQgBkyTCuEoliBZ0TbTTV
+	VgIvpVCrn9WRf0RMrEI44buffBWTagtE1R/P7miOZ0+QcM0TqNtLS8NOVBm0kbIzydUngwbnQvi
+	9xzT3hcfZl/E5GnBObo0+6mUeKhoMZ0L23jtbRKZN9330EMuiz9ZqBBv3/+Nlb7/KppWIlVJwzk
+	3dDEjhgaz2ndF6TchUd8EWvrrvseWpoS0F9SB9KMQUxoM20zmyGll4qNaqG608v6E9HZRsJpi0h
+	5LWDjcxlhj6DqIr/CE9gD1+S7Jjb5zUFZcZ9gWzR298kXEW1Yo17TWe5fpvq+UhKkYQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792259383; bh=lFWRw1M0xQeR8VHphjUrnfw
+	TJEkg/MDrPe6wHSJ5D2k=; b=XC0HNqzpY/XdCCtYW2j0EOQsbAfbWvzcmGjJqZHBu6aozXWVnm
+	LdtvV1GfiVr26J1clSch6vH+MaSm/PbUSzCA==;
+Date: Sat, 17 Oct 2026 18:49:41 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>
+CC: Zqiang <qiang.zhang@linux.dev>, boqun@kernel.org, frederic@kernel.org,
+ joelagnelf@nvidia.com, linux-kernel@vger.kernel.org,
+ neeraj.upadhyay@kernel.org, rcu@vger.kernel.org, urezki@gmail.com
+Subject: Re: [PATCH] rcu-tasks: Warn on too-short RCU Tasks Rude grace period
+In-Reply-To: <3fc682be-c0ed-48b2-ae91-af80d1535520@paulmck-laptop>
+References: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org> <8d7f265cd1320bf7996bcffea07ffdea69cfd625@linux.dev> <2247C12C-EE02-46CC-922F-D6A62D1E77C1@mainlining.org> <3fc682be-c0ed-48b2-ae91-af80d1535520@paulmck-laptop>
+Message-ID: <0E5D0BB2-BEF1-430A-B30C-C53F4254214F@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asUvUf4PZJ7JCLXp@nvidia.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 10:26:41AM -0700, Nicolin Chen wrote:
-> > pci_dev_reset_iommu_prepare/done() pair (with slight refactoring) in EP's
-> > suspend/resume?
-> 
-> That sounds right to me, though a different API for suspend/resume
-> will be required. And call them in pci_pm_runtime_suspend/resume()
-> maybe.
-> 
-> Jason, how do you think about this?
+On 17 October 2026 18:46:25 BST, "Paul E. McKenney" <paulmck@kernel.org>
+wrote:
+>On Sat, Oct 17, 2026 at 12:16:48PM +0100, Bradley Morgan wrote:
+>> On 17 October 2026 00:41:00 BST, Zqiang <qiang.zhang@linux.dev> wrote:
+>> >> 
+>> >> On 15 October 2026 10:46:19 BST, Zqiang <qiang.zhang@linux.dev>
+>wrote:
+>> >> 
+>> >> > 
+>> >> > The RCU Tasks Rude grace period is implemented by invoking the
+>> >> > schedule_on_each_cpu() with an empty work function, which forces
+>> >> > a context switch on every online CPU and guarantees that all
+>> >> > rude-tasks read-side critical sections have completed. However,
+>> >> > schedule_on_each_cpu() can fail (via alloc_percpu() returning
+>> >> > -ENOMEM) and returns immediately, in which case those context
+>> >> > switches never happen, too-short grace period happen.
+>> >> > 
+>> >> > This commit therefore wraps the schedule_on_each_cpu() call in
+>> >> > WARN_ONCE() so that this failure is reported as a "Too-short
+>> >> > grace period" warning.
+>> >> > 
+>> >> NAK, this seems like a edge case, and potentially panicking the
+>system
+>> >> with panic on oops doesn't seem right to me, because we would reserve
+>> >that
+>> >> for when something definitely goes really wrong and we need to notify
+>> >> the user.
+>> >> 
+>> >> I don't believe this patch should go in for this reason, it's a heavy
+>> >edge
+>> >> case, that doesn't *have* nessesarily need to be accounted for.
+>> >
+>> >Indeed, this is a rare event, so I use WARN_ONCE() to mark it, the
+>> >WARN_ONCE()
+>> >not panicking system unless you set warn_on_oops true, this can help us
+>> >troubleshoot
+>> >UAF issues caused by a too short tasks-rude grace period.
+>> >
+>> >or maybe we can use DEFINE_PER_CPU(struct work_struct, rude_work) to
+>> >replace
+>> >alloc_percpu(struct work_struct) queue to all online CPUs.
+>> >
+>> >Anyway, Thank you for your reply. I would also like to hear the
+>opinions
+>> >of others.
+>> 
+>> Fair enough, but me and Paul done some discussions:
+>> 
+>> Here is the TL;DR
+>> 
+>> My ^W^Wai slop^W^W tool helped me with this: if the too short grace
+>> happens,
+>> it falls back.
+>> 
+>> 
+>> root@p10-linux-brads:~/linux# git diff kernel/rcu
+>> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+>> index 627295396cd9..65bb7d4ed632 100644
+>> --- a/kernel/rcu/tasks.h
+>> +++ b/kernel/rcu/tasks.h
+>> @@ -1344,15 +1344,23 @@ void exit_tasks_rcu_finish(void) { }
+>>  // Ordering is provided by the scheduler's context-switch code.
+>> 
+>>  // Empty function to allow workqueues to force a context switch.
+>> -static void rcu_tasks_be_rude(struct work_struct *work)
+>> +static void __maybe_unused rcu_tasks_be_rude(struct work_struct *work)
+>>  {
+>>  }
+>> 
+>>  // Wait for one rude RCU-tasks grace period.
+>> +static void rcu_tasks_rude_ipi(void *info)
+>> +{
+>> +}
+>> +
+>>  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+>>  {
+>> +       int cpu;
+>>         rtp->n_ipis += cpumask_weight(cpu_online_mask);
+>> -       schedule_on_each_cpu(rcu_tasks_be_rude);
+>> +       cpus_read_lock();
+>> +       for_each_online_cpu(cpu)
+>> +               smp_call_function_single(cpu, rcu_tasks_rude_ipi, NULL,
+>1);
+>> +       cpus_read_unlock();
+>>  }
+>> 
+>>  static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t
+>func);
+>> root@p10-linux-brads:~/linux#
+>> 
+>> On POWERPC, this passes 12 hours of rcutorture on the RUDE01 config.
+>
+>That is surprising, given that when I run your patch shown above on my
+>x86 laptop, rcutorture reports a too-short grace period within 20 seconds.
 
-Maybe lets just start by refusing power management when ATS is on? For
-PCIe devices too?
+Odd! I definitely ran it for 12 hours, on PowerPC, so this is certainly odd
 
-It isn't just ARM that has this issue, every iommu is busted if you
-suspend the PCI device while an ATS domain is still active..
+>
+>							Thanx, Paul
+>
+>> If you plan on submitting this into a patch, please add my authorship,
+>or
+>> my c-d-b. 
+>> 
+>> Feel free to rcutorture test it ;d
+>> 
+>> BTW: have you reproduced this on your own system?
+>> 
+>> >
+>> >Thanks
+>> >Zqiang
+>> >
+>> >
+>> >> 
+>> >> Zqiang, have you reproduced this OOM on your own system, if so, could
+>> >you
+>> >> tell me more details, you may turn my frown into a smiley face ;)
+>> >> 
+>> >> > 
+>> >> > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+>> >> > ---
+>> >> >  kernel/rcu/tasks.h | 3 ++-
+>> >> >  1 file changed, 2 insertions(+), 1 deletion(-)
+>> >> > 
+>> >> > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+>> >> > index fcac7361ec51..91c25717402e 100644
+>> >> > --- a/kernel/rcu/tasks.h
+>> >> > +++ b/kernel/rcu/tasks.h
+>> >> > @@ -1361,7 +1361,8 @@ static void rcu_tasks_be_rude(struct
+>work_struct
+>> >*work)
+>> >> >  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+>> >> >  {
+>> >> >  rtp->n_ipis += cpumask_weight(cpu_online_mask);
+>> >> > - schedule_on_each_cpu(rcu_tasks_be_rude);
+>> >> > + WARN_ONCE(schedule_on_each_cpu(rcu_tasks_be_rude),
+>> >> > + "%s: Too-short grace period, OOM is now expected behavior!!!\n",
+>> >rtp->name);
+>> >> > 
+>> >> Good message, makes sense. But I don't think this is right, see
+>above.
+>> >> 
+>> >> > 
+>> >> > }
+>> >> >  
+>> >> >  static void call_rcu_tasks_rude(struct rcu_head *rhp,
+>rcu_callback_t
+>> >> >  func);
+>> >> > 
+>> >> --- Thanks!
+>> >> "I'm not a very positive person" - Linus torvalds
+>> >>
+>> 
+>> --- Thanks!
+>> "I'm not a very positive person" - Linus torvalds
 
-Jason
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
