@@ -1,74 +1,74 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from szelinsky.de (szelinsky.de [85.214.127.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC344CF497
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 22:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB29F364925;
+	Sat, 17 Oct 2026 22:47:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.127.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792277185; cv=none; b=n7GnrQqjGSOLK3gSQPExgKwRPJzpyNrP7G9elUpxP45i3HEn7Snv7TMrfIuFl9gCieFENZ+oEz2efOFCPCWtOQBgTF10JJAt2xDwaZG25+/uxG7hdIVLdFmmhfh/lATldYYKNlYO/c/xjA1nPEkqv30JEAIyun9MFSiyvEGbQ7k=
+	t=1792277227; cv=none; b=V+HJYFHOYfkE/MnrJBqYQBPcbUoiYPnOv1mpgJ+RJpVjr4nBX239DlzaWCq/3hVIHF1YBMvIOPuIzgObYEcnd8ZXxAq9TrOrJt3FxGa4c1W3NLWZQu9hy56UBtnxX78kC9Qaw0snk8eQumm0zeO2y4U6YVuGZ99riPGe5g79C0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792277185; c=relaxed/simple;
-	bh=C8m61NFf8DV0HdCB6VR2Qlt6ovIESt7TWheyDFaimvk=;
+	s=arc-20240116; t=1792277227; c=relaxed/simple;
+	bh=Pvyi2ArAZm0W2gqWX2T/4EOrz+xEfDtkZJG4BfoPzO8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FXoqI4fl/ad9UbalwTZXXpIg8ucdcw1B6xxUKBHoDa4GdHBpQclF29LVpm2fjSf9lC2OAdfZ7o+PDBacyO6EXwgWXX2S+CGs+MrKQBsUZkTiDNwqMNHvaViPrhQtzxS7VIzfbjZkdTwZIkAyP/F1QSiSmyARWq4rRHw9LbBpRfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pQXlom57; arc=none smtp.client-ip=209.85.208.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=K6eMi66FhQu+oBwB33A/Atu5Qlhwy732Lic1U85KYRRlQoRQ1074r46LHQLzRFCRaTlOenA2fG4JLgNjZIT0zu6OEEuVShoGIWsSioiHlbpFvYC7oPuAsF28lsTDE/JCy/1PZY2wJWqKzDm1cMwFm4Uu/L8RIIvk9U9KQIGhst8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de; spf=pass smtp.mailfrom=szelinsky.de; dkim=temperror (0-bit key) header.d=szelinsky.de header.i=@szelinsky.de header.b=Abo8X9+t; arc=none smtp.client-ip=85.214.127.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szelinsky.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szelinsky.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pQXlom57"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3aafa3e23e8so5013871fa.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:46:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792277182; x=1792881982; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C8m61NFf8DV0HdCB6VR2Qlt6ovIESt7TWheyDFaimvk=;
-        b=pQXlom57F9xgWExabl30DX2RdB92r3gPnAc0aQJp/sEd6EQSgei+gz8aPgQVlyPPaP
-         2tnvoc+xjvkIkt/lTsrzXKUWsFEUkQSLnKjOgEZHzsElPYSa7vGRhkxeU3vqsPWufsJV
-         MX/HPjqGbLyZGA4Cg4KId+MJZURAZrR2JeWQB7GLshcy8INfeOYXCE3EQ/RRbYyqWpr7
-         kfoUyzOty7m30EEITQui16/0PfO9SuqdmFQEv7qFyDoVh65RBHAzn+2sqSDiLVq3TlQV
-         y0wXGny83ozhT4hDWuTo+ks+ZGWFUl7om3BzsGpIenRz+jS2aeyRrt6J0bioA5hPEbHK
-         3QGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792277182; x=1792881982;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C8m61NFf8DV0HdCB6VR2Qlt6ovIESt7TWheyDFaimvk=;
-        b=nj6A6A9sWUh7BI8/7cYGoCS+b1BCbIJw3imzL+7O4vHyWSygqfsKb8ItUr2M04bryE
-         oBW+g6gRTvJ/sjUDbp56ntdkydPMYIgAMkzAr2GGN0dpLGoG9aL3lzmOtzGvHZ0+kerL
-         047m5HLnhuseGvWmUWInyFOmkEgtBLGFy33Pee2p4yEsrkXtY3vNaXURZ+SarK3dfciY
-         OAT5DEc+S8xdTbWxNiCO1PgriyflFW1iqY88gVC/+lJjkQC2EnXeWhbFr9xaVlbRffkq
-         MRmU5l5tbtUBbNxPsV7E82QN419wl69cm/NdyL8v0bQZZH9tUNbizthCVM+UoUKaYJjH
-         DXRg==
-X-Forwarded-Encrypted: i=1; AKwUvBwaPEL35xjHpmZqs+sMMF4ytoJicokAuG/7tF4gsd0s36k/jwizEC+7TsXXq7gK7MGoDSAaOLuRia6Hbjo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIeejE33DLOJH4lsy2EOvnfVhaz1wPl9hAx/ejaZ4N4Up0sv+d4
-	cTPb7KrQogtZlKkZrjEzrXnV9z4J4Ro1CIaPZfq/9aLH6B6ET6Ve26RD
-X-Gm-Gg: AYBFou1MUlgeFKdnu4dCw9wjguTqoFb86fRnGLaIH6+XgoTvk5avMOAq1bbQNyJL2Hf
-	XB8/JbRPDXDnl16hjchhmEQSAdDS+0SjDAYB0VmObi2bEH3IAujeaiTomWO4WaUEJlKbgwaDRAc
-	g+zABgC9EzfC6ro/edtYYdYnwZkPrco8W31Q1mVascIVf8M1axXuYaUkxR8WaRQuP+xcVvKTvNJ
-	avZrecvrWXPZMgEGGH14JivaFt/MJuth7C5xUe5OMnKe/KKYLUcU4T7ro7swf4t1hyNcAeJ1LDH
-	0kqw5jF4/w4YlSB2TvV3DmdxoFuzdRs8/1uOwXzEVFy73RfFa49jNvpnaqejDLzlsui86isslgJ
-	nLH5tLSoTlP9QL+DNClxQgu0w1GNdR7ymw8adIWtgXsGuTCCYcRug0gfUn5dTppgj/tokAJD676
-	6yqcJQcVdfF6+mtPqaMB0Kl4MyrVHbClwvjZuE1uOFEC3bACP3RHhEVxZfbzfmhAA=
-X-Received: by 2002:a05:651c:1986:b0:3a7:812b:cec with SMTP id 38308e7fff4ca-3ab28e59f8emr9041711fa.0.1792277182044;
-        Sat, 17 Oct 2026 15:46:22 -0700 (PDT)
-Received: from quietus ([107.189.24.213])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab16e43b79sm16786741fa.11.2026.10.17.15.46.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 15:46:21 -0700 (PDT)
-From: Ruslan Koreev <koreev.r@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: pavel@kernel.org,
-	rillian.grant@gmail.com,
-	linux-leds@vger.kernel.org,
+	dkim=temperror (0-bit key) header.d=szelinsky.de header.i=@szelinsky.de header.b="Abo8X9+t"
+Received: from localhost (localhost [127.0.0.1])
+	by szelinsky.de (Postfix) with ESMTP id 5A8FAE83404;
+	Sun, 18 Oct 2026 00:47:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=szelinsky.de;
+	s=mail; t=1792277223;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Pvyi2ArAZm0W2gqWX2T/4EOrz+xEfDtkZJG4BfoPzO8=;
+	b=Abo8X9+tdgLsamp0ho5mslOxzobAFJJ1imN0NWDN9k5rLPOOwh4a5VYroj9boY22gdvOy+
+	i+PYBiWPUcnuaZlYvtq4y6UMNZs343W87k6Crq0xqtdxzWWHEiXXi49MuBBUe3ufsim3Rc
+	qc39AF6Ag67rsN7yJhQ3KyEkG8JlaCG8YPQ/Vmh8Ebb8TwUKRNkcJ4Y63/CCdU6MTzrbxu
+	xnfn8Rpv9q8/xoOzE++6I8/MCzqO+LoC6pi8vT2YWa3pRcQpYrufFtBiwW3t4LgxHcsrl1
+	7RbDU0e439APtU74Q5Hq9jjy/ujFyqGIG92ExK2E7tgrFXONjkQUwOZZsgddrA==
+X-Virus-Scanned: Debian amavis at szelinsky.de
+Received: from szelinsky.de ([127.0.0.1])
+ by localhost (szelinsky.de [127.0.0.1]) (amavis, port 10025) with ESMTP
+ id M3PTw-Mib_ap; Sun, 18 Oct 2026 00:47:03 +0200 (CEST)
+Received: from p14sgen5.netbird.selfhosted (dslb-088-070-183-026.088.070.pools.vodafone-ip.de [88.70.183.26])
+	by szelinsky.de (Postfix) with ESMTPSA;
+	Sun, 18 Oct 2026 00:47:01 +0200 (CEST)
+From: Carlo Szelinsky <github@szelinsky.de>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>
+Cc: Corey Leavitt <corey@leavitt.info>,
+	Jonas Jelonek <jelonek.jonas@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	netdev-bot+sashiko@kernel.org,
+	sashiko-bot@kernel.org,
+	sashiko-reviews@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	Kyle Swenson <kyle.swenson@est.tech>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] leds: flash: lm3643: Return to standby when the last output is switched off
-Date: Sun, 18 Oct 2026 01:46:16 +0300
-Message-ID: <20261017224617.430992-1-koreev.r@gmail.com>
-In-Reply-To: <179198511712.839288.17752967041610699661@kernel.org>
-References: <20260821083620.68324-1-rillian.grant@gmail.com> <20260924172040.1185688-1-koreev.r@gmail.com> <20260924172040.1185688-2-koreev.r@gmail.com> <179198511712.839288.17752967041610699661@kernel.org>
+Subject: Re: [PATCH net-next v8 3/7] net: pse-pd: unwind allocations when controller registration fails
+Date: Sun, 18 Oct 2026 00:46:55 +0200
+Message-ID: <20261017224655.1527348-1-github@szelinsky.de>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179122160743.434549.17705968645948888828@kernel.org>
+References: <179122160743.434549.17705968645948888828@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,20 +77,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Lee,
+On Mon, 05 Oct 2026 17:33:27 +0000, netdev-bot+sashiko@kernel.org wrote:
+> [Severity: Medium]
+> Is this store enough to keep pse_pi_is_enabled() away from a freed pw_d?
+> The store is done without pcdev->lock, but the reader holds that lock:
+...
+> Would it close this window to take pcdev->lock around the pointer clear
+> and do the kref_put_mutex() calls afterwards, outside pcdev->lock?
 
-On Wed, Oct 14, 2026 at 04:21:51PM +0100, Lee Jones wrote:
-> Given that the base series hasn't been merged yet, please coordinate with
-> Rillian to fold these fixes directly into the next version of the original
-> series rather than sending fix-up patches on top of an unapplied RFC.
+Yes, agreed. In v9 pi[].pw_d is cleared under pcdev->lock, and the
+reference is dropped afterwards, outside that lock.
 
-Rillian already folded the standby fix into the driver in patch 2/4 and
-included the ACPI LED description as patch 3/4. Both were included in v2
-and carried forward into v3, posted on October 11:
+> [Severity: High]
+> This is a pre-existing issue and was not introduced by this patch, but
+> this patch reworks the kfifo handling here. Can the kfifo ever be
+> allocated for podl-pse-regulator?
 
-https://lore.kernel.org/linux-leds/20261011191026.149338-1-rillian.grant@gmail.com/
+No, it can't, so podl-pse-regulator never registers today. That is an
+older bug; its fix goes to net.
 
-Please treat my original two-patch series as superseded.
+> [Severity: Medium]
+> Doesn't this still leak pcdev->pi and the OF references on the PI and
+> pairset nodes?
+...
+> A devm action on pcdev->dev that releases the PIs could be added right
+> after of_load_pse_pis() succeeds.
 
-Thanks,
-Ruslan
+Yes, the PI array is still leaked once the PI regulators exist, and the
+commit message says so. The devm action is a good idea, but it also
+changes how unregister frees the array, so I'd rather do it as a
+separate follow-up than in this series.
+
+> [Severity: High]
+> Can a controller probing at the same time still hit the use-after-free
+> the commit message describes?
+...
+> Could pse_register_pw_ds() undo those domains
+> itself before the out: label, doing kref_put/xa_erase/regulator_put while
+> it still holds pse_pw_d_mutex?
+
+Yes, agreed. v9 does exactly that: pse_register_pw_ds() undoes its own
+domains while it still holds pse_pw_d_mutex.
+
+> [Severity: Low]
+> Should this patch carry Fixes: tags and a stable Cc?
+...
+> Could this also go to net on its own, rather than sit inside the
+> notifier chain / phylib ownership series?
+
+v9 moves this patch out of the notifier series, into the separate PSE
+core fixes series. That series goes to net-next, because the notifier
+series builds on it. The older bugs it touches that also hurt on their
+own, the kfifo size and the shared power domain, go to net with Fixes:
+tags.
+
+Carlo
