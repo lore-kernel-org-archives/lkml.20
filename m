@@ -1,111 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CB819A288;
-	Sat, 17 Oct 2026 02:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792204724; cv=none; b=ZQ3Pqz3eyAqSx3ofXmwl2MVRN5wRyCJL08sSMumM4xqOt26LD7uww/Nkfh6EuDsX60Ckro5TkcgaWnKwI5zId44ZWaD6oqFX2KRbSTw/tlIhsd4Ld+zfpyLp03rwNhca+5HliuMX1s6EAHE8rgxxtJgOe27uWNChj3ZsrZF9JcI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792204724; c=relaxed/simple;
-	bh=v+tWZ6wzBQDmc0TsNkvNx1aa5akEKUuEFeP4oWUd75w=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=oNhNjGNYVy/XA7CBIO6yX2udBsVM+NrmXR/cRoJLVC3pNPGJTEnBknzYmbf8pAipPfwC5X1+vjlcvAuNjjqUsO0FYR2QTsWPPzASLjm1+C8aTbY8RO7xF+Od9U88/WYdc2xJiThEo6UMKHm3SZyiHN5OdEnMcKRNcVCHz6eVLN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=a/GEhrIG; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF4E392811
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 02:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792204727; cv=pass; b=oy60e18lyrksF8td/8enMK1u/iGhPPq7zEDOf4qmqD84JAETMmmVdwZ7oOYwANUV9bYzgtJT+JgdoC/nlNmor3WH56KzHK5Qrs8bOXwBd3U5hNFuXI2x1Mc4gntWNr5pWFsZhS/8iNlqSVq9BkPh4aSOAcp507lAKE+QypAocpc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792204727; c=relaxed/simple;
+	bh=nOUZa7mPXb64B5PFhied2Fd9elX3CDzEuQcuQ/9SsVU=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=QLWRBzlWbhDaWMb3f1eEmofoCOX0cCzfIAX3GE1Jf6IRscNpsz3liTI80wq9aZV09mn41D5Glv8dQ36rWY7YV2AJG8xNW6uhJkbBYAj7lsfVb4GOL7BDjDkbibvS3r7wrFxWzrwUsXjaqtDL+/gZWY5Bk4H/fomfCzh6ShzN910=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TDhQ22FO; arc=pass smtp.client-ip=209.85.217.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="a/GEhrIG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5811F000C4;
-	Sat, 17 Oct 2026 02:38:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TDhQ22FO"
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7c420c2c4faso251346137.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 19:38:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792204725; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QCaXOprnoPI9mZk032RGsglTPC1L3SmAGiRwnjlro4rz2CeCkcyPSfce7QjDXUYEOL
+         sq13uQidw5iZ6QEYE9ZTOXNfHqIkhz/ZQpQ5YsvEgDKSwvI+4edKq1Bqd6NunL0n1R2h
+         pMp6EIu0TMi2HsMptWpzLY2llnSHt0p/3V2QOBNTHKRtg8z3AIk/+1OBsc3VC1Li/wVC
+         XQHMb4+La+MoyggVhlCUmw9CTiU1OjHk5X5voGo1IX/dczSocp9GvdFES/1D+G+Qj3af
+         tTqoFvFuy4/n0Yxojw5MHwg60I5RH8Gt5nrMyjltGtSAU8q0sz6DwzK2Fx9zWr4nm7Up
+         PvQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=F+cVJX57n5iK3Mle6VsDiyzgCu683wJpJbVw4JqE5DA=;
+        fh=df7aCmES6u0NbviXgijIuwLnISzXX0nAdquVuR/JduU=;
+        b=Zj/L4ha/xbkyRJCKit5dE4KY4XTQVmjIIkvHxhU2jqrZfwAKaaCcsWGgsF4y2+OpFg
+         lQaBBNakwrH6wBVf+IZ0rcNBv+96hSvzbI5a9lbYrLnN8moWAq+zOtUOLUyURRQgREZn
+         q3b2+s+2F5jBIq2tFh5ZjIcm5dReVMd8ChY9dpF3jW5txyf+024oWn49b3scnd7gLOQ7
+         cQhS7PHpFxdLk4OhCTkfeqP54CYCKak9e98v06w3WmUZdFOVsmOb/1cMaA/MrCtbbWOa
+         HAbvVApAnbji6wr3ilT9ODoF3+a2V2LrFvcbsvyi+Kely747LwJYWBVoueuSeIpBuqQB
+         0rqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792204722;
-	bh=yCYy/omc/k0UmUcHxQJgnXUXd6XKF1gPbq7tP/hUJKU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=a/GEhrIG16ujWZEtMe2TRhF0aWm3OKHO9R7aOAjmg04ODrE/hQ76QqCThdvXH6hXK
-	 l/WGCgfAhJI5+IZdEbJyG5IaaM1wkSiMeimGr9DAJRMTtlrFn2s1dLm4/Q3yImYE0f
-	 U9CL2Pw5tTCsyQd7pRk0sX0fw750Mndukm5hD3zY=
-Date: Fri, 16 Oct 2026 19:38:42 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Konstantin Khorenko <khorenko@virtuozzo.com>
-Cc: Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, Roman
- Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, cgroups@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] mm/shrinker: make per-memcg shrinker units
- cheaper
-Message-Id: <20261016193842.5af1f5a6cffafd7a24aeb521@linux-foundation.org>
-In-Reply-To: <79c1246f-8c9e-4e2a-adbf-e730732b33b1@virtuozzo.com>
-References: <20261014-b4-prep-vstor-144715-size-shrinker_info_unit-to-a-power-of-two-v2-0-51af2aedbe6c@virtuozzo.com>
-	<20261014135046.7b13252ce99d918ffcdb1f49@linux-foundation.org>
-	<84c9e97b-67c0-4c9b-bb7d-81811af8a16b@virtuozzo.com>
-	<20261015175836.efc93cf9de01306402da61f9@linux-foundation.org>
-	<79c1246f-8c9e-4e2a-adbf-e730732b33b1@virtuozzo.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1792204725; x=1792809525; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F+cVJX57n5iK3Mle6VsDiyzgCu683wJpJbVw4JqE5DA=;
+        b=TDhQ22FOpGglWO+4nvqHrnedJkB3n+BmoR2WUGm0MBNz2dVPxrpCzBftnr4nG+yCa4
+         jR4EldbYdrcseIecVBdWaBGYH9jnyNoSbmi4AZ07Xi3nAmpXH0g7GkHOkZ9Hlz5JV1aZ
+         /xXwmeTcVw5ylXmC0Q5iKX/92LADKnHrC/qHedI8BGePsZiq+r+Ah0s1DHUP4Th2cFwC
+         RMNP4CK9C9TR6gEXVSjN3hl/oyI9MV/fo3oZIzwqblErtB0Tv1DWFO9TS09onQ6W2+ci
+         lmn5/79M8hhkDRmtbqnQPpTFNq+sQT0PVYZFJ0w7/6XZZDmWWVHJgsXx36zgT/S+7yRL
+         JoGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792204725; x=1792809525;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=F+cVJX57n5iK3Mle6VsDiyzgCu683wJpJbVw4JqE5DA=;
+        b=0dsJe/AEtXWXpVPVW4+h5zXnup+2JcFUDq67PRKZzB+RvOFhN3dRuqe63JFGTkADUo
+         9WyeIuZ2nxWh6tDMufOtMMPSC2sARYIqXa1wyHl5J08cYoc0jmpq2Iq5H7gbWQGBPT/G
+         vdVqDd+gPgPfqA5RrTVstIDm4BFuMIZt0kcliQEaHXsKevmd5JA6x1kKHtFWxnloCagi
+         k9HYmlVqvt0VwyLNAXWFgY7s26IyXad8zNszo851u0YFtBruYVUHLJjQ9youLy+eTgVl
+         HzjrP5eN5aIoBTB36P25yRU7nrl0BAJszSv42kPX5l8USFFFGqav8B2E6NHQTECiMI71
+         HmRg==
+X-Forwarded-Encrypted: i=1; AKwUvBxCkarHziVoUVR7PD+l1bqg0C7JgMTcJemzp+4TILbKcaXsQhXyengRwDC/QV76yaFPm9Qpd99tXnrL3AQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWCfv6zQxqoMYLS7eZ3qilDxUIQrzOdxfEFzJoOclwF4mO/Wae
+	xCaVvg/7yHL+gMbGBRpaKRxLUGdgquK/SdhAndmn/jh0jUfR6WIKWF7XG7Hgk6F44B9DlQ1aqtY
+	femtezhRT3VL9Ktilm94M2iyh1TounXE=
+X-Gm-Gg: AYBFou3g+8bQ7mvHgUBiBXsfFOYacwJRdfksqgQS1KENQ5JxtD6FGaZEm9TOnROYLO+
+	HS4fZMSu/Sc5kyUAwEusyK53SXOjXwVNpp3dxTn5BtORBWN3sHaUceor+XdOwncukqSiAKG9JOE
+	puu/6GoXg52uo8tXQt6vAoCh/eUxH6ZJV8Hl0+dksZ/9yD+i8dUY2WRUWLdeFy6XLj+7+6VrOVl
+	/29cf9xMjkMu6Eyx5lBehuwVSEmaTp97/nqgMwmHeSyolMYINOIahAFyxdXGLIFT9E1nF9nfMkN
+	pBU0nXnHg9nTzioikBagwsmpH1qbUvmrk9eKJr6D/ijSm85j3z6HGgI=
+X-Received: by 2002:a05:6102:e13:b0:7c3:3f26:8785 with SMTP id
+ ada2fe7eead31-7cc36911894mr511447137.7.1792204725618; Fri, 16 Oct 2026
+ 19:38:45 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 16 Oct 2026 19:38:45 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 16 Oct 2026 21:37:17 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+From: =?UTF-8?B?6LW15paH5by6?= <berringtoni36@gmail.com>
+Date: Fri, 16 Oct 2026 19:38:45 -0700
+X-Gm-Features: AclHuK8YKaodonu_D7Dy53BTPfOy_XVt1iqiprjUi0LnQxRlVx4_q3w6CmNizuQ
+Message-ID: <CAF2O-sPfK96Bvqtu-reg+y--nuV35tM57Med9irz_a3RK1xhsw@mail.gmail.com>
+Subject: [PATCH v2 0/2] iio: accel: adxl345: propagate event regmap errors
+To: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Lothar Rubusch <l.rubusch@gmail.com>, Joshua Crofts <joshua.crofts1@gmail.com>, linux@analog.com, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 16 Oct 2026 14:27:32 +0200 Konstantin Khorenko <khorenko@virtuozzo.com> wrote:
+This two-patch series fixes regmap error propagation in the ADXL345
+activity/inactivity event configuration paths:
 
-> On 10/16/26 02:58, Andrew Morton wrote:
-> > On Thu, 15 Oct 2026 13:42:41 +0200 Konstantin Khorenko <khorenko@virtuozzo.com> wrote:
-> ...
-> >> If you prefer the cache, I'm happy to redo patch 1 that way.
-> >> Patch 2 does not care about the unit size.
-> > 
-> > OK, thanks.  Yes, using a kmem_cache is a simple no-brainer.  Let's get
-> > that done first and then let's look at additional optimizations on top
-> > as a separate activity.
-> 
-> OK, no problem. I'll redo patch 1 with a dedicated kmem_cache and send
-> it separately.
+1. Propagate negative regmap read errors from adxl345_is_act_inact_en()
+   in adxl345_read_mag_config() instead of converting them to 1 via !!.
+2. Preserve negative errors from adxl345_is_act_inact_ac() when
+   disabling activity/inactivity events in adxl345_set_act_inact_en().
 
-Great.
+Changes in v2:
+- Resend with a [PATCH v2 0/2] cover letter, preserving patch line
+  lengths and whitespace to address the v1 formatting report
+  (thanks to Joshua Crofts).
+- No code changes from v1.
 
-> 
-> > But a tweak which reduces 145GB of bloat to half of that is lipsticking
-> > the pig, and what a pig it is.
-> > 
-> > Why the heck is memcg allocating so many of these things?  What sort of
-> > rip-out/rethink/start-over can we do to reduce this by 99.x%?
-> 
-> That is what patch 2 does:
->   [PATCH v2 2/2] mm/shrinker: allocate the per-memcg shrinker units on demand
-> 
-> Today every memcg allocates, on every node, a unit for every 63 shrinker
-> ids up to shrinker_nr_max, whether or not it ever has an object on those
-> shrinkers. Patch 2 allocates a unit only when the memcg gets a list on that
-> shrinker's list_lru, so a memcg pays for the shrinkers it uses, not for
-> every superblock on the host.
-> 
-> In the synthetic test from the cover letter (8000 tmpfs mounts,
-> shrinker_nr_max 8064, 2000 empty memcgs, 4 nodes):
-> 
->                      units               slab per memcg
->   base               1011518 x 1024 B    548 KB
->   + patch 1          1023787 x  512 B    289 KB
->   + patches 1-2          136 x  512 B     42 KB
+Assisted-by: LLM
+Signed-off-by: =E8=B5=B5=E6=96=87=E5=BC=BA <berringtoni36@gmail.com>
+---
+=E8=B5=B5=E6=96=87=E5=BC=BA (2):
+  iio: accel: adxl345: propagate errors when reading event configuration
+  iio: accel: adxl345: propagate errors when disabling activity events
 
-OK.
+ drivers/iio/accel/adxl345_core.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-> Size: it would replace patch 2 with two patches. The first turns the
-> array into an xarray, with the units still allocated up front, and
-> removes struct shrinker_info and the expand path. The second allocates
-> the units on demand, without the lock and the expand handling patch 2
-> needs now. Together I expect about the size of patch 2 today, around
-> 170 changed lines, mostly in mm/shrinker.c, with fewer lines in total
-> than now.
 
-That sounds like a good plan.
-
-> Which way would you prefer: patch 2 as it is, or the xarray version in
-> its place? Or something else?
-
-The xarray approach sounds more complex?  If so I'd say only do that if
-it's justified for some reason.
-
+base-commit: 9ee8306121495d2a25aa5d1bfd519f2748786b83
+--=20
+2.50.1 (Apple Git-155)
