@@ -1,96 +1,139 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63983374E60
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 13:08:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746DB311C2D;
+	Sat, 17 Oct 2026 13:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792242514; cv=none; b=WtHfUim7Fzjsl3NpDV1AMMMR5OSdTZl1GxxP2tjTyZwr4odiMLPhHGUJcfm7Ujl2MFe/wLzzCgGMcwpKAfA45oiJUBBCtaUtgCOKKQjuh/Zn6NdiczodF0zH/LxbXuZ07bzDy7RuAhYe93afq7N9uWz2EmLNlM+YH6Fnf4USQEc=
+	t=1792242543; cv=none; b=BYJGfwv9easjFXGHg7FH5nFeYN9x8or1eBpAWV/ruvuQQ/uZyffl0uBy9iuEsJGMRmM1X/O9ndmdsE1MPKv7gYEkW6i1UUXCXnmqKuYxUE70pi+O8I36WCImTDc8BmXSDKZDBHYnPXKolpxs1dCC9w6bCnVuMXXouXr3i4RUOsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792242514; c=relaxed/simple;
-	bh=meDYCYUL61vvAOi4LYd5YcMPi7Tcbb8gJHx8gXggyTA=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=e+UEU5jL+RTGQH7YSzkY9S0I0ve+eVoL9yHqAT+5y0SCv9kHKfvKtaJM+0oaerLhTOZGRrj1GurMFx4al5s6HWkehCB2avQVU++kLebke5gbwcbSEQdCTkFGGemi3vLfYmyOzaYZtYz9hXkUIG3ykjc45zUI2UsXpNK18XkdXOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k1pGa1vu; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792242543; c=relaxed/simple;
+	bh=OaL1Gpxuch1Zw2DJv3JbxCry//JaeMv/NYthqYMb10k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KZSglxtDKS8UBhdqwWTB6rr3qqbRiH9h03go1g6QV/zEWeON1BLlwwyiY8bXQgaHHmpUhrjwyz9uXAimifiGG7fTBfp2I8GMT6kC+s5QC38yUkbDLSx+eJzlL7TX7NrXOVnveNslZMUamWFGhb02IHXgoGEfr/lWPPuLZmRgvxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=PjvIZyRT; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k1pGa1vu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792242510; x=1823778510;
-  h=date:from:to:cc:subject:message-id;
-  bh=meDYCYUL61vvAOi4LYd5YcMPi7Tcbb8gJHx8gXggyTA=;
-  b=k1pGa1vu1hUfibe9NSjVbgqEo7OL9Cy8hznber1AkJ02M3UU/SbTX4nb
-   om7h+VSu7Fe3FDmVeLnqC47UB+Mtusivv8Oy5kyFYQhN4Sff56eLXFYdt
-   qtMtnqhQOvuNUTrdvAnU0rCus3g77uJtfhetjUQg7cyxykW9OVEhp9rRN
-   KWpFW3x465/pMuZInDK220wnbUVC19OWV1ktTLThoNnnCl5SCcRh2akom
-   +veNo0S7VGJtqe4YePt6ECatdS17GH9OdygdxszvavJbIM3J7kRQptRmo
-   h5gLAuCxQXRs0Tu8Zj3Pmqwxky5dnHyk0WusAJAOmZVMWM3RiYWegu6Cs
-   g==;
-X-CSE-ConnectionGUID: sM7J6+x4T9e88+zQoIrNQQ==
-X-CSE-MsgGUID: +4OtTRchQWicf0Pff1OSfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="1015459"
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="1015459"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 06:08:29 -0700
-X-CSE-ConnectionGUID: +WPE9R31R/+582kyYPQA6w==
-X-CSE-MsgGUID: SqYL8yFkTp2diN5BJ0zXiw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="2137826"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 17 Oct 2026 06:08:26 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xI499-00000000JNm-25mO;
-	Sat, 17 Oct 2026 13:08:23 +0000
-Date: Sat, 17 Oct 2026 21:07:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: Lachlan Hodges <lachlan.hodges@morsemicro.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Andrew Pope <andrew.pope@morsemicro.com>,
- Arien Judge <arien.judge@morsemicro.com>,
- Ayman Grais <ayman.grais@morsemicro.com>,
- Bassem Dawood <bassem@morsemicro.com>,
- Chetan Mistry <chetan.mistry@morsemicro.com>,
- Dan Callaghan <dan.callaghan@morsemicro.com>,
- James Herbert <james.herbert@morsemicro.com>,
- Sahand Maleki <sahand.maleki@morsemicro.com>,
- Simon Wadsworth <simon@morsemicro.com>
-Subject: {standard input}:188: Error: Insn b has an instruction mpyuw
- with limm in its delay slot.
-Message-ID: <202610172039.rcazXh2l-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="PjvIZyRT"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id F161180B1E;
+	Sat, 17 Oct 2026 15:08:59 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id YrlJ5mjOseF5; Sat, 17 Oct 2026 15:08:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1792242539; bh=OaL1Gpxuch1Zw2DJv3JbxCry//JaeMv/NYthqYMb10k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PjvIZyRTSucaESfB+opgxBkKNeKBI4a05ggPy1BVJ8cu5nA1bZRkSSt/fmjEKCiM5
+	 Dt+C9gqg8eGo90EuWaTUcrKmfhOSTdZ0rtD1t9idRKBU4xq7UbRZbCFhjjyvxpk4Mw
+	 yox2jhdHo6zEgg4fpyFyAbZvu8LgZWSbQWEYYrKywl13saMrwe8ieJDNlyx7/Efy7g
+	 rMpADffL6+WrFs7JpJnGAl/AfiSgq1L/+Fyh/PUTJcwfywUytg477bny/6iNtsQvHD
+	 zom7UptKEzG+L7Prlw9wxqXV1fFwOVK5rEpVN2HxwQCqvPrQ8epvyetoCxq+7E562C
+	 rTMHvc85Ne75g==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Rong Zhang <i@rong.moe>,
+	Len Brown <lenb@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Ike Panhc <ikepanhc@gmail.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Charis Stratakis <c.stratakis@proton.me>,
+	Avraham Hollander <anhollander516@gmail.com>,
+	=?UTF-8?q?Jeffrey=20W=C3=A4lti?= <jeffrey@waelti.dev>,
+	Rick <rickk1166@gmail.com>,
+	linux-acpi@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 4/4] platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively
+Date: Sat, 17 Oct 2026 16:08:46 +0300
+Message-ID: <20261017130847.319661-1-aliamemis@disroot.org>
+In-Reply-To: <20261017130652.318778-1-aliamemis@disroot.org>
+References: <20261017130652.318778-1-aliamemis@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Lachlan,
+On some Lenovo IdeaPad and Yoga models, the battery _BIX takes the EC
+AML mutex and then calls the serialized RDER through RDIF, while GBMD
+calls RDER first and then takes the EC mutex. When the two run
+interleaved they deadlock until the mutex acquisition in RDER times
+out, and GBMD returns garbage that is reported as both charge types
+being enabled.
 
-FYI, the error/warning still remains.
+Evaluate all methods with the exclusive helpers, so that GBMD never runs
+interleaved with the battery methods.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   90201351a862182bdabfc1ad1c97b1e1b6ed5931
-commit: b1906cea00b021acea22460225401d5b27bc7c36 wifi: mm81x: add mm81x Wi-Fi HaLow driver
-date:   3 months ago
-config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20261017/202610172039.rcazXh2l-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610172039.rcazXh2l-lkp@intel.com/reproduce)
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221065
+Link: https://lore.kernel.org/all/58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe/
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+---
+ drivers/platform/x86/lenovo/ideapad-laptop.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: b1906cea00b0 ("wifi: mm81x: add mm81x Wi-Fi HaLow driver")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610172039.rcazXh2l-lkp@intel.com/
+diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
+index 8213524504ee..1335f4e48870 100644
+--- a/drivers/platform/x86/lenovo/ideapad-laptop.c
++++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+@@ -297,12 +297,16 @@ static void ideapad_shared_exit(struct ideapad_private *priv)
+ #define IDEAPAD_EC_POLL_MIN_US 150
+ #define IDEAPAD_EC_POLL_MAX_US 300
+ 
++/*
++ * On some models GBMD and the battery _BIX take the EC mutex and a
++ * serialized method in opposite order, so evaluate all methods exclusively.
++ */
+ static int eval_int(acpi_handle handle, const char *name, unsigned long *res)
+ {
+ 	unsigned long long result;
+ 	acpi_status status;
+ 
+-	status = acpi_evaluate_integer(handle, (char *)name, NULL, &result);
++	status = acpi_evaluate_integer_exclusive(handle, (char *)name, NULL, &result);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
+ 
+@@ -324,7 +328,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
+ 	in_obj.type = ACPI_TYPE_INTEGER;
+ 	in_obj.integer.value = arg;
+ 
+-	status = acpi_evaluate_integer(handle, (char *)name, &params, &result);
++	status = acpi_evaluate_integer_exclusive(handle, (char *)name, &params, &result);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
+ 
+@@ -336,7 +340,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
+ 
+ static int exec_simple_method(acpi_handle handle, const char *name, unsigned long arg)
+ {
+-	acpi_status status = acpi_execute_simple_method(handle, (char *)name, arg);
++	acpi_status status = acpi_execute_simple_method_exclusive(handle, (char *)name, arg);
+ 
+ 	return ACPI_FAILURE(status) ? -EIO : 0;
+ }
+@@ -394,7 +398,7 @@ static int eval_vpcw(acpi_handle handle, unsigned long cmd, unsigned long data)
+ 	in_obj[1].type = ACPI_TYPE_INTEGER;
+ 	in_obj[1].integer.value = data;
+ 
+-	status = acpi_evaluate_object(handle, "VPCW", &params, NULL);
++	status = acpi_evaluate_object_exclusive(handle, "VPCW", &params, NULL);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
+ 
+-- 
+2.55.0
 
-All errors (new ones prefixed by >>):
-
-   Assembler messages:
->> {standard input}:188: Error: Insn b has an instruction mpyuw with limm in its delay slot.
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
