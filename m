@@ -1,218 +1,86 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0582E62B7;
-	Sat, 17 Oct 2026 03:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B271DD525
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792208868; cv=none; b=hKLiVbN26BF5l6eCplN9EZ/vlEkYz2+u+qx6cMU0Btp0dqPT8zDLWIfRoPW+Muju1imfPTZQlbFkEMJQOoc+MSCyCJ8wWcNA0cN6wQ9V3DbCAWZwSHYPaFw8CfBvdP4gQvEfoF2Ly54o5wr4WgOCaRuVkzBt38Odv/7AoZTdkZk=
+	t=1792209100; cv=none; b=YBAo1zZwugpKFDm2cTaDWH4v4Kh+R6AZB50RwELGRzGm8boxzCFXuPHR0nOUOLE7htgTpPI4XSQeKMRcz2UqDjR665Bm7F6n2eZxiUawkswlbh8njQZ3Wu+ZFI4M40kQeA7DsEnA+opJXQo7iK1p3xN5u//EqNUnJG2wZX2WnUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792208868; c=relaxed/simple;
-	bh=jS2WQmeVsBQvwfgeYGMlFoJ2QBJJO8EwOJG0aPMBSIs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=swDL2f3CfBLbmXaJzu6W/U0+dFiZRp+sbm2+65hdFOOtzuBg9MGeBI+QkYDI3mT/1AZd3LOJ2sSCWVWBDTUHtza6qvtT1ePyM0zVf3UZ7WOA/eSi4MhDjnB3B+9rVw/nZ3O/klV4X4GMTZgk/BKYJ2QF074pjaiPPcaWYLxBMt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xHvOV-000755-CI;
-	Fri, 16 Oct 2026 23:47:39 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Omar Sandoval <osandov@osandov.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
-	Baoquan He <baoquan.he@linux.dev>,
-	linux-debuggers@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] proc/kcore: advance the vmalloc retry by the last copy, not the total
-Date: Fri, 16 Oct 2026 23:47:39 -0400
-Message-ID: <20261017034739.793431-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1792209100; c=relaxed/simple;
+	bh=xtNc14UNVQkR+EwGZF7OL0Whswwwd+/ddQGz5yFN8nQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Ft+1ljQKPAx/7omSCGYMhDTZZLGh0Mxe4SebG7sZoeZkaXixX9Hv/2iobm4tbXEQeKVU5q1Vn7NFYIqkrPkmD3XSpJ98k255pvg47f1+PHuqmsi6ulLf8QZyX00LtSfNanN2fNfvwXfpQ+BSuoIyXe+SNex4FyuuKBZZROYWsCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f7XzoKeC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f7XzoKeC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211EF1F000C5;
+	Sat, 17 Oct 2026 03:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792209099;
+	bh=GuvWOhmBQWWas+ZVZKRKfp5l450SEqqg3KYl4l2ymjc=;
+	h=Date:From:To:Cc:Subject:Reply-To;
+	b=f7XzoKeCcFun3i0tgQUppLVr+m4ZRFew/b2pc+2LFo8/wKlELppX8q4apL2GlnrMM
+	 gjXDRfUt1mCNMXYZJfukJJAtDcs3ztdi8NEPTWm78KCH5DoyTQxKlTgUbdGqNLArGV
+	 Md4YhBcZ/ynUO3jwzvhrAe43YRU9xOojcvrwBN8KW36tDx+PoyhqgEs9fK0PNb77wI
+	 L9C84u4iNmOzgxbhyWQ/57ZDnUcd+hyzhhmG9+aALcJZgV8e8OOkjB+rDA6r2r5p3e
+	 DNGKdcnktEgppt3L470Ip5EQApiNTWjuEZzc95ijQ6X57ghsNJ02IBtxrXP9X/tAO0
+	 6NWijFpn/js3Q==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id BDF04CE0D69; Fri, 16 Oct 2026 20:51:38 -0700 (PDT)
+Date: Fri, 16 Oct 2026 20:51:38 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	Bradley Morgan <brads@mainlining.org>,
+	Arnd Bergmann <arnd@kernel.org>
+Subject: [GIT PULL] Add two-byte cmpxchg emulation function for v7.4
+Message-ID: <fca9b4b9-75e1-4837-9c73-6f28cb8237e0@paulmck-laptop>
+Reply-To: paulmck@kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-A readv() or preadv() of /proc/kcore fails with EFAULT, although every
-byte of the destination is writable, when the page of a later iovec is
-not present at the moment the copy of a KCORE_VMALLOC chunk is retried:
-swapped out, migrated by compaction or NUMA balancing, write-protected
-by KSM, or unmapped by MADV_DONTNEED from another thread. Only root can
-read /proc/kcore, and the read must use more than one iovec. On an
-x86_64 defconfig kernel (v7.3-rc7) a preadv() of one vmalloc page into
-two 2 KiB iovecs on separate pages, with a second thread repeatedly
-unmapping the second page, failed 77701 of 200000 calls with EFAULT;
-with the fix all 200000 succeed. Affected since v6.4.
+Hello, Linus,
 
-read_kcore_iter() copies a KCORE_VMALLOC chunk with vread_iter(), which
-writes to the user buffer with page faults disabled and stops at the
-first iovec whose page is absent, after the earlier iovecs were
-written; the loop then faults the rest of the buffer in and calls
-vread_iter() again for what is left. It keeps the running total in
-`read` and advances the source address and the remaining length by that
-total:
+When the v7.4 merge window opens, please pull this two-byte cmpxchg
+emulation:
 
-	read += vread_iter(iter, src, left);
-	if (read == tsz)
-		break;
-	src += read;
-	left -= read;
+  git://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git tags/cmpxchg-emu.2026.10.12b
+  # HEAD: 558ccc91ddf98d58ae726ed7ccaf5838f284084f: xtensa: Emulate two-byte cmpxchg (2026-10-12 16:36:53 -0700)
 
-In the reproducer the first call copies the 2048 bytes of the first
-iovec and stops at the second: read is 2048, and src and left move by
-2048, which is right. The page that fault_in_iov_iter_writeable() then
-faults in is unmapped again before the second call, which copies 0
-bytes: read is still 2048, but src moves by another 2048 to the end of
-the chunk and left drops to 0. The third call has nothing to copy, src
-moves by 2048 once more, left wraps around, and
-fault_in_iov_iter_writeable() fails on that length, so the read returns
--EFAULT. When both short copies are non-zero (three or more iovecs) the
-extra call also copies bytes from the wrong offset of the page into the
-buffer before the failure. A single iovec is not affected: its nofault
-copy is all or nothing, so a short copy is always empty and the advance
-by the total is still the advance by the last copy.
+----------------------------------------------------------------
+Add emulation of two-byte cmpxchg()
 
-Keep the return value of each vread_iter() call and advance src and
-left by that; `read` stays the running total compared with tsz.
+These commits add a cmpxchg_emu_u16() function that emulates two-byte
+cmpxchg() in terms of four-byte cmpxchg() for architectures not having
+native instructions for this purpose.  They also make use of this
+cmpxchg_emu_u16() function in those architectures, namely sh, arc, csky,
+and xtensa.  This permits use of two-byte cmpxchg() in common code.
 
-Found while formally verifying vread_iter() against the kernel binary.
+However, it sadly does not permit easy implementation of all algorithms
+needing on two-byte atomic operations because there are some systems still
+supported by Linux that do not have native two-byte store instructions.
+There is reason to believe that these systems will soon no longer be
+supported by Linux.
 
-Fixes: 4c91c07c93bb ("mm: vmalloc: convert vread() to vread_iter()")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
+----------------------------------------------------------------
+Bradley Morgan (5):
+      lib: Add two-byte cmpxchg emulation function
+      sh: Emulate two-byte cmpxchg
+      ARC: Emulate two-byte cmpxchg
+      csky: Emulate two-byte cmpxchg
+      xtensa: Emulate two-byte cmpxchg
 
-Notes:
-    With a single iovec the destination of each vread_iter() call is one
-    copy_to_user_nofault() per source page, which copies all or nothing, so a
-    plain read()/pread() can only see a zero-length short copy and never hits
-    the second-short case; readv()/preadv() with several iovecs does, since
-    the nofault copy stops at the first iovec whose page is absent after the
-    earlier ones were written. The EFAULT is the same for any reason the
-    destination page is absent at the retry (swap, migration by compaction or
-    NUMA balancing, KSM write protection).
-    
-    The loop cannot return a full count with wrong data: once left wraps,
-    fault_in_iov_iter_writeable() fails before any further copy, and read ==
-    tsz is only reached when every short copy but the last was empty, in which
-    case advancing by the total is advancing by the last copy. With three or
-    more iovecs and two non-empty short copies the extra call copies bytes
-    from the wrong offset of the same page into the buffer, but the read still
-    fails with EFAULT.
-    
-    Reproducer (x86_64 defconfig, root, QEMU -smp 2; the second thread keeps
-    the second iovec's page unmapped):
-    
-      gcc -O2 -pthread -static -o kcore_readv_retry_short kcore_readv_retry_short.c
-      ./kcore_readv_retry_short
-      before: ok 122299 EFAULT 77701      (exit 1)
-      after:  ok 200000 EFAULT 0          (exit 0)
-    
-      /* preadv() of one vmalloc page from /proc/kcore into two iovecs while a
-       * thread keeps unmapping the second iovec's page; root, CONFIG_PROC_KCORE */
-      #define _GNU_SOURCE
-      #include <elf.h>
-      #include <errno.h>
-      #include <fcntl.h>
-      #include <pthread.h>
-      #include <stdio.h>
-      #include <stdlib.h>
-      #include <string.h>
-      #include <sys/mman.h>
-      #include <sys/uio.h>
-      #include <unistd.h>
-    
-      #define PG 4096UL
-      static volatile int stop;
-      static char *zap_page;
-    
-      static void *zapper(void *arg)
-      {
-      	while (!stop)
-      		madvise(zap_page, PG, MADV_DONTNEED);
-      	return NULL;
-      }
-    
-      int main(void)
-      {
-      	int fd = open("/proc/kcore", O_RDONLY), i, best = -1;
-      	long efault = 0, ok = 0;
-      	Elf64_Ehdr eh;
-      	Elf64_Phdr *ph;
-      	off_t off;
-      	unsigned long a;
-      	char *buf = mmap(NULL, 2 * PG, PROT_READ | PROT_WRITE,
-      			 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-      	char *ref = malloc(PG);
-      	struct iovec iov[2] = { { buf, PG / 2 }, { buf + PG, PG / 2 } };
-      	pthread_t th;
-    
-      	if (pread(fd, &eh, sizeof(eh), 0) != sizeof(eh))
-      		return 2;
-      	ph = calloc(eh.e_phnum, sizeof(*ph));
-      	if (pread(fd, ph, eh.e_phnum * sizeof(*ph), eh.e_phoff) < 0)
-      		return 2;
-      	for (i = 0; i < eh.e_phnum; i++)	/* vmalloc = largest non-RAM segment */
-      		if (ph[i].p_type == PT_LOAD && ph[i].p_paddr == (Elf64_Addr)-1 &&
-      		    (best < 0 || ph[i].p_memsz > ph[best].p_memsz))
-      			best = i;
-      	for (a = 0; ; a += PG) {		/* first page with live content */
-      		if (pread(fd, ref, PG, ph[best].p_offset + a) != (ssize_t)PG)
-      			continue;
-      		for (i = 0; i < PG && !ref[i]; i++)
-      			;
-      		if (i < PG)
-      			break;
-      	}
-      	off = ph[best].p_offset + a;
-      	zap_page = buf + PG;
-      	pthread_create(&th, NULL, zapper, NULL);
-      	for (i = 0; i < 200000; i++) {
-      		if (preadv(fd, iov, 2, off) == (ssize_t)PG)
-      			ok++;
-      		else if (errno == EFAULT)
-      			efault++;
-      	}
-      	stop = 1;
-      	pthread_join(th, NULL);
-      	printf("ok %ld EFAULT %ld\n", ok, efault);
-      	return efault != 0;
-      }
-
- fs/proc/kcore.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/fs/proc/kcore.c b/fs/proc/kcore.c
-index 390547b992ac..3264c99bd68a 100644
---- a/fs/proc/kcore.c
-+++ b/fs/proc/kcore.c
-@@ -531,12 +531,14 @@ static ssize_t read_kcore_iter(struct kiocb *iocb, struct iov_iter *iter)
- 			 * again until we are done.
- 			 */
- 			while (true) {
--				read += vread_iter(iter, src, left);
-+				size_t n = vread_iter(iter, src, left);
-+
-+				read += n;
- 				if (read == tsz)
- 					break;
- 
--				src += read;
--				left -= read;
-+				src += n;
-+				left -= n;
- 
- 				if (fault_in_iov_iter_writeable(iter, left)) {
- 					ret = -EFAULT;
-
-base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
--- 
-2.53.0
-
+ arch/arc/include/asm/cmpxchg.h    |  3 +++
+ arch/csky/include/asm/cmpxchg.h   |  9 +++++++++
+ arch/sh/include/asm/cmpxchg.h     |  2 ++
+ arch/xtensa/include/asm/cmpxchg.h |  1 +
+ include/linux/cmpxchg-emu.h       |  4 +++-
+ lib/cmpxchg-emu.c                 | 38 ++++++++++++++++++++++++++++++++++----
+ 6 files changed, 52 insertions(+), 5 deletions(-)
