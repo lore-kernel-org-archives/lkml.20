@@ -1,112 +1,100 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376A24CF470
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792225931; cv=pass; b=NUYsfxFfukmbbxuhJLF0HuB9Nztp4eQ2S5nS7mBAsBwTjD3SH1js2LPHmxgGUzsuy4jspv2MwCjOR2NT73FKwFSCzWGwU7qR3LHj2fE/80/5P6f1HuChF2nbvG++65X+ajX7sWgVw6PU2JieCGKUEt3MpqnlEjiZ3PN9akPU8No=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792225931; c=relaxed/simple;
-	bh=BSPQ+6lrEwCu09nKbFgXJDtvyeOV98p5qJJX4t256Pw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fzqBsEdYn3wihi6m0jdOeFndsWhroXsgQXxGoIMx8SDIIiQO//TlhHBh67pZFirZEYdgWDK4K0qq1CgXTgwsQeqnsWjAEGxLeehdpmYEULFI6o2BrGC/LsbKeairKWKU7SFpjdUbWPjOm91f4whV6fbYO45pEYOzJUsXJCvdcUs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AtkTYQYT; arc=pass smtp.client-ip=74.125.224.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E4112D21B;
+	Sat, 17 Oct 2026 08:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792225935; cv=none; b=NcGggi73x4lVs7ojn5AHZgdc09w/mfqXTWaVyLveZtllMdS4wEbG4F+ftBzEjyDpxWPdHrrLmK0s+QNUpC06LM6mPID42TuWFAD2lQQNlhDJXrHOTsA0Wboh22sJD0dKtDFtnrlv2NXDQaDGycWEEawxrOLzWFAHLg4lz8NiZZk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792225935; c=relaxed/simple;
+	bh=uGgjj/bVm2RMQrXvIlT6pSJ+SabtuB8Hk1e749+1Yds=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=O0LSpnavNSZLnbi2zxO6OXCjWrms35+GIAM668ozzqp10xJoEm7IAzyj1xqiWxakwjQHGpxgIA0gIZfkm6u+JlZXscDoMSGeIxK8XYueHlKgAHQd365hpU12ekqQX7ocM+/1V/39uNhPlYy2hqQP6Z9vkk3ODmB0Sbua37qxfbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qiwhbuzX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AtkTYQYT"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-6756a01fa01so668118d50.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 01:32:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792225929; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b1QZH9vNHZF4DHtL096NqIlWeC+4RQitbPiFvNenDjSz+sv5wir0tTNOvFx2Gndy+Q
-         wwHPv3pYPJ7R78Z6oSrf4bcKut/3VcbW+GaC0Rf1ivFNKWhpnAMA7NeJ9zKo8MkAibbZ
-         Meq2cdALFA0mgSXW3kb1NCjXGMM4kAk4jMF5r6kR5ju7yDnlCqFyk/P+5VtOZ6BCb6tk
-         hX9pQ0jDNIOo7Dm+nWTtPUcU17PhroXe4GeXFN0VJCsYamWeUY75ar5VXPCwpMGzL84W
-         kUj0H2YmE2anBZeIJ5MAmsJ5HXHnTTuih83M60rZk7zw7aPUViIn+FJ7NL1Tim+M4SUP
-         SDtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ouYdj6Wo8QUkLazyyYloYrZvy3tpdZIKXe5cmoTFy/8=;
-        fh=NUmi00B9AZywvwALhOdk2EI8fiw3HVza8mvkomxvHtQ=;
-        b=mM13/TYOoD1T1ReaF9HRdiETVO55R+EzTPPRH3fAVTxugt+CU9ZrPwPyyxsPPgLO42
-         E7ObeWNrmhsy9lGCl+mjIeLwS/rGNycjqRRCcjulSDe53SYClRVLWgvku+A4qjpExQgH
-         UzCd3PKHrwzskThvw/98bTwso20AaWCDfucveLw7ErPdyXctiQsHh2fC8s/khqI+NJos
-         K5di1YxgGV3J+B6iB2qm2ynzqYC347ZmyqvXgPLwYhFTPMR+/AB4Zu8FZQVsnUddKzF2
-         riVuz3N1gLPxH9GXjpLsidxyqIN2xixP8USHTC21DXWcGmGCbLyfupLU6lNaWO69A4/B
-         uiPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792225929; x=1792830729; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ouYdj6Wo8QUkLazyyYloYrZvy3tpdZIKXe5cmoTFy/8=;
-        b=AtkTYQYT7965BZSOWzJlkJc4krP3Sf6NouZ+RFHDGM4zTp4g8xBuFfAiNmWNKW3laJ
-         I9lvMUCEBjyt/oAdGa8mhoe2dHPP/IBK5TB5KXRKC7rn9nKYxAGaWwJVQIUUqezS53Y+
-         NJTx89xzGQr4XdfMN0BDcr2OyUOUNiRMwGXU90ue/sFAcXZcj/UBGCaYv4v3mGM/YfSA
-         pBuBHthza+vdWXzOSXAsCY0OGdt7lKWSZ1L6y5GmGcGmV/bnqT9qIyB/mYgtRnc1+RsY
-         U/9rIrM00FtZzuTVbz5hDtuWgJ5gD1BfWSa60eQcHnA3YY/g4MnQJEEaArlw89/mTr/r
-         YaQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792225929; x=1792830729;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ouYdj6Wo8QUkLazyyYloYrZvy3tpdZIKXe5cmoTFy/8=;
-        b=XGS56ydFvt/GjzFDE1XjQ3QeKjrPtRA+Iz+UTpKiRmL3enZfvmdiFDaOOfZMSGd0Zf
-         DtIdbWQoQgePJ/RmDmfn6hWA5QyJFpxG55t9mg11jhexWD2/xwdEHX99b5GIztlPrgel
-         N6GCGd9UN3MYLdgOsaTiL3vOLvhZGiI9Foqq/fy+Bhnxh7U03Ze49ajn7NokUHT2jSwk
-         Ui2VaLRfKyq0HaLGfyPrMZHJFKYx//wMNwCkRPAMxPJCHOr+h5M1EZ1eRn+XEZyuol20
-         rAT/mLb0ScH1qBkej+rm8/lE1YRlgwMTpZjo/QXZSz90fqWdl9NY/O3lfeu9HxJ76MYv
-         jOAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwnVWW1zDiyH6x26ZZ9xz/LLpgjZXQ0azn/8OPYnokUxS6zec8li3cNL4KnKezlHcnQZZI1ws6/LCrQEYo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBXovSf/dv794Fs3dZm7b/yBrFcjvMOa7Z6DtoH5qyYC0IIyw6
-	KWheaDaI7P5JZ11GJLOWYooiiQkbyCvgX52XkW5StIxlwIcJHM8My1YXreQkTuZ5c33gK6pRRfy
-	H61HpVUL6BctyH0mqU/KUcbj3JoBD9N0=
-X-Gm-Gg: AYBFou2oAoCTuDqCGO/3Hf1hZwbwXiJ3xtqtTubO3pCnIBRx2Bg508lYA+o2ouWwXG0
-	6UWeKvnWz/rjCAQwTZXmLzi9Ye3m9DVWhK62vO6L4nVhtiqO+hI+00VT1NEEC4EvJ099Tdcr5PF
-	F3rF40EAUVPHfan+a+dEzFD3H3BSzccNp3ppnB1KwUTndH/DkP9aXKPbu5cefHH0/MTrsBtXnS7
-	2S7OGDHwCwNm8yHg/y7w5JmuLGoxfK7z4yBfOdzHO31Ds837iB3uHkgfynr0KJo6qfyfE/DAJfU
-	kysZ9i3jtMgh/8i7wAt0gJFwEwJpRDQG2z9woZ6TWGi+4EoiEs5CVJVFPkDZhJFynxfay17ODj4
-	crq/xJGApBg==
-X-Received: by 2002:a05:690e:4806:b0:677:d126:c54 with SMTP id
- 956f58d0204a3-679ca80ab51mr426527d50.68.1792225929061; Sat, 17 Oct 2026
- 01:32:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qiwhbuzX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8BCE0C2BD00;
+	Sat, 17 Oct 2026 08:32:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792225935;
+	bh=uGgjj/bVm2RMQrXvIlT6pSJ+SabtuB8Hk1e749+1Yds=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=qiwhbuzXWhXm6Zn+fu/o6rbWF/VoZNyvslagRz6t5SRrpnDPxxyo8+AbLYsvVITiM
+	 am7ThTTfcOs8rzANOeIY/FPgo0pqtkS7yx67M6HE3H5zV2HMJDwXW4PzCCRB49JxFc
+	 fCxqXUPwFFYYK8P/cNN7uY6ySlH57qXty+JYt3KakGBLVnIQQ8SyMiypqGEdk7GNTB
+	 Io5i+7AuDdzYi3byUs4+KHk2/yDCCaIvIPdla3swcnH9NaDOnXNzHtUtid19fjAhVJ
+	 NRBYFArZJ2u/HR5d+O+DEry1VMDxok5eMQCuLb2yIjxU9H9Q+Yr1UrmfYgAiav+b8S
+	 51npULNSZPzUg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F421CCF2C9;
+	Sat, 17 Oct 2026 08:32:15 +0000 (UTC)
+From: Tin Posavec via B4 Relay <devnull+tin.posavec04.gmail.com@kernel.org>
+Date: Sat, 17 Oct 2026 10:31:59 +0200
+Subject: [PATCH 3/3] media: ipu-bridge: Add OV9734 sensor config
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-pmb-1295c9b521e15b3753d6-v2-d2f1fcf0f038e0776f7c@gmail.com> <87pkx8211i.wl-tiwai@suse.de>
-In-Reply-To: <87pkx8211i.wl-tiwai@suse.de>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Sat, 17 Oct 2026 16:31:58 +0800
-X-Gm-Features: AclHuK9HIqmHOPc3Q_ji2t1xTNmKdcQ1VxP_QGZt45VsIjkNcySDX8f1f-QueX0
-Message-ID: <CAFRLqsVgOKjM=r7PvkuV6qy9H8FZxSq8Rc6mVAP0w12LhgymPA@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: seq: oss: Initialize the timer before publishing
- the port
-To: Takashi Iwai <tiwai@suse.de>
-Cc: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261017-ov9734-ipu6-v1-3-86eab22ae258@gmail.com>
+References: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com>
+In-Reply-To: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bingbu Cao <bingbu.cao@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Tin Posavec <tin.posavec04@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792225933; l=1269;
+ i=tin.posavec04@gmail.com; s=20261017; h=from:subject:message-id;
+ bh=FwgBHrNJRouDllQ+29L6D3vp6iZpIUXBZhoEI3VmSgY=;
+ b=QDrGAg8BUmbwzH+NIyXLqxVnJU2GjUiEKzRoPbbry/m7nZSKEBftvlOD6+8nCekMYhvbnTFjm
+ dLYbQjQbfyLCTq5eTqRKoiPXmb3eNu8K6YYsS8XYe5H4uN4v2p7ftmp
+X-Developer-Key: i=tin.posavec04@gmail.com; a=ed25519;
+ pk=SHQVmXmK88mO08JT/P9vzu9gKd208IICWLSbsX3TmcI=
+X-Endpoint-Received: by B4 Relay for tin.posavec04@gmail.com/20261017 with
+ auth_id=1222
+X-Original-From: Tin Posavec <tin.posavec04@gmail.com>
+Reply-To: tin.posavec04@gmail.com
 
-Hi Takashi,
+From: Tin Posavec <tin.posavec04@gmail.com>
 
->
-> This issue should have been covered by my recent fix:
->   https://patch.msgid.link/20261016161930.482309-1-tiwai@suse.de
->
->
-> thanks,
->
-> Takashi
+Add the Omnivision OV9734 (ACPI HID OVTI9734) to the
+ipu_supported_sensors[] table, with a single link frequency of 180 MHz,
+the only one supported by the ov9734 driver.
 
-Thanks for the pointer. It did fix this issue.
+The sensor is the RGB camera of the Intel NUC M15 laptop (LAPRC710).
+Without this entry ipu-bridge does not create a fwnode graph endpoint
+for the sensor, and the camera is not enumerated.
 
-Best regards,
-Cen Zhang
+Tested on the NUC M15: the sensor binds and streams 1296x734 SGRBG10
+at 30 fps.
+
+Assisted-by: LLM
+Signed-off-by: Tin Posavec <tin.posavec04@gmail.com>
+---
+ drivers/media/pci/intel/ipu-bridge.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 3739c4a2a..4982b77de 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -120,6 +120,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+ 	IPU_SENSOR_CONFIG("OVTI5693", 1, 419200000),
+ 	/* Omnivision OV8856 */
+ 	IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
++	/* Omnivision OV9734 */
++	IPU_SENSOR_CONFIG("OVTI9734", 1, 180000000),
+ 	/* Sony IMX471 */
+ 	IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
+ 	/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
+
+-- 
+2.53.0
+
+
