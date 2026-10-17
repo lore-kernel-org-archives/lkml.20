@@ -1,131 +1,109 @@
-Received: from mail.nozomi.space (mail.nozomi.space [139.162.184.125])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798F746AA73
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.162.184.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E655463B75;
+	Sat, 17 Oct 2026 09:04:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792227838; cv=none; b=pu2hLmoToKokxG/AniIqPCny6tUgwwZairY0MFz8wzGmvXam6UX/Oh+mLkYKYE282jWtqNqHS976FVa92L5Z8mKkdl+JNRnkMYEFoyC2aciWdzklEEK82thifZR6TasEQyS/2EWvHWb7P+1bjB11z3OZOC5DJsQVEou0OaKVn5o=
+	t=1792227885; cv=none; b=sTX5xjVQWvgUBrk6TPXQlmU6V+LMh0c1kW/omB2gX4VgGcj54kGkC1CWjXLHU2npigFFi0KNx4quO07D9D4R/IqUMASpx9e/RCGtuVFY3HoRfinqI4oaUcjeSfIeqqNpf0yMNo0qpR8gdJESGUQAA35+m7TOWWovcjZX129ffTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792227838; c=relaxed/simple;
-	bh=ez5W3Tiudeu7DKRDSxt0ElxQRTPeopy/n2r2FQTfeZk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GXTyl/p/RTK1aWUAoBKDUTzhkMD4CbPbivABRXikk5GbyhQuI9QIoSJkGc2K6kkvTLii5F4/sG3O1Bl6B9IC4Nph9vKpdvs+Q10FkqSHe1zrQayKpXLyq7U+IYMNB3B++IMk00S69PgWv+c292kc495GjRV9y+hAz4sRSREKlL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=BrwiRFUI; arc=none smtp.client-ip=139.162.184.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nozomi.space
+	s=arc-20240116; t=1792227885; c=relaxed/simple;
+	bh=djD/V9d0QYLhzz/76krlJ84+3vyG49fYA5wmKdmvis4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OPQZ614IDD3KzbJt6io+otSuUALGlHDPkAmlaCTx3BcdLmIsLOe1YuUpq7dmFwHq22bg6vXB+ZNgbaC/FxVFm7FyD2axAkVed9ktPc2aSVOAG6QUoul/9v0Qkg6CCR76Hpox1zm7Hwc1vDD+vZgf0DKddZHMXqXilFUn6nw0Tec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VWtQKOsL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="BrwiRFUI"
-From: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozomi.space;
-	s=mail; t=1792227834;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=xDtFfkl20RYcNy8cmYwdbGMoG2wivzzVXEPHVURNyqQ=;
-	b=BrwiRFUIXxVPcSwxbbc/efMOK8LjBxgiXAXhEEYUIFZQYVe9aJkLrJqhY9dW9ZYbo7zJqv
-	9ZxxLustF9AT2wR4yWTSoWmmsQVLrDN8hKUIjorSaZSL628HAzmGUQ38Mi7ZaGsL+91nP4
-	mCLZPtIPjKzoUh/7i3tuUkqO3u1OomARLMymtdK/3nUixzbi0zMDmqO2C0weQL3cGvJ/yS
-	d3C4gkl6Z46h2gIbu20o4XtYJm8mvMBEYwvnx0EgcBfqRNqZAKLp/bMB25+ypuYMy1pkRz
-	3y9dEPAk/xDhhCPDs9ATpqpCtCLdw6ALpBmLaHz48qmn8FbjZLgZ3aQW22tylg==
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Yidi Lin <yidilin@google.com>,
-	Hsin-Te Yuan <yuanhsinte@chromium.org>,
-	Brian Norris <briannorris@chromium.org>,
-	Julius Werner <jwerner@chromium.org>,
-	chrome-platform@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
-Subject: [PATCH] firmware: coreboot: Don't skip CBMEM entries outside of known memory
-Date: Sat, 17 Oct 2026 11:03:51 +0200
-Message-ID: <20261017090351.1266064-1-michal@nozomi.space>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VWtQKOsL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E521F000C4;
+	Sat, 17 Oct 2026 09:04:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792227883;
+	bh=99mlhEUv4uuRxGlx/KL/BwKIec6lmdsz9tFjs72EqpU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VWtQKOsLyvFFcFhmxFn6XghqCoKT7auV9H/QWdZiNRaO6xM/1NKTk82h/2CeFKXMv
+	 AD+nMBOUFUJ5Qc9RhtDlzmYmFmGjkAS9dWGvWUjxU2pIgVV+ahWsAa3W8V+aa5s7rQ
+	 mRb8dw6+EoPhvgK+jJ6r0VGA87CzItbWJLPIASvk0Lqd6X53BnxgdkfkFV5JrOBgNi
+	 KB1HoMfmBi7mHFRKuvcsOGsUSMlG+lrNQE8TmoMlUysob53Zf4CRWvoBox0bn/rp+I
+	 LPmm5hFlcsdcG8G0KIr+sOXYalQR4mAl4Y7tKViHihfcvE3VeX7y8r1nPFDAV1cY3l
+	 8HPwIbvLbVwgw==
+Message-ID: <6ac3413c-1c40-49a0-a5b3-05d059114efe@kernel.org>
+Date: Sat, 17 Oct 2026 11:04:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Document Xiaomi 17 Ultra
+ devices
+To: Igor Belwon <igor.belwon@mentallysanemainliners.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261017-nezha-v2-0-44c95e1a9d6a@mentallysanemainliners.org>
+ <20261017-nezha-v2-1-44c95e1a9d6a@mentallysanemainliners.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20261017-nezha-v2-1-44c95e1a9d6a@mentallysanemainliners.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-coreboot leaves CBMEM out of the /memory node of the device tree that it
-passes to FIT payloads, e.g. LinuxBoot on arm64 Chromebooks, and only
-lists it in the memory reservation block. The kernel has no resource for
-that memory, so region_intersects() reports it as neither System RAM nor
-Reserved memory, and since commit e31ecda9e3af ("firmware: coreboot:
-Skip no-map CBMEM entries") all CBMEM entries are skipped on such boards.
-That loses the coreboot log, the TPM event log and everything else that
-CBMEM devices expose.
+On 17/10/2026 08:41, Igor Belwon wrote:
+> Add compatibles for the Xiaomi 17 Ultra devices, consisting of the
+> EU model with a smaller capacity battery and the CN model.
+> 
+> Signed-off-by: Igor Belwon <igor.belwon@mentallysanemainliners.org>
+> ---
 
-Also accept entries that don't intersect any memory resource. No-map
-regions are still skipped, as they are IORESOURCE_MEM resources, as are
-device regions.
 
-Fixes: e31ecda9e3af ("firmware: coreboot: Skip no-map CBMEM entries")
-Signed-off-by: Michał Kopeć <michal@nozomi.space>
----
- drivers/firmware/coreboot/coreboot_table.c | 42 +++++++++++++---------
- 1 file changed, 25 insertions(+), 17 deletions(-)
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/drivers/firmware/coreboot/coreboot_table.c b/drivers/firmware/coreboot/coreboot_table.c
-index 2c8c928fbb33e..5980dcc00e07e 100644
---- a/drivers/firmware/coreboot/coreboot_table.c
-+++ b/drivers/firmware/coreboot/coreboot_table.c
-@@ -114,6 +114,30 @@ void coreboot_driver_unregister(struct coreboot_driver *driver)
- }
- EXPORT_SYMBOL(coreboot_driver_unregister);
- 
-+/*
-+ * Whether the memory of a CBMEM entry may be mapped: it must be exclusively
-+ * System RAM, or exclusively Reserved memory, as CBMEM often is on x86, or
-+ * memory that the kernel doesn't know about at all. coreboot leaves CBMEM out
-+ * of the /memory node of the device tree that it passes to FIT payloads, e.g.
-+ * on arm64, and only lists it in the memory reservation block.
-+ *
-+ * Anything else, such as no-map regions on arm64, which are IORESOURCE_MEM
-+ * (see request_standard_resources() in arch/arm64/kernel/setup.c), must not
-+ * be mapped.
-+ */
-+static bool cbmem_entry_is_mappable(const struct lb_cbmem_entry *entry)
-+{
-+	resource_size_t start = entry->address;
-+	size_t size = entry->entry_size;
-+
-+	return region_intersects(start, size, IORESOURCE_SYSTEM_RAM,
-+				 IORES_DESC_NONE) == REGION_INTERSECTS ||
-+	       region_intersects(start, size, IORESOURCE_MEM,
-+				 IORES_DESC_RESERVED) == REGION_INTERSECTS ||
-+	       region_intersects(start, size, IORESOURCE_MEM,
-+				 IORES_DESC_NONE) == REGION_DISJOINT;
-+}
-+
- static int coreboot_table_populate(struct device *dev, void *ptr, resource_size_t len)
- {
- 	int i, ret;
-@@ -149,23 +173,7 @@ static int coreboot_table_populate(struct device *dev, void *ptr, resource_size_
- 
- 		switch (device->entry.tag) {
- 		case LB_TAG_CBMEM_ENTRY:
--			/*
--			 * Skip entries that are not exclusively System RAM or
--			 * Reserved memory.
--			 * On ARM64, no-map regions are filtered out as they are
--			 * IORESOURCE_MEM (see request_standard_resources() in
--			 * arch/arm64/kernel/setup.c).
--			 * On x86, CBMEM often resides in standard reserved regions
--			 * (IORES_DESC_RESERVED).
--			 */
--			if (region_intersects(device->cbmem_entry.address,
--					      device->cbmem_entry.entry_size,
--					      IORESOURCE_SYSTEM_RAM,
--					      IORES_DESC_NONE) != REGION_INTERSECTS &&
--			    region_intersects(device->cbmem_entry.address,
--					      device->cbmem_entry.entry_size,
--					      IORESOURCE_MEM,
--					      IORES_DESC_RESERVED) != REGION_INTERSECTS) {
-+			if (!cbmem_entry_is_mappable(&device->cbmem_entry)) {
- 				kfree(device);
- 				continue;
- 			}
--- 
-2.56.0
-
+Best regards,
+Krzysztof
