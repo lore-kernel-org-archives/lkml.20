@@ -1,148 +1,164 @@
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03AC033F8B2
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792252648; cv=none; b=ai3N1y5dp74TjG1eFiw7X88iDGw0x97NqFGE8dwFBRbdJciUrFwigGez5TyLNqejxKMyCp4ZAemlP3Pvrnzks/RwmOY7Mw3bKHfJ+JKpoOmaHrktU9VFBT6ORj+RR3dQ0drJ1GlYcjaGGLBHAqp4UwVNEDElvzc8aUzuHqZds68=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792252648; c=relaxed/simple;
-	bh=buDbH2F3njrRXDQ6sKsXG1aceZOpDv/n8vQhTMP7H5I=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=ESIHimfKpvyaabiGAoR8jAke9BWr4wuLVs7Evb/TjOV/0ZpIPoK2qnNNd5NsUff1vcPv3PMD/iZNbCkN8KlxJaW2Cz9f52n7VA5z7eFLwa0Vq7xkpzCJoz+S2cAUxWMnzcw4K9N1SaRW9HoWMDf1twUSkHNny/wO0cPB473vrGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zr3Zdkoy; arc=none smtp.client-ip=209.85.217.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B976F3A3E97
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:00:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792252815; cv=pass; b=cZdJPqwEknSZWk8M/Exu7eYnu1e8bFPe1rVewY4y4py9MWBikVGb55OY/l+AaQzDqmCnXWznV5DMo6g/K/W94wPfcpWA6dvnttDvvImMmhfEeK1JFOkLft5RrgZyB4kRchZGEViYtnmiQ2dDhRcapk8tLNhxC3dKOGILZPavu0Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792252815; c=relaxed/simple;
+	bh=wiy+NLzkwFoKdfeR9uWNcg9YIp8IfEjhimuqcA3+buE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gK43SL0TbvQnbe/eP3Ro38TMoI4AG4xRj7pLsyRX0twN3SbYFRf4BSiHpFfWxuf00+js7x7LGlvef4bvDWbOuHv3NmR9gLaqKB6Im/C39g6rujYhLLymeAAExu2MmPVc1RtAHDmt9HQ95WmTE1Vsaj7hVO6JHbcmI9pd43s79Z4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KLm/4uV0; arc=pass smtp.client-ip=209.85.218.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zr3Zdkoy"
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7cc0892f92cso236052137.3
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:57:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KLm/4uV0"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2e8c710847so101023766b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:00:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792252812; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AXRSI9ZtbTDTmYyoBTOiu75mwu8h1WHX5Dg++jsiI+vslz1AwSBKyxsXsaIhQZVuJJ
+         rk1FxA2Fr1fa2M+tWNM5LRA7CvxWsJdQ8QqG/ClkltAT0hOdXDghcIm6n99/NsA/0pH0
+         BllizOyQYDFTSVyj6SN08kVI42jm1K9xrXpOC7qmGEYxkCE8sKCQ8NtnnmyUcPsP+fYm
+         jfyEE3Fn7vDPG/maggFKaTHu/UexlbRTo68GzfjgIkXHPQ6i4dmenkHxxiFS/67cnYbz
+         W2sJqo92FKLwzgSpe935Y0ugxtLnpsCKFSp0hQla7M0jbaa4u4t8pdJIz/JiriLcJZvI
+         7UjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=heuAmACvgemhYqOlhZaeKhFmZFnxaUC/Oh++mSifMjA=;
+        fh=mALTJKqUhjGhva334FYNpTTECgXtH9jjunDSZz3jJ98=;
+        b=NqnNh3rtslMWLTMc5Kqu8Yj/x1xzkfpN2RQPCdZGKhxd5WLTc98HhWrmkW0Pi+4rLK
+         PBJW+5v9m0pAba6C3MnNZ8O+33fP74Lnlw8+P+pSh2/mLf/UYsbqSspjVGjbo6ko7v6b
+         u9aivubR8j0qVHvz5yxkFnBYC7atOiwEO3brzKI7VP8JP9r9saAb8fyYeN+D+S7fOHsP
+         hNca46TOpVLgpu8+E2eHeFaSywOiuuZzkiMO0Q1+MupLjpKcI8u8XgsD5XWRDdzo/4st
+         ugOK/UzLCbeoBavVAkAMmaWbhYvbHq4B3voKHd3950L6iZz7GKdXoKhkT2O+wwgxpzr9
+         xVew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792252646; x=1792857446; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZlkplhADRs5o0g+DjBrPDoiSvTdMdtK+ibJQdYkg8KY=;
-        b=Zr3ZdkoyHecZwh9gUpewrKThHwH8ysmKyeqyvgOSByIDDBN6JXS490PYarmrSFxQO4
-         RRq9l/RBMCOsbvgI1F/V3xkP0HOyfn4LFY8lfsi6onaZySWQnQGY038y6yCdvz6+PrgX
-         migzCdGZYo25ItVsJk2ukvDMgEc/tqeb2OLsIl0FNdfsMzYK8r+spG0XM07Ow08H/8K6
-         KnSX+uOcI3WFhBOBZ2ddxjqwjHmiWmSAQFKhosrGdH5kK9ljinRypvNq1JDRJgTr65Q7
-         9lcFlvv/Bpy/jW8JeuKg6c1PGFo1XPcnUt9qmW/Qbitg29xmeRdSCPfUzs7QpZhS8hxj
-         byKA==
+        d=gmail.com; s=20251104; t=1792252812; x=1792857612; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=heuAmACvgemhYqOlhZaeKhFmZFnxaUC/Oh++mSifMjA=;
+        b=KLm/4uV0RMxKs37GrWWtsedpsHFWNLX7wH5iybXVlKt22bhKEdLuP/uYc3zNUITSVn
+         6WB8bzy7gzOj00T0oe4yDzol7SajekpKRLTvf92Peq5ywK2Vn/F50k0jzjz/myt/BxiP
+         Tvks4umgbWG34Kt8GGFgNzuqS3hx+/WP3wSF/JxGGkxkVfm1jfQnCMJqPnpjNHHURwWm
+         1ttPv1+wrHS0y+Joy7E+ImNw9K28k3trVCL8/R+ZOapOmleZ9nsRgEiaU46mnNwzGfEj
+         oQTzfpbdoiK/Gx7LKXlho3M2gNQlBqmITPOdunP/1EbA6OI8GRd0NRYu0jfzDpFMVBEA
+         dqBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792252646; x=1792857446;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792252812; x=1792857612;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZlkplhADRs5o0g+DjBrPDoiSvTdMdtK+ibJQdYkg8KY=;
-        b=MiMjqiVl9GeRzvSj1Vgz4pjmjy+EGqI4tn9usvd5X0y1RgcF+FyDJZNf6uU6feXpCX
-         SnJGikyXL1vtjm45oIHg/CK1oKI0ZKz3SnX8pGkvle+oE0CQBVx0+1z05XjJyMN6/Mc9
-         0JXalVwqbcSngxnL56rbv8gz/GWZUyiT3XdvYUWsoTwkNavTs217yhPDdsQtw9DHHeNW
-         EBlhDdDGXvfGA7U61UA36RuyoEmotySP2EGoRMy+mcWnFNfWDQ3Ke5juiadlJ/3yd7Jq
-         xn4BPOJit4OxzfhUeT1XWDDDEY4/E8FFHZon36AxYWDE9x/FHnsweVBU8cqhvNli55nP
-         tS/g==
-X-Forwarded-Encrypted: i=1; AKwUvBxLQnaoS7sq45As2For3oYBTvJdDNClkEgvlfdfz3NwX4RC0yz0OhqQ8ON4j07adoMhdt2M9KQdq8mu2yk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJnb5SEVrLZ5n9Q8xPXd8Jg/DJcyu/VNaPM7ey07Lbj+L2uHXw
-	JZFG6UIbBdr71dGvGRd8zoM+EE8pbNPpUKuRSBWP+Md2pX8zZMuEZldn
-X-Gm-Gg: AYBFou1TP8fqlP0G/7ZNZke+t78OW0V+JcI2sFQ/oD8CYaHjGZx1ghQSV0ti5zx+CSd
-	0TlAD2uBNz3NArwiU0AY7g5636ZqjcRj1JZw/fHBJ64CVVrtvkL1PQgcJ9OE4enCsw51YVRopAT
-	IF3HpwmjDOLSMpG35wBwO5HrkkaAP9Ez+ZYVNh5NTJZPONsFIJ4EcdgMSf1I93zTkNNoDtoxxKI
-	dva2Q6UBU/ByK6iy03pUwT7/WZJWjLJ4vsOtq07Sg8oW3xp/dqER2qTqkjo2ALISdUfspcFyphU
-	7LipaELZL/e6PgkQAL73Yckr9Xd9Ozukiv5LrIXKBbMkiMKh5sk8h2ws7UX25FA0/i8ZQ4tjeVL
-	7l9kdGB8sHN4GcAj0D053lN6W4ZJ/WbEKGiR9OcpU2NwBZQt8etp/QJvtNpSx77/Y9IKvFxVHs9
-	2uReaQsc7CYrMS30lJiiNzWlrlFTW4zxGKDcc5WYmlVutpm3ip4XbYraPZKnCqodZiL7iP0cMaa
-	vrANklefVzie3z2UzYVH3c8NQAd8SBeEvKCSYvKU8UakL5gTuD/VmC0SNfZCMK1rj1QUkj7/rTq
-	FW2eFG4RrojDijpdX5ED1B2/BST0F0+Xb57GdQ==
-X-Received: by 2002:a05:6102:5488:b0:7cc:2086:34cc with SMTP id ada2fe7eead31-7cc369c0cd8mr778804137.16.1792252645798;
-        Sat, 17 Oct 2026 08:57:25 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990835f05c7sm4323730241.6.2026.10.17.08.57.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 08:57:25 -0700 (PDT)
-Date: Sat, 17 Oct 2026 11:57:24 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Boyan Liu <yymhvert@gmail.com>, 
- Andrea Mayer <andrea.mayer@uniroma2.it>, 
- David Ahern <dsahern@kernel.org>, 
- "David S . Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- co+98d7de09cd94fec5@bugs.sh
-Message-ID: <willemdebruijn.kernel.3068e5bf74671@gmail.com>
-In-Reply-To: <20261017120144.3059-1-yymhvert@gmail.com>
-References: <20261017120144.3059-1-yymhvert@gmail.com>
-Subject: Re: [PATCH net v2] seg6: Fix unset mac header in SRv6 End.DT VRF
- decapsulation
+        bh=heuAmACvgemhYqOlhZaeKhFmZFnxaUC/Oh++mSifMjA=;
+        b=PvmH0if4EAG0TziH1uQpa461RqFq386zJwd+l/M48Y446lODp5kfCRBFbzbO3sPMnc
+         EeObssbjaVLmWRSzmTM+yyPNHHbZ2KKsuy196OcuXGEnfpJu7Wm5/DwM+SyO4/GrUMQy
+         j2Bc0kaXVlxOG8mDmCQ/QkUsgF9E4qOIrYDUeda3uzMlAcHlSTVpiWsKfDdz1LPSBb7o
+         zMd3GNZveN3dhXcAeZ7RFDH0jfBIQpSLE6QuNAoukvPZwinp1MgOkBcS1LRSz6b/8yf6
+         Ze+xOEk7MHcHJwu6GiA3wP4z/9snrbZOvkg03S/+C6zTSWc65HeUuBHjznP96g0xetTo
+         vyYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwxUshisxueZVy3PxvVwswmuU1z/vk7YF/RQUD97HbX9UC9kUe5mWSjmbhbotXuSlH7fmHdG+gs83BcrJA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrz+S/G2bIB688ijI2Zt891kl559Non9wA30vt7z4jOOIFlVIF
+	kUGfkRfNw6AkTb1XdQhLIV9dvSz7PbEvS89YeSV6f4ZOWsppNiKuoUDvHcSUqM4Rx2E2VXMgfcl
+	lrM4z9Vb81CciNVpLij7kOdF1zwfXHXwrupv3VEM+SA==
+X-Gm-Gg: AYBFou0fN9fPIvizn4l63RvZnP6NqSIzxXKWZg5NPvjaLZ3bN1bKvUddwbEj565pPGA
+	K3xxFlmoaZE8lJhpTowYnOXXMgVN4TkMFH2kVnEKyv7NdrjRIrXFLGtLrZMAjw78XSbHIkMlkxk
+	8EATE9IK/cACgKt4fN1316uz9NLavyVUo4PAbhr5BmJfsicjbWWw3FRyH7++kYTFfxBL7K2XbYJ
+	8cSSL5ZrGGQ9CZEdZ8GEAQg/lD0Sc57H43FTm5WZbvgsfjZdUZXISwGF1JxBAZsQN70u5FkALRn
+	D/CaLn0+HUWD5sEpibCXlQZFLvo3fKHz8IymWjgAzQopu3g5BqJyhobUAciQQVmLr8GtyobCiCk
+	uDUD5WE0S/jLY92DHxt5x07QBPQvc4U125dfQmRfE9NvYf05986pyKGKrnHYg2yP0ckDX
+X-Received: by 2002:a17:907:d08d:b0:c41:8736:8c38 with SMTP id
+ a640c23a62f3a-c419f703a50mr183625266b.30.1792252811604; Sat, 17 Oct 2026
+ 09:00:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+References: <20261004213755.554191-1-voytikd@gmail.com> <e7c99dc5-dfa4-4ce7-b7da-a3a70a2710a8@roeck-us.net>
+In-Reply-To: <e7c99dc5-dfa4-4ce7-b7da-a3a70a2710a8@roeck-us.net>
+From: Dmitry Voytik <voytikd@gmail.com>
+Date: Sat, 17 Oct 2026 17:59:46 +0200
+X-Gm-Features: AclHuK9eyUQ-EeMBBG5As37PnBuim74fPBHiC1Q9YRECSk0aLgHjvs0lsct5Mig
+Message-ID: <CAAX90H0qGF-H8BYcmT_vbUGoqN9RbfeGxMdTTRyQPK_h8MzFhA@mail.gmail.com>
+Subject: Re: [PATCH] watchdog: allow WATCHDOG_PRETIMEOUT_GOV_SEL=y
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Boyan Liu wrote:
-> SRv6 End.DT4/End.DT6 VRF decapsulation unsets the mac header in
-> end_dt_vrf_rcv() so that the VRF device can rebuild it for packet
-> sniffers. The VRF rx handler only performs the rebuild when a
-> sniffer is actually attached to the VRF device (ptype_all
-> non-empty); otherwise the packet continues up the stack with
-> mac_header == 0xffff.
-> 
-> Every other receive path delivers packets with a valid mac header:
-> NIC drivers set it in eth_type_trans(), and tunnels without an L2
-> header (ipip, sit, gre, tun) reset it to the network header after
-> decapsulation. skb_mac_header() even warns on the unset state with
-> DEBUG_NET_WARN_ON_ONCE().
-> 
-> If the decapsulated packet is an unexpected UDP GSO packet,
-> udp_queue_rcv_skb() re-segments it after restoring skb->data to the
-> mac header with __skb_push(skb, -skb_mac_offset(skb)). With the mac
-> header unset, skb_mac_offset() returns a large positive value,
-> which the unsigned __skb_push() argument turns into a huge length:
-> skb->data moves far outside the buffer and skb->len is corrupted,
-> so segmentation reads out of bounds:
-> 
->     BUG: KASAN: slab-out-of-bounds in inet_gso_segment (net/ipv4/af_inet.c:1383)
->     Read of size 1 at addr ffff88800da7ffff by task exploit/149
->     Call Trace:
->      inet_gso_segment (net/ipv4/af_inet.c:1383)
->      skb_mac_gso_segment (net/core/gso.c:53)
->      __skb_gso_segment (net/core/gso.c:124)
->      udp_queue_rcv_skb (net/ipv4/udp.c:2476 net/ipv4/udp.c:2466)
->      udp_unicast_rcv_skb (net/ipv4/udp.c:2620)
->      ip_local_deliver (net/ipv4/ip_input.c:262)
->      seg6_local_input_core (net/ipv6/seg6_local.c:1640)
->      lwtunnel_input (net/core/lwtunnel.c:465)
->      ipv6_rcv (net/ipv6/ip6_input.c:351)
-> 
-> Restore a valid mac header, pointing at the network header, once
-> the VRF rx handler returns. The sniffer rebuild happens inside the
-> handler while the header is still unset, so tap behavior is
-> unchanged; when no rebuild happened, the packet now carries the
-> same mac header state as any packet received on an L3 device.
-> 
-> Fixes: 664d6f86868b ("seg6: add support for the SRv6 End.DT4 behavior")
-> Cc: stable@vger.kernel.org
-> Reported-by: co+98d7de09cd94fec5@bugs.sh
-> Signed-off-by: Boyan Liu <yymhvert@gmail.com>
-> ---
-> v2:
-> - Move the fix from the UDP GSO path to seg6local.
-> - Restore the mac header after the VRF rx handler returns, preserving
->   the VRF sniffer behavior.
-> - Verify the original reproducer, datagram delivery, and VRF sniffer
->   output under QEMU.
-> v1: https://lore.kernel.org/netdev/20261010073015.7665-1-yymhvert@gmail.com/
+Hi Guenter,
 
-Thanks. As discussed in v1, this sounds the better approach to me too.
-But it would be better to get the opinion of experts on VRF and SRv6.
+Thanks for reviewing the patch!
+
+On Fri, Oct 16, 2026 at 8:21=E2=80=AFPM Guenter Roeck <linux@roeck-us.net> =
+wrote:
+>
+> On 10/4/26 14:37, Dmitry Voytik wrote:
+> > Fix the issue when WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =3Dy,
+> > and always is =3Dm.
+> >
+> > The issues can be reproduced with the following steps:
+> >       make mrproper
+> >       make defconfig
+> >       ./scripts/config \
+> >         -e WATCHDOG_CORE \
+> >         -e WATCHDOG_PRETIMEOUT_GOV \
+> >         -e WATCHDOG_PRETIMEOUT_GOV_SEL \
+> >         --refresh
+> >       make olddefconfig
+> >       make mod2yesconfig
+> >
+> >       grep '=3Dm$' .config
+> > returns only CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL as module:
+> >       CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL=3Dm
+> >
+> > "make menuconfig" doesn't let it to be switched from =3Dm to =3Dy eithe=
+r.
+> >
+>
+> This does not explain what the problem actually is that is supposed
+> to be solved with this patch. Since this is just a selector used to
+> enable other configurations, and the configuration option does not
+> result in any packages built, "WATCHDOG_PRETIMEOUT_GOV_SEL can't be
+> set to =3Dy" on its own is not a problem.
+
+The issue is that
+  make mod2yesconfig
+doesn't work as expected. Help says "Change answers from mod to yes if
+possible".
+I might have misunderstood it, but I thought all configs should be =3Dy
+for this make target.
+
+Maybe a dumb question, but why does only this config have " default m"
+and others use
+"default WATCHDOG_CORE"? Does it have some special meaning with "default m"=
+?
+
+I want to have no modules and still not disable the module load
+ability, and it annoys me
+that some configs don't allow "=3Dy" :-) otherwise when I do
+ grep '=3Dm$' .config
+I need to remember that CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL is a special cas=
+e.
+
+FYI, for Arch Linux based config, only
+CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL pops up with =3Dm.
+A fix for the same issue with CONFIG_TDX_HOST_SERVICES seems to be accepted=
+:
+https://lore.kernel.org/lkml/as04AoNxjzlvh-K8@thinkstation/
+
+Thanks again!
+
+> Guenter
+
+Best Regards,
+Dmitry Voytik.
