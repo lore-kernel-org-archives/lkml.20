@@ -1,328 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010045.outbound.protection.outlook.com [52.101.85.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1413B3884;
-	Sat, 17 Oct 2026 18:51:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792263093; cv=none; b=tpzPp49j1Ga3eMNb6MDbYOgmqvT/IFHrSfthBd6izqkxztY9oMVXdLnDzAEIiC8dCuwwUIoYFzymNfXeN5+kMr5vMudqIaqrHAU08TmbE9zVBrwechyxxhAaXHtOL9UeQjaRwuBr+3Xy4MdndPIK/FsSsHqA0Pts4ctn887rpkA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792263093; c=relaxed/simple;
-	bh=L7PD3v8+SgPTWkYrVWTjrzPmX7JzY5jEkdoEBrZ9vD4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bNv5HkmIiV9vPAcrzTPmqwde6GTXiDKd/Lfc85FdVjIJ+pN20CuB/bE4Bri0Ki9kUPYFQPeFUXbUJD6jMQ33VtLCMdaf/VrbLLi+Rf7q8C0fAbo0cYxmet8UrXEXGOFpvJ/rKP9ap3PKyQ4pZazqjORdCI7ciib5chv8BhHAtEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jm+M18Hk; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4238F39EF39
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:52:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792263180; cv=fail; b=AP3HP6Gbb9YEDS5S5Yc7ycZryzA8z003z+PvmoEYSUguUtbsqR/9PtC0j0eeC0Ml2YNZN6jXRwV69pqgZGc/KCf847/JyVuq5jo/gJX6m72DDlUJFMNDQxgx+JBV7xlumFZ70VGAUOfXc7kPJxdkLlQrIq4kzljY6vx+znw3waE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792263180; c=relaxed/simple;
+	bh=fRjqPKHGPYYWwIQKbhIQe4YUC72OBJb2LsnJJO0D4EA=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IGtszSV4G7laJjFIJ/YA0wKn1o2Hjc8R+TGaY7/vKEWVVGizfKAwxkuoABgdUhkS0EFdaXU7aQCRXSD6svUUzKIAPZmgYV73PjmlnL874DEYxEww3iJS1iU11z6B9cXosiuZcnfDjoXYk1Jl/pb/R6NAcsICVJoXj7nIbVagiBM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ULXkPGq+; arc=fail smtp.client-ip=52.101.85.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jm+M18Hk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD12E1F000C4;
-	Sat, 17 Oct 2026 18:51:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792263092;
-	bh=7p2v8cd8Piqf2r8JBIYxKwNid9G5UEqcxbvv8thHaUg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Jm+M18HkZppQqg/RREcrWCrGXHylE+GKhzJrKgu4eSkw+4c31hXYZ2PhX+qwGC8xc
-	 eqm2gtYAO8klRIZE95rlvV4LHqITWTVKQFF2hP/Uv5XHKIe5OyQf1Ia3KVA0Kh5hwb
-	 Hhp6QGzws/nXpRj2gMUj2yEseWibGecmuURxzTyTV0UU+TFroIQDwwZivTcpcrnAeR
-	 5+CpOfbPN1RJ+CIZg1O9ffWRS1dRCImzvmeoIe6nNeDLTnDDfqq1GHbgwBfNe+Ir5p
-	 rqWGQIEPfXlgMciqlPdovRGsyLC8NoXW0fWwli9l3JPhBrzl2hg/pzcFamxmP5LXUg
-	 DEtpYO7DKUb2Q==
-Date: Fri, 16 Oct 2026 23:18:27 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Miaohe Lin
- <linmiaohe@huawei.com>, Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@kernel.org>, Breno Leitao <leitao@debian.org>, Ira
- Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Richard Cheng
- <icheng@nvidia.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, Suren
- Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Brendan
- Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- Zi Yan <ziy@nvidia.com>, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, David Hildenbrand
- <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, Kiryl Shutsemau
- <kas@kernel.org>, Harry Yoo <harry@kernel.org>
-Subject: Re: [RFC PATCH 1/5] cxl/mbox: Add Get Poison List snapshot support
-Message-ID: <20261016231827.074e0326@jic23-hlaptop>
-In-Reply-To: <20261010162017.62506-2-shaikhkamal2012@gmail.com>
-References: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
-	<20261010162017.62506-2-shaikhkamal2012@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ULXkPGq+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SOtauT+41YUPIDGcnPR48TmjHAp8ZZ7eGxE8zC1yC2hKG3dZVIPIs70eGpyw6UROLWdLSn4oXjOjZ8aR2dPZsIANrhAF1q80lPaxPxWTeh5UxKoNXZB0lX8q9MOKIorpTouMgCUCmgR9qfGhdpEME6eLc48gXVKT3VDF1B5hQQ/GotmOpS4+0+0m7bO6sMqo5vRO0wx7slUh6pJBt77CVxF+VySkho0xrkfyp1C/f5qi/f3SMwrALj53TzjDfmk0ut9VsnWPWWE2glEW73M2Bo6eqeuUzKBHJOIxuviM+uluhK6mSyDuPNIfx0LuLvvWnXKHB49gRxH/TBTWWt8gvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fnG1IHbKdrW5+1vo0oRNSVva4D3AZOkREuzQNjGzOQQ=;
+ b=e0vT2W9Ex53WmycrAcotrx6F1UkdYWwKumNWRs/qHBScoOOThpNLktaUqEcQ2qqtvFtf/bYRUl0sWCTvDpJnLuWstYwWMNw43ri6oak0z2YH4626umhiV1QeD6a1sE1LhMCI//kZ9rytO/t/aX4xH4iilCrbDkCgdkJcq3xlZvg2ugD/YGzHFH+Hm/N7SUJ2CaHNlP+RG2lUJ30a+Jm/hokvG/ovBE7zJUgT5QnRcvPp9ogJdJugYY5M0zZhZ1vMnW5PVb1XD6GjG/CFNbFb0UnWaWjRxDoS1HSNMru2SaNCNN3hJADGSaFae3kKYrdzWhrIkUiJZnEkMI9SK5zTSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=linux.alibaba.com
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fnG1IHbKdrW5+1vo0oRNSVva4D3AZOkREuzQNjGzOQQ=;
+ b=ULXkPGq+nWguu9U8G6cBRE41jRRuvsCdmfAPXmWTZU5o6ba1b7wLqtAJICo4CnNpZiHyeURO4CBo0+w0mKu3eRRo8J+kJ7n7GYBi5z9PtwBYppZCgtAGOT7QOe4jlwaPq9vhX5u7CNhYi+aDVNipuoenYPmVpWDhVACzoa/DhZSFyK56iOsxlRkUMalcACNJIrPFdE8twhLCeKFPSdyIy1FZd2rTuNKxBLtPTquzFZyP7x6AxYfD6HKoxH2Aq+A5YdQk84V883revaB8QgMgKVyxdQQc0NbM3aeuoyBOla0mfaVkjZWLcdd4oeqvGmQ4L4Hhs/TKmLmOwpilVt5RsA==
+Received: from PH7P221CA0058.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::28)
+ by PH7PR12MB5951.namprd12.prod.outlook.com (2603:10b6:510:1da::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sat, 17 Oct
+ 2026 18:52:52 +0000
+Received: from BY1PEPF00026964.namprd05.prod.outlook.com
+ (2603:10b6:510:33c:cafe::a3) by PH7P221CA0058.outlook.office365.com
+ (2603:10b6:510:33c::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Sat, 17
+ Oct 2026 18:52:52 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ BY1PEPF00026964.mail.protection.outlook.com (10.167.244.148) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Sat, 17 Oct 2026 18:52:52 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Sat, 17 Oct
+ 2026 11:52:51 -0700
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sat, 17 Oct 2026 11:52:51 -0700
+Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.126.190.181)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Sat, 17 Oct 2026 11:52:50 -0700
+Date: Sat, 17 Oct 2026 11:52:47 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Shuai Xue <xueshuai@linux.alibaba.com>
+CC: <will@kernel.org>, <robin.murphy@arm.com>, <joro@8bytes.org>,
+	<jgg@nvidia.com>, <praan@google.com>, <kevin.tian@intel.com>,
+	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
+	<kas@kernel.org>, Cristian Prundeanu <cpru@amazon.com>, Breno Leitao
+	<leitao@kernel.org>
+Subject: Re: [PATCH v11 00/11] iommu/arm-smmu-v3: Adopt the crashed kernel's
+ stream table for kdump
+Message-ID: <atPD/yTKA1Jw3bS1@nvidia.com>
+References: <cover.1791226953.git.nicolinc@nvidia.com>
+ <27f2e050-10c0-4a77-8d59-00a95a162912@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <27f2e050-10c0-4a77-8d59-00a95a162912@linux.alibaba.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF00026964:EE_|PH7PR12MB5951:EE_
+X-MS-Office365-Filtering-Correlation-Id: c068e7dc-89b8-4488-eb35-08df2c7fd8db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|7416014|376014|4143699003|56012099006|18002099003|22082099003|6133799003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	nIbCEIq3wVML9+dCGxIYI3EwinKQcP0XZ4qmrXUiTF/YJmXHKQUssjrGx9vx1B6zLqm/mBl2nmVTYX5N8m910MkajryUGTRLCUfp5QXLhSXiw7lQW3Oa1cGWhknBN6Zmshzk09b0+PQBzSgukXmSk5RxO7fFolFFSnIupeefgrpgV3XEzz29QCr0V8IjSbUOJCmHf0aOBz6/u1cPTzxa2Ivokrotk75mkqsL6PsPhjk48xoSN6jmYfpfhMm78qlh/vFcibuXwypoJOYPFUFGXRTEikXxZJlQBIQMqmET3MAyOWuvFkDxHT6qByg0vKycOky0Sh2oetPRXDatQdIQAjepWebhR704J+WjVUxRLQf2YhWVx9MwOWv/ejtbx+r648IwFCkMGMMBrJYaujLjZsb7stHIonaEKRJ1dHApBiSH/n4y7WtjXC0oppn2isSwGIw+uy0dMZfS0r2ZDW609EQy3u7Vu0KVX6x/WLVCjw6OgDDtMgTtfR7DCaBk0FQmCgvg4RLe0dmTCKtV223xe5fRYIHdfAeRi08dpIte4Lm5135XyIaH336Y8hi+f8ld3+IZsySYYmKHRCGGYdgnDkXuv/HgM2J69jJFsgF/BBp5w1oSUN5ReWRDsabYStA/GaT7lkEMeuDxlSj+ukmQ79GgBFzpzbEnDybU3Y2E7tOnj9uuplHJwRJuCiBLqgBK8ckMMNlnsbMfhTlViKHxvg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(7416014)(376014)(4143699003)(56012099006)(18002099003)(22082099003)(6133799003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Y/2BpgpMVeCtGiTgQupv+bCDJRhQptll+bf64fDbZefIoMkcYZyAZjNRX6vmWSMiNavp8wFQlAu0QWH3TaZ4n9qPT6oS+Ps/AKxU2G+CAdlfh244TxSudtXAWME8LInkzQr2VTPoX2XZHhQJc97aRccS4UiMRiaeMljm8ZsfHnN4e+nX+juzT5I4pJY+x1MuiqnrRa/DyJ/LFj+BAo9VDzGYMe425eDYHA611TjKxqamVWhz5xtKGp9rtJoQl7H9XKipfoRBu4BHNT+WiUEaLRKuQKGHaukoUw7NGS0frUtPd2ThOG0gWGTDDSb25OlV3mMvr9m2FXc2pqQ8Wk/5PiiV56eJrfs/ZvXrOu16I2uvyrWmkAjJ2ftXEyIVsfD58Bx+6t/Sbg78SB2iu4SZTRjgfMRNvifV4yLJjd2z22FecOGAb45opFfXc0zBf2DT
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 18:52:52.0503
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c068e7dc-89b8-4488-eb35-08df2c7fd8db
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF00026964.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5951
 
-On Sat, 10 Oct 2026 21:50:09 +0530
-Shaikh Kamaluddin <shaikhkamal2012@gmail.com> wrote:
-
-> cxl_mem_get_poison() uses a device-owned output buffer for each Get
-> Poison List response. It traces the records before issuing the next
-> command, which overwrites that buffer when the device sets the More
-> Media Error Records flag. A caller therefore cannot inspect the complete
-> set of collected records after the function returns.
+On Sat, Oct 17, 2026 at 04:19:20PM +0800, Shuai Xue wrote:
+> We tested this series (v11, backported onto our 6.6-based kernel) on two
+> arm64 server platforms that differ in how PCIe errors are reported: one
+> with firmware-first reporting (GHES/CPER), the other with OS-first AER
+> plus DPC. The test triggers a kdump crash (echo c > /proc/sysrq-trigger)
+> on an otherwise idle machine and compares the capture kernel's dmesg
+> between the unpatched baseline and the kernel carrying this series.
 > 
-> Add a caller-owned snapshot and copy each validated mailbox response
-> into it. Preserve device overflow and scan-in-progress status, and
-> indicate when the host stops collection before retrieving all available
-> records.
+> On the firmware-first platform (10 SMMUv3 instances):
 > 
-> Keep cxl_mem_get_poison() as the existing trace-only wrapper so its
-> current callers, including trigger_poison_list, retain their behavior.
+>   Unpatched, every SMMU logs:
 > 
-> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-> ---
->  drivers/cxl/core/mbox.c | 137 ++++++++++++++++++++++++++++++++++++++--
->  drivers/cxl/cxlmem.h    |  25 ++++++++
->  2 files changed, 156 insertions(+), 6 deletions(-)
+>     arm-smmu-v3.0.auto: SMMU currently enabled! Resetting...
 > 
-> diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
-> index 55828a836c01..2752b46ffee2 100644
-> --- a/drivers/cxl/core/mbox.c
-> +++ b/drivers/cxl/core/mbox.c
-> @@ -1376,14 +1376,91 @@ int cxl_set_timestamp(struct cxl_memdev_state *mds)
->  }
->  EXPORT_SYMBOL_NS_GPL(cxl_set_timestamp, "CXL");
->  
-> -int cxl_mem_get_poison(struct cxl_memdev *cxlmd, u64 offset, u64 len,
-> -		       struct cxl_region *cxlr)
-> +int cxl_poison_snapshot_init(struct cxl_memdev *cxlmd,
-> +			     struct cxl_poison_snapshot *snapshot)
-> +{
-> +	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlmd->cxlds);
-> +	u32 capacity = mds->poison.max_errors;
-> +
-> +	if (!snapshot)
+>   and the destructive reset immediately aborts in-flight DMA. The capture
+>   kernel then drowns in a storm of GHES/CPER records together with PCIe
+>   AER "Poisoned TLP" (Data Link Layer) errors from the devices that were
+>   bus-mastering at crash time. Devices behind the reset SMMUs fail to
+>   recover in the capture kernel, and in some runs the capture kernel
+>   hangs in the error storm instead of saving the vmcore.
+> 
+>   With the series applied, all 10 SMMUs log:
+> 
+>     arm-smmu-v3.0.auto: kdump: retaining SMMUEN for in-flight DMA
+> 
+>   and the capture kernel boots with zero AER/GHES error records. A
+>   complete vmcore is saved and the machine reboots normally.
+> 
+> On the OS-first AER/DPC platform (8 SMMUv3 instances):
+> 
+>   Unpatched: 8x "SMMU currently enabled! Resetting..." followed within
+>   seconds by PCIe AER Completion Abort errors reported by the root
+>   complex, along with DPC containment events and EDR notifications. The
+>   NICs behind the contained link never recover in the capture kernel.
+> 
+>   With the series applied: 8x "kdump: retaining SMMUEN for in-flight DMA",
+>   no PCIe error events at all, a complete vmcore and a clean reboot.
+> 
+> The baseline symptom is load-independent: it reproduces on idle machines,
+> since even an idle server has periodic DMA in flight (NIC rings, NVMe
+> admin queues, etc.).
+> 
+> Overall, on both platforms this series turns a capture-kernel boot that
+> used to be buried under fatal PCIe error storms into a quiet one that
+> reliably produces a usable vmcore.
+> 
+> Please feel free to add:
+> 
+> Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
 
-That seems like a buggy use of the interface, so not sure we need
-that defence.
+Thanks for the test report. I'll add your tag in v12 (on rc1).
 
-> +		return -EINVAL;
-> +	memset(snapshot, 0, sizeof(*snapshot));
-> +
-> +	if (!test_bit(CXL_POISON_ENABLED_LIST, mds->poison.enabled_cmds))
-> +		return -EOPNOTSUPP;
-> +
-> +	if (!capacity)
-> +		return -EPROTO;
-> +
-> +	snapshot->records = kvmalloc_array(mds->poison.max_errors,
-> +					   sizeof(*snapshot->records),
-> +					   GFP_KERNEL);
-
-kvmalloc_objs()?
-
-> +	if (!snapshot->records)
-> +		return -ENOMEM;
-> +
-> +	snapshot->capacity = capacity;
-> +
-> +	return 0;
-> +}
-> +
-> +void cxl_poison_snapshot_destroy(struct cxl_poison_snapshot *snapshot)
-> +{
-> +	if (!snapshot)
-> +		return;
-> +
-> +	kvfree(snapshot->records);
-> +	memset(snapshot, 0, sizeof(*snapshot));
-> +}
-> +
-> +static int cxl_poison_snapshot_append(struct cxl_poison_snapshot *snapshot,
-> +				      struct cxl_poison_record *records,
-> +				      u32 count)
-> +{
-> +	u32 available;
-> +
-> +	/*
-> +	 * Existing cxl_mem_get_poison() callers request tracing only and
-> +	 * pass no snapshot.
-> +	 */
-> +
-> +	if (!snapshot)
-> +		return 0;
-> +
-> +	if (!snapshot->records)
-> +		return -EINVAL;
-> +
-> +	if (snapshot->nr_records > snapshot->capacity)
-> +		return -EOVERFLOW;
-> +
-> +	if (!count)
-> +		return 0;
-> +
-> +	if (!records)
-> +		return -EINVAL;
-> +
-> +	available = snapshot->capacity - snapshot->nr_records;
-> +	if (count > available) {
-> +		snapshot->truncated = true;
-> +		return -ENOSPC;
-> +	}
-> +
-> +	memcpy(&snapshot->records[snapshot->nr_records], records,
-> +	       count * sizeof(*records));
-> +	snapshot->nr_records += count;
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_mem_get_poison_common(struct cxl_memdev *cxlmd, u64 offset,
-> +				     u64 len, struct cxl_region *cxlr,
-> +				     struct cxl_poison_snapshot *snapshot)
->  {
->  	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlmd->cxlds);
->  	struct cxl_mailbox *cxl_mbox = &cxlmd->cxlds->cxl_mbox;
->  	struct cxl_mbox_poison_out *po;
->  	struct cxl_mbox_poison_in pi;
-> -	int nr_records = 0;
-> +	u32 nr_records = 0;
-> +	u32 count;
->  	int rc;
->  
->  	ACQUIRE(mutex_intr, lock)(&mds->poison.mutex);
-> @@ -1408,29 +1485,77 @@ int cxl_mem_get_poison(struct cxl_memdev *cxlmd, u64 offset, u64 len,
->  		if (rc)
->  			break;
->  
-> -		if (!le16_to_cpu(po->count)) {
-> +		count = le16_to_cpu(po->count);
-> +		if (!count) {
->  			dev_dbg(&cxlmd->dev, "Poison empty payload!\n");
-> +
-> +			if (po->flags & CXL_POISON_FLAG_MORE) {
-> +				if (snapshot)
-> +					snapshot->truncated = true;
-
-Count of zero and yet more? How would that happen? This smells like
-a hardware bug.  Maybe we defend against it, but that's a separate
-question from the rest of this patch.
-
-> +				rc = -EPROTO;
-> +			}
-> +
-> +			break;
-> +		}
-> +
-> +		if (struct_size(po, record, count) > mbox_cmd.size_out) {
-> +			dev_err(&cxlmd->dev,
-> +				"invalid poison record count: %u\n", count);
-
-Also looks like broken hardware. I don't necessarily mind that sort
-of defense, but not in a patch doing anything else.
-
-> +			rc = -EPROTO;
->  			break;
->  		}
->  
-> -		for (int i = 0; i < le16_to_cpu(po->count); i++)
-> +		for (u32 i = 0; i < count; i++)
->  			trace_cxl_poison(cxlmd, cxlr, &po->record[i],
->  					 po->flags, po->overflow_ts,
->  					 CXL_POISON_TRACE_LIST);
->  
-> +		if (snapshot && (po->flags & CXL_POISON_FLAG_OVERFLOW)) {
-> +			snapshot->device_flags |= CXL_POISON_FLAG_OVERFLOW;
-> +			snapshot->overflow_ts = le64_to_cpu(po->overflow_ts);
-> +		}
-
-I'm curious. What use is the overflow_ts in your scheme?  Lets keep things
-minimal unless there is a reason to add data to the snapshot.
-
-> +
-> +		if (snapshot && (po->flags & CXL_POISON_FLAG_SCANNING))
-> +			snapshot->device_flags |= CXL_POISON_FLAG_SCANNING;
-> +
-> +		rc = cxl_poison_snapshot_append(snapshot, po->record, count);
-> +		if (rc)
-> +			break;
-> +
->  		/* Protect against an uncleared _FLAG_MORE */
-> -		nr_records = nr_records + le16_to_cpu(po->count);
-> +		nr_records += count;
->  		if (nr_records >= mds->poison.max_errors) {
->  			dev_dbg(&cxlmd->dev, "Max Error Records reached: %d\n",
->  				nr_records);
-> +			if (snapshot && (po->flags & CXL_POISON_FLAG_MORE))
-> +				snapshot->truncated = true;
-> +
->  			break;
->  		}
->  	} while (po->flags & CXL_POISON_FLAG_MORE);
->  
->  	return rc;
->  }
-> +
-> +int cxl_mem_get_poison(struct cxl_memdev *cxlmd, u64 offset, u64 len,
-> +		       struct cxl_region *cxlr)
-> +{
-> +	return cxl_mem_get_poison_common(cxlmd, offset, len, cxlr, NULL);
-> +}
->  EXPORT_SYMBOL_NS_GPL(cxl_mem_get_poison, "CXL");
->  
-> +int cxl_mem_get_poison_snapshot(struct cxl_memdev *cxlmd, u64 offset, u64 len,
-> +				struct cxl_region *cxlr,
-> +				struct cxl_poison_snapshot *snapshot)
-> +{
-> +	if (!snapshot || !snapshot->records || !snapshot->capacity)
-> +		return -EINVAL;
-> +
-> +	if (snapshot->nr_records > snapshot->capacity)
-> +		return -EOVERFLOW;
-> +
-> +	return cxl_mem_get_poison_common(cxlmd, offset, len, cxlr, snapshot);
-> +}
-
-Blank line here
-
->  static void free_poison_buf(void *buf)
->  {
->  	kvfree(buf);
-> diff --git a/drivers/cxl/cxlmem.h b/drivers/cxl/cxlmem.h
-> index c401e3a1af06..1d6f8d958bd2 100644
-> --- a/drivers/cxl/cxlmem.h
-> +++ b/drivers/cxl/cxlmem.h
-> @@ -812,6 +812,31 @@ int cxl_set_timestamp(struct cxl_memdev_state *mds);
->  int cxl_poison_state_init(struct cxl_memdev_state *mds);
->  int cxl_mem_get_poison(struct cxl_memdev *cxlmd, u64 offset, u64 len,
->  		       struct cxl_region *cxlr);
-> +
-> +/**
-> + * struct cxl_poison_snapshot - Aggregate Get Poison List result
-> + * @records: Copied Media Error Records from all mailbox responses
-> + * @nr_records: Number of valid records stored in @records
-> + * @capacity: Maximum number of records that @records can hold
-> + * @overflow_ts: Timestamp associated with a reported device overflow
-> + * @device_flags: Persistent device status observed during collection
-> + * @truncated: Host stopped before collecting all available records
-> + */
-> +struct cxl_poison_snapshot {
-> +	struct cxl_poison_record *records;
-
-__counted_by_ptr() seems likely to apply here.
- 
-> +	u32 nr_records;
-> +	u32 capacity;
-> +	u64 overflow_ts;
-
-As above. I'd like to ensure this only stashes what we actually need.
-
-> +	u8 device_flags;
-> +	bool truncated;
-> +};
-> +
-> +int cxl_poison_snapshot_init(struct cxl_memdev *cxlmd,
-> +			     struct cxl_poison_snapshot *snapshot);
-> +void cxl_poison_snapshot_destroy(struct cxl_poison_snapshot *snapshot);
-> +int cxl_mem_get_poison_snapshot(struct cxl_memdev *cxlmd, u64 offset, u64 len,
-> +				struct cxl_region *cxlr,
-> +				struct cxl_poison_snapshot *snapshot);
->  int cxl_trigger_poison_list(struct cxl_memdev *cxlmd);
->  int cxl_inject_poison(struct cxl_memdev *cxlmd, u64 dpa);
->  int cxl_clear_poison(struct cxl_memdev *cxlmd, u64 dpa);
-
+Nicolin
