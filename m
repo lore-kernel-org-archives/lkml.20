@@ -1,285 +1,92 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9EDF493D43;
-	Sat, 17 Oct 2026 12:26:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695F0429803
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:29:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239969; cv=none; b=le0sV46/9nCX93J53XSP5Hn7Wxy+7Fx/NSKrX5e8gZT+uhobNuUxBlgWY2d/38NuJ4gKoSM8yr67vw4+WexHZBWMVCfvbGQGnVTpp0K/px/ymVxlJpsPrMqx6BVUbi7iOju9ZGUqBSIgvoIp5FcJcE0cuR+JM9lmOCtpb/V1ua4=
+	t=1792240152; cv=none; b=LrMxhjDgH/CLEahOVWbhUhvxbhoKH0RMIqwRis5jZwqhA3ZLN9qAjYpzcc1fm4u6BwXbjLpvMIuqtDUgvrKsfj0MUTk4fuXqs2kzBK7sHByuCmD3lGBa1uRlsQohfYTU1hMer1bpg1ctY4loCS7qhvHRWr26FJRLeYEOLWhJFE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792239969; c=relaxed/simple;
-	bh=3Dq29GvGh4+bMOwB2XN89eh6PKn1kb/k9yJ4FeYK3AI=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=roZv0ZC/RdHWyemDeEtWFgj5JOOUZZEWaZFU86eO4eATc+rsQVWFi5I6nUp3qqzzFEk5CnwsO0aA6Gpt/Lq0+YU3mqbtQZ0kY6q+5ryPuVuuoH2cbnkH07uAWutVK2MQbctCnbtirEUR3He5vLWhpE4BYYnWYIXE+3gYgvrOCOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=LKnd038M; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=DePbOyNt; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1792240152; c=relaxed/simple;
+	bh=7cgiKM+zDuDnTZJRzu5yT4bUih3KcyLUsgr/rzH4uiM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dGYjjt8zZyft9QzWr4a3pVlBoPrtHgJ9bMtqlJEACD5EP46vrWDzusKspsZZYGPed48W5IuzEf0x10BzVU6GficTMBUI1wJeSy9cOvOj2Z8uo6Am0dK03J+dJvraVRiLYIQHYP+mHh8SrQ314VH+QlNegyjF67WjVQ/dFEuTQEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uEPEzbwH; arc=none smtp.client-ip=95.215.58.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="LKnd038M";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="DePbOyNt"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792239955; bh=wkpJtZu/njg0XVl7e2YOBb+
-	gMzWBqWLd5zQ2I4DUGYU=; b=LKnd038M/GSeFAtMr/h1yKRPn6ZJHzTagPZqBlxb0qFzHi3Fw2
-	kIjTAbE+t3opHbCUF84aSy591RH4jXuBeCPTefLO7jd7HJqL6D7K2dO90OV7WjGzOTWYEOGk6xk
-	1PmIQbuaW9EiF1d9yXVOQacwye4kO3D6T8ixhN3fTwy1uyhdGk05oZmxyk+X+tjDk7GzU79+hOh
-	k6NC7CgxxL7KLadbIBmOnqAEUO0/kgu5q9lGexgpLanWeDZ7EdLMoBkPMAONO3WMHJHRl5fbWNK
-	hnQH55e69zgnJkWjqqaLh5pmJFNwTqa5WxaMeHm0ps7FBY15YfwKFpMPcbcTyj4IsxA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792239955; bh=wkpJtZu/njg0XVl7e2YOBb+
-	gMzWBqWLd5zQ2I4DUGYU=; b=DePbOyNt9KkbyehT67Xjm7A5IpDjhfD9rmENK6u4dc32WyFvHA
-	FP5iZYY30XjkN6WTfX9dO8dmrcnnXzAosACQ==;
-Date: Sat, 17 Oct 2026 13:25:55 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Zqiang <qiang.zhang@linux.dev>
-CC: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
- linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org, paulmck@kernel.org,
- rcu@vger.kernel.org, urezki@gmail.com
-Subject: Re: [PATCH] rcu-tasks: Warn on too-short RCU Tasks Rude grace period
-In-Reply-To: <C2E20E85-17A3-458C-9279-50022D30F5C8@mainlining.org>
-References: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org> <8d7f265cd1320bf7996bcffea07ffdea69cfd625@linux.dev> <2247C12C-EE02-46CC-922F-D6A62D1E77C1@mainlining.org> <aa11c41ba0458bda078c6cdff9e2b155bee1a59b@linux.dev> <C2E20E85-17A3-458C-9279-50022D30F5C8@mainlining.org>
-Message-ID: <AB14D6F5-9882-4527-82E6-BB33C1C7D3DE@mainlining.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uEPEzbwH"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7cgiKM+zDuDnTZJRzu5yT4bUih3KcyLUsgr/rzH4uiM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792240147; v=1; x=1792844947;
+ b=uEPEzbwHu/tt5chmzaFb5qbVqI83ww2eE1GF8KosR6AjlTOwmdTEqJ94CSeZ1UR51kiAx4qU
+ CQ6i+LLjOUvmP5QAsneUi7HxbRTR4MpxqAxhRPKJiUN89DM6oNRSjQvW2EtOVpxuAxoyEjCMvhc
+ HMVUxPFgifG0cH94YLDLxAvg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4ced6db5906c4a15;
+	Sat, 17 Oct 2026 12:29:07 +0000
+X-Mizu-Trace-ID: 4ced6db5906c4a15
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 17 Oct 2026 14:29:06 +0200
+From: Andrew Jones <andrew.jones@linux.dev>
+To: Anup Patel <anup@brainfault.org>
+Cc: Andrew Jones <andrew.jones@oss.qualcomm.com>, 
+	kvm-riscv@lists.infradead.org, atish.patra@linux.dev, pjw@kernel.org, palmer@dabbelt.com, 
+	kvm@vger.kernel.org, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] RISC-V: KVM: Use a raw lock for IMSIC wakeup state
+Message-ID: <atNpO4nRuijDH6l-@orel>
+References: <20260925155116.465203-1-andrew.jones@oss.qualcomm.com>
+ <CAAhSdy0Y8kQ=gsiX0QX6Ntq=fL89METhA0s7G3niBBJrHpue7A@mail.gmail.com>
+ <7zy352odf4hekcibmio3atunubffzxfcsqnn55q6sfkksnynfj@5bx263nnizdm>
+ <CAAhSdy2mAs6UgTk-hbGd3DX_1242Jpy9WLnOp6kmPvVVtABWHw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAhSdy2mAs6UgTk-hbGd3DX_1242Jpy9WLnOp6kmPvVVtABWHw@mail.gmail.com>
 
-On 17 October 2026 13:20:50 BST, Bradley Morgan <brads@mainlining.org>
-wrote:
->On 17 October 2026 13:14:29 BST, Zqiang <qiang.zhang@linux.dev> wrote:
->>> 
->>> On 17 October 2026 00:41:00 BST, Zqiang <qiang.zhang@linux.dev> wrote:
->>> 
->>> > 
->>> > > 
->>> > > On 15 October 2026 10:46:19 BST, Zqiang <qiang.zhang@linux.dev>
->>wrote:
->>> > >  
->>> > >  > 
->>> > >  > The RCU Tasks Rude grace period is implemented by invoking the
->>> > >  > schedule_on_each_cpu() with an empty work function, which forces
->>> > >  > a context switch on every online CPU and guarantees that all
->>> > >  > rude-tasks read-side critical sections have completed. However,
->>> > >  > schedule_on_each_cpu() can fail (via alloc_percpu() returning
->>> > >  > -ENOMEM) and returns immediately, in which case those context
->>> > >  > switches never happen, too-short grace period happen.
->>> > >  > 
->>> > >  > This commit therefore wraps the schedule_on_each_cpu() call in
->>> > >  > WARN_ONCE() so that this failure is reported as a "Too-short
->>> > >  > grace period" warning.
->>> > >  > 
->>> > >  NAK, this seems like a edge case, and potentially panicking the
->>system
->>> > >  with panic on oops doesn't seem right to me, because we would
->>reserve
->>> > > 
->>> > that
->>> > 
->>> > > 
->>> > > for when something definitely goes really wrong and we need to
->>notify
->>> > >  the user.
->>> > >  
->>> > >  I don't believe this patch should go in for this reason, it's a
->>heavy
->>> > > 
->>> > edge
->>> > 
->>> > > 
->>> > > case, that doesn't *have* nessesarily need to be accounted for.
->>> > > 
->>> > Indeed, this is a rare event, so I use WARN_ONCE() to mark it, the
->>> > WARN_ONCE()
->>> > not panicking system unless you set warn_on_oops true, this can help
->>us
->>> > troubleshoot
->>> > UAF issues caused by a too short tasks-rude grace period.
->>> > 
->>> > or maybe we can use DEFINE_PER_CPU(struct work_struct, rude_work) to
->>> > replace
->>> > alloc_percpu(struct work_struct) queue to all online CPUs.
->>> > 
->>> > Anyway, Thank you for your reply. I would also like to hear the
->>opinions
->>> > of others.
->>> > 
->>> Fair enough, but me and Paul done some discussions:
->>> 
->>> Here is the TL;DR
->>> 
->>> My ^W^Wai slop^W^W tool helped me with this: if the too short grace
->>> happens,
->>> it falls back.
->>> 
->>> root@p10-linux-brads:~/linux# mailto:root@p10-linux-brads:~/linux#  git
->>diff kernel/rcu
->>> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
->>> index 627295396cd9..65bb7d4ed632 100644
->>> --- a/kernel/rcu/tasks.h
->>> +++ b/kernel/rcu/tasks.h
->>> @@ -1344,15 +1344,23 @@ void exit_tasks_rcu_finish(void) { }
->>>  // Ordering is provided by the scheduler's context-switch code.
->>> 
->>>  // Empty function to allow workqueues to force a context switch.
->>> -static void rcu_tasks_be_rude(struct work_struct *work)
->>> +static void __maybe_unused rcu_tasks_be_rude(struct work_struct *work)
->>>  {
->>>  }
->>> 
->>>  // Wait for one rude RCU-tasks grace period.
->>> +static void rcu_tasks_rude_ipi(void *info)
->>> +{
->>> +}
->>> +
->>>  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
->>>  {
->>> + int cpu;
->>>  rtp->n_ipis += cpumask_weight(cpu_online_mask);
->>> - schedule_on_each_cpu(rcu_tasks_be_rude);
->>> + cpus_read_lock();
->>> + for_each_online_cpu(cpu)
->>> + smp_call_function_single(cpu, rcu_tasks_rude_ipi, NULL, 1);
->>> + cpus_read_unlock();
->>>  }
->>
->>RCU Tasks Rude use preempt_disable/enable as the read critical section,
->>you use smp_call_function_single() to send ipi to each online CPUs, 
->>it's not forces a context sched switch, and not wait the
->>preempt_disable/enable
->>read critical section to exit, this is the wrong mechanism. ;-(
->>
->>Obviously, we only need to not apply alloc_percpu dynamic allocation:
->>
->>diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
->>index fcac7361ec51..49b629b0010b 100644
->>--- a/kernel/rcu/tasks.h
->>+++ b/kernel/rcu/tasks.h
->>@@ -1357,11 +1357,25 @@ static void rcu_tasks_be_rude(struct work_struct
->*work)
->> {
->> }
->>
->>+static DEFINE_PER_CPU(struct work_struct, tasks_rude_work);
->>+
->> // Wait for one rude RCU-tasks grace period.
->> static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
->> {
->>+       int cpu;
->>+
->>+       guard(cpus_read_lock)();
->>        rtp->n_ipis += cpumask_weight(cpu_online_mask);
->>-       schedule_on_each_cpu(rcu_tasks_be_rude);
->>+
->>+       for_each_online_cpu(cpu) {
->>+               struct work_struct *work = &per_cpu(tasks_rude_work,
->cpu);
->>+
->>+               INIT_WORK(work, rcu_tasks_be_rude);
->>+               schedule_work_on(cpu, work);
->>+       }
->>+
->>+       for_each_online_cpu(cpu)
->>+               flush_work(&per_cpu(tasks_rude_work, cpu));
->> }
->>
->> static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t
->> func);
->>
+On Fri, Oct 09, 2026 at 06:37:13PM +0200, Anup Patel wrote:
+> On Fri, Oct 9, 2026 at 3:44 PM Andrew Jones
+> <andrew.jones@oss.qualcomm.com> wrote:
+> >
+> > Hi Anup,
+> >
+> > On Fri, Oct 09, 2026 at 01:45:20PM +0200, Anup Patel wrote:
+> > > On Fri, Sep 25, 2026 at 5:51 PM Andrew Jones
+> > > <andrew.jones@oss.qualcomm.com> wrote:
+> > > >
+> > > > kvm_riscv_vcpu_aia_imsic_put() can run from the scheduler preemption
+> > > > notifier while the raw runqueue lock is held. Taking vsfile_lock, an
+> > > > rwlock_t, there violates the lockdep wait-context rules.
+> > > >
+> > > > Protect the CPU/HGEI pair with a separate raw spinlock. All updates to
+> > > > that pair retain vsfile_lock and take the new lock, while scheduler-out
+> > > > uses only the new lock around the HGEIE update. This keeps the wakeup
+> > > > setup serialized with VS-file publication and release without bringing
+> > > > wider IMSIC operations into a raw critical section.
+> > >
+> > > Instead of introducing another lock, why not replace
+> > > read_lock_irqsave(&imsic->vsfile_lock, flags) with
+> > > write_lock_irqsave(&imsic->vsfile_lock, flags) in
+> > > kvm_riscv_vcpu_aia_imsic_put() ??
+> >
+> > Unfortunately, write_lock_irqsave() has the same PREEMPT_RT issue, since
+> > rwlock_t is sleepable on RT in both modes.
+> >
+> 
+> I am not fond of nested locking, why not convert vsfile_lock into raw
+> spinlock ??
 >
->Wow!
->
->Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
+We can do that. The reader concurrency the rwlock gave us was only for
+tiny sections anyway. I'll send a v2.
 
-Gimme a sec I'll submit the patch.. 
-
->
->>
->>Thanks
->>Zqiang
->>
->>
->>
->>> 
->>>  static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t
->>func);
->>> root@p10-linux-brads:~/linux# mailto:root@p10-linux-brads:~/linux# 
->>> 
->>> On POWERPC, this passes 12 hours of rcutorture on the RUDE01 config.
->>> 
->>> If you plan on submitting this into a patch, please add my authorship,
->>or
->>> my c-d-b. 
->>> 
->>> Feel free to rcutorture test it ;d
->>> 
->>> BTW: have you reproduced this on your own system?
->>> 
->>> > 
->>> > Thanks
->>> > Zqiang
->>> > 
->>> > > 
->>> > > Zqiang, have you reproduced this OOM on your own system, if so,
->>could
->>> > > 
->>> > you
->>> > 
->>> > > 
->>> > > tell me more details, you may turn my frown into a smiley face ;)
->>> > >  
->>> > >  > 
->>> > >  > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
->>> > >  > ---
->>> > >  > kernel/rcu/tasks.h | 3 ++-
->>> > >  > 1 file changed, 2 insertions(+), 1 deletion(-)
->>> > >  > 
->>> > >  > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
->>> > >  > index fcac7361ec51..91c25717402e 100644
->>> > >  > --- a/kernel/rcu/tasks.h
->>> > >  > +++ b/kernel/rcu/tasks.h
->>> > >  > @@ -1361,7 +1361,8 @@ static void rcu_tasks_be_rude(struct
->>work_struct
->>> > > 
->>> > *work)
->>> > 
->>> > > 
->>> > > > static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
->>> > >  > {
->>> > >  > rtp->n_ipis += cpumask_weight(cpu_online_mask);
->>> > >  > - schedule_on_each_cpu(rcu_tasks_be_rude);
->>> > >  > + WARN_ONCE(schedule_on_each_cpu(rcu_tasks_be_rude),
->>> > >  > + "%s: Too-short grace period, OOM is now expected
->>behavior!!!\n",
->>> > > 
->>> > rtp->name);
->>> > 
->>> > > 
->>> > > > 
->>> > >  Good message, makes sense. But I don't think this is right, see
->>above.
->>> > >  
->>> > >  > 
->>> > >  > }
->>> > >  > 
->>> > >  > static void call_rcu_tasks_rude(struct rcu_head *rhp,
->>rcu_callback_t
->>> > >  > func);
->>> > >  > 
->>> > >  --- Thanks!
->>> > >  "I'm not a very positive person" - Linus torvalds
->>> > >
->>> > 
->>> --- Thanks!
->>> "I'm not a very positive person" - Linus torvalds
->>>
->
->--- Thanks!
->"I'm not a very positive person" - Linus torvalds
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+Thanks,
+drew 
