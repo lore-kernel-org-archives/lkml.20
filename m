@@ -1,78 +1,42 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D17F3CCFB2
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 12:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAA037F318;
+	Sat, 17 Oct 2026 12:11:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792238709; cv=none; b=Vg3s3i/m58vC3cD84QlBzXmJ5LBcPffm1L+gwqNMItN1aQ5zxUw8+OAak619niUxPn+1Rb541202qy/zd2Z0x87RKIZeWJ11Cv1F+O/EPESbNNgt9F5NX5D/QXlqcmPeR7KQvnoCfOCpAr7RcCRyoSxBRKX59VTjqEot6KRywqI=
+	t=1792239067; cv=none; b=fjvV+74WsjwfL6DlEtIiG2Nw0V589/iiO4BlNZWrhgZcKZaMGwCNOReekxwh/BcQAUq9MFaqQfBmDjIewK3+xGKD5yWYMU9gAPDJx7wSCPlLkBg1UvNrKnbyGEJ4vXmo5FSZu2TCXFIM7i9Xq2bTTNEzIZm+QWqW03mGNHoFgds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792238709; c=relaxed/simple;
-	bh=Uhqf6kEDaVk5sdN1pEgcxFC260gFONWp77GIpmEdMVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gDsddEEAH26wf+n0q6KTAUj5Gi/aiAdzJQ35xOLCgN4BdxWgJdrTRDjeDmaRgTevY8fOJxEDdpUafb/MqYKYZyO7szatJur+AGMCG3GK+CW7FeFRpOGgRJ2B4nhCLQxv1OySLBOnvjjXGzldwjmfsOezHuQpk4BssaizdFyiDUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WyYOGloR; arc=none smtp.client-ip=74.125.227.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792239067; c=relaxed/simple;
+	bh=BM5MeFN2yRAcUZMBQ1kVaJDLyC0kPMwPZ2Fc2V99c+w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eUmQPMWsoaJurv8g7f6lr1NirjID2Mxmv6SuvOzEwpAbv+dg2XyhZJX9DsQyCStXm2Zwha3/91k5r5Z+YOhpSa48LUEMw6igAfuhpwpx3ar/R0+yC7ynsfpIPEv89lmb5FvoNttvN6cFnKcJWUvKvP++88p9GMlWmRf8SRvXsX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K/+a8bc2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WyYOGloR"
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac749e0719so193703a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 05:05:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792238707; x=1792843507; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=shPj0JpAvHjJzhITuPzL8gL8dV599qsdcXL+y8yPBvI=;
-        b=WyYOGloRwlCMpBDiWpb5Qd86Y8koRZg67hGD3zmnd/L3BIeH783bcI9gq/4b4KMnOc
-         4LuuJ7d5htJPh+1XVuLf4sbfFBgn6tKydOfY0EPu/pRALdhK/3L8DqtEhf/Iks0atNt2
-         Ub152fpwtoG6JbBMT/KuEqsgu22TbFFFjhF4H8UVFVeJIGrhj7MKjlNRVe4OmsglDZJ2
-         kpgg8bVuTmq7MHn0G/mKAXVq6agfSvNWrxJrWfnOs//csMKHUI/DSkoAGxlsjWdFxdKY
-         x7DnkC37chLX4JtvBqNmSTYw7A/DRlb8L/1IUzcHjtfIm4cCCj7CCj9YTQAIEF/N0BmT
-         Hkwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792238707; x=1792843507;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=shPj0JpAvHjJzhITuPzL8gL8dV599qsdcXL+y8yPBvI=;
-        b=K6Nhk2XqubWR8Uek5cZZSwTODXpnwxP5MrRFBaiklOO56y501nGL4jalOUuIm/0fA4
-         IUijQkCo6o1oAaLox9RYoDQrSlAoIzr1vD5vxQBBi+PjkUAxHsbPruhzY28Uo1XNDjP/
-         /ion+xmK4yADfwhhL0OsoV177CsqTha7xKP2NK21bgmaERFHIxJuizMCMU8y7HGFEs4O
-         u5MoHE8bq2yiJ8R/Vdg7tGdRBp3XhQxldvguVsYm3XbSW/1A7FIlOY2SyObTzbxKxxcl
-         tMgJCn/0Pv7xGquXHa6BnffesXaQiJXET53AU3w4Yql4WcozV86MLhx9VofuF/z5XLSh
-         paCg==
-X-Forwarded-Encrypted: i=1; AKwUvBxNgoFzwWxQepN7+bERniK9NJ0lv/dNx1XmwoSVi7dNOrFISo8rfNww1aJn9HOkU8/1qBzy0DLUZAuqayc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4sGX/MT0PTLeI1ShfcG29Kn7SKn9y1ku3CdfA9+QQiQuf1f7/
-	ztp3it2qvEjZCju5YYdjvEOFuJjKrcIfdLP2U7m9XwBp+PjPftPFvNLM
-X-Gm-Gg: AYBFou2BqYJUOKjXpBCBjmJ2L6nIERBFvNoSr2AxmDr2iQZ48mXLbDH8Wz8F1e86Q00
-	GASVY2xFLDNu34p7PQ9YUl+YP7G4LSCQBkJUa3riiqf9KRB1SmX/z3eDZvk8FYzYMqFowVGwS0n
-	ap1J1nTnOhYbXaHETXAN6txCe887n0TsXNz4xmnufOwWKXXAVsqm3td1uRbRJYLfwL+1n56FQlA
-	nMqLyTTMZ9sYv87POG7c/J+WMjIyoOoEZThB0Hpqb3FvDzxlaWeDs7oIC5lfFz/SQhauj3Zdru4
-	Oqd3NHcW62KCxMBlvII2DuSd8qr1GXjzGcFwX6+AsiAOi81WPS6Ypyt9D1ytMNwP14LZbReRlLh
-	ulr8FDLhz3SPjPvvJS68aySsMbH3Q/3uIWFG4Mas/2TPMTTKeWc07eQLUhpWyHGruhETyNg96Yz
-	zXfB+0dj/fakZHw3wNyCthcT8XSfSNBBmf1LH9CZOpDgGcWpDS4waVyjS6UDqrMO/Yqz8m7JzDL
-	fOSglMGoKkkDUX/AZ2G
-X-Received: by 2002:a17:90a:c110:b0:3ab:f38:2b43 with SMTP id 98e67ed59e1d1-3aceeeabd7dmr1791948a91.34.1792238707370;
-        Sat, 17 Oct 2026 05:05:07 -0700 (PDT)
-Received: from LAPTOP-QJLDGQ2L.localdomain ([112.224.225.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48f4cadsm7815593a91.12.2026.10.17.05.05.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 05:05:06 -0700 (PDT)
-From: Boyan Liu <yymhvert@gmail.com>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	David Ahern <dsahern@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	co+98d7de09cd94fec5@bugs.sh
-Subject: [PATCH net v2] seg6: Fix unset mac header in SRv6 End.DT VRF decapsulation
-Date: Sat, 17 Oct 2026 20:01:44 +0800
-Message-ID: <20261017120144.3059-1-yymhvert@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K/+a8bc2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9B121F000C4;
+	Sat, 17 Oct 2026 12:11:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792239065;
+	bh=veQdq2zi4suj+sytjBTYVEHORuVM5dkp0/o3mNbAOmQ=;
+	h=From:To:Cc:Subject:Date;
+	b=K/+a8bc2gLBBjRAX6SdSD4Xneiu0ZcZA4iBBo8XjYcU5HatnHnweU7rmdSyeAw283
+	 yJc6rteOOGoQfWZdR8kOcelqKQYLAZvvGGgcSXwvug212wHf3CyVpaP3myRDDKixF5
+	 OH6cXYawwdrdKkjc6bUwJuzeKRTWsFV1HNNIstwm6F29apVlRMOAzjqtWre89uyRwo
+	 0kAZuN4lYTinWig0+Y6tETUYneuqFXya7fNN9gI/pNcohdtcMQIP3DdKsHt2DueWpX
+	 53DuEGEHQem7LeAACudvbIejSXwytVV+jNO/cUOVyzT81JPduAwwGVB2uSBubo/nRO
+	 PAMccXJnWoPFA==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xI3Ff-00000007SXx-2qTt;
+	Sat, 17 Oct 2026 14:11:03 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] USB: serial: garmin_gps: explicitly stop read urb on unbind
+Date: Sat, 17 Oct 2026 14:10:19 +0200
+Message-ID: <20261017121019.1777984-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,81 +45,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SRv6 End.DT4/End.DT6 VRF decapsulation unsets the mac header in
-end_dt_vrf_rcv() so that the VRF device can rebuild it for packet
-sniffers. The VRF rx handler only performs the rebuild when a
-sniffer is actually attached to the VRF device (ptype_all
-non-empty); otherwise the packet continues up the stack with
-mac_header == 0xffff.
+The garmin_gps read URB may be submitted from the interrupt URB
+completion handler and should therefore be stopped after stopping the
+interrupt URB and before freeing the port data during port unbind.
 
-Every other receive path delivers packets with a valid mac header:
-NIC drivers set it in eth_type_trans(), and tunnels without an L2
-header (ipip, sit, gre, tun) reset it to the network header after
-decapsulation. skb_mac_header() even warns on the unset state with
-DEBUG_NET_WARN_ON_ONCE().
+When a USB serial device is disconnected (or unbound through sysfs),
+USB serial core stops and poisons the port URBs before unbinding the
+port however so there is no risk for a use-after-free in the read URB
+completion handler even if the driver does not stop it in its remove()
+callback.
 
-If the decapsulated packet is an unexpected UDP GSO packet,
-udp_queue_rcv_skb() re-segments it after restoring skb->data to the
-mac header with __skb_push(skb, -skb_mac_offset(skb)). With the mac
-header unset, skb_mac_offset() returns a large positive value,
-which the unsigned __skb_push() argument turns into a huge length:
-skb->data moves far outside the buffer and skb->len is corrupted,
-so segmentation reads out of bounds:
+Stop the read URB explicitly for consistency, to avoid relying on core
+and to prevent false positive reports from LLMs.
 
-    BUG: KASAN: slab-out-of-bounds in inet_gso_segment (net/ipv4/af_inet.c:1383)
-    Read of size 1 at addr ffff88800da7ffff by task exploit/149
-    Call Trace:
-     inet_gso_segment (net/ipv4/af_inet.c:1383)
-     skb_mac_gso_segment (net/core/gso.c:53)
-     __skb_gso_segment (net/core/gso.c:124)
-     udp_queue_rcv_skb (net/ipv4/udp.c:2476 net/ipv4/udp.c:2466)
-     udp_unicast_rcv_skb (net/ipv4/udp.c:2620)
-     ip_local_deliver (net/ipv4/ip_input.c:262)
-     seg6_local_input_core (net/ipv6/seg6_local.c:1640)
-     lwtunnel_input (net/core/lwtunnel.c:465)
-     ipv6_rcv (net/ipv6/ip6_input.c:351)
+Note that this was erroneously flagged as a use-after-free by Sashiko.
 
-Restore a valid mac header, pointing at the network header, once
-the VRF rx handler returns. The sniffer rebuild happens inside the
-handler while the header is still unset, so tap behavior is
-unchanged; when no rebuild happened, the packet now carries the
-same mac header state as any packet received on an L3 device.
-
-Fixes: 664d6f86868b ("seg6: add support for the SRv6 End.DT4 behavior")
-Cc: stable@vger.kernel.org
-Reported-by: co+98d7de09cd94fec5@bugs.sh
-Signed-off-by: Boyan Liu <yymhvert@gmail.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
-v2:
-- Move the fix from the UDP GSO path to seg6local.
-- Restore the mac header after the VRF rx handler returns, preserving
-  the VRF sniffer behavior.
-- Verify the original reproducer, datagram delivery, and VRF sniffer
-  output under QEMU.
-v1: https://lore.kernel.org/netdev/20261010073015.7665-1-yymhvert@gmail.com/
+ drivers/usb/serial/garmin_gps.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- net/ipv6/seg6_local.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-index 7b5212220185..5232c9e2b7d7 100644
---- a/net/ipv6/seg6_local.c
-+++ b/net/ipv6/seg6_local.c
-@@ -1113,6 +1113,14 @@ static struct sk_buff *end_dt_vrf_rcv(struct sk_buff *skb, u16 family,
- 		/* the skb buffer was consumed by the handler */
- 		return NULL;
+diff --git a/drivers/usb/serial/garmin_gps.c b/drivers/usb/serial/garmin_gps.c
+index 8020149f5658..1853dc8a747d 100644
+--- a/drivers/usb/serial/garmin_gps.c
++++ b/drivers/usb/serial/garmin_gps.c
+@@ -1402,6 +1402,7 @@ static void garmin_port_remove(struct usb_serial_port *port)
  
-+	/* the VRF device had its chance to rebuild the mac header for
-+	 * sniffers; restore a valid one pointing at the network header,
-+	 * like any L3 device without an L2 header, before the packet
-+	 * continues up the stack.
-+	 */
-+	if (!skb_mac_header_was_set(skb))
-+		skb_reset_mac_header(skb);
-+
- 	/* when a packet is received by a VRF or by one of its slaves, the
- 	 * master device reference is set into the skb.
- 	 */
+ 	usb_kill_anchored_urbs(&garmin_data_p->write_urbs);
+ 	usb_kill_urb(port->interrupt_in_urb);
++	usb_kill_urb(port->read_urb);
+ 	timer_shutdown_sync(&garmin_data_p->timer);
+ 	kfree(garmin_data_p);
+ }
 -- 
-2.43.0
+2.55.0
 
