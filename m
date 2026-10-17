@@ -1,222 +1,180 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76E3218592;
-	Sat, 17 Oct 2026 00:30:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792197027; cv=fail; b=rdIMEy3/bQMCf0b37vX9O20XU6Ng72Z1o+h2rP5H49QKbrkHxiz5ROuEO9KjkMhYfzZ7KLs6lt7UJM6SsSt1mBuRH2YlPwVEWztcKE94G99V/qTnpM4Zjrjvd+deiKoW1rnHlBSatLG823gUxsWFuTxyjJKYT6HiSStGuOjNjUA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792197027; c=relaxed/simple;
-	bh=Fmp0H48nE5UnuE/7g9J0g/3TX9X834XANJTWLaRhdA4=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=EC8SUuPgDd6//6w1MZf7ARR4XyWVuTQeWDzpgZOYHU1E5rEOjA4IsONZHu1aKKWzDJ0pz1Xt7nSkV8shGVVrV3uGNWoN91p2VIC81h0Eg9LjFE3vkEAdic1E6mkYxQYjSGlYvPqhEdx0qQO9uFS0evNzmYKY6c9gHiMQQ4il4eY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y3MaBTjr; arc=fail smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931D41DDFE;
+	Sat, 17 Oct 2026 00:31:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792197093; cv=none; b=bk1nr93PUw6Dv/ho4p6QJ/F9iVH2pV7JEZgMQQZjBWToHczWq+YPxnZwW5UxTMy1px7C34/TBpof+Pl+Dt71PsCjphnwIFmYeyGFGSjNcstj51Bav0oUersunqW/ProD4BCUIDgsoM443xyHzI+MdO16qJW6CStbASNVkdTIG2E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792197093; c=relaxed/simple;
+	bh=U+5IG8m8xoK7VNVHDpQyrSif0f0AzdCogpfini8OHxM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bFx8BL6AUJbD9BTmDudZ1kYcNIJm+9LRvrQwSoRPazVJONs/kM/h7Ty/P79g6nWJo5Sv04Ww5DDur5DS/kPT6WKjvkuMofcpgqsvw/DDKikXcQ7osC2l5Yau9y32fYyiqIoeY68ILjAVLJfPt5Nqzt2SWIPsWrflcL/dg4Ij1SU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fe+GEmYx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y3MaBTjr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792197025; x=1823733025;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=Fmp0H48nE5UnuE/7g9J0g/3TX9X834XANJTWLaRhdA4=;
-  b=Y3MaBTjrYfKtAfoiR6byUAQw00V6wHGb5+RkAlg7x5NwKBrVJU57GlT8
-   wxNGfzZh7786fxXTQX6B5nir76Q5F7QeW8upXHnn9xvtxMygW3xQRab6z
-   yElWDkKfdSx9KtkTqbhJ8vX7EXbz6oqDjt+WY4isJyLrqh97S5ZKz0ATT
-   FRNEZsyLCpnsYfx3QEKjaRltEjv54juODW7uYhYKEBzw9x53BNiJN94Z+
-   lCUj8LGf4cavun4+WTj0ontLWGwLscNdz3PhtggLhbhsOSSvZlud91e/p
-   Qrp1ZW2HP+OB1ydiDg71V57rogAy0uG9FQUcZ2d/L7Epp7GJ+pBdS1tiO
-   Q==;
-X-CSE-ConnectionGUID: s1mDqdwFTVqzTi79ixSISA==
-X-CSE-MsgGUID: p1FAs1QPRKWxwpzdSbS3vg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11937"; a="995998"
-X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
-   d="scan'208";a="995998"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 17:30:24 -0700
-X-CSE-ConnectionGUID: tTFplR9BS+KuJzkqhLYi4A==
-X-CSE-MsgGUID: mWvfy6oqTB6Swk+6j63lHw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,162,1787036400"; 
-   d="scan'208";a="1949725"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 17:30:24 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 17:30:23 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 16 Oct 2026 17:30:23 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.37) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 16 Oct 2026 17:30:23 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T4Itfaj7oMfuPaM6kMtYd01fu1vW9/FYhTIXbuMX8UG28SEJ8Fn8sXAU2hxgzdW0tZG79bqGF1us4FiUpZm/XEimvM6x9G6E1GlJc+6VKliau7MSedC8U7CllkUkgMGF771SXcvyv9q3NHmxOuSsJbX9sp10wEQiT9+2D1pwCGvsSP7Qkh1iG11jNj3xWSHV3dCIxsVKXv04ez4LvU6gq8mRWmZwJRB6Gr0M50ZbTv5RyZhoK4QpdI6xFfq0UHXAN3vrw13VosT1Vn4jiCIPjF6JSSSY7g9gZSLdRVWCPoBls8Aotcf3acXhxrvW3eiZL45zwkm2BsVfk8xuRv3LAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RMb5BW4nxa4qii6bg1vH3EWdXwXA+rYKbURPvKTMwL4=;
- b=G+XfQtdZv//gpGPy2KOtRU+axRYm2D7ySl4ruUUULxIzVzgwbSG4iR3mVXRVO8l87PZHVttCpkXxnE0BqMda8q0UDqqtWMC5PZaxBloIdqimgDNTTc5ry+0be6Jt3luA+Sf9Z2PrCMLEswm6zjqoL209BSvt3Oe4bRT0jGsGRrbbqTcpWUa9SDf42raGbruxvz/WJzXGeLpihUy5nVALSkIxaLo5vJVVKWOEdSKtzLP5y4TpsT+ZGDBaXjTWcQkXjXdcTZYh4tjzop4nhZIvYjFFOzdbPPTFZssL3mOOuACDJWrIEeG31zT+h1UrT/YXbZZ2Tv5SAtJZixefH+d22Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
- by SJ0PR11MB5183.namprd11.prod.outlook.com (2603:10b6:a03:2d9::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Sat, 17 Oct
- 2026 00:30:18 +0000
-Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
- ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0522.013; Sat, 17 Oct 2026
- 00:30:18 +0000
-Date: Fri, 16 Oct 2026 17:30:14 -0700
-From: Alison Schofield <alison.schofield@intel.com>
-To: Richard Cheng <icheng@nvidia.com>
-CC: <dave@stgolabs.net>, <jic23@kernel.org>, <dave.jiang@intel.com>,
-	<vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
-	<gourry@gourry.net>, <rrichter@amd.com>, <linux-cxl@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH] cxl/region: Calculate peer distance only for reused
- targets
-Message-ID: <atLBlibv3kbT7xv5@aschofie-mobl2.lan>
-References: <20261015094059.46818-1-icheng@nvidia.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261015094059.46818-1-icheng@nvidia.com>
-X-ClientProxiedBy: MW4PR04CA0280.namprd04.prod.outlook.com
- (2603:10b6:303:89::15) To DS4PPF0BAC23327.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fe+GEmYx"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5AC611F000C4;
+	Sat, 17 Oct 2026 00:31:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792197091;
+	bh=eCRhchLOfqHs0am17EgcQVDQhry4HHYSAz+0fnhXrD4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Fe+GEmYxl0p3NliMBeeebE8ABUVcle+Zly4l5SOrVETvBf4DMHDfdyM+75yFlmiMM
+	 yDPfGK88A6BbcLMM5E9Yd0+0lBG9VxpI8QBsrJx2wz5w2hvfEM7fqSuXZgwsNfHpYL
+	 3MJmdnBWyAWgtylQ2AG8qVLOaR2flO7wJDkpKLORV4LOLbx9Grmuyn9+4HCpNLQgnl
+	 FF+yxlFdZtPeVqoWnYpUClg16lgY4LB/1RkeTf08scLc+Kf5eMJRKKu8PFEcNA3NZM
+	 ix66ZXlgyHLivaS8z+Wv320bQJBSAciFKnTqv4g3N8gulmaUOF2pdbtTTgU/jqDcff
+	 IxDTDzJnTlJJA==
+Date: Sat, 17 Oct 2026 03:31:28 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Surendran Kanagaraj <surenkj@amazon.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Breno Leitao <leitao@debian.org>, nh-open-source@amazon.com,
+	Alexander Graf <graf@amazon.de>,
+	Gunnar Kudrjavets <gunnarku@amazon.com>,
+	Josh Levinson <joshlev@amazon.com>
+Subject: Re: [PATCH v2 2/2] tpm_crb: Raise durations for Amazon NitroTPM
+Message-ID: <atLB4N5DZuvKsj5R@kernel.org>
+References: <20261016043733.30589-1-surenkj@amazon.com>
+ <20261016043733.30589-3-surenkj@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|SJ0PR11MB5183:EE_
-X-MS-Office365-Filtering-Correlation-Id: 670af6bf-d8f6-4804-b5d3-08df2be5d21c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|6133799003|22082099003|18002099003|10067099003|260925022911599003|260925021311599003|260925021911599003|56012099006|11063799006|261009223027099003;
-X-Microsoft-Antispam-Message-Info: 4A1EZC1fIkWfQI/qDyt7xroKVUDUUXVrN8hJDRIap47495md6KZ3aP7UnvvpaAixi3mRaMy3QM4z7XXGzIWxOZ7yUf7dji9GFjNsRjZTJdb9piPQHdohBeCFHSeNAMgC0aMpdD3Hru31aWOfDth1wJJKmS9bgX2xJldyo1Crti4UHeSGvj9JLyJ2gNP8F1faRHFq+rTiV+54nKTExJ+vNOgbbNY4baLfT82u2Se5tqfE7y9Ijgndw8Idjp2sqQrzeydyZeIL2r+nm1wQkjA4Ni0jsH0MccNJhzMNrM1evjbLnnXQYSpy7wnsy2VzKyXDTciUQtOVZ/1Ta2LtRe7R9ASzvMPZZNVJ1PcVjE1ow9hY3L79cOjEfUjSAEeaAGBdTL1roMCgfv8WEzlUfxXzYB+UU2OMYijkAOjSKRvvsZxWKCVQBh+oVJqNRGVOHiPTbUUsAIwUdnrtW2YRvvawu0PeKZuZljtWolfMTDkFx9Z6KGBKlfO9SIxbTDX8ULScPb02zaB92HhZ3xdcLKMl41U0kB3O5h8bFQhSVpxPxJFnWQ0o5L6ctDfbB9Zx42GG/wr1iPRKyBntOnVaFOnpb5U0EfCVFqmKhrQvdmo2oYMBBz3U99Inh1NTcGvfuKNO
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(10067099003)(260925022911599003)(260925021311599003)(260925021911599003)(56012099006)(11063799006)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?y5WcuS9mRbZ9VxxgFHWZBbQoETogVU4nH/Ux1M3OYJTzMzrw71DDb0CgfGdp?=
- =?us-ascii?Q?1blaEmSoUUmc/LdCC00PnlsApHOrvvoC/zthPYoko7+9yZTMNA3cOcbAItqS?=
- =?us-ascii?Q?1UTx8C7VjBOMUiZ6mmgKZfREK6xXjbk3H9bpy419FAIkaoJFYayVSbu5S4rw?=
- =?us-ascii?Q?HYxjmU1556s0pHJIwPy/IMbWwxfsgCj0YA5Tilyx7wmIBwYcrkoMvmTzrQAA?=
- =?us-ascii?Q?WT9vKb5KzBGNBFBjUeRJwp4bK7Ti3f/48aqN+SDIT6mwTogvKQS2Q1gWFed5?=
- =?us-ascii?Q?ZIP/e3aHGTqNhKiLLKUJLNuGbKKZTc7NHfx1we7lHf3DLVgXS0Pn7V7/zXxD?=
- =?us-ascii?Q?EZabTqEfgdkvkrqV+QOzwZvBwAH+nKee3sWfhnxoFVCgRpNlvSw84d9v7gqK?=
- =?us-ascii?Q?OVbcjSLvsRLb4+BWMiJYFttiGMA0/Q3npaE1eE9VVhYxYnQilwKWNGrKJMeJ?=
- =?us-ascii?Q?j/0qjf8KmWoxVuCJa7LZ+VEnh90sN8Yqo/01z33Lp3Ai8UQ67ioIVIAzYN99?=
- =?us-ascii?Q?qUpZu64lA/YAzs5cbUSW9nLjBBS2OIiSKiNq2jzTzVPCxr7C0i/zOmhBA/MY?=
- =?us-ascii?Q?CoR3CxBFA+oBwp1nYiYosuPkKjPVWCbrFbSZsLDi6NzpempN7tar9n0rUUAD?=
- =?us-ascii?Q?cHiZwhqln7r3xisafC756DUjT6jQ7u/KPSjJwuwZENNilZAThZ6lE1/AC6hl?=
- =?us-ascii?Q?Z8UTx5ddV6VEVSTcePTCWHppl63JcRn0prhp7kdfpPE1IiPhIGZU3pZDVg3f?=
- =?us-ascii?Q?DlHHRJK9la9u387ps5a8wlWtN8mz6YOxGOEgIzNfV6eMP82AaoQUQEGXm2+J?=
- =?us-ascii?Q?+FSA5h9oao47EZ4xkkdVP/KwB/C4WlZUO3ti/ZDPjOs/wJmsWJF9mYDGx8dx?=
- =?us-ascii?Q?NRNb3+Wwrv/qXv4ewqTKQeFCw1qBbEqiR83jy2IhD0HkriuTUJ+6OryBWGOA?=
- =?us-ascii?Q?9BOqXD633h26SqK4EZ6JqpRvIDhYWa0F0v8fsk2va4N8qS1XYlTEyDLJK+pJ?=
- =?us-ascii?Q?Wckcyt3QZQEqyXBoOy1e76jTqXpslwW1Llnm6leKmMJghxE08gxqrso+XlEc?=
- =?us-ascii?Q?JMTDLZuLv7mNy0LzL3CYduq0GIKQdAViL4KM7bIdDtEwlBOdm/qtwckSRf+S?=
- =?us-ascii?Q?XQnD9Y4P2eI94BrfM8ee/Rkje+Rjciywjn7hcsUt5yxiZnvUJN0m2Qr9T9JW?=
- =?us-ascii?Q?GxZ1/1fKCPIYK10jT82bGdIwA34EX7pZx355jQbAU+o2XmoYV/L61utv/yuE?=
- =?us-ascii?Q?kl70gS/DIlcHF2MOt8sFbIyBuggaNwzhpyI62HbvH+qkLzASzY1o+j/+5ush?=
- =?us-ascii?Q?hEJQXtc1EvvtJZr/umE8KyzdMpoKM7QDimvCmh3vBveYUWD5XkKYMzjz0uj8?=
- =?us-ascii?Q?0OffzDhXSWPQ6os1DMFHBusDT7WN1vl0K19F9F8gZEpCyhs+VIEegqD+j7pr?=
- =?us-ascii?Q?CDYLI1fLIUbGG8pOgLc3tIoXMSBPeDdmTcBaGPHNl8cSlJkI/IG0VDte0GfK?=
- =?us-ascii?Q?dqtfg9ojSK3S8r6qyZ/BogR3LUs4ndUPtTB6J2BJyln/scmasa00icJD0rad?=
- =?us-ascii?Q?C0cbYSp+FY/sMGYFft+Ciyy6ZWuQrWAaSUpMM0IJOf9vyVXH1p41z46OU+sn?=
- =?us-ascii?Q?FKfz/HpAjesbyFChbbdbTw7Ek6X1Oh+5MjXjzOcA7qchuJEMoACd3XXk31mS?=
- =?us-ascii?Q?8N/GYBhlsrF3yPYtu3e9XhwWKaopwV84D204d+kf60TuJxR8dRpbLMGX+nuB?=
- =?us-ascii?Q?VwhcG6Ax0Tqgt0CYMJuhdww3GaY7f48=3D?=
-X-Exchange-RoutingPolicyChecked: jgUz+fZse07Z+BmT1AuB/2SSZ3Eu+Dx2MVGyGRET1KAL6hMqNWWrRINtUrGPGle4i3Cfv19B6MjcQGt7Z2/F99hlSzTA7NeM7/aWJS8Zq+fq4/7LTNbY/JXHbluEA5MK/cevD5HHA3jZRRs2kGsTDYvSsBKuvj9F0J8W3vQ6p2/0v4XF9+R2q2Mg0kB6UP6kJau4cLJtqK6c1B16XdKAhvrP0Qcx/Zbbckliy/XJkTh2VA02sNmD5bjT3GDpmq/QhcJ6AHWDUzhBAM9Av/iZnykMPUmZFwcO6RYizeoYcVnRhlrXu8Ip5vourn50eF2giYYRUST8rDz5ngrDBAiTAQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 670af6bf-d8f6-4804-b5d3-08df2be5d21c
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2026 00:30:18.5170
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QGe2gahnNZQvnHrwaMRyB8AYGmcfy3s/TSoeyeyOa0beP1L3Ssq5y0cUayz+zrfs3q9bR/S54zPvgPGpm6CeYKP9nBzuVGFPK/GLjBXyfU8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5183
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016043733.30589-3-surenkj@amazon.com>
 
-On Thu, Oct 15, 2026 at 05:40:59PM +0800, Richard Cheng wrote:
-> This patch depends on Alison Schofield's v3 "cxl/region: Refactor
-> cxl_port_setup_targets()" series [1], this is inspired from that serie
-> as well, since her serie contains no functional change, I pull this one
-> out as a standalone patch.
+On Fri, Oct 16, 2026 at 04:37:33AM +0000, Surendran Kanagaraj wrote:
+> TPM commands need to complete within the command duration defined in
+> the TPM2 spec or keep answering TPM2_RC_RETRY for at most
+> TPM2_DURATION_LONG (2s).
 > 
-> cxl_switch_port_setup_targets() calculates peer distance before
-> searching the existing targets. When the endpoint needs a new target,
-> the calculated distance is never used.
+> In rare scenarios NitroTPM can enter a mode where it either sends
+> TPM2_RC_RETRY for more than 2s or delays command completion. When
+> this happens during auth session start, the driver disables the chip
+> and every subsequent request fails:
 > 
-> Move cxl_port_peer_distance() into the matching-target branch,
-> immediately before check_last_peer(). This avoids unnecessary ancestor
-> walks and per-port region lookups when adding distinct targets.
+>     tpm tpm0: in retry loop
+>     tpm tpm0: tpm2_load_context: failed with a TPM error 0x0922
 > 
-> [1]:
-> https://lore.kernel.org/linux-cxl/cover.1791860305.git.alison.schofield@intel.com/
-> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+> Add support for vendor duration overrides to the CRB driver, based on
+> the vendor ID read from the interface ID register. For NitroTPM, raise
+> TPM_SHORT, TPM_MEDIUM and TPM_LONG to 30s which covers the longest
+> unavailability time along with some headroom.
+> 
+> Tested on an EC2 instance with NitroTPM by inducing multiple
+> unavailability windows with no TPM errors, and in QEMU with swtpm by
+> holding the TPM in TPM2_RC_RETRY and stalling command completion for
+> longer than 2s.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Surendran Kanagaraj <surenkj@amazon.com>
 > ---
-> I don't have available HW for multi-way interleaving setup, so I can't
-> exercise the case optimized here. I would appreciate if someone is
-> williing to validate the actual benefit of this.
-
-Nice patch! I've picked it up into v4 of the refactor set.
-
-I tested it with using the cxl unit test cxl-region-sysfs.sh and this
-at the end of cxl_port_peer_distance():
-
-dev_dbg(&cxlr->dev, "%s:%s: peer distance %d\n",
-        dev_name(port->uport_dev), dev_name(&port->dev), distance);
-
-The x8 region went from 10 calls to 4. The eliminated calls were for
-new downstream targets and the remaining calls were for reused
-targets where check_last_peer() needs the distance.
-
-The x2 auto region also went from 2 calls to 1.
-
-I tested the peer validation path by swapping endpoints at positions
-0 and 2 in cxl-region-sysfs.sh. The mismatched peer was detected and
-the region rejected.
-
--- Alison
-
+> V1 -> V2:
+> - Raise the durations through ->update_durations() instead of setting
+>   chip->busy_timeout_ms.
+> - Raise TPM_SHORT, TPM_MEDIUM and TPM_LONG to 30s.
+> - Replace the vendor quirk table with a plain vendor ID check.
+> - Use the TPM_CRB_ prefix for the new macros.
+> - Rename from "tpm_crb: Raise timeouts for Amazon NitroTPM".
 > 
-> Best regards,
-> Richard Cheng.
+> v1: https://lore.kernel.org/linux-integrity/20260923142834.16786-3-surenkj@amazon.com/
 > ---
->  drivers/cxl/core/region.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/char/tpm/tpm_crb.c | 44 ++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 44 insertions(+)
 > 
-> diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
-> index 50f4830c225d..efd173c57dad 100644
-> --- a/drivers/cxl/core/region.c
-> +++ b/drivers/cxl/core/region.c
-> @@ -1666,10 +1666,10 @@ static int cxl_switch_port_setup_targets(struct cxl_port *port, struct cxl_regio
+> diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
+> index ceb4100ba400..6ba9016d6463 100644
+> --- a/drivers/char/tpm/tpm_crb.c
+> +++ b/drivers/char/tpm/tpm_crb.c
+> @@ -13,6 +13,7 @@
 >  
->  	cxlsd = to_cxl_switch_decoder(&cxld->dev);
->  	if (cxl_rr->nr_targets_set) {
-> -		int distance = cxl_port_peer_distance(port, cxlr);
-> -
->  		for (int i = 0; i < cxl_rr->nr_targets_set; i++)
->  			if (ep->dport == cxlsd->target[i]) {
-> +				int distance = cxl_port_peer_distance(port, cxlr);
+>  #include <linux/acpi.h>
+>  #include <linux/highmem.h>
+> +#include <linux/io-64-nonatomic-lo-hi.h>
+>  #include <linux/rculist.h>
+>  #include <linux/module.h>
+>  #include <linux/platform_device.h>
+> @@ -26,6 +27,15 @@
+>  #define ACPI_SIG_TPM2 "TPM2"
+>  #define TPM_CRB_MAX_RESOURCES 3
+>  
+> +/* TPM_CRB_INTF_ID_x vendor ID field, bits 47:32 of the 64-bit register */
+> +#define TPM_CRB_INTF_ID_VID(intf_id)	(((intf_id) >> 32) & 0xffff)
 > +
->  				rc = check_last_peer(cxled, ep, cxl_rr,
->  						     distance);
->  				if (rc)
+> +/* Amazon NitroTPM */
+> +#define TPM_CRB_INTF_VID_AMZN		0x0ec2
+> +
+> +/* Longest NitroTPM unavailability, with some headroom */
+> +#define TPM_CRB_AMZN_DURATION_MS	30000
+> +
+>  static const guid_t crb_acpi_start_guid =
+>  	GUID_INIT(0x6BBF6CAB, 0x5463, 0x4714,
+>  		  0xB7, 0xCD, 0xF0, 0x20, 0x3C, 0x03, 0x68, 0xD4);
+> @@ -521,6 +531,39 @@ static bool crb_req_canceled(struct tpm_chip *chip, u8 status)
+>  	return (cancel & CRB_CANCEL_INVOKE) == CRB_CANCEL_INVOKE;
+>  }
+>  
+> +/*
+> + * Read the vendor ID from the interface ID register. Returns -ENODEV when
+> + * the head registers are not mapped for this start method.
+> + */
+> +static int crb_vendor_id(struct crb_priv *priv)
+> +{
+> +	u64 intf_id;
+> +
+> +	if (!priv->regs_h)
+> +		return -ENODEV;
+> +
+> +	intf_id = lo_hi_readq(&priv->regs_h->intf_id);
+> +
+> +	return TPM_CRB_INTF_ID_VID(intf_id);
+> +}
+> +
+> +static void crb_update_durations(struct tpm_chip *chip,
+> +				 unsigned long *duration_cap)
+> +{
+> +	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
+> +	unsigned long duration;
+> +
+> +	chip->duration_adjusted = false;
+> +
+> +	if (crb_vendor_id(priv) == TPM_CRB_INTF_VID_AMZN) {
+> +		duration = msecs_to_jiffies(TPM_CRB_AMZN_DURATION_MS);
+> +		duration_cap[TPM_SHORT] = duration;
+> +		duration_cap[TPM_MEDIUM] = duration;
+> +		duration_cap[TPM_LONG] = duration;
+> +		chip->duration_adjusted = true;
+> +	}
+> +}
+> +
+>  static const struct tpm_class_ops tpm_crb = {
+>  	.flags = TPM_OPS_AUTO_STARTUP,
+>  	.status = crb_status,
+> @@ -532,6 +575,7 @@ static const struct tpm_class_ops tpm_crb = {
+>  	.cmd_ready = crb_cmd_ready,
+>  	.request_locality = crb_request_locality,
+>  	.relinquish_locality = crb_relinquish_locality,
+> +	.update_durations = crb_update_durations,
+>  	.req_complete_mask = CRB_DRV_STS_COMPLETE,
+>  	.req_complete_val = CRB_DRV_STS_COMPLETE,
+>  };
 > -- 
-> 2.43.0
+> 2.47.3
 > 
+
+Yeah so this needs a bit more redesign and while it is a possible
+way to address all these issues I don't believe it is best possible
+way imaginable to do something that lasts long-term.
+
+I don't want to go into concrete proposals because then I would have
+to really engineer the whole change while at it because I would
+likely try a number of approaches out. I.e. just a bit more effort
+and innovation please.
+
+Br, Jarkko
