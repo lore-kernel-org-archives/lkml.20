@@ -1,199 +1,435 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-155.mta1.migadu.com [95.215.58.155])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F973A2559
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:16:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003503D9DB0
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:16:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792260998; cv=none; b=sVg0sFkrnlS6y3ycTPUU8mqo66v+qLJgyRbGcALFOMKnQ3fWY4SCSPW1T39SJHm/mZljc39iqA9AGRKdQZsz/hE8LldNMFjNkRcrfQlJuzCAfVeaVpJsWuwX0wyeVTvzwtduBM9ADnZAbxQKQYWMzs2qufv9/EiBVyDdNYtDjM0=
+	t=1792261004; cv=none; b=EyPkDdHFl0pzZ+ZTYpFYS1xZCUqdyv84WaeRVtVcBw+u6JC4tzxx9kYmy5BhkJ2EFGv02JHVANJw2vR9LYHSJGaDfrYJiYL3b9Y023jnWbsJqRpxCGp3xI30wibCu9DL3/9DpfIwI/28qf+3zMvVtlJ3E3s5Ttr0RXb7jdK0iaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792260998; c=relaxed/simple;
-	bh=xCzKvRe8KO7FvMJxTNAXsPzHcVjLSbgC1mvTnpImzs0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dxomAIzpFsu+X4Pm4PBuY3ovtprsNg4dTaGSYSdwogjRr90kprxkU0U2GgWHFLPaJCK4g3nQjFp4bYa31W5k6Lfsw2BhbVfvbpDUd0Mlxzw8MBAIvNJfAtJ9/Xjefy7C+bjjoG82jvuJhyIbLa9o+mWJXXiYlXttFrFCA3uckak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S/RfhN82; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MCO8eiL5; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792261004; c=relaxed/simple;
+	bh=OZgJ4hFFpM+eVAoheAhunAaJuyLJZypZMtUk2ytppR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nZ9X34bVS56k6OkLVUFlx2DGEyYxxznYz3LbXk8E0BCr/ADRVGtsiZuDNSCY5MHhAPRDFwRZCI+cUomGjGiUrI2X5SxQd6XI3ErNG+RixGw2P97Bmo5jgn/TZUaBSbsWmw3h5favc59qHbwHsgfKz1q0lEs8EcftBu8KPe2XVBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aBtDCUcx; arc=none smtp.client-ip=95.215.58.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S/RfhN82";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MCO8eiL5"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69HGA6c92598935
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:16:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0nRvE4iYzZZkY8FL+vx+dpAmS+CxJcSbG5OBNTwgPiI=; b=S/RfhN82Lm0VO1jb
-	QR3BDj/jzII96FvgklOjhpcaYnIKzz+TZGjB/FrJ9Qg8CbqO1mJlf2+WF7+n9G7Z
-	rsWIHqkWh5pClwfNbBBjroRiv9XgPMNBVuRQe31DY0q3W14P/t2IBvrPYTA+l3RH
-	HJK4KPDZOkd8IOOPpYfr1iGp0WWW06e2Fo6aMPbMF84o6i/ARMvboWObdcvBEykP
-	aCC36vwnN94fH97q6TOwsc7148v3IuMKwAeiRrNWBr+IGKSJ/+kj8GsDjXoFSeDS
-	I9WBFqSwApaXhOlKWXLsX+zpjFhYTD/AZFuVsVaUoWPp0ABZpAMw3iqYVNHo69eu
-	VJIQZA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbxqfsu84-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:16:35 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35c3c370b17so1915199eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:16:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792260995; x=1792865795; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0nRvE4iYzZZkY8FL+vx+dpAmS+CxJcSbG5OBNTwgPiI=;
-        b=MCO8eiL5illGayw7NilYJQ7kHtZP5lbdNnM4plVqIM15DH0eZ69WI+inDVzF1+uzLu
-         g3ehhCJYhL9PIJ/jqZzDEnw7SGI3bXYF5bU15KNrqbvRKJAAoGY/dNc5eRGOqaGDdMdR
-         pXLBzTYUGtmtroGcivxvIiL8qLmzy/qYdeq0lSKEgxPJDMhxHIITbu9JlKe1g7vhFOGS
-         GIcl4K8JsPM7Kd6Sl4aEbXGbjxggSFYTVitqfJ48BOcpkurwzfyKM19QL6AFj8uwUzIu
-         lfh3+od2wiJJVnlFxrI4ErQ1rcxYVeOv2Q1yRzhbitf6pAmY0XJkPMKg7wCjyqD92H0y
-         tWlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792260995; x=1792865795;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0nRvE4iYzZZkY8FL+vx+dpAmS+CxJcSbG5OBNTwgPiI=;
-        b=Db+Ck8KLtLPrnDAM0YA1fg/Pb9hcOBmbILdOPmW/1KVCMSNZBoWwzcMcm8OjaJzrME
-         0m8JWkl582apGBACfjySaAEmjoRZnDPHNn4blfMX8kAy8yqBoBld1SKHAZnRLwOz/pIV
-         E3ahPhMR46QWn2E9kK/7JP/XtbTdaCUDq9Ct9auaebvX3uDnKuZz15h7CEUK1g21dQS8
-         3hYKjwUH1r+Eyh8RsJ9G+Qd5tBY1aP6oqEo8ZVksVF81F+JR165Gy2MDTVpTiPnzRUTo
-         tQkliC7AJ4lz7NxjziZ7moKn1YG+92gTb380THneqlF3X7tcCbN7p9v3IFfnqKQAeeG3
-         K+Bg==
-X-Forwarded-Encrypted: i=1; AKwUvBwNDm2uL5w29mip8poRutqL4J5GSYu2ls/v2DXsbPGhsCJ+qA+uN6WqTiLFXuBDaGkouXltVIphrds/C/4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjnVROuWgV5wkIc1jmnlcQ2XyTDDTj88sj0Yv9dzAawF+uKYQ+
-	/KwLh7VwNX7X0r0FeVJkO1V5dYX67t+07+n1ghKYj6xlD4qhWHTOuCAijQKVMvEJriz8yannPJr
-	u/+Px/yaxBmYboYdbVCtA+O9aAmxl9GlEMZWTO/RYRC1/9mmlpR+EulXRdtOKFjWabuo=
-X-Gm-Gg: AYBFou2SZBJ82WXdYnAtBw4sOfO4c9R+Ni9bZ6EYmfNplkqyW9R+NDJIpAuRHqMl7Fc
-	r+/gr6ZwK+0gaq0I1szsNekgxm1N/rNn8JrH0cWW95HfaimFXmj5dFdtARhw4HPtKN/TmDJroNY
-	/deFfNcokZ9x4kCbv8PxUhNZTqrK7KXg3kpSegK1+FSNSRVKlY3zsAyOfh3vY9iV3RcCESwVetU
-	VYKZqUAWqDfS4Ec70hRFNA/6UuFqm68mpVZpHz2y+fON+n4RdEyybQxB52cWDNx+W8Xgj4SqtbD
-	rKNyCKR4TU/3vdIyVAhWjOwXP/m+yHBvwUerZTo8N3u5eJmuKHgREINFySsDnWq3cnvXQwQ3rGc
-	EzI3Vid0DxszxRBEVtfm1lKNV+Pc=
-X-Received: by 2002:a05:7300:ec8b:b0:341:4f3:8f84 with SMTP id 5a478bee46e88-361a14651b3mr4204003eec.13.1792260995176;
-        Sat, 17 Oct 2026 11:16:35 -0700 (PDT)
-X-Received: by 2002:a05:7300:ec8b:b0:341:4f3:8f84 with SMTP id 5a478bee46e88-361a14651b3mr4203954eec.13.1792260994417;
-        Sat, 17 Oct 2026 11:16:34 -0700 (PDT)
-Received: from [192.168.1.8] ([122.177.246.33])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cc23sm21263364eec.2.2026.10.17.11.16.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 11:16:33 -0700 (PDT)
-Message-ID: <54ae7a34-2ec9-4051-ba16-136a0228609c@oss.qualcomm.com>
-Date: Sat, 17 Oct 2026 23:46:26 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aBtDCUcx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OZgJ4hFFpM+eVAoheAhunAaJuyLJZypZMtUk2ytppR8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792261001; v=1; x=1792865801;
+ b=aBtDCUcxBi8YgWUHGjiuaP8ClNKLGOlo4aqr+WhlC1nwZ3RIJi74lru9WOs6MUu1LjIe9AO+
+ KI5djrWq5ppOF6eys137r0A+g4WjRct3BZX0/EBdf5UdFfSiWRaz7iKj97EdsRrPvRaWB6TUmvQ
+ j+H1h7AZRuv5pH1cUZjozkU0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 896bcaa0f6b38764;
+	Sat, 17 Oct 2026 18:16:40 +0000
+X-Mizu-Trace-ID: 896bcaa0f6b38764
+X-Migadu-Flow: FLOW_OUT
+From: Denis Benato <denis.benato@linux.dev>
+To: linux-kernel@vger.kernel.org
+Cc: linux-input@vger.kernel.org,
+	kernel@lists.opengamingcollective.org,
+	"Benjamin Tissoires" <bentiss@kernel.org>,
+	"Jiri Kosina" <jikos@kernel.org>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	"Mateusz Schyboll" <dragonn@op.pl>,
+	"Denis Benato" <benato.denis96@gmail.com>,
+	Denis Benato <denis.benato@linux.dev>
+Subject: [PATCH v10 07/11] HID: asus: add support for response curve
+Date: Sat, 17 Oct 2026 18:15:16 +0000
+Message-ID: <20261017181520.70206-8-denis.benato@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261017181520.70206-1-denis.benato@linux.dev>
+References: <20261017181520.70206-1-denis.benato@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/dsi: fix AHB clock staying enabled across suspend
-To: Joonhoe Kim <26rote@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        mahadevan.p@oss.qualcomm.com, rajeevny@qti.qualcomm.com
-References: <20261006-dsi-ahb-clk-suspend-fix-v1-1-67da848e1b0a@oss.qualcomm.com>
- <20261016125036.1069-1-26rote@gmail.com>
-Content-Language: en-US
-From: Arpit Saini <arpit.saini@oss.qualcomm.com>
-In-Reply-To: <20261016125036.1069-1-26rote@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDA3MiBTYWx0ZWRfX118y6ZonWwm/
- LzeAuKk+uyJm9UIuH+1LtZDDGbUyyMkXE20/sB3vJbKTQqUVZgoYY73THWAy+F8MftrrL4Hb6bf
- Q8fGOser4PosE3dD5UIGqPazWH3Flwk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDA3MiBTYWx0ZWRfXygdH0IexoQWp
- m68dLKGuDsPSft3/vHLC+r6xJFbjXBJf3Gu5O66ot71HOhG88ZfId6jD2Y7sLLJ2ND6qwM0Z+ad
- Q7ZxxliLWte8eIVwJ1ckjzqSSBmZWVUPNeGtgYzs1f2ntkAu5WzkW46wULBedwUGZ+rHjV3V7bG
- lZxY4WGAoLwMF6CwNP3I6YlkK0NxNrf80Xj9SyuBai2K8DUcJu1FLp7cLqOlLDCF7IYZ0XUyuA9
- 8h62Xwh5gGZQeIeJgnZYACbSJJ7LP6ks4THVfTyn3Im5v94L2uGVIFt3XdETPKUGDKLhql6I+Q5
- J3NPgd79bjVshgPZAEjCjnVOhx8kHD+txi6DHfsjbO6UxZb0WexZYxAM0FA5RrXPynMa1b2z36o
- KgX6OocPLtVKFrnTn1as8hcS78Bp6dvlzwld6rLfEBSkQZ81TIF+GlgRROiyb82e42aAadHgjZC
- 8uMP09wUtCV6RyNKc1w==
-X-Proofpoint-ORIG-GUID: oiKNWgbEWXJSKuziboyGwkvMr2_RLDXr
-X-Proofpoint-GUID: oiKNWgbEWXJSKuziboyGwkvMr2_RLDXr
-X-Authority-Analysis: v=2.4 cv=RYMFmFtv c=1 sm=1 tr=0 ts=6ad3bb84 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Gy7JURgNfp+0T9DH7I4t3Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=5upmOk6ioxsuaylLKAIA:9 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-17_05,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610170072
+Content-Transfer-Encoding: 8bit
 
+ROG ally devices allows configuring the response curve of both joysticks,
+therefore add the ability of userspace to modify the response curve by
+exposing relevant sysfs attributes.
 
-(Resending with the lists on Cc; I earlier replied only to Kim.)
+Assisted-by: opencode:glm-5.2
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
+Signed-off-by: Luke Jones <luke@ljones.dev>
+---
+ drivers/hid/hid-asus.c | 298 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 295 insertions(+), 3 deletions(-)
 
-On 10/16/2026 6:20 PM, Joonhoe Kim wrote:
-> (Resending with the lists on Cc; my earlier reply only went to Arpit.)
-> 
-> On Tue, Oct 06, 2026 at 06:43:53PM +0530, Arpit Saini wrote:
->> pm_clk_suspend()/resume() only call clk_disable()/clk_enable() for the
->> AHB ("iface") clock, never clk_unprepare(), so prepare_count never
->> reaches 0. The clock (and its source) stays reported as enabled
->> through s2idle suspend even though the display stack is fully
->> suspended:
-> 
-> I looked at this on a Lenovo Legion Tab Y700 Gen 5 (SM8850, bonded DSI,
-> v7.3-rc4), comparing the current code, this patch's approach, and
-> preparing the clock only in the PHY runtime callbacks.
-> 
-> In s2idle with the display on I see no difference: in all three cases
-> both PHYs are already runtime suspended at system suspend,
-> disp_cc_mdss_ahb_clk has enable_count 0, and CX collapse during a 100 s
-> s2idle is the same. Is the clock really enabled during suspend on your
-> board, or only prepared? Reading clk_summary runtime-resumes the clock
-> controllers, so it can show a different state.
-> 
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index afb3e17d4245..56f8adf0ef2a 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -22,6 +22,7 @@
+ 
+ #include <linux/acpi.h>
+ #include <linux/cleanup.h>
++#include <linux/ctype.h>
+ #include <linux/device.h>
+ #include <linux/dmi.h>
+ #include <linux/hid.h>
+@@ -185,6 +186,18 @@ struct asus_touchpad_info {
+ 	int report_size;
+ };
+ 
++struct ally_joystick_resp_curve_param {
++	u8 move;
++	u8 resp;
++} __packed;
++
++struct ally_joystick_resp_curve {
++	struct ally_joystick_resp_curve_param entry_1;
++	struct ally_joystick_resp_curve_param entry_2;
++	struct ally_joystick_resp_curve_param entry_3;
++	struct ally_joystick_resp_curve_param entry_4;
++} __packed;
++
+ struct ally_config {
+ 	/* Must be locked if the data is being changed */
+ 	struct mutex config_mutex;
+@@ -217,6 +230,9 @@ struct ally_config {
+ 	/* Vibration settings */
+ 	u8 vibration_intensity_left;
+ 	u8 vibration_intensity_right;
++
++	struct ally_joystick_resp_curve left_curve;
++	struct ally_joystick_resp_curve right_curve;
+ };
+ 
+ /*
+@@ -1932,6 +1948,236 @@ static struct device_attribute dev_attr_right_trigger_range_upper_limit =
+ static struct device_attribute dev_attr_right_trigger_range_upper_limit_range =
+ 	__ATTR(range_upper_limit_range, 0444, right_trigger_range_upper_limit_range_show, NULL);
+ 
++enum ally_joystick_side {
++	JOYSTICK_LEFT = 0,
++	JOYSTICK_RIGHT,
++};
++
++/**
++ * ally_set_joystick_resp_curve() - Set joystick response curve parameters
++ * @ally: ally handheld structure
++ * @hdev: HID device
++ * @side: which joystick side (0=left, 1=right)
++ * @curve: response curve parameter structure
++ *
++ * Return: 0 on success, negative errno on failure
++ */
++static int ally_set_joystick_resp_curve(struct ally_handheld *ally,
++					struct hid_device *hdev, enum ally_joystick_side side,
++					struct ally_joystick_resp_curve *curve)
++{
++	const u8 payload[] = { side,
++		curve->entry_1.move, curve->entry_1.resp,
++		curve->entry_2.move, curve->entry_2.resp,
++		curve->entry_3.move, curve->entry_3.resp,
++		curve->entry_4.move, curve->entry_4.resp
++	};
++	int ret;
++
++	u8 *buf __free(kfree) = ally_alloc_cmd(CMD_SET_RESP_CURVE, payload, sizeof(payload));
++	if (!buf)
++		return -ENOMEM;
++
++	ret = ally_gamepad_send_packet(ally, hdev, buf, ROG_ALLY_REPORT_SIZE);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
++/**
++ * ally_resp_curve_is_valid() - Check that a response curve is valid
++ * @curve: response curve parameter structure
++ *
++ * Return: true if the curve is valid, false otherwise
++ */
++static bool ally_resp_curve_is_valid(const struct ally_joystick_resp_curve *curve)
++{
++	return curve->entry_1.move < curve->entry_2.move &&
++	       curve->entry_2.move < curve->entry_3.move &&
++	       curve->entry_3.move < curve->entry_4.move;
++}
++
++static ssize_t response_curve_show(struct ally_config *cfg, bool is_left, char *buf)
++{
++	const struct ally_joystick_resp_curve *curve;
++
++	guard(mutex)(&cfg->config_mutex);
++
++	if (!cfg->resp_curve_support)
++		return -EOPNOTSUPP;
++
++	curve = is_left ? &cfg->left_curve : &cfg->right_curve;
++
++	return sysfs_emit(buf, "%u %u %u %u %u %u %u %u\n",
++			  curve->entry_1.move, curve->entry_1.resp,
++			  curve->entry_2.move, curve->entry_2.resp,
++			  curve->entry_3.move, curve->entry_3.resp,
++			  curve->entry_4.move, curve->entry_4.resp);
++}
++
++static ssize_t response_curve_store(struct device *dev, struct ally_handheld *ally,
++				    struct hid_device *hdev, struct ally_config *cfg,
++				    bool is_left, const char *buf, size_t count)
++{
++	struct ally_joystick_resp_curve curve;
++	struct ally_joystick_resp_curve *cached;
++	unsigned int v[8];
++	int used = 0;
++	int ret, i;
++
++	/*
++	 * Parse and validate the whole curve before taking the lock: a
++	 * write is all-or-nothing and a rejected one must leave the
++	 * recorded curve untouched.
++	 */
++	ret = sscanf(buf, "%u %u %u %u %u %u %u %u%n",
++		     &v[0], &v[1], &v[2], &v[3], &v[4], &v[5], &v[6], &v[7], &used);
++	if (ret != 8)
++		return -EINVAL;
++
++	for (i = 0; i < ARRAY_SIZE(v); i++) {
++		if (v[i] > 100)
++			return -EINVAL;
++	}
++
++	for (; buf[used]; used++) {
++		if (!isspace(buf[used]))
++			return -EINVAL;
++	}
++
++	curve.entry_1.move = v[0];
++	curve.entry_1.resp = v[1];
++	curve.entry_2.move = v[2];
++	curve.entry_2.resp = v[3];
++	curve.entry_3.move = v[4];
++	curve.entry_3.resp = v[5];
++	curve.entry_4.move = v[6];
++	curve.entry_4.resp = v[7];
++
++	if (!ally_resp_curve_is_valid(&curve))
++		return -EINVAL;
++
++	guard(mutex)(&cfg->config_mutex);
++
++	if (!cfg->resp_curve_support)
++		return -EOPNOTSUPP;
++
++	ret = ally_set_joystick_resp_curve(ally, hdev,
++					   is_left ? JOYSTICK_LEFT : JOYSTICK_RIGHT,
++					   &curve);
++	if (ret < 0) {
++		hid_err(hdev, "Failed to set joystick response curve: %d\n", ret);
++		return ret;
++	}
++
++	/* Only a curve the controller accepted becomes the recorded one. */
++	cached = is_left ? &cfg->left_curve : &cfg->right_curve;
++	*cached = curve;
++
++	sysfs_notify(&dev->kobj,
++		     is_left ? "left_joystick_axis" : "right_joystick_axis",
++		     "response_curve");
++
++	return count;
++}
++
++static ssize_t left_response_curve_show(struct device *dev,
++					struct device_attribute *attr, char *buf)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	return response_curve_show(cfg, true, buf);
++}
++
++static ssize_t left_response_curve_store(struct device *dev,
++					 struct device_attribute *attr,
++					 const char *buf, size_t count)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	return response_curve_store(dev, ally, hdev, cfg, true, buf, count);
++}
++
++static ssize_t right_response_curve_show(struct device *dev,
++					 struct device_attribute *attr, char *buf)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	return response_curve_show(cfg, false, buf);
++}
++
++static ssize_t right_response_curve_store(struct device *dev,
++					  struct device_attribute *attr,
++					  const char *buf, size_t count)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
++	struct ally_handheld *ally = drvdata->rog_ally;
++	struct ally_config *cfg;
++
++	if (!ally)
++		return -ENODEV;
++
++	cfg = ally_get_config(ally);
++	if (!cfg)
++		return -ENODEV;
++
++	return response_curve_store(dev, ally, hdev, cfg, false, buf, count);
++}
++
++static ssize_t response_curve_index_show(struct device *dev,
++					 struct device_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf,
++			  "move_1 resp_1 move_2 resp_2 move_3 resp_3 move_4 resp_4\n"
++			  "\n"
++			  "move_N: joystick deflection percentage at which curve point N\n"
++			  "is placed (0-100, each move_N must be greater than the\n"
++			  "previous one). resp_N: response percentage applied from\n"
++			  "point N on (0-100).\n");
++}
++
++static struct device_attribute dev_attr_left_response_curve =
++	__ATTR(response_curve, 0644, left_response_curve_show, left_response_curve_store);
++static struct device_attribute dev_attr_right_response_curve =
++	__ATTR(response_curve, 0644, right_response_curve_show, right_response_curve_store);
++static struct device_attribute dev_attr_left_response_curve_index =
++	__ATTR(response_curve_index, 0444, response_curve_index_show, NULL);
++static struct device_attribute dev_attr_right_response_curve_index =
++	__ATTR(response_curve_index, 0444, response_curve_index_show, NULL);
++
++
+ static struct attribute *ally_config_attrs[] = {
+ 	&dev_attr_xbox_controller.attr,
+ 	NULL
+@@ -1956,6 +2202,8 @@ static struct attribute *left_joystick_axis_attrs[] = {
+ 	&dev_attr_left_joystick_outer_threshold_range.attr,
+ 	&dev_attr_left_joystick_anti_deadzone.attr,
+ 	&dev_attr_left_joystick_anti_deadzone_range.attr,
++	&dev_attr_left_response_curve.attr,
++	&dev_attr_left_response_curve_index.attr,
+ 	NULL
+ };
+ 
+@@ -1966,6 +2214,8 @@ static struct attribute *right_joystick_axis_attrs[] = {
+ 	&dev_attr_right_joystick_outer_threshold_range.attr,
+ 	&dev_attr_right_joystick_anti_deadzone.attr,
+ 	&dev_attr_right_joystick_anti_deadzone_range.attr,
++	&dev_attr_right_response_curve.attr,
++	&dev_attr_right_response_curve_index.attr,
+ 	NULL
+ };
+ 
+@@ -2081,6 +2331,25 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
+ 		cfg->right_trigger_max = 100;
+ 		cfg->vibration_intensity_left = 100;
+ 		cfg->vibration_intensity_right = 100;
++
++		/* Initialize default response curve values (linear) */
++		cfg->left_curve.entry_1.move = 0;
++		cfg->left_curve.entry_1.resp = 0;
++		cfg->left_curve.entry_2.move = 33;
++		cfg->left_curve.entry_2.resp = 33;
++		cfg->left_curve.entry_3.move = 66;
++		cfg->left_curve.entry_3.resp = 66;
++		cfg->left_curve.entry_4.move = 100;
++		cfg->left_curve.entry_4.resp = 100;
++
++		cfg->right_curve.entry_1.move = 0;
++		cfg->right_curve.entry_1.resp = 0;
++		cfg->right_curve.entry_2.move = 33;
++		cfg->right_curve.entry_2.resp = 33;
++		cfg->right_curve.entry_3.move = 66;
++		cfg->right_curve.entry_3.resp = 66;
++		cfg->right_curve.entry_4.move = 100;
++		cfg->right_curve.entry_4.resp = 100;
+ 	}
+ 
+ 	spin_lock_irqsave(&ally_data_lock, flags);
+@@ -2098,10 +2367,11 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
+ 	}
+ 
+ 	/*
+-	 * Skip the calibration and anti-deadzone groups when none of the
+-	 * features they expose is supported.
++	 * Skip the calibration, anti-deadzone and response curve groups when
++	 * none of the features they expose is supported.
+ 	 */
+-	if (cfg->user_cal_support || cfg->anti_deadzone_support) {
++	if (cfg->user_cal_support || cfg->anti_deadzone_support ||
++	    cfg->resp_curve_support) {
+ 		int cal_i;
+ 
+ 		for (cal_i = 0; cal_i < ARRAY_SIZE(ally_cal_attr_groups);
+@@ -2490,6 +2760,28 @@ static int hid_asus_ally_init(struct hid_device *hdev, struct ally_handheld *all
+ 					 ret);
+ 	}
+ 
++	if (cfg->resp_curve_support) {
++		/*
++		 * The MCU does not keep the response curve across a reset:
++		 * send the recorded curves again. A write to the sysfs
++		 * attribute validates and applies the curve atomically, so
++		 * the cache always holds one the controller accepted.
++		 */
++		ret = ally_set_joystick_resp_curve(ally, hdev, JOYSTICK_LEFT,
++						   &cfg->left_curve);
++		if (ret < 0)
++			hid_warn(hdev,
++				 "Failed to restore left response curve: %d\n",
++				 ret);
++
++		ret = ally_set_joystick_resp_curve(ally, hdev, JOYSTICK_RIGHT,
++						   &cfg->right_curve);
++		if (ret < 0)
++			hid_warn(hdev,
++				 "Failed to restore right response curve: %d\n",
++				 ret);
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.47.3
 
-Hi Kim,
-
-Thanks for your observation,
-
-The failure is that :
-
-[   55.005539]  disp_cc_mdss_ahb_clk [19200000] (enable=0 prepare=1) ->
-
-enable count is indeed zero, but the prepare is still non-zero.
-
-The enable_count is correctly reduced to zero by pm_clk_suspend().
-
-However, pm_clk_suspend() only calls clk_disable() and does not call clk_unprepare(). 
-
-Therefore, the preparation reference acquired by pm_clk_add() remains held during s2idle.
-
-> The difference here is with the display off and the system awake: with
-> the clock prepared from probe (current code and this patch), dispcc
-> stays runtime active and MMCX stays on. Preparing it in the runtime
-> callbacks lets both go off. I have not measured the power difference.
-> 
-> That variant survived 30 DPMS off/on cycles with clk_summary read in a
-> loop. Did you hit the prepare_lock deadlock, or is it from code
-> reading?
-> 
-
-The reason for avoiding clk_prepare()/clk_unprepare() in the PHY
-runtime callbacks is that the PHY is also a clock provider, so its
-runtime resume could potentially be invoked while CCF holds
-prepare_lock.
-
-Agreed the CCF prepare_lock deadlock is currently a theoretical
-concern. I have not reproduced it.
-
-Thanks,
-Arpit
