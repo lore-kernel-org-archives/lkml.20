@@ -1,178 +1,519 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFE03C414F
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:16:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88F93AF647;
+	Sat, 17 Oct 2026 03:16:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792207017; cv=none; b=C09wdpsVk9HyNX2JoMfPSepL6AZqF1llipogO+qVKTHPrrgpe27C3IQRajr1aB9mVSZJ6jLJRkZE+XfTY6mYA5Qm+MjPZvPgoFMYPJvr23fDk+BrgS+n5SY1y/8icdb9jc253HJhKX+9ov7KWpEJPkTAUZSLzDKlTRB/UjbEIm8=
+	t=1792207018; cv=none; b=Mo5dZocS39ERs0xoZGrCQlnsomJagjyC+lkv2gu9QB3Lo8sQsizQeKwPn8gnZGP/+NaaiDBqN35IGLsOgwigKLRy2S0q4Gi1MR2il4Wu8IyAyDKSXndC1Huu6MgR+5oPb7B05+raS02nGXpmIAeIE8rSWxTjwHCzb9tg1obtoz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792207017; c=relaxed/simple;
-	bh=PJj8J9KRV41mT/Zo9ZKQPf84EZKvgNSf5a6l4m5+x8Q=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RClooLuEAY28KJoUZeQm73TgnJBL7H/RZLN0EAsZqJ+iCxg7NoIWPjMYO7KXyjmeQK18yRXiLDTkVqdZMK6Zw3qPqdReeLCCLKPPMg7BVFHdAUPVJ8RPhraVwMcS0sT6oT3KgCYFCWr93+1svs8D/Le9AGKSn0f0Gpl//bxdQRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RZR7kqzO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AAoOXj7M; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792207018; c=relaxed/simple;
+	bh=YFTZDZcr+d1+S6ruRoTARk9e56IUEOiVbU2z5oJGIx4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=szcS+DhAT6nQQIqMvad+h5c6u0J7EU3Npsz6WpXLcjOCvMUnEjBSV5+Ep5vQGYB15lcj4/GNYwtlG5FVzXdVPsfHAaSuy5qXW1/Pjysx1G72AcErXZnpGgd55uSWApMgkHbjbIBvynfQSv9nAVnFkTwY2ZsJn5/fAsr+F+OY9HQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SucYKug5; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RZR7kqzO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AAoOXj7M"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69H30Sdl3938359
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:16:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=pOvt+GYoXg0d5rCWq6bN0D
-	pUTER1DOC5PPhMFgzJ/IA=; b=RZR7kqzO4XCiJwfS1WKtKlNcfuEreM2iPBJOu6
-	1wgeEkQSByLaMw8l9E0LyfgeWIiMpd1dDEVldVMU2EvfTJvQ3cejxd68vCdTD9a+
-	G9MV8cei72D6KtGa0cuRVm+Sde6vYv2Y4yyD0/jhDSvek+fCos+WRFscxTlFN0mm
-	TYYTQdNvYKyuLlibttqJlyZyRY7NMI5ZL45/WUNqZ9u9JZkwASTrmrPqHvQ99lr4
-	IDW/h3D9Wh2pEhGWXDElXrlgnkGhHDNMhPYkNWVn2HCTn2V2eIFAGqYSBdlHSlN/
-	JJ4DwUYyWaIhRlR2/8pF5WQzBi6T9bx+VoBgoG4m5XLHmmYQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbxcnra8n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:16:53 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3548cdfd2fbso601383eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:16:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792207013; x=1792811813; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pOvt+GYoXg0d5rCWq6bN0DpUTER1DOC5PPhMFgzJ/IA=;
-        b=AAoOXj7MAZczCw6GtkDBvxb7vTfpRzLsHGepRjdOPTlmpzdmNIOe4g5aUfXqzdwqFQ
-         JSlvy3Q4Wg40zkxRe/38HpZ4c8/YY29AxHoFWGYqmEJqIL0j+6edxSps6x6yCVxdCpBJ
-         EvrGx+VsdD9VWlazvCW3Hsk0SlBKygv1laxubvqmbPOCGoGdqSA8jGXGs5X99mff1WCy
-         9aUCM1WTGHZNxfMkCgDDGbgkk0w2sJcCC9KsNNcjj+EAHctc+JvOSGaF1qsom2UOMjRD
-         I6fK6IBDUn3zcuzLAZajzSkUf/24bXOI7TbUX/je+dtjKzDaTiJTvVM0nVYyVZ6eLfHk
-         0Bfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792207013; x=1792811813;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pOvt+GYoXg0d5rCWq6bN0DpUTER1DOC5PPhMFgzJ/IA=;
-        b=PODLzz0COLn53wQ5NhJUf1mQ2/cn+8VTOE55p4RhljhXo+wgdEXvjOOCBcj6mlAIci
-         3cCTZrvfVVxz5J2M84yAEnkzkAqhUq/UHNP/PJVjWtCDJNcuYJlVUlnD3jr4HYsIbIhv
-         9TOHUFU5PEh02kuAnc2yILMl2MtorYEmX8k6JBJPt6qo199kbxnlx5m44SLGkOTdrN+e
-         yjXX6ifLgEWtP9R0B7YJYOWpXetNPnIg1pCcPjsqbe4r6iwl7VgHkyLV+OYIYIJPAD4W
-         eZowJe0mZE68eaQ9ey+KVlFKAdfT16Cwss17n5ADUFWY/2hGWYXy0rR/Zm2vopyk9EPh
-         aP0A==
-X-Forwarded-Encrypted: i=1; AKwUvBzDXV/oH36zTzyqJyW3OUwsqhcw7wjdDRY9yz9+rW3r4Fl4nsbjRjDQmxzgiMpw8mRH7XUZrvy4IbdAyUw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPhX0TUuwRETE5K8vx+c2xL9t+dZU9uTbepnT9ckQATtFL0oAj
-	sCD0hWlFeI17XwehNCsBjKFF4rhzR7ZH1HXCIXsnVTEq++dDr+KNVJKgRdgB9cW9b7GFTA9P3Sy
-	ufCduyQUKA+0HTHxTxmA4O/5jD7ujtcynL2TqqtpOeWVJGcR456XWFEbJagxwigbH2cM=
-X-Gm-Gg: AYBFou1/tLJBnhh73KppW+OVLokR/wOxa2ghV8dfk6wbABoL04YspiaXyXY/GwcDHb1
-	sGbS4y4s3giMJ9VvSSJdhCK5uIw8OOzS8IfQEcqQJBkh1cB9P2XLIvFMAhkrZtKeWPDIoc10VA/
-	7nLuNku1GI2Q+z8x9NWHL+PKhExXl0jxog4v50zAi12PQOx6+Q6GiVyj7Bq9H/wdYr17dovV47S
-	wJSCUrHxPVsvRps3KMec5o2t0dPeDHF3PDf/WGduFcXjA8pwLyPSy2GEN3hBSwePn5ffvZxCqYV
-	k1dW5jXgiTts5EKtnp7Bi5cmqMusmDBXX6ZjCDhG5bDwWACYraS70yJXVPVvK6s/BUTpzcnjihe
-	KAvSJI+1sUQ4t46CdyRKOb5otUDhjeJZcxA==
-X-Received: by 2002:a05:7301:2727:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3619f1fd67emr2511978eec.3.1792207012917;
-        Fri, 16 Oct 2026 20:16:52 -0700 (PDT)
-X-Received: by 2002:a05:7301:2727:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3619f1fd67emr2511936eec.3.1792207012322;
-        Fri, 16 Oct 2026 20:16:52 -0700 (PDT)
-Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0d391sm10969995eec.4.2026.10.16.20.16.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 20:16:51 -0700 (PDT)
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: [PATCH 0/3] media: iris: Fix issues in the driver unbind path
-Date: Sat, 17 Oct 2026 08:46:16 +0530
-Message-Id: <20261017-iris-handle-unbind-v1-0-7809148eb90f@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SucYKug5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=rY
+	eujvCf6NprmQgfrv6xnLcyR5lzfeAJ0jKIJm9Zn+E=; b=SucYKug5Ko8/q75pd+
+	T59xqkR123hm/O5nMROdtZwAZjbtcE8QTcQx68lNLOz8vDBu3Uu6IadgHyfe5ECf
+	QKGicLv5/NOZD9e2RFNvRuhod064ig5leyUGuWAq7C64kj8yKOoxYXmYZK1q1QAV
+	h+6L2A4C/ln1vwdpM31FwhszM=
+Received: from hongfeng.mioffice.cn (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3YQl46NJq+Fg1AQ--.37596S2;
+	Sat, 17 Oct 2026 11:16:09 +0800 (CST)
+From: Hongfeng Chen <hongfengchen@xiaomi.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Barry Song <baohua@kernel.org>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Jens Axboe <axboe@kernel.dk>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Minchan Kim <minchan@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Wenchao Hao <haowenchao@xiaomi.com>,
+	Wenchao Hao <haowenchao22@gmail.com>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	Hongfeng Chen <hongfengchen@xiaomi.com>,
+	chenhongfeng0212@gmail.com
+Subject: [RFC PATCH v4 2/2] zram: keep the hot statistics per cpu
+Date: Sat, 17 Oct 2026 11:15:42 +0800
+Message-ID: <20261017031542.3504947-1-hongfengchen@xiaomi.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261016120927.3191690-1-hongfengchen@xiaomi.com>
+References: <20261016120927.3191690-1-hongfengchen@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAIDo0moC/yXMUQqDMBCE4avIPnchsbA0XkX6UM3YbpFYsiqCe
- Pem9vFjmH8nQ1YYNdVOGauaTqnAXyrqX4/0BGssptrV4p2/smY1LkscwUvqNEUe4ILcAkSCUDl
- +Mgbdzmh7/9uW7o1+/pXoOL7kLswDdgAAAA==
-X-Change-ID: 20261013-iris-handle-unbind-fe09689e6696
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Hungyu Lin <dennylin0707@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792207006; l=1489;
- i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
- bh=PJj8J9KRV41mT/Zo9ZKQPf84EZKvgNSf5a6l4m5+x8Q=;
- b=YcsMivIQ3/0rvCbuqxnOnol9ISj4hCVNuJITRCqsmxQfBoD7MfIFmRR/OwkcqDyCVXeQTQGDx
- aVdtx+MrY9PAsmvVMQHYI/Fg8fRYX5aPSdXf/9f/KpQXjlVv7RRlCiF
-X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
- pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
-X-Authority-Analysis: v=2.4 cv=BNUmP1QG c=1 sm=1 tr=0 ts=6ad2e8a6 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=-unpW79DR_kPSW8KOtoA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-GUID: NjncVFxs1M17C3v1KAFWn-Dr8w7H2OVd
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAxMiBTYWx0ZWRfXyXfiwU1TApXU
- wdmCFc81lUk4MrNW4UNkwMHx2RuNKcEXhhfLQ5zrj9ynDnU8QObquQNA9tNoTXc6mPHnr3V0K91
- CZWSxLJdAJXeH4eaJGcALEPojbdVgCg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAxMiBTYWx0ZWRfXwPWy7a80Umv5
- Mppaht0KAhGGAkC6RO99jrx51Oj6doLaYxeICtajM7FKbRU1w0XB0MUq0O0TMAIWK7cwEtNCxoE
- ZZcFUAsimPslD50ChWi9FM1xQ+M6qm+eTyVsa6PSM53PddkViniJ/SSaEcOT4/IFXKfOyFs/trk
- L8v32oKgqDeAQ8JxBYjp5uo0+jBOoK1MXSEdFaHW9CckLK+n36nEOsCx1mi9p0Jo1NrxiyPsEXC
- e5uR+/Hy9eFIJHDr8//mNtcDVj9rw7G+eskVt7St2Vg0OgbW1xfly73pOaxugRF2za4daYJIprH
- LYrFF14fVY4fiEzfy8U4hN8DuCQUH5uviTmjauR3Mxcf6YMWePNl3N0FCh5E67/rXaaGgso+al/
- 3eGr3jxbw1Z13VUS5tBkaDDmD8fUewWqY8khAoeOk68z8Zw7rZvV4AvFWksFflaipJlP5A/0bla
- vcxBkdqJDrNbsaLFOmQ==
-X-Proofpoint-ORIG-GUID: NjncVFxs1M17C3v1KAFWn-Dr8w7H2OVd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-17_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 impostorscore=0 priorityscore=1501 malwarescore=0
- phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170012
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgD3YQl46NJq+Fg1AQ--.37596S2
+X-Coremail-Antispam: 1Uf129KBjvAXoW3Zr4UWw43KFW5XFWfCr4kWFg_yoW8Wr1UZo
+	WxJFsxW3WrG345Gryvk345t3WY93WDWrn3Ar4rWFs8X39xuw1Yq3W3Gr15X3W7JFWYqFWS
+	y3savr1Iqrs3tayrn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUSs2-DUUUU
+Sender: chenhongfeng0212@163.com
+X-CM-SenderInfo: hfkh0xxrqjwvtqjqjiqs6rljoofrz/xtbC7RmnwGrS6HkjsgAA3r
 
-The driver unbind can be triggered through sysfs while a client has a
-video session running. The devm resources are freed when the unbind
-completes. That leads to use after free for the running sessions.
+From: Hongfeng Chen <hongfengchen@xiaomi.com>
 
-The core and its device are now kept allocated until the last file
-descriptor is closed. New sessions are stopped as soon as the removal
-starts. The interrupt is freed before the core, so the interrupt thread
-cannot run on freed memory.
+pages_stored, compr_data_size, same_pages, huge_pages and notify_free are
+updated on every page that zram stores or releases. When several processes
+munmap() swapped out memory at the same time, all cpus update these
+counters, and the cacheline that holds them bounces between cpus.
 
-The system error work was only cancelled during the removal. An
-interrupt could still arrive afterwards and queue the work again. The
-work is now disabled.
+Move the five counters into a per cpu structure and update them through
+zram_pcpu_add(), which disables preemption and adds to the value of the
+current cpu. All writers run in process context, so disabling preemption is
+enough. The store is WRITE_ONCE() and the remote reads are READ_ONCE(),
+since a reader on another cpu can see the value at any time. A sysfs read
+sums the per cpu values without a snapshot across cpus, so a sum can be
+briefly negative and is clamped at zero.
 
-The runtime PM usage count was dropped twice when a resume failed. This
-happens for a command written after runtime PM is disabled. The count
-underflowed. The reference is no longer dropped a second time.
+slot_free() and the write, recompression and writeback paths update all of
+their counters while preemption is disabled once. Disabling preemption and
+finding the per cpu data has a cost, and this way it is paid once per slot
+instead of once per counter.
 
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+u64_stats_sync keeps 64-bit reads from tearing on 32-bit systems and is
+empty on 64-bit systems.
+
+Signed-off-by: Hongfeng Chen <hongfengchen@xiaomi.com>
 ---
-Vishnu Reddy (3):
-      media: iris: Fix runtime PM reference imbalance on failed resume
-      media: iris: Disable the system error work on removal
-      media: iris: Fix use-after-free on unbind with open sessions
+ drivers/block/zram/zram_drv.c | 171 ++++++++++++++++++++++++++++------
+ drivers/block/zram/zram_drv.h |  16 +++-
+ 2 files changed, 155 insertions(+), 32 deletions(-)
 
- drivers/media/platform/qcom/iris/iris_hfi_queue.c |  2 +-
- drivers/media/platform/qcom/iris/iris_probe.c     | 58 ++++++++++++++++-------
- 2 files changed, 42 insertions(+), 18 deletions(-)
----
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-change-id: 20261013-iris-handle-unbind-fe09689e6696
-
-Best regards,
---  
-Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 024402438bd1..affe758a9543 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -488,6 +488,56 @@ static ssize_t idle_store(struct device *dev, struct device_attribute *attr,
+ 	return len;
+ }
+ 
++struct zram_stats_sum {
++	s64 pages_stored;
++	s64 compr_data_size;
++	s64 same_pages;
++	s64 huge_pages;
++	u64 notify_free;
++};
++
++#define zram_pcpu_add(zram_dev, field, val)					\
++do {									\
++	struct zram *__zram = (zram_dev);				\
++	struct zram_pcpu_stats *__stats;				\
++									\
++	__stats = get_cpu_ptr(__zram->pcpu_stats);			\
++	u64_stats_update_begin(&__stats->syncp);			\
++	WRITE_ONCE(__stats->field, __stats->field + (val));		\
++	u64_stats_update_end(&__stats->syncp);			\
++	put_cpu_ptr(__zram->pcpu_stats);				\
++} while (0)
++
++static void zram_pcpu_sum(struct zram *zram, struct zram_stats_sum *sum)
++{
++	int cpu;
++
++	memset(sum, 0, sizeof(*sum));
++
++	for_each_possible_cpu(cpu) {
++		struct zram_pcpu_stats *stats;
++		unsigned int start;
++		s64 pages, bytes, same, huge;
++		u64 notify;
++
++		stats = per_cpu_ptr(zram->pcpu_stats, cpu);
++		do {
++			start = u64_stats_fetch_begin(&stats->syncp);
++			pages = READ_ONCE(stats->pages_stored);
++			bytes = READ_ONCE(stats->compr_data_size);
++			same = READ_ONCE(stats->same_pages);
++			huge = READ_ONCE(stats->huge_pages);
++			notify = READ_ONCE(stats->notify_free);
++		} while (u64_stats_fetch_retry(&stats->syncp, start));
++
++		sum->pages_stored += pages;
++		sum->compr_data_size += bytes;
++		sum->same_pages += same;
++		sum->huge_pages += huge;
++		sum->notify_free += notify;
++	}
++}
++
+ #ifdef CONFIG_ZRAM_WRITEBACK
+ #define INVALID_BDEV_BLOCK		(~0UL)
+ 
+@@ -919,6 +969,8 @@ static void zram_account_writeback_submit(struct zram *zram)
+ static int zram_writeback_complete(struct zram *zram, struct zram_wb_req *req)
+ {
+ 	unsigned long index = req->pps->index;
++	struct zram_pcpu_stats *stats;
++	s64 huge, size;
+ 	int err;
+ 
+ 	err = blk_status_to_errno(req->bio.bi_status);
+@@ -947,9 +999,14 @@ static int zram_writeback_complete(struct zram *zram, struct zram_wb_req *req)
+ 	}
+ 
+ 	clear_slot_flag(zram, index, ZRAM_IDLE);
+-	if (test_slot_flag(zram, index, ZRAM_HUGE))
+-		atomic64_dec(&zram->stats.huge_pages);
+-	atomic64_sub(get_slot_size(zram, index), &zram->stats.compr_data_size);
++	huge = test_slot_flag(zram, index, ZRAM_HUGE) ? -1 : 0;
++	size = get_slot_size(zram, index);
++	stats = get_cpu_ptr(zram->pcpu_stats);
++	u64_stats_update_begin(&stats->syncp);
++	WRITE_ONCE(stats->huge_pages, stats->huge_pages + huge);
++	WRITE_ONCE(stats->compr_data_size, stats->compr_data_size - size);
++	u64_stats_update_end(&stats->syncp);
++	put_cpu_ptr(zram->pcpu_stats);
+ 	zs_free(zram->mem_pool, get_slot_handle(zram, index));
+ 	set_slot_handle(zram, index, req->blk_idx);
+ 	set_slot_flag(zram, index, ZRAM_WB);
+@@ -1919,14 +1976,16 @@ static ssize_t io_stat_show(struct device *dev, struct device_attribute *attr,
+ 			    char *buf)
+ {
+ 	struct zram *zram = dev_to_zram(dev);
++	struct zram_stats_sum sum;
+ 	ssize_t ret;
+ 
+ 	guard(rwsem_read)(&zram->dev_lock);
++	zram_pcpu_sum(zram, &sum);
+ 	ret = sysfs_emit(buf,
+ 			"%8llu %8llu 0 %8llu\n",
+ 			(u64)atomic64_read(&zram->stats.failed_reads),
+ 			(u64)atomic64_read(&zram->stats.failed_writes),
+-			(u64)atomic64_read(&zram->stats.notify_free));
++			sum.notify_free);
+ 
+ 	return ret;
+ }
+@@ -1936,6 +1995,7 @@ static ssize_t mm_stat_show(struct device *dev, struct device_attribute *attr,
+ {
+ 	struct zram *zram = dev_to_zram(dev);
+ 	struct zs_pool_stats pool_stats;
++	struct zram_stats_sum sum;
+ 	u64 orig_size, mem_used = 0;
+ 	long max_used;
+ 	ssize_t ret;
+@@ -1948,19 +2008,20 @@ static ssize_t mm_stat_show(struct device *dev, struct device_attribute *attr,
+ 		zs_pool_stats(zram->mem_pool, &pool_stats);
+ 	}
+ 
+-	orig_size = atomic64_read(&zram->stats.pages_stored);
++	zram_pcpu_sum(zram, &sum);
++	orig_size = max_t(s64, sum.pages_stored, 0);
+ 	max_used = atomic_long_read(&zram->stats.max_used_pages);
+ 
+ 	ret = sysfs_emit(buf,
+ 			"%8llu %8llu %8llu %8lu %8ld %8llu %8lu %8llu %8llu\n",
+ 			orig_size << PAGE_SHIFT,
+-			(u64)atomic64_read(&zram->stats.compr_data_size),
++			(u64)max_t(s64, sum.compr_data_size, 0),
+ 			mem_used << PAGE_SHIFT,
+ 			zram->limit_pages << PAGE_SHIFT,
+ 			max_used << PAGE_SHIFT,
+-			(u64)atomic64_read(&zram->stats.same_pages),
++			(u64)max_t(s64, sum.same_pages, 0),
+ 			atomic_long_read(&pool_stats.pages_compacted),
+-			(u64)atomic64_read(&zram->stats.huge_pages),
++			(u64)max_t(s64, sum.huge_pages, 0),
+ 			(u64)atomic64_read(&zram->stats.huge_pages_since));
+ 
+ 	return ret;
+@@ -2027,6 +2088,8 @@ static bool zram_meta_alloc(struct zram *zram, u64 disksize)
+ 
+ static void slot_free(struct zram *zram, unsigned long index)
+ {
++	s64 pages = 0, bytes = 0, same = 0, huge = 0;
++	struct zram_pcpu_stats *stats;
+ 	unsigned long handle;
+ 
+ #ifdef CONFIG_ZRAM_TRACK_ENTRY_ACTIME
+@@ -2044,7 +2107,7 @@ static void slot_free(struct zram *zram, unsigned long index)
+ 		 * ZRAM_HUGE flag for deferred decompression path.
+ 		 */
+ 		if (!test_slot_flag(zram, index, ZRAM_WB))
+-			atomic64_dec(&zram->stats.huge_pages);
++			huge = -1;
+ 		clear_slot_flag(zram, index, ZRAM_HUGE);
+ 	}
+ 
+@@ -2060,22 +2123,32 @@ static void slot_free(struct zram *zram, unsigned long index)
+ 	 */
+ 	if (test_slot_flag(zram, index, ZRAM_SAME)) {
+ 		clear_slot_flag(zram, index, ZRAM_SAME);
+-		atomic64_dec(&zram->stats.same_pages);
++		same = -1;
+ 		goto out;
+ 	}
+ 
+ 	handle = get_slot_handle(zram, index);
+ 	if (!handle)
+-		return;
++		goto stats;
+ 
+ 	zs_free(zram->mem_pool, handle);
+ 
+-	atomic64_sub(get_slot_size(zram, index),
+-		     &zram->stats.compr_data_size);
++	bytes = -(s64)get_slot_size(zram, index);
+ out:
+-	atomic64_dec(&zram->stats.pages_stored);
++	pages = -1;
+ 	set_slot_handle(zram, index, 0);
+ 	set_slot_size(zram, index, 0);
++stats:
++	if (!(pages | bytes | same | huge))
++		return;
++	stats = get_cpu_ptr(zram->pcpu_stats);
++	u64_stats_update_begin(&stats->syncp);
++	WRITE_ONCE(stats->pages_stored, stats->pages_stored + pages);
++	WRITE_ONCE(stats->compr_data_size, stats->compr_data_size + bytes);
++	WRITE_ONCE(stats->same_pages, stats->same_pages + same);
++	WRITE_ONCE(stats->huge_pages, stats->huge_pages + huge);
++	u64_stats_update_end(&stats->syncp);
++	put_cpu_ptr(zram->pcpu_stats);
+ }
+ 
+ static int read_same_filled_page(struct zram *zram, struct page *page,
+@@ -2237,14 +2310,20 @@ static int zram_bvec_read(struct zram *zram, struct bio_vec *bvec,
+ static int write_same_filled_page(struct zram *zram, unsigned long fill,
+ 				  unsigned long index)
+ {
++	struct zram_pcpu_stats *stats;
++
+ 	slot_lock(zram, index);
+ 	slot_free(zram, index);
+ 	set_slot_flag(zram, index, ZRAM_SAME);
+ 	set_slot_handle(zram, index, fill);
+ 	slot_unlock(zram, index);
+ 
+-	atomic64_inc(&zram->stats.same_pages);
+-	atomic64_inc(&zram->stats.pages_stored);
++	stats = get_cpu_ptr(zram->pcpu_stats);
++	u64_stats_update_begin(&stats->syncp);
++	WRITE_ONCE(stats->same_pages, stats->same_pages + 1);
++	WRITE_ONCE(stats->pages_stored, stats->pages_stored + 1);
++	u64_stats_update_end(&stats->syncp);
++	put_cpu_ptr(zram->pcpu_stats);
+ 
+ 	return 0;
+ }
+@@ -2252,6 +2331,7 @@ static int write_same_filled_page(struct zram *zram, unsigned long fill,
+ static int write_incompressible_page(struct zram *zram, struct page *page,
+ 				     unsigned long index)
+ {
++	struct zram_pcpu_stats *stats;
+ 	unsigned long handle;
+ 	void *src;
+ 
+@@ -2282,10 +2362,14 @@ static int write_incompressible_page(struct zram *zram, struct page *page,
+ 	set_slot_size(zram, index, PAGE_SIZE);
+ 	slot_unlock(zram, index);
+ 
+-	atomic64_add(PAGE_SIZE, &zram->stats.compr_data_size);
+-	atomic64_inc(&zram->stats.huge_pages);
++	stats = get_cpu_ptr(zram->pcpu_stats);
++	u64_stats_update_begin(&stats->syncp);
++	WRITE_ONCE(stats->compr_data_size, stats->compr_data_size + PAGE_SIZE);
++	WRITE_ONCE(stats->huge_pages, stats->huge_pages + 1);
++	WRITE_ONCE(stats->pages_stored, stats->pages_stored + 1);
++	u64_stats_update_end(&stats->syncp);
++	put_cpu_ptr(zram->pcpu_stats);
+ 	atomic64_inc(&zram->stats.huge_pages_since);
+-	atomic64_inc(&zram->stats.pages_stored);
+ 
+ 	return 0;
+ }
+@@ -2293,6 +2377,7 @@ static int write_incompressible_page(struct zram *zram, struct page *page,
+ static int zram_write_page(struct zram *zram, struct page *page,
+ 			   unsigned long index)
+ {
++	struct zram_pcpu_stats *stats;
+ 	int ret = 0;
+ 	unsigned long handle;
+ 	unsigned int comp_len;
+@@ -2348,8 +2433,12 @@ static int zram_write_page(struct zram *zram, struct page *page,
+ 	slot_unlock(zram, index);
+ 
+ 	/* Update stats */
+-	atomic64_inc(&zram->stats.pages_stored);
+-	atomic64_add(comp_len, &zram->stats.compr_data_size);
++	stats = get_cpu_ptr(zram->pcpu_stats);
++	u64_stats_update_begin(&stats->syncp);
++	WRITE_ONCE(stats->pages_stored, stats->pages_stored + 1);
++	WRITE_ONCE(stats->compr_data_size, stats->compr_data_size + comp_len);
++	u64_stats_update_end(&stats->syncp);
++	put_cpu_ptr(zram->pcpu_stats);
+ 
+ 	return ret;
+ }
+@@ -2449,6 +2538,7 @@ static int recompress_slot(struct zram *zram, unsigned long index,
+ 			   u32 threshold, u32 prio)
+ {
+ 	struct zcomp_strm *zstrm = NULL;
++	struct zram_pcpu_stats *stats;
+ 	unsigned long handle_old;
+ 	unsigned long handle_new;
+ 	unsigned int comp_len_old;
+@@ -2545,8 +2635,12 @@ static int recompress_slot(struct zram *zram, unsigned long index,
+ 	set_slot_size(zram, index, comp_len_new);
+ 	set_slot_comp_priority(zram, index, prio);
+ 
+-	atomic64_add(comp_len_new, &zram->stats.compr_data_size);
+-	atomic64_inc(&zram->stats.pages_stored);
++	stats = get_cpu_ptr(zram->pcpu_stats);
++	u64_stats_update_begin(&stats->syncp);
++	WRITE_ONCE(stats->compr_data_size, stats->compr_data_size + comp_len_new);
++	WRITE_ONCE(stats->pages_stored, stats->pages_stored + 1);
++	u64_stats_update_end(&stats->syncp);
++	put_cpu_ptr(zram->pcpu_stats);
+ 
+ 	return 0;
+ }
+@@ -2724,7 +2818,7 @@ static void zram_bio_discard(struct zram *zram, struct bio *bio)
+ 		slot_lock(zram, index);
+ 		slot_free(zram, index);
+ 		slot_unlock(zram, index);
+-		atomic64_inc(&zram->stats.notify_free);
++		zram_pcpu_add(zram, notify_free, 1);
+ 		index++;
+ 		n -= PAGE_SIZE;
+ 	}
+@@ -2825,7 +2919,7 @@ static void zram_slot_free_notify(struct block_device *bdev,
+ 
+ 	zram = bdev->bd_disk->private_data;
+ 
+-	atomic64_inc(&zram->stats.notify_free);
++	zram_pcpu_add(zram, notify_free, 1);
+ 	if (!slot_trylock(zram, index)) {
+ 		atomic64_inc(&zram->stats.miss_free);
+ 		return;
+@@ -2866,6 +2960,8 @@ static void zram_destroy_comps(struct zram *zram)
+ 
+ static void zram_reset_device(struct zram *zram)
+ {
++	int cpu;
++
+ 	guard(rwsem_write)(&zram->dev_lock);
+ 
+ 	zram->limit_pages = 0;
+@@ -2877,6 +2973,16 @@ static void zram_reset_device(struct zram *zram)
+ 	zram_meta_free(zram, zram->disksize);
+ 	zram->disksize = 0;
+ 	zram_destroy_comps(zram);
++	for_each_possible_cpu(cpu) {
++		struct zram_pcpu_stats *stats;
++
++		stats = per_cpu_ptr(zram->pcpu_stats, cpu);
++		stats->pages_stored = 0;
++		stats->compr_data_size = 0;
++		stats->same_pages = 0;
++		stats->huge_pages = 0;
++		stats->notify_free = 0;
++	}
+ 	memset(&zram->stats, 0, sizeof(zram->stats));
+ 	reset_bdev(zram);
+ }
+@@ -3083,15 +3189,23 @@ static int zram_add(void)
+ 						  BLK_FEAT_SYNCHRONOUS,
+ 	};
+ 	struct zram *zram;
+-	int ret, device_id;
++	int cpu, ret, device_id;
+ 
+ 	zram = kzalloc_obj(struct zram);
+ 	if (!zram)
+ 		return -ENOMEM;
+ 
++	zram->pcpu_stats = alloc_percpu(struct zram_pcpu_stats);
++	if (!zram->pcpu_stats) {
++		ret = -ENOMEM;
++		goto out_free_dev;
++	}
++	for_each_possible_cpu(cpu)
++		u64_stats_init(&per_cpu_ptr(zram->pcpu_stats, cpu)->syncp);
++
+ 	ret = idr_alloc(&zram_index_idr, zram, 0, 0, GFP_KERNEL);
+ 	if (ret < 0)
+-		goto out_free_dev;
++		goto out_free_pcpu;
+ 	device_id = ret;
+ 
+ 	init_rwsem(&zram->dev_lock);
+@@ -3133,6 +3247,8 @@ static int zram_add(void)
+ 	put_disk(zram->disk);
+ out_free_idr:
+ 	idr_remove(&zram_index_idr, device_id);
++out_free_pcpu:
++	free_percpu(zram->pcpu_stats);
+ out_free_dev:
+ 	kfree(zram);
+ 	return ret;
+@@ -3182,6 +3298,7 @@ static int zram_remove(struct zram *zram)
+ 	zram_reset_device(zram);
+ 
+ 	put_disk(zram->disk);
++	free_percpu(zram->pcpu_stats);
+ 	kfree(zram);
+ 	return 0;
+ }
+diff --git a/drivers/block/zram/zram_drv.h b/drivers/block/zram/zram_drv.h
+index 7a55d751417e..482e1c28ca1c 100644
+--- a/drivers/block/zram/zram_drv.h
++++ b/drivers/block/zram/zram_drv.h
+@@ -17,6 +17,7 @@
+ 
+ #include <asm/byteorder.h>
+ #include <linux/rwsem.h>
++#include <linux/u64_stats_sync.h>
+ #include <linux/zsmalloc.h>
+ 
+ #include "zcomp.h"
+@@ -90,15 +91,19 @@ struct zram_table_entry {
+ 	};
+ };
+ 
++struct zram_pcpu_stats {
++	struct u64_stats_sync syncp;
++	s64 pages_stored;	/* no. of pages currently stored */
++	s64 compr_data_size;	/* compressed size of pages stored */
++	s64 same_pages;		/* no. of same element filled pages */
++	s64 huge_pages;		/* no. of huge pages */
++	u64 notify_free;	/* no. of swap slot free notifications */
++};
++
+ struct zram_stats {
+-	atomic64_t compr_data_size;	/* compressed size of pages stored */
+ 	atomic64_t failed_reads;	/* can happen when memory is too low */
+ 	atomic64_t failed_writes;	/* can happen when memory is too low */
+-	atomic64_t notify_free;	/* no. of swap slot free notifications */
+-	atomic64_t same_pages;		/* no. of same element filled pages */
+-	atomic64_t huge_pages;		/* no. of huge pages */
+ 	atomic64_t huge_pages_since;	/* no. of huge pages since zram set up */
+-	atomic64_t pages_stored;	/* no. of pages currently stored */
+ 	atomic_long_t max_used_pages;	/* no. of maximum pages stored */
+ 	atomic64_t miss_free;		/* no. of missed free */
+ #ifdef	CONFIG_ZRAM_WRITEBACK
+@@ -134,6 +139,7 @@ struct zram {
+ 	unsigned long limit_pages;
+ 
+ 	struct zram_stats stats;
++	struct zram_pcpu_stats __percpu *pcpu_stats;
+ 	/*
+ 	 * This is the limit on amount of *uncompressed* worth of data
+ 	 * we can store in a disk.
+-- 
+2.54.0
 
