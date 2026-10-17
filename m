@@ -1,184 +1,92 @@
-Received: from mail-pz2-f7.google.com (mail-pz2-f7.google.com [74.125.228.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61BD3BBFC0
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 10:33:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE482E719B;
+	Sat, 17 Oct 2026 10:34:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792233234; cv=none; b=g5Poc64tz0g+AG0FGrx77jZUqhDKSCQUFZJrE4bWZh/iYMeU8Ma8Fx/8Vr42zycBiPZ2VzX1dQ/CAwQi6T82uhtZUfvJCXRot0nlC/hPYoEzp8nxdpd9qW5sjPr9eo5A0eBaGUPeHgbKgVl3fBR88G7DMJBOCtpEiph9NK0lwic=
+	t=1792233251; cv=none; b=kK/j/btUaQT/9wEjRDoNo2JUngRCtfNqB9KbAVzJ5UewPBHYv6SgCVsXaGISjap8pCDuafpPF9OKJ6gNToonQei8SzHh37As/r7nJD1/R6ggXEaa+R670N0Rt+EXZZZCF/JEMWrxN/Dezua3rdxJNrzH1Q5yGHc4/L/qRqTGXgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792233234; c=relaxed/simple;
-	bh=L4hjxrVI9j9WNQiTNo7E4pMfYOhsq3Kw++wyebOLp74=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RCCTTSXo+RebvLy5AT/bGl1SEh3L97AzpkLl58LsamW3CnqpzjwYrzJS9Utg3+mhLApDO7+YAgVW0mkuCCm8T2A1gvk0lG8k5JzMm2qcK1ZEEE/NJaAU0A6CRIhr6EwfQpAns80adHDKdXycKtCpUZth0VU5xz+DiCl1IXmsEDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zw+t4m9p; arc=none smtp.client-ip=74.125.228.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792233251; c=relaxed/simple;
+	bh=qBONbEIboh2MlAgrG1UFsbiiLfsszbTEih8wpPe671A=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IMnvFgnfEuVy+xwFiYSR7127n188pdU/X/pLgJmlfi1Rr6IAPlmdgypqDKFltAQzYizfzgrYqDVoXgEiEm1aU4b0j1VDDStbz2f/UCB95QXYCyeReDQXr1z0kIqnCqtgEivflehPq4kRL8V+zbQdFFeBsI0RyBpBtQNBo3a6seU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=FqybWiE+; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zw+t4m9p"
-Received: by mail-pz2-f7.google.com with SMTP id 41be03b00d2f7-cc53988d9f3so336431a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:33:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792233233; x=1792838033; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RJMiI3zn0Ah/6v7E7BqKNzfu3zqpMlEsQjtNsehcFhg=;
-        b=Zw+t4m9pTvbzqeGSsoTavHub+dMoO4riTa+0aDpo9itRvLxx42ZfC6+VfmAPzc+609
-         rR3Gz3DKJrlGiV4z06YqKchs2D3oVRpQojCmH05j4I82/kK5HGuEmveOfoiHTiHGrQQm
-         ntpSVfomXmgi9TQoEWeZ7e8fkcwksCdQHLT9P0tEbCOrdLoKZbRqFnCsJARlXlxqSGma
-         oaEUqVB2kKYnlSASBM7PUKV8i/G34rDki61ggHLFUQmABrE3Sot1Y8t+v0urQqixUZgH
-         DU78r3t+Y6yN//Y0mHGgQNqKatFfv/RYyALiQSnUc/vBx4bWMdZTxgAZyMiFoJKKMohq
-         H0zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792233233; x=1792838033;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RJMiI3zn0Ah/6v7E7BqKNzfu3zqpMlEsQjtNsehcFhg=;
-        b=bxx6UFKgXPXPxdtSqd8eUQ781IVKczx92C84vsC22/m/o7z2dO20h1ueCDfHuawoq/
-         /dRnCL12fVpJQTrs5PeWz4pIkrECAOUWFwO8RLahc5tIYj2LKDDFrR6Ubs4YvOLkA19G
-         I1tPzAo0q5KIIyTo0lV9THg+2FlotjM05yAU2GoCF86bYmjVzdsLHVZpa3a+nk+RKbRX
-         WXs9fNfh4pcXIu2xERc/te1O5DGv9es0jUv2+v1gwco+iR00Q3C/EJfR8XhVf48S7Dix
-         GgyviR4nfJxbBy18DimIfKY2AmPbWuRY8owcc2+wNukBTbn+7sA+sjv2NH4ZGN0rcKAz
-         Sh4A==
-X-Forwarded-Encrypted: i=1; AKwUvBztEpc7KP2/wfTlBeUYC6h1CuXa9dU1wmzArI2f2L3tqDv1e6NtzK6hxM7ysG7LqqsUagGCI2XnDbwiqqA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIotQPwWe37JoqzoR1zimy7UBkDREtJ6yK0x4tVB52zPACLa0iQ
-	xboS22ui287JivG9qSn30N1Pb0n8A9WAQI4jk+pL2MW0sbKYRyGpwMsy
-X-Gm-Gg: AYBFou1YfsSKS1T7pjpIfsrejsvkd13AqZ+0zS9gJeO+nUXFoQDLvJMuqWdLjrp5ogS
-	8YKYFTfOYS+bRsZQe8BV5dVEjN/lwv9P7q7fIUp6v4HMmg4dUSJXkc3gcjPh0/yV34eWP1FMPIM
-	N1B0xw9ECdMQMEBLNNgCSk/+AQmXqglsTiZCLJTRz8v4rVCSiStwb7yuUIJicu8sXpfyISiApvT
-	gNRMqpg813F9ZSYmkXwBGvhNVjC6necJMl9zySZFIZ+UbQlsXRLoxiTW2i/kGJykLDlwxwRWVNE
-	8d8WEYa6KIi90y31jBZLOluef9m71qm3ggnP3plJIYf55o1lwlK5jk9hImkfBm8xhfWWz1GiZCz
-	D4CA1kfEHX0Zw7iM4SoCsNXlpN1Px8vGCgb/1VoHVTGI2IgVJUH/Ij/iYjeoD4pbwmVFG28kda1
-	SOOAbHpiOVRny7ody1/enq6/u4C+sAhkg0SGvfB4U6Md4zEFZy8Lvetn0O
-X-Received: by 2002:a05:6a20:6f8b:b0:3e1:7249:e26c with SMTP id adf61e73a8af0-3e226057ed8mr1628852637.34.1792233232952;
-        Sat, 17 Oct 2026 03:33:52 -0700 (PDT)
-Received: from Linux-PC ([2a09:bac5:1f0f:372d::57f:4e])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f58414986sm2051585b3a.57.2026.10.17.03.33.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 03:33:52 -0700 (PDT)
-From: tianshi12127 <tianshi12127@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	dri-devel@lists.freedesktop.org
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Lu Chen <tianshi12127@gmail.com>
-Subject: [PATCH v2 2/3] dt-bindings: display: panel: add Smartisan TD4362
-Date: Sat, 17 Oct 2026 18:32:49 +0800
-Message-ID: <20261017103250.800109-3-tianshi12127@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261017103250.800109-1-tianshi12127@gmail.com>
-References: <20261017083531.766557-1-tianshi12127@gmail.com>
- <20261017103250.800109-1-tianshi12127@gmail.com>
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="FqybWiE+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=sZzWUcIAA2c0Q37uYzsYIsOQf1QMgb2uNEy/L4s1hKI=; t=1792233248;
+	x=1792838048; b=FqybWiE+NOhFYF6DNvpqj5n2NTodYXMJAGAfWBR/sToRTwvpEWlqnVZywQXqj
+	zudtivYiK988XOBlzySNtvlOcyT+/VH/3rY73EOfC73cjtbD7mlBmx8cVBPAsRQDNr7JkJbe0hjIF
+	o3h5UkmxEC2T3YlYvPv+cbFkkkyE0zsgpKMZluEx+h2D3FLoD7x8B/Rk50gTr+2XYJc6uePdDFa+s
+	bzK1En8ADA2MzgYEmgLdrtMF2h1JxRnMjahmd/2qHy8LeyoiliGdF+pVf3KIsUWjVE9gqcVIBVmGb
+	fR4FBYhk5l3l59TD6hP57dBiV8QWy8OPbhoR1tsKs3zfiFz9RQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xI1jn-00000001t7p-23Zx; Sat, 17 Oct 2026 12:34:03 +0200
+Received: from dynamic-002-242-066-005.2.242.pool.telefonica.de ([2.242.66.5] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xI1jn-00000002z6y-0gKZ; Sat, 17 Oct 2026 12:34:03 +0200
+Message-ID: <cf92126e6c10883ace50789869a45dada32e4859.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH v2 1/2] sparc64: flush only the aliased page, not its
+ whole folio
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Imre Kaloz <kaloz@kernel.org>, Andreas Larsson <andreas@gaisler.com>
+Cc: "David S. Miller" <davem@davemloft.net>, "Matthew Wilcox (Oracle)"	
+ <willy@infradead.org>, "Mike Rapoport (IBM)" <rppt@kernel.org>, Andrew
+ Morton	 <akpm@linux-foundation.org>, sparclinux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, linux-mm@kvack.org
+Date: Sat, 17 Oct 2026 12:34:02 +0200
+In-Reply-To: <c74a2d45-2267-b380-c7fe-b6a2d3f8251b@kernel.org>
+References: <20260928132102.1707-1-kaloz@kernel.org>
+	 <20260928132102.1707-2-kaloz@kernel.org>
+	 <61ab29d3-929f-49de-bb64-5a49318ede00@gaisler.com>
+	 <c74a2d45-2267-b380-c7fe-b6a2d3f8251b@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-From: Lu Chen <tianshi12127@gmail.com>
+Hi,
 
-Document the Smartisan TD4362, a 1080x2242 command mode panel
-found in the Smartisan R1 (trident) smartphone.
+On Thu, 2026-10-15 at 21:26 +0200, Imre Kaloz wrote:
+> I like the nr idea. Since sparc64 is the only user of move_pte(), it
+> would be a small change: move_ptes() would pass nr_ptes, the generic
+> version would ignore it, and sparc64 would flush every aliased page in
+> the batch. I=E2=80=99d still keep it as a separate patch on top of this o=
+ne,
+> though, so the fix can go to stable as a plain sparc64 backport.
+>=20
+> Matthew, Mike, Andrew, would you be fine with move_pte() taking nr?
 
-Signed-off-by: Lu Chen <tianshi12127@gmail.com>
----
- .../display/panel/smartisan,td4362.yaml       | 75 +++++++++++++++++++
- 1 file changed, 75 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
+With the merge window for v7.4 likely opening on Monday, I hope we can
+still get these two patches squeezed in as my latest tests showed that
+the kernel would crash very early on my V240 test server without these
+two patches applied.
 
-diff --git a/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml b/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
-new file mode 100644
-index 000000000000..d9a18cbe635a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/smartisan,td4362.yaml
-@@ -0,0 +1,75 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/smartisan,td4362.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Smartisan TD4362 MIPI-DSI panel
-+
-+maintainers:
-+  - Lu Chen <tianshi12127@gmail.com>
-+
-+description:
-+  The Smartisan TD4362 is a 1080x2242 command mode panel found in the
-+  Smartisan R1 (trident) smartphone.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: smartisan,td4362
-+
-+  reg:
-+    maxItems: 1
-+
-+  vddio-supply:
-+    description: I/O voltage rail
-+
-+  vsp-supply:
-+    description: Positive source voltage rail
-+
-+  vsn-supply:
-+    description: Negative source voltage rail
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - vddio-supply
-+  - vsp-supply
-+  - vsn-supply
-+  - reset-gpios
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "smartisan,td4362";
-+            reg = <0>;
-+            vddio-supply = <&vreg_l14a_1p88>;
-+            vsp-supply = <&lab>;
-+            vsn-supply = <&ibb>;
-+            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
-+            backlight = <&backlight>;
-+
-+            port {
-+                panel_in: endpoint {
-+                    remote-endpoint = <&dsi_out>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
--- 
-2.56.0
+Adrian
 
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
