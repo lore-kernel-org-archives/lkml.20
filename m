@@ -1,63 +1,63 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CD33CDBA5
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:41:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB523D413C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:41:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792208462; cv=none; b=ZajmmxxU9CVNkDmi2lzS9FiHcqFJavxyayMzb8F75to5eWnP8yu7VbdA0Uob4mxpVnnrtKMY93gTSjNi5Qd4RqD4tm3sXiaErZ1LMmcp0CZOIbqlPyvVUSsxh4g+/LDwsqRBNTafPb0ASk2p/RC98mSLLcz45ExbIa6Y1u9SrpQ=
+	t=1792208464; cv=none; b=A5dWCTwWFBQUInEUnDTNO3QVx8um9iMfojgwjdI17XBbW8yFrT2Pl3scxTbsUiUSI2yTkkBhwJpd44RpQt99o+b1jiWZdZ9JlWkkSCwtWzFzoRSk5OS9WcES4VVWOBQ9BuIlYJf+zDF0q7lFwafyB7fB6j6mHfnuVLXfJlV+xJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792208462; c=relaxed/simple;
-	bh=Y1bl133ZdUib1Spm1gYj9ptIgV2t1Qw5I02BgWvvsZs=;
+	s=arc-20240116; t=1792208464; c=relaxed/simple;
+	bh=T2ydNBrdSAiQY/mHYN1MfyKAYiXmXfQX8l11uhxEwP8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J95ntw8PjUAjvfYLIDwSMQ/jJ5N0tx+j6Il7UAT/miwHNAJ72+zhjsgZMcLD/MAYS3Ne9STSnCh6rmbcCUe9w+1+lQXaT2SAoyj6YcsI2jN9lv3K6wTPEjQqsIToHbdr/wVQxSzVu/9n/aj2Y9UJagAXdo5Q5h/w7Krs3DMdc1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jrciUTau; arc=none smtp.client-ip=209.85.216.50
+	 MIME-Version; b=RiJH1Ln8i4JgOVrLYCORan2lsadCTkIFwUVLjujXrYzk7DMeYdr8Re+5DuXkWekprFmj/u1TnFWlqcl3TJqte+ZP+4xwul8Q+oOQ3176dVwdE8suCWk2DeP+QmSP3Y2erlm2cs1+jgsLqvwtkjy2G4R6DMTg0GjAkYWhvwSCZhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U7nkYha/; arc=none smtp.client-ip=209.85.216.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jrciUTau"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3acb1224533so96538a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:41:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U7nkYha/"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ab3f899c8aso119192a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:41:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792208460; x=1792813260; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792208462; x=1792813262; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mISF2YrSQB8JbgqvEnoo7X2DvInAFDBMsF8kaHx60+4=;
-        b=jrciUTaufx2KVdl+NBjF+FCRofh4SjKDskZ3f6bo9dK01e6uPDNMYs6qV/DrMdL5Eb
-         hdMotquHcYn0kC56PVEwvtA6yPLcad5eqW1oNV42KWKB1nERUZlrsn00NmmwSb1snxCy
-         sNIPboIahbPyK1SQCDDTnlnTPZf+OZJHdr4zHTZjbw+GrkTHscvlB6/2FwR9WHxJHJop
-         cxlVYLed3jEtTXq3vFwoUKodYJs+0AOkabo3a2B8agV8Pi9hO/HsDEKTIFD3OnW0hMzZ
-         IzsS6QugBVYRV+9xFYVde/0VfBfJriIJ4tXUBJBogWtv3vvDJXqq2RxVIeQj2f+TJBQc
-         F3gw==
+        bh=T/A4ESg/M6eHiPTNzUedDsWmNCisSQL4A05jpFBuAJA=;
+        b=U7nkYha/+CPVueRR/rixWZxXAotlKlOONvWn0eqxoODqEn5ULohqd6Rb5YHBOXxwdo
+         MJddmK2sZ8fNAmUFG/4g1DCLSIuQmWVMdPKOGF2r5XRy6PMVPbhMpeZiAF0sY3mz09bh
+         /7emOb7cfzTKdzvSLg3SyGF/Z5vEtQ1E0MlLg1zFItEbm5svdVMitg8aTCjO96fvXQ5G
+         hAUPEJYQAiC4myqXc1rCeO3CM3Bxk61Jc6xvVtU1auv3XRNyBXGGsbabxHFG+ve5GxWc
+         xQnpqtNllLCCgffo+PftZGukiDmjtCmYvh6jJhuP3sRcQr5epapXtH4mirH0x6ZFWIjx
+         j2Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792208460; x=1792813260;
+        d=1e100.net; s=20260707; t=1792208462; x=1792813262;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mISF2YrSQB8JbgqvEnoo7X2DvInAFDBMsF8kaHx60+4=;
-        b=poTX4ZpaosZjQoKRAe0rDgb65eHzvKrKtykr/xVuccX1S5SPwwYeLTmn3ndCuMoWmb
-         uKoBUfhIXJw/keZev3IWMi4CmRva9NWGXqenKXMk4tNCx2orLqS4WQgEmMEcfmN7BXrT
-         qKnXk4daOZYlLaAvrp7x2mWoXDOz0P6cUJP54v4zAySS2NiCNSmrlB2mL6bRKebj8jY+
-         itpSzlMQsp+tCUzK5Z+qZiMCUVAYRiSNZanvAmo2U6mUOCjqmkbThQAxsyaXpmobtsLI
-         +F2tUK0+yIWla97D82BRWqnfdH/FRBb46Ex2I+3juEOB/HeSwIIzdG7Xw4TlJLMHE7rZ
-         ONhA==
-X-Forwarded-Encrypted: i=1; AKwUvBxJClvRp+ep90B3kCSf20AkdDVRFgyX/BjA8iNc5xTsV0/IdxitGsm62jyzsDUi2FEknzY38t/ixerkKI0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDep89U8+9liCbfQJE7AFTWRl/G5lwFyvjSGsy9I0yTsQObqJN
-	3z7zjIQNy2KTuQVlRGUrCLfWA7kEzGumoDxBcxPvtTy1t1vXibi5tHqb
-X-Gm-Gg: AYBFou3oQ7MKqIrsBOun4KlAwKPNWOD+iZorxy5dNTxNwVoCCZEKOe1RWjgdWmAW/yv
-	BbzhvONiAxZXa9oi9OmtuD5xJY01S8hQH5ME7AUGX6mAfklHSPI4Sr52kkwtp5J+ZJNowXJlZQx
-	mbaZFjgdubK+TxZ3AXG4BmL9Uhi/KAAzWXHLP1icF5hoFTCvHoyShl9FUEtQHJoUut38VfOTahV
-	zo13wSRws6UpbgqbC75Z9J0RkghhWuSRW1fUOqjvKJxU2Xx/TFT7bGg3wZlJ9j2UimEfk4VfYIO
-	rnGOUpI5XqC6ad7n3cjKA71y/wY0glVVT/6c/jgkXkcfo2jYo6ECo4bOQO3PSC/393+OLmu5twR
-	xCm5jeuZ5RUxxHX+MADvvlaUW/GkhcCPBM7UZ41F9xIgAS4HEsrTHSkYCo9WdtMviIVLgkGw58S
-	U55YZsft4tA/Hd+hLpuzomsEmOGb8mp5rmhW3PwF3TysPGJ6BAWAThS/xLt3WzqkaY
-X-Received: by 2002:a17:90b:164b:b0:3aa:ff60:9bb8 with SMTP id 98e67ed59e1d1-3acef167affmr2330778a91.3.1792208459839;
-        Fri, 16 Oct 2026 20:40:59 -0700 (PDT)
+        bh=T/A4ESg/M6eHiPTNzUedDsWmNCisSQL4A05jpFBuAJA=;
+        b=rlZZrj/DfgCPoKhW+fs6jcFHlaypgZ0XseacQOQMG7khod2ybBVXkJpK6in2gaPRAz
+         W5D++53kvU8RXBEEDKoNk8AsVgpfFtaiJz3DX9pn1ZASG++feJ9MQCUrZTU9PmK7nRTn
+         f7iDEccfHHkMR+Xdeue50MYy4GsvSNnUCllsKMKO1IyAWr+3zhmnlJVPD+O6uTgjdjvH
+         IcuT3hv7mwmH+4I/Ca9kuT/BgL5R9fcZmx84nbLNU6AxfrEqnyqUCjzsT3q3dtc/n3Pl
+         v8yhtvjbCHdK6LmlAM5jou7LUv1IzOINvnhzWLVPV4MAZYs+BTh0krgLy58SKUdnuJ2S
+         RCCw==
+X-Forwarded-Encrypted: i=1; AKwUvByLZyVAbaMoQUK6odbQf1pbF3kckeS/L0+h3Z6d4wxVMh1wNY7an+xIAstqzPm2KTMuHdr/OnwBJSAk8RE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEUSw+2qNQUxQygS/Occ1Jc7/HlGQlk5Mv9u8sG+VWORy41SYf
+	NKxsm+/wvGOoHsxUJKpT7KMS6Jgzj6wcR0dyjamsfmcTs0R+kjZYgMZK
+X-Gm-Gg: AYBFou2M8feSKpSlro5P12hxal6zBlsSxzO081apVgH51F9oIYiiDRt/OQUWQuO2MbM
+	f3igmFn9NmYg5XWUCbw1ejpbA8Jqvbo3Gc8gqs66WE/LBNSK5x8VvowfRRHeoqszPVMA6g/OT8h
+	DtBmA0ItSyVkkkABjqqMjaN7Go/t3gJS4Og+L0LW5beqYe6b2O9Tx2LUdhrGXb70R//5vkyCPTd
+	A+qNa5kgJkLhObfDZoMCrgS51LwmKEKrzAZvdgIY72HQFf84EHp6rUx8SoV4XbgZPq79ypyhZO3
+	4Bo0LhnxjMUu5R7+9NYPwlIA53+3Gm1UGX7z2SRIAN16LG1d0errhh7HdrqguHDXU4L98D9ssUm
+	seuP4/E7ANOQ6UttPscxL1P0vWEqRcIAIz8ASwkJ/OgNBHgCUOLpYXS7jLa0+mVwa7ki2QNur+d
+	amuHtZ0qlxzXrWuU22qPybL1Ggltb1vNoiNKJHU6HSzGkYXcTAXCnFJrlJ3BBdDOk=
+X-Received: by 2002:a17:90b:4b82:b0:3ac:75d5:7388 with SMTP id 98e67ed59e1d1-3aceebe3f7fmr2409820a91.3.1792208462499;
+        Fri, 16 Oct 2026 20:41:02 -0700 (PDT)
 Received: from ser8.. ([221.156.231.192])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e7311sm11708667a91.4.2026.10.16.20.40.58
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e7311sm11708667a91.4.2026.10.16.20.41.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 20:40:59 -0700 (PDT)
+        Fri, 16 Oct 2026 20:41:02 -0700 (PDT)
 From: DaeMyung Kang <charsyam@gmail.com>
 To: linkinjeon@kernel.org
 Cc: senozhatsky@chromium.org,
@@ -65,11 +65,10 @@ Cc: senozhatsky@chromium.org,
 	chenxiaosong@chenxiaosong.com,
 	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	DaeMyung Kang <charsyam@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] ksmbd: avoid restoring only in-memory EOF after allocation change
-Date: Sat, 17 Oct 2026 12:40:50 +0900
-Message-ID: <20261017034051.72932-2-charsyam@gmail.com>
+	DaeMyung Kang <charsyam@gmail.com>
+Subject: [PATCH 2/2] ksmbd: round SetAllocation to the advertised allocation unit
+Date: Sat, 17 Oct 2026 12:40:51 +0900
+Message-ID: <20261017034051.72932-3-charsyam@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261017034051.72932-1-charsyam@gmail.com>
 References: <CAKYAXd_50E7cH51hxKi9xWfE3Hjyj0PhwccgsuGX416pEJVs8A@mail.gmail.com>
@@ -82,60 +81,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When SetAllocation requests a size below the allocated block count but
-above EOF, ksmbd truncates the file to that size and restores only the
-in-memory i_size. The larger EOF remains on disk and reappears after a
-reboot. A 3-byte file preallocated to 64 KiB can acquire a 4 KiB EOF
-after reducing its allocation to 4 KiB. Extending EOF this way is not
-a reliable way to reclaim the preallocation beyond the old EOF either.
+SetAllocation rounds requests to 512-byte blocks, although
+FS_SIZE_INFORMATION advertises the filesystem's f_bsize as its
+allocation unit. For example, on a filesystem with a 4 KiB unit, a
+1000-byte request can truncate an 8 KiB file to 1024 bytes instead of
+4 KiB.
 
-Only use this truncate path when the requested allocation is at or below
-the observed EOF. A truncate to the existing EOF still lets filesystems
-release preallocated blocks beyond EOF. Remove the in-memory-only i_size
-restoration. The size check still precedes vfs_truncate() taking the
-inode lock, so a concurrent shrink can make the truncate extend EOF;
-that race also existed in the original path.
+Round the request to the advertised unit and use the same result for
+the block-count decision, fallocate, truncate, and the size stored on
+the open handle. Validate the unit and rounded size before either
+operation. Use DIV_ROUND_UP_ULL() so the calculation works on 32-bit
+kernels.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
+This does not change the existing block-count decision for whether to
+call fallocate. In particular, success does not yet guarantee
+reservation of holes within the requested range on a sparse file.
+
 Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
 ---
- fs/smb/server/smb2pdu.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+ fs/smb/server/smb2pdu.c | 35 ++++++++++++++++++++---------------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 2da6163ee776..d06bdc8b23db 100644
+index d06bdc8b23db..6a91f939f3d6 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
-@@ -8636,24 +8636,17 @@ static int set_file_allocation_info(struct ksmbd_work *work,
+@@ -8596,10 +8596,11 @@ static int set_file_allocation_info(struct ksmbd_work *work,
+ 	 * properly with any smb.conf option
+ 	 */
+ 
+-	loff_t alloc_blks;
+-	u64 alloc_size;
++	u64 alloc_size, target, alloc_blks;
++	u32 alloc_unit;
+ 	struct inode *inode;
+ 	struct kstat stat;
++	struct kstatfs stfs;
+ 	int rc;
+ 
+ 	if (!(fp->daccess & FILE_WRITE_DATA_LE))
+@@ -8612,44 +8613,48 @@ static int set_file_allocation_info(struct ksmbd_work *work,
+ 			 AT_STATX_SYNC_AS_STAT);
+ 	if (rc)
+ 		return rc;
++	rc = vfs_statfs(&fp->filp->f_path, &stfs);
++	if (rc)
++		return rc;
+ 
+ 	/*
+-	 * AllocationSize is fully client-controlled (the caller only
+-	 * validates the fixed 8-byte buffer length). Reject values that
+-	 * would overflow the "round up to 512-byte blocks" conversion
+-	 * below instead of silently wrapping it to a tiny block count,
+-	 * which would truncate the file to a size the client never
+-	 * asked for.
++	 * Use the allocation unit advertised in FS_SIZE_INFORMATION.
++	 * Reject requests that overflow when rounded to a whole unit.
+ 	 */
+ 	alloc_size = le64_to_cpu(file_alloc_info->AllocationSize);
+-	if (alloc_size > MAX_LFS_FILESIZE - 511)
++	if (stfs.f_bsize <= 0 || (u64)stfs.f_bsize > U32_MAX)
++		return -EINVAL;
++	alloc_unit = stfs.f_bsize;
++	if (alloc_size > MAX_LFS_FILESIZE - (alloc_unit - 1))
+ 		return -EINVAL;
+ 
+-	alloc_blks = (alloc_size + 511) >> 9;
++	target = DIV_ROUND_UP_ULL(alloc_size, alloc_unit) * alloc_unit;
++	alloc_blks = DIV_ROUND_UP_ULL(target, 512);
+ 	inode = file_inode(fp->filp);
++	if (target > inode->i_sb->s_maxbytes)
++		return -EFBIG;
+ 
+ 	if (alloc_blks > stat.blocks) {
+ 		smb_break_all_levII_oplock(work, fp, 1);
+-		rc = vfs_fallocate(fp->filp, FALLOC_FL_KEEP_SIZE, 0,
+-				   alloc_blks * 512);
++		rc = vfs_fallocate(fp->filp, FALLOC_FL_KEEP_SIZE, 0, target);
+ 		if (rc && rc != -EOPNOTSUPP) {
  			pr_err("vfs_fallocate is failed : %d\n", rc);
  			return rc;
  		}
--	} else if (alloc_blks < stat.blocks) {
--		loff_t size;
--
-+	} else if (alloc_blks < stat.blocks &&
-+		   alloc_blks * 512 <= i_size_read(inode)) {
+ 	} else if (alloc_blks < stat.blocks &&
+-		   alloc_blks * 512 <= i_size_read(inode)) {
++		   target <= i_size_read(inode)) {
  		/*
--		 * Allocation size could be smaller than original one
--		 * which means allocated blocks in file should be
--		 * deallocated. use truncate to cut out it, but inode
--		 * size is also updated with truncate offset.
--		 * inode size is retained by backup inode size.
-+		 * Truncate at or below EOF to discard excess allocation.
-+		 * Truncating above EOF would extend the file on disk.
+ 		 * Truncate at or below EOF to discard excess allocation.
+ 		 * Truncating above EOF would extend the file on disk.
  		 */
--		size = i_size_read(inode);
- 		rc = ksmbd_vfs_truncate(work, fp, alloc_blks * 512);
+-		rc = ksmbd_vfs_truncate(work, fp, alloc_blks * 512);
++		rc = ksmbd_vfs_truncate(work, fp, target);
  		if (rc) {
  			pr_err("truncate failed!, err %d\n", rc);
  			return rc;
  		}
--		if (size < alloc_blks * 512)
--			i_size_write(inode, size);
  	}
  
- 	fp->allocation_size = le64_to_cpu(file_alloc_info->AllocationSize);
+-	fp->allocation_size = le64_to_cpu(file_alloc_info->AllocationSize);
++	fp->allocation_size = target;
+ 	fp->allocation_size_set = true;
+ 	return 0;
+ }
 -- 
 2.43.0
 
