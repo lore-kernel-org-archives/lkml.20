@@ -1,78 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F60355F49;
-	Sat, 17 Oct 2026 16:13:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6B33148B4;
+	Sat, 17 Oct 2026 16:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792253595; cv=none; b=Vuku63iML2di6oNwyzkG8Fk+BNd2daAmIi+TCVhmH3jYqk5szFthyhfs6W+NDBpdJl9lDLjpqcCSk68p4ijgL9qLNy1rWiWUJl45F+4ab6UF4FdngIDtIWaXh9rhyINrkr1qhfUrbj9MfJflV2/8O24yfTj6u/Zv+oGH0tRAfGQ=
+	t=1792253997; cv=none; b=jHM4Z7VbwcsdVnp9QmsJQl3iBa2p1loFnHn2XhTJvmzzl1tEzbsxgPwsKaesLmQ2kfjYzuaei8UWPcsXfL5I6JscHJCs0XT2Vo53rcH9UBA0tNz3Hcg7kNlWqOJI1Z6hXGUjRkDDkoatUVEBWXLvYxEwA5qEGbux1TsT9O99C9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792253595; c=relaxed/simple;
-	bh=YJoNu6yU/YdhRjfSzO8YpnSv9Tm0EvsOs+x3mmFcpfU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dsR4Frm6cEFnEfxfGpbUYwb2B3dkh5ArN0czchVViCEnEhsSEM+CqO0zEjy/TTWkseE6D+HfPOrB0Dw9jvwHwCsiy3w4sGsVIS9TimEq1ZfyZzzQfWhsTNkoNj5sOZzF7ugoXpvilMpOvXGkhQDgdY6du3L+bIjxf0I/xc57Pxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=La6ZcW/U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792253997; c=relaxed/simple;
+	bh=H3h+/XJBm90L4yWF78CctE8u2K/uHt7GPg73IjdoBmU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RwjqTMkfGpIA2fXZsEmqy701+ShEskC3jhsuR8B8Rcg0hRpuR+ZqzUcbH8K2yy5RAYtmxmUcCqUgB9d/ZnRA0eYBKMDY9lSY3lZ2Ff/Ib7ShgaxSDrj3oNs7WrNHwTLLUuQ6qmrjKGXY4ABx67yHHOIRTFmf8KMqOs/jndYBLsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9uxqpDa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="La6ZcW/U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AAAD1F000C4;
-	Sat, 17 Oct 2026 16:13:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9uxqpDa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432851F000C5;
+	Sat, 17 Oct 2026 16:19:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792253591;
-	bh=rxnIxgjhHPOhNba69hG5CN7WDYZeGiFPLDt2bgf14ck=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=La6ZcW/Uhu8NVTIoeLjexdfAzN4hdC8y+79OaFNQ38HYguBGwUNMaDBCNLwg5hAUz
-	 JsEjETx5AaTp5HY5lntp8yJ01siNMTUqyr4NiDjXw1/ft5x1MYooNWihv9BqmkGxf6
-	 WX6Y94NstW4bOMsxeJuDyHPUFDX7ex94SishA2sP/6ZMSjEgLGvQqZnLmbgaes2fCe
-	 CVQECjwZ1Qj/fNYoVxgq2XgHQHfM21Cn8NUMPx3+xxLH1Pns2d5QXnvm4H9s+2+oGV
-	 tuc5FAxYGAkVjFUiDw52ylUbR5EkDWD19/9DqggngB8Ih1Ryo+PrV4Sg/WbpTbnbtU
-	 WSuU5it07fMlw==
-From: SJ Park <sj@kernel.org>
-To: Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] Docs/admin-guide/mm/damon/lru_sort: fix grammar and stlye
-Date: Sat, 17 Oct 2026 09:13:03 -0700
-Message-ID: <20261017161304.103620-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261017083535.1261388-2-manuelebnerli@mailbox.org>
-References: 
+	s=k20260515; t=1792253996;
+	bh=NkvmSmzMUtp5UIXHHshWv4X5CNVlPpRWp5WuWjbaiNw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K9uxqpDaFo1/yJZcnbSl/RyB0oY3m5Clriz3QV/Ir6eadVbrEh/TKEmpPRYBbKbO8
+	 DO7uRl/6kLSWtJin7KA7ozaeR7EgEPQ0GsRZYMdZtvbIS9LnTsxzE1h3pA57V08fDK
+	 3AfgnkAI286pz4+u68pWPekwlcKt9PndYbGKa4u0zTgSDvBFwFT5xUn10jImwftCHe
+	 o5vOr3i1+CKVbLdkuWulE/5TjtTbh/gD92gQ78ZMyy0kVlyyl1e+DIU4jhu2e3lCrn
+	 0lB2Cfw6bzbR9i1duE8H8xYM5fTevnKxjfxUMHxNzXyKGy/IhvvhwdhDGdi/y4bnHW
+	 pOXoGIC4O6rwQ==
+Date: Sat, 17 Oct 2026 19:19:52 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Cen Zhang <zzzccc427@gmail.com>, dhowells@redhat.com,
+	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
+	sergeh@kernel.org, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Subject: Re: [PATCH v2] keys: Avoid the owner account dereference in named
+ keyring lookup
+Message-ID: <atOgKLjra7xg19HL@kernel.org>
+References: <pm-key-management-objects-candidate-0002-v3-2baa8cad2bb554364e10@gmail.com>
+ <20261017035156.GA29318@sol>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017035156.GA29318@sol>
 
-On Sat, 17 Oct 2026 10:35:34 +0200 Manuel Ebner <manuelebnerli@mailbox.org> wrote:
-
-> Fix tenses. Split long sentences thereby imporove readability.  Replace
-> 'set as' with 'set to'. Replace [] with () to make the file uniform.
+On Fri, Oct 16, 2026 at 08:51:56PM -0700, Eric Biggers wrote:
+> On Fri, Oct 09, 2026 at 01:11:59PM +0800, Cen Zhang wrote:
+> > Named keyring lookup must keep the storage containing the owner UID
+> > alive through the namespace mapping check.  find_keyring_by_name()
+> > reads keyring->user->uid under keyring_name_lock, but that lock protects
+> > the keyring's name entry and allocation, not its separate key_user.
+> > 
+> > A named session-keyring join can overlap a privileged KEYCTL_CHOWN on
+> > another CPU.  If the keyring holds the last reference to its old dynamic
+> > key_user and the ownership transfer succeeds, the following ordering is
+> > possible:
+> > 
+> >     Named join                         Chown
+> >     find_keyring_by_name()              keyctl_chown_key()
+> >       read_lock(keyring_name_lock)       down_write(key->sem)
+> >       load old keyring->user
+> >                                          replace key->user and key->uid
+> >                                          up_write(key->sem)
+> >                                          key_put(key)
+> >                                          key_user_put(old user): free
+> >       read old user->uid
+> >       read_unlock(keyring_name_lock)
+> > 
+> > Chown neither takes keyring_name_lock nor key_session_mutex, so it can
+> > free the old account between the pointer load and the UID read.  The
+> > lookup then reads freed memory even though the keyring itself is alive.
+> > 
+> > Use keyring->uid for the mapping check.  key_alloc() initializes this
+> > inline owner UID and keyctl_chown_key() updates it on chown.
+> > The existing name lock keeps its containing keyring allocated throughout
+> > the check, so lookup no longer depends on the account's lifetime.  This
+> > also matches the owner UID used by the permission check.
+> > 
+> > KASAN report as below:
+> > 
+> >     BUG: KASAN: slab-use-after-free in find_keyring_by_name+0x577/0x5d0
+> >     Read of size 4 at addr ffff8881128ae2ec by task keycase/500
+> > 
+> > Fixes: 2ea190d0a006 ("keys: skip keys from another user namespace")
+> > Assisted-by: LLM
+> > Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 > 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> Reviewed-by: SJ Park <sj@kernel.org>
-> ---
-> SJ, could you please replace 38b3709936fa ([v2] 'mm/damon/lru_sort: fix
-> grammar and stlye') with this patch? I messed up the path in the subject line.
+> Don't key_serial_next() and find_ge_key() (used when reading from
+> /proc/keys) have the same bug?
 
-Thank you for fixup.  Done.
+With just a quick Saturday skim, yep, I think so.
 
+> 
+> - Eric
 
-Thanks,
-SJ
-
-[...]
+Br, Jarkko
