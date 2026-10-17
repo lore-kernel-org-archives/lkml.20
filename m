@@ -1,624 +1,373 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1AF47CC96
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD75381E96;
+	Sat, 17 Oct 2026 14:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792246133; cv=none; b=h1ondhOn58HXyU172DGx+k8HsodEjhPA1yVxEvv9hoLv9IPcM+vZ0X8C+cnrAl9J+KrDLtTsbFNa8QmPuI+YOY+c48lJ9Tmszi5ryzvi7ob7TQ/mxillRa1gjdaLXmQ+OE2Wi6ceQS3SQoorKBYWWi8V6Q3wpXdDh/7wKHVE/qQ=
+	t=1792246140; cv=none; b=J6Vjf1tXKJ/Pqbv1TOMTds2Wrcup2kzZM2hOikX3DAuxooRFnWaH00jQjruxqnpYpqlhJjeR3AYeTHxx4rT5qRiC+lcKUhevd2mSWV2CfzLJtW/CcN9E6Lz26OccY6WGpf03aPckKQyGZDP2vBk7qwU2MJ8IKs65fbHAeIWYgWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792246133; c=relaxed/simple;
-	bh=Cp1xKoKHjee8NVeMf2TCIX1IMrRZc66OQ1LmC8Eyses=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PkG/NzwYY/jDHCj9v90kWLglOIjEAeU37+2ED/gORSfau6lU+y1psxpg+bzk7H+j7Zr0dJ/LkaGFA9KJG4P/5lv4MAdgZyqwArx5EZ4HwTM/EtJczbMUIsTq32pCRXZc+VaE11nRTj0k4GxMAV+dC4+JCgBDrA4U9hmUAuVyR9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cNqeDi8V; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792246140; c=relaxed/simple;
+	bh=/NnxgHAoL540tyokFHqlWhxabT8d2qFGZRaY/kfZ0SE=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=l23vAJa1NNSpq1fbH8Rq8pNLzOaWVNyFug4Vdq4IfZRe3ZicUxE1ksHJ+JtkqrzCSA6Fcz+/pGmzOb3Qe7bJvaHTtsgz4nSgZE7Uo/9ERWk6AZGuTIxJXhIWzGjmrsGpbO4yuVQU2Bd8imo1VwLuycs4IkPtPkXuo/3p0Gdr7Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TMawWRFR; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=0TtN72W0; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cNqeDi8V"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso8267505e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:08:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792246126; x=1792850926; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C+1f1lj3zLciCCO8Mc5INC/JSPS2g2K5CtomKct7Fmg=;
-        b=cNqeDi8VT0uUSjH+LRHFpQ4NTkeIW1u1C88CbHh55kxDldfk4+FHhZECmLTK5y3Zfh
-         IJWIif0HL/7QeVPYywTQB0AfwPVzyIcLuynVtGtmpIBmukFKhsexZV4OHM7o9HkuyXLe
-         FcLIRom+8gluN3RBCw+xzU1G+64W03cOCn2oqAfQyCdRzz8VZGpufTlsy5Lyp9PDNCJe
-         vzOUBXDt265k/a5ZjEWsxLr4YyDtmLgH/BQigdUMQYm0QIBDSScydt//DNb8SO8YMVfr
-         hyudHYeBN9aFo1g2RpauizIxopJnrwj4l0aiad5KZin/gZ+7N/nHFbJEtlA4YkgNV9Ei
-         nsWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792246126; x=1792850926;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C+1f1lj3zLciCCO8Mc5INC/JSPS2g2K5CtomKct7Fmg=;
-        b=LvAqd8P/0xtCtXvkD+VJ/OuGI6ebIPfHxWNcYr45TkPfj7QnobKy9PWKBvxF77/bDa
-         +Eds33U8a5uNof8L+a4wswLM4mjCXTDIU+lqAhdmTrqu0apq/S9jS7KEfNT8UGzk5JAJ
-         6qpZppWP+KszCIS++/MTCAm1NANtFxFGEJFW32UiGac8JSNBPlCoH+qq1YOgWpQ/KH2T
-         4IM1ZOJpMMTx30PnS5SydmVEHLt7A5ZkeFjLdEDw35YG2ltbdJHU3p0fn25yM4Jrf1LA
-         yDQQ8WXJmvH+1D6JN+0y/6iBhihJ1BdllcQLJ4wKmnkZKZlDqJ8SvywBac9yNW8MYoDQ
-         uSwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwXFd+J/EvK6Y0eFUmKshRYHZJPEfxrQtiLXomE2beh5hRSEGblWfyn0CAw7nesWWw3ijM9WvkpLNJddcc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAbxxqWF7IG6bLCSSUDr1vVA9kwGnMC0AW/+lWliBrk/IowaGU
-	r9jESjNyQCqHuSFvuWspUiyLrd4au4ITeM0qpau4YDECmxCQD8QOXIjs
-X-Gm-Gg: AYBFou0+N1kDmKsPE1nWnWZ4Y4a95d4SyCcUXKuHxCvPZqvHMRo1ybUMyDipOHAMNQr
-	MVh0HGEv4yQIhKd2LSrE4fwX8uOPiHSdsj54Wk0j9jAKRa2Vy0qJfmzBnO7aMKcRh/VKmq23eNg
-	A5F2TI4xndfc4kuy3/oc3awKE8BPquh7Hf2DSl18/2l+i1dQu1Hkm1f7mRFKzmSMcXp5ufHIooE
-	8TKGg14hK7zv9V8Fm3nyw7to+WShdY04pZPqG++D57Z1LKwHjvwKbGBrXPp8D4g2S5yHUp3IVND
-	mJfmxzxTvu2+8NtKr5EZr33cJOv4X07EHozp3Oyh5P5kP1zwweeUxAUT3yY8gdV9IJLik4pZk22
-	m7Ybz0gj0inHg8ycw9KMrGsCmOrqmuzh4y0tKXmUOfz+tJH/gS2w2Qgf9akBxu4O4xACXfwgZN2
-	bv6JPcpaPUCzw+9aKSdmsqmoh1E0FQZi/Wrysos22KcWEz5l5l0GzJVx1KejdTvteI7RJ3+nXIR
-	SvK/SW9wMXsCTp3odrufGyDf+cpkfNNHzf0qOntTO1urhzZw+4och7VZ8pfCWwIWZK3SPdLsAd4
-	fg==
-X-Received: by 2002:a05:600c:34d2:b0:4a1:cfa7:e968 with SMTP id 5b1f17b1804b1-4a1d760d2camr53930535e9.21.1792246125729;
-        Sat, 17 Oct 2026 07:08:45 -0700 (PDT)
-Received: from machine.home.arpa ([2a0d:3344:57f6::1046])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce3302b5sm84430745e9.4.2026.10.17.07.08.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:08:45 -0700 (PDT)
-From: Luka Panio <lukapanio@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Henrik Rydberg <rydberg@bitmath.org>,
-	Douglas Anderson <dianders@chromium.org>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Luka Panio <lukapanio@gmail.com>
-Subject: [PATCH 6/7] Input: edt-ft5x06 - add SPI transport and FT8722 support
-Date: Sat, 17 Oct 2026 16:07:54 +0200
-Message-ID: <20261017140827.290666-7-lukapanio@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261017140827.290666-1-lukapanio@gmail.com>
-References: <20261017140827.290666-1-lukapanio@gmail.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TMawWRFR";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="0TtN72W0"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792246130; bh=i7fsxGd7x47WOO1Gxa6HE4J
+	9w2P2gX59VnTib3ObBlg=; b=TMawWRFRkRPd9tL27b/nXTbJSGH8Iwaow4MECYu0f00w2C7wG4
+	uap49wE58PgfHKtoErEqSWmN0JXtyA2DGe67P6h6v6lSFOvyvJVKWjqgCDTc9uJyTwH9kg68dBT
+	xufcY9qx/i8OLvi/HZli1/MfwumMDnlTzzj/f3zTKTSj/UZtXTH+uKPqnKm574RIm454ZikVnBj
+	jgO1cbEnjs8TMSYbZvtCakBO4ZizYZZjI0waTSu2+kxafBX9pN3PHzYHjBzlXedtryzd0Yy3uNX
+	J+7T9d4JaVAya76tyLiNCiH8WrzVR+aqT1cBokGFbnggNBN5vUsA30uSgnSnIE9u87g==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792246130; bh=i7fsxGd7x47WOO1Gxa6HE4J
+	9w2P2gX59VnTib3ObBlg=; b=0TtN72W0/LORMQlCKRA6c+MNmlA7vWCBNto4ArATdAafbzID3J
+	KwF3niDc7YGDiXDfp4ukf4DKmfGjWvWs+7AQ==;
+Date: Sat, 17 Oct 2026 15:08:49 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Zqiang <qiang.zhang@linux.dev>
+CC: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
+ linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org, paulmck@kernel.org,
+ rcu@vger.kernel.org, urezki@gmail.com
+Subject: Re: [PATCH] rcu-tasks: Warn on too-short RCU Tasks Rude grace period
+In-Reply-To: <d43b5294512c51f62dd80f1b1bf6856f44d90cbe@linux.dev>
+References: <D155FA7E-8E99-4D4F-92A8-74472834F25A@mainlining.org> <8d7f265cd1320bf7996bcffea07ffdea69cfd625@linux.dev> <2247C12C-EE02-46CC-922F-D6A62D1E77C1@mainlining.org> <aa11c41ba0458bda078c6cdff9e2b155bee1a59b@linux.dev> <C2E20E85-17A3-458C-9279-50022D30F5C8@mainlining.org> <AB14D6F5-9882-4527-82E6-BB33C1C7D3DE@mainlining.org> <d43b5294512c51f62dd80f1b1bf6856f44d90cbe@linux.dev>
+Message-ID: <AD2F0D80-9A2F-4FE2-B9F3-1865486F4AF0@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-Add an SPI bus driver and FT8722 support to edt-ft5x06.
+On 17 October 2026 14:37:24 BST, Zqiang <qiang.zhang@linux.dev> wrote:
+>> 
+>> On 17 October 2026 13:20:50 BST, Bradley Morgan <brads@mainlining.org>
+>> wrote:
+>> 
+>> > 
+>> > On 17 October 2026 13:14:29 BST, Zqiang <qiang.zhang@linux.dev> wrote:
+>> >  
+>> >  On 17 October 2026 00:41:00 BST, Zqiang <qiang.zhang@linux.dev>
+>wrote:
+>> >  
+>> >  > 
+>> >  > > 
+>> >  > > On 15 October 2026 10:46:19 BST, Zqiang <qiang.zhang@linux.dev>
+>> > 
+>> > > 
+>> > > wrote:
+>> > > 
+>> >  > > 
+>> >  > > > 
+>> >  > > > The RCU Tasks Rude grace period is implemented by invoking the
+>> >  > > > schedule_on_each_cpu() with an empty work function, which
+>forces
+>> >  > > > a context switch on every online CPU and guarantees that all
+>> >  > > > rude-tasks read-side critical sections have completed. However,
+>> >  > > > schedule_on_each_cpu() can fail (via alloc_percpu() returning
+>> >  > > > -ENOMEM) and returns immediately, in which case those context
+>> >  > > > switches never happen, too-short grace period happen.
+>> >  > > > 
+>> >  > > > This commit therefore wraps the schedule_on_each_cpu() call in
+>> >  > > > WARN_ONCE() so that this failure is reported as a "Too-short
+>> >  > > > grace period" warning.
+>> >  > > > 
+>> >  > > NAK, this seems like a edge case, and potentially panicking the
+>> > 
+>> > > 
+>> > > system
+>> > > 
+>> >  > > with panic on oops doesn't seem right to me, because we would
+>> > 
+>> > > 
+>> > > reserve
+>> > > 
+>> >  > > 
+>> >  > that
+>> >  > 
+>> >  > > 
+>> >  > > for when something definitely goes really wrong and we need to
+>> > 
+>> > > 
+>> > > notify
+>> > > 
+>> >  > > the user.
+>> >  > > 
+>> >  > > I don't believe this patch should go in for this reason, it's a
+>> > 
+>> > > 
+>> > > heavy
+>> > > 
+>> >  > > 
+>> >  > edge
+>> >  > 
+>> >  > > 
+>> >  > > case, that doesn't *have* nessesarily need to be accounted for.
+>> >  > > 
+>> >  > Indeed, this is a rare event, so I use WARN_ONCE() to mark it, the
+>> >  > WARN_ONCE()
+>> >  > not panicking system unless you set warn_on_oops true, this can
+>help
+>> > 
+>> > > 
+>> > > us
+>> > > 
+>> >  > troubleshoot
+>> >  > UAF issues caused by a too short tasks-rude grace period.
+>> >  > 
+>> >  > or maybe we can use DEFINE_PER_CPU(struct work_struct, rude_work)
+>to
+>> >  > replace
+>> >  > alloc_percpu(struct work_struct) queue to all online CPUs.
+>> >  > 
+>> >  > Anyway, Thank you for your reply. I would also like to hear the
+>> > 
+>> > > 
+>> > > opinions
+>> > > 
+>> >  > of others.
+>> >  > 
+>> >  Fair enough, but me and Paul done some discussions:
+>> >  
+>> >  Here is the TL;DR
+>> >  
+>> >  My ^W^Wai slop^W^W tool helped me with this: if the too short grace
+>> >  happens,
+>> >  it falls back.
+>> >  
+>> >  root@p10-linux-brads:~/linux# mailto:root@p10-linux-brads:~/linux# 
+>mailto:root@p10-linux-brads:~/linux# git
+>> > 
+>> > > 
+>> > > diff kernel/rcu
+>> > > 
+>> >  diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+>> >  index 627295396cd9..65bb7d4ed632 100644
+>> >  --- a/kernel/rcu/tasks.h
+>> >  +++ b/kernel/rcu/tasks.h
+>> >  @@ -1344,15 +1344,23 @@ void exit_tasks_rcu_finish(void) { }
+>> >  // Ordering is provided by the scheduler's context-switch code.
+>> >  
+>> >  // Empty function to allow workqueues to force a context switch.
+>> >  -static void rcu_tasks_be_rude(struct work_struct *work)
+>> >  +static void __maybe_unused rcu_tasks_be_rude(struct work_struct
+>*work)
+>> >  {
+>> >  }
+>> >  
+>> >  // Wait for one rude RCU-tasks grace period.
+>> >  +static void rcu_tasks_rude_ipi(void *info)
+>> >  +{
+>> >  +}
+>> >  +
+>> >  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+>> >  {
+>> >  + int cpu;
+>> >  rtp->n_ipis += cpumask_weight(cpu_online_mask);
+>> >  - schedule_on_each_cpu(rcu_tasks_be_rude);
+>> >  + cpus_read_lock();
+>> >  + for_each_online_cpu(cpu)
+>> >  + smp_call_function_single(cpu, rcu_tasks_rude_ipi, NULL, 1);
+>> >  + cpus_read_unlock();
+>> >  }
+>> > 
+>> > > 
+>> > > RCU Tasks Rude use preempt_disable/enable as the read critical
+>section,
+>> > > you use smp_call_function_single() to send ipi to each online CPUs, 
+>> > > it's not forces a context sched switch, and not wait the
+>> > > preempt_disable/enable
+>> > > read critical section to exit, this is the wrong mechanism. ;-(
+>> > > 
+>> > > Obviously, we only need to not apply alloc_percpu dynamic
+>allocation:
+>> > > 
+>> > > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+>> > > index fcac7361ec51..49b629b0010b 100644
+>> > > --- a/kernel/rcu/tasks.h
+>> > > +++ b/kernel/rcu/tasks.h
+>> > > @@ -1357,11 +1357,25 @@ static void rcu_tasks_be_rude(struct
+>work_struct
+>> > > 
+>> > *work)
+>> > 
+>> > > 
+>> > > {
+>> > >  }
+>> > > 
+>> > > +static DEFINE_PER_CPU(struct work_struct, tasks_rude_work);
+>> > > +
+>> > >  // Wait for one rude RCU-tasks grace period.
+>> > >  static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+>> > >  {
+>> > > + int cpu;
+>> > > +
+>> > > + guard(cpus_read_lock)();
+>> > >  rtp->n_ipis += cpumask_weight(cpu_online_mask);
+>> > > - schedule_on_each_cpu(rcu_tasks_be_rude);
+>> > > +
+>> > > + for_each_online_cpu(cpu) {
+>> > > + struct work_struct *work = &per_cpu(tasks_rude_work,
+>> > > 
+>> > cpu);
+>> > 
+>> > > 
+>> > > +
+>> > > + INIT_WORK(work, rcu_tasks_be_rude);
+>> > > + schedule_work_on(cpu, work);
+>> > > + }
+>> > > +
+>> > > + for_each_online_cpu(cpu)
+>> > > + flush_work(&per_cpu(tasks_rude_work, cpu));
+>> > >  }
+>> > > 
+>> > >  static void call_rcu_tasks_rude(struct rcu_head *rhp,
+>rcu_callback_t
+>> > >  func);
+>> > > 
+>> > Wow!
+>> > 
+>> > Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>> > 
+>> Gimme a sec I'll submit the patch.. 
+>
+>Actually, I don't mind you send this fix directly, due to you use an
+>incorrect IPI
+>mechanism to implement it, I would like to know wether you truly
+>understand the tasks-rude
+>and how schedule_on_each_cpu() ensures memory order.
 
-The FT8722 TDDI has no flash, so add a boot hook that downloads the
-firmware every time the controller comes out of reset: enter the boot
-ROM, write the program and data RAM, verify both with the ROM's ECC
-and start the application.
+Hi, I do understand how it all works.
 
-Signed-off-by: Luka Panio <lukapanio@gmail.com>
----
- drivers/input/touchscreen/Kconfig          |  14 +
- drivers/input/touchscreen/Makefile         |   1 +
- drivers/input/touchscreen/edt-ft5x06-spi.c | 475 +++++++++++++++++++++
- 3 files changed, 490 insertions(+)
- create mode 100644 drivers/input/touchscreen/edt-ft5x06-spi.c
+The reasons why you would suspect I wouldn't
 
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3f7f..92840ea9c65f 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -805,6 +805,20 @@ config TOUCHSCREEN_EDT_FT5X06
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called edt-ft5x06.
- 
-+config TOUCHSCREEN_EDT_FT5X06_SPI
-+	tristate "EDT FocalTech FT5x06 SPI Touchscreen support"
-+	depends on TOUCHSCREEN_EDT_FT5X06 && SPI
-+	select CRC_CCITT
-+	help
-+	  Say Y here if you have a FocalTech touchscreen controller based
-+	  on the FocalTech FT5x06 family of controllers that is connected over
-+	  SPI.
-+
-+	  If unsure, say N.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called edt-ft5x06-spi.
-+
- config TOUCHSCREEN_RASPBERRYPI_FW
- 	tristate "Raspberry Pi's firmware base touch screen support"
- 	depends on RASPBERRYPI_FIRMWARE || (RASPBERRYPI_FIRMWARE=n && COMPILE_TEST)
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index bfd9de83389d..263c7e8039af 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -33,6 +33,7 @@ obj-$(CONFIG_TOUCHSCREEN_DA9034)	+= da9034-ts.o
- obj-$(CONFIG_TOUCHSCREEN_DA9052)	+= da9052_tsi.o
- obj-$(CONFIG_TOUCHSCREEN_DYNAPRO)	+= dynapro.o
- obj-$(CONFIG_TOUCHSCREEN_EDT_FT5X06)	+= edt-ft5x06.o
-+obj-$(CONFIG_TOUCHSCREEN_EDT_FT5X06_SPI)	+= edt-ft5x06-spi.o
- obj-$(CONFIG_TOUCHSCREEN_HAMPSHIRE)	+= hampshire.o
- obj-$(CONFIG_TOUCHSCREEN_HYCON_HY46XX)	+= hycon-hy46xx.o
- obj-$(CONFIG_TOUCHSCREEN_GUNZE)		+= gunze.o
-diff --git a/drivers/input/touchscreen/edt-ft5x06-spi.c b/drivers/input/touchscreen/edt-ft5x06-spi.c
-new file mode 100644
-index 000000000000..d0ae0d4b621d
---- /dev/null
-+++ b/drivers/input/touchscreen/edt-ft5x06-spi.c
-@@ -0,0 +1,475 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Luka Panio, <lukapanio@gmail.com>
-+ *
-+ * SPI transport for FocalTech touchscreen controllers handled by the
-+ * edt-ft5x06 driver, with firmware download for the RAM-only FT8722.
-+ *
-+ * Protocol and boot sequence based on the FocalTech vendor driver:
-+ * Copyright (c) 2012-2020, FocalTech Systems, Ltd.
-+ */
-+
-+#include <linux/crc-ccitt.h>
-+#include <linux/delay.h>
-+#include <linux/firmware.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/input.h>
-+#include <linux/minmax.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/spi/spi.h>
-+#include <linux/unaligned.h>
-+
-+#include "edt-ft5x06.h"
-+
-+#define FTS_SPI_CTRL_WRITE		0x00
-+#define FTS_SPI_CTRL_READ		BIT(7)
-+#define FTS_SPI_CTRL_CRC		BIT(5)
-+#define FTS_SPI_STATUS_ERR		(BIT(7) | BIT(5))
-+#define FTS_SPI_HEADER_LEN		4
-+#define FTS_SPI_DUMMY_LEN		3
-+#define FTS_SPI_CRC_LEN			2
-+#define FTS_SPI_RETRIES			3
-+#define FTS_SPI_CS_HIGH_US		150
-+
-+/* Boot ROM commands */
-+#define FTS_BOOT_CMD_START		0x55
-+#define FTS_BOOT_CMD_READ_ID		0x90
-+#define FTS_BOOT_CMD_START_APP		0x08
-+#define FTS_BOOT_CMD_SET_ADDR		0xad
-+#define FTS_BOOT_CMD_WRITE		0xae
-+#define FTS_BOOT_CMD_ECC		0xcc
-+#define FTS_BOOT_CMD_ECC_READ		0xcd
-+#define FTS_BOOT_CMD_ECC_FINISH		0xce
-+#define FTS_BOOT_ECC_FINISH_OK		0xa5
-+#define FTS_BOOT_ECC_POLY		0x8408
-+
-+#define FTS_REG_CHIP_ID			0xa3
-+
-+/* Firmware image layout */
-+#define FTS_FW_INFO_OFFSET		0x100
-+#define FTS_FW_MIN_LEN			0x120
-+
-+#define FTS_BOOT_RETRIES		3
-+#define FTS_ECC_RETRIES			100
-+
-+struct fts_ram_chip {
-+	u8 boot_id[2];
-+	u8 chip_id;
-+	u8 len_unit;
-+	u32 pram_max;
-+	u32 dram_base;
-+	u32 packet_len;
-+	unsigned int boot_delay_ms;
-+	const char *default_fw;
-+};
-+
-+static int fts_spi_xfer(struct spi_device *spi, const u8 *tx, u8 *rx,
-+			size_t len)
-+{
-+	struct spi_transfer xfer = {
-+		.tx_buf = tx,
-+		.rx_buf = rx,
-+		.len = len,
-+	};
-+	int ret;
-+
-+	ret = spi_sync_transfer(spi, &xfer, 1);
-+	fsleep(FTS_SPI_CS_HIGH_US);
-+
-+	return ret;
-+}
-+
-+static int fts_spi_write(struct spi_device *spi, u8 reg, const void *val,
-+			 size_t len)
-+{
-+	size_t xlen = FTS_SPI_HEADER_LEN + (len ? FTS_SPI_DUMMY_LEN + len : 0);
-+	u8 *tx, *rx;
-+	int ret, i;
-+
-+	if (len > U16_MAX)
-+		return -EINVAL;
-+
-+	tx = kzalloc(2 * xlen, GFP_KERNEL);
-+	if (!tx)
-+		return -ENOMEM;
-+	rx = tx + xlen;
-+
-+	tx[0] = reg;
-+	tx[1] = FTS_SPI_CTRL_WRITE;
-+	put_unaligned_be16(len, &tx[2]);
-+	if (len)
-+		memcpy(&tx[FTS_SPI_HEADER_LEN + FTS_SPI_DUMMY_LEN], val, len);
-+
-+	for (i = 0; i < FTS_SPI_RETRIES; i++) {
-+		ret = fts_spi_xfer(spi, tx, rx, xlen);
-+		if (!ret && !(rx[3] & FTS_SPI_STATUS_ERR))
-+			break;
-+		if (!ret)
-+			ret = -EIO;
-+	}
-+
-+	kfree(tx);
-+	return ret;
-+}
-+
-+static int fts_spi_read(struct spi_device *spi, u8 reg, void *val,
-+			size_t len)
-+{
-+	size_t dp = FTS_SPI_HEADER_LEN + FTS_SPI_DUMMY_LEN;
-+	size_t xlen = dp + len + FTS_SPI_CRC_LEN;
-+	u8 *tx, *rx;
-+	int ret, i;
-+
-+	if (!len || len > U16_MAX)
-+		return -EINVAL;
-+
-+	tx = kzalloc(2 * xlen, GFP_KERNEL);
-+	if (!tx)
-+		return -ENOMEM;
-+	rx = tx + xlen;
-+
-+	tx[0] = reg;
-+	tx[1] = FTS_SPI_CTRL_READ | FTS_SPI_CTRL_CRC;
-+	put_unaligned_be16(len, &tx[2]);
-+
-+	for (i = 0; i < FTS_SPI_RETRIES; i++) {
-+		ret = fts_spi_xfer(spi, tx, rx, xlen);
-+		if (ret)
-+			continue;
-+
-+		if (rx[3] & FTS_SPI_STATUS_ERR) {
-+			ret = -EIO;
-+			continue;
-+		}
-+
-+		if (crc_ccitt(0xffff, &rx[dp], len) !=
-+		    get_unaligned_le16(&rx[dp + len])) {
-+			ret = -EBADMSG;
-+			continue;
-+		}
-+
-+		memcpy(val, &rx[dp], len);
-+		break;
-+	}
-+
-+	kfree(tx);
-+	return ret;
-+}
-+
-+static int fts_spi_regmap_write(void *context, const void *data,
-+				size_t count)
-+{
-+	const u8 *buf = data;
-+
-+	return fts_spi_write(context, buf[0], buf + 1, count - 1);
-+}
-+
-+static int fts_spi_regmap_read(void *context, const void *reg,
-+			       size_t reg_size, void *val, size_t val_size)
-+{
-+	return fts_spi_read(context, *(const u8 *)reg, val, val_size);
-+}
-+
-+static const struct regmap_bus fts_spi_regmap_bus = {
-+	.write = fts_spi_regmap_write,
-+	.read = fts_spi_regmap_read,
-+};
-+
-+static const struct regmap_config fts_spi_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+};
-+
-+static int fts_boot_enter(struct spi_device *spi, struct gpio_desc *reset,
-+			  const struct fts_ram_chip *chip)
-+{
-+	u8 id[2] = { };
-+	int ret, i;
-+
-+	for (i = 0; i < FTS_BOOT_RETRIES; i++) {
-+		/* The boot ROM only listens shortly after reset */
-+		if (i && reset) {
-+			gpiod_set_value_cansleep(reset, 1);
-+			usleep_range(1000, 2000);
-+			gpiod_set_value_cansleep(reset, 0);
-+		}
-+		fsleep(chip->boot_delay_ms * USEC_PER_MSEC);
-+
-+		ret = fts_spi_write(spi, FTS_BOOT_CMD_START, NULL, 0);
-+		if (ret)
-+			continue;
-+
-+		fsleep(chip->boot_delay_ms * USEC_PER_MSEC);
-+
-+		ret = fts_spi_read(spi, FTS_BOOT_CMD_READ_ID, id, sizeof(id));
-+		if (ret)
-+			continue;
-+
-+		if (!memcmp(id, chip->boot_id, sizeof(id)))
-+			return 0;
-+
-+		ret = -ENODEV;
-+	}
-+
-+	dev_err(&spi->dev, "boot ROM not responding, last id %02x%02x: %d\n",
-+		id[0], id[1], ret);
-+	return ret;
-+}
-+
-+static int fts_boot_write_ram(struct spi_device *spi,
-+			      const struct fts_ram_chip *chip, u32 base,
-+			      const u8 *data, u32 len)
-+{
-+	u8 addr[3];
-+	u32 off, n;
-+	int ret;
-+
-+	for (off = 0; off < len; off += n) {
-+		n = min(len - off, chip->packet_len);
-+
-+		put_unaligned_be24(base + off, addr);
-+		ret = fts_spi_write(spi, FTS_BOOT_CMD_SET_ADDR, addr,
-+				    sizeof(addr));
-+		if (ret)
-+			return ret;
-+
-+		ret = fts_spi_write(spi, FTS_BOOT_CMD_WRITE, data + off, n);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static u16 fts_boot_ecc(const u8 *data, u32 len)
-+{
-+	u16 ecc = 0;
-+	u32 i;
-+	int j;
-+
-+	for (i = 0; i + 1 < len; i += 2) {
-+		ecc ^= get_unaligned_be16(data + i);
-+		for (j = 0; j < 16; j++)
-+			ecc = (ecc & 1) ? (ecc >> 1) ^ FTS_BOOT_ECC_POLY :
-+					  ecc >> 1;
-+	}
-+
-+	return ecc;
-+}
-+
-+static int fts_boot_check_ecc(struct spi_device *spi, const u8 *data,
-+			      u32 len)
-+{
-+	u8 cmd[6], val[2];
-+	int ret, i;
-+
-+	put_unaligned_be24(0, &cmd[0]);
-+	put_unaligned_be24(len, &cmd[3]);
-+	ret = fts_spi_write(spi, FTS_BOOT_CMD_ECC, cmd, sizeof(cmd));
-+	if (ret)
-+		return ret;
-+
-+	usleep_range(2000, 3000);
-+
-+	for (i = 0; i < FTS_ECC_RETRIES; i++) {
-+		ret = fts_spi_read(spi, FTS_BOOT_CMD_ECC_FINISH, val, 1);
-+		if (ret)
-+			return ret;
-+		if (val[0] == FTS_BOOT_ECC_FINISH_OK)
-+			break;
-+		usleep_range(1000, 2000);
-+	}
-+	if (i == FTS_ECC_RETRIES)
-+		return -ETIMEDOUT;
-+
-+	ret = fts_spi_read(spi, FTS_BOOT_CMD_ECC_READ, val, sizeof(val));
-+	if (ret)
-+		return ret;
-+
-+	if (get_unaligned_be16(val) != fts_boot_ecc(data, len)) {
-+		dev_err(&spi->dev, "ECC mismatch: %04x != %04x\n",
-+			get_unaligned_be16(val), fts_boot_ecc(data, len));
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
-+static u32 fts_fw_len(const struct firmware *fw, unsigned int off,
-+		      const struct fts_ram_chip *chip)
-+{
-+	const u8 *info = fw->data + FTS_FW_INFO_OFFSET + off;
-+	u16 len = get_unaligned_be16(info);
-+
-+	if ((u16)(len + get_unaligned_be16(info + 2)) != 0xffff)
-+		return 0;
-+
-+	return len * chip->len_unit;
-+}
-+
-+static int fts_ram_boot(struct device *dev, struct gpio_desc *reset,
-+			const struct fts_ram_chip *chip)
-+{
-+	struct spi_device *spi = to_spi_device(dev);
-+	const struct firmware *fw;
-+	const char *fw_name = chip->default_fw;
-+	u32 pram_len, dram_len;
-+	u8 id;
-+	int ret, i;
-+
-+	device_property_read_string(dev, "firmware-name", &fw_name);
-+
-+	ret = request_firmware(&fw, fw_name, dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = -EINVAL;
-+	if (fw->size < FTS_FW_MIN_LEN) {
-+		dev_err(dev, "firmware %s too short\n", fw_name);
-+		goto out;
-+	}
-+
-+	pram_len = fts_fw_len(fw, 0, chip);
-+	dram_len = fts_fw_len(fw, 8, chip);
-+	if (!pram_len || pram_len > chip->pram_max ||
-+	    pram_len + dram_len > fw->size) {
-+		dev_err(dev, "invalid firmware %s\n", fw_name);
-+		goto out;
-+	}
-+
-+	ret = fts_boot_enter(spi, reset, chip);
-+	if (ret)
-+		goto out;
-+
-+	ret = fts_boot_write_ram(spi, chip, 0, fw->data, pram_len);
-+	if (!ret)
-+		ret = fts_boot_check_ecc(spi, fw->data, pram_len);
-+	if (ret) {
-+		dev_err(dev, "failed to load program RAM: %d\n", ret);
-+		goto out;
-+	}
-+
-+	if (dram_len) {
-+		ret = fts_boot_write_ram(spi, chip, chip->dram_base,
-+					 fw->data + pram_len, dram_len);
-+		if (!ret)
-+			ret = fts_boot_check_ecc(spi, fw->data + pram_len,
-+						 dram_len);
-+		if (ret) {
-+			dev_err(dev, "failed to load data RAM: %d\n", ret);
-+			goto out;
-+		}
-+	}
-+
-+	ret = fts_spi_write(spi, FTS_BOOT_CMD_START_APP, NULL, 0);
-+	if (ret)
-+		goto out;
-+
-+	/* Wait for the application to report the chip ID */
-+	for (i = 0; i < 20; i++) {
-+		fsleep(10 * USEC_PER_MSEC);
-+		if (!fts_spi_read(spi, FTS_REG_CHIP_ID, &id, 1) &&
-+		    id == chip->chip_id)
-+			break;
-+	}
-+	if (i == 20) {
-+		dev_err(dev, "firmware did not start\n");
-+		ret = -EIO;
-+		goto out;
-+	}
-+
-+	dev_dbg(dev, "loaded %s (%u + %u bytes)\n", fw_name, pram_len,
-+		dram_len);
-+out:
-+	release_firmware(fw);
-+	return ret;
-+}
-+
-+static const struct fts_ram_chip fts_ft8722 = {
-+	.boot_id = { 0x87, 0x22 },
-+	.chip_id = 0x87,
-+	.len_unit = 2,
-+	.pram_max = 88 * 1024,
-+	.dram_base = 0xd00000,
-+	.packet_len = 32 * 1024 - 16,
-+	.boot_delay_ms = 8,
-+	.default_fw = "focaltech/ft8722.bin",
-+};
-+
-+static int ft8722_boot(struct device *dev, struct gpio_desc *reset)
-+{
-+	return fts_ram_boot(dev, reset, &fts_ft8722);
-+}
-+
-+static const struct edt_ft5x06_chip_data edt_ft8722_data = {
-+	.max_support_points = 10,
-+	.tdata_reg = 0x01,
-+	.boot = ft8722_boot,
-+};
-+
-+static int edt_ft5x06_spi_probe(struct spi_device *spi)
-+{
-+	const struct edt_ft5x06_chip_data *chip_data;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	chip_data = spi_get_device_match_data(spi);
-+	if (!chip_data)
-+		return -ENODEV;
-+
-+	if (!spi->bits_per_word)
-+		spi->bits_per_word = 8;
-+	ret = spi_setup(spi);
-+	if (ret)
-+		return ret;
-+
-+	regmap = regmap_init(&spi->dev, &fts_spi_regmap_bus, spi,
-+			     &fts_spi_regmap_config);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(&spi->dev, PTR_ERR(regmap),
-+				     "failed to init regmap\n");
-+
-+	return edt_ft5x06_probe(&spi->dev, regmap, spi->irq, chip_data,
-+				BUS_SPI, NULL);
-+}
-+
-+static void edt_ft5x06_spi_remove(struct spi_device *spi)
-+{
-+	edt_ft5x06_remove(&spi->dev);
-+}
-+
-+static const struct of_device_id edt_ft5x06_spi_of_match[] = {
-+	{ .compatible = "focaltech,ft8722-ts", .data = &edt_ft8722_data },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, edt_ft5x06_spi_of_match);
-+
-+static const struct spi_device_id edt_ft5x06_spi_ids[] = {
-+	{ "ft8722-ts", (kernel_ulong_t)&edt_ft8722_data },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(spi, edt_ft5x06_spi_ids);
-+
-+static struct spi_driver edt_ft5x06_spi_driver = {
-+	.driver = {
-+		.name = "edt_ft5x06_spi",
-+		.dev_groups = edt_ft5x06_groups,
-+		.of_match_table = edt_ft5x06_spi_of_match,
-+		.pm = pm_sleep_ptr(&edt_ft5x06_pm_ops),
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+	},
-+	.id_table = edt_ft5x06_spi_ids,
-+	.probe = edt_ft5x06_spi_probe,
-+	.remove = edt_ft5x06_spi_remove,
-+};
-+module_spi_driver(edt_ft5x06_spi_driver);
-+
-+MODULE_IMPORT_NS("EDT_FT5X06");
-+MODULE_AUTHOR("Luka Panio <lukapanio@gmail.com>");
-+MODULE_DESCRIPTION("EDT FT5x06 SPI Touchscreen Driver");
-+MODULE_LICENSE("GPL");
-+MODULE_FIRMWARE("focaltech/ft8722.bin");
--- 
-2.55.0
+1: I used a ai slop tool to suggest *my* fix, and I tested it on rcutorture
+2: I'm sometimes a bit dumb, it happens :(
 
+You said you "don't mind", does that mean you DONT want your fix submitted
+(but I already submitted it ;c), or that you are okay with your fix being
+sent.
+
+
+>
+>
+>> 
+>> > 
+>> > > 
+>> > > Thanks
+>> > > Zqiang
+>> > > 
+>> >  
+>> >  static void call_rcu_tasks_rude(struct rcu_head *rhp, rcu_callback_t
+>> > 
+>> > > 
+>> > > func);
+>> > > 
+>> >  root@p10-linux-brads:~/linux# mailto:root@p10-linux-brads:~/linux# 
+>mailto:root@p10-linux-brads:~/linux# 
+>> >  
+>> >  On POWERPC, this passes 12 hours of rcutorture on the RUDE01 config.
+>> >  
+>> >  If you plan on submitting this into a patch, please add my
+>authorship,
+>> > 
+>> > > 
+>> > > or
+>> > > 
+>> >  my c-d-b. 
+>> >  
+>> >  Feel free to rcutorture test it ;d
+>> >  
+>> >  BTW: have you reproduced this on your own system?
+>> >  
+>> >  > 
+>> >  > Thanks
+>> >  > Zqiang
+>> >  > 
+>> >  > > 
+>> >  > > Zqiang, have you reproduced this OOM on your own system, if so,
+>> > 
+>> > > 
+>> > > could
+>> > > 
+>> >  > > 
+>> >  > you
+>> >  > 
+>> >  > > 
+>> >  > > tell me more details, you may turn my frown into a smiley face ;)
+>> >  > > 
+>> >  > > > 
+>> >  > > > Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+>> >  > > > ---
+>> >  > > > kernel/rcu/tasks.h | 3 ++-
+>> >  > > > 1 file changed, 2 insertions(+), 1 deletion(-)
+>> >  > > > 
+>> >  > > > diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+>> >  > > > index fcac7361ec51..91c25717402e 100644
+>> >  > > > --- a/kernel/rcu/tasks.h
+>> >  > > > +++ b/kernel/rcu/tasks.h
+>> >  > > > @@ -1361,7 +1361,8 @@ static void rcu_tasks_be_rude(struct
+>> > 
+>> > > 
+>> > > work_struct
+>> > > 
+>> >  > > 
+>> >  > *work)
+>> >  > 
+>> >  > > 
+>> >  > > > static void rcu_tasks_rude_wait_gp(struct rcu_tasks *rtp)
+>> >  > > > {
+>> >  > > > rtp->n_ipis += cpumask_weight(cpu_online_mask);
+>> >  > > > - schedule_on_each_cpu(rcu_tasks_be_rude);
+>> >  > > > + WARN_ONCE(schedule_on_each_cpu(rcu_tasks_be_rude),
+>> >  > > > + "%s: Too-short grace period, OOM is now expected
+>> > 
+>> > > 
+>> > > behavior!!!\n",
+>> > > 
+>> >  > > 
+>> >  > rtp->name);
+>> >  > 
+>> >  > > 
+>> >  > > > 
+>> >  > > Good message, makes sense. But I don't think this is right, see
+>> > 
+>> > > 
+>> > > above.
+>> > > 
+>> >  > > 
+>> >  > > > 
+>> >  > > > }
+>> >  > > > 
+>> >  > > > static void call_rcu_tasks_rude(struct rcu_head *rhp,
+>> > 
+>> > > 
+>> > > rcu_callback_t
+>> > > 
+>> >  > > > func);
+>> >  > > > 
+>> >  > > --- Thanks!
+>> >  > > "I'm not a very positive person" - Linus torvalds
+>> >  > >
+>> >  > 
+>> >  --- Thanks!
+>> >  "I'm not a very positive person" - Linus torvalds
+>> > 
+>> > --- Thanks!
+>> > "I'm not a very positive person" - Linus torvalds
+>> > 
+>> --- Thanks!
+>> "I'm not a very positive person" - Linus torvalds
+>>
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
