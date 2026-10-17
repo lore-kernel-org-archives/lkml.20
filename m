@@ -1,57 +1,74 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E793AD516;
-	Sat, 17 Oct 2026 13:14:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3C4242D7B
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 13:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792242845; cv=none; b=BWwyujJC3pBkCyQvhxDSuculVEzgfBAxkITmnGM/e1UeAYnyM8mBPRNM0Dx0P44zdn+GedCIZQHX/oPzBxPI7uw+flW/8N3FMpnPbK6jSG1n20zagu5CZ1dNKfX8+sNjRNI6F4m1nIP6alNyD6Tq70BO5oW026LaBQSHGNO3Ih0=
+	t=1792243471; cv=none; b=fSJKqTpyedLnCbo+NEXOq1OD0BVdH1O8hKWVvdFLwGqhQndhQFFuNnHU/v0Lm+F6ZOgzgC06PLOJfawXR/IGoiQPDwPz2jNUDbx0wVuukj509KrpYbX/Jz0wi1+EEP0z1Iotv2Z/2FHGj2b7C58yj+D9Nj1x8Ys6DN7a4kWyJIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792242845; c=relaxed/simple;
-	bh=JhqV9qgcM/uvUapF+jThpqVr1FyMbJ+kztGNoub7Y/M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tjxw4IUzdOwKpTdPlssciyESlNCujxi9EFCYTSqakVVnBglHV1pby1mFq/f1RayRV6AgVSQzndtoVN+rYQgY4cYH4kt0vVs6rCArcRM7DM6A8ZPjvTHxoxLB5VzKG1O/o3n01cDlo+aI0FaWZcp2KCXYTn//t8r65rgAAZE86kI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=gkWe4Iw/; arc=none smtp.client-ip=115.124.30.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1792243471; c=relaxed/simple;
+	bh=gLue7yef9uvfyxJFMURRNO3MQczL2A/EJwhF0/lnaIw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HRjlg84xWhcXdyoeR4nfhU0eHbGvXLMdV8z2Z4o87ZuG0Xif3Fcv56AqGlDltxJv+2wTH7dfzLWmB90Xg60MuhJ1G95c/tS5X+8grbSGm65ybxMXJbfW7ywYmztSrdseDQ1eqn1WHmqRDF+KGvYcucM18Wr3Lul1pdXO8Hek7Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dkgj9xnv; arc=none smtp.client-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="gkWe4Iw/"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792242834; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=h1wv041oPlWAQwmsLMvk9LUOMcsyK9a97+mNPFPm+oI=;
-	b=gkWe4Iw/iTp7Jvy/0EBSRIgB72ZFMXmeG3Z9FcuqFd0ZBtE7iCBZym9oxC6ZQHAT83ICwkMPjqFzB15QyS6eJqgTIMAgQNr3S88HpEPpSdeLcIY0xnLMPvrlG4Z+pB/JUpR7PXjH9GVOOfmdEjQwL1IT7yG7SAEO2dIwFNBX6Ss=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=peng_wang@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XCxEdhX_1792242832;
-Received: from localhost(mailfrom:peng_wang@linux.alibaba.com fp:SMTPD_---0XCxEdhX_1792242832 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 17 Oct 2026 21:13:53 +0800
-From: Peng Wang <peng_wang@linux.alibaba.com>
-To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Peng Wang <peng_wang@linux.alibaba.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Waiman Long <longman@redhat.com>,
-	Tejun Heo <tj@kernel.org>,
-	He Rongguang <herongguang@linux.alibaba.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dkgj9xnv"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1517bda04a0so618086c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 06:24:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792243469; x=1792848269; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vuBcV8Vuj1/7kHJ1EaX30e66343TtFfRGuqJHWrtZw4=;
+        b=dkgj9xnviuv/P8J2FHyAjuMtc+RWrS9+mWXAIFVTqVoU+MXmTqGLEXk4tESTec7OXK
+         PR0K+qsUTmZw2IuvJF+HGX7MlmpIKTLKJljBF2lVo5Ik1ah1snHLSIwtpTuhoiPBAyk3
+         VRKWo1UYGDTfi3mdsRq8GS4YXVO0YqCxRVBbO3iexQXCnlaRkltbhTzJPlxoEcJxg9Zh
+         Ei6RuKTBHXlVNTtTAUiAc3CmuawEuk54oM+GTqHKTZyjidbmqWcrpKSjFnRhuDqofKBC
+         7XaAb9GhTBXUnnfZJ5/0AbpPHHAL4+uA9kCtJR3nLr+kMaz+GbIdmuDj/9hkK0n7ylr2
+         Xm/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792243469; x=1792848269;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vuBcV8Vuj1/7kHJ1EaX30e66343TtFfRGuqJHWrtZw4=;
+        b=X3KMNDMn5ZjpWQRuJR96AvPZN3R9xAsJya9eXnTQog376sbUP9XaTzcW5XxB7bJ4Dv
+         lTdOA4rwz5xabkxEtq5Hp+K5p3PFhWnim9xtKeEMrn98/u/NDwDeQgDPLcMLS+Ww4Tc8
+         lCrsxVEaDt6pRcTzL3i6awDURgelivmv/UklJCqsxAXpbw/f3S8jjUQRKDPUPVtvC36o
+         Xqc/2x5Koi0QyAFXKbn3yAHvShLidtvKQez159J2BKM7k3X1xvweQg6VSPxRzvZ0XENw
+         MPLOuineamcQr3s0Pkvxu+HHcrgIj5Vtqar6++vxx4aJ06kiLZpvIVbfYNiCIDXY5NMV
+         FO9g==
+X-Forwarded-Encrypted: i=1; AKwUvBx8mcZU9RoZHNpGYfeRvCXwUw9bsegga5tPJbgLQt9n39DAjr/HbKTtktBLuZjIN/XdNtJNMdM9/e4XNpw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKj+K0fVLU3BgfwOmr9VsSZtCfcc1JDx2HvsDcgF4+gMqtg0kfa
+	1nR61R9+I7Sx7qIKSB0C2nwKa/+nJURMeeHLAGIMilvQj69sLlUzz+G2
+X-Gm-Gg: AYBFou3LZOKhHrBUdhdrFJSni+kPpYDw8PY9sbF7524PKla0z5b1sgPlN5soO0+4HFG
+	dREIAri5/O1HgFNfNFILiROiYkXpC1hwn9z3Tp/zXAjqcIL2P5VHw7QPMLVe/bb7Xe9tolPYyJ2
+	XOK0tzPM8Uool4/zd6WsLBMgFJ+CdIk+SvgpYmDs0Cq2K1HQx1KFw+EakXNkAAJ8k9mVzURDy65
+	9/6FWs3BBQATA5I3tvPHZFRekox1zSoLtIKie4NNf9ddLreEJyPGNsbZkkGXHQpD5qA/32wv5XL
+	t+g61aV/Dds7xBNWBnzULccVdHVX7utE87rHyXvILjYa+E0mZijRBplUxDezGFBqVSrrL4UyUuq
+	j3PBDM9tDmQUwY98fyoKvzSBs7+9bxuxjr3w9FeEayKVAC0dRj2Utx7ZhcAdKUMUFo7SY+TsO7t
+	Z+e74OSpntAiT5iR2Gn9xN50FJWzzU4/GU2YFEbQKi+pccsrT8lrjh4hduJVztu6hqi+A6gmSIw
+	EH3X/iXHjIKJavOBYmIpwPcZKYcKoYCgy1RoNI38lYj2UfqeLJ2cplyEdxpiwONUATcLj253Lsc
+	XeXoW8/xSYd5dy0=
+X-Received: by 2002:a05:701b:4309:b0:144:c128:4c4b with SMTP id a92af1059eb24-185134dd22cmr3563521c88.36.1792243469339;
+        Sat, 17 Oct 2026 06:24:29 -0700 (PDT)
+Received: from archlinux.tailec59cb.ts.net ([2405:201:1b:20ef:268a:fa82:9f05:61a5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c4d4675sm13406158c88.21.2026.10.17.06.24.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 06:24:29 -0700 (PDT)
+From: Krishna Chomal <krishna.chomal108@gmail.com>
+To: ilpo.jarvinen@linux.intel.com,
+	hansg@kernel.org
+Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org
-Subject: [RFC PATCH v2 2/2] cpu: Add per-CPU control of non-idle tick suppression
-Date: Sat, 17 Oct 2026 21:13:42 +0800
-Message-ID: <224314ef5ad5c3c7634f73efad433616eb1d68ca.1792242566.git.peng_wang@linux.alibaba.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <cover.1792242566.git.peng_wang@linux.alibaba.com>
-References: <cover.1792242566.git.peng_wang@linux.alibaba.com>
+	Krishna Chomal <krishna.chomal108@gmail.com>,
+	Lorenzo Collevecchio <lorenzocollevecchio17@gmail.com>
+Subject: [PATCH] platform/x86: hp-wmi: Disable hwmon attributes when no fans are usable
+Date: Sat, 17 Oct 2026 18:54:21 +0530
+Message-ID: <20261017132421.279522-1-krishna.chomal108@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,141 +77,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Expose cpuN/nohz_tick_allowed on CPUs in the boot-time nohz_full set.
-The boolean defaults to 1: allow non-idle tick suppression, subject to
-existing dependencies. Writing 0 prevents suppression through POLICY.
-Readback reports permission, not the current tick state.
+Currently, hp_wmi_hwmon_is_visible() checks whether fan RPM queries
+succeed before exposing fan1_input and fan2_input, but pwm1_enable
+remains visible always, even when fan support is unavailable. On some
+devices, such as certain Omnibook models, the firmware does not provide
+functional WMI fan methods. Exposing pwm1_enable on these devices can
+mislead userspace and cause fan mode changes to fail.
 
-Each write affects only that CPU. Registered offline CPUs remain
-configurable, and policy persists across offline/online transitions.
-Retry writes when CPU hotplug is in progress so CPU device removal
-can drain active sysfs callbacks without a lock dependency cycle.
+Additionally, some firmware implementations provide stub methods
+that return an all-zero buffer instead of an error. In this case,
+hp_wmi_get_active_fan_speed() and hp_wmi_get_fan_speed() can report 0
+RPM even when the fan is physically spinning.
 
-Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
-Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
-Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
+Use the result of fan count query (fetched from firmware once in
+hp_wmi_setup_fan_settings(), and cached in hwmon private data) to
+determine whether fan related attributes should be exposed.
+
+The fan count query can have the following outcomes:
+* Negative: The WMI query failed. Other fan-related queries are also
+  expected to fail, so disable fan support.
+* Zero (stub firmware): The methods return zero-filled responses without
+  providing functional fan support, so disable fan support.
+* Zero (genuine firmware): No fans are exposed through WMI, so disable
+  fan support.
+* Positive (1 or 2): Firmware reports one or more fans, so allow fan
+  support. Per-channel RPM queries continue to determine which
+  individual fan input attributes are exposed.
+
+When fan support is unavailable, hide the fan and PWM attributes and
+skip applying the initial fan settings.
+
+Tested on: HP OmniBook 5 Laptop 16-ag1xxx (board: 8DF4)
+
+Tested-by: Lorenzo Collevecchio <lorenzocollevecchio17@gmail.com>
+Reported-by: Lorenzo Collevecchio <lorenzocollevecchio17@gmail.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222138
+Signed-off-by: Krishna Chomal <krishna.chomal108@gmail.com>
 ---
- .../ABI/testing/sysfs-devices-system-cpu      | 27 ++++++++++
- drivers/base/cpu.c                            | 53 +++++++++++++++++++
- 2 files changed, 80 insertions(+)
+ drivers/platform/x86/hp/hp-wmi.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
-index 82d10d556cc89..4f6ac6b41e2b6 100644
---- a/Documentation/ABI/testing/sysfs-devices-system-cpu
-+++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
-@@ -767,6 +767,33 @@ Description:	Preferred MTE tag checking mode
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 0eac5e1d9cdb..52077833ac89 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -651,6 +651,7 @@ enum pwm_modes {
  
- 		See also: Documentation/arch/arm64/memory-tagging-extension.rst
+ struct hp_wmi_hwmon_priv {
+ 	struct mutex lock;	/* protects mode, pwm */
++	int fan_count;
+ 	u8 min_rpm;
+ 	u8 max_rpm;
+ 	u8 mode;
+@@ -2950,12 +2951,18 @@ static umode_t hp_wmi_hwmon_is_visible(const void *data,
+ 				       enum hwmon_sensor_types type,
+ 				       u32 attr, int channel)
+ {
++	const struct hp_wmi_hwmon_priv *priv = data;
++
+ 	switch (type) {
+ 	case hwmon_pwm:
++		if (priv->fan_count <= 0)
++			return 0;
+ 		if (attr == hwmon_pwm_input && !hp_wmi_fan_control_supported())
+ 			return 0;
+ 		return 0644;
+ 	case hwmon_fan:
++		if (priv->fan_count <= 0)
++			return 0;
+ 		if (hp_wmi_fan_control_supported()) {
+ 			if (hp_wmi_get_active_fan_speed(channel) >= 0)
+ 				return 0444;
+@@ -3124,6 +3131,7 @@ static int hp_wmi_setup_fan_settings(struct hp_wmi_hwmon_priv *priv)
  
-+What:		/sys/devices/system/cpu/cpuX/nohz_tick_allowed
-+Date:		October 2026
-+Contact:	Linux kernel mailing list <linux-kernel@vger.kernel.org>
-+Description:
-+		(RW) Boolean allowing this CPU to stop its non-idle scheduler
-+		tick. Present only for registered CPUs in the boot-time
-+		nohz_full set, with CONFIG_NO_HZ_FULL.
-+
-+		The default is 1 (allowed), subject to existing tick
-+		dependencies. Writing 0 prevents non-idle tick suppression;
-+		writing 1 allows it without forcing the tick to stop. Each
-+		write affects one CPU. Readback reports permission, not the
-+		current tick state.
-+
-+		Revoking permission requests an asynchronous restart of a
-+		stopped non-idle tick on an online CPU. The write does not wait
-+		for restart. Idle tick suppression is unchanged; the policy
-+		applies when the CPU leaves idle.
-+
-+		Registered offline CPUs may be configured. Policy is retained
-+		per logical CPU across offline/online and CPU device removal
-+		and re-addition. CPUs without a registered cpuN device cannot
-+		be configured through this interface.
-+
-+		This does not change nohz_full membership, context tracking,
-+		RCU offloading or housekeeping configuration.
-+
- What:		/sys/devices/system/cpu/nohz_full
- Date:		Apr 2015
- Contact:	Linux kernel mailing list <linux-kernel@vger.kernel.org>
-diff --git a/drivers/base/cpu.c b/drivers/base/cpu.c
-index 69e52fed42415..6fad1b0227dac 100644
---- a/drivers/base/cpu.c
-+++ b/drivers/base/cpu.c
-@@ -7,6 +7,7 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/sched.h>
-+#include <linux/sched/signal.h>
- #include <linux/cpu.h>
- #include <linux/topology.h>
- #include <linux/device.h>
-@@ -189,7 +190,56 @@ static const struct attribute_group crash_note_cpu_attr_group = {
- };
- #endif
+ 	/* Default behaviour on hwmon init is automatic mode */
+ 	priv->mode = PWM_MODE_AUTO;
++	priv->fan_count = hp_wmi_get_fan_count_userdefine_trigger();
  
-+#ifdef CONFIG_NO_HZ_FULL
-+static ssize_t nohz_tick_allowed_show(struct device *dev,
-+				     struct device_attribute *attr, char *buf)
-+{
-+	return sysfs_emit(buf, "%u\n", tick_nohz_full_get_allowed(dev->id));
-+}
-+
-+static ssize_t nohz_tick_allowed_store(struct device *dev,
-+				      struct device_attribute *attr,
-+				      const char *buf, size_t count)
-+{
-+	bool allowed;
-+	int ret;
-+
-+	ret = kstrtobool(buf, &allowed);
-+	if (ret)
-+		return ret;
-+
-+	ret = tick_nohz_full_set_allowed(dev->id, allowed);
-+	if (ret == -EBUSY) {
-+		/* Retry after releasing the sysfs active reference. */
-+		fsleep(5000);
-+		return restart_syscall();
+ 	/* Bypass devices without fan control support. */
+ 	if (!hp_wmi_fan_table_supported())
+@@ -3208,6 +3216,11 @@ static int hp_wmi_hwmon_init(void)
+ 		return PTR_ERR(hwmon);
+ 	}
+ 
++	if (priv->fan_count <= 0) {
++		dev_info(dev, "No usable fans reported by WMI, disabling fan support\n");
++		return 0;
 +	}
 +
-+	return ret ? ret : count;
-+}
-+static DEVICE_ATTR_RW(nohz_tick_allowed);
-+
-+static umode_t nohz_tick_is_visible(struct kobject *kobj,
-+				   struct attribute *attr, int unused)
-+{
-+	return tick_nohz_full_cpu(kobj_to_dev(kobj)->id) ? attr->mode : 0;
-+}
-+
-+static struct attribute *nohz_tick_cpu_attrs[] = {
-+	&dev_attr_nohz_tick_allowed.attr,
-+	NULL
-+};
-+
-+static const struct attribute_group nohz_tick_cpu_attr_group = {
-+	.attrs = nohz_tick_cpu_attrs,
-+	.is_visible = nohz_tick_is_visible,
-+};
-+#endif
-+
- static const struct attribute_group *common_cpu_attr_groups[] = {
-+#ifdef CONFIG_NO_HZ_FULL
-+	&nohz_tick_cpu_attr_group,
-+#endif
- #ifdef CONFIG_CRASH_DUMP
- 	&crash_note_cpu_attr_group,
- #endif
-@@ -197,6 +247,9 @@ static const struct attribute_group *common_cpu_attr_groups[] = {
- };
- 
- static const struct attribute_group *hotplugable_cpu_attr_groups[] = {
-+#ifdef CONFIG_NO_HZ_FULL
-+	&nohz_tick_cpu_attr_group,
-+#endif
- #ifdef CONFIG_CRASH_DUMP
- 	&crash_note_cpu_attr_group,
- #endif
+ 	ret = hp_wmi_apply_fan_settings(priv);
+ 	if (ret)
+ 		dev_warn(dev, "Failed to apply initial fan settings: %d\n", ret);
 -- 
-2.47.0
+2.56.0
 
