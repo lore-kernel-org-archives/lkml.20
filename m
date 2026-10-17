@@ -1,182 +1,146 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6703DB96F
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2933D1ABD;
+	Sat, 17 Oct 2026 20:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792270538; cv=none; b=g+Hy5ISU4kh8196I3lBteQmwOQ41GoQclG3AzDzuVzpbuUijwtY8EMOQxJva4OxnQe556b+R189kN8xjMqrNahqboJdxubsFvSkb+KZyT4UV44EozHeIyUzJm+VHWergnOqA1YJS+CJ5ASIBka6Wy+WpmZ24KS0N4ug3tLMhLd0=
+	t=1792270615; cv=none; b=lI6zdgliTPwKdZ8JILQ8pvt3G57i7SM1yjW1mTBQ2vlMm3n8PBZx3LOLehtXP/HHkqI8kKtqhsTdpRJWWRqO4B/ZACgapOvk+xAFV743pMI5E7IPN9ieNfujosDgKqsusa28YGauaEFJsZ3ZtEN0HIhEb4KUU8YGwOqtElg1Nxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792270538; c=relaxed/simple;
-	bh=Np33pUZ03ybJkTaLCWapmqgrfPNKYoPDMRMSeWtGcsE=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=oVn2F0PD8hdK0gCqrj3JaiGT8IchpiG1IREptOsTSO0CyLoWY+41Dg+qByyoFpHOdc+o0tL4YeMeKZUeTRCnLrqnoQ/zqgQ97k3WQdEvw9tQHN/WZUxi4y7CyGL8gWGYG9wM+sGGureAdYMXoy/jcnAhX4ZHM1YZaCIeHZLxktA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8468290b866so763496a34.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 13:55:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792270535; x=1792875335;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XkCz3HCYfdF/OoT6Q+24x/6yDact+rY8x9IzAwYTBKY=;
-        b=N8i1PHTDKRi00HcyyxktL7qUUdNHeZj2seuYRomuDfrJ39VJLw6r+tla2zYpYl1T2f
-         /z5NHI+x30Bkex5OYJ27fi85zgFSft02KBonpiOca4fL0f6MKgtHtr4w9/NGMsB1cq5l
-         q4gYV24Z0XCsAPSe4EOzDQ1Ja35yzhErROsZN3jfEZovZXoL3Xg1Y5uPu9GBKOMPLjqi
-         wTZpDx9dTYBhFZrKNSQvn5EQKjhRoOwffBqGnCyaQkKodx4CntuLkaPO33kEa9JMwUPL
-         HmEXkXS6ZwFaZraNxLRot6cfgqi9kaVcT67WvA6BWUYq0W987ugdqWtuAeuhZ09X3spI
-         mQWw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZAt7n1MJHRVFiV1ciXbbhLlFa1JLMaophxZ18RqaEbqUaSreeBXK5rheCjy2vNfQuDwS7Su3QGaD6hco=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4HNcBn7GKwVa9bhlXotu6QLTYjwRShwj76/Ds6vOMpeBysZ2t
-	RWpL8/5g2oyhvfLxRyQMray9C6JlwNjYTRaSG0zKWkFbY0vIC65pxsp8xDNM0zkSgycSHVhk8fO
-	YNuCqzY8F/54KPvKLSyKxgY4fUhleUV6fZJP7ZkvOx3TKVfb8E4ghUWPOwmU=
+	s=arc-20240116; t=1792270615; c=relaxed/simple;
+	bh=aNBNRODfl+LBphR93nXPTS1UcwhBxEF/nlaa1RPjIH4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JZvXr3BGanbNw1FCM3iPRi3UKRk2XV4bDQpBQh9VLx3u6gnQeuEwQ5QtBmicENFJuY1bw+VfBMc/ZshrOmnH/O4oocUGjr4trw1s70rV0h2+3dbLsZrnmiC1roKIjw1gxNEmbEW3w2LH6kAyoE9XKGzyOjQbQCsgdwJkeDkcAss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocoofUb5; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocoofUb5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE3C1F000C4;
+	Sat, 17 Oct 2026 20:56:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792270613;
+	bh=ICaHlESv3/ZEgb0CL6c9OpvIzwqhaxILgNv0hKoeWb4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ocoofUb5j8zOL9hJxSUpD9COIXYE+Qb98ZjzeRsCrYCd2mgQCqyg5Y9Kfmp48uxj/
+	 C6vcahxYvFOvszO4UHHTNQvghBy6IQZqB+J16ZtYEKbEDEFWPuJH0xXNniJJ8K0m0u
+	 x62noQj5k+QgnRLu1jJJ+8p4WTl2aOM8fNd+Fv8Xqoth1mW47YurD51peFurGGYUMb
+	 jDRCCbXsBvqJ0ZOA1xJEuZvq3RwsSRvvitD0ppxwT8yzEuCyosnk0hxjmTEgXBYqPY
+	 wFMNSwaLXbD9nzQRvYPgdwwxkUXWWO/bO0cCFODqPnNZNgi/bY1ENy6Fs5KedcMjoU
+	 bWwQlAV/qYIUg==
+Date: Sat, 17 Oct 2026 13:56:51 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Sunil V L <sunilvl@oss.qualcomm.com>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
+	yunhui cui <cuiyunhui@bytedance.com>,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	x86@kernel.org, devicetree@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v9 2/5] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
+Message-ID: <atPhE6rF0Uz93qF2@thelio>
+References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
+ <20261003-dfustini-atl-sc-cbqri-dt-v9-2-52fd8be98dcf@kernel.org>
+ <CAB19ukEkAOMnPpi2jVFz68GZ_7cwYmNtrBkxnfEJtFcPb7PJ5Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6c93:b0:4e8:2150:2a1 with SMTP id
- 5614622812f47-53cd63c1741mr2497986b6e.68.1792270534947; Sat, 17 Oct 2026
- 13:55:34 -0700 (PDT)
-Date: Sat, 17 Oct 2026 13:55:34 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad3e0c6.a6d1a155.34a93f.004a.GAE@google.com>
-Subject: [syzbot] [mtd?] memory leak in phram_setup
-From: syzbot <syzbot+c9d8bc9f8ccc03799e1f@syzkaller.appspotmail.com>
-To: joern@lazybastard.org, linux-kernel@vger.kernel.org, 
-	linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com, richard@nod.at, 
-	syzkaller-bugs@googlegroups.com, vigneshr@ti.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAB19ukEkAOMnPpi2jVFz68GZ_7cwYmNtrBkxnfEJtFcPb7PJ5Q@mail.gmail.com>
 
-Hello,
+On Mon, Oct 12, 2026 at 10:23:57PM +0530, Sunil V L wrote:
+> On Sat, Oct 3, 2026 at 12:45 PM Drew Fustini <fustini@kernel.org> wrote:
+> >
+> > Wire CBQRI capacity controllers into resctrl as RDT_RESOURCE_L2 and
+> > RDT_RESOURCE_L3 schemata.
+> >
+> > resctrl exposes a single capacity mask per resource, so when more than
+> > one capacity controller backs a cache level they must report the same
+> > number of capacity blocks. The same holds for the other capabilities
+> > resctrl exposes once per resource. A level whose controllers disagree
+> > is left unexposed. Other levels are unaffected.
+> >
+> > The set of controllers backing each level is fixed when resctrl is set
+> > up at late_initcall. Control domains are created in the cpuhp online
+> > callback and keyed on the onlining CPU's cache id from cacheinfo, so a
+> > CPU that is offline at probe time still joins its domain once it comes
+> > online, provided a controller for its cache is in that set. A CPU whose
+> > cache has no controller is left out of that level and a warning is
+> > logged once. A domain is published on the ctrl_domains RCU list only
+> > after it is fully initialized and brought online, and removed from the
+> > list before it is taken offline, following the documented safe
+> > traversal rules.
+> >
+> > Assisted-by: LLM
+> > Tested-by: Chen Pei <cp0613@linux.alibaba.com>
+> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Drew Fustini <fustini@kernel.org>
+> > ---
+> >  MAINTAINERS                      |   2 +
+> >  arch/riscv/include/asm/resctrl.h | 147 +++++++
+> >  drivers/resctrl/Kconfig          |   4 +
+> >  drivers/resctrl/Makefile         |   1 +
+> >  drivers/resctrl/cbqri_resctrl.c  | 831 +++++++++++++++++++++++++++++++++++++++
+> >  5 files changed, 985 insertions(+)
+[..]
+> > diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resctrl.c
+> > new file mode 100644
+> > index 000000000000..f10a24761b25
+> > --- /dev/null
+> > +++ b/drivers/resctrl/cbqri_resctrl.c
+[..]
+> > +static int cbqri_resctrl_setup(void)
+> > +{
+> > +       int rid;
+> > +       int err;
+> > +
+> > +       for (rid = 0; rid < RDT_NUM_RESOURCES; rid++)
+> > +               cbqri_resctrl_resources[rid].resctrl_res.rid = rid;
+> > +
+> Why can't cbqri_resctrl_control_init directly use
+> cbqri_resctrl_resources? I feel this initialization is redundant.
 
-syzbot found the following issue on:
+This is similar to what x86 and arm mpam also do since it is important
+before any resctrl code is called. for_each_rdt_resource() will get
+stuck in a loop if the rid values are not initialized. In contrast,
+cbqri_resctrl_control_init() only handles the resources for which
+cbqri_resctrl_pick_caches() found a controller.
 
-HEAD commit:    24a19b953e2a Linux 7.3-rc7
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15a128a5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=eeccc827207f48ec
-dashboard link: https://syzkaller.appspot.com/bug?extid=c9d8bc9f8ccc03799e1f
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=110d73d1580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1025968e580000
+The initialization could be moved into cbqri_resctrl_control_init()
+before any early return paths but it does introduce the possibility that
+rid initialization could be missed if cbqri_resctrl_control_init() is
+ever refactored. Given that, I'm inclined to keep the current structure.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/0f1e259089c6/disk-24a19b95.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/6b65050296a3/vmlinux-24a19b95.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/cb73ff77ea56/bzImage-24a19b95.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c9d8bc9f8ccc03799e1f@syzkaller.appspotmail.com
-
-BUG: memory leak
-unreferenced object 0xffff88810afde7f8 (size 8):
-  comm "syz.0.17", pid 5903, jiffies 4294943995
-  hex dump (first 8 bytes):
-    70 30 00 00 00 00 00 00                          p0......
-  backtrace (crc 43334c2):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4696 [inline]
-    slab_alloc_node mm/slub.c:4996 [inline]
-    __do_kmalloc_node mm/slub.c:5413 [inline]
-    __kmalloc_node_track_caller_noprof+0x40d/0x560 mm/slub.c:5545
-    __kmemdup_nul mm/util.c:64 [inline]
-    kstrdup+0x3c/0x80 mm/util.c:84
-    parse_name drivers/mtd/devices/phram.c:224 [inline]
-    phram_setup+0x1c2/0x360 drivers/mtd/devices/phram.c:286
-    phram_param_call+0xe4/0x110 drivers/mtd/devices/phram.c:349
-    param_attr_store+0x99/0x130 kernel/params.c:591
-    module_attr_store+0x3d/0x60 kernel/params.c:906
-    sysfs_kf_write+0x94/0xb0 fs/sysfs/file.c:145
-    kernfs_fop_write_iter+0x1f1/0x2d0 fs/kernfs/file.c:345
-    new_sync_write fs/read_write.c:595 [inline]
-    vfs_write+0x3ae/0x720 fs/read_write.c:687
-    ksys_write+0xa5/0x170 fs/read_write.c:739
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff88810afdebe8 (size 8):
-  comm "syz.0.18", pid 5905, jiffies 4294943995
-  hex dump (first 8 bytes):
-    70 30 00 00 00 00 00 00                          p0......
-  backtrace (crc 43334c2):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4696 [inline]
-    slab_alloc_node mm/slub.c:4996 [inline]
-    __do_kmalloc_node mm/slub.c:5413 [inline]
-    __kmalloc_node_track_caller_noprof+0x40d/0x560 mm/slub.c:5545
-    __kmemdup_nul mm/util.c:64 [inline]
-    kstrdup+0x3c/0x80 mm/util.c:84
-    parse_name drivers/mtd/devices/phram.c:224 [inline]
-    phram_setup+0x1c2/0x360 drivers/mtd/devices/phram.c:286
-    phram_param_call+0xe4/0x110 drivers/mtd/devices/phram.c:349
-    param_attr_store+0x99/0x130 kernel/params.c:591
-    module_attr_store+0x3d/0x60 kernel/params.c:906
-    sysfs_kf_write+0x94/0xb0 fs/sysfs/file.c:145
-    kernfs_fop_write_iter+0x1f1/0x2d0 fs/kernfs/file.c:345
-    new_sync_write fs/read_write.c:595 [inline]
-    vfs_write+0x3ae/0x720 fs/read_write.c:687
-    ksys_write+0xa5/0x170 fs/read_write.c:739
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff88810afde5b8 (size 8):
-  comm "syz.0.19", pid 5908, jiffies 4294943996
-  hex dump (first 8 bytes):
-    70 30 00 00 00 00 00 00                          p0......
-  backtrace (crc 43334c2):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4696 [inline]
-    slab_alloc_node mm/slub.c:4996 [inline]
-    __do_kmalloc_node mm/slub.c:5413 [inline]
-    __kmalloc_node_track_caller_noprof+0x40d/0x560 mm/slub.c:5545
-    __kmemdup_nul mm/util.c:64 [inline]
-    kstrdup+0x3c/0x80 mm/util.c:84
-    parse_name drivers/mtd/devices/phram.c:224 [inline]
-    phram_setup+0x1c2/0x360 drivers/mtd/devices/phram.c:286
-    phram_param_call+0xe4/0x110 drivers/mtd/devices/phram.c:349
-    param_attr_store+0x99/0x130 kernel/params.c:591
-    module_attr_store+0x3d/0x60 kernel/params.c:906
-    sysfs_kf_write+0x94/0xb0 fs/sysfs/file.c:145
-    kernfs_fop_write_iter+0x1f1/0x2d0 fs/kernfs/file.c:345
-    new_sync_write fs/read_write.c:595 [inline]
-    vfs_write+0x3ae/0x720 fs/read_write.c:687
-    ksys_write+0xa5/0x170 fs/read_write.c:739
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Thanks,
+Drew
