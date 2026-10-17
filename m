@@ -1,79 +1,39 @@
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071A93BB9F5
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 07:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 332E03B47E0;
+	Sat, 17 Oct 2026 07:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792223135; cv=none; b=mlziHSN45vtLYM3mChoTgqhfAQr1lzlRtYvkt/m17YqWGcVOxnzyMn2R7aP9O8dUBqXbUcFekwZCBgFv3vsjnVu3idhYKesPWkcxgZjMURnEoe81jDm92KN+qIIn4yUaCPI40WYfZOp8kHzM3pa2LSUj3b22cau9LQmH5PVY6ZE=
+	t=1792223175; cv=none; b=kdiqf1nRuVV/R0DT6xV9mjLDe/EoSjGr3bQ/Nu71DK/CZ/o9y7//Ii22iOnuUIlPamQ+rD1vvhArh1sn2QWXtg1C/8/KBm67U6bDmj2Qnrf8oFogMzhgKT5DJyg+lGW8lSs1qOBZTxYNh6M3MqtHsuGihJGQf0divFSMv+m64Uk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792223135; c=relaxed/simple;
-	bh=Ing3Vja3nrFXgDMNEvQrOtetxsozW78cudR/qPS/oFo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F/0PuVz+4kY9ly1MZKE1beT1AUcVJYeiACpUIumB1q1csuog5iH2zeF8OgH2S86PGE3DQaS3wYa+OnqcRI3f9bsMm2VEuk3LRe0LdKtPzRTaUBZZuZ+uDFIVyIT3ujN+BgoOr9GFT+Xcc3vST0OGp8y8EBJjErHyMf2UtGHY274=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T4YLGb2i; arc=none smtp.client-ip=209.85.221.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792223175; c=relaxed/simple;
+	bh=H07chQ95+I6ytt0i40CO0sn9UXLKnstU8KGtG50XK/0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YKQ39eN+ivOvXYwQNio+yGD5OWsB4QHTSlLS7cRALX4zSf3NcsOdYZpq2TMh2Z5ILChRXUzjxFe4vIPBw0qZ2z3JBab16XwYHWEsahfBHlegEM2Gdl/5zaJXYchOz9Upk5H2Ag7p1bmg6NqqFX8KVFC7/yBzNoEYRD9xghVmHOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=vgCPAEdh reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T4YLGb2i"
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5ea63f01606so339162e0c.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:45:33 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="vgCPAEdh"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792223133; x=1792827933; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xOJGjg+lvYDLo4dWg7JB5b8p1Kepu54TYn5d9QR27hI=;
-        b=T4YLGb2iEqrswCiHicsrczWEZ1o98JuWAbRAF4Nb+mio8cvotu8S+mG1x7BggoKpqN
-         BGn3dqIqmZyFYyYx/+y0JNvqL5c3F4Wbne7vcU5TgKIUXeL/w7M0ZQ81PZrVEl0o+9lv
-         5TEAe2rq2CNBWq9aHpSicFymYQiq5IRuAfyIY32I2uLBBqACtVPIaA+X7fhwZf9RoIbN
-         1jBbs3dQZJNSUTlU+Fagoi2E1B8YxeK/pOvcviDoZ1wpTjmMSTPI+gCNc3loVE77lRd/
-         XIJ7QRUP/zFR0Zz0lF/beC1TVEASJDnEvEDz8d2bqaJUkjS0dN7mL/5F5/ZiaIhpXFAP
-         v8rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792223133; x=1792827933;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xOJGjg+lvYDLo4dWg7JB5b8p1Kepu54TYn5d9QR27hI=;
-        b=we4Oltnla00NQ53TdzXsNDfZc++mgklMr8QUvnSjsyANMbzWQ/b7Tbf0aQKZqGpmBx
-         mgLLDmt9BxWHhYV+uJ49jmU1d50ycO9rlvOEVZDWYgqqvbuPZB+vjIcmF9QhZqP3MQes
-         AiQs3JLTDOkDC1OHCYXUXz8b1pt0pyv8rXOI9Gl0b/tpycB0+AoUOMj1OD0rtz1jG6kG
-         s/9RLbecT9WAHgEdmN7xFuyVfrLMYO4t6zca+xi+ReToINxYrVod/cwfdGjoQB69ABOP
-         T9mvReV8djjN1/rgPb0XoTTyZhz2XdReuuWZGwstSW9xiJqzYE/bX3tKlhykfXVc1aBK
-         xG8g==
-X-Forwarded-Encrypted: i=1; AKwUvBw473BtwSZQjb/uELjGGRQwU5fcGMDdVK2R3hgs3b/RdQYSZ2dxttPQ/kkIRcK7QeyRfUysZcTtWXUWci8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4f7k2vgx4rNglQnb7XZqWhBRkd+b/ZG0Feg+FgcADTywgnxrq
-	O/jbAIvxyhsbTts2FuEX/nHyhKIr+Wrml2LLVHEoRn0vX/Whg0poirXj
-X-Gm-Gg: AYBFou29yGtJC8jDFuIC0dNk/+tUZVKe44pY8PSd63hGBIl/t9mwCDmZAttaFnvuwsi
-	3cRm5Uq0mSMkLiF/cnUdb/lD+FviBCmTmfU+z9d/4GIU1ESs7ako3e4HY4UB4Ir+tLooGhOfBXR
-	SheFBXgohRPlDiE+s7q7Auy2T8iftndaHLDQY0HmvVtMJZddYUY/H2Bx80/ge9vv/ucLb8bofv5
-	/iOymTP0/Sdr8P3ccNfLsmdVuvXaLvFqMcwXJq+hH/LMogklyXhTp0NVHUr0e4kBVOuUIgBGUI2
-	Ot8UtLGeIozvKSOSOH3to1pFvzxb0NP5TmblkNgXnN1IVU00TxwQi/dOvBLvPdXFu+3y5GxBb6g
-	3xO1ZtBrCTD46ptgV6thaEERnzMejTJPOCnjelkjmBRMHzHzJPkn+qlopKgcurMTzav1iwXqmvT
-	AjOoWq5QDAybYfCo/S0GeFGrG6xvNNpP0QVUqexm89UxlyR2wRA2+btu9VDx6MnwFWr5of9iyQi
-	9VEkJ6vnwQyYVIoiItEq1ZFOAmX/Of6sNPTA4ZJrGRcVtVFSM/lqDz4JjSkOrGu
-X-Received: by 2002:a05:6102:161e:b0:7c2:b682:606f with SMTP id ada2fe7eead31-7cc3672ad8cmr521911137.1.1792223132871;
-        Sat, 17 Oct 2026 00:45:32 -0700 (PDT)
-Received: from localhost.localdomain ([186.151.100.62])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b53cfdfsm3701836e0c.15.2026.10.17.00.45.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 00:45:32 -0700 (PDT)
-From: Sebastian Alba Vives <sebasjosue84@gmail.com>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	pjw@kernel.org,
-	samuel.holland@sifive.com
-Cc: linux-serial@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=Mm25wHBCf/
+	/OJi5/+BFN0Xm8rZsFO3NmPjNryFAtrTM=; b=vgCPAEdhqQmjS2yHBZwjs73mwk
+	uB4eE2EuuCCwvZp992ytMhmFQLqX+0lb/hPDp73AVQyJexqhv597848oNghMzBKN
+	SOnLVNdGXbqfdd8ToHgXqrTLhnRCGyJTRrlx0uj2iyQrYLnDf+CQb4ZGjPh6UH+t
+	ey/zwZeFnFb8+D5eQ=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.50])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkAmLwKtJ9NqSequAA--.64257S2;
+	Sat, 17 Oct 2026 15:45:50 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: linux-wireless@vger.kernel.org
+Cc: libertas-dev@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Sebastian Alba <sebasjosue84@estudiantec.cr>
-Subject: [PATCH 2/2] serial: sifive: avoid division by zero in the clock notifier
-Date: Sat, 17 Oct 2026 01:44:53 -0600
-Message-ID: <20261017074453.62645-3-sebasjosue84@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261017074453.62645-1-sebasjosue84@gmail.com>
-References: <20261017074453.62645-1-sebasjosue84@gmail.com>
+	Johan Hovold <johan@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] wifi: libertas: cancel fw_timeout on disconnect
+Date: Sat, 17 Oct 2026 15:45:49 +0800
+Message-Id: <20261017074549.57694-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,77 +41,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkAmLwKtJ9NqSequAA--.64257S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWFyrGF1UJFWkWr15ZF1UZFb_yoW5CFyUpF
+	WYk3y2yr1DZr1aya93Ja1kAwn5Zan5Ja13Kr18uas3ZrnxJr1SqFWF9398WFy3XF4UAa42
+	qFs0yrW7GF98G3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4xMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8i0ePUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUJD2rSPdFn1gABsm
 
-From: Sebastian Alba <sebasjosue84@estudiantec.cr>
+if_usb_disconnect() frees the if_usb_card structure without ever cancelling
+its fw_timeout timer, which can still be pending in the timer wheel at that
+point.
 
-sifive_serial_probe() registers the clock rate-change notifier before
-it initialises the two fields that notifier divides by.  ssp comes from
-devm_kzalloc(), so between clk_notifier_register() and the assignments
-a few lines below, both ssp->baud_rate and ssp->port.uartclk are zero.
+That timer is armed by the RX completion handler if_usb_receive_fwload()
+with a five second deadline while a firmware download is in progress.  The
+only place that cancels it is the asynchronous firmware download callback
+if_usb_prog_firmware(), and it does so before killing the RX URBs:
 
-A rate change taken in that window reaches:
+	wait_event_interruptible(cardp->fw_wq,
+				 cardp->surprise_removed ||
+				 cardp->fwdnldover);
+	timer_delete_sync(&cardp->fw_timeout);
+	usb_kill_anchored_urbs(&cardp->rx_submitted);
 
-  PRE_RATE_CHANGE:  udelay(DIV_ROUND_UP(12 * 1000 * 1000, ssp->baud_rate))
-  POST_RATE_CHANGE: __ssp_update_div() ->
-                      DIV_ROUND_UP(ssp->port.uartclk, ssp->baud_rate) - 1
+Killing the URBs does not undo a timer that a completion handler which was
+already running re-armed in between, so fw_timeout can still be pending
+when the callback returns.
 
-On RISC-V an integer division by zero does not trap; the ISA defines the
-result as all bits set.  DIV_ROUND_UP() therefore yields ULONG_MAX and
-udelay() busy-waits essentially forever, hanging the CPU, rather than
-producing a clean oops.  The POST_RATE_CHANGE path additionally programs
-a bogus divisor into the hardware.
+If the device is disconnected at that point, for example after a
+USBDEVFS_RESET forced unbind or a physical unplug during firmware download,
+the card structure is freed with its timer still queued in a timer wheel
+bucket:
 
-On the FU740 the UART clock is derived from the CPU clock through a
-synchronous divide-by-two, as the notifier's own comment describes, so
-any CPU rate change during probe can hit this.
+	BUG: KASAN: slab-use-after-free in enqueue_timer+0x236/0x250
+	Write of size 8 at addr ffff88800ed324c8
 
-Initialise uartclk and baud_rate before registering the notifier, and
-bail out early if the notifier is ever called with no baud rate set.
+	Allocated by task 1623:
+	 if_usb_probe+0xc8/0xc60
+	 drivers/net/wireless/marvell/libertas/if_usb.c:205
+	Freed by task 1686:
+	 if_usb_disconnect+0x1c6/0x270
+	 drivers/net/wireless/marvell/libertas/if_usb.c:322
 
-Fixes: 45c054d0815b ("tty: serial: add driver for the SiFive UART")
-Signed-off-by: Sebastian Alba <sebasjosue84@estudiantec.cr>
+	The buggy address is located 200 bytes inside of
+	 freed 512-byte region [ffff88800ed32400, ffff88800ed32600)
+
+The offset corresponds to fw_timeout.entry.pprev, so the timer core later
+rewrites the list node of a timer living in freed memory, both when
+enqueuing another timer into the same bucket and when moving the bucket to
+the expired list in run_timer_softirq().
+
+Cancel the timer in if_usb_disconnect(), after if_usb_free() has killed the
+RX URBs, which stops the completion path from arming it again, and before
+the card is freed.
+
+Fixes: 4f82f5c853e3 ("libertas: switch to a waitqueue and timer for handling USB firmware load")
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/tty/serial/sifive.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ drivers/net/wireless/marvell/libertas/if_usb.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/tty/serial/sifive.c b/drivers/tty/serial/sifive.c
-index 4a445d285..cd2925b6a 100644
---- a/drivers/tty/serial/sifive.c
-+++ b/drivers/tty/serial/sifive.c
-@@ -604,6 +604,9 @@ static int sifive_serial_clk_notifier(struct notifier_block *nb,
- 	struct clk_notifier_data *cnd = data;
- 	struct sifive_serial_port *ssp = notifier_to_sifive_serial_port(nb);
+diff --git a/drivers/net/wireless/marvell/libertas/if_usb.c b/drivers/net/wireless/marvell/libertas/if_usb.c
+index 5cc0c5cac257..3410d6850db2 100644
+--- a/drivers/net/wireless/marvell/libertas/if_usb.c
++++ b/drivers/net/wireless/marvell/libertas/if_usb.c
+@@ -319,6 +319,12 @@ static void if_usb_disconnect(struct usb_interface *intf)
  
-+	if (!ssp->baud_rate)
-+		return NOTIFY_OK;
+ 	/* Unlink and free urb */
+ 	if_usb_free(cardp);
 +
- 	if (event == PRE_RATE_CHANGE) {
- 		/*
- 		 * The TX watermark is always set to 1 by this driver, which
-@@ -1022,6 +1025,11 @@ static int sifive_serial_probe(struct platform_device *pdev)
- 	ssp->clk = clk;
- 	ssp->clk_notifier.notifier_call = sifive_serial_clk_notifier;
- 
-+	/* Set up clock divider before the notifier can observe this port */
-+	ssp->port.uartclk = clk_get_rate(ssp->clk);
-+	ssp->baud_rate = SIFIVE_DEFAULT_BAUD_RATE;
-+	__ssp_update_div(ssp);
++	/* A firmware download in progress can re-arm fw_timeout from the RX
++	 * completion path, so make sure it is gone before freeing the card.
++	 */
++	timer_delete_sync(&cardp->fw_timeout);
 +
- 	r = clk_notifier_register(ssp->clk, &ssp->clk_notifier);
- 	if (r) {
- 		dev_err(&pdev->dev, "could not register clock notifier: %d\n",
-@@ -1029,11 +1037,6 @@ static int sifive_serial_probe(struct platform_device *pdev)
- 		goto probe_out1;
- 	}
+ 	kfree(cardp);
  
--	/* Set up clock divider */
--	ssp->port.uartclk = clk_get_rate(ssp->clk);
--	ssp->baud_rate = SIFIVE_DEFAULT_BAUD_RATE;
--	__ssp_update_div(ssp);
--
- 	platform_set_drvdata(pdev, ssp);
- 
- 	/* Enable transmits and set the watermark level to 1 */
+ 	usb_set_intfdata(intf, NULL);
 -- 
-2.43.0
+2.34.1
 
