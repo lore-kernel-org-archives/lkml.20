@@ -1,128 +1,159 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BB541D23B
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:07:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B1E483BD8
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 15:08:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792249653; cv=none; b=qU4ibbvIao51CS8BFuhFtJ3VIOucrBbpagr5XCAFyZLh+OcFERWH3KxGig9Ycpi48qQpSD/YYi89IFqSiY381IT8vhgoNrHgoOtYLuEZUXchpFx6cqztwNcB7CGNdriqIYOJfB5sz43rxFBaaE2CDKaHGRAifZetLQ6f5o2cj1Y=
+	t=1792249685; cv=none; b=ZErfP+ckTfIlzrSxk/PX5CHN+EAmx5ta9e9gMVneK0IQdl/guDSBklfBAf0cvkpfGS929eHRHcfIQsDrHwa0BjAXPBOnCK4tTgij35EHKNiFtwnL3KZWO1ZLN4AaWgFRi1zzxGPEQpUs+7iTa8PiH7b1qDAkTuL88TxEVowi2hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792249653; c=relaxed/simple;
-	bh=ajhqMMevRMUkFNjLwiWa8hkPP68v/fykXCHCDIhZgzY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hrL3Lm6M+VusPe+c4xbYKZ0luc1RQWkRMlWUobMhSUgYfpMTDTRlLkroJVjxEaNTrxuDRKSlO0oJFFFZLe8HjZfHstFRnsR5eFuzNs3v/2cepa5vfdpEAt+3Hb4/ALIljK5JXW9SU/S2IExRGeXArEB5QpT7pKeu1un2nho+t1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cwjlxIMQ; arc=none smtp.client-ip=74.125.82.171
+	s=arc-20240116; t=1792249685; c=relaxed/simple;
+	bh=Kg6BdoFIkjeOzKCsxysAUmbbDHrUmYo8GVsjvFtXfnI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JfN8C3Yf4UNf5WAH9ZGe5oHPa5pjgEguZWTlZNl43L30IiUe4n/n5Ukf133yir3hN1yuZf3kA86ayA4/tMPvby2Fss9Y1KgLYHKCi2dRMaRX0Ag71v9eBya+oSOMjNH8f2NuRz2/fIb8c6lXJv+ME4PJg/zuXlvLuAs9nxKS33Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=icHbXWKu; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cwjlxIMQ"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35f036b17easo798934eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:07:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="icHbXWKu"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e977109392so3199365ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:08:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792249652; x=1792854452; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792249684; x=1792854484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RBQ7X2jkYefaXYnnpfuBlQ4cNKv2piH6HTiOHbSZfNQ=;
-        b=cwjlxIMQN8UKfOv6aOBvWDAnU1cllWpKwqL8H1QBBJSevrSIi4p0IU3WIAURTFSQwx
-         4/eF/287ufkooF2AmmNT7ELVUD9aCX/qEPe3fJgbVYF+qpDnoSqZBdmYt4UaTVpg1S0z
-         QuYrQR2IZtFW17H3I504KSyx4oVOZ/+ynrMLFSP2dzJU/hfMhW8gr752R0/pyk+2a85w
-         jsmA+zpySla7k7suDR2JNp1cpBk9GCGPE3NFtBfRHXwA3lO99JFn/EQeNXKloryEob0R
-         OD1esty5uP9BJIs3xG/VtEq2Zyc640EYHfEOMn+13wwlj81Vh3pnLQXOfaPyV7OwRwxq
-         aGbQ==
+        bh=HpFyQ1JhzFAk3k0PVXxqxnjjqP5mAKjbBeavfDK0fBM=;
+        b=icHbXWKux6qrJAvbdoEg0q4tlo5nS4+5zJZsrjBo582xcgYau+iOv4Njim/kEcjrcr
+         lFHmxK/zBnEt/P7OcS0mFMVyVv5B69UmpzSzohKCk+SuD67BtpPD6xHANDrgFZbxZjI6
+         AXE8+E/hgdW8yMOI0o0CLBAUO2u1603h/sw5KryWhO8o3iPwotgrcpobwNLtRWYLzzKY
+         xJGTc5TK/SYZv1P4JPiUC+KKOZXPoPo4TNXQko2DsBLntHVv7R0qVCFTeUOpPBuj1X1c
+         hP5qLqlXlOo8O6pJiIvpKqMPEFfcoF1P96kpvctYfKnZ62XiF8QaQlSN5UMChQN3vqMP
+         Ng3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792249652; x=1792854452;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RBQ7X2jkYefaXYnnpfuBlQ4cNKv2piH6HTiOHbSZfNQ=;
-        b=kRZE6DPVJ7yYKi3NdtSkclZS7PfYWlzJzh/FthYYZxrTBmRZ0v58SgRPTQ7PRapCwL
-         cfaUPoRFl1Wi+JQm0WqGFAPbgrJ5qiXExvAdPiJvuSVrSkiUPwb+vKpUYG7FqDA0CLL6
-         c0buSpVf/eTg+ozqEXqVLH4t/HPuYA5Uj5iDQhDA0R4I6ZgjnjSBqCR9xHnMl6hbgojr
-         UGyrUcuDAHpSvTlgWStoGHT4Ykk3KEdkTTM2czTCOG22GvdxjKtr3EiitYvprlkMJPHM
-         k3o5sndpRXt5592jV1qUzkpWNMUG5orzMaRdiAqGKJ7HKRvpW98U9u1qs/CkEDi4Jz40
-         KQ5w==
-X-Forwarded-Encrypted: i=1; AKwUvBw30WMV7t809uxrEloJUL85SVQRgbBbs3q7cIcwUTacRZNNrbbiPCt0hjiL1MWY6WJHosIytS1QE3oHAyM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuhgb2nHIq2kPvBWsNPQZ2qx3v84tqGnFu0ghRUgsg/+Z21rUb
-	tgBWno6Qj/2LiB+tr6rxrJehZ5jAvXwnyijC4vXuMXeHWzdbkNBZHz62
-X-Gm-Gg: AYBFou0R3ZoqbOJk2Z2kciojiUOfT+AOgsR+kd6XdDQd6NikC5nyLc/Lp6Jp275+efO
-	zEi3VRGrAFRYmI5jWl1+lHgWW3ZuLCy/ArwwldBYB9xz4y/jpUzAlxQkSeqmddVOzdAmCYxM9Mi
-	9+6Y6SBgGF3Zwsy2aH2HIg4QAgQgf1uiOs98H3JE3DAJYP/aBoomoC0KVzrqDbkiicc1aeneMuU
-	SkwSLsfbbExH3Mc85dQVCABW4zJeKzvneWGVs56b7ZJSO7pkOpt0+QoUBg9LETGn05JHpJ1zl7q
-	YE5mrLkZyt5DB97SEo3pCuyRW0jxMv3teeSdZPvS9YYkmhtokqiPrrj+560j2iwT4Dn8uXkNZUn
-	0e7ZZIt671LTUOrEPdJKNwE9GsIHFJNQNQAI9uJIAkDg5fVz3NmRar3A8BZ2aoNZnG4TtJtoHA4
-	vQbHQ/pJGR/maBjwODDRTRujgMHh2KWJZoJM5aBfMhQQP1mDpbR/t8hQLRord1M5O+6w==
-X-Received: by 2002:a05:701b:455a:20b0:168:3243:c910 with SMTP id a92af1059eb24-185120a88cemr4732337c88.13.1792249651516;
-        Sat, 17 Oct 2026 08:07:31 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa3ebsm13170977c88.8.2026.10.17.08.07.25
+        d=1e100.net; s=20260707; t=1792249684; x=1792854484;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HpFyQ1JhzFAk3k0PVXxqxnjjqP5mAKjbBeavfDK0fBM=;
+        b=andWKdaYrKPbxXr1vDGQU3D8xsVyqcf+cNYqL0jWcQWLbiUlahlfCMZb4kiZOxT3nj
+         9IyBHQ2XByUFlRdfDwTdXee//LVP5eiIhJAG1geTBh98QAVkYzqK1O6DFPh7YGDxw3c4
+         L2nuLnVoa/MFff9+m31URF4k7F/ljRNXhWCktQWaLlvBi1RkUIIWNQBj8otmmIUzGS3e
+         1G5huMSqyyJginWcPIxp+A4DNYWtmp8YnBE5MW1dl37/gxVAtOjX2Yu5eRtQQXXdi6cf
+         V8LR7LFafwl4n07JrwZiD58XzIStCjixbyZOCrGkcAJOX+hP1WG51BjwX+bi345FKTZD
+         PBOg==
+X-Forwarded-Encrypted: i=1; AKwUvBxxUNFp8MKNbK9iitBFc+BAs20/iS1fDePgD3ITVFv0FUZFetoM5jNvqsNr5fRUyA75Yt1suHn/1lFoBZ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKI3vObmhff3jF2aPOJ5nuyTO8NMUUxgilZUZ9ESoUj6NwpNop0
+	R3T8qXdaT8mpHe85Azazcj8XoyoB8V74UCQowyMJ0IAgEXpnmu77BYQq
+X-Gm-Gg: AYBFou2ie60qvnlmO7frW78Nmkb3DzFwovOefl7E0MZzu5bh0Q07taXBMyUkcS02UWy
+	nl125LF5UrcBC2StS4Ak4PvFvGTFOUZT8+x42Po9SP4xWkmQW3B3hX3n1KroH/Q9nEtV9BYLoKW
+	MiRSi8S6Pzrgvd5iLdY5IKNdO6Mf78R4fgAUFNGIGD2JGd5nD6NA0Lc8bwmuRwIwAmFsbsbaxEn
+	hLLPp857y+5Etmpmmj9Rzk8X8Sv6pRJlBcG8xhXrJ9OwNVy0AneJW5z7jTRz1PCSFO06lGQlsoy
+	JCd00+I7KAt2mNfiJJJk2dJuNg2ad3K4dV3eav5WUwTLFm4XoCk4a7U1CqSF6I+q8tid9M0SVqj
+	lkqyqbn5/oKLJCjUEWL8WbdMGuaJ0Af2amrvNGyFRXNKAUHgW9gOtArB9aPqYD0TEyRrmLj3NZU
+	olW0Gg1aLjQThFnf2PDZ69Z6cTsN+guOGOuYKkwHgFiXFmyZAsa/ss0+KO8JHrgTa/Z2LMKBwKZ
+	0jzjVefiQ2gUuPNO8FvmA==
+X-Received: by 2002:a17:902:f785:b0:2e9:87e8:71c8 with SMTP id d9443c01a7336-2e9a6834941mr28772055ad.4.1792249683767;
+        Sat, 17 Oct 2026 08:08:03 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e305f1dsm22815045ad.0.2026.10.17.08.07.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 08:07:31 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Sat, 17 Oct 2026 23:07:13 +0800
-Subject: [PATCH v2 2/2] selftests/mm: load xfs before checking for it in
- run_vmtests.sh
+        Sat, 17 Oct 2026 08:08:01 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org
+Cc: mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	james.clark@linaro.org,
+	elver@google.com,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] perf/core: Close owner-list publication race with remove-on-exec
+Date: Sun, 18 Oct 2026 00:07:47 +0900
+Message-ID: <20261017150747.1119197-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261016084508.GQ2009045@noisy.programming.kicks-ass.net>
+References: <20261015123416.795008-1-4ncienth@gmail.com> <20261016084508.GQ2009045@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261017-bug-selftests-mm-run-vmtests-xfs-modprobe-v2-2-cbb36b014322@gmail.com>
-References: <20261017-bug-selftests-mm-run-vmtests-xfs-modprobe-v2-0-cbb36b014322@gmail.com>
-In-Reply-To: <20261017-bug-selftests-mm-run-vmtests-xfs-modprobe-v2-0-cbb36b014322@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
- Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-run_vmtests.sh creates a loop-mounted XFS for "khugepaged all:file" and
-for the pagecache folio split cases of split_huge_page_test, since
-tmpfs does not give them large pagecache folios.
+perf_event_open() makes a user event visible in the target context before
+adding owner_entry to the opener's perf_event_list. For a remote task, it
+also releases exec_update_lock before adding the list node.
 
-It only does so when xfs already shows up in /proc/filesystems. When
-xfs is built as a module that is not loaded yet, the check fails, no
-XFS is created, "khugepaged all:file" is reported as skipped and every
-pagecache folio split case of split_huge_page_test is skipped with "No
-large pagecache folio generated".
+A concurrent target exec can therefore process a remove_on_exec event in
+this interval. perf_remove_from_owner() sees the published non-NULL owner
+and calls list_del_init() on the zero-allocated owner_entry, triggering a
+list corruption diagnostic. With BUG_ON_DATA_CORRUPTION, this panics the
+kernel.
 
-Load xfs with load_module() when it is not registered yet, so that it
-is unloaded again once the script is done. "run_vmtests.sh -t thp" with
-xfs built as a module and not loaded:
+If the diagnostic is non-fatal, the open path subsequently links the
+ownerless event. Closing its file descriptor then frees an event that
+remains on the owner list, leading to a use-after-free on the next list
+insertion.
 
-                                   before    after
-  skipped tests                         1        0
-  skipped split_huge_page_test cases   43        0
-  xfs loaded after the run             no       no
+Keep the target exec_update_lock held until owner_entry is linked. The
+documented lock order permits exec_update_lock to nest outside
+perf_event_mutex, and target exec can no longer observe the partially
+published event.
 
-Fixes: fc4d182316bd ("mm: huge_memory: enable debugfs to split huge pages to any order")
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+An unprivileged remote-task reproducer triggered the NULL-link panic on an
+unmodified hardened kernel. With corruption reporting made non-fatal, it
+reached a KASAN use-after-free in the next owner-list insertion. With this
+change, the patched hardened kernel completed 1,229,779 remote opens during
+60 seconds of concurrent exec without a list diagnostic, oops, or panic.
+
+Fixes: 2e498d0a74e5 ("perf: Add support for event removal on exec")
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 ---
- tools/testing/selftests/mm/run_vmtests.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- Keep exec_update_lock held through the existing owner-list insertion
+  instead of repairing the race after partial publication, as suggested by
+  Peter Zijlstra.
+- Rebase onto current mainline commit 58161ead29e5.
 
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index 56f5416681da7..ba77fae5df4f2 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -428,7 +428,7 @@ CATEGORY="thp" run_test ./khugepaged -c 4 mthp_khugepaged:anon
- # Try to create XFS if not provided
- if [ -z "${SPLIT_HUGE_PAGE_TEST_XFS_PATH}" ]; then
-     if test_selected "thp"; then
--	if grep xfs /proc/filesystems &>/dev/null; then
-+	if grep -q xfs /proc/filesystems || load_module xfs; then
- 	    XFS_IMG=$(mktemp /tmp/xfs_img_XXXXXX)
- 	    SPLIT_HUGE_PAGE_TEST_XFS_PATH=$(mktemp -d /tmp/xfs_dir_XXXXXX)
- 	    truncate -s 314572800 ${XFS_IMG}
+ kernel/events/core.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 7846d70be57f6..2fdd8d71dcd55 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -14246,15 +14246,15 @@ SYSCALL_DEFINE5(perf_event_open,
+ 
+ 	mutex_unlock(&ctx->mutex);
+ 
++	mutex_lock(&current->perf_event_mutex);
++	list_add_tail(&event->owner_entry, &current->perf_event_list);
++	mutex_unlock(&current->perf_event_mutex);
++
+ 	if (task) {
+ 		up_read(&task->signal->exec_update_lock);
+ 		put_task_struct(task);
+ 	}
+ 
+-	mutex_lock(&current->perf_event_mutex);
+-	list_add_tail(&event->owner_entry, &current->perf_event_list);
+-	mutex_unlock(&current->perf_event_mutex);
+-
+ 	/*
+ 	 * File reference in group guarantees that group_leader has been
+ 	 * kept alive until we place the new event on the sibling_list.
+
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
 -- 
-2.43.0
+2.55.0
 
