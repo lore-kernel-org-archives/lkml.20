@@ -1,79 +1,56 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mta1.migadu.com (out-146.mta1.migadu.com [95.215.58.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819A22E8DEB
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32F333F8B2
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792253334; cv=none; b=FigS+zlN5R1dAygu68TtPaBRMHOZuGOKopqofPKw/OTuv9HM5jFVrBhaEXHioi1apKqb1SfAtNwrzUDwjnjYK893VeK2UgF+jbWgQrhWWxEjHYHZddtNLMoUsggwmcaR5SztnrFX77FaFBV+MEjW9l6/agJL52JvVqqk8MjPmyU=
+	t=1792253367; cv=none; b=kF/hL4VOqjy+WCvAyJYKuUs7qbK+0wb7TbNskc4jC28SlDIgtVZQJclxwaSMqFKJVfjKsnY1sp0iSW/zTueVFPVnx/XiT7Ul9jJCzxgYsn+NEJ8tQ5h2jsywsNYUcC4gnScb/p3hLkP9omiEZDnRE9BeQrmpIgY6NMAIbuhV6+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792253334; c=relaxed/simple;
-	bh=DWCmY5z7z4vq4G12qv/hRWrXt2RrydGaFmtxVM/Sg7c=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version; b=fQvOvOh5oAfy53blS2NImN2ZUK/tp+OZHKJOmr7fqYII1ZsEj76Lws5ndC7XrYfIk8U78gJxCTeed0+/7ly1QCZXGm2dlZwSsKzJ0pHpmkYfsrNIQ9l4pyWricaL4j39k4CdrrIboe/eAnqKspYBRLFz2xetd0VaM0fcUwvcJmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mgJ5G8sW; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792253367; c=relaxed/simple;
+	bh=tRoG5e1MENYg6Ps2FlKSUvpkvnx30P8P9QmDLQ5bMmM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UaTlc6tulEYJ5wetbAj82BPeqWQqkx6nAJG0bVZUJYBufv1pPM9nDjCc4dFLAbf8s2F7r1qQl10/TzfpB4AXQHqPAuLbUuqwoteor8DDA+S+4bS5nxTYjhP518EHJtk4I29HRjYGDNMGS7Jd8CEZTHNWcEVXIdgZXTKw1J1oeHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eTwW0qmX; arc=none smtp.client-ip=95.215.58.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mgJ5G8sW"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ab3260b35dso676479a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:08:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792253333; x=1792858133; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2cUeaEgu4p26tZrZN56rXhHr90NwI8Pog8folKw9Xmw=;
-        b=mgJ5G8sWVoZtRbteR6hqdKRBd/svddwH70mq+8vEfAJ5233Yqs5fX0++rEDG5SVMI3
-         1EZUBmYlYJ3S496jqxehDNh1rSfGkAN+4s70eVkWLG9L072BTTl1emeECsQwZyRRildY
-         fiiJj1ifqs26OpWFWBZNgoNxG0Bs+XpXNhFFrGEM7nUWROfFAaXz4+NjpnQ99C/2Jemw
-         O2ddVXxuhSLkWIv/G41/jhX3bfbPm1MjSM9te1bR/BMpPB7QW9ZX9hRIPGatcNTJ0wog
-         JcOVPdPECqoWiy1Uqe/rSriO6BMj6ybQFCwcAmuTXimIOq/e8kRQBo3Dp1VfiysdjQn2
-         goKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792253333; x=1792858133;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2cUeaEgu4p26tZrZN56rXhHr90NwI8Pog8folKw9Xmw=;
-        b=PGM14jXvbcxgefh0bvDXq/kyKBp1bXULAzlLQYvJMMXx6m66wIHFGz1roXPzOgnL7y
-         A5UqtXmBIixM+ysMvtMEEKlg4H/pSMRxrh3w7HHwphpAib0O10LS+02H6+uLyXkf1Lhq
-         9LAkyYTozEGdpcqEAjh9b9VzIFjCfhfHHXbf2CbRlAvVvI+zaYK4BiFxtxBEkh8cF6YP
-         MgOxPni1dUpeVOFym60LCc8Ywe/hIeBJbwU7E0YebamxbzD8iLfaCp8QzZwX16gTcxf+
-         AYsvDjSbEa+Szw8aE8Id0dJnTPhygj75GZtVGq5LfKMBqE1yu9YfkXh0RM4U3ZN0AGW6
-         Zx1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzFaWTHu0rExq3cs3VzIEdMovjzxP16i+yVByzKqEMCOA7tPN0TDFwTgPiKidxkUK/gusTTEdKFkeQKjrE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2RS8IQouSi0wIeWir6rh2fntMLhpROlHBCR4NekfvZ/1loU4P
-	GuonrYwESRctzZKuw0rsxdrqE6FAxEyvOm5mOf3PFzVXN+CTq4YrWVm+
-X-Gm-Gg: AYBFou1wtnDuJ2pnw7g2eMh/PhWd1JgKlb1StGj81r5gYZRalSfT1GqtWEFAYRMGMSB
-	SIIzMoxmthHL4OaKSPbv61f92zFCC93M3XlgqB7UQSMdxL/kGgONzAceRsp8YzPUY3sGJQysufj
-	2jC50U2hLeC/nm0TN/I4a4gqfQE5BNUXdCCQbrCV8udF9ZZ+vd3thX0WU5pG2t66N69iFQwRD+4
-	5K9N++vtjKxUDrgarVrYa8+oaTuO2yQjSYgLQUjrjbRPaHaa5l0B+mRSPmJxnpVrJkGtVGulHdJ
-	fPxkm4y94YgwpJBpRYl7XEID3ZeIOhMZ2byJvUsaSK6EqqFh6jL+/sjiARuuoLhh/SlICB/R26Q
-	ktmiJO6MqOAdsXbQiJ6b3PGmtdOGRxOvu0ucuU5WVLfmk/sEdnfVa9Dif9fZuG4K5D/fBDgfKmh
-	/kdjLZjl3gFuaB1GEeGyg4mzm8VEVbENMltO1rLfrCMQCFKpa4uTILqNx0OgJyNv2jFUwMi9Xei
-	F5qhL+hbZMIAljWufNDAhlcai6jSMj6xzz0+JwyjA/JaxCnbwBYT/xE+/ZuBYbn
-X-Received: by 2002:a17:90b:4ac6:b0:3ac:9e76:aa97 with SMTP id 98e67ed59e1d1-3acee277119mr2806327a91.6.1792253332865;
-        Sat, 17 Oct 2026 09:08:52 -0700 (PDT)
-Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc49c263asm8349666a91.17.2026.10.17.09.08.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 09:08:52 -0700 (PDT)
-From: Michael Kelley <mhkelley58@gmail.com>
-X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eTwW0qmX"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tRoG5e1MENYg6Ps2FlKSUvpkvnx30P8P9QmDLQ5bMmM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792253363; v=1; x=1792858163;
+ b=eTwW0qmXqXIlLjvKrhAlSaW5F/4uL3kYe6lsfx+beS6Dv0t036K4mIKMhDt6Pd3HaNLyNbHC
+ JqEI8TIxM9ZyBO2xZ1s3k8BEh6AubANh8CmCuFwS9iVyGRZui0g02PaL24tWOc7Uo0ohjiu2ixF
+ rYKp1lXfpCLRvVIx+qf8mzEw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 2ea8ad80f2639301;
+	Sat, 17 Oct 2026 16:09:23 +0000
+X-Mizu-Trace-ID: 2ea8ad80f2639301
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	chengming.zhou@linux.dev,
+	dsterba@suse.com,
+	hannes@cmpxchg.org,
 	linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH 1/1] Documentation: hyperv: Update information on guest CPU offlining
-Date: Sat, 17 Oct 2026 09:08:48 -0700
-Message-Id: <20261017160848.14730-1-mhklinux@outlook.com>
-X-Mailer: git-send-email 2.25.1
-Reply-To: mhklinux@outlook.com
+	linux-mm@kvack.org,
+	nphamcs@gmail.com,
+	terrelln@fb.com,
+	yosry@kernel.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	alex@ghiti.fr,
+	senozhatsky@chromium.org,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
+	kernel-team@meta.com
+Cc: Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH v4 0/3] mm: zswap: reduce request contention on loads
+Date: Sat, 17 Oct 2026 09:08:52 -0700
+Message-ID: <20261017160918.2738626-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,37 +59,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In Hyper-V Overview documentation, remove the out-of-date reference
-to explicitly reassigning VMBus channel interrupts before taking a
-guest CPU offline. Instead, reference the VMBus documentation, which
-is already up-to-date on this topic.
+Stores and loads share a per-CPU acomp request and mutex. A low-priority
+store can be preempted right after the compressor drops its stream
+lock, while it still holds the zswap mutex, and a higher-priority load
+on that CPU then waits for the store to run again. This follows the work
+from Sergey Senozhatsky's zram series which splits it for the same
+reason [1].
 
-Signed-off-by: Michael Kelley <mhklinux@outlook.com>
----
- Documentation/virt/hyperv/overview.rst | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Patch 1 gives compression and decompression separate requests, waits
+and mutexes, so loads no longer wait for stores, though they can still
+wait for each other. Patch 2, authored by Herbert Xu, enforces
+MAX_SYNC_COMP_REQSIZE when synchronous Crypto ACOMP transforms are
+initialized. Patch 3 uses an on-stack request for synchronous
+decompression, so those loads take no zswap lock. This covers all
+in-tree software compressors. Asynchronous algorithms keep the per-CPU
+request and mutex.
 
-diff --git a/Documentation/virt/hyperv/overview.rst b/Documentation/virt/hyperv/overview.rst
-index 77408a89d1a4..63489f73a299 100644
---- a/Documentation/virt/hyperv/overview.rst
-+++ b/Documentation/virt/hyperv/overview.rst
-@@ -132,11 +132,11 @@ Starting in Windows Server 2022 Hyper-V, the ACPI tables reflect
- only the CPUs actually present in the VM, so Linux does not report
- any hot-add CPUs.
+On x86-64 without PREEMPT_RT or lock debugging, each pool's per-CPU
+context grows from 88 to 160 bytes (+72 bytes). Patch 1 also adds one
+heap request per initialized CPU per pool: 176 bytes plus the
+algorithm's request context, before alignment and allocator rounding.
+Patch 3 drops that extra heap request for synchronous algorithms,
+including zstd. The context increase remains for all algorithms, and
+asynchronous algorithms retain the extra heap request. The load path is
+about 270 bytes deeper on x86-64.
+
+The series does not fix two related cases:
+- Stores still serialize on the compression mutex, so a high-priority
+  task that reclaims (direct reclaim, MADV_PAGEOUT) can still wait for
+  a preempted store.
+- On PREEMPT_RT the codec stream locks are preemptible, so a load can
+  still wait for a preempted store inside the codec.
+
+The numbers below are the slowest read per run, as a median (min-max)
+of 5 runs. Each run is 12 seconds in a zstd VM with lazy preemption,
+vm.page-cluster=0 and swap on /dev/ram0. With 1 vCPU, four nice +10
+workers page memory out and read it back while a nice 0 task spins. A
+nice -19 reader pages out its own buffer and measures how long each
+read of it takes. With 8 vCPUs there are 16 workers, 8 spinning tasks
+and 8 readers.
+
+              Before series (ms)      With series (ms)
+  1 vCPU      22.3 (21.6-22.6)        0.97 (0.72-1.4)
+  8 vCPUs     314 (97-2542)           7.0 (5.0-98)
+
+Reads over 10 ms fell from 26-35 per run to none with 1 vCPU, and from
+3-18 per run to at most one with 8 vCPUs. The benchmark and test
+programs
+were written with the help of an LLM.
+
+[1]
+https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chromium.org/
+
+v3 -> v4:
+- Propagate each zswap_acomp_req_init() error from CPU preparation,
+  including asynchronous decompression request allocation (Yosry).
+- Add Herbert Xu's Acked-by tag to patch 1 and Yosry Ahmed's to
+  patches 1 and 3.
+- Document the extra per-CPU memory in patch 1 and the cover letter
+  (Yosry).
+
+v2 -> v3:
+- Include Herbert Xu's Crypto API patch enforcing MAX_SYNC_COMP_REQSIZE
+  when synchronous ACOMP transforms are initialized.
+- Use acomp_is_async() in the stack-request patch and remove the
+  redundant acomp_can_use_stack_req() helper (Herbert).
+
+v1 -> v2:
+- Group the compression request and output buffer in zswap_comp_ctx,
+  documenting that the compression mutex protects the buffer (Yosry).
+- Move the existing synchronous and request context size checks into
+  the Crypto API helper acomp_can_use_stack_req() (Yosry).
+- Share callback setup through zswap_set_acomp_req_callback() and
+  explain
+  the two decompression paths (Yosry).
+- Clarify in patch 1's commit message that codecs and drivers
+  synchronize
+  shared transform state internally (Yosry).
+- Add Nhat Pham's Acked-by on patch 2.
+- Add Nhat Pham's Acked-by to the first zswap patch.
  
--A Linux guest CPU may be taken offline using the normal Linux
--mechanisms, provided no VMBus channel interrupts are assigned to
--the CPU.  See the section on VMBus Interrupts for more details
--on how VMBus channel interrupts can be re-assigned to permit
--taking a CPU offline.
-+A Linux guest CPU may be taken offline, and subsequently brought
-+back online, using the normal Linux mechanisms. See the "VMBus
-+Interrupts" section of Documentation/virt/hyperv/vmbus.rst
-+documentation for how VMBus channel interrupts are automatically
-+re-assigned if necessary when taking a CPU offline.
- 
- 32-bit and 64-bit
- -----------------
+Herbert Xu (1):
+  crypto: acomp - enforce MAX_SYNC_COMP_REQSIZE
+
+Usama Arif (2):
+  mm: zswap: use separate compression and decompression requests
+  mm: zswap: use stack requests for synchronous decompression
+
+ crypto/acompress.c |  18 ++---
+ mm/zswap.c         | 163 ++++++++++++++++++++++++++++++---------------
+ 2 files changed, 117 insertions(+), 64 deletions(-)
+
 -- 
-2.25.1
+2.53.0-Meta
 
