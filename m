@@ -1,60 +1,68 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7401F38F658;
-	Sat, 17 Oct 2026 18:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96143D9DC5
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792262327; cv=none; b=uAewVec1S0zP+eaJsvcxyw7HvzPHaGXHkXQNSiDQlIDLi7BOEUbf7jcFH3StNmDpy0t6jW9Y/HGGiGCZJKK3wIda58rrMBaSrBmdGE8nZFH2SBsWQrj75B/Qd9PARgnXrH39wgWBsl59BWhbkl1E8R0kklS4OaPrxzgSvYQRW2k=
+	t=1792262339; cv=none; b=XxkR6OfsfH2K0YZFvm7678/vGCyMP6ViJFnKoshDhGOBjz2Rrl+Db2CStRo1PaaHe7Buq11YXfDTKZlidCPNiapn786/Xdhv9t1scRAj+ghS09dixh7HVZ0/CjOXjlgJIa6QdsKamePhOUIiZ4YsfEfYEy6DYt0e+iWpRF9zP78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792262327; c=relaxed/simple;
-	bh=mR3X7Et62rzhOzOuYKvZJSgO3a+/cXS0iv95+BOXGzM=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=UL4XwxiCB3M6K1Tx4sq6lkr9uYV1eLN2iuwKN0dwU+dEwxF9BRv3fTMmr6UyjSo86BzSn1mx5gOoGI3T3ZfK8++sNdORVW6Zf5E+E35eHvp41QSO7HORZTEDO8OE16dclnp0BZH+V6ks1B04ouc4MdDNh3BVF3Kj8eE1EbBpheY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JY1o1PPW; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792262339; c=relaxed/simple;
+	bh=i4/JSD98fkMP4EtaU0o0G/p/k04D/Fo6vmn6XJIipJc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K/+PIe0hft5nyS4qlPsvHxaM4htLAiAU6fUJGuI4hfj7uBo2qATOx7E9ytOjYX41LUAGfou1XtyBvoKRSZM+bazHzXsOAcTkYtNkvQyONo9kCUCtCkN99bOqdcpfPuJlBZFUK8q2++Rxe9i/GgDHyNAhfwrxWhczLWTyljXqb58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=KkFI6tqU; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JY1o1PPW"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69HGELWB1694786;
-	Sat, 17 Oct 2026 18:38:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=sV8k8u
-	KiPwIpoH+iPNDpLTJKd2KZy3uAHtLYkOB7PHM=; b=JY1o1PPW3Dzz3benHmqNal
-	4DQ13cCYP26MFyilc/F/IexrKeglSHVxVQJrqSsUmKzJBmWO5rSVSPdt/Od6UiuF
-	DTN3CJLmhg/pUy9+WjzFsO/4HnXgKBkC0IQXv8fyypJZrJJvF9g+T7k34hbnNJaO
-	eogtSbitzdzEN7qTLU3cAfq/qtxaSmzPywYuc2XOrJPsUv5z4zLO+9zHpvmXZviU
-	Gllpj08FlSAoR0266yLPdPD+qILByNWfmF27s9I0tpeAa6oFSW5VGgSM/MR4C2xh
-	pmLB6K3by4uMXhumgQ6DAn+xlKHbqGBqEXE7eEYysOx9XutZEfryVPNLNrxoyiAg
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hbyepjqmm-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 17 Oct 2026 18:38:35 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69HGJxhj1277496;
-	Sat, 17 Oct 2026 18:38:35 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hb2398uf0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 17 Oct 2026 18:38:35 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69HIcXRJ18875092
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 17 Oct 2026 18:38:33 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B5A8D5805A;
-	Sat, 17 Oct 2026 18:38:33 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9A13A58054;
-	Sat, 17 Oct 2026 18:38:23 +0000 (GMT)
-Received: from [9.124.218.28] (unknown [9.124.218.28])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Sat, 17 Oct 2026 18:38:22 +0000 (GMT)
-Message-ID: <b3fea2ca-25ff-42c0-812c-f8cc6bb6667e@linux.ibm.com>
-Date: Sun, 18 Oct 2026 00:08:20 +0530
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="KkFI6tqU"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso9973685e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 11:38:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1792262334; x=1792867134; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PTaBaJhyHT4J2O0wNH3BcAK19fYP6FDKgZiZPkF2z48=;
+        b=KkFI6tqUOnnDXto1fuQ1y5gYrPFUdqEudKpWHcdJCc3Mz4RpTpweBsyHUeSCU4vKWy
+         3fZEIpywl739xpOo0/6+ZIQlMBnzOl6BgBZxqcSYZxQIEVpI+VJalX9zRvYHND7fFKqP
+         b/MkZl0Da5W/2T1Ogz/b4Gn0403s0l/l83F3LohoGOazWwjijhbwUP9jQpbmQOp/G7yR
+         nN8QzqL6Otg9YGKiiPMyG5sDxZxXMBY2w/t9ldPdE12rc9wXI8dhRBUig/rTEvTHXKC9
+         CXEhFDkUpjZCMAaVrr5VyvdPYgZtD55Gk/wXzeao2f4UIAa2VT/7mbapsNB04N4engxy
+         w/ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792262334; x=1792867134;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PTaBaJhyHT4J2O0wNH3BcAK19fYP6FDKgZiZPkF2z48=;
+        b=n8Gs2pDgihI8PJsvK172SNopuCkMroDL8D6izaEixPncCMjXW5Gf34EbVxneYoOVil
+         y9TRaQVMrDsqju7nZTluk1ODpyz35wvZj+HsIV87T9OnN6NX8o9C7bbPd01WBuVCbTSN
+         C9hUNn+rUfmqfXPNiX+nbKsU5bhLfpDNCAd773/AaDCIaMXgcUZ+4x/fVHI8Odpw3Kjy
+         vuNHxBZ0KmH+5Z/2D/n+CHNjy3f9H5IAvQ+dNsZLU5YobHQNZrityrWxAPAbZ9gfmyu5
+         MIT2bHvMOX7+ss/C9HM7xRfSQhPUQYE04d25tQlWI6agQTHjTlolS3SX81VN/b87ePcL
+         13qg==
+X-Forwarded-Encrypted: i=1; AKwUvByyS2cC+omURdvzH7J5SxXZxvh1NB4nsSLEp2QBqvM96WlGKEveBx/UO+pZRAkiOZU7Vv5AfrUEafKg/Mc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAcMETVhbeemAm1YuygL3N3yUnxGhO+YQovjZ1iY5HPjOMxOka
+	fHPHfJzcdifrMnTWlL79NwP3SImHwjY/NIS8cLs5UPtfc35SaQQ5+9tppUdOwQygcvg=
+X-Gm-Gg: AYBFou2zU0aDxZvPvDBsCT4/gGSiWzm36bKLPQovqEoqRlNU2C/ZvxwlL+NI9iL0hO+
+	HdWnxuXmdqNS+kvsN7uJlzeySa/r7P2NdLbhpW3A70cQvpz/L9p+O2+sjuDtsPvD+RbnFj+SY9c
+	wS3CE9DBAvxgza4qYc9JH/1oh8cis9TgzBesTfA9sLLNIZVnf5B1JW8d3D+bP7clvsb4UstJvw1
+	ZUbOZ+xnWnl2VkKVt0NwgzDpXuoWv33nP/9+RQiF98+Rh1hQEd1tvdPIUf/i4Omg6xpFrkvzSJy
+	t7HNJnMTDlhO280HHj5OvdKKSliWwvHzF2clzap5/ieYUC2FyyRE9S4WTNp+YFBm+3WBdjupR7C
+	/crv8doPDRHCufBiDGNsaEUGwBj0Z9zrYzQUU3cX6/JeitTvdMHazjHUT4CO4osZq38nyRYXVtd
+	/kSYjtXVvdi5avH3dRyV1anIy4w3OADsdxFk2zPtiwIHuIZ6aKlRPk4vN+IYK1mcMOga8Fm0eDF
+	k+EL9D1G2Sd7L/bmckXqI/0h25rq3BvgA==
+X-Received: by 2002:a05:600c:5250:b0:4a0:1c0e:b136 with SMTP id 5b1f17b1804b1-4a1d7616bfdmr68137185e9.29.1792262334073;
+        Sat, 17 Oct 2026 11:38:54 -0700 (PDT)
+Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cf04ffe9sm98606395e9.0.2026.10.17.11.38.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 11:38:52 -0700 (PDT)
+Message-ID: <8c892695-7ec5-4d93-a74b-487fe535c3f4@suse.com>
+Date: Sat, 17 Oct 2026 21:38:50 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,275 +70,138 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net/iucv: serialize HiperSockets receive with
- the socket lock
-From: Hidayath Khan <hidayath@linux.ibm.com>
-To: hexlabsecurity@proton.me, Paolo Abeni <pabeni@redhat.com>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Thorsten Winkler <twinkler@linux.ibm.com>,
-        Eric Dumazet <edumazet@kernel.org>,
-        Alexandra Winter
- <wintera@linux.ibm.com>,
-        "David S. Miller" <davem@davemloft.net>
-Cc: Nagamani PV <nagamani@linux.ibm.com>, netdev@vger.kernel.org,
-        Simon Horman <horms@kernel.org>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261011-b4-disp-410518f4-v1-1-753bf3258292@proton.me>
- <82691101-92d7-4838-b16e-2e41a83f65d0@linux.ibm.com>
-Content-Language: en-GB
-In-Reply-To: <82691101-92d7-4838-b16e-2e41a83f65d0@linux.ibm.com>
+Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+ operations
+To: Zhenzhong Duan <zhenzhong.duan@intel.com>, x86@kernel.org,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, hpa@zytor.com, dave.hansen@intel.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, jgg@nvidia.com, nicolinc@nvidia.com,
+ aik@amd.com, aneesh.kumar@kernel.org, seanjc@google.com,
+ pbonzini@redhat.com, yilun.xu@linux.intel.com, chao.gao@intel.com,
+ vishal.l.verma@intel.com, xiaoyao.li@intel.com, kevin.tian@intel.com,
+ chao.p.peng@intel.com
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-7-zhenzhong.duan@intel.com>
+From: Nikolay Borisov <nik.borisov@suse.com>
+Content-Language: en-US
+Autocrypt: addr=nik.borisov@suse.com; keydata=
+ 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
+In-Reply-To: <20260924041032.1096569-7-zhenzhong.duan@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDA3MiBTYWx0ZWRfX9NsYmertedEJ
- m6sic1V/MsT3AoR3tkD5miyyQdu5wV7HmpKMyBUJAeNH/NS4F9qYOT5wC31CvRuUmMBQgM6vFfh
- vT4ohNVSKhp76C5YqsfjzdwB4dTWpPk=
-X-Authority-Analysis: v=2.4 cv=Z4R5j3RA c=1 sm=1 tr=0 ts=6ad3c0ab cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=ONCzwkjdCOutVcZFL8EA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: w-wWgCBLo3mk7c_vQh6cgVv1LyXx0Wxd
-X-Proofpoint-GUID: w-wWgCBLo3mk7c_vQh6cgVv1LyXx0Wxd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDA3MiBTYWx0ZWRfX2xMRbztcQ6j5
- mQskDc/6XccpjcF8dybz8RP3+7jkSIYrqceo7LWLVegss5nQtlzaCPo4fssbWBBf12Dbcz3AfJ8
- mhRr/ZEV5siKQKV9GLR3Ix5GueBECL2b7t+cNkTCLNMLumjjAJKgqhh6J1kGY68Ep8f5tsXJOdV
- LSHi7X7wpG7qJiAdCMrP/xIMx/GpUw6OOaH9hIHYYb6FbKu8ZTCf0zB7ZdZ4RQmoRmEmw1NxEzl
- Nuh2+5AxiD9uGMA3Vx9Qj8Mytfl9XoeR841Jy/yqNsmzjd0LL8rpEL5YA89U2PFCpsEY+sh31KN
- KnRMWSQ5rCkF8++Q5606WW3TL3zYCEjEh9DP15zKp+bYxexDrW+XG4HN2OMaILDqmNYuunKqfE9
- YQD32BdCoOe4oEeZKrzEjXDcaAb60yV6qgkp5wf3O2YxWZdAlwGjZuwc09Q03Bthrxc7XRYYqau
- mi26+ad+9c6K0tyGrew==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-17_05,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610170072
 
 
-On 14/10/26 4:42 am, Hidayath Khan wrote:
-> Hi Bryam,
->
-> Below are the test results for this stage 1 patch on z/VM.
->
-> Setup: one z/VM guest, two HiperSockets hsuids, two CPUs, af_iucv as a
-> module, and an AF_IUCV socket-locking reproducer. Both kernels have 
-> the same
-> config - CONFIG_KASAN=y, CONFIG_PROVE_LOCKING=y and
-> CONFIG_DEBUG_ATOMIC_SLEEP=y - so the only variable is the patch.
->
->   scenario     net-next,               patch
->   sk_shutdown  fail, 271-299 misses    pass, 0 in 9058 cycles
->   shut_rd      fail, fail, pass        pass, 0 in 29 cycles
->   recvrecv     fail, 3658-4139 back.   pass, 0 out-of-order in 4194304 
-> words
->   backlog      pass                    pass
->   rxclose      fail, 16-17 of 35-38    fail, 14 of 57
->   spin         fail, 2020-2190 ms CPU  fail, 2070 ms CPU
->
-> No KASAN, lockdep or DEBUG_ATOMIC_SLEEP report on either kernel, in 
-> dmesg or
-> the journal - so nothing reports here either way, and the patch 
-> introduces
-> nothing. Since this patch adds local_bh_disable() around the backlog 
-> replay,
-> moves __iucv_sock_close() into recvmsg() under lock_sock() and holds 
-> the socket
-> lock across copy_to_user(), that was the result I was most interested in.
->
-> backlog passed on both - it is a guard rather than a reproducer, and 0
-> frames lost over roughly 1.1 million ownership windows on net-next 
-> confirms
-> it has no discriminating power here, so it says nothing either way.
->
-> shut_rd is too flaky to lean on: on net-next it failed with 2 misses 
-> in 43
-> cycles and 3 in 35, then passed with 0 in 45. So its single pass with the
-> patch is not evidence. Its window is now narrow enough that 30 s under 
-> KASAN
-> is not enough cycles; I will re-run it much longer.
->
-> sk_shutdown and recvrecv are the solid ones. recvrecv is what I would 
-> point
-> at: two readers interleaving inside an unlocked iucv_sock_recvmsg() went
-> backwards 3658, 3896 and 4139 times across the three net-next runs and 
-> not
-> once with your patch.
->
-> rxclose fails on both, on the -ENOTCONN that Sashiko flags as Low: 17 
-> of 37,
-> 17 of 38 and 16 of 35 on net-next against 14 of 57 with your patch. Lower
-> with the patch, but that is one patched run against three, so I would not
-> read much into the difference. 0 lost tails in every run - though the
-> lost-tail check only runs on cycles that reached EOF, so the failing 
-> cycles
-> are not data-checked. The test counts any errno other than EINTR and 
-> EAGAIN
-> as a wrong termination, which is why -ENOTCONN shows as a failure.
->
-> The asymmetry is that recvmsg()'s shortcut gives EOF on IUCV_DISCONN with
-> the queues empty, while iucv_sock_recv_skb() gives -ENOTCONN on
-> sk_state != IUCV_CONNECTED. Either the loop returns EOF for IUCV_DISCONN
-> with nothing queued, or afiucv_hs_callback_fin() sets RCV_SHUTDOWN as 
-> well -
-> that one is a single line but also changes what callback_rx() drops 
-> and what
-> iucv_sock_poll() reports. I have tried neither. Which behaviour do you 
-> want?
->
-> spin fails on both, and by the same margin: 2020, 2150 and 2190 ms of CPU
-> while blocked about 3000 ms on net-next, 2070 ms with your patch.
-> __iucv_sock_wait() still calls prepare_to_wait() once, outside its 
-> loop, so
-> after the first schedule_timeout() the task is TASK_RUNNING. Outside your
-> diff, and a different bug from the missed wakeup you fix at the same call
-> site. One-liner; I will send it separately.
->
-> On KASAN specifically, so an empty result is not read as a gap: there 
-> will
-> be no KASAN report from these scenarios even on a KASAN kernel. The
-> reproducer does scan /dev/kmsg for KASAN and KCSAN reports and fails a
-> scenario on any hit, but stage 1's defects are missing locks - they 
-> surface
-> as lost data, a lost sk_shutdown bit, a wrong errno or a leaked 
-> socket, none
-> of which touch freed or out-of-bounds memory. KASAN is a clean-run 
-> control
-> here. KCSAN is what can witness the accesses still left unlocked; note 
-> that
-> it generally does not flag volatile accesses, so it may not show sk_state
-> races either. A KCSAN run is next.
->
-> Sashiko's three budget findings look to me like instances of one 
-> thing, and
-> it says so itself on the SO_MSGLIMIT case: stream data is "lost 
-> without any
-> error". A frame that does not fit is dropped with nothing but
-> sk_drops_inc() and kfree_skb_reason(). Resizing a budget per instance 
-> leaves
-> the next one open.
->
-> Sashiko's three budget findings look like one thing: a frame that does 
-> not fit
-> is dropped with only sk_drops_inc() and kfree_skb_reason(), so resizing a
-> budget per instance leaves the next one open. Would you take a patch 
-> on top
-> that makes the loss visible instead - the softirq sets a bit in 
-> iucv_sock, and
-> iucv_sock_release_cb() turns it into sk_err = ECONNRESET plus 
-> IUCV_DISCONN once
-> the owner lets go? Separately: would it be simpler not to defer
-> a pure WIN at all? afiucv_hs_callback_win() is only an atomic_sub() and
-> iucv_sock_wake_msglim().
->
-> Thanks,
-> Hidayath
->
 
-Hi Bryam,
+On 24.09.26 г. 7:10 ч., Zhenzhong Duan wrote:
+> Introduce support for binding and unbinding the Trust Device Interface
+> (TDI) using the TDCM_OP_BIND and TDCM_OP_UNBIND commands.
+> 
+> Executing TDCM_OP_BIND transitions the TDI state to a locked state
+> (TDI_STATE_CONFIG_LOCKED). Add a sanity check following the bind operation
+> to verify this state transition succeeded before finalizing device locking.
+> 
+> Signed-off-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
+> ---
+>   drivers/virt/coco/tdx-guest/connect.c | 75 +++++++++++++++++++++++++++
+>   1 file changed, 75 insertions(+)
+> 
+> diff --git a/drivers/virt/coco/tdx-guest/connect.c b/drivers/virt/coco/tdx-guest/connect.c
+> index 1f52a187b30f..e36515fc43ef 100644
+> --- a/drivers/virt/coco/tdx-guest/connect.c
+> +++ b/drivers/virt/coco/tdx-guest/connect.c
+> @@ -159,8 +159,67 @@ static bool tdx_is_dev_teeio_support(struct tdx_devsec *tdevsec)
+>   	return !!rsp->is_supported;
+>   }
+>   
 
-Follow-up to the earlier KASAN + PROVE_LOCKING + DEBUG_ATOMIC_SLEEP results.
+<snip>
 
-I ran the same reproducer on the same z/VM guest with a KCSAN build of your
-patch, interrupt watcher on. KCSAN found two af_iucv data races. Both
-appeared during the sk_shutdown scenario. The second also appeared once in
-rxclose scenario. I have the full KCSAN reports from /dev/kmsg now, so
-the fields below are from them rather than from reading the code.
+> +
+>   static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *pdev)
+>   {
+> +	u8 state;
+>   	int ret;
+>   
+>   	struct tdx_devsec *tdevsec __free(kfree) = kzalloc(sizeof(*tdevsec), GFP_KERNEL);
+> @@ -174,6 +233,19 @@ static struct pci_tsm *tdx_devsec_lock(struct tsm_dev *tsm_dev, struct pci_dev *
+>   	if (!tdx_is_dev_teeio_support(tdevsec))
+>   		return ERR_PTR(-EOPNOTSUPP);
+>   
+> +	struct tdx_devsec *tdevsec_bind __free(tdx_tdi_unbind_dev) = tdx_tdi_bind_dev(tdevsec);
+> +	if (IS_ERR(tdevsec_bind))
+> +		return ERR_CAST(tdevsec_bind);
+> +
+> +	ret = tdx_tdi_read_state(tdevsec, &state);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	if (state != TDI_STATE_CONFIG_LOCKED)
+> +		return ERR_PTR(-EIO);
+> +
+> +	retain_and_null_ptr(tdevsec_bind);
+> +
+>   	return &no_free_ptr(tdevsec)->pci.base_tsm;
+>   }
+>   
+> @@ -181,6 +253,9 @@ static void tdx_devsec_unlock(struct pci_tsm *tsm)
+>   {
+>   	struct tdx_devsec *tdevsec = to_tdx_devsec(tsm);
+>   
+> +	if (WARN_ON(tdx_tdi_unbind_dev(tdevsec)))
+> +		return;
 
-1) sk->sk_shutdown, 1 byte, same address on both sides.
+<Thinking out loud>
 
-A marked read in afiucv_hs_callback_rx(), inlined into afiucv_hs_dispatch():
+So unlock involves calling TDCM_UNBIND which in turn might fail for any 
+number of reasons and yet we have no way of communicating that. So after 
+an unlock a TD might want to rebind and issue bind on a device which is 
+already bound because prior unbind failed. Is this something we should 
+be worried about ?
 
-     if (READ_ONCE(sk->sk_shutdown) & RCV_SHUTDOWN)
+> +
+>   	kfree(tdevsec);
+>   }
+>   
 
-by interrupt on one CPU, against the plain read-modify-write in
-iucv_sock_shutdown():
-
-     sk->sk_shutdown |= how;
-
-by task on the other CPU. The report gives the contexts as interrupt and 
-task;
-that the writer holds lock_sock() is from the source - iucv_sock_shutdown()
-takes it on entry and that line is on every path to it.
-
-The receive side must have come through the !afiucv_hs_defer() bypass rather
-than the !sock_owned_by_user() arm. The writer holds lock_sock(), so
-sk_lock.owned is set and slock is free; the reader runs inside 
-bh_lock_sock(),
-which is slock. For the two to overlap, the task must have finished
-lock_sock() before the softirq took slock - so sock_owned_by_user() was 
-true
-when the softirq checked it. On the other arm the softirq holds slock while
-nobody owns the socket, and a task entering lock_sock() blocks on slock 
-until
-the callback returns, so it cannot reach the write.
-
-That is the window I asked you about in the previous comment, where a frame
-can also be queued after shutdown(SHUT_RD)'s skb_queue_purge(), and which I
-could not get to fire functionally. It has a KCSAN report behind it now.
-
-Making the write a WRITE_ONCE() would silence KCSAN and fix nothing. The
-frame-after-purge behaviour looks like an ordering problem.
-
-2) iucv->hs_dev, 8 bytes, same address on both sides.
-
-A plain read in afiucv_hs_rcv()'s socket-lookup loop:
-
-     if (iucv_sk(sk)->hs_dev != dev)
-
-by interrupt, with only read_lock(&iucv_sk_list.lock) held, against the 
-plain
-write in __iucv_sock_close():
-
-     iucv->hs_dev = NULL;
-
-by task, from an ordinary close() - the stack is iucv_sock_release ->
-sock_close -> __fput -> sys_close, so the socket lock is held there.
-
-The read is the ingress check added by Alexandra's 80230a18c164 and the
-write was already there, so neither line is from your patches.
-I do not think it needs locking: the lookup is inherently racy with close,
-since the socket can be closed between the match and the dispatch however
-well hs_dev is synchronised. I think both outcomes are harmless - observing
-NULL early drops a frame that was about to be dropped anyway, and 
-observing a
-stale pointer gets the frame as far as the callbacks, which drop it on
-sk_state. So I think the right treatment is READ_ONCE()/WRITE_ONCE() on the
-two accesses with a comment saying the lookup read is deliberately
-unsynchronised, rather than anything structural. Tell me if you see it
-differently.
-
-One more thing in the same function. __iucv_sock_close() does
-
-     dev_put(iucv->hs_dev);
-     iucv->hs_dev = NULL;
-
-so between those two statements hs_dev names a device this socket no longer
-holds a reference to, and the lookup loop can match on it. Clearing before
-the put removes that window - via a local, since swapping the lines as they
-stand would dev_put(NULL) and leak the reference:
-
-     struct net_device *dev = iucv->hs_dev;
-
-     if (dev) {
-         iucv->hs_dev = NULL;
-         sk->sk_bound_dev_if = 0;
-         dev_put(dev);
-     }
-
-The test run also has 500+ KCSAN reports with skb_copy_bits / 
-__might_fault.
-All of them have
-afiucv_hs_rcv() -> pskb_may_pull() -> __pskb_pull_tail() in the stack.
-The conflict is on current->pagefault_disabled not skb data, so I don't 
-think
-either of your patches is involved.
-
-Functionally the KCSAN kernel showed nothing new - the same rxclose and spin
-failures as previous comment, everything else is clean.
-
-Thanks,
-Hidayath
