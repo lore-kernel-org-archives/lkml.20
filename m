@@ -1,127 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 025E91F2B8D;
-	Sat, 17 Oct 2026 23:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C901F2B8D
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:48:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792280918; cv=none; b=s0r/FQ4EIAo1UqvcbDWNU0v1h71NEitGHBFysNpNSeytmp0vuaQqFEKJ4Xt8HqS9mX4bz5ErcClOiXN7CQgHTuX0eXWBbzEbsKfGyXw3bzDTRvaCk4QGhpIwxZooXrRHKl370si9B2s5C1pQ8dPuA1JMJrMIoBAwO+uJXEtVVqM=
+	t=1792280923; cv=none; b=b1rbiNunBkNjkHD8nN7A7Zc+NXDvJLmkbv8etv1BtXtWHt82bvwqgSAcWUIlXvHAb6TuoqsklUmwpuZW5PIhS1y6LwWhVZ0MED7krbThAEJqADXSLS09Xn0Pqrom3BUMQp3WG1Axuuep+oHmfDmnQFV5P20BZHZi1lHkhqqz0HE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792280918; c=relaxed/simple;
-	bh=OegNwtBlbWJsRetO1hLmtFJT3AEq7b+QO5Fjrq15TuI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mZ2V+fk6syuHVI0C1j+is1QuWYNrCqkzKVShEznH5HAkSZHcLuM2pCWpwQybqwzUzS9twvgTu+S/OsHfwuzQUNpWt7/G6h5HH5m4/5bQkO1CrZhfjhZkM0puZmACPHnbLu64WwZBit35wNwtLErhVEP9pyiY6uU4aN86hZN4qO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2SdRDhm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2SdRDhm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F06F1F000C4;
-	Sat, 17 Oct 2026 23:48:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792280916;
-	bh=9cKmaOvO8+w475otCgj53iP5B3332djS6gNZeB1RDvc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=h2SdRDhmFrBQskd/cMi+CKUqB0cROvdkoWcIJrAfPvLDiG96/qdo5iLSwxsU3sXMZ
-	 XLF4A/PP2QCgq7QocOMw0oEoloIq8x8AL1vShWaWeBxCDaZmiownK7o4VrvKUaUmtx
-	 PORP87fP+orVp8V9FW9pkjfbapLVrkQxlRolW/NqP1PuplKnF6T4kPVWUQb/WFLhRb
-	 v/QCtmhQQM+MSfUso9jIwzQLN7Dzrrimt1mUYuM7V0HJZZbnUk9jDIGdqfJKi4rczW
-	 ENTlVUmL/WZx+vWBDfI84koX2kQcNthCp3HNFkFgoUcelYMYnOvgLVtl99hUBqD9BY
-	 hJRT4FhQAbTsw==
-Date: Sun, 18 Oct 2026 00:48:33 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Yu-Hsiang Tseng <asas1asas200@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: acpi: Accept comma separated values in ROTM
- strings
-Message-ID: <20261018004833.65dc0048@jic23-hlaptop>
-In-Reply-To: <as1JVWC8FiN704Uj@ashevche-desk.local>
-References: <20261012074144.1060625-1-asas1asas200@gmail.com>
-	<as1JVWC8FiN704Uj@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1792280923; c=relaxed/simple;
+	bh=u8T4u6gGZi75MTzoTY4V6IDCsSHa0n66NfiID6Un2G8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dU/ng90bM7Z1vqjK6sZigpLOCKhHY2Dm6dnpAXKQQ2kP15CZIY/633itxj6DPjY8XQW/vkNnFVedaYsQPtHFo1rNNQPwIfmV/OyL0s8jqpBzBSNaGoFJtWA6D/r1j2/wkQIG2yOfKbWx50BZm5dRHvODVoVPxkpRut9gOElpa9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xIE8g-003rIH-Sh;
+	Sat, 17 Oct 2026 19:48:34 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Alexey Gladkov <legion@kernel.org>,
+	"Eric W. Biederman" <ebiederm@xmission.com>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Serge Hallyn <serge@hallyn.com>,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] ucount: take the rlimit reference before checking the limit
+Date: Sat, 17 Oct 2026 19:48:34 -0400
+Message-ID: <20261017234834.797456-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Oct 2026 23:55:49 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+On a kernel with user namespaces enabled (CONFIG_USER_NS=y, the default on
+most distributions) an unprivileged user can free a live struct ucounts,
+and the user_namespace it pins, while they are still in use, giving a use-
+after-free on the next signal-accounting access or an rcuref "imbalanced
+put()" warning. It needs no privilege beyond creating a user namespace: in
+a namespace whose RLIMIT_SIGPENDING is 0, race a thread queueing real-time
+signals (which obey the limit and fail at that namespace's ucounts level)
+against one taking a synchronous fault such as SIGSEGV (delivered with
+override_rlimit set, crossing the same level without the limit check);
+both charge the same per-namespace SIGPENDING counter. The defect has been
+present since inc_rlimit_get_ucounts() was introduced in v5.15.
 
-> On Mon, Oct 12, 2026 at 03:41:44PM +0800, Yu-Hsiang Tseng wrote:
-> > The ROTM method of the MXC6655 accelerometer on the Higole F9B, an
-> > Alder Lake-N handheld (AMI BIOS F9D_16G_P800217, DMI strings are all
-> > "Default string"), separates the values with a comma and a space:
-> > 
-> > 	Method (ROTM, 0, NotSerialized)
-> > 	{
-> > 	    Name (SBUF, Package (0x03)
-> > 	    {
-> > 	        "-1, 0, 0",
-> > 	        "0, 1, 0",
-> > 	        "0, 0, 1"
-> > 	    })
-> > 	    Return (SBUF)
-> > 	}
-> > 
-> > iio_read_acpi_mount_matrix() only accepts the space separated form used
-> > in Microsoft's example ("0 1 0"). It rejects this matrix and mxc4005
-> > falls back to the identity matrix:
-> > 
-> > 	mxc4005 i2c-MXC6655:00: Incorrect ACPI mount matrix string format
-> > 	mxc4005 i2c-MXC6655:00: mounting matrix not found: using identity...
-> > 
-> > With the X axis not inverted, iio-sensor-proxy reports left-up when the
-> > device is held right-up and vice versa, so the desktop turns the
-> > picture upside down whenever the handheld is held in landscape.
-> > 
-> > It is not the only BIOS written this way. The BOSC0200 on the AYANEO
-> > Air Plus uses commas in its ROMS method as well, with a space before
-> > one of them, and its ROMK method has "1, 0,0":
-> > 
-> > 	Method (ROMS, 0, NotSerialized)
-> > 	{
-> > 	    Name (SBUF, Package (0x03)
-> > 	    {
-> > 	        "-1, 0, 0",
-> > 	        "0, -1 , 0",
-> > 	        "0, 0, -1"
-> > 	    })
-> > 	    Return (SBUF)
-> > 	}
-> > 
-> > The kernel's sscanf() does not support '%*[', so there is no clean way
-> > to take both separators in a single format string. That leaves either
-> > a second sscanf() call with a comma format, or normalizing the
-> > separator first. Do the latter: turn the commas into spaces before
-> > parsing, so the existing "%d %d %d" format, which already takes any
-> > amount of white space around the values, keeps working unchanged. The
-> > strings live in the buffer acpi_evaluate_object() allocated for us, so
-> > they can be modified in place.
-> > 
-> > With this change in_accel_mount_matrix on the Higole F9B reads
-> > "-1, 0, 0; 0, 1, 0; 0, 0, 1" and, with no udev hwdb override, the
-> > desktop rotates correctly in all four orientations. The AYANEO Air
-> > Plus was not tested; systemd's hwdb has an entry for it, which
-> > iio-sensor-proxy prefers over the kernel's matrix.  
-> 
-> Makes sense, and fix is neat.
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> 
-Hmm. I debated dropping the stable tag, but meh, it's trivial and
-makes stuff work that didn't before.
+inc_rlimit_get_ucounts() walks the ucounts chain and, for each level,
+increments iter->rlimit[type] and then grabs one extra reference on the
+ucounts when the counter goes from 0 to 1 -- the reference that pins the
+ucounts for as long as the rlimit count stays non-zero, released by
+dec_rlimit_put_ucounts() when the counter returns to 0. The reference is
+taken only by the thread that observes new == 1, and only after the limit
+check: a level that fails "new > max" jumps to dec_unwind, which decrements
+iter->rlimit[type] again but takes no reference.
 
-So applied to the fixes-togreg branch of iio.git keeping that tag.
+That ordering is unsafe under concurrency. The thread that performs the
+0 -> 1 transition is not guaranteed to keep its increment:
 
-I'll be rebasing that on rc1 once available before sending a pull
-request.
+  CPU0 (fails the limit)              CPU1 (overrides it)
+  new = add_return(1) -> 1
+                                      new = add_return(1) -> 2
+                                      new != 1, no get_ucounts()
+  new > max -> dec_unwind
+  sub_return(1) -> 1   (no put)
 
-Thanks,
+The count is left at 1 with no reference held: CPU0 took the increment to 1
+but backed out without taking the reference, while CPU1's surviving
+increment never took one. When CPU1 later frees its charge,
+dec_rlimit_put_ucounts() drops the count 1 -> 0 and calls put_ucounts() for
+a reference nobody ever took. struct ucounts is freed with kfree_rcu() when
+its last reference goes away, so this stray put drops a live ucounts and
+frees it while it is still charged and still on the ucounts hash, giving a
+use-after-free of the ucounts (and of the user_namespace it pinned). The
+symmetric interleaving instead leaks a reference (CPU0 succeeds and takes
+the reference, CPU1 fails and unwinds the level to 0 with no put), pinning
+the ucounts and its user_namespace forever.
 
-Jonathan
+The invariant the code wants is "rlimit[type] > 0 implies exactly one
+ucounts reference held for that level".
 
+Take the reference on the 0 -> 1 transition before the limit is decided, so
+the thread that raises the count from zero owns that level's reference even
+when its own request is rejected; the rejecting path then unwinds iter
+through do_dec_rlimit_put_ucounts(), which releases that reference when the
+counter returns to 0. The get_ucounts() failure path is unchanged: no
+reference was taken, so iter is decremented without a put.
+
+Fixes: 15bc01effefe ("ucounts: Fix signal ucount refcounting")
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
+
+Notes:
+    A reproducer, available on request, wins the race within seconds
+    under KASAN or rcuref debugging.
+
+ kernel/ucount.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
+
+diff --git a/kernel/ucount.c b/kernel/ucount.c
+index ec8b1445e287..44a78ae80579 100644
+--- a/kernel/ucount.c
++++ b/kernel/ucount.c
+@@ -308,23 +308,30 @@ long inc_rlimit_get_ucounts(struct ucounts *ucounts, enum rlimit_type type,
+ 
+ 	for (iter = ucounts; iter; iter = iter->ns->ucounts) {
+ 		long new = atomic_long_add_return(1, &iter->rlimit[type]);
+-		if (new < 0 || new > max)
++		/*
++		 * Grab the extra reference when this walk observes the 0 -> 1
++		 * transition, before the limit is checked: the thread that
++		 * raises the count from zero owns this level's reference, even
++		 * when the limit check below rejects the request. Otherwise a
++		 * concurrent walk that raised the count past 1 is left holding
++		 * the surviving increment with no reference, and its later
++		 * dec_rlimit_put_ucounts() drops a reference nobody took.
++		 */
++		if (new == 1 && !get_ucounts(iter))
+ 			goto dec_unwind;
++		if (new < 0 || new > max) {
++			/* undo iter too, releasing the reference taken above */
++			do_dec_rlimit_put_ucounts(ucounts, iter->ns->ucounts, type);
++			return 0;
++		}
+ 		if (iter == ucounts)
+ 			ret = new;
+ 		if (!override_rlimit)
+ 			max = get_userns_rlimit_max(iter->ns, type);
+-		/*
+-		 * Grab an extra ucount reference for the caller when
+-		 * the rlimit count was previously 0.
+-		 */
+-		if (new != 1)
+-			continue;
+-		if (!get_ucounts(iter))
+-			goto dec_unwind;
+ 	}
+ 	return ret;
+ dec_unwind:
++	/* get_ucounts() failed for iter: undo iter without a put */
+ 	dec = atomic_long_sub_return(1, &iter->rlimit[type]);
+ 	WARN_ON_ONCE(dec < 0);
+ 	do_dec_rlimit_put_ucounts(ucounts, iter, type);
+
+base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+-- 
+2.53.0
 
