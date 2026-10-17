@@ -1,38 +1,38 @@
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F3D48F82C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A22B3E6394;
 	Sat, 17 Oct 2026 12:25:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792239912; cv=none; b=L2o50g38dB/yEX1PXrCnmn6dr3983LpoZ94ILDCyaKJYOemCO4cVdt41EcNv1Z5CU/fIkCC/rpNL+lIfpwLMp1VcOYBpujyi2U/x3cYnx5kMykkhOzC3qveFPUHCNooTzYyS8Uoze0r8g8s3Dl5O/i6N4PWchM9IJjFGsF5jql4=
+	t=1792239914; cv=none; b=Qh9HbrueVvduQVFFbFlUmLiI/o8dV6jw+dbADdqiY1+hDBIScWNteygLIbjtQ4GUqmDmycEDaSea6eF9bRVbtpRL+HdfwAQgwIcKUaVCskMtv7yH3tJBLvCalmeH27I2/AFXiBxZqOeS0afXWKUF0h6j3YVq+WSXEGujIRxJdGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792239912; c=relaxed/simple;
-	bh=n4hcA6lLaoitjflRxS4WNE839VpbRoCICI78N7FE9DY=;
+	s=arc-20240116; t=1792239914; c=relaxed/simple;
+	bh=LWpNYS2M4N7Sdbns/zrcHREtIf5zPxDmuIKyiHmQMDE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JZRw7anjCn9x4rLNEwqBUGrhUP3CS8DpNm0x3JnPB8cHsyV/wkJZRLjoXD9UuGUaWbC+xdvgYXIps5pyokqF6UmVqwBOXT9Vtpbgvb6jpOKziDH/TLml9dpQoRmAw5GDhqjxkzstGRAcNOsNI5Zj5YCl3rd3CULJ0EOjjD76CuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=jYZw/QE3; arc=none smtp.client-ip=90.155.50.34
+	 MIME-Version; b=auSGAvW+rUoUREfLn2HyUIgATKh3n5M+b+0OpZRPKGIk+X9AUdE8mlSjYfQxwFektDyPHC5EVdOvlYefmkXxQehd7sd2OCAFmYKOke8kq6c9zh77SNvQ9EdTDVAxJA8eGUGx8473SWjeVMpdcRID2JRzIIimXBMck0MXR2bjoug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=T+DW5Jbp; arc=none smtp.client-ip=90.155.50.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="jYZw/QE3"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="T+DW5Jbp"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=ZSHRhCMRhKiyZmDLW1NcJgrwq3GJtSMGS9fxauRrdiE=; b=jYZw/QE3YGGqMbjL3XQNOXXX2c
-	ByZFCMmX+9VGldIzjSLbY/gIxguhqUMUtvAlfyYjCh4zvEAdc50iXcbptlGJGdfe3DQE9ysqw2ALF
-	wBYAqO2YKkDNyJCDrD6/qzfdUr/dq3b/nUmX8U69e9e2ngLHu4SKwQ/8SBLIxNF4WZ7V9LPWZtNLf
-	j4o6bXq/NPZOZz71gOIt1n+CJpQljfdfjcwWKkgrXlWHfKwuh7jK+fbtr6vL4X8VnUfmllCCGslQ/
-	97ILsqaeP3hOnId0zS8nh18Q8w9LZJJzs9EP1PEafhGVfIX2RAc84GKj1+SzIBtgFZKyIoxccLfuM
-	xq44raYw==;
+	bh=bJk1mYeRahTsqyuXM+Ax627QX1n7rFbufDIM/kdUrek=; b=T+DW5JbpWR4eFGzRXe10zD9t4K
+	Ja0FmuJQdraGXdyFxWUqfhKtPrT1kOqAj2wekp3UhTGy/0/g36JOP6jwjPVha94kaJ2YgXEJICGzN
+	VxobSKnmc/vET6NnH20L1j81mcGTg8+Firt5cKkUJuCbc+vxYHJTy+fwuidttWdEo3z7QRRWWpQKi
+	+A4m1lab+VP2JNbXN010igZDPrmw9mjVeEa0yzER5I4gNpwPcgl09Uxx+shxWWBMr4J+ilQ+L7XoH
+	dj3d+mw6ZdhMx4AZeNeFYdN75f7iLBi8Svj1zwKqmBlEIOnIctKOLIuHOHmDOoCky9Ao8zgMLUCv7
+	ONPSuphg==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xI3TE-0000000CVDV-06hn;
-	Sat, 17 Oct 2026 12:25:04 +0000
+	id 1xI3TC-0000000CVCB-0w53;
+	Sat, 17 Oct 2026 12:25:02 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xI3TD-00000002Yne-3SEo;
-	Sat, 17 Oct 2026 13:25:03 +0100
+	id 1xI3TC-00000002Yl7-08RW;
+	Sat, 17 Oct 2026 13:25:02 +0100
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -53,9 +53,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Mushahid Hussain <hmushi@amazon.co.uk>,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	nh-open-source@amazon.com
-Subject: [RFC PATCH 41/55] KVM: x86: hyperv: Refuse a synthetic IPI to a higher VTL
-Date: Sat, 17 Oct 2026 13:24:47 +0100
-Message-ID: <20261017122501.610248-42-dwmw2@infradead.org>
+Subject: [RFC PATCH 05/55] KVM: x86: hyper-v: Add KVM_CAP_HYPERV_FORWARD_HCALL
+Date: Sat, 17 Oct 2026 13:24:11 +0100
+Message-ID: <20261017122501.610248-6-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261017122501.610248-1-dwmw2@infradead.org>
 References: <20261017122501.610248-1-dwmw2@infradead.org>
@@ -71,57 +71,140 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-HvCallSendSyntheticClusterIpi(Ex) honours the target VTL in its input
-but does not check it against the caller's VTL. A guest running in a
-lower VTL can therefore assert any fixed interrupt in a higher VTL on
-any VP, which crosses the boundary that VTLs exist to enforce.
+A VMM implementing Hyper-V hypercalls that KVM does not know about,
+such as the VSM set, has no way to receive them: kvm_hv_hypercall()
+fails unknown codes with HV_STATUS_INVALID_HYPERCALL_CODE, and only
+syndbg and slow-form extended hypercalls ever exit to userspace.
 
-Refuse a target VTL above the caller's with HV_STATUS_ACCESS_DENIED.
-A VTL may still interrupt its own level and lower ones.  The old
-upper-bound check on the target plane goes away: a target at or below
-the caller's level is below KVM_MAX_PLANES by construction.
-
-Matches the equivalent fix in the reference VSM implementation.  The
-production Nitro Hypervisor permits the injection; the conformance
-suite probes for either behaviour.
+Add a VM capability which routes any hypercall KVM would have failed
+as unknown out through the existing KVM_EXIT_HYPERV_HCALL exit, fast
+forms included. The exit already carries the control value and both
+parameters (RDX and R8 for fast calls), and XMM state is reachable
+through the ordinary vCPU ioctls, so no new exit format is needed.
+A future in-kernel accelerator for a specific hypercall can still
+claim its code behind its own capability, with userspace handling as
+the fallback.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Assisted-by: LLM
 ---
- arch/x86/kvm/hyperv.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ Documentation/virt/kvm/api.rst  | 26 ++++++++++++++++++++++++++
+ arch/x86/include/asm/kvm_host.h |  1 +
+ arch/x86/kvm/hyperv.c           |  5 ++++-
+ arch/x86/kvm/x86.c              | 10 ++++++++++
+ include/uapi/linux/kvm.h        |  1 +
+ 5 files changed, 42 insertions(+), 1 deletion(-)
 
+diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+index bc63054ce7bd..ade8c91ef24b 100644
+--- a/Documentation/virt/kvm/api.rst
++++ b/Documentation/virt/kvm/api.rst
+@@ -8986,6 +8986,32 @@ This capability must be enabled before any vCPU or extra plane has been
+ created, and the chosen count cannot be changed afterwards; otherwise
+ -EEXIST is returned.
+ 
++7.48 KVM_CAP_HYPERV_FORWARD_HCALL
++---------------------------------
++
++:Architectures: x86
++:Target: VM
++:Parameters: args[0] is 1 to enable forwarding, 0 to disable it
++
++When enabled, a Hyper-V hypercall that KVM would otherwise have failed
++with HV_STATUS_INVALID_HYPERCALL_CODE instead exits to userspace with
++KVM_EXIT_HYPERV_HCALL, and extended hypercalls in fast form exit the
++same way instead of failing with HV_STATUS_INVALID_PARAMETER.  This
++lets a VMM implement hypercalls KVM does not know, such as the Hyper-V
++VSM set.  The synthetic-debugger hypercalls (HvCallResetDebugSession,
++HvCallPostDebugData, HvCallRetrieveDebugData) are an exception: while
++the synthetic debugger is not enabled they still fail in KVM with
++HV_STATUS_INVALID_HYPERCALL_CODE and are not forwarded.
++
++The exit carries the control value and the input and output parameters
++(for fast hypercalls, RDX and R8 from a 64-bit caller, or the EBX:ECX
++and EDI:ESI pairs from a 32-bit caller).  Register argument and
++return state of fast hypercalls, such as the XMM registers, is read and
++written with the ordinary vCPU state ioctls before resuming the vCPU
++with ``hyperv.u.hcall.result`` set.  Hypercalls KVM implements itself,
++and the ordering of CPUID-enforcement checks against hypercall
++dispatch, are unaffected.
++
+ 7.49 KVM_CAP_HCALL_FAULT_EXIT
+ ------------------------------------
+ 
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index e4c8691dc1e1..05670b5ae28a 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1204,6 +1204,7 @@ struct kvm_hv {
+ 	struct mutex hv_lock;
+ 	u64 hv_guest_os_id;
+ 	u64 hv_hypercall;
++	bool hv_forward_hcalls;
+ 	u64 hv_tsc_page;
+ 	enum hv_tsc_page_status hv_tsc_page_status;
+ 
 diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 0bc9435ea3b9..e3ac840c8e5e 100644
+index 98a3c2aefdcd..ec669dafda6e 100644
 --- a/arch/x86/kvm/hyperv.c
 +++ b/arch/x86/kvm/hyperv.c
-@@ -2710,13 +2710,21 @@ static int kvm_hv_send_ipi(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
- 	if ((vector < HV_IPI_LOW_VECTOR) || (vector > HV_IPI_HIGH_VECTOR))
- 		return HV_STATUS_INVALID_HYPERCALL_INPUT;
+@@ -2777,12 +2777,15 @@ int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
+ 		return kvm_hv_hypercall_userspace_exit(vcpu, &hc);
+ 	}
+ 	case HV_EXT_CALL_QUERY_CAPABILITIES ... HV_EXT_CALL_MAX:
+-		if (unlikely(hc.fast)) {
++		if (unlikely(hc.fast) &&
++		    !to_kvm_hv(vcpu->kvm)->hv_forward_hcalls) {
+ 			ret = HV_STATUS_INVALID_PARAMETER;
+ 			break;
+ 		}
+ 		return kvm_hv_hypercall_userspace_exit(vcpu, &hc);
+ 	default:
++		if (to_kvm_hv(vcpu->kvm)->hv_forward_hcalls)
++			return kvm_hv_hypercall_userspace_exit(vcpu, &hc);
+ 		ret = HV_STATUS_INVALID_HYPERCALL_CODE;
+ 		break;
+ 	}
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index a9073436c734..8de596e00441 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -4883,6 +4883,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+ 	case KVM_CAP_HYPERV_CPUID:
+ 	case KVM_CAP_HYPERV_ENFORCE_CPUID:
+ 	case KVM_CAP_SYS_HYPERV_CPUID:
++	case KVM_CAP_HYPERV_FORWARD_HCALL:
+ #endif
+ 	case KVM_CAP_HCALL_FAULT_EXIT:
+ 	case KVM_CAP_PCI_SEGMENT:
+@@ -6886,6 +6887,15 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
+ 		mutex_unlock(&kvm->lock);
+ 		break;
+ 	}
++#ifdef CONFIG_KVM_HYPERV
++	case KVM_CAP_HYPERV_FORWARD_HCALL:
++		r = -EINVAL;
++		if (cap->args[0] & ~1ULL)
++			break;
++		to_kvm_hv(kvm)->hv_forward_hcalls = !!cap->args[0];
++		r = 0;
++		break;
++#endif
+ 	case KVM_CAP_X2APIC_API:
+ 		r = -EINVAL;
+ 		if (cap->args[0] & ~KVM_X2APIC_API_VALID_FLAGS)
+diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+index 839e9e83d21d..5567cf352907 100644
+--- a/include/uapi/linux/kvm.h
++++ b/include/uapi/linux/kvm.h
+@@ -1015,6 +1015,7 @@ struct kvm_enable_cap {
+ #define KVM_CAP_S390_KEYOP 247
+ #define KVM_CAP_S390_VSIE_ESAMODE 248
+ #define KVM_CAP_PLANES 249
++#define KVM_CAP_HYPERV_FORWARD_HCALL 250
+ #define KVM_CAP_HCALL_FAULT_EXIT 252
  
--	/* TLFS: in_vtl bit 4 selects an explicit target VTL. */
--	if (in_vtl & 0x10)
-+	/*
-+	 * TLFS: in_vtl bit 4 selects an explicit target VTL.  A VTL may
-+	 * interrupt its own level and lower ones, never a higher one
-+	 * (TLFS 15.9, "VTL Interrupt Management": each VTL sends and
-+	 * receives interrupts without interference from a less secure
-+	 * VTL).  The reference host omits this check; the suite's
-+	 * SendIpi test probes for both behaviours.
-+	 */
-+	if (in_vtl & 0x10) {
- 		target_plane = in_vtl & 0xf;
--	else
-+		if (target_plane > vcpu->plane_level)
-+			return HV_STATUS_ACCESS_DENIED;
-+	} else {
- 		target_plane = vcpu->plane_level;
--	if (target_plane >= KVM_MAX_PLANES)
--		return HV_STATUS_INVALID_HYPERCALL_INPUT;
-+	}
- 
- 	if (all_cpus)
- 		kvm_hv_send_ipi_to_many(kvm, vector, NULL, 0, target_plane);
+ struct kvm_irq_routing_irqchip {
 -- 
 2.50.1
 
