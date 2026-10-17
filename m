@@ -1,154 +1,146 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0101C861D
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 00:34:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A7E303A0D;
+	Sat, 17 Oct 2026 00:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792197288; cv=none; b=Lg2b8TFtb1CdLVeEs83hiP6TWCxP4tjEYDGMIzGmBlC0TwpgSywQ/0hh7IXv3Y/MLcUBXXRsBuLbXz/VLiFy3N5zxFE98c6nqPbjBkk30islw/vfsJwPdvKISJLldMRolcQJH+2G+Lxt8/IBItafPq0ibZhyo/HdTEO3LNRBftw=
+	t=1792197368; cv=none; b=l9zshz6wDV8mYen20ad7w2RB3HKkCvtrmf5fw8WvZmyYaW8OMFd+/B3NSGMtCzYdswURPvbxZiGrpAlazvgwaHE+NM4yzvtyrmtcNLT2htYuq/zwPsLSLee8IvEH9QCs68KYjqwfjdXDy8+bVlvI0dIFQBIFK+rr2J4Ie6/8m5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792197288; c=relaxed/simple;
-	bh=Uysk2PPsTqzTyTiZaUpbdBbNf+bTXc4rWQb7gKDcOII=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oI83r2/vGjXZEJz20HWE1t0VqXHs8qqDLwrmSqxjRzmqhqxwpD43e2vgxg5H63dpJTut70IUGgh+7GXtiSlwPIZgAMiun/Txp+369mxNIRMNvVQhpMVzOLBPVfSCVWxoITmvHo8FAmn9peL2zzHhDzp0TEe/Oaxgd4BLAKB8amo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=BtwO4AKj; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1792197368; c=relaxed/simple;
+	bh=KT9mF2Y3V9O7//suWtnJcNC+HUMHPffHT1ackkPqZVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gthprhDoQPZQ7/8CyHeyCplUuaspJh6htkCutkUkZtKN0YBg44zub7VhxYpNgd0dKpTu9MDiWCHfyNGnLNSsjMUcAptqxs7X+cyKcZ4L6FmlO3pJal/oArz2ZD7+XlwDW/mefyXB94Ih+jy8g0ZUNkzhvWycbMNIdvTy90Z8Uus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KFyXf1Yq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="BtwO4AKj"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35c76e9614aso558652eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 17:34:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792197286; x=1792802086; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0aepwILCIIPYy/3iG8trIfjCcCal604FcoCtw2lWda0=;
-        b=BtwO4AKjWNCU7Olm6QXFGmR12/0ZFzpxy4YyOeyWcQjd7zO7nnVw5JJ9HpZ+N8vsou
-         FHN5QDMYvGo68wHHAZoEZsHyJ6BJ1OSQVRkKH7sNwMde3AaRrzcvVaaM2/ObGbRq6+sc
-         tOi0ySPl+1PKz4YWj8A4zIeJLrjPdfxqwNr5U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792197286; x=1792802086;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0aepwILCIIPYy/3iG8trIfjCcCal604FcoCtw2lWda0=;
-        b=lZkYKWWuZEpS6faeeRzkjGgf/eUa/T4ukIYyaQM4UpvPVubEJ29WPtYCwVioH7zo2g
-         745pa47MoGvv2u7pPadxzmkazhJvcPTOK3nSTZy26MUxzL8RYaKUNhYizotoiy2IwGEh
-         fp1cUcQF1VvzI/Ila+IaQdr4Kq/g1Rxl3Tzt8M+PIYrCk2My6ExgfxvRP22rawAGTif5
-         3U3ygcdJjQm41r19KvoUUWan+RvFY+TVf/Z3vV5pzMvw+9A4ixG5miAIvLXaN9wdHmBP
-         VsJpEtt5iENhu7pllxj2PjmJlng2FRHCVtnS911LZW1ybbfowX+/93kuQFOVDuDU7W2J
-         grmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJmcXPAY9Qgzxyc37uN8JND6IF8ynRQTxJusk3zSMY6AxuOC2Jrp0ybeXB/ZJ7DWqyEHAFovhX/Svx0Co=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLe2SRyTSJdiX3p8zh++deHhyfLzMq74ybZdNmX76JctbP9t7uZ
-	r6qeHe5D6JEIfmCiDOVs5iR5w39T7rk/9t/lLWqK6en0YhMlDFMFNrT4hFf/R082nQ==
-X-Gm-Gg: AYBFou3GuRUsEvXLuccirDA1Xh5jSJkQ4iO75xx/Epg7DiPG4pM2DVjUD95MHaQEro5
-	dRib4cR9wf7PpHbPo4/OQ7y7UDA/U46uSux/Lmwm4RXKRxvw4qniS0vrCMxrBMFze0DSb3drabM
-	eD79IAegfkGW8wLE8SZ1oyfYxeKJ6G/pl/MktYAk/P9gMYaUhmNwgpFHFvnPzEWwK3y3pSJS+Rm
-	Ryurzx9Mn3tSSroMwz4rGHngW0GwwN1qpaUdXC/p2uaETRprq5K3kVh9wEcPbYUYvIBaLcc+FaZ
-	hXJGjDYfjYbVA4OWf0DKHDlMaYtjkLS3LxanqQt3fSB6Hm8BLOSIIDL94b+N8pJASoJ8bFTS497
-	S7wKFZUmbVjU/wmr8qKEhhS2Ia+L0/3hgElMZ8gT8+M+fhc0quxEqADRZXW2EoUp5h/tzdEDL/a
-	v3HqYKdEgUAj0vfnCABrUVFVpVzvqaKmXT9EakVWb8FBpjvD/9sxreouNpubZdGy/iNHIjKSxb0
-	PRaYCsENm0DawIicVtVpLxZUX9dURdUZ7bg
-X-Received: by 2002:a05:701b:4582:20b0:184:19ee:1fdd with SMTP id a92af1059eb24-1850d370592mr1903173c88.5.1792197285806;
-        Fri, 16 Oct 2026 17:34:45 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:d542:736d:a85:f140])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1830f213ba7sm10311484c88.0.2026.10.16.17.34.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 17:34:45 -0700 (PDT)
-Date: Fri, 16 Oct 2026 17:34:43 -0700
-From: Brian Norris <briannorris@chromium.org>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, linux-doc@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Doug Anderson <dianders@chromium.org>, Len Brown <lenb@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>
-Subject: Re: [PATCH v4 2/2] PM: runtime: Add Example Driver Patterns section
-Message-ID: <atLCo6LyUmepwg4r@google.com>
-References: <20261001155118.1750028-1-briannorris@chromium.org>
- <20261001085009.v4.2.I75ceea7b1afd016e08922e47b82e6eb36de144fe@changeid>
- <CAJZ5v0hMHutu69acgSR7KsmcLs0McZK+-3OFoiqFrU5GnJzTNQ@mail.gmail.com>
- <as_i5MEz3WfnDQmf@google.com>
- <CAJZ5v0i+77gt-KmMYdxxzS4uGzxFArrYGpoDnjrfknpPOkAuHg@mail.gmail.com>
- <atE9urIHXAJZXu6k@google.com>
- <CAJZ5v0g56J9e9qdiR8W+BfmEbbedvpD8hop4+n9=rkFEsDG_Jw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KFyXf1Yq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B481C1F000C4;
+	Sat, 17 Oct 2026 00:36:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792197366;
+	bh=kMRxpgmv2CDHgcE18V/xAzpysWCiat+7YVUS93pYBAY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KFyXf1YqIOsCvmLNtiAAebmUq4xdrIjj/weDnRlPJeh2lOMSBmT3bTJTQCb7jM4XC
+	 AfsUhZeu0GtjysDEx0pgN4I20jg+cIkZz3Js8RgY86Gk3OAQqcUw0UgTXVrX/oNSbL
+	 vTWL+1wZtY1iIKb3M88k9Z0OPEPdfYZ5PiPuMij6JPGhOFOTEwpzTBw7lDbwi5X+yg
+	 +r4mr+F6u5BSb5b4ZVqar6tJv/x12s2RHqLcwG+ha6aR/KIVYfRNaRsfIQySbXoe3V
+	 XNKwcN3r5ML/y2UkW3FqmGlFvKhnfcpCxA3/gO0kf8P8tM1FGykJBvAf+TE85fIviW
+	 SLKbTZVTGPvFQ==
+Date: Sat, 17 Oct 2026 01:36:00 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: mocker-mug-unwoven@duck.com, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Peter Meerwald-Stadler
+ <pmeerw@pmeerw.net>, Arka Mondal <arka@arkamondal.net>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: light: Add AMS TCS3472 and
+ TCS3400
+Message-ID: <20261017013600.077fee36@jic23-hlaptop>
+In-Reply-To: <af011ab8-b9ab-49d1-b9fe-4e87b3979bbd@kernel.org>
+References: <20261016-tcs3400-v1-0-3d79d2a7f449@duck.com>
+	<20261016-tcs3400-v1-1-3d79d2a7f449@duck.com>
+	<af011ab8-b9ab-49d1-b9fe-4e87b3979bbd@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0g56J9e9qdiR8W+BfmEbbedvpD8hop4+n9=rkFEsDG_Jw@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Rafael,
+On Fri, 16 Oct 2026 16:43:42 +0200
+Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-[ trimming the rest. I appreciate the replies! Will respond later in
-  this thread, but largely -- ack. ]
-
-On Fri, Oct 16, 2026 at 07:42:47PM +0200, Rafael J. Wysocki (Intel) wrote:
-> On Thu, Oct 15, 2026 at 10:55 PM Brian Norris <briannorris@chromium.org> wrote:
-> > On Thu, Oct 15, 2026 at 10:11:04PM +0200, Rafael J. Wysocki (Intel) wrote:
-> > > On Wed, Oct 14, 2026 at 10:15 PM Brian Norris <briannorris@chromium.org> wrote:
-> > > > Would you be OK with pm_runtime_force_suspend() as an alternative here?
-> > > > It seems like some drivers have started using that in remove(), which
-> > > > doesn't quite match its docs, but otherwise seems OK to me. I was
-> > > > considering that already here, and I even think it might be a good idea
-> > > > to do automatically in devm_*, as I noted here:
-> > > >
-> > > >   https://lore.kernel.org/all/arVWVA3lks7SopQH@google.com/
-> > > >
-> > > >   (note: there's definitely at least one typo in there; should be
-> > > >   !pm_runtime_status_suspended(); and it needs some other adjustments to
-> > > >   actually verify the device was suspended at time of enable(); ... so
-> > > >   consider it a concept, not a patch.)
-> > > >
-> > > > But I kinda wanted a maintainer opinion before I went too far on that.
-> > >
-> > > That shouldn't be necessary as per the above.
-> >
-> > OK, yes, not necessary in this particular example.
-> >
-> > But my hope is that devm_pm_runtime_enable() can be made easier to use.
-> > It would be nice if we had the property:
-> >
-> >   If your device was suspended (most resources powered off) when
-> >   devm_pm_runtime_enable() is called, the PM helpers will suspend it
-> >   (power it back off) on remove().
+> On 16/10/2026 10:15, HuskerMinion via B4 Relay wrote:
+> > From: HuskerMinion <mocker-mug-unwoven@duck.com>
+> > 
+> > The tcs3472 driver has no binding yet. It matches DT nodes only through
+> > its I2C device ID.
+> > 
+> > Document the TCS3472 family and the AMS TCS3400 family, which the next
+> > patch adds to the driver. Both are I2C color sensors with one threshold
+> > interrupt and a VDD supply.
+> > 
+> > Signed-off-by: HuskerMinion <mocker-mug-unwoven@duck.com>  
 > 
-> I'm not quite convinced that runtime PM is suitable for devm_ type of
-> management.
+> Please read submitting patches how to properly attribute the work with
+> your real and known identity
 > 
-> IIRC, devm_pm_runtime_enable() was introduced to avoid some code
-> duplication between drivers, but I don't think that it may be expected
-> to be universally applicable.
+> 
+> > ---
+> >  .../devicetree/bindings/iio/light/ams,tcs3472.yaml | 57 ++++++++++++++++++++++
+> >  1 file changed, 57 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml b/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml
+> > new file mode 100644
+> > index 000000000..cd4a0516e
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/iio/light/ams,tcs3472.yaml
+> > @@ -0,0 +1,57 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/iio/light/ams,tcs3472.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: AMS TCS3472 and TCS3400 color light-to-digital converters
+> > +
+> > +maintainers:
+> > +  - HuskerMinion <mocker-mug-unwoven@duck.com>
+> > +
+> > +description: |
+> > +  Color light sensors with 16-bit clear, red, green and blue channels, an
+> > +  I2C interface and a threshold interrupt.
+> > +
+> > +  The TCS3472 family covers the TCS34721, TCS34723, TCS34725 and TCS34727.
+> > +  The TCS3400 family covers the TCS34001, TCS34003, TCS34005 and TCS34007.  
+> 
+> We do not take families, but actual devices. TCS3400 seems to be a real
+> device, so I don't get why you call it a family.
+> 
+> 
+> > +  The variants differ in I2C address and interface voltage.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - ams,tcs3400
+> > +      - ams,tcs3472  
+> 
+> Your driver cod suggests these are compatible, so it should be expressed.
 
-I also don't think it will be univerally applicable, but:
+That's only true because this driver hard rejects a whoami mismatch
+which is something we shouldn't really be doing. If we do a look
+up in driver and fail to match we should be using the data associated with
+the ID that the fallback compatible would have had.
 
-1) it's reasonably widely used. (220 and growing.)
-2) it's commonly used for "simple" drivers.
-3) those "simple" drivers still often get it wrong.
-4) I don't see a major downside in trying to improve it in the ways I'm
-   thinking.
+Our old fun of what should we do about fallback compatibles and
+devices with ID registers.  Some of which (in this driver) are actually
+compatible with each other and some of which are not (in the sense
+that the match the WHOAMI and do different things depending on that
+matching).
 
-For #3: literally the first (alphabetical git grep) use that calls
-devm_pm_runtime_enable() without first marking it active is
-drivers/char/hw_random/mtk-rng.c, and it has a bug -- it doesn't balance
-clk_prepare_enable() and clk_disable_unprepare(). In fact, it performs
-no remove() action, because *normally* a simple driver that uses devm_*
-for everything is automatically in good shape. Everything will tear down
-in reverse order, correctly.
+I still prefer that we never claim devices that need different
+handling are compatible (even if detectable) because of that prevents
+new drop in parts being used (as they normally have different whoami
+values even as supposedly drop in replacements).
 
-But runtime PM is crazy, so no, that's not true. Runtime PM allows (via
-.../power/control -> on) the device to leave in an ACTIVE state, and for
-that clock to be left on. I believe if the driver unbinds and binds
-again, the clock may be mismanaged forever.
+I don't mind enough to argue much about it however.
+Note that before this series all the supported parts were actually
+compatible and the only difference was a print on the id match. So
+if this patch hadn't turned up an I'd noticed, I have simply
+deleted the error return.
 
-I think a simple driver like that should be simple, and we can make
-devm_* + pm_runtime work correctly for at least the most straightforward
-of cases. Is that an outlandish goal?
+Jonathan
 
-Brian
+
+> 
+> 
+> Best regards,
+> Krzysztof
+
