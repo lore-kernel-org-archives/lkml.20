@@ -1,296 +1,230 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD28E3B6C08
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:09:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128CE3AAF5E
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 03:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792206563; cv=none; b=Ajeg2p5Fu7NRiS9EHcTQvyeTtzDlvYEq2YLVouDuggIt05Vx1Y7ZWVwV6flzu5drpZIB1ap34w+1r6BPx5klDdQ83g4Du1xSYM7lcxlSsjfXHzwe9DOgPoUl5nOqMM/bFwkMzkDiMF/V5xNaSteDNGfLnNXRlKLo53UX9E7zA4o=
+	t=1792206585; cv=none; b=lmu84qBeAoDBoO1zNChXauemQjAMpx67rK3U3cMdmuR2n2I90HgIdGMvYJmjQ15SfsaFDcjSBb4npwMBziui+SHXa54RLAGATfSEirTxhZV+caXCVrHmvVGprpdRhExxv3KutRjaI8np/yh1VsdXaX+YwxZH+FB/zXu5pE2YAcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792206563; c=relaxed/simple;
-	bh=qWZscB2I+FYzj/bKFGPuKuzE61mBCR8+wImSbMhOBwk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Xtcw76H/J7cdLzlixW37fBGthfVpYaFXT+rR7E3h4v2FTGIB/5oKJsysDzbTq9vNJ2EBPbBPu/j6yJlOABpqSE1yqHU5fHXZNz+/x3ln22BznGGoW95JRIZa9dCSV4He8rL7y0hNxOqblSG+9PDPl0vFzMqin7K2ux/UrRpVg+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b37620eb73so1086398b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:09:21 -0700 (PDT)
+	s=arc-20240116; t=1792206585; c=relaxed/simple;
+	bh=zDoMxRzARHHAy5ri+HjeBWocd4VpQdNpx8uIHCb8OO0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BLypF0fzsRsEtyuL7HyDNY2qBhoDNEkFH/lPsRfxSFqFGpZEiIET+laPFU7bM5yMQ9HuhOxdE9o8ozeI1gtDDxG4assfhDK6x0D4RrIRNp9qOQqi9jhqD+OBCe5wAhMA44vNBwFzM/Z7KZoA0QygsCYB503WDCIZZP2ocewei1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o8NQSuSz; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o8NQSuSz"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso2374595ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 16 Oct 2026 20:09:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792206583; x=1792811383; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=enK3RSWvXdgqwIVRPBvjJmOYoe9F1G7CwzrwYjBwBdA=;
+        b=o8NQSuSzgCXIdFSZZ+2MsfR9MAPbOPh2uYIQbEAizPuIr2fimr1aRAHpLzBaH3pEYI
+         /F94ZDCPpGq1/JUMOxY1/1LcKGYRt9LsAQXWHo/hUuR8+XE3wPcxzaYFdtcOn8uNMBta
+         BpSB2enEL47sles4fWQL7RKiSjbGlyrwBDryhLvqqYlPtzgsJoBTPQ3uaB2gnsU7toQ1
+         qnxucSC6Lq6h0KAfs1HmaFcpQ042anF/O2fVAgYmCY1PdkDwooZ+dXK05v19hheQoSaM
+         +55fgUfzXM8VLs4YWqqevu6atMcERWl8QUp4vu1uFpF/Mh/wgkmPOYLZoJ58omAGOm2s
+         iVqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792206561; x=1792811361;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JaJZcBIKqUWusrosJzXIs+je6PTOrghJY1sZP6GKQWI=;
-        b=HMRe+KvzBILwaYOr5kYv3Zqg6hnTJlYpeBaSHGHf4Bo/bQ1K08cs5qNlDHulTWKsn/
-         zATmKqSqatnHUfwWBetnR9kdKYtVshC4S1FsFLk+v/xHYMm7Kb3CjAqUw7LdldjjoWO9
-         yZYVnpiJA7S/3WumvWhMMYO5e3BBzb7JLlhmpeKNgmsH9LpGIUF9elqzd5ll1hBKpcR9
-         QTb+35EQWvmzgugzxxhjKoyein7sbQDXDMOlh7Bmdeyt6tS8w1oZPdn6CMNHTrD/O+4S
-         gQYeD3w8CgH6CaT+rIngdXycfrHDVNhT0xnIBZb89SK/xqCc3V+k8AelckrAWGL8Q4YG
-         CFGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwwOIQqpxcovHts7vwoqzBgqWBbGfor+rP6pzkaHThI8+JxpymA35HrsRByPMm9ladYrLbaTDUozS+t/Bg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXJwmw2IMupESfpGm91OkY5tleW7hLY0IWbBkMvZOa5mld1Mol
-	hKrflIeYDtUj/OQhroRh+5N8e7KnSMcA21rKyYohvE/LBwap3ISrd1qh1uqgBb+qNfAj9Mft5Dt
-	Qo36SJuf1ZfR1zngKhosKTEZ59h8m+fLT4GXX1pEm0YgKioyBkDyLwwtuV/Q=
+        d=1e100.net; s=20260707; t=1792206583; x=1792811383;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=enK3RSWvXdgqwIVRPBvjJmOYoe9F1G7CwzrwYjBwBdA=;
+        b=bTVut30XQa6iioMij9e9mIoyBKT8MHxvKPe7M52ejdLq/neZfwXL3qrzQw+BwMb4ss
+         auY2lHeEcMsZiLjzaQXMx4CeNKlTsVGEJ6XqVkzcnrKaS2ACVgzaTAg/X40rwhFcOcyQ
+         aV2hhUf3+boOErQBC7rE9EinnI2UA7uWKZkorbNXENijWzQysrBhi8NB2yQQPqjXF9F+
+         BMfsnT5yok70q/7w4RdBa+MWYSgyz42qI594nmxpULKaOXM3ddxwT/movoUQy9fXRgnG
+         qghv8XLxpOd+OAofOzR6bfi2g1TRQ85zLeDqTHQm0q5/75b8nsnO131AeSsbRG+3zYUn
+         iRKg==
+X-Forwarded-Encrypted: i=1; AKwUvByqU7jm3YSYv4aodTgyWmeC4HP46ViUB5JgpFgqUqYkUkXqssHCuLR5H/blsE75XfYuvjhP3qB/+AuUntw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbhlAP8lo5DldWDjH04B0XJS3c8WiLVU+Ww75LzLKwezKZo/rO
+	NsW7qST48xvXR3Am1frK0FXnnkyzOsKQysLTj4CFZ3hwOOekd9D6+/uo
+X-Gm-Gg: AYBFou1sPF7Ui8Rr3L4iU/5C0HGlUAZQcgqp8oo+jOUaZ0uzOjVlsBd0A5z46WfYeSN
+	dvxmIdSEj4ftKQyc1SNNt0eeE4WI7A4N4Q4Nw9gDBT2qWAoc5KA6Jo/1TPu5z4ftmanGnJDVGKG
+	5PyzRrlPDpAb2UsQ+5pEAA6ue9Xt7vnSrKtOhD4qkXhTXN7J+ZyxBE/ubXu0BEajV5cQRwase3e
+	LUtS21VX/4RbAu26do8tLYFEpoMgFpYrE73rnjYnUiUodsPmQEFzC/0Q0M4KMH7Otg+WToC5LKO
+	jKBp8ywRGvTDp4VabZI7aNlrx7Io8DoJ7pHcRCfZpttWlX70IxxTRlxDP6GZBKrrgjPMRFtL0/d
+	4qPtBAuzXdJ6ioVjUi9ikH9vhyiOGz7Lh1BioSbPxarC8uUCkcXkdap2HIIEou1xbgK9vM42IWb
+	rFQcou4UvLJCiH90dlDxZUFBpFgBPhIkMm09Is4zqcglpWaYh9D0AsEz49B4PwA04Q50+f8EUAN
+	Ww8ooY+uBemgrfRQhy+by6rgbZBlOP5tw==
+X-Received: by 2002:a17:90b:5803:b0:3ab:9c73:12e with SMTP id 98e67ed59e1d1-3acee29303bmr1411650a91.6.1792206583320;
+        Fri, 16 Oct 2026 20:09:43 -0700 (PDT)
+Received: from fedora ([61.74.238.173])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549b6171sm1795406a12.14.2026.10.16.20.09.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 20:09:42 -0700 (PDT)
+From: SeungJu Cheon <suunj1331@gmail.com>
+To: anup@brainfault.org,
+	atish.patra@linux.dev
+Cc: tjytimi@163.com,
+	inochiama@gmail.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	andrew.jones@linux.dev,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	kvm-riscv@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	SeungJu Cheon <suunj1331@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] KVM: riscv: Only fast-path dirty-log write faults on host-writable leaves
+Date: Sat, 17 Oct 2026 12:09:26 +0900
+Message-ID: <20261017030927.345454-1-suunj1331@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1488:b0:4cb:f21b:6f8e with SMTP id
- 5614622812f47-53ccfcb392dmr1461275b6e.33.1792206560901; Fri, 16 Oct 2026
- 20:09:20 -0700 (PDT)
-Date: Fri, 16 Oct 2026 20:09:20 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad2e6e0.6814cce4.34c49f.0026.GAE@google.com>
-Subject: [syzbot] [x25?] possible deadlock in lapb_connect_request
-From: syzbot <syzbot+8328573e4d0514392471@syzkaller.appspotmail.com>
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-x25@vger.kernel.org, 
-	ms@dev.tdt.de, netdev@vger.kernel.org, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+The dirty-log write fault fast path sets _PAGE_WRITE without checking
+whether the backing page is host-writable. A read fault can install
+a read-only mapping to the shared zero page. A subsequent guest write
+then takes the fast path and writes into the zero page instead of
+going through the slow path to break CoW.
 
-syzbot found the following issue on:
+Use RSW bit 9 to record host writability before dirty logging forces
+the mapping read-only. Preserve this bit across write-protection and
+fall back to the slow path when it is clear.
 
-HEAD commit:    24a19b953e2a Linux 7.3-rc7
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=101e883c580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=129d675874dbf896
-dashboard link: https://syzkaller.appspot.com/bug?extid=8328573e4d0514392471
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/c36b6926be3e/disk-24a19b95.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/413d898eaf27/vmlinux-24a19b95.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ada3e66b70fc/bzImage-24a19b95.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+8328573e4d0514392471@syzkaller.appspotmail.com
-
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Tainted: G             L     
-------------------------------------------------------
-syz.5.1726/12729 is trying to acquire lock:
-ffff8880793f6dc0 (&lapb->lock){+.-.}-{3:3}, at: spin_lock_bh include/linux/spinlock.h:353 [inline]
-ffff8880793f6dc0 (&lapb->lock){+.-.}-{3:3}, at: lapb_connect_request+0x5e/0x1a0 net/lapb/lapb_iface.c:293
-
-but task is already holding lock:
-ffff88802bd78f00 (&lapbeth->up_lock){+.-.}-{3:3}, at: spin_lock_bh include/linux/spinlock.h:353 [inline]
-ffff88802bd78f00 (&lapbeth->up_lock){+.-.}-{3:3}, at: lapbeth_xmit+0x24/0x250 drivers/net/wan/lapbether.c:191
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #2 (&lapbeth->up_lock){+.-.}-{3:3}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __raw_spin_lock_bh include/linux/spinlock_api_smp.h:182 [inline]
-       _raw_spin_lock_bh+0x33/0x40 kernel/locking/spinlock.c:205
-       spin_lock_bh include/linux/spinlock.h:353 [inline]
-       lapbeth_xmit+0x24/0x250 drivers/net/wan/lapbether.c:191
-       __netdev_start_xmit include/linux/netdevice.h:5432 [inline]
-       netdev_start_xmit include/linux/netdevice.h:5441 [inline]
-       xmit_one net/core/dev.c:3953 [inline]
-       dev_hard_start_xmit+0x121/0x760 net/core/dev.c:3969
-       __dev_queue_xmit+0x1c25/0x4a40 net/core/dev.c:4958
-       dev_queue_xmit include/linux/netdevice.h:3464 [inline]
-       tx+0xc4/0x130 drivers/block/aoe/aoenet.c:62
-       kthread+0x1d8/0x3c0 drivers/block/aoe/aoecmd.c:1241
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #1 (_xmit_X25#2){+.-.}-{3:3}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __raw_spin_lock include/linux/spinlock_api_smp.h:190 [inline]
-       _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
-       spin_lock include/linux/spinlock.h:347 [inline]
-       __netif_tx_lock include/linux/netdevice.h:4841 [inline]
-       __dev_queue_xmit+0x1ac6/0x4a40 net/core/dev.c:4952
-       neigh_output include/net/neighbour.h:560 [inline]
-       ip_finish_output2+0x851/0x2400 net/ipv4/ip_output.c:236
-       __ip_finish_output.part.0+0x444/0x6f0 net/ipv4/ip_output.c:314
-       __ip_finish_output net/ipv4/ip_output.c:302 [inline]
-       ip_finish_output net/ipv4/ip_output.c:324 [inline]
-       NF_HOOK_COND include/linux/netfilter.h:314 [inline]
-       ip_output+0x39b/0xc10 net/ipv4/ip_output.c:437
-       dst_output include/net/dst.h:471 [inline]
-       ip_local_out+0x193/0x1f0 net/ipv4/ip_output.c:131
-       iptunnel_xmit+0x722/0xd30 net/ipv4/ip_tunnel_core.c:97
-       ip_tunnel_xmit+0x1b91/0x3210 net/ipv4/ip_tunnel.c:848
-       __gre_xmit+0x91a/0xc90 net/ipv4/ip_gre.c:488
-       gre_tap_xmit+0x44e/0x700 net/ipv4/ip_gre.c:783
-       __netdev_start_xmit include/linux/netdevice.h:5432 [inline]
-       netdev_start_xmit include/linux/netdevice.h:5441 [inline]
-       xmit_one net/core/dev.c:3953 [inline]
-       dev_hard_start_xmit+0x121/0x760 net/core/dev.c:3969
-       sch_direct_xmit+0x1b2/0xc70 net/sched/sch_generic.c:372
-       __dev_xmit_skb net/core/dev.c:4277 [inline]
-       __dev_queue_xmit+0x2812/0x4a40 net/core/dev.c:4916
-       lapb_data_transmit+0x96/0xc0 net/lapb/lapb_iface.c:447
-       lapb_transmit_buffer+0xce/0x3a0 net/lapb/lapb_out.c:149
-       lapb_send_control+0x1ce/0x330 net/lapb/lapb_subr.c:251
-       lapb_establish_data_link+0xeb/0x110 net/lapb/lapb_out.c:163
-       lapb_device_event+0x315/0x580 net/lapb/lapb_iface.c:512
-       notifier_call_chain+0x99/0x3f0 kernel/notifier.c:85
-       call_netdevice_notifiers_info+0xbe/0x110 net/core/dev.c:2275
-       call_netdevice_notifiers_extack net/core/dev.c:2313 [inline]
-       call_netdevice_notifiers net/core/dev.c:2327 [inline]
-       __dev_notify_flags+0x22c/0x4b0 net/core/dev.c:9896
-       netif_change_flags+0x108/0x160 net/core/dev.c:9925
-       dev_change_flags+0xba/0x260 net/core/dev_api.c:68
-       devinet_ioctl+0x110b/0x1f10 net/ipv4/devinet.c:1199
-       inet_ioctl+0x3aa/0x3f0 net/ipv4/af_inet.c:1009
-       sock_do_ioctl+0x118/0x280 net/socket.c:1325
-       sock_ioctl+0x599/0x6b0 net/socket.c:1446
-       vfs_ioctl fs/ioctl.c:51 [inline]
-       __do_sys_ioctl fs/ioctl.c:597 [inline]
-       __se_sys_ioctl fs/ioctl.c:583 [inline]
-       __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #0 (&lapb->lock){+.-.}-{3:3}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __raw_spin_lock_bh include/linux/spinlock_api_smp.h:182 [inline]
-       _raw_spin_lock_bh+0x33/0x40 kernel/locking/spinlock.c:205
-       spin_lock_bh include/linux/spinlock.h:353 [inline]
-       lapb_connect_request+0x5e/0x1a0 net/lapb/lapb_iface.c:293
-       lapbeth_xmit+0x1cb/0x250 drivers/net/wan/lapbether.c:205
-       __netdev_start_xmit include/linux/netdevice.h:5432 [inline]
-       netdev_start_xmit include/linux/netdevice.h:5441 [inline]
-       xmit_one net/core/dev.c:3953 [inline]
-       dev_hard_start_xmit+0x121/0x760 net/core/dev.c:3969
-       __dev_queue_xmit+0x1c25/0x4a40 net/core/dev.c:4958
-       dev_queue_xmit include/linux/netdevice.h:3464 [inline]
-       x25_establish_link+0x16f/0x1d0 net/x25/x25_dev.c:170
-       x25_transmit_link+0x92/0x100 net/x25/x25_link.c:218
-       x25_write_internal+0x522/0xc80 net/x25/x25_subr.c:255
-       x25_connect+0x728/0x1080 net/x25/af_x25.c:810
-       connect_socket net/socket.c:2141 [inline]
-       connect_socket net/socket.c:2131 [inline]
-       __sys_connect_file+0x146/0x1a0 net/socket.c:2166
-       __sys_connect+0x141/0x170 net/socket.c:2183
-       __do_sys_connect net/socket.c:2189 [inline]
-       __se_sys_connect net/socket.c:2186 [inline]
-       __x64_sys_connect+0x72/0xb0 net/socket.c:2186
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  &lapb->lock --> _xmit_X25#2 --> &lapbeth->up_lock
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&lapbeth->up_lock);
-                               lock(_xmit_X25#2);
-                               lock(&lapbeth->up_lock);
-  lock(&lapb->lock);
-
- *** DEADLOCK ***
-
-locks held by syz.5.1726/12729: 4, last CPU#1:
- #0: ffff88805f65e260 (sk_lock-AF_X25){+.+.}-{0:0}, at: lock_sock include/net/sock.h:1713 [inline]
- #0: ffff88805f65e260 (sk_lock-AF_X25){+.+.}-{0:0}, at: x25_connect+0xba/0x1080 net/x25/af_x25.c:751
- #1: ffffffff8fdec580 (rcu_read_lock_bh){....}-{1:3}, at: local_bh_disable include/linux/bottom_half.h:20 [inline]
- #1: ffffffff8fdec580 (rcu_read_lock_bh){....}-{1:3}, at: rcu_read_lock_bh include/linux/rcupdate.h:902 [inline]
- #1: ffffffff8fdec580 (rcu_read_lock_bh){....}-{1:3}, at: __dev_queue_xmit+0x296/0x4a40 net/core/dev.c:4872
- #2: ffff8880257f8958 (_xmit_X25#2){+.-.}-{3:3}, at: spin_lock include/linux/spinlock.h:347 [inline]
- #2: ffff8880257f8958 (_xmit_X25#2){+.-.}-{3:3}, at: __netif_tx_lock include/linux/netdevice.h:4841 [inline]
- #2: ffff8880257f8958 (_xmit_X25#2){+.-.}-{3:3}, at: __dev_queue_xmit+0x1ac6/0x4a40 net/core/dev.c:4952
- #3: ffff88802bd78f00 (&lapbeth->up_lock){+.-.}-{3:3}, at: spin_lock_bh include/linux/spinlock.h:353 [inline]
- #3: ffff88802bd78f00 (&lapbeth->up_lock){+.-.}-{3:3}, at: lapbeth_xmit+0x24/0x250 drivers/net/wan/lapbether.c:191
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 12729 Comm: syz.5.1726 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- __raw_spin_lock_bh include/linux/spinlock_api_smp.h:182 [inline]
- _raw_spin_lock_bh+0x33/0x40 kernel/locking/spinlock.c:205
- spin_lock_bh include/linux/spinlock.h:353 [inline]
- lapb_connect_request+0x5e/0x1a0 net/lapb/lapb_iface.c:293
- lapbeth_xmit+0x1cb/0x250 drivers/net/wan/lapbether.c:205
- __netdev_start_xmit include/linux/netdevice.h:5432 [inline]
- netdev_start_xmit include/linux/netdevice.h:5441 [inline]
- xmit_one net/core/dev.c:3953 [inline]
- dev_hard_start_xmit+0x121/0x760 net/core/dev.c:3969
- __dev_queue_xmit+0x1c25/0x4a40 net/core/dev.c:4958
- dev_queue_xmit include/linux/netdevice.h:3464 [inline]
- x25_establish_link+0x16f/0x1d0 net/x25/x25_dev.c:170
- x25_transmit_link+0x92/0x100 net/x25/x25_link.c:218
- x25_write_internal+0x522/0xc80 net/x25/x25_subr.c:255
- x25_connect+0x728/0x1080 net/x25/af_x25.c:810
- connect_socket net/socket.c:2141 [inline]
- connect_socket net/socket.c:2131 [inline]
- __sys_connect_file+0x146/0x1a0 net/socket.c:2166
- __sys_connect+0x141/0x170 net/socket.c:2183
- __do_sys_connect net/socket.c:2189 [inline]
- __se_sys_connect net/socket.c:2186 [inline]
- __x64_sys_connect+0x72/0xb0 net/socket.c:2186
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f9e4619e1d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f9e443d5028 EFLAGS: 00000246 ORIG_RAX: 000000000000002a
-RAX: ffffffffffffffda RBX: 00007f9e46426090 RCX: 00007f9e4619e1d9
-RDX: 0000000000000012 RSI: 0000200000003340 RDI: 000000000000000a
-RBP: 00007f9e46235888 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f9e46426128 R14: 00007f9e46426090 R15: 00007ffe340b8688
- </TASK>
-
-
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-174168@kernel.org/
+Fixes: 7705be59eb2d ("KVM: riscv: Fast-path dirty logging write faults")
+Cc: stable@vger.kernel.org # 7.2+
+Signed-off-by: SeungJu Cheon <suunj1331@gmail.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Testing:
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+1. HiFive Premier P550
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+   A selftest makes the guest read an untouched page, then write to
+   it with dirty logging enabled. Before the fix, the write corrupts
+   the host zero page. After the fix, CoW allocates a private page
+   and the zero page stays zero.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+   dirty_log_perf_test -v 3 -b 256M -i 3 shows no noticeable
+   regression (14-21s per iteration before and after).
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+2. QEMU (-cpu rv64,h=true)
 
-If you want to undo deduplication, reply with:
-#syz undup
+   The same selftest reproduces the zero-page corruption before the
+   fix and passes after it.
+
+This patch applies on top of the Accessed-bit fix [1].
+
+[1] https://lore.kernel.org/all/20261016101458.221648-1-suunj1331@gmail.com/
+
+ arch/riscv/include/asm/kvm_gstage.h |  5 ++++-
+ arch/riscv/kvm/gstage.c             |  5 ++++-
+ arch/riscv/kvm/mmu.c                | 15 +++++++++++++--
+ 3 files changed, 21 insertions(+), 4 deletions(-)
+
+diff --git a/arch/riscv/include/asm/kvm_gstage.h b/arch/riscv/include/asm/kvm_gstage.h
+index aaf080ba1b77..0d19ad6d7dfe 100644
+--- a/arch/riscv/include/asm/kvm_gstage.h
++++ b/arch/riscv/include/asm/kvm_gstage.h
+@@ -35,6 +35,9 @@ extern unsigned long kvm_riscv_gstage_max_pgd_levels;
+ #define kvm_riscv_gstage_pgd_xbits	2
+ #define kvm_riscv_gstage_pgd_size	(1UL << (HGATP_PAGE_SHIFT + kvm_riscv_gstage_pgd_xbits))
+ 
++/* RSW bit 9: the host mapping behind this leaf is writable. */
++#define KVM_GSTAGE_PTE_HOST_WRITABLE	BIT(9)
++
+ static inline unsigned long kvm_riscv_gstage_gpa_bits(unsigned long pgd_levels)
+ {
+ 	return (HGATP_PAGE_SHIFT +
+@@ -61,7 +64,7 @@ bool kvm_riscv_gstage_try_update_pte(struct kvm_gstage *gstage, u32 level,
+ int kvm_riscv_gstage_map_page(struct kvm_gstage *gstage,
+ 			      struct kvm_mmu_memory_cache *pcache,
+ 			      gpa_t gpa, phys_addr_t hpa, unsigned long page_size,
+-			      bool page_rdonly, bool page_exec,
++			      bool page_rdonly, bool page_exec, bool host_writable,
+ 			      struct kvm_gstage_mapping *out_map);
+ 
+ bool kvm_riscv_gstage_split_huge(struct kvm_gstage *gstage,
+diff --git a/arch/riscv/kvm/gstage.c b/arch/riscv/kvm/gstage.c
+index be70607a33ea..d9bfd0c6d5fd 100644
+--- a/arch/riscv/kvm/gstage.c
++++ b/arch/riscv/kvm/gstage.c
+@@ -207,7 +207,7 @@ static void kvm_riscv_gstage_update_pte_prot(struct kvm_gstage *gstage, u32 leve
+ int kvm_riscv_gstage_map_page(struct kvm_gstage *gstage,
+ 			      struct kvm_mmu_memory_cache *pcache,
+ 			      gpa_t gpa, phys_addr_t hpa, unsigned long page_size,
+-			      bool page_rdonly, bool page_exec,
++			      bool page_rdonly, bool page_exec, bool host_writable,
+ 			      struct kvm_gstage_mapping *out_map)
+ {
+ 	bool found_leaf;
+@@ -246,6 +246,9 @@ int kvm_riscv_gstage_map_page(struct kvm_gstage *gstage,
+ 			prot = PAGE_WRITE;
+ 	}
+ 
++	if (host_writable)
++		prot = __pgprot(pgprot_val(prot) | KVM_GSTAGE_PTE_HOST_WRITABLE);
++
+ 	found_leaf = kvm_riscv_gstage_get_leaf(gstage, gpa, &ptep, &ptep_level);
+ 	if (found_leaf) {
+ 		/*
+diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
+index 042d1e3b3547..196cde6c40cd 100644
+--- a/arch/riscv/kvm/mmu.c
++++ b/arch/riscv/kvm/mmu.c
+@@ -586,6 +586,12 @@ static bool kvm_riscv_mmu_dirty_log_write_fault_fast(struct kvm *kvm,
+ 			break;
+ 		}
+ 
++		/* Let the slow path handle host-side write protection and CoW. */
++		if (!(pte_val(old_pte) & KVM_GSTAGE_PTE_HOST_WRITABLE)) {
++			ret = false;
++			break;
++		}
++
+ 		if (!dirty_marked) {
+ 			mark_page_dirty_in_slot(kvm, memslot, gfn);
+ 			dirty_marked = true;
+@@ -630,6 +636,7 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+ 	bool is_hugetlb;
+ 	bool unused = false;
+ 	bool writable;
++	bool host_writable;
+ 	unsigned int vma_pageshift;
+ 	gfn_t gfn = gpa >> PAGE_SHIFT;
+ 	struct vm_area_struct *vma;
+@@ -714,6 +721,8 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+ 	if (is_error_noslot_pfn(hfn))
+ 		return -EFAULT;
+ 
++	host_writable = writable;
++
+ 	/*
+ 	 * If logging is active then we allow writable pages only
+ 	 * for write faults.
+@@ -739,10 +748,12 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
+ 	if (writable) {
+ 		mark_page_dirty_in_slot(kvm, memslot, gfn);
+ 		ret = kvm_riscv_gstage_map_page(&gstage, pcache, gpa, hfn << PAGE_SHIFT,
+-						vma_pagesize, false, true, out_map);
++						vma_pagesize, false, true, host_writable,
++						out_map);
+ 	} else {
+ 		ret = kvm_riscv_gstage_map_page(&gstage, pcache, gpa, hfn << PAGE_SHIFT,
+-						vma_pagesize, true, true, out_map);
++						vma_pagesize, true, true, host_writable,
++						out_map);
+ 	}
+ 
+ 	if (ret)
+-- 
+2.52.0
+
