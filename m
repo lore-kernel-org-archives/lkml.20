@@ -1,120 +1,117 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BCE3AFB18;
-	Sat, 17 Oct 2026 09:33:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCC43CF026;
+	Sat, 17 Oct 2026 09:34:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792229618; cv=none; b=kPhvX7ji9170EesSL/ewF20Z+6rQi7h3eENTwyQO/L63FmmF3RHcCGQ6OuvBKekcisTnr9eGQ3DGGgVrl8N1sekzbvuEUQWImigvVCddXi0hKCtXmPRSBivdtR+IFm0IYNgLC/7jUAKGGasNt2lp/gDFva4K2eigCq58MdfUD+c=
+	t=1792229696; cv=none; b=K2pnPC5Ux1caqnMAsNU5NA4gov2V+HONR9BzZADUj9Rys7w00DqrMkfLXMnZp3BttM11eKW+xCaRXMxH3wWBSACcLssSclpXFl87dc5EojrixlazCajaxMfdsK81kRiQEOJpn34ppzLV96Uz7VCGPnBEZGaRVzZOGigA3mxIGag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792229618; c=relaxed/simple;
-	bh=JNk/jEhUnYIWFSc3J5De1EcVZmfoIjXCVyaScwDTK84=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cElFVSVqdWFk6iItm5CA9jVPQszn2ztYfLzIwoJUGfT/zw2riQAH9MnpqFF0kzNUrYaOwK8X0YB8YhCXak58hJTshHqbFCmmSG3LrsWyeaK6D/i/xfNpNrdBqJJWNrMRL/LOjUWsXbuOCOWdiUn6jJQZadqQxCiUKXSTi9OZrEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=wU0jBuaq; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1792229696; c=relaxed/simple;
+	bh=MFdk1zAHWJclenfouoynz2RRlH2ImJFnnDDvgfyFU7w=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=BEyIOnhslpg6DVqHLhW1WuSPvJnNLgz8vGye8/N8brgHtNTLdzMlmm8idBVPc7zEMqUV/u740vM1TfpexVcpFJJbrt7ByJvoFSknBHhH/AviINipAiIoafSe3ZPig/QXHqk8hK5FaMrHBBFghe4y86rTbVcSTr0mlY/KpMWLtjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z+fD41Sh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="wU0jBuaq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=JNk/jEhUnYIWFSc3J5De1EcVZmfoIjXCVyaScwDTK84=;
-	t=1792229615; x=1793439215; b=wU0jBuaqlZs4UyG7zFKP3jpXiv2G29/epgQbYKFWSLCKWNT
-	45QRx289aj7JJQJWUP4r//kpZ0XUuuaMRXyTVjSBI+C6zsepM7rGCgnePOu/8jO58Vrkm+K8q69mL
-	1ORqSiyvfHIeQgwTyLm7EXzDyLs1YTC32VN+GH48pt8YldQMvyJLV8ctdmHRsNkOgVkARoutsEdNN
-	FVVjKpL1p1vQjg5+lA2IyYyOze/uogPlF1H+9NUH2Qsl2CjyBwj8YsohpInRnhBZEiAVHuBjE6A6+
-	fpkI+xjNPhRyCYr6N5fx9b/AYfqbUv3WABdqeHVuPPNblbVsN04/5zMGRTs2DrVw==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xI0n2-00000007nvr-3T1m;
-	Sat, 17 Oct 2026 11:33:21 +0200
-Message-ID: <1c8bd087a5cfd54fbe2825f2fa19a7851357ba86.camel@sipsolutions.net>
-Subject: Re: [PATCH v2 1/3] wifi: ath12k: fix MLO station firmware crash
- recovery
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Baochen Qiang <baochen.qiang@oss.qualcomm.com>, Jose Ignacio Tornos
- Martinez <jtornosm@redhat.com>, jjohnson@kernel.org
-Cc: ath11k@lists.infradead.org, ath12k@lists.infradead.org, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sat, 17 Oct 2026 11:33:20 +0200
-In-Reply-To: <aaf175a7-86e0-4da2-a3fc-df87d906f800@oss.qualcomm.com>
-References: <20260804175004.1761075-1-jtornosm@redhat.com>
-	 <20260804175004.1761075-2-jtornosm@redhat.com>
-	 <aaf175a7-86e0-4da2-a3fc-df87d906f800@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z+fD41Sh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8C31F000C4;
+	Sat, 17 Oct 2026 09:34:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792229694;
+	bh=LSM3Ycg2ENryDMbfHdhdbf2JBrNnnpGrgv1aIWSlqgM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Z+fD41ShrJppQFe7K1RK9tZk8PIsMZ3bQKaN1Js7b9/K5Wpv4tgH1SH87gnMXoIZS
+	 HKj6Bxbyn5s1BEH1tF+/8NX+HjwzOFv3UQ5v+/qxQTvsPg6QVpNPAKokIgT8ZzGEvw
+	 63YAbuOy8GRHc6HnaO8I8FXv5HInI7se7AKnKiqCpKRBwCuUNPA29a4mS0Tcr1BpFF
+	 8FcicJF68by/5szEWZVFOvYMI7RrG9By6M3JIPya16ZqFlyGPTI7Giq+MMGEchn7OV
+	 /uNoUhdgbGTImKxH0i2kuzVVVUbKooSEBWBsnT/GN+GOIsuW0fydff3kpHyyPs3Hg2
+	 RSn56E8CME9Rg==
+Message-ID: <sashiko-outbox-175444@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v3 6/8] net: xilinx: tsn: add the endpoint RX
+ data path
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Neeli" <srinivas.neeli@amd.com>
+Cc: devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261016-patches_v2_external-v3-6-e33d3960ca1e@amd.com>
+References: <20261016-patches_v2_external-v3-0-e33d3960ca1e@amd.com>
+ <20261016-patches_v2_external-v3-6-e33d3960ca1e@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+Date: Sat, 17 Oct 2026 09:34:53 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-malware-bazaar: not-scanned
 
-On Thu, 2026-10-15 at 13:51 +0800, Baochen Qiang wrote:
-> I don't think patches 1 and 2 are the right approach. Guarding every call=
-back that can run
-> during recovery with a RECOVERY/CRASH_FLUSH check doesn't scale, whatever=
- callback we
-> forget today is the next crash report. Besides, such guards don't help th=
-ose in-flight ops.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] net: out-of-bounds read of DMA metadata due to missing meta_len =
+check
+--
 
-So I can relate to that, but ...
+commit 0ae3124fbc7145cd6d9f2c1314d8d1defc3b13e2
+Author: Srinivas Neeli <srinivas.neeli@amd.com>
 
-> The trouble is I can't see a clean driver-only fix. The driver knows the =
-device is gone at
-> crash-detect, but it has no way to tell mac80211 to hold off until it cal=
-ls restart_hw().
-> in_reconfig would do exactly what I want, but it's only raised inside res=
-tart_hw(), which
-> is far too late for a device like this - by the time it goes up we've alr=
-eady taken the ops.
+net: xilinx: tsn: add the endpoint RX data path
 
-mac80211 has the same problem? How would *it* hold off rather than
-annotating every callback from userspace, debugfs, ethtool, sysfs, and
-the rest of the kernel with checks? *Maybe* at the boundary _to_ the
-driver, but that's bigger than the boundary every individual driver
-has...
+This commit adds the RX data path for the endpoint to start receiving frame=
+s.
+It posts RX buffers to the channels and handles inbound frames in a complet=
+ion
+callback. It also serialises the RX refill process against the interface
+teardown.
 
-> 1. Do the whole recovery inside the restart path, i.e. move the whole thi=
-ng including
-> state reset, power cycle and firmware reload into the driver's .start() r=
-eached from
-> ieee80211_reconfig(). Then it all runs with the wiphy lock held and in_re=
-config already
-> set, so the sync is free and no new API is needed. The downside is we'd b=
-e holding rtnl
-> for ~1.3s, which I don't think you'll like.
+> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/ne=
+t/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+> index ab3d6d8cb9440..0a13e04d40575 100644
+> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+[ ... ]
+> @@ -112,6 +135,181 @@ ep_get_desc(struct xlnx_tsn_ep_dma_chan *xchan, int=
+ idx)
+>  	return xchan->skb_ring[idx];
+>  }
+> =20
+[ ... ]
+> +static void ep_dma_rx_cb(void *data, const struct dmaengine_result *resu=
+lt)
+> +{
+[ ... ]
+> +	metadata =3D dmaengine_desc_get_metadata_ptr(skbuf_dma->desc,
+> +						   &meta_len,
+> +						   &meta_max_len);
+> +	if (IS_ERR_OR_NULL(metadata)) {
+> +		if (net_ratelimit())
+> +			dev_warn(ep->dev, "Failed to get RX metadata pointer\n");
+> +
+> +		dev_kfree_skb_any(skb);
+> +		DEV_STATS_INC(ndev, rx_dropped);
+> +		DEV_STATS_INC(ndev, rx_errors);
+> +		goto submit_new;
+> +	}
+> +
+> +	/* MCDMA metadata: [0] =3D status, [1] =3D sideband (TID/TDEST/TUSER), =
+[2..] =3D app */
+> +	tuser =3D metadata[1] & TSN_TUSER_MASK;
+                 ^^^^^^^^^^^
 
-This is what iwlwifi does, but it doesn't take *nearly* as long. :)
+[Severity: Medium]
+Could this result in an out-of-bounds read if the metadata array is too sma=
+ll?
 
-There might be a chance to disentangle the RTNL from this given the work
-I did recently on disentangling it from cfg80211, but then on recovery
-*failure* we have a problem with cfg80211_shutdown_all_interfaces().
+The driver gets the metadata pointer and its length via meta_len, but it on=
+ly
+validates the pointer using IS_ERR_OR_NULL(). There isn't a check to see if
+meta_len is large enough before accessing metadata[1].
 
-> 2. Let the driver raise the barrier early, right after crash is detected,=
- e.g. split
-> ieee80211_restart_hw() into two parts behind separate APIs: the first sto=
-ps queues and
-> sets in_reconfig, the second just queues the restart work. That way ath12=
-k can do the
-> time-consuming part outside the rtnl lock while staying in sync with mac8=
-0211. This would
-> also need a few op entry points that don't currently check in_reconfig (t=
-he scan entry,
-> for one) to be filled in, otherwise raising it early doesn't actually fen=
-ce those ops.
->=20
-> Does either of these look right to you, or is there a direction I'm missi=
-ng?
+If the DMA hardware or backend driver provides fewer than 8 bytes of metada=
+ta,
+reading from metadata[1] might result in an out-of-bounds access. Should
+there be a check that meta_len is at least 2 * sizeof(u32) before accessing
+the array?
 
-See above - I don't see how we'd really implement the latter reliably in
-mac80211? Sure, we have a bunch of in_reconfig checks, but ... I
-wouldn't really trust them and I'm not sure we can guarantee them given
-the surface area.
-
-johannes
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261016-patches_v2=
+_external-v3-0-e33d3960ca1e@amd.com?part=3D6
