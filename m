@@ -1,62 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A099340F720;
-	Sat, 17 Oct 2026 08:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167884CF46F
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 08:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792225094; cv=none; b=qgQDPbxqNQ1hWsJGXtlOeGWYsT9zmA2AJY4KU7cNka0cUAFPT2PH+lYNVJPFaJNLhwFEpK64Qe1uqUbpcm+d/MvYjl6Cx1iVebHigyi9st0Z/c0zeDIQYNOGlWih6kz1A7wSn0vG1q7EWbLVrBaosShs51nCw++q3xSsQDhM4hQ=
+	t=1792225170; cv=none; b=i8o+GTQmDYU161LQ/ijngIBeMVcbz7vxEafqY+1CVPelkPTjcZ++ELJ3/fLV0MDuiQm56n/dr2J4sSRZhCKyCSYd+UkNsqY8ItRS6JA1PNMN6M0o9r5j3p1f8eC6lGqU6iUsFVXVwEoZz47XNVgPeieEO9PH5LuirZG6emMEPds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792225094; c=relaxed/simple;
-	bh=M/51o1zweqT5WJBM2Ppa5X6TXNPsAStYlp3kcfvnzFs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cu+Ifn5ydkUN39jIlEpcNqeMshQValJJntRg2Ybn6jywZVdcaSuPbvKCfonyxfE5Q4DJ06J45SMNC+08MiQCDvdvCVi+aZOen/dU5Psm5bYPCVWusAYs5Y0iH9bHDgPIcCqxWeI0n6M/CETcZKWNNDc81csDtR0ZKjzw4i5hrkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dPwDJuax; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792225170; c=relaxed/simple;
+	bh=nB1z2FAlgkv6hwNiZtfd9WPOohxtypbsqIfn2C57yTk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Hauh2oqhav5sJzsqKU4+FrX6guJ9I0q0FHde8czgu+hzS1TEUDn+esnKx0aBoxLL/JTh3i1VWFganSsh9J65u+sADCQoal5PEM108YbSJrtk6cff5zZgtpQyNkLU2mqLBFWNKIDVDW3jJ+JdWZLy0JDNUe71RYLW1AXiimk/r/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=blhGXKSN; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dPwDJuax"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618F61F000C4;
-	Sat, 17 Oct 2026 08:18:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792225092;
-	bh=UCbJcsLbS4TEKsEgAHlfHKo8QwTST/TnasGfxkninjw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dPwDJuaxBJ6bJzL4LdG+GNIrG2aDQMNcfAgdokZMIiQDUrKReMmyg4q6/0V0EVcNl
-	 PPO/t+r88y7YbMp/eLp3djWmShIuEaqqZBB+Ql+wOrJPRKkPvvpC836xjz1hyXpATu
-	 3nM8JWkITbXU5qAO2w7Yhboe4pydQv/b1NxDc1mM=
-Date: Sat, 17 Oct 2026 10:18:08 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Johan Hovold <johan@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] USB: core: document purpose of interface parent reference
-Message-ID: <2026101759-charger-elite-39fb@gregkh>
-References: <20261015074831.1418677-1-johan@kernel.org>
- <DM6K85ZAWSUG.VCF8TRYUDHJ0@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="blhGXKSN"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792225164; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Hm49MjoKdmBJeY4b0QFV0UuGDTjMKJ5IHpViY1jODFQ=;
+	b=blhGXKSNo0Cz+T6LLgUAPl8mRKhZ/1Y6xfPhzVlI/kw0bFMggexTfO3EUuzI1V/OP3/X7XWbl5t8u4ifbdlBBIIh+ST0r6DsaOqLMPUBazrQVwZ7Bc4gIGI68U6efJTyd5nP7WO6DmCyc43BN/MSIsOWV9qL9EdeP/RgaU1TV1U=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R871e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XCwojoQ_1792225161;
+Received: from 30.28.50.44(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XCwojoQ_1792225161 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sat, 17 Oct 2026 16:19:22 +0800
+Message-ID: <27f2e050-10c0-4a77-8d59-00a95a162912@linux.alibaba.com>
+Date: Sat, 17 Oct 2026 16:19:20 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DM6K85ZAWSUG.VCF8TRYUDHJ0@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 00/11] iommu/arm-smmu-v3: Adopt the crashed kernel's
+ stream table for kdump
+To: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org
+Cc: robin.murphy@arm.com, joro@8bytes.org, jgg@nvidia.com, praan@google.com,
+ kevin.tian@intel.com, smostafa@google.com,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
+ Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>
+References: <cover.1791226953.git.nicolinc@nvidia.com>
+From: Shuai Xue <xueshuai@linux.alibaba.com>
+In-Reply-To: <cover.1791226953.git.nicolinc@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2026 at 10:54:17PM +0200, Danilo Krummrich wrote:
-> On Thu Oct 15, 2026 at 9:48 AM CEST, Johan Hovold wrote:
-> > See commits:
-> >
-> >   524134d42231 ("USB: don't cancel queued resets when unbinding drivers")
-> >   af61396a992b ("driver core: fix parent lock use-after-free on USB disconnect")
-> >
-> > for further details.
+
+
+On 10/6/26 3:30 AM, Nicolin Chen wrote:
+> When transitioning to a kdump kernel, the primary kernel might have crashed
+> while endpoint devices were actively bus-mastering DMA. Currently, the SMMU
+> driver aggressively resets the hardware during probe by clearing CR0_SMMUEN
+> and setting the Global Bypass Attribute (GBPA) to ABORT.
 > 
-> The last one is now 0f554506a3fc ("driver core: fix parent lock use-after-free
-> on USB disconnect"), and queued for a -fixes PR mid merge window.
+> In a kdump scenario, this aggressive reset is highly destructive:
+> a) If GBPA is set to ABORT, in-flight DMA will be aborted, generating fatal
+>     PCIe AER or SErrors that may panic the kdump kernel
+> b) If GBPA is set to BYPASS, in-flight DMA targeting some IOVAs will bypass
+>     the SMMU and corrupt the physical memory at those 1:1 mapped IOVAs.
 > 
-> Greg, please let me know if you want me to include this one, or if you will take
-> it after -rc1 ist out.
+> To safely absorb in-flight DMA, the kdump kernel must leave SMMUEN=1 intact
+> and avoid modifying STRTAB_BASE. This allows HW to continue translating in-
+> flight DMA using the crashed kernel's page tables until the endpoint device
+> drivers probe and quiesce their respective hardware.
+> 
+> However, the ARM SMMUv3 architecture specification states that updating the
+> SMMU_STRTAB_BASE register while SMMUEN == 1 is UNPREDICTABLE or ignored.
+> 
+> This leaves a kdump kernel no choice but to adopt the stream table from the
+> crashed kernel.
+> 
+> In this series:
+>   - Introduce an ARM_SMMU_OPT_KDUMP_ADOPT
+>   - Skip SMMUEN and STRTAB_BASE resets in arm_smmu_device_reset()
+>   - Skip EVENTQ/PRIQ setup including interrupts and their handlers
+>   - Memremap the crashed kernel's stream tables into the kdump kernel [*]
+>   - Reserve the crashed kernel's in-use ASIDs and VMIDs, preventing any TLB
+>     aliasing with the kdump kernel's own domains
+>   - Defer any default domain attachment to retain STEs until device drivers
+>     explicitly request it.
+> Most of the new code is in arm-smmu-v3-kexec.c. A hidden ARM_SMMU_V3_KEXEC
+> config symbol (def_bool CRASH_DUMP) controls its build.
+> 
+> The common helpers parse and walk the crashed kernel's stream/CD tables and
+> reserve its in-use IDs. The kdump code is guarded by CONFIG_CRASH_DUMP. The
+> helpers can also support the proposed SMMUv3 Live Update work:
+> https://lore.kernel.org/all/20260929071950.2710070-1-praan@google.com/
+> 
+> [*] For verification reasons, this series only fixes coherent SMMUs.
+> 
+> For non-ARM_SMMU_OPT_KDUMP_ADOPT cases, keep a status quo since the commit
+> 3f54c447df34f ("iommu/arm-smmu-v3: Don't disable SMMU in kdump kernel"):
+> full reset followed by driver-initiated reattach, potentially rejecting any
+> in-flight DMA.
+> 
+> Note that this series is no longer treated as a bug fix, since it has grown
+> fairly big and most of the kdump code now resides in a separate C file. For
+> folks interested in back-porting the change: a v6.12+ kernel (since commit
+> 85196f54743d ("iommu/arm-smmu-v3: Reorganize struct arm_smmu_strtab_cfg"))
+> would be still compatible with this series.
+> 
+> This is on Github:
+> https://github.com/nicolinc/iommufd/commits/smmuv3_kdump-v11
+> 
+> Changelog
+> v11
+>   * Rebase on arm/smmu/updates branch
+>   * Add Tested-by from Breno and Cristian
+>   * Add Reviewed/Acked-by from Jason and Kiryl
+>   * Update commit messages and Assisted-by tags
+>   * New prep patch: swap EVTQ/GERROR MSI indexes
+>   * Skip EVTQ's CFG0 write and vector allocation
+>   * Merge arm-smmu-v3-kdump code into arm-smmu-v3-kexec
+>   * Fold patches accordingly as static functions require callers
+Hi Nicolin,
 
-I just grabbed it now, thanks.
+We tested this series (v11, backported onto our 6.6-based kernel) on two
+arm64 server platforms that differ in how PCIe errors are reported: one
+with firmware-first reporting (GHES/CPER), the other with OS-first AER
+plus DPC. The test triggers a kdump crash (echo c > /proc/sysrq-trigger)
+on an otherwise idle machine and compares the capture kernel's dmesg
+between the unpatched baseline and the kernel carrying this series.
 
-greg k-h
+On the firmware-first platform (10 SMMUv3 instances):
+
+   Unpatched, every SMMU logs:
+
+     arm-smmu-v3.0.auto: SMMU currently enabled! Resetting...
+
+   and the destructive reset immediately aborts in-flight DMA. The capture
+   kernel then drowns in a storm of GHES/CPER records together with PCIe
+   AER "Poisoned TLP" (Data Link Layer) errors from the devices that were
+   bus-mastering at crash time. Devices behind the reset SMMUs fail to
+   recover in the capture kernel, and in some runs the capture kernel
+   hangs in the error storm instead of saving the vmcore.
+
+   With the series applied, all 10 SMMUs log:
+
+     arm-smmu-v3.0.auto: kdump: retaining SMMUEN for in-flight DMA
+
+   and the capture kernel boots with zero AER/GHES error records. A
+   complete vmcore is saved and the machine reboots normally.
+
+On the OS-first AER/DPC platform (8 SMMUv3 instances):
+
+   Unpatched: 8x "SMMU currently enabled! Resetting..." followed within
+   seconds by PCIe AER Completion Abort errors reported by the root
+   complex, along with DPC containment events and EDR notifications. The
+   NICs behind the contained link never recover in the capture kernel.
+
+   With the series applied: 8x "kdump: retaining SMMUEN for in-flight DMA",
+   no PCIe error events at all, a complete vmcore and a clean reboot.
+
+The baseline symptom is load-independent: it reproduces on idle machines,
+since even an idle server has periodic DMA in flight (NIC rings, NVMe
+admin queues, etc.).
+
+Overall, on both platforms this series turns a capture-kernel boot that
+used to be buried under fatal PCIe error storms into a quiet one that
+reliably produces a usable vmcore.
+
+Please feel free to add:
+
+Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
+
+Thanks,
+Shuai Xue
