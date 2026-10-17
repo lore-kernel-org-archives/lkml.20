@@ -1,121 +1,69 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149B037E5FD;
-	Sat, 17 Oct 2026 09:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDAB312836;
+	Sat, 17 Oct 2026 09:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792230862; cv=none; b=aw2KyeFLuhEkbanvaXpzkzPFAxqMYyXsvvmIreHX+2Dr/Ze7mX0NKIOkNv7SURAi22GzfyvRWfIywpc2E34AzdqQHRwXWRD/HkRgeyLoDPHZl94P6PtXN2dd9N6xZnTJ7u5AComzmNTlLGqelNTXMCFgsNEiPtrfePMRow8SPXU=
+	t=1792230962; cv=none; b=L4ot6xfoc0DiJr3G/GRwd0RitRbljUcmtP98T09iYGNhVLuz5HpAwKVZc4Q2I/R/BQfxHwr747smitFIy8vGGgmlt+mKwZUA/dGBseSbUmOkXD+YsfJ9ZynyIH3fmUd2Fo1HGTgQqsDJ+PNAw/mrNNrUHdUqTHe/dqFN1HY5qe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792230862; c=relaxed/simple;
-	bh=76QeqOoMAAd0s9XHiYjJMhSGtbQe8gXlJfjVPD9XCyo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=u6re66sUFyB2Us+RHveKnrD/khA3NI3yijX+bw/f00J/a+HZqyiA+J7ian0UlJ1n/9Cyd8E5CKH0ORyFknctGE9LZ8UmUQMehFckjdwsIl3MSAAuq05TRq/1UWM5zEia55sc5XQD8wqu8j3X0pdrMnjiq1b1bXKac7VSD0Bxmvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: afb0932aca1011f19a56ed5b684f684d-20261017
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:202466e4-2437-4de4-b95d-530c7b0c2af7,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:4f22bca85d393a1bc88c3da7ecbedee2,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: afb0932aca1011f19a56ed5b684f684d-20261017
-X-User: zhangheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 370596; Sat, 17 Oct 2026 17:54:04 +0800
-From: Zhang Heng <zhangheng@kylinos.cn>
-To: tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel.flying902@passmail.net,
-	Zhang Heng <zhangheng@kylinos.cn>
-Subject: [PATCH] ALSA: hda/realtek: Add fixup for Huawei MateBook X Pro 2019 (MACHR-WX9)
-Date: Sat, 17 Oct 2026 17:54:00 +0800
-Message-Id: <20261017095400.350164-1-zhangheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1792230962; c=relaxed/simple;
+	bh=TqyObOnxnEvwfk9gL/Bw+P2vELIJKPK26mvPJd6QZE8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=JBe8BclseeDIdI9bZ96cqdxNPGvRSVXItb5e+8l6876W+DnshnRyqcuD2vcVqj/zZ7IkKw1Kr/2wnOzq0O4EQ9pCntTbHdTFoNeRC1IZWrLDrLuUaIgnPAFBfbgaUi2tI2ScBxePZkx4EOgO9AKiUc6RivVpKyvMLGCOoeq1zp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=axbJsIY/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="axbJsIY/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6C71F000C4;
+	Sat, 17 Oct 2026 09:55:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792230961;
+	bh=TkCfXjStqGW2jteRUK095mzfOnn48uimDZyVFl0o8ZI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=axbJsIY/VuqAYJQYbPV3Rt6qYcYOrghbmItDrJa8rK0OWqnAoitTZkpAfVTE/J/0p
+	 VB3Wxg9bTo0ArW1Eq3jVc3Xkl8EEn0BK3a0dnKgqJwiB09d6yHh9Bza0PJvjRstA/U
+	 Rl2gPeuAwzNR2elXdL/j9buF703lAnhM6v4F9u5nAfRpOc/et8UWNX4gjQ1Po/a8Yz
+	 s03FPBmPKm/FKqo16mHMBxveA5SWTX+eD+DCtWQVJKXCy7/p7N/dhWKQHuIpdA3j05
+	 1s7sXxIOE9oKTbGnXYwH6Pop56ogcXI5f/0vaJXhCNVQRqI+Y4hT3O1g6sFAP4kSQA
+	 a+ajdQDwxoKlQ==
+From: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>, 
+ Dan Carpenter <error27@gmail.com>
+In-Reply-To: <20261016-fix-a9-dma-complier-v1-1-024421d5b3c8@amlogic.com>
+References: <20261016-fix-a9-dma-complier-v1-1-024421d5b3c8@amlogic.com>
+Subject: Re: [PATCH] dmaengine: amlogic: Fix regmap error check issue
+Message-Id: <179223096443.840866.16372529405826771559.b4-ty@kernel.org>
+Date: Sat, 17 Oct 2026 10:56:04 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-On the MACHR-WX9 (ALC256, PCI SSID 19e5:3e13) the BIOS pin table
-disables the main speaker pair (pin 0x14), so only the tweeters on
-0x1b play.  Reusing the MACH_WX9 (19e5:3204) pin table restores all
-four speakers.
 
-Pin 0x19 (headset mic) has broken presence detect on this board: it
-reports "plugged" even with the jack empty, so auto-mic routes capture
-to the empty jack and the internal mic goes silent.  Setting NO_PRESENCE
-on 0x19 (0x04a11140) suppresses the false reading.  Chaining to
-ALC269_FIXUP_HEADSET_MODE then infers headset-mic presence from the
-headphone jack (pin 0x21), whose detection works correctly.
+On Fri, 16 Oct 2026 03:00:17 +0000, Xianwei Zhao wrote:
+> The func devm_regmap_init_mmio() only returns an error pointer on failure,
+> Use IS_ERR() instead to make the intent clearer. And Fix the following
+> compilation issue at the same time.
+> 
+> Smatch warnings:
+> drivers/dma/amlogic-dma.c:636 aml_dma_probe() warn: passing zero to 'PTR_ERR'
+> 
+> [...]
 
-Add ALC256_FIXUP_HUAWEI_MACHR_WX9_PINS with the MACH_WX9 pin table,
-chained to ALC269_FIXUP_HEADSET_MODE, registered for PCI SSID 19e5:3e13.
+Applied, thanks!
 
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222126
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
----
- sound/hda/codecs/realtek/alc269.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+[1/1] dmaengine: amlogic: Fix regmap error check issue
+      commit: aff5e6a77fc69a7c490246465940d18422d7c631
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 799a5a7a8ed0..2c8288b9024e 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4280,6 +4280,7 @@ enum {
- 	ALC255_FIXUP_DUMMY_LINEOUT_VERB,
- 	ALC255_FIXUP_DELL_HEADSET_MIC,
- 	ALC256_FIXUP_HUAWEI_MACH_WX9_PINS,
-+	ALC256_FIXUP_HUAWEI_MACHR_WX9_PINS,
- 	ALC298_FIXUP_HUAWEI_MBX_STEREO,
- 	ALC295_FIXUP_HP_X360,
- 	ALC295_FIXUP_HP_PAVILION_X360,
-@@ -4991,6 +4992,24 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC255_FIXUP_MIC_MUTE_LED
- 	},
-+	[ALC256_FIXUP_HUAWEI_MACHR_WX9_PINS] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{0x12, 0x90a60130},
-+			{0x13, 0x40000000},
-+			{0x14, 0x90170110},
-+			{0x18, 0x411111f0},
-+			{0x19, 0x04a11140}, /* use as headset mic, without its own jack detect */
-+			{0x1a, 0x411111f0},
-+			{0x1b, 0x90170112},
-+			{0x1d, 0x40759a05},
-+			{0x1e, 0x411111f0},
-+			{0x21, 0x04211020},
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC269_FIXUP_HEADSET_MODE
-+	},
- 	[ALC298_FIXUP_HUAWEI_MBX_STEREO] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc298_fixup_huawei_mbx_stereo,
-@@ -8580,6 +8599,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x19e5, 0x3204, "Huawei MACH-WX9", ALC256_FIXUP_HUAWEI_MACH_WX9_PINS),
- 	SND_PCI_QUIRK(0x19e5, 0x320f, "Huawei WRT-WX9 ", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x19e5, 0x3212, "Huawei KLV-WX9 ", ALC256_FIXUP_ACER_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x19e5, 0x3e13, "Huawei MACHR-WX9", ALC256_FIXUP_HUAWEI_MACHR_WX9_PINS),
- 	SND_PCI_QUIRK(0x1a58, 0x2023, "Razer Blade 16 (2025)",
- 		      ALC298_FIXUP_RAZER_BLADE16_2025_PINS),
- 	SND_PCI_QUIRK(0x1a58, 0x300e, "Razer Blade 16 (2025)",
+Best regards,
 -- 
-2.25.1
+~Vinod
+
 
