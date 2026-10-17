@@ -1,98 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AB42D73A6;
-	Sat, 17 Oct 2026 17:06:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1373AE198;
+	Sat, 17 Oct 2026 17:07:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792256786; cv=none; b=pfW+NqVx3AqTcFNEPxWdXTHXz6CKrE98Npsoo27t3BbqyDDP1lPRHZDhX45QIAvk7PjYQ91gi7HpG6dICrpxM4/QtIiDlEBdqYNKyoI0yxNkcZVpW8h7meo6L6otv7cZmt3cl5n6qDHVR9fw58gBTkMo6f4dnEYIO7OyWArL8PE=
+	t=1792256832; cv=none; b=dCa3Je25F3u/koE/6V9yOE1XsIFx5++kkiQwq4QW2XGLaDnfKSeJyH9VqA3rpMbpB62BUvd4rPwFsUx/FeoxfrP16X7stfRVUvjd94VQQMvCaC25usOe5xfnWj54zE9qRzRm46nVY7z34+CpXcoSRODM3okSzAqqK7qEnwrH/Rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792256786; c=relaxed/simple;
-	bh=y23ZiI7MBYK4EDLV0yVs5IKj5qZmDxJ8i16EpHNWlj8=;
+	s=arc-20240116; t=1792256832; c=relaxed/simple;
+	bh=YQiMZ9iQNkj6yK50eZfDDsSadt+7FuwK8EMS6ozdQWM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I9bri5BXMcwjzUtOu37DYiHEhirjHAX6b5W5vB20GgOkkUTRvu7Aj5udIvAEJai8NYQdqT1g1milJ5R9YXaeiqv7jTPAR8ExJn0FBwXBWpNTXeFvE/GqusNQNw7rNL4POe8DUVQ5SpzuYfKSD3NlRzsncxvQa6FTMEoSMvRpdf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ffF9dWoK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=RhXrCO03oXWLW8RZTMxdAZi8u4Qvy4ETDG2kpA1SJ2UCiJUU9mPks9Vn53Oy4MH75pRrboVoUzL0RG+wlaCiql79RRRU8jp9u4CQ3FNFyy60nX25RgRR/GmaFrUCAxMgSWqxQBOQ3eOBALZcRy/aziLJxU+CLXNuJkikROGT2cE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GmuShcwX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ffF9dWoK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 747C01F000C4;
-	Sat, 17 Oct 2026 17:06:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GmuShcwX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19BB1F000C5;
+	Sat, 17 Oct 2026 17:07:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792256785;
-	bh=zb6YdLSsn6WhLG42ci44m/AZ0Xc8wY5TfmE3OMskHh4=;
+	s=k20260515; t=1792256829;
+	bh=Ox82d8xsVWHly72RET7XBCYX+P0mTZ4/xADAS4+N6Vc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ffF9dWoKgnfDJGIK14vSTOszntKnMV3PHCI/d265GB1URtgp7svx9xZlKVP+ifd1f
-	 k+zPoQUnL4o++tWWgUk3etjYQdPoHar66GhQb4lk1WJMYAiMFZP7yZV3tswmrFXQzi
-	 WZFc1L2toO4eT4iZprNMjHCNfVAqll+CXsGKgQFHLojp3P/5OeezS7gsIirVUYSq/Z
-	 9zLXyO6Mv+Gc9PLBZoT5GqtBrx0Inuy8oDT9sclp2W8OOz/zlbNEag7Xw5XTMXpCWO
-	 fpb+kpm54vdNvX2DB/4nhxenaxUIQJE0DKlZEUGOScTmvU+tJ+Fsj4HmkkPq130fWh
-	 F8WMsOrtroS/g==
-Date: Sat, 17 Oct 2026 20:06:21 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH 2/6] keys: reclaim link quota during keyring garbage
- collection
-Message-ID: <atOrDYkuBlno9_Y7@kernel.org>
-References: <20261016215326.4110064-1-jarkko@kernel.org>
- <20261016215326.4110064-3-jarkko@kernel.org>
- <20261017054244.GD29318@sol>
+	b=GmuShcwX7M7KQgQIvkovOFSmeFKetPGFb6KnVPTafLlcTDn+bv0q7KDScKMz2vfnS
+	 sWlXRmlzS37LnH3myrHN7B83xVM2M0ZioEKvoHxidlEVgHeR8zZ76JAyB3JTiS6VEz
+	 UCuHfr0J65PE5hmihw4JMnzg2QYOwf6+spoU8AlYPOrGlwF5pqqq5wF59LWdNU0QRB
+	 oM8v5EcAgs1ZSS2yVYdXrtxS94X25+77r2ak/kmjQDqO/BhbU3DLnDsUsgd+HvY+qq
+	 tK0/ICSybB8DEU8LRUZwA0TBcGSTpz1Yb/H5Vbx2PsPYgXrxDwyVqqn3/RZkwYiJar
+	 GgturKf90xpOg==
+Date: Sat, 17 Oct 2026 19:07:06 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ishu Brar <patches@brar.si>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: qcom,sm6350-pas: Document
+ SM7250 ADSP
+Message-ID: <20261017-berserk-paper-shark-7c1d66@quoll>
+References: <20261016-adsp-sm7250-v1-0-2f39ac1f0496@brar.si>
+ <20261016-adsp-sm7250-v1-1-2f39ac1f0496@brar.si>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261017054244.GD29318@sol>
+In-Reply-To: <20261016-adsp-sm7250-v1-1-2f39ac1f0496@brar.si>
 
-On Fri, Oct 16, 2026 at 10:42:44PM -0700, Eric Biggers wrote:
-> On Sat, Oct 17, 2026 at 12:53:00AM +0300, Jarkko Sakkinen wrote:
-> > Garbage collection removes dead key links without releasing their quota.
-> > Repeated collection therefore leaves the owner charged for links that no
-> > longer exist, eventually preventing further links with -EDQUOT.
-> > 
-> > Update the payload reservation from the surviving link count while holding
-> > the keyring semaphore. If assoc_array_gc() fails, the tree and its count
-> > remain unchanged, so the existing reservation is retained.
-> > 
-> > Fixes: b2a4df200d57 ("KEYS: Expand the capacity of a keyring")
-> > Assisted-by: LLM
-> > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > ---
-> >  security/keys/keyring.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-> > index 7143f3079d20..db987c891811 100644
-> > --- a/security/keys/keyring.c
-> > +++ b/security/keys/keyring.c
-> > @@ -1755,6 +1755,8 @@ void keyring_gc(struct key *keyring, time64_t limit)
-> >  	down_write(&keyring->sem);
-> >  	assoc_array_gc(&keyring->keys, &keyring_assoc_array_ops,
-> >  		       keyring_gc_select_iterator, &limit);
-> > +	key_payload_reserve(keyring,
-> > +			    keyring->keys.nr_leaves_on_tree * KEYQUOTA_LINK_BYTES);
-> >  	up_write(&keyring->sem);
-> >  	kleave(" [gc]");
+On Fri, Oct 16, 2026 at 01:50:18PM +0530, Ishu Brar wrote:
+> Document the ADSP Peripheral Authentication Service on the Qualcomm
+> SM7250 SoC. It has the same interrupts and LCX/LMX power domains as the
+> SM6350 ADSP.
 > 
-> This doesn't actually hold a reference to the keyring, so can't it race
-> with key_put() which released the quota already?  Then the quota for a
-> link can be released multiple times.
+> Signed-off-by: Ishu Brar <patches@brar.si>
+> ---
+>  Documentation/devicetree/bindings/remoteproc/qcom,sm6350-pas.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
-I agree. Thanks for checking this. I only got through the first today
-but plan to inventory them all in detail.  This can be dropped without
-any further consideration.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-The head is the LLM assisted part from my side and I go through them
-with presumption that the changes are not applicable.
+Best regards,
+Krzysztof
 
-> 
-> - Eric
-
-Br, Jarkko
