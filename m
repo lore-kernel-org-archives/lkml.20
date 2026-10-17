@@ -1,103 +1,82 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6672024BBEE
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:25:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB42E24BBEE
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:26:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792279551; cv=none; b=rkWs/EflOXtnHBZX4DOwEUVt9ndxFRhr+U9xTrW8Q56JAX5uTdQuOdKZNu2C38yTXXjJROpRdTCPpT5sztMJN+5kkru1K6xRPCiLf1WaMcgRRjzbrbLTCCU1VxocfMDueLNwlbYIjfUZKnML4eOjqa5pqDbTPviEUi/Ascb6ZBE=
+	t=1792279575; cv=none; b=obrdlvR1g16tr9f1UuZkVvQKBpVRqG4gwNWO1+Sj+45hJfVmrTWCFEv9tbeUb1W+jSrj0X3d9DrEFr6ctKnbbvGSV6NoIb05yE7TxGgmLv9ntIRVzKv0ZSnjNt8aT7vyp0lHSrSBRmLLUzem7vu0NukkdsXbZd0yh4rrXzC0Kns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792279551; c=relaxed/simple;
-	bh=76+A5Jj0Hlrf12TczBu4HUo2tmyicY+Onp4kmxXjTS4=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=uSoTLa5JYJyyBJswvQcUilkQ45krSZlY0qhvGDxfdPGmUeqF4dPTlIdfBqXhdvQCWPconEIPz0awZVxxIDMRwlVS3u+A7A0uDp6gEggkXGRr/0HH0HJbOcvzRKGMUiiPPnQMhI/xA41HdEue/HUdpVfsypqCie3wTLtM7I0cjsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PvnA718d; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792279575; c=relaxed/simple;
+	bh=xnAVFjE1eCbBv4nwANE8WB7XFHdzRK+IhFb0m7alkCk=;
+	h=From:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 To:Cc:Content-Type; b=D8jgjxibYnEue2l3Qa5ZPHcQM3ICJfB6qcWsyDQMxhVlAb4nYZ74pNJAWTG7WsLoxatciyfcn0mN04ZI6vt5ooIhkf5CJC4dxkhySkgPjG0x1HRSLiOixpR5A37u87woHaO1s6amE54grnI4D4/RyMJCSabw//e9PGWNxBaZRSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=wzZ/6EHB; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PvnA718d"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2dd76b1361dso4289555ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 16:25:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792279550; x=1792884350; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=76+A5Jj0Hlrf12TczBu4HUo2tmyicY+Onp4kmxXjTS4=;
-        b=PvnA718dzQSvfwkiDZjhzgwLANqqLbdoUPGy9N21Kzk6M2oSbtE//CVIdcbO2jsFfC
-         nXKu9lqnL4KqfRB4mxYVN5O2RssqWQgy6x4CdSf3+qPlRKPIRaTMciUnph/hmkob3b20
-         LGFYZ3mgIBOXmRkKkUhfWxq9+hU2VLpbwMMHGbUzNxCDerur8U8ChNW5eF8v4fjDcuTG
-         dolkhC12W/5n3g+ZXW9zajfq28vtCvJJ6359jSfU4EHR0NcJCXwIqJ4Ld9KHjppwMFnN
-         OPP+55gJBH6j7ipnjoLqJ1SvuxytuavAV9dvcFy+OGMF1rc2KdGO6t9qDxlZRsuPgr4l
-         emGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792279550; x=1792884350;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=76+A5Jj0Hlrf12TczBu4HUo2tmyicY+Onp4kmxXjTS4=;
-        b=WzUoh8a0GES5DbnFSgthd5PiuEC7vhdQLDzKV99dLV9QX1xDxAgTI9hdaY3+fjTd19
-         E9iLhq3YlC01TZQvDjEqlSHfsBEz31wPTjlgorMU1xH3Ag6XdP8QMKoqdCbYTWfNQJKb
-         CyWMPTzs0gk9vpmH4Gsn7a/mXymD8tTDYlsV2GaBqj6Kl3+dJ69MqI70tf9fugepy6Rm
-         c0G4FTdzxj15GxMC46vB2o+7GN0ZCOwVkdFqyYGSB3i2K5UGC3/XuU+JhlbVflEY1EtL
-         Atub6cux+5kOXsOni4M9rNPN/pNlSUvvi2KtZSKd+NnY/J4R/XaQ9jlOTmzl1GBp0SkJ
-         skWw==
-X-Forwarded-Encrypted: i=1; AKwUvBzajReP0p6/9IJ3+G45MChipOX7hPfa/wxFmEFCNy9h3YuN4vR+yUUlXZluxinXsK/GbIYL0KNM2QjjBms=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjntZbCrX6nqaAA/LzcT5C0GoNfufVKPdEBmLSyGtDA5Vz1oIB
-	0UTleOYcBBRLLs9I6O1sXLUlgvDwkZ7t9SjLuYQxgdoegj6k7GANsrXBjAeBGA==
-X-Gm-Gg: AYBFou3d+oPdjhRA0RWLQXnZAb1Nhbih9m3gh6HiahOTf5t85RgewNNAlwhPsO/7a/H
-	gPxhaHllyCkckbNhfSEPnSnkA1yteobVlbRxqPNGsVm80HZDBY3xy788DCcyNqWMPDneGwBuAzA
-	nXOGhYdMjjHzJyqVpNjHmYiJ8EGekKisiXFVZPvAeWnueTs2nMEwaa0IutdILYIEYl3+gagom4X
-	+H89X7A33mfM1f36xbcxHVKLUVHjBJWl+mI+dumnwxkST4Q+pN7oCvC3q7DEApGABFujMP3YgU/
-	4eR/7epIb3HTuW5iPBZXgfMcOa/yaHOTQoXMqUbxnLvNqPXh7UJvaGIuXXJ5VrvDGl2H6VyG1Yp
-	3yliZ8ZzFDDLtWXtshNs0wl/z6m+Eav9AnbH7hD6S7dQWil/ZbSQZh3Nn9F8HiITm6HGBhzfuz6
-	YvNB4DKMni6o2OdUX1Ykj3x740SlHd1FASSLqqWoj6rvov6pwuAt0IflHbjLrOPp77vKNwRxM77
-	tjTNmG6y26U7FyrJ5BZ6h4CSNflHBhEQGe6UpGBOBYoXzlNsVd09hFIol4Emeg9t68juz7+jvRQ
-	XWE=
-X-Received: by 2002:a17:903:24b:b0:2e5:41dc:9ac7 with SMTP id d9443c01a7336-2e9a6d252a3mr32793975ad.24.1792279549582;
-        Sat, 17 Oct 2026 16:25:49 -0700 (PDT)
-Received: from localhost ([153.61.198.252])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e87994bsm24216375ad.60.2026.10.17.16.25.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 16:25:48 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 17 Oct 2026 23:25:48 +0000
-Message-Id: <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com>
-Cc: "Nam Cao" <namcao@linutronix.de>, "Wen Yang" <wen.yang@linux.dev>,
- "Tobias Schaffner" <tobias.schaffner@siemens.com>, "Viktor Malik"
- <vmalik@redhat.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "John Ogness" <john.ogness@linutronix.de>, "Gabriele Monaco"
- <gmonaco@redhat.com>, <linux-kernel@vger.kernel.org>,
- <linux-trace-kernel@vger.kernel.org>, <bpf@vger.kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>
-In-Reply-To: <87v770uuyr.fsf@jogness.linutronix.de>
-References: <20261001152042.124445-1-gmonaco@redhat.com> <20261001152042.124445-11-gmonaco@redhat.com> <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com> <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com> <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com> <878q3xtptq.fsf@jogness.linutronix.de> <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com> <87bj8s8ih9.fsf@jogness.linutronix.de> <DM78SVMBI2XW.2XHVC67VON48A@gmail.com> <87v770uuyr.fsf@jogness.linutronix.de>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="wzZ/6EHB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
+	content-type:content-transfer-encoding:cc:content-type:date:from:subject:to;
+	s=s1; t=1792279572;
+	bh=5+ChxQruMtybdrIxH4Oe8hOrLdCEmzhndPHUNt+XKPE=;
+	b=wzZ/6EHBiigs8/TQYNjoDCs/bWZhBQxV0oRv+5YMCJCot3fU2FYd14whwZFUYDLrpys3
+	kZlYEeQH/bQTabrsz58OVISF2LFeixWETRaWwZKJNS0bpwZbV3qzxg1GJVA+6gpY4P8aWp
+	nUh/rCk5wI+tB5+966TTp9MOzLesKXbNHI0vV0FnmGXVIDE1txhlWWy3FG/ZqHQkfZVR0y
+	AsN32Yox8zgMV/3++bTYWWkls1ddzl1Esxw1wcFgrYDcL8f5RdIDUN+TAemb3wXQQ8AeSx
+	oKFM/1JsiluDALnxZSNCfdUudaJMqAmnvRpXnoDi54KBOm7SDYo1mw5mfWVWAFFw==
+Received: by recvd-567c5c9644-whh6j with SMTP id recvd-567c5c9644-whh6j-1-6AD40414-60
+	2026-10-17 23:26:12.752423817 +0000 UTC m=+1578342.782868143
+Received: from daisy.dens.ffj.family (unknown)
+	by geopod-ismtpd-142 (SG)
+	with ESMTP
+	id BqvlJyNgSimQIUNJgrYm1A
+	Sat, 17 Oct 2026 23:26:12.534 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Subject: Re: [PATCH v2] writeback: keep cleanup_offline_cgwb()'s scan out of
+ syncs
+Date: Sat, 17 Oct 2026 23:26:12 +0000 (UTC)
+Message-ID: <20261017232610.58733-1-lizf@honeycomb.io>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261017040710.1174009-1-lizf@honeycomb.io>
+References: <20261015114307.1041273-1-lizf@honeycomb.io> <20261017040710.1174009-1-lizf@honeycomb.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeZBE29le3x4T?=
+ =?us-ascii?Q?AizvtRpU7VP809D=2Fmwb1shMNqfUcvGTQsx53Zse?=
+ =?us-ascii?Q?L=2FBtvuK5SBXStd+Nht40iPrZhf4f+iwfv6L7tCH?=
+ =?us-ascii?Q?FMbY7S5TX96ODxMZuW4tfONJGqFLBVFbIEarzRC?=
+ =?us-ascii?Q?KOfD+3i0=2FEXsshL8VajpQXixcbQleHyN=2FwOjZaI?=
+ =?us-ascii?Q?oUkW?=
+To: Christian Brauner <brauner@kernel.org>
+Cc: Tejun Heo <tj@kernel.org>, Jan Kara <jack@suse.cz>,
+	"Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>, Roman Gushchin
+	<roman.gushchin@linux.dev>, Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ian@honeycomb.io, Liz Fong-Jones
+	<lizf@honeycomb.io>
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 17, 2026 at 07:02 PM John Ogness <john.ogness@linutronix.de> wrote:
-> It would be nice if it could be filtered so that only RV violation
-> bpf_printk's would trigger. I do not think it is possible for a filter
-> to do primitive pattern matching on @bpf_string. Or am I wrong?
+Christian,
 
-not an ftrace expert, but it should be possible. bpf_string is
-a dynamic string field and filters take globs on those.
+This fixes f6988c90671e, which went into 7.3-rc5, so the regression is
+new in this cycle, and f6988c90671e is already tagged for stable. Could
+it go into vfs.fixes before 7.3 is released? Tejun has acked it:
 
-> With the "new" ringbuffer and nbcon implementations, it no longer dos-es
-> the kernel, so I have no problem with bpf programs calling
-> printk_deferred(). And besides, userspace can already blast the
-> ringbuffer and consoles via /dev/kmsg.
+  b4 shazam 20261017040710.1174009-1-lizf@honeycomb.io
 
-well, /dev/kmsg is ratelimited unless printk.devkmsg=on,
-but the kfunc wouldn't be.
-I still feel that bpf_stream + user space that writes into
-/dev/kmsg is a better design.
+Separately, the wb-dying-cgwb-flush series now has Tejun's ack on all
+three patches and Jan's Reviewed-by, for whichever cycle suits:
+https://lore.kernel.org/all/20261015-wb-dying-cgwb-flush-v7-0-9278d9ebaf5d@honeycomb.io/
+
+Thanks,
+Liz
