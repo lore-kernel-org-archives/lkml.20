@@ -1,106 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2422E4CF48F;
-	Sat, 17 Oct 2026 20:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0ED30F927
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792270027; cv=none; b=HseaObrvjVFv0z7aGkvLJRw3duhzSoujskpt+MCRnjB4Xq14U4wbt4nqstpnRLhdw4oBtdsA0SmCZuv8k+dR6AG1rTGw6vNeu+voh5VfJbic3cvo9x90Cwi4d2Tnxb3bMNfwMH8cZLC5p+yZ8fQLxCPnACQEUn8SYGBAabftvYI=
+	t=1792270361; cv=none; b=WunGIhmvFlfWG4+uYx9yYLW/keiwSACGr0Rw39j9iVkDifB3UxchLSFjjw7u1xZGlnHg4FMrTYh+lBnh7cGNAeksFx5/JOCuM8/reiPpYKXSGrNZK6YUxwvzB4Zs/8TkKXCDaQJYM2rpHAt9exwcmFakpyCknTFGsoh1BUv6ZSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792270027; c=relaxed/simple;
-	bh=wUoqZdb2r+2sTvZX6x20usYJBzFuwGv+cIphSSS+MDI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IzRrTXFzjp5LzEnKVzuAipqihFfzgRPre3VPN+JjZKcV6XvnyWZN8kA+0RnJAlgI6kfEsH3kHJFXK3jjwi8iChAiJ8Vjm9v2WVHoemCdytL1TftfPalUPbqtgxyYko0sqWuT2WwVKYtu1BBVy1upRZBp21YfWmj5UP14CjUnlKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJZ2tVmV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792270361; c=relaxed/simple;
+	bh=7bdSjD4gwsCJoWA6QPSigC009vO7jVqQkp3Tp2a7H1o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iJBZ7tEnm108LpQKCTIfS26CjA/PhaJMB+AwySr/j/xEKRI2ND8wuK9xsbWh6X+E4RbjTYlPGBchWSPikzvL1nYfuv3/SzZdQyCc7Tq/VWbKCjQN0p4SOSGsUxt+8jwJoAs+LeJ0SucSYaHXdNwKb3PyrAEEL4jFo0J+moZ9164=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KFMkRKPK; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJZ2tVmV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 549ED1F000C5;
-	Sat, 17 Oct 2026 20:47:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792270025;
-	bh=I5BZvUZg/QfJ8IxO+tSKA4C8RblY0tRzvt1GZI4LJOk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aJZ2tVmV2F1kyM8jrDpt06qS5sc4c2PcS7bMAoyZPeHJExMVY05g8CMhIpNFo5IYs
-	 865C1hGzjN9hpQI4wPTFxJyY1WG59xwcnOss+03oWob09BehcR1kw4q6AVyjmghHf/
-	 BzjuP27ChiyeoQmuPI/PtCAEVz6GHeCKC9aLCRGJG/hjYJDGPMeIOP2FaKJZdBotoH
-	 vpHAAxta9EiY2RbB+QOFrkrirGq+o+JKDxRQ2dpXzoTppajuI2mZDiSSZaus3ZuES2
-	 Epvvxszg/sF02vD1i+yx7eXYDixSTTuPf/hsH0tK+/UFUONyLxkFMRui+Rsuv4Nb0m
-	 9w8ztSTmfQGDw==
-Date: Sat, 17 Oct 2026 21:46:59 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nikhil Gautam <nikhilgtr@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, Joshua Crofts
- <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH v2] iio: ccs811: Deassert WAKE GPIO on error paths
-Message-ID: <20261017214659.5bbebc38@jic23-hlaptop>
-In-Reply-To: <20261015123023.3417-1-nikhilgtr@gmail.com>
-References: <20261015123023.3417-1-nikhilgtr@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KFMkRKPK"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso497128a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 13:52:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792270359; x=1792875159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9CcMWlmXFcivfr2U5My+Uh1aVT0DIK+Y+H5HexutNao=;
+        b=KFMkRKPKDXJ9syjceIjBf16YcFraILfhVtyYTjrFSo9aBRUDaU82znIrmK4+kT3Msl
+         D4YNeogjBEvowUHOBljnEwCMVMzPuHwBgIBg18g+WWFI7fvsTAn+a5AI7ebvka0lH9DF
+         DQ1TjW9Pnu24PoIqbZWGLw2lMUJTHmaCvtu0k783I/axrrHpehMWDr1wyNxEnzVSPZaI
+         cx2W9JA1mop1eY9x6IDl1YuDcRvbjGsDdN0XC5MwTS97T50jxvmUyHQIUm3mgJKXWJt+
+         Cs4T6SECsaKp2D6u9xMIJlddtA1IJwcMb8EIGGvXgaDFHtq/Ll9Kwu9F9Ej8ZTerrwJu
+         /G2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792270359; x=1792875159;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9CcMWlmXFcivfr2U5My+Uh1aVT0DIK+Y+H5HexutNao=;
+        b=LWcqdOTPGlM07dl54B47CClMLKX1nbw8CjEtwo7LqYJD2QB+ujZLphoUAFP+PLMvjd
+         6xD0cn69VjtO2jOJ7IPPX8pkVRwW3N85IdsjfOnuKoLsxZ28jjU65NaLK3zBbOdrm1e/
+         hpMLcdxm5bacepZVn1v12VOBR608xONB1OHIKPbj/HH08Ld72cD7CZjp1geu2jPddxBH
+         0wlrCjTkEGWJ4u+XDgHrBqU7LKRYRJ2hK8fS5lA6NWN8w7CkzzXS2fjQdqX+mJhBnaCn
+         lW+qHqUXIaqS9nfzBwpPw8RRJAZvqMkMtLo1h6kOo62vdvGMFu+/gMD9lyr04W+w0tEH
+         PG5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ2tZf7XzpllXjYnbVY+5B6aseuEEcNguWWqT+iS0qG2ShcRfBSxMHPY/d0LGVvE5OzZGeEiDluoZlp6k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMD/+L1JUQrUFdmHUW68y+QnNZPrdmO1OoRvsDonq0lPwzI/4O
+	H0LFSN7/mmrAQLA4KxExfXBzDhApNoZNb5g3rEECz3/h6VmQSInc6F+J
+X-Gm-Gg: AYBFou3ySsoUxTua6OiBBkA1kfRXcYDfWiMRTJoDGLqJCqNzyp2FL/0A4mIas4gpoLe
+	UzcU3LLIUsb2wAhkoaA5QtoqP+Miv4uM88c7bp/RlX7cdDH9av6JHz5KnoKKj5cq334fr5HWKB9
+	B7ogo97zm3uammoIjvzyCSfDL1CAmYjCdD4DujTpo0SIcKVuVYdHBBlQI+mz3oafIdOrOEQPkER
+	fOoP+3UteCH4ozfOuc3OcrgrjFpBVtC4GmWUacHF8QvMz3nnm1uZxgL+Rem67egUHbzSu+XjhQF
+	TFjMmW26DEvxhxdTjEefw6XU4npOkWLDxp+Sc4Wq1j/mlm+W9iptG5cp0rR9zfOZgHZZ6N3Y/yb
+	0iQiZd2zEQ87G8BiUm0E9KQe8Hwwx6e/XlgHwtT0I0UjUX2QCfn+fo1hwsokVZsxMvv0UmMIbWm
+	cb1fygb58iZQPET/F4hgs3T7R01sLMt6uTKxln8YH1G6h7Qx6yP4IFBop9Benz3DcAF8BEzapfz
+	kzF85nR387ogblbNvYXvXtkPQ==
+X-Received: by 2002:a17:90b:2c90:b0:3ac:b7b9:6484 with SMTP id 98e67ed59e1d1-3acef0fe32cmr2898931a91.45.1792270359012;
+        Sat, 17 Oct 2026 13:52:39 -0700 (PDT)
+Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947cf9a5sm14288430a91.15.2026.10.17.13.52.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 13:52:38 -0700 (PDT)
+From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+To: linux@roeck-us.net
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+Subject: [PATCH] hwmon: (sht4x) Reject incomplete heater command transfers
+Date: Sun, 18 Oct 2026 05:52:34 +0900
+Message-ID: <20261017205234.1084949-1-pocj8ur4in@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 15 Oct 2026 18:00:23 +0530
-Nikhil Gautam <nikhilgtr@gmail.com> wrote:
+heater_enable_store() treats a zero return from i2c_master_send() as
+success. It updates the heater state and returns count, so another
+attempt to enable the heater fails with -EBUSY.
 
-> Ensure the WAKE GPIO is deasserted when status polling fails or
-> the data-ready timeout expires. Early returns could leave WAKE asserted,
-> preventing the sensor from returning to its low-power state and
-> potentially disrupting subsequent I2C transactions.
+i2c-virtio can return zero when the first message fails. Require
+SHT4X_CMD_LEN before updating the heater state, as sht4x_probe()
+already does for the reset command.
 
-I need more on this point to know whether we care if an error
-means we don't deassert the wake pin.
+Fixes: 0eed6fc3d2b9 ("hwmon: (sht4x): add heater support")
+Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+---
+Tested with an emulated I2C adapter under ARM64 QEMU. A zero return
+reproduces the false success and -EBUSY on retry; both are fixed by
+this change. No physical sensor was tested.
 
-Why would failing to go to sleep break future transactions?
-I'd kind of assume we'd awaken an already awake device (which sounds
-idempotent but maybe not?) and carry on from there?
+ drivers/hwmon/sht4x.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Jonathan
+diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
+index a97dda9e92dc..c4b3db55de8b 100644
+--- a/drivers/hwmon/sht4x.c
++++ b/drivers/hwmon/sht4x.c
+@@ -287,2 +287,4 @@ static ssize_t heater_enable_store(struct device *dev,
+ 		return ret;
++	if (ret != SHT4X_CMD_LEN)
++		return -EIO;
+ 
 
-> 
-> Route error paths through a common cleanup label to ensure WAKE is
-> deasserted before returning.
-> 
-> Fixes: c6644f7201f3 ("iio: chemical: Add support for external Reset and Wakeup in CCS811")
-> Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
->  drivers/iio/chemical/ccs811.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/iio/chemical/ccs811.c b/drivers/iio/chemical/ccs811.c
-> index 998c9239c4c7..dad54f66ebb3 100644
-> --- a/drivers/iio/chemical/ccs811.c
-> +++ b/drivers/iio/chemical/ccs811.c
-> @@ -198,18 +198,21 @@ static int ccs811_get_measurement(struct ccs811_data *data)
->  	while (tries-- > 0) {
->  		ret = i2c_smbus_read_byte_data(data->client, CCS811_STATUS);
->  		if (ret < 0)
-> -			return ret;
-> +			goto out;
->  
->  		if ((ret & CCS811_STATUS_DATA_READY) || tries == 0)
->  			break;
->  		msleep(100);
->  	}
-> -	if (!(ret & CCS811_STATUS_DATA_READY))
-> -		return -EIO;
-> +	if (!(ret & CCS811_STATUS_DATA_READY)) {
-> +		ret = -EIO;
-> +		goto out;
-> +	}
->  
->  	ret = i2c_smbus_read_i2c_block_data(data->client,
->  					    CCS811_ALG_RESULT_DATA, 8,
->  					    (char *)&data->buffer);
-> +out:
->  	ccs811_set_wakeup(data, false);
->  
->  	return ret;
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+-- 
+2.55.0
 
