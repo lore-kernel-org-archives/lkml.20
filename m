@@ -1,169 +1,131 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+Received: from mail.nozomi.space (mail.nozomi.space [139.162.184.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06FA3AFAEA;
-	Sat, 17 Oct 2026 08:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798F746AA73
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 09:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.162.184.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792227445; cv=none; b=hiVFVSx4r2sKg+RB2p5T2cwJaxuzgzXS6PAguIad4a9tG66fSY4gknBT2qcGKAnoBH/rJZ0NgVLk6XcJLOOlhfsMAKlHlFjp2EB+lHfDQ+QPuc82eIuwpZ39kyRT0ZTPNr9dipJ7ZA74ExalVoKgCTdE4q5XayYTpEeP6ypv9NA=
+	t=1792227838; cv=none; b=pu2hLmoToKokxG/AniIqPCny6tUgwwZairY0MFz8wzGmvXam6UX/Oh+mLkYKYE282jWtqNqHS976FVa92L5Z8mKkdl+JNRnkMYEFoyC2aciWdzklEEK82thifZR6TasEQyS/2EWvHWb7P+1bjB11z3OZOC5DJsQVEou0OaKVn5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792227445; c=relaxed/simple;
-	bh=pJ6eE0bFpMf4TDfDWs3yMeobveFrhNmmkJGNDG5Wveg=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nXH4Yt2W/NVOwC6OW/OFMmTdp/Ph3aLvr27zd7mQcKmDd0rBOCF5PLj9M1O431PTlQz4LkWNAQMYmSdQnL2Qb+mffIFyxyyh0SUvqTt60VRruhIXNhvfqlork4KjNQpyX7HVSoy2YpEJeiPEWjGmW8TuSSOOB6y2ATC90YC05h8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xI0EC-000000004Ho-19Bj;
-	Sat, 17 Oct 2026 08:57:20 +0000
-Date: Sat, 17 Oct 2026 09:57:17 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Hans de Goede <hansg@kernel.org>, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-	linux-wireless@vger.kernel.org
-Subject: [PATCH v4 4/4] Bluetooth: btintel_pcie: use
- device_schedule_reprobe() after reset
-Message-ID: <9b078a64d003e63c617e8df41118f4ebde89aa2e.1792203271.git.daniel@makrotopia.org>
-References: <cover.1792203271.git.daniel@makrotopia.org>
+	s=arc-20240116; t=1792227838; c=relaxed/simple;
+	bh=ez5W3Tiudeu7DKRDSxt0ElxQRTPeopy/n2r2FQTfeZk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GXTyl/p/RTK1aWUAoBKDUTzhkMD4CbPbivABRXikk5GbyhQuI9QIoSJkGc2K6kkvTLii5F4/sG3O1Bl6B9IC4Nph9vKpdvs+Q10FkqSHe1zrQayKpXLyq7U+IYMNB3B++IMk00S69PgWv+c292kc495GjRV9y+hAz4sRSREKlL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=BrwiRFUI; arc=none smtp.client-ip=139.162.184.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nozomi.space
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="BrwiRFUI"
+From: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozomi.space;
+	s=mail; t=1792227834;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=xDtFfkl20RYcNy8cmYwdbGMoG2wivzzVXEPHVURNyqQ=;
+	b=BrwiRFUIXxVPcSwxbbc/efMOK8LjBxgiXAXhEEYUIFZQYVe9aJkLrJqhY9dW9ZYbo7zJqv
+	9ZxxLustF9AT2wR4yWTSoWmmsQVLrDN8hKUIjorSaZSL628HAzmGUQ38Mi7ZaGsL+91nP4
+	mCLZPtIPjKzoUh/7i3tuUkqO3u1OomARLMymtdK/3nUixzbi0zMDmqO2C0weQL3cGvJ/yS
+	d3C4gkl6Z46h2gIbu20o4XtYJm8mvMBEYwvnx0EgcBfqRNqZAKLp/bMB25+ypuYMy1pkRz
+	3y9dEPAk/xDhhCPDs9ATpqpCtCLdw6ALpBmLaHz48qmn8FbjZLgZ3aQW22tylg==
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Yidi Lin <yidilin@google.com>,
+	Hsin-Te Yuan <yuanhsinte@chromium.org>,
+	Brian Norris <briannorris@chromium.org>,
+	Julius Werner <jwerner@chromium.org>,
+	chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
+Subject: [PATCH] firmware: coreboot: Don't skip CBMEM entries outside of known memory
+Date: Sat, 17 Oct 2026 11:03:51 +0200
+Message-ID: <20261017090351.1266064-1-michal@nozomi.space>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1792203271.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The reset work re-probes its own device with device_reprobe() after an
-FLR or a PLDR, so .remove() runs inside it. That needs the
-current_work() check in .remove(), and 'data' must not be touched
-after the call.
+coreboot leaves CBMEM out of the /memory node of the device tree that it
+passes to FIT payloads, e.g. LinuxBoot on arm64 Chromebooks, and only
+lists it in the memory reservation block. The kernel has no resource for
+that memory, so region_intersects() reports it as neither System RAM nor
+Reserved memory, and since commit e31ecda9e3af ("firmware: coreboot:
+Skip no-map CBMEM entries") all CBMEM entries are skipped on such boards.
+That loses the coreboot log, the TPM event log and everything else that
+CBMEM devices expose.
 
-Schedule the re-probe with device_schedule_reprobe(). .remove() then
-runs from the driver core's work, the current_work() check goes, and
-disable_work_sync(&data->reset_work) waits for the reset work before
-'data' is freed. Until the deferred detach 'data' stays alive but idle:
-RECOVERY_IN_PROGRESS fails send_frame and coalesces further resets,
-interrupts are masked, and the dump and rfkill workers stay disabled.
-If scheduling fails in the FLR path, the reset work re-enables them as
-on any FLR failure. The PLDR re-probe of the Wi-Fi sibling, a
-different device, is unchanged.
+Also accept entries that don't intersect any memory resource. No-map
+regions are still skipped, as they are IORESOURCE_MEM resources, as are
+device regions.
 
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+Fixes: e31ecda9e3af ("firmware: coreboot: Skip no-map CBMEM entries")
+Signed-off-by: Michał Kopeć <michal@nozomi.space>
 ---
-v4: rebased onto bluetooth-next for its hardware rfkill work; commit
-    message updated for the reworked helper
-v3: rebased onto bluetooth-next, whose btintel_pcie has four dump
-    workers (coredump/hwexp/fwtrigger/mbox) rather than the single one
-    the mainline snapshot v2 targeted
-v2: reconciled to the current tree and adapted the commit message
-v1: initial RFC
+ drivers/firmware/coreboot/coreboot_table.c | 42 +++++++++++++---------
+ 1 file changed, 25 insertions(+), 17 deletions(-)
 
- drivers/bluetooth/btintel_pcie.c | 47 ++++++++++++++++----------------
- 1 file changed, 23 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index df95d16a163c8..9f65eb0ceb0b2 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -4093,7 +4093,7 @@ static void btintel_pcie_perform_pldr(struct btintel_pcie_data *data)
- 	 * BT needs pci_save_state()/pci_restore_state() because the BT driver
- 	 * is still partially attached when the _PRR runs (it hasn't been unbound yet).
- 	 * The PCI device needs to remain minimally functional so that
--	 * device_reprobe(&pdev->dev) can work afterward
-+	 * the deferred re-probe of the BT device can work afterward
- 	 */
- 	ret = btintel_pcie_acpi_reset_method(data);
- 
-@@ -4104,14 +4104,16 @@ static void btintel_pcie_perform_pldr(struct btintel_pcie_data *data)
- 	}
- 
- 	if (!ret) {
--		if (device_reprobe(&pdev->dev))
--			BT_ERR("BT reprobe failed for BDF:%s", pci_name(pdev));
-+		if (device_schedule_reprobe(&pdev->dev, 0))
-+			BT_ERR("BT reprobe scheduling failed for BDF:%s",
-+			       pci_name(pdev));
- 	}
+diff --git a/drivers/firmware/coreboot/coreboot_table.c b/drivers/firmware/coreboot/coreboot_table.c
+index 2c8c928fbb33e..5980dcc00e07e 100644
+--- a/drivers/firmware/coreboot/coreboot_table.c
++++ b/drivers/firmware/coreboot/coreboot_table.c
+@@ -114,6 +114,30 @@ void coreboot_driver_unregister(struct coreboot_driver *driver)
  }
+ EXPORT_SYMBOL(coreboot_driver_unregister);
  
- /*
-- * Issue a Function Level Reset and hand teardown/re-init off to the PCI
-- * core via device_reprobe(), mirroring the PLDR path's contract.
-+ * Issue a Function Level Reset and hand teardown/re-init off to the
-+ * driver core via device_schedule_reprobe(), mirroring the PLDR path's
-+ * contract.
-  *
-  * Caller must hold pci_lock_rescan_remove() and must have already
-  * disabled interrupts and drained both rx_work and coredump_work.
-@@ -4133,14 +4135,12 @@ static int btintel_pcie_perform_flr(struct btintel_pcie_data *data)
- 		return err;
- 	}
++/*
++ * Whether the memory of a CBMEM entry may be mapped: it must be exclusively
++ * System RAM, or exclusively Reserved memory, as CBMEM often is on x86, or
++ * memory that the kernel doesn't know about at all. coreboot leaves CBMEM out
++ * of the /memory node of the device tree that it passes to FIT payloads, e.g.
++ * on arm64, and only lists it in the memory reservation block.
++ *
++ * Anything else, such as no-map regions on arm64, which are IORESOURCE_MEM
++ * (see request_standard_resources() in arch/arm64/kernel/setup.c), must not
++ * be mapped.
++ */
++static bool cbmem_entry_is_mappable(const struct lb_cbmem_entry *entry)
++{
++	resource_size_t start = entry->address;
++	size_t size = entry->entry_size;
++
++	return region_intersects(start, size, IORESOURCE_SYSTEM_RAM,
++				 IORES_DESC_NONE) == REGION_INTERSECTS ||
++	       region_intersects(start, size, IORESOURCE_MEM,
++				 IORES_DESC_RESERVED) == REGION_INTERSECTS ||
++	       region_intersects(start, size, IORESOURCE_MEM,
++				 IORES_DESC_NONE) == REGION_DISJOINT;
++}
++
+ static int coreboot_table_populate(struct device *dev, void *ptr, resource_size_t len)
+ {
+ 	int i, ret;
+@@ -149,23 +173,7 @@ static int coreboot_table_populate(struct device *dev, void *ptr, resource_size_
  
--	/* device_reprobe() always detaches the driver first (running
--	 * .remove(), which frees 'data'); any re-probe failure leaves the
--	 * device unbound but 'data' is already gone, so just log it.
--	 */
--	if (device_reprobe(&pdev->dev))
--		BT_ERR("BT reprobe failed for BDF:%s", pci_name(pdev));
-+	err = device_schedule_reprobe(&pdev->dev, 0);
-+	if (err)
-+		BT_ERR("BT reprobe scheduling failed for BDF:%s",
-+		       pci_name(pdev));
- 
--	return 0;
-+	return err;
- }
- 
- static void btintel_pcie_reset_work(struct work_struct *wk)
-@@ -4173,11 +4173,15 @@ static void btintel_pcie_reset_work(struct work_struct *wk)
- 	disable_work_sync(&data->mbox_work);
- 	bt_dev_dbg(data->hdev, "Release bluetooth interface");
- 
--	/* Both reset paths follow the same contract: on success they
--	 * destroy 'data' via device_reprobe() (a fresh probe re-INIT_WORKs
--	 * the dump workers with disable count 0), so enable_work() must
--	 * NOT be called on the success path. Only the FLR path can fail
--	 * with 'data' still alive, in which case we balance the
-+	/* Both reset paths follow the same contract: on success the
-+	 * deferred re-probe scheduled with device_schedule_reprobe()
-+	 * destroys 'data' by re-running .probe() (which re-INIT_WORKs the
-+	 * dump workers with disable count 0), so enable_work() must NOT be
-+	 * called on the success path. 'data' stays alive until the deferred
-+	 * detach runs; in this window new activity is fenced by
-+	 * BTINTEL_PCIE_RECOVERY_IN_PROGRESS, the masked interrupts and the
-+	 * disabled dump workers. Only the FLR path can fail with no
-+	 * re-probe scheduled, in which case we balance the
- 	 * disable_work_sync() calls above so a later successful reset is
- 	 * not permanently blocked.
- 	 *
-@@ -4598,13 +4602,8 @@ static void btintel_pcie_remove(struct pci_dev *pdev)
- 	disable_work_sync(&data->fwtrigger_work);
- 	disable_work_sync(&data->mbox_work);
- 
--	/* Cancel pending reset work. Skip only when remove() is called from
--	 * within the reset work itself (PLDR device_reprobe path) to avoid
--	 * deadlock. current_work() returns the work_struct of the caller if
--	 * we are in a workqueue context.
--	 */
--	if (current_work() != &data->reset_work)
--		disable_work_sync(&data->reset_work);
-+	/* reset_work may still be running after scheduling the re-probe. */
-+	disable_work_sync(&data->reset_work);
- 
- 	btintel_pcie_mask_hw_rfkill(data);
- 	btintel_pcie_synchronize_irqs(data);
+ 		switch (device->entry.tag) {
+ 		case LB_TAG_CBMEM_ENTRY:
+-			/*
+-			 * Skip entries that are not exclusively System RAM or
+-			 * Reserved memory.
+-			 * On ARM64, no-map regions are filtered out as they are
+-			 * IORESOURCE_MEM (see request_standard_resources() in
+-			 * arch/arm64/kernel/setup.c).
+-			 * On x86, CBMEM often resides in standard reserved regions
+-			 * (IORES_DESC_RESERVED).
+-			 */
+-			if (region_intersects(device->cbmem_entry.address,
+-					      device->cbmem_entry.entry_size,
+-					      IORESOURCE_SYSTEM_RAM,
+-					      IORES_DESC_NONE) != REGION_INTERSECTS &&
+-			    region_intersects(device->cbmem_entry.address,
+-					      device->cbmem_entry.entry_size,
+-					      IORESOURCE_MEM,
+-					      IORES_DESC_RESERVED) != REGION_INTERSECTS) {
++			if (!cbmem_entry_is_mappable(&device->cbmem_entry)) {
+ 				kfree(device);
+ 				continue;
+ 			}
 -- 
 2.56.0
+
