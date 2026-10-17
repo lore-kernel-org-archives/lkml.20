@@ -1,155 +1,191 @@
-Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00256a01.pphosted.com (mx0b-00256a01.pphosted.com [67.231.153.242])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A612EACF2
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F312472AA
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:49:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.153.242
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792273639; cv=none; b=gjDROr5nYgu89nOe2qViknc71UVOWdLTY3/enDGqXYJ2sTmeVN8q6nuACRlGy59WgSNs2tZiWc8t3ru71InfKGDUPtRkUjBZtRJhWthg4XV+Kc2vdxJvFU18QFiVQe9rCy3mw/1SKlzU4cmTO9A2Lif44tkk2RDzEogKnyDEJjg=
+	t=1792273750; cv=none; b=WZ5GDePVVsZoSOjtcCF69H0Y6W+cZRaU1P0IiGPZG9wcYZHHCGSa3kZpmYj1K9+lkJw2/tgvxue1GT/ae6pEortA3bGovvhdVWZ+1FJr/52pgXoppu9XcCL9x+k0IjZFqhlJ31i7afmX1EtqqiszebKSQotUY4K+sF9spwMVIl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792273639; c=relaxed/simple;
-	bh=LBiNyMQaU+Lz8qtwm1wDvcMmGVUcj0TquZ11KFl1f08=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h7wAUPLWpfNAtV+zkC7nR8FJ/VGF0N6vMaA5sVbTxmd8OxGubWZs0Umj1iaP4RzqwB3IKHsrssKU9hhBQaUah8lLOZmr0ofeXXnl49O+z47pKg+geM2iTQ6y/l7JuFilLqE9okje/TM7fJdNz0WEchg2RkBlf+DuchZA1JtS71o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net; spf=none smtp.mailfrom=nilk.net; dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b=EQgRe/lp; arc=none smtp.client-ip=74.125.231.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
+	s=arc-20240116; t=1792273750; c=relaxed/simple;
+	bh=VvmIiZsAQTuewLT4z+voMxu4lT+9AVGv01yAygNYMac=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IyJxuQQ50Sxjctyz4L/UARY1q87R8B/LtmNirPoyPq4HfDUziYUg0DJHqiUb3btaNwJ6Gje/6q29wQ4Zq6RMyR31cXqXY81yoxFXQZAtwQNBnr99zkDwGUEcYQCl/fR/aNpYNm1a2kFiOx8ywkv23moHVACdoNLdeeEkggHaCV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu; spf=pass smtp.mailfrom=nyu.edu; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=jLnZAvYZ; dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b=HrPlrB6c; arc=none smtp.client-ip=67.231.153.242
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nyu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nyu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b="EQgRe/lp"
-Received: by mail-oo2-f6.google.com with SMTP id 46e09a7af769-8216bf5eb5eso440585a34.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:47:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="jLnZAvYZ";
+	dkim=pass (2048-bit key) header.d=nyu.edu header.i=@nyu.edu header.b="HrPlrB6c"
+Received: from pps.filterd (m0355791.ppops.net [127.0.0.1])
+	by mx0b-00256a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69HFhxLZ3375726
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:49:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nyu.edu; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=20180315; bh=59Nz+2ykEAA6Qs8QLk2O+NtyFmD2Phjzm6kC
+	GW6XiFA=; b=jLnZAvYZp9rtfVnVUyLN91meiqStyzWbdQWlLZjK0Y6LaLQkOO+W
+	i9uYsgFKb6roGw4E522azubZMhvAwX+0uo3Z71CVE/fpJfeJphcXN8G3PR1DuaVI
+	0GznYoljJlNYFBN5rZx7RQ+jt4Xz68EAf1iouywij98H5YdE+Tr67cU+28um7uFR
+	rENd9BcumswoD3gDzp1oD3WgECTTKK6sesUAMkFLNsf9Ymemqw3Lnf34Plk0Du9B
+	Ym4MHefpFqbd4w1HfAzyBQn+tAedT8tE0isZ1+ypwgu6uNBJg1cY6ZH/2uxnHPB1
+	cZhXPnXqXmfXVIo+lyr4nmjOX3V8bdBydg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0b-00256a01.pphosted.com (PPS) with ESMTPS id 4hc27hyw0t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:49:07 -0400 (EDT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5339739b343so19867411cf.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 14:49:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nilk.net; s=nilk; t=1792273637; x=1792878437; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gr7QzmsxuF1G07OcSwQ0zxYW4hq1ADbK4n2bkyk1L1M=;
-        b=EQgRe/lpCg8SIPzTTm3+JpiCFHVy2eO3vhgMd3p4JHGaGJnROYRo+e5gJ5U0YDCVvh
-         NEY1RhLo7TLWvpjQs6+jF8mxUBSMrzMSWV5wE4VvvOSB5+9w17Rjj1LWIV5mJoXz/4fa
-         n5AgMyVMfpvrZybl069z+i8DhZE5qUUV2pvsg=
+        d=nyu.edu; s=nyu-googleapps1; t=1792273747; x=1792878547; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=59Nz+2ykEAA6Qs8QLk2O+NtyFmD2Phjzm6kCGW6XiFA=;
+        b=HrPlrB6cWwl/WRiuCtwe3Xk0N9LdU5Q6KwWC//yEO5iuTMUZWwobj+Dm1XCgzD2tZq
+         Y6oRRcEBL+rlR9ubMfwd+nMt8CMhq8P4QLL0iMxm49/oSodzQYriGUR3Ig+54riUcfRk
+         hi0nHm6HB9c98mwtjHSAT0A0yEOgu8klg76O7GKfTQrR8xh/Be6UaN1kds1ZHQ/rRycW
+         SAGTr3dIXwXbXDbH9uGLcNd36XuHSNNqty6QGURCxqxXTzbxQsfGBC1zNh0J313cvjIk
+         hmXt20uTUbWjqphosjp5kOuQBBgQ4e4tnqotspAK0+8uoTZegNGpjv7/d6mCKwZy7q6/
+         ULFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792273637; x=1792878437;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792273747; x=1792878547;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Gr7QzmsxuF1G07OcSwQ0zxYW4hq1ADbK4n2bkyk1L1M=;
-        b=ZFCfApX/P9Xkffwdv3DG65/SRSWfZBEW32seXj5nry+gGnALoHsf4aEenUnx4YMohO
-         wMoGeCm067OjeQ+V6607hoAN+2uc4yqCME2Bu3JKycb03CdL9sHLjxhsGFNpXv9HlLgp
-         /fz3yGcJDjQhFyny2wLPeuGGy3uz31ysKGh8Zaq7yyY77chPwqVZYmJdV9BoSkw3fETD
-         bYNrO74D0OrLvq/BNKxp+04iSIKyitOmrENrBhWPIVzigZCfreRT2rWpFkaZ9wQN+nKL
-         1apDWVbfsA7mrnBB0hEyt/Fr5PvsKdtAEPncUKvs4mrUpzLcCXhC4a4p6GFas1aRrabk
-         /T+w==
-X-Forwarded-Encrypted: i=1; AKwUvBxomroPllMYI7nRC1/Wx1BmipdVzPB9RalwYhWAXlMZZEsfMuoO4PYvM8AFXSdjDKLszqCXilTz9GD+o8o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDMduX9qmj7bJpbETG3DB+/CfEZapknJ0I9zLMBaqrxZw424CR
-	gETTebrou8jz5a+YgFs9q7cqM27jXMQbMB/itx7w8IVeNXDFAizhlwqTCz02b0s4IA==
-X-Gm-Gg: AYBFou0XvlVjK66jsPpBSlV0Ojs4KABnLhBYUELVzkR0lwNtvqEJVP0xGheoCUruso3
-	C2muLQ62he0SyRMBwhaLr/TZDB8BRguNMpmLykkQ8+0OuUz/et+BOWD8mIMyLguGNuejaje7sHC
-	jhmMz+b6Cl1nnm3HK6krfm5ksxxZwTDr76e9G0h1Du+8s8KE2dzn/RvMqhYapfX/14dg+1K7xiR
-	Gd6Dvo3u//+98Vgw/9pIb7sF+mbjfpop8PqueqaTl+KLCoKVRm9VVn+v9fAs0t1pbUBQVnDRNwz
-	I4S8GazNTsCpKHmisYYZu82A0/XcuKpog2fTwS6ZnIUFyQAO0H1mBVxgKb5RwEwPxgo6jEeCN1n
-	6AnWb2Ykzp7TqsGnhVpk//w5DNvOZKZ03I7kdcDMWCy3/Ot5EHJAfPljSDcL+FX5wtpbHekRPMa
-	12ODPqRxXfMYbuBS19Hpq6A8luj7h7gEvnBqMh8oMWKm5h+PMygNM4sgXYPfGaQxuej7F6zLycL
-	nS0L4y5i8xgGt5sGwRMVQD4tK6/Hx8I+OH2nbX6YeEVa037zrwZwksDaWdbvTlidoN6CF9jbY+1
-	Mc5y38VjVQ9HiAamHRz9hcEN2KaSE/nd0IJP+KPgLro/raKJJP5YKEPmf30fwilsrMCp1B3loga
-	Ud7ppLeobdybnimEKcfz+ed5Lq0v9RGGpk/MiQoK3EwW2DUnJ2g==
-X-Received: by 2002:a05:6820:f023:b0:6d7:fea2:526f with SMTP id 006d021491bc7-70355d88ab4mr2411588eaf.30.1792273636699;
-        Sat, 17 Oct 2026 14:47:16 -0700 (PDT)
-Received: from [192.168.0.114] ([187.14.252.51])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a53dac8dsm5527535a34.12.2026.10.17.14.47.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 14:47:16 -0700 (PDT)
-Message-ID: <eee2988c-5ab6-40c3-ad3d-e4e0aeb977be@nilk.net>
-Date: Sat, 17 Oct 2026 15:47:14 -0600
+        bh=59Nz+2ykEAA6Qs8QLk2O+NtyFmD2Phjzm6kCGW6XiFA=;
+        b=ojKBuqKdX+JDSI/GI5aOcCGoKjB5nuBILNcduho6/p50cGdC6ncuRkxfr6/9nlcJfF
+         YMdvl5vdrtx6wFM6/WIKoB9kdAGaAbuJckIQYq8ECFHdaF8VbTYRVJ/Dw7YjCcDBsyEB
+         je1dzzMVxmFMCuwcfKq8T1X82bE9ZXS3nlJ6aZiccLIvuTzZVPy2kghYT8qF326h/+xx
+         Ro462adD62j/lZJ/9QKc4lOFN4BFT8tZEbe0H9B+KOBKNKX+CvQ+8tXmOVrtfPYpD8f4
+         2e/BEzBo1mOpH+IdlmB58Mc1xdPUyaGr7KzTlX2Bpr2ci+x4DA/XqzbZTJwPPVZjk1ie
+         9CGQ==
+X-Forwarded-Encrypted: i=1; AKwUvByptTSPn6Ey1IU3zDj3PxN5ETJq2mRsjBKRHedV2Ez8DOvQmYkR303F3UuQW6e4PPiJSgF6A4apDtQDtjA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKk3O1JJYgjkTXNL9ANnYk6mfhu3C6sWPNKZXvYOJZdZJyVliQj
+	FA29olXyY1/cU3PkxxQWQwvnZZFsHDYppFvKlTHIxjOnZzKXknsl0en6f5MVXWPjLbPkXbbnG4r
+	IEaTdhKmiQxzfb5bmqWxPNleoAr/E8PHnjLZTrodZNUMI0YX1FSjzBjbWceFOKQI=
+X-Gm-Gg: AYBFou3TZKjwKIBNYFGelsHtJ1O72XpQ9OPx4YGBcoNsNloDdNzga7RXz2D0V14ShS/
+	vZdeUVgh9YTYSwhPBww2ajhQzZ+L/GjrNHWDvDo2SXdLxvw+SzMFWt23iQYheKoVQzN2OPT0Ylo
+	1AobVlVEwrt7uk8gG4JTbByiz8NqlVMm8nPRL7BFLVBlMsC6ncu7tr492+ZOHq+QcuiYVTz4aAi
+	98SZDkZN0Wivn8oIcF1A26fy+Jqnj4olArtDHhyt9XX24YQ8r18nNZVhvS3SlYrcwUXxm118WtB
+	aJFej4oO1rqUlyMlBnm+bokjYFfmSCrHcCuu5sdCVNVXH8JLFfcjwJ4ul3H9P6k/pzBw5T5+K64
+	xhT6h2GMhcQJqS0NWXRk5z9SSOuKWZb4oTELb
+X-Received: by 2002:a05:622a:5ce:b0:536:5a10:5c4c with SMTP id d75a77b69052e-5365a1081d7mr25580871cf.13.1792273747500;
+        Sat, 17 Oct 2026 14:49:07 -0700 (PDT)
+X-Received: by 2002:a05:622a:5ce:b0:536:5a10:5c4c with SMTP id d75a77b69052e-5365a1081d7mr25580121cf.13.1792273745472;
+        Sat, 17 Oct 2026 14:49:05 -0700 (PDT)
+Received: from jerrythepro.nyu.edu (216-165-95-129.natpool.nyu.edu. [216.165.95.129])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbb0b231sm56350806d6.31.2026.10.17.14.49.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 14:49:03 -0700 (PDT)
+From: Kaho Jiang <kj2864@nyu.edu>
+To: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+        kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+        edumazet@google.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        co+71b6509cb791e531@bugs.sh, Kaho Jiang <kj2864@nyu.edu>,
+        stable@vger.kernel.org
+Subject: [PATCH net v4] net: ipv4: add zero check for snd_cwnd_clamp
+Date: Sat, 17 Oct 2026 17:48:46 -0400
+Message-ID: <20261017214845.28769-2-kj2864@nyu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT 2/3] media: i2c: dw9719: Add DW9800W support
-To: Danila Tikhonov <danila@mainlining.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>,
- Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>,
- Luca Weiss <luca.weiss@fairphone.com>,
- Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
- <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
-Content-Language: en-US
-From: Chris Simpson <chris@nilk.net>
-In-Reply-To: <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDA4NyBTYWx0ZWRfX057xpWOsAqV/
+ 0p6p7J6QnR9UijOGqRGWsvLrImfAXk9KUDD88VCqgI6rY2JwSEJ2/5BhJvY8YFuo6pvKK+vs2X9
+ FtF8TThpqDER5GrBRVO+PeARjfRPQ0U=
+X-Proofpoint-GUID: MV0NliwgHTtjCiQ5LrfqJ2iEpiDuyOof
+X-Proofpoint-ORIG-GUID: MV0NliwgHTtjCiQ5LrfqJ2iEpiDuyOof
+X-Authority-Analysis: v=2.4 cv=aMNlOr9m c=1 sm=1 tr=0 ts=6ad3ed54 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=k9NFnU9fOQnGI6ew/wxyRQ==:17
+ a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=S0S_EcBMpFAA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Se5WoFf3ZZRiLcel0nel:22 a=R6YzIN_bpWbBo3jmtC1i:22
+ a=VwQbUJbxAAAA:8 a=qtVHbROC6xTCA7o1MbIA:9 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDA4NyBTYWx0ZWRfXyAP4oycGTUQ+
+ JG/5hpQSVGxiNK8sDlwSrrdSfbqgRvdYEsnD7eL84IEGuye60G4J4w3zZi+Oc46vvhwsjCylQN0
+ DmMIZRbT1Kb1ahDYfCZIJafojhw8Lglk1kmPyAd8W5UPbJQ5MCcDCExwQBLqtg+7lKOSisTIfn6
+ w/yOvLYv7FDs2GftwX3ePJOxIoPFdevdao0dCHijo+plOSReFqjNGGvipYRuFm4aKyj7ndKSYj2
+ Mrlvu3wiQZZeQ3NNip6a1yREGZowkxKZAjzpaqHrq5izI6dD08TAiNZNH8mPl+wIUDdXxT8oF9s
+ yEPBdGnACkimyDX9ROLibX/2KbOpQMc2uFb/W/+aJwixLBfLb2B9bJF9q9l+maGv1zMfEWJBjrg
+ cMmYBXdskxb6gTt9EXI5Xl7ZizANmfv0ZDA1TS5hZ48ya74xSVypWCrGB3LqiIxNdImr0rTmtWy
+ QNYkhCoIMV0BJK/r9cg==
+X-Orig-IP: 209.85.160.200
+X-Proofpoint-Spam-Details: rule=outbound_bp_notspam policy=outbound_bp score=0
+ impostorscore=0 clxscore=1015 malwarescore=0 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 adultscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170087
 
-Hi Danila,
+User can pass zero to snd_cwnd_clamp via RTAX_CWND type.
+This could lead to division of zero error if not checked properly.
 
-On Sat, 01 Aug 2026 21:04:15 +0300, Danila Tikhonov wrote:
-> The DW9800W uses the same chip ID and register layout as the DW9800K,
-> but requires different default VCM frequency value.
+Oops: divide error: 0000 [#1] SMP KASAN NOPTI
+Call Trace:
+ <IRQ>
+ tcp_reno_cong_avoid (net/ipv4/tcp_cong.c:510 (discriminator 1))
+ tcp_ack (net/ipv4/tcp_input.c:3517 net/ipv4/tcp_input.c:3873 net/ipv4/tcp_input.c:4440)
+ tcp_rcv_established (net/ipv4/tcp_input.c:6685)
+ tcp_v4_do_rcv (net/ipv4/tcp_ipv4.c:1854)
+ tcp_v4_rcv (net/ipv4/tcp_ipv4.c:2248)
+ ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207 (discriminator 1))
+ ip_local_deliver_finish (net/ipv4/ip_input.c:241 (discriminator 1))
+ ip_local_deliver (./include/linux/netfilter.h:325 ./include/linux/netfilter.h:319 net/ipv4/ip_input.c:262)
+ ip_rcv (./include/net/dst.h:481 (discriminator 6) net/ipv4/ip_input.c:492 (discriminator 6) ./include/linux/netfilter.h:325 (discriminator 6) ./include/li)
+ __netif_receive_skb_one_core (net/core/dev.c:6297 (discriminator 4))
+ __netif_receive_skb (net/core/dev.c:6410)
+ process_backlog (net/core/dev.c:6761)
+ __napi_poll.constprop.0 (net/core/dev.c:7830)
+ net_rx_action (net/core/dev.c:7893 net/core/dev.c:8050)
+ handle_softirqs (kernel/softirq.c:645)
+ __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
+ irq_exit_rcu (kernel/softirq.c:775)
+ sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.c:1062 (discriminator 35) arch/x86/kernel/apic/apic.c:1062 (discriminator 35))
+RIP: 0010:tcp_cong_avoid_ai (net/ipv4/tcp_cong.c:482)
 
-A data point for v2. The Microsoft Surface Pro 9 has a DW9800W on its
-OV13858 rear camera module, at 0x0c on the sensor's I2C bus. INFO reads
-0xF2 and register 7 powers up as 0x60, both matching the values in this
-patch. The module is enumerated through ACPI, so ipu-bridge creates
-the I2C client, not DT.
+Fix by checking if user pass in zero as parameter,
+if so reject the value zero.
 
-I ran this patch as posted, plus the one dw9719_id_table line
-suggested below (without it the driver can't get the DW9800W model on
-ACPI), on a 7.2.11 distro kernel with the linux-surface patches. My
-ipu-bridge change, still to be posted, creates the "dw9800w" client
-from the Surface's SSDB. The driver binds to that client, INFO reads
-0xF2, so it goes through the DW9800_ID case, and the sensor gets its
-ancillary link to the lens. With the camera streaming, register
-readback shows CONTROL 0x02, MODE 0x40 and register 7 0x60, and
-V4L2_CID_FOCUS_ABSOLUTE values 640, 1023 and 512 reach VCM_CURRENT. An
-equivalent change has also run through runtime and system suspend on
-the same tablet.
+Fixes: 814d488c6126 ("tcp: fix the timid additive increase on stretch ACKs")
+Cc: stable@vger.kernel.org
+Reported-by: co+71b6509cb791e531@bugs.sh
+Assisted-by: LLM
+Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
+---
+ include/net/tcp.h  | 3 +--
+ net/ipv4/metrics.c | 4 ++++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-[...]
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 4416cdf9bf30..ad80b8fb8a52 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -1521,8 +1521,7 @@ static inline u32 tcp_snd_cwnd(const struct tcp_sock *tp)
+ 
+ static inline void tcp_snd_cwnd_set(struct tcp_sock *tp, u32 val)
+ {
+-	WARN_ON_ONCE((int)val <= 0);
+-	WRITE_ONCE(tp->snd_cwnd, val);
++	WRITE_ONCE(tp->snd_cwnd, max(val, 1U));
+ }
+ 
+ static inline bool tcp_in_slow_start(const struct tcp_sock *tp)
+diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+index ad40762a8b38..cb36686973e5 100644
+--- a/net/ipv4/metrics.c
++++ b/net/ipv4/metrics.c
+@@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+ 			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
+ 			return -EINVAL;
+ 		}
++		if (type == RTAX_CWND && !val) {
++			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
++			return -EINVAL;
++		}
+ 		metrics[type - 1] = val;
+ 	}
+ 
+-- 
+2.43.0
 
->  	{ .compatible = "dongwoon,dw9800k", .data = (const void *)DW9800K },
-> +	{ .compatible = "dongwoon,dw9800w", .data = (const void *)DW9800W },
-
-ACPI users need the I2C id as well. As posted, an ACPI-instantiated
-client can't get the DW9800W model:
-
-- Named "dw9800w" with CONFIG_OF=n (Fedora's x86 config), it matches
-  nothing.
-- Named "dw9800w" with CONFIG_OF=y, it binds through the i2c core's
-  compatible-name fallback. i2c_get_match_data() then returns NULL, so
-  the model is DW9718S and the INFO check is skipped.
-- Named "dw9719", it gets model DW9719, and the DW9800_ID case returns
-  -ENODEV.
-
-Could v2 add this to dw9719_id_table?
-
-	{ .name = "dw9800w", .driver_data = (kernel_ulong_t)DW9800W },
-
-Also, that -ENODEV return leaves the regulator enabled, like the paths
-Myeonghun Pak's patch fixes [1]. It would be worth routing it through
-the same power-down path.
-
-I understand v2 is waiting for the DW9800K rework. I'll test it on the
-Pro 9 when it comes and send a Tested-by then. The ipu-bridge patch
-for the Surface's VCM type would follow on top of it.
-
-Thanks,
-Chris
-
-Made with AI assistance. Written by Claude Opus 5.5 (drafting), with
-review by Claude Fable 5.1 and testing by Claude Opus 5.5, under the
-direction of Chris Simpson <chris@nilk.net>, who reviewed and approved
-it.
-
-[1] https://lore.kernel.org/all/20260913041828.28430-1-mhun512@gmail.com/
