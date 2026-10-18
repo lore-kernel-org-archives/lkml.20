@@ -1,70 +1,70 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427B14C10C5
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAA3377A92
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792333347; cv=none; b=TD+FYGXLbcaK0lfKFlkdGRI6Q+zMoICN0XwQt9cleTN8UUHZ1Gh+TIgZu1DuLELoGx/QUGVkE17YKwcaSjcvayVXPUp5ZH5A69DCEfgk8ox4MjL8XgeReYiPTTCoKLHR1ozxZe7/8xKBQAOgaVv3PKJwN1fVtTo8mvqzv2Nl3r8=
+	t=1792333360; cv=none; b=I8/Ei/Nppz4Pdj3c/H6V47SBpC2OdmYJnzay67g0o+Fd+LiD91PbCTTwrStgh8QXl+AdI8NnR3wBsh6LnBYANZ+rBIWKSfdZ2B1WPclJV5TxM5RPlfq9X3fe7hOpLQdn26rQwApbDTlQNBzeMR6Ml9FhNQFw4G3rlwBBtXEHN4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792333347; c=relaxed/simple;
-	bh=VxOR/bCOVZkIw8KCvCXFIKKLhAZToFxwLD68oZ1t8k4=;
+	s=arc-20240116; t=1792333360; c=relaxed/simple;
+	bh=Wz3AynSRouhjdOCDf3ZwA/+MVGmp61qIW0ierhI97O4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pWEzxpIh3F8ZkzDllbtK/p+Mq+N0wKzu3Dyjb/acxO5ed2p+8PTiylXj/KbGMXzX5ZtX/xyuFSUaTvEN+d+L94ZcXtXpFOkHHqmwxckkmKhRrjtmE3s+sDvFDoADkuONqPKRP+42pM7i1/SLle+wRlMT/ajpLMsAQYWpilkhpRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rRs2J1mh; arc=none smtp.client-ip=74.125.224.43
+	 In-Reply-To:To:Cc; b=j8BZIioPATPZ3WKWJz36kaZV5R4wWjCLYX0IfPKO4PqjuE8aGF+3XN6rH71XA/3WDo7g0vGa6vhgPBOm1KYAU3JIAAzIkgRdfOO3bx3WbChJ7IqgYjHZsBK9tW6QBQ14MRnf2juo1ShbTAtK8phtNibgjRcxbO9hKelXAHw31S0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AelEXoD/; arc=none smtp.client-ip=209.85.128.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rRs2J1mh"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-677dbe051d4so1114254d50.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:22:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AelEXoD/"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8ac8a2ac52bso12606517b3.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:22:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792333345; x=1792938145; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792333358; x=1792938158; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UUlIHV3Y/eyAzB+bNbhTZ2vi/60rQRriQzgaW1YAFSU=;
-        b=rRs2J1mhqX5bwvPb6V4+pexg8CQt1Ndrl+2w8jGT1f/UgBbHjmuBChrRU1yjBWexBI
-         PCP8r76kksd7zais4alPXwAM3qz73W7QaJS2CQ9hivfH+XysG5M71gvNBeWUrO3MtZbC
-         1q2Prcsvo3n7sZa2j3HD7a0UMfHNqiGmg/hbpV7k9wD7yG84p2iSpaI+dGskxVknsJ9P
-         sHFJJa6o+dQNfR2Thhb7TQxk5dwHm03rcKhTP3sVMEeeUhcvLCFDhKUHwZ9H7RoIWGWd
-         uxsZIgVbrrHaza7AH18of/YR+I2aURtK7f94AYlO8Eudkym32j2hWJ3Dcs57xLcnKkWo
-         z2HQ==
+        bh=UaqrgWMwy8tCpgosdqPhUPyluySo43hO1tIzzayAGmQ=;
+        b=AelEXoD/jFpzvxBjDq/fog/6V/zesn10H46n+uSfcpdMdsmkKch2HoJQjl7lzOarFI
+         vW/s8lQi8f3zyrimnOVSmS5rMewI8/LXC6QTVYsyDlXeMKw0p1CD/k2oQ8JZK+c/NQVF
+         5L00tS10iApcgVk/nV/Hx1nMa9jQvyJQLDGadmhCnnxMceOBJCRH4A71jZPqcApH9QEw
+         1j+Gmxx/4mpjL7cn/rI7hURQy6EzPSTKREkMhPxAS5SN3n+KUOHhb8DaYOMSuegMbFHZ
+         4nhPEoh6sih9WPJlXbkKiWxfGb+pUnj3wrCcJ0JMtRUBo1Rcs84j5QjHN7riLslUg/Nz
+         eY3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792333345; x=1792938145;
+        d=1e100.net; s=20260707; t=1792333358; x=1792938158;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UUlIHV3Y/eyAzB+bNbhTZ2vi/60rQRriQzgaW1YAFSU=;
-        b=wdT1tn74D8Mxt4cpiWi5nUsjqZeX32a2RzWnNWk+5G4dsBkp0D1KDVUQESnCd0SxWN
-         p5JwsJTfj6iBYWU+sEUsamcncy8zUgdGDegVXslc5oYD3oRMBC/2Q4cH8f7OQCHIwR5n
-         u1e5DXGE/jkSP5v2KvPWQYpESEmmZN98P02dhu7wLVUvtTceEor7JakSp1M3HvrCy4UG
-         VAt9Xog8BNzY5EEYy0lFhwND2a1ttvPZEqPmDacR8qd6gqc3PbErC7r9aOJADDeImTSP
-         Q3neHSOCcPyAPJCHwvHGTpNxTVY9K3AeXnxy2MlRUhhNvqVQVk4YAgzKDx7Me38dl6Hq
-         +WXw==
-X-Forwarded-Encrypted: i=1; AKwUvBzt/oYPwCYvNyKBh/okJz+LSaSn+zF1bjv9Pw0pr7t8Y82/5HZaI888bM+FAYfIhna54jSlawFrAMY/ogk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIim1ndhSGT68RhXJNOVWIAWy5HYkh1TFnwaQ5Lf0go9ni4GCjG
-	q5VKeQ8Y78qoxdwH2huoMch1a1108gHAiTso6NciAze6IsAdoqcL/kGa
-X-Gm-Gg: AYBFou0IEBo6mNUaGBaKYl/9T4miy0I7QAFDIMuRwuDvc+FNOfg0w4w/cv6JbOjbxzR
-	ODb2KG4gWoz7qPvFDJAyx194s4P8ouygsUlTiWBSiLw6k6oEtWs28EyyE/CHPrNEffJB/7ST+dX
-	nkD02ZkiBdS38gfbcDCj4TStT8f4XDwBQVWyomhc4gPfPBn1nDcWkB+/RxmUpjUT4E6Yj1A/zGo
-	9Dg4sesfL0e4PqiCRK1+yTVyx1HUZ7/OB9oGi+5k4aW5Oi3JFFqjrfbMD0t/azlLAAWjrY0vWCO
-	FPnlbYi6cazHTgIDL1Ae4aha405xvWft90eG9kEiTga1UVVJi7vRD9lSJQc+rCSlYsc0nVtHMC1
-	v5A4ZBelSzibmrj5oFCZIl0e31rV5cTjcFTuHvOGP4TicFHr0DLsbHOA5x6ioDZjN6Z4NevLHIE
-	/R+2vroRFdTOp7H8Jhg650SFrauNOTlVf8RXyGQW4wTGBtEgW4JbzEKdsSgQb22LWotlfmZKXhq
-	+ZA0JygvJ3clotU/Ssag5AeUZtr/Kgs6N+zRW03aOpsqXrCVDCDGGQidiVzUV7DudRN4Xo4sfhy
-	O8+fHX1nDSsvbsMVkXJr/k4pa7et+qvULR5Jz6o=
-X-Received: by 2002:a05:690c:a75a:b0:8b0:b1dd:c09a with SMTP id 00721157ae682-8b0f21bbb9cmr11567547b3.64.1792333345125;
-        Sun, 18 Oct 2026 07:22:25 -0700 (PDT)
+        bh=UaqrgWMwy8tCpgosdqPhUPyluySo43hO1tIzzayAGmQ=;
+        b=YwLM0HCychib+2njbrukeEKTxTbSuGleKXiUfaYwfSnmIpOs5yqd0MCJZAC7/05cgh
+         FJ9TBfsTiKOlDA5Lj6Zf7AbTssEUk1l72IMHrokM8wmB2xQ0S9KpYI3H6JC4/6P50Q92
+         gBNFDMjItnohPqyUgIR8kU8DJ8CTsxFaHrCMtKLGIBD6D9pVAOz2HvwYvw9vgblTVCDP
+         xW9IY+AThliYtuX3NC8WYG1W8oFMo/w1QeiqVii+oGN3SOsn+WVMJPFZvCDZMwvmWUou
+         7Pci8Tzbb0NaSzyvijH1sySX7nGc8ZHYTQrJ5IKIcpCVGKhMMfDxnnuQgre4PaUPVtk7
+         ufzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwtat+i5gSL/4X36A0wIw3Oyr7pO6ykLrNEFAUSjj4oJe/Eu/IqyE06anw1IRtiZZb0qXmz5BYEptOpHw0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAw6R4YCIVmbz8ttFC+ub07/SCG2nUYzY22MWbQzQJyZTQT92G
+	2J+M5X+xOmE5M87c+RFTLSBxgIvj0DreSJnnNquGQ3d4WWgvmFsGut2M
+X-Gm-Gg: AYBFou2hYyOgz7/IccskwdLXuz7x+dxmOivvV5pyGNQESQiE/jdRDGPo3iHAIodL4ef
+	0h9MGKjUSI6zfjNdqwb9DiE5R/lUR+Md3feGgIBhE4DhPT3CW7le3tpwk110ckq/lOCrzFdkpIX
+	XKmfORJ0ssXgsPkRJOWaUhp16lk1J0zefvzmJdBn3xaiVooGSMYtYwjRLiabcf0dZAH1f3SFvIW
+	on/w+BW1ubPlOj1YzAfy0g0NzD/QfZx5KHP8tzInJk6vt4Kbch6L421aA29NNm27zcULq89YKBH
+	G0xbDo8nMkbKHnV2r7umlaa2fyhsesWbVFM77CkPiztnDtKjvUkzQmb9odhlDv4jdr9HfvZqnTM
+	RJY+jMOrIhBJHtVW4GyuBxk+5YgfUcKE5V8DmD6FgRwC3/6ojg6uXJpToENMb+8+ZaHfRSNpeRJ
+	dPmGgh7/SFFwWdGxaqeX4AAtM9J7QX5KdEqQiULd7QGj6FW+PsMr6x9OagHKiLcqot9cPTFSrJm
+	6kMbqxm8diqpkmmHvZt0iFpUO53IBcOzzGwB7VExdR00wEWebuwgUJDs9YWbOKUlzlcvLq74S+1
+	Ej1t1sDz1kfyk11sWefYpjhqBTu13A==
+X-Received: by 2002:a05:690c:b83:b0:8b0:a5d3:71c1 with SMTP id 00721157ae682-8b0e2e6c2camr28200027b3.37.1792333358446;
+        Sun, 18 Oct 2026 07:22:38 -0700 (PDT)
 Received: from localhost (108-93-236-139.lightspeed.chtnsc.sbcglobal.net. [108.93.236.139])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e590b586sm29403807b3.31.2026.10.18.07.22.22
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e5888374sm30064117b3.9.2026.10.18.07.22.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 07:22:24 -0700 (PDT)
+        Sun, 18 Oct 2026 07:22:36 -0700 (PDT)
 From: Matt Turner <mattst88@gmail.com>
-Date: Sun, 18 Oct 2026 10:22:02 -0400
-Subject: [PATCH v3 2/5] alpha: stop storing the user stack pointer in
- pt_regs
+Date: Sun, 18 Oct 2026 10:22:03 -0400
+Subject: [PATCH v3 3/5] alpha: use user_stack_pointer() in KSTK_ESP() and
+ dump_elf_thread()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,7 +73,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-alpha-perf-regs-v3-v3-2-52be85332c57@gmail.com>
+Message-Id: <20261018-alpha-perf-regs-v3-v3-3-52be85332c57@gmail.com>
 References: <20261018-alpha-perf-regs-v3-v3-0-52be85332c57@gmail.com>
 In-Reply-To: <20261018-alpha-perf-regs-v3-v3-0-52be85332c57@gmail.com>
 To: Richard Henderson <richard.henderson@linaro.org>, 
@@ -82,107 +82,56 @@ Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
  Ian Rogers <irogers@google.com>, Matt Turner <mattst88@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3175; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=VxOR/bCOVZkIw8KCvCXFIKKLhAZToFxwLD68oZ1t8k4=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKuXOOs62SZ+eg+F3emovLvc1Mz5mwpdUi/ZRqwW6/3Q
- fvLmRWbOj6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
- QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
- U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOYa2eOMDKfWPxaP0Y
- lbXMtktYfl3XzliNrA1KyEX0bl71dap5yWm87IcLtcp+5uhnTgoZ3yfCy+iceVn847089z8XSCH
- fNXphRlfgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1497; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=Wz3AynSRouhjdOCDf3ZwA/+MVGmp61qIW0ierhI97O4=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKuXOM0nLfE6+wE3UYWDfllErc8VFat3D6l4cPGHZFfN
+ pyIlWNV6fjIwiDGxTBTTJElbr0iy6y2HUt9Tkv/gpnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
+ DIEMHaN4iJweg0ZmcXFpapFuWkGRQ15+SWJJZn5esV5+QWpeQXqBXlpmWklGRn5RcSrQCL281BJ
+ TV0c3I0MDE0tHCzMnC0dTE2dnJ0MnN0dHZ1cnI0tzEwNnS0cTV0tzBi5OAZhrWp8wMuw48G0dr4
+ HQU+nXD7snpn56+Xe/bdfNJw+D6h6kXrtfevkEw3/PLq+qlXGyRw4z377+UM71z49SLzbLaAOmw
+ 30LFilrGjIDAA==
 X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
  fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-Nothing reads pt_regs->usp now that user_stack_pointer() uses the PCB.
-Drop the stores, which saves a PAL_rdusp call on every syscall, and
-give the field back its old name.
+Both open-code the same PCB lookup.
 
 Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
 Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
 Acked-by: Ian Rogers <irogers@google.com>
 Signed-off-by: Matt Turner <mattst88@gmail.com>
 ---
- arch/alpha/include/uapi/asm/ptrace.h | 2 +-
- arch/alpha/kernel/asm-offsets.c      | 1 -
- arch/alpha/kernel/entry.S            | 5 -----
- arch/alpha/kernel/traps.c            | 8 --------
- 4 files changed, 1 insertion(+), 15 deletions(-)
+ arch/alpha/include/asm/processor.h | 3 +--
+ arch/alpha/kernel/process.c        | 2 +-
+ 2 files changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/arch/alpha/include/uapi/asm/ptrace.h b/arch/alpha/include/uapi/asm/ptrace.h
-index 9d86b2a1526e..72ed913a910f 100644
---- a/arch/alpha/include/uapi/asm/ptrace.h
-+++ b/arch/alpha/include/uapi/asm/ptrace.h
-@@ -43,7 +43,7 @@ struct pt_regs {
- 	unsigned long trap_a1;
- 	unsigned long trap_a2;
- /* This makes the stack 16-byte aligned as GCC expects */
--	unsigned long usp;
-+	unsigned long __pad0;
- /* These are saved by PAL-code: */
- 	unsigned long ps;
- 	unsigned long pc;
-diff --git a/arch/alpha/kernel/asm-offsets.c b/arch/alpha/kernel/asm-offsets.c
-index c89792c86044..22ed3c975b1c 100644
---- a/arch/alpha/kernel/asm-offsets.c
-+++ b/arch/alpha/kernel/asm-offsets.c
-@@ -30,7 +30,6 @@ static void __used foo(void)
+diff --git a/arch/alpha/include/asm/processor.h b/arch/alpha/include/asm/processor.h
+index c461a26d47b3..73251cd671e0 100644
+--- a/arch/alpha/include/asm/processor.h
++++ b/arch/alpha/include/asm/processor.h
+@@ -43,8 +43,7 @@ unsigned long __get_wchan(struct task_struct *p);
  
- 	DEFINE(HAE_CACHE, offsetof(struct alpha_machine_vector, hae_cache));
- 	DEFINE(HAE_REG, offsetof(struct alpha_machine_vector, hae_register));
--	DEFINE(PT_REGS_USP, offsetof(struct pt_regs, usp));
+ #define KSTK_EIP(tsk) (task_pt_regs(tsk)->pc)
  
- 	DEFINE(TI_FLAGS,        offsetof(struct thread_info, flags));
- 	DEFINE(TI_SYSCALL_WORK, offsetof(struct thread_info, syscall_work));
-diff --git a/arch/alpha/kernel/entry.S b/arch/alpha/kernel/entry.S
-index bfa116d455fb..790389a15c3c 100644
---- a/arch/alpha/kernel/entry.S
-+++ b/arch/alpha/kernel/entry.S
-@@ -476,11 +476,6 @@ entSys:
- 	ldq	$1, 0($sp)	/* syscall nr from saved r0 */
- 	stq	$1, 8($sp)	/* regs->r1 = shadow syscall nr */
+-#define KSTK_ESP(tsk) \
+-  ((tsk) == current ? rdusp() : task_thread_info(tsk)->pcb.usp)
++#define KSTK_ESP(tsk) user_stack_pointer(task_pt_regs(tsk))
  
--	mov	$0, $8
--	call_pal PAL_rdusp
--	stq	$0, PT_REGS_USP($sp)
--	mov	$8, $0
--
- 	lda	$8, 0x3fff
- 	bic	$sp, $8, $8
+ #define cpu_relax()	barrier()
  
-diff --git a/arch/alpha/kernel/traps.c b/arch/alpha/kernel/traps.c
-index cfaef96c4ce8..5882c65b7ef1 100644
---- a/arch/alpha/kernel/traps.c
-+++ b/arch/alpha/kernel/traps.c
-@@ -30,12 +30,6 @@
+diff --git a/arch/alpha/kernel/process.c b/arch/alpha/kernel/process.c
+index 06522451f018..7861c9e767b7 100644
+--- a/arch/alpha/kernel/process.c
++++ b/arch/alpha/kernel/process.c
+@@ -318,7 +318,7 @@ dump_elf_thread(elf_greg_t *dest, struct pt_regs *pt, struct thread_info *ti)
+ 	dest[27] = pt->r27;
+ 	dest[28] = pt->r28;
+ 	dest[29] = pt->gp;
+-	dest[30] = ti == current_thread_info() ? rdusp() : ti->pcb.usp;
++	dest[30] = user_stack_pointer(pt);
+ 	dest[31] = pt->pc;
  
- #include "proto.h"
- 
--static __always_inline void alpha_snapshot_usp(struct pt_regs *regs)
--{
--	if (user_mode(regs))
--		regs->usp = rdusp();
--}
--
- void
- dik_show_regs(struct pt_regs *regs, unsigned long *r9_15)
- {
-@@ -186,7 +180,6 @@ do_entArith(unsigned long summary, unsigned long write_mask,
- {
- 	long si_code = FPE_FLTINV;
- 
--	alpha_snapshot_usp(regs);
- 	if (summary & 1) {
- 		/* Software-completion summary bit is set, so try to
- 		   emulate the instruction.  If the processor supports
-@@ -208,7 +201,6 @@ do_entIF(unsigned long type, struct pt_regs *regs)
- {
- 	int signo, code;
- 
--	alpha_snapshot_usp(regs);
- 	if (type == 3) { /* FEN fault */
- 		/* Irritating users can call PAL_clrfen to disable the
- 		   FPU for the process.  The kernel will then trap in
+ 	/* Once upon a time this was the PS value.  Which is stupid
 
 -- 
 2.55.0
