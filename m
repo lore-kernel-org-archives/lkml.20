@@ -1,232 +1,110 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740833ECBDA
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:14:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0832E266C
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:18:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792350879; cv=none; b=f2aoeuppMh/GWM9WQX4+EqIW+Wx3RZ5klcLpuYOc+yARkiX+f1j5CRGrQwMI9arz09zfFLarnbJnBGkMnTHz9ymj1iw072khbN1LhDbzepA6dHVhzlM5xlcFyeNMA/m3nrXkuY6P/1xo7K+4Tn2qsixd+XWeJX0dQ4MshqaJkWU=
+	t=1792351116; cv=none; b=fHNNJXMqr3a1UVyn9eZcoJoHcGrdJW9Mc25FBL/xwZkG6XGFQ3oTevuS53j8pKpjnJaZtQvlpbCEtvCcSUgWdE+UIITGrF+s+N1rLlpxrp2qDlxtQipEQac8aMN6ik+Tnp7/uQHVE1ABnRRBIFedrglHIjAhQiZwHEtc9vp/vRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792350879; c=relaxed/simple;
-	bh=dv3THeCUFr1makUliMH5EFDp2IAiW1kqgoej/IOkhyU=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=SqwGsDUu5ilQCboN578Hj1UGlQv1g9rgiVk6pYMJaC/HqMCUkuW613b3LX6cD780F5l25tYbg8ZyAPGQsdKs8bQoFJDlZMkK0oFluSfim9nIgCyv+cDzQ/2hFUEz14tIauswGjNyVg3EsnMdhaBsU9TZ4F5mea+diy8zEmRjTB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f4612a1a5cso3671269b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:14:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792350876; x=1792955676;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7lKzvKHoU99MM8OfPBlNDx5jzmgLz/gxzBoi65FPbRE=;
-        b=kse7BVDCpwbrQAolyLztxbsZpN/tidY+2HFLEj5dukQMQWnSD2TOKpyah2w7sJWsxL
-         5XiY7Rmh2E/t8OUavcLyV5yP9IWG3ayeF8/fA1kMEqBTR9cKyXtCsr+j5a0g7jpGGC2U
-         XGEjpmtTjke0WPL0Q2Jl80Y5bbUavbJwiboULTTTAIeIHVr291qNLDjwSQAReEqlVJRO
-         gl9/UaFrw70YuZqL4RwrpLB89qYeuBqtd260u78o274unrZ7T/m5es+ihtG7/OmWDUqz
-         PDvkClo2+0SSz5ZCAHLNjaFoY7jxWi1yjAbC18rJ1rcLx9kS1m2xMPKBGZLIFfHEzMu8
-         /dXw==
-X-Gm-Message-State: AFq9FYIvfxSvg7H6lr8gdvTN/AbVUAux/udJ84HNDp3i5871K0fr8BM6
-	qAYrpVWtAfPRbWp7V8K8FWsMruEvluCCLbmUZa9hhxLGyCjg67dOWCwe3VDBXQLzIUbJMVt4BXV
-	NAJoQ57+DMDv/b88C8HSvHhMe3YQBpD2opUgUjzsXVwdXMvTTIJJekroauaQ=
+	s=arc-20240116; t=1792351116; c=relaxed/simple;
+	bh=deDSQN5X7htnNnQdP5vUq1dHxLSrjUUk8SJC+9hzfTM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fWB6tA823p8Mc466LUFAF7NMcNx6Ro7qejj7bj1BiK31tyNO0AcwpW0v4kE+pQYp14PIgpkAWxOAtqjtwRemeMXJWOGV0lFZrCa5vnbGDDt1tb48R2n+ILWiJZQBD7CwOFoAohsObUSw613LYl+jpTvbv9U4M3ysmM2Ox1Xc+50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=FB6FhrFp; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="FB6FhrFp"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 2994D240107
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:18:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1792351113;
+	bh=gNaqpXcYk1sW2dIQNDaq37foF4xP6KPL3OfDqoRrjKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:From;
+	b=FB6FhrFptSDcZpZ1pijzjsYyxqWJZgErMErxGW+x6e+8mR/0efmx4hjxcx672DGpy
+	 7wgXFlqG+GybWVMZGI/rWf5cgCf4LY79cvpwCZ7s1DrRAx18p7nBkS/xdTHOV0ZIE/
+	 UgiKFg6LYiasX6XLnNBOEBfHL58uwCo68DWkS+hanb1Kj/HlD4KdsAHiH2PQt4giWT
+	 QJERcOxtGmilkS7MSNJqXPQAghyGCw0fy2AzoeNH8HmRbmsl42ERqoRY3LZEEYhmMn
+	 m4mvfaabnd6uiWCjatyFYKFFuPrgSlKu6cgJoYhZ2VkNL/RTbSqlWlWw+rKL48UMF4
+	 l/+zejdsHKlpQ==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4j77kb4ffrz9rxB;
+	Sun, 18 Oct 2026 21:18:31 +0200 (CEST)
+From: =?UTF-8?q?Rebecca=20Mara=20M=C3=BCller?= <rebecca.mara@posteo.de>
+To: Denis Benato <denis.benato@linux.dev>
+Cc: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luke Jones <luke@ljones.dev>,
+	Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+	Ivan Levchenko <me@livan.pro>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Paolo Pisati <p.pisati@gmail.com>
+Subject: Re: [PATCH v3 7/7] HID: asus: Re-send the Zenbook Duo keyboard handshake after probe
+Date: Sun, 18 Oct 2026 19:18:32 +0000
+Message-ID: <20261018191823.22123-1-rebecca.mara@posteo.de>
+In-Reply-To: <4bf9e6b0-4f6e-4faf-a2b6-a57143ef3f23@linux.dev>
+References: <4bf9e6b0-4f6e-4faf-a2b6-a57143ef3f23@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1a0d:b0:4b8:4703:db90 with SMTP id
- 5614622812f47-536fda8b0a9mr5366394b6e.25.1792350876373; Sun, 18 Oct 2026
- 12:14:36 -0700 (PDT)
-Date: Sun, 18 Oct 2026 12:14:36 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad51a9c.a6d1a155.34a93f.00bb.GAE@google.com>
-Subject: [syzbot] [rdma?] possible deadlock in rds_trans_get_preferred
-From: syzbot <syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On Sun, Oct 18, 2026 at 07:10:57PM +0200, Denis Benato wrote:
+> So this patch is based on an arbitrary wait that is based on the
+> assumption that some other device gets initialized...
+>
+> Can you try making this deterministic?
 
-syzbot found the following issue on:
+Since this part came from my patch, I went back and measured it on my
+UX8407AA before trying to make it deterministic. The result: there is
+nothing to fix, so please drop 7/7.
 
-HEAD commit:    70dd4ee72eb2 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1271a69c580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=44ac479246d4559b
-dashboard link: https://syzkaller.appspot.com/bug?extid=ccdb5058c3df2d94811c
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15b9618e580000
+I built v3 as an out-of-tree module against a 7.0.11-based distribution
+kernel, with only the schedule_delayed_work() call of 7/7 removed and my
+userspace workaround stopped, and checked whether the keyboard stays in
+hotkey mode (keyboard backlight key changing asus::kbd_backlight, plus
+usbmon on the keyboard's bus for part of the runs):
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com
+- docking: 10 of 10
+- loading the module with the keyboard attached: 2 of 2
+- rebinding only the touchpad to hid-multitouch while docked: 4 of 4
+- s2idle suspend and resume: 3 of 3
+- reboot with the module loaded after hid-multitouch (rootfs only):
+  2 reboots, 1 cold boot, all fine
+- reboot with the module in the initramfs: 3 reboots, 1 cold boot,
+  all fine
 
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-kworker/2:3/5905 is trying to acquire lock:
-ffffffff9205e888 (rds_trans_sem){++++}-{4:4}, at: rds_trans_get_preferred+0xf7/0x2c0 net/rds/transport.c:100
+usbmon shows hid-asus sending the 0x5a handshake on interface 4 and
+hid-multitouch sending feature reports 0x07, 0x03 and 0x05 to the
+touchpad on interface 5 some 10-20 ms later, and the hotkeys keep
+arriving as 0x5a reports on interface 4 afterwards. The same happens
+when hid-multitouch reconfigures the touchpad on resume or on a rebind.
 
-but task is already holding lock:
-ffff888014aed420 (&id_priv->handler_mutex/1){+.+.}-{4:4}, at: cma_ib_req_handler+0x16ff/0x5700 drivers/infiniband/core/cma.c:2450
+I also went back through my notes from August to see why I believed
+otherwise. The conclusion came from a test where I rebound the touchpad
+and the brightness keys then did nothing. At that point my test module
+had neither the descriptor fixup nor the forced hid-input binding yet,
+so the hotkey interface had no input device at all and the keys could
+not have worked in either mode; my userspace workaround was stopped.
+All later tests that day already included the re-send, so they showed
+that the whole patch works, but never whether the re-send is needed.
 
-which lock already depends on the new lock.
+I am really sorry for the extra work this caused, Paolo, for carrying
+and adapting the patch, and Denis and everyone else for reviewing it.
+This was my first time this deep into a driver, and I should have
+tested the re-send on its own before sending it.
 
+Unrelated, in case it is useful: with the series applied, the keyboard
+backlight stays on while the laptop is in s2idle suspend.
 
-the existing dependency chain (in reverse order) is:
-
--> #2 (&id_priv->handler_mutex/1){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       cma_ib_req_handler+0x16ff/0x5700 drivers/infiniband/core/cma.c:2450
-       cm_process_work+0x46/0x440 drivers/infiniband/core/cm.c:1869
-       cm_queue_work_unlock+0x5d/0x250 drivers/infiniband/core/cm.c:933
-       cm_req_handler drivers/infiniband/core/cm.c:2235 [inline]
-       cm_work_handler+0x638d/0xc860 drivers/infiniband/core/cm.c:3849
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
-       process_scheduled_works kernel/workqueue.c:3479 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #1 (&id_priv->handler_mutex){+.+.}-{4:4}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       rdma_destroy_id+0x1b/0x30 drivers/infiniband/core/cma.c:2124
-       rds_ib_laddr_check_cm net/rds/ib.c:489 [inline]
-       rds_ib_laddr_check+0x38b/0x730 net/rds/ib.c:511
-       rds_trans_get_preferred+0x15f/0x2c0 net/rds/transport.c:104
-       rds_bind+0x1a4a/0x2420 net/rds/bind.c:254
-       __sys_bind_socket net/socket.c:1945 [inline]
-       __sys_bind_socket net/socket.c:1937 [inline]
-       __sys_bind+0x1a9/0x260 net/socket.c:1976
-       __do_compat_sys_socketcall net/compat.c:450 [inline]
-       __se_compat_sys_socketcall net/compat.c:422 [inline]
-       __ia32_compat_sys_socketcall+0x4c7/0x770 net/compat.c:422
-       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
-       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
-       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
-       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-
--> #0 (rds_trans_sem){++++}-{4:4}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       down_read+0x99/0x4c0 kernel/locking/rwsem.c:1574
-       rds_trans_get_preferred+0xf7/0x2c0 net/rds/transport.c:100
-       __rds_conn_create+0xad5/0x2650 net/rds/connection.c:252
-       rds_conn_create+0x44/0x60 net/rds/connection.c:384
-       rds_ib_cm_handle_connect+0x62b/0x1220 net/rds/ib_cm.c:860
-       rds_rdma_cm_event_handler_cmn+0x59f/0x9b0 net/rds/rdma_transport.c:91
-       cma_listen_handler+0x11a/0x180 drivers/infiniband/core/cma.c:2716
-       cma_cm_event_handler+0x99/0x300 drivers/infiniband/core/cma.c:2181
-       cma_ib_req_handler+0x1be2/0x5700 drivers/infiniband/core/cma.c:2461
-       cm_process_work+0x46/0x440 drivers/infiniband/core/cm.c:1869
-       cm_queue_work_unlock+0x5d/0x250 drivers/infiniband/core/cm.c:933
-       cm_req_handler drivers/infiniband/core/cm.c:2235 [inline]
-       cm_work_handler+0x638d/0xc860 drivers/infiniband/core/cm.c:3849
-       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
-       process_scheduled_works kernel/workqueue.c:3479 [inline]
-       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-other info that might help us debug this:
-
-Chain exists of:
-  rds_trans_sem --> &id_priv->handler_mutex --> &id_priv->handler_mutex/1
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&id_priv->handler_mutex/1);
-                               lock(&id_priv->handler_mutex);
-                               lock(&id_priv->handler_mutex/1);
-  rlock(rds_trans_sem);
-
- *** DEADLOCK ***
-
-locks held by kworker/2:3/5905: 4, last CPU#2:
- #0: ffff88804c131140 ((wq_completion)ib_cm){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3371
- #1: ffffc900030dfd08 ((work_completion)(&(&work->work)->work)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3372
- #2: ffff88802a6fc420 (&id_priv->handler_mutex){+.+.}-{4:4}, at: cma_ib_req_handler+0xef1/0x5700 drivers/infiniband/core/cma.c:2427
- #3: ffff888014aed420 (&id_priv->handler_mutex/1){+.+.}-{4:4}, at: cma_ib_req_handler+0x16ff/0x5700 drivers/infiniband/core/cma.c:2450
-
-stack backtrace:
-CPU: 2 UID: 0 PID: 5905 Comm: kworker/2:3 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: ib_cm cm_work_handler
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- down_read+0x99/0x4c0 kernel/locking/rwsem.c:1574
- rds_trans_get_preferred+0xf7/0x2c0 net/rds/transport.c:100
- __rds_conn_create+0xad5/0x2650 net/rds/connection.c:252
- rds_conn_create+0x44/0x60 net/rds/connection.c:384
- rds_ib_cm_handle_connect+0x62b/0x1220 net/rds/ib_cm.c:860
- rds_rdma_cm_event_handler_cmn+0x59f/0x9b0 net/rds/rdma_transport.c:91
- cma_listen_handler+0x11a/0x180 drivers/infiniband/core/cma.c:2716
- cma_cm_event_handler+0x99/0x300 drivers/infiniband/core/cma.c:2181
- cma_ib_req_handler+0x1be2/0x5700 drivers/infiniband/core/cma.c:2461
- cm_process_work+0x46/0x440 drivers/infiniband/core/cm.c:1869
- cm_queue_work_unlock+0x5d/0x250 drivers/infiniband/core/cm.c:933
- cm_req_handler drivers/infiniband/core/cm.c:2235 [inline]
- cm_work_handler+0x638d/0xc860 drivers/infiniband/core/cm.c:3849
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-RDS/IB: Active conn connected <::ffff:172.20.20.170,::ffff:172.20.20.170,0> version 3.1
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Thanks,
+Rebecca
