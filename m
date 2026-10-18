@@ -1,271 +1,197 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287544C9E09
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1364CC293
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:33:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792334012; cv=none; b=g0M28UjyADZeiRL/ymwHipKTS6BeHTXUdYbM+3d+ss7QNgVxGPT41GuwvJmJMwS0eeGJWQlFd0O3VpTcZN9x6CER7g/RIGfhsrT5Rf+3saWfU/Y0m/33tzbTK552uXcW92FqO7JRMHuAqbFJBAeGhhqHbk3Yka6OiCo+6ccbkR8=
+	t=1792334015; cv=none; b=c5FvoTzHVTTUnvnFc089WSuK5pLYGNd+li6D+5De4zN1YPLHYb6keStwHOWEcqCCc9Q4VIOUg1opOXv8Kg2FocBuNavnS4+Gg7TAQUkgGsQWDkUNqnoHVHHrX5TMLf0kqB4UK7WkiI70wfb99h/07okBeKWQbXMX7pEvObYqjIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792334012; c=relaxed/simple;
-	bh=pT6sEIRD6LR5R1NwVJrS6ZAbGGNWcZkIDW2r57o/sY4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TQZ7PdC8a02/6YuZVmoz4g23/q9st3WSMqo+9tE5W/zGKcCaZp9CQgugtk/CdryqTUZInv9cnZrD/nDT2zAz9oUMHc65zv/CxTrHjjIMR8e610VGIUQJ4nKrC0cvsL79vJVYVMYwf+xgJqytkNcNjb9R73wtJiqzV7Ltoh1OBCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=T4QPLkv2; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1792334015; c=relaxed/simple;
+	bh=kyumf2UrA1s++I8rNNVj1AMhxZlZOQ7PbSSEd/tzhVU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lK5pH0sP+AA6i5BtoYyHrxA5ZcdKwZCMPGn9C5vdK8xgHyWT517T9utcDdnOU8TSg75bD2qK54OS/4FtBTu/r+A8dmloYuaiFfC1475upL0RB/DDqR4yLsGn/Xmfwgv2YmZLDqlO4XXc271cSm+CEZrp+Fkm3Je3bOosWKIHcFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=jan.claussen10@web.de header.b=M4gbJNhB; arc=none smtp.client-ip=212.227.15.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="T4QPLkv2"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48afbd35952so157191f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:33:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792334009; x=1792938809; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gdtC+tieZRObN9lLe/Zl3wgJC4OiD9fS0qYy+5+cDvY=;
-        b=T4QPLkv2qWe6ri6bdlTZp7tXKSrwltEk2wZGfb0Y7MA4jtTrOSdyF1LkbFQx9vrBO6
-         2luC3NRaYYpRqGl58T0iyZY308t65c1so22t6o3PIR4hjaXAsEi2i8Hp+s+6KhrnvwdM
-         rcFVfunQZx0VuPAfEeNpAp98oYO4PLAWZX9k6MZJsuLwW3ZHRdOpuqOauWMX1hku5BoD
-         xp/lRNLN3TGpbmcZKY/kcIAA8ZaOaUqFv7yGzAxv/LEUKifv4kRqS46hTfLRJVyj5tF0
-         fcA4hGb49HlznYizJ55Vu/dJpBRs30HpYLEQuztlg2XLIIMVNGxTZt7Hmssz7nWEfr8t
-         8vKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792334009; x=1792938809;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gdtC+tieZRObN9lLe/Zl3wgJC4OiD9fS0qYy+5+cDvY=;
-        b=RNjACUFe2/5CMeQhCup3xMPf8r9n2gvQKAW3SjPpu2wcFLOXJCTLqmBVYOq4nRCw4L
-         Za3JbNEEo8IY5GVxYsMvMcmHO/atzMMGuLmNMmrYVV/4VIPCLskxfLeJkv8iHnBZyeXm
-         uyZVF1q/9uMEVbzG9iqlFoHwtza0WP3wQ0b+4obr671V31WGl+PGIyBr9eRH7rZ3P6aj
-         mNsqlVG8wV1wYt+DP72GGg056/t/cR1QFV0IP20bdi0Iesa5OiooqlhRK7PKgxt2uUKO
-         Peq8OxItPWLHmi3V71GPLhq12OjkzLwMN1jOkJ+ZVQOmO4/4LEYI7urn4rsLvgfVg2at
-         2dag==
-X-Forwarded-Encrypted: i=1; AKwUvBy9a/Fm0W7/Q2ve7zpRr3ga1+0XakMhZKNCJvIlP8daTv4lAAcgfo1y70Tv8uHQNa+TqRUpQ4UcLBifvKQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIK53UvX0Zxc9iv0HiW2iwPsgvCeUNyWl5akEz+ozX7RjWgwRzl
-	4IIA1mJnxHK65IOTrRsWLdqYAX3Z91c2+ywuqOkpliTcw/SnYTJkO0Y4wkbOhfRbAZCeFFmJOJ0
-	lGA0jRE4n0A==
-X-Gm-Gg: AYBFou0GDil9CdlstfRQpNWzWWsRlxwmPIEk7aDt3eMGMYNn3/g3qWyx+Z6mTBw0Ql4
-	5hL41vFYa7qx3r5W6aU8fYZnnxOTWa3xTEzj3WSDpncOYmG3HY7IeYB7aV+syQNRzz+hvGKDmpB
-	XSVrxKO1yc2UrHSxxuj2Rt8Pd4SK1y7BquxE4FBzHwSeOQYGtZyn/5oqcKz4QHi3ksGydpsHw+z
-	pswcVy8ASDskUdaI6LBI2gVRn8OoRo3lcm+en1ee94AHrKMVnvj/LB5svk5mcl4z3Sjwoayhppv
-	yetyPCjatevCuWTcbKmIDKe93sCwmIHg4EDxHz5Pkt7ma2Fxo79C4UYcJxE26whytRWn55rVlfE
-	hRYhPy7BNTAbstTi5+ebyDekxKg8oSYhBY7sxACjZ+Szkmmx9+g07uxwJNu7mjnOIL7Zvg9uAYx
-	Q7nWiA1ylVUQoEoSZhx7qQH9FQTRVGAA7jd20vx90JvUPWWJaOul8FBzhd6n6oQJkiBIK0+ooC9
-	jnCYdmPQsLy
-X-Received: by 2002:a05:600c:e558:10b0:4a1:d899:b633 with SMTP id 5b1f17b1804b1-4a1d899b92emr53019725e9.1.1792334009250;
-        Sun, 18 Oct 2026 07:33:29 -0700 (PDT)
-Received: from localhost.localdomain ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947928b4sm16339501a91.11.2026.10.18.07.33.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 07:33:28 -0700 (PDT)
-From: Heming Zhao <heming.zhao@suse.com>
-To: joseph.qi@linux.alibaba.com,
-	mark@fasheh.com,
-	jlbec@evilplan.org,
-	hch@lst.de
-Cc: Heming Zhao <heming.zhao@suse.com>,
-	ocfs2-devel@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=web.de header.i=jan.claussen10@web.de header.b="M4gbJNhB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1792334000; x=1792938800; i=jan.claussen10@web.de;
+	bh=nWxzefpcJg0qDNsmpAebrGOTXx+vSlOchKFuJ9yDqa0=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=M4gbJNhBvzvWoP1+qalzE9NjvT5PceXtbspH3oVulL1vGsPHnxowFZsvevFq53ho
+	 DOxaaKVY3/VQE1Xi6B7k+Vs0R28bVdgf/SF3cnFPchvDYd9T1cnCQJLx7YAOs17T6
+	 SSo0HQRVrSbc12rLocTspsrJIB43vyrx241a0ZgXinBGPTtzn1knX239Ksp2fdB18
+	 LRQvA1M2nubq+KsuDRMtFx9SzLWaJ2D33sMQpMNaut4v5vFttAkqBDcMHzbItgyZR
+	 bUdwAA5dbT3O4K7IeAtQ7bRco2ShGSRRBpLD45V0FKx3N7AvdKgvATnUBkyla29ZO
+	 rEQd6mZfWY5J8jiaeA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N7gbW-1wWPp40J2g-00uLpc; Sun, 18
+ Oct 2026 16:33:20 +0200
+From: =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>
+To: Sandy Huang <hjc@rock-chips.com>,
+	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v3 0/4] migrates ocfs2 DIO from buffer_head to iomap
-Date: Sun, 18 Oct 2026 22:33:12 +0800
-Message-ID: <20261018143319.22329-1-heming.zhao@suse.com>
-X-Mailer: git-send-email 2.55.0
+Subject: [PATCH v4 7/7] drm/rockchip: dw_hdmi_qp: Advertise BT.709 and BT.2020 colorimetries
+Date: Sun, 18 Oct 2026 16:31:13 +0200
+Message-ID: <20261018143135.5745-8-jan.claussen10@web.de>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261018143135.5745-1-jan.claussen10@web.de>
+References: <20261018143135.5745-1-jan.claussen10@web.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:vgJJz9wHClKoXxywE9jHWXa8QvwqPcQT9qjduanBMqbfmrHh3F6
+ UkyRVC6ZYcg4UlNd7+tZlunBjopp8M4zUvvsbgauAEJQNI5J/J3dI5j/qO6Odfcb6QvacD8
+ sN581rXoVvObSsynh2CRJiTD4juo+SLoGB821NbdEwg0o6a1Vjeb73ly2+nwQ5Iz9HKW7Ve
+ hgMJJ4GOuVnaypFH7pVfg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:lCwU8gFuzSI=;94U+FAFQO3nOZWAqjbFVXYpL1p8
+ 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
 
-This patch set migrates ocfs2 Direct I/O (DIO) from buffer_head mode
-to iomap mode. And the code base is commit 58717b2a1365d.
+Expose BT.2020 RGB and YCC colorimetry so userspace can enable HDR
+output. Also explicitly expose BT.709 YCC as it is listed in the
+Rockchip RK3588 TRM V1.0-Part2 20220309 data sheet.
 
-Changelog:
-v3:
-patch 1/4
- revise the commit log
- for ocfs2_map_blocks():
- - removed S_ISLNK() handling, as S_ISLNK inodes are already handled by the existing code path:
-   ocfs2_read_folio => block_read_full_folio() => get_block (ocfs2_get_block)
- - replace "return -EIO" with "return err" at the end of this func
+Tested on a Radxa Rock 5B (RK3588) with an LG OLED55B87LC in KDE
+Plasma 6.7.5: enabling HDR switches the colorspace to BT.2020, and
+disabling it restores the default.
 
-patch 2/4
- revise the commit log based on hch's comments.
- in ocfs2_iomap_begin(), replace the "/* todo */" comment under the IOMAP_WRITE case with "return -EOPNOTSUPP".
- revise comments in ocfs2_iomap_dio_end_io()
- remove the unused "bail" label in ocfs2_dio_end_io_r_pr()
+Signed-off-by: Jan Clau=C3=9Fen <jan.claussen10@web.de>
+=2D--
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-patch 3/4
- revise the commit log based on hch's comments.
- remove the unused var max_blocks in ocfs2_iomap_dio_end_io_write().
- followed Joseph's comment, directly set map.lblk in ocfs2_iomap_dio_end_io_write().
- in ocfs2_dio_wr_map_blocks():
- - replace BUG_ON(p_blkno == 0) with "ret = -EIO, mlog_errno() and goto unlock".
-   (the legacy code was copied from ocfs2_dio_wr_get_block())
- - adjust arithmetic for map->len by substracting the offset and using min_t() to cap the length within limits. 
- - adjust error handling style for the return value of ocfs2_write_end_nolock().
- introduce a new function, ocfs2_dio_zero_eof().
-
-patch 4/4
- Set f_mode with FMODE_CAN_ODIRECT only for non-inline files, per Joseph's comments.
-
-v2:
-- Merge Joseph's code and ideas from [1]:
-  - Add FMODE_CAN_ODIRECT to f_mode in ocfs2_file_open()
-  - Change iomap_ops and iomap_dio_ops API declarations from ocfs2.h to
-    aops.h
-  - Switch from iomap_dio_rw to __iomap_dio_rw + iomap_dio_complete
-  - Change "struct iomap_dio_ops" from read/write style to PR/EX locking
-    style. With this approach, we completely eliminate the need to define
-    any iocb->ki_flags bits.
-- Remove alignment code from ocfs2_should_use_dio(), because iomap internally
-  already handles this.
-- Add patch 4 to remove unused functions and the CONFIG_LEGACY_DIRECT_IO
-  Kconfig option.
-- Add "Co-developed-by: Joseph Qi <joseph.qi@linux.alibaba.com>"
-
-[1]:
-https://gitee.com/anolis/storage-cloud-kernel/commit/ea3fe75e2060118ba093e90b1cd34fa382914b29
-
-
-v1:
-https://lore.kernel.org/ocfs2-devel/20260724052559.15409-1-heming.zhao@suse.com/
-v2:
-https://lore.kernel.org/ocfs2-devel/20260727061802.18485-1-heming.zhao@suse.com/
-
---------------
-# test report
-
-This patch set has been tested on 7.3.0-rc7 kernel with the following test
-cases.
-
-## ltp
-
-runltp -f dio -d /mnt/ocfs2/
-
-The test results: passed
-
-## xfstests
-
-format cmd: mkfs.ocfs2 -M local --fs-feature-level=max-features /dev/vde
-
-./check -g quick -T -b -s ocfs2 -e generic/081 \
--e generic/266 -e generic/272 -e generic/281 \
--e generic/338 -e generic/347 -e generic/361 \
--e generic/628 -e generic/629 -e generic/648 -e generic/650 
-
-The test results are the same before and after the patch set.
-
-Failures: generic/003 generic/091 generic/094 generic/177 generic/211
-generic/225 generic/263 generic/322 generic/329 generic/331 generic/370
-generic/376 generic/424 generic/448 generic/467 generic/477 generic/481
-generic/510 generic/513 generic/537 generic/552 generic/563 generic/578
-generic/607 generic/620 generic/630 generic/755 generic/760 generic/777
-generic/784
-Failed 30 of 631 tests
-
-(following is 7.2.0 kernel test result)
-Failures: generic/003 generic/322 generic/329 generic/331 generic/370
-generic/376 generic/420 generic/424 generic/448 generic/449 generic/467
-generic/477 generic/510 generic/513 generic/537 generic/552 generic/563
-generic/578 generic/607 generic/620 generic/630 generic/755 generic/777
-generic/784
-Failed 24 of 632 tests
-
-## fio on single node
-
-(this is v2 test result, v3 test result is similar)
-
-fio --direct=1 --iodepth=32 --rw=write --ioengine=libaio --bs=128k --size=1g \
---numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-- before patch : write: IOPS=18.8k, BW=4708MiB/s (4937MB/s)(4096MiB/870msec)
-- applied patch: write: IOPS=39.6k, BW=4953MiB/s (5193MB/s)(4096MiB/827msec)
-- overwrite (don't remove write.1g, run above fio command) speed seems same. 
-
-fio --direct=1 --iodepth=32 --rw=read --ioengine=libaio --bs=128k --size=1g \
---numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-- before patch : read: IOPS=52.4k, BW=6554MiB/s (6872MB/s)(4096MiB/625msec)
-- applied patch: read: IOPS=52.2k, BW=6522MiB/s (6839MB/s)(4096MiB/628msec)
-
-fio --direct=1 --iodepth=32 --rw=randwrite --ioengine=libaio --bs=4k --size=1g \
---numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-- before patch
-  - creating write: IOPS=20.9k, BW=81.7MiB/s (85.6MB/s)(4096MiB/50159msec)
-  - overwriting write.1g: write: IOPS=281k, BW=1097MiB/s (1151MB/s)(4096MiB/3733msec)
-- applied patch
-  - creating write: IOPS=21.0k, BW=82.0MiB/s (86.0MB/s)(4096MiB/49938msec)
-  - overwriting write.1g: write: IOPS=329k, BW=1286MiB/s (1348MB/s)(4096MiB/3185msec) 
-
-fio --direct=1 --iodepth=32 --rw=randread --ioengine=libaio --bs=4k --size=1g \
---numjobs=4 --runtime=100 --group_reporting --filename=/mnt/ocfs2/write.1g --name=tst
-- before patch : read: IOPS=372k, BW=1452MiB/s (1522MB/s)(4096MiB/2821msec)
-- applied patch: read: IOPS=369k, BW=1441MiB/s (1511MB/s)(4096MiB/2842msec)
-
-
-## fio on two nodes
-
-### write in different folder
-
-node1 /root/fio/diff/ocfs2-w.sh:
-> fio --direct=1 --iodepth=32 --rw=write --ioengine=libaio --bs=128k --size=2g \
-> --numjobs=2 --runtime=100 --group_reporting --filename=/mnt/ocfs2/node1/write.2g --name=tst
-
-node2 /root/fio/diff/ocfs2-w.sh:
-> fio --direct=1 --iodepth=32 --rw=write --ioengine=libaio --bs=128k --size=2g \
-> --numjobs=2 --runtime=100 --group_reporting --filename=/mnt/ocfs2/node2/write.2g --name=tst
-
-
-node1 /root/fio/diff/ocfs2-randw.sh:
-> fio --direct=1 --iodepth=32 --rw=randwrite --ioengine=libaio --bs=4k --size=2g \
-> --numjobs=2 --runtime=100 --group_reporting --filename=/mnt/ocfs2/node1/write.2g --name=tst
-
-node2 /root/fio/diff/ocfs2-randw.sh:
-> fio --direct=1 --iodepth=32 --rw=randwrite --ioengine=libaio --bs=4k --size=2g \
-> --numjobs=2 --runtime=100 --group_reporting --filename=/mnt/ocfs2/node2/write.2g --name=tst
-
-run on both node, 
-pdsh -w ssh:tw2510-[1-2] /root/fio/diff/ocfs2-w.sh
-- before patch : write: IOPS=19.3k, BW=2417MiB/s (2534MB/s)(4096MiB/1695msec)
-- applied patch: write: IOPS=20.8k, BW=2599MiB/s (2725MB/s)(4096MiB/1576msec)
-pdsh -w ssh:tw2510-[1-2] /root/fio/diff/ocfs2-randw.sh
-- before patch : write: IOPS=3742, BW=14.6MiB/s (15.3MB/s)(1462MiB/100007msec)
-- applied patch: write: IOPS=3765, BW=14.7MiB/s (15.4MB/s)(1471MiB/100010msec)
-
-
-### write in same file
-
-node1 & node2: (/root/fio/share/ocfs2-w.sh)
-fio --direct=1 --iodepth=32 --rw=write --ioengine=libaio --bs=128k --size=2g \
---numjobs=2 --runtime=100 --group_reporting --filename=/mnt/ocfs2/share/write.2g --name=tst
-
-node1 & node2: (/root/fio/share/ocfs2-randw.sh)
-fio --direct=1 --iodepth=32 --rw=randwrite --ioengine=libaio --bs=4k --size=2g \
---numjobs=2 --runtime=100 --group_reporting --filename=/mnt/ocfs2/share/write.2g --name=tst
-
-run on both node
-pdsh -w ssh:tw2510-[1-2] /root/fio/share/ocfs2-w.sh
-- before patch : write: IOPS=2052, BW=257MiB/s (269MB/s)(4096MiB/15967msec)
-- applied patch: write: IOPS=2558, BW=320MiB/s (335MB/s)(4096MiB/12808msec)
-pdsh -w ssh:tw2510-[1-2] /root/fio/share/ocfs2-randw.sh
-- before patch : write: IOPS=3588, BW=14.0MiB/s (14.7MB/s)(1402MiB/100001msec)
-- applied patch: write: IOPS=3590, BW=14.0MiB/s (14.7MB/s)(1403MiB/100001msec)
-
-Heming Zhao (4):
-  ocfs2: Add new ocfs2_map_blocks() to introduce iomap feature
-  ocfs2: switch DIO read path from buffer_head to iomap
-  ocfs2: switch dio write path from buffer_head to iomap
-  ocfs2: remove legacy blockdev direct-IO path APIs
-
- fs/ocfs2/Kconfig          |   2 +-
- fs/ocfs2/aops.c           | 689 ++++++++++++++++++++++++--------------
- fs/ocfs2/aops.h           |  38 +--
- fs/ocfs2/buffer_head_io.c |  19 +-
- fs/ocfs2/file.c           | 168 ++++++++--
- fs/ocfs2/ocfs2.h          |  45 ++-
- fs/ocfs2/ocfs2_fs.h       |   3 +
- 7 files changed, 634 insertions(+), 330 deletions(-)
-
--- 
-2.55.0
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/=
+drm/rockchip/dw_hdmi_qp-rockchip.c
+index 10c5b6d6406e..e677aacf5a33 100644
+=2D-- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -621,6 +621,10 @@ static int dw_hdmi_qp_rockchip_bind(struct device *de=
+v, struct device *master,
+ 				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
+ 				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
+=20
++	plat_data.supported_colorspaces =3D BIT(DRM_MODE_COLORIMETRY_BT709_YCC) =
+|
++				      BIT(DRM_MODE_COLORIMETRY_BT2020_RGB) |
++				      BIT(DRM_MODE_COLORIMETRY_BT2020_YCC);
++
+ 	encoder =3D &hdmi->encoder.encoder;
+ 	encoder->possible_crtcs =3D drm_of_find_possible_crtcs(drm, dev->of_node=
+);
+=20
+=2D-=20
+2.56.0
 
