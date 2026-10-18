@@ -1,140 +1,91 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from out-2z4y-a139.jellyfish.systems (out-2z4y-a139.jellyfish.systems [198.54.127.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FF6415B8B
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA35F41D22A
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792352923; cv=none; b=BA3UqDFWin/o/C0YMFEHwktp/SHrfbpj5kr7sGzfnWni7ewQ2MsyYsVB+UOtrKGZrfa16vhynYlYpoyouY+8g2XK7UTT2qc+MOzf0sGM73qOd/ydK7zepMmM5HZCEMlLFEhcgYIFkpzQuMd6Z9nmYpU1j9lcbRaQKPpi3pSIdJ4=
+	t=1792352932; cv=none; b=Zda4lvNwMzxyUorkgnsQmR47W7l8wT2hgFg4leYggnu9YWfwJ2QCuJJfDrBH7RwdKp9IK4vSgluabfBlwzFVqnTAI7GIBx0SPPZWXO8GpFwytSqyGC6uLGLu9sSGBBI2FDca1VOyNaezVi7eDZTXRM8BIhAMryDTXGcSsvagoLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792352923; c=relaxed/simple;
-	bh=z8+NKlZVaJg0D1viDndIi21e6QYlTGrfLeaOwjDv2Rk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s8H7qXQMUU2okjtCsL/xfSWWHdhRqK5ec8D0cjP79uo7Mu9cspv4lcC/UA79OhZkffVY0SywonkCqRrZjcwo0zoVQXSxZxsg/pGWxhcNgsICZWnX0J7ClTIg6S0AgQQIdt1DLJuF15+17eOa4nNab7QR9gFSGKRrGxhyaH3M9Gc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ETKAfiMW; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792352932; c=relaxed/simple;
+	bh=boGOzc+0R9GijHkcuHUBW222YFutKUnDB9YqKc5jI1Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RLK5pI0fOo+BJbTkNiW6XeRGJEuMVSWfc+HgCkDmN7Lp9P3zFtvho72bCRkJWd2v2MpmdKGpUAv9wZ+WXBoW3wg88KruaHqThjl0hhANwZmV8jUP0+GBSH4zh/CkjTFZohc8jGHreovKiYMB83n4m7s4LWMueXzDDkDOi8nn9ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=j8VGuLCt; arc=none smtp.client-ip=198.54.127.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ETKAfiMW"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so7993595e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:48:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792352920; x=1792957720; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nT4NId0U2jiAqaCcS2HDGNFvu8HoNbnVXS9R3IhMNjk=;
-        b=ETKAfiMWGZMMjK7jvf+EaLF1zybUc4XOoUGXkkdzOT+59t/NrkQf6gawa07DV3ZO3I
-         titJE0Pr86WP9hXNUrXseD5dRyKG/JCU2T2Auzz/SdVKR11XM+Rtqeqse7uVZ441dMWW
-         2nO7O1Pv/jQF3jd5uyj73CIq3I7VmG9Uje8TcM+mDAYhpZ4Y+Mz0S6CDfOrCnFLT1wzb
-         WEwWqAiZM7DGBXwiyrnfa1zqwgDFgo/+muOr7p3zy8hkfm55HmSTagkrYGealGz7Xmh3
-         eCjWOKR4BZBk3KZnVlDN90n8H+I5rDwXnTa6laULzLc6pXGM7j2izhEefpar7jW0tfXn
-         Iaiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792352920; x=1792957720;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nT4NId0U2jiAqaCcS2HDGNFvu8HoNbnVXS9R3IhMNjk=;
-        b=NM94CtY99fnzuUKbQ0wTU3as1inw/G9jfWMdHfALKlloMP32WF/V+GQhgvKf/Za9Ar
-         RkWZs51yy9tMCBohymZ1cr6yNW9Ut/a1tpui/fnuR/2DGi+RXED1DSQGE6K26BMS0eff
-         /wX2yrp+7IpNYCDWUE/3VQZy04tUXlvM+teqT5BqC4xwKuqyCmifiC0IlONBCuhV0bSA
-         gYgyQchkkMtfpPsgFHsmWvovFC1NCEk3WL6Z4BT4YS1i1iLBZt5nd0dPg2RpZeP/hO6Q
-         I3CAEMJgyfwDS9RXCh2SioqqqeUJQRFHswRTedGO/v6nN4/a9TZEfwQ6oDINux/lC7vq
-         jlwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzubaPFJzC6yYScZDhzXISAiBzgAcC1d1D4dfLZGocnERVmd+inPqaFwkrXOg0/ATsRbcq9uv7QpzXGIW4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL77j4zMo6GYJ8mz2zeDaQaB8+R1qhQwn6rFec8BotI5r1j2Hof
-	PQPbGn3QgvUhotwkN2s3TXPwYJdS9EzkUXyJqMjle4+JT67VVE9k3RrD
-X-Gm-Gg: AYBFou3szCG882aI0Rw91cKrKpt+zf0MZ8hPGbyGLSroUUe7EqskQ/0SiaUoW0y2VXt
-	BM6eUlo+0I9n3MLzJ6Ek5zv//C7js/kSg8JqpCjjpdQToHIxlxwezFxnpY3Ez4811WdPInMwZil
-	5O1kwRJbURiQG0MjPRfRpzVhy/c0sSSbI80Y2rhiqWxNjkYzvNsm3NkW2JvM+XN2Gb7lDGpMHZ9
-	Z7CA3PcI4tLMxCfBTjjfQUWFZVyrgm9wnTTJ1XuA/5auZWHooNXvMzKdzvxG/SU4GzwXTdURQj2
-	FVjl23GUfml88LTuHugnVEyQEDajW2VygDLIUHukb208T+6gb1pU6DBTp+og+XJvf8M8GS1Qnk1
-	OI2EuTHldFUszktvjOuRExID5MlYvnwTR6JUU6gYJWtpSgKik0aQTUr6JbOA+sbnKcglRkqOgNG
-	yLGVaMp3G6QgMB9iagFwGz/DmAiNeMj6QOPXHGcALWWbR0Zm2tAPzOioueZ+IChv5z9y2YCOQ/x
-	EMVHrXxMPBmgG0YzdrsaC197Xta16pW/ec=
-X-Received: by 2002:a05:600d:8488:20b0:4a1:e3e2:93e0 with SMTP id 5b1f17b1804b1-4a1e3e2967dmr30105055e9.32.1792352920294;
-        Sun, 18 Oct 2026 12:48:40 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd50d1bcsm18886835f8f.54.2026.10.18.12.48.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 12:48:39 -0700 (PDT)
-Date: Sun, 18 Oct 2026 20:48:38 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Haoran Wang <haoranwangsec@gmail.com>, jasowangio@gmail.com,
- kvm@vger.kernel.org, virtualization@lists.linux.dev,
- netdev@vger.kernel.org, eperezma@redhat.com, linux-kernel@vger.kernel.org,
- security@kernel.org
-Subject: Re: [BUG] vhost/vringh: __get_user without access_ok leaks kernel
- memory via vDPA passthrough
-Message-ID: <20261018204838.4080b238@pumpkin>
-In-Reply-To: <20261018152358-mutt-send-email-mst@kernel.org>
-References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com>
-	<20261018152358-mutt-send-email-mst@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="j8VGuLCt"
+Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4j78HF05VLz8sWQ;
+	Sun, 18 Oct 2026 19:43:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
+	s=spacemail; t=1792352601;
+	bh=yRcmqQQ5lQFbIOpFg3KW+TKnDp2sOvrAL/khscqtu3c=;
+	h=From:To:Cc:Subject:Date:From;
+	b=j8VGuLCtrpGSX8lotJksOWvf2xn8UGw0CZqL9VLQE1ksuPhCIeoYFMMQOYR+L/OPh
+	 vwF/Qs8+ev1oiad3dX8Qlv+zWsl7+IQ+vGiNH0XxspseDKE+u6rAIoKiD6BtUoLME9
+	 +iBvEekSjuS7KvrCBlvCcePFuTG8Z0xNuR/NfjGOEQDY56uqK2AaB5cn0AO2yLLPJm
+	 OTZUhjBQ8xmQ6KhYIqiNRA1tRFp5K5x/76U6CTYLxQsaLAqxxul2sL4ZVQ+OaIv1Td
+	 O2fEVn6rVREZ8zzP/2Q8BkBsWe8Do6SGLt1/iQxCwl9tC8CyIxKxOwF6vnttaOXBSu
+	 4/Y3ELOoqEVxg==
+From: Ross Cawston <ross@r-sc.ca>
+To: andi.shyti@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ross Cawston <ross@r-sc.ca>
+Subject: [PATCH 0/2] i2c: add GPIO buses sharing one SCL line
+Date: Sun, 18 Oct 2026 12:43:13 -0700
+Message-ID: <20261018194315.945-1-ross@r-sc.ca>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: ross@r-sc.ca
 
-On Sun, 18 Oct 2026 15:24:41 -0400
-"Michael S. Tsirkin" <mst@redhat.com> wrote:
+Some Realtek RTL930x switches bit-bang several I2C buses on SoC GPIOs
+with a single SCL line and one SDA line per bus. The MokerLink
+POE-10G07110GSM, for example, has its fan controller, its PoE
+controllers and its SFP+ cage on SDA GPIOs 9, 10 and 11, all clocked
+by GPIO 8. i2c-gpio cannot describe this: every bus would request the
+same SCL GPIO.
 
-> On Thu, Oct 15, 2026 at 03:23:45PM +0800, Haoran Wang wrote:
-> > I'd like to report an issue in drivers/vhost/vringh.c:1216 (function
-> > getu16_iotlb), found via static analysis of Linux 7.0.11 and verified
-> > against the 7.2.10 source tree. I have reproduced the leak on an
-> > unmodified 7.2.10 kernel.  
-> 
-> 
-> This should fix it I think? Can you confirm pls?
-> 
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> ---
->  drivers/vhost/vringh.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/vhost/vringh.c b/drivers/vhost/vringh.c
-> index 9066f9f12ba1..4b097170bd36 100644
-> --- a/drivers/vhost/vringh.c
-> +++ b/drivers/vhost/vringh.c
-> @@ -1213,7 +1213,11 @@ static inline int getu16_iotlb(const struct vringh *vrh,
->  		return ret;
->  
->  	if (vrh->use_va) {
-> -		ret = __get_user(tmp, (__virtio16 __user *)ivec.iov.iovec[0].iov_base);
-> +		__virtio16 __user *uaddr = ivec.iov.iovec[0].iov_base;
-> +
-> +		if (!access_ok(uaddr, sizeof(*p)))
-> +			return -EFAULT;
-> +		ret = __get_user(tmp, uaddr);
+This series adds a binding and a small driver that requests SCL once
+and registers one i2c-algo-bit adapter per SDA line, serializing the
+transfers so that only one bus clocks SCL at a time.
 
-Can't that be a normal get_user() call?
+The SoC's own I2C master (i2c-rtl9300) is wired to the same pins, but
+it moves at most 16 bytes per transfer, and the PoE controllers on this
+board only accept their 25 KiB firmware as one continuous write: sent
+in 16-byte writes, they NAK the second one. Tested on the MokerLink
+POE-10G07110GSM.
 
-David
+Ross Cawston (2):
+  dt-bindings: i2c: add GPIO buses sharing one SCL line
+  i2c: add driver for GPIO buses sharing one SCL line
 
->  		if (ret)
->  			return ret;
->  	} else {
-> @@ -1251,7 +1255,11 @@ static inline int putu16_iotlb(const struct vringh *vrh,
->  	tmp = cpu_to_vringh16(vrh, val);
->  
->  	if (vrh->use_va) {
-> -		ret = __put_user(tmp, (__virtio16 __user *)ivec.iov.iovec[0].iov_base);
-> +		__virtio16 __user *uaddr = ivec.iov.iovec[0].iov_base;
-> +
-> +		if (!access_ok(uaddr, sizeof(*p)))
-> +			return -EFAULT;
-> +		ret = __put_user(tmp, uaddr);
->  		if (ret)
->  			return ret;
->  	} else {
-> 
-> 
+ .../bindings/i2c/i2c-gpio-shared-scl.yaml     |  94 +++++++
+ MAINTAINERS                                   |   7 +
+ drivers/i2c/busses/Kconfig                    |  12 +
+ drivers/i2c/busses/Makefile                   |   1 +
+ drivers/i2c/busses/i2c-gpio-shared-scl.c      | 229 ++++++++++++++++++
+ 5 files changed, 343 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/i2c-gpio-shared-scl.yaml
+ create mode 100644 drivers/i2c/busses/i2c-gpio-shared-scl.c
+
+-- 
+2.55.0.windows.5
 
