@@ -1,112 +1,92 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A4A3A4F47;
-	Sun, 18 Oct 2026 11:13:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0030A3DCDBC
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792321996; cv=none; b=KgqArX7K6tBKcJlkgX3OCDVmEeaGcxV/n1nlnpXGcGGloetUmRqVoCLGQAv9u0iFzzFBdM2hzBCqearvN85kdaVqK0hhod//HxhswaYvlssXqSYQoszinyBtSOyCMC7hWNzMiJcS61cidheGt3QO6rxatZcyTxyNGIlbtV7BxrU=
+	t=1792322050; cv=none; b=A4wWHOIBN9rnWxyS+eWYeUH0IWuuqGIzBZfTNmkM+vEtskdMqfUAa86fLAOvst+Ws+uTSQHcogPeYlIN8oaGNKlD0OMWhmJUWgA3+DkZzQnPM/DR77Jb+VJyMJIqA205NTlUUr/ZU8ysKW1hlN2LPcU3qAXx4uTWq2xqQZ432SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792321996; c=relaxed/simple;
-	bh=qL2vJezNst1d9AIBguuaHF0y6iGaD5IjydIXXTAj/pw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=K0+/Ib8U6tt+ULpvYQDXDWGRHvMsRvAP3BuKo91MMKoFP9tojDrTAdKAqfcp2dy5CrxDrlsinqaTwRNJaFVSHl1x2/MfFWMIlYiffBSQLLDoERHX7O+Karf6w4SMiVKxu3RE2ra+oXAy3NZaZ7kli4mf+7Fo4lAuqK/lQDLJCE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=h4nizfKd; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792322050; c=relaxed/simple;
+	bh=fctVlUNxkjbmnVMzce9QkG8geM0AkD1apjhciOP8ows=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sWz5GurFnX1JOqHWBW5kzirKm2VvGzZ8L86qwzB3GDFPXaqrRmX/CjWzDvNpIGnTjBd4Zh2+D+vSlBGeFQ04HBJA516dxnNnU6B0/j6R6DPKUZH4AVhwPpSnkQ5w7SBVU/WUgb5WEn3ANEiBGS9ACMNv6fjZlUYw5YFVAr1S//A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lTuWCOxg; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="h4nizfKd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=qL2vJezNst1d9AIBguuaHF0y6iGaD5IjydIXXTAj/pw=; b=h
-	4nizfKdOaYAfzIZ/UsM2m/u8UbPhTU0MfDEteegYmGTvHXXAuJ1CjNTR5Y6VBH/f
-	fEGX/quorq43GkZxjcoJ8AGmgH385vu7H9+xXkRkRvKMiQqEa+v/r3wZbXe1qOKj
-	CtB5D0GJxDsCSCdVKCKbgsiE3Rrx2AxsbHvbrfDCcw=
-Date: Sun, 18 Oct 2026 19:12:39 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Cc: "Manivannan Sadhasivam" <mani@kernel.org>,
-	"Jeff Hugo" <jeff.hugo@oss.qualcomm.com>,
-	"Alex Elder" <elder@kernel.org>, mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH] bus: mhi: ep: cancel reset work during controller
- teardown
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <2026101841-unroasted-carbon-e514@gregkh>
-References: <20261018040614.533366-1-yaojiale02@163.com>
- <2026101841-unroasted-carbon-e514@gregkh>
-X-NTES-SC: AL_Qu2SAP+ZvkEu7yCQbOkdnEkQgO0/WsS1vfQu2Y5Wc+wGmz/80BwQf1tMBVrcwvyrATGTrTGyeR9D4eBRZrRh77rVKppFCSTQgwERDsYyQg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lTuWCOxg"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so9231135e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:14:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792322047; x=1792926847; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fctVlUNxkjbmnVMzce9QkG8geM0AkD1apjhciOP8ows=;
+        b=lTuWCOxgProbE8mHJ9wowS4qKnK6ja/DLvfMZ9jtcqypPq1J8q53ZzbK97XHbnhvgc
+         MLitGDvbEYLZzrYheqMuERPaCg/nZ7IAuQuZSz2k3fAyVy98J1bVkGkHu59olvasf4Iv
+         DCJpBd3u6maPityrvNKrwXVsEV00AzJaQTtzxhunkFtZb8tVLlycoOFbpKwbB5wclNGj
+         yvVqrxGzK3H+N1fhuO11C57XrMHiQVdYBcgQveWj7iHyeiGB7HWAK1BMix2yQkVGtH9s
+         fzX3CTsTnSq7lmqpVqwbxBSE/0k5LME6Lv2Cggm0tVskjI5jx3bjgVMLFGwo7R/pHz2X
+         ae+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792322047; x=1792926847;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fctVlUNxkjbmnVMzce9QkG8geM0AkD1apjhciOP8ows=;
+        b=w3afrI1/z0niiiVDxc+J/H/KQLxmHr88HuDNtRSk7z8JThDbk8edoY3tSbSyvy3ZGV
+         nsgbMdn3VZmyZdL9M4XdlBwfKgsS6yb43/nwLT7R9BgLoybXSoVxH8IT6mFmJTBrTSvX
+         yWUUn+RNE0I2Tt3HoYzGk9t1d43kI6xdSRMglKHl7cB8FnsmjPk612JuoyUr+KtDf2Qg
+         shmSTczQRo7dYro/RHeKnN8WD3s4Ynnxj8xEnoDygNv26ZbkQEXjaTCn1O6gYtCQEchN
+         dTd/WrDJFfBmfquDW+g1JURdTrNj/NCNO8sP6+wRetLPE75Ssv9IQp0JIH5Kt85aVphJ
+         PY/g==
+X-Forwarded-Encrypted: i=1; AKwUvBy9UqSFrkWXpPVh31/HYAHC+HEu5G+wp/grJsghZoNW9+Av1bhEE4bK5hxIkO6zGUohRh2QZjHJ9CzykFQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLVEXKmD2RCQ68r+UMiqI+XkmooIkg9WSNuzIf7DWU4Iq3w2NY
+	LLRDx2ixMF5s70NTfVmAm76PpKgazdJFBoIjlWEp9DxbHxuaI6lIKAZ0
+X-Gm-Gg: AYBFou0SbAaBcUIfKfniHVyw3nZTGvFP+ApP8Q2DOm7o66Dht/69Tm7nS/3hgbCXI6c
+	9XaNlaJ7giQTIppq9eMKjwlXIjgRaorgCU8bn1+8hOLYNlkiU5514usb6N41bXfk01ump9S6qbK
+	DLCN05G4r5MwPr21wYGweC/IB88jthgV6QrU5o79DCspC8RuLbr2aRl7plg5LdQCI9v0eIA0gFD
+	YBE5GSjNPjnOaLKgEGftoms1BbsuoLxCbcbntc2Cq4F4GcWhkB+BNs05RXVmeSpfxgXLTriPwIx
+	jQmB7ufd+sfAcd4Lygt7xzxdLGqivHvA+OsLd9aSyeU9RDL6vm1HTnAzsC6noaJGwkpIQ1PoEbT
+	ywz4tjaVuHakku49gunyoRrPW7pbLfoMaPbfKYHboEpO3JhK7tqLzLCSCvtPtoBvxRezS/HC+zx
+	jMWwx7B6Qkyx6LU2RMtUWsbvVVLv1aNOULZrgevjc3wuS9eUwHOkVm43tVxmqWbP1s+RJLzw==
+X-Received: by 2002:a05:600c:4fce:b0:4a0:1b14:e283 with SMTP id 5b1f17b1804b1-4a1d75ac25cmr109797265e9.1.1792322046507;
+        Sun, 18 Oct 2026 04:14:06 -0700 (PDT)
+Received: from fedora ([94.79.80.142])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9a88bbsm290127415e9.3.2026.10.18.04.14.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 04:14:05 -0700 (PDT)
+From: =?UTF-8?q?Alperen=20K=C4=B1l=C4=B1=C3=A7?= <sabri.alperen03@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-rtc@vger.kernel.org,
+	John Stultz <jstultz@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rtc: class: Do not inject sleep time without a suspend snapshot
+Date: Sun, 18 Oct 2026 14:13:57 +0300
+Message-ID: <20261018111357.164684-1-sabri.alperen03@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261003163138.14221-1-sabri.alperen03@gmail.com>
+References: <20261003163138.14221-1-sabri.alperen03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <74679635.183c.1a14eb6b4b9.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:kCgvCgD336inqdRq1FRbAA--.719W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8AdjnWrUqacuhAAA3T
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-QXQgMjAyNi0xMC0xOCAxNDozNDowNiwgIkdyZWcgS3JvYWgtSGFydG1hbiIgPGdyZWdraEBsaW51
-eGZvdW5kYXRpb24ub3JnPiB3cm90ZToKPk9uIFN1biwgT2N0IDE4LCAyMDI2IGF0IDEyOjA2OjE0
-UE0gKzA4MDAsIEppYWxlIFlhbyB3cm90ZToKPj4gVGhlIGRvb3JiZWxsIElSUSBzY2hlZHVsZXMg
-cmVzZXRfd29yayBvbiB0aGUgc3lzdGVtIHdvcmtxdWV1ZSB3aGVuIHRoZQo+PiBob3N0IHJlcXVl
-c3RzIGFuIE1ISSByZXNldC4gVGhlIGNvbnRyb2xsZXIgdGVhcmRvd24gb25seSBkcmFpbnMgdGhl
-Cj4+IHByaXZhdGUgTUhJIHdvcmtxdWV1ZSBiZWZvcmUgcmVsZWFzaW5nIHRoZSBjb250cm9sbGVy
-IHN0YXRlLCBzbwo+PiByZXNldF93b3JrIGNhbiBzdGlsbCBydW4gYWZ0ZXIgdGhhdCBzdGF0ZSBo
-YXMgYmVlbiBmcmVlZC4KPj4gCj4+IENhbmNlbCByZXNldF93b3JrIGJlZm9yZSBkZXN0cm95aW5n
-IHRoZSBwcml2YXRlIHdvcmtxdWV1ZSBhbmQgcmVsZWFzaW5nCj4+IHRoZSBjb250cm9sbGVyIHJl
-c291cmNlcy4gVGhlIGNhbGxlciBpcyByZXF1aXJlZCB0byBwb3dlciBkb3duIHRoZQo+PiBjb250
-cm9sbGVyIGZpcnN0LCBzbyB0aGUgSVJRIGNhbiBubyBsb25nZXIgcXVldWUgdGhlIHdvcmsgYXQg
-dGhpcyBwb2ludC4KPj4gCj4+IEZpeGVzOiA3YTk3YjZiNDczNTMgKCJidXM6IG1oaTogZXA6IEFk
-ZCBzdXBwb3J0IGZvciBoYW5kbGluZyBNSElfUkVTRVQiKQo+PiBTaWduZWQtb2ZmLWJ5OiBKaWFs
-ZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL2J1cy9taGkvZXAv
-bWFpbi5jIHwgMSArCj4+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPgo+SG93IHdh
-cyB0aGlzIGZvdW5kIGFuZCB0ZXN0ZWQ/ICBXaGF0IGFib3V0IGEgY2M6IHN0YWJsZT8KCmNjOnN0
-YWJsZSBpcyBuZWNlc3NvcnkuIFRoZSBidWcgd2FzIGZvdW5kIGJ5IG15IHN0YXRpYyBhbmFseXNp
-cyB0b29scy4KClRvIHRlc3QgaXQsIEkgcmVnaXN0ZXJlZCBhIHJlYWwgbWhpX2VwX2NudHJsIGZy
-b20gYSBzbWFsbCBvdXQtb2YtdHJlZSBtb2R1bGUoc29mdHdhcmUgSVJRICsgZmFrZSByZWdpc3Rl
-ciBmaWxlKSwKZHJvdmUgdGhlIHJlYWwgbWhpX2VwX2lycSgpIGFuZCB0aGUgcmVhbCBtaGlfZXBf
-dW5yZWdpc3Rlcl9jb250cm9sbGVyKCksIGFuZCBvcmRlcmVkIHRoZSB3b3JrZXIgdG8gcnVuIGFm
-dGVyCnRoZSBmcmVlcy4gTm8ga2VybmVsIHNvdXJjZSBjaGFuZ2VzLgoKS0FTQU46CgpCVUc6IEtB
-U0FOOiBzbGFiLXVzZS1hZnRlci1mcmVlIGluIG1oaV9lcF9yaW5nX2luaXQrMHgxOTIvMHgyNDAK
-V3JpdGUgb2Ygc2l6ZSA0IGF0IGFkZHIgZmZmZjg4ODEwNDI1NzExOCBieSB0YXNrIGt3b3JrZXIv
-MDoxLzExCgpDUFU6IDAgVUlEOiAwIFBJRDogMTEgQ29tbToga3dvcmtlci8wOjEgVGFpbnRlZDog
-RyAgICAgICAgVyAgTyAgICAgICAgNy4zLjAtcmM0ICMzIFBSRUVNUFQobGF6eSkKVGFpbnRlZDog
-W1ddPVdBUk4sIFtPXT1PT1RfTU9EVUxFCkhhcmR3YXJlIG5hbWU6IFFFTVUgU3RhbmRhcmQgUEMg
-KGk0NDBGWCArIFBJSVgsIDE5OTYpLCBCSU9TIDEuMTUuMC0xIDA0LzAxLzIwMTQKV29ya3F1ZXVl
-OiBldmVudHMgbWhpX2VwX3Jlc2V0X3dvcmtlcgpDYWxsIFRyYWNlOgogPFRBU0s+CiBkdW1wX3N0
-YWNrX2x2bCsweDJkLzB4NzAKIHByaW50X3JlcG9ydCsweDE3NS8weDdkMAogPyBtaGlfZXBfcmlu
-Z19pbml0KzB4MTkyLzB4MjQwCiBrYXNhbl9yZXBvcnQrMHgxMzkvMHgxNzAKID8gbWhpX2VwX3Jp
-bmdfaW5pdCsweDE5Mi8weDI0MAogbWhpX2VwX3JpbmdfaW5pdCsweDE5Mi8weDI0MAogbWhpX2Vw
-X3Bvd2VyX3VwKzB4MTBlLzB4YTcwCiA/IG11dGV4X3VubG9jaysweDZiLzB4YzAKIHByb2Nlc3Nf
-c2NoZWR1bGVkX3dvcmtzKzB4N2MwLzB4ZjEwCiB3b3JrZXJfdGhyZWFkKzB4ODk4LzB4YzUwCiA/
-IF9yYXdfc3Bpbl9sb2NrX2lycXNhdmUrMHg2Zi8weDEzMAoga3RocmVhZCsweDJlOS8weDNjMAog
-PyBfX3BmeF93b3JrZXJfdGhyZWFkKzB4MTAvMHgxMAogPyBfX3BmeF9rdGhyZWFkKzB4MTAvMHgx
-MAogcmV0X2Zyb21fZm9yaysweDE4OC8weDRmMAogPyBfX3BmeF9rdGhyZWFkKzB4MTAvMHgxMAog
-cmV0X2Zyb21fZm9ya19hc20rMHgxYS8weDMwCiA8L1RBU0s+CgpBbGxvY2F0ZWQgYnkgdGFzayA4
-MToKIGthc2FuX3NhdmVfdHJhY2srMHgzZi8weDgwCiBfX2thc2FuX2ttYWxsb2MrMHg3Mi8weDkw
-CiBtaGlfZXBfcmVnaXN0ZXJfY29udHJvbGxlcisweDU5My8weDEwNDAKCkZyZWVkIGJ5IHRhc2sg
-ODI6CiBrYXNhbl9zYXZlX3RyYWNrKzB4M2YvMHg4MAoga2FzYW5fc2F2ZV9mcmVlX2luZm8rMHg0
-MC8weDUwCiBfX2thc2FuX3NsYWJfZnJlZSsweDNhLzB4NjAKIGtmcmVlKzB4MTBkLzB4M2IwCiBt
-aGlfZXBfdW5yZWdpc3Rlcl9jb250cm9sbGVyKzB4MTEyLzB4MWEwCgpUaGUgYnVnZ3kgYWRkcmVz
-cyBiZWxvbmdzIHRvIHRoZSBvYmplY3QgYXQgZmZmZjg4ODEwNDI1NzEwMAogd2hpY2ggYmVsb25n
-cyB0byB0aGUgY2FjaGUga21hbGxvYy0xOTIgb2Ygc2l6ZSAxOTIKVGhlIGJ1Z2d5IGFkZHJlc3Mg
-aXMgbG9jYXRlZCAyNCBieXRlcyBpbnNpZGUgb2YKIGZyZWVkIDE5Mi1ieXRlIHJlZ2lvbiBbZmZm
-Zjg4ODEwNDI1NzEwMCwgZmZmZjg4ODEwNDI1NzFjMCkKCk1lbW9yeSBzdGF0ZSBhcm91bmQgdGhl
-IGJ1Z2d5IGFkZHJlc3M6CiBmZmZmODg4MTA0MjU3MDAwOiBmYSBmYiBmYiBmYiBmYiBmYiBmYiBm
-YiBmYiBmYiBmYiBmYiBmYiBmYiBmYiBmYgogZmZmZjg4ODEwNDI1NzA4MDogZmIgZmIgZmIgZmIg
-ZmIgZmIgZmIgZmIgZmMgZmMgZmMgZmMgZmMgZmMgZmMgZmMKPmZmZmY4ODgxMDQyNTcxMDA6IGZh
-IGZiIGZiIGZiIGZiIGZiIGZiIGZiIGZiIGZiIGZiIGZiIGZiIGZiIGZiIGZiCiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBeCiBmZmZmODg4MTA0MjU3MTgwOiBmYiBmYiBmYiBmYiBmYiBmYiBm
-YiBmYiBmYyBmYyBmYyBmYyBmYyBmYyBmYyBmYwogZmZmZjg4ODEwNDI1NzIwMDogMDAgMDAgMDAg
-MDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgMDAKPT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CgpBbGxvY2F0
-aW9uIGluIG1oaV9lcF9yZWdpc3Rlcl9jb250cm9sbGVyKCksIGZyZWUgaW4gbWhpX2VwX3VucmVn
-aXN0ZXJfY29udHJvbGxlcigpLAphY2Nlc3Mgb24gV29ya3F1ZXVlOiBldmVudHMgbWhpX2VwX3Jl
-c2V0X3dvcmtlci4KCj4KPnRoYW5rcywKPgo+Z3JlZyBrLWgK
+Hi Alexandre,
+
+Gentle ping on this patch. It still applies cleanly to v7.3-rc7.
+
+If you would rather see this fixed on the timekeeping side, for example
+by having timekeeping_resume() not leave suspend_timing_needed set when
+a persistent clock exists, I can send a v2 that way.
+
+Thanks,
+Alperen
