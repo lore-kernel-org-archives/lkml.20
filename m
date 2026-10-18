@@ -1,170 +1,114 @@
-Received: from out-utut-a195.jellyfish.systems (out-utut-a195.jellyfish.systems [198.177.127.195])
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50D23AC00
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:29:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.177.127.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5801741836C
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:29:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792355377; cv=none; b=TbTpkOI1rv/wRn3Z6Hhcc5jBGZeneNGzcHI356ggDsj0LiP/vXh1AtWtvRW8EsXDYC8YQTlHuz1Sbj65/DnPnGSCgzS9CVrI48Ddj6H9NtjuO7OkvKhe/jIk0G6oQkcHs+2FHKBoQOcxUXzIUNCaNZFwFBsfomGveMej0Cgzjlo=
+	t=1792355396; cv=none; b=WCzX1lD76JrjKR0RYeC2j9126nwn7kDKm1X5V18KYoJIYmHkS28J4BfddDiHLg1f6Z3eX2QSJOdlxYuH5oSPpOcNMsEeCtdnS8k5kDl8p7X0klkMrkt1PNvqZCxXhiEq+x13H4pSo6HZ4cdYFIYaJwV3YmDGywZQlAF3hzL6XFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792355377; c=relaxed/simple;
-	bh=K5tVx83eZko7Hl+sBbrVkmUzvN6AVp1ARz5pSHuClps=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bY5XxyHpiSI24TSPUnKGeaar+WCvs9BdEf1/ru0ZiPtXei8NOtwpUg0aUr2xBceTmk472AwRz9pZSeiAavaW+zMs8wcjjhlAiwmcI6qf8aS1dRaWjReAOu4IdIChxkG+fHwFUr7Pum0kRwIh51ATD9hLT5VRON1Zb9PYSAJkZ8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=PWEByqwy; arc=none smtp.client-ip=198.177.127.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
+	s=arc-20240116; t=1792355396; c=relaxed/simple;
+	bh=EB6QqlSVWarMeye1kh1q65olBZUJiWm7l+J2a8MO2n8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lXqP8TZtRpePaboP8MqHkzOX46hjlPQQzxYtvclusAn7evTay8f5s6CQ7F3/TBTnlYXVJJn58zF9z8bJJCROemarc1insZCFOrFJeWnV8VD0fy2GK6wsZHrYMKr1Lv7enVjW0cDrRO6hOfI7H+ZdEY8Xi0OPnFby1Jj2Fgw3ZAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PFop07ua; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="PWEByqwy"
-Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4j78Hm18rQz8sWR;
-	Sun, 18 Oct 2026 19:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
-	s=spacemail; t=1792352630;
-	bh=x1Jv6GO0wPuojhw9KPg5KMy9xKjoXPBBoSTMpj3/LZI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=PWEByqwyOcIRB+puisOnF81Sa0mgfaAbahDN9ulzoYKHj5TwpCjam3fOmZ1Urecxq
-	 am4a2L7VkuC+rpSKiPX3jlNWjm/wL5DcYofqlwEKLMJI3wMGlZ06CpqlBeD8IFgEkM
-	 xrWxa/3GsCxFuhObAhm36HEAq8SCIsyVT+qUxjQgYfBoPDqghID3N1UB188Ul8HoQx
-	 wTl7848eyDbt05VVfgT6ZW7O7X91H8dbOIpSc1f9vte1/4oTqsT6OIVmujBawVCe/c
-	 ITCrtCVZJooqZ5twRfEEMUqrtU/PjWNRiWwOhrJncKBfrptrzx6xshFITvNn2c1Z9u
-	 olZo/gYDBnCKQ==
-From: Ross Cawston <ross@r-sc.ca>
-To: lee@kernel.org,
-	pavel@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	chris.packham@alliedtelesis.co.nz,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PFop07ua"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c40e9aff12fso35067766b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:29:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792355392; x=1792960192; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m/Qhp9t+1Fd28Odv/3FTJ8y5S/UZdDB+q77+/opU0Qo=;
+        b=PFop07uacbGVqlspG0KAJIjSODBGe+X9OeJ5ko8P5mEpZPvkmoMUPpz3YD2ekD+wbL
+         tHrQt83vsohMEShXYFTQsLZowsiBp1SpYwzXmvilWm/7MsvFs4FX0h3cryFmv0v/hxE0
+         eUuYn8BKwuNCt5zx2RBUw6TC5vfmcA10CUssOzB5wMcaFrRg/MG/PKTSDQkttL3ssYov
+         nZzlJrIkRHxa6y4i8oA8oLKzi7N6nY3Crvi5xAPplQc9RIxlcVz4ACJpklQA5U/XC19s
+         UXksNujOrJ5fDpxtrVfORcsSXoVQN5YlooWVPQgv+3FIUxjGS6P2nTIKcgp99xfMIM4+
+         4pGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792355392; x=1792960192;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=m/Qhp9t+1Fd28Odv/3FTJ8y5S/UZdDB+q77+/opU0Qo=;
+        b=zFBnkzxw87OMzGmTz1Qjy7N9/vhrE7TrA60YC4KmDCPkXUO17OI9kj0BXaK3RLzBhc
+         NoP/dKQ4e8UndSJRsoStprXghOmL1aRfUhCFm1LCgoI+ILBus1mH/poZUQZDBNJ10DyJ
+         9I3E/vgK0Pq8KOZoYU7h0LSR2iQlzd+g5WOkUvsefHqjHcn96LfkCtXQopny2TCkVTGv
+         fmO2OYR/8wSNMmsaOdy/jPLuvBcRtfCxy7w36wkuUT/J1hMSXBmmBOXJQJZHCDbAKO+0
+         Ti9nWD13UZM+hvzpRYxsTKwofQwJ904Q7urqWlBtXjeJtMFcK1kLR+HzRPiK7Q1QzUc0
+         H9gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtzm3WOpo6BTqaThAmOQ+x5usZoPnIQLC5qguMKkxxmQpI1mv9JwaHVKRZ2K8MrXOFzozQuUzbXGI0Em8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKJfoGzWFpzKxO5vnbUks28WKe21Lug3pSYxWPQtooLGiFoR0c
+	ll5GMqcqk8A8F1efqayLDx8Y7LUWUgf/ev9EjBsIO/QZKii+53h4vlrV0x/2ys7f
+X-Gm-Gg: AYBFou1evHGS9wizROPny2hfHbbyN9f/iYCa6jzPwB/9KnVMUsAZXg9KdBrRZ1YRxlc
+	XK4VWIIicw+8TfqMVYrqQspl4rJD5m4rl26uzSwlXHOrxALETXkQ85asHft8Ah/E1erwOunv0PJ
+	w8RMGiY6T3/0Qzx40MVurzaKQOMoJ910oYB1Qo0tfIMI7PHLcygZoXg0S90+Q5k0Z01fSpaGOt4
+	Co3ZfnL0xUBx5CLXSTyv47l9R1k+yevY2WxvrL2dx5jhEjq2veIKCnPhiLtCaOkaHanMrIP0XA5
+	m2mCYzV1xkmX3YSQ7Vtwn9mLXcg35dNiUEk5XKh/aRpdb8WnT5WiDEBGgISMHuS3N6y2Yy+LfFY
+	4etn13FxrAAXsIoqrp/NqnUPnBJyppcCH+eFvMRDDf/wVnNtkQDE6pRpxKrvmSC4eQiqwHCjMsT
+	oOeQGT+s+UlZgkGTthTo6eHTIgzHqhjMo19obQPAd7e4MtMBgPgBOw4j2KysJhdpo=
+X-Received: by 2002:a17:907:c008:b0:c3f:dce3:20d5 with SMTP id a640c23a62f3a-c419e53bfe2mr410972366b.22.1792355392456;
+        Sun, 18 Oct 2026 13:29:52 -0700 (PDT)
+Received: from CachyOS ([176.88.124.226])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ce05csm284529566b.33.2026.10.18.13.29.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 13:29:52 -0700 (PDT)
+From: =?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>
+To: linux@roeck-us.net
+Cc: linux-hwmon@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ross Cawston <ross@r-sc.ca>
-Subject: [PATCH 1/3] dt-bindings: leds: add Realtek RTL9301 port LEDs
-Date: Sun, 18 Oct 2026 12:43:36 -0700
-Message-ID: <20261018194339.132-2-ross@r-sc.ca>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261018194339.132-1-ross@r-sc.ca>
-References: <20261018194339.132-1-ross@r-sc.ca>
+	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>
+Subject: [PATCH] hwmon: (nct6775) Add ASUS PRIME B760M-K
+Date: Sun, 18 Oct 2026 23:29:34 +0300
+Message-ID: <20261018202934.1111462-1-ycistak@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Envelope-From: ross@r-sc.ca
 
-Add a binding for RTL9300 switch port LEDs under software control. The
-node is a child of the switch and gives the offset of the software LED
-control registers; each LED child names its switch port and its place
-among the port's LEDs.
+The ASUS PRIME B760M-K (DDR5 variant) is missing from asus_msi_boards[],
+while its DDR4 sibling, the PRIME B760M-K D4, is already listed. Without
+the entry, the driver does not use the AsusMbSwInterface ACPI method to
+access the Super I/O chip, and no fan, voltage or board temperature
+sensors are available on this board.
 
-Signed-off-by: Ross Cawston <ross@r-sc.ca>
+With the board added, the chip is detected:
+
+  nct6775: Found NCT6798D or compatible chip at 0x2e:0x290
+
+and fan speeds, voltages and the SYSTIN, CPUTIN and AUXTIN temperatures
+are reported (BIOS version 1838).
+
+The missing entry was found with the help of an LLM, and the change was
+tested on the board above.
+
+Assisted-by: LLM
+Signed-off-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
 ---
- .../leds/realtek,rtl9301-port-leds.yaml       | 84 +++++++++++++++++++
- 1 file changed, 84 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/leds/realtek,rtl9301-port-leds.yaml
+ drivers/hwmon/nct6775-platform.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/leds/realtek,rtl9301-port-leds.yaml b/Documentation/devicetree/bindings/leds/realtek,rtl9301-port-leds.yaml
-new file mode 100644
-index 00000000000..8d6b3552526
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/realtek,rtl9301-port-leds.yaml
-@@ -0,0 +1,84 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/realtek,rtl9301-port-leds.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Realtek RTL9300 switch port LEDs under software control
-+
-+maintainers:
-+  - Ross Cawston <ross@r-sc.ca>
-+
-+description: |
-+  The RTL9300 switch drives up to four LEDs per port over its LED interface,
-+  serial or scanned, each normally showing a hardware function chosen by the
-+  LED set of the port. The LEDs listed here are taken over by software instead
-+  and switched on and off as LED class devices, for port LEDs that have no
-+  hardware function such as the PoE status LED of a PoE switch. The node is a
-+  child of the switch, whose registers it uses.
-+
-+properties:
-+  compatible:
-+    const: realtek,rtl9301-port-leds
-+
-+  reg:
-+    description: The software LED control registers, from SW_LED_LOAD to the
-+      end of LED_PORT_SW_CTRL, as an offset into the switch registers.
-+    maxItems: 1
-+
-+  "#address-cells":
-+    const: 2
-+
-+  "#size-cells":
-+    const: 0
-+
-+patternProperties:
-+  "^led@[0-9a-f]+,[0-3]$":
-+    $ref: /schemas/leds/common.yaml#
-+    unevaluatedProperties: false
-+
-+    properties:
-+      reg:
-+        items:
-+          - items:
-+              - description: Switch port
-+                maximum: 27
-+              - description: LED of the port, numbered as in the port's
-+                  LED set
-+                maximum: 3
-+
-+    required:
-+      - reg
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/leds/common.h>
-+
-+    led-controller@cc48 {
-+        compatible = "realtek,rtl9301-port-leds";
-+        reg = <0xcc48 0x84>;
-+        #address-cells = <2>;
-+        #size-cells = <0>;
-+
-+        led@0,2 {
-+            reg = <0 2>;
-+            color = <LED_COLOR_ID_GREEN>;
-+            function = "poe";
-+            function-enumerator = <1>;
-+        };
-+
-+        led@8,2 {
-+            reg = <8 2>;
-+            color = <LED_COLOR_ID_GREEN>;
-+            function = "poe";
-+            function-enumerator = <2>;
-+        };
-+    };
+diff --git a/drivers/hwmon/nct6775-platform.c b/drivers/hwmon/nct6775-platform.c
+index d359c28f3e0..6af0cd54b9d 100644
+--- a/drivers/hwmon/nct6775-platform.c
++++ b/drivers/hwmon/nct6775-platform.c
+@@ -1330,6 +1330,7 @@ static const char * const asus_msi_boards[] = {
+ 	"PRIME B760M-A WIFI",
+ 	"PRIME B760M-A WIFI D4",
+ 	"PRIME B760M-AJ D4",
++	"PRIME B760M-K",
+ 	"PRIME B760M-K D4",
+ 	"PRIME H510M-A",
+ 	"PRIME H510M-A WIFI",
 -- 
-2.55.0.windows.5
+2.56.0
 
