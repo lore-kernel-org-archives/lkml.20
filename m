@@ -1,150 +1,135 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B6F4052D8
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:47:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792352855; cv=pass; b=ApIIWlqaER7gu+50ljBmUo7YQMaaVpMGismztbqE88OByo3yhaVXs43JNR2ZvEZPBvQKpFZJ0zukDgA7c8Mqp8O7Cp9vH5cgUlK8jIArph5lPeT5Zh6/K4TQOP4O2AILGHr6ETE1dxwVT2TDeIItsyYTHScY5yOiOZVQw07Szm8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792352855; c=relaxed/simple;
-	bh=uSwsGj7z13o5NrJE21iC68UKNr7h5yOq6P5JpP5TNDM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Mdr4r3gDH8WctpclO447oyqSS5rlJOw43pgJFzbrqO6wkztrQ5QdaFz+8BMajXpzGvarQlcjeYWIocydDed9Ku14NVV8b+sI3XIs+IcU67N2QOxm+9ZJ7vYLuAhH1tD0UpOzsXnKHFgYaFortoKsKT9KyUDu/6TnC0e9O/itNJI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net; spf=pass smtp.mailfrom=amacapital.net; dkim=pass (2048-bit key) header.d=amacapital-net.20251104.gappssmtp.com header.i=@amacapital-net.20251104.gappssmtp.com header.b=U61hr0Px; arc=pass smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amacapital.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B892C404BF6
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.240
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792352907; cv=none; b=sqx8bqGApjd54QdZzi7Loshgt4Ne12Cs9QKcUgAy6oQI7bVTPWP/ozExSsqxyM/i6dHthzXs3PI1u4YLe/3530sBIkhFNPUG23eqlURclyN6ZGSYfd6lmNkzYhBoPkeTHT1AdNMtchW/sZBZPhN6bNhtQBW8CBDZZD8i3ZTXBDE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792352907; c=relaxed/simple;
+	bh=/yIF3n4oT72GD7bhZKBGyWKTRaTdZ2UypHatGQorBfQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UOBZDuAz4+K1QA0espDODbrZPpgFEgjDFtTC/vNzY9T6IIB97N0tv3ZL1vaAZ8VXQGQAhR6SMPq9bpnD1Bau0SIf6S5j5FEA/KYTSgFZ9hxkCPYAH8QUiTPH++uoFwDVa5FYjFiID6FsOQ3cu60HdbAA8XNMqIrDt7eMDi1aVLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=v1uHodZb; arc=none smtp.client-ip=91.218.175.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amacapital-net.20251104.gappssmtp.com header.i=@amacapital-net.20251104.gappssmtp.com header.b="U61hr0Px"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a9761758adso8915921fa.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:47:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792352851; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NR8fezj3YIDAK+UT6yqjWq3bOPddXn/5221dwMgaxBZgXZb2dNAtWcf6E8Go1zeqYN
-         yBjVUYL7bwT9vAsT10OA92HEqRQC5OyGMHCduP3wOhptycz7ZIRVAAbjZRtxUQAAMpLC
-         Zr5ZdjRUr3NNzoSAMwyGBJf5lHu8VJfUKkAWZo4mjT0YrJFH3Qt5a3AIyRWoTCW643K2
-         7b2wZlGx4NJTIjNj1Xl8LXApvWltvbnMmCkOVIV242DCbfR6mtjRvH8BWxcgZzHQjs/K
-         fG3ekCssYnKy8kWkh4VR87cIhfwsReSsNb2ZGlpiScKPy7xz1/WakACeHmrkf72HWCxK
-         qPsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=C9PTaRCgfnWLejuxwMwgHezQmSpb/Q49pSzLQ94ksTk=;
-        fh=xAzVHjZHCvArjl7lH43BR8R2+qQVqC0R580NndzgOWU=;
-        b=RaRZbXPrFgn1lhip4MbwBbULLFQXIVO04NBcCYibQEskMjliVRpjg5EQQytiNz7lLd
-         zxnZ1lqGucYyPpvh7sqYDRRQ2f8Gd3wMOyGB/syh/JFxbTBLsy5bpkpqDOJGLbgzU8HI
-         RmIgrPWYt1DGxe9hI5bLzAo6PIBknfmwzKO8YR4xdXazqCZN12eeNclOYYb55OeATU4k
-         GHBl8jNW8cfJ5SG/QSo+It2Ffpy66LqmEIRwNEiMGfeMwOo1qJsj5p/H4zwWhUf0T655
-         k1xKtg87fk8q3UIlsCT9fl+8bfXXMx4QtJgSrBrvFZTUAOsfvNjpD2mAU/2vPzOWLJyA
-         A/Jw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amacapital-net.20251104.gappssmtp.com; s=20251104; t=1792352851; x=1792957651; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C9PTaRCgfnWLejuxwMwgHezQmSpb/Q49pSzLQ94ksTk=;
-        b=U61hr0PxGjsekFN/Peus8SSvsCkWL+X4cEShlWPsXJwFZsPSOlvUCsybYg9BgwgJRd
-         4XnxIJgNM2UxnPRJ7LJ9ePNZaMA3S+v2khZQd28a3QJuiBcuUaNEpSAyegrHLGxeAQOF
-         XWhhz9z4gvoj1jD71wUdmMg7TKUgBLlQEbfCfdSDreL0vc42Gwa+0w9MuT0mJeW9FjHk
-         InbXbqmJqWqFBCaE7bhMzpyoImihsnstJokhn5vCptf2p7cb0uxL1CtKsrsoOoa51lXm
-         tyklrtgAN7N7S853vG7iCSHElYqHLPGyLpCn9vrAZ76I1HHBL84qCv0LlLe1GVF1/qq2
-         6Adw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792352851; x=1792957651;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C9PTaRCgfnWLejuxwMwgHezQmSpb/Q49pSzLQ94ksTk=;
-        b=oSEaPb3gBoGPJ5pZb83vsLrFJJkG8y9QNgthg1PfMEUN4K0y3J+wZWjXqRTfVXvNag
-         0Dwu/IrEaTLqbRrH+Mb7j5c8bwSXwiOUnrsKItWzgBU6I7NoBXaz8ovHbDrK+WqhKRYp
-         vLF4pIKsnltuLEeUlCBODbk5zOgRX8dw14fz/uPxLL7Xy4qmd9abRMIiChUaJ5qpEjZl
-         leksaNS4gZGM9FZczfeyv5mgscCmfWgrc+EnZnK555oCipwc3ITdNIDOnJwzK3m5Hrfv
-         6fuetgNmNXX+m/S3ZGg7x67zuMEUpwoC4rGZ8GjqgFWlyV9fFn1aycZ+B9lYm8FWQCdF
-         Cf5A==
-X-Forwarded-Encrypted: i=1; AKwUvByNKoR+xG0RhwUZpGv6ASsOLf2hfJ8J3ydthC9cw9qEltDJCyYPg5/iJiz7ZCVXGQjbX+N9MqF41310qNM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLY0/TIZCWwYPAlnB3cwYermtp3E1j2k68pOPo+1idzCLTgJXsY
-	fqEGRSt/U5xfjAFuVt43dLliRY2kE6yVYB4Q0hyRX+cNi3W4yXtfsV1bxITWAmwXf6+cZ8hEq8T
-	yxk6btlCnAawGq3tTtItV68UsY14Kq5AwXyw5WiZU
-X-Gm-Gg: AYBFou1rGy7CnUvq3Y/D2dAssHZRhZDI3J/L8+6vacDGDKQIm5sFGUEVKCxwoydjB1l
-	/1yB+ir7OUDACIZLhbicDGKBQGbx6gGvVsOtd1qG5q4XgebjRBhiAui2g9ymgoADAn6k4O05Pzf
-	XzuLBWMU2pHtLVVtMW/w/DGSUGpFm2IqJh0kiqnjQOUgnVvKj6pSbkIosED1gNdjy4KmS/BAz1t
-	SK4eva7qtSCPJwzvoIdYO57rQ2P5BhKVQaGnUM6PGRuEjcin2UBg0LxUYtPuXh6NgjYvdSgU6T9
-	9ONH4mLiu6H+LzLlnGLTnI9GwrmF4ucAggl32EpGEZF0Y6M+VVXB
-X-Received: by 2002:a05:651c:3614:b0:3ab:1639:9a79 with SMTP id
- 38308e7fff4ca-3ab292b7375mr9897881fa.15.1792352851051; Sun, 18 Oct 2026
- 12:47:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="v1uHodZb"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/yIF3n4oT72GD7bhZKBGyWKTRaTdZ2UypHatGQorBfQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792352903; v=1; x=1792957703;
+ b=v1uHodZb87zwlKYen1ckw/Ssrvu49BHfqdxKcMm/BB16hMrdeQYCKGC5PkK77ocFgR2ZCykp
+ +GXQPhbG5QvBXy2N7gmXPldGGiFpvg9rTchMpYmOx/ZaeV11jyPWXi3wSE96PVT3wsY/dMaygZk
+ QLJ5GSmBU5VmkXAeSWhktd+Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f3608eb7e4297639;
+	Sun, 18 Oct 2026 19:48:23 +0000
+X-Mizu-Trace-ID: f3608eb7e4297639
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <23dcbde2-26c3-4288-aa71-3bb3107e3f45@linux.dev>
+Date: Sun, 18 Oct 2026 21:48:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1792346472.git.jan.koester@gmx.net> <9c17a1f7f82b953e6f4d9e17f4ca19d5220d7f2b.1792346472.git.jan.koester@gmx.net>
-In-Reply-To: <9c17a1f7f82b953e6f4d9e17f4ca19d5220d7f2b.1792346472.git.jan.koester@gmx.net>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Sun, 18 Oct 2026 12:47:19 -0700
-X-Gm-Features: AclHuK_TjVvADO7YV_Of3nNvklGJn7yisT4mnRNh7189wUPwvl6Zlkl0ZNpg8pA
-Message-ID: <CALCETrUjRpHSTBzO65uU-YaEj4espqnwDSaSLcXu653xJyooHg@mail.gmail.com>
-Subject: Re: [RFC PATCH 09/41] uidgid: let kuid_t and kgid_t hold a UUID or a GUID
-To: Jan Koester <jan.koester@gmx.net>
-Cc: Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Jan Kara <jack@suse.cz>, "Theodore Y. Ts'o" <tytso@mit.edu>, 
-	Paul Moore <paul@paul-moore.com>, Arnd Bergmann <arnd@arndb.de>, linux-fsdevel@vger.kernel.org, 
-	linux-api@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-ext4@vger.kernel.org, 
-	linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, netdev@vger.kernel.org, 
-	audit@vger.kernel.org, keyrings@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/7] HID: asus: Re-send the Zenbook Duo keyboard
+ handshake after probe
+To: =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Luke Jones <luke@ljones.dev>,
+ Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+ Ivan Levchenko <me@livan.pro>, Nathan Chancellor <nathan@kernel.org>,
+ Paolo Pisati <p.pisati@gmail.com>
+References: <4bf9e6b0-4f6e-4faf-a2b6-a57143ef3f23@linux.dev>
+ <20261018191823.22123-1-rebecca.mara@posteo.de>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261018191823.22123-1-rebecca.mara@posteo.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 11:10=E2=80=AFAM Jan Koester <jan.koester@gmx.net> =
-wrote:
+
+On 10/18/26 21:18, Rebecca Mara Müller wrote:
+> On Sun, Oct 18, 2026 at 07:10:57PM +0200, Denis Benato wrote:
+>> So this patch is based on an arbitrary wait that is based on the
+>> assumption that some other device gets initialized...
+>>
+>> Can you try making this deterministic?
+> Since this part came from my patch, I went back and measured it on my
+> UX8407AA before trying to make it deterministic. The result: there is
+> nothing to fix, so please drop 7/7.
+
+That's good! The probe function is unfortunately a bit chaotic as it
+is already... After all this driver must handle many different wildly
+different devices so keeping it simpler benefits the addition of new
+devices.
+
+> I built v3 as an out-of-tree module against a 7.0.11-based distribution
+> kernel, with only the schedule_delayed_work() call of 7/7 removed and my
+> userspace workaround stopped, and checked whether the keyboard stays in
+> hotkey mode (keyboard backlight key changing asus::kbd_backlight, plus
+> usbmon on the keyboard's bus for part of the runs):
 >
-> Make kuid_t and kgid_t (and vfsuid_t and vfsgid_t, which share their
-> layout) tagged unions: a classic 32 bit id, an RFC 9562 UUID, or a
-> Microsoft GUID. KID_LEGACY is 0, so zeroed memory still holds the root
-> ids, and KUIDT_INIT()/KGIDT_INIT() keep building classic ids, so the
-> bulk of the kernel needs no change. The member is renamed from val to
-> legacy so the compiler finds code that peeks at it directly.
+> - docking: 10 of 10
+> - loading the module with the keyboard attached: 2 of 2
+> - rebinding only the touchpad to hid-multitouch while docked: 4 of 4
+> - s2idle suspend and resume: 3 of 3
+> - reboot with the module loaded after hid-multitouch (rootfs only):
+>   2 reboots, 1 cold boot, all fine
+> - reboot with the module in the initramfs: 3 reboots, 1 cold boot,
+>   all fine
 >
-> Semantics of the new ids:
+> usbmon shows hid-asus sending the 0x5a handshake on interface 4 and
+> hid-multitouch sending feature reports 0x07, 0x03 and 0x05 to the
+> touchpad on interface 5 some 10-20 ms later, and the hotkeys keep
+> arriving as 0x5a reports on interface 4 afterwards. The same happens
+> when hid-multitouch reconfigures the touchpad on resume or on a rebind.
 >
-> - They are not in any uid_map or gid_map: they exist in the initial
->   user namespace only. kuid_has_mapping() is false for them in every
->   other namespace, so no capability in a child namespace gives
->   privilege over them, and from_kuid() and friends give -1 (the
->   overflow id when munged), exactly as for any other id without a
->   mapping. Anything that can only store or report a 32 bit id thereby
->   already treats them safely.
-
-Why?
-
+> I also went back through my notes from August to see why I believed
+> otherwise. The conclusion came from a test where I rebound the touchpad
+> and the brightness keys then did nothing. At that point my test module
+> had neither the descriptor fixup nor the forced hid-input binding yet,
+> so the hotkey interface had no input device at all and the keys could
+> not have worked in either mode; my userspace workaround was stopped.
+> All later tests that day already included the re-send, so they showed
+> that the whole patch works, but never whether the re-send is needed.
 >
-> - Idmapped mounts map classic ids; UUIDs and GUIDs pass through them
->   unchanged, as long as the filesystem itself is in the initial user
->   namespace.
+> I am really sorry for the extra work this caused, Paolo, for carrying
+> and adapting the patch, and Denis and everyone else for reviewing it.
+> This was my first time this deep into a driver, and I should have
+> tested the re-send on its own before sending it.
 
-Okay, so they pass through but don't work.  Sounds unfortunate.
+Well you know how this things go... Only who does nothing can claim
+to have made no mistakes. There's no problem for me, in fact it happened
+to me too to do work based on assumptions that ended up being false...
+It just happens and is nobody's fault!
 
-> +/* Like kuid_t and kgid_t: a classic id, a UUID or a GUID */
->  typedef struct {
-> -       uid_t val;
-> +       u32 type;
-> +       union {
-> +               uid_t legacy;
+I actually like reading these things so I know what was done and tested
+and what to look for in case I find myself in similar situations (and what
+to look for when bringing up new hardware in the fastest way possible).
 
-Linux is Linux.  small numerical uids are not "legacy".
+> Unrelated, in case it is useful: with the series applied, the keyboard
+> backlight stays on while the laptop is in s2idle suspend.
 
-> +               uuid_t uuid;
-> +               guid_t guid;
+I haven't looked much at these models beside the wmi side so I don't
+know if they are like ROGs/TUFs but ROGs and TUFs have the keyboard
+backlight that can be configured in s2idle and/or hibernation, but even
+if powered on usually the pattern changes... So I am concerned that
+hardware isn't entering s2idle properly... Are you sure it is?
 
-I'm at a complete loss.  Is guid is only unique on Earth but uuid
-unique in the entire universe?  Even Microsoft admits that GUID and
-UUID are two names for the same thing.
+You can use the amd-s2idle tool even if the CPU is an intel one to check
+that.
 
-I realize that Microsoft colossally screwed up years ago with their
-little endian uuid idea, and I sincerely hope that this is not some
-endian thing.
+I don't want to speculate too much, but if it really is sleeping then we are
+either missing a way to configure backlight enablement on power states
+or a command to send while suspending.
+
+> Thanks,
+> Rebecca
