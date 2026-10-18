@@ -1,118 +1,263 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29AE4397B1C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:30:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DA93D88F2;
+	Sun, 18 Oct 2026 17:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792344644; cv=none; b=Y+zHS7IbOVZ78Jsa1hzzDoZltsjyZfWKPD/FURntVVC5yWguae5wKJoDSWfz+SjQOydho4WJmR5DuOH22Qw2lrk13MVpt+ugcx9qOoH584LurfZEjvLeQlxvZrTNYzdtt9qB2pmSPVVrOOwt06bASXYebmNUkjE3oRWWW3VPs5I=
+	t=1792345062; cv=none; b=ApamvD/Gfx4fmv6sWO8d6w4S29EUreK2xjxtC0doj06yzdr+OnWDAvitGmjf7r7AWGGZhVMLyPxJa2ymrUY8x0dwwMRfqIaToCNcgpLG2GefMuNIGtjXWCb0LMD44jaUkTqXJYvy4Ze8hVtaRdUJY7uGFyZbDZquti7Ta1WmoKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792344644; c=relaxed/simple;
-	bh=74zW7bX+zhXYnzIJmFSSuGPDBD3IIhvKVExVvMEfcu0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nN7J3P67uGGIHGWH/Ll0edFHsBSdsOpILeJiX+OxDBPdg7puTFnsMIe3d8YbfOa7c4AKHlLD4al9do14wuKvlBq5It+j1qjJvF55EaQhyTAhj+hjU2eR7JjbaIMLwbawS8N/gg8L/IudbhYJPIP/yg0FSWAATS/xybQSnbtUzbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mzen8RkI; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792345062; c=relaxed/simple;
+	bh=W6/xJUXiJRjxHLldaoyS1k8sSLJ4eH6UuMP3wvFGgME=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=M7j8dYY2pQHStjhHFuEtH+C2FCz1MOJ/OmRPDqiFWL6vLSGRkxfjFMCWSSqedG79F60H+5CXshZ4WnfECBohRF35TUqjFDrtC+cSnsxCCYLOvDb9rEnN8ZYNi6PEYC0MN/7ZosasKUZ+1/hsyDx/zrijJPtYBvcm5A7op9KlOEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQbQQkNg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mzen8RkI"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so716053a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:30:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792344642; x=1792949442; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3ixHYsvcVa+4o7T8DatH23CM41eHYBblIhIu3k33z0A=;
-        b=mzen8RkIKqMI7TjU1lIdnHbzS7VzH+7+3587M2lrbdmQbKevP+rQ6AnGB41fZrMe7H
-         1L12pFORyigwSzHMcv2PE80bQmuGJ8CXRC4/4pe8rQHzq9wUU4AYn6xhZp8J32UCTSsc
-         3LnuDlph8caZC9YJdYoPVg/B+NC3l1mURD5MZOSV9aJKlLs5joZyl2PWh1wM8t5ibB8q
-         tTYZQ+aKW4D1ZtAjQizYm5t63YwJ8lk6/ez9t4kz9MbpWgjAA2yaxzKBB422iL+5DJ5I
-         n7mI+UF/yJPCgK/FEzHTvIwrawJ/d4yGcO+v1YGlca/rn05AmwHZIPDHZX2qknYMwdfa
-         bgRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792344642; x=1792949442;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3ixHYsvcVa+4o7T8DatH23CM41eHYBblIhIu3k33z0A=;
-        b=EGc1KNuCqdwfsCH65oaUye1/xAy+eEIO2jacYbxeDEWhfjSTVrRY74MWl3WKz3rjEB
-         JpVkpjstYy1Z9zCXD81jZ2IvaVubXTJRMbZrNDtNb+l44xrkFIrBKoPEq6MS2nU+o/c0
-         SOv+FNB90yzMZagxCKcXnGp7hRG/dIZxdOW2iISCcm0v8et8cPKRlPeU7nDmtw0mIYvT
-         +8oQv3LO0hWjBCtscM/iVqKykGW8I5RVYzELDj+jQLcmLVNZQ8A/9PEf+fHcJ5MYJ0nQ
-         HMG2V1d+TTZcPFDeYb6cR/8dOb4RbTykCiMmPYLYx2HVMzgIQQhuKpyQVqtXPZDM5WVr
-         Wr3w==
-X-Forwarded-Encrypted: i=1; AKwUvBzNBNi1eTOfaf9J5DZxLspKONDlO+Ya5YrTel0UZ6k3CBOjIRqe1C2XfDwf1NyGKFYzDmEUuqaMM/8WZeA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbHSBGdvq7RkaJYPNHlc7Q90+E3Nks0rFBWBchYHUvkRI2mw9C
-	gTi8d4mz7EWLY4sUJpcu5/hjiN3fD4hZzojdVCW6rAtfankdcmI5YsM4
-X-Gm-Gg: AYBFou3KBkfC47AS+qkWgrwRt5pZzN8Gr6LWnO5RiZB7TWo1U99MaHR9ftNsv5pY1BN
-	FbxVVTLRWJWDAAVl21CAp3OdwzZm3n2gCgv85rSC9sAiGw81m6UxLFa/EHjeHx72OVcNG/kjwOr
-	eg0yOTgOnYtzwiPQWCHQmS72JZ+ARbHh7kVE51YOY83RlSAdaTh4/k1VfMV62tjn+f2ZyyqkWPu
-	nw1DaYuMXqVlfOn39q1NCXs+o5saSFT9+gaAE/CzUzbjNKxnIXeK2kSBCwLw9rshDMBK5rQHMUX
-	/nc/eYs2LtbPe9QV4Rq3s32Mzn8QGxhGWI3yPBpReaf6eovQuEBq41lPdHLqcYbQG0o8Kn5FaMp
-	2nBrbCtXtDLg10vjyeGcyN2nP882tlGW7kdET1Osaau2uyMLohQh/TGw69b4fkaxNS9KE0nUSjz
-	3FFHsc6cDa41JbrHYO9b3fBQKx/MgpJgSfwxFwSd9vH5+4noKjih2lTRyKgINnXcb7j4cbrA9xl
-	0hoMg==
-X-Received: by 2002:a17:90a:da87:b0:3a7:9ec3:ea0e with SMTP id 98e67ed59e1d1-3acef144e3emr3623867a91.22.1792344642433;
-        Sun, 18 Oct 2026 10:30:42 -0700 (PDT)
-Received: from [192.168.89.2] ([14.67.155.18])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acddc37958sm10649439a91.14.2026.10.18.10.30.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 10:30:41 -0700 (PDT)
-Message-ID: <fe746c04-391e-4b7e-a5c9-7dfd3cd07913@gmail.com>
-Date: Mon, 19 Oct 2026 02:30:39 +0900
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQbQQkNg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B4C51F000C5;
+	Sun, 18 Oct 2026 17:37:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792345060;
+	bh=MXN0uxdpPF8mfxNUdX5WRrP0OYPFZhAl37bZ+oP5xko=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KQbQQkNgV907agrD+gqyyskJfcCpa/zjXM9SgGFpIqVzrXhqV241AUsRGQkY3n1z+
+	 Qh/zz8x8j3U9oa6cIx5xtCXd1g+8Cz3qyWj/ztvHAD0pQ114+KspAghpwX20wWFYGm
+	 W9jzAFQW1g9UHCAgCbiaUVBt06NqZZkbZAGHvNrL5TlPcUZLuahyONyZxLJc4Ez8Rx
+	 knoHuXsDEXMKqkUjr1h71OT9gVy1h4DJv6cu9axfiG/YguadLCOwMYQzJ8H5KX5Qy2
+	 o8VChqcPEC38NWH/H64Lym0ef9qQTzRMr6/FaXdehLSApWQAWbLpTn6jrqtOtLJEJ3
+	 g1wAk7t2mc7kQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xIUpG-00000004Npl-1655;
+	Sun, 18 Oct 2026 17:37:38 +0000
+Date: Sun, 18 Oct 2026 18:37:37 +0100
+Message-ID: <8633u229lq.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] KVM: arm64: Only enable S1PIE and S1POE with the features they imply
+In-Reply-To: <20261018080921.3942517-1-fuad.tabba@linux.dev>
+References: <20261018080921.3942517-1-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] docs: hwmon: Document the uhwmon userspace interface
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-api@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1791531025.git.hurryman2212@gmail.com>
- <c02aeee5b7e7a5d159d4df5baabe925e16814e94.1791559095.git.hurryman2212@gmail.com>
- <e77719ee-c813-400e-b49a-9f8a3b0e2e91@roeck-us.net>
-Content-Language: en-US
-From: Jihong Min <hurryman2212@gmail.com>
-In-Reply-To: <e77719ee-c813-400e-b49a-9f8a3b0e2e91@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, broonie@kernel.org, ljs@kernel.org, tabba@google.com, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Ok. Then I will withdraw these patch series.
+On Sun, 18 Oct 2026 09:09:20 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+>=20
+> The world switch skips PIR_EL1, PIRE0_EL1 and POR_EL1 for a guest
+> without TCR2, but KVM doesn't trap them for a guest with S1PIE or
+> S1POE. Userspace can hide TCR2 while leaving either visible, and such a
+> guest then accesses registers that are neither trapped nor switched.
+>=20
+> Under VHE, that leaks values between guests. POR_EL1, which the host
+> kernel doesn't use, leaks between guests in every mode. On nVHE and
+> hVHE, pKVM included, the host's own EL1 registers are saved and restored
+> according to the running guest's features, so the host kernel resumes
+> with its stage-1 permissions taken from the guest's PIR_EL1 and
+> PIRE0_EL1.
+>=20
+> As per the architecture, S1PIE and S1POE imply TCR2 and ATS1A, and
+> S1POE also implies HPDS. Only enable each for a guest that has the
+> features it implies. A guest that has S1PIE or S1POE without them still
+> sees the feature in its ID registers, but its accesses to that
+> feature's registers UNDEF.
+>=20
+> Fixes: 70ed7238297fb ("KVM: arm64: Sanitise ID_AA64MMFR3_EL1")
+> Fixes: d4a89e5aee23e ("KVM: arm64: Expose S1PIE to guests")
+> Reported-by: Mark Brown <broonie@kernel.org>
+> Link: https://lore.kernel.org/r/20260930-arm64-gcs-v21-2-3556644cd927@ker=
+nel.org
+> Suggested-by: Marc Zyngier <maz@kernel.org>
+> Link: https://lore.kernel.org/r/86fqyn2che.wl-maz@kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+> Changes in v2:
+> - Also require FEAT_HPDS for S1POE (Marc)
+> - Link to v1: https://lore.kernel.org/r/20261015153041.3770032-1-fuad.tab=
+ba@linux.dev
+>=20
+> Based on Linux 7.3-rc3 (fd73f4a665989).
+>=20
+>  arch/arm64/kvm/config.c | 28 ++++++++++++++++++++++++----
+>  1 file changed, 24 insertions(+), 4 deletions(-)
 
-But then let me ask you the initial question that brought this patch
-series: Do you think it is at least OK to add kernel drivers for
-network-based sensors? Or do you think those are also to be subjected to
-be rejected (or remained in DKMS projects)?
+I'm afraid that this only addresses part of the problem. Ultimately,
+the idregs themselves require some sanitisation because KVM uses this
+as the source of truth. I was pointing this in my reply to Broonie,
+and this is (probably) what sashiko is blabbing on about.
+
+I hacked something that could be used as the bases for such
+sanitisation, although it is quite crude and doesn't cover all of the
+possible requirements, see below. I've only boot-tested it in a nested
+guest, and I'm not even sure it actually works (my test box doesn't
+have these features).
+
+	M.
+
+=46rom 6632cbcebbf4b384f209e988deab0924f03dfff8 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Sun, 18 Oct 2026 12:07:09 +0100
+Subject: [PATCH] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
+
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+---
+ arch/arm64/include/asm/kvm_host.h |  1 +
+ arch/arm64/kvm/config.c           | 59 +++++++++++++++++++++++++++++++
+ arch/arm64/kvm/sys_regs.c         |  2 ++
+ 3 files changed, 62 insertions(+)
+
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm=
+_host.h
+index 6be90f8e19813..ab68ddca234c4 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -1742,6 +1742,7 @@ static inline bool kvm_arch_has_irq_bypass(void)
+ 	return true;
+ }
+=20
++void kvm_idregs_enforce_dependencies(struct kvm *kvm);
+ void compute_fgu(struct kvm *kvm, enum fgt_group_id fgt);
+ struct resx get_reg_fixed_bits(struct kvm *kvm, enum vcpu_sysreg reg);
+ void check_feature_map(void);
+diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
+index 6d2650427c5fc..f037a288c9d46 100644
+--- a/arch/arm64/kvm/config.c
++++ b/arch/arm64/kvm/config.c
+@@ -59,6 +59,7 @@ struct reg_feat_map_desc {
+ 	const struct reg_bits_to_feat_map feat_map;
+ 	const struct reg_bits_to_feat_map *bit_feat_map;
+ 	const unsigned int		  bit_feat_map_sz;
++	const unsigned int		  idreg_idx;
+ };
+=20
+ #define __NEEDS_FEAT_3(m, f, w, id, fld, lim)		\
+@@ -130,6 +131,21 @@ struct reg_feat_map_desc {
+ 		.bit_feat_map_sz	=3D ARRAY_SIZE(m),		\
+ 	}
+=20
++/*
++ * Declare the dependency between the features advertised in an id
++ * register, and the set of other features they depend on. This
++ * generates a struct reg_feat_map_desc.
++ */
++#define DECLARE_IDREG_FEAT_MAP(n, r, m, f)				\
++	struct reg_feat_map_desc n =3D {					\
++		.name			=3D #r,				\
++		.feat_map		=3D NEEDS_FEAT(~(r##_RES0 |	\
++						       r##_RES1), f),	\
++		.bit_feat_map		=3D m,				\
++		.bit_feat_map_sz	=3D ARRAY_SIZE(m),		\
++		.idreg_idx		=3D IDREG_IDX(SYS_##r),		\
++	}
++
+ #define FEAT_SPE		ID_AA64DFR0_EL1, PMSVer, IMP
+ #define FEAT_BRBE		ID_AA64DFR0_EL1, BRBE, IMP
+ #define FEAT_TRC_SR		ID_AA64DFR0_EL1, TraceVer, IMP
+@@ -1319,6 +1335,14 @@ static const struct reg_bits_to_feat_map vtcr_el2_fe=
+at_map[] =3D {
+ static const DECLARE_FEAT_MAP(vtcr_el2_desc, VTCR_EL2,
+ 			      vtcr_el2_feat_map, FEAT_AA64EL2);
+=20
++static const struct reg_bits_to_feat_map id_aa64mmfr3_el1_feat_map[] =3D {
++	NEEDS_FEAT(ID_AA64MMFR3_EL1_S1PIE, feat_s1pie),
++	NEEDS_FEAT(ID_AA64MMFR3_EL1_S1POE, feat_s1poe),
++};
++
++static const DECLARE_IDREG_FEAT_MAP(id_aa64mmfr3_el1_desc, ID_AA64MMFR3_EL=
+1,
++				    id_aa64mmfr3_el1_feat_map, FEAT_AA64EL1);
++
+ static const struct reg_bits_to_feat_map ich_hfgrtr_feat_map[] =3D {
+ 	NEEDS_FEAT(ICH_HFGRTR_EL2_ICC_APR_EL1 |
+ 		   ICH_HFGRTR_EL2_ICC_IDRn_EL1 |
+@@ -1428,6 +1452,41 @@ void __init check_feature_map(void)
+ 	check_reg_desc(&ich_hfgitr_desc);
+ }
+=20
++static const struct reg_feat_map_desc *idreg_feat_maps[] =3D {
++	&id_aa64mmfr3_el1_desc,
++};
++
++static bool idreg_deps(struct kvm *kvm,
++		       const struct reg_feat_map_desc *r)
++{
++	struct resx resx =3D {};
++	u64 val;
++
++	for (int i =3D 0; i < r->bit_feat_map_sz; i++) {
++		if ((r->bit_feat_map[i].flags & CALL_FUNC) &&
++		    !r->bit_feat_map[i].match(kvm))
++			resx.res0 |=3D reg_feat_map_bits(&r->bit_feat_map[i]);
++	}
++
++	val =3D kvm->arch.id_regs[r->idreg_idx];
++	kvm->arch.id_regs[r->idreg_idx] &=3D ~resx.res0;
++	kvm->arch.id_regs[r->idreg_idx] |=3D resx.res1;
++
++	return val !=3D kvm->arch.id_regs[r->idreg_idx];
++}
++
++void kvm_idregs_enforce_dependencies(struct kvm *kvm)
++{
++	bool again;
++
++	do {
++		again =3D false;
++
++		for (int i =3D 0; i < ARRAY_SIZE(idreg_feat_maps); i++)
++			again |=3D idreg_deps(kvm, idreg_feat_maps[i]);
++	} while (again);
++}
++
+ static bool idreg_feat_match(struct kvm *kvm, const struct reg_bits_to_fea=
+t_map *map)
+ {
+ 	u64 regval =3D kvm->arch.id_regs[map->regidx];
+diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+index 4f18ed2793c33..0687b78cd7c2b 100644
+--- a/arch/arm64/kvm/sys_regs.c
++++ b/arch/arm64/kvm/sys_regs.c
+@@ -5872,6 +5872,8 @@ static int kvm_vm_finalize_sys_regs(struct kvm *kvm)
+ 	if (kvm_id_regs_final(kvm))
+ 		return 0;
+=20
++	kvm_idregs_enforce_dependencies(kvm);
++
+ 	/*
+ 	 * This hacks into the ID registers, so only perform it when the
+ 	 * first vcpu runs, or the kvm_set_vm_id_reg() helper will scream.
+--=20
+2.47.3
 
 
-Sincerely,
-Jihong Min
-
-On 10/19/26 01:06, Guenter Roeck wrote:
-> On Sat, Oct 10, 2026 at 12:38:44AM +0900, Jihong Min wrote:
->> Document the uhwmon UAPI for developers implementing userspace hwmon
->> drivers. Cover device registration, request handling, notifications
->> and device lifetime.
->>
->> Assisted-by: Codex:gpt-6-astra
->> Signed-off-by: Jihong Min <hurryman2212@gmail.com>
-> 
-> I am not going to review, much less apply, this series.
-> Exposing subsystem internals to userspace is a bad idea and would limit
-> future improvements of the hardware monitoring subsystem. User space file
-> systems are bad enough and cause all kinds of trouble. I don't want to have
-> to deal with the same kind of issues in the hardware monitoring subsystem.
-> 
-> Interested parties should implement kernel hardware monitoring
-> drivers instead.
-> 
-> Guenter
-
+--=20
+Without deviation from the norm, progress is not possible.
