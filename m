@@ -1,43 +1,39 @@
 Received: from mail.noirlang.tr (mail.noirlang.tr [217.18.210.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AFF3264FD;
-	Sun, 18 Oct 2026 11:01:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DBF196C7C
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:01:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.18.210.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792321273; cv=none; b=si3r5/kyEvUUkB2TkKrhV01zsT8PF+sD9hCulJcAalrO7yPsRLcSJKafXEPQkgfFFFxPt/2JRD1qVNGb/zgS6lzvXWV1zzAZULpFJvrW5ra0kldP3thwcl8MtmiPuTnanUuMRjxHcYhSHAT4svQVBeWrGdaRYyfuhLYu5UnkXnE=
+	t=1792321282; cv=none; b=L3UmavksOq6Y2UMGtVyvkduedxJOGUL9ryaZ7Tb8tQk+mMCTNMLWxPdKmfxs+svXs/JeqCb+n/sNl8S84NQxybyUMVTkK0k7BQPEs1tIQ1KtqnuiCNHbxAUh4o46+pfbcB/+EGv/GPss8x8Ra8nDvhlCD+70UlnMEjDQ70if37I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792321273; c=relaxed/simple;
-	bh=kBDTbaZ4GypmVwnlmzAlOCEtc1UQPdZjvVFyq0YaLXE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jd+rCeUuTCTFyDyjTK+tWeeYh82AXrS1eG425+16IHusE2aFdS+j0QOYoIEshkEbB5W9gFOMXPms/3y01jWug0Kw9eS3+A6w1z8lO8DDP71PBdNYymccpsMJaeglFYAMeeyf5qiPP/jZt8Ih4Hotoufj8CEURuOs8Zfnk5HGc9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=noirlang.tr; spf=pass smtp.mailfrom=noirlang.tr; dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b=RhzTWU+Z; arc=none smtp.client-ip=217.18.210.29
+	s=arc-20240116; t=1792321282; c=relaxed/simple;
+	bh=1EF87F7qoFRopDJACB+hV3BqN8xT0TAiYUDE1zfK/3M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bd0wPC1rr8PJgC1rAWxiLtB90kwqJFGkpsSSTgiDzCSEf09JdyW+eCb151iEKxXXw7vrso6wlnjCCQWmKOpGKYhduAN06w6WA8VTlUJwWmE7zG1j10t31YZgC5Ciq8QhrJ1cNkYSCpAm05m7iDOJTGbxSG3JjCX0VO0PHsraoEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=noirlang.tr; spf=pass smtp.mailfrom=noirlang.tr; dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b=ih18nUUH; arc=none smtp.client-ip=217.18.210.29
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=noirlang.tr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=noirlang.tr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b="RhzTWU+Z"
+	dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b="ih18nUUH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=noirlang.tr; s=mail;
-	t=1792321268; bh=kBDTbaZ4GypmVwnlmzAlOCEtc1UQPdZjvVFyq0YaLXE=;
+	t=1792321279; bh=1EF87F7qoFRopDJACB+hV3BqN8xT0TAiYUDE1zfK/3M=;
 	h=From:To:Cc:Subject:Date:From;
-	b=RhzTWU+ZU7/GHJrPpmMkayRRtinU2E6RppzYa5ZLND4LlwajcepGvey0CUR9341+J
-	 oWnYDm9G68XjN23oqfxjAHN6069wvg9oKpaZrHxLIrDvXOJedArhB3N05I3gzXv/nb
-	 pz6SJitPBp1UPePbbr8sCofSUJFVLqg2v2IHZhX/q/mMWgYH/bM52USsuDpBgogwXV
-	 gjzs1a1DE1GgvrXqHHxcifhVI/OAdgxwrHWOpIdHVAXURh5LYo+YXLqCj1tng8l2D4
-	 wbb8TysNbkPduWg7E8RP6r6MJffmyaFnG/UanzL5N3moOUxFR5+NETWFXvpYv9jt5a
-	 5YLfG7G/MLK2g==
+	b=ih18nUUH1hhr2Sv33S7GQ6UeQii9gMv6J1+6Dw6LaL7rQXww9ebuSP0nDpxzguAt5
+	 n1nqY8dfyLIWngrdSKg3FB8bs54ATg8LtHeyrv2DChJRFBYQIBmi2fCTkxRnvfXPHq
+	 Rhp8ca6VsYXYkrOUf/Y2Okr4nb5M6K1Du8oEB6fNgr/ygGhehaeWEm1yCx1QPFFMIp
+	 4ISALlFsAgEY1EnEIMuCGSXlDv4aQnMRCBiKlBGsuydwTDjatmCIBAmNtln1MNmofp
+	 Ayp4h7euSY5JS1J285g0gEdzGsUusBTlxBEAyxXAXec4J4VaGlfGHA/wlVcGZuONXR
+	 JMU/QlJVbJOpQ==
 From: Melih Emik <melihemik@noirlang.tr>
-To: jic23@kernel.org,
-	gregkh@linuxfoundation.org,
-	nuno.sa@analog.com,
-	Michael.Hennerich@analog.com
-Cc: dlechner@baylibre.com,
-	andy@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux@analog.com
-Subject: [PATCH v2] staging: iio: frequency: ad9832: use guard(mutex)
-Date: Sun, 18 Oct 2026 14:01:07 +0300
-Message-ID: <20261018110107.297906-1-melihemik@noirlang.tr>
+To: anitha.chrisanthus@intel.com,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: tzimmermann@suse.de,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/kmb/dsi: inline drm_simple_encoder_init()
+Date: Sun, 18 Oct 2026 14:01:17 +0300
+Message-ID: <20261018110117.298588-1-melihemik@noirlang.tr>
 X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -47,17 +43,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In ad9832_write(), manual mutex handling via mutex_lock() and
-mutex_unlock() necessitates error-exit trampolines (goto error_ret),
-intermediate variables, and deferred returns. This pattern is prone
-to unlock-omission bugs during refactoring and clutters the control
-flow.
+The helper drm_simple_encoder_init() is deprecated because it adds an
+unnecessary intermediate layer between atomic modesetting and DRM drivers,
+as documented in Documentation/gpu/todo.rst.
 
-Modernize the locking by using guard(mutex) from <linux/cleanup.h>.
-Scope-based resource management automatically releases the lock upon
-exiting the lexical scope, which enables immediate error propagation
-at call sites, removes the error_ret label, and simplifies the control
-flow across all switch cases.
+Inline the functionality by calling drm_encoder_init() directly with a
+local instance of struct drm_encoder_funcs. This allows removing the
+dependency on <drm/drm_simple_kms_helper.h> in favor of
+<drm/drm_encoder.h>.
 
 Signed-off-by: Melih Emik <melihemik@noirlang.tr>
 ---
@@ -69,120 +62,48 @@ Test notes:
 - Verified with lockdep and debug mutexes enabled
   (CONFIG_PROVE_LOCKING=y, CONFIG_DEBUG_MUTEXES=y).
 - Boot-tested full bzImage in QEMU with initcall_debug, confirming
-  successful driver initialization (ad9832_driver_init returned 0)
+  successful driver registration (kmb_platform_driver_init returned 0)
   and zero lockdep/kernel warnings.
-- Disassembly inspected via objdump to ensure mutex_unlock on all
-  exit paths.
 - Verified with scripts/checkpatch.pl (0 errors, 0 warnings).
 
- drivers/staging/iio/frequency/ad9832.c | 39 ++++++++++++++++++--------
- 1 file changed, 27 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/kmb/kmb_dsi.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/iio/frequency/ad9832.c b/drivers/staging/iio/frequency/ad9832.c
-index a78249812b26..3ae5defec615 100644
---- a/drivers/staging/iio/frequency/ad9832.c
-+++ b/drivers/staging/iio/frequency/ad9832.c
-@@ -8,6 +8,7 @@
- #include <linux/array_size.h>
- #include <linux/bitfield.h>
- #include <linux/bitops.h>
-+#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/dev_printk.h>
- #include <linux/err.h>
-@@ -182,19 +183,26 @@ static ssize_t ad9832_write(struct device *dev, struct device_attribute *attr,
+diff --git a/drivers/gpu/drm/kmb/kmb_dsi.c b/drivers/gpu/drm/kmb/kmb_dsi.c
+index 59d0e856392f..13adba96bc78 100644
+--- a/drivers/gpu/drm/kmb/kmb_dsi.c
++++ b/drivers/gpu/drm/kmb/kmb_dsi.c
+@@ -14,8 +14,8 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_mipi_dsi.h>
+-#include <drm/drm_simple_kms_helper.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
  
- 	ret = kstrtoul(buf, 10, &val);
- 	if (ret)
--		goto error_ret;
-+		return ret;
-+
-+	guard(mutex)(&st->lock);
- 
--	mutex_lock(&st->lock);
- 	switch ((u32)this_attr->address) {
- 	case AD9832_FREQ0HM:
- 	case AD9832_FREQ1HM:
- 		ret = ad9832_write_frequency(st, this_attr->address, val);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9832_PHASE0H:
- 	case AD9832_PHASE1H:
- 	case AD9832_PHASE2H:
- 	case AD9832_PHASE3H:
- 		ret = ad9832_write_phase(st, this_attr->address, val);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9832_PINCTRL_EN:
- 		st->ctrl_ss &= ~AD9832_SELSRC;
-@@ -203,24 +211,27 @@ static ssize_t ad9832_write(struct device *dev, struct device_attribute *attr,
- 		st->data = cpu_to_be16(FIELD_PREP(AD9832_CMD_MSK, AD9832_CMD_SYNCSELSRC) |
- 						  st->ctrl_ss);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9832_FREQ_SYM:
- 		if (val == 1 || val == 0) {
- 			st->ctrl_fp &= ~AD9832_FREQ;
- 			st->ctrl_fp |= FIELD_PREP(AD9832_FREQ, val ? 1 : 0);
- 		} else {
--			ret = -EINVAL;
--			break;
-+			return -EINVAL;
- 		}
- 		st->data = cpu_to_be16(FIELD_PREP(AD9832_CMD_MSK, AD9832_CMD_FPSELECT) |
- 						  st->ctrl_fp);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9832_PHASE_SYM:
--		if (val > 3) {
--			ret = -EINVAL;
--			break;
--		}
-+		if (val > 3)
-+			return -EINVAL;
- 
- 		st->ctrl_fp &= ~AD9832_PHASE_MASK;
- 		st->ctrl_fp |= FIELD_PREP(AD9832_PHASE_MASK, val);
-@@ -228,6 +239,9 @@ static ssize_t ad9832_write(struct device *dev, struct device_attribute *attr,
- 		st->data = cpu_to_be16(FIELD_PREP(AD9832_CMD_MSK, AD9832_CMD_FPSELECT) |
- 						  st->ctrl_fp);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	case AD9832_OUTPUT_EN:
- 		if (val)
-@@ -238,14 +252,15 @@ static ssize_t ad9832_write(struct device *dev, struct device_attribute *attr,
- 		st->data = cpu_to_be16(FIELD_PREP(AD9832_CMD_MSK, AD9832_CMD_SLEEPRESCLR) |
- 						  st->ctrl_src);
- 		ret = spi_sync(st->spi, &st->msg);
-+		if (ret)
-+			return ret;
-+
- 		break;
- 	default:
--		ret = -ENODEV;
-+		return -ENODEV;
- 	}
--	mutex_unlock(&st->lock);
- 
--error_ret:
--	return ret ? ret : len;
-+	return len;
+@@ -1427,6 +1427,10 @@ struct kmb_dsi *kmb_dsi_init(struct platform_device *pdev)
+ 	return kmb_dsi;
  }
  
- /*
++static const struct drm_encoder_funcs kmb_dsi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ int kmb_dsi_encoder_init(struct drm_device *dev, struct kmb_dsi *kmb_dsi)
+ {
+ 	struct drm_encoder *encoder;
+@@ -1437,7 +1441,8 @@ int kmb_dsi_encoder_init(struct drm_device *dev, struct kmb_dsi *kmb_dsi)
+ 	encoder->possible_crtcs = 1;
+ 	encoder->possible_clones = 0;
+ 
+-	ret = drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_DSI);
++	ret = drm_encoder_init(dev, encoder, &kmb_dsi_encoder_funcs,
++			       DRM_MODE_ENCODER_DSI, NULL);
+ 	if (ret) {
+ 		dev_err(kmb_dsi->dev, "Failed to init encoder %d\n", ret);
+ 		return ret;
 -- 
 2.56.0
 
