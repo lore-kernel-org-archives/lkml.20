@@ -1,35 +1,38 @@
 Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D635E33DEE6
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:42:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66249341068;
+	Sun, 18 Oct 2026 02:46:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792291340; cv=none; b=FF9Fr9NM2T9yf44dZND30R5NdJhxhiLhkXHyoKpjAk7LcLHPS0aetub1oSPvNTEET1Yo/3QYhqpaJUrKtAAaAFuUUnslkG6NNNnLcMk7SFF+vA7xUvD9KJ6OF//PtyzrFGML8+qYZ/tAEdTR1lHWrHaKPoCsxGSCGBB6d14zSKE=
+	t=1792291568; cv=none; b=mLU8jdOXlcSfQdTrDzgcsx8JO/NXMLPRK4jdZOLxYrxPb1+q5sXdXucYkdLJTDI+Mx9Q6hdKjMLKFNVfmjRK1CE2UjTRgPVitoL3cpK1mxlItkOMghAeutkkLXH6mMGMM/KQGtOH345zBywuEswRrjDsLTqvCwouAbPGB5Tx8eU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792291340; c=relaxed/simple;
-	bh=25cItN7Z+gyMUld5wt5bu2U7OYfpYaRb/cVCMhruypc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WDgldeJxBwn4MwTo50fCEYIs5Kzruzh+HrD49auh/q+4nCgr2drdTwD7/fbY5FpN/jYvFl7nVC10OE8dSA79zJhhsHJfM9dmiwtf6oWJ/0T0UWoTD4viCO5WJEKLEdMUL9h0otm/22o9hzD73sKr2f/jyRaBPEJETomTseIqKBU=
+	s=arc-20240116; t=1792291568; c=relaxed/simple;
+	bh=N3JZHamr3xmeGJnZ7mJpty8nceqWqiUlMmPZkiBjhXY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U1YWJV3PUGXFv3XiVNqPf0BZG/OKguqkpwe9fUMykPenP1p+BSYXeeRZrwSqeYjnS5PLSniVJH+EfP7YcqcC1xBxMzbWuaKof7by8+td7VB3VWU1ypfBDtFo2fKDm99n4WJO0kPo9+1bcxyCugdjkiwZEvpPcjJfuQaG1qgOPVo=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
 Received: from escalante.csail.mit.edu ([128.52.128.198])
 	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
 	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xIGql-004P3N-AL;
-	Sat, 17 Oct 2026 22:42:15 -0400
+	id 1xIGuD-004PQI-7m;
+	Sat, 17 Oct 2026 22:45:49 -0400
 From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>,
-	Haorong Lu <ancientmodern4@gmail.com>,
-	linux-riscv@lists.infradead.org,
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>,
+	Chuck Lever <cel@kernel.org>,
+	Yongjian Sun <sunyongjian1@huawei.com>,
+	Hugh Dickins <hughd@google.com>,
+	NeilBrown <neil@brown.name>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] riscv: signal: check the full syscall return value for a restart
-Date: Sat, 17 Oct 2026 22:42:15 -0400
-Message-ID: <20261018024215.798849-1-nickolai@csail.mit.edu>
+Subject: [PATCH v1] libfs: end the readdir walk when no entry is left at or below ctx->pos
+Date: Sat, 17 Oct 2026 22:45:48 -0400
+Message-ID: <20261018024549.798968-1-nickolai@csail.mit.edu>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -39,135 +42,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A system call that returns a 64-bit value whose low 32 bits happen to
-equal one of the -ERESTART* codes is restarted or turned into -EINTR
-when a signal is pending on the way back to user space. lseek() returns
-the new file offset, so lseek(fd, 0x1fffffe00, SEEK_CUR) followed by a
-signal with an SA_RESTART handler runs the lseek() a second time and
-leaves the offset at 0x3fffffc00; without SA_RESTART the call fails with
-EINTR after it has moved the offset. With a SIGALRM interval timer of
-20 us, 2337 out of 2000000 such lseek() calls moved the offset twice and
-2695 out of 2000000 returned EINTR. brk() can return an arbitrary
-address the same way, and a value ending in 0xfffffdfc goes through
-restart_syscall() with whatever restart_block.fn the task last set.
+On tmpfs, a getdents64() call that continues a directory listing
+returns the whole directory again if the entry it was due to resume at
+has been unlinked and no entry with a lower offset is left.  "ls" or any
+other readdir loop then reports every name twice.  It is enough that the
+oldest entry in the directory is removed while a listing that has
+returned all the other entries has not yet reached the end: create five
+files, read them one getdents64() call at a time until only the oldest
+is left, unlink it, and the next call returns the four newer names
+again instead of 0.  No privilege is needed beyond write access to the
+directory.
 
-arch_do_signal_or_restart() reads regs->a0 into an int, which drops the
-upper half of the return value before it is compared with -ERESTARTSYS
-and friends. The code before the restart handling was moved out of
-handle_signal() switched on the unsigned long a0 and was not affected.
+offset_iterate_dir() walks d_children from the newest entry towards
+the oldest and leaves ctx->pos at the offset of the next entry to emit.
+On the next call offset_dir_lookup() maps ctx->pos back to an entry
+with mas_find_rev(), which returns the entry at ctx->pos or, if that
+one is gone, the next older one.  When nothing is left at or below
+ctx->pos it returns NULL, and find_positive_dentry(parent, NULL, false)
+treats NULL as "start at the first child", so the walk restarts at the
+head of the list.
 
-Keep the return value in a long. Compat tasks see only the low 32 bits
-of a0, and a 32-bit tracer writes it zero-extended, so sign-extend it
-from 32 bits for them as before.
+mas_find_rev() came in with commit f70681e9e606 ("libfs: Fix
+duplicate directory entry in offset_dir_lookup"); with the forward
+mas_find() it replaced, NULL meant that nothing had been emitted yet and
+restarting at the head was right.  With the reverse search NULL means
+that every remaining entry has already been emitted, so return NULL and
+let offset_iterate_dir() report the end of the directory.
 
-Tested with the program in the notes on QEMU virt (riscv64 defconfig):
-the offset is moved exactly once and no EINTR is returned with the patch.
+Reproduced on x86_64 under QEMU with the program in the notes: before
+the change the call after the unlink returns file4..file1 again, after
+it returns 0.
 
-Fixes: ce4f78f1b53d ("riscv: signal: handle syscall restart before get_signal")
+Fixes: f70681e9e606 ("libfs: Fix duplicate directory entry in offset_dir_lookup")
 Assisted-by: LLM
 Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 ---
 
 Notes:
-    Reproducer (static riscv64 binary run as /init's child on QEMU virt, -smp 2;
-    riscv64-linux-gnu-gcc -O2 -static -o lseek_restart lseek_restart.c):
+    Reproducer (root, mounts a tmpfs on /t; any kernel since v6.14):
     
-    #define _GNU_SOURCE
-    #include <errno.h>
-    #include <fcntl.h>
-    #include <signal.h>
-    #include <stdio.h>
-    #include <string.h>
-    #include <sys/time.h>
-    #include <unistd.h>
+      gcc -O2 -static -o offset_eod offset_eod.c && ./offset_eod
     
-    #define OFF 0x1fffffe00LL	/* low 32 bits read as -ERESTARTSYS */
+      /*
+       * List a tmpfs directory one entry per getdents64() call until only the
+       * oldest file is left, unlink that file, then call getdents64() again:
+       * the directory must be at its end.
+       */
+      #define _GNU_SOURCE
+      #include <fcntl.h>
+      #include <stdio.h>
+      #include <string.h>
+      #include <sys/mount.h>
+      #include <sys/stat.h>
+      #include <sys/syscall.h>
+      #include <unistd.h>
     
-    static volatile long nsig;
+      struct d64 {
+      	unsigned long long ino;
+      	long long off;
+      	unsigned short reclen;
+      	unsigned char type;
+      	char name[];
+      };
     
-    static void handler(int sig)
-    {
-    	nsig++;
-    }
+      #define NFILES 5
     
-    static void run(int fd, int flags, const char *name)
-    {
-    	struct sigaction sa;
-    	struct itimerval it = { { 0, 20 }, { 0, 20 } };
-    	long i, moved = 0, eintr = 0;
+      int main(void)
+      {
+      	char buf[40], path[64];
+      	int fd, i, n, seen = 0, dups = 0;
+      	long r;
     
-    	memset(&sa, 0, sizeof(sa));
-    	sa.sa_handler = handler;
-    	sa.sa_flags = flags;
-    	nsig = 0;
-    	sigaction(SIGALRM, &sa, NULL);
-    	setitimer(ITIMER_REAL, &it, NULL);
+      	mkdir("/t", 0755);
+      	if (mount("tmpfs", "/t", "tmpfs", 0, NULL))
+      		perror("mount tmpfs");
+      	mkdir("/t/d", 0755);
+      	for (i = 0; i < NFILES; i++) {
+      		snprintf(path, sizeof(path), "/t/d/file%d", i);
+      		close(open(path, O_CREAT | O_WRONLY, 0644));
+      	}
+      	fd = open("/t/d", O_RDONLY | O_DIRECTORY);
+      	/* newest first: file4 .. file1, file0 still to come */
+      	while (seen < NFILES - 1) {
+      		r = syscall(SYS_getdents64, fd, buf, sizeof(buf));
+      		if (r <= 0)
+      			return 1;
+      		for (n = 0; n < r; n += ((struct d64 *)(buf + n))->reclen) {
+      			struct d64 *d = (struct d64 *)(buf + n);
     
-    	for (i = 0; i < 2000000; i++) {
-    		off_t r;
+      			if (d->name[0] != '.')
+      				seen++;
+      			printf("listed %s\n", d->name);
+      		}
+      	}
+      	unlink("/t/d/file0");
+      	printf("unlinked file0\n");
+      	while ((r = syscall(SYS_getdents64, fd, buf, sizeof(buf))) > 0) {
+      		for (n = 0; n < r; n += ((struct d64 *)(buf + n))->reclen) {
+      			printf("listed again %s\n", ((struct d64 *)(buf + n))->name);
+      			dups++;
+      		}
+      	}
+      	printf("%s: %d entries after the unlink\n", dups ? "FAIL" : "PASS", dups);
+      	return dups != 0;
+      }
     
-    		lseek(fd, 0, SEEK_SET);
-    		r = lseek(fd, OFF, SEEK_CUR);
-    		if (r == OFF)
-    			continue;
-    		if (r == -1 && errno == EINTR)
-    			eintr++;
-    		else if (r == 2 * OFF)
-    			moved++;
-    		else
-    			printf("%s: unexpected %#llx\n", name, (long long)r);
-    	}
-    	memset(&it, 0, sizeof(it));
-    	setitimer(ITIMER_REAL, &it, NULL);
-    	printf("%s: %ld signals, %ld calls moved the offset twice, %ld returned EINTR\n",
-    	       name, nsig, moved, eintr);
-    }
+    Before (master 70dd4ee72eb2, x86_64 defconfig, QEMU):
     
-    int main(void)
-    {
-    	int fd = open("/lseek-test", O_RDWR | O_CREAT, 0600);
+      listed .
+      listed ..
+      listed file4
+      listed file3
+      listed file2
+      listed file1
+      unlinked file0
+      listed again file4
+      listed again file3
+      listed again file2
+      listed again file1
+      FAIL: 4 entries after the unlink
     
-    	if (fd < 0) {
-    		perror("open");
-    		return 2;
-    	}
-    	run(fd, SA_RESTART, "SA_RESTART");
-    	run(fd, 0, "no SA_RESTART");
-    	return 0;
-    }
-    
-    Before:
-    SA_RESTART: 283700 signals, 2337 calls moved the offset twice, 0 returned EINTR
-    no SA_RESTART: 246693 signals, 0 calls moved the offset twice, 2695 returned EINTR
     After:
-    SA_RESTART: 306854 signals, 0 calls moved the offset twice, 0 returned EINTR
-    no SA_RESTART: 278090 signals, 0 calls moved the offset twice, 0 returned EINTR
+    
+      listed .
+      listed ..
+      listed file4
+      listed file3
+      listed file2
+      listed file1
+      unlinked file0
+      PASS: 0 entries after the unlink
 
- arch/riscv/kernel/signal.c | 4 +++-
+ fs/libfs.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/arch/riscv/kernel/signal.c b/arch/riscv/kernel/signal.c
-index 59784dc117e4..b1e92b969d96 100644
---- a/arch/riscv/kernel/signal.c
-+++ b/arch/riscv/kernel/signal.c
-@@ -499,7 +499,7 @@ static void handle_signal(struct ksignal *ksig, struct pt_regs *regs)
- void arch_do_signal_or_restart(struct pt_regs *regs)
- {
- 	unsigned long continue_addr = 0, restart_addr = 0;
--	int retval = 0;
-+	long retval = 0;
- 	struct ksignal ksig;
- 	bool syscall = (regs->cause == EXC_SYSCALL);
- 
-@@ -508,6 +508,8 @@ void arch_do_signal_or_restart(struct pt_regs *regs)
- 		continue_addr = regs->epc;
- 		restart_addr = continue_addr - 4;
- 		retval = regs->a0;
-+		if (is_compat_task())
-+			retval = (int)retval;
- 
- 		/* Avoid additional syscall restarting via ret_from_exception */
- 		regs->cause = -1UL;
+diff --git a/fs/libfs.c b/fs/libfs.c
+index 27d7dc16fcb0..6ebffad7c028 100644
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -485,7 +485,9 @@ offset_dir_lookup(struct dentry *parent, loff_t offset)
+ 	else {
+ 		rcu_read_lock();
+ 		child = mas_find_rev(&mas, DIR_OFFSET_MIN);
+-		found = find_positive_dentry(parent, child, false);
++		/* nothing at or below @offset: no entry is left to emit */
++		if (child)
++			found = find_positive_dentry(parent, child, false);
+ 		rcu_read_unlock();
+ 	}
+ 	return found;
 
 base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
 -- 
