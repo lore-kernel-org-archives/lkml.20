@@ -1,75 +1,70 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012070.outbound.protection.outlook.com [52.101.43.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8517F4CF494
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:45:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792309535; cv=none; b=ryBl7r7+nqlbU0Wa9b+Fl3Whmqrz1B5IcZQ1LqUb58SvQyEGjfPQ4yudLwlPfBupmNdhUJt67RULgp4oUaJPPu1mC3ZIM6a5HEN03lHtf6KwIPAJnOol3FUD3pX2023U8RXwyVyVdRj/UjvTonvi/1hwvcFlktyEPYS6hpRoIxM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792309535; c=relaxed/simple;
-	bh=c4rty2Vnziwjh/LMTOhbLoNjoNaakNpOcQrNVlkkzo0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cG6VbAPm1UTdkhzy2B/edBibZWc2Oti2fIRSG7o2lT/2fo140m44X68XaoqzSKGnZHChw/VifWI3N1drcvt09rWxGR6McHUNKqewFuKWcu9BkZbXp8B32e5OpMnHnsBXwsm76g2Zf6v2wsJhAer0Og68jsokARRFlv//pH72xxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i5nFIBfW; arc=none smtp.client-ip=209.85.128.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6AB4CF47E;
+	Sun, 18 Oct 2026 07:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792309583; cv=fail; b=uybXhdD5ad10DUdkbnmn/KpURNmz+QwiDzdGU7Eiz/9bMoIRhYxal9FNLEa0gpFqiNHmU5Hu5xe3D6lmUShHtKmkEDzZtbbIuIOuSWCGWplQygr4sIa8jbPodl4KAl2CR7V+qQ9dPC8YNRSVxhCkIHLWfE8khsWz4hYqFZJRhXY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792309583; c=relaxed/simple;
+	bh=KAkl97wv2dFAl6vZ81kI8V4pY8uHfeQj4Iw72Bq4vO8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Y57wcqeo2VhqTTTNBkO1PcNpfhFdYNl3wf+x3kkHKr+LhPvMoT4PxA5SICw/30DdAKx3TNF+qZVYmRg2iAv9G4S+nnv6fRIruwq0Ej23dU7gOcV8VAsGL2GvtZ5mlcCb/dU0hvbbTetDVes5DwmNEJlRNl1oIn3+L/EtoYmwPFk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GJwDXdTg; arc=fail smtp.client-ip=52.101.43.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i5nFIBfW"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b0f59a5fdeso6036547b3.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 00:45:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792309533; x=1792914333; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gRK86LcQ1Gjf003ljRxiOMmeLuULLnOz7TULLZT/4gg=;
-        b=i5nFIBfW/4w+3gwpbtc8wFKtdyfhpLDGEzx/cbQ20Zpr0aLQIAQpmGSqwlUFfbjm3M
-         6NiGeOSCBR4P4YUct89KFh0Arkz3phmqS7/uniObYI9nuYlPLBKeg9C+PuKPy6g/hj6M
-         sM7FXs9YrkmYHwlWCX9zjgWVhQvEWx9LZ32aN1PbNaAv2ZzE5ITi/aK/kXOk+Tp5VdQA
-         FEz2o2T1RQmTkAHNfGbvmh6JO5bmAtChzzmXcCYU3OR/ufPFyYrRhI3yspHIch73Tn23
-         LSPUZ/obsVEP58LTAP75vdPFRjLdZWY3C5AX2u8XKZbCkFrW+MLJaCJcv1qxrngCl20q
-         3vjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792309533; x=1792914333;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gRK86LcQ1Gjf003ljRxiOMmeLuULLnOz7TULLZT/4gg=;
-        b=IGLKlhOx5Bdv3IgQep15Kc4bVdeX2LwttGyeYMtweHBGJxdv9VmZ+XSHqB65ujYkpk
-         ehCfR5KnMnJK5ZcPno7Yd1bqGCh8wIiRaO7FNWtZePbbLu+H7mEOkhaxHfXfJbzG+2zv
-         mSCDYqL+qVOdTZnwj4Pw+owfQoUdtr6m0lxq3j9vHRzoqMmmVsA4F6nm8C693rLG2Pfd
-         mOqe2YcNlNQ1xzJvAW0mXpjzQHky66tHzH0RX84KftXgeH1roKstdOhNxVgHEgI3bvQX
-         ioegXsZlQt5WOyD1YpJLrzDO2mHYn1jbmsaO26spedhxI0sfM5uF87p9v/7ETITVe481
-         8dqg==
-X-Forwarded-Encrypted: i=1; AKwUvBzRHs3qtal56dyibAQNllwLbcipCQlOGOZwejDyRLRGnfRNE9EHBfadCUOF+CvPdh7mNa7I3SVoFdPkokk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKn7dpcOH9Kils4ml9LijvAbNtoUrhu8uKV7a+eKh0nglmiHBvd
-	79YYkYtfO3uoBgLEFm4rJPrRLq8w6bRJsNWfdVNmHNVUB1gUGQr8b9ga
-X-Gm-Gg: AYBFou2401QMPZOJeb8kDGNZLDrJXDzk1BGTtxCZDMuXctokmeNUAJRGI1eH2Uh2ILD
-	3maXom3WkaWJbNwu7JKMsUHvgkN3+abW7izYicmY2ImY89WIj2zvUQldKegV2bezmLi3p6bkFbU
-	9xm5cs+DxHs58kqKku7MvaClL5JkbE3cQyo07mt/eakXqhQ9IbwTuBsoeGZD2RBhUM43tLhG4yd
-	MuaMZJpV3ZLl61XFPRuMpHdsCO1sVHHRoedtx4p11nNJeuEdF63KgioJaJ8yGC3K4/lYAWGSnDK
-	IKueVBVMNqDjXC1DBi02jwZ2Lb9Gd1DXpCII4GYdd4RM0rkR4CbeDMusoTUOqm7pZzQkY720cex
-	ssFS1c8hw0KkFNOCLE44zQXVoo3Rmb9ZtgB/kwa1ml01RGuO+C3nXJYkYVPJ4sI/gYr9wSnY28A
-	o88AfCIVQ0NYWCt/tQ+a84jeqIMm1rOoqqkVA4skTiJgf+zVmA4yd7RfxYKyQ14XLjUAFSm92/R
-	78ocwiKbj9bPLsZUyPSDwgxrg==
-X-Received: by 2002:a05:690c:588:b0:8b0:d4bb:c9e7 with SMTP id 00721157ae682-8b0f21eb43fmr16299907b3.46.1792309533213;
-        Sun, 18 Oct 2026 00:45:33 -0700 (PDT)
-Received: from codey.attlocal.net ([2600:1700:22f5:3930::a])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e57297a5sm28084257b3.4.2026.10.18.00.45.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 00:45:32 -0700 (PDT)
-From: Lalit Maganti <lalitmaganti@gmail.com>
-To: irogers@google.com,
-	acme@kernel.org,
-	namhyung@kernel.org
-Cc: james.clark@linaro.org,
-	adrian.hunter@intel.com,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lalit Maganti <lalitmaganti@gmail.com>
-Subject: [PATCH] perf python: Accept events larger than union perf_event
-Date: Sun, 18 Oct 2026 08:45:28 +0100
-Message-ID: <20261018074528.974953-1-lalitmaganti@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GJwDXdTg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bgDDgl05/cszD2nWPtP4mfP+yH23rsT9IMjbUzD+xQPKG4UF8+rgSODF6lTDLXhFHJlneHPtGpu0VXsKF6c/uIsfEjQl6GI28oM7hDK9ketiuBbBesXbzB4ygpjPIai2yDiOCSHUOmTlTmguDOTbfGuL46P+7isxWFGBx/XLjs32WXDOWR5pDNvdOOWz8ZjbsoW6JFzjRdV5FosGJcNWyvdXAcFiSDAQH6U/vHG8Xl8yEFwlG/AiaLM2kgQ43TKDG4dk3mBFg6GDBOCDx3yB5gFRtnImWHVI2u5DvM74ugbY5Sm+Xd7z8TXBvxKSKwDAt5j45dIjVHxB8QoTOexWWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dAc4nd8ZAs6yx/gaXSR0hj/WRnGJHzw7S9ug9Ukb7hU=;
+ b=mPQWGIKuk2+GygN0YT2AM1gS1ZUpZ++QKPHSvm5OEzIdyNwMbboYK/qQiA03Km/KGMDjo+F2Ju0GbdMLLrrakp/Q15I+bUJ2LZreNJ7ryHE5jk1/gCpQL0HyjkOTEGFeWtGMP2YVDumwXCF7Qd7cAjWdICuEKsrFUAfOgvs3/UzMKrFbj2ojFdZrk5LOpy1qZSlr8P7u0Ytb6sFSNNbHZ+lFZUIxQJ10WECc6AKAOlEhcZbfJO0RWuYyjjFW57i6cIlPzToVd5VXDyl4cNV87FuuBfGigLntfYQDJQYmz7gxHQUx9x58ylMjYCJJ7cqkx7VuFFfH+XBj7YP9Awvkmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dAc4nd8ZAs6yx/gaXSR0hj/WRnGJHzw7S9ug9Ukb7hU=;
+ b=GJwDXdTghluN05TZ35PmMULvxiU/N7y12sqUejo/suwRcOZKMvaxdXPYABl/onT6hE8az4USkbzkoP4LStmSPX4I6rOv0ZvizMvVSiEjxOgGF9DF2wfoEn1mm/QvJOC36SJLBPGU5ykRYc8lo4FnnAnYF16aiOtQQJq5i1t+Wgk=
+Received: from SJ0PR03CA0182.namprd03.prod.outlook.com (2603:10b6:a03:2ef::7)
+ by DM4PR12MB5842.namprd12.prod.outlook.com (2603:10b6:8:65::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Sun, 18 Oct
+ 2026 07:46:15 +0000
+Received: from PH4PEPF0000B60A.namprd21.prod.outlook.com
+ (2603:10b6:a03:2ef:cafe::84) by SJ0PR03CA0182.outlook.office365.com
+ (2603:10b6:a03:2ef::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.18 via Frontend Transport; Sun,
+ 18 Oct 2026 07:46:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ PH4PEPF0000B60A.mail.protection.outlook.com (10.167.243.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.0 via Frontend Transport; Sun, 18 Oct 2026 07:46:14 +0000
+Received: from sunstone-2e07host.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Sun, 18 Oct 2026 02:46:06 -0500
+From: Akshay Jindal <Akshay.Jindal@amd.com>
+To: <iommu@lists.linux.dev>
+CC: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, Vasant Hegde
+	<vasant.hegde@amd.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon
+	<will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	<linux-kernel@vger.kernel.org>, Akshay Jindal <Akshay.Jindal@amd.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] iommu/amd: Skip non-IVMD entries when parsing IVRS memory definitions
+Date: Sun, 18 Oct 2026 07:45:49 +0000
+Message-ID: <20261018074549.1493086-1-Akshay.Jindal@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,53 +72,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH4PEPF0000B60A:EE_|DM4PR12MB5842:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb9f6dac-a265-4771-7f93-08df2cebe2d8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|56012099006|11063799006|261009223027099003|10067099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	pSFROKchFGmCQyd78FfsUtd7O2tQgmXpd2BD+vRW3mSiqo3I4DqnYSK6tEM1KOLC6TLIIZ18ZoZY2G4VnWBXnROldqcbE1SYVLJ0P55HC6IqeMOMUgDUrFLpQceiKVnTILqqWOE+8Mk9Osv+Oy2Vq895b0sK1sQ+bsuxjINd5ZqUvqC5LfOqDoqG9gTb8LydKDMrrQFYlatzhIqLPdrcLdTxRi34XLQ+dd1fzozS9m7iJsZGgKeuWm6lNJIxxIuUe98UiRxAfcr1yBLlebffpp8agXq+aXEzmsqApvIBSkfMKpWB6IyKvU/r7HyoWhOPCz46Jeer3p6jbPWJf1pBzpN07+PMFelMd+4iEA/9cer9sZlZOt/Cn+qI6w2ZYpASjxj/jgVzq2cS6gr3D6lblg5T7QAgntbBC6V/WD0e0BsdgxeC6CGEvb6F9XCJS3gLnfZfMZfamBwB5lwjLz7PshpSkEe4ctgbbgNENCBIZZDklNby+sAIdsYobaWnTzgoYJin4Jwbiqj30zaASX4nCs8krG0VHf/JdAf7XHGK5/iBEY7WFoltfskaAJbKADno8x18B2Mot3st9KoVaigjd4y0AFCAKIv4isO41YNys7mnv0BPq0qN/kBp5r2uz9X/JtTHi5FJTAxypqXaPTKmskyFSkm7IBodBcFdaxxlXNuDm9jadAoN4uShA9+jh2GVQxBQmrkFECKpTgIofBdQvw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ySmszDwPvAX4kbqZx5FiYXckV6WtBkgMHGALLP7iuO3ii3wlcrmetjJfi9R8cFM6nhSqB6lv5sfx/ypMO3OEL2/S13Etkv9z/9anV78xkWz6ibVFqkfpRs73/pIiGVq1pXMmgbi4zI79ORXDVXuW4HoQeZ35KRikrh5H2f9p549Bg6kIqvIlJfcE7wxNhxDnRrSkE4Y0urA/5aV6nT0Gnp9wpNNmzGjP0irx0QD1UioJ5EPMqe6as35F9UI7pqy7Ha8NzCxRBwmzClYDu6+VDr+RNFu6EIUnDEQKRP4iaNhroab/dDuqpWDnvkXxUjxa/HYQdkDZLUEIEyro5riyHh1rKJX98ac9oF+XWkEZTsAOOXrGRM2CpWT8+ofc1PYmr1+U5SUWMIrEslMQP+peNsVBdk3zMBgjTfrd30N/GCi1cb7VlvSlqXByqZmsicAt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2026 07:46:14.3551
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb9f6dac-a265-4771-7f93-08df2cebe2d8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH4PEPF0000B60A.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5842
 
-Samples recorded with --call-graph dwarf carry a copy of the user stack
-and are larger than union perf_event, so session.process_events()
-fails on the first one:
+init_memory_definitions() walks every top-level subtable including the
+IVHD blocks (type 0x10/0x11/0x40) in the IVRS ACPI table. It interprets
+each one as a 'struct ivmd_header', solely on m->flags, without first
+checking that the subtable's type actually is one of the IVMD types
+(ACPI_IVMD_TYPE, ACPI_IVMD_TYPE_ALL, ACPI_IVMD_TYPE_RANGE).
 
-  $ perf record --call-graph dwarf -- ./workload
-  $ python3 tools/perf/python/stackcollapse.py
-  ...
-  TypeError: Unexpected event size: 4168 < 8424
+    if (m->flags & (IVMD_FLAG_UNITY_MAP | IVMD_FLAG_EXCL_RANGE))
+            init_unity_map_range(m, table);
 
-This makes all the standalone scripts unusable on such recordings.
+IVMD_FLAG_UNITY_MAP (0x01) occupies the same bit position as the IVHD
+flags field's HtTunEn bit. Unlike real hardware, QEMU's AMD IOMMU
+emulation sets HtTunEn unconditionally (flags=0xD1 for type 0x10,
+0x11 for type 0x11), so every QEMU-emitted IVHD block is misidentified
+as a unity-map/exclusion-range IVMD entry, which subsequently results
+in the creation of a bogus pci segment. Eg:
 
-pyrf_event__new() rejects events larger than union perf_event, which
-guarded the copy into the union that pyrf_event used to embed. Since
-commit 2c672ffdad4b ("perf python: Lazily copy events and samples from
-process_events") the event is borrowed, or copied to a buffer of
-header.size bytes when a callback keeps it, so nothing depends on the
-event fitting in the union any more. Remove the check.
+    AMD-Vi: PCI segment : 0x4000, last bdf : 0x0000
 
-With this, stackcollapse.py and flamegraph.py process a DWARF recording
-of a two-thread workload, with the same per-symbol sample counts as
-perf script, also when the callback keeps the events after returning.
+Fix by checking the subtable's type before treating it as IVMD.
 
-Assisted-by: LLM
-Signed-off-by: Lalit Maganti <lalitmaganti@gmail.com>
+Fixes: be2a022c0dd0 ("x86, AMD IOMMU: add functions to parse IOMMU memory mapping requirements for devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Akshay Jindal <Akshay.Jindal@amd.com>
 ---
- tools/perf/util/python.c | 5 -----
- 1 file changed, 5 deletions(-)
 
-diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
-index 60dbe2dad5eb..8b4b2f3d0926 100644
---- a/tools/perf/util/python.c
-+++ b/tools/perf/util/python.c
-@@ -1792,11 +1792,6 @@ static PyObject *pyrf_event__new(const union perf_event *event, struct evsel *ev
- 				    event->header.size, event->header.type);
+Testing:
+========
+- Reproduced via amd_iommu_dump=1 on a QEMU multi-IOMMU (pxb-pcie)
+  topology; confirmed "PCI segment : 0x4000, last bdf : 0x0000"
+  no longer appears after the fix.
+- Verified IVHD device-entry parsing (DEV_SELECT/RANGE/SPECIAL) is
+  unaffected by diffing amd_iommu_dump=1 output before/after.
+- Booted real hardware (IVHD flags=0xB0, HtTunEn clear) to confirm
+  no regression; this bug was not observable there to begin with.
+
+ drivers/iommu/amd/init.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+index 8ec8a6fccaaf..00e1d0be749f 100644
+--- a/drivers/iommu/amd/init.c
++++ b/drivers/iommu/amd/init.c
+@@ -2716,6 +2716,15 @@ static int __init init_unity_map_range(struct ivmd_header *m,
+ 	return 0;
+ }
+ 
++static bool ivrs_block_type_ivmd(u8 type)
++{
++	if (type == ACPI_IVMD_TYPE ||
++	    type == ACPI_IVMD_TYPE_ALL ||
++	    type == ACPI_IVMD_TYPE_RANGE)
++		return true;
++	return false;
++}
++
+ /* iterates over all memory definitions we find in the ACPI table */
+ static int __init init_memory_definitions(struct acpi_table_header *table)
+ {
+@@ -2727,10 +2736,11 @@ static int __init init_memory_definitions(struct acpi_table_header *table)
+ 
+ 	while (p < end) {
+ 		m = (struct ivmd_header *)p;
++		p += m->length;
++		if (!ivrs_block_type_ivmd(m->type))
++			continue;
+ 		if (m->flags & (IVMD_FLAG_UNITY_MAP | IVMD_FLAG_EXCL_RANGE))
+ 			init_unity_map_range(m, table);
+-
+-		p += m->length;
  	}
  
--	if (event->header.size > sizeof(union perf_event)) {
--		return PyErr_Format(PyExc_TypeError, "Unexpected event size: %zu < %u",
--				    sizeof(union perf_event), event->header.size);
--	}
--
- 	pevent = PyObject_New(struct pyrf_event, pyrf_event__type[event->header.type]);
- 	if (pevent == NULL)
- 		return PyErr_NoMemory();
-
-base-commit: 1c90f0a3c8a1c4e38f9edd97af9e20848805a7fb
+ 	return 0;
 -- 
-2.56.0
+2.43.0
 
