@@ -1,78 +1,86 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FCF235C692;
-	Sun, 18 Oct 2026 22:36:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68694078FE;
+	Sun, 18 Oct 2026 22:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792363011; cv=none; b=JEVq6ZmjBPVL8BHt3U1N0CAxQiLlGq54DbwYBh0AZ/ovLmrybPmXFXtLAK5d3HRhSHuZAcArjd0MoL9pzJsBR75JWNyMsml5C1J+9GazCrYIMFmP4vb2UbKuVLMw3nYr0tr6lqjfP0qonAgnljA1YjzX34gz0YndWI8U8uPKcYM=
+	t=1792363040; cv=none; b=QI2jnrz5U4uuOoHHcRKJ67H6jF7qB1wZYqT87smfpLLEd/fBU2F7XVo2+72FRzHVGLisM47ngMOvBeLh1mNy7/xP4RiBTtUqFJUTAtZtBP1lVItQgAIszkiBCx3dNLTOqWsBzWRXhbH7tVLcbUOcNHxfH3LHA/PPACCZeZ2BuRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792363011; c=relaxed/simple;
-	bh=ZeewAg9wYSyurcD5dxynwnZUpu/Yk4R4eIqDhPBdPU4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kvRahYHBlZnbPp6axf+OREUuDmYNAxZWPX7rsllhZNackPK628IQ6ok031FCqATrSyhQ+oYjoswaxT4rlJCPVa5ykKHT4tKOObS2AwRgvgKbhKsnoSwTbJIKG/gat7Vdwo4TIcbVL7gfiJOvudpci7/lJL1stEGEeGZMuOewMkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=pz3fXrXP; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1792363040; c=relaxed/simple;
+	bh=UBuprx3+gAQtfinB2Bh85hyB9tcv2lYohL3gHhjC9a0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qm14vcazjnvaFWkKiaolJIVdz9rHWEXKKO7/G1kX+Kyqc+zU+LxuOpRj6pzdcG+NTYEfqqDpxsB60VZIKJ/tAfOrJZdoNeZVrAjvSwMCalpKnCceONoehZ1x2pxV6O7SlauHBvvpxdkmuReP9G2R7Ga5hX6tXsjCYoG/aEqy3GU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ULxi0fEN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="pz3fXrXP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=5fIsGMGoebHtNXp30RZKr7vIRqrvytc5rBOOxkQ7c3A=; b=pz3fXrXPoxQZReonwN2KlN2hFK
-	H+GPdYWDZPve8ZaSre5JF/qPkINZO5ZmmuL5WFkIinzze4adySCuFkZtLoOwkNbIe3SSsLYnVmOa+
-	kytXVJFcZMlWZYW11bHiYzKG4VYGNkNcASa9t3c1wYRkthkYC/6DDSakKlMZPWaBsnHs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xIZUS-00BX0t-3B; Mon, 19 Oct 2026 00:36:28 +0200
-Date: Mon, 19 Oct 2026 00:36:28 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Ross Cawston <ross@r-sc.ca>
-Cc: lee@kernel.org, pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, chris.packham@alliedtelesis.co.nz,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] leds: add Realtek RTL9300 port LEDs under software
- control
-Message-ID: <59f75e7d-9b56-441d-a4b5-58ad3862267e@lunn.ch>
-References: <20261018194339.132-1-ross@r-sc.ca>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ULxi0fEN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CD431F000C4;
+	Sun, 18 Oct 2026 22:37:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792363039;
+	bh=E2qpwMKbvIabL7Fm/yRT68Ksi57dQztpeO83C0o6OuA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ULxi0fENT1ULSbJFKkVetQWZDG1hDEXtXMFGB+6PRRTNqD3Ff3+LFNxHYGADnfY37
+	 6jN5eGhRwOZ/e+NDQHzid67FtUiH4iD+GifKnzlbCxLh3QimLZbdUZREoVjDYSYdnO
+	 ZL+H3b9ExidlZk0nGKlJC+urN1NQCNehlJBw3Cu58q4N/KDBmflvh0qrKWmDuw8LH5
+	 NBhDFSOb9+ZtcDGnJgyeo4uIe//nKkXr1AuLCSNpytCcESyWH49xYiKscFaW+EkvzK
+	 2OQKyieBZ10T66IDCHXeLVX0hOqR1iMDQ2yObHApNPencommjISxr66Un0f3MddcM4
+	 yAxbz9XAfoTBQ==
+Date: Sun, 18 Oct 2026 23:37:11 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Leonard Crestez <cdleonard@gmail.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] iio: trigger: Return an error when the trigger has no
+ free irq
+Message-ID: <20261018233711.133a80f0@jic23-hlaptop>
+In-Reply-To: <20261006084352.00006689@gmail.com>
+References: <20261006034147.2370-1-kmehltretter@gmail.com>
+	<20261006084352.00006689@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018194339.132-1-ross@r-sc.ca>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 18, 2026 at 12:43:35PM -0700, Ross Cawston wrote:
-> The RTL9300 switch drives up to four LEDs per port over its LED
-> interface, serial or scanned, each normally showing a hardware function
-> chosen by the LED set of the port. Some boards wire LEDs to it that have
-> no hardware function and that the vendor firmware switches in software,
-> such as the PoE status LEDs of the MokerLink POE-10G07110GSM.
+On Tue, 6 Oct 2026 08:43:52 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+
+> On Tue,  6 Oct 2026 05:41:47 +0200
+> Karl Mehltretter <kmehltretter@gmail.com> wrote:
 > 
-> This series adds a binding for such LEDs as a child of the switch, like
-> its I2C and MDIO controllers, and a driver that takes them under
-> software control and exposes them as LED class devices.
+> > iio_trigger_attach_poll_func() prints an error when all
+> > CONFIG_IIO_CONSUMERS_PER_TRIGGER irqs of the trigger are in use, but
+> > returns 0. The buffer of the extra consumer is enabled without a poll
+> > function.
+> > 
+> > Disabling that buffer calls clear_bit() with a negative bit number and
+> > drops a module reference for the second time. On arm and arm64 the
+> > clear_bit() goes about 512 MB past the pool bitmap. That is an oops if
+> > the address is not mapped, and a bit cleared in unrelated memory if it
+> > is.
+> > 
+> > Return the error from iio_trigger_get_irq().
+> > 
+> > Fixes: 995438233579 ("iio: Fix error handling in iio_trigger_attach_poll_func")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> > ---  
+> 
+> A 10 year old bug. Nice find!
+> 
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> 
+Applied to the fixes-togreg branch of iio.git.  Thanks,
 
-This is an odd architecture when compared to other switch drivers with
-LEDs.
+Jonathan
 
-Port LEDs should be within the port node of the switch in DT. Ideally
-you want all LEDs for a port to start the with basics, on/off control.
-That gives the minimum, enough that you can make them software blink
-on traffic, show link speed, poe, shift lock, morse code panic dumps.
 
-If the LED has more capabilities, you can then advertise this, and the
-led triggers will offload blinking to the hardware. But this is an
-extension, not a requirement.
-
-So please don't make these LEDs special.
-
-	Andrew
