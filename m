@@ -1,130 +1,232 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05DBD3822B7;
-	Sun, 18 Oct 2026 19:14:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740833ECBDA
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:14:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792350849; cv=none; b=Fqqq6zEllXcx75rTvj6IbNTcPOaQYRnKQyuGk7snN+bbs1GdoHStRkTiH4kul8CaHb9V+WRqfxt1JpipQvHEcU57XoWgHVTS8w79oI/V94uBnzy5DwLEgSbmT6+QYVZ59kgQnlOSUC5tq5A1eRG2g/dOK61GsLl0HYC5YGwkClg=
+	t=1792350879; cv=none; b=f2aoeuppMh/GWM9WQX4+EqIW+Wx3RZ5klcLpuYOc+yARkiX+f1j5CRGrQwMI9arz09zfFLarnbJnBGkMnTHz9ymj1iw072khbN1LhDbzepA6dHVhzlM5xlcFyeNMA/m3nrXkuY6P/1xo7K+4Tn2qsixd+XWeJX0dQ4MshqaJkWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792350849; c=relaxed/simple;
-	bh=ZZ4Jr6igQloVs1kOy3pHxivzGlidTY6Iphg3SZY0OEs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DX6BtsXmBd7i10MSuyqMuaG6R3R8yJSfUfEXtM1DO/uHmRaJ6ayT0wtyFW5pbSXPRKXBUV9Kl7hNKCQkwwMCrELOwbO49sUKRrEd7GHCDea+DFZ19LsPH17EeG7dHu3SYtpaC+XVr7foMauTP5ywV5VArIzpjc+8f2gX3irv34c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=yPYY2r0i; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="yPYY2r0i"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=qHbV8LAtUSWSGGDa0h86rBDpCNFJieHVVQNqm9YZ5qo=; b=yPYY2r0i/4SBAk3Wp2l0SNL8ht
-	UhECU/Z+YTPeuUAGG4bK05uHGVaL9zmDZqEXfQpSxbMN8xQ53XZ/VsSLCh/3gbNaBOqCucVd18NNh
-	Odoib4cVuTRL0P2imPCAQ79rahZeX1PMcn30hXj9SuRp/KcfqjRUCi8YpdJmjnXyFHsA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xIWKI-00BWKf-O9; Sun, 18 Oct 2026 21:13:46 +0200
-Date: Sun, 18 Oct 2026 21:13:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Eric Woudstra <ericwouds@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: phy: air_en8811h: use firmware loaded by
- the bootloader
-Message-ID: <2d6df47b-2cc3-4003-85db-f72b878427d9@lunn.ch>
-References: <20261017180251.3618606-1-f@lex.la>
+	s=arc-20240116; t=1792350879; c=relaxed/simple;
+	bh=dv3THeCUFr1makUliMH5EFDp2IAiW1kqgoej/IOkhyU=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=SqwGsDUu5ilQCboN578Hj1UGlQv1g9rgiVk6pYMJaC/HqMCUkuW613b3LX6cD780F5l25tYbg8ZyAPGQsdKs8bQoFJDlZMkK0oFluSfim9nIgCyv+cDzQ/2hFUEz14tIauswGjNyVg3EsnMdhaBsU9TZ4F5mea+diy8zEmRjTB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f4612a1a5cso3671269b6e.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:14:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792350876; x=1792955676;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7lKzvKHoU99MM8OfPBlNDx5jzmgLz/gxzBoi65FPbRE=;
+        b=kse7BVDCpwbrQAolyLztxbsZpN/tidY+2HFLEj5dukQMQWnSD2TOKpyah2w7sJWsxL
+         5XiY7Rmh2E/t8OUavcLyV5yP9IWG3ayeF8/fA1kMEqBTR9cKyXtCsr+j5a0g7jpGGC2U
+         XGEjpmtTjke0WPL0Q2Jl80Y5bbUavbJwiboULTTTAIeIHVr291qNLDjwSQAReEqlVJRO
+         gl9/UaFrw70YuZqL4RwrpLB89qYeuBqtd260u78o274unrZ7T/m5es+ihtG7/OmWDUqz
+         PDvkClo2+0SSz5ZCAHLNjaFoY7jxWi1yjAbC18rJ1rcLx9kS1m2xMPKBGZLIFfHEzMu8
+         /dXw==
+X-Gm-Message-State: AFq9FYIvfxSvg7H6lr8gdvTN/AbVUAux/udJ84HNDp3i5871K0fr8BM6
+	qAYrpVWtAfPRbWp7V8K8FWsMruEvluCCLbmUZa9hhxLGyCjg67dOWCwe3VDBXQLzIUbJMVt4BXV
+	NAJoQ57+DMDv/b88C8HSvHhMe3YQBpD2opUgUjzsXVwdXMvTTIJJekroauaQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017180251.3618606-1-f@lex.la>
+X-Received: by 2002:a05:6808:1a0d:b0:4b8:4703:db90 with SMTP id
+ 5614622812f47-536fda8b0a9mr5366394b6e.25.1792350876373; Sun, 18 Oct 2026
+ 12:14:36 -0700 (PDT)
+Date: Sun, 18 Oct 2026 12:14:36 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad51a9c.a6d1a155.34a93f.00bb.GAE@google.com>
+Subject: [syzbot] [rdma?] possible deadlock in rds_trans_get_preferred
+From: syzbot <syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Oct 17, 2026 at 09:02:51PM +0300, Aleksei Sviridkin wrote:
-> On a Keenetic KN-1012 (MT7981) the EN8811H sits behind a port of an
-> MT7531 switch. The driver has to be built in there: as a module it loads
-> after DSA has validated the port against the generic PHY driver and
-> failed to set it up. Built in, it probes when the Ethernet MDIO bus is
-> registered, before the root filesystem is mounted, so
-> request_firmware_direct() fails with -ENOENT, the PHY stays without a
-> driver and the port never comes up, although the bootloader has already
-> loaded and started the MD32 firmware.
-> 
-> When the firmware files cannot be read and the MCU reports ready, keep
-> the running firmware and let the first .config_init() restart it, so the
-> PHY starts from a freshly started MCU as after a download rather than
-> from whatever state the bootloader left. Nothing changes when the files
-> are there. A board that relies on this must not give phylib a
-> reset-gpios line, as the pulse at registration stops the MCU. The
-> AN8811HB path is unchanged.
-> 
-> Tested on the KN-1012: with the bootloader load the PHY binds and links;
-> without it 0x8009 reads 0x0 and the probe fails as before; a rebind with
-> the files present downloads them as before.
-> 
-> Suggested-by: Andrew Lunn <andrew@lunn.ch>
-> Assisted-by: LLM
-> Signed-off-by: Aleksei Sviridkin <f@lex.la>
-> ---
-> This replaces "net: phylink: wait for a PHY that probes after the MAC"
-> https://lore.kernel.org/netdev/20261006124731.1528963-1-f@lex.la/
-> following Andrew's suggestion in
-> https://lore.kernel.org/netdev/b175c750-104a-4859-a137-09de78a6d8bb@lunn.ch/
-> 
->  drivers/net/phy/air_en8811h.c | 21 +++++++++++++++++----
->  1 file changed, 17 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
-> index a03d63dd4ac9..efe4e64d213a 100644
-> --- a/drivers/net/phy/air_en8811h.c
-> +++ b/drivers/net/phy/air_en8811h.c
-> @@ -518,6 +518,17 @@ static int an8811hb_load_firmware(struct phy_device *phydev)
->  	return en8811h_wait_mcu_ready(phydev);
->  }
->  
-> +/* No firmware files, but the bootloader may have started the MCU */
-> +static int en8811h_use_running_fw(struct phy_device *phydev, int err)
-> +{
-> +	if (phy_read_mmd(phydev, MDIO_MMD_VEND1, EN8811H_PHY_FW_STATUS) !=
-> +	    EN8811H_PHY_READY)
-> +		return err;
-> +
-> +	en8811h_print_fw_version(phydev);
-> +	return 1;
-> +}
-> +
->  static int en8811h_load_firmware(struct phy_device *phydev)
->  {
->  	struct device *dev = &phydev->mdio.dev;
-> @@ -526,11 +537,13 @@ static int en8811h_load_firmware(struct phy_device *phydev)
->  
->  	ret = request_firmware_direct(&fw1, EN8811H_MD32_DM, dev);
->  	if (ret < 0)
-> -		return ret;
-> +		return en8811h_use_running_fw(phydev, ret);
->  
->  	ret = request_firmware_direct(&fw2, EN8811H_MD32_DSP, dev);
-> -	if (ret < 0)
-> +	if (ret < 0) {
-> +		ret = en8811h_use_running_fw(phydev, ret);
->  		goto en8811h_load_firmware_rel1;
-> +	}
+Hello,
 
-Is it possible to figure out from the firmware blob what version it
-is?
+syzbot found the following issue on:
 
-There is no point spending time downloading firmware from the
-filesystem if it is the same or older than what is already in the
-device.
+HEAD commit:    70dd4ee72eb2 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1271a69c580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=44ac479246d4559b
+dashboard link: https://syzkaller.appspot.com/bug?extid=ccdb5058c3df2d94811c
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15b9618e580000
 
-	Andrew
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+kworker/2:3/5905 is trying to acquire lock:
+ffffffff9205e888 (rds_trans_sem){++++}-{4:4}, at: rds_trans_get_preferred+0xf7/0x2c0 net/rds/transport.c:100
+
+but task is already holding lock:
+ffff888014aed420 (&id_priv->handler_mutex/1){+.+.}-{4:4}, at: cma_ib_req_handler+0x16ff/0x5700 drivers/infiniband/core/cma.c:2450
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #2 (&id_priv->handler_mutex/1){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       cma_ib_req_handler+0x16ff/0x5700 drivers/infiniband/core/cma.c:2450
+       cm_process_work+0x46/0x440 drivers/infiniband/core/cm.c:1869
+       cm_queue_work_unlock+0x5d/0x250 drivers/infiniband/core/cm.c:933
+       cm_req_handler drivers/infiniband/core/cm.c:2235 [inline]
+       cm_work_handler+0x638d/0xc860 drivers/infiniband/core/cm.c:3849
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+       process_scheduled_works kernel/workqueue.c:3479 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #1 (&id_priv->handler_mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       rdma_destroy_id+0x1b/0x30 drivers/infiniband/core/cma.c:2124
+       rds_ib_laddr_check_cm net/rds/ib.c:489 [inline]
+       rds_ib_laddr_check+0x38b/0x730 net/rds/ib.c:511
+       rds_trans_get_preferred+0x15f/0x2c0 net/rds/transport.c:104
+       rds_bind+0x1a4a/0x2420 net/rds/bind.c:254
+       __sys_bind_socket net/socket.c:1945 [inline]
+       __sys_bind_socket net/socket.c:1937 [inline]
+       __sys_bind+0x1a9/0x260 net/socket.c:1976
+       __do_compat_sys_socketcall net/compat.c:450 [inline]
+       __se_compat_sys_socketcall net/compat.c:422 [inline]
+       __ia32_compat_sys_socketcall+0x4c7/0x770 net/compat.c:422
+       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+
+-> #0 (rds_trans_sem){++++}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_read+0x99/0x4c0 kernel/locking/rwsem.c:1574
+       rds_trans_get_preferred+0xf7/0x2c0 net/rds/transport.c:100
+       __rds_conn_create+0xad5/0x2650 net/rds/connection.c:252
+       rds_conn_create+0x44/0x60 net/rds/connection.c:384
+       rds_ib_cm_handle_connect+0x62b/0x1220 net/rds/ib_cm.c:860
+       rds_rdma_cm_event_handler_cmn+0x59f/0x9b0 net/rds/rdma_transport.c:91
+       cma_listen_handler+0x11a/0x180 drivers/infiniband/core/cma.c:2716
+       cma_cm_event_handler+0x99/0x300 drivers/infiniband/core/cma.c:2181
+       cma_ib_req_handler+0x1be2/0x5700 drivers/infiniband/core/cma.c:2461
+       cm_process_work+0x46/0x440 drivers/infiniband/core/cm.c:1869
+       cm_queue_work_unlock+0x5d/0x250 drivers/infiniband/core/cm.c:933
+       cm_req_handler drivers/infiniband/core/cm.c:2235 [inline]
+       cm_work_handler+0x638d/0xc860 drivers/infiniband/core/cm.c:3849
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+       process_scheduled_works kernel/workqueue.c:3479 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+other info that might help us debug this:
+
+Chain exists of:
+  rds_trans_sem --> &id_priv->handler_mutex --> &id_priv->handler_mutex/1
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&id_priv->handler_mutex/1);
+                               lock(&id_priv->handler_mutex);
+                               lock(&id_priv->handler_mutex/1);
+  rlock(rds_trans_sem);
+
+ *** DEADLOCK ***
+
+locks held by kworker/2:3/5905: 4, last CPU#2:
+ #0: ffff88804c131140 ((wq_completion)ib_cm){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3371
+ #1: ffffc900030dfd08 ((work_completion)(&(&work->work)->work)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3372
+ #2: ffff88802a6fc420 (&id_priv->handler_mutex){+.+.}-{4:4}, at: cma_ib_req_handler+0xef1/0x5700 drivers/infiniband/core/cma.c:2427
+ #3: ffff888014aed420 (&id_priv->handler_mutex/1){+.+.}-{4:4}, at: cma_ib_req_handler+0x16ff/0x5700 drivers/infiniband/core/cma.c:2450
+
+stack backtrace:
+CPU: 2 UID: 0 PID: 5905 Comm: kworker/2:3 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: ib_cm cm_work_handler
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ down_read+0x99/0x4c0 kernel/locking/rwsem.c:1574
+ rds_trans_get_preferred+0xf7/0x2c0 net/rds/transport.c:100
+ __rds_conn_create+0xad5/0x2650 net/rds/connection.c:252
+ rds_conn_create+0x44/0x60 net/rds/connection.c:384
+ rds_ib_cm_handle_connect+0x62b/0x1220 net/rds/ib_cm.c:860
+ rds_rdma_cm_event_handler_cmn+0x59f/0x9b0 net/rds/rdma_transport.c:91
+ cma_listen_handler+0x11a/0x180 drivers/infiniband/core/cma.c:2716
+ cma_cm_event_handler+0x99/0x300 drivers/infiniband/core/cma.c:2181
+ cma_ib_req_handler+0x1be2/0x5700 drivers/infiniband/core/cma.c:2461
+ cm_process_work+0x46/0x440 drivers/infiniband/core/cm.c:1869
+ cm_queue_work_unlock+0x5d/0x250 drivers/infiniband/core/cm.c:933
+ cm_req_handler drivers/infiniband/core/cm.c:2235 [inline]
+ cm_work_handler+0x638d/0xc860 drivers/infiniband/core/cm.c:3849
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+RDS/IB: Active conn connected <::ffff:172.20.20.170,::ffff:172.20.20.170,0> version 3.1
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
