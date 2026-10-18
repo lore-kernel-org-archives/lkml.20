@@ -1,54 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.domeneshop.no (smtp.domeneshop.no [194.63.252.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6903CDF76
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:03:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CEA13790B
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.63.252.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792310620; cv=none; b=RYtY5wX2khAbI/SkyGZW+XkGEBG1N4+eg8f62+ialIrTVyYieys6LutiJzfGKn4lv08a63xFF9AgwlvLEjMJWhboZNXWP+GkoD5riRtO4oV/0ryn6U++h4ErNEShGtwVbPgqxbZ6O7WD8GJ6jq1YSF4MrMYIS+vROo23haAz2mo=
+	t=1792310853; cv=none; b=GPlEulfK8Er9kqL4C3O3lFgyyrcBs3/uCa6WrkutZri+hi2PQlXwOuWJnPmcUXC8Hdn5K0sRjZcNz8jGhs+Jwt0Ae0unbhNvyIGpBTBUAMzPdKk1WbqEACiwCyTeDRg5wqJyDKpdGGayKrccxbsmS8JEfrxRCdvK5wVgeRy9Uxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792310620; c=relaxed/simple;
-	bh=IF9goZePh45tejtFUlq3UQB7Bq3FqvSqUD4SrsrNDTg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dKUTvn+NkQKEjlNH5sC5fJNMeOtvIVv5+58UBP+NFq2gDx3NJ9VgcWcYI1LYNaXBrOKS+uykWF9eHabOacqKGq9q0zPJ/uhi2V7XbFhDyq5cvNk5LIRiBPBMW0qaiXWyihKVYWBjxCMw0f53QWNB6zS14h1GOJpEuSBN+BJQN58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DvDuCCiA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792310853; c=relaxed/simple;
+	bh=8guSqgIWe0NwrYzBcw0yq0Y3irfuIz5E43qPvqOuYgg=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=JTBEi0aUo9V2kcEvtJiDT/aDMGNpenuLTEvPpXZ10ThBqjyuX2qR3Pwowmb658Xs/XLjJNC2jpCE8gKBzUuU4fg1LhKBGf24xbXKRY0sch0pteDcBO13PLDbIE3SQbOkt3gkW8VD14/LunFFuZy/tkRPTyj3dvA/c5d7/AH8pqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bit-imam.nu; spf=pass smtp.mailfrom=bit-imam.nu; dkim=pass (2048-bit key) header.d=bit-imam.nu header.i=@bit-imam.nu header.b=bTeIPt0j; arc=none smtp.client-ip=194.63.252.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bit-imam.nu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bit-imam.nu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DvDuCCiA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 322B41F000C4;
-	Sun, 18 Oct 2026 08:03:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792310618;
-	bh=JJNINly7g4wRKqQk2yVdy8PqtE2VfWd7xctymCWVDhc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DvDuCCiAmEXTdyLdTj+Ss4eYO1JS05AEJltJNekwi4sjIzn0GvVpRTbFCEunQ+bvt
-	 iKuIVXIvFasEu7XxsokP9aGfMB8K3qQu+XnJ05ozGzAPaN2BUFjVRbU0u1NjnEnoT7
-	 s+aTRNEgPqNpXQ7fBMwEpPF40uHsrx9ZiCM0zhcI=
-Date: Sun, 18 Oct 2026 10:02:55 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Stephen Boyd <sboyd@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] SPMI changes for the merge window
-Message-ID: <2026101847-predict-churn-eb98@gregkh>
-References: <20261018055336.1037077-1-sboyd@kernel.org>
+	dkim=pass (2048-bit key) header.d=bit-imam.nu header.i=@bit-imam.nu header.b="bTeIPt0j"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bit-imam.nu
+	; s=ds202606; h=Content-Transfer-Encoding:Content-Type:Subject:From:To:
+	MIME-Version:Date:Message-ID:From:Sender:Reply-To:Subject:Date:Message-ID:To:
+	Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=10kLpJMG2tHrrSAvB4FLY001ScUzfLiW6l3qwQ6tzPM=; b=bTeIPt0jpBIzwmnSLnMCg/NpXX
+	XnsLTzocopVS8fSLt/w1zDbdETW/NX0LI1U96rMuTWSVsibVO+8MmB0OFKiyJgQtuCP5eIRgwNVLJ
+	QHXbMjPoXAnkAjTAvkzLDnLgv0e2v/S6MLmfZ4B0wyMx0GjipmwHUrdO76sGLjKtcX4htzw7f/P5J
+	eiiPB5DEw7x7NMtYelNaQb52J46Vja0ATb/jVJBc3hcI5FkP/HPIdAj17NwHZccL2s6m4vR5E9n2F
+	SRYFVkxDNTbOqAKLPY/A0+0iS/x1MW43BiF2Gtcy+UuDdsqneiqDTh9zo12sPZLOfmaNyhOCzc8no
+	U4WR6HPQ==;
+Received: from smtp
+	by smtp.domeneshop.no with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.95)
+	id 1xIKwy-00HN8x-Nb
+	for linux-kernel@vger.kernel.org;
+	Sun, 18 Oct 2026 09:04:56 +0200
+Message-ID: <4e266251-f349-4c63-8110-1963e0d3bf90@bit-imam.nu>
+Date: Sun, 18 Oct 2026 09:04:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018055336.1037077-1-sboyd@kernel.org>
+User-Agent: Mozilla Thunderbird
+To: linux-kernel@vger.kernel.org
+From: =?UTF-8?Q?Ywe_C=C3=A6rlyn?= <yn@bit-imam.nu>
+Subject: Lory = Correct IT (iterations on Low Jitter and Fair Pay Philosophy,
+ ITx Unification)
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 17, 2026 at 10:53:35PM -0700, Stephen Boyd wrote:
-> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-> 
->   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-> 
-> are available in the Git repository at:
-> 
->   https://git.kernel.org/pub/scm/linux/kernel/git/sboyd/spmi.git tags/spmi-for-next
+The label now used for the philosophy is Lory. An often esteemed label, 
+also correct IT, and correct for ITx.
 
-Pulled and pushed out, thanks.
+Earlier: Major concepts are related. As SaMad (The Scient) are names of 
+Ul (A'LA) also. And Le Uno "The One" also in "Unix". And The Bit is 
+Ta-Sin in The CURAN and IT, I Q, Hac(ker), DIY all supports Lory 
+perspective. "Hacker", even supports Sharia. Further supports common 
+expressions like Troll (FASIC), Lamer (CAFIR). So we orient on the Bit 
+angle on The El via The Curan. And "Ul guides whomever he wills to his 
+light".
 
-greg k-h
+Does not change established contructs, but enhances them with the full 
+philosophy.
+
+I have studied to Imam also to approve: 
+https://bit-imam.nu/IMAM_3-Bit_D_A.png
+
+Which is needed here. And I knew this was coming, and prepared this all 
+along. The Islamophobes will take a just downfall for their unreason.
+
+Hail Ul, The Real.
+
+Serenity,
+https://bit-imam.nu/
+
+
+
+
+
+
