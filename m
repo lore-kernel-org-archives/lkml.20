@@ -1,299 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665934C77BD;
-	Sun, 18 Oct 2026 13:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FE6455614
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:43:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792330909; cv=none; b=A2OzptxBCC1rTjyDuBIrJ761+mRS2xIPQYQyKhimQIEOLE8B1MAGs9STPdrTAOFDa8BQKY87E81BVG5YaIxXdQrMabGme99L+KcPqsKtozabi0wzJ+MFH2GP2EX2gMygFdmte9V36h3GOaPoCZXOIlmCu0ARiYCI5BMl8i/k2O0=
+	t=1792331011; cv=none; b=YsRbh6eDUWFzlKEOEfxot2t8iXDWpv/KTIILFqPcCjaQcQwt+DlyGShixRB425486FeIvz4qY76T4hl72dc8+GLvZGLc3776VvlV31pEf8gHZiPchtqHvmw21ixkqr1VwIUkLJ6KmiM7NQi+AGdqOpZmozHfUMVQF5EZT74p6AU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792330909; c=relaxed/simple;
-	bh=jewUbBuu7DkomHGB/l7F87K0o66qKAjGNy52UaR59fs=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=PymtCyr+HxTfCO19YXL9dhFNIFv+BTkNmNa3xU1vkQN7FzBsXdHbHepajWuXmekC2ED6R+v2ltaYGEEX8/IWolypofAHKcrkRQMBNwMJBAPbHoe/XIaszHB4plupXMWJHS0mKqldBimdrX2oeKndMAPqpFwpIZ3sT/nlzZF36Kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCIamBvl; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792331011; c=relaxed/simple;
+	bh=bOeeJlR1z+ZmlCVS3ncjbl+NSUZoxWsH5n6bWoRic58=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oOjnf1tKSTe8wsyokrhPwXS2YPiabPVwX8GuaQyEqKRjcECs3V+gEKGvdltr6tgp2HSTwVO4XrdRwOq02aapnGAAqfhLGZL+wWUvvaPM5+pMgNJnV1wnb5OTt4FitHNNWbRh5iHhFYdX174q2lMOQTQhRDo6hW0KqsfzhKpWvG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yy8x/cyO; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCIamBvl"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2403BC2BCC7;
-	Sun, 18 Oct 2026 13:41:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792330909;
-	bh=jewUbBuu7DkomHGB/l7F87K0o66qKAjGNy52UaR59fs=;
-	h=From:To:Cc:Subject:Date:Reply-To:From;
-	b=NCIamBvlRV8JNJ73oUeEx9h9M5qBjvkAfLaomBeUFp/Y1coewi15yKEeu2o5Lf9eW
-	 oB+A1st8n6oRMgcwifZx9iF6m+CH0Xw10Tw9Atz3MMc1zPr9NnhC+QLIxoQhi0nnFm
-	 Mjp3UlBEroKyq1Mu9lcEmOZTppEhuwDKOlWukTl/F3kDk8eaS5ulQViV1hNyFuO/+p
-	 ubmyvsFdbXmtyFxudQxKHvlbTkHt6arJJg6UoH3bD+7Oi5XGKJic6p/HuJt5wEy6VW
-	 DRrE+yNXLF7mnVhhlX7DENclUaW90f9zmWDVEn6EW3SdTeYkQYf59zvVaEzrBpAMd1
-	 bawtijch6bGkg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 129CFCCF2C4;
-	Sun, 18 Oct 2026 13:41:49 +0000 (UTC)
-From: Wenqiang Zhao via B4 Relay <devnull+berringtoni36.gmail.com@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>
-Cc: David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Lothar Rubusch <l.rubusch@gmail.com>, 
- Joshua Crofts <joshua.crofts1@gmail.com>, linux@analog.com, 
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] iio: accel: adxl345: separate event state from query
- errors
-Date: Sun, 18 Oct 2026 21:42:00 +0800
-Message-ID: <20261018-adxl345-event-state-v3-1@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yy8x/cyO"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35d0be18c71so2547477eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:43:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792331008; x=1792935808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xl79s2FBLYzmNsy3ZHfzJmTaTzI3p4ehFskthqfWREg=;
+        b=Yy8x/cyOwfIQDEn5pgl739Wqg2uhvzG0en1Jl+PqztWqsDdTEi8LmHS7Yt8/nkMdb3
+         pxAgBDc4Ao/XaS1pIy01B16VCTUoC8HZcaJYH0S8FRFKGNI5hcGLX8kjltH27++I/A03
+         mKKxoPaLx7yGFLpecc6eeThY3KfwNBdjSjik5feYuQEuhfBI7g/+sagrNfBuoty9UETg
+         17SJz/TbLVswJuPd0VTJtpPbu/t68M06VCNSF6JJaby32Phe8DGOgUGxRmq/SxwNegw3
+         TNS15ZpI5Ynmvj9OutKi9OmnTNVPyg7rt0xAQOEtRHPnUb0Hrh/kQIm8GV4TLCltAMbG
+         Rmtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792331008; x=1792935808;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xl79s2FBLYzmNsy3ZHfzJmTaTzI3p4ehFskthqfWREg=;
+        b=oGB3p1HWsXJJwfIRjZAE4QMeQCgjId1Mo9BOtWIReN+7l9PUw2qq5H98iWJK2E3VDp
+         A+FKC5a7dH6cwTk4P/jXBQYktwShDi1eialj8K5BWNna2tDtYCFNV4BblgtcWUQzGhLf
+         5UcoEyJpKHdIhY9/+MKjmEh7IWLj6/LwSv7N5XCmw2n29oadGL6L4tYgmr8VHZSUkfWE
+         XWXbObC50CxmyViRx+nZUkrj7gEOP8X3CrhKjhN4aZ5Ahw0i+ZHqqu/VPTNZBEwb+b7h
+         WnCabp1iGkiBgZM1xrGekE2/A7SVtuTlgbXGFu56ghn5RoUM9cwLim0V7rnU8BqCJCZo
+         7FlA==
+X-Gm-Message-State: AFq9FYLl34u4k69WloHrRfbUUAKWefXels8q0u8/1FguwvfMWsv76Yps
+	CF+6fCq7uSialccr1eSuNmBZysWvZx6fvG+nbfrmwinBaaof3xdt/VpyK+RpJLSO
+X-Gm-Gg: AYBFou2DKPXWYHlcMZ5Lope2nHkKvopPUrA82O89SHhmketndlH0aGQza8TsJvEjjWI
+	vyqGgcdXK9GrzwRc15OIkwvZeJ19DYhnfzZA4yax865OO9MaD6k653RRsLa+H12nWqiEutPxxQ8
+	qLolWNTPsWx0hb6hU+Op4hOCLzwvKpqPLGQE1JtxuR1GDOxl58IaaCfzzCilA+IPESyTAAp7bBk
+	1F1HR1T8W1MUPQuSyLejro4IwQHOf8Ka0Ff06cmQ0sRXNRDwLAqvfuCubKCIEnya3izN3uK/5Hi
+	bu6aUKRNeBFXAcgCqSx6zfwGZ3uTALOtIhZ0B9b7MK/J4Ei+SX4kacoDPC5nYWD2fSsv9g0oLEY
+	0Vzx5Orwg0kT3YMAPLcd6zzk7BDzvB16xpv6/UNhJMm2W5bHDYs8EK5TS43CXW5ChUpTfFM3/7Y
+	WfgiCs5WciMfG0uZQO3Onkg8L28CQ78AisY4RG87mJutBoD10qfYpqEOe5h/8fyaEmCEAE/MOEl
+	3YqJaPXz0d5YmtxAYsvAI/C0eBD6HJetrYNPRxKzw==
+X-Received: by 2002:a05:7022:ea81:10b0:148:ece:8cc3 with SMTP id a92af1059eb24-1825b6dfd9emr9527607c88.24.1792331007934;
+        Sun, 18 Oct 2026 06:43:27 -0700 (PDT)
+Received: from Biostar-A520MT.. ([187.94.15.112])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm27868593c88.16.2026.10.18.06.43.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 06:43:27 -0700 (PDT)
+From: Breno Rodrigues Alves <breno3011alves@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Breno Rodrigues Alves <breno3011alves@gmail.com>
+Subject: [RFC PATCH v3 0/2] perf: convert Perl test helpers to Python
+Date: Sun, 18 Oct 2026 10:43:20 -0300
+Message-ID: <20261018134322.26445-1-breno3011alves@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261018133032.24467-1-breno3011alves@gmail.com>
+References: <20261018133032.24467-1-breno3011alves@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792330908; l=7577;
- i=berringtoni36@gmail.com; s=review-20261018; h=from:subject:message-id;
- bh=TeZ8xpWHy5fDJf8bSND3EmgpNE1AN8KsOt8raqa5NgE=;
- b=ljX+SgEXS8ukZSO6TyTB/XT6YgoSJaMhQaZyvK1wrqaNubbPN9IgM+dwANzY3CHMrnULVMHdf
- kZtn/9FEQuaB8Wt3jP3dCF/EBF5OTyiYTBoEHv+3K5/+N8CYQ3AHmoi
-X-Developer-Key: i=berringtoni36@gmail.com; a=ed25519;
- pk=rRiAvRvS4MMqogNnloZgVnqWliVWNDq+PcP6vMYXOvs=
-X-Endpoint-Received: by B4 Relay for
- berringtoni36@gmail.com/review-20261018 with auth_id=1226
-X-Original-From: Wenqiang Zhao <berringtoni36@gmail.com>
-Reply-To: berringtoni36@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Wenqiang Zhao <berringtoni36@gmail.com>
+v3 changes since v2:
+  - Fix accidental deletion of the tap_timeout() function header and
+    opening brace in runner.sh (Sashiko finding). The v2 runner.sh left
+    the body of tap_timeout() at top level with an orphan closing brace,
+    which would fail with a shell syntax error when sourced by
+    run_kselftest.sh.
 
-The activity/inactivity query helpers return either a boolean result or a
-negative regmap error. adxl345_read_mag_config() converts the latter to 1
-with !!, reporting a failed read as an enabled event. The disable path
-also turns a coupling query error into a successful write.
+v2 changes since v1:
+  - Restructure as 2 commits (prefix.py alone; the 4 check_*.py together,
+    since their callers are heavily intermingled)
+  - Update runner.sh and kselftest/Makefile to invoke/install prefix.py
+  - Update Makefile.perf to install *.py (not just *.sh/*.pl)
+  - Update all call sites in base_probe/ and base_report/
+  - Remove the 5 original .pl files
+  - Add trailing newlines to all 5 files (pylint C0304)
+  - Fix the check_all_patterns_found commit message:
+    TESTLOG_ERR_MSG_MAX_LINES is only handled by check_all_lines_matched
 
-Return query status separately from the boolean result by passing bool
-output parameters to both helpers. Rename them from is_* to get_* and
-update the event read, disable and link-bit callers to check the status
-before using the result. Preserve the successful coupling-mismatch
-no-op when disabling an event.
+This series converts five Perl test helpers in tools/ to Python 3,
+continuing the Perl-to-Python conversion effort for the kernel's
+auxiliary scripts.
 
-Fixes: 66a1af6d8a63 ("iio: accel: adxl345: add activity event feature")
-Fixes: 31f7679bb69a ("iio: accel: adxl345: add coupling detection for activity/inactivity")
-Assisted-by: LLM
-Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
----
-v3:
-- Use bool output parameters for query results, as Jonathan suggested.
-- Apply the same convention to the coupling helper and all callers.
-- Combine the two previous patches because both paths share these helpers.
-- Submitted via b4 web submission to avoid delivery-time wrapping.
+Each conversion is a faithful 1:1 port: same CLI, same output,
+same exit codes. All use only the Python standard library.
 
-Validation: 534 host function-chain cases pass with UBSan, including
-register-read fault injection, link-bit updates and free-fall queries.
-No full kernel build or sensor hardware test was performed. ASan could
-not start on this macOS host; it hung during runtime initialization.
+The five scripts are:
+  - prefix.pl                      -> prefix.py
+  - check_all_patterns_found.pl    -> check_all_patterns_found.py
+  - check_no_patterns_found.pl     -> check_no_patterns_found.py
+  - check_all_lines_matched.pl     -> check_all_lines_matched.py
+  - check_errors_whitelisted.pl    -> check_errors_whitelisted.py
 
- drivers/iio/accel/adxl345_core.c | 94 ++++++++++++++++++++++++----------------
- 1 file changed, 57 insertions(+), 37 deletions(-)
+All five were verified byte-for-byte identical to their Perl
+counterparts on synthetic inputs.
 
-diff --git a/drivers/iio/accel/adxl345_core.c b/drivers/iio/accel/adxl345_core.c
-index 6c9080d88..51fbcc218 100644
---- a/drivers/iio/accel/adxl345_core.c
-+++ b/drivers/iio/accel/adxl345_core.c
-@@ -463,27 +463,25 @@ static int adxl345_set_inact_time(struct adxl345_state *st, u32 val_int,
- }
- 
- /**
-- * adxl345_is_act_inact_ac() - Verify if AC or DC coupling is currently enabled.
-- *
-+ * adxl345_get_act_inact_ac() - Check the configured coupling.
-  * @st: The device data.
-  * @type: The activity or inactivity type.
-+ * @matches: Whether the configured coupling matches the provided type.
-  *
-- * Given a type of activity / inactivity combined with either AC coupling set or
-- * default to DC, this function verifies if the combination is currently
-- * configured, hence enabled or not.
-- *
-- * Return: true if configured coupling matches the provided type, else a negative
-- *         error value.
-+ * Return: 0 on success, or a negative error value.
-  */
--static int adxl345_is_act_inact_ac(struct adxl345_state *st,
--				   enum adxl345_activity_type type)
-+static int adxl345_get_act_inact_ac(struct adxl345_state *st,
-+				    enum adxl345_activity_type type,
-+				    bool *matches)
- {
- 	unsigned int regval;
- 	bool coupling;
- 	int ret;
- 
--	if (type == ADXL345_INACTIVITY_FF)
--		return true;
-+	if (type == ADXL345_INACTIVITY_FF) {
-+		*matches = true;
-+		return 0;
-+	}
- 
- 	ret = regmap_read(st->regmap, ADXL345_REG_ACT_INACT_CTRL, &regval);
- 	if (ret)
-@@ -494,13 +492,17 @@ static int adxl345_is_act_inact_ac(struct adxl345_state *st,
- 	switch (type) {
- 	case ADXL345_ACTIVITY:
- 	case ADXL345_INACTIVITY:
--		return coupling == ADXL345_COUPLING_DC;
-+		*matches = coupling == ADXL345_COUPLING_DC;
-+		break;
- 	case ADXL345_ACTIVITY_AC:
- 	case ADXL345_INACTIVITY_AC:
--		return coupling == ADXL345_COUPLING_AC;
-+		*matches = coupling == ADXL345_COUPLING_AC;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-+
-+	return 0;
- }
- 
- /**
-@@ -567,14 +569,17 @@ static int adxl345_set_act_inact_ac(struct adxl345_state *st,
- 				  adxl345_act_acdc_msk[type], act_inact_ac);
- }
- 
--static int adxl345_is_act_inact_en(struct adxl345_state *st,
--				   enum adxl345_activity_type type)
-+static int adxl345_get_act_inact_en(struct adxl345_state *st,
-+				    enum adxl345_activity_type type,
-+				    bool *enabled)
- {
- 	unsigned int axis_ctrl;
- 	unsigned int regval;
- 	bool int_en, en;
- 	int ret;
- 
-+	*enabled = false;
-+
- 	ret = regmap_read(st->regmap, ADXL345_REG_ACT_INACT_CTRL, &axis_ctrl);
- 	if (ret)
- 		return ret;
-@@ -585,13 +590,13 @@ static int adxl345_is_act_inact_en(struct adxl345_state *st,
- 	case ADXL345_ACTIVITY_AC:
- 		en = FIELD_GET(ADXL345_ACT_XYZ_EN, axis_ctrl);
- 		if (!en)
--			return false;
-+			return 0;
- 		break;
- 	case ADXL345_INACTIVITY:
- 	case ADXL345_INACTIVITY_AC:
- 		en = FIELD_GET(ADXL345_INACT_XYZ_EN, axis_ctrl);
- 		if (!en)
--			return false;
-+			return 0;
- 		break;
- 	case ADXL345_INACTIVITY_FF:
- 		en = true;
-@@ -607,37 +612,39 @@ static int adxl345_is_act_inact_en(struct adxl345_state *st,
- 
- 	int_en = adxl345_act_int_reg[type] & regval;
- 	if (!int_en)
--		return false;
-+		return 0;
- 
- 	/* Check if configured coupling matches provided type */
--	return adxl345_is_act_inact_ac(st, type);
-+	return adxl345_get_act_inact_ac(st, type, enabled);
- }
- 
- static int adxl345_set_act_inact_linkbit(struct adxl345_state *st,
- 					 enum adxl345_activity_type type,
- 					 bool en)
- {
--	int act_ac_en, inact_ac_en;
--	int act_en, inact_en;
-+	bool act_ac_en, inact_ac_en;
-+	bool act_en, inact_en;
-+	int ret;
- 
--	act_en = adxl345_is_act_inact_en(st, ADXL345_ACTIVITY);
--	if (act_en < 0)
--		return act_en;
-+	ret = adxl345_get_act_inact_en(st, ADXL345_ACTIVITY, &act_en);
-+	if (ret)
-+		return ret;
- 
--	act_ac_en = adxl345_is_act_inact_en(st, ADXL345_ACTIVITY_AC);
--	if (act_ac_en < 0)
--		return act_ac_en;
-+	ret = adxl345_get_act_inact_en(st, ADXL345_ACTIVITY_AC, &act_ac_en);
-+	if (ret)
-+		return ret;
- 
- 	if (type == ADXL345_INACTIVITY_FF) {
- 		inact_en = false;
- 	} else {
--		inact_en = adxl345_is_act_inact_en(st, ADXL345_INACTIVITY);
--		if (inact_en < 0)
--			return inact_en;
-+		ret = adxl345_get_act_inact_en(st, ADXL345_INACTIVITY, &inact_en);
-+		if (ret)
-+			return ret;
- 
--		inact_ac_en = adxl345_is_act_inact_en(st, ADXL345_INACTIVITY_AC);
--		if (inact_ac_en < 0)
--			return inact_ac_en;
-+		ret = adxl345_get_act_inact_en(st, ADXL345_INACTIVITY_AC,
-+					       &inact_ac_en);
-+		if (ret)
-+			return ret;
- 
- 		inact_en = inact_en || inact_ac_en;
- 	}
-@@ -656,6 +663,7 @@ static int adxl345_set_act_inact_en(struct adxl345_state *st,
- 	unsigned int axis_ctrl;
- 	unsigned int threshold;
- 	unsigned int period;
-+	bool matches;
- 	int ret;
- 
- 	if (cmd_en) {
-@@ -692,7 +700,10 @@ static int adxl345_set_act_inact_en(struct adxl345_state *st,
- 		 * current call attempts to turn off a DC-coupled activity, this
- 		 * inconsistency should be detected here.
- 		 */
--		ret = adxl345_get_act_inact_ac(st, type, &matches);
-+		ret = adxl345_get_act_inact_ac(st, type, &matches);
- 		if (ret)
- 			return ret;
- 		if (!matches)
- 			return 0;
- 	}
- 
-@@ -1174,14 +1185,23 @@ static int adxl345_read_mag_config(struct adxl345_state *st,
- 				   enum adxl345_activity_type type_act,
- 				   enum adxl345_activity_type type_inact)
- {
-+	bool enabled;
-+	int ret;
-+
- 	switch (dir) {
- 	case IIO_EV_DIR_RISING:
--		ret = adxl345_get_act_inact_en(st, type_act, &enabled);
-+		ret = adxl345_get_act_inact_en(st, type_act, &enabled);
- 		break;
- 	case IIO_EV_DIR_FALLING:
--		ret = adxl345_get_act_inact_en(st, type_inact, &enabled);
-+		ret = adxl345_get_act_inact_en(st, type_inact, &enabled);
- 		break;
- 	default:
- 		return -EINVAL;
- 	}
-+	if (ret)
-+		return ret;
-+
- 	return enabled;
- }
- 
- static int adxl345_write_mag_config(struct adxl345_state *st,
+Breno Rodrigues Alves (2):
+  perf/kselftest: convert prefix.pl to Python
+  perf/tests: convert check_*.pl helpers to Python
 
-base-commit: 28691515f54f03f23636cbf1ee2cd60fc31e2353
+Breno Rodrigues Alves (2):
+  perf/kselftest: convert prefix.pl to Python
+  perf/tests: convert check_*.pl helpers to Python
+
+ tools/perf/Makefile.perf                      |  2 +-
+ .../base_probe/test_adding_blacklisted.sh     |  6 +-
+ .../shell/base_probe/test_adding_kernel.sh    | 44 +++++++--------
+ .../perf/tests/shell/base_probe/test_basic.sh | 12 ++--
+ .../shell/base_probe/test_invalid_options.sh  |  4 +-
+ tools/perf/tests/shell/base_report/setup.sh   |  4 +-
+ .../tests/shell/base_report/test_basic.sh     | 54 +++++++++---------
+ .../shell/common/check_all_lines_matched.pl   | 39 -------------
+ .../shell/common/check_all_lines_matched.py   | 45 +++++++++++++++
+ .../shell/common/check_all_patterns_found.pl  | 34 ------------
+ .../shell/common/check_all_patterns_found.py  | 35 ++++++++++++
+ .../shell/common/check_errors_whitelisted.pl  | 51 -----------------
+ .../shell/common/check_errors_whitelisted.py  | 55 +++++++++++++++++++
+ .../shell/common/check_no_patterns_found.pl   | 34 ------------
+ .../shell/common/check_no_patterns_found.py   | 35 ++++++++++++
+ tools/testing/selftests/Makefile              |  2 +-
+ tools/testing/selftests/kselftest/prefix.pl   | 24 --------
+ tools/testing/selftests/kselftest/prefix.py   | 24 ++++++++
+ tools/testing/selftests/kselftest/runner.sh   |  4 +-
+ 19 files changed, 260 insertions(+), 248 deletions(-)
+ delete mode 100755 tools/perf/tests/shell/common/check_all_lines_matched.pl
+ create mode 100755 tools/perf/tests/shell/common/check_all_lines_matched.py
+ delete mode 100755 tools/perf/tests/shell/common/check_all_patterns_found.pl
+ create mode 100755 tools/perf/tests/shell/common/check_all_patterns_found.py
+ delete mode 100755 tools/perf/tests/shell/common/check_errors_whitelisted.pl
+ create mode 100755 tools/perf/tests/shell/common/check_errors_whitelisted.py
+ delete mode 100755 tools/perf/tests/shell/common/check_no_patterns_found.pl
+ create mode 100755 tools/perf/tests/shell/common/check_no_patterns_found.py
+ delete mode 100755 tools/testing/selftests/kselftest/prefix.pl
+ create mode 100755 tools/testing/selftests/kselftest/prefix.py
+
 -- 
-2.50.1 (Apple Git-155)
+2.43.0
 
