@@ -1,148 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF76EEC3;
-	Sun, 18 Oct 2026 00:34:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF351F30BB
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 00:39:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792283671; cv=none; b=RDhtFFDLmLbpesPo3vMsZq34mGCNIkIxWl4iqQH/2lIC1NAY+YYMOC9JgzV7BO0NDM6uUj5RhnEg6/YvFaAXYGKCAGPDvnbC/mO+V3EqHpoCGxUreouqviGSb9NVp9a8vbsuJsk7hwc+JkFjcqLUDYAr9/dqASBdYfozM9btWfA=
+	t=1792283982; cv=none; b=gmWBy8WhdbqPUPw9hpBFxg9UbjG5JK7NKbpc1jr4T7U0qFBv2bA074LR6d9o2nhAP6IL/sCR0ZvvIgLxllVX2shvuBRF/7Ka25NlhgVUt4PAHDxdKwY6bjpDCxxMGhrqEUv5VIpc6CwZVU4LS7unTqi4zRLszXQkpyWvck96vw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792283671; c=relaxed/simple;
-	bh=UYPpbP4nFK6ceslGDzIqrAT8MFcO7eO3JD0xuvgBleI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Vt3bPECJfYxMGCHwFw6mv+nTppoiDn5d1MLHby/qXY7vStFhr/y6DujHiN3wJj/4dBTQZLZIjd1mvV9Ave8e7IB2VbqQbcUoydkD53Q/IB9J+9vu9tF0Ppy3RLznxQ396pi7bp5D0rfwzhi+yDZjGPH/bapAeRlzwIdnA/fceck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecd/pnKc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792283982; c=relaxed/simple;
+	bh=NkfoYPwTZN+canY3pFkS9HfCxE5wNmxHd3PQVxTOzzM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l0/fE0Cg5iBe9NC62wSmjkNIn5aKpC3S6TbMQrq8u8mUkhaiZTocbeJu414v13ASovkNGb5A1av/PyZRHw3ftdS5gKqlgOkkccVDD0x+t7j5dSS69wP3T+ggPMX1I5waYRAcS42TTIrbS/PGXOdaKaH+s4upIDlCzTbF927YHuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=qPr2xvq8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Hp9mX5n0; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecd/pnKc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1620C1F000C4;
-	Sun, 18 Oct 2026 00:34:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792283669;
-	bh=bX9gSNnUKh5XRvA9DSlfPu+q4h3qCfDbS72aOLJfGFI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ecd/pnKczMRBCfFbTkJNAJyB2Ra9GuTFlhq+YLC3EY69CegYrx//Ol6lOfY1oFAdA
-	 mIxnOeVoXNvM7HPqozYoAwmnYZAkSMHv7RjDO+gqoGpweINsPR27aWTFWeawnWqd0n
-	 rvQ6K5ROqyi+zF8Fxde/ODN7CLG32m3LwLtWHJ3OwSqhS0Esv2Y0QzXeiNPEIf4lWk
-	 c7cW4A7X0p5p7/+KF6cLJ5mRIldBfvL1/f+64880uY05i0L88amhZmwp786v25ga9A
-	 rjI93tm7KXpQK/epxlTDCylRA7V4ZacEXyOJUmN3ijzoX+5MtJjsrYSu+P+GhHP5dB
-	 ixcKMoBgAHc0w==
-Subject: Re: [PATCH net] net: bgmac: don't process RX with a zero NAPI budget
-From: netdev-bot+sashiko@kernel.org
-To: rosenp@gmail.com
-Cc: netdev@vger.kernel.org, rafal@milecki.pl,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Sun, 18 Oct 2026 00:34:28 +0000
-Message-ID: <179228366859.3135.9158616222630607774@kernel.org>
-In-Reply-To: <20261014001912.141532-1-rosenp@gmail.com>
-References: <20261014001912.141532-1-rosenp@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="qPr2xvq8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Hp9mX5n0"
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfout.stl.internal (Postfix) with ESMTP id 5E8671D00066
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:39:39 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Sat, 17 Oct 2026 20:39:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1792283979; x=
+	1792370379; bh=JiGUKMxhkl6t+/m7adlAHHwNXtX4gzjcwJvHHAG5OjE=; b=q
+	Pr2xvq8d4HeOFhvA7Z2cqhLF2iWUN/QDRWd3EN9rjmcsMYDnCuK5CCcjB1E4/eyJ
+	mw7puhWS/1tMSJsdZmsmtjquaaoi2vBeTjkfI0OFtNUFAkjIR6SlBZJs0JovvTgD
+	dMHJcC5GFy/mjgdPW5/6QXIXRDYCNl5G4wcR1qLjFoxRq5nSzbdF12GrJu3udhme
+	O2owBakoqMxiea3ryJLv/G3AHKT9deCBO0BaKuHw9nT8gzDI59eRTKtYU642xFyu
+	rP+2Qa3eMNspfDH7yM5Md6nf6jXagVNQGc3ccYVWUn38+ebCpJQJY62ay+O6sXiy
+	VWrF4ToKLEW51PJYrygmA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792283979; x=1792370379; bh=JiGUKMxhkl6t+/m7adlAHHwNXtX4gzjcwJv
+	HHAG5OjE=; b=Hp9mX5n0UhGN17/WKPwpp2ATr2XLKkSWMSgO64NrTZzfZxNvbol
+	oWuTk5FjIGG2ogSwHmqgp83L9lIFXQhmucHAYkzZ9kKGdt52v8SgYlp3WDs1JL22
+	HkbEXG44jp5Rinz0ryh20r1nTuUR9cRefZMvrLo4az2gdwZzBnZ/StqiVriT7Hb9
+	PwOFvNj9zjFgf7SVntHnb2jdmSqEJFila1f0EnuZJ+LRE2apjnZnEtPPZ37mqbb1
+	gzKDjJUxiNsqsv7W10473MRwcf3CZjLGa52YuIVhof7SUcorSsWjhYAsX/2ntNku
+	iWT981xpsszToRovzDptq4HP4L0A87h/V8w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792283979; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:idmNwBVFyhQ1t67f9vE5X95GfM231ysI8DuuHPv97TF0NPM
+	tiAWQXiymoAh71lDoutVY8iGzVqwPajKsWzsFy+O94ncfgDXG0373sZ42SyHwO0w
+	8lROzceE6pMFLkGsfrgDlDC9dZLVVhwmqBAWP/wJcIEegAfSXPjnZS6jTI1qN6bC
+	0LhIdXlVqw8pQF+9JwylZVMLYYesHSLAtZI4xfmklhPEVW64HecprWTnsY3Y4pMg
+	N7YBORzr3wHoXSAx9U4g1MvzTPqc4xrKoDvJb4+O1kfbgcBTSttOiiGVYFWWiWje
+	ChgXUOCHhvhUheN9JptlMyh2DMVTEjGrwHtIVtA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,mail-followup-to,message-id,mime-version,references,
+	subject,to;
+Message-Instance: m=1; h=sha256:mRa68anMYfxb/OYmX31Xcx3NI7sPhr5yhIct4+XYmjw=:NkfoYPwTZN+canY3pFkS9HfCxE5wNmxHd3PQVxTOzzM=;
+X-ME-Sender: <xms:ShXUahHsxMACKL3GfOB3cI4Lr-C-bocrrABCAVGEjRrDrMwtUU0HZw>
+    <xme:ShXUakQSdoUewcoHae40CXWYv9kANP2RJTzGgyUI4XQ800WmQaenReUMgHhl9qWxc
+    2Rv-lBG-aZ0U7QLk4Cn-LGLrbdmOEzj006ipsoNJa0uiAiqGPnITE1->
+X-ME-Received: <xmr:ShXUaqtcJaC_3wom_lgTHDJspIqWBBBaT8ZoN91sM1svxS8eSTOtPm2w20iev--13mJOK0ZR09BvWHJuq8AeqY1ftVMI>
+X-ME-Proxy-Cause: dmFkZTFNNFliXbZgjbEmvJhDjie9jmGxw5dMDUWiKERgaxHt+jyYNqaHKb/DrgeZmgQ1N8
+    TZXQ8q5/NgCtAALfabakjggkdRi3bcKFPhMjS9WEejMySQcP3IuDjEtNINU8wpi7crzk5h
+    N+KYXbJD5Ojhgt+Id4sEnTaI7zjhl6RNF7opJXLjdA5GOSiEErowXYuayJ1PLcVYpcXsH4
+    eVUKvRaJD+l9hz1UlNFnPg5/VLVar5ZtfvKTkaICvypCELQbro7+j1Dnrq9kMBJmk/t5by
+    Jl06/qY69ixTbL/3bEkvGRJgJTirIYn1HY03GKChpJByHLrzADf4zSVapnFqGCv3NTAgOq
+    ftztZbqkL3ZNSyV777yYKtconDqfcm8m1deHn9dD4eUmhYwfxjRWjSJ9BM+m7JczNfaCh2
+    6X9IyEs5DDru8Y6FrMNMDROWPe4Vw5MU0+M18STnWq5SRPRPiCDiKGUJEugJEPdogSKLKt
+    Q9tvvdyDsHPNDBM1XL2wXskhOwx1qcJgFWssCQ33L+mKKobmFkUaLAH5xEqlcS9vkqkYc7
+    J+BIhQO7JhLLgbTCmDZO3YHxGLUHJcq6MHCzUTONKikOi7YrsQtEpN3I0SrsHmOE0z85pw
+    q4/+l/un3PGnWuclLYWVpVd2tGTC3QGEyYEZ/6xDwqzTeAK73cwvxxoxmnJg
+X-ME-Proxy: <xmx:ShXUajwCZhapHarUHhfTBTW8wsQqm9aWRpCnTNA3L-Xy9WWjwRVXDA>
+    <xmx:ShXUak6OVSKWebt5OH6k_X7A_tXMzHreLxmBrxu3t-b9ey5qZrifnw>
+    <xmx:ShXUatWiAQJAmA0r6sY50iP3Hexp75qUejndly4UsHG_drsk5-VsIw>
+    <xmx:ShXUag2711kRqhV1fzJxkLe3o3ujyp4YN86bWjfSbffUhr1FJV-WDg>
+    <xmx:SxXUavaz5XoyMWAaV-RMQMHOXXhUSrZSd-7HTczyAR4gJpi1H91p2Tdm>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 17 Oct 2026 20:39:37 -0400 (EDT)
+Date: Sun, 18 Oct 2026 09:39:35 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] firewire: core: use release/acquire pair when replacing
+ underlying driver on card removal
+Message-ID: <20261018003935.GA278783@sakamocchi.jp>
+Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+References: <20261017081720.186688-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017081720.186688-1-o-takashi@sakamocchi.jp>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Sat, Oct 17, 2026 at 05:17:20PM +0900, Takashi Sakamoto wrote:
+> When removing a card instance, the underlying driver is replaced to handle
+> closing operations. Without proper memory reordering, other CPUs may
+> observe the driver before it is fully initialized.
+> 
+> Use a release/acquire pair to ensure that the driver's initialization is
+> visible before the driver is accessed for close operations.
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> ---
+>  drivers/firewire/core-card.c        | 16 ++++++++-------
+>  drivers/firewire/core-cdev.c        |  2 +-
+>  drivers/firewire/core-device.c      |  8 ++++----
+>  drivers/firewire/core-iso.c         | 32 +++++++++++++++++++++--------
+>  drivers/firewire/core-transaction.c | 20 +++++++++---------
+>  5 files changed, 47 insertions(+), 31 deletions(-)
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Applied to for-next branch.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
 
-- [Medium] In drivers/net/ethernet/broadcom/bgmac.c, bgmac_poll() still
-  acknowledges every interrupt source, including BGMAC_IS_RX, with…
+Regards
 
---
-
-net: bgmac: don't process RX with a zero NAPI budget
-
-When bgmac_poll() is called with a zero budget, this patch makes it
-return right after TX completion cleanup. The goal is to stop netpoll
-from processing an RX frame and tripping the "exceeded budget in poll"
-WARN_ONCE() in poll_one_napi().
-
-> diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
-> index 3e9c57196a397..a545c0cc25977 100644
-> --- a/drivers/net/ethernet/broadcom/bgmac.c
-> +++ b/drivers/net/ethernet/broadcom/bgmac.c
-> @@ -1154,6 +1154,11 @@ static int bgmac_poll(struct napi_struct *napi, int weight)
->  	bgmac_write(bgmac, BGMAC_INT_STATUS, ~0);
->  
->  	bgmac_dma_tx_free(bgmac, &bgmac->tx_ring[0]);
-> +
-> +	/* A zero budget (netpoll) means only TX may be cleaned */
-> +	if (unlikely(!weight))
-> +		return 0;
-
-[Severity: Medium]
-Can this leave received frames stuck in the RX ring?
-
-Before it reaches the new zero budget return, bgmac_poll() still clears
-every interrupt status bit, including BGMAC_IS_RX, with a write-1-clear:
-
-    bgmac_write(bgmac, BGMAC_INT_STATUS, ~0);
-
-The commit message says:
-
-    NAPI stays scheduled, so the pending RX frames are picked up by the
-    next regular poll.
-
-Is that guaranteed?
-
-poll_napi() calls poll_one_napi() for every NAPI on dev->napi_list
-whose poll_owner it can take. poll_one_napi() then calls
-napi->poll(napi, 0) without checking NAPI_STATE_SCHED.
-
-bgmac_netdev_ops has no ndo_poll_controller, so bgmac_interrupt() is not
-run first. As a result, bgmac_poll(napi, 0) can run while the NAPI is
-idle and chip interrupts are on.
-
-Suppose a frame arrives while netpoll is transmitting. One example is
-__netpoll_send_skb() running with IRQs disabled while the TX queue is
-stopped. The sequence would be:
-
-netpoll_poll_dev()->poll_napi()->poll_one_napi()->bgmac_poll(napi, 0)
-    bgmac_write(bgmac, BGMAC_INT_STATUS, ~0);   /* clears BGMAC_IS_RX */
-    bgmac_dma_tx_free(bgmac, &bgmac->tx_ring[0]);
-    return 0;                                   /* NAPI not scheduled */
-
-After that, bgmac_interrupt() finds nothing pending:
-
-    u32 int_status = bgmac_read(bgmac, BGMAC_INT_STATUS);
-    int_status &= bgmac->int_mask;
-
-    if (!int_status)
-        return IRQ_NONE;
-
-bgmac_interrupt() is the only caller of napi_schedule() here. Frames
-already in the RX ring would sit there until another frame raises
-BGMAC_IS_RX. On a quiet link, for example after a single ARP or ping
-reply, that wait has no upper bound.
-
-The unconditional ack existed before this patch. However, one RX slot
-used to be processed in this window, and now none are.
-
-Would it work to ack only BGMAC_IS_TX0 when the budget is 0? That would
-leave BGMAC_IS_RX set, so the interrupt handler still schedules NAPI.
-
-The new comment says "only TX may be cleaned". The NAPI documentation
-says a zero budget means processing "only skb Tx completions and no Rx".
-This path still consumes RX interrupt state, which doesn't match either
-statement.
-
-> +
->  	handled += bgmac_dma_rx_read(bgmac, &bgmac->rx_ring[0], weight);
->  
->  	/* Poll again if more events arrived in the meantime */
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014001912.141532-1-rosenp%40gmail.com
+Takashi Sakamoto
