@@ -1,77 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-8fac.mail.infomaniak.ch (smtp-8fac.mail.infomaniak.ch [83.166.143.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9785D388E58;
-	Sun, 18 Oct 2026 18:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69C3421247
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792349011; cv=none; b=WMIkL7o7Hlq+fANbDSgc5h5N0WqFguOi2mPCie7qfJn+U3yHFqHpr6wP3k5qWpnpYVX3JPr1AYMVV6zZboIygd2ZA/nGoZR1suWrF/r5/uTbiFwWv4nR8u4HDOfiopUWK5lTt896q2T/LjIce9DwUvoOTGSgLIYimltHt8ClFcs=
+	t=1792349110; cv=none; b=bl6gEx3zkPCnVJ7wfN6kv8S7tn6plVHmNKOg2+0ox/MpSKTgo/A1ScSgvcKF8YDI4wbERWo9fEEFMFsCmPUdqwbOXUZFdXH2rCHocbAJhqq9twOewyWOLIlTlMStN2WAATZpN8Rvx1u7fqAna/SYgDG8eDnKxDWlJXfymnhBPuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792349011; c=relaxed/simple;
-	bh=b/mCOFAvVzM4HbmD+iL8o44VhpJfqZxQbnUrBbgDGU0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gxWDRYhQiFOQRiv7TYbOguo5nnq36a1a6Q1tqIchqf7CNzbspPTKpjxUQgm08us8/oLVV2ccxmDCuvn5WzdOOCVfubdCLBWmbo0gS0QfCLfvf/cpu+7/UdGxIDGWxVixUgG1rivvzjE2v0gtYsrYnVcC0whLEX2cuiT0kEmPXkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S0/pMrZv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792349110; c=relaxed/simple;
+	bh=lX+5dhgX4NC37aSTPQkLBUr6y8jXX7ECoAi6+Pd+qxw=;
+	h=Subject:Message-ID:Date:From:To:Cc:References:In-Reply-To:
+	 MIME-Version:Content-Type; b=uxh4nqivgAh95MAfNKsQnKSJDUdVaUWc7dKq6GRg2F+38fmreEZlnke+DQVfKZRcPrBiPQ8mNujpB43rgp/aOx5tSg4D/soCcn5gDZrIXKWoD2fP0o/oc3ht3s6lGG/WqxEXFi2kcPpTs1v/DRMUI2GbE+2lV9n3ENb7853POq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=snyders.xyz; spf=pass smtp.mailfrom=snyders.xyz; dkim=pass (2048-bit key) header.d=snyders.xyz header.i=@snyders.xyz header.b=fKXTOTVT; arc=none smtp.client-ip=83.166.143.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=snyders.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snyders.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S0/pMrZv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D377E1F000C4;
-	Sun, 18 Oct 2026 18:43:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792349010;
-	bh=qiOERPCTQiGVFgwfZLglWEV6akVIWi2rX3u7+KbZC3I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=S0/pMrZvfE+oKfHNSjqsarg79YYCAUFYpYzLR77bM2i2Zh47WHatPZU1MggM2Km5c
-	 fhlbURllt5N1hl0PrERey7XFvnYqEgJ6lIAollpBlgfIAJvMSKz5ihOmiSqeL2x2CF
-	 pVvXNx7+ReZHJpUj1nyCb5EPV4NkTTJZgjJmSBHUaDJcB0eqZoPcK1T7C0BEwfwhEV
-	 CldAq+IJxnbNPPNULSYHru4stMUg5o1VXBPMaFuJcR3N8KSQFAaQRmMrKvvV9FonLG
-	 pOe+j0ZxfNKLPYXz0VLi249D9n69eXmu4AxeAyeM1xw7ZBsPM4MchQHgQWxA6JJkqx
-	 5HDpcCuS2udfQ==
-Date: Sun, 18 Oct 2026 19:43:24 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-hwmon@vger.kernel.org>
-Subject: Re: [PATCH v4 0/3] Add support for Microchip PAC1711 Power Monitor
-Message-ID: <20261018194324.22e726ed@jic23-hlaptop>
-In-Reply-To: <20261007-pac1711-v4-0-6ef34d7a7947@microchip.com>
-References: <20261007-pac1711-v4-0-6ef34d7a7947@microchip.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=snyders.xyz header.i=@snyders.xyz header.b="fKXTOTVT"
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j76zw4J0wzV5Z;
+	Sun, 18 Oct 2026 20:45:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=snyders.xyz;
+	s=20251118; t=1792349100;
+	bh=tiVAKs4hM0hfl1tlMLQJmGB+/I9Qxi99EZnZZxfXMO8=;
+	h=Subject:Date:From:To:Cc:Reply-To:References:In-Reply-To:From;
+	b=fKXTOTVT9AfcYa40wbFClGkXyXf356KfNsB4NIJlm5PEBu+/hAtcrvdqUJLnzWqV6
+	 6pXK9n9EU9LDaFGQW4+WaE1RHrksbFN+UfFkbcdqSn4z6+UveCs0pSL1TLiIswDwpX
+	 A7q+55UPaouvvOgZcbjeBmjfj7To1047RrKPjbeVE2Xy+7mDbnhXNU4E+xn4dj9Y4/
+	 LlpH03MFdpceC3OlbQNkeaXjIMGUTDZtRj1EMW+2S1PWWxHgEtV99MPMQBRqnQ4aAf
+	 27DQJ3R0AocSK5LODIoM1ZlL/RL3sTR02q843Ff50RcXIpnz8dFaUc+YyYIksc493r
+	 uZGDMd1/Ez+OQ==
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4j76zv3jBbzB73;
+	Sun, 18 Oct 2026 20:44:59 +0200 (CEST)
+Subject: Re: [PATCH v3 2/2] power: supply: qcom_smbx: add SMB5 support
+Message-ID: <7e5c96b8-e1ae-4819-874f-db818061be58@mail.infomaniak.com>
+Date: Sun, 18 Oct 2026 20:44:59 +0200
+From: Robin Snyders <robin@snyders.xyz>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Casey Connolly <casey.connolly@linaro.org>, Sebastian Reichel
+ <sre@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Selvaraj
+ <foss@joelselvaraj.com>, linux-arm-msm@vger.kernel.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Robin Snyders <robin@snyders.xyz>
+Reply-To: Robin Snyders <robin@snyders.xyz>
+X-WS-Location: eJxzKUpMKykGAAfpAmU-
+References: <20260813-submit-qcom-smbx-send-v1-v3-0-27be0091d7c7@snyders.xyz>
+ <20260813-submit-qcom-smbx-send-v1-v3-2-27be0091d7c7@snyders.xyz>
+ <hryxv7fl3alrhnekb7bqn5zgexdyv3p6ndug7kp3uqxsiiwmsv@wtvg3za3qspu>
+In-Reply-To: <hryxv7fl3alrhnekb7bqn5zgexdyv3p6ndug7kp3uqxsiiwmsv@wtvg3za3qspu>
+X-Mailer: Infomaniak Workspace (1.3.1376)
+X-WS-User-Origin: eyJpdiI6ImtobERxMUZTdUNyZ1Q5QjFtTFlaaWc9PSIsInZhbHVlIjoiOWVGVCtlblA3am9VcGRhbktlQUliUT09IiwibWFjIjoiZmM1NzU0YmZiMWJhMzM3MDNkZjk1NzYzODExNjQwNjczZTc3OGNkZWMwYTllYzNjY2ZmZDUwNDA5ZDcyZjdlZCIsInRhZyI6IiJ9
+X-WS-User-Mbox: eyJpdiI6Im1LVzkyZWVkWTBsOGJKOVZYZUljS2c9PSIsInZhbHVlIjoiL2d5d3Rab3pySDkwT1QzZzl0RFJRZz09IiwibWFjIjoiZWZiZTFjMmFhMThjNzI3Y2I3ZTE3NGQxNGI2YzVhMjBmNmQ1NmE2YmRkNjdmOTRhYzNkYzA1ZGZlMDc5NGVkZCIsInRhZyI6IiJ9
+X-WS-LOCALE: fr_FR
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Infomaniak-Routing: alpha
 
-On Wed, 7 Oct 2026 17:41:52 +0300
-Ariana Lazar <ariana.lazar@microchip.com> wrote:
+Hi Dmitry,
 
-> The PAC1711, PAC1721, PAC1811 and PAC1821 products are single-channel power
-> monitors with accumulator. The PAC1711 and PAC1721 devices use 12-bit
-> resolution for voltage and current measurements and 24 bits for power
-> calculations, while PAC1811 and PAC1821 have 16-bit resolution and use 32
-> bits for power calculations. The 56-bit accumulator register accumulates
-> power (energy) or current (Coulomb counter).
-> 
-> PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
-> PAC1721 and PAC1821.
+Sorry for the long delay in getting back to you on this.
 
-I think the sashiko comments for this one are a mixed back but the
-one about intermediate unsigned state in particular looks like a good spot.
-I didn't look closely at all of them.
+On Thu, Aug 13, 2026 at 06:52:24PM +0300, Dmitry Baryshkov wrote:
+> I remember that in SMB2 case the TCPM and charger drivers were
+> programming the registers from the same block. Is there no such conflict
+> on the SMB5 platforms?
 
-https://sashiko.dev/#/patchset/20261007-pac1711-v4-0-6ef34d7a7947%40microchip.com
+On PM8150B the register sets are disjoint. The charger node sits at
+0x1000, the dedicated Type-C port at 0x1500 and the PD PHY at 0x1700.
+With SMB5, qcom_smbx only writes the charger core (0x1042, 0x1061,
+0x1070), DCDC (0x1108, 0x110b), USB input / BC1.2 (0x1340-0x1380) and
+the watchdog/AICL timer (0x1651-0x1661) blocks. qcom_pmic_typec writes
+are all in 0x1544-0x1560, and the PD PHY stays in its 0x1700 block.
 
-Whilst I do plan to enable sashiko emails for IIO fairly soon (subject
-perhaps to more discussions) in the meantime, if you want to speed up
-review of your patches, you can reply to the thread addressing what sashiko
-has found.  That way you save reviewers from trying to figure out what
-is true and what is a false positive.
+The one name that looks like an overlap is TYPE_C_CFG, but on SMB5
+that is offset 0x358, i.e. 0x1358 in the USB input peripheral, and not
+the Type-C port register at 0x1544. The driver only clears
+APSD_START_ON_CC_BIT there, so that BC1.2 detection is not started
+directly from CC state while TCPM owns the port.
 
-Jonathan
+By design, the SMB5 path also leaves Type-C power role and VBUS control
+to TCPM and the qcom_usb_vbus regulator. It does not touch OTG/VBUS
+boost, and it only clears the HVDCP modes so stale firmware settings
+cannot raise VBUS.
+
+> Have you tested that this doesn't break the USB-C
+> dongles being connected to the device?
+
+Yes. I validated the exact v4 driver on a OnePlus 7T Pro (PM8150B,
+6.16-based board tree; the only other change was an
+unrelated SLPI debug parameter in qcom_q6v5_pas.c) with TCPM
+managing the port, in both plug orientations:
+
+- Powered dock: the phone became data host and power sink (USB PD,
+  usb_vbus disabled). The USB 2/3 hubs, an RTL8153 Ethernet adapter
+  and a mass storage device enumerated, and a 64 MiB read gave the
+  same hash every time. The charger stayed online, health Good.
+
+- The same dock with its external power removed: the phone stayed
+  data host and switched to power source, with usb_vbus enabled. The
+  hubs, Ethernet adapter and storage re-enumerated and worked, and
+  the storage hash matched. The SMB5 charger correctly reported
+  offline/discharging.
+
+- Then back to a PC cable without rebooting: device/sink roles
+  returned, usb_vbus was disabled, USB gadget networking and SSH
+  worked again, and the charger resumed charging at its 500 mA
+  limit.
+
+None of these transitions produced an oops, lockdep splat, UVLO, OCP
+or OVP event. Ethernet traffic (no cable at hand) and visual
+DisplayPort output were not part of that run.
+
+I'll repeat this on the exact v5 tree before sending it, and summarize
+the register ownership and these results in the v5 changelog.
+
+Thanks,
+Robin
