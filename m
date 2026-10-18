@@ -1,106 +1,240 @@
-Received: from outbound.soverin.net (outbound.soverin.net [185.233.34.18])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D7641B8DC;
-	Sun, 18 Oct 2026 09:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.34.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16FE31B131
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792317436; cv=none; b=IPfppmUEHnDDj7pBnq8vVYt4GqdAkjaYxRgmRaXBvJ0+89N8m432Fvq/Tn0PwHpyNfJncXsIHM06cmSVL3vXtX9c+EU0RQQf9IwDL040lhkjcmDE9XCxqOiDscWe4oGoUnFSV4TaDGyYmbLodKhrtxiB2tPG38Z7S1cuEFpB+vQ=
+	t=1792317789; cv=none; b=oZGEWXcrCj/BCWWM30zBsufcv02NqjwW1R2c128QV74W+PLXY6CxkqyxF+zV/EpJt82/08DAg/poDbR120iKU4XDLETz/FUTroUCichya0U+LtK0wYm/C98D9k7nRyAyQPxpSfiDzJbfF6mpDPBOXKMwedgMqfEWdaoQFu14xys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792317436; c=relaxed/simple;
-	bh=rUea3DCws+rncFslxzgZpDb9Tfn9iGN2SBnMV6j5Qaw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To; b=h8RSdv0rPk+7EDK5F2B7/LIKySU8OO7X641GuRYEcRXevvM2lLIESVdOQNZlFN6M24g2j0SPqNQDgAvCVyUsIMf2El6pzqdv9bDpop96otfg+LtYK7uoS5jJCpDxByy+AC4sJSGcdPvzXy261KaKa4apbS6dG1YTc675/RO+LKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=izzo.pro; spf=pass smtp.mailfrom=izzo.pro; dkim=pass (2048-bit key) header.d=izzo.pro header.i=@izzo.pro header.b=Vfc2Wfe6; dkim=pass (2048-bit key) header.d=izzo.pro header.i=@izzo.pro header.b=epYghd1M; arc=none smtp.client-ip=185.233.34.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=izzo.pro
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=izzo.pro
+	s=arc-20240116; t=1792317789; c=relaxed/simple;
+	bh=5nA+NpVODDGW7a/fZNS1phsWWhfm6+31tlWMSZPfgvc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XcPN6eaHATde2L3duYq4yXluBOimLcmN+HbNb/LM5rgI7/VwLe7bAODxTyDvJjjAHMrcUPCCDsxYZQR4JxsNFTmjGb0tGliG6TOlmLlf0wVYLUoH0fv8Rg/3IdjQ4cQniZeCqUoCnP3TW/yDTt7qdlwnNTngxp2oqIeUFSjuk9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=VCa99jWf; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=izzo.pro header.i=@izzo.pro header.b="Vfc2Wfe6";
-	dkim=pass (2048-bit key) header.d=izzo.pro header.i=@izzo.pro header.b="epYghd1M"
-Received: from smtp.soverin.net (unknown [10.102.10.155])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by outbound.soverin.net (Postfix) with ESMTPS id 4j6v2V0tTLzxKM;
-	Sun, 18 Oct 2026 09:46:26 +0000 (UTC)
-Received: from smtp.soverin.net (smtp.soverin.net [10.102.10.155]) by soverin.net (Postfix) with ESMTPSA id 4j6v2T57PVzTD5;
-	Sun, 18 Oct 2026 09:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=izzo.pro; s=soverin;
-	t=1792316786; bh=rUea3DCws+rncFslxzgZpDb9Tfn9iGN2SBnMV6j5Qaw=;
-	h=Date:Cc:Subject:From:To:From;
-	b=Vfc2Wfe6XQNccEdPYy9OGKWtLN8vVwQ3yo9ORxrxb0ogkB1acdLxHXnt8Ra8YVL/F
-	 o3UlR+5NzW8fdC6zgaGcFGxT7zMcIoUroPIqM8L9//W+OsNLvyZP+QYF7LCLlSGZ5+
-	 U+BD6sKMMS/SGTQ/NzNqoZNQKwjMgZsv2B9tzJf6D5eF6OmGTsfnvZGyC1Hq9aDZYe
-	 a4/0LGhFnIJqsRSK+Y18NycNDcRkf49vxlcbUn27ENsFf1+4GG7cGiSvw4WR8w2imo
-	 hNgxvzzaZPIuiUi1coOh9NtN0Gzfwuph6vaJMnl82MQpdTCXFfAqU2MDU8Ql+lOTO+
-	 wxJ9kENAKPM3Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=izzo.pro; s=soverin1;
-	t=1792316786;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=rUea3DCws+rncFslxzgZpDb9Tfn9iGN2SBnMV6j5Qaw=;
-	b=epYghd1MqXCj0kUjrB767RqUtXb99Ix2y+PbjqhEMVn7btg8WUEerNabZcLZUIRPKcKCK+
-	82fQqBnowC7Ypilk+iy2XejoS5UgjY9KA1tN6wUeVH2+K83VvGuez3SDyth38t4UQrPe0n
-	HkkaC1X4MRvQ8dfFm5lJtNnMOSpjr4AMeZ/pdWOEBZdXowtSQotDF027J7yxhe6hc8yEEQ
-	425x07CQ3e4XoTlT3hbgWq79YteelQSgKpO5HxG0A04/Q/459Gvuv5NqwECFfiQkwT4Zp+
-	p5zYgYwJkjEubyy8gUOOz1oGn6gEeDdL9h3uO2on91ejEqupDpIvXy+N3Delxg==
-X-CM-Envelope: MS4xfM6vEoJgHLzdsND58SmvowWoa9xq77oOqkuzd6aACLrW8IxVx21AvrT1+viWelsOqikY1d4Tx9NKltMe6o983L2Mw1Obx+Y4zrLUjmAMDQ855f3Nq5QJ MZZ5GCkP3OGFz5sfa3vt3g+0WbmdisCqvIVT1sQ1o6R7tFp11NVWY4/BfnLFiRBQ98fRX1VM7tLkJiunEaSrg1thuB78nnJ6ptI2HcJ7W8zseP+G+gzGPUB5 T2h6e3W1PUFQSxZQAMJTYzeNXGR8gqs/4P2ssHBstiA0TC5S9BHKZhF7A/Gv3W+IKHfNV+zpaJ51L7dgmAUx4w2X4LmGu2fXT77wPLFlKr8BHn0WOxO8xvfK 214y+QSwrtG26CyC9tBjTqLpJQcGWtH6EgNd15WgYrJ7vKyY9a2ioSuefUtM4SRWxUqH8CCR/HTj61hFfHf1w5jml8tw/Ry6I6Da40pIIJYZNmneFoPvJNxP pQ2ym/Iih1SdVCpc
-X-Soverin-Id: 01a14e67-c168-71c1-8639-4924ddc596e7
+	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="VCa99jWf"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1147937a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:03:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1792317787; x=1792922587; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2QGxZk0CSTcUQZfGW+udjHe4KJev4M9fi0vyPUY59KE=;
+        b=VCa99jWffShU/Fmb8yVUkcEgZr/+/8R7XiIQ3qTA6Qm0ziKB0P9brsq1alsA2QIzZr
+         RObrCK6lHw0LmBmUo0FIxPehpcatR3DGEuI/jqUJkZ5i5wF8ltRmDuQRZRsHKlk86S+e
+         EgpAXs9GA4TjNaxnvV2ECRJ+WkAqczFdnqWhZpwjTnXjNlKlcmMgP+J4ewhWYrxOSoCD
+         +QN6mSHEejnUn+RfJMlJW6UTtnUZT+IfUXiP7BXxT34JOvAL3LdZYHrDwc/wCm4IrGmS
+         Tpk/CDfq0UFUYr1wGIbyqwLYCrx48Oyi2PDmiltu+NptJgA4/yEH99YkA1nUQDWijbP+
+         8vSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792317787; x=1792922587;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2QGxZk0CSTcUQZfGW+udjHe4KJev4M9fi0vyPUY59KE=;
+        b=U0mPA/AaIfG2WEy0xdtdwp82RkuIUTQw38PK3vMsZ8n/j/mOC6INumE8+worcNYecD
+         hx55Hx/KEv5CMjEpTt0b5uki7aOAiB0QnZo1iiyG0NtDG+FhfVQR+bmGnmJDAr9yW5Oh
+         vo0H9ddJIenwryVDbbCfT0WPeMgh69NrZkPdvkqCLCyRrssNDkYxzFtYyHc1sXsxWnMz
+         YxUd2CxbS4OBSBzTCAxVx2SvqyGdmkdlp34y9941G7QGwySEjxYwKr5ElE2tcOl0N2Yp
+         FiuMz5woPNpWyeZcossaOkwbfIKGGvOTP5WT/IMxA6TADLalQMWdKy6oB698sX0M0Gg0
+         8GEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxL6Jp9/P24zxJHoDSOh3wDSuqUzyUnBJ9fcRAjUDQyxjN1z8RR0wLkeYz2xt1XBc6SqCdSbL4v5Oqg4cY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKl8ufd/2zKAnIrY+tb/6OQY+7ZeEQE9XgiEhDbxbQzGfcMi6u+
+	Jved8WGkc05ZXrCDBxTyMHOb0c8iAqlNcqcXlfiTf7JRRdbkV5he3CtaJO4VxhAROQ==
+X-Gm-Gg: AYBFou2czfN/AZFVeArnsRk0xivzJGiyvZSQ/eQtStIkLXYBkL0cFIW0d51OzPZ/z4v
+	EipAQTr0FFA9gO4EZEOVtKWLxJAqHJSwwWZtJPNdM0wV/XtNOw9qh+lnOPVqU/hfqOS0Y5gmB2n
+	h6ngNTJy2cUdM7PfNxGZJlYnV/imwS4KKbsPOsHy772t++yjWpqJ1quJNyR8KHUlr4Mr7uiIVOP
+	boGVa29v1xv9XtZkWbgyYqPv5+/D0Yyf2/1eK1FYXTYDG9SRxIEpsCQb+U7y2tcJTm62jRVCYZ5
+	r3LQR6p1wAwvOhlKF+QfbP63vUSll5DlQ23K61WVVGIgoHthhZOuFNjbNJC4Zi/IKzILoiMkGrl
+	GNsJdPsb9JDrP5CPcXEe2epyiojc6mlxB48oeDHeRVcXKvjucB+VgoyAgC4IVH3FaLsZGheMXuJ
+	m16tC0CKVVOpuJnFbrbiA1M31zgCW2ZnQt6VFLeXOZ5/1maZ9y9AOX8nEwOxHvPxtCOpRmz/o6i
+	IDEwtAUm+921zpgp1shmqy8xorwSO9QSlHGEPntE8OzXq/kaMzkGMc2NjyxlIU=
+X-Received: by 2002:a17:90b:3d48:b0:3ac:9df3:6b07 with SMTP id 98e67ed59e1d1-3acef0c8753mr3970311a91.24.1792317786595;
+        Sun, 18 Oct 2026 03:03:06 -0700 (PDT)
+Received: from cantal.lan ([58.136.73.153])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac940055f5sm16101210a91.0.2026.10.18.03.02.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 03:03:06 -0700 (PDT)
+From: James Clark <jjc@jclark.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Doug Berger <opendmb@gmail.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	=?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Russell King <linux@armlinux.org.uk>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	John Stultz <jstultz@google.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Hubert Feurstein <h.feurstein@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/6] net: mdio: add timestamped MDIO writes for PHY gettimex64
+Date: Sun, 18 Oct 2026 17:02:51 +0700
+Message-ID: <20261018100257.566267-1-jjc@jclark.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 18 Oct 2026 11:46:25 +0200
-Message-Id: <DM7V9WDDVQ2I.3THP2TDPTP994@izzo.pro>
-Cc: <federico@izzo.pro>, <luca.weiss@fairphone.com>, <val@packet.cool>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [RFC] power: supply: qcom_battmgr: implement battery charge control
- on kodiak phones
-From: "Federico Amedeo Izzo" <federico@izzo.pro>
-To: <linux-arm-msm@vger.kernel.org>, <linux-pm@vger.kernel.org>
-X-Spampanel-Class: ham
+Content-Transfer-Encoding: 8bit
 
-Hello,
+PTP_SYS_OFFSET_EXTENDED uses gettimex64 to bracket each PHC read with
+system clock reads. Some PHYs have a PTP hardware clock (PHC) that is
+read over MDIO and sometimes multiple MDIO transfers are needed to read
+the clock. This leads to brackets in the tens of microseconds.
+Applications that synchronize the system clock from the PHC typically
+use the midpoint of the bracket as the system time of the PHC reading.
+With multiple transfers, the midpoint of the bracket is typically far
+from the time when the PHC reading actually occurred.
 
-I want to implement battery charge control support on two kodiak phones:
-motorola-dubai and fairphone-fp5. I kindly ask your feedback on my=20
-implementation proposal below.
+For example, using PTP_SYS_OFFSET_EXTENDED on the Raspberry Pi CM5 to
+synchronize the system clock from the BCM54210PE PHY PHC leads to the
+system clock being 32 µs ahead of the PHC. On the CM4, it is about 7 µs.
+(The difference is because the MDIO clock frequency is higher on the
+CM4: 10 MHz as opposed to 2.08 MHz on the CM5.) The brackets are about
+74 µs on the CM5 and 42 µs on the CM4. In comparison, the MAC PHC
+on the CM5 has brackets of about 1 µs.
 
-This feature also known as "charging limit" or "battery health" lets the us=
-er
-limit the battery charging range to 0-80% tipically, in order to extend the
-lifetime of the battery. It can also be used with a lower range 0-50% to
-prevent battery degradation on devices always connected to a charger.
+This series introduces a new MDIO operation, write_sts, that allows a
+PHY driver to ask the MDIO bus driver for system timestamps bounding
+the completion of a clause 22 MDIO write transfer. A bus driver
+computes them by shifting the timestamps taken around the start of the
+transfer by bounds on its duration, worked out from the MDC period and
+the length of the frame. The series:
 
-Newer SoCs like SM8550 and X1E80100 implement charge control in the battmgr
-firmware, but kodiak (SM8350 in qcom-battmgr.c) does not support that (I tr=
-ied
-using the same property ID as newer SoCs with no luck.
+- adds a timekeeping function to scale a CLOCK_MONOTONIC_RAW duration
+  by a clock's frequency;
+- adds ptp helpers that use it to shift system timestamps;
+- adds the operation to the MDIO core;
+- makes bcm-phy-ptp use the operation for the write that triggers the
+  capture of the PHC time, allowing 350 ns for the PHY to capture it;
+- implements the operation for macb, with tighter bounds on RP1, where
+  its timing has been measured;
+- implements it for UniMAC, when the mdio node has a clock giving the
+  MDC reference rate. On BCM2711 that is the GISB clock, which Nicolai
+  Buchwitz is adding to clk-bcm2835 [1]. Until then BCM2711 does not
+  get write_sts, and nothing changes.
 
-Looking at downstream implementations, both dubai and fp5 implement the abi=
-lity
-to stop and start the charge with custom extensions to the battmgr firmware=
-,
-while the actual charge control logic is implemented in a kernel driver (du=
-bai)
-or in a userspace java service (fp5).
+The effect of this series is to reduce PTP_SYS_OFFSET_EXTENDED brackets
+from 74 µs to about 1.5 µs on the CM5, and from 42 µs to about 1.0 µs
+on the CM4. The synchronization error drops from 32 µs to about 0.1 µs
+on the CM5, and from 7 µs to about 60 ns on the CM4.
 
-My plan is to expose the start/stop firmware capability of the two phones u=
-sing
-the charge_behaviour sysfs property, then implement the charge control logi=
-c
-(start/stop charge depending on current level vs thresholds) in the qcom-ba=
-ttmgr
-driver itself and expose the sysfs properties charge_control_start/end_thre=
-shold
-to let userspace change the thresholds. The scope of this "software"
-implementation would be limited to SM8350 in qcom-battmgr as later SoCs can
-already do this in firmware.
+There was an earlier proposal addressing a similar problem, in 2019, for
+the PHC of mv88e6xxx switches [2]. In the relevant respects the
+situation is the same as with the BCM PHY: the PHC is read over MDIO
+with several transfers, and one write fixes the moment at which the
+clock is sampled. Richard and Andrew suggested taking the system
+timestamps in the MDIO bus driver, around that write, and Hubert
+Feurstein posted a series implementing this [3][4][5].
 
-Best regards,
-Federico Amedeo Izzo
+Like Hubert's v2 and v3, this series shifts the timestamps to allow for
+the time the transfer takes. The discussion of that raised some points,
+which this series addresses. First, the meaning of the timestamps
+returned by the MDIO core operation is clear: they bound the end of the
+MDIO write transfer. Second, the bus driver uses a lower and an upper
+bound on the transfer time, including the preamble. The lower and upper
+timestamps taken around the start of the transfer are shifted
+separately, so that the returned bounds are guaranteed to contain the
+end of the transfer. Third, the PHY driver gives a bound on the delay
+between the end of the transfer and the PHY acting on the write, which
+the MDIO core adds to the upper timestamp.
+
+This series also differs in having a write_sts operation, rather than an
+sts pointer in struct mii_bus. This allows the bus driver to compute the
+transfer time bounds at each call, from the same divider and clock rate
+that it uses to set the MDC speed. Unlike Andrew's suggestion, there is
+no fallback in the core, because a bus driver's write may return before
+the transfer has completed.
+
+The earlier discussion also raised interrupts arriving between the
+timestamps and the write, and the latency of the posted write. In this
+series, the bus drivers take the timestamps with local interrupts
+disabled, and flush the posted write before taking the upper timestamp.
+
+SPI introduced a similar facility to allow a device driver to obtain
+timestamp bounds from the bus controller in commit 79591b7db21d ("spi:
+Add a PTP system timestamp to the transfer structure").
+
+This series implements the operation for only one PHY driver. But I
+surveyed other PHY drivers and identified at least two for which this
+operation could be implemented: micrel (specifically LAN8814) and
+dp83640, although they would need updating to use gettimex64 first.
+
+The measurements come from the method described in patch 4/6, with
+ppsbias (https://github.com/jclark/ppsbias) timing the PPS on the GPIO.
+On the CM5 this is consistent with an independent check: with the MAC's
+PHC synchronized by PTP to an external grandmaster, and the system clock
+synchronized from it, the system clock and the PHY's PHC read with
+PTP_SYS_OFFSET_EXTENDED agree to within about 0.15 µs.
+
+Changes in v2:
+- Improved measurement method (described in 4/6), which measures the
+  synchronization error more precisely
+- New timekeeping patch (1/6), so that the ptp helpers (2/6) scale the
+  shift by the selected clock's current frequency
+- Patches reordered: the ptp helpers (was 3/5) now come before the mdio
+  core (was 1/5), which uses them
+- mdio core (3/6): sts required, clause 22 stated, and frame-length
+  constants for the bus drivers (Andrew); an event delay added to the
+  upper bound; the wait and its 1 ms cap explained (Andrew)
+- bcm-phy-ptp (4/6): a 350 ns bound on the PHY's capture delay, found by
+  measurement
+- macb (5/6): wider bounds unless the MAC starts the frame with the
+  command write, as RP1 does; the MDC rate recorded when the divisor is
+  chosen (Théo)
+- UniMAC (6/6): the reference rate from a clock on the mdio node
+  (Florian, Nicolai); a suppressed preamble allowed (Andrew)
+- v1: https://lore.kernel.org/netdev/20261009143506.2507607-1-jjc@jclark.com/
+
+[1] https://lore.kernel.org/netdev/41c32f5a6f38ec9df8a79ce896912fb9@tipi-net.de/
+[2] https://lore.kernel.org/all/20190805082642.12873-1-hubert.feurstein@vahle.at/
+[3] https://lore.kernel.org/r/20190816163157.25314-1-h.feurstein@gmail.com
+[4] https://lore.kernel.org/r/20190819172827.9550-1-hubert.feurstein@vahle.at
+[5] https://lore.kernel.org/r/20190820084833.6019-1-hubert.feurstein@vahle.at
+
+James Clark (6):
+  timekeeping: add ktime_scale_raw_ns()
+  ptp: add functions to adjust system timestamps
+  net: mdio: add timestamped write operation
+  net: phy: broadcom: use timestamped MDIO writes in gettimex64
+  net: macb: implement timestamped MDIO writes
+  net: mdio: bcm-unimac: implement timestamped MDIO writes
+
+ drivers/net/ethernet/cadence/macb.h      |   2 +
+ drivers/net/ethernet/cadence/macb_main.c | 115 +++++++++++++++++++-
+ drivers/net/mdio/mdio-bcm-unimac.c       | 128 +++++++++++++++++++++++
+ drivers/net/mdio/mdio-mux.c              |  27 +++++
+ drivers/net/phy/bcm-phy-lib.c            |  27 +++++
+ drivers/net/phy/bcm-phy-lib.h            |   7 ++
+ drivers/net/phy/bcm-phy-ptp.c            |  33 ++++--
+ drivers/net/phy/mdio_bus.c               | 107 +++++++++++++++++++
+ include/linux/mdio.h                     |  10 ++
+ include/linux/phy.h                      |  39 +++++++
+ include/linux/ptp_clock_kernel.h         |  55 ++++++++++
+ include/linux/timekeeping.h              |   6 ++
+ kernel/time/timekeeping.c                |  54 ++++++++++
+ 13 files changed, 603 insertions(+), 7 deletions(-)
+
+
+base-commit: 98c2ad4f5d805dbc1ea436a334ee59311806a48c
+-- 
+2.56.0
+
