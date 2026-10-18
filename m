@@ -1,157 +1,114 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95DCE3E6DD9;
-	Sun, 18 Oct 2026 10:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505322E06ED
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792320304; cv=none; b=h5iT4HnySEPPNRQ6Dh9tInvOOvpAJfhR3xPBn3+7SDn34W+a5bINI9U8Og1ce5Nk2hePMHOnMdd/mvoslNm5LwTCjLB+XpQ6juoeAc45BMjKux8i7qGS8Skmb7H28H9KN+sMtuI0EhugqUIPf8HfPAA69FDCFjMOJunNex07kso=
+	t=1792320334; cv=none; b=UVtqAI3+WT+nnlCIHn/wssub1clrm5ZfLm4hB0CGLyKlT05qYarQ7iW3Pv6VKp3B1oM5NscKKkA4UfvTdsZacaC4yb5jU+g1zyHeIb/nx+PKUBUzzvp5JFc1Ed3nA03acEkqcHmdlB+EORX4IrwZuJuEH5CJAsU32WODEAzHATs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792320304; c=relaxed/simple;
-	bh=vNqaHCrfSA0b4VKqfRdlPpjbXdDNlSf9M0McDU4t62Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=K04lg6QpRzxKY8PHS4cchkhAbsDR5ghi5pmlB9WLhZv6hru1AZtHnSDQqZy8hUnsG2YxIkXHzEEbgXlcUTMP/XW6LzohdQf8+zg/kLDfrFKsLirLNSxe/T15xjJEiilgnhAxfUokNp2PmDj4tZU1jDzzc4o09wl0uJyf18Zg414=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VOudf8Te; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792320334; c=relaxed/simple;
+	bh=rUVv7NTOXfNrMZsz3SZu0rAK+bIM7jv/2ZFJUYvuLJ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hu25wYTldUQ9q9l3Ye+rqIncbImB7xXhR85CgAC24xJKQWvcAYCkCf3AZBP4N/eK3E12RLhYkjpfcEwVe7BVfSia3aJieU9mFdB4thIAI2+zJPBdBg7SLCAufpDT7i8j92GzCIqtMWXV1a3zAABPxsYXqyPmyZIjqBBCdGMO0tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=osJuwtYq; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VOudf8Te"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Mi
-	MF4+nj09eXhJ0U/z9DFw9etlGUXEWdhhThFMF/aeg=; b=VOudf8TedwmBasyZWK
-	rsKszhheksu2/hC5d1xV3g3xuqrkI7tFBbsKW9AFnS1gXSP4fEpgq7I9Oy8r+s0e
-	k3Lyt2auVvxT/fdasyEYVM9DZS5Qquk32oqWsPj9d9AzwDZTz+YEAmd7kAczr8tJ
-	JLYWWREYZU49Z0igAkm2/I7vk=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgAX5pnxotRqUthIAg--.5987S2;
-	Sun, 18 Oct 2026 18:44:11 +0800 (CST)
-From: wrmfwv@163.com
-To: nuno.sa@analog.com,
-	jic23@kernel.org,
-	robh@kernel.org
-Cc: Michael.Hennerich@analog.com,
-	dlechner@baylibre.com,
-	andy@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tenglong Guo <admin@micronull.cn>,
-	Sashiko AI <sashiko-bot@kernel.org>
-Subject: [PATCH v2] dt-bindings: iio: adc: add documentation for adi,ad7816
-Date: Sun, 18 Oct 2026 18:43:58 +0800
-Message-Id: <20261018104358.38255-1-wrmfwv@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="osJuwtYq"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso12881355e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:45:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792320331; x=1792925131; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L/iMalGD3TEnhvJktxMOyufJx2rDQSoxS14IAcqEo0M=;
+        b=osJuwtYqgvr0DVDG1ktZJUanWqEBSqgf5DWhf2H7U2eWgEOx1o3EM4SeAkNegGPeaQ
+         1FyBj+OJS46+c/DxR0mL4dtdm/+0JdYlPL/5VnxSLXFwigHMN+470PjBqD7EgI8Ia/IJ
+         Pt2w6YEGpyk886fQDjdBFbC17hAK3lAI3PVAxNzYeRKRjwJ1Uyon1nSYxXasBJgaUYir
+         Ot4kSpT7xPLb3gVMvETG7wyfSpjn5nzRa1HKr7K6Gt2MSVA5x6yuaMNPAAn9Mmw1ggOT
+         Exp8A5lEceYMLDu7Gs0xzJzoKUpx98lM9hRgvJG35ltTocPqNHGiJvS9tjXsbpc56sDA
+         MmeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792320331; x=1792925131;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L/iMalGD3TEnhvJktxMOyufJx2rDQSoxS14IAcqEo0M=;
+        b=VSNBnaKwEexG9WqDHKVK2Hm0JvumV+it/NvVrwdOiiPeG/nGPM3Z1NZia3abEFxVoU
+         vXQclmULLpNqO9ltTfjur/J4sJ7BSQytFiSEGpnXTb3kL1TAS+9WKwb0M59fWTEmtAM4
+         aV5KIWzYDLtXNuOyMVFbi9XvlV65vsZ++1ryRZTRT2Y4pO7JDGh2CI+U7PqSAoNjH0+h
+         +YSPJVmEqthWOovfQ22JjBm6xPC1JWlVhJb3RPOiuThqHQnw66bUzHS1HKw8OdC5nqUZ
+         WACoW2tgy1zVxtchrvHPmW+gVH8QPYqbFxlFNrN1RzKqXyW6/AzYI58gKogzUAxrOgJ+
+         TXrA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXD6z7FvWAM8R9gWHWjhO5U5HSMFOpqv+DLO7PJ82Syg0pbcfptiz7UZx13UA85R/kIYLsnIsUuaq45oc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJz2X/vlmHp6Luy4lOVwOFuU4HhP4cYWJO/CgNM+RxQ8/WDkbqD
+	Z26X9tHqgP6II/kx8l16vv5nznFu+F8wfsoqg8D5yLGSXCtgbG/M0yDg
+X-Gm-Gg: AYBFou0lCoxyDIwVgYYYnnsjVxtao28a09bqNMqIFMSKZFlV4vCtzRzhbdgqXJ+2x8u
+	/GBePCnWYi5q8SB2wyGlwwrs/93tm5mK4jwTkZDwt8ZqNSUvWD98t+9z6uIt0WhH7eDpLVTTTNi
+	xCyw7hn0c2lidy0Q2gpQY1HsGNMtepQJpqueXdHS4zHrVNkUUsfqO01C5SkyQ+nGwfaC8zHyTIq
+	pYjNhgPR2CX0S3xWhXaO+4JHGAiPuvYJBN6Ecalx8V5bolBy8WEB72wDLMVx3QRIEJHIeELZW/C
+	njSkViI9B36AsWFXceIIcEbcEHT3Q5QASv2D0o8dSfGSU5gcB8d8Y1mhcndj+t4IG3Ki6EnMbKN
+	Rztg790bUC6XlEW1shxErkhEdC48iMm3YE3evB0Vbs2vaKn2ZJcvz0wk5Wav3rvl9OApcS211I6
+	jeHSSoeUNJfta84PjvD1OLoCzNa+xAyTQNkYSzEKnw/kUf+Ht7I1v4cKeXyMG8zp2WzJw=
+X-Received: by 2002:a05:600c:a10b:b0:4a0:263c:704f with SMTP id 5b1f17b1804b1-4a1d7601226mr64363215e9.16.1792320331306;
+        Sun, 18 Oct 2026 03:45:31 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d30d778bsm177718495e9.9.2026.10.18.03.45.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 03:45:30 -0700 (PDT)
+Date: Sun, 18 Oct 2026 13:45:27 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Melih Emik <melihemik@noirlang.tr>
+Cc: parthiban.veerasooran@microchip.com, christian.gromm@microchip.com,
+	gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: most: dim2: remove redundant dev_err() calls
+Message-ID: <atSjRzJ3_ORJ_uh9@stanley.mountain>
+References: <20261018104223.164776-1-melihemik@noirlang.tr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgAX5pnxotRqUthIAg--.5987S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AF13AryxuF4rAFyfGr45KFg_yoW8Kw4UpF
-	4DCF93K3yfK3W3Ka1fKa40kFW5ZF1UCw1rK3WDWr1UGrZ0gF1jyw43KF13Xw1UWFyDtF9r
-	WFy5Cr15tw10vr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UkCzNUUUUU=
-X-CM-SenderInfo: xzupw4ry6rljoofrz/xtbC5hy3o2rUovxDxgAA3L
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018104223.164776-1-melihemik@noirlang.tr>
 
-From: Tenglong Guo <admin@micronull.cn>
+On Sun, Oct 18, 2026 at 01:42:23PM +0300, Melih Emik wrote:
+> Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
+> devm_request_*_irq()"), devm_request_threaded_irq() and
+> devm_request_irq() automatically log detailed failure diagnostics
+> including device name, IRQ number, handlers, and the error code via
+> dev_err_probe().
+> 
+> Consequently, driver-specific dev_err() calls immediately following
+> these requests produce duplicate error messages on failure and are
+> redundant. Remove the redundant dev_err() calls in dim2_probe().
+> 
+> Tested:
+> - Compiled with W=1 on x86_64 with zero warnings.
+> - Verified with lockdep and debug mutexes enabled
+>   (CONFIG_PROVE_LOCKING=y, CONFIG_DEBUG_MUTEXES=y).
+> - Boot-tested full bzImage in QEMU with initcall_debug, confirming
+>   successful driver registration (dim2_driver_init returned 0) and
+>   zero lockdep/kernel warnings.
+> - Verified with scripts/checkpatch.pl (0 errors, 0 warnings).
 
-Add a YAML binding document for the AD7816 family of ADCs.
-This fixes the checkpatch.pl warning about un-documented
-DT compatible strings in the staging driver.
+Don't put this kind of meta commentary in the commit message.  It's
+expected that people test their patches, so there is no need to say
+it.  If there is something unexpected then put it below the ---
+cut off line
 
-Reviewed-by: Sashiko AI <sashiko-bot@kernel.org>
-Signed-off-by: Tenglong Guo <admin@micronull.cn>
----
- .../bindings/iio/adc/adi,ad7816.yaml          | 76 +++++++++++++++++++
- 1 file changed, 76 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
+> 
+> Signed-off-by: Melih Emik <melihemik@noirlang.tr>
+> ---
+  ^^^
+here.
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
-new file mode 100644
-index 000000000000..d23ef9163e61
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/adi,ad7816.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices AD7816/AD7817/AD7818 ADC
-+
-+maintainers:
-+  - Tenglong Guo <admin@micronull.cn>
-+
-+description: |
-+  The AD7816/AD7817/AD7818 are 10-bit ADCs with on-chip temperature sensors.
-+  They use a SPI interface for communication.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,ad7816
-+      - adi,ad7817
-+      - adi,ad7818
-+
-+  reg:
-+    maxItems: 1
-+
-+  rdwr-gpios:
-+    description: GPIO connected to the RD/WR pin.
-+
-+  convert-gpios:
-+    description: GPIO connected to the CONVST pin.
-+
-+  busy-gpios:
-+    description: GPIO connected to the BUSY pin. Required for AD7816 and AD7817.
-+
-+  interrupts:
-+    maxItems: 1
-+    description: Optional interrupt for over-temperature indication.
-+
-+required:
-+  - compatible
-+  - reg
-+  - rdwr-gpios
-+  - convert-gpios
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - adi,ad7816
-+              - adi,ad7817
-+    then:
-+      required:
-+        - busy-gpios
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        adc@0 {
-+            compatible = "adi,ad7816";
-+            reg = <0>;
-+            rdwr-gpios = <&gpio0 1 GPIO_ACTIVE_HIGH>;
-+            convert-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
-+            busy-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
-+            interrupts-extended = <&gpio0 4 IRQ_TYPE_EDGE_FALLING>;
-+        };
-+    };
-+...
--- 
-2.25.1
+regards,
+dan carpenter
 
