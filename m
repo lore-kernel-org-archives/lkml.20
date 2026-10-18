@@ -1,119 +1,239 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1893D7D6C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:19:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4B74B922B;
+	Sun, 18 Oct 2026 13:22:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792329577; cv=none; b=iCtgPztl8UHLkGu93Y2R4mfvoRMO7k7TkGu84c5/7Z5q/c6vEcC45osXV/k7SUdiPVXAg/FJCyczQ1MoHL7DT8vruywEq5lCTIfRdl0Rsj45jWvvzpQmFLzTnLK+0F3+MaI1XH3nHMC2nFZWbOtEW0QVhGEphgVGGC31D8MV0wQ=
+	t=1792329766; cv=none; b=tSX173ry4c2H5EA25hij4PiEqJr7JFaP1SL7fOfidi5CV5i8IWJ+dfa9ogwSaK+VCkKYBJyAeuzh858gLApB8ENhC2TiQLNH2345Y/2VfeLEGJVIpEgc+Uc/Zv+qIGYJYemcDvbT1Ii7tr8DxA1bK0TxgP8xI6SsQSjRf1Esg0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792329577; c=relaxed/simple;
-	bh=8uBrJgFPuxy+BLTmgpJjVgcQvgOGHRiBjGy3ylfY+m4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O3vN3fSmG2Sj6x/ypKqqcGWzU/5V0inFqjVsEEan+STxWsrK1t/N0VBhJFeBkXLC3oDb44bJOweRzt1Vv+r1PDWvo8kTjV77N1LhFFOCSJqaEE5zFHvMrMW7hmrv2BX+rg4Rk4whUtns/k47KG5QUfozz/+oPrQA/gUD1xcbrGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=t0dy4z5X; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	s=arc-20240116; t=1792329766; c=relaxed/simple;
+	bh=gunYXhMgXi7MLNMHlFRFz2mnouvhmJrc0MgovruqE1I=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tZumpXmaTJYz+Nna/HSml1gBUWEsZ8kphnf456U7i3+Yvl5FQrFgSynSxiDdAxJYk9hy5XOvuClievOqu0rb4oyUDpgvTce5Q+MtZJjYYo7z6PaGK9jKtWk8YdgutKTK0GmiMb/zGWpNVFDg6pt9tpTCxjus6rAhanjtDOEaBYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YlT9KRSo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="t0dy4z5X"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2dc8cb0decso88322266b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:19:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1792329574; x=1792934374; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EmlLkQ6dpljXtahKxB7AlkZKnbyW86lxsHxYr9rqtM0=;
-        b=t0dy4z5XpfgynbquqXLd8aUy9j+JPfX/vd9PFgPmGBYCE4Gm2Wp8j5QkjBQbj7VF0a
-         dWrrTwd+73K7uPdBloq/XTh3WtOkcHMCX2TP8J8FM+QUHrFMeUDvW/647Y4zCbNxgh5N
-         2z7l49dN8DM/aYU1Q3r4vpqiTJUPmm1Q+ayqgmXxJOoHmGSYxm0E2F5aTUYvN/o5xNj7
-         r3cCanaN0ABR2Wyuc7bnTzYggdD7X91u6G7MUqUOa/vPsPU3toirVMd3DKhhM9KKF6Zd
-         OGjlcul0bQUo1TtH9UdvxhZN6q4h5ulH1/u7MWUZstVJgj5cSOIufT1MKkrYBH6KAJps
-         Kwnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792329574; x=1792934374;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EmlLkQ6dpljXtahKxB7AlkZKnbyW86lxsHxYr9rqtM0=;
-        b=lw8zPwp8SoJfEIF225R9y+JElK4hoCaWdtWyygPaZciqq5ujm14n0aNt9j+bken5dS
-         436wfNEGC4vZhFACTnnxeAekvHHf00cRqn8yByISRP41Xbp0QylMxBFo1rHZfHPUJZid
-         z3rSqPWJT4yyl/G36jmPYROAJEIDjDJq07vJCTLjJY619yyWOwehEzP7CRB9o1YNN4DX
-         cBc5CkI15chU4rxatZBW00Ny2Xp0FmSrdec2XXQgtxcIPs4RUsVbzf1KUDzaJ2GZn1mv
-         k8DNPITwCI4DyVJLFiqqVmeKHfRrNZtj9vKFyzBPnaKGtIa+GXq/GqzUmPDi139/jqE5
-         /ayA==
-X-Forwarded-Encrypted: i=1; AKwUvBzd5+tQXpXOP9xwuku3Pnvd8yJvhgnOkAXM8mUBrlZiUR9xNyCkqPFG5GxOqJYTI3cCiiI6xDPR6cPgebg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOsr/Ijx33ko626iCSa6J/ZNKRilP5ahey05RTbv1YbDBiTTnI
-	NHXyt5tKtsSa0NiMl7aroyNUKMflfbDxteSlZhuJAp4mVYgJMq6vVPdz3e25sgufcQ==
-X-Gm-Gg: AYBFou2vxazjci2dMMS1LrfUO7W7OroH7saOtBb+exViCI/RyCVxo34nCnv0cWsC+Mo
-	6SoGL34LG8qn9Bz1LivE1sQKbBl5+x0e7vLOpqRc8MaJN/2WlpjJ1UEalm+flcLLNRMJmkh2NzB
-	xTrYfDse4yY/UyX9PqaKBLbv0WWhDp3TrRzk2kkdi71s1OO0RPzMJ+7UKUQOJrY3HG8OGyJoI9X
-	WzddLgK4rMPTmZmvo/ywPzg3nfo1DZfHn7qFxWdK5je7Jx+2X8YyMdNVQKL/2pA+VbF4QhvdIEn
-	whJ6WGNxHgwBtwF2Xt842sXk9qcWTYTMzd9oAy6tHQkOwq7kGy+Ruc9Hb1TYIey4yVmrJ6Hb66h
-	ZPSnOCqAwptppdWLNSW2wZE1/8/BFhYXVFju1nF47GD0ol13qxarnffbW5hnETTEtQOCvy6CCx7
-	aRhHmo5kuLfYiHGlmbIYoTD2ToR8n5BfJTDEWf2aa9F8StFWwBNRXV8XG5LYcKtjg6qi2fB8C7m
-	0CB2B+/PeVBnZadSYjm+oWyoAYHV9Evb+Xb1XweK/3VAUp86AEWbo/p7959m6hjJD0e7E6pOLsV
-	ZJtXqYxzb6Shg929lKK+6Nd1LvPJabeY/22oLCFGDQdi6QGtN7f0/TAG3HQsAuOBYljJONVdu0P
-	g3QoucLWZAHEvlEuJ4Kx3qYThhrsaSUaDURzP5HtcmM18KJToBK9qPk+uQ8zBQoz1CB48Il5Ifw
-	bW6zAJf9unu8ZLLXjVpvU=
-X-Received: by 2002:a17:907:d643:b0:c2e:7da8:f54f with SMTP id a640c23a62f3a-c419f80267amr348395066b.38.1792329574061;
-        Sun, 18 Oct 2026 06:19:34 -0700 (PDT)
-Received: from Desktop.fritz.box ([185.181.130.213])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dd10d4sm264093166b.27.2026.10.18.06.19.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 06:19:33 -0700 (PDT)
-From: Julius Bairaktaris <julius@bairaktaris.de>
-To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Cc: Tamizh Raja <tamizh.raja@oss.qualcomm.com>,
-	jjohnson@kernel.org,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Zhi-Jun You <hujy652@gmail.com>,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/4] ath11k/ath12k: implement TX flow control
-Date: Sun, 18 Oct 2026 15:19:30 +0200
-Message-ID: <20261018131930.1116724-1-julius@bairaktaris.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261017074012.35602-1-jtornosm@redhat.com>
-References: <20261017074012.35602-1-jtornosm@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YlT9KRSo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61A8A1F000C5;
+	Sun, 18 Oct 2026 13:22:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792329765;
+	bh=bIhmGgP6JX0siOj43IOXZbqUl5ehqxSn567CsQnQ89k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YlT9KRSo9Zg5akI9fzhj4zleDgVq7S0MOwhufb1dzp73NPwsqGoZmJsP/wyrMyIrL
+	 CUAYI2UvF/gqA9szQqp3cCTwfJz/CZypkQuHH4vbx/0TxNFkKO3MQrmQCh/av11ldU
+	 YNKVG874alDAbp9CMkZ6kqNI2B8EeOOd0QDAumBKyRPwJrogfxW4C8D82hszABDzRp
+	 8T3+awUuMwXvVPscQA3XvBvM0wi5JXKWMM6Dih7gQSjt3QrJ5lKqrUWZR7EBrjXtYD
+	 vd36KwwBPpuXkR3KM/yOjUHfGJHb+dN0eHvnIlp1EdP/SaDDkBO608qENtr/yaCD2Y
+	 OfBqQyIsjdmlQ==
+Subject: Re: [PATCH net 1/2] net: ti: icssg-prueth: fix missing port config on
+ second interface open
+From: netdev-bot+sashiko@kernel.org
+To: r-kumar12@ti.com
+Cc: netdev@vger.kernel.org, danishanwar@ti.com, rogerq@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, jacob.e.keller@intel.com,
+ m-malladi@ti.com, vadim.fedorenko@linux.dev, haokexin@gmail.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ j-rameshbabu@ti.com, aaron.richard@ti.com, l-chinnannavar@ti.com,
+ m-santhoshkadavan@ti.com, k-tiwari1@ti.com, a-dev@ti.com, pratheesh@ti.com
+Date: Sun, 18 Oct 2026 13:22:43 +0000
+Message-ID: <179232976393.3135.17319859444858468389@kernel.org>
+In-Reply-To: <20261014125948.230571-2-r-kumar12@ti.com>
+References: <20261014125948.230571-2-r-kumar12@ti.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi José Ignacio,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-On Sat, Oct 17, 2026 at 09:40 AM Jose Ignacio Tornos Martinez wrote:
-> For ath11k, my series is smaller (4 patches, 7 review cycles) and has
-> no external dependencies, so it may be simpler to land first. Julius
-> already offered to rebase onto it in his cover letter [1] and move the
-> ring check into his scheduling round.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0 (1)
 
-Agreed.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-One thing on patch 3, from reading the code:
+- [Medium] Reopening one port while its sibling stays up now resets that
+  port's live VLAN configuration to the driver defaults.
 
-> +		if (num_free == 0) {
-> +			spin_unlock_bh(&tx_ring->wake_tx_lock);
-> +			break;
-> +		}
+Pre-existing issues:
+- [Low] The two join paths set emac->port_vlan differently.
 
-When this breaks, the frames stay in the txq and nothing restarts it
-until mac80211 queues the next frame for that txq. A sender waiting for
-ACKs then stalls until its retransmit timeout. With AQL I measured this
-in v4: one download in three stalled, max RTT 347 ms. A restart from
-ath11k_dp_tx_completion_handler() fixes it.
+--
 
-For patches 1-3:
+net: ti: icssg-prueth: fix missing port config on second interface open
 
-Tested-by: Julius Bairaktaris <julius@bairaktaris.de> # IPQ8074 WLAN.HK.2.9.0.1-02146
+This commit moves the per-port FDB, VLAN table, PVID and VLAN-aware setup
+out of icssg_enable_fw_offload() into a new icssg_enable_fw_offload_emac().
+It also moves the HSR Rx offload setup into icssg_update_hsr_rx_offload().
+emac_ndo_open() now calls both helpers unconditionally for the opening
+port, and icssg_enable_fw_offload() is kept for icssg_change_mode().
 
-Julius
+> diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth.c b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
+> index 591be5c8056b4..cd4c918fe2b89 100644
+> --- a/drivers/net/ethernet/ti/icssg/icssg_prueth.c
+> +++ b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
+> @@ -206,6 +206,44 @@ static void prueth_emac_stop(struct prueth *prueth)
+
+[ ... ]
+
+> +static void icssg_enable_fw_offload_emac(struct prueth_emac *emac)
+> +{
+> +	struct prueth *prueth = emac->prueth;
+> +
+> +	if (prueth->is_switch_mode || prueth->is_hsr_offload_mode) {
+> +		icssg_fdb_add_del(emac, eth_stp_addr, prueth->default_vlan,
+> +				  ICSSG_FDB_ENTRY_P0_MEMBERSHIP |
+> +				  ICSSG_FDB_ENTRY_P1_MEMBERSHIP |
+> +				  ICSSG_FDB_ENTRY_P2_MEMBERSHIP |
+> +				  ICSSG_FDB_ENTRY_BLOCK,
+> +				  true);
+> +		icssg_vtbl_modify(emac, emac->port_vlan | DEFAULT_VID,
+> +				  BIT(emac->port_id) | DEFAULT_PORT_MASK,
+> +				  BIT(emac->port_id) | DEFAULT_UNTAG_MASK,
+> +				  true);
+> +		if (prueth->is_hsr_offload_mode)
+> +			icssg_vtbl_modify(emac, DEFAULT_VID,
+> +					  DEFAULT_PORT_MASK,
+> +					  DEFAULT_UNTAG_MASK, true);
+> +		icssg_set_pvid(prueth, emac->port_vlan, emac->port_id);
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but is emac->port_vlan set
+for both ports in switch mode?
+
+In prueth_netdevice_port_link(), only the port whose join completes
+br_members gets port_vlan set:
+
+	if (!prueth->is_switch_mode) {
+		if (prueth->br_members & BIT(PRUETH_PORT_MII0) &&
+		    prueth->br_members & BIT(PRUETH_PORT_MII1)) {
+			prueth->is_switch_mode = true;
+			prueth->default_vlan = PRUETH_DFLT_VLAN_SW;
+			emac->port_vlan = prueth->default_vlan;
+			icssg_change_mode(prueth);
+		}
+	}
+
+prueth_hsr_port_link() sets it on both emac0 and emac1.
+
+This means the port that joined the bridge first keeps port_vlan == 0.
+icssg_set_pvid() here then programs PVID 0 for that port and PVID 1 for
+the other one. Both ports still get VID 1 table membership, because
+0 | DEFAULT_VID == 1.
+
+The unlink paths have the same asymmetry. The switch unlink path resets
+port_vlan on one emac, while the HSR unlink path resets both.
+
+icssg_change_mode()->icssg_enable_fw_offload() already behaved this way
+before this patch. This patch adds another call site that applies the
+value.
+
+A concrete forwarding failure from this hasn't been shown. With 8021q
+loaded, NETDEV_UP already sets PVID 0 via ndo_vlan_rx_add_vid(0). How the
+firmware handles PVID 0 is not known.
+
+Should prueth_netdevice_port_link() set port_vlan on both ports, the
+same way the HSR path does?
+
+> +		if (prueth->is_switch_mode)
+> +			icssg_set_port_state(emac, ICSSG_EMAC_PORT_VLAN_AWARE_ENABLE);
+> +	}
+> +}
+
+[ ... ]
+
+> @@ -1067,8 +1082,9 @@ static int emac_ndo_open(struct net_device *ndev)
+>  		ret = prueth_emac_common_start(prueth);
+>  		if (ret)
+>  			goto free_rx_irq;
+> -		icssg_enable_fw_offload(prueth);
+>  	}
+> +	icssg_update_hsr_rx_offload(emac);
+> +	icssg_enable_fw_offload_emac(emac);
+
+[Severity: Medium]
+Can this reset a port's live VLAN configuration when the port is
+reopened while its sibling stays up?
+
+When the sibling is up, emac_ndo_stop() does not stop the firmware and
+does not remove any FDB, VLAN or PVID state:
+
+	/* stop PRUs */
+	if (prueth->emacs_initialized == 1)
+		prueth_emac_common_stop(prueth);
+
+The next open also skips prueth_emac_common_start(). So the shared-RAM
+VLAN table and the per-port PVID word still hold whatever the bridge or
+8021q programmed. icssg_enable_fw_offload_emac() then runs:
+
+	icssg_vtbl_modify(emac, emac->port_vlan | DEFAULT_VID,
+			  BIT(emac->port_id) | DEFAULT_PORT_MASK,
+			  BIT(emac->port_id) | DEFAULT_UNTAG_MASK,
+			  true);
+	...
+	icssg_set_pvid(prueth, emac->port_vlan, emac->port_id);
+
+This adds the port back to VID 1 with untagged egress, and overwrites the
+PVID with emac->port_vlan.
+
+emac->port_vlan is only ever 0 or the mode default. The runtime VLAN
+paths write the hardware directly and never update it:
+
+prueth_switchdev_vlan_add()
+	icssg_vtbl_modify(emac, vid, port_mask, untag_mask, true);
+	icssg_set_pvid(emac->prueth, vid, emac->port_id);
+
+prueth_switchdev_vlan_del()
+	icssg_vtbl_modify(emac, vid, port_mask, 0, false);
+
+emac_ndo_vlan_rx_add_vid()
+	icssg_set_pvid(emac->prueth, vid, emac->port_id);
+
+For example, on an offloaded bridge, the admin runs "bridge vlan del dev
+eth1 vid 1" or makes VID 1 tagged on eth1. Then "ip link set eth1 down;
+ip link set eth1 up" runs while eth2 is still up. In hardware, eth1 ends
+up as an untagged member of VID 1 again. The software bridge still shows
+the old configuration, and nothing replays the switchdev VLAN objects on
+NETDEV_UP.
+
+Without 8021q, a bridge-configured PVID such as "bridge vlan add dev eth1
+vid 10 pvid untagged" is also replaced, with 1 or with 0 for the port
+that joined the bridge first. With 8021q loaded, its NETDEV_UP handler
+already sets PVID 0 through ndo_vlan_rx_add_vid(0) on every up, both
+before and after this patch.
+
+Before this patch, none of this ran on a single-port reopen, so VLAN
+membership and tagging survived it. The later commit in the series, "net:
+ti: icssg-prueth: re-apply rx_mode state after firmware reboot", only
+adds rx_mode_work scheduling in prueth_emac_common_start(). It does not
+change icssg_enable_fw_offload_emac() or the open path.
+
+The commit message also says:
+
+    If one port is later brought down and up while the sibling stays up,
+    emacs_initialized is still non-zero, so the function never runs again
+    and the port is left unconfigured, depending on bring-up order.
+
+Is that accurate? emac_ndo_stop() never removes the port's FDB, VLAN or
+PVID state, so a port configured at first open stays configured. Only
+the port opened second seems to have been missing its configuration.
+
+Should the open path avoid overwriting state that the firmware still
+holds while the sibling port is running?
+
+>  
+>  	flow_cfg = emac->dram.va + ICSSG_CONFIG_OFFSET + PSI_L_REGULAR_FLOW_ID_BASE_OFFSET;
+>  	writew(emac->rx_flow_id_base, &flow_cfg->rx_base_flow);
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014125948.230571-1-r-kumar12%40ti.com
