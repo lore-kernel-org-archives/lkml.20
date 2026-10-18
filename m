@@ -1,135 +1,140 @@
-Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B892C404BF6
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.240
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FF6415B8B
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792352907; cv=none; b=sqx8bqGApjd54QdZzi7Loshgt4Ne12Cs9QKcUgAy6oQI7bVTPWP/ozExSsqxyM/i6dHthzXs3PI1u4YLe/3530sBIkhFNPUG23eqlURclyN6ZGSYfd6lmNkzYhBoPkeTHT1AdNMtchW/sZBZPhN6bNhtQBW8CBDZZD8i3ZTXBDE=
+	t=1792352923; cv=none; b=BA3UqDFWin/o/C0YMFEHwktp/SHrfbpj5kr7sGzfnWni7ewQ2MsyYsVB+UOtrKGZrfa16vhynYlYpoyouY+8g2XK7UTT2qc+MOzf0sGM73qOd/ydK7zepMmM5HZCEMlLFEhcgYIFkpzQuMd6Z9nmYpU1j9lcbRaQKPpi3pSIdJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792352907; c=relaxed/simple;
-	bh=/yIF3n4oT72GD7bhZKBGyWKTRaTdZ2UypHatGQorBfQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UOBZDuAz4+K1QA0espDODbrZPpgFEgjDFtTC/vNzY9T6IIB97N0tv3ZL1vaAZ8VXQGQAhR6SMPq9bpnD1Bau0SIf6S5j5FEA/KYTSgFZ9hxkCPYAH8QUiTPH++uoFwDVa5FYjFiID6FsOQ3cu60HdbAA8XNMqIrDt7eMDi1aVLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=v1uHodZb; arc=none smtp.client-ip=91.218.175.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792352923; c=relaxed/simple;
+	bh=z8+NKlZVaJg0D1viDndIi21e6QYlTGrfLeaOwjDv2Rk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s8H7qXQMUU2okjtCsL/xfSWWHdhRqK5ec8D0cjP79uo7Mu9cspv4lcC/UA79OhZkffVY0SywonkCqRrZjcwo0zoVQXSxZxsg/pGWxhcNgsICZWnX0J7ClTIg6S0AgQQIdt1DLJuF15+17eOa4nNab7QR9gFSGKRrGxhyaH3M9Gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ETKAfiMW; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="v1uHodZb"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/yIF3n4oT72GD7bhZKBGyWKTRaTdZ2UypHatGQorBfQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792352903; v=1; x=1792957703;
- b=v1uHodZb87zwlKYen1ckw/Ssrvu49BHfqdxKcMm/BB16hMrdeQYCKGC5PkK77ocFgR2ZCykp
- +GXQPhbG5QvBXy2N7gmXPldGGiFpvg9rTchMpYmOx/ZaeV11jyPWXi3wSE96PVT3wsY/dMaygZk
- QLJ5GSmBU5VmkXAeSWhktd+Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f3608eb7e4297639;
-	Sun, 18 Oct 2026 19:48:23 +0000
-X-Mizu-Trace-ID: f3608eb7e4297639
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <23dcbde2-26c3-4288-aa71-3bb3107e3f45@linux.dev>
-Date: Sun, 18 Oct 2026 21:48:21 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ETKAfiMW"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so7993595e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:48:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792352920; x=1792957720; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nT4NId0U2jiAqaCcS2HDGNFvu8HoNbnVXS9R3IhMNjk=;
+        b=ETKAfiMWGZMMjK7jvf+EaLF1zybUc4XOoUGXkkdzOT+59t/NrkQf6gawa07DV3ZO3I
+         titJE0Pr86WP9hXNUrXseD5dRyKG/JCU2T2Auzz/SdVKR11XM+Rtqeqse7uVZ441dMWW
+         2nO7O1Pv/jQF3jd5uyj73CIq3I7VmG9Uje8TcM+mDAYhpZ4Y+Mz0S6CDfOrCnFLT1wzb
+         WEwWqAiZM7DGBXwiyrnfa1zqwgDFgo/+muOr7p3zy8hkfm55HmSTagkrYGealGz7Xmh3
+         eCjWOKR4BZBk3KZnVlDN90n8H+I5rDwXnTa6laULzLc6pXGM7j2izhEefpar7jW0tfXn
+         Iaiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792352920; x=1792957720;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nT4NId0U2jiAqaCcS2HDGNFvu8HoNbnVXS9R3IhMNjk=;
+        b=NM94CtY99fnzuUKbQ0wTU3as1inw/G9jfWMdHfALKlloMP32WF/V+GQhgvKf/Za9Ar
+         RkWZs51yy9tMCBohymZ1cr6yNW9Ut/a1tpui/fnuR/2DGi+RXED1DSQGE6K26BMS0eff
+         /wX2yrp+7IpNYCDWUE/3VQZy04tUXlvM+teqT5BqC4xwKuqyCmifiC0IlONBCuhV0bSA
+         gYgyQchkkMtfpPsgFHsmWvovFC1NCEk3WL6Z4BT4YS1i1iLBZt5nd0dPg2RpZeP/hO6Q
+         I3CAEMJgyfwDS9RXCh2SioqqqeUJQRFHswRTedGO/v6nN4/a9TZEfwQ6oDINux/lC7vq
+         jlwA==
+X-Forwarded-Encrypted: i=1; AKwUvBzubaPFJzC6yYScZDhzXISAiBzgAcC1d1D4dfLZGocnERVmd+inPqaFwkrXOg0/ATsRbcq9uv7QpzXGIW4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL77j4zMo6GYJ8mz2zeDaQaB8+R1qhQwn6rFec8BotI5r1j2Hof
+	PQPbGn3QgvUhotwkN2s3TXPwYJdS9EzkUXyJqMjle4+JT67VVE9k3RrD
+X-Gm-Gg: AYBFou3szCG882aI0Rw91cKrKpt+zf0MZ8hPGbyGLSroUUe7EqskQ/0SiaUoW0y2VXt
+	BM6eUlo+0I9n3MLzJ6Ek5zv//C7js/kSg8JqpCjjpdQToHIxlxwezFxnpY3Ez4811WdPInMwZil
+	5O1kwRJbURiQG0MjPRfRpzVhy/c0sSSbI80Y2rhiqWxNjkYzvNsm3NkW2JvM+XN2Gb7lDGpMHZ9
+	Z7CA3PcI4tLMxCfBTjjfQUWFZVyrgm9wnTTJ1XuA/5auZWHooNXvMzKdzvxG/SU4GzwXTdURQj2
+	FVjl23GUfml88LTuHugnVEyQEDajW2VygDLIUHukb208T+6gb1pU6DBTp+og+XJvf8M8GS1Qnk1
+	OI2EuTHldFUszktvjOuRExID5MlYvnwTR6JUU6gYJWtpSgKik0aQTUr6JbOA+sbnKcglRkqOgNG
+	yLGVaMp3G6QgMB9iagFwGz/DmAiNeMj6QOPXHGcALWWbR0Zm2tAPzOioueZ+IChv5z9y2YCOQ/x
+	EMVHrXxMPBmgG0YzdrsaC197Xta16pW/ec=
+X-Received: by 2002:a05:600d:8488:20b0:4a1:e3e2:93e0 with SMTP id 5b1f17b1804b1-4a1e3e2967dmr30105055e9.32.1792352920294;
+        Sun, 18 Oct 2026 12:48:40 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd50d1bcsm18886835f8f.54.2026.10.18.12.48.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 12:48:39 -0700 (PDT)
+Date: Sun, 18 Oct 2026 20:48:38 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Haoran Wang <haoranwangsec@gmail.com>, jasowangio@gmail.com,
+ kvm@vger.kernel.org, virtualization@lists.linux.dev,
+ netdev@vger.kernel.org, eperezma@redhat.com, linux-kernel@vger.kernel.org,
+ security@kernel.org
+Subject: Re: [BUG] vhost/vringh: __get_user without access_ok leaks kernel
+ memory via vDPA passthrough
+Message-ID: <20261018204838.4080b238@pumpkin>
+In-Reply-To: <20261018152358-mutt-send-email-mst@kernel.org>
+References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com>
+	<20261018152358-mutt-send-email-mst@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] HID: asus: Re-send the Zenbook Duo keyboard
- handshake after probe
-To: =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- Luke Jones <luke@ljones.dev>,
- Joshua Leivenzon <hacker1024@users.sourceforge.net>,
- Ivan Levchenko <me@livan.pro>, Nathan Chancellor <nathan@kernel.org>,
- Paolo Pisati <p.pisati@gmail.com>
-References: <4bf9e6b0-4f6e-4faf-a2b6-a57143ef3f23@linux.dev>
- <20261018191823.22123-1-rebecca.mara@posteo.de>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <20261018191823.22123-1-rebecca.mara@posteo.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sun, 18 Oct 2026 15:24:41 -0400
+"Michael S. Tsirkin" <mst@redhat.com> wrote:
 
-On 10/18/26 21:18, Rebecca Mara Müller wrote:
-> On Sun, Oct 18, 2026 at 07:10:57PM +0200, Denis Benato wrote:
->> So this patch is based on an arbitrary wait that is based on the
->> assumption that some other device gets initialized...
->>
->> Can you try making this deterministic?
-> Since this part came from my patch, I went back and measured it on my
-> UX8407AA before trying to make it deterministic. The result: there is
-> nothing to fix, so please drop 7/7.
+> On Thu, Oct 15, 2026 at 03:23:45PM +0800, Haoran Wang wrote:
+> > I'd like to report an issue in drivers/vhost/vringh.c:1216 (function
+> > getu16_iotlb), found via static analysis of Linux 7.0.11 and verified
+> > against the 7.2.10 source tree. I have reproduced the leak on an
+> > unmodified 7.2.10 kernel.  
+> 
+> 
+> This should fix it I think? Can you confirm pls?
+> 
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> ---
+>  drivers/vhost/vringh.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/vhost/vringh.c b/drivers/vhost/vringh.c
+> index 9066f9f12ba1..4b097170bd36 100644
+> --- a/drivers/vhost/vringh.c
+> +++ b/drivers/vhost/vringh.c
+> @@ -1213,7 +1213,11 @@ static inline int getu16_iotlb(const struct vringh *vrh,
+>  		return ret;
+>  
+>  	if (vrh->use_va) {
+> -		ret = __get_user(tmp, (__virtio16 __user *)ivec.iov.iovec[0].iov_base);
+> +		__virtio16 __user *uaddr = ivec.iov.iovec[0].iov_base;
+> +
+> +		if (!access_ok(uaddr, sizeof(*p)))
+> +			return -EFAULT;
+> +		ret = __get_user(tmp, uaddr);
 
-That's good! The probe function is unfortunately a bit chaotic as it
-is already... After all this driver must handle many different wildly
-different devices so keeping it simpler benefits the addition of new
-devices.
+Can't that be a normal get_user() call?
 
-> I built v3 as an out-of-tree module against a 7.0.11-based distribution
-> kernel, with only the schedule_delayed_work() call of 7/7 removed and my
-> userspace workaround stopped, and checked whether the keyboard stays in
-> hotkey mode (keyboard backlight key changing asus::kbd_backlight, plus
-> usbmon on the keyboard's bus for part of the runs):
->
-> - docking: 10 of 10
-> - loading the module with the keyboard attached: 2 of 2
-> - rebinding only the touchpad to hid-multitouch while docked: 4 of 4
-> - s2idle suspend and resume: 3 of 3
-> - reboot with the module loaded after hid-multitouch (rootfs only):
->   2 reboots, 1 cold boot, all fine
-> - reboot with the module in the initramfs: 3 reboots, 1 cold boot,
->   all fine
->
-> usbmon shows hid-asus sending the 0x5a handshake on interface 4 and
-> hid-multitouch sending feature reports 0x07, 0x03 and 0x05 to the
-> touchpad on interface 5 some 10-20 ms later, and the hotkeys keep
-> arriving as 0x5a reports on interface 4 afterwards. The same happens
-> when hid-multitouch reconfigures the touchpad on resume or on a rebind.
->
-> I also went back through my notes from August to see why I believed
-> otherwise. The conclusion came from a test where I rebound the touchpad
-> and the brightness keys then did nothing. At that point my test module
-> had neither the descriptor fixup nor the forced hid-input binding yet,
-> so the hotkey interface had no input device at all and the keys could
-> not have worked in either mode; my userspace workaround was stopped.
-> All later tests that day already included the re-send, so they showed
-> that the whole patch works, but never whether the re-send is needed.
->
-> I am really sorry for the extra work this caused, Paolo, for carrying
-> and adapting the patch, and Denis and everyone else for reviewing it.
-> This was my first time this deep into a driver, and I should have
-> tested the re-send on its own before sending it.
+David
 
-Well you know how this things go... Only who does nothing can claim
-to have made no mistakes. There's no problem for me, in fact it happened
-to me too to do work based on assumptions that ended up being false...
-It just happens and is nobody's fault!
+>  		if (ret)
+>  			return ret;
+>  	} else {
+> @@ -1251,7 +1255,11 @@ static inline int putu16_iotlb(const struct vringh *vrh,
+>  	tmp = cpu_to_vringh16(vrh, val);
+>  
+>  	if (vrh->use_va) {
+> -		ret = __put_user(tmp, (__virtio16 __user *)ivec.iov.iovec[0].iov_base);
+> +		__virtio16 __user *uaddr = ivec.iov.iovec[0].iov_base;
+> +
+> +		if (!access_ok(uaddr, sizeof(*p)))
+> +			return -EFAULT;
+> +		ret = __put_user(tmp, uaddr);
+>  		if (ret)
+>  			return ret;
+>  	} else {
+> 
+> 
 
-I actually like reading these things so I know what was done and tested
-and what to look for in case I find myself in similar situations (and what
-to look for when bringing up new hardware in the fastest way possible).
-
-> Unrelated, in case it is useful: with the series applied, the keyboard
-> backlight stays on while the laptop is in s2idle suspend.
-
-I haven't looked much at these models beside the wmi side so I don't
-know if they are like ROGs/TUFs but ROGs and TUFs have the keyboard
-backlight that can be configured in s2idle and/or hibernation, but even
-if powered on usually the pattern changes... So I am concerned that
-hardware isn't entering s2idle properly... Are you sure it is?
-
-You can use the amd-s2idle tool even if the CPU is an intel one to check
-that.
-
-I don't want to speculate too much, but if it really is sleeping then we are
-either missing a way to configure backlight enablement on power states
-or a command to send while suspending.
-
-> Thanks,
-> Rebecca
