@@ -1,131 +1,116 @@
-Received: from mta0.migadu.com (out-20.mta0.migadu.com [91.218.175.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91984078CB
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8B139EF3F;
+	Sun, 18 Oct 2026 18:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792346563; cv=none; b=VpQP4Wj5aw2JSWkIG1gKNEx/N9qsV2H71rgP9G4UbEdgM1aQuUgL2c4EoDYoejdHKq4+GFurYUJ2sQ2BmZAJSMJH0Af5WLFuBAkdPjDZtc31lnP1lzOcv8nznSftXCKsAPjBo2MFVZ4pMLoBHhMjB25SfF7C+LPc4Mi9GEdCiI8=
+	t=1792346585; cv=none; b=YxFOmb49nvgRrzUwZb/JtFyj/OK1HktW8WWb2rNRLAFXkyjc8dwF8x0/IVOjzVORWJVZktnsDz5mJKXABDsc4QB7Z9bti6xfw+WP8shgw710nZp4Uyzz0+vnH61qLdorDl0jD9tbZMyeU8pHW2hY3/WWrI9WQKHD9CJJFl0wbZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792346563; c=relaxed/simple;
-	bh=+FkpIcbJBc1unx6lcV4sYQUkfhZO2/R7YSWkWEoy/bU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JPaTWi8sq0Q06EzDXBqhtCpeN+P7A5Mkk4m1ba3ehDb3O3DBppMdap8+2vJz+e0qYpYYqn1inmk6ikpRpo2MTJnsm4opQQZjqL2FyYsjrLxKCLexZF7qR4UzC9PDeJJKBFwz1QZtcRpuEUzCwUBK5VkWvPW4ZK43hjLv/Nj0W1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lR9ezHZ/; arc=none smtp.client-ip=91.218.175.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792346585; c=relaxed/simple;
+	bh=eehOXyMVrVm4iDvRrfcuY9w0098006H5ox3F9F6TRMg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=K10acAJpTHQY3x6f0vCrfBrRKppKZ0F+3gru09tzvuU6NDm3zM3O1HpBAC1V/LeC2qmZPBAD23uD8zHa+PkD5ZdwRBpxeFv3hQbq4eX8XKcyWhR8K4c9rKkhL3hNqrrrFWk1D34Q+wrBTgy+susThVWkxNA7QsOgXDZw2gFDLp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H3AZRMwe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lR9ezHZ/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+FkpIcbJBc1unx6lcV4sYQUkfhZO2/R7YSWkWEoy/bU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792346559; v=1; x=1792951359;
- b=lR9ezHZ//hmFuv4Jz4r7ZWhp1WWhvN6q8XAILYqHkbwfjFqjRRjbeqCdUFWqKm8LSEQSMva1
- puUVrD06t1o+FoJIMoUw4sV+ES6wGy/jsQm2XMiJebbIsNJSpFGZ89hCWUGzR8WYFsPbvGV0JGK
- lwKpIbgNqE11qll14+g2ZSXo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b7e4456cf56612ba;
-	Sun, 18 Oct 2026 18:02:39 +0000
-X-Mizu-Trace-ID: b7e4456cf56612ba
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1a35e100-010d-4327-afe5-1d2496ad7e24@linux.dev>
-Date: Sun, 18 Oct 2026 20:02:38 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H3AZRMwe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94CEA1F000C4;
+	Sun, 18 Oct 2026 18:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792346584;
+	bh=uxEMCbmJtXDM0C3prE30skAO6GSMi1K3kxl0v8hnH4E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=H3AZRMwewUyEXdWCBRDFMiZ5+Y3blIOlBgjbQO+Arvv/JL/a02lZbHk8jIzeRyhks
+	 rvClfGEBSqKm+0AHLGUYLa+DTr+XpBR1ApQQFV0cDVQuXMsl3/an6eLpideMiNWLT8
+	 UhN2C12SckeyGWVrOh6wDxpYx4ya5UEADO6JPBoJwr6RRDoH1pUaEjbczpBRAaVIbZ
+	 7Rl42WeqEW3uSmyVjV3Zd2Oukb2KPYRUUgjNs7uAOxrftdrPth3GslmZZf44H9kQWT
+	 ATN4FcOmQkUzvLP1jgf1cxY+B7oMyuN7CIGfkRzbYgeHY/J00TJ20M0iwE2CXet7xl
+	 MlNRym4+FFQjQ==
+Date: Sun, 18 Oct 2026 19:02:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Matt Ranostay <matt@ranostay.sg>
+Cc: Nikhil Gautam <nikhilgtr@gmail.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org
+Subject: Re: [PATCH 1/1] iio: atlas-ezo: Fix humidity channel read support
+Message-ID: <20261018190259.30f85279@jic23-hlaptop>
+In-Reply-To: <XRg2Dn6qienpjl0S8WbVJ4nwMKQ5nppuPTJ6HVuSwZRjdn4lggdxaeY5vtQk6j5ihd3lJ_j58o3ypATqaNo1h1eqMdoLcPd6HBuh23ZvJIo=@ranostay.sg>
+References: <20261012114553.3327-1-nikhilgtr@gmail.com>
+	<20261012114553.3327-2-nikhilgtr@gmail.com>
+	<as1G0yGQ5wKhd-dh@ashevche-desk.local>
+	<ab328578-08a6-455d-a9bf-411aeb561c8c@gmail.com>
+	<20261018003129.533effef@jic23-hlaptop>
+	<XRg2Dn6qienpjl0S8WbVJ4nwMKQ5nppuPTJ6HVuSwZRjdn4lggdxaeY5vtQk6j5ihd3lJ_j58o3ypATqaNo1h1eqMdoLcPd6HBuh23ZvJIo=@ranostay.sg>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86: asus-nb-wmi: map ScreenPad and Task Swap
- keys
-To: victor.gillholm@gmail.com, Corentin Chary <corentin.chary@gmail.com>,
- "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261017-zenbook-duo-keys-v1-1-45f72d3db5ed@gmail.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <20261017-zenbook-duo-keys-v1-1-45f72d3db5ed@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Sun, 18 Oct 2026 02:28:01 +0000
+Matt Ranostay <matt@ranostay.sg> wrote:
 
-On 10/17/26 20:13, Victor Gillholm via B4 Relay wrote:
-> From: Victor Gillholm <victor.gillholm@gmail.com>
->
-> The ASUS Zenbook Duo 14 UX482EG has two keys next to the power button:
-> one toggles the ScreenPad Plus, the second screen above the keyboard,
-> and one swaps windows between the two screens (Task Swap in ASUS'
-> ScreenXpert software). They emit ASUS WMI event codes 0x6a and 0x9c.
-> Neither code is in the asus-nb-wmi sparse keymap, so pressing them only
-> logs "Unknown key code 0x6a" or "Unknown key code 0x9c", and both keys
-> are reported as KEY_UNKNOWN, so ordinary desktop key bindings cannot
-> tell them apart.
->
-> Map 0x6a to KEY_F13, the same keycode hid-asus already uses for the
-> ScreenPad toggle code 0x6a. No existing keycode describes moving windows
-> between screens, so map 0x9c to KEY_F14, following the existing use of
-> KEY_F13 and KEY_F14 for other ASUS-specific keys in this keymap. Both
-> keys then emit distinct, bindable events.
->
-> Tested on an ASUS Zenbook Duo 14 UX482EG: with this change the keys
-> arrive in userspace as KEY_F13 and KEY_F14 and the "Unknown key code"
-> messages are gone.
->
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Victor Gillholm <victor.gillholm@gmail.com>
-> ---
-> Tested by building asus-nb-wmi against 7.2.5 and loading it in place of
-> the stock module. The key mapping was checked with wev: before the change
-> both keys arrived as keycode 248 with no keysym, after it as XF86Tools
-> (KEY_F13) and XF86Launch5 (KEY_F14).
-> ---
->  drivers/platform/x86/asus-nb-wmi.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-> index 3b0f3346d..c6eb525ec 100644
-> --- a/drivers/platform/x86/asus-nb-wmi.c
-> +++ b/drivers/platform/x86/asus-nb-wmi.c
-> @@ -641,6 +641,7 @@ static const struct key_entry asus_nb_wmi_keymap[] = {
->  	{ KE_KEY, 0x65, { KEY_SWITCHVIDEOMODE } }, /* SDSP LCD + TV */
->  	{ KE_KEY, 0x66, { KEY_SWITCHVIDEOMODE } }, /* SDSP CRT + TV */
->  	{ KE_KEY, 0x67, { KEY_SWITCHVIDEOMODE } }, /* SDSP LCD + CRT + TV */
-> +	{ KE_KEY, 0x6A, { KEY_F13 } }, /* ScreenPad toggle on Zenbook Duo */
+> On Sunday, October 18th, 2026 at 07:31, Jonathan Cameron <jic23@kernel.org> wrote:
+> 
+> > On Tue, 13 Oct 2026 22:15:23 +0530
+> > Nikhil Gautam <nikhilgtr@gmail.com> wrote:
+> >   
+> > > Hi Joshua, Andy,
+> > >
+> > > Thanks for the review and feedback.
+> > >
+> > > I checked the Git history and found that the channel type check was
+> > > already present
+> > > in commit dc3ebfc ("iio: chemical: atlas-ezo-sensor: add humidity sensor
+> > > support").
+> > > It was not removed when humidity sensor support was introduced, and
+> > > I couldn't find any commit message explaining the original intent of the
+> > > check.
+> > >
+> > > Regarding the potential I2C read issue reported by Sashiko,
+> > > I'll investigate it and address it in a separate patch series.
+> > >
+> > > I'll also omit the cover letter for future single-patch submissions.  
+> > 
+> > Matt normally gets back reasonably quickly so +CC but I'll
+> > assume this is just one of those last minute editing errors and
+> > apply the fix in the meantime.  
+> 
+> Yeah this was probably an oversight on my part. Since the humidity sensor support came later, and don't think I actually ever had this EVO sensor.
+> So the patch LGTM.
+> 
+> Reviewed-by: Matt Ranostay <matt@ranostay.sg>
+Thanks and tag added.
 
-Hi Victor,
+J
+> 
+> > 
+> > So applied to the fxies-togreg branch of iio.git and marked for stable.
+> > 
+> > Thanks,
+> > 
+> > Jonathan
+> >   
+> > >
+> > > Thanks,
+> > > Nikhil
+> > >
+> > > On 13-10-2026 02:15 am, Andy Shevchenko wrote:  
+> > > > On Mon, Oct 12, 2026 at 05:15:53PM +0530, Nikhil Gautam wrote:  
+> > > >> The atlas_ezo_read_raw() function rejects channels that are not of
+> > > >> type IIO_CONCENTRATION, preventing the relative humidity channel
+> > > >> from reading raw and scale values.
+> > > >>
+> > > >> Remove the early channel type check to allow both concentration
+> > > >> and relative humidity channels to reach the mask-specific handling.  
+> > > > Have you checked the Git history on this change? Anything interesting there?
+> > > >  
+> > >  
+> > 
+> >   
 
-The driver is handling the screenpad so why not implementing the functionality in
-the driver instead of doing the dance driver -> evdev -> remap -> driver ?
-
-Unless I misunderstood what you want to do... Hopefully not!
-
->  	{ KE_KEY, 0x6B, { KEY_TOUCHPAD_TOGGLE } },
->  	{ KE_IGNORE, 0x6E, },  /* Low Battery notification */
->  	{ KE_KEY, 0x71, { KEY_F13 } }, /* General-purpose button */
-> @@ -666,6 +667,7 @@ static const struct key_entry asus_nb_wmi_keymap[] = {
->  	{ KE_KEY, 0x93, { KEY_SWITCHVIDEOMODE } }, /* SDSP LCD + CRT + TV + DVI */
->  	{ KE_KEY, 0x95, { KEY_MEDIA } },
->  	{ KE_KEY, 0x99, { KEY_PHONE } }, /* Conflicts with fan mode switch */
-> +	{ KE_KEY, 0x9C, { KEY_F14 } }, /* Task Swap key on Zenbook Duo */
-
-Fair.
-
-Best regards,
-Denis Benato
-
->  	{ KE_KEY, 0X9D, { KEY_FN_F } },
->  	{ KE_KEY, 0xA0, { KEY_SWITCHVIDEOMODE } }, /* SDSP HDMI only */
->  	{ KE_KEY, 0xA1, { KEY_SWITCHVIDEOMODE } }, /* SDSP LCD + HDMI */
->
-> ---
-> base-commit: ea40f1e9f07aab937b9a217633be7a1f66260394
-> change-id: 20261017-zenbook-duo-keys-7e0b3f94354a
->
-> Best regards,
-> --  
-> Victor Gillholm <victor.gillholm@gmail.com>
->
->
