@@ -1,170 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C1823446C7
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828343446C7;
+	Sun, 18 Oct 2026 21:05:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792357507; cv=none; b=jxEQMI04f0PQ/ZCzZygDG76oALbd02Ec054GjKt+VmjymmsiJv+hKAtva3RE201jA/HhN+TUU+ZQlo0JKNojJwdtf0C1W4VPPWTTC34givlQ5iZWmnrin9qdrJGyUtQwkSXvART1k4GucQZqys/o52xeiweTNLniTzTMrYBvv0A=
+	t=1792357548; cv=none; b=FoJ58B+OI1yKJ28oDZtM5w4eBjGZYpH5/24EugkgYat7si1Lslu/B5FEXUDzy2sIicsdvju4ws6txGZBXgBdSZbr1FpEUuSelQ2DoHM5/iY2VSAJQtIZMoG+PmRdJrCI81DzpO7C0UGShaDMOkE2YfhY/1l79g5Rrm5kO6ecs0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792357507; c=relaxed/simple;
-	bh=OthJdEKOZyT5cyQthiIhZUkaQDgEaf8zEWxc3cak/oU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q4/RhX4UnIM7eIv0Ap5OfrlHMjTNqLgmI/RMhRBkC84AJhes9MPeZO1FO4oO/ZIsggRu/CAGRaXHtB32Sd9zAWCcAKo+9gwWVz/nAkZEIVXe8/od+nMF+jNO1iAhia4E7FxnBnbGViwvIdmUZs4/1n48CKqfguKXETCgyk5V/nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P4lLs6eE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792357548; c=relaxed/simple;
+	bh=V77oFD5gZ54HfBnKGQqFWw5sfcYWsildyeoNCVeayVk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RfRU2Y1Vk7BdiG1tkSmPWK+dKWcXqvbut5uNTj3NJygYHBsKFIEvuLvGg2l7P2lKGIY2QyFkHZSMjRPArbLB2jNTlmrfWWP24FJU1Qhv+YsbM2IQrJGzSgaIFvZCiXCStAHge7IGzpI1cA3wS8OVM3QsuCpcuE3VR5Va0AD7p3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jG7y2uks; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P4lLs6eE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629F41F000D4
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792357504;
-	bh=iQDTlvvwoXWqTgqUBdk+kEmh4xR3Lpqc+hC8biCo7vg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=P4lLs6eEEnoVjUQJuctxKFBDuyiPaK3m6UuM2qgmkC16By/9aSfZIWgpmJuCHfJPH
-	 AZ2cEGKtdOqRNMne4/juWp8RLzT7qlc2GWSSIOK/AUl3LAOwSSsXi2xDZ5ELgU/LuJ
-	 HCCZ+rsUppmYKvwZkqtLKONFVSL0amezDpnaIKAMeBxriahtJGt5qCaMjPT6ZQoJkp
-	 47LrDtFiOgVtj4qwixrez4zTggHJ8aPqPPZAgg8ShK7muCU8B7cAFCCEDvaxnImxhc
-	 qbssp2b5F8TKOPmKrxEXScyhc2cd0A/XHK2v/f0JApCl90328xasjtDE3vVKolKoTP
-	 Y6y42DguGoHsQ==
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93a40a9a01aso353861885a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:05:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBws72SVHVLkX5FxqKpp+u7qwg2hx0kfTva0PMSIPsujlG0lPNwmNKwnV/YUHiH7g1SoqEO7TrjlywtKsYg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1qogdtGgJCPUKFzNgTpWqERJuTjki5/lndIIQbrTG1KvpI1kr
-	GCEw51Z2UMOuAni3CXI//lyTv/yjKAs5n09M1/RQS9oK9RTi8lb+pbFOfGpOVELnAH7pQr94d3s
-	x+6kvD5KF7nXH1c7QcElzLgXQA9vr+jE=
-X-Received: by 2002:a05:620a:280a:b0:93e:c12d:4ec9 with SMTP id
- af79cd13be357-93f17faaefdmr1523087585a.41.1792357503555; Sun, 18 Oct 2026
- 14:05:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jG7y2uks"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 09E65C2BCC7;
+	Sun, 18 Oct 2026 21:05:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792357548;
+	bh=V77oFD5gZ54HfBnKGQqFWw5sfcYWsildyeoNCVeayVk=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=jG7y2uksR/X3PYHpvjMhQewjSlSSS+6D4cegEFLeqcLkOUVC8Af+XyhKGxwWlu12j
+	 Xxxx0ujj5pIvn1AhkDKwhcwwZumOURiSYQ2p1PSPXKY6UOltX/UCKyivz3iDgC1j0a
+	 JUxobKYRUj21z+SLX7NvieWahb4glOuOkmKHMnP7Qm+O7dO72K/FbyCIbl1TQexCoE
+	 E4Y3TB4kIyliLoL0GqQHkrlhyssxCLwjj9Rmmg3jpBny/lfYq97K330prEFqumUDyO
+	 0vpBeMklw1k8LJ3oosTEKS9wH8BVrG1jn4ab9R/YCnjurHZyzWBWYmSpc4mLt5cntn
+	 RU3Msy8Uobxjw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9741CCA490;
+	Sun, 18 Oct 2026 21:05:47 +0000 (UTC)
+From: Michael Baikov via B4 Relay <devnull+manpacket.gmail.com@kernel.org>
+Date: Sun, 18 Oct 2026 17:05:21 -0400
+Subject: [PATCH] net: sfc: run hardware-classified UDP packets through GRO
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261017050928.128582-1-sidchintamaneni@gmail.com>
-In-Reply-To: <20261017050928.128582-1-sidchintamaneni@gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 19 Oct 2026 05:04:51 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4whqGRQ4JY5rLLJZU=f8u5T75qHkJYQFDoqZSx5c6EBHQ@mail.gmail.com>
-X-Gm-Features: AclHuK--x7DVGO_dcw8j_MNytrS7YLiy9sMauVU8tR1EJZ2OhP3EMm1WXJm10Fc
-Message-ID: <CAGsJ_4whqGRQ4JY5rLLJZU=f8u5T75qHkJYQFDoqZSx5c6EBHQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref
- with memcg disabled on cmdline
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
-	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
-	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
-	Hardik Garg <hargar@linux.microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261018-sfc-gro-udp-v1-1-f7bf378178f8@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0ML3eK0ZN30onzd0pQCXdMU41TLROMkoyRTEyWgjoKi1LTMCrBp0bG
+ 1tQDEDXIoXQAAAA==
+X-Change-ID: 20261018-sfc-gro-udp-5d3e9a3b2b54
+To: Edward Cree <ecree.xilinx@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-net-drivers@amd.com, 
+ linux-kernel@vger.kernel.org, Michael Baikov <manpacket@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792357547; l=3180;
+ i=manpacket@gmail.com; s=20261015; h=from:subject:message-id;
+ bh=11Plzd20WV2rMhW48ZwHWAj7uVsIcTQcCnD1lCBN+V0=;
+ b=vQK9gyW/8OBXXuInwJXO6/eTz4UZT9n3mAPDqmKxKOFpQK49au9DpXzOdjPandNb8BshMs19K
+ PnK+A7fq/pVCyXyDQs0xnwqwQr54SeykZ/xUn4BDCsv/SUSdS7W2f/Q
+X-Developer-Key: i=manpacket@gmail.com; a=ed25519;
+ pk=OljyhmMnK5zdnRB5D/BzDCrh2eycv9FSkJB+r1/MtzM=
+X-Endpoint-Received: by B4 Relay for manpacket@gmail.com/20261015 with
+ auth_id=1197
+X-Original-From: Michael Baikov <manpacket@gmail.com>
+Reply-To: manpacket@gmail.com
 
-On Sat, Oct 17, 2026 at 1:09=E2=80=AFPM Siddharth Chintamaneni
-<sidchintamaneni@gmail.com> wrote:
->
-> When CONFIG_MEMCG=3Dy, lruvec_pgdat() returns lruvec->pgdat, which for th=
-e
-> per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled in
-> lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
-> first folio_add_lru().
->
-> With cgroup_disable=3Dmemory, lru_gen_shrink_node() passes &pgdat->__lruv=
-ec
-> directly to shrink_one(). If direct reclaim runs before anything has
-> called mem_cgroup_lruvec() for the node, which can happen during early
-> boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
-> up dereferencing a NULL pgdat:
->
->   Unable to handle kernel NULL pointer dereference at virtual address 000=
-0000000005040
->   pc : get_swappiness+0x68/0xb0
->   lr : try_to_shrink_lruvec+0x54/0x2c0
->   Call trace:
->    get_swappiness+0x68/0xb0 (P)
->    try_to_shrink_lruvec+0x54/0x2c0
->    shrink_one+0x8c/0x240
->    shrink_node+0xc6c/0xe08
->    do_try_to_free_pages+0xdc/0x570
->    try_to_free_pages+0x124/0x278
->    __alloc_frozen_pages_noprof+0x6e8/0xf78
->    alloc_pages_mpol+0xc4/0x1c0
->    alloc_frozen_pages_noprof+0x54/0xe8
->    alloc_pages_noprof+0x1c/0x40
->    atomic_pool_expand+0x98/0x300
->    __dma_atomic_pool_init+0x58/0xd8
->    dma_atomic_pool_init+0x154/0x170
->    do_one_initcall+0x64/0x350
->    kernel_init_freeable+0x214/0x430
->    kernel_init+0x2c/0x208
->    ret_from_fork+0x10/0x20
->
-> The classic LRU path and MGLRU before per-node lru_gen_folio lists
-> obtained the lruvec through mem_cgroup_lruvec(), which sets
-> lruvec->pgdat.
->
-> The above was hit on an arm64 kdump kernel (6.18-based) booted with
-> cgroup_disable=3Dmemory nr_cpus=3D4. It also reproduces on mainline on an
-> arm64 VM with CONFIG_ARM64_64K_PAGES=3Dy, CONFIG_MEMCG=3Dy,
-> CONFIG_LRU_GEN_ENABLED=3Dy and:
->
->   mem=3D160M nr_cpus=3D4 coherent_pool=3D512M cgroup_disable=3Dmemory
->
-> These options only serve to force direct reclaim early in boot; with
-> 160M the boot eventually ends in OOM regardless. On mainline the first
-> LRU reclaim happens while unpacking the initramfs, and faults the same
-> way:
->
->   Unable to handle kernel NULL pointer dereference at virtual address 000=
-0000000005040
->   pc : get_swappiness+0xd4/0x150
->   Call trace:
->    get_swappiness+0xd4/0x150 (P)
->    try_to_shrink_lruvec+0x44/0x2b8
->    shrink_one+0x80/0x1a0
->    shrink_node+0xd98/0xea8
->    do_try_to_free_pages+0xf4/0x4b0
->    try_to_free_pages+0x110/0x360
->    __alloc_frozen_pages_noprof+0x8b0/0x1718
->    ...
->    __filemap_get_folio_mpol+0x2ac/0x548
->    simple_write_begin+0x44/0xf8
->    page_symlink+0x178/0x198
->    ...
->    do_populate_rootfs+0x13c/0x200
->
+From: Michael Baikov <manpacket@gmail.com>
 
-So this happens before any folios are added to the LRU and before
-the userspace init process starts?
+This commit partially undoes changes made by the commit e79255de8581
+("sfc: Do not pass non-TCP packets into GRO code"). Those changes made
+sense back then, but now GRO can help with more message types. Instead
+of passing just TCP packets driver to GRO now also pass UDP packets.
 
-> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> Cc: stable@vger.kernel.org # 6.3+
-> Assisted-by: LLM
-> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-> Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
-> ---
->  mm/vmscan.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index f11491ee9ed5..0c57e4f1eb15 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -5253,7 +5253,7 @@ static void lru_gen_shrink_node(struct pglist_data =
-*pgdat, struct scan_control *
->                 sc->nr_reclaimed =3D 0;
->
->         if (mem_cgroup_disabled())
-> -               shrink_one(&pgdat->__lruvec, sc);
-> +               shrink_one(mem_cgroup_lruvec(NULL, pgdat), sc);
+Tested on SFC9250 with a UDP_GRO socket.
 
-What's a bit weird is that even if we fix this here, with an empty
-lruvec, we still won't be able to reclaim a single page. But it's
-hard to see where we could break out early, right?
+Signed-off-by: Michael Baikov <manpacket@gmail.com>
+---
+Problem I'm trying to solve: I'm dealing with high data rate, small
+message size multicast UDP traffic - uniform size, addresses - a perfect
+candidate for UDP Generic Receive Offload (GRO). Made a prototype - it
+worked as expected on the desktop during development, but wasn't
+producing any GRO coalesced messages on the server.
 
->         else
->                 shrink_many(pgdat, sc);
+The server uses SFC9250 and turns out its driver only allows GRO for TCP
+packets. Change was made back in 2013.
 
-Best Regards
-Barry
+Expected user impact:
+
+1. GRO will start working for UDP
+2. It might add a slight overhead for UDP traffic for e10 drivers.
+   (this bypass only exists for e10 drivers, for e100 (ef100_rx.c:140)
+   packets are passed to GRO unconditionally
+---
+ drivers/net/ethernet/sfc/ef10.c       | 2 ++
+ drivers/net/ethernet/sfc/net_driver.h | 1 +
+ drivers/net/ethernet/sfc/rx.c         | 3 ++-
+ 3 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/sfc/ef10.c b/drivers/net/ethernet/sfc/ef10.c
+index 73bc064929f6..ab0f5e8aae6e 100644
+--- a/drivers/net/ethernet/sfc/ef10.c
++++ b/drivers/net/ethernet/sfc/ef10.c
+@@ -2955,6 +2955,8 @@ static int efx_ef10_handle_rx_event(struct efx_channel *channel,
+ 
+ 	if (rx_l4_class == ESE_FZ_L4_CLASS_TCP)
+ 		flags |= EFX_RX_PKT_TCP;
++	else if (rx_l4_class == ESE_FZ_L4_CLASS_UDP)
++		flags |= EFX_RX_PKT_UDP;
+ 
+ 	channel->irq_mod_score += 2 * n_packets;
+ 
+diff --git a/drivers/net/ethernet/sfc/net_driver.h b/drivers/net/ethernet/sfc/net_driver.h
+index 71144bb4c6c8..57cb508d82fa 100644
+--- a/drivers/net/ethernet/sfc/net_driver.h
++++ b/drivers/net/ethernet/sfc/net_driver.h
+@@ -341,6 +341,7 @@ struct efx_rx_buffer {
+ #define EFX_RX_BUF_LAST_IN_PAGE	0x0001
+ #define EFX_RX_PKT_CSUMMED	0x0002
+ #define EFX_RX_PKT_DISCARD	0x0004
++#define EFX_RX_PKT_UDP		0x0020
+ #define EFX_RX_PKT_TCP		0x0040
+ #define EFX_RX_PKT_PREFIX_LEN	0x0080	/* length is in prefix only */
+ #define EFX_RX_PKT_CSUM_LEVEL	0x0200
+diff --git a/drivers/net/ethernet/sfc/rx.c b/drivers/net/ethernet/sfc/rx.c
+index ffca82207e47..929ecb539b64 100644
+--- a/drivers/net/ethernet/sfc/rx.c
++++ b/drivers/net/ethernet/sfc/rx.c
+@@ -401,7 +401,8 @@ void __efx_rx_packet(struct efx_channel *channel)
+ 	if (unlikely(!(efx->net_dev->features & NETIF_F_RXCSUM)))
+ 		rx_buf->flags &= ~EFX_RX_PKT_CSUMMED;
+ 
+-	if ((rx_buf->flags & EFX_RX_PKT_TCP) && !channel->type->receive_skb)
++	if ((rx_buf->flags & (EFX_RX_PKT_TCP | EFX_RX_PKT_UDP)) &&
++	    !channel->type->receive_skb)
+ 		efx_rx_packet_gro(channel, rx_buf, channel->rx_pkt_n_frags, eh, 0);
+ 	else
+ 		efx_rx_deliver(channel, eh, rx_buf, channel->rx_pkt_n_frags);
+
+---
+base-commit: 98c2ad4f5d805dbc1ea436a334ee59311806a48c
+change-id: 20261018-sfc-gro-udp-5d3e9a3b2b54
+
+Best regards,
+-- 
+Michael Baikov <manpacket@gmail.com>
+
+
