@@ -1,87 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459AE3C345C;
-	Sun, 18 Oct 2026 22:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8A03C345C
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:55:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792363874; cv=none; b=CMOcJ80T2xXAUowLXqsrZ/h04Q5tZEoI3lydYwnjEic/JBJwE2RXzsGxkxF1QFhtROKz8CbILnBZ7aVMdfhlgysf0oLxaRblKmYxmVL9yRZ81zKBTOsWhnhVXPL9/dlAbYPFxt5biPKO+2oNXQw2wH5FyniTrU6s8USYM54MW/M=
+	t=1792364152; cv=none; b=SucjwZN7h3K1dtkMbhttB3bCrVsdyCYkRYDvOWeujx9ezwHvu9vEU54tFV9fozkJGTY+MEOmOqxFKIyBO9VlK3Yt+GTKeuezlRARYyU5WVzk2DOmvK1ZXk8PmpMvBOPcpIaSwl9t2yUIYWBCB6unD5qv4VFmsjNCzET0wi5wRFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792363874; c=relaxed/simple;
-	bh=xk4xl7yKRg9h72kbfdeaahlr6AWqxfywQyViCwJR8Zo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JbGAOuulRiuwWQtKMMl5UHhaeJLJP/tyretCtZpsWlPDGUgcsUpMzF0t3h8c5pyOn/yKLuEzNU8DoNWP+KUIPHc0lqZY4ztv84dREkopezcD+sXUvsSzzSHDI+330swmTt86dP4jtDvqOv+UNbygqOt2fUSKlPMWf0jyqTcbvTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELpnZAvc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792364152; c=relaxed/simple;
+	bh=TKaLy7aolfOZc9na3Quuyn+sOLPx1YselcEhYe18e5Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RSQ+PA/ZdWHBamI56Cqy+XyjPtAL1Wg4u+AA8yVUTKl+4UfK7I8vhS7SOy2ewJPFBkC5LI/45oeQmtABc9aV91qIcek7vpzH8YeFZ9ROZCTeuHkfpwykk7G9oa0j3F1hOOJnv2JQzhu4J9nE1ijDa3i5pD+wKe7NIvinci7tSiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NjfmQUSA; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELpnZAvc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479571F000C4;
-	Sun, 18 Oct 2026 22:51:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792363872;
-	bh=fN1au1C51cKJOlzjz55aHd/ETyVpJQBoZOkakCz4fxE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ELpnZAvccn2INvmzPV/SfTOBT8eCLdS6gBHeEoO6JtBhdaqgFStx1oLcImM2O7fzx
-	 IsKRRSI1gZCHJW4ptXXHeBBmMdg5Afoc6+nGqeiqWjpHsu8G//evEhJLdI4/9jY/KU
-	 CB2t4HLAoI+zdPPuwTfrDEMm6tjkC4LaDYcdb+yDsWLqBiqGiL+4xpSCf/rqoNhvsF
-	 UaW3K+0DhF6yrhpyF2Io421hQ1Q5Pyes06fI67n2TllQnFLB9xITjz7t1hwkGmkfDm
-	 tzBPJjvdwIHParj3JFlAeJeqS7CHIwyXhKBS7Av0uj+/WJ4xdq+pFYCkph8p/dTEuw
-	 DOAcTlR7kHe4w==
-Date: Sun, 18 Oct 2026 23:51:06 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Salah Triki <salah.triki@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] iio: temperature: tsys02d: Fix state
- desynchronization on resolution write error
-Message-ID: <20261018235106.06f3ed48@jic23-hlaptop>
-In-Reply-To: <20261005161950.000066da@gmail.com>
-References: <20261005132004.255462-1-salah.triki@gmail.com>
-	<20261005161950.000066da@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NjfmQUSA"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so1694439a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:55:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792364151; x=1792968951; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DzYy7klBTOYzRHWT1wHpZj560FtZe1bJfKhgHl5yTyY=;
+        b=NjfmQUSA2w02QF8nh4itjRNNWfDuPig9Vh6h+gf9FBh2Iu76+s8D+77DM3404Wxvhw
+         I76UGDNcndH7QCq7c62WGO0U1Nk6vT1sp5/lHVn+X3top01f+COYvUFnSlt2XcsaWg8k
+         jL0ugVunG8hT/0rJr8YhCW00j47S+8QDZGV2iuaGGDP06KPBNEE2YcnHHSDHlOgHD2Nc
+         3lMSlUOPTZgIQMTX4Fd45hej4Ejaq4IbfzOu0Gb01EKdybQtKvebeJ+gGKXj/qqRrKev
+         JWb8XzxgoDk1RnqzIn5ats6/TmherJypOWOliMunbOOdWZvwwMPmi2qyi1BthMaeEUF4
+         ygzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792364151; x=1792968951;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DzYy7klBTOYzRHWT1wHpZj560FtZe1bJfKhgHl5yTyY=;
+        b=1gFg4FTwGhz3x7iTsLYZhDLlOiyAgoIPipeVF2vqOvm1DejxVNVO8vM7FUKMMSzFzJ
+         wYVqch7/HsUKrb7F9Nfhbhz+ragHbQfY8tG8txB1aGwWhXaphll9Rt9gELSkM8qzfTWF
+         yVHA9c7tbpN8maJQmq+e9JPlNjcfupEcqsQL1fH7Hf4f5kqAeZVMKXJER9nX0jweFYDT
+         FNk6Y69ap1NTXq5JCkIk4iUyOeMQ0lSNain2nKJwBvbQsf9pkXwrMkRa0njLFk+jItnN
+         Rb3Ki5HgOUBuZwKp6DkO9/EMzAdFgKodj6ONWzqP0FDrEkmdpiI+qJ9k70FnEbDk0qJ/
+         ZViQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdrZR5ylpELognwfPcBYwV/JNbLUhxi3piqxCYmolVDOJr9WsDF6XOx5t6i6ukRxKTfd2S8jvXEXlgxKk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkynR9uzPZXzZPVDVIt93mSPHYhgvy6b2T30s2/d6hYAFgyio8
+	V9u78NyWJdHHaNWf7vwvCS96aAK8ZUTaVskswaTsIyy/IGqEBLUz6hSl
+X-Gm-Gg: AYBFou2KshwT02BiHGLi6lhpU0KnQSFstNwQIJvJFtHehFdIuNgVs6RKnqP/BeFdBFG
+	HfEd7i69DFs4Ka2YWH4xodd8RByTwH7667fDf+snKU2IIuySJY3UN6/VTCX7NVYy1hZ+2Q9KKbO
+	l6JgqU0k98f62hSsv25VF+i0nJybxY5bDrFTgTXOKk348iJyd9kjKp4JHrYyN/VQTqf9GWSKL78
+	oZ2okhTL9FMDgL6BVaFv6k7M0IaiRG9EcUmFHjlMgvDINqELxE406pAvadJeIWW7N35kk1msJNC
+	R41caYQSvzZGeevVS/5BBvcdDRbFHfpu/Bs3DuWYP8Xpj7FD4GcL3o49W9eP/XaYVn38LLSwlgB
+	IAbqabQpmPybv9qj49h/Uad0xuNJNAbHfoVRryiS5Byd2a6Sn1wqfrH9h0gPFSc6vzqRCqNL1u7
+	O8EqcIqcrzVb0I+TCYYvKNBIYadjheEMT/18901s2j+RIdGANiz8XMucPgUr0WDBPYN5XrBvorA
+	XBJ6BeKrA7FCyYSdab+gsr+u62t7ZY9VBtaMS1bCc0BQRqEc7HFocnLAHqo5j6g2Vm7dI5jbN9u
+	4XM1JMIKROFbc0jD6hoU5FW7Raiq+WS4IByUj/v/YKFlokmH
+X-Received: by 2002:a17:90b:560d:b0:3a0:bf71:eccf with SMTP id 98e67ed59e1d1-3aceefbde01mr3408912a91.14.1792364150929;
+        Sun, 18 Oct 2026 15:55:50 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac9461d71esm18270624a91.7.2026.10.18.15.55.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 15:55:49 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-mmc@vger.kernel.org
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v4] mmc: sdhci-pxav3: use managed clock enablement
+Date: Sun, 18 Oct 2026 15:55:48 -0700
+Message-ID: <20261018225548.18373-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 5 Oct 2026 16:19:50 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+Replace devm_clk_get() plus clk_prepare_enable() with the managed
+variants devm_clk_get_enabled() and devm_clk_get_optional_enabled(),
+using the same io clock lookup as sdhci-pxav2: the "io" clock if
+present, otherwise the unnamed clock. Clock lookup errors, including
+-EPROBE_DEFER, are now propagated instead of being ignored.
 
-> On Mon,  5 Oct 2026 14:20:02 +0100
-> Salah Triki <salah.triki@gmail.com> wrote:
-> 
-> > In tsys02d_write_raw(), dev_data->res_index is updated before checking
-> > the return value of ms_sensors_write_resolution(). If the hardware I2C
-> > write operation fails, dev_data->res_index remains updated with the
-> > new index despite the physical sensor remaining in its previous state.
-> > 
-> > This leads to a state desynchronization where subsequent reads via
-> > tsys02d_read_raw() return an incorrect sampling frequency.
-> > 
-> > Fix this by handling the error path first, updating dev_data->res_index
-> > only on success, and using guard(mutex) to clean up locking.
-> > 
-> > This was found through manual code review.
-> > 
-> > Fixes: 53bf4d067d51 ("Add tsys02d meas-spec driver support")
-> > Signed-off-by: Salah Triki <salah.triki@gmail.com>
-> > ---  
-> 
-> Makes sense.
-> 
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> 
-I'll take this one the slow path given it is a fix for an error
-case we don't really expect to see.
+The core clock becomes optional, which removes the IS_ERR() guards in
+runtime suspend/resume, as clk_prepare_enable() and friends are NULL
+safe. devm now unwinds the clocks, so the manual clk_disable_unprepare()
+calls in the probe error paths and remove() are dropped.
 
-Applied to the testing branch of iio.git.
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v4: v1 + sdhci-pxav2-style io clock lookup
+ v3: fix sashiko errors.
+ v2: fix resume paths.
+ drivers/mmc/host/sdhci-pxav3.c | 38 +++++++++++-----------------------
+ 1 file changed, 12 insertions(+), 26 deletions(-)
 
-Thanks,
-
-Jonathan
+diff --git a/drivers/mmc/host/sdhci-pxav3.c b/drivers/mmc/host/sdhci-pxav3.c
+index f39764ffd4a0..0bbf782fc235 100644
+--- a/drivers/mmc/host/sdhci-pxav3.c
++++ b/drivers/mmc/host/sdhci-pxav3.c
+@@ -413,19 +413,16 @@ static int sdhci_pxav3_probe(struct platform_device *pdev)
+ 	pltfm_host = sdhci_priv(host);
+ 	pxa = sdhci_pltfm_priv(pltfm_host);
+ 
+-	pxa->clk_io = devm_clk_get(dev, "io");
++	pxa->clk_io = devm_clk_get_optional_enabled(dev, "io");
++	if (!pxa->clk_io)
++		pxa->clk_io = devm_clk_get_enabled(dev, NULL);
+ 	if (IS_ERR(pxa->clk_io))
+-		pxa->clk_io = devm_clk_get(dev, NULL);
+-	if (IS_ERR(pxa->clk_io)) {
+-		dev_err(dev, "failed to get io clock\n");
+-		return PTR_ERR(pxa->clk_io);
+-	}
++		return dev_err_probe(dev, PTR_ERR(pxa->clk_io), "failed to get io clock\n");
+ 	pltfm_host->clk = pxa->clk_io;
+-	clk_prepare_enable(pxa->clk_io);
+ 
+-	pxa->clk_core = devm_clk_get(dev, "core");
+-	if (!IS_ERR(pxa->clk_core))
+-		clk_prepare_enable(pxa->clk_core);
++	pxa->clk_core = devm_clk_get_optional_enabled(dev, "core");
++	if (IS_ERR(pxa->clk_core))
++		return PTR_ERR(pxa->clk_core);
+ 
+ 	host->mmc->caps |= MMC_CAP_NEED_RSP_BUSY;
+ 	/* enable 1/8V DDR capable */
+@@ -434,17 +431,17 @@ static int sdhci_pxav3_probe(struct platform_device *pdev)
+ 	if (device_is_compatible(dev, "marvell,armada-380-sdhci")) {
+ 		ret = armada_38x_quirks(pdev, host);
+ 		if (ret < 0)
+-			goto err_mbus_win;
++			return ret;
+ 		ret = mv_conf_mbus_windows(pdev, mv_mbus_dram_info());
+ 		if (ret < 0)
+-			goto err_mbus_win;
++			return ret;
+ 	}
+ 
+ 	match = of_match_device(of_match_ptr(sdhci_pxav3_of_match), &pdev->dev);
+ 	if (match) {
+ 		ret = mmc_of_parse(host->mmc);
+ 		if (ret)
+-			goto err_of_parse;
++			return ret;
+ 		sdhci_get_of_property(pdev);
+ 		pdata = pxav3_get_mmc_pdata(dev);
+ 		pdev->dev.platform_data = pdata;
+@@ -499,27 +496,18 @@ static int sdhci_pxav3_probe(struct platform_device *pdev)
+ err_add_host:
+ 	pm_runtime_disable(&pdev->dev);
+ 	pm_runtime_put_noidle(&pdev->dev);
+-err_of_parse:
+-err_mbus_win:
+-	clk_disable_unprepare(pxa->clk_io);
+-	clk_disable_unprepare(pxa->clk_core);
+ 	return ret;
+ }
+ 
+ static void sdhci_pxav3_remove(struct platform_device *pdev)
+ {
+ 	struct sdhci_host *host = platform_get_drvdata(pdev);
+-	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
+-	struct sdhci_pxa *pxa = sdhci_pltfm_priv(pltfm_host);
+ 
+ 	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 	pm_runtime_put_noidle(&pdev->dev);
+ 
+ 	sdhci_remove_host(host, 1);
+-
+-	clk_disable_unprepare(pxa->clk_io);
+-	clk_disable_unprepare(pxa->clk_core);
+ }
+ 
+ static int sdhci_pxav3_suspend(struct device *dev)
+@@ -560,8 +548,7 @@ static int sdhci_pxav3_runtime_suspend(struct device *dev)
+ 		mmc_retune_needed(host->mmc);
+ 
+ 	clk_disable_unprepare(pxa->clk_io);
+-	if (!IS_ERR(pxa->clk_core))
+-		clk_disable_unprepare(pxa->clk_core);
++	clk_disable_unprepare(pxa->clk_core);
+ 
+ 	return 0;
+ }
+@@ -573,8 +560,7 @@ static int sdhci_pxav3_runtime_resume(struct device *dev)
+ 	struct sdhci_pxa *pxa = sdhci_pltfm_priv(pltfm_host);
+ 
+ 	clk_prepare_enable(pxa->clk_io);
+-	if (!IS_ERR(pxa->clk_core))
+-		clk_prepare_enable(pxa->clk_core);
++	clk_prepare_enable(pxa->clk_core);
+ 
+ 	sdhci_runtime_resume_host(host, 0);
+ 	return 0;
+-- 
+2.56.0
 
