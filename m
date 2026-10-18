@@ -1,122 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7780749BD85;
-	Sun, 18 Oct 2026 12:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1721849F12B;
+	Sun, 18 Oct 2026 12:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792328084; cv=none; b=DqkLxaYnNfTfH1H7bfYj1AWU2IYtmbj+tQPhTUq4B96vvSkFR/SIsGpGEiWi2KGj6y/Jr1cQUBtlD61wXz2vOGhl3ffmk4+eQ94y4/MjuhHu3eqWgM5OatnQwtgfSTkwKRbaDjOi8igBpxN71kmnTaWY2qe6ttJ3LsnWzBakl2Y=
+	t=1792328125; cv=none; b=JaGXQXMfHTMa11CmsXSzXaw5vYzvpWmO5WPlCseMu4C/jRVFXZ1W3r81uibBXx5YfXuWRymKVkrtTMtaTGcu6nm1lQcplwlTic9Eq7SGup6oiCGL0xREMgWOn9LX/rldYStIOVJP1Fq50rzJ4AVy0F+3QhvOy5rWQB8wL4gGSF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792328084; c=relaxed/simple;
-	bh=K91a2wxHB4FwHjmzpZ+I8QAbJM+TqaqqZTK9Xz5tEV8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=O5i6P/nI7ZhSIkxXi5XdHgOsGiUZ6LI0U3c4GUbW9pNZJtD1exa9PEKhIAyaNO+AX8QF7m/3R2WEuimHeFJS4a75U/S394rWKbx1E4idEVI6jIDukWnkGkMYzteqfBMS4SxcZNWK5roMG8vUUjXxdRJvYv91jou3lsFZ0f7pfWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9kBrk8t; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792328125; c=relaxed/simple;
+	bh=680s3p/4km2avW6oqRYoU9OZh2xsbUZBPuIMcApqAqE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lIdP9Yc3Mcj7Irc+832hWLRVVMchX9acn+XSbxODqSSfyi9k4vCaEYQiwLpdYaISKIIuo/95R2qa8fUjoacT1Eur7gUmNmTaZC8qtqx67T0RboMZ0NE8NO6R7Vs15cB9J//ljPTkvrDvtZQdYTBfaYARgAcc4UhZnoEGVbeopso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iNPNue4I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9kBrk8t"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1790CC2BCC7;
-	Sun, 18 Oct 2026 12:54:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792328084;
-	bh=K91a2wxHB4FwHjmzpZ+I8QAbJM+TqaqqZTK9Xz5tEV8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=J9kBrk8tRWxqPI1HwKePVInipTv6MAC3dVRAYCerC4PEQn3se0qIBJ0VBCco3x3WS
-	 rkw0FAcVni71gmgqZtlYHNG3UHJjuuFCE4xlzf6fMsS/syFoHhm0pKJPs2TsBq5lD1
-	 4l3R3h75Dvue8mSM6fSkcekfC78ASbNM7zm0Upmg+8AWVQwnJPy1UCYz/4fCZ2niHf
-	 xDYZ6bhXYvpp15E9zk1b/R+qwwTK9R1lO8dSW/eOC9PgIUYM2bW/OZzQcGbwr8el8F
-	 n0H5UQFwGPdufLvAA/diJR22uDdVjQ0ZL7/ZYunIYEPoP7O737yZLkaCdQCyL09Khf
-	 StEisds+CiEDg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4CB0CCF2C4;
-	Sun, 18 Oct 2026 12:54:43 +0000 (UTC)
-From: Wenqiang Zhao via B4 Relay <devnull+berringtoni36.gmail.com@kernel.org>
-Date: Sun, 18 Oct 2026 20:54:41 +0800
-Subject: [PATCH] media: i2c: imx415: Use target vblank to calculate vmax in
- s_ctrl
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iNPNue4I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD331F000C6;
+	Sun, 18 Oct 2026 12:55:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792328124;
+	bh=tPZvxr18psUo+iJLn+gqHxeX1JtATabu4FfpskVFjaM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iNPNue4I+2PgEGfVb9x0HKZWcr2XUgmQ4K7+eiu9Yz0Ia+N/UAz1y2pWPmhA6/V7/
+	 /z+K1Yk05twGPBwddFSIn/L3tJ2n3ww5Hsh09cF6lU6prZN+5Gf/nr1ACrOCDaC6E6
+	 iIBRfK5jHxpzTuICWJKKcVMbkQRC00tuO6R+YjJUevNi1isIAyOX1I/L8DSoyzzd5V
+	 Fe4QYvfnKUdbykXntvxulDygzMb0cMwNZuwzbUDVgitcNudvafrVWlWFj96b9z/05L
+	 ja1XhUYS2tEwqUvfDfrIxhVHbbChEaOhSO8OBwoITXrX/OBbziHPcRgsCEINci3rlI
+	 nb0yOInkUJPrQ==
+Date: Sun, 18 Oct 2026 15:55:20 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Yuho Choi <oss.patchbox@gmail.com>
+Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+	Mark Bloch <mbloch@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Ariel Levkovich <lariel@nvidia.com>,
+	Jianbo Liu <jianbol@nvidia.com>, Alex Vesker <valex@nvidia.com>,
+	Yevgeny Kliteynik <kliteyn@nvidia.com>,
+	Itamar Gozlan <igozlan@nvidia.com>, netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v1 0/4] net/mlx5: Don't free CQs whose destroy
+ failed
+Message-ID: <20261018125520.GE64621@unreal>
+References: <20261016045849.813696-6-oss.patchbox@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-fix-imx415-vblank-exposure-sync-20261018-v1-1-920383f39185@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAJHB1GoC/z2Nyw6CMBBFf4XM2klaRER/hbigdYrjo5AOkBrCv
- 1MhcXmSc8+dQSgwCVyzGQJNLNz5BPqQgX00viXke2LIVV5qpSt0HJE/sdAnnMy78S+k2HcyBkL
- 5eot/8VKejVKVdUdnIOX6QGm7XdW3nWU0T7LDrw/LsgLwKY07jAAAAA==
-X-Change-ID: 20261018-fix-imx415-vblank-exposure-sync-20261018-967b008cf3fb
-To: Michael Riesch <michael.riesch@collabora.com>
-Cc: linux-kernel@vger.kernel.org, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- stable@vger.kernel.org, Wenqiang Zhao <berringtoni36@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792328082; l=2337;
- i=berringtoni36@gmail.com; s=review-20261018; h=from:subject:message-id;
- bh=VZBNv5G7PV61F4nW8nKw7nfhwmNHgpYp0zx5Th5RsKU=;
- b=y0I4RN8etmVzJc8kZI4ijc+eHURND8vIc9jRpYcBLr/nlkZAZnWI/CvPCnLD8HG9caALmaLkR
- FidvMg+pI78BzJVZVppB4EWgKkv/PIteF/ytW1S2ImWzInv3DcHqyIv
-X-Developer-Key: i=berringtoni36@gmail.com; a=ed25519;
- pk=rRiAvRvS4MMqogNnloZgVnqWliVWNDq+PcP6vMYXOvs=
-X-Endpoint-Received: by B4 Relay for
- berringtoni36@gmail.com/review-20261018 with auth_id=1226
-X-Original-From: Wenqiang Zhao <berringtoni36@gmail.com>
-Reply-To: berringtoni36@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016045849.813696-6-oss.patchbox@gmail.com>
 
-From: Wenqiang Zhao <berringtoni36@gmail.com>
+On Fri, Oct 16, 2026 at 12:57:45AM -0400, Yuho Choi wrote:
+> mlx5_core_destroy_cq() can fail
 
-When setting V4L2_CID_VBLANK, imx415_s_ctrl() writes the new frame length
-(format->height + ctrl->val) to the IMX415_VMAX register, and then falls
-through to case V4L2_CID_EXPOSURE to update the electronic shutter register
-(IMX415_SHR0 = vmax - exposure) so that exposure is preserved across frame
-rate changes.
+No, it should not fail. If it does, the firmware is completely broken
+or some other catastrophic bug.
 
-However, in case V4L2_CID_EXPOSURE, vmax is calculated as:
-    vmax = format->height + sensor->vblank->cur.val;
+> nd when it does the CQ may still exist in firmware with access to its buffer and doorbell record. It
+> also returns early in that case, without waiting for EQ handlers that
+> may already hold a reference to the CQ. The four helpers in this series
+> ignore that error and free the CQ buffer anyway, while their teardown
+> paths also free the object that embeds the struct mlx5_core_cq.
+> 
+> Keep the buffer and the object that embeds the CQ when DESTROY_CQ
+> fails, as the regular mlx5_ib CQ destroy path does. The HWS send ring
+> CQs are polled and never armed, so the HWS patch keeps only their
+> buffer rather than passing the error up through the queue open and
+> close paths.
+> 
+> The issues were found with a static analysis tool from ongoing, not yet
+> published research, and confirmed by code inspection. None of them was
+> reproduced, so this targets net-next; I can resend for net if you
+> prefer.
 
-Within the V4L2 control framework, sensor->vblank->cur.val holds the
-committed old vertical blanking value, which is not updated to the new
-value until s_ctrl() returns 0. Consequently, when VBLANK changes, vmax
-is calculated from the stale vblank value:
-- If VBLANK increases, SHR0 is computed using the smaller old VMAX, causing
-  the actual hardware exposure (VMAX - SHR0) to jump by the blanking delta.
-- If VBLANK decreases, SHR0 is computed using the larger old VMAX, causing
-  the actual hardware exposure to drop by the blanking delta.
-- Additionally, ctrl->val is clamped against the stale vmax limit.
+Please drop this series. The flow is impossible in current HW implementation.
 
-Fix this by using sensor->vblank->val instead of sensor->vblank->cur.val,
-which holds the target vertical blanking value currently being applied.
-When setting V4L2_CID_EXPOSURE directly, sensor->vblank->val equals the
-current vblank, keeping behavior unchanged.
-
-Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
----
- drivers/media/i2c/imx415.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
-index c3b22b238..e5aa741fc 100644
---- a/drivers/media/i2c/imx415.c
-+++ b/drivers/media/i2c/imx415.c
-@@ -729,7 +729,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
- 		fallthrough;
- 	case V4L2_CID_EXPOSURE:
- 		/* clamp the exposure value to VMAX. */
--		vmax = format->height + sensor->vblank->cur.val;
-+		vmax = format->height + sensor->vblank->val;
- 		ctrl->val = min_t(int, ctrl->val, vmax);
- 		ret = cci_write(sensor->regmap, IMX415_SHR0,
- 				vmax - ctrl->val, NULL);
-
----
-base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
-change-id: 20261018-fix-imx415-vblank-exposure-sync-20261018-967b008cf3fb
-
-Best regards,
---  
-Wenqiang Zhao <berringtoni36@gmail.com>
-
-
+Thanks
