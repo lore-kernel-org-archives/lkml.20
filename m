@@ -1,272 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3324F4B9239;
-	Sun, 18 Oct 2026 13:22:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0EA4B9237
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:23:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792329768; cv=none; b=llr8E6V7V0LVlts9NpevGTSQFt5SBGsHbn0j6N330w/ePirPj0Mw7GqoqAiLeiEj4seL68WCAYyJNMUzCMEQJ84pWXDNhMsB7CoHJra07l/vSxPBCrpFmPq2vFl37XEC5BeUNHpQeIeZvT/YxVObizTcmAY5tOvCCAGiOFpK9wU=
+	t=1792329784; cv=none; b=t4u0iyKD7lSkUtIlCm0N/BFKMpjHEnYx5wLQTXK/0iMY0yMowzzSu+ZxkbdE+KGD2rFxXAfjPjNK1zBWfRC4RgYmkYE+8/WQDsokGu1YYxpRs/X2xgf+kMmgo7a1h6D/pGibubjQmw7ZK1uWtY+CmYubpYkKB1onDQx4mdfbbe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792329768; c=relaxed/simple;
-	bh=jCqs8rq44IOqSU98wbZn3BPmnG9X1o94hWqm5pLzD18=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MrgHnUAnC8qrlXwoR92JFxC3bOZYB0x5DbUlP42pTyZDOdhhYAkVdLfew5MEMq0KY5B+bMzIurO8JY0JqKZrGP6QPBIBuHojaRP1fgsRYJ3um2jdLUQ/+ISSjq7S8ITW1VppMiEECjbwB9x6PP8lM4u1YE1aY2qPb6SeKiz56fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKALa8ak; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792329784; c=relaxed/simple;
+	bh=N2JeCWLFfoU+fSPfPomIYnFMAghodOlr4AC/9OfNW88=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=WpZDgZrsIr2080mr5UWngY+zmDFAy+9WyDtb1PsCp31IDWGlbI0xQ923cIdIxq6nKZFCwRNSgfvjB6XEF/ytyMdbnEUNZm+W2SNgbihWvpOg5BeF0Ttc4QzRJWzIeGr192BeOQHnFJli1aVjdfxk+sqU2UzR57B2WlsqgY86vP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=it8S1AxA; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKALa8ak"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B2EC1F000C4;
-	Sun, 18 Oct 2026 13:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792329767;
-	bh=W0RBrDfHQYswJR4a7Thh6gsX6kswQM270GGcj7BYWGg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AKALa8aktSL3RUnE0w7l9ucGi2bN8Ga8flYPZp4CDwjaU69vbdtwTmHjf3NXMKf9C
-	 UQSfBb3K/91DKBX9fZI9SMAxfnvzJdgXhTMZrtZc/XwrlJGQMfafnSbEglEOoKyilw
-	 kaG/PudIHWsFHEMUrD6R9Gy8BOW+o1nCEX+mkIEhAFnJuD2TyzMcYDKBEbyKMGikiy
-	 +oAPNndphc6e9yRSjk9mBpCv7LutB7NBPcORnu3/iYAVj0q70VOZt1aF5kPBCwzSmh
-	 R7y0HvUGNE7mYrSw2jZzSzbdbBrSrUlrzNUsAhXD0aowcFA2B/ndPrVJZKYfg+NosQ
-	 zZXWcPT2A1rqA==
-Subject: Re: [PATCH net 2/2] net: ti: icssg-prueth: re-apply rx_mode state
- after firmware reboot
-From: netdev-bot+sashiko@kernel.org
-To: r-kumar12@ti.com
-Cc: netdev@vger.kernel.org, danishanwar@ti.com, rogerq@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, jacob.e.keller@intel.com,
- m-malladi@ti.com, vadim.fedorenko@linux.dev, haokexin@gmail.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- j-rameshbabu@ti.com, aaron.richard@ti.com, l-chinnannavar@ti.com,
- m-santhoshkadavan@ti.com, k-tiwari1@ti.com, a-dev@ti.com, pratheesh@ti.com
-Date: Sun, 18 Oct 2026 13:22:45 +0000
-Message-ID: <179232976562.3135.6465502761786922552@kernel.org>
-In-Reply-To: <20261014125948.230571-3-r-kumar12@ti.com>
-References: <20261014125948.230571-3-r-kumar12@ti.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="it8S1AxA"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so12878415e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:23:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792329781; x=1792934581; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uEOyoCt2AD7D1bry5/d2H2T1Ku2G2ZXxRyhNNZRqt9A=;
+        b=it8S1AxA1z2dCvYQtcAJ/asxXvZepd29mbCl7mubTxwq9W9yjkjxUf4M3luu8aPatM
+         kLl2PwiPXDPxdcfAdyjdFK1YY7/dL0XZ6EnC6XGFZ7OdUVva2g6oCp4TxNAFMZSWpeIr
+         kYbwrcIuPp7sHsAQQzuS4YRGcXpTP6Z9UgEUEsh4AaCAMvBHjPjb4CqiRJWEjhw8jxEw
+         pZ/D+HA9z9eDChc5m8Vb1VxpKgMpEHZSNO6UgyTehDXMAX6kYR4oJMKFqLp3v/Rcpw8f
+         Hi6CK0l/bmkGqzKFyfjOcgdC5mxrPLSTcQQF1y6w1tUujReiP+ioIJtgw7FYzQskLL8d
+         8sqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792329781; x=1792934581;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uEOyoCt2AD7D1bry5/d2H2T1Ku2G2ZXxRyhNNZRqt9A=;
+        b=U9JwGooCFokKD/K0E8TxhR2ST6pgJ2FY6QQeV7t+BJmg4p9aD++QzIOX6NQMP2YG6H
+         lJUvVTTBfSWF1UsQxK/O+dXoJeONqtUCWmgGaxMm5iCv92pcelmH0G3+jyFwGgDW81HB
+         PmQMDOyb09DgNjD9xA4ZFZmVP6AnXRj/oeu6VHOUBi9SrqyffDtuuvHrRx1QDXj8PoLZ
+         4HqkGkyQNf0CL1FRvHfnqjc0Ej4ZgObATXu12xrA6R30W0rvUENcOZvfDn4fI8VhR0r1
+         sO9fmZRTZvcYy0tgt15fkAic5AdxHiLwIvg+5QIum45Y/CbPJq9pAgSvg+SkD+fmCIeX
+         tAXg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDIlhcKZBOfDcv6D3t6kaMcK7rzaqfAGfyhsldKsOTUO/R5/e0sCFhbViu2EP0EbGqOaRZwviCxApqw2Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUb3AHIUepSF7lnRxx7bxZzpjwSUiDCsPFoyx2bhkyA7QWFe2+
+	HVzIjcH9wfqEaEYLYUQ4ruLMXDzwOEXIpKbUtUr2dVIXfrO2ed6XJQTs
+X-Gm-Gg: AYBFou25V1M/TyqvOd+MyuqijCEZ7XxX6OcH4B+qSUJBENjSClokSkciTnNLXcbyEsp
+	VX3NlVrEEmBfERGCPOSvBRjlFmQpRYL6fclpVFudpTVVZBc63g8D34XWafi2Jx6QtyLflfhUMbc
+	bCDRhKeCtdGWpITzmWZuyN43upAcYTxK3rFm19+KIkkeghxh1c6oO+Wck3hcctruS6CzxxkspbY
+	RFXQfbmTe9juRcRGHoaHAkNlY0mqLGh6f+3vI8lkJGjODJYUNCwHuHsOp9rfKG6ZA7JQovAOb8n
+	NRagmlb93//0b79RprnQrN7+LKFMcZQmn9hYvsRiDND5/AqW1Us7r0dHlgQZ3DnTTVp62FggiD5
+	g8RSKgzT4T9DKyIQ6M/flFe4TsAUkEh84hwosV1r2nAwdaZxpqeRuVQy8aJ+hGTp36PhoW1g3Z7
+	P1BXfwQvHEyL/dE9XSbatCIFXm/9KIm4VVvITGJCWOuFey2qcal6Y5Qp7lFIink0ve
+X-Received: by 2002:a05:600c:1909:b0:4a1:dbdd:d56b with SMTP id 5b1f17b1804b1-4a1dbddd68emr85495375e9.19.1792329781242;
+        Sun, 18 Oct 2026 06:23:01 -0700 (PDT)
+Received: from ubuntu ([2c0f:f5c0:570:10ef:ebdb:1ad:9af2:42a7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ccc15aa1sm195044575e9.14.2026.10.18.06.22.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 06:23:00 -0700 (PDT)
+Date: Sun, 18 Oct 2026 14:22:49 +0100
+From: Comfort Oyewole <coyewole7@gmail.com>
+To: abbotti@mev.co.uk, hsweeten@visionengravers.com,
+	gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+	outreachy@lists.linux.dev
+Subject: [PATCH] staging: comedi: comedi_fops: fix alignment to match open
+ parenthesis
+Message-ID: <atTIKehBxn93Lcix@ubuntu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Fix the alignment issue in order to adhere to kernel coding style
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 0
+Signed-off-by: Comfort Oyewole <coyewole7@gmail.com>
+---
+ drivers/comedi/comedi_fops.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] net: silent hardware state loss due to rtnl_trylock failure in
-  rx_mode_work
-- [Medium] prueth_emac_common_start() now queues rx_mode_work for every
-  running port before returning success.
-- [Medium] The new schedule_work() loop in prueth_emac_common_start()
-  lets the opening port's rx_mode_work run while emac_ndo_open() is…
-
---
-
-net: ti: icssg-prueth: re-apply rx_mode state after firmware reboot
-
-At the end of prueth_emac_common_start(), this commit re-queues
-rx_mode_work for every running port. The aim is to re-apply the
-IFF_PROMISC/IFF_ALLMULTI flood state after the PRU/RTU/txPRU firmware
-reboots. It also cancels the pending work in the stop_pruss error path.
-
-> diff --git a/drivers/net/ethernet/ti/icssg/icssg_prueth.c b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
-> index cd4c918fe2b89..9d38cbbdaf27f 100644
-> --- a/drivers/net/ethernet/ti/icssg/icssg_prueth.c
-> +++ b/drivers/net/ethernet/ti/icssg/icssg_prueth.c
-> @@ -311,6 +311,18 @@ static int prueth_emac_common_start(struct prueth *prueth)
->  	if (ret)
->  		goto disable_class;
->  
-> +	/* PRU/RTU/txPRU are up now: re-sync any port
-> +	 * config (e.g. flood/promisc flags) that may have been
-> +	 * dropped while firmware was still rebooting above.
-> +	 */
-> +	for (slice = 0; slice < PRUETH_NUM_MACS; slice++) {
-> +		emac = prueth->emac[slice];
-> +		if (!emac)
-> +			continue;
-> +		if (netif_running(emac->ndev))
-> +			schedule_work(&emac->rx_mode_work);
-> +	}
-
-[Severity: High]
-Does the VLAN multicast part of the re-sync actually happen when the
-work is queued from here?
-
-prueth_emac_common_start() is called with rtnl_lock held in both
-paths. It is called from emac_ndo_open() via __dev_open(), and from
-icssg_change_mode() via the NETDEV_CHANGEUPPER notifier. The caller
-still holds rtnl while it runs icss_iep_init() and the rest of
-ndo_open or the mode change.
-
-The work queued here will usually run inside that window. The worker
-first sends its icssg_set_port_state() commands, which wait for a
-firmware ack. In the non-promisc, non-allmulti case,
-emac_ndo_set_rx_mode_work() then ends with:
-
-	if (rtnl_trylock()) {
-		vlan_for_each(ndev, icssg_update_vlan_mcast, emac);
-		rtnl_unlock();
-	}
-
-HSR offload mode does the same with prueth->hsr_dev. If the trylock
-fails, the vlan_for_each() call is skipped silently. The work does
-not requeue itself, and nothing records that the update was skipped.
-
-The firmware restart has just cleared SHRAM, MSMC and the VLAN table.
-The per-VLAN multicast entries tracked in emac->vlan_mcast_list are
-exactly the state that needs to be reprogrammed.
-
-In the icssg_change_mode() path, this loop is the only thing that
-queues rx_mode_work for a port that is already running. For the
-opening port, the ndo_set_rx_mode call that __dev_open() makes later
-also runs under rtnl. If the trylock loses in these cases, are the
-VLAN multicast groups left unprogrammed in the firmware FDB, so that
-multicast reception on those VLANs breaks?
-
-The rtnl_trylock() skip existed before this patch. However, the patch
-now uses this work as the re-sync mechanism and queues it from
-contexts that are known to hold rtnl. That turns the skip from a rare
-race into the likely outcome.
-
-Should the worker reschedule itself when rtnl_trylock() fails? Or
-could the VLAN multicast re-sync be done directly from the start
-path, which already holds rtnl?
-
-[Severity: Medium]
-Can the opening port's rx_mode_work now run while emac_ndo_open() is
-still sending its own HWQ commands on the same slice?
-
-Before this patch, the work could not run for a port still inside
-ndo_open, because __dev_set_rx_mode() requires IFF_UP.
-
-With this loop, take a first open in non-promisc, non-allmulti mode
-with pending multicast entries. For example, IPv6 adds 33:33:00:00:00:01
-at NETDEV_REGISTER. The work then does:
-
-emac_ndo_set_rx_mode_work()
-  __dev_mc_sync()
-    icssg_prueth_add_mcast()
-      icssg_fdb_lookup()
-      icssg_fdb_add_del()
-
-Meanwhile emac_ndo_open() continues with:
-
-	icssg_enable_fw_offload_emac(emac);
-	...
-	ret = emac_fdb_flow_id_updated(emac);
-
-In switch/HSR mode the first of these sends FDB add commands. The second
-always runs. Both paths end up in icssg_send_fdb_msg(), which takes no
-lock:
-
-- It pops a command buffer, pushes the command, then polls the response
-  queue and takes whichever response comes out first.
-- icssg_fdb_lookup() reads its result from the single per-slice
-  FDB_CMD_BUFFER in DRAM.
-- prueth->icssg_hwcmdseq is incremented non-atomically.
-
-Only icssg_set_port_state() is serialized, by cmd_lock.
-
-With two commands in flight, could the responses get swapped? That
-could lead to:
-
-- the seqnum mismatch WARN_ON in emac_fdb_flow_id_updated();
-- ndo_open failing because it got another command's status;
-- a wrong port_mask written into the FDB/VLAN table from another
-  command's lookup data.
-
-The flood commands could also reach the firmware before the RX flow ID
-base is configured.
-
-The restart path seems to have a similar window. After
-prueth_emac_restart(), icssg_change_mode() calls
-icssg_enable_fw_offload(), and the work queued here for both ports may
-be running at that point.
-
-> +
->  	emac = prueth->emac[ICSS_SLICE0] ? prueth->emac[ICSS_SLICE0] :
->  	       prueth->emac[ICSS_SLICE1];
->  	ret = icss_iep_init(emac->iep, &prueth_iep_clockops,
-> @@ -323,6 +335,11 @@ static int prueth_emac_common_start(struct prueth *prueth)
->  	return 0;
->  
->  stop_pruss:
-> +	for (slice = 0; slice < PRUETH_NUM_MACS; slice++) {
-> +		emac = prueth->emac[slice];
-> +		if (emac)
-> +			cancel_work_sync(&emac->rx_mode_work);
-> +	}
->  	prueth_emac_stop(prueth);
-
-[Severity: Medium]
-The commit message says the cancel is there "so it cannot run after
-the cores are stopped again". However, this label is reached only when
-icss_iep_init() fails.
-
-Is the newly queued work also cancelled when emac_ndo_open() fails
-after prueth_emac_common_start() has already succeeded?
-
-__dev_open() sets __LINK_STATE_START before calling ndo_open. So
-netif_running() is already true for the port being opened, and its
-rx_mode_work is queued by the loop above.
-
-A later step in emac_ndo_open() can still fail. Examples are
-request_threaded_irq() for tx_ts_irq, prueth_create_rxq(),
-prueth_create_txq(), or:
-
-	ret = emac_fdb_flow_id_updated(emac);
-
-The error path then ends at:
-
-stop:
-	if (!prueth->emacs_initialized)
-		prueth_emac_common_stop(prueth);
-
-This shuts down the PRU/RTU/txPRU cores without cancelling
-rx_mode_work.
-
-emac_ndo_stop() does call cancel_work_sync(&emac->rx_mode_work) before
-prueth_emac_common_stop(). But ndo_stop is not called after a failed
-open.
-
-A work item that is still pending or running would then send commands
-to halted cores:
-
-- icssg_set_port_state() commands, each timing out with "timeout
-  waiting for command done";
-- in the non-promisc case, icssg_send_fdb_msg() commands that can poll
-  for up to 20 seconds.
-
-The multicast list may also be affected after the failure.
-icssg_prueth_add_mcast() always returns 0, so __dev_mc_sync() marks the
-addresses as synced.
-
-After a failed open, nothing calls __dev_mc_unsync(). That includes
-the stop_pruss path, where cancel_work_sync() cannot undo a sync that
-has already completed.
-
-The next successful open clears SHRAM, MSMC and the VLAN table and
-reboots the firmware. Its __dev_mc_sync() would then skip the addresses
-that are still marked synced.
-
-Could this leave those multicast groups unprogrammed in the firmware
-FDB?
-
-Before this patch, the opening port's rx_mode_work could not run during
-its own ndo_open, so this problem appears to be new.
-
->  
->  disable_class:
-
+diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
+index c09bbe04be6c..efa6dc6d40a6 100644
+--- a/drivers/comedi/comedi_fops.c
++++ b/drivers/comedi/comedi_fops.c
+@@ -2648,7 +2648,9 @@ static __poll_t comedi_poll(struct file *file, poll_table *wait)
+ }
+ 
+ static unsigned int comedi_buf_copy_to_user(struct comedi_subdevice *s,
+-	void __user *dest, unsigned int src_offset, unsigned int n)
++					    void __user *dest,
++					    unsigned int src_offset,
++					    unsigned int n)
+ {
+ 	struct comedi_buf_map *bm = s->async->buf_map;
+ 	struct comedi_buf_page *buf_page_list = bm->page_list;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014125948.230571-1-r-kumar12%40ti.com
+2.53.0
+
