@@ -1,80 +1,107 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from mail.unwrap.rs (mail.unwrap.rs [172.232.15.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57DC3446C7;
-	Sun, 18 Oct 2026 16:41:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEC63F1044;
+	Sun, 18 Oct 2026 16:41:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=172.232.15.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341690; cv=none; b=RMz6wdTGlfYy0QEuGmGqnDi9ODPg/j/c5U5tKSwNh02zJekVXFtYruA7X+MqQC2ateuxsatecihN4Le4SM7dqCe32jRpW2g4TmsG9F92fWQk5sEiEK9Ryz+jCpOZer3T7bn2UOOatAefpaF+LYfL+VlsJXX3C5u0IvaJZsFLwns=
+	t=1792341721; cv=none; b=X6hIEfIaV7xpQYXRyRILPOeW0+brN9v+KBJsw4R3SmP1BOi5sz7aKKL6Aw3Pp6liHIZRVxROT7hxMoMvZR5uOiAKiO494ppsn09TJAf1CfICdY63kyC0/zv2q1Gvm9eE3Kzc1dq8BGBvzrNJA7+CyJcEsDEN1EAUkSpeNDvC310=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341690; c=relaxed/simple;
-	bh=o8hJVdeaVwXZ8od6XDgi46XGIhr3WOQHprnfFbLcHX8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IHYI7nsg7Q8DEZ81E/g+KkE9E8YwEiET806Tvnza6DuPUJvhYFZwEEBICe/abfXs+nqU1qfZhOODxuaSsDjikEqBygapX1ba2Pyrbyy9yoh0j9OIZIr91KNazMpNcsuwHMDa0peWcXoR1R5FXLAKpHhdHG8UL/QuF5k4hTeJaqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=U0O8yl6P; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1792341721; c=relaxed/simple;
+	bh=hGmLVsblAGabHmvZzEwwReewowZajH/dW6cuAGTB8ZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=anLdR6/ajSlY3Uq5aB6EPNL9TgmSqZYqrik6uHPid9l89nP7yGj/COP9Mj+z32RXC9Y6TGqkh22liyOnxB3aP0bYEHjskr697bDooidHvkQxyQs4jqYsYjIL114IBumf7ITOAIg6Yeyvhl4LaxIob/J3mTruW9NGVIOa2nI1r6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs; spf=pass smtp.mailfrom=unwrap.rs; dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=GjXGD7u2; dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=NiqJwT/H; arc=none smtp.client-ip=172.232.15.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unwrap.rs
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="U0O8yl6P"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4j74FF1l9Bzlfvpn;
-	Sun, 18 Oct 2026 16:41:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1792341678; x=1794933679; bh=4AWHPp8lSPd/t1bYHj068BCx
-	rU2/TvcFgspDWB8/VwU=; b=U0O8yl6PoHeQLQeXxak6P+O3k6tqggbdiAvFtBns
-	GQfnd02Ktyhao0j8McZHkR3rYJVG5ICbL0829MBk9YOAfSp/B/LobVjNmKTt+N3a
-	jaE1bUKTM4mD5Yk/xoO/msw2zV9CVFY9/yd1oZKzVLQF70q/buqYylW1NScJrz0y
-	Aoac69LGdAc/WIuqRQZVoVYrb4SDucLfYtAfN8TRgESj4wTwpgfRtkkSwFI2hOz+
-	za0fx6pFYdXlaTOMns49yc8rYGjpEfeU9yuNdqVlE0or2MitRws0I1FRLAr8QKCT
-	8pYsU+vJwMEdUMY9bcrHrDyFRB8HDeP0NP6uDP/Bk+0Mlw==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id DynZCCGGcDLd; Sun, 18 Oct 2026 16:41:18 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4j74F91fbHzlfvpd;
-	Sun, 18 Oct 2026 16:41:16 +0000 (UTC)
-Message-ID: <cc4cb53d-51e4-472c-8e4f-6243100198d2@acm.org>
-Date: Sun, 18 Oct 2026 09:41:14 -0700
+	dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="GjXGD7u2";
+	dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="NiqJwT/H"
+DKIM-Signature: v=1; a=rsa-sha256; s=202503r; d=unwrap.rs; c=relaxed/relaxed; r=y;
+	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341715; bh=v2p66xuZqY
+	iKMK4lP1Xh2fqmBVHwLGyF3dq2Tb2Ypkg=; b=GjXGD7u2z2jRdoHbca7d2WdlVAkgrV/ZCeLLE
+	rz0DlB1r11bDcHcHG9FCXgEXVUkgA1fdgYsU08Tlx0Q5gwmK4j2tOu1P0r3bvJuMhBQCEUhzuOl
+	cRE+MQujZ1DktlocFz3/JSh4bwoEKMDvvNBWUkE1CI8IPzau5JO6UAGtm33cWMAEQQlR8SdCTs5
+	OlpCzOQgK3f1A58M1+F+YpF/N9vHbwtS0KyMXRpZFNbUN04hkBlEaWD230N3x3Tw0Nu2f2LepAm
+	6VY0H7Jr16u6j/ECIfa6cn1zIv6ITv5KbRZ30hVbp6lNohWl5mHmbv9EEREqYOIhr3kBBpgsJZ7
+	ejakg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202503e; d=unwrap.rs; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341715; bh=v2p66xuZqY
+	iKMK4lP1Xh2fqmBVHwLGyF3dq2Tb2Ypkg=; b=NiqJwT/HQDbmVfCsBK9tAxHiX594O0MPf2mhf
+	Uz3nf034XnCDi7J9qg61o76/L3u9HsaYwXIb5t7E113enZoCQ==;
+From: Cole Leavitt <cole@unwrap.rs>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Cole Leavitt <cole@unwrap.rs>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] USB: hcd-pci: Do not disable an already disabled device on remove
+Date: Sun, 18 Oct 2026 12:41:02 -0400
+Message-ID: <20261018164134.134106-1-cole@unwrap.rs>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] scsi: make SG_IO user copyback failure-safe
-To: Wang Yingjie <x-professor@outlook.com>,
- "James.Bottomley@HansenPartnership.com"
- <James.Bottomley@HansenPartnership.com>, "mkp@kernel.org" <mkp@kernel.org>
-Cc: "yangxiuwei@kylinos.cn" <yangxiuwei@kylinos.cn>,
- "axboe@kernel.dk" <axboe@kernel.dk>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <cover.1792237341.git.x-professor@outlook.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <cover.1792237341.git.x-professor@outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/18/26 8:41 AM, Wang Yingjie wrote:
-> Several SCSI passthrough completion paths touch userspace while their
-> completed request still owns a queue tag.  Sense or READ-bounce copyback
-> can fault on a mapping backed by the same one-tag device, leaving the
-> nested I/O unable to obtain the retained tag.  The synchronous and
-> io_uring BSG paths additionally discard data-copyback failures.
-How common are one-tag devices? Has it been considered to disable SG_IO
-for one-tag devices instead of complicating the SG_IO implementation?
+suspend_common() calls pci_disable_device() and resume_common()
+re-enables the device. If the host controller is hot-removed during
+system resume before its ->resume() callback ran (for example pciehp
+handling a Thunderbolt/USB4 dock or host router that did not come back),
+usb_hcd_pci_remove() drops the enable count a second time:
 
-Thanks,
+  xhci_hcd 0000:b2:00.0: disabling already-disabled device
+  WARNING: drivers/pci/pci.c:2198 at pci_disable_device+0xac/0xc0, CPU#9: irq/128-pciehp/225
+  Call Trace:
+   xhci_pci_remove+0x89/0xd0
+   pci_device_remove+0x4a/0xb0
+   device_release_driver_internal+0x19e/0x200
+   pci_stop_bus_device+0x63/0x70
+   pci_stop_and_remove_bus_device+0x16/0x30
+   pciehp_unconfigure_device+0x96/0x170
+   pciehp_disable_slot+0x66/0x100
+   pciehp_handle_presence_or_link_change+0x62/0x190
+   pciehp_ist+0x14f/0x1d0
 
-Bart.
+(usb_hcd_pci_remove() tail-calls pci_disable_device(), hence it is not
+in the trace.)
+
+Only disable the device if it is still enabled.
+
+Fixes: a0d4922da2e4 ("USB: fix up suspend and resume for PCI host controllers")
+Signed-off-by: Cole Leavitt <cole@unwrap.rs>
+---
+
+Notes:
+    Tested on a Lenovo ThinkPad P16 Gen 3 (Core Ultra 9 275HX, JHL9580
+    Barlow Ridge host, I226 Ethernet), in daily use since 2026-09-17.
+
+ drivers/usb/core/hcd-pci.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/core/hcd-pci.c b/drivers/usb/core/hcd-pci.c
+index cd223475917e..ae5175fefd91 100644
+--- a/drivers/usb/core/hcd-pci.c
++++ b/drivers/usb/core/hcd-pci.c
+@@ -348,7 +348,13 @@ void usb_hcd_pci_remove(struct pci_dev *dev)
+ 	usb_put_hcd(hcd);
+ 	if ((hcd_driver_flags & HCD_MASK) < HCD_USB3)
+ 		pci_free_irq_vectors(dev);
+-	pci_disable_device(dev);
++	/*
++	 * suspend_common() disables the device. If the controller is
++	 * hot-removed during system resume before resume_common() had a
++	 * chance to re-enable it, there is nothing left to disable.
++	 */
++	if (pci_is_enabled(dev))
++		pci_disable_device(dev);
+ }
+ EXPORT_SYMBOL_GPL(usb_hcd_pci_remove);
+ 
+
+base-commit: 32c52ec87d6245ee2d12ed5dd509e40062939b50
+-- 
+2.54.0
+
