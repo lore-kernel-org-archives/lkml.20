@@ -1,86 +1,54 @@
-Received: from mta1.migadu.com (out-120.mta1.migadu.com [95.215.58.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1192C1CAA6C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:59:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6903CDF76
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:03:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792310381; cv=none; b=U5NuNO9U+DcStN30mYf0W+vUQtFkC8QcxMTflUp17loPAFjoWYRO7/xRKG+KcoATwV/kDEGWwcnd5PVqMJkLcmO1fb88Z+nuXCqqzSS3YAN3yQCK5G1LNl/pdj4ymqLPKmpnMzqnp7Ct4Ml5PawGkJuSM5mUFXEDrO5RA0POlVk=
+	t=1792310620; cv=none; b=RYtY5wX2khAbI/SkyGZW+XkGEBG1N4+eg8f62+ialIrTVyYieys6LutiJzfGKn4lv08a63xFF9AgwlvLEjMJWhboZNXWP+GkoD5riRtO4oV/0ryn6U++h4ErNEShGtwVbPgqxbZ6O7WD8GJ6jq1YSF4MrMYIS+vROo23haAz2mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792310381; c=relaxed/simple;
-	bh=lyELolJu2xi7BInGaBj0/nHK9JAkLFJ3iwidm/fclC4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=S2XnJBiz21Am8BC3FZlZ0ZrCKGZsE3pDEe9Ai6XqiRHkPnec6K6Q59hsVotWsYZFMutHngTzr+5YUD/FIXYo9L0s8YjCFMX5b8I7zEi3LKf8oPpMUvlYcP+5nNzkixYrhPixdLX7JAliR7wj91Clu1DM9HrVoR1dNya58nY8FDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lfrWoAoq; arc=none smtp.client-ip=95.215.58.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792310620; c=relaxed/simple;
+	bh=IF9goZePh45tejtFUlq3UQB7Bq3FqvSqUD4SrsrNDTg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dKUTvn+NkQKEjlNH5sC5fJNMeOtvIVv5+58UBP+NFq2gDx3NJ9VgcWcYI1LYNaXBrOKS+uykWF9eHabOacqKGq9q0zPJ/uhi2V7XbFhDyq5cvNk5LIRiBPBMW0qaiXWyihKVYWBjxCMw0f53QWNB6zS14h1GOJpEuSBN+BJQN58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DvDuCCiA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lfrWoAoq"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lyELolJu2xi7BInGaBj0/nHK9JAkLFJ3iwidm/fclC4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792310377; v=1; x=1792915177;
- b=lfrWoAoqPBnkUHg2TbGWDXZnc3sz1EwVdyHFT9QFlOOqd++K/YkMRCXa6Hy1w9702VnPO7F9
- bs7chR5uCdrXv7hE5tlHCqjppDu8zNGXix1VyMDYs5Ax55vtWtz4JU6jg9T5WB2N7em8yVI5Ncj
- GEBYURkYJvRqug+9Gusqvq08=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 77426602997a8cfb;
-	Sun, 18 Oct 2026 07:59:36 +0000
-X-Mizu-Trace-ID: 77426602997a8cfb
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	agl@us.ibm.com,
-	mel@csn.ul.ie,
-	riel@surriel.com,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org,
-	josef@toxicpanda.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 07/10] mm/hugetlb: tolerate uffd bits set without uffd for PROT_NONE PTEs
-Date: Sun, 18 Oct 2026 15:59:27 +0800
-Message-ID: <20261018075927.2979-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261015-urgent_fixes-v1-7-42796911043b@kernel.org>
-References: <20261015-urgent_fixes-v1-7-42796911043b@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DvDuCCiA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 322B41F000C4;
+	Sun, 18 Oct 2026 08:03:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792310618;
+	bh=JJNINly7g4wRKqQk2yVdy8PqtE2VfWd7xctymCWVDhc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DvDuCCiAmEXTdyLdTj+Ss4eYO1JS05AEJltJNekwi4sjIzn0GvVpRTbFCEunQ+bvt
+	 iKuIVXIvFasEu7XxsokP9aGfMB8K3qQu+XnJ05ozGzAPaN2BUFjVRbU0u1NjnEnoT7
+	 s+aTRNEgPqNpXQ7fBMwEpPF40uHsrx9ZiCM0zhcI=
+Date: Sun, 18 Oct 2026 10:02:55 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [GIT PULL] SPMI changes for the merge window
+Message-ID: <2026101847-predict-churn-eb98@gregkh>
+References: <20261018055336.1037077-1-sboyd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018055336.1037077-1-sboyd@kernel.org>
 
+On Sat, Oct 17, 2026 at 10:53:35PM -0700, Stephen Boyd wrote:
+> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+> 
+>   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/sboyd/spmi.git tags/spmi-for-next
 
-On Thu, Oct 15, 2026 at 06:07:13PM +0200, David Hildenbrand (Arm) wrote:
->The whole uffd handling when a VMA is unregistered from UFFD is shaky:
->there are still some scenarios where we might have stale uffd PTE bits
->in VMAs no longer registered for UFFD, which confuses other code.
->
->Let's just tolerate that for now and simply clear the PTE bit. Add a
->TODO to really clean up any uffd leftovers when unregistering a VMA from
->userfaultfd.
->
->The handling is now more similar to what we have in handle_pte_fault().
->
->Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
->Cc: stable@vger.kernel.org
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+Pulled and pushed out, thanks.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+greg k-h
