@@ -1,85 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-156.mta1.migadu.com [95.215.58.156])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1967238DC53;
-	Sun, 18 Oct 2026 15:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CBD3AB288
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338602; cv=none; b=tItG+CZtlB55/lJHwFwxt5tCPJxCPLciJtqixS6jAEtq1IgbtPq3Drwu+Kol7ucwh0AKoLsIZfu5TlJxrdVJfDpYqQN60LJBWO5eSNOLtFNgl5zfUJ24vbrQlFJvIb/l0aS254H4csctFP8syOXWctPIWeFAVt9A4hFblPstIJ0=
+	t=1792338620; cv=none; b=nAImlnU/Up5sug5m8pzfUboc1viqQ23D4u/K/c7koBbCgDc/AGlAgmIIJJwVfMqG9/ugDEJ6+se8Bj059aYrhJHV6M9/k40shYN4SeG7ZZeNLpTWx7+jhYPnio3hlB63VObQncwG19VrSBTfZxGSCt4iyH/m495DMo0ntM1yxfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338602; c=relaxed/simple;
-	bh=nuWm5cdLlbh+eTVljmY2s0zpnWdBSnZbHIzuUMimW9U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cb07jpP9xJ7JhEy7fJOPtkVdmzYBLuQYVPu7KRehgidOM7GOT43WvJ4ZQA6vOFENU922gduFfCqn0DJCF3NvPcCQQ4hlEhBww0NuYXS7TF8ojq/AGXOYoes6T8GhHUAfeYciyzsULthqjw4m9RJUkM1QSjGQZEIPi06oD/t3MgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5cqjmm0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792338620; c=relaxed/simple;
+	bh=eEWxZEiRQUSiOa6WosNyvYGzuvYa5ERYWUjbRMgTDwI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QMPc1fMS8YHEUD2BbunkCGqBLlMEQtGJprZWUqRdz86nPvu27YXuDgWHcrCEKk3MserF0+XEQ6u/bNxXdPd+ytZ7LzjW0gaEmXP/+CHTvzxwCDB0Gdl9D1gVHH5f6716ogyytfPdyit7+5bMnvIfSulsGysZ6ANPBBPPotZG0qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PN8iPp4t; arc=none smtp.client-ip=95.215.58.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5cqjmm0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E9FE1F000C4;
-	Sun, 18 Oct 2026 15:49:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792338600;
-	bh=6LphvJRgdMJSniREV29w572IWK1vBbe+xqjQ4ijfnWg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R5cqjmm0/pxO8eWkiE374zCrnaP6BYGUuQpanGQXmgKXv6qo9G0XALv+JAGPsZWBQ
-	 82hnVRlC0cPE7YUB38NmsqyKeqrc16j3oJ19PIB17au1ZkjQyPXUGHHUZzNlARMPsv
-	 0KcvhFPPxRiTgsG0EezciP9cGMpaHNwgsYzqn8lvZXtjxZ+oNUsGS7mqiF1Ov6t243
-	 f4W5VXcv5VBZR8rpCQXrIvRUjVZCHlavSHklpYDj03gHAnBS8LpzOPNh1vgNqa7IIH
-	 0XWlf3iNIi9ydffoEZCHNbPp9FWcUk9Q22rNrJE83iRR059mRwAvbwJW4HK1gc365z
-	 0gP2Scs7OvnNQ==
-Date: Sun, 18 Oct 2026 17:49:50 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Alasdair Kergon <agk@redhat.com>, 
-	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
-	Benjamin Marzinski <bmarzins@redhat.com>, David Howells <dhowells@redhat.com>, 
-	Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
-	Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Andrew Halaney <andrew@amutable.com>, dm-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	bpf@vger.kernel.org, fsverity@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [PATCH bpf-next v2 0/3] keys: Add well known IDs for
- fs-verity/dm-verity keys
-Message-ID: <20261018-skrupel-ungefiltert-bauamt-99f4c40aa5f8@brauner>
-References: <20261008-ajhalaney-dmverity-key-identifier-v2-0-008456d189cb@amutable.com>
- <20261012-broschen-inanspruchnahme-gebilde-d72cf2b99cda@brauner>
- <DM5UD20248FG.3BXPS76LK06F5@gmail.com>
- <20261016-ratlos-endkunde-eindimensional-1fe5eef08d13@brauner>
- <DM6CJUE4J2LX.2NR5QB5X3N0Y6@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PN8iPp4t"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eEWxZEiRQUSiOa6WosNyvYGzuvYa5ERYWUjbRMgTDwI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792338613; v=1; x=1792943413;
+ b=PN8iPp4tT2ft8QnxEmXC3oCM5v6FMsvxoV6EKXOyUX8T3o4ylqsddBe37q2Vk4Nb4nDW/3Xs
+ 5oTmRFqtI3H2pt9U4siuYgjFx9hjdt4XGizoCa2fkGd5spWNwUvF8uS5uRKpfQ7zSWHRqBtmqLq
+ iq3diogfz65bM/+TVDR9vgks=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 48859e15dde0fb73;
+	Sun, 18 Oct 2026 15:50:11 +0000
+X-Mizu-Trace-ID: 48859e15dde0fb73
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b22a521d-ec6e-4ac8-9aaa-d34e67ba898f@linux.dev>
+Date: Sun, 18 Oct 2026 17:50:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DM6CJUE4J2LX.2NR5QB5X3N0Y6@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/7] HID: asus: Fix up Zenbook Duo report descriptors
+To: Paolo Pisati <p.pisati@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Luke Jones <luke@ljones.dev>, Ivan Levchenko <me@livan.pro>,
+ =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>,
+ Nathan Chancellor <nathan@kernel.org>
+References: <20261013104033.36079-1-p.pisati@gmail.com>
+ <20261013104033.36079-2-p.pisati@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261013104033.36079-2-p.pisati@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 02:53:23PM +0000, Alexei Starovoitov wrote:
-> On Fri Oct 16, 2026 at 8:27 AM UTC, Christian Brauner wrote:
-> > On Fri, Oct 16, 2026 at 12:38:11AM +0000, Alexei Starovoitov wrote:
-> >> On Mon, Oct 12, 2026 at 12:38 PM Christian Brauner <brauner@kernel.org> wrote:
-> >> > Applied to the vfs-7.4.keyring branch of the vfs/vfs.git tree.
-> >> > Patches in the vfs-7.4.keyring branch should appear in linux-next soon.
-> >> 
-> >> What is this branch based on ?
-> >> v2 was sent against bpf-next, because
-> >> commit 264d8fd2794f ("bpf, keys: Add a bpf keyring for program signature validation")
-> >> is only there.
-> >> All hunks in keyctl.h, key.h and process_keys.c have its lines as
-> >> context, so the patches don't apply to -rc as-is.
-> >> And patch 3 documents KEY_SPEC_BPF_KEYRING.
-> >
-> > It's based on the portion of bpf-next that has Daniel's keyring patches.
-> > Which means I just wait until bpf-next is merged and then send it as a
-> > follow-up pr.
-> 
-> ohh. that should work. If it's simpler I can take this patch set into bpf-next,
-> so you wouldn't need to monitor merge window that closely.
 
-LLMs make that kinda trivial. I need to send late merge window PRs a lot
-when we e.g., do tree-wide changes that would cause a lot of merge
-conflicts if constantly carried in -next.
+On 10/13/26 12:39, Paolo Pisati wrote:
+> From: Joshua Leivenzon <hacker1024@users.sourceforge.net>
+>
+> The Zenbook Duo keyboards (UX8406MA, UX8406CA, UX8407AA) ship the same
+> broken vendor hotkey collection as the T100CHI/T90CHI keyboard docks:
+> the Input item of report 0x5a is preceded by a single Usage (76h)
+> instead of a Usage Minimum/Maximum range, so none of the hotkey codes
+> get mapped and every key press logs
+>
+>   Unmapped Asus vendor usagepage code 0x76
+>
+> Extend the T100CHI/T90CHI fixup to the Zenbook Duo: the descriptor is
+> 90 bytes long with the bogus usage at offset 66 on the USB hotkey
+> interface, and 257 bytes long with the usage at offset 176 over
+> Bluetooth.
+>
+> The dock fixup only moves the 12 bytes between the usage and the End
+> Collection item, as nothing but a bogus trailing 0 byte follows them.
+> That is not true of the Zenbook Duo: the collection goes on with a 15
+> byte feature report (also ID 0x5a) after the Input item, and over
+> Bluetooth a further collection follows it, which a 12 byte move
+> corrupts, leaving stray 0 bytes at the end. Move everything after the
+> usage instead, after dropping any trailing 0 bytes, and allocate the
+> two bytes the usage range adds. The result for the T100CHI/T90CHI is
+> unchanged.
+>
+> Signed-off-by: Joshua Leivenzon <hacker1024@users.sourceforge.net>
+> [pisati: fold the USB offsets and the padding removal into this patch,
+>  bound the padding removal, move the whole tail of the descriptor, and
+>  end the branch chain with a plain else so clang does not warn that
+>  rsize_orig may be uninitialized]
+> Assisted-by: LLM
+> Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
+> Tested-by: Rebecca Mara Müller <rebecca.mara@posteo.de> # UX8407AA
+
+Hello Paolo,
+
+I am back from vacation and I can therefore getting on with my review.
+
+I don't know if I have enough time for all patches but I will try!
+
+Thanks for looking into these devices!
+
+> ---
+>  drivers/hid/hid-asus.c | 38 ++++++++++++++++++++++++++------------
+>  1 file changed, 26 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> index bd46aba6622a..34739198d90e 100644
+> --- a/drivers/hid/hid-asus.c
+> +++ b/drivers/hid/hid-asus.c
+> @@ -100,6 +100,7 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+>  #define QUIRK_ROG_ALLY_XPAD		BIT(13)
+>  #define QUIRK_HID_FN_LOCK		BIT(14)
+>  #define QUIRK_FILTER_CAMERA_COMPANION	BIT(15)
+> +#define QUIRK_ZENBOOK_DUO_KEYBOARD	BIT(16)
+>  
+>  #define I2C_KEYBOARD_QUIRKS			(QUIRK_FIX_NOTEBOOK_REPORT | \
+>  						 QUIRK_NO_INIT_REPORTS | \
+> @@ -1579,43 +1580,56 @@ static const __u8 *asus_report_fixup(struct hid_device *hdev, __u8 *rdesc,
+>  		hid_info(hdev, "Fixing up Asus T100 keyb report descriptor\n");
+>  		rdesc[74] &= ~HID_MAIN_ITEM_CONSTANT;
+>  	}
+> -	/* For the T100CHI/T90CHI keyboard dock */
+> -	if (drvdata->quirks & (QUIRK_T100CHI | QUIRK_T90CHI)) {
+> +	/* For the T100CHI/T90CHI keyboard dock and Zenbook Duo keyboards */
+> +	if (drvdata->quirks & (QUIRK_T100CHI | QUIRK_T90CHI | QUIRK_ZENBOOK_DUO_KEYBOARD)) {
+>  		int rsize_orig;
+>  		int offs;
+>  
+>  		if (drvdata->quirks & QUIRK_T100CHI) {
+>  			rsize_orig = 403;
+>  			offs = 388;
+> -		} else {
+> +		} else if (drvdata->quirks & QUIRK_T90CHI) {
+>  			rsize_orig = 306;
+>  			offs = 291;
+> +		} else if (hid_is_usb(hdev)) { /* QUIRK_ZENBOOK_DUO_KEYBOARD */
+> +			rsize_orig = 90;
+> +			offs = 66;
+> +		} else { /* QUIRK_ZENBOOK_DUO_KEYBOARD over Bluetooth */
+> +			rsize_orig = 257;
+> +			offs = 176;
+>  		}
+
+Please either use a switch or otherwise make each if check one quirk, eventually use other nested if(s)
+to check for bluetooth in order to not cause future problems if this code needs adding other models.
+
+Also unless it's for counting try to use explicit types matching what you are trying to do like u8 or u16 etc...
+
+>  
+>  		/*
+>  		 * Change Usage (76h) to Usage Minimum (00h), Usage Maximum
+> -		 * (FFh) and clear the flags in the Input() byte.
+> -		 * Note the descriptor has a bogus 0 byte at the end so we
+> -		 * only need 1 extra byte.
+> +		 * (FFh) and clear the flags in the Input() byte, shifting
+> +		 * the rest of the descriptor by the 2 bytes that adds. Drop
+> +		 * the bogus 0 bytes some descriptors end with first, but
+> +		 * never the Input() item that follows the usage.
+>  		 */
+>  		if (*rsize == rsize_orig &&
+>  			rdesc[offs] == 0x09 && rdesc[offs + 1] == 0x76) {
+> +			unsigned int new_rsize = rsize_orig;
+
+In kernel declaration of variables goes on top of the function, in reverse xmas-tree.
+
+The only exception is with _kfree() pattern for pointers.
+
+>  			__u8 *new_rdesc;
+>  
+> -			new_rdesc = devm_kzalloc(&hdev->dev, rsize_orig + 1,
+> +			while (new_rsize > offs + 14 && rdesc[new_rsize - 1] == 0)
+> +				--new_rsize;
+> +
+> +			new_rdesc = devm_kzalloc(&hdev->dev, new_rsize + 2,
+>  						 GFP_KERNEL);
+>  			if (!new_rdesc)
+>  				return rdesc;
+>  
+>  			hid_info(hdev, "Fixing up %s keyb report descriptor\n",
+> -				drvdata->quirks & QUIRK_T100CHI ?
+> -				"T100CHI" : "T90CHI");
+> +				drvdata->quirks & QUIRK_T100CHI ? "T100CHI" :
+> +				drvdata->quirks & QUIRK_T90CHI ? "T90CHI" :
+> +				"Zenbook Duo");
+>  
+
+Does the zenbook duo really needs fixing the report descriptor? I think you can avoid this
+altogether on this hardware.
+
+Best regards,
+Denis Benato
+
+> -			memcpy(new_rdesc, rdesc, rsize_orig);
+> -			*rsize = rsize_orig + 1;
+> +			memcpy(new_rdesc, rdesc, new_rsize);
+> +			*rsize = new_rsize + 2;
+>  			rdesc = new_rdesc;
+>  
+> -			memmove(rdesc + offs + 4, rdesc + offs + 2, 12);
+> +			memmove(rdesc + offs + 4, rdesc + offs + 2,
+> +				new_rsize - (offs + 2));
+>  			rdesc[offs] = 0x19;
+>  			rdesc[offs + 1] = 0x00;
+>  			rdesc[offs + 2] = 0x29;
