@@ -1,97 +1,78 @@
-Received: from giraffe.ash.relay.mailchannels.net (giraffe.ash.relay.mailchannels.net [23.83.222.69])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F90938F639
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:17:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.222.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10723DB33F;
+	Sun, 18 Oct 2026 23:18:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792365477; cv=none; b=fxngKk0dFNp9rdwNb1yFl7Zb+74/ClRhS0bNatuUq1Bdhoih7VihxFVq3jWLZ/ERQ50pwZwzooZuy9eLxVtdCM18tzGOSVfXVEFV4nRayszNcpqwOTMLBIyGKSAyTn3S9p837zdfoHFaucS6cIw4blylO5Hyh63RdcA4nCEbcu4=
+	t=1792365510; cv=none; b=ATtTPcNhqScq86aWKETS75Im2dvG1GzEMMoaJY4QG4T2aohlA5jXSPEzJsXA7Cq42r7Qyno/CNJvg6LWNFZufhgNxMWS5r0HPxI+mtZx59TEhFUCUfkDuAcbdGs74+sen9pYTNW0g8xJK0NW5ShCT3auurqrXqucgKVUHgsLbVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792365477; c=relaxed/simple;
-	bh=Zrhk6L+yA+nfxS08hMuRUtSSqS+SLKAeqb3lj45wbJU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XX3ehiQ5Y5AoyaTiJuLD84sNImm1tZg0ZTjygCCbbGAQzRJIeeV4eBrUfBPr9y1fJ+DrEdkH7lHgzrGaOh3eOEFPtBYcVjkKo4QCxljHs1prkfYERso4CnDkOS/3YwaG4v4RIA1X5d8ZGpilomoR4/UQd+kuxcwXvpXgFEJi6qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=X+xHex6o; arc=none smtp.client-ip=23.83.222.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
+	s=arc-20240116; t=1792365510; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VWree8Mj/rFmKriQYaCM0mDjJ2KCZhE3Y5D2CF3PJjXKV7/lw837nd/sWiI6DLs+ud6uBSIOs86jjl9R5eBNv9y2+TtVJUkDJxZMOPsWJE2YXaQ2yhunlEmxmEnNBamFaeOLvacIZ9NY4HjmpsX77pe/AtaCrHZwhqAnBEHExls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TBJ9+S49; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="X+xHex6o"
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id D4CC44C17FF;
-	Sun, 18 Oct 2026 23:17:48 +0000 (UTC)
-Received: from pdx1-sub0-mail-a253.dreamhost.com (100-96-8-137.trex-nlb.outbound.svc.cluster.local [100.96.8.137])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 703D64C0FF5;
-	Sun, 18 Oct 2026 23:17:46 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Average-Bottle: 4eeea253467d22e0_1792365468709_783431510
-X-MC-Loop-Signature: 1792365468709:4135546109
-X-MC-Ingress-Time: 1792365468709
-Received: from pdx1-sub0-mail-a253.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.8.137 (trex/8.0.2);
-	Sun, 18 Oct 2026 23:17:48 +0000
-Received: from offworld.tailf5af7a.ts.net (unknown [172.56.178.135])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a253.dreamhost.com (Postfix) with ESMTPSA id 4j7F2d4pyHz1044;
-	Sun, 18 Oct 2026 16:17:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1792365466;
-	bh=nX42rawjGZS9uhRXyyy2xQVWTYF1zQD/dRyD2IOTcAg=;
-	h=From:To:Cc:Subject:Date:Content-Transfer-Encoding;
-	b=X+xHex6oMrORNOUXARQhlKJGbN6kWM7Eieol2jajImP/J9e5Gu+/5x4cekat7Vopz
-	 MWDNlwIXimCjJx+5nCEVU6TWkU4b2UXKkgFvgLUl52po56vzLhGKrGGBhZWYzi++pq
-	 uadxa/BUFRO7HQZmkSVNKhKtddMX5bQJepAfjg1bM74Ew/uKTfmxgNMgQZVuHAEqt/
-	 K63pgwbYnDF4eCAFpqeK9kdxcTrLoFDtemYJewztkniKusErfLlumlNgpiPQPA/Dx0
-	 hEHh2kd5mPi36LZi+v2vMEYWFdR7UgR5cd6/L1mSLiWBUW/0P1XNgNgrio75Rxgnkg
-	 k/fQAz0rOkgSQ==
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu
-Cc: alex@ghiti.fr,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	dave@stgolabs.net
-Subject: [PATCH] riscv: atomic: Drop stray semicolon from __atomic_release_fence()
-Date: Sun, 18 Oct 2026 16:17:39 -0700
-Message-Id: <20261018231739.1770964-1-dave@stgolabs.net>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TBJ9+S49"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94CBE1F000C4;
+	Sun, 18 Oct 2026 23:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792365509;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TBJ9+S49PC1xLpxMAM7add17/ZqegNnZVuugKzzTGx1eYHFmXA91cRCm3ginTJOPL
+	 GyUgAzcED54XrNGfgfvAp0jKmERyqq509+fnmQpSwfFXMrrWy0H9GvquuNvZ/oO44w
+	 zyGlIbqx5YxVJjERXmbdZOLSr2pzdKwlKLC2YsluQQ+OtZUTkcMDry5ijQ2J1LiYLn
+	 tydraczmOUeNt0CbZPgMSRemPcWkjAdbga/mEJqSi6mmio0L7JDmh5ofa8kxkI+oAo
+	 VfQjdE2Ey5qxDYX8KQa0HHnOvfpq7pUaaiLeSQBLOzU+LRwonYA0e03oYDrMskceFG
+	 W6MEnrKOyoRLQ==
+From: netdev-bot+sinfo@kernel.org
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev@vger.kernel.org,
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Felix Fietkau <nbd@openwrt.org>,
+ linux-kernel@vger.kernel.org
+Subject: 
+ Re: [PATCH net] net: bgmac: fix TX DMA unmapping on fragment mapping failure
+Date: Sun, 18 Oct 2026 23:18:28 +0000
+Message-ID: <179236550812.3290.9443229332836486177@kernel.org>
+In-Reply-To: <20261018231348.36884-1-rosenp@gmail.com>
+References: <20261018231348.36884-1-rosenp@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-... correct this.
+Hi!
 
-Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
----
- arch/riscv/include/asm/atomic.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-diff --git a/arch/riscv/include/asm/atomic.h b/arch/riscv/include/asm/atomic.h
-index 616b8b332ac5..c6f05ffe0cf0 100644
---- a/arch/riscv/include/asm/atomic.h
-+++ b/arch/riscv/include/asm/atomic.h
-@@ -22,7 +22,7 @@
- 	__asm__ __volatile__(RISCV_ACQUIRE_BARRIER "" ::: "memory")
- 
- #define __atomic_release_fence()					\
--	__asm__ __volatile__(RISCV_RELEASE_BARRIER "" ::: "memory");
-+	__asm__ __volatile__(RISCV_RELEASE_BARRIER "" ::: "memory")
- 
- static __always_inline int arch_atomic_read(const atomic_t *v)
- {
--- 
-2.39.5
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
