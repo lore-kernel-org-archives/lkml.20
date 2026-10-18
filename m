@@ -1,64 +1,66 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9D33431F8
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4111A34CFC2
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:47:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792291620; cv=none; b=CpSPG3341p5PjV5qIRWHwTk9OK7MF/udpCb4m5gY7eKhTI1TYi0DTRCxcC20Jcv8Dr+ap1iVoLyZY/8Ax0FBlwZeDvGK6q8CahfV8+832PNjGvVQlwMK14nzM3y5F1cZqQvRKJgayWit2azjYgJzTZQPdK1KqpNgMXGAXTwZjHM=
+	t=1792291621; cv=none; b=Wt2tHK0sZRG9zEA1xOepjBjCU9MJQoUkHdGA7K8bZdqWcwhfGPoOHs1eFwpjHDhPuEBQCenMSaAGAZ3Qson63Gipzs53RM6WmF+0x3iezUeuCp23SnDfKQRwXqG940CFm1tSL5BFZ0cpwJvPlApgFG9dI0TDGyFLO0QTfYJZmoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792291620; c=relaxed/simple;
-	bh=L/rz686i3x+RUZOvwJlGil8/fc8KWkc+EpZkgvybyLs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=a9BDPCB03hHT/sGenYZjMOfj+Z+noaZM7pwxCvFy5fa0whS9Zrahcru4x3NloRveT3DlnbiNix/5BdUr9Oph4+m6c+383WY/Fwlb1E1dVZbGI37eCd66KqCuPhJ7dFrPCy9/3qj3Dqt5ZwRjG0G4k1x3ki03eImCjTrX0XFxLuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QzQqAC2g; arc=none smtp.client-ip=209.85.160.176
+	s=arc-20240116; t=1792291621; c=relaxed/simple;
+	bh=m2mukGgWpT8Az5wlIU2EvwStqt6PAPojcdqQXE9F66Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UESDIrG0fk8kUzxgg2w+9dktSMihxZ5k53O3atn9h2AgAOknIPazkbRZDHNskbmKkjuZ/GpFZV0ERy1J6EoaxT1ruPuGmeGbnoyvieYNbAWrgwIBrl23aXnveIYefA8eloLCITDFjHyxlu1ppNajUHlDHSH20FvHAgG99fZTKfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IKeJxvJX; arc=none smtp.client-ip=209.85.160.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QzQqAC2g"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53634b8328eso9032991cf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:46:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IKeJxvJX"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-533972e0cccso13591491cf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:47:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792291618; x=1792896418; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fgrg8W6lnkrXwWeLJ4XV9VoZQLYHNzAPN0f6A3bXfzc=;
-        b=QzQqAC2ghDvfgnioeHY+Pw3cnTvcYm4Y2H81llUUkEaQ1SZXMZSwf4dtPXSEhH0CvC
-         KS7mD4uy+OqADPs3+SCHqOp/rz5nJPn/RukBqm2uPLRxjmE3x0FDsB+cvtBLp1AugiMM
-         3rfNVlj85BraKhX1SznppT2Z+huCf+uN9fEGDs0YUJf+XFjte4HLosSvP/PW+WhV8QoW
-         9A/1x14uFqQjCmOLxBruHyjLg51UDnEI47unJpAbS+KADPILJXyJge5cgXy2N+dkboXm
-         v46JVVa0DOZYvQKvmat9Tw+uRU1IpGBYyzOfFCyCN528r8LkFrkcN8hdkVbyMhjVhrQW
-         hivw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792291618; x=1792896418;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792291619; x=1792896419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=fgrg8W6lnkrXwWeLJ4XV9VoZQLYHNzAPN0f6A3bXfzc=;
-        b=P8y2n1b74k83e/6vSwTmhIEw0L8GlPSWyhoL/RXaaZ1lN5yDrWyK5SCloEpriXO349
-         lGxIt0doiahJS1qjBBhaf6+HZleQpnIKyW4Lq9bWBccOf9HYsveJVSXQpX1ltQUuhHik
-         DXPDQ8efntLLnGcCYbxMXkuqYbvALtpKADU9E8zTkja9W5RM18P0JONJLQI3lhPI5LG9
-         /0tRBmBp+utmHVjZiKGHmt19UKlK9tztrVRpfJCR6VLAFzROKyO9Lhxdqj4PCLMNI1t8
-         iFYDAEU05N0UZH01F4sfGUmp1TEq00Egfp60RGBEljD9IziA7FK7KSqARlNY9x5NaZNB
-         PpnA==
-X-Forwarded-Encrypted: i=1; AKwUvBx8JT/daqHh8lYPtYGvcBjKpIy+nBw4OqvWLd6yU4CQCUFYWN5rnBpKf9ghemrtu4k38GEsNSM8EwxP/yA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+4F2VSBEnY32sKzaLEfdzke+jCgHGNI8gcLczKIzemUAw6VSO
-	jYvGjuFe326pZm0Uc97vjgSgcLLUpYRgreYQ9a/TTMj1j0XB8cD1uzpRemOnOKM=
-X-Gm-Gg: AYBFou3BFoINDpQ+6NTgz11Qmweko1pP8wzFWxF3VXxN78oCKDKIiNpP3dr+PjcHBqA
-	tDdyqr8zMUCaik2d9dHuLaILDrhxcOGPMktgzevosMhelUM4QdlYh0Fjcx/Mogmm0PhXSjTGLfL
-	+hUbKT0X0qzaTmkaoPUX8vW+Jo7DEFBfl/vSQlCM57SQbVHRFKEUvzIjYt8ZgwODNN1w3/JOpI1
-	Ag2ObA+lHS+OCtQE6kezySpjra101pylYXdXO+jzmE2E0KWHqYh8qAlMKjowIgnDspT1RsTOOEz
-	KX6WRobevoKd/yR9La0FsByST3VnrWpy4awnqJDBm0aed4wNCAYK8C5tize+YsG44fAnyPjdpgU
-	/VygYczeOM3oysR19i6rI5eNX/0ZAuAmY1gT4Eo89UQUQxkFGY3s21bXksZKnR09DpyFmCy8XdZ
-	2L5RTk6V+6L0uCuBPk3E6jb8JruBL845PwcU4Iv2Pq80mrYZE8TJFKVsrFqZ9+9OX+keCZ9hyIz
-	z5wYfjD+RRMoLtV7IfdZEXTrUo1f93XoVBfwj1CuETZ8HNymxOplHBgJzQysy3EdShgAHsm/Lsw
-	fShnYFE+IiM52Ayq7ew17eO7VE7V
-X-Received: by 2002:ac8:7f06:0:b0:535:f9db:4567 with SMTP id d75a77b69052e-53646103232mr63060221cf.64.1792291617890;
-        Sat, 17 Oct 2026 19:46:57 -0700 (PDT)
+        bh=gvBoQ0rQ41gn7VwVg0MB+Jrp9Py8V8GgFAA5woLhjm4=;
+        b=IKeJxvJXciYl4WpdLh0KQivoujSDXKVKZzQl8xnw8gQUeZI/eEnSF2RGgI7foTJ1Wi
+         L8/bXgiLWKDNhiuS+ZkeymIgZbIGtxuzgc4QCiSEfo184f5jv5ZW6WL5dnJU7GeFgjL0
+         kxpy/B93oDHQ+AHBjdtO9oLajO153ZxicHsna8Lo3qYRpsRS1ALRvnAWo8q55NI/2suR
+         Q856DWDAsykhoGVzK2bNvi424PjSiHn7b5jqkigmfsIFZLUgwlNOQKXGSHkz7rvf3vds
+         Sq29kbGFEnqaffs75g/wQijdZmF3RY4VE1cAMxhwf2p2MxStoJXjFTpqjtnC76Tn5SqN
+         CMDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792291619; x=1792896419;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gvBoQ0rQ41gn7VwVg0MB+Jrp9Py8V8GgFAA5woLhjm4=;
+        b=GSvTr/ygLrmoYsNR6KQs6YcYynyzQ5eGDNCGNkKyYShUFd3+XdMkpyt/9AYsxy/Onp
+         r1V1o3ENw8FannwhJWs4DaqzD4Hm3LkDBkUrbHAsX4qECYwmdBw7oqeZK8t9DVY/kpBu
+         aLNbWMgCPak4YN2stVF6ahus+ajfQLGud2AP7nOy7DRNSgrePDNhZPfiPFXDmKcfRXjo
+         2Pns9ENZN8lZQl9bgF63AQiG+ae/fJT5t4cm5QZH4LyRkUbQo6tlpnY49jZOJ7NQxDr3
+         llxsn4iuhZ2REmwUKoS8KiS41zQ4A2c7768jhq4S+1vPJvKRV3hmQbLJ8zJR6XRC9jaR
+         SmBQ==
+X-Forwarded-Encrypted: i=1; AKwUvByHzTPQpEBZEYVXinQ9QY2isM/xuLKuIHUcA6I6lPQvFIwA36J76TKHrGfO9kjpjcZAaam288NS7Y5+KSs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKACGza/GtV7yqTYX9suzQUarJfYDcr/fo6ZRW3FEydRyBedfCc
+	mRl+WmAkeg0i+Ggz1Em1V9wlGJBJjdkVqGq8d6dDXiGlmEoTG0PYFi0=
+X-Gm-Gg: AYBFou010D7+84S9L5H9APvuoW0m3MsF8mQS2gWZAGpesTqkLVuFtlT7XfcvyujR4hH
+	MbKkXEqemUukKgnuxVKzCOiJ1ISL7DJjYlnXFZnYgWd39pSDv5SZrlT+8y8a0DOLoGo1K7phC4S
+	iXY+XFvx+4y6LOrAUFZjxDj8XMCDCG2VRlveMZLZAw3k6nxb6a3GdBzYLspw9w8k6E6Iuadb9ax
+	tuICPuTsF44xNGnxaPk8Om8bJCB6WqyW1M+jxQKufdaz5iPWuov3Xzmfu58SYnPGKCwFK+xl8Gw
+	oAVOvrnMGsBM86W4lf5Y7ajVt8jKduFRirg0f/DiOIwwlQbxim3RYHfNEVsXYSsfivNCRy1voap
+	NG/BNWfFbQiNI4EFNYVwfpnGO91rirYufeOAs1tcMsCv/eja4hizPSanzlyprccqHSTeBdwbnft
+	SOtZSTLZNjoan2qApx5vkJ2gkT1u2qGKBpcREL+eeIETNiWz2bAbzlZ772fFSwbHWqVrMzgoIbS
+	ZsPJvQtcCiwWxMeoF1ziki+gv8aRNEauCaby/q4GkJDLRP7FBC/ehRs/fxNjOoFSlzrD7G0vTi2
+	Ju1+DQdBRRDcw3R0czklE+KlDa2s
+X-Received: by 2002:a05:622a:1346:b0:536:352d:65f6 with SMTP id d75a77b69052e-536460a977cmr63623051cf.64.1792291619067;
+        Sat, 17 Oct 2026 19:46:59 -0700 (PDT)
 Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba4b9f0sm62019456d6.10.2026.10.17.19.46.56
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba4b9f0sm62019456d6.10.2026.10.17.19.46.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 19:46:57 -0700 (PDT)
+        Sat, 17 Oct 2026 19:46:58 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Niklas =?UTF-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -70,10 +72,12 @@ Cc: linux-media@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>,
 	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: [PATCH v3 0/2] media: rcar-isp: fix core registration and IRQ lifetime
-Date: Sat, 17 Oct 2026 22:46:52 -0400
-Message-ID: <20261018024654.3913088-1-mhun512@gmail.com>
+Subject: [PATCH v3 1/2] media: rcar-isp: distinguish absent cores from registration failures
+Date: Sat, 17 Oct 2026 22:46:53 -0400
+Message-ID: <20261018024654.3913088-2-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261018024654.3913088-1-mhun512@gmail.com>
+References: <20261018024654.3913088-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,44 +87,66 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The ISP core IRQ is registered before the RPPX1 object and interrupt
-handler state are initialized. On removal, it remains registered until
-after RPPX1 has been freed. A handler can therefore access RPPX1 outside
-its lifetime.
+risp_probe() interprets -ENODEV from risp_core_probe() as an absent
+optional core and continues with the channel selector. Keep that result
+for the existing resource-setup fallback, but distinguish it from a
+failure after core resources have been initialized.
 
-Patch 1 prepares the return-value handling for the later IRQ request in
-patch 2. It converts registration-stage -ENODEV to -ENXIO after cleanup,
-so the parent does not mistake that failure for an absent optional core.
-As requested by Niklas, the caller uses only the return value and does
-not inspect core->base. Resource-setup results and the existing
-channel-selector fallback behavior remain unchanged.
+The following patch moves the core IRQ request after RPPX1 and the
+registration state have been initialized. If that request returns
+-ENODEV, its error path releases RPPX1 and the VSPX device reference.
+Passing -ENODEV back unchanged would make the parent continue probing,
+although core->base still indicates a core whose resources have already
+been released.
 
-Patch 2 requests the IRQ after its dependencies are initialized and
-releases it before destroying RPPX1. Its code is unchanged from v2.
+Translate -ENODEV to -ENXIO at the registration error exit, after the
+existing cleanup. The parent can then handle the failure using only the
+return value, without inspecting core->base. Leave all resource-setup
+results unchanged, including the existing fallback when VSPX information
+is absent.
 
-Compile-tested with Clang 22.1.2, W=1 (arm64). No runtime testing.
+This prepares the error handling for the IRQ lifetime fix in the next
+patch; it does not depend on an existing -ENODEV return from the V4L2
+registration helpers.
 
+This issue was identified during our ongoing research while reviewing
+kernel code.
+
+Suggested-by: Niklas Söderlund <niklas.soderlund@ragnatech.se>
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
 Changes in v3:
-- Replace the caller's core->base check with -ENODEV to -ENXIO translation
-  at the registration error exit in risp_core_probe().
-- Keep resource-setup return values and fallback behavior unchanged.
-- Describe patch 1 as a prerequisite for patch 2, without assuming that
-  the existing V4L2 registration helpers return -ENODEV.
-- Keep the IRQ lifetime fix in patch 2 unchanged.
+- Express the distinction in the return value, as suggested by Niklas,
+  instead of checking core->base in the caller.
+- Translate -ENODEV only after resource setup has succeeded, keeping
+  existing resource-setup and channel-selector fallback behavior.
+- Describe this patch as a prerequisite for the IRQ registration move.
 
 Changes in v2:
-- Split the error-handling change into patch 1.
-- Explain the RPPX1 allocation, free and pre-lock IRQ accesses in patch 2.
+- Split the error-handling change out of the IRQ lifetime fix.
 
 v2: https://lore.kernel.org/r/20261015004159.2202899-1-mhun512@gmail.com
 v1: https://lore.kernel.org/r/20261011214448.2043581-1-mhun512@gmail.com
 
-Myeonghun Pak (2):
-  media: rcar-isp: distinguish absent cores from registration failures
-  media: rcar-isp: release the core interrupt before destroying RPPX1
+Compile-tested with Clang 22.1.2, W=1 (arm64). No runtime testing.
 
- drivers/media/platform/renesas/rcar-isp/core.c      | 16 +++++++++++-----
- drivers/media/platform/renesas/rcar-isp/risp-core.h |  2 ++
- 2 files changed, 13 insertions(+), 5 deletions(-)
+ drivers/media/platform/renesas/rcar-isp/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+diff --git a/drivers/media/platform/renesas/rcar-isp/core.c b/drivers/media/platform/renesas/rcar-isp/core.c
+index 586a5adbedfa8..373d9ca9374fe 100644
+--- a/drivers/media/platform/renesas/rcar-isp/core.c
++++ b/drivers/media/platform/renesas/rcar-isp/core.c
+@@ -894,7 +894,8 @@ int risp_core_probe(struct rcar_isp_core *core, struct platform_device *pdev,
+ err_destroy_rpp:
+ 	rppx1_destroy(core->rpp);
+ 	put_device(core->vspx.dev);
+-	return ret;
++	/* Do not report a registration failure as an absent core. */
++	return ret == -ENODEV ? -ENXIO : ret;
+ }
+ 
+ void risp_core_remove(struct rcar_isp_core *core)
