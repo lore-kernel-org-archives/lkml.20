@@ -1,75 +1,45 @@
-Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com [74.125.225.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 3.mo582.mail-out.ovh.net (3.mo582.mail-out.ovh.net [178.33.253.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B025F3ADB92
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2954386441
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.33.253.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792335015; cv=none; b=nk2Tb9sCkmLkzYzkBAU2ws5zHP69h+F+KtYViGvJ4Lo1b7OLF7faQrScl4jxUz6jEwhQXj/DBFQzvaY4UHoZrHdGsF8+Wd+WYELFueAz6vYTShnwqFoMrNfw/xG0hU2TKUwaE9TZlwCdUteXWT+iLEgSc1Z0t31rJMAr9o6Fey4=
+	t=1792335068; cv=none; b=UPNxd9EgQBacUBoWRZbQih1DL9A8Ke6LAqrriIvPbgUBm534ukbb8NCkMIqrTMezsj8Ii0Pn3LTo69dRmlk3RGgHJEAZoHRbzOOvIeZOhyjorA5W69JNw8IocbDHuRrJyVnY7CNVifKuo6PmcC5Hx0iOs1ID0QKpQaLOCY8pxwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792335015; c=relaxed/simple;
-	bh=6yHE6qnIZGNtF1BcbMyPdKNzgBe3P3tTSjHV99FAJpA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PO6Il8LAisxzQL+iM5YBgxC3Sb+b+4Hc945ydqtuY00LjdD+s6H3G6vcEbL/4Cei/+IrTn4sae4Z1l7T7wpjNeOceKBRR3QbVn1/ecJmAXz1vlyvCZi5sHP5gR9Kmf6ytM5uNlK5xuCMMAfYc5STGTXQbwf3gF8lh/Ptgao16F0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TRohAXav; arc=none smtp.client-ip=74.125.225.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792335068; c=relaxed/simple;
+	bh=HoHaPtjHoYfkbv9dtFclewtiTpwiXcz72MUS8v1F7Ok=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iQcV5Q3QdkxJdw7qzhtcK4aiGfolw/CmmbvV0P/nxzieReUm40aHo1K0mj6iq37G41uAmqEfFK0MHcrGestNR32VdIIQW7FEAOb9O3L45jNWqkqSVDrxW7RC0UNdA0lft8GE6NXxPkRJ/PijZELJco6+ureLuae/zOawaDBIE6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fortytwo.fr; spf=pass smtp.mailfrom=fortytwo.fr; dkim=pass (2048-bit key) header.d=fortytwo.fr header.i=@fortytwo.fr header.b=BglLw0HX; arc=none smtp.client-ip=178.33.253.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fortytwo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fortytwo.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TRohAXav"
-Received: by mail-wr2-f10.google.com with SMTP id ffacd0b85a97d-48ded18b8d9so620075f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:50:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792335012; x=1792939812; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/eYVYY73yC/D0v/KcDNwhtZQIc+QCqPcBhpHmMy9LfI=;
-        b=TRohAXavpTd4RILfZfOOAng2sbXqGXk+fLQ9JDD41VnBbXRYS0RsQgwHkXOJn+4328
-         gDsRJNDv7aZbxocx2F7H5XWip6X5Nmv4X08QaOhJKCplg1a+1vjHZzxqJzWbP4wuixzT
-         sxoI1h4Y4rRc0WOKsHJ0xku40igxFTrI4/8obSQgKtnW6rMV3bp2KQTWhwYJNedy9qE7
-         PTXVg47ppghRU7bxdapvxjPz0LjVmv0jC9lbOKuhNZcT7K1Ck8B6lLD7cTnbAuTgIZ0p
-         5BNgtBahc4LTBcjI/JHOK4GXILDSkQLzKAQxZ59P5bI3qBvNkp4SHEL/UVWbiNERRanI
-         fL9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792335012; x=1792939812;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/eYVYY73yC/D0v/KcDNwhtZQIc+QCqPcBhpHmMy9LfI=;
-        b=KlWOIcdOZM3m+iUOs7K2A8b+RrTpFOAs6609Pb8AM0NQ0EQ3pn7r622PFa3MTRSF12
-         SDuYS+d2hOogSnZO7C8AAmXoFfMqBh6VBEdtGlN7E+My7xUN+YaTzsuIDuMM7y58TnkZ
-         pyE/eD8wNs8KUj6X8tgN+nkFz/1+RKb7BDpyN3wmatENB+yw0g4UsAhPG/jfXpHyrqhK
-         kPSfBnpIk1pMMafBtm9dJJyryW9Iho0WSRDREaAnZO+DJ0kta30VFYuofUBZT/Zb4fJn
-         2BbT4gfsmSQOauaSDxwwpPcfieHRyCtXGBuQoy3JJBRbzGLXhEyEcn5iiTTUBt5I6TfJ
-         v66Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzjGsIkerIZeIY5/J7RobMdmwODH7VKy6M+bEmyns6GzVeH+AuSnlk+7LpuRNN8bJV61ywgZktjOi6yhhI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNl5IMBxsUbRw4Fk9M54RLSghT99XfLd9Mm3t+6peIxoPOTeFK
-	689l9uLJmrW41ds8RdynkCnOO1qqwQmFJAfN3A1FKjb9mk9qtg7hwY2W
-X-Gm-Gg: AYBFou0RtTVWZ3OcxoaQ1una15l41JipwZUUhVs9hbrgMTp+VSUEwozeY/b6lnCy8pM
-	Vp9p0DbSOafvqfdjhw2tdyyDOi/4pd47O5BbCFdy0mQCRYoocPXjfowirhQbGN2dycrWPAyUe6G
-	RcusUl+sqLNF85B0NfhrZAQ0VYrW0rEWVJ65KQX9seFI1YHaLYolfCpfNxG1h33oIiYyEywPWOk
-	yHEJiqXgVQrXJ3Or5IMiOoNYrVjo0JxTQRFN/S+raIa70t96pvd353qLJJtS1FNUYe42vH39NFa
-	jHENH4XGBfkToUfC6sx/vVx2if6aEU+Xoi4PBa+rb3S/GNIbXqFgAki9Q+6iHYmJHF7x9M/zkjP
-	NCfjMgznHuZVc7tbJM4qZEtFVm6FA9JA1sFLZp3zxb5HvbEcTCduUDeszUxa/1s2fkRcZ03fb3m
-	twEebchG55uYCnvjCBbLjxxfG5jjRljimHdJZKKJCb1gMTAmBAAgyiJrPGETXR41jLLKdXP+P7X
-	nJL0pUvzt4zog==
-X-Received: by 2002:a05:6000:200e:b0:48e:e9e:129 with SMTP id ffacd0b85a97d-48e0e9e0142mr4734499f8f.29.1792335011724;
-        Sun, 18 Oct 2026 07:50:11 -0700 (PDT)
-Received: from serhat-ubuntu.home ([212.253.205.12])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd47104csm19281899f8f.8.2026.10.18.07.50.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 07:50:09 -0700 (PDT)
-From: Serhat Kumral <serhatkumral1@gmail.com>
-To: Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Mark Bloch <mbloch@nvidia.com>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Yishai Hadas <yishaih@nvidia.com>,
-	linux-rdma@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=fortytwo.fr header.i=@fortytwo.fr header.b="BglLw0HX"
+Received: from director8.ghost.mail-out.ovh.net (unknown [10.110.58.95])
+	by mo582.mail-out.ovh.net (Postfix) with ESMTP id 4j6x184Dmbz5xP3
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:15:24 +0000 (UTC)
+Received: from ghost-submission-7ccd8bbbb6-g6jb4 (unknown [10.111.174.188])
+	by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 0068FC010E;
+	Sun, 18 Oct 2026 11:15:23 +0000 (UTC)
+Received: from fortytwo.fr ([37.59.142.97])
+	by ghost-submission-7ccd8bbbb6-g6jb4 with ESMTPSA
+	id SwRZKUuq1GqLkAUAZOlizA
+	(envelope-from <thomas.nemer@fortytwo.fr>); Sun, 18 Oct 2026 11:15:23 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-97G002cba71a3c-52dd-4ff1-974c-945b586c1852,
+                    B56F0971D6B095CE003BCFC685B2F3186F5EFD30) smtp.auth=thomas.nemer@fortytwo.fr
+X-OVh-ClientIp:95.173.222.53
+From: Thomas Nemer <thomas.nemer@fortytwo.fr>
+To: tiwai@suse.com,
+	perex@perex.cz
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Serhat Kumral <serhatkumral1@gmail.com>
-Subject: [PATCH] RDMA/mlx5: Validate priority in STEERING_ANCHOR_CREATE handler
-Date: Sun, 18 Oct 2026 17:49:07 +0300
-Message-ID: <20261018144907.20123-1-serhatkumral1@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Abhinav Mahadevan <abhi220204@gmail.com>,
+	Thomas Nemer <thomas.nemer@fortytwo.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: usb-audio: Fix missing sample-rate control for PreSonus AudioBox USB
+Date: Sun, 18 Oct 2026 13:15:19 +0200
+Message-ID: <20261018111519.191844-1-thomas.nemer@fortytwo.fr>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,39 +47,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 12271183087021757979
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTECwDY6ynUbKWqkMeXQFbYg9bRd6yio3w7rsWEWqT1noq+4OFe/QChhGPGl0UFM6yq80jVtF+TPk0xM8/YNV/pHp9YEmPHjMjp3Wd+O18ZidHvCkWh5G+1sVl6Xx6zPIE32rrNLilFpC+fKE1UP2yL0xUYRa3C65tBve2mLCrQiqmizofo0mKnenTb6RzzXd4vS8h51a0KVT8ffzzb7hY1sPFc8VYPr0ivEYHcmWO0R/JbifqMnZE0+nRMQkYXbZqwW4Ul+0Op8Gi+emSzP2ciws2AfMs18GesHadyksTgx1y3l+HwiGhfOwJvp/8zN9HgXznruMmeVII2VjoIgKqoIBjfzzyNWROlFSaHJLLXyjJYLyUrW4Xm6OBzNcxethapTPeGyIURL69ulIKVEy6KG2TgEMQieGhfJHN0SOaioGy4NB7w4kWuXkGkeErTaVvrfu0jzZamZJQCzgppp4sjxPfpzNPKYXi0/YbuYytvtjmUKFVEwuCNiS1HgBHDrejRAJ8vVeEcX87wDuUANg0JV+Junj9feK0ZK0OxHC7zzecURtOwWzwH74kcWVULxjeyjiqG7G1qGMzHucTEZk3wJkzjMdvFcMqG4yVe4t+xqklJUQ364q6LdD804KtxZAaUT0zLRVcmx68jyHMmJKNsZUaf7zYm6zm6PSEJ6lfclOw
+DKIM-Signature: a=rsa-sha256; bh=GvC2EkNZpLSK0S+Zb8J1W73t6EIxhICjDJ3m4zRPN/g=;
+ c=relaxed/relaxed; d=fortytwo.fr; h=From; s=ovhmo5104297-selector1;
+ t=1792322124; v=1;
+ b=BglLw0HXajdquoFMYaeMJzWjqA67/eZjgtvG8knpnWwk602L42Jlni0UY60DsR6fMOZUSc0A
+ EanytxtO+4w3sYond7siJNTxCxY8mKhcsKluQ8gYE0EgjVDTzb/Zy+/5cz2uGlJ45OWiZvRfInT
+ p7wY3IJ3gCm/ZU+kFQc5JsfgmlBAgoguHNeUYjMNHRZXWu6VAwBMiuONuskoIU+Mk5DJhtDOvSo
+ pjcAsBvNex3u8Yp2T2CEt0ESaAS3u+V+SOWkExUuaHckq4XgBBKhNI0nm1W4RwWqdWmxmEgv0v9
+ uy0kiUhIr59sgd9pCw3GIadR1A2Y3gpCdPk5WHPnjwTGQ==
 
-In MLX5_IB_METHOD_STEERING_ANCHOR_CREATE, the user-supplied u16 priority
-is passed directly to _get_flow_table() without an upper bound check.
-This can lead to out-of-bounds array accesses on dev->flow_db priority
-tables.
+The fixed audio formats for the PreSonus AudioBox USB declare
+.attributes = 0, dropping UAC_EP_CS_ATTR_SAMPLE_RATE that the device
+advertises in its class-specific endpoint descriptors (EP_GENERAL
+bmAttributes 0x01 on both EP 0x01 and EP 0x82).
 
-Check that priority does not exceed MLX5_IB_FLOW_LAST_PRIO before calling
-_get_flow_table(), matching the existing validation in raw_fs_rule_add()
-and mlx5_ib_create_flow().
+As a result set_sample_rate_v1() bails out and the kernel never sends
+the UAC1 SET_CUR SAMPLING_FREQ request, leaving the device on its
+power-on default clock. Playback and capture then run distorted
+whenever the stream rate differs from that default. The device keeps
+the last rate set by a host as long as it stays powered, which made the
+regression look intermittent (e.g. it disappears after the device was
+initialized by a host running a kernel without this quirk entry).
 
-Fixes: 0c6ab0ca9a66 ("RDMA/mlx5: Expose steering anchor to userspace")
-Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
+Restore the sample-rate attribute on both streams.
+
+Fixes: 34fe4a9df247 ("ALSA: usb-audio: Add quirk for PreSonus AudioBox USB")
+Cc: stable@vger.kernel.org
+Signed-off-by: Thomas Nemer <thomas.nemer@fortytwo.fr>
 ---
-found by smatch:
-- drivers/infiniband/hw/mlx5/fs.c:2013 _get_flow_table() error: buffer overflow 'dev->flow_db->fdb' 16 <= u16max user_rl='0-u16max'
+ sound/usb/quirks-table.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- drivers/infiniband/hw/mlx5/fs.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/infiniband/hw/mlx5/fs.c b/drivers/infiniband/hw/mlx5/fs.c
-index e63fdb4bc3e3..bc2c15c7172b 100644
---- a/drivers/infiniband/hw/mlx5/fs.c
-+++ b/drivers/infiniband/hw/mlx5/fs.c
-@@ -3014,6 +3014,9 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_STEERING_ANCHOR_CREATE)(
- 	if (err)
- 		return err;
- 
-+	if (priority > MLX5_IB_FLOW_LAST_PRIO)
-+		return -EINVAL;
-+
- 	obj = kzalloc_obj(*obj);
- 	if (!obj)
- 		return -ENOMEM;
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 2da8cbe3e6..6343a50fb2 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -2911,7 +2911,7 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+ 					.iface = 2,
+ 					.altsetting = 1,
+ 					.altset_idx = 1,
+-					.attributes = 0,
++					.attributes = UAC_EP_CS_ATTR_SAMPLE_RATE,
+ 					.endpoint = 0x01,
+ 					.ep_attr = USB_ENDPOINT_XFER_ISOC,
+ 					.rates = SNDRV_PCM_RATE_44100 |
+@@ -2932,7 +2932,7 @@ YAMAHA_DEVICE(0x7010, "UB99"),
+ 					.iface = 3,
+ 					.altsetting = 1,
+ 					.altset_idx = 1,
+-					.attributes = 0,
++					.attributes = UAC_EP_CS_ATTR_SAMPLE_RATE,
+ 					.endpoint = 0x82,
+ 					.ep_attr = USB_ENDPOINT_XFER_ISOC,
+ 					.rates = SNDRV_PCM_RATE_44100 |
 -- 
-2.53.0
+2.56.0
 
