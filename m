@@ -1,122 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AACA32ED40;
-	Sun, 18 Oct 2026 06:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77B3335555
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792306040; cv=none; b=uZe8EnILnPyfFasv2QSxSjfQNLLjb9CJOrW2Cw0A0UgekOuNrMUvxF2ESik4tl3m641ZyAf3tnk3YFFIMUKhst+c3yJa9kblUb7i8TT6ksXUQZYFKQcjS0rbFTv1QrMnX2ZXq8Hr7Ud/8XI2ZisFOEQURpib5EtNqMoizKIVdbw=
+	t=1792306076; cv=none; b=rojpBPk+zCGgY3lJ3rqkZU8hMRXpu/XZnJuHJ0iUTNrXaBHqrkZ/ucMvQhqkleyavaVGub7JaI4eh8b5xzCBctdQ/anz79fWACMuPirzGpNhvsFv7P9kDdJwUnSDX6FP5K/EweRJZdWkGjrqfx8TgtHBcvk/Ek4HXO10Vqz5Kos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792306040; c=relaxed/simple;
-	bh=Kag3VvMNOMl0BZrtLk5BrSlmPs8H9EdaW8N3lXiMD94=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NKMuCxXnPSw2pKKzDfg59/pVPHXQW8+Iczz5TVEBOW/G9encChg1nzHDZgDwjrD7oJZ3H4j1PIohfHkhY8atF7wRSiQ1EN53b67OFBK5/KNCy1STKZjINjqiEhga5ffZUhqXAj4P1ak0EeUqFH7r+Rp9Fg/buvkK8yZtJweRtX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dxt31r+C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792306076; c=relaxed/simple;
+	bh=l1O247UECd9MgFF/yX1QTmm2/D2UiVNrnHCAcxwFq1Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SWhG7ClyRI9+HkX2beGK4IXnZ2Ra/5I6mgjnM3Gjm2ALTpMw0b4+dHpDM1jTKBfMZ9KnCrRW0fc6Kn9hKD9oxMBujb32ui+S7aW+azcoIWb3lBvEfJc8G2sKlCwsvvLhqOKLz1u9RpRRj2mfXF5TA5vhlDLMXb/1cEG8DdpiNW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s2TXp2Wt; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dxt31r+C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0367B1F000C4;
-	Sun, 18 Oct 2026 06:47:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792306037;
-	bh=30fmuKsiOgutazDDAqdwR0Z+rtWTId1UKgz9yLCQBBk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dxt31r+Cn9KLSlF0j2FoMxu9MUUycQBkbAMhUiSpaLdgM0/Uzu71XTh3/bK1Q+kE9
-	 3Y8Ey89b3PV1kJtZpHI76TopcsrFx8c8lfCrJktiPawXodaGo/4n3SAerpboC9BaLg
-	 ezWnhcZA0qBN4VnpliNjYtWqnXNY5IKwh1Y5ilB4=
-Date: Sun, 18 Oct 2026 08:47:14 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
-	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
-Subject: Re: [PATCH] greybus: operation: arm the timeout timer before sending
- the request
-Message-ID: <2026101814-static-agreeing-29ad@gregkh>
-References: <20261017171743.24612-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s2TXp2Wt"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9995ce866so8507925ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:47:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792306074; x=1792910874; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7HNx6CyE/4Kbnua7x5pglUwrO1yHT5e3xN4f5XT3au4=;
+        b=s2TXp2Wtgo9DkAiGjc+cQReUYTF4+/7mCC8sZaJyJZOb7c2E2bap/Z9HbyIGPLdB5S
+         wJ48vifxPM0YfgAYygGd4OkLS5Z0ZvfDuqbrGPLR6SHxd/sMzNwXxYV55vyLZ5C07nzt
+         o4SEH4UyK4XxKybigUESDi3i0wWRggkPEEiYorz3iHBBkSlD8VBnpctsrOTlgPXNgWG7
+         faZVoiGmRKHbx7E19ktStTJJq1FI7NSfJiI9Y20+CDNXN6k36ChNlBWxL+g0XKtMyl08
+         zeA6Ek62J39VZH65sJsAp13d/iQFEnae6LRGQCOgZm9XOCMaD3x4UhxkMd1hsWqi5Csg
+         FVMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792306074; x=1792910874;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7HNx6CyE/4Kbnua7x5pglUwrO1yHT5e3xN4f5XT3au4=;
+        b=VNRbbr5lbvYpSOloOW5oxjfzQGXTBkg/dP6vfHhoevSEZMFZCqGMow7rCMDLrQGWkO
+         GdTeny5T7LhttXzku1mg99dR/3De84mJ4yPz0PoTYT9UHbTeFVEQvHhRQ0BVJ43Jb/Or
+         tmE/W1a+RIjoRBdLDq1RyZIFuZXZ/zDzjgASRoNXXA5ZKfxC8FjiLLZW6+Cj3QfMkyhf
+         opOQBDwAhChkxvP+JZ39NTVWLKMuUF1aGfDvzt6rQPWgGecLxNpJodFkOE9bs1B74Fe4
+         3cc+ejiHzmZZhcHS2DUMvFTHTH3Zusd9TTH2mVQfIDB/de+jEpXqsO3cO3ANtrlkjxG/
+         A5fg==
+X-Forwarded-Encrypted: i=1; AKwUvByU1CgXoepM8vkBFRoIBraKypvuHwXMqfVvJRPCSAAUc0HW2/4IOj4fUsnUVad7YugvQyR0+No36TRrGco=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzyjNTninlJEak6/47z3DD4p1qdUNhuviblYUdcjd42GIav737
+	Dkh8uVlZzJY4HzB4HID5tehfEzTEyB0iftdn03cUD+VBQOgm8rexOxF1Jcymb5BM
+X-Gm-Gg: AYBFou2kv7JnjN3yBhQKCRUUR5La24IWdF0PpFQR6h0e5kLHbG99or+ZzaPjylTt0SN
+	QJNLBFoSIr8+3ddS9hULDFaxwFTkgnBbDSaSSuH0LLeuUFhKAVmVoo5mmcrekdlgfI7aXb+VrVO
+	hqvoqjT2c8aK1hlSilQ/pkVr5pvQANmMohNZY+OAL9bdPtYMVYY606nXuracnxQkE9ELsGOGUAt
+	5lBFJii47JVBwgQvEA5iaqn1QsfNH/KuQzlm1i0gBAxVyRFO2ZIKjQAQv+UwMdgWy2Zb+zcj6+O
+	jfouFEKf26EAlMS7/xRbMS/8Ljck6G3cGJ7T1FDCB2If2RdgvzCMmrtyJFfWEWKIUUoW06Zj1qw
+	xLz+X0RAQzzCEFoDjoTXGCrqZWvSF35eADVAnfC08QAfLVHIOFtPLrg0WQnus4XrqnJRykDuVES
+	TtapC4KUBGuz2TsyvPdFZs2DjlTt9TJAm7w12pykvTmUKuuYXZIoC7nwiNZ1H/46ytY4Tz+O+e0
+	vHsbDmnNBf392WnwRQkHR2G5FjmqRH9FPOiaYoBDT3FQwOEPoX1ScCf+Puj52QtTkdNhvF1FRtc
+	8/64NT9gTB8p
+X-Received: by 2002:a17:902:ce81:b0:2e9:6f2c:71b9 with SMTP id d9443c01a7336-2e9a6834239mr39718335ad.1.1792306074114;
+        Sat, 17 Oct 2026 23:47:54 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8b98a9sm27280335ad.74.2026.10.17.23.47.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 23:47:51 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: broonie@kernel.org
+Cc: lgirdwood@gmail.com,
+	shenghao-ding@ti.com,
+	kevin-lu@ti.com,
+	baojun.xu@ti.com,
+	sen@ti.com,
+	marex@denx.de,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] ASoC: codecs: Fix more control definitions that write another control's bits
+Date: Sun, 18 Oct 2026 15:47:43 +0900
+Message-ID: <cover.1792135145.git.sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017171743.24612-1-ngocthang2710.1999@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 12:17:43AM +0700, Nguyen Ngoc Thang wrote:
-> gb_operation_request_send() sends the request message and only then arms
-> the operation timer. The host driver can complete the operation before
-> add_timer() runs, e.g. when the transfer fails right away. The completion
-> work then calls timer_delete_sync() on a timer that is not armed yet,
-> the synchronous caller wakes up and drops the last reference, and
-> the operation is freed while the timer is still pending:
-> 
->   ODEBUG: free active (active state 0) object type: timer_list
->           hint: gb_operation_timeout+0x0/0xc0
->   WARNING: lib/debugobjects.c:629 at debug_print_object+0x198/0x2b0
->    kmem_cache_free+0xfd/0x6d0
->    gb_operation_sync_timeout+0x1c7/0x270
->    gb_svc_process_deferred_request+0x5f3/0x1150
+These are the last fixes found by the overlap scan from the first
+series [1]. In sta32x and sta350 a 4-bit field has a maximum of 16, so
+the control also writes the bit above it. In tlv320aic32x4 a TAS2505
+control uses the wrong register.
 
-How was this generated and tested?
+[1] https://lore.kernel.org/all/20261008130953.2446692-1-sammiee5311@gmail.com/
 
-> Arm the timer before the message is sent. If sending fails, delete the
-> timer again. If it has already fired, its work is queued and drops the
-> active and operation references itself, so the error path must not drop
-> them a second time.
-> 
-> Fixes: dbec27298b0d ("staging: greybus: operation: add generic timeout support")
-> Cc: stable@vger.kernel.org
-> Reported-by: syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
->  drivers/greybus/operation.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-> index 7e12ffb2dd60..19b0cdeca498 100644
-> --- a/drivers/greybus/operation.c
-> +++ b/drivers/greybus/operation.c
-> @@ -766,17 +766,22 @@ int gb_operation_request_send(struct gb_operation *operation,
->  	if (ret)
->  		goto err_put;
->  
-> -	ret = gb_message_send(operation->request, gfp);
-> -	if (ret)
-> -		goto err_put_active;
-> -
-> +	/* Arm before sending, as the response may complete the operation at once. */
+HyeongJun An (3):
+  ASoC: codecs: sta32x: Fix definition of limiter threshold controls
+  ASoC: codecs: sta350: Fix definition of limiter threshold controls
+  ASoC: tlv320aic32x4: Fix definition of TAS2505 HP Driver Gain Volume
+    control
 
-"Arm" what?
+ sound/soc/codecs/sta32x.c        | 16 ++++++++--------
+ sound/soc/codecs/sta350.c        | 16 ++++++++--------
+ sound/soc/codecs/tlv320aic32x4.c |  2 +-
+ sound/soc/codecs/tlv320aic32x4.h |  1 +
+ 4 files changed, 18 insertions(+), 17 deletions(-)
 
->  	if (timeout) {
->  		operation->timer.expires = jiffies + msecs_to_jiffies(timeout);
->  		add_timer(&operation->timer);
->  	}
->  
-> +	ret = gb_message_send(operation->request, gfp);
-> +	if (ret)
-> +		goto err_del_timer;
-> +
->  	return 0;
->  
-> +err_del_timer:
-> +	/* A timer that already fired has queued work which drops our references. */
+-- 
+2.43.0
 
-Why is this comment needed?
-
-> +	if (timeout && !timer_delete_sync(&operation->timer))
-> +		return ret;
-
-Did you just leak this:
-
->  err_put_active:
->  	gb_operation_put_active(operation);
-
-And again, how was this tested?
-
-thanks,
-
-greg k-h
