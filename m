@@ -1,190 +1,163 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE0231C567;
-	Sun, 18 Oct 2026 02:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5B8352027;
+	Sun, 18 Oct 2026 02:41:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792291123; cv=none; b=AemRoi5Ci3HLyH/4DTlUmjMsTfKlRtaHDDDSuWq5Nqg2p1vR9lbBPHqFvSCHbK5AxMnVxcSGvz50PDBICXfSqg0e51QrMhpRIZtRMhoiJ14ltXmiEBzctRBk6o/a+UPR3+Bw46xmyGxbRpc3w8E0DS0kSmWefayG2cDoEqS+/zY=
+	t=1792291304; cv=none; b=bbwUgCicTlhLDDHg4nqtP7Ma8V94eNFiUCtfWj5YiBz92xeWiLBMFBDZ6M/6ULNbIfbipXhZNuNTFrbsvoIJQ2ic2KmerBZPQijgkDzIM64hbVdvV8PrJ1884iG0g4lLwL+BJ6tMAHs6wp6SNKUC53WTu7ex7GJa1mnXF0ANN8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792291123; c=relaxed/simple;
-	bh=jTwpTmodEtB6gZq42D20BcrlywreEvYTF8Fo9a702qc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QCerAK9GwOkxW0wfTLcw3OJOv6Uv2d2pyGTRF+BagRSuxoBy6Ev9YddAedJ96iEKD6MJoUXjCRhCXDOmc+4kQsPaK6U+1xUSfqMVV3RKhj9zXzIewK6O1vcOKU5wQ2Cxy2+lZEC9RLXdRJfsTTl9IujU0I45Jde27kiN9Es4XzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xIGnI-004O83-6S;
-	Sat, 17 Oct 2026 22:38:40 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Tyler Hicks <code@tyhicks.com>
-Cc: ecryptfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] ecryptfs: release the inode when lookup fails to read the file size
-Date: Sat, 17 Oct 2026 22:38:39 -0400
-Message-ID: <20261018023840.798718-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1792291304; c=relaxed/simple;
+	bh=DyN7kBUeI6JP6feNT5L7rLls7eIxItlqOow+9Du6A00=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NmVhvnLNmqEYGxc5kLga1TaSGOxnkRnsTTCvKfrWZVKyXEqNcSyUDekvUfGn5rDXh7gErowHk1J9Y1YV/u4wPll1RWeOYIovUTK96CJ/hn0MC6VP2b4iTv9DUlHDOj/xPImHoSM47OK5RIdkALT8mntvXEE5eUH7dxAWxIAmxUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOAb385U; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOAb385U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8DED1F000C4;
+	Sun, 18 Oct 2026 02:41:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792291302;
+	bh=KrrmPH4dW1W5z8AQR7z2PPMQM1A2Z4v4Z50cRvZMCtU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EOAb385U2MBMYpydmztfheJW+hfdA7lCTOrjg098xP8IEiuprMgqAn8ibQ8INJX5a
+	 Yh+V1UzJBlIApmCOc3xuqrOCwNSgvVWp2hxc/z5K+KHYluhoDfDeBMow0I6Kk/AjMF
+	 1YMZo8+HO6Ic3VXXEPuoo8IlKCHhg+M5Ua3nUkKJAAz7AwmAXCyHqF2hZVOalpaTLy
+	 X6O00frysLwG5LkqVwoSnbQgAFSRmXP30cUtxFm3ii5mRjjwUamTSjCH/yk5trpveO
+	 2DXBv/O6s/ZnkORgvLf74Dw7kwNvmR5gQBZMm16qiPANBTvywuwYe1mG9/XTILcFIK
+	 rKxDtyR2M+UUQ==
+Date: Sun, 18 Oct 2026 03:41:34 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Kanak Shilledar <Kanak.Shilledar@axis.com>
+Cc: "marcelo.schmitt1@gmail.com" <marcelo.schmitt1@gmail.com>,
+ "Jean-Baptiste.Maneyrol@tdk.com" <Jean-Baptiste.Maneyrol@tdk.com>,
+ "krzk@kernel.org" <krzk@kernel.org>, "joshua.crofts1@gmail.com"
+ <joshua.crofts1@gmail.com>, "dlechner@baylibre.com"
+ <dlechner@baylibre.com>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "nuno.sa@analog.com" <nuno.sa@analog.com>,
+ Henrik Grimler <Henrik.Grimler@axis.com>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "andy@kernel.org" <andy@kernel.org>, Kernel <Kernel@axis.com>,
+ "macromorgan@hotmail.com" <macromorgan@hotmail.com>, "conor+dt@kernel.org"
+ <conor+dt@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>
+Subject: Re: [PATCH v6 1/6] dt-bindings: iio: imu: icm42600: Add ICM-42670-P
+Message-ID: <20261018034134.2bf170a0@jic23-hlaptop>
+In-Reply-To: <1804b94e69b11377a912ab82dd00303cf0f60e8b.camel@axis.com>
+References: <20261009-b4-inv_icm42370p-v6-0-e53884f185ff@axis.com>
+	<20261009-b4-inv_icm42370p-v6-1-e53884f185ff@axis.com>
+	<20261012-adventurous-corgi-of-fury-01219b@quoll>
+	<fd4181c7e2f48e3c64530340ae1a02adde1f342e.camel@axis.com>
+	<da8b6047-419b-4c3d-8416-e5c871ea4dec@kernel.org>
+	<as1ZPOocclBgYkko@debian-BULLSEYE-live-builder-AMD64>
+	<BE1P281MB142642474354814F0785CB97CE9E2@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
+	<1804b94e69b11377a912ab82dd00303cf0f60e8b.camel@axis.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-When eCryptfs cannot open the lower file of a regular file during
-lookup, the lookup fails and leaks the eCryptfs inode it got, together
-with that inode's reference on the lower inode.  Every failed lookup
-leaks one more inode, and unmounting reports "VFS: Busy inodes after
-unmount of ecryptfs" (a BUG with CONFIG_BUG_ON_DATA_CORRUPTION).  The
-lower open fails, for example, with -ETXTBSY while the lower file is
-being executed, or when an LSM or the lower file system's ->open()
-refuses it; any user who can look up the name can repeat it.  A
-concurrent lookup that found the new inode before it was unhashed
-waits for I_NEW forever.
+On Fri, 16 Oct 2026 07:18:49 +0000
+Kanak Shilledar <Kanak.Shilledar@axis.com> wrote:
 
-ecryptfs_lookup_interpose() gets the inode from iget5_locked() and,
-for a regular file, reads the plaintext size with
-ecryptfs_i_size_read() before unlocking a new inode.  On failure it
-marks the inode bad and returns, but it neither clears I_NEW nor drops
-the reference it holds.  The error path came with the deferred
-unlock_new_inode() in commit 3b06b3ebf441 ("eCryptfs: Fix new inode
-race condition").
+> Hi,
+> > > >  =20
+> [...]
+> > > > That's misleading or confusing. Either the device works or does
+> > > > not
+> > > > without interrupt hooked up. Consult hardware datasheet if in
+> > > > doubts.
+> > > >=20
+> > > > Driver support is different thing here and you cannot make it
+> > > > required
+> > > > later, because that would be unjustified ABI break. =20
+> > >=20
+> > > I looked into icm42605 data sheet and saw no clear statement about
+> > > the interrupts
+> > > being required. The timing diagrams only show protocol specific
+> > > lines and it
+> > > looks like the interrupt sources can even be disabled (not routed
+> > > out to any
+> > > interrupt pin). Maybe I'm missing something and the interrupts are
+> > > required for
+> > > some sort of reset function or so? Otherwise, I don't see how the
+> > > interrupts are
+> > > required.
+> > >=20
+> > > Kanak, do you have access to any of those other chips to test
+> > > whether they work
+> > > without interrupts? If possible, can you also check the data sheets
+> > > for the other
+> > > parts besides icm42370p and icm42605?
+> > >=20
+> > > Maybe
+> > > =C2=A0- if:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 - invensense,icm42600
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 - invensense,icm42602
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 - invensense,icm42605
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 - invensense,icm42622
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 - invensense,icm42631
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 - invensense,icm42686
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 - invensense,icm42688
+> > > =C2=A0=C2=A0 then:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - interrupts
+> > > was a documentation mistake?
+> > >=20
+> > > With best regards,
+> > > Marcelo
+> > >=20
+> > >  =20
+> >=20
+> > Hello,
+> >=20
+> > I can confirm that all icm426xx chips can work without interrupt by
+> > just polling
+> > the data.
+> >=20
+> > Interrupts were declared as required at the time only because the
+> > driver doesn't
+> > work without interrupt (probe will fails).
+> >=20
+> > Hardware speaking only, this is indeed a documentation mistake. =20
+>=20
+> Thank you for confirming the requirement for interrupts. I will cleanup
+> the documentation in a separate commit not part of this series and the
+> driver should be updated to not fail if the interrupt property is
+> absent in the devicetree.
 
-Unlock a new inode and drop the reference on that path, as
-iget_failed() does for a new inode.
+Two different things. =20
+1) Update the DT to reflect hardware requirements and it is vanishingly
+   rare for an IIO part to require interrupts.  The only case I can
+   immediately think is comparators which don't have any other interface.
+2) Possibly update the driver to support polling. Not a requirement as
+   we can choose not to support particular DT in a driver - that has
+   nothing to do with the binding which is documenting the hardware.
 
-Tested on x86_64 with a lower file on tmpfs that a process is
-executing: 1000 failed stat() calls left 1000 inodes allocated and the
-unmount warned about busy inodes; with the patch no inode is left and
-the unmount is clean.
+I'd put 1 as a precursor patch in your series simply because otherwise
+we will get some fuzz due to stuff moving in the binding + maybe
+forget to tidy this up!
 
-Fixes: 3b06b3ebf441 ("eCryptfs: Fix new inode race condition")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
+Jonathan
 
-Notes:
-    Reproducer (CONFIG_ECRYPT_FS, CONFIG_TMPFS, CONFIG_KEYS; runs as /init
-    in QEMU, root; the key is a dummy auth_tok, nothing gets encrypted):
-    
-      gcc -O2 -static -o init ecryptfs_inew.c   # packed as /init in an initramfs
-      qemu-system-x86_64 -m 1G -nographic -kernel bzImage -initrd initramfs.cpio \
-          -append "console=ttyS0 rdinit=/init"
-    
-    Before:
-      stat: Text file busy
-      inodes left by 1000 failed lookups: 1000
-      VFS: Busy inodes after unmount of ecryptfs (ecryptfs)   (console)
-      unmounted
-    After:
-      stat: Text file busy
-      inodes left by 1000 failed lookups: 0
-      unmounted
-    
-    The same leak was reported on the list as "[BUG] ecryptfs leaks an inode
-    on lookup failure -> kernel BUG in generic_shutdown_super()" (Farhad
-    Alemi, 2026-08-27), with -ETXTBSY from the lower open.
-    
-    /*
-     * Look up a lower file that is being executed through eCryptfs 1000 times,
-     * count the inodes left behind, then unmount.
-     * Runs as /init in QEMU; needs CONFIG_ECRYPT_FS, CONFIG_TMPFS, CONFIG_KEYS.
-     */
-    #include <fcntl.h>
-    #include <linux/keyctl.h>
-    #include <stdio.h>
-    #include <sys/mount.h>
-    #include <sys/reboot.h>
-    #include <sys/stat.h>
-    #include <sys/sendfile.h>
-    #include <sys/syscall.h>
-    #include <unistd.h>
-    
-    static long inodes(void)
-    {
-    	long n = -1;
-    	FILE *f = fopen("/proc/sys/fs/inode-nr", "r");
-    
-    	if (f) {
-    		if (fscanf(f, "%ld", &n) != 1)
-    			n = -1;
-    		fclose(f);
-    	}
-    	return n;
-    }
-    
-    int main(int argc, char **argv)
-    {
-    	static char tok[1024];
-    	int fd, in, i;
-    	long n;
-    	struct stat st;
-    
-    	if (argc > 1) {		/* the copy in the lower directory */
-    		pause();
-    		return 0;
-    	}
-    
-    	mount("proc", "/proc", "proc", 0, NULL);
-    	mkdir("/lower", 0755);
-    	mkdir("/upper", 0755);
-    	mount("tmpfs", "/lower", "tmpfs", 0, NULL);
-    	in = open("/init", O_RDONLY);
-    	fstat(in, &st);
-    	fd = open("/lower/f", O_CREAT | O_WRONLY, 0755);
-    	sendfile(fd, in, NULL, st.st_size);
-    	close(fd);
-    	close(in);
-    	if (!fork()) {
-    		execl("/lower/f", "f", "sleep", NULL);
-    		_exit(1);
-    	}
-    	sleep(1);
-    
-    	tok[0] = 0x04;		/* auth_tok version 0.4, ECRYPTFS_PASSWORD */
-    	if (syscall(SYS_add_key, "user", "0123456789abcdef", tok, sizeof(tok),
-    		    KEY_SPEC_USER_KEYRING) < 0)
-    		perror("add_key");
-    	if (mount("/lower", "/upper", "ecryptfs", 0,
-    		  "ecryptfs_sig=0123456789abcdef,ecryptfs_cipher=aes,ecryptfs_key_bytes=16"))
-    		perror("mount ecryptfs");
-    
-    	n = inodes();
-    	for (i = 0; i < 1000; i++)
-    		if (stat("/upper/f", &st) && i == 0)
-    			printf("stat: %m\n");
-    	printf("inodes left by 1000 failed lookups: %ld\n", inodes() - n);
-    	if (umount("/upper"))
-    		perror("umount");
-    	printf("unmounted\n");
-    	fflush(stdout);
-    	reboot(RB_POWER_OFF);
-    	return 0;
-    }
-
- fs/ecryptfs/inode.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
-index 525297c7ebd8..d7e90192efcf 100644
---- a/fs/ecryptfs/inode.c
-+++ b/fs/ecryptfs/inode.c
-@@ -363,6 +363,9 @@ static struct dentry *ecryptfs_lookup_interpose(struct dentry *dentry,
- 		rc = ecryptfs_i_size_read(dentry, inode);
- 		if (rc) {
- 			make_bad_inode(inode);
-+			if (inode_state_read_once(inode) & I_NEW)
-+				unlock_new_inode(inode);
-+			iput(inode);
- 			return ERR_PTR(rc);
- 		}
- 	}
-
-base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
--- 
-2.53.0
+>=20
+> Best Regards,
+> Kanak Shilledar
+>=20
 
