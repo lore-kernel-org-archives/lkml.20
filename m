@@ -1,124 +1,133 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6A2349B15
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07428337107
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792313311; cv=none; b=j/TGqEw/V7iAl+CpJWKzXOlWrLwZKIvozs/+qyMVoKrQL3/mV13Gap/G1y8RqPB/8Zbn7hI9c3dse1GGyX9CJFaPoNtbbGOZFsrpy4rmJWzs4KJTiNnRqYbPy125A0jXxQpdiSbvPBHvC+lHTST88KaytMHZMZQqYmdoWrRD7PU=
+	t=1792313424; cv=none; b=RsmQ7MpDRDqB7+fxKwFWbRc6Ui5fx5naC+JHWLjk5aM1soKRp9o8ynF+PupXQ2Ez0eatplVr3NNIw5OrDNzPhw0aFDMbGQ1mrqSiTrSZoHx0eEJnjf90G4dyQA9CQRGtV6ZEhlmj17VWAyvnPhbTN2flDhdV7XPDuk62Iwd0fzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792313311; c=relaxed/simple;
-	bh=CEOmBKRPRHQvggQ/jUprVScYeABN6UGtUJElxmkh6EU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dSxhXMuaRgVAKHjZ3FDkqREqPkpTQFzgi0zOfe9DeMa/04yk3KmvQ+Ttp/KtEpmOzjDZ8uONa0RPOAJ1giASb/+c7Z1+wzKv+gtZMkeuDqvgYFOZZWErNxLbfskkuYUb1Dqtf33P7mcGUNubQIZBM0n1BqugJ+X8v3SSQddZaLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SoiJqLSx; arc=none smtp.client-ip=209.85.128.41
+	s=arc-20240116; t=1792313424; c=relaxed/simple;
+	bh=+f2w5tSysfWdjOMGNQyyeCgTvy5N0XJDSICe0CScJPM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WYAQK/YWSCIwzGs8+b9QH81vMYbMQmxjGFMud7HSg5W+lEGyukU7cd35kOVFS12k6sZ49yYst16HYphcAcdvSqTk4Ikow8vMTui9yqBgLC3rDblqDfzjkAv804Uu+Xp2I/AAUyKzfUye9xwS388qrzo1vXf5OCLl/VRDN9uTiMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F5fQXl3F; arc=none smtp.client-ip=74.125.82.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SoiJqLSx"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so8869385e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:48:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F5fQXl3F"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3514b90bb89so3032011eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:50:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792313308; x=1792918108; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KN/6iLwfCQ//2avSJv9DQ5CIOHPByLS1SPM2UhK/GmE=;
-        b=SoiJqLSxbWoLMSHRYyr2a0L/DpzmLUkhnrTTvmUTMK7uDoHbFHeafunDUH7F88Jv1j
-         J7YtCICj9D5Nt3BTbd2qtP4HU6ow8BT65/9mYRK4U8EvUoEr8pqgEMml1tALfGEFVbHe
-         u+TKcLqst+vGjmdiqA2Ib1QPuFZ/+N5X1UfZJFKUrIHgumoQfmyHW0DwMR9bpAxHrSBe
-         SEaZHNUOx7A2DEnyMCBNOz42YtYa4y1e0vnjLu8mZt9RpyurTmkAC+jk5QAR4muPwTDF
-         gZM6PkRf+BBlLxIdFbX41nJ1HeIftWnDp88wMHUGTa+j8wIBzTMrv8bCIj0WnrKxiKxX
-         IrOQ==
+        d=gmail.com; s=20251104; t=1792313422; x=1792918222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1foRyEVgNVxrvVtoWJyDr59yXaxgx8M7G4qkdLHX8oI=;
+        b=F5fQXl3FJnk4kM8iq37Fq1HQYJVR9Fp8v7i84DRxtsbo0In8D6XXBjtkyzg4o8+CM8
+         voUtwkZA27aqC/KOxMcMh/GksHbeTdSqzcChQq1DV7bsHwwa3OywprxkGcVXT6HufKz6
+         4kDzQ5e7sYjM/JkwxGQ0u3G0EfK8Pl8RPi1c7WVqQUQ9irDbAdn0Vzwc8E+AUHzeldcw
+         UZWWVLLhyBRhqJgEt8Gtf2UBWPdjo/MvBH+LfrIvCQBppM0Y/O+Q+p7FIKqOuTGeCej2
+         eUJzHP9rXnQ3k4Jdrvy45xWZybZJ0Rmf29m5/rA2+CiooY1gElgRNMF7Oep9vbblPWis
+         /mJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792313308; x=1792918108;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792313422; x=1792918222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KN/6iLwfCQ//2avSJv9DQ5CIOHPByLS1SPM2UhK/GmE=;
-        b=RcwBJ6oL2mAZzssfNiiKW/KMbhvG67kLLFSqOYkoiG42NJWkRdhYd7rmza7Pql3c9d
-         qvsibJcredlPAOv54wSUbMGD5RRJD0eWxVY7HZyasfcRDa7kJV/EB24wTOR0erNUacn0
-         yQ5UtrPa5WstxlWfUs7jArTjYQBVrqLUSDfQtViv8yaSRLaBIZrpA3Wr8lxIhHbNlb0j
-         +C1ufpE6TX4Q30IRWwfmiArSwWWnoxEilkZfsVJEsX2jbReJepoFR/ZcK2wIkAiZQZbi
-         NzqkJrb5v83BT7J3U0eikV/JRrlKaZ46ic22LDsGPk/uE/OuAFJ6VSkqGFylORbp7Dlk
-         7L0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzXpqhIfhkhU85pJx595uIvMqNQNo02foOyifZFo/C642sw6IKfB++GGERELG3lJIBvbr10zZ9l4tys+XQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfG/zk9xqwapQifwTK+PP6x1iCSZQ44GawrHQtIgys1o3HCd8K
-	oGujWmoGXU52wFGjxobUdyJ5kT7M8uXLQ0irDftbGdtMhu+B3FkRp+CT
-X-Gm-Gg: AYBFou2ExqWMy17ueCA3oRAPlGF/MnefvuZPOwIOcJdpMYbCAsF2M/uhNZlU8j+J+Qt
-	McjMEUklLc0esld+gArLOHlPP5FAIVyc4ip3ya29319aB48mtYqNyMa0Jd8AqcbLJxLtMY/34mb
-	UfN5LMUiO8UrhxIrsV1IVDmFgHHvA0TM49sqeOwJblUJ3AxgpBtQwy7Dl4cvP589hk4MDgqjyrC
-	vP8eztgmoc5CPWJrraXEwLVmsOPQrjJ6nwIuxkWg5nll3DIeW4fnfBDgL/Mwt8nDVyRrVWvATY8
-	k0MFhaXQrP2aiwAVKAvtiMmAZ4FPOhmVwczaQU6fSump1y+LWKon13eqyISzvqDzlG6dEU8GfWM
-	W4ReFcVVkBw386DIDMuM9ExBCo3o6boeBC9TXxzzcmJ6DfdEEjo1tG+QO/Qy92m8okUE4XryXxB
-	vDxP2HzB0hRDkupZHzSNuVBrxdXCQ1nGzqdTxhgdKOfcpQquPa002NKohWxOIS66Uc4aQ=
-X-Received: by 2002:a05:600d:8643:10b0:4a1:e00b:a10b with SMTP id 5b1f17b1804b1-4a1e00ba2fdmr28805675e9.7.1792313307895;
-        Sun, 18 Oct 2026 01:48:27 -0700 (PDT)
-Received: from [192.168.1.18] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c10fe9d3sm248499795e9.13.2026.10.18.01.48.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 01:48:27 -0700 (PDT)
-Message-ID: <6b17c6a5-5164-402f-8d97-2b25f4f9ae8d@gmail.com>
-Date: Sun, 18 Oct 2026 10:48:25 +0200
+        bh=1foRyEVgNVxrvVtoWJyDr59yXaxgx8M7G4qkdLHX8oI=;
+        b=kAhoQ/q5RyOr8MZWY7+nhbmkHQ48chD9MlfXGqK4Hu5UBYtsoA4Nq9vaLzp3mFXNAA
+         G+cJLvHsMOHSS/ayko+CrqyymX+kIn8Cuwgr3R7M7ysxkMWYm/S9cEI5IOwCN0qpkW0e
+         TPWdVFxqZKh7Pjw80am8UAKplctyFVlPHM3/7LAkgNa7HldzyoMFXe4siZKYG+fdoZjf
+         umD6KqAeDYyJpkHKUNuTgyoqLcRG3Sw8Q377h3X3str9AC+/O5n1dGxZfhCd9dIdenPx
+         XMLDOQhApYAuLFYl6rqQyVKCtvyhvcZGk+N4zDZluYwpnnIrE0/qszriCkjnr3xhFJJ2
+         PfUw==
+X-Forwarded-Encrypted: i=1; AKwUvByRBxx+6MI8i1tIOEmSqLH+XFShzBggVfRTusSLF/BomXd92///NadK96lF6asWe1wqze6A8efITCl0iGY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQz1JxyMyTfOTQLWlh5rtOkgioQhu8IB2K6DzMC9S5dNZUAbIz
+	7/fTyOq1gV0vA0JQdRJ6zndILrp+RZQesNyj2bbP1sBE7vJmbHxi7YdM
+X-Gm-Gg: AYBFou19kxJcfv3UjgP4rHEGR7WB0dfKkK/JgnlJZU18LMJoAgJMZaSrFpYtoz00Kn0
+	0/jIJg80isTBvw2RQJRnR8KqlJjaW3xSHBkpB/+ZzfkhVLxXZEHEsrOFFzE88GgE/J2dHdgHAMf
+	lQ5S0ubfKFbgxP+VJxL9ofSL1Pls6et76C60WNg8ur8jHFYdW9on3wCuEyIlTezC8pDZ4p3yllI
+	GL6jDte71fDY9pmZOs0vT16zq9l9HTDXWVHwabt54ZeyBqMEcrvM5JkXkFwFINIWGh8dWsvBzYS
+	vN9weTT99Exw/LUHVuuJunwVonjDJm+Vda3PYloGr+sbBIyvI65vwKyUdGNp7JJUFBSvcnT+5Ev
+	RvMglBhaPSVh1F5xOpj1UmRvAznaNzVJnBNexAS1i40EsUwk48L+ljBn2waxKqYMb6BiVoHVCZh
+	sFLocLzZplyAmIOGEULce6hss8Am6/8sDZ2BGr0isHwqifjl/MpqUO7KVY6A/q5vyJo14OD4ewB
+	IZanw==
+X-Received: by 2002:a05:701b:2608:b0:182:9071:3249 with SMTP id a92af1059eb24-185131076f4mr6206897c88.30.1792313421875;
+        Sun, 18 Oct 2026 01:50:21 -0700 (PDT)
+Received: from user.. ([2405:201:c052:b00b:1e01:b34a:8bb9:ed8b])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831ca95700sm19342455c88.23.2026.10.18.01.50.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 01:50:21 -0700 (PDT)
+From: pavankumaryalagada@gmail.com
+To: gregkh@linuxfoundation.org,
+	outreachy@lists.linux.dev
+Cc: johan@kernel.org,
+	elder@kernel.org,
+	dtwlin@gmail.com,
+	vireshk@kernel.org,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
+	Alex Elder <elder@riscstar.com>
+Subject: [PATCH v5] staging: greybus: use %pe in error messages
+Date: Sun, 18 Oct 2026 14:19:25 +0530
+Message-ID: <20261018084925.11793-1-pavankumaryalagada@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] kasan: fix runtime shadow page table synchronization
-To: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Alexander Potapenko <glider@google.com>,
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>, Dan Williams
- <djbw@kernel.org>, linux-mm@kvack.org, kasan-dev@googlegroups.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, muchun.song@linux.dev
-References: <20261018043501.3257632-1-songmuchun@bytedance.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261018043501.3257632-1-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/18/26 6:35 AM, Muchun Song wrote:
-> -		if (IS_ALIGNED(addr, PMD_SIZE) && end - addr >= PMD_SIZE) {
-> +		if (IS_ALIGNED(addr, PMD_SIZE) && end - addr >= PMD_SIZE &&
-> +		    pmd_none(*pmd)) {
->  			pmd_populate_kernel(&init_mm, pmd,
->  					lm_alias(kasan_early_shadow_pte));
+From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 
-what if the entry already points at the early shadow table? this walks
-down into it then, which loongarch does on every boot.
+Use %pe to print the error pointer directly and display its
+error name.
 
-[snip]
+Keep PTR_ERR() calls when the numeric error value is needed
+for returning the error code.
 
-> -		zero_pmd_populate(pud, addr, next);
-> +		ret = zero_pmd_populate(pud, addr, next, mask);
-> +		if (ret)
-> +			return ret;
+Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+Reviewed-by: Alex Elder <elder@riscstar.com>
+---
+v5:
+- Drop arche-apb-ctrl.c and arche-platform.c changes because the
+  files were removed.
+- keep only the uart.c change, as the fw-core.c changes are already
+  present in staging/staging-next.
 
-isn't this a separate fix? it's not in the changelog.
+v4:
+- Return error codes directly instead of storing them in ret,
+  as suggested by Julia Lawall.
+- Remove the unused ret variable.
 
-[snip]
+v3:
+- Extend the %pe conversion throughout Greybus, as suggested by Alex Elder.
 
->  		if (kasan_pud_table(*p4d)) {
-> +			if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_P4D_MODIFIED)
-> +				continue;
-> +
+v2:
+- Use %pe in the firmware management case, as suggested by Jeremy Clifton,
+  to match the other cases.
 
-doesn't this leave the range on the zero shadow, which memory onlined
-there later then keeps? would always allocating a table at the synced
-level once slab is up avoid that?
+v1: https://lore.kernel.org/outreachy/as0nhVbagZa8Birm@user/T/#t
+---
+ drivers/staging/greybus/uart.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index d47f00751e7a..74c9898c0eed 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -956,7 +956,7 @@ static int gb_tty_init(void)
+ 	gb_tty_driver = tty_alloc_driver(GB_NUM_MINORS, TTY_DRIVER_REAL_RAW |
+ 					 TTY_DRIVER_DYNAMIC_DEV);
+ 	if (IS_ERR(gb_tty_driver)) {
+-		pr_err("Can not allocate tty driver\n");
++		pr_err("Can not allocate tty driver: %pe\n", gb_tty_driver);
+ 		retval = PTR_ERR(gb_tty_driver);
+ 		goto fail_unregister_dev;
+ 	}
 -- 
-cheers,
-jose a. p-a
+2.43.0
+
