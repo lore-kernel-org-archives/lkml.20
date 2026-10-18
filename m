@@ -1,67 +1,67 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FD13BBFBD
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D03414439
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792345753; cv=none; b=RvDSa4fVt4l0ymX40qLIgBhygWSNo9dhf0KVzY2667B29kcvbWial0BZO+d9qVoz2gNVAC63QFQcyXN6Hh0e8GUAWP43cR+WkNMXX3M9mZ3BxLn8AtWZC8XplPBwYIxpPr7a76nVf3PynwCt+dB/9pLrN8KgdOAchWHANSZLS1w=
+	t=1792345755; cv=none; b=S/m5HAefnFQ0f1mhxRrRezFpdYfYgYWcYsivyQJsd9UbmqffaFhJKsWosWfQDBVYVsVsjAo7MwyeztCmcL9ixsV2A8+jJWERGbMFdJ+wHz51v9xgtGgU3wsDcnvsc+TGGVyxnA0TnS70w9rBiDtDIhpD+dQGAduDAImZUGXnbdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792345753; c=relaxed/simple;
-	bh=HMtSkZz2ZwPqcJHkY55gc25r+vpWT37SCT4ZLZaqegg=;
+	s=arc-20240116; t=1792345755; c=relaxed/simple;
+	bh=reAtcGD12mTxfAacTQ8TlV/MYmLBX0r4W3wjqX+D4ss=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bcv6Cy9qHxVAYqa7/UH3ZKy0lBoqcSDUqSpscpJY73f6Yd23lQrZytO4Xce7jHROeY/i0qODsJmh5cLp/tyHEUnxOyUZT7sz+yhw7U9THJZhzowmUMv9TwKZ5QXvDLCnwWYJuPU4ZTfyuF7PDZyMr/MScGnMc5JEQOdMy4UI0uE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=Zx4LyFYD; arc=none smtp.client-ip=209.85.218.41
+	 MIME-Version; b=Wp1dcAqKZofXuldM8EqdoD8PflMR8rwe2FhEpDkjSHkF7d8VoWaq3OG/LaUY+tOmVhRTEiGSqZPko/v4aZo198Fpb+F5dIqwy+dDjjCmORTcEs3hzf2SUCAZa8s7iiNjpCu0TZtJKr2DahZqOGtlWWQFQUeoMjiS3q6OHVqU/i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=NhYdFJZz; arc=none smtp.client-ip=209.85.218.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="Zx4LyFYD"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c414e5d282eso147907366b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:49:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="NhYdFJZz"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2dc63f8d8aso219941166b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:49:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1792345750; x=1792950550; darn=vger.kernel.org;
+        d=bairaktaris.de; s=google; t=1792345752; x=1792950552; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RlOGk4B2S+sC0KxKSWrB/2y4+wcPHldmFXjF9XSW5C4=;
-        b=Zx4LyFYDckopX/YcxPxV/0BsTb9SZQKfEAjfjvek+PRDdmQXAEHPx25ZfReUJAOgha
-         ES9kttdgJucuwVlaLPxiNtC1WpkMZUwNaYFVl7lQEkaHdX/XhA9CTxm68rPSl+65+Xtj
-         9iLifZWX78B2opf/aHV8rOeqwL5COnOhrctPPfejjV7+iOp33Q+S3AsBz4HWFi0pRDv2
-         6a3kZ8h0GSGkrer89XZqwHZ6k7h9jZSi65z+Jpgc9PW8C+R0edlTTcrqrTj11OejeWSC
-         /lN3/btM5etsk7yP061usYCp0uBFFhAK8LDY9KrOe8Mg15Q+tMHz+g6twzSxKekBlXMG
-         X9Og==
+        bh=ZCxxJcbhpSt1i5F/1qHiqoph9gxQorPREPwC1lnzTjw=;
+        b=NhYdFJZzIv4+wfCtzVlEuTd6hbIg1cg54aDnGDREnb5eKw/5fO8FQ681+gdh0qAShW
+         4RBVbCnTxfpM/XFkj8AFoCvpX5XJGZaOpELi/vs37eOiFHx8YsUWWnbaXDISxhpLt+bW
+         vt+d4FyTbGmXjAEo1WoIOlCFuE2LFNpGHDN5Lo9lod8CNHzMyYjE2PCEJQSoeb+A8fiu
+         tAi8R1q3FMsezXEvBng3vq5btVOSORN+bixRd2LI4FOOsV4Cc9wiZEKHSqc/WuQFGxe8
+         SK1pwONkhTD5eM4yU1kPE7Zaq9Nw3NNkQsSZq6p+kH6Pa0eZsxr1XUkW8oNrGfcczJnl
+         Wo1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792345750; x=1792950550;
+        d=1e100.net; s=20260707; t=1792345752; x=1792950552;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RlOGk4B2S+sC0KxKSWrB/2y4+wcPHldmFXjF9XSW5C4=;
-        b=BMC7/1n/AdYSiTrbEao9ZyxwEIa7Uk+v86r58Ovf/MB7lQH0PgVV8ELOK1HCeUV5N6
-         KK7w5XDYJYGll136p1ijhIyIASTOBSQDiv69PioV2oiHFRXvQcpxOBMf8CEqVSQSCy2D
-         d8aZI+KJexN7txr28xv3r3upSFMUI3VW/ww7G5mGugGHsD2VzZ2u4qdtAET9Ooeuc9Vk
-         G/CgQRteaN8pJCdGHghuvUQ5wLM41OftYqGrB1lGLzXNoVPGaxW+5ww5Erd/d1rF1fQX
-         i3SrNmsUXLFsgSL1JeCDLgKiiYbXnSTSuzBVxOC9L4ZrlTUNH2Ns3/PJyvYpjKOxSQOn
-         ICsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx5GXhwyeJIl6rP12TL5ubxqKpZX8eZSGMHG4PkKqS0BamXmOivudVRhopznUK9AnW3UMVs0tGJhwxeaFQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/SLepCwOW8IAlPpibdF18WQdAnIzFZyJnhbKeCWJqJEswBPfx
-	YVwKDfjBdXIkcAjsTbEFFfSVBhKQ1KK0bfLlbrFokpu/aaXAAiabAxWegfl/zWp/eQ==
-X-Gm-Gg: AYBFou0w/wB6LO1L841KNXNPoqOteXL8KRELaoKEdsrrn1tAlHgYH4ep6DpTpUNrOvr
-	H0hQnGzMh/qzRNj7x1JD9pit7s+6NF4HlANkftqTI4MGnqOo/DJZ+irJz7dQOtTs01kBVCyzjR5
-	ivyUnM422QZX2hBnMj0yle+Z2Y8V4WvfqJxBjqm1/oUOH5DCb3fUNFWn8paPopVp37aR1FnF7Ir
-	0LJGmGQ/OEAI/KNQREafH2cNAupPHUTLMUge6QX784TVGZQwxwpQ+FpwtkpLvtq98K09MzxH0vj
-	P9l292gNLgiChFN98n9HtozyYVBSUgSTUsh740Ix3DTpMdq9QH/aI8hYiU3oKNGNa3DRP77h3a4
-	kDcD277Qy61GwPczWINeuNVWS3cxApGOcnB+DzAj82cyHfn4OpM3TM4P8VLH+VfXGF1/WP3t1th
-	NfqoSV127zMMKXdOX3X7XF7otQzKc+EZpcMv7TP7VM5KDHPR0mWTOTU0wN49K9MyTwIo1xQ5uxF
-	MNrLQwLjZXz9OgJkH/3tdwF5WseUBQ+u2rSI40wxfTY4lZKA12nuPWDN/6RtCSdLM6lU1T/kkbS
-	EtA85u+QQHJUuOYCKjLfxUip7E3glz8A38SeunP1dA7vGYN1dy6xqHVkAU4wGLQR8VEiEhG3GbM
-	4/64nvGrlDLV0aaJ4WqhX7M+MdKLiGdybdzbK/7GSkTPRIuuAic1sNfDgEZi5NpBswcp17gKYQC
-	VQsmdWdmXC
-X-Received: by 2002:a17:906:ba89:b0:c31:6a37:f284 with SMTP id a640c23a62f3a-c419a05c3d2mr331429866b.1.1792345749860;
-        Sun, 18 Oct 2026 10:49:09 -0700 (PDT)
+        bh=ZCxxJcbhpSt1i5F/1qHiqoph9gxQorPREPwC1lnzTjw=;
+        b=C1BqSzVrmFY+og+OxDSamv3L3CTwoY99DsliVzpmI9r2RZOnjBGD/avUobtwiy6ew+
+         M1hBX0L14/Vchqtdgu7eQ5DhSRUpM9qAQZ+BvfEqfmHfubfki/MYQM0aZ7rvfM6tevx4
+         j2Um/dFH8/vMuFoAHQ3WMYEt9KKJyrQ69lGtbW6Tq72taNP8dXCly5GrcEjodLROXPhB
+         t0Mn+YTiAH6cNZ/Zpvd3zqtdpSm4RDhpZ+09snTSup5U/GUMlH7RJZO1A/2HAKcaGb5/
+         P4btYm/aiSNvzaesVtftxYGf5JwxgmWpAYQ5an07si6RvRMqPlgd1TUPxURTLM7dD4qg
+         SZpw==
+X-Forwarded-Encrypted: i=1; AKwUvBxDtpBFbAXCGTK9t54e0eG/1Eutr2KColyoN4FV5fcHnmiXQLad4Vrf81aay2mg0yVkfS5fS4Q2viTplnY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyxdhLGp7+D0lYXPzJDU+IcN+zP3yY0ZIaSX9YQxJZ7/vc9wrL
+	WOs2Rf5D45gW6ocNA1VD2TJ2seCcnDaDlutOE56BKnQg+ud09ynf6U2zmO9uvVvwxA==
+X-Gm-Gg: AYBFou1/nqFg1rvR8cPU077IQV45AcC0Y+eA8UFMSTLkZxyJndu61qUiH8k+SP2rGbJ
+	UKpdto3se4OaYUwWRbhwysNU4qXUDpUxFfykG9tpFRozof1fqzhHQj9Puf3StnW1RaKPOFZs35d
+	Cak1pGKZ6rRRy1G1yZ18ojak8A45wSL3rvNulAUAD55IgsTQltadx5MfmAmfGh/eoj7LCggfbFX
+	qhBl1jPBsHxf4bn4/FD7/OgDvEo3VnXv2DkyAOLfKHyvrwcda/iTrHcmBn6kYkpvD+Mz9kTmMca
+	jGBMfzPvRWi/2yO1NFNmW2uj2eBUMXlRHcOtDOt+/eWgL0jpSAiSoEivljkhN8D4BQLG7wJqvtK
+	wDcyxPgGkFZPmUytOKawlAm+lIKz3WXjnhfxTTU3oYLsiwdeY4iCgoCT7EwH6RBwTtihqlwzbQI
+	Jg4OAj8wMCFRCFgzE8DZuS1cHKev0JfRji2AnzTBXcWVz5ey94LGY7Ne9CHwdtV44Xt+QzVeBEJ
+	pJFfv5gznlyThUYcdwRUizTokyKcjDqLSDJmjQuFof8UON9/mqOWd8Wcch4oP5hTD4B3CdBYQaw
+	ckpWYzkwt7DuNeua5k5bC+loruUYpc3lFUZ6nyZBQQSIav78nsyJbHR0I8nFxaT3ayed8e6H/Gj
+	rEo8O9aCY1SAY+vHpX45+/1C7R2eT29f34C0paEPMKdm37A5r5D6WoVabhGvQmLlHsEOJXhuG1c
+	ko0FnM0FNg
+X-Received: by 2002:a17:907:9707:b0:c29:f5d8:9c6c with SMTP id a640c23a62f3a-c419e93247bmr367634766b.27.1792345752006;
+        Sun, 18 Oct 2026 10:49:12 -0700 (PDT)
 Received: from Desktop.fritz.box ([185.181.130.213])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb14a7sm291056366b.76.2026.10.18.10.49.08
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb14a7sm291056366b.76.2026.10.18.10.49.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 10:49:09 -0700 (PDT)
+        Sun, 18 Oct 2026 10:49:10 -0700 (PDT)
 From: Julius Bairaktaris <julius@bairaktaris.de>
 To: jjohnson@kernel.org
 Cc: linux-wireless@vger.kernel.org,
@@ -79,9 +79,9 @@ Cc: linux-wireless@vger.kernel.org,
 	sven@narfation.org,
 	john@phrozen.org,
 	toke@toke.dk
-Subject: [PATCH ath-next v5 1/9] wifi: ath11k: free tx skbs through ieee80211_free_txskb()
-Date: Sun, 18 Oct 2026 19:48:56 +0200
-Message-ID: <20261018174904.1757161-2-julius@bairaktaris.de>
+Subject: [PATCH ath-next v5 2/9] wifi: ath11k: enable airtime queue limits
+Date: Sun, 18 Oct 2026 19:48:57 +0200
+Message-ID: <20261018174904.1757161-3-julius@bairaktaris.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261018174904.1757161-1-julius@bairaktaris.de>
 References: <20261018174904.1757161-1-julius@bairaktaris.de>
@@ -93,44 +93,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ath11k_dp_tx_free_txbuf(), reached for the HTT REINJ and INSPECT
-statuses, frees the frame with dev_kfree_skb_any(), unlike every other
-tx completion path in dp_tx.c. This leaks the tx status clone and idr
-entry mac80211 keeps for a frame whose socket asked for status, as
-commit 29d15589f084 ("wifi: ath11k: Cleanup mac80211 references on
-failure during tx_complete") fixed on three sibling paths. With
-NL80211_EXT_FEATURE_AQL, set by the next patch, it also keeps the
-frame's airtime charge, and an access category at its limit is never
-scheduled again.
+Without NL80211_EXT_FEATURE_AQL, mac80211 applies no airtime queue limit,
+and a saturated download moves every queued frame into the hardware TX
+rings. Set the bit. The estimate uses the rate ath11k reports through
+ieee80211_tx_status_ext(), and the 4 us floor until the first PPDU stats
+arrive.
 
-Free the frame with ieee80211_free_txskb(). Neither status occurred on
-the hardware below; the change is by inspection.
+With the series and the AP pinned to VHT MCS 0, a TCP download to one
+1x1 VHT80 station keeps 22 Mbit/s while the sender's mean RTT falls from
+526-587 ms to 42-44 ms (three interleaved runs per arm, default limits).
 
 Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
 
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 ---
- drivers/net/wireless/ath/ath11k/dp_tx.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/wireless/ath/ath11k/mac.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/wireless/ath/ath11k/dp_tx.c b/drivers/net/wireless/ath/ath11k/dp_tx.c
-index 083aca8ff355b..f7d3cf0ff0358 100644
---- a/drivers/net/wireless/ath/ath11k/dp_tx.c
-+++ b/drivers/net/wireless/ath/ath11k/dp_tx.c
-@@ -305,9 +305,10 @@ static void ath11k_dp_tx_free_txbuf(struct ath11k_base *ab, u8 mac_id,
- 	skb_cb = ATH11K_SKB_CB(msdu);
+diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
+index 90a0404a101a1..6f4462b7d3f15 100644
+--- a/drivers/net/wireless/ath/ath11k/mac.c
++++ b/drivers/net/wireless/ath/ath11k/mac.c
+@@ -10652,6 +10652,7 @@ static int __ath11k_mac_register(struct ath11k *ar)
+ 	ar->hw->sta_data_size = sizeof(struct ath11k_sta);
  
- 	dma_unmap_single(ab->dev, skb_cb->paddr, msdu->len, DMA_TO_DEVICE);
--	dev_kfree_skb_any(msdu);
- 
- 	ar = ab->pdevs[mac_id].ar;
-+	ieee80211_free_txskb(ar->hw, msdu);
-+
- 	if (atomic_dec_and_test(&ar->dp.num_tx_pending))
- 		wake_up(&ar->dp.tx_empty_waitq);
- }
+ 	wiphy_ext_feature_set(ar->hw->wiphy, NL80211_EXT_FEATURE_CQM_RSSI_LIST);
++	wiphy_ext_feature_set(ar->hw->wiphy, NL80211_EXT_FEATURE_AQL);
+ 	wiphy_ext_feature_set(ar->hw->wiphy, NL80211_EXT_FEATURE_STA_TX_PWR);
+ 	if (test_bit(WMI_TLV_SERVICE_BSS_COLOR_OFFLOAD,
+ 		     ar->ab->wmi_ab.svc_map)) {
 -- 
 2.53.0
 
