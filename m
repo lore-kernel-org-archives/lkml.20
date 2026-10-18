@@ -1,233 +1,114 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059D141DE01
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F73942B742;
+	Sun, 18 Oct 2026 21:42:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792359704; cv=none; b=l6aHzFFqQrY+SxhvtD68c7GpE8Uzw+GWYvCXvOfx84f/zPYKClHuLgzBaNATQIZ4Wu2TM5cVehzCtLJ9SXDp6pmawTiQW+hqEufb03yC0sojArJV1IPYOiQvtrhMDRW62i/4LTDzigmHSYUt333zJh89pHcGnNrRPmi1gXgfpEg=
+	t=1792359741; cv=none; b=bqW/082dBrpxmTwVPXZL1ust8pIdWGrVrQdgKP9F7oPAxQQAYmSv1sYQApwg5Dx19I//GGvRyracAZY9BiWGiMWbWHdD+ARe4d7KlR8L9aT9DyqyqZFEZJbLdlsRj3u8AxAtC4RoqFKrIDy9bHcmCzglckkdRRFusKdDNPiJUYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792359704; c=relaxed/simple;
-	bh=QpgY1mHMPAh+BF52MMdR/jItFN7LZuBUhKsHUTs7ZxY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CwD+gXh7FZeHui71OffKvVsWH1Ti3ZManQmtYMrCSjN5NeScCHIjQ2JVxqC7bV4y6eukAFXUPzxpXJEdUdQNqDMoCsg7Kt5tDefNnrjF4fPQcwB+mEZ08eqU5xDyywkX3u5RI8D7lAA+2Wkz+Z9kMl94YJ32/bnHYmzebDFtVZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Q9rqkEOi; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=okZBJI/E; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1792359741; c=relaxed/simple;
+	bh=6nfRQdeF7YPs+cvmTHFcNKp9NpREBzOxIrnig+osLr8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cw/BySFFu81hBX10MIAxAVrwlxsDXaLaL0TmdYosl/Q1+dVDZ21FdrlPeKS1qGAw5Ls39REjT64mOxwxS0stxlE/Ntctj6wWOy64ngPGVu21d9X88Qv3JMcsT9jfyCyUDHY0vczngDIN0+tNxy53NX15Lx6liaY0UoeXFe3zRlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C9ajmu8T; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Q9rqkEOi";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="okZBJI/E"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792359701;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R2sM3UmHiQ62epsC/FE3R8schNmhPjjNgAmVVqxJiF8=;
-	b=Q9rqkEOicmke1USFq2SC8SiG3etUwMkfXp2AFV3Gj1L2V4FbCKvTaYj744wOrHoWfMXbrM
-	fiuRje/90szZxI40jNFr9hpd+EcC66yLFgqJupMNy70qQnMYRfwq5mRag9Gf3PhyDSl+ZC
-	GaedyEnj7CciBYMyXvIT4btEPplblDw=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-196-4oa7DRdZM7-dDTLpGiApqw-1; Sun, 18 Oct 2026 21:41:39 +0000
-X-MC-Unique: 4oa7DRdZM7-dDTLpGiApqw-1
-X-Mimecast-MFC-AGG-ID: 4oa7DRdZM7-dDTLpGiApqw_1792359698
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49febef74e3so17296285e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:41:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792359698; x=1792964498; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R2sM3UmHiQ62epsC/FE3R8schNmhPjjNgAmVVqxJiF8=;
-        b=okZBJI/Es/jSsi48kQOtMvp+hrjgpPCUuLiqAZg2lI8YZnCRcpJOc69w5k7FI0sMWx
-         cpil5UJKPTGaY9mNLgqs2RJpxWLjOk7p0juNQFK7cwstRrIxSeqmeF+zEVpTQM/V+xqB
-         Z+ZdfhTzIbEtxCpuBKHDV0rM2f/8zAdff/ltUuUgAdQ0QuZime02I2RdzsOHTgmCKEsQ
-         n7/PqsVU4WpF2GoXhg9Fio+lYK4O2ykbeZ37ug5p8g4d0PLIjrYhDBLDay2xdPfSPWSp
-         zlyrwrv6j2PVqZYOkNQA/DubKuM/Ls3+6Eb2/e1xOSCYOB7fp77ofOb6Vl1wLtYLIsEP
-         MIkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792359698; x=1792964498;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R2sM3UmHiQ62epsC/FE3R8schNmhPjjNgAmVVqxJiF8=;
-        b=AWQbesRi7+dH3xwfjAnEB92PO3K3ODuDIOI8RHenGneWRzOgaRJ1oSSb7fUI4+8g+b
-         /K8xM/briVBFNtK8Hip1uxPWOmF8/dIQRfHXLHD4AeYUZGURRbh4yYma8hXGJqrP6cc1
-         ylQzm/kSxWXoZJ3RbEmQDWKpAyoyFuux0cCp7LAw5qA4aIQaWjyztN4A8m+LbhbZnTs6
-         e1DwII4GazxLrG9QtMVjCEiL0SzCYKxxnVf7SWNQzFByTWu2fCAN1xNyv6WB0JYFMD9U
-         4mk+7vzM06YXYEmfPAHNrIUfcPcwzlZYFX0E79KChu3/zU51guEFEyfyPoMvHEhGWyfz
-         tHXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyozp1FsFkrpsLyGc/8fjBksdp3ak+FobG+UTiU7U5BtbUGHc6sGNqi+Ikiubn8WBEDTD1r4Onnqs++sw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEbAPIsT4cq1Zmvv6lx4tMw6Zp1BAyVpMrbCD3CZavzuOjLAtc
-	Il9gTw9TmYLvIqSnRa2dYhpyPhr3xyxykcO5lHdBdeS0KdJu2lg3Zwl1JLK0y4FtK9s+sqjd/Sg
-	rLZJFJFbJI/mig+TTUsTQ6Vy+rW83faoFfDkddNOm20xvpEvM0JAhhc+/qeIGjPf5CA==
-X-Gm-Gg: AYBFou1EefaxeKD7pSrjqojG7RZUfA22p6WkYXObajuno2Tb8uBiX7wxhGHgFJdeM80
-	anZxZQuWGjCoCp/g/s/ViC63qI4hvgUiUKSPy7j5eMGbS2oaofSXHo9H2SNhEMKXX2rL70Vpxnl
-	LSx4vT5I2ZimGsZSnjdkHrQlZl5DEraDeokakmX8saijvNB7U0GxvVRoAZ62RrDbcp8FlrQmlj0
-	exjxO12y28M7uaKcJS79bPMlNfU8Yagbh0ryDgTSMUKxuAJG0wRLab0reTnwI7zFqrlxbjVXwdg
-	AQmZV1b9wS5ZcbCN4qhMdhdY9SdSsbP088QDHrpp4ISLftPa2IGW7J5UeguPT9vaK3t+Kw==
-X-Received: by 2002:a05:600c:8709:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4a1d760536cmr116501115e9.13.1792359698222;
-        Sun, 18 Oct 2026 14:41:38 -0700 (PDT)
-X-Received: by 2002:a05:600c:8709:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4a1d760536cmr116500815e9.13.1792359697712;
-        Sun, 18 Oct 2026 14:41:37 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e9423f20sm12734705e9.7.2026.10.18.14.41.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 14:41:37 -0700 (PDT)
-Date: Sun, 18 Oct 2026 17:41:34 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Linus Torvalds <torvalds@linuxfoundation.org>
-Cc: Haoran Wang <haoranwangsec@gmail.com>, jasowangio@gmail.com,
-	kvm@vger.kernel.org, virtualization@lists.linux.dev,
-	netdev@vger.kernel.org, eperezma@redhat.com,
-	linux-kernel@vger.kernel.org, security@kernel.org
-Subject: Re: [BUG] vhost/vringh: __get_user without access_ok leaks kernel
- memory via vDPA passthrough
-Message-ID: <20261018174010-mutt-send-email-mst@kernel.org>
-References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com>
- <20261018152358-mutt-send-email-mst@kernel.org>
- <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
- <CAHk-=wjxOy24XQnSSGimnHbp9mVjUETBE5HrS+W9E8mRrtxBLw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C9ajmu8T"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 340E2C2BCC7;
+	Sun, 18 Oct 2026 21:42:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792359741;
+	bh=6nfRQdeF7YPs+cvmTHFcNKp9NpREBzOxIrnig+osLr8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=C9ajmu8T3Y7D5sPUqvBFfHLVzrJ1INH0wsQcYdeGOyj4N0D3ThlnQWjOmAB6BrUhV
+	 R0dAPw25cyE35xR/KbiLtp7tREJ78gPe4hff1dstg76WKKEhbMFPTFPtw816w2E/Ut
+	 C1TTTNi6P0IUJWbtS7KmS9NNyx63/wRCjZ0/fuDw2Xp0F6jBIDKv/ZOnpGJ/9ca775
+	 NW7WWY09hNZFPEpfYBN3dDxhJdt3TfIpX378YhPaaeSrECTdgk8yMBJYk7eJOPvYNp
+	 J4Kh/PuDp/o+SQSp6HpaPTCf/2fdiwDIBfXLCbNKY9x+33kLHe7zVWxMrmSXTpHMG2
+	 4zqxKz18OJbXg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FE6FCCF2C4;
+	Sun, 18 Oct 2026 21:42:21 +0000 (UTC)
+From: Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
+Subject: [PATCH 0/2] staging: iio: addac: adt7316: error code and probe
+ cleanups
+Date: Sun, 18 Oct 2026 22:41:49 +0100
+Message-Id: <20261018-adt7316-error-codes-v1-0-1970b7e242ac@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wjxOy24XQnSSGimnHbp9mVjUETBE5HrS+W9E8mRrtxBLw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAxA0auQrm3SoiDxKsYFnalaF4xp0ZgQ7
+ u4oy7f4f4FQNw04NQu4vi2sTBW8ayDdx+mmaLkaWmp7Jh5wzPNxzz2qe3FMJWvgYeiIREg4CdT
+ y6Xq1z/96vmyOlzw0zb8VrOsX1lpCBHcAAAA=
+X-Change-ID: 20261018-adt7316-error-codes-48500bb0b1cb
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792359739; l=1590;
+ i=raffaele.tranfaglia@gmail.com; s=20261011; h=from:subject:message-id;
+ bh=6nfRQdeF7YPs+cvmTHFcNKp9NpREBzOxIrnig+osLr8=;
+ b=8XdQsDFcKXECYP0TbCWHKIFERLwFeJRpzhbVsy0z3N1g1MzaCUztOyTKs0N6rLIofHBk635aP
+ Hu319KJj3XrCUyhMjZqeh49SPKpHVZrA9+xOOlBNHEea2fylCGV0SQ9
+X-Developer-Key: i=raffaele.tranfaglia@gmail.com; a=ed25519;
+ pk=mweuSGNM6vguCTdqa+aiHwMXdgk70suj2wolzCp6XGM=
+X-Endpoint-Received: by B4 Relay for raffaele.tranfaglia@gmail.com/20261011
+ with auth_id=1160
+X-Original-From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+Reply-To: raffaele.tranfaglia@gmail.com
 
-On Sun, Oct 18, 2026 at 11:11:44AM -1000, Linus Torvalds wrote:
-> On Sun, 18 Oct 2026 at 10:34, Linus Torvalds
-> <torvalds@linuxfoundation.org> wrote:
-> >
-> > And __get_user() together with access_ok() is actively wrong and
-> > stupid. It's slower, bigger, and more bug-prone than just using
-> > "get_user()".
-> 
-> Btw, if you have *multiple* accesses to the same structure, that was a
-> historical reason to use access_ok() with multiple __get_user() calls.
-> 
-> But it's not a useful pattern today - and hasn't been for years -
-> because the real cost is not the access_ok(), but the stac/clac that
-> surrounds __get_user() on modern hardware.
-> 
-> If performance is really crticial, the new "unsafe_get_user()" model
-> is the way to go.
+Two small cleanups for the adt7316 driver.
 
-Thanks! I'll try to find the time to look into converting vhost to that.
-The flood of ai found bugs I am dealing with will abate any day now.
-Any... day... now...
+Patch 1 makes the driver return the error codes reported by the bus
+helpers instead of replacing them with -EIO, so callers see the
+actual cause of a failure.
 
-> Here's an UNTESTED example patch of how to do a conversion. It
-> generates much better code than __get_user() ever did. That patch
-> looks good to me, but again: I didn't actually *test* it (and the
-> reason this signal.c code has never been updated to the modern pattern
-> is that it really doesn't matter for performance - I decided to use it
-> as an example not because it matters, but because it's a good example
-> code-sequence for the legacy model conversion).
-> 
-> Somebody should test it.
-> 
->                      Linus
+Patch 2 removes the dev_info() printed on successful probe, as
+drivers that are working properly should be quiet (see
+Documentation/process/coding-style.rst).
 
->  kernel/signal.c | 56 ++++++++++++++++++++++++++++++--------------------------
->  1 file changed, 30 insertions(+), 26 deletions(-)
-> 
-> diff --git a/kernel/signal.c b/kernel/signal.c
-> index d31ebcb6ed4d..0fd1296e912b 100644
-> --- a/kernel/signal.c
-> +++ b/kernel/signal.c
-> @@ -4776,12 +4776,12 @@ SYSCALL_DEFINE3(sigaction, int, sig,
->  
->  	if (act) {
->  		old_sigset_t mask;
-> -		if (!access_ok(act, sizeof(*act)) ||
-> -		    __get_user(new_ka.sa.sa_handler, &act->sa_handler) ||
-> -		    __get_user(new_ka.sa.sa_restorer, &act->sa_restorer) ||
-> -		    __get_user(new_ka.sa.sa_flags, &act->sa_flags) ||
-> -		    __get_user(mask, &act->sa_mask))
-> -			return -EFAULT;
-> +		scoped_user_read_access(act, Efault) {
-> +			unsafe_get_user(new_ka.sa.sa_handler, &act->sa_handler, Efault);
-> +			unsafe_get_user(new_ka.sa.sa_restorer, &act->sa_restorer, Efault);
-> +			unsafe_get_user(new_ka.sa.sa_flags, &act->sa_flags, Efault);
-> +			unsafe_get_user(mask, &act->sa_mask, Efault);
-> +		}
->  #ifdef __ARCH_HAS_KA_RESTORER
->  		new_ka.ka_restorer = NULL;
->  #endif
-> @@ -4791,15 +4791,18 @@ SYSCALL_DEFINE3(sigaction, int, sig,
->  	ret = do_sigaction(sig, act ? &new_ka : NULL, oact ? &old_ka : NULL);
->  
->  	if (!ret && oact) {
-> -		if (!access_ok(oact, sizeof(*oact)) ||
-> -		    __put_user(old_ka.sa.sa_handler, &oact->sa_handler) ||
-> -		    __put_user(old_ka.sa.sa_restorer, &oact->sa_restorer) ||
-> -		    __put_user(old_ka.sa.sa_flags, &oact->sa_flags) ||
-> -		    __put_user(old_ka.sa.sa_mask.sig[0], &oact->sa_mask))
-> -			return -EFAULT;
-> +		scoped_user_write_access(act, Efault) {
-> +			unsafe_put_user(old_ka.sa.sa_handler, &oact->sa_handler, Efault);
-> +			unsafe_put_user(old_ka.sa.sa_restorer, &oact->sa_restorer, Efault);
-> +			unsafe_put_user(old_ka.sa.sa_flags, &oact->sa_flags, Efault);
-> +			unsafe_put_user(old_ka.sa.sa_mask.sig[0], &oact->sa_mask, Efault);
-> +		}
->  	}
->  
->  	return ret;
-> +
-> +Efault:
-> +	return -EFAULT;
->  }
->  #endif
->  #ifdef CONFIG_COMPAT_OLD_SIGACTION
-> @@ -4813,12 +4816,12 @@ COMPAT_SYSCALL_DEFINE3(sigaction, int, sig,
->  	compat_uptr_t handler, restorer;
->  
->  	if (act) {
-> -		if (!access_ok(act, sizeof(*act)) ||
-> -		    __get_user(handler, &act->sa_handler) ||
-> -		    __get_user(restorer, &act->sa_restorer) ||
-> -		    __get_user(new_ka.sa.sa_flags, &act->sa_flags) ||
-> -		    __get_user(mask, &act->sa_mask))
-> -			return -EFAULT;
-> +		scoped_user_read_access(act, Efault) {
-> +			unsafe_get_user(handler, &act->sa_handler, Efault);
-> +			unsafe_get_user(restorer, &act->sa_restorer, Efault);
-> +			unsafe_get_user(new_ka.sa.sa_flags, &act->sa_flags, Efault);
-> +			unsafe_get_user(mask, &act->sa_mask, Efault);
-> +		}
->  
->  #ifdef __ARCH_HAS_KA_RESTORER
->  		new_ka.ka_restorer = NULL;
-> @@ -4831,16 +4834,17 @@ COMPAT_SYSCALL_DEFINE3(sigaction, int, sig,
->  	ret = do_sigaction(sig, act ? &new_ka : NULL, oact ? &old_ka : NULL);
->  
->  	if (!ret && oact) {
-> -		if (!access_ok(oact, sizeof(*oact)) ||
-> -		    __put_user(ptr_to_compat(old_ka.sa.sa_handler),
-> -			       &oact->sa_handler) ||
-> -		    __put_user(ptr_to_compat(old_ka.sa.sa_restorer),
-> -			       &oact->sa_restorer) ||
-> -		    __put_user(old_ka.sa.sa_flags, &oact->sa_flags) ||
-> -		    __put_user(old_ka.sa.sa_mask.sig[0], &oact->sa_mask))
-> -			return -EFAULT;
-> +		scoped_user_write_access(act, Efault) {
-> +			unsafe_put_user(ptr_to_compat(old_ka.sa.sa_handler), &oact->sa_handler, Efault);
-> +			unsafe_put_user(ptr_to_compat(old_ka.sa.sa_restorer), &oact->sa_restorer, Efault);
-> +			unsafe_put_user(old_ka.sa.sa_flags, &oact->sa_flags, Efault);
-> +			unsafe_put_user(old_ka.sa.sa_mask.sig[0], &oact->sa_mask, Efault);
-> +		}
->  	}
->  	return ret;
-> +
-> +Efault:
-> +	return -EFAULT;
->  }
->  #endif
->  
+Tested on arm64 QEMU, with i2c-stub providing the device:
+
+  insmod i2c-stub.ko chip_addr=0x48
+  i2cset -y 0 0x48 0x4d 0x01
+  echo adt7316 0x48 > /sys/bus/i2c/devices/i2c-0/new_device
+
+- probe succeeds and no longer prints a message
+- device_id reads back the stub register value
+- writing 0/1 to "enabled" updates CONFIG1 (0x18)
+
+Error path, instantiating the device where no stub chip exists:
+
+  echo adt7316 0x49 > /sys/bus/i2c/devices/i2c-0/new_device
+
+  before: probe with driver adt7316 failed with error -5
+  after:  probe with driver adt7316 rejects match -19
+
+Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+
+Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+---
+Raffaele Tranfaglia (2):
+      staging: iio: addac: adt7316: propagate bus error codes
+      staging: iio: addac: adt7316: drop informational message in probe
+
+ drivers/staging/iio/addac/adt7316.c | 91 ++++++++++++++++++-------------------
+ 1 file changed, 43 insertions(+), 48 deletions(-)
+---
+base-commit: 6a27f3a7d1063aec5aa3d9370161e850fc3a85dd
+change-id: 20261018-adt7316-error-codes-48500bb0b1cb
+
+Best regards,
+--  
+Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+
 
