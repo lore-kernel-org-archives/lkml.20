@@ -1,61 +1,64 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80B63D9667
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64B34C650C
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:07:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792332456; cv=none; b=mSkU/4S6+7kjIMbFD9nFZV6fSr2rrplUFGqbSWr/nWdnn2a7Il7F7d6xM4NjBnl8cbyeiNLbis1PfO+Hg3zMCsKl9qoxGioIxf7NVRNJH/vWmB1FqfYq/aTber6atEGMLSIehxHXHEq6JoTdNNxOsH2EWHwViYWbuYxiBQqjAcY=
+	t=1792332462; cv=none; b=i6PY/ouIxkrgSQc9uiSde8kDZ9pgA15S5zduRMVDpmRt8y67w3YAzBMp9pWI8Tnz3KUbmwNRPI3xEw7bzvJliCd4nKhhOlJpqgAE5+WZg8YdQrgCQWO8gtac875WgjbN9lVHw2j5GUUOtH+1eNwYzv7QKL45KWzvwe7yteTVhHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792332456; c=relaxed/simple;
-	bh=sG/qybcCIt9sS1/40Xikj+LWoyMn9kRRL1Cm99G/VMg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V6PkMurkOiTQeFsIcWgHRkoNQji13XemaEX9o87Q74CwMk1jIshfrfMJ9U1qAyvuBCky8PIAk1JNc6AJXv6QrruaNvyjTr5N+nFI2IkvVnps2nmzHutTqao6lGkgVdAWoF0T95K/B5wuZxYaQtdlE9OArwXKCigEuSpK0OArlng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LGfzfyUg; arc=none smtp.client-ip=209.85.216.50
+	s=arc-20240116; t=1792332462; c=relaxed/simple;
+	bh=mMFfeUxQvrpdjn2pvtWISoAHAJiRpUINF+yoqcZa5mg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kTZ/JJkR7jupKI+XEinL7poU9mhaO18WYlSyMPJadlzSC3oW4XTAgDYmGqwpsNYQLNLvqY16aSI5J+QTK/rXUnUd2b09sFGOXo6pOOjrdwc/bL15TsPGyOOwQW3bphsiG/TYBVs+xmjlKUcY4SBh0COctA6ANIyRzeXo7XatGps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o4iafOFw; arc=none smtp.client-ip=209.85.216.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LGfzfyUg"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38759bcd877so750629a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:07:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o4iafOFw"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so1253956a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:07:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792332454; x=1792937254; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tfFDSaOe9URLyCJ1ZQlNv3ou9mFcHwS9Rjy/4jVGOr8=;
-        b=LGfzfyUgD2cjvSpmXZpY9P+SIFamsB0YjQLq/QoSj9KqoMUmR6sqX94o2Z1UoZ/NBZ
-         De+yZPAUUY2mR1reXjDaGmuEpQHqKGgbTFImxh9uMFjMYYUQgal0sYmp73lWZgcoAmU7
-         Tzxizis69tPaKAATZ4RYYJuNgxF7XH4Lw+cVE1DSfLPFTYhH3lLkItR7+Uf+0o87lWwe
-         aqmpRSradTXQCLLt/2eEFOr+fqKo5gNbyINJuxVRSOgPQ421fmHWOi3PvJTpOzD2foyE
-         SUGoNJzgZZauNBu58rBPvigAsMtRfbyxewZnIosLCqdGlRnnr3aK1DvxokH2oVgEuXsO
-         rfzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792332454; x=1792937254;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792332460; x=1792937260; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tfFDSaOe9URLyCJ1ZQlNv3ou9mFcHwS9Rjy/4jVGOr8=;
-        b=PvBcsox4gQhUyP+ldofMa6PWcOD3ALbEzzKM74v9BOnXNTQer3M+CHdESsiA6RSNs1
-         va465ruN7i/NACkTjTMhNxEyi6EfIBAmq4jm2nU9w67kzGpj0gUy+Ledz3pLV9bs2Ted
-         1gabXVfML4WEQ6HWLviFRppMfveJtRyBBkpZPP/2nPHHoHZmBi03S3mTqJbLDf4olGiM
-         +OP2blIfj+X4V3Pjow3Xe0sRlpFQy2vGsRiqft9n53VHibDquJeQZjiy7WKjceV66xJZ
-         VMQCwWGR4kGGgW+E3PSIFqjZeIUsxYZvnkb7PTXcCrMpLmEB1gpcHxyAnlnhXgtE88EP
-         f5eA==
-X-Forwarded-Encrypted: i=1; AKwUvBxCszF+eZHafGccIpP0Afw6v8m/U1ppoPIDX9DUxdGmw8xqRl9a1nud1HKOkdjHYONuqjolbZM/ctblrb4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLug4cwWFcL0rCERCnEl+1tfu75VKVaY6W1mGHQdL6g2uGvu9i8
-	gbsbkZAz8UZWMpmjuraE/I+hnUtzJG93xHS5gwhJHz0VjMr6IQNOf2Xl
-X-Gm-Gg: AYBFou0XwegOHPndnLPo5+48YKzptb+S3CG23C0C7jwEVj8f6eeX5Ol6n/HO2j3QyFx
-	hj4yS2vm3FeOgiF/+0JUlulFc/gJH277auQ/w47VjaKdpDNyGKKqKY9tvsZvWKnDSu9JiVz8/19
-	mn0FJzY5BQbfwp2hHpepECGSIAVY/nDAvdlsQ1E3s9GqPWcEaT18FmkScKI51+AFeZDG55HSnOj
-	uU24xlJ5VAuoxPiSFyAhyJYvsuDMO6Ht0sk3axV/C/X7Emdn9nt5WlC9ov88g+ZSXMFi1oAPPaW
-	GuWHoj4kJ9AfqyUNamSoGyOw5qJ3DPmegPFB3ehJq+0qvNJK83ueGH8m+W06w2sXngSzkrJT83v
-	7b6kRkN2wpOc9JVYhcWw6KnXhqtgUhC/p8TqHBO2pEKwzIiqwjSAgBMXa8kx4EqemlfySi0ZIpm
-	6tb7Y5tMUSP6U16Uh19ip4jFO7OuF7hSvmGLv4gKgkfGw2BSPYb1661HCnULv1iyj0HA==
-X-Received: by 2002:a17:90b:380b:b0:39e:59a0:46b5 with SMTP id 98e67ed59e1d1-3acef14451fmr4653477a91.24.1792332454185;
-        Sun, 18 Oct 2026 07:07:34 -0700 (PDT)
+        bh=MPf6l4y+cy+Q8bAp0fDF0UgnBCAMPqYN/MBc5iRL+As=;
+        b=o4iafOFwssRjGH+GiIe3CXLokK33liwJ1Z6xljFVkRN/nbhbgLcMLGThNyaVISF0Nw
+         ojC6VDzuPF6kcVH3oLr0pi+bmM+FqxAeRcbua6n7gW4uuI3nKajazBdl+fS+6CMrRYNJ
+         WlwR7k+15cJ4tcvTvuzbnJB6rK2vnG3k7+NOwPsdV689/snl8ZM3HHSR0W28AytGsgi7
+         TsqSAmwqUPzfWE0lPQF0gxjX5Z/YoD7j7DPNHWxPe2wxMZfIomml69adw4ao8hjiwgI2
+         CZd8dh0qPzB2us5qGPy+DZn7KhASOfm4f8CbTCeKkN/zQJTt2QFFDIQfinFWI5A1yXSt
+         R1Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792332460; x=1792937260;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MPf6l4y+cy+Q8bAp0fDF0UgnBCAMPqYN/MBc5iRL+As=;
+        b=zIyMktCCX+NFLF8KRbOZVqHZaRmZn9yPTw9fpSSRa176eobO1jthS3MTqxJNJaYlrE
+         C+TQAHAqcdFdAmwGcL2vF8iE5Lb7zp/BC0rHkOehUvuKZPKAdGdOi0iX+obrDiJH4U6I
+         M8Ch7ixGTIUHnvaWjdeC+nWoIWU7E+93pks7OE9ea5PL/+TQmrE77TEwqjUx6WuXsH/Q
+         uB+ndUdJq7fIm80EgTov8DiLvds2o+WL4LikpFuqCq0PpYK7jJ3ZhiWhbqxEnV89YnlP
+         n/gxn+KxFqm0Kei6S+uZlzIMfLxnjYEo0TsRj5JeH5c4pnrL/2lobp4wQl2KpHvNhyUO
+         9dTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwkEZmB7YLigAKWOMcKIVzorJrnghiP5pvjsuX//PZnclkPi2qlctftYJq1Xg/07/aWPpBEIphBpmj7OpE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWAIDgPMVxJc+7+Unbxj6pm+I9wwnXKjfE9c6F+azkEkO4VIfm
+	v15ylrMgYOBiGv9Fse23+v602/H/1ciGILnF8bwZsm+k0qWKVHO48E5N
+X-Gm-Gg: AYBFou2oXp90mrWOoZnkJJNvOXA9j9iTQCKSUAeCK0Z1ukBGmQCeYvamHlVyhpc2gkY
+	FTlujo8MyRg1CxnSDLbLpwGJ5MWIRsmsuNYVCSE+Q5ONY8szu42tRZBe85X43LnaGBuYsmODLUk
+	/zEVWo7n/ZPFWwY3lHZYKZGTbpx0vnftBYuJRLAWs7rjy+sbhKM7guLyh6yvcHKCT5Pnt/D4GOG
+	mueZjn7QMrqnIF42jiajSlAmlHC2s9SB/Z3va/8DzNdEMcYwKDnFiNgtzpks06nWnDq9u6JTYnu
+	eil0V0545HBa4q7Cx0+syQ+GutY/YhaSg6gOCIqJaPH7RH4KsS+QxA4VWpiUapoxKD9jaiuytb5
+	9YzTGujU/AiZiGXZXScd7OEViY7M/amv6GSxOl8FP/qut45krzSP+04D53nmCmEz8worsRQen2r
+	SIoLWr62L3jgX2gsmnEZY2peRQQMqiKfQAfj13KrEEhl5x/z1a7DB4QAJ278ztDjCfeWCAs1fR+
+	C61
+X-Received: by 2002:a17:90b:388c:b0:3ac:a521:959 with SMTP id 98e67ed59e1d1-3acef1881camr5015453a91.29.1792332460158;
+        Sun, 18 Oct 2026 07:07:40 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acddc37958sm10149338a91.14.2026.10.18.07.07.30
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acddc37958sm10149338a91.14.2026.10.18.07.07.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 07:07:33 -0700 (PDT)
+        Sun, 18 Oct 2026 07:07:39 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: perex@perex.cz,
 	tiwai@suse.com
@@ -65,10 +68,12 @@ Cc: linux-sound@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH v3 0/2] ALSA: Fix OSS teardown lifetime handling
-Date: Sun, 18 Oct 2026 22:07:25 +0800
-Message-Id: <pm-pmb-26d66390a25fec9fad6c-v6-5be251a3ac8832955a31-0@gmail.com>
+Subject: [PATCH v3 1/2] ALSA: pcm: Protect the unregister notifier traversal
+Date: Sun, 18 Oct 2026 22:07:26 +0800
+Message-Id: <pm-pmb-26d66390a25fec9fad6c-v6-5be251a3ac8832955a31-1@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <pm-pmb-26d66390a25fec9fad6c-v6-5be251a3ac8832955a31-0@gmail.com>
+References: <pm-pmb-26d66390a25fec9fad6c-v6-5be251a3ac8832955a31-0@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,30 +82,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-OSS module unload can race recursive proc entry registration and
-notifier callbacks, leaving references to freed entries or unloaded
-module code.
+snd_pcm_free() traverses snd_pcm_notify_list and calls n_unregister
+without register_mutex, although snd_pcm_notify() takes that mutex to
+add and remove notifiers. PCM disconnect releases the mutex before the
+free callback runs, so it does not protect this later traversal.
 
-Keep the OSS PCM and mixer modules loaded until their objects are
-torn down, and serialize notifier traversal and callback withdrawal.
+With no open OSS file, normal snd-pcm-oss removal can overlap PCM card
+teardown, for example when unbinding snd-dummy:
 
+  PCM card teardown                     snd-pcm-oss unload
+  -----------------                     ------------------
+  snd_pcm_dev_disconnect()
+    remove PCM under register_mutex
+    unlock register_mutex
+  snd_pcm_free()
+    fetch notifier
+                                        snd_pcm_notify(..., 1)
+                                          unlink notifier under mutex
+                                        free module storage
+    read notifier->n_unregister
+    invoke callback
+
+The free path can then read the notifier from released module storage
+or call its unloaded code.
+
+Hold register_mutex across the unregister traversal and its callbacks.
+Notifier removal must wait until both have finished. This also protects
+the traversal if a callback releases the last module reference: module
+exit cannot unlink its notifier until the free path releases the mutex.
+Drop the mutex before private_free and the remaining stream cleanup.
+
+Fixes: c461482c8072 ("[ALSA] Unregister device files at disconnection")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
-Changes in v3:
-- Split the PCM core unregister traversal lock into patch 1 and the OSS
-  module lifecycle changes into patch 2, as requested by Takashi.
-- Rename the PCM OSS boolean module_ref to registered; its lifetime still
-  spans DISCONNECT until final unregister.
-- Rebase onto current sound for-next; no additional code changes beyond the
-  flag rename.
+ sound/core/pcm.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Changes in v2:
-- Follow Takashi's suggestion to pin OSS modules until object teardown.
-- Track successful PCM pins across disconnect and unregistered cleanup.
-- Protect final PCM notifier traversal and mixer callback withdrawal across
-  the last module reference drop.
-- Keep card enumeration in the OSS module and prevent duplicate mixer
-  REGISTER notifications from replacing a disconnected adapter.
-- Leave partial HDA codec teardown for a separate fix.
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index c133f23418fe..35ece386d1a2 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -853,8 +853,10 @@ static int snd_pcm_free(struct snd_pcm *pcm)
+ {
+ 	if (!pcm)
+ 		return 0;
+-	if (!pcm->internal)
+-		pcm_call_notify(pcm, n_unregister);
++	if (!pcm->internal) {
++		scoped_guard(mutex, &register_mutex)
++			pcm_call_notify(pcm, n_unregister);
++	}
+ 	if (pcm->private_free)
+ 		pcm->private_free(pcm);
+ 	snd_pcm_lib_preallocate_free_for_all(pcm);
 
-Link to v1: https://lore.kernel.org/r/pm-pmb-26d66390a25fec9fad6c-v2-743c9b89c0f0d761eda1@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-pmb-26d66390a25fec9fad6c-v4-a7d8a5d3db28c5bca90a@gmail.com
+base-commit: f6e8d5ebde5ceb7d3c0eef6e9e4d82862b503ade
+-- 
+2.43.0
+
+
