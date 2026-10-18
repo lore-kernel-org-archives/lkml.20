@@ -1,161 +1,179 @@
-Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66DB3876CC
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:09:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9811C40F750
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:12:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792310966; cv=none; b=IRRdy2fyIlz/pIkbZJASAki28U9ftKzi4DIx3cOFMSNNFsWgMg3wp1gk40eckvLQgRxUrXtBple9aQTtTimVfL4QGgjS8i3VeTaD7JVZx5njob7Fa8ivt+sMc/MroFTu7UcKpmvDA+/27jWIsP+MFPfFDw1xfQVFb5fubeekI8g=
+	t=1792311145; cv=none; b=FwY99sVxYKsfd/sTpyLDRdH88zzaimKu5gKLSbBgHzoO0RRLJfEuThXHB1NZli3CpUEJONXM1LRiopipeMXoBEKhCsDfFE2BHRfPJooGmcn5M8mkMgsHz45B9W1O3w8CS2iOBvX1RsYRk6k6iisTFpjVvlrMOEEBTVMBUXUTxhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792310966; c=relaxed/simple;
-	bh=qNYqHsAHI3D2aPJmGx4BXdS7p6PSMN3a0jhnzLNwxsI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EgTmpc72xqpq/EHUEZhAUP6eeHVy611qXv1aM8p1WeAbISvrnfEAltSEWAzXOFmnsgv7i9ohEMr8UxHGbWFZzmbDu5hzFfVMxAOTGbhaxXGdagsYTM1A8+NhVEJ9d1aX3m8YaGknFlo4u2sLM8xzEOtmE709XuIyHv8fZdMHlvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Wz7v8pKp; arc=none smtp.client-ip=95.215.58.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792311145; c=relaxed/simple;
+	bh=bqwd1tkIaEiz7ICq6XhgCjWOPBALhXUjko3GAdaePy0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cNp7EDRRD9H81jBzwGPT0B+AgvaMJsNPW1Iz9FQZUXXxX+FUmFFUWcDqzd98CE7IZVqwDEIAsME8zmGAgUcbAOO9i0A9PHrn/OX5WnKs9KFqFpMcivk7A6R2GTf/4gCkEk4xzsqzCq4VANhvD31UaehKbB4bJtbGmw4myh5GfLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f7LCpmjw; arc=none smtp.client-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Wz7v8pKp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qNYqHsAHI3D2aPJmGx4BXdS7p6PSMN3a0jhnzLNwxsI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792310961; v=1; x=1792915761;
- b=Wz7v8pKpEBk8280l784bBkmCcmwNp0OS1yhecXnhfm6LfojnpQux+qxHezKBt0P2uLG+QCJ9
- XdfVPc327mUhnajsz+VOcWHHFolAQPVMkTSQa2s/bGNGdXYI2QH5R83iB3fBvMKyLXPIn3qB+qg
- xaUJO7cUskQFjk9gfTjFgfR4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 82dde8ee2cd03a9b;
-	Sun, 18 Oct 2026 08:09:21 +0000
-X-Mizu-Trace-ID: 82dde8ee2cd03a9b
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] KVM: arm64: Only enable S1PIE and S1POE with the features they imply
-Date: Sun, 18 Oct 2026 09:09:20 +0100
-Message-Id: <20261018080921.3942517-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f7LCpmjw"
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac749e0719so356709a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:12:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792311144; x=1792915944; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BPNQGJOaZ7JO7aKwrLR1/0X2/lBd0SCu4ixEzzZzDGs=;
+        b=f7LCpmjwO+dgi8YC/uKLaNYfhmu/yWvUWhMxNrIdi4bSinUslfA5btJZDxtyhtZRyR
+         cObTI5N6uKkQ/C+gY4HscJ/5FaUt4X2GzXJ+F/IfSBnLppLAYZbcZeVS7RcTcZZr33cG
+         mXb1MhwIQgO7sMpiNLuRQB3QrTN86LV29hZHsOgl45cGLC/zTP4r8Gd7Q8cig8/HvjyK
+         ieVHaMCiyqmz316z2RPJgv/J2k6P7NjfhVWow9COLZcqUcDaTeVoTEaIhdDH13Ov9CsZ
+         D9bWMOY8wbbIt6IKt51tXbgEPQFJYineeWmAyjBdIDdbNtjSYTw6WeesXX32v1FVSq2s
+         ogFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792311144; x=1792915944;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BPNQGJOaZ7JO7aKwrLR1/0X2/lBd0SCu4ixEzzZzDGs=;
+        b=AUgpAEvCWC/8OxZxzrzxiy49FawKJ9O17/VRjRVZDz9nvaYbFh1BW0knR03SlJ1s8H
+         it1qHjU7Q8RO6dTcRhVuobk6H116n22szng4SOvSgbzHbNnLu3ldzOIZsGdGspRgHZ34
+         03+A4JPMR2egHOH+5uHqkMTiPBmQedIvmf7V1Qkk5PmG2+Bpk4GYZc2GrZQ2UvhIeBAS
+         FwWE0POfgQ4AlyENSDJyUGkpXU6xqgLn3djyGfJSqq2dIFijJeWqfmfILINVuapy8o/Q
+         pDNqwwntD+vHMpckOCesA7VJn/30nPVfm8QuXvVDiLOVDg9YJdtHuIqhzJ1vY3ZfYcHN
+         Uzpw==
+X-Forwarded-Encrypted: i=1; AKwUvBz9m1jTF9+GCSDGwkgjAUjBWp7NoDC0fIZ2ugAYq8ZvhIT5oXPoEvtPbB6autPEB7vhDjoeG9pdKxHS2TQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxskr04qNzAdhu5EbqJX81q/wfsOh1QE6sKe6AUgeifQqOPzYS
+	x4JzjRfgJwT2LAJwFpsCBOJ6vDWvfnzGNzzEjggMHrAOTwHzET5JCSHZ
+X-Gm-Gg: AYBFou1ZtFmBpnTPQTr1+kMXRZ/Ue/de5jT3pbbrA/VQZUBu9ZZt9jYAbhKCOEvBIvz
+	6cXIpSjWtHLfaBX5hg1qdKv7wXMcpJcLVeKqpG6+ZbIYH1IkEXBhiRjlxRMpvbeDPnPmKkVn2Ga
+	j37vl2biTsDos0WBmZRcpo+PHL91OJ87KZOQLqXcD5bfElnCc/q4iVVg02+SPSYMEDNMUt/buSJ
+	BZqud+zfVXagExFUPtDxQZO1bt+821PQ0gyFxJLVLJV2v1uTwvJNn0WdhYDKMWGRDC2Blk67TvF
+	laqYKujExl8hvfE7KwOWFGvFRa2KaFp293lN5m+81ZCzekqbkd9DAe1MhFusirO2uUxgycoSR/J
+	qXMMw9SZiAUXdlR3ivc8jgkqBipplCGZZMetACio6I7gh7oRikyruZZnzJx38At6tnswnNYt58p
+	9ZR107112zOJiBVDlkOrSxdveeYayGtCpZ3sehXT4f+r7a/BsdoTVeDF+AMRakucLR8ND9CEBTk
+	25+CmI=
+X-Received: by 2002:a17:90b:5743:b0:3a4:e934:e85c with SMTP id 98e67ed59e1d1-3acef0f479dmr3814438a91.41.1792311143904;
+        Sun, 18 Oct 2026 01:12:23 -0700 (PDT)
+Received: from amax.cluster.local ([115.233.223.43])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc49c263asm10637039a91.17.2026.10.18.01.12.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 01:12:23 -0700 (PDT)
+From: l1za0.sec@gmail.com
+To: viro@zeniv.linux.org.uk
+Cc: akpm@linux-foundation.org,
+	linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haocheng Yu <l1za0.sec@gmail.com>
+Subject: [BUG] KASAN: slab-out-of-bounds Read in copy_folio_from_iter_atomic
+Date: Sun, 18 Oct 2026 16:12:03 +0800
+Message-Id: <20261018081203.2431035-1-l1za0.sec@gmail.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-The world switch skips PIR_EL1, PIRE0_EL1 and POR_EL1 for a guest
-without TCR2, but KVM doesn't trap them for a guest with S1PIE or
-S1POE. Userspace can hide TCR2 while leaving either visible, and such a
-guest then accesses registers that are neither trapped nor switched.
+From: Haocheng Yu <l1za0.sec@gmail.com>
 
-Under VHE, that leaks values between guests. POR_EL1, which the host
-kernel doesn't use, leaks between guests in every mode. On nVHE and
-hVHE, pKVM included, the host's own EL1 registers are saved and restored
-according to the running guest's features, so the host kernel resumes
-with its stage-1 permissions taken from the guest's PIR_EL1 and
-PIRE0_EL1.
+Hi,
 
-As per the architecture, S1PIE and S1POE imply TCR2 and ATS1A, and
-S1POE also implies HPDS. Only enable each for a guest that has the
-features it implies. A guest that has S1PIE or S1POE without them still
-sees the feature in its ID registers, but its accesses to that
-feature's registers UNDEF.
+We found a KASAN slab-out-of-bounds read in copy_folio_from_iter_atomic() w=
+hile=20
+fuzzing Linux with a modified version of syzkaller. We couldn't find a repo=
+rt=20
+of the same issue on syzbot. We are investigating the root cause and trying=
+ to=20
+develop a fix. Could you let us know whether this issue warrants a fix?
 
-Fixes: 70ed7238297fb ("KVM: arm64: Sanitise ID_AA64MMFR3_EL1")
-Fixes: d4a89e5aee23e ("KVM: arm64: Expose S1PIE to guests")
-Reported-by: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20260930-arm64-gcs-v21-2-3556644cd927@kernel.org
-Suggested-by: Marc Zyngier <maz@kernel.org>
-Link: https://lore.kernel.org/r/86fqyn2che.wl-maz@kernel.org
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
-Changes in v2:
-- Also require FEAT_HPDS for S1POE (Marc)
-- Link to v1: https://lore.kernel.org/r/20261015153041.3770032-1-fuad.tabba@linux.dev
+The crash occurs on Linux v7.3.0-rc5. KASAN reports an 8-byte read 8 bytes =
+past=20
+a 144-byte allocation in kmalloc-192.
 
-Based on Linux 7.3-rc3 (fd73f4a665989).
+Relevant stack trace:
 
- arch/arm64/kvm/config.c | 28 ++++++++++++++++++++++++----
- 1 file changed, 24 insertions(+), 4 deletions(-)
+  iterate_iovec (include/linux/iov_iter.h:49)
+  __copy_from_iter (lib/iov_iter.c:261)
+  copy_folio_from_iter_atomic (lib/iov_iter.c:491)
+  generic_perform_write (mm/filemap.c:4392)
+  ext4_buffered_write_iter (fs/ext4/file.c:354)
+  ext4_file_write_iter (fs/ext4/file.c:794)
+  vfs_writev (fs/read_write.c:1058)
+  do_writev (fs/read_write.c:1104)
 
-diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
-index 1053676551aff..6d2650427c5fc 100644
---- a/arch/arm64/kvm/config.c
-+++ b/arch/arm64/kvm/config.c
-@@ -205,6 +205,7 @@ struct reg_feat_map_desc {
- #define FEAT_MEC		ID_AA64MMFR3_EL1, MEC, IMP
- #define FEAT_HAFT		ID_AA64MMFR1_EL1, HAFDBS, HAFT
- #define FEAT_HDBSS		ID_AA64MMFR1_EL1, HAFDBS, HDBSS
-+#define FEAT_HPDS		ID_AA64MMFR1_EL1, HPDS, IMP
- #define FEAT_HPDS2		ID_AA64MMFR1_EL1, HPDS, HPDS2
- #define FEAT_BTI		ID_AA64PFR1_EL1, BT, IMP
- #define FEAT_ExS		ID_AA64MMFR0_EL1, EXS, IMP
-@@ -280,6 +281,25 @@ static bool feat_anerr(struct kvm *kvm)
- 		kvm_has_feat(kvm, ID_AA64MMFR3_EL1, SNERR, FEAT_ANERR));
- }
- 
-+/*
-+ * S1PIE and S1POE imply TCR2 and ATS1A, and S1POE also implies HPDS, but
-+ * userspace can set them independently.
-+ */
-+static bool feat_s1pie(struct kvm *kvm)
-+{
-+	return (kvm_has_feat(kvm, FEAT_S1PIE) &&
-+		kvm_has_feat(kvm, FEAT_TCR2) &&
-+		kvm_has_feat(kvm, FEAT_ATS1A));
-+}
-+
-+static bool feat_s1poe(struct kvm *kvm)
-+{
-+	return (kvm_has_feat(kvm, FEAT_S1POE) &&
-+		kvm_has_feat(kvm, FEAT_TCR2) &&
-+		kvm_has_feat(kvm, FEAT_ATS1A) &&
-+		kvm_has_feat(kvm, FEAT_HPDS));
-+}
-+
- static bool feat_sme_smps(struct kvm *kvm)
- {
- 	/*
-@@ -393,10 +413,10 @@ static const struct reg_bits_to_feat_map hfgrtr_feat_map[] = {
- 	NEEDS_FEAT(HFGRTR_EL2_nS2POR_EL1, FEAT_S2POE),
- 	NEEDS_FEAT(HFGRTR_EL2_nPOR_EL1		|
- 		   HFGRTR_EL2_nPOR_EL0,
--		   FEAT_S1POE),
-+		   feat_s1poe),
- 	NEEDS_FEAT(HFGRTR_EL2_nPIR_EL1		|
- 		   HFGRTR_EL2_nPIRE0_EL1,
--		   FEAT_S1PIE),
-+		   feat_s1pie),
- 	NEEDS_FEAT(HFGRTR_EL2_nRCWMASK_EL1, FEAT_THE),
- 	NEEDS_FEAT(HFGRTR_EL2_nTPIDR2_EL0	|
- 		   HFGRTR_EL2_nSMPRI_EL1,
-@@ -474,10 +494,10 @@ static const struct reg_bits_to_feat_map hfgwtr_feat_map[] = {
- 	NEEDS_FEAT(HFGWTR_EL2_nS2POR_EL1, FEAT_S2POE),
- 	NEEDS_FEAT(HFGWTR_EL2_nPOR_EL1		|
- 		   HFGWTR_EL2_nPOR_EL0,
--		   FEAT_S1POE),
-+		   feat_s1poe),
- 	NEEDS_FEAT(HFGWTR_EL2_nPIR_EL1		|
- 		   HFGWTR_EL2_nPIRE0_EL1,
--		   FEAT_S1PIE),
-+		   feat_s1pie),
- 	NEEDS_FEAT(HFGWTR_EL2_nRCWMASK_EL1, FEAT_THE),
- 	NEEDS_FEAT(HFGWTR_EL2_nTPIDR2_EL0	|
- 		   HFGWTR_EL2_nSMPRI_EL1,
--- 
-2.39.5
+The reproducer mounts an ext4 image, opens a file, performs write operation=
+s,=20
+and triggers the crash through writev() with a crafted iovec array.
 
+Full reproducer:
+# {Threaded:false Repeat:false RepeatTimes:0 Procs:1 Slowdown:1 Sandbox: Sa=
+ndboxArg:0 Leak:false NetInjection:false NetDevices:false NetReset:false Cg=
+roups:false BinfmtMisc:false CloseFDs:false KCSAN:false DevlinkPCI:false Ni=
+cVF:false USB:false VhciInjection:false Wifi:false IEEE802154:false Sysctl:=
+false Swap:false UseTmpDir:false HandleSegv:false Trace:false CallComments:=
+true LegacyOptions:{Collide:false Fault:false FaultCall:0 FaultNth:0}}
+syz_mount_image$ext4(&(0x7f0000000540)=3D'ext4\x00', &(0x7f0000000580)=3D'.=
+/file0\x00', 0x0, &(0x7f00000005c0), 0x1, 0x50d, &(0x7f0000000600)=3D"$eJzs=
+3F9oVNkZAPDvTv4YE9ukrS1V+pBiaQNqYpKpoWChgVIKlWLVh9L2JZg/hk6MNVGMpbSVQvWhD4W=
++tbT42qfQCqXtw+7Kwj7sg8uu7JOssPuy6xIiq/uyIrPcOzNqzCQxJuayzu8HZ+ac4x3PN3Pynb=
+lz4N4AGlZ3+pBE7IiIGxHRWWkuPaC78nR5cP5kWpIol48tJtlxZwfnT9YOrb2uI30oRLRFxLWLS=
+ez9w/JxZ+Yu/HKkVBo7U233zU6d7puZu7B/cmpkYmxi7FRxYGDoYLFYLA5t2nvtu3N+ouOlw/3/=
+PXF76pvf/t/RJL6Xve944n1slu7oXvpZVjUnEb2bPVjOvvxYPWnOMRCe2m9Lc9ubIuJLEbEny//=
+OaIrK5D348y8+6owPP1nptf//9d8/2MpYgc1XLndmZQV3ysALqxDpuX9S6K2csseOKBR6eyvn8D=
+ujvVCanpndOz599tRo5TdCV7QUxidLYweqvxW6oiVJ2/1Z/VF74In2YER8ISIuNW3P2r0npkujW=
+7vUAVU7It75969OtHaskP+pm015Rwk8D2n+j/+l6Xdp/Z48h4aS5v8/7039KOQ/NBz5D41L/kPj=
+kv/QuOQ/NC75D41L/kPjkv/QuOQ/NK5a/j+8DldFRaXhKnmvQwDA1iuXk8j7GmQgHyv/NMh7ZQK=
+et/a7zXH8sXahep+OQrV8PSK7I1haH4yI1ohoiogHUbm/X5KeQ+QYP/Bstp354628YwAAAAAAAA=
+AAAAAAAADWdnZw/mStbNWYo69t1UisZGG4coFnOu+Xq6XyL83ZNZ8RbdGSXSeaZNeB1iTV60I3Y=
+vF6RHeUFm/+6+qf0hLVv8MN/rd8Rsy/m3cE5Km1mHcE5Gn3T/KOgDxdv5R3BOTprYW8IyBPR4/l=
+HQF5+vHBvCMgT39dzDsCXh6OiH319v8K8ZXsuS17fHL/pyMi2xfaiCOvR3TH6P3H+5bv/xRub3A=
+YVrEwHHEoIi4v2/8r1A7paqq2Ppc2oiUZnyyNHYiIz0dET7RsS9v9q4zx/vSb5+r1H/tbOv8/76=
+3t/6UlHb+2F1iN43bztqWvGx2ZHdno+6Zi4fcRu5vrzX8t39uyvd72u4Vl+79d1ee07FxljBvtX=
+9tTr//ccDr/r/SsPv88T+UrEd+qm//Jw2PSWt/s1Om+mbkL+yenRibGJsZOFQcGhg4Wi8XiUF+2=
+HvTVVoXl3vvqP75Tr/+N++n8H7pq/vOT5n/76vOfrf+Pbg68/jF++Oo3dtXr/80P0vm/9fGzrP+=
+tyfEswNZq3/mR2dkz/RGtyeHl/QPrj/lFVfs8ap9XOv89e+p//38xe66t/81L1v/13Cf2Pz878v=
+16sVzszb7/98n//KTzP7pG/idL8n/9le/OvD1Xb+xdV9L5v/bTtfO/mAXTU+1x/re2p52gvOMEA=
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACARvJpAAAA//+F6yev")
+r0 =3D openat(0xffffffffffffff9c, &(0x7f0000000100)=3D'./file1\x00', 0x1250=
+82, 0x145)
+write$sequencer(r0, &(0x7f0000000c00)=3DANY=3D[], 0xfe00)
+r1 =3D openat(0xffffffffffffff9c, &(0x7f0000000100)=3D'./file1\x00', 0xe502=
+, 0x145)
+writev(r1, &(0x7f0000000ec0)=3D[{0x0}, {&(0x7f0000000840)=3D"586b0859f4af95=
+118770", 0xa}, {&(0x7f00000009c0)=3D"8ba6b3ff28e1552261532a8638589a01ca943d=
+1b338821b188f6fde1a219b32ce19f8a192be9a4cbfdaecab1b63dd528fd2a7b599fb7fda77=
+9c1bcdd4cc19869a665aec8de9cf096226d5a2eb4dbfc3a2cacb0deb4a2f7ed94b6df317a9e=
+3d7006cea5b4b74a6aa99d29e3b44743df80dcf0410bea753e08ea154402b9fc39c75ab138a=
+cbc6b78db0573b64f403e9936bcc0d5711e4b251bbaba470b70ec40969d972815b551b8ec8a=
+044571ef208f09e1c5a579cd099f92abbb9a91f04388779aabd0597f60fd3be4dd7ec5146d8=
+35a4e19bcbfde95601fe01e774a6c7f4ef1ec9187c539e1dcf0dfd16aecd883346646e2e61e=
+3219ecce73aa675cf8b565b0e14b248867f5e294c66cc9fe0a5ddd210f6aa39cddcc53f8090=
+d16a68e48ab4dd031081d884001a4f3c22a9c89a13ad23452176831bdce107ab98953a8eae1=
+84b620b3aa38571bb9fc3184dbd19f2a9ae40a43954989e99aebc611b8a8ac18296adee0fd1=
+74bdba86721352647a259d3457f739b041bb27fb275a5a5359e497ed1477ff9f2be119278ad=
+4385c7798ec6c9a677906a1fa3b1fde811a7a19bfb04d5a48941c30f8025bbef8a7535b3253=
+b79b34cc2994906dc16e4c58acad1ceaacb3d6e6768ef349ea1729186e0a7128c61099927b0=
+aa3920a3f26721aad8ca608faf2807c2c14cb203acad936b55b203dd6bee003597efc5ee82b=
+ce06cad5fe49aa3f43f779d2145c2233f79e369f07ad7a17e765326240a23101f3c77014468=
+7a7fca1ed59daf2ab4ec957ba25df7d26c59fd2d0f5524b5336b8a908fedac32413f35ae0b9=
+a5cd6320dbb5869a822af03e21ba13265d86272823ead509786b64198096b779eab4aee154c=
+491142ade2bea7fa138639fc639f6503d740fbce3b73d0999f85a8e7af2e7d265be30ac747a=
+84da01eb0ef658a54358b8f4760e2352b776f552d5ab5c51f5816c6829dd527b185833ee4ba=
+fc14db9a21041473242c0a1f68040c03f2a306fa980ccdaa52aa9a0c4859dca6f81eb4e5754=
+a821a6e6c3d99b5559328853e945a42a85f430e872164204652e7dd076c4ab71e80abeb509a=
+0681a352ee837aca34f3ab01fbb740a93f1cc1481730cd005db430bd6ce18a25a8fbfed6506=
+108e8a1d534aafa5c9281373ea9b435bd8f492c3702faf04fe364f31f360fec4503879d5763=
+14c353f315285e67c8f869d0809a6ab40dcf5804fb276b829714f99ece3b81490a2eb99521e=
+535e738ca97b55804bcda92bc907e14c6c5825487ddf026c9018c787acd028d8a38ca5d53b8=
+6169b7d0cf46c48f7e675bf7d876cca862bcd8115c2f72fac73f6f0db8de16f5a18c3110bf7=
+29ac7400591839b89bf63643610c168a76d466aab7eba6c20be83a419aba0ceab172824f21a=
+063a17ee3971ccf86a3cc410e03813b42a207536da", 0x3f7}, {0x0}, {0x0}, {0x0}, {=
+0x0}, {0x0}, {0x0}], 0x9)
+
+Best regards,
+Haocheng Yu=
