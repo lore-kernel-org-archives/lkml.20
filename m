@@ -1,43 +1,43 @@
 Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DE73CEBB8
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:53:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9613655ED
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:53:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338799; cv=none; b=J/16BcS98P6Tj6QWrKah957CVY5MM+czvvS8Q3s66OzGd2YdrTpFg1JfnMQHT7GI0UvZXR4lGFZAnBVWR9O4L+py/XFc6a3OvqEaGsQVbt7Kh1jbDxR9kensBZgApy+qVvJlAEDB9yNsy9/lIT6rTd8U8HcKb/wdJpEBLdlE1sM=
+	t=1792338797; cv=none; b=Zi0VwniC5JAo1k09sdg0ockh1pg+Wy5UvixaHJ5e9CUWkWMEpp587rB+D0KFAgqDhBSMukb60AaDNZrR9cYTka99xJwoE1Bb7RU54sexLJXriGWADJNqpHufodogYcKONVx54lBjrTL2O9UTtubtvOHx10cFszR0UOqYXifoJ1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338799; c=relaxed/simple;
-	bh=cMgcfn3oTkv/gWCcsXjtVKkuw5VWqPBnSyFIfd6VkJc=;
+	s=arc-20240116; t=1792338797; c=relaxed/simple;
+	bh=A8XukIRCisIpytU8gFdVnF0OddI39Iuje5Bff1wxr1U=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RsaQObuZ9pw4mopvie5F6fdLdDO2dxKvodsSknOjZgNtCChCR/PIH9u2ZXpiB76DMu/3CvXzb7t9ijGOZ4ee2Umg6HbOdNa6IxZPnXFtJxCLQpx+ANgOcWlpLaUiPHDk/ZNk4Pa/J0oLS5Ry6xrjKf4T1mjI0MxXa3YcL2E6lG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=dlfEY2yN; arc=none smtp.client-ip=185.226.149.38
+	 MIME-Version; b=VOzWMjESnprg6/+ow8VtYZVJqekLu8Lm5SQ2KwEOado1vn0fK7Xak0+bK0J/hkbOAikP5/89klxx4G/iCxSg9T9339y5uygJhRsJ28j2xIVJoh3GzooOF63qumQP2tU6WFAbmi13VZU/Uoi50F4j/Rl7+FfYodaPQjuW+0F4d2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=MXTDsnjM; arc=none smtp.client-ip=185.226.149.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="dlfEY2yN"
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="MXTDsnjM"
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
 	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITC5-001KC4-VP; Sun, 18 Oct 2026 17:53:05 +0200
+	id 1xITC4-001KBC-Ec; Sun, 18 Oct 2026 17:53:04 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
 	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
 	:Message-Id:Date:Subject:Cc:To:From;
-	bh=B9MBdm+AgkGYtGtq0kSFNXCbjbM2d9Z8MTSHpsIlcnY=; b=dlfEY2yNYR0ZJ60LmuefLyAPw0
-	Ey5frvAZTDILyoNvsjX6ulMvL9TX1xBwIPN6VUm8SaLGk2ifwN31II5Tmj304SPBQeAFyDCChSZ51
-	noHE9CJdMictDpWo/LoKXbqS70kQ+J71/aQnlZyOMRBUgovxyNCEcL4hqMB3qWt1SLlxrz4HxrMCH
-	NjHssa+Ct35C/y0h1BHfh8usWXXHz83ibblT763kisySuF6Qw9kvaF/I4iyKAMo1aUzLlvVwSMyqQ
-	o+z+b16aYjCfAdbfNcQB0mX8IA3XRnVwMFAWdk3LB1ev7netVW5VOrVBSM3Pda7n2hcFVm4Ws6nP8
-	0aSC6odA==;
+	bh=ICcWY+pIwO2qQH7qZi0OK14NMeBzSaa/sjGTB8EYQ9s=; b=MXTDsnjMN/qs9+iCjjdUVRETAX
+	UP8kQhvDdRxJKabD+CPq24y00/xz+wG6m+Q9/a57sQRDHmm0/u+L6/uFeVHlpjEYC4tzsUByYf9yq
+	cMrodFFVylxlDfTHcNE7d+H0ObiCN7iAKTxCeEQYur7skPpZde479TJ2A2SwhuStFjLxvyGdrjJIN
+	fQX5ttk7IZDVksrxWRgR07+OpyG/q3BxGVOD8r78vOgbV5tMrgPCzleJULhagMG6k+UpdSFP80423
+	GrtrdNJvOL5dqgU25PHl2BSy5sg8UtDiVN3rwqBRJ/R17vFLdOj/yCwOfj6Rwd19zqBwGwBYGuq3r
+	mC2wjQlw==;
 Received: from [10.9.9.74] (helo=submission03.runbox)
-	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITC0-0000Bs-Kk; Sun, 18 Oct 2026 17:53:00 +0200
+	id 1xITBz-0001pe-5P; Sun, 18 Oct 2026 17:52:59 +0200
 Received: by submission03.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.95)
-	id 1xITBe-004q3U-HJ;
-	Sun, 18 Oct 2026 17:52:38 +0200
+	id 1xITBi-004q3U-8s;
+	Sun, 18 Oct 2026 17:52:42 +0200
 From: David Laight <david.laight.linux@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Petr Mladek <pmladek@suse.com>,
@@ -51,9 +51,9 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: Luis Chamberlain <mcgrof@kernel.org>,
 	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
 	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH v2 next 02/15] kallsyms: Fix selftest startup delay
-Date: Sun, 18 Oct 2026 16:51:53 +0100
-Message-Id: <20261018155206.132411-3-david.laight.linux@gmail.com>
+Subject: [PATCH v2 next 09/15] kallsyms: Add a kernel parameter for the marker shift
+Date: Sun, 18 Oct 2026 16:52:00 +0100
+Message-Id: <20261018155206.132411-10-david.laight.linux@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261018155206.132411-1-david.laight.linux@gmail.com>
 References: <20261018155206.132411-1-david.laight.linux@gmail.com>
@@ -65,39 +65,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The kallsym_selftest code clearly intends to sleep until initialisation
-is complete in order to get more reproducable timings.
+Set the default to 6 (one marker every 64 symbols).
+Improves symbol lookup by name by about 35% (over an interval of 256).
+Net improvement for the patch series is about 18 times.
 
-Replace the schedule_timeout() calls with schedule_timeout_idle()
-so that the thread actually sleeps.
-Poll every second (not every 5) for SYSTEM_RUNNING and then wait
-another 10 seconds before starting the tests, otherwise the tests
-start as soon an init is executed.
-
-This code is in the initial 2022 import of the tests.
+Static data increases by a little less than 1 bit for every 2 symbols.
 
 Signed-off-by: David Laight <david.laight.linux@gmail.com>
 ---
- kernel/kallsyms_selftest.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ init/Kconfig            | 19 +++++++++++++++++++
+ scripts/link-vmlinux.sh |  6 ++++++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/kernel/kallsyms_selftest.c b/kernel/kallsyms_selftest.c
-index 8f6c4e9b3a1c..0db79237fe54 100644
---- a/kernel/kallsyms_selftest.c
-+++ b/kernel/kallsyms_selftest.c
-@@ -411,9 +411,11 @@ static int test_entry(void *p)
- {
- 	int ret;
+diff --git a/init/Kconfig b/init/Kconfig
+index 8583d9f06c52..2d0716662c67 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -2101,6 +2101,25 @@ config KALLSYMS
+ 	  symbolic stack backtraces. This increases the size of the kernel
+ 	  somewhat, as all symbols have to be loaded into the kernel image.
  
-+	pr_info("waiting\n");
- 	do {
--		schedule_timeout(5 * HZ);
-+		schedule_timeout_idle(HZ);
- 	} while (system_state != SYSTEM_RUNNING);
-+	schedule_timeout_idle(10 * HZ);
++config KALLSYMS_MARKER_SHIFT
++	int "Interval between kallsyms markers (6 => 64, 8 => 256)"
++	depends on KALLSYMS
++	default 6
++	range 0 24
++	help
++	  Set the interval between the kallsyms marker entries as a power of 2.
++
++	  This bounds the linear search when locating the name of a symbol
++	  from its index in the array of values (and v.v.).
++
++	  Smaller values speed up the search but increase the memory footprint.
++	  Values below 5 (one 32 bit marker every 32 symbols) are unlikely to
++	  make a significant difference because other parts of the code
++	  dominate.
++
++	  The default of 6 is a reasonable compromise. It makes looking up a
++	  symbol by name around 35% faster than setting it to 8.
++
+ config KALLSYMS_SELFTEST
+ 	bool "Test the basic functions and performance of kallsyms"
+ 	depends on KALLSYMS
+diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
+index ab0b8125c8cb..12b119d024b4 100755
+--- a/scripts/link-vmlinux.sh
++++ b/scripts/link-vmlinux.sh
+@@ -37,6 +37,10 @@ is_enabled() {
+ 	grep -q "^$1=y" include/config/auto.conf
+ }
  
- 	pr_info("start\n");
- 	ret = test_kallsyms_basic_function();
++value() {
++	sed -n "/^$1=/{s///;p;q}" include/config/auto.conf
++}
++
+ # Nice output in kbuild format
+ # Will be suppressed by "make -s"
+ info()
+@@ -131,6 +135,8 @@ kallsyms()
+ 		kallsymopt="${kallsymopt} --pc-relative"
+ 	fi
+ 
++	kallsymopt="${kallsymopt} --marker-shift=$(value CONFIG_KALLSYMS_MARKER_SHIFT)"
++
+ 	info KSYMS "${2}.S"
+ 	scripts/kallsyms ${kallsymopt} "${1}" > "${2}.S"
+ 
 -- 
 2.39.5
 
