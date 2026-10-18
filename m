@@ -1,362 +1,425 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021143.outbound.protection.outlook.com [52.101.100.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E8C2472AE;
-	Sun, 18 Oct 2026 02:37:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792291022; cv=none; b=cLTcssqfdBA6+FhfmhzlT9Qun5cvK/xMlAxzrstgrXjPoe2y1u6OaRK7ZH6RY2NZZ8cA2dgQQmq65w6nv9YcWA4x/o0Ea8yXfObkwyJCzefh69xh8SPFMi1UODC9r+ebM9zCvoB8xAK735ipagkDwKNZdCa6kJtaVJER8PlsE+A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792291022; c=relaxed/simple;
-	bh=ZyXwKspPfB0s1xV0JoPQqDeAx7UFE/EWOeNYdQnwyF0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=r5rA5ohFLvnWHIQDq0HywV3kbyVJdquFKY+euihLHoRhAFDHp6mDvaTUqz0c8l4ZCe5/5PyEWp5VMPshUyZrldnQViV8YxPbgl7v61Z3PE/IyYVxSE2h6FwhlQRJc0EOndFH4dT4aOEfBsUdTMrC6kI0EqyzU1plQWCzfon9QKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gRk51wlm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gRk51wlm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8941F000C4;
-	Sun, 18 Oct 2026 02:37:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792291021;
-	bh=o3ZNKS+hfhnvlxakxtQbid3J/khsjxIGqm03KzIRndo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gRk51wlmgmeYILyYz3dNDjzI5LtbBTXrNWt3sQVviFOK7Oos1eW7rbHG5Obh+Re2v
-	 iGH1Ljn0QrElrjQEHu2mHj85p7ZRODYHp0DaaBWDPlxflWeQ9g64+fE+FtyIzs58nr
-	 hNM4VPmJsRJuNbm573hSctU+RDYsFcCGWPRDMd0s0tR9LWObIiNeuoXRhiedbxrHUr
-	 F+VDMH4xCA3iEv5i47xWCWxM1oo5QZOrcAEDZP3JXtGBlNGbLPZqHrXy0zVW/5rT5J
-	 CtSz+D8qnDF3Eam5Rb/NY1K8Wi6daLh9P8JertBaXmKuN/RiQgH7ECUvGGMXpkHEo5
-	 96PhpiQDTcVvQ==
-Subject: Re: [PATCH net v1] net/ncsi: fix use-after-free of ncsi_dev_priv in
- ncsi_unregister_dev()
-From: netdev-bot+sashiko@kernel.org
-To: 18983559317@163.com
-Cc: sam@mendozajonas.com, fercerpav@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- gwshan@linux.vnet.ibm.com, joel@jms.id.au, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 18 Oct 2026 02:36:59 +0000
-Message-ID: <179229101976.3135.13016645504142552637@kernel.org>
-In-Reply-To: <20261017015315.415794-1-18983559317@163.com>
-References: <20261017015315.415794-1-18983559317@163.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB883D3B3;
+	Sun, 18 Oct 2026 02:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.143
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792291082; cv=fail; b=lQcOMkBrcxJsYWh4WthNBQ3BR0dOANkmgSwRcK4SvEyL9YpJklm/28S0XybOgfBU+O8l2+UH8H6Geo+0ZG1cDeRQh0uhXIAIxenWLgJKlRuhSS0R3cLzEgaESCOfwpCTtdy2vXBkJyumP6HJVTrJbi1WgZkFLlOu+BlgNvUkBAw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792291082; c=relaxed/simple;
+	bh=5FA9VmAYSXJqeathW3iCWeu/bYjxefajNGKbsxRYwIM=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=sKh1weMJiA5YgxzxHiaNI+rCeJHlnaVS26iccQ1xJwqQeC31E75bAB3tbMLNPZf5jE8TBX3BJqAnCuee6dD+8NxoNbWdpKHwqBNZciF5ZVi8VeoNkrBs7FHrKnIuJJSBpClWgoZ5z6iNTbLGEA1d2ExM+DhLL57Vwu+LpEBm3oo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.100.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IrllaFDGs4s2zSAYhZ3onqHb74nY92jm+rdShlO5VosZCdsaehhXhScJ7YW+ZZEDsmLkaQlx1cJfh8dgt2jz+wMw+Oo2h6/U13DGDyUpGIWWYohyPvTVFxONIqbNsVWW3ObLiL8y7A6sGOoUGh2ozfm2yR2bsC21YNn4u0qwsL5Xpst7dAtvqPwvXW10In/lhrHlEztpw37Zbvr7STWu+bXsRVYi4bVRQWmZQHQIxN2W38Ws5ebuz/vgQw7qbBIVBlpE6xn9R7n49sASjgHAeMeKIb0J/EHQRchxO3F5FGuo5UHrZuDKea7FG8iHQNsSZqddgoeh6LSKryGzF5sBXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=ZrHaT67nqyzcj9ixKICxrqvbeyUQcjdSci/t0cAIiYM=;
+ b=TKp62fvXOUJj51iiPmS300tptQaglHMyFroGyn5qOyLbP8F72ZybI1kiwdII8LKcyg/0MEv1jYRgy/98GnJifkLQ4SciirNl0bw0YXuNR7oYKuO1+8Sz6lggSSvvT9O4emZWFeNjxJKVjtJMl74dCl2PA5mBL8GQYkCS2fkQIkwb4M0sFL3jQaRbgOFAyfIBZvXctwtv0RcZw8uwIDxdARCiwOHM84Qrt8X2QIqdRszlzN6xlqJ9SXnUkW2qbvEvLWg/aF347iYXnE6CarQEEoEntO3wm+HLNKZYHPDEYlYmSjuMjbzYibO4Lz+vkT5lKAm4O/PGVqJUaWnnoGqxxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO2P123MB4333.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:19a::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Sun, 18 Oct
+ 2026 02:37:56 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0522.017; Sun, 18 Oct 2026
+ 02:37:56 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org
+Cc: mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com,
+	adrian.hunter@intel.com,
+	atomlin@atomlin.com,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH perf-tools-next v8 0/6] perf ftrace: Support inlined functions and display enhancements in function graph tracer
+Date: Sat, 17 Oct 2026 22:37:47 -0400
+Message-ID: <20261018023753.584873-1-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN0PR08CA0020.namprd08.prod.outlook.com
+ (2603:10b6:408:142::8) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 0 · High: 4 (2) · Medium: 0 (1) · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] Switching to kfree_rcu(ndp, rcu) in ncsi_unregister_dev() does
-  not fix the netlink reader use-after-free that the commit message…
-- [High] Only the outermost ncsi_dev_priv gets an RCU-deferred free.
-- [High] The ftgmac100 teardown use-after-free from the third KASAN trace
-  (ncsi_stop_dev called from ftgmac100_stop during unregister_netdev) is…
-- [High] net/ncsi: active request and monitor timers not quiesced in
-  ncsi_unregister_dev()
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  ncsi_unregister_dev() never cancels the 256 request timers embedded in…
-- [High] This problem wasn't introduced by this patch, but
-  ncsi_vlan_rx_kill_vid() (net/ncsi/ncsi-manage.c) unlinks a vlan_vid…
-- [Medium] This problem wasn't introduced by this patch, but
-  ncsi_unregister_dev() never frees the struct vlan_vid entries on…
-
---
-
-net/ncsi: fix use-after-free of ncsi_dev_priv in ncsi_unregister_dev()
-
-This patch moves disable_work_sync(&ndp->work) in ncsi_unregister_dev()
-so it runs before the packages and channels are torn down. It also
-replaces the final kfree(ndp) with kfree_rcu(ndp, rcu). The goal is to
-fix the use-after-free reports from the NCSI netlink readers and from
-ftgmac100_stop() -> ncsi_stop_dev() during driver removal.
-
-> diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-> index 54d0df0a9efe6..35e9dd85e0443 100644
-> --- a/net/ncsi/ncsi-manage.c
-> +++ b/net/ncsi/ncsi-manage.c
-> @@ -1960,6 +1960,11 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
->  
->  	dev_remove_pack(&ndp->ptype);
->  
-> +	/* Quiesce the configuration worker before releasing the packages
-> +	 * and channels it walks.
-> +	 */
-> +	disable_work_sync(&ndp->work);
-> +
->  	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
->  		ncsi_remove_package(np);
-
-[Severity: High]
-Does disable_work_sync() quiesce everything that walks the packages
-and channels here? The per-channel monitor timers still seem to be
-running when the removal loop starts.
-
-ftgmac100_remove() calls ncsi_unregister_dev() before
-unregister_netdev(). So ncsi_stop_dev() has not run yet, and every
-active channel still has nc->monitor.timer armed.
-ncsi_remove_channel() only calls ncsi_stop_channel_monitor() on the
-channel it is about to free. While the loop frees the first package,
-the ncsi_channel_monitor() callback of a channel on a later package
-can still fire.
-
-That callback does one of two things:
-
-- It sends a GLS with ncsi_xmit_cmd().
-- In its timeout path, it calls ncsi_report_link(ndp, true), sets
-  NCSI_DEV_RESHUFFLE, queues nc on ndp->channel_queue and calls
-  ncsi_process_next_channel(ndp).
-
-Either way it runs concurrently with ncsi_remove_package() and
-touches package and channel state that is being torn down.
-
-The GLS case also arms a timer. ncsi_xmit_cmd() sets nr->enabled and
-calls mod_timer() with a one second timeout. That timer lives in one
-of the ndp->requests[] entries, which are embedded in ndp.
-
-dev_remove_pack() has already run, so ncsi_rcv_rsp() can never
-complete that request and the timer is certain to fire. Commands
-left in flight by ncsi_dev_work or by NCSI_CMD_SEND_CMD have the same
-problem.
-
-Nothing in ncsi_unregister_dev() deletes these timers.
-kfree_rcu(ndp, rcu) frees ndp after one grace period, normally well
-before the one second timeout. ncsi_request_timeout() then runs in
-softirq context on freed memory. It reads nr->ndp, takes ndp->lock
-and calls ncsi_free_request(). The timer_list is also still linked on
-the timer wheel when its memory is freed, so the timer base can be
-corrupted as well. Any outstanding nr->cmd and nr->rsp skbs leak.
-
-Should every channel monitor be stopped before any package is freed?
-The teardown would then call timer_delete_sync() on each
-ndp->requests[i].timer and release outstanding requests before the
-final kfree_rcu(). Or would you rather require callers to run
-ncsi_stop_dev() first, and reorder ftgmac100_remove() to match?
-
-[Severity: High]
-Only ndp gets a deferred free here. Can the netlink readers still reach
-packages and channels that have already been freed?
-
-ncsi_remove_package() frees each package right after unlinking it:
-
-net/ncsi/ncsi-manage.c:ncsi_remove_package() {
-    ...
-	spin_lock_irqsave(&ndp->lock, flags);
-	list_del_rcu(&np->node);
-	ndp->package_num--;
-	spin_unlock_irqrestore(&ndp->lock, flags);
-
-	kfree(np);
-}
-
-ncsi_remove_channel() does the same. It frees nc->mac_filter.addrs and
-nc->vlan_filter.vids while nc is still on np->channels. It then calls
-kfree(nc) right after list_del_rcu(&nc->node).
-
-While this runs, ndp is still on ncsi_dev_list, so ndp_from_ifindex()
-can still find it. ncsi_write_package_info() walks NCSI_FOR_EACH_PACKAGE
-and NCSI_FOR_EACH_CHANNEL (both list_for_each_entry_rcu()), and
-ncsi_write_channel_info() reads np->id, nc->package->preferred_channel,
-nc->version.fw_name and ncf->vids[i] into the reply skb.
-
-A reader that loaded np or nc just before the kfree() would then
-dereference freed memory. NCSI_CMD_PKG_INFO has no GENL_ADMIN_PERM, so an
-unprivileged user can race this against driver removal.
-
-Even with the ndp lifetime fixed, don't the packages and channels also
-need an RCU-deferred or refcounted free?
-
-[ ... ]
-
-> @@ -1967,8 +1972,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
->  	list_del_rcu(&ndp->node);
->  	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
->  
-> -	disable_work_sync(&ndp->work);
-> -
-> -	kfree(ndp);
-> +	kfree_rcu(ndp, rcu);
-
-[Severity: High]
-Does kfree_rcu() actually protect the netlink reader named in the commit
-message? None of the NCSI genetlink handlers seem to be RCU readers.
-
-ndp_from_ifindex() finds ndp through ncsi_find_dev(), which walks
-ncsi_dev_list with list_for_each_entry_rcu() but without rcu_read_lock().
-It then drops the netdev reference and returns a bare pointer:
-
-net/ncsi/ncsi-netlink.c:ndp_from_ifindex() {
-    ...
-	nd = ncsi_find_dev(dev);
-	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
-
-	dev_put(dev);
-	return ndp;
-}
-
-ncsi_pkg_info_nl() can sleep before it uses that pointer:
-
-net/ncsi/ncsi-netlink.c:ncsi_pkg_info_nl() {
-    ...
-	ndp = ndp_from_ifindex(genl_info_net(info),
-			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
-	...
-	skb = genlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
-	...
-	rc = ncsi_write_package_info(skb, ndp, package_id);
-    ...
-}
-
-ncsi_write_package_info() then reads ndp->package_num. That is the
-access in the first KASAN trace.
-
-The genl doit and dumpit callbacks run in process context under
-genl_mutex, not inside an RCU read-side critical section.
-ncsi_unregister_dev() never takes genl_mutex. So the grace period can
-end, and the kfree_rcu() callback can free ndp, while ncsi_pkg_info_nl()
-still holds the pointer.
-
-In ncsi_ops, NCSI_CMD_PKG_INFO (ncsi_pkg_info_nl() and
-ncsi_pkg_info_all_nl()) has .flags = 0, so any local user can loop on it
-during removal. If the memory has been reused, the reply would copy it to
-user space. The admin-only SET_* and SEND_CMD handlers look up ndp the
-same way and then write to it.
-
-Does this need real lifetime handling instead? Some options are a
-refcount taken under ncsi_dev_lock, readers that hold rcu_read_lock() and
-don't sleep, or serializing unregister against genl.
-
-[Severity: High]
-Is the ftgmac100 teardown use-after-free from the third KASAN trace fixed
-here, or only made less likely?
-
-ftgmac100_remove() still unregisters the NCSI device before the netdev:
-
-drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_remove() {
-    ...
-	if (priv->ndev)
-		ncsi_unregister_dev(priv->ndev);
-	unregister_netdev(netdev);
-    ...
-}
-
-priv->ndev and priv->use_ncsi are never cleared. unregister_netdev()
-takes rtnl_lock(), which can sleep, and under PREEMPT it can also be
-preempted. It then reaches:
-
-unregister_netdev()
-  __dev_close_many()
-    ftgmac100_stop()
-      ncsi_stop_dev(priv->ndev)
-
-ncsi_stop_dev() walks ndp->packages, reads ndp->ndev.dev, and calls
-ncsi_report_link(ndp, true). That call writes nd->state and nd->link_up
-and calls nd->handler. Nothing holds RCU or a reference across this
-sequence, so the kfree_rcu() callback could free ndp first.
-
-Would it be better to reorder ftgmac100_remove() so ncsi_unregister_dev()
-runs after unregister_netdev()? Clearing priv->ndev and priv->use_ncsi
-would also work. Either way, the fix would not depend on how long a grace
-period takes.
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch, but
-ncsi_unregister_dev() never cancels the request timers in
-ndp->requests[].
-
-ncsi_register_dev() sets up all of them:
-
-	timer_setup(&ndp->requests[i].timer, ncsi_request_timeout, 0);
-
-and ncsi_xmit_cmd() arms one for each command:
-
-	nr->enabled = true;
-	mod_timer(&nr->timer, jiffies + 1 * HZ);
-
-After dev_remove_pack() no response can arrive, so ncsi_rcv_rsp() ->
-ncsi_free_request() can no longer delete an outstanding timer.
-
-Requests can still be outstanding at this point:
-
-- ncsi_channel_monitor() can send a GLS between dev_remove_pack() and
-  ncsi_stop_channel_monitor() in ncsi_remove_channel(). With the new
-  ordering the monitors keep running through disable_work_sync().
-- ncsi_dev_work may have commands in flight.
-- A netlink NCSI_CMD_SEND_CMD request may be in flight.
-
-ndp is freed after one grace period, usually well before the 1 second
-timeout, while the timer_list is still on the timer wheel. When the timer
-fires, ncsi_request_timeout() dereferences nr and nr->ndp, takes
-ndp->lock and calls ncsi_free_request(), all on freed memory. The pending
-nr->cmd and nr->rsp skbs also leak.
-
-Should ncsi_unregister_dev() call timer_delete_sync() on each
-ndp->requests[i].timer and release outstanding requests before freeing
-ndp?
-
-[Severity: Medium]
-This is also a pre-existing issue, but are the struct vlan_vid entries
-on ndp->vlan_vids leaked here?
-
-ncsi_vlan_rx_add_vid() allocates each entry with kzalloc_obj() and links
-it onto ndp->vlan_vids with list_add_rcu(). The only free path is
-ncsi_vlan_rx_kill_vid(), which first looks up ndp:
-
-net/ncsi/ncsi-manage.c:ncsi_vlan_rx_kill_vid() {
-    ...
-	nd = ncsi_find_dev(dev);
-	if (!nd) {
-		netdev_warn(dev, "NCSI: no net_device?\n");
-		return 0;
-	}
-    ...
-}
-
-ftgmac100_remove() calls ncsi_unregister_dev(), which removes ndp from
-ncsi_dev_list, before it calls unregister_netdev(). When the 8021q
-NETDEV_UNREGISTER handling later calls ncsi_vlan_rx_kill_vid(),
-ncsi_find_dev() returns NULL, so every registered vlan_vid leaks when
-ndp is freed.
-
-[Severity: High]
-This is another pre-existing issue, unrelated to the ordering changed
-here. ncsi_vlan_rx_kill_vid() frees a vlan_vid as soon as it is
-unlinked, with no grace period:
-
-net/ncsi/ncsi-manage.c:ncsi_vlan_rx_kill_vid() {
-    ...
-			list_del_rcu(&vlan->list);
-			found = true;
-			kfree(vlan);
-    ...
-}
-
-set_one_vid() reads the same list as an RCU reader from ncsi_dev_work:
-
-	rcu_read_lock();
-	list_for_each_entry_rcu(vlan, &ndp->vlan_vids, list) {
-		vid = vlan->vid;
-
-ncsi_vlan_rx_kill_vid() runs under rtnl from vlan_vid_del().
-set_one_vid() runs from the workqueue under nc->lock and does not hold
-rtnl.
-
-With no shared lock, can set_one_vid() read vlan->vid or vlan->list.next
-after the entry has been freed? Should this use kfree_rcu() instead?
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO2P123MB4333:EE_
+X-MS-Office365-Filtering-Correlation-Id: d687cc44-c326-4936-0b3b-08df2cc0d146
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|56012099006|5023799004|261009223027099003|6133799003|10067099003|3023799007|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	XdL3JQrV/j3aoEB8/w8sFkorvzMfP/cLvQcUp5Mk5LEdnS5/5WhL5TCZM6ODhItbbgE0WVcDqk5q1XWfGcnRH8LfdbySiQoU4KdsxgcXnFNLrndWHtTfDWOwXSdtDIJRemnwBNvRumYCSxLFoUNrdXm7Bhi0A2qS3vRF2vJD/agVZsi+a8LijDBLUiRctNaGIyOG5QodQHqglzyri+gBz3v5CkKyBzSlfYnDFjMIObKPKf3sqy2DNFlIKwsSY0A07ywhzSJXmjS7PQK4P6JImt3UAPKFK0ygnWR3dVAwaXv2LlRwov8jDEAUxg2SgCpABwMWTnXTfsts5MiZ8yxopJe69CFfsgBh4e5eVgOr80Mps71yPO9X3wI79fKDo8jVVhPQIzi4s3N78yrI9EkiTejsq4oeZqSDrs+6MnngVQGGZoHhynr6wWKdLimV86C7renj8nlRJDZ7Q/C+MHLUoxlCEIq6J+xIQ1vUcP5ojy5x3OM3E5WpLyVK1QNRgMIpddzpK9rNOa4GfpxwJsm6P0dd4gW7SFQN8QqjLmq2z6GHMS8adBAf3kOylcY942xgEdRMctD8VkbttgTPufVqJFyTxtWq3HtWFsuF8toXItHTIXNMbye2iNcT0gfa8vQv
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(56012099006)(5023799004)(261009223027099003)(6133799003)(10067099003)(3023799007)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2t2WVPmGYi2eeacnqNRDZ/HKTD6QLPkI5LX08eoth9XtQQjc8PZ7vRj+/VlS?=
+ =?us-ascii?Q?9ijBprEthx7GMl5T6m+QxrB4GkjYW1uikWrFLp1w50I82b0LVIvM7/P/7Z9Y?=
+ =?us-ascii?Q?4Xj9nyLcOS+LopTMhL07Vq4p4JmSihDXSccwwADdwbbwSL3ldzkDjoYkM91u?=
+ =?us-ascii?Q?7DQbn/YdElfnJqSaZTxxA10e6kAcqYZC4Uw9K7BKZ3l1Ixx32s1npiGYjwsr?=
+ =?us-ascii?Q?EbGlLteB0FmnIwYOpVgkAE0aqlF9SVZWYVTe2hHJplBKzZJFde7vZSg36gsx?=
+ =?us-ascii?Q?eU1t0GgIyAsMpcdOdNhJ6MfGpi3ScHZu1F+m3eTfvGxR2EXXRWLx41yBjJiV?=
+ =?us-ascii?Q?GHBQNNBZqCMBU4YCkfnoPMlfo3hPWmaD52YnY8C4/Q5AfWWDi31haWvpvDm0?=
+ =?us-ascii?Q?dlzkZGSAZ5nk8w5z3p1KTF9VAictS+8YkN5sAQOlVrPjXkleufLG7K1aMQZd?=
+ =?us-ascii?Q?/Q+iqj6lxruygFEDtXGjAqK0Draa9ltGsfgpJ+TRGwPZwLPj78+fqYK4WWe/?=
+ =?us-ascii?Q?l7DbqUtuN32rwlEwsRly8+DR0MjX4FFvWLg5M2TND7kvQgBfi+zC0kB5Vn4K?=
+ =?us-ascii?Q?j2+4aK8epRCGu/lwvHBQJGkjenNQFLiNwd+HYIUhuxiw57UOU4+Ac3p9tS2K?=
+ =?us-ascii?Q?jemvGfbjeHtYBLIQlygUhjUWmS/u9z2N6q1SDj9gcck/DAiZXIQGmYNciyHG?=
+ =?us-ascii?Q?LEK4OMvw0LKAA2rzvfb8oz7UEFahMfXT+6N1XsIfsM+mZy7jO9eIdJJRNMGc?=
+ =?us-ascii?Q?nzuEHZdR4WbqAKzdTD/gDO1zyU1NiKqpSSP9KyBYTDwizJm630mNQ7a1No6M?=
+ =?us-ascii?Q?DtUZcAVT7Tq4NmFM6eT2DcV8jfp2pnMRwxYOiLjb4nkBLAB++snLenR8f7ye?=
+ =?us-ascii?Q?hQMZXRyXpmAEnxESo2Rf4l2DWFuXNOIvCLA7YyOzg+EcRI6DlH/17eFabZ+e?=
+ =?us-ascii?Q?MEcZBZHDoE8UJlPluiFXIrwLGBSzfFT2X7octmCJDOSoy5awWAfqCyGjpsHC?=
+ =?us-ascii?Q?q1H22GVVnfVQJV17n7EJ7jiuWNx7NWdFkHjzVCknYFlMBnamJ/ktWuf1Gcz7?=
+ =?us-ascii?Q?kzWYhbaZ5wVc0KpazX/n30ALgiLu/TgAjiHBRD3sr7z/yyYxEu2Ou0i0z7eG?=
+ =?us-ascii?Q?wq+rqD8wQMAbviDxexf4Pi4Phcealdsm6zzPzJXXgx3bOdW50+no/06qpcPz?=
+ =?us-ascii?Q?7m8Sle3o/40atX7vGT//ar8uMFyVq95aeyM2OeNDJtmDAMzLO5dSjD6Ezn3C?=
+ =?us-ascii?Q?6WzIMh4X2vwAkB63vJIBadiqjpcZIXg7OxRGQNOL7R+a/Yu4WnBWDEHsvrAW?=
+ =?us-ascii?Q?XKROKxoJzDFFQ+x1pVtWUtbaJ36jecxE8AXKdrNzG6hk/YL/2JkcDBwZq+IT?=
+ =?us-ascii?Q?C9kTYwUfe3SuM3+nzTH9TcIJQVkZal5Klv3ggPz7rL1pKd1VyPz74DPPGFo/?=
+ =?us-ascii?Q?5gX0o3vsFjaxXhtHCVbMmBkU8195ReH9eezKtiVbgC5LTg34xZbKnhqHrx+e?=
+ =?us-ascii?Q?mqQlwQFkw80MHiJ25Z5/vBD/Z3OgxlOpfe4Hd3HBe+2kma7igKcsCbl8ZR8o?=
+ =?us-ascii?Q?RWrAS2MdCRSij7X/bM+Q8Kr/OFV2bMivl/dXbArYFEpPc3BLAakmbz9xXgOM?=
+ =?us-ascii?Q?Irc2pEhWRMtBB/93XhWIux3Hjx5vYd++0HtGcbN/M+/js32MJ8mlfaTeSxh4?=
+ =?us-ascii?Q?/WJ0Nsj5lfNs1uF4UfFOGOtcI7xD8JzC4SVZB2LLvzTuCuxWzafXxKS21qqW?=
+ =?us-ascii?Q?WbFav3ywxQ=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d687cc44-c326-4936-0b3b-08df2cc0d146
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2026 02:37:56.7509
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AhtRozKzEcGAoI2HcXPlHOWPP1Lsi0vds8ZnNRlcVggLvg7zNUXyLEEonj5eEJVjXigND5vC0En2RLfIp/sspw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P123MB4333
+
+The Linux kernel's function graph tracer operates at the machine
+instruction level via compiler instrumentation
+(-fpatchable-function-entry), recording entry and return events for
+physical function calls. Consequently, functions inlined by the compiler
+are invisible in the resulting call graph, as no discrete call or return
+instructions are emitted for them. While technically expected, this
+omission frequently obscures the logical execution flow when analysing
+kernel subsystems heavily reliant upon inlining (such as the scheduler,
+memory management, locking primitives, and RCU).
+
+When the kernel is configured with CONFIG_FUNCTION_GRAPH_RETADDR=y, the
+funcgraph-retaddr trace option records the caller's return address on each
+function entry, manifested in the trace stream as a comment
+(e.g. /* <-wake_up_new_task+0x1d1/0x3e0 */). By interrogating DWARF debug
+information from the kernel image (vmlinux) utilising libdw, perf ftrace
+resolves this return address to its inlined callchain and synthesises the
+intermediate inlined frames directly into the streamed call graph.
+
+This patch series addresses these challenges through six focused commits:
+
+    1.  Stack frame optimisation in __cmd_ftrace()
+
+        Replaces the 4096-byte stack array in __cmd_ftrace() with
+        dynamic heap allocation alongside struct strbuf streaming,
+        reducing the stack frame footprint by over 96% (down to
+        ~160 bytes) whilst ensuring complete line-delimited records,
+        explicit NUL termination, and robust error unwind and EOF
+        handling.
+
+    2.  Return address comment filtering
+
+        Introduces ftrace_parse_retaddr() and ftrace_filter_retaddr()
+        with --filter-retaddr and --graph-opts filter-retaddr to strip
+        caller comments from trace output, accompanied by an initial
+        unit test suite in tools/perf/tests/ftrace.c.
+
+    3.  Preparatory vmlinux lookup helper
+
+        Introduces vmlinux_path__find() in tools/perf/util/symbol.c and
+        symbol.h to search standard vmlinux paths and return the first
+        accessible kernel image, providing a generic helper across
+        tools/perf and avoiding hardcoded access() checks in tests.
+
+    4.  Inlined function call graph reconstruction
+
+        Introduces --inline and -k/--vmlinux, dynamically synthesising
+        inlined frames marked with /* (inline) */. Correctly matches
+        bare closing braces when funcgraph-tail is disabled, clamps stack
+        depth to prevent indentation drift, and expands the automated test
+        suite to verify inline resolution, comment filtering, and stack
+        saturation recovery utilising vmlinux_path__find().
+
+    5.  Execution duration suppression
+
+        Introduces --graph-opts noduration (accepting noduration=[0|1])
+        to toggle the kernel's funcgraph-duration tracing option,
+        omitting the duration column when the user is focused purely on
+        call graph topology and inlined hierarchy. Rejects noduration
+        when invoked under 'perf ftrace profile'.
+
+    6.  Extraneous function filtering in function graph tracer
+
+        Introduces userspace call graph filtering when targeted
+        tracing (-G or --graph-funcs) is active. Suppresses transient
+        unrelated entries arriving before filter activation as well
+        as detached callee trees (such as ring-buffer wakeups)
+        originating outside the target hierarchy. Dynamically resises
+        the synthetic call stack to eliminate saturation edge cases and
+        accurately suppresses detached subtrees without orphan exit name
+        collisions.
+
+Synthesised inlined functions are rendered with an explicit /* (inline) */
+annotation at both entry and exit:
+
+    # tracer: function_graph
+    #
+    # CPU               FUNCTION CALLS
+    # |                 |   |   |   |
+     3) activate_task() {
+     3)   enqueue_task() {
+     3)     psi_enqueue() { /* (inline) */
+     3)       arch_static_branch_jump() { /* (inline) */
+     3)         enqueue_task_fair() {
+     3)           enqueue_hierarchy() { /* (inline) */
+     3)             update_curr();
+     3)             enqueue_entity() {
+     3)               account_entity_enqueue() { /* (inline) */
+     3)                 account_llc_enqueue();
+     3)               } /* account_entity_enqueue (inline) */
+     3)             }
+     3)           } /* enqueue_hierarchy (inline) */
+     3)           place_entity() {
+     3)             avg_vruntime();
+     3)           }
+     3)           __enqueue_entity();
+     3)           dl_server_start();
+     3)         }
+     3)       } /* arch_static_branch_jump (inline) */
+     3)     } /* psi_enqueue (inline) */
+     3)     sched_info_enqueue() { /* (inline) */
+     3)       psi_task_change() {
+     3)         psi_write_begin() { /* (inline) */
+     3)           psi_flags_change();
+     3)         } /* psi_write_begin (inline) */
+     3)         psi_group_change() {
+     3)           record_times();
+     3)         }
+     3)       }
+     3)     } /* sched_info_enqueue (inline) */
+     3)   }
+     3) }
+
+Changes since v7:
+
+ - Rebased onto latest perf-tools-next/perf-tools-next (commit 1c90f0a3c8a1)
+
+ - Link to v7: https://lore.kernel.org/all/20261018021346.582845-1-atomlin@atomlin.com/
+
+Changes since v6:
+
+ - Expanded the series from 5 to 6 patches by introducing a standalone
+   preparatory commit ("perf symbol: Introduce vmlinux_path__find()
+   helper") in tools/perf/util/symbol.c and symbol.h to locate accessible
+   kernel images via configured vmlinux paths, replacing ad-hoc
+   access("vmlinux", R_OK) checks in unit tests (Ian Rogers)
+
+ - Explicitly included stdio.h in tools/perf/util/ftrace.h to declare the
+   FILE type for ftrace_process_fgraph_line(), ensuring clean compilation
+   under musl libc and non-glibc environments
+
+ - Prevented name collisions between orphan callee exits and active target
+   frames in ftrace_process_fgraph_line()
+
+ - Allowed dropped-orphan exit recovery on closing braces only when the
+   exit explicitly names the target root function itself, ensuring that
+   lost orphan exits do not swallow the target root's exit while protecting
+   intermediate callee frames from collisions
+
+ - Replaced the fixed-size array in struct ftrace_task_state with a
+   dynamically resized stack grown via realloc(), completely eliminating
+   cs->overflow_depth and its associated failure modes:
+    - Fixed skipped filter teardown when a target function begins at the
+      stack limit, ensuring standard teardown runs upon root exit and
+      preventing subsequent sibling functions from leaking into filtered
+      output
+
+    - Fixed orphan filter bypass during deep call stacks by preserving all
+      caller frames on the stack, ensuring unknown callers (caller_idx < 0)
+      are accurately identified as orphans and suppressed
+
+ - Link to v6: https://lore.kernel.org/all/20261016040310.482876-1-atomlin@atomlin.com/
+
+Changes since v5:
+
+ - Prevented call stack desynchronisation on dropped orphan exit events by
+   clearing orphan_depth when a named exit matches a tracked frame or an
+   entry descends from the target callgraph
+
+ - Fixed premature target filter termination on child exits by capturing
+   cs->target_root_depth after unwinding stale frames above the caller
+
+ - Ensured synthesised caller inlines above cs->target_root_depth are
+   cleanly closed upon target function exit before resetting filter state
+
+ - Prevented legitimate deep calls exceeding FTRACE_MAX_STACK from being
+   falsely dropped as orphans by checking cs->overflow_depth
+
+ - Expanded unit tests to cover dropped orphan exits, target root depth
+   synchronisation after stale siblings, and deep call stack overflows
+
+ - Provided support for glob pattern matching with -G or --graph-funcs
+
+ - Link to v5: https://lore.kernel.org/all/20261015011155.414667-1-atomlin@atomlin.com/
+
+Changes since v4:
+
+ - Handled non-fatal EAGAIN, EWOULDBLOCK, and EINTR in __cmd_ftrace()
+   polling and draining loops to prevent premature session termination on
+   non-blocking reads or signal interruptions
+
+ - Eliminated an unused local variable endptr in ftrace_parse_retaddr() by
+   passing NULL to strtoull()
+
+ - Prevented stack buffer overflows in make_blank_prefix() by clamping the
+   blanking loop bounds and end pointer to the destination buffer length
+   when processing trace records with exceptionally long prefixes
+
+ - Tracked call stack saturation with overflow_depth to prevent untracked
+   function exits with bare closing braces from prematurely popping tracked
+   frames from the parser stack on deep call chains exceeding
+   FTRACE_MAX_STACK
+
+ - Ensured stale non-inlined callee frames resulting from dropped function
+   exits do not block inactive inlined frames from being closed upon
+   subsequent entries by unwinding the stack down to caller_idx + 1 +
+   common
+
+ - Fixed filter state not resetting for targeted leaf calls when --inline
+   is active: synthesised inline frames inflated cs->depth beyond
+   cs->target_root_depth, causing subsequent sibling functions to be
+   falsely classified as detached orphans and bypassing inline unwinding;
+   resolved by tracking target root entries (is_target_root), explicitly
+   unwinding all synthesised inlines, and resetting filter state upon leaf
+   completion
+
+ - Expanded unit test coverage to verify recovery across dropped exit
+   events and bare closing braces, and to verify that targeted leaf calls
+   with synthesised inlined frames properly close inlines and reset filter
+   state
+
+ - Link to v4: https://lore.kernel.org/lkml/20261014161457.373253-1-atomlin@atomlin.com/
+
+Changes since v3:
+
+ - Explicitly rejected the noduration option when invoked under the profile
+   subcommand, since profiling inherently requires function duration to
+   compute timing statistics
+
+ - Fixed make_blank_prefix() clobbering the comm-pid column in verbose mode
+   by searching backwards for the preceding "|" delimiter, and returning
+   early when graph_noduration is active
+
+ - Fixed filter state not resetting for targeted leaf calls at non-zero
+   call stack depths by checking cs->depth <= cs->target_root_depth and
+   clearing cs->target_root_depth, preventing subsequent non-targeted
+   sibling functions within the parent frame from leaking into trace output
+
+ - Expanded unit test coverage to verify comm-pid preservation under
+   verbose and verbose-noduration inline modes, and to verify that targeted
+   leaf calls at depth > 0 properly reset the target filter state.
+
+ - Link to v3: https://lore.kernel.org/lkml/20261012003016.263063-1-atomlin@atomlin.com/
+
+Changes since v2:
+
+ - Expanded the series from 4 to 5 patches by adding a dedicated commit
+   ("perf ftrace: Filter extraneous functions in function graph tracer") to
+   enforce strict target callgraph boundaries when -G or --graph-funcs is
+   specified
+
+ - Suppressed unrelated top-level functions that leak through the transient
+   tracefs filter initialisation window before RCU synchronisation
+   completes
+
+ - Filtered detached/orphan calls from appearing as nested children within
+   the target graph by validating caller return addresses against the
+   active target stack
+
+ - Tracked nested orphan scope depth (cs->orphan_depth) to cleanly suppress
+   child calls and closing delimiters of detached subtrees without
+   desynchronising the target stack
+
+ - Added automated unit test coverage in tools/perf/tests/ftrace.c
+   (test_graph_target_filter()) validating top-level suppression (both with
+   and without --inline) and detached orphan wakeup suppression
+
+ - Link to v2: https://lore.kernel.org/lkml/20261006232756.65620-1-atomlin@atomlin.com/
+
+Changes since v1:
+
+ - Modularised the implementation into a 4-patch bisectable series rather
+   than a monolithic commit
+
+ - Resolved potential infinite loop on poll() upon trace_pipe EOF
+
+ - Fixed stuck call stack frames when funcgraph-tail is disabled by
+   supporting bare closing delimiters matching LIFO stack frames
+
+ - Prevented unbounded indentation growth on deep call trees by clamping
+   inline expansion and synchronising cs->inlined_depth to frames
+   successfully pushed onto cs->stack
+
+ - Added dedicated unit tests covering bare closing braces and stack
+   saturation recovery
+
+ - Refined option documentation in perf-ftrace.txt
+
+ - Link to v1: https://lore.kernel.org/lkml/20261005211518.26786-1-atomlin@atomlin.com/
+
+Aaron Tomlin (6):
+  perf ftrace: Optimise __cmd_ftrace() stack frame with strbuf streaming
+  perf ftrace: Support filtering return address comments
+  perf symbol: Introduce vmlinux_path__find() helper
+  perf ftrace: Support display of inlined functions in function graph
+    tracer
+  perf ftrace: Support omitting execution duration in function graph
+    tracer
+  perf ftrace: Filter extraneous functions in function graph tracer
+
+ tools/perf/Documentation/perf-ftrace.txt |   20 +
+ tools/perf/builtin-ftrace.c              |  157 ++-
+ tools/perf/tests/Build                   |    1 +
+ tools/perf/tests/builtin-test.c          |    1 +
+ tools/perf/tests/ftrace.c                | 1552 ++++++++++++++++++++++
+ tools/perf/tests/tests.h                 |    1 +
+ tools/perf/util/Build                    |    1 +
+ tools/perf/util/ftrace.c                 | 1168 ++++++++++++++++
+ tools/perf/util/ftrace.h                 |   18 +
+ tools/perf/util/symbol.c                 |   30 +
+ tools/perf/util/symbol.h                 |    2 +
+ 11 files changed, 2935 insertions(+), 16 deletions(-)
+ create mode 100644 tools/perf/tests/ftrace.c
+ create mode 100644 tools/perf/util/ftrace.c
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017015315.415794-1-18983559317%40163.com
+2.55.0
+
