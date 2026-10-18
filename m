@@ -1,123 +1,191 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4CE4DDB46;
-	Sun, 18 Oct 2026 21:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792357826; cv=pass; b=aKDJjXH0Blvx/hbDowVI7n6TIoIzwtRgusitMHMqSZnMwdFbL95PyB0edc46/bK1azfbl81QDi8HwociTFLwFLhgjo1JoKn7YFvRx5Apo+suBAGJSOn1WGwrwS4tMct4Y2WFOTOCQScP3H9IzIYVJ6Rh0hs8oUi6RWpUH3IYpdk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792357826; c=relaxed/simple;
-	bh=3h/FBrbM+VFwW0h7C0SNF3vnnNQcYz9uoB0zA6hvT2w=;
-	h=References:Message-ID:From:To:Cc:Subject:Date:Mime-Version:
-	 Content-Type:Content-Disposition; b=PUGmX3XMsMnRUwdskpp7qUM/SC22DcbsSodOA62pHpqHSoDuj1UlL+Paa58+nYTzIqGBo9Z/AQ8Adn528UljtzKWm242ttO3O/zZ8B+03Cs4NnEJBIj6E4+8L8D+YOZ0jN66gud/nET+i6qXTOMXM7D5tDuqRzKtW9YeMqvRUsg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=masysma.net; spf=pass smtp.mailfrom=masysma.net; dkim=pass (2048-bit key) header.d=masysma.net header.i=@masysma.net header.b=kngLy2/H; dkim=permerror (0-bit key) header.d=masysma.net header.i=@masysma.net header.b=YDLtR2vh; arc=pass smtp.client-ip=85.215.255.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=masysma.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=masysma.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E3C3822B7
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:12:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792357927; cv=none; b=EXrMim7LM7YpugCbFwik4ZQuiUbkKfb6mxfr+P8CT59kO71a0sYgI3SR2EjayAc14aprMxm36iK6qx9eowCr7kuPRSiQpXFIz4PahwtX/XZi1Q9JOmqYc/d5TIfF3ZCX3YByvdUAo/f8C2jouArrhxpWisbnvzU1YeAOQmst7xY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792357927; c=relaxed/simple;
+	bh=+AhBVTr7AVwgOwcBqSG3YDlgmZAw3nrSuWm0g675vUE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Sra1JIC+F31cjfcgo5GsXggBXCiAxbj40S/2bC+JWlGJkk11VOA9HfgYRcuI/NS1uGrwKZZjLniC6g51Jih3/qiALUHjjUrYsAbSQtAOQr1wiasw/IJceWuYGbJG77EJpfHWmJSEVLjgs0yPoGz77bNalF+LYcUcLktY/fgdsmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LhGR8GRz; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=masysma.net header.i=@masysma.net header.b="kngLy2/H";
-	dkim=permerror (0-bit key) header.d=masysma.net header.i=@masysma.net header.b="YDLtR2vh"
-ARC-Seal: i=1; a=rsa-sha256; t=1792357810; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=n0AvXHFGsviuQ+yv5HvyL7MKapVJksixuDmq9FSPm4VFfpPREzvdEznqt+bBKlLv/k
-    gc+0HDG/WuhNfg7Jm8EN7UqwbZfeXj3xUuCDlXwMbi0x8TQtZezrF/AdaLKgXEkMy9Wj
-    PvefcFCedWSqhEiL/6XutNcODwohD/LtgSGxTSOqd06ac457jczcSlmWe8OLyawylTvS
-    yd2j+9N+Z75Ww8XsiLcL9Aj23wfemY6Jw8j6XLrSCL9Mg12rIS2VzjfJj38Ef1nJAewq
-    JUwWzLaDqdbT+xqSt8/054FpUMbi6PKFUf66ynOXINkFd+TYIC2vp5N0JDLvzSU7/x3I
-    jb2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792357810;
-    s=strato-dkim-0002; d=strato.com;
-    h=Date:Subject:Cc:To:From:Message-ID:References:Cc:Date:From:Subject:
-    Sender;
-    bh=4954EnejhVUQZUG7uW0CVBgNR7C0Z2q+7UdrvuCAW2w=;
-    b=XyTb7ZEs7w3w+pAVp3ysDEtrYspGijLQmWHV6v/uNIKZmm1PHNrI98IcbCBmrKii0/
-    i1IpevHka7HwMpp53o1gWCILXpTkxP0Reu0eS2YNm9xv7Ei40c9JjxLTrts7zJ880HQK
-    BXqCZbNhnp37J3djpKOV31rDCAwWsIpJaS72z4Pb9DhT0pv3EBNrNLADJNSGdagByAkr
-    kdlBp5cWARU+pWAuD74K8FbUFymRHMPjDcb57m6PDiSY+Jb/CNabuAABQGyRL+47nONn
-    dHPBK+yu3Yq0MmsYVJvO04i/vr3bme9BFM5GXgimx2+9WsjHQEqQDLMEsLNZIhCmeVPY
-    kKPQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792357810;
-    s=strato-dkim-0002; d=masysma.net;
-    h=Date:Subject:Cc:To:From:Message-ID:References:Cc:Date:From:Subject:
-    Sender;
-    bh=4954EnejhVUQZUG7uW0CVBgNR7C0Z2q+7UdrvuCAW2w=;
-    b=kngLy2/HCUUoQhAVqGL3Q2HCW7OCeWcLGKodVcmXQJHDYVwE32RTrvwXkSgEb2Q3JD
-    s5Wo8KWWrtnpMuYKB8f+U5WAhMHxUurL12LiL9rfYRy1dMdmr6bBEqkSIfNoGmEWlvHt
-    iLAMuVLF3kwd9ndQhMU444FJRcUkHr/dvnODAt/W3Gzdn03SkH6nOTgN3SgciQlUkvbA
-    ZTj1RZEfMIkDOnIe6xmfqV3cvW3YR0JRMg6efx1RTCGq9C0qe13+rFaxJptaS5Xe7imu
-    1lzV70SIUzqIYlgftLHVCIDs0+4OiorrsIqFu+MptMR12dedXeBjykaf/q2xMxZ+a0Q1
-    teUg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792357810;
-    s=strato-dkim-0003; d=masysma.net;
-    h=Date:Subject:Cc:To:From:Message-ID:References:Cc:Date:From:Subject:
-    Sender;
-    bh=4954EnejhVUQZUG7uW0CVBgNR7C0Z2q+7UdrvuCAW2w=;
-    b=YDLtR2vhCiMEMqb348g/b56gH9B50BWxM26Fno8M29RBp4PQk+23AL+k4DLKKzttqr
-    lP92M+JnJL6icNRXTFAA==
-X-RZG-AUTH: ":JWICemCleuxmQC700vpzGgDMhu8YP6Ql4e3bvdBvsQ2fC5IJhh3tj/mdIDmcLzDOhHH2a/syK0FsdBnAYoP8O618xjTxmvs="
-Received: from masysma-18
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id 9b2d4129ILAAYQD
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 18 Oct 2026 23:10:10 +0200 (CEST)
-References: <20261011163249.18479-1-gruhlke@mailbox.org>
-Message-ID: <cone.1792357809.260300.12734.1000@masysma-18>
-X-Mailer: https://www.courier-mta.org/cone/
-From: Linux-Fan <info@masysma.net>
-To: Alexander Gruhlke <gruhlke@mailbox.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
-    Rafael J =?UTF-8?B?Lg==?= Wysocki <rafael@kernel.org>,
-    Alex Williamson <alex@shazbot.org>, Hui Wang <hui.wang@canonical.com>,
-    linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-    regressions@lists.linux.dev
-Subject: Re: [PATCH v2 0/2] PCI: Wait after FLR for devices that don't honor
-         Immediate Readiness
-Date: Sun, 18 Oct 2026 23:10:09 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LhGR8GRz"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2dc63f8d8aso230056966b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:12:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1792357923; x=1792962723; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FhrOh9ObXddFM4Jcmg5gPf4RqgcAG0wBDdYKHUigitI=;
+        b=LhGR8GRzf18t7PFEbQN/2Cqng+ndH/M0wlqtpHJpxWvv/TTJL/KmcQb0Yv40s40v+4
+         nx2vutp9jz/dORTOPYcwKR7u9ogGojLMCNaof9/1s40AfpNtXq8Hfj3NWhVys7L2LJMX
+         JNjtqN0KRkX35i7T92FdxL8P/TgutiiRB5f1A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792357923; x=1792962723;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FhrOh9ObXddFM4Jcmg5gPf4RqgcAG0wBDdYKHUigitI=;
+        b=UR9v300qzijK5aXNC4ChXNeGu8Pi0TeD7rm5KtFgyOEP6jSTSAAipL48WfZrZ7Y8AO
+         ZP0lCxMO4/xY8/cGwNXqub0hXeRw/4/pCWnUPqvOf22v52Z2mkuZ/Stg/X8FHvGMGYLG
+         y7usZIyMplhIHbXeRceyOiw+EPhZL5rUlpg5FlLRk5riJKOxegTWXETVsRE//c8yqi4E
+         GrgTRpGHWDEs24ervq7k9obpU7RityRah5yv/hsTUgHljEjmL+4rc6Q4Xum/nVvC50Ko
+         ap2E1q9UoJfOSU173dxqsXPGfyDImf7I/dHZCjFwKEvIVDoeqY5PtKFANwF/0iWYuQVE
+         E5yQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzD7nYDJPGxCEs21sO5gak/W3BQokDcy/lOwBkKUNbrOmgZwTcW9ysPvUZcskwb8LSUthQmdk2wTSdkRsM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKursE7j2h6Lj7u8eyCc8T6JXnw+0Dd3G3zdWCObBUS5ub02x+8
+	OgM9CUBuXx/eIbJfDAJ/jFYs1vQbSfvJXldP9Yrk0M53CAoAAZuQ+Gf3ktx367roSxB9aIPAwdL
+	8O6OjXW8=
+X-Gm-Gg: AYBFou3+DfLQW9lJt/tdOZWDI2plK+uw2GUIar3OgbUVRe+LP0kHUUsNMasUhtVVmAx
+	TG7bbH3Bh2jMEXDI/0xA3Eseb1VknLL1eA0I0dfmwUcggaFZJkV3v9lYd6byptcUSe9vA9ZiVil
+	6SC3CfXB4wCCSDJfTXEAG357xagXg6KFkFzvGcxTm/1OLavGVoanWsv2zcJ46OLDE6f8st363KK
+	touzrxnwh9Sav+7pBthoyhE0Oqf2qRlCFO60ev7oCxpHan3sFreVUfSU845XBdAyZUDzc79MBdo
+	MweZzKiDTXDaR7vwfMtuAWKdcp4bClmPzOxrCvpnDEZsez4/j9d5jb8S3jz4DqQajQzImC1SYT/
+	FbQ/+VKQcba5sAGxaQWKbjyldHGeSAtomyB5Wdl9Da/dM8u8m+RfpXHLQxehKpkx1s9WpxU4v1z
+	F9JHUxUZIDCGbEYiAgMlNQDuCVHoVz9/n1BB8iazAXEhGgzCxi9snDgpIii61XUrOFtBsW+lJh1
+	yyTa5I2oG3Amj4ii/PhdfYPratO82OBixgtEYH4Woo5rRA0AlmXe2PM3w==
+X-Received: by 2002:a17:906:c150:b0:c3f:d8f2:f08e with SMTP id a640c23a62f3a-c41a01f2fd9mr409563066b.44.1792357923205;
+        Sun, 18 Oct 2026 14:12:03 -0700 (PDT)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com. [209.85.208.46])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dceadesm301421166b.20.2026.10.18.14.12.02
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 14:12:02 -0700 (PDT)
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so2176321a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:12:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBymzAllVCgW0d/SqrK4wYHvL+NRKw6gJjomI5fjKhL81p0jYN21wxeu80fYLumIBJjWAw2bRKg+N54k2K8=@vger.kernel.org
+X-Received: by 2002:a17:907:86aa:b0:c31:e958:408c with SMTP id
+ a640c23a62f3a-c419f803714mr362945266b.38.1792357922492; Sun, 18 Oct 2026
+ 14:12:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; format=flowed; delsp=yes; charset="UTF-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com> <20261018152358-mutt-send-email-mst@kernel.org>
+ <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
+In-Reply-To: <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Sun, 18 Oct 2026 11:11:44 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wjxOy24XQnSSGimnHbp9mVjUETBE5HrS+W9E8mRrtxBLw@mail.gmail.com>
+X-Gm-Features: AclHuK-BuQ_t8DyWOTykYSUp3UkUFx2INkZ9fVII4LHbFyz6TFQuNw2DbQZKHk4
+Message-ID: <CAHk-=wjxOy24XQnSSGimnHbp9mVjUETBE5HrS+W9E8mRrtxBLw@mail.gmail.com>
+Subject: Re: [BUG] vhost/vringh: __get_user without access_ok leaks kernel
+ memory via vDPA passthrough
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Haoran Wang <haoranwangsec@gmail.com>, jasowangio@gmail.com, kvm@vger.kernel.org, 
+	virtualization@lists.linux.dev, netdev@vger.kernel.org, eperezma@redhat.com, 
+	linux-kernel@vger.kernel.org, security@kernel.org
+Content-Type: multipart/mixed; boundary="000000000000482e69065e23d9f5"
 
-Alexander Gruhlke writes:
+--000000000000482e69065e23d9f5
+Content-Type: text/plain; charset="UTF-8"
 
-> Since v7.2, VFIO passthrough of a Samsung 990 PRO NVMe [144d:a80c] fails
-> on the second VM start, and the device is inaccessible until reboot.  The
-> drive advertises Immediate Readiness but returns ~0 for up to 7 ms after
-> FLR, so since 10baa9b4df40 ("PCI: Drop unnecessary retries when restoring
-> BARs") the config restore after FLR is lost.
+On Sun, 18 Oct 2026 at 10:34, Linus Torvalds
+<torvalds@linuxfoundation.org> wrote:
 >
-> Patch 1 ignores Immediate Readiness on that drive.  A 990 EVO Plus
-> [144d:a80d] reports the same errors [1], but it isn't confirmed to
-> advertise Immediate Readiness, so it's not included.
->
-> Patch 2 is independent and keeps pci_dev_wait() from treating ~0 as
-> ready with RRS Software Visibility, which also affects the Intel
-> [8086:0a54] in the open d591f6804e7e regression.  Hui, Linux-Fan: testing
-> patch 2 on that drive would be appreciated.
+> And __get_user() together with access_ok() is actively wrong and
+> stupid. It's slower, bigger, and more bug-prone than just using
+> "get_user()".
 
-Sorry to be late to the party -- I only got access to the machine which  
-showed the issue today.
+Btw, if you have *multiple* accesses to the same structure, that was a
+historical reason to use access_ok() with multiple __get_user() calls.
 
-I have applied the following two patches:
+But it's not a useful pattern today - and hasn't been for years -
+because the real cost is not the access_ok(), but the stac/clac that
+surrounds __get_user() on modern hardware.
 
-0f8b5d90d179 ("PCI: Ignore Immediate Readiness on Samsung 990 PRO and 990 EVO Plus NVMe")
-e8df1d194c39 ("PCI: Don't treat ~0 as ready in pci_dev_wait() with RRS SV")
+If performance is really crticial, the new "unsafe_get_user()" model
+is the way to go.
 
-These resolve the issue for me.
+Here's an UNTESTED example patch of how to do a conversion. It
+generates much better code than __get_user() ever did. That patch
+looks good to me, but again: I didn't actually *test* it (and the
+reason this signal.c code has never been updated to the modern pattern
+is that it really doesn't matter for performance - I decided to use it
+as an example not because it matters, but because it's a good example
+code-sequence for the legacy model conversion).
 
-I an very happy that there is now an upstream solution to this, thank you!
+Somebody should test it.
 
-Kind regards
-Linux-Fan
+                     Linus
 
-[...]
+--000000000000482e69065e23d9f5
+Content-Type: text/x-patch; charset="US-ASCII"; name="patch.diff"
+Content-Disposition: attachment; filename="patch.diff"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mveblmwl0>
+X-Attachment-Id: f_mveblmwl0
+
+IGtlcm5lbC9zaWduYWwuYyB8IDU2ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMzAgaW5zZXJ0aW9ucygrKSwg
+MjYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEva2VybmVsL3NpZ25hbC5jIGIva2VybmVsL3Np
+Z25hbC5jCmluZGV4IGQzMWViY2I2ZWQ0ZC4uMGZkMTI5NmU5MTJiIDEwMDY0NAotLS0gYS9rZXJu
+ZWwvc2lnbmFsLmMKKysrIGIva2VybmVsL3NpZ25hbC5jCkBAIC00Nzc2LDEyICs0Nzc2LDEyIEBA
+IFNZU0NBTExfREVGSU5FMyhzaWdhY3Rpb24sIGludCwgc2lnLAogCiAJaWYgKGFjdCkgewogCQlv
+bGRfc2lnc2V0X3QgbWFzazsKLQkJaWYgKCFhY2Nlc3Nfb2soYWN0LCBzaXplb2YoKmFjdCkpIHx8
+Ci0JCSAgICBfX2dldF91c2VyKG5ld19rYS5zYS5zYV9oYW5kbGVyLCAmYWN0LT5zYV9oYW5kbGVy
+KSB8fAotCQkgICAgX19nZXRfdXNlcihuZXdfa2Euc2Euc2FfcmVzdG9yZXIsICZhY3QtPnNhX3Jl
+c3RvcmVyKSB8fAotCQkgICAgX19nZXRfdXNlcihuZXdfa2Euc2Euc2FfZmxhZ3MsICZhY3QtPnNh
+X2ZsYWdzKSB8fAotCQkgICAgX19nZXRfdXNlcihtYXNrLCAmYWN0LT5zYV9tYXNrKSkKLQkJCXJl
+dHVybiAtRUZBVUxUOworCQlzY29wZWRfdXNlcl9yZWFkX2FjY2VzcyhhY3QsIEVmYXVsdCkgewor
+CQkJdW5zYWZlX2dldF91c2VyKG5ld19rYS5zYS5zYV9oYW5kbGVyLCAmYWN0LT5zYV9oYW5kbGVy
+LCBFZmF1bHQpOworCQkJdW5zYWZlX2dldF91c2VyKG5ld19rYS5zYS5zYV9yZXN0b3JlciwgJmFj
+dC0+c2FfcmVzdG9yZXIsIEVmYXVsdCk7CisJCQl1bnNhZmVfZ2V0X3VzZXIobmV3X2thLnNhLnNh
+X2ZsYWdzLCAmYWN0LT5zYV9mbGFncywgRWZhdWx0KTsKKwkJCXVuc2FmZV9nZXRfdXNlcihtYXNr
+LCAmYWN0LT5zYV9tYXNrLCBFZmF1bHQpOworCQl9CiAjaWZkZWYgX19BUkNIX0hBU19LQV9SRVNU
+T1JFUgogCQluZXdfa2Eua2FfcmVzdG9yZXIgPSBOVUxMOwogI2VuZGlmCkBAIC00NzkxLDE1ICs0
+NzkxLDE4IEBAIFNZU0NBTExfREVGSU5FMyhzaWdhY3Rpb24sIGludCwgc2lnLAogCXJldCA9IGRv
+X3NpZ2FjdGlvbihzaWcsIGFjdCA/ICZuZXdfa2EgOiBOVUxMLCBvYWN0ID8gJm9sZF9rYSA6IE5V
+TEwpOwogCiAJaWYgKCFyZXQgJiYgb2FjdCkgewotCQlpZiAoIWFjY2Vzc19vayhvYWN0LCBzaXpl
+b2YoKm9hY3QpKSB8fAotCQkgICAgX19wdXRfdXNlcihvbGRfa2Euc2Euc2FfaGFuZGxlciwgJm9h
+Y3QtPnNhX2hhbmRsZXIpIHx8Ci0JCSAgICBfX3B1dF91c2VyKG9sZF9rYS5zYS5zYV9yZXN0b3Jl
+ciwgJm9hY3QtPnNhX3Jlc3RvcmVyKSB8fAotCQkgICAgX19wdXRfdXNlcihvbGRfa2Euc2Euc2Ff
+ZmxhZ3MsICZvYWN0LT5zYV9mbGFncykgfHwKLQkJICAgIF9fcHV0X3VzZXIob2xkX2thLnNhLnNh
+X21hc2suc2lnWzBdLCAmb2FjdC0+c2FfbWFzaykpCi0JCQlyZXR1cm4gLUVGQVVMVDsKKwkJc2Nv
+cGVkX3VzZXJfd3JpdGVfYWNjZXNzKGFjdCwgRWZhdWx0KSB7CisJCQl1bnNhZmVfcHV0X3VzZXIo
+b2xkX2thLnNhLnNhX2hhbmRsZXIsICZvYWN0LT5zYV9oYW5kbGVyLCBFZmF1bHQpOworCQkJdW5z
+YWZlX3B1dF91c2VyKG9sZF9rYS5zYS5zYV9yZXN0b3JlciwgJm9hY3QtPnNhX3Jlc3RvcmVyLCBF
+ZmF1bHQpOworCQkJdW5zYWZlX3B1dF91c2VyKG9sZF9rYS5zYS5zYV9mbGFncywgJm9hY3QtPnNh
+X2ZsYWdzLCBFZmF1bHQpOworCQkJdW5zYWZlX3B1dF91c2VyKG9sZF9rYS5zYS5zYV9tYXNrLnNp
+Z1swXSwgJm9hY3QtPnNhX21hc2ssIEVmYXVsdCk7CisJCX0KIAl9CiAKIAlyZXR1cm4gcmV0Owor
+CitFZmF1bHQ6CisJcmV0dXJuIC1FRkFVTFQ7CiB9CiAjZW5kaWYKICNpZmRlZiBDT05GSUdfQ09N
+UEFUX09MRF9TSUdBQ1RJT04KQEAgLTQ4MTMsMTIgKzQ4MTYsMTIgQEAgQ09NUEFUX1NZU0NBTExf
+REVGSU5FMyhzaWdhY3Rpb24sIGludCwgc2lnLAogCWNvbXBhdF91cHRyX3QgaGFuZGxlciwgcmVz
+dG9yZXI7CiAKIAlpZiAoYWN0KSB7Ci0JCWlmICghYWNjZXNzX29rKGFjdCwgc2l6ZW9mKCphY3Qp
+KSB8fAotCQkgICAgX19nZXRfdXNlcihoYW5kbGVyLCAmYWN0LT5zYV9oYW5kbGVyKSB8fAotCQkg
+ICAgX19nZXRfdXNlcihyZXN0b3JlciwgJmFjdC0+c2FfcmVzdG9yZXIpIHx8Ci0JCSAgICBfX2dl
+dF91c2VyKG5ld19rYS5zYS5zYV9mbGFncywgJmFjdC0+c2FfZmxhZ3MpIHx8Ci0JCSAgICBfX2dl
+dF91c2VyKG1hc2ssICZhY3QtPnNhX21hc2spKQotCQkJcmV0dXJuIC1FRkFVTFQ7CisJCXNjb3Bl
+ZF91c2VyX3JlYWRfYWNjZXNzKGFjdCwgRWZhdWx0KSB7CisJCQl1bnNhZmVfZ2V0X3VzZXIoaGFu
+ZGxlciwgJmFjdC0+c2FfaGFuZGxlciwgRWZhdWx0KTsKKwkJCXVuc2FmZV9nZXRfdXNlcihyZXN0
+b3JlciwgJmFjdC0+c2FfcmVzdG9yZXIsIEVmYXVsdCk7CisJCQl1bnNhZmVfZ2V0X3VzZXIobmV3
+X2thLnNhLnNhX2ZsYWdzLCAmYWN0LT5zYV9mbGFncywgRWZhdWx0KTsKKwkJCXVuc2FmZV9nZXRf
+dXNlcihtYXNrLCAmYWN0LT5zYV9tYXNrLCBFZmF1bHQpOworCQl9CiAKICNpZmRlZiBfX0FSQ0hf
+SEFTX0tBX1JFU1RPUkVSCiAJCW5ld19rYS5rYV9yZXN0b3JlciA9IE5VTEw7CkBAIC00ODMxLDE2
+ICs0ODM0LDE3IEBAIENPTVBBVF9TWVNDQUxMX0RFRklORTMoc2lnYWN0aW9uLCBpbnQsIHNpZywK
+IAlyZXQgPSBkb19zaWdhY3Rpb24oc2lnLCBhY3QgPyAmbmV3X2thIDogTlVMTCwgb2FjdCA/ICZv
+bGRfa2EgOiBOVUxMKTsKIAogCWlmICghcmV0ICYmIG9hY3QpIHsKLQkJaWYgKCFhY2Nlc3Nfb2so
+b2FjdCwgc2l6ZW9mKCpvYWN0KSkgfHwKLQkJICAgIF9fcHV0X3VzZXIocHRyX3RvX2NvbXBhdChv
+bGRfa2Euc2Euc2FfaGFuZGxlciksCi0JCQkgICAgICAgJm9hY3QtPnNhX2hhbmRsZXIpIHx8Ci0J
+CSAgICBfX3B1dF91c2VyKHB0cl90b19jb21wYXQob2xkX2thLnNhLnNhX3Jlc3RvcmVyKSwKLQkJ
+CSAgICAgICAmb2FjdC0+c2FfcmVzdG9yZXIpIHx8Ci0JCSAgICBfX3B1dF91c2VyKG9sZF9rYS5z
+YS5zYV9mbGFncywgJm9hY3QtPnNhX2ZsYWdzKSB8fAotCQkgICAgX19wdXRfdXNlcihvbGRfa2Eu
+c2Euc2FfbWFzay5zaWdbMF0sICZvYWN0LT5zYV9tYXNrKSkKLQkJCXJldHVybiAtRUZBVUxUOwor
+CQlzY29wZWRfdXNlcl93cml0ZV9hY2Nlc3MoYWN0LCBFZmF1bHQpIHsKKwkJCXVuc2FmZV9wdXRf
+dXNlcihwdHJfdG9fY29tcGF0KG9sZF9rYS5zYS5zYV9oYW5kbGVyKSwgJm9hY3QtPnNhX2hhbmRs
+ZXIsIEVmYXVsdCk7CisJCQl1bnNhZmVfcHV0X3VzZXIocHRyX3RvX2NvbXBhdChvbGRfa2Euc2Eu
+c2FfcmVzdG9yZXIpLCAmb2FjdC0+c2FfcmVzdG9yZXIsIEVmYXVsdCk7CisJCQl1bnNhZmVfcHV0
+X3VzZXIob2xkX2thLnNhLnNhX2ZsYWdzLCAmb2FjdC0+c2FfZmxhZ3MsIEVmYXVsdCk7CisJCQl1
+bnNhZmVfcHV0X3VzZXIob2xkX2thLnNhLnNhX21hc2suc2lnWzBdLCAmb2FjdC0+c2FfbWFzaywg
+RWZhdWx0KTsKKwkJfQogCX0KIAlyZXR1cm4gcmV0OworCitFZmF1bHQ6CisJcmV0dXJuIC1FRkFV
+TFQ7CiB9CiAjZW5kaWYKIAo=
+--000000000000482e69065e23d9f5--
