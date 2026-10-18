@@ -1,74 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC8547C108;
-	Sun, 18 Oct 2026 11:56:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F178375F96;
+	Sun, 18 Oct 2026 11:57:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792324611; cv=none; b=df+KXO9qghLCtA2fLdcHSpZ04V8U2bXCBIXAW4X5wbSKRNyHTse8znXKo8vEjbJc7/zK5IfeS9Yb/62Qv0m//yXdiP+A8f2xu7fd4XGhPbCUxq+xKEXcR80b1ayuU5hMkNwAAvEpiZLwDbwJuPb1HygRYdEtnkVx+hjt6IfPq7Y=
+	t=1792324680; cv=none; b=oD3TCYi0Z5lqhLQjn62wfdHWreYDxNaXrpfhLOIrlm3Ie2VmQQQxIGmMQH1V1pX+JEkFuekjJlxiWoAqRjx+NQWvonF5BZpAOxpw0Bicf14G4eaFt53X3KrH3YWew7YhxMo9gfx8Evf8mDLu/Qu0haOSYbleT8vq/gRJbweGSWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792324611; c=relaxed/simple;
-	bh=C/0zi3llrng/v5XLCiA2BZV88a5kZ0g+9QgJyOaMYAQ=;
+	s=arc-20240116; t=1792324680; c=relaxed/simple;
+	bh=NZ2cHgCkwY4gwdbO78QpmhCB7TzgWfWjclqmOl5q/fg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i6mmFRvihUGpO2fLFDfOxXg0hoBazGRFJIbF9rGbfmw07vbSTgVby65Hpa+sphcthOM6OxJd4mmTJvZgelg+Et8kaHnLZs3MJpfcfmt4VUBUYmu4FkleR5g1RgB/HJntwIaNFWpoQ9A8S0xPTNgZ5Ia7G1JPYep0WVjERb3dsw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ha/hj1wH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=c/QKw35m3vQiaAxw6usMgpMYVkxR0koOdq8Xtm/qgZdlgvk1EWpWGvXGikTPybtVQUVsPEPjWyEDCldLQc/u7DVKusUgpUxRU/E8MQufK2JYNYmnAazSKqoA7EgTTiybnuf4onZB19yiEyZgS7itEaoVc2tF63gC/dpR22qyU8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f42AsHQf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ha/hj1wH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C757E1F000C4;
-	Sun, 18 Oct 2026 11:56:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f42AsHQf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EE381F000C4;
+	Sun, 18 Oct 2026 11:57:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792324610;
-	bh=DC8qMP+tN6JBnrgzbUtEYIqOpeK2hV8dxa52Rbq12Ss=;
+	s=k20260515; t=1792324678;
+	bh=bFn3lnOcdp7IF5zfTLjNgKskD0Gz2NSTbtDBNX2D5FM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ha/hj1wHWo+H6HokqYYPpAc/F9zmRBO4VWBhPWRgYwkaMKURsjrbi6oZOmSWbV2rA
-	 eK0p0vGc98TRVKgaDLBwVzef9MEXsu8sqidTrcdVbY6vSgQMw/MVWOE8A1VJd6Sxcl
-	 DiBvI/EALpH7CKd2Kv7i5w1jrpRt32xC/rGDUn1bQaAyAJidbs6kSKuup1yBmOpk27
-	 CzZ/Ypp2EgVZxzwyIiFZ3Tp5+W9BZduIN5lhFWxKuIaMw2jTYWda7yb508iW3RbMRK
-	 UnJ9W5PPa372y+uOoQcFMQam4Hsf7eOe3b2gyqA28X4aKuEfuJYQmM03VYN1x9m0Dg
-	 112cCOxs7StGQ==
-Date: Sun, 18 Oct 2026 14:56:15 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Maor Gottlieb <maorg@mellanox.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH rdma-next 0/3] Various core fixes spotted by LLMs
-Message-ID: <20261018115615.GA64621@unreal>
-References: <20261015-ib-core-fixes-v1-0-60f6da3ddec3@nvidia.com>
+	b=f42AsHQfqOmhm2r4ajSWGlhBMpitZ86mDgHe6yRAjQ4/zGK9lhIygyZ/7R59qPGYj
+	 mDltdquwKLmgJb93bLMwtRoB/XLcb8cfmGU/B58IOrMf1DP/0BLyciVxN8/JlSIaAL
+	 pCwkE/FUapD2sUY0+jALHrDeM71iGxqtHLSv8Cy/1H7/78l9YSzowo86vpjBUzooCC
+	 e1akU4fLefSp8KbYQein6mjvywYbs82A7ZYGaI2jO6/V8CTT5zD8p/uznd+QMo10qt
+	 XLInudLYLfE0kcTc3a4E+nZ/RhhYEWIW3NxjFV5uTKeWFAuW3usI9n69fkCOPDgdcT
+	 OnnU2DGOy0xlg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 1C4461C28B93; Sun, 18 Oct 2026 12:57:41 +0100 (BST)
+Date: Sun, 18 Oct 2026 12:57:41 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: codecs: wsa884x: Add mute control knob
+Message-ID: <atS0NW_IGmi0JTdu@sirena.org.uk>
+References: <20261014-wsa884x-mute-support-v1-1-74d98d79e635@collabora.com>
+ <55831eb0-b7b0-43f3-8c03-4d1029ea97a2@sirena.org.uk>
+ <atPPpADkwx_5BeVf@venus>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Ia++CWxg39jkujrT"
+Content-Disposition: inline
+In-Reply-To: <atPPpADkwx_5BeVf@venus>
+X-Cookie: Whoever dies with the most toys wins.
+
+
+--Ia++CWxg39jkujrT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-ib-core-fixes-v1-0-60f6da3ddec3@nvidia.com>
 
-On Thu, Oct 15, 2026 at 02:58:59PM +0300, Leon Romanovsky wrote:
-> A batch of core fixes for various issues identified by LLMs.
-> 
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> ---
-> Leon Romanovsky (3):
->       RDMA/core: Preserve the selected source GID on failed AH modification
->       RDMA/core: Free unpublished port statistics after initial-read failure
->       RDMA/core: Reject LAG selection when source MAC lookup fails
+On Sat, Oct 17, 2026 at 09:45:33PM +0200, Sebastian Reichel wrote:
+> On Thu, Oct 15, 2026 at 07:10:58PM +0100, Mark Brown wrote:
 
-After some deliberation, I applied these patches anyway. Sashiko pointed out
-an issue unrelated to the patches.
+> > > +	guard(mutex)(&wsa884x->sp_lock);
+> > > +	wsa884x->trigger_mute = mute;
+> > > +	wsa884x_set_mute(component, mute || wsa884x->user_mute);
 
-Thanks
+> > ...I can't see what guarantees that pa_on is set here.  It looks like
+> > these are mono speakers with multiple speakers connected to a stream,
+> > someone could fiddle with the routing on an active stream and power up a
+> > speaker.  We should probably recheck in the speaker event.
 
-> 
->  drivers/infiniband/core/lag.c   | 12 ++++++++----
->  drivers/infiniband/core/sysfs.c |  9 +++++++--
->  drivers/infiniband/core/verbs.c |  3 ++-
->  3 files changed, 17 insertions(+), 7 deletions(-)
-> ---
-> base-commit: 66196a559be5963b1ced18418c876caf9bfb76e6
-> change-id: 20261015-ib-core-fixes-fa78b7068672
-> 
-> Best regards,
-> --  
-> Leon Romanovsky <leonro@nvidia.com>
-> 
-> 
+> pa_on is set via SND_SOC_DAPM_POST_PMU/SND_SOC_DAPM_PRE_PMD. My
+> rationale was, that mute update is not needed with the widget
+> powered down and at startup the .mute_stream handler will update
+> the mute state automatically.
+
+Right, it'll work most of the time but if someone changes the routing
+while the stream is running you should be able to hit a problem.
+
+--Ia++CWxg39jkujrT
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatS0NAAKCRAv73Ows9A4
+idQiAPwOepN3N7Bw9GMEWV5/4CcOgfdHTpwbL5FlJHOjBCB1yAEA/cVDUJwG37uw
+L0YT+mybaLOFwXoj/8eDnMCsHyeahQ4=
+=cB9A
+-----END PGP SIGNATURE-----
+
+--Ia++CWxg39jkujrT--
