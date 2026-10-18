@@ -1,54 +1,77 @@
-Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A14641BA93
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB2243846B
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792353659; cv=none; b=KL2aYKnGr/iYoA8YDHBNDbJyuNXpoNXegFV8tPdSwA0E4Lm8u+bTlUTAX/JgoAldVMRNfUp8/DlBvgAFG0s2prFdtbAwcSMakAgDmInL1GORytWh9qRRCYSK8jf4c85FzvIVKucBI/VUuHUYzZVPP6ILcnk5MMNV2NG/LvT4QEc=
+	t=1792353701; cv=none; b=LUy8PlINAB2vuIZMO3sNTnzqp70WQioNDWexrVf/3ODPUbwYs0lagjXVishA67ypUbWfXYK9JmDGt2h5Ievh4G3l1yWwQX0nfLS7cBPBbmBDMiZ/NesstCLueOtCM6t/NFHf+Kkfzos/DqITIzK8rL7uaUi66LZPEkCXfH7EJo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792353659; c=relaxed/simple;
-	bh=7DXDKizFUs2Cy9tSHE4KHil2ccfrx9+eco7MbQktoVY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Se56y9LE1I4mBin21I9FujnCqy/gCJsj7wI4EvPYDaRFqhdXJYBf+2Y5KNVeF1EBWk+kuMGPKSJyHegojXvf38uhAuXT7y8XXD/YmffdGz5RIPAQmC8vfeR3OgNWMfZVRgU74MSEhmMgkFEHUdwnyZ/3g6WRyzktVfK9/KBsgoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=L3CmQSxM; arc=none smtp.client-ip=91.218.175.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792353701; c=relaxed/simple;
+	bh=Hx2Qj+l8OFcg63fIdID0ARo7fsSvD3MoqrRN8F5jdQg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pyVpfzkIHwEhP48eubvlUZPDVgKaiiOZdZzHRqW0Di2yo54TD4MwTYbAqehBXWopfPUPwVYemJASDmz5nONSpSX9UiIKc6S6CWwTmad3BX4yiWKJ1XE6iM2/zNzxgI4YUNkglhHyE/uyXythzL2fPZKQWeP0UlUC3xv/VNmOSFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AygePdDG; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="L3CmQSxM"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7DXDKizFUs2Cy9tSHE4KHil2ccfrx9+eco7MbQktoVY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792353656; v=1; x=1792958456;
- b=L3CmQSxM7/2PwxUvfX+LmziGw8HANDt6C4hVdh9UuVHTATcgf5sSL9k5NMuJJ2SgOgH+3eZp
- +eDsu0M0MAW6d7F91gZIWuwn1R4H7s53YUR3I4QvuHwVyzGlvuzMaCnUCOQbvwdD/5G0BirtK0A
- n+mP87183NCs+1njGZGmaJ5E=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b37a12a848d1d196;
-	Sun, 18 Oct 2026 20:00:55 +0000
-X-Mizu-Trace-ID: b37a12a848d1d196
-X-Migadu-Flow: FLOW_OUT
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: broonie@kernel.org
-Cc: Matthew Schwartz <matthew.schwartz@linux.dev>,
-	Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Sen Wang <sen@ti.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Niranjan H Y <niranjan.hy@ti.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] ASoC: tas2783-sdw: refuse playback when the init writes failed
-Date: Sun, 18 Oct 2026 13:00:08 -0700
-Message-ID: <20261018200009.1493438-4-matthew.schwartz@linux.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261018200009.1493438-1-matthew.schwartz@linux.dev>
-References: <20261018200009.1493438-1-matthew.schwartz@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AygePdDG"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3514b90bb89so3685976eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:01:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792353699; x=1792958499; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=78g9KK4RW/XUg9Q6d51RdojUrkDXmguxkjVsTLKd+rM=;
+        b=AygePdDGZ+YkNxZvmkSZhGTn9muge/1me4I0AmQ/XL7hTsT6tCohL2NHq7NCR3ha3E
+         MsBAXjbNhuVx7gQwkCNZcov/PHBnWnGTQskbWl9eRc06MYWZx9INPWyBk+5bSWU++B6L
+         iCwu67rri9WxC1lYw/1PswxeeJOfe0QsINd4RZU1u1cYbHoaL21qD/KZ330ocxLrRmT+
+         Rz7S9RX9Fz7HeHeT8iS1jHj5taX/Ix8XoOBUIe1h8+3rx0kI16CEbjg4raWvwzkR5PiD
+         +HCBgEoVnRTqye+Qe3R5e3ENOMUy1RNg1XBMxSIFYSgGDkVX8DRA6Nduv/jWCjhCBwoZ
+         hcRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792353699; x=1792958499;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=78g9KK4RW/XUg9Q6d51RdojUrkDXmguxkjVsTLKd+rM=;
+        b=m3Uqi0J9hG5ViHDPt5E6YJUtwldgnBfob9UXbrv1BX0vpGVaFCltSFIEqXpFC7nZF5
+         Ok+69aUnmvzOqFHJCKTjfDNpezKbyrBcMo4tbJFvuYehigvfpxT4X6hk2+HBb9gAw/VV
+         eeuba+76vZQdTzkXI+1Fq8+OP1s/mC97zJ/Thn5CRMy7oR2RqYD8MxhmZ0qsFlPg5vJ3
+         XWamcYkTRcjWsyGKHyk+KpaDc6kR9z84kHQNE35kF4EJ1+V4W3cVziF5VUqnkyRHHW5O
+         pkH06k9yU3d4Zr9RjYHGdsixXjyDxP45haMk1RADBGIt9Vt9AafxfctwnSy4XHq+4EHZ
+         CHNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwoAV70+7/0pqogcIBG1+TMH5kPXD/vMlLYzPqnL+SFKvSn4ulXH7hQvF61HnBxiJ9s5evblTHtM5dRDK4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkSSQF3Efr3CxRSp8oibZPVBJQQNAsfMOrtzdP1OXlK51AdqPf
+	MXpM6GF8HiFPOOdxghOI6wg5tFeov9/2PEcDBr0TK2fYRCjGwQIgS3E1
+X-Gm-Gg: AYBFou3Ycj2lq6Ra2kgUtrPmN9DY05qcjAY5GUkXdYSB9b6I3SPpmAwHQzD5ZUrN/HT
+	n0Ud34MOUvfwetPSuUQMcLQZmAAkVdzE6baJCygrCKFhN2Z71fZECNHb4k4gQsin1nr+4WocNn/
+	Qp9141vqiLceCJvvq5V89Hxe4JNR7AtaGv1o/QOBRj0M9Jxjsn3i8jqS7wgMtOO5LXHNGn055Fc
+	W27Kvyg4RHgTG8dovA5kglcPSKv2ObMJAPDsBKwESGMakq/9sD0RzzDGj/VmEbn4TYiuK7jZKn6
+	G4hY2ayEtzgLldkmentQsIKIN9QI+/XJRMnUwFZBxDP//q6XchYgcgO+etiNlcH+sMVbE+MsC1X
+	GoY7rp+zPuN/y9xhR+ZxBBk092Pr98D5sPrhkDLIs4Rv4EcgsayznkREnNPzRswgWCQa9FxSYcZ
+	dXPKCMtJB9bSj9zIQrXoSM/KzXklGZfs42++gwnVuwIDUDNLgZrqI8zhKcdbh9yA6guXx5tvdHG
+	B97QH42x4AaezZ78qtzoCA=
+X-Received: by 2002:a05:7300:d588:b0:360:58a9:2704 with SMTP id 5a478bee46e88-361a1471311mr9142824eec.6.1792353699112;
+        Sun, 18 Oct 2026 13:01:39 -0700 (PDT)
+Received: from NithishVelan.localdomain ([152.57.94.185])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082784ec8sm24693980eec.22.2026.10.18.13.01.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 13:01:38 -0700 (PDT)
+From: Nithishvelan M <mnithishvelan@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Nuno Sa <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Nithishvelan M <mnithishvelan@gmail.com>
+Subject: [PATCH] staging: iio: impedance-analyzer: ad5933: use guard(mutex) in ad5933_show()
+Date: Sun, 18 Oct 2026 20:01:27 +0000
+Message-ID: <20261018200128.642-1-mnithishvelan@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,53 +80,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the SDCA function initialization writes fail, tas_io_init() leaves
-hw_init false, but the firmware download has already set fw_dl_success,
-so tas_sdw_hw_params() goes on to play through an amp that is missing
-part of its setup. On the ASUS ROG Xbox Ally X20 those writes come from
-the ACPI DisCo initialization table and include the posture, which the
-BIOS sets differently on each amp.
+Use guard(mutex) to automatically manage the state lock in
+ad5933_show(). This simplifies the function by allowing direct returns
+from each switch case, eliminating the mutable return variables and
+manual mutex_unlock() calls.
 
-Refuse playback until the init writes have completed as well, and log
-which of the two steps is missing. A stream that is only prepared again
-after a resume does not go through hw_params, so check in the port
-prepare as well.
-
-Fixes: ca8f3611dcf8 ("ASoC: tas2783A: use acpi initialisation table")
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+Signed-off-by: Nithishvelan M <mnithishvelan@gmail.com>
 ---
- sound/soc/codecs/tas2783-sdw.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ .../staging/iio/impedance-analyzer/ad5933.c   | 38 ++++++++-----------
+ 1 file changed, 15 insertions(+), 23 deletions(-)
 
-diff --git a/sound/soc/codecs/tas2783-sdw.c b/sound/soc/codecs/tas2783-sdw.c
-index 8e7376889b6d..6c4cc8868415 100644
---- a/sound/soc/codecs/tas2783-sdw.c
-+++ b/sound/soc/codecs/tas2783-sdw.c
-@@ -1055,6 +1055,11 @@ static s32 tas_sdw_hw_params(struct snd_pcm_substream *substream,
- 		return -EINVAL;
- 	}
+diff --git a/drivers/staging/iio/impedance-analyzer/ad5933.c b/drivers/staging/iio/impedance-analyzer/ad5933.c
+index 798e62bae2..024c6b5a06 100644
+--- a/drivers/staging/iio/impedance-analyzer/ad5933.c
++++ b/drivers/staging/iio/impedance-analyzer/ad5933.c
+@@ -6,6 +6,7 @@
+  */
  
-+	if (!tas_dev->hw_init) {
-+		dev_err(tas_dev->dev, "error playback without init writes");
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
+@@ -333,39 +334,30 @@ static ssize_t ad5933_show(struct device *dev,
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+ 	struct ad5933_state *st = iio_priv(indio_dev);
+ 	struct iio_dev_attr *this_attr = to_iio_dev_attr(attr);
+-	int ret = 0, len = 0;
+ 
+-	mutex_lock(&st->lock);
++	guard(mutex)(&st->lock);
++
+ 	switch ((u32)this_attr->address) {
+ 	case AD5933_OUT_RANGE:
+-		len = sysfs_emit(buf, "%u\n",
+-				 st->range_avail[(st->ctrl_hb >> 1) & 0x3]);
+-		break;
++		return sysfs_emit(buf, "%u\n",
++				  st->range_avail[(st->ctrl_hb >> 1) & 0x3]);
+ 	case AD5933_OUT_RANGE_AVAIL:
+-		len = sysfs_emit(buf, "%u %u %u %u\n", st->range_avail[0],
+-				 st->range_avail[3], st->range_avail[2],
+-				 st->range_avail[1]);
+-		break;
++		return sysfs_emit(buf, "%u %u %u %u\n", st->range_avail[0],
++				  st->range_avail[3], st->range_avail[2],
++				  st->range_avail[1]);
+ 	case AD5933_OUT_SETTLING_CYCLES:
+-		len = sysfs_emit(buf, "%d\n", st->settling_cycles);
+-		break;
++		return sysfs_emit(buf, "%d\n", st->settling_cycles);
+ 	case AD5933_IN_PGA_GAIN:
+-		len = sysfs_emit(buf, "%s\n",
+-				 (st->ctrl_hb & AD5933_CTRL_PGA_GAIN_1) ?
+-				 "1" : "0.2");
+-		break;
++		return sysfs_emit(buf, "%s\n",
++				  (st->ctrl_hb & AD5933_CTRL_PGA_GAIN_1) ?
++				  "1" : "0.2");
+ 	case AD5933_IN_PGA_GAIN_AVAIL:
+-		len = sysfs_emit(buf, "1 0.2\n");
+-		break;
++		return sysfs_emit(buf, "1 0.2\n");
+ 	case AD5933_FREQ_POINTS:
+-		len = sysfs_emit(buf, "%d\n", st->freq_points);
+-		break;
++		return sysfs_emit(buf, "%d\n", st->freq_points);
+ 	default:
+-		ret = -EINVAL;
 +		return -EINVAL;
-+	}
-+
- 	sdw_stream = snd_soc_dai_get_dma_data(dai, substream);
- 	if (!sdw_stream)
- 		return -EINVAL;
-@@ -1427,6 +1432,12 @@ static int tas_port_prep(struct sdw_slave *slave, struct sdw_prepare_ch *prep_ch
- 	addr = SDW_DPN_PREPARECTRL(prep_ch->num);
- 	switch (pre_ops) {
- 	case SDW_OPS_PORT_PRE_PREP:
-+		if (!tas_dev->hw_init) {
-+			dev_err(dev, "error port %d prepare without init writes\n",
-+				prep_ch->num);
-+			return -EINVAL;
-+		}
-+
- 		/*
- 		 * The Function has to be powered before the port can complete
- 		 * channel preparation.  hw_params() does that when a stream is
+ 	}
+-
+-	mutex_unlock(&st->lock);
+-	return ret ? ret : len;
+ }
+ 
+ static ssize_t ad5933_store(struct device *dev,
 -- 
-2.56.0
+2.53.0
 
