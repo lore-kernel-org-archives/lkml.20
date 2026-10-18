@@ -1,35 +1,78 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF6C35DA6A;
-	Sun, 18 Oct 2026 03:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 721573A963A
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792292628; cv=none; b=POIjIT9cbg15C3HCou+viSnQo5NviUgm6N9mVv9EDlvbHfFThXo1UolEcbAPJKpYE5PdHCc0fCzzCFL2+jjHKAf+ZslMR/zevI09dbuhTip2DPhDg1dBKOE1BXoMtLllU15LQQdfj6I64PQ/nc/SCfRqhRg/SUMSpdavlHZYdcY=
+	t=1792292742; cv=none; b=qzkknWnk9h+HU84BJvPd569+EqsLwt8qxiRC8OYonXnEvI8AdYWea6xBjG6bn0o8tqoK16w8TLJAsH9R3f0nQ52+r/c392/zCJoL0CrdTA9v2E29JD6QmIInSN+a3GdyfxBpkDH+rnNXYX8kgScv1SIpjblc8BbNKXPFTkwHun0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792292628; c=relaxed/simple;
-	bh=gPCk6cz3/UNRaQoaTMI3n3BckGmxOk3Wy+w9bv5KzcY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ck1f32+PwqJHV3lrym0XO4kRT7sK5vbfpV9zdKt7vb/+lyIKVS9hTi+weK7LRk30sKU/tHGrRE6nSdtYMHA5ycR6beL5tmqaxRu3NhPUnV4jF7ZpaWbOU+V9Nprq8gsA99wlCuhEdPOVQF6nPDv9Bo71lHCpn5RhJ1+yQubHJTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xIHBW-004T2R-7U;
-	Sat, 17 Oct 2026 23:03:42 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Amir Goldstein <amir73il@gmail.com>,
-	linux-fsdevel@vger.kernel.org,
+	s=arc-20240116; t=1792292742; c=relaxed/simple;
+	bh=gQi+xtninHZxQY9xWgWcLhp4vrLzNeVDk2wCXuI3u+U=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=ZU+MKyxC21EbxTrJmwLtSV+yoMfdVubvaGBD0sEWuTmznNB2vAa33d9hBXqXbEHFcgkLvOzjNoTT01SpaeRYZZnNEt6nY8U6nZ2HcgelM0uK8Tw+O/z3JD4UwoJuAeHvsx4mhCcIMMQpSGkAagJM6sCNc1hT1mEcIK73Ca577Mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pc+p62xJ; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pc+p62xJ"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91b83459526so14404126d6.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:05:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792292739; x=1792897539; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dgxKa05dacoY91n9KJ8d6YZbYjBrULhK9rEgGNWUKfo=;
+        b=Pc+p62xJkSlV+kuOXuvnhqO8Na2Y4v/yEoqEYibEH5Bf2TctM7qdq12tsM9sMiWfAN
+         RAmDAKieVcziZQQONuC5pcAIzhjKLuN31EVG4RTCHboLbwFJES0vVcOohtu8Pmx5xfdA
+         MZawmFYhzDPh29jyWaqiJVm8n/IVveYFnvYWj7508ttTXztomjCBm1epC8NqxRx8IBLW
+         +zs0ks8ubtcQjYQpdVUL2wx1jdmMqvTTg7yedCp9Opo1ni5qfjWaTweBXhLWLciXWqUI
+         Pz4dv4lQuTagmnscW8yfqg9v8441y0iqzO8ROZYRT5jfCe3PUy4+Q4CW3ozT0CBuAcTB
+         JlUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792292739; x=1792897539;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dgxKa05dacoY91n9KJ8d6YZbYjBrULhK9rEgGNWUKfo=;
+        b=bePlE0DNY+xaXQlzxHnvks/XLMC003xAtRNm7l+gxG/E4F4Y2b0I/u7gkPJWKmT7l2
+         fbZFFoONhEEXsqRwjOQzgvxVk5lBkSyZdfegNGSIhWvpuxA4cccNgkUZ9JE+zp6J/xG/
+         0qXs/6mbe/6P68ZifoUHE81i5dx2bfTupov1kgEIaK+RFsyFPrIekCn6tbU1d8daokT9
+         rVapASIUogPL5wF5cP4y3QcHVkEYnvtwNRjNGG0WhB8WZIDy2CFIorOy6a76UEm9Juws
+         TM/g97TdigIiXcn8bAe9yFeF8YL6FtzGgPB/r/uOS1vc9g396WpHwa9JQpx4tHe49N66
+         mOzA==
+X-Forwarded-Encrypted: i=1; AKwUvBwW69peqbdqxqAHN0PN+XTWFn055TntnVmX1Z+t2PxDFPv9lRopJYsWDsExEglZ6zkVVv+Dxb6YaKR9GEU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIoXrN4h31mq8ElDTSPjBdStsp9JQY1Nqdl/En0Frupb+aOHAJ4
+	HhJJkKil+Dlvvt/fZMkrQd3WpJeCJssg/sz+AWi4IyRvEiipPFzUHMk/Y/fJDLs=
+X-Gm-Gg: AYBFou0FjVKKEbnIJ+JBHoSyM7elDwo7lT+roySt+rf8ewwm5hgsUjy5kmU+tP2I5Nf
+	xr+WNYdiMBAtIK5250hG+xWi9+rtB38l8/+4rgbtRh2hzSkIVaOiREEUVVF7miz0xqGDmPSci2e
+	rSbCGjntgmcz/mlsjiZuC4f7Z/eo3WsR9uwG7q9DDI1zJfIZc3jNE7OvfgSpPPz8I3eI4NFWJqc
+	IVyfx5j94Dp7ey8rK7+CyiGZfgbAaT4rOOayPlFMWC7G0UlAW4rym2Tm6WWuuuvG8235EMbUlbQ
+	vN8PxFcnwJ1lu3OssVQOoU8Ftlm3VHbBpRgZwtsB8LOR1NZcU9O5QTyod992cRqA/lUhojlz+6F
+	9t30MquUVX1xguYs6noZfyegfS8E30urRR5Xg6zI0KPzamRO3hg7Cm2jiWjLHUGYYesrlKbNP8m
+	ksJJIDkEveqKyXX0JbRbnwAZ04y2sGqe6TFGxPDaBmgpEdEC47rYxeAHpVZAslUNlXmdDz9TYUs
+	ovqQOgImkXH70qXYEDVflk8Dlcj3b1pPSl/KG3CsDoqAdBBDtV8sh+s18yjOjpG1GXJCO6zbyN2
+	XGrUggIBNakUA6qz/4dBm6aIsGE6
+X-Received: by 2002:a05:6214:33c3:b0:91b:8296:3b87 with SMTP id 6a1803df08f44-91bdefbc8bfmr73201836d6.18.1792292739234;
+        Sat, 17 Oct 2026 20:05:39 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbacfcc6sm61166556d6.23.2026.10.17.20.05.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 20:05:38 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] nsfs: check the trailing bytes of a file handle in bytes, not words
-Date: Sat, 17 Oct 2026 23:03:41 -0400
-Message-ID: <20261018030342.799383-1-nickolai@csail.mit.edu>
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH net] net: sungem: shut down the link timer before freeing device state
+Date: Sat, 17 Oct 2026 23:05:36 -0400
+Message-ID: <179229264512.3933686.6151403340581004321.sungem@gmail.com>
 X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,132 +81,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-open_by_handle_at(2) gets the wrong answer for a namespace file handle
-longer than struct nsfs_file_handle: a 16-byte handle padded with
-zeros to 48 bytes or more, which is what the comment above the check
-promises to accept, is refused with -ESTALE, while a 20-byte handle
-whose extra word is garbage is accepted. Reproduced on v7.0 and on
-mainline with the handle of /proc/self/ns/net from
-name_to_handle_at(AT_SYMLINK_FOLLOW); no privilege is needed, as
-nsfs_fh_to_dentry() admits the caller's own namespaces. Since v6.18.
+The ethtool link-settings and nway-reset callbacks can restart
+link_timer when the interface is administratively down. They test device
+presence, but not whether the interface is running.
+gem_begin_auto_negotiation() then arms the timer.
 
-nsfs_fh_to_dentry() receives fh_len in 32-bit words, like every
-fh_to_dentry(), and NSFS_FID_SIZE_U32_LATEST is the struct size in
-words (4). The check that the bytes past the struct are zero adds that
-word count to a byte pointer and passes the word difference to
-memchr_inv() as a byte count: it inspects bytes 4 .. fh_len - 1 of the
-handle instead of bytes 16 .. 4 * fh_len - 1. Up to a 44-byte handle
-that range lies inside ns_id, ns_type and ns_inum, so the outcome
-depends on the values of those fields (a padded net namespace handle
-passes because the upper bytes of its ns_id and ns_type are zero) and
-the real trailing bytes are never looked at; from 48 bytes on the range
-always covers a non-zero field byte and every padded handle is refused.
+When such a device is removed, unregister_netdev() skips ndo_stop() for
+the already-down interface. The timer is consequently still pending when
+gem_remove_one() cancels reset_task and frees the device state. Its
+callback can then access the freed private data and MMIO mapping. It is
+also a producer of reset_task.
 
-Start NSFS_FILE_HANDLE_SIZE_LATEST bytes into the handle and check
-(fh_len - NSFS_FID_SIZE_U32_LATEST) * sizeof(u32) bytes.
+Shut down the link timer after unregister_netdev() and before cancelling
+reset_task. This waits for a running timer callback and prevents it from
+rearming, so the final work cancellation follows the last timer
+producer. Keep ordinary close and suspend timer cancellation
+restartable.
 
-Tested with a program that encodes /proc/self/ns/net and opens the
-handle with handle_bytes 16, 20, 36, 48 and 128 (zero padding), and 20
-and 48 with a non-zero last byte. Before: 48 and 128 refused, the
-20-byte garbage handle accepted; after: every padded handle opens, both
-garbage handles are refused.
+This issue was identified as part of our ongoing research while
+reviewing kernel code.
 
-Fixes: 5222470b2fbb ("nsfs: support file handles")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Fixes: fe09bb619096 ("sungem: Spring cleaning and GRO support")
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+
 ---
+Compile-tested with Clang, W=1. No hardware runtime testing.
 
-Notes:
-    The arithmetic keeps the two existing constants: NSFS_FILE_HANDLE_SIZE_LATEST
-    is the struct size in bytes, NSFS_FID_SIZE_U32_LATEST the same in words, and
-    fh_len is in words as exportfs passes it (handle_bytes >> 2). pidfs has no
-    trailing-bytes check, so nothing else uses this pattern.
-    
-    Reproducer (any kernel >= 6.18 with CONFIG_FHANDLE, no privilege):
-    
-    #define _GNU_SOURCE
-    #include <errno.h>
-    #include <fcntl.h>
-    #include <stdio.h>
-    #include <string.h>
-    #include <unistd.h>
-    
-    #define MAX_HANDLE_SZ 128
-    
-    static int fails;
-    
-    static void try(int mntfd, struct file_handle *fh, unsigned int bytes,
-    		unsigned int poison_at, int expect_ok, const char *what)
-    {
-    	int fd;
-    
-    	memset(fh->f_handle + 16, 0, MAX_HANDLE_SZ - 16);
-    	if (poison_at)
-    		fh->f_handle[poison_at] = 0xff;
-    	fh->handle_bytes = bytes;
-    	fd = open_by_handle_at(mntfd, fh, O_RDONLY);
-    	if ((fd >= 0) != expect_ok)
-    		fails++;
-    	printf("%s handle_bytes=%u %s -> %s\n", (fd >= 0) == expect_ok ? "ok  " : "FAIL",
-    	       bytes, what, fd >= 0 ? "opened" : strerror(errno));
-    	if (fd >= 0)
-    		close(fd);
-    }
-    
-    int main(void)
-    {
-    	char buf[sizeof(struct file_handle) + MAX_HANDLE_SZ] = {};
-    	struct file_handle *fh = (struct file_handle *)buf;
-    	int mntfd, mnt_id;
-    
-    	fh->handle_bytes = MAX_HANDLE_SZ;
-    	mntfd = open("/proc/self/ns/net", O_RDONLY);
-    	if (mntfd < 0 || name_to_handle_at(AT_FDCWD, "/proc/self/ns/net", fh,
-    					   &mnt_id, AT_SYMLINK_FOLLOW)) {
-    		perror("name_to_handle_at");
-    		return 2;
-    	}
-    	try(mntfd, fh, 16, 0, 1, "as encoded");
-    	try(mntfd, fh, 20, 0, 1, "one zero word of padding");
-    	try(mntfd, fh, 48, 0, 1, "eight zero words of padding");
-    	try(mntfd, fh, 128, 0, 1, "zero-padded to MAX_HANDLE_SZ");
-    	try(mntfd, fh, 20, 19, 0, "non-zero byte 19 (past the struct)");
-    	try(mntfd, fh, 48, 47, 0, "non-zero byte 47 (past the struct)");
-    	printf("%s\n", fails ? "FAIL" : "PASS");
-    	return fails != 0;
-    }
-    
-    gcc -O2 -Wall -o nsfs_fh_pad nsfs_fh_pad.c && ./nsfs_fh_pad
-    
-    before: ok   handle_bytes=16 as encoded -> opened
-            ok   handle_bytes=20 one zero word of padding -> opened
-            FAIL handle_bytes=48 eight zero words of padding -> Stale file handle
-            FAIL handle_bytes=128 zero-padded to MAX_HANDLE_SZ -> Stale file handle
-            FAIL handle_bytes=20 non-zero byte 19 (past the struct) -> opened
-            ok   handle_bytes=48 non-zero byte 47 (past the struct) -> Stale file handle
-            FAIL
-    after:  all six ok, PASS
+Based on mainline 0fcb05b72344f40806cbe810de8872f1698bf053.
 
- fs/nsfs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/nsfs.c b/fs/nsfs.c
-index c3b6ae76594a..0ef4e1455b7a 100644
---- a/fs/nsfs.c
-+++ b/fs/nsfs.c
-@@ -529,8 +529,8 @@ static struct dentry *nsfs_fh_to_dentry(struct super_block *sb, struct fid *fh,
+diff --git a/drivers/net/ethernet/sun/sungem.c b/drivers/net/ethernet/sun/sungem.c
+index dc5638d..e8d3ac7 100644
+--- a/drivers/net/ethernet/sun/sungem.c
++++ b/drivers/net/ethernet/sun/sungem.c
+@@ -2797,6 +2797,9 @@ static void gem_remove_one(struct pci_dev *pdev)
  
- 	/* Check that any trailing bytes are zero. */
- 	if ((fh_len > NSFS_FID_SIZE_U32_LATEST) &&
--	    memchr_inv((void *)fid + NSFS_FID_SIZE_U32_LATEST, 0,
--		       fh_len - NSFS_FID_SIZE_U32_LATEST))
-+	    memchr_inv((void *)fid + NSFS_FILE_HANDLE_SIZE_LATEST, 0,
-+		       (fh_len - NSFS_FID_SIZE_U32_LATEST) * sizeof(u32)))
- 		return NULL;
+ 		unregister_netdev(dev);
  
- 	switch (fh_type) {
-
-base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
--- 
-2.53.0
-
++		/* Link settings can restart the timer while the interface is down. */
++		timer_shutdown_sync(&gp->link_timer);
++
+ 		/* Ensure reset task is truly gone */
+ 		cancel_work_sync(&gp->reset_task);
+ 
