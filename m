@@ -1,93 +1,189 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C574CF48E;
-	Sun, 18 Oct 2026 03:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C05349CFD;
+	Sun, 18 Oct 2026 03:46:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792295210; cv=none; b=ZmnHVvl9tg2x4+ApQRKnH89xpb8335PR7/N0O9jhDGUg1BSSRIDTCpmkmhw/HMR4/gpfUHk+1tByzX+UX6q4TxTmwuXUQnJftO+ih7kGD8eWze/P47LR2xJinj1pqNTVTZwcoCeUhQg+IKLa2NiBrX44GykYG5TXIQ6ie99F/Fo=
+	t=1792295221; cv=none; b=ayF7K3A/oR/rpmUiZbfvU1RPkdwXDnv9FZRpUB5TzHkfCXCYjDAj4t2LwV6A5uDqt60G/8/og0O5z4R1rT9t6J1zFQYUaHTtjUuRT2j7IhWYgH2pDdil7ehlZG5AIahMZXYaYQGae2LaZ14TzA/WBj7JGeC1e85F0/5c8kTCA1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792295210; c=relaxed/simple;
-	bh=LJDyS37yewZRx1v22+AwoSQHeTLJKv6pM3GpweTz7o8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=l0yf+WNEVn/7akHnf5TAJdu/U4xNimho28mHhQ2Q+qz8k020q0T3nPYEqEaFtNeKLGFmn410QRIF510aXjkqOxXUAAEDDAIaFsV/Mixic/ApdWrzMmIZdvyhUBWbKAZd6GfUwIlC/0QvT6CqUdJopsqQFoJHfqHaxFH2rlWmfQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=e79eOkI7; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792295221; c=relaxed/simple;
+	bh=TnlLL+kSdfBTHy2er0Odwu5fnbzTG2kKx5edc0IjVR4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZVjFx/IiDjDcMJbwCVJCUW7duIbOzp5c7q89QF23RAR1RNJy24bA4H50QA37jTM85hPNtGbDGzAqQA0dZ/mHrC2cBXfYDj4QE7Ba5asg8durqsjexS8rTdRi9mMi+Y4HfnV7OA2NPmuY7aZeG0ecIT4w1xuvVHU9kS3ei9Oub4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=czC7Xa9Z; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="e79eOkI7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ao
-	cTYe11pbOdAFX39W/I1IMYsM6ydPRQ7LfkVeAA8p4=; b=e79eOkI72r9wjTIVfq
-	LwYqFaVK3b36lgwh3L/03wGd9vZ16QemVnNaAXmg0AN3FVD8IQg9qpZkRGiSiukB
-	7QQknPG1bE4RUdslaABbct5SzmmVEy6jkOrfV57zB/dTf5Di56aiJxqWOxbMLVhs
-	TYuj+ChBl4EfXk0O6w6KmAy8I=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgDHCJIKQdRqbogNAg--.664S2;
-	Sun, 18 Oct 2026 11:46:19 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Roman Kisel <romank@linux.microsoft.com>,
-	Naman Jain <namjain@linux.microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	linux-hyperv@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="czC7Xa9Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792295219; x=1823831219;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TnlLL+kSdfBTHy2er0Odwu5fnbzTG2kKx5edc0IjVR4=;
+  b=czC7Xa9ZidUefzFlLchxLeSfFl6QnuJSsb0gv7LthD6hwnhY75juwP9u
+   L/Fz2kzYmyU4U/8/bXfaGdZiQlDdLUdoLoSFvCSvMCRuFK1ViF1xNDEyN
+   F9075apFBNsqIn5J7oPwSiXSyzCRX51Q3idWnXvLZ6fn6BDaOYZRki67r
+   gdchq9177HZ7ZrGZzl2FtWMIoH0BlUUfOuxpN2a/2y/5FFJIaMEtQUrZE
+   6ZChDrOEx4+Dcy1gqHobe33QoJAhBk5VtdMsyqS8UlSRXTzlfHBnM9330
+   Xon1OK1V6QPJgxgj4mdrvRudKLrRnzHeYL6IqRnyDPUXHbeDfZAUd7NB0
+   w==;
+X-CSE-ConnectionGUID: IGl1/o0ARWqwL2uE06E2tA==
+X-CSE-MsgGUID: 7sr/zAhYQJOOCESgxMTgEQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="1028947"
+X-IronPort-AV: E=Sophos;i="6.27,165,1787036400"; 
+   d="scan'208";a="1028947"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 20:46:59 -0700
+X-CSE-ConnectionGUID: Xv/bWGnITGedwc8FCp+V6g==
+X-CSE-MsgGUID: pKi0NCHdTgiiAjuihecQWg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,165,1787036400"; 
+   d="scan'208";a="4018129"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 17 Oct 2026 20:46:53 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xIHrF-00000000K3C-0HEZ;
+	Sun, 18 Oct 2026 03:46:49 +0000
+Date: Sun, 18 Oct 2026 11:46:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: Leon Hwang <leon.hwang@linux.dev>, bpf@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Martin Karsten <mkarsten@uwaterloo.ca>,
+	Masashi Honma <masashi.honma@gmail.com>,
 	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] mshv_vtl: initialize poll file mutex before device registration
-Date: Sun, 18 Oct 2026 11:46:16 +0800
-Message-Id: <20261018034616.508850-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH bpf-next 2/6] bpf: Add syscall common attrs support for
+ xdp link_create
+Message-ID: <202610181115.hv8jYAxy-lkp@intel.com>
+References: <20261017142649.51047-3-leon.hwang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDHCJIKQdRqbogNAg--.664S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AFyUCF4kJw4fZrWUAF48Xrb_yoW8JFWDp3
-	y0g3WrArW5ta1xAa1DX3WxJFyF93Z7Kay8C34rua409wnrAryqva4UG3yj9Fy0qrWxAF1a
-	vF4kX3y8C3y5JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piAnYrUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQwjXWrUQQxofwAA3b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017142649.51047-3-leon.hwang@linux.dev>
 
-mshv_vtl_init() registers /dev/mshv before initializing the poll file
-mutex. A concurrent MSHV_SET_POLL_FILE ioctl can therefore attempt to lock
-an uninitialized mutex while module initialization is still in progress.
+Hi Leon,
 
-Initialize the file-scope mutex statically so it is ready before the misc
-device becomes visible.
+kernel test robot noticed the following build errors:
 
-Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/hv/mshv_vtl_main.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+[auto build test ERROR on bpf-next/master]
 
-diff --git a/drivers/hv/mshv_vtl_main.c b/drivers/hv/mshv_vtl_main.c
-index d8225242c73f..2b40c9e3bf88 100644
---- a/drivers/hv/mshv_vtl_main.c
-+++ b/drivers/hv/mshv_vtl_main.c
-@@ -95,7 +95,7 @@ union hv_synic_overlay_page_msr {
- 	} __packed;
- };
- 
--static struct mutex mshv_vtl_poll_file_lock;
-+static DEFINE_MUTEX(mshv_vtl_poll_file_lock);
- static union hv_register_vsm_page_offsets mshv_vsm_page_offsets;
- static union hv_register_vsm_capabilities mshv_vsm_capabilities;
- 
-@@ -1370,8 +1370,6 @@ static int __init mshv_vtl_init(void)
- 		goto free_low;
- 	}
- 
--	mutex_init(&mshv_vtl_poll_file_lock);
--
- 	device_initialize(mem_dev);
- 	dev_set_name(mem_dev, "mshv vtl mem dev");
- 	ret = device_add(mem_dev);
--- 
-2.34.1
+url:    https://github.com/intel-lab-lkp/linux/commits/Leon-Hwang/bpf-Add-syscall-common-attrs-support-for-link_create/20261017-222644
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git master
+patch link:    https://lore.kernel.org/r/20261017142649.51047-3-leon.hwang%40linux.dev
+patch subject: [PATCH bpf-next 2/6] bpf: Add syscall common attrs support for xdp link_create
+config: um-defconfig (https://download.01.org/0day-ci/archive/20261018/202610181115.hv8jYAxy-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 6719b9e31d6a93099612c474eec76d9f41d0275a)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261018/202610181115.hv8jYAxy-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610181115.hv8jYAxy-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   /usr/bin/ld: warning: .tmp_vmlinux1 has a LOAD segment with RWX permissions
+   /usr/bin/ld: net/core/dev.o: in function `bpf_xdp_link_attach':
+>> net/core/dev.c:10789:(.ltext+0xcb71): undefined reference to `bpf_log'
+   clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+
+vim +10789 net/core/dev.c
+
+ 10774	
+ 10775	int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
+ 10776				struct bpf_verifier_log *log)
+ 10777	{
+ 10778		struct net *net = current->nsproxy->net_ns;
+ 10779		struct bpf_link_primer link_primer;
+ 10780		struct netlink_ext_ack extack = {};
+ 10781		struct bpf_xdp_link *link;
+ 10782		struct net_device *dev;
+ 10783		int err, fd;
+ 10784	
+ 10785		rtnl_lock();
+ 10786		dev = dev_get_by_index(net, attr->link_create.target_ifindex);
+ 10787		if (!dev) {
+ 10788			rtnl_unlock();
+ 10789			bpf_log(log, "Invalid target_ifindex.\n");
+ 10790			return -EINVAL;
+ 10791		}
+ 10792	
+ 10793		link = kzalloc_obj(*link, GFP_USER);
+ 10794		if (!link) {
+ 10795			err = -ENOMEM;
+ 10796			goto unlock;
+ 10797		}
+ 10798	
+ 10799		bpf_link_init(&link->link, BPF_LINK_TYPE_XDP, &bpf_xdp_link_lops, prog,
+ 10800			      attr->link_create.attach_type);
+ 10801		link->dev = dev;
+ 10802		link->flags = attr->link_create.flags;
+ 10803	
+ 10804		err = bpf_link_prime(&link->link, &link_primer);
+ 10805		if (err) {
+ 10806			kfree(link);
+ 10807			goto unlock;
+ 10808		}
+ 10809	
+ 10810		netdev_lock_ops(dev);
+ 10811		err = dev_xdp_attach_link(dev, &extack, link);
+ 10812		netdev_unlock_ops(dev);
+ 10813		rtnl_unlock();
+ 10814	
+ 10815		if (err) {
+ 10816			link->dev = NULL;
+ 10817			bpf_link_cleanup(&link_primer);
+ 10818			bpf_log(log, extack._msg);
+ 10819			trace_bpf_xdp_link_attach_failed(extack._msg);
+ 10820			goto out_put_dev;
+ 10821		}
+ 10822	
+ 10823		fd = bpf_link_settle(&link_primer);
+ 10824		/* link itself doesn't hold dev's refcnt to not complicate shutdown */
+ 10825		dev_put(dev);
+ 10826		return fd;
+ 10827	
+ 10828	unlock:
+ 10829		rtnl_unlock();
+ 10830	
+ 10831	out_put_dev:
+ 10832		dev_put(dev);
+ 10833		return err;
+ 10834	}
+ 10835	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
