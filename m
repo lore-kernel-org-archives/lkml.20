@@ -1,140 +1,169 @@
-Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6A7348C76;
-	Sun, 18 Oct 2026 03:03:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF6C35DA6A;
+	Sun, 18 Oct 2026 03:03:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792292594; cv=none; b=KazyWkIVrSAzaxvoTuQI14XtDxl+Ew+2xxS7fdo19Dp+J6mfv2PJ+7KM8ASYX1sWRgX0fQVWpEl9A5v6n37PY/sdE7fj1D0XfozOMgsNba6d7itOC4wM+Ht2lvVggYMyWgHs+4r3OAVH1v8wHg6xL8zQKC9IHbIF6wbZrwsxDR8=
+	t=1792292628; cv=none; b=POIjIT9cbg15C3HCou+viSnQo5NviUgm6N9mVv9EDlvbHfFThXo1UolEcbAPJKpYE5PdHCc0fCzzCFL2+jjHKAf+ZslMR/zevI09dbuhTip2DPhDg1dBKOE1BXoMtLllU15LQQdfj6I64PQ/nc/SCfRqhRg/SUMSpdavlHZYdcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792292594; c=relaxed/simple;
-	bh=0KkuGVnbhsWfcdabm/htUrm/DqxpcuxDQZ4lojf2pUA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HbK/m9coO1QdjjuPAbEjVRR6k1NT5k2j/RXKrnHdKoiUkJE31hJBLTFuu7HUGElsH0fVoK+OFqNxTTbLfwnTx8moGI0g6i0PBE+adHTJVXRRuumVbEs7PM0t0sPocXUrq3RYIyYGL6ssvujvrhOWEmsu4XiviBAuWQYyArVSWyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07857046|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00559226-0.000243516-0.994164;FP=11709099924969983668|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033068016216;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jie8pT0_1792292573;
-Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jie8pT0_1792292573 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sun, 18 Oct 2026 11:03:01 +0800
-Message-ID: <b4e5b68e-2ece-4007-bd47-e6432ce70d9a@motor-comm.com>
-Date: Sun, 18 Oct 2026 11:02:53 +0800
+	s=arc-20240116; t=1792292628; c=relaxed/simple;
+	bh=gPCk6cz3/UNRaQoaTMI3n3BckGmxOk3Wy+w9bv5KzcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ck1f32+PwqJHV3lrym0XO4kRT7sK5vbfpV9zdKt7vb/+lyIKVS9hTi+weK7LRk30sKU/tHGrRE6nSdtYMHA5ycR6beL5tmqaxRu3NhPUnV4jF7ZpaWbOU+V9Nprq8gsA99wlCuhEdPOVQF6nPDv9Bo71lHCpn5RhJ1+yQubHJTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xIHBW-004T2R-7U;
+	Sat, 17 Oct 2026 23:03:42 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Amir Goldstein <amir73il@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] nsfs: check the trailing bytes of a file handle in bytes, not words
+Date: Sat, 17 Oct 2026 23:03:41 -0400
+Message-ID: <20261018030342.799383-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v14 5/5] net: dsa: motorcomm: Add support for
- Motorcomm YT922x
-To: David Yang <mmyangfl@gmail.com>
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
-References: <20261013011122.1889766-1-kyle.switch@motor-comm.com>
- <20261013011122.1889766-6-kyle.switch@motor-comm.com>
- <CAAXyoMPeOmMZ8u=+S9=W=aJ0riSRbkBX9afrcVdfrE4BreO-Hw@mail.gmail.com>
-Content-Language: en-US
-From: Kyle Switch <kyle.switch@motor-comm.com>
-In-Reply-To: <CAAXyoMPeOmMZ8u=+S9=W=aJ0riSRbkBX9afrcVdfrE4BreO-Hw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+open_by_handle_at(2) gets the wrong answer for a namespace file handle
+longer than struct nsfs_file_handle: a 16-byte handle padded with
+zeros to 48 bytes or more, which is what the comment above the check
+promises to accept, is refused with -ESTALE, while a 20-byte handle
+whose extra word is garbage is accepted. Reproduced on v7.0 and on
+mainline with the handle of /proc/self/ns/net from
+name_to_handle_at(AT_SYMLINK_FOLLOW); no privilege is needed, as
+nsfs_fh_to_dentry() admits the caller's own namespaces. Since v6.18.
 
-On 10/17/26 04:15, David Yang wrote:
-> On Tue, Oct 13, 2026 at 9:11 AM Kyle Switch <kyle.switch@motor-comm.com> wrote:
->> +/* yt922x register lists */
-> The indents below look inconsistent. Please adjust to match the existing macros.
-Okay.
->
->> +#define YT92XX_PAGE_SELECT     0x1e
->> +#define YT92XX_PAGE            0x1f
->> +#define YT922X_PORTn_STATUS(port)      (0x80200 + 4 * (port))
->> +#define  YT922X_PORT_LINK_STATE                        BIT(8)
->> +#define  YT922X_PORT_LINK_DUPLEX               BIT(7)
->> +#define  YT922X_PORT_RX_FC_EN                  BIT(6)
->> +#define  YT922X_PORT_TX_FC_EN                  BIT(5)
->> +#define YT922X_PORT_SPEED_10           0
->> +#define YT922X_PORT_SPEED_100          1
->> +#define YT922X_PORT_SPEED_1000         2
->> +#define YT922X_PORT_SPEED_10000                3
->> +#define YT922X_PORT_SPEED_2500         4
->> +#define YT922X_PORT_SPEED_5000         5
-> Leftover from yt921x_speed.
-will be removed and use the macros defined earlier in 921x.
->
->> +/* ISO */
-> The comments here (and below) did not provide much information beyond
-> the code itself.
->
-okay, will remove meaningless code comments.
->> +#define YT922X_PORTn_ISOLATION(port)   (0x4 * (port) + 0x180d80)
-> (0x180d80 + 4 * (port))
-Okay.
->
->> diff --git a/drivers/net/dsa/motorcomm/mdio_bus.c b/drivers/net/dsa/motorcomm/mdio_bus.c
->> index 3aa1111efaa4..a4cb74d0fd90 100644
->> --- a/drivers/net/dsa/motorcomm/mdio_bus.c
->> +++ b/drivers/net/dsa/motorcomm/mdio_bus.c
->> @@ -299,3 +299,42 @@ int yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp)
->>
->>          return 0;
->>   }
->> +
->> +/* intif extend register read/write api */
->> +int
->> +yt921x_intif_ext_write(struct yt921x_priv *priv, int port, int reg, u16 val)
->> +{
->> +       int res;
->> +
->> +       if (port > priv->series->max_ports)
->> +               return -ENODEV;
->> +
->> +       res = yt921x_intif_write(priv, port, YT92XX_PAGE_SELECT, reg);
->> +       if (res)
->> +               return res;
->> +
->> +       res = yt921x_intif_write(priv, port, YT92XX_PAGE, val);
->> +       if (res)
->> +               return res;
->> +
->> +       return 0;
->> +}
->> +
->> +int
->> +yt921x_intif_ext_read(struct yt921x_priv *priv, int port, int reg, u16 *valp)
->> +{
->> +       int res;
->> +
->> +       if (port > priv->series->max_ports)
->> +               return -ENODEV;
->> +
->> +       res = yt921x_intif_write(priv, port, YT92XX_PAGE_SELECT, reg);
->> +       if (res)
->> +               return res;
->> +
->> +       res = yt921x_intif_read(priv, port, YT92XX_PAGE, valp);
->> +       if (res)
->> +               return res;
->> +
->> +       return 0;
->> +}
->> diff --git a/drivers/net/dsa/motorcomm/mdio_bus.h b/drivers/net/dsa/motorcomm/mdio_bus.h
->> index e79b725d435b..513a8d2d7618 100644
->> --- a/drivers/net/dsa/motorcomm/mdio_bus.h
->> +++ b/drivers/net/dsa/motorcomm/mdio_bus.h
->> @@ -50,5 +50,7 @@ yt921x_intif_modify(struct yt921x_priv *priv, int port, int reg, u16 mask,
->>
->>   int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp);
->>   int yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp);
->> +int yt921x_intif_ext_write(struct yt921x_priv *priv, int port, int reg, u16 val);
->> +int yt921x_intif_ext_read(struct yt921x_priv *priv, int port, int reg, u16 *valp);
->>
->>   #endif
-> intif_ext_* should be placed right after intif_* (if they are still in
-> mdio_bus).
-okay.
+nsfs_fh_to_dentry() receives fh_len in 32-bit words, like every
+fh_to_dentry(), and NSFS_FID_SIZE_U32_LATEST is the struct size in
+words (4). The check that the bytes past the struct are zero adds that
+word count to a byte pointer and passes the word difference to
+memchr_inv() as a byte count: it inspects bytes 4 .. fh_len - 1 of the
+handle instead of bytes 16 .. 4 * fh_len - 1. Up to a 44-byte handle
+that range lies inside ns_id, ns_type and ns_inum, so the outcome
+depends on the values of those fields (a padded net namespace handle
+passes because the upper bytes of its ns_id and ns_type are zero) and
+the real trailing bytes are never looked at; from 48 bytes on the range
+always covers a non-zero field byte and every padded handle is refused.
+
+Start NSFS_FILE_HANDLE_SIZE_LATEST bytes into the handle and check
+(fh_len - NSFS_FID_SIZE_U32_LATEST) * sizeof(u32) bytes.
+
+Tested with a program that encodes /proc/self/ns/net and opens the
+handle with handle_bytes 16, 20, 36, 48 and 128 (zero padding), and 20
+and 48 with a non-zero last byte. Before: 48 and 128 refused, the
+20-byte garbage handle accepted; after: every padded handle opens, both
+garbage handles are refused.
+
+Fixes: 5222470b2fbb ("nsfs: support file handles")
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
+
+Notes:
+    The arithmetic keeps the two existing constants: NSFS_FILE_HANDLE_SIZE_LATEST
+    is the struct size in bytes, NSFS_FID_SIZE_U32_LATEST the same in words, and
+    fh_len is in words as exportfs passes it (handle_bytes >> 2). pidfs has no
+    trailing-bytes check, so nothing else uses this pattern.
+    
+    Reproducer (any kernel >= 6.18 with CONFIG_FHANDLE, no privilege):
+    
+    #define _GNU_SOURCE
+    #include <errno.h>
+    #include <fcntl.h>
+    #include <stdio.h>
+    #include <string.h>
+    #include <unistd.h>
+    
+    #define MAX_HANDLE_SZ 128
+    
+    static int fails;
+    
+    static void try(int mntfd, struct file_handle *fh, unsigned int bytes,
+    		unsigned int poison_at, int expect_ok, const char *what)
+    {
+    	int fd;
+    
+    	memset(fh->f_handle + 16, 0, MAX_HANDLE_SZ - 16);
+    	if (poison_at)
+    		fh->f_handle[poison_at] = 0xff;
+    	fh->handle_bytes = bytes;
+    	fd = open_by_handle_at(mntfd, fh, O_RDONLY);
+    	if ((fd >= 0) != expect_ok)
+    		fails++;
+    	printf("%s handle_bytes=%u %s -> %s\n", (fd >= 0) == expect_ok ? "ok  " : "FAIL",
+    	       bytes, what, fd >= 0 ? "opened" : strerror(errno));
+    	if (fd >= 0)
+    		close(fd);
+    }
+    
+    int main(void)
+    {
+    	char buf[sizeof(struct file_handle) + MAX_HANDLE_SZ] = {};
+    	struct file_handle *fh = (struct file_handle *)buf;
+    	int mntfd, mnt_id;
+    
+    	fh->handle_bytes = MAX_HANDLE_SZ;
+    	mntfd = open("/proc/self/ns/net", O_RDONLY);
+    	if (mntfd < 0 || name_to_handle_at(AT_FDCWD, "/proc/self/ns/net", fh,
+    					   &mnt_id, AT_SYMLINK_FOLLOW)) {
+    		perror("name_to_handle_at");
+    		return 2;
+    	}
+    	try(mntfd, fh, 16, 0, 1, "as encoded");
+    	try(mntfd, fh, 20, 0, 1, "one zero word of padding");
+    	try(mntfd, fh, 48, 0, 1, "eight zero words of padding");
+    	try(mntfd, fh, 128, 0, 1, "zero-padded to MAX_HANDLE_SZ");
+    	try(mntfd, fh, 20, 19, 0, "non-zero byte 19 (past the struct)");
+    	try(mntfd, fh, 48, 47, 0, "non-zero byte 47 (past the struct)");
+    	printf("%s\n", fails ? "FAIL" : "PASS");
+    	return fails != 0;
+    }
+    
+    gcc -O2 -Wall -o nsfs_fh_pad nsfs_fh_pad.c && ./nsfs_fh_pad
+    
+    before: ok   handle_bytes=16 as encoded -> opened
+            ok   handle_bytes=20 one zero word of padding -> opened
+            FAIL handle_bytes=48 eight zero words of padding -> Stale file handle
+            FAIL handle_bytes=128 zero-padded to MAX_HANDLE_SZ -> Stale file handle
+            FAIL handle_bytes=20 non-zero byte 19 (past the struct) -> opened
+            ok   handle_bytes=48 non-zero byte 47 (past the struct) -> Stale file handle
+            FAIL
+    after:  all six ok, PASS
+
+ fs/nsfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/nsfs.c b/fs/nsfs.c
+index c3b6ae76594a..0ef4e1455b7a 100644
+--- a/fs/nsfs.c
++++ b/fs/nsfs.c
+@@ -529,8 +529,8 @@ static struct dentry *nsfs_fh_to_dentry(struct super_block *sb, struct fid *fh,
+ 
+ 	/* Check that any trailing bytes are zero. */
+ 	if ((fh_len > NSFS_FID_SIZE_U32_LATEST) &&
+-	    memchr_inv((void *)fid + NSFS_FID_SIZE_U32_LATEST, 0,
+-		       fh_len - NSFS_FID_SIZE_U32_LATEST))
++	    memchr_inv((void *)fid + NSFS_FILE_HANDLE_SIZE_LATEST, 0,
++		       (fh_len - NSFS_FID_SIZE_U32_LATEST) * sizeof(u32)))
+ 		return NULL;
+ 
+ 	switch (fh_type) {
+
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+-- 
+2.53.0
+
