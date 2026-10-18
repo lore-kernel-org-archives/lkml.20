@@ -1,35 +1,75 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AC4332EAE;
-	Sun, 18 Oct 2026 02:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39B0371880
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:56:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792292148; cv=none; b=DxbR0plajIX729JY3bhdcxivNcp8NP6a0q4FMAQakwpTIaiq4foPJBiQDGqOglMnhcuI2VtdaFhni89Zpi/1UMZzjC98svEnEBTWfh9+9J/HzKJDMoTG+H0fvy/jDY1DcdQriHNd8GgP6C7B6Byhvc+vAuyIjL4iX5c4wYdeiB4=
+	t=1792292217; cv=none; b=g+ymLRLecr1yCZI2ulmvxygGaHF78yJs/jsZC6Lt4lp+PBqWlwV/4cLKmwAgpiqdOixgZsfBzrOOc16xFcPqZfxCbowojKgV24nWyweU6zswcFarWIStmXk/JiUc6zFM2ZgOZ761ujz55/UkRyQYY7/jKjqCtRowr3tlfp7zpEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792292148; c=relaxed/simple;
-	bh=XFsqnkhAoyYGTF88mgBQ1fcnUIdUfTLVik086Lc5+2I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RoFAMwhO6XXkZulrpsg8O8unmsm+7XDx6UkaziokjJ7bIRsuyHXq17AqvOfFw/d8JdPuq26mbWzZA56LHy2FJHtqpHPa3vO7bg9mYHnSeHMjqr6anzqduNYZilhLYnHfVlkiRXMMBNAN5xn+fW/zn3UYCESKUfKLuPZH6lrTKec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xIH3l-004RVH-E7;
-	Sat, 17 Oct 2026 22:55:41 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Jens Axboe <axboe@kernel.dk>,
-	linux-fsdevel@vger.kernel.org,
+	s=arc-20240116; t=1792292217; c=relaxed/simple;
+	bh=UbdV8dkOdR9vPuOfO9gFCEr2A0/7OA8pXSL2w/2FWYc=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=nW1C6CG8xbIEcSZpdlFzl3aIKMrB8OlYswD+JvJGrKJB6Zy7CDqCrNmKKHpEjYR1ldbDNe6eboXeiWTWhMLLVODPJTn6+V0rpYfRJdQ3kltMkbdNCNTGep0dE97+HpTBHxjXxe0plXnFwZUUIRGc6wJFWw1wKQ/JEBuN/HrR0vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wwc4TSOg; arc=none smtp.client-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wwc4TSOg"
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f36c18b75so20249985a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:56:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792292213; x=1792897013; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1Rs959E2LcbDEDwb+XDadmIuU6nNMzUxfauxEwFd3lE=;
+        b=Wwc4TSOgVHs49rPWe999nXYaetiLXAx1UGMiw4WcKBmsmrISz91kEZbN63A/9RfaW3
+         5IlrtMdsmJ35Y84nXBrVeQWw3lSTTnxULKM+PWx4v1jemIDGQCW6QAFkiIWc6S6k+2Kc
+         Zq97FN3RJuGvEcup/ey3H8WYtJdna23UEWMGqTafSNhx2ASCi7R0pmJ1IGiB1QXUwuPj
+         Tr9s/QNduCFjU8VOJokqN7xsPTE4NB0JqjQm8z2NXJjBkPWx0OzQ9hwAf6kIWIn8s32s
+         Y3znqdRdO6/9YDsbTVFTW0hzkDhrGoNaeUvDKptHqgMLIvD2QDolSez6aurn4BjpDZAG
+         aUlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792292213; x=1792897013;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1Rs959E2LcbDEDwb+XDadmIuU6nNMzUxfauxEwFd3lE=;
+        b=EfkXHI20S7k8HTQSBfHw0Hua53iFS0bwCuU76HFp5Y6G6gjzbQOui6B4Hi2zdygy20
+         HMBM7Fh7OF/9toXGYi5dywewPs3x82XjJySG49/GdkMfHm8h1mp10/IwMSPSiqgT2Zu/
+         7me9rLgC/VcSSl9OEeOUgabIzS189S7nMq0t/cmowxLMm1w/MDw6N9zb1K2oIroo4r0l
+         7Ln203nCXlqCBW5pvn+Xl7E+vIaB7AnG8lNx6AGI9LMUBEIyRN+Zlf0BMkPrUqg+rBDX
+         XowP4f0zf770s10NbDTfx3Ll6cnS/3I4n+/7gmEINAcAu+Noy4uK3F8FIavktqUJSc+U
+         4GVg==
+X-Forwarded-Encrypted: i=1; AKwUvBzzoqM8pvhBgTPYgZYcInRL+44FnEXn4wMHVq5YE3GlOsh2NHmcPC7DfCz1x2JEeFkt4Fl94SPUNmTg2BY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqQzIjl++52J/olWdmuBBQ+vUmDObSEHvUVlJBAdADCYH3BOG7
+	H5Tlw6eSn7q/BytmFHmzuV5d0ErlTDbVtuFodsZIcG/PqxBV4NFgugI=
+X-Gm-Gg: AYBFou1jasinMi3zGZiHmItgVYF2M6b0urOgiuHvPinD9SamZgAHF6UOldV4Ag+7lJa
+	lhREAZ0JBhknZcBDUUjvvEBeXhGecmk6YmzABUcxjpJ9rl73TufanDBoMmNqyDi3WuO9brkFNte
+	uZrHu8dKA6OLDxKXrIMYXFhKfo02e4LpakKYe+cAonUuDL1O8VtWYGu2vg29rzviR10gE5BnS+2
+	VxGDMK6NLraDzxo6mxrerhFnob60A9micwgU0uAhLy71kiU53nS7bY2TzzbwuYP3brLyT+DtcYA
+	MMBrz6qm/zMp+fi/kQVBu7QUVf+3MKnOasHKrgmD4u4U2BHoQE9TKdQsocgfIcz2EoU3DPFytTr
+	yOIs46wOAxlDhRv+hr8skRImbC6Ml4bVb6vOIzGZO9condsbCaLOleO+WHArkknQd4gN1sOOFiW
+	gZLYg/tbNpcZT7AB4TrFc+FH+375sKca1aZt5RD48DNLKpVy+YTHuwZI3KPC/FBResygX7Iz6C6
+	p3+4IOjM1AyXjFl0oAIypaT1Frt19Cw+wBN7HCKLHzXIt1Vhp+Lp7k2U2KuESyLaPpZWHsKsFSa
+	OhRQe1ulRob1WBl84wRwljoO4Gab
+X-Received: by 2002:a05:620a:26a4:b0:93b:bce3:5499 with SMTP id af79cd13be357-93f29b80618mr714198785a.6.1792292213458;
+        Sat, 17 Oct 2026 19:56:53 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a1850cbsm597676985a.24.2026.10.17.19.56.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 19:56:52 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Support Opensource <support.opensource@diasemi.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] splice: retry tee() instead of returning 0 when it races
-Date: Sat, 17 Oct 2026 22:55:41 -0400
-Message-ID: <20261018025541.799135-1-nickolai@csail.mit.edu>
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] Input: da9055_onkey - free the requested IRQ on removal
+Date: Sat, 17 Oct 2026 22:56:50 -0400
+Message-ID: <179229215687.3924264.8583597004889642167.da9055-onkey@gmail.com>
 X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,176 +78,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tee() can return 0 while the input pipe still has writers, when
-another task reads the input pipe or fills the output pipe at the same
-time. tee(2) documents 0 as "no data was copied" because the input pipe
-has no writers, and loops built on it (the man page example breaks out
-on 0) stop early. In a test with one thread writing 1 byte at a time
-to the input pipe, one reading it and one draining the output pipe,
-about one tee() call in 150 returned 0.
+platform_get_irq_byname() returns the Linux IRQ number already
+translated by the MFD core. The probe path requests this IRQ directly,
+but remove passes it through regmap_irq_get_virq() again as a chip-local
+index.
 
-do_tee() runs ipipe_prep() and opipe_prep() to wait for data and room,
-each under its own pipe lock, and only then takes both locks in
-link_pipe(). If the input pipe was emptied or the output pipe filled in
-between, link_pipe() finds nothing to do and returns 0.
-splice_pipe_to_pipe(), which was modelled on tee(), handles the same
-race by dropping both locks and going back to the prep steps ("A zero
-return value means EOF, so retry instead"), and returns -EAGAIN for
-SPLICE_F_NONBLOCK.
+This can access beyond the chip IRQ table or yield a different IRQ, so
+the requested ONKEY interrupt is not released. An interrupt after the
+work cancellation can then access the unregistered input device or queue
+work referencing the freed onkey state.
 
-Do the same in link_pipe(): move the prep steps into it and retry when
-nothing was linked although the input pipe still has writers.
+Remove the second translation so free_irq() stops the same producer that
+probe installed before the delayed work and input device are torn down.
 
-Tested under QEMU (x86_64) with the program in the notes: 154 of 22698
-tee() calls returned 0 before the change, none of 34429 after it.
+This issue was identified as part of our ongoing research while
+reviewing kernel code.
 
-Fixes: aadd06e5c56b ("[PATCH] splice: fix problems with sys_tee()")
+Fixes: 06491e84f0f9 ("Input: da9055_onkey - remove use of regmap_irq_get_virq()")
 Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+
 ---
+Compile-tested with Clang, W=1. No hardware runtime testing.
 
-Notes:
-    Reproducer:
-    
-    #define _GNU_SOURCE
-    #include <fcntl.h>
-    #include <pthread.h>
-    #include <stdio.h>
-    #include <time.h>
-    #include <unistd.h>
-    
-    static int a[2], b[2];
-    static volatile int stop;
-    
-    static void *writer(void *arg)
-    {
-    	while (!stop)
-    		if (write(a[1], "x", 1) < 0)
-    			break;
-    	return NULL;
-    }
-    
-    static void *drain(void *arg)
-    {
-    	char buf[4096];
-    	int fd = *(int *)arg;
-    
-    	while (!stop)
-    		if (read(fd, buf, sizeof(buf)) < 0)
-    			break;
-    	return NULL;
-    }
-    
-    int main(void)
-    {
-    	pthread_t t[3];
-    	long calls = 0, zero = 0;
-    	ssize_t ret;
-    
-    	if (pipe(a) || pipe(b))
-    		return 1;
-    	pthread_create(&t[0], NULL, writer, NULL);
-    	pthread_create(&t[1], NULL, drain, &a[0]);	/* concurrent reader of the tee input */
-    	pthread_create(&t[2], NULL, drain, &b[0]);	/* keeps the tee output from filling */
-    	for (time_t end = time(NULL) + 5; time(NULL) < end; calls++) {
-    		ret = tee(a[0], b[1], 65536, 0);
-    		if (ret == 0)
-    			zero++;
-    		else if (ret < 0)
-    			perror("tee");
-    	}
-    	printf("%ld tee() calls, %ld returned 0 while the input pipe had a writer\n",
-    	       calls, zero);
-    	return zero != 0;
-    }
-    
-    gcc -O2 -pthread -o tee-race tee-race.c && ./tee-race
-    
-    Before: 22698 tee() calls, 154 returned 0 while the input pipe had a writer
-    After:  34429 tee() calls, 0 returned 0 while the input pipe had a writer
-    
-    tee() with SPLICE_F_NONBLOCK on an empty pipe with a writer still returns
-    -EAGAIN, a tee() of queued data still leaves the data in the input pipe,
-    and an empty input pipe without writers still returns 0.
+Based on mainline 0fcb05b72344f40806cbe810de8872f1698bf053.
 
- fs/splice.c | 43 +++++++++++++++++++++++++++++++------------
- 1 file changed, 31 insertions(+), 12 deletions(-)
-
-diff --git a/fs/splice.c b/fs/splice.c
-index 9d8f63e2fd1a..baadec16d6df 100644
---- a/fs/splice.c
-+++ b/fs/splice.c
-@@ -1856,6 +1856,15 @@ static ssize_t link_pipe(struct pipe_inode_info *ipipe,
- 	unsigned int i_tail, o_tail;
- 	ssize_t ret = 0;
+diff --git a/drivers/input/misc/da9055_onkey.c b/drivers/input/misc/da9055_onkey.c
+index 3e4fc2f..20ee79a 100644
+--- a/drivers/input/misc/da9055_onkey.c
++++ b/drivers/input/misc/da9055_onkey.c
+@@ -137,7 +137,6 @@ static void da9055_onkey_remove(struct platform_device *pdev)
+ 	struct da9055_onkey *onkey = platform_get_drvdata(pdev);
+ 	int irq = platform_get_irq_byname(pdev, "ONKEY");
  
-+retry:
-+	ret = ipipe_prep(ipipe, flags);
-+	if (ret)
-+		return ret;
-+
-+	ret = opipe_prep(opipe, flags);
-+	if (ret)
-+		return ret;
-+
- 	/*
- 	 * Potential ABBA deadlock, work around it by ordering lock
- 	 * grabbing by pipe info address. Otherwise two different processes
-@@ -1877,13 +1886,32 @@ static ssize_t link_pipe(struct pipe_inode_info *ipipe,
- 		i_head = ipipe->head;
- 		o_tail = opipe->tail;
- 
-+		if (pipe_empty(i_head, i_tail) && !ipipe->writers)
-+			break;
-+
- 		/*
- 		 * If we have iterated all input buffers or run out of
- 		 * output room, break.
- 		 */
- 		if (pipe_empty(i_head, i_tail) ||
--		    pipe_full(o_head, o_tail, opipe->max_usage))
--			break;
-+		    pipe_full(o_head, o_tail, opipe->max_usage)) {
-+			if (ret)
-+				break;
-+
-+			if (flags & SPLICE_F_NONBLOCK) {
-+				ret = -EAGAIN;
-+				break;
-+			}
-+
-+			/*
-+			 * We raced with another reader/writer and haven't
-+			 * linked any buffers. A zero return value means EOF,
-+			 * so retry instead.
-+			 */
-+			pipe_unlock(ipipe);
-+			pipe_unlock(opipe);
-+			goto retry;
-+		}
- 
- 		ibuf = pipe_buf(ipipe, i_tail);
- 		obuf = pipe_buf(opipe, o_head);
-@@ -1954,16 +1982,7 @@ ssize_t do_tee(struct file *in, struct file *out, size_t len,
- 		if ((in->f_flags | out->f_flags) & O_NONBLOCK)
- 			flags |= SPLICE_F_NONBLOCK;
- 
--		/*
--		 * Keep going, unless we encounter an error. The ipipe/opipe
--		 * ordering doesn't really matter.
--		 */
--		ret = ipipe_prep(ipipe, flags);
--		if (!ret) {
--			ret = opipe_prep(opipe, flags);
--			if (!ret)
--				ret = link_pipe(ipipe, opipe, len, flags);
--		}
-+		ret = link_pipe(ipipe, opipe, len, flags);
- 	}
- 
- 	if (ret > 0) {
-
-base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
--- 
-2.53.0
-
+-	irq = regmap_irq_get_virq(onkey->da9055->irq_data, irq);
+ 	free_irq(irq, onkey);
+ 	cancel_delayed_work_sync(&onkey->work);
+ 	input_unregister_device(onkey->input);
