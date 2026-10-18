@@ -1,70 +1,83 @@
-Received: from mta1.migadu.com (out-253.mta1.migadu.com [95.215.58.253])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3022EBDE9
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 00:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.253
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344CB13CA92
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792284958; cv=none; b=lP+j+5ZeIOzh4jl0B1ctx46ss+mlg292q+lvN9/zjeYer+24uLvce8T8BPbPcW1/IscnzHeyk4FsxYVwNBhixa2lrJ0ODuhjSns+MBheHGJAyOmFoZS2nHG4unawoiVMb5PVZzZYQE4fkv3rDL4KDGdHQjl/DGXBN3T6ywSU+8Y=
+	t=1792285269; cv=none; b=jdsknud5MQs7EA2K0004/dki9/Y66/+zeLtvK5cV1gzdeOLWnKfCHeIcu+lShnzbSxBwXz4cyr5Xg+TxGgUEiGOuWfj4KvMqSrcSZjk6A2uMMMBLDCu17BELKyPY+ghksbKNnsXB9Qg8qJi+ESGWZE0ITd6pLmn7oOElKKQktuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792284958; c=relaxed/simple;
-	bh=APFwl/HiItu/QCD6VtNINOJAd0UoIdFGyY4WR9sMH7o=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gT0OXv2MspJFIqiw37ePuTnyguW5W3FLj2y7xwozTPv45QnXoM4idnxvNxa+5DX+utbTmmtJSeiTZaV7QqZj+7UUJVBN96ldxopFFxJjc0dDyw07ZhyrIXti8a3rpe1DR9TvV7tDuRppm72XqdukfjlFfXYqeeZhcQYgXyq6udg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mM83M+Bt; arc=none smtp.client-ip=95.215.58.253
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792285269; c=relaxed/simple;
+	bh=qFX43rE26abK1ngPEyeaUk0LrH+VFY+ygfIqQ/4iWmI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ENw6SmHI18N2t2GK6alUJaTedJaxTl4+jyBCzk511fOqyA/n22ka0pYBFNkeP+9IpDTnFgxjw+EJmM8PLMqvnfG5l1Oiee283xTbzsMUiTiMVCJA8CC+oePhh5/rGe2KGGhcnhyDkmGzSrc467fpQFtBhhgmDLX1QGOxMZdBBtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=LOVYRXJV; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mM83M+Bt"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=APFwl/HiItu/QCD6VtNINOJAd0UoIdFGyY4WR9sMH7o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792284954; v=1; x=1792889754;
- b=mM83M+Bt3J7eYmTcQR3Z7zI2VSiN9CGp/GvZCNm1g2LjkyUQGXvQYd+QoGYEEMzpkHqC1667
- Iot8HUEvEMn+kp20aMxZ+AIU/JAnlpUmisXd37cYnwU+kQAZpfugegrB/4QUEQW3nGlKyDif1Ug
- wWopGTSKLNx9jjJA538a9ZDM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id e9275ec6c32b6a9a;
-	Sun, 18 Oct 2026 00:55:53 +0000
-X-Mizu-Trace-ID: e9275ec6c32b6a9a
-X-Migadu-Flow: FLOW_OUT
-From: KaFai Wan <kafai.wan@linux.dev>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Menglong Dong <menglong8.dong@gmail.com>,
-	KaFai Wan <kafai.wan@linux.dev>,
-	Mykyta Yatsenko <yatsenko@meta.com>,
-	Feng Jiang <jiangfeng@kylinos.cn>,
-	Vineet Gupta <vineet.gupta@linux.dev>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	bpf@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="LOVYRXJV"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35c76e9614aso1885081eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:01:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=crusoe.ai; s=google; t=1792285267; x=1792890067; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fP46F+XvGnx9CdMMM+Zzwz/exfVRKEgKwRy73Evl4hs=;
+        b=LOVYRXJVG8pCxVAG2rhRk2leg7UJFY+/a/5hXP2mmNEWt7LsVrX5PLHDH4AyGV8PUP
+         iVGWZazckTPFUBRshn6daMLx8bmZIiQFEsx5grrtDiLea2XXV38HK68yq4knVD0AMrR5
+         MCPJKxrV/V5NIp7UhD4sPa5rEsRodvwx442OaL2U8YJHydQtXNHXGoCp8ZvMbaOz7tMa
+         7yPx0LqNYF44nWNspCwzWHaniVsktyDvYVgMvycVh5/aLuDoXgMZ4QagYw3y+mSbupR0
+         rYasrx2qjdAgSs6dQxTo0f9LRucoMcESyDzYyqezRO7v5+dtav029gDJGad1rj2oglew
+         1PVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792285267; x=1792890067;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fP46F+XvGnx9CdMMM+Zzwz/exfVRKEgKwRy73Evl4hs=;
+        b=LNmLaUn8fhP/jKe+5MMtZIQVMJxbgXjUuQUgjgyuPJCezEXi42LAwtvWyl/3FoUNZW
+         tHYw5k7dZcj51zGNcYIFBrn+v151QRfmjEIon6aWSNAa003o38CNkclCLOwXunaPDouM
+         iMKDA1mzCsWn0rzAaR2c5FUXCpgb9rFmcpxila1Ct0IkNqCXQZjHKVE7aj8EA2hxb3ZC
+         aM3ZmthtWpzNRjYzTPM5V5iVRx0uRul5q4Q8rFlpsOYyPoMkMJEDV0txOBlBEl+Z4d1x
+         2q1oNvpF9wSwY874iM10jZcIUJSTE/NWKxoGRQYgrvC9q2hnIPXGN8Q33ZF8m5hhoAb7
+         jZ8g==
+X-Forwarded-Encrypted: i=1; AKwUvBweblDAMxkRHrZUn0kxjfRVlIEOAKRGAiDas0HbM9eAjQpNW9hAnLMer9jJsAcX3B/m5o3xNySzFWTU7E0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNuivdfy8rDDKfR3Ka4BBIZTXsCLCbgmNrH4xJUrbmT8ADFUqu
+	pHEoIB7nVixuxYtcwphuiRqBxOeahN7IBU9sNFhv0nvifG+KLvl5kBkCAsBuzZnt1DcHPfvgq70
+	dfKyn5a3nfA==
+X-Gm-Gg: AYBFou0imJGXikXub1kUJNJzCpXp5pGMP6V2rcyou3W9uTgaQCPZgNDZsxKsV/HOPd9
+	ORr1l51tvasJOvt0UjyZwjCKdCA9LWdkXQxlu8WIp8ojvZI0z7IDqMXILzyKM+8PVRoIasuncjd
+	LiqjAWgVi/EMEwKhTGRHFchHObjSP3Y73+xB7AGwKS20KrItV/+n+Yve4li3lmFrQQjpmj0MXuF
+	E0sNwqryicZ9kPsWn2ei1Rw3JBT/lgPUQrpNFuRQBDUudlPWRukxhY3fVzIwLM6tOW8onIAT9f1
+	bJ4IWyJyBhdJa3LJSyhcpQIMQp8e+dZVi+WX9Ur78D+b7Jv0tJZGfBSS15m6hLXrFBGHYhY0OQJ
+	wpy0d/tWSdGflyqAIr+XOA3a1BUh85K4oZdauByHMGdW86LxQleM2PXSnTd1VkNEKlE8b2qlBPw
+	MMyBh1W77lVPiO4nT5HZr2VFfl4qQLXj9jKX0b8DlDcfLhqIYDvMtYeo2B/Ygp2nq3EFXEdNk5F
+	RYlMsxcPBtUhpmKHeTDG6cEgXtjxKORcZm49rTajqgA
+X-Received: by 2002:a05:7301:71a4:b0:361:344d:e906 with SMTP id 5a478bee46e88-361a195c23dmr5957696eec.14.1792285266951;
+        Sat, 17 Oct 2026 18:01:06 -0700 (PDT)
+Received: from MBP-Saravanan-D.civet-hops.ts.net ([71.202.170.54])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608258aa66sm24198870eec.20.2026.10.17.18.01.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 17 Oct 2026 18:01:06 -0700 (PDT)
+From: Saravanan D <saravanand@crusoe.ai>
+To: linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org,
+	hch@lst.de,
+	sagi@grimberg.me,
+	axboe@kernel.dk,
+	nilay@linux.ibm.com,
+	dwagner@suse.de,
+	sgogte@purestorage.com,
+	hare@kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH bpf-next v3 4/4] selftests/bpf: Use _exit() in uprobe_multi_test clone-ed child
-Date: Sun, 18 Oct 2026 08:53:48 +0800
-Message-ID: <20261018005348.2195130-5-kafai.wan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261018005348.2195130-1-kafai.wan@linux.dev>
-References: <20261018005348.2195130-1-kafai.wan@linux.dev>
+	iyamahata@crusoe.ai,
+	kiyer@crusoe.ai,
+	ganbalagane@crusoe.ai,
+	sjpark@crusoe.ai,
+	Saravanan D <saravanand@crusoe.ai>
+Subject: [PATCH v5 0/2] nvme-tcp: allow setting per-queue io_cpu through sysfs
+Date: Sat, 17 Oct 2026 18:00:57 -0700
+Message-ID: <20261018010059.83120-1-saravanand@crusoe.ai>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,57 +86,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-child_func() terminates with exit(), but spawn_child_flag() also starts
-it via clone(CLONE_VM), which shares the parent's address space. That
-exit() then runs atexit handlers and static destructors against globals
-the parent is still using.
+On hosts that partition their CPUs after connect time, the connect
+time io_cpu selection can land a queue's socket work on CPUs owned by
+a different workload. This series lets a control plane set each
+queue's io_cpu directly through sysfs.
 
-LLVM commit `3c3ed59c6a2a ("[llvm] Add format check for
-MCSubtargetFeatures")` [1], included in the LLVM 23.1 releases, added
-Target::isValidFeatureListFormat() with a function-local static holding
-the compiled regex:
+The first patch adds core helpers for a transport neutral
 
-	static const llvm::Regex pattern("^([+-][^,]+)(,[+-][^,]+)*,?$");
-	return pattern.match(Features);
+  /sys/class/nvme/nvmeX/queues/<qid>/
 
-The child exit destroys that static while its guard variable still marks
-it as initialized, so the regex is never rebuilt in the parent. From that
-point on, get_jited_program_text() gets NULL from
-LLVMCreateDisasmCPUFeatures(), so every jited program text check in the
-tests running after filter_clone_vm fails, e.g. "verifier_jit_convergence",
-"verifier_private_stack", "verifier_tailcall_jit" and "verifier_jit_inline".
+directory per queue under the controller device. The second patch has
+nvme-tcp expose io_cpu and managed attributes there.
 
-Use _exit(), which runs neither atexit handlers nor static destructors, as
-uprobe_syscall.c already does for its own CLONE_VM child.
+Changes since v4 [1]:
+- Rebased onto nvme-7.4, which sets up the I/O queues in parallel
+  (61b0ed3be81b) and serializes the io_cpu accounting with
+  nvme_tcp_cpu_queues_lock. The per controller io_cpu_lock is gone,
+  and the io_cpu writes take nvme_tcp_cpu_queues_lock instead.
+- A queue's directory now follows the queue's allocation, added in
+  nvme_tcp_alloc_queue() and removed in nvme_tcp_free_queue(), so the
+  directories match the queue count after a reconnect (Nilay). The
+  core allocates each directory and its release frees only that
+  allocation, which drops the transport's reference counting and
+  completion (Nilay) and fixes the use after free, the controller
+  leak and the teardown hang found by the Sashiko review of v4 [2].
+- The transport creates the queues directory once before the parallel
+  queue setup, and the kerneldoc states which calls may run
+  concurrently (Nilay).
+- The user assignment flag moved from the core into the nvme-tcp
+  queue flags (Nilay).
+- io_cpu is read through nvme_tcp_queue_io_cpu() and written through
+  nvme_tcp_queue_change_io_cpu(), which carries __must_hold() for the
+  context analysis (Nilay).
+- The sysfs store collapsed to a single path and no longer checks
+  NVME_TCP_Q_ALLOCATED, since the directory only exists while the
+  queue is allocated (Nilay).
+- The queue stop now clears NVME_TCP_Q_IO_CPU_SET under
+  nvme_tcp_cpu_queues_lock, since a store may move io_cpu between the
+  clear and the decrement.
+- nvme_tcp_free_queue() drops NVME_TCP_Q_IO_CPU_SET, which also fixes
+  a ledger count leaked by every failed I/O queue connect.
+- io_cpu parses a decimal cpu number, and the ABI entry describes the
+  directory lifetime, persistence across CPU offline and the behavior
+  with wq_unbound.
 
-[1] https://github.com/llvm/llvm-project/pull/180943
-Fixes: d2520bdb1932f ("selftests/bpf: Add uprobe multi pid filter test for clone-ed processes")
-Signed-off-by: KaFai Wan <kafai.wan@linux.dev>
----
- tools/testing/selftests/bpf/prog_tests/uprobe_multi_test.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+[1] https://lore.kernel.org/linux-nvme/20260927070925.47209-1-saravanand@crusoe.ai/
+[2] https://sashiko.dev/#/patchset/20260927070925.47209-1-saravanand%40crusoe.ai
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/uprobe_multi_test.c b/tools/testing/selftests/bpf/prog_tests/uprobe_multi_test.c
-index f0baf5738b751..7fbcfddc3cc36 100644
---- a/tools/testing/selftests/bpf/prog_tests/uprobe_multi_test.c
-+++ b/tools/testing/selftests/bpf/prog_tests/uprobe_multi_test.c
-@@ -94,14 +94,14 @@ static int child_func(void *arg)
- 	/* wait for parent's kick */
- 	err = read(child->go[0], &c, 1);
- 	if (err != 1)
--		exit(err);
-+		_exit(err);
- 
- 	uprobe_multi_func_1();
- 	uprobe_multi_func_2();
- 	uprobe_multi_func_3();
- 	usdt_trigger();
- 
--	exit(errno);
-+	_exit(errno);
- }
- 
- static int spawn_child_flag(struct child *child, bool clone_vm)
+Saravanan D (2):
+  nvme: add per-queue sysfs directories
+  nvme-tcp: allow setting per-queue io_cpu through sysfs
+
+ Documentation/ABI/stable/sysfs-nvme |  29 +++++
+ drivers/nvme/host/core.c            |   6 +
+ drivers/nvme/host/nvme.h            |  23 ++++
+ drivers/nvme/host/sysfs.c           |  88 ++++++++++++++
+ drivers/nvme/host/tcp.c             | 173 ++++++++++++++++++++++++----
+ 5 files changed, 299 insertions(+), 20 deletions(-)
+
+
+base-commit: 2e8e30b3cf9f165e1a1d079331543cb7f2ad0e0c
 -- 
-2.43.0
+2.55.0
 
