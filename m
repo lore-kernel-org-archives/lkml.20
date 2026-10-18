@@ -1,74 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63A74B99AA;
-	Sun, 18 Oct 2026 13:23:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE854A3F12;
+	Sun, 18 Oct 2026 13:26:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792329833; cv=none; b=Yq2dUlRjFpZelSaIgf+Q2zVXOxzufZ7po68SyoMoSCW7eVPeybeQ+bl51qS0+D5vR5pwckSmtVaD0q3yFbTJiFf5pAgow8VeLGeCr0FnUUBcrVKkJeNOaJ1HLrsjaXcVjnE0GbPcdyKvE80UckrXRQhvRt3wxtRR6wUF3CV3h78=
+	t=1792329962; cv=none; b=W77Mu2sDIhuatW0QSDgR791TAvmK3Up/RxM/lgNiiFHUWi8aFA1LJ5/P/DA6JtDY/tDTCwC2iWPkI+IpVRpa7coU79oNzrKSXpGE3+IgZKZ5dcCLgXcYNJDHSyx0blek4TQWdtQMtYfb30NpiEz+jhJROxwiuQoVBSeDd7V6yAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792329833; c=relaxed/simple;
-	bh=rQWYc7acpJZ0IDkK+pfUP/nyFAIem1Dg+o5rNUhc9+A=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=G//MXNDfI8Ho5FrXaPHDORSyaR/FEjM6sd4jFgUST6jB0VcuChh6OeLGv0Wy7yuGqocG1ggLosPcxk3b++uLF/DnCFQSJK9Tf2v15Cn5iSr3U+D2aWWhu7/hx3ufU6oC+ZdVZvXYMXXijCHGRpaHUn9R79CWAG2VeK9rcmGF7sY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAbTq8Bo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792329962; c=relaxed/simple;
+	bh=TaBJ2XjqJD0vufGWf3fe7VbQNbqInz71wGw+5qLddA8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=PttHVFgwHWs+YIX0SEtRHnFCXUukgxTVZ69vabLGsFDbtlTN7qR+mhKlrSrCz1IcUaSu2wTD2cV21TNjNQ92obIcimanb6clRfJm/BatTZgi2kJV4dx2JvIhrcCjE+pPlHsPx7QbxrLt51RKHrOAgGXPd/V5BQtM5mjy/FTpCjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P0U74tLr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAbTq8Bo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58E041F000C5;
-	Sun, 18 Oct 2026 13:23:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P0U74tLr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E231F000C4;
+	Sun, 18 Oct 2026 13:26:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792329832;
-	bh=KaSJdH1jaXnXAcm0csJxFpDo28kCUP6bDjD7G8uRNQk=;
-	h=From:To:Cc:Subject:Date;
-	b=VAbTq8BoCnnCHKNnNiA+nBGgSh7sLwiaaMJW5cJzDKDUVdNDOfUfBDtPVuWOgtg35
-	 8TvC50pURIZFHbV/2DQiSrpiUTNE7tIuFTTzaH6D8Wz9EjSSNdo2YlEcpVui59Rkcn
-	 IguCCWNngxbUbj70Qp0H93i2D25Nx8Kwd/yr7fBjhy/yeO/ygDH4a9AVjVBQdOUdqe
-	 +tyqjMqatGlbDw4MAVXYBB+TSKlbyRRMS4l8OLWRU7UpoNT98EERmHw/PZ+uiNLQqc
-	 ufP+2hqBN4e9SC+jowpDZqZ1X49o7h68YC5ff5F7CAMDbzlOs/3S7qrsNeFxZ32ov0
-	 GrxAi5hsc3HMg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 75D491AC57D1; Sun, 18 Oct 2026 13:53:41 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] SPI fixes for v7.3-rc7
-Date: Sun, 18 Oct 2026 13:52:42 +0100
-Message-Id: <20261018125341.75D491AC57D1@finisterre.sirena.org.uk>
+	s=k20260515; t=1792329961;
+	bh=4BLIYMVdmO7AI4+H85PRdvFmHnT+4p0sHt2mIz1H7G8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=P0U74tLrRu265JbOiGWmhmxcq9t9VzPiadhr+a5j2aK1M6l21t+u94MSUzLbXbHJw
+	 WZuriXjtbgZylNYYH0MLtwrd8ZCA1o1teR3q+U90L4ZjgCmm9g2oymLMXLqrMSgXpA
+	 frNftOOr4ZKpRJH4tHUwnOH/OwDQNVqQ9Rr6PUWF4BEVX0QjZc3vMQkpL2NYlFT2Hb
+	 cf2ItX/5zeK5W77NlISy/ITFtvSo7xzZyko6f+cDyYrUhOmbzwnl/drfOKObN/rtpK
+	 tC93Sfc0dt3fA72e+1v934CoWqqHxwtbwDepnuxEyPYG4Ub1buStlDxVdoUwD8nhGN
+	 Nq4MxfBrinCkA==
+From: Leon Romanovsky <leon@kernel.org>
+To: Nelson Escobar <neescoba@cisco.com>, Satish Kharat <satishkh@cisco.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Serhat Kumral <serhatkumral1@gmail.com>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261017185028.1019445-1-serhatkumral1@gmail.com>
+References: <20261017185028.1019445-1-serhatkumral1@gmail.com>
+Subject: Re: [PATCH] RDMA/usnic: Bound buffer size to sizeof(buf) in
+ flowinfo_read()
+Message-Id: <179232995899.27545.3304722348406051194.b4-ty@kernel.org>
+Date: Sun, 18 Oct 2026 09:25:58 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
 
-  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
+On Sat, 17 Oct 2026 21:50:28 +0300, Serhat Kumral wrote:
+> In flowinfo_read(), 'left' tracks the remaining space in the 512-byte
+> stack buffer 'buf', but it is initialized to 'count'.
+> 
+> Initialize 'left' to sizeof(buf) instead of 'count'.
 
-are available in the Git repository at:
+Applied, thanks!
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git tags/spi-fix-v7.3-rc7
+[1/1] RDMA/usnic: Bound buffer size to sizeof(buf) in flowinfo_read()
+      https://git.kernel.org/rdma/rdma/c/9dd8b9a337af84
 
-for you to fetch changes up to b0f0c761ed3fa10754dc9295db85374a173123b7:
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
 
-  spi: spi-fsl-lpspi: directly return ret in fsl_lpspi_transfer_one() (2026-10-15 22:37:15 +0100)
-
-----------------------------------------------------------------
-spi: Fixes for v7.3
-
-A small collection of driver specific fixes, all quite important if you
-have the relevant hardware.
-
-----------------------------------------------------------------
-Carlos Jones Jr (1):
-      spi: tegra114: assert CS GPIO for every transfer in a message
-
-Marc Kleine-Budde (2):
-      spi: spi-fsl-lpspi: pass struct fsl_lpspi_data instead of struct spi_controller if possible
-      spi: spi-fsl-lpspi: directly return ret in fsl_lpspi_transfer_one()
-
-Richard Leitner (1):
-      spi: imx: fix slab corruption from undersized DMA bounce buffers
-
- drivers/spi/spi-fsl-lpspi.c | 17 +++++------------
- drivers/spi/spi-imx.c       |  9 ++++++---
- drivers/spi/spi-tegra114.c  |  7 +++++++
- 3 files changed, 18 insertions(+), 15 deletions(-)
