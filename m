@@ -1,372 +1,190 @@
-Received: from out-2uec-a97.jellyfish.systems (out-2uec-a97.jellyfish.systems [63.250.43.97])
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A1141BA69
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:49:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D903D7D77
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792352949; cv=none; b=h39zWtAIQ0D3G4XOlW/9RTIQqz45dc3eW1bieBQrqXutB5AjZngWF29o8HIgoLCUO/lAmNVB4YVQCjO6IwKwe/oXnElskSziM0eMnZ7nRjauRY+Hsyi5wpaoK+Eq/2ULkDYX6LB61HlQdmU48ZEB51Z9zP8g5nNjbC2+L1X70j8=
+	t=1792353186; cv=none; b=clv6w0yfjG/4y3kShICz8L0/9Pel41qUWW9OyWHmFf/kexAAdXSuCC8GgupQqtK0vBfAyaxt9SUpfLr7ZLOg7jAMTFQr6RSFv4phdT6krRfln80JND9Ouq7ucK3LaEOxY9d/tgZQOlCR55qnnMfzMa8Jk1HjTPwXgU7X6koKsqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792352949; c=relaxed/simple;
-	bh=K8MjNPHK/Six5jGtbOBsb4gMRakL6wrB7w26TFRmzdM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n99/7MeyUrxKG5qg+qFXCYrYDBxTaEENDCQfQh8HOx71JMoJ4A8D5QBpgkW6LJSDTogwThXIIsgdGyCBK5di+d4bR81qwCSAI56x/Q3d7CwF7FFc9wYpGYIko/ulWkO3l0syalPkfb0anMO16t4gn+ohp7btMZtSRB+nPknhrJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=VSSKfVGw; arc=none smtp.client-ip=63.250.43.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
+	s=arc-20240116; t=1792353186; c=relaxed/simple;
+	bh=OYatXJ25PGBn/IK2IFH7QyggHeIOnTh0kghBv6Ci/cU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=fuJQgiXmVU/0d3fOHGiULgxmK8kfeZ8P/a0rrt89nnIAY9/D2JT38dt9L1ViNVnGm/fB4Uja3b6EC9xRE4b0GkzGPSQfoNojsbLOeih2W8Go9AW2BWwYx4+687iVo5oE6KdGgDy6MoQYfUYiTMx6IuxAB9VDWLGKn5S5TXInD6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EehsdJgM; arc=none smtp.client-ip=209.85.222.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="VSSKfVGw"
-Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4j78HJ0ytxz8sWS;
-	Sun, 18 Oct 2026 19:43:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
-	s=spacemail; t=1792352605;
-	bh=KcnivXCK7CWYGc7lhwsBehDk5jq3wiWO16xNYcqNakU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=VSSKfVGwjXCMDQ+TSHqAEiSwshk3Cn6ASTwfSmqg+8GUF9jJ8HoTnAk2Q4Y9FvQOZ
-	 ECpqksf/XbsQDwIcQd4d2ynL7e2rSebYNJVOybnUwgG6r2eTmKY9SNuq5sAQUzGfYK
-	 IGClqSEAJ5p4vI4hDiQOI16FNkvEA2gWH/WAEsoIr2TWCXKRvhHnkUUR3j0MBTHlZl
-	 IBTQeBtlX2daEqM29i5r+nvrlYfy8QMCBOcPFtjwRRvfACrXvpXbDuIezu7K4TQYnC
-	 /LO/AJNSjrVJbFCLsvdJ74PNxjZP3ZNJwPUAgOwKd1MN9gWX5O/S+Dr4wuxWgxQ3oK
-	 P0sx2L9v912hA==
-From: Ross Cawston <ross@r-sc.ca>
-To: andi.shyti@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	kees@kernel.org,
-	gustavoars@kernel.org,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ross Cawston <ross@r-sc.ca>
-Subject: [PATCH 2/2] i2c: add driver for GPIO buses sharing one SCL line
-Date: Sun, 18 Oct 2026 12:43:15 -0700
-Message-ID: <20261018194315.945-3-ross@r-sc.ca>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261018194315.945-1-ross@r-sc.ca>
-References: <20261018194315.945-1-ross@r-sc.ca>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EehsdJgM"
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9906110d39cso30569241.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:53:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792353183; x=1792957983; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Wr/MzixbYBwaR8lJPphPBtNkVbR0d9HoMIeGuuWB7w8=;
+        b=EehsdJgMMz2l76vHB7gG4J41/zwcG8j7nZH4+BWeAFCFabY+/JLZCMziYxKSxkso8l
+         +M/OiYX6NJ6PZZrzp9frZv2imfrLdSAHmMJ42LwQP/5nkcLgvxfY4Mh3zRDCwKm+rRTx
+         xFPRh7sZwWzglHX2WeCMrEmZJRX2Mt0zDQQkJChfI5a9Mi2Sd6rcFGQp8TetqG2jiPOs
+         mpJUNSlY0/RbJRHS4sQg8kKttvp9msgOdbE0tZcMTDnTkxBmnAZlguisbQP8UHoZynPW
+         x8E2aA5FFlBS1K/JzTODaM0VcE1xx8sofjtEWrNwA8btV6CcwgAB1oZMa1ylE1CPBsun
+         smPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792353183; x=1792957983;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Wr/MzixbYBwaR8lJPphPBtNkVbR0d9HoMIeGuuWB7w8=;
+        b=Q5SefWWyq7zptDKl1yTFJW40DNLpdEY4hnqGIodBONQ0W65POzMoGTdG/29kuf6JRh
+         lWfrqb7ac68YbcJdzvbko43R7Yltr/UgijtB9L5kiwViqVgEjiLQxC9B9jAbVYnzieXV
+         LrMSdr23MXZbKa7cLDo7xfB0mvzo5DZq9VDgJ4a6Sr/I1ZON0k/LuiV0NSp222dLPqKV
+         lB9JuVEwfeC3SFBFMjp2Fro/PDsc+i/1G/Oap6NGdrmJOgpA4JcYqyCtTx0uDIQbtH5Y
+         QwixnKJdUWaMMMTJmDGf0/Dw1hT2xRUYCtnmvU6dT75TRg+dphu0AoMVFbv9f9tqYsTZ
+         K/xg==
+X-Forwarded-Encrypted: i=1; AKwUvBzuaRTpD5F1PpqMfmtq4LsxSLJfvpRYWihRXAuFrSB3T+Ah7lPh78EsU96AkWOuwYkQbv09pp7kLM+Ez5Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLaD4P/4pZz/V7nJamklG7V6LweHBb3MjeB6QLg6av/nxYSh0g6
+	V6gLWQYbzLO4HBIK16P2Qsr5fv08TL/8/cWQLQTeztVdXycCRMf6OvAx
+X-Gm-Gg: AYBFou1pzL3wdhE01TAvhCQSM5RyIlWzCdN2ypXzomGVGkoog+nIqicWN0HB2akHRXp
+	RZPylANGWBJPpywmub+/lZjP8zQ3LLuVdNn4wHFhv+7t/PKVdKJf69RH9fda3nfsZYy8RyWq8h+
+	cZmoPpIcAVdGT0KL8Lv0+wgfWlKF7DByrFZMLsnEI784185oj81P4BDTWCShwM0Va/jc3ef6QJr
+	g36tx0n3Xb/mC1v9T6GD52uGZyG0ptC9nSxz+V9WlTH9ENZkhBRT0TG9Pv0buUBIiIdUdXCLF1F
+	RIXKNIT/h9T5j7c4OBd++Lpg98PnZSIxD2ZGBayrgtfc0GBwrvHN+ELSuNZQEWLhcx6ur+Zd+Hh
+	6YgbWygjoWU7/pWd+DNUXeCka8xNDon7fOFthJ/+MLvow1FYm4k6R+eXWENJsSa0kVZPgfIB8D3
+	Wh9s4yRKI7qbWkxgYTq87e/aKG90EarPjgWkFZSc3sEgRDWtrvKJtFU1akYGsK7dDP
+X-Received: by 2002:a05:6102:418f:b0:7c3:83a9:edb2 with SMTP id ada2fe7eead31-7cc3675493amr1035152137.1.1792353182908;
+        Sun, 18 Oct 2026 12:53:02 -0700 (PDT)
+Received: from localhost ([2802:8012:9f:dd00:109f:2ff4:4712:873])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc1987900fsm8043946137.10.2026.10.18.12.52.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 12:53:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: ross@r-sc.ca
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 18 Oct 2026 16:52:55 -0300
+Message-Id: <DM8869QP3IID.1I1KT6A7M2UNB@gmail.com>
+To: "Martin Wetterwald" <martin@wetterwald.eu>
+Cc: "Florian Fainelli" <florian.fainelli@broadcom.com>, "Broadcom internal
+ kernel review list" <bcm-kernel-feedback-list@broadcom.com>, "Jai Luthra"
+ <jai.luthra@ideasonboard.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Stefan Wahren" <wahrenst@gmx.net>, "Phil
+ Elwell" <phil@raspberrypi.com>, "Laurent Pinchart"
+ <laurent.pinchart@ideasonboard.com>, "Umang Jain" <uajain@igalia.com>,
+ "Kees Cook" <kees@kernel.org>, <linux-rpi-kernel@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-staging@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <regressions@lists.linux.dev>
+Subject: Re: [PATCH] platform/raspberrypi: vchiq: register bus at
+ subsys_initcall
+From: "Gaston Gonzalez" <gascoar@gmail.com>
+X-Mailer: aerc 0.20.0
+References: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com> <20261013131435.1454019-1-martin@wetterwald.eu> <DM5Q9NKRO89O.22R04QM8YBKWM@gmail.com> <CAFERDQ12QwtC6cCVWQGU1b5KCv988kAvahNKwosxG2z8Mzm4sw@mail.gmail.com>
+In-Reply-To: <CAFERDQ12QwtC6cCVWQGU1b5KCv988kAvahNKwosxG2z8Mzm4sw@mail.gmail.com>
 
-Some boards bit-bang several I2C buses on GPIOs with one common SCL
-line and one SDA line per bus. The MokerLink POE-10G07110GSM, an
-RTL9303 PoE switch, clocks its fan controller, its two PoE controllers
-and its SFP+ cage this way. i2c-gpio cannot be used, as each instance
-would request the shared SCL GPIO.
+On Fri Oct 16, 2026 at 6:00 AM -03, Martin Wetterwald wrote:
+> On Thu, Oct 15, 2026 at 11:25=E2=80=AFPM Gaston Gonzalez <gascoar@gmail.c=
+om> wrote:
+>> Hi,
+>>
+>> For Raspberry Pi Zero v1.3:
+>>
+>> Tested-by: Gaston Gonzalez <gascoar@gmail.com>
+>>
+>> Test setup:
+>>
+>> - Branch: patch manually applied in staging-next over commit ec1ecf4f23c=
+5
+>> - Setup: RPi Zero v1.3 connected to a HDMI monitor
+>> - OS: standard raspbian with the desktop environment enabled
+>> - Driver built both as a module and built-in.
+>> - The following command was run to test the sound: 'speaker-test -t wav =
+-c 2'
+>> - Result: Both HDMI audio channels worked correctly
+>
+> Hello Gaston,
+> Thanks very much for your test!
+> It's great to have variety in tests because I don't have the Pi Zero, and=
+ I
+> didn't test it through HDMI, I tested through the Headphones jack (which
+> doesn't exist on the Pi Zero).
+>
+> Did you also also reproduce the bug without adding my patch?
+> If the bug is present, cat /proc/asound/cards should reveal bcm2835_hdmi =
+and
+> bcm2835_headphones are both not present. And you should see this in the d=
+mesg:
+>> Driver 'bcm2835-audio' was unable to register with bus_type 'vchiq-bus' =
+because the bus was not initialized.
+>
+> Regarding your test: there are two ways for the sound to go through the H=
+DMI
+> port:
+> - One is through the bcm2835-audio driver (using VCHIQ)
+> - The other way is through the vc4-hdmi (bypassing VCHIQ)
+>
+>   # cat /proc/asound/cards
+>    0 [vc4hdmi        ]: vc4-hdmi - vc4-hdmi
+>                         vc4-hdmi
+>    1 [HDMI           ]: bcm2835_hdmi - bcm2835 HDMI
+>                         bcm2835 HDMI
+>    2 [Headphones     ]: bcm2835_headpho - bcm2835 Headphones
+>                         bcm2835 Headphones
+>
+Hi Martin,
 
-Request SCL once and register one i2c-algo-bit adapter per SDA child
-node. A mutex taken in pre_xfer and released in post_xfer serializes
-the transfers across the buses, so only one bus clocks SCL at a time
-and the idle SDA lines see clock pulses only without a START.
+cat /proc/asound/cards shows only 'vc4-hdmi'.
 
-Signed-off-by: Ross Cawston <ross@r-sc.ca>
----
- MAINTAINERS                              |   7 +
- drivers/i2c/busses/Kconfig               |  12 ++
- drivers/i2c/busses/Makefile              |   1 +
- drivers/i2c/busses/i2c-gpio-shared-scl.c | 229 +++++++++++++++++++++++
- 4 files changed, 249 insertions(+)
- create mode 100644 drivers/i2c/busses/i2c-gpio-shared-scl.c
+After adding the kernel command line you pointed out, the bcm2835_hdmi
+interface now appears.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 782389bd5cd..9ac40ad4399 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12250,6 +12250,13 @@ S:	Maintained
- F:	Documentation/i2c/busses/i2c-nvidia-gpu.rst
- F:	drivers/i2c/busses/i2c-nvidia-gpu.c
- 
-+I2C GPIO BUSES SHARING SCL DRIVER
-+M:	Ross Cawston <ross@r-sc.ca>
-+L:	linux-i2c@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/i2c/i2c-gpio-shared-scl.yaml
-+F:	drivers/i2c/busses/i2c-gpio-shared-scl.c
-+
- I2C MUXES
- M:	Peter Rosin <peda@lysator.liu.se>
- L:	linux-i2c@vger.kernel.org
-diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-index d7b89508311..caeed4385d1 100644
---- a/drivers/i2c/busses/Kconfig
-+++ b/drivers/i2c/busses/Kconfig
-@@ -691,6 +691,18 @@ config I2C_GPIO
- 	  This is a very simple bitbanging I2C driver utilizing the
- 	  arch-neutral GPIO API to control the SCL and SDA lines.
- 
-+config I2C_GPIO_SHARED_SCL
-+	tristate "GPIO-based bitbanging I2C buses sharing one SCL line"
-+	depends on GPIOLIB || COMPILE_TEST
-+	select I2C_ALGOBIT
-+	help
-+	  Several bitbanged I2C buses with one common SCL GPIO and one SDA
-+	  GPIO per bus, as found on some Realtek RTL930x switches. Each
-+	  SDA line becomes its own I2C adapter; transfers are serialized.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called i2c-gpio-shared-scl.
-+
- config I2C_GPIO_FAULT_INJECTOR
- 	bool "GPIO-based fault injector"
- 	depends on I2C_GPIO
-diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-index 3755c54b3d8..c3b98e8abc4 100644
---- a/drivers/i2c/busses/Makefile
-+++ b/drivers/i2c/busses/Makefile
-@@ -66,6 +66,7 @@ obj-$(CONFIG_I2C_EG20T)		+= i2c-eg20t.o
- obj-$(CONFIG_I2C_EMEV2)		+= i2c-emev2.o
- obj-$(CONFIG_I2C_EXYNOS5)	+= i2c-exynos5.o
- obj-$(CONFIG_I2C_GPIO)		+= i2c-gpio.o
-+obj-$(CONFIG_I2C_GPIO_SHARED_SCL)	+= i2c-gpio-shared-scl.o
- obj-$(CONFIG_I2C_HIGHLANDER)	+= i2c-highlander.o
- obj-$(CONFIG_I2C_HISI)		+= i2c-hisi.o
- obj-$(CONFIG_I2C_HIX5HD2)	+= i2c-hix5hd2.o
-diff --git a/drivers/i2c/busses/i2c-gpio-shared-scl.c b/drivers/i2c/busses/i2c-gpio-shared-scl.c
-new file mode 100644
-index 00000000000..6f7ee898392
---- /dev/null
-+++ b/drivers/i2c/busses/i2c-gpio-shared-scl.c
-@@ -0,0 +1,229 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Bit-banged I2C buses that share one SCL line
-+ *
-+ * Some boards wire several I2C buses to GPIOs with one common SCL line and
-+ * a separate SDA line per bus. The vendor firmware bit-bangs them in turn.
-+ * i2c-gpio cannot describe this, because every bus would request the same
-+ * SCL GPIO. This driver requests SCL once and registers one adapter per SDA
-+ * line. Transfers on the adapters are serialized, so only one bus drives
-+ * SCL at a time; devices on the other buses see SCL toggle while their SDA
-+ * stays high, which is never a START condition, and ignore it.
-+ *
-+ * Copyright (C) 2026 Ross Cawston <ross@r-sc.ca>
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c-algo-bit.h>
-+#include <linux/i2c.h>
-+#include <linux/jiffies.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/slab.h>
-+
-+struct i2c_gpio_shared_scl;
-+
-+struct i2c_gpio_shared_scl_bus {
-+	struct i2c_gpio_shared_scl *parent;
-+	struct gpio_desc *sda;
-+	struct i2c_algo_bit_data bit_data;
-+	struct i2c_adapter adap;
-+	bool registered;
-+};
-+
-+struct i2c_gpio_shared_scl {
-+	struct device *dev;
-+	struct gpio_desc *scl;
-+	struct mutex lock;	/* one transfer on the shared SCL at a time */
-+	unsigned int num_buses;
-+	struct i2c_gpio_shared_scl_bus buses[] __counted_by(num_buses);
-+};
-+
-+static void i2c_gpio_shared_scl_setsda(void *data, int state)
-+{
-+	struct i2c_gpio_shared_scl_bus *bus = data;
-+
-+	gpiod_set_value_cansleep(bus->sda, state);
-+}
-+
-+static int i2c_gpio_shared_scl_getsda(void *data)
-+{
-+	struct i2c_gpio_shared_scl_bus *bus = data;
-+
-+	return gpiod_get_value_cansleep(bus->sda);
-+}
-+
-+static void i2c_gpio_shared_scl_setscl(void *data, int state)
-+{
-+	struct i2c_gpio_shared_scl_bus *bus = data;
-+
-+	gpiod_set_value_cansleep(bus->parent->scl, state);
-+}
-+
-+static int i2c_gpio_shared_scl_getscl(void *data)
-+{
-+	struct i2c_gpio_shared_scl_bus *bus = data;
-+
-+	return gpiod_get_value_cansleep(bus->parent->scl);
-+}
-+
-+static int i2c_gpio_shared_scl_pre_xfer(struct i2c_adapter *adap)
-+{
-+	struct i2c_gpio_shared_scl_bus *bus = i2c_get_adapdata(adap);
-+
-+	mutex_lock(&bus->parent->lock);
-+
-+	return 0;
-+}
-+
-+static void i2c_gpio_shared_scl_post_xfer(struct i2c_adapter *adap)
-+{
-+	struct i2c_gpio_shared_scl_bus *bus = i2c_get_adapdata(adap);
-+
-+	mutex_unlock(&bus->parent->lock);
-+}
-+
-+static void i2c_gpio_shared_scl_del_buses(struct i2c_gpio_shared_scl *priv)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < priv->num_buses; i++)
-+		if (priv->buses[i].registered)
-+			i2c_del_adapter(&priv->buses[i].adap);
-+}
-+
-+static int i2c_gpio_shared_scl_add_bus(struct i2c_gpio_shared_scl *priv,
-+				       struct i2c_gpio_shared_scl_bus *bus,
-+				       struct fwnode_handle *child,
-+				       u32 udelay, u32 timeout_ms)
-+{
-+	struct device *dev = priv->dev;
-+	struct i2c_algo_bit_data *bit_data = &bus->bit_data;
-+	struct i2c_adapter *adap = &bus->adap;
-+	u32 reg;
-+	int ret;
-+
-+	ret = fwnode_property_read_u32(child, "reg", &reg);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "%pfwP: missing reg\n", child);
-+
-+	bus->parent = priv;
-+	bus->sda = devm_fwnode_gpiod_get(dev, child, "sda",
-+					 GPIOD_OUT_HIGH_OPEN_DRAIN,
-+					 fwnode_get_name(child));
-+	if (IS_ERR(bus->sda))
-+		return dev_err_probe(dev, PTR_ERR(bus->sda),
-+				     "%pfwP: cannot get SDA GPIO\n", child);
-+
-+	bit_data->data = bus;
-+	bit_data->setsda = i2c_gpio_shared_scl_setsda;
-+	bit_data->getsda = i2c_gpio_shared_scl_getsda;
-+	bit_data->setscl = i2c_gpio_shared_scl_setscl;
-+	bit_data->getscl = i2c_gpio_shared_scl_getscl;
-+	bit_data->pre_xfer = i2c_gpio_shared_scl_pre_xfer;
-+	bit_data->post_xfer = i2c_gpio_shared_scl_post_xfer;
-+	bit_data->udelay = udelay;
-+	bit_data->timeout = msecs_to_jiffies(timeout_ms);
-+
-+	adap->owner = THIS_MODULE;
-+	adap->algo_data = bit_data;
-+	adap->dev.parent = dev;
-+	device_set_node(&adap->dev, child);
-+	snprintf(adap->name, sizeof(adap->name), "%s SDA%u", dev_name(dev), reg);
-+	i2c_set_adapdata(adap, bus);
-+
-+	ret = i2c_bit_add_bus(adap);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "%pfwP: cannot add bus\n", child);
-+
-+	bus->registered = true;
-+
-+	return 0;
-+}
-+
-+static int i2c_gpio_shared_scl_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct i2c_gpio_shared_scl *priv;
-+	u32 udelay = 5, timeout_ms = 100;
-+	unsigned int num_buses, i = 0;
-+	int ret;
-+
-+	num_buses = device_get_child_node_count(dev);
-+	if (!num_buses)
-+		return dev_err_probe(dev, -EINVAL, "no buses\n");
-+
-+	priv = devm_kzalloc(dev, struct_size(priv, buses, num_buses), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->dev = dev;
-+	priv->num_buses = num_buses;
-+	ret = devm_mutex_init(dev, &priv->lock);
-+	if (ret)
-+		return ret;
-+
-+	/* Same properties as i2c-gpio */
-+	device_property_read_u32(dev, "i2c-gpio,delay-us", &udelay);
-+	device_property_read_u32(dev, "i2c-gpio,timeout-ms", &timeout_ms);
-+
-+	priv->scl = devm_gpiod_get(dev, "scl", GPIOD_OUT_HIGH_OPEN_DRAIN);
-+	if (IS_ERR(priv->scl))
-+		return dev_err_probe(dev, PTR_ERR(priv->scl), "cannot get SCL GPIO\n");
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	device_for_each_child_node_scoped(dev, child) {
-+		ret = i2c_gpio_shared_scl_add_bus(priv, &priv->buses[i++], child,
-+						  udelay, timeout_ms);
-+		if (ret) {
-+			i2c_gpio_shared_scl_del_buses(priv);
-+			return ret;
-+		}
-+	}
-+
-+	dev_info(dev, "%u buses on shared SCL, %u us half period\n", num_buses, udelay);
-+
-+	return 0;
-+}
-+
-+static void i2c_gpio_shared_scl_remove(struct platform_device *pdev)
-+{
-+	i2c_gpio_shared_scl_del_buses(platform_get_drvdata(pdev));
-+}
-+
-+static const struct of_device_id i2c_gpio_shared_scl_of_match[] = {
-+	{ .compatible = "i2c-gpio-shared-scl" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, i2c_gpio_shared_scl_of_match);
-+
-+static struct platform_driver i2c_gpio_shared_scl_driver = {
-+	.driver = {
-+		.name = "i2c-gpio-shared-scl",
-+		.of_match_table = i2c_gpio_shared_scl_of_match,
-+	},
-+	.probe = i2c_gpio_shared_scl_probe,
-+	.remove = i2c_gpio_shared_scl_remove,
-+};
-+
-+/* Registered early, like i2c-gpio, so the buses exist before their clients */
-+static int __init i2c_gpio_shared_scl_init(void)
-+{
-+	return platform_driver_register(&i2c_gpio_shared_scl_driver);
-+}
-+subsys_initcall(i2c_gpio_shared_scl_init);
-+
-+static void __exit i2c_gpio_shared_scl_exit(void)
-+{
-+	platform_driver_unregister(&i2c_gpio_shared_scl_driver);
-+}
-+module_exit(i2c_gpio_shared_scl_exit);
-+
-+MODULE_DESCRIPTION("Bit-banged I2C buses sharing one SCL line");
-+MODULE_LICENSE("GPL");
--- 
-2.55.0.windows.5
+The default interface seems to be vc4-hdmi. I could switch to bcm2835 in
+alsamixer, and repeating the test in that conditions works. However,
+speaker-test seems to take the vc4-hdmi interface nevertheless.
+
+Running 'speaker-test -t wav -D plughw:1,0 -c 2' crash the system, so
+thinks seem not to be working with that interface.
+
+Im trying to debug what happens in that condition; I will need a couple
+of days I guess. So far, this is what I could check.
+
+Any feedback on the test or debugging would be appreciated.
+
+Regards,
+
+Gaston
+
+
+> Can you make sure that your HDMI sound is really using bcm2835_hdmi ?
+> If your sound happens to actually go through vc4-hdmi, then you are not t=
+esting
+> my patch. If you can't see the bcm2835_hdmi, you just need to add:
+>
+>   snd_bcm2835.enable_hdmi=3D1
+>
+> to your kernel command line if the driver is built in, or to the modprobe
+> command as module parameter.
+>
+>> I=E2=80=99d be happy to run any additional tests if needed.
+>
+> It would be interesting to test other "clients" of the VCHIQ bus (because=
+ I
+> only tested bcm2835-audio).
+> But I've just noticed that bcm2835-camera doesn't exist anymore (it was u=
+sing
+> VCHIQ via VCHIQ_MMAL).
+> If I understand correctly, if VCHIQ_MMAL is still there, it's because the
+> bcm2835-isp and bcm2835-codec drivers will be upstreamed in the future, b=
+ut
+> there is not current "client" in the kernel as far as I understand.
+>
+> The only remaining thing I can think of is /dev/vchiq (CONFIG_VCHIQ_CDEV)=
+.
+>
+> Thanks again for the tests!
+> Martin
 
