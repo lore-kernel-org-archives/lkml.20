@@ -1,193 +1,159 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+Received: from r3-23.sinamail.sina.com.cn (r3-23.sinamail.sina.com.cn [202.108.3.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF97F2EDD40
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:11:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36AA4594E
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792285871; cv=none; b=FIc4nxUEpiap8AqaNrDaoMraAeEA415xJa3ec84Qme8IOzZUzIUjQO7YrMturPM8oywDZYz+Aufv3LyNVQoaPNMrjSycyA7kpe3gF0s4+kaABDETww5J+FS4Wgr6WrCG5X0/AKQeoaKKORPQxUZS1619nERvbZKTnJAWzW5awPY=
+	t=1792286365; cv=none; b=i6E9GDngHii7CByAga3EdB69VWmO6kPcne1iZ9yBCYMj/ewEiXYnS98YKJ3cdiLQ228yLao1H1w0/jIU1Aa3n6Fgp4kicP4i0fGzzMIGL6FIsVk2nrUhfXDXJ0YtnaG+2I6Ti8aNTyJpZ5bGWqsPXIIi/G0dCzeNlS0km4iR72I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792285871; c=relaxed/simple;
-	bh=iClRPXEe5mR6eqpKMdMBt4IQqiTf2uKaNcox0pzAZ7s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DnEm8EbzqsIq5xUnTVX7yHlHH8VlOfRQdCycHVHhwd5msjH9ktJaxKZEozvqyqdoEpsCWP4UTFn22Ca9wQ4bPIkG9CzBhjPBI5qcOYkNE7KjZ91797ZY40vmM8HGgfY+e5mUYfVtoXmWz8Gk/+c3ox8mrCVv38bThgxCzgaIshE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=benboeckel.net; spf=pass smtp.mailfrom=benboeckel.net; dkim=pass (2048-bit key) header.d=benboeckel.net header.i=@benboeckel.net header.b=lvLKv3jN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tQTzcmLt; arc=none smtp.client-ip=202.12.124.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=benboeckel.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=benboeckel.net
+	s=arc-20240116; t=1792286365; c=relaxed/simple;
+	bh=Tm+b5u/qrdxZHH7pbcE93/+dL3/5x0KwR5V5mU2ooWk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GAW6IauZD6/GzExZBcQKWA35lsqJWfFLchUO+L+VW6m8lpZxO0juF/jlHdtTMc7Q7QH9UC7jIcoZ5MiSNCSI13KSzpLD3a4/FkyYaGZMSfVGgJLEzqTzphLo0t9SaCZN8oxk9OSEmdLoRp4rg19z3q5bq47QfAKMfIrWOUVgEpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=bObcn6C4; arc=none smtp.client-ip=202.108.3.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=benboeckel.net header.i=@benboeckel.net header.b="lvLKv3jN";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tQTzcmLt"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id 1ECA41D0007C
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:11:09 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Sat, 17 Oct 2026 21:11:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=benboeckel.net;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:reply-to:subject:subject:to:to; s=fm1; t=1792285866;
-	 x=1792372266; bh=IQsgVY0IWPoHORuYJpzS4mkNp1CJYmEIgbOfStHyy7Y=; b=
-	lvLKv3jNBogmMUqjchVm4Nl3Rby3771Nrf2pmqLEmJM6+deNX//3dondo17gC/m5
-	whyaiAZqUXZxtAJt8cSmJY8Qi3htrwdVnF2BCyjCA/UEKLCkOJ2HZ5f1m8670owi
-	sD2GqEO6+WqWqDC84Y3htQISEdEUf1Aed1SKCRTAy3OStefX8tQfNIsnUjvjlc0S
-	944IQcjP2LK7uk+FKS4haRxcis9RUzN45LzQPVpJKRTELzcGuRgR15aP9ID58bpt
-	BUCHxg276iT3Z+6u2lfs+u+kgSO4OzeXGdwl+QcrsGr9obdSebFIIayu1ojkSbC9
-	Y7S/saPjZm+YGl8mh/7U5g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792285866; x=1792372266; bh=IQsgVY0IWPoHORuYJpzS4mkNp1CJ
-	YmEIgbOfStHyy7Y=; b=tQTzcmLtpuziSWN/KwVQLT9e4ctmKj9C/Lobtei15FdS
-	dlIEcfzEYpvoNNME8PiY9KEtOUSCKo77FG8E8dgvQHEnTFNUP2BD5DuKZi87/QgL
-	onLwe/DcVNVuPDCkgp53EmcuwKOZtRqeOCFH6coS8IZKS0SUBq47D4cklRKA+zpQ
-	c3SzMSopSjru7VnfDLXvwjbr9TKJRDvJnj//bVCKCU3xAnLo4R6EbvMUoZj9BDRu
-	QWzwE7uQXbVU6tq2Vi3QBHrp2mAOVLvuqB8Tuunl9TR5luyhYpNiNJJ+e0UoWMud
-	hVhqBtjVO8xDVjMULDhxjfSuNDMXd8HDh2UOPnb0+g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=benboeckel.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792285866; d=benboeckel.net;
-	mf=PG1lQGJlbmJvZWNrZWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:k11kRph6qh9RosPEHYz6CgzgbFO0taOGSRVZfiaYEN97XLY
-	OgpjQmi7W9XfCGb+nPJlKrxpeSkcBYxbPpVurE3fUrlhcQP70E5S6CUAeEEwgeiZ
-	Bavzrf9mJgLOiQwcI1EFC5ClYf87/y3i46QaxO9EiplK7wFuDuUDQgK68B+ma7Vq
-	A8oHLb6tt3RZ6Nhvche9EKDpoRPWle0sSQC3RWFej9f+6SPrG2L2tV1VJYi/Dfdn
-	6FWjMUyuJjIwEa/fOGHhID+oYw/Fq9J//me1HyPnN0c6/Xp5a5FroRY1AtbYJIG5
-	iy7D/8tZZmJKltr/BHsw/C6Q+gs8PXVaJ+YP1QA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,reply-to,subject,
-	to,user-agent;
-Message-Instance: m=1; h=sha256:Vi3N86SJGk1w63md9NbJDlcOb0nEbeK8aupUZx13Qcw=:iClRPXEe5mR6eqpKMdMBt4IQqiTf2uKaNcox0pzAZ7s=;
-X-ME-Sender: <xms:qRzUanjO0lq1_iCh05wWS2AszCPGvjzDid8C-T3UbQZZ9DXNWIrg3A>
-    <xme:qRzUauuRh5pR02mB4Cfrd0JYA2WlTrXDp70WD79zGlUuFlQOuCUG04xiSnDZ1c_19
-    mQAG7LUGACcRTIlNRDCRvJQdewbvnDYKPVJlZHcJvAQkmlsqliLaELF>
-X-ME-Received: <xmr:qRzUatv1NfTgCZll3K0hCPY4u9872BlYnyv4URO7lYAnlhpz7JVZ2Yw3HQ>
-X-ME-Proxy-Cause: dmFkZTEvnTXb7wlPNdbPCo79KPjALe1WyOomyRWhprFt/vGO9Ai679h2SHP/kqZH93QGjI
-    +ozfqZTdZKg7h8D7XL5tDXORgip7Vh/Iw1HAwfLVrotIcUbd7YOIXOUoOee/rBp3M0Vjrg
-    +dCHbCyJpUvgDwj1Sq6UvkNmqYLWR8LGlOPh9uV2QqNtST1P/mE8LA6cwr9Va8hyC94yqA
-    qqkwb0dmWcp6pYePryL50SA2PuYbwEc/oVV6UaV7j3KaFhmXYKYR0BJI2+N0Gws0eA+Nvv
-    w8QrVGxrfUZtk6pI7rj1J/u/MY/qe89NuVYCSQ08nvYnSuJ6oNm4hXM0wwwaygLSlzP9Z2
-    i6YYlf3qZsHFPOoLLyit+n5ap1/Qs4Ie0j6ixsRKNtQlFdAaPTCgdofAa7FPkcFzs6jXLR
-    ho2J8Xr4vG8Y8bqauGwrVN8gMu3StR+YaEd8vQtihFl/gfx0kksVPcbMPbklHSxjzz1TF/
-    j0IVX0HUIWvE29G/xH4eqM/MJ3gn3EuO6IhK5MZSwyr/8xesImV8m7p0dVi3mr6SYr2TKD
-    ZoxnebomkTJciLsrdw9VyavNzukigajK+MJR0voUUXE0mjZWSAwumFi6czU4JSxFZyVE9J
-    L1TMYaATsDxvf3HfUk3zg09csqiR7mNC987cOX1OQ4+AQ0pTmI31L7zzWAvw
-X-ME-Proxy: <xmx:qRzUavML6aKT6Hb0mb0yqO4TlzLkEGfSwRyNvmDZWKkJYnD4W6NQqw>
-    <xmx:qRzUaveHmcbn-gT7gI0J_a5vsZ1ukzaBryWKzcQUtzRAxPODWES-JA>
-    <xmx:qRzUamllVWv-rKXbsIQ3xUZqjMW4HNQUlzybCcm8wxqYr07_9l1wOw>
-    <xmx:qRzUahxD-5JRBjWdwEg6TCNU04-zDCfbBiQX6PWr1JIbzKv5_sGRgw>
-    <xmx:qhzUamTrVIHs9pioam_XAHDlj_qDvXSWKUjHS_1tMb6KEZkl1Q6a07rk>
-Feedback-ID: iffc1478b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 17 Oct 2026 21:11:04 -0400 (EDT)
-Date: Sat, 17 Oct 2026 21:11:01 -0400
-From: Ben Boeckel <me@benboeckel.net>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: keyrings@vger.kernel.org, Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Rae Moar <raemoar63@gmail.com>,
-	Ryota Sakamoto <sakamo.ryota@gmail.com>,
-	Kuan-Wei Chiu <visitorckw@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Kir Chou <note351@hotmail.com>, Petr Mladek <pmladek@suse.com>,
-	Dmitry Antipov <dmantipov@yandex.ru>,
-	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)" <linux-kselftest@vger.kernel.org>,
-	"open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)" <kunit-dev@googlegroups.com>
-Subject: Re: [PATCH] lib/tests: kunit for associative array
-Message-ID: <atQcpQ-1J28uJyT9@rotor.dev.benboeckel.internal>
-Reply-To: list.lkml.keyrings@me.benboeckel.net
-References: <20261014160144.1835860-1-jarkko@kernel.org>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="bObcn6C4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792286361;
+	bh=YQMrKi/h/RvwgPWFKGo/FTNW9QoVCRH3iru1yNa4pFo=;
+	h=From:Subject:Date:Message-ID;
+	b=bObcn6C4PYPjhARXerfXgnLSZkTpEL4EGtHAQcyca5M9VTrPKs6mgbH4kpbreIS/2
+	 bXEgVgGsYzVXgkpZ+USL3TC30OZSHZX9ZD5C5Iuz1XB7e/3DgB5V8F9i6UY750vvFa
+	 Xf6ECJJ8o1HYqNmIhRATj4BcHTBRnf7ZygYVFA6o=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([221.216.116.228])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6AD41E9200005591; Sun, 18 Oct 2026 09:19:17 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 4832746816308
+X-SMAIL-UIID: 290C255286CC489AB4F00453ACD92C52-20261018-091917-1
+From: Hillf Danton <hdanton@sina.com>
+To: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
+Date: Sun, 18 Oct 2026 09:19:04 +0800
+Message-ID: <20261018011905.671-1-hdanton@sina.com>
+In-Reply-To: <6acbc835.a150a118.27e199.003c.GAE@google.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261014160144.1835860-1-jarkko@kernel.org>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 19:01:38 +0300, Jarkko Sakkinen wrote:
-> This is a kunit test for lib/assoc_array.c, which maintains a shadow model
-> across assoc_array operations, and checks its integrity after every
-> operation.
+> Date: Sun, 11 Oct 2026 10:32:37 -0700	[thread overview]
+> Hello,
 > 
-> I wrote a draft version so that I could properly test 'assoc-array-fixes'
-> tag at Linus' tree, and spent today rewriting a new more polished version
-> with as good description as I could possibly could on how the seeded test
-> keys were cherry-picked. Along the way I also tweaked the numbers to be
-> a bit less messier set than in my original version.
+> syzbot found the following issue on:
 > 
-> The transcripts that follow were executed with this command-line:
-> 
->     ./tools/testing/kunit/kunit.py run --raw_output assoc_array
-> 
-> With 'assoc-array-fixes' commits and its subsequent tag iterations all
-> eight tests pass, and without them all of them fail.
-> 
-> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-> ---
->  lib/Kconfig.debug             |  15 +
->  lib/tests/Makefile            |   1 +
->  lib/tests/assoc_array_kunit.c | 570 ++++++++++++++++++++++++++++++++++
->  3 files changed, 586 insertions(+)
->  create mode 100644 lib/tests/assoc_array_kunit.c
-> 
-> diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-> index 6b24a2c89b84..3e8d3852f53c 100644
-> --- a/lib/Kconfig.debug
-> +++ b/lib/Kconfig.debug
-> @@ -2857,6 +2857,21 @@ config HASHTABLE_KUNIT_TEST
-> 
->  	  If unsure, say N.
-> 
-> +config ASSOC_ARRAY_KUNIT_TEST
-> +	tristate "KUnit test for assoc_array" if !KUNIT_ALL_TESTS
-> +	depends on KUNIT
-> +	default KUNIT_ALL_TESTS
-> +	select ASSOCIATIVE_ARRAY
-> +	help
-> +	  This builds the assoc_array KUnit test suite.
-> +	  It tests the basic functionality of the API defined in
-> +	  include/linux/assoc_array.h.
-> +
-> +	  For more information on KUnit and unit tests in general please refer
-> +	  to the KUnit documentation in Documentation/dev-tools/kunit/.
-> +
-> +	  If unsure, say N.
-> +
->  config LINEAR_RANGES_TEST
->  	tristate "KUnit test for linear_ranges"
->  	depends on KUNIT
-> diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-> index 3cac3b63a752..107e16b4ebc1 100644
-> --- a/lib/tests/Makefile
-> +++ b/lib/tests/Makefile
-> @@ -4,6 +4,7 @@
-> 
->  # KUnit tests
->  CFLAGS_bitfield_kunit.o := $(DISABLE_STRUCTLEAK_PLUGIN)
-> +obj-$(CONFIG_ASSOC_ARRAY_KUNIT_TEST) += assoc_array_kunit.o
->  obj-$(CONFIG_BASE64_KUNIT) += base64_kunit.o
->  obj-$(CONFIG_BITOPS_KUNIT) += bitops_kunit.o
->  obj-$(CONFIG_BITFIELD_KUNIT) += bitfield_kunit.o
+> HEAD commit:    a5ebb76233b7 Merge tag 'edac_urgent_for_v7.3_rc7' of git:/..
+> git tree:       upstream
+> console+strace: https://syzkaller.appspot.com/x/log.txt?x=1494923e580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=df4bbab1c2172b9f
+> dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=126a0f15580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=166a0f15580000
 
-Why does this one end with `_TEST` and the others do not? I see
-`LINEAR_RANGES_TEST` in the context above, but it also lacks `_KUINT`.
-There is `HASHTABLE_KUNIT_TEST` nearby too, so perhaps consistency has
-just never been popular around these parts.
+#syz test
 
-Thanks,
-
---Ben
+--- x/drivers/nvme/target/fc.c
++++ y/drivers/nvme/target/fc.c
+@@ -113,6 +113,7 @@ struct nvmet_fc_tgtport {
+ 	struct nvmet_fc_port_entry	*pe;
+ 	struct kref			ref;
+ 	u32				max_sg_cnt;
++	int				assoc_freed;
+ };
+ 
+ struct nvmet_fc_port_entry {
+@@ -1271,9 +1272,17 @@ nvmet_fc_portentry_bind(struct nvmet_fc_
+ static void
+ nvmet_fc_portentry_unbind(struct nvmet_fc_port_entry *pe)
+ {
++	struct nvmet_fc_port_entry *entry;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
++	list_for_each_entry(entry, &nvmet_fc_portentry_list, pe_list) {
++		if (entry == pe)
++			goto out;
++	}
++	spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
++	return;
++out:
+ 	if (pe->tgtport) {
+ 		nvmet_fc_tgtport_put(pe->tgtport);
+ 		pe->tgtport->pe = NULL;
+@@ -1414,7 +1423,7 @@ nvmet_fc_register_targetport(struct nvme
+ 		goto out_free_newrec;
+ 	}
+ 
+-	nvmet_fc_portentry_rebind_tgt(newrec);
++	//nvmet_fc_portentry_rebind_tgt(newrec);
+ 
+ 	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
+ 	list_add_tail(&newrec->tgt_list, &nvmet_fc_target_list);
+@@ -1474,14 +1483,20 @@ static void
+ __nvmet_fc_free_assocs(struct nvmet_fc_tgtport *tgtport)
+ {
+ 	struct nvmet_fc_tgt_assoc *assoc;
++	unsigned long flags;
+ 
++	if (tgtport->assoc_freed)
++		return;
++	tgtport->assoc_freed = 1;
+ 	rcu_read_lock();
++	spin_lock_irqsave(&tgtport->lock, flags);
+ 	list_for_each_entry_rcu(assoc, &tgtport->assoc_list, a_list) {
+ 		if (!nvmet_fc_tgt_a_get(assoc))
+ 			continue;
+ 		nvmet_fc_schedule_delete_assoc(assoc);
+ 		nvmet_fc_tgt_a_put(assoc);
+ 	}
++	spin_unlock_irqrestore(&tgtport->lock, flags);
+ 	rcu_read_unlock();
+ }
+ 
+@@ -1643,8 +1658,10 @@ nvmet_fc_unregister_targetport(struct nv
+ 
+ 	nvmet_fc_portentry_unbind_tgt(tgtport);
+ 
++	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
+ 	/* terminate any outstanding associations */
+ 	__nvmet_fc_free_assocs(tgtport);
++	spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
+ 
+ 	flush_workqueue(nvmet_wq);
+ 
+@@ -2917,6 +2934,7 @@ nvmet_fc_remove_port(struct nvmet_port *
+ {
+ 	struct nvmet_fc_port_entry *pe = port->priv;
+ 	struct nvmet_fc_tgtport *tgtport = NULL;
++	struct nvmet_fc_tgtport *next = NULL;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
+@@ -2926,9 +2944,11 @@ nvmet_fc_remove_port(struct nvmet_port *
+ 
+ 	nvmet_fc_portentry_unbind(pe);
+ 
+-	if (tgtport) {
++	if (tgtport && next) {
++		spin_lock_irqsave(&nvmet_fc_tgtlock, flags);
+ 		/* terminate any outstanding associations */
+ 		__nvmet_fc_free_assocs(tgtport);
++		spin_unlock_irqrestore(&nvmet_fc_tgtlock, flags);
+ 		nvmet_fc_tgtport_put(tgtport);
+ 	}
+ 
+--
