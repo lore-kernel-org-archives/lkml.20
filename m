@@ -1,125 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16DB411FB3;
-	Sun, 18 Oct 2026 19:34:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A2437FF4B;
+	Sun, 18 Oct 2026 19:37:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792352088; cv=none; b=ZtBVUVTRCeydwGWOuOXz67v8g+E4Ca51Gc+d8HnbQ8vdNnnmbWBqveeksqOrTJiGg4Lcd+13SX2rRN+F/Bf9vv8nr8JqX+2tzoBLvpwUFBmYiOhOXmZ6aaTVj/2GyMFzBovJnMSszlgHIA82NAL/DzL6TPgJi4xE8Exu7iq7cGw=
+	t=1792352257; cv=none; b=NKphgHzASe347MZOc/Ol5dk1dBetJjtaXgxOKsQ3VJ9sjm1t92VrM+SBU6PtoUSGLJzKL/OeboebgBeg5oga223tn0ddpkerF9IHDoZZw4LYt3CqdvyUqZWdcgVGkBpeVDOat6mvaRG9QEZKKtMFzXOoSlWWLcVTqO/QiF5CXu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792352088; c=relaxed/simple;
-	bh=joVsEekgxWY1deJp/UVdnIJj0mkrVRGDrmJ4u4rDTIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tJUigza8C9GCAmnX9qubeCaFwygLg9fhG4J4f8v8agZKGvGkU4NKXut4dLe6Ov/V0ktTNKE1eBeLEBG4rWBODo2Hs3dmmiTvy4WD2nmEnS9+rC2eenNaRGcfZzRXucuvlZWrof18pc2/ZjXc8Z15zHO4D3UiiH8Vxc4N0j88HgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lDsxCyBB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792352257; c=relaxed/simple;
+	bh=hWyphUOg7VVggGN5ibCi2ZgClSKjeBRDFRq58pI8Pf4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l8ZClOY1+OXRTr9ah2/CA7ik4CiTbHIF9zV6h5i5jSGdjsRaFbC014JLsK14GwN/lBIwgQduHkX04xqnMR6YGNgMr3U81xu6mjwW6Suh7sapne4LlrnV5naqrCL0IDo/2Ezi5xKcIq8jqHDH8+4/vBPDJcebF2JatTe+Mjw0Wuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TyukweSz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lDsxCyBB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C7581F000C4;
-	Sun, 18 Oct 2026 19:34:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TyukweSz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4FEB1F000C4;
+	Sun, 18 Oct 2026 19:37:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792352087;
-	bh=7hWgfUJX0ue4is68wn7v2s40Yl3GSfkyn05gclLtDvo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lDsxCyBBjbt+2ZdGlnG/DGkT00cwM5F1DDLBPQGRW11zP5CbiC2Zk4WG93c9qEtXx
-	 3RhH1JLyGO1FoBZdWRgt3yE1yXn7019bCpBRl16HDMYYZwZoaqIFv8rYX1IIUCSP04
-	 G+k46gpUumrlwThLogXXk1VofDTjnSvfAr9E6/QVntIuvg5fUtFG42OGFDngSvY95a
-	 Q7banIO5DY7Qj7GacZgXdoF41gtWzINKbI6fhw9K9QuS7WaZUIH6Aouncu0fbMlqO1
-	 c0/AcQfpXBcBmswTPTuzwaybI+jg80hLhMHxvytZ+fl+4YJN/BRk49rKB2T5+RkHtx
-	 onOP9P89QPMng==
-Date: Sun, 18 Oct 2026 20:34:39 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Christopher Hoover <ch@murgatroid.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, David Lechner
- <dlechner@baylibre.com>, nuno.sa@analog.com, Andy Shevchenko
- <andy@kernel.org>, linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] iio: humidity: hid-sensor-humidity: Use
- per-instance callbacks
-Message-ID: <20261018203439.26c4a98c@jic23-hlaptop>
-In-Reply-To: <20261007184423.622445-4-ch@murgatroid.com>
-References: <20261007072329.27806-1-ch@murgatroid.com>
-	<20261007184423.622445-1-ch@murgatroid.com>
-	<20261007184423.622445-4-ch@murgatroid.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1792352255;
+	bh=7aBv2cTg3vXrmEzBIKjR3qBMNhNd7G9cJp9HXCweTFE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TyukweSzzfyf9aI4t4fo11YGVI2ZIoKTyZ3JKHqQ9u6Kwy5kTulnA/xdw57Zg9J5D
+	 MXd+YGf/SsHw8qo+/0P4Xpn1eYWSXqRgLvGDaAXJCE2RpitzMrklDqxzbjkZGnG5OI
+	 QAGeyRjsPYUMj8Qz2+oaPaYZ8yJ3T/dRBNhZaA2Oiy9qGKJ4ZU/4qyuHDl2hzsJpqS
+	 nxaoIPftINW8QaogkcsxfRYk1Qb06IU89BazfdhGEu8+6uTUg8lNcqEbDdpCpnKiAZ
+	 ck7eP3hFOYsokKEbrevZWic3MNYRaIeKvHnV5FHq2EnlEDX8fYe+yeyNBh4qJhmNml
+	 fDcl3e3XkyNZA==
+Date: Sun, 18 Oct 2026 20:37:29 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: Frank.Li@oss.nxp.com,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	imx@lists.linux.dev, Guenter Roeck <linux@roeck-us.net>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Ashish Yadav <ashish.yadav@infineon.com>,
+	Colin Huang <u8813345@gmail.com>,
+	Sanman Pradhan <psanman@juniper.net>,
+	Thorsten Blum <blum@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.dev>,
+	Eddie James <eajames@linux.ibm.com>,
+	Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>,
+	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"open list:DH ELECTRONICS DHSOM SOM AND BOARD SUPPORT" <kernel@dh-electronics.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH 1/1] dt-bindings: spi: Add separate binding for
+ dh,dhcom-board
+Message-ID: <20261018-freeway-twitch-e813208aa9af@spud>
+References: <20261016205718.877668-1-Frank.Li@oss.nxp.com>
+ <e7095176-44b8-4838-8443-2e515d34cb25@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="0TlYiEQJktn+9mNR"
+Content-Disposition: inline
+In-Reply-To: <e7095176-44b8-4838-8443-2e515d34cb25@nabladev.com>
 
-On Wed,  7 Oct 2026 11:44:23 -0700
-Christopher Hoover <ch@murgatroid.com> wrote:
+--0TlYiEQJktn+9mNR
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> hid-sensor-humidity keeps a single static struct
-> hid_sensor_hub_callbacks for all instances and overwrites its pdev in
-> every probe, so with two humidity sensors, input reports for one are
-> delivered with the other's platform device, and a NULL dereference
-> follows once that device is removed.  The same bug was found in
-> hid-sensor-temperature, which shares this code.
-> 
-> Keep the callbacks in struct hid_humidity_state, as the other HID
-> sensor drivers (accel, gyro, als, ...) do.
-> 
-> Fixes: d7ed89d5aadf ("iio: hid: Add humidity sensor support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christopher Hoover <ch@murgatroid.com>
-Hi Christopher,
+On Sat, Oct 17, 2026 at 12:01:55AM +0200, Marek Vasut wrote:
+> On 10/16/26 10:57 PM, Frank.Li@oss.nxp.com wrote:
+> > From: Frank Li <Frank.Li@nxp.com>
+> >=20
+> > The dh,dhcom-board SPI device uses spi-cpha and spi-cpol properties,
+> > which are not permitted by the trivial-devices schema. Move it to a
+> > dedicated binding file that references spi-peripheral-props.yaml and
+> > explicitly allows those SPI mode properties.
+> >=20
+> > Fixes below CHECK_DTBS warnings:
+> >    arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dtb: spidev@0 (dh,=
+dhcom-board): 'spi-cpha', 'spi-cpol' do not match any of the regexes: '^pin=
+ctrl-[0-9]+$'
+> >          from schema $id: http://devicetree.org/schemas/trivial-devices=
+=2Eyaml
+>=20
+> How come this did not trigger until now ?
+>=20
+> > Assisted-by: LLM
+> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> > ---
+> >   .../bindings/spi/dh,dhcom-board.yaml          | 46 +++++++++++++++++++
+> >   .../devicetree/bindings/trivial-devices.yaml  |  2 -
+> >   2 files changed, 46 insertions(+), 2 deletions(-)
+> >   create mode 100644 Documentation/devicetree/bindings/spi/dh,dhcom-boa=
+rd.yaml
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml =
+b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
+> > new file mode 100644
+> > index 0000000000000..ed213cbe9b04c
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/spi/dh,dhcom-board.yaml
+> > @@ -0,0 +1,46 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/spi/dh,dhcom-board.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: DH electronics GmbH on-board CPLD trivial SPI device
+>=20
+> This does not look quite right, since compatible this is used only on:
+>=20
+> arch/arm/boot/dts/imx6ull-dhcor-maveo-box.dts
+>=20
+>        model =3D "DH electronics i.MX6ULL DHCOR on maveo box";
+>        compatible =3D "marantec,imx6ull-dhcor-maveo-box",
+> "dh,imx6ull-dhcor-som",
+>=20
+> So the whole
+>=20
+>        spidev@0 {
+>                compatible =3D "dh,dhcom-board";
+>                reg =3D <0>;
+>                spi-cpha;
+>                spi-cpol;
+>                spi-max-frequency =3D <54000000>;
+>        };
+>=20
+> Should probably use a different compatible.
+>=20
+> Christoph, what device is this on this board ?
+>=20
+> (and this change should only be applied with RB from Christoph, I do not
+> have the hardware so I cannot tell what it really is)
+>=20
+> > +maintainers:
+> > +  - Marek Vasut <marex@denx.de>
+>=20
+> @nabladev.com
+>=20
+> > +  - Frank Li <Frank.Li@nxp.com>
+> > +
+> > +allOf:
+> > +  - $ref: spi-peripheral-props.yaml
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: dh,dhcom-board
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  spi-cpha: true
+> > +
+> > +  spi-cpol: true
+>=20
+> Wouldn't it make more sense to allow those properties for trivial SPI
+> devices in general ?
 
-Same suggestion as I made on patch 2 applies here.
+If the device requires them (which it probably does?), then standalone
+makes sense to actually set that requirement.
 
-Otherwise LGTM.  This one seems less likely to be a problem in
-practice than the previous just because I can't imagine we have
-devices out there with multiple humidity sensors! Still good to
-fix in case they ever show up.
+--0TlYiEQJktn+9mNR
+Content-Type: application/pgp-signature; name=signature.asc
 
-thanks,
+-----BEGIN PGP SIGNATURE-----
 
-Jonathan
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatUf+QAKCRB4tDGHoIJi
+0otLAQDjNTrB0QcnnZX13hltR1wjzbb9ogEMJ8vbEfN8MshylQEAjmdZh9cncbbJ
+5jdU+CjQgPrg1LVfGQA7dr49Xv0gCgQ=
+=xCky
+-----END PGP SIGNATURE-----
 
-> ---
->  drivers/iio/humidity/hid-sensor-humidity.c | 12 +++++-------
->  1 file changed, 5 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/iio/humidity/hid-sensor-humidity.c b/drivers/iio/humidity/hid-sensor-humidity.c
-> index 7cec81ff5685..95ee1d71c1a7 100644
-> --- a/drivers/iio/humidity/hid-sensor-humidity.c
-> +++ b/drivers/iio/humidity/hid-sensor-humidity.c
-> @@ -14,6 +14,7 @@
->  
->  struct hid_humidity_state {
->  	struct hid_sensor_common common_attributes;
-> +	struct hid_sensor_hub_callbacks callbacks;
->  	struct hid_sensor_hub_attribute_info humidity_attr;
->  	struct {
->  		s32 humidity_data;
-> @@ -184,11 +185,6 @@ static int humidity_parse_report(struct platform_device *pdev,
->  	return ret;
->  }
->  
-> -static struct hid_sensor_hub_callbacks humidity_callbacks = {
-> -	.send_event = &humidity_proc_event,
-> -	.capture_sample = &humidity_capture_sample,
-> -};
-> -
->  /* Function to initialize the processing for usage id */
->  static int hid_humidity_probe(struct platform_device *pdev)
->  {
-> @@ -240,9 +236,11 @@ static int hid_humidity_probe(struct platform_device *pdev)
->  
->  	platform_set_drvdata(pdev, indio_dev);
->  
-> -	humidity_callbacks.pdev = pdev;
-> +	humid_st->callbacks.send_event = humidity_proc_event;
-> +	humid_st->callbacks.capture_sample = humidity_capture_sample;
-> +	humid_st->callbacks.pdev = pdev;
->  	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_HUMIDITY,
-> -					   &humidity_callbacks);
-> +					   &humid_st->callbacks);
->  	if (ret)
->  		goto error_remove_trigger;
->  
-
+--0TlYiEQJktn+9mNR--
