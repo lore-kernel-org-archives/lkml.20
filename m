@@ -1,126 +1,155 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B497342E40D;
-	Sun, 18 Oct 2026 09:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1065644725C;
+	Sun, 18 Oct 2026 09:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792316013; cv=none; b=Ub2jIBfahqowhg9tWcXVLASrWi2rksBL8TfwN+2DWYtuAYjjPb5nH6+rDxaAWiMWN3ywX2f5h/IZBpYcANnWV4X0Ut2DkYxJPbhDATDWTQeDNfNhPLvcIyJCAP9dJKxGzQIN/URPw6JAsVAtX+sp5a55thJD63xE4i68XoO4Q7c=
+	t=1792316060; cv=none; b=LBTXrcGBJODE0WkV67Ydg55jMQoztlvrvXdArzPvN1NKYv8HR5ZXtHNk80n9o3Ak3INOzXNljU7ZZagDTonV4AhHRXXivXIuoV1LvOrzHeMMrlWInTx7n8tVk9wRWkWPRivaNcUuwEEgxoRghbXIgPMjPqIOPZGeyKVYDIgiG4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792316013; c=relaxed/simple;
-	bh=Yk28+70tYlvRlZ+qOKj5YSwATs8l/5YZSvBU/XXJIfU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SaH3Y75nnK7Jfddcpex7u0Nu/qlou6YLltu0DV1IyI73gQ38agZw5wW9wqCxOtXBpN2fxIf9ZYV/WcrCLRY2LzvDrqawFf+dvsm5fZGUenTyG+/ngCa3z2Mf++A2H5l9HYcb98+3birKu/yhN8upAuYMPxCsDokjZoKv0TSWsAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=FuKjjgul; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1792316060; c=relaxed/simple;
+	bh=K7URSFqeOOhxmGzr8p1MgGgLM6weHBvz8IRI8NwAg2k=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oYPb4uehBZAJjmXd5q9lWHEOozLj/cjDfLPyDArkSh7m+8wG9QyZT0/uqDeZzwDj+zNg9s3+jWFEoT6Dgc6X/dktwTN4wIZEOpVMzV6xfWmOJ7CnFsGkOdPaQGuw52ZQq4cyrKSSP35eqIwbKzRJUXJDneyp9Ci9BwR2Imd4aMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=EPaEtH/d; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ivqci73t; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=iwj41htA; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jCGkltGP; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="FuKjjgul"
-Message-ID: <7db77dd421c0d6d76460486b7c5b51862d45d896.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1792316009;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EPaEtH/d";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ivqci73t";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="iwj41htA";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jCGkltGP"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A5E5521CB3;
+	Sun, 18 Oct 2026 09:34:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792316055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Yk28+70tYlvRlZ+qOKj5YSwATs8l/5YZSvBU/XXJIfU=;
-	b=FuKjjgulR1qJSorX33XA4xKmk/dO2/rj0nQEtSbU17XDU3p4kUk5fRb8phruvbMNlcxt/D
-	J/B3NM3vETE0PZMuUwk5EQ7HVshg/0T/L/HV4anh66MNzb94KDdSOGuz5pgL7VUfu8n85F
-	W2xNHJqsCQk77OQCmeqJny7/rVVvd1E=
-Subject: Re: [PATCH 0/2] fs: honor FOP_UNSIGNED_OFFSET in llseek and
- positional I/O
-From: Stian Halseth <stian@itx.no>
-To: brauner@kernel.org, viro@zeniv.linux.org.uk
-Cc: jack@suse.cz, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org,  sparclinux@vger.kernel.org, schwab@suse.de,
- fweimer@redhat.com
-Date: Sun, 18 Oct 2026 11:33:28 +0200
-In-Reply-To: <20260917151614.376867-1-stian@itx.no>
-References: <20260917151614.376867-1-stian@itx.no>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Qv/8uhU+y6VaKTutixcQ"
+	bh=bqOkGU0BbBD1hERTPjMJq73uQ6ZdLU+dztkLydr2U3E=;
+	b=EPaEtH/dlubTVowIAEnCLErmqIQAEEkK0NSIAhN/mQ4IQB7PCoP7S8ZcKZtvoIL87tU+NH
+	A/6SWG0cbuKllWBUfv2RnfMuA+7u7DtX4tK2xnA3yHu9M988H1IBDTra/gdJz3XaTD30CH
+	jut3r+VhwARARff2/VmcwXWpPtV2tUo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792316055;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bqOkGU0BbBD1hERTPjMJq73uQ6ZdLU+dztkLydr2U3E=;
+	b=ivqci73tEHitro9g6dmrVob4axFV+yp8hwaiyU70cosebvPP/WZQeNNoX4RaPCUB5lTJRC
+	LofK6e4J6j4+QZCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792316054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bqOkGU0BbBD1hERTPjMJq73uQ6ZdLU+dztkLydr2U3E=;
+	b=iwj41htAOlKmRh4mil0cx2XQ5CM/Hc5JlZ0wqkABmblELP/O6D1FHXtiDSy4QL4/YA7T7v
+	jqVtt4V0/LBbIGzyeL5y62R4TkCgEavoPczl2SyxnsmpyTakRwtJdOnbyWWiDLPS6yiZJ/
+	LAv32aTKlTNknEZA4rCmJnxm2Xx0c6U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792316054;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bqOkGU0BbBD1hERTPjMJq73uQ6ZdLU+dztkLydr2U3E=;
+	b=jCGkltGPlwNW+Zwf1DoPITPnHCqVGulkLe5oe6U/9HZ7cfpUZjzranITUAbm+8HMwkEq0Z
+	hctfG7iCpj+dJ2Cg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3359C134B3;
+	Sun, 18 Oct 2026 09:34:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id vec7ApaS1GrpAgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sun, 18 Oct 2026 09:34:14 +0000
+Date: Sun, 18 Oct 2026 11:34:13 +0200
+Message-ID: <87wlrfz71m.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vasiliy Kovalev <kovalev@altlinux.org>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nikita Maksimov <nickstogramm@yandex.ru>
+Subject: Re: [PATCH] ALSA: hda/via: Apply runtime PM workaround for ASUS X55A
+In-Reply-To: <ffd3e030-c056-da1e-0549-c41d7681abc2@basealt.ru>
+References: <20261017101257.215166-1-kovalev@altlinux.org>
+	<874iej1k7q.wl-tiwai@suse.de>
+	<ffd3e030-c056-da1e-0549-c41d7681abc2@basealt.ru>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[yandex.ru];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[suse.de,suse.com,perex.cz,vger.kernel.org,yandex.ru];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+
+On Sun, 18 Oct 2026 10:50:53 +0200,
+Vasiliy Kovalev wrote:
+> 
+> Hi,
+> 
+> On 10/18/26 11:33, Takashi Iwai wrote:
+> > On Sat, 17 Oct 2026 12:12:57 +0200,
+> > Vasiliy Kovalev wrote:
+> >> 
+> >> ASUS X55A requires the same workaround like other machines with
+> >> VT1802, otherwise it loses the codec power on a few nodes and the
+> >> sound stays silent.
+> >> 
+> >> Fixes: a0645daf1610 ("ALSA: HDA: Early Forbid of runtime PM")
+> >> Link: https://bugzilla.altlinux.org/45606
+> >> Cc: <stable@vger.kernel.org>
+> >> Tested-by: Nikita Maksimov <nickstogramm@yandex.ru>
+> >> Signed-off-by: Vasiliy Kovalev <kovalev@altlinux.org>
+> > 
+> > The addition of a quirk is OK, but is Fixes tag really pointing to the
+> > culprit?  The commit is for forbidding the runtime PM, and I see no
+> > clear reason how this commit breaks.
+> 
+> I followed the precedent of your B23E patch[1], which carried the
+> same Fixes tag. If you don't think it applies here, happy to drop
+> it - let me know if you'd rather remove it yourself or have me
+> send a v2 without it (keeping Cc: stable).
+> 
+> [1] https://lore.kernel.org/all/20210817052432.14751-1-tiwai@suse.de/
+
+OK, that looks like a failure in the previous commit, then.
+I applied to for-next branch now without Fixes tag.
 
 
---=-Qv/8uhU+y6VaKTutixcQ
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+thanks,
 
-Ping. The series still applies cleanly to current master (7.3-rc7).
-
-Since posting it has run on an UltraSPARC T4-1 (7.2.y) and a SPARC T7-1
-(7.3-rc5) as the production kernel for a month. Is there anything you
-would like changed before it can be picked up?
-
-https://lore.kernel.org/linux-fsdevel/20260917151614.376867-1-stian@itx.no/
-
-/Stian
-
-On Thu, 2026-09-17 at 17:16 +0200, Stian Halseth wrote:
-> Two generic VFS bugs found while fixing pldd(1) on sparc64, where
-> userspace is mapped above 2^63 so file positions on /proc/PID/mem
-> have
-> the top bit set.
->=20
-> FOP_UNSIGNED_OFFSET declares a file's offsets unsigned, and
-> vfs_llseek(),
-> rw_verify_area() and the mmap path honor it.=A0 Two sets of syscall
-> wrappers do not:
->=20
-> =A0 1. sys_llseek() takes a negative result from vfs_llseek() for an
-> error
-> =A0=A0=A0=A0 and returns it truncated to int without filling *result.
-> =A0 2. pread64/pwrite64/preadv/pwritev reject a negative position
-> before
-> =A0=A0=A0=A0 looking up the file.
->=20
-> Both patches only change behavior for a file with FOP_UNSIGNED_OFFSET
-> and a position with the top bit set.=A0 Today that is /proc/PID/mem,
-> /dev/mem, the sparc ADI driver and the DRM/accel device files; for
-> all
-> of them lseek() followed by read() at that position already works, so
-> the wrappers now match it.
->=20
-> Tested on an UltraSPARC T4: pread(), preadv(), pwrite(), pwritev()
-> and
-> lseek() on /proc/PID/mem at positions above 2^63 return the correct
-> data
-> and offset; a negative position on a regular file or a pipe still
-> fails
-> with EINVAL and position 0 on a pipe with ESPIPE, as before; and the
-> stock pldd(1) works again.=A0 On other architectures the change is a
-> no-op
-> for every file without FOP_UNSIGNED_OFFSET, and userspace addresses
-> never set the top bit, so the new paths are only reachable by passing
-> a bogus position to /proc/PID/mem or /dev/mem, which then fails in
-> the
-> driver instead of the wrapper.
->=20
-> The glibc side is
-> https://sourceware.org/bugzilla/show_bug.cgi?id=3D34641;
->=20
-> Stian Halseth (2):
-> =A0 fs: fix llseek() result for files with unsigned offsets
-> =A0 fs: allow positional I/O on files with unsigned offsets
->=20
-> =A0fs/read_write.c | 38 +++++++++++++++++++-------------------
-> =A01 file changed, 19 insertions(+), 19 deletions(-)
->=20
-
---=-Qv/8uhU+y6VaKTutixcQ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCatSSaAAKCRDoeAEuJe36
-VsRyAQCXwnq6yTVnSZUinCYFJ8OGnOZoLr1PPEUKlHLZzTHdDgD/c2tqf9ocAmRj
-7xauA9EnnjAHTPJI7qlD0rK93EfK4gc=
-=3O06
------END PGP SIGNATURE-----
-
---=-Qv/8uhU+y6VaKTutixcQ--
+Takashi
