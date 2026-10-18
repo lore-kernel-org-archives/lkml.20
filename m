@@ -1,87 +1,71 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424A833F383
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:32:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F915342523;
+	Sun, 18 Oct 2026 02:33:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792290726; cv=none; b=d7mY/Xv/1ixrbcTqVFdKEL4Q3V38wsW2JAFL7L1RqyyU0x+C/ieGQhM+Sl+4M8D/eUnnoQSW8ZlmXZkZQbHwyF4sLoeP62NQFChwdRzFv+iRXLPdpA2Q2Ts0/OL+hP1oQTaJK+rqRT8tA98JkmGIXO1W+ZiZWTzQIAL4SHKBdnw=
+	t=1792290825; cv=none; b=p+zsqlLow//rGYXwNt0CnBVjmoYFAEeWzijgW7N7VJWwpuvYmW9Y7heiK0u1n81S/bAXKB7W3YjHYINcQKaxVx3BBFxkHsx4NeMsw2hFlPBh9yGtn/QafjrGDIRlTslrOcTR0VvZYnRTeSY2Givgmy7eLzcp5kPvHaZMVFFfBuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792290726; c=relaxed/simple;
-	bh=SonTQqI1E4gmDWfoGEcsRKX7iGhRoCOiAf9Un14E/iE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kfJJ7khej11DghOn2JdDtGzgmqdjRZJzm/axNAdksyBDid2vsL5njvGPZ5ZOYGWH10T3I2uzfKJouOn3mc0/y7Na+FAUxhxYHaOFxC33jhEAasvUr9ePjwfb2exAr5vLkyoof1lxgYbSaDp2ZWYjBminBJ20SXyCiIgIA5LsepA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=r6DC0X/y; arc=none smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1792290825; c=relaxed/simple;
+	bh=/q5PbLNw2ChnqLUDimmbQ6ILn66UIYEl00R7gRZz/wg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=X8oxQD+5buNbeiOJH+yER+GoSEw8cAHUaamQnqMzyOsu3XGfXTU66JmcUJPKRzB8I+aoFh5vxfCXp5d6WTSILYhDLBovPVVxLIoZzXq6SXIyNlt9/qq+VJ6tF0PGCQEv5CI526HE01Di8nhEdb07zO5cAJVxtEr4i/DQIyVDZ1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DXQrFILH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="r6DC0X/y"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-533797e72e8so5624301cf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:32:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1792290724; x=1792895524; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SonTQqI1E4gmDWfoGEcsRKX7iGhRoCOiAf9Un14E/iE=;
-        b=r6DC0X/y7++3e4i0SySll5DwBR80GzdpSX3Siw/t/ZJpwnhiZm0Ox4tAWVSz0YWNTs
-         RIoP4k3Zl7CRhBR+eAOfgJDsoim8xdq8yvVgm+UoxGpgrJuawggf1l1XI3Gj0XeoJli/
-         Dihhkt+tVK3Vapr/bryK9lnDg4lWXEGMCOTATOxqJgx1CNXgtiFuL9CohFKvxDKQNeEq
-         b4tTE9lNKQoe4U93ya2hzplptV21yoqpx+5geamJ/n7qJiv3/63w1dhKA+HCoR2ge5G3
-         snBnIZGFqut1etfqPJS6BX6c5PI78BKm5Vn7k23s17OvNLreEMSeQkv+6Nx9LkCxm5oW
-         C1Mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792290724; x=1792895524;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SonTQqI1E4gmDWfoGEcsRKX7iGhRoCOiAf9Un14E/iE=;
-        b=SkG/ZLcFkvmbxANUjFN/zcKviMWbiCxyUnDDMrBqHNpefIR/CTiFVYOLfC3MSwlEPa
-         JTE2kJLu3IivsO2O8NJK++ztSVrtD6VgLNlYnUlQwqdbZUoHkyGIDwEb5PriLUcxulcU
-         Mg6p0qIugqHKqn+kP+HpzTQDdRnwOYHgLb2I9HYGdahRnUsSOgUEKV5WxygKiZG/KZId
-         OB1tkB6lZkTSEFttKzgH90skvqQUmtsUiFq6dzYx+gBn3djO4XBnqyfwvcGDl2d7EaI2
-         0pu6t4+mQvlIa4pQsGcnoMf39FRtbCYmHdwaRl7IXj1W29H3tFuk78EZYzofoTNMLFtW
-         +7FQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzkOxguggq/wRZx3BA8JiDLQpMhq35CynSBV0dyG4vE9km4bdWDTTuGhDmDrStTsWURRFLKlmUs8hVnmLQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxbiiC0wemLxSGPAzpq7V1sWrTjFn0F0RuwYo/gRvLRm9iIye5
-	4/eSvSvj2tW7ndG7RbiB0ZzwbAU+kxV8B9ablRPrv9sIAsvGFn39axX7DDddikWquQ==
-X-Gm-Gg: AYBFou391CYT8o9syWJMM39fDOkMzp/vw2zY1dFZztifsozEZpOW3ecrTjlGYOP+CzX
-	plJiNea4JgBcHbYVbeFs5n9XIecUbyi1aVWwvOCy5v8Phd5WGuP5v97onbDStIHcjm1O/66WU+q
-	VKNm9SwHzW0C9xdlxPeIrhnWletH850Bd7vfIBLGDFBOOmlDCARbALMWzoryvb37QogWfOLLb0k
-	q4x4EdwL6u099vvS1ZpplpYexVgDtfSUfXkSlWzTtRbSiPITCVtGwrEg0uGQbQsFOYjaHq53MHm
-	jkfjC3ykl0RMKSbX7nb+E6s0DC56yNYFTEhGCG+hocEAaiI0VWpb4QG4TC7nvQm0zheiDu62JhD
-	ma3lGB0z6BFTGy3ZujBBvzZ6DkHrRGztaNTut0pEuPOShKmpmbURVNAvjuRvjgCU7JYRHvzkDKT
-	enF3ZKxMcidTDnh8Xsw2NuujzE7V1dtJ3bGD1C/z1nVvYov5QEZ3PbfhucXD7MKQYEmWe6Ur4=
-X-Received: by 2002:a05:622a:44e:b0:533:367b:3479 with SMTP id d75a77b69052e-53645faa298mr58825371cf.14.1792290724083;
-        Sat, 17 Oct 2026 19:32:04 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::4791])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362a9bbad2sm63812751cf.18.2026.10.17.19.32.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 19:32:03 -0700 (PDT)
-Date: Sat, 17 Oct 2026 22:32:00 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: m-amirpour <ampr.mhd@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: ohci-omap: handle root hub overcurrent
-Message-ID: <e9181871-e1d0-439e-9764-631581690ed4@rowland.harvard.edu>
-References: <20261018015747.246611-1-ampr.mhd@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DXQrFILH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3480C1F000C4;
+	Sun, 18 Oct 2026 02:33:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792290824;
+	bh=dX19vZ/sQ7rmexNY/w8tQK6/vEzEILtO03C1ggNJsFU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DXQrFILHTBM/RjwT2IPIqYs049BUyb2DjcRR0pWRwySC+sTnKq7sRWvQGAybVghrL
+	 WNcBUkuB6AgOM5lczQoP8EAHZonDYYQPPNbIgO1hDoZBdJnHDJ6B+UOOUj3kWRqNGy
+	 CoKcORFQAdob/+sTphNXlGnIJugnkbbObKUEof7Qt2CsohR0efMHILzZI2Dep7/6fb
+	 iV1YkN8le5rInwKsWdrwZeT6UIluR7b/sIBg/egf9NyaGTm8Gnu9wVqOj5PaFuaPg4
+	 cjZDf9WspQzuy/AbOBY9LMOwWE5WWlLLsEHAhSUGlo6/G0XNPzhmE4ejH4uscMsgba
+	 9AD+8JwF2oc0g==
+Date: Sun, 18 Oct 2026 03:33:37 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Kanak Shilledar <kanak.shilledar@axis.com>
+Cc: Henrik Grimler <henrik.grimler@axis.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ "Jean-Baptiste Maneyrol" <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts
+ <joshua.crofts1@gmail.com>, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+ Chris Morgan <macromorgan@hotmail.com>, <kernel@axis.com>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v5 4/6] iio: imu: inv_icm42607: Add support for
+ ICM-42370-P
+Message-ID: <20261018033337.3d2d9fbf@jic23-hlaptop>
+In-Reply-To: <20261002-b4-inv_icm42370p-v5-4-c65281b745c9@axis.com>
+References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
+	<20261002-b4-inv_icm42370p-v5-4-c65281b745c9@axis.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018015747.246611-1-ampr.mhd@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 18, 2026 at 05:27:47AM +0330, m-amirpour wrote:
-> Handle overcurrent GPIO interrupts, disable port power when
-> overcurrent is detected, and report the status through the
-> root hub port status.
+On Fri, 2 Oct 2026 13:54:28 +0200
+Kanak Shilledar <kanak.shilledar@axis.com> wrote:
 
-How did you develop and test this?
-
-Alan Stern
+> Add support for the Invensense ICM-42370-P MEMS MotionTracking 3-axis
+> accelerometer with built-in temperature sensor. This device is almost
+> identical to the existing Invensense ICM-42607-P IMU, but lacks
+> gyroscope. The device supports I2C, SPI and I3C. Implement only I2C
+> support for now, and provide support for raw sensor reads via sysfs.
+> There is also a built-in temperature sensor but it can not be turned off
+> similar to the ICM-42607.
+> 
+> While at it, change so dev_err_probe() is returned
+> when the WHO_AM_I read fails.
+Say why this is useful.  We don't have prints on every register
+read fail, so why does it make sense for this particular one?
