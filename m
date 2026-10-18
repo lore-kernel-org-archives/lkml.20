@@ -1,97 +1,70 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2643D9DC9;
-	Sun, 18 Oct 2026 12:27:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B22D21CFE0;
+	Sun, 18 Oct 2026 12:28:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792326469; cv=none; b=IkMsraHbuWS4bINNZo9Vw+nFqSFdNf4CMLxh8T7kDIcOhUPfNd7dPu2T3Fe4wSkZYZn/gXh+NJ41hbd6nRfmWSOVvwNRW4YNMQYNdi5jxELjGRMmiTsbkfIubVK8X+XA+IwT+xmNfH1g6NeXYNR4V8ApnPZ69lGzI7/XQQyerVM=
+	t=1792326519; cv=none; b=JeZnXNnEjxYPoHIr7PFCpZcgP7L47dOW3hP69kHxWgRFIk/PsxHm3bEIv8Qd/6/yfPppbpHzVqfQi/h0fglijL46j/+4YZ//ao4YUJmhF4bSxkLG2ckBk+2BNM2ObdDJeB0S7vIpZd6z7Fl2SiOCVS02uyV+LRJkFuX888bhiEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792326469; c=relaxed/simple;
-	bh=G3oRcAyqCWJLUPZrTXaemgw6ulU+3gWMQbCpSSN+rjw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XqCKgrKklzZRZ6yxM0mu770JmktIQzbmkvdCOupuuKELle4uVmop3+bVwu/kkcKK5xgDkIPoGEOhogpdboWBN9ksYDkdrvcHmzP/6W3c5Nhel+yHsSQTe2JbBfc9pLN33agNfluPm7nh+zNMiigLlyXO5YrjsDl5sEiTpk0rwMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=kKTmP4PH; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1792326519; c=relaxed/simple;
+	bh=8V+3JaDxwIueUC9+PzYQ22UhuKSNzB081+XdpSVwxU0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=TXIbXZy5p69j6UFCmEvNJjLF3kJ4x31LTrctQJPielFVP6wFu+JdNW3QvMXPhVtq5EMeKkV2CpK/Y3ea1eLpy7ycgcoSZWVlxhop+2Jo5nOqC/MHt/J9iHm9iK346SNzfaZsA2k6XFcUWCv6iSv//G/+tP7MJxtY9St7muccIbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OlDPNHwc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="kKTmP4PH"
-From: Stian Halseth <stian@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1792326465;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pwubdLAMCHJgPaLvh4kT6SepriqCMUENEcVtSCeajdM=;
-	b=kKTmP4PHBl6CsmbdA2yRaFZ4+/bgvzMOj+4PdXDahnortKYSQAzKSJmZVGm5Q3DJcOjdJC
-	yZ1D2fvx4+pDowUiGnqPod7Yr+dKrlqnDmHizuwaiRY9ZTRzLXf4IvBx61JbTB8juUOMuu
-	acMvRY6mz/qfaVphD/2VcKDnILenN84=
-To: Andreas Larsson <andreas@gaisler.com>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: Kees Cook <kees@kernel.org>,
-	Michel Lespinasse <michel@lespinasse.org>,
-	Jan Engelhardt <jengelh@inai.de>,
-	sparclinux@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Stian Halseth <stian@itx.no>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] sparc64: Start bottom-up mmap searches at mm->mmap_base
-Date: Sun, 18 Oct 2026 14:27:32 +0200
-Message-ID: <20261018122734.2594904-2-stian@itx.no>
-In-Reply-To: <20261018122734.2594904-1-stian@itx.no>
-References: <20261018122734.2594904-1-stian@itx.no>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OlDPNHwc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C64D1F000C5;
+	Sun, 18 Oct 2026 12:28:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792326518;
+	bh=cEzVAhemV27pVH2vmmmpsqNzypg356FuX5ZtNbkNPYA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=OlDPNHwczCc0OG9Vs828+pqTqwePbTDVOOOMYzKC5tRBTBe51ttAD1dxx/c7qOD+C
+	 AfbFwkviivOBF+PqMY/EJ/+rGx8eeoPmGZxoa0BNgXGiv5KL3IjTRRRo1V1FN5FiHQ
+	 W8hx/VYUcw2BGKGs7bXy9M9XbTRxmlk2PyoaH7Q7W7RLF/RLVQCa0i1Frz4yFIt3VW
+	 +ghb5MhFxAu7IdiEmJ59hDUUhEtHE1Y5RhlmASx9Q69lOr3PK4E43E62ZoiY0XkRD4
+	 R7DIZs1Q0WBVy7hNA6qIMU6/vRgoT7FRTnbouaZG4Y2WdI+3SGuqrNW2Xf+ZY+61a+
+	 xAsCVw4nHB4Sg==
+From: Leon Romanovsky <leon@kernel.org>
+To: Zhu Yanjun <yanjun.zhu@linux.dev>, Zhiwei Zhang <202275009@qq.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <tencent_FBB0EE9F592FD21FD4B0F3BFAD3336765209@qq.com>
+References: <tencent_FBB0EE9F592FD21FD4B0F3BFAD3336765209@qq.com>
+Subject: Re: [PATCH v2] RDMA/rxe: Clear pkt->qp before the early drop exits
+ in rxe_rcv()
+Message-Id: <179232651585.22051.2025466489740178827.b4-ty@kernel.org>
+Date: Sun, 18 Oct 2026 08:28:35 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-arch_pick_mmap_layout() randomizes mm->mmap_base for the bottom-up
-layout, which every 64-bit task uses, but arch_get_unmapped_area()
-starts its search at TASK_UNMAPPED_BASE and never looks at it. Shared
-libraries and anonymous mappings of 64-bit tasks therefore land at the
-same address on every run; only the stack is randomized.
 
-Before the conversion to vm_unmapped_area() the search started at
-mm->free_area_cache, which binfmt_elf set to mm->mmap_base. Use
-mm->mmap_base as the low limit again, as generic_get_unmapped_area()
-does.
+On Sat, 17 Oct 2026 09:40:21 +0800, Zhiwei Zhang wrote:
+> rxe_rcv() puts pkt->qp at its drop label, but leaves pkt->qp
+> uninitialized on the two paths that take an early goto:
+> 
+> 	if (unlikely(skb->len < RXE_BTH_BYTES))
+> 		goto drop;
+> 
+> 	if (rxe_chk_dgid(rxe, skb) < 0)
+> 		goto drop;
+> 
+> [...]
 
-Fixes: bb64f55019c7 ("mm: use vm_unmapped_area() on sparc64 architecture")
-Link: https://github.com/sparclinux/issues/issues/119
-Cc: stable@vger.kernel.org
-Tested-by: Jan Engelhardt <jengelh@inai.de>
-Signed-off-by: Stian Halseth <stian@itx.no>
----
- arch/sparc/kernel/sys_sparc_64.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Applied, thanks!
 
-diff --git a/arch/sparc/kernel/sys_sparc_64.c b/arch/sparc/kernel/sys_sparc_64.c
-index ecefcffcf7b10..087595fa43081 100644
---- a/arch/sparc/kernel/sys_sparc_64.c
-+++ b/arch/sparc/kernel/sys_sparc_64.c
-@@ -142,7 +142,7 @@ unsigned long arch_get_unmapped_area(struct file *filp, unsigned long addr, unsi
- 	}
- 
- 	info.length = len;
--	info.low_limit = TASK_UNMAPPED_BASE;
-+	info.low_limit = mm->mmap_base;
- 	info.high_limit = min(task_size, VA_EXCLUDE_START);
- 	info.align_mask = get_align_mask(filp, flags);
- 	if (!file_hugepage)
-@@ -151,7 +151,7 @@ unsigned long arch_get_unmapped_area(struct file *filp, unsigned long addr, unsi
- 
- 	if ((addr & ~PAGE_MASK) && task_size > VA_EXCLUDE_END) {
- 		VM_BUG_ON(addr != -ENOMEM);
--		info.low_limit = VA_EXCLUDE_END;
-+		info.low_limit = max(mm->mmap_base, VA_EXCLUDE_END);
- 		info.high_limit = task_size;
- 		addr = vm_unmapped_area(&info);
- 	}
+[1/1] RDMA/rxe: Clear pkt->qp before the early drop exits in rxe_rcv()
+      https://git.kernel.org/rdma/rdma/c/7d7214b39b14c9
+
+Best regards,
 -- 
-2.43.0
+Leon Romanovsky <leon@kernel.org>
 
