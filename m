@@ -1,181 +1,195 @@
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86C7331203;
-	Sun, 18 Oct 2026 16:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792342730; cv=none; b=COghh6gtubcFadP5r4QxMoVKWn72pPI+sBeELKn04tHqE4tvh2H/CHQtIasc4dwHvsYKsGX/xlcC6IFKPMthP0Ne9uWqUJr4gpoIr9kqs5VQtl04Z7aVwOHx15prKNmNclFw4o93nCcA0Ze2FDvRV4xVWDVZLn8O6qVRJkos9KE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792342730; c=relaxed/simple;
-	bh=a9ZLuVAPUV4balm/HfDs0B2py8S1yDWizsDORBq6Te4=;
-	h=Message-ID:From:To:Cc:Subject:Content-Type:MIME-Version:Date; b=KKOKGYjov7ZEGiTPnWWeWQFJHSzMOn6UXcbEGYZ6vP17SP0mylM1rSSTH7ESqWwXkfTCwpB2DqX4EGT7s/SFI57H9aC7u76jOciGngT6ICKSk9kxxtSoIPigUe/4myssQmTGbfz1uQ5P9EfboRy3QADbUJl5b7Ki2P39pfRPGvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=p9fc1Tnz; arc=none smtp.client-ip=162.62.58.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5063F8EA2
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792342813; cv=pass; b=dbiyml+nHrqNxZ9K90NGxhWvntsqH037i1ParLsU61LCbFwGw495Xz96tpvpBhQoH9v0/3wE7cjkMmFfoYsjZOq6iZtC3b9SQiVDKL2KN7jNW3Tmuev40wvzkiYpEa6YNQ+tRSIHK0tBbcg27d57FlN9QhsyXuzh75OECasgzm4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792342813; c=relaxed/simple;
+	bh=sMlAoNSGHvAAYy1819D+/Uf4kfUWCwyiqqNR5jGwBiY=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=KK/nSIr66Lhw1RIMKj0WjYg6SoeQYCaPTithft+fFOZGGzHHMqNJGCNOlbgihzUKbULLfRJqymEeu0MTw7w8PFfqdlULUYNTD11ZqYhy+OSdcAXdfSzMV4e5QUKSLzopW+z+jw6L0J3j+nidPCCw4sJ5HaRmT+Jv/7psvXw+hE4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qomjaDfL; arc=pass smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="p9fc1Tnz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792342720; bh=eR5zmCcZwJ7i97VNb2FuIuk3JaC22Tj16ytPZDzramg=;
-	h=From:To:Cc:Subject:Date;
-	b=p9fc1TnzT1i+7uuyTt9J+CRu12CqW7bpvtN3FyovIdXioNDLGaJljDUhIatt16fNl
-	 9mazWWCRx/qmah2BOZzBwuOSO9aLQm/TLFJW57IBdd9ah2ie+4vsVfiF9yxjE3D7/S
-	 k1+NOSVY0J0cLtz8qo/c/BZ+OZozxA0Z+7zWwkgg=
-Received: from [127.0.0.1] ([2409:8d5c:c30:3b3:3d39:a6e9:e5bc:61cf])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id EA50E623; Mon, 19 Oct 2026 00:58:37 +0800
-X-QQ-mid: xmsmtpt1792342717t8e8ijgwb
-Message-ID: <tencent_2D4F4848C75F5AE9E26589170CF60CC4DD08@qq.com>
-X-QQ-XMAILINFO: OfxHHOU34G6ph8HVix5ES5M12D7v6wyFVdJSxKW8E32xvQTOGhvH+SyvBIabSd
-	 mOumrbPb6ZlY4U+TZYYHPsrallNUe1q34tFaGcX8pHU4ZUwhSqjT+P61l4a6GaiKEvUMQ1l0kh/4
-	 /YjogLFEYiIHShOYovDeuu8mF/t2p8WQspnROP/8OW0hk8qVJtS9UawsIVxrD67ECvHBKaZABnSD
-	 zl6Mfg7McGNOw0NUnssqtUoDs+NFimq5urXa6pTcg3i0Ayg/UEMPlp5RoJDsJqAcPSZ1yv4ZkUOi
-	 losxhvhkFBwW3ysCmKKBEP19crirFNuSfyBNZzwVG8Jwq/O4XSi+iCCW6c6RbEdKC18JVV+w53JT
-	 r7vmoasqwwb8wHjrI5zXG43W/TzScO6l56ktuP+DilTViNQwZ65XL8lCwEAXmlRWsOLdycl9A6dB
-	 ed/zRCYB0qqi3wWYQsCdH6e3B9RxYXzt3K01y0Iz9P3JkQvNmkkM6Uws6bpQMcRXdACSfxQr/dhp
-	 sTnl05yDiYumAVsweelJgQX80nJ+9BgwKIUmgArhnQChnD8ER6MoYQDiWGKlDm7+oDvYGG2Y7ygC
-	 TIibfoKtsl6HM10tyxu9gmAo2I3daUxQzrlqXvGnEg1NiclFaOLUY6Vy4NDvdfSZeKQQQ7njDenE
-	 CzbTD1OKns3J3TWkH2PZ46wGnnH8qMQKSHwC4vCkCnb5Pgay0MKFD1LGLjpKEO2xxqvoDRCu19xO
-	 deB+8vKAyq6JT0Gq6Xyq9pj4avMkAMzzWOj1FopJnTPyZW/+o3EnToh8A+T7AmSXalb+uz++5owF
-	 cdVjBjEGt1cvlm9sCHBjJqkEYhDS63OVzRbpQY3y6PmzJJkSeE30TWGGfDpbDTYnsirTwTIliGNJ
-	 LfvKAMlLXrovgewWUoBSNHR1HlmEeH825z2Pp7xhpZCZt/1UB2wDcYxwHmk4WYWepdJD0zwNIVam
-	 kH+PoUf03G6t8z16bBZL10mRYO/B6rjqPh6BKS28RMo5x5Kh4lmo2UGE19kAD3GhHcg8kZXKEswr
-	 ws478PYjR+hJ9BYaNae00IAFic5uSspDyJCHjKPg==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Hang Nan <2122295973@qq.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org
-Subject:
- [PATCH net] net/sched: act_api: collapse duplicated slots in DELACTION
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qomjaDfL"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so933374e87.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:00:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792342809; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WEFvwH6eAazlOPveZ9E1SLtADyrxfprPcUyHisJjwQdgxsVDfWFBy5e8ozvkRhQD5g
+         tXOtRshZFNzkTkdgHEWjG6jSUZI6iPEpdM/E19aAf5PSo128EyGCt/5o/HwwKqZM4bn1
+         T8243hQSUyv6LdVfKUGBR+aMKIh9oNCYudNKVyvWUMyHsTdB3EglUv13FCTMZc4O28Vm
+         1ryjSA8AOOLqOXGQiCguGLxg82g8CGrl2Qlte+ZuR7x7fYfTBily7+a31ln1qliW0kAn
+         jIbadR2/7XgcGZBftrAirksUjH8e4xB3oSsvzUDOuZCK8NRbkz2PNTaU7ugp0XkD48UR
+         1Z5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=NU+LfUXqDXyTcqt9euDwSw0oiYY/M2jVouytfxgsasU=;
+        fh=BQelU2mXZ39YrgFPEsvrf6IydsIMV8AMCTsMnwXSzcI=;
+        b=eQN4gc7vMszFlyGONUZcl8XL82ZIcALhOQvASF8x3ekAIreabKThIPZe8CEJYIrv+W
+         k+h6SMtyGWOvNBpHkQC/TcaNHVkcYph+SpUI/rfARO9d5zvXYFY23tk8wjBmc/qcREJc
+         JGumIX/hwGwQse/MiT7CcWhMo03ZfybWnyvc4eQt5qaxT5a8jW+Gin1pZUcip5x+/hIr
+         hKwRq1EiXK/x7zSb/ZIikYFDVAmscrQ9iWYChdefIdTlPVKEM312TOfrsd3hZq2OgFuy
+         YGCzLfjWl76Mw1YeuIIbpM4tWCFDU+VeETjoZ2QRmZnh2P6vY2JfNYFWoMWfcQSrnO3M
+         JuBQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792342809; x=1792947609; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NU+LfUXqDXyTcqt9euDwSw0oiYY/M2jVouytfxgsasU=;
+        b=qomjaDfLiTKfsSxlM58b4eVUeQn9QFCUjcaOmvCoqOmF6uE60xh94guR9L1zKLjKwF
+         A9t0wsmk3zUCA7KsQjxzb5BCC+JwpJXWrRQYIXvcNSskFws/N9yY++O0pXhAwqvB+gu+
+         RiZY7SRsiiPBkXnK6HOdW8BhLfg4QYjp0Y1uAAVGYl5rf2FvM6PFIQu44hm0NMMlLlXt
+         DMla0SC3nxPULOiZGqdJTFAVGuNg+Wi+iiPIwhre+MsZO3bP0yaqhD6gr0Ia1UQkBrwA
+         YKNqWdLYoVchAxWTjUxn6ukyWJBnZhwJ7RGuii3Q8xUqbjK36gA8K/UBpxD7ElVNBFEI
+         7GuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792342809; x=1792947609;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NU+LfUXqDXyTcqt9euDwSw0oiYY/M2jVouytfxgsasU=;
+        b=FZW5z7HiUeWR54H+Otg8kFzByAb7Pnp733wC46gcnLtXuW7cSSIdqXJfhHxST9XDsr
+         eY+TZ6Rk7cJe7CSL6BPW7/GbT0O/QQn7KdO8l5ahOEoQwD4CAnpXl7w0jK1isKOgdAic
+         jhH51KefTp9fj3QpVoPoFBEljqlw2EmxR2HacQ0lr0Rwn/zSN/7SJiuI+LKruqlQljhv
+         sl3wKiJGhAqsDZTQ8a9NfxgDuGQZ0R3e1MqZ+EKcXY0XG6z5vjOJXht1HAKG8XwnkRAV
+         qjM6HS9DoTrYxVOmD5iFQ0HBpAreeDVrYniWt+aUM6vaJTh6UNgoD7FzDwK6pp2ur1r2
+         IhLw==
+X-Forwarded-Encrypted: i=1; AKwUvByskCUllHWXKy2Tz5p6njBFdLrRp2yr50KHO7tmlCcWN+7Bf0XjpHNQFsVlM9IvQ6qT3DsWucXOoeXrX68=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLojtC1IEHWGE+yTGvAlvIH6L8MmfevitfuAjjx2bP10wX/fB0c
+	GOdMggdaq6w7yHYKkg+HajxGoPFv1sOZ/Fy3jdV6sbdR/kgv2zO7fz2gumWJidWaTAIe+Ga9v/w
+	pdDeh5r8ZY2bKKG+k3EFbZvP376jhsq0=
+X-Gm-Gg: AYBFou3WSkobCjALXfpFkM2pn5Zn1WmTroAcLA7I3rEctKbsCy2m6dgZRcaOUnqNMxT
+	j4ojkWyw7WmVqpDk3iJ0xB/yGZV3aaLqmY/1yJa+XcDfpZCkc+PJ7kWNz7DOTo9UPIfBS9ETOho
+	6XKkxzErbnuLdYTvzUEuVf0iRRks5XNjjrv5+lrmq46gXAokJkRgHFS6v2pp4ck/Wvj8X174iGP
+	/93akJPqKGQBkuXBrnMBp94grUqTTHYdAAnjWvSLKQaQtjSbQFg5QO+NnHYQAohsE+pVT+2a4x6
+	Rf6vScEBxwa1+zHxV+YNUST08ehrCOBhQk7Wt5fwbNO5w+4Oj94d23dX5y+ggxwSAm5zR74Meny
+	LrX6RaFJ4iml8e1uY1/IsJmlIlwCjjC/U89MLCC6hUXOR
+X-Received: by 2002:a05:6512:2309:b0:5ba:36c5:4c14 with SMTP id
+ 2adb3069b0e04-5be50a6c65emr1437488e87.12.1792342807135; Sun, 18 Oct 2026
+ 10:00:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Precedence: bulk
-Date: Sun, 18 Oct 2026 16:58:36 +0000
-X-OQ-MSGID: <5e2b0a920e944b93aa6fd3142fb7fea8@qq.com>
-X-Mailer: git send-email style plain-text report
+From: Chengfeng Lin <lin2530632123@gmail.com>
+Date: Mon, 19 Oct 2026 00:59:54 +0800
+X-Gm-Features: AclHuK8MXaRUF9Vb5wLzUMQuVKyyOQVaN0Kl1RYlTx_uwB1Ynqx_PNTTIjRwd14
+Message-ID: <CANGjgdmNCfm=SctvKZ44y8b5n8t_JSp4meX=DKGnG74B3g1vVw@mail.gmail.com>
+Subject: [PATCH] sched/fair: avoid redundant updates for unchanged default slices
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-A batched RTM_DELACTION takes one reference per slot in
-tca_action_gd() and drops them one by one in tcf_action_delete().
-Every slot also calls tcf_idr_delete_index() with the index it saved
-before the put, and that helper drops the IDR reference as soon as
-the count reaches zero.
+For a fair task using the default slice, _sched_setscheduler() leaves
+attr.sched_runtime at zero, while se.slice holds the actual duration.
+Comparing them directly makes an unchanged sched_setparam() request take
+the parameter-update path.
 
-Nothing stops userspace from naming the same action in several
-slots.  With N slots holding the same action the request takes N
-references, performs N puts, and calls tcf_idr_delete_index() for
-every slot whose put did not reach zero; that helper drops the IDR
-reference again each time.  From N == 3 on, one drop lands on an
-action that has already been freed:
+Compare default/custom mode before comparing the requested duration, as
+suggested by Peter. For default-mode requests, also check that the task's
+slice still matches the current default. Keep the update path outside the
+fair class and when an implicit uclamp value needs resetting. Explicit
+uclamp requests continue to use the existing update path.
 
-    refs = 1 (IDR) + N
+This also handles two cases that an equal runtime alone does not cover:
+a custom slice equal to the default must switch the task to custom mode,
+and an unchanged legacy request may still need to reset an implicit clamp
+after an RT-PI boost has ended.
 
-    slot 0: put -> N,     delete_index -> N - 1
-    ...
-    slot k: put -> 1,     delete_index -> 0  (idr_remove + free)
-    slot k+1: put on the freed action        (refcount underflow)
+On an i7-12700KF running v7.2, repeated sched_setparam(0, priority=0)
+calls from a SCHED_OTHER, nice-0 task took 616.51 ns per call before this
+change and 162.39 ns after it, saving 454.12 ns (73.66%). The existing
+custom-slice fast path increased from 162.57 to 163.22 ns (0.40%).
+These are syscall microbenchmark results, not an application speedup.
 
-With two slots the second put is the one that reaches zero, so
-__tcf_action_put() returns 1 and that slot skips the
-tcf_idr_delete_index() call; the accounting stays balanced, which is
-why the bug needs three slots.
-
-A three-slot RTM_DELACTION for an unbound gact action (index 0x1002)
-on 7.3.0-rc7-00245-g32c52ec87d62 reports
-
-    refcount_t: underflow; use-after-free.
-    WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90
-    Call Trace:
-     __tcf_action_put+0x7e/0x80
-     tca_action_gd+0x439/0x640
-     tc_ctl_action+0x10a/0x170
-     rtnetlink_rcv_msg+0x14c/0x3f0
-
-and returns -ENOENT, because the IDR entry is already gone.
-
-Collapse a repeated action while the slots are being resolved: the
-batch keeps the first reference and releases the extra ones, so the
-IDR reference is dropped exactly once and the delete succeeds.
-Comparing the resolved pointers is equivalent to comparing
-{kind, index} and also covers actions that live in a per-action
-IDR.
-
-Fixes: 97a3f84f2c84 ("net_sched: remove unnecessary ops->delete()")
-Signed-off-by: Hang Nan <2122295973@qq.com>
-
+Link: https://lkml.iu.edu/2610.1/11150.html
+Assisted-by: LLM
+Signed-off-by: Chengfeng Lin <lin2530632123@gmail.com>
 ---
-This report was produced with the help of AI tooling, so per
-Documentation/process/security-bugs.rst it is being reported publicly; the
-reproducer is not attached and is available on request.
+No code changes since the revision posted in the RFC thread.
+It applies to tip/sched/core b99b7f60c5b4; runtime testing was on v7.2.
 
-The two kernels were built from 32c52ec87d62 with the same config
-(CONFIG_NET_ACT_GACT=y) and run the same initramfs.  A batch of two distinct
-actions is deleted on both.  Two duplicate slots also delete cleanly on both.
-With three duplicate slots the unpatched kernel prints the warning above and
-returns -ENOENT, while the patched kernel collapses the batch and deletes the
-action (no warning, rc = 0).  Each kernel was run twice with the same result.
+The original/revision/original runs used matching GCC 15.2 configurations,
+CPU 2, full preemption, performance mode and turbo disabled. Each boot had
+15 samples of 500,000 calls per case; baseline drift was below 0.18% and
+within-run CV below 0.30%. Probes were used separately from timing.
 
- net/sched/act_api.c | 29 +++++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+This revision passed the default/custom mode-switching and implicit
+uclamp-reset checks described above. Basic syscall checks and the RT/DL PI,
+default-change, explicit-uclamp and bounded concurrent-default-change
+controls also passed. A running sched_ext scheduler and all possible
+races have not been tested.
 
-diff --git a/net/sched/act_api.c b/net/sched/act_api.c
-index 9eb1dec..dc51ccf 100644
---- a/net/sched/act_api.c
-+++ b/net/sched/act_api.c
-@@ -2021,11 +2021,28 @@ static int tcf_del_notify(struct net *net, struct nlmsghdr *n,
- 			    n->nlmsg_flags & NLM_F_ECHO);
- }
- 
-+/* A batched request may name the same action in more than one slot.  Each
-+ * slot takes its own reference, but tcf_action_delete() drops the IDR
-+ * reference once per slot, so a duplicated action must be collapsed before
-+ * the deletion starts.
-+ */
-+static bool tcf_action_batch_dup(struct tc_action *actions[], int n,
-+				 const struct tc_action *act)
-+{
-+	int i;
-+
-+	for (i = 0; i < n; i++)
-+		if (actions[i] == act)
-+			return true;
-+
-+	return false;
+Codex assisted with the code, tests, analysis and submission text. The
+performance figures are from recorded bare-metal runs.
+
+Reproducer and per-batch results:
+https://github.com/lcf0399/linux-regression-evidence/tree/a233ed8edb1e91a6a0ea0d326668bb1f52384489/kernel/sched/sched-fair-default-slice-noop
+
+ kernel/sched/syscalls.c | 35 +++++++++++++++++++++++++++++++++--
+ 1 file changed, 33 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -488,6 +488,38 @@
+                return -EPERM;
+
+        return 0;
 +}
 +
- static int
- tca_action_gd(struct net *net, struct nlattr *nla, struct nlmsghdr *n,
- 	      u32 portid, int event, struct netlink_ext_ack *extack)
- {
--	int i, ret;
-+	int i, ret, nact = 0;
- 	struct nlattr *tb[TCA_ACT_MAX_PRIO + 1];
- 	struct tc_action *act;
- 	size_t attr_size = 0;
-@@ -2050,8 +2067,16 @@ tca_action_gd(struct net *net, struct nlattr *nla, struct nlmsghdr *n,
- 			ret = PTR_ERR(act);
- 			goto err;
- 		}
-+		if (event == RTM_DELACTION &&
-+		    tcf_action_batch_dup(actions, nact, act)) {
-+			/* The IDR reference is dropped once, by the first
-+			 * slot that names this action.
-+			 */
-+			tcf_action_put(act);
-+			continue;
-+		}
- 		attr_size += tcf_action_fill_size(act);
--		actions[i - 1] = act;
-+		actions[nact++] = act;
- 	}
- 
- 	attr_size = tcf_action_full_attrs_size(attr_size);
++static bool fair_params_changed(struct task_struct *p,
++                               const struct sched_attr *attr)
++{
++       if (attr->sched_nice != task_nice(p))
++               return true;
++
++       /* Keep the full update path for PI-boosted and sched_ext tasks. */
++       if (p->sched_class != &fair_sched_class)
++               return true;
++
++       if (!!attr->sched_runtime != !!p->se.custom_slice)
++               return true;
++
++       if (attr->sched_runtime && attr->sched_runtime != p->se.slice)
++               return true;
++
++       if (!attr->sched_runtime &&
++           p->se.slice != READ_ONCE(sysctl_sched_base_slice))
++               return true;
++
++#ifdef CONFIG_UCLAMP_TASK
++       /* Equal fair parameters do not rule out an implicit clamp reset. */
++       if ((!p->uclamp_req[UCLAMP_MIN].user_defined &&
++            p->uclamp_req[UCLAMP_MIN].value != uclamp_none(UCLAMP_MIN)) ||
++           (!p->uclamp_req[UCLAMP_MAX].user_defined &&
++            p->uclamp_req[UCLAMP_MAX].value != uclamp_none(UCLAMP_MAX)))
++               return true;
++#endif
++
++       return false;
+ }
 
+ int __sched_setscheduler(struct task_struct *p,
+@@ -589,8 +621,7 @@
+         */
+        if (unlikely(policy == p->policy)) {
+                if (fair_policy(policy) &&
+-                   (attr->sched_nice != task_nice(p) ||
+-                    (attr->sched_runtime != p->se.slice)))
++                   fair_params_changed(p, attr))
+                        goto change;
+                if (rt_policy(policy) && attr->sched_priority != p->rt_priority)
+                        goto change;
