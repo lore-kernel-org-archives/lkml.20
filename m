@@ -1,108 +1,128 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE427421254
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F883FBED7
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792358690; cv=none; b=J06HAFh5CQoODTiwEuXA1yJgg2UQddACi1biuoJyznGqYdhTSrgvZsM3pr7j/M7SzUSZHSNJNw3O/gPSi4bOAsfken9Uy5vnZl8/C13vQ/QproQlIdTUpZEivz3yzqVV8ImImcQ3rQGV84eUBm/jZDHmPioNPfkFLLT14IXxp/g=
+	t=1792358695; cv=none; b=InIY76eEN6HPw+y0DVwSGY4bO3Z7rIaPWFkZf07YaPgmPLdiyVRCQoTRVaALeBDCYFZqK0nBWRh1XNpPsBbrDHJUcvpDz3Bcz2PFr+wIsyrH0EK2fzEWtw2I5XMo6CjmDRn72WiMIFGouxTnYNb99D68HXBw93RO+u5FSLJdfk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792358690; c=relaxed/simple;
-	bh=3XmYZ70FjHnGHrfOAWnQ7gzII7n7IuFAxA/U8VAcIDQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cx2V6TOdw9SlrZ7H3wSq4aDUriCJiG6okBn2vBHkEP+ITQtZWH/9TweG/sNsrYo35Ns6K0F6tmKQD4qrN62VcKxajR+Bxbl2CF511YlDdoaLvDpOuQ5cLnwwWmoopyQHjME8k9xXqElBuKSlWu+e5DHagsgTzbuErAYl/AlrQ1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=siNqOvmr; arc=none smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792358695; c=relaxed/simple;
+	bh=zXk7H0VnU/maIBpoOymFdCcXe7bVWVVvJA21WEFTSWM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WFcwF+1A6hNvORMojeoVoksqtIpeiapUZeeGJaqf7YQO4KpC+smfsiDiv4EzZM9ah3LqU7f5r4ql4l2BbiY6u8+FilxgYyx6AwW9KeIdLV8ZspxTQQMRMe7oQGPP/Vyr+eDc1aLoKwVNBzrDvD+tO37mT+nS4Qm/PvtCTTifBgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g41ecgsv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="siNqOvmr"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ab3dd9670bso3286351fa.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:24:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792358688; x=1792963488; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3XmYZ70FjHnGHrfOAWnQ7gzII7n7IuFAxA/U8VAcIDQ=;
-        b=siNqOvmrl13JvTWVucQZ1d1gBww7+u+KoRAEIFGxS3plKkREW0pbq/NT/J4kPdZG1Z
-         uyt6/CFsFzPYJVxRj+pG7TDuOybp4nRtg0QPgk+VgYSloA6UtabsD8HxPD27y2NZyLXe
-         pvAvRXk9fPPZlijd+B/Tbw0e4UfNl/TXdV9U91WixYz0VLGJt/zHuprexH2PDS1fVGnQ
-         aksH4Xu/tkQKqAzttpG7IwQAuwISX5GJ7U1BqaUotV2moJOppppbooA781R770YmDftk
-         qgyrExXT1YOQ1tiYjp37ZauJhLsgkTimCWK7Ey+Jtf5XAmulKC1g/I+31qyHjJ3FrXWg
-         5QVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792358688; x=1792963488;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3XmYZ70FjHnGHrfOAWnQ7gzII7n7IuFAxA/U8VAcIDQ=;
-        b=pdRB4kVjlJU9RbcOfeIK2D24+I2qY/OzR6zMwPqi2W/ROp/gxNy+bYZ8plzJFnwROV
-         EaOFNxiruS/zBo6h/lqGJ46jzpgEFHVmvG7z85nyVkhvjcDj+ogK+1CiqDXMl5t4ol3Z
-         7FUUX9exJitgRMI+0NmWfpBO73Rygo9q+srJ8keWJdD51fSqwJtA1WXDV+mAVpTFQB6B
-         r05PGEWuxpyAph0AtkUl1MNLN7QPtz37qCEVuaLOpVuegYOqoUyJYdx6kgTFfV9+s/BF
-         dxLeHk8b+CokuWCqn9ia813QdXoYHjuP/P/8kWOvQaohfGdeKqPd4deTpNQwkFn/wrw3
-         0ghg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIlwYg4Lxs3hfVKxTDx/5/pwcYnh9CVPI8G57DWOf42fmtu1BLKZqwauiISh0VhO+7QcKrgAWBojHm5d4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1t5ZygfDf0SxrWiwoJJCD41mghd+sHQhq4RWRTmsNkjIenbuc
-	J00Z0W+V/yQd+VFAPpcQ1YmcGKQzMnaDmzQpq/tRh6dKuY4a9EJLiij8
-X-Gm-Gg: AYBFou2EWe1NEfeUxlO9RAlAzn6ZtVIRRyvMdlq6atM2dNx1T9aPvItP2dR0LkPioid
-	6KRAUB5iJK//6fAJSwIpO4OPx8r03d0vuysh4+EoDQF1UrckhfazHL0gr/UrYPNxE8YZ6s97ML2
-	d5NmcNjByT0k1uJKqRTxUO5+5DD/d+BcqMXOAULezzv1CKz6i4jcJtQGIBGthjh9t3WK6Sfnt8X
-	dIb7slB8SKYHZOK8hZB5X3Lbr8xWjci0acLaCwnn8ugtS8THLSrDzm2sQS0AwYJHfXvFDQHd7BA
-	HwtuvVtBuIqiJAxnXJf02UkWSd+CJFHfTi7zNbtXEK+f0BZwuYMJLvCpCp1hqAUnpyCOAAxtoHQ
-	Fbo1hABVR/DppaqiMEBPnnsHlO0leqX9zjnT1UGSFTBYY+A3D/C3tdE0TSQoqiWOsL2+Axvzf+R
-	Q1J+1dlcSCjbqIbtTt+sYQHjB2EJJnzHwVBGivIhgMjPfoBEOo/sBIF1CuXCA6OpdyDgcTL4w2n
-	VlTST9kZNaUHkd0617behZJyqu2e7r83vHQruVL2WJmz5Rm9n5MsghawNTpkN48tgVkfeoZaBe6
-	8CyjXrA=
-X-Received: by 2002:a05:651c:31da:b0:3aa:ee7a:546a with SMTP id 38308e7fff4ca-3ab29401f65mr12085821fa.25.1792358687613;
-        Sun, 18 Oct 2026 14:24:47 -0700 (PDT)
-Received: from yantra.. (nekmmqtaaozvmkd1587-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:5185:c9b3:741a:edb7])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab28023977sm17218041fa.0.2026.10.18.14.24.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 14:24:46 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: paulius.zaleckas@gmail.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org,
-	Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/5] iio: pressure: dps310: add Zilltek ZTS8032
-Date: Mon, 19 Oct 2026 00:24:45 +0300
-Message-ID: <20261018212445.43544-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261016153533.3701000-1-paulius.zaleckas@gmail.com>
-References: <20261016153533.3701000-1-paulius.zaleckas@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g41ecgsv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 634011F000C8
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:24:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792358694;
+	bh=79eD6+NYwrWfAWT17DyFGFcJ6J+jNYO1RY/y6TIzgMY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=g41ecgsvRnrR3Ul1sVBVPp2VWzhqqffwmuhmcbLEa/aRE2vF9ODuN8ZvYvaIGT1OM
+	 DZGwcUA+FbDwxYx72wyOViIdT7Zs/1M56/O0Jf3ZJo6sJYiI+8agDxXHlpEhDef1vc
+	 lcbN/tEkzDxwkqNZ7ZaoQqUlHls4wjE05T1nMMzY9zjU6EPOtTZuvqWFG5zhSjgjtP
+	 rceHWM1PVosJQ3JTMcNfavbkt83l4z10xIhTbRyiclj0yZWlxJ26pCjsdT3EV+i3Mi
+	 MJGW+M864p2kh/AencmcuXZMp38yM14Wpd/kY2vYTdqR6HtU3LBNsvz0Ot5cCBRK/G
+	 SfFujcOWvanDQ==
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e55db58cfso134136285a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:24:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzWV8jakCFdruqwNkgDIJ6Sw9TJsThguceysWDyXWds50/845xu34LMEfqj2eDhRgE49NMKhl+YUtZOb9g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0EdAJPDrq5w+73W/9vkodQ61p8YzDDCv5a3KxzygN5lMPrOJ2
+	qWOasM5/UnOX+rx0w1PPlDLKLvp6b+RWA0OqPyo7SPv/f5rruTzzGAp2QHSJJ24fcpdCNHhlJtu
+	dN3N7yi0eV62M02uMpi5F5l5w5Jm1nuY=
+X-Received: by 2002:a05:620a:7116:b0:93e:c12c:9b77 with SMTP id
+ af79cd13be357-93f29e10b82mr1018147285a.82.1792358693733; Sun, 18 Oct 2026
+ 14:24:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261017050928.128582-1-sidchintamaneni@gmail.com> <20261017050928.128582-2-sidchintamaneni@gmail.com>
+In-Reply-To: <20261017050928.128582-2-sidchintamaneni@gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 19 Oct 2026 05:24:42 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wGq9oc05=-g4aWptLdCbTwUjMjXk4Rd6KjJ6x=tzMm+g@mail.gmail.com>
+X-Gm-Features: AclHuK-zOvmn4Odh7hUiMWoOb31GxvVA2StuKKJONiQv5GYZwSx9IIrjvvI6xTI
+Message-ID: <CAGsJ_4wGq9oc05=-g4aWptLdCbTwUjMjXk4Rd6KjJ6x=tzMm+g@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] mm: multi-gen LRU: fix NULL lruvec->pgdat deref in get_lruvec()
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, david@kernel.org, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
+	kasong@tencent.com, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
+	yuzhao@google.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	apais@microsoft.com, rlmenge@gmail.com, stable@vger.kernel.org, 
+	Hardik Garg <hargar@linux.microsoft.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 16, 2026 at 06:35:28PM +0300, Paulius Zaleckas wrote:
-> Based on iio/testing, on top of a22dc7ebb21a ("iio: pressure: dps310:
-> fix overflow in pressure compensation").
+On Sat, Oct 17, 2026 at 1:09=E2=80=AFPM Siddharth Chintamaneni
+<sidchintamaneni@gmail.com> wrote:
+>
+> Andrew Morton reported that get_lruvec() has the same problem as
+> lru_gen_shrink_node(): when memcg is disabled on the command line
+> (cgroup_disable=3Dmemory), it returns &pgdat->__lruvec directly and so
+> bypasses the initialization of lruvec->pgdat. The MGLRU debugfs
+> interface calls get_lruvec(), then dereferences the pgdat pointer in
+> lru_gen_seq_show() and other paths, so these can hit the same NULL
+> dereference.
 
-testing now has the FIFO series on top of that. 5/5 conflicts with it in
-the header comment and the defines.
+So userspace must have booted, since otherwise we couldn't read
+debugfs. The reachable case is therefore a memory node with no
+LRU folios when debugfs is read? So this could happen on a multi-node
+system where folios are landed on other nodes but not on this node?
 
-Buffered capture without a trigger now reads from the hardware FIFO
-(FIFO_EN, 32 entries, flush through RESET bit 7). Does the ZTS8032 have
-the same FIFO? If not, it needs a flag in the chip data.
+>
+> Fixes: ec1c86b25f4b ("mm: multi-gen LRU: groundwork")
+> Cc: stable@vger.kernel.org # 6.2+
+> Assisted-by: LLM
+> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+> Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
+> ---
+>  mm/vmscan.c | 15 ++-------------
+>  1 file changed, 2 insertions(+), 13 deletions(-)
+>
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 0c57e4f1eb15..99e9f07fa2e1 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -2745,20 +2745,9 @@ static struct lruvec *get_lruvec(struct mem_cgroup=
+ *memcg, int nid)
+>  {
+>         struct pglist_data *pgdat =3D NODE_DATA(nid);
+>
+> -#ifdef CONFIG_MEMCG
+> -       if (memcg) {
+> -               struct lruvec *lruvec =3D &memcg->nodeinfo[nid]->lruvec;
+> -
+> -               /* see the comment in mem_cgroup_lruvec() */
+> -               if (!lruvec->pgdat)
+> -                       lruvec->pgdat =3D pgdat;
+> -
+> -               return lruvec;
+> -       }
+> -#endif
+> -       VM_WARN_ON_ONCE(!mem_cgroup_disabled());
+> +       VM_WARN_ON_ONCE(!memcg && !mem_cgroup_disabled());
+>
+> -       return &pgdat->__lruvec;
+> +       return mem_cgroup_lruvec(memcg, pgdat);
+>  }
 
-> dt_binding_check passes. I have no DPS310, so patches 3-4 are untested
-> on one.
+I've been struggling to understand why MGLRU needs its own
+get_lruvec() when mem_cgroup_lruvec() already exists.
+With your patch, it feels like we're one step closer to
+getting rid of MGLRU's own variant in the future.
 
-I have one on a BeagleBone Black, can test v5 there.
+>
+>  static int get_swappiness(struct lruvec *lruvec, struct scan_control *sc=
+)
+> --
+> 2.45.4
+
+Best Regards
+Barry
