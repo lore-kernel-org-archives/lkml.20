@@ -1,190 +1,158 @@
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D903D7D77
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792353186; cv=none; b=clv6w0yfjG/4y3kShICz8L0/9Pel41qUWW9OyWHmFf/kexAAdXSuCC8GgupQqtK0vBfAyaxt9SUpfLr7ZLOg7jAMTFQr6RSFv4phdT6krRfln80JND9Ouq7ucK3LaEOxY9d/tgZQOlCR55qnnMfzMa8Jk1HjTPwXgU7X6koKsqo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792353186; c=relaxed/simple;
-	bh=OYatXJ25PGBn/IK2IFH7QyggHeIOnTh0kghBv6Ci/cU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=fuJQgiXmVU/0d3fOHGiULgxmK8kfeZ8P/a0rrt89nnIAY9/D2JT38dt9L1ViNVnGm/fB4Uja3b6EC9xRE4b0GkzGPSQfoNojsbLOeih2W8Go9AW2BWwYx4+687iVo5oE6KdGgDy6MoQYfUYiTMx6IuxAB9VDWLGKn5S5TXInD6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EehsdJgM; arc=none smtp.client-ip=209.85.222.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A775361952;
+	Sun, 18 Oct 2026 19:53:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.164
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792353197; cv=pass; b=jDMTa2M1JIzunkOMAPmHoTtkDtRmaO1QVBMDF/D0nSBMrPWwuU+Fn0u7fLPUUulbub7sCJAMY20idn4jAsRODR/RA+GolMC8GN7hdsRi8RZ+89V4pp7P55ZVkfvjhGerOO7N/mZ/QnGm5GfFjfnFV521qNjnnBsES75Xjt+Z4r4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792353197; c=relaxed/simple;
+	bh=R3o4vMzUrYsL/RCUK4nSgjcaLxI8VJKT2cq2tZpXVuM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RsEoOglg/wHGjKKMyyfP5tgpDJ5QpnTj3OVFypV+G4bXOjNyCyq4ZgOM1K90AKIfov+dSKUW8hwOQTCuyrx+DZQyXCgMShlS0bhsnYVQkU6uIgXtq+GAbHc8z4G9Xuu+TOI/gVspisE+FRyCe96HFa5EM9UGBi3X5akhvivIR1M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=Y2BrKIbg; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=jhtCRQ9o; arc=pass smtp.client-ip=81.169.146.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EehsdJgM"
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9906110d39cso30569241.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:53:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792353183; x=1792957983; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Wr/MzixbYBwaR8lJPphPBtNkVbR0d9HoMIeGuuWB7w8=;
-        b=EehsdJgMMz2l76vHB7gG4J41/zwcG8j7nZH4+BWeAFCFabY+/JLZCMziYxKSxkso8l
-         +M/OiYX6NJ6PZZrzp9frZv2imfrLdSAHmMJ42LwQP/5nkcLgvxfY4Mh3zRDCwKm+rRTx
-         xFPRh7sZwWzglHX2WeCMrEmZJRX2Mt0zDQQkJChfI5a9Mi2Sd6rcFGQp8TetqG2jiPOs
-         mpJUNSlY0/RbJRHS4sQg8kKttvp9msgOdbE0tZcMTDnTkxBmnAZlguisbQP8UHoZynPW
-         x8E2aA5FFlBS1K/JzTODaM0VcE1xx8sofjtEWrNwA8btV6CcwgAB1oZMa1ylE1CPBsun
-         smPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792353183; x=1792957983;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wr/MzixbYBwaR8lJPphPBtNkVbR0d9HoMIeGuuWB7w8=;
-        b=Q5SefWWyq7zptDKl1yTFJW40DNLpdEY4hnqGIodBONQ0W65POzMoGTdG/29kuf6JRh
-         lWfrqb7ac68YbcJdzvbko43R7Yltr/UgijtB9L5kiwViqVgEjiLQxC9B9jAbVYnzieXV
-         LrMSdr23MXZbKa7cLDo7xfB0mvzo5DZq9VDgJ4a6Sr/I1ZON0k/LuiV0NSp222dLPqKV
-         lB9JuVEwfeC3SFBFMjp2Fro/PDsc+i/1G/Oap6NGdrmJOgpA4JcYqyCtTx0uDIQbtH5Y
-         QwixnKJdUWaMMMTJmDGf0/Dw1hT2xRUYCtnmvU6dT75TRg+dphu0AoMVFbv9f9tqYsTZ
-         K/xg==
-X-Forwarded-Encrypted: i=1; AKwUvBzuaRTpD5F1PpqMfmtq4LsxSLJfvpRYWihRXAuFrSB3T+Ah7lPh78EsU96AkWOuwYkQbv09pp7kLM+Ez5Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLaD4P/4pZz/V7nJamklG7V6LweHBb3MjeB6QLg6av/nxYSh0g6
-	V6gLWQYbzLO4HBIK16P2Qsr5fv08TL/8/cWQLQTeztVdXycCRMf6OvAx
-X-Gm-Gg: AYBFou1pzL3wdhE01TAvhCQSM5RyIlWzCdN2ypXzomGVGkoog+nIqicWN0HB2akHRXp
-	RZPylANGWBJPpywmub+/lZjP8zQ3LLuVdNn4wHFhv+7t/PKVdKJf69RH9fda3nfsZYy8RyWq8h+
-	cZmoPpIcAVdGT0KL8Lv0+wgfWlKF7DByrFZMLsnEI784185oj81P4BDTWCShwM0Va/jc3ef6QJr
-	g36tx0n3Xb/mC1v9T6GD52uGZyG0ptC9nSxz+V9WlTH9ENZkhBRT0TG9Pv0buUBIiIdUdXCLF1F
-	RIXKNIT/h9T5j7c4OBd++Lpg98PnZSIxD2ZGBayrgtfc0GBwrvHN+ELSuNZQEWLhcx6ur+Zd+Hh
-	6YgbWygjoWU7/pWd+DNUXeCka8xNDon7fOFthJ/+MLvow1FYm4k6R+eXWENJsSa0kVZPgfIB8D3
-	Wh9s4yRKI7qbWkxgYTq87e/aKG90EarPjgWkFZSc3sEgRDWtrvKJtFU1akYGsK7dDP
-X-Received: by 2002:a05:6102:418f:b0:7c3:83a9:edb2 with SMTP id ada2fe7eead31-7cc3675493amr1035152137.1.1792353182908;
-        Sun, 18 Oct 2026 12:53:02 -0700 (PDT)
-Received: from localhost ([2802:8012:9f:dd00:109f:2ff4:4712:873])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc1987900fsm8043946137.10.2026.10.18.12.52.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 12:53:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="Y2BrKIbg";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="jhtCRQ9o"
+ARC-Seal: i=1; a=rsa-sha256; t=1792353152; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=pPrYrkTg4DBc5mzZJUr1NvUmqXcKtYwIVsjeh61gTMPjyWXaBuTlEhubKm8OqsL4DQ
+    8Iq/pG8TV2lghnKF3bGso3lfYFN4/NXqxtMEAlPXhLVtYCtE6GbNzRx/RJ5pWixeHLtp
+    VExfbM/Weq4bKIfN4dFGYSmbpElgjJRNsm6+iUazFCngsZVFLhTZKFn1807o4U+60UwK
+    fDp3znGEWwo3/krStL+XTLo2bkKEBa43P5QHyhplsbhBLOIsGLZ0QkfpVgfHcloDmXzX
+    RfKm/dlWPmfVpFZt1IIdOtO0X+1GegFN+df3FWvXbTo4P64AbRUeI8rsQtxXgQwzNxCq
+    T7gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792353152;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=gC6qHl1B+V5o14yq+og01fIcLFwgTL+54fZf+LvzfMs=;
+    b=fUg11KG2fZEhS3F6UHoBQv4LD+dbvBXxRXbLPqw5RFnE5wLxd4+CbnEDc7gtWPp0EE
+    zq4Og4qq8Fxnmx2AnRDbPh+VDVcNXxaknT6tfoODp6uGe8L2XsQ5rb174AOkEFpA/yCd
+    Dk1SCL0wcM3Kc4MA0NyKfvKGT1/rLjxuerih3+ST68Knbn9FbefDUHrtpMbRhXXQoA1E
+    irnriz9B+CFcQSs/T6GuOOga5aGYbKDAhLH3quCzerAqvESviL/rsGFFcjYBrSXyZn0N
+    EDUxOuhNSQwkutwJhH8HASU27kSw8/6Tpy9AAi5S2vSvcMW9JFriz+bghV/VTx9fjwmH
+    w1cg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792353152;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=gC6qHl1B+V5o14yq+og01fIcLFwgTL+54fZf+LvzfMs=;
+    b=Y2BrKIbg6yLYG/1PMSz6sY3P9ad4+RXLIXIUqDidl+vVPasZ7iNcq3m+VlO3vRkDrk
+    /StZLs6XkYjWRMJnL880MIVzjj3rgft7saR1SOuWHJ4SnXxfASopF1bap91suOh0j+rj
+    gxjPXMb03iRsSo7fSyqMnebBG701bspkyGApFt1sOwevIGx3sRRURbPI8n6BkOHjU9Sa
+    0aMhDeIbJpWgHIXN/H6WiUFoHZ5VVbjBq3L3mbhxBSLgx1z+lTdc+5L4NJ75FKxrMU5b
+    Z41CQaH9/SLzaaIIz5uKODx7LsMuscggtdB2Q8kU/Kif5kXQAoGNFJvYHtTBj6PZFs5e
+    ukdg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792353152;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=gC6qHl1B+V5o14yq+og01fIcLFwgTL+54fZf+LvzfMs=;
+    b=jhtCRQ9ozemKiHn1anGVu1eFS/1d6H66F0uQkYmHKzfMYXSsciaufKmJatqqybkp3Y
+    5TcZcCNx/1YWlFInIXBA==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGeWpIGzZge/Z0bJo/ZKBs7IP24cD2xnjN93xVc="
+Received: from p200300c5873684d949ea70d47c97a062.dip0.t-ipconnect.de
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id z831ad29IJqVHQk
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sun, 18 Oct 2026 21:52:31 +0200 (CEST)
+Message-ID: <2e042211ca0ebc974ad5ec4c0de9f3f93b3c75c0.camel@iokpp.de>
+Subject: Re: [PATCH v2 0/4] scsi: ufs: core: Factor hba->outstanding_reqs
+ helper and fix double completion
+From: Bean Huo <beanhuo@iokpp.de>
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+ <mkp@kernel.org>,  linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,  Bart
+ Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Bean Huo <beanhuo@micron.com>,  Peter Wang <peter.wang@mediatek.com>, Can
+ Guo <can.guo@oss.qualcomm.com>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Date: Sun, 18 Oct 2026 21:52:31 +0200
+In-Reply-To: <20261017084403.875420-1-stanleyjhu@google.com>
+References: <20261017084403.875420-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 18 Oct 2026 16:52:55 -0300
-Message-Id: <DM8869QP3IID.1I1KT6A7M2UNB@gmail.com>
-To: "Martin Wetterwald" <martin@wetterwald.eu>
-Cc: "Florian Fainelli" <florian.fainelli@broadcom.com>, "Broadcom internal
- kernel review list" <bcm-kernel-feedback-list@broadcom.com>, "Jai Luthra"
- <jai.luthra@ideasonboard.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Stefan Wahren" <wahrenst@gmx.net>, "Phil
- Elwell" <phil@raspberrypi.com>, "Laurent Pinchart"
- <laurent.pinchart@ideasonboard.com>, "Umang Jain" <uajain@igalia.com>,
- "Kees Cook" <kees@kernel.org>, <linux-rpi-kernel@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-staging@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <regressions@lists.linux.dev>
-Subject: Re: [PATCH] platform/raspberrypi: vchiq: register bus at
- subsys_initcall
-From: "Gaston Gonzalez" <gascoar@gmail.com>
-X-Mailer: aerc 0.20.0
-References: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com> <20261013131435.1454019-1-martin@wetterwald.eu> <DM5Q9NKRO89O.22R04QM8YBKWM@gmail.com> <CAFERDQ12QwtC6cCVWQGU1b5KCv988kAvahNKwosxG2z8Mzm4sw@mail.gmail.com>
-In-Reply-To: <CAFERDQ12QwtC6cCVWQGU1b5KCv988kAvahNKwosxG2z8Mzm4sw@mail.gmail.com>
+MIME-Version: 1.0
 
-On Fri Oct 16, 2026 at 6:00 AM -03, Martin Wetterwald wrote:
-> On Thu, Oct 15, 2026 at 11:25=E2=80=AFPM Gaston Gonzalez <gascoar@gmail.c=
-om> wrote:
->> Hi,
->>
->> For Raspberry Pi Zero v1.3:
->>
->> Tested-by: Gaston Gonzalez <gascoar@gmail.com>
->>
->> Test setup:
->>
->> - Branch: patch manually applied in staging-next over commit ec1ecf4f23c=
-5
->> - Setup: RPi Zero v1.3 connected to a HDMI monitor
->> - OS: standard raspbian with the desktop environment enabled
->> - Driver built both as a module and built-in.
->> - The following command was run to test the sound: 'speaker-test -t wav =
--c 2'
->> - Result: Both HDMI audio channels worked correctly
->
-> Hello Gaston,
-> Thanks very much for your test!
-> It's great to have variety in tests because I don't have the Pi Zero, and=
- I
-> didn't test it through HDMI, I tested through the Headphones jack (which
-> doesn't exist on the Pi Zero).
->
-> Did you also also reproduce the bug without adding my patch?
-> If the bug is present, cat /proc/asound/cards should reveal bcm2835_hdmi =
-and
-> bcm2835_headphones are both not present. And you should see this in the d=
-mesg:
->> Driver 'bcm2835-audio' was unable to register with bus_type 'vchiq-bus' =
-because the bus was not initialized.
->
-> Regarding your test: there are two ways for the sound to go through the H=
-DMI
-> port:
-> - One is through the bcm2835-audio driver (using VCHIQ)
-> - The other way is through the vc4-hdmi (bypassing VCHIQ)
->
->   # cat /proc/asound/cards
->    0 [vc4hdmi        ]: vc4-hdmi - vc4-hdmi
->                         vc4-hdmi
->    1 [HDMI           ]: bcm2835_hdmi - bcm2835 HDMI
->                         bcm2835 HDMI
->    2 [Headphones     ]: bcm2835_headpho - bcm2835 Headphones
->                         bcm2835 Headphones
->
-Hi Martin,
+On Sat, 2026-10-17 at 16:43 +0800, Stanley Jhu wrote:
+> In Single Doorbell (SDB) mode, ufshcd_clear_lu_cmds() clears a transfer
+> request slot in the controller and completes the request without
+> claiming its bit in hba->outstanding_reqs. A subsequent ufshcd_poll()
+> call sees the stale bit with its doorbell bit cleared and completes the
+> request a second time, causing a double DMA unmap.
+>=20
+> Patch 1 adds __ufshcd_clear_outstanding_reqs() and
+> ufshcd_clear_outstanding_reqs() to share the bit-claim logic across
+> ufshcd_poll() and ufshcd_abort() with no functional change. Patch 2 uses
+> the new helper in ufshcd_clear_lu_cmds() to fix the SDB double
+> completion. Patch 3 uses the new helper in ufshcd_eh_timed_out(). It is
+> a follow-on cleanup and is not needed for the fix. Patch 4 removes a
+> WARN_ONCE() whose condition is always false.
+>=20
+> This series is based on mkp/for-next (db8b4d2bf2d3).
+>=20
+> Tested on QEMU ARM64 UFS in SDB and MCQ modes across LU reset, polled
+> and interrupt I/O, and task abort without double completion or DMA
+> unmap warnings.
+>=20
+> Changes since v1:
+> - Add a helper for clearing hba->outstanding_reqs and use it in
+> =C2=A0 ufshcd_poll(), ufshcd_abort(), and ufshcd_clear_lu_cmds()
+> =C2=A0 (Bart Van Assche).
+> - Convert ufshcd_eh_timed_out() to use the new helper in patch 3.
+> - Remove an always-false WARN_ONCE() in patch 4.
+> - Link to v1:
+> https://lore.kernel.org/r/20261016085403.1711740-1-stanleyjhu@google.com
+>=20
+> Stanley Jhu (4):
+> =C2=A0 scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
+> =C2=A0 scsi: ufs: core: Fix double completion in ufshcd_clear_lu_cmds()
+> =C2=A0 scsi: ufs: core: Use ufshcd_clear_outstanding_reqs() in
+> =C2=A0=C2=A0=C2=A0 ufshcd_eh_timed_out()
+> =C2=A0 scsi: ufs: core: Remove an always-false WARN_ONCE()
+>=20
 
-cat /proc/asound/cards shows only 'vc4-hdmi'.
+Hi Stanley,
 
-After adding the kernel command line you pointed out, the bcm2835_hdmi
-interface now appears.
+For the whole series:
 
-The default interface seems to be vc4-hdmi. I could switch to bcm2835 in
-alsamixer, and repeating the test in that conditions works. However,
-speaker-test seems to take the vc4-hdmi interface nevertheless.
+Reviewed-by: Bean Huo <beanhuo@micron.com>
 
-Running 'speaker-test -t wav -D plughw:1,0 -c 2' crash the system, so
-thinks seem not to be working with that interface.
+One more place has the same problem. In ufshcd_abort(), the "cmd was comple=
+ted,
+but without a notifying intr" path completes the request but leaves its bit=
+ set
+in hba->outstanding_reqs:
 
-Im trying to debug what happens in that condition; I will need a couple
-of days I guess. So far, this is what I could check.
-
-Any feedback on the test or debugging would be appreciated.
-
-Regards,
-
-Gaston
+if (!hba->mcq_enabled && !(reg & (1 << tag))) {
+	...
+	 __ufshcd_transfer_req_compl(hba, 1UL << tag);
+	...
+}
 
 
-> Can you make sure that your HDMI sound is really using bcm2835_hdmi ?
-> If your sound happens to actually go through vc4-hdmi, then you are not t=
-esting
-> my patch. If you can't see the bcm2835_hdmi, you just need to add:
->
->   snd_bcm2835.enable_hdmi=3D1
->
-> to your kernel command line if the driver is built in, or to the modprobe
-> command as module parameter.
->
->> I=E2=80=99d be happy to run any additional tests if needed.
->
-> It would be interesting to test other "clients" of the VCHIQ bus (because=
- I
-> only tested bcm2835-audio).
-> But I've just noticed that bcm2835-camera doesn't exist anymore (it was u=
-sing
-> VCHIQ via VCHIQ_MMAL).
-> If I understand correctly, if VCHIQ_MMAL is still there, it's because the
-> bcm2835-isp and bcm2835-codec drivers will be upstreamed in the future, b=
-ut
-> there is not current "client" in the kernel as far as I understand.
->
-> The only remaining thing I can think of is /dev/vchiq (CONFIG_VCHIQ_CDEV)=
-.
->
-> Thanks again for the tests!
-> Martin
+could use the new helper in the same way as patch 2?
+
+
+ if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
+	ufshcd_compl_one_cqe(hba, tag, NULL);
+
+Kind regards,
+Bean
+
 
