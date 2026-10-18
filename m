@@ -1,83 +1,193 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1072868AB
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:10:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF97F2EDD40
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792285839; cv=none; b=tO5qA0Eiuy7pcCr+DbB9TB15nslcrrSoOvAmgCMRqtMw0oYicmoSy/aLk9MP8GyDssNisUjlt1MvP0WKPF/1+Vp2Ngzxyes+cIxMeHC7FkuqmUO3U0+QaWj1WnBv1bXs7WukSZ6j+TpuYDHpiPIBoj5OjfsbYOIyCMh/eVs1JG4=
+	t=1792285871; cv=none; b=FIc4nxUEpiap8AqaNrDaoMraAeEA415xJa3ec84Qme8IOzZUzIUjQO7YrMturPM8oywDZYz+Aufv3LyNVQoaPNMrjSycyA7kpe3gF0s4+kaABDETww5J+FS4Wgr6WrCG5X0/AKQeoaKKORPQxUZS1619nERvbZKTnJAWzW5awPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792285839; c=relaxed/simple;
-	bh=eTL3zCKW2b+yMArvP33aNj0EbUaBajQIzEbeKrRKhQk=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=tyRhgoZEcRd9M/uN1JiNpbiJO8tVZTyT6CfdFc3fCmDPYGTuyXxYsW9rKhr7gsGa6Yzuwbvu4ct+WOaxG05SFOuWm415VeNwrUdJn316U/InEunPUGnR6sx+j8efczxA5cPjX12SCFjuxN/EZmDcWIrySzAuYrL131drVDoDhKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Zy08EHhg; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792285871; c=relaxed/simple;
+	bh=iClRPXEe5mR6eqpKMdMBt4IQqiTf2uKaNcox0pzAZ7s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DnEm8EbzqsIq5xUnTVX7yHlHH8VlOfRQdCycHVHhwd5msjH9ktJaxKZEozvqyqdoEpsCWP4UTFn22Ca9wQ4bPIkG9CzBhjPBI5qcOYkNE7KjZ91797ZY40vmM8HGgfY+e5mUYfVtoXmWz8Gk/+c3ox8mrCVv38bThgxCzgaIshE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=benboeckel.net; spf=pass smtp.mailfrom=benboeckel.net; dkim=pass (2048-bit key) header.d=benboeckel.net header.i=@benboeckel.net header.b=lvLKv3jN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tQTzcmLt; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=benboeckel.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=benboeckel.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Zy08EHhg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792285837; x=1823821837;
-  h=date:from:to:cc:subject:message-id;
-  bh=eTL3zCKW2b+yMArvP33aNj0EbUaBajQIzEbeKrRKhQk=;
-  b=Zy08EHhgSyM0/9yIvUIiRvuXphgIVgyRcnkR9shL0rpjFoPIgGO5P7nw
-   x3CSKJKW+vwWizbU+rtyHGZOZFKHl8WVe+j7tzEy196w6SCpLYnDrayti
-   dcEcTmeVoI9m2QZnHWB6w9YH/IIax391AMN0mrdHN0HqtLUXxE/ELyMQ1
-   xpcANXBI+I/jmPymOZiEKy469heEHfXqRO5bNP2ObNoQfnbj4sEFDaani
-   fcFuhyzD0ps2JOsfcEX2j376jdagyhDpSwcDtpW/kORAvfeIIql/yT0f0
-   2z6uqwm5BdUpdb58uYGnZ8eOmNhEO1mAmewqyFPgAC33J7hPvaCJHE/P1
-   w==;
-X-CSE-ConnectionGUID: EwU6wmqRQySG0HTHogGGDw==
-X-CSE-MsgGUID: 32lfwYnFRtSyPdkfWrDyLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="898004"
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="898004"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 18:10:36 -0700
-X-CSE-ConnectionGUID: JBoYHGWRTDicc4GaLghELA==
-X-CSE-MsgGUID: sk8yhIzCQ3egQJUX1CHu6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="2608537"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 17 Oct 2026 18:10:34 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xIFQ0-00000000Jwi-147C;
-	Sun, 18 Oct 2026 01:10:32 +0000
-Date: Sun, 18 Oct 2026 09:10:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: drivers/media/cec/core/cec.o: warning: objtool:
- cec_receive_notify.isra.0+0x44b: ignoring unreachables due to jump table
- quirk
-Message-ID: <202610180940.mjhxIMez-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=benboeckel.net header.i=@benboeckel.net header.b="lvLKv3jN";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tQTzcmLt"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 1ECA41D0007C
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:11:09 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Sat, 17 Oct 2026 21:11:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=benboeckel.net;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:reply-to:subject:subject:to:to; s=fm1; t=1792285866;
+	 x=1792372266; bh=IQsgVY0IWPoHORuYJpzS4mkNp1CJYmEIgbOfStHyy7Y=; b=
+	lvLKv3jNBogmMUqjchVm4Nl3Rby3771Nrf2pmqLEmJM6+deNX//3dondo17gC/m5
+	whyaiAZqUXZxtAJt8cSmJY8Qi3htrwdVnF2BCyjCA/UEKLCkOJ2HZ5f1m8670owi
+	sD2GqEO6+WqWqDC84Y3htQISEdEUf1Aed1SKCRTAy3OStefX8tQfNIsnUjvjlc0S
+	944IQcjP2LK7uk+FKS4haRxcis9RUzN45LzQPVpJKRTELzcGuRgR15aP9ID58bpt
+	BUCHxg276iT3Z+6u2lfs+u+kgSO4OzeXGdwl+QcrsGr9obdSebFIIayu1ojkSbC9
+	Y7S/saPjZm+YGl8mh/7U5g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1792285866; x=1792372266; bh=IQsgVY0IWPoHORuYJpzS4mkNp1CJ
+	YmEIgbOfStHyy7Y=; b=tQTzcmLtpuziSWN/KwVQLT9e4ctmKj9C/Lobtei15FdS
+	dlIEcfzEYpvoNNME8PiY9KEtOUSCKo77FG8E8dgvQHEnTFNUP2BD5DuKZi87/QgL
+	onLwe/DcVNVuPDCkgp53EmcuwKOZtRqeOCFH6coS8IZKS0SUBq47D4cklRKA+zpQ
+	c3SzMSopSjru7VnfDLXvwjbr9TKJRDvJnj//bVCKCU3xAnLo4R6EbvMUoZj9BDRu
+	QWzwE7uQXbVU6tq2Vi3QBHrp2mAOVLvuqB8Tuunl9TR5luyhYpNiNJJ+e0UoWMud
+	hVhqBtjVO8xDVjMULDhxjfSuNDMXd8HDh2UOPnb0+g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=benboeckel.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792285866; d=benboeckel.net;
+	mf=PG1lQGJlbmJvZWNrZWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:k11kRph6qh9RosPEHYz6CgzgbFO0taOGSRVZfiaYEN97XLY
+	OgpjQmi7W9XfCGb+nPJlKrxpeSkcBYxbPpVurE3fUrlhcQP70E5S6CUAeEEwgeiZ
+	Bavzrf9mJgLOiQwcI1EFC5ClYf87/y3i46QaxO9EiplK7wFuDuUDQgK68B+ma7Vq
+	A8oHLb6tt3RZ6Nhvche9EKDpoRPWle0sSQC3RWFej9f+6SPrG2L2tV1VJYi/Dfdn
+	6FWjMUyuJjIwEa/fOGHhID+oYw/Fq9J//me1HyPnN0c6/Xp5a5FroRY1AtbYJIG5
+	iy7D/8tZZmJKltr/BHsw/C6Q+gs8PXVaJ+YP1QA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,reply-to,subject,
+	to,user-agent;
+Message-Instance: m=1; h=sha256:Vi3N86SJGk1w63md9NbJDlcOb0nEbeK8aupUZx13Qcw=:iClRPXEe5mR6eqpKMdMBt4IQqiTf2uKaNcox0pzAZ7s=;
+X-ME-Sender: <xms:qRzUanjO0lq1_iCh05wWS2AszCPGvjzDid8C-T3UbQZZ9DXNWIrg3A>
+    <xme:qRzUauuRh5pR02mB4Cfrd0JYA2WlTrXDp70WD79zGlUuFlQOuCUG04xiSnDZ1c_19
+    mQAG7LUGACcRTIlNRDCRvJQdewbvnDYKPVJlZHcJvAQkmlsqliLaELF>
+X-ME-Received: <xmr:qRzUatv1NfTgCZll3K0hCPY4u9872BlYnyv4URO7lYAnlhpz7JVZ2Yw3HQ>
+X-ME-Proxy-Cause: dmFkZTEvnTXb7wlPNdbPCo79KPjALe1WyOomyRWhprFt/vGO9Ai679h2SHP/kqZH93QGjI
+    +ozfqZTdZKg7h8D7XL5tDXORgip7Vh/Iw1HAwfLVrotIcUbd7YOIXOUoOee/rBp3M0Vjrg
+    +dCHbCyJpUvgDwj1Sq6UvkNmqYLWR8LGlOPh9uV2QqNtST1P/mE8LA6cwr9Va8hyC94yqA
+    qqkwb0dmWcp6pYePryL50SA2PuYbwEc/oVV6UaV7j3KaFhmXYKYR0BJI2+N0Gws0eA+Nvv
+    w8QrVGxrfUZtk6pI7rj1J/u/MY/qe89NuVYCSQ08nvYnSuJ6oNm4hXM0wwwaygLSlzP9Z2
+    i6YYlf3qZsHFPOoLLyit+n5ap1/Qs4Ie0j6ixsRKNtQlFdAaPTCgdofAa7FPkcFzs6jXLR
+    ho2J8Xr4vG8Y8bqauGwrVN8gMu3StR+YaEd8vQtihFl/gfx0kksVPcbMPbklHSxjzz1TF/
+    j0IVX0HUIWvE29G/xH4eqM/MJ3gn3EuO6IhK5MZSwyr/8xesImV8m7p0dVi3mr6SYr2TKD
+    ZoxnebomkTJciLsrdw9VyavNzukigajK+MJR0voUUXE0mjZWSAwumFi6czU4JSxFZyVE9J
+    L1TMYaATsDxvf3HfUk3zg09csqiR7mNC987cOX1OQ4+AQ0pTmI31L7zzWAvw
+X-ME-Proxy: <xmx:qRzUavML6aKT6Hb0mb0yqO4TlzLkEGfSwRyNvmDZWKkJYnD4W6NQqw>
+    <xmx:qRzUaveHmcbn-gT7gI0J_a5vsZ1ukzaBryWKzcQUtzRAxPODWES-JA>
+    <xmx:qRzUamllVWv-rKXbsIQ3xUZqjMW4HNQUlzybCcm8wxqYr07_9l1wOw>
+    <xmx:qRzUahxD-5JRBjWdwEg6TCNU04-zDCfbBiQX6PWr1JIbzKv5_sGRgw>
+    <xmx:qhzUamTrVIHs9pioam_XAHDlj_qDvXSWKUjHS_1tMb6KEZkl1Q6a07rk>
+Feedback-ID: iffc1478b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 17 Oct 2026 21:11:04 -0400 (EDT)
+Date: Sat, 17 Oct 2026 21:11:01 -0400
+From: Ben Boeckel <me@benboeckel.net>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: keyrings@vger.kernel.org, Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Rae Moar <raemoar63@gmail.com>,
+	Ryota Sakamoto <sakamo.ryota@gmail.com>,
+	Kuan-Wei Chiu <visitorckw@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Kir Chou <note351@hotmail.com>, Petr Mladek <pmladek@suse.com>,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)" <linux-kselftest@vger.kernel.org>,
+	"open list:KERNEL UNIT TESTING FRAMEWORK (KUnit)" <kunit-dev@googlegroups.com>
+Subject: Re: [PATCH] lib/tests: kunit for associative array
+Message-ID: <atQcpQ-1J28uJyT9@rotor.dev.benboeckel.internal>
+Reply-To: list.lkml.keyrings@me.benboeckel.net
+References: <20261014160144.1835860-1-jarkko@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261014160144.1835860-1-jarkko@kernel.org>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   90201351a862182bdabfc1ad1c97b1e1b6ed5931
-commit: f2c356d1d0f048e88c281a4178c8b2db138d3ac1 kbuild,objtool: Defer objtool validation step for CONFIG_KLP_BUILD
-date:   1 year ago
-config: x86_64-buildonly-randconfig-1000-20261018 (https://download.01.org/0day-ci/archive/20261018/202610180940.mjhxIMez-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261018/202610180940.mjhxIMez-lkp@intel.com/reproduce)
+On Wed, Oct 14, 2026 at 19:01:38 +0300, Jarkko Sakkinen wrote:
+> This is a kunit test for lib/assoc_array.c, which maintains a shadow model
+> across assoc_array operations, and checks its integrity after every
+> operation.
+> 
+> I wrote a draft version so that I could properly test 'assoc-array-fixes'
+> tag at Linus' tree, and spent today rewriting a new more polished version
+> with as good description as I could possibly could on how the seeded test
+> keys were cherry-picked. Along the way I also tweaked the numbers to be
+> a bit less messier set than in my original version.
+> 
+> The transcripts that follow were executed with this command-line:
+> 
+>     ./tools/testing/kunit/kunit.py run --raw_output assoc_array
+> 
+> With 'assoc-array-fixes' commits and its subsequent tag iterations all
+> eight tests pass, and without them all of them fail.
+> 
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> ---
+>  lib/Kconfig.debug             |  15 +
+>  lib/tests/Makefile            |   1 +
+>  lib/tests/assoc_array_kunit.c | 570 ++++++++++++++++++++++++++++++++++
+>  3 files changed, 586 insertions(+)
+>  create mode 100644 lib/tests/assoc_array_kunit.c
+> 
+> diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+> index 6b24a2c89b84..3e8d3852f53c 100644
+> --- a/lib/Kconfig.debug
+> +++ b/lib/Kconfig.debug
+> @@ -2857,6 +2857,21 @@ config HASHTABLE_KUNIT_TEST
+> 
+>  	  If unsure, say N.
+> 
+> +config ASSOC_ARRAY_KUNIT_TEST
+> +	tristate "KUnit test for assoc_array" if !KUNIT_ALL_TESTS
+> +	depends on KUNIT
+> +	default KUNIT_ALL_TESTS
+> +	select ASSOCIATIVE_ARRAY
+> +	help
+> +	  This builds the assoc_array KUnit test suite.
+> +	  It tests the basic functionality of the API defined in
+> +	  include/linux/assoc_array.h.
+> +
+> +	  For more information on KUnit and unit tests in general please refer
+> +	  to the KUnit documentation in Documentation/dev-tools/kunit/.
+> +
+> +	  If unsure, say N.
+> +
+>  config LINEAR_RANGES_TEST
+>  	tristate "KUnit test for linear_ranges"
+>  	depends on KUNIT
+> diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+> index 3cac3b63a752..107e16b4ebc1 100644
+> --- a/lib/tests/Makefile
+> +++ b/lib/tests/Makefile
+> @@ -4,6 +4,7 @@
+> 
+>  # KUnit tests
+>  CFLAGS_bitfield_kunit.o := $(DISABLE_STRUCTLEAK_PLUGIN)
+> +obj-$(CONFIG_ASSOC_ARRAY_KUNIT_TEST) += assoc_array_kunit.o
+>  obj-$(CONFIG_BASE64_KUNIT) += base64_kunit.o
+>  obj-$(CONFIG_BITOPS_KUNIT) += bitops_kunit.o
+>  obj-$(CONFIG_BITFIELD_KUNIT) += bitfield_kunit.o
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: f2c356d1d0f0 ("kbuild,objtool: Defer objtool validation step for CONFIG_KLP_BUILD")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610180940.mjhxIMez-lkp@intel.com/
+Why does this one end with `_TEST` and the others do not? I see
+`LINEAR_RANGES_TEST` in the context above, but it also lacks `_KUINT`.
+There is `HASHTABLE_KUNIT_TEST` nearby too, so perhaps consistency has
+just never been popular around these parts.
 
-All warnings (new ones prefixed by >>):
+Thanks,
 
->> drivers/media/cec/core/cec.o: warning: objtool: cec_receive_notify.isra.0+0x44b: ignoring unreachables due to jump table quirk
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--Ben
