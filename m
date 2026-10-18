@@ -1,199 +1,144 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 677B03B442F
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA55A3932C8
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792339795; cv=none; b=oSEQRidQs1Hk8TxLlaj9bqQU9hugge6GfaFfVcW/iaIJTL3RA678dNoazqUQTQBToLIvOxDnyA8O7L2dZIBq6Sah3mzfitqiLBMzPnm76w9g4i4l5XBPwhLZFFSF7A9AAbfujAV6FuQ4zbrbUmnnVq4uth1+vbB5gTVfg/eHRCc=
+	t=1792339806; cv=none; b=EcT1mC7rUFzbgsf2Yr4pjqidYXm6XDpefPzBq7l2ZhTfL/Bh+LJuAAg9JQDJf/iwnQCUWbURyzaw+R571SG8XB8mNr2XlojvEWtx4YgOQzkSF57TKYDGf3IPZ9I30moN2NOAyWzCQQkJegSghXzlyiiT2jVab/TdBDn7mWRjaDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792339795; c=relaxed/simple;
-	bh=K7+HPRoT8cC9vA5FhgvhzRNw1g9Mo76Ky1GUeYVLRfM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P3VZS2wrLzP278iC5ANd7en41aPGqKn5eeEwRX+EIJGjGgQLkkuz6jGqcD+YPk6u2oWZ34TcdN+t2P3cH6lgOeTJvmPUPRCOYqu47h1ZAHiHLSLQ13NjXFGEdFWw3TpUh+NE3T0SIlOcwUkfnB1gDgp5vrUdfDtPJHjHe6kaYkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hIxOpE27; arc=none smtp.client-ip=74.125.82.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1792339806; c=relaxed/simple;
+	bh=VQitwW8668axt1jlAMynhfzocbSvfmdtsxX5ALSir2w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ouLC+Sls2xsE04jGCMHnG7tUhoHC03jDGQfTxyi1iQXPq3b2jotE0awIzx1w25+GS2vEX8noyPIa0dhTaG8hR8343NcSGg9hpOnqJ/iDMFcqEBdZwnHy1glLQTymx0O476HwndHhrAlUZNMwMthHZPVhUNdwpd9eIr0aHir8VOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1PVo9xn; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hIxOpE27"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso114673eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:09:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1PVo9xn"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so905948a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:10:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792339791; x=1792944591; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ltRwcLJB2IvTeYU1P4tvckFXLR/qTUoJOrgmykztVO4=;
-        b=hIxOpE27TBfTd9z+/+LRrmHxFaBFUK02GZk2NjHeQZhrilLl35DZPUGoSGyKspiRYc
-         w6B14WFbVzsVyYd3htwhh5wECpHyZhTbqreTE0sMwinZwtHooW3vXwgKg5pfrrsC+Yll
-         BxgrdNEEdRwnNkCflDm+PktPFkRb3vmca04vOPDNiIZPIWuaJF1y5GqctM/xCMK+oAog
-         kwAsNMfs/qcojris8KuT5Bqgga35j1BrnxpStdJ66+wtXKZ6HCObC6TwY4gYK9JSs72L
-         35DE6ZDgdu3Mk+BpEMTqtcOcsQDtCmJfrUcFexvkGxt3m0xC5vle/I31SXI7ZxZoswu/
-         7qsw==
+        d=gmail.com; s=20251104; t=1792339804; x=1792944604; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jRGX2ggnqWrM9pq9wLLTaVpGHvzzAa1T5Vqo2gzWucQ=;
+        b=K1PVo9xn06aMOl37Uc+kPUxjdQafE81WvXpzeWNYyRQ6buJRAsxVRo/il6bF6n7771
+         Ui6Ab84DwJpflwu+kSm3uYdaMMr4ZORlfsSKiYBaJhrx6FcAcMymiKxQNAVS1+cToVnt
+         bVd6wLdMYtUqUOSgaUa2dmqeYVA3zPTUlHnaqMj9kmK/yttG+5Kd3ttr+IsRppAe4ybk
+         wY4yNS8ioFxNxMAzMwFF0mS7mcyRIuKnVyVhilE/qnKv3RhSXlhwdEQBKb/ejZmtNuRj
+         EpAmZelb5IIre1ztSY1AP2Ar6EsJ7QMFcWBXmIIU3eQGga3y34N4VGSiqj/bkb9vCQPa
+         55gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792339791; x=1792944591;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ltRwcLJB2IvTeYU1P4tvckFXLR/qTUoJOrgmykztVO4=;
-        b=16IsL8h4a4zUqRpC/l/ATU7nlwPISHCq/DL5XVm40vX/YDqcAyTb4iBXaq3T49Y8fF
-         71e3kdGgKGHqX3qYQmvSvSa69YdEexvP7mkMzTBQyQFkUdnVlTlkWqw7iY1vD+GXa80u
-         CoBdG/JoGlp50ovLoBgli8BrizI9ch8Zo5H7vrfRH8BqqfEwX1tNTne8FXuDBhrA42NK
-         cuaQ76eDa1UAoOEu4OsVnkvIVC215S23u0cud+nyM984iaJqZmdhOskB0PDvR8MOHth9
-         0BbDKwucb7nIlsILrcTWtvHgwKxZJwXR/kbmir9MND6YYgeLGFhMmx3J+2rY7pAs8d60
-         9KYg==
-X-Forwarded-Encrypted: i=1; AKwUvBwKiBw1xlmWJo0lhmlpLElmv+0vSsgLlCWugy57Eut84I4PwiHVH5/G9Wru4PqPftDLEphczfohkWWCRoI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2bdLlPMyPjH4VO15cEIS1dcW0wBrWUPml7KYZlo8MrEEXNl5w
-	OvV5Y8tT/uSJH84YCRQf2+7G5box+vnx8yWz493FypoBCmwvmbp2/Hnq
-X-Gm-Gg: AYBFou00KaA0ZjfJ7H2WjON86TYI0Sy5l22hHcs7hA4C1knYSQzqXo9iHJzQav8L07P
-	eWLHP2pnUpypcz/8i3t3BuNGv7v6moe5bbF5YS17UZMKaF8HR00cEtHdU0QwOGF4O2yewtYs+vN
-	2SxKlMsD1iuboZ1d7r3JS7Ee6kPYkETinquJIl7V7Yg/wsF6QHQHzV21b+CKkdmutsxnDAQw4E+
-	GkXgu5u+kuhJ5rLi2T1vYE43T7DWWgOVaHUae8y8X1Di8UKieAUjt/KD0R/6Zo/od2ecFJqUFxa
-	hLyK+Oza5IrM44wiKQv2gNfFvqy4z/oGJ3auO6UlmghxLGgWtoL7SAB9T/R+FuCn95vLOhHLGGX
-	XBMnc7qyIG8Z5dfE+1bKo+SC/WdU16TOKWLxnc0Xs7ZpMBPPHXkognpzKpQuiwvOhDZKCtwKU54
-	r3mmf11CuY4KuxY1ri/0OmzWHn8d/gIgYnVedq080bfS+CrvhOkALEcCvUcelQKF8AUIxky8UpU
-	6dCvwt4TP9I
-X-Received: by 2002:a05:701b:21c7:b0:168:6ad8:e8c6 with SMTP id a92af1059eb24-18512c382d1mr7146694c88.15.1792339790889;
-        Sun, 18 Oct 2026 09:09:50 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm28812835c88.16.2026.10.18.09.09.50
+        d=1e100.net; s=20260707; t=1792339804; x=1792944604;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jRGX2ggnqWrM9pq9wLLTaVpGHvzzAa1T5Vqo2gzWucQ=;
+        b=c8IxNUUZsXHMIqITBq8IH3wBcG9dN9ygE5N/jE7bSozjeLL1R4nWUGBgY8qz6TOkfa
+         c5ma7b/YnLzewt9zhFxOjOZ4UDuE9XLmEj4BwkW6LDBAX2BhQJe+buHsos1R6LgQWOy5
+         4q/1W+Pmdnzly27xnRC62XPSo+/XvCJtoCrpn9TlFVhTp74fRk/OzHzZ3VNIYgY6HGdb
+         fid0yev+LS7BtBbZSGzge9x8TJ1INPOFmPxTn9cGpe6cbnJsN6Caw7I8vuX/JgGj3U+O
+         GzQVx8K9wvvHZxsEN+bZDmyxGmBJozAVnUuGTas4c2cQ7SO2lT4cQz8vgECPGZOYyiDW
+         GXmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFmapsGLcD8YCAqwvEsAQVrmCauJjt67Or0KoKsXJ+puj7GVHEgGUn/9sFXmSAMGtX/pG6GfaiSf15NJE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKURTruljKCP1/4wMIN7bjDBd0bAOISXsDfFdgfxXtJwkezJGjQ
+	ZGOephLHIyN/xqqdi6h1+3iOuL9usRvR0nloIgN/3v819h5HNSvX2jSq
+X-Gm-Gg: AYBFou0sXLAb64tlIwRRSgMrQJQdFHNT7X4t6IYtBB/eWf4TfpsIzzHaEZa8SQV+dDJ
+	ruiD0gJ+8b7E92cay4DLf++3fwpY9ZXB2DGCZTquaoDbRHhzZLoCmuYDu528KdbSfXjqnylcHZE
+	JND9bH/4OZIE/TqkCo0/72N5EuptzmRtQ3nKw6YZ0EsOji/MFtE6ZG8LXBunjVW+o3kC9n9diwk
+	KR3cBRuOfDNNbKqvsxI3l55l0Qw6grSQGMMUqxYjFBOEfRfhg01lBj6l+BGhIS0EjVz+CCbg5xQ
+	XkSrJA8mn9j52G1YrwJLzNFZRUsZPr/SMgRaYutDX/rg+nAtfSZVJuXU8mRsLafIiah+r9IKGTL
+	3Hw30Fmer0OINS2gRmcZfZwDSiT5Zadu/ZKOCXEdvsdSTDuRx9n0X8EExZmH1k0jk4DmQQN7PIw
+	2u3tltWtQrwYdxGt2PvpaW5Sf59tF2CNep4r+3BWjGMTApAqo03aXDYE/wDZX3n8pAmtMXo0b2X
+	D44LwsguXROcIpPvBaXZgsXeLc96pFxkoFZwgjj8tB+2Jr3bA==
+X-Received: by 2002:a17:90b:6cd:b0:3ac:a6a5:5757 with SMTP id 98e67ed59e1d1-3aceefbd2fbmr2879731a91.11.1792339804188;
+        Sun, 18 Oct 2026 09:10:04 -0700 (PDT)
+Received: from obadmin-Precision-3680.atlascopco.group ([136.226.232.190])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc487e509sm12140533a91.9.2026.10.18.09.10.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 09:09:50 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 18 Oct 2026 09:09:49 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Cc: david.nystrom@est.tech, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	ricardo.neri@intel.com
-Subject: Re: [PATCH v2] hwmon: (coretemp) Return -ENODATA for invalid
- temperature readings
-Message-ID: <ef041f4b-4592-4693-a9d7-a5c82aab9c77@roeck-us.net>
-References: <20261006-coretemp-enodata-v2-1-64e788acc7dc@linux.intel.com>
+        Sun, 18 Oct 2026 09:10:03 -0700 (PDT)
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Ulf Hansson <ulfh@kernel.org>
+Subject: [PATCH] gpio: pca953x: Preserve wakeup accounting on parent IRQ failure
+Date: Sun, 18 Oct 2026 21:40:42 +0530
+Message-ID: <20261018161042.3298045-1-sahaj123.sc@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006-coretemp-enodata-v2-1-64e788acc7dc@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 06:04:56AM -0700, Ricardo Neri wrote:
-> IA32_THERM_STATUS and IA32_PACKAGE_THERM_STATUS have a valid bit, bit 31.
-> The Intel SDM documents it only for the former, but the package register
-> implements it too: x86_pkg_temp_thermal has required it since commit
-> f1a18a105660 ("Thermal: CPU Package temperature thermal").
-> 
-> This driver checked the bit for both registers as well, until
-> commit bf6ea084ebb5 ("hwmon: (coretemp) Do not return -EAGAIN for low
-> temperatures") made it ignore the bit because some CPUs clear it while
-> the temperature is too low to be measured. Since then, temp%d_input
-> reports such a reading as a real temperature. Userspace cannot tell it
-> apart from a genuinely low one.
-> 
-> Fail the read with -ENODATA while the CPU reports the reading as invalid.
-> On a CPU that clears the bit, reading temp%d_input now fails where it
-> used to return a low value. sensors(1) shows N/A in its place.
-> 
-> Suggested-by: Guenter Roeck <linux@roeck-us.net>
-> Link: https://lore.kernel.org/all/46f9f319-de71-412f-a424-6cb801478456@roeck-us.net/
-> Signed-off-by: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+pca953x_irq_set_wake() updates wakeup_path before asking the parent
+IRQ controller to change its wake state. If irq_set_irq_wake() fails,
+the IRQ core rolls back its wake state but the driver's counter remains
+changed.
 
-Applied.
+A failed enable can therefore leave the expander marked as part of the
+wakeup path when no child IRQ has successfully enabled wakeup. A failed
+disable can make the driver stop retaining power even though wakeup is
+still enabled. The suspend and resume paths use this counter to decide
+whether to disable or enable the regulator.
 
-Thanks,
-Guenter
+Update wakeup_path only after the parent operation succeeds, leaving it
+unchanged on error.
 
-> ---
-> Changes in v2:
-> - Patches 1 and 2 of v1 have been applied. This is a rework of patch 3.
-> - Drop temp%d_fault and fail temp%d_input with -ENODATA instead. (Guenter)
-> - Link to v1: https://lore.kernel.org/r/20260924-coretemp-temp-fault-v1-0-1884f0ff97d5@linux.intel.com
-> ---
->  Documentation/hwmon/coretemp.rst |  3 +++
->  drivers/hwmon/coretemp.c         | 21 +++++++++++++++------
->  2 files changed, 18 insertions(+), 6 deletions(-)
-> 
-> 
-> ---
-> base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
-> change-id: 20261003-coretemp-enodata-e424540e3b4c
-> 
-> Best regards,
-> 
-> diff --git a/Documentation/hwmon/coretemp.rst b/Documentation/hwmon/coretemp.rst
-> index 349301683381..09f885a847e3 100644
-> --- a/Documentation/hwmon/coretemp.rst
-> +++ b/Documentation/hwmon/coretemp.rst
-> @@ -50,6 +50,9 @@ All sysfs entries are named with their core_id (represented here by 'X').
->  
->  ================= ========================================================
->  tempX_input	  Core temperature (in millidegrees Celsius).
-> +		  Reading fails with -ENODATA while the CPU reports the
-> +		  temperature as invalid. Some CPUs do this when the
-> +		  temperature is too low to be measured.
->  tempX_max	  Maximum recommended operating temperature (Tcontrol).
->  		  All cooling devices should be turned on.
->  tempX_crit	  Maximum junction temperature (in millidegrees Celsius).
-> diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
-> index 0ab6bbff5637..a9edbb4924a7 100644
-> --- a/drivers/hwmon/coretemp.c
-> +++ b/drivers/hwmon/coretemp.c
-> @@ -60,6 +60,8 @@ enum coretemp_attr_index {
->  
->  /*
->   * Per-Core Temperature Data
-> + * @temp_valid: Whether the CPU reported @temp as valid. @temp is not
-> + *		reported when this is false.
->   * @tjmax: The static tjmax value when tjmax cannot be retrieved from
->   *		IA32_TEMPERATURE_TARGET MSR.
->   * @last_updated: The time when the current temperature value was updated
-> @@ -72,6 +74,7 @@ enum coretemp_attr_index {
->   */
->  struct temp_data {
->  	int temp;
-> +	bool temp_valid;
->  	int tjmax;
->  	unsigned long last_updated;
->  	unsigned int cpu;
-> @@ -398,7 +401,8 @@ static ssize_t show_temp(struct device *dev,
->  {
->  	struct msr val;
->  	struct temp_data *tdata = container_of(devattr, struct temp_data, sd_attrs[ATTR_TEMP]);
-> -	int tjmax;
-> +	int tjmax, temp;
-> +	bool valid;
->  
->  	mutex_lock(&tdata->update_lock);
->  
-> @@ -407,17 +411,22 @@ static ssize_t show_temp(struct device *dev,
->  		tjmax = get_tjmax(tdata, dev);
->  		rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
->  		/*
-> -		 * Ignore the valid bit. In all observed cases the register
-> -		 * value is either low or zero if the valid bit is 0.
-> -		 * Return it instead of reporting an error which doesn't
-> -		 * really help at all.
-> +		 * Bit 31 indicates whether the reading is valid. Some CPUs
-> +		 * clear it while the temperature is too low to be measured.
-> +		 * Such a reading is not a temperature. Do not report it.
->  		 */
-> +		tdata->temp_valid = (val.l >> 31) & 1;
->  		tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
->  		tdata->last_updated = jiffies;
->  	}
->  
-> +	valid = tdata->temp_valid;
-> +	temp = tdata->temp;
->  	mutex_unlock(&tdata->update_lock);
-> -	return sprintf(buf, "%d\n", tdata->temp);
-> +
-> +	if (!valid)
-> +		return -ENODATA;
-> +	return sprintf(buf, "%d\n", temp);
->  }
->  
->  static int create_core_attrs(struct temp_data *tdata, struct device *dev)
+Fixes: f70fbc15bae2 ("gpio: pca953x: Configure wake-up path when wake-up is enabled")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+---
+Testing:
+- Built the ARM64 kernel with the TI SDK, CONFIG_GPIO_PCA953X_IRQ=y,
+  CONFIG_PM_SLEEP=y and CONFIG_SUSPEND=y, containing this fix alone.
+- Signed the FIT through the existing development signing workflow.
+  U-Boot verified the required signature and RAM-booted the kernel on
+  AM642. Confirmed release 7.3.0-rc7-00012-g1b4d5b76f7e9 over SSH, both
+  expected expanders bound to pca953x, and an untainted kernel.
+- Ran the isolated exact-function harness on an AM642 CPU: seven checks,
+  two failures before and none after. The same isolated checks passed
+  host ASan and UBSan. This harness simulates kernel and hardware APIs.
+
+The boot test covers boot and probe, not the wake failure path. Neither
+expander has IRQs configured in this board's device tree, so the parent
+wake failures were exercised only in the simulated harness. The board
+was returned to its original signed kernel after the smoke test.
+
+ drivers/gpio/gpio-pca953x.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
+index aac9ea7520b6..869ed4264d48 100644
+--- a/drivers/gpio/gpio-pca953x.c
++++ b/drivers/gpio/gpio-pca953x.c
+@@ -838,13 +838,18 @@ static int pca953x_irq_set_wake(struct irq_data *d, unsigned int on)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+ 	struct pca953x_chip *chip = gpiochip_get_data(gc);
++	int ret;
++
++	ret = irq_set_irq_wake(chip->client->irq, on);
++	if (ret)
++		return ret;
+ 
+ 	if (on)
+ 		atomic_inc(&chip->wakeup_path);
+ 	else
+ 		atomic_dec(&chip->wakeup_path);
+ 
+-	return irq_set_irq_wake(chip->client->irq, on);
++	return 0;
+ }
+ 
+ static void pca953x_irq_bus_lock(struct irq_data *d)
+
+base-commit: ac46dac1613a7c971e28e16d3a7a6ad4b1ae6c5a
+-- 
+2.43.0
