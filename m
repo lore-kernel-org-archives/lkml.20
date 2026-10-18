@@ -1,78 +1,63 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D9D3932DC;
-	Sun, 18 Oct 2026 19:22:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F167842668B;
+	Sun, 18 Oct 2026 19:22:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792351338; cv=none; b=vC6YjTa+Hx48SEJ9YIXIJIV/HzoQ96cy8YmlQ5UCdb+sNyvnOx1qZecux0+jWggqrm0npz/ZHF4oPKJkOxPXnPttkS/nEaBMTF+Stze8xSnEHoEYjx9gzbAcWS84Pud+jAu3Z1l7WP9gEsQd59KlG28uE2tdSoJuFkb4Tkvppbo=
+	t=1792351372; cv=none; b=cnVGXwu1fXnO2L9NXcmZUch5KV9F1ma8QlLRtoP/u8Yj6WvktH6h+iixsz4RkbGYJ2NM+zIxC7duA6XLWeuQ6Oh+o/h9FCIarNQQCUa/VBAyHDd5A/fSPpgWf/03SKK3cEg1e3E53yp17ZBqdv9Zmb5AdNdPtdlwI0kmUm/TXhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792351338; c=relaxed/simple;
-	bh=HROzpZDx/9mqgR/5soR1hb0Crk0RLbo/zNA1oFPbphM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tIj0vWOtevBlEsZHLvVMJQ0A8XrqU3geO24Vk9Jd4fwy+oh5RZZuOcyUk3AdfN3mmAY7kIjbVd1aE3RBZG8TmcqLD22iGm8e6m26qBqC92USapFgTNgpsDIZ9mvgXQjQUTO2dcgkGqKXZxRSwGzStibMqIKDFScrmQTho1pEqfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=SB8Ctd/G; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1792351372; c=relaxed/simple;
+	bh=hpVdL1TBiVXEIL0FEecGyp0WQJvGGHZNKbQ6wQJ3MPw=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=QyuaYdBqawN9RCtNruFiPYBWIaUwoxnNzLaLB6N9ZrA+z18yCx9IYEewoVG7aV1qyuk6Zoa6RWylqOUyG7yQ31QsFZoeqa/sy3R9J6bnjmhlx8Dbtk7JGN0DiQJEl+9WOWf61JBfbAIB1bHEO4dKjFM3iL8RicoKz7ducPHnj2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cVnU8Paj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="SB8Ctd/G"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=6xyR3TFbtCZTEsIcrD0uhG7nsXMg8JWVx1j3NCjbApU=; b=SB8Ctd/Gzn42zoAwCQw2l0QQUO
-	EF3CF5aZ/ymjsFOKXM70oJtkNxhhx0ah+FBZq9alW1YpHFsnFw+7CYKbiKFtE51mUsVPG2+slqDF8
-	kYL5UfAGy4CNGbuuIWhGWMovS7u2ZGmOQUs9bnNjjvI1csCMecpMVqlFTywr9hmRct6U=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xIWSQ-00BWMb-Jh; Sun, 18 Oct 2026 21:22:10 +0200
-Date: Sun, 18 Oct 2026 21:22:10 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH net] net: pxa168_eth: quiesce the interface before
- releasing resources
-Message-ID: <213a4f8d-2473-4973-b203-1c0998256539@lunn.ch>
-References: <179229523656.3967907.9986872484125740449.pxa168-eth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cVnU8Paj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8249F1F000C4;
+	Sun, 18 Oct 2026 19:22:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792351370;
+	bh=C2uOwfh+mOVabixs0YsUfKdrckBkg5Ni8FH2SIlNRaI=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=cVnU8PajB2H5q8LSz+uM8ci7iu0w3jUkQK4sgBHRRpVTsdyI3sujNqu5kD1t2iCPE
+	 d2cpQ34fbJDNduP4V33yMbXEMWF+WIqhpqe6PBApfShG1lB181UVKHZjUR/EWLa47T
+	 gJdgEkiqUrX8+RukORb+qwdLDMQzvjgpWdA12qEtegu2wBC3XgD9WkfiQocuzJQJcb
+	 9DgI98V+s1JAoflsr5K58M1Ad01ahkzk55uLJxA1p16K5idldlzHQZdgUJk7+JrebE
+	 FTI9jCVoER+HFHE2E9wXV8noL43qBv+YsCDhhzMaeUjKu3NnYXuftbScJTtrN7VVA1
+	 9f74yC27NMUJw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 77569381196D;
+	Sun, 18 Oct 2026 19:22:50 +0000 (UTC)
+Subject: Re: [GIT PULL] SCSI fixes for 7.3-rc7+
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <6a4bfcdc8e60669d95abb70bdaa07b87154c9a95.camel@HansenPartnership.com>
+References: <6a4bfcdc8e60669d95abb70bdaa07b87154c9a95.camel@HansenPartnership.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <6a4bfcdc8e60669d95abb70bdaa07b87154c9a95.camel@HansenPartnership.com>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi.git/ tags/scsi-fixes
+X-PR-Tracked-Commit-Id: ec6b083915e8146e147314a5f4f1285d07b57bfc
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: f909e534f5e34feb2ea2701d54df63e21aa506fc
+Message-Id: <179235136903.1791676.2735700775646816403.pr-tracker-bot@kernel.org>
+Date: Sun, 18 Oct 2026 19:22:49 +0000
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Linus Torvalds <torvalds@linux-foundation.org>, linux-scsi <linux-scsi@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179229523656.3967907.9986872484125740449.pxa168-eth@gmail.com>
 
-> @@ -1528,18 +1529,21 @@ static void pxa168_eth_remove(struct platform_device *pdev)
->  	struct net_device *dev = platform_get_drvdata(pdev);
->  	struct pxa168_eth_private *pep = netdev_priv(dev);
->  
-> -	cancel_work_sync(&pep->tx_timeout_task);
-> +	disable_work_sync(&pep->tx_timeout_task);
-> +	rtnl_lock();
-> +	dev_close(dev);
-> +	if (dev->phydev)
-> +		phy_disconnect(dev->phydev);
-> +	unregister_netdevice(dev);
-> +	rtnl_unlock();
-> +
+The pull request you sent on Sun, 18 Oct 2026 10:38:55 -0400:
 
-pxa168_eth_remove() should be the opposite of pxa168_eth_probe.
+> https://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi.git/ tags/scsi-fixes
 
-phy_connect_direct() is not called in probe, so phy_diconnect() should
-not be called in remove.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/f909e534f5e34feb2ea2701d54df63e21aa506fc
 
-Please fix this correctly, not make the code worse. Look at the
-architecture, and fix the broken architecture.
+Thank you!
 
-    Andrew
-
----
-pw-bot: cr
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
