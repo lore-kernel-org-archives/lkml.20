@@ -1,171 +1,133 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DED04B99D9
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:23:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC244C33F9
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792333381; cv=none; b=jRXmJPneGY4wj/04b0Pf+8wOEsbbbCA2H/+iHtG8XjtZCxmt+yBSw9AiU620pOyv5AbxRlBmn5+dJ0WjoWmTqgZGsT83537hxb30ZD+L90MWp6xjI+PR/xcD1qBTD6qxANtzMmeIC36f82pJWwBh5sAUWxr+ruDspaX4wehtcLo=
+	t=1792333397; cv=none; b=Qk50z06dZQ2kFW42pHb7Mxeujmll/8ZtUK5a2kKdJK42pM2wVZ+vBYTtq3dczxrcBnhNWiiHdXtI+nJHQ3cKZFC5M5JJPY3g708hzb0ETi62kcss0OBHWbItmGQAsx3dzE5E2HL8dYrHFdlIrQEbd/D4TJiZBK+1KQf2e1LmP+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792333381; c=relaxed/simple;
-	bh=97NQQC3/WTVDJcemG/52psXjaVaXYeIso9vmTnBCZkE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oj+QofpHy9dc1Z2N8KMcfNa2Ff5jMrKGhIdPG7x+8VyYBqFTeVs1JEYMfMvJEYRT0hYeG06o7tzXf62tY+5R3mJwnwvZGhscvZ/LS8hne9By75ZDEkW73MowzCz949rfaoZxL0KcrzdfzbyKyOKaA5QZJXDQuu62jjB/S5krse8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YO8FMW6K; arc=none smtp.client-ip=209.85.128.177
+	s=arc-20240116; t=1792333397; c=relaxed/simple;
+	bh=DehZpx2/K8ju4VpADuJdHXsOH8lGOwPvHMyPcJsyyKs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n5DTHhIe39Om+qC4BjLChwwNonf0x03pSsMWiOWnapKgt4JlCFtJImqdmehcvC1/5l/aaQD44A8IBMIlM5hhLTZMI7vr3VRd0IlMH8PlxFbefVxOIOPMYiQfaNXZlkAFmg5Wjae0/gj342+5+cfraR3G2JKisx1e8H8rfZe4HB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DzpbPE+0; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YO8FMW6K"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8a83d2706fdso8315977b3.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:23:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DzpbPE+0"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b001cd92bso653258f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:23:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792333379; x=1792938179; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pir2OTsfElPbyLhSz/zgq/UZasa9p7ofy3leqIvBpvQ=;
-        b=YO8FMW6KH8xrYATSgPCFroj4lWbtK2x4RKA+YV1iDgdb4VabWnNq1FPodGAMzZopRW
-         WzbSy0A/KPrkHYOIsbAmQayhREBfjDstZCb3r2BmjwZMYLGW+mVaRx2T0xD2Vf0KbRTf
-         ZSiFb9xvhb9Vk0I7Qwf7hCLd/gHEadMTI3RbNNhmfClyLifpF0Hg42YRIcOxgpC5FHdX
-         5/ZedifUKvC4HIFL/msgk87n3nHqoAPHEDE4bjS/g1Z8heKgsCc2QthrOxyaiymJyhha
-         BhN7SkxsiNTpIciYQFxy2B6Aag4CCoskC0yg0rEh2FmbclY17maW093MHCM2A1ZL2vFu
-         H8vQ==
+        d=gmail.com; s=20251104; t=1792333394; x=1792938194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A95fhrvfAAlu2Cvs/sZqanN19o2eeng7TB9Tzs9GgKQ=;
+        b=DzpbPE+0k+5+uiSp70vXXau8zR7C++OcT3waA7+NBGhSoLa/BzyH67v2I+TzqpRNLt
+         uN1GF7WDN3fzAZVJyHPckSp724E98Q5PSh+zAC9sWm2ZU4rrP6f4MT1eHk69lUG7/7dQ
+         fdvK7Lb1vrec3fg8q5+CJbOB6gRFeihL6hl6QSaUe85edhlwHN9Uxz1FU9o8W4ac5gEl
+         4wlPNEKdBlbdRfzTuHoflWoZtX8BG8nxSWlxFP5l1aEvtHSc+nZMx8HZiFJF5YfI+tac
+         3glT7DN8GFdIOriYgvl1zrhsTGNEem7LiasVEdWul6GjYIptHuYOdsK2Mx3jPFNVaOq2
+         Bc7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792333379; x=1792938179;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pir2OTsfElPbyLhSz/zgq/UZasa9p7ofy3leqIvBpvQ=;
-        b=CPHgaPnfk1s7pfduZJvAc7J/liDwMwETg//hMAXJOR6PC1zK0dkVhlIF0CtUf8NMgB
-         BtRuixAXsgRMGL7B/ue7BWJefwHA+Jrrum50J0ZxGvm3PW8BZ3tW4WJHDgI9S0b19p6C
-         dPprvGCquT1VgTGD5qb04v2YFqZEioy1ZcUjnUBo3usgLfuBCLS8uwRNmFad5yMLP5IQ
-         QkR+FNFBQKocHbYBleNE00c3LFHO3VMxoffP8V8fv4QuYSWKE2HsnoIuUIzRD1dxyUTp
-         /oqEe0rTW6l9Pf142osyNgTCTWCdrHRMwugeHfKQem0fXGRJoklZ2qLpcXeGLz0FGWzU
-         qP0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxUtePxmaHO5qhnRu71wKcT91YLsvh6NfwMDlU81+kMBPWpD/c20dEsJha9m9YtDFTSXY/b46yuQCdSQxE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKIwQ2AmuMIt2HAJbXpS7qcw31EWJDrPvX9SOdNtko16D8XxQ2
-	BBYRnRrXk7rxRty+Li3vQOTJp7x2Ldu/NBO4DRPnpv/HEt4vvLk3Hg7b
-X-Gm-Gg: AYBFou2Ne9NjTW+dRapg35yY+ZjiiuBfdmuo8QhPIecLBA1kGxfuxMXfBMGFci4ytVQ
-	JzvZG9eLn1BnO/ApdLxBB4bmPRMzB3ZH13FKiUnas6t8aouv0V8UWmuOb4EBMbXe/QmaMhOG2RQ
-	sP+Big5Y4noryk11OwZTQsVz24dpVoFsMM42NvdVARyvYuotORgPfaNsCD3SK9t418rZwDXnJzQ
-	8rvoW3tASV1vrMGhO62zdpY0u/nE/eomCIzYAZ3auRxtS/O/EFdorN+h8b4BITvYRgzD+R8eq0w
-	vr9fLuVj0JsI5W3BV1AC131AohZkLYpsjbBvpVCWLEPR6rJtufjyyrVZLSFpsSjlaQdACOt6xHV
-	yfS4qojoZ2WVVCU+oznup9/kL2Y+YWtSDsiju3eTUlzMDP6eabUeRDVbwGWEgVtDxY5Qfmbom5T
-	EnzeK0OKOKjb4Nf2mTdYbYUqJLXOO9bvCOJfTYNjEG4XljSI2YNruJVZ7qpLRLQWN1RyD69kc2U
-	eqHD7n7wSpQq19b80IG1hEAPKKpu+js7fDrHNEU3WS7mw1bz/s7hjuqMyWoavDWzR2/OfK/EOI4
-	/RDWi4Z4bu+CMh8PN0BoIAko6MB8
-X-Received: by 2002:a05:690c:4006:b0:8ac:dbb9:21fd with SMTP id 00721157ae682-8b0f22086damr12437907b3.104.1792333379250;
-        Sun, 18 Oct 2026 07:22:59 -0700 (PDT)
-Received: from localhost (108-93-236-139.lightspeed.chtnsc.sbcglobal.net. [108.93.236.139])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b0e594ffb8sm30563517b3.44.2026.10.18.07.22.55
+        d=1e100.net; s=20260707; t=1792333394; x=1792938194;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A95fhrvfAAlu2Cvs/sZqanN19o2eeng7TB9Tzs9GgKQ=;
+        b=ozZfxSIwVqitUkrRMhjPu2FFxUWgnUC4dnPgnRiIzdlB5AYgcQhd7kaymepkfX6hyk
+         QwGoX5SXPwbBExdgr6tChZSKzl4iI+1KU/Cms6dbMiPOAUoNnHNpkXwWLBJzsyh0HVKr
+         8SpXFA/2js0qzQIJMLbdPikL29dGRKg7nji9DebqAVyxzMrfM3cJ/pk2XzaZG2ocgA7b
+         0DYDTCkAyxwG3Jn5udE3QM7Vlz9ENlPIyHmCFIfSCTaebvZABYtTsk9JlZemHNvCjmFG
+         TK910LOu7Tl02oY1Kc8dQfhMkq+muJdcjv/Jcxlef2vOceRsFE9UffsNjs4F8T9H3BQi
+         p38g==
+X-Forwarded-Encrypted: i=1; AKwUvBzItjkUCBqCllTLL6i8sT3Y9Snqs4e0Lg1x9KUx/AJN6caCLHSX8IDPR8l3Otds7izD8GHzpP7PDqvIARo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhwlo1Yvl6gWF3OL3+nmd1zXTDIMoscnq2VZPqPTONZindR/LA
+	Y5wpdhFf3Jx6rfU0js7xc/FbTxlbl7JG+CBVAPD6eynF66ZQ8H2SA4Aq0HxrSA==
+X-Gm-Gg: AYBFou11yWcGCIXxiDGaTu6Qj2e+A9Q1CqFeFzOjX1NlD8uIk7SfT0CU6k1AXZECnpX
+	MK20VdnO3YDIzLHb6ID1Fb1QHIJoZdCbcfIdebD2OXGWnugZr8NEzExt7X8gQBiuNkRDz4SQTrZ
+	sRcn9wRaCoU9ktyrZMYyaq7IskPcMJc7fM43B8HJEtl2pnOGod+mn63Vh7AR7IDOR3Y641NDKBp
+	bS2OUmZ/JyRi+E7icTGBspkbeyAk8iMX5er7RrdwEtm5HU/c+x0/EsBExoY19vHdN9Zv0PGRC9A
+	2zDHfPEnpWP2p5gvpAk1kNMCv+dTTaY+Y461FfqxfzPtw/4PBnrBcetTmhA87McUq2gjC1d9ED1
+	zVpE+YYf8xPKQxB/mJTzYN2jGGWwlz6TK19I51yh6yGJnnYCSxUCf+vGvPHLwJKgqgyRlbz8zNN
+	PXTNxAcK6HYTCWqOMO61oC8BONOzRljx2BZdEz9QuYuhrpKhFy1UJm+yRGV0n455oNrG1m1v9QJ
+	xC3/eR9YPLvIQO5t/1cenO222/zigyYB5dG8enhHyZJvxE0Tok7OJvsfli3aaMygfbB+MOKTh48
+	yYON5aAR+6e2FATQUZxWVw==
+X-Received: by 2002:adf:e18e:0:b0:48c:7387:6b88 with SMTP id ffacd0b85a97d-48e07fa0252mr10691595f8f.37.1792333394198;
+        Sun, 18 Oct 2026 07:23:14 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8cfesm14971909f8f.37.2026.10.18.07.23.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 07:22:58 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-Date: Sun, 18 Oct 2026 10:22:05 -0400
-Subject: [PATCH v3 5/5] alpha: fill in pc for software event samples
+        Sun, 18 Oct 2026 07:23:13 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Luan Rafael Carneiro <luan.r@variscite.com>
+Subject: [PATCH v1 1/1] arm64: dts: imx8mm-var-som: Use the official product names in model strings
+Date: Sun, 18 Oct 2026 16:23:10 +0200
+Message-ID: <20261018142310.28242-1-stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-alpha-perf-regs-v3-v3-5-52be85332c57@gmail.com>
-References: <20261018-alpha-perf-regs-v3-v3-0-52be85332c57@gmail.com>
-In-Reply-To: <20261018-alpha-perf-regs-v3-v3-0-52be85332c57@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- Ian Rogers <irogers@google.com>, Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2873; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=97NQQC3/WTVDJcemG/52psXjaVaXYeIso9vmTnBCZkE=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKuXONcK7Wis8H+2r5HL58k7JufOsNhRhv/IY8CXg2Rx
- uPxR9PvdXxkYRDjYpgppsgSt16RZVbbjqU+p6V/wcxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
- hkCGjlE8RE6PQSOzuLg0tUg3raDIIS+/JLEkMz+vWC+/IDWvIL1ALy0zrSQjI7+oOBVohF5eaom
- pq6ObkaGBiaWjhZmThaOpibOzk6GTm6Ojs6uTkaW5iYGzpaOJq6U5AxenAMw10jMZGS4dVtUWvL
- 1T3X5SqNueO28NogWdll7zO/HgZFXFA6dXs/Yy/LPTPbtTc81Ut/KbkoyP7yoKbGf5WWK8r/6U+
- PG/KZ/OTeICAA==
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
+Content-Transfer-Encoding: 8bit
 
-Context switch and tracepoint events have no trap frame, so perf builds
-one with perf_fetch_caller_regs(). Alpha does not define
-perf_arch_fetch_caller_regs(), which leaves that pt_regs zeroed, and
-these samples report pc as 0.
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-Record the caller's address as pc. The zero ps already marks the frame
-as kernel mode, and pt_regs has nowhere to keep sp, so pc is all that
-can be filled in.
+Replace VAR-SOM-MX8MM with the official VAR-SOM-MX8M-MINI product
+name and identify the carrier as Symphony-Board.
 
-perf_fetch_caller_regs() gets that address from CALLER_ADDR0, which
-alpha defines as 0 when CONFIG_FRAME_POINTER is disabled. Finding the
-level zero return address does not need a frame pointer, so make
-alpha_ftrace_return_address0() available in both configurations. Only
-ftrace_return_address(n) still depends on frame pointers.
+This aligns the model strings exposed to userspace with the product
+names used in Variscite documentation.
 
-Reported-by: Magnus Lindholm <linmag7@gmail.com>
-Suggested-by: Magnus Lindholm <linmag7@gmail.com>
-Closes: https://lore.kernel.org/all/CA%2B%3DFv5S8-Zk8-LUpZnWiBfTGSQXthepmRc_-a9O%2BpEPmVW0mRA@mail.gmail.com/
-Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Acked-by: Ian Rogers <irogers@google.com>
-Signed-off-by: Matt Turner <mattst88@gmail.com>
+Co-developed-by: Luan Rafael Carneiro <luan.r@variscite.com>
+Signed-off-by: Luan Rafael Carneiro <luan.r@variscite.com>
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 ---
- arch/alpha/include/asm/ftrace.h     | 5 ++---
- arch/alpha/include/asm/perf_event.h | 7 +++++++
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi         | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/alpha/include/asm/ftrace.h b/arch/alpha/include/asm/ftrace.h
-index 7ec44134c804..5b75a294a7c9 100644
---- a/arch/alpha/include/asm/ftrace.h
-+++ b/arch/alpha/include/asm/ftrace.h
-@@ -2,8 +2,6 @@
- #ifndef _ASM_ALPHA_FTRACE_H
- #define _ASM_ALPHA_FTRACE_H
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
+index fd0a1862ce90..d9b588526542 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-var-som-symphony.dts
+@@ -11,7 +11,7 @@
+ #include "imx8mm-var-som-wifi-bt-iw61x.dtsi"
  
--#ifdef CONFIG_FRAME_POINTER
--
- static void *alpha_ftrace_return_address0(void)
- 	noinline notrace;
- static void *alpha_ftrace_return_address0(void)
-@@ -13,6 +11,8 @@ static void *alpha_ftrace_return_address0(void)
+ / {
+-	model = "Variscite VAR-SOM-MX8MM Symphony evaluation board";
++	model = "Variscite VAR-SOM-MX8M-MINI on Symphony-Board";
+ 	compatible = "variscite,var-som-mx8mm-symphony", "variscite,var-som-mx8mm", "fsl,imx8mm";
  
- #define ftrace_return_address0 alpha_ftrace_return_address0()
+ 	chosen {
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi
+index 514cc568fb71..e717bc229d3e 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-var-som.dtsi
+@@ -7,7 +7,7 @@
+ #include "imx8mm.dtsi"
  
-+#ifdef CONFIG_FRAME_POINTER
-+
- /*
-  * __builtin_return_address() requires a constant integer argument.
-  * Keep this as a macro so the value is seen at the callsite.
-@@ -21,7 +21,6 @@ static void *alpha_ftrace_return_address0(void)
+ / {
+-	model = "Variscite VAR-SOM-MX8MM module";
++	model = "Variscite VAR-SOM-MX8M-MINI module";
  
- #else  /* !CONFIG_FRAME_POINTER */
- 
--#define ftrace_return_address0 0UL
- #define ftrace_return_address(n) ((void)(n), 0UL)
- 
- #endif /* CONFIG_FRAME_POINTER */
-diff --git a/arch/alpha/include/asm/perf_event.h b/arch/alpha/include/asm/perf_event.h
-index 5996e7a6757e..72536566014a 100644
---- a/arch/alpha/include/asm/perf_event.h
-+++ b/arch/alpha/include/asm/perf_event.h
-@@ -1,4 +1,11 @@
- #ifndef __ASM_ALPHA_PERF_EVENT_H
- #define __ASM_ALPHA_PERF_EVENT_H
- 
-+/*
-+ * Software events have no trap frame, so perf_fetch_caller_regs() fills
-+ * in a zeroed pt_regs. A zero ps already means kernel mode; only pc is
-+ * missing.
-+ */
-+#define perf_arch_fetch_caller_regs(regs, __ip)	((regs)->pc = (__ip))
-+
- #endif /* __ASM_ALPHA_PERF_EVENT_H */
-
+ 	memory@40000000 {
+ 		device_type = "memory";
 -- 
-2.55.0
+2.47.3
 
