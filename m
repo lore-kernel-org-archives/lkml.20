@@ -1,134 +1,131 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9874D5998
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9C54D4882;
+	Sun, 18 Oct 2026 16:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792340788; cv=none; b=d/xdMTWA9xYr1tHlb3FFwUhMcarWxRUojnXSPLt18L+cKoMlWiZ0lW/iMTCYjavVEbXhGoM5VXcDhjlX5WcckwtvVWWhV2UVetoSWhxWnRVoQqYLT4CtLF2ttfnxnW3OgbaodneZFlSCSJXsUKnYw+G0rbZI1q4fYR0prEQPOZo=
+	t=1792340800; cv=none; b=lWESyXEKwRNnvCrHfgBVZ8I7zPDnMiROedsGJybwUmG3iedRwY2D/P10AdSt0GaOrU319VeOHmqe5YF2GmTk6GATr5TzmyZCZPiFpJmwapvhIg7kOhBy0xONAMPPcIw8y+C9DPP8VBYlsCz32a8QtA6Mylrp+T6RGMYhJRUyxRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792340788; c=relaxed/simple;
-	bh=G4S1n3I+vN415jixgniNKq1lBfK4ap4+2xCFZJvljTc=;
+	s=arc-20240116; t=1792340800; c=relaxed/simple;
+	bh=OEEx0dlobv67lzd13O1rEYRQGAPQ98o8Kptz9a/PdS4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MLCRhSa2i+Zpg4Z3nUb4iEg/TxmF8QRlSsMwqYBvE2+vvZbUD2QCGexTr2yeQ92qvyTFi4CnTwKwvQsrP42i5wIwq6kdr2qIkAWS/zm2xHQ02x6iRot0a3NP4dG13r3qaQx9QCxPdgqP8IvVlBANaHeURYvvwZCfuLR4ofWbaOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s3ipWvTP; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=gqWX05gyZC7D/5TPAvvxdUXVEfv4EOZbHv67zFvuQIoocqqveR2tHYTlR9HHiEH6wmBctW8G4x7sym2bgVdX0pRgIxhotlNJdbqWx34F0LFXcHoVkzBDiGWxatHrlFqQmsN2oIktsWbe3MKk0TRJF9bDwLsR0kzfqvSOvvUmWnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOGsMcZn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s3ipWvTP"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc751eddf25so721737a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:26:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792340786; x=1792945586; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=r4CcxdQ2oJybJSNbjjXimwSvVRvmuOa37brscnwQTP4=;
-        b=s3ipWvTPS7U8hkOE5XRzFbEkyhGh1zx0IZDL6mKYeUaw8yLilO/+a35SVpvc1gs6Qo
-         RIWx8aAHYJYa3B29rWipZXYB1t3377vMWgqsF8yTITz4Pmbp+jNryGBWrMQdvpGlyFng
-         1n3rWPhu/M3wDFS0LgyxrfAmhMQm8XpPIH4jCQKvCuGqO3JoaxNK09dP4wiKyk4ixRxX
-         tak7IQ/0lT996uyqIP0CIPrs9kDkbgXkoUSjFx6tdRSvcgUaHxFmp5YxMy5AM0akA0+u
-         3TwkQZukKd5AM0ZijSDub40bEaAFMpwsfhzmi8Xgjwq7VKXES1NyQrNxTKMuRxAuI9uQ
-         QDMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792340786; x=1792945586;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r4CcxdQ2oJybJSNbjjXimwSvVRvmuOa37brscnwQTP4=;
-        b=e/AM7X5RsUCs754iEIs7sc6Pt2pA1BMk7x1RA0a5elW/Y8HdlYTVsDmqQoVPL38X2A
-         E+VB4XaCgWLnTx04/92G/PMqUfY04fukr8+RzgkDPrBQAtD1RZgiRbAW/xO7pSCQFeOt
-         tD3J0+2EhArEyuOe8GWsinosEgkNS65bheT/Yy6zipMu+cwz1/eeo8GH6W3Mc10VmiaY
-         9U0abZzRRoLNuXR1RdOYfFfcYuvdMOZsD9znOH/y7AmG3mrb5/PluuR0p6FnroIp+IAr
-         x2e4UT1kOlIPcVTbVWmUlRPWftYkI5RfpGAgNXL4Ydm/8j/47kemXc22AbzT4CCzai0P
-         7HjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzCnL0N4ATfj7Ea+LPgDtj1RDpnSxSjrt4gP5P8a80GbYZQi60ZXH2EqVtLdWn6EZly6iRDuC3GRY+El80=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJJFr4JWKfBz55tu5yyuLCRcNzymsTN2KY/ciQi2RQBDMXEZ0Q
-	TFG54Mf2mKj1Opaj7GGcf4kextrUWvqhEZ2EUgooPR8XO+NfsT3TPCZV
-X-Gm-Gg: AYBFou3PpicsOzhYmNJm3qlPMvrWHYTE1+0swQWkHpmrW9TlrbwBPAgloud+xSkCrX6
-	oBE21sUWe3nTQVCdEoNZDktMgpFSkYYAEOemjWf9a3/s9hSXamhr4o6zu73r0L/EZVCgdBJjFuf
-	Ycb7y+JnYaXQfKv7yPGLDLQ/S8oKZYvYX24tjoTpGVKeexMaxurb6M9XulszQHTrRg1Mx8WmXR4
-	RprKtceC9AfQ5omB8akvbdVlCtqL3+TYTttMCSusq2UgsI2Zz7UrYIVgRbegO4iHFCPtO9VOS3w
-	wTQRJh2pG2R49w53LDI4H08JTrD8jRBONCCSRRFa9GfM8xORSTFahqikItmZDzN+SOBz6DVPb+9
-	ixxSDTIfH03IR6Zv81cB3QjYMD3z+5+pxK2vlwr/7RgHeh770gso96PBu+7ZmD/1yKF0koP2Jl1
-	z6mUOiCeDyqAp0p5GDkk7+NKEVYjFQApf3abbbr7cBwD5AH36HJekJYR7aAngpXjV5GNzJee1xS
-	TtaZLDrWF+n
-X-Received: by 2002:a17:90a:da87:b0:3ab:36c4:b502 with SMTP id 98e67ed59e1d1-3acef19656fmr4952624a91.30.1792340785847;
-        Sun, 18 Oct 2026 09:26:25 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc43a1981sm12210945a91.2.2026.10.18.09.26.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 09:26:25 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sun, 18 Oct 2026 09:26:22 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Petr Pavlu <petr.pavlu@suse.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rudolf Marek <r.marek@assembler.cz>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Chris Snook <chris.snook@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Duncan Sands <duncan.sands@free.fr>,
-	Chas Williams <3chas3@gmail.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-watchdog@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org,
-	netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
-	linux-rtc@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] hwmon: Replace __MODULE_STRING() with
- __stringify()
-Message-ID: <49d1de69-ffce-490f-bbee-80513cfd0cba@roeck-us.net>
-References: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
- <20261002-module-string-v2-1-fc7438acaf4d@suse.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOGsMcZn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92F721F000C4;
+	Sun, 18 Oct 2026 16:26:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792340799;
+	bh=gYsjcOuJ8RvseAN9vU8QaSbB2+GoxMgbSDabUxmiCWA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cOGsMcZnBNAlfkRepca8DGGWX4PM6WzExH9LB8Y6/Uh5tDwoOoiJZ+mMbiHlrP5EQ
+	 eN8GAQa9WhYsQaRGw21NmpZ9tt9R9C5oXoOwcN7uv/1lNjVuOQ7RdBdvZBQtDX3IEk
+	 vvDFionoZbOg0Kby70+n2pwYjHz9gRN2qW3Sztj5QfR6iGdWdEw8X572GV27jrvnp+
+	 baKefuKvJi4BO4Z6apYr42cUu4Etcke/eW0LfkE0iYXpPtQqwxgnxjrbCY32Yxr6Z6
+	 G6QlKu4gDwjfVr2yp2WfGWyilZlYQ9PhaGcUYiWsrJFqmbsd/VNaV8hE9zYEwZr0KQ
+	 05PqQPlc/xm4g==
+Date: Sun, 18 Oct 2026 09:26:36 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Alireza Haghdoost <haghdoost@uber.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/5] perf dso: Allow reading DSO data from an explicit
+ file
+Message-ID: <atTzPJJvR2-sqtJn@google.com>
+References: <20261005-perf-symbol-memory-send-v5-0-165dceb2b049@uber.com>
+ <20261005-perf-symbol-memory-send-v5-2-165dceb2b049@uber.com>
+ <asbDJrY97tRqoPaR@google.com>
+ <CA+w=M=TtAfiHVQqiwmchtsWwNeN5So5MxWW=82RRAUXHhg8D+A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261002-module-string-v2-1-fc7438acaf4d@suse.com>
+In-Reply-To: <CA+w=M=TtAfiHVQqiwmchtsWwNeN5So5MxWW=82RRAUXHhg8D+A@mail.gmail.com>
 
-On Fri, Oct 02, 2026 at 10:31:01AM +0200, Petr Pavlu wrote:
-> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
-> MODULE_PARM support for older modules" [1] in 2002-12. That change also
-> moved it to the graveyard section at the end of linux/module.h
-> 
-> Replace the remaining uses of __MODULE_STRING() with __stringify() in
-> preparation for its removal.
-> 
-> Link: https://git.kernel.org/tglx/history/c/136839a1b4 [1]
-> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
-> Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Hello Alireza,
 
-Applied.
+On Sun, Oct 18, 2026 at 08:09:41AM -0700, Alireza Haghdoost wrote:
+> Hi Namhyung,
+> 
+> Sorry for the late reply, and thank you for the clarification.
+> 
+> On Wed, Oct 7, 2026 at 3:09 PM Namhyung Kim <namhyung@kernel.org> wrote:
+> > I'm afraid it may confuse perf annotate where it needs to read binary
+> > data from a file as well as lazy-load symbols from another.  I'm working
+> > on cleaning up the relevant code and I'm reluctant to add 'path' to the
+> > dso.  We have too many names for a DSO already. :)
+> >
+> > For a short term solution, I'm afraid you need to use dso__get_filename()
+> > with symtab_type and read the file without using the data cache API.
+> 
+> I understand the concern about storing this path in the DSO. Perf
+> annotate and the lazy loader can read different files. I will drop this
+> patch in the next revision (v6).
+> 
+> For context, the v1 lazy loader kept one file descriptor open for each
+> DSO. In your v1 review, you asked me to use dso__data_read_offset().
+> This let the data cache control the open descriptors and close them
+> when necessary.
+> 
+> Using dso__data_read_offset() also showed a problem with split
+> debuginfo. The symbol name offsets refer to the symbol table file.
+> However, the data cache opens the runtime binary. The same offset in
+> these two files can contain different data. That is why I needed to
+> tell the data cache to open the symbol table file.
+> 
+> I put this support in a separate patch after your v2 review requested
+> that I split the exact-path DSO data-cache support into an independent
+> split-debuginfo fix.
+> 
+> For v6 revision, the lazy loader will call dso__get_filename() with the symtab
+> type. It will open the returned file, read the names with pread(), and
+> close the file. Thus, it will not keep one descriptor open for each
+> DSO. It will also not change the existing data cache.
+> 
+> This short-term solution can open the same file many times. It also
+> cannot use one DSO cache entry for nearby names. However, later reads
+> can usually use data that is still in the kernel page cache and avoid
+> storage I/O. Therefore, the main additional costs are the open, close,
+> and pread system calls.
+> 
+> The performance cost is small in the test profile. Eager loading takes
+> 3.2 seconds. v5 lazy loading takes 1.4 seconds. v6 lazy loading takes
+> 1.5 seconds. All three produce identical output.
+
+Thanks for checking this!
+
+> 
+> > In the long term, I think it needs to pass a binary type arguments to
+> > read data from the dso.  It'd clarify what users want to read and
+> > support different files at the same time.
+> 
+> Ack. Your recent cleanup keeps the binary type separate from the symtab
+> type during symbol loading. The DSO also has a separate debug-info type.
+> These fields identify the files that a caller wants to read. The data
+> cache does not use this information yet.
+> 
+> Unless you are already working on this part, I can send a separate
+> series to make the data cache type-aware. The series will add a type
+> argument to the read API and keep separate cache state for each backing
+> file. I can then change the lazy loader to use the data cache again. I
+> will keep this work separate from the lazy loader patch series.
+
+Sounds good.  Please go ahead!
 
 Thanks,
-Guenter
+Namhyung
+
