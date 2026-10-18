@@ -1,132 +1,145 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3665E4D7D2A
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:02:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A614D98E9
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792357327; cv=none; b=i0nSOubTVF1f30X5UU6STST6YNYEHEpx1AOO1ctF9FVC346QEucUFn2WjAtYtPAiqYvn82euJJUVM0pEogTcLoGWdkDNEJfryJ0J4+fZJP8bI5sNr57IgeX+sWfWoRNpX3rYr1ijJ/icFJ8hXAMhFO2rEHzCQrnlp/5QnVDUwG8=
+	t=1792357327; cv=none; b=msDLbBh4Lk6NcqLIBuLgfncn4eLJuV5bR7BaZ72kvQraK1FDmthtEzKw3Ben0ZnKNu1bpGKvkZkFAr/WcEE4/wo7Exd2GkZChDV9ymgw4IoIqIJa/SNIc/oItZ7qk8uOgFKOC6XmKoow/J4QahR4UgPcHB6fB0Isfztf65oXITQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792357327; c=relaxed/simple;
-	bh=83wOCRK/bwy9L660WV5b1gU76W+7QPnUrUylFYSXBl4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WX0MWHkCx1hD4MQMbdexrsvyapW2UWoY7SkRA6sKiGW74y1ByVl7dVKmcUbouu+4CeWCXg8I5lT7UhDwhyLCVrXEYCV7AjzYhdqHdwZv/kIyP/bJFXLvsnVSahX6zaCfXA1j9ermkcTGC/gYt0HGzBO0IPsSXt5SxPq0Qom2JMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=dn+nZaKT; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	bh=j/1zUQRbqig05cvA0Htabmv3HK7YvRbrDkDYd0qo2AQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HXhot/fH7OB/61wwC69BXepBvX73e6a7nV8nT2tga8GW0gH3wZWm9eFVCKqgUhphIwtWWU0c/7nPQ0j6YCb1yQ17MYji5QNFiA92umXBchAaz+98/I0u8ynDMPX6UZMzPmhgpTdpytEpCjvvY9fYg4Y49/9YpR/kFVqsq4Bga30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=PF8GPzdi; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="dn+nZaKT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=83wOCRK/bwy9L660WV5b1gU76W+7QPnUrUylFYSXBl4=; b=dn+nZa
-	KTAD2bYgUXJJit3XHbUO8Jg08g4kgGjLThBoD0kanK7RzYhOjD7dqpAZxsKN6zWV++BwW7XC92P1B
-	3pb7wPODWSfepqP/DyBATP1044B/S2zcAKunKRrTsbxZAEVdsCiZWt3/Tz5HcWgiOWtAiUBUiYnC3
-	IyL759dijGI84iTjbhsQGsQEV7xXlUU5E85Hc5PC8dGDssa2Q8ElmPK6E4zEXBVSFFjMSdqK1y8N8
-	CLX41qRACRXu5jiyInar6erpneDSzsMFHOPxepf6tdiFZ4GueHmt/O7+7i3+9alWFgXFzNr0QEz4q
-	zR4giyVz/QTDo7s8E4QdftwoVP9g==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xIY0v-0000000Doky-2uO5;
-	Sun, 18 Oct 2026 21:01:53 +0000
-Message-ID: <c155b536e79ebfc9eb384dc8046cf31865d08843.camel@surriel.com>
-Subject: Re: [RFC PATCH v3 8/8] mm/gup: batch contiguous same-folio PTEs
- into one refcount grab
-From: Rik van Riel <riel@surriel.com>
-To: Yuan-Hao Hsu <aa9736195201@gmail.com>
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, Andrew Morton	
- <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Jason
- Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu
- <peterx@redhat.com>, Suren Baghdasaryan <surenb@google.com>,
- linux-mm@kvack.org
-Date: Sun, 18 Oct 2026 17:01:53 -0400
-In-Reply-To: <20261018182652.691-1-aa9736195201@gmail.com>
-References: <20260811025157.1632867-1-riel@surriel.com>
-	 <20260811025157.1632867-9-riel@surriel.com>
-	 <20261018182652.691-1-aa9736195201@gmail.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="PF8GPzdi"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c418e215671so170382766b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:02:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bairaktaris.de; s=google; t=1792357324; x=1792962124; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=14A6w5xPMpUCV8gRRYD7ibxrUfMizPY/0c4dLS53tf4=;
+        b=PF8GPzdihEqQJrpfmWYPrU56/jXKvhq+qkYiOudH6qnnQgycarI+ku0YCo699fOw42
+         lWYnBP2han5ho19fgY5Uik5kB7ja5OD91OfmpFMcVfZAQXTPENk8bF0CFHYsjgDwL/AA
+         gYRLq7o5f3HszapXbGgQJDreYdeZ+6ELUIl3ZudxMIjewOe+a1JTIdea+HutN+ComxNW
+         uN4F/HTVtSOaG0HjKKm8TS29HeHZccovM1gfKtJdnRKCo93dA7HTDLReHpDSENxCAzRv
+         +Mq8VAKbvLj/V/nxozp5MCyY41cP249mWSCBJmzqYZw4J2Hc1puPhcui1x99C5QsRPQ+
+         w5Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792357324; x=1792962124;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=14A6w5xPMpUCV8gRRYD7ibxrUfMizPY/0c4dLS53tf4=;
+        b=cpfOEHNjnzrz+rcFCu7nl6fPkCkAQTuPvyfqn/FkkmKZLWe7pFqnb+BomtQIFeGrx6
+         enp50C7j3NDsDM3ZPYl9qxUDVOzLJbvdM1Y/XExFMmnlYqMUqQtzyhrfSYNuhgi8+bnv
+         mK6xJTn9/eLFotYmmYt2ES7BW009aqgFvq3kT4JnSGglaISBH+zdI1qnJ82ZgFLiy05Y
+         JHc8nGX0KRIaHXjMT4rXo9DbsSRI5cXFRQ8atDGIliHvJKt/Ok1CjsUyx9DNnrf6AsD5
+         RsIkw0zS5JKY283+5pFumzFaTWDGw25UcPp+cDlKuQTWJdPHhbFkNHhSb8CaCfY2FeW7
+         87YQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxkKRqnjF85/PWXk9ouDGVZWKGM41vwYRXDSxZauppQyCH62lUe4m7B7ciieWpkpdTY+/8xtu9WAADuKIo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeCZ7SE7KekgnoKFGpoQWc70AwQwbYw5AQzzHt1LnffrUReLms
+	BhIJPURbepvLx2gLMiFlQVR6doZI4yVvAzehSIEMb2O5IYqRP61N911LENLL9+5R4g==
+X-Gm-Gg: AYBFou3G5REcbtTgxF/Hs1Jo0pehvtSb4fgGEh/M2rj8teitVFwK44XCeTg8rHOkY0Q
+	Gli7Rl+1weIM6yyWK3ZO/iaIt52PHj5nndpdYIGTZDZfLSxpubLkuJbeJQd2xG73Rs8sNeIYF5L
+	SLfutsnRU1OzVgJ1Cl334ODrqGm/iYStnfam9G/M0xpAEZMPceHRtlARL6ZkuQradGaPZ0o/AA0
+	obQdHreTh5HUSormti06Ys+xJoE9CP1t/esALMlPHHnhCyNCKqSFGnht9z5aC1guQzyBCT8HP9u
+	nIK5SDy2PWVsWRJA5+tTp91feWw2NGEQkR+mN60fGEG3lLh+6aof60nf1XhV/OlIvjB++h0Y66O
+	kEkrFYHIPS9tCJAVjhSBoHTNc0JU2v0oYWA+sYX1hYYDq4O2+K4Ht9O0OFAUPjxvf8BIBQqt8z0
+	ddCy0IyCYQ3Yc7BzFTbQdPMUYw7npQy15mDQeEl2NotthV/jzxUW/ZqB00NQ2zJ155t2hjRdqnn
+	6T1T8spEytnuImeEYT3lbvdOTn0TwNgo9cVu7TI0ULPnU/XU3OgUQuVxIHDU92G3YNKTH5qoI/G
+	4TwvDyBQq3xmS4o4ePM/gSuoEOtc/v5EGAlCwbAqqkP9xWTL36X09B2SLDca1rfLsPjEbWqp3y4
+	LUQqXh7miTnNz84vImmufvWF/7r8ydYadTbpLK97WK+j6/77PlpRa2QqTskU4nQZ87UCz9m35UH
+	O42n6nsr6x
+X-Received: by 2002:a17:907:a2cd:b0:c29:8a0e:4458 with SMTP id a640c23a62f3a-c419996fef0mr351005766b.7.1792357324577;
+        Sun, 18 Oct 2026 14:02:04 -0700 (PDT)
+Received: from Desktop.fritz.box ([185.181.130.213])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912cefd4sm291618666b.35.2026.10.18.14.02.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 14:02:03 -0700 (PDT)
+From: Julius Bairaktaris <julius@bairaktaris.de>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: ath11k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
+	P Praneesh <praneesh.p@oss.qualcomm.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	John Crispin <john@phrozen.org>,
+	Sriram R <sriram.ramachandran@oss.qualcomm.com>
+Subject: [PATCH ath-next v2 4/5] wifi: ath11k: clear CRASH_FLUSH only after recovery rebuilds the rings
+Date: Sun, 18 Oct 2026 23:01:52 +0200
+Message-ID: <20261018210153.1925962-5-julius@bairaktaris.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261018210153.1925962-1-julius@bairaktaris.de>
+References: <20261018210153.1925962-1-julius@bairaktaris.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-10-19 at 02:26 +0800, Yuan-Hao Hsu wrote:
-> On Mon, 10 Aug 2026 22:51:57 -0400, Rik van Riel wrote:
-> > Add follow_pte_batch() and give follow_page_pte_commit() a run
-> > length.
-> > Each run starts with a full per-PTE resolve, then
-> > follow_pte_batch()
-> > finds how many more PTEs extend it with a pte_same() scan rather
-> > than a
-> > re-derivation of each page, and the run is committed with one
-> > refcount
-> > grab. Runs stop at folio boundaries, so plain base pages are
-> > unaffected.
->=20
-> One side effect worth a sentence in the changelog: with FOLL_TOUCH,
-> folio_mark_accessed() now runs once per run instead of once per page.
-> On the classic LRU the first call only sets PG_referenced and the
-> second one activates the folio, so the old per-page loop activated a
-> PTE-mapped large folio from its second page on, and a run now leaves
-> it referenced but inactive.
->=20
-> Measured with one get_user_pages() call over 2 MB of freshly faulted
-> 64 kB folios (kprobe on folio_mark_accessed(), flags from
-> /proc/kpageflags):
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 before=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 after
-> =C2=A0 folio_mark_accessed=C2=A0 512 per call=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 32 per call
-> =C2=A0 after 1st call=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 32 folios activ=
-e=C2=A0 32 referenced, 0 active
-> =C2=A0 after 2nd call=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 32 active=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 32 active
->=20
-> That matches what the other two paths already do (follow_huge_pmd()
-> only calls touch_pmd(), GUP-fast only calls folio_set_referenced()),
-> so it looks like the right outcome.=C2=A0 It is still a visible change in
-> aging for anything that reaches these folios through get_user_pages()
-> rather than the fast path.
->=20
-Nice catch.
+ath11k_core_reconfigure_on_crash() clears ATH11K_FLAG_CRASH_FLUSH right
+after ath11k_hal_srng_clear() zeroes the rings, but
+ath11k_ce_init_pipes() and ath11k_dp_alloc() rebuild them only later. A
+WMI command sent in between passes the CRASH_FLUSH check in
+ath11k_ce_send() and dereferences the NULL tail pointer of the cleared
+ring:
 
-You are right that this should be in the changelog!
+  Unable to handle kernel read from unreadable memory at virtual address 0
+  pc : ath11k_hal_srng_access_begin+0xc/0x60 [ath11k]
+  lr : ath11k_ce_send+0x114/0x350 [ath11k]
+  Call trace:
+   ath11k_hal_srng_access_begin+0xc/0x60 [ath11k] (P)
+   ath11k_htc_send+0x188/0x3c8 [ath11k]
+   ath11k_wmi_cmd_send+0xc8/0x2f4 [ath11k]
+   ath11k_wmi_send_peer_create_cmd+0x78/0xe0 [ath11k]
+   ath11k_peer_create+0x138/0x500 [ath11k]
 
-I'll get that in for v4.
+Clear the flag once the rings are rebuilt, before ath11k_core_start()
+sends the first HTC message.
 
+Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
 
---=20
-All Rights Reversed.
+Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+---
+ drivers/net/wireless/ath/ath11k/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
+index daa3751d75233..4666245aee36d 100644
+--- a/drivers/net/wireless/ath/ath11k/core.c
++++ b/drivers/net/wireless/ath/ath11k/core.c
+@@ -2294,6 +2294,8 @@ int ath11k_core_qmi_firmware_ready(struct ath11k_base *ab)
+ 		goto err_firmware_stop;
+ 	}
+ 
++	clear_bit(ATH11K_FLAG_CRASH_FLUSH, &ab->dev_flags);
++
+ 	if (ath11k_frame_mode == ATH11K_HW_TXRX_RAW)
+ 		set_bit(ATH11K_FLAG_RAW_MODE, &ab->dev_flags);
+ 
+@@ -2348,8 +2350,6 @@ static int ath11k_core_reconfigure_on_crash(struct ath11k_base *ab)
+ 
+ 	ab->free_vdev_map = (1LL << (ab->num_radios * TARGET_NUM_VDEVS(ab))) - 1;
+ 
+-	clear_bit(ATH11K_FLAG_CRASH_FLUSH, &ab->dev_flags);
+-
+ 	ret = ath11k_core_qmi_firmware_ready(ab);
+ 	if (ret)
+ 		return ret;
+-- 
+2.53.0
+
