@@ -1,198 +1,77 @@
-Received: from out-93wp-a23.jellyfish.systems (out-93wp-a23.jellyfish.systems [104.207.68.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E55F422523
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.207.68.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9785D388E58;
+	Sun, 18 Oct 2026 18:43:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792348919; cv=none; b=hb8p98YhUSCWAnxwOjtdyPSI0gcYZL0/8ARfAEwp8Xf8wZs4TWI+y8bSLooBUzQ94U+8ER5qkDwnoWgTD3r82XNnMW5gPZzTBeuRGTewO0TAKmx/DJ6qubBgamQYpRsEjh9/LYbOTb6Vr0A5x0jSIf8XoAU/7kefDkrpHwc2OA8=
+	t=1792349011; cv=none; b=WMIkL7o7Hlq+fANbDSgc5h5N0WqFguOi2mPCie7qfJn+U3yHFqHpr6wP3k5qWpnpYVX3JPr1AYMVV6zZboIygd2ZA/nGoZR1suWrF/r5/uTbiFwWv4nR8u4HDOfiopUWK5lTt896q2T/LjIce9DwUvoOTGSgLIYimltHt8ClFcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792348919; c=relaxed/simple;
-	bh=mMK4tLG8AXUJVkPzZBKZ2dl6GSCVDxsdDhKNGqxqbWA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cnd1AbCshw9ar1iND7BkhUMcxIXhZ7XRqBkBa7X6R5opKsI9HGQbHF1mE78yLQBA25zEXjE/gr2VyZ+ss0nMJbFaVjjfCPyQXJ9w/K7dd2SZlzETgc+z66okRuaNPeGk5gkvtyjeaa1lefrJScVJvOVAcWiow5OEGdxKY0dEMYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=JljUaImh; arc=none smtp.client-ip=104.207.68.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
+	s=arc-20240116; t=1792349011; c=relaxed/simple;
+	bh=b/mCOFAvVzM4HbmD+iL8o44VhpJfqZxQbnUrBbgDGU0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gxWDRYhQiFOQRiv7TYbOguo5nnq36a1a6Q1tqIchqf7CNzbspPTKpjxUQgm08us8/oLVV2ccxmDCuvn5WzdOOCVfubdCLBWmbo0gS0QfCLfvf/cpu+7/UdGxIDGWxVixUgG1rivvzjE2v0gtYsrYnVcC0whLEX2cuiT0kEmPXkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S0/pMrZv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="JljUaImh"
-Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4j76S66yPtz2x99;
-	Sun, 18 Oct 2026 18:20:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
-	s=spacemail; t=1792347656;
-	bh=ucpIWshOnDVtoREAA0gEPeno03hiXuXiUZO0nTBdeFU=;
-	h=From:To:Cc:Subject:Date:From;
-	b=JljUaImhqyDCxQCb6KqlG1P4Pv74oVf2fiukLKZjwFm46kWCGgbff4MH00xkYiEct
-	 xXTp3+Q9nQivnvN+weIF3vuTqufUFrBWitqd1qv7kGp8Sa/8jv+ZGRdwXY6do9n1Cc
-	 P3F1t9lj9/hwLXs9NldjbT6u3YiEFWB1o1Tl9z2ecgBVfSfXCJrcnevLYrU98E6uhZ
-	 BUAzVMuXsfP1gaPzMzJ3o3Z3ejSA1+wQ9OfoTzFQrZu/rMSBxbsmi6spzImzo1vlrz
-	 CQiMTe0PjLPu+e5ZSLcgdVzPIKTObcahFNwKB6u24SxqeXo769H4V8Md5M3AELU4Sb
-	 ZqU6iwU7oqWdA==
-From: Ross Cawston <ross@r-sc.ca>
-To: netdev@vger.kernel.org
-Cc: o.rempel@pengutronix.de,
-	kory.maincent@bootlin.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	Ross Cawston <ross@r-sc.ca>
-Subject: [PATCH net] net: pse-pd: don't enable a PI again while disabling it
-Date: Sun, 18 Oct 2026 11:20:05 -0700
-Message-ID: <20261018182005.1193-1-ross@r-sc.ca>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S0/pMrZv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D377E1F000C4;
+	Sun, 18 Oct 2026 18:43:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792349010;
+	bh=qiOERPCTQiGVFgwfZLglWEV6akVIWi2rX3u7+KbZC3I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=S0/pMrZvfE+oKfHNSjqsarg79YYCAUFYpYzLR77bM2i2Zh47WHatPZU1MggM2Km5c
+	 fhlbURllt5N1hl0PrERey7XFvnYqEgJ6lIAollpBlgfIAJvMSKz5ihOmiSqeL2x2CF
+	 pVvXNx7+ReZHJpUj1nyCb5EPV4NkTTJZgjJmSBHUaDJcB0eqZoPcK1T7C0BEwfwhEV
+	 CldAq+IJxnbNPPNULSYHru4stMUg5o1VXBPMaFuJcR3N8KSQFAaQRmMrKvvV9FonLG
+	 pOe+j0ZxfNKLPYXz0VLi249D9n69eXmu4AxeAyeM1xw7ZBsPM4MchQHgQWxA6JJkqx
+	 5HDpcCuS2udfQ==
+Date: Sun, 18 Oct 2026 19:43:24 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-hwmon@vger.kernel.org>
+Subject: Re: [PATCH v4 0/3] Add support for Microchip PAC1711 Power Monitor
+Message-ID: <20261018194324.22e726ed@jic23-hlaptop>
+In-Reply-To: <20261007-pac1711-v4-0-6ef34d7a7947@microchip.com>
+References: <20261007-pac1711-v4-0-6ef34d7a7947@microchip.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: ross@r-sc.ca
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-With software power control, _pse_pi_disable() frees the power budget
-of the PI and then retries the power delivery of the PIs waiting for
-power in its power domain: those that are admin enabled, have a PD
-detected, and are not enabled in hardware. The PI being disabled is one
-of them, as its admin state and PD detection are only cleared after
-_pse_pi_disable() returns, so it is enabled again right away:
+On Wed, 7 Oct 2026 17:41:52 +0300
+Ariana Lazar <ariana.lazar@microchip.com> wrote:
 
-- an admin disable of a port with a PD keeps the port powered, and the
-  next admin enable allocates its budget a second time
-- a disconnection enables the now empty port again, with a new budget
-  allocation that is never freed: when the port reports the
-  disconnection again, its PD detection is already cleared
-- a PI disabled to free budget for a PI of higher priority is enabled
-  again with the budget it just freed, so priorities never take effect
+> The PAC1711, PAC1721, PAC1811 and PAC1821 products are single-channel power
+> monitors with accumulator. The PAC1711 and PAC1721 devices use 12-bit
+> resolution for voltage and current measurements and 24 bits for power
+> calculations, while PAC1811 and PAC1821 have 16-bit resolution and use 32
+> bits for power calculations. The 56-bit accumulator register accumulates
+> power (energy) or current (Coulomb counter).
+> 
+> PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
+> PAC1721 and PAC1821.
 
-Clear the admin state and the PD detection before disabling the PI,
-and don't retry the power domain in pse_disable_pi_pol(), whose freed
-budget is meant for the PI being allocated. That PI stays waiting for
-power and is retried when budget is freed later.
+I think the sashiko comments for this one are a mixed back but the
+one about intermediate unsigned state in particular looks like a good spot.
+I didn't look closely at all of them.
 
-The problem was found, and this fix written, with an AI coding
-assistant, while testing the budget on a switch with two Realtek RTL8239
-PSE controllers, whose driver (not in mainline yet) uses the static
-budget strategy like the TPS23881. Before this change, "ethtool
---set-pse <port> c33-pse-admin-control disable" left a port with a PD
-powered, and the budget allocated in the power domain grew with every
-disable and every unplug. With it, the port stays off, and the allocated
-budget is back to 0 after a disable and after an unplug. Tested on that
-switch with OpenWrt's 6.18 kernel; the change for mainline is the same
-apart from context and is build-tested.
+https://sashiko.dev/#/patchset/20261007-pac1711-v4-0-6ef34d7a7947%40microchip.com
 
-Fixes: ffef61d6d273 ("net: pse-pd: Add support for budget evaluation strategies")
-Signed-off-by: Ross Cawston <ross@r-sc.ca>
----
- drivers/net/pse-pd/pse_core.c | 50 ++++++++++++++++++++++++++++-------
- 1 file changed, 41 insertions(+), 9 deletions(-)
+Whilst I do plan to enable sashiko emails for IIO fairly soon (subject
+perhaps to more discussions) in the meantime, if you want to speed up
+review of your patches, you can reply to the thread addressing what sashiko
+has found.  That way you save reviewers from trying to figure out what
+is true and what is a false positive.
 
-diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
-index a5e6d7b26b9..b46e3a13a31 100644
---- a/drivers/net/pse-pd/pse_core.c
-+++ b/drivers/net/pse-pd/pse_core.c
-@@ -448,14 +448,14 @@ static void pse_pi_deallocate_pw_budget(struct pse_pi *pi)
- }
- 
- /**
-- * _pse_pi_disable - Call disable operation. Assumes the PSE lock has been
-- *		     acquired.
-+ * __pse_pi_disable - Call disable operation and free the power budget of the
-+ *		      PI. Assumes the PSE lock has been acquired.
-  * @pcdev: a pointer to the PSE
-  * @id: index of the PSE control
-  *
-  * Return: 0 on success and failure value on error
-  */
--static int _pse_pi_disable(struct pse_controller_dev *pcdev, int id)
-+static int __pse_pi_disable(struct pse_controller_dev *pcdev, int id)
- {
- 	const struct pse_controller_ops *ops = pcdev->ops;
- 	int ret;
-@@ -469,6 +469,29 @@ static int _pse_pi_disable(struct pse_controller_dev *pcdev, int id)
- 
- 	pse_pi_deallocate_pw_budget(&pcdev->pi[id]);
- 
-+	return 0;
-+}
-+
-+/**
-+ * _pse_pi_disable - Disable a PI, then retry the power delivery of the PIs
-+ *		     waiting for power in its power domain. Assumes the PSE
-+ *		     lock has been acquired.
-+ * @pcdev: a pointer to the PSE
-+ * @id: index of the PSE control
-+ *
-+ * The caller must have cleared the admin state or the PD detection of the
-+ * PI first, or the retry enables the PI again.
-+ *
-+ * Return: 0 on success and failure value on error
-+ */
-+static int _pse_pi_disable(struct pse_controller_dev *pcdev, int id)
-+{
-+	int ret;
-+
-+	ret = __pse_pi_disable(pcdev, id);
-+	if (ret)
-+		return ret;
-+
- 	if (pse_pw_d_is_sw_pw_control(pcdev, pcdev->pi[id].pw_d))
- 		pse_pw_d_retry_power_delivery(pcdev, pcdev->pi[id].pw_d);
- 
-@@ -490,7 +513,10 @@ static int pse_disable_pi_pol(struct pse_controller_dev *pcdev, int id)
- 
- 	dev_dbg(pcdev->dev, "Disabling PI %d to free power budget\n", id);
- 
--	ret = _pse_pi_disable(pcdev, id);
-+	/* The power freed is for the PI being allocated, and this PI waits
-+	 * for power again: no retry of the power domain here.
-+	 */
-+	ret = __pse_pi_disable(pcdev, id);
- 	if (ret)
- 		notifs |= ETHTOOL_PSE_EVENT_SW_PW_CONTROL_ERROR;
- 
-@@ -703,14 +729,18 @@ static int pse_pi_disable(struct regulator_dev *rdev)
- {
- 	struct pse_controller_dev *pcdev = rdev_get_drvdata(rdev);
- 	struct pse_pi *pi;
-+	bool enabled;
- 	int id, ret;
- 
- 	id = rdev_get_id(rdev);
- 	pi = &pcdev->pi[id];
- 	mutex_lock(&pcdev->lock);
-+	/* Disabled before _pse_pi_disable() retries the power domain */
-+	enabled = pi->admin_state_enabled;
-+	pi->admin_state_enabled = 0;
- 	ret = _pse_pi_disable(pcdev, id);
--	if (!ret)
--		pi->admin_state_enabled = 0;
-+	if (ret)
-+		pi->admin_state_enabled = enabled;
- 
- 	mutex_unlock(&pcdev->lock);
- 	return 0;
-@@ -1229,10 +1259,12 @@ static int pse_set_config_isr(struct pse_controller_dev *pcdev, int id,
- 				ret = 0;
- 		}
- 	} else if (notifs & ETHTOOL_C33_PSE_EVENT_DISCONNECTION) {
--		if (pcdev->pi[id].admin_state_enabled &&
--		    pcdev->pi[id].isr_pd_detected)
--			ret = _pse_pi_disable(pcdev, id);
-+		bool pd_detected = pcdev->pi[id].isr_pd_detected;
-+
-+		/* Gone before _pse_pi_disable() retries the power domain */
- 		pcdev->pi[id].isr_pd_detected = false;
-+		if (pcdev->pi[id].admin_state_enabled && pd_detected)
-+			ret = _pse_pi_disable(pcdev, id);
- 	}
- 
- 	return ret;
--- 
-2.55.0.windows.5
-
+Jonathan
