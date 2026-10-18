@@ -1,69 +1,69 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC3E3431F8
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AFB360ECF
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:57:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792295767; cv=none; b=oah5e1hNapOveEUQo9imA18znZztorPYKH00QUOA5W4Y67RQuLkoq8tfyIUDTqPWXActAEGtIQq7aRtFOLZc0KaLP+0c/oi7Qgxym93MS0wZRbRzOtRe3e4zwU5xj8qUaRAOUslfo5+yOGPNI2yiZ0s87gm+YX+IL5w1sowe8VE=
+	t=1792295828; cv=none; b=etEFYShKMKGc/FFluIPMXczTKeJkrMVigGmBWFVWfTyRg40vGacKrW7vCV3z8dR9eb74x0ow+BtcJTiU13CV2aAy6RpSj7SLR79+y1OAGYiD/ZysWAu/GIQQeocj0RPrdSiy0GjXG0/y2RdrvgbOCCAKYXDvA5vpXU6eFN21jEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792295767; c=relaxed/simple;
-	bh=ax0wD7or1jIPacz8om/s600JoQaSJNZpdU864D+KD0E=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=A6D9FpTguIfjLWkE8QaNht687xTvCVHQOfrJ34nbXe0AygZ+HLxXyqc6F20U9NBvfCLlohg2Koh5esSmbTrqLXSzF032JNPcO/JRPao3tJT/+s+j/Ro/LfmDRvXFp4/cUEGMypS99HFKHfJcgcpc28b1+CiM3FcXb71rmbG5GW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k+wijnaL; arc=none smtp.client-ip=209.85.216.54
+	s=arc-20240116; t=1792295828; c=relaxed/simple;
+	bh=vKXmvGH4vEciOuk5BeaTFH0K22FLaTDPMtAV+sW2fU8=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=DskEr6LfIOcoUtMp32CZsVr6iZAodahC7LN20pVsEvp/P96CfC2vK8mMeN4ywccQfF42gP1LvNRba0PFTqIxwka98LmpbofW52CZzHEDsUQFQY6mghACmbVSBzHquFm8Chnq9fMnqMKJruu97KAghZJkhOtaVf4IlOE/8f3sY4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P3wH4IkZ; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k+wijnaL"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso710920a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:56:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P3wH4IkZ"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e987a2ba0cso8077885ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:57:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792295765; x=1792900565; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792295826; x=1792900626; darn=vger.kernel.org;
         h=mime-version:content-transfer-encoding:content-type:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/UiiOcBIIhNzBJSJRN1N9UNaeQ/tZq9fkc3hofjT0mE=;
-        b=k+wijnaLzoIrbfo3xRCY576dZdITbnigdNMENIjb9WPS6RVWEagW6YOJT1nv6JgylQ
-         t6K+0qWsxZzVi2BB+rYQgL1fsawqSV/K6rOjzr8w5HxeETEpuXofAnlt22pj4Ha+BqHy
-         ObCtju/L+nMjzpKFUBUACEEfGEctBb//IiXLacKTK/Q/xeObXkz34/mD7FSlviKxAIhk
-         qlnThF7G2U+vgWX441qVSuZ/tVFXERH9ZXRGQvn7ed9hCwk05F6bDGowUhAJzyNb1MJE
-         wGzkos+1mnxeUwDyOzTagyQs5O57e8lS77WWtvKsZ7NmKlPK8GOt8HfEbAOxZDFZ0BEM
-         nbow==
+        bh=kL4aQopdmIs47ah61J1ufmFu0cfRQ7EvXnqg/QTq0j8=;
+        b=P3wH4IkZcmODdQmHroaMWawUbTC8Uyf1E30MqkgAUhGrVmIwbKayt8xQCgty9XJfhw
+         dRwZ/0j3/X80+gjujZAL6/bmmv5YFZRkNKoZ/K++I8flC9nqApmjIIqDamOvf96Ua4nM
+         Z3vcll6VNmJqHgAHhxK3IHDe9/u/zCLtCprtZhMa/c0xlIC0Dsag7AoNtQ0ZeoIHc+jw
+         hjEtCC8z4FyIgvhOHYRjuoXu6EQ3GolD9+pNTFUIxbEw3Hr0w0vSRAWboV0qp5nM4RRq
+         09et1+Or87VOX0IVCccBt7Y3n1xXzaup6TCWBQSFHG1ywgOjXXn/HX7ITvVIrI9El5hR
+         XJhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792295765; x=1792900565;
+        d=1e100.net; s=20260707; t=1792295826; x=1792900626;
         h=mime-version:content-transfer-encoding:content-type:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/UiiOcBIIhNzBJSJRN1N9UNaeQ/tZq9fkc3hofjT0mE=;
-        b=PWA5Y7LuTW7fvMUbBiTmyv1qcgc1tTtd7I2Bs9PPR3y+OmeH/hHtWvVFqgwZbbQ6wy
-         TuQQKqkWEK4sBi862Z2NoSnGk0kgcEhmeF60Rl/IoAzLVBKPnB6kj2pZhWYRt9fSVrm1
-         TltB47PGdG4sCSsH5ojpvx/0X8JY7yP/VLVv0vxr3pN5yz5BY0eC8eZvzzt9eu9nB/0X
-         B3pYV5kedMhpaRQLyZxgW/sXxhvUMj9Ce1Ixu1jLYDdWPIgQFBfsqMdkObTbe5oistFh
-         CLyZh7yybNTMXAznftA2bcIRHpfcstuQYPDoKHwUe8CSRtlVnElFmCHiQBTSg6j/gH+X
-         X8TA==
-X-Forwarded-Encrypted: i=1; AKwUvBzPejmKK/bT0UFpe+Lvekd7RfAzRHrYg/lwTKVgWm7tl1OWqnIH526doAWTiBlDzY5UREcF8bC3uV/i0+I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJiuN8Bzr4UZUaUIL3DAPj2JzF1XUIdRQxCK/ctBqTanFtIYM+t
-	xj5VFiDPy6iNx/+f3gBoAbM6c3AbPgM6qDYgskSqdw5WDVtg4fWv/mX2JqKJo2+/
-X-Gm-Gg: AYBFou3drHgdq35jpTMyqDhgtOratcSl2xrNHVD7zif3l38zVQAW0TMsTV9dMucl2lc
-	S1IbFkZQvFq/ugeyaQM4M9xOW3Rg2Y6wWo2NNJcWPrvwCFK1xf+OMeq73hwK0YVKhHbh/ZBMKPP
-	Bh8OiUk0oD9vp8S4u83PIYdeEnjZ4nh93XAR9u2CT85Wp6WldE6hcL2vzA8MgWth3UfsBqbKcdG
-	FkOq8ii+NZh74z6RrnKRxV6eVuSD5qux1iQSsfHlxSx8L7dDL3l/Jx6ZZ+6og6NcwN1uttJ54QU
-	lvKYPCLadzbT4kkjsu9O3BWz3SDgeDS2L1RTakWPEW3MRJcN7t7SFbvmjFfpQzI8GT7v1mS6p6Q
-	9l0r2aTinrjSd8zhYpMXk/bOSc5F8wsui+4Pc+eAZ6PH9WUX+u+BPc42g2dFSoxZ/8wDdbiJGA4
-	meoMhR2/z+YgjBemRd3abjQpGJSqS8jZB/jZCKKgKEbarOBEBCBU4TEJGa6/xQ/xMkNg==
-X-Received: by 2002:a17:90b:3d87:b0:3ac:9599:a689 with SMTP id 98e67ed59e1d1-3acef154517mr3221486a91.34.1792295765294;
-        Sat, 17 Oct 2026 20:56:05 -0700 (PDT)
+        bh=kL4aQopdmIs47ah61J1ufmFu0cfRQ7EvXnqg/QTq0j8=;
+        b=1kwlEzlAqIYNWfS4o9vP+Da50Rl/4aarU8SR9VaTHIP8Pf2QPMr0wYLrfwNARkEK2m
+         Nk3i9zHOoYGpI1ZiMMv6Dys4Ek1q2ZFDZsQ+mj8L9yzuJiXQF2oLCgYpDmP8+xnLMZ6o
+         8gOd6n8GQV3LvbLCV0IePnXcrKetew4xnfm1vyO1POfYKv+RZzge3dC0Q7mOmDio3Ryj
+         OtFlcyBrVRbKehdXbJumWu2spDjGtgp2PCg1dOfQlKVDF1RTnXU5buFi/GhkHpSo7MXL
+         5Nq9Z3ODfafF9HRDX0hPLitIuGKPdtShc6uUuib4SpP0VP2pb4HRXj7IZ26ng4JtO6zJ
+         XvHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxSlpjzbbbMpC6KkH6Wcdu8iJmdCsKAIJ3Y30MpWOOVQFkUhNxqjg8w9cdD8yAPxTRDHb232+o+jOZyK8s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIidHckbWEL2nqzl3hEuHqU9gbvnoo94qZFRxRv7pz989A5/AIn
+	sbD1yR6rnpVdNviD2NHKtLvqIIU7jYjwXojBdnd7NS4B05/ZT3+P0qN5
+X-Gm-Gg: AYBFou0JOc092jk7/tBznL6Rcud3ra9YN4UuBUVYKi4SIJtwDQiZdaB7RAe0mePF7DO
+	7F3diQuCrq+vMuZUqCEIca0zECHdEStIRMx2fjMTKOmBew/BcNWrS1xQCmL6IA11YHTJT1ElNyB
+	x+c+GhvY3SDfCMaz8Ls1hyd6P+gplBvlKxMkTgGqZP2/O400UVylu5tDT6omyHoKLiWiX+2AabZ
+	tKM/ef27OKEHLi0AyGd3632dSwvNIFASO52f7o6mQSR+7eA7bI/UYyxOOqR1yHXY3mYz2DFYgGD
+	8fr3QLoTlApmP8tulsZYDBwEBFYId1VOA0UmDzj4G+lUCFO16A2Epn6SnZJ8yAX/qeXJqn/ysmj
+	9bGFuifEJMIJUYtTAXTMo88KC8PBJCiSUxiaow25efihhqzWOWKsx47kGo9qMo+V9UcwIY32KBu
+	k08KvX6y2mgXvPQsZXDm02Hk44dmqxmLI3Jig+dXVE8GK6KtHIDx3Q+GwzMMW4wwnsUA==
+X-Received: by 2002:a17:902:d2c6:b0:2e9:3dd2:a90c with SMTP id d9443c01a7336-2e9a69f73b9mr36948785ad.20.1792295825697;
+        Sat, 17 Oct 2026 20:57:05 -0700 (PDT)
 Received: from localhost ([183.242.161.82])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc492fa54sm10283593a91.13.2026.10.17.20.56.02
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e5c2f5asm25680295ad.9.2026.10.17.20.57.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 20:56:04 -0700 (PDT)
+        Sat, 17 Oct 2026 20:57:05 -0700 (PDT)
 From: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org
-Subject: [PATCH] sched/rt: queue a push when a queued RT task is boosted
-Date: Sun, 18 Oct 2026 11:55:47 +0800
-Message-ID: <179229574717.42111.11570330900189006001@gmail.com>
+To: linux-trace-kernel@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>, Tomas Glozar <tglozar@redhat.com>,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] rtla: add tests for tracefs instance cleanup
+Date: Sun, 18 Oct 2026 11:56:59 +0800
+Message-ID: <179229581980.42222.4083144248804063295@gmail.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
@@ -73,56 +73,345 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-A PI boost can leave a queued RT task stuck on a CPU where it cannot run.
-The pull side only considers tasks whose affinity includes the CPU that
-became idle, and prio_changed_rt() does not queue a push. If the boosted
-task's mask excludes the idle CPU, neither path can move it.
+rtla creates one of four tracefs instances per run (osnoise_top,
+osnoise_hist, timerlat_top, timerlat_hist) and removes it on exit. A
+cleanup failure only shows up as the next run failing with -EEXIST or
+stale tracer state. tests/engine.sh already removes leftover instances
+before each test, so the failure mode is known but not tested.
 
-In a four-vCPU non-PREEMPT_RT guest with RT_PUSH_IPI off, a FIFO-10 task
-holding a PI mutex, boosted to FIFO 90 by a waiter on another CPU while
-a FIFO-99 hog kept its CPU busy, stayed queued for the whole 1.5 s dwell.
-A FIFO-60 spare was idle on a CPU in its mask. With RT_PUSH_IPI on, the
-same setup resumed in under 6 ms.
+Add cleanup.t and a helper script covering the abnormal exits: SIGINT,
+SIGTERM, the -d timer, a failing --on-threshold shell action, and three
+interrupted runs followed by a normal run.
 
-Queue a push from prio_changed_rt() when a queued, non-current RT task
-with more than one CPU has its priority raised. The push selects a target
-from the task's cpus_mask, which is what the pulling CPU cannot do.
-rt_mutex_setprio() calls __balance_callbacks() after prio_changed_rt(),
-so the callback runs in the same rq->lock section as the existing
-rt_queue_pull_task().
+rtla did not handle SIGTERM, so killing it left the tracefs instance
+behind. Install stop_trace as the SIGTERM handler, matching SIGINT and
+the -d timer.
 
-With no boost present the push finds no legal target.
+The helper needs to start rtla in the background and signal it, which
+engine.sh's foreground check() cannot express. cleanup.t drives the
+helper and emits the TAP result itself.
 
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+The test needs root, a writable tracefs and CONFIG_OSNOISE_TRACER. It
+skips when any of those are missing. The action-failure case also skips
+if the stop-total threshold is not crossed, since an idle machine may
+never generate a sample above the limit.
+
 Signed-off-by: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
 ---
- kernel/sched/rt.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ tools/tracing/rtla/src/common.c               |   2 +
+ tools/tracing/rtla/tests/cleanup.t            |  71 +++++++
+ .../rtla/tests/scripts/check-cleanup.sh       | 197 ++++++++++++++++++
+ 3 files changed, 270 insertions(+)
+ create mode 100644 tools/tracing/rtla/tests/cleanup.t
+ create mode 100755 tools/tracing/rtla/tests/scripts/check-cleanup.sh
 
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 85303add7..dc2775261 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -2499,6 +2499,18 @@ prio_changed_rt(struct rq *rq, struct task_struct *p, =
-u64 oldprio)
- 		 */
- 		if (p->prio < rq->donor->prio)
- 			resched_curr(rq);
+diff --git a/tools/tracing/rtla/src/common.c b/tools/tracing/rtla/src/common.c
+index 8c7f5e75b2ec..b86a600769ed 100644
+--- a/tools/tracing/rtla/src/common.c
++++ b/tools/tracing/rtla/src/common.c
+@@ -39,6 +39,7 @@ static void stop_trace(int sig)
+ static void set_signals(struct common_params *params)
+ {
+ 	signal(SIGINT, stop_trace);
++	signal(SIGTERM, stop_trace);
+ 	if (params->duration) {
+ 		signal(SIGALRM, stop_trace);
+ 		alarm(params->duration);
+@@ -51,6 +52,7 @@ static void set_signals(struct common_params *params)
+ static void unset_signals(struct common_params *params)
+ {
+ 	signal(SIGINT, SIG_DFL);
++	signal(SIGTERM, SIG_DFL);
+ 	if (params->duration) {
+ 		alarm(0);
+ 		signal(SIGALRM, SIG_DFL);
+diff --git a/tools/tracing/rtla/tests/cleanup.t b/tools/tracing/rtla/tests/cl=
+eanup.t
+new file mode 100644
+index 000000000000..f3b495b0aee4
+--- /dev/null
++++ b/tools/tracing/rtla/tests/cleanup.t
+@@ -0,0 +1,71 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++#
++# Verify that rtla removes the tracefs instance it created on the abnormal
++# exit paths users actually hit:
++#
++#   - SIGINT during a run            (interactive Ctrl-C)
++#   - SIGTERM during a run
++#   - rtla's own -d/--duration timer
++#   - a failing --on-threshold shell action
++#   - several interrupted runs in a row, followed by a normal run
++#
++# A leaked instance pollutes the next invocation.
++source tests/engine.sh
++test_begin
 +
-+		/*
-+		 * A boost can create a migration opportunity that the pull
-+		 * side cannot reach: pull_rt_task() on another CPU only picks
-+		 * tasks whose affinity includes that CPU, so a task that gets
-+		 * boosted while its CPUs are busy can stay queued until it
-+		 * becomes current. Queue a push on this rq instead, which
-+		 * selects a target from the task's own affinity.
-+		 */
-+		if (p->nr_cpus_allowed > 1 && p->prio < oldprio &&
-+		    rq->rt.overloaded)
-+			rt_queue_push_tasks(rq);
- 	}
- }
-=20
++set_timeout 2m
++
++#
++# These cases need to run rtla in the background and signal it, which
++# engine.sh's check() (one foreground command) cannot express.
++#
++run_cleanup_cases() {
++	local helper=3D"$testdir/scripts/check-cleanup.sh"
++	local out rc timeout_cmd skip
++
++	ctr=3D$((ctr + 1))
++	[ -z "$TEST_COUNT" ] && return
++
++	if [ ! -x "$helper" ]; then
++		echo "not ok $ctr - cleanup helper is not executable"
++		return
++	fi
++
++	# check() normally does this before every test. Do the same here, both to
++	# leave a clean tracer state and to make a hung helper terminate.
++	reset_osnoise || {
++		echo "ok $ctr - instances cleaned up on SIGINT, timeout and action failure=
+ # SKIP tracefs is not writable"
++		return
++	}
++	timeout_cmd=3D${TIMEOUT:-timeout -v -k 15s 2m}
++
++	out=3D$($timeout_cmd "$helper" "$RTLA" 2>&1)
++	rc=3D$?
++	if [ $rc -eq 0 ]; then
++		# The helper may skip individual cases; a group-level SKIP means it
++		# could not run at all.
++		skip=3D$(printf '%s\n' "$out" | sed -n 's/^SKIP: //p' | head -n 1)
++		if [ -n "$skip" ]; then
++			echo "ok $ctr - instances cleaned up on SIGINT, timeout and action failur=
+e # SKIP $skip"
++			return
++		fi
++		printf '%s\n' "$out" | grep '^SKIP: ' | while read -r line; do
++			echo "# ${line}"
++		done
++		echo "ok $ctr - instances cleaned up on SIGINT, timeout and action failure"
++	elif [ $rc -eq 124 ] || [ $rc -eq 137 ]; then
++		echo "not ok $ctr - instances cleaned up on SIGINT, timeout and action fai=
+lure"
++		echo "# helper timed out after 2m"
++	else
++		echo "not ok $ctr - instances cleaned up on SIGINT, timeout and action fai=
+lure"
++		echo "# helper exited $rc"
++		printf '%s\n' "$out" | while read -r line; do
++			echo "# $line"
++		done
++	fi
++}
++
++run_cleanup_cases
++
++test_end
+diff --git a/tools/tracing/rtla/tests/scripts/check-cleanup.sh b/tools/tracin=
+g/rtla/tests/scripts/check-cleanup.sh
+new file mode 100755
+index 000000000000..1b4397123708
+--- /dev/null
++++ b/tools/tracing/rtla/tests/scripts/check-cleanup.sh
+@@ -0,0 +1,197 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++#
++# Verify that rtla removes the tracefs instances it created, even when it is
++# interrupted (SIGINT/SIGTERM), killed by its own timeout, or when a shell
++# action fails.
++#
++# This is a *test* for tools/tracing/rtla; it does not change rtla behaviour.
++#
++# Requires: root, tracefs mounted at /sys/kernel/tracing, CONFIG_OSNOISE_TRA=
+CER.
++# Usage: rtla_cleanup_test.sh /path/to/rtla
++
++RTLA=3D${1:-rtla}
++TRACEFS=3D${TRACEFS:-/sys/kernel/tracing}
++INSTANCES=3D$TRACEFS/instances
++FAIL=3D0
++PASS=3D0
++
++log()  { printf '%s\n' "$*"; }
++pass() { PASS=3D$((PASS+1)); log "PASS: $*"; }
++fail() { FAIL=3D$((FAIL+1)); log "FAIL: $*"; }
++cleanup_all() {
++	for i in osnoise_top osnoise_hist timerlat_top timerlat_hist hwnoise_top; do
++		[ -d "$INSTANCES/$i" ] && rmdir "$INSTANCES/$i" 2>/dev/null
++	done
++}
++
++# Wait up to $2 ms for $1 to disappear.
++wait_gone() {
++	_path=3D$1
++	_ms=3D${2:-5000}
++	_i=3D0
++	while [ -d "$_path" ] && [ $_i -lt $_ms ]; do
++		sleep 0.05
++		_i=3D$((_i+50))
++	done
++	[ ! -d "$_path" ]
++}
++
++# Wait until $1 exists (up to $2 ms).
++wait_present() {
++	_path=3D$1
++	_ms=3D${2:-10000}
++	_i=3D0
++	while [ ! -d "$_path" ] && [ $_i -lt $_ms ]; do
++		sleep 0.05
++		_i=3D$((_i+50))
++	done
++	[ -d "$_path" ]
++}
++
++if [ ! -d "$INSTANCES" ] || [ ! -w "$INSTANCES" ] ||
++   [ ! -d "$TRACEFS/osnoise" ]; then
++	log "SKIP: tracefs, writable instances or CONFIG_OSNOISE_TRACER unavailable"
++	exit 0
++fi
++
++# Leave nothing behind from the test before it starts, and make sure the
++# command under test is actually usable.
++cleanup_all
++if ! "$RTLA" --version >/dev/null 2>&1; then
++	log "SKIP: $RTLA is not usable"
++	exit 0
++fi
++
++# Kill a background rtla if a case fails before reaping it.
++stop_pid() {
++	[ -n "$1" ] || return
++	kill -KILL "$1" 2>/dev/null
++	wait "$1" 2>/dev/null
++}
++
++# Wait for an rtla instance and its signal handler.  The instance appears
++# before set_signals() runs, so wait for rtla to start its workload (or at
++# least for it to survive a short grace period) before sending SIGINT.
++wait_running() {
++	_path=3D$1
++	_pid=3D$2
++	wait_present "$_path" 10000 || return 1
++	sleep 1
++	kill -0 "$_pid" 2>/dev/null
++}
++
++# ---------------------------------------------------------------------------
++# 1. SIGINT during a long run
++# ---------------------------------------------------------------------------
++cleanup_all
++$RTLA osnoise top -q -d 30s -P F:1 >/dev/null 2>&1 &
++pid=3D$!
++if ! wait_running "$INSTANCES/osnoise_top" "$pid"; then
++	fail "SIGINT: instance was never created (rtla did not start?)"
++	stop_pid "$pid"
++else
++	kill -INT "$pid" 2>/dev/null
++	wait "$pid" 2>/dev/null
++	if wait_gone "$INSTANCES/osnoise_top"; then
++		pass "SIGINT: instance removed after interrupt"
++	else
++		fail "SIGINT: instance still present after interrupt"
++	fi
++fi
++
++# ---------------------------------------------------------------------------
++# 2. SIGTERM during a long run
++# ---------------------------------------------------------------------------
++cleanup_all
++$RTLA osnoise top -q -d 30s -P F:1 >/dev/null 2>&1 &
++pid=3D$!
++if ! wait_running "$INSTANCES/osnoise_top" "$pid"; then
++	fail "SIGTERM: instance was never created (rtla did not start)"
++	stop_pid "$pid"
++else
++	kill -TERM "$pid" 2>/dev/null
++	wait "$pid" 2>/dev/null
++	if wait_gone "$INSTANCES/osnoise_top"; then
++		pass "SIGTERM: instance removed after terminate"
++	else
++		fail "SIGTERM: instance still present after terminate"
++	fi
++fi
++
++# ---------------------------------------------------------------------------
++# 3. rtla's own -d timeout path
++# ---------------------------------------------------------------------------
++cleanup_all
++$RTLA osnoise top -q -d 2s -P F:1 >/dev/null 2>&1
++rc=3D$?
++if [ "$rc" -ne 0 ]; then
++	fail "self-timeout: rtla failed to start or run (exit=3D$rc)"
++elif wait_gone "$INSTANCES/osnoise_top"; then
++	pass "self-timeout: instance removed (exit=3D$rc)"
++else
++	fail "self-timeout: instance still present (exit=3D$rc)"
++fi
++
++# ---------------------------------------------------------------------------
++# 4. shell action failure (-a / --on-threshold shell,command=3D...)
++# ---------------------------------------------------------------------------
++# -S is the stop-total threshold and yields exit 2 when the action fails.
++# A shell action only runs if that threshold is crossed; an idle machine may
++# never do so.  Do not call the no-threshold case a pass.
++cleanup_all
++action_rc=3D0
++for n in 1 2 3; do
++	$RTLA osnoise top -q -d 5s -P F:1 -r 900000 -S 1 \
++		--on-threshold 'shell,command=3D"/bin/false"' >/dev/null 2>&1
++	rc=3D$?
++	action_rc=3D$rc
++	[ "$rc" -eq 2 ] && break
++done
++if [ "$action_rc" -eq 0 ]; then
++	log "SKIP: action-failure: stop-total threshold was not crossed"
++elif [ "$action_rc" -ne 2 ]; then
++	fail "action-failure: unexpected exit=3D$action_rc (wanted 2)"
++elif wait_gone "$INSTANCES/osnoise_top"; then
++	pass "action-failure: instance removed (exit=3D$action_rc)"
++else
++	fail "action-failure: instance still present (exit=3D$action_rc)"
++fi
++
++# ---------------------------------------------------------------------------
++# 5. repeated interrupted runs must not poison the next run
++# ---------------------------------------------------------------------------
++cleanup_all
++for n in 1 2 3; do
++	$RTLA osnoise top -q -d 20s -P F:1 >/dev/null 2>&1 &
++	pid=3D$!
++	if ! wait_running "$INSTANCES/osnoise_top" "$pid"; then
++		fail "repeated interrupts: run $n never created an instance"
++		stop_pid "$pid"
++		continue
++	fi
++	kill -INT "$pid" 2>/dev/null
++	wait "$pid" 2>/dev/null
++	if ! wait_gone "$INSTANCES/osnoise_top"; then
++		fail "repeated interrupts: run $n left an instance behind"
++		cleanup_all
++	fi
++done
++
++$RTLA osnoise top -q -d 2s -P F:1 >/dev/null 2>&1
++rc=3D$?
++if [ "$rc" -eq 0 ]; then
++	pass "repeated interrupts: following run still succeeds"
++else
++	fail "repeated interrupts: following run failed (exit=3D$rc)"
++fi
++if wait_gone "$INSTANCES/osnoise_top"; then
++	pass "repeated interrupts: no leftover instance"
++else
++	fail "repeated interrupts: leftover instance"
++fi
++
++cleanup_all
++log ""
++log "SUMMARY: $PASS passed, $FAIL failed"
++[ "$FAIL" -eq 0 ]
 --=20
 2.43.0
 
