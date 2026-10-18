@@ -1,223 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3E92C21D8;
-	Sun, 18 Oct 2026 03:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C591348C76
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792292488; cv=none; b=piJz3kFteTkB5NWNZ0Wl0Rvm8sKa96WxSZGtbWUIQb4Fb8v5rd7by3X8vi+5ugz0uuv8PCeb8cl12NTb8L1wUqGHSgZ0xGdcDII5400+Cc8TrVWYX01UpXJe4wjrG7gwI1cm+DP42nNPostqgT4gFpRc9gyv8RuSeq9Me91483k=
+	t=1792292584; cv=none; b=JHdK40FQLZFNNCHqCQzkxs10ammTNwsHM+bQnNXaMDrXDAQnfKOZKv4qxdWcqoHlN4qXO0860RTOdsm3rLASqBdN4OJCaxdzORp3QM1CgC/pzFj46dYPCLQWMH/eJ21rVU4iR+J7oEn6sbwUNB3s6POkRUaRs4Yk+bG51JFAFeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792292488; c=relaxed/simple;
-	bh=Lmsjoh8UIFUpUQXizL2oNfvxpyB3IZX8IjubtEvtIkU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AGlJ0jspjK4KXzbxKGTKPuHGL38Ou4mXXwX1hiZZyWS2ozggEhuGiFjBxOHiSOVldt7FWgVHi9te1Q5B20ygSjWfe3jqL3Ku8wGYNaRGsA4NIV21JTirg9pUA1NPS1pIle8db2CAwrir7Nvo+SGQDeyDIA0NbwtXJHLu6FhVW7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfohei4h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792292584; c=relaxed/simple;
+	bh=ZITNZtXI1LEVNcddldEtZUUMUQQr3d4n2wmhbo8gnjI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=WAGfATgJMFKjiHSMCHlTXQbNQyTFL4TypzEwS8n9D/eYm5E4uV+SejZHQy64w+d92g4AstW+H7wL1Rz0B76QrvE2MQe+J/wGflRyz5fr7TRoi0wz241ah250//lld8Myc6LkvHMJlgVpAfmueX2UmETpEIhDGyWOQTl0Tbz4bJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lklahw+m; arc=none smtp.client-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfohei4h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3DB81F000C4;
-	Sun, 18 Oct 2026 03:01:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792292487;
-	bh=96j1+7Gq4xGSW3f14VDoE2SlvoRfO3Rvy+gD/XIxceI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nfohei4hGdgpHxDsRZaMIiXN+4MgLrmCJlDgoX2BaziVwy1CfuTuR6el+Nj1KPKCR
-	 JnAqdwl48YKUBMMc+PJ2CSOFX6AbwsznrzvMVhgQK5Ekm5je8z+rZtTI0TJMxlX8Lu
-	 GUGTfl3S12Mg7meaGj8B0aiXvOTbmMxLdyksM47G2Y2Lu1K2yp5lPSHNs2vqqwyHv4
-	 dd0lsXQL3OLoyEMMG2cgVny9hldVwxVHHW6+dj/xU6NrasBa4jcJNiu+r4a7YoK2Jg
-	 fQgdgbqIha3ofBJPb8v9p6+ylHB0z2q/9S8lyNMw5GXrlXgq7DR39vWDCxFPI4U6nw
-	 VTOzaGSRxb+Bg==
-Date: Sun, 18 Oct 2026 04:01:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: Kanak Shilledar <kanak.shilledar@axis.com>, Henrik Grimler
- <henrik.grimler@axis.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jean-Baptiste Maneyrol
- <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts <joshua.crofts1@gmail.com>,
- Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 6/6] iio: imu: inv_icm42607: Add accelerometer
- calibbias support
-Message-ID: <20261018040122.27de8bf4@jic23-hlaptop>
-In-Reply-To: <as1XY5EfKwfnb2DX@debian-BULLSEYE-live-builder-AMD64>
-References: <20261009-b4-inv_icm42370p-v6-0-e53884f185ff@axis.com>
-	<20261009-b4-inv_icm42370p-v6-6-e53884f185ff@axis.com>
-	<as1XY5EfKwfnb2DX@debian-BULLSEYE-live-builder-AMD64>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lklahw+m"
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35c95a3a303so150554eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:03:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792292582; x=1792897382; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=itgPlMiyJa1Z48u7pjVt4mWiUxVb/1ebtQBcGmzhbn0=;
+        b=Lklahw+mVnpE8c+d6IMoubwHA/yZiwgoAJL3aE5evl5WWs0eGtnjunpVm8Nhuk82E+
+         3JClLd4ep9kGmQztqp7HMuDoMGBjc6TLpkp2H/fc7mePB4kwGKj0zDfFRQSYqT/UK7LC
+         U3y1+7LWxdL/GrRrDfj1tCVUSm+2igM8H+fm0aksQNE3Ne/cuvek1dxwqKKnaZQsVyx5
+         hwKSsey99D7FnF9LSCJhTWHVCM5QMr1QLccUw4G2KxXieVqzFh1bIrAIkb8czKIYXVXc
+         tpPmtYrHL8Yt5XjzY5EBjXxkfltD1uCk9wqeZXdMtnHqFR04uEaz+Ky9tMDPoBELr/9d
+         XNBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792292582; x=1792897382;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=itgPlMiyJa1Z48u7pjVt4mWiUxVb/1ebtQBcGmzhbn0=;
+        b=MyhgOvtaGw0d6ItYLLBMD+la7+nPCARXFOfBe4xAKFJyJVth/+2LTR476JM1+dcpeP
+         VTJalpgv6oCFp7BaEM/zORS9eJuV24jSK2pm0trPOM89utQPYz4CP7Z5WkcvW6MZwG+z
+         vDDjst0majAq3FQjpvmLUfD1mNoZ7HExdHc3U/WOz0OUmlv+AFLibisZxGXFL+6jeT3o
+         OuTInyXYpm3lzjIKbDcT5AH77TjQDeL/frVsXKNB2MWUMFs0pxCVkl2kOsV46LN65J90
+         RY1VbUyO1xMn+Njx6IVSEXQid0/hmUHQaEjfssju0ssEC1ZN3QcLccC+kDjJbyHgKGvR
+         UhMw==
+X-Forwarded-Encrypted: i=1; AKwUvByp+BsXlHK2SQE7DFdQjMGSCyVSeuMV/ZUoXixUSpGxCNUNU/BAEd/MveUsNQJSKYgtLTAXPFTI8Nec4S0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6dgBfjX0qY/DRFVIBysR8l1T+c8ITr0s2DZgDdp/4tco6qh7Y
+	RgWPIsvGExtggbo6chovflC51+epMZvJPmEO97HNJmE8JcQYRh8MEq6x
+X-Gm-Gg: AYBFou0VwoUjE1PdUKVhEnBFcIwHi5nuT5G3BzW1zaXn+zv4kr/G2WZo8M3Ys0pjhXD
+	iq2Sncf32q8xJA4DdxckQtqyPAZjqdsm4u4leB4ojFUtYwukaUtVsUgx5GffLbMM3/zKbw4h38k
+	QHEn4jZ1DpZJuezlQx4b+N6wCN0vLtaBdeKhZNu1tAFVdUFV0StMlH5or0P6py5kWVStmeFZ9+U
+	b2UyjOOaQtK8XFdyIhb86R5SD4zQq2RMtlbnvi6bxuuhMcYq7L/E5S9BjAFiSGJybMPrIGuiDRA
+	rNhPU3dxsY5ElGeZPzWGzcHSUw+VzzBiaCbCJ7iTAxQJfL/x+hVTf/w35lnWMmfq8eTbwZ1GX1p
+	mosYuNytLx3gZk8XWHPQu17Ym03W5eaim/hx1n8opnxMYIJxepGUR5rk7ahWq8GoxyHgJeUBJ1e
+	en0zbkLqz0yVU0EbtD5jjLQthIe90/iNbzHu+mpzQK1ZCI7qHc0ggP5KUMGfsgtWeiIL66vv5wd
+	/hprLHXKg1Q4aMRoI0uptUHnwVANotp15+ISCmKSlk+yKSw46cy
+X-Received: by 2002:a05:7301:2710:b0:35e:af84:bf1e with SMTP id 5a478bee46e88-361a2053227mr5923201eec.7.1792292582456;
+        Sat, 17 Oct 2026 20:03:02 -0700 (PDT)
+Received: from ?IPV6:2607:f598:b3da:60:e5a8:1520:7d4c:f121? ([2607:f598:b3da:60:e5a8:1520:7d4c:f121])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0e5e6sm20383250eec.1.2026.10.17.20.03.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 20:03:02 -0700 (PDT)
+Message-ID: <b2b8aeee-08a5-479b-bac4-a38ac606a037@gmail.com>
+Date: Sat, 17 Oct 2026 20:03:00 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Bozhen Peng <bozhenpeng93@gmail.com>
+Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Only expose kb_mode when
+ it is supported
+To: Anton Karasev <uselessfire@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+ Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ W_Armin@gmx.de, qby140326@gmail.com, ilya.gladyshev@linux.dev,
+ chris@miget.com, kento@kekto.ru, wolf109909@outlook.com,
+ vlku.milos.fun@gmail.com, btx342@gmail.com, zsanya322@gmail.com,
+ i@rsplwe.com, martiya.ar@gmail.com, nika@nikableh.moe
+References: <20261008-bitland-kb-mode-v1-uselessfire@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20261008-bitland-kb-mode-v1-uselessfire@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Mon, 12 Oct 2026 18:55:47 -0300
-Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
+Hi Anton,
 
-> On 10/09, Kanak Shilledar wrote:
-> > Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
-> > registers are stored in MREG1. The calibration bias is written to
-> > OFFSET_USER4 to OFFSET_USER8 registers in MREG1. Reject the out of
-> > limit calibbias values instead of clamping it.
-> >=20
-> > Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-423=
-70-p
-> > Datasheet: https://www.lcsc.com/product-detail/C5129967.html
-> > Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-> > --- =20
-> ...
-> > +static int inv_icm42607_accel_read_offset(struct inv_icm42607_state *s=
-t,
-> > +		struct iio_chan_spec const *chan, int *val, int *val2)
-> > +{
-> > +	struct device *dev =3D regmap_get_device(st->map);
-> > +	unsigned int msb_reg, lsb_reg, nib, byte;
-> > +	int offset;
-> > +	s64 val64;
-> > +	s32 bias;
-> > +	int ret;
-> > +	u32 raw;
-> > +
-> > +	if (chan->type !=3D IIO_ACCEL)
-> > +		return -EINVAL;
-> > +
-> > +	switch (chan->channel2) {
-> > +	case IIO_MOD_X:
-> > +		msb_reg =3D INV_ICM42607_REG_OFFSET_USER4;
-> > +		lsb_reg =3D INV_ICM42607_REG_OFFSET_USER5;
-> > +		break;
-> > +	case IIO_MOD_Y:
-> > +		msb_reg =3D INV_ICM42607_REG_OFFSET_USER7;
-> > +		lsb_reg =3D INV_ICM42607_REG_OFFSET_USER6;
-> > +		break;
-> > +	case IIO_MOD_Z:
-> > +		msb_reg =3D INV_ICM42607_REG_OFFSET_USER7;
-> > +		lsb_reg =3D INV_ICM42607_REG_OFFSET_USER8;
-> > +		break;
-> > +	default:
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> > +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	guard(mutex)(&st->lock);
-> > +
-> > +	ret =3D regmap_read(st->map, msb_reg, &nib);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret =3D regmap_read(st->map, lsb_reg, &byte);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* 12 bits signed value */
-> > +	if (chan->channel2 =3D=3D IIO_MOD_Y)
-> > +		raw =3D FIELD_PREP(INV_ICM42607_OFFSET_MSB,
-> > +				 FIELD_GET(INV_ICM42607_OFFSET_USER_NIBBLE_LO, nib));
-> > +	else
-> > +		raw =3D FIELD_PREP(INV_ICM42607_OFFSET_MSB,
-> > +				 FIELD_GET(INV_ICM42607_OFFSET_USER_NIBBLE_HI, nib));
-> > +
-> > +	raw |=3D FIELD_PREP(INV_ICM42607_OFFSET_LSB, byte);
-> > +	offset =3D sign_extend32(raw, 11);
-> > +
-> > +	/*
-> > +	 * Convert raw offset to g then to m/s=C2=B2
-> > +	 * 12 bits signed raw step 0.5mg to g: 5 / 10000
-> > +	 * g to m/s=C2=B2: 9.806650
-> > +	 * Result in micro (1000000)
-> > +	 * (offset * 5 * 9.806650 * 1000000) / 10000
-> > +	 */ =20
-> Maybe add a comment here highlighting that this is an exception among IIO=
- ABI
-> and provide an additional patch extending the note on in_accel_x_calibbia=
-s ABI
-> doc to include icm42370. Having to amend the ABI doc that way looks to ha=
-ve been
-> an unfortunate need (also according to commit 69c93a7df74b).
->=20
-> icm42370 seems to be similar to icm42600 so extending the exception might=
- be
-> okay in this case. Creating new ABI is probably too much.
+I tested your patch as posted on my MECHREVO WUJIE15 PRO
+(WUJIE15 Series-HPT), using your stated for-next base: 
 
-I'm a little unsure why scaling matters that much.
-_calibbias is usual considered a 'pot twiddler' type of control
-so unit less.  Obviously it's nice to have units from a useability
-point of view but often these are actually controlling an analog
-front end circuit with unknown and sometimes non linear behaviour.
+98f039265e580291d5e76a11b2072541fbb1c393
 
-So it would be acceptable to not worry about units at all and
-just expose the offset value.  Putting it another way the
-scaling is driver specific.  I think the existing special case
-in the ABI docs might have been a result of cleaning up an entry
-that was a duplicate after that stopped working (due to the
-ABI getting built into the main docs and duplicates being detected.)
+I booted the baseline and then the same kernel with only your patch
+applied. On the baseline, kb_mode was present, but reading it returned
+"Input/output error". With your patch, kb_mode was absent and I got:
 
-Jonathan
+  kb_mode not supported (-5), hiding it
 
->=20
-> > +	val64 =3D (s64)offset * 5LL * 9806650LL;
-> > +	/* For rounding, add + or - divisor (10000) divided by 2 */
-> > +	bias =3D DIV_S64_ROUND_CLOSEST(val64, 10000L);
-> > +	*val =3D bias / (long)MEGA;
-> > +	*val2 =3D bias % (long)MEGA;
-> > +
-> > +	return IIO_VAL_INT_PLUS_MICRO;
-> > +}
-> > +
-> > +static int inv_icm42607_accel_write_offset(struct iio_dev *indio_dev,
-> > +					   struct iio_chan_spec const *chan,
-> > +					   int val, int val2)
-> > +{
-> > +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
-> > +	struct device *dev =3D regmap_get_device(st->map);
-> > +	s32 min, max;
-> > +	u8 msb, lsb;
-> > +	s16 offset;
-> > +	s64 val64;
-> > +	int ret;
-> > +
-> > +	if (chan->type !=3D IIO_ACCEL)
-> > +		return -EINVAL;
-> > +
-> > +	/* inv_icm42607_accel_calibbias: min - step - max in micro */
-> > +	min =3D inv_icm42607_accel_calibbias[0] * (long)MEGA -
-> > +	      inv_icm42607_accel_calibbias[1];
-> > +	max =3D inv_icm42607_accel_calibbias[4] * (long)MEGA +
-> > +	      inv_icm42607_accel_calibbias[5];
-> > +
-> > +	val64 =3D val * (s64)MEGA;
-> > +	if (val >=3D 0)
-> > +		val64 +=3D val2;
-> > +	else
-> > +		val64 -=3D val2;
-> > +
-> > +	if (val64 < min || val64 > max)
-> > +		return -EINVAL;
-> > +
-> > +	/*
-> > +	 * Convert m/s=C2=B2 to g then to raw value
-> > +	 * m/s=C2=B2 to g: 1 / 9.806650
-> > +	 * g to raw 12 bits signed, step 0.5mg: 10000 / 5
-> > +	 * val in micro (1000000)
-> > +	 * val * 10000 / (9.806650 * 1000000 * 5)
-> > +	 */ =20
-> Unless Jonathan thinks it to be too verbose, we can also have an ABI comm=
-ent here.
->=20
-> With the ABI exception somehow highlighted,
-> Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
->=20
-> > +	val64 *=3D 10000LL;
-> > +	offset =3D DIV_S64_ROUND_CLOSEST(val64, 9806650 * 5); =20
->=20
-> With best regards,
-> Marcelo
+The GET produces an ACPI AE_NOT_FOUND for HEC.LEDM on this machine.
+With your patch, the probe still reports the ACPI error, 
+but kb_mode is correctly hidden.
 
+I cycled the keyboard backlight with Fn+F7 from off through levels
+1, 2 and 3, then back to off. All levels worked. During this check,
+atkbd logged unknown scancode 0xf6 messages.
+
+This confirms the unsupported-kb_mode case on HPT. My keyboard backlight
+is not RGB, so I didn't tested the supported RGB-mode case.
+
+Tested-by: Bozhen Peng <bozhenpeng93@gmail.com>
+
+Thanks,
+Bozhen
