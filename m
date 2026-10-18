@@ -1,63 +1,63 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FE6455614
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA6046EF92
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792331011; cv=none; b=YsRbh6eDUWFzlKEOEfxot2t8iXDWpv/KTIILFqPcCjaQcQwt+DlyGShixRB425486FeIvz4qY76T4hl72dc8+GLvZGLc3776VvlV31pEf8gHZiPchtqHvmw21ixkqr1VwIUkLJ6KmiM7NQi+AGdqOpZmozHfUMVQF5EZT74p6AU=
+	t=1792331013; cv=none; b=qjilwO3fSaCZuxeoi/IQOqY2PqFg8BAHWMGWuBBUp5qpKnWi1KQgNd3kbRzYHDdjRWkPs8h163i6pjtwuUU3jwP1BxCKOx4nHEk70eoQ/4bZnHoV43rwXp04PBdnFoKhJ8YdrLDrEugglAyjBGmnOfZPsDuJJpAWU+LAE1gfg70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792331011; c=relaxed/simple;
-	bh=bOeeJlR1z+ZmlCVS3ncjbl+NSUZoxWsH5n6bWoRic58=;
+	s=arc-20240116; t=1792331013; c=relaxed/simple;
+	bh=3c8FLbHksQibEqB3kL5wCeH5x61Waf9pm1mxuk+dweU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oOjnf1tKSTe8wsyokrhPwXS2YPiabPVwX8GuaQyEqKRjcECs3V+gEKGvdltr6tgp2HSTwVO4XrdRwOq02aapnGAAqfhLGZL+wWUvvaPM5+pMgNJnV1wnb5OTt4FitHNNWbRh5iHhFYdX174q2lMOQTQhRDo6hW0KqsfzhKpWvG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yy8x/cyO; arc=none smtp.client-ip=74.125.82.176
+	 MIME-Version; b=DCfos6CU2X2FLXbfjmUMzR+1Cl+PCHLBpKloZ5zRG/C8qSBAA63tWi9xORVaye+Tqcx9s75sgp9So/X1KK73mjhwrVn7uTmcYPsPeEe+veZ/QD3CH5mPH6/VOLNX+Hp9M7Hg0s5Kq3RWJUr/Rp5znkUKQKbB4t6WPryCnwf5zj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OMC0W6lK; arc=none smtp.client-ip=74.125.82.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yy8x/cyO"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35d0be18c71so2547477eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:43:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OMC0W6lK"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-30b6dad2382so3614592eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:43:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792331008; x=1792935808; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792331011; x=1792935811; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xl79s2FBLYzmNsy3ZHfzJmTaTzI3p4ehFskthqfWREg=;
-        b=Yy8x/cyOwfIQDEn5pgl739Wqg2uhvzG0en1Jl+PqztWqsDdTEi8LmHS7Yt8/nkMdb3
-         pxAgBDc4Ao/XaS1pIy01B16VCTUoC8HZcaJYH0S8FRFKGNI5hcGLX8kjltH27++I/A03
-         mKKxoPaLx7yGFLpecc6eeThY3KfwNBdjSjik5feYuQEuhfBI7g/+sagrNfBuoty9UETg
-         17SJz/TbLVswJuPd0VTJtpPbu/t68M06VCNSF6JJaby32Phe8DGOgUGxRmq/SxwNegw3
-         TNS15ZpI5Ynmvj9OutKi9OmnTNVPyg7rt0xAQOEtRHPnUb0Hrh/kQIm8GV4TLCltAMbG
-         Rmtw==
+        bh=QZCDb29RXoNd3s2gr9vco9lTSJAXM4DbUDPNku3m12E=;
+        b=OMC0W6lKBQvYsZKtS3Ss6ZAEwgzihd6Vg/TzKcfCw3FgdjXCHmwqCsTYBHxc+TwnDY
+         SIl6cBf2VnivZCAjWLzNGfftxTWSDWd7hZEHP8tp4fm/CUr0qWN7wbNCBchP+IjweHWc
+         mx/ibx64YQD/CRx0HwtYnI4KtjORhX8pd1PD5arvg7Wy0ifc11XyMEsDeWw92ByDQZIV
+         otBnUI7i8lEN9S9tRe4o2/onRZwzZXgJipPciroPiDJZi5zWZ2oXkSisd+O/1EmH27yw
+         vgp1gHGKXolGLsRjiQcS7hpJVhivRbubdmbUPAf0AxUYfk6O6/yvO7CpHzXlXLPCpjM5
+         qyTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792331008; x=1792935808;
+        d=1e100.net; s=20260707; t=1792331011; x=1792935811;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xl79s2FBLYzmNsy3ZHfzJmTaTzI3p4ehFskthqfWREg=;
-        b=oGB3p1HWsXJJwfIRjZAE4QMeQCgjId1Mo9BOtWIReN+7l9PUw2qq5H98iWJK2E3VDp
-         A+FKC5a7dH6cwTk4P/jXBQYktwShDi1eialj8K5BWNna2tDtYCFNV4BblgtcWUQzGhLf
-         5UcoEyJpKHdIhY9/+MKjmEh7IWLj6/LwSv7N5XCmw2n29oadGL6L4tYgmr8VHZSUkfWE
-         XWXbObC50CxmyViRx+nZUkrj7gEOP8X3CrhKjhN4aZ5Ahw0i+ZHqqu/VPTNZBEwb+b7h
-         WnCabp1iGkiBgZM1xrGekE2/A7SVtuTlgbXGFu56ghn5RoUM9cwLim0V7rnU8BqCJCZo
-         7FlA==
-X-Gm-Message-State: AFq9FYLl34u4k69WloHrRfbUUAKWefXels8q0u8/1FguwvfMWsv76Yps
-	CF+6fCq7uSialccr1eSuNmBZysWvZx6fvG+nbfrmwinBaaof3xdt/VpyK+RpJLSO
-X-Gm-Gg: AYBFou2DKPXWYHlcMZ5Lope2nHkKvopPUrA82O89SHhmketndlH0aGQza8TsJvEjjWI
-	vyqGgcdXK9GrzwRc15OIkwvZeJ19DYhnfzZA4yax865OO9MaD6k653RRsLa+H12nWqiEutPxxQ8
-	qLolWNTPsWx0hb6hU+Op4hOCLzwvKpqPLGQE1JtxuR1GDOxl58IaaCfzzCilA+IPESyTAAp7bBk
-	1F1HR1T8W1MUPQuSyLejro4IwQHOf8Ka0Ff06cmQ0sRXNRDwLAqvfuCubKCIEnya3izN3uK/5Hi
-	bu6aUKRNeBFXAcgCqSx6zfwGZ3uTALOtIhZ0B9b7MK/J4Ei+SX4kacoDPC5nYWD2fSsv9g0oLEY
-	0Vzx5Orwg0kT3YMAPLcd6zzk7BDzvB16xpv6/UNhJMm2W5bHDYs8EK5TS43CXW5ChUpTfFM3/7Y
-	WfgiCs5WciMfG0uZQO3Onkg8L28CQ78AisY4RG87mJutBoD10qfYpqEOe5h/8fyaEmCEAE/MOEl
-	3YqJaPXz0d5YmtxAYsvAI/C0eBD6HJetrYNPRxKzw==
-X-Received: by 2002:a05:7022:ea81:10b0:148:ece:8cc3 with SMTP id a92af1059eb24-1825b6dfd9emr9527607c88.24.1792331007934;
-        Sun, 18 Oct 2026 06:43:27 -0700 (PDT)
+        bh=QZCDb29RXoNd3s2gr9vco9lTSJAXM4DbUDPNku3m12E=;
+        b=jbXM86xvn1gCm1U1Sp8CD3mua0LEfUGUmxds5s5CQIgfYrLSu5U9SGomitg8mpDf18
+         ZvP51vQkQC8iwqWlhpVB5KLlP9FI7dMYOj6Ygsd7lvT+lUEIFNpU2DS9MPzJ87UqFABU
+         FyWyMNLcQQSdFjpszs35uyudw8bzM3nT2foPsUuznogKGDup9E25VIyXP2XTkP2PaNhJ
+         zODCRE3mW9dn8+WiV9o5s0hraj8xsuncH38UW4U2iiuqZV9tPz54Vs3TGtydF+tfk0Lg
+         /hYDUF2sDKHilbaQuaoL23lia4BYjvDvZdAlLz4OsmvvzYBt5dOYPPINoggVb35GUh7L
+         Bp9A==
+X-Gm-Message-State: AFq9FYJWNh/55fUiS0uTAy20J9lRFvV8Lq8sczh3HRfM3F/byGReQOa/
+	9FBNF+f+nqclnCWJ3R/dhb8Q2i+PvfCcZlAsTk+P/0f8LbzEHYRIaXnGEDaVgLfp
+X-Gm-Gg: AYBFou3k0TC+jBa0E53VhOHq3s9Xou59n4sXS68m0a4EOsEYi0Z/1gUlkWlp5I33bqH
+	XUt8RSEeeZeYaWuX1CDslhlJa8ZTxNKEt3cOlMwK6Cf7PfYhZe+gLdXOsH/nsl83WBMNPUjvhUe
+	HISt/719f1vVNpAJEj1C3WiuKcuj62D7XYZp7CGPduoG0xtaGWoHsuaY/71E8mD1pUGzRR5U0Ev
+	l9JyYF9Y70nFRDv7S7h3nz3L/l9Jj4umW49jwAFz8NhGukYsvdYdddJkS8K3W/LKjiIbjp9wQEs
+	uakzOPl+K0fI2FjcQhFo93TkyBEERFzBjjHIK7yU2Sk4dllWNmZ/ADhfYvSQq0UBBkISD5n9bFz
+	aoa9kJystlg8JHNCkPzL0lnL7loOzzen3p2MY+1/4NWNkiM3vhhvNnCS0mab1LjGhddd9/RTot7
+	Qbj/AralPqba6Tm/1lCutl+Il8X+/yUdPOdBcibGZeQXcsFGtpxWkl8vpEmSP3HzHJbe2OfrqRH
+	lprU4OpEwSQAy0OYzBx8oUkV9889VPt0N83b4zI+w==
+X-Received: by 2002:a05:7022:b050:b0:149:ef22:2fa2 with SMTP id a92af1059eb24-18512c38593mr6986527c88.8.1792331010569;
+        Sun, 18 Oct 2026 06:43:30 -0700 (PDT)
 Received: from Biostar-A520MT.. ([187.94.15.112])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm27868593c88.16.2026.10.18.06.43.25
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm27868593c88.16.2026.10.18.06.43.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 06:43:27 -0700 (PDT)
+        Sun, 18 Oct 2026 06:43:30 -0700 (PDT)
 From: Breno Rodrigues Alves <breno3011alves@gmail.com>
 To: linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
@@ -67,12 +67,13 @@ Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
 	Ian Rogers <irogers@google.com>,
 	Shuah Khan <shuah@kernel.org>,
 	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [RFC PATCH v3 0/2] perf: convert Perl test helpers to Python
-Date: Sun, 18 Oct 2026 10:43:20 -0300
-Message-ID: <20261018134322.26445-1-breno3011alves@gmail.com>
+Subject: [RFC PATCH v3 1/2] perf/kselftest: convert prefix.pl to Python
+Date: Sun, 18 Oct 2026 10:43:21 -0300
+Message-ID: <20261018134322.26445-2-breno3011alves@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261018133032.24467-1-breno3011alves@gmail.com>
+In-Reply-To: <20261018134322.26445-1-breno3011alves@gmail.com>
 References: <20261018133032.24467-1-breno3011alves@gmail.com>
+ <20261018134322.26445-1-breno3011alves@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,80 +82,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v3 changes since v2:
-  - Fix accidental deletion of the tap_timeout() function header and
-    opening brace in runner.sh (Sashiko finding). The v2 runner.sh left
-    the body of tap_timeout() at top level with an orphan closing brace,
-    which would fail with a shell syntax error when sourced by
-    run_kselftest.sh.
+Faithful re-implementation of tools/testing/selftests/kselftest/
+prefix.pl in Python 3 (stdlib only). Same unbuffered stdin-to-stdout
+processing, same "# " prefix behavior.
 
-v2 changes since v1:
-  - Restructure as 2 commits (prefix.py alone; the 4 check_*.py together,
-    since their callers are heavily intermingled)
-  - Update runner.sh and kselftest/Makefile to invoke/install prefix.py
-  - Update Makefile.perf to install *.py (not just *.sh/*.pl)
-  - Update all call sites in base_probe/ and base_report/
-  - Remove the 5 original .pl files
-  - Add trailing newlines to all 5 files (pylint C0304)
-  - Fix the check_all_patterns_found commit message:
-    TESTLOG_ERR_MSG_MAX_LINES is only handled by check_all_lines_matched
+Update runner.sh to invoke prefix.py instead of prefix.pl, update
+the install target to install prefix.py, and remove the old
+prefix.pl.
 
-This series converts five Perl test helpers in tools/ to Python 3,
-continuing the Perl-to-Python conversion effort for the kernel's
-auxiliary scripts.
+Verified byte-for-byte identical to the Perl version.
 
-Each conversion is a faithful 1:1 port: same CLI, same output,
-same exit codes. All use only the Python standard library.
-
-The five scripts are:
-  - prefix.pl                      -> prefix.py
-  - check_all_patterns_found.pl    -> check_all_patterns_found.py
-  - check_no_patterns_found.pl     -> check_no_patterns_found.py
-  - check_all_lines_matched.pl     -> check_all_lines_matched.py
-  - check_errors_whitelisted.pl    -> check_errors_whitelisted.py
-
-All five were verified byte-for-byte identical to their Perl
-counterparts on synthetic inputs.
-
-Breno Rodrigues Alves (2):
-  perf/kselftest: convert prefix.pl to Python
-  perf/tests: convert check_*.pl helpers to Python
-
-Breno Rodrigues Alves (2):
-  perf/kselftest: convert prefix.pl to Python
-  perf/tests: convert check_*.pl helpers to Python
-
- tools/perf/Makefile.perf                      |  2 +-
- .../base_probe/test_adding_blacklisted.sh     |  6 +-
- .../shell/base_probe/test_adding_kernel.sh    | 44 +++++++--------
- .../perf/tests/shell/base_probe/test_basic.sh | 12 ++--
- .../shell/base_probe/test_invalid_options.sh  |  4 +-
- tools/perf/tests/shell/base_report/setup.sh   |  4 +-
- .../tests/shell/base_report/test_basic.sh     | 54 +++++++++---------
- .../shell/common/check_all_lines_matched.pl   | 39 -------------
- .../shell/common/check_all_lines_matched.py   | 45 +++++++++++++++
- .../shell/common/check_all_patterns_found.pl  | 34 ------------
- .../shell/common/check_all_patterns_found.py  | 35 ++++++++++++
- .../shell/common/check_errors_whitelisted.pl  | 51 -----------------
- .../shell/common/check_errors_whitelisted.py  | 55 +++++++++++++++++++
- .../shell/common/check_no_patterns_found.pl   | 34 ------------
- .../shell/common/check_no_patterns_found.py   | 35 ++++++++++++
- tools/testing/selftests/Makefile              |  2 +-
- tools/testing/selftests/kselftest/prefix.pl   | 24 --------
- tools/testing/selftests/kselftest/prefix.py   | 24 ++++++++
- tools/testing/selftests/kselftest/runner.sh   |  4 +-
- 19 files changed, 260 insertions(+), 248 deletions(-)
- delete mode 100755 tools/perf/tests/shell/common/check_all_lines_matched.pl
- create mode 100755 tools/perf/tests/shell/common/check_all_lines_matched.py
- delete mode 100755 tools/perf/tests/shell/common/check_all_patterns_found.pl
- create mode 100755 tools/perf/tests/shell/common/check_all_patterns_found.py
- delete mode 100755 tools/perf/tests/shell/common/check_errors_whitelisted.pl
- create mode 100755 tools/perf/tests/shell/common/check_errors_whitelisted.py
- delete mode 100755 tools/perf/tests/shell/common/check_no_patterns_found.pl
- create mode 100755 tools/perf/tests/shell/common/check_no_patterns_found.py
+Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+---
+ tools/testing/selftests/Makefile            |  2 +-
+ tools/testing/selftests/kselftest/prefix.pl | 24 ---------------------
+ tools/testing/selftests/kselftest/prefix.py | 24 +++++++++++++++++++++
+ tools/testing/selftests/kselftest/runner.sh |  4 ++--
+ 4 files changed, 27 insertions(+), 27 deletions(-)
  delete mode 100755 tools/testing/selftests/kselftest/prefix.pl
  create mode 100755 tools/testing/selftests/kselftest/prefix.py
 
+diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
+index bc4fdb6f5..85ed9af96 100644
+--- a/tools/testing/selftests/Makefile
++++ b/tools/testing/selftests/Makefile
+@@ -285,7 +285,7 @@ ifdef INSTALL_PATH
+ 	mkdir -p $(INSTALL_PATH)/kselftest
+ 	install -m 744 kselftest/module.sh $(INSTALL_PATH)/kselftest/
+ 	install -m 744 kselftest/runner.sh $(INSTALL_PATH)/kselftest/
+-	install -m 744 kselftest/prefix.pl $(INSTALL_PATH)/kselftest/
++	install -m 744 kselftest/prefix.py $(INSTALL_PATH)/kselftest/
+ 	install -m 744 kselftest/ktap_helpers.sh $(INSTALL_PATH)/kselftest/
+ 	install -m 744 kselftest/ksft.py $(INSTALL_PATH)/kselftest/
+ 	install -m 744 run_kselftest.sh $(INSTALL_PATH)/
+diff --git a/tools/testing/selftests/kselftest/prefix.pl b/tools/testing/selftests/kselftest/prefix.pl
+deleted file mode 100755
+index 12a7f4ca2..000000000
+--- a/tools/testing/selftests/kselftest/prefix.pl
++++ /dev/null
+@@ -1,24 +0,0 @@
+-#!/usr/bin/env perl
+-# SPDX-License-Identifier: GPL-2.0
+-# Prefix all lines with "# ", unbuffered. Command being piped in may need
+-# to have unbuffering forced with "stdbuf -i0 -o0 -e0 $cmd".
+-use strict;
+-use IO::Handle;
+-
+-binmode STDIN;
+-binmode STDOUT;
+-
+-STDOUT->autoflush(1);
+-
+-my $needed = 1;
+-while (1) {
+-	my $char;
+-	my $bytes = sysread(STDIN, $char, 1);
+-	exit 0 if ($bytes == 0);
+-	if ($needed) {
+-		print "# ";
+-		$needed = 0;
+-	}
+-	print $char;
+-	$needed = 1 if ($char eq "\n");
+-}
+diff --git a/tools/testing/selftests/kselftest/prefix.py b/tools/testing/selftests/kselftest/prefix.py
+new file mode 100755
+index 000000000..67c4fd0b6
+--- /dev/null
++++ b/tools/testing/selftests/kselftest/prefix.py
+@@ -0,0 +1,24 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: GPL-2.0
++# Prefix all lines with "# ", unbuffered.
++
++import sys
++
++
++def main():
++    needed = True
++    while True:
++        char = sys.stdin.buffer.read(1)
++        if not char:
++            return 0
++        if needed:
++            sys.stdout.buffer.write(b"# ")
++            needed = False
++        sys.stdout.buffer.write(char)
++        sys.stdout.buffer.flush()
++        if char == b"\n":
++            needed = True
++
++
++if __name__ == "__main__":
++    sys.exit(main())
+diff --git a/tools/testing/selftests/kselftest/runner.sh b/tools/testing/selftests/kselftest/runner.sh
+index 311811dc5..1944c74f1 100644
+--- a/tools/testing/selftests/kselftest/runner.sh
++++ b/tools/testing/selftests/kselftest/runner.sh
+@@ -29,10 +29,10 @@ TR_CMD=$(command -v tr)
+ # with sed instead of unbuffered output.
+ tap_prefix()
+ {
+-	if [ ! -x /usr/bin/perl ]; then
++	if [ ! -x /usr/bin/python3 ]; then
+ 		sed -e 's/^/# /'
+ 	else
+-		"$BASE_DIR"/kselftest/prefix.pl
++		"$BASE_DIR"/kselftest/prefix.py
+ 	fi
+ }
+ 
 -- 
 2.43.0
 
