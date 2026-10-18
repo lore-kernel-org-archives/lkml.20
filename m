@@ -1,64 +1,64 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9EB3E3D80
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:27:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820813DB320
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792366045; cv=none; b=NN9glh3rrD6Uz6dJ2IQ0lKDFayfqSNLFHBbpsdb7ZEBGlDJ4Vx3eg8C7Op7OPeAZw34w5uoU/qoC9m4XE3zPIpl8+DFdLh/A/NPvqEyjkbTB5gDMGyWK4FMAvttBuRL23DzMyPk+g2naXnHg7MRxiwKz7vQlg4/zRo6aZF4zDx8=
+	t=1792366055; cv=none; b=aa+qzeGL6vc7mPcdPaJ2j+AsgNnKTEyTGH6riDUD/I/TKvZFTl6k1yieYUpsHYABNb+cr09IHaR+FZRD6Y0Y4rSUNl4Sl+KM8qCEOnbFU3KJB/JbwEckxc0JYSwVhnxKTTwfogcLLxhYbfNV4gb/CNn4ZSXOfaOXVzptVVf3sq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792366045; c=relaxed/simple;
-	bh=msWSNku5OlvN9yv4YElxcsCldoxv5uxWn4tihBzqttA=;
+	s=arc-20240116; t=1792366055; c=relaxed/simple;
+	bh=QhtqZ8JvQkNYctbC8ezaeTjXmAvSIP2MXRV9jfw2V/c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oDVWhmO5pAihUmB1oPFMrpeLyOzI3l9qMaV6r/iqh1ZTc0NJ86cDE+zl3CoUXMI/9jCH2R2yIapbnUYFak6Jwzmgse4racCDxJ2nmz+uvqSTAOVjkk7LSpd/qIAKxxrd9GfllBAtE9jBLA9ytnLdBM2XIlSa0L4BzgZ6CsHNLvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a7fp7/PM; arc=none smtp.client-ip=74.125.82.174
+	 MIME-Version; b=GA+LksIVO0zfGR7/E1TU0MFs2L9CN75CQu7oHcPNqWQGyOJxPj/Fn428MH7ipcZ6TZxQgbYA/HG6RRSIgfD9eUiif/3jSHkiPNHynvAKnjBIJZMyLtIg90KML6rk1dYbNeSYVyeBbsdiF1/IXgs3IMRp93lxVM7zawQDCKbAAEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hv18tJBL; arc=none smtp.client-ip=74.125.82.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a7fp7/PM"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35c76e9614aso2903780eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:27:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hv18tJBL"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35943f55c06so2262250eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:27:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792366044; x=1792970844; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792366054; x=1792970854; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iWVaE8AeAPWzwHM66+gk5xCbOk1oz8k7V+7bfxLXR7E=;
-        b=a7fp7/PMW7dyJJaLc3CeyMOrSriumvyDYjJW9EUgLorAR1rm7Ur3Utr8rTz5X1up0t
-         Pu/O/06VINamH2dsz70P2j6pecyQUI1Q6eP0kUnVdC4w0lrLM9WxWberGxYCkVbOQjEo
-         0pGyVh1N65cWJDB5c3eqYGDFiyr1nlmwJ8kBG5R9rWBhr0uLenQx5pGCadU7cAGfw4bI
-         BJ7fvq5XuqnfNqqOG76dMX+4IOXr7u4acA4syrsIgbYOHlt5jSLKYlx2LvdZDnuyUvbg
-         X8LzzPiFOhxbGaJb2R+ifQBSm3mvyf5eL4BuAUI0m7ZzGRhJLvJzLhUyi8u4cgnNScqn
-         Im3g==
+        bh=QWI86/f7dXA4qQFC/2INoo9kMVa4RadmnPFerxfI+FA=;
+        b=Hv18tJBLQO3Qp93x/LuYf6SydUKBxNuNba/pcuy31gxGzBY2YtnrbNigY1nig3636J
+         dL72i1ftSqvDUIvS8U/GBfIsKvocSvyeVxTpdu778ym5uxBYY+ec+Qt3whtn/3Zl3XBv
+         GUQax2CKBXhwAxnEbKHtNihbMcGk/leileTC1rwQhq42IUnuX9mgFQPB6KfMuJeQbIh5
+         nwj4CNtQHW0E/GSPFV0ZWxUGB4M/4dlUhE61PR/r2u36ZUoOao73IFvQE+CNd1Lr2NR4
+         XaJeBntiMR2PVDIH6OXV0Y49LhS9z8LbRLYUAVoG8GaTaKc8QTdMSsB9m29CZ/uV1VaZ
+         uleQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792366044; x=1792970844;
+        d=1e100.net; s=20260707; t=1792366054; x=1792970854;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iWVaE8AeAPWzwHM66+gk5xCbOk1oz8k7V+7bfxLXR7E=;
-        b=pnO9qRo1KFf8aXDaAHTG0OBYoFNtd/0Oq1hnV1hooYd4e0FK15fust8KE3PmOkYZ7z
-         EA6beoiwesRUhgn0OFLIyw4qf5mIXePyRXHf+GtnwdhzJqj10NsIOV2fHE/X2zX7vRct
-         4bwIaEoCULpiLCyVeU3MwwGqbyQyIxuUg72GTRih4rLB4cCMalf62SKWOTfDy7CCQVdG
-         q1+hoZNEWBdwimAQW3e423J9biwKfcOIIcNa+Htp7KlDB6BJ7j4w42ia62bZWCsDidRg
-         FnfrWbOPK+eDFnXKiiBr4UpG7KKENTvSclVt08mWeA8n6M5jlovzp3d0KepsR6znZOfq
-         xlSw==
-X-Forwarded-Encrypted: i=1; AKwUvBwdbUJCxoDKBDPg+oLi81VDahMUQhZREzapJ4VXO6hQUg8c4BizGUCFPr3BxuVd/L7BwkSL1QX7RPtbQdQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTp3ql3KEYVuukVS6NDhcVQ7ykglOP3tBxoivZW42xya9FTyOi
-	0Fq3ml8vCfX0Fjm0OOvK0T9fl0Gb/Eggtc/LbaME0Iof+s505QPryabuTUXOfYbe
-X-Gm-Gg: AYBFou0BAeiziTdMKrIXwNP2wn4MLin120xeXrt3fXoc4OEtOZmLa7H7jtCCJgWOU2J
-	n9ARNSG9ybc+3QFZlq7lzXLC9Imjw1YQxXO9etbwgD0PdZk/4W6SWePQQcvokTIB6XLiuDkeiC8
-	xIdUQzGmM+HH9NpgH7xvMYxSvYb70uV4Kivhqu1m479PgMcKXKgH8sdm3Pf5RSKeZt+IFe+wad7
-	VWBNVmd42QduMdGMUXymiK+6tongRwZFtHh8H4eLlxa39iyCVg902CE0PYMcpnr4fwFrL8fZBwR
-	hfgeMrrYqok3R6p89wsp/dakPLLKYOMtayYsAkWevnAFYWFwcbq2X7ML9+k4vz1ScYv9D01q3ww
-	soHXAal07DzpkuLIzOKYRj2sRyr+eHuGQQXEJMeSWw1GJJ0h6Hg8+db4uO+l3DfH2F0kKL/EdmH
-	CDaRHzBNn8FsdyikL9JugYJSADgv7mP/nZs2i3OAZHFK9IVcp5ROr7XFK5ac6QpSLRbuzmROIDY
-	UGG1Hf5NVGTNiYO198x+r64WczMqntmt+R+OEYtTLo=
-X-Received: by 2002:a05:7300:7aa4:b0:35e:43fa:eea3 with SMTP id 5a478bee46e88-361a137072dmr9070108eec.8.1792366043791;
-        Sun, 18 Oct 2026 16:27:23 -0700 (PDT)
+        bh=QWI86/f7dXA4qQFC/2INoo9kMVa4RadmnPFerxfI+FA=;
+        b=cFDvbcpzzOrKQDLMbhLRJoop3UdaeKZokkSty6aeypV19VmPUXYV1vfH8uKJn+9Urg
+         PaDqeoSb4q69aBaXwF0AaytJmqA9nYdAuUoHEwnYrvB/b5gFeTuEEULLfVJkYamE9eH3
+         hRUYgm/egsYdsvaCiMw2E4L6WAuKb8qiAmHwyIddqOshgJRay0yYuo8saqu2gLlmkA31
+         4GqPXENgl3C6F8VK1Shd2rE5tcz1Rew3P9Nr+Qo9OehcxEbMgNq2HqDin5B67YZkwm8b
+         CQmeQoK0/NvVLlj5t5Yp+S2GLX3z1O3mzLq95xK4o7wQ1JI/W99CPQshrd9Ae4bW1qis
+         KwtA==
+X-Forwarded-Encrypted: i=1; AKwUvBzIZmXpiySJlHXhPGPvqp+v+Sj12WYkYAS1+0Zs9UmDVcC0o+xGmv+RSEwql8GxWp5McUp2XpMdENtWFzU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLDoLaTs7FuOSCqS9CdHvDQF5hqKpcd3AXGd7DSPJlJERZHyVj
+	JWtMAAfxhUj1QslunmnUpkXVG2TJxuTj8N7LWbYMLqBtuqltMWrFTgzA
+X-Gm-Gg: AYBFou3cF2y6rNlO/JJ3IkkFbjZo3q2VYZczIDCRmMkTfD9yKEfzALif1M24BJRRFcm
+	mzYmRXP1w3ESujL/N98ZA5v/hU6iBk4sMDorvtLFOyo7DVjuYENHdV1ugDQxrCGvCZno932BGG0
+	wGiVE7nbB4r9pwdttXTRJRXMlbMrVDD4DlcjNUW+RFWDedq19Nb2EE8+zJvCeAPYbqFsVt8wB//
+	W0LKOBUTulYs2pxHn27jWG3nnbyFVnCaX+bpr2xRMX9puezaxxxFzGyp/tTrX5dUuxzB409wm7w
+	PZOBNB0C1r3qHLvkZiKBU/Jyty6qBERFlQHLn/y5fXQUkBs2bMVnWzGfbDmI4e/xzfOtxpFiuPP
+	OEPL9z/d9zBkdVAgr9gY7+Al6b2ngKSNXmZB+EU3ZTPyZFfxym+9uedkfbMdtm6zct3kl5W1uSt
+	1m8zg7nMur4EDRpd76dfIuj/Kjb1zIur1iR8O8L2Yh9Dk2nFMmPPbYdElq6nROm62LZGAHvOvcP
+	y1BZhF3cBhcqqEeQlQpirVlw1GVu+vbPkCvi46lUoUBHVUTKoIkLw==
+X-Received: by 2002:a05:7301:2503:b0:359:fb64:11d7 with SMTP id 5a478bee46e88-361a2b3bfdbmr7682577eec.11.1792366053498;
+        Sun, 18 Oct 2026 16:27:33 -0700 (PDT)
 Received: from siegeengine2 (c-73-158-156-210.hsd1.ca.comcast.net. [73.158.156.210])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6ca5sm25571908eec.9.2026.10.18.16.27.22
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6ca5sm25571908eec.9.2026.10.18.16.27.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 16:27:23 -0700 (PDT)
+        Sun, 18 Oct 2026 16:27:33 -0700 (PDT)
 From: Mark Pariente <markpariente@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
@@ -67,9 +67,9 @@ Cc: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Mark Pariente <markpariente@gmail.com>
-Subject: [PATCH v2 1/2] HID: logitech-dj: Don't add Unifying devices from HID++ notifications
-Date: Sun, 18 Oct 2026 16:26:53 -0700
-Message-ID: <20261018232654.70571-2-markpariente@gmail.com>
+Subject: [PATCH v2 2/2] HID: logitech-dj: Re-announce connected devices on reset-resume
+Date: Sun, 18 Oct 2026 16:26:54 -0700
+Message-ID: <20261018232654.70571-3-markpariente@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261018232654.70571-1-markpariente@gmail.com>
 References: <20261018224627.60328-1-markpariente@gmail.com>
@@ -82,61 +82,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Unifying receivers (recvr_type_dj) announce paired devices through DJ
-"device paired" notifications, which carry the full bitmask of reports
-the device supports. Before commit 74808f9115ce ("HID: logitech-dj: add
-support for non unifying receivers"), HID++ reports for a slot without
-a known device were dropped. That commit made HID++ 0x41 "device
-connected" notifications for such slots create the device instead, so
-that non-DJ receivers, which do not send DJ pairing notifications, can
-be supported. This also applies to Unifying receivers.
+If a receiver is reset on resume, for example because a USB KVM switch
+moved it to another host while the system was suspended, its paired
+devices may have reconnected to it while the host was not listening.
+The connection notification the receiver queued for the host is lost
+in the USB reset, so hid-logitech-hidpp never re-runs its connect
+handling for the device.
 
-For Unifying receivers this produces a broken device. The HID++
-notification only identifies the device type, and
-logi_hidpp_dev_conn_notif_equad() only sets reports for keyboards and
-mice. Unifying trackballs, touchpads, numpads and presenters get an
-empty report descriptor, so no driver can bind to them, and keyboards
-with a built-in touchpad such as the K400 lose their mouse reports.
-Since the slot is then populated, the correct DJ pairing notification
-for it is ignored until the receiver is unplugged.
+Devices drop host-configured state when they reconnect, so whatever
+hidpp configured on connect is silently lost. The most visible case is
+HID++ 2.0 hi-res scrolling: the mouse reverts to low-resolution wheel
+reports while hidpp keeps scaling them by the hi-res multiplier, so
+scrolling becomes extremely slow (1/15 of the normal speed on an MX
+Master 3) until the receiver is replugged or the mouse power cycled.
 
-This happens whenever such a notification arrives for a slot the driver
-does not know about yet, for example after the receiver was probed
-while a KVM switch had focus on another host, or after a device was
-paired while the receiver was switched away. HID++ connect
-notifications are sent when a device reconnects, and when userspace
-(e.g. Solaar on startup) asks the receiver to re-announce its devices.
+logi_dj_reset_resume() only switches the receiver back to DJ mode. Also
+ask the receiver to re-announce its connected devices with the HID++
+"fake device arrival" request, which is already used to query paired
+devices on non-DJ receivers, and which Solaar sends to all receivers on
+startup. The resulting connect notifications are forwarded to the
+existing child devices, whose drivers then reconfigure them.
 
-On Unifying receivers, queue the unknown-device work instead, which
-enumerates the paired devices through DJ notifications.
+On Unifying receivers, slots without a known device are then
+enumerated through DJ notifications; this depends on the previous
+patch, which stops HID++ connect notifications from adding them.
 
-Fixes: 74808f9115ce ("HID: logitech-dj: add support for non unifying receivers")
+Reproduced with an MX Master 3 on a Unifying receiver (046d:c52b)
+behind a USB KVM switch: suspend, switch the KVM away and back, move
+the mouse while the host is still suspended, then resume. Without this
+change the wheel stays in low-res mode with the hi-res multiplier
+applied; with it, hidpp re-enables hi-res scrolling after resume.
+
+Fixes: 534a7b8e10ec ("HID: Add full support for Logitech Unifying receivers")
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=203421
+Link: https://gitlab.freedesktop.org/libinput/libinput/-/issues/528
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Mark Pariente <markpariente@gmail.com>
 ---
- drivers/hid/hid-logitech-dj.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/hid/hid-logitech-dj.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/drivers/hid/hid-logitech-dj.c b/drivers/hid/hid-logitech-dj.c
-index 6e8db01d27ec..383c762c503f 100644
+index 383c762c503f..4230c47713ee 100644
 --- a/drivers/hid/hid-logitech-dj.c
 +++ b/drivers/hid/hid-logitech-dj.c
-@@ -1766,7 +1766,13 @@ static int logi_dj_hidpp_event(struct hid_device *hdev,
- 	if (dj_dev) {
- 		logi_dj_recv_forward_report(dj_dev, data, size);
- 	} else {
--		if (hidpp_report->sub_id == REPORT_TYPE_NOTIF_DEVICE_CONNECTED)
-+		/*
-+		 * DJ receivers announce devices through DJ pairing
-+		 * notifications, which carry the full list of supported
-+		 * reports, so query those instead.
-+		 */
-+		if (djrcv_dev->type != recvr_type_dj &&
-+		    hidpp_report->sub_id == REPORT_TYPE_NOTIF_DEVICE_CONNECTED)
- 			logi_hidpp_recv_queue_notif(hdev, hidpp_report);
- 		else
- 			logi_dj_recv_queue_unknown_work(djrcv_dev);
+@@ -2016,6 +2016,16 @@ static int logi_dj_reset_resume(struct hid_device *hdev)
+ 		return 0;
+ 
+ 	logi_dj_recv_switch_to_dj_mode(djrcv_dev, 0);
++
++	/*
++	 * Paired devices may have reconnected and lost their configuration
++	 * (e.g. hi-res scrolling) while the receiver was unpowered or switched
++	 * away by a KVM. Have the receiver re-announce connected devices so
++	 * the child drivers run their connect handling again.
++	 */
++	if (djrcv_dev->dj_mode && logi_dj_recv_query_hidpp_devices(djrcv_dev))
++		hid_err(hdev, "%s: failed to query connected devices\n", __func__);
++
+ 	return 0;
+ }
+ 
 -- 
 2.56.0
 
