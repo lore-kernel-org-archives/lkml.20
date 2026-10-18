@@ -1,67 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE1E336884;
-	Sun, 18 Oct 2026 09:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AC7274670;
+	Sun, 18 Oct 2026 09:16:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792314825; cv=none; b=DImwBZoXT++gryhArR4TXQidmoRSeqHfVCGTbY3c38gSGPIPumEEoAhnAWuSx3aFAZ8MyzB2lbqsNjL4ZL4L/E91wSKiP/feYL745KacFkg3SsMoIOmXJR1UsCo2wbR4AuPG/odKz/pgZEinJ0IixwOx+7JoRsCDDLUwz1pgtKk=
+	t=1792314983; cv=none; b=j0GsZEHyDypg/1zAxyLimxwCRMPKPkznVp44go1o6zRNM3dd2MyFqg4cULkxNYu5Z+0lPnA+pfrf92/ANW5hKiWyd46KHnKpuBgay6hQq2JIKVLTM7A9aQv5th5ppVvIMa/xFHk/jl6Z635S9duRl8rGobpK8/rJXcqsA5FlnPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792314825; c=relaxed/simple;
-	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BwccVs0JYlLwChcXsKNcQkxJkp8y72iJlLc5DXSH+EbiIDL0/eTp6vdR2S0bHOQCFpdGN49jKSnw17n4lDLCMyy/gwxX+cZKsNrKSrUCv/yHAHvQoegxNeDo+h9XxEHNCK8eH+oxcjKAfrLaI0yuE6WPWKXYEhQGu0CjFCTmDFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcC/CRMl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792314983; c=relaxed/simple;
+	bh=oJpNb8Qtpz2hwjHNteWDG0Ok5lFWuSPHXqUIWwJ3X0E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QKE5DxArTcq7YHiWvwl0QjnfqZKubAmGvWxqXA2vQ5W/+l3DFnzBqRimMQ1gsWfMhb2zx9OWIaub6ivfXrorEJAO7Fi6YjCX6DslvMpi8QTPxUGB/vW0It0gOdz7SeAjzH2jH94qjNp22Pox5POVRq0nOo87pWzgHohLXMJClRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UNcKJzte; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcC/CRMl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9401F000C4;
-	Sun, 18 Oct 2026 09:13:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UNcKJzte"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA9D1F000C4;
+	Sun, 18 Oct 2026 09:16:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792314823;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YcC/CRMlbdrNoBOsxWMROWN7nQZulnTydm8z3uPTfzRVyF30s6D5C1OtQQQip/Alt
-	 Jatov2JKcw/KYkBcD+kLOjaV5k/JoT4aqGVmwuNskI5K1B4LLRq7BcuvfwlN4VO8WU
-	 9cR+S/RmSpHT5cZPHn6InzT6gqUKcbHM67vTukf2gRG0wmQGkVHRvjHrHYpth6CgAb
-	 u2F2QqsvmW5K42FJPwg0NBrfOVraPCsFFCJvu4yVmwERmGViV3zBZ99gi181EmxGER
-	 2Wu0R9bjcfUnGOVg6DnfYcmKp3PvFVtLzWN/iXd66rCrGZGwqHx5Jp0ke7/p3Nw+E0
-	 toUoZb338Jsww==
-From: netdev-bot+sinfo@kernel.org
-To: Qihang <q.h.hack.winter@gmail.com>
-Cc: netdev@vger.kernel.org, steffen.klassert@secunet.com, chopps@labn.net,
- herbert@gondor.apana.org.au, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
- idosch@nvidia.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4 0/3] xfrm: fix vti tunnel device use-after-free
- across async crypto resumption
-Date: Sun, 18 Oct 2026 09:13:42 +0000
-Message-ID: <179231482261.3290.7078045556661069694@kernel.org>
-In-Reply-To: <20261018090638.55686-1-q.h.hack.winter@gmail.com>
-References: <20261018090638.55686-1-q.h.hack.winter@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1792314981;
+	bh=oJpNb8Qtpz2hwjHNteWDG0Ok5lFWuSPHXqUIWwJ3X0E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UNcKJzteRecOB++h4s47oRngj6bIEl2xSyUQ3iuYcf24gPYwX0750CiaIZpsAYwkt
+	 TGPM+DdiUbT1tHGEOsD9V0P3ynmmmlm9zc3atfWSOTkhVonU+gJXIf54DkXhZ151+G
+	 4qJ3jomtTMpWHlXIkoSpysFbGcQwHrNOU7mnmeA6K9DuxdHxazLYqCuiciJ2sA/Dbr
+	 4B4dVvzfyKUP3H/UFCUPYXREWO5GJShLQZqdbvuOzsnChGTR/c6H/XHNu3bnqjXvUn
+	 S4URbA7FwiNPhr4Fob4+sE3F8tkM5AgKyO0JmwIzC1oUU/V2lm3HdgwqCYl285mhwt
+	 LgnLQRQx+IcBg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id E0CF21C270ED; Sun, 18 Oct 2026 10:16:17 +0100 (BST)
+Date: Sun, 18 Oct 2026 10:16:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Abdalla Eldoumani <aamsdoumani@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Abdalla Eldoumani <abdalla.eldoumani@ucalgary.ca>
+Subject: Re: [PATCH 1/2] kselftest/arm64: Report test failures in
+ vec-syscfg's exit status
+Message-ID: <atSOYTo_iTfUUnDp@sirena.org.uk>
+References: <20261017182455.1884-1-aamsdoumani@gmail.com>
+ <20261017182455.1884-2-aamsdoumani@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QF5T/0szQhvGCOW0"
+Content-Disposition: inline
+In-Reply-To: <20261017182455.1884-2-aamsdoumani@gmail.com>
+X-Cookie: Whoever dies with the most toys wins.
 
-Hi!
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+--QF5T/0szQhvGCOW0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+On Sat, Oct 17, 2026 at 12:24:53PM -0600, Abdalla Eldoumani wrote:
+> From: Abdalla Eldoumani <abdalla.eldoumani@ucalgary.ca>
+>=20
+> vec-syscfg ends with ksft_exit_pass() whatever its tests reported, so it
+> exits 0 even when tests fail. The kselftest runner decides whether a
+> program passed from its exit status, so failures in vec-syscfg are only
+> visible in its TAP output and the run as a whole is reported as passing.
+>=20
+> Use ksft_finished() so the exit status reflects the results. Unsupported
+> vector types are reported as skips, which ksft_finished() treats as
+> passing, so systems without SVE or SME are unaffected.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Reviewed-by: Mark Brown <broonie@kernel.org>
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+--QF5T/0szQhvGCOW0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrUjkwACgkQJNaLcl1U
+h9AQnwf9FMPtO7q3lZ82Vq3n5m6oUf9l15G+1ObgOfoDBOWQ/dhb+USFEF4jxycS
+tX4jwat3sc4po1SOrzSIqK4IOswiDCDFqimecKi0wY+rz+5zHafbGJrbUy7jVPxa
+hfmdsrRPUO1oU/OSXHFteZnuT9dbv0IaDh4J6nI6WMrZnoqsi2xP5lv8n3y2Rbd0
+JrHWiQHysi4ikantM+xWbEkrqSQ5NXdG49m2GQv/IURg1n7o64t5xmopNneAoskb
+Xv9ZFUiusAB0T54f0vnJDnmEOO9SSd77yqU7f/Uxg54nOZeOpqyQe4/hnpgNHyUX
+s5Oqi0WtcYpuu8per1Qcm4I6jlB+dQ==
+=MKPq
+-----END PGP SIGNATURE-----
+
+--QF5T/0szQhvGCOW0--
