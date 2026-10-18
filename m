@@ -1,80 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-214.mta0.migadu.com [91.218.175.214])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466403CB8F5;
-	Sun, 18 Oct 2026 06:41:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E3223395D
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.214
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792305718; cv=none; b=XNIUaeIsFOwAnOYSRoEKBEy72YRNXbct/qZfg4cCZQC8ldVJpxvlPOyYT1cs0lOa4Ok+ZTrFULItbYk3y1aM8Aj6LzXj7V8tJDhJTkEJKb0giTErtvnlRGj9YCSSBu5Xz+G4G63lAKlQH+V8Hz85/FMko3s87A0SB8fl1968D+A=
+	t=1792305796; cv=none; b=oxTqF4ESJTsjXPpCTkpgxmOsCNkXwZm6WM6Fr2IDDP0+AEp2qqi0PHPkp5jisKrbNcjgi0pY3wloL8ytThRonV+9bGAf0jmWtcWQ/ZuqlNaLUq3RIHR2v0JAoj4YF0dJ5yny6y6T6YZFby3Iml/dphaorrmXCFNB1ZNiWQLKYc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792305718; c=relaxed/simple;
-	bh=rs5ZHwE3LsmfIanNp+/BzRrIaCnPTb7maIaogFzNqXo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FBYdrqm+IogoUsQtvXpg6mCBuz+6yhwdsrX32uOMfIhuUVobFh8iYPqI6SSadaH1dCwUlmcaz7WI34xXfixyiwSeb5g41IfrMHL/MfkWhLgNkOVjLxeNTVQae8mH1Wi8Nkq6JOpcWW3oKhMROyikdC5KSV5pd2rWa+QwFWtmQ6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1mwKXegi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792305796; c=relaxed/simple;
+	bh=Uw0YIVaZtfH6o8cYYNicP3BPPfnY5BFJtNnGIlhTWb4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RwoHGEKmlsqA+SijuQ7bSknaR3dUON68jWu9MaljiK8oH4NNy49qnAix3d2K/yVb3+BzbbxmHk2NII7QSFASDCUzUPrqWKXNCnc4AGN33OgFI4QRZ/4RDAyr9IeoYm4y7ok4NqqkYnd63Pta32YsfpWkZvQX1sJ36v2HsCpvzW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wzQtTrpD; arc=none smtp.client-ip=91.218.175.214
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1mwKXegi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5327F1F000C4;
-	Sun, 18 Oct 2026 06:41:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792305716;
-	bh=A4xXl+sehu91x+nUAj2UWN80XDpdbu0ZTl7Uc0bSKgA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=1mwKXegihC7AZN6aPtbv47zcil/pTBahIl5PTeCLuKc3m6IteOFh612J5AAgmVhVD
-	 OnIJwlE/St0KKUPGsE7aF/jJISHqySQCtcV0JOQLNmJaHxfIHyCCKg0+lTtYiNpiCB
-	 b6OPQUEkHC+7PqbS3I0vEgXgfLII2LSMm+3ujX5Y=
-Date: Sun, 18 Oct 2026 08:41:52 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: m-amirpour <ampr.mhd@gmail.com>
-Cc: stern@rowland.harvard.edu, linux-usb@vger.kernel.org,
-	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: ohci-omap: handle root hub overcurrent
-Message-ID: <2026101840-starch-blaspheme-0e4a@gregkh>
-References: <20261018015747.246611-1-ampr.mhd@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wzQtTrpD"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Uw0YIVaZtfH6o8cYYNicP3BPPfnY5BFJtNnGIlhTWb4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792305791; v=1; x=1792910591;
+ b=wzQtTrpDmaMrrqBaJyyLJamCuw7QHX2tgQT3VnVCIYmoDpc8KhryI/vrM+dr4djjC7+qDXLu
+ 4QPBmwW5RFy2jMn+4Z9tGAN9OlHmRPTzGY/1HmxfkQvHzSo+vCADmFthl0XkHPjEkWK8cprJG6W
+ IfPw3eZuxm5jhw8R6ApeP3sU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0bd3a34f4381111f;
+	Sun, 18 Oct 2026 06:43:10 +0000
+X-Mizu-Trace-ID: 0bd3a34f4381111f
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	liam@infradead.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	agl@us.ibm.com,
+	mel@csn.ul.ie,
+	riel@surriel.com,
+	peterx@redhat.com,
+	kas@kernel.org,
+	rppt@kernel.org,
+	josef@toxicpanda.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	mason@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 04/10] mm/hugetlb: unmap the page where the other VMA maps it
+Date: Sun, 18 Oct 2026 14:43:04 +0800
+Message-ID: <20261018064304.17357-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261015-urgent_fixes-v1-4-42796911043b@kernel.org>
+References: <20261015-urgent_fixes-v1-4-42796911043b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018015747.246611-1-ampr.mhd@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 05:27:47AM +0330, m-amirpour wrote:
-> Handle overcurrent GPIO interrupts, disable port power when
-> overcurrent is detected, and report the status through the
-> root hub port status.
-> 
-> Signed-off-by: m-amirpour <ampr.mhd@gmail.com>
-> ---
->  drivers/usb/host/ohci-omap.c | 212 +++++++++++++++++++++++++++++++----
->  1 file changed, 191 insertions(+), 21 deletions(-)
 
-Hi,
+On Thu, Oct 15, 2026 at 06:07:10PM +0200, David Hildenbrand (Arm) wrote:
+>From: Josef Bacik <josef@toxicpanda.com>
+>
+>If the owner of a MAP_PRIVATE hugetlb mapping fails to allocate a page
+>for CoW, unmap_ref_private() unmaps the old page from all other private
+>VMAs that have no reservation of their own.  It finds them by the offset
+>in the file, but then zaps each of them at the address of the faulting
+>VMA.  Nothing says that another VMA maps the offset at that address: a
+>child can have moved its copy of the VMA with mremap(), and a second
+>mapping of the file is wherever mmap() has put it.
+>
+>So __unmap_hugepage_range() walks the page tables of the other mm at an
+>address outside of iter_vma, where i_mmap_rwsem of this file protects
+>nothing and where anything can be mapped, and the page stays mapped where
+>it really is.
+>
+>All of the following was seen on v7.3-rc6+ (g6c377d19d4a5) in KVM guests,
+>as a user without any privilege.  It takes a pool of 2 MiB pages with no
+>free page that is not reserved, so that the allocation fails: the user
+>can take or reserve what is free itself.
+>
+> - The child moves its VMA away.  The page is never unmapped, the
+>   mapcount stays 2, and the owner goes round retry_avoidcopy in
+>   hugetlb_wp() until the child is gone or a page becomes free.  SIGKILL
+>   to the owner does not end it.  5 of 5 runs.
+>
+> - The owner's mm has a second private mapping of the offset, made with
+>   MAP_NORESERVE.  The owner zaps its own entry and reads zeroes where
+>   its data was.  5 of 5 runs.
+>
+> - The child moves its VMA away and maps a 1 GiB hugetlb page at the old
+>   address, so this one takes a pool with a 1 GiB page as well.
+>   huge_pte_offset() for the 2 MiB size steps through the PUD
+>   leaf, so the "PMD table" is the 1 GiB page itself and its "page table
+>   lock" is folio->private of that page, which holds 2.  Kernels with
+>   lock debugging oops in __unmap_hugepage_range(), 7 of 7 runs.  Others
+>   spin on that word for ever with preemption disabled, 5 of 5 runs:
+>
+>     watchdog: BUG: soft lockup - CPU#0 stuck for 26s! [u_det3:130]
+>     RIP: 0010:queued_spin_lock_slowpath+0x8a/0x290
+>     RAX: 0000000000000002 RBX: ffffea0001000028
+>     Call Trace:
+>      __unmap_hugepage_range+0x154/0x6d0
+>      unmap_hugepage_range+0xc1/0x140
+>      hugetlb_wp+0x55c/0x700
+>      hugetlb_fault+0x5f3/0x8f0
+>
+>   RCU stalls follow, and killing all tasks of the user changes nothing.
+>   Four such owners, whose children share a single 1 GiB page, took down
+>   the whole guest with its four CPUs, 2 of 2 runs: one reported soft
+>   lockups on all four, the other gave no sign of life any more.
+>
+>   i_mmap_rwsem stays write locked.  With a MAP_PRIVATE mapping of a
+>   hugetlbfs file that belongs to another user, and that the attacker
+>   can only read, the next mmap() of that file by its owner sleeps
+>   uninterruptibly in __mmap_region(), 4 of 4 runs.
+>
+>Compute the address from the offset for each VMA.  The tree walk returns
+>only VMAs that cover pgoff, and vm_start, vm_end and vm_pgoff of a hugetlb
+>VMA are aligned to the huge page size, as pgoff is, so the whole range
+>lies inside iter_vma.  Its page tables can not go away there, since the
+>VMA is unlinked from the file under i_mmap_rwsem first.
+>
+>With the right address the page is unmapped from all VMAs but the
+>owner's, so the retry in hugetlb_wp() finds a mapcount of 1 and reuses the
+>page.
+>
+>A child that has moved its copy of the VMA now loses the page, and gets
+>SIGBUS when it faults on a missing page of that VMA.  That is what the
+>comment above the function has always promised to those who do not own
+>the reservation, and what already happens to a child that has left the
+>VMA in place.
+>
+>The address has been wrong from the start, and the second case needs
+>only mmap() and fork().  mremap() of hugetlb VMAs, which the other cases
+>use, came with commit 550a7d60bd5e ("mm, hugepages: add mremap() support
+>for hugepage backed vma") in v5.16.
+>
+>Original fix generated by an LLM and sent in private by Josef.
+>
+>Fixes: 04f2cbe35699 ("hugetlb: guarantee that COW faults for a process that called mmap(MAP_PRIVATE) on hugetlbfs will succeed")
+>Reported-by: Chris Mason <mason@kernel.org>
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>[ david: switch to vma_filebacked_address, add VM_WARN_ON_ONCE, refine comments]
+>Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+Good catch1
 
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- It looks like you did not use your "real" name for the patch on either
-  the Signed-off-by: line, or the From: line (both of which have to
-  match).  Please read the kernel file,
-  Documentation/process/submitting-patches.rst for how to do this
-  correctly.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
