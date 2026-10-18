@@ -1,43 +1,71 @@
-Received: from mail.unwrap.rs (mail.unwrap.rs [172.232.15.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEC63F1044;
-	Sun, 18 Oct 2026 16:41:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=172.232.15.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369D83CF210
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341721; cv=none; b=X6hIEfIaV7xpQYXRyRILPOeW0+brN9v+KBJsw4R3SmP1BOi5sz7aKKL6Aw3Pp6liHIZRVxROT7hxMoMvZR5uOiAKiO494ppsn09TJAf1CfICdY63kyC0/zv2q1Gvm9eE3Kzc1dq8BGBvzrNJA7+CyJcEsDEN1EAUkSpeNDvC310=
+	t=1792341863; cv=none; b=en/qAuivbiTK06nWzqtn9kraFdbjkmHmdDEwEqG9ojMNJ3GKt+3A9AwT2cujAdlYg1h7Jm5fINQUCk0RYqN2L5MSNIVvLHrPEtRZOVjU6hv8L5sEHgeVm7UClud4xgIpRNNjr0hukitEB/AqG/mYgSZfgPoonGIX5fudVVY5nwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341721; c=relaxed/simple;
-	bh=hGmLVsblAGabHmvZzEwwReewowZajH/dW6cuAGTB8ZI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=anLdR6/ajSlY3Uq5aB6EPNL9TgmSqZYqrik6uHPid9l89nP7yGj/COP9Mj+z32RXC9Y6TGqkh22liyOnxB3aP0bYEHjskr697bDooidHvkQxyQs4jqYsYjIL114IBumf7ITOAIg6Yeyvhl4LaxIob/J3mTruW9NGVIOa2nI1r6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs; spf=pass smtp.mailfrom=unwrap.rs; dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=GjXGD7u2; dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=NiqJwT/H; arc=none smtp.client-ip=172.232.15.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unwrap.rs
+	s=arc-20240116; t=1792341863; c=relaxed/simple;
+	bh=Z0lznjmT2fklPYTx5yPcuTT3xhmNlgD0+HUS4nS1wCo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IkCuG85z21fbDA23mqFL5P7ga/yMwUZkDHIEMVmNc3ps41nAgkdItEolK0UM+ivUfXpCBANFopOurMnJIljXLd0QT+umlGR5SZylaKEWqlmu3uOx5JIroyM+hEXM7sDEljN1KhJzOjnjRd0j5AeWsCWUjqrS6UwuWULp4xS+3/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YhLN1bGV; arc=none smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="GjXGD7u2";
-	dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="NiqJwT/H"
-DKIM-Signature: v=1; a=rsa-sha256; s=202503r; d=unwrap.rs; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341715; bh=v2p66xuZqY
-	iKMK4lP1Xh2fqmBVHwLGyF3dq2Tb2Ypkg=; b=GjXGD7u2z2jRdoHbca7d2WdlVAkgrV/ZCeLLE
-	rz0DlB1r11bDcHcHG9FCXgEXVUkgA1fdgYsU08Tlx0Q5gwmK4j2tOu1P0r3bvJuMhBQCEUhzuOl
-	cRE+MQujZ1DktlocFz3/JSh4bwoEKMDvvNBWUkE1CI8IPzau5JO6UAGtm33cWMAEQQlR8SdCTs5
-	OlpCzOQgK3f1A58M1+F+YpF/N9vHbwtS0KyMXRpZFNbUN04hkBlEaWD230N3x3Tw0Nu2f2LepAm
-	6VY0H7Jr16u6j/ECIfa6cn1zIv6ITv5KbRZ30hVbp6lNohWl5mHmbv9EEREqYOIhr3kBBpgsJZ7
-	ejakg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202503e; d=unwrap.rs; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341715; bh=v2p66xuZqY
-	iKMK4lP1Xh2fqmBVHwLGyF3dq2Tb2Ypkg=; b=NiqJwT/HQDbmVfCsBK9tAxHiX594O0MPf2mhf
-	Uz3nf034XnCDi7J9qg61o76/L3u9HsaYwXIb5t7E113enZoCQ==;
-From: Cole Leavitt <cole@unwrap.rs>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YhLN1bGV"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-353804b591eso2502802eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:44:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792341860; x=1792946660; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JxESZ098zbjfzDcvUMgtVe2zTbr0dJel0R4trpg856Y=;
+        b=YhLN1bGVrvjtlGmsk2SGea6SrN2JdrADzYstJO2EYf+9cekOccqpkGg7uQg9FkjhzB
+         GcPDnK0fGyfx1FWuaOjH1UdEnoR6OO9LCA05v4F4LSr9kFgte1sQcsyx2gQ1yqlK1R41
+         Pue9dVEqeWJPG4Aqv8hIpOBpdELiO8FAZiHjdbrxpKLXCzzifcvrn0UbLfXYHnU67biz
+         WJIR8fGBbCpQvgRf3T0HkYdSYMDBF0KWDGnhtsZIVEYqw0Fvz2GBjIyJyBF16Z/KK14g
+         oukYTXnSGhzbkcnY3oqedBCGDkf+3KPiT34nzpbATV+rruM/TLufAq/VuCVZL5M/q53+
+         CJjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792341860; x=1792946660;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JxESZ098zbjfzDcvUMgtVe2zTbr0dJel0R4trpg856Y=;
+        b=F5uowKJ3ZTwcTrG7CWsU5C0RTiK0mLTOhbLBKDPE6lMuZG34DgJ3GCBYc0JlI+Rgvr
+         8RX2fFsJPnAZXDKy3zuBD9tQo2WHJmxR8X3hnVjVTwVkgxPUYWppsfuUZhQiSLLcpljo
+         +IneljvXYilK6cxyi0N6FJlStDkYR2maWI3h8/ov0xV3Pq7gR9QwDWHOLe7IpM0mpjpC
+         RoDjEn9Kdl3wJyiKrZ8F1tKguIpJyMDL880Bmka1hUD6h47Evl1VswYc41QYSgHFrpH0
+         iPW8LCdibkM3XUUK4cmxeSoApup8oyJKPOpwMEWyM9Tq2XVTGzQgNPSMntP5lbjGoyer
+         jVbw==
+X-Forwarded-Encrypted: i=1; AKwUvBzTThDqsE7EFKPK3qtK8bpzvcw7G6aUpFpjL1JD6lILu3585jTMbaIhDG8un4o7oRRqqPsCDrCMFCNwqg0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5CSNClqHcHqcKtWVDSy8efGw9/eJtLXTvXWuenXa7Wo6q070F
+	JZY58rcY+maTHXu+DjNM81aSPaXuo6FHvfU5ECr7xi0Aq9tvP+xKaNfH
+X-Gm-Gg: AYBFou0hWQXraA+5y8liRpQTOeSfKDctv9M3n03dgP/H2XjLstA9w6TXESK/IScAECi
+	ckkenG1y996Q5e6fSdpbibQPjgiQ5417cMJVIsFYqyc0vO5uC+arM/dF/sDz6U1xmeptvYCVvbL
+	a6Mswc572U4bCe7vufELCz/llQ6nXUIIRywwe2C6PvDK72QvqLbt/l+9UmScT69Fwb9HOCATHlI
+	Dc6Y1QmmUX5/hBN+pROcIDomLIsw7R65dTQhFksaYZbvym0gYbfFnla6z7Wx3HRbN8pzQXqXRV2
+	IHoyZy29MOHmdcnLAiwWMY5jeOQFZK9FH7jKDrnpu5adgvq38mdod8cHoplve5m3I/A24FcbE9A
+	B75/PscuccbfDHddNwh79eF3sa/t2H/NWAC5VTgDZvjTl/THSeRzKlm5pM9BmtPCL3BUNNqQHHF
+	ANWlER1wv/ka7vZln19veUHKSwPqgkJ+RD0mtkLlh5K1JGh0UvGpoI02sjvXchalx9uhL9e25pb
+	grlOGebuz+7ugXo9Q==
+X-Received: by 2002:a05:7301:da84:b0:353:5b04:8d19 with SMTP id 5a478bee46e88-361a0e85f90mr8009309eec.9.1792341859895;
+        Sun, 18 Oct 2026 09:44:19 -0700 (PDT)
+Received: from Vicious.localdomain ([117.99.24.166])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608258aa66sm31431363eec.20.2026.10.18.09.44.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 09:44:19 -0700 (PDT)
+From: Ashmit Kumar <work.ashmitkumar@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Cole Leavitt <cole@unwrap.rs>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] USB: hcd-pci: Do not disable an already disabled device on remove
-Date: Sun, 18 Oct 2026 12:41:02 -0400
-Message-ID: <20261018164134.134106-1-cole@unwrap.rs>
-X-Mailer: git-send-email 2.54.0
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Ashmit Kumar <work.ashmitkumar@gmail.com>
+Subject: [PATCH 0/3] staging: rtl8723bs: clean up SIZE_PTR usage and remove custom macro
+Date: Sun, 18 Oct 2026 16:43:59 +0000
+Message-ID: <20261018164403.14921-1-work.ashmitkumar@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,62 +74,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-suspend_common() calls pci_disable_device() and resume_common()
-re-enables the device. If the host controller is hot-removed during
-system resume before its ->resume() callback ran (for example pciehp
-handling a Thunderbolt/USB4 dock or host router that did not come back),
-usb_hcd_pci_remove() drops the enable count a second time:
+This patch series cleans up the custom macro SIZE_PTR (__kernel_size_t)
+across the rtl8723bs driver as part of addressing the TODO item to
+"convert any remaining unusual variable types".
 
-  xhci_hcd 0000:b2:00.0: disabling already-disabled device
-  WARNING: drivers/pci/pci.c:2198 at pci_disable_device+0xac/0xc0, CPU#9: irq/128-pciehp/225
-  Call Trace:
-   xhci_pci_remove+0x89/0xd0
-   pci_device_remove+0x4a/0xb0
-   device_release_driver_internal+0x19e/0x200
-   pci_stop_bus_device+0x63/0x70
-   pci_stop_and_remove_bus_device+0x16/0x30
-   pciehp_unconfigure_device+0x96/0x170
-   pciehp_disable_slot+0x66/0x100
-   pciehp_handle_presence_or_link_change+0x62/0x190
-   pciehp_ist+0x14f/0x1d0
+Instead of a mechanical substitution, each occurrence has been converted
+to its idiomatic kernel equivalent:
+1. Replace open-coded pointer alignments with the standard PTR_ALIGN()
+   macro, removing an unused variable left behind.
+2. Remove redundant pointer-to-integer casts where pointer arithmetic or
+   pointer arguments are already sufficient.
+3. Replace the remaining pointer-to-integer address casts with uintptr_t,
+   use size_t for alignment offsets, and delete the custom SIZE_PTR macro
+   definition entirely.
 
-(usb_hcd_pci_remove() tail-calls pci_disable_device(), hence it is not
-in the trace.)
+Ashmit Kumar (3):
+  staging: rtl8723bs: use PTR_ALIGN() for pointer alignment
+  staging: rtl8723bs: remove unnecessary pointer-to-integer casts
+  staging: rtl8723bs: replace SIZE_PTR with uintptr_t and remove
+    definition
 
-Only disable the device if it is still enabled.
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c   |  8 ++++----
+ drivers/staging/rtl8723bs/core/rtw_security.c   |  6 +++---
+ drivers/staging/rtl8723bs/core/rtw_sta_mgt.c    |  3 +--
+ drivers/staging/rtl8723bs/core/rtw_xmit.c       |  8 ++------
+ drivers/staging/rtl8723bs/hal/rtl8723bs_recv.c  | 11 ++++++-----
+ drivers/staging/rtl8723bs/hal/sdio_ops.c        |  6 +++---
+ drivers/staging/rtl8723bs/include/basic_types.h |  2 --
+ drivers/staging/rtl8723bs/os_dep/xmit_linux.c   |  2 +-
+ 8 files changed, 20 insertions(+), 26 deletions(-)
 
-Fixes: a0d4922da2e4 ("USB: fix up suspend and resume for PCI host controllers")
-Signed-off-by: Cole Leavitt <cole@unwrap.rs>
----
-
-Notes:
-    Tested on a Lenovo ThinkPad P16 Gen 3 (Core Ultra 9 275HX, JHL9580
-    Barlow Ridge host, I226 Ethernet), in daily use since 2026-09-17.
-
- drivers/usb/core/hcd-pci.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/core/hcd-pci.c b/drivers/usb/core/hcd-pci.c
-index cd223475917e..ae5175fefd91 100644
---- a/drivers/usb/core/hcd-pci.c
-+++ b/drivers/usb/core/hcd-pci.c
-@@ -348,7 +348,13 @@ void usb_hcd_pci_remove(struct pci_dev *dev)
- 	usb_put_hcd(hcd);
- 	if ((hcd_driver_flags & HCD_MASK) < HCD_USB3)
- 		pci_free_irq_vectors(dev);
--	pci_disable_device(dev);
-+	/*
-+	 * suspend_common() disables the device. If the controller is
-+	 * hot-removed during system resume before resume_common() had a
-+	 * chance to re-enable it, there is nothing left to disable.
-+	 */
-+	if (pci_is_enabled(dev))
-+		pci_disable_device(dev);
- }
- EXPORT_SYMBOL_GPL(usb_hcd_pci_remove);
- 
-
-base-commit: 32c52ec87d6245ee2d12ed5dd509e40062939b50
 -- 
-2.54.0
+2.43.0
 
