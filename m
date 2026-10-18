@@ -1,145 +1,98 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012054.outbound.protection.outlook.com [52.101.48.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3763563FB
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:14:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792304094; cv=fail; b=ITzSt6SssiDLHsOt0gI9lId/C4Bj+lhqMvH2CqrJhqTG31eerKcjVmJNwq+rKtFrrueqro6WjIK/eSrkb7d6oTW+N4Q7xlcwHh6aP+GP79bXMn9yOLXtcWI/+41fsY5zp7Eutwc6hkUKXoxoky/aAhReucDFB5FZhbtQFWHPCBc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792304094; c=relaxed/simple;
-	bh=7WpgTxm+vZoC2PCOVLiLeEOfcD+gSX/cAdcJIhmjGtw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=HDNrTxvK6jYH1lVbahKU1Okt1JoTzWsFDB2sB0efLWBjqBBzJYoRV/9sw/IylttZA4HgTgZUnzzvGWVYYWmjGYLJLL0UPg0BTcB6ycWsSSvqVKLcw7g1CxXxEYfUj3IVXYKVWVxXFnfsfIwJLPiXeyzO55gL2RkcEhTEJ7UgHmU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=d0XU44WC; arc=fail smtp.client-ip=52.101.48.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F2D3C4169
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792304109; cv=none; b=ahWNcfroSLl1H1/n28d6E0lzqlQ41woSxFxatnQfIeyzi3il4M3A2DTHOEoNNZ4FJ5ySIqlap0TAaeak9hG1sR9FnwXEt4oit3hUPE0D1CJdRvcTV9qUFbXMiLccwLBf09Dv+j/1foJEX4KEqkQaLcUv66yBEdoebL1Lz0KoPdw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792304109; c=relaxed/simple;
+	bh=dFRO/d/6Wl1NjIou5Sj9HlQFKiI/UvFn2/HqnF5nYY8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ol2lxzOHGaWwGIEIGzQRB6Vu90ES6UwguRcgSlmudeBDDk4T1/OjTN5D9NC3gTXZtTwUtZOmIGu+B0GbomEgEr15dJPr/ggsFOoVEowBtV4sqEGSvnVg5c3c3sOWskZNtY2I3t1HWSBafIgLVzv3N5u0gALgNJV1rZRlwmrTg8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg; spf=pass smtp.mailfrom=gt.tech.gov.sg; dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b=h3PwPNQe; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="d0XU44WC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ijo6qnHaCupp3oT54Ct1rCuPIlryyBrnQzj/1k+S4wU828aid9uKy3Rotko2j/e9v6HHqWuLbCKBDClsq21O6FyNKBfZxl5/r/ymdUAdu+oBDWtpNNulsYq879Jp9qGyHptiiK+8CvBPiN2hbd+s9h+Py6TxXFl903zMETLVD8jDvzwTjlBcjXasuQpXK4wx9E8OIaP30abRelXdlryjxQIr+rje0Qy6kNqJ6dAuJAf/MUrBUWL/EmxhTpuyBS8qp28NBPkJT6GyQUK6dLJsMeu73ktqF86s3Kxp5UXZggnRLqcR14TVScddey/zBY/rKSgxVUyFm3Jnl3ncFMqXSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qo+YVetHLXvScvaCulnlx0V2SrQhgpWgrhjBF9OBVDk=;
- b=A59VxT9GcWh49DolCc8za1OnU9G2tTIb7QndSEh4TnfrDZ39/RtCVwCvylnIvX4pk4W2rprFxj4bc+qerHUC5XFsjtlSiTjlIGcBOE2XJkHrKGzsUtAhcL/WiiQdVya7+0znSiSxIW/5deR/mgBLP9Q9h5iMGO0DguzvpfnelBWuhqWrwhl3NhYXGys79tWIpUYWSXp4YQhzgOJkHb1Nwif+2Iai9ndhRw7j4S2D2WyElT4HeZoj+BvNVcZhuIKPmTaRFGYq5Kjl5S5b+vbrd3GqnPr2miLhWeHmfCT+ZEILsk4S6KFrryh6z937LktVKNsexXxUiyAMi0d6JwT0XQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qo+YVetHLXvScvaCulnlx0V2SrQhgpWgrhjBF9OBVDk=;
- b=d0XU44WCYOSiaSqRq8qEpkFCWI8+6TPkCsW1zyoeufPFTTrDL/qEywUDAi/qS6KZYYdIdoBF8eCtED+aOboCXcGQ8KHFT/IvhFwCKIUlfvuPrv/KTFsr5Du9FdA6CzT9gkEe87+abFYaeHIbV/lE0xMgT9IzGjoQDJ5hhzU4/ceL91tUAdKfi7rW2VQkm3wL4rohRH91n5zreFoQ0ACLMOeMRua6bxWwrOqkkwlsix4nvyCcdj89sS7XzAlSXk7AVPT9/c1mmV3TTQxH0ROEzuERr2gvwIChbGY7eD7qfl+gxtPxMyLntvscv/eWmlOUkt5Vov+dCZtG2a1uiyiDPQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by CYYPR12MB8856.namprd12.prod.outlook.com (2603:10b6:930:c0::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Sun, 18 Oct
- 2026 06:14:50 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0522.017; Sun, 18 Oct 2026
- 06:14:50 +0000
-Date: Sun, 18 Oct 2026 08:14:43 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] sched_ext: scx_qmap: Also re-enqueue stranded tasks
- with scx_bpf_dsq_reenq_task()
-Message-ID: <atRj0-2apF-LkJng@gpd4>
-References: <20261017223738.993262-1-tj@kernel.org>
- <20261017223738.993262-4-tj@kernel.org>
- <atP_f5S5v_1V06L2@gpd4>
- <8cacdbb7d499b8a5eaf09d052919dc05@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8cacdbb7d499b8a5eaf09d052919dc05@kernel.org>
-X-ClientProxiedBy: ZR2P278CA0039.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:47::16) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b="h3PwPNQe"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e942864693so5260755ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:15:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gt.tech.gov.sg; s=google; t=1792304107; x=1792908907; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oRH5Jy551mYfc/WkSOrU9rJBVCAUTwu41wYys1NmakA=;
+        b=h3PwPNQe7KKjKgZVpIK7synCo/UDTN54hSCWKXRywMpEsFftUOAPh0x+9S8iso4LlP
+         rAitp2FcPWnRQWCA1pS7oJuxHgLQGLFxvvEVluYZ8SBu6nz9R2rfsAS/hzlqujcpPxT9
+         VmCbtYMuMEzzFmbRkR3b0DiLsgpoP35MuS0ck=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792304107; x=1792908907;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oRH5Jy551mYfc/WkSOrU9rJBVCAUTwu41wYys1NmakA=;
+        b=hM1Ia8VqsyiV8GXIW/ws7zZQcun90aGoRChYe8w95g98teQPbDSEGnj17ySG3RPHme
+         DgP9xP+eErczKAi1cBi0s7ml+1kCUz+k4CC+le0ABXtv5DZmAHfiyBmR5c4uZq0D+zlv
+         hJ/iwaFn1f5auhdSWaH4SGVk9zqUOQOxgQIo75Yg88YtqesT0FTYC+auZErmZKIB+z1i
+         q+oruRc9nbaVmQe/HjvKy6F4ZQMAtX5+sJg8W0tEKG339jcOweLwXymD5ZBc1SgS/z/Y
+         E/ycuj79BOkVObjKOYy7gM+/8j8Xfmh/oDJlGamkH24L4uR0xupvRmE4VeiOxO6p2Zmg
+         oFpw==
+X-Forwarded-Encrypted: i=1; AKwUvBxHwyxfrpkJJSPN4FyNWZ4TmSwcPyD/s7CKQXn+dtftqEc9LWCosM9yUbC9szOnb1u7eTq0W47jDSp56tg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+WVc6KJMCGvSxVbnDQPfy2O2TZxtaRef6S4XqjLziFJUuthcM
+	Hhfdb+7tvV9Kdu7AE6AW3cg1VjByP6aXb7ykNVNK8WUV+M59BK7O/WmzEkQR/3etqjc=
+X-Gm-Gg: AYBFou3T+eKzdfjUy1EF1yEBzbp3V2Iq9KJrfo71WgtVk4/9OgVC2QxQJA7I4BxmSmx
+	FqIKiJjmjDUlIebQy14qQWyfazjlTat+H34rY4mEZqiSmdLH4h7/QWJ1Drf6CQWeK64FZIFOlY1
+	CafPv0wx8mvS4om6fnn35xLLrMGAs/MyXuYJUIwBjlVcf8h1XWePb38ZwP5yLT8oiTavw1wy/EL
+	almrkrJEKK2yYH/NxlFxO+w7ooahrYqSuE0Mev9etRlCqnGqhu8lXIADd1wklQ0pzpYHLC1T0nA
+	VB0Hrl6szZrRbG/3eCbqHCfSjtNI7A9SX8HWG+jv8CX8nXLK7DdZReQwUpZeoW7vta374nWxnvv
+	LXIuy3K4uMxFDU+q4uTL3T/7rxo9nmSdT3rPLkVF99QURvgull9SrgKaM4UQZ7+97Qre3CEus+L
+	m0Kv9n8h+TmkOkvRACFLPnLgBMySohYgZ/5b//TWG39ZWXeQF7YqsLzxheLM9Fl1tdgcHL+pKZ9
+	4Je0rPsmgp+WO8Cct4jfMHF9hoHpcWoQJ7hsUec6vgBPa/uLDmelhw=
+X-Received: by 2002:a17:903:2f87:b0:2e9:4175:3079 with SMTP id d9443c01a7336-2e9a69e4360mr42362815ad.21.1792304107338;
+        Sat, 17 Oct 2026 23:15:07 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e833f1asm26464945ad.43.2026.10.17.23.15.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 23:15:06 -0700 (PDT)
+From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+To: netdev-bot+sashiko@kernel.org
+Cc: 98lawweijie@gmail.com,
+	Thangaraj.S@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	law.wei.jie@gt.tech.gov.sg,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	stable@vger.kernel.org,
+	woojung.huh@microchip.com
+Subject: Re: [PATCH net 2/2] net: usb: lan78xx: reject short register and statistics reads
+Date: Sun, 18 Oct 2026 14:14:56 +0800
+Message-ID: <20261018061456.18648-1-law.wei.jie@gt.tech.gov.sg>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179229346399.3135.12116533277810426921@kernel.org>
+References: <179229346399.3135.12116533277810426921@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CYYPR12MB8856:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6762f433-1889-49b0-ca08-08df2cdf1dc3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|56012099006|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	FaRRxza1TXWDWtGskZJQ92wvPLshitCOmeV2MVVZpnKjJ0hrDSO3hxkFvt2N6jjrMoeBFUFXKQGFpcF4HdAUKDKmZoE1xKya/BLnBXmxBWtYnbgKlPyvebL55hmeL17wJEMncO5d28wXMO4Z7nvabKv5wobQzj66oOhK9Yuzst3Tl9nbG+VGMJxrfyhSmZp+UIWN8HWj4Py0IfgA0io/Vpe7sozYIVYQVC2pR7RohCK845reyVQJOOURiG5eGAEm/9ieA7dh2RFa3p248SRecjEfgqajJPo3glwCjf7/WsZ03xxxpzb3WzaHjk8F6rMJMMcfzwBy4gb2RgPwmq3WrrKkNb58aiCvbQhoaDhqSQ3aI+8B1wDIDrVnUHoFcg45GaFw9Kh9MyxSz7ikhmW/tC8nR5egnQFEbwGoQ1vu+8iB7rbHKRi0hszcl+huUFO0Ra5qiTrB5ZzjSLlueiKzk3HQuhpfo7SjNBUGLG2SuA1DsZaDiupuSZ1qSkKXKIZyc6p2yz6vQYnY1L+f8LOaGC7c4JF3hplkE6P56F4I5of8MX8YAtBsOWzbxtNbihSOMBAErP/f5tNcoFKN9L9bYb8dpLk5S2QnKmnSMKdVbtxHK5yt95xnNU5gpPfPKOc3XVBANMYhxQl8w1P05Qq96Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GhNveOxe4+pBgWiG5Rl6Hd+asWP6HZYWGOpeXVoaEAkOmUlPHVx4AZjU8IZQ?=
- =?us-ascii?Q?sVRIftyDUq/rLSfJ0vfVWL6V2Va8VSyUL6UEbdVRnweFxF7y5NGU6he211C/?=
- =?us-ascii?Q?NrP1xdOOltWieAxlP0BnJvPYDVo+f45XcBqdf7W9p95m/4DSR/gDE5VOIu55?=
- =?us-ascii?Q?e0Glz9W+qbmmrUv90PqKgF/VMsJ7BGDwfqBjEhxGxJDLi1mk1RJV/ucc+YwO?=
- =?us-ascii?Q?JKbtbNvMhnCm7HUGS1rXSaYdaXsrenCh4Igg7jVUdu6koZW/4aBVlZ++BAWo?=
- =?us-ascii?Q?/NNHsvoDSOS6FJO3bBr21UZGbZJU0H3Bu5oi6vX9wn1Vm8eTW0qM2iU6PfFR?=
- =?us-ascii?Q?53jwJufIr3cRqWNwOECDeCufi0V2pJzl1rYYolWvAXQZE2t7HEmHxm4VUCnq?=
- =?us-ascii?Q?n38TzitOCiPfRo4QgdH2zq6ODxePzqUkA+T54OTVmlFXvmjb/36uXgJDy6t9?=
- =?us-ascii?Q?qW72gmMh27l9SQWOCJ0l78vn2Suxn33eF6Um7xOYKMNNrMVKD+vqZ5EcQVd1?=
- =?us-ascii?Q?1NwgjJD8+iT5i3dnmLIXQsopY3tLSIjT2mCXAEUkZq9utBRdc5lfjb1ruCVJ?=
- =?us-ascii?Q?4usCueH+GjdbLCFYA/Y76lM6A2kcKPVQISQc4qlSdHvnVx3VVbbdGJqV3sR/?=
- =?us-ascii?Q?1Ge3TdIiUi8bG0t8BtyXY7mIzGzn3uSyeZfgVumHzZTSBo8pmF1Itjjr6P1c?=
- =?us-ascii?Q?JswMOtW0hTLK0EeCmbMXtHXrz3deHPnZZ3l1darjXohph9tYNG8eE8zQ5JbW?=
- =?us-ascii?Q?Ae3YZWrp2khJ2nATKwMsYP4nU/7HcUpZZeK5Yc8seIZ/qH0EC/lCuUkV2E5W?=
- =?us-ascii?Q?W08qdnyIXc6dJC6zjj139095TKOHAGajcr2teZ4iwvX7haUu+6CnTzMFTjmz?=
- =?us-ascii?Q?R/RgSOnG44zWgOciiUHAp72GCqoVXg44HCZBgO4bvjnFs3ss7cdl69QbDykW?=
- =?us-ascii?Q?DRf0w5422gWprDKdp1+Nu0pbGX00tY8iD+yXlPUPE92CptMuhDkSHU8hmsuL?=
- =?us-ascii?Q?tS4k0sNKEQiylB4/7iO8RmWIda5lm+FiMIdJmUQ7H5XqP7JDYevfoau4jikH?=
- =?us-ascii?Q?eCqbYJ66OcwNS/VYUJvH6GGM+/rFq7qxH5oFaQV/wJHbD/MftM1FAjnuu/97?=
- =?us-ascii?Q?GKK2INSq0xIarjOGbI613CRhSFTAGP5HQ7xWdzkwRQH66L+icc1X5n5RnVQQ?=
- =?us-ascii?Q?+FRgRbcvasR5vxEhzEYljNnHzOlU+w9qqw9S8WoBR4SMXTxL2V48KGCaYPbc?=
- =?us-ascii?Q?h1+HKlgciVQB63hfvJo6n6mTyjd2g2aCz+dIDFJljCGTqM6AiLs8x+MBhaIt?=
- =?us-ascii?Q?GjKGBCCNczws6w9xkmW7P9e2j2K6YxjOx1IicTMPQIKHqvJyR2V9LTV7UzL9?=
- =?us-ascii?Q?U/k0ZzEP7eFhNcDASVi/oe1ov/ituj0gAwjroNDbXUZPlC9O4eihDI6fGHhV?=
- =?us-ascii?Q?xausk4vBCBJEsPyAtRXULOKOopVp9/L2WZ2/9Uo65HVQhIesVUToQn3Qd5uD?=
- =?us-ascii?Q?yITf0MF+b2DqmTEcC8dREhqUQm1bSnhTVdgXjVZNfFDawF0XcL3nYD6ZWW1l?=
- =?us-ascii?Q?PaXF5FyTIYw5PA/zZ+XRXzFO9QkPLo+JrnyByfr+GWsDjJVAM34OiGDhtr3+?=
- =?us-ascii?Q?22mGu6h9BW/tBbwnUsFOY2A0IE/65BkpqpEys/uESWCPatzAINDCM8pYo80m?=
- =?us-ascii?Q?ggmRdKteieG7x3bs6zUB6y7wIgvG/OIRqRWSoIwzdqG1vfxFwVo7WRRPeY63?=
- =?us-ascii?Q?mlhkiLt6bg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6762f433-1889-49b0-ca08-08df2cdf1dc3
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2026 06:14:50.5227
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mXarrXT7BjwZ8QquEosZgmpEy9wNKrN6gqKOA/8Rq2aHESaLELImY5gcHBE4eYHSh92tryGdAEsIYP5Bc9dyGA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8856
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 17, 2026 at 01:35:13PM -1000, Tejun Heo wrote:
-> Hello, Andrea.
-> 
-> On Sun, Oct 18, 2026 at 01:06:39AM +0200, Andrea Righi wrote:
-> > > +	if (p->pid & 1) {
-> >
-> > nit: if ((p->pid & 1) && __COMPAT_has_dsq_reenq_task())
-> 
-> scx_qmap is already 7.4-only. It implements ops.sub_cid_sched_updated() and
-> ops.sub_child_ecaps_updated(), which older kernels don't have, so it doesn't
-> load there anyway.
-> 
-> Given what qmap is used for, it'd probably make sense to rip out all the
-> compat stuff from it and just pair it with the latest kernel by default.
+Sashiko is correct. Will be submitting v2 with commit messages changed:
+- with patch 1 a zero-length stats reply is already harmless; the remaining
+  leak is a 1 to 187 byte reply (the counter block is 188 bytes). The message
+  now says so and no longer claims the counters "stay zero" because of 2/2.
+- it says that 2/2 depends on 1/2 (otherwise the leak moves to the stack) and
+  that both should be backported together.
+- RX_ADDRL/RX_ADDRH are only written back for an invalid address; the heap
+  derived address is written to MAF_LO(0)/MAF_HI(0) and set as the netdev address.
 
-Ah right, it doesn't even load with on kernels. Then ripping all the compat bits
-is probably a good thing to do.
-
-Thanks,
--Andrea
+pw-bot: cr
