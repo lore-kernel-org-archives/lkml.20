@@ -1,95 +1,100 @@
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44BB4AB1BC
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438A84BFE83
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792330201; cv=none; b=T3cA795wLc2T3P0oLu/+ENv5mI7lce5KDzL7hHsygCDGXXZt4HkpBtxL6Ppx3uWnn7sUZovFx9Ohiv6BPQ1xpdVl84JuJRBO5y1MQzBjivgAQ3to7LKBDMfnegb/yZ4Lrtbw/d0E9HSLR0TBBAap0YQ7NenYdkU4BShYLuLy4Gk=
+	t=1792330202; cv=none; b=YMx053Oe5sPg6YhiJ4aRmTTKFMPDS87OGE/OozmKtDtNSrQAWRCR0sZZIqhlCR/f2sKz/tuQYwiDzzOGL5xdxQo6ofMs6KGe9h8peFXjkY4MkjMV/wG7fSUDQ/c7JsjKbTsevP6G2ve3NCHSVU2PxSn+FJ6ysHllXZ0iw/E0Jsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792330201; c=relaxed/simple;
-	bh=uUEEWAjMYzrWD0uWwaJnom9EO/kriJDbQo0ckx1o/kc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rFCJLunau084lp2nwv1PqX4C/ePc2jPXeK1cv7Z297kbZCbSHES48vtY+Hvt6WeSjdkdAC57BdCSdxNyFoy9Rn1HSOy4jImAzUCmB2+orP+k40X2skW8xS9g2wKz6rTeCz/4I9zgnaVCqRqAkw9kAMV3qzN8fHsUjosrl40gb3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=k4qX51JX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=c25PpM5h; arc=none smtp.client-ip=103.168.172.158
+	s=arc-20240116; t=1792330202; c=relaxed/simple;
+	bh=TzWImeYte1o/3MujRJvJO/bTLhnL7S9LBtIICvbnFvg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KfP4cyPIyzpgBZOFUHjOz+tkWOR3/PodnNcByKErlIvY2cVjq4Gbg3q4GEBsCQOCmo0GQptoQGDewpc5XtsQ1NgAxbpK5RdEopSPaSk2DLqNO/0VMQ0Sr5rNMPhZUQWSUcy2nFsh2yOkF8Kwx1H6JBJBxKDNdw+9c8lWA2m8aBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=UWH6yQ6G; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cftq7Jzx; arc=none smtp.client-ip=103.168.172.151
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="k4qX51JX";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="c25PpM5h"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 2185F14000F3
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:29:59 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="UWH6yQ6G";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cftq7Jzx"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 5C888EC0102
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:30:00 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Sun, 18 Oct 2026 09:29:59 -0400
+  by phl-compute-04.internal (MEProxy); Sun, 18 Oct 2026 09:30:00 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm2; t=1792330199; x=1792416599; bh=/A6IRjuvd+
-	4K838l6G9kT1IibAAs1qwwEHtgmweq3c0=; b=k4qX51JXKvhSjLDCY1VJkrIV3V
-	h2pQEbeLUbxYb+w7Z105YPKKv5B41+2PCVAmDwv7aey2eW6VATc2iB3g1sGn4mhB
-	QASrzOVnYeS9Te4yu4UzEaaldwNwcdbrC+I3IkeKVCAWNVdpJZJ5Q1Lw+wK93qde
-	i+aphzG4rtSCwX9y6tqgS/zD5A6KQ9EBWhaVblT0ZrTOLx9HQeM/mD6S2B2VAryX
-	BoHovfmObBP4IgXKt29TnkzX12AEU3AgJMKwHXL6tM06pQ7DQ38xYChnaeUMTlCY
-	CQ3BuBCE3w9JWBUD0f5g7ExX2hNMF6wCJHJ9rQrCUvYmnvpYI95kImW3rWpA==
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1792330200; x=
+	1792416600; bh=scEtk0jUDOCStzqDTcdoiu8yTAIeeG91AG1icn3VunU=; b=U
+	WH6yQ6G/vda3EWYqaxNX86BTWHQ6yKDp9MYFFArWG90SzrDacTpAkDbqvS2g6OLv
+	xBbmaaS8paG+kJBIvyTj3ZwQoo3/VJ1u7cZlWARPhsvWTVqLh1H1JUEuoIQHHOhH
+	N6zI5G08p0DBN1m+Pho5dJLANWx26SHzhpm3jt0FFRhFpR7UW1U80uAvnGp8MeCE
+	wzE1BBvT5leQZZ6+/o0kN2K5Crp3AAEVmuvnUqkBd0xJ9liujRPwUsjxYg2HAGvw
+	/vr1hB3BQmkNYu3TdxEJc1b01fkGWxOpLLerkvrmr/uu1xPpSnqk8Emdk0qUqwTQ
+	uoKcaje4gkDevesuOanpA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792330199; x=1792416599; bh=/A6IRjuvd+4K838l6G9kT1IibAAs1qwwEHt
-	gmweq3c0=; b=c25PpM5homcGBodOkPtS8XKti9KV2HBmREooiVrF73dSYtyUrwV
-	PIPz4+SJepzh8s1D4StcrpKiyUq+ZQxNBDjsp7ZIKlsSPhwWzJ6Jsbaf1zhrsYeq
-	iHh9PoqD0LvVqJGE9kk2tsRyr0blv7N9kVEPFtpRVPWFUSKQVfMEui3mjl8ojC1G
-	iKBTjjh5AXx7zqgOiuOyfCQFIa2KmUPpGDKKaPE3+rC8Id8eboAyyW/G6CgijATr
-	mBGGK34knuGsLJP/dBDd7if8RryAIO+otr8SnYnrhILEJGCWWj0RgGO4Kw75VWFk
-	5iN2kNsdBA/STNDfPERXWCSfNYmRb/ziTpQ==
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1792330200; x=1792416600; bh=s
+	cEtk0jUDOCStzqDTcdoiu8yTAIeeG91AG1icn3VunU=; b=cftq7JzxAYKHY3ISY
+	8kWRRTqvZpKwpu+dFvGHHdIQ7QMCxYdvs2+1JaiSR42xlnNMY2U1vVjuMCF+ySWM
+	95P2jNQezSwhh02t9Z8IiT5Ha8HOEJNm0woWCUVd8jo2jQiJlU6qJqlbzzw7n1l9
+	pgGBeOgSRf3/28fybIcLPLIKyTsSa3OwAszNolGcSxnPNiaWgA15qQ2EDtzyoGbt
+	Iv/CqRlIBECihoXYwp6yEw7v4XILXLgMJ3PU+kZE+Rj9au/1VP2ZfzgwiGM6iH/U
+	TsFtNJ5uS0+04gASC7K1wxcYShdqBNDrjvpkA111Wf12wfTvG0wQWNHo+5fd8yDF
+	9vqpQ==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
 	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792330199; d=sakamocchi.jp;
+DKIM2-Signature: i=1; m=1; t=1792330200; d=sakamocchi.jp;
 	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:p2rZ/3FTu4KxlUKFLE8HBmhrOq46oD5Fd36dxkGt39hH7h6
-	E5VqOOqkXonTZo9sIeUa8vGdp6dPZfdZ4e/q9ksDCOrWF/ugIxMsAef8Fsgmx8Dg
-	/otkO0FhEqZEw2LiogG9xzrpW0QDrwg27DJlRnwkE4Ms+3T5mk5JvfHut0ZkwTu1
-	QlOs08h1EEIbWF8gKF7uv1vIb749QIh6NsDimrsxQfQ5N3QePDaGzcLKF6qIl6l9
-	IsQ933Ru6xMqoBCZc/Ud5BrVQD/z62uf+xMJzI8gNeiYepUc/pTEFwHIPQOjQWQw
-	RxtvKP40sIDUnpcFyNF52T6Oyltnn9mu35FM3Ug==;
+	s=fm2:rsa-sha256:i8hZLaOzXPf5XFx0vkFm2Qw/6KeUu2kYv5UWx9osY6MBth4
+	JVzj+xmv3LckYcyO1y6kxoXD05zUozpyYzrBMCqmS58huH2av49PLofzHXGFTZRH
+	uvDPlqlp2wZvVDe2sBJiMB7JiPqPXVujKuNPHIlAbhMxaPfC4cxpxl4172e1tfrF
+	3AET6K5Ce0wjFX2rdoRbsXvMuWfuawcVTiIFg/CozBrR+TRYfIq+yoxiNfZUeLTP
+	giuq1eKd/fftI9ockrU/V4sCTBlIWV8r+ccbYrsmzVxdp11g+AudzVBqwcBC3Qns
+	8klOpdPMAj0G4q1JBzD4Uc6bGCv1WLl6KPObekQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=9;
+	action=mi-m=1; hc=11;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:tL0NC/VqnXOGMRIVoyxomwL9UpfkKOPgXvRBxwRVkIY=:uUEEWAjMYzrWD0uWwaJnom9EO/kriJDbQo0ckx1o/kc=;
-X-ME-Sender: <xms:18nUamv9eUujr9Qffzm-GlYWtaVJNsYb0KU6gz8HkhiTKJTFVrX0Iw>
-    <xme:18nUakaGCQ9no4ZfbqV-bHC07aGmOIv3k_lIrLdhzaJ5tbjkcRqnuGh-hsWjMg9-M
-    nFI849FJ2gFIJsZX59Pv2upVDd_SxUPm62UxO_fkh5mbq0pxR9jUsw>
-X-ME-Received: <xmr:18nUajv70A_biQYcX_nDIfHjpKz2Hyrw1yUMg8oVz370o_ANr2Z3UCGyZ7csP3Ko_ouT1Uo-gIjCeFPrIRtUamciRZ2Fs2w-oRtFJbLQhNmW>
-X-ME-Proxy-Cause: dmFkZTEQT7fUfMXMbPUpGDsqoNFZuMnHIgnrQeA11imlqlVCm1mnlL+yzQPsx/OHC/2Kyy
-    U80NBhhINM0+u2eXusO/8iaSCiLuKnPV2MzkPGp4o4w8hL7xy2UrcYlM02K4H5XpV8lWEc
-    2Zc13qcPHKFIIY0SK25LWDWHKtwiyEH7GwwJFlYLr7S+vwmGZCjbVWYpWgecplRwcSO9Lt
-    cVFQyvFh3/PyYeqCjiQFhlXznTjSSVWyLlQSu+lfcn33lNp2lVDOUm1SlBnDLLwuyzWNaq
-    7xKcIEfbuUch/Kijo398ZfmccQ5uWsRhDrAFIqsYjrR9P51sXXZjmDZ+sPLvkEw45+ZraI
-    TnTbqPNQ75uZr3TTU927GUNO+L19tMYvd1EGxluInkXFvRygIrYUzCfkBjmQoVqfT37fPm
-    BT0la/HnDP4oXv/3dCgGUbrtshutLqqKuj4zO+lKUQ7RINSQhcdN+YIcRK4s9jQ8wAniX6
-    h8GVgJcPWvt8Lq1TxfyGIZuwSyMhN31nVJuDce0S+HPLpbLUxTZh25bLev7lbrdKkthu5q
-    NFp2j0jjZ4FcTU1IHIL8PVxlzNxMj7Vm+t+clC1uTjbTiyPAf3OTdG3GoI+AUfFj/PzY0G
-    WuFi2/0UZGXXgvA5YZhf/wsGx1KyIPOhZAI7OKXE6+b+4sf+V5xuuyxEH6EQ
-X-ME-Proxy: <xmx:18nUauGsqh3qKWIRNKVMthuYutvlvP2K315AkTlJgk_6VCboKDDjjw>
-    <xmx:18nUamy5OygHCCThFdmIFVIdqHmExNkoBuyLtd8Eu1AnepcYpkgY-g>
-    <xmx:18nUalgDE5bFjsebzb4mFefapVU8V8ffTXu5GdT1lOXjMMn8h-9ZgA>
-    <xmx:18nUahwABElFmsx_SvawWB2S39-RbrDfFnnznS5yGOzpvZnxu1pkwg>
-    <xmx:18nUajRynjUK4b-xGFELf1WGYTRJTOXEgWx4olATaZ7bwu4T_s5CCqX8>
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:nXUIeNM8mBdWOX+zzPn1xyY0yvo1IK6TYHIIZ1pmrbs=:TzWImeYte1o/3MujRJvJO/bTLhnL7S9LBtIICvbnFvg=;
+X-ME-Sender: <xms:2MnUalUr8P-Tm6cOMPJCVnySVSvzImr9fWkJ541wRcTHj2VvSrU51w>
+    <xme:2MnUajgaZ5CQ3sEDWt-1ArpQRRbW_GguIahtTMiU9jY4s8fXLyl9D4uqNwf6n1btP
+    iKXi9327Z8G68QUuo5NENaf3lbv6FZeNrQ5s7NCE6otNBZ5KQBU0A>
+X-ME-Received: <xmr:2MnUao_32sJpUm2z99vk6icuBpe35cfOl1cvMkvj--Ep_Er-SSHh_jQCbEpV-2PDjfrIzRSRjRzKxtHcADrKowkqtXMZ_Os4klFUt88OMWYQ>
+X-ME-Proxy-Cause: dmFkZTFuVtQfZijF06Q5pTDla1VOBZPLPgOwTxkWh5hEBbqIlfpEg6UG5yJBRwl+R8AFld
+    2gou1CayE3O/XCQA8d13Px96m3MgSvYVwWcPvZmFToHdwhgRUStaGhm3D6ESRXyrbaLfQU
+    alVB3w7PTntvTPviZdZYnmr8iqH02LNToTACTnoJgIKb4rnJMi2ozxgdmuga1ypMHzdPNH
+    upYbIQ1bigC0eormcjIkK+qGUuQs4rmA/Q/l7ljxE1Sd/LU7mW2ovMiZFNsnvjwdLX2A2v
+    H7HFxltDx74js+D0bBBCE8uhVBMlNBY4zHsJF3pqp9S1+b4s/FOb30WSFyCFh5MHx9guiZ
+    W6hzl7+0/Vk3GtZvRZgnruFo9uDjeNpAgNhBfWASJN4NA70bVuX0NfSi4B//gnJfVi0t9I
+    K2Z150nA9LWnFnb5Ua8DxjPieg6Gv05H4s6csSjgLeksqFkJOD1UMPYWpKXVcMBR4jk8sa
+    lLpGR9DlsxlhALFVBWbN35bNKM+0QxQ0ueNbI09ip0XayzpDnrnja9JAjAtx1g16HWI/Aq
+    PecJKJCospDs0QOS3CdTdVcLS36cVdL/cEerAoKTBP5JzpBNR+Pu75IPqgeArzcg2lMLl4
+    l9+f/WfBaovj0Y8z8gokfZsZNMGHxt55OiI2N/tLTajW3JVOG7Z/vFs3ubEg
+X-ME-Proxy: <xmx:2MnUalDNEYlkz-KngefJJHqLGB0oTwDtBXWizOqN7ZAGW-rxVszh2w>
+    <xmx:2MnUatL9XtyaOMt4mKQUZ9oL_qjV97NRJE8qFDY-OVrsEUJF-rIeYA>
+    <xmx:2MnUagm25vesMURoKtaVFjQrcLlC-31XBhr0DaWpJvqhf7elIbeUYA>
+    <xmx:2MnUajGgkafHB7mH5fMWX4jsH_gLN-PoQwU-f44ZiZm3YC5M-icJ5w>
+    <xmx:2MnUalroEQ3LEcUNq87dhOHynb2vlF_olPZ0LR_-Q_xpI3bPx2qhHGRu>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 18 Oct 2026 09:29:58 -0400 (EDT)
+ 18 Oct 2026 09:29:59 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] firewire: core: invoke packet callback from workqueue when removing card instance
-Date: Sun, 18 Oct 2026 22:29:53 +0900
-Message-ID: <20261018132955.391090-1-o-takashi@sakamocchi.jp>
+Subject: [PATCH v2 1/2] firewire: core: use designated initializer for dummy driver on card removal
+Date: Sun, 18 Oct 2026 22:29:54 +0900
+Message-ID: <20261018132955.391090-2-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261018132955.391090-1-o-takashi@sakamocchi.jp>
+References: <20261018132955.391090-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,32 +103,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+The dummy driver used during card removal contains mutable variables.
+Use a designated initializer instead of a static constant assignment.
 
-This series is take 2 of the previous series[1].
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ drivers/firewire/core-card.c | 44 ++++++++++++++++++------------------
+ 1 file changed, 22 insertions(+), 22 deletions(-)
 
-This series updates the dummy driver used during card removal.
-
-The first patch switches to a designated initializer for the dummy
-driver, which contains mutable variables.
-
-The second patch ensures that packet callbacks are invoked from a
-workqueue in process context during card removal, maintaining a
-consistent execution context for callbacks.
-
-[1] https://lore.kernel.org/lkml/20261016135948.85343-1-o-takashi@sakamocchi.jp/
-
-Takashi Sakamoto (2):
-  firewire: core: use designated initializer for dummy driver on card
-    removal
-  firewire: core: invoke packet callback from workqueue when removing
-    card instance
-
- drivers/firewire/core-card.c | 88 +++++++++++++++++++++++++-----------
- 1 file changed, 61 insertions(+), 27 deletions(-)
-
-
-base-commit: ae20f20e962cffe9a3baf189b12eb176f4058c63
+diff --git a/drivers/firewire/core-card.c b/drivers/firewire/core-card.c
+index a43fc3a278f2..83be100a1f4b 100644
+--- a/drivers/firewire/core-card.c
++++ b/drivers/firewire/core-card.c
+@@ -763,23 +763,6 @@ static int dummy_flush_iso_completions(struct fw_iso_context *ctx)
+ 	return -ENODEV;
+ }
+ 
+-static const struct fw_card_driver dummy_driver_template = {
+-	.read_phy_reg		= dummy_read_phy_reg,
+-	.update_phy_reg		= dummy_update_phy_reg,
+-	.send_request		= dummy_send_request,
+-	.send_response		= dummy_send_response,
+-	.cancel_packet		= dummy_cancel_packet,
+-	.enable_phys_dma	= dummy_enable_phys_dma,
+-	.read_csr		= dummy_read_csr,
+-	.write_csr		= dummy_write_csr,
+-	.allocate_iso_context	= dummy_allocate_iso_context,
+-	.start_iso		= dummy_start_iso,
+-	.set_iso_channels	= dummy_set_iso_channels,
+-	.queue_iso		= dummy_queue_iso,
+-	.flush_queue_iso	= dummy_flush_queue_iso,
+-	.flush_iso_completions	= dummy_flush_iso_completions,
+-};
+-
+ void fw_card_release(struct kref *kref)
+ {
+ 	struct fw_card *card = container_of(kref, struct fw_card, kref);
+@@ -790,7 +773,28 @@ EXPORT_SYMBOL_GPL(fw_card_release);
+ 
+ void fw_core_remove_card(struct fw_card *card)
+ {
+-	struct fw_card_driver dummy_driver = dummy_driver_template;
++	// Switch off most of the card driver interface.
++	const struct fw_card_driver dummy_driver = {
++		.enable			= NULL,
++		.disable		= card->driver->disable,
++		.read_phy_reg		= dummy_read_phy_reg,
++		.update_phy_reg		= dummy_update_phy_reg,
++		.set_config_rom		= NULL,
++		.send_request		= dummy_send_request,
++		.send_response		= dummy_send_response,
++		.cancel_packet		= dummy_cancel_packet,
++		.enable_phys_dma	= dummy_enable_phys_dma,
++		.read_csr		= dummy_read_csr,
++		.write_csr		= dummy_write_csr,
++		.allocate_iso_context	= dummy_allocate_iso_context,
++		.free_iso_context	= card->driver->free_iso_context,
++		.start_iso		= dummy_start_iso,
++		.set_iso_channels	= dummy_set_iso_channels,
++		.queue_iso		= dummy_queue_iso,
++		.flush_queue_iso	= dummy_flush_queue_iso,
++		.flush_iso_completions	= dummy_flush_iso_completions,
++		.stop_iso		= card->driver->stop_iso,
++	};
+ 
+ 	might_sleep();
+ 
+@@ -801,10 +805,6 @@ void fw_core_remove_card(struct fw_card *card)
+ 	scoped_guard(mutex, &card_mutex)
+ 		list_del_init(&card->link);
+ 
+-	/* Switch off most of the card driver interface. */
+-	dummy_driver.free_iso_context	= card->driver->free_iso_context;
+-	dummy_driver.stop_iso		= card->driver->stop_iso;
+-	dummy_driver.disable		= card->driver->disable;
+ 	// Ensure the entire contents of the driver are visible to other CPUs.
+ 	smp_store_release(&card->driver, &dummy_driver);
+ 
 -- 
 2.53.0
 
