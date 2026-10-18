@@ -1,166 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDAB3DB64D;
-	Sun, 18 Oct 2026 20:18:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7568C3DBD76;
+	Sun, 18 Oct 2026 20:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792354728; cv=none; b=qoEs8zWCTMUaFn9CRmBqXpATA4oNXlIiMiIbP4rOtQNvyI6zuRUIEDwSWlT/7+hu84g3Ncho98tJuyeVJDSW3xjXXtspOPzJGXZDINB2TEpATyNS0/arMa2lrcSP/UurYjhNsjvWv9UmVeI+W4vEj1BX0GRINblRcx7FQ58D41c=
+	t=1792354862; cv=none; b=grVE+b9cgq/bJ6vHSHw28Hac79hMGAqKlBkLf9L5tVNmWWv04eUUvFB8J1WRka/YZk8/Xq7krVLpH9NzCnkCkp3BYiroGuWgv1dpATTPeL1CVizbpQ8dXb2p5uK3HL5yOUu9yBVcQPj2nLWf5w59H5qpeVj+dr98nmoV590/+30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792354728; c=relaxed/simple;
-	bh=59OVdo2PjY95NdoYTMPvuuAFu/PyWOUVQ7pqOJbJx4Y=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uhuYLbK0iGMhR4iT+oEy/cWNx+asBKqbaMOFRGd8WfXmecuMMOlbhSVY+w7AfuGZhqb13e7Aohltkkv03/CqCri1Tt7gNTlyeTRBYtK9lKA60q/No8so5IrBxTHg1Qsql94cN+JYXf/8EI2MGfk2+nRnw5JeabYxzLzZIUV1UJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXlitjtr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792354862; c=relaxed/simple;
+	bh=ytUJ1qQODw6q6S66trjDvYnTe6DClcfAtKnyEJUGY+U=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k/0+tICogdy1aRODdMzm4T7GY2iQ0a/XbtV8BjeyjcZ7jSXXPo8kh2jkrPGkJgsewDHjoeIU4JVEq1JysqFXTboXAZ+hHABYPnmc/dKX1fwtwjFuQLh56SUVbdk44W02fTEB9x98VN5Iaml3VN+Z4eqQAKL/s3Ie0AwU5Tn+U3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DN42uhjs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXlitjtr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F32B1F000C4;
-	Sun, 18 Oct 2026 20:18:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DN42uhjs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF8DC1F000C4;
+	Sun, 18 Oct 2026 20:20:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792354727;
-	bh=KT5XCWY4ZCcqX5OOgQs37cKX0hdmIu5lGuJWPTgP6cE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CXlitjtrVyMbUHK+u3UkeRlE1jNibOC1Ibn/kJ8guxq/qAPjH7SMsNlC2O1rb352d
-	 XfIFjKBoUo1uplZVoXql+6PjokdiZruqQMY3iuTL2DkAO8ZYklbh1WXFP/dPUnF3RV
-	 DcoPbpW6WfyAvEPkOvr9tr0zSgDkRwRqu+4rh9O7E0aeX2M5d9bajcRkryThkTwlTB
-	 Rty01y1oVTvcrflBSTUHeB/9xjyA4/c/crTX9s9bsF0GYqT68LsrQxWk73b1+XOMMn
-	 G7lXGONpMqvDFv/BZVJk7DluuLfUkc7Xo0rMPyclygLMDKclkVPvc2YAwxkXtCEU/C
-	 SVMYA6J4cgWMQ==
-Subject: Re: [PATCH net v2] net: ipv4: add zero check for snd_cwnd_clamp
-From: netdev-bot+sashiko@kernel.org
-To: kj2864@nyu.edu
-Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, edumazet@google.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
-Date: Sun, 18 Oct 2026 20:18:46 +0000
-Message-ID: <179235472615.3135.13817965744546885405@kernel.org>
-In-Reply-To: <20261014195640.430824-2-kj2864@nyu.edu>
-References: <20261014195640.430824-2-kj2864@nyu.edu>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792354861;
+	bh=K3vg7IqzjZiEQ62NPia2RyXT3ORHAoyMO+p50jGOtZw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DN42uhjssBH86VQizcq5jBM/pAM5XiupkNkSlWnHTZxjUsb17kYByLHKkxkkceroo
+	 Ospc1wcLZnHmMoXh1HlQRyFFxqPGFFU7JM6McYvhA5pIvd4QC5En9m+/bv78D9AbM4
+	 VSPnCQY3CvOQ+E5u0Pq585FUTBtl5lnIZ1dxUDGTy676NAnSUxOUA5bOZo8mAE6hG8
+	 tERVSLls3RlCTRXt2jduw6obubdpKJzCfP8d2e6wSMtNZ496KeFMxiUHml7n0uGFBG
+	 fZhlV6uCZfK7c7TdDI5YZs421v85yOpSn6eua6appsTGcMuVrwpQLq8WjwkwY3t3/e
+	 5xeOZjueFgFRA==
+Date: Sun, 18 Oct 2026 21:20:53 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Brian Norris <briannorris@chromium.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, <linux-pm@vger.kernel.org>,
+ <linux-iio@vger.kernel.org>, Andy Shevchenko <andy@kernel.org>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, <linux-stm32@st-md-mailman.stormreply.com>, David
+ Lechner <dlechner@baylibre.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, <linux-kernel@vger.kernel.org>, Fabrice
+ Gasnier <fabrice.gasnier@st.com>, <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH 5/5] iio: adc: stm32-adc: Drop runtime_idle()
+Message-ID: <20261018212053.66b7ba14@jic23-hlaptop>
+In-Reply-To: <39d56818-922f-488e-842d-19a194654921@foss.st.com>
+References: <20261002230714.507921-1-briannorris@chromium.org>
+	<20261002160309.5.Ica1e32ae51d7975844386684d2b6a097f3ca9122@changeid>
+	<39d56818-922f-488e-842d-19a194654921@foss.st.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Tue, 6 Oct 2026 14:42:51 +0200
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+> On 10/3/26 01:03, Brian Norris wrote:
+> > This runtime_idle() implementation was added in commit c537d3457542 ("iio:
+> > adc: stm32-adc: fix runtime autosuspend delay when slow polling"), to work
+> > around a suboptimal behavior in the runtime PM core. It should no longer
+> > be necessary as of "PM: runtime: Propagate last_busy from dependent to
+> > dependency".
+> > 
+> > Cc: Jonathan Cameron <jic23@kernel.org>
+> > Cc: Fabrice Gasnier <fabrice.gasnier@st.com>
+> > Cc: Ulf Hansson <ulfh@kernel.org>
+> > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > ---
+> > I do not have these devices to test. I have tested other drivers, and I've
+> > verified this behavior in unit tests as well.  
+> 
+> Hi Brian,
+> 
+> I've been able to reproduce on stm32 earlier behavior by applying this patch only.
+> With the full series, so far, everything seems fine from my point of view.
+> 
+> I haven't deeply inspected all the series, at least for the stm32-adc driver, you can add my:
+> 
+> Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> 
+I'm fine with this going through whatever tree you like
+Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+It seems unlikely to cause merge conflicts with other changes
+to that driver, but might be worth an immutable branch, just in case.
 
-- [High] The fix is incomplete, so the divide-by-zero it claims to fix
-  can still be triggered.
-- [Low] The new check in ip_metrics_convert() (net/ipv4/metrics.c:57)
-  returns -EINVAL for RTAX_CWND == 0 whether or not the metric is locked.
+> Thanks,
+> Best Regards,
+> Fabrice
+> 
+> > 
+> >  drivers/iio/adc/stm32-adc-core.c | 9 +--------
+> >  1 file changed, 1 insertion(+), 8 deletions(-)
+> > 
+> > diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+> > index a42d82d61cb8..e9e113a46ccf 100644
+> > --- a/drivers/iio/adc/stm32-adc-core.c
+> > +++ b/drivers/iio/adc/stm32-adc-core.c
+> > @@ -836,17 +836,10 @@ static int stm32_adc_core_runtime_resume(struct device *dev)
+> >  	return stm32_adc_core_hw_start(dev);
+> >  }
+> >  
+> > -static int stm32_adc_core_runtime_idle(struct device *dev)
+> > -{
+> > -	pm_runtime_mark_last_busy(dev);
+> > -
+> > -	return 0;
+> > -}
+> > -
+> >  static DEFINE_RUNTIME_DEV_PM_OPS(stm32_adc_core_pm_ops,
+> >  				stm32_adc_core_runtime_suspend,
+> >  				stm32_adc_core_runtime_resume,
+> > -				stm32_adc_core_runtime_idle);
+> > +				NULL);
+> >  
+> >  static const struct stm32_adc_priv_cfg stm32f4_adc_priv_cfg = {
+> >  	.regs = &stm32f4_adc_common_regs,  
+> 
 
---
-
-net: ipv4: add zero check for snd_cwnd_clamp
-
-This commit adds a check in ip_metrics_convert() that rejects an RTAX_CWND
-route metric of zero with -EINVAL. It is meant to stop snd_cwnd_clamp from
-being set to zero, which causes a divide error in tcp_cong_avoid_ai().
-
-> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
-> index ad40762a8b383..e83a129a25b68 100644
-> --- a/net/ipv4/metrics.c
-> +++ b/net/ipv4/metrics.c
-> @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
->  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
->  			return -EINVAL;
->  		}
-> +		if (type == RTAX_CWND && val == 0) {
-> +			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
-> +			return -EINVAL;
-> +		}
-
-[Severity: High]
-Does this fully close the divide by zero? The new check runs only when an
-RTAX_CWND attribute is present in the RTA_METRICS nest.
-
-What happens if the nest has only RTAX_LOCK with (1 << RTAX_CWND) set and no
-RTAX_CWND attribute at all?
-
-ip_fib_metrics_init() allocates the metrics array zero-filled:
-
-net/ipv4/metrics.c:ip_fib_metrics_init() {
-    ...
-	fib_metrics = kzalloc_obj(*fib_metrics);
-    ...
-}
-
-This leaves metrics[RTAX_CWND - 1] at 0 while the CWND lock bit is set.
-tcpm_suck_dst() then copies the lock bit and the value separately:
-
-net/ipv4/tcp_metrics.c:tcpm_suck_dst() {
-    ...
-	if (dst_metric_locked(dst, RTAX_CWND))
-		val |= 1 << TCP_METRIC_CWND;
-    ...
-	tcp_metric_set(tm, TCP_METRIC_CWND,
-		       dst_metric_raw(dst, RTAX_CWND));
-    ...
-}
-
-tcp_init_metrics() checks only the lock bit:
-
-	if (tcp_metric_locked(tm, TCP_METRIC_CWND))
-		tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
-
-So snd_cwnd_clamp ends up as 0 and tcp_init_cwnd() returns min(cwnd, 0).
-Then tcp_reno_cong_avoid()->tcp_cong_avoid_ai() runs this with w == 0:
-
-	u32 delta = tp->snd_cwnd_cnt / w;
-
-That gives the same oops as the one in the commit message.
-
-A dump/restore cycle can also produce this input. rtnetlink_put_metrics()
-skips metrics that are zero:
-
-	for (i = 0; i < RTAX_MAX; i++) {
-		if (metrics[i]) {
-
-A route with a locked CWND of 0 is therefore dumped as RTAX_LOCK only.
-Replaying that dump recreates the same state without hitting the new check.
-
-Both IPv4 and IPv6 RTM_NEWROUTE reach this path through
-ip_fib_metrics_init(). The only privilege needed is CAP_NET_ADMIN in a netns
-owned by an unprivileged user namespace.
-
-Would it work better to check after the loop that a locked RTAX_CWND has a
-non-zero value? Another option is to guard tcp_init_metrics() so that a
-locked CWND of zero is never applied to snd_cwnd_clamp.
-
-[Severity: Low]
-This rejects RTAX_CWND == 0 whether or not the CWND bit is set in RTAX_LOCK.
-Is that intended?
-
-Before this patch, an unlocked CWND of 0 was accepted and had no effect.
-tcp_init_metrics() reads the metric only when it is locked, and for unlocked
-metrics tcp_update_metrics() overwrites the cached value anyway.
-
-With this change, RTM_NEWROUTE requests that carry an unlocked cwnd of 0 now
-fail with -EINVAL. The subject says net: ipv4, but this also affects IPv6
-routes, because ip6_route_info_create() calls the same ip_fib_metrics_init()
-path.
-
-A lock-aware check after the loop, or a guard in tcp_init_metrics(), would
-fix the crash without rejecting this harmless input. Would one of those be
-preferable?
-
->  		metrics[type - 1] = val;
->  	}
->
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014195640.430824-2-kj2864%40nyu.edu
