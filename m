@@ -1,182 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC2439447C;
-	Sun, 18 Oct 2026 23:03:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A2834DCE3;
+	Sun, 18 Oct 2026 23:04:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792364620; cv=none; b=eNj4wcikIjhDx8ZtHZwU6CaABnV3T//PUizBpqJjKyCdwBECzcdmYKr5sk0Ih/eVUaO6GDN8mgLBzHubG6QQsnq0yZ6FbXs9HtNwJ9ioY5f5yLyL0jvIi0epNtB5aEUK3dbSTXKfBgTWYRiG3IPyt03XL1/nnE2EB3yTzW5lTiI=
+	t=1792364675; cv=none; b=rVNdqYcmag8Cu8J5sJN9EifN6SA/o7wj7f6BJ6SPWWW9266YypU3ZtmgJ1vlOCUvn/zKETQ4TGMKmPSIetKgB44e1P5YNq4ECxH9YmpMqZfvzJZ1an9vIzLJSD/vgREFdGPGH8DLIO1N2TpkO4KWM/EEJUhvTD6I/HBooZ8/DJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792364620; c=relaxed/simple;
-	bh=NvIjxg/fWYFUncGbu5m+1h4xWTuPzwp7dT1mrszFrq0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZljCe14GxGYe8avLZHxUeSflz0RUOQcLnuppz+sNltK2rXT0w1XYOj4HaWJnaWbEK5R1mX7O8kENdvGWsP9Zp10EC4U2i3CyuVbBrQHNMKGytutac+1R6jiHtmZxeJzY8YpISg8o5Mdo7GSo/hVsiEP5Yn7Venz506XSDDQglMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=br/t0mJ2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792364675; c=relaxed/simple;
+	bh=PAdYOJ6+VQUsob6n2jCgdqPzP2nwBnJ35YUBMcjrd2s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LQXuRMji1QgNY99Kc9Nwq2GnNrCRmraenRjVuVZkwmKxAvRkJF3oUvE/+JYr9EvlH4a9hHF+LcXCKbUYnfKHSb+sqe6ckBIZf3uwafMw6ekSi2LyMTeif0ZFRK5Vj5s2whxly0/A+tMEMhZ16IBc24QOq+8wg3m3HqP2Hjt9wCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=5hv9qdVc; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="br/t0mJ2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 23BC3C2BCF7;
-	Sun, 18 Oct 2026 23:03:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792364620;
-	bh=NvIjxg/fWYFUncGbu5m+1h4xWTuPzwp7dT1mrszFrq0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=br/t0mJ2jCBR1hCwRRhSyjL+TfNLmuf8SBeZoHRb2GslshwTU/atUIH/GeV1ASK/Y
-	 1fXhZtO1gMcofawPIntLLEdNGyM3aW9Y/cx/XeNHj/4yP0ZyEBb+g0HVbT2Xe6E2xs
-	 Wmi3m6qmRH6r/2AoPg06ezTSY5OwDAgN9Y2uaSjpz0EEy9Yq8lDsxQ+/M9eZ/ILwkL
-	 yTFEK96l20wUZb+2su8sn0Qwjc0Ln8eoBmSAO0ADNsykpq5uRfcBsvyj0p3p2OzRp/
-	 Waz66nq7QNonKNdbRHjQxK6Kcv95X2+9WK8HEAIzce6sViQUf9sCU4MgiIMLrXYDDM
-	 nYSjSFmR9qbUA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 05713CCA490;
-	Sun, 18 Oct 2026 23:03:40 +0000 (UTC)
-From: Rinat Muhamedgaliev via B4 Relay <devnull+rinat.muhamedgaliev.gmail.com@kernel.org>
-Date: Mon, 19 Oct 2026 02:03:39 +0300
-Subject: [PATCH v7] power: supply: bq27xxx: detect bq27541 behind bq27411
- compatible
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="5hv9qdVc"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=saxxRacJ5hWTgsNIWolEJAGpb2rG2OONC5ywqM+ibRo=; b=5hv9qdVcTuXxc9z/5PoWMKTFcL
+	DO4v4BUWrRy86imNADS8X+LnvB9mX3G40kWVE8vOnUqgZUs+I+xD5qQIK7Gx1KmRyKV/k+uoBNqKk
+	yby9qzUgUb4S79ro2+htic2gjD1Oa80p0O7veT3S8N2YY+QP8rxJ40WjDsvkDLQLSnig=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xIZvQ-00BX8B-Kl; Mon, 19 Oct 2026 01:04:20 +0200
+Date: Mon, 19 Oct 2026 01:04:20 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Cc: Mieczyslaw Nalewaj <namiltd@yahoo.com>, linusw@kernel.org,
+	olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net,
+	edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
+	maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v6 3/9] net: dsa: realtek: rtl8365mb: set speed
+ for family D
+Message-ID: <2d26a270-fb06-4971-b9e1-3e3572a8b814@lunn.ch>
+References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
+ <75829f0c-69d4-4c16-8300-142023f840d7@yahoo.com>
+ <CAJq09z5ZAxca0rRT0mSiU_3xp2wxEU4qahbDM3SBGpwe1vbMRw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-master-v7-1-a1fc488d9c77@gmail.com>
-References: <20261019-master-v7-0-a1fc488d9c77@gmail.com>
-In-Reply-To: <20261019-master-v7-0-a1fc488d9c77@gmail.com>
-To: linux-pm@vger.kernel.org
-Cc: pali@kernel.org, sre@kernel.org, afd@ti.com, 
- konrad.dybcio@oss.qualcomm.com, david@ixit.cz, krzk@kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792364618; l=3405;
- i=rinat.muhamedgaliev@gmail.com; s=default; h=from:subject:message-id;
- bh=u6AybZx90IGQ0lK+NcGvrAL8vA4kcBYcEKv9GZFRxvU=;
- b=Rj7mh+r7Fgm4ai3tRsy/ikhnOQvtT0L9fdt2i+andL5pq+MUibtwVXMc7mNX0ASKsWqSzamJ4
- uiDy6cWkBgiBSuBPltqeWP5XUvKxMq/Xtz1/YBYddmmmebvu1qwnHGN
-X-Developer-Key: i=rinat.muhamedgaliev@gmail.com; a=ed25519;
- pk=qkYQO8LRlRErWiLzlpK8jHbRIxv8+7v06+ytcxX8mec=
-X-Endpoint-Received: by B4 Relay for rinat.muhamedgaliev@gmail.com/default
- with auth_id=1072
-X-Original-From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-Reply-To: rinat.muhamedgaliev@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAJq09z5ZAxca0rRT0mSiU_3xp2wxEU4qahbDM3SBGpwe1vbMRw@mail.gmail.com>
 
-From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+On Sun, Oct 18, 2026 at 07:40:47PM -0300, Luiz Angelo Daros de Luca wrote:
+> > diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+> > index 840db5a..2dabc4d 100644
+> > --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
+> > +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+> > @@ -344,6 +344,7 @@
+> >  #define RTL8365MB_PORT_SPEED_10M       0
+> >  #define RTL8365MB_PORT_SPEED_100M      1
+> >  #define RTL8365MB_PORT_SPEED_1000M     2
+> > +#define RTL8365MB_D_PORT_SPEED_2500M   5
+> 
+> I also used the same _<FAMILY>_ tag trick previously, but it gets
+> confusing quickly. Does RTL8365MB_D_xxx mean something exclusive to
+> family D, or family D and later? I hope a more seasoned reviewer can
+> weigh in on this.
 
-OnePlus 6 and 6T replacement battery packs may contain either a bq27411
-or a bq27541 fuel gauge at I2C address 0x55. The device tree currently
-identifies the gauge as bq27411, but a bq27541 uses a different register
-map and then reports invalid battery values.
+The Marvell switch driver does something similar. There are a few
+families of devices, and within each family, a few devices. Within a
+family, the devices are register compatible, but they either have
+different number of ports, or features are not present.
 
-Read the DeviceType control subcommand when probing a bq27411. Keep the
-existing profile for DeviceType 0x0421, but select the bq27541 profile
-for DeviceType 0x0541. This retains the established DT ABI and supports
-replacement packs without introducing a generic compatible.
+The naming of functions and defines is based around the highest family
+member of the family which introduced the feature. A few examples:
 
-Tested on OnePlus 6T (fajita) with DeviceType 0x0541: voltage, state of
-charge, and temperature were reported correctly. Testing on hardware with
-DeviceType 0x0421 would be appreciated.
+int mv88e6097_port_pause_limit(struct mv88e6xxx_chip *chip, int port, u8 in,
+                               u8 out);
+int mv88e6390_port_pause_limit(struct mv88e6xxx_chip *chip, int port, u8 in,
+                               u8 out);
 
-Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
----
- drivers/power/supply/bq27xxx_battery_i2c.c | 67 ++++++++++++++++++++++++++++++
- 1 file changed, 67 insertions(+)
+The feature was first introduced in mv88e6097, and this method is used
+in all families until the mv88e6390 came along, which required a
+different implementation because the registers changed.
 
-diff --git a/drivers/power/supply/bq27xxx_battery_i2c.c b/drivers/power/supply/bq27xxx_battery_i2c.c
-index 94b00bb89c17..a9982953e4f2 100644
---- a/drivers/power/supply/bq27xxx_battery_i2c.c
-+++ b/drivers/power/supply/bq27xxx_battery_i2c.c
-@@ -16,6 +16,11 @@
- static DEFINE_IDR(battery_id);
- static DEFINE_MUTEX(battery_mutex);
- 
-+#define BQ27XXX_REG_CTRL		0x00
-+#define BQ27XXX_DEVICE_TYPE		0x0001
-+#define BQ27411_DEVICE_TYPE		0x0421
-+#define BQ27541_DEVICE_TYPE		0x0541
-+
- static irqreturn_t bq27xxx_battery_irq_handler_thread(int irq, void *data)
- {
- 	struct bq27xxx_device_info *di = data;
-@@ -136,6 +141,56 @@ static int bq27xxx_battery_i2c_bulk_write(struct bq27xxx_device_info *di,
- 	return 0;
- }
- 
-+static int bq27xxx_battery_i2c_check_device_type(struct bq27xxx_device_info *di)
-+{
-+	enum bq27xxx_chip detected_chip;
-+	int expected_type;
-+	int ret;
-+
-+	switch (di->chip) {
-+	case BQ27411:
-+		expected_type = BQ27411_DEVICE_TYPE;
-+		break;
-+	case BQ27541:
-+		expected_type = BQ27541_DEVICE_TYPE;
-+		break;
-+	default:
-+		dev_warn(di->dev, "expected DeviceType undefined\n");
-+		return 0;
-+	}
-+
-+	ret = di->bus.write(di, BQ27XXX_REG_CTRL, BQ27XXX_DEVICE_TYPE,
-+			    false);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = di->bus.read(di, BQ27XXX_REG_CTRL, false);
-+	if (ret < 0)
-+		return ret;
-+
-+	switch (ret) {
-+	case BQ27411_DEVICE_TYPE:
-+		detected_chip = BQ27411;
-+		break;
-+	case BQ27541_DEVICE_TYPE:
-+		detected_chip = BQ27541;
-+		break;
-+	default:
-+		dev_err(di->dev, "unrecognized DeviceType 0x%04x\n", ret);
-+		return -ENODEV;
-+	}
-+
-+	if (detected_chip == di->chip)
-+		return 0;
-+
-+	dev_warn(di->dev,
-+		 "detected DeviceType 0x%04x instead of expected 0x%04x\n",
-+		 ret, expected_type);
-+	di->chip = detected_chip;
-+
-+	return 0;
-+}
-+
- static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
- 				     const struct i2c_device_id *id)
- {
-@@ -169,6 +224,18 @@ static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
- 	di->bus.read_bulk = bq27xxx_battery_i2c_bulk_read;
- 	di->bus.write_bulk = bq27xxx_battery_i2c_bulk_write;
- 
-+	/* Add fuel gauges with supported DeviceType reporting to this list. */
-+	switch (di->chip) {
-+	case BQ27411:
-+	case BQ27541:
-+		ret = bq27xxx_battery_i2c_check_device_type(di);
-+		if (ret)
-+			goto err_failed;
-+		break;
-+	default:
-+		break;
-+	}
-+
- 	ret = bq27xxx_battery_setup(di);
- 	if (ret)
- 		goto err_failed;
+So i would say RTL8365MB_D_xxx means D and later. And if you need
+RTL8365MB_F_xxx, put it close by so other developers are aware it
+exists.
 
--- 
-2.56.0
+What we also sometimes do is have a mv88e6xxx_foo function, which is
+generic, but it calls mv88e6352_foo, mv88e6189_foo, mv88e6393_foo as
+needed.
 
+	Andrew
 
