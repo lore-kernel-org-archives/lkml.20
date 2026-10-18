@@ -1,118 +1,86 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mta0.migadu.com (out-126.mta0.migadu.com [91.218.175.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579B23DE44C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28483D7D89
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.126
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792365147; cv=none; b=jv3+XPE/Qkt+1nsWsr0FaYVwudKadcL3VcaUDYpflAs7Pmwmp2+d8oTZ3tJBMmjULjyrYxl6geZEn7rSyCgsQIzCm2G/ijCP2UcC2X4gnhhMMdY4OQ8i9VNNNPQytyJlnR0rDngfEMMrEqNbIXy2dIYI0KSFJ+pQbYYMPRvqEWI=
+	t=1792365186; cv=none; b=WxY62ZAa+WMk+eNPYDwiq9BbCV9Xid5rSCUlOVR4Cr04XXf7Ys6pGUbw4zTgtnDQhMkZpa8Dj6CP4wOAzBzbD9N81I0u5nfPPU07Cl1ZvO7S1DQJ9PECX7WEnIv45WAZ4VNtgrlDd6u7r150/1OQTfHdRsX1l8Q52X2aI0r5D8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792365147; c=relaxed/simple;
-	bh=FmRZBhpqLPyc1UGxxy4qJoUHxNedPgUqXqvk3ujJM1A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XAnJJx+Ykh3n/bbriqPZlFYCxzzC6YSydxd6pm1mtPOM3D1typPiX3Cn1mHhBpfZPlXLhvsS72XAaoI8kqvgw8h1SM4Os/Cvlvm0zbiyAHfu1QTMV0MHGcBfCjtAnpnbLiJZyAPGO4VbPxXKhk0yAvetxQLFe1Kxcbcgr9ickSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ULInmk5k; arc=none smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1792365186; c=relaxed/simple;
+	bh=Mb3rmHJTR0zoyOC45CYjoEjYWAyDYfWRwLnj6OnHt0s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pM/0Nmm3OcJ5C/AVU1IiTfGsPGiAtRXbVU3QTrEpRTFCo2yLfEemh6ej3avjUWzhfpqI9F+cZ4FlHQCeG/6oXMV4izGvfcrNIpyF29jHwy1d9eAQr1Cv6ZJtNruTDus/cKfq37OERyyM8Gh97BpFWVqPQF9F1R/Pd8Jgy5ttoVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=xnd1LgBA; arc=none smtp.client-ip=91.218.175.126
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ULInmk5k"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso2370334a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:12:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1792365143; x=1792969943; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ppuPp4Of6QB0MqdJw5vbPQTFdSm51NtQw86VD0/q+5E=;
-        b=ULInmk5krdrdVnz1hL9loM4bYhVW1ZU8F24+6ODujTZVcHPe4C4kTNd0LjiYGRrVz7
-         b58lzsVriKgtk5oKzBAIUcpiMU2fG0/BPYK7CxTZdjATLSZhGV7V8dL8hmNXsSj0yf/2
-         h0nG8H77/NQj5t+c7moqUZhqbW9RohqX9Guyg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792365143; x=1792969943;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ppuPp4Of6QB0MqdJw5vbPQTFdSm51NtQw86VD0/q+5E=;
-        b=CzPiHqh/blTD0pzZzLoUsoDufy6aT0D3M0XYUn4JrTbslwAyg2/e3M6TAPivU4K/KN
-         jdlveoojoa15333Hy6LcJ47aICdk8CC5qx9fcd+7L+g/H6l1vqlJK7EhQgM76cSfT6Dt
-         1pK5qSJh1zvUxKvZRORqkc4zwFQmTtjLTSJgmIKItz8USy7QmNsajPmLL7xVx669B82/
-         QkIthPxxc6wi9ZhBl6WNLkszbY4aexyrCK57IRR7dH/bVgAqbWudCE5bUCe0xVJsqoR7
-         os/uLI7PMMoghdYuuZJKq5AwHDa0YEHR3v7PUv8UxEcgNuVGYvD8Om26vKmFj8dPwUBG
-         /CFw==
-X-Forwarded-Encrypted: i=1; AKwUvBzu+MekuJT0p6+67H1i5IJlKJ7IypdcwlcGeLHvW2kUXP6ajr4L24WQg1q52VCo6O8qBspdyOoJ+82BOBE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMBb24lhxPhh7n7jBf4JVq8Nh0jge3bkrj6i6wY4Npfm6gZJam
-	qlhQNcyc5q/hjoOwKUIJp/cCLU97A9ef+l5c10iJZ63WZAV960JNY+lm9w/G7gnO6fY2PWKU3xz
-	6uqnrr3I=
-X-Gm-Gg: AYBFou18GzLbNPaunR7DUzYhSMUKTZL+RLzxdvvANdEUb3mojaIjrayxPAEzomvMFjb
-	CqNtIRya84iuZRfKCxQwfOEOGMcgpwdHPmayeJp8ZQbYEPjBDdM5jqH5cJyen/DzRcBH2Fv3Lzl
-	e8gHXTQH3f2yKYmcHMFFc4WXlYegFlfR+9eVpdGwyS6jrWpAIRKU+XNUdlTvBT1SlypM5/YjWzt
-	WbqbYhrZ40gMnputWP6vVSxkXSR57vBaxk2/AKZxE/ZGF5xhXIvl87/oqRw5FUdMIK6XNzyLwfd
-	h/5GnBFJxP1sjKgitCSlqio1ivfLJGycg1da6KBBdqeu2wUu4je0O3BWhKbDmTqbuohlmRZ/g60
-	9RXHXE3GSmMRdXWPXDyRZfmOTPJwfwKxNDJxDMs1J86Dz7BmvlQP7SUv9SLOFqHLjjX5h9anh08
-	P75LsidYoarlAsTtUDdO1mt7dBuXJoR0Jn+gUSQTTg4rT3gmp9dSnBZ/q9WKSc1V80qAXn0eImI
-	0xDs8ZqR7TWR4h4EGf8vYymRVNqTT5uivKgxRynqiKvKvU=
-X-Received: by 2002:a17:906:c10b:b0:c41:8e01:bc5a with SMTP id a640c23a62f3a-c419b13c86bmr429087266b.3.1792365143478;
-        Sun, 18 Oct 2026 16:12:23 -0700 (PDT)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c408e32bc33sm300145766b.5.2026.10.18.16.12.22
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 16:12:23 -0700 (PDT)
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c315869241fso150109066b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:12:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwuqvLpLAHEWFMH+SAuwcp2BfPG2dQ6N8euC6TtXXL881NptLOp9NVNzOr2O7y0lOTIfZ88xC70MTLrHnY=@vger.kernel.org
-X-Received: by 2002:a17:907:9494:b0:c3f:7270:1093 with SMTP id
- a640c23a62f3a-c419f706c4cmr443663566b.26.1792365142168; Sun, 18 Oct 2026
- 16:12:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="xnd1LgBA"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Mb3rmHJTR0zoyOC45CYjoEjYWAyDYfWRwLnj6OnHt0s=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792365182; v=1; x=1792969982;
+ b=xnd1LgBAEj7VcyOarz3h3bO1/RVUxCzfw5Kc1v3/RJuWlje3CwrVsHGtm8As4+mXcXlAEV8/
+ ho2Zvg36SZ2/965zsFnKlPvp2OU7evQqsioBAp9EH1aBUjLf4xH1B5b4XPDXu/RysX64KedZ4Dg
+ UTUmb1NAgWJL9UT6LUwi5MhCCqF07Cmt+szfomz8SAXEjn5d9RttxADfb441+/C0kMmpEiaMJeH
+ ZzegtSHlJKDn+Jh/8cI3Syzc4j8JSDW0xdyq06oQsU9PdT3cq+gt8iuu5Rw7Xe4qFjhXOZFadVW
+ V3BQrDNY9FenUu0r8TVHdmrSuaO3rg76v11xz71wbv8hA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 57022a8225cf4c59;
+	Sun, 18 Oct 2026 23:13:01 +0000
+X-Mizu-Trace-ID: 57022a8225cf4c59
+X-Migadu-Flow: FLOW_OUT
+From: Val Packett <val@packett.cool>
+To: 
+Cc: Val Packett <val@packett.cool>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
+Date: Sun, 18 Oct 2026 20:12:28 -0300
+Message-ID: <20261018231244.1266926-1-val@packett.cool>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com> <20261018152358-mutt-send-email-mst@kernel.org>
- <20261018204838.4080b238@pumpkin> <20261018175347-mutt-send-email-mst@kernel.org>
- <CAHk-=wjneFJ7XmZ6ux-LsHq4apDgANcKfERztmAG9sGVY_TxAg@mail.gmail.com>
-In-Reply-To: <CAHk-=wjneFJ7XmZ6ux-LsHq4apDgANcKfERztmAG9sGVY_TxAg@mail.gmail.com>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Sun, 18 Oct 2026 13:12:05 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wjZiwN8=PGEVm19QO2SiO29aA1E459+5mVQ0nmNoqOpjA@mail.gmail.com>
-X-Gm-Features: AclHuK8ibgIQ7ZzCJT6T1XNCTCPJUVy2j1kAdMYMCDJTCT4gsOXcLC7aX43RNik
-Message-ID: <CAHk-=wjZiwN8=PGEVm19QO2SiO29aA1E459+5mVQ0nmNoqOpjA@mail.gmail.com>
-Subject: Re: [BUG] vhost/vringh: __get_user without access_ok leaks kernel
- memory via vDPA passthrough
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: David Laight <david.laight.linux@gmail.com>, Haoran Wang <haoranwangsec@gmail.com>, 
-	jasowangio@gmail.com, KVM list <kvm@vger.kernel.org>, virtualization@lists.linux.dev, 
-	Netdev <netdev@vger.kernel.org>, =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Security Officers <security@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Sun, 18 Oct 2026 at 12:06, Linus Torvalds
-<torvalds@linuxfoundation.org> wrote:
->
-> That's a separate bug, and you really shouldn't use __get_user to work around it just because it doesn't check.
->
-> You should use pagefault_disable() around the access. And if there is still a sleep_on() complaint, that should be fixed.
+Currently only wcd939x has support for USB-C SBU audio in mainline, but the
+older WCD codecs can do the same thing 939x does with USBSS, with an
+external 3rd party mux instead. This series adds support for that based on
+wcd939x code.
 
-Ok, no longer driving around and checked: using pagefault_disable()
-around the get_user() should indeed fix the warning, because
-get_user() uses 'might_fault()', which doesn't complain if
-pagefault_disabled() is set.
+Tested with the FSA4480 (with the [1] series) on sm7325-motorola-dubai.
 
-Admittedly the actual fault handler uses a different check: it uses
-faulthandler_disabled(), which also checks for "in_atomic()", which is
-why that __get_user() case just silently happened to work (badly).
+[1]: https://lore.kernel.org/all/20261018225906.1265299-1-val@packett.cool/
 
-But that check is historical - but actively wrong - the added
-in_atomic() check in faulthandler_disabled() also checks for disabled
-preemption, which is one of those "it's not reliable" things (because
-the preemption count depends on whether preemption is enabled at
-all!).
+Thanks,
+~val
 
-So no. There are exactly _zero_ valid reasons to use __get_user() and
-friends. We really need to just get rid of that broken garbage. All it
-does now is open up potential security holes and allow people to avoid
-warnings for actively buggy code.
+---
 
-               Linus
+Val Packett (2):
+  ASoC: dt-bindings: qcom,wcd937x: Add USB-C graph properties
+  ASoC: codecs: wcd937x: add USB Type-C analog audio mux support
+
+ .../bindings/sound/qcom,wcd937x.yaml          |  15 ++
+ sound/soc/codecs/wcd937x.c                    | 151 +++++++++++++++++-
+ 2 files changed, 163 insertions(+), 3 deletions(-)
+
+-- 
+2.55.0
+
