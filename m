@@ -1,158 +1,102 @@
-Received: from mta0.migadu.com (out-4.mta0.migadu.com [91.218.175.4])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3A53BBFBD
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66ED338F62A
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341050; cv=none; b=eDsCRVmYKVL8Oft9+uwyzHG56wDLRwIVNxOUsGROjPov/v8hymwk2cwBqAkCScydvngyXxAQ7ZfojAbsl7tdR49EKZisB1b4RsSeQ0qvCsvETKnZ/CXIl21B4oj5NbM0MP+omTuXfy/12xcid8HEGoR9WDxCFllmCxy+vQ8czZ8=
+	t=1792341088; cv=none; b=qq2hP56mNsw/dmCX5sw0jzdzHgbP4VWEsPEW5I0aSC9Rn80pQqHXLkixc9RDkhJCOhk8xstz9AVnpJD1sDTNKj22H2vglVtIQJ4qOYsC+pSiXyrv9rUnI+RBxr5bY3bN6UJ8h8H8EBis+M8koFA9FuzEhqaVexyF6J3Q4szCqfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341050; c=relaxed/simple;
-	bh=wVl7PEAQy4n1gX78hW+uwNN+//utyJr1zIHPEuth3iM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M5akuzrlSB8B8Xg/NXjFgG+fRuKwOsUck3chP6uG3kaNDHLrS5DP+w8u2zoB8N9b+o4Hu2X36us8vb7TVU6Kp5KuWdi7RFbp9Nm6uV1QQKjNjSPpYCUdaIKMtqAphM63v8WvcOdY2maf2qfYEdEuLYTOYUF12UmrIe0rw3YKOz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KnLUAAl9; arc=none smtp.client-ip=91.218.175.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792341088; c=relaxed/simple;
+	bh=au8Gvd6+WEU8zV/daAfKj+L+yF0iVWqrpQqPfGml9hk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uQVMEEPjm39Npysy6UE7V1624qBgi26bup6J6yOV4xAtpqVyc0NkrEaky43NJsQxV1xVuIihxZ9WRwiLPyZxVJ/vQDAWat/PsfLyzBeFNJBaCE/nU8Vd9+FUMzev3AGlVlqM2sl3SBocY12bQA2omf1/LKjyS5mzUfTbKCfDIO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K68T5dXo; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KnLUAAl9"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wVl7PEAQy4n1gX78hW+uwNN+//utyJr1zIHPEuth3iM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792341045; v=1; x=1792945845;
- b=KnLUAAl9Se0bKYxf0/eyNDbaOQYG/uSgWNgwHDkPm8lRhwsTMXngARjnsxh6QJATTknqYttT
- 8PEVx6Wpe4PNprCmk9Qrzp8uYuVa5TWwjMCv7O/IHTsVYue/MMsZvcdGDK3dLpsfGKXLWzHHK3r
- Uvc/jvuEY4QK9TDrJcharwjA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b268277504964426;
-	Sun, 18 Oct 2026 16:30:44 +0000
-X-Mizu-Trace-ID: b268277504964426
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <96dd8e4e-2783-4616-8c68-9d89151a0cad@linux.dev>
-Date: Mon, 19 Oct 2026 00:30:33 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K68T5dXo"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc147d86bebso818225a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:31:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792341087; x=1792945887; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WhZ6HkRzC6hmWIpP7WOwdVZqWzvDpVWCEpyfcLFKaWA=;
+        b=K68T5dXoYJ4LB0dffdYrHGl8E09ixEURtKBRxGfRCzYSoQHua7ORO28K/S7uhmvK+R
+         zNBDpAe2SaEqzJLKwXS1qlnBmKARmCMW5Epw3uBTrErM31vIYbnArkeqyuV4ntlBzenA
+         mog7uzYm1Ua39+NUkd6QDzxNowI3ZC0r64gNMqKA1cCuqFb/k/BUlxvuauCULT/7h4mM
+         DKs/bs5jpJ/A6rsrr6x6mTcvjmFU/LvddoxIH7aZkY5DYRsNqtDtfO0JlsSz1kFkNGIn
+         P5bFPR9ZGWHdUAuR+jpw6OjE4987B9USltJeCtJlmWMQCz3pybLkKBrCfqzdUE93wkvC
+         2Mdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792341087; x=1792945887;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WhZ6HkRzC6hmWIpP7WOwdVZqWzvDpVWCEpyfcLFKaWA=;
+        b=zDN5AyWjoeXw4qxKnSa5bJCUKPXRxmmtU6CGa9wpjYo1DKzFNai4IGraPcJ895gWEP
+         gGYNqUEuCbSV6+S+cgvC5z+DQPFUtnYGfGbKmewR5pc1+g38VgjIkSZw8hYq8QLPxHQz
+         rplFeDbSCYT8Yw+lYdqMpkMzEeUkwXT3CP2gXxXjBTUobd8Y/48C1LISUZe4KZjpYxR0
+         rNikJSktz03otvJdW43IcvgkqwDNyGBW7PYIPspb9RQccqZvgnTpyKP9p9tRx+jKSUjl
+         xZux+bC+aToevD9zJZRQfrWuZemoM3xcfWHiBcsHEB5ESD8FNJEufGIa8DnOYLrUqAry
+         yUwg==
+X-Forwarded-Encrypted: i=1; AKwUvByGstNSHiBv7derW/XqwEW4sHXgp3Rfke1Dl/nd6MIwC7OMfHJEupUdRTxfmI/y4aOnFks3nVci8enGwCo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUNbi5eBzQpvzRO7irP56MWmbFGOtC+Q2y+HMVeDo89u4BV4H7
+	7zy4EIp3iSXnZfd7o9XEp9jJfhoz3yRxC+dFN2A+Hn8iUV7R2+jM0EE5
+X-Gm-Gg: AYBFou11shRUNyqPZ5Ynv2/UgD+MDmCdI3FjkJQuSRZRQ8K/uDrb7obd8OVC0vnD7Eq
+	fx/UiHO8ZHIz9x3un7usBUgwHfvGltijQalBkJ/OX2EoixsuM5N48OD5HZ85O3py5RRy07tRAOj
+	0QM9ioT8S37n6ygHXG+c+l3eH0LevjqRzu/UtacvYdxcIBsmLQx2qSb9DJsPn+9isANQr0CzwcA
+	RDDr7s15FxbqIRyAfb04dhKTtzIRktrR5nuXvHbyxZg4FzOQgiKzkd1M5tl4dxGJ9EMbry6j6M5
+	E+Ck2Iv+WqgczVpW3mu8raraYTepa3yuWT647iJwoiHIwZNjla0vXWP1lZufijW4c03KUM6d5Sv
+	0rSoZGNF5WcXGtu8vbdGPPJgWmdUtB6/ODczx9Laz1PL/Nfqm3o/bzLLjiSVekwF3KBphL6eaSq
+	Qrdd+ApRLUrfT++o3SF2XFzamOEU9NUEeVaPXrk5Y2GYJ94ulLAC+mNbePqV+4hlUZtPd0DAkaH
+	SdgM+4qXk8g3JsMy2ZbBcY=
+X-Received: by 2002:a05:6a20:43ac:b0:3de:7f6c:b871 with SMTP id adf61e73a8af0-3e22607ded2mr3605547637.36.1792341086646;
+        Sun, 18 Oct 2026 09:31:26 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89fd2737d20sm2611477b3a.35.2026.10.18.09.31.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 09:31:25 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 18 Oct 2026 09:31:24 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Qian Xiao <heyheyco@gmail.com>
+Cc: Ed Brindley <kernel@maidavale.org>, Denis Pauk <pauk.denis@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] hwmon: (asus_wmi_sensors) Reword BIOS upgrade advice
+Message-ID: <08bd0bd3-a80f-41bd-a057-208da8e823cd@roeck-us.net>
+References: <20261016163509.249020-1-heyheyco@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next 2/6] bpf: Add syscall common attrs support for
- xdp link_create
-To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, hawk@kernel.org, john.fastabend@gmail.com,
- sdf@fomichev.me, rostedt@goodmis.org, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, shuah@kernel.org, kuniyu@google.com,
- liuhangbin@gmail.com, mkarsten@uwaterloo.ca, masashi.honma@gmail.com,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20261017142649.51047-3-leon.hwang@linux.dev>
- <41c7d03fa06bd4e9439560fac5b3cf4d170b96b5c23946da8a3449e05c482b38@mail.kernel.org>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <41c7d03fa06bd4e9439560fac5b3cf4d170b96b5c23946da8a3449e05c482b38@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016163509.249020-1-heyheyco@gmail.com>
 
-On 2026/10/17 23:03, bot+bpf-ci@kernel.org wrote:
->> bpf: Add syscall common attrs support for xdp link_create
+On Fri, Oct 16, 2026 at 09:35:08AM -0700, Qian Xiao wrote:
+> The Known Issues section suggests that upgrading to a BIOS with WMI
+> method version two or greater should rectify the problem. However, the
+> driver refuses to bind when the BIOS reports a version below two, so
+> every system using the driver already meets that condition and the
+> advice does not help.
 > 
-> TL;DR:
-> - bpf_log(log, extack._msg) in bpf_xdp_link_attach() may dereference NULL when
->   no extack message is set
-> - bpf_log() may be an undefined reference when CONFIG_BPF_SYSCALL=n
+> Instead, suggest that upgrading to a more recent BIOS version might
+> help. While at it, fix a typo in the preceding sentence.
 > 
->> diff --git a/net/core/dev.c b/net/core/dev.c
->> index 18dc88990510..fdc1de21f358 100644
->> --- a/net/core/dev.c
->> +++ b/net/core/dev.c
-> 
-> [ ... ]
-> 
->> @@ -10784,6 +10786,7 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
->>  	dev = dev_get_by_index(net, attr->link_create.target_ifindex);
->>  	if (!dev) {
->>  		rtnl_unlock();
->> +		bpf_log(log, "Invalid target_ifindex.\n");
->>  		return -EINVAL;
->>  	}
->>
-> 
-> Can this fail to link when CONFIG_BPF_SYSCALL is not set?
-> 
-> bpf_xdp_link_attach() is built whenever CONFIG_NET=y, but bpf_log() lives in
-> kernel/bpf/log.c, which kernel/bpf/Makefile only builds under
-> CONFIG_BPF_SYSCALL:
-> 
->   obj-$(CONFIG_BPF_SYSCALL) += syscall.o verifier.o ... log.o ...
-> 
-> include/linux/bpf_verifier.h declares bpf_log() with no stub for the
-> !CONFIG_BPF_SYSCALL case, and CONFIG_NET only does "select BPF".  A config
-> with CONFIG_NET=y and CONFIG_BPF_SYSCALL=n looks like it would end with an
-> undefined reference to bpf_log from both of the new calls in this function.
-> 
-> include/linux/bpf.h provides static inline stubs for bpf_link_init(),
-> bpf_link_prime(), bpf_link_settle() and bpf_link_cleanup() so that this
-> function builds without the bpf() syscall.
-> 
-> Should bpf_log() get a similar stub, or should the calls be guarded with
-> IS_ENABLED(CONFIG_BPF_SYSCALL)?  None of the later patches in the series add
-> a stub or change the Makefile.
+> Link: https://lore.kernel.org/linux-hwmon/CAFGXJCm6ZWK0NsFhZ1_ycgYtTTT3nhqj9mose60t+Rrry1aPvw@mail.gmail.com/
+> Suggested-by: Guenter Roeck <linux@roeck-us.net>
+> Signed-off-by: Qian Xiao <heyheyco@gmail.com>
 
-Will add a stub bpf_log() when CONFIG_BPF_SYSCALL is not set.>
-> [ ... ]
-> 
->> @@ -10812,6 +10815,7 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
->>  	if (err) {
->>  		link->dev = NULL;
->>  		bpf_link_cleanup(&link_primer);
->> +		bpf_log(log, extack._msg);
->>  		trace_bpf_xdp_link_attach_failed(extack._msg);
->>  		goto out_put_dev;
->>  	}
-> 
-> Can extack._msg be NULL here?
-> 
-> extack is zero-initialised (struct netlink_ext_ack extack = {};), and _msg
-> stays NULL whenever dev_xdp_attach_link() fails without anyone calling
-> NL_SET_ERR_MSG().  Many ndo_bpf implementations do exactly that.  For
-> example, ixgbe_xdp() -> ixgbe_xdp_setup() has several -EINVAL and -ENOMEM
-> returns that don't set an extack message, and mlx5e_xdp_set() ->
-> mlx5e_xdp_allowed() returns -EINVAL with only a netdev_warn().
-> 
-> If the caller passed BPF_COMMON_ATTRS with log_level != 0
-> (bpf_verifier_log_attr_valid() accepts log_level=1 even with a NULL log_buf
-> and a log_size of 0), bpf_verifier_log_needed() is true and the call chain
-> becomes:
-> 
->   bpf_log(log, NULL)
->     -> bpf_verifier_vlog(log, NULL, args)
->       -> vscnprintf(log->kbuf, BPF_VERIFIER_TMP_LOG_SIZE, NULL, args)
->         -> vsnprintf()    /* while (*fmt.str) with fmt.str == NULL */
-> 
-> which dereferences NULL.  The tracepoint on the next line copes with NULL
-> because __assign_str() substitutes a placeholder string, and the netlink ack
-> path also checks extack->_msg, so this new bpf_log() call looks like the only
-> consumer without a NULL check.
-> 
-> Passing the message as the format string also means a '%' in an extack
-> message would be interpreted as a conversion, and unlike the other bpf_log()
-> messages in link_create(), this one has no trailing newline.  Would
-> something like this be better?
-> 
->   if (extack._msg)
->           bpf_log(log, "%s\n", extack._msg);
-
-Will change to this.
+Applied.
 
 Thanks,
-Leon
-
-> [...]
+Guenter
