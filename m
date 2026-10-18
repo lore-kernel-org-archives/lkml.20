@@ -1,309 +1,208 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0E6486416
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C3145D917
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:46:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792327509; cv=none; b=qU3JILh+qcwKrCx7qplAROv6J1PXz4or9AsnUhZFrmxFnwgG2mQbgKnzTFz6TX9o2QPXHZ7E3HFDANDobbLtY+P7CmWbfJ+sV+CHR5we43pRafj/3zi4T1fs85xi2E5sJFszdpkQIjo4No+s6qddohF3FpnGFXy80agsPvlfCsU=
+	t=1792327593; cv=none; b=d5WruhdcKt2y416O1iWog+qtT1JbcPGYN3WWkCVZUGT8QiyUeIM+DL07g+pBzsCWda46YJe84p1RoJVj72uZ6iyiw0iT+9CTH7UsxQimF3DadiuO0GZytDZsOgFPreYBfGeMwZkucH0E4RaLrUXelB4+5/X7rBW1fHZWP+OHJYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792327509; c=relaxed/simple;
-	bh=Noa79Ng+Kn6spWxsKPE81iJBvswXjoskktvFL5rzVvs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qEnjHQPh0zVmZn42VzFuZL7ZLFIF0Z6vq5MMpny447j3NthezD3av2lMChvjhXQ3/Cv5zbpPxIUxMRNMgad1XWei2Jmj1ZfP8/mTGBbBeHoKwjRF/NNcBk/ixApPaD7QixrgvRRr3WLhbLWBIL51MDYLXUcAIBf3LwqfKFx5l78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SAzGr6ED; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792327593; c=relaxed/simple;
+	bh=+I/xyxYBL9zTH8cbJp/bZ7r4MhlNFsoYtH+byzGKduo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=GeYK94GF0GXZkktIHeCzPjbhdYBB9SiB+fGtw+W1kweqhP+gZPcnJyoHof0gPrxl5G3Kn94uPJQnJyDoF9WkHAuDExEQfyTjgDSenq1EfEa/ZablSWF8GYhlGEUogduNoMpoHcUHp9Q8t2cagOussye0DE0m6L9HLunwZSxrXFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AL/jtuu6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JyTKJH3K; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SAzGr6ED"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e00eee27dso579345f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:45:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AL/jtuu6";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JyTKJH3K"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792327590;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=7wv0NYqHBhJZNnHiTfLbjgIPRzq1Szg3Uz3MYCF5vwQ=;
+	b=AL/jtuu6O5tPQkYQb3OGGe7uQcKHNNXDiGhYdUAY4kTadmTLXCLLC9R5QSHDQp44Z3Lm+Z
+	+G5PWx5pylskjN8G9EXzEjxgosPxsXeMvCCrhJzKSSMVR4l91FMD6aPVg0KLaCrd4vION/
+	eEsSSZkxJdXWySRIiGG4+QIkAykfSmU=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-68-LnXGoPVnOz-uY8fAw37h3Q-1; Sun, 18 Oct 2026 12:46:29 +0000
+X-MC-Unique: LnXGoPVnOz-uY8fAw37h3Q-1
+X-Mimecast-MFC-AGG-ID: LnXGoPVnOz-uY8fAw37h3Q_1792327588
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48b0a199b20so1109656f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:46:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792327503; x=1792932303; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K67aSMdZxcM3oK3NMOeHN0YPY+i1nG2+CE3+Mxl/Mf8=;
-        b=SAzGr6EDlfhwmiALdT2dkschS9fxAoWQTfJ6hcVoulQL4Yq/TLoC97AbagUdkqACqw
-         zy0bkaMSV04BSiWPOq6C6q0u8zuRf1fOeczYC4+uodd166XWQ5JaAqZTC5Qt/jUUYvqA
-         C/xKswqXlCFwtdKxDbYCk9wo5o8YoxeFCuuLyW6HDqpOPr5yv3qbDc8dj61ZNMSdSKqG
-         xDSxWtTwNRqOENdtz2FhCv94U1wrimSmoNS94JYpHKjQUh9GSpShVPvQ8690K2AVvaHl
-         fPLZAUONuVAaP05+XpkJJnbHBmJ4T76wh/BMpRqY2tA6VA+Jn+z8kd+JdN4lvmp3jVh2
-         DSQA==
+        d=redhat.com; s=google; t=1792327588; x=1792932388; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7wv0NYqHBhJZNnHiTfLbjgIPRzq1Szg3Uz3MYCF5vwQ=;
+        b=JyTKJH3KSK6NPpM2IsD22Bg3eScrJpmCcOvfGJs86YeqZUTIP7pcmqrb3kPQhiXamc
+         H15tCJRFh+Px0mPLAt8+BHOVAvVpNvIg2LZCbMF1087ZS2lc65cqU3y33M3Fjp9O4Oni
+         1tQEMyjZuLPLy8nJma5CZZ0snkZGJJllUuaGbw+WiZgy4M/pCmpx5Oa3xoBhMk43M6HH
+         SQNyfhwgA/2xPQhkM1a8UXDWbKMbCWpApU5RtaBqOvk49j+6AEnX4IZ3qdIdwg49AprM
+         LQyKsxBFFJ7xstRIVIRHx6xzQxCZaohGcD5pJkWSthk2dXq1pHaPgi+6YfgEGfhWEONs
+         TxLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792327503; x=1792932303;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K67aSMdZxcM3oK3NMOeHN0YPY+i1nG2+CE3+Mxl/Mf8=;
-        b=qgUT7GwsJkOVmIEaXcpu35gd3yC1mTpNBvY2DQMokgcu5RcE37WfQCPfP80PDZYiwn
-         R0eL0vBaip1fvcSLR1XRxmJg3maHVJ9qXimURRev6V1vrdHmOCoyscixvzewS3j2GwPY
-         v3JxWdBGyL32bLTSO8CBtj4okuAtyvV/7JKtdc8kHQDQdWbcCqR7MrEMeSD/To9OfAW9
-         N6kgt/hWdW0kWJ627iUiTqGuw4IcVqtEu8rS6YnKh8OMqkcZCyH8k1MZ78+QKl1ni/OC
-         XmuawyI29wUBvI48/dKBepFWn4VgHvHcfJvp5yvLm9OSqjSjXghM/Kw56A8E6v0/dts+
-         dpIA==
-X-Forwarded-Encrypted: i=1; AKwUvBykkq0RDp7cy1ozgrLhcfbpVRS5yjA9v67t24NokbJmm+G+1hsr/nEuhNJy5lLct9oaxAkEYfxGW4sz8q4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISetYXjsZZh/UzWiUPg7UvTqGMLStKsf2ywr10Zg5+YMBaOIou
-	WFLFD8A8GPF3dsc5oDYM1JPe2jYYxrIhw9jfpYrx7RFKbjC9zjNkgiVQ
-X-Gm-Gg: AYBFou3joAk82oPtX9hmTyUA6c/Rf5cU8g852u6gLFT47OkNxl9bNjT9zDuetI39ziJ
-	w2PG4R8jmbZc9SANDATIjA4xnzae1yEZq+c3O2XEZNeA4mydOWNupJXhBSXGRUiXTu4uNCk3V3G
-	sXt9gVdkvXpuZBKI6kiPR7bPp7lTobCdy4OEXVJrDqAXlW7pT9oNnIiUf2aAl7mSzTM6FJIRXvQ
-	/GmtQuP1ZxnqjJ+TZgz3avu/JAf6odYZHL824LR/Ot6N07AAHqn6yr3vASfNP5jW/rLFiUn5SXg
-	ngBD4dgD6DB5kxyxW0J56jU3p6c7GdUji0ibmNvViS47o9H5TKt6sXg6WHJmlIWyytUcNCwApB/
-	/HMTJfbOOYAv0FMUEObTrr5jUsBSI3NSwr+VZLeaZXiMsHSy0zzrD9W+Pc0wz3tsz1hMYJ5anXx
-	VVahvCYvbeVA+SPUgJFB/v6Ft59Kn2ww91klyzpgl3Q8Ti9mMkPTWeo0k9wH+Cf9QNXyAsRnXCD
-	JaGoUR2qZjEM/NzAxiLI8qxKOSLZ3GIaQ44BCsmyma0zD5iXtFCQby8Oa1ebZcI+y3e7Ixq27cL
-	TFYqtIJv2z2e6vjBhxxukSlYz9FBjrKQVDQWlQVYfj6Q6bE/t1s1x2GjLffzC2SN7YrBCDNq+KM
-	PqNsXweTQCIytEjdBFWxsuzM=
-X-Received: by 2002:a05:6000:4a12:b0:48d:ef75:8b37 with SMTP id ffacd0b85a97d-48e07fa8816mr9257345f8f.36.1792327502920;
-        Sun, 18 Oct 2026 05:45:02 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-318a-f58b-5e43-a2b9.ipv6.o2.cz. [2a00:1028:8388:a84e:318a:f58b:5e43:a2b9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm16386408f8f.42.2026.10.18.05.45.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 18 Oct 2026 05:45:02 -0700 (PDT)
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-samsung-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ARM: dts: samsung: Add Hardkernel ODROID-U2
-Date: Sun, 18 Oct 2026 14:44:59 +0200
-Message-ID: <20261018124459.3026-3-pepe.schlehofer@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261018124459.3026-1-pepe.schlehofer@gmail.com>
-References: <20261018124459.3026-1-pepe.schlehofer@gmail.com>
+        d=1e100.net; s=20260707; t=1792327588; x=1792932388;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7wv0NYqHBhJZNnHiTfLbjgIPRzq1Szg3Uz3MYCF5vwQ=;
+        b=D44C9rwuWb/IksAZT9VpA2QovPChJ0o8qc1SSBf32Yu7gORAGeEGYhhmkYgFaqx1GH
+         P54polvT8SS6RRmh8bec053C0ZndAsPLVuDmeQHtb9BrjN11osLz0AptgUtzgZ1L0HmM
+         aYtbbRfQtZtTehQLPU5LQrTbPdvsP1946MgxCY/b2nl96I3PLMu/s9lg93YkbG73Zg8q
+         3k3RxZvf52qmpIO+EF3wg+6wx5mSsH8UmHeHCLQS5FFmHe6+Naqb0qkb6iPs6ndkTimE
+         HE6u0tNHMHhwETXqnmqsu/WQ7XHvv878ZRiP1XRxVrrZKLd1GHtStVdnBegYy+fCdATd
+         +99g==
+X-Gm-Message-State: AFq9FYJ6m6YdP194/MZ2CPJw1rHHIy8SYjb5Nk3iG/6meWysKl5dzYyG
+	3jixwEpzzUScabUU8YNe897WKrM+c8QReXEUVliYKa/TjEoqd51UFQ9HJvRhfwoJ5f6EGj9FlJC
+	lJyrKKZ/+mReDpo3c+ndt4ZYOIiSUAbNW1dujDHDGl14ypE9vMoziV47aTgamiiBbOoert8ce6t
+	w/SiIKUrYJGSpaq2eMtH0cBDPp+25540MMKkZyveurukzIqg==
+X-Gm-Gg: AYBFou173z8XxE4qefABC2NfgPk8XNooz9hBBVfwyUX3hpM9Mw3iPrAzHNOPAUoIguD
+	aGQ+oFyEHmxA9mr/+rt3o3FPIyBTWuBCyUyMk5DVXU3ytt7ahzAubQZ+5a50tmPAvJSSQZqnmVP
+	T6gtgruoO8quhE8snOQnrEwQaYJzLgPu9pwG0O0cZYDlu5vKyIsQa0rfcg7pOpkjquvUSSQ1OAB
+	GBaNXgtH5SaEIMyyp0vClgYn6Th3cJro4Q3IN7ynyRxMSh3bFyGruHuYeVUKy2JNJXmt9+wJOgr
+	KTtr1wPE/ToZCwAIIVBdjqS5j+00/2yDcATKa0awjABeFUD3xGG4KliZhgJ8txoIJ5+mWA==
+X-Received: by 2002:a05:6000:25c2:b0:48d:f215:48d8 with SMTP id ffacd0b85a97d-48e07bc6babmr12076253f8f.27.1792327587507;
+        Sun, 18 Oct 2026 05:46:27 -0700 (PDT)
+X-Received: by 2002:a05:6000:25c2:b0:48d:f215:48d8 with SMTP id ffacd0b85a97d-48e07bc6babmr12076194f8f.27.1792327586930;
+        Sun, 18 Oct 2026 05:46:26 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8bb6sm17732878f8f.34.2026.10.18.05.46.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 05:46:26 -0700 (PDT)
+Date: Sun, 18 Oct 2026 08:46:24 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemb@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org
+Subject: [PATCH net-next] net: gso: validate transport header before
+ computing segment length
+Message-ID: <b714fa38ab650b313ca3121cd4cb3ee847d06a0d.1792327180.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
+X-Mutt-Fcc: =sent
 
-ODROID-U2 is a single board computer from Hardkernel based on the
-Samsung Exynos4412 Prime SoC with 2 GB of LPDDR2 RAM. It is the
-predecessor of the ODROID-U3 and shares most of its design:
-- microSD card slot and eMMC module socket
-- SMSC LAN9730 10/100 Ethernet on HSIC0
-- SMSC USB3503A hub on HSIC1 with two USB 2.0 host ports
-- micro-HDMI port with CEC
-- MAX98090 audio codec with a 3.5 mm headphone jack and an on-board
-  digital microphone
-- MAX77686 PMIC
-- 2-pin header for an optional PWM controlled cooling fan
-- blue heartbeat LED
+If a TCP GSO packet is processed in the stack before a transport
+header was ever established, the TCP data offset is read through the
+unset header offset, far outside the packet.
 
-Unlike the ODROID-U3, the micro-USB port has no VBUS supply switch, so
-it can only work in peripheral mode, and there is no expansion header
-with SPI. The 3.5 mm jack is headphone only and the speaker outputs of
-the codec are not connected.
+This was demonstrated by syzkaller, back when the input path did not
+dissect such packets: a virtio net header supplying a malformed
+network header was enough.  Qdisc length estimation has carried a
+guard against exactly this since a0dce8752193 ("net: Skip GSO
+length estimation if transport header is not set"); the GSO length
+validators never got one.
 
-Add an initial device tree for the board, based on the ODROID-U3 one,
-and update the comments in the common dtsi, as the LDO22 and BUCK8
-constraints are now also set by the ODROID-U2.
+We used to, but we no longer allow such packets in: since 44378d02c5aa
+("net: always dissect GSO packets in __virtio_net_hdr_to_skb()") the
+virtio net input path dissects all GSO packets.
 
-Also route "HiFi Capture" to "Mixer DAI RX", as on the ODROID-XU3. The
-odroid sound card driver adds only the playback routes for boards with
-a single CPU DAI, so without it the DPCM capture path to the I2S
-back-end is incomplete and recording from the digital microphone fails
-with "no backend DAIs enabled for Primary".
+But as a defence in depth measure, let's also check before we read: if
+the TCP header is unset or outside the linear data, drop it.
 
-Link: https://www.hardkernel.com/shop/odroid-u2/
-Link: https://www.hardkernel.com/blog-2/odroid-u2-u-schematics/
-Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+Cc: Willem de Bruijn <willemb@google.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 ---
- arch/arm/boot/dts/samsung/Makefile            |   1 +
- .../dts/samsung/exynos4412-odroid-common.dtsi |   6 +-
- .../boot/dts/samsung/exynos4412-odroidu2.dts  | 139 ++++++++++++++++++
- 3 files changed, 143 insertions(+), 3 deletions(-)
- create mode 100644 arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
 
-diff --git a/arch/arm/boot/dts/samsung/Makefile b/arch/arm/boot/dts/samsung/Makefile
-index e0143ee8c82d..2a173e4b3e1a 100644
---- a/arch/arm/boot/dts/samsung/Makefile
-+++ b/arch/arm/boot/dts/samsung/Makefile
-@@ -16,6 +16,7 @@ dtb-$(CONFIG_ARCH_EXYNOS4) += \
- 	exynos4412-i9305.dtb \
- 	exynos4412-itop-elite.dtb \
- 	exynos4412-n710x.dtb \
-+	exynos4412-odroidu2.dtb \
- 	exynos4412-odroidu3.dtb \
- 	exynos4412-odroidx.dtb \
- 	exynos4412-odroidx2.dtb \
-diff --git a/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi b/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
-index 93ddbd4b0a18..b56b92c78c1d 100644
---- a/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
-+++ b/arch/arm/boot/dts/samsung/exynos4412-odroid-common.dtsi
-@@ -414,8 +414,8 @@ ldo21_reg: LDO21 {
+Can be net or net-next, but given we have Eric's patch in net already,
+net-next seems more appropriate, and it's safer.
+
+ include/linux/skbuff.h |  5 +++++
+ net/core/gso.c         | 36 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 41 insertions(+)
+
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index a3ff380d43f0..aa5bc608de06 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -3041,6 +3041,11 @@ static inline bool skb_inner_network_header_was_set(const struct sk_buff *skb)
+ 	return skb->inner_network_header > 0;
+ }
  
- 			ldo22_reg: LDO22 {
- 				/*
--				 * Only U3 uses it, so let it define the
--				 * constraints
-+				 * Only U2 and U3 use it, so let them define
-+				 * the constraints
- 				 */
- 				regulator-name = "LDO22";
- 				regulator-boot-on;
-@@ -486,7 +486,7 @@ buck7_reg: BUCK7 {
- 			buck8_reg: BUCK8 {
- 				/*
- 				 * Constraints set by specific board: X,
--				 * X2 and U3.
-+				 * X2, U2 and U3.
- 				 */
- 				regulator-name = "BUCK8_2.8V";
- 			};
-diff --git a/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts b/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
-new file mode 100644
-index 000000000000..5cb5f874b562
---- /dev/null
-+++ b/arch/arm/boot/dts/samsung/exynos4412-odroidu2.dts
-@@ -0,0 +1,139 @@
-+// SPDX-License-Identifier: GPL-2.0
++static inline bool skb_inner_transport_header_was_set(const struct sk_buff *skb)
++{
++	return skb->inner_transport_header > 0;
++}
++
+ static inline unsigned char *skb_inner_mac_header(const struct sk_buff *skb)
+ {
+ 	return skb->head + skb->inner_mac_header;
+diff --git a/net/core/gso.c b/net/core/gso.c
+index e96ef6350064..d98acfd68595 100644
+--- a/net/core/gso.c
++++ b/net/core/gso.c
+@@ -131,6 +131,36 @@ struct sk_buff *__skb_gso_segment(struct sk_buff *skb,
+ }
+ EXPORT_SYMBOL(__skb_gso_segment);
+ 
 +/*
-+ * Hardkernel's Exynos4412 based ODROID-U2 board device tree source
-+ *
-+ * Copyright (c) 2014 Marek Szyprowski <m.szyprowski@samsung.com>
-+ * Copyright (c) 2026 Josef Schlehofer <pepe.schlehofer@gmail.com>
-+ *
-+ * Device tree source file for Hardkernel's ODROID-U2 board which is based
-+ * on Samsung's Exynos4412 SoC.
++ * GSO processing (but not UDP/SCTP GSO, which uses fixed header
++ * sizes) reads the TCP header as specified by
++ * skb->transport_header/inner_transport_header.  Make sure it is
++ * there to read.
 + */
++static bool skb_gso_transport_header_ok(const struct sk_buff *skb)
++{
++	const struct skb_shared_info *shinfo = skb_shinfo(skb);
++	unsigned int thoff;
 +
-+/dts-v1/;
-+#include <dt-bindings/leds/common.h>
-+#include "exynos4412-odroid-common.dtsi"
-+#include "exynos4412-prime.dtsi"
++	if (likely(!(shinfo->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))))
++		return true;
 +
-+/ {
-+	model = "Hardkernel ODROID-U2 board based on Exynos4412";
-+	compatible = "hardkernel,odroid-u2", "samsung,exynos4412", "samsung,exynos4";
++	if (skb->encapsulation) {
++		if (!skb_inner_transport_header_was_set(skb))
++			return false;
 +
-+	aliases {
-+		ethernet = &ethernet;
-+	};
++		thoff = skb_inner_transport_offset(skb);
++	} else {
++		if (!skb_transport_header_was_set(skb))
++			return false;
 +
-+	memory@40000000 {
-+		device_type = "memory";
-+		reg = <0x40000000 0x7ff00000>;
-+	};
++		thoff = skb_transport_offset(skb);
++	}
 +
-+	leds {
-+		compatible = "gpio-leds";
++	/* A negative offset converts to a huge value and fails. */
++	return thoff + sizeof(struct tcphdr) <= skb_headlen(skb);
++}
 +
-+		led1 {
-+			function = LED_FUNCTION_HEARTBEAT;
-+			color = <LED_COLOR_ID_BLUE>;
-+			gpios = <&gpc1 0 GPIO_ACTIVE_LOW>;
-+			default-state = "on";
-+			linux,default-trigger = "heartbeat";
-+		};
-+	};
+ /**
+  * skb_gso_transport_seglen - Return length of individual segments of a gso packet
+  *
+@@ -253,6 +283,9 @@ static inline bool skb_gso_size_check(const struct sk_buff *skb,
+  */
+ bool skb_gso_validate_network_len(const struct sk_buff *skb, unsigned int mtu)
+ {
++	if (unlikely(!skb_gso_transport_header_ok(skb)))
++		return false;
 +
-+	fan0: pwm-fan {
-+		compatible = "pwm-fan";
-+		pwms = <&pwm 0 10000 0>;
-+		#cooling-cells = <2>;
-+		cooling-levels = <0 102 170 230>;
-+	};
-+};
+ 	return skb_gso_size_check(skb, skb_gso_network_seglen(skb), mtu);
+ }
+ EXPORT_SYMBOL_GPL(skb_gso_validate_network_len);
+@@ -268,6 +301,9 @@ EXPORT_SYMBOL_GPL(skb_gso_validate_network_len);
+  */
+ bool skb_gso_validate_mac_len(const struct sk_buff *skb, unsigned int len)
+ {
++	if (unlikely(!skb_gso_transport_header_ok(skb)))
++		return false;
 +
-+&adc {
-+	vdd-supply = <&ldo10_reg>;
-+	/* Nothing connected to ADC inputs, keep it disabled */
-+};
-+
-+/* Supply for LAN9730/SMSC95xx */
-+&buck8_reg {
-+	regulator-name = "BUCK8_P3V3";
-+	regulator-min-microvolt = <3300000>;
-+	regulator-max-microvolt = <3300000>;
-+};
-+
-+&cpu_thermal {
-+	cooling-maps {
-+		map0 {
-+			trip = <&cpu_alert1>;
-+			cooling-device = <&cpu0 9 9>, <&cpu1 9 9>,
-+					 <&cpu2 9 9>, <&cpu3 9 9>,
-+					 <&fan0 1 2>;
-+		};
-+		map1 {
-+			trip = <&cpu_alert2>;
-+			cooling-device = <&cpu0 15 15>, <&cpu1 15 15>,
-+					 <&cpu2 15 15>, <&cpu3 15 15>,
-+					 <&fan0 2 3>;
-+		};
-+		map2 {
-+			trip = <&cpu_alert0>;
-+			cooling-device = <&fan0 0 1>;
-+		};
-+	};
-+};
-+
-+&ehci {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	phys = <&exynos_usbphy 2>, <&exynos_usbphy 3>;
-+	phy-names = "hsic0", "hsic1";
-+
-+	ethernet: ethernet@2 {
-+		compatible = "usb424,9730";
-+		reg = <2>;
-+		local-mac-address = [00 00 00 00 00 00]; /* Filled in by a bootloader */
-+	};
-+};
-+
-+&hdmicec {
-+	needs-hpd;
-+};
-+
-+/* No VBUS supply switch on the micro-USB port */
-+&hsotg {
-+	dr_mode = "peripheral";
-+};
-+
-+/* VDDQ for MSHC (eMMC card) */
-+&ldo22_reg {
-+	regulator-name = "LDO22_VDDQ_MMC4_2.8V";
-+	regulator-min-microvolt = <2800000>;
-+	regulator-max-microvolt = <2800000>;
-+};
-+
-+&mshc_0 {
-+	vqmmc-supply = <&ldo22_reg>;
-+};
-+
-+&pwm {
-+	pinctrl-0 = <&pwm0_out>;
-+	pinctrl-names = "default";
-+	samsung,pwm-outputs = <0>;
-+	status = "okay";
-+};
-+
-+&sound {
-+	model = "Odroid-U2";
-+	samsung,audio-widgets =
-+		"Headphone", "Headphone Jack",
-+		"Microphone", "DMIC";
-+	audio-routing = "Headphone Jack", "HPL",
-+			"Headphone Jack", "HPR",
-+			"DMICL", "DMIC",
-+			"DMICR", "DMIC",
-+			"Mixer DAI RX", "HiFi Capture";
-+};
-+
-+&usb3503 {
-+	clock-names = "refclk";
-+	clocks = <&pmu_system_controller 0>;
-+	refclk-frequency = <24000000>;
-+};
+ 	return skb_gso_size_check(skb, skb_gso_mac_seglen(skb), len);
+ }
+ EXPORT_SYMBOL_GPL(skb_gso_validate_mac_len);
 -- 
-2.54.0 (Apple Git-157)
+MST
 
