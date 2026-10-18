@@ -1,59 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C3D4BB26F;
-	Sun, 18 Oct 2026 13:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B221C4BF945
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:29:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792330151; cv=none; b=KOj54SA/U58W/oJCtQrqhX0PSn1lCJ5BCAHs+y0JkLocsVQ0KKQRegoMCvMOflLjuRkRAlnd7OY/ZAMLqAVVO83Vh/q7OCo3VwcdKPusdNC00z+loR7pibLj9uJwAFQxPKDiyws8BDrqaZj7oBqkZTusv+TOCO4m3seiOiDwFB4=
+	t=1792330177; cv=none; b=C309ufzaVAAxGpSB/NL0YqCPJ8yA/0nPtMLLJK3LPM2K73t+4lU1e7Tr2dF7iW3n12gUK3goVkNo1QtZNmSYkCU+I4vnPT0nY/7WeJIRrQ+c6UPVcSMgCpkCyL1eIXTk8w5D1XF4gtjJo//5xRzqkP4dgxor5xrUknVvsl15qSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792330151; c=relaxed/simple;
-	bh=Oy5y3DJFPzMFGOBPt5HJMvmmARQ2SdAdvs84vXit2Wo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DksC/LCqLIbrQ1AqRhiXQ4Z7dvM7DJFyaiCd9X+hp1XVt4PrN1WbqAmquyu5WLcGUfv+IQ/XA6tIOW5fG21WVr62ocrirRIFn85mvxqKEc9Tqv/+/bbfMQU+ms8beQ3S4fqQ6u9GFNk7D7cLCECEm2tctvIy/hg8Jlv/swqis5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQ+7Gji5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792330177; c=relaxed/simple;
+	bh=aaZ/xfQMHY9Y0WooyFtWFJTJzmhk37MWsnb8cA317rk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EZxoj8IZCFPYN747GMjfcu5b4cZY/khB7hPc9S//pfCq33MGDSIXq59Fqdsqlm/hTgBoFhz8gFJ6Zkx+wfWgmNCU9KtKyW5ed+oCB6zhtGM3xonwemq13vgHHoVNjRT82KLOkjHy67yRgtxV0ChsKG0nyI+lu8kbxFM9pxnnhpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G6W5bODC; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQ+7Gji5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21D4D1F000C5;
-	Sun, 18 Oct 2026 13:29:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792330150;
-	bh=MGW9gS81JOGmQhAC9OrTzEkmznZ+6BrPV7a61PBlbiY=;
-	h=From:To:Cc:Subject:Date;
-	b=jQ+7Gji5398VsfxuIyNKoWG3c80C6uFP86YknrNLVg1SjybiOFqi6yQZAu46udGVk
-	 v4j9A3HiMjwdR3X91FidNxnwzAlsgdxcd4jD3knSSkpE5zzx5XNGZs7ikGYIq9SS4A
-	 BsKM/W2XpYjYGcFcBCbewR74GiDwqf0xfzKAEsAnSzJe4mXCRxV3r0k1gz2bWK4faF
-	 b96B3/+XRXN3Nf+rx1G6M8xqT8yP8clPh1sqzmRd7d8Icb+6JdBzKfUZFPCbZxQCk5
-	 cH8ZuzFDyM7R0v/HILU4i6ihzT5mwhT3/ZYUXU8WZr83Middj4kTXnh/jVmCD97NOI
-	 m9ajISozhV7CQ==
-From: Sasha Levin <sashal@kernel.org>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Vineet Gupta <vgupta@kernel.org>,
-	Brian Cain <bcain@kernel.org>,
-	Stafford Horne <shorne@gmail.com>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Jonas Bonn <jonas@southpole.se>,
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	bpf@vger.kernel.org,
-	linux-snps-arc@lists.infradead.org,
-	linux-hexagon@vger.kernel.org,
-	linux-openrisc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G6W5bODC"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so2649540eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:29:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792330176; x=1792934976; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IbcIoitvuAfvu3Q7bq63av2aFlfOV01EbbwSM1UVRBA=;
+        b=G6W5bODCnIh3chSl00IK9TmdisgEBNbbKZNxhWZrNjTLCtDdPglbTPPJ7CqUGhZw36
+         MPg1vmAzUE5CnjxklMXIzKyGD12KZVVGlb23d5GdSDG9p1iw1MTvBUj8aPA+p8jbPbte
+         kDMK7yPcKzOQSWbm8Wfc9Gr8rrA4qnYuDf3xZjNAC0wTKQmpOgiTUOsqBi9YvuqmRTS9
+         CD6vVOmJfruJnVcIou95nDGnDRLJJzXlSkKPPlofl1euoKu8KzxlqsQWR+Gxx+Qg+fVg
+         7UJvh0BsgjeZZ4CHopoQdZjYZFW66FMt6bYYuPiKqw02/eeQriPsTBP4J1RhhAsqXpNc
+         7ghA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792330176; x=1792934976;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IbcIoitvuAfvu3Q7bq63av2aFlfOV01EbbwSM1UVRBA=;
+        b=K3lRC7JATUMIR6OEE1niBtM9/560jKqxAhnOj7CwEYE5FsIz/0W9Eh+SNtsu45+Fds
+         UZ9OPhpxrWU+zHYSu76s5Jgq8npbSexQ2DG0MteP7j+0Hv/NVa1au9SuOCktGZEhGCAm
+         comwE90TQrPwhiHwjKLIGNpgJZS6Qgy1f9JHojGhq8CfLt/vEvjrdXxqB1r53B7Efqnz
+         9T1q+MJAtq9NrppISbzYakOaE7/tgEnNi/pCTOAxtYgIng/ilHMtkwRXS6D2dOHxsnum
+         /j6cMcov357kRQiax9xmhhppMVTrccZpmkCrkEdusGz1doQyghrTl8bKShyDCpHA0JZr
+         ehMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwNWU1A5dq7MPE0IYflMDzlfJab5LD7ygp6ukjYAxoZFEK2OoQcWnOkkFAJ749rPUcZ1/oyQGoCh+pt3Ew=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIns+qCgf4qCVLIjkoCAxOPY9LhNp1VQ4B9WX7z7+AjzOryr4Ez
+	Eggk24LGicj/yC+p+OofDaNXSPWxNC35aZ29bKONiSpmWRhjkICjVEo+
+X-Gm-Gg: AYBFou2W0hrs11GWT2dbFnDZQNb+Rm8uTpUrQwvihJnWMqV/AJIzzBHb/7hQMHXaNXu
+	Ji68PT01S+IwFmVLeq7a12t4pBK7B6pjCURyDp0Y9OJht15bxhYgw68uAU73tZI4RaAPXACwfPj
+	DZKuORlSwVa0ym6lFd8zX5Wgp+SSUCLeDpCCpthVV5i3zsVFOEzl9nxEdaDB6OoEjoeL7Pz+XzL
+	VLRpNMtmFioPy6ph47I88c5+yA9HmEOOyy9ZYHmsfj8XIpEPXiMR2jCfkeceN32oMtoTFa/7SUp
+	eXPYgq3il9xE+CLDK6jiD9pV177lVGFn9l9az9DFXvgkeCrPtbioczunjMb/vf21KI5RxXtuu/m
+	yePrwkILx+gFMiERe17JY+z22iFIX34GBItk1nbr81E72o8+ugOxDF+c2ErTjE9EVSeru+KruKl
+	9Zfu12abAPmMJiARJWAQMenBdNn8rKko43Uvf/jcfO8cVAajgrR52xHmliLgc0yTIvp77K2rlKR
+	DH1ZC6G
+X-Received: by 2002:a05:701b:424b:20b0:185:b157:f271 with SMTP id a92af1059eb24-185b157f2famr6583291c88.23.1792330175524;
+        Sun, 18 Oct 2026 06:29:35 -0700 (PDT)
+Received: from maclinux ([2803:c600:9110:8ba5:1c75:eeaa:b22f:20dc])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18319d3b880sm20099539c88.10.2026.10.18.06.29.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 06:29:34 -0700 (PDT)
+From: =?UTF-8?q?Francisco=20Beltr=C3=A1n=20Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
+To: mika.westerberg@linux.intel.com
+Cc: helgaas@kernel.org,
+	bhelgaas@google.com,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>,
-	"kernelci.org bot" <bot@kernelci.org>,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH bpf-next] locking/atomic: arc, hexagon, openrisc: Define arch_cmpxchg_local()
-Date: Sun, 18 Oct 2026 09:29:07 -0400
-Message-ID: <20261018132907.3823160-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	andreas.noever@gmail.com,
+	westeri@kernel.org,
+	YehezkelShB@gmail.com,
+	lukas@wunner.de,
+	linux-usb@vger.kernel.org,
+	d@rrell.co
+Subject: Re: [PATCH] PCI: Extend Apple Thunderbolt power quirk to Alpine Ridge
+Date: Sun, 18 Oct 2026 10:29:20 -0300
+Message-ID: <20261018132920.7407-1-fbeltranmillalen@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261016052503.GT176164@black.igk.intel.com>
+References: <20261016052503.GT176164@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,107 +85,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit ccb88db8dac8 ("bpf: Don't hand out a linked element as extra
-element") made alloc_htab_elem() take the per-cpu spare element with
-try_cmpxchg_local(), the first caller of cmpxchg_local() outside of
-architecture code. It doesn't build on arc, hexagon and openrisc:
+Hi Mika,
 
-  include/linux/atomic/atomic-arch-fallback.h:384:27: error: implicit declaration of function 'arch_cmpxchg_local'; did you mean 'raw_cmpxchg_local'? [-Werror=implicit-function-declaration]
+On Fri, Oct 16, 2026 at 07:25:03AM +0200, Mika Westerberg wrote:
+> Unfortunately I can't expose any of the non-public bits without going
+> through an extensive paper work.
 
-raw_cmpxchg_local() maps to arch_cmpxchg_local() unconditionally, but
-these three architectures don't define it, and unlike nios2 and
-microblaze they don't get it from asm-generic/cmpxchg.h either.
+No problem.  I'll describe bit 26 in the patch only by what I measured:
+with it set, SXFP() really powers the controller off and Linux does not
+bring it back on resume; with it clear, the controller resumes fine.
 
-cmpxchg_local() only has to be atomic with respect to the local CPU, so
-an architecture's own arch_cmpxchg() can serve for the sizes it
-supports. arc uses its relaxed LLOCK/SCOND variant when ARC_HAS_LLSC is
-set and its atomic_ops_lock() variant otherwise, and openrisc uses its
-LL/SC arch_cmpxchg(), the way arm64, riscv and s390 alias theirs. The
-hexagon arch_cmpxchg() only handles 32-bit words, so hexagon uses the
-generic version that disables interrupts, like sh, sparc32 and xtensa
-do. Linux has no NMIs on hexagon, so that is sufficient there.
+> I can comment on the ACPI bits, though. I think they can be put into
+> drivers/thunderbolt/acpi.c if they are strictly TB specific.
 
-Fixes: ccb88db8dac8 ("bpf: Don't hand out a linked element as extra element")
-Reported-by: kernelci.org bot <bot@kernelci.org>
-Closes: https://d.kernelci.org/i/maestro:78b65519ee4561df1fbf1e72f1dec9da7e5b153e
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610181750.BoqAddaF-lkp@intel.com/
-Closes: https://lore.kernel.org/oe-kbuild-all/202610182048.aEaiBP8W-lkp@intel.com/
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-The only user is in bpf-next, so it is probably easiest to take this
-through bpf-next with acks from the arc, hexagon and openrisc
-maintainers. A similar change was posted in 2023 for objpool and
-stalled once objpool stopped using try_cmpxchg_local():
-https://lore.kernel.org/all/20231121142347.241356-1-wuqiang.matt@bytedance.com/
+That makes sense to me.  I'll move both parts into drivers/thunderbolt:
+calling SXFP() on suspend, and clearing bit 26 just before it.  I'll
+test it the same way as the PCI version, with a USB disk attached
+across suspend, and send it as a new patch when it works.
 
-Build tested on arc with and without LLSC (including both KernelCI
-configs), hexagon (clang) and openrisc.
+Bjorn, that new patch would replace this one, and nothing would be
+left to change in drivers/pci for Alpine Ridge.  So please drop this
+version.
 
- arch/arc/include/asm/cmpxchg.h      | 4 ++++
- arch/hexagon/include/asm/cmpxchg.h  | 6 ++++++
- arch/openrisc/include/asm/cmpxchg.h | 2 ++
- 3 files changed, 12 insertions(+)
-
-diff --git a/arch/arc/include/asm/cmpxchg.h b/arch/arc/include/asm/cmpxchg.h
-index 66b3743c94008..93f7153eb267a 100644
---- a/arch/arc/include/asm/cmpxchg.h
-+++ b/arch/arc/include/asm/cmpxchg.h
-@@ -59,6 +59,8 @@
- 	_prev_;								\
- })
- 
-+#define arch_cmpxchg_local	arch_cmpxchg_relaxed
-+
- #else
- 
- #define arch_cmpxchg(ptr, old, new)				        \
-@@ -80,6 +82,8 @@
- 	_prev_;								\
- })
- 
-+#define arch_cmpxchg_local	arch_cmpxchg
-+
- #endif
- 
- /*
-diff --git a/arch/hexagon/include/asm/cmpxchg.h b/arch/hexagon/include/asm/cmpxchg.h
-index 9c58fb81f7fd6..e6114e713db9f 100644
---- a/arch/hexagon/include/asm/cmpxchg.h
-+++ b/arch/hexagon/include/asm/cmpxchg.h
-@@ -8,6 +8,8 @@
- #ifndef _ASM_CMPXCHG_H
- #define _ASM_CMPXCHG_H
- 
-+#include <asm-generic/cmpxchg-local.h>
-+
- /*
-  * __arch_xchg - atomically exchange a register and a memory location
-  * @x: value to swap
-@@ -72,4 +74,8 @@ __arch_xchg(unsigned long x, volatile void *ptr, int size)
- 	__oldval;						\
- })
- 
-+#define arch_cmpxchg_local(ptr, o, n)					\
-+	((__typeof__(*(ptr)))__generic_cmpxchg_local((ptr),		\
-+			(unsigned long)(o), (unsigned long)(n), sizeof(*(ptr))))
-+
- #endif /* _ASM_CMPXCHG_H */
-diff --git a/arch/openrisc/include/asm/cmpxchg.h b/arch/openrisc/include/asm/cmpxchg.h
-index 8ee151c072e41..fcf1bc8db8fe9 100644
---- a/arch/openrisc/include/asm/cmpxchg.h
-+++ b/arch/openrisc/include/asm/cmpxchg.h
-@@ -140,6 +140,8 @@ static inline unsigned long __cmpxchg(volatile void *ptr, unsigned long old,
- 					       sizeof(*(ptr)));		\
- 	})
- 
-+#define arch_cmpxchg_local	arch_cmpxchg
-+
- /*
-  * This function doesn't exist, so you'll get a linker error if
-  * something tries to do an invalidly-sized xchg().
-
-base-commit: a6303535c2ad9d49598d52556183911f02287791
--- 
-2.53.0
-
+Thanks,
+Francisco
