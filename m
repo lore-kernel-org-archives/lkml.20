@@ -1,154 +1,110 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447AD41836C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6BF4D4889;
+	Sun, 18 Oct 2026 21:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792358062; cv=none; b=uZdv4Lcd4CfGISSHqx2/6nICAdBh08Nlc9C83wAMJr8il0ofNphlMvfkpgg20sDjkm9mrkhZHL5Yk7RJlG5rhgeRW2Ac6O46PmaoD7YRiVzZNzG1xQhLtY+XpyhsEzW1z0cBJwg3LyzKUU+Sh4xojOHRuLALotOqgvztAQJ7OPM=
+	t=1792358155; cv=none; b=qkHu8RmA+D2WQZIzfcgjnzsoQjiDoFD5C1Xa5kd1+71CXc8ojb9L3b1Iij2MrpG4v3KV7s02ly+Ri07nSGfFd0T1ZlerqjCK8ir5ZbKpZukespBIhZl9fnBgc2rP+NlylS7B83e/0EBP1fcSYNVnP0EOrkr3yQUK95iMBwqM/pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792358062; c=relaxed/simple;
-	bh=ELsTm3j7AhO/Y219Lftj+MonZ2lkR1m0RK4B8AueOsI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nxv5UoEMffCHCA1wpAHyh7JCw/RRJ19pIxd3bfD0b6t9maVYDeZ3HAuXtgXth2krm6OHYZL/QacrhIBbjnDA/h0DHC2b/aua09gMtYm+yrcsft/zKi7aPwVHPLJmdvURr0wmcYd3XdMfqmeXXgoxnANPfHZFdyhc7OkQtpUVTsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DnvH0YsM; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1792358155; c=relaxed/simple;
+	bh=SHrvdvbxCKtRIdlifie6qEUHDb0k2UQIfxEZWKPC62g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cgiZNO5q/O+6mKi0aRywMm8Ss59bwWk7mMJiky7pBzCmA6Wfpg8gRJfSF/eciIDJffYJE9d6B6tv/Vwh+EdyQV/udfJrfXRoRMSdJaGx7+rIWGVq/6ZVcBKEDLGeS/61qY9JtBFEbrBZ9XeNVUppy0lh6iGzORbu4ZEU2dyXUoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uxg9HCWU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DnvH0YsM"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso805881f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:14:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792358058; x=1792962858; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XFmT0VCL/Q/dgan6nnGoPiwft7ERrnmKegD898CfuBQ=;
-        b=DnvH0YsMiLc9ovWZPMzdj5+v0lNHZKf6BAfSmSpS5YQK38dsO5n5c5E31d0GGCe1Od
-         Gpr5LP8fv5zK/MxH1cuTU/042qOf6pJ6M2LkdGaDDv/wiGe8CvCMgf8lOr4d38jn9n7K
-         fSf0ExDk1N5nb4hRx/e/6SxtVl92FufH2Dkwddu93gKAQA67obhZ/C/NeiA0Xq89UwWy
-         SOyckmDfLrpxix3cAQGfDjbvRXQjGmG+GPksCc8fVKPtad8zBvi5N3wL5m2j9A0fc3wJ
-         OBYVbQHO4NfBxEj1iBSCeax+GFY3xFitoFZaiO42OMKS9v9iLSDhbJ2z7tYmcm6U4vqZ
-         Tw4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792358058; x=1792962858;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XFmT0VCL/Q/dgan6nnGoPiwft7ERrnmKegD898CfuBQ=;
-        b=stbztN6euVKKFZFP3CuOljgJSzNzDXNA/sUzOKmPD+ZXVYeY8Dw4OIVwwWtTAyK0EB
-         0ikqFqjNwOFq4QCWr24Gj/NkFLWvWnG8smuGdnX5xwkbsNAoNs3jG1hN36nf8LNTO/XA
-         rF7V/jJWUovpbDVR1smaaJWPtlJv14RMjS4jCm43qx26p/+rx91o31zCJx7noWb2+iQo
-         5G0znNElELKsfoOoCYgkNMjdgbO/v8g7mqWyct52yMaJoEWfQZhVm2OPYqG0kc/nMUCj
-         JjEQJWy5E+NzEHNe8Qq47Vjvwizcmfj4DhoFd54YTFdCDp7A78jZ3s0TXGQ3pLfo83Pg
-         psHg==
-X-Forwarded-Encrypted: i=1; AKwUvByxTE48cSEmDvYn5Zx+DLU14NYTQ0HOeQyGGu0iYblbtg6iNgK3VJStVzbDpEIFhJljL581zG/tPEfQs/I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfTKqeh9a/UPSffA+y/zqGWV7/9qedIv4Wttc9dvITnO/FTiK0
-	XqcSA0UJZ29YwHNzAimCfkfrzONcCRgUttG1guyN3J2BgjeAI80XVRL/MFIJdCPjMk73PBJKtWo
-	4y63FteOb2g==
-X-Gm-Gg: AYBFou1N44aXn0DIysySjj3FfT53nN8sBEQ+n0usVK2eNUGqEegTk8rv/I97qeS8vzY
-	ZhYlMpFtn5VnzhbCAp6WiPZvarbU14LeVL3E3cHUrcftSGoBOsXKwWYzoz1guq8JewxF/tfEmSn
-	e1wlMAUX/bDLWSLQ0Shp4Li0qaDqQvcI91BMQLjHjsI1EIGvwiARyLmUYDVLnOcOrNawspmodbl
-	oYldrgbFVewtueaRpVgnNHjVTR1IvM8FiA8k1aY9z+zFF3l14soZoVynqZistgF3PPsBaLbRpS8
-	cD4m7K1YrllR2E0qh952k+SRv29Qt6f5jOIW1ZltE0OxWvjoDrFmBt4EA2DlYu+iqIM/BwDF8cn
-	Wd5vhKr9BtPcZj8nBAvA8jZO4tGv3MH+URRqXV3+EWLg+2oGolM312kMJhNXXVRh/n/CmQoOF8g
-	Ocmz7ywoV6Rgp+2qrUe3F7oeZD0imQwh1Gwcnj/47BK+BLyfom/4HO23Hgp40ABqY=
-X-Received: by 2002:a05:600c:4503:b0:4a1:985b:83a9 with SMTP id 5b1f17b1804b1-4a1d75acb11mr135826505e9.4.1792358058435;
-        Sun, 18 Oct 2026 14:14:18 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8aad3dsm30778145ad.64.2026.10.18.14.14.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 14:14:16 -0700 (PDT)
-Message-ID: <e6e38b8b-130b-40d4-b4aa-30e9bdc79618@suse.com>
-Date: Mon, 19 Oct 2026 07:44:10 +1030
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uxg9HCWU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9099BC2BCC7;
+	Sun, 18 Oct 2026 21:15:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792358154;
+	bh=SHrvdvbxCKtRIdlifie6qEUHDb0k2UQIfxEZWKPC62g=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=Uxg9HCWUUJYrOdLo6pVwOAESu5vgvo3q9LHnsZqqOurDxIspXloh9em6YwYxS5nSt
+	 lhyPgG134cDR1tJNtCAKXVGMn2isPf+Jf/qPZTkNpZuj6H6W9/3rHwG6TJuV+z0Kzd
+	 f99GdNTKsupq1ifLbjurzKbYXBaYlGAGpddX6C9EVd6oZ/hG6/TguFCXaSqcVhVH5Q
+	 EsGV6POdmnAv3jTvK9+TmuDAGl5RfiLaSrL/ROIMqhMdPI5JrR2I0FyGhyzIH3Onqn
+	 FuPAqjeWzLtG7fu4dwGYbcSIYpLKckGw7ZTr82/Fynuic8u03gwR/r6OTABbPpnDOJ
+	 hCfgbLpAPz3sA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BDA9CCA490;
+	Sun, 18 Oct 2026 21:15:54 +0000 (UTC)
+From: Rinat Muhamedgaliev via B4 Relay <devnull+rinat.muhamedgaliev.gmail.com@kernel.org>
+Subject: [PATCH v6] bq27xxx: support interchangeable OnePlus 6/6T fuel
+ gauges
+Date: Mon, 19 Oct 2026 00:15:53 +0300
+Message-Id: <20261019-master-v6-0-c4b36129721e@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] btrfs: prevent deleting the wrong subvolume by ID
-To: guolingxing <guolingxing@tju.edu.cn>, David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>, Marcos Paulo de Souza
- <mpdesouza@suse.com>, linux-btrfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261018073709.1586733-1-guolingxing@tju.edu.cn>
- <20261018153810.2692021-1-guolingxing@tju.edu.cn>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-In-Reply-To: <20261018153810.2692021-1-guolingxing@tju.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02OzQ6CMBCEX8X0bLXFUsST72E89GeBNVJMi42G8
+ O5SCOpxduebmYEE8AiBnDYD8RAxYOcmIbcbYhrlaqBoJ00ylklWZgVtVejBU22ZqmwpSwkVmcw
+ PDxW+5qDLddHhqW9g+kQnh1YBqPbKmSadOo81uv0Sl/4Nhr7z73lJFClnLT2upVFQTlmemeIAh
+ heyONetwvvOdC1JpTH/YpzxH5ZTRpkGLoXgxlr+j43j+AFKnswsBQEAAA==
+X-Change-ID: 20260927-master-bd0afd9696ef
+To: linux-pm@vger.kernel.org
+Cc: pali@kernel.org, sre@kernel.org, afd@ti.com, 
+ konrad.dybcio@oss.qualcomm.com, david@ixit.cz, krzk@kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792358153; l=1717;
+ i=rinat.muhamedgaliev@gmail.com; s=default; h=from:subject:message-id;
+ bh=SHrvdvbxCKtRIdlifie6qEUHDb0k2UQIfxEZWKPC62g=;
+ b=iBOg7Z4TxpAdOSuJt3HRuvXtiybtz8yJk/g8EgW9pH067j+70MW//oHEMpOPbET61hTGpcari
+ fupeyxW2YSBDXaSd2NhcrcOHELpDkXKTUhgjVPUNG7ihFQDA1DvrXhp
+X-Developer-Key: i=rinat.muhamedgaliev@gmail.com; a=ed25519;
+ pk=qkYQO8LRlRErWiLzlpK8jHbRIxv8+7v06+ytcxX8mec=
+X-Endpoint-Received: by B4 Relay for rinat.muhamedgaliev@gmail.com/default
+ with auth_id=1072
+X-Original-From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+Reply-To: rinat.muhamedgaliev@gmail.com
 
+OnePlus 6 and 6T replacement battery packs can contain either a bq27411 or a
+bq27541 fuel gauge. The latter requires a different register map and produces
+invalid battery readings when interpreted as a bq27411.
 
+The I2C driver reads DeviceType while probing either of those compatible
+devices and selects the matching profile.
 
-在 2026/10/19 02:08, guolingxing 写道:
-> When deleting a subvolume by ID, btrfs_ioctl_snap_destroy() first
-> resolves the requested ID to a name, then looks up that name again
-> under the parent directory lock.
-> 
-> A concurrent rename can change which subvolume is associated with
-> the name between these operations. Since the deletion path does not
-> verify the ID of the resolved subvolume, it can delete a different
-> subvolume while leaving the requested one intact.
-> 
-> This was reproduced by repeatedly exchanging the names of two
-> subvolumes using renameat2(RENAME_EXCHANGE) while deleting one of
-> them by ID. The wrong subvolume was deleted in 9 out of 14 independent
-> tests.
-> 
-> Fix this by checking that the resolved subvolume ID matches the
-> requested ID while holding the parent directory lock. Return -EAGAIN
-> on a mismatch so that userspace can retry the operation instead of
-> being told that the requested subvolume does not exist.
-> 
-> Fixes: 949964c92843 ("btrfs: add new BTRFS_IOC_SNAP_DESTROY_V2 ioctl")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+The bq27541 path was tested on a OnePlus 6T with DeviceType 0x0541. It
+reported 4.338 V, 100% capacity, 27.8 C, and Full/Good battery status.
+Testing on an OnePlus 6 or 6T whose fuel gauge reports DeviceType 0x0421
+(bq27411) would be appreciated.
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
+Changes in v6:
+- Compare the detected model with the compatible-selected model.
+- Support both BQ27411-to-BQ27541 and BQ27541-to-BQ27411 detection.
+- Document the pair of models checked at probe time.
+- Link to v5: https://patch.msgid.link/20261018-master-v5-0-0be16441cdd1@gmail.com
 
-Thanks,
-Qu
+Changes in v5:
+- Report detected and expected DeviceType values instead of hard-coding chip names.
+- Describe an unknown DeviceType as unrecognized.
+- Link to v4: https://patch.msgid.link/20260928-master-v4-1-052c73ec1767@gmail.com
 
-> ---
-> Changes since v1:
-> - Return -EAGAIN instead of -ENOENT on a subvolume ID mismatch,
->    as suggested by Qu Wenruo.
-> 
-> 
-> Testing:
-> - Unpatched kernel: 9 wrong deletions in 14 independent runs.
-> - v2 patched kernel: 0 wrong deletions in 30 independent runs.
-> - EAGAIN was observed in 14 runs; all 30 runs successfully deleted
->    the requested subvolume while preserving the other one.
-> 
->   fs/btrfs/ioctl.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
-> 
-> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-> index 576cd76ca0bf..d82a7f3f3d14 100644
-> --- a/fs/btrfs/ioctl.c
-> +++ b/fs/btrfs/ioctl.c
-> @@ -2380,6 +2380,17 @@ static noinline int btrfs_ioctl_snap_destroy(struct file *file,
->   
->   	inode = d_inode(dentry);
->   	dest = BTRFS_I(inode)->root;
-> +
-> +	/*
-> +	 * A concurrent rename may have changed which subvolume the name
-> +	 * refers to. Verify that the resolved ID still matches the requested ID.
-> +	 */
-> +	if (destroy_v2 && (vol_args2->flags & BTRFS_SUBVOL_SPEC_BY_ID) &&
-> +	    btrfs_root_id(dest) != vol_args2->subvolid) {
-> +		ret = -EAGAIN;
-> +		goto out_end_removing;
-> +	}
-> +
->   	if (!capable(CAP_SYS_ADMIN)) {
->   		/*
->   		 * Regular user.  Only allow this with a special mount
+Changes in v4:
+- Drop the generic compatible and binding update.
+- Keep the established OnePlus DTS unchanged.
+- Detect bq27541 from DeviceType in the bq27411 probe path.
+- Send as a new thread.
+
+---
+Rinat Muhamedgaliev (1):
+      power: supply: bq27xxx: detect bq27541 behind bq27411 compatible
+
+ drivers/power/supply/bq27xxx_battery_i2c.c | 57 ++++++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+---
+base-commit: 830b3c68c1fb1e9176028d02ef86f3cf76aa2476
+change-id: 20260927-master-bd0afd9696ef
+
+Best regards,
+--  
+Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+
 
