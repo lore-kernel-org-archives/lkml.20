@@ -1,191 +1,201 @@
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F733624B3
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5C23612ED
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792291626; cv=none; b=BoofmLQe7qUj7DvfucVtXw3QyNMqff3mtfuQ5irWHhKpijeAICJCDLIHm4Yf4GnXKOpszH7l/MYBlUSLlXll35RL4Sf8mhftNPazbxgkINPx9OUMkkjwX1GHbnzU2UleiNjPzjrmjeqPh8hkQnYp2QvLdYtxOtXDnX9kHV0a67I=
+	t=1792291660; cv=none; b=u4BFc+skE6q0ctL70v5uRnBu9FwynJK4SOGGKOv+TdT5erJy02YDRdjJXnCeriW1ok6D6bCooaBOBxe0wvmOu4jqCwWj8SKdj5u0yZMEtukbihMibf3oZv6qfNcA0q2yjDa3ysTlC/Wc3QpAcuz0rpdJgJ1jl1I/cldWRWj0fNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792291626; c=relaxed/simple;
-	bh=V2vxO5K6ARMT6M9vAOXsNeWmHh7gJMCXeMXS6GzMn+o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AWXVXRvFPsfaxoI28lLwlkzrwzXbLPMXCrhtGkZVug5ENwI9X+ssJxu3rq1YI9Szm+kYVOLwolGFMwZq22II1FzRDVaXrD1Azgw4Pt598NAh8gkncqOwgNLS2qprr/PGD3UI1otJ8YEF/DQgCHiCwYGoiueZVgC41nUBWcmB+Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p3ZUDYmm; arc=none smtp.client-ip=209.85.219.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792291660; c=relaxed/simple;
+	bh=FRvSS77tPkxhqI8ApcJrTJap+T/z8Z3hcT8InsFgR2U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mM7QNm8udORj3kZyX/8u/VykEtkWdOkcZhduUSeCcGHECbCL81o+DDcrQZCuvhhKrBqA7s5WO8BJwh5xJHx1gozcjFWAnheSqZrpvz4OS2EjurboHUBfD7Kk0USvw7mieEghkOS5V/n3uIdyHDDFQ8IWrOF0BBT+EeEcLO/wbc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=bYly3sO1; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p3ZUDYmm"
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-917a6dccc60so14705446d6.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:47:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792291620; x=1792896420; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8XiEmUUGLcxWoBWH/WFW3dYywAFVVlMQFh79JSPvB1Q=;
-        b=p3ZUDYmmKmxCe/5seqs+ayc8wYY+758GLRjLYsufSUMUADS6K6fOp+kvcyqlRGzwZv
-         h1tzUDZBh9oOxAGihnqX3iUSSJAyDdvNSZe+cFRiuSDeGHov3zXfVklFgpAQJjYne/WE
-         3xeknyWCe36pj2zWpVyUFE6F9KDd6GEyk3yHG1x8YDsmdtkvlyT0IvoYdXFju+tjCIY/
-         M0ehjRUi9zj6gM2zaLVpwbY/RuzVRs77Ct5Gm+EtoYU5qMI9OsYO/OpS+zHH1IePf9W1
-         YllUmyHQPpdanmHPEj70EVP+O+44p7NPcfiYi50j4vG4IGGcg6WUvnpUlCG6g8XfyGp5
-         5/Uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792291620; x=1792896420;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8XiEmUUGLcxWoBWH/WFW3dYywAFVVlMQFh79JSPvB1Q=;
-        b=zlJjrfqRXRg9pRxtntMwVceEiFFtwc/mecrGM0Fu9eIKadp63elzd9Kc/HGU5iTa0B
-         JAVhCQYBc1LsMsvIqJ9rjwYMrmW6JUzHuj+9T8GHQ+Lu7mqq1GKBM2nJPBju4mjoaXLr
-         OIkol/i3Lobw3ozZwRcYXVhrtcebHe7Vbjl6XRHhlvQNjnxExCZQyoLu2ux7UlDVAX6Z
-         0ZdkOFnHDDYc7H5113qtwzYywW5EIL/eHQpp1CxMVKjYATDaJ6IiuoQWIzCEGiLPYZwc
-         bIeb6VmcSoo4L7cIpFGghMP+IyEBGk0haCqxpjtGIy6cTzbRCq+gP+rXOY3xWW0otpM9
-         FuQA==
-X-Forwarded-Encrypted: i=1; AKwUvBy/bA9iAngJhxDMOZTMBrUZehChbwJfpysXOmqKHQ3WGVOjSTeso1A/VVwfGDqqjp8ry2i8bJVwM5DA898=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnho0maPJhvXszI+uAP60E/SQpRhpeZidAgVBXvC9uINxxrYbQ
-	WcrUTHSSYemqydsXEOwoyhkG+eVmdjG++4ug9m+niRwIBRd4+F0eY8A=
-X-Gm-Gg: AYBFou1DFjaVmAeXRLhMgYhBXtufMLluMTfM8SkBk5OVO0mKu4AGw+EWkrDA1XdNjkG
-	Z81ywozwqFFaRF0ef0CxIG1cGBhrPy/cgBgXU6uBmE/2HiwTZcXJclx+0v7aRvgv1tKMWrSfsmG
-	bHE3M+XYiY7Ed5glyIQzJFuedZfHmJPmNGF6nxOATLHknmOJPGUcns1dz8RFbMFIq2pGNn9VfCW
-	Xl0nPoq6hcVRVQFZp6B6pypFW7QG8fBMI+uCv0jVji2Yv8XIaFXEXeK8CKtFCGFCKQQQDvp45x6
-	f2vgnIOqvnq34EDlcXCq6aXh+3oF3D2rmR3LnVXBoeaF4wHFwbTU4qo73Hp1hD9wbjzDckyev7B
-	lh0gkccSSEDQJG4kSEfI4tfiEWL15+B5LJbICJzOymqhKJ3KoFP7yzjOPzCnLQDvMdsZ4xhrUtr
-	ZkvqiqKiJs567kcsc0zg5XNNlaQEm0WNAAwM+w05FZYcp4a7PXBbSAgXVwSf7bKlStDN/5qTSrl
-	YT4YNpq+abiIfbo3iOjaAMFAbz1hKcOzUjvLZjKoq/Jaqubz8JKestqoaeaYMZvrOOE0ay4lyD+
-	6mErvWWUGCLk9M42uUP/AXAHsoLy
-X-Received: by 2002:a05:6214:2024:b0:91b:841c:488f with SMTP id 6a1803df08f44-91bdf0129c8mr74124096d6.11.1792291620208;
-        Sat, 17 Oct 2026 19:47:00 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba4b9f0sm62019456d6.10.2026.10.17.19.46.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 19:46:59 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Niklas =?UTF-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>,
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: [PATCH v3 2/2] media: rcar-isp: release the core interrupt before destroying RPPX1
-Date: Sat, 17 Oct 2026 22:46:54 -0400
-Message-ID: <20261018024654.3913088-3-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261018024654.3913088-1-mhun512@gmail.com>
-References: <20261018024654.3913088-1-mhun512@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="bYly3sO1"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792291654; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Z6vhl9H/bI+MfnZt/1kQc+tu5ODLFIoF8c4dyDq9S+M=;
+	b=bYly3sO1JcHwB0ZNr0WJ7REYzk7DaDX8vspWu0TIFgSlAovtdsjJVfcK/CC6S27TDfVQjMaD095VEFAUXRM8WiwSbrioc3fgignu8WFpdrGANqillbJmEz4VmMeq3nZayDdRYYszorkCd1Bbu5hHG4LWcWh9+WGKoHy9QDPNhY0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R471e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XCyL-xi_1792291651;
+Received: from 30.42.72.158(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCyL-xi_1792291651 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sun, 18 Oct 2026 10:47:32 +0800
+Message-ID: <b1b3d8d7-7201-4b75-a0f0-af383d854279@linux.alibaba.com>
+Date: Sun, 18 Oct 2026 10:47:31 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/1] khugepaged: fix readahead lock inversion in
+ collapse_file()
+To: Lance Yang <lance.yang@linux.dev>, Pedro Falcato <pfalcato@suse.de>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com,
+ liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
+ dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org,
+ jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, hch@lst.de,
+ syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
+ ngocthang2710.1999@gmail.com, willy@infradead.org, rppt@kernel.org,
+ ljs@kernel.org
+References: <20261016065920.4153-1-lance.yang@linux.dev>
+ <27e5aadc-2d68-428f-a958-308e4a75c058@linux.alibaba.com>
+ <atICp2NL8j2z7UFM@pedro-suse.tail5790ac.ts.net>
+ <atIiR1NWNssDvgt6@pedro-suse.tail5790ac.ts.net>
+ <6a005d89-df5b-4524-a4b9-c637cb15f1ee@linux.alibaba.com>
+ <cd6637db-7b30-4cbc-b07f-c2a2b32480fa@linux.dev>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <cd6637db-7b30-4cbc-b07f-c2a2b32480fa@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-core->rpp is a separately allocated struct rppx1: rppx1_create()
-allocates it with kzalloc_obj(), and rppx1_destroy() frees it with
-kfree(). It is not part of the device-managed core allocation.
 
-risp_core_irq() calls rppx1_interrupt(core->rpp, ...) before taking
-core->lock. rppx1_interrupt() accesses rpp->base through rppx1_read()
-and rppx1_write(), and can also use rpp->dev. An interrupt handler that
-has passed the ISPCORE status check can still be using this object when
-risp_core_remove() frees it. Stopping the video queues and taking
-core->lock do not join that earlier part of the handler. The managed IRQ
-is otherwise released only after remove returns.
 
-Request the IRQ after the RPPX1 object, subdevice, locks and job list have
-been initialized, so probe error paths cannot leave a handler using an
-uninitialized or freed RPPX1 object. Release and synchronize the IRQ after
-stopping the I/O nodes but before unregistering the V4L2 device and
-destroying RPPX1.
+On 10/17/26 3:41 PM, Lance Yang wrote:
+> 
+> 
+> On 2026/10/17 13:43, Baolin Wang wrote:
+>>
+>>
+>> On 10/16/26 9:18 PM, Pedro Falcato wrote:
+>>> On Fri, Oct 16, 2026 at 12:00:24PM +0100, Pedro Falcato wrote:
+>>>> On Fri, Oct 16, 2026 at 05:57:48PM +0800, Baolin Wang wrote:
+>>>>>
+>>>>>
+>>>>> On 10/16/26 2:59 PM, Lance Yang wrote:
+>>>>>> collapse_file() can end up calling page_cache_sync_readahead() with
+>>>>>> source folios from earlier in the range still locked. If truncate 
+>>>>>> already
+>>>>>> holds mapping->invalidate_lock exclusively and is waiting for one of
+>>>>>> those folios, readahead blocks on the same invalidate_lock and 
+>>>>>> neither
+>>>>>> side can make progress.
+>>>>>>
+>>>>>> Do readahead in a separate pass before we start holding source folios
+>>>>>> locked for collapse. Keep page_cache_sync_readahead() and its 
+>>>>>> existing
+>>>>>> policy, and drop each folio's lock and reference after checking 
+>>>>>> that it
+>>>>>> is uptodate. If truncate or reclaim removes a folio between the two
+>>>>>> passes, roll back instead of doing readahead again with source folios
+>>>>>> locked.
+>>>>>>
+>>>>>> Shmem handles swapin and fallocated folios through shmem_get_folio()
+>>>>>> without taking mapping->invalidate_lock, so it isn't affected by this
+>>>>>> lock inversion.
+>>>>>>
+>>>>>> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+>>>>>> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+>>>>>> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page 
+>>>>>> cache with invalidate_lock")
+>>>>>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>>>>>> ---
+>>>>>
+>>>>> Thanks for the fix.
+>>>>>
+>>>>>> Thanks to Nguyen Ngoc Thang for v2. David asked for volunteers, so 
+>>>>>> I'm
+>>>>>> happy to take this over.
+>>>>>>
+>>>>>> Some older stable trees lack the folio infrastructure used here, 
+>>>>>> and the
+>>>>>> code will differ for each stable tree, so each backport will need 
+>>>>>> quite a
+>>>>>> bit of rework and its own review. I'm not sure whether to Cc 
+>>>>>> stable here.
+>>>>>> Once we agree on the fix, I'll send a separate backport for each 
+>>>>>> maintained
+>>>>>> stable tree except 5.10, which isn't affected.
+>>>>>>
+>>>>>> v2 -> v3:
+>>>>>>    - Replace the scan-wide invalidate_lock and 
+>>>>>> page_cache_ra_unbounded() with
+>>>>>>      a preparation pass using page_cache_sync_readahead().
+>>>>>>    - Roll back on a new page cache miss during collapse.
+>>>>>>    - https://lore.kernel.org/all/20260913163644.122133-1- 
+>>>>>> ngocthang2710.1999@gmail.com/
+>>>>>>
+>>>>>>    mm/khugepaged.c | 42 +++++++++++++++++++++++++++++++-----------
+>>>>>>    1 file changed, 31 insertions(+), 11 deletions(-)
+>>>>>>
+>>>>>> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>>>>>> index ef5cd6fda34f..b3f67617caf0 100644
+>>>>>> --- a/mm/khugepaged.c
+>>>>>> +++ b/mm/khugepaged.c
+>>>>>> @@ -2262,6 +2262,34 @@ static enum scan_result 
+>>>>>> collapse_file(struct mm_struct *mm, unsigned long addr,
+>>>>>>        new_folio->index = start;
+>>>>>>        new_folio->mapping = mapping;
+>>>>>> +    if (!is_shmem) {
+>>>>>> +        /*
+>>>>>> +         * Populate the range before accumulating locked source 
+>>>>>> folios:
+>>>>>> +         * readahead may block on invalidate_lock.
+>>>>>> +         */
+>>>>>> +        for (index = start; index < end;) {
+>>>>>
+>>>>> why drop xas_unlock_irq()?
+>>>>>
+>>>>>> +            folio = filemap_lock_folio(mapping, index);
+>>>>>> +            if (IS_ERR(folio)) {
+>>>>>> +                page_cache_sync_readahead(mapping, &file->f_ra,
+>>>>>> +                              file, index, end - index);
+>>>>>> +                folio = filemap_lock_folio(mapping, index);
+>>>>>> +                if (IS_ERR(folio)) {
+>>>>>> +                    result = SCAN_FAIL;
+>>>>>> +                    goto rollback;
+>>>>>> +                }
+>>>>>> +            }
+>>>>>> +            if (!folio_test_uptodate(folio))
+>>>>>> +                result = SCAN_FAIL;
+>>>>>
+>>>>> Do we need to check PG_uptodate after locking the folio? If we 
+>>>>> successfully
+>>>>> lock the folio, doesn't that mean the read I/O has completed? The 
+>>>>> following
+>>>>
+>>>> Yes, you do; a read can "complete" without the IO having completed 
+>>>> successfully,
+>>>> and in those cases PG_uptodate is not set, but the folio is unlocked.
+>>
+>> OK.
+>>
+>>>> Either way, why are we checking for uptodate here? We only care for 
+>>>> starting readahead.
+>>>> Anyway, I would possibly recommend we do this as post-processing, 
+>>>> not pre-processing.
+>>>> The current loop is a little overhead-happy.
+>>>
+>>> To clarify: I would do this kind of RA as an error path if isolation 
+>>> failed.
+>>
+>> Sounds good.
+>>
+>>> Namely, at the end of rollback, after unlocking folios. It doesn't 
+>>> make sense
+>>> to me to do this kind of checking upfront. I don't think it's 
+>>> particularly
+>>> realistic that, starting RA upfront, you'd see uptodate completed 
+>>> folio reads
+>>> when doing the actual isolation.
+>>
+>> But why not add RA logic in collapse_pmd(), as we do for 
+>> SCAN_PAGE_DIRTY_OR_WRITEBACK? There's already retry logic there, and 
+>> this would also simplify the long collapse_file().
+> 
+> That would be cleaner, yeah. Some older stable trees don't have that
+> outer retry loop, though ... I'd prefer to get the fix backported first,
+> then move the RA/retry logic out in a follow-up, wdyt?
 
-This issue was identified during our ongoing research while reviewing
-kernel code.
+IIRC, the approach to bug fixes is to fix bugs properly and cleanly for 
+upstream, without being constrained by backporting requirements.
 
-Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Changes in v3:
-- No code changes relative to v2.
-
-Changes in v2:
-- Identify the separately allocated RPPX1 object and the rpp->base/rpp->dev
-  accesses in the interrupt handler, rather than the core lock lifetime.
-- Move -ENODEV handling into a separate prerequisite patch.
-- No code changes relative to the IRQ portion of v1.
-
-Compile-tested with Clang 22.1.2, W=1 (arm64). No runtime testing.
-
- drivers/media/platform/renesas/rcar-isp/core.c      | 13 +++++++++----
- drivers/media/platform/renesas/rcar-isp/risp-core.h |  2 ++
- 2 files changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/platform/renesas/rcar-isp/core.c b/drivers/media/platform/renesas/rcar-isp/core.c
-index 373d9ca9374fe..78cbb549fd18f 100644
---- a/drivers/media/platform/renesas/rcar-isp/core.c
-+++ b/drivers/media/platform/renesas/rcar-isp/core.c
-@@ -802,10 +802,7 @@ static int risp_core_probe_resources(struct rcar_isp_core *core,
- 	if (ret < 0)
- 		return -ENODEV;
- 
--	ret = devm_request_irq(&pdev->dev, ret, risp_core_irq, IRQF_SHARED,
--			       KBUILD_MODNAME, core);
--	if (ret)
--		return ret;
-+	core->irq = ret;
- 
- 	core->clk = devm_clk_get(&pdev->dev, "core");
- 	if (IS_ERR(core->clk))
-@@ -887,8 +884,15 @@ int risp_core_probe(struct rcar_isp_core *core, struct platform_device *pdev,
- 	spin_lock_init(&core->lock);
- 	INIT_LIST_HEAD(&core->risp_jobs);
- 
-+	ret = devm_request_irq(core->dev, core->irq, risp_core_irq, IRQF_SHARED,
-+			       KBUILD_MODNAME, core);
-+	if (ret)
-+		goto err_destroy_mutex;
-+
- 	return 0;
- 
-+err_destroy_mutex:
-+	mutex_destroy(&core->io_lock);
- err_unregister_v4l2:
- 	v4l2_device_unregister(&core->v4l2_dev);
- err_destroy_rpp:
-@@ -909,6 +913,7 @@ void risp_core_remove(struct rcar_isp_core *core)
- 	for (unsigned int i = 0; i < RISP_CORE_NUM_PADS; i++)
- 		risp_core_io_destroy(&core->io[i]);
- 
-+	devm_free_irq(core->dev, core->irq, core);
- 	v4l2_device_unregister(&core->v4l2_dev);
- 
- 	mutex_destroy(&core->io_lock);
-diff --git a/drivers/media/platform/renesas/rcar-isp/risp-core.h b/drivers/media/platform/renesas/rcar-isp/risp-core.h
-index 627a762d6b192..70432cf4a88ca 100644
---- a/drivers/media/platform/renesas/rcar-isp/risp-core.h
-+++ b/drivers/media/platform/renesas/rcar-isp/risp-core.h
-@@ -112,6 +112,7 @@ struct rcar_isp_vspx {
-  * @dev:	(OF) device
-  * @rppaddr:	Hardware address of the RPP ISP (from OF)
-  * @clk:	The clock for the ISP CORE
-+ * @irq:	Interrupt for the ISP CORE
-  * @rstc:	The reset for the ISP Core
-  * @csrstc:	The reset for the ISP Channel Selector
-  *
-@@ -138,6 +139,7 @@ struct rcar_isp_core {
- 
- 	u32 rppaddr;
- 	struct clk *clk;
-+	int irq;
- 
- 	struct reset_control *rstc;
- 	struct reset_control *csrstc;
+Anyway, I don't have a strong opinion on this. Let's also see what David 
+prefers.
