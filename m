@@ -1,179 +1,125 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9908829ACC6
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 00:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFBE2236F7
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 00:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792284748; cv=none; b=MsEVssWzv4zRJOujKFVAEqmE0FwnEK+3I8fJ5wuZpSY0UsHOnQUj7IDn4s+CcrpxlofmjyzviqBxc38bWFEnH+vd1bmK6PMwiX2pP05EEHOPL2AU1DrmD8+Iy9hqMIjvSWz93HwktXLgAThKErko8KTaX+FmnS4qJ6xaQCr2Fbo=
+	t=1792284769; cv=none; b=IEA25FNkHkq//SnYsWAWEDq9IciczNS9Wh614JVAirkKw1pFPqsdqFMqkUYahtfWhqt91oObytLbLSzm706FZNb0dLZiQFsmqwQKFjl8lod9kUsyVTCenZ3om/EtAA7D1iTtqM07sSQbYW09+fochhCvV2m1whv1YfanRN2CdUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792284748; c=relaxed/simple;
-	bh=ah13Vm6hJuN3cXWZju+dpXUkIv3aBCcDpzpa48LRO2I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MyBAoGEl6dqu4JfjpRueZvPJLrKrVAfyeb9W3Wea7xvbS4UkafOXGkQdfMpLGYaDkIrQtvT45jIjaVJSNxxnnJgFfN0ZQRbp22gDk4PFXOTaKR/DtZHT3KEJwNx3VlXks1YT03Z8r5WTZOy0YdU4R3B9QeockTrebSiyrNlXRYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NGjJx0Qg; arc=none smtp.client-ip=209.85.210.179
+	s=arc-20240116; t=1792284769; c=relaxed/simple;
+	bh=oS9dfUROtDHTJcaCOgtH8Sgai6aEj4oEhoL3FqbWuZo=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=h4QhKkXrFj0IDloiGWpGckP4lAZwxj6tvHSF3+R/9mwD6vU4MabZ0P5YxoU97w2ngLlZ3VHQJZZXdWqZcv0xPtsq5OlKvca/xicCsVI0XE03dnzxn6RU+uU5RN5BTCyF+C71pvY2eTI2n0LteSbLHQTkRe8or+FRufn/3RDm+2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KrTblHNz; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NGjJx0Qg"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a05da1cc1fso109124b3a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:52:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KrTblHNz"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so932603a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:52:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792284747; x=1792889547; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EXX7xoGM3IbUcxsHLOmSjTE1gzsSPDLKJJL1mCpcc70=;
-        b=NGjJx0QgvNwicysgOEKq1AS3iPd9sJXN056m+a8t0GRRK3gI7X7t+NUn6RAtgTXxmZ
-         28HFYJmJ8RH9XU8m8OTz3hKldSPJ1ntOZrgaCpMIWn5ONff5FalurBEuhwxSwd09vCff
-         iekRhHgf5otgkvTurlz+lNpZOONGxcqJ2fZS4cvzmY7PbwFu0vMqizGlqrVG6Q8JqGvI
-         gDBhKz0X7N5KJaP/1OEmdk2aVLX1EfIW0p/iANGm/ULfZlCYIRtMmL4X7mXW6Jjy3Ptk
-         mqfUKLTFQ1/ccdnzbez8/X2NSw/NNubcctebNMNrH6D2SeVVxtplinS7Ccn3UsgX9WM7
-         XFHg==
+        d=gmail.com; s=20251104; t=1792284768; x=1792889568; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oS9dfUROtDHTJcaCOgtH8Sgai6aEj4oEhoL3FqbWuZo=;
+        b=KrTblHNzzOQA26l5UmBzHOZLd2i4tDSPYnsNsAG6p/BcqqoKQCGGb5bBdDb4H2alM4
+         +nEzzvsriq6O01bH98sVffFOyC2oO5eEin3Qj+0EBm0r47Z2M2oH8ZLVbRa6+XuCOClI
+         eDmYuKYevsVB2dBhA/+j5Dn61q87uOlHmQMQuE0kp4iOXCNS2SdnHmYfP6bwhn8KST3n
+         yT9lEsJOzQVw3M98gLmj0b7k7CgJVhYA4vXaQpARc62epG0UVazcYpZ9cbVmpNPuO1jO
+         02EZHs9tLNFUOypDkddxmb94IvYdzKOKj274Q+FV4u4q1/2aJZKiUepCMh2aELJu9ElZ
+         Z5cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792284747; x=1792889547;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EXX7xoGM3IbUcxsHLOmSjTE1gzsSPDLKJJL1mCpcc70=;
-        b=UhYAYD+xloTwKRsVWCT75hVBH4x/l6tt1fqJEGZuV0Ash1kP3fOyV42Ee+ub2fWQEz
-         a+OV5P6OjwV/aiX2lrUO5O3WW7r//phTQGYG9+81hLOlWZ/sS3NiuJ2ZqD81Gkh/otcf
-         rzeI5Gdq2Bglt2Bln0J8BnVebSJftJgIc3fONtX2HDQ0L0/KjZBwlyWIR6NL8tOUDbcq
-         /eq8kIhNk3bIMTavmbzvjGpj7zXqo2pSgIy55tTEA16uhjhZ3OvdNsUcSF9c4uHU9oVd
-         kGn6xAyma8i+Ig9UOO/ONFfw/kG+IETcreUlrK4R2ZVAoaC1olPs1ygwpaB09nxqzXK6
-         1/Ng==
-X-Forwarded-Encrypted: i=1; AKwUvBzqMfeN+irqMlGIkJ/VS3FsFqFrQV+9EQ4eJywviaDqGexTIxQIWbMMlDHKklsnIEBOz/I7F59S3wcv88M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJc+4lWHWVNv7rhFX1+32l4xJTplKM4e+1BzwKhiu8S4IWPjy9l
-	R+syNv4tK+E5VAP1SbZaLb8+9Dv/P58a/VgrQDQoH2XXtfd4kq8oUPCa
-X-Gm-Gg: AYBFou0qq4OX5BxpMlPq2NqFKddiw6Gcl5hr4gU5SfMR2Fa1ikm8XYwdHMRMyM0Ow8p
-	be9kb44bqfREw1gslmWHOKMlPg5fkOeqX2ES/jHzqz7F1E7tzLGy84R8v9iBcu6ZXgq8vRmBrbe
-	tL6qIsjcpIRGEyC4Y4KWagBuX7oMhjtqgphobBgz0Z8QAsvmnrar71tZ6+FPEf0pORfEQ0dm9jI
-	kKrI2heQ4YJjkrRkBtokY6Q0942VBlAt3NCiVj6yCi3F0xCAD8bM8lf0vzD+GBtVi4bqA+in9Cz
-	/2d6tegZS7DiYshuTeDguXAkzPS4BDCAocCqJ3BJalrCH/JHU/DYrKEFt2Rd6xDGUDtSQ1vKRI9
-	KBc0v59eaCBVvmlXfGztAo7JoIm6E/nXojMupDTYqQQhc2aiM9zNUovDq2yeoStnbSvLAXZgGTm
-	R+lYh5xpmWYBDLevzbBRAAvh2Gfh9feBhoJrGjtnMc72Dr7tKGXtwc3R+kVWrfZZrwWuv/TSQdI
-	WF/8dBGcMHAoOk2YIHN+NorQX9egHuB7tvrw9Z/MvCf6IE/OzGmyFc=
-X-Received: by 2002:a05:6a00:2788:b0:880:cb86:fce with SMTP id d2e1a72fcca58-8a04cb29417mr2958012b3a.54.1792284746805;
-        Sat, 17 Oct 2026 17:52:26 -0700 (PDT)
-Received: from yangguouaideMBP.lan (1-162-28-193.dynamic-ip.hinet.net. [1.162.28.193])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f58208cc3sm2588891b3a.52.2026.10.17.17.52.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 17 Oct 2026 17:52:26 -0700 (PDT)
-From: Guoshuai Yang <yangguoshuai@gmail.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sabrina Dubroca <sd@queasysnail.net>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Guoshuai Yang <yangguoshuai@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH ipsec] xfrm: esp: reset outer TCP GSO metadata on espintcp input
-Date: Sun, 18 Oct 2026 08:52:18 +0800
-Message-ID: <20261018005218.53267-1-yangguoshuai@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1792284768; x=1792889568;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oS9dfUROtDHTJcaCOgtH8Sgai6aEj4oEhoL3FqbWuZo=;
+        b=2AiCNRKoZwfWkUrDY+V1EX/bIhK1wSErp6fkRx7DszHsDy3l1hy0DkrIub9GMP4qvs
+         wqxhOpGQzXihlnk9Nztum84SORttUqgHI1ytvTilVKa1+mECjBSG0OwHqD7iNDflmWSg
+         jZrRt3pK/AZoRlw9pp+16a6a43YNYIm4FDNLVlFohE5rGjruswuoAZrSsyV50lS5/qN7
+         vBbKGztCnd9gv8kIEOCym5258NHf9UkMjN7PLWpdJN5DzqKmjr56OsUrFwVLiHjYTz+j
+         eL2gWMOpt8T2BcydfnFJmiWuhED1DWmjxRUfXHImlNmcHXjxurc9bEv18KgBnbczSWYw
+         eTdg==
+X-Forwarded-Encrypted: i=1; AKwUvBx/e/xQ7k+YVJ6L8QQ3e0J07/9fZxZQWsZM0poYgs/H0Yt3HyK5q+YKWf3Q6i8v57tTifH9NXaRzZmkwhs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxPHumYMAXmhOggaBONa3HcC6BKPlCo6bqgY90ULzczTU4wEM8
+	p+87Di3TlWT1P32XqS1qWDz0hO0WsvBMOFYLxn7j+y4kU4UgDMCY/pt2
+X-Gm-Gg: AYBFou23OlboR5oVUtLM1ioGlJZ88bpGZio9kiuid4JoGprBuKmL/x+BwP4mjhtKPi+
+	2UXWyXBUNKRKb8OlKk2BrCGlNoQ+KoE92H6IO0KmKlqRn3ArQWh4qDNrqnJQbiNuopqOu36JoA2
+	YOIRNFnsXAkiA77v1RcLiTnxLsqIMs5M+Gk6kWbvYeteXv4FenvHWvvaF3qk9512mQIlPFwnGYY
+	8hncGL0ZYupQfwzcePdLSrZ4uP1jIu2K9udWqI6bPCqQel2oudWMW4nnlx6MCqM/RvakvElM+NP
+	vIM9Fq1Dhcl76XgqKiJxQyZ0G1Yx8nrLhtAK8dYz6UC2Uh93bK3cy+vRx10sNpvA+nrHy9PhRYR
+	Vct/q6TlliCKW/VFE7qQ0yOxT6TR/2ePCDlHLUTE3gzsR0CjcNRMCndAkLICtM6nQe/Y3H4Wcdw
+	3KGAcZoqjLg1gbPbQrrOMg4fmXD0z+7tIY1Hokto8/iSgHFjDDNSDN5ptjekrMD0B3ZgLBZ6iog
+	TBJTT+84r//yj1O/qgu61cB8J7H11JDR3if3TN006ZDKwSfZfJHjrN1DjDF/XOX3rvRLH9h6kga
+	IYY=
+X-Received: by 2002:a17:90b:2b48:b0:3ac:9f00:3bc7 with SMTP id 98e67ed59e1d1-3acef0c88a8mr3507029a91.33.1792284767800;
+        Sat, 17 Oct 2026 17:52:47 -0700 (PDT)
+Received: from localhost ([153.61.198.250])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947d2706sm14951503a91.16.2026.10.17.17.52.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 17:52:47 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 18 Oct 2026 00:52:46 +0000
+Message-Id: <DM7JXB4PREVH.1BHG31CCNRXF1@gmail.com>
+Cc: "Andrea Righi" <arighi@nvidia.com>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
+ <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
+ <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
+ Solodrai" <ihor.solodrai@linux.dev>, "John Fastabend"
+ <john.fastabend@gmail.com>, "Josh Don" <joshdon@google.com>, "Vineeth
+ Pillai" <vineethrp@google.com>, "Balbir Singh" <balbirs@nvidia.com>,
+ "Shameer Kolothum" <skolothumtho@nvidia.com>, "Himadri Chhaya-Shailesh"
+ <himadrics@protonmail.com>, "NchangRoy" <royfru44@gmail.com>,
+ <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf-next 0/5] bpf: Expose pinned arenas as sized bpffs
+ files
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Andrii Nakryiko" <andrii.nakryiko@gmail.com>
+In-Reply-To: <CAEf4BzZZRrD86ZswsB2r-swqNi7D1p52Vs=fQ9MXSgGATN31Jg@mail.gmail.com>
+References: <20261010224902.1232178-1-arighi@nvidia.com> <DM6HVNSP3USV.AJSWS289Z3I9@gmail.com> <CAEf4BzZZRrD86ZswsB2r-swqNi7D1p52Vs=fQ9MXSgGATN31Jg@mail.gmail.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When ESP packets are received over TCP (RFC 8229 espintcp), strparser
-slices individual length-prefixed ESP records from the outer TCP stream by
-cloning the incoming TCP skb(s) in __strp_recv().
+On Fri, Oct 16, 2026 at 12:52 PM Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
+> kernel to do that. But once we have the ability to create ARRAY from a
+> bunch of pre-existing memory (e.g., from memfd), this can be used both
+> in a guest and in the host, and both models, guest allocates or host
+> allocates, could be supported with the same model.
 
-If the outer TCP skb was GRO-coalesced before reaching strparser, its
-skb_shinfo carries the outer TCP stream's GSO metadata (gso_size, gso_segs,
-and gso_type). When an ESP record spans two outer TCP segments, strparser
-chains the spillover clone onto skb_shinfo(head)->frag_list.
+I don't think it will work for their use case.
+With array of maps scx needs two lookups and two NULL checks
+on every access, and the result cannot be kept in the task ctx
+which is in arena today, since ptr_to_map_value becomes scalar.
+unless everything is converted to magically bounded array, but...
 
-Subsequently in esp_input() and esp6_input(), skb_cow_data() unshares the
-head skb via pskb_expand_head() (preserving the outer TCP gso_size and
-gso_type in the new private skb_shinfo) and calls skb_copy() on the cloned
-frag_list member, producing a linear frag_list child skb allocated from
-slab with head_frag == 0.
+> annoying, but what if we teach verifier to just automatically add
+> bounds limiting sequence (e.g., masking if value size is power of two,
+> slightly slower sequence for non-power-of-two, of course)
 
-After ESP decryption and header removal, the resulting single inner packet
-still has skb_is_gso(skb) == true with the stale outer TCP gso_size, while
-skb_headlen(head_skb) is now smaller than that gso_size due to stripping
-the outer framing and ESP header. When this packet passes through
-gro_cells_receive() (which flushes frag_list packets via GRO_NORMAL
-without resetting gso_size) and is forwarded, validate_xmit_skb() invokes
-tcp_gso_segment() -> skb_segment(). Because head_skb is shorter than the
-stale gso_size and SKB_GSO_DODGY is not set, skb_segment() attempts to map
-the slab-backed frag_list member as a scatter-gather page fragment and hits
-BUG_ON(!list_skb->head_frag):
+while working on arena ~year back I tried to add runtime masking to
+ptr_to_map_value and couldn't figure it out.
+then in ~april I tried again with llm-s and failed again.
+the main issue is that ptr_to_map_value is a pointer,
+and progs keep adding random stuff to it.
+There is no way to split it into 'base + offset'
+and apply mask on 'offset'.
+I tried alignment tricks, like align each ptr_to_map_value's base
+to 64k or such, but still failed. Something needs to remember
+upper bits to see when math overflows.
+That's why Barret was using explicit mask in C on every array access
+(when he implemented all kinds of complex data structs on top of arrays).
+Every access in C was base + mask(offset).
 
-  Internal error: Oops - undefined instruction: 0 [#1] SMP ARM
-  PC is at skb_segment+0x574/0xd20
-  LR is at skb_segment+0x884/0xd20
-  Call trace:
-   skb_segment from tcp_gso_segment
-   tcp_gso_segment from inet_gso_segment
-   inet_gso_segment from skb_mac_gso_segment
-   skb_mac_gso_segment from __skb_gso_segment
-   __skb_gso_segment from validate_xmit_skb
-   validate_xmit_skb from __dev_queue_xmit
-   __dev_queue_xmit from ip_finish_output2
-   ip_finish_output2 from ip_output
-   ip_output from ip_sublist_rcv_finish
-   ip_sublist_rcv_finish from ip_sublist_rcv
-   ip_sublist_rcv from ip_list_rcv
-   ip_list_rcv from __netif_receive_skb_list_core
-   __netif_receive_skb_list_core from __netif_receive_skb_list
-   __netif_receive_skb_list from gro_normal_list
-   gro_normal_list from gro_cell_poll
-
-Even when an ESP record does not have a frag_list, leaving the stale outer
-TCP gso_size on the decrypted inner skb prevents dev_gro_receive() from
-initializing gso_size to the inner packet's skb_gro_len().
-
-We cannot reset GSO state earlier in espintcp_rcv() / handle_esp() because
-the skb is still a clone sharing skb_shinfo with the outer TCP skb held by
-strparser. Instead, call skb_gso_reset(skb) at skip_cow in esp_input() and
-esp6_input(), where the skb is guaranteed to be uncloned and its
-skb_shinfo is private.
-
-Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guoshuai Yang <yangguoshuai@gmail.com>
----
- net/ipv4/esp4.c | 3 +++
- net/ipv6/esp6.c | 3 +++
- 2 files changed, 6 insertions(+)
-
-diff --git a/net/ipv4/esp4.c b/net/ipv4/esp4.c
-index e76db58..416638c 100644
---- a/net/ipv4/esp4.c
-+++ b/net/ipv4/esp4.c
-@@ -900,6 +900,9 @@ static int esp_input(struct xfrm_state *x, struct sk_buff *skb)
- 	nfrags = err;
- 
- skip_cow:
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP)
-+		skb_gso_reset(skb);
-+
- 	err = -ENOMEM;
- 	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
- 	if (!tmp)
-diff --git a/net/ipv6/esp6.c b/net/ipv6/esp6.c
-index b1c9b36..02cfc85 100644
---- a/net/ipv6/esp6.c
-+++ b/net/ipv6/esp6.c
-@@ -943,6 +943,9 @@ static int esp6_input(struct xfrm_state *x, struct sk_buff *skb)
- 	}
- 
- skip_cow:
-+	if (x->encap && x->encap->encap_type == TCP_ENCAP_ESPINTCP)
-+		skb_gso_reset(skb);
-+
- 	ret = -ENOMEM;
- 	tmp = esp_alloc_tmp(aead, nfrags, seqhilen);
- 	if (!tmp)
--- 
-2.54.0 (Apple Git-157)
-
+Array from memfd is a separate topic. So far I'm failing to see
+a use case, but if it's not a lot of code, then why not.
