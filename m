@@ -1,79 +1,82 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEBA3DAAB9
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3547C486645
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:32:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792326750; cv=none; b=iUO20c0YiBYD0mB98bYvdeYZD0n1Xs33DF3GEuDbl2Y5eE2aCAuzFBna5HGfNe5pdH0Ya/ptjcgIVumty7PFbK+wMU37Xi2wK9ntLmMT8tOsY6yOYUbELotOcWhMhMlNhleOhDwB7J6Qi/rHvJcoyKNIJGNAlT90XH778KAz6CY=
+	t=1792326768; cv=none; b=hk3jfEcHgRoxjmtYtXGCKLtKa+sxOSM15ttGXXdB8FGrHC8e2bVBfQdjG3qDUVp6OzjBIvqaBFvJ7Qp6j1NFMYuAYULw6fknAV7eVbK8wBYBafjXRRLoFoBaWNbnWiU8B3evSm0XZigslYueHxKsRj2V2uASZDncOocm4ml+uww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792326750; c=relaxed/simple;
-	bh=fv7Rai3TL8fpTZTkYTwFZrQz5aegp7PoVLZ58XPsOgI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tRQOM44zsyPuUluz/stCBg7nAw62LrMgJDVNLfVDcsmJdR+AGp9jwJcDaRdaj9Bk8yv4Pwa8x0Q7t8i+x1J3HLYhXVqPenIcx26G7Fa4RFOO0uQxGW4sj9UEnk8u2dOmDxDYPeRvsy/QzLZXRWd0GNOGeptqEbcODfAL70vGITk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KlRWDRQv; arc=none smtp.client-ip=74.125.82.49
+	s=arc-20240116; t=1792326768; c=relaxed/simple;
+	bh=jK42QSJLlFCZiNAkrZ4uWt8pBppxkc2bz1zJLNGahFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NXEstSY8PL+iJmmQrFrk+bn2eMDR1uV4MFEIcMEU+ge49g/9Noc0+SNZ8lu8SqJIgsGlG32sCexBHAD37pZnbaj2U0DeV/Bsi8GAZ+DqJIWrrQlojF0qys46NOVa0cLeYiAwkXOjz7qxzW8N+JGmGdv+C82oT87mEEMj1kLTtQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h/+CjGDQ; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KlRWDRQv"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15354aa70e8so837739c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:32:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h/+CjGDQ"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso13334495e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:32:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792326748; x=1792931548; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792326765; x=1792931565; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FHebQQxZTBF8VhHuKubJ7Ol2fYKgzc9t878DoxD9tRs=;
-        b=KlRWDRQvog3IYbz2SyhEMUQ+8z7ZSwn9LtZ3mxI+NJlDXsJQN9/laVGgqArZdrPtR1
-         uEjLE+L/JG0PyS7kadqlWj0tvT3mGBSWdRjQirSd0J4qx9zJTl1TeA5+eEFBuzzT8T0q
-         PWwSLubndUOSf9s/kNh+n6KtB9Ni2jckqVRSLMhKrzlkIEi0As3koqTqG1iUo7WxLmY0
-         YEChkykP6a751zkXF1sEpAlNlbyX03Qiru+99248WD8v+VPMG3/5U2O1Ln4rx/3QhFks
-         SrRMh9lLCCSlaDaiPXi7RFLTc1sP3e0NtpZMZ/TDSnd9mhDg6S/YM8w9Xd2fFvzFqjpX
-         i/ug==
+        bh=GpPqZvPlIP3fXy4tW9d7V+mx955z5cVsFSY/eblWfwA=;
+        b=h/+CjGDQ/y2NFYO2Aij72eXlfWMe9D9aufSjskF3XRqm01WCnH1rBmpbC5m4PVt9Zc
+         88u2/27jOc2w7k2+LP4oWwoqe4Ov3ydAshEX4Krw7Bn359146sTgQC5c0nexlyTCXUPW
+         qAAX8Ol05owQQ6B+1t89XDb+pnSds7/mhM0x1nJUQN8EwNDijixN5ENC9U8wnR7OKbXU
+         yt7TNUp9WneQlJzibpPC3Nk5UbhYqH0nc2fEpSIqZkXPx0PSuLf4iEWKdgrZ74pBLdXD
+         8RpRJ1rFDZDCaJkuZMVF46PJ53nlQ38Zp/YkJIpVb64zzYJ2jWzbta2bRFnKDqyl2tQv
+         3q2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792326748; x=1792931548;
+        d=1e100.net; s=20260707; t=1792326765; x=1792931565;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FHebQQxZTBF8VhHuKubJ7Ol2fYKgzc9t878DoxD9tRs=;
-        b=jTRiGjpvkRbEQGGwUJ5GZSEHEHaKXXL69Ava2H5bmWCSIE0emw6XytCbA9S6clR03A
-         T5nQBiJ7PHGivtweD/Yd9JQAPV18RYbQHsa27UpVSgNlmeQiIcqG55J6ncave/hSDEja
-         jJNTfFqwrBHYmeeudKtEVeYylTeMBRCaXXD1GSo5rrjQIWeX/2N/wVK29+URWSq/RgCJ
-         hZl+sTQRGjcRVQ/HYb40GVg5nojcB2pU+WfFeK8XlkpKdMzFZ+iJV8xL47k13SDxgqnz
-         0aLX1gttW8Vhg8DHGCgQnAh9ZgxEnbQLGidrVSMSKnmbeRHusWcw+2O2Yk2asIFOtiIc
-         PWIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzYO/14J1NG/ds3jA400LzRIh2WcbGrqPMqee2asAdAjtkLvWDU7E2AptSGRLEWEMxHqchR59zgcKp0lH4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjl09LTlhyR56orDhdaLawMRRZ1lWDETvpC2OyGILf6xCtUHyC
-	qWSNXpl92egSGYouAzvXFVuUYVIuaE+KuIvqLSvVIA13K+XxfrrpT/WD
-X-Gm-Gg: AYBFou1xVg0x5xSgEQ10KMKtHlklOYlYKWE+48EVh3/Y8evOgAg6MhpimVxrGKzWDsv
-	OUv6d8WuiQLlaXcx+HisW6D3uc0zADD8wTM4yJUXZWJUMJQ0ybLU8eKg18ksTqFXXEP/UplrwLd
-	5OEFKE0Q3Pr91mYOUYyJYajHIqOajshpVg8Oha4Zpj2WyF9eDZffH6IbUiVwTKxP0SALy53bKuP
-	PhkkkIrhcrQFMiwiUN/o3lsIFc1prvhBbcxitX6mvzoocTV6dR/G6BnVKS0KucWMVUxspuaXIUl
-	x+gDE0d0rXa/dSQDC6t6vCXx1Vbf+uf3ST3rkoHAwnvMVfCBCXW2ofplCyiJLYe22axPfaxCdw5
-	s5th3naZumO0v5o5ix4izTPzMvJcUaaqXdf8xpEux013xHgLpvmVNjNLKolUQeW0/ocjTGCf+Tz
-	jtssF9SyMDv6c3RQC0P0GT8ZKmffwLfhnym51NDYE1eYyCqEFw2sbqhgHCrzt3I92ZbPhxt50rS
-	DCG+iYsySoqbdBf3ri4se+yc8S1yHXlAanSJDv8/oppszWT0WocnUKv
-X-Received: by 2002:a05:7022:294:20b0:189:f7f6:38f3 with SMTP id a92af1059eb24-189f7f63acemr518737c88.13.1792326747918;
-        Sun, 18 Oct 2026 05:32:27 -0700 (PDT)
-Received: from 1u1g-b650-0212.nvidia.com ([72.25.70.131])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831ba424a6sm20953055c88.17.2026.10.18.05.32.26
+        bh=GpPqZvPlIP3fXy4tW9d7V+mx955z5cVsFSY/eblWfwA=;
+        b=Dp1nSwfCFVdm1zf8dOooGgA4+wsyvjHu0+PLgQTa2t/tdIcLfyrXnFI4HMWIj424Iy
+         sIdYhUShhqW6Bdlp5ZygFvTxbpFcPEFFzvJrX7fnBUuqEMg5xxSQnaMlQfl6ONqVeR7K
+         ojsgKTnncqr2sRCVK1iY4HS9Xeh5cC7eGWmIZ2a8zhegn3rVAM9W+j1+T+4BJlHUrrAx
+         u8wCRGj8OaVqIVxbZsjdA2ffkKsNazA1L3cELaXoqnEGGIJCZZJUbakP6KjNnTY3azv5
+         Re+NkHslgjCRUAZs5qtfWlkX2YqXYQpw7BWLMQQ0gMHqgMocBhwLu1d0pwnGLfmuaQKD
+         5t5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx64OYI6XQSuoqLvGtVp308C8gBVfUnm9zs8Oi0VsVQW+loTJKQ9DTDSgR+EKx0Gi8WLtM3rB0hO9ls31s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKA7K+TVRQh+9Vi6BDtcxFH9yal8sCcJi1HCFtUgbrf/buRFydZ
+	DPxzOHXP+cq/VoGotOTHIlxcQ1XFNXyELfgBExzRjfVazuJWVAwOlZ/f
+X-Gm-Gg: AYBFou20e6d9QGr7d9LLqL4YJZ8S1WQrnAfUJXsDtY0+ROawQYfGOagPyK1HrROZgLY
+	PVKT3qZ4Z0zraX1CJ236VA12oa+KLcNWkLYkDEmI4oAV8b9/OF59dE9Rkoa2bnuxUvy2UfqDhWr
+	iYJe3IuiuBY+trlP4JOqEAN8fNBzHzk3PjBfU53YYmUUdd8b1RNWhI124ntvTerimxbySv2ogm6
+	inXdzYOF7vROalWi1yriMwch1upvSBycBVuXvIGFjXxNRmIFu4wZsvF63ehNyha3XYg65k5M8XG
+	b0/hVLg/+sch4PzGK7MImQjWJns7KgznRbxnNqWHZJkVjsBbKV8qxhOfoeVa2PJ9PWykz+tsGA6
+	8XqACgagkKkPHj/z7fwTsNyN4FbWoDrddTas0zWTZ+++nL0pX6isfegLUPY3QwsLt0ygESANeCP
+	xdQ9rEDFDX2SKpwrFA3fbgjH9Bgdpzcb6wAHDLveuIKSdCdVZSz9rme/lCCLBt/Ryf4jpzy2l0A
+	+qikXZfdaAZSBmtYuncDN/F1AnKyecYRfhgh5SzpVYTTjSSiecJMjMFbraJ7Z/hwOn8nSmVwbTO
+	KLCAXs8qANCMBT6mLy4u6g==
+X-Received: by 2002:a05:600c:6992:b0:4a1:d7c3:d3d with SMTP id 5b1f17b1804b1-4a1d7c30dd2mr96288465e9.10.1792326765173;
+        Sun, 18 Oct 2026 05:32:45 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.66.71.207])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ddde4esm245012535e9.12.2026.10.18.05.32.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 05:32:27 -0700 (PDT)
-From: Samarth Narang <samarth.colleges@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Peter Xu <peterx@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	linux-mm@kvack.org,
+        Sun, 18 Oct 2026 05:32:44 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
 	linux-kernel@vger.kernel.org,
-	Samarth Narang <samarth.colleges@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/ksm: keep soft-dirty and uffd-wp when merging a page
-Date: Sun, 18 Oct 2026 05:29:56 -0700
-Message-ID: <20261018122957.526467-1-samarth.colleges@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v1 0/4] arm64: dts: Mark Variscite i.MX9 I2C recovery GPIOs as open drain
+Date: Sun, 18 Oct 2026 14:32:23 +0200
+Message-ID: <cover.1792326585.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,60 +85,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-replace_page() maps the KSM page with a PTE built from scratch, so the
-soft-dirty and uffd bits of the PTE it replaces are lost. Due to this, a
-write before the merge no longer shows as soft-dirty, the next write to
-a uffd-wp page raises no write-protect fault, and because the page is
-mapped with the VMA's normal permissions, on a uffd-rwp VMA the next
-access raises no RWP fault.
+The I2C recovery GPIOs on VAR-SOM-MX91 and VAR-SOM-MX93, including their
+Symphony carrier boards, are missing the open-drain flag.
 
-Copy the soft-dirty and uffd bits from the original PTE to the new PTE,
-and restore PAGE_NONE for RWP VMAs, as try_to_map_unused_to_zeropage()
-does.
+This series adds GPIO_OPEN_DRAIN to the SCL and SDA GPIO specifiers to
+match the I2C bus requirements and avoid the warning emitted when the
+I2C core enforces open-drain operation on SCL.
 
-Fixes: 292924b26024 ("userfaultfd: wp: apply _PAGE_UFFD_WP bit")
-Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
-Fixes: 763f43865fc4 ("mm: preserve RWP marker across PTE rewrites")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
----
- mm/ksm.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Stefano Radaelli (4):
+  arm64: dts: imx91-var-som: Mark I2C recovery GPIOs as open drain
+  arm64: dts: imx91-var-som-symphony: Mark I2C recovery GPIOs as open
+    drain
+  arm64: dts: imx93-var-som: Mark I2C recovery GPIOs as open drain
+  arm64: dts: imx93-var-som-symphony: Mark I2C recovery GPIOs as open
+    drain
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index dbfb8f98b189..b0d0555aa1b5 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -34,6 +34,7 @@
- #include <linux/memory.h>
- #include <linux/mmu_notifier.h>
- #include <linux/swap.h>
-+#include <linux/userfaultfd_k.h>
- #include <linux/ksm.h>
- #include <linux/hashtable.h>
- #include <linux/freezer.h>
-@@ -1463,6 +1464,18 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 		dec_mm_counter(mm, MM_ANONPAGES);
- 	}
- 
-+	/*
-+	 * The old PTE may carry soft-dirty and uffd-wp state that tracks writes
-+	 * to this address. Make sure to preserve these bits in the new PTE.
-+	 * On a uffd-rwp VMA, also restore PAGE_NONE.
-+	 */
-+	if (pte_soft_dirty(orig_pte))
-+		newpte = pte_mksoft_dirty(newpte);
-+	if (pte_uffd(orig_pte))
-+		newpte = pte_mkuffd(newpte);
-+	if (pte_uffd(orig_pte) && userfaultfd_rwp(vma))
-+		newpte = pte_modify(newpte, PAGE_NONE);
-+
- 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
- 	/*
- 	 * No need to notify as we are replacing a read only page with another
+ arch/arm64/boot/dts/freescale/imx91-var-som-symphony.dts | 4 ++--
+ arch/arm64/boot/dts/freescale/imx91-var-som.dtsi         | 4 ++--
+ arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts | 8 ++++----
+ arch/arm64/boot/dts/freescale/imx93-var-som.dtsi         | 4 ++--
+ 4 files changed, 10 insertions(+), 10 deletions(-)
 
-base-commit: 48fe11c8d0f1e4e59426a3606f20ac1130b6d8dc
+
+base-commit: 31f9ec9f38735f42e1f0ba57347c420e56b99824
 -- 
-2.53.0
+2.47.3
 
