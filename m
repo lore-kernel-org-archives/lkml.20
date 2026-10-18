@@ -1,153 +1,1250 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D749E3DAAB9
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:41:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792320069; cv=pass; b=EarPfe/F8lF3Jld86PjVw3I9buV10emBQ84gFlR0TcQLGP3cz+ZuxtMLUHLiqJZ99yjmTS5NTk5aEZx5aqaGMlBupf0cY6PZYWRKyn4APkJTQ6cg/KGImDwXIWUGbjkJbI8mrHoPBmUypGvSCvhyZFg+yc+XMn1Kt/eMBWVrXLc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792320069; c=relaxed/simple;
-	bh=8jhAuc7pwWvfqOH4Ow9qWedCG7FGjAiVn+1XI19X5Rc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GqDHPjV6kgVBSU22fZGw15DqdWfVUmidd7ftmtiMVss8vXpbGUB/xVM9u5rI7QuRBzJRtY3vEXJ82i0+SUL9XLKL3/xK4T/B8k3ETt/ivfxPPfBg9zwsMbG8q3wJ8YcEPOIKnU85uXYzcTFhyo2W1jT+cIxwAYPg1Llx6mzf36c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sqlLYroZ; arc=pass smtp.client-ip=209.85.208.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sqlLYroZ"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a9787a156eso8492511fa.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:41:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792320066; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NRJvtlB6aI309DAVbJ3wjd+GRaHvUpnndDi43gBcH5OVFZjX9rpNywUXUUntkYQ2tC
-         nmKKT5ZD3qCJd0DeCYlAJ7iJAqA1xG9w0HidpNpADUWLn88mXoFCdxZ9IrY0Cx9jH8Gp
-         RFIfaZZpgzTMjwl8fGC5XPVwSBQjrs86iIy9/Gpds+9xa1WK8Yky9eM6nPdqMSSc0YDY
-         gd6EVDkj5OdGie+vbIFvSZ2qXS/dwx42IT1mGj1elqmMEH84bhhP/AnDXRXpZiCMLlNI
-         Kbk6obAQpcqaWt2pb4q2eTK1QIWZDlJFaYGig6jeuPUTM0r2NwNV2J1Vh+EqmB83N0ZA
-         dAJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=a6yENM5EuRAmJBudT6I5Nb3Xf4qZEcKL22EK2zMKYnk=;
-        fh=FpwZ8159Ux5XEqipuPWqiVDxWPyk/vs9cLkXr4IGBEQ=;
-        b=Ki5dQDSJ+anveMmy6HS+9x46AammQ3qSA/SMsk9IuV3gsIsxRzyYvEsg4UqpWReKdK
-         aqMJrudhpnAqad2ZmukZkCjCu1IbjSbyIZSlL7KmkICTNaImL27hjaHUvRit4pPD8Y1m
-         35bpHDrRObZFs7KkFzxGnyS7YKmzCixcen/QF5fMdVaNo30Keaykyq6DkYUnQG+f09FJ
-         X4X7+8uDITsO31iahwQFpZ4mNhydXWcY3u+m08uHo6I+5eKCrbazKBv50v00JwyR31W9
-         awmB+BYVyQd1XMmM4IrdSmeuIou4LGUiuMPegV4CRzM0dbi758cKoFouk4+VTomj6GBr
-         aCZA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792320066; x=1792924866; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a6yENM5EuRAmJBudT6I5Nb3Xf4qZEcKL22EK2zMKYnk=;
-        b=sqlLYroZXcWgS/8iD8QwOb0cOQyMGpvXtxqS/DWu3x/frQCXcYTBLcwQBTKeKOpeo3
-         Prh57fKomf10Tqk64OV9alUuk8cJSm0ih6Ta+tqKXQpyViNKD9aggHYcmo5yQ5kIefdb
-         WvzT5a6ZXulHYXlhZWGO1atdQOyM0w7yfEb9diFSPxHuLQCryO6HiqjXsJuwCxIDavaq
-         /xt+p6AIwRNWtdfFaDLCiDMJ7E3WnlejSrnLW9ubkHTb3O9awPBJhD975Av3V/WbV2Z8
-         31CHc/sD3NQsm5zuuiETZQHq06LCgXmSWJ7wOkFFjhoaRFPkojk8mXnaqdDq2HCPiNkS
-         YFoA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1343914E8
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792320133; cv=none; b=J5sem+OVpje/wGcKZDQ5VHlcF8IeMejWKzbukmpUKR50fvzUfY/sTkoF0A12l1gBoKJSP2PNmTMaGxZZgja0su00rq9ojXQzcGl8y0D2+owRJ3r8gXbW8h1JlWeEIumGglMty2BuYzy9a3wTKKsP67W8UigWRlXXVHempFJnP5Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792320133; c=relaxed/simple;
+	bh=vChNcke5Sl9PxVok4DVd8szST0flINZNDU1XygJsank=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=g9AVd+xz7/nqpxuPBoiOugNT0sMY9VIiv+79HQgHHMfgK1fFyKyVLJAcAlvB8ubGea7xWhfYRf7pLLPjm4u0/SMzEhw95zZ5q2uqIMr9fnVz+e3p9pxcxoidiF94Yv5QIA/uemBMRvpgvhyDo/HmrExQGfY/A3bi15gpNFSzaMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8468290b866so1387272a34.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:42:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792320066; x=1792924866;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=a6yENM5EuRAmJBudT6I5Nb3Xf4qZEcKL22EK2zMKYnk=;
-        b=DcDemfzsYPoVEL3rh9DjtCr8kJfiRcKYzG4HUcy7dJ2IcsKyaO/Bv0MV54smQRHJM8
-         hR1Rxuv5PGkXHvC/wV/gwuwDyvj+ff5qhhXocdQ1fPXpf38m9ZSDEhiWCqggZjIkEvYb
-         Ng8zoP0DT7gPAGxoPyN/WDXqfh+xwGyIL6Aa43L6ZHs/z36nwIaZM8mkNlJPGmyCBm8t
-         31ohquWD3evfBp/1+R6KXbCbcD/2jHraWMKe0Y+rwAFQIvHvlPzgIYq2ARBJhBl85JnQ
-         PyS4iIuquVA4vuB7QZVqwqGoyNyGCfIgpvtrYWd0kQhXVaHNKRuBB5dshOMxf8lQPclb
-         Xw6w==
-X-Forwarded-Encrypted: i=1; AKwUvBwWBTyD5E6PmXfAEvh24OPeg2MtQSu/t9Xrxk7r1+fW4GG186gC2Xo0uDDlS7gWpvVjSNwZdk4mVm4g7As=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKx4lLPFg1TVNn1P8SgLGHqWEpZq+yinLkuky+i7tRYChzJBPtc
-	7EQZwz2hk78gJIx6THKyXX2o7gDj5sZNd3Zm7aBMFkSiK1S+8wlpBUSd46pazhaAZi9Mj/RLuxE
-	wdYeMeNpGWK6ZkDpxR/9c+n0DCQav0JY=
-X-Gm-Gg: AYBFou31fBbC7OFter2d7p9Yo9WgXNKjia1wgCDTjFecSaVipxrKhkFuP1rXuetzGAL
-	SDMukKgQNnFWxbfwMdVoL8ZSmKPrCnNy5HeSGHgBS4GkG/2B6l2uSmx3qO7t4GbvrXuH+KV0mCY
-	cOVjKKRdOvkOtwKPOCGyuyZxmDWAHegOwZIYmOdaLSyFVuwM985r0Iv6oGGy1IM76PZDvLGEOSJ
-	8e9sMiqBad+733KxFuYa8ywLM3bmfzVkozi7fMFN/XJboNEjdIa5M1crK9SCinHcWeUZY8iz6yu
-	GFJO3i4dwvK6aTAqhQMHWn+6h25bLh2LxJRU1vnFSHyqZhybzUN9ROBRoU3aodVuHF4Ng1JwaPZ
-	yQ3A7ZIuarVqWO0ij50ivgv/6/hg4N7KW4xDbXOeFhL84RiifmQITff2djQ5UAnF9x8+V0+mUWb
-	5I8uuq4Bq6uv9WFlrqmZmdG97rvwrctcyoo0Te27TGpHurh8OS6MK0dlCxZDGSze20jeSvIlM=
-X-Received: by 2002:a2e:be27:0:b0:3aa:f1f0:1e2a with SMTP id
- 38308e7fff4ca-3ab29294e73mr11194711fa.11.1792320065495; Sun, 18 Oct 2026
- 03:41:05 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792320129; x=1792924929;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TJbthSIHsDHh7j+H2XE7Sc4QteJqa3CHjLf5Llg8D1U=;
+        b=VdiKrzYebBUDmvYI1H7hl90CJOW1S9J3RZH9OiHbkpl+P5OkCjlDMhC2aZh5UxU0Lx
+         mRUKtyFVL2pTG/iVxurqCqV7PLb5JYXyrrsVui1XnHsQ2oLAIAgHC88ljmiApm7ycex+
+         M+rEkKpbrR5nnawKVIJkoK7rwQ1nupbhqgQoofnG1QsxZqU+a6ZzOClL5UB76UJiMS8u
+         IeoxkjLwyIK0gK/3t/QSx4PlOaKl3bIfNBBrDlUqSuFNeAl3KTPznqtni9ygafG5Rjyv
+         pFEhAmPManiM96QeK4e4U3SpJN940t6OCJiwHR5fzXQQdr+WQ1gqZHN3vvLCJzwY6YSw
+         0EYw==
+X-Gm-Message-State: AFq9FYK2arUH+QWbhGm7u8SgcdMZIwpf1cOmmeC4p3LVMQ8L1bezwFWd
+	yjG05qkfW+ChKvV4/YlAsxNSvoJA6jaQW7j6KO0mJ2hy93DCjUNLh5FoMF1UKVkrZw33HacR7s3
+	rjI3KEutMi/Uyx9FWVc+WEm+9Y6Nsr/pRmhOtDbXnxKKEQB8bJ+MI2FHSU/I=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016102846.22908-1-leepaulmann@gmail.com> <9eff39cf-24a1-47f8-ad78-781d467cbfaf@linux.dev>
-In-Reply-To: <9eff39cf-24a1-47f8-ad78-781d467cbfaf@linux.dev>
-From: Lee Mann <leepaulmann@gmail.com>
-Date: Sun, 18 Oct 2026 11:40:52 +0100
-X-Gm-Features: AclHuK-dBsw2XRKK0VBBmns2XgkV6vizQOqMvQ_kjopl16lqoHClNrkOWUpQeuI
-Message-ID: <CAJgi9roroOLL+ftaufLfB-K2_oMnVf62yODHFf-AN37hh975DQ@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: tas2783-sdw: restore the volume controls after re-initialisation
-To: Matthew Schwartz <matthew.schwartz@linux.dev>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, linux-sound@vger.kernel.org, 
-	shenghao-ding@ti.com, kevin-lu@ti.com, baojun.xu@ti.com, sen@ti.com, 
-	perex@perex.cz, tiwai@suse.com, andrey.golovko@gmail.com, 
-	antoine@montane.tech, linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6808:c3eb:b0:531:7f68:842e with SMTP id
+ 5614622812f47-53cc1ef9bf5mr3977609b6e.8.1792320129427; Sun, 18 Oct 2026
+ 03:42:09 -0700 (PDT)
+Date: Sun, 18 Oct 2026 03:42:09 -0700
+In-Reply-To: <6ad3da6b.7f4e89eb.3d59aa.00a0.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad4a281.a6d1a155.34a93f.0092.GAE@google.com>
+Subject: Forwarded: [PATCH] nfsd: fix out-of-bounds read of sv_permsocks when
+ starting a thread
+From: syzbot <syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Matt,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Thanks, that sounds like the better fix. A Reported-by is fine with me,
-and please consider my patch superseded by your series.
+***
 
-One data point from the ProArt PX13 (two TAS2783 on one AMD ACP link):
-with for-next plus my patch I didn't see the -16 errors at boot over
-several boots, so this machine may not hit the idle runtime-suspend
-path the way the X20 does. I'm happy to test your series here and send
-a Tested-by.
+Subject: [PATCH] nfsd: fix out-of-bounds read of sv_permsocks when starting a thread
+Author: kartikey406@gmail.com
 
-Thanks,
-Lee
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
 
-On Sun, 18 Oct 2026 at 06:37, Matthew Schwartz
-<matthew.schwartz@linux.dev> wrote:
->
-> On 10/16/26 3:28 AM, Lee Mann wrote:
-> > -     return snd_soc_put_volsw(kcontrol, ucontrol);
-> > +     struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-> > +     struct tas2783_prv *tas_dev = snd_soc_component_get_drvdata(component);
-> > +     s32 ret = snd_soc_put_volsw(kcontrol, ucontrol);
-> > +
-> > +     if (ret >= 0)
-> > +             tas2783_save_vol(tas_dev, TAS2783_DVC_LVL,
-> > +                              &tas_dev->user_dvc_lvl, &tas_dev->user_dvc_set);
->
->
-> Hi Lee,
->
-> I ran into the same bug bringing up the ASUS ROG Xbox Ally X20 (two
-> TAS2783 on one AMD link), and there's one more case this doesn't cover.
->
-> On for-next idle_bias_on is 0, so the amps runtime suspend whenever
-> nothing is playing. The cache is dropped on attach and after the
-> firmware download, so until something writes the volume registers
-> again they aren't cached, and snd_soc_get_volsw()/put_volsw() fail with
-> -EBUSY from regmap in cache-only mode while the amp is suspended. Your
-> restore fixes that once a value has been set during playback, but at
-> boot nothing has set it yet, so the first mixer accesses fail and every
-> boot logs "ASoC error (-16)" for both registers. On the X20 the link
-> is also powered off when idle, so the amps are re-initialized on every
-> wake, not just after system suspend.
->
-> I have a fix I was working on that addresses the same issue but keeps
-> both values in the driver instead of the register cache, so get/put
-> work while the amp is suspended and the values are programmed again
-> after every init and resume. It's part of a small series with two
-> other tas2783 fixes. I'll post it shortly with you on Cc with a
-> Reported-by on the relevant patch if that's okay with you.
->
-> Thanks,
-> Matt
+nfsd() derives its struct net from the first entry of
+serv->sv_permsocks using list_entry() without checking that the list
+is non-empty. If the list is empty, list_entry() returns a bogus
+svc_xprt computed from the list head embedded in struct svc_serv, and
+the following perm_sock->xpt_net load reads far past the end of the
+svc_serv allocation:
+
+  BUG: KASAN: slab-out-of-bounds in nfsd+0x118/0xbc0 fs/nfsd/nfssvc.c:894
+  Read of size 8 at addr ffff88802d423f50 by task nfsd/5988
+
+The list can be empty because nothing guarantees that a permanent
+listener exists while a thread starts. With dynamic thread spawning, a
+thread can begin running after the last listener has been closed and
+removed.
+
+Take sv_lock, which protects sv_permsocks, and check for an empty list
+and read xpt_net in the same critical section. If there is no
+permanent socket, report -ENOTCONN through svc_thread_init_status(),
+which wakes the creator and exits the thread, instead of dereferencing
+a bogus pointer.
+
+Reported-by: syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=561b859d032c8bf2fb53
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ fs/nfsd/nfssvc.c      |   22 +-
+ fs/nfsd/nfssvc.c.save | 1107 +++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 1125 insertions(+), 4 deletions(-)
+ create mode 100644 fs/nfsd/nfssvc.c.save
+
+diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
+index 2edf716ea022..da6fce79efae 100644
+--- a/fs/nfsd/nfssvc.c
++++ b/fs/nfsd/nfssvc.c
+@@ -890,17 +890,31 @@ nfsd(void *vrqstp)
+ {
+ 	struct svc_rqst *rqstp = (struct svc_rqst *) vrqstp;
+ 	struct svc_pool *pool = rqstp->rq_pool;
+-	struct svc_xprt *perm_sock = list_entry(rqstp->rq_server->sv_permsocks.next, typeof(struct svc_xprt), xpt_list);
+-	struct net *net = perm_sock->xpt_net;
+-	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++	struct svc_serv *serv = rqstp->rq_server;
++	struct svc_xprt *perm_sock;
++	struct net *net = NULL;
++	struct nfsd_net *nn = NULL;
+ 	struct nfsd_thread_local_info ntli = { };
+ 	bool have_mutex = false;
++	int err = 0;
++
++	spin_lock_bh(&serv->sv_lock);
++	if (list_empty(&serv->sv_permsocks)) {
++		err = -ENOTCONN;
++	} else {
++		perm_sock = list_first_entry(&serv->sv_permsocks,
++				             struct svc_xprt, xpt_list);
++		net = perm_sock->xpt_net;
++	}
++	spin_unlock_bh(&serv->sv_lock);
+ 
++	if (!err)
++		nn = net_generic(net, nfsd_net_id);
+ 	/* At this point, the thread shares current->fs
+ 	 * with the init process. We need to create files with the
+ 	 * umask as defined by the client instead of init's umask.
+ 	 */
+-	svc_thread_init_status(rqstp, unshare_fs_struct());
++	svc_thread_init_status(rqstp, err ?: unshare_fs_struct());
+ 
+ 	current->fs->umask = 0;
+ 
+diff --git a/fs/nfsd/nfssvc.c.save b/fs/nfsd/nfssvc.c.save
+new file mode 100644
+index 000000000000..1df1bc79aaef
+--- /dev/null
++++ b/fs/nfsd/nfssvc.c.save
+@@ -0,0 +1,1107 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Central processing for nfsd.
++ *
++ * Authors:	Olaf Kirch (okir@monad.swb.de)
++ *
++ * Copyright (C) 1995, 1996, 1997 Olaf Kirch <okir@monad.swb.de>
++ */
++
++#include <linux/sched/signal.h>
++#include <linux/freezer.h>
++#include <linux/module.h>
++#include <linux/fs_struct.h>
++#include <linux/swap.h>
++#include <linux/siphash.h>
++
++#include <linux/sunrpc/stats.h>
++#include <linux/sunrpc/svcsock.h>
++#include <linux/sunrpc/svc_xprt.h>
++#include <linux/lockd/bind.h>
++#include <linux/nfsacl.h>
++#include <linux/nfslocalio.h>
++#include <linux/seq_file.h>
++#include <linux/inetdevice.h>
++#include <net/addrconf.h>
++#include <net/ipv6.h>
++#include <net/net_namespace.h>
++#include "nfsd.h"
++#include "cache.h"
++#include "vfs.h"
++#include "netns.h"
++#include "filecache.h"
++
++#include "trace.h"
++
++#define NFSDDBG_FACILITY	NFSDDBG_SVC
++
++atomic_t			nfsd_th_cnt = ATOMIC_INIT(0);
++static int			nfsd(void *vrqstp);
++#if defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL)
++static int			nfsd_acl_rpcbind_set(struct net *,
++						     const struct svc_program *,
++						     u32, int,
++						     unsigned short,
++						     unsigned short);
++static __be32			nfsd_acl_init_request(struct svc_rqst *,
++						const struct svc_program *,
++						struct svc_process_info *);
++#endif
++static int			nfsd_rpcbind_set(struct net *,
++						 const struct svc_program *,
++						 u32, int,
++						 unsigned short,
++						 unsigned short);
++static __be32			nfsd_init_request(struct svc_rqst *,
++						const struct svc_program *,
++						struct svc_process_info *);
++
++/*
++ * nfsd_mutex protects nn->nfsd_serv -- both the pointer itself and some members
++ * of the svc_serv struct such as ->sv_temp_socks and ->sv_permsocks.
++ *
++ * Finally, the nfsd_mutex also protects some of the global variables that are
++ * accessed when nfsd starts and that are settable via the write_* routines in
++ * nfsctl.c. In particular:
++ *
++ *	user_recovery_dirname
++ *	user_lease_time
++ *	nfsd_versions
++ */
++DEFINE_MUTEX(nfsd_mutex);
++
++#if IS_ENABLED(CONFIG_NFS_LOCALIO)
++static const struct svc_version *localio_versions[] = {
++	[1] = &localio_version1,
++};
++
++#define NFSD_LOCALIO_NRVERS		ARRAY_SIZE(localio_versions)
++
++#endif /* CONFIG_NFS_LOCALIO */
++
++#if defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL)
++static const struct svc_version *nfsd_acl_version[] = {
++# if defined(CONFIG_NFSD_V2_ACL)
++	[2] = &nfsd_acl_version2,
++# endif
++# if defined(CONFIG_NFSD_V3_ACL)
++	[3] = &nfsd_acl_version3,
++# endif
++};
++
++#define NFSD_ACL_MINVERS	2
++#define NFSD_ACL_NRVERS		ARRAY_SIZE(nfsd_acl_version)
++
++#endif /* defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL) */
++
++static const struct svc_version *nfsd_version[NFSD_MAXVERS+1] = {
++#if defined(CONFIG_NFSD_V2)
++	[2] = &nfsd_version2,
++#endif
++	[3] = &nfsd_version3,
++#if defined(CONFIG_NFSD_V4)
++	[4] = &nfsd_version4,
++#endif
++};
++
++struct svc_program		nfsd_programs[] = {
++	{
++	.pg_prog		= NFS_PROGRAM,		/* program number */
++	.pg_nvers		= NFSD_MAXVERS+1,	/* nr of entries in nfsd_version */
++	.pg_vers		= nfsd_version,		/* version table */
++	.pg_name		= "nfsd",		/* program name */
++	.pg_class		= "nfsd",		/* authentication class */
++	.pg_authenticate	= svc_set_client,	/* export authentication */
++	.pg_init_request	= nfsd_init_request,
++	.pg_rpcbind_set		= nfsd_rpcbind_set,
++	},
++#if defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL)
++	{
++	.pg_prog		= NFS_ACL_PROGRAM,
++	.pg_nvers		= NFSD_ACL_NRVERS,
++	.pg_vers		= nfsd_acl_version,
++	.pg_name		= "nfsacl",
++	.pg_class		= "nfsd",
++	.pg_authenticate	= svc_set_client,
++	.pg_init_request	= nfsd_acl_init_request,
++	.pg_rpcbind_set		= nfsd_acl_rpcbind_set,
++	},
++#endif /* defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL) */
++#if IS_ENABLED(CONFIG_NFS_LOCALIO)
++	{
++	.pg_prog		= NFS_LOCALIO_PROGRAM,
++	.pg_nvers		= NFSD_LOCALIO_NRVERS,
++	.pg_vers		= localio_versions,
++	.pg_name		= "nfslocalio",
++	.pg_class		= "nfsd",
++	.pg_authenticate	= svc_set_client,
++	.pg_init_request	= svc_generic_init_request,
++	.pg_rpcbind_set		= svc_generic_rpcbind_set,
++	}
++#endif /* CONFIG_NFS_LOCALIO */
++};
++
++bool nfsd_support_version(int vers)
++{
++	if (vers >= NFSD_MINVERS && vers <= NFSD_MAXVERS)
++		return nfsd_version[vers] != NULL;
++	return false;
++}
++
++int nfsd_vers(struct nfsd_net *nn, int vers, enum vers_op change)
++{
++	if (vers < NFSD_MINVERS || vers > NFSD_MAXVERS)
++		return 0;
++	switch(change) {
++	case NFSD_SET:
++		nn->nfsd_versions[vers] = nfsd_support_version(vers);
++		break;
++	case NFSD_CLEAR:
++		nn->nfsd_versions[vers] = false;
++		break;
++	case NFSD_TEST:
++		return nn->nfsd_versions[vers];
++	case NFSD_AVAIL:
++		return nfsd_support_version(vers);
++	}
++	return 0;
++}
++
++static void
++nfsd_adjust_nfsd_versions4(struct nfsd_net *nn)
++{
++	unsigned i;
++
++	for (i = 0; i <= NFSD_SUPPORTED_MINOR_VERSION; i++) {
++		if (nn->nfsd4_minorversions[i])
++			return;
++	}
++	nfsd_vers(nn, 4, NFSD_CLEAR);
++}
++
++int nfsd_minorversion(struct nfsd_net *nn, u32 minorversion, enum vers_op change)
++{
++	if (minorversion > NFSD_SUPPORTED_MINOR_VERSION &&
++	    change != NFSD_AVAIL)
++		return -1;
++
++	switch(change) {
++	case NFSD_SET:
++		nfsd_vers(nn, 4, NFSD_SET);
++		nn->nfsd4_minorversions[minorversion] =
++			nfsd_vers(nn, 4, NFSD_TEST);
++		break;
++	case NFSD_CLEAR:
++		nn->nfsd4_minorversions[minorversion] = false;
++		nfsd_adjust_nfsd_versions4(nn);
++		break;
++	case NFSD_TEST:
++		return nn->nfsd4_minorversions[minorversion];
++	case NFSD_AVAIL:
++		return minorversion <= NFSD_SUPPORTED_MINOR_VERSION &&
++			nfsd_vers(nn, 4, NFSD_AVAIL);
++	}
++	return 0;
++}
++
++bool nfsd_net_try_get(struct net *net) __must_hold(rcu)
++{
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++
++	return (nn && percpu_ref_tryget_live(&nn->nfsd_net_ref));
++}
++
++void nfsd_net_put(struct net *net) __must_hold(rcu)
++{
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++
++	percpu_ref_put(&nn->nfsd_net_ref);
++}
++
++static void nfsd_net_done(struct percpu_ref *ref)
++{
++	struct nfsd_net *nn = container_of(ref, struct nfsd_net, nfsd_net_ref);
++
++	complete(&nn->nfsd_net_confirm_done);
++}
++
++static void nfsd_net_free(struct percpu_ref *ref)
++{
++	struct nfsd_net *nn = container_of(ref, struct nfsd_net, nfsd_net_ref);
++
++	complete(&nn->nfsd_net_free_done);
++}
++
++/*
++ * Maximum number of nfsd processes
++ */
++#define	NFSD_MAXSERVS		8192
++
++/**
++ * nfsd_nrthreads - report a namespace's configured nfsd thread count
++ * @net: network namespace to query
++ *
++ * Return: the configured thread ceiling, or 0 when no service runs.
++ */
++int nfsd_nrthreads(struct net *net)
++{
++	int rv = 0;
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++
++	/* nfsd_mutex keeps nn->nfsd_serv valid across the read. */
++	mutex_lock(&nfsd_mutex);
++	if (nn->nfsd_serv)
++		rv = svc_serv_maxthreads(nn->nfsd_serv);
++	mutex_unlock(&nfsd_mutex);
++	return rv;
++}
++
++static int nfsd_users = 0;
++
++static int nfsd_startup_generic(void)
++{
++	int ret;
++
++	if (nfsd_users++)
++		return 0;
++
++	ret = nfsd_file_cache_init();
++	if (ret)
++		goto dec_users;
++
++	ret = nfs4_state_start();
++	if (ret)
++		goto out_file_cache;
++	return 0;
++
++out_file_cache:
++	nfsd_file_cache_shutdown();
++dec_users:
++	nfsd_users--;
++	return ret;
++}
++
++static void nfsd_shutdown_generic(void)
++{
++	if (--nfsd_users)
++		return;
++
++	nfs4_state_shutdown();
++	nfsd_file_cache_shutdown();
++}
++
++static bool nfsd_needs_lockd(struct nfsd_net *nn)
++{
++	return nfsd_vers(nn, 2, NFSD_TEST) || nfsd_vers(nn, 3, NFSD_TEST);
++}
++
++/**
++ * nfsd_copy_write_verifier - Atomically copy a write verifier
++ * @verf: buffer in which to receive the verifier cookie
++ * @nn: NFS net namespace
++ *
++ * This function provides a wait-free mechanism for copying the
++ * namespace's write verifier without tearing it.
++ */
++void nfsd_copy_write_verifier(__be32 verf[2], struct nfsd_net *nn)
++{
++	unsigned int seq;
++
++	do {
++		seq = read_seqbegin(&nn->writeverf_lock);
++		memcpy(verf, nn->writeverf, sizeof(nn->writeverf));
++	} while (read_seqretry(&nn->writeverf_lock, seq));
++}
++
++static void nfsd_reset_write_verifier_locked(struct nfsd_net *nn)
++{
++	struct timespec64 now;
++	u64 verf;
++
++	/*
++	 * Because the time value is hashed, y2038 time_t overflow
++	 * is irrelevant in this usage.
++	 */
++	ktime_get_raw_ts64(&now);
++	verf = siphash_2u64(now.tv_sec, now.tv_nsec, &nn->siphash_key);
++	memcpy(nn->writeverf, &verf, sizeof(nn->writeverf));
++}
++
++/**
++ * nfsd_reset_write_verifier - Generate a new write verifier
++ * @nn: NFS net namespace
++ *
++ * This function updates the ->writeverf field of @nn. This field
++ * contains an opaque cookie that, according to Section 18.32.3 of
++ * RFC 8881, "the client can use to determine whether a server has
++ * changed instance state (e.g., server restart) between a call to
++ * WRITE and a subsequent call to either WRITE or COMMIT.  This
++ * cookie MUST be unchanged during a single instance of the NFSv4.1
++ * server and MUST be unique between instances of the NFSv4.1
++ * server."
++ */
++void nfsd_reset_write_verifier(struct nfsd_net *nn)
++{
++	write_seqlock(&nn->writeverf_lock);
++	nfsd_reset_write_verifier_locked(nn);
++	write_sequnlock(&nn->writeverf_lock);
++}
++
++/*
++ * Crank up a set of per-namespace resources for a new NFSD instance,
++ * including lockd, a duplicate reply cache, an open file cache
++ * instance, and a cache of NFSv4 state objects.
++ */
++static int nfsd_startup_net(struct net *net, const struct cred *cred)
++{
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++	int ret;
++
++	if (test_bit(NFSD_NET_UP, &nn->flags))
++		return 0;
++
++	ret = nfsd_startup_generic();
++	if (ret)
++		return ret;
++
++	if (list_empty(&nn->nfsd_serv->sv_permsocks)) {
++		pr_warn("NFSD: Failed to start, no listeners configured.\n");
++		ret = -EIO;
++		goto out_socks;
++	}
++
++	if (nfsd_needs_lockd(nn) && !test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
++		ret = lockd_up(net, cred);
++		if (ret)
++			goto out_socks;
++		set_bit(NFSD_NET_LOCKD_UP, &nn->flags);
++	}
++
++	ret = nfsd_file_cache_start_net(net);
++	if (ret)
++		goto out_lockd;
++
++	ret = nfsd_reply_cache_init(nn);
++	if (ret)
++		goto out_filecache;
++
++#ifdef CONFIG_NFSD_V4_2_INTER_SSC
++	nfsd4_ssc_init_umount_work(nn);
++#endif
++	ret = nfs4_state_start_net(net);
++	if (ret)
++		goto out_reply_cache;
++
++	set_bit(NFSD_NET_UP, &nn->flags);
++	return 0;
++
++out_reply_cache:
++	nfsd_reply_cache_shutdown(nn);
++out_filecache:
++	nfsd_file_cache_shutdown_net(net);
++out_lockd:
++	if (test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
++		lockd_down(net);
++		clear_bit(NFSD_NET_LOCKD_UP, &nn->flags);
++	}
++out_socks:
++	nfsd_shutdown_generic();
++	return ret;
++}
++
++static void nfsd_shutdown_net(struct net *net)
++{
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++
++	if (test_bit(NFSD_NET_UP, &nn->flags)) {
++		percpu_ref_kill_and_confirm(&nn->nfsd_net_ref, nfsd_net_done);
++		wait_for_completion(&nn->nfsd_net_confirm_done);
++
++		nfsd_export_flush(net);
++		nfs4_state_shutdown_net(net);
++		nfsd_reply_cache_shutdown(nn);
++		nfsd_file_cache_shutdown_net(net);
++		if (test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
++			lockd_down(net);
++			clear_bit(NFSD_NET_LOCKD_UP, &nn->flags);
++		}
++		wait_for_completion(&nn->nfsd_net_free_done);
++	}
++
++	percpu_ref_exit(&nn->nfsd_net_ref);
++
++	if (test_bit(NFSD_NET_UP, &nn->flags))
++		nfsd_shutdown_generic();
++	clear_bit(NFSD_NET_UP, &nn->flags);
++}
++
++static DEFINE_SPINLOCK(nfsd_notifier_lock);
++static int nfsd_inetaddr_event(struct notifier_block *this, unsigned long event,
++	void *ptr)
++{
++	struct in_ifaddr *ifa = (struct in_ifaddr *)ptr;
++	struct net_device *dev = ifa->ifa_dev->dev;
++	struct net *net = dev_net(dev);
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++	struct sockaddr_in sin;
++
++	if (event != NETDEV_DOWN || !nn->nfsd_serv)
++		goto out;
++
++	spin_lock(&nfsd_notifier_lock);
++	if (nn->nfsd_serv) {
++		dprintk("nfsd_inetaddr_event: removed %pI4\n", &ifa->ifa_local);
++		sin.sin_family = AF_INET;
++		sin.sin_addr.s_addr = ifa->ifa_local;
++		svc_age_temp_xprts_now(nn->nfsd_serv, (struct sockaddr *)&sin);
++	}
++	spin_unlock(&nfsd_notifier_lock);
++
++out:
++	return NOTIFY_DONE;
++}
++
++static struct notifier_block nfsd_inetaddr_notifier = {
++	.notifier_call = nfsd_inetaddr_event,
++};
++
++#if IS_ENABLED(CONFIG_IPV6)
++static int nfsd_inet6addr_event(struct notifier_block *this,
++	unsigned long event, void *ptr)
++{
++	struct inet6_ifaddr *ifa = (struct inet6_ifaddr *)ptr;
++	struct net_device *dev = ifa->idev->dev;
++	struct net *net = dev_net(dev);
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++	struct sockaddr_in6 sin6;
++
++	if (event != NETDEV_DOWN || !nn->nfsd_serv)
++		goto out;
++
++	spin_lock(&nfsd_notifier_lock);
++	if (nn->nfsd_serv) {
++		dprintk("nfsd_inet6addr_event: removed %pI6\n", &ifa->addr);
++		sin6.sin6_family = AF_INET6;
++		sin6.sin6_addr = ifa->addr;
++		if (ipv6_addr_type(&sin6.sin6_addr) & IPV6_ADDR_LINKLOCAL)
++			sin6.sin6_scope_id = ifa->idev->dev->ifindex;
++		svc_age_temp_xprts_now(nn->nfsd_serv, (struct sockaddr *)&sin6);
++	}
++	spin_unlock(&nfsd_notifier_lock);
++
++out:
++	return NOTIFY_DONE;
++}
++
++static struct notifier_block nfsd_inet6addr_notifier = {
++	.notifier_call = nfsd_inet6addr_event,
++};
++#endif
++
++/* Only used under nfsd_mutex, so this atomic may be overkill: */
++static atomic_t nfsd_notifier_refcount = ATOMIC_INIT(0);
++
++/**
++ * nfsd_destroy_serv - tear down NFSD's svc_serv for a namespace
++ * @net: network namespace the NFS service is associated with
++ */
++void nfsd_destroy_serv(struct net *net)
++{
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++	struct svc_serv *serv = nn->nfsd_serv;
++
++	lockdep_assert_held(&nfsd_mutex);
++
++	spin_lock(&nfsd_notifier_lock);
++	nn->nfsd_serv = NULL;
++	spin_unlock(&nfsd_notifier_lock);
++
++	/* check if the notifier still has clients */
++	if (atomic_dec_return(&nfsd_notifier_refcount) == 0) {
++		unregister_inetaddr_notifier(&nfsd_inetaddr_notifier);
++#if IS_ENABLED(CONFIG_IPV6)
++		unregister_inet6addr_notifier(&nfsd_inet6addr_notifier);
++#endif
++	}
++
++	/*
++	 * write_ports can create the server without actually starting
++	 * any threads.  If we get shut down before any threads are
++	 * started, then nfsd_destroy_serv will be run before any of this
++	 * other initialization has been done except the rpcb information.
++	 */
++	svc_xprt_destroy_all(serv, net, true);
++	nfsd_shutdown_net(net);
++	svc_destroy(&serv);
++}
++
++void nfsd_reset_versions(struct nfsd_net *nn)
++{
++	int i;
++
++	for (i = 0; i <= NFSD_MAXVERS; i++)
++		if (nfsd_vers(nn, i, NFSD_TEST))
++			return;
++
++	for (i = 0; i <= NFSD_MAXVERS; i++)
++		if (i != 4)
++			nfsd_vers(nn, i, NFSD_SET);
++		else {
++			int minor = 0;
++			while (nfsd_minorversion(nn, minor, NFSD_SET) >= 0)
++				minor++;
++		}
++}
++
++static int nfsd_get_default_max_blksize(void)
++{
++	struct sysinfo i;
++	unsigned long long target;
++	unsigned long ret;
++
++	si_meminfo(&i);
++	target = (i.totalram - i.totalhigh) << PAGE_SHIFT;
++	/*
++	 * Aim for 1/4096 of memory per thread This gives 1MB on 4Gig
++	 * machines, but only uses 32K on 128M machines.  Bottom out at
++	 * 8K on 32M and smaller.  Of course, this is only a default.
++	 */
++	target >>= 12;
++
++	ret = NFSSVC_DEFBLKSIZE;
++	while (ret > target && ret >= 8*1024*2)
++		ret /= 2;
++	return ret;
++}
++
++void nfsd_shutdown_threads(struct net *net)
++{
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++	struct svc_serv *serv;
++
++	mutex_lock(&nfsd_mutex);
++	serv = nn->nfsd_serv;
++	if (serv == NULL) {
++		mutex_unlock(&nfsd_mutex);
++		return;
++	}
++
++	/* Kill outstanding nfsd threads */
++	svc_set_num_threads(serv, 0, 0);
++	nfsd_destroy_serv(net);
++	mutex_unlock(&nfsd_mutex);
++}
++
++struct svc_rqst *nfsd_current_rqst(void)
++{
++	if (kthread_func(current) == nfsd)
++		return kthread_data(current);
++	return NULL;
++}
++
++int nfsd_create_serv(struct net *net)
++{
++	int error;
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++	struct svc_serv *serv;
++
++	WARN_ON(!mutex_is_locked(&nfsd_mutex));
++	if (nn->nfsd_serv)
++		return 0;
++
++	error = percpu_ref_init(&nn->nfsd_net_ref, nfsd_net_free,
++				0, GFP_KERNEL);
++	if (error)
++		return error;
++	init_completion(&nn->nfsd_net_free_done);
++	init_completion(&nn->nfsd_net_confirm_done);
++
++	if (nfsd_max_blksize == 0)
++		nfsd_max_blksize = nfsd_get_default_max_blksize();
++	nfsd_reset_versions(nn);
++	serv = svc_create_pooled(nfsd_programs, ARRAY_SIZE(nfsd_programs),
++				 &nn->nfsd_svcstats,
++				 nfsd_max_blksize, nfsd);
++	if (serv == NULL) {
++		percpu_ref_exit(&nn->nfsd_net_ref);
++		return -ENOMEM;
++	}
++
++	error = svc_bind(serv, net);
++	if (error < 0) {
++		svc_destroy(&serv);
++		percpu_ref_exit(&nn->nfsd_net_ref);
++		return error;
++	}
++	spin_lock(&nfsd_notifier_lock);
++	nn->nfsd_serv = serv;
++	spin_unlock(&nfsd_notifier_lock);
++
++	/* check if the notifier is already set */
++	if (atomic_inc_return(&nfsd_notifier_refcount) == 1) {
++		register_inetaddr_notifier(&nfsd_inetaddr_notifier);
++#if IS_ENABLED(CONFIG_IPV6)
++		register_inet6addr_notifier(&nfsd_inet6addr_notifier);
++#endif
++	}
++	nfsd_reset_write_verifier(nn);
++	return 0;
++}
++
++int nfsd_nrpools(struct net *net)
++{
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++
++	if (nn->nfsd_serv == NULL)
++		return 0;
++	else
++		return svc_serv_nrpools(nn->nfsd_serv);
++}
++
++int nfsd_get_nrthreads(int n, int *nthreads, struct net *net)
++{
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++	struct svc_serv *serv = nn->nfsd_serv;
++	int i;
++
++	if (serv)
++		for (i = 0; i < svc_serv_nrpools(serv) && i < n; i++)
++			nthreads[i] = serv->sv_pools[i].sp_nrthrmax;
++	return 0;
++}
++
++/**
++ * nfsd_set_nrthreads - set the number of running threads in the net's service
++ * @n: number of array members in @nthreads
++ * @nthreads: array of thread counts for each pool
++ * @net: network namespace to operate within
++ *
++ * This function alters the number of running threads for the given network
++ * namespace in each pool. If passed an array longer then the number of pools
++ * the extra pool settings are ignored. If passed an array shorter than the
++ * number of pools, the missing values are interpreted as 0's.
++ *
++ * Returns 0 on success or a negative errno on error.
++ */
++int nfsd_set_nrthreads(int n, int *nthreads, struct net *net)
++{
++	int i = 0;
++	int tot = 0;
++	int err = 0;
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++
++	lockdep_assert_held(&nfsd_mutex);
++
++	if (nn->nfsd_serv == NULL || n <= 0)
++		return 0;
++
++	/* Special case: When n == 1, distribute threads equally among pools. */
++	if (n == 1)
++		return svc_set_num_threads(nn->nfsd_serv, nn->min_threads, nthreads[0]);
++
++	if (n > svc_serv_nrpools(nn->nfsd_serv))
++		n = svc_serv_nrpools(nn->nfsd_serv);
++
++	/* enforce a global maximum number of threads */
++	tot = 0;
++	for (i = 0; i < n; i++) {
++		nthreads[i] = min(nthreads[i], NFSD_MAXSERVS);
++		tot += nthreads[i];
++	}
++	if (tot > NFSD_MAXSERVS) {
++		/* total too large: scale down requested numbers */
++		for (i = 0; i < n && tot > 0; i++) {
++			int new = nthreads[i] * NFSD_MAXSERVS / tot;
++			tot -= (nthreads[i] - new);
++			nthreads[i] = new;
++		}
++		for (i = 0; i < n && tot > 0; i++) {
++			nthreads[i]--;
++			tot--;
++		}
++	}
++
++	/* apply the new numbers */
++	for (i = 0; i < n; i++) {
++		err = svc_set_pool_threads(nn->nfsd_serv,
++					   &nn->nfsd_serv->sv_pools[i],
++					   nn->min_threads, nthreads[i]);
++		if (err)
++			goto out;
++	}
++
++	/* Anything undefined in array is considered to be 0 */
++	for (i = n; i < svc_serv_nrpools(nn->nfsd_serv); ++i) {
++		err = svc_set_pool_threads(nn->nfsd_serv,
++					   &nn->nfsd_serv->sv_pools[i],
++					   0, 0);
++		if (err)
++			goto out;
++	}
++out:
++	return err;
++}
++
++/**
++ * nfsd_svc: start up or shut down the nfsd server
++ * @n: number of array members in @nthreads
++ * @nthreads: array of thread counts for each pool
++ * @net: network namespace to operate within
++ * @cred: credentials to use for xprt creation
++ * @scope: server scope value (defaults to nodename)
++ *
++ * Adjust the number of threads in each pool and return the new
++ * total number of threads in the service.
++ */
++int
++nfsd_svc(int n, int *nthreads, struct net *net, const struct cred *cred, const char *scope)
++{
++	int	error;
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++	struct svc_serv *serv;
++
++	lockdep_assert_held(&nfsd_mutex);
++
++	dprintk("nfsd: creating service\n");
++
++	strscpy(nn->nfsd_name, scope ? scope : utsname()->nodename,
++		sizeof(nn->nfsd_name));
++
++	error = nfsd_create_serv(net);
++	if (error)
++		goto out;
++	serv = nn->nfsd_serv;
++
++	error = nfsd_startup_net(net, cred);
++	if (error)
++		goto out_put;
++	error = nfsd_set_nrthreads(n, nthreads, net);
++	if (error)
++		goto out_put;
++	error = serv->sv_nrthreads;
++out_put:
++	if (serv->sv_nrthreads == 0)
++		nfsd_destroy_serv(net);
++out:
++	return error;
++}
++
++#if defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL)
++static bool
++nfsd_support_acl_version(int vers)
++{
++	if (vers >= NFSD_ACL_MINVERS && vers < NFSD_ACL_NRVERS)
++		return nfsd_acl_version[vers] != NULL;
++	return false;
++}
++
++static int
++nfsd_acl_rpcbind_set(struct net *net, const struct svc_program *progp,
++		     u32 version, int family, unsigned short proto,
++		     unsigned short port)
++{
++	if (!nfsd_support_acl_version(version) ||
++	    !nfsd_vers(net_generic(net, nfsd_net_id), version, NFSD_TEST))
++		return 0;
++	return svc_generic_rpcbind_set(net, progp, version, family,
++			proto, port);
++}
++
++static __be32
++nfsd_acl_init_request(struct svc_rqst *rqstp,
++		      const struct svc_program *progp,
++		      struct svc_process_info *ret)
++{
++	struct nfsd_net *nn = net_generic(SVC_NET(rqstp), nfsd_net_id);
++	int i;
++
++	if (likely(nfsd_support_acl_version(rqstp->rq_vers) &&
++	    nfsd_vers(nn, rqstp->rq_vers, NFSD_TEST)))
++		return svc_generic_init_request(rqstp, progp, ret);
++
++	ret->mismatch.lovers = NFSD_ACL_NRVERS;
++	for (i = NFSD_ACL_MINVERS; i < NFSD_ACL_NRVERS; i++) {
++		if (nfsd_support_acl_version(i) &&
++		    nfsd_vers(nn, i, NFSD_TEST)) {
++			ret->mismatch.lovers = i;
++			break;
++		}
++	}
++	if (ret->mismatch.lovers == NFSD_ACL_NRVERS)
++		return rpc_prog_unavail;
++	ret->mismatch.hivers = NFSD_ACL_MINVERS;
++	for (i = NFSD_ACL_NRVERS - 1; i >= NFSD_ACL_MINVERS; i--) {
++		if (nfsd_support_acl_version(i) &&
++		    nfsd_vers(nn, i, NFSD_TEST)) {
++			ret->mismatch.hivers = i;
++			break;
++		}
++	}
++	return rpc_prog_mismatch;
++}
++#endif
++
++static int
++nfsd_rpcbind_set(struct net *net, const struct svc_program *progp,
++		 u32 version, int family, unsigned short proto,
++		 unsigned short port)
++{
++	if (!nfsd_vers(net_generic(net, nfsd_net_id), version, NFSD_TEST))
++		return 0;
++	return svc_generic_rpcbind_set(net, progp, version, family,
++			proto, port);
++}
++
++static __be32
++nfsd_init_request(struct svc_rqst *rqstp,
++		  const struct svc_program *progp,
++		  struct svc_process_info *ret)
++{
++	struct nfsd_net *nn = net_generic(SVC_NET(rqstp), nfsd_net_id);
++	int i;
++
++	if (likely(nfsd_vers(nn, rqstp->rq_vers, NFSD_TEST)))
++		return svc_generic_init_request(rqstp, progp, ret);
++
++	ret->mismatch.lovers = NFSD_MAXVERS + 1;
++	for (i = NFSD_MINVERS; i <= NFSD_MAXVERS; i++) {
++		if (nfsd_vers(nn, i, NFSD_TEST)) {
++			ret->mismatch.lovers = i;
++			break;
++		}
++	}
++	if (ret->mismatch.lovers > NFSD_MAXVERS)
++		return rpc_prog_unavail;
++	ret->mismatch.hivers = NFSD_MINVERS;
++	for (i = NFSD_MAXVERS; i >= NFSD_MINVERS; i--) {
++		if (nfsd_vers(nn, i, NFSD_TEST)) {
++			ret->mismatch.hivers = i;
++			break;
++		}
++	}
++	return rpc_prog_mismatch;
++}
++
++/*
++ * This is the NFS server kernel thread
++ */
++static int
++nfsd(void *vrqstp)
++{
++	struct svc_rqst *rqstp = (struct svc_rqst *) vrqstp;
++	struct svc_pool *pool = rqstp->rq_pool;
++	struct svc_xprt *perm_sock;
++	struct net *net;
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++	struct nfsd_thread_local_info ntli = { };
++	bool have_mutex = false;
++
++	spin_lock_bh(&serv->sv_lock);
++	if (list_empty(&serv->sv_permsocks)) {
++		err = -ENOTCONN;
++	} else {
++		perm_sock = list_first_entry(&serv->sv_permsocks,
++                                             struct svc_xprt, xpt_list);
++		net = perm_sock->xpt_net;
++	}
++	spin_unlock_bh(&serv->sv_lock);
++
++
++
++	/* At this point, the thread shares current->fs
++	 * with the init process. We need to create files with the
++	 * umask as defined by the client instead of init's umask.
++	 */
++	svc_thread_init_status(rqstp, unshare_fs_struct());
++
++	current->fs->umask = 0;
++
++	atomic_inc(&nfsd_th_cnt);
++
++	set_freezable();
++
++	/* use dynamic allocation if ntli should ever become large */
++	static_assert(sizeof(struct nfsd_thread_local_info) < 256);
++	rqstp->rq_private = &ntli;
++
++	/*
++	 * The main request loop
++	 */
++	while (!svc_thread_should_stop(rqstp)) {
++		switch (svc_recv(rqstp, 5 * HZ)) {
++		case -ETIMEDOUT:
++			/* No work arrived within the timeout window */
++			if (mutex_trylock(&nfsd_mutex)) {
++				if (pool->sp_nrthreads > pool->sp_nrthrmin) {
++					trace_nfsd_dynthread_kill(net, pool);
++					set_bit(RQ_VICTIM, &rqstp->rq_flags);
++					have_mutex = true;
++				} else {
++					mutex_unlock(&nfsd_mutex);
++				}
++			} else {
++				trace_nfsd_dynthread_trylock_fail(net, pool);
++			}
++			break;
++		case -EBUSY:
++			/* No idle threads; consider spawning another */
++			if (pool->sp_nrthreads < pool->sp_nrthrmax) {
++				if (mutex_trylock(&nfsd_mutex)) {
++					if (pool->sp_nrthreads < pool->sp_nrthrmax) {
++						int ret;
++
++						trace_nfsd_dynthread_start(net, pool);
++						ret = svc_new_thread(rqstp->rq_server, pool);
++						if (ret)
++							pr_notice_ratelimited("%s: unable to spawn new thread: %d\n",
++									      __func__, ret);
++					}
++					mutex_unlock(&nfsd_mutex);
++				} else {
++					trace_nfsd_dynthread_trylock_fail(net, pool);
++				}
++			}
++			clear_bit(SP_TASK_STARTING, &pool->sp_flags);
++			break;
++		default:
++			break;
++		}
++		nfsd_file_net_dispose(nn);
++	}
++
++	atomic_dec(&nfsd_th_cnt);
++
++	/* Release the thread */
++	svc_exit_thread(rqstp);
++	if (have_mutex)
++		mutex_unlock(&nfsd_mutex);
++	return 0;
++}
++
++/*
++ * Set rq_status_counter back to an even value, indicating that the rqstp
++ * fields are no longer meaningful to a lockless reader. This pairs with the
++ * odd-valued store made once the request has been decoded, and must run on
++ * every return path that follows it so that the seq-lock like protocol used
++ * by nfsd_nl_rpc_status_get_dumpit() is not left permanently odd. The store
++ * also advances the counter so a concurrent reader detects the transition.
++ */
++static void nfsd_status_counter_set_idle(struct svc_rqst *rqstp)
++{
++	smp_store_release(&rqstp->rq_status_counter,
++			  (rqstp->rq_status_counter | 1) + 1);
++}
++
++/**
++ * nfsd_dispatch - Process an NFS or NFSACL or LOCALIO Request
++ * @rqstp: incoming request
++ *
++ * This RPC dispatcher integrates the NFS server's duplicate reply cache.
++ *
++ * Return values:
++ *  %0: Processing complete; do not send a Reply
++ *  %1: Processing complete; send Reply in rqstp->rq_res
++ */
++int nfsd_dispatch(struct svc_rqst *rqstp)
++{
++	struct nfsd_thread_local_info *ntli = rqstp->rq_private;
++	const struct svc_procedure *proc = rqstp->rq_procinfo;
++	__be32 *statp = rqstp->rq_accept_statp;
++	struct nfsd_cacherep *rp;
++	unsigned int start, len;
++	__be32 *nfs_reply;
++
++	/*
++	 * Give the xdr decoder a chance to change this if it wants
++	 * (necessary in the NFSv4.0 compound case)
++	 */
++	ntli->ntli_cachetype = proc->pc_cachetype;
++
++	/*
++	 * ->pc_decode advances the argument stream past the NFS
++	 * Call header, so grab the header's starting location and
++	 * size now for the call to nfsd_cache_lookup().
++	 */
++	start = xdr_stream_pos(&rqstp->rq_arg_stream);
++	len = xdr_stream_remaining(&rqstp->rq_arg_stream);
++	if (!proc->pc_decode(rqstp, &rqstp->rq_arg_stream))
++		goto out_decode_err;
++
++	/*
++	 * Release rq_status_counter setting it to an odd value after the rpc
++	 * request has been properly parsed. rq_status_counter is used to
++	 * notify the consumers if the rqstp fields are stable
++	 * (rq_status_counter is odd) or not meaningful (rq_status_counter
++	 * is even).
++	 */
++	smp_store_release(&rqstp->rq_status_counter, rqstp->rq_status_counter | 1);
++
++	rp = NULL;
++	switch (nfsd_cache_lookup(rqstp, start, len, &rp)) {
++	case RC_DOIT:
++		break;
++	case RC_REPLY:
++		goto out_cached_reply;
++	case RC_DROPIT:
++		goto out_dropit;
++	}
++
++	nfs_reply = xdr_inline_decode(&rqstp->rq_res_stream, 0);
++	*statp = proc->pc_func(rqstp);
++	if (test_bit(RQ_DROPME, &rqstp->rq_flags))
++		goto out_update_drop;
++
++	if (!proc->pc_encode(rqstp, &rqstp->rq_res_stream))
++		goto out_encode_err;
++
++	nfsd_cache_update(rqstp, rp, ntli->ntli_cachetype, nfs_reply);
++out_cached_reply:
++	nfsd_status_counter_set_idle(rqstp);
++	return 1;
++
++out_decode_err:
++	trace_nfsd_garbage_args_err(rqstp);
++	*statp = rpc_garbage_args;
++	return 1;
++
++out_update_drop:
++	nfsd_cache_update(rqstp, rp, RC_NOCACHE, NULL);
++out_dropit:
++	nfsd_status_counter_set_idle(rqstp);
++	return 0;
++
++out_encode_err:
++	trace_nfsd_cant_encode_err(rqstp);
++	nfsd_cache_update(rqstp, rp, RC_NOCACHE, NULL);
++	*statp = rpc_system_err;
++	nfsd_status_counter_set_idle(rqstp);
++	return 1;
++}
++
++/**
++ * nfssvc_decode_voidarg - Decode void arguments
++ * @rqstp: Server RPC transaction context
++ * @xdr: XDR stream positioned at arguments to decode
++ *
++ * Return values:
++ *   %false: Arguments were not valid
++ *   %true: Decoding was successful
++ */
++bool nfssvc_decode_voidarg(struct svc_rqst *rqstp, struct xdr_stream *xdr)
++{
++	return true;
++}
++
++/**
++ * nfssvc_encode_voidres - Encode void results
++ * @rqstp: Server RPC transaction context
++ * @xdr: XDR stream into which to encode results
++ *
++ * Return values:
++ *   %false: Local error while encoding
++ *   %true: Encoding was successful
++ */
++bool nfssvc_encode_voidres(struct svc_rqst *rqstp, struct xdr_stream *xdr)
++{
++	return true;
++}
+-- 
+2.43.0
+
