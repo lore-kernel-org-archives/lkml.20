@@ -1,163 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5B8352027;
-	Sun, 18 Oct 2026 02:41:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D635E33DEE6
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:42:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792291304; cv=none; b=bbwUgCicTlhLDDHg4nqtP7Ma8V94eNFiUCtfWj5YiBz92xeWiLBMFBDZ6M/6ULNbIfbipXhZNuNTFrbsvoIJQ2ic2KmerBZPQijgkDzIM64hbVdvV8PrJ1884iG0g4lLwL+BJ6tMAHs6wp6SNKUC53WTu7ex7GJa1mnXF0ANN8Q=
+	t=1792291340; cv=none; b=FF9Fr9NM2T9yf44dZND30R5NdJhxhiLhkXHyoKpjAk7LcLHPS0aetub1oSPvNTEET1Yo/3QYhqpaJUrKtAAaAFuUUnslkG6NNNnLcMk7SFF+vA7xUvD9KJ6OF//PtyzrFGML8+qYZ/tAEdTR1lHWrHaKPoCsxGSCGBB6d14zSKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792291304; c=relaxed/simple;
-	bh=DyN7kBUeI6JP6feNT5L7rLls7eIxItlqOow+9Du6A00=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NmVhvnLNmqEYGxc5kLga1TaSGOxnkRnsTTCvKfrWZVKyXEqNcSyUDekvUfGn5rDXh7gErowHk1J9Y1YV/u4wPll1RWeOYIovUTK96CJ/hn0MC6VP2b4iTv9DUlHDOj/xPImHoSM47OK5RIdkALT8mntvXEE5eUH7dxAWxIAmxUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOAb385U; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOAb385U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8DED1F000C4;
-	Sun, 18 Oct 2026 02:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792291302;
-	bh=KrrmPH4dW1W5z8AQR7z2PPMQM1A2Z4v4Z50cRvZMCtU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=EOAb385U2MBMYpydmztfheJW+hfdA7lCTOrjg098xP8IEiuprMgqAn8ibQ8INJX5a
-	 Yh+V1UzJBlIApmCOc3xuqrOCwNSgvVWp2hxc/z5K+KHYluhoDfDeBMow0I6Kk/AjMF
-	 1YMZo8+HO6Ic3VXXEPuoo8IlKCHhg+M5Ua3nUkKJAAz7AwmAXCyHqF2hZVOalpaTLy
-	 X6O00frysLwG5LkqVwoSnbQgAFSRmXP30cUtxFm3ii5mRjjwUamTSjCH/yk5trpveO
-	 2DXBv/O6s/ZnkORgvLf74Dw7kwNvmR5gQBZMm16qiPANBTvywuwYe1mG9/XTILcFIK
-	 rKxDtyR2M+UUQ==
-Date: Sun, 18 Oct 2026 03:41:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kanak Shilledar <Kanak.Shilledar@axis.com>
-Cc: "marcelo.schmitt1@gmail.com" <marcelo.schmitt1@gmail.com>,
- "Jean-Baptiste.Maneyrol@tdk.com" <Jean-Baptiste.Maneyrol@tdk.com>,
- "krzk@kernel.org" <krzk@kernel.org>, "joshua.crofts1@gmail.com"
- <joshua.crofts1@gmail.com>, "dlechner@baylibre.com"
- <dlechner@baylibre.com>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "nuno.sa@analog.com" <nuno.sa@analog.com>,
- Henrik Grimler <Henrik.Grimler@axis.com>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "andy@kernel.org" <andy@kernel.org>, Kernel <Kernel@axis.com>,
- "macromorgan@hotmail.com" <macromorgan@hotmail.com>, "conor+dt@kernel.org"
- <conor+dt@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>
-Subject: Re: [PATCH v6 1/6] dt-bindings: iio: imu: icm42600: Add ICM-42670-P
-Message-ID: <20261018034134.2bf170a0@jic23-hlaptop>
-In-Reply-To: <1804b94e69b11377a912ab82dd00303cf0f60e8b.camel@axis.com>
-References: <20261009-b4-inv_icm42370p-v6-0-e53884f185ff@axis.com>
-	<20261009-b4-inv_icm42370p-v6-1-e53884f185ff@axis.com>
-	<20261012-adventurous-corgi-of-fury-01219b@quoll>
-	<fd4181c7e2f48e3c64530340ae1a02adde1f342e.camel@axis.com>
-	<da8b6047-419b-4c3d-8416-e5c871ea4dec@kernel.org>
-	<as1ZPOocclBgYkko@debian-BULLSEYE-live-builder-AMD64>
-	<BE1P281MB142642474354814F0785CB97CE9E2@BE1P281MB1426.DEUP281.PROD.OUTLOOK.COM>
-	<1804b94e69b11377a912ab82dd00303cf0f60e8b.camel@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1792291340; c=relaxed/simple;
+	bh=25cItN7Z+gyMUld5wt5bu2U7OYfpYaRb/cVCMhruypc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WDgldeJxBwn4MwTo50fCEYIs5Kzruzh+HrD49auh/q+4nCgr2drdTwD7/fbY5FpN/jYvFl7nVC10OE8dSA79zJhhsHJfM9dmiwtf6oWJ/0T0UWoTD4viCO5WJEKLEdMUL9h0otm/22o9hzD73sKr2f/jyRaBPEJETomTseIqKBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xIGql-004P3N-AL;
+	Sat, 17 Oct 2026 22:42:15 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>,
+	Haorong Lu <ancientmodern4@gmail.com>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] riscv: signal: check the full syscall return value for a restart
+Date: Sat, 17 Oct 2026 22:42:15 -0400
+Message-ID: <20261018024215.798849-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 07:18:49 +0000
-Kanak Shilledar <Kanak.Shilledar@axis.com> wrote:
+A system call that returns a 64-bit value whose low 32 bits happen to
+equal one of the -ERESTART* codes is restarted or turned into -EINTR
+when a signal is pending on the way back to user space. lseek() returns
+the new file offset, so lseek(fd, 0x1fffffe00, SEEK_CUR) followed by a
+signal with an SA_RESTART handler runs the lseek() a second time and
+leaves the offset at 0x3fffffc00; without SA_RESTART the call fails with
+EINTR after it has moved the offset. With a SIGALRM interval timer of
+20 us, 2337 out of 2000000 such lseek() calls moved the offset twice and
+2695 out of 2000000 returned EINTR. brk() can return an arbitrary
+address the same way, and a value ending in 0xfffffdfc goes through
+restart_syscall() with whatever restart_block.fn the task last set.
 
-> Hi,
-> > > >  =20
-> [...]
-> > > > That's misleading or confusing. Either the device works or does
-> > > > not
-> > > > without interrupt hooked up. Consult hardware datasheet if in
-> > > > doubts.
-> > > >=20
-> > > > Driver support is different thing here and you cannot make it
-> > > > required
-> > > > later, because that would be unjustified ABI break. =20
-> > >=20
-> > > I looked into icm42605 data sheet and saw no clear statement about
-> > > the interrupts
-> > > being required. The timing diagrams only show protocol specific
-> > > lines and it
-> > > looks like the interrupt sources can even be disabled (not routed
-> > > out to any
-> > > interrupt pin). Maybe I'm missing something and the interrupts are
-> > > required for
-> > > some sort of reset function or so? Otherwise, I don't see how the
-> > > interrupts are
-> > > required.
-> > >=20
-> > > Kanak, do you have access to any of those other chips to test
-> > > whether they work
-> > > without interrupts? If possible, can you also check the data sheets
-> > > for the other
-> > > parts besides icm42370p and icm42605?
-> > >=20
-> > > Maybe
-> > > =C2=A0- if:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42600
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42602
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42605
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42622
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42631
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42686
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - invensense,icm42688
-> > > =C2=A0=C2=A0 then:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 required:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - interrupts
-> > > was a documentation mistake?
-> > >=20
-> > > With best regards,
-> > > Marcelo
-> > >=20
-> > >  =20
-> >=20
-> > Hello,
-> >=20
-> > I can confirm that all icm426xx chips can work without interrupt by
-> > just polling
-> > the data.
-> >=20
-> > Interrupts were declared as required at the time only because the
-> > driver doesn't
-> > work without interrupt (probe will fails).
-> >=20
-> > Hardware speaking only, this is indeed a documentation mistake. =20
->=20
-> Thank you for confirming the requirement for interrupts. I will cleanup
-> the documentation in a separate commit not part of this series and the
-> driver should be updated to not fail if the interrupt property is
-> absent in the devicetree.
+arch_do_signal_or_restart() reads regs->a0 into an int, which drops the
+upper half of the return value before it is compared with -ERESTARTSYS
+and friends. The code before the restart handling was moved out of
+handle_signal() switched on the unsigned long a0 and was not affected.
 
-Two different things. =20
-1) Update the DT to reflect hardware requirements and it is vanishingly
-   rare for an IIO part to require interrupts.  The only case I can
-   immediately think is comparators which don't have any other interface.
-2) Possibly update the driver to support polling. Not a requirement as
-   we can choose not to support particular DT in a driver - that has
-   nothing to do with the binding which is documenting the hardware.
+Keep the return value in a long. Compat tasks see only the low 32 bits
+of a0, and a 32-bit tracer writes it zero-extended, so sign-extend it
+from 32 bits for them as before.
 
-I'd put 1 as a precursor patch in your series simply because otherwise
-we will get some fuzz due to stuff moving in the binding + maybe
-forget to tidy this up!
+Tested with the program in the notes on QEMU virt (riscv64 defconfig):
+the offset is moved exactly once and no EINTR is returned with the patch.
 
-Jonathan
+Fixes: ce4f78f1b53d ("riscv: signal: handle syscall restart before get_signal")
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
 
->=20
-> Best Regards,
-> Kanak Shilledar
->=20
+Notes:
+    Reproducer (static riscv64 binary run as /init's child on QEMU virt, -smp 2;
+    riscv64-linux-gnu-gcc -O2 -static -o lseek_restart lseek_restart.c):
+    
+    #define _GNU_SOURCE
+    #include <errno.h>
+    #include <fcntl.h>
+    #include <signal.h>
+    #include <stdio.h>
+    #include <string.h>
+    #include <sys/time.h>
+    #include <unistd.h>
+    
+    #define OFF 0x1fffffe00LL	/* low 32 bits read as -ERESTARTSYS */
+    
+    static volatile long nsig;
+    
+    static void handler(int sig)
+    {
+    	nsig++;
+    }
+    
+    static void run(int fd, int flags, const char *name)
+    {
+    	struct sigaction sa;
+    	struct itimerval it = { { 0, 20 }, { 0, 20 } };
+    	long i, moved = 0, eintr = 0;
+    
+    	memset(&sa, 0, sizeof(sa));
+    	sa.sa_handler = handler;
+    	sa.sa_flags = flags;
+    	nsig = 0;
+    	sigaction(SIGALRM, &sa, NULL);
+    	setitimer(ITIMER_REAL, &it, NULL);
+    
+    	for (i = 0; i < 2000000; i++) {
+    		off_t r;
+    
+    		lseek(fd, 0, SEEK_SET);
+    		r = lseek(fd, OFF, SEEK_CUR);
+    		if (r == OFF)
+    			continue;
+    		if (r == -1 && errno == EINTR)
+    			eintr++;
+    		else if (r == 2 * OFF)
+    			moved++;
+    		else
+    			printf("%s: unexpected %#llx\n", name, (long long)r);
+    	}
+    	memset(&it, 0, sizeof(it));
+    	setitimer(ITIMER_REAL, &it, NULL);
+    	printf("%s: %ld signals, %ld calls moved the offset twice, %ld returned EINTR\n",
+    	       name, nsig, moved, eintr);
+    }
+    
+    int main(void)
+    {
+    	int fd = open("/lseek-test", O_RDWR | O_CREAT, 0600);
+    
+    	if (fd < 0) {
+    		perror("open");
+    		return 2;
+    	}
+    	run(fd, SA_RESTART, "SA_RESTART");
+    	run(fd, 0, "no SA_RESTART");
+    	return 0;
+    }
+    
+    Before:
+    SA_RESTART: 283700 signals, 2337 calls moved the offset twice, 0 returned EINTR
+    no SA_RESTART: 246693 signals, 0 calls moved the offset twice, 2695 returned EINTR
+    After:
+    SA_RESTART: 306854 signals, 0 calls moved the offset twice, 0 returned EINTR
+    no SA_RESTART: 278090 signals, 0 calls moved the offset twice, 0 returned EINTR
+
+ arch/riscv/kernel/signal.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/arch/riscv/kernel/signal.c b/arch/riscv/kernel/signal.c
+index 59784dc117e4..b1e92b969d96 100644
+--- a/arch/riscv/kernel/signal.c
++++ b/arch/riscv/kernel/signal.c
+@@ -499,7 +499,7 @@ static void handle_signal(struct ksignal *ksig, struct pt_regs *regs)
+ void arch_do_signal_or_restart(struct pt_regs *regs)
+ {
+ 	unsigned long continue_addr = 0, restart_addr = 0;
+-	int retval = 0;
++	long retval = 0;
+ 	struct ksignal ksig;
+ 	bool syscall = (regs->cause == EXC_SYSCALL);
+ 
+@@ -508,6 +508,8 @@ void arch_do_signal_or_restart(struct pt_regs *regs)
+ 		continue_addr = regs->epc;
+ 		restart_addr = continue_addr - 4;
+ 		retval = regs->a0;
++		if (is_compat_task())
++			retval = (int)retval;
+ 
+ 		/* Avoid additional syscall restarting via ret_from_exception */
+ 		regs->cause = -1UL;
+
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+-- 
+2.53.0
 
