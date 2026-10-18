@@ -1,114 +1,115 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5801741836C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:29:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4E73F9278;
+	Sun, 18 Oct 2026 20:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792355396; cv=none; b=WCzX1lD76JrjKR0RYeC2j9126nwn7kDKm1X5V18KYoJIYmHkS28J4BfddDiHLg1f6Z3eX2QSJOdlxYuH5oSPpOcNMsEeCtdnS8k5kDl8p7X0klkMrkt1PNvqZCxXhiEq+x13H4pSo6HZ4cdYFIYaJwV3YmDGywZQlAF3hzL6XFc=
+	t=1792355414; cv=none; b=QfNStcR3idevKp2jCCcPSY88g/xqvcIpEDcrj7DeSis7jYxd/lU40/5eLwvj974doqU0UNrmNylO6iLkMlK7drdiMMdXNYfO/R7kfA6HUyqOTz+w6ARdajZ+8B87hvmb190sUTU12m5byQWJB8arG5dRNF2CjPDoH8mGSkQbpTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792355396; c=relaxed/simple;
-	bh=EB6QqlSVWarMeye1kh1q65olBZUJiWm7l+J2a8MO2n8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lXqP8TZtRpePaboP8MqHkzOX46hjlPQQzxYtvclusAn7evTay8f5s6CQ7F3/TBTnlYXVJJn58zF9z8bJJCROemarc1insZCFOrFJeWnV8VD0fy2GK6wsZHrYMKr1Lv7enVjW0cDrRO6hOfI7H+ZdEY8Xi0OPnFby1Jj2Fgw3ZAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PFop07ua; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792355414; c=relaxed/simple;
+	bh=Kar2dXHe/21OigJEsMWTdCtgR97bg2VR1iw+z+1S2Tc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iDI6JLONPW/qtpcSrCeh2shDUF+F14/h+74dqq88pyTDgtaaZ6twXkHSr8p0MUZLsMtisj4lQyAWroUoSC6w/pKUSrjLlAQ58IR3HhgQJ2d/RtzFUs5EdbqqjNlwiqt3yxH3TkA1bQzEeOAwIiGiyIzeHTi2EC5Lu/moLNLZLQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hhgc0Cth; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PFop07ua"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c40e9aff12fso35067766b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:29:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792355392; x=1792960192; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m/Qhp9t+1Fd28Odv/3FTJ8y5S/UZdDB+q77+/opU0Qo=;
-        b=PFop07uacbGVqlspG0KAJIjSODBGe+X9OeJ5ko8P5mEpZPvkmoMUPpz3YD2ekD+wbL
-         tHrQt83vsohMEShXYFTQsLZowsiBp1SpYwzXmvilWm/7MsvFs4FX0h3cryFmv0v/hxE0
-         eUuYn8BKwuNCt5zx2RBUw6TC5vfmcA10CUssOzB5wMcaFrRg/MG/PKTSDQkttL3ssYov
-         nZzlJrIkRHxa6y4i8oA8oLKzi7N6nY3Crvi5xAPplQc9RIxlcVz4ACJpklQA5U/XC19s
-         UXksNujOrJ5fDpxtrVfORcsSXoVQN5YlooWVPQgv+3FIUxjGS6P2nTIKcgp99xfMIM4+
-         4pGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792355392; x=1792960192;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m/Qhp9t+1Fd28Odv/3FTJ8y5S/UZdDB+q77+/opU0Qo=;
-        b=zFBnkzxw87OMzGmTz1Qjy7N9/vhrE7TrA60YC4KmDCPkXUO17OI9kj0BXaK3RLzBhc
-         NoP/dKQ4e8UndSJRsoStprXghOmL1aRfUhCFm1LCgoI+ILBus1mH/poZUQZDBNJ10DyJ
-         9I3E/vgK0Pq8KOZoYU7h0LSR2iQlzd+g5WOkUvsefHqjHcn96LfkCtXQopny2TCkVTGv
-         fmO2OYR/8wSNMmsaOdy/jPLuvBcRtfCxy7w36wkuUT/J1hMSXBmmBOXJQJZHCDbAKO+0
-         Ti9nWD13UZM+hvzpRYxsTKwofQwJ904Q7urqWlBtXjeJtMFcK1kLR+HzRPiK7Q1QzUc0
-         H9gQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtzm3WOpo6BTqaThAmOQ+x5usZoPnIQLC5qguMKkxxmQpI1mv9JwaHVKRZ2K8MrXOFzozQuUzbXGI0Em8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKJfoGzWFpzKxO5vnbUks28WKe21Lug3pSYxWPQtooLGiFoR0c
-	ll5GMqcqk8A8F1efqayLDx8Y7LUWUgf/ev9EjBsIO/QZKii+53h4vlrV0x/2ys7f
-X-Gm-Gg: AYBFou1evHGS9wizROPny2hfHbbyN9f/iYCa6jzPwB/9KnVMUsAZXg9KdBrRZ1YRxlc
-	XK4VWIIicw+8TfqMVYrqQspl4rJD5m4rl26uzSwlXHOrxALETXkQ85asHft8Ah/E1erwOunv0PJ
-	w8RMGiY6T3/0Qzx40MVurzaKQOMoJ910oYB1Qo0tfIMI7PHLcygZoXg0S90+Q5k0Z01fSpaGOt4
-	Co3ZfnL0xUBx5CLXSTyv47l9R1k+yevY2WxvrL2dx5jhEjq2veIKCnPhiLtCaOkaHanMrIP0XA5
-	m2mCYzV1xkmX3YSQ7Vtwn9mLXcg35dNiUEk5XKh/aRpdb8WnT5WiDEBGgISMHuS3N6y2Yy+LfFY
-	4etn13FxrAAXsIoqrp/NqnUPnBJyppcCH+eFvMRDDf/wVnNtkQDE6pRpxKrvmSC4eQiqwHCjMsT
-	oOeQGT+s+UlZgkGTthTo6eHTIgzHqhjMo19obQPAd7e4MtMBgPgBOw4j2KysJhdpo=
-X-Received: by 2002:a17:907:c008:b0:c3f:dce3:20d5 with SMTP id a640c23a62f3a-c419e53bfe2mr410972366b.22.1792355392456;
-        Sun, 18 Oct 2026 13:29:52 -0700 (PDT)
-Received: from CachyOS ([176.88.124.226])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ce05csm284529566b.33.2026.10.18.13.29.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 13:29:52 -0700 (PDT)
-From: =?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>
-To: linux@roeck-us.net
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>
-Subject: [PATCH] hwmon: (nct6775) Add ASUS PRIME B760M-K
-Date: Sun, 18 Oct 2026 23:29:34 +0300
-Message-ID: <20261018202934.1111462-1-ycistak@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hhgc0Cth"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8F2C1F000C4;
+	Sun, 18 Oct 2026 20:30:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792355412;
+	bh=w734DO+DV/mfXlxo1yQCnhpD5cjX2+mWpAB4n/8mGfY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hhgc0CthZQLtO1LI1YYtgSxYVgK5x+Vbma5NN0vGzJL04gnlZwuCn6ux5A0Hna5G/
+	 8v9egb7zPVGGUGUCWJi+zNuMhFiKqHiFuoxnLuKLSdRLZ5mklqHABi+DeoqxSMwZas
+	 BwGMcPldykiP0wDBul6PNrKYikVDRt4ucTXDO9c5MZIp+PP/jloxLmXR5MMz6Z/xhG
+	 URBqwJ8uDkKH9ToAWcBsIairjE/UmMF6JogatUi1DWOAVw6RDSEHWqsxAwQ0nJKWUy
+	 ctFDlgUVD69sGMSTU2rPdiw4PAzfsXuArv8kaBtyOlP1e/23tBHzg6qgm/OWgrUjzr
+	 rZ7DE2E73/ySw==
+Date: Mon, 19 Oct 2026 07:29:53 +1100
+From: Dave Chinner <dgc@kernel.org>
+To: Igor Putko <igorpetindev@gmail.com>
+Cc: Carlos Maiolino <cem@kernel.org>, Dave Chinner <dchinner@redhat.com>,
+	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+c32fff62cf4913d345d0c@syzkaller.appspotmail.com,
+	Jeffin Philip <jeffinphilip14@gmail.com>
+Subject: Re: [PATCH] xfs: do not release buf log item prematurely in
+ xfs_buf_item_done
+Message-ID: <atUsQVuCKnAIZc3X@dread>
+References: <20261018170913.3104-1-igorpetindev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018170913.3104-1-igorpetindev@gmail.com>
 
-The ASUS PRIME B760M-K (DDR5 variant) is missing from asus_msi_boards[],
-while its DDR4 sibling, the PRIME B760M-K D4, is already listed. Without
-the entry, the driver does not use the AsusMbSwInterface ACPI method to
-access the Super I/O chip, and no fan, voltage or board temperature
-sensors are available on this board.
+On Sun, Oct 18, 2026 at 08:09:13PM +0300, Igor Putko wrote:
+> When a buffer with an active log item is written synchronously to disk
+> via xfs_bwrite() (for example, in xfs_sync_sb_buf() during
+> FS_IOC_SETFSLABEL), I/O completion invokes xfs_buf_item_done().
+> 
+> Currently, xfs_buf_item_done() unconditionally calls
+> xfs_buf_item_relse(), which frees the xfs_buf_log_item even if it still
+> has active references (e.g. bli_refcount > 0 while the item is pinned in
+> a CIL context and queued on cilpcp->log_items). When xlog_cil_push_work()
+> subsequently runs on another CPU, xlog_cil_push_pcp_aggregate() accesses
+> the freed log item while splicing cilpcp->log_items, triggering a
+> slab-use-after-free:
+> 
+>   BUG: KASAN: slab-use-after-free in xlog_cil_push_pcp_aggregate
+>   Write of size 8 at addr ffff888036db9c40 by task kworker/u8:7/300
+>   Call Trace:
+>    <TASK>
+>    __list_splice include/linux/list.h:577 [inline]
+>    list_splice_init include/linux/list.h:619 [inline]
+>    xlog_cil_push_pcp_aggregate fs/xfs/xfs_log_cil.c:137 [inline]
+>    xlog_cil_push_work+0x986/0x2a90 fs/xfs/xfs_log_cil.c:1417
+> 
+> Fix this by checking if the buf log item still has active references
+> in xfs_buf_item_done(). If bli_refcount is elevated, the item is still
+> owned by an ongoing transaction or the CIL and must not be torn down.
+> 
+> Fixes: d2fe5c4c8d25 ("xfs: rearrange code in xfs_buf_item.c")
+> Reported-by: syzbot+c32fff62cf4913d345d0c@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=c32ff62cf4913d345d0c
+> Signed-off-by: Igor Putko <igorpetindev@gmail.com>
+> ---
+>  fs/xfs/xfs_buf_item.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/xfs/xfs_buf_item.c b/fs/xfs/xfs_buf_item.c
+> index 1a4ef34af8d5..6b32061bac53 100644
+> --- a/fs/xfs/xfs_buf_item.c
+> +++ b/fs/xfs/xfs_buf_item.c
+> @@ -1067,6 +1067,14 @@ xfs_buf_item_done(
+>  	struct xfs_buf		*bp)
+>  {
+>  	struct xfs_buf_log_item	*bip = bp->b_log_item;
+> +	struct xfs_log_item	*lip = &bip->bli_item;
+> +
+> +	/*
+> +	 * If the log item still has active references (e.g. pinned by the CIL
+> +	 * or held by an ongoing transaction), we cannot tear it down here.
+> +	 */
+> +	if (atomic_read(&bip->bli_refcount) > 0)
+> +		return;
 
-With the board added, the chip is detected:
+As I have said several times before: this does not fix the UAF.
+Please review the mailing list for similar issues and discussion
+before posting fixes.
 
-  nct6775: Found NCT6798D or compatible chip at 0x2e:0x290
+I've already outlined the root cause and overall fix direction here:
 
-and fan speeds, voltages and the SYSTIN, CPUTIN and AUXTIN temperatures
-are reported (BIOS version 1838).
+https://lore.kernel.org/all/aqI6v-_dc2DDSbgB@dread/
 
-The missing entry was found with the help of an LLM, and the change was
-tested on the board above.
+Jeffin (cc'd) had started working on this, but I don't know how far
+he has got with it.
 
-Assisted-by: LLM
-Signed-off-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
----
- drivers/hwmon/nct6775-platform.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/hwmon/nct6775-platform.c b/drivers/hwmon/nct6775-platform.c
-index d359c28f3e0..6af0cd54b9d 100644
---- a/drivers/hwmon/nct6775-platform.c
-+++ b/drivers/hwmon/nct6775-platform.c
-@@ -1330,6 +1330,7 @@ static const char * const asus_msi_boards[] = {
- 	"PRIME B760M-A WIFI",
- 	"PRIME B760M-A WIFI D4",
- 	"PRIME B760M-AJ D4",
-+	"PRIME B760M-K",
- 	"PRIME B760M-K D4",
- 	"PRIME H510M-A",
- 	"PRIME H510M-A WIFI",
+-Dave.
 -- 
-2.56.0
-
+Dave Chinner
+dgc@kernel.org
