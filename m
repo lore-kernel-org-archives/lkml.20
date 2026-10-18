@@ -1,195 +1,234 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3973B38BD
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792318738; cv=none; b=t889GWtkUAOmZM6LT/JaN/70LK3UWfjtDHy+QFcq1ByosvRgjAhse8li6AWwQIvpt1Y6P+h5/DBwK4FJJGlFQkV6inhEeOPcFbLIMugI02QXsgTXxTOH5wtmpOvQyqLUdQdxcUA9qx5rV7bow7L/fWv5hSeMxOGX8xnC5IWUwDw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792318738; c=relaxed/simple;
-	bh=BTkEujrtoKKaX+uvUffHfwFOsZT0LAV0Uau20Y5fzNw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VctXUYPRcS9DTMgK0mKtyo5HAEdHcw27CFRL0ncEepTn3yeHLMZxuO48HrqfLYd6fFf1qVwb/k5r5170ccPtjqYK8Aoq45/c60YDclBcljoVwWze48PGo6MyN78MwiDtv6Evs5QtoouV+IiwnOZ+t4dhH/93jRZ7GzFHTLRVpxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=IF6CDCTK; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1172D0C8F;
+	Sun, 18 Oct 2026 10:19:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792318791; cv=pass; b=p6sEwDLGYh15TvX2ixZ0P8Zj9uT2w8PT9oE4dF4+0PIIDXrj8/7N9PMKhBWdKW18+IMkDmXPycsuVsdZl3MCWR5qTs1lySksJv0bhrXbP9C08ePlKVhW4Rp3VhRbRhQtZGEZyEYdLCHUfxxvilDSL1hLA2N80smxvDQef7+rWjs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792318791; c=relaxed/simple;
+	bh=v+ywTi8+59OlpvWWnXjhz0LVaofyKglkoov1piRqIpQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mdk7f+eNoRnMWWUq1T4ZPKaKu4ZSAfeGrGhriGrdtCpkKSpbE2YBxa1aH8swfbs+lVq/R73A3uI3Kj56NzS2djirge4ooqCBs/tMWui4J/RnNuGkHuTkNwbsWB+vRtQJboASKl/7/7vqcfYV9l4qpiMpVc6qSmiWmIhBYyHQTtI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=GTbCTdVY; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="IF6CDCTK"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b001cd92bso596544f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:18:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792318728; x=1792923528; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xsXHC8OVQ58Ws2YIlszVdC880xyahIkcilQ/PKtCso0=;
-        b=IF6CDCTKGhRjj/CrNmpDZRnz85siKZu2xtXrqfyGakoONEmbaaWzwfFBIuiYt0IAn3
-         B6hiZULnBOBlGRT/fJO1DNFd3Cneu2OX81qENldPYZRFAlTfw/8BdEV2IZEzDbeYbxAB
-         0oLUQC+TDRz/2e2jFpBXuO1xPcGAP+mIT8egVb2sTPaJJ/cxWy3+y9IDOKwWZYEZm632
-         FJ2gTtQZNKEGih/8WaP3E2jQc2eqL2PU2X+n1V2tFQW9DL5x1OK6BmNh5M8AnB1Z1+TO
-         vwWN+YGuoIeckwVBc7hPVGwTqK82KzC1YDZpvUZNb2jXLGSP7E0kwG8KV+5oS08EBDtc
-         ZJtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792318728; x=1792923528;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xsXHC8OVQ58Ws2YIlszVdC880xyahIkcilQ/PKtCso0=;
-        b=jux5Xb8MOaYLQYIv7LVGmCcUh4EUVTkDlOq+kAmOQAEN3dVU0d2/0E8xFwRdl+QyAp
-         5BCuEjWfD3zm/iAWxkYJKH8e58LUAJc2C4ISt0S4oUxRXkIbJbY9j2mrOKZKDVjfxv8v
-         a/nfAK0ZokqV+BFvZl58sFKk8xVT8m45VQYylQeghoI4c4aW6KMOfydNSWdMVplnmbQR
-         FmHfIAqHuF/j4N3ni0tUesAlPm12CjHtHnQx3fnt1ezO6ua4rrqUFpCP+wP3lOysrPJI
-         mP+CKgaXoXYrxpgBMtvLiMmBYTmCYdxF66Xb2J0rviPtLT3zCoiyFVDYZ8Xjiv9wdHn0
-         5/GA==
-X-Forwarded-Encrypted: i=1; AKwUvBxqhT590FfU1I0MhMmAbkg03vF5mFTTb+QQXSiAvm1n4+UbT2bhO6m6PAkl+hD+7fhaOVftjP5mN3Q/5+g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImTFS6x0ooOdwvKGqZvjmUL55+G6etIDAth0gRGMUypA/+kVPC
-	lzaJ6Eyn6Pjz9sPpWoBXnmH2g8aqCfsOdEfcpQboxYlIj4X57nx5zcb3DNEYIdcuKaM=
-X-Gm-Gg: AYBFou3+bICMwN5rZlJSFnqaEvWDwMgLjzLQ0DbW18fDPmkeH8lDw2Lt96802VWE9Is
-	Shfb8vWI/y7de9FBBdqz+1vIkhOUmCbCbJbaVFuDXzp75ZLEOy/zjAeWKpPJnXDwLXc6+ofm5dT
-	R22eONuDccQoD9yJMtTqgrAAqU26uabg+r/+G4GxXdxtTjNS/s2line/5nAVwORV23jNfDXSs7J
-	plGYy3PZn8MVL3zQJ0FP53LkKMweI0Y41eEwZXF9hV3rYp/Vo5t5LgirM1BeE2cmPcGD59lfbFZ
-	m0AP0h7qcrOfyemCWqBbWXD11eWWgko6c+e1RAtfKjPx5M7cXElvekBRfvT06MuE/NhBu5jzqGU
-	KReS3Gsfu1n9IE5fMnSmGDr/PZuPmcRzeVvpWiEIl8Txhw9JYxUyYqzMP+k2uTQPVVmDSdN9xP0
-	4sm/Vwv9zX7wqcMDW8bbOqqTFbyIF7V2INdxGAvcsIuQ+AxpAv2taUpWv1x5SfDodr2lJn
-X-Received: by 2002:a05:6000:1ac9:b0:48a:f1fb:e165 with SMTP id ffacd0b85a97d-48e07f98f93mr8926555f8f.21.1792318727874;
-        Sun, 18 Oct 2026 03:18:47 -0700 (PDT)
-Received: from [127.0.1.1] ([37.103.126.255])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4d4978sm14911507f8f.21.2026.10.18.03.18.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 03:18:47 -0700 (PDT)
-From: Valerio Setti <vsetti@baylibre.com>
-Date: Sun, 18 Oct 2026 12:18:04 +0200
-Subject: [PATCH v5 7/7] arm64: dts: amlogic: gx: add AUDIN node
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="GTbCTdVY"
+ARC-Seal: i=1; a=rsa-sha256; t=1792318787; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=a3QNF5ESUz5G5dt97L+lutm7ANzfOM8XT35f6WaTzWeEKAk3c1GW3vtgj25W7imOBnK3HAlIf3weLO57Cdh+/mMpFrTLupA6BKCywQ1MLKX7dHNRJNPFlCZJOrRk12lTfaBRiQY9pkwu5Ai5U3yMtiMBzbAZst/4NEUGdJRnHDs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792318787; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=VBJvKmB+ztjPP6MHZCt4WWZ0Vw3J6gEDSdIBKXDhVac=; 
+	b=Zlb/rtOmFyiipyxIXDZ3MDuEuwS68Fr4E5/S/8Z+aUvwiLiASW8zFw48PYijGwuxbGz7cVR/NOXbKXbrvO6sJU//JanVbE1YPfdvaHBkWHQrsUWq76bFiOV5kGNPtC9g4vB8MCfTNgGfiYQ8/lZnRMnCUgtBkNlrmPbJ9wSHFfI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792318787;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=VBJvKmB+ztjPP6MHZCt4WWZ0Vw3J6gEDSdIBKXDhVac=;
+	b=GTbCTdVY3RhkJBuEdnK0VjahQRdQ7tCUEMGNW/9Wznrj60dSgu6Zy5tlqeoBuGoe
+	HaYCFB7VvW4Sz0/y/FBFqadp72WRRUzbo9KyWUWVrbvQ7F76ZEMZ/Y3hILkF9jhAQBN
+	t4fU91dpc+BVda3hzrWrf383QqT1JggElWdkT57M=
+Received: by smtp.zohomail.com with SMTPS id 1792318784821792.2592897543716;
+	Sun, 18 Oct 2026 03:19:44 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 704431800D8; Sun, 18 Oct 2026 12:19:41 +0200 (CEST)
+Date: Sun, 18 Oct 2026 12:19:41 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH v2] power: supply: act8945a: Disable status work on
+ removal
+Message-ID: <atSacKtZ3e4YtVBy@venus>
+References: <20261018020357.3845586-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-audin-v5-7-4b8cc13a1b22@baylibre.com>
-References: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com>
-In-Reply-To: <20261018-audin-v5-0-4b8cc13a1b22@baylibre.com>
-To: Jerome Brunet <jbrunet@baylibre.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3059; i=vsetti@baylibre.com;
- h=from:subject:message-id; bh=BTkEujrtoKKaX+uvUffHfwFOsZT0LAV0Uau20Y5fzNw=;
- b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFlX5vxZs/znn10vTz1aVGtx7rD7yobH01tLBeL+LxKb0
- 6M7vXTe6o5SFgYxLgZZMUUWlun3fheUqj00TjhZADOHlQlkCAMXpwBMRPU1w/+ord/1ttfu4qzv
- r311//sN2QCOWYkLT8wy6a1qU/m1zn0yI8O36bNiixwvHVhRL5ybXfGIl2HrQicZw0uCrMsfnNG
- 4eIwbAA==
-X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
- fpr=0497DEFB707526E13360C970DE4B936DD13A0100
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vdbkogyuqrd7jrg7"
+Content-Disposition: inline
+In-Reply-To: <20261018020357.3845586-1-mhun512@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/292.311.61
+X-ZohoMailClient: External
 
-AUDIN provides audio input support to Amlogic GXBB/GXL SoCs.
 
-What's missing after this to get capture support working is to connect a
-capture capable codec to the SoC. For example to test these changes an
-NXP SGTL5000 chip has been connected to an OdroidC2 (GXBB) board using a
-custom hat board.
+--vdbkogyuqrd7jrg7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2] power: supply: act8945a: Disable status work on
+ removal
+MIME-Version: 1.0
 
-The following additions/overlay are required on top of
-'amlogic/meson-gxbb-odroidc2.dts' to make that hat board to work:
+Hi,
 
-    &sound {
-            audio-routing = "AUDIN I2S Formatter", "AIU I2S Encoder Capture";
+On Sat, Oct 17, 2026 at 10:03:57PM -0400, Myeonghun Pak wrote:
+> Clearing init_done does not synchronize with either status interrupt. A
+> handler can observe init_done set, be delayed, and schedule the status
+> work after cancel_work_sync() has returned. The work can then access the
+> power supply after its managed cleanup.
+>=20
+> Use disable_work_sync() to reject subsequent queueing and drain any
+> existing execution. The charger allocation remains valid until both
+> managed IRQs have been released, so a late handler can safely attempt to
+> queue the disabled work.
+>=20
+> Replace init_done with the work item's disable state. Initialize and
+> disable the work before act8945a_charger_config(), which registers the
+> LBO interrupt, and enable it only after probe initialization succeeds.
+> This keeps both status IRQs from queueing work before the power supply
+> is ready, including on probe failure.
+>=20
+> This issue was identified as part of our ongoing research while
+> reviewing kernel code.
+>=20
+> Fixes: a09209acd6a8 ("power: supply: act8945a_charger: Add status change =
+update support")
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
 
-            dai-link-1 {
-                    codec-1 {
-                            sound-dai = <&sgtl5000>;
-                    };
-            };
+Having a closer look at how the work is being used: Instead of doing
+all this complex stuff this should just use a threaded interrupt and
+completley get rid of the worker. I.e.:
 
-            dai-link-3 {
-                    sound-dai = <&audin 0>;
-            };
-    };
+1. get rid of init_done (done in your version)
+2. switch from devm_request_irq to devm_request_threaded_irq
+3. move the act8945a_lbo_detect IRQ request after power-supply
+   registration to avoid problems with spurious interrupts
+4. move act8945a_set_supply_type + power_supply_changed calls from
+   act8945a_work into act8945a_status_changed
+5. completley remove charger->work
+6. drop empty act8945a_charger_remove()
 
-    &audin {
-            status = "okay";
-    };
+It results in less and simpler code.
 
-Then, from userspace:
+Greetings,
 
-    $ amixer sset 'AUDIN FIFO0 SRC SEL' 'I2S'
-    $ arecord -l  # find the "FIFO Capture" device
-    $ arecord -D hw:0,<N> -f S16_LE -r 48000 -c 2 /tmp/in.wav
+-- Sebastian
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
-Signed-off-by: Valerio Setti <vsetti@baylibre.com>
----
- arch/arm64/boot/dts/amlogic/meson-gx.dtsi   | 9 +++++++++
- arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi | 5 +++++
- arch/arm64/boot/dts/amlogic/meson-gxl.dtsi  | 6 ++++++
- 3 files changed, 20 insertions(+)
+> Changes in v2:
+> - Remove init_done and all accesses to it, as requested by Sebastian
+>   Reichel.
+> - Initialize the work before either IRQ is requested and keep it disabled
+>   until probe initialization succeeds, preserving the probe-time gate.
+>=20
+> Compile-tested with GCC 15, W=3D1 (x86_64), with OF, OF_IRQ and
+> GPIOLIB enabled. No runtime testing.
+>=20
+> v1: https://lore.kernel.org/r/179211805459.3650807.8742309660995961596.G1=
+71@gmail.com/
+> Review: https://lore.kernel.org/r/atPtc_jKLo8RhAMU@venus/
+>=20
+>  drivers/power/supply/act8945a_charger.c | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/power/supply/act8945a_charger.c b/drivers/power/supp=
+ly/act8945a_charger.c
+> index 7e4b087..7d47052 100644
+> --- a/drivers/power/supply/act8945a_charger.c
+> +++ b/drivers/power/supply/act8945a_charger.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/power_supply.h>
+>  #include <linux/regmap.h>
+>  #include <linux/gpio/consumer.h>
+> +#include <linux/workqueue.h>
+> =20
+>  static const char *act8945a_charger_model =3D "ACT8945A";
+>  static const char *act8945a_charger_manufacturer =3D "Active-semi";
+> @@ -78,7 +79,6 @@ struct act8945a_charger {
+>  	struct regmap *regmap;
+>  	struct work_struct work;
+> =20
+> -	bool init_done;
+>  	struct gpio_desc *lbo_gpio;
+>  	struct gpio_desc *chglev_gpio;
+>  };
+> @@ -444,8 +444,7 @@ static irqreturn_t act8945a_status_changed(int irq, v=
+oid *dev_id)
+>  {
+>  	struct act8945a_charger *charger =3D dev_id;
+> =20
+> -	if (charger->init_done)
+> -		schedule_work(&charger->work);
+> +	schedule_work(&charger->work);
+> =20
+>  	return IRQ_HANDLED;
+>  }
+> @@ -587,6 +586,10 @@ static int act8945a_charger_probe(struct platform_de=
+vice *pdev)
+>  		return -EINVAL;
+>  	}
+> =20
+> +	/* Keep status IRQs from queueing work until probe has completed. */
+> +	INIT_WORK(&charger->work, act8945a_work);
+> +	disable_work(&charger->work);
+> +
+>  	ret =3D act8945a_charger_config(&pdev->dev, charger);
+>  	if (ret)
+>  		return ret;
+> @@ -625,13 +628,11 @@ static int act8945a_charger_probe(struct platform_d=
+evice *pdev)
+> =20
+>  	platform_set_drvdata(pdev, charger);
+> =20
+> -	INIT_WORK(&charger->work, act8945a_work);
+> -
+>  	ret =3D act8945a_enable_interrupt(charger);
+>  	if (ret)
+>  		return -EIO;
+> =20
+> -	charger->init_done =3D true;
+> +	enable_work(&charger->work);
+> =20
+>  	return 0;
+>  }
+> @@ -640,8 +641,7 @@ static void act8945a_charger_remove(struct platform_d=
+evice *pdev)
+>  {
+>  	struct act8945a_charger *charger =3D platform_get_drvdata(pdev);
+> =20
+> -	charger->init_done =3D false;
+> -	cancel_work_sync(&charger->work);
+> +	disable_work_sync(&charger->work);
+>  }
+> =20
+>  static struct platform_driver act8945a_charger_driver =3D {
+>=20
+> base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+> --=20
+> 2.53.0
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gx.dtsi b/arch/arm64/boot/dts/amlogic/meson-gx.dtsi
-index c1d8e81d95cb..2b92a99ab2cb 100644
---- a/arch/arm64/boot/dts/amlogic/meson-gx.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-gx.dtsi
-@@ -436,6 +436,15 @@ watchdog@98d0 {
- 				reg = <0x0 0x098d0 0x0 0x10>;
- 				clocks = <&xtal>;
- 			};
-+
-+			audin: audio-controller@a000 {
-+				compatible = "amlogic,gxbb-audin";
-+				reg = <0x0 0xa000 0x0 0x148>;
-+				interrupts = <GIC_SPI 7 IRQ_TYPE_EDGE_RISING>;
-+				sound-name-prefix = "AUDIN";
-+				#sound-dai-cells = <1>;
-+				status = "disabled";
-+			};
- 		};
- 
- 		gic: interrupt-controller@c4301000 {
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi b/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
-index a9c830a570cc..8f3c7ca06a3c 100644
---- a/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
-@@ -84,6 +84,11 @@ &aiu {
- 	resets = <&reset RESET_AIU>;
- };
- 
-+&audin {
-+	clocks = <&clkc CLKID_I2S_SPDIF>;
-+	resets = <&reset RESET_AUDIN>;
-+};
-+
- &aobus {
- 	pinctrl_aobus: pinctrl@14 {
- 		compatible = "amlogic,meson-gxbb-aobus-pinctrl";
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi b/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
-index d5e0f72892f8..de213c0b63a3 100644
---- a/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
-@@ -100,6 +100,12 @@ &aiu {
- 	resets = <&reset RESET_AIU>;
- };
- 
-+&audin {
-+	compatible = "amlogic,gxl-audin", "amlogic,gxbb-audin";
-+	clocks = <&clkc CLKID_I2S_SPDIF>;
-+	resets = <&reset RESET_AUDIN>;
-+};
-+
- &apb {
- 	usb2_phy0: phy@78000 {
- 		compatible = "amlogic,meson-gxl-usb2-phy";
+--vdbkogyuqrd7jrg7
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-2.47.3
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrUnTUACgkQ2O7X88g7
++ppUSQ/7BeXj7VAfv76OqCz/1Relb5Y+CP1hcM4UWXsnofxLFj4u84EXca2bZriu
+CloxTDvUib1Pm5IWFRgQXTpL5SHY9ruvMepmDUex2dTGwoM+c2ChaedZB8OyfA/d
+8zinglt6kniRgUJlRHUwnYuVpJQSS0E13q0HYCYHcOdLQxZsfkjoi16NeEUv74ZH
+GU2dmJ6Z1I43hwUWFtR7Xz0yHn9QDogCT3zGfQ4oRAgvUogoJx8/FKwrOx1inPYi
+ksSbqGR9wh3iI8u3h4ijdqY/NvdzfQkOkAswKez5cU19ikvIejgGbzialrUcUtxM
+yNIoxJkf0boTDaBVhGAwS/JdOelz/VjiBjhZRa4goHEGdllQ7TeJ1vpjq1D08l4P
+/QDzDYJ2U3MFQ3+NJlJ7RUdDGgrf++QKJwtMNdI6xIOEytXlPCVDcFljbXyGsshM
+ec4rg9akJJdg45PUH+3frqIkPacZRFul4wud4uLylwIrU9WL9bPikOAIdtG8svQo
+TbnHJ5ZkqYDTS40tsyuW53Czyx67Kg7khiIE5LXH/R7XLW9uPF+67UDTaHJMVCva
+HjCxhKl24qzDLXyDGdLxb0wlfpTGsqpv7YLGFbWQjaoSuuuBA0yINPXXPK4V4YIv
+HJ7azxMkwdzAfN79U/iZlLZZEjQzT+GJTOtcLxSsX+g+kNBcWCo=
+=xjGk
+-----END PGP SIGNATURE-----
+
+--vdbkogyuqrd7jrg7--
