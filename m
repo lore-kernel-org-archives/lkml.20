@@ -1,149 +1,228 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820813DB320
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:27:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17AFB3DAADB;
+	Sun, 18 Oct 2026 23:29:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792366055; cv=none; b=aa+qzeGL6vc7mPcdPaJ2j+AsgNnKTEyTGH6riDUD/I/TKvZFTl6k1yieYUpsHYABNb+cr09IHaR+FZRD6Y0Y4rSUNl4Sl+KM8qCEOnbFU3KJB/JbwEckxc0JYSwVhnxKTTwfogcLLxhYbfNV4gb/CNn4ZSXOfaOXVzptVVf3sq0=
+	t=1792366202; cv=none; b=Ge+B7PTzUbRPQFNNIc6jJ1gFkmNhESYpCHro9v8z+99kuegreEQ7RrqZ1Xo0M11MXzQji2JAg/MbY6jdM2nAJP118ZubGDvARiXBBipHjJKIyINJcaijwuKHcy7BKLvfl5ntRXQvoBeG2k7fTo+mDTtzGAQbdVVXmhMa9hLt4VQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792366055; c=relaxed/simple;
-	bh=QhtqZ8JvQkNYctbC8ezaeTjXmAvSIP2MXRV9jfw2V/c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GA+LksIVO0zfGR7/E1TU0MFs2L9CN75CQu7oHcPNqWQGyOJxPj/Fn428MH7ipcZ6TZxQgbYA/HG6RRSIgfD9eUiif/3jSHkiPNHynvAKnjBIJZMyLtIg90KML6rk1dYbNeSYVyeBbsdiF1/IXgs3IMRp93lxVM7zawQDCKbAAEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hv18tJBL; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792366202; c=relaxed/simple;
+	bh=sAvbJTRu8ZSxB5bP58kEDYXqHsPZPLiCqrS9+gn/c4s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yk55hPwEehGayV0h8h5NRJpGzcXfuBptXUnl/xzGTqYXHj8hoaUbTRBPFxbCJd62nBn+tqrWIZuQNqfkJ3mYkwhtDED99xRADCX97mA5BKY/5/UIbiMDTTJNMKgVRE9CovHyZAcNRW54aZs1012glnZq99GUyH2fkR93fPbUTTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=XMIr6sOp; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hv18tJBL"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35943f55c06so2262250eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:27:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792366054; x=1792970854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QWI86/f7dXA4qQFC/2INoo9kMVa4RadmnPFerxfI+FA=;
-        b=Hv18tJBLQO3Qp93x/LuYf6SydUKBxNuNba/pcuy31gxGzBY2YtnrbNigY1nig3636J
-         dL72i1ftSqvDUIvS8U/GBfIsKvocSvyeVxTpdu778ym5uxBYY+ec+Qt3whtn/3Zl3XBv
-         GUQax2CKBXhwAxnEbKHtNihbMcGk/leileTC1rwQhq42IUnuX9mgFQPB6KfMuJeQbIh5
-         nwj4CNtQHW0E/GSPFV0ZWxUGB4M/4dlUhE61PR/r2u36ZUoOao73IFvQE+CNd1Lr2NR4
-         XaJeBntiMR2PVDIH6OXV0Y49LhS9z8LbRLYUAVoG8GaTaKc8QTdMSsB9m29CZ/uV1VaZ
-         uleQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792366054; x=1792970854;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QWI86/f7dXA4qQFC/2INoo9kMVa4RadmnPFerxfI+FA=;
-        b=cFDvbcpzzOrKQDLMbhLRJoop3UdaeKZokkSty6aeypV19VmPUXYV1vfH8uKJn+9Urg
-         PaDqeoSb4q69aBaXwF0AaytJmqA9nYdAuUoHEwnYrvB/b5gFeTuEEULLfVJkYamE9eH3
-         hRUYgm/egsYdsvaCiMw2E4L6WAuKb8qiAmHwyIddqOshgJRay0yYuo8saqu2gLlmkA31
-         4GqPXENgl3C6F8VK1Shd2rE5tcz1Rew3P9Nr+Qo9OehcxEbMgNq2HqDin5B67YZkwm8b
-         CQmeQoK0/NvVLlj5t5Yp+S2GLX3z1O3mzLq95xK4o7wQ1JI/W99CPQshrd9Ae4bW1qis
-         KwtA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIZmXpiySJlHXhPGPvqp+v+Sj12WYkYAS1+0Zs9UmDVcC0o+xGmv+RSEwql8GxWp5McUp2XpMdENtWFzU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLDoLaTs7FuOSCqS9CdHvDQF5hqKpcd3AXGd7DSPJlJERZHyVj
-	JWtMAAfxhUj1QslunmnUpkXVG2TJxuTj8N7LWbYMLqBtuqltMWrFTgzA
-X-Gm-Gg: AYBFou3cF2y6rNlO/JJ3IkkFbjZo3q2VYZczIDCRmMkTfD9yKEfzALif1M24BJRRFcm
-	mzYmRXP1w3ESujL/N98ZA5v/hU6iBk4sMDorvtLFOyo7DVjuYENHdV1ugDQxrCGvCZno932BGG0
-	wGiVE7nbB4r9pwdttXTRJRXMlbMrVDD4DlcjNUW+RFWDedq19Nb2EE8+zJvCeAPYbqFsVt8wB//
-	W0LKOBUTulYs2pxHn27jWG3nnbyFVnCaX+bpr2xRMX9puezaxxxFzGyp/tTrX5dUuxzB409wm7w
-	PZOBNB0C1r3qHLvkZiKBU/Jyty6qBERFlQHLn/y5fXQUkBs2bMVnWzGfbDmI4e/xzfOtxpFiuPP
-	OEPL9z/d9zBkdVAgr9gY7+Al6b2ngKSNXmZB+EU3ZTPyZFfxym+9uedkfbMdtm6zct3kl5W1uSt
-	1m8zg7nMur4EDRpd76dfIuj/Kjb1zIur1iR8O8L2Yh9Dk2nFMmPPbYdElq6nROm62LZGAHvOvcP
-	y1BZhF3cBhcqqEeQlQpirVlw1GVu+vbPkCvi46lUoUBHVUTKoIkLw==
-X-Received: by 2002:a05:7301:2503:b0:359:fb64:11d7 with SMTP id 5a478bee46e88-361a2b3bfdbmr7682577eec.11.1792366053498;
-        Sun, 18 Oct 2026 16:27:33 -0700 (PDT)
-Received: from siegeengine2 (c-73-158-156-210.hsd1.ca.comcast.net. [73.158.156.210])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6ca5sm25571908eec.9.2026.10.18.16.27.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 16:27:33 -0700 (PDT)
-From: Mark Pariente <markpariente@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Mark Pariente <markpariente@gmail.com>
-Subject: [PATCH v2 2/2] HID: logitech-dj: Re-announce connected devices on reset-resume
-Date: Sun, 18 Oct 2026 16:26:54 -0700
-Message-ID: <20261018232654.70571-3-markpariente@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261018232654.70571-1-markpariente@gmail.com>
-References: <20261018224627.60328-1-markpariente@gmail.com>
- <20261018232654.70571-1-markpariente@gmail.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="XMIr6sOp"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 7D3D55340428;
+	Mon, 19 Oct 2026 01:29:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792366194;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=cxv9peWI8l26Jzq3BiiH6v311pkQdBeWOmm4lBs4J/Q=;
+	b=XMIr6sOpJebZ8drvpfLngwyVq+yCTExaENQKbETSYI/d+aEldmwEJxaQycNQN5xZQ8Ud7F
+	irj/ZsNYmP6OQUm/56fSwQBx7u5ovKkm3N9Co1up2gJw60lNPWA4OYRofgEOC8PVxkHk2c
+	gPJJJQ89VAiir90eG3Ycf18+r8CsZGo=
+Message-ID: <391498ea-51f1-4390-b84a-d0d738ec409d@ixit.cz>
+Date: Mon, 19 Oct 2026 01:29:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 06/12] usb: typec: qcom: Add gen1 Type-C port support
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Alexey Minnekhanov <alexeymin@minlexx.ru>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Lee Jones <lee@kernel.org>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ phone-devel@vger.kernel.org, mfd@lists.linux.dev
+References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
+ <20260926-typec-v1-6-31adc19f32c6@ixit.cz>
+ <4f089c98-a479-45c9-9b11-0207c895367a@linaro.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <4f089c98-a479-45c9-9b11-0207c895367a@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-If a receiver is reset on resume, for example because a USB KVM switch
-moved it to another host while the system was suspended, its paired
-devices may have reconnected to it while the host was not listening.
-The connection notification the receiver queued for the host is lost
-in the USB reset, so hid-logitech-hidpp never re-runs its connect
-handling for the device.
+On 26/09/2026 16:22, Bryan O'Donoghue wrote:
+> On 26/09/2026 13:40, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Add a port backend for the first generation of the Qualcomm PMIC Type-C
+>> block, found on PM660 and PMI8998.
+>>
+>> On gen1 the Type-C CC logic is part of the charger's USBIN peripheral
+>> (base 0x1300) instead of the standalone Type-C peripheral used by
+>> PM8150B and later PMICs. All Type-C events (CC state change,
+>> tCCDebounce done, VBUS change and error) are signalled through a single
+>> aggregate "type-c-change" interrupt, the handler re-reads TYPEC_STATUS_4
+>> to find out what changed. The PD PHY is register compatible with PM8150B
+>> and is reused as is.
+>>
+>> Differences to the PM8150B backend:
+>>   - get_cc() returns -EBUSY until the hardware reports tCCDebounce done,
+>>     instead of using a software debounce.
+>>   - As a source, only the default and 1.5A Rp can be advertised, 3.0A
+>>     requests are advertised as 1.5A.
+>>   - The PBS workaround of the downstream SMB2 driver (TM_IO_DTEST4_SEL)
+>>     is applied on every power role change.
+>>
+>> VBUS sourcing is optional and only used when the connector provides
+>> a vbus-supply, as the charger doesn't expose a VBUS regulator yet.
+>>
+>> Assisted-by: LLM
+>> Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+>> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   drivers/usb/typec/tcpm/qcom/Makefile               |   1 +
+>>   drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c      |   9 +
+>>   .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.c    | 605 +++++++++++++++++++++
+>>   .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.h    |  15 +
+>>   4 files changed, 630 insertions(+)
+>>
+>> diff --git a/drivers/usb/typec/tcpm/qcom/Makefile b/drivers/usb/typec/tcpm/ 
+>> qcom/Makefile
+>> index cc23042b94878..b8b9350184c19 100644
+>> --- a/drivers/usb/typec/tcpm/qcom/Makefile
+>> +++ b/drivers/usb/typec/tcpm/qcom/Makefile
+>> @@ -1,7 +1,8 @@
+>>   # SPDX-License-Identifier: GPL-2.0
+>>   #
+>>   obj-$(CONFIG_TYPEC_QCOM_PMIC)        += qcom_pmic_tcpm.o
+>>   qcom_pmic_tcpm-y            += qcom_pmic_typec.o \
+>>                          qcom_pmic_typec_port.o \
+>> +                       qcom_pmic_typec_port_gen1.o \
+>>                          qcom_pmic_typec_pdphy.o \
+>>                          qcom_pmic_typec_pdphy_stub.o \
+>> diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c b/drivers/usb/ 
+>> typec/tcpm/qcom/qcom_pmic_typec.c
+>> index 41aaae6bb3724..ea1d5b0927436 100644
+>> --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
+>> +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
+>> @@ -12,16 +12,17 @@
+>>   #include <linux/slab.h>
+>>   #include <linux/usb/tcpm.h>
+>>   #include <drm/bridge/aux-bridge.h>
+>>   #include "qcom_pmic_typec.h"
+>>   #include "qcom_pmic_typec_pdphy.h"
+>>   #include "qcom_pmic_typec_port.h"
+>> +#include "qcom_pmic_typec_port_gen1.h"
+>>   typedef int (*pmic_typec_port_probe_fn)(struct platform_device *pdev,
+>>                       struct pmic_typec *tcpm,
+>>                       const struct pmic_typec_port_resources *res,
+>>                       struct regmap *regmap, u32 base);
+>>   struct pmic_typec_resources {
+>>       const struct pmic_typec_pdphy_resources    *pdphy_res;
+>> @@ -134,31 +135,39 @@ static void qcom_pmic_typec_remove(struct 
+>> platform_device *pdev)
+>>       struct pmic_typec *tcpm = platform_get_drvdata(pdev);
+>>       tcpm->pdphy_stop(tcpm);
+>>       tcpm->port_stop(tcpm);
+>>       tcpm_unregister_port(tcpm->tcpm_port);
+>>       fwnode_handle_put(tcpm->tcpc.fwnode);
+>>   }
+>> +static const struct pmic_typec_resources gen1_typec_res = {
+>> +    .pdphy_res = &pm8150b_pdphy_res,
+>> +    .port_res = &gen1_port_res,
+>> +    .port_probe = qcom_pmic_typec_gen1_port_probe,
+>> +};
+>> +
+>>   static const struct pmic_typec_resources pm8150b_typec_res = {
+>>       .pdphy_res = &pm8150b_pdphy_res,
+>>       .port_res = &pm8150b_port_res,
+>>       .port_probe = qcom_pmic_typec_port_probe,
+>>   };
+>>   static const struct pmic_typec_resources pmi632_typec_res = {
+>>       /* PD PHY not present */
+>>       .port_res = &pm8150b_port_res,
+>>       .port_probe = qcom_pmic_typec_port_probe,
+>>   };
+>>   static const struct of_device_id qcom_pmic_typec_table[] = {
+>> +    { .compatible = "qcom,pm660-typec", .data = &gen1_typec_res },
+>>       { .compatible = "qcom,pm8150b-typec", .data = &pm8150b_typec_res },
+>>       { .compatible = "qcom,pmi632-typec", .data = &pmi632_typec_res },
+>> +    { .compatible = "qcom,pmi8998-typec", .data = &gen1_typec_res },
+> 
+> I think this should be
+> 
+>  > +    { .compatible = "qcom,pm660-typec", .data = &pm660_typec_res },
+>  >       { .compatible = "qcom,pm8150b-typec", .data = &pm8150b_typec_res },
+>  >       { .compatible = "qcom,pmi632-typec", .data = &pmi632_typec_res },
+>  > +    { .compatible = "qcom,pmi8998-typec", .data = &pmi8998_typec_res },
+> 
+> Since I'm not sure "gen1" is a real thing and besides, I see this gen1/gen2/gen3 
+> stuff in CAMSS and it means almost nothing. The silicon version is the salient 
+> thing.
 
-Devices drop host-configured state when they reconnect, so whatever
-hidpp configured on connect is silently lost. The most visible case is
-HID++ 2.0 hi-res scrolling: the mouse reverts to low-resolution wheel
-reports while hidpp keeps scaling them by the hi-res multiplier, so
-scrolling becomes extremely slow (1/15 of the normal speed on an MX
-Master 3) until the receiver is replugged or the mouse power cycled.
+Best I can do is GenZ.
+But now seriously, I hoped someone from Qualcomm will chime in and tells me how 
+is this type-c block generation properly called.
 
-logi_dj_reset_resume() only switches the receiver back to DJ mode. Also
-ask the receiver to re-announce its connected devices with the HID++
-"fake device arrival" request, which is already used to query paired
-devices on non-DJ receivers, and which Solaar sends to all receivers on
-startup. The resulting connect notifications are forwarded to the
-existing child devices, whose drivers then reconfigure them.
+David
 
-On Unifying receivers, slots without a known device are then
-enumerated through DJ notifications; this depends on the previous
-patch, which stops HID++ connect notifications from adding them.
-
-Reproduced with an MX Master 3 on a Unifying receiver (046d:c52b)
-behind a USB KVM switch: suspend, switch the KVM away and back, move
-the mouse while the host is still suspended, then resume. Without this
-change the wheel stays in low-res mode with the hi-res multiplier
-applied; with it, hidpp re-enables hi-res scrolling after resume.
-
-Fixes: 534a7b8e10ec ("HID: Add full support for Logitech Unifying receivers")
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=203421
-Link: https://gitlab.freedesktop.org/libinput/libinput/-/issues/528
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Mark Pariente <markpariente@gmail.com>
----
- drivers/hid/hid-logitech-dj.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/hid/hid-logitech-dj.c b/drivers/hid/hid-logitech-dj.c
-index 383c762c503f..4230c47713ee 100644
---- a/drivers/hid/hid-logitech-dj.c
-+++ b/drivers/hid/hid-logitech-dj.c
-@@ -2016,6 +2016,16 @@ static int logi_dj_reset_resume(struct hid_device *hdev)
- 		return 0;
- 
- 	logi_dj_recv_switch_to_dj_mode(djrcv_dev, 0);
-+
-+	/*
-+	 * Paired devices may have reconnected and lost their configuration
-+	 * (e.g. hi-res scrolling) while the receiver was unpowered or switched
-+	 * away by a KVM. Have the receiver re-announce connected devices so
-+	 * the child drivers run their connect handling again.
-+	 */
-+	if (djrcv_dev->dj_mode && logi_dj_recv_query_hidpp_devices(djrcv_dev))
-+		hid_err(hdev, "%s: failed to query connected devices\n", __func__);
-+
- 	return 0;
- }
- 
--- 
-2.56.0
-
+[...]
