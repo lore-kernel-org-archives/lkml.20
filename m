@@ -1,143 +1,309 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A9639E164
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDD43FE64A;
+	Sun, 18 Oct 2026 22:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792361855; cv=none; b=CkgMshBmQ1Xcx5TxY1lvW18MI/oHw+2udgGLq7Qb4uQ7H8wTtWfXAJ72YN1+tWEslWjybqnD46cfZ0LYB4/fJEe6mB7CNbfGemmgYMP5mnjGpaHTUMHvmVRocIVm1FAY0y/bsp/iHudc5UjMtT0vYZxIt1Wzsddvf4PUExBw/K4=
+	t=1792362046; cv=none; b=UDtcoONHjO3DWSrz+X00QUL+4mQ4OjzXZR8+nr8rFNIu7z58LzGGxVzqErlXwmGAyr5TGK8SKZRMc0bvePQpAiuc81sjQ4tUUzYMIZSGPeZMsivrNd16d/vtS16khURPaqy24dLele4imZomUMijVszWrTtjFU0uOle4YTVhgyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792361855; c=relaxed/simple;
-	bh=z7Q6lTYTs4EbXKb1DjFff2cwqua2rRbn3u+3K+dQjQg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c+doquY6kcskm7rs2fRQsEDC2S+aNrFg0lMRx0deld5/hby5BkDSSaMowe0Y9vrULbH3X3aNBfhY3yUH4aOItuZ+L8gbnoJjB4D4aXLXVM3sgphYPMWM6lyMEZDAv6GyyLaIr1thpDh1b/joN9ve8wBIsDsH+Mj5QBDsl9EJk64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IsnL4Hjt; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792362046; c=relaxed/simple;
+	bh=pc5DL6Ipj+12s6VkC7/qjpwpDNT1m8xY2XPopt3dY1I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RYBivS5xl0bYnnGMd50evBn+wQ+xcYH4IvMFjfIY14uTo98C9zoCTLHJmGlk1Xfd4Xf1Pf4cEssgtLYuBcFqaJJGmnTogEGTfSu18UHAAOMU4pQqzPiL745/mvJdXHNpgoDXeTF8NIgI1K+QB+NwsljK4z2UjPmN6SALbtursBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QRvez5sx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IsnL4Hjt"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso14169465e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:17:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792361852; x=1792966652; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nAF9oPetXs/1/u0SmZXy5Zxa0XcvT5gTByOb4pwMeyU=;
-        b=IsnL4HjtW7GtPVVBetuWv8PMY2i3vt22dzSq7Qh3FIlk1XLW80kDstTrD5wUDBp8Jn
-         fXOSUhN2Su6HWoPkmqCTG1QAqkE5WtMJqLdMJTY9p04lNGbAZ4ulOXmOV+SyGHbs/k1X
-         NKjffX+nI49+uEGcjo4WaffU+bWHVxy2LdJF8aqFFM4JwbtHcOjaP1kNHOGkTJIWFCaY
-         lBxoGiUelrbXTtJdn4aQsQb5kumaG6nhuGDjIEDD4umCye+q4Ni2Yk43BSdGcUff2rsT
-         l7MWCozM53p/1nxz9TVhMID7B9jTmAmBmQjYNODjnHD2DIopIM4tz6mhcvIv5n/7tBVW
-         Oy9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792361852; x=1792966652;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nAF9oPetXs/1/u0SmZXy5Zxa0XcvT5gTByOb4pwMeyU=;
-        b=L1eFW/0iRiD4CZjdeNy6b9JtmBqNKtfPQlcPRHQFDfaVeWom/iKzA4g1SYblzFfFwj
-         0yTvazJb83oFI4taNkgNZ3PCXk4DhzujTA6DZToKoB2YTodtcef2dcByP39kdej4ijXc
-         kP4Ks2rU5fF/yIGwJlrprPnyTHSzzQh1lRDJGEhdSLRg0nPPeMN21A3Oyde1TD14nwUm
-         iwCayxUuEvPC9vphFsaxq7tsASJ/HueTRXqIHgebeth/SvpWxv2lvSrOybYvaA3lUwJH
-         a0kltJjtreV27an+CzUhufR2KKT94p38NvhC6GvbwdszfQJrDi3C28SGWldKCRQYq1OI
-         QAjA==
-X-Forwarded-Encrypted: i=1; AKwUvBx/lkgP+ksQQ7JYZSb6leACX+pwqGkgttEeEGjBhHsBwRT8EX/iA4QxRF5in1BSzJkICoW7WFKu2rxz7F4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0OhAr7GJ95nx3NhVRtY+Av+nuEtyeUBfWURbPHWNES9DwwtY2
-	hNQHvl1RFIGx0bWPEjPi8qHq3JTE89iO3WebKJuizubHKhcP4Z5MhgV0
-X-Gm-Gg: AYBFou1MRmi9vykN3SraV3pTKWd9yibf3lIvpuf/1v4qGW0VmMU9uUWcvAS3MTFKJSh
-	sRvUfm7rzBONOyZXpVPZGwoquvih04VsJmvjg9dMOsXH7RNtjpBoTbPAsHfoYl6fwPQThgsaVoD
-	e/VDz/kvn3r2TTPFRM67qF4HE2TJbpVxeJsytIGFD721IHLIDBoazShy9dhssvpFA3k2wH2kzDL
-	Y9509bBdz8ZoXgCEtbSKPSNq5V8QMMPXWIWXFhprKKqmeIFf9cNDz4Ua/m4ZwRwHLzslalXnOX0
-	0Ke5zcCQQGr+6rRFSzKwcyBzHDLGUS6bEBIch+yns7LMLXNwRqAbaEd4iClJU/hd8JFkkr2kgML
-	VFY1zfMGwRHHDowXAO8DdbMTpTj2hmQyFW8n0doJtP+FdOGcx4rfLC2IFSYOBabE5epzhzLie76
-	zSHZJT36xcAXKsPOD/AG182niesNPC/mwOX4aF2Bl8UhMOvCIdyfDzPLxZjTw+MNEB/Ii4sjPEF
-	mZWoZdFWSinId3Kp7Rqf3Ar82lzOgF1mFX9rU5ZL38lJS4MQNE2GPgQ+wJbxog5AlKJNw==
-X-Received: by 2002:a05:600c:8219:b0:4a1:85d9:13be with SMTP id 5b1f17b1804b1-4a1d76031bfmr129943605e9.20.1792361851851;
-        Sun, 18 Oct 2026 15:17:31 -0700 (PDT)
-Received: from localhost ([178.214.243.78])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d85f92d9sm155398425e9.4.2026.10.18.15.17.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 15:17:31 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Cc: Alex Hung <alex.hung@amd.com>,
-	Alvin Lee <Alvin.Lee2@amd.com>,
-	Jun Lei <Jun.Lei@amd.com>,
-	Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
-	Fangzhi Zuo <jerry.zuo@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH] drm/amd/display: set allow_freesync before validating a new stream
-Date: Mon, 19 Oct 2026 03:17:26 +0500
-Message-ID: <20261018221726.27259-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QRvez5sx"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2B1DDC2BCF7;
+	Sun, 18 Oct 2026 22:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792362046;
+	bh=pc5DL6Ipj+12s6VkC7/qjpwpDNT1m8xY2XPopt3dY1I=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=QRvez5sxYPa2ATV4smpO45pvIr78zUFNImqvhMXpm3npygZJecL+8NSth/pm+/1Sn
+	 vYzDE4yn7jAp10U0dwuaO8C0OsOvvQHwb+BOkBpzJn4FCJkAiNrwhCKGQHxqaOiIjH
+	 iO3ICjbaVgkcy7ur65MCELvj5H2AGsmOcAFZ553lKb8nrFg3D0cY6GfygM644RQe5j
+	 cUJvUyByIUQUXUDFv7+wtxkj8qWIpQh38arxQyzXZ0LgpvOBg+AHTJ+EU/qYpfsAmo
+	 vkwGvpi3rLNOvlMlIX5Vun2A8Iynfytrfy5Q84VcdvH8UnvZSCZ8EMAVEfx3ZijMzx
+	 JjTIkx7KkLhHA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 145FCCCF2C9;
+	Sun, 18 Oct 2026 22:20:46 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Sun, 18 Oct 2026 17:20:34 -0500
+Subject: [PATCH] thermal: tegra: Add Tegra210B01 Support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261018-t210b01-thermal-v1-1-af15746d86a3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avIrBN0sISuEi3MphooC5UIpLsnL
+ d/i/wKJIlOCXhSIdHPiM1ToRoDfXFhJ8lwNqLBTVhuZUatJaZk3iofbJaKlzi8zttZAra5ICz/
+ /cRjf9wNRmrJbYQAAAA==
+X-Change-ID: 20260714-t210b01-thermal-227e6cfd2574
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Srikar Srimath Tirumala <srikars@nvidia.com>, 
+ Eugene Vernik <crimsonslayer76@gmail.com>, 
+ Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792362045; l=8514;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=tasHCnJCsRYbeWivlJvsHpb3bzuaoA6s/dlDC0QLHE8=;
+ b=cu6omQ6B4u1Lx3XbAu0A4hkEOuNQzHB6vuHd9TmEv3j/xfc5IAD1DUSL1bFCnVPauRsq735xe
+ QLo3u/Ynt3+Chb8FUHtwb4P3tgekHKV1neMPZdYI5wWL96KD/DrqX7P
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-After resume from S3, DC enables SubVP on a single FreeSync display at
-a high refresh rate, although dcn32_allow_subvp_high_refresh_rate() is
-meant to keep SubVP off that configuration ("For single display cases,
-freesync must be disabled").  On an RX 7900 XTX driving a FreeSync TV
-at 3840x2160@120, amdgpu_dm_capabilities reports sub-viewport disabled
-after boot and enabled after "rtcwake -m mem", and the memory clock
-starts switching.  It stays that way until a later commit re-validates
-the state; a CRTC gamma change (toggling Night Light) turns SubVP off
-again.
+From: Aaron Kling <webgeek1234@gmail.com>
 
-The policy reads dc_stream_state::allow_freesync while the new state
-is validated, but amdgpu_dm sets that field only in
-amdgpu_dm_update_freesync_state_on_stream(), on the first flip after
-the commit.  A stream created by a modeset is therefore validated as
-if FreeSync were off.  On resume, dm_destroy_cached_state() drops the
-streams and forces a modeset, so the resumed state is validated
-without FreeSync.
+Add Tegra210B01 SOC_THERM configuration. There are two main differences
+from the original Tegra210:
 
-Set allow_freesync in amdgpu_dm_get_freesync_config_for_crtc(), which
-atomic check calls for every active CRTC and which already writes
-ignore_msa_timing_param to the stream.  It uses vrr_supported, the
-condition the flip-time value is derived from.  With this change the
-same TV keeps SubVP disabled across "rtcwake -m mem".
+* There is no mem thermal sensor
+* Pdiv and pdiv_ate differ
 
-On this machine SubVP is also what exposes the single-frame scanout
-corruption reported in the thread linked below, so the FreeSync
-setting stopped working as a workaround after every suspend.
-
-Fixes: 87f0c16e0eeb ("drm/amd/display: Enable SubVP for high refresh rate displays")
-Link: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Based-on: https://gitlab.com/nvidia/nv-tegra/linux-5.10/-/commit/b15149a15154e6b2fc827f4f169e37c9e5b389d9
+Based-on-patch-by: Srikar Srimath Tirumala <srikars@nvidia.com>
+Co-developed-by: Eugene Vernik <crimsonslayer76@gmail.com>
+Signed-off-by: Eugene Vernik <crimsonslayer76@gmail.com>
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c    | 8 ++++++++
- 1 file changed, 8 insertions(+)
+thermal: tegra: Add Tegra210B01 Support
+---
+ drivers/thermal/tegra/soctherm.c          |   4 +
+ drivers/thermal/tegra/soctherm.h          |   1 +
+ drivers/thermal/tegra/tegra210-soctherm.c | 133 ++++++++++++++++++++++++++++++
+ 3 files changed, 138 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 7e484adb4120..f26dd206dffa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -128,6 +128,14 @@ void amdgpu_dm_get_freesync_config_for_crtc(
- 					vrefresh >= aconnector->min_vfreq &&
- 					vrefresh <= aconnector->max_vfreq;
+diff --git a/drivers/thermal/tegra/soctherm.c b/drivers/thermal/tegra/soctherm.c
+index d8e988a0d43e9..95451d1bd4e62 100644
+--- a/drivers/thermal/tegra/soctherm.c
++++ b/drivers/thermal/tegra/soctherm.c
+@@ -2082,6 +2082,10 @@ static const struct of_device_id tegra_soctherm_of_match[] = {
+ 		.compatible = "nvidia,tegra210-soctherm",
+ 		.data = &tegra210_soctherm,
+ 	},
++	{
++		.compatible = "nvidia,tegra210b01-soctherm",
++		.data = &tegra210b01_soctherm,
++	},
+ #endif
+ 	{ },
+ };
+diff --git a/drivers/thermal/tegra/soctherm.h b/drivers/thermal/tegra/soctherm.h
+index aa4af9268b05d..4bc1e44e28827 100644
+--- a/drivers/thermal/tegra/soctherm.h
++++ b/drivers/thermal/tegra/soctherm.h
+@@ -156,6 +156,7 @@ extern const struct tegra_soctherm_soc tegra132_soctherm;
  
-+	/*
-+	 * DC reads allow_freesync while validating the new state, for example
-+	 * to keep SubVP off a single FreeSync display, but it is otherwise set
-+	 * only on the first flip after the commit.  Set it here, so that a
-+	 * stream created by this commit is not validated without it.
-+	 */
-+	new_crtc_state->stream->allow_freesync = new_crtc_state->vrr_supported;
+ #ifdef CONFIG_ARCH_TEGRA_210_SOC
+ extern const struct tegra_soctherm_soc tegra210_soctherm;
++extern const struct tegra_soctherm_soc tegra210b01_soctherm;
+ #endif
+ 
+ #endif
+diff --git a/drivers/thermal/tegra/tegra210-soctherm.c b/drivers/thermal/tegra/tegra210-soctherm.c
+index f6e1493f0202f..b4f2c7837fd69 100644
+--- a/drivers/thermal/tegra/tegra210-soctherm.c
++++ b/drivers/thermal/tegra/tegra210-soctherm.c
+@@ -44,6 +44,14 @@ static const struct tegra_tsensor_configuration tegra210_tsensor_config = {
+ 	.tsample_ate = 480,
+ };
+ 
++static const struct tegra_tsensor_configuration tegra210b01_tsensor_config = {
++	.tall = 16300,
++	.tiddq_en = 1,
++	.ten_count = 1,
++	.tsample = 240,
++	.tsample_ate = 480,
++};
 +
- 	if (new_crtc_state->vrr_supported) {
- 		new_crtc_state->stream->ignore_msa_timing_param = true;
- 		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
+ static const struct tegra_tsensor_group tegra210_tsensor_group_cpu = {
+ 	.id = TEGRA124_SOCTHERM_SENSOR_CPU,
+ 	.name = "cpu",
+@@ -63,6 +71,25 @@ static const struct tegra_tsensor_group tegra210_tsensor_group_cpu = {
+ 	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
+ };
+ 
++static const struct tegra_tsensor_group tegra210b01_tsensor_group_cpu = {
++	.id = TEGRA124_SOCTHERM_SENSOR_CPU,
++	.name = "cpu",
++	.sensor_temp_offset = SENSOR_TEMP1,
++	.sensor_temp_mask = SENSOR_TEMP1_CPU_TEMP_MASK,
++	.pdiv = 12,
++	.pdiv_ate = 6,
++	.pdiv_mask = SENSOR_PDIV_CPU_MASK,
++	.pllx_hotspot_diff = 10,
++	.pllx_hotspot_mask = SENSOR_HOTSPOT_CPU_MASK,
++	.thermtrip_any_en_mask = TEGRA210_THERMTRIP_ANY_EN_MASK,
++	.thermtrip_enable_mask = TEGRA210_THERMTRIP_CPU_EN_MASK,
++	.thermtrip_threshold_mask = TEGRA210_THERMTRIP_CPU_THRESH_MASK,
++	.thermctl_isr_mask = THERM_IRQ_CPU_MASK,
++	.thermctl_lvl0_offset = THERMCTL_LEVEL0_GROUP_CPU,
++	.thermctl_lvl0_up_thresh_mask = TEGRA210_THERMCTL_LVL0_UP_THRESH_MASK,
++	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
++};
++
+ static const struct tegra_tsensor_group tegra210_tsensor_group_gpu = {
+ 	.id = TEGRA124_SOCTHERM_SENSOR_GPU,
+ 	.name = "gpu",
+@@ -82,6 +109,25 @@ static const struct tegra_tsensor_group tegra210_tsensor_group_gpu = {
+ 	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
+ };
+ 
++static const struct tegra_tsensor_group tegra210b01_tsensor_group_gpu = {
++	.id = TEGRA124_SOCTHERM_SENSOR_GPU,
++	.name = "gpu",
++	.sensor_temp_offset = SENSOR_TEMP1,
++	.sensor_temp_mask = SENSOR_TEMP1_GPU_TEMP_MASK,
++	.pdiv = 12,
++	.pdiv_ate = 6,
++	.pdiv_mask = SENSOR_PDIV_GPU_MASK,
++	.pllx_hotspot_diff = 5,
++	.pllx_hotspot_mask = SENSOR_HOTSPOT_GPU_MASK,
++	.thermtrip_any_en_mask = TEGRA210_THERMTRIP_ANY_EN_MASK,
++	.thermtrip_enable_mask = TEGRA210_THERMTRIP_GPU_EN_MASK,
++	.thermtrip_threshold_mask = TEGRA210_THERMTRIP_GPUMEM_THRESH_MASK,
++	.thermctl_isr_mask = THERM_IRQ_GPU_MASK,
++	.thermctl_lvl0_offset = THERMCTL_LEVEL0_GROUP_GPU,
++	.thermctl_lvl0_up_thresh_mask = TEGRA210_THERMCTL_LVL0_UP_THRESH_MASK,
++	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
++};
++
+ static const struct tegra_tsensor_group tegra210_tsensor_group_pll = {
+ 	.id = TEGRA124_SOCTHERM_SENSOR_PLLX,
+ 	.name = "pll",
+@@ -99,6 +145,23 @@ static const struct tegra_tsensor_group tegra210_tsensor_group_pll = {
+ 	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
+ };
+ 
++static const struct tegra_tsensor_group tegra210b01_tsensor_group_pll = {
++	.id = TEGRA124_SOCTHERM_SENSOR_PLLX,
++	.name = "pll",
++	.sensor_temp_offset = SENSOR_TEMP2,
++	.sensor_temp_mask = SENSOR_TEMP2_PLLX_TEMP_MASK,
++	.pdiv = 12,
++	.pdiv_ate = 6,
++	.pdiv_mask = SENSOR_PDIV_PLLX_MASK,
++	.thermtrip_any_en_mask = TEGRA210_THERMTRIP_ANY_EN_MASK,
++	.thermtrip_enable_mask = TEGRA210_THERMTRIP_TSENSE_EN_MASK,
++	.thermtrip_threshold_mask = TEGRA210_THERMTRIP_TSENSE_THRESH_MASK,
++	.thermctl_isr_mask = THERM_IRQ_TSENSE_MASK,
++	.thermctl_lvl0_offset = THERMCTL_LEVEL0_GROUP_TSENSE,
++	.thermctl_lvl0_up_thresh_mask = TEGRA210_THERMCTL_LVL0_UP_THRESH_MASK,
++	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
++};
++
+ static const struct tegra_tsensor_group tegra210_tsensor_group_mem = {
+ 	.id = TEGRA124_SOCTHERM_SENSOR_MEM,
+ 	.name = "mem",
+@@ -125,6 +188,12 @@ static const struct tegra_tsensor_group *tegra210_tsensor_groups[] = {
+ 	&tegra210_tsensor_group_mem,
+ };
+ 
++static const struct tegra_tsensor_group *tegra210b01_tsensor_groups[] = {
++	&tegra210b01_tsensor_group_cpu,
++	&tegra210b01_tsensor_group_gpu,
++	&tegra210b01_tsensor_group_pll,
++};
++
+ static const struct tegra_tsensor tegra210_tsensors[] = {
+ 	{
+ 		.name = "cpu0",
+@@ -193,6 +262,58 @@ static const struct tegra_tsensor tegra210_tsensors[] = {
+ 	},
+ };
+ 
++static const struct tegra_tsensor tegra210b01_tsensors[] = {
++	{
++		.name = "cpu0",
++		.base = 0xc0,
++		.config = &tegra210b01_tsensor_config,
++		.calib_fuse_offset = 0x098,
++		.fuse_corr_alpha = 1085000,
++		.fuse_corr_beta = 3244200,
++		.group = &tegra210b01_tsensor_group_cpu,
++	}, {
++		.name = "cpu1",
++		.base = 0xe0,
++		.config = &tegra210b01_tsensor_config,
++		.calib_fuse_offset = 0x084,
++		.fuse_corr_alpha = 1126200,
++		.fuse_corr_beta = -67500,
++		.group = &tegra210b01_tsensor_group_cpu,
++	}, {
++		.name = "cpu2",
++		.base = 0x100,
++		.config = &tegra210b01_tsensor_config,
++		.calib_fuse_offset = 0x088,
++		.fuse_corr_alpha = 1098400,
++		.fuse_corr_beta = 2251100,
++		.group = &tegra210b01_tsensor_group_cpu,
++	}, {
++		.name = "cpu3",
++		.base = 0x120,
++		.config = &tegra210b01_tsensor_config,
++		.calib_fuse_offset = 0x12c,
++		.fuse_corr_alpha = 1108000,
++		.fuse_corr_beta = 602700,
++		.group = &tegra210b01_tsensor_group_cpu,
++	}, {
++		.name = "gpu",
++		.base = 0x180,
++		.config = &tegra210b01_tsensor_config,
++		.calib_fuse_offset = 0x154,
++		.fuse_corr_alpha = 1074300,
++		.fuse_corr_beta = 2734900,
++		.group = &tegra210b01_tsensor_group_gpu,
++	}, {
++		.name = "pllx",
++		.base = 0x1a0,
++		.config = &tegra210b01_tsensor_config,
++		.calib_fuse_offset = 0x160,
++		.fuse_corr_alpha = 1039700,
++		.fuse_corr_beta = 6829100,
++		.group = &tegra210b01_tsensor_group_pll,
++	},
++};
++
+ /*
+  * Mask/shift bits in FUSE_TSENSOR_COMMON and
+  * FUSE_TSENSOR_COMMON, which are described in
+@@ -230,3 +351,15 @@ const struct tegra_soctherm_soc tegra210_soctherm = {
+ 	.use_ccroc = false,
+ 	.thermtrips = tegra210_tsensor_thermtrips,
+ };
++
++const struct tegra_soctherm_soc tegra210b01_soctherm = {
++	.tsensors = tegra210b01_tsensors,
++	.num_tsensors = ARRAY_SIZE(tegra210b01_tsensors),
++	.ttgs = tegra210b01_tsensor_groups,
++	.num_ttgs = ARRAY_SIZE(tegra210b01_tsensor_groups),
++	.tfuse = &tegra210_soctherm_fuse,
++	.thresh_grain = TEGRA210_THRESH_GRAIN,
++	.bptt = TEGRA210_BPTT,
++	.use_ccroc = false,
++	.thermtrips = tegra210_tsensor_thermtrips,
++};
+
+---
+base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
+change-id: 20260714-t210b01-thermal-227e6cfd2574
+
+Best regards,
 -- 
-2.56.0
+Aaron Kling <webgeek1234@gmail.com>
+
 
