@@ -1,162 +1,157 @@
-Received: from mta0.migadu.com (out-214.mta0.migadu.com [91.218.175.214])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E3223395D
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:43:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.214
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDD93537D2;
+	Sun, 18 Oct 2026 06:45:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792305796; cv=none; b=oxTqF4ESJTsjXPpCTkpgxmOsCNkXwZm6WM6Fr2IDDP0+AEp2qqi0PHPkp5jisKrbNcjgi0pY3wloL8ytThRonV+9bGAf0jmWtcWQ/ZuqlNaLUq3RIHR2v0JAoj4YF0dJ5yny6y6T6YZFby3Iml/dphaorrmXCFNB1ZNiWQLKYc8=
+	t=1792305930; cv=none; b=JNy1y5UPUlsyapPHXJ8zbeMURzbAnooOrFwFSmK2/Sg2pnA4wuke8Z2n9Mp4wJgZAWxNfyLBN4xt8KkC9Pdvcz6A6egf//Emqm/vPrBSOfedtYcekO/57vtUfx3uWPP1osYF+aEljLv1OFbT512+vnFvfT65P/9MkjwYANHid44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792305796; c=relaxed/simple;
-	bh=Uw0YIVaZtfH6o8cYYNicP3BPPfnY5BFJtNnGIlhTWb4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RwoHGEKmlsqA+SijuQ7bSknaR3dUON68jWu9MaljiK8oH4NNy49qnAix3d2K/yVb3+BzbbxmHk2NII7QSFASDCUzUPrqWKXNCnc4AGN33OgFI4QRZ/4RDAyr9IeoYm4y7ok4NqqkYnd63Pta32YsfpWkZvQX1sJ36v2HsCpvzW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wzQtTrpD; arc=none smtp.client-ip=91.218.175.214
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792305930; c=relaxed/simple;
+	bh=pODsZdTPXyYXjENjz4LTJ9QnCptMw/8sH91qooE0a0o=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=K5SeaLmas6oHfgqxjp2V+yi+iZNg/cvnEjz4KIJd1PLrRDdF2uk0em6SiE4FReSeVNMy9/QTyDNw6z0PmGn120YDgAnsFwtBMprYld1LYtl78E/nre+QQoDT3IbTR0409sXa2yQXpo1ejqgpdC4oVpUMvziqI2YVCN5YWrUym54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g1d6mYdE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wzQtTrpD"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Uw0YIVaZtfH6o8cYYNicP3BPPfnY5BFJtNnGIlhTWb4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792305791; v=1; x=1792910591;
- b=wzQtTrpDmaMrrqBaJyyLJamCuw7QHX2tgQT3VnVCIYmoDpc8KhryI/vrM+dr4djjC7+qDXLu
- 4QPBmwW5RFy2jMn+4Z9tGAN9OlHmRPTzGY/1HmxfkQvHzSo+vCADmFthl0XkHPjEkWK8cprJG6W
- IfPw3eZuxm5jhw8R6ApeP3sU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0bd3a34f4381111f;
-	Sun, 18 Oct 2026 06:43:10 +0000
-X-Mizu-Trace-ID: 0bd3a34f4381111f
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	agl@us.ibm.com,
-	mel@csn.ul.ie,
-	riel@surriel.com,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org,
-	josef@toxicpanda.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	mason@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 04/10] mm/hugetlb: unmap the page where the other VMA maps it
-Date: Sun, 18 Oct 2026 14:43:04 +0800
-Message-ID: <20261018064304.17357-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261015-urgent_fixes-v1-4-42796911043b@kernel.org>
-References: <20261015-urgent_fixes-v1-4-42796911043b@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g1d6mYdE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C781F000C4;
+	Sun, 18 Oct 2026 06:45:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792305928;
+	bh=GmrzgKuxZvWAxQ2tnujHlgWERhtGHR5yo6rInNCm21o=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=g1d6mYdEYS97TBYvK7eQHXHGgzLs+KxzxHuk5iKkkjJ/GTCq0odOJzSVH+X/ykvkD
+	 yVcQqZ4Yre6GfADEMX/WVtSnyKAYLO1RIPFWr6qVdF34RC6qA6Df1s2F81ImJLrOgT
+	 iDCFwv0khYsGH1DWZNX/X8KOcQVF7z+rDmYh/5RMUVxaeK/Mqvgpd6APyAkcctCAk1
+	 A3I4m0RwEb5wNxN95cxidm3nQOGPZGWBHQtyI3onaWzTM96ulhbk9udk2RvYQiGWTv
+	 mtmg5rNjDIif+ZJYDEZ7Vl5jr5n2zNBL6fQkx/SksxrnRJDP0dSUByDnFoTAkTQT+r
+	 GADRjPZvBtTlw==
+Subject: Re: [PATCH net-next v12 1/6] net: pcs: xpcs: add ANRESTART support
+ for SGMII link recovery
+From: netdev-bot+sashiko@kernel.org
+To: coiaprant@gmail.com
+Cc: kuba@kernel.org, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de,
+ maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ david.wu@rock-chips.com, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Sun, 18 Oct 2026 06:45:26 +0000
+Message-ID: <179230592697.3135.6932872951523750096@kernel.org>
+In-Reply-To: <20261017054406.1828061-2-coiaprant@gmail.com>
+References: <20261017054406.1828061-2-coiaprant@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-On Thu, Oct 15, 2026 at 06:07:10PM +0200, David Hildenbrand (Arm) wrote:
->From: Josef Bacik <josef@toxicpanda.com>
->
->If the owner of a MAP_PRIVATE hugetlb mapping fails to allocate a page
->for CoW, unmap_ref_private() unmaps the old page from all other private
->VMAs that have no reservation of their own.  It finds them by the offset
->in the file, but then zaps each of them at the address of the faulting
->VMA.  Nothing says that another VMA maps the offset at that address: a
->child can have moved its copy of the VMA with mremap(), and a second
->mapping of the file is wherever mmap() has put it.
->
->So __unmap_hugepage_range() walks the page tables of the other mm at an
->address outside of iter_vma, where i_mmap_rwsem of this file protects
->nothing and where anything can be mapped, and the page stays mapped where
->it really is.
->
->All of the following was seen on v7.3-rc6+ (g6c377d19d4a5) in KVM guests,
->as a user without any privilege.  It takes a pool of 2 MiB pages with no
->free page that is not reserved, so that the allocation fails: the user
->can take or reserve what is free itself.
->
-> - The child moves its VMA away.  The page is never unmapped, the
->   mapcount stays 2, and the owner goes round retry_avoidcopy in
->   hugetlb_wp() until the child is gone or a page becomes free.  SIGKILL
->   to the owner does not end it.  5 of 5 runs.
->
-> - The owner's mm has a second private mapping of the offset, made with
->   MAP_NORESERVE.  The owner zaps its own entry and reads zeroes where
->   its data was.  5 of 5 runs.
->
-> - The child moves its VMA away and maps a 1 GiB hugetlb page at the old
->   address, so this one takes a pool with a 1 GiB page as well.
->   huge_pte_offset() for the 2 MiB size steps through the PUD
->   leaf, so the "PMD table" is the 1 GiB page itself and its "page table
->   lock" is folio->private of that page, which holds 2.  Kernels with
->   lock debugging oops in __unmap_hugepage_range(), 7 of 7 runs.  Others
->   spin on that word for ever with preemption disabled, 5 of 5 runs:
->
->     watchdog: BUG: soft lockup - CPU#0 stuck for 26s! [u_det3:130]
->     RIP: 0010:queued_spin_lock_slowpath+0x8a/0x290
->     RAX: 0000000000000002 RBX: ffffea0001000028
->     Call Trace:
->      __unmap_hugepage_range+0x154/0x6d0
->      unmap_hugepage_range+0xc1/0x140
->      hugetlb_wp+0x55c/0x700
->      hugetlb_fault+0x5f3/0x8f0
->
->   RCU stalls follow, and killing all tasks of the user changes nothing.
->   Four such owners, whose children share a single 1 GiB page, took down
->   the whole guest with its four CPUs, 2 of 2 runs: one reported soft
->   lockups on all four, the other gave no sign of life any more.
->
->   i_mmap_rwsem stays write locked.  With a MAP_PRIVATE mapping of a
->   hugetlbfs file that belongs to another user, and that the attacker
->   can only read, the next mmap() of that file by its owner sleeps
->   uninterruptibly in __mmap_region(), 4 of 4 runs.
->
->Compute the address from the offset for each VMA.  The tree walk returns
->only VMAs that cover pgoff, and vm_start, vm_end and vm_pgoff of a hugetlb
->VMA are aligned to the huge page size, as pgoff is, so the whole range
->lies inside iter_vma.  Its page tables can not go away there, since the
->VMA is unlinked from the file under i_mmap_rwsem first.
->
->With the right address the page is unmapped from all VMAs but the
->owner's, so the retry in hugetlb_wp() finds a mapcount of 1 and reuses the
->page.
->
->A child that has moved its copy of the VMA now loses the page, and gets
->SIGBUS when it faults on a missing page of that VMA.  That is what the
->comment above the function has always promised to those who do not own
->the reservation, and what already happens to a child that has left the
->VMA in place.
->
->The address has been wrong from the start, and the second case needs
->only mmap() and fork().  mremap() of hugetlb VMAs, which the other cases
->use, came with commit 550a7d60bd5e ("mm, hugepages: add mremap() support
->for hugepage backed vma") in v5.16.
->
->Original fix generated by an LLM and sent in private by Josef.
->
->Fixes: 04f2cbe35699 ("hugetlb: guarantee that COW faults for a process that called mmap(MAP_PRIVATE) on hugetlbfs will succeed")
->Reported-by: Chris Mason <mason@kernel.org>
->Cc: stable@vger.kernel.org
->Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->[ david: switch to vma_filebacked_address, add VM_WARN_ON_ONCE, refine comments]
->Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+Low priority / nit picks for your consideration:
 
-Good catch1
+- [Low] In xpcs_get_state_c37_sgmii() (drivers/net/pcs/pcs-xpcs.c lines
+  1110-1121), the ANCMPLT latch is cleared with…
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+--
+
+net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+
+This commit sets BMCR_ANRESTART along with BMCR_ANENABLE in
+xpcs_config_aneg_c37_sgmii() and clears DW_VR_MII_AN_INTR_STS before
+starting AN. It also makes xpcs_get_state_c37_sgmii() clear the ANCMPLT
+latch and trigger an AN restart when the link is down and AN complete is
+latched. This works around RK3568 XPCS, which does not restart AN on its
+own.
+
+> diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+> index b415b93d77c15..6466e0ff2a98b 100644
+> --- a/drivers/net/pcs/pcs-xpcs.c
+> +++ b/drivers/net/pcs/pcs-xpcs.c
+
+[ ... ]
+
+> @@ -1093,9 +1107,18 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
+>  		return 0;
+>  	}
+>  
+> -	/* Clear AN complete status or interrupt */
+> -	if (state->an_complete)
+> -		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
+> +	if (state->an_complete) {
+> +		/* Clear AN complete status or interrupt */
+> +		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		/* Initiate the next round of AN */
+> +		ret = xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_ANRESTART,
+> +				  BMCR_ANRESTART);
+> +		if (ret < 0)
+> +			return ret;
+
+[Severity: Low]
+What happens if the DW_VR_MII_AN_INTR_STS write succeeds but the
+xpcs_modify() of MII_BMCR fails?
+
+At that point the ANCMPLT latch is already cleared. If the read fails,
+__mdiobus_c45_modify_changed() returns without writing anything:
+
+drivers/net/phy/mdio_bus.c:__mdiobus_c45_modify_changed() {
+    ...
+	ret = __mdiobus_c45_read(bus, addr, devad, regnum);
+	if (ret < 0)
+		return ret;
+    ...
+}
+
+On hardware that needs this workaround, the latched ANCMPLT seems to be
+the only thing that triggers the restart. Later calls to
+xpcs_get_state_c37_sgmii() would see the link down with no ANCMPLT, so
+the restart would never be retried.
+
+xpcs_get_state() only logs the error:
+
+	case DW_AN_C37_SGMII:
+		ret = xpcs_get_state_c37_sgmii(xpcs, state);
+		if (ret)
+			dev_err(&xpcs->mdiodev->dev, "%s returned %pe\n",
+				"xpcs_get_state_c37_sgmii", ERR_PTR(ret));
+		break;
+
+phylink_resolve() only reconfigures the PCS when the interface changes
+or force_major_config is set:
+
+	if ((mac_config && link_state.interface != pl->link_config.interface) ||
+	    pl->force_major_config) {
+
+Would the link then stay down until pcs_config runs again, for example
+after an interface down/up?
+
+The commit message says:
+
+    If an MDIO access fails at this point, it indicates an
+    unrecoverable hardware condition until reset.
+
+Does that hold for RK3568? In the later patch "net: pcs: xpcs: add
+Rockchip RK3568 platform glue driver", xpcs_rk_read_reg() and
+xpcs_rk_write_reg() appear to fail only through
+pm_runtime_resume_and_get(). A failed runtime resume callback does not
+set the sticky power.runtime_error, so the failure could be transient
+rather than permanent.
+
+> +	}
+>  
+>  	return 0;
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017054406.1828061-1-coiaprant%40gmail.com
