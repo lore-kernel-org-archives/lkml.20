@@ -1,85 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F1D23395D;
-	Sun, 18 Oct 2026 06:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C4D367B96
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792304352; cv=none; b=IlFZTRAS9QZ6tHWQxIYnyQ94n5+Hw800k0E11UgsavKgifsh4AwBpW4/tZZLgNaXlakZm/4JRvspNjpr7KWbWSJd59WKdCyNW+UVOpBInersMOTXnhRSWPpbkYr90xHRS+EZmvWtePCtdRTDwoyWPWZR0BbG2a+lPpoEFa7DMBg=
+	t=1792304532; cv=none; b=t2j8Px1/cpAzjKlhJUPBp4N1h9AYtB8WII1DOM+11pAwFZMTvcmMBbjYEaktcbYQ7CINSEmFmTLtYp9DLoLOrwVwO0Rseq9a9tgWq0iFzMY5Widnr5ARttvfarXYGygrYqOR+5PLiCEE3tYyKNJNhlcqgABjk1Y5d8lOxRcB/Sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792304352; c=relaxed/simple;
-	bh=d4KTo66k29I7garBO1fwcPxQ769tQ8IZCywFFDWrkoo=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=OCztlO8vXJXz07txOtnWD8hXeAGvPNwKrEmjQv94+PNRAIBNFiNP32XQurlSlcgIir+tiOTXjDMMHNagqDtpCF8/+fpz+0mIV1mbS+Bw2CLaz8koxVH1QpMeTyr/4Ogs1l+mB1W4D0fUhsbkjfLPzXnTcjjuzo5O4bEXGfn2rVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=cmqqQYpB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792304532; c=relaxed/simple;
+	bh=y8F7dXJHndM13xZhNRXHWKnJACtvf/G0EiIhGDJJtWw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SooJHYjE3u0kPwfIW1NMq1PlfB+cEOby1rI5oEsO9xyPavJ98XEhL6p1ysrRtgLwncIrxZhVodXzlwaOeopdNP2kUwgdttItEhoh596rcUeI9JIvjDEuxIw5yOX7kurmd8tzV5gBbMG5fVuaXbi7fpqi3ttGa0TxuPihLo8bjws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jpRZ6G95; arc=none smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="cmqqQYpB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 635511F000C4;
-	Sun, 18 Oct 2026 06:19:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jpRZ6G95"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8520161fdb9so662672b3a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:22:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792304350;
-	bh=ycEJR+8zmQkx8497np5QP1rga/PZk7rr02Cf+WPUZ0U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cmqqQYpBt72V/x4fVHAgO99kOJXG9duvHbXWqWVY9kVtNx1F8+lOwZCsYl/NLsHjZ
-	 SQXdZKj76wC9bSdVxtp4g84XPTRd1NN7BiiNXnSPBZQ1UHExoKUcg+GdJvausNrfiF
-	 GBkxGOH2Y/6D42LiFPDJmU5Nup1dq7kD3AZS2+uQ=
-Date: Sat, 17 Oct 2026 23:19:09 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Peter Collingbourne <peter@pcc.me.uk>
-Cc: Qiliang Yuan <odys.yuan@gmail.com>, Kees Cook <kees@kernel.org>, Andy
- Shevchenko <andy@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>, Alexander Potapenko
- <glider@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov
- <dvyukov@google.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- kasan-dev@googlegroups.com
-Subject: Re: [PATCH] string: instrument the word loads in sized_strscpy()
-Message-Id: <20261017231909.c9fa8474da8fc1079f112891@linux-foundation.org>
-In-Reply-To: <CAPQLkRhXZwozmfhNd_PEx1ihwdH1_5qthP6PANYJ_m-v9vfQTw@mail.gmail.com>
-References: <20261018-bug-string-strscpy-kasan-first-byte-v1-1-375a2c46d88f@gmail.com>
-	<CAPQLkRhXZwozmfhNd_PEx1ihwdH1_5qthP6PANYJ_m-v9vfQTw@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1792304530; x=1792909330; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9ImNMEDi8oPrWIx71COnlaNJwSBMr2u0fGsfEGtTKVc=;
+        b=jpRZ6G95dVbCisuXSRF1PGL7VWpZfc7cqqzlvnta0wcWdu7mkYPlgmpooLCj7yNDcV
+         +7JooiXIsgUqoeARYKEPCsesEBLTcQwBq7pDTavELZTRJpSJ9zNNz3iKaOCOVhmJzX7j
+         1+z2POJbvLq5itzyfI8qpw5syO7D7robQJAC6nV9vLvATm6ekntSHSo2nXI208gbI0l6
+         cQisLx1Am2Z0t6Z1QjAoSqVZfIF021GMN86X9zDmUMXwHgsKiGjxrWE8JL+9mIgrHtOs
+         Bad5Nr5MDW5i4lqaRCSRkHM3PqyUjjjDx+lFZGp5L0n1M7kJQFrTEQoDGfyncVS4H6Sh
+         GhUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792304530; x=1792909330;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9ImNMEDi8oPrWIx71COnlaNJwSBMr2u0fGsfEGtTKVc=;
+        b=Fe6UDAU51uExwXKGqOxt1Ag9VHZ11zMG18QNj0f0/QRV6vfz+FztY24JGJsqf5loSy
+         psrOO3sA8vDmNUy/Ko5dYIkqaM2NOLJrSEEie0TnBxS2OCVw8l5o3aW6jmnkTjqFsK/p
+         EsWG+Ws47zNoT+C2Wui4QorHJKo9rBxDvKwB2mJcnE44hvjdroLEZSwAbebA1jwnQDBD
+         AnDW7wolWKb83hvyxJ4cT1TcNMrPth5vR+QBrnIObR0mOXsnJQbiDMU6hpQRD0gMxwYh
+         fkgtR2u1DzXRV6l56a7bHz/QOa9bxW84pqUf8TBswrJf0aXPp9m06td4J5NoIeZjheHW
+         +GUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy5DJoZMEbmsBwtzgoXHNaswY3v4NQy4/QxtZUCC0lcvYQjHdC0LR9rVB+VctCiDEIGAKAdlsGEtnwjjJk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjheFEg+m2Co1JMN3RcIJrUHnc3Iq3A05kLY7IigDw4TBMBx+5
+	djwA4R+2qm/h0ALwy5rUTXzO+8Jf1FRdBqSd9TTxztHSQF+4tGTHeDOT
+X-Gm-Gg: AYBFou2CZwP4IZlmc/apNA/JsvHOI8D2T2KqZ8bovXnEyiYvIINyGns4DqBPVuQE5dj
+	pYP4PEhyrjuUlRKY+oHzpPgG4Xzukfc3qEU2qePBAJjjFLQl+WCY5ZDxfpqH233uvtvrkdp1IHe
+	5rR+aCZ6KrDU0RQzPOMje0B6mjjXDabOsGEgdKA4qAXlCGgy1MC2vxi4dEfGooLOIka8vo6kSzp
+	lBNXUxUMHz80g0NFFhoDNZj6ZppjHo8XM3rS3KAVsLl1ZRTAWjjlqh4tM4kmhtTHUoZWoy6aLq/
+	bgznCM/11z6LskHXrUMi5bn7dStAy8BG6zqIoXHMlUmirqH9hosh32MEo9t+JafLUOPfwteqq9b
+	+7NxVY7HuignC7f1syxrz1kV33UixGMo88OzY4AmuGXa4/yMlcz8BsGuWhRg9zR5SO3ObcWLcVj
+	7cWdpu9EUnXFS7nKrUhEQuHAd2JsCph/VFQRkHDVynBgmxMJeM06fAq/ENlNXUZdMnOYfl9KMzX
+	6rlei4p+TeRcDXw8oy0lBbpt/gz
+X-Received: by 2002:a05:6a00:1707:b0:882:ae75:b846 with SMTP id d2e1a72fcca58-8a04ac2a7e8mr3453484b3a.4.1792304529741;
+        Sat, 17 Oct 2026 23:22:09 -0700 (PDT)
+Received: from localhost.localdomain ([222.254.197.26])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a05d4b04dcsm584738b3a.16.2026.10.17.23.22.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 23:22:09 -0700 (PDT)
+From: Nguyen Duc Thinh <ducthinh100812@gmail.com>
+To: Weijie Yuan <wy@wyuan.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Duc Thinh <ducthinh100812@gmail.com>
+Subject: Re: [PATCH] docs: submitting-patches: use git switch to create branches
+Date: Sun, 18 Oct 2026 13:22:00 +0700
+Message-ID: <20261018062200.29256-1-ducthinh100812@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <ardqGdjnd7kC1B-E@wyuan.org>
+References: <ardqGdjnd7kC1B-E@wyuan.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 17 Oct 2026 22:05:03 -0700 Peter Collingbourne <peter@pcc.me.uk> wrote:
-
-> > --- a/lib/string.c
-> > +++ b/lib/string.c
-> > @@ -19,6 +19,7 @@
-> >  #include <linux/bug.h>
-> >  #include <linux/ctype.h>
-> >  #include <linux/errno.h>
-> > +#include <linux/instrumented.h>
-> >  #include <linux/limits.h>
-> >  #include <linux/linkage.h>
-> >  #include <linux/minmax.h>
-> > @@ -132,6 +133,12 @@ ssize_t sized_strscpy(char *dest, const char *src, size_t count)
-> >                 unsigned long c, data;
-> >
-> >  #ifdef CONFIG_DCACHE_WORD_ACCESS
-> > +               /*
-> > +                * Unlike read_word_at_a_time(), load_unaligned_zeropad() is
-> > +                * not instrumented. Check the first byte, which must be
-> > +                * readable, as read_word_at_a_time() does.
-> > +                */
-> > +               instrument_read(src + res, 1);
-> >                 c = load_unaligned_zeropad(src+res);
+On Sat, Sep 26, 2026 at 14:45:45 +0800, Weijie Yuan wrote:
+>     \$ git checkout -t -b my-topical-branch master
+> +    \$ git switch -t -c my-topical-branch master
+>      Branch 'my-topical-branch' set up to track local branch 'master'.
+>      Switched to a new branch 'my-topical-branch'
 > 
-> It looks like at least some of the other callers of
-> load_unaligned_zeropad() have the same problem. Would it be better to
-> add the instrument_read() call to load_unaligned_zeropad()?
+> @@ -882,7 +882,7 @@ notice that it will have the ``base-commit:`` trailer at the very
+>  bottom, which provides the reviewer and the CI tools enough information
+>  to properly perform ``git am`` without worrying about conflicts::
+> 
+> -    \$ git checkout -b patch-review [base-commit-id]
+> +    \$ git switch -c patch-review [base-commit-id]
+>      Switched to a new branch 'patch-review'
+>      \$ git am patches.mbox
+>      Applying: First Commit
 
-Well, with this setup (Kconfig-time and runtime), does our user
-actually care about performance?  Can we simply use plain old C code in
-these situations and not compromise the runtime checking?
+Hi Weijie,
 
-I'm not sure why we have the assembly thing, really.  If the kernel is
-spending significant amounts of time doing string copies then why the
-heck?
+Thank you for putting this patch together and for the credit. The
+conversion to the modern command layout keeps the guide fully up to
+date with current Git usage practices.
+
+Reviewed-by: Nguyen Duc Thinh <ducthinh100812@gmail.com>
+
