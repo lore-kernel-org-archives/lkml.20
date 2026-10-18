@@ -1,78 +1,35 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5920B2BEC5F
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:34:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB7D2472AE
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:36:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792290883; cv=none; b=Ua/JXd6lzLwcVKukaYNrH6GFD4dC3XgCT6Pi2VlWzJwRLwoZn6InAOmpGxL67QsAwWXq1C0j0C1YAe2QHfzGhK7Vr1mKcdfepPt+leg1rvjtfe6cJu7/ARKp2nlWkcIKqDTvMM9jD3oJ2A1jfEeoXrBpl3NleL2NDp/AEsh3WYQ=
+	t=1792291019; cv=none; b=VB4rTdtW9UP97XyQ9KB6K5QPuyti3DUZDPs6b+nUyyWAddATZn2mZLGE/lSE+redLaSAFffPuG1O65Av7KrpUgnc7akMoYV81+9UrVBPSHjYQI5UrNEIOmwTNH1V77q3n7Es60MvHKUrkf2/7Ae0HI8BQ86Zm373LgJ/WcnYZCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792290883; c=relaxed/simple;
-	bh=amXIGpnA1xRsk4c4805nJ28it3Nl1OxrGpO61NTy6tI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uz7rZlRTFotCXfM4R9PpBWPdPKWwVCD05TbYbUh8iuR+nPBktvbomEMpX53QL+eIi7A5tv60T6TnmudI3JTtvRP1HawC8Yh4VngU5p8AQefdMO5xO61pD5BVeqQq/Vrvu7/XcPhymNUPTSP9U8VuJ05OzoQ9lXQg4pfTr68Wxdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D6vGZ1P1; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D6vGZ1P1"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5363316fa0cso12894941cf.3
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:34:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792290881; x=1792895681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=enBfETJLRoNIRyzwwRZuG5sQrbPTYtIwGM7+j3cSJxc=;
-        b=D6vGZ1P1E/lBZxnk8F6R3O2hkuffTcsmtTpHrWcz8l7buzhnMOrQn4VkROeohz5rHQ
-         kBe3aiUWN1a6eTcX8mYIkfQu9Uhsnv/HOmWSDrVkwGVy7mYD6ieUxCD/rToTf6qxKkEg
-         RzaVrtJ5m0i09ZSAwRiutGf9G3Un+X4ZidrSByScZIqnC5u7Kt0QydAz8jvBOe2W8nsr
-         osezExuVqqVIfgc7g5cvteXmt+46rdO3hXYJJoi8YW4O5MCsgMS0epqB+c29IlNJ60uU
-         C4/xmWsAxTlF0a0pilgkKYRQOmo0K9aSq+0nd/6pozC2Q9y3zOHzZLMk0ZPwLX8lSUG6
-         cGqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792290881; x=1792895681;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=enBfETJLRoNIRyzwwRZuG5sQrbPTYtIwGM7+j3cSJxc=;
-        b=SX0605TMzSkAJLkTaMNfQ+0P/HpT6Pa7LqZedrBsHqR0jeoRAt3lwqcLWoQIwFvakW
-         bgGuoBSOcdcyRgwPmd5fbkES8XW63shdox4oIYmea0jtRXvhwHiZG/7nO1kPFIRDIDZQ
-         FlJwFRZz4byHxkPIZmQmH+HS3QpEpghN5Mf6LPBciLUGPM7SD5y5q/wzlaZAxe/jfBB0
-         1HGPOFe8glnU9bzOgQVKJIufl3Zgq/52w6aNyGxBjQbkhQWwNgQGl1Bptd/wWL8ZfJhq
-         sphnnfkgIyMkvBsp8cMmJwzq4RGfP1ASZ07YckhIyAiNNtdm8HpRMs9QMb81vZOpiLgu
-         uFwg==
-X-Forwarded-Encrypted: i=1; AKwUvBxnfygZKJSz2lUrmE2WE5pi4VoE07ANvV5BXbqVSnvN+KTR3k5+nInXCsZcuOG/SwRGDunH3COfubTmWTo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwUVpttF603Kby4PMqTSXR5MAbsrHPSQD1lJhuJQmyl86vY9mN
-	SgEjU45z/9h9IsqcvZt3JlSm9+EjSUZeTsUN4lGMVc4oi8b4VE7U03Y=
-X-Gm-Gg: AYBFou0fO3DvNL9Ih/7yOJJARMi0AXDIfN7X0cK9hnbj8Iyn9F1vm/BtTGdEk9S7u1i
-	hPXqH9eSXB6xMYZ2FjSSdrRRH8b4hbtEcHXEQ+FDwCLVqtZrZaLdkT7QZeh1osR8Geffi8BpDAP
-	sJWIsn2Ug0GC0/RBjk5p3KJ4ArdEKf8hCXbTstH11Dc5aFMCZcy0Bm3ZKV9Bov99L/sUG/BsAER
-	q3Ywx1M9OXbgXl4NxvQP565m5Km/CAg/F4mOCjpO8uDr5dvRW/W68NzL/s+C+llPO3teNR2/ERU
-	W1JqefzOSALXJ/KbIR2HRLEC/XqXxi463Q+sDR7r31wm+d+5I56VNKdGVi6gP+wMO4fDv5rBsfj
-	xTki1qhfIL682eQQnD5pA4KPFSVfBMbrR4oBXOLYmkpenopuXAlUwgtHeFNvWMbAc9kXGXLLfFq
-	DQgCOIWmoOgrNMRlZ6qG8cPdtrNIPg310PpcJFLUSFhrzXKRbqH7VAgsUka4v9fnvzbKDAzDlkV
-	yuTTMGsXNa6rLqC01LN0vwQ4hmqWRUuaIsbrY79RWqpUW4sWJ6fg2rwDv/UkgxK9vS3yhi43yD6
-	Xfh65ObDwU1zu6dbUfg0qBZe3aPN
-X-Received: by 2002:ac8:5745:0:b0:532:abc9:8f4f with SMTP id d75a77b69052e-53645ff0043mr60804511cf.37.1792290881142;
-        Sat, 17 Oct 2026 19:34:41 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcb8c4adasm61046666d6.1.2026.10.17.19.34.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 19:34:40 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Benson Leung <bleung@chromium.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	Andrei Kuchynski <akuchynski@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Guenter Roeck <groeck@chromium.org>,
-	chrome-platform@lists.linux.dev,
+	s=arc-20240116; t=1792291019; c=relaxed/simple;
+	bh=Dqr0b5AvzV7wYDGxyuGiC8nKsnes/TzBhyS1p+WcOGg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZPBzVTi61tXG+ntq9WKeUu5rYoXjlwrY1KfulNBabhXZIPpvsuajYcxslcxRWazNkNp13r3cRDCTaKVM4TdPyWXkAw47tbdGnVW5QMuBWJuBOQ7R3d9Q13+F3BWr08bN/oV2oRxXcsqQZ4x81z5tsEcb6+lxkHVc9Pb1SKGm+XM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xIGlV-004O5Y-T7;
+	Sat, 17 Oct 2026 22:36:49 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>,
+	Muchun Song <muchun.song@linux.dev>,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	mhun512@gmail.com,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v3] platform/chrome: cros_ec_typec: Stop altmode work during partner removal
-Date: Sat, 17 Oct 2026 22:34:38 -0400
-Message-ID: <20261018023438.3902617-1-mhun512@gmail.com>
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] riscv: mm: Define PAGE_KERNEL_RO
+Date: Sat, 17 Oct 2026 22:36:49 -0400
+Message-ID: <20261018023649.798595-1-nickolai@csail.mit.edu>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,150 +39,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DisplayPort and Thunderbolt port altmodes queue work to deliver VDM
-responses to partner drivers. Partner altmode unregistration does not
-drain this work, so it can run while the partner driver is being removed
-and access released driver data.
+Kernel mappings that generic code creates read-only are writable on
+riscv. With HugeTLB vmemmap optimization (selected by riscv and on by
+default with CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON), the tail
+vmemmap pages of every optimized huge page are remapped to one shared
+page with PAGE_KERNEL_RO so that a stray write to a tail struct page
+faults. On riscv that remap keeps _PAGE_WRITE, so such a write silently
+changes the struct pages of every optimized huge page instead.
+early_memremap_ro() (EFI system and configuration tables), the
+firmware loader's vmap() of the loaded image, and acpi_os_ioremap() for
+EFI runtime code and NOMAP regions, which asks for a read-only mapping
+precisely to avoid a writable mapping of executable code, are affected
+the same way.
 
-Look up the corresponding port altmode with typec_altmode_get_partner()
-and disable its work before unregistering the partner altmode. Keep the
-work disabled while the partner driver is removed, then clear pending
-response and DP status state before re-enabling it for a new connection.
-Use the same cleanup when list-node allocation fails after registering
-an altmode.
+riscv defines PAGE_KERNEL_READ but not PAGE_KERNEL_RO, so
+include/linux/pgtable.h falls back to "#define PAGE_KERNEL_RO
+PAGE_KERNEL". Define PAGE_KERNEL_RO as PAGE_KERNEL_READ. FIXMAP_PAGE_RO
+then follows from asm-generic/fixmap.h: early_memremap_ro() now passes
+0xe3 instead of 0xe7 to __early_ioremap().
 
-This issue was identified as part of our ongoing research while
-reviewing kernel code.
+Tested on QEMU virt (riscv64, defconfig with
+CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON and CONFIG_PTDUMP_DEBUGFS,
+booted with hugepages=8): before, every vmemmap entry in
+/sys/kernel/debug/kernel_page_tables has W set; after, the 28K of tail
+vmemmap of each huge page is mapped R without W.
 
-Fixes: dbb3fc0ffa95 ("platform/chrome: cros_ec_typec: Displayport support")
-Cc: stable@vger.kernel.org
+Fixes: a3c7d6b642e4 ("riscv: mm: hugetlb: Enable ARCH_WANT_HUGETLB_PAGE_OPTIMIZE_VMEMMAP")
 Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 ---
-Changes in v3:
-- Use typec_altmode_get_partner() while walking the existing altmode list
-  instead of separately iterating over all port altmodes.
-- Replace the port-wide helper with cros_typec_enable_altmode() and drop
-  the redundant cancellation during port altmode unregistration.
-- Drop the allocation-order change. Reuse a single-altmode cleanup helper
-  for list-node allocation failures instead.
 
-Previous version:
-https://lore.kernel.org/all/20261002200108.399258-1-mhun512@gmail.com/
+Notes:
+    Reproducer (riscv64 defconfig + CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON=y
+    CONFIG_PTDUMP_DEBUGFS=y, QEMU virt): a static /init that prints the vmemmap
+    part of the kernel page table dump.
+    
+      #include <stdio.h>
+      #include <string.h>
+      #include <sys/mount.h>
+      #include <sys/reboot.h>
+    
+      int main(void)
+      {
+      	char line[256];
+      	int in = 0;
+      	FILE *f;
+    
+      	mount("sysfs", "/sys", "sysfs", 0, NULL);
+      	mount("debugfs", "/sys/kernel/debug", "debugfs", 0, NULL);
+      	f = fopen("/sys/kernel/debug/kernel_page_tables", "r");
+      	while (f && fgets(line, sizeof(line), f)) {
+      		if (strstr(line, "---[ "))
+      			in = strstr(line, "vmemmap start") != NULL;
+      		if (in)
+      			fputs(line, stdout);
+      	}
+      	fflush(stdout);
+      	reboot(RB_POWER_OFF);
+      	return 0;
+      }
+    
+      riscv64-linux-gnu-gcc -static -O2 -o init init.c
+      qemu-system-riscv64 -M virt -cpu max -smp 2 -m 1G -nographic -kernel Image \
+        -initrd initramfs.cpio -append "console=ttyS0 hugepages=8"
+    
+    Before (all vmemmap entries writable):
+      0xff1c000002000000-0xff1c000002200000  0xbec00000  2M PTE  D A G . . W R V
+      0xff1c000002200000-0xff1c000002800000  0xbea00000  6M PMD  D A G . . W R V
+    
+    After (each huge page: 4K head W, 28K tail read-only, shared page 0x81fd0000):
+      0xff1c0000020a1000-0xff1c0000020a8000  0x81fd0000  28K PTE D A G . . . R V
+      0xff1c0000020a8000-0xff1c0000020a9000  0x81fd6000   4K PTE D A G . . W R V
+      0xff1c0000020a9000-0xff1c0000020b0000  0x81fd0000  28K PTE D A G . . . R V
 
-Validation: GCC 15 x86_64 W=1 composite-object builds passed with DP/TBT
-both enabled, DP only, TBT only, and both disabled. Patch application and
-checkpatch checks also passed.
-No hardware or runtime testing.
+ arch/riscv/include/asm/pgtable.h | 1 +
+ 1 file changed, 1 insertion(+)
 
- drivers/platform/chrome/cros_ec_typec.c      |   20 +++++++++++++++++--
- drivers/platform/chrome/cros_typec_altmode.c |   28 ++++++++++++++++++++++++++
- drivers/platform/chrome/cros_typec_altmode.h |    7 +++++++
- 3 files changed, 53 insertions(+), 2 deletions(-)
+diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
+index 40b1ed4f3ea8..13447181ceb7 100644
+--- a/arch/riscv/include/asm/pgtable.h
++++ b/arch/riscv/include/asm/pgtable.h
+@@ -189,6 +189,7 @@ extern struct pt_alloc_ops pt_ops __meminitdata;
+ 
+ #define PAGE_KERNEL		__pgprot(_PAGE_KERNEL)
+ #define PAGE_KERNEL_READ	__pgprot(_PAGE_KERNEL & ~_PAGE_WRITE)
++#define PAGE_KERNEL_RO		PAGE_KERNEL_READ
+ #define PAGE_KERNEL_EXEC	__pgprot(_PAGE_KERNEL | _PAGE_EXEC)
+ #define PAGE_KERNEL_READ_EXEC	__pgprot((_PAGE_KERNEL & ~_PAGE_WRITE) \
+ 					 | _PAGE_EXEC)
 
-diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/chrome/cros_ec_typec.c
-index 50a68819ceb7bbfbd888ca919d678d4c75237c26..09a5c58e1edbb1599e3903c15cab2766a849a891 100644
---- a/drivers/platform/chrome/cros_ec_typec.c
-+++ b/drivers/platform/chrome/cros_ec_typec.c
-@@ -274,6 +274,22 @@ static int cros_typec_add_partner(struct cros_typec_data *typec, int port_num,
- 	return ret;
- }
- 
-+static void cros_typec_unregister_altmode(struct typec_altmode *amode, bool is_partner)
-+{
-+	const struct typec_altmode *port_altmode =
-+		is_partner ? typec_altmode_get_partner(amode) : NULL;
-+
-+	/* Partner drivers can queue port work until their removal completes. */
-+	if (port_altmode)
-+		cros_typec_enable_altmode(port_altmode, false);
-+
-+	typec_unregister_altmode(amode);
-+
-+	/* Port altmodes are reused when a partner reconnects. */
-+	if (port_altmode)
-+		cros_typec_enable_altmode(port_altmode, true);
-+}
-+
- static void cros_typec_unregister_altmodes(struct cros_typec_data *typec, int port_num,
- 					   bool is_partner)
- {
-@@ -284,7 +300,7 @@ static void cros_typec_unregister_altmodes(struct cros_typec_data *typec, int po
- 	head = is_partner ? &port->partner_mode_list : &port->plug_mode_list;
- 	list_for_each_entry_safe(node, tmp, head, list) {
- 		list_del(&node->list);
--		typec_unregister_altmode(node->amode);
-+		cros_typec_unregister_altmode(node->amode, is_partner);
- 		devm_kfree(typec->dev, node);
- 	}
- }
-@@ -915,7 +931,7 @@ static int cros_typec_register_altmodes(struct cros_typec_data *typec, int port_
- 			node = devm_kzalloc(typec->dev, sizeof(*node), GFP_KERNEL);
- 			if (!node) {
- 				ret = -ENOMEM;
--				typec_unregister_altmode(amode);
-+				cros_typec_unregister_altmode(amode, is_partner);
- 				goto err_cleanup;
- 			}
- 
-diff --git a/drivers/platform/chrome/cros_typec_altmode.c b/drivers/platform/chrome/cros_typec_altmode.c
-index 66c546bf89b532d3bae1de322a1cfb1205e0190f..c06ad9238ad740d21d38015b7ece831660a475da 100644
---- a/drivers/platform/chrome/cros_typec_altmode.c
-+++ b/drivers/platform/chrome/cros_typec_altmode.c
-@@ -37,6 +37,34 @@ struct cros_typec_dp_data {
- 	bool pending_status_update;
- };
- 
-+void cros_typec_enable_altmode(const struct typec_altmode *alt, bool enable)
-+{
-+	struct cros_typec_altmode_data *adata = dev_get_drvdata(&alt->dev);
-+	struct cros_typec_dp_data *dp_data;
-+
-+	/* An altmode without its optional implementation has no work. */
-+	if (!adata)
-+		return;
-+
-+	if (!enable) {
-+		disable_work_sync(&adata->work);
-+		return;
-+	}
-+
-+	mutex_lock(&adata->lock);
-+	adata->header = 0;
-+	adata->vdo_data = NULL;
-+	adata->vdo_size = 0;
-+	if (adata->sid == USB_TYPEC_DP_SID) {
-+		dp_data = container_of(adata, struct cros_typec_dp_data, adata);
-+		dp_data->configured = false;
-+		dp_data->pending_status_update = false;
-+	}
-+	mutex_unlock(&adata->lock);
-+
-+	enable_work(&adata->work);
-+}
-+
- static void cros_typec_altmode_work(struct work_struct *work)
- {
- 	struct cros_typec_altmode_data *data =
-diff --git a/drivers/platform/chrome/cros_typec_altmode.h b/drivers/platform/chrome/cros_typec_altmode.h
-index 3f2aa95d065af709643ad653df487a9987780da4..7f47eae66b0c23d14f158296075d1092df704676 100644
---- a/drivers/platform/chrome/cros_typec_altmode.h
-+++ b/drivers/platform/chrome/cros_typec_altmode.h
-@@ -11,6 +11,13 @@ struct typec_altmode;
- struct typec_altmode_desc;
- struct typec_displayport_data;
- 
-+#if IS_ENABLED(CONFIG_CROS_EC_TYPEC_ALTMODES)
-+void cros_typec_enable_altmode(const struct typec_altmode *alt, bool enable);
-+#else
-+static inline void cros_typec_enable_altmode(const struct typec_altmode *alt,
-+					    bool enable) {}
-+#endif
-+
- #if IS_ENABLED(CONFIG_TYPEC_DP_ALTMODE)
- struct typec_altmode *
- cros_typec_register_displayport(struct cros_typec_port *port,
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
 -- 
 2.53.0
+
