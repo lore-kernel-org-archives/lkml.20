@@ -1,453 +1,293 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1392C027F
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53025357CED;
+	Sun, 18 Oct 2026 04:35:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792298112; cv=none; b=fkPz258EGzkp03ZSofS6iaahodzs/21taQzc7Wlum/uzachX9C7p1JChDr3yfV9JN0eoAq2nPbFDSGZ8/yYksy+pWWAvGHT4nTHVzh5cVR367c3CmAjOd6euPn4qWH1/9OYE3Nt+7wc+pec+9i8thdTFt1Yq2DriWnKpMckZk3k=
+	t=1792298127; cv=none; b=QIVUyHFALMi1YoltJqr9wBWD67BMGGGmI0IgZ7W1AoOxWqe2Y1fegEDRjqvE1GqxGVfOGcLDnBRmyMH7mPYen3C/lO9mzZa1M0z5UOcWDiSRBZXKN1ZQKGPp9lD3aRIIkQP4WuWisvhNZGYRCR31VtfMLK8Bydp6eQHi+/pEBFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792298112; c=relaxed/simple;
-	bh=AjBQmFyhsIuMBm3hPrg2M4zz8ssEzhjh4P/UkVsxEGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lTFhKLLa9YDi527/VfEfU+vB6dFL70gx57dGXqXxolqP1bEbdI1G93PctIj8nJ9cyY3O01524Qs9zI098KYbuwlqu2eHDRjlqPkVjb+dOox8jWh4qCW1hSRj0gecKOzgSDZPwftzkqPUCqP4UDBXdI7PeWAOutX/GyflbUKsGsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=RGJiau6B; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792298127; c=relaxed/simple;
+	bh=fIIzO3YeQ89hHkR10kQq/oT7VhSRWJgqIhFbWPKhPV4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AVhW05Rc6KcLKTcNnlXCagQNbgo+d0dbnVpQES/NpKGl6A04t3rDid7SWRF6UtFXFe0+NV39gKZvQlp5hvBTBsEx9a4QRaNk0KY5EKgGe9nJiAotqHp1O4xCLk47T4mbyOym2749jV4OzjeQ0rxSqRHVFotdIB6ykKnIsAlLQb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXtI6rEf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="RGJiau6B"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso560613a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:35:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1792298110; x=1792902910; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UP34xPhDFhtAM+cWwkHeUJ1O9EQe7R6dx6I7BN7Iz7U=;
-        b=RGJiau6BcKbK2nKCrmmKqEQ8ZtDSlPPv0xq2oydCcnu2CCHl2gV2b85I9n6pKK/8Me
-         gelgcUPFUCrFGtzx8mdoj6YDKKtvmHAiWPh6s9rZUVdvevsQH0WJmBrVbqSsxen9Yy3I
-         QI1WcBah+zTxLvgPcw0brRPIUpoqrfknXEsNIisjFU4DQFmwSJ/O7m7dIwO4dLXJNIKF
-         689SNylQ0NhnMVlh29IOePHppQY0MvAZ9qzECC5ACM/0k/uSMzZ8dd3J1A+7NIsaRly1
-         zzudPm/vKh/DqzWHNyGQxprwwDz0V6B2R0AvR+lG/xHKQb+hR3+DEtcJB0spACq6bgZ7
-         tgfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792298110; x=1792902910;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UP34xPhDFhtAM+cWwkHeUJ1O9EQe7R6dx6I7BN7Iz7U=;
-        b=F27Dnhn9Hn2uwhlgVKL/qzqFAkI0BVmxOyCENuFJenSHqaHRbo/QTEKyq8gv9pA8HJ
-         87bsD9+3LS5ECkDNX642lShAYVbtLvETA5emnMQ2ZDXBITq0LYQGo2hnDukKctLfSiJ4
-         xtLBibAFNMSzVfZDGPOlagoQSe3ESlLEBVim8CgRxZmHOWzljL23suaAocuvWjSZX3zh
-         d8Iihey3kE21m+2KdWhlg0K0KIzDJVCynMjn+1YghxsN7u5eD2t2QT8Ew/YF5LLQcQoC
-         3v+Pujk10H6JfdljHYXBHuOAvw5pqtGdItGUCbUZPG0FsN4mBTryicyuJfnOFCp77EOI
-         f/gg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2YaVYn6HnbxyuzzJhhqlIpGTuP78dR+O0XFf2Bo49uMc0pGf9Qk9APh9eoMVPFa2kkQAAxrnR9FUXQ2s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKB0f6UKoT0ZssaJUu2x/KTPvJ2PW8R6UJu0x761wkBV1Be5JEA
-	nbY/1A5jScATKzndPA8V/xjnb+8JUtTwHKHsgyWjqTTxCf6yk2daeXSPW0WgCgcHkTU=
-X-Gm-Gg: AYBFou1OEc5/PvROH3uj97WSUlc0J0kdlt/OdeUjpp/INHpSthf0KYWEhc1bJWTeVdX
-	SpslOnPEm58KBnrI0eYPEs4egLMHJyGExnPcx1ajHcQbKXkc76iHH20vq7QorabiwvzG/08gTaM
-	fT6M2ZGKDmumRYFzsRZYNyzJPMxpTsZWXFB2Q/kX0omRlhJMjp/QP47UfMyLpPbuOMc6watIZPC
-	nbyfjYZ8A73GlMvEcXR7p2yZpfDjXCTinsLrXiO6SnZREhqBmN2JZ4L/pAlOpjolXL6UUSj5u75
-	wIoeAZuT1HEzc38qbgaJHIZRimg4xLo17zsYl5ZB0nGvU4Uyi20OzRAZimtPe4+uOR317VNY3ES
-	fvLRwd5uGQ16WLs1uF8rtbauBE9pqoHec2z48s57eQulTLk/ZoTL3Kjrd3gQz33XL6sOEr6CyvR
-	1D9Q6eKDRuiPdA8sjuYGAmdLx0M72ZymZa+QYhQ0+4duiJd+aI8I30P3qWpcMH4aLxkO9tsuFZF
-	7WpuUncjtSp7u1poBQXpYuoDBn4NkfEQ3gBYLlaZ7aItoi8pt9rkPWEvawxXkwiQxbw/TZS5/EV
-	yLSBm15indk1DmvKFZGo6GA=
-X-Received: by 2002:a17:90b:55cb:b0:3ac:9c37:9431 with SMTP id 98e67ed59e1d1-3aceec251a0mr3458188a91.19.1792298109782;
-        Sat, 17 Oct 2026 21:35:09 -0700 (PDT)
-Received: from n232-176-004.byted.org ([36.110.163.100])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc487cccdsm10412082a91.8.2026.10.17.21.35.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 21:35:09 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Dan Williams <djbw@kernel.org>,
-	linux-mm@kvack.org,
-	kasan-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>,
-	muchun.song@linux.dev
-Subject: [PATCH v2] kasan: fix runtime shadow page table synchronization
-Date: Sun, 18 Oct 2026 12:35:01 +0800
-Message-ID: <20261018043501.3257632-1-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXtI6rEf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5678F1F000C4;
+	Sun, 18 Oct 2026 04:35:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792298125;
+	bh=PRpTZJSpbXXgxWwOLofA5Y6mVk1ATVD63mzOc94TFVM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ZXtI6rEfp1QOABC3VVWMBFS+Pg0XYpu2vUbXchMn+UZlgj3JuZaaXefIcbtrqnF1B
+	 WPU7ghCLPECMB9AkykZZQa6k5BdDi93ZjwR0+Rz5nUqFhrY0EFfNbuE5BV5LZih9T3
+	 x9e0tcBgYUjyfF7aSY6wLYocQjuGnUPJeft+1inG8IPM5T1uf1pAzdT0waOooSZPNQ
+	 X+Zd3+LzAXT6JVLDfpY86ttM6ZwtW03R5gATQ4vkCCzyJAQ6BGjxooPj/AwPFmJ2ke
+	 ltI54e53Se8cb0ARS25wAbQ6qx8kfcFCAvDAkO+wWiqvHMtRhddYoEOoUvC0TtuHSh
+	 L2YTVRvLXMxww==
+Subject: Re: [PATCH net v2] selftests/net: test network sysctl extremes
+From: netdev-bot+sashiko@kernel.org
+To: sahaj123.sc@gmail.com
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, shuah@kernel.org, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 18 Oct 2026 04:35:24 +0000
+Message-ID: <179229812489.3135.14817248906900099268@kernel.org>
+In-Reply-To: <20261014041446.2821085-1-sahaj123.sc@gmail.com>
+References: <20261014041446.2821085-1-sahaj123.sc@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-kasan_populate_early_shadow() is also used after slab becomes available
-to install shadow mappings for hot-added memory. When this path allocates
-a new page table at a level that requires synchronization, the new entry
-is initially published only in init_mm.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-On architectures that maintain separate kernel page tables, runtime
-changes to the kernel page tables must be propagated to existing process
-page tables. Otherwise, the KASAN shadow mapping can remain unreachable
-and fault when the hot-added memory is accessed.
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
-Use the existing page-table allocation tracking helpers to collect the
-modified levels, then synchronize the affected kernel mappings once after
-the walk.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Once synchronized, an entry remains in other process page tables. Clearing
-only init_mm and freeing its target table during teardown would leave stale
-pointers behind. Retain page tables referenced by synchronized entries.
+- [Medium] selftests/net: unhandled EPIPE when reading /dev/kmsg causes
+  spurious test failures
+- [Low] main() in tools/testing/selftests/net/sysctl_net_test.c uses the
+  kselftest.h API against its documented contract.
+- [Low] The UDP part of the test cannot exercise the documented effect of
+  the UDP sysctls it selects, so its 'UDP 16/16' result says nothing…
+- [Low] v2 adds a facility filter to check_kernel_log() (`prefix =
+  strtoul(record, NULL, 10); if (prefix >> 3 != 0) continue;`, lines…
 
-Fixes: 0207df4fa1a8 ("kernel/memremap, kasan: make ZONE_DEVICE with work with KASAN")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
----
-v2:
-- Use the existing page-table tracking helpers and synchronize once after
-  shadow population (suggested by Andrey Ryabinin)
-- Fix aligned shadow population to reuse existing page tables instead of
-  replacing them (suggested by Andrey Ryabinin)
----
- mm/kasan/init.c | 125 ++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 90 insertions(+), 35 deletions(-)
+--
 
-diff --git a/mm/kasan/init.c b/mm/kasan/init.c
-index 66a883887987..f94f461d864c 100644
---- a/mm/kasan/init.c
-+++ b/mm/kasan/init.c
-@@ -17,6 +17,7 @@
- 
- #include <asm/page.h>
- 
-+#include "../pgalloc-track.h"
- #include "kasan.h"
- 
- /*
-@@ -107,7 +108,7 @@ static void __ref zero_pte_populate(pmd_t *pmd, unsigned long addr,
- }
- 
- static int __ref zero_pmd_populate(pud_t *pud, unsigned long addr,
--				unsigned long end)
-+				unsigned long end, pgtbl_mod_mask *mask)
- {
- 	pmd_t *pmd = pmd_offset(pud, addr);
- 	unsigned long next;
-@@ -115,25 +116,26 @@ static int __ref zero_pmd_populate(pud_t *pud, unsigned long addr,
- 	do {
- 		next = pmd_addr_end(addr, end);
- 
--		if (IS_ALIGNED(addr, PMD_SIZE) && end - addr >= PMD_SIZE) {
-+		if (IS_ALIGNED(addr, PMD_SIZE) && end - addr >= PMD_SIZE &&
-+		    pmd_none(*pmd)) {
- 			pmd_populate_kernel(&init_mm, pmd,
- 					lm_alias(kasan_early_shadow_pte));
-+			*mask |= PGTBL_PMD_MODIFIED;
- 			continue;
- 		}
- 
- 		if (pmd_none(*pmd)) {
--			pte_t *p;
-+			if (slab_is_available()) {
-+				if (!pte_alloc_kernel_track(pmd, addr, mask))
-+					return -ENOMEM;
-+			} else {
-+				pte_t *p;
- 
--			if (slab_is_available())
--				p = pte_alloc_one_kernel(&init_mm);
--			else {
- 				p = early_alloc(PAGE_SIZE, NUMA_NO_NODE);
- 				kernel_pte_init(p);
-+				pmd_populate_kernel(&init_mm, pmd, p);
-+				*mask |= PGTBL_PMD_MODIFIED;
- 			}
--			if (!p)
--				return -ENOMEM;
--
--			pmd_populate_kernel(&init_mm, pmd, p);
- 		}
- 		zero_pte_populate(pmd, addr, next);
- 	} while (pmd++, addr = next, addr != end);
-@@ -142,80 +144,93 @@ static int __ref zero_pmd_populate(pud_t *pud, unsigned long addr,
- }
- 
- static int __ref zero_pud_populate(p4d_t *p4d, unsigned long addr,
--				unsigned long end)
-+				unsigned long end, pgtbl_mod_mask *mask)
- {
- 	pud_t *pud = pud_offset(p4d, addr);
- 	unsigned long next;
-+	int ret;
- 
- 	do {
- 		next = pud_addr_end(addr, end);
--		if (IS_ALIGNED(addr, PUD_SIZE) && end - addr >= PUD_SIZE) {
-+		if (IS_ALIGNED(addr, PUD_SIZE) && end - addr >= PUD_SIZE &&
-+		    pud_none(*pud)) {
- 			pmd_t *pmd;
- 
- 			pud_populate(&init_mm, pud,
- 					lm_alias(kasan_early_shadow_pmd));
-+			*mask |= PGTBL_PUD_MODIFIED;
- 			pmd = pmd_offset(pud, addr);
- 			pmd_populate_kernel(&init_mm, pmd,
- 					lm_alias(kasan_early_shadow_pte));
-+			*mask |= PGTBL_PMD_MODIFIED;
- 			continue;
- 		}
- 
- 		if (pud_none(*pud)) {
--			pmd_t *p;
--
- 			if (slab_is_available()) {
--				p = pmd_alloc(&init_mm, pud, addr);
--				if (!p)
-+				if (!pmd_alloc_track(&init_mm, pud, addr, mask))
- 					return -ENOMEM;
- 			} else {
-+				pmd_t *p;
-+
- 				p = early_alloc(PAGE_SIZE, NUMA_NO_NODE);
- 				pmd_init(p);
- 				pud_populate(&init_mm, pud, p);
-+				*mask |= PGTBL_PUD_MODIFIED;
- 			}
- 		}
--		zero_pmd_populate(pud, addr, next);
-+		ret = zero_pmd_populate(pud, addr, next, mask);
-+		if (ret)
-+			return ret;
- 	} while (pud++, addr = next, addr != end);
- 
- 	return 0;
- }
- 
- static int __ref zero_p4d_populate(pgd_t *pgd, unsigned long addr,
--				unsigned long end)
-+				unsigned long end, pgtbl_mod_mask *mask)
- {
- 	p4d_t *p4d = p4d_offset(pgd, addr);
- 	unsigned long next;
-+	int ret;
- 
- 	do {
- 		next = p4d_addr_end(addr, end);
--		if (IS_ALIGNED(addr, P4D_SIZE) && end - addr >= P4D_SIZE) {
-+		if (IS_ALIGNED(addr, P4D_SIZE) && end - addr >= P4D_SIZE &&
-+		    p4d_none(*p4d)) {
- 			pud_t *pud;
- 			pmd_t *pmd;
- 
--			p4d_populate_kernel(addr, p4d,
-+			p4d_populate(&init_mm, p4d,
- 					lm_alias(kasan_early_shadow_pud));
-+			*mask |= PGTBL_P4D_MODIFIED;
- 			pud = pud_offset(p4d, addr);
- 			pud_populate(&init_mm, pud,
- 					lm_alias(kasan_early_shadow_pmd));
-+			*mask |= PGTBL_PUD_MODIFIED;
- 			pmd = pmd_offset(pud, addr);
- 			pmd_populate_kernel(&init_mm, pmd,
- 					lm_alias(kasan_early_shadow_pte));
-+			*mask |= PGTBL_PMD_MODIFIED;
- 			continue;
- 		}
- 
- 		if (p4d_none(*p4d)) {
--			pud_t *p;
--
- 			if (slab_is_available()) {
--				p = pud_alloc(&init_mm, p4d, addr);
--				if (!p)
-+				if (!pud_alloc_track(&init_mm, p4d, addr, mask))
- 					return -ENOMEM;
- 			} else {
-+				pud_t *p;
-+
- 				p = early_alloc(PAGE_SIZE, NUMA_NO_NODE);
- 				pud_init(p);
--				p4d_populate_kernel(addr, p4d, p);
-+				p4d_populate(&init_mm, p4d, p);
-+				*mask |= PGTBL_P4D_MODIFIED;
- 			}
- 		}
--		zero_pud_populate(p4d, addr, next);
-+		ret = zero_pud_populate(p4d, addr, next, mask);
-+		if (ret)
-+			return ret;
- 	} while (p4d++, addr = next, addr != end);
- 
- 	return 0;
-@@ -230,15 +245,19 @@ static int __ref zero_p4d_populate(pgd_t *pgd, unsigned long addr,
- int __ref kasan_populate_early_shadow(const void *shadow_start,
- 					const void *shadow_end)
- {
--	unsigned long addr = (unsigned long)shadow_start;
-+	unsigned long start = (unsigned long)shadow_start;
-+	unsigned long addr = start;
- 	unsigned long end = (unsigned long)shadow_end;
- 	pgd_t *pgd = pgd_offset_k(addr);
- 	unsigned long next;
-+	pgtbl_mod_mask mask = 0;
-+	int ret = 0;
- 
- 	do {
- 		next = pgd_addr_end(addr, end);
- 
--		if (IS_ALIGNED(addr, PGDIR_SIZE) && end - addr >= PGDIR_SIZE) {
-+		if (IS_ALIGNED(addr, PGDIR_SIZE) && end - addr >= PGDIR_SIZE &&
-+		    pgd_none(*pgd)) {
- 			p4d_t *p4d;
- 			pud_t *pud;
- 			pmd_t *pmd;
-@@ -251,34 +270,46 @@ int __ref kasan_populate_early_shadow(const void *shadow_start,
- 			 * puds,pmds, so pgd_populate(), pud_populate()
- 			 * is noops.
- 			 */
--			pgd_populate_kernel(addr, pgd,
-+			pgd_populate(&init_mm, pgd,
- 					lm_alias(kasan_early_shadow_p4d));
-+			mask |= PGTBL_PGD_MODIFIED;
- 			p4d = p4d_offset(pgd, addr);
--			p4d_populate_kernel(addr, p4d,
-+			p4d_populate(&init_mm, p4d,
- 					lm_alias(kasan_early_shadow_pud));
-+			mask |= PGTBL_P4D_MODIFIED;
- 			pud = pud_offset(p4d, addr);
- 			pud_populate(&init_mm, pud,
- 					lm_alias(kasan_early_shadow_pmd));
-+			mask |= PGTBL_PUD_MODIFIED;
- 			pmd = pmd_offset(pud, addr);
- 			pmd_populate_kernel(&init_mm, pmd,
- 					lm_alias(kasan_early_shadow_pte));
-+			mask |= PGTBL_PMD_MODIFIED;
- 			continue;
- 		}
- 
- 		if (pgd_none(*pgd)) {
- 
- 			if (slab_is_available()) {
--				if (!p4d_alloc(&init_mm, pgd, addr))
--					return -ENOMEM;
-+				if (!p4d_alloc_track(&init_mm, pgd, addr, &mask)) {
-+					ret = -ENOMEM;
-+					break;
-+				}
- 			} else {
--				pgd_populate_kernel(addr, pgd,
-+				pgd_populate(&init_mm, pgd,
- 					early_alloc(PAGE_SIZE, NUMA_NO_NODE));
-+				mask |= PGTBL_PGD_MODIFIED;
- 			}
- 		}
--		zero_p4d_populate(pgd, addr, next);
-+		ret = zero_p4d_populate(pgd, addr, next, &mask);
-+		if (ret)
-+			break;
- 	} while (pgd++, addr = next, addr != end);
- 
--	return 0;
-+	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
-+		arch_sync_kernel_mappings(start, end);
-+
-+	return ret;
- }
- 
- static void kasan_free_pte(pte_t *pte_start, pmd_t *pmd)
-@@ -286,6 +317,9 @@ static void kasan_free_pte(pte_t *pte_start, pmd_t *pmd)
- 	pte_t *pte;
- 	int i;
- 
-+	if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_PMD_MODIFIED)
-+		return;
-+
- 	for (i = 0; i < PTRS_PER_PTE; i++) {
- 		pte = pte_start + i;
- 		if (!pte_none(ptep_get(pte)))
-@@ -301,6 +335,9 @@ static void kasan_free_pmd(pmd_t *pmd_start, pud_t *pud)
- 	pmd_t *pmd;
- 	int i;
- 
-+	if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_PUD_MODIFIED)
-+		return;
-+
- 	for (i = 0; i < PTRS_PER_PMD; i++) {
- 		pmd = pmd_start + i;
- 		if (!pmd_none(*pmd))
-@@ -316,6 +353,9 @@ static void kasan_free_pud(pud_t *pud_start, p4d_t *p4d)
- 	pud_t *pud;
- 	int i;
- 
-+	if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_P4D_MODIFIED)
-+		return;
-+
- 	for (i = 0; i < PTRS_PER_PUD; i++) {
- 		pud = pud_start + i;
- 		if (!pud_none(*pud))
-@@ -331,6 +371,9 @@ static void kasan_free_p4d(p4d_t *p4d_start, pgd_t *pgd)
- 	p4d_t *p4d;
- 	int i;
- 
-+	if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_PGD_MODIFIED)
-+		return;
-+
- 	for (i = 0; i < PTRS_PER_P4D; i++) {
- 		p4d = p4d_start + i;
- 		if (!p4d_none(*p4d))
-@@ -377,6 +420,9 @@ static void kasan_remove_pmd_table(pmd_t *pmd, unsigned long addr,
- 			continue;
- 
- 		if (kasan_pte_table(*pmd)) {
-+			if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_PMD_MODIFIED)
-+				continue;
-+
- 			if (IS_ALIGNED(addr, PMD_SIZE) &&
- 			    IS_ALIGNED(next, PMD_SIZE)) {
- 				pmd_clear(pmd);
-@@ -403,6 +449,9 @@ static void kasan_remove_pud_table(pud_t *pud, unsigned long addr,
- 			continue;
- 
- 		if (kasan_pmd_table(*pud)) {
-+			if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_PUD_MODIFIED)
-+				continue;
-+
- 			if (IS_ALIGNED(addr, PUD_SIZE) &&
- 			    IS_ALIGNED(next, PUD_SIZE)) {
- 				pud_clear(pud);
-@@ -430,6 +479,9 @@ static void kasan_remove_p4d_table(p4d_t *p4d, unsigned long addr,
- 			continue;
- 
- 		if (kasan_pud_table(*p4d)) {
-+			if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_P4D_MODIFIED)
-+				continue;
-+
- 			if (IS_ALIGNED(addr, P4D_SIZE) &&
- 			    IS_ALIGNED(next, P4D_SIZE)) {
- 				p4d_clear(p4d);
-@@ -464,6 +516,9 @@ void kasan_remove_zero_shadow(void *start, unsigned long size)
- 			continue;
- 
- 		if (kasan_p4d_table(*pgd)) {
-+			if (ARCH_PAGE_TABLE_SYNC_MASK & PGTBL_PGD_MODIFIED)
-+				continue;
-+
- 			if (IS_ALIGNED(addr, PGDIR_SIZE) &&
- 			    IS_ALIGNED(next, PGDIR_SIZE)) {
- 				pgd_clear(pgd);
+selftests/net: test network sysctl extremes
 
-base-commit: 63562804f25cb5b6f5e4f5e3a9f0d1c3c6868596
+This adds a new net selftest, sysctl_net_test. It finds the accepted lower
+and upper bounds of four per-netns sysctls (tcp_rmem, tcp_wmem,
+udp_rmem_min, udp_wmem_min) and runs TCP and UDP loopback traffic at each
+bound. While it runs, it watches /dev/kmsg for kernel splats, and it
+restores the original values after each probe.
+
+Link: https://lore.kernel.org/r/20261007054508.1059927-1-sahaj123.sc@gmail.com
+
+> diff --git a/tools/testing/selftests/net/sysctl_net_test.c b/tools/testing/selftests/net/sysctl_net_test.c
+> new file mode 100644
+> index 0000000000000..6360616132c41
+> --- /dev/null
+> +++ b/tools/testing/selftests/net/sysctl_net_test.c
+> @@ -0,0 +1,925 @@
+
+[ ... ]
+
+> +static bool check_kernel_log(void)
+> +{
+
+[ ... ]
+
+> +		record[n] = '\0';
+> +		message = strchr(record, ';');
+> +		if (!message)
+> +			continue;
+> +		/* Ignore messages that userspace wrote to /dev/kmsg. */
+> +		prefix = strtoul(record, NULL, 10);
+> +		if (prefix >> 3 != 0)
+> +			continue;
+> +		message++;
+> +		for (i = 0; i < ARRAY_SIZE(splats); i++) {
+> +			if (!strstr(message, splats[i]))
+> +				continue;
+> +			set_failure("kernel splat detected: %.180s", message);
+> +			return false;
+> +		}
+> +	}
+> +}
+
+[Severity: Medium]
+What happens in check_kernel_log() when the printk ring buffer wraps
+past this reader between two calls?
+
+devkmsg_read() reports that case once as -EPIPE. It then moves the
+reader forward to the oldest record that is still available:
+
+kernel/printk/printk.c:devkmsg_read() {
+    ...
+	if (pmsg.dropped) {
+		/* our last seen message is gone, return error and reset */
+		atomic64_set(&user->seq, pmsg.seq);
+		ret = -EPIPE;
+		goto out;
+	}
+    ...
+}
+
+The loop here handles EINTR and EAGAIN/EWOULDBLOCK. Any other errno
+goes to set_failure() and returns false.
+
+So on a busy machine where something else logs heavily during the run,
+the test fails with "cannot read /dev/kmsg: Broken pipe". Nothing in
+the network stack went wrong in that case. probe_value(),
+prepare_sysctl() and exercise_value() all turn this into a failure.
+main() then stops testing the remaining sysctls. That makes the test
+flaky on noisy CI hosts.
+
+The next read() after -EPIPE succeeds, so could this case simply
+continue the loop? If you want the output to show that records were
+missed, and a splat could therefore have been lost, a "# " diagnostic
+line might be enough. Or do you prefer to treat lost records as a
+failure?
+
+[Severity: Low]
+The commit message says the test passed "also while userspace wrote
+WARNING:/BUG: lines to /dev/kmsg". This facility check covers that case,
+because devkmsg_write() forces LOG_USER on those records.
+
+Does it keep all user-controlled text out of the match, though? Records
+that the kernel itself generates still carry facility 0 even when they
+embed user strings. Also, strstr() matches anywhere in the message body.
+For example, on x86 show_signal_msg() puts the task comm at the start of
+the line:
+
+arch/x86/mm/fault.c:show_signal_msg() {
+    ...
+	printk("%s%s[%d]: segfault at %lx ip %px sp %px error %lx",
+		loglvl, tsk->comm, task_pid_nr(tsk), address,
+    ...
+}
+
+Suppose an unprivileged process calls prctl(PR_SET_NAME, "BUG:") and then
+segfaults while this test runs. The record "BUG:[1234]: segfault at ..."
+passes the prefix >> 3 check and matches "BUG:". The test then reports a
+kernel splat and fails.
+
+Would it help to match the markers only at the start of the message
+(for example "WARNING: CPU:", "------------[ cut here ]", or "BUG: " at
+offset 0)?
+
+[ ... ]
+
+> +static int udp_loopback(void)
+> +{
+
+[ ... ]
+
+> +	addr.sin_port = htons(server_port);
+> +	n = sendto(client, &data, sizeof(data), 0, (struct sockaddr *)&addr,
+> +		   sizeof(addr));
+
+[Severity: Low]
+How much does the "UDP 16/16" result say about udp_rmem_min and
+udp_wmem_min?
+
+udp_loopback() sends and receives a single byte, which normally stays
+below the protocol memory limit. In that case __sk_mem_raise_allocated()
+returns before it reads udp_rmem_min:
+
+net/core/sock.c:__sk_mem_raise_allocated() {
+    ...
+	/* Under limit. */
+	if (allocated <= sk_prot_mem_limits(sk, 0)) {
+		sk_leave_memory_pressure(sk);
+		return 1;
+	}
+    ...
+	if (kind == SK_MEM_RECV) {
+		if (atomic_read(&sk->sk_rmem_alloc) < sk_get_rmem0(sk, prot))
+			return 1;
+    ...
+}
+
+Documentation/networking/ip-sysctl.rst also says udp_rmem_min applies
+"even if total pages of UDP sockets exceed udp_mem pressure". For
+udp_wmem_min it says "this tunable has no effect".
+
+The test never creates UDP memory pressure. Unless the system is already
+under pressure, wouldn't both bounds of both UDP sysctls pass whether or
+not the minimum buffer handling works?
+
+> +	if (n != sizeof(data)) {
+> +		if (n >= 0)
+> +			errno = EIO;
+> +		goto out;
+> +	}
+
+[ ... ]
+
+> +int main(int argc, char **argv)
+> +{
+
+[ ... ]
+
+> +	ksft_print_header();
+> +	ksft_set_plan(1);
+> +
+> +	if (unshare(CLONE_NEWNET))
+> +		ksft_exit_skip("cannot create network namespace: %s\n",
+> +			       strerror(errno));
+> +
+> +	kmsg_fd = open("/dev/kmsg", O_RDONLY | O_NONBLOCK | O_CLOEXEC);
+> +	if (kmsg_fd < 0)
+> +		ksft_exit_skip("cannot read /dev/kmsg: %s\n", strerror(errno));
+> +	if (lseek(kmsg_fd, 0, SEEK_END) < 0)
+> +		ksft_exit_skip("cannot seek /dev/kmsg: %s\n", strerror(errno));
+> +	if (set_loopback_up())
+> +		ksft_exit_skip("cannot bring loopback up: %s\n", strerror(errno));
+
+[ ... ]
+
+> +	if (!failure[0] && !tested_files)
+> +		ksft_exit_skip("no selected writable numeric network sysctls found\n");
+
+[ ... ]
+
+> +	ksft_test_result_pass("TCP %zu/%zu, UDP %zu/%zu deliveries succeeded\n",
+> +			      tcp_successes, tcp_attempts,
+> +			      udp_successes, udp_attempts);
+> +	ksft_finished();
+> +	close(kmsg_fd);
+> +	return KSFT_PASS;
+> +
+> +fail:
+> +	ksft_test_result_fail("%s\n", failure);
+> +	ksft_finished();
+> +	close(kmsg_fd);
+> +	return KSFT_FAIL;
+> +}
+
+[Severity: Low]
+Can the close(kmsg_fd) and return statements after ksft_finished() ever
+run? ksft_finished() expands to ksft_exit(), and that always calls either
+ksft_exit_pass() or ksft_exit_fail(). Both are __noreturn.
+
+So the exit status comes from the kselftest counters, not from the
+KSFT_PASS or KSFT_FAIL returned here. The same applies to the fail: path.
+
+Separately, ksft_exit_skip() is called after ksft_set_plan(1). This
+happens on the unshare(), /dev/kmsg open and seek, loopback, and "no
+selected writable numeric network sysctls" paths. kselftest.h calls this
+pattern a misuse:
+
+tools/testing/selftests/kselftest.h:ksft_exit_skip() {
+    ...
+	/*
+	 * FIXME: several tests misuse ksft_exit_skip so produce
+	 * something sensible if some tests have already been run
+	 * or a plan has been printed.  Those tests should use
+	 * ksft_test_result_skip or ksft_exit_fail_msg instead.
+	 */
+    ...
+}
+
+The header works around this today and prints "ok 1 # SKIP", so the TAP
+output is still valid. Would ksft_test_result_skip() followed by
+ksft_finished() be a better fit on these paths?
+
 -- 
-2.54.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014041446.2821085-1-sahaj123.sc%40gmail.com
