@@ -1,74 +1,74 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5707944471C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:27:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3F03EB0FB
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792315631; cv=none; b=PshuN/pVBHKCUwA92Yas1F4uudiSf7e5944LhbWIdeKOYSwhTDDDuWFalzbxlgmP1ta9qUkE7VNp7duDk52FBnQOgh4jnFTAHrI5y3OmI1QAw2RGSxFHakHc/qVa8m9VLlHUwlocaXs9JeV00IuNuw2dhOyLe9bc+bAK13xv9vk=
+	t=1792315685; cv=none; b=cHDkqoJ5nR3ubEOLfP8KGz3FFO8wk53hzk59Tph7afngP5UoNmOI7rsjvHgN9ZLR6oRjqvoh+gIjwzilUR7FGicpSwuaQg1ENDdR2VhEyBSOgBOf+g/LqcVITrLgTyspS0U+Cs2hn+uY4vz12NqW+EvF7IjF7hhs4r+6DuGlkno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792315631; c=relaxed/simple;
-	bh=Wsa1/xhWCYq2/IBwiWNMt2tj93MBzhsZUygXRpg69xM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TkXaio/afCO0crU4nl2aaHZXBcX4ojQvWWo74F0gKUgQm/kxzx1QGC2gz65lXwJQw+0/TaJuE2xExgLr2x7if03OXWY8cednoOdH5tDGVzmZ9cfajk0ecK212JenTThkt9H2YrVWmc20LaGwbQgsoWanM79ksP10+edwa3MI/uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OswCbOGe; arc=none smtp.client-ip=74.125.82.170
+	s=arc-20240116; t=1792315685; c=relaxed/simple;
+	bh=zg95vLfihPyluNUmN9wHjCiqDxcBF6RAVkaymuHBbMw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JDTaVZE+eAUa0q1/143sdtXc+tJWcYXjxpYZo+gfn3ZmC+gzcXJUpMcXCacLbCpwU5f0E2cY1CD0P3A0l3psBs7XzLMEIkNEfL3LKHHgIj8Q7YklQkTo4diK7Yjus3lmrs26CtBd4za5/kCrUHq/mw8HizovtlkeMDtQtwAzyAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ED8IRzGF; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OswCbOGe"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2720398eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:27:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ED8IRzGF"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso777786a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:28:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792315629; x=1792920429; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792315682; x=1792920482; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r6jUk0an0lKrrWdJXHLKdAJiipusBLjsQVAGLXI1SyU=;
-        b=OswCbOGebAXOE0BXT6s3sSs9jG5CeVPtdhDl+In4WVjxQnSB2x/WbZAhAErapj/Iv1
-         zKOaxXnKtzRiT8fApkRmVTy3usTJSemlGQw/vmrgbxI5IEkoMOEX0WPI84XU8BCe/rpl
-         C1oqQc4dbpT+f3qR6O8CX9vDaMQenmy3JJRYu8YC5NAjZehdGwhyfBqHs3kaT4yXSeLo
-         Lzz0tGbSbxjvWvjZHN//inaVp9xXhWSrsSGEjdiIeMDuSWyfenXEh2pwjT9NRR02/54Y
-         4yvTo90G0osjYnDc3JiUpgUDyLQRT+lapu1+CKD1RUaXJeyBHLNQ6LYXG2Vtj9TBMBsG
-         jqhA==
+        bh=JSekHcws2Pk1pfnhpXYhJN9WJ46iQlH59bEeBjR4wUw=;
+        b=ED8IRzGFmgROJWFwYkswF0BZp3+hqBIJfM2zpzPbAI5e4rcfdg4cXTbnVDiZSwAh9h
+         473gFKlFKA3YlscFRy8gPU5q2gjJUGyldeN/4cSrcMn8T+N5RqwVflnkupmyz+WWJ0j6
+         x70smsuBtnJOykmgiR6p3NMK99Wioad4PJ9VwIny+UtoUUcUULOQZKm4WcvU15KRMxgh
+         HqBCBUiUKSQjzYR3Gp6SvU7pxkkN9uxczTD5sdDR7hB8XjMjznrcOtpI7M6oISqrqWgK
+         HMPCvRgqP7woo/l1BMhwlYIg7pj9/NsGPK8xB59NO09UaU/kabWwrHwcteyrWd8IA4oQ
+         Lf9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792315629; x=1792920429;
+        d=1e100.net; s=20260707; t=1792315682; x=1792920482;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r6jUk0an0lKrrWdJXHLKdAJiipusBLjsQVAGLXI1SyU=;
-        b=ZG2cw3lIhYPga+S0CkC72vb2VvqimGWrbtYIhzxrPzZv/VtRMD1KtbKCdxRLuxoeNn
-         5vtxde7L+Zj1aly0VyYHUmOops/3Vz8+Dl3CJ04y9tpP94acIjhiHRe9ZaEb0OBR588F
-         c2m7Jxqp1UqCtf56/u8qs4jE6+mxEd5j8QtguG5oAxi2uf2dp56S36stzsfkBDgJuWag
-         czQyoa5J94ZFEiaJCoc57KrEei+M2rhUtPo3YVshNGL3iNSCI0EZ+mw7pg+RZTreV8qt
-         MmE+/DtH5N5LIv/mKmGLwLCWHR5fAW6gEun4t8ql9dBSGcJLsTZMoWO8u0SQfbGfTRkL
-         l2CA==
-X-Forwarded-Encrypted: i=1; AKwUvBxt7dZkr8DEZhaSESTBqlMwZaOcvMknsSBn72KygM70B+SbMoN/ZAuD7XrrF6ioJjPkPY6TPEPYbJ42qKk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbNJkkAgjO8E/km0daj6pWrYRMHUHCWKaCshfooZ57mAlXJzEd
-	BF6aUGEGtSiYb+O7VthuhLjitQnweWaiCq1/fd13vWM62jjpPXZo2bThzRZJUzyD
-X-Gm-Gg: AYBFou2m4FlX+erlkqBc9iW2BxcSAQs3yDI9I4Mskfhz6YFcZGccWAzM5aL/2sib4bi
-	3e3k/PlVOFNb+B/WZe2TgzVtsvPzbmSz9QNZdE6SkGeQitGSypFXXBgi+BfxvWeOCoELSB16VMx
-	aN43HKhx24hI/87GSrcUszg9kFKvSp5wwEdShNo6gDCk2Ki9LZwMyJK/i2AxySiykk2Vid8S/rn
-	0l4qi7UYEEUmJPyubzQWoKe9BW3RKfqD6PSbgii8IuVRHU2JLgT4Eul+xZD7Z72j9cXWdxTBaK5
-	rG/rEjurhC55tXHMkyubqPo9RR5lQCSUfiW0AFtFuvKmDLZXjKJhWjZFPVtDUmgdKeEwYzbstmu
-	JcqPdvyzJByijnu3OBsuJ8KefSxoai6FASnuCxE1YTtvHXpwx21qcgWg8lffjsw0jl84gXXV96J
-	ZP5k/cjKWKtpwbnOSUQJ2qjJbRCs+TyNERQrKiWm2Wdnwg/Q/4fMkf+8uix8Y/vRBe+L+115S5Y
-	cM6W6kapmera2xV1Q==
-X-Received: by 2002:a05:7301:b13:b0:360:dfac:6817 with SMTP id 5a478bee46e88-361a18632fdmr6512862eec.18.1792315629172;
-        Sun, 18 Oct 2026 02:27:09 -0700 (PDT)
-Received: from himanshubakshi ([2401:4900:1c2c:5bac:6f4f:b477:6604:1f68])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360826875b3sm23637101eec.21.2026.10.18.02.27.05
+        bh=JSekHcws2Pk1pfnhpXYhJN9WJ46iQlH59bEeBjR4wUw=;
+        b=dpMLhQv8RXi7EOg7c4zTHORrxo4HZxfhEPrZw9VgQgDxDBoWmpxlIMRATb/YbGPb+z
+         u3Tw62aKnhR8k99UiNCVXtxTOA1M7AHfAHiqhTOlmUUg+At17rfsgfxGYSdV2QH34Qtk
+         UqKi0Z1nFXq06KUul690MIPVnEJcJnOVoVyJ1/XS2us8d3dNNoQ0wBqY3MqfyD45yCzL
+         i2AIvynBmscjQxybo1WLQzaDDkd1m1cZ3rbD2oTU5Bq7a7E7JxBOdWnp1lN36QWmnX61
+         vCJNNUM9qCi04Kibwtt0FXACAFBeBCZ6KWcLgEOACA0diVlkFBGx3BpEX6T/2MxXJuYc
+         H6aw==
+X-Forwarded-Encrypted: i=1; AKwUvBx9MUH5B0hh36JeMSIdg4k7jT1y+r4KgtfXMdi9Vx3eMWL244oP8In8N9ZGGgaaPaEKN8O1dwIUlkPUmw8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOV3NcSg2cU3xsmzjBQbs1MUjBO1+xQAecDks3dJgzWZ0O1ylX
+	5J8NwGEWYk3gOsC3ZkdaiHxEx82K/J3+PG5KZpS7zXmJ0Bu+UTKmJJ2y
+X-Gm-Gg: AYBFou3Xvoj+CIxlnP/76WaB0J44fXg/vMbm42QgktflekUgYdrjPqv3wZPo4KeDOYH
+	pgBSd/8yV6vTVWtVGJWP6r1PsZITtX2vnNjeXTT+zph4AM2PiPk31bW4hqxLbZ74jXylnTmM6NP
+	Ko1LHtNPD16UfKsPRWQ78MiM2fVoOcYzW9B/CSXwMibcqlG26V6IbQSqEM+1E7wKarR00IjW3wV
+	cV+XFZDAhKVAE/0tsU1g+9T5uT0hR18RBu1x/tv3pNNPIM8DQRuyw3KqKWDFJiEyvTPrshqYHI0
+	RgEe4lNPRbB1SNLP/9Y/x+bAuW2HRbylr5eeCcpAms5DrAnkDvBfUhhjtbcwGs6FLsykSzGrtb2
+	JWJfwJMicVMj6UM5XaIgsH8RpqlrbA5VLmezrIvA3hQ5qiBbZNLYPGkp2nb1aKvTFznSDYTS8R5
+	GbrCOAQFh5X8Qe8e6ILDEO9RxfbffV+xOBUKQk7cBeqHAt/+2Clmp3dXNcvrHHQe2jyBlAZVcLn
+	OplVFY2VJPDDFNHj1KCuZZQfk6/PpPOV+SxMqw+27Xqw45zko+hM3jatG+zBVTcLnoymdqn0X9D
+	v4a/jcQ=
+X-Received: by 2002:a17:90b:17d1:b0:3ac:96a3:77d5 with SMTP id 98e67ed59e1d1-3acef29b9f8mr3781968a91.36.1792315681941;
+        Sun, 18 Oct 2026 02:28:01 -0700 (PDT)
+Received: from DESKTOP-G3E0OSP.localdomain ([58.224.60.243])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e74bcsm16568217a91.3.2026.10.18.02.27.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 02:27:07 -0700 (PDT)
-From: himanshu bakshi <himanshu.bakshi478@gmail.com>
-To: sudipm.mukherjee@gmail.com,
-	teddy.wang@siliconmotion.com
-Cc: gregkh@linuxfoundation.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	himanshu bakshi <himanshu.bakshi478@gmail.com>
-Subject: [PATCH] staging: sm750fb: Simplify M2XCLK divisor encoding
-Date: Sun, 18 Oct 2026 14:56:51 +0530
-Message-ID: <20261018092651.49924-1-himanshu.bakshi478@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Sun, 18 Oct 2026 02:28:01 -0700 (PDT)
+From: Jinseob Kim <kimjinseob88@gmail.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] iio: osf: keep the RAW cache current when the buffer is full
+Date: Sun, 18 Oct 2026 18:27:05 +0900
+Message-ID: <36f5bc0a26aadf8f2208e6423c8a9847568ccd3d.1792315003.git.kimjinseob88@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,62 +77,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the switch statement with a macro to encode the M2XCLK
-divisor in the corresponding register bits.
+A full IIO software kfifo returns -EBUSY from the buffer push. The
+sample handler currently treats that as an application rejection and
+returns before publishing the valid sample to the direct-read cache.
+Consequently RAW values and the last accepted sequence remain stale
+while a consumer is not draining the buffer.
 
-This is my first Linux kernel patch.
+Continue cache admission for this normal saturation condition. Keep
+other push failures as errors, and retain all sample, scale and session
+validation before publication. The buffered sample is still dropped
+when the kfifo is full; subsequent samples can be queued after it drains.
 
-Signed-off-by: himanshu bakshi <himanshu.bakshi478@gmail.com>
+Fixes: 2da37c28edc6 ("iio: osf: add IIO devices from capability reports")
+Assisted-by: LLM
+Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 ---
- drivers/staging/sm750fb/ddk750_chip.c | 18 +++---------------
- drivers/staging/sm750fb/ddk750_reg.h  |  5 +----
- 2 files changed, 4 insertions(+), 19 deletions(-)
+ drivers/iio/sensorhubs/osf/osf_core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/staging/sm750fb/ddk750_chip.c b/drivers/staging/sm750fb/ddk750_chip.c
-index aa78d0bc1..2cb849dea 100644
---- a/drivers/staging/sm750fb/ddk750_chip.c
-+++ b/drivers/staging/sm750fb/ddk750_chip.c
-@@ -109,21 +109,9 @@ static void set_memory_clock(unsigned int frequency)
+diff --git a/drivers/iio/sensorhubs/osf/osf_core.c b/drivers/iio/sensorhubs/osf/osf_core.c
+index 4f73ff5e9572b95e1cd237671f01e149784b92b5..377645e7a8a31c60bb719b7c98e3230f04725f1c 100644
+--- a/drivers/iio/sensorhubs/osf/osf_core.c
++++ b/drivers/iio/sensorhubs/osf/osf_core.c
+@@ -231,7 +231,8 @@ static int osf_core_handle_sensor_sample(struct osf_device *osf,
+ 		return -EPROTO;
  
- 	/* Set the corresponding divisor in the register. */
- 	reg = peek32(CURRENT_GATE) & ~CURRENT_GATE_M2XCLK_MASK;
--	switch (divisor) {
--	default:
--	case 1:
--		reg |= CURRENT_GATE_M2XCLK_DIV_1;
--		break;
--	case 2:
--		reg |= CURRENT_GATE_M2XCLK_DIV_2;
--		break;
--	case 3:
--		reg |= CURRENT_GATE_M2XCLK_DIV_3;
--		break;
--	case 4:
--		reg |= CURRENT_GATE_M2XCLK_DIV_4;
--		break;
--	}
-+	if (divisor == 0 || divisor > 4)
-+		divisor = 1;
-+	reg |= CURRENT_GATE_M2XCLK_DIV(divisor);
- 
- 	sm750_set_current_gate(reg);
- }
-diff --git a/drivers/staging/sm750fb/ddk750_reg.h b/drivers/staging/sm750fb/ddk750_reg.h
-index fe412ead7..b796e32ab 100644
---- a/drivers/staging/sm750fb/ddk750_reg.h
-+++ b/drivers/staging/sm750fb/ddk750_reg.h
-@@ -312,10 +312,7 @@
-     #define CURRENT_GATE_M2XCLK_112MHZ                (0x2 << 12)
-     #define CURRENT_GATE_M2XCLK_84MHZ                 (0x3 << 12)
- #else
--    #define CURRENT_GATE_M2XCLK_DIV_1                 (0x0 << 12)
--    #define CURRENT_GATE_M2XCLK_DIV_2                 (0x1 << 12)
--    #define CURRENT_GATE_M2XCLK_DIV_3                 (0x2 << 12)
--    #define CURRENT_GATE_M2XCLK_DIV_4                 (0x3 << 12)
-+    #define CURRENT_GATE_M2XCLK_DIV(divisor)          (((divisor) - 1) << 12)
- #endif
- #define CURRENT_GATE_VGA                              BIT(10)
- #define CURRENT_GATE_PWM                              BIT(9)
--- 
-2.56.0
+ 	ret = osf_iio_push_sample(indio_dev, values, sample.channel_count);
+-	if (ret) {
++	/* A full software buffer must not prevent the direct-read cache update. */
++	if (ret && ret != -EBUSY) {
+ 		dev_err_ratelimited(osf->dev,
+ 				    "failed to push sensor %#x:%u sample: %d\n",
+ 				    sample.sensor_type, sample.sensor_index, ret);
 
+base-commit: 6a27f3a7d1063aec5aa3d9370161e850fc3a85dd
