@@ -1,25 +1,25 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021095.outbound.protection.outlook.com [52.101.100.95])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020093.outbound.protection.outlook.com [52.101.196.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0574A32;
-	Sun, 18 Oct 2026 02:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5466E33B975;
+	Sun, 18 Oct 2026 02:14:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.93
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792289652; cv=fail; b=sMOLcmqRRm0opQRel81xuR02y7tHGFHdWnGXEVgm/s28QLSdw00rPEgfMrIs/hqQKgfPNWvMadKlBz7vq701bpbJiQQ7fQTJEVnoDnXn6SQguAK7YY14lHGnHuc2TzdDZ0+e3YrzV5HDj8aSBCbnhILGvep2EVZUVf1BCfomYPo=
+	t=1792289661; cv=fail; b=qvBfQ291nMu0izKklOcPjOKsp6psxXkotnbo3AlqAyNnASHo++0/4N+jLqVH/UAelqpKFqZW12rgs5Nu63/FPWP2ERGVXOpiiEfNl3G89Dza3x9I3fP8RThv/VwK+mnopnI+YqH0+HWfn5gtJrq6aBqOhnr5qNrm9u8mFR9oRPk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792289652; c=relaxed/simple;
-	bh=TBgXU8eACCoKsUpY5GOoz4kSXXTVIzajGXNShTWKFRM=;
+	s=arc-20240116; t=1792289661; c=relaxed/simple;
+	bh=Lrn9G7l9Iium90rT5oXQ4VzdVMAT2wybh77ZPhgr6pY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VSAJQW7j29AkflSekofiYJ02r13JvJpYD3XDU9KJ8HYPf3ZjZX5G307wODTOBb2CQ7TE3IOx28T4fMhc6C0WZlqK4rhGJ0M03uYdCaK7Aveg58iudKCl3Vr0rXZNu4hLxIe5Ra820swYUvBDoZQ/OwIv8DGYs1uKa3tH3VHjfzU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.100.95
+	 Content-Type:MIME-Version; b=GyG6KI2BJV/2PMmBqlX74ZoO01RSPYVIkJyHdSAOcLiKaR5G+rBbWeI8TkXdq8YsWTVL7iouYp+mc4zF0EAr7Lj2KCgRF9bI5t32qqKTyXaC49JqzWKKd2AojHHJqV1W/BTjz3rXrsR96aOOkiZRS/HLf2wDwJsyv9POvn4Gs8M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.196.93
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FaOGxBMuZRMN1UqUbVxzFZZJAAaUQtqfvi/v8XyzToOMrIKuTFcACYNctemqnDtvtZpYGFtHaH573+Cagbn7oRvHlehn6qczu30rih8hoPVbhyB2sQwmB92VIzKKnucjWAedm0mVXbQ+ShbPudmiAg2z9iz8lP8Bv0jWevaRYMNOk/7XCqo0yeKI8DSaUVM8f18myAsLcwo1KZo/5GsoSOEZOgnSreGJGP9jwQ3sabs37yznFWT5BrxiPPpaNjlj1xM7K6l3cyW/F48P01LqELTKqWpKpqpVkuZ8VCN3thiIcLyWyqpLp4X+fg63WfZ++9mi50kpLX5Ho0ZjObP/QA==
+ b=qjudBtuaQDGa6Q5/jMWptV/jHwIL6lJECT/WYJZfTXSLFqstE4prxkUbm/YSRe1yzlf89U4mVj1zmnUQFNwrzvUfRQDn38D+hceiWjMH4QQ1UXut2i6XEfL/3n1kGQ6hoQwpXqMxztLPhOEtztq+x2YQ+/F6A7npwl4RShkP3e6dRE2PW5fC2bAUgNSlub1kPrb7s7vk42538sCTdBoN6KdV9gF7IacJlNtk2fIu+uVX5fQihvyqRxqC7HZaLSCSs4Z5GWSmkgi4vDuvXKWKS7NdRBqd8A0OVqxAF4kTcJ+/AsIwSzJvXCE8PcGmMzOOdDaMWAP+Irn/mFE50z58zQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=K+O6tO0lv253uBHugZ6AqDzeyvXczVWV/rDgQmedC10=;
- b=DU08Ru6z2hTg6z143Gu24KZ5bs5QHInH33dvsi7zFNr9fB0q0zSQzxbhEJYkKk8rBB9zSWcD/2KmXCKp6S42zDm5gCcphqrB5+hpp/0GC+58CYDNXcoFTHROd727Jb5MHRHUTgE0S9VXXmEq8LTgVXzs0ZtXPEKzq/HgFLecO34d2kv5m6nwEygAiq9msV26kkcbLOo2ekyAT7Xuy7lI/iDbwspA75lN7IWAoGgp1pqWT/avxK2HLk/Eg/OhdBRb/Ud35OdOrkiiQ1mmCyV783HZek2TryUkVoMiEj7W4MJjfawBS8dpADNR9oKQrWvEtosTVU1mRJWokXncuv3FoQ==
+ bh=tr21gMzFtz43fVFWOn7zM+MQ8QNF5ELiWywaFCz+d3Q=;
+ b=w4VzrcwUUrb16DO1HS45vGmsFvA73Rc6/GLz8ZiQrEJfgpGfP46NqIEEWQMj1+l+mGhr5V/mjLkxT98snGAwfpG+VGBmkpz8cBAxHRLBh+eZh9CVkN7wKf8teXJDGv96cPIpL6D8UU1tWSse5oXtJDqdMQgjxqHUdFBA+/AAPtVKf1s6GqC7bsIljGH/ZbEZP8itZ4WsQgRJ0zxv95SBZYo7CRwXm4K95zhrk0++GGJ9n5+7YIZbYmhJpl/1LarsHYOqOXwD/KcXFYmAi60MYQZ7iWuKLAGUNJUJEYNRP0hQHIQG67zYYY2NRGZYP+S+UvgZp3Hs9mC8UEpf3irYjA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -29,11 +29,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by LO8P123MB986281.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:805::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Sun, 18 Oct
- 2026 02:14:07 +0000
+ 2026 02:14:15 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0522.017; Sun, 18 Oct 2026
- 02:14:07 +0000
+ 02:14:15 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: peterz@infradead.org,
 	mingo@redhat.com,
@@ -47,16 +47,16 @@ Cc: mark.rutland@arm.com,
 	atomlin@atomlin.com,
 	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH perf-tools-next v7 4/6] perf ftrace: Support display of inlined functions in function graph tracer
-Date: Sat, 17 Oct 2026 22:13:44 -0400
-Message-ID: <20261018021346.582845-5-atomlin@atomlin.com>
+Subject: [PATCH perf-tools-next v7 6/6] perf ftrace: Filter extraneous functions in function graph tracer
+Date: Sat, 17 Oct 2026 22:13:46 -0400
+Message-ID: <20261018021346.582845-7-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261018021346.582845-1-atomlin@atomlin.com>
 References: <20261018021346.582845-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BN8PR04CA0058.namprd04.prod.outlook.com
- (2603:10b6:408:d4::32) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: BN0PR04CA0008.namprd04.prod.outlook.com
+ (2603:10b6:408:ee::13) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -66,1615 +66,1655 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO8P123MB986281:EE_
-X-MS-Office365-Filtering-Correlation-Id: 816972d9-aba8-4cdf-8b0c-08df2cbd7d03
+X-MS-Office365-Filtering-Correlation-Id: 9ba5ee30-b114-472f-12af-08df2cbd81d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|6133799003|18002099003|22082099003|10067099003|3023799007|261009223027099003|5023799004|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	016lXrb95djVNNq+zT2eJTiJMcSN8oWP31xXrVXe+ZBu+SWaBJ0DpTLiuKmurGwqWeJ0POn24syuzppNtiPNokPWKKj1GB415bYrPAShEOyKvMCm75kvzulJcBqzFbkkJblQpvDZQHfMLZVmaxKKOScS5tY3Wzj2zc8tVrQEYc2DOVITerhe3/JNM3ajhKjbo7bTpDdNkbZrdOgRvpbITpDkO4ru9D77GQLkVa/XeXgQVNAAK3VlD3CGie+Q8h/qYepo5FVFqHNL1Rel6s+QUuPtMKDyl9NHn4ZgcDeKTlGmU7gWLaNby7S4n0D1lhsr7lBHw4bLGTWjnBKR2BoY92p0WTuEmcbY7ExVFFZE5cNe0E2RWV+OOZuZtgS160pNgCeTpT6XCjhVMBir9jaY1cU45a6A5eif5o3qMo5d4//Emj9nH8T+zldmn+7uFxVoecMxnIBx9N2UaS7MsUHhDlSxYOq7Uzk1DElnTaf1fk9O3bV14lFfHl+d1KzMYj9zvNhTrYn9K5YBZZZzGRUoFjt7bIMGaxXERGJ60fpj6GNSztIFGczqxx4l+VedwM6TgIp0NMsAILPq0rHO1Q8buXRCZksumZ3nuJY7Uz7spyfTCdQpyzpFtlkJ8DXAXcmoL3r6mqPm5uakhONTMcaZ3teUGF+DgAb6XK0UXtiUClE=
+	ObDff7ztayMJ4eDlHWeOIQkCaNC+ka3L3pDeR7/RMg3xxgwIiZ7CIjiU4mYD4UaxaguS6yJsR1SzKIihhHCxm5So8Bfub72wSlxxjeUJdhkhfixsxz5kNRkYF2wGwvWsP35be6N1u8RjJ84E7UUAO5Omuj9wa9im2BELbMAW0K5n6RBs8uamEku2hjgqcJayPzgPIMwZsJsAezR8PvNGpEwyVCYISZY32WWjxsDMvMpcbSMuFC4Bk+l1TAY1+tq3H+OFRXr4Y6Qlni5HCFeBd7+huxF16mZ+Hj3t0jXnKrmPXmjUQSCK+wyHx9mQz1VibLRgTiLB97W83uBgFu1QGwTSSfnxkOlS4F5wN9m4UmUn7WbRxv82Dh0VVzmXW+4EKT3P/ur7aDn9N+QeUhjF5OF03XzQsT8QN8Z0HYKVjIvMi57L4PvQBGs2jaRwiQRBvQxMLLTMM7Ry2nSChVkn0M43e+OIUTVxqLQdfJHQaP0VKrAm5KZ33UFNQSEb02Oc+62NR8IJ2IG8ozhNv5gfJ12eyMNqlcLGT5F7RskBHLW3AcozvRVnyQ2vld6zem+fPUNvARy0egLh042vCbUSTVgM3LeN3LSgbtznpXpXp65gRuEnImPFP/vZvKBfTmiZhU+WZ/bbF0GuXDCTbjmVuFWQsEWCU1FeswjBas5CSXw=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(6133799003)(18002099003)(22082099003)(10067099003)(3023799007)(261009223027099003)(5023799004)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?F7QU1+TpdN/J7VjT+4ik6aZI4ZMAiBnyUoFk9CwnQaL3YTA0ZDSvhhnejQvh?=
- =?us-ascii?Q?uiZ+w6x0AR01fPOkcXia5TgIUqyqFnAIGT/Ehc2/UmGiGkExqrwlg2DzVAhx?=
- =?us-ascii?Q?aCCoXInqsAIBuPlzq9bsQuvqsVUywL3xEjdQ5mrnMM8Z3HbDj7hvUATx/oIE?=
- =?us-ascii?Q?oYOjxWDIYPzKovDxktpqsPRa8c0VOVWtkAJwM4epogJZy84WsCV4L27Ev2zw?=
- =?us-ascii?Q?3LKoPg8WWdU0CVX9zVIWh41TawJ/n2zPfmDU2a/QETCaT1lII83oKNP6epel?=
- =?us-ascii?Q?CKZZ6mNUMIqW7Y0mn2J5gkoHbM2bnsAm9n3iCV2kMHAuihYnoumRLHF9sSJU?=
- =?us-ascii?Q?nbXp4auW+iUqLRBrr/B6CGcWttnnhvV4URPtOR+lRUHsCsELQduOsj2pL2bs?=
- =?us-ascii?Q?vlqXoCrA8wEVkpmmV6DSLZhToC4Wyke0fmkCwC+6GYoBY0dRtgiYSa+M9An1?=
- =?us-ascii?Q?jbeitBKltUygsLdS9SZxxZ6MCvZeW1kMUEoB/0RB2ODxdL2eChppLB7dSK2c?=
- =?us-ascii?Q?eNpUA/clRceg4cCEnRqofk4GgbuG33wWHyvgNVndYgEYJ0prx2kmFrA1Mob3?=
- =?us-ascii?Q?Ur2n6c/iJy3eyL7uC1fICOjX7GBUYC17+knPx2hA9zJi/35qPyJYJSfFWzYc?=
- =?us-ascii?Q?hwaRtNbBW8jWA9JQdvx+jDXD1DFvk3zcsAp9q371Pzub5TR20/q0VyRlwjO8?=
- =?us-ascii?Q?dUrd4snNhVYV0gjcmqO/ew0f79FdWHk2ez1RSXk2GCud2yBgwVicWs7CJWT1?=
- =?us-ascii?Q?VyWUAGVcIb5GQBvRggjjGyh4ynqkRDse1qavkvz9DkAPWp0+vMmoTdtjvusS?=
- =?us-ascii?Q?QkoD8IPNM/U5C1+6X5itvm7EUm6Yqe12HLEEfO7n0Hr5QyHrNxTy+xQ51aQj?=
- =?us-ascii?Q?vdhZTyiSQeVf7+GjLmz2f3cGhl7HstmULuC2aEklmsQT0GLMXXMiuvbV72Lx?=
- =?us-ascii?Q?qnQxxENy1IiojTL8e2aIfO0J1Y7s7daC+DZzyPmB0sQXTF4MOi6kG786Sa/y?=
- =?us-ascii?Q?+liFVKQEleT1fn/YEdTkzv0lXDR7KMyYh5V2LLRknYZSid1rwrL7izYaTMwL?=
- =?us-ascii?Q?W8Fl9v2KT9EFy551N6nFqjDOAHsCzUjahAdUL3K/7bdnISfE9wI2VtO2sin1?=
- =?us-ascii?Q?5Ij+kAY4E4MwiP2M3D4CLFUW/yGafYzW44xlew3HLBBJ1WZfyxlLvtA/4jsM?=
- =?us-ascii?Q?ltphnzzkMkEXrASm8t3NTThDoCla1dnzReNZZxLJwXtWnxzBBcDxFifYAhMj?=
- =?us-ascii?Q?sCZO+9KiPiDSQc0X1cz3NX5sm3/C385vKJNRD/0ly7YMRcOap2zSB0rVcUOo?=
- =?us-ascii?Q?uDDU8g7F/d8JsPqOgoNxQ8A02p+0d/ynwDceH9oYKG0dcWi+Nl3s2g+7RU/D?=
- =?us-ascii?Q?psrPSKubSlkBTDsKZlcDm2FVX5jqJ1lEZBNL5h374E8Nb0JlzxFZQ7xCxqeu?=
- =?us-ascii?Q?aQZIjrBbv5vS1lHX3IURaUUKalfSuV3ocHnL7i9jjg2bvEQs+0sWe2CJ56k9?=
- =?us-ascii?Q?nauWJOaRFsmwf76G90L2RaDuFYk4nzQbBfoRdpOPtRgyIq7CyPnxkUKDrQsW?=
- =?us-ascii?Q?FmGU+6quxZziskj2vlJyURiRUc11mlUB4zmz4jOqboj6Kj1sGmvz5csYHdFc?=
- =?us-ascii?Q?uvXMRUW3mB2Zjf+Qilhq06X1vkPQHwt4xqdZjYms0+lfCQMImApmX7haCzp0?=
- =?us-ascii?Q?TBEmpi65tUnlwoZPJ4pRkp42fuG6HiA9wVC/uvUEUmbbrSTG/c/5pL+T9NRO?=
- =?us-ascii?Q?VLUCaj5OiQ=3D=3D?=
+	=?us-ascii?Q?lIOEq3Ov0bvoS0OtsUHpwTVDsvYPxDNywwXEdVWElSZHQ0+zH7oNTkNIooN7?=
+ =?us-ascii?Q?hogMTEvboCBsCY+pFUhO3lXCELIpfntVSMVLDYkTfOI7mjPoXECnDBAMMLWf?=
+ =?us-ascii?Q?8Dk5JhwLVS7qcJTD+w+97r4uhao1gt7b21ohGAgDn2yjjc6J7YpXBjHZtXyN?=
+ =?us-ascii?Q?Nd/MHXzO2MY0mkktCFJ5gYbArw+OJ9D1XyhiLZtREXIKoBDDE6fE11FF4WVX?=
+ =?us-ascii?Q?sEN9sexica+Qq7oHSOM8uu6I/dOPSLaSBbQT7hF+LGH8kzIag49BHCn0k/gN?=
+ =?us-ascii?Q?s0Ho6i3fkUcHVZsAnZDiN8Kr4GBMAi626ETDVOmjC2V0QPjR3zx+zF59T7ZG?=
+ =?us-ascii?Q?Uo4PUr/xTSJd/YHWj5vQn0GPndTbPua/cz2TNIvAY2i3JWZtZL5oXPg4ylJI?=
+ =?us-ascii?Q?Q8tBAWhSWkwcXbxG8gA05FY2dTIQxhZx69yLG8ejYVbTFFb1Cktf5E4zNBOZ?=
+ =?us-ascii?Q?psaBXQ2p/mah2KMlHcZSDRx+G6IzCauIWgtmWHYy0MDn40vAFEdKHDvAQtir?=
+ =?us-ascii?Q?SfNP/8mwr5a3hdBXr7Qz3GOwZ9EcIxWoOi5PwkH2TiJRozYR92LFsdM1FJNW?=
+ =?us-ascii?Q?pgHs/bxGqlzt9Fg8PaleE2x70Orndu7UvjKJhY5UohbEsdmNSAKrMqeX3AFD?=
+ =?us-ascii?Q?CnveZVsEynTWbxshkwz3fJglMP9LR2t0aQ7XKLh6+R4hu3ZKidzY/HVR0CHD?=
+ =?us-ascii?Q?eYKJ5062wZAoQsTo4Ex3xrkYY672vb43Rb9dQqe6zz7R4SJ+VgRd+VzjOhsZ?=
+ =?us-ascii?Q?ij344S4LhuCHccFRbGSDgiBPaEzf7UWLPELwSQOwM2MOaVR9ielpZI6t719j?=
+ =?us-ascii?Q?Hf+A/6XBMDA0yauWox35nTzQBARdV6ToreEkR/ZF/Y5iSdBJJ8kUwuNMbPQL?=
+ =?us-ascii?Q?LWpeDQ3Kof5u6RevTca0dkolKYk2z4cItHSn+CxmiMy1t+E5ogfIL5NXu6iO?=
+ =?us-ascii?Q?CgZq7PGsvz+Zu6R7JfUfDiBIyTE7S5e0YCzCd0XNLC2qWa14u5DzTsy7WqRC?=
+ =?us-ascii?Q?lbQbJN+ZMW+jIDTc0jFDsOmKFIxnvivORmu5N6hhf+S+jrOvrgClWIq39XJF?=
+ =?us-ascii?Q?1q9UJRR/YrR14ecKx6LIu8SlupXp0xHenRWm3ck0wHEFRyd9ix6A3l8k19Ob?=
+ =?us-ascii?Q?j3GJUzR9jVwNp+WP9m3qZ4z4H3mz1wvgpNqU5AtNGKY3mAWJOvPubIWyAMwX?=
+ =?us-ascii?Q?+vHtyYInSddKE83M8KoUnjy6672qZ9/6mD4LRSWQv6KxzQqcS0GOuRBcas2m?=
+ =?us-ascii?Q?RW+GoCgjYguMib+1+uKqjlhaqesSDKkfW4Px2tIx5WWb2OBQH8e+ZdzTIHRz?=
+ =?us-ascii?Q?rxJ55LQsb04Qwss1MtCofOfM9CWG8N98gNkDbKRf4Wj59Mj9BMuByQH0evqj?=
+ =?us-ascii?Q?XxWUfDMLS/POp6jH68LRtATdRcmpSONAOUkZJ/+hQBv2wYTXlxi8HS++4Ih3?=
+ =?us-ascii?Q?F1SPq5Leci/oNoEX5URrBuNSSoOWbVgC2GU+8mN0CSw9o9ZA7Du+BpIZaxKy?=
+ =?us-ascii?Q?PSaBokCP4cmQs0fgl39Ql/EaSoqIeIJkgKWvMPymrJJtRZPfyGiF/E5cqK+w?=
+ =?us-ascii?Q?J2/W6v6UVqMl7IJT6EGOLXl6w1td3854r2g9zHw9mlv/E4qxL+0/QGWt5VKE?=
+ =?us-ascii?Q?A0kGidJCB8CnyWjpiaO6tMkTY+V7nq9H9GgxITS/z9bbVfiJWyYKXLfxSdkz?=
+ =?us-ascii?Q?TSvDFPcJZYHGziodlhBHnHe579t7iv4iRc5EMqUjw4D5UTJTDIZITWgbJAEq?=
+ =?us-ascii?Q?jA5u7Q2hbw=3D=3D?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 816972d9-aba8-4cdf-8b0c-08df2cbd7d03
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ba5ee30-b114-472f-12af-08df2cbd81d5
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2026 02:14:06.9417
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2026 02:14:15.0342
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 975kG9tZhDBy0h/IHYLJDtnmCuX9HDq+eEz8u0lCyEQ4YTXoXNBrmdotgpvX7zNTieVM4nCe2HlJJHej++TERA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: sLPOQAa1MN1AITwdygH+plEIU+QXls78U5cftmG8f15Ju7mWtne8EDAeSJEknFaOIyGGZnezpgZxR0PIdbUwFA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P123MB986281
 
-The Linux kernel's function graph tracer operates at the machine
-instruction level via compiler instrumentation
-(-fpatchable-function-entry), recording entry and return events for
-physical function calls. Consequently, functions inlined by the compiler
-are invisible in the resulting call graph, as no discrete call or return
-instructions are emitted for them. While technically expected, this
-omission frequently obscures the logical execution flow when analysing
-kernel subsystems heavily reliant upon inlining.
+When tracing with the function graph tracer using a targeted filter
+(-G or --graph-funcs), users occasionally observe unrelated functions in
+the trace output:
 
-Address this by introducing the --inline option to perf ftrace for the
-function_graph tracer.
+    1.  Top-level functions (e.g. most notably
+        finish_task_switch.isra.0()) appearing before or alongside the
+        requested target function. This occurs because clearing and
+        rewriting set_graph_function creates a transient window where
+        remote CPUs still observe an empty filter (tracing all
+        functions) before RCU synchronisation completes, coupled with
+        perf ftrace sleeping in poll() on trace_pipe right as tracing
+        starts.
 
-When the kernel is configured with CONFIG_FUNCTION_GRAPH_RETADDR=y, the
-funcgraph-retaddr trace option records the caller's return address on
-each function entry, manifested in the trace stream as a comment
-(e.g. /* <-irq_work_queue_on+0x81/0xa0 */). By interrogating DWARF debug
-information from the kernel image (vmlinux) utilising libdw, perf ftrace
-resolves this return address to its inlined callchain and synthesises the
-intermediate inlined frames directly into the streamed call graph.
+    2.  Detached/orphan calls inside the target callgraph
+        (e.g. housekeeping_any_cpu() and arch_irq_work_raise())
+        appearing as child frames under the target function. These
+        routines are invoked by rb_wakeups() to notify perf's poll() on
+        trace_pipe whenever an event is committed, and execute while the
+        target function is on the CPU.
 
-Key aspects of this implementation:
+Resolve these issues deterministically in userspace:
 
-    1.  Inlined frame presentation
+    1.  Target callgraph state tracking
 
-        Synthesised inlined functions are rendered with an explicit
-        /* (inline) */ annotation at both entry and exit:
+        Track active target callgraph state per-CPU in
+        tools/perf/util/ftrace.c. Any entry not matching the requested
+        -G targets is suppressed along with its nested children until
+        its scope exits. When a target function is matched (at root or
+        nested depths), record its root depth; for leaf target calls,
+        immediately reset the filter state upon completion to ensure
+        subsequent sibling functions remain suppressed. Support glob
+        wildcard matching (-G 'prefix_*' and compiler clone suffixes).
 
-            # CPU  DURATION                  FUNCTION CALLS
-            # |     |   |                     |   |   |   |
-             0)               |  wake_up_new_task() {
-             0)               |    activate_task() { /* (inline) */
-             0)   1.234 us    |      enqueue_task();
-             0)               |    } /* activate_task (inline) */
-             0)   2.567 us    |  }
+    2.  Caller provenance and orphan suppression
 
-        This affords immediate visual clarity to the reader upon
-        entering an inlined scope, without necessitating a search for
-        the closing delimiter.
+        Within an active target callgraph, validate that child entries
+        descend from an active frame on the target stack using their
+        return addresses (CONFIG_FUNCTION_GRAPH_RETADDR). Any detached
+        calls originating outside the target hierarchy (such as
+        ring-buffer wakeups or asynchronous interrupts) are suppressed
+        along with their subtrees (cs->orphan_depth).
 
-    2.  Call graph reconstruction and per-task stack tracking
+        Exits within an orphan subtree are suppressed without querying
+        the target stack, preventing common helpers (such as
+        _raw_spin_unlock) from colliding with or prematurely unspooling
+        active target frames. Dropped-orphan exit recovery is safely
+        permitted only when the named exit explicitly matches the target
+        root function itself.
 
-        Maintains a per-task synthetic call stack tracking real and inlined
-        frames across context switches, synthesising entry and exit
-        delimiters to accurately reconstruct the execution hierarchy. Tasks
-        are tracked in a hash table keyed by PID, with per-CPU active bindings
-        updated upon context-switch banners or verbose line records. Inlined
-        frames are structured strictly root-to-leaf and validated against the
-        active stack to prevent un-traced callers from attaching orphan inlines.
-        Bare closing braces without trailing function names (the default when
-        funcgraph-tail is disabled) are correctly matched against preceding
-        frames on the stack. Context column alignment, including task comm-pid
-        delimiters in verbose mode, is preserved when generating prefixes for
-        synthesised inline frames. Furthermore, stack depth saturation guards
-        ensure that inlined frame depth tracking remains clamped, indentation
-        cannot drift even under deep call trees exceeding FTRACE_MAX_STACK, and
-        overflow depth is automatically recovered upon caller detection.
+    3.  Dynamic call stack allocation
 
-    3.  Option handling and diagnostics
-
-        Adds -k or --vmlinux to designate an explicit debug image, and
-        provides clear diagnostic guidance should --inline be invoked on
-        a kernel lacking CONFIG_FUNCTION_GRAPH_RETADDR. Automatically
-        enables return address comment filtering unless explicitly
-        requested.
+        Maintain the synthetic call stack as a dynamically reallocated
+        array, growing on demand via realloc(). This supports arbitrarily
+        deep call trees without fixed-size truncation, ensures unknown
+        callers are unambiguously identified as orphans, and guarantees
+        that standard filter teardown executes cleanly regardless of
+        stack depth upon target function entry.
 
     4.  Automated verification
 
-        Expands the unit test suite in tools/perf/tests/ftrace.c to
-        validate DWARF inline symbol resolution, comment filtering
-        toggles, bare closing braces handling, task context-switch
-        isolation and migration, and stack saturation/overflow recovery.
+        Add comprehensive regression tests in tools/perf/tests/ftrace.c
+        (test_graph_target_filter()) validating top-level suppression,
+        detached orphan suppression, glob matching, deep stack
+        traversal, dropped-orphan recovery, and orphan exit collision
+        prevention.
 
-Assisted-by: Antigravity:gemini-3.1-pro
+For example:
+
+    # tracer: function_graph
+    #
+    # CPU               FUNCTION CALLS
+    # |                 |   |   |   |
+     3) activate_task() {
+     3)   enqueue_task() {
+     3)     psi_enqueue() { /* (inline) */
+     3)       arch_static_branch_jump() { /* (inline) */
+     3)         enqueue_task_fair() {
+     3)           enqueue_hierarchy() { /* (inline) */
+     3)             update_curr();
+     3)             enqueue_entity() {
+     3)               account_entity_enqueue() { /* (inline) */
+     3)                 account_llc_enqueue();
+     3)               } /* account_entity_enqueue (inline) */
+     3)             }
+     3)           } /* enqueue_hierarchy (inline) */
+     3)           place_entity() {
+     3)             avg_vruntime();
+     3)           }
+     3)           __enqueue_entity();
+     3)           dl_server_start();
+     3)         }
+     3)       } /* arch_static_branch_jump (inline) */
+     3)     } /* psi_enqueue (inline) */
+     3)     sched_info_enqueue() { /* (inline) */
+     3)       psi_task_change() {
+     3)         psi_write_begin() { /* (inline) */
+     3)           psi_flags_change();
+     3)         } /* psi_write_begin (inline) */
+     3)         psi_group_change() {
+     3)           record_times();
+     3)         }
+     3)       }
+     3)     } /* sched_info_enqueue (inline) */
+     3)   }
+     3) }
+
 Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- tools/perf/Documentation/perf-ftrace.txt |  17 +-
- tools/perf/builtin-ftrace.c              |  58 +-
- tools/perf/tests/ftrace.c                | 481 +++++++++++++-
- tools/perf/util/ftrace.c                 | 762 ++++++++++++++++++++++-
- tools/perf/util/ftrace.h                 |  12 +
- 5 files changed, 1312 insertions(+), 18 deletions(-)
+ tools/perf/tests/ftrace.c | 937 ++++++++++++++++++++++++++++++++++++++
+ tools/perf/util/ftrace.c  | 398 ++++++++++++++--
+ 2 files changed, 1294 insertions(+), 41 deletions(-)
 
-diff --git a/tools/perf/Documentation/perf-ftrace.txt b/tools/perf/Documentation/perf-ftrace.txt
-index e8105083e67c..445c8ccc22d2 100644
---- a/tools/perf/Documentation/perf-ftrace.txt
-+++ b/tools/perf/Documentation/perf-ftrace.txt
-@@ -134,9 +134,24 @@ OPTIONS for 'perf ftrace trace'
- 	  - depth=<n>    - Set max depth for function graph tracer to follow.
- 	  - tail         - Print function name at the end.
- 
-+--inline::
-+	Show inlined functions in function_graph tracer. This requires
-+	kernel support for the funcgraph-retaddr option and a vmlinux with
-+	debug symbols. Inlined functions are displayed in the call graph
-+	hierarchy, and their inlined status is indicated with `/* (inline) */`
-+	on entry and exit, e.g. `func() { /* (inline) */` and `} /* func (inline) */`.
-+	By default, raw return address comments (`/* <-caller+offset */`)
-+	are hidden in the output; specify `--graph-opts retaddr` to show them.
-+
- --filter-retaddr::
- 	Filter out function return address comments (`/* <-caller+offset */`)
--	from function_graph output.
-+	from function_graph output. This is enabled by default when `--inline`
-+	is used; use `--no-filter-retaddr` to disable it.
-+
-+-k::
-+--vmlinux=::
-+	Path to the vmlinux file containing debug symbols for resolving
-+	inlined functions.
- 
- 
- OPTIONS for 'perf ftrace latency'
-diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
-index c715cbebaabe..cdacf5af14a6 100644
---- a/tools/perf/builtin-ftrace.c
-+++ b/tools/perf/builtin-ftrace.c
-@@ -575,9 +575,14 @@ static int set_tracing_funcgraph_retval(struct perf_ftrace *ftrace)
- 
- static int set_tracing_funcgraph_retaddr(struct perf_ftrace *ftrace)
- {
--	if (ftrace->graph_retaddr) {
--		if (write_tracing_option_file("funcgraph-retaddr", "1") < 0)
-+	if (ftrace->graph_retaddr || ftrace->use_inline) {
-+		if (write_tracing_option_file("funcgraph-retaddr", "1") < 0) {
-+			if (ftrace->use_inline) {
-+				pr_err("failed to set funcgraph-retaddr option in tracing\n");
-+				pr_err("Hint: ensure kernel is compiled with CONFIG_FUNCTION_GRAPH_RETADDR=y\n");
-+			}
- 			return -1;
-+		}
- 	}
- 
- 	return 0;
-@@ -770,6 +775,9 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
- 		goto out_reset;
- 	}
- 
-+	if (perf_ftrace__setup_inlines(ftrace) < 0)
-+		goto out_reset;
-+
- 	setup_pager();
- 
- 	buf = malloc(TRACE_BUF_SIZE);
-@@ -837,9 +845,11 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
- 				break;
- 			for (int i = 0; i < n; i++) {
- 				if (buf[i] == '\n') {
--					if (ftrace->filter_retaddr)
--						ftrace_filter_retaddr(linebuf.buf);
--					if (fprintf(stdout, "%s\n", linebuf.buf) < 0)
-+					if (ftrace_process_fgraph_line(ftrace,
-+								       linebuf.buf,
-+								       stdout) < 0)
-+						goto out_close_fd;
-+					if (ferror(stdout))
- 						break;
- 					strbuf_setlen(&linebuf, 0);
- 				} else {
-@@ -876,9 +886,11 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
- 			break;
- 		for (int i = 0; i < n; i++) {
- 			if (buf[i] == '\n') {
--				if (ftrace->filter_retaddr)
--					ftrace_filter_retaddr(linebuf.buf);
--				if (fprintf(stdout, "%s\n", linebuf.buf) < 0)
-+				if (ftrace_process_fgraph_line(ftrace,
-+							       linebuf.buf,
-+							       stdout) < 0)
-+					goto out_close_fd;
-+				if (ferror(stdout))
- 					break;
- 				strbuf_setlen(&linebuf, 0);
- 			} else {
-@@ -889,9 +901,9 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
- 	}
- 
- 	if (!ferror(stdout) && linebuf.len > 0) {
--		if (ftrace->filter_retaddr)
--			ftrace_filter_retaddr(linebuf.buf);
--		fprintf(stdout, "%s\n", linebuf.buf);
-+		if (ftrace_process_fgraph_line(ftrace, linebuf.buf,
-+					       stdout) < 0)
-+			goto out_close_fd;
- 		strbuf_setlen(&linebuf, 0);
- 	}
- 
-@@ -901,6 +913,7 @@ static int __cmd_ftrace(struct perf_ftrace *ftrace)
- 	free(buf);
- 	strbuf_release(&linebuf);
- out_reset:
-+	perf_ftrace__cleanup_inlines(ftrace);
- 	exit_tracing_instance();
- out:
- 	return (done && !workload_exec_errno) ? 0 : -1;
-@@ -1856,8 +1869,13 @@ int cmd_ftrace(int argc, const char **argv)
- 		     "Size of per cpu buffer, needs to use a B, K, M or G suffix.", parse_buffer_size),
- 	OPT_BOOLEAN(0, "inherit", &ftrace.inherit,
- 		    "Trace children processes"),
--	OPT_BOOLEAN_SET(0, "filter-retaddr", &ftrace.filter_retaddr, &ftrace.filter_retaddr_set,
--			"Filter out funcgraph return address comments"),
-+	OPT_BOOLEAN(0, "inline", &ftrace.use_inline,
-+		    "Show inlined functions in function_graph tracer"),
-+	OPT_BOOLEAN_SET(0, "filter-retaddr", &ftrace.filter_retaddr,
-+			&ftrace.filter_retaddr_set,
-+			"Filter out funcgraph return address comments (default with --inline)"),
-+	OPT_STRING('k', "vmlinux", &symbol_conf.vmlinux_name, "file",
-+		   "vmlinux pathname"),
- 	OPT_INTEGER('D', "delay", &ftrace.target.initial_delay,
- 		    "Number of milliseconds to wait before starting tracing after program start"),
- 	OPT_PARENT(common_options),
-@@ -1973,6 +1991,20 @@ int cmd_ftrace(int argc, const char **argv)
- 
- 	switch (subcmd) {
- 	case PERF_FTRACE_TRACE:
-+		if (ftrace.use_inline) {
-+			if (ftrace.tracer && strcmp(ftrace.tracer, "function_graph") != 0) {
-+				pr_err("Error: --inline option is only supported with function_graph tracer\n");
-+				ret = -EINVAL;
-+				goto out_delete_filters;
-+			}
-+			ftrace.tracer = "function_graph";
-+		}
-+		if (!ftrace.filter_retaddr_set) {
-+			if (ftrace.use_inline && !ftrace.graph_retaddr)
-+				ftrace.filter_retaddr = true;
-+			else
-+				ftrace.filter_retaddr = false;
-+		}
- 		cmd_func = __cmd_ftrace;
- 		break;
- 	case PERF_FTRACE_LATENCY:
 diff --git a/tools/perf/tests/ftrace.c b/tools/perf/tests/ftrace.c
-index 596cecee844e..6e20a61860a9 100644
+index d83dee5a050d..4c70951fd0c0 100644
 --- a/tools/perf/tests/ftrace.c
 +++ b/tools/perf/tests/ftrace.c
-@@ -7,6 +7,10 @@
- #include <unistd.h>
- #include "tests.h"
- #include "debug.h"
-+#include "dso.h"
-+#include "machine.h"
-+#include "map.h"
-+#include "symbol.h"
- #include "util/ftrace.h"
- 
- static int test_parse_retaddr(void)
-@@ -62,6 +66,465 @@ static int test_filter_retaddr(void)
+@@ -581,6 +581,939 @@ static int test_context_switch_handling(void)
  	return TEST_OK;
  }
  
-+#define TEST_CHECK(text, cond)					\
-+do {								\
-+	if (!(cond)) {						\
-+		pr_debug("FAILED %s:%d %s\n", __FILE__, __LINE__, text); \
-+		ret = TEST_FAIL;				\
-+		goto out_cleanup;				\
-+	}							\
-+} while (0)
-+
-+static int test_inline_processing(void)
++static int test_graph_target_filter(void)
 +{
-+	static const char line_entry[] = " 0)               |  wake_up_new_task() {";
-+	static const char line_enqueue[] =
-+		" 0)               |    enqueue_task() { /* <-wake_up_new_task+0x1d1/0x3e0 */";
-+	static const char line_exit_enqueue[] = " 0) + 10.000 us   |    } /* enqueue_task */";
-+	static const char line_exit_task[] = " 0) + 20.000 us   |  } /* wake_up_new_task */";
-+	static const char line_bare_enqueue[] = " 0) + 10.000 us   |    }";
-+	static const char line_bare_task[] = " 0) + 20.000 us   |  }";
-+	static const char line_unmatched[] = " 0) +  5.000 us   |    } /* unrelated_func */";
-+	static const char line_verbose_entry[] =
-+		" 1234.567890 |   0)   bash-1234    |               |  wake_up_new_task() {";
-+	static const char line_verbose_enqueue[] =
-+		" 1234.567890 |   0)   bash-1234    |               |    enqueue_task() { /* <-wake_up_new_task+0x1d1/0x3e0 */";
-+	static const char line_verbose_exit_enqueue[] =
-+		" 1234.567890 |   0)   bash-1234    |   1.234 us    |    } /* enqueue_task */";
-+	static const char line_verbose_exit_task[] =
-+		" 1234.567890 |   0)   bash-1234    |   2.567 us    |  } /* wake_up_new_task */";
-+	static const char line_verbose_inline_entry[] =
-+		" 1234.567890 |   0)   bash-1234    |               |    activate_task() { /* (inline) */";
-+	static const char line_verbose_inline_exit[] =
-+		" 1234.567890 |   0)   bash-1234    |               |    } /* activate_task (inline) */";
++	static const char line_idle[] = " 7)   3.000 us    |  sched_idle_set_state();";
++	static const char line_sw_entry[] = " 6)               |  finish_task_switch.isra.0() {";
++	static const char line_sw_child[] = " 6)   1.000 us    |    _raw_spin_unlock();";
++	static const char line_sw_exit[] = " 6)   2.000 us    |  }";
++	static const char line_tgt_entry[] = " 2)               |  activate_task() {";
++	static const char line_tgt_child[] = " 2)   1.500 us    |    enqueue_task();";
++	static const char line_tgt_exit[] = " 2)   2.500 us    |  }";
 +	struct perf_ftrace ftrace;
++	struct filter_entry *entry;
++	struct filter_entry *pos, *tmp;
 +	char *out_buf = NULL;
 +	size_t out_len = 0;
 +	FILE *out;
-+	const char *unmatched_pos;
-+	const char *inline_exit_pos;
 +	const char *vmlinux;
 +	int ret = TEST_OK;
-+
-+	memset(&ftrace, 0, sizeof(ftrace));
-+	ftrace.use_inline = true;
-+	ftrace.filter_retaddr = 1; /* Default when --graph-opts retaddr is not specified */
-+	ftrace.tracer = "function_graph";
-+
-+	vmlinux = vmlinux_path__find();
-+
-+	/* If vmlinux is present, test resolving symbols */
-+	if (vmlinux) {
-+		symbol_conf.vmlinux_name = vmlinux;
-+		symbol_conf.ignore_vmlinux_buildid = true;
-+		ret = perf_ftrace__setup_inlines(&ftrace);
-+		if (ret < 0 || !ftrace.machine) {
-+			ret = TEST_SKIP;
-+			goto out_cleanup;
-+		}
-+
-+		out = open_memstream(&out_buf, &out_len);
-+		if (!out) {
-+			ret = TEST_FAIL;
-+			goto out_cleanup;
-+		}
-+
-+		/* Feed simulated function graph trace lines */
-+		ftrace_process_fgraph_line(&ftrace, line_entry, out);
-+		ftrace_process_fgraph_line(&ftrace, line_enqueue, out);
-+		ftrace_process_fgraph_line(&ftrace, line_exit_enqueue, out);
-+		ftrace_process_fgraph_line(&ftrace, line_exit_task, out);
-+
-+		fclose(out);
-+		ftrace_cpu_states__clear();
-+
-+		pr_debug("Processed output:\n%s\n", out_buf);
-+
-+		/* Verify activate_task entry with inline hint */
-+		TEST_CHECK("contains activate_task entry with inline hint",
-+			   strstr(out_buf, "activate_task() { /* (inline) */") != NULL);
-+
-+		/* Verify activate_task exit with inline hint */
-+		TEST_CHECK("contains activate_task exit with inline hint",
-+			   strstr(out_buf, "} /* activate_task (inline) */") != NULL);
-+
-+		/* Verify return address comment was filtered out by default */
-+		TEST_CHECK("retaddr comment filtered out",
-+			   strstr(out_buf, "/* <-wake_up_new_task") == NULL);
-+
-+		free(out_buf);
-+		out_buf = NULL;
-+
-+		/* Now test with filter_retaddr = 0 (user specified --graph-opts retaddr) */
-+		ftrace.filter_retaddr = 0;
-+		out = open_memstream(&out_buf, &out_len);
-+		if (!out) {
-+			ret = TEST_FAIL;
-+			goto out_cleanup;
-+		}
-+
-+		ftrace_process_fgraph_line(&ftrace, line_entry, out);
-+		ftrace_process_fgraph_line(&ftrace, line_enqueue, out);
-+		ftrace_process_fgraph_line(&ftrace, line_exit_enqueue, out);
-+		ftrace_process_fgraph_line(&ftrace, line_exit_task, out);
-+
-+		fclose(out);
-+		ftrace_cpu_states__clear();
-+
-+		/* Verify return address comment IS preserved when filter_retaddr = 0 */
-+		TEST_CHECK("retaddr comment preserved when requested",
-+			   strstr(out_buf, "/* <-wake_up_new_task") != NULL);
-+
-+		free(out_buf);
-+		out_buf = NULL;
-+
-+		/* Test with bare closing braces (funcgraph-tail disabled by default) */
-+		ftrace.filter_retaddr = 1;
-+		out = open_memstream(&out_buf, &out_len);
-+		if (!out) {
-+			ret = TEST_FAIL;
-+			goto out_cleanup;
-+		}
-+
-+		ftrace_process_fgraph_line(&ftrace, line_entry, out);
-+		ftrace_process_fgraph_line(&ftrace, line_enqueue, out);
-+		ftrace_process_fgraph_line(&ftrace, line_bare_enqueue, out);
-+		ftrace_process_fgraph_line(&ftrace, line_bare_task, out);
-+
-+		fclose(out);
-+
-+		TEST_CHECK("bare braces inline entry",
-+			   strstr(out_buf, "activate_task() { /* (inline) */") != NULL);
-+		TEST_CHECK("bare braces inline exit",
-+			   strstr(out_buf, "} /* activate_task (inline) */") != NULL);
-+
-+		free(out_buf);
-+		out_buf = NULL;
-+
-+		/* Test that unmatched exit events do not pop active inlined frames */
-+		out = open_memstream(&out_buf, &out_len);
-+		if (!out) {
-+			ret = TEST_FAIL;
-+			goto out_cleanup;
-+		}
-+
-+		ftrace_process_fgraph_line(&ftrace, line_entry, out);
-+		ftrace_process_fgraph_line(&ftrace, line_enqueue, out);
-+		ftrace_process_fgraph_line(&ftrace, line_exit_enqueue, out);
-+		/* Unmatched exit event while activate_task is still active */
-+		ftrace_process_fgraph_line(&ftrace, line_unmatched, out);
-+		ftrace_process_fgraph_line(&ftrace, line_exit_task, out);
-+
-+		fclose(out);
-+
-+		unmatched_pos = strstr(out_buf, "} /* unrelated_func */");
-+		inline_exit_pos = strstr(out_buf, "} /* activate_task (inline) */");
-+
-+		TEST_CHECK("unmatched exit present", unmatched_pos != NULL);
-+		TEST_CHECK("inline exit present", inline_exit_pos != NULL);
-+		TEST_CHECK("inline exit not prematurely popped before unmatched exit",
-+			   inline_exit_pos > unmatched_pos);
-+
-+		free(out_buf);
-+		out_buf = NULL;
-+
-+		/* Test recovery when an intermediate real function exit event is dropped */
-+		out = open_memstream(&out_buf, &out_len);
-+		if (!out) {
-+			ret = TEST_FAIL;
-+			goto out_cleanup;
-+		}
-+
-+		ftrace_process_fgraph_line(&ftrace, line_entry, out);
-+		ftrace_process_fgraph_line(&ftrace, line_enqueue, out);
-+		/* line_exit_enqueue is dropped; outer wake_up_new_task exits directly */
-+		ftrace_process_fgraph_line(&ftrace, line_exit_task, out);
-+
-+		fclose(out);
-+
-+		TEST_CHECK("inline exit synthesized despite dropped callee exit",
-+			   strstr(out_buf, "} /* activate_task (inline) */") != NULL);
-+
-+		free(out_buf);
-+		out_buf = NULL;
-+
-+		/* Test recovery when intermediate callee exit is dropped before sibling call */
-+		out = open_memstream(&out_buf, &out_len);
-+		if (!out) {
-+			ret = TEST_FAIL;
-+			goto out_cleanup;
-+		}
-+
-+		ftrace_process_fgraph_line(&ftrace, line_entry, out);
-+		ftrace_process_fgraph_line(&ftrace, line_enqueue, out);
-+		/* line_exit_enqueue dropped; caller makes sibling call without inlines */
-+		ftrace_process_fgraph_line(&ftrace,
-+			" 0)               |    check_preempt_curr(); /* <-wake_up_new_task+0x0/0x3e0 */",
-+			out);
-+		ftrace_process_fgraph_line(&ftrace, line_exit_task, out);
-+
-+		fclose(out);
-+
-+		TEST_CHECK("inline exit synthesized when callee exit dropped before sibling call",
-+			   strstr(out_buf, "} /* activate_task (inline) */") != NULL);
-+
-+		free(out_buf);
-+		out_buf = NULL;
-+
-+		/* Test that callers not on active stack do not synthesise inlines */
-+		out = open_memstream(&out_buf, &out_len);
-+		if (!out) {
-+			ret = TEST_FAIL;
-+			goto out_cleanup;
-+		}
-+
-+		ftrace_process_fgraph_line(&ftrace, line_entry, out);
-+		/* housekeeping_any_cpu called by untraced ring_buffer_unlock_commit */
-+		ftrace_process_fgraph_line(&ftrace,
-+			" 0)               |    housekeeping_any_cpu(); /* <-ring_buffer_unlock_commit+0x1a0/0x1f0 */",
-+			out);
-+		ftrace_process_fgraph_line(&ftrace, line_exit_task, out);
-+
-+		fclose(out);
-+
-+		TEST_CHECK("untraced caller inlines not synthesised",
-+			   strstr(out_buf, "rb_wakeups") == NULL &&
-+			   strstr(out_buf, "rb_irq_work_queue") == NULL);
-+
-+		free(out_buf);
-+		out_buf = NULL;
-+
-+		/* Test verbose mode prefix formatting for synthesised inlines */
-+		ftrace.graph_verbose = true;
-+		out = open_memstream(&out_buf, &out_len);
-+		if (!out) {
-+			ret = TEST_FAIL;
-+			goto out_cleanup;
-+		}
-+
-+		ftrace_process_fgraph_line(&ftrace, line_verbose_entry, out);
-+		ftrace_process_fgraph_line(&ftrace, line_verbose_enqueue, out);
-+		ftrace_process_fgraph_line(&ftrace, line_verbose_exit_enqueue, out);
-+		ftrace_process_fgraph_line(&ftrace, line_verbose_exit_task, out);
-+
-+		fclose(out);
-+		ftrace_cpu_states__clear();
-+
-+		TEST_CHECK("verbose inline entry preserves comm-pid",
-+			   strstr(out_buf, line_verbose_inline_entry) != NULL);
-+		TEST_CHECK("verbose inline exit preserves comm-pid",
-+			   strstr(out_buf, line_verbose_inline_exit) != NULL);
-+
-+		free(out_buf);
-+		out_buf = NULL;
-+		ftrace.graph_verbose = false;
-+	}
-+
-+out_cleanup:
-+	free(out_buf);
-+	perf_ftrace__cleanup_inlines(&ftrace);
-+	return ret;
-+}
-+#undef TEST_CHECK
-+
-+static int test_stack_saturation(void)
-+{
-+	struct perf_ftrace ftrace;
-+	char *out_buf = NULL;
-+	size_t out_len = 0;
-+	FILE *out;
 +	int i;
 +
 +	memset(&ftrace, 0, sizeof(ftrace));
-+	ftrace.use_inline = true;
-+	ftrace_cpu_states__clear();
++	INIT_LIST_HEAD(&ftrace.graph_funcs);
 +
-+	out = open_memstream(&out_buf, &out_len);
-+	if (!out)
++	entry = malloc(sizeof(*entry) + strlen("activate_task") + 1);
++	if (!entry)
 +		return TEST_FAIL;
++	strcpy(entry->name, "activate_task");
++	list_add_tail(&entry->list, &ftrace.graph_funcs);
 +
-+	/* Push root frame at depth 0 */
-+	ftrace_process_fgraph_line(&ftrace, " 0)               |  root_func() {", out);
++	/* 1. Test without --inline */
++	ftrace.use_inline = false;
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
 +
-+	/* Push 255 more frames to fill FTRACE_MAX_STACK (256) */
-+	for (i = 1; i < 256; i++)
-+		ftrace_process_fgraph_line(&ftrace, " 0)               |  sub_func() {", out);
-+
-+	/* Push 44 overflow frames beyond FTRACE_MAX_STACK */
-+	for (i = 0; i < 44; i++)
-+		ftrace_process_fgraph_line(&ftrace, " 0)               |  overflow_func() {", out);
-+
-+	/* Pop the 44 overflow frames with bare closing braces */
-+	for (i = 0; i < 44; i++)
-+		ftrace_process_fgraph_line(&ftrace, " 0)               |  }", out);
-+
-+	/* Pop 255 tracked sub_func frames */
-+	for (i = 1; i < 256; i++)
-+		ftrace_process_fgraph_line(&ftrace, " 0)               |  }", out);
-+
-+	/* Pop root frame - must cleanly match root_func on stack, not popped prematurely */
-+	ftrace_process_fgraph_line(&ftrace, " 0)               |  } /* root_func */", out);
-+
-+	/* Feed one more function entry - it must have base indentation (no indentation drift) */
-+	ftrace_process_fgraph_line(&ftrace, " 0)               |  base_func() {", out);
++	ftrace_process_fgraph_line(&ftrace, line_idle, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_entry, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_child, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_exit, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_entry, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_child, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_exit, out);
 +
 +	fclose(out);
 +	ftrace_cpu_states__clear();
-+
-+	/* Verify base_func starts at standard 2 spaces indentation without drift */
-+	if (!strstr(out_buf, "|  base_func() {")) {
-+		pr_debug("FAILED %s:%d no indentation drift after stack saturation\n",
-+			 __FILE__, __LINE__);
-+		free(out_buf);
-+		return TEST_FAIL;
++	if (strstr(out_buf, "sched_idle_set_state")) {
++		pr_debug("FAILED: sched_idle_set_state not suppressed\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (strstr(out_buf, "finish_task_switch")) {
++		pr_debug("FAILED: finish_task_switch not suppressed\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (strstr(out_buf, "_raw_spin_unlock")) {
++		pr_debug("FAILED: _raw_spin_unlock not suppressed\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "activate_task() {")) {
++		pr_debug("FAILED: activate_task entry missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "enqueue_task();")) {
++		pr_debug("FAILED: enqueue_task child missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
 +	}
 +
 +	free(out_buf);
 +	out_buf = NULL;
 +
-+	/* Test overflow recovery when events are dropped */
-+	out = open_memstream(&out_buf, &out_len);
-+	if (!out)
-+		return TEST_FAIL;
-+
-+	ftrace_process_fgraph_line(&ftrace, " 0)               |  root_func() {", out);
-+	for (i = 1; i < 256; i++)
-+		ftrace_process_fgraph_line(&ftrace, " 0)               |  sub_func() {", out);
-+	for (i = 0; i < 44; i++)
-+		ftrace_process_fgraph_line(&ftrace, " 0)               |  overflow_func() {", out);
-+
-+	/* Dropped events: root_func directly calls recovery_func */
-+	ftrace_process_fgraph_line(&ftrace, " 0)               |    recovery_func() { /* <-root_func+0x20 */", out);
-+	ftrace_process_fgraph_line(&ftrace, " 0)   1.000 us    |    }", out);
-+	ftrace_process_fgraph_line(&ftrace, " 0)   5.000 us    |  } /* root_func */", out);
-+
-+	fclose(out);
-+	ftrace_cpu_states__clear();
-+
-+	if (!strstr(out_buf, "recovery_func() {")) {
-+		pr_debug("FAILED %s:%d recovery_func missing after overflow recovery\n",
-+			 __FILE__, __LINE__);
-+		free(out_buf);
-+		return TEST_FAIL;
-+	}
-+	if (!strstr(out_buf, "} /* root_func */")) {
-+		pr_debug("FAILED %s:%d root_func exit missing after overflow recovery\n",
-+			 __FILE__, __LINE__);
-+		free(out_buf);
-+		return TEST_FAIL;
-+	}
-+
-+	free(out_buf);
-+	return TEST_OK;
-+}
-+
-+static int test_column_layouts(void)
-+{
-+	static const struct {
-+		const char *desc;
-+				bool verbose;
-+		const char *in;
-+		const char *expected;
-+	} cases[] = {
-+		{
-+			"default layout", false,
-+			" 7)               |  wake_up_new_task() { /* <-kernel_clone+0x160/0x510 */",
-+			" 7)               |  wake_up_new_task() {\n",
-+		},
-+		{
-+			"verbose layout", true,
-+			" 1234.567890 |   7)   bash-1234    |               |  wake_up_new_task() { /* <-kernel_clone+0x160/0x510 */",
-+			" 1234.567890 |   7)   bash-1234    |               |  wake_up_new_task() {\n",
-+		},
-+	};
-+	struct perf_ftrace ftrace;
-+	char *out_buf = NULL;
-+	size_t out_len = 0;
-+	FILE *out;
-+	size_t i;
-+
-+	for (i = 0; i < ARRAY_SIZE(cases); i++) {
-+		memset(&ftrace, 0, sizeof(ftrace));
-+		ftrace.use_inline = true;
-+		ftrace.filter_retaddr = true;
-+				ftrace.graph_verbose = cases[i].verbose;
-+
-+		out = open_memstream(&out_buf, &out_len);
-+		if (!out)
-+			return TEST_FAIL;
-+
-+		ftrace_process_fgraph_line(&ftrace, cases[i].in, out);
-+		fclose(out);
-+		ftrace_cpu_states__clear();
-+
-+		if (strcmp(out_buf, cases[i].expected)) {
-+			pr_debug("%s: expected '%s', got '%s'\n",
-+				 cases[i].desc, cases[i].expected, out_buf);
-+			free(out_buf);
-+			return TEST_FAIL;
-+		}
-+		free(out_buf);
-+		out_buf = NULL;
-+	}
-+
-+	return TEST_OK;
-+}
-+
-+static int test_context_switch_handling(void)
-+{
-+	struct perf_ftrace ftrace;
-+	char *out_buf = NULL;
-+	size_t out_len = 0;
-+	FILE *out;
-+
-+	memset(&ftrace, 0, sizeof(ftrace));
++	/* 2. Test with --inline */
 +	ftrace.use_inline = true;
-+	ftrace_cpu_states__clear();
-+
 +	out = open_memstream(&out_buf, &out_len);
-+	if (!out)
-+		return TEST_FAIL;
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
 +
-+	/* Task 1 (PID 100) starts running on CPU 0 */
-+	ftrace_process_fgraph_line(&ftrace, " ------------------------------------------", out);
-+	ftrace_process_fgraph_line(&ftrace, " 0)    <idle>-0    =>    task1-100 ", out);
-+	ftrace_process_fgraph_line(&ftrace, " ------------------------------------------", out);
-+
-+	/* Task 1 enters func1 */
-+	ftrace_process_fgraph_line(&ftrace, " 0)               |  func1() {", out);
-+
-+	/* Context switch to Task 2 (PID 200) on CPU 0 */
-+	ftrace_process_fgraph_line(&ftrace, " ------------------------------------------", out);
-+	ftrace_process_fgraph_line(&ftrace, " 0)    task1-100   =>    task2-200 ", out);
-+	ftrace_process_fgraph_line(&ftrace, " ------------------------------------------", out);
-+
-+	/* Task 2 executes func2 - should NOT inherit func1's indentation */
-+	ftrace_process_fgraph_line(&ftrace, " 0)               |  func2() {", out);
-+	ftrace_process_fgraph_line(&ftrace, " 0)               |  } /* func2 */", out);
-+
-+	/* Task 1 migrates and resumes on CPU 1 */
-+	ftrace_process_fgraph_line(&ftrace, " ------------------------------------------", out);
-+	ftrace_process_fgraph_line(&ftrace, " 1)    <idle>-0    =>    task1-100 ", out);
-+	ftrace_process_fgraph_line(&ftrace, " ------------------------------------------", out);
-+
-+	/* Task 1 exits func1 on CPU 1 - should cleanly match func1 from its preserved stack */
-+	ftrace_process_fgraph_line(&ftrace, " 1)               |  } /* func1 */", out);
++	ftrace_process_fgraph_line(&ftrace, line_idle, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_entry, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_child, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_exit, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_entry, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_child, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_exit, out);
 +
 +	fclose(out);
 +	ftrace_cpu_states__clear();
 +
-+	/* Verify func2 in Task 2 started at base indentation "|  func2() {" */
-+	TEST_ASSERT_VAL("task2 does not inherit task1 call stack",
-+			strstr(out_buf, "|  func2() {") != NULL);
++	pr_debug("Target filter output with --inline:\n%s\n", out_buf);
 +
-+	/* Verify task1 exit on CPU 1 matches cleanly */
-+	TEST_ASSERT_VAL("task1 preserved stack across migration",
-+			strstr(out_buf, "1)               |  } /* func1 */") != NULL);
++	if (strstr(out_buf, "finish_task_switch")) {
++		pr_debug("FAILED: finish_task_switch not suppressed with --inline\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "activate_task() {")) {
++		pr_debug("FAILED: activate_task entry missing with --inline\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
 +
 +	free(out_buf);
-+	return TEST_OK;
++	out_buf = NULL;
++
++	/* 3. Test suppressing detached orphan calls within target graph */
++	ftrace.use_inline = true;
++	ftrace.filter_retaddr = 1;
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace, line_tgt_entry, out);
++	/* Leaf orphan call from ring_buffer_unlock_commit */
++	ftrace_process_fgraph_line(&ftrace,
++		" 2)               |    housekeeping_any_cpu(); /* <-ring_buffer_unlock_commit+0x1a0/0x1f0 */",
++		out);
++	/* Non-leaf orphan call from irq_work_queue_on */
++	ftrace_process_fgraph_line(&ftrace,
++		" 2)               |    arch_irq_work_raise() { /* <-irq_work_queue_on+0x81/0xa0 */",
++		out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 2)               |      apic_wait_icr_idle() { /* (inline) */",
++		out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 2)               |        x2apic_send_IPI_self();",
++		out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 2)               |      } /* apic_wait_icr_idle (inline) */",
++		out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 2)   1.000 us    |    }",
++		out);
++	/* Genuine child call from activate_task */
++	ftrace_process_fgraph_line(&ftrace,
++		" 2)               |    enqueue_task() { /* <-activate_task+0x1d1/0x3e0 */",
++		out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 2)   1.500 us    |    }",
++		out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_exit, out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	pr_debug("Orphan call filter output:\n%s\n", out_buf);
++
++	if (strstr(out_buf, "housekeeping_any_cpu")) {
++		pr_debug("FAILED: housekeeping_any_cpu orphan not suppressed\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (strstr(out_buf, "arch_irq_work_raise")) {
++		pr_debug("FAILED: arch_irq_work_raise orphan not suppressed\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (strstr(out_buf, "x2apic_send_IPI_self")) {
++		pr_debug("FAILED: x2apic_send_IPI_self not suppressed\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "enqueue_task() {")) {
++		pr_debug("FAILED: genuine enqueue_task missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	/* 4. Test targeted leaf call at depth > 0 resetting filter */
++	ftrace.use_inline = false;
++	list_for_each_entry_safe(pos, tmp, &ftrace.graph_funcs, list) {
++		list_del(&pos->list);
++		free(pos);
++	}
++	entry = malloc(sizeof(*entry) + strlen("enqueue_task") + 1);
++	if (!entry) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	strcpy(entry->name, "enqueue_task");
++	list_add_tail(&entry->list, &ftrace.graph_funcs);
++
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace, line_sw_entry, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_child, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_child, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_exit, out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (strstr(out_buf, "finish_task_switch")) {
++		pr_debug("FAILED: finish_task_switch not suppressed\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "enqueue_task();")) {
++		pr_debug("FAILED: targeted leaf enqueue_task missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (strstr(out_buf, "_raw_spin_unlock")) {
++		pr_debug("FAILED: sibling _raw_spin_unlock not suppressed after leaf target\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	/* 5. Test targeted leaf call at depth > 0 with inlines resetting filter */
++	ftrace.use_inline = true;
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace, line_sw_entry, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_child, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_child, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_exit, out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (strstr(out_buf, "finish_task_switch")) {
++		pr_debug("FAILED: finish_task_switch not suppressed with inlines\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "enqueue_task();")) {
++		pr_debug("FAILED: targeted leaf enqueue_task missing with inlines\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (strstr(out_buf, "_raw_spin_unlock")) {
++		pr_debug("FAILED: sibling _raw_spin_unlock leaked with inlines\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	vmlinux = vmlinux_path__find();
++
++	/* 6. Test targeted leaf call with synthesized DWARF inlines closing and resetting filter */
++	if (vmlinux) {
++		symbol_conf.vmlinux_name = vmlinux;
++		symbol_conf.ignore_vmlinux_buildid = true;
++		if (perf_ftrace__setup_inlines(&ftrace) == 0 && ftrace.machine) {
++			out = open_memstream(&out_buf, &out_len);
++			if (!out) {
++				perf_ftrace__cleanup_inlines(&ftrace);
++				ret = TEST_FAIL;
++				goto out_free_filter;
++			}
++
++			ftrace_process_fgraph_line(&ftrace,
++				" 0)               |  wake_up_new_task() {", out);
++			/* Targeted leaf with caller having inline activate_task */
++			ftrace_process_fgraph_line(&ftrace,
++				" 0)   1.500 us    |    enqueue_task(); /* <-wake_up_new_task+0x1d1/0x3e0 */",
++				out);
++			/* Sibling call after targeted leaf */
++			ftrace_process_fgraph_line(&ftrace,
++				" 0)   1.000 us    |    check_preempt_curr(); /* <-wake_up_new_task+0x0/0x3e0 */",
++				out);
++			ftrace_process_fgraph_line(&ftrace,
++				" 0)   2.500 us    |  } /* wake_up_new_task */", out);
++
++			fclose(out);
++			ftrace_cpu_states__clear();
++			perf_ftrace__cleanup_inlines(&ftrace);
++
++			if (!strstr(out_buf, "enqueue_task();")) {
++				pr_debug("FAILED: targeted leaf enqueue_task missing\n");
++				ret = TEST_FAIL;
++				goto out_free_filter;
++			}
++			if (!strstr(out_buf, "} /* activate_task (inline) */")) {
++				pr_debug("FAILED: inline activate_task not closed after leaf target\n");
++				ret = TEST_FAIL;
++				goto out_free_filter;
++			}
++			if (strstr(out_buf, "check_preempt_curr")) {
++				pr_debug("FAILED: sibling check_preempt_curr leaked after leaf target\n");
++				ret = TEST_FAIL;
++				goto out_free_filter;
++			}
++
++			free(out_buf);
++			out_buf = NULL;
++		}
++	}
++
++	/* 7. Test recovery when an orphan exit event is dropped by the ring buffer */
++	list_for_each_entry_safe(pos, tmp, &ftrace.graph_funcs, list) {
++		list_del(&pos->list);
++		free(pos);
++	}
++	entry = malloc(sizeof(*entry) + strlen("activate_task") + 1);
++	if (!entry) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	strcpy(entry->name, "activate_task");
++	list_add_tail(&entry->list, &ftrace.graph_funcs);
++
++	/* 7a. Method 1: Target function exits directly after a dropped orphan exit */
++	ftrace.use_inline = false;
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |  activate_task() {", out);
++	/* Orphan entry: housekeeping_any_cpu called from outside activate_task */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |    housekeeping_any_cpu() { /* <-rb_wakeups+0x10 */",
++		out);
++	/* Exit of housekeeping_any_cpu is DROPPED by ring buffer (never arrives) */
++	/* Target function exits with named closing brace */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.500 us    |  } /* activate_task */", out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (!strstr(out_buf, "activate_task() {")) {
++		pr_debug("FAILED: target activate_task entry missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (strstr(out_buf, "housekeeping_any_cpu")) {
++		pr_debug("FAILED: orphan housekeeping_any_cpu leaked into output\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "} /* activate_task */")) {
++		pr_debug("FAILED: target activate_task exit swallowed after orphan exit dropped\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	/* 7b. Method 2: Target function calls legitimate child after a dropped orphan exit */
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |  activate_task() {", out);
++	/* Orphan entry: housekeeping_any_cpu called from outside activate_task */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |    housekeeping_any_cpu() { /* <-rb_wakeups+0x10 */",
++		out);
++	/* Exit of housekeeping_any_cpu is DROPPED by ring buffer */
++	/* Legitimate child call from activate_task */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.200 us    |    enqueue_task(); /* <-activate_task+0x1d1/0x3e0 */",
++		out);
++	/* Target function exits */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.500 us    |  } /* activate_task */", out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (strstr(out_buf, "housekeeping_any_cpu")) {
++		pr_debug("FAILED: orphan housekeeping_any_cpu leaked into output\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "enqueue_task();")) {
++		pr_debug("FAILED: legitimate child enqueue_task swallowed after orphan exit dropped\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "} /* activate_task */")) {
++		pr_debug("FAILED: target activate_task exit missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	/*
++	 * 8. Test target_root_depth synchronisation when target root enters
++	 * after dropped sibling exit.
++	 */
++	/* 8a. Without --inline */
++	ftrace.use_inline = false;
++	ftrace.filter_retaddr = 1;
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	/* Caller at depth 0 */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |  wake_up_new_task() {", out);
++	/* Extraneous sibling at depth 1 */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |    stale_sibling() {", out);
++	/* Exit of stale_sibling is DROPPED by ring buffer */
++	/* Target function enters with caller wake_up_new_task */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |    activate_task() { /* <-wake_up_new_task+0x10 */", out);
++	/* First child of target enters and exits */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |      enqueue_task() { /* <-activate_task+0x20 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.000 us    |      }", out);
++	/* Second child of target enters and exits */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.500 us    |      check_preempt_curr(); /* <-activate_task+0x30 */", out);
++	/* Target function exits */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.500 us    |    } /* activate_task */", out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (strstr(out_buf, "stale_sibling")) {
++		pr_debug("FAILED: stale_sibling leaked into output (!inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "activate_task() {")) {
++		pr_debug("FAILED: activate_task entry missing (!inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "enqueue_task() {")) {
++		pr_debug("FAILED: first child enqueue_task missing (!inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "check_preempt_curr();")) {
++		pr_debug("FAILED: second child check_preempt_curr missing (!inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "} /* activate_task */")) {
++		pr_debug("FAILED: target activate_task exit missing (!inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	/* 8b. With --inline */
++	ftrace.use_inline = true;
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	/* Caller at depth 0 */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |  wake_up_new_task() {", out);
++	/* Extraneous sibling at depth 1 */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |    stale_sibling() {", out);
++	/* Exit of stale_sibling is DROPPED by ring buffer */
++	/* Target function enters with caller wake_up_new_task */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |    activate_task() { /* <-wake_up_new_task+0x10 */", out);
++	/* First child of target enters and exits */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |      enqueue_task() { /* <-activate_task+0x20 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.000 us    |      }", out);
++	/* Second child of target enters and exits */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.500 us    |      check_preempt_curr(); /* <-activate_task+0x30 */", out);
++	/* Target function exits */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.500 us    |    } /* activate_task */", out);
++	/* Sibling call after target function */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.000 us    |    after_target(); /* <-wake_up_new_task+0x40 */", out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (strstr(out_buf, "stale_sibling")) {
++		pr_debug("FAILED: stale_sibling leaked into output (--inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "activate_task() {")) {
++		pr_debug("FAILED: activate_task entry missing (--inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "enqueue_task() {")) {
++		pr_debug("FAILED: first child enqueue_task missing (--inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "check_preempt_curr();")) {
++		pr_debug("FAILED: second child check_preempt_curr missing (--inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "} /* activate_task */")) {
++		pr_debug("FAILED: target activate_task exit missing (--inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (strstr(out_buf, "after_target")) {
++		pr_debug("FAILED: after_target leaked into output (--inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	/*
++	 * 9. Test deep legitimate subtrees when stack depth exceeds
++	 * FTRACE_MAX_STACK (overflow_depth > 0).
++	 */
++	/* 9a. Without --inline */
++	ftrace.use_inline = false;
++	ftrace.filter_retaddr = 1;
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |  activate_task() {", out);
++	for (i = 1; i < 256; i++) {
++		ftrace_process_fgraph_line(&ftrace,
++			" 0)               |    sub_func() { /* <-activate_task+0x10 */", out);
++	}
++	/* Push frames beyond FTRACE_MAX_STACK (256) */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |    overflow_parent() { /* <-sub_func+0x10 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |      overflow_child() { /* <-overflow_parent+0x20 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.000 us    |        overflow_leaf(); /* <-overflow_child+0x30 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.200 us    |      }", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.400 us    |    }", out);
++	for (i = 1; i < 256; i++) {
++		ftrace_process_fgraph_line(&ftrace,
++			" 0)   1.000 us    |    }", out);
++	}
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.500 us    |  } /* activate_task */", out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (!strstr(out_buf, "overflow_parent() {")) {
++		pr_debug("FAILED: overflow_parent entry missing (!inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "overflow_child() {")) {
++		pr_debug("FAILED: overflow_child entry missing (!inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "overflow_leaf();")) {
++		pr_debug("FAILED: overflow_leaf missing (!inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	/* 9b. With --inline */
++	ftrace.use_inline = true;
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |  activate_task() {", out);
++	for (i = 1; i < 256; i++) {
++		ftrace_process_fgraph_line(&ftrace,
++			" 0)               |    sub_func() { /* <-activate_task+0x10 */", out);
++	}
++	/* Push frames beyond FTRACE_MAX_STACK (256) */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |    overflow_parent() { /* <-sub_func+0x10 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |      overflow_child() { /* <-overflow_parent+0x20 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.000 us    |        overflow_leaf(); /* <-overflow_child+0x30 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.200 us    |      }", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.400 us    |    }", out);
++	for (i = 1; i < 256; i++) {
++		ftrace_process_fgraph_line(&ftrace,
++			" 0)   1.000 us    |    }", out);
++	}
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.500 us    |  } /* activate_task */", out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (!strstr(out_buf, "overflow_parent() {")) {
++		pr_debug("FAILED: overflow_parent entry missing (--inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "overflow_child() {")) {
++		pr_debug("FAILED: overflow_child entry missing (--inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "overflow_leaf();")) {
++		pr_debug("FAILED: overflow_leaf missing (--inline)\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	/* 9. Test glob wildcard filter (-G 'activate_*') */
++	list_for_each_entry_safe(pos, tmp, &ftrace.graph_funcs, list) {
++		list_del(&pos->list);
++		free(pos);
++	}
++	entry = malloc(sizeof(*entry) + strlen("activate_*") + 1);
++	if (!entry) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	strcpy(entry->name, "activate_*");
++	list_add_tail(&entry->list, &ftrace.graph_funcs);
++
++	ftrace.use_inline = false;
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace, line_idle, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_entry, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_exit, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_entry, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_child, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_exit, out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (strstr(out_buf, "finish_task_switch")) {
++		pr_debug("FAILED: finish_task_switch leaked with wildcard\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "activate_task() {")) {
++		pr_debug("FAILED: wildcard target activate_* missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "enqueue_task();")) {
++		pr_debug("FAILED: wildcard child enqueue_task missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	/* 10. Test wildcard filter matching compiler clone with suffix (-G '*task_switch') */
++	list_for_each_entry_safe(pos, tmp, &ftrace.graph_funcs, list) {
++		list_del(&pos->list);
++		free(pos);
++	}
++	entry = malloc(sizeof(*entry) + strlen("*task_switch") + 1);
++	if (!entry) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	strcpy(entry->name, "*task_switch");
++	list_add_tail(&entry->list, &ftrace.graph_funcs);
++
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace, line_idle, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_entry, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_child, out);
++	ftrace_process_fgraph_line(&ftrace, line_sw_exit, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_entry, out);
++	ftrace_process_fgraph_line(&ftrace, line_tgt_exit, out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (!strstr(out_buf, "finish_task_switch.isra.0() {")) {
++		pr_debug("FAILED: wildcard target *task_switch did not match clone\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "_raw_spin_unlock();")) {
++		pr_debug("FAILED: child _raw_spin_unlock missing under clone target\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (strstr(out_buf, "activate_task")) {
++		pr_debug("FAILED: unrelated activate_task leaked under *task_switch\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	free(out_buf);
++	out_buf = NULL;
++
++	/* 11. Test that orphan exits sharing name with target active frame do not collide (Issue 1) */
++	list_for_each_entry_safe(pos, tmp, &ftrace.graph_funcs, list) {
++		list_del(&pos->list);
++		free(pos);
++	}
++	entry = malloc(sizeof(*entry) + strlen("activate_task") + 1);
++	if (!entry) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	strcpy(entry->name, "activate_task");
++	list_add_tail(&entry->list, &ftrace.graph_funcs);
++
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |  activate_task() {", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |    _raw_spin_unlock() { /* <-activate_task+0x10 */", out);
++	/* Detached interrupt enters */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |      smp_apic_timer_interrupt() { /* <-irq_work+0x10 */", out);
++	/* Interrupt invokes _raw_spin_unlock and exits with named brace */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |        _raw_spin_unlock() { /* <-smp_apic_timer_interrupt+0x20 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.000 us    |        } /* _raw_spin_unlock */", out);
++	/* Interrupt exits */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.000 us    |      }", out);
++	/* Target's _raw_spin_unlock exits */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   3.000 us    |    } /* _raw_spin_unlock */", out);
++	/* Target continues and exits */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   4.000 us    |  } /* activate_task */", out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (strstr(out_buf, "smp_apic_timer_interrupt")) {
++		pr_debug("FAILED: orphan smp_apic_timer_interrupt leaked into output\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "activate_task() {")) {
++		pr_debug("FAILED: activate_task entry missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "} /* activate_task */")) {
++		pr_debug("FAILED: activate_task exit missing or prematurely unspooled\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	free(out_buf);
++	out_buf = NULL;
++
++	/* 12. Test target function entering at deep stack (depth >= 256) and exiting without leaking sibling (Issue 2) */
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	/* Push 256 non-target outer frames */
++	for (i = 0; i < 256; i++) {
++		ftrace_process_fgraph_line(&ftrace,
++			" 0)               |  outer_func() {", out);
++	}
++	/* Target function enters at depth 256 */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |  activate_task() {", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.000 us    |    enqueue_task(); /* <-activate_task+0x10 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.000 us    |  } /* activate_task */", out);
++	/* Unrelated sibling enters at depth 256 */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |  unrelated_sibling() {", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.000 us    |    unrelated_child();", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.000 us    |  }", out);
++	/* Unspool outer frames */
++	for (i = 0; i < 256; i++) {
++		ftrace_process_fgraph_line(&ftrace,
++			" 0)               |  }", out);
++	}
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (!strstr(out_buf, "activate_task() {")) {
++		pr_debug("FAILED: deep activate_task entry missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "enqueue_task();")) {
++		pr_debug("FAILED: deep enqueue_task child missing\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (strstr(out_buf, "unrelated_sibling")) {
++		pr_debug("FAILED: unrelated_sibling leaked after deep target exit\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	free(out_buf);
++	out_buf = NULL;
++
++	/* 13. Test orphan suppression during deep stacks (Issue 3) */
++	out = open_memstream(&out_buf, &out_len);
++	if (!out) {
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |  activate_task() {", out);
++	for (i = 1; i < 256; i++) {
++		ftrace_process_fgraph_line(&ftrace,
++			" 0)               |    sub_func() { /* <-activate_task+0x10 */", out);
++	}
++	/* Target call at depth 256 */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |    deep_child() { /* <-sub_func+0x10 */", out);
++	/* Detached interrupt fires at depth 257 */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)               |      smp_apic_timer_interrupt() { /* <-irq_work+0x10 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.000 us    |        irq_sub(); /* <-smp_apic_timer_interrupt+0x20 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.000 us    |      }", out);
++	/* Target continues */
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   1.000 us    |      deep_leaf(); /* <-deep_child+0x10 */", out);
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   2.000 us    |    }", out);
++	for (i = 1; i < 256; i++) {
++		ftrace_process_fgraph_line(&ftrace,
++			" 0)   1.000 us    |    }", out);
++	}
++	ftrace_process_fgraph_line(&ftrace,
++		" 0)   3.000 us    |  } /* activate_task */", out);
++
++	fclose(out);
++	ftrace_cpu_states__clear();
++
++	if (strstr(out_buf, "smp_apic_timer_interrupt") || strstr(out_buf, "irq_sub")) {
++		pr_debug("FAILED: interrupt leaked during deep stack\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	if (!strstr(out_buf, "deep_leaf();")) {
++		pr_debug("FAILED: legitimate deep_leaf missing during deep stack\n");
++		ret = TEST_FAIL;
++		goto out_free_filter;
++	}
++	free(out_buf);
++	out_buf = NULL;
++
++out_free_filter:
++	if (out_buf)
++		free(out_buf);
++	list_for_each_entry_safe(pos, tmp, &ftrace.graph_funcs, list) {
++		list_del(&pos->list);
++		free(pos);
++	}
++	return ret;
 +}
 +
  static int test__ftrace(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
  {
  	int ret;
-@@ -74,7 +537,23 @@ static int test__ftrace(struct test_suite *test __maybe_unused, int subtest __ma
+@@ -605,6 +1538,10 @@ static int test__ftrace(struct test_suite *test __maybe_unused, int subtest __ma
  	if (ret != TEST_OK)
  		return ret;
  
-+	ret = test_stack_saturation();
++	ret = test_graph_target_filter();
 +	if (ret != TEST_OK)
 +		return ret;
 +
-+	ret = test_context_switch_handling();
-+	if (ret != TEST_OK)
-+		return ret;
-+
-+	ret = test_column_layouts();
-+	if (ret != TEST_OK)
-+		return ret;
-+
-+	ret = test_inline_processing();
-+	if (ret != TEST_OK)
-+		return ret;
-+
- 	return TEST_OK;
- }
- 
--DEFINE_SUITE("Ftrace return address processing", ftrace);
-+DEFINE_SUITE("Ftrace inline processing", ftrace);
+ 	ret = test_inline_processing();
+ 	if (ret != TEST_OK)
+ 		return ret;
 diff --git a/tools/perf/util/ftrace.c b/tools/perf/util/ftrace.c
-index aaf108369c36..020551a4d7e0 100644
+index 66c19116ee64..26fc5b83b7b4 100644
 --- a/tools/perf/util/ftrace.c
 +++ b/tools/perf/util/ftrace.c
-@@ -1,13 +1,176 @@
- // SPDX-License-Identifier: GPL-2.0
--#include <linux/compiler.h>
--#include <linux/kernel.h>
--#include <linux/string.h>
-+/*
-+ * ftrace.c - Ftrace utilities and inlined function processing
-+ *
-+ * Copyright (C) 2026 Aaron Tomlin <atomlin@atomlin.com>
-+ */
- #include <stdio.h>
- #include <stdlib.h>
-+#include <errno.h>
- #include <string.h>
- #include <ctype.h>
-+#include <stdbool.h>
-+#include <linux/kernel.h>
-+#include <linux/zalloc.h>
-+#include <linux/hash.h>
-+#include <linux/list.h>
-+#include <linux/string.h>
-+#include "debug.h"
-+#include "dso.h"
-+#include "machine.h"
-+#include "map.h"
-+#include "srcline.h"
-+#include "symbol.h"
+@@ -22,6 +22,7 @@
+ #include "srcline.h"
+ #include "symbol.h"
  #include "util/ftrace.h"
++#include "util/string2.h"
  
-+#define FTRACE_MAX_CPUS 4096
-+#define FTRACE_MAX_STACK 256
-+#define FTRACE_MAX_INLINES 32
-+#define FTRACE_PID_HASH_BITS 10
-+#define FTRACE_PID_HASH_SIZE (1 << FTRACE_PID_HASH_BITS)
-+
-+struct ftrace_stack_frame {
-+	char *name;
-+	bool inlined;
-+	int indent;
-+};
-+
-+struct ftrace_task_state {
-+	struct hlist_node	node;
-+	pid_t			pid;
-+	struct ftrace_stack_frame stack[FTRACE_MAX_STACK];
-+	int			depth;
-+	int			inlined_depth;
-+	int			overflow_depth;
-+};
-+
-+#define ftrace_cpu_state ftrace_task_state
-+
-+static struct hlist_head ftrace_task_hash[FTRACE_PID_HASH_SIZE];
-+static struct ftrace_task_state *ftrace_cpu_tasks[FTRACE_MAX_CPUS];
-+
-+/**
-+ * ftrace_cpu_states__clear - Free allocated CPU and task stack states
-+ *
-+ * Free all memory associated with the per-task stack tracking states
-+ * used for inlined function resolution, including the strings
-+ * allocated for stack frames.
-+ */
-+void ftrace_cpu_states__clear(void)
-+{
-+	struct ftrace_task_state *ts;
-+	struct hlist_node *tmp;
-+	int i, j;
-+
-+	for (i = 0; i < FTRACE_PID_HASH_SIZE; i++) {
-+		hlist_for_each_entry_safe(ts, tmp, &ftrace_task_hash[i], node) {
-+			for (j = 0; j < ts->depth; j++)
-+				free(ts->stack[j].name);
-+			hlist_del_init(&ts->node);
-+			free(ts);
-+		}
-+	}
-+
-+	memset(ftrace_cpu_tasks, 0, sizeof(ftrace_cpu_tasks));
-+}
-+
-+/**
-+ * get_task_state - Get or allocate stack state for a given task PID
-+ * @pid: Process ID of the task
-+ *
-+ * Return: A pointer to the task's stack state, or NULL on allocation failure.
-+ */
-+static struct ftrace_task_state *get_task_state(pid_t pid)
-+{
-+	struct ftrace_task_state *ts;
-+	struct hlist_head *head;
-+	u32 key = hash_32((u32)pid, FTRACE_PID_HASH_BITS);
-+
-+	head = &ftrace_task_hash[key];
-+	hlist_for_each_entry(ts, head, node) {
-+		if (ts->pid == pid)
-+			return ts;
-+	}
-+
-+	ts = zalloc(sizeof(*ts));
-+	if (!ts)
-+		return NULL;
-+
-+	ts->pid = pid;
-+	hlist_add_head(&ts->node, head);
-+	return ts;
-+}
-+
-+/**
-+ * get_cpu_state - Get or allocate active task stack state for a given CPU
-+ * @cpu: The CPU number
-+ *
-+ * Return: A pointer to the CPU's active task stack state, or NULL on error or
-+ * out-of-bounds CPU index.
-+ */
-+static struct ftrace_task_state *get_cpu_state(int cpu)
-+{
-+	if (cpu < 0 || cpu >= FTRACE_MAX_CPUS)
-+		return NULL;
-+
-+	if (!ftrace_cpu_tasks[cpu]) {
-+		/*
-+		 * If no context switch banner has been seen yet on this CPU,
-+		 * allocate an initial default task state for it using a negative
-+		 * synthetic PID to avoid collision with real PIDs.
-+		 */
-+		ftrace_cpu_tasks[cpu] = get_task_state(-1 - cpu);
-+	}
-+
-+	return ftrace_cpu_tasks[cpu];
-+}
-+
-+/**
-+ * parse_context_switch - Parse context switch banner and update CPU's task
-+ * @line: The trace line containing the banner
-+ *
-+ * Check if @line is a context switch banner (e.g. " 0) <idle>-0 => migrati-19").
-+ * If so, extract the CPU number and the newly scheduled task's PID, and
-+ * update the active task mapping for that CPU.
-+ *
-+ * Return: true if @line was a context switch banner, false otherwise.
-+ */
-+static bool parse_context_switch(const char *line)
-+{
-+	const char *arrow = strstr(line, " => ");
-+	const char *p;
-+	const char *next;
-+	const char *hyphen;
-+	char *endptr;
-+	long cpu_val;
-+	long pid_val;
-+
-+	if (!arrow)
-+		return false;
-+
-+	/* Find CPU number before ')' */
-+	p = skip_spaces(line);
-+	cpu_val = strtol(p, &endptr, 10);
-+	if (endptr == p || *endptr != ')')
-+		return false;
-+
-+	if (cpu_val < 0 || cpu_val >= FTRACE_MAX_CPUS)
-+		return false;
-+
-+	/* Parse the target task's PID after the arrow (" => comm-pid") */
-+	next = skip_spaces(arrow + 4);
-+	hyphen = strrchr(next, '-');
-+	if (!hyphen)
-+		return false;
-+
-+	pid_val = strtol(hyphen + 1, &endptr, 10);
-+	if (endptr == hyphen + 1)
-+		return false;
-+
-+	ftrace_cpu_tasks[cpu_val] = get_task_state((pid_t)pid_val);
-+	return true;
-+}
-+
- /**
-  * ftrace_parse_retaddr - Parse return address comment from trace line
-  * @str: The trace line containing the comment
-@@ -84,3 +247,596 @@ void ftrace_filter_retaddr(char *str)
+ #define FTRACE_MAX_CPUS 4096
+ #define FTRACE_MAX_STACK 256
+@@ -38,10 +39,13 @@ struct ftrace_stack_frame {
+ struct ftrace_task_state {
+ 	struct hlist_node	node;
+ 	pid_t			pid;
+-	struct ftrace_stack_frame stack[FTRACE_MAX_STACK];
++	struct ftrace_stack_frame *stack;
++	int			max_stack;
+ 	int			depth;
+ 	int			inlined_depth;
+-	int			overflow_depth;
++	bool			in_target;
++	int			target_root_depth;
++	int			orphan_depth;
+ };
  
- 	memmove(start, end, strlen(end) + 1);
+ #define ftrace_cpu_state ftrace_task_state
+@@ -66,6 +70,7 @@ void ftrace_cpu_states__clear(void)
+ 		hlist_for_each_entry_safe(ts, tmp, &ftrace_task_hash[i], node) {
+ 			for (j = 0; j < ts->depth; j++)
+ 				free(ts->stack[j].name);
++			free(ts->stack);
+ 			hlist_del_init(&ts->node);
+ 			free(ts);
+ 		}
+@@ -96,11 +101,35 @@ static struct ftrace_task_state *get_task_state(pid_t pid)
+ 	if (!ts)
+ 		return NULL;
+ 
++	ts->stack = calloc(FTRACE_MAX_STACK, sizeof(*ts->stack));
++	if (!ts->stack) {
++		free(ts);
++		return NULL;
++	}
++	ts->max_stack = FTRACE_MAX_STACK;
++
+ 	ts->pid = pid;
+ 	hlist_add_head(&ts->node, head);
+ 	return ts;
  }
-+
-+/**
-+ * ftrace_resolve_inlines - Resolve inlined functions for a return address
-+ * @machine: Perf machine context
-+ * @sym_name: Name of the caller function
-+ * @offset: Instruction offset within the caller function
-+ * @inlined_names: Array to store the resolved inline function names
-+ * @max_inlines: Maximum number of inline frames to resolve
-+ *
-+ * Use DWARF debug information from the kernel image to resolve a caller's
-+ * return address to its inlined callchain.
-+ *
-+ * Return: The number of inline functions successfully resolved.
-+ */
-+int ftrace_resolve_inlines(struct machine *machine,
-+			   const char *sym_name, u64 offset,
-+			   const char **inlined_names, int max_inlines)
+ 
++static int ftrace_task_state__grow_stack(struct ftrace_task_state *cs)
 +{
-+	struct map *map = NULL;
-+	struct symbol *sym;
-+	struct dso *dso;
-+	struct inline_node *node;
-+	struct inline_list *ilist;
-+	u64 ip, addr;
-+	int count = 0;
++	int new_max = cs->max_stack ? cs->max_stack * 2 : FTRACE_MAX_STACK;
++	struct ftrace_stack_frame *new_stack;
 +
-+	if (!machine)
-+		return 0;
-+
-+	sym = machine__find_kernel_symbol_by_name(machine, sym_name, &map);
-+	if (!sym || !map)
-+		return 0;
-+
-+	dso = map__dso(map);
-+	if (!dso) {
-+		map__put(map);
-+		return 0;
-+	}
-+
-+	ip = sym->start + offset;
-+	addr = map__rip_2objdump(map, ip);
-+
-+	node = inlines__tree_find(dso__inlined_nodes(dso), addr);
-+	if (!node) {
-+		node = dso__parse_addr_inlines(dso, addr, sym);
-+		if (node)
-+			inlines__tree_insert(dso__inlined_nodes(dso), node);
-+	}
-+
-+	if (!node) {
-+		map__put(map);
-+		return 0;
-+	}
-+
-+	list_for_each_entry_reverse(ilist, &node->val, list) {
-+		if (ilist->symbol && symbol__inlined(ilist->symbol)) {
-+			if (count < max_inlines) {
-+				char *name = strdup(ilist->symbol->name);
-+
-+				if (name)
-+					inlined_names[count++] = name;
-+			}
-+		}
-+	}
-+
-+	map__put(map);
-+	return count;
-+}
-+
-+/**
-+ * extract_entry_func_name - Extract the function name from an entry record
-+ * @str: The trace line's function column string
-+ * @buf: Buffer to store the extracted name
-+ * @size: Size of the @buf
-+ *
-+ * Parse the function name out of an entry trace record by stripping away
-+ * parentheses or braces.
-+ */
-+static void extract_entry_func_name(const char *str, char *buf, size_t size)
-+{
-+	size_t i = 0;
-+
-+	while (*str && *str != '(' && *str != '{' && !isspace(*str) && i < size - 1)
-+		buf[i++] = *str++;
-+	buf[i] = '\0';
-+}
-+
-+/**
-+ * extract_exit_func_name - Extract the function name from an exit record
-+ * @str: The trace line's function column string
-+ * @buf: Buffer to store the extracted name
-+ * @size: Size of the @buf
-+ *
-+ * Parse the original function name out of the trailing comment in an
-+ * exit trace record.
-+ */
-+static void extract_exit_func_name(const char *str, char *buf, size_t size)
-+{
-+	const char *p = strchr(str, '}');
-+	size_t i = 0;
-+
-+	buf[0] = '\0';
-+	if (!p)
-+		return;
-+
-+	p = strstr(p, "/*");
-+	if (!p)
-+		return;
-+
-+	p = skip_spaces(p + 2);
-+	while (*p && !isspace(*p) && *p != '*' && *p != '/' && i < size - 1)
-+		buf[i++] = *p++;
-+	buf[i] = '\0';
-+}
-+
-+/**
-+ * make_blank_prefix - Create a blank prefix mirroring a trace record's context
-+ * @line: The original trace record
-+ * @pipe_char: Pointer to the final delimiter character of the context columns
-+ * @buf: Buffer to store the blank prefix
-+ * @size: Size of the @buf
-+ *
-+ * Generate a prefix matching the context columns of @line (e.g. CPU, duration)
-+ * but with the duration field replaced by spaces.
-+ */
-+static void make_blank_prefix(const struct perf_ftrace *ftrace, const char *line,
-+			      const char *pipe_char, char *buf, size_t size)
-+{
-+	size_t len = pipe_char - line + 1;
-+	const char *start_delim = NULL;
-+	char *c;
-+
-+	if (!size)
-+		return;
-+
-+	if (len >= size)
-+		len = size - 1;
-+
-+	memcpy(buf, line, len);
-+	buf[len] = '\0';
-+
-+	if (*pipe_char == '|') {
-+		if (ftrace->graph_verbose) {
-+			/* In verbose mode, duration starts after the comm-pid '|' */
-+			for (const char *p = pipe_char - 1; p >= line; p--) {
-+				if (*p == '|') {
-+					start_delim = p;
-+					break;
-+				}
-+			}
-+		} else {
-+			/* In default mode, duration starts after CPU ')' */
-+			start_delim = strchr(line, ')');
-+		}
-+
-+		if (start_delim && start_delim < pipe_char && start_delim < line + len) {
-+			char *end = buf + (pipe_char - line);
-+
-+			if (end > buf + len)
-+				end = buf + len;
-+			for (c = buf + (start_delim - line) + 1; c < end; c++)
-+				*c = ' ';
-+		}
-+	}
-+}
-+
-+/**
-+ * find_func_column - Locate the function call column in a trace record
-+ * @ftrace: Perf ftrace context
-+ * @line: The trace record to parse
-+ * @cpu: Pointer to store the CPU number
-+ *
-+ * Locate the context columns that precede the function call column of a
-+ * function_graph trace record. Depending on the funcgraph-* options set
-+ * up by perf, a record looks like:
-+ *
-+ *   [ abstime |]  CPU)  [ comm-pid |]  [ duration |]  func
-+ *
-+ * The abstime and comm-pid columns are only present with --graph-opts
-+ * verbose.
-+ *
-+ * Return: A pointer to the last character of the context columns (the final
-+ * '|' delimiter). Returns NULL if @line is not a trace record.
-+ */
-+static const char *find_func_column(const struct perf_ftrace *ftrace,
-+				    const char *line, int *cpu)
-+{
-+	const char *p = line;
-+	char *endptr;
-+	long val;
-+
-+	if (ftrace->graph_verbose) {
-+		p = strchr(p, '|');
-+		if (!p)
-+			return NULL;
-+		p++;
-+	}
-+
-+	p = skip_spaces(p);
-+	val = strtol(p, &endptr, 10);
-+	if (endptr == p || *endptr != ')')
-+		return NULL;
-+	p = endptr;
-+
-+	if (ftrace->graph_verbose) {
-+		const char *proc_start = p;
-+
-+		p = strchr(p, '|');
-+		if (!p)
-+			return NULL;
-+
-+		if (val >= 0 && val < FTRACE_MAX_CPUS) {
-+			const char *h = p - 1;
-+
-+			while (h >= proc_start && *h != '-')
-+				h--;
-+			if (h >= proc_start && *h == '-') {
-+				long pid_val = strtol(h + 1, NULL, 10);
-+				ftrace_cpu_tasks[(int)val] = get_task_state((pid_t)pid_val);
-+			}
-+		}
-+	}
-+
-+	p = strchr(p + 1, '|');
-+	if (!p)
-+		return NULL;
-+
-+	*cpu = (int)val;
-+	return p;
-+}
-+
-+/**
-+ * print_line - Output a trace line verbatim, filtering return addresses if needed
-+ * @ftrace: Perf ftrace context
-+ * @line: The trace line to output
-+ * @out: File stream to output to
-+ *
-+ * Output @line to @out. If ftrace->filter_retaddr is set, return address
-+ * comments are filtered out first.
-+ *
-+ * Return: 0 on success, or a negative error code (e.g. -ENOMEM) on failure.
-+ */
-+static int print_line(struct perf_ftrace *ftrace, const char *line, FILE *out)
-+{
-+	char *filtered;
-+
-+	if (!ftrace->filter_retaddr) {
-+		fprintf(out, "%s\n", line);
-+		return 0;
-+	}
-+
-+	filtered = strdup(line);
-+	if (!filtered) {
-+		pr_err("Not enough memory\n");
++	new_stack = realloc(cs->stack, new_max * sizeof(*new_stack));
++	if (!new_stack) {
++		pr_err("Not enough memory to resize ftrace stack\n");
 +		return -ENOMEM;
 +	}
 +
-+	ftrace_filter_retaddr(filtered);
-+	fprintf(out, "%s\n", filtered);
-+	free(filtered);
++	memset(new_stack + cs->max_stack, 0, (new_max - cs->max_stack) * sizeof(*new_stack));
++	cs->stack = new_stack;
++	cs->max_stack = new_max;
 +	return 0;
 +}
 +
-+/**
-+ * ftrace_process_fgraph_line - Process and output a function graph trace line
-+ * @ftrace: Perf ftrace context
-+ * @line: The trace line to process
-+ * @out: File stream to output to
-+ *
-+ * Process a trace line from the function_graph tracer. If --inline is set,
-+ * this function parses the return address comment, resolves it to its
-+ * inlined callchain, and synthesises intermediate frames into the streamed
-+ * call graph.
-+ *
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FILE *out)
+ /**
+  * get_cpu_state - Get or allocate active task stack state for a given CPU
+  * @cpu: The CPU number
+@@ -520,6 +549,64 @@ static int print_line(struct perf_ftrace *ftrace, const char *line, FILE *out)
+ 	return 0;
+ }
+ 
++static inline bool ftrace_has_graph_funcs(const struct perf_ftrace *ftrace)
 +{
-+	char caller_sym[128];
-+	char blank_prefix[128];
-+	const char *inlined_names[FTRACE_MAX_INLINES];
-+	const char *pipe_char;
-+	const char *after_pipe;
-+	const char *func_start;
-+	struct ftrace_cpu_state *cs;
-+	u64 caller_offset = 0;
-+	int num_inlines = 0;
-+	int cpu = -1;
-+	int leading_spaces;
-+	int extra_indent;
-+	int caller_idx;
-+	int active_inlines;
-+	int common;
-+	int match_idx;
-+	int i;
-+	bool is_exit;
-+	bool has_open_brace;
-+	bool has_semicolon;
-+	bool has_retaddr = false;
++	return ftrace->graph_funcs.next != NULL && !list_empty(&ftrace->graph_funcs);
++}
 +
-+	if (!ftrace->use_inline)
-+		return print_line(ftrace, line, out);
++/**
++ * ftrace_is_graph_func - Check if a function matches the graph_funcs target filter
++ * @ftrace: Perf ftrace context
++ * @func_name: The function name to test
++ *
++ * Return: true if ftrace->graph_funcs is empty or @func_name matches a
++ * target filter (including glob and compiler clone matches), false otherwise.
++ */
++static bool ftrace_is_graph_func(const struct perf_ftrace *ftrace, const char *func_name)
++{
++	struct filter_entry *pos;
++	char base_name[128];
++	const char *dot;
 +
-+	pipe_char = find_func_column(ftrace, line, &cpu);
-+	if (!pipe_char) {
-+		parse_context_switch(line);
-+		return print_line(ftrace, line, out);
++	if (!ftrace_has_graph_funcs(ftrace))
++		return true;
++
++	/* Extract base symbol name by stripping compiler clone suffixes (.isra.*, .part.*, etc.) */
++	dot = strchr(func_name, '.');
++	if (dot) {
++		size_t base_len = dot - func_name;
++
++		if (base_len < sizeof(base_name)) {
++			memcpy(base_name, func_name, base_len);
++			base_name[base_len] = '\0';
++		} else {
++			dot = NULL;
++		}
 +	}
 +
-+	cs = get_cpu_state(cpu);
-+	if (!cs)
-+		return print_line(ftrace, line, out);
++	list_for_each_entry(pos, &ftrace->graph_funcs, list) {
++		/* Fast path: non-glob patterns */
++		if (!strisglob(pos->name)) {
++			size_t len = strlen(pos->name);
 +
-+	make_blank_prefix(ftrace, line, pipe_char, blank_prefix, sizeof(blank_prefix));
++			if (strcmp(pos->name, func_name) == 0)
++				return true;
++			if (!strncmp(pos->name, func_name, len) &&
++			    (func_name[len] == '\0' || func_name[len] == '.'))
++				return true;
++			continue;
++		}
 +
-+	after_pipe = pipe_char + 1;
-+	func_start = skip_spaces(after_pipe);
-+	leading_spaces = func_start - after_pipe;
++		/* Glob pattern matching */
++		if (strglobmatch(func_name, pos->name))
++			return true;
++		if (dot && strglobmatch(base_name, pos->name))
++			return true;
++	}
 +
-+	if (*func_start == '\0')
-+		return print_line(ftrace, line, out);
++	return false;
++}
 +
-+	is_exit = (*func_start == '}');
-+
-+	if (is_exit) {
-+		char exit_name[128];
-+
-+		extract_exit_func_name(func_start, exit_name, sizeof(exit_name));
-+
-+		/* Find matching frame on stack */
-+		match_idx = -1;
-+		for (i = cs->depth - 1; i >= 0; i--) {
-+			if (!cs->stack[i].inlined) {
-+				if (exit_name[0] == '\0' ||
-+				    (cs->stack[i].name &&
-+				     strcmp(cs->stack[i].name, exit_name) == 0)) {
-+					match_idx = i;
-+					break;
-+				}
+ /**
+  * ftrace_process_fgraph_line - Process and output a function graph trace line
+  * @ftrace: Perf ftrace context
+@@ -556,8 +643,10 @@ int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FIL
+ 	bool has_open_brace;
+ 	bool has_semicolon;
+ 	bool has_retaddr = false;
++	bool has_filter = ftrace_has_graph_funcs(ftrace);
++	bool is_target_root = false;
+ 
+-	if (!ftrace->use_inline)
++	if (!has_filter && !ftrace->use_inline)
+ 		return print_line(ftrace, line, out);
+ 
+ 	pipe_char = find_func_column(ftrace, line, &cpu);
+@@ -586,28 +675,49 @@ int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FIL
+ 
+ 		extract_exit_func_name(func_start, exit_name, sizeof(exit_name));
+ 
+-		/* Find matching frame on stack */
++		if (cs->orphan_depth > 0) {
++			/*
++			 * If an orphan exit was dropped by the kernel ring buffer,
++			 * and the target root function itself exits with its named
++			 * closing brace, the orphan has definitively ended. Clear
++			 * stale orphan_depth and proceed with matching the target root.
++			 * Otherwise, all exits (bare or callee names) belong to the orphan.
++			 */
++			if (has_filter && cs->in_target && exit_name[0] != '\0' &&
++			    cs->target_root_depth < cs->depth &&
++			    cs->stack[cs->target_root_depth].name &&
++			    strcmp(cs->stack[cs->target_root_depth].name, exit_name) == 0) {
++				cs->orphan_depth = 0;
++			} else {
++				cs->orphan_depth--;
++				return 0;
 +			}
 +		}
 +
-+		if (match_idx >= 0) {
-+			cs->overflow_depth = 0;
-+		} else if (cs->overflow_depth > 0) {
-+			cs->overflow_depth--;
-+			extra_indent = cs->inlined_depth * 2;
-+			fprintf(out, "%.*s%*s%s\n",
-+				(int)(pipe_char - line + 1), line,
-+				leading_spaces + extra_indent, "", func_start);
-+			return 0;
++		/* Find matching frame on stack if exit is named */
+ 		match_idx = -1;
+-		for (i = cs->depth - 1; i >= 0; i--) {
+-			if (!cs->stack[i].inlined) {
+-				if (exit_name[0] == '\0' ||
+-				    (cs->stack[i].name &&
+-				     strcmp(cs->stack[i].name, exit_name) == 0)) {
++		if (exit_name[0] != '\0') {
++			for (i = cs->depth - 1; i >= 0; i--) {
++				if (!cs->stack[i].inlined && cs->stack[i].name &&
++				    strcmp(cs->stack[i].name, exit_name) == 0) {
+ 					match_idx = i;
+ 					break;
+ 				}
+ 			}
+ 		}
+ 
+-		if (match_idx >= 0) {
+-			cs->overflow_depth = 0;
+-		} else if (cs->overflow_depth > 0) {
+-			cs->overflow_depth--;
+-			extra_indent = cs->inlined_depth * 2;
+-			fprintf(out, "%.*s%*s%s\n",
+-				(int)(pipe_char - line + 1), line,
+-				leading_spaces + extra_indent, "", func_start);
+-			return 0;
++		/* If bare brace ('}'), match the topmost non-inlined frame */
++		if (match_idx < 0) {
++			for (i = cs->depth - 1; i >= 0; i--) {
++				if (!cs->stack[i].inlined) {
++					if (exit_name[0] == '\0' ||
++					    (cs->stack[i].name &&
++					     strcmp(cs->stack[i].name, exit_name) == 0)) {
++						match_idx = i;
++						break;
++					}
++				}
++			}
+ 		}
+ 
+ 		if (match_idx >= 0) {
+@@ -620,8 +730,9 @@ int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FIL
+ 
+ 					if (cs->inlined_depth > 0)
+ 						cs->inlined_depth--;
+-					fprintf(out, "%s%*s} /* %s (inline) */\n",
+-						blank_prefix, exit_indent, "", top->name);
++					if (!has_filter || cs->in_target)
++						fprintf(out, "%s%*s} /* %s (inline) */\n",
++							blank_prefix, exit_indent, "", top->name);
+ 				}
+ 				free(top->name);
+ 				cs->depth--;
+@@ -639,9 +750,36 @@ int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FIL
+ 			extra_indent = 0;
+ 		}
+ 
+-		fprintf(out, "%.*s%*s%s\n",
+-			(int)(pipe_char - line + 1), line,
+-			leading_spaces + extra_indent, "", func_start);
++		if (!has_filter || cs->in_target) {
++			if (!ftrace->use_inline) {
++				print_line(ftrace, line, out);
++			} else {
++				fprintf(out, "%.*s%*s%s\n",
++					(int)(pipe_char - line + 1), line,
++					leading_spaces + extra_indent, "", func_start);
++			}
 +		}
 +
-+		if (match_idx >= 0) {
-+			/* Close all inlined and orphaned frames above match_idx */
-+			while (cs->depth > 0 && cs->depth - 1 > match_idx) {
++		if (has_filter && cs->in_target) {
++			while (cs->depth > cs->target_root_depth &&
++			       cs->stack[cs->depth - 1].inlined) {
 +				struct ftrace_stack_frame *top = &cs->stack[cs->depth - 1];
++				int exit_indent = top->indent;
 +
-+				if (top->inlined) {
-+					int exit_indent = top->indent;
-+
-+					if (cs->inlined_depth > 0)
-+						cs->inlined_depth--;
-+					fprintf(out, "%s%*s} /* %s (inline) */\n",
-+						blank_prefix, exit_indent, "", top->name);
-+				}
++				if (cs->inlined_depth > 0)
++					cs->inlined_depth--;
++				fprintf(out, "%s%*s} /* %s (inline) */\n",
++					blank_prefix, exit_indent, "", top->name);
 +				free(top->name);
 +				cs->depth--;
 +			}
 +
-+			/* Pop the matched real frame */
-+			if (cs->depth > 0 && match_idx == cs->depth - 1 &&
-+			    !cs->stack[cs->depth - 1].inlined) {
-+				free(cs->stack[cs->depth - 1].name);
-+				cs->depth--;
++			if (cs->depth <= cs->target_root_depth) {
++				cs->in_target = false;
++				cs->target_root_depth = 0;
++				cs->orphan_depth = 0;
 +			}
-+
-+			extra_indent = cs->inlined_depth * 2;
-+		} else {
-+			extra_indent = 0;
 +		}
-+
-+		fprintf(out, "%.*s%*s%s\n",
-+			(int)(pipe_char - line + 1), line,
-+			leading_spaces + extra_indent, "", func_start);
-+		return 0;
-+	}
-+
-+	/* It's an entry or a leaf call */
-+	has_open_brace = (strchr(func_start, '{') != NULL);
-+	has_semicolon = (strchr(func_start, ';') != NULL);
-+
-+	if (ftrace_parse_retaddr(func_start, caller_sym, sizeof(caller_sym), &caller_offset)) {
-+		has_retaddr = true;
-+		num_inlines = ftrace_resolve_inlines(ftrace->machine, caller_sym,
-+						      caller_offset, inlined_names,
-+						      FTRACE_MAX_INLINES);
-+	}
-+
-+	/* Determine which inlined frames are currently open above the caller */
-+	caller_idx = -1;
-+	if (has_retaddr) {
-+		for (i = cs->depth - 1; i >= 0; i--) {
-+			if (!cs->stack[i].inlined && cs->stack[i].name &&
-+			    strcmp(cs->stack[i].name, caller_sym) == 0) {
-+				caller_idx = i;
-+				break;
+ 		return 0;
+ 	}
+ 
+@@ -649,6 +787,143 @@ int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FIL
+ 	has_open_brace = (strchr(func_start, '{') != NULL);
+ 	has_semicolon = (strchr(func_start, ';') != NULL);
+ 
++	if (cs->orphan_depth > 0) {
++		/*
++		 * If an orphan exit was dropped by the kernel ring buffer,
++		 * check whether this entry descends from an active target
++		 * frame on the stack. If so, the orphan has completed; clear
++		 * orphan_depth and resume processing.
++		 */
++		if (has_filter && cs->in_target && cs->depth > cs->target_root_depth) {
++			if (ftrace_parse_retaddr(func_start, caller_sym,
++						 sizeof(caller_sym), &caller_offset)) {
++				caller_idx = -1;
++				for (i = cs->depth - 1; i >= 0; i--) {
++					if (!cs->stack[i].inlined && cs->stack[i].name &&
++					    strcmp(cs->stack[i].name, caller_sym) == 0) {
++						caller_idx = i;
++						break;
++					}
++				}
++				if (caller_idx >= cs->target_root_depth)
++					cs->orphan_depth = 0;
 +			}
 +		}
 +
-+		/* If caller is not on the tracked stack, do not synthesise inlines */
-+		if (caller_idx < 0) {
-+			for (i = 0; i < num_inlines; i++)
-+				free((void *)inlined_names[i]);
-+			num_inlines = 0;
++		if (cs->orphan_depth > 0) {
++			if (has_open_brace && !has_semicolon)
++				cs->orphan_depth++;
++			return 0;
 +		}
 +	}
 +
-+	active_inlines = 0;
-+	if (caller_idx >= 0) {
-+		for (i = caller_idx + 1; i < cs->depth; i++) {
-+			if (cs->stack[i].inlined)
-+				active_inlines++;
-+			else
-+				break;
++	if (has_filter) {
++		if (cs->depth == 0 || !cs->in_target) {
++			char entry_name[128];
++
++			extract_entry_func_name(func_start, entry_name, sizeof(entry_name));
++			if (ftrace_is_graph_func(ftrace, entry_name)) {
++				cs->in_target = true;
++				cs->target_root_depth = cs->depth;
++				cs->orphan_depth = 0;
++				is_target_root = true;
++			} else if (cs->depth == 0) {
++				cs->in_target = false;
++				cs->orphan_depth = 0;
++			}
++		}
++
++		if (!cs->in_target) {
++			/* Non-matching call tree; track depth if entering scope, suppress output */
++			if (has_open_brace && !has_semicolon) {
++				char entry_name[128];
++
++				extract_entry_func_name(func_start, entry_name, sizeof(entry_name));
++				if (cs->depth >= cs->max_stack &&
++				    ftrace_task_state__grow_stack(cs) < 0)
++					return -ENOMEM;
++
++				cs->stack[cs->depth].name = strdup(entry_name);
++				if (!cs->stack[cs->depth].name) {
++					pr_err("Not enough memory\n");
++					return -ENOMEM;
++				}
++				cs->stack[cs->depth].inlined = false;
++				cs->stack[cs->depth].indent = leading_spaces;
++				cs->depth++;
++			}
++			return 0;
 +		}
 +	}
 +
-+	/* Find common prefix of inlined functions */
-+	common = 0;
-+	if (caller_idx >= 0) {
-+		while (common < active_inlines && common < num_inlines &&
-+		       cs->stack[caller_idx + 1 + common].name &&
-+		       !strcmp(cs->stack[caller_idx + 1 + common].name,
-+			       inlined_names[common])) {
-+			common++;
++	if (!ftrace->use_inline) {
++		if (is_target_root) {
++			if (ftrace_parse_retaddr(func_start, caller_sym,
++						 sizeof(caller_sym), &caller_offset)) {
++				caller_idx = -1;
++				for (i = cs->depth - 1; i >= 0; i--) {
++					if (!cs->stack[i].inlined && cs->stack[i].name &&
++					    strcmp(cs->stack[i].name, caller_sym) == 0) {
++						caller_idx = i;
++						break;
++					}
++				}
++				if (caller_idx >= 0) {
++					while (cs->depth > caller_idx + 1) {
++						free(cs->stack[cs->depth - 1].name);
++						cs->depth--;
++					}
++				}
++			}
++			cs->target_root_depth = cs->depth;
 +		}
-+	}
 +
-+	/* Close stale callee frames and inactive inlined frames above caller */
-+	if (caller_idx >= 0)
-+		cs->overflow_depth = 0;
-+
-+	while (caller_idx >= 0 && cs->depth > caller_idx + 1 + common) {
-+		struct ftrace_stack_frame *top = &cs->stack[cs->depth - 1];
-+
-+		if (top->inlined) {
-+			int exit_indent = top->indent;
-+
-+			if (cs->inlined_depth > 0)
-+				cs->inlined_depth--;
-+			fprintf(out, "%s%*s} /* %s (inline) */\n",
-+				blank_prefix, exit_indent, "", top->name);
++		if (has_filter && cs->in_target && cs->depth > cs->target_root_depth) {
++			if (ftrace_parse_retaddr(func_start, caller_sym,
++						 sizeof(caller_sym), &caller_offset)) {
++				caller_idx = -1;
++				for (i = cs->depth - 1; i >= 0; i--) {
++					if (!cs->stack[i].inlined && cs->stack[i].name &&
++					    strcmp(cs->stack[i].name, caller_sym) == 0) {
++						caller_idx = i;
++						break;
++					}
++				}
++				if (caller_idx < cs->target_root_depth) {
++					if (has_open_brace && !has_semicolon)
++						cs->orphan_depth = 1;
++					return 0;
++				}
++			}
 +		}
-+		free(top->name);
-+		cs->depth--;
-+	}
 +
-+	/* Open new inlined frames */
-+	for (i = common; i < num_inlines; i++) {
-+		int entry_indent = leading_spaces + cs->inlined_depth * 2;
++		if (has_open_brace && !has_semicolon) {
++			char entry_name[128];
 +
-+		if (!inlined_names[i]) {
-+			pr_err("Not enough memory\n");
-+			for (int j = 0; j < num_inlines; j++)
-+				free((void *)inlined_names[j]);
-+			return -ENOMEM;
-+		}
-+		if (cs->depth >= FTRACE_MAX_STACK)
-+			break;
++			extract_entry_func_name(func_start, entry_name, sizeof(entry_name));
++			if (cs->depth >= cs->max_stack &&
++			    ftrace_task_state__grow_stack(cs) < 0)
++				return -ENOMEM;
 +
-+		fprintf(out, "%s%*s%s() { /* (inline) */\n",
-+			blank_prefix, entry_indent, "", inlined_names[i]);
-+		cs->stack[cs->depth].name = strdup(inlined_names[i]);
-+		if (!cs->stack[cs->depth].name) {
-+			pr_err("Not enough memory\n");
-+			for (int j = 0; j < num_inlines; j++)
-+				free((void *)inlined_names[j]);
-+			return -ENOMEM;
-+		}
-+		cs->stack[cs->depth].inlined = true;
-+		cs->stack[cs->depth].indent = entry_indent;
-+		cs->depth++;
-+		cs->inlined_depth++;
-+	}
-+
-+	/* Print current line with updated indentation */
-+	extra_indent = cs->inlined_depth * 2;
-+
-+	if (ftrace->filter_retaddr) {
-+		char *filtered = strdup(func_start);
-+
-+		if (filtered) {
-+			ftrace_filter_retaddr(filtered);
-+			fprintf(out, "%.*s%*s%s\n",
-+				(int)(pipe_char - line + 1), line,
-+				leading_spaces + extra_indent, "", filtered);
-+			free(filtered);
-+		} else {
-+			pr_err("Not enough memory\n");
-+			for (i = 0; i < num_inlines; i++)
-+				free((void *)inlined_names[i]);
-+			return -ENOMEM;
-+		}
-+	} else {
-+		fprintf(out, "%.*s%*s%s\n",
-+			(int)(pipe_char - line + 1), line,
-+			leading_spaces + extra_indent, "", func_start);
-+	}
-+
-+	/* If non-leaf entry, push onto stack */
-+	if (has_open_brace && !has_semicolon) {
-+		char entry_name[128];
-+
-+		extract_entry_func_name(func_start, entry_name, sizeof(entry_name));
-+		if (cs->depth < FTRACE_MAX_STACK) {
 +			cs->stack[cs->depth].name = strdup(entry_name);
 +			if (!cs->stack[cs->depth].name) {
 +				pr_err("Not enough memory\n");
-+				for (i = 0; i < num_inlines; i++)
-+					free((void *)inlined_names[i]);
 +				return -ENOMEM;
 +			}
 +			cs->stack[cs->depth].inlined = false;
-+			cs->stack[cs->depth].indent = leading_spaces + extra_indent;
++			cs->stack[cs->depth].indent = leading_spaces;
 +			cs->depth++;
-+		} else {
-+			cs->overflow_depth++;
++		}
++		print_line(ftrace, line, out);
++		if (has_filter && cs->in_target && is_target_root &&
++		    has_semicolon && !has_open_brace) {
++			cs->in_target = false;
++			cs->target_root_depth = 0;
++			cs->orphan_depth = 0;
++		}
++		return 0;
++	}
++
+ 	if (ftrace_parse_retaddr(func_start, caller_sym, sizeof(caller_sym), &caller_offset)) {
+ 		has_retaddr = true;
+ 		num_inlines = ftrace_resolve_inlines(ftrace->machine, caller_sym,
+@@ -675,6 +950,21 @@ int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FIL
+ 		}
+ 	}
+ 
++	/*
++	 * When inside a target graph filter, child functions must descend
++	 * from an active frame on the target stack. Suppress detached
++	 * calls originating outside the target hierarchy.
++	 */
++	if (has_filter && cs->in_target && cs->depth > cs->target_root_depth) {
++		if (has_retaddr && caller_idx < cs->target_root_depth) {
++			if (has_open_brace && !has_semicolon)
++				cs->orphan_depth = 1;
++			for (i = 0; i < num_inlines; i++)
++				free((void *)inlined_names[i]);
++			return 0;
 +		}
 +	}
 +
-+	for (i = 0; i < num_inlines; i++)
-+		free((void *)inlined_names[i]);
-+	return 0;
-+}
+ 	active_inlines = 0;
+ 	if (caller_idx >= 0) {
+ 		for (i = caller_idx + 1; i < cs->depth; i++) {
+@@ -697,9 +987,6 @@ int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FIL
+ 	}
+ 
+ 	/* Close stale callee frames and inactive inlined frames above caller */
+-	if (caller_idx >= 0)
+-		cs->overflow_depth = 0;
+-
+ 	while (caller_idx >= 0 && cs->depth > caller_idx + 1 + common) {
+ 		struct ftrace_stack_frame *top = &cs->stack[cs->depth - 1];
+ 
+@@ -708,13 +995,17 @@ int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FIL
+ 
+ 			if (cs->inlined_depth > 0)
+ 				cs->inlined_depth--;
+-			fprintf(out, "%s%*s} /* %s (inline) */\n",
+-				blank_prefix, exit_indent, "", top->name);
++			if (!has_filter || (cs->in_target && !is_target_root))
++				fprintf(out, "%s%*s} /* %s (inline) */\n",
++					blank_prefix, exit_indent, "", top->name);
+ 		}
+ 		free(top->name);
+ 		cs->depth--;
+ 	}
+ 
++	if (is_target_root)
++		cs->target_root_depth = cs->depth;
 +
-+/**
-+ * perf_ftrace__setup_inlines - Initialise symbol resolution for inlines
-+ * @ftrace: Perf ftrace context
-+ *
-+ * Initialise symbol tracking and load the kernel image (vmlinux) for
-+ * DWARF debug information parsing.
-+ *
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+int perf_ftrace__setup_inlines(struct perf_ftrace *ftrace)
-+{
-+	struct map *kmap;
+ 	/* Open new inlined frames */
+ 	for (i = common; i < num_inlines; i++) {
+ 		int entry_indent = leading_spaces + cs->inlined_depth * 2;
+@@ -725,7 +1016,8 @@ int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FIL
+ 				free((void *)inlined_names[j]);
+ 			return -ENOMEM;
+ 		}
+-		if (cs->depth >= FTRACE_MAX_STACK)
++		if (cs->depth >= cs->max_stack &&
++		    ftrace_task_state__grow_stack(cs) < 0)
+ 			break;
+ 
+ 		fprintf(out, "%s%*s%s() { /* (inline) */\n",
+@@ -772,20 +1064,44 @@ int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FIL
+ 		char entry_name[128];
+ 
+ 		extract_entry_func_name(func_start, entry_name, sizeof(entry_name));
+-		if (cs->depth < FTRACE_MAX_STACK) {
+-			cs->stack[cs->depth].name = strdup(entry_name);
+-			if (!cs->stack[cs->depth].name) {
+-				pr_err("Not enough memory\n");
+-				for (i = 0; i < num_inlines; i++)
+-					free((void *)inlined_names[i]);
+-				return -ENOMEM;
++		if (cs->depth >= cs->max_stack &&
++		    ftrace_task_state__grow_stack(cs) < 0) {
++			for (i = 0; i < num_inlines; i++)
++				free((void *)inlined_names[i]);
++			return -ENOMEM;
++		}
 +
-+	if (!ftrace->use_inline)
-+		return 0;
-+
-+	symbol_conf.try_vmlinux_path = (symbol_conf.vmlinux_name == NULL);
-+	symbol_conf.inline_name = true;
-+	if (symbol_conf.vmlinux_name)
-+		symbol_conf.ignore_vmlinux_buildid = true;
-+
-+	if (symbol__init(NULL) < 0) {
-+		pr_warning("Failed to initialize symbols for inlined functions\n");
-+		return -1;
++		cs->stack[cs->depth].name = strdup(entry_name);
++		if (!cs->stack[cs->depth].name) {
++			pr_err("Not enough memory\n");
++			for (i = 0; i < num_inlines; i++)
++				free((void *)inlined_names[i]);
++			return -ENOMEM;
++		}
++		cs->stack[cs->depth].inlined = false;
++		cs->stack[cs->depth].indent = leading_spaces + extra_indent;
++		cs->depth++;
 +	}
 +
-+	ftrace->machine = machine__new_host(NULL);
-+	if (!ftrace->machine) {
-+		pr_warning("Failed to create host machine for symbols\n");
-+		return -1;
-+	}
++	if (has_filter && cs->in_target && is_target_root &&
++	    has_semicolon && !has_open_brace) {
++		while (cs->depth > cs->target_root_depth) {
++			struct ftrace_stack_frame *top = &cs->stack[cs->depth - 1];
 +
-+	if (symbol_conf.vmlinux_name) {
-+		kmap = machine__kernel_map(ftrace->machine);
-+		if (kmap)
-+			dso__load_vmlinux(map__dso(kmap), kmap, symbol_conf.vmlinux_name, false);
-+	} else {
-+		machine__load_vmlinux_path(ftrace->machine);
-+	}
++			if (top->inlined) {
++				int exit_indent = top->indent;
 +
-+	return 0;
-+}
-+
-+/**
-+ * perf_ftrace__cleanup_inlines - Clean up resources used for inline resolution
-+ * @ftrace: Perf ftrace context
-+ *
-+ * Free the machine context and the CPU stack tracking states.
-+ */
-+void perf_ftrace__cleanup_inlines(struct perf_ftrace *ftrace)
-+{
-+	if (ftrace->machine) {
-+		machine__delete(ftrace->machine);
-+		ftrace->machine = NULL;
-+	}
-+	ftrace_cpu_states__clear();
-+}
-diff --git a/tools/perf/util/ftrace.h b/tools/perf/util/ftrace.h
-index 50216d3fef64..404d596bb60f 100644
---- a/tools/perf/util/ftrace.h
-+++ b/tools/perf/util/ftrace.h
-@@ -1,6 +1,7 @@
- #ifndef __PERF_FTRACE_H__
- #define __PERF_FTRACE_H__
++				if (cs->inlined_depth > 0)
++					cs->inlined_depth--;
++				fprintf(out, "%s%*s} /* %s (inline) */\n",
++					blank_prefix, exit_indent, "", top->name);
+ 			}
+-			cs->stack[cs->depth].inlined = false;
+-			cs->stack[cs->depth].indent = leading_spaces + extra_indent;
+-			cs->depth++;
+-		} else {
+-			cs->overflow_depth++;
++			free(top->name);
++			cs->depth--;
+ 		}
++		cs->in_target = false;
++		cs->target_root_depth = 0;
++		cs->orphan_depth = 0;
+ 	}
  
-+#include <stdio.h>
- #include <linux/list.h>
- 
- #include "target.h"
-@@ -41,6 +42,8 @@ struct perf_ftrace {
- 	int			graph_tail;
- 	bool			filter_retaddr;
- 	bool			filter_retaddr_set;
-+	bool			use_inline;
-+	struct machine		*machine;
- };
- 
- struct filter_entry {
-@@ -95,7 +98,16 @@ perf_ftrace__latency_cleanup_bpf(struct perf_ftrace *ftrace __maybe_unused)
- 
- #endif  /* HAVE_BPF_SKEL */
- 
-+struct machine;
-+
- bool ftrace_parse_retaddr(const char *str, char *sym_name, size_t sym_len, u64 *offset);
- void ftrace_filter_retaddr(char *str);
-+int ftrace_resolve_inlines(struct machine *machine,
-+			   const char *sym_name, u64 offset,
-+			   const char **inlined_names, int max_inlines);
-+int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FILE *out);
-+void ftrace_cpu_states__clear(void);
-+int perf_ftrace__setup_inlines(struct perf_ftrace *ftrace);
-+void perf_ftrace__cleanup_inlines(struct perf_ftrace *ftrace);
- 
- #endif  /* __PERF_FTRACE_H__ */
+ 	for (i = 0; i < num_inlines; i++)
 -- 
 2.55.0
 
