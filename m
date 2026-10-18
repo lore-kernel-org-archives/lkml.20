@@ -1,43 +1,43 @@
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833E63BBA04;
-	Sun, 18 Oct 2026 15:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48DE73CEBB8
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338789; cv=none; b=ETai5ANkh2+D0cP9a3hNONhp5yIa6eR8vy4Jy0hXza1nKfTJJ1ICOHasOWjZ3zirVU5xirac0bp+0G6rz7Jmn8v+7CO9/3c5h+ztvSC3PWgXRpD/wWnNb4DQl4xKqy72WNfu0tryWuCh4+AUGYdmz7gSDYm+z9fLjzlaTLwYCM0=
+	t=1792338799; cv=none; b=J/16BcS98P6Tj6QWrKah957CVY5MM+czvvS8Q3s66OzGd2YdrTpFg1JfnMQHT7GI0UvZXR4lGFZAnBVWR9O4L+py/XFc6a3OvqEaGsQVbt7Kh1jbDxR9kensBZgApy+qVvJlAEDB9yNsy9/lIT6rTd8U8HcKb/wdJpEBLdlE1sM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338789; c=relaxed/simple;
-	bh=/KcvjAAotjY3kSYHV4XzrJ+/cCO74FreeMbHM+lHM4g=;
+	s=arc-20240116; t=1792338799; c=relaxed/simple;
+	bh=cMgcfn3oTkv/gWCcsXjtVKkuw5VWqPBnSyFIfd6VkJc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RHlL7z219pvrkr9F1iEfg/Mxedt7gFQE/LlOk6oW/3l+HxDqA1pqasllZEdMngZxDKBEVOtCG7b6y+MjwJpNpUvJZOb3gffZ/O9tIzUh8DfVv2/lDWlqlEGOfyHlktkfBhXa/jEMN/qmNofhGQCQttuQi99mhy76bAYl1XPsr9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=BWrNYupf; arc=none smtp.client-ip=185.226.149.37
+	 MIME-Version; b=RsaQObuZ9pw4mopvie5F6fdLdDO2dxKvodsSknOjZgNtCChCR/PIH9u2ZXpiB76DMu/3CvXzb7t9ijGOZ4ee2Umg6HbOdNa6IxZPnXFtJxCLQpx+ANgOcWlpLaUiPHDk/ZNk4Pa/J0oLS5Ry6xrjKf4T1mjI0MxXa3YcL2E6lG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=dlfEY2yN; arc=none smtp.client-ip=185.226.149.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="BWrNYupf"
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="dlfEY2yN"
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITC3-000IcM-8O; Sun, 18 Oct 2026 17:53:03 +0200
+	id 1xITC5-001KC4-VP; Sun, 18 Oct 2026 17:53:05 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
 	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
 	:Message-Id:Date:Subject:Cc:To:From;
-	bh=lzqNFug0wnON7GfzAG9E91iHafcUZj58vKUZGTFbbOo=; b=BWrNYupfBivwVspK5W8nwQwlqA
-	s7EnEGRVCs63W1YjTY+LUHq2q1e/3GfcHpYOPbdYV8F1E4oepJKHt3Q8dFDs+fqt458NfoOfzkDg3
-	tFA/AeiolpRD55tHsz0FRNO3CZ4XsHHaCnjh5D9/8wBDrIdF4lSmCs+Ks6f6OEpkRLY9yAHnV7j2H
-	6hZZF66jraB5r5s6jP9Fw061aZ0bWz0JbvCCMD8r5vZD+3WNn7i+UBWJW8xwNh0uReSicmRPUTb8s
-	yhgBzVEv/IR8fBK2vnIB3D1w72k74gdHtjM6uKA08DjnQZGHRNc4O+KdHDePr/cnypV9M08l0s3qV
-	uTEx/TlQ==;
+	bh=B9MBdm+AgkGYtGtq0kSFNXCbjbM2d9Z8MTSHpsIlcnY=; b=dlfEY2yNYR0ZJ60LmuefLyAPw0
+	Ey5frvAZTDILyoNvsjX6ulMvL9TX1xBwIPN6VUm8SaLGk2ifwN31II5Tmj304SPBQeAFyDCChSZ51
+	noHE9CJdMictDpWo/LoKXbqS70kQ+J71/aQnlZyOMRBUgovxyNCEcL4hqMB3qWt1SLlxrz4HxrMCH
+	NjHssa+Ct35C/y0h1BHfh8usWXXHz83ibblT763kisySuF6Qw9kvaF/I4iyKAMo1aUzLlvVwSMyqQ
+	o+z+b16aYjCfAdbfNcQB0mX8IA3XRnVwMFAWdk3LB1ev7netVW5VOrVBSM3Pda7n2hcFVm4Ws6nP8
+	0aSC6odA==;
 Received: from [10.9.9.74] (helo=submission03.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITBx-0001oZ-Pw; Sun, 18 Oct 2026 17:52:58 +0200
+	id 1xITC0-0000Bs-Kk; Sun, 18 Oct 2026 17:53:00 +0200
 Received: by submission03.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.95)
-	id 1xITBf-004q3U-IV;
-	Sun, 18 Oct 2026 17:52:39 +0200
+	id 1xITBe-004q3U-HJ;
+	Sun, 18 Oct 2026 17:52:38 +0200
 From: David Laight <david.laight.linux@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Petr Mladek <pmladek@suse.com>,
@@ -51,9 +51,9 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: Luis Chamberlain <mcgrof@kernel.org>,
 	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
 	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH v2 next 04/15] kallsyms: scripts/kallsyms: Check for output file write errors
-Date: Sun, 18 Oct 2026 16:51:55 +0100
-Message-Id: <20261018155206.132411-5-david.laight.linux@gmail.com>
+Subject: [PATCH v2 next 02/15] kallsyms: Fix selftest startup delay
+Date: Sun, 18 Oct 2026 16:51:53 +0100
+Message-Id: <20261018155206.132411-3-david.laight.linux@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261018155206.132411-1-david.laight.linux@gmail.com>
 References: <20261018155206.132411-1-david.laight.linux@gmail.com>
@@ -65,116 +65,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Exit with an error status if any writes to the output file fail.
-The file is big and it might the point where 'disk full' is reached.
+The kallsym_selftest code clearly intends to sleep until initialisation
+is complete in order to get more reproducable timings.
 
-Use errx() for all the error exits to simplify the code and ensure
-the program name is added.
+Replace the schedule_timeout() calls with schedule_timeout_idle()
+so that the thread actually sleeps.
+Poll every second (not every 5) for SYSTEM_RUNNING and then wait
+another 10 seconds before starting the tests, otherwise the tests
+start as soon an init is executed.
+
+This code is in the initial 2022 import of the tests.
 
 Signed-off-by: David Laight <david.laight.linux@gmail.com>
 ---
- scripts/kallsyms.c | 46 +++++++++++++++++++---------------------------
- 1 file changed, 19 insertions(+), 27 deletions(-)
+ kernel/kallsyms_selftest.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-index bda8921c95ef..2e936317fb09 100644
---- a/scripts/kallsyms.c
-+++ b/scripts/kallsyms.c
-@@ -18,6 +18,7 @@
-  *
-  */
+diff --git a/kernel/kallsyms_selftest.c b/kernel/kallsyms_selftest.c
+index 8f6c4e9b3a1c..0db79237fe54 100644
+--- a/kernel/kallsyms_selftest.c
++++ b/kernel/kallsyms_selftest.c
+@@ -411,9 +411,11 @@ static int test_entry(void *p)
+ {
+ 	int ret;
  
-+#include <err.h>
- #include <errno.h>
- #include <getopt.h>
- #include <stdbool.h>
-@@ -135,18 +136,16 @@ static struct sym_entry *read_symbol(FILE *in, char **buf, size_t *buf_len)
++	pr_info("waiting\n");
+ 	do {
+-		schedule_timeout(5 * HZ);
++		schedule_timeout_idle(HZ);
+ 	} while (system_state != SYSTEM_RUNNING);
++	schedule_timeout_idle(10 * HZ);
  
- 	addr = strtoull(*buf, &p, 16);
- 
--	if (*buf == p || *p++ != ' ' || !isascii((type = *p++)) || *p++ != ' ') {
--		fprintf(stderr, "line format error\n");
--		exit(EXIT_FAILURE);
--	}
-+	if (*buf == p || *p++ != ' ' || !isascii((type = *p++)) || *p++ != ' ')
-+		errx(1, "line format error");
- 
- 	name = p;
- 	len = strlen(name);
- 
- 	if (len >= KSYM_NAME_LEN) {
--		fprintf(stderr, "Symbol %s too long for kallsyms (%zu >= %d).\n"
--				"Please increase KSYM_NAME_LEN both in kernel and kallsyms.c\n",
--			name, len, KSYM_NAME_LEN);
-+		warnx("Symbol %s too long for kallsyms (%zu >= %d).\n"
-+		      "Please increase KSYM_NAME_LEN both in kernel and kallsyms.c",
-+		      name, len, KSYM_NAME_LEN);
- 		return NULL;
- 	}
- 
-@@ -253,10 +252,8 @@ static void read_map(const char *in)
- 	size_t buflen = 0;
- 
- 	fp = fopen(in, "r");
--	if (!fp) {
--		perror(in);
--		exit(1);
--	}
-+	if (!fp)
-+		err(1, "failed to open %s", in);
- 
- 	while (!feof(fp)) {
- 		sym = read_symbol(fp, &buf, &buflen);
-@@ -362,18 +359,12 @@ static void write_src(void)
- 		table[i]->seq = i;
- 
- 		/* There cannot be any symbol of length zero. */
--		if (table[i]->len == 0) {
--			fprintf(stderr, "kallsyms failure: "
--				"unexpected zero symbol length\n");
--			exit(EXIT_FAILURE);
--		}
-+		if (table[i]->len == 0)
-+			errx(1, "unexpected zero symbol length");
- 
- 		/* Only lengths that fit in up-to-two-byte ULEB128 are supported. */
--		if (table[i]->len > 0x3FFF) {
--			fprintf(stderr, "kallsyms failure: "
--				"unexpected huge symbol length\n");
--			exit(EXIT_FAILURE);
--		}
-+		if (table[i]->len > 0x3FFF)
-+			errx(1, "unexpected huge symbol length");
- 
- 		/* Encode length with ULEB128. */
- 		if (table[i]->len <= 0x7F) {
-@@ -431,12 +422,9 @@ static void write_src(void)
- 		if (pc_relative) {
- 			long long offset = table[i]->addr - _text;
- 
--			if (offset < INT_MIN || offset > INT_MAX) {
--				fprintf(stderr, "kallsyms failure: "
--					"relative symbol value %#llx out of range\n",
--					table[i]->addr);
--				exit(EXIT_FAILURE);
--			}
-+			if (offset < INT_MIN || offset > INT_MAX)
-+				errx(1, "relative symbol value %#llx out of range",
-+				     table[i]->addr);
- 			printf("\t.long\t_text - . + (%d)\t/* %s */\n",
- 			       (int)offset, table[i]->sym);
- 		} else {
-@@ -456,6 +444,10 @@ static void write_src(void)
- 			(unsigned char)(table[i]->seq >> 0),
- 		       table[i]->sym);
- 	printf("\n");
-+
-+	fflush(stdout);
-+	if (ferror(stdout))
-+		errx(1, "error writing to output file");
- }
- 
- 
+ 	pr_info("start\n");
+ 	ret = test_kallsyms_basic_function();
 -- 
 2.39.5
 
