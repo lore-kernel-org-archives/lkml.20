@@ -1,159 +1,366 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010034.outbound.protection.outlook.com [52.101.46.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1765638889D;
-	Sun, 18 Oct 2026 15:32:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792337569; cv=fail; b=OuLJZpy6xO9IuDfNyOeFNGLqHPPXO892S2J0wADDvi3dqhOSDdmqYjC2US4SmLaMxwPqglDNr5CUOuxAFhk/OwGXbKlDJtrZCmRkLX6ZHFqa3tX7guqvEzZKxhMkwwqE9s0d5H7Gn0lr8bB16yT3PdizGEukDr2otPVFmsjeT20=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792337569; c=relaxed/simple;
-	bh=hQHF2jZfUMIN0s2nhtdTgf+WNUrhmVm+QYGhhTopAqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=dGG3GfE39Kn0bKmcCoBqBwZzRCbvPSt0tK2qtSlqrnXPPgJfYsA9O7uz3BkzEOH/sZhotadrJygWv5Ujb+1rZet9ikCuehi2K/fNUorXhsmR4rRmwlLnqiVHBl5K0Vot7Qqx3bltb8UJDKOI7vlTQ0x3IkWOgFgSFT1YXFfy3Mk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XbNaQH5B; arc=fail smtp.client-ip=52.101.46.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6FA39184A
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:37:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792337828; cv=none; b=N4JlZynHY11iR8vg0A+qK6YC5CdHJ4J/h8VlZHcyMXVMTTizKciCjUUcE/og1icM2+6Wjg+caWc2ZRqp8X2Hxdw0lG911Bb6xPWREUcbzAbaHqZBXGSLx3js4o7q5WmKM7qlXBSW3hGpqr76Su/AyOFi1ypWW6Lh1YLv8XN5F+U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792337828; c=relaxed/simple;
+	bh=8l98IpI1TLUePWVpXl7mBzCKAI+IRnm30DyagH+koOs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j0H5FGG42WK/wWuqXEU3DPMbm6QJaDXL4yf2EtSXW/zJlSId9S3LJD+DDyzMdYtxs3OoKDDWxcKsqu1wsgYtprYDhJlA45z+swXhMOGMEFIj6KsmMG0leIBIu3/luPLcrCYHl5EdrdTZ0UamRhQpemOxkYIuOjkDC2mUMYLjzo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SRdqe8hC; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XbNaQH5B"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RNk69ln48vnvq88bWBFdEqTd6FTt2cIFzynb760tSpdhbdhNaNuYUJ1h3yLFYk4u/4Xfi0QFFLlETW909xE3jfHbb02Os3bpspGdv3s8gMLMNnkRYVlnwsijyyxJTpUY74k3u0cTmMkLwxvFN6fUyI8B+IWH4pcB5u5LC1rQQc3ZLlyAU9AyHHbmi/QOSQukjl80bkxsvb3c5Tj5102j6szCavGl/ruykAOQ7IIS0JAbpLXfWEqwa6NUHnExLMy1+6uP3GmhAkhA8Ejkiac9buIqYoP5/8nmLECBlEMFvzNHQcTzbUEwCzGU5acMtlNtp/Rs6mLn0dPG77ey89+bEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rx+SZehD5RSo8E4hZXUQ0t5WCf6FJkE5D7pd6mC6eTQ=;
- b=AoFJdeCHn/Boj8NaP//kEay9fdzVi9rreKCAdsDQSFhO5uyRtRND9iCmC1FsJ9TqG3huHojoqkkRKwNl43a3nVE9uRMn9IgKGaqgKr/2gqRnuFSopgCbffaZpFXZhc3xTQSgK0t12Yt3kt912hpZuWiUpZyaa6hy2V55VtLAJnw0+UkCItyGHbmynchIdJJFnjXdjPGkMCEXzrsBQSBdKKEjU16fgPSSIWEycaHPCdGv618r31FpYXmgTr2eyHKFpCpJ1d1B9lmTci4j2p/HtSwWO2S717/oHmv5Xpawk2lMEqTDillplekSVltQQzd2KCOabn5rdj9JxZSIN2YRmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rx+SZehD5RSo8E4hZXUQ0t5WCf6FJkE5D7pd6mC6eTQ=;
- b=XbNaQH5BW5wkAcCuq8uw2BoH2xcol2JQqEZdGgHTWeQ5ylh0KptBmSH/4/YmAFHvkVc6MzEgyJo3ARALRMCGQqzgMvb4/YQ/5PzkuEO+4m47428FHpknAxcaihJXY4wUSQqlpoVA7LsuKs1mWTQbhlVtKHWJNORGDzXmkTnDzp7BvXTVCaqvSnyEcZpjkcTr3ORQrWRi7psNC/4IdyeQZVrq/q7Srb7JhJisXEmDRU+riyHOXKju25AGkhijw5XSwdkRY8Gx6+fbvS1x2EY0wSnQRkR9F0mANtUq5vKcOBbrVbEFrjETrKR7a8E4Sym2TUHEGTeZWpvxRrb5wwl5xw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by IA3PR12MB460542.namprd12.prod.outlook.com (2603:10b6:208:709::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Sun, 18 Oct
- 2026 15:32:42 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0522.017; Sun, 18 Oct 2026
- 15:32:41 +0000
-Date: Sun, 18 Oct 2026 18:32:31 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Jiale Yao <yaojiale02@163.com>, petrm@nvidia.com
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SRdqe8hC"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e00eee27dso622590f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:37:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792337825; x=1792942625; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V82V8FKF0hSDpvzCmG/y9sYVZ5Xj5JK49wyNUu8zZxI=;
+        b=SRdqe8hC7kHmpdNQWdqg5U+qJmgQrpsC3JnRjJE4btimy19gNPj1/DUkcGsaUigadi
+         fJp//56hUHHtO2gHpArkwqflTTps34wOvEwxyEpzR+kKQ2AZakMppfMZwOGSlBmQ7Pan
+         2cm18TH15VHyjbzBxYn3gbGX/hREDVYjh4LRceKSN68YiCmvAMciXgYAFKPJ02OvnUek
+         e4G+Yzkvk6Hq30y//LCfnIno+I4CWwp3DlGMZyjueHtoml3lELf6wTbBrY10TQNSQSxS
+         xFNVLwz6dgxPX1lUiQj6lGefGzdQEwdy0aUkUWFOt+nm674XW3QOckkacQg0hNy4pg3Q
+         G5kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792337825; x=1792942625;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V82V8FKF0hSDpvzCmG/y9sYVZ5Xj5JK49wyNUu8zZxI=;
+        b=dovb7Dke7aKQWvXuDWSrXNHZf1kQkF7sVq2b+BZU0LyCzp6luzTMWgiT3CkDbM1nwS
+         RBxFCdGh1ZcMmUZi5l2cWKD4WvghPyfuqVpMfDL7Ley1A8IzbfqPb6/K7eCU68Py9yL2
+         UlBprBQSC8JdkXpRFlZFAIVGVWIdy3aLaYMuUvSXilhp1K1FMrYWx7HZgnOiqWGNf4xV
+         JrHzGEYN7sXD+BGX3wxT9kTO+tY8SJ8Qvk1shgqncXtZSgKIGwNXkPbSL2kJrbhLSadT
+         LggNbcX8/J9kced3ejD2SfvkL2Xn2s5bHZ45XpKrXmx9GrK5pa1EJuKw4fkDj2qDtGkh
+         TAOg==
+X-Forwarded-Encrypted: i=1; AKwUvBxr842bB3gLwMhzu3N3YDuc2Z0JcmWSvzntzgsriSDk5fcWWAXauQFs0CRZ40QYWNxD5O+129PF5QVJCFI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKthuu6WpPnwEC17/K1kjSA2/rRYa/wvarez9QxW6POIui4eHpN
+	eGFrLrr4tnpm8JA4eSDyEi/54e+sCX77ix0L0wDy3cgjRNaHsJ6y+Sms
+X-Gm-Gg: AYBFou1sUNV3ZF4K5Zc4xsax16Hl9hlDoA87aL91sS74/ihBR4wrNnu1bDtMkOtCZmU
+	8jODeXptZerRzLdAXbDmxaVQK92JLu6Is2cSLShTPAUibsLAJcuuMBqKtWwY7bDo3xjd8FzljxX
+	0Cojk3n5eC7ju6h7QRgphd9VcHdta5Aowt+RP69koVvXjqpNJEo/2paQCcPt63UdDb+sr2/2KTT
+	YH1mDZW4+P2wikHQA77j7fFq/FcHdq8TWgfCP9vxUv8nJzxw13TWg+2BPy9bhKN8OMvllYGIAJT
+	MddI8f48sYLQjv2Ai7CuR8PF+/cperCI9Yzlet/eWFcmy2zx0TpoCH459R9L/lpViQF1NzghtaD
+	bDBjlKdAzSwtnvc8sYYjvk9MqtO30uokrwWVPRx8RTdlXe15K8Hd9QZBRJPZMIF5zdvVIQx6uiH
+	6ahJdzC1uHM7DaCLxqGwdzjMdYCSQNmyqHppGtKFJClwEkEXri+SUmd3UrMrLf7RA3uvtIYuWID
+	uHIqtb/5zMmYv1cSWZW
+X-Received: by 2002:a05:600c:3511:b0:4a0:258a:b25c with SMTP id 5b1f17b1804b1-4a1d7613789mr110924135e9.29.1792337824579;
+        Sun, 18 Oct 2026 08:37:04 -0700 (PDT)
+Received: from VivoBook-ASUS-X712UA-M712UA.lan ([2a00:f44:cd2:abb8:4b20:1509:5655:60b6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1dc8ee409sm182135945e9.13.2026.10.18.08.37.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 08:37:04 -0700 (PDT)
+From: Stanislaw Pal <kuncy7@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Jiri Pirko <jiri@resnulli.us>, Elad Raz <eladr@mellanox.com>,
-	Scott Feldman <sfeldma@gmail.com>, netdev@vger.kernel.org,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mlxsw: pci: drain EQ tasklet during teardown
-Message-ID: <20261018153231.GA2601944@shredder>
-References: <20261018040653.534066-1-yaojiale02@163.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018040653.534066-1-yaojiale02@163.com>
-X-ClientProxiedBy: TL2P290CA0016.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::18) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+Subject: [PATCH net-next] net: dsa: qca8k: report port statistics from the MIB
+Date: Sun, 18 Oct 2026 17:36:58 +0200
+Message-ID: <20261018153658.209999-1-kuncy7@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|IA3PR12MB460542:EE_
-X-MS-Office365-Filtering-Correlation-Id: f10062ea-9f76-4d96-33e9-08df2d2d0c97
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	eQ0Y+YBAw+7KD4ABsnnYxk8xfMyyqxKH7GNE2KKEWacgx0xAa+yiDtcsBcVDamLUzN3kYyPtfHmnNOCppRk1mpD0Pf2nJQBIxwvsJ+kYzrL3emaNI7YnZdcBtomp1MERN8avuMKyzxA8rEoil8JEDfrb38K6ddwTF0EpYpMScNJCsQmsOaFPVMtipeRXjlcQbVCd8A8wPgptzeVaRsmX3ZZH7qn1ajIH7nFr11EuPbSp39aZ6zPUYwW11LtcjCumqxJAVvNpYqcCKO/p9NFFWqgyO+y1h2hl0qBgN5tBoBsqdMfs+r0Pm68wXb1k9s2JVhT9sHP+UuGd8EMAdy7l7egLJ+6KoODwrlzCcJ2SdlZalf54Fv1Qh9ugh8LvAFwV6aLfFdLv60LvOjEPJCj+H12zwbLIiDqMSu87FuiH4rJuhZsBTLTojTpsaDooUIlFBEeBmOodzq6dkKOOK1vmJGLPtrI6RuGdx3KxykIA3o4UFOFREkuffWetaln7SHZKePKQ+fAFGtnHc2k6AZFTqVJvPXD4tWpfCLenoqEYd8rktDFhTtsQ0ZeNckboUnNYuyWqLz/JYys/xnWqkxZ8PDWbTQEAusRxJEjZsypHMX4lt4UBdPS42Hb2Id6NRs841Cim/zWpgNHZW3mqar5tmTsq5rtYXUnEkZclMz6WzA4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dpnLOj2UJVxKlq6+Jb0m7odU5/gEToicyQTPzpidtbqC7FI+GXAgxs5wC/2j?=
- =?us-ascii?Q?IEFgqwbn6kWqAzmMsuOPSBnDvy/W9Qv4nuPvJD9CyHcatju0Y+VIMn0D0Yhn?=
- =?us-ascii?Q?oIWTvKkl4ZYffDoloNtRFEEif2VrQ4sHpSnDbJk561ySORUeg7H9ULLdBwz5?=
- =?us-ascii?Q?W38JlRBmUsND8xq/rnZobrjKjEDQs7S05aELxs0X0n1X3Ifkby36lo9nSbod?=
- =?us-ascii?Q?ImOb+sZ5xwfdrPLuTcrKMJU6wYWaVmiXpd2tPAsyn9rXhNBBeSrgOnL64cvO?=
- =?us-ascii?Q?sn1GoP8J8aAllKMamKW5HFsbsODFAOCJ6pGFkzvgzOYFNgkMimJcBYsahSi4?=
- =?us-ascii?Q?Vxemms7A0VRsbRZoIwAzN36MkeroTLmcfgDdBMDsNoUobnhKtHHdCZlh+84S?=
- =?us-ascii?Q?tsBz241OuSH4ljcLhq2V13+W7xYWodTZwwN15L9qaDedjXxEuG99mLo9uKRn?=
- =?us-ascii?Q?I8CPo6kkrzEM/jmDhpnQ4mMxLi/GRXySepyc+IWdmlU9lrG+mFFllrc4boDv?=
- =?us-ascii?Q?GT4m1FoaEY5utbBKa/jU1qVkYKtTZPwkwW5TKtTOnRgKPbhbVjdmDN3gpSbB?=
- =?us-ascii?Q?yBx3YPxvBaE1nMlKuogiF2g3y20W8tFKXiRCIDYTfrYQnBogJWqmlsNAgYJH?=
- =?us-ascii?Q?PfkBHiN0LIQULvNAQD/9iQfnHn0GSh3RtBTlW9DWTdmKPnN0tqo4kWHMMxsw?=
- =?us-ascii?Q?R3D0r48CY9AQvmxHdqCU6m2B8SWc/ZwFL1uhk47Ru/r398vIlpIgtgqht7Ec?=
- =?us-ascii?Q?DMnHbB9nNtR0vrvMMc42UZXB+cPH6LKjQFDXZfP2L4+PkOhmzO/c6ghomC7D?=
- =?us-ascii?Q?lg08US4uxR/AT6lFLGJidaOxXDnuARpACi1cXgnytMM1yidX9j3uOEcM47pA?=
- =?us-ascii?Q?umZ0OQWwdzSnhZ4QnfOe30uK85ocB+HUlm+s2rGFDRWYcuVFKUZ8ULKHluv6?=
- =?us-ascii?Q?FhfGPLXmTSFbcDHHiuh6ufIxoRxw5GIePh3fOPZba4BHu6IAnBc3fl4vyB+P?=
- =?us-ascii?Q?r4JjuxUecAhbBdS5L3BCP8ceecleMr+Qa+uKGcA7+yrBRYd2kCWjXN0OSB1F?=
- =?us-ascii?Q?mB4sGlxbXr2WF9UqRJxMH5zu3tNFWXBewIhuqmuYe1/q+lOjdjm8fB19JyTJ?=
- =?us-ascii?Q?yQFtyFqMYN9od20GOEbT1izeUDsPLyB2mp2HOUF62QIH0VTKLyBF2q32oUqO?=
- =?us-ascii?Q?uRZWBkIOhsuBPi+sBMbjok6sRmV6jdAH2pza/gAZP/yTAyldXNR9MCc5lfsx?=
- =?us-ascii?Q?KzXlSb27rwhWacpY1zEMY+tPzsNhJf8E5EPZcv1csjkT4/l/64QHYaRDTXcl?=
- =?us-ascii?Q?Vt5Ki1nU+f4UIbXuLeedqzLznnBJ5rskpT6TDQ+QKIqP1maEZxZFOf/azyVC?=
- =?us-ascii?Q?mPYllcLKq3I7YakvH/3J2HudlEO3jmTN4CwTBqI4lzI2lqWU5XQS1r8ChKn+?=
- =?us-ascii?Q?IN4XQfwwKsTLxfYkeIJF7kAvkZcdluRCoPFaXgyDOLGxO4JrYr6p3uGvD5BO?=
- =?us-ascii?Q?3yrpJ+J6DEDlNgo9bFaUU3CW1tzYhrhROZtUJsygpldg7Nvv6D2TNKJo5yQc?=
- =?us-ascii?Q?1LVc9XsNxQPDwlvrOU8MGFW8A1Vj99/gogLj13D16JhcoS1ZexjQxJACA9JM?=
- =?us-ascii?Q?rqseRbYagG4+fM3bZfq9KYguvRr9K9/32nfFqM8P9fzvmf5bH+FweAlSO0tE?=
- =?us-ascii?Q?kP8E4drzgdj1Fbrs6lINaQ41TXta76bHj+0RTQKbD6bBVXn8?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f10062ea-9f76-4d96-33e9-08df2d2d0c97
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2026 15:32:41.8659
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fMHrvigwg2k+C4wj/QKwcXdjAcK+jAld9Yjx1jGMxetjhcWEukhMj5u2PU4gIZCHOHveQiQl2sVRFj9yeJeGIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB460542
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 12:06:53PM +0800, Jiale Yao wrote:
-> The EQ interrupt handler only schedules a tasklet. free_irq() prevents
-> another interrupt handler from running, but it does not drain a tasklet
-> that was queued before the IRQ was released.
-> 
-> The pending tasklet can access the EQ DMA buffer and queue array after
-> mlxsw_pci_aqs_fini() releases them. Kill it after freeing the IRQ and
-> before tearing down the asynchronous queues.
-> 
-> Fixes: eda6500a987a ("mlxsw: Add PCI bus implementation")
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/net/ethernet/mellanox/mlxsw/pci.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/mellanox/mlxsw/pci.c b/drivers/net/ethernet/mellanox/mlxsw/pci.c
-> index bfe3268dfdc1..ba66142ae333 100644
-> --- a/drivers/net/ethernet/mellanox/mlxsw/pci.c
-> +++ b/drivers/net/ethernet/mellanox/mlxsw/pci.c
-> @@ -2085,8 +2085,11 @@ static int mlxsw_pci_init(void *bus_priv, struct mlxsw_core *mlxsw_core,
->  static void mlxsw_pci_fini(void *bus_priv)
->  {
->  	struct mlxsw_pci *mlxsw_pci = bus_priv;
-> +	struct mlxsw_pci_queue *q;
->  
->  	free_irq(pci_irq_vector(mlxsw_pci->pdev, 0), mlxsw_pci);
-> +	q = mlxsw_pci_eq_get(mlxsw_pci);
-> +	tasklet_kill(&q->u.eq.tasklet);
->  	mlxsw_pci_aqs_fini(mlxsw_pci);
->  	mlxsw_pci_napi_devs_fini(mlxsw_pci);
->  	mlxsw_pci_fw_area_fini(mlxsw_pci);
+qca8k has no .get_stats64, so a user port's netdev counts only the
+frames that cross the CPU port, through the DSA user netdev's own
+tstats. Whatever the switch forwards between its own ports in a
+hardware-offloaded bridge never reaches the CPU and never shows up in
+the counters of either port. The same goes for a conduit that forwards
+in hardware past the host: on a GL.iNet GL-B3000 (IPQ5018 with a
+QCA8337 on SGMII) with the conduit offloaded, a 482 MB upload over the
+WAN port moved the wan netdev's TX bytes by 0.74 MB, while the switch's
+own TxByte counter for that port grew by 503 MB.
 
-Petr already looked into this [1]. Petr, please send your version when
-net-next opens for 7.5.
+The switch counts every frame in its per-port MIB. .get_stats64 may be
+called in atomic context and the MIB sits behind MDIO (or the Ethernet
+management frames), so read it from a delayed work every 3 s, as ar9331
+and rtl8365mb do, and hand out the cached result. The counters keep
+their value across reads (QCA8K_MIB_CPU_KEEP); only the difference since
+the previous read is added, so a 32-bit counter wrapping between two
+reads does not corrupt the total.
 
-[1] https://lore.kernel.org/netdev/875x2788ac.fsf@nvidia.com/
+With the change, on the same board and setup, a 732 MB upload moved the
+wan netdev's TX bytes by 764.9 MB, the same as the switch's TxByte.
+
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
+---
+Tested on a GL.iNet GL-B3000 with the patch on OpenWrt's 6.18 kernel,
+where it differs only in the context of struct qca8k_priv. Built for
+arm64 on net-next with W=1; checkpatch --strict is clean.
+
+ drivers/net/dsa/qca/qca8k-8xxx.c | 157 +++++++++++++++++++++++++++++++
+ drivers/net/dsa/qca/qca8k.h      |  47 +++++++++
+ 2 files changed, 204 insertions(+)
+
+diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+index 07227ae8b..9fef54a88 100644
+--- a/drivers/net/dsa/qca/qca8k-8xxx.c
++++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+@@ -1851,6 +1851,156 @@ static void qca8k_setup_hol_fixup(struct qca8k_priv *priv, int port)
+ 			   mask);
+ }
+ 
++/* Without .get_stats64 a DSA user port counts only what crosses the CPU
++ * port, which is nothing of the traffic the switch forwards between its own
++ * ports. Report the switch's own port counters instead.
++ */
++#define QCA8K_STATS_INTERVAL	(3 * HZ)
++
++static const u8 qca8k_stats_mib[QCA8K_STATS_MIB_COUNT] = {
++	[QCA8K_STATS_RX_MULTI]		= 0x08,
++	[QCA8K_STATS_RX_FCS_ERR]	= 0x0c,
++	[QCA8K_STATS_RX_ALIGN_ERR]	= 0x10,
++	[QCA8K_STATS_RX_RUNT]		= 0x14,
++	[QCA8K_STATS_RX_FRAGMENT]	= 0x18,
++	[QCA8K_STATS_RX_64]		= 0x1c,
++	[QCA8K_STATS_RX_128]		= 0x20,
++	[QCA8K_STATS_RX_256]		= 0x24,
++	[QCA8K_STATS_RX_512]		= 0x28,
++	[QCA8K_STATS_RX_1024]		= 0x2c,
++	[QCA8K_STATS_RX_1518]		= 0x30,
++	[QCA8K_STATS_RX_MAX]		= 0x34,
++	[QCA8K_STATS_RX_TOO_LONG]	= 0x38,
++	[QCA8K_STATS_RX_OVERFLOW]	= 0x4c,
++	[QCA8K_STATS_FILTERED]		= 0x50,
++	[QCA8K_STATS_TX_UNDERRUN]	= 0x60,
++	[QCA8K_STATS_TX_64]		= 0x64,
++	[QCA8K_STATS_TX_128]		= 0x68,
++	[QCA8K_STATS_TX_256]		= 0x6c,
++	[QCA8K_STATS_TX_512]		= 0x70,
++	[QCA8K_STATS_TX_1024]		= 0x74,
++	[QCA8K_STATS_TX_1518]		= 0x78,
++	[QCA8K_STATS_TX_MAX]		= 0x7c,
++	[QCA8K_STATS_TX_OVERSIZE]	= 0x80,
++	[QCA8K_STATS_TX_COLLISION]	= 0x8c,
++	[QCA8K_STATS_TX_ABORT_COL]	= 0x90,
++	[QCA8K_STATS_TX_LATE_COL]	= 0xa4,
++};
++
++#define QCA8K_MIB_RX_GOOD_BYTE	0x3c
++#define QCA8K_MIB_TX_BYTE	0x84
++
++static int qca8k_stats_read64(struct qca8k_priv *priv, u32 reg, u64 *val)
++{
++	u32 lo, hi;
++	int ret;
++
++	ret = qca8k_read(priv, reg, &lo);
++	if (!ret)
++		ret = qca8k_read(priv, reg + 4, &hi);
++	if (!ret)
++		*val = ((u64)hi << 32) | lo;
++
++	return ret;
++}
++
++static u64 qca8k_stats_delta64(u64 now, u64 *last)
++{
++	/* a flushed MIB starts again from zero */
++	u64 delta = now >= *last ? now - *last : now;
++
++	*last = now;
++	return delta;
++}
++
++static void qca8k_stats_read_port(struct qca8k_priv *priv, int port)
++{
++	struct qca8k_port_stats *ps = &priv->port_stats[port];
++	u32 raw[QCA8K_STATS_MIB_COUNT], d[QCA8K_STATS_MIB_COUNT];
++	u32 base = QCA8K_PORT_MIB_COUNTER(port);
++	struct rtnl_link_stats64 *s = &ps->stats;
++	u64 rx_bytes, tx_bytes;
++	int i;
++
++	/* all of the slow MDIO reads before the lock */
++	if (qca8k_stats_read64(priv, base + QCA8K_MIB_RX_GOOD_BYTE, &rx_bytes) ||
++	    qca8k_stats_read64(priv, base + QCA8K_MIB_TX_BYTE, &tx_bytes))
++		return;
++
++	for (i = 0; i < QCA8K_STATS_MIB_COUNT; i++)
++		if (qca8k_read(priv, base + qca8k_stats_mib[i], &raw[i]))
++			return;
++
++	spin_lock_bh(&ps->lock);
++
++	for (i = 0; i < QCA8K_STATS_MIB_COUNT; i++) {
++		d[i] = raw[i] - ps->last[i];
++		ps->last[i] = raw[i];
++	}
++
++	s->rx_bytes += qca8k_stats_delta64(rx_bytes, &ps->last_rx_bytes);
++	s->tx_bytes += qca8k_stats_delta64(tx_bytes, &ps->last_tx_bytes);
++	s->rx_packets += (u64)d[QCA8K_STATS_RX_64] + d[QCA8K_STATS_RX_128] +
++			 d[QCA8K_STATS_RX_256] + d[QCA8K_STATS_RX_512] +
++			 d[QCA8K_STATS_RX_1024] + d[QCA8K_STATS_RX_1518] +
++			 d[QCA8K_STATS_RX_MAX];
++	s->tx_packets += (u64)d[QCA8K_STATS_TX_64] + d[QCA8K_STATS_TX_128] +
++			 d[QCA8K_STATS_TX_256] + d[QCA8K_STATS_TX_512] +
++			 d[QCA8K_STATS_TX_1024] + d[QCA8K_STATS_TX_1518] +
++			 d[QCA8K_STATS_TX_MAX];
++	s->multicast += d[QCA8K_STATS_RX_MULTI];
++	s->rx_length_errors += (u64)d[QCA8K_STATS_RX_RUNT] +
++			       d[QCA8K_STATS_RX_FRAGMENT] +
++			       d[QCA8K_STATS_RX_TOO_LONG];
++	s->rx_crc_errors += d[QCA8K_STATS_RX_FCS_ERR];
++	s->rx_frame_errors += d[QCA8K_STATS_RX_ALIGN_ERR];
++	s->rx_missed_errors += d[QCA8K_STATS_RX_OVERFLOW];
++	s->rx_dropped += d[QCA8K_STATS_FILTERED];
++	s->rx_errors += (u64)d[QCA8K_STATS_RX_FCS_ERR] +
++			d[QCA8K_STATS_RX_ALIGN_ERR] + d[QCA8K_STATS_RX_RUNT] +
++			d[QCA8K_STATS_RX_FRAGMENT] + d[QCA8K_STATS_RX_OVERFLOW] +
++			d[QCA8K_STATS_RX_TOO_LONG];
++	s->tx_fifo_errors += d[QCA8K_STATS_TX_UNDERRUN];
++	s->tx_aborted_errors += d[QCA8K_STATS_TX_ABORT_COL];
++	s->tx_window_errors += d[QCA8K_STATS_TX_LATE_COL];
++	s->tx_errors += (u64)d[QCA8K_STATS_TX_OVERSIZE] +
++			d[QCA8K_STATS_TX_ABORT_COL] + d[QCA8K_STATS_TX_UNDERRUN] +
++			d[QCA8K_STATS_TX_LATE_COL];
++	s->collisions += d[QCA8K_STATS_TX_COLLISION];
++
++	spin_unlock_bh(&ps->lock);
++}
++
++static void qca8k_stats_poll(struct work_struct *work)
++{
++	struct qca8k_priv *priv = container_of(work, struct qca8k_priv,
++					       stats_work.work);
++	struct dsa_port *dp;
++
++	dsa_switch_for_each_user_port(dp, priv->ds)
++		qca8k_stats_read_port(priv, dp->index);
++
++	schedule_delayed_work(&priv->stats_work, QCA8K_STATS_INTERVAL);
++}
++
++static void qca8k_get_stats64(struct dsa_switch *ds, int port,
++			      struct rtnl_link_stats64 *s)
++{
++	struct qca8k_priv *priv = ds->priv;
++	struct qca8k_port_stats *ps = &priv->port_stats[port];
++
++	spin_lock_bh(&ps->lock);
++	memcpy(s, &ps->stats, sizeof(*s));
++	spin_unlock_bh(&ps->lock);
++}
++
++static void qca8k_teardown(struct dsa_switch *ds)
++{
++	struct qca8k_priv *priv = ds->priv;
++
++	cancel_delayed_work_sync(&priv->stats_work);
++}
++
+ static int
+ qca8k_setup(struct dsa_switch *ds)
+ {
+@@ -2020,6 +2170,11 @@ qca8k_setup(struct dsa_switch *ds)
+ 	/* Set max number of LAGs supported */
+ 	ds->num_lag_ids = QCA8K_NUM_LAGS;
+ 
++	for (int port = 0; port < QCA8K_NUM_PORTS; port++)
++		spin_lock_init(&priv->port_stats[port].lock);
++	INIT_DELAYED_WORK(&priv->stats_work, qca8k_stats_poll);
++	schedule_delayed_work(&priv->stats_work, 0);
++
+ 	return 0;
+ }
+ 
+@@ -2033,9 +2188,11 @@ static const struct phylink_mac_ops qca8k_phylink_mac_ops = {
+ static const struct dsa_switch_ops qca8k_switch_ops = {
+ 	.get_tag_protocol	= qca8k_get_tag_protocol,
+ 	.setup			= qca8k_setup,
++	.teardown		= qca8k_teardown,
+ 	.get_strings		= qca8k_get_strings,
+ 	.get_ethtool_stats	= qca8k_get_ethtool_stats,
+ 	.get_sset_count		= qca8k_get_sset_count,
++	.get_stats64		= qca8k_get_stats64,
+ 	.set_ageing_time	= qca8k_set_ageing_time,
+ 	.support_eee		= dsa_supports_eee,
+ 	.set_mac_eee		= qca8k_set_mac_eee,
+diff --git a/drivers/net/dsa/qca/qca8k.h b/drivers/net/dsa/qca/qca8k.h
+index 956338893..47e9e5631 100644
+--- a/drivers/net/dsa/qca/qca8k.h
++++ b/drivers/net/dsa/qca/qca8k.h
+@@ -442,6 +442,51 @@ struct qca8k_led {
+ 	struct led_classdev cdev;
+ };
+ 
++/* MIB counters behind .get_stats64, in the order qca8k_stats_mib[] reads them */
++enum qca8k_stats_mib_idx {
++	QCA8K_STATS_RX_MULTI,
++	QCA8K_STATS_RX_FCS_ERR,
++	QCA8K_STATS_RX_ALIGN_ERR,
++	QCA8K_STATS_RX_RUNT,
++	QCA8K_STATS_RX_FRAGMENT,
++	QCA8K_STATS_RX_64,
++	QCA8K_STATS_RX_128,
++	QCA8K_STATS_RX_256,
++	QCA8K_STATS_RX_512,
++	QCA8K_STATS_RX_1024,
++	QCA8K_STATS_RX_1518,
++	QCA8K_STATS_RX_MAX,
++	QCA8K_STATS_RX_TOO_LONG,
++	QCA8K_STATS_RX_OVERFLOW,
++	QCA8K_STATS_FILTERED,
++	QCA8K_STATS_TX_UNDERRUN,
++	QCA8K_STATS_TX_64,
++	QCA8K_STATS_TX_128,
++	QCA8K_STATS_TX_256,
++	QCA8K_STATS_TX_512,
++	QCA8K_STATS_TX_1024,
++	QCA8K_STATS_TX_1518,
++	QCA8K_STATS_TX_MAX,
++	QCA8K_STATS_TX_OVERSIZE,
++	QCA8K_STATS_TX_COLLISION,
++	QCA8K_STATS_TX_ABORT_COL,
++	QCA8K_STATS_TX_LATE_COL,
++	QCA8K_STATS_MIB_COUNT
++};
++
++/* Port counters for .get_stats64. That callback runs in atomic context and
++ * the MIB sits behind MDIO, so a worker reads it and this holds the result.
++ * The MIB counters are cumulative; last[] keeps the previous raw values so
++ * only the difference is added and a 32-bit counter may wrap between reads.
++ */
++struct qca8k_port_stats {
++	spinlock_t lock; /* protects stats against the worker */
++	struct rtnl_link_stats64 stats;
++	u32 last[QCA8K_STATS_MIB_COUNT];
++	u64 last_rx_bytes;
++	u64 last_tx_bytes;
++};
++
+ struct qca8k_priv {
+ 	u8 switch_id;
+ 	u8 switch_revision;
+@@ -469,6 +514,8 @@ struct qca8k_priv {
+ 	struct qca8k_pcs pcs_port_6;
+ 	const struct qca8k_match_data *info;
+ 	struct qca8k_led ports_led[QCA8K_LED_COUNT];
++	struct qca8k_port_stats port_stats[QCA8K_NUM_PORTS];
++	struct delayed_work stats_work;
+ };
+ 
+ struct qca8k_mib_desc {
+-- 
+2.43.0
+
