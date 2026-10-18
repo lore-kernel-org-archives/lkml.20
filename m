@@ -1,43 +1,43 @@
 Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EC03CB57C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:53:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB093CC7D8
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:53:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338804; cv=none; b=WePgHgmSyL3mC3zktVx9JKWIuEl3c/BiElR29NLlUxwm+p78aTSb/UbwIBrxjNyk+vnvTAAz9VoWq/B4TB4UvRPFxdfRP+DEsOi9n7z+TKR8wiMsmDdjgXC+Sg4H0e1TyJNUfhmun6ysje7gpf4hNMGwRKCv/0yP4z+OWWDGcrU=
+	t=1792338799; cv=none; b=mXWKBNXJYSJr0qVWSYA88l+ohxGu9r33HPMEQXt3VJCXbSkezyU7rGcrqvfFMlEdsxn6FSeEhXHzDIrzMbKsDwUGM2XEjM/8FNS5219xEJCb/gQifrftzyaR443escBwq0SEm3TzTre+SvSibNBniGtC4Jj8aS/5lmXlJX9nJLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338804; c=relaxed/simple;
-	bh=Rml9MYXsr/6tFjtQ62qZFuqAxvrNRb/EfuakjDjKMTY=;
+	s=arc-20240116; t=1792338799; c=relaxed/simple;
+	bh=NBK3Uq6mJnMGLcuPcZsF3oQ5rq60icza9Ut44wW3kN4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Z3tfRnTLotjMn4IcGd65ReX7FlPSSjH3lqNvjYoeppXfyg5uC3Hh60zF2sO2nYR1lQgmrPYWSlQxotUxoWBkfc++z8k3oRAEpWRt6QKrn6rwyV/J0mDDDN1iaoAUXScy7g5feO1We34O3Ymnnt03986fOSpBpXKFOVpY36XZBaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=SGx0k382; arc=none smtp.client-ip=185.226.149.38
+	 MIME-Version; b=Dm4B50DBEh3nHu0olkLr2WtHPyQUTTggZ2acvgu6ObCUFHvf8cDsjW7kJtlumNBUT1RfqSypTdsCnR3oCoZuXHnloUjFaY/tJwVH8N7z+3G7MBwdly5VSI0kJjwxJYIhdK3LozJo3c1TUkerDj2I45l3SmugUPJQ2pYiEpCSEu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=JIFleeIn; arc=none smtp.client-ip=185.226.149.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="SGx0k382"
+	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="JIFleeIn"
 Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
 	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITC2-001KAW-S3; Sun, 18 Oct 2026 17:53:02 +0200
+	id 1xITC5-001KBg-Av; Sun, 18 Oct 2026 17:53:05 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
 	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
 	:Message-Id:Date:Subject:Cc:To:From;
-	bh=B7W50HzfEtTYoFlPorZ56JD0MRdF3AifMRwslpL7QiY=; b=SGx0k382n2f4n0b1r8w0++TS0v
-	Jb/gZnm5YEF/MSMiDG8j83SZtsFceMWy2s6Ze0PEVx1oPELtJ31RP6FNQNVYsNSGRZx1NUMDoIs6U
-	U+hhb/FEeUjpsHuXYLINQLbFtJniN/JtjNSePh9a22jYRqvaKXxyjHNeUjjAxzfRyqDDrG+1hSZg7
-	lAnxvUSUlMIYeIDjKeTFyt331jT2mtF7Kr8gvzjWWU4tYRMU/zm/viJnOHB7tI+jIVCvHWTBDeiw+
-	iBYMvWvmPHGbwCPbJTx4uhvJuiR6+q0aLIMeS5bnuUfO/nmgCse3GcgEvRcdBCbL/bXTCQ/gX/m7P
-	o+A6wyqQ==;
+	bh=vt+DX7it/eANWApqnIWyB+tp9rxNTB9Pm45wqeF5kRw=; b=JIFleeIn7HVgMjlf5C8m2aAEr3
+	VqHTtuXnEVLOKTLhIHcVz3szVYMPUhRZ38pwwd8ZTa3/5vsdlV0auVlVUGHKsgha8y41ZxayVIRH3
+	h+95ArV9CthJVBJIoRMfHF6h2dlnOgM+P3Fnw2ucAC6RS6PK77iafuR3MU4rOVdeck3Oez852cTlS
+	9bGM7NxPbZuQ69IKkJGM49tGJU/6bnEvrpwms6W08x7Teix2RCHR6nn2AVofMp+Xgd/95JLsLlNXR
+	Z6Ihjex8hdY8louMRqHsB8qGPV0wYwvSztPFlfJr7MGpqX09mJCIBuSVizcO1MkcMU6PvMU0oymY7
+	mZ90A8Fg==;
 Received: from [10.9.9.74] (helo=submission03.runbox)
 	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITBx-0001oT-KN; Sun, 18 Oct 2026 17:52:57 +0200
+	id 1xITC0-0001pm-3J; Sun, 18 Oct 2026 17:53:00 +0200
 Received: by submission03.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.95)
-	id 1xITBf-004q3U-1Z;
-	Sun, 18 Oct 2026 17:52:39 +0200
+	id 1xITBh-004q3U-7N;
+	Sun, 18 Oct 2026 17:52:41 +0200
 From: David Laight <david.laight.linux@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Petr Mladek <pmladek@suse.com>,
@@ -51,9 +51,9 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: Luis Chamberlain <mcgrof@kernel.org>,
 	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
 	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH v2 next 03/15] kallsyms: Improve selftest test_perf_kallsyms_lookup_name() output
-Date: Sun, 18 Oct 2026 16:51:54 +0100
-Message-Id: <20261018155206.132411-4-david.laight.linux@gmail.com>
+Subject: [PATCH v2 next 07/15] kallsyms: Optimise detection of duplicate symbol names
+Date: Sun, 18 Oct 2026 16:51:58 +0100
+Message-Id: <20261018155206.132411-8-david.laight.linux@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261018155206.132411-1-david.laight.linux@gmail.com>
 References: <20261018155206.132411-1-david.laight.linux@gmail.com>
@@ -65,298 +65,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-- Improve the test stability/reproducability by taking the faster of
-  two calls to kallsyms_lookup_name().
-- Check that kallsyms_lookup_name() returns the expected address
-  unless the symbol is duplicated.
-- Report the names of the min/max symbols.
-- Output an 8 line 64 entry histogram of the times taken.
-- This shows there is a reasonably normal distribution with a small
-  number of much slower outliers that don't really affect the average.
+While most symbol names are unique, some local symbols have duplicate names.
+The first (usually lowest address) one is expected to be returned.
 
-Additionally:
-- Add a very long symbol to check the handling of two byte lengths.
-- Do the test_perf_kallsyms_lookup_name() last because it can take long
-  enough that the CPU frequency changes and the times reported by the
-  other tests can change.
-- Mark the 4 test functions noinline_for_stack since they all have a
-  quite large on-stack structure.
+After the binary search finds a match, insted of doing a lookup of the
+preceeding symbol to check it isn't a duplicate use the low bit of the
+name offset to indicate this is a duplicate of the previous symbol.
+
+If a short linear search fails to find a non-duplicate repeat the binary
+search because some symbols (eg __func__.0) can occur hundreds of times.
+(Or tens of thousands of times in an allyesconfig kernel.)
+
+Change kallsyms_on_each_match_symbol() to do a linear scan until it finds
+a non-duplicate instead does the search in kallsyms_lookup_names().
+Add a zero marker to the end of the table so that scan terminates for the
+last symbol.
+
+The slowest 'lookup by name' changes being a symbol that is duplicated a lot
+to one that is very long.
+
+Rename the kallsyms_off_24/32_of_names symbols to ensure code mismatch
+causes a link fail.
+
+Stealing a bit from the name offset means that 32bit offsets are needed
+if the compressed name table exceeds 8GB rather than 16GB.
+The table for the kernel I'm building is about 1.5GB.
 
 Signed-off-by: David Laight <david.laight.linux@gmail.com>
 ---
- kernel/kallsyms_selftest.c | 165 ++++++++++++++++++++++++++++---------
- 1 file changed, 125 insertions(+), 40 deletions(-)
+ kernel/kallsyms.c          | 88 ++++++++++++++++++--------------------
+ kernel/kallsyms_internal.h |  4 +-
+ scripts/kallsyms.c         | 16 +++++--
+ 3 files changed, 55 insertions(+), 53 deletions(-)
 
-diff --git a/kernel/kallsyms_selftest.c b/kernel/kallsyms_selftest.c
-index 0db79237fe54..9072bd91c318 100644
---- a/kernel/kallsyms_selftest.c
-+++ b/kernel/kallsyms_selftest.c
-@@ -22,6 +22,8 @@
+diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
+index 31451feac822..e393ede35111 100644
+--- a/kernel/kallsyms.c
++++ b/kernel/kallsyms.c
+@@ -117,7 +117,7 @@ static int kallsyms_strcmp_symbol(unsigned int off, const char *name)
+ {
+ 	const char *tptr;
+ 	unsigned int len;
+-	const u8 *data = get_symbol_data(off, &len);
++	const u8 *data = get_symbol_data(off >> 1, &len);
  
+ 	tptr = &kallsyms_token_table[kallsyms_token_index[*data++]] + 1;
+ 	while (*tptr) {
+@@ -221,8 +221,8 @@ static DEFINE_STATIC_KEY_TRUE(kallsyms_off_size_24);
+ static inline unsigned int get_symbol_name_offset(unsigned long index)
+ {
+ 	if (static_branch_likely(&kallsyms_off_size_24))
+-		return kallsyms_off24_of_names[index].v;
+-	return kallsyms_off32_of_names[index];
++		return kallsyms_off_24_of_names[index].v;
++	return kallsyms_off_32_of_names[index];
+ }
  
- #define MAX_NUM_OF_RECORDS		64
-+#define HISTOGRAM_BUCKETS		64
-+#define HISTOGRAM_RESOLUTION		10
+ static void set_kallsyms_off_size(void)
+@@ -231,58 +231,51 @@ static void set_kallsyms_off_size(void)
+ 		static_branch_disable(&kallsyms_off_size_24);
+ }
  
- struct test_stat {
- 	int min;
-@@ -29,35 +31,56 @@ struct test_stat {
- 	int save_cnt;
- 	int real_cnt;
- 	int perf;
--	u64 sum;
- 	char *name;
- 	unsigned long addr;
- 	unsigned long addrs[MAX_NUM_OF_RECORDS];
- };
+-static int kallsyms_lookup_names(const char *name,
+-				 unsigned int *start,
+-				 unsigned int *end)
++static int kallsyms_lookup_names(const char *name, unsigned int *start)
+ {
++	unsigned int mid, off;
++	int low, high;
+ 	int ret;
+-	int low, mid, high;
+-	unsigned int off;
  
-+struct lookup_name_info {
-+	unsigned int count;
-+	unsigned int min;
-+	unsigned int max;
-+	u64 sum;
-+	char min_name[64];
-+	char max_name[64];
-+	unsigned int histogram[HISTOGRAM_BUCKETS];
-+	unsigned int scale;
-+};
-+
- struct test_item {
- 	char *name;
- 	unsigned long addr;
- };
+ 	DO_ONCE_LITE(set_kallsyms_off_size);
  
--#define ITEM_FUNC(s)				\
--	{					\
--		.name = #s,			\
--		.addr = (unsigned long)s,	\
+ 	low = 0;
+ 	high = kallsyms_num_syms - 1;
+ 
+-	while (low <= high) {
++	for (;;) {
++		if (low > high)
++			return -1;
+ 		mid = low + (high - low) / 2;
+ 		off = get_symbol_name_offset(mid);
+ 		ret = kallsyms_strcmp_symbol(off, name);
+-		if (ret > 0)
++		if (ret > 0) {
+ 			low = mid + 1;
+-		else if (ret < 0)
+-			high = mid - 1;
+-		else
+-			break;
 -	}
 -
--#define ITEM_DATA(s)				\
-+#define _TEST_ITEM(s)				\
- 	{					\
- 		.name = #s,			\
- 		.addr = (unsigned long)&s,	\
+-	if (low > high)
+-		return -1;
+-
+-	ret = off;
+-
+-	low = mid;
+-	while (low) {
+-		off = get_symbol_name_offset(low - 1);
+-		if (kallsyms_strcmp_symbol(off, name) != 0)
+-			break;
+-		low--;
+-		ret = off;
+-	}
+-	*start = low;
+-
+-	if (end) {
+-		high = mid;
+-		while (high < kallsyms_num_syms - 1) {
+-			off = get_symbol_name_offset(high + 1);
+-			if (kallsyms_strcmp_symbol(off, name) != 0)
++			continue;
++		}
++		if (!ret) {
++			/*
++			* Found a match, but need the first one.
++			* Most symbols (and all exported/global ones) only occur
++			* once, most of the others only occur a small number of
++			* times so it is worth doing a linear scan that avoids the
++			* kallsyms_strcmp_symbol() call.
++			* However some symbols occur a large number of times
++			* (_sub_D_65535_0 is repeated 24610 times in an x86-64
++			* allyesconfig, __func__.0 442 in a more normal kernel).
++			* Avoid a long linear scan by returning to the binary
++			* search if a short linear search is fruitless.
++			*/
++			unsigned int scan = 16;
++			while ((off & 1) && scan--)
++				off = get_symbol_name_offset(--mid);
++			if (!(off & 1))
+ 				break;
+-			high++;
+ 		}
+-		*end = high;
++		high = mid - 1;
  	}
  
-+#define TEST_ITEM(s) _TEST_ITEM(s)
+-	return ret;
++	*start = mid;
++	return off;
+ }
  
- static int kallsyms_test_var_bss_static;
- static int kallsyms_test_var_data_static = 1;
- int kallsyms_test_var_bss;
- int kallsyms_test_var_data = 1;
+ /* Lookup the address for this symbol. Returns 0 if not found. */
+@@ -295,9 +288,9 @@ unsigned long kallsyms_lookup_name(const char *name)
+ 	if (!*name)
+ 		return 0;
  
-+/* This is 509 characters, compresses to about 330 */
-+#define kallsyms_very_long_name \
-+The_time_has_come_the_Walrus_said_To_talk_of_many_things\
-+_Of_shoes_and_ships_and_sealing_wax_Of_cabbages_and_kings\
-+_And_why_the_sea_is_boiling_hot_And_whether_pigs_have_wings\
-+\
-+_O_Oysters_said_the_Carpenter_Youve_had_a_pleasant_run\
-+_Shall_we_be_trotting_home_again_But_answer_came_there_none\
-+_And_this_was_scarcely_odd_because_Theyd_eaten_every_one\
-+\
-+_The_moon_was_shining_sulkily_Because_she_thought_the_sun\
-+_Had_got_no_business_to_be_there_After_the_day_was_done\
-+_Its_very_rude_of_him_she_said_To_come_and_spoil_the_fun
-+
-+static int kallsyms_very_long_name = 1;
-+
- static int kallsyms_test_func_static(void)
+-	ret = kallsyms_lookup_names(name, &i, NULL);
++	ret = kallsyms_lookup_names(name, &i);
+ 	if (ret >= 0)
+-		return get_name_address(ret);
++		return get_name_address(ret >> 1);
+ 
+ 	return module_kallsyms_lookup_name(name);
+ }
+@@ -328,18 +321,19 @@ int kallsyms_on_each_match_symbol(int (*fn)(void *, unsigned long),
+ 				  const char *name, void *data)
  {
- 	kallsyms_test_var_bss_static++;
-@@ -79,16 +102,17 @@ __weak int kallsyms_test_func_weak(void)
+ 	int name_offset, ret;
+-	unsigned int sym_number, last;
++	unsigned int sym_number;
+ 
+-	name_offset = kallsyms_lookup_names(name, &sym_number, &last);
++	name_offset = kallsyms_lookup_names(name, &sym_number);
+ 	if (name_offset < 0)
+ 		return 0;
+ 
+-	for (;; name_offset = get_symbol_name_offset(sym_number)) {
+-		ret = fn(data, get_name_address(name_offset));
+-		if (ret || ++sym_number > last)
++	do {
++		ret = fn(data, get_name_address(name_offset >> 1));
++		if (ret)
+ 			break;
+ 		cond_resched();
+-	}
++		name_offset = get_symbol_name_offset(++sym_number);
++	} while (name_offset & 1);
+ 
+ 	return ret;
  }
+diff --git a/kernel/kallsyms_internal.h b/kernel/kallsyms_internal.h
+index ec6eca5654e6..e4a1f737aed1 100644
+--- a/kernel/kallsyms_internal.h
++++ b/kernel/kallsyms_internal.h
+@@ -15,7 +15,7 @@ extern const u16 kallsyms_token_index[];
+ extern const unsigned int kallsyms_markers[];
  
- static struct test_item test_items[] = {
--	ITEM_FUNC(kallsyms_test_func_static),
--	ITEM_FUNC(kallsyms_test_func),
--	ITEM_FUNC(kallsyms_test_func_weak),
--	ITEM_FUNC(vmalloc_noprof),
--	ITEM_FUNC(vfree),
-+	TEST_ITEM(kallsyms_test_func_static),
-+	TEST_ITEM(kallsyms_test_func),
-+	TEST_ITEM(kallsyms_test_func_weak),
-+	TEST_ITEM(vmalloc_noprof),
-+	TEST_ITEM(vfree),
- #ifdef CONFIG_KALLSYMS_ALL
--	ITEM_DATA(kallsyms_test_var_bss_static),
--	ITEM_DATA(kallsyms_test_var_data_static),
--	ITEM_DATA(kallsyms_test_var_bss),
--	ITEM_DATA(kallsyms_test_var_data),
-+	TEST_ITEM(kallsyms_test_var_bss_static),
-+	TEST_ITEM(kallsyms_test_var_data_static),
-+	TEST_ITEM(kallsyms_very_long_name),
-+	TEST_ITEM(kallsyms_test_var_bss),
-+	TEST_ITEM(kallsyms_test_var_data),
- #endif
- };
+ extern const unsigned int kallsyms_off_size;
+-extern struct { unsigned int v:24 __packed; } __packed kallsyms_off24_of_names[] __weak;
+-extern u32 kallsyms_off32_of_names[] __weak;
++extern struct { unsigned int v:24 __packed; } __packed kallsyms_off_24_of_names[] __weak;
++extern u32 kallsyms_off_32_of_names[] __weak;
  
-@@ -101,7 +125,7 @@ static int stat_symbol_len(void *data, const char *name, unsigned long addr)
- 	return 0;
- }
+ #endif // LINUX_KALLSYMS_INTERNAL_H_
+diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
+index a02fa17428d3..2e579e1cf7de 100644
+--- a/scripts/kallsyms.c
++++ b/scripts/kallsyms.c
+@@ -433,11 +433,14 @@ static void write_src(void)
+ 	printf("\n");
  
--static void test_kallsyms_compression_ratio(void)
-+static noinline_for_stack void test_kallsyms_compression_ratio(void)
- {
- 	u32 pos, off, len, num;
- 	u32 ratio, total_size, total_len = 0;
-@@ -153,38 +177,99 @@ static void test_kallsyms_compression_ratio(void)
- 	pr_info(" ---------------------------------------------------------\n");
- }
- 
-+static int is_duplicate(void *data, unsigned long addr)
-+{
-+	return (*(int *)data)++;
-+}
-+
- static int lookup_name(void *data, const char *name, unsigned long addr)
- {
--	u64 t0, t1, t;
--	struct test_stat *stat = (struct test_stat *)data;
-+	struct lookup_name_info *info = data;
-+	unsigned int i, t0, t1, t;
-+	unsigned long got_addr;
- 
-+	/* Improve the stability by taking the fastest of two calls. */
- 	t0 = ktime_get_ns();
- 	(void)kallsyms_lookup_name(name);
- 	t1 = ktime_get_ns();
--
- 	t = t1 - t0;
--	if (t < stat->min)
--		stat->min = t;
-+	got_addr = kallsyms_lookup_name(name);
-+	t0 = ktime_get_ns();
-+	if (t0 - t1 < t)
-+		t = t0 - t1;
- 
--	if (t > stat->max)
--		stat->max = t;
-+	if (addr != got_addr) {
-+		int c = 0;
- 
--	stat->real_cnt++;
--	stat->sum += t;
-+		if (!kallsyms_on_each_match_symbol(is_duplicate, name, &c)) {
-+			pr_info("got %ld not %ld for %s\n", got_addr, addr, name);
-+			return 1;
-+		}
-+	}
-+
-+	info->count++;
-+	info->sum += t;
-+
-+	if (t < info->min) {
-+		info->min = t;
-+		strscpy(info->min_name, name);
-+	}
-+
-+	if (t > info->max) {
-+		info->max = t;
-+		strscpy(info->max_name, name);
-+	}
-+
-+	/* Create a histogram of the times */
-+	t = (t / HISTOGRAM_RESOLUTION) >> info->scale;
-+	while (t >= HISTOGRAM_BUCKETS) {
-+		t >>= 1;
-+		info->scale++;
-+		for (i = 0; i < HISTOGRAM_BUCKETS / 2; i++)
-+			info->histogram[i] = info->histogram[2 * i] + info->histogram[2 * i + 1];
-+		for (; i < HISTOGRAM_BUCKETS; i++)
-+			info->histogram[i] = 0;
-+	}
-+	info->histogram[t]++;
- 
- 	return 0;
- }
- 
--static void test_perf_kallsyms_lookup_name(void)
-+static noinline_for_stack void test_perf_kallsyms_lookup_name(void)
- {
--	struct test_stat stat;
--
--	memset(&stat, 0, sizeof(stat));
--	stat.min = INT_MAX;
--	kallsyms_on_each_symbol(lookup_name, &stat);
--	pr_info("kallsyms_lookup_name() looked up %d symbols\n", stat.real_cnt);
--	pr_info("The time spent on each symbol is (ns): min=%d, max=%d, avg=%lld\n",
--		stat.min, stat.max, div_u64(stat.sum, stat.real_cnt));
-+	struct lookup_name_info info;
-+	unsigned int idx, scale, row;
-+	char line[HISTOGRAM_BUCKETS];
-+	int len;
-+
-+	memset(&info, 0, sizeof(info));
-+	info.min = ~0u;
-+	kallsyms_on_each_symbol(lookup_name, &info);
-+	pr_info("kallsyms_lookup_name() looked up %d symbols, average %lld ns\n",
-+		info.count, div_u64(info.sum, info.count));
-+	pr_info("\tfastest %u ns (%s)\n", info.min, info.min_name);
-+	pr_info("\tslowest %u ns (%s)\n", info.max, info.max_name);
-+
-+	scale = 0;
-+	for (idx = 0; idx < HISTOGRAM_BUCKETS; idx++) {
-+		if (scale < info.histogram[idx])
-+			scale = info.histogram[idx];
-+	}
-+	row = 8;
-+	scale /= row;
-+	pr_info("\tDistribution, %uns per column, %u counts per *:\n",
-+		HISTOGRAM_RESOLUTION << info.scale, scale);
-+	while (row--) {
-+		memset(line, ' ', sizeof(line));
-+		len = 0;
-+		for (idx = 0; idx < HISTOGRAM_BUCKETS; idx++) {
-+			if (info.histogram[idx] > row * scale) {
-+				len = idx + 1;
-+				line[idx] = '*';
-+			}
-+		}
-+		pr_info("\t|%.*s\n", len, line);
-+	}
- }
- 
- static int find_symbol(void *data, const char *name, unsigned long addr)
-@@ -207,7 +292,7 @@ static int find_symbol(void *data, const char *name, unsigned long addr)
- 	return 0;
- }
- 
--static void test_perf_kallsyms_on_each_symbol(void)
-+static noinline_for_stack void test_perf_kallsyms_on_each_symbol(void)
- {
- 	u64 t0, t1;
- 	struct test_stat stat;
-@@ -240,7 +325,7 @@ static int match_symbol(void *data, unsigned long addr)
- 	return 0;
- }
- 
--static void test_perf_kallsyms_on_each_match_symbol(void)
-+static noinline_for_stack void test_perf_kallsyms_on_each_match_symbol(void)
- {
- 	u64 t0, t1;
- 	struct test_stat stat;
-@@ -254,7 +339,7 @@ static void test_perf_kallsyms_on_each_match_symbol(void)
- 	pr_info("kallsyms_on_each_match_symbol() traverse all: %lld ns\n", t1 - t0);
- }
- 
--static int test_kallsyms_basic_function(void)
-+static noinline_for_stack int test_kallsyms_basic_function(void)
- {
- 	int i, j, ret;
- 	int next = 0, nr_failed = 0;
-@@ -425,9 +510,9 @@ static int test_entry(void *p)
+ 	sort_symbols_by_name();
+-	off_size = table_size < (1u << 24) ? 24 : 32;
++	off_size = table_size < (1u << 23) ? 24 : 32;
+ 	output_value("kallsyms_off_size", off_size);
+-	output_label(off_size == 24 ? "kallsyms_off24_of_names" : "kallsyms_off32_of_names");
++	output_label(off_size == 24 ? "kallsyms_off_24_of_names" : "kallsyms_off_32_of_names");
+ 	for (i = 0; i < table_cnt; i++) {
+-		off = table[i]->seq;
++		off = table[i]->seq << 1;
++		if (i && !strcmp((char *)table[i - 1]->sym + 1, (char *)table[i]->sym + 1))
++			/* Mark that this is a duplicate of the previous symbol */
++			off |= 1;
+ 		if (off_size == 24) {
+ #ifdef CONFIG_CPU_BIG_ENDIAN
+ 			off = __builtin_bswap32(off) >> 8;
+@@ -449,7 +452,12 @@ static void write_src(void)
+ 			printf("\t.long\t%#04x\t/* %s */\n", off, table[i]->sym);
+ 		}
  	}
+-	printf(".size kallsyms_off%d_of_names, . - kallsyms_off%d_of_names\n", off_size, off_size);
++	/* Terminator without the 'duplicate' flag. */
++	if (off_size == 24)
++		printf("\t.byte\t0,0,0\n");
++	else
++		printf("\t.long\t0\n");
++	printf(".size kallsyms_off_%d_of_names, . - kallsyms_off_%d_of_names\n", off_size, off_size);
  
- 	test_kallsyms_compression_ratio();
--	test_perf_kallsyms_lookup_name();
- 	test_perf_kallsyms_on_each_symbol();
- 	test_perf_kallsyms_on_each_match_symbol();
-+	test_perf_kallsyms_lookup_name();
- 	pr_info("finish\n");
- 
- 	return 0;
+ 	fflush(stdout);
+ 	if (ferror(stdout))
 -- 
 2.39.5
 
