@@ -1,67 +1,25 @@
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C591348C76
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6A7348C76;
+	Sun, 18 Oct 2026 03:03:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792292584; cv=none; b=JHdK40FQLZFNNCHqCQzkxs10ammTNwsHM+bQnNXaMDrXDAQnfKOZKv4qxdWcqoHlN4qXO0860RTOdsm3rLASqBdN4OJCaxdzORp3QM1CgC/pzFj46dYPCLQWMH/eJ21rVU4iR+J7oEn6sbwUNB3s6POkRUaRs4Yk+bG51JFAFeA=
+	t=1792292594; cv=none; b=KazyWkIVrSAzaxvoTuQI14XtDxl+Ew+2xxS7fdo19Dp+J6mfv2PJ+7KM8ASYX1sWRgX0fQVWpEl9A5v6n37PY/sdE7fj1D0XfozOMgsNba6d7itOC4wM+Ht2lvVggYMyWgHs+4r3OAVH1v8wHg6xL8zQKC9IHbIF6wbZrwsxDR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792292584; c=relaxed/simple;
-	bh=ZITNZtXI1LEVNcddldEtZUUMUQQr3d4n2wmhbo8gnjI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=WAGfATgJMFKjiHSMCHlTXQbNQyTFL4TypzEwS8n9D/eYm5E4uV+SejZHQy64w+d92g4AstW+H7wL1Rz0B76QrvE2MQe+J/wGflRyz5fr7TRoi0wz241ah250//lld8Myc6LkvHMJlgVpAfmueX2UmETpEIhDGyWOQTl0Tbz4bJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lklahw+m; arc=none smtp.client-ip=74.125.229.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lklahw+m"
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35c95a3a303so150554eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:03:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792292582; x=1792897382; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=itgPlMiyJa1Z48u7pjVt4mWiUxVb/1ebtQBcGmzhbn0=;
-        b=Lklahw+mVnpE8c+d6IMoubwHA/yZiwgoAJL3aE5evl5WWs0eGtnjunpVm8Nhuk82E+
-         3JClLd4ep9kGmQztqp7HMuDoMGBjc6TLpkp2H/fc7mePB4kwGKj0zDfFRQSYqT/UK7LC
-         U3y1+7LWxdL/GrRrDfj1tCVUSm+2igM8H+fm0aksQNE3Ne/cuvek1dxwqKKnaZQsVyx5
-         hwKSsey99D7FnF9LSCJhTWHVCM5QMr1QLccUw4G2KxXieVqzFh1bIrAIkb8czKIYXVXc
-         tpPmtYrHL8Yt5XjzY5EBjXxkfltD1uCk9wqeZXdMtnHqFR04uEaz+Ky9tMDPoBELr/9d
-         XNBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792292582; x=1792897382;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=itgPlMiyJa1Z48u7pjVt4mWiUxVb/1ebtQBcGmzhbn0=;
-        b=MyhgOvtaGw0d6ItYLLBMD+la7+nPCARXFOfBe4xAKFJyJVth/+2LTR476JM1+dcpeP
-         VTJalpgv6oCFp7BaEM/zORS9eJuV24jSK2pm0trPOM89utQPYz4CP7Z5WkcvW6MZwG+z
-         vDDjst0majAq3FQjpvmLUfD1mNoZ7HExdHc3U/WOz0OUmlv+AFLibisZxGXFL+6jeT3o
-         OuTInyXYpm3lzjIKbDcT5AH77TjQDeL/frVsXKNB2MWUMFs0pxCVkl2kOsV46LN65J90
-         RY1VbUyO1xMn+Njx6IVSEXQid0/hmUHQaEjfssju0ssEC1ZN3QcLccC+kDjJbyHgKGvR
-         UhMw==
-X-Forwarded-Encrypted: i=1; AKwUvByp+BsXlHK2SQE7DFdQjMGSCyVSeuMV/ZUoXixUSpGxCNUNU/BAEd/MveUsNQJSKYgtLTAXPFTI8Nec4S0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6dgBfjX0qY/DRFVIBysR8l1T+c8ITr0s2DZgDdp/4tco6qh7Y
-	RgWPIsvGExtggbo6chovflC51+epMZvJPmEO97HNJmE8JcQYRh8MEq6x
-X-Gm-Gg: AYBFou0VwoUjE1PdUKVhEnBFcIwHi5nuT5G3BzW1zaXn+zv4kr/G2WZo8M3Ys0pjhXD
-	iq2Sncf32q8xJA4DdxckQtqyPAZjqdsm4u4leB4ojFUtYwukaUtVsUgx5GffLbMM3/zKbw4h38k
-	QHEn4jZ1DpZJuezlQx4b+N6wCN0vLtaBdeKhZNu1tAFVdUFV0StMlH5or0P6py5kWVStmeFZ9+U
-	b2UyjOOaQtK8XFdyIhb86R5SD4zQq2RMtlbnvi6bxuuhMcYq7L/E5S9BjAFiSGJybMPrIGuiDRA
-	rNhPU3dxsY5ElGeZPzWGzcHSUw+VzzBiaCbCJ7iTAxQJfL/x+hVTf/w35lnWMmfq8eTbwZ1GX1p
-	mosYuNytLx3gZk8XWHPQu17Ym03W5eaim/hx1n8opnxMYIJxepGUR5rk7ahWq8GoxyHgJeUBJ1e
-	en0zbkLqz0yVU0EbtD5jjLQthIe90/iNbzHu+mpzQK1ZCI7qHc0ggP5KUMGfsgtWeiIL66vv5wd
-	/hprLHXKg1Q4aMRoI0uptUHnwVANotp15+ISCmKSlk+yKSw46cy
-X-Received: by 2002:a05:7301:2710:b0:35e:af84:bf1e with SMTP id 5a478bee46e88-361a2053227mr5923201eec.7.1792292582456;
-        Sat, 17 Oct 2026 20:03:02 -0700 (PDT)
-Received: from ?IPV6:2607:f598:b3da:60:e5a8:1520:7d4c:f121? ([2607:f598:b3da:60:e5a8:1520:7d4c:f121])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0e5e6sm20383250eec.1.2026.10.17.20.03.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 20:03:02 -0700 (PDT)
-Message-ID: <b2b8aeee-08a5-479b-bac4-a38ac606a037@gmail.com>
-Date: Sat, 17 Oct 2026 20:03:00 -0700
+	s=arc-20240116; t=1792292594; c=relaxed/simple;
+	bh=0KkuGVnbhsWfcdabm/htUrm/DqxpcuxDQZ4lojf2pUA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HbK/m9coO1QdjjuPAbEjVRR6k1NT5k2j/RXKrnHdKoiUkJE31hJBLTFuu7HUGElsH0fVoK+OFqNxTTbLfwnTx8moGI0g6i0PBE+adHTJVXRRuumVbEs7PM0t0sPocXUrq3RYIyYGL6ssvujvrhOWEmsu4XiviBAuWQYyArVSWyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07857046|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00559226-0.000243516-0.994164;FP=11709099924969983668|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033068016216;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jie8pT0_1792292573;
+Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jie8pT0_1792292573 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 18 Oct 2026 11:03:01 +0800
+Message-ID: <b4e5b68e-2ece-4007-bd47-e6432ce70d9a@motor-comm.com>
+Date: Sun, 18 Oct 2026 11:02:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,48 +27,114 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Bozhen Peng <bozhenpeng93@gmail.com>
-Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Only expose kb_mode when
- it is supported
-To: Anton Karasev <uselessfire@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
- Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- W_Armin@gmx.de, qby140326@gmail.com, ilya.gladyshev@linux.dev,
- chris@miget.com, kento@kekto.ru, wolf109909@outlook.com,
- vlku.milos.fun@gmail.com, btx342@gmail.com, zsanya322@gmail.com,
- i@rsplwe.com, martiya.ar@gmail.com, nika@nikableh.moe
-References: <20261008-bitland-kb-mode-v1-uselessfire@gmail.com>
+Subject: Re: [PATCH net-next v14 5/5] net: dsa: motorcomm: Add support for
+ Motorcomm YT922x
+To: David Yang <mmyangfl@gmail.com>
+Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
+References: <20261013011122.1889766-1-kyle.switch@motor-comm.com>
+ <20261013011122.1889766-6-kyle.switch@motor-comm.com>
+ <CAAXyoMPeOmMZ8u=+S9=W=aJ0riSRbkBX9afrcVdfrE4BreO-Hw@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <20261008-bitland-kb-mode-v1-uselessfire@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Kyle Switch <kyle.switch@motor-comm.com>
+In-Reply-To: <CAAXyoMPeOmMZ8u=+S9=W=aJ0riSRbkBX9afrcVdfrE4BreO-Hw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Anton,
 
-I tested your patch as posted on my MECHREVO WUJIE15 PRO
-(WUJIE15 Series-HPT), using your stated for-next base: 
-
-98f039265e580291d5e76a11b2072541fbb1c393
-
-I booted the baseline and then the same kernel with only your patch
-applied. On the baseline, kb_mode was present, but reading it returned
-"Input/output error". With your patch, kb_mode was absent and I got:
-
-  kb_mode not supported (-5), hiding it
-
-The GET produces an ACPI AE_NOT_FOUND for HEC.LEDM on this machine.
-With your patch, the probe still reports the ACPI error, 
-but kb_mode is correctly hidden.
-
-I cycled the keyboard backlight with Fn+F7 from off through levels
-1, 2 and 3, then back to off. All levels worked. During this check,
-atkbd logged unknown scancode 0xf6 messages.
-
-This confirms the unsupported-kb_mode case on HPT. My keyboard backlight
-is not RGB, so I didn't tested the supported RGB-mode case.
-
-Tested-by: Bozhen Peng <bozhenpeng93@gmail.com>
-
-Thanks,
-Bozhen
+On 10/17/26 04:15, David Yang wrote:
+> On Tue, Oct 13, 2026 at 9:11 AM Kyle Switch <kyle.switch@motor-comm.com> wrote:
+>> +/* yt922x register lists */
+> The indents below look inconsistent. Please adjust to match the existing macros.
+Okay.
+>
+>> +#define YT92XX_PAGE_SELECT     0x1e
+>> +#define YT92XX_PAGE            0x1f
+>> +#define YT922X_PORTn_STATUS(port)      (0x80200 + 4 * (port))
+>> +#define  YT922X_PORT_LINK_STATE                        BIT(8)
+>> +#define  YT922X_PORT_LINK_DUPLEX               BIT(7)
+>> +#define  YT922X_PORT_RX_FC_EN                  BIT(6)
+>> +#define  YT922X_PORT_TX_FC_EN                  BIT(5)
+>> +#define YT922X_PORT_SPEED_10           0
+>> +#define YT922X_PORT_SPEED_100          1
+>> +#define YT922X_PORT_SPEED_1000         2
+>> +#define YT922X_PORT_SPEED_10000                3
+>> +#define YT922X_PORT_SPEED_2500         4
+>> +#define YT922X_PORT_SPEED_5000         5
+> Leftover from yt921x_speed.
+will be removed and use the macros defined earlier in 921x.
+>
+>> +/* ISO */
+> The comments here (and below) did not provide much information beyond
+> the code itself.
+>
+okay, will remove meaningless code comments.
+>> +#define YT922X_PORTn_ISOLATION(port)   (0x4 * (port) + 0x180d80)
+> (0x180d80 + 4 * (port))
+Okay.
+>
+>> diff --git a/drivers/net/dsa/motorcomm/mdio_bus.c b/drivers/net/dsa/motorcomm/mdio_bus.c
+>> index 3aa1111efaa4..a4cb74d0fd90 100644
+>> --- a/drivers/net/dsa/motorcomm/mdio_bus.c
+>> +++ b/drivers/net/dsa/motorcomm/mdio_bus.c
+>> @@ -299,3 +299,42 @@ int yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp)
+>>
+>>          return 0;
+>>   }
+>> +
+>> +/* intif extend register read/write api */
+>> +int
+>> +yt921x_intif_ext_write(struct yt921x_priv *priv, int port, int reg, u16 val)
+>> +{
+>> +       int res;
+>> +
+>> +       if (port > priv->series->max_ports)
+>> +               return -ENODEV;
+>> +
+>> +       res = yt921x_intif_write(priv, port, YT92XX_PAGE_SELECT, reg);
+>> +       if (res)
+>> +               return res;
+>> +
+>> +       res = yt921x_intif_write(priv, port, YT92XX_PAGE, val);
+>> +       if (res)
+>> +               return res;
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +int
+>> +yt921x_intif_ext_read(struct yt921x_priv *priv, int port, int reg, u16 *valp)
+>> +{
+>> +       int res;
+>> +
+>> +       if (port > priv->series->max_ports)
+>> +               return -ENODEV;
+>> +
+>> +       res = yt921x_intif_write(priv, port, YT92XX_PAGE_SELECT, reg);
+>> +       if (res)
+>> +               return res;
+>> +
+>> +       res = yt921x_intif_read(priv, port, YT92XX_PAGE, valp);
+>> +       if (res)
+>> +               return res;
+>> +
+>> +       return 0;
+>> +}
+>> diff --git a/drivers/net/dsa/motorcomm/mdio_bus.h b/drivers/net/dsa/motorcomm/mdio_bus.h
+>> index e79b725d435b..513a8d2d7618 100644
+>> --- a/drivers/net/dsa/motorcomm/mdio_bus.h
+>> +++ b/drivers/net/dsa/motorcomm/mdio_bus.h
+>> @@ -50,5 +50,7 @@ yt921x_intif_modify(struct yt921x_priv *priv, int port, int reg, u16 mask,
+>>
+>>   int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp);
+>>   int yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp);
+>> +int yt921x_intif_ext_write(struct yt921x_priv *priv, int port, int reg, u16 val);
+>> +int yt921x_intif_ext_read(struct yt921x_priv *priv, int port, int reg, u16 *valp);
+>>
+>>   #endif
+> intif_ext_* should be placed right after intif_* (if they are still in
+> mdio_bus).
+okay.
