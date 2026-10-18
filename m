@@ -1,207 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6242940DB5F;
-	Sun, 18 Oct 2026 20:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC94E3AFCE1
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:17:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792354369; cv=none; b=Pr4pRUjrJJl/Y3HetDreeUnXYQJ1exPyVYBjTWjpL1FADIqoVJ4nadJwqt0rKNdu/TNAceJ8tMjbpk7ROA3zsjHPfgU5tjXgTGuL7ftbCYn/1CBZV6NVEKPp7NZEk1iJ+r/6GESNbBDeuPFUMpe6I4hxeZTHdQflK41QpjjLZ58=
+	t=1792354654; cv=none; b=WZa5U80LeqEtjo2/v2o155PQx1gobhvfcOCz18J2/dN5wPLZbPuELDnpdL1cyeJnDpMfuV6MJk26K8EMhrPAPZD+qMkVox6ZqWvD2Wn6bgOLlHboAMIjy4g/vgcv1Q3nmuitziqrmRaHQM04RhM8gHvGiXYiQqFHfBc6gEJTXuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792354369; c=relaxed/simple;
-	bh=Q4CkcTGHfwqlTq/v3Lz/CGzpf17o9gtfSV7GuFzUiVo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=icpadB4Kw5qVaTTH/Keo+pJUgqBLjHH3TXBljbBDYJ8pKv9In6OoYhio/p3tPwIPjVt1g869u4XdIbT/WtvZJV4LjQt+pRjSMGcvaWQCQtO/AQpa/bwdliDT6lQG2U1BNxKYuyCy+3VeRd7o2hWmfbzvwR94j/lc45YmL75x5VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sQqdhi3M; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792354654; c=relaxed/simple;
+	bh=h0DXRm71k3vl+NtLleFRx5ikpPs0npkCZ9wKj0RSkLg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ShO3u16Y+ZgUT6L2En4ew/zmN3KFsiBUQfyeFVFTmWoQCnnoyH5iDF/niR1DnJfs4CZthxBrUEK1klDcwKiMrEHFlyOLQqKf15Y0b6TKQSsYtwgSvSCMBAKPx7xgvBEyX3QOF/0f0TvNai60y8u0QnIKb6vXTdS63aD23uWp9tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gZgD2rZN; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sQqdhi3M"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DE9D0C2BCF7;
-	Sun, 18 Oct 2026 20:12:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792354368;
-	bh=Q4CkcTGHfwqlTq/v3Lz/CGzpf17o9gtfSV7GuFzUiVo=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=sQqdhi3M8f5GPF2nUAuQ2zY2NdImI0p3kH3y02aJFLQdJbiLHVgVu7WVTivxlEPBD
-	 4Ct9I1+91hyrzyCHN6hNOLK6GIidvxnQXGrxIngNExYl7UYTiXFIFOvRbo0TqKOLl1
-	 BnV+8w8kvE+3CXaIb3GJs3GCmZNUspFX2LIgZJbr3Hh4iVD9U9uwO0rlOwtXVzr/1V
-	 yhPKY7Cf7NzVqhpkdqdzJNMcxPV0iICZViX+Jzd51Mftlc6wiCkNerCFTTkTKSKXMM
-	 dc3YsdnynGmSW5CjJZYHTSh+wW3cmjHtAHem0lMUX4C6IWUgZjWC2/OcjDf1UOvtML
-	 2w2n1Xbj1is1g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB85CCCF2C4;
-	Sun, 18 Oct 2026 20:12:48 +0000 (UTC)
-From: Mike Anderson via B4 Relay <devnull+mwwa919.gmail.com@kernel.org>
-Date: Sun, 18 Oct 2026 16:12:40 -0400
-Subject: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI
- sequences
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gZgD2rZN"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35f036b17easo3521051eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:17:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792354652; x=1792959452; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iunLl/bLZxKCNfFKAKTG5ZUc906N+A0KdQoeUczE7Io=;
+        b=gZgD2rZNtL9MNQi9nXL/lAgqp4wlksaQy77JzJ9hkVqNTo/YisnEzZBtuq16swNQxM
+         P2zU5opVkAJwlmFdOzxaV/7NmoFDno7yaIbwOaUdZRyPGwL10L+7wWpSGuzm73AyAuvc
+         YGRH27QXaNs5BYsho6OlSXv6edFVzGGkF+XVNs7440TSAQP56LDRt5zfQMa3bpcAhEPt
+         OftTPLfHdQgHZAdjQj2IZfb6buJxrPQJeeqYC+wL29JOph30UHzJ1kSWRMEDt3zUzLR5
+         21rK0HXlytQSnGSxcoBUCmEK8j8Jo77WrutvRAO0mWyw98Mwlpco52Zo2MCrpW845epl
+         e3Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792354652; x=1792959452;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iunLl/bLZxKCNfFKAKTG5ZUc906N+A0KdQoeUczE7Io=;
+        b=r/Jd+gFqul1yzCZ/LlivMlqeJQCjo3sZQ6kiOLGaNE5rJWwTGHmdoVbHxg24uopaxe
+         7ANTpHH/BOtTKYQUsKgxDbFuGFUbNpde6WFNTZO6VeXydcXlOhAKj6K+6DnHMfOcRz8q
+         qcMFg39CW7SM9TTm+u+5yUEoCvD9G1INmH0DZ/71m2bD6ycRuK853icZNIZBf0vT3/2u
+         cZEzBJTCqy+6UdV4h52dNtHq5YB+sWDlTiMM/Rr249zx4M2lq4GW+WhaU+5pzSU9Rl9Z
+         z6Y4HiWfRF2TX/Jh3S56T/jMr7BnIdp3CaPrXCZQQA0ElTxbgHWJC6V82XgDxhReJyMp
+         Qz7w==
+X-Forwarded-Encrypted: i=1; AKwUvBxe8sYC/DhL/2b/tRMNqAikDsdH7kFU8ibE94+mVaPUDYPVozhglAD5GLzfrZenhEJya6MZ3I5ZZB2QSx8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJcC3PCtVs42jlkqPDiQpthXryG9zapBPCFx4+6U5D0WKqbih+
+	GW36OAgM5EwS/uN1BkK2VDu0iLPYpVHmBIqtJPU9JxOjb1u4LSzTkz4/X4sRpw++
+X-Gm-Gg: AYBFou3WrVxJ/jtYl+9BID2IJbiaik60p1WT86qrbveFtQ+pwwtnsD5qSIdd7eBpKP4
+	n9T+4SC4fZqStcgy9xGCbVT+mWWfJfeHNGKwSp2MGPKTHJRdC5VaxfEnTNCAryWVe1e2TWWzlOc
+	8Q5/Eper39Y8P3WLtU28A6qTa+E15zjZlpT6A6huBCyeR1+QW/IH2EEOGrYjrMHCFCJYl/hnQrT
+	rl5hLPwCBAVXIp8QNJMa1SSzg6HONkBFm382wiHDExX6bk3bdogI6sjHnWMtVhKdPyVGTj+qmk4
+	Gl2rcXUOCrzO1e3282WmZmeWwNPImhItpzo0wXYpHWqlePdizXVYfVDwrDaHJuaorxpno7kNi6x
+	WVNnsZfXsvzFgtXdF8JgUYe3wVlQ3WLg3W71DYuuNUdJ5XElIoS5kwB7+aYg0n3Par9RL1DQzJz
+	ZhGVFY3ouZr8wXiGjX8uOWiIP1UgH8/QMODE80+DZFMx1FAUdOr+xrKalGMk8dho2SDg7x2wsdU
+	y7Z1XELLPSZ7o8nCdVW08hqJz0TA/MKjuAnMef/bHos1UbvboXPCf5H7Mi3sYoJevzuioC9MX83
+	Up+b0t5SdL7ak97Kttusdw==
+X-Received: by 2002:a05:7022:7e88:b0:153:7a27:b7d with SMTP id a92af1059eb24-18512c381a4mr12722802c88.20.1792354651787;
+        Sun, 18 Oct 2026 13:17:31 -0700 (PDT)
+Received: from markbook2.internal (108-204-86-179.lightspeed.sndgca.sbcglobal.net. [108.204.86.179])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c2e7bf4sm20791284c88.20.2026.10.18.13.17.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 18 Oct 2026 13:17:31 -0700 (PDT)
+From: mark-ship-it <williamwoodstock79@gmail.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org
+Cc: Alex Williamson <alex@shazbot.org>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] PCI: Avoid bus reset on NVIDIA GB202 and GB203 GPUs
+Date: Sun, 18 Oct 2026 13:17:27 -0700
+Message-ID: <20261018201727.96924-1-williamwoodstock79@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
-X-B4-Tracking: v=1; b=H4sIADco1WoC/yXMQQqDMBBA0avIrDvgpNBIr1JcaDLVkZJIpkZBv
- HtTXb7F/zsoJ2GFZ7VD4iwqMRTQrQI3dmFgFF8MpjYPqqnB/MnoVTCugT0Os0RF58nYvqO7ZQu
- lnBO/ZTuvr/ayLv3E7vtfwXH8ANQqkXx3AAAA
-X-Change-ID: 20261018-vlv-dsi-owned-gpios-cd127ba137e7
-To: Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Hans de Goede <hansg@kernel.org>, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Mike Anderson <mwwa919@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792354368; l=5805;
- i=mwwa919@gmail.com; s=20261018; h=from:subject:message-id;
- bh=fqIda2quYt/iS4PsHXKJtfdrABxMHpRCeHK2kOAm+9k=;
- b=YPHI4gGMlKh/kb6yUfYInfnPvCZcDfrreT+IUEzcqj8yDTmMeypyE/LvfsSY7CklhtFaRTt2Q
- HYf2EATZ1JuCKiR8aNZuOhkZcMZnQCuOATJ0osAE1n4myfVScnPlcDL
-X-Developer-Key: i=mwwa919@gmail.com; a=ed25519;
- pk=r8JyAI3thBa7smjCwoiNX+4TLbge6jj5Swldychd7nE=
-X-Endpoint-Received: by B4 Relay for mwwa919@gmail.com/20261018 with
- auth_id=1231
-X-Original-From: Mike Anderson <mwwa919@gmail.com>
-Reply-To: mwwa919@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Mike Anderson <mwwa919@gmail.com>
+NVIDIA GB202 (GeForce RTX 5090, RTX PRO 6000) and GB203 (GeForce RTX
+5080/5070 Ti/5070) GPUs train their link at x16 at boot, but after a
+Secondary Bus Reset the link comes back at x8 and stays there until the
+next cold boot.
 
-On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
-backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
-itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
-GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
-sequences also request their pin through gpiolib, so when a sequence
-toggles one of these two pins the request fails and the toggle is
-dropped:
+The GPU's HD Audio function (e.g. 10de:22e9 on GB203) has no reset method,
+so when both functions are assigned to a VM, vfio-pci falls back to a bus
+reset at VM start and again at release, and the GPU then runs at half
+width. Assigning only function 0 avoids the bus reset because the GPU
+itself supports FLR, which is why the problem is usually reported as
+"passing the audio function breaks x16".
 
-  i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY)
+Observed on an RTX 5080 (10de:2c02) behind an AMD Root Port, kernel
+7.0.14, Proxmox VE host with a Windows 11 Pro guest:
 
-Before that commit the pad registers were written directly, so the
-sequences could still drive the pins i915 owned.
+  boot:                         LnkSta: Speed 32GT/s, Width x16
+  echo 1 > /sys/bus/pci/devices/<root port>/reset_subordinate
+                                LnkSta: Speed 32GT/s, Width x8 (downgraded)
 
-The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
-panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
-MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
-failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
-during takeover and stays black, even though the backlight PWM and both
-enable GPIOs read back as on. The tablet only has a usable display
-with nomodeset.
+No VM is involved in that reproduction. Stepping the link speed through
+bwctrl (Gen5 -> Gen4 -> Gen5) retrains the link and the speed follows,
+but the width stays at x8. With a VM started frozen (-S), the link is
+already at x8 before any guest code has run, so the guest driver is not
+involved.
 
-When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
-corresponding descriptor, set it through that descriptor instead of
-requesting the pin a second time.
+With this patch applied, reset_method for the GPU is "flr" only, both
+functions can be assigned, and the link stays at x16 Gen5 across VM
+start, shutdown and restart, with the Windows guest driver working.
 
-Fixes: 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV GPIOs behind the driver's back")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM sparse
-Signed-off-by: Mike Anderson <mwwa919@gmail.com>
+The same symptom has been reported with an RTX 5090 (10de:2b85) on an
+AMD X870E board, where passing only function 0 was the only thing that
+kept x16.
+
+Link: https://forum.proxmox.com/threads/asus-x870e-pcie-x8-bifurcation-bug-with-rtx-5090-vfio-passthrough.178461/
+
+Signed-off-by: mark-ship-it <williamwoodstock79@gmail.com>
 ---
-This patch was developed with an AI coding assistant (Claude Code,
-Claude Opus 5.5): it ran the debugging session on the tablet (drm.debug
-log, gpio/pwm debugfs), traced the -EBUSY to 8241b55f1ded, and wrote the
-change and the changelog; I reviewed it and tested it on the hardware.
+ drivers/pci/quirks.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Testing, Toshiba Encore 2 WT8-B (Atom Z3735F, BIOS 2.10, VBT MIPI
-sequence block v2, PPS_BLC_SOC):
-- Arch Linux v7.2.11-arch1 with this patch backported (applies as is):
-  the panel lights up at i915 takeover and the Xorg login screen shows;
-  no "GPIO index ... request failed" errors; gpio-10/11 stay owned as
-  "backlight"/"panel". Unpatched v7.2.11 and v6.18.57 give a black
-  panel with five -EBUSY errors during boot.
-- drm-intel-next: built intel_dsi_vbt.o for i915 (=m and =y) and for
-  xe (=m) with W=1 and sparse (C=2, sparse v0.6.5-rc1): no new
-  warnings.
-
-Not tested: other VLV machines with PPS_BLC_SOC. Their behaviour only
-changes when their VBT sequences touch pin 10 or 11, which currently
-fails with -EBUSY anyway.
----
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 32 +++++++++++++++++++++++-----
- 1 file changed, 27 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index fe12041e9..85d1cdc6e 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -54,6 +54,10 @@
- #define MIPI_VIRTUAL_CHANNEL_SHIFT	1
- #define MIPI_PORT_SHIFT			3
- 
-+/* VLV NC pins of the backlight and panel enable GPIOs, see soc_panel_gpio_table */
-+#define VLV_GPIO_NC_BACKLIGHT		10
-+#define VLV_GPIO_NC_PANEL		11
-+
- struct i2c_adapter_lookup {
- 	u16 target_addr;
- 	struct intel_dsi *intel_dsi;
-@@ -247,10 +251,12 @@ static void soc_opaque_gpio_set_value(struct intel_connector *connector,
- 	kfree(lookup);
- }
- 
--static void vlv_gpio_set_value(struct intel_connector *connector,
-+static void vlv_gpio_set_value(struct intel_dsi *intel_dsi,
- 			       u8 gpio_source, u8 gpio_index, bool value)
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 1aa87a3ef..a4adcc3e7 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -3769,10 +3769,17 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_NVIDIA, 0x22D0, quirk_no_bus_reset);
+ /*
+  * Some NVIDIA GPU devices do not work with bus reset, SBR needs to be
+  * prevented for those affected devices.
++ *
++ * GB202 (0x2b80-0x2bbf) and GB203 (0x2c00-0x2c7f) GPUs train at x16 at
++ * boot, but after a Secondary Bus Reset the link comes back at x8 and
++ * stays there until the next cold boot; a link retrain restores the speed
++ * but not the width.  Function Level Reset does not have this problem.
+  */
+ static void quirk_nvidia_no_bus_reset(struct pci_dev *dev)
  {
--	struct intel_display *display = to_intel_display(connector);
-+	struct intel_display *display = to_intel_display(&intel_dsi->base);
-+	struct intel_connector *connector = intel_dsi->attached_connector;
-+	struct gpio_desc *gpio_desc = NULL;
- 
- 	/* XXX: this assumes vlv_gpio_table only has NC GPIOs. */
- 	if (connector->panel.vbt.dsi.seq_version < 3) {
-@@ -265,6 +271,22 @@ static void vlv_gpio_set_value(struct intel_connector *connector,
- 		}
- 	}
- 
-+	/*
-+	 * With PPS_BLC_SOC, intel_dsi_vbt_gpio_init() already owns these pins,
-+	 * so requesting them again fails with -EBUSY. Some VBTs still toggle
-+	 * them in their MIPI sequences, e.g. as the panel reset line, so drive
-+	 * them through the descriptors we hold.
-+	 */
-+	if (gpio_index == VLV_GPIO_NC_BACKLIGHT)
-+		gpio_desc = intel_dsi->gpio_backlight;
-+	else if (gpio_index == VLV_GPIO_NC_PANEL)
-+		gpio_desc = intel_dsi->gpio_panel;
-+
-+	if (gpio_desc && connector->panel.vbt.dsi.config->pwm_blc == PPS_BLC_SOC) {
-+		gpiod_set_value_cansleep(gpio_desc, value);
-+		return;
-+	}
-+
- 	soc_opaque_gpio_set_value(connector, gpio_index,
- 				  "INT33FC:01", "Panel N", gpio_index, value);
+-	if ((dev->device & 0xffc0) == 0x2340)
++	if ((dev->device & 0xffc0) == 0x2340 ||
++	    (dev->device & 0xffc0) == 0x2b80 ||
++	    (dev->device & 0xff80) == 0x2c00)
+ 		quirk_no_bus_reset(dev);
  }
-@@ -430,7 +452,7 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
- 	else if (DISPLAY_VER(display) >= 9)
- 		bxt_gpio_set_value(connector, gpio_index, value);
- 	else if (display->platform.valleyview)
--		vlv_gpio_set_value(connector, gpio_source, gpio_number, value);
-+		vlv_gpio_set_value(intel_dsi, gpio_source, gpio_number, value);
- 	else if (display->platform.cherryview)
- 		chv_gpio_set_value(connector, gpio_source, gpio_number, value);
- 
-@@ -886,8 +908,8 @@ static struct gpiod_lookup_table pmic_panel_gpio_table = {
- static struct gpiod_lookup_table soc_panel_gpio_table = {
- 	.dev_id = "0000:00:02.0",
- 	.table = {
--		GPIO_LOOKUP("INT33FC:01", 10, "backlight", GPIO_ACTIVE_HIGH),
--		GPIO_LOOKUP("INT33FC:01", 11, "panel", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("INT33FC:01", VLV_GPIO_NC_BACKLIGHT, "backlight", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("INT33FC:01", VLV_GPIO_NC_PANEL, "panel", GPIO_ACTIVE_HIGH),
- 		{ }
- 	},
- };
-
----
-base-commit: 0507cc5a476af0b6d037b19248bdd20dbe27487d
-change-id: 20261018-vlv-dsi-owned-gpios-cd127ba137e7
-
-Best regards,
---  
-Mike Anderson <mwwa919@gmail.com>
-
+ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_NVIDIA, PCI_ANY_ID,
+-- 
+2.55.0
 
