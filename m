@@ -1,368 +1,149 @@
-Received: from gwu.lbox.cz (gwu.lbox.cz [62.245.111.132])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020108.outbound.protection.outlook.com [52.101.69.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074622ECD32
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:53:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.245.111.132
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792342421; cv=none; b=aX5L8C/ySl4YIsA2x8X3gNZw75mzaPkcaW1I+tCzWb3y+cyyhIxpgaeVe7dmRDYVQMtI9UzCEdJEQ71dcsJD818mZsBgqOBViBno00nU5IAN0NKh5/xgHlNtYqNxvtXGr7NIUhr0LsPy38/xMGEEPVCgqmJ0qwyXWwg/qvr24fM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792342421; c=relaxed/simple;
-	bh=3Qs9VFBrfJ22fEFOqfmLKQ6ErQPr2LkSig1A1qurrcc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MAMIamrC2WkiCTXj2Mq7sBAPAlPEeujyfj+5yElu/166EYfvmvJB6iNfjnXcpuu5OlxVQKV5InB039W5WmwVb8DoklUEOSFnNDkuvbW7tu3JhMzfBfrj8x4TP8gRBJvs6eYzdZ5Bt7dyBOwaVM+W3WaJpBy2BLlaCjeMU9tTeuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz; spf=pass smtp.mailfrom=linuxbox.cz; dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b=JVessS2R; arc=none smtp.client-ip=62.245.111.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxbox.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD103E40E6;
+	Sun, 18 Oct 2026 16:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.108
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792342483; cv=fail; b=MI9Svh7llyCmpcmZauf4oNT0pCsBt1HevFccqZ1ipSpedLf2ki33fUCfIljIRcSWCVY1vUkXtDe78UJ74lgtz7WcOus+Wb2xd4j5UtcLbalzNpnAe26NE/voCRC2tnpCh/musz2kJLUH1EmmaWuHJUpOddn8ddqMtEKaFrjRh6s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792342483; c=relaxed/simple;
+	bh=KhFvBjGpI+0I0fKUmwGtaSXVn6Qb0dXe/0eFkhWsLX0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=O3P+zq+9jFrzbD7499KzmdfpekOzKq03SHLWriqfk8HFycfc0fgc6WwN95B3VTPReariXBsKL+oenbmwKsgrkTMhht3KhGT6kjnQvaQfeIm7TpJnN5fcvc/ZfN3V807jiWQ18B87BtJgwwibW+anQTcHw/UvTH7NKona7gIeGtI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=duqapKmJ; arc=fail smtp.client-ip=52.101.69.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b="JVessS2R"
-Received: from linuxbox.linuxbox.cz (linuxbox.linuxbox.cz [10.76.66.10])
-	by gwu.lbox.cz (Sendmail) with ESMTPS id 69IGqanD1091127
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Sun, 18 Oct 2026 18:52:36 +0200
-DKIM-Filter: OpenDKIM Filter v2.11.0 gwu.lbox.cz 69IGqanD1091127
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxbox.cz;
-	s=default; t=1792342357;
-	bh=04K1XWtuV3X33sgYJ/vH8S9+3XQC8lVkjSB9505KyUg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JVessS2RxHUeJkGFl8SPVnWHq5IUr3hSCd38JkUfDYfgapnzTdu57hmkRCJk1DpSW
-	 CThaGmZEjrXdXHTbV2K3MAyJcFLXW2+TMmjAlXnm/Bspn4GgP8Kjt6jD5E7zVp+ZTi
-	 RnvbEeQQmcVdLdlDcGVt6ncxHjhBvGGl/JbDlmZQ=
-Received: from pcnci.linuxbox.cz (pcnci.linuxbox.cz [10.76.3.14])
-	by linuxbox.linuxbox.cz (Sendmail) with ESMTPS id 69IGqZiZ004275
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Sun, 18 Oct 2026 18:52:35 +0200
-Received: from pcnci.linuxbox.cz (localhost [127.0.0.1])
-	by pcnci.linuxbox.cz (8.18.1/8.15.2) with ESMTPS id 69IGqTuU3136419
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 18 Oct 2026 18:52:31 +0200
-Date: Sun, 18 Oct 2026 18:52:29 +0200
-From: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Borislav Petkov <bp@alien8.de>, Andrew Morton <akpm@linux-foundation.org>,
-        David Laight <david.laight.linux@gmail.com>,
-        Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org, david@kernel.org,
-        Mike Rapoport <rppt@kernel.org>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
-        luizcap@redhat.com, pbonzini@redhat.com,
-        Tal Zussman <tz2294@columbia.edu>,
-        Matt Fleming <matt@readmodwrite.com>,
-        Nikola Ciprich <nikola.ciprich@linuxbox.cz>
-Subject: Re: hunting memory corruption bug in 6.18.x
-Message-ID: <atT5TYyLapHO5ZoX@pcnci.linuxbox.cz>
-References: <aseMsMGpGPT/G548@pcnci.linuxbox.cz>
- <20261008182356.GBasffvDuTemTu1VUY@fat_crate.local>
- <20261009090042.39ba9c06@pumpkin>
- <aszH4vpXFAOQP1WG@pcnci.linuxbox.cz>
- <20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
- <20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
- <20261016031242.GDatGWKo98YSOhEOOn@fat_crate.local>
- <20261015211832.45d87fab15bb3e0bbc2f47cb@linux-foundation.org>
- <20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
- <atI_yuCc4BiweBQP@google.com>
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="duqapKmJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q9Yj6pXOjys8SmiFEAcqvGf0m0UpvpqYPhp0UCuSX0jIW4H+Ocom3yH9Jkz/zsW2xUSKLOdswimZomSEOJxEpFeBTQJq4vwmhyahruZuKxa21YdY1kd68Fj8mE5QzctWWQrLl7PtfaKug4xNbm4eNoKmZfO2pCgppMUoae6l69QiJwj40HZGuo4LP3ns83JLF3WHy21xqaB/vIcUCmDEkNDXG+vYoNwhJgsVI+fRYc0eTtQs1SoWIZmuYQGq+L95Em6CJEaW10XR7lzOWor2PEmwC3ioZAxnSHRUxsc+kDor7UeAONqBz+9JDHll4Mv2rxZk6MSyXJBrKIz5DVWCTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KhFvBjGpI+0I0fKUmwGtaSXVn6Qb0dXe/0eFkhWsLX0=;
+ b=jK+q8XKy/whajCLOKMk2fJnSSgEasMtqlpwYReHHFvK8now90RSMpMh+wf9iaiUWILN6CGFqDbddj9pOoExyzAme5g207G93n/aeL7gEgoNjjJFAwAx8rQ2cnlTtoATt7gZYB5DVGVtu5pykGB0/7SIdN4CHf2NFpxMow3XNqqlqiyg445hoHEPwoVHnQjFYfGUmgohWIUZOrzdTRL7Xvarel5w8ehP3a0wJF5myUq9CUHaP6JWZdMXhcacCy/a4BL2ARlRE6VspEJalLKJQkm2i6yLperYjRwXqHnqnOdATsf2y9MflM8owxOxSViPpv/JorRm71UWVfcarwgiAfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
+ header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KhFvBjGpI+0I0fKUmwGtaSXVn6Qb0dXe/0eFkhWsLX0=;
+ b=duqapKmJZKKwgIl+vS35PY+76PbyN1F+NZZ6b+b5htFeJ0leXKhYJXvAo7/H2nw3KSAOQyT3fx4lyF3UQO6u+VhpM5gwX9FHuTxHNHG1B1HkwJ5Zb2+q3Hh0Vd3Q2keINQRPZeKYsfr6SmoULn/V2HbEiIxgCOUqOuefMh9hdbHgPrGrZNlZ5ePY4rl5Ry6b4zhORkz4aR+uKA/F8IOKxeGzV65XTmGmihdGNz2vTbotS8uW776NSecEcNEQVtrL7uayifDUKOhwqZCkw++axjiqOSprqjz3yD363yQFfjMaTplKw89FzsTx/+NRuH3d67HNV6cMn43tpqUXgkJc0Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=virtuozzo.com;
+Received: from DBBPR08MB5929.eurprd08.prod.outlook.com (2603:10a6:10:208::8)
+ by GVXPR08MB10810.eurprd08.prod.outlook.com (2603:10a6:150:150::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Sun, 18 Oct
+ 2026 16:54:36 +0000
+Received: from DBBPR08MB5929.eurprd08.prod.outlook.com
+ ([fe80::8c14:5279:76ab:8d35]) by DBBPR08MB5929.eurprd08.prod.outlook.com
+ ([fe80::8c14:5279:76ab:8d35%3]) with mapi id 15.21.0546.012; Sun, 18 Oct 2026
+ 16:54:35 +0000
+Message-ID: <dc9eda55-2688-40f7-9b0a-7dfa0e5cbf3d@virtuozzo.com>
+Date: Sun, 18 Oct 2026 19:54:30 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] udp: let rx-udp-gro-forwarding aggregate under
+ encapsulation
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Willem de Bruijn <willemb@google.com>,
+ Alexander Lobakin <alobakin@pm.me>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20261008163817.2983484-1-eva.kurchatova@virtuozzo.com>
+ <willemdebruijn.kernel.2f0d78527930f@gmail.com>
+Content-Language: en-US
+From: "Eva Kurchatova (Virtuozzo)" <eva.kurchatova@virtuozzo.com>
+In-Reply-To: <willemdebruijn.kernel.2f0d78527930f@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: WA2P291CA0037.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1f::17) To DBBPR08MB5929.eurprd08.prod.outlook.com
+ (2603:10a6:10:208::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atI_yuCc4BiweBQP@google.com>
-X-Scanned-By: MIMEDefang 3.7.1 on 10.76.66.3
-X-Scanned-By: MIMEDefang v3.7.1/SpamAssassin v4.000002 on lbxovapx9 (nik)
-X-Scanned-By: MIMEDefang 2.86 on 10.76.66.10
-X-Antivirus: on lbxovapx9 by Antivirus 
-X-Spam-Score: N/A (trusted relay)
-X-Milter-Copy-Status: O
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DBBPR08MB5929:EE_|GVXPR08MB10810:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3be10899-a718-418f-88f3-08df2d387d59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|18002099003|22082099003|10067099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	HMRlpAdwC8kcYS/t3K8Vv1KuwYjGGOj7dV37Rbj6QdMegTSyHMsqcIxclA1ZoRJK7o3uAm2inG74MdYm6DwkbFFiaeVbeK/lAzNqgbbXcNe69iGMs8rnz8GwHa13u87xndahwbQoT6FKM87z5Exu2UJyNg21qCqkd/H4rT0ljihEt7X/h25CFYWjoAesY9BHpjeYGhEnN7TxsSVC1xWKB+JUzMo8wRvHmLO6+jNO8JgR+mW1RRjbw+h2Tghe26es/yvAwY2cHU35dSQyFmNkHZhU/iDUbYzrgUmhwGbLBplbFygSOTU3u8srefpgjI8p2rMQkN2FFUAsSd/n9+w981U3Ca6qSjjf+KfirM+wie/XkWdWp/97wnZeXnzit1ZdLJUlDcApBDKuBfwt7VQLkaSJ568O8X74nKPqt1K55NIRR7BFH9o8KEc9R5xdZDYUBqW5Io2p1ODUNMxfYcAr47OCcuaszC5U1a31W0t91I9BLiYdlf6b1vH6DsEpQ/SXZRvnUjLQBvhUlbhixsb6qGRBx9BL7rFvZ7YXaq6tpOLNJmJQny2trJ5fRIMgZ8cRzUR8xnVAPla7Kx4hIeckz8h4hGRWSi65mhKiI13KZn8aRMBXmlLJaJwOFMJTEJA5KhGy8p3adK9qBjDkRw5ubPbEGK1a2F9dlPPOTvW4UiQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR08MB5929.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N2dHNU5FT2Vva0Iyd0w2S0QzN1VLeGJSMjh6SlpoOC9GNWwrbmQya2FIaVlM?=
+ =?utf-8?B?ZGpXQUVBa3hXM0VuS3JsbkVxYnJzTE1acFZpNi9jRndzVUZsMFhWbXhNR3la?=
+ =?utf-8?B?TjJoaUI1bW5xR3g2c3BvKzVMWkMvWUg0dmlmZVQ4SGV0b2pZMHUzOXdNcTBs?=
+ =?utf-8?B?RnQwdlZnL2FIdXowTXBtWTFJS0NkRUl0UFhxcDFwSEJJYy82eS9zQXUyYkFl?=
+ =?utf-8?B?bVMzckxVWmFFSTNZTjBybnhNUDF5d3VGMzV4dE1RZ2JzaUgrNmo2SVZnYXgw?=
+ =?utf-8?B?US9PVnM2SnVQdlVFMmNWTklJVEprQUQvMjhNUWZJVWRuTjNqeWU3cEd4czJv?=
+ =?utf-8?B?ZnBUNU9YRnF0YkJod09RQnBmdHpCZkV0ZzJ6Q243TGFCV3lJRFJTLzFuTnJH?=
+ =?utf-8?B?T1JHdUdMcisxdWYvYTRVQ2czdDVvRlBHalpBc2hDRUFXQUVXOE1jVnJiVXV3?=
+ =?utf-8?B?akswdjU0N1JWT1JjSjlZVGtUUDM4VkROYkxHYS9HM1Npa2IxTlIzV1BLc0da?=
+ =?utf-8?B?L3FyMjgzVWQ2RnRNRktJYnBSaGd1R3dLOFdtMktiNEY2YklNT1BqenRUMHNj?=
+ =?utf-8?B?UWRxTFNIbzFMUkFldVV3TUpsQmdGWUVmMmVoOXRBYlJLQ3pqNEVKMnY0ckpw?=
+ =?utf-8?B?Q0Zia0hCeGNsYzlqYUs2d0FkL3cyYzdYcFlFbjBPVDk5T1RXdHRHanRIckRN?=
+ =?utf-8?B?dCtwYk93K3ZRR2k3TTVNeTJsRjFhUU1jbFViRHhxRjBZcFJoeWdUSUFHZEo5?=
+ =?utf-8?B?eU4xcW9JdWsweHNJbVlVVmhqeXVNTnByUjIzQVFlSnJ0MU9BYVBWdnRPNk5D?=
+ =?utf-8?B?bm5aYWZwNStUZWJ3VjJPT25neUp1NXRXWFMvcVZvY0ZMcGNKQzVjazFiTlBN?=
+ =?utf-8?B?T1cxNEh5d2VoME5nMUVmWU9kb2F3UHBGZitNblNHdlloUHIxR2Fuei9JK2ls?=
+ =?utf-8?B?eVZPQ1dqcTVDMStYOTAyWC82NXJQZ2xxRVo5MVBQcktFaXNjRS9QZ0pSUk84?=
+ =?utf-8?B?dW9tV2M0dUliVjQzSHpDc3lhdEZzcEk5a1ZYcTdsbE9RVkhDMU1TcmhxTDFO?=
+ =?utf-8?B?a0MyRmJoa2FkVVNQcGpjY0FNOUgrQkFjaFMyMU9RQTZzSkw3Q1RpeHAveGpJ?=
+ =?utf-8?B?a09LRXB4UjNRU3lNeU5LazZGUnBHQWFzdEhpZFl2RlZhYnFlQThCLzlWQ296?=
+ =?utf-8?B?Nmg4cndKRHhjZUdKZVpncSt6UzI5b1Y3YlRzdHJNbEZwa0dENS8raUZaWXlh?=
+ =?utf-8?B?dHZseXZ3TlhLd2ladkNqVUtOemhNWnF6OVpQaVRYVTlyQVRRTXNCazVYZXhE?=
+ =?utf-8?B?VGFvQndldll2VjFwQUdUQ3hzMHlSdnRwOGptb1JGUWtSWlJ5VG5GMU5hSWJ1?=
+ =?utf-8?B?ZzNzN25Ic3JpTjF1bXlIbnJ5dnRpaDVOUVI3R0ZmQWVxSkFtVk1NbjJsTkx5?=
+ =?utf-8?B?bjFVUmdWeGxmL0FlLzhQa1FPVHRVMTl5ZTZISHp0dy9PaHRDWENUc3l0QUFU?=
+ =?utf-8?B?Vi9rQlh3cHp4M3BIZmV5bFlOdG1LRk42ZzI2eTc5OFN1ci9EN2RIMHYzNS9l?=
+ =?utf-8?B?bDIybTJOamNOK2E3Y1J3TzhpaHVjcnpYMTJiWlN6UEJKTGNuMFY2Y284Slc4?=
+ =?utf-8?B?aE9LbXlYNGFNcTF5TTRxM25XSVBlZUZEUG9iZzVzcy94RkswaTFOZVh6R09K?=
+ =?utf-8?B?WXhZTGRjdXdiWklibFAwVHd5Wk5Ub2xGMnRMLy9ObGxKejk0Tkk4UklldW4y?=
+ =?utf-8?B?STlIa2oyTjVzR3VabVBaWXV1ZXI2djhiMnNSSkpjYk95ZjkvWHlaWXFDSERi?=
+ =?utf-8?B?NHFwK0FoSnVUTXp3TDFhR28xSWVlV0hCeC9rZG5pdE5YbG1qYVVyaW55OU5P?=
+ =?utf-8?B?VzlCUG9jenVMby83UzJldW45YTVMckR3NUkzcVBKbzBnTlhMM2l6TW8xd3g5?=
+ =?utf-8?B?bHV3S015ZXF0MUtzcVFaZ0FsRS90UEk0djhNZGF6cEpGOUc1NG1SdFc1cU1m?=
+ =?utf-8?B?aDd1WmxteEJLNjNrYTRyaXpqdWtQdVlJdE9qM09KU3hISnExMXpLT1F0Vkps?=
+ =?utf-8?B?L2oxOFlHMXJyYWhreXI0T0JOQk41b3dUZ2ZiVGRLV3JFYXUzN2RTK2dwZ0w5?=
+ =?utf-8?B?TkpVYnlNekhUNzBwUExPSUs0YytyZVhCM2xTNXlBSG9sK01kU3A2Q09RRUcx?=
+ =?utf-8?B?dU9SQTYzTlU1Y1diaEpkLzdoZDYxUGZNa1Q2M1MxaTN0TVZCVy9OSHlhaDR1?=
+ =?utf-8?B?SVhaVml4ZlRvcXF1clJlODhmRzRxWmpDcXBRakZSazRCWkFwRldDRXdXeHJy?=
+ =?utf-8?B?MEh4RzEvemhMVEdNYlROR202ejJXTzl1cGVOUUpxQ09ZUnRPYmhENEY1YmRQ?=
+ =?utf-8?Q?bCVzR0rJH6y26+9g=3D?=
+X-OriginatorOrg: virtuozzo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3be10899-a718-418f-88f3-08df2d387d59
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR08MB5929.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2026 16:54:35.6057
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Tx3hYxQg7L3EeWfqf9PamALFTnjBcuKRJrIX0rXQjHbN1QNFb9NYS+az4UufichktexMf9Lyvism+FHJbB3quXLOO0v1Xguc/5mE1AJAH1E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB10810
 
 
-Hello Sean (and others),
+On Wed, 15 Oct 2026 02:56, Willem de Bruijn wrote:
+ > Uses encapsulation in the same network namespace as where the test
+ > runs? If different namespaces, the socket lookup should fail and
+ > thus the behavior be the same as on a host without a tunnel.
 
-I think I've finally found the (at least) one missing piece needed to reproduce
-this. At first I wasn't paying much attention to nested virtualization, because
- we don't use it much (or so I thought), but I was still wondering why
- why all of this seems to be tied to Windows guests. So I dug into advanced
-Windows security features and found out that newer Windows versions use
-something called Virtualization-Based Security (VBS), which relies on
-exactly that: SVM/VMX, i.e. nested virtualization. (I'm not a Windows guy,
-so excuse my ignorance here.)
+Different one: the vxlan sat in the init namespace, the test in the
+ns it creates. The static key is global, though, so the tunnel turns
+the lookup on everywhere, and the lookup then runs in the test's
+receiving namespace, where it finds the test's own receiver: a plain
+socket bound to any address, without UDP_GRO. That is why the check
+goes from 1 to 10 the moment a tunnel exists anywhere on the host.
 
-So I enabled Secure Boot as well as VBS on my lab test guests, checked
-msinfo32 and tried migrating them and voilà, the guest crashed almost
-immediately.
-
-After a few more attempts, it looks pretty easy to reproduce: it usually
-doesn't survive more than 3-5 migrations (often 1-2 are enough).
-
-So far I've retested 7.3-rc7, and it seems to be rock solid (60 migrations
-and no issues).
-
-I'll give your patch a try, and if it doesn't help, I can try bisecting.
-Now that I have a reliable reproducer, that should be doable.
-
-I'll report back soon.
-
-thanks,
-
-nik
-
-PS: of course this can still be something different that memory corruption
-bug I'm hunting, but still it'll be worh backporting to LTS 6.18.
-
-
-On Fri, Oct 16, 2026 at 08:16:26AM -0700, Sean Christopherson wrote:
-> On Thu, Oct 15, 2026, Borislav Petkov wrote:
-> > On Thu, Oct 15, 2026 at 09:18:32PM -0700, Andrew Morton wrote:
-> > > The corruption patterns strongly resemble AMD VMCB state, particularly
-> > > FS/GS segment data appearing at the expected VMCB offsets in unrelated
-> > > host memory.
-> > 
-> > Aha, ok.
-> > 
-> > > This suggests that a VMSAVE operation may have written to
-> > > an incorrect physical address.  Ordinary KVM performs VMLOAD/VMSAVE
-> > > without nested virtualization, so Boris's objection doesn't eliminate
-> > > this possibility.  However, the relevant assembly is essentially
-> > > unchanged between 6.18.55 and 7.3-rc6, and I haven't identified a newer
-> > > commit that convincingly explains why the corruption apparently stopped
-> > > reproducing.  The earlier candidate 55780d8a1dcc remains poorly
-> > > motivated without evidence of nested virtualization.
-> > > 
-> > > Two investigations look worthwhile.  First, test 6.18.55 with both the
-> > > KVM TLB-flush fix (26505e1b5b54)
-> > 
-> > Pff, we've been looking at that one recently too, trying to figure out whether
-> > it was really necessary.
-> > 
-> > > and tlbi=ipi;
-> > 
-> > Yeah, we checked that, it ain't that.
-> > 
-> > > the existing results don't conclusively establish whether that combination
-> > > was tested.  Second, examine the vmcore to determine whether the corrupted
-> > > host pages contain complete FS/GS state matching a legitimate VMCB, rather
-> > > than merely a few matching values.  If they do, inspect the VMCB's
-> > > VMLOAD/VMSAVE interception and virtualization-enable bits.  That could
-> > > establish whether a hardware VMSAVE was allowed to write to an unintended
-> > > physical page.  The successful 7.3-rc6/rc7 testing is encouraging, but it
-> > > doesn't yet prove that all the reported corruption symptoms share one cause
-> > > or have been fixed.
-> > 
-> > Hmm. I guess looking at and around VMSAVE handling wouldn't hurt...
-> 
-> @Nikola, as very long long-shot, can you try running with the below?  I don't
-> expect it to help or flag anything, but this is eerily similar to a known bug[*]
-> where KVM writes to user memory in the wrong address space (wrong process) when
-> tearing down a VM after migrating the VM.  But that bug (well, bugs) only affects
-> Intel, and I don't see any similar patterns on the AMD side.
-> 
-> [*] https://lore.kernel.org/all/20261001202234.3794060-1-seanjc@google.com
-> 
-> diff --git a/arch/x86/kvm/vmx/sgx.c b/arch/x86/kvm/vmx/sgx.c
-> index df1d0cf769475..fc0ae4727793b 100644
-> --- a/arch/x86/kvm/vmx/sgx.c
-> +++ b/arch/x86/kvm/vmx/sgx.c
-> @@ -63,7 +63,7 @@ static void sgx_handle_emulation_failure(struct kvm_vcpu *vcpu, u64 addr,
->  static int sgx_read_hva(struct kvm_vcpu *vcpu, unsigned long hva, void *data,
->  			unsigned int size)
->  {
-> -	if (__copy_from_user(data, (void __user *)hva, size)) {
-> +	if (kvm_copy_from_user(vcpu->kvm, data, (void __user *)hva, size)) {
->  		sgx_handle_emulation_failure(vcpu, hva, size);
->  		return -EFAULT;
->  	}
-> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-> index f65081330c8a4..2dec1463b596c 100644
-> --- a/arch/x86/kvm/vmx/vmx.c
-> +++ b/arch/x86/kvm/vmx/vmx.c
-> @@ -3902,16 +3902,16 @@ static int init_rmode_tss(struct kvm *kvm, void __user *ua)
->  	int i;
->  
->  	for (i = 0; i < 3; i++) {
-> -		if (__copy_to_user(ua + PAGE_SIZE * i, zero_page, PAGE_SIZE))
-> +		if (kvm_copy_to_user(kvm, ua + PAGE_SIZE * i, zero_page, PAGE_SIZE))
->  			return -EFAULT;
->  	}
->  
->  	data = TSS_BASE_SIZE + TSS_REDIRECTION_SIZE;
-> -	if (__copy_to_user(ua + TSS_IOPB_BASE_OFFSET, &data, sizeof(u16)))
-> +	if (kvm_copy_to_user(kvm, ua + TSS_IOPB_BASE_OFFSET, &data, sizeof(u16)))
->  		return -EFAULT;
->  
->  	data = ~0;
-> -	if (__copy_to_user(ua + RMODE_TSS_SIZE - 1, &data, sizeof(u8)))
-> +	if (kvm_copy_to_user(kvm, ua + RMODE_TSS_SIZE - 1, &data, sizeof(u8)))
->  		return -EFAULT;
->  
->  	return 0;
-> @@ -3946,7 +3946,7 @@ static int init_rmode_identity_map(struct kvm *kvm)
->  	for (i = 0; i < (PAGE_SIZE / sizeof(tmp)); i++) {
->  		tmp = (i << 22) + (_PAGE_PRESENT | _PAGE_RW | _PAGE_USER |
->  			_PAGE_ACCESSED | _PAGE_DIRTY | _PAGE_PSE);
-> -		if (__copy_to_user(uaddr + i * sizeof(tmp), &tmp, sizeof(tmp))) {
-> +		if (kvm_copy_to_user(kvm, uaddr + i * sizeof(tmp), &tmp, sizeof(tmp))) {
->  			r = -EFAULT;
->  			goto out;
->  		}
-> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-> index 3c4e2401de072..13f44961e6e7d 100644
-> --- a/include/linux/kvm_host.h
-> +++ b/include/linux/kvm_host.h
-> @@ -1341,13 +1341,35 @@ int kvm_write_guest_offset_cached(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
->  int kvm_gfn_to_hva_cache_init(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
->  			      gpa_t gpa, unsigned long len);
->  
-> +static __always_inline __must_check bool kvm_can_do_uaccess(struct kvm *kvm)
-> +{
-> +	return !WARN_ON_ONCE(current->mm != kvm->mm ||
-> +			     !refcount_read(&kvm->users_count));
-> +}
-> +
-> +#define BUILD_KVM_COPY_USER_WRAPPER(fn, to_user, from_user)				\
-> +static __always_inline __must_check unsigned long kvm_##fn(struct kvm *kvm,		\
-> +							   void to_user *to,		\
-> +							   const void from_user *from,	\
-> +							   unsigned long n)		\
-> +{											\
-> +	if (!kvm_can_do_uaccess(kvm))							\
-> +		return n;								\
-> +											\
-> +	return __##fn(to, from, n);							\
-> +}
-> +BUILD_KVM_COPY_USER_WRAPPER(copy_from_user, , __user)
-> +BUILD_KVM_COPY_USER_WRAPPER(copy_from_user_inatomic, , __user)
-> +BUILD_KVM_COPY_USER_WRAPPER(copy_to_user, __user, )
-> +BUILD_KVM_COPY_USER_WRAPPER(copy_to_user_inatomic, __user, )
-> +
->  #define __kvm_get_guest(kvm, gfn, offset, v)				\
->  ({									\
->  	unsigned long __addr = gfn_to_hva(kvm, gfn);			\
->  	typeof(v) __user *__uaddr = (typeof(__uaddr))(__addr + offset);	\
->  	int __ret = -EFAULT;						\
->  									\
-> -	if (!kvm_is_error_hva(__addr))					\
-> +	if (!kvm_is_error_hva(__addr) && kvm_can_do_uaccess(kvm))	\
->  		__ret = get_user(v, __uaddr);				\
->  	__ret;								\
->  })
-> @@ -1367,7 +1389,7 @@ int kvm_gfn_to_hva_cache_init(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
->  	typeof(v) __user *__uaddr = (typeof(__uaddr))(__addr + offset);	\
->  	int __ret = -EFAULT;						\
->  									\
-> -	if (!kvm_is_error_hva(__addr))					\
-> +	if (!kvm_is_error_hva(__addr) && kvm_can_do_uaccess(kvm))	\
->  		__ret = put_user(v, __uaddr);				\
->  	if (!__ret)							\
->  		mark_page_dirty(kvm, gfn);				\
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index ba09b1dabc4b7..aa1564d41e7ff 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -3207,8 +3207,8 @@ static int next_segment(unsigned long len, int offset)
->  }
->  
->  /* Copy @len bytes from guest memory at '(@gfn * PAGE_SIZE) + @offset' to @data */
-> -static int __kvm_read_guest_page(struct kvm_memory_slot *slot, gfn_t gfn,
-> -				 void *data, int offset, int len)
-> +static int __kvm_read_guest_page(struct kvm *kvm, struct kvm_memory_slot *slot,
-> +				 gfn_t gfn, void *data, int offset, int len)
->  {
->  	int r;
->  	unsigned long addr;
-> @@ -3219,7 +3219,7 @@ static int __kvm_read_guest_page(struct kvm_memory_slot *slot, gfn_t gfn,
->  	addr = gfn_to_hva_memslot_prot(slot, gfn, NULL);
->  	if (kvm_is_error_hva(addr))
->  		return -EFAULT;
-> -	r = __copy_from_user(data, (void __user *)addr + offset, len);
-> +	r = kvm_copy_from_user(kvm, data, (void __user *)addr + offset, len);
->  	if (r)
->  		return -EFAULT;
->  	return 0;
-> @@ -3230,7 +3230,7 @@ int kvm_read_guest_page(struct kvm *kvm, gfn_t gfn, void *data, int offset,
->  {
->  	struct kvm_memory_slot *slot = gfn_to_memslot(kvm, gfn);
->  
-> -	return __kvm_read_guest_page(slot, gfn, data, offset, len);
-> +	return __kvm_read_guest_page(kvm, slot, gfn, data, offset, len);
->  }
->  EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_read_guest_page);
->  
-> @@ -3239,7 +3239,7 @@ int kvm_vcpu_read_guest_page(struct kvm_vcpu *vcpu, gfn_t gfn, void *data,
->  {
->  	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
->  
-> -	return __kvm_read_guest_page(slot, gfn, data, offset, len);
-> +	return __kvm_read_guest_page(vcpu->kvm, slot, gfn, data, offset, len);
->  }
->  EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest_page);
->  
-> @@ -3283,8 +3283,8 @@ int kvm_vcpu_read_guest(struct kvm_vcpu *vcpu, gpa_t gpa, void *data, unsigned l
->  }
->  EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest);
->  
-> -static int __kvm_read_guest_atomic(struct kvm_memory_slot *slot, gfn_t gfn,
-> -			           void *data, int offset, unsigned long len)
-> +static int __kvm_read_guest_atomic(struct kvm *kvm, struct kvm_memory_slot *slot,
-> +				   gfn_t gfn, void *data, int offset, unsigned long len)
->  {
->  	int r;
->  	unsigned long addr;
-> @@ -3296,7 +3296,7 @@ static int __kvm_read_guest_atomic(struct kvm_memory_slot *slot, gfn_t gfn,
->  	if (kvm_is_error_hva(addr))
->  		return -EFAULT;
->  	pagefault_disable();
-> -	r = __copy_from_user_inatomic(data, (void __user *)addr + offset, len);
-> +	r = kvm_copy_from_user_inatomic(kvm, data, (void __user *)addr + offset, len);
->  	pagefault_enable();
->  	if (r)
->  		return -EFAULT;
-> @@ -3310,7 +3310,7 @@ int kvm_vcpu_read_guest_atomic(struct kvm_vcpu *vcpu, gpa_t gpa,
->  	struct kvm_memory_slot *slot = kvm_vcpu_gfn_to_memslot(vcpu, gfn);
->  	int offset = offset_in_page(gpa);
->  
-> -	return __kvm_read_guest_atomic(slot, gfn, data, offset, len);
-> +	return __kvm_read_guest_atomic(vcpu->kvm, slot, gfn, data, offset, len);
->  }
->  EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_vcpu_read_guest_atomic);
->  
-> @@ -3328,7 +3328,7 @@ static int __kvm_write_guest_page(struct kvm *kvm,
->  	addr = gfn_to_hva_memslot(memslot, gfn);
->  	if (kvm_is_error_hva(addr))
->  		return -EFAULT;
-> -	r = __copy_to_user((void __user *)addr + offset, data, len);
-> +	r = kvm_copy_to_user(kvm, (void __user *)addr + offset, data, len);
->  	if (r)
->  		return -EFAULT;
->  	mark_page_dirty_in_slot(kvm, memslot, gfn);
-> @@ -3466,7 +3466,7 @@ int kvm_write_guest_offset_cached(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
->  	if (unlikely(!ghc->memslot))
->  		return kvm_write_guest(kvm, gpa, data, len);
->  
-> -	r = __copy_to_user((void __user *)ghc->hva + offset, data, len);
-> +	r = kvm_copy_to_user(kvm, (void __user *)ghc->hva + offset, data, len);
->  	if (r)
->  		return -EFAULT;
->  	mark_page_dirty_in_slot(kvm, ghc->memslot, gpa >> PAGE_SHIFT);
-> @@ -3504,7 +3504,7 @@ int kvm_read_guest_offset_cached(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
->  	if (unlikely(!ghc->memslot))
->  		return kvm_read_guest(kvm, gpa, data, len);
->  
-> -	r = __copy_from_user(data, (void __user *)ghc->hva + offset, len);
-> +	r = kvm_copy_from_user(kvm, data, (void __user *)ghc->hva + offset, len);
->  	if (r)
->  		return -EFAULT;
-> 
-
--- 
-Ing. Nikola CIPRICH
-technický ředitel
-
-+420 591 166 214
-+420 777 093 799
-nikola.ciprich@linuxbox.cz
-
-www.linuxbox.cz
