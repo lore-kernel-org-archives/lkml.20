@@ -1,87 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E352339705;
-	Sun, 18 Oct 2026 02:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6971E1E16
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792288929; cv=none; b=fXVN3ZpFtY79YBLg4vJs6XO2Wo/bb6EZpW8fwLo9gpSB1Hz13fAfRk1X33QFWtFgv3ER4o18Ow5SUUXKKiUj06BdfOWOP2Tr/t0D3NSEZiK9eaewxb9Qzr+97xNOHat3RD7hlKfAQSC0rdsL1925KR17lOnZD8lpsbMu6fsAm3I=
+	t=1792288987; cv=none; b=AUOi9zUPzJo3KwQfvbdufIv1iFY1QhDA8uqI06HiS/wODuUurKPAmT2t4pRPVeD/9YuNxzIquekFYI9DYAuW8S6uK3GDtfTj6Xl5MjjhGFYC6FuxCNCGjCsuW4bpyxyaT+iVHvaothdezTxSBuMGx8UZrmzFyM9jYgWofIwqxyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792288929; c=relaxed/simple;
-	bh=3abZHzWEexrxG6KWsW5D60qc64awaTM391LkHB/KkzU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hn/oyP8MZRAYYvCSP/rh/aMVfd5bXOYcw+So1atJeqxLAxudx0kAngQHkZ/hhwry0v0p+21EabXlfgWnUJ58Vt2KnFkO///UrRjKdiCiHxk3SBMVtvKZBpnWNK7PH5gMqqU3+3dC2B7LvJJ4BsSEsVMe95wrntbvfo4OrHR25GI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3XIATOe; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3XIATOe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B2771F000C4;
-	Sun, 18 Oct 2026 02:02:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792288923;
-	bh=uIgX3j6t/32oz54/9mAoGM9KoupuZpKcsXvEIrGuhyc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=m3XIATOeZ7WRvIGwSHVesFMUgivBlpYcIjPFkm/hSRx3xZIsCqI00qbM9uLZR+sKK
-	 dUUPJmCBrNhQzYMBRs+nzaVmoJQ1rc1V+smkMQ5kBKrnXXx44QCle8EMq8Ye3838xa
-	 yWmE2gnIoNUTeB8Z4B5rSzlOU4fzVi0UwvFRy+t6OgF/Yjy+wT7ShAzkH+YRzd+vjH
-	 sImXyGvbFeTHs9gGcrHqt+12ZOfu8wSOAQ/7cx3poWv2paXKjtyFes9m08nJ+l3Dfp
-	 HQ087F/Okwhakq7Bt7uxUAU8GeqTt3bOowSvQ/sCoGuorJtyjkiicrxx6Vl40Umy2k
-	 ruw+RSYU+++bg==
-Date: Sun, 18 Oct 2026 03:01:59 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "David Lechner (TI)" <dlechner@baylibre.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Sashiko
- <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v2 0/2] iio: adc: ti-ads112c14: minor fixes
-Message-ID: <20261018030159.6aae16cb@jic23-hlaptop>
-In-Reply-To: <20261009-iio-adc-ti-ads112c14-fix-settlingtime-sign-v2-0-6b54a7378101@baylibre.com>
-References: <20261009-iio-adc-ti-ads112c14-fix-settlingtime-sign-v2-0-6b54a7378101@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1792288987; c=relaxed/simple;
+	bh=hlAV9gW1FVJqe9cFk04OUY8wFSNtL5Tjs0e9i3h2AG0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=eQ9bNoz2KsJRbPD3mNpRuUvVWgbrhIVj9LhdXmVmNfTrX6GEJZCxnDMceIPxtM1GTKc24ndDEwkcr865A47zqCVhWUzkmpKssdhEla5VhOJn9lqGkUbTI42FRvbUuiOlumrqmaEIH/WXCaEevlfXcS6Toe8qVb65FUaHQGM1bd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4dab94dc3e7so1977577b6e.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:03:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792288984; x=1792893784;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vi8fswt2Jo/Boflxld40m81NS+lLjZAEKtMELvHf7PI=;
+        b=fs8k9F4o1tnw4xPEWkYjpfGODMJqci0LxFKxlYzS3LX6BruL1EX6NoJDvkEJnY5EzE
+         yE1rUQEYW9ICQ6izXcjHUIqYkUO7x8UUviY+BaVHduaPWUfUKuJ50DuW1Go5IR1825ni
+         wN9g5IAFXYCfsvm+iyqvM/MEzmGPH3aBXP1NqLzUZBQqjJT2/25qanEEeEKP3a7p5h2g
+         6zC5k3OQBXKGIByWJrR1Ww+k9RW49oyZ3rQlGrkDsPVcEWyvk6h0J0XmdtwtRmqmAJ0d
+         +VtlYZyRWxbk8J/nrT1qIqNP9zFZ+mapuKqDboC8fH+n65REttLlw2aCFobwLOfW6Xtq
+         3Wsg==
+X-Forwarded-Encrypted: i=1; AKwUvBwZwvZVrzymh0fuCeWR5EFrr6oNkFnktAFrxbnrWi2TTUYvHq3SzjZI5Tn+S+WFQL0rNQzSBMW50A0hLaE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJiVkd5hbAQujZBaLUtZv1DoIYnD3Q8wYYv9pZUP+r5kFea15ph
+	BsUxPs2gkh9g24m0AvRVfLTREW4lqat84ILKxnJR6N54kc5bN5YzTQb68a1LLs3mz1L5eqpOtlL
+	YH2Bz8af6A43BWp+vxLuTEncjhDnXH9OTnVpswJecOhgp/VySVKvYZPjb7E4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:c115:b0:538:d44:aaaa with SMTP id
+ 5614622812f47-53cd93a41d0mr2933431b6e.63.1792288984630; Sat, 17 Oct 2026
+ 19:03:04 -0700 (PDT)
+Date: Sat, 17 Oct 2026 19:03:04 -0700
+In-Reply-To: <20261018011905.671-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad428d8.7f4e89eb.3d59aa.00a6.GAE@google.com>
+Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
+From: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 09 Oct 2026 17:24:56 -0500
-"David Lechner (TI)" <dlechner@baylibre.com> wrote:
+Hello,
 
-> Jonathan picked up the filter series for TI ADS112C14 already, but there
-> were a few minor things Sashiko found that seemed worth fixing.
-> 
-> https://lore.kernel.org/linux-iio/20260913211128.25734544@jic23-hlaptop/
-> 
-> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
-Give you are building on the driver with other series, my inclination
-is to not rush these.  So for now I've applied them to the testing branch
-of iio.git, but shout if I should do differently!
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Thanks,
+Reported-by: syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com
+Tested-by: syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com
 
-Jonathan
+Tested on:
 
-> ---
-> Changes in v2:
-> - Change settling_time_us to u64.
-> - Link to v1: https://patch.msgid.link/20260925-iio-adc-ti-ads112c14-fix-settlingtime-sign-v1-0-1fd53e7242e8@baylibre.com
-> 
-> ---
-> David Lechner (TI) (2):
->       iio: adc: ti-ads112c14: fix negative settlingtime check
->       iio: adc: ti-ads112c14: fix settlingtime creep on write back
-> 
->  drivers/iio/adc/ti-ads112c14.c | 34 ++++++++++++++--------------------
->  1 file changed, 14 insertions(+), 20 deletions(-)
-> ---
-> base-commit: d8c0f48f0b1583308a98401c0c7b1a65d1d43a6c
-> change-id: 20260925-iio-adc-ti-ads112c14-fix-settlingtime-sign-a8e34f974d24
-> 
-> Best regards,
-> --  
-> David Lechner (TI) <dlechner@baylibre.com>
-> 
+commit:         58161ead Merge tag 'drm-fixes-2026-10-17' of https://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1760560d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b38d39c45202f4fa
+dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10ad8121580000
 
+Note: testing is done by a robot and is best-effort only.
