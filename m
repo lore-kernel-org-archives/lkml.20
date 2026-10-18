@@ -1,145 +1,115 @@
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+Received: from mail-wr2-f10.google.com (mail-wr2-f10.google.com [74.125.225.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126F7493D56
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:48:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B025F3ADB92
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:50:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792334901; cv=none; b=qT05E1CZtZeY1Cja8Sbp/OmT9PKL2RYI+5X1pV00J+w9ZiH6S1wbwkO6MOoztGQnnGJ3mxN3E97ZRi5QtYyBpC9i1l7P6CcHQDAKYYBMAVME7ht31aBSj7gkeqRTvydHT2i4BeawIwatCykXQU0uD/XXid3JhyiKNBnRGmfm74k=
+	t=1792335015; cv=none; b=nk2Tb9sCkmLkzYzkBAU2ws5zHP69h+F+KtYViGvJ4Lo1b7OLF7faQrScl4jxUz6jEwhQXj/DBFQzvaY4UHoZrHdGsF8+Wd+WYELFueAz6vYTShnwqFoMrNfw/xG0hU2TKUwaE9TZlwCdUteXWT+iLEgSc1Z0t31rJMAr9o6Fey4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792334901; c=relaxed/simple;
-	bh=Hj5hLisB54S1y/tYqExYUjuqnvH778SRo1sotusOCHI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GDcxg9Vg10hPat1OkCUoj1QuZpFAgoY164vGJGQZZONLrxzeHZCzLhAt9+TYHu6cwQoxci2TqlMTZcmP/g8OOpjrkpIfkEwLgm/RrHjkS4uE7gF7s5ycGupnSs+Rs8S3VN/Z6ncg8966dg3o7+RDLRnMg9jI3vjlHnifH2NpS5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1792335015; c=relaxed/simple;
+	bh=6yHE6qnIZGNtF1BcbMyPdKNzgBe3P3tTSjHV99FAJpA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PO6Il8LAisxzQL+iM5YBgxC3Sb+b+4Hc945ydqtuY00LjdD+s6H3G6vcEbL/4Cei/+IrTn4sae4Z1l7T7wpjNeOceKBRR3QbVn1/ecJmAXz1vlyvCZi5sHP5gR9Kmf6ytM5uNlK5xuCMMAfYc5STGTXQbwf3gF8lh/Ptgao16F0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TRohAXav; arc=none smtp.client-ip=74.125.225.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5eaaa9b1591so827220e0c.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:48:19 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TRohAXav"
+Received: by mail-wr2-f10.google.com with SMTP id ffacd0b85a97d-48ded18b8d9so620075f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:50:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792335012; x=1792939812; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/eYVYY73yC/D0v/KcDNwhtZQIc+QCqPcBhpHmMy9LfI=;
+        b=TRohAXavpTd4RILfZfOOAng2sbXqGXk+fLQ9JDD41VnBbXRYS0RsQgwHkXOJn+4328
+         gDsRJNDv7aZbxocx2F7H5XWip6X5Nmv4X08QaOhJKCplg1a+1vjHZzxqJzWbP4wuixzT
+         sxoI1h4Y4rRc0WOKsHJ0xku40igxFTrI4/8obSQgKtnW6rMV3bp2KQTWhwYJNedy9qE7
+         PTXVg47ppghRU7bxdapvxjPz0LjVmv0jC9lbOKuhNZcT7K1Ck8B6lLD7cTnbAuTgIZ0p
+         5BNgtBahc4LTBcjI/JHOK4GXILDSkQLzKAQxZ59P5bI3qBvNkp4SHEL/UVWbiNERRanI
+         fL9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792334899; x=1792939699;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=i/+KfkD3prUE3gpbH6xDwZzQ4znjfDPPu+7aaw/E4IY=;
-        b=By03AVsWF2sK1O5SIwQeU0JH9Y6zz0fA5J7rqu4IhCM0ZbTLhqUvnr2Gk6sXh5YHtI
-         5L/TDjgwjTkbX86blWfOCTOuJ6HFw3kkuRC3bcP+IfaVoTreCQkYNghkeoAMcnZt+VP3
-         svYRrc0HZ8aVN/OTS48Cd6Z1FCcDZ04N1ybyxdVkI6DuxqLK9FoHk21M7Qz9aIiwFvej
-         P+6898XLzfoZpmhrYYD2p6jt1ydBRBPvhRUc41JUIHJcT1I0Yo6jVzTXMb3IwhTx9Onv
-         EF3yHIsB9R4oCakzGQM6vebVJ+2JV8LVX7maYQs33kwpOrQDh5MzJ64wWmbx0rCSQmcB
-         4jTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwDbIVKI45z1kzUk+7GJAX2EqSZuVE8XVo8gt63w+FYaBnCLk5wfWMpPUeZ77Oc8UBYpZ96/f7wpE+tneY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5jLU+UqHC6Vb63erhx2eAnsiyfv0ybQhgOvLn/z8SezRh6P30
-	8PJRfnQWPDa7oNaIltFBFYPeX1I7mREF4nTmmxOjbRfbEQ1LxmmeoTBbpF/ucmq9
-X-Gm-Gg: AYBFou1TxJZM5D2RbCDZ0MGWxrk6fim/D6O+0WAubFDLzbutPZ2wsE6ynNXY4sMxhyB
-	YGD77PRJwl0eCBSrVAMmUog65IIWl9CSjgxQxoZyxPuhGfGnsvaejh2aNLg2c9Icr4bi7RfWwpq
-	jgX27zO0evJeKiishmPYzQgmlXzuWGWvqi4GMs8J735QoEXySwWV+Tlln11jd/luUEH/bkL65cj
-	Ugc7kn/KUqssdqnKhfj9C7f7o6sRp4Phaf9HviFPetvOBvry5mB40/DwK5BG4FZtYiqWLv1NOt6
-	uZgYv39TOaqAtZ17WnOKydM+JvKxbVsGmoBwnGBj/zmTfuQ2z25rvfDXKmmgjDF0tg5KdzqXrRC
-	VTtWzsoDm3HRe/iPcY78UNuHVUvqyumsKSq92XItgyioaLgSV6R3fEDOFlaTyZlfgH9TokurZky
-	gB6gPWCFIyJynriS6HfAQXtqmIUDmc94LWhoVooQcW+/CpWnZojpGjOWPdkDQXPSN1Y+LRuSFWr
-	BYY390cEneXPqIYqiJ2dP3SYY1mlUttWDMkXg==
-X-Received: by 2002:a05:6122:328f:b0:5e9:721c:72a2 with SMTP id 71dfb90a1353d-5eaaa6a0b81mr2283206e0c.18.1792334898973;
-        Sun, 18 Oct 2026 07:48:18 -0700 (PDT)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com. [209.85.217.54])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eabe1b2026sm2524917e0c.17.2026.10.18.07.48.18
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 07:48:18 -0700 (PDT)
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7c03a445cb8so1007422137.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:48:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw19sPVKygKJHaOOoeuhqXQUlcd7ln1vZiPbxqjN91VGMWpGNX2GaggAuw9TXWXmpLMYdVv+ue2qwK01i0=@vger.kernel.org
-X-Received: by 2002:a05:6102:2c0d:b0:7c3:2f13:d905 with SMTP id
- ada2fe7eead31-7cc3670d3c9mr1798032137.3.1792334897916; Sun, 18 Oct 2026
- 07:48:17 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792335012; x=1792939812;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/eYVYY73yC/D0v/KcDNwhtZQIc+QCqPcBhpHmMy9LfI=;
+        b=KlWOIcdOZM3m+iUOs7K2A8b+RrTpFOAs6609Pb8AM0NQ0EQ3pn7r622PFa3MTRSF12
+         SDuYS+d2hOogSnZO7C8AAmXoFfMqBh6VBEdtGlN7E+My7xUN+YaTzsuIDuMM7y58TnkZ
+         pyE/eD8wNs8KUj6X8tgN+nkFz/1+RKb7BDpyN3wmatENB+yw0g4UsAhPG/jfXpHyrqhK
+         kPSfBnpIk1pMMafBtm9dJJyryW9Iho0WSRDREaAnZO+DJ0kta30VFYuofUBZT/Zb4fJn
+         2BbT4gfsmSQOauaSDxwwpPcfieHRyCtXGBuQoy3JJBRbzGLXhEyEcn5iiTTUBt5I6TfJ
+         v66Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzjGsIkerIZeIY5/J7RobMdmwODH7VKy6M+bEmyns6GzVeH+AuSnlk+7LpuRNN8bJV61ywgZktjOi6yhhI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNl5IMBxsUbRw4Fk9M54RLSghT99XfLd9Mm3t+6peIxoPOTeFK
+	689l9uLJmrW41ds8RdynkCnOO1qqwQmFJAfN3A1FKjb9mk9qtg7hwY2W
+X-Gm-Gg: AYBFou0RtTVWZ3OcxoaQ1una15l41JipwZUUhVs9hbrgMTp+VSUEwozeY/b6lnCy8pM
+	Vp9p0DbSOafvqfdjhw2tdyyDOi/4pd47O5BbCFdy0mQCRYoocPXjfowirhQbGN2dycrWPAyUe6G
+	RcusUl+sqLNF85B0NfhrZAQ0VYrW0rEWVJ65KQX9seFI1YHaLYolfCpfNxG1h33oIiYyEywPWOk
+	yHEJiqXgVQrXJ3Or5IMiOoNYrVjo0JxTQRFN/S+raIa70t96pvd353qLJJtS1FNUYe42vH39NFa
+	jHENH4XGBfkToUfC6sx/vVx2if6aEU+Xoi4PBa+rb3S/GNIbXqFgAki9Q+6iHYmJHF7x9M/zkjP
+	NCfjMgznHuZVc7tbJM4qZEtFVm6FA9JA1sFLZp3zxb5HvbEcTCduUDeszUxa/1s2fkRcZ03fb3m
+	twEebchG55uYCnvjCBbLjxxfG5jjRljimHdJZKKJCb1gMTAmBAAgyiJrPGETXR41jLLKdXP+P7X
+	nJL0pUvzt4zog==
+X-Received: by 2002:a05:6000:200e:b0:48e:e9e:129 with SMTP id ffacd0b85a97d-48e0e9e0142mr4734499f8f.29.1792335011724;
+        Sun, 18 Oct 2026 07:50:11 -0700 (PDT)
+Received: from serhat-ubuntu.home ([212.253.205.12])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd47104csm19281899f8f.8.2026.10.18.07.50.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 07:50:09 -0700 (PDT)
+From: Serhat Kumral <serhatkumral1@gmail.com>
+To: Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Mark Bloch <mbloch@nvidia.com>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Yishai Hadas <yishaih@nvidia.com>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Serhat Kumral <serhatkumral1@gmail.com>
+Subject: [PATCH] RDMA/mlx5: Validate priority in STEERING_ANCHOR_CREATE handler
+Date: Sun, 18 Oct 2026 17:49:07 +0300
+Message-ID: <20261018144907.20123-1-serhatkumral1@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261017041419.311921-1-daniel@0x0f.com> <4cdb2939264e0b7d767f44289fddffd40fddf504.camel@physik.fu-berlin.de>
-In-Reply-To: <4cdb2939264e0b7d767f44289fddffd40fddf504.camel@physik.fu-berlin.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Sun, 18 Oct 2026 16:48:06 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXmZash+8PmfSVrT=Wwob-mkq0x4umyRgX2-yikV9kaVA@mail.gmail.com>
-X-Gm-Features: AclHuK8RBwZK_z43GrchRos_lydjyPBWt8zUJgcfKwlnh5NSKD4CTmW99AiE-yI
-Message-ID: <CAMuHMdXmZash+8PmfSVrT=Wwob-mkq0x4umyRgX2-yikV9kaVA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] sh: Fix IDE on landisk
-To: Daniel Palmer <daniel@0x0f.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, dalias@libc.org, dlemoal@kernel.org, 
-	cassel@kernel.org, linux-sh@vger.kernel.org, linux-ide@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Yoshinori Sato <yoshinori.sato@nifty.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Daniel,
+In MLX5_IB_METHOD_STEERING_ANCHOR_CREATE, the user-supplied u16 priority
+is passed directly to _get_flow_table() without an upper bound check.
+This can lead to out-of-bounds array accesses on dev->flow_db priority
+tables.
 
-On Sat, 17 Oct 2026 at 09:48, John Paul Adrian Glaubitz
-<glaubitz@physik.fu-berlin.de> wrote:
-> On Sat, 2026-10-17 at 13:14 +0900, Daniel Palmer wrote:
-> > I dug out my landisk to look at kexec for Geert. Since I'm lazy and
-> > LLMs are good at fixing bitrot I let my LLM work out how to get
-> > it to boot again.
-> >
-> > There are some other issues (perf is apparently borken, there are
-> > some issues with the decompresor and big kernels..) but this
-> > seems to be the only thing stopping it booting with the defconfig.
-> >
-> > Disclaimer since we don't need to give LLM tags anymore:
-> > - LLM debugged the issue.
-> > - It has been checked on real hardware.
-> > - I have checked the IDE driver patch, cleaned it up and
-> >   cleaned out massive walls of text that LLMs seem to like
-> >   to add but I have left its summary of the issue in the commit
-> >   message.
-> >
-> > Daniel Palmer (2):
-> >   ata: pata_artop: read the ATP865 mode register through pci_iomap
-> >   sh: landisk_defconfig: enable PATA_ARTOP for the ATP865
-> >
-> >  arch/sh/configs/landisk_defconfig |  2 +-
-> >  drivers/ata/pata_artop.c          | 12 ++++++++++--
-> >  2 files changed, 11 insertions(+), 3 deletions(-)
->
-> Great, thanks for fixing this. While I have LANDISK hardware myself,
-> I cannot probably set it up fast enough now to test your patches as
-> I don't know where I put it after moving places.
->
-> I hope Geert can test and review your patches and I'll pick them up
-> with his Reviewed-by and Tested-by signatures.
+Check that priority does not exceed MLX5_IB_FLOW_LAST_PRIO before calling
+_get_flow_table(), matching the existing validation in raw_fs_rule_add()
+and mlx5_ib_create_flow().
 
-Sorry, I must have different hardware, as mine doesn't have an
-ATP865 PCI device:
+Fixes: 0c6ab0ca9a66 ("RDMA/mlx5: Expose steering anchor to userspace")
+Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
+---
+found by smatch:
+- drivers/infiniband/hw/mlx5/fs.c:2013 _get_flow_table() error: buffer overflow 'dev->flow_db->fdb' 16 <= u16max user_rl='0-u16max'
 
-    # lspci
-    00:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd.
-RTL-8139/8139C/8139C+ (rev 20)
-    00:02.0 USB Controller: NEC Corporation USB (rev 43)
-    00:02.1 USB Controller: NEC Corporation USB (rev 43)
-    00:02.2 USB Controller: NEC Corporation USB 2.0 (rev 04)
+ drivers/infiniband/hw/mlx5/fs.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-My CF rootfs uses pata_platform, which is enabled in my working .config.
-landisk_defconfig lacks CONFIG_PATA_PLATFORM=y, so it hangs during
-boot. After enabling that, the boot gets further, but it still hangs:
+diff --git a/drivers/infiniband/hw/mlx5/fs.c b/drivers/infiniband/hw/mlx5/fs.c
+index e63fdb4bc3e3..bc2c15c7172b 100644
+--- a/drivers/infiniband/hw/mlx5/fs.c
++++ b/drivers/infiniband/hw/mlx5/fs.c
+@@ -3014,6 +3014,9 @@ static int UVERBS_HANDLER(MLX5_IB_METHOD_STEERING_ANCHOR_CREATE)(
+ 	if (err)
+ 		return err;
+ 
++	if (priority > MLX5_IB_FLOW_LAST_PRIO)
++		return -EINVAL;
++
+ 	obj = kzalloc_obj(*obj);
+ 	if (!obj)
+ 		return -ENOMEM;
+-- 
+2.53.0
 
-    INIT: Id "1" respawning too fast: disabled for 5 minutes
-    INIT: Id "2" respawning too fast: disabled for 5 minutes
-    INIT: no more processes left in this runlevel
-
-Adding
-
-    CONFIG_DEVTMPFS=y
-    CONFIG_DEVTMPFS_MOUNT=y
-
-to landisk_defconfig fixes that.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
