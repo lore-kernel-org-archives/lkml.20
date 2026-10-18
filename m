@@ -1,244 +1,129 @@
-Received: from mail-qk2-f9.google.com (mail-qk2-f9.google.com [74.125.230.201])
+Received: from mta1.migadu.com (out-226.mta1.migadu.com [95.215.58.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304483E49F5
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:50:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65953DDDDE
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792342215; cv=none; b=ntPiJD3LVpgRN2qPm9Cak2gulEMIsbferCRwV52pdXOkwyEmjw35+ndD0Za8gpHY3spoYMRovFSifd/dfO0zm/hvmHl3s4anB0jHte8UzSMVgfFhLCACvmjHCwmOGrtiGkGBRm3fMSQR0nDkpNE8jcdAmmMmyB21YY4cfFEWhm0=
+	t=1792342345; cv=none; b=c6uhMWiVfo6b/vxkSDOBmizttkiVMuJA2gNraYc2EfEwO8DFzTq6M2lAEN1b+FL94uFAWWtITiNq2f5/C3swU5OwZxe23rSy286rgsQxLJhgOGRifX7BiMfLdueG3II8YGlK4aj2vmdOFefDPEkhamyz64a4jAOxAwJjeChak8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792342215; c=relaxed/simple;
-	bh=7h/r53sko0vSWudiFtojFrTuAikIUnp9ZdZ+WcOFHN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oE5Q6US6oVjR8s8mvNNMPAaMf6XItnqMoTNG4eNyh8F7v/eOcA0uQIYmDFJWD9UQjpYqJvyJE2r0UcIVRbx7Ynsknj7jfFYHYYPzBOQDbhb1VzzpKkf3fOBIsraxrqAOnsO99PgIA92tnuVO4QykjXvtbEjJFsU7lAwVn2M5J1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=muWVtLgL; arc=none smtp.client-ip=74.125.230.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792342345; c=relaxed/simple;
+	bh=ENqyqEBfdywXRtbS9JtuOKLrGgK8CSPXheNFfg2Nmjw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CxzYhFVeuKOLL1c9EajSCODs4wOcVJl5L0Qz58yJGv2UJnx4vHNSX0bkf+1Kq5t2V5dWyukJsY/s7YkbdNu56tMeTBCLW6PICss1iuzo6vrR4hg77aUoJJ9Z1sogxXKHkmB0N7+E/Wyb/Yat0zuaV0dDcOzPIE4JXsJgfuDxOUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NyH6MFp6; arc=none smtp.client-ip=95.215.58.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="muWVtLgL"
-Received: by mail-qk2-f9.google.com with SMTP id af79cd13be357-934956d1044so116648685a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:50:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792342213; x=1792947013; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mf2HSPqnvA1xqXGaunmqORu34n5mJLaiCiNFi8iI+e4=;
-        b=muWVtLgLgbDXCSWB9xP6TsM2bbYdm3UFxT6ZUOj3Yvy2burKZufhfrk6YvhDKJjMsj
-         Qia5eIJPkBC2/Y3+spnsi03k3jz5VX0accQ/Prp1dIucDGskvGXJpDLVgVbaf+mxPwms
-         K3Pd7seF/l8CjLNfHtOtai2G8HmbrHvQxm+tNjtaW8C1xDGn7CFRj16/emSplWkNl3Fp
-         V+o6+UVJ18KUI454IsYT3nz/SyVjGu5HGHGUBzTT4+vljyeMyVzGANnIvukgmIC9mO6m
-         KDetqa3+vg3X81hhD4S52fJEMP/Xxl2OPrx45kP/PdRzXB/9iXCQqG2Bu7NoT4CG3IAo
-         QsnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792342213; x=1792947013;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mf2HSPqnvA1xqXGaunmqORu34n5mJLaiCiNFi8iI+e4=;
-        b=g1SxoQ2Py9eAeRJeqt1cvadzk6K6xdKXwE2Uf9T/A72tFMb48KBy/Bt3QWc13b9zSC
-         vxKEA9o3zyDB7fs81ZMj2nKqATwDDz5WV/ltH1QNPBV+zZSZNuxEgCMLBt49AWfTtzJF
-         CDCnaTV1cLv6gCAaYTTIDcvOfBCajdUe0cE2fYJdV9g82wNRaYCb5jo7pBvsys1tlCd1
-         +1Tw+9SPDEWQa/lo+75HWPaFyRv9O48UQK2atO2kwJjN/hKR9E8PFvBg/CwSa9eD98TW
-         FuheNergtwyjPaP5/S5lL1JQaXJi3fa9LnhAfCb0Pq6YHCGrjbN+NKlyNitlKYBIxHLC
-         2jIg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfVP6acq3CIkQg1bZXF3pwprYdyLJkO2o5E8oJacrYb7rK8m9MKBC1Zp3s4BkDTLJnEX7zUqdzCHSHo5I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIW7ystLAVx1zjlwca4P2GqKRqGVZ9idZGvhSpNhAMH4pqRuDR7
-	vmmwkfj7tHSqtLIX0cYKSwkk3FS6pdwSINHnFC9HfHUnvqxQl/pwLn+N
-X-Gm-Gg: AYBFou0gjsZExGQGrXVJJxl9QcVuUpZV9bWOYmcgBdRSM35weXccYZJy8Q8CxxzlAib
-	JQ6mGdn5WO+vQ2oNeWrF8GlPIFkiUpjIbSUvDJIRhUxwPNqDlbzlZSP47tXyEcvpsXJKzQEYlhv
-	IdeWJKMfWEMqANzxeo0KairjuGrA4xioj8+X70H817OuTIyZtv2E4OPDw/q0z13M072Ywz6NP+O
-	enNeHMbYaqR/LHI7HwZHd6hpnM0O1Q1iJw6RAHCFmMRGgkzytk6ZXhYjK1lIfCdL/WR9mGaVSek
-	tOlBDK/PHyiawAqSlVRE56uQgYhrGQhTx+1RrBcfDFxbU0FXdjN1iww6obqlAzMqZNmp2mgO/wn
-	+i72ylMVIC256Ay1ulCNL34xHrk7i22C+i4tH96U6QzE2+REVaHXQtVpXyL3VjW1ExPJHiTcMil
-	5GFgAcT0dqDoD6Px/6W4yv2wTphFMZiMWCjogcagdWxLiLt8A64yZizw0GrelJfD8lCoeHxSDEN
-	WUljV4=
-X-Received: by 2002:a05:620a:3903:b0:93e:fa30:f1dc with SMTP id af79cd13be357-93f29db40ccmr780679285a.72.1792342212904;
-        Sun, 18 Oct 2026 09:50:12 -0700 (PDT)
-Received: from Fujo.localdomain ([142.188.41.221])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a1688aesm740116685a.8.2026.10.18.09.50.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 09:50:11 -0700 (PDT)
-From: fujo <hooyan2024@gmail.com>
-To: linux-fsdevel@vger.kernel.org
-Cc: Oleg Nesterov <oleg@redhat.com>, Christian Brauner <brauner@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3] selftests/pidfd: wait for POLLHUP before reading exit info
-Date: Sun, 18 Oct 2026 12:48:50 -0400
-Message-ID: <179234213014.649.6368924662349703640@gmail.com>
-In-Reply-To: <atTy6LziL5fdGTkn@redhat.com>
-References: <20261017054356.7874-1-hooyan2024@gmail.com>
- <179226499044.847.17334319321039510150@gmail.com>
- <atTy6LziL5fdGTkn@redhat.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NyH6MFp6"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ENqyqEBfdywXRtbS9JtuOKLrGgK8CSPXheNFfg2Nmjw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792342340; v=1; x=1792947140;
+ b=NyH6MFp60fiW7hugFf2woQaq4Txw45X7Urt7x+69r1kFIhymTAwIsOeUazWpZ4/uC87jwTX7
+ hQg/r+SrI5z3U4OKdRiiRM8Z/V+QyRVZnMs3gk4sk7gW7LRfq0/OlBLrVkQTdNVLqjcm9eKyBwz
+ gMLPc6KIzwax/mU/xeO9Sl9w=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 93bb4c237c13c911;
+	Sun, 18 Oct 2026 16:52:20 +0000
+X-Mizu-Trace-ID: 93bb4c237c13c911
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8d47efcf-003d-40ea-a79c-20df738d02fc@linux.dev>
+Date: Sun, 18 Oct 2026 18:52:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/7] HID: asus: Do not send feature reports larger than
+ declared
+To: Paolo Pisati <p.pisati@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Luke Jones <luke@ljones.dev>,
+ Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+ Ivan Levchenko <me@livan.pro>, =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?=
+ <rebecca.mara@posteo.de>, Nathan Chancellor <nathan@kernel.org>
+References: <20261013104033.36079-1-p.pisati@gmail.com>
+ <20261013104033.36079-6-p.pisati@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261013104033.36079-6-p.pisati@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The CLONE_AUTOREAP tests poll for POLLIN and then immediately call
-PIDFD_GET_INFO with PIDFD_INFO_EXIT.  PIDFD_INFO_EXIT is only published
-from release_task() -> pidfs_exit(), which runs after the pidfd already
-reported POLLIN for the exited task.  A poller woken by
-do_notify_pidfd() can therefore read a mask without PIDFD_INFO_EXIT;
-under KASAN the autoreap_multithreaded case fails this way.
 
-POLLHUP is returned once the task linkage has been removed from
-struct pid, which happens after pidfs_exit() has published the exit
-information.  Wait for POLLHUP and check it in revents.
+On 10/13/26 12:40, Paolo Pisati wrote:
+> The keyboard backlight and Fn-lock commands are sent as 64 byte
+> feature reports, the size of report 0x5a on the ROG keyboards. The
+> Zenbook Duo keyboards declare feature report 0x5a with 15 data bytes,
+> 16 with the report ID, and do not answer writes larger than that: the
+> control transfer times out over USB and fails with -EIO over
+> Bluetooth, so the backlight cannot be set, while the 16 byte handshake
+> goes through.
+>
+> Cap feature report writes at the length the device declares for the
+> report, when it declares it. hid_report_len() counts the report ID, so
+> the handshake and the other commands up to that size are sent as they
+> are.
 
-The zero-timeout liveness check in autokill_pidfd_open_no_effect keeps
-POLLIN; it verifies that the child has not exited yet.
+This has been a huge pain in the past months for me so than you for
+taking care of this.
 
-With this change all tests pass ten consecutive runs on an unpatched
-kernel.
+> Assisted-by: LLM
 
-Signed-off-by: fujo <hooyan2024@gmail.com>
----
- .../selftests/pidfd/pidfd_autoreap_test.c     | 36 +++++++++----------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+As the others.
 
-diff --git a/tools/testing/selftests/pidfd/pidfd_autoreap_test.c b/tools/testing/selftests/pidfd/pidfd_autoreap_test.c
-index 1c586482f..b4f3699ef 100644
---- a/tools/testing/selftests/pidfd/pidfd_autoreap_test.c
-+++ b/tools/testing/selftests/pidfd/pidfd_autoreap_test.c
-@@ -149,7 +149,7 @@ TEST(autoreap_rejects_thread)
- 
- /*
-  * Basic test: create an autoreap child, let it exit, verify:
-- * - pidfd becomes readable (poll returns POLLIN)
-+ * - pidfd becomes readable (poll returns POLLHUP)
-  * - PIDFD_GET_INFO returns the correct exit code
-  * - waitpid() returns -1/ECHILD (no zombie)
-  */
-@@ -172,10 +172,10 @@ TEST(autoreap_basic)
- 
- 	/* Wait for the child to exit via pidfd poll. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/* Verify exit info via PIDFD_GET_INFO. */
- 	ret = ioctl(pidfd, PIDFD_GET_INFO, &info);
-@@ -225,10 +225,10 @@ TEST(autoreap_signaled)
- 
- 	/* Wait for exit via pidfd. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/* Verify signal info. */
- 	ret = ioctl(pidfd, PIDFD_GET_INFO, &info);
-@@ -334,10 +334,10 @@ TEST(autoreap_reparent)
- 
- 	/* Wait for it to exit via pidfd poll. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/*
- 	 * The grandchild should have been autoreaped even though
-@@ -421,10 +421,10 @@ TEST(autoreap_multithreaded)
- 
- 	/* Wait for the process to fully exit via pidfd poll. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/* Verify exit info. */
- 	ret = ioctl(pidfd, PIDFD_GET_INFO, &info);
-@@ -512,7 +512,7 @@ TEST(autoreap_no_inherit)
- 
- 	/* Wait for the autoreap child to exit. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
- 
-@@ -571,7 +571,7 @@ TEST(nnp_sets_no_new_privs)
- 
- 	/* Wait for child to exit. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
- 
-@@ -631,7 +631,7 @@ TEST(autoreap_no_new_privs_unset)
- 	ASSERT_GE(pidfd, 0);
- 
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
- 
-@@ -695,10 +695,10 @@ TEST(autokill_basic)
- 
- 	/* Wait for the child to die via the pidfd_open'd fd. */
- 	pfd.fd = pollfd_fd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/* Child should be autoreaped — no zombie. */
- 	usleep(100000);
-@@ -799,7 +799,7 @@ TEST(autokill_pidfd_open_no_effect)
- 
- 	/* Verify child is still alive by polling the clone3 pidfd. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 0);
- 	ASSERT_EQ(ret, 0) {
- 		TH_LOG("Child died after closing pidfd_open fd — should still be alive");
-@@ -813,10 +813,10 @@ TEST(autokill_pidfd_open_no_effect)
- 	close(pidfd);
- 
- 	pfd.fd = open_fd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
--	ASSERT_TRUE(pfd.revents & POLLIN);
-+	ASSERT_TRUE(pfd.revents & POLLHUP);
- 
- 	/* Child should be autoreaped — no zombie. */
- 	usleep(100000);
-@@ -884,7 +884,7 @@ TEST(autokill_without_nnp_with_cap)
- 
- 	/* Wait for child to exit. */
- 	pfd.fd = pidfd;
--	pfd.events = POLLIN;
-+	pfd.events = POLLHUP;
- 	ret = poll(&pfd, 1, 5000);
- 	ASSERT_EQ(ret, 1);
- 
--- 
-2.53.0
+With comments extended (see below):
 
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
+
+If you decide to help me and unify packets alloc between devices
+you can do it on a separate patch after this one and preserve my reviewed-by.
+
+> Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
+> Tested-by: Rebecca Mara Müller <rebecca.mara@posteo.de> # UX8407AA
+> ---
+>  drivers/hid/hid-asus.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> index b127f5c38f60..7b17553e94b6 100644
+> --- a/drivers/hid/hid-asus.c
+> +++ b/drivers/hid/hid-asus.c
+> @@ -632,6 +632,18 @@ static int asus_raw_event(struct hid_device *hdev,
+>  
+>  static int asus_kbd_set_report(struct hid_device *hdev, const u8 *buf, size_t buf_size)
+>  {
+> +	struct hid_report *report;
+> +
+> +	/*
+> +	 * Do not send more than the declared size of the report, report ID
+> +	 * included: the Zenbook Duo keyboards declare 15 data bytes for
+> +	 * report 0x5a, 16 on the wire like the handshake, and do not answer
+> +	 * the 64 byte writes sized for the ROG keyboards.
+> +	 */
+
+Maybe also mentions the majority of ROG laptops uses 64 bytes, xgm 300 bytes
+and touchpads also 16 bytes as the duo.
+
+> +	report = hdev->report_enum[HID_FEATURE_REPORT].report_id_hash[buf[0]];
+> +	if (report)
+> +		buf_size = min_t(size_t, buf_size, hid_report_len(report));
+> +
+
+I think that it's worth doing this for every supported devices: rog ally,
+laptops, touchpads and so on, my only question is if this code is robust
+enough to handle all cases, but it's worth a try.
+
+It's also worth adding another patch to unify all devices to use this code.
+
+I can test on a rog xg mobile: obscure hardware that uses 300 bytes and
+see if it still works.
+
+>  	u8 *dmabuf __free(kfree) = kmemdup(buf, buf_size, GFP_KERNEL);
+>  	if (!dmabuf)
+>  		return -ENOMEM;
