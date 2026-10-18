@@ -1,46 +1,47 @@
 Received: from mail.unwrap.rs (mail.unwrap.rs [172.232.15.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE517286A5;
-	Sun, 18 Oct 2026 16:40:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20793E7635;
+	Sun, 18 Oct 2026 16:40:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=172.232.15.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341640; cv=none; b=V0ERtia9+oIDeu6JbGyZ8ifYERAGS07PdOAAXVaZx+SLKFk7Cb7YPqcN82en+9DPuCHDh8MYuynVmAQQ34RADi6d3vVYvvJ86qbsMu19ml+EXRKH4WLu6p8AgrOAP2cCi8U+8Z8W700QL/XjkDDMoi6T9xubwI/Q5GFkuDCbK1g=
+	t=1792341652; cv=none; b=rlv9A62uRjPHfrTVhUdf9uCILDjTmhq5aktMnQsseOz7hL7Wx1Bjphn2rnB0JfIdrvPAnKjzyO8RICriclCKUD0QA7p+jMSh/rBy4otBNixJKTsaOjeJPSm3T4TuSK1LT3hKG3c7n1dbXheB9rPdOBnGb7NBTxjzuZ4Wt6DA9Ug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341640; c=relaxed/simple;
-	bh=srs7dtHAwwNYQ2JL1zx6Oix5Hvf9coSfZJceTwN2lUo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CATewN9LN3GyS0ygUudtFnkAMawVsL8SFmpB6zgQy7yn85MTsLblMsDARNmwYRLomHYr0DDbj243m8yQHfjI/HOVwvTlK/Ky0/PsR1Aklx6eRYPkmgHKwg68riNPKu0aHVbNq6Fep6JrPYUZfq3BzrKs8To468Y2maAUBJ5SBwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs; spf=pass smtp.mailfrom=unwrap.rs; dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=PSoKXqHm; dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=SM7wkrlC; arc=none smtp.client-ip=172.232.15.166
+	s=arc-20240116; t=1792341652; c=relaxed/simple;
+	bh=nVV5hLo3lhMdEwNew1hXXqrUuhb4wCfRP6Bk4IDz68I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kudEacZsHnHbReNaGNY8rwD9HSIdkfx5x3qWNKvjEnxa3dhtCGXqC27Dq4HvH8Vo6u9L00n2DOihPyo+QhRW5cWV9SZdsi/uWbELpM8cqpTAcLHH7BYtHR9jKEUH3goMZBggvO5R6S/MHEo11ZIy0j/Yjvfy/ig7vm4GyefIc8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs; spf=pass smtp.mailfrom=unwrap.rs; dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=PDOE5Zk8; dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=LTiWAMzU; arc=none smtp.client-ip=172.232.15.166
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unwrap.rs
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="PSoKXqHm";
-	dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="SM7wkrlC"
+	dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="PDOE5Zk8";
+	dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="LTiWAMzU"
 DKIM-Signature: v=1; a=rsa-sha256; s=202503r; d=unwrap.rs; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341631; bh=pCKsnZzzQU
-	klhIVb1fk/+cwj/EuYdFTeu++dyamkAVY=; b=PSoKXqHmBchRCTMc5+EKjF5dszSgV+ObJ01Y1
-	BAjc9Ii87VIbx0NlAar2sTTxyfAcYX7ck8cM5QMyeheO25w9t7ZF0XvwrTQVw4Eo15lafzGKmlg
-	RptQrdteUh79Q1sgaNkaoXdNNTmQsEswA2fKewCD7LgErpMSkAyeSfxb7TOdiRLNWAY9ZbLWbko
-	cVvXzWlv9BkVU/6e5IovnFjuPBsWEuc8JkWh6uHZdNEJNWSAQANdHr7Rt9n384XQe0+41e1DEck
-	FmkLyoYts751EH4HDHiFKccZuoWdh3Gw4XyC6C4LQHQnh2hOOvYcfOWDOBA7iwZyTO1a8Z2L1TL
-	6jihA==;
+	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341500; bh=U7bcq8j8Sw
+	Ky1TxDWfDhROsbzUnuOp7UQWlvXe/q4IM=; b=PDOE5Zk8EkYLHIDnzhfQ+6HDACMbRrVQx3Ddk
+	vAsK9D9e6RvM+DXbNlX3jHBjcs/zNBEy4jv3c6VLKaIn4nDl2HeYO7ccYnvPgceMvFJQTSfak3F
+	Q05hNMHZH606BapN/VzM13wDLBGYUzKhPvsCnzLAEJQvDHn/id1iFHQ1fpNC02AOkpxiBvQYTxB
+	x1ft9x6/QG134v1ApCc6+8O/Uct8vAma16Kg5v1VdNZPlAeiLLzC4iEKz+WMrUyqCJ2Nq0CCvAv
+	8zlAJ3dtmO5GZ9dab7BWvOp94UogRZn3sed3ORMuZbWJzb23gMtsViA/UDdndLDbz8ZdmFRMfj6
+	/m60g==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202503e; d=unwrap.rs; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341631; bh=pCKsnZzzQU
-	klhIVb1fk/+cwj/EuYdFTeu++dyamkAVY=; b=SM7wkrlCJ4TS0vGLHKaAH6kK113CTacLkka6r
-	vH10j+teN56a6F9VhL7f2pbvgDZFH8tv6Gcm3R/BoklHv9DBw==;
+	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341500; bh=U7bcq8j8Sw
+	Ky1TxDWfDhROsbzUnuOp7UQWlvXe/q4IM=; b=LTiWAMzUfBJA28VcePyw/1R0S8hNJvMxw5KGE
+	5+DNCZKHchdmakVILDtgKl+4oOvsdcWvm5URmvFUpNpv8FhCw==;
 From: Cole Leavitt <cole@unwrap.rs>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Mika Westerberg <westeri@kernel.org>
 Cc: Cole Leavitt <cole@unwrap.rs>,
-	Pavel Machek <pavel@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-pm@vger.kernel.org,
+	Lukas Wunner <lukas@wunner.de>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-pci@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] PM: hibernate: Don't lose create_image() errors to arch_resume_nosmt()
-Date: Sun, 18 Oct 2026 12:39:42 -0400
-Message-ID: <20261018164004.132785-1-cole@unwrap.rs>
+Subject: [PATCH 0/2] PCI: pciehp / thunderbolt: Fix resume with a slow Thunderbolt host link
+Date: Sun, 18 Oct 2026 12:37:14 -0400
+Message-ID: <20261018163750.130470-1-cole@unwrap.rs>
 X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -50,49 +51,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-create_image() calls arch_resume_nosmt() on every path that returns
-with in_suspend cleared and assigns its return value to error.  That
-includes the error paths taken when pm_sleep_disable_secondary_cpus()
-or syscore_suspend() fails, which jump to Enable_cpus/Enable_irqs.
+On a Lenovo ThinkPad P16 Gen 3 with a discrete Intel JHL9580 (Barlow
+Ridge) Thunderbolt 5 host controller below Root Port 0000:80:1b.4,
+resume from suspend-to-idle intermittently hangs with a black screen.
+The link to the controller is not up in time when the Root Port leaves
+D3cold, pciehp concludes that the device in the slot was replaced, and
+the resulting removal races with the thunderbolt driver's
+->resume_noirq() callback, which dereferences tb->root_switch after
+tb_stop() cleared it.
 
-When SMT is not disabled (for example on CPUs without SMT, where
-cpu_smt_control is CPU_SMT_NOT_SUPPORTED), arch_resume_nosmt() returns
-0, so the failure is lost:  create_image() returns 0 with in_suspend
-unset, hibernation_snapshot() treats that as a successful restore and
-hibernate() reports success to user space although no image was
-created.  A wakeup event that aborts image creation in syscore_suspend()
-is thus indistinguishable from resuming a hibernation image.
+Patch 1 defers acting on the synthesized Presence Detect Changed event
+in pciehp until the ->resume() phase, where the PM core serializes the
+removal against the drivers below the port.
 
-Only call arch_resume_nosmt() when image creation succeeded.  Failures
-now propagate, so a wakeup event that makes syscore_suspend() fail
-returns -EBUSY to user space, like wakeup aborts in freeze_processes()
-and dpm_suspend() already do.
+Patch 2 stops the thunderbolt software connection manager from going
+through its resume sequence when nhi_resume_noirq() already found that
+the host controller is gone.  Without it every control channel request
+fails with -ESHUTDOWN and triggers a WARN in tb_cfg_read() or
+tb_cfg_write().
 
-Fixes: ec527c318036 ("x86/power: Fix 'nosmt' vs hibernation triple fault during resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cole Leavitt <cole@unwrap.rs>
----
+The patches are independent and can be applied through the PCI and
+thunderbolt trees separately.
 
-Notes:
-    Tested on a Lenovo ThinkPad P16 Gen 3 (Core Ultra 9 275HX, JHL9580
-    Barlow Ridge host, I226 Ethernet), in daily use since 2026-09-17.
+Cole Leavitt (2):
+  PCI: pciehp: Defer device replacement handling until ->resume()
+  thunderbolt: Don't resume the software CM if the host controller is
+    gone
 
- kernel/power/hibernate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pci/hotplug/pciehp_core.c | 26 ++++++++++++++++++++++++--
+ drivers/thunderbolt/tb.c          | 13 +++++++++++++
+ 2 files changed, 37 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index c13f68ab7f6e..f53f844114a1 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -380,7 +380,7 @@ static int create_image(int platform_mode)
- 	pm_sleep_enable_secondary_cpus();
- 
- 	/* Allow architectures to do nosmt-specific post-resume dances */
--	if (!in_suspend)
-+	if (!in_suspend && !error)
- 		error = arch_resume_nosmt();
- 
-  Platform_finish:
 
 base-commit: 32c52ec87d6245ee2d12ed5dd509e40062939b50
 -- 
