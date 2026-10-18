@@ -1,194 +1,106 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F70A3DB337
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906423EEAD2
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792345849; cv=pass; b=VGZhb6+ncNRiiYpR3nJkUHbN/wwHEu59wArWVZS8w2q7auzxzVdGfktMQTzlXIsThDz/t/aXzjELe8TaRITYA5eMpIe7VK1WeMgO4apOVi9tkIgDjEvEHcu1zR4i9TtxwK9DwwN05/fCJG1BR7SQSAzKIbJo6NUfdR2/cF1t2qE=
+	t=1792345881; cv=pass; b=A4ewPJHG1JF2Pim9jzLHvZe/8anAJbwadtgPE2QV2M2exeQq4iYLIiz8b5qOkAT3ELw8Mh7ZLjYSTJhDZnMSraZ7Sdc40pZew3PqG4AjRFDkJ+h7sThI/vQ8LnI9Dp3olFeAYff1DbEUBszOvPRIUEdyuakU3PTg7lIew9qU00c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792345849; c=relaxed/simple;
-	bh=WXv6UKA/9yuqwbZcgBBetRCfLJaa7efW2S21doIVN0U=;
+	s=arc-20240116; t=1792345881; c=relaxed/simple;
+	bh=HJ7jCLw2FdEx8ZSWU4kyWZlj4e9ArZJhEALqSqij3gI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eNGtkRz9HLg1D62MTawjTVGvEhIK6P6t31ElFofI9HrKobjiVqn4g+DS4d5tLclAg6YO1XruunQT23+V1CdWcoLSSOla3+Qo3/M5k8FoTMAn5NodTYWsrMEF40WbC314tVCuWJbtx6pkuUIlMV/alB4SM+Yr2aMfL48/7QmQLt4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FhdeuN19; arc=pass smtp.client-ip=209.85.208.42
+	 To:Cc:Content-Type; b=OK8hhQ8I2o83+nb/wwuWCsr+YxJ/EUZMhsRec77kjmRZwN1/di2itCkkeNoZIYfaxy8APcN4ffEJgvpbr4JLVCFdudmzUcpvDkqc+G8LygqvoWKa2fmg+6zaS7Suv+BbMOGwrM8REeUUO5moz7HMNxyaQh3J7ZMpJ/3ayTYwYmw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c1nYoBWr; arc=pass smtp.client-ip=209.85.208.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FhdeuN19"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1a86c0316so1876675a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:50:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792345846; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c1nYoBWr"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a75f960be3so14467621fa.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:51:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792345878; cv=none;
         d=google.com; s=arc-20260327;
-        b=lu7jiTIA3mgFQHguo4D/M1IF6B5pCeUxjRQkN43tpkqb4DaIPMhc94Uz8IdO14MWB+
-         Mvr0ixs81Sg4RBUqLxzNHJURHijpGiqB3AKwJpYqQT3IDsBt1hClH2NZe362oeaGXPOb
-         ZnNq5KOT9wsGbzwY3jEMJPr4oiU3XynfPTGkYIE7HW3zQZC4cjX+3KfZmF9At9fZQQ55
-         jRg6NcoOtTAeKVWwBep0qPQo0IVMsIMq5TmYdxm7jKE81rD0HWZ+uJ0JrX9hjHohly1R
-         QCTO/R4ILe8ylstADfMvMtTl293LvC+zplE4bPLnSrmWzzdqAtkhJ8lAqmr7sWF9CQXs
-         nouw==
+        b=m2KEhMPKf84nM9l+NSgOJjoXZ0W+PDPsqWC9pXur/49hzA6Ck97666e3kd/tTE5rdE
+         2nOOQ3l2JZf3n9KqwVZjA8+yUjQyT/d18/362kXoEcgQ3hcgxwuQmMVnBSNFBdK6rTqs
+         9SgTr4mGz8FWaADMrucMTYAIJMNkRkZWarn94r36EujvH3PvKQ/yylqAwU3QZxyxR3ti
+         RpXa1Ar3k8eyDCvMk382fKnig0K5pr3Ic8tXRJ8BG1kZJSXbG7bYW9znreEHBZDvSBip
+         MZVxKONCBobQP5i6lsjn2I/2O+O7qko7/0TZNNxhNWMYHaSISYPbcwiLvVTJjfjT3rqW
+         CB3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UQ7W9KldKYkaSyjjE5daJncD2A0RYd8lziVm00Ic5Mo=;
-        fh=z948ZCps7eRYyIxVGF7AdOj9R60jUr3dQ+L09HlbqVM=;
-        b=Be3GTd55+fY4oxZGR7m4coqzg/sChgcQpzqs2WCC3x0j/MBLi65aTn2hr+5cjmqaLa
-         WHTlX3R1hYPf+YpE2ARM9XBNl+QnuI6TAKBHSW2p8Aembsf3v5ZFgeJFNafEkCEK/H/O
-         5xAQTGEOKsCJFL3QvaZQvAZubIKi5SNvdwsWxsrSV7djRoZgLyJJNX8TBuRQI7gaPkl0
-         Ao5e9Nga4I/B0Ki83pQ5V8fJxDrO86mj5P3yfz+6lBrxt/Rz5gigK+aPTs7d7Wq3mW3s
-         B45I2HZn1SP6E0UazE7MglZEE8/CJN+KbZ6T5k3HLiTmWCLpGR3kNigoprAb+nMTDqvt
-         O52A==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=HJ7jCLw2FdEx8ZSWU4kyWZlj4e9ArZJhEALqSqij3gI=;
+        fh=gyJ0yOSgDtV8lNNtxpOqXcm2izYVRMI7JWPZ2VQadMM=;
+        b=iDL62E2nIVsyxxTkBlsoUMpiDtEw1t3GEHf1LuJ3PkDFfm64ZfhHmo2FKFHklyljbu
+         kwN9z+HF/j73PF1AyZqJ8wIBAc37qptiwjek7zuJs2Jb8tU/IWJPAOOwgQ3JCttLqSKj
+         bX+77L/T/owKU0kC2fFRbUj++WgndQekg+26NyUhO1EuacWNEFTH4wscS1qeOUj1NYUy
+         g0eYbYiVNzhfT36fX/KpBBqwdUpDlY4E1DppaKQmau6uaXKGLk5s9rKLj4xo61KS/bOI
+         50xFEOHqeF7tzbFIMW9/uHUzKn10xX6iG9hbtkKiSFIFt/7/YZee792oc5z/tVvntVw+
+         sLgg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792345846; x=1792950646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UQ7W9KldKYkaSyjjE5daJncD2A0RYd8lziVm00Ic5Mo=;
-        b=FhdeuN19hmZwMH6SNxPtLNo3n5D2G+4Yfk8Huc7HsCL/lffihO3nLDtCvzv0oZ2441
-         TdntBLL9ZVXG4R8WrRtei/u+WNZ7J2tWzTacUrghbUOGqyhDTG/KVXSd0zg+pDil0R4c
-         8WEQ/5gtEJE0TL7e/KKNp+SS+c5FM/evaMNldk3Mjnv95C2vGu8pkEWlXf0cnKsu6P/m
-         IafNE5/+Zvx2QunzPM8UxMDNcVJouTGbMkg5D36W0e6eZKEv9yyEik6EeIV2DVqaLA1w
-         gQMAuwY1GnCnmKkFi5dckgtqOoxlOgebmqMiGxvpVTO4qvk0eNfe/aoUCwjHaoePOthR
-         qh8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792345846; x=1792950646;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792345878; x=1792950678; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UQ7W9KldKYkaSyjjE5daJncD2A0RYd8lziVm00Ic5Mo=;
-        b=NEySO9BUCbneHAsfKnfGa2HOI1oJU8N1zV1goJvQAlFvpf+r+wqkDY6J20sMRSqC3z
-         qLBUFhgMsDpjo3KzJDgBdai5X114MYrRHRU8/tvGKl4x9dg3QicXwryZb4GoNbr/nvLM
-         ZGBl1+1tJzXG74u+6p1gkXHoAm5oR437ING6rHhBGYoNRIVQ/1bT0s2WHmgIWM/dfMcm
-         FROPu6RPGK9X5rc432b6yJ6fx1vSm8F2iaCbLy5RfSVe42o6NjzpHI8LP1sPNpuXMq0C
-         Yy0cYZ7ZDSbpuo81tuqKJwS59eZdGKU7s6qK4KV8D7oMj956r7sM3/ykGhH3Ukqpi5NZ
-         84qg==
-X-Forwarded-Encrypted: i=1; AKwUvBzqmCVssvAOzarGQqN+NlwOUWfNoHZ+74aBBW8na7zxYYYZyjgUFOmcpyMaYFxQ014395vRdyvR4sWBOpw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK354VzR5IwAqr9XCgR6ihFXxrQcdtGO0Uax7fXpkyTIklMdla7
-	2agdKz49mdqblU+BLMIIOChnR7zdDC01QnBmLjDbeW4orTgYhU28jWSvn2GmOP+FyuXliDB+knW
-	uIr+Gmx7Il/5G0EwheFLH56sZKU8tZNg=
-X-Gm-Gg: AYBFou0cDGy8ZZp8H54h2Po5l5MkdmLg5mJJ6n4pHfzGXN0t2L35SnBPrJxsqdzaTo0
-	MHx2CLrgWmWC3alFGdny5yrnYTajj6nTcQzdWju+Y/vU4TDNtZS3r6ltH065Gn7lhH4ota9A4Yt
-	z9S9gxEA+TYU7ugC4z+XJ+AcuRpD2GdjulA+BdH8RMqOUJ96hLD/7cKyReuglPp4HmzEyZXduT9
-	cveMFfWFaMJwFQ/ItcJwk4cBLFkG8kwKdxRXtEXNX7XaNi37lRHYdGzFGAYXy1922JeO35mE2JI
-	FtEtlYN7oMx19HEpzkuDoryAT6AYkA5r1BVAwZg90rsqzhp1UYPNszaXlKi9Rf0xNTafu52BozB
-	Jt/TNR7dbWNz8EiHmBrQMBMH4l1+YzXAjGcJoax972g==
-X-Received: by 2002:a05:6402:4487:b0:6ac:a1e1:3f88 with SMTP id
- 4fb4d7f45d1cf-6b3a814b026mr3327488a12.14.1792345846166; Sun, 18 Oct 2026
- 10:50:46 -0700 (PDT)
+        bh=HJ7jCLw2FdEx8ZSWU4kyWZlj4e9ArZJhEALqSqij3gI=;
+        b=c1nYoBWrKJY2+CLJeXf06moOwiYUv+ca63JF3b3TZtUuo989bYJ/pd73DCPBKtPObH
+         /PYjIkEF7UcIZRV777lw3Rvi0eJd8UByvd4FpADF4CR4JfwFedGYRBGVoukXSycm0U+D
+         w/8cydt58Aj5ps2S6ZPTotLqQL7QCM3v+ahDVquZvQg3yv5LCxOW6zES1LIhqYGaJyBV
+         1XqhaWrLjUlRkjV5oPDo52TlnYktnN9R3qRfm9PZXy2EH0Jx3u8MqUDy1mL7NH+H4XCT
+         pWcJxhal5fsN4zZxqY8UPIRc4VXHOIPCDWHUJVO6EwR29E0ckrdYJfHtwPaRxsIDMKc5
+         XcMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792345878; x=1792950678;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HJ7jCLw2FdEx8ZSWU4kyWZlj4e9ArZJhEALqSqij3gI=;
+        b=Gkw+H3pk+QNgehkYHSH595KtdNP2W56MKd0SPxyKGfzxW1k1y9FfAfPWy+lew2pkmo
+         kFFnquqLNSblVnbioyN8c1d7eIwmMOKjGWhCpYUI9wLt9aZxg6Q59NOs5uJ9juydsTNb
+         jxfOvSelZsAlCLwrLJCXY9ubEmJxs69Pg9jgvSIKCxjuW0lAJNEqrVmXrK0zk1jyCKpp
+         qygFuSmWbTaaPGUaeJMIQxGlAx5Kly0rfsxV9KlOMTWLNqJCcd6RXtV0Ism069+BGJjb
+         dMWXbYlTn29V++CUlWfJG/qLta8pRPcqsMdVWb8iKIqqDXuFcLRYLnCEH2Ro32p2oHAU
+         Gsjg==
+X-Forwarded-Encrypted: i=1; AKwUvByWBhheWv0bTezsAWrgaIUWumNBlO+FRwd/dH2CwjAmtU7fduq7pdfqIe5YHg64wU+cBLd234YNJLU6t9M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxlC04m82aOGvRw8bea+z/t6PZ3SY61dfBRHbj1TNj+zd/Mben
+	tUWJv5u4xqJWNh+qhqPafkk1bLxqD/jCf1PTOTwpGXwkrvG2VOY3OsU5M18VsepY2zqpPnpZq2I
+	KI+U2VkMJE/A2DReQbpgz6lylV7K/u+o=
+X-Gm-Gg: AYBFou3tMfs+ZX4ra9YME9AEtOn8M85pjXcCyIcnqcWGqgLWgwiJMMPmnMqHGzbAhk/
+	Ek8I9YpXLSrGJesDNrpetnmEyBAn/4mtkBvvfB3SVfOdYXeS5NH47eUXo9zEti7WB1ESpmbLKvI
+	ws+pPD6ozJGHPskeBoR/LFcKTUcUB9LgRld14SNLpViDp1zu7/jbJKDOXt8jCupb07y2KKB3bGF
+	4soY3Rcc1MZIHGv6KcWoMEBidy029+kOEgDo1LFFc0tapX3AmK5xObap5reMcbAZxRMhhcOsfXT
+	HV8V8BeysKLa5SEGBwP9zyZ7owzYm/Ydyni/qpdzH8Ao9NcNLo+GO3w=
+X-Received: by 2002:a05:651c:a20d:20b0:3ab:2517:6a6e with SMTP id
+ 38308e7fff4ca-3ab292d34a9mr8826631fa.25.1792345878330; Sun, 18 Oct 2026
+ 10:51:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261018-alpha-perf-regs-v3-v3-0-52be85332c57@gmail.com> <20261018-alpha-perf-regs-v3-v3-5-52be85332c57@gmail.com>
-In-Reply-To: <20261018-alpha-perf-regs-v3-v3-5-52be85332c57@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sun, 18 Oct 2026 19:50:34 +0200
-X-Gm-Features: AclHuK-yU7tSzanPsDFTqgaSJETZpGEAojUlwTccllHoXkgRUI3VKv_elNnpC4I
-Message-ID: <CA+=Fv5SFFGtWj_Y8Y1Qe_W1ooDom97VHMiBhfF7b17+FYHL=3Q@mail.gmail.com>
-Subject: Re: [PATCH v3 5/5] alpha: fill in pc for software event samples
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, Ian Rogers <irogers@google.com>
+References: <20261016045849.813696-6-oss.patchbox@gmail.com> <20261018125520.GE64621@unreal>
+In-Reply-To: <20261018125520.GE64621@unreal>
+From: Yuho Choi <oss.patchbox@gmail.com>
+Date: Sun, 18 Oct 2026 13:51:05 -0400
+X-Gm-Features: AclHuK9VhtPON4CZXI1t-EARaMx8fGG5lLL9rRYVGDPs8VyZqR0bY4J0-Y_FAtc
+Message-ID: <CAGG=RgAjY-TFDq4+rEspF5R_dTC=6jjHfS3cRsG39fi_LKVN0Q@mail.gmail.com>
+Subject: Re: [PATCH net-next v1 0/4] net/mlx5: Don't free CQs whose destroy failed
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Ariel Levkovich <lariel@nvidia.com>, Jianbo Liu <jianbol@nvidia.com>, Alex Vesker <valex@nvidia.com>, 
+	Yevgeny Kliteynik <kliteyn@nvidia.com>, Itamar Gozlan <igozlan@nvidia.com>, netdev@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Matt,
+On Sun, 18 Oct 2026 at 08:55, Leon Romanovsky <leon@kernel.org> wrote:
+> Please drop this series. The flow is impossible in current HW implementation.
 
-On Sun, Oct 18, 2026 at 4:22=E2=80=AFPM Matt Turner <mattst88@gmail.com> wr=
-ote:
->
-> Context switch and tracepoint events have no trap frame, so perf builds
-> one with perf_fetch_caller_regs(). Alpha does not define
-> perf_arch_fetch_caller_regs(), which leaves that pt_regs zeroed, and
-> these samples report pc as 0.
->
-> Record the caller's address as pc. The zero ps already marks the frame
-> as kernel mode, and pt_regs has nowhere to keep sp, so pc is all that
-> can be filled in.
->
-> perf_fetch_caller_regs() gets that address from CALLER_ADDR0, which
-> alpha defines as 0 when CONFIG_FRAME_POINTER is disabled. Finding the
-> level zero return address does not need a frame pointer, so make
-> alpha_ftrace_return_address0() available in both configurations. Only
-> ftrace_return_address(n) still depends on frame pointers.
->
-> Reported-by: Magnus Lindholm <linmag7@gmail.com>
-> Suggested-by: Magnus Lindholm <linmag7@gmail.com>
-> Closes: https://lore.kernel.org/all/CA%2B%3DFv5S8-Zk8-LUpZnWiBfTGSQXthepm=
-Rc_-a9O%2BpEPmVW0mRA@mail.gmail.com/
-> Assisted-by: Claude:claude-opus-5-5
-> Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-> Acked-by: Ian Rogers <irogers@google.com>
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/include/asm/ftrace.h     | 5 ++---
->  arch/alpha/include/asm/perf_event.h | 7 +++++++
->  2 files changed, 9 insertions(+), 3 deletions(-)
->
-> diff --git a/arch/alpha/include/asm/ftrace.h b/arch/alpha/include/asm/ftr=
-ace.h
-> index 7ec44134c804..5b75a294a7c9 100644
-> --- a/arch/alpha/include/asm/ftrace.h
-> +++ b/arch/alpha/include/asm/ftrace.h
-> @@ -2,8 +2,6 @@
->  #ifndef _ASM_ALPHA_FTRACE_H
->  #define _ASM_ALPHA_FTRACE_H
->
-> -#ifdef CONFIG_FRAME_POINTER
-> -
->  static void *alpha_ftrace_return_address0(void)
->         noinline notrace;
->  static void *alpha_ftrace_return_address0(void)
-> @@ -13,6 +11,8 @@ static void *alpha_ftrace_return_address0(void)
->
->  #define ftrace_return_address0 alpha_ftrace_return_address0()
->
-> +#ifdef CONFIG_FRAME_POINTER
-> +
->  /*
->   * __builtin_return_address() requires a constant integer argument.
->   * Keep this as a macro so the value is seen at the callsite.
-> @@ -21,7 +21,6 @@ static void *alpha_ftrace_return_address0(void)
->
->  #else  /* !CONFIG_FRAME_POINTER */
->
-> -#define ftrace_return_address0 0UL
->  #define ftrace_return_address(n) ((void)(n), 0UL)
->
->  #endif /* CONFIG_FRAME_POINTER */
-> diff --git a/arch/alpha/include/asm/perf_event.h b/arch/alpha/include/asm=
-/perf_event.h
-> index 5996e7a6757e..72536566014a 100644
-> --- a/arch/alpha/include/asm/perf_event.h
-> +++ b/arch/alpha/include/asm/perf_event.h
-> @@ -1,4 +1,11 @@
->  #ifndef __ASM_ALPHA_PERF_EVENT_H
->  #define __ASM_ALPHA_PERF_EVENT_H
->
-> +/*
-> + * Software events have no trap frame, so perf_fetch_caller_regs() fills
-> + * in a zeroed pt_regs. A zero ps already means kernel mode; only pc is
-> + * missing.
-> + */
-> +#define perf_arch_fetch_caller_regs(regs, __ip)        ((regs)->pc =3D (=
-__ip))
-> +
->  #endif /* __ASM_ALPHA_PERF_EVENT_H */
->
-> --
-> 2.55.0
->
-
-Tested on my AlphaServer ES40 with CONFIG_FRAME_POINTER disabled.
-Context-switch and sched_switch samples report valid PCs, with
-synthetic SP correctly remaining zero.
-
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Thanks for the explanation, Leon. I'll drop it.
 
 Thanks,
-Magnus
+Yuho
