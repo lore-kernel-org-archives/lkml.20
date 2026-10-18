@@ -1,110 +1,180 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mta0.migadu.com (out-203.mta0.migadu.com [91.218.175.203])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFC1448391
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F61D3D5244
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792363369; cv=none; b=hEtoZtRDfEg6yDDVbSKeK9mJI5FzgvJti8eknSQjiMz2KAiKl2e85N69YBmrcuOGJf9fln5SlODbMwliC0/zTDkAagYGkObG3lfVtDdCGISifuQD9CLPH4L4jSY33x6LOaFCKQH4TVaL43Xu6xhr6mybLZjZv7e2VSaEpDcGtn0=
+	t=1792363487; cv=none; b=e4+8Mv3x/L7VXa53Py+NAaTpCfctvn8ECWNJ0OC63duyVxhQJtOlGxZDm6z0JclKsBOjdQf+t+dYeODg3Tz8wIU44Dljn0EoCNC/xlsnesq4GdME7jIjegkCZh0RcPfkItZo73ylU8u+qzW0mu5VnzPeuaoBlNcynrdiYoPbjDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792363369; c=relaxed/simple;
-	bh=LLL8YnAyUQxPSK7+xdsfZLm9pB6HUgKQPfbKvkRhwDA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OYJcwDespMsIWj6226mZp7THjThBVE8M1AIfx2Ddtfg5rAuTpqihCMIYQWT1EwkWHRvFCZkwklNHs4IsiBvF9TGuvDw0/mZ5wNgaY3x96/Fvx2cRIwapuUmxNEHrYcpAl2au/yjtaT9dD7Iqwd5lYSgS2XexpWyL/ioOMgoUS4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GUyHTmxc; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792363487; c=relaxed/simple;
+	bh=zWR5OAyWdhXmhQvTQixGFKFnKfWZir2Dn2fJQFSHfXI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ggb6t6Hjsz1TGYjgsieI4KiGxjM3ewJantj7XSBBvyxztObSNCG3jiAd3eNXTn2TcjLkth/krOtUIw8KW0d7JeVvR0wq9QAT931YYkb66yKkaBGUAzt3cw7gIYE8D5/iKcPgj7RimbEzInuk/atMiVQtH6LMIKi1CHcZBWYweVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=AQHcW6GB; arc=none smtp.client-ip=91.218.175.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GUyHTmxc"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so13077365e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:42:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792363366; x=1792968166; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m1qlXxPCKnyZBMqZS+UI2tKQ3hqkztlpBKb9IkUQpHc=;
-        b=GUyHTmxcQH0liyz7GPjeerzsIWLWVZB1x4J0rczvesfQqBJLpSlHartSquxIAO2m2z
-         c8+o1OgFwyS18suYL5JldW/YZkPoevfM1yS3ou54d58NOh/7YABSBauhdTvRI3sueL5x
-         pnXIluuvs8vYN1ASolU+6me/WQpcmJzUm7NuzZLpO2OtDOLz1ekXcYKmyygoclO2O7L/
-         mc38EhCLNQEVCYL3ntuN88xEah3roHDSG4THAxJrjg2K5VpqfLJVNLbL41/kTadmdtAr
-         aBgC6v47PnmPG8PeQMaRs1Bfk18TZdLd6DEZ6ZL0elcBUIUy5QP66XcLp0RO0fuKQc3E
-         AJow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792363366; x=1792968166;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m1qlXxPCKnyZBMqZS+UI2tKQ3hqkztlpBKb9IkUQpHc=;
-        b=MBTIiZl/ix6lESBFiUG0xO+3jZ+uzRthJuz5vPUiJJr7T5VfYwAO1jlYpLn48QLX8M
-         imFGAhskdI8HmnFBYI0K2cv3fzYsaLFwU5lAhaCjcSK4hSRKpkeI8yD6KdKss8K4GOv2
-         Gwp+V1GOeb8k/mgezyHwNCWZtqIPj0190QwNX2dFdot6OMfvVbAKJ3gcSIK/JVecpq4+
-         VcjWrFqKbv5ql3fKINY7gd25SyWOLqz0Y/lEZFZk9Ys5fOP0t8SreoaDE9rHnQQDxSWT
-         3HWjjtxoKYL2pTQAAL85S8I1n7esd9iYRhd/va/GoCLJUj09VQFLZ2yLTdJU7DIaxboy
-         S8Mg==
-X-Forwarded-Encrypted: i=1; AKwUvBx+RlUksJUVEOubpT2nsjzTLkq5ED4hGah+wCox2vp3972M96nlM3R4Gdp6Y8S72kqoJintWdcsJns4J4M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJPpUPWDMrzz3a2iSkAD2Br5n8Ol6fwN5jMrU0vA47davp5aKj
-	r2Zwcg+MOiksTQepsxBiTDZPQL8uTm4xniHt2WG06VD+xo43RpO1HFwY
-X-Gm-Gg: AYBFou2XcDoc4tyoBIncokRRhzfUBluCnxeMUiIPzk1rjzTe0fh6Gta4uWFMp3Ygd7G
-	/GT52XIg2JVEC65djsABrBERiPnKQvj0TWNnBcgCUhnn+qRS9CS/6SiwZa3lmbXxU2Q6dkNHwaF
-	NQBxWvg4Lye8uKFCcJ/X6pscnfrS01qV0znT01qyG5gRS8V59pAbZOpwnezrvQuS9ODok1C1hNl
-	rUCtthQ8iUT/z4QxSYqVm6O8J3r5VF7H0TDgHmUXTZkB3VMqAlCbLH+lXqjBTM84rrs4diVBnjC
-	1EewqmkUWVA0dlj0woFklIYjcMO7/390A2m+auw4vJMenWjfS2H2JWEGrwugu6VexNpXnuzoh64
-	p0OZyYYOtvGf3NAt2gRxIlUtocLDka93I5URY199hRwXn3nycNKaArOmPynD6CZzy4lmsEhOhHW
-	o+S+MADRhJhCti+4UPwZ8mSyxTsocdB30ANPpGeJkY1YzdfLNaEmuG1Z8IQP3VQ5jOWAT/ltYPx
-	N2uYfgk2B05W4vqHrFmx20/jvxb6f9R4lRKM2kp99Ev729yaH/3sup+KdbPfFit8UxE+UFY/uGt
-	yaaaw2aaK6LlzBfETKVA6pafZCWRKUhqPfmxRrQr+2FGibrd302eRz4+bpa2CO7LYUbDsgWr
-X-Received: by 2002:a05:600c:4f82:b0:4a1:df52:3e36 with SMTP id 5b1f17b1804b1-4a1df523fa5mr94086665e9.27.1792363366271;
-        Sun, 18 Oct 2026 15:42:46 -0700 (PDT)
-Received: from localhost.localdomain ([102.88.166.8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1df164777sm140396685e9.5.2026.10.18.15.42.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 15:42:45 -0700 (PDT)
-From: Okhuomon Ajayi <okhuomonajayi54@gmail.com>
-To: outreachy@lists.linux.dev
-Cc: Viresh Kumar <vireshk@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Okhuomon Ajayi <okhuomonajayi54@gmail.com>
-Subject: [PATCH] staging: greybus: fw-management: fix argument alignment
-Date: Sun, 18 Oct 2026 23:42:41 +0100
-Message-ID: <20261018224241.46011-1-okhuomonajayi54@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="AQHcW6GB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zWR5OAyWdhXmhQvTQixGFKFnKfWZir2Dn2fJQFSHfXI=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792363481; v=1; x=1792968281;
+ b=AQHcW6GBj/etZQqq+KWhh5fyqPXpAbgNPHRzDTfotoqmQP8EbpDKlkt8uB1o/+nDdMVvJYfx
+ aNa5qeVovowbD3fhKRJ0XXJ3AwP9XLNweRM/FpOqxRSqOc61zLENRXILoFo3rfLp99O/M9UtRQ4
+ Y95+3oFjHWCE/FaTGfQXArwHWeoP0xj5bKTwmvd7SKRHmD3KehRnWvRofgEqWzdQipwPYihzZq1
+ jfZJ2+n74InJDX00ejhSFDgBTFnq/hC8fEmtIwOqhS7ciCO0K18d3Y4XhP4mB4R9DLkDDC75NKw
+ VqXT/nnNGsNdHfcZ20wDzvlLZgw6YxNUtmaKDLj1WUWXQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2579d1d25b7eaed8;
+	Sun, 18 Oct 2026 22:44:41 +0000
+X-Mizu-Trace-ID: 2579d1d25b7eaed8
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7d1fd5e4-a35a-4675-8b0c-005e9f022646@packett.cool>
+Date: Sun, 18 Oct 2026 19:44:31 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ASoC: codecs: aw88261: complete the start at trigger
+ time
+From: Val Packett <val@packett.cool>
+To: Vladyslav Tymoshchuk <tvlad744@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Luca Weiss
+ <luca.weiss@fairphone.com>,
+ Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+ Federico Amedeo Izzo <federico@izzo.pro>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20261016120000.aw88261-trigger-v2-1-tvlad744@gmail.com>
+ <58c229e2-ee81-4b75-92e9-1eaee2d19d0b@packett.cool>
+Content-Language: en-US
+In-Reply-To: <58c229e2-ee81-4b75-92e9-1eaee2d19d0b@packett.cool>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Align the arguments of the fw_mgmt_load_and_validate_operation()
-call with the opening parenthesis and split them across separate
-lines to avoid an overly long line.
 
-CHECK: Alignment should match open parenthesis
+On 10/18/26 4:20 PM, Val Packett wrote:
+>
+> On 10/17/26 7:00 AM, Vladyslav Tymoshchuk wrote:
+>> The amplifier is started from the PRE_PMU event of its AIF widget, that
+>> is from DAPM in prepare. aw88261_dev_start() waits up to 20 ms there for
+>> the PLL to lock to the bit clock and powers the amplifier down again if
+>> it does not.
+>>
+>> The Qualcomm AudioReach backends only start their graph, and with it
+>> the I2S/TDM clocks, in trigger since commit b54a38af7138 ("ASoC: qcom:
+>> q6apm-lpass-dai: move graph start to trigger"). There every start fails
+>> with "start failure (-1)" and the speaker stays silent for the whole
+>> stream, as seen with six AW88261 on a TDM link of SM8750.
+>>
+>> Split the start at the first step that needs the bit clock, the PLL
+>> lock check, whatever the host does:
+>>
+>>   - PRE_PMU clears power down (PWDN), configures the I2S interface and
+>>     the PLL and writes the boost settings of aw88261_reg_force_set().
+>>     The amplifier stays powered down (AMPPD) and muted.
+>>   - The unmute, called after the trigger of the CPU DAI with
+>>     .mute_unmute_on_trigger, does the rest: it checks the PLL lock,
+>>     clears AMPPD, checks SYSST, enables the feedback and unmutes. If the
+>>     PLL does not lock, "start failure" is logged, the amplifier is left
+>>     as PRE_PMU left it and the next trigger start tries again.
+>>   - The mute in trigger undoes the unmute (mute, feedback off, AMPPD),
+>>     and POST_PMD sets PWDN as before.
+>>
+>> So only the steps that need the clock run in trigger: 14 register
+>> accesses and 1 ms per amplifier for the unmute when the PLL has locked,
+>> 12 and 1 ms for the mute. The same steps run there on hosts that have
+>> the clock running from prepare. aw88261_reg_force_set() only writes
+>> boost settings and now runs before AMPPD is cleared rather than right
+>> after.
+>>
+>> wsa883x and wsa884x split their start the same way, with the
+>> configuration in DAPM and GLOBAL_PA_EN in the trigger-time mute. The
+>> vendor driver of this amplifier family (aw882xx) also starts the
+>> amplifier from .mute_stream, with the same sequence.
+>>
+>> The register accesses go over I2C and sleep, so they need a nonatomic
+>> trigger, which the Qualcomm DPCM links using this codec have. On an
+>> atomic PCM, as seen from substream->pcm->nonatomic in .startup, PRE_PMU
+>> does the whole start as before and the mute callback does nothing.
+>>
+>> POST_PMD can also run for an amplifier that was never powered up, as
+>> seen when the card is registered, so make "already power off" a debug
+>> message.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+>> ---
+>> [..]
+>> +/*
+>> + * First part of the start, which does not need the bit clock: power 
+>> up and
+>> + * configure the I2S interface and the PLL. The amplifier stays 
+>> powered down
+>> + * (AMPPD) and muted.
+>> + */
+>> +static int aw88261_dev_power_up(struct aw88261 *aw88261)
+>> [..]
+>> +/*
+>> + * Second part of the start, which needs the bit clock as the PLL 
+>> locks to
+>> + * it: check the lock, enable the amplifier and the feedback, and 
+>> unmute.
+>> + * On failure the device is left as aw88261_dev_power_up() left it.
+>> + */
+>> +static int aw88261_dev_enable(struct aw88261 *aw88261)
+>> [..]
+>> +/* Undo aw88261_dev_enable() */
+>> +static void aw88261_dev_disable(struct aw_device *aw_dev)
+>> [..]
+>> +static int aw88261_dev_start(struct aw88261 *aw88261, bool enable)
+>
+> "power_up", "start", *and* "enable".. this naming is a mess now.
+>
+> Would be nicer to make the *names* more descriptive of what's actually 
+> being turned on/off.
+>
+>> [..]
+>> --- a/sound/soc/codecs/aw88261.h
+>> +++ b/sound/soc/codecs/aw88261.h
+>> @@ -564,6 +564,8 @@ enum {
+>>   enum {
+>>       AW88261_DEV_PW_OFF = 0,
+>>       AW88261_DEV_PW_ON,
+>> +    /* powered up and configured, amplifier off: waits for the bit 
+>> clock */
+>> +    AW88261_DEV_PW_READY,
+>
+> Would make more sense to stick the intermediate state in the, well, 
+> middle. And rename the states to something that makes sense like { 
+> OFF, WAITING_FOR_BIT_CLOCK, RUNNING } instead of making everything a 
+> comment like the slop machine left it.
+>
+>> [..]
+>> base-commit: 0f8bc3b93b76d16682a4d4999f9559b1e18016f9
+>
+>
+> It does work here, anyhow, so
+>
+> Tested-by: Val Packett <val@packett.cool> # sm7325-motorola-dubai 
 
-Signed-off-by: Okhuomon Ajayi <okhuomonajayi54@gmail.com>
----
- drivers/staging/greybus/fw-management.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/staging/greybus/fw-management.c b/drivers/staging/greybus/fw-management.c
-index 5d01da6b6eb9..e20e9136c106 100644
---- a/drivers/staging/greybus/fw-management.c
-+++ b/drivers/staging/greybus/fw-management.c
-@@ -434,7 +434,8 @@ static int fw_mgmt_ioctl(struct fw_mgmt *fw_mgmt, unsigned int cmd,
- 			return -EFAULT;
- 
- 		ret = fw_mgmt_load_and_validate_operation(fw_mgmt,
--				intf_load.load_method, intf_load.firmware_tag);
-+							  intf_load.load_method,
-+							  intf_load.firmware_tag);
- 		if (ret)
- 			return ret;
- 
--- 
-2.43.0
+Though after this last reboot now, it's weirdly stuck when on the 
+speaker profile, changing the volume did not play the "boop" sounds.. 
+(nothing appearing in dmesg).. until I switched to the earpiece profile, 
+when a big bunch of those played in a row!
 
+Not guaranteed that this is related to these driver changes, but 
+suspicious..
+
+
+> Thanks,
+> ~val
+>
