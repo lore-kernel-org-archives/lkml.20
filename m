@@ -1,129 +1,133 @@
-Received: from mta1.migadu.com (out-226.mta1.migadu.com [95.215.58.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bc (unknown [162.221.207.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65953DDDDE
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:52:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08E43F4DDB;
+	Sun, 18 Oct 2026 16:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.221.207.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792342345; cv=none; b=c6uhMWiVfo6b/vxkSDOBmizttkiVMuJA2gNraYc2EfEwO8DFzTq6M2lAEN1b+FL94uFAWWtITiNq2f5/C3swU5OwZxe23rSy286rgsQxLJhgOGRifX7BiMfLdueG3II8YGlK4aj2vmdOFefDPEkhamyz64a4jAOxAwJjeChak8Q=
+	t=1792342380; cv=none; b=R2Z51o2sz1vEuFhj5p92pLITLMGG5vgYRO4tnr1Ujb8UXcRBok4VSYpvRG/h78y4WzW71NVBLQWrrYd1U1zF047p5lsWDsGkDdNH0RXFnBgjmqEg2+/e4d3pMSw/nWJCgkRWsFHWSJ8ao91XNMbi3LR0D2IDctN2XRgZ9seyVTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792342345; c=relaxed/simple;
-	bh=ENqyqEBfdywXRtbS9JtuOKLrGgK8CSPXheNFfg2Nmjw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CxzYhFVeuKOLL1c9EajSCODs4wOcVJl5L0Qz58yJGv2UJnx4vHNSX0bkf+1Kq5t2V5dWyukJsY/s7YkbdNu56tMeTBCLW6PICss1iuzo6vrR4hg77aUoJJ9Z1sogxXKHkmB0N7+E/Wyb/Yat0zuaV0dDcOzPIE4JXsJgfuDxOUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NyH6MFp6; arc=none smtp.client-ip=95.215.58.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NyH6MFp6"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ENqyqEBfdywXRtbS9JtuOKLrGgK8CSPXheNFfg2Nmjw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792342340; v=1; x=1792947140;
- b=NyH6MFp60fiW7hugFf2woQaq4Txw45X7Urt7x+69r1kFIhymTAwIsOeUazWpZ4/uC87jwTX7
- hQg/r+SrI5z3U4OKdRiiRM8Z/V+QyRVZnMs3gk4sk7gW7LRfq0/OlBLrVkQTdNVLqjcm9eKyBwz
- gMLPc6KIzwax/mU/xeO9Sl9w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 93bb4c237c13c911;
-	Sun, 18 Oct 2026 16:52:20 +0000
-X-Mizu-Trace-ID: 93bb4c237c13c911
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8d47efcf-003d-40ea-a79c-20df738d02fc@linux.dev>
-Date: Sun, 18 Oct 2026 18:52:17 +0200
+	s=arc-20240116; t=1792342380; c=relaxed/simple;
+	bh=Kg2AXVDhPrTDy8CkhVXcDk7Y5rEjwYoSyc60dsQZJec=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Mime-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pweKgmlAwmlMe1KCtqjn4zUXxzELyTj9nTSbPx7Zr3LRo1zkxfsa42B5I/cR8fh+gpeHPoQTy/XPVEkkW40wI3cwgsEzIAhsTwp3AfQe4ISPR1PBYiLT9ArkrzboZnABYagA8TvoyqA9+dJrAKhkbsNRm4WAEymHVpbFqSH/Sb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hozed.org; spf=pass smtp.mailfrom=7el.us; arc=none smtp.client-ip=162.221.207.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hozed.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=7el.us
+Received: from localhost (localhost [127.0.0.1])
+  (uid 1002)
+  by bc with local
+  id 000000000004005D.000000006AD4F962.002B0316; Sun, 18 Oct 2026 16:52:50 +0000
+Date: Sun, 18 Oct 2026 16:52:50 +0000
+From: Troy Benjegerdes <hozer@hozed.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+  Shuah Khan <skhan@linuxfoundation.org>,
+  Randy Dunlap <rdunlap@infradead.org>,
+  Federico Vaga <federico.vaga@vaga.pv.it>,
+  Daniel Pereira <danielmaraboo@gmail.com>,
+  Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>,
+  Dongliang Mu <dzm91@hust.edu.cn>, Andy Whitcroft <apw@canonical.com>,
+  Joe Perches <joe@perches.com>,
+  Linus Torvalds <torvalds@linux-foundation.org>,
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+  Krzysztof Kozlowski <krzk@kernel.org>,
+  Steven Rostedt <rostedt@goodmis.org>,
+  Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>,
+  Jori Koolstra <jkoolstra@xs4all.nl>,
+  Jeff Layton <jlayton@kernel.org>,
+  Christian Brauner <brauner@kernel.org>,
+  David Hildenbrand <david@kernel.org>,
+  Vlastimil Babka <vbabka@kernel.org>,
+  Jakub Kicinski <kuba@kernel.org>,
+  Christoph Hellwig <hch@infradead.org>,
+  Mark Brown <broonie@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+  Brian Foster <bfoster@redhat.com>, Carlos Maiolino <cem@kernel.org>,
+  David Disseldorp <ddiss@suse.de>,
+  Jani Nikula <jani.nikula@intel.com>,
+  Justin Stitt <justinstitt@google.com>, workflows@vger.kernel.org,
+  linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] docs: remove Assisted-by references
+Message-ID: <atT5YvJs3JYIkF5h@false>
+References: <20261013121501.3738437-1-sashal@kernel.org>
+ <87o6cww7c1.fsf@trenco.lwn.net>
+ <as-2MbhDdCN2trMe@laps>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/7] HID: asus: Do not send feature reports larger than
- declared
-To: Paolo Pisati <p.pisati@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- Luke Jones <luke@ljones.dev>,
- Joshua Leivenzon <hacker1024@users.sourceforge.net>,
- Ivan Levchenko <me@livan.pro>, =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?=
- <rebecca.mara@posteo.de>, Nathan Chancellor <nathan@kernel.org>
-References: <20261013104033.36079-1-p.pisati@gmail.com>
- <20261013104033.36079-6-p.pisati@gmail.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <20261013104033.36079-6-p.pisati@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+In-Reply-To: <as-2MbhDdCN2trMe@laps>
 
+On Wed, Oct 14, 2026 at 01:04:49PM -0400, Sasha Levin wrote:
+> On Wed, Oct 14, 2026 at 10:54:54AM -0600, Jonathan Corbet wrote:
+> > Sasha Levin <sashal@kernel.org> writes:
+> > 
+> > > Remove the Assisted-by sections from coding-assistants.rst,
+> > > submitting-patches.rst, and the Italian, Brazilian Portuguese and Traditional
+> > > Chinese translations, and drop the handling of the tag from checkpatch.
+> > > 
+> > > [1] https://lore.kernel.org/workflows/2026070224-unholy-commode-cf45@gregkh/
+> > > [2] https://lwn.net/Articles/1099594/
+> > > [3] https://lore.kernel.org/all/2026101327-cupid-legal-6cf6@gregkh/
+> > > 
+> > > Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > > Reviewed-by: Kees Cook <kees@kernel.org>
+> > > Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > > ---
+> > > Changes in v2:
+> > > - Expand the changelog with the background and the Maintainers Summit
+> > >   discussion (Laurent, Krzysztof, Greg, Lorenzo).
+> > > - Rebase on docs-next and also remove the Assisted-by sections from the
+> > >   pt_BR and zh_TW translations there.
+> > > - Collect tags.
+> > > 
+> > > v1: https://lore.kernel.org/all/20261009083137.3-1-sashal@kernel.org/
+> > 
+> > OK, I have applied this, thanks.
+> 
+> Thanks Jon!
+> 
+> Also ping re: the AGENTS.md patch. Without it, we'll get very mixed results
+> with just this change, where agents will pick and choose different policies
+> around Assisted-by: because nothing is pointing them to the actual guidelines
+> we have.
 
-On 10/13/26 12:40, Paolo Pisati wrote:
-> The keyboard backlight and Fn-lock commands are sent as 64 byte
-> feature reports, the size of report 0x5a on the ROG keyboards. The
-> Zenbook Duo keyboards declare feature report 0x5a with 15 data bytes,
-> 16 with the report ID, and do not answer writes larger than that: the
-> control transfer times out over USB and fails with -EIO over
-> Bluetooth, so the backlight cannot be set, while the 16 byte handshake
-> goes through.
->
-> Cap feature report writes at the length the device declares for the
-> report, when it declares it. hid_report_len() counts the report ID, so
-> the handshake and the other commands up to that size are sent as they
-> are.
+I agree with the general maintainers summit consensus that the previous
+policy was not functional for the original intent. A tag that generally
+only has one field of "LLM" is redundant and useless.
 
-This has been a huge pain in the past months for me so than you for
-taking care of this.
+That being said, I think it is a major mistake to entirely remove the tag.
 
-> Assisted-by: LLM
+What I would like to see is some clear strong guidance and culture that
+if we are going to encourage new people, new language models, and new
+types of tools that haven't been invented yet, we can and should include
+some reference to what those tools are.
 
-As the others.
+For instance, in this message my tag would be Assisted-by: Vim, Debian, Mutt
 
-With comments extended (see below):
+As an open minded skeptic of AI tools, I'd really like to see in
+metadata that's easily searchable with grep on what tools others are
+using. For instance, I'd really like to know the toolset that was used
+to generate "Improve page refcount scalability" [1], but it was not 
+immediately obvious where to find this information without Gemini's 
+assistance.
 
-Reviewed-by: Denis Benato <denis.benato@linux.dev>
+My proposal would be that we re-instate "Assisted-by:" as an optional
+but highly recommended tag to document any *legally significant* AI,
+LLM, or really *any* tool which is not generally available under the
+Debian Free software guidelines [2]
 
-If you decide to help me and unify packets alloc between devices
-you can do it on a separate patch after this one and preserve my reviewed-by.
+If someone would like to suggest a command-line focused AI toolchain and
+a set of Agent skills or other prompts, I'd be happy to put together a
+patchset. I'd really prefer to use a fully open source LLM with open 
+training data, but I think that's asking for too much at this point.
 
-> Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
-> Tested-by: Rebecca Mara Müller <rebecca.mara@posteo.de> # UX8407AA
-> ---
->  drivers/hid/hid-asus.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->
-> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-> index b127f5c38f60..7b17553e94b6 100644
-> --- a/drivers/hid/hid-asus.c
-> +++ b/drivers/hid/hid-asus.c
-> @@ -632,6 +632,18 @@ static int asus_raw_event(struct hid_device *hdev,
->  
->  static int asus_kbd_set_report(struct hid_device *hdev, const u8 *buf, size_t buf_size)
->  {
-> +	struct hid_report *report;
-> +
-> +	/*
-> +	 * Do not send more than the declared size of the report, report ID
-> +	 * included: the Zenbook Duo keyboards declare 15 data bytes for
-> +	 * report 0x5a, 16 on the wire like the handshake, and do not answer
-> +	 * the 64 byte writes sized for the ROG keyboards.
-> +	 */
-
-Maybe also mentions the majority of ROG laptops uses 64 bytes, xgm 300 bytes
-and touchpads also 16 bytes as the duo.
-
-> +	report = hdev->report_enum[HID_FEATURE_REPORT].report_id_hash[buf[0]];
-> +	if (report)
-> +		buf_size = min_t(size_t, buf_size, hid_report_len(report));
-> +
-
-I think that it's worth doing this for every supported devices: rog ally,
-laptops, touchpads and so on, my only question is if this code is robust
-enough to handle all cases, but it's worth a try.
-
-It's also worth adding another patch to unify all devices to use this code.
-
-I can test on a rog xg mobile: obscure hardware that uses 300 bytes and
-see if it still works.
-
->  	u8 *dmabuf __free(kfree) = kmemdup(buf, buf_size, GFP_KERNEL);
->  	if (!dmabuf)
->  		return -ENOMEM;
+[1] https://lore.kernel.org/lkml/CAHk-=wjLjgfwgSZ1RDk4YdNFcV0ntosMO5AmBoHD76Zb3HFY7Q@mail.gmail.com/
+[2] https://wiki.debian.org/DebianFreeSoftwareGuidelines
