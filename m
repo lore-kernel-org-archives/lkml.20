@@ -1,292 +1,145 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CB93451BA
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:45:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126F7493D56
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:48:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792334755; cv=none; b=Hb82qSictXTju52YHx1Mcp88oeFEDft1EsL/qvr/wVBbBOjVuuc+l0E2Utwx1KEEoZQc4kE8x5CWdVkn7izC78mq2I2GlNPJeh0ebLy7XHSJFXHuy5TTFA0uGoQndLwLFkJv9TXiDONXBeFoYFcy97Tk63prwQu0O37pUS8877E=
+	t=1792334901; cv=none; b=qT05E1CZtZeY1Cja8Sbp/OmT9PKL2RYI+5X1pV00J+w9ZiH6S1wbwkO6MOoztGQnnGJ3mxN3E97ZRi5QtYyBpC9i1l7P6CcHQDAKYYBMAVME7ht31aBSj7gkeqRTvydHT2i4BeawIwatCykXQU0uD/XXid3JhyiKNBnRGmfm74k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792334755; c=relaxed/simple;
-	bh=v8DScQa1iwxgqKw5XjPDjOk1xceI0OuFRljZc+m4qx8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q/jvNWAu1swZg/KUNlz15XYLy2qj83i9BlM0iKXvGWi0Fy9hAW0NO4IytuUfrxm01bjMURhBdy2Ml0rkv6yKoYKBAD+AskySRRZ++eXSLtjkyD0ZhRwtMfUI3t4FtlHMffQrqNXSlNlAGFIJU/e/Xwj2YzNUg0u0oexWG9Tujys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=bryBJDYA; arc=none smtp.client-ip=209.85.221.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="bryBJDYA"
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5ea97b74acaso146625e0c.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:45:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792334753; x=1792939553; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vFOddHII9QlG0Yo7oJ9Fyf6IJ70eJag/SjOu44LBvf8=;
-        b=bryBJDYAON9+upSxJC+6akyJnXPLqzamw7CVk1ivR4q+Ws9Qi7Mv1+sd17RS11/FGL
-         627lXCve16TaHFOav+63LUOOEtWTrNYHUiBscup44Drw4mYH7te1A4Vn9AV9moza92iF
-         r8dq1NQjZg492EezgSKPDbOEBEdJ7jBUZgBB86D3sw5AF0EozboETb4Q8pV5OuHlIRpV
-         MQKtcP2f2z3EEhoqv5H9EgUgHFAXc2vgVW46NkieGI9pte1q9eT3dXUYhc+PtbB2clsx
-         MLSTqEAPNso9tjqIgl0LG/LBRZxhMZbS1ft5o4iXX7frgNG/xqa/0hUjMdiFextpfr4X
-         3DwA==
+	s=arc-20240116; t=1792334901; c=relaxed/simple;
+	bh=Hj5hLisB54S1y/tYqExYUjuqnvH778SRo1sotusOCHI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GDcxg9Vg10hPat1OkCUoj1QuZpFAgoY164vGJGQZZONLrxzeHZCzLhAt9+TYHu6cwQoxci2TqlMTZcmP/g8OOpjrkpIfkEwLgm/RrHjkS4uE7gF7s5ycGupnSs+Rs8S3VN/Z6ncg8966dg3o7+RDLRnMg9jI3vjlHnifH2NpS5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5eaaa9b1591so827220e0c.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:48:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792334753; x=1792939553;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vFOddHII9QlG0Yo7oJ9Fyf6IJ70eJag/SjOu44LBvf8=;
-        b=wQXpTY8877xQCaxTeheQICeJa2TlzJfTa3S8cR+MYM8N1uafzvGIZt7Ms2L16UT0eS
-         ICOiTioCScPgOfrFpE02JQxWumfiPoj8GjUIYqI93uXWhjEOFV6+DUEMYxlmUAoKkd8z
-         RZAxBFP9vzsqUTcovenZ9tPK+UIsCr+RXoE7ABlDrsYF2gGzDfe8FcanfcbhfCKOdbuM
-         v2t+opVRHpjogvrVkOS14+cpyFiKsQIEFIPJWnE2sCOGBMeFdehdsH6ucVohxa87+m3n
-         sEtQBTiNB2keTX+xGbe1gNAEZWIqUlBuUDIRzwnbRjX3jGQP4vwQSRfyIEbNQ9xQ97fE
-         /M2w==
-X-Forwarded-Encrypted: i=1; AKwUvBzCGIbKW8A/d6ZrLmOnC6Gt9D5w3kU+wpSDMi1ultW3Tn5cmaHYxm2L64taGULTfawWvNczbz93JysJKPY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJK3tW8398g20bwenfOV/8j4d912IwHv6MzCT1TjHaL4q2kvK4+
-	bkW5Dr1D8EIAUKkPiCi9LZz1Jk0dYqXp6m1ENr8RZFx6JP3NV050Aay6UPlXEbSLU6Q=
-X-Gm-Gg: AYBFou3lh8BRa9m/KS14tMx5yD/Gch52V9QtdSgZAhVUJpi7zidqeZHQXHPVt2J7Af2
-	8AMlNE188B3N5ueQ2zShcgQctaXyOyoCCsJ5JnBKne9TywwhqsMcdb3HYvQqMTXdb1KtJ3uiHsQ
-	xTlQzP3+6xW19zqjoFw1o9R/XjCX0ZHPUSHVwUJj1Xe8fC0O3szou2xSNVdsHWt6GrvzVWObyYQ
-	glqwYAxCsPe6Po4Y5TqMK1qig43sdFLOtRZGxKkqEgd3MJJRuSge6z72M3vcppYg4hXoAnq+Msh
-	AjyQNLRvYxTFmXdtPbGZxREW5c9mCHzqUN5/CPTkrueLg1kTwBgws7CI5XwNQdPvGtjzDu5i5cf
-	NmKoOl76DEMRVORGvSSLFp4mcB5A9T1nlvPtVymaVxGHlz29gSdMGBpQplPCQFemY8y7ZxZL0Xg
-	1kPjzWp26V4MI0o82MT+Wckq2EXizV+3FxIFobul6g0tspQlaWg1l7GuS2GJg/o5ZURXQynPM7w
-	b0xBrjw9/awg2V7hSXgATUvZjgO8VCNRR8pTjdae/Ck2Ynw75w3BheroUyQMxO0J/PkTL1ydpw=
-X-Received: by 2002:a05:6122:548:b0:5ea:c6c1:8dd4 with SMTP id 71dfb90a1353d-5eac6c19257mr145098e0c.5.1792334752976;
-        Sun, 18 Oct 2026 07:45:52 -0700 (PDT)
-Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eaca7cc59asm244808e0c.5.2026.10.18.07.45.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 07:45:52 -0700 (PDT)
-Date: Sun, 18 Oct 2026 10:45:51 -0400
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Tim Chen <tim.c.chen@linux.intel.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, kees@kernel.org,
-	rppt@kernel.org, juri.lelli@redhat.com, nik.borisov@suse.com,
-	tglx@kernel.org, vschneid@redhat.com, kprateek.nayak@amd.com,
-	vincent.guittot@linaro.org, bp@alien8.de, thorsten.blum@linux.dev,
-	cgroups@vger.kernel.org, tony.luck@intel.com, david@kernel.org,
-	mingo@redhat.com, akpm@linux-foundation.org, linux-mm@kvack.org,
-	seanjc@google.com, ljs@kernel.org, zhangguopeng@kylinos.cn,
-	dietmar.eggemann@arm.com, mhocko@suse.com, vinicius.gomes@intel.com,
-	tj@kernel.org, vbabka@kernel.org, linux-kernel@vger.kernel.org,
-	peterz@infradead.org, surenb@google.com, hpa@zytor.com,
-	x86@kernel.org, dmatlack@google.com, kexec@lists.infradead.org,
-	pratyush@kernel.org, dave.hansen@linux.intel.com,
-	rostedt@goodmis.org, gmonaco@redhat.com, jgross@suse.com,
-	mgorman@suse.de, graf@amazon.com, linux-edac@vger.kernel.org,
-	liam@infradead.org, ridong.chen@linux.dev, longman@redhat.com,
-	bsegall@google.com
-Subject: Re: [PATCH v1 7/8] sched/topology: Avoid redundant percpu
- allocations and bitmap walks in build_sched_domains()
-Message-ID: <atTbn7WhHtK52vCi@google.com>
-References: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
- <20261015153331.1872641-8-pasha.tatashin@soleen.com>
- <1ec1aab8eabdad173ddef7483a940bfa3f6c3238.camel@linux.intel.com>
+        d=1e100.net; s=20260707; t=1792334899; x=1792939699;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=i/+KfkD3prUE3gpbH6xDwZzQ4znjfDPPu+7aaw/E4IY=;
+        b=By03AVsWF2sK1O5SIwQeU0JH9Y6zz0fA5J7rqu4IhCM0ZbTLhqUvnr2Gk6sXh5YHtI
+         5L/TDjgwjTkbX86blWfOCTOuJ6HFw3kkuRC3bcP+IfaVoTreCQkYNghkeoAMcnZt+VP3
+         svYRrc0HZ8aVN/OTS48Cd6Z1FCcDZ04N1ybyxdVkI6DuxqLK9FoHk21M7Qz9aIiwFvej
+         P+6898XLzfoZpmhrYYD2p6jt1ydBRBPvhRUc41JUIHJcT1I0Yo6jVzTXMb3IwhTx9Onv
+         EF3yHIsB9R4oCakzGQM6vebVJ+2JV8LVX7maYQs33kwpOrQDh5MzJ64wWmbx0rCSQmcB
+         4jTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwDbIVKI45z1kzUk+7GJAX2EqSZuVE8XVo8gt63w+FYaBnCLk5wfWMpPUeZ77Oc8UBYpZ96/f7wpE+tneY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5jLU+UqHC6Vb63erhx2eAnsiyfv0ybQhgOvLn/z8SezRh6P30
+	8PJRfnQWPDa7oNaIltFBFYPeX1I7mREF4nTmmxOjbRfbEQ1LxmmeoTBbpF/ucmq9
+X-Gm-Gg: AYBFou1TxJZM5D2RbCDZ0MGWxrk6fim/D6O+0WAubFDLzbutPZ2wsE6ynNXY4sMxhyB
+	YGD77PRJwl0eCBSrVAMmUog65IIWl9CSjgxQxoZyxPuhGfGnsvaejh2aNLg2c9Icr4bi7RfWwpq
+	jgX27zO0evJeKiishmPYzQgmlXzuWGWvqi4GMs8J735QoEXySwWV+Tlln11jd/luUEH/bkL65cj
+	Ugc7kn/KUqssdqnKhfj9C7f7o6sRp4Phaf9HviFPetvOBvry5mB40/DwK5BG4FZtYiqWLv1NOt6
+	uZgYv39TOaqAtZ17WnOKydM+JvKxbVsGmoBwnGBj/zmTfuQ2z25rvfDXKmmgjDF0tg5KdzqXrRC
+	VTtWzsoDm3HRe/iPcY78UNuHVUvqyumsKSq92XItgyioaLgSV6R3fEDOFlaTyZlfgH9TokurZky
+	gB6gPWCFIyJynriS6HfAQXtqmIUDmc94LWhoVooQcW+/CpWnZojpGjOWPdkDQXPSN1Y+LRuSFWr
+	BYY390cEneXPqIYqiJ2dP3SYY1mlUttWDMkXg==
+X-Received: by 2002:a05:6122:328f:b0:5e9:721c:72a2 with SMTP id 71dfb90a1353d-5eaaa6a0b81mr2283206e0c.18.1792334898973;
+        Sun, 18 Oct 2026 07:48:18 -0700 (PDT)
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com. [209.85.217.54])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eabe1b2026sm2524917e0c.17.2026.10.18.07.48.18
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 07:48:18 -0700 (PDT)
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7c03a445cb8so1007422137.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:48:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw19sPVKygKJHaOOoeuhqXQUlcd7ln1vZiPbxqjN91VGMWpGNX2GaggAuw9TXWXmpLMYdVv+ue2qwK01i0=@vger.kernel.org
+X-Received: by 2002:a05:6102:2c0d:b0:7c3:2f13:d905 with SMTP id
+ ada2fe7eead31-7cc3670d3c9mr1798032137.3.1792334897916; Sun, 18 Oct 2026
+ 07:48:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1ec1aab8eabdad173ddef7483a940bfa3f6c3238.camel@linux.intel.com>
+References: <20261017041419.311921-1-daniel@0x0f.com> <4cdb2939264e0b7d767f44289fddffd40fddf504.camel@physik.fu-berlin.de>
+In-Reply-To: <4cdb2939264e0b7d767f44289fddffd40fddf504.camel@physik.fu-berlin.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sun, 18 Oct 2026 16:48:06 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXmZash+8PmfSVrT=Wwob-mkq0x4umyRgX2-yikV9kaVA@mail.gmail.com>
+X-Gm-Features: AclHuK8RBwZK_z43GrchRos_lydjyPBWt8zUJgcfKwlnh5NSKD4CTmW99AiE-yI
+Message-ID: <CAMuHMdXmZash+8PmfSVrT=Wwob-mkq0x4umyRgX2-yikV9kaVA@mail.gmail.com>
+Subject: Re: [PATCH 0/2] sh: Fix IDE on landisk
+To: Daniel Palmer <daniel@0x0f.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, dalias@libc.org, dlemoal@kernel.org, 
+	cassel@kernel.org, linux-sh@vger.kernel.org, linux-ide@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Yoshinori Sato <yoshinori.sato@nifty.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10-15 16:17, Tim Chen wrote:
-> On Thu, 2026-10-15 at 11:33 -0400, Pasha Tatashin wrote:
-> > During CPU hotplug, build_sched_domains() is invoked on every CPU
-> > activation and deactivation. Profiling build_sched_domains() on a
-> > 480-CPU Intel Xeon 6985P-C and a 512-CPU AMD EPYC 9B45 shows several
-> > sources of avoidable O(N^2) and O(N) work per step:
-> > 
-> > 1. build_sched_groups() and build_overlap_sched_groups() iterate over
-> >    every bit of sched_domain_span(sd) via for_each_cpu_wrap(i, span, cpu)
-> >    and check cpumask_test_cpu(i, covered) one CPU at a time, even after
-> >    entire child groups (e.g., 120-CPU NUMA nodes) have been added to
-> >    covered. Instead, track the remaining uncovered CPUs
-> >    (cpumask_copy(uncovered, span)), clear each built group's span with
-> >    cpumask_andnot(), and advance directly to the next uncovered CPU.
-> > 
-> > 2. __visit_domain_allocation_hell() and __free_domain_allocs() allocate
-> >    and free 3 * nr_levels + 2 temporary per-CPU pointer arrays via
-> >    alloc_percpu() / free_percpu() on every domain rebuild. Reuse the
-> >    per-CPU pointer arrays across domain rebuilds under
-> >    sched_domains_mutex, clearing entries in __free_domain_allocs() and
-> >    only freeing the topology-level arrays when sched_domain_topology is
-> >    replaced in sched_init_numa() / sched_reset_numa().
-> 
-> sched_domains_mutex does not protect the free:
-> 
-> [snip]
-> 
-> >  #ifdef CONFIG_NUMA
-> > +static void __sdt_free_percpu(void)
-> > +{
-> > +	struct sched_domain_topology_level *tl;
-> > +
-> > +	for_each_sd_topology(tl) {
-> > +		struct sd_data *sdd = &tl->data;
-> > +
-> 
-> sched_init_numa() and sched_reset_numa() are called from
-> sched_update_numa(), which runs from sched_cpu_activate() and
-> sched_cpu_deactivate() without sched_domains_mutex. The free is safe
-> because every domain builder holds at least cpus_read_lock(), and
-> sched_update_numa() runs under the hotplug write lock. 
-> 
-> Please fix the changelog and add lockdep_assert_cpus_held()
-> in __sdt_free_percpu(), so a future caller cannot break this without a warning.
+Hi Daniel,
 
-I will update the changelog to note that __sdt_free_percpu() is serialized 
-against domain rebuilds by the CPU hotplug lock, and add
-lockdep_assert_cpus_held() to __sdt_free_percpu().
+On Sat, 17 Oct 2026 at 09:48, John Paul Adrian Glaubitz
+<glaubitz@physik.fu-berlin.de> wrote:
+> On Sat, 2026-10-17 at 13:14 +0900, Daniel Palmer wrote:
+> > I dug out my landisk to look at kexec for Geert. Since I'm lazy and
+> > LLMs are good at fixing bitrot I let my LLM work out how to get
+> > it to boot again.
+> >
+> > There are some other issues (perf is apparently borken, there are
+> > some issues with the decompresor and big kernels..) but this
+> > seems to be the only thing stopping it booting with the defconfig.
+> >
+> > Disclaimer since we don't need to give LLM tags anymore:
+> > - LLM debugged the issue.
+> > - It has been checked on real hardware.
+> > - I have checked the IDE driver patch, cleaned it up and
+> >   cleaned out massive walls of text that LLMs seem to like
+> >   to add but I have left its summary of the issue in the commit
+> >   message.
+> >
+> > Daniel Palmer (2):
+> >   ata: pata_artop: read the ATP865 mode register through pci_iomap
+> >   sh: landisk_defconfig: enable PATA_ARTOP for the ATP865
+> >
+> >  arch/sh/configs/landisk_defconfig |  2 +-
+> >  drivers/ata/pata_artop.c          | 12 ++++++++++--
+> >  2 files changed, 11 insertions(+), 3 deletions(-)
+>
+> Great, thanks for fixing this. While I have LANDISK hardware myself,
+> I cannot probably set it up fast enough now to test your patches as
+> I don't know where I put it after moving places.
+>
+> I hope Geert can test and review your patches and I'll pick them up
+> with his Reviewed-by and Tested-by signatures.
 
-> > +		free_percpu(sdd->sd);
-> > +		sdd->sd = NULL;
-> > +		free_percpu(sdd->sg);
-> > +		sdd->sg = NULL;
-> > +		free_percpu(sdd->sgc);
-> > +		sdd->sgc = NULL;
-> > +	}
-> > +}
-> > +
-> >  static int cpu_numa_flags(void)
-> >  {
-> >  	return SD_NUMA;
-> > @@ -2449,6 +2483,7 @@ void sched_init_numa(int offline_node)
-> >  	/*
-> >  	 * Copy the default topology bits..
-> >  	 */
-> > +	__sdt_free_percpu();
-> >  	for (i = 0; sched_domain_topology[i].mask; i++)
-> >  		tl[i] = sched_domain_topology[i];
-> >  
-> > @@ -2507,6 +2542,7 @@ static void sched_reset_numa(void)
-> >  		kfree(masks);
-> >  	}
-> >  	if (sched_domain_topology_saved) {
-> > +		__sdt_free_percpu();
-> >  		kfree(sched_domain_topology);
-> >  		sched_domain_topology = sched_domain_topology_saved;
-> >  		sched_domain_topology_saved = NULL;
-> > @@ -2708,17 +2744,23 @@ static int __sdt_alloc(const struct cpumask *cpu_map)
-> >  	for_each_sd_topology(tl) {
-> >  		struct sd_data *sdd = &tl->data;
-> >  
-> > -		sdd->sd = alloc_percpu(struct sched_domain *);
-> > -		if (!sdd->sd)
-> > -			return -ENOMEM;
-> > +		if (!sdd->sd) {
-> > +			sdd->sd = alloc_percpu(struct sched_domain *);
-> > +			if (!sdd->sd)
-> > +				return -ENOMEM;
-> > +		}
-> >  
-> > -		sdd->sg = alloc_percpu(struct sched_group *);
-> > -		if (!sdd->sg)
-> > -			return -ENOMEM;
-> > +		if (!sdd->sg) {
-> > +			sdd->sg = alloc_percpu(struct sched_group *);
-> > +			if (!sdd->sg)
-> > +				return -ENOMEM;
-> > +		}
-> >  
-> > -		sdd->sgc = alloc_percpu(struct sched_group_capacity *);
-> > -		if (!sdd->sgc)
-> > -			return -ENOMEM;
-> > +		if (!sdd->sgc) {
-> > +			sdd->sgc = alloc_percpu(struct sched_group_capacity *);
-> > +			if (!sdd->sgc)
-> > +				return -ENOMEM;
-> > +		}
-> >  
-> 
-> Keeping the arrays also means every slot must be NULL when a build 
-> starts. Patch 5 depends on that: get_group(), 
-> init_overlap_sched_group() and init_sched_domain_shared() treat a NULL 
-> slot as "not allocated yet", and the overlap fast path treats 
-> "sgc->ref > 0" as "set up in this build". An old pointer would pass
-> these checks and be used without a warning.
-> 
-> The rule holds today, but nothing says so. It also depends on builds
-> never filling a slot outside cpu_map, because the clearing loops only
-> visit cpu_map. Please write this down and check it, for example in
-> __sdt_alloc():
-> 
-> 
-> >  		for_each_cpu(j, cpu_map) {
-> >  			struct sched_domain *sd;
-> 
-> Maybe add
-> 
->         /*
->          * The slot arrays are kept between builds. Every slot for a CPU
->          * in cpu_map must be NULL here; lazy allocation treats NULL as
->          * "not allocated in this build". claim_allocations() and
->          * __sdt_free()/__sds_free() clear the slots, but only for
->          * cpu_map, so a build must not fill slots outside cpu_map.
->          */
->                 for_each_cpu(j, cpu_map) {
->                         struct sched_domain *sd;
-> 
->                         WARN_ON_ONCE(*per_cpu_ptr(sdd->sd, j) ||
->                                      *per_cpu_ptr(sdd->sg, j) ||
->                                      *per_cpu_ptr(sdd->sgc, j));
-> 
+Sorry, I must have different hardware, as mine doesn't have an
+ATP865 PCI device:
 
-Sure, I will add the comment, and WARN_ON_ONCE.
+    # lspci
+    00:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd.
+RTL-8139/8139C/8139C+ (rev 20)
+    00:02.0 USB Controller: NEC Corporation USB (rev 43)
+    00:02.1 USB Controller: NEC Corporation USB (rev 43)
+    00:02.2 USB Controller: NEC Corporation USB 2.0 (rev 04)
 
-> > @@ -2748,30 +2790,36 @@ static void __sdt_free(const struct cpumask *cpu_map)
-> >  
-> >  			if (sdd->sd) {
-> >  				sd = *per_cpu_ptr(sdd->sd, j);
-> > -				if (sd && (sd->flags & SD_NUMA))
-> > -					free_sched_groups(sd->groups, 0);
-> > -				kfree(*per_cpu_ptr(sdd->sd, j));
-> > +				if (sd) {
-> > +					if (sd->flags & SD_NUMA)
-> > +						free_sched_groups(sd->groups, 0);
-> > +					kfree(sd);
-> > +					*per_cpu_ptr(sdd->sd, j) = NULL;
-> > +				}
-> >  			}
-> >  
-> > -			if (sdd->sg)
-> > +			if (sdd->sg) {
-> >  				kfree(*per_cpu_ptr(sdd->sg, j));
-> > -			if (sdd->sgc)
-> > +				*per_cpu_ptr(sdd->sg, j) = NULL;
-> > +			}
-> > +			if (sdd->sgc) {
-> >  				kfree(*per_cpu_ptr(sdd->sgc, j));
-> > +				*per_cpu_ptr(sdd->sgc, j) = NULL;
-> > +			}
-> >  		}
-> > -		free_percpu(sdd->sd);
-> > -		sdd->sd = NULL;
-> > -		free_percpu(sdd->sg);
-> > -		sdd->sg = NULL;
-> > -		free_percpu(sdd->sgc);
-> > -		sdd->sgc = NULL;
-> >  	}
-> >  }
-> >  
-> > +static struct sched_domain_shared * __percpu *sched_domains_sds;
-> > +
-> >  static int __sds_alloc(struct s_data *d, const struct cpumask *cpu_map)
-> >  {
-> 
-> and maybe similar check 
-> 
->         for_each_cpu(j, cpu_map)
->                 WARN_ON_ONCE(*per_cpu_ptr(d->sds, j));
+My CF rootfs uses pata_platform, which is enabled in my working .config.
+landisk_defconfig lacks CONFIG_PATA_PLATFORM=y, so it hangs during
+boot. After enabling that, the boot gets further, but it still hangs:
 
-I will add the comment and the WARN_ON_ONCE() checks in
-both __sdt_alloc() and __sds_alloc() for v2.
+    INIT: Id "1" respawning too fast: disabled for 5 minutes
+    INIT: Id "2" respawning too fast: disabled for 5 minutes
+    INIT: no more processes left in this runlevel
 
-Thanks,
-Pasha
+Adding
+
+    CONFIG_DEVTMPFS=y
+    CONFIG_DEVTMPFS_MOUNT=y
+
+to landisk_defconfig fixes that.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
