@@ -1,46 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2832149553B;
-	Sun, 18 Oct 2026 12:02:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86ADE357D0B;
+	Sun, 18 Oct 2026 12:04:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792324940; cv=none; b=ZejgY+bqPqzVXel9xUlq2LfJjMMCIZqayEN2VaH06SlgvvSaEZBrP4IyLL9dGFSo7TI660kG71kqYYRWlNaUbeHCbrgpJ7XqmYQ591mqkCOYSJn6nei7oT4juCkiGziC/ilg6mrPU2rM7y0ciGHHlJoHGZ3CKw/Y0VawnkmqzuA=
+	t=1792325081; cv=none; b=kNyz0HB4t8SWWnYJkukWqX4dWfiwCF9QXxmm3ZWmkQkE8mFgCE7HIDMZa8UftzfNp+QDZtRb8YrGGRn6v4VjKnQjLg1EaArqw07mrEYEM5UjVA/Hz4SAga3t05u0aAdYOzK6uJfcfoY/i6qR0G8+zkZX7nkc2CPdQSgGkLG8XTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792324940; c=relaxed/simple;
-	bh=zoo3eiL2glYtdPJ2Y3aeYG37KgEUvBsw/IaOCFE9QHs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iYR9B7KKFxHCydMKwn/6dpeREAAqQe9lqePJCOOQj5LsnzlHGfGAeyMQdtNa6ycfWl6JKSsTjyK9h6H6meZDgxmNu/1pBwwkqdGMHP72aPxa1/CPHij+bCYsFDVZO1YhqoxU/dv7R5qjTYK3QgvyY7Ucz8J6TkTp5F7DO7uF6IA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YuuQeKb6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792325081; c=relaxed/simple;
+	bh=4VAJDO1/CKJVI0ebANtI32wdykDV4hQc/6PffrfFkgE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dkDMjjnvSiImH0DolMq1bzf/yvhIRi1itflhon8qO3RRXh/dqz49vSJSQnP71SwENACQt+x5wXZLpZEziIwc2fww0IH/9fRJRbv/d7HF3nVlVd2WaSiV3owr9zrQP9pKjKD/8lYAiZ4xSt6f72DOBtci+L/3bMLqyEhODJVyitg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LFBREco/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YuuQeKb6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC491F000C5;
-	Sun, 18 Oct 2026 12:02:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LFBREco/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526621F000C4;
+	Sun, 18 Oct 2026 12:04:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792324932;
-	bh=uNrI+WN4CqntUAuiZlLiynnJmLlgbrAhDMwt8sD+5ac=;
+	s=k20260515; t=1792325080;
+	bh=ocaryIgfW1h4qLGkaFbhHKE0AUKReSaSZC36fkex5No=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=YuuQeKb6/JmHsIl8LCjO6QDe6ZVS4S8E+lUoXMFxhTNVn/ZxSwZoEMn0XDCjavjA4
-	 FFWhK56fI1MtnR3hQARkonQG/8kCh3PvoUGHCf0sx5UdybcLAc4oXIwEoR3wMCqyP6
-	 gxNCu522oiaaFUdasjl6PW9a0BjrZq6yJWVHX0UE1kRspoZ77n6OHntFaYfFvprzUP
-	 rYp+WgOgp/lPwn5QWEO75rWgQgoCWwfQEmfOaL1rmECyPuZPxoUF7Nr+t0fIPUtuVD
-	 mGtaqT+yqT0bLUi2SOgfxueQtfNz88VYzXys6UE1HsgcUwCQb3RVdIzZ22R7XlhmRA
-	 wAdikLFZ555Yw==
-Subject: Re: [PATCH net 2/4] net: bcmgenet: do not tear the datapath down
- twice after a failed resume
-From: netdev-bot+sashiko@kernel.org
-To: nb@tipi-net.de
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- f.fainelli@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 18 Oct 2026 12:02:11 +0000
-Message-ID: <179232493108.3135.9703046589792155223@kernel.org>
-In-Reply-To: <20261017-nb-genet-fini-dma-net-v1-2-47e7c57f6834@tipi-net.de>
-References: <20261017-nb-genet-fini-dma-net-v1-2-47e7c57f6834@tipi-net.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	b=LFBREco/QnVr7xhPsswgt85w1CSMboEzBQLWnWZbEvD7HTEx4unFKJT3nue6PkZ0Q
+	 5qr/REZ6EzqCS9BqWJvQm/7SzmFhHULhp1skK4/7+3GlA9MVjRROn8K/Kh2IxtE+mG
+	 XE4eJrNAYu5XxQP2qf8jd8Ezxib9Lu8hLPNiYi0jgCPodkcXt8Fa0N00haXmwqoUyS
+	 uXEg4+r3PdCtwbM5jJ/JSWuvphHjdtDiM+9Ks+V9jXaD7zV2uy8KadLIaVhqhEtkiC
+	 awR2QkcZB0DtTX42oCCsiizmZoMXQF0Y7PoXYAq9HyIVCE0nWf9ErUyrOPEmkIFwc5
+	 a5P6XVrLbvlbA==
+Message-ID: <c19a047cc3abde3ee342cf4188620e70ab51b429.camel@kernel.org>
+Subject: Re: [PATCH] nfsd: fix out-of-bounds read of sv_permsocks when
+ starting a thread
+From: Jeff Layton <jlayton@kernel.org>
+To: Deepanshu Kartikey <kartikey406@gmail.com>, cel@kernel.org,
+ neil@brown.name, 	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com
+Cc: bfields@fieldses.org, skinsbursky@parallels.com,
+ linux-nfs@vger.kernel.org, 	linux-kernel@vger.kernel.org, 
+	syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
+Date: Sun, 18 Oct 2026 08:04:37 -0400
+In-Reply-To: <20261018113312.10455-1-kartikey406@gmail.com>
+References: <20261018113312.10455-1-kartikey406@gmail.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
+ n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
+ egyjnSsFt7EGoDjdKqr1TS9syJYFjagYtvWk/UfHlW09X+jOh4vYtfX7iYSx/NfqV3W1D7EDi0PqV
+ T2h6v8i8YqsATFPwO4nuiTmL6I40ZofxVd+9wdRI4Db8yUNA4ZSP2nqLcLtFjClYRBoJvRWvsv4lm
+ 0OX6MYPtv76hka8lW4mnRmZqqx3UtfHX/hF/zH24Gj7A6sYKYLCU3YrI2Ogiu7/ksKcl7goQjpvtV
+ YrOOI5VGLHge0awt7bhMCTM9KAfPc+xL/ZxAMVWd3NCk5SamL2cE99UWgtvNOIYU8m6EjTLhsj8sn
+ VluJH0/RcxEeFbnSaswVChNSGa7mXJrTR22lRL6ZPjdMgS2Km90haWPRc8Wolcz07Y2se0xpGVLEQ
+ cDEsvv5IMmeMe1/qLZ6NaVkNuL3WOXvxaVT9USW1+/SGipO2IpKJjeDZfehlB/kpfF24+RrK+seQf
+ CBYyUE8QJpvTZyfUHNYldXlrjO6n5MdOempLqWpfOmcGkwnyNRBR46g/jf8KnPRwXs509yAqDB6sE
+ LZH+yWr9LQZEwARAQABtCVKZWZmIExheXRvbiA8amxheXRvbkBwb29jaGllcmVkcy5uZXQ+iQI7BB
+ MBAgAlAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAUCTpXWPAIZAQAKCRAADmhBGVaCFc65D/4
+ gBLNMHopQYgG/9RIM3kgFCCQV0pLv0hcg1cjr+bPI5f1PzJoOVi9s0wBDHwp8+vtHgYhM54yt43uI
+ 7Htij0RHFL5eFqoVT4TSfAg2qlvNemJEOY0e4daljjmZM7UtmpGs9NN0r9r50W82eb5Kw5bc/r0km
+ R/arUS2st+ecRsCnwAOj6HiURwIgfDMHGPtSkoPpu3DDp/cjcYUg3HaOJuTjtGHFH963B+f+hyQ2B
+ rQZBBE76ErgTDJ2Db9Ey0kw7VEZ4I2nnVUY9B5dE2pJFVO5HJBMp30fUGKvwaKqYCU2iAKxdmJXRI
+ ONb7dSde8LqZahuunPDMZyMA5+mkQl7kpIpR6kVDIiqmxzRuPeiMP7O2FCUlS2DnJnRVrHmCljLkZ
+ Wf7ZUA22wJpepBligemtSRSbqCyZ3B48zJ8g5B8xLEntPo/NknSJaYRvfEQqGxgk5kkNWMIMDkfQO
+ lDSXZvoxqU9wFH/9jTv1/6p8dHeGM0BsbBLMqQaqnWiVt5mG92E1zkOW69LnoozE6Le+12DsNW7Rj
+ iR5K+27MObjXEYIW7FIvNN/TQ6U1EOsdxwB8o//Yfc3p2QqPr5uS93SDDan5ehH59BnHpguTc27Xi
+ QQZ9EGiieCUx6Zh2ze3X2UW9YNzE15uKwkkuEIj60NvQRmEDfweYfOfPVOueC+iFifbQgSmVmZiBM
+ YXl0b24gPGpsYXl0b25AcmVkaGF0LmNvbT6JAjgEEwECACIFAk6V0q0CGwMGCwkIBwMCBhUIAgkKC
+ wQWAgMBAh4BAheAAAoJEAAOaEEZVoIViKUQALpvsacTMWWOd7SlPFzIYy2/fjvKlfB/Xs4YdNcf9q
+ LqF+lk2RBUHdR/dGwZpvw/OLmnZ8TryDo2zXVJNWEEUFNc7wQpl3i78r6UU/GUY/RQmOgPhs3epQC
+ 3PMJj4xFx+VuVcf/MXgDDdBUHaCTT793hyBeDbQuciARDJAW24Q1RCmjcwWIV/pgrlFa4lAXsmhoa
+ c8UPc82Ijrs6ivlTweFf16VBc4nSLX5FB3ls7S5noRhm5/Zsd4PGPgIHgCZcPgkAnU1S/A/rSqf3F
+ LpU+CbVBDvlVAnOq9gfNF+QiTlOHdZVIe4gEYAU3CUjbleywQqV02BKxPVM0C5/oVjMVx3bri75n1
+ TkBYGmqAXy9usCkHIsG5CBHmphv9MHmqMZQVsxvCzfnI5IO1+7MoloeeW/lxuyd0pU88dZsV/riHw
+ 87i2GJUJtVlMl5IGBNFpqoNUoqmvRfEMeXhy/kUX4Xc03I1coZIgmwLmCSXwx9MaCPFzV/dOOrju2
+ xjO+2sYyB5BNtxRqUEyXglpujFZqJxxau7E0eXoYgoY9gtFGsspzFkVNntamVXEWVVgzJJr/EWW0y
+ +jNd54MfPRqH+eCGuqlnNLktSAVz1MvVRY1dxUltSlDZT7P2bUoMorIPu8p7ZCg9dyX1+9T6Muc5d
+ Hxf/BBP/ir+3e8JTFQBFOiLNdFtB9KZWZmIExheXRvbiA8amxheXRvbkBzYW1iYS5vcmc+iQI4BBM
+ BAgAiBQJOldK9AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRAADmhBGVaCFWgWD/0ZRi4h
+ N9FK2BdQs9RwNnFZUr7JidAWfCrs37XrA/56olQl3ojn0fQtrP4DbTmCuh0SfMijB24psy1GnkPep
+ naQ6VRf7Dxg/Y8muZELSOtsv2CKt3/02J1BBitrkkqmHyni5fLLYYg6fub0T/8Kwo1qGPdu1hx2BQ
+ RERYtQ/S5d/T0cACdlzi6w8rs5f09hU9Tu4qV1JLKmBTgUWKN969HPRkxiojLQziHVyM/weR5Reu6
+ FZVNuVBGqBD+sfk/c98VJHjsQhYJijcsmgMb1NohAzwrBKcSGKOWJToGEO/1RkIN8tqGnYNp2G+aR
+ 685D0chgTl1WzPRM6mFG1+n2b2RR95DxumKVpwBwdLPoCkI24JkeDJ7lXSe3uFWISstFGt0HL8Eew
+ P8RuGC8s5h7Ct91HMNQTbjgA+Vi1foWUVXpEintAKgoywaIDlJfTZIl6Ew8ETN/7DLy8bXYgq0Xzh
+ aKg3CnOUuGQV5/nl4OAX/3jocT5Cz/OtAiNYj5mLPeL5z2ZszjoCAH6caqsF2oLyAnLqRgDgR+wTQ
+ T6gMhr2IRsl+cp8gPHBwQ4uZMb+X00c/Amm9VfviT+BI7B66cnC7Zv6Gvmtu2rEjWDGWPqUgccB7h
+ dMKnKDthkA227/82tYoFiFMb/NwtgGrn5n2vwJyKN6SEoygGrNt0SI84y6hEVbQlSmVmZiBMYXl0b
+ 24gPGpsYXl0b25AcHJpbWFyeWRhdGEuY29tPokCOQQTAQIAIwUCU4xmKQIbAwcLCQgHAwIBBhUIAg
+ kKCwQWAgMBAh4BAheAAAoJEAAOaEEZVoIV1H0P/j4OUTwFd7BBbpoSp695qb6HqCzWMuExsp8nZjr
+ uymMaeZbGr3OWMNEXRI1FWNHMtcMHWLP/RaDqCJil28proO+PQ/yPhsr2QqJcW4nr91tBrv/MqItu
+ AXLYlsgXqp4BxLP67bzRJ1Bd2x0bWXurpEXY//VBOLnODqThGEcL7jouwjmnRh9FTKZfBDpFRaEfD
+ FOXIfAkMKBa/c9TQwRpx2DPsl3eFWVCNuNGKeGsirLqCxUg5kWTxEorROppz9oU4HPicL6rRH22Ce
+ 6nOAON2vHvhkUuO3GbffhrcsPD4DaYup4ic+DxWm+DaSSRJ+e1yJvwi6NmQ9P9UAuLG93S2MdNNbo
+ sZ9P8k2mTOVKMc+GooI9Ve/vH8unwitwo7ORMVXhJeU6Q0X7zf3SjwDq2lBhn1DSuTsn2DbsNTiDv
+ qrAaCvbsTsw+SZRwF85eG67eAwouYk+dnKmp1q57LDKMyzysij2oDKbcBlwB/TeX16p8+LxECv51a
+ sjS9TInnipssssUDrHIvoTTXWcz7Y5wIngxDFwT8rPY3EggzLGfK5Zx2Q5S/N0FfmADmKknG/D8qG
+ IcJE574D956tiUDKN4I+/g125ORR1v7bP+OIaayAvq17RP+qcAqkxc0x8iCYVCYDouDyNvWPGRhbL
+ UO7mlBpjW9jK9e2fvZY9iw3QzIPGKtClKZWZmIExheXRvbiA8amVmZi5sYXl0b25AcHJpbWFyeWRh
+ dGEuY29tPokCOQQTAQIAIwUCU4xmUAIbAwcLCQgHAwIBBhUIAgkKCwQWAgMBAh4BAheAAAoJEAAOa
+ EEZVoIVzJoQALFCS6n/FHQS+hIzHIb56JbokhK0AFqoLVzLKzrnaeXhE5isWcVg0eoV2oTScIwUSU
+ apy94if69tnUo4Q7YNt8/6yFM6hwZAxFjOXR0ciGE3Q+Z1zi49Ox51yjGMQGxlakV9ep4sV/d5a50
+ M+LFTmYSAFp6HY23JN9PkjVJC4PUv5DYRbOZ6Y1+TfXKBAewMVqtwT1Y+LPlfmI8dbbbuUX/kKZ5d
+ dhV2736fgyfpslvJKYl0YifUOVy4D1G/oSycyHkJG78OvX4JKcf2kKzVvg7/Rnv+AueCfFQ6nGwPn
+ 0P91I7TEOC4XfZ6a1K3uTp4fPPs1Wn75X7K8lzJP/p8lme40uqwAyBjk+IA5VGd+CVRiyJTpGZwA0
+ jwSYLyXboX+Dqm9pSYzmC9+/AE7lIgpWj+3iNisp1SWtHc4pdtQ5EU2SEz8yKvDbD0lNDbv4ljI7e
+ flPsvN6vOrxz24mCliEco5DwhpaaSnzWnbAPXhQDWb/lUgs/JNk8dtwmvWnqCwRqElMLVisAbJmC0
+ BhZ/Ab4sph3EaiZfdXKhiQqSGdK4La3OTJOJYZphPdGgnkvDV9Pl1QZ0ijXQrVIy3zd6VCNaKYq7B
+ AKidn5g/2Q8oio9Tf4XfdZ9dtwcB+bwDJFgvvDYaZ5bI3ln4V3EyW5i2NfXazz/GA/I/ZtbsigCFc
+ 8ftCBKZWZmIExheXRvbiA8amxheXRvbkBrZXJuZWwub3JnPokCOAQTAQIAIgUCWe8u6AIbAwYLCQg
+ HAwIGFQgCCQoLBBYCAwECHgECF4AACgkQAA5oQRlWghUuCg/+Lb/xGxZD2Q1oJVAE37uW308UpVSD
+ 2tAMJUvFTdDbfe3zKlPDTuVsyNsALBGclPLagJ5ZTP+Vp2irAN9uwBuacBOTtmOdz4ZN2tdvNgozz
+ uxp4CHBDVzAslUi2idy+xpsp47DWPxYFIRP3M8QG/aNW052LaPc0cedYxp8+9eiVUNpxF4SiU4i9J
+ DfX/sn9XcfoVZIxMpCRE750zvJvcCUz9HojsrMQ1NFc7MFT1z3MOW2/RlzPcog7xvR5ENPH19ojRD
+ CHqumUHRry+RF0lH00clzX/W8OrQJZtoBPXv9ahka/Vp7kEulcBJr1cH5Wz/WprhsIM7U9pse1f1g
+ Yy9YbXtWctUz8uvDR7shsQxAhX3qO7DilMtuGo1v97I/Kx4gXQ52syh/w6EBny71CZrOgD6kJwPVV
+ AaM1LRC28muq91WCFhs/nzHozpbzcheyGtMUI2Ao4K6mnY+3zIuXPygZMFr9KXE6fF7HzKxKuZMJO
+ aEZCiDOq0anx6FmOzs5E6Jqdpo/mtI8beK+BE7Va6ni7YrQlnT0i3vaTVMTiCThbqsB20VrbMjlhp
+ f8lfK1XVNbRq/R7GZ9zHESlsa35ha60yd/j3pu5hT2xyy8krV8vGhHvnJ1XRMJBAB/UYb6FyC7S+m
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,229 +122,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 3 · Low: 2
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] With this patch alone, bcmgenet_resume() still drops the
-  priv->clk reference in out_clk_disable when bcmgenet_init_dma() fails,…
-- [Medium] With this patch alone, after a failed resume the netdev stays
-  detached.
-- [Medium] Before calling bcmgenet_init_dma(), bcmgenet_resume() always
-  calls bcmgenet_hfb_restore(), which goes through bcmgenet_hfb_clear().
-- [Low] The patch fixes two bugs from different origins but carries only
-  one Fixes tag.
-- [Low] The commit message and the new comment in bcmgenet_resume() (`/*
-  A link event can enable the receiver after a failed resume, so check…
-
---
-
-net: bcmgenet: do not tear the datapath down twice after a failed resume
-
-This patch sets priv->rx_cbs and priv->tx_cbs to NULL when they are freed.
-bcmgenet_close() and bcmgenet_suspend() then check priv->tx_cbs and skip the
-datapath teardown after a failed bcmgenet_resume(). The WoL resume path also
-stops reusing rings that are gone when it sees CMD_RX_EN set.
-
-> Fixes: b6e978e50444 ("net: bcmgenet: add suspend/resume callbacks")
-
-[Severity: Low]
-
-This isn't a bug, but should the WoL hunk have a second Fixes tag?
-
-The priv->tx_cbs check added to the CMD_RX_EN test in bcmgenet_resume()
-guards the "Successfully exited WoL, just resume data flows" branch, which
-reuses the rings. That branch came from 254f3239dd07 ("net: bcmgenet: revise
-suspend/resume"), not b6e978e50444. The previous patch in this series, "net:
-bcmgenet: stop the PHY when a WoL resume rebuilds the datapath", already uses
-Fixes: 254f3239dd07 for the same block.
-
-A Fixes: 254f3239dd07 tag would record where the WoL hunk comes from. It
-would also show that the hunk only applies to trees that contain that commit.
-
-> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> index 308716cddc077..fe3338ba81980 100644
-> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-
-[ ... ]
-
-> @@ -3493,7 +3498,9 @@ static int bcmgenet_close(struct net_device *dev)
->  
->  	netif_dbg(priv, ifdown, dev, "bcmgenet_close\n");
->  
-> -	bcmgenet_netif_stop(dev, false);
-> +	/* A failed resume has torn the datapath down already */
-> +	if (priv->tx_cbs)
-> +		bcmgenet_netif_stop(dev, false);
->  
->  	/* Really kill the PHY state machine and disconnect from it */
->  	phy_disconnect(dev->phydev);
-
-[Severity: Medium]
-
-Now that this check lets close go further, can priv->clk be released twice
-after a failed resume?
-
-When bcmgenet_init_dma() fails, bcmgenet_resume() still goes through
-out_clk_disable, and the interface stays netif_running():
-
-out_clk_disable:
-	if (priv->internal_phy)
-		bcmgenet_power_down(priv, GENET_POWER_PASSIVE);
-	clk_disable_unprepare(priv->clk);
-	return ret;
-
-Before this patch, the next ifdown hung in napi_disable(). Now
-bcmgenet_close() gets past the check and reaches this code again:
-
-	if (priv->internal_phy)
-		ret = bcmgenet_power_down(priv, GENET_POWER_PASSIVE);
-
-	clk_disable_unprepare(priv->clk);
-
-A second suspend has the same problem. The new early return in
-bcmgenet_suspend() returns 0, so bcmgenet_suspend_noirq() calls
-bcmgenet_power_down() and clk_disable_unprepare(priv->clk) once more.
-
-Would this underflow the clk enable/prepare counts? And would the power-down
-register writes (EXT_EXT_PWR_MGMT, or the WoL MPD/HFB/UMAC_CMD sequence) hit
-a block that has no clock?
-
-The next patch in the series, "net: bcmgenet: let the interface be reopened
-after a failed resume", removes out_clk_disable and keeps the clock enabled
-on this failure path. So this only affects this intermediate commit. Could
-that change be folded in here or moved before this patch?
-
-[Severity: Medium]
-
-Is the netdev still detached once bcmgenet_close() completes after a failed
-resume?
-
-bcmgenet_suspend() called netif_device_detach(dev). The init_dma failure path
-in bcmgenet_resume() returns without calling netif_device_attach(), and
-bcmgenet_close() does not re-attach either. On the next ifup, __dev_open()
-sees that the device is not present and returns -ENODEV.
-
-The next patch in the series, "net: bcmgenet: let the interface be reopened
-after a failed resume", adds netif_device_attach(dev) to bcmgenet_close()
-after free_irq(). So this also only affects this intermediate commit.
-
-[ ... ]
-
-> @@ -4258,7 +4265,11 @@ static int bcmgenet_resume(struct device *d)
->  
->  	if (device_may_wakeup(d) && priv->wolopts) {
->  		reg = bcmgenet_umac_readl(priv, UMAC_CMD);
-> -		if (reg & CMD_RX_EN) {
+On Sun, 2026-10-18 at 17:03 +0530, Deepanshu Kartikey wrote:
+> nfsd() derives its struct net from the first entry of
+> serv->sv_permsocks using list_entry() without checking that the list
+> is non-empty. If the list is empty, list_entry() returns a bogus
+> svc_xprt computed from the list head embedded in struct svc_serv, and
+> the following perm_sock->xpt_net load reads far past the end of the
+> svc_serv allocation:
+>=20
+>   BUG: KASAN: slab-out-of-bounds in nfsd+0x118/0xbc0 fs/nfsd/nfssvc.c:894
+>   Read of size 8 at addr ffff88802d423f50 by task nfsd/5988
+>=20
+> The list can be empty because nothing guarantees that a permanent
+> listener exists while a thread starts. With dynamic thread spawning, a
+> thread can begin running after the last listener has been closed and
+> removed.
+>=20
+> Take sv_lock, which protects sv_permsocks, and check for an empty list
+> and read xpt_net in the same critical section. If there is no
+> permanent socket, report -ENOTCONN through svc_thread_init_status(),
+> which wakes the creator and exits the thread, instead of dereferencing
+> a bogus pointer.
+>=20
+> Fixes: 88c476661719 ("nfsd: pass proper net to nfsd_destroy() from NFSd k=
+threads")
+> Reported-by: syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D561b859d032c8bf2fb53
+> Tested-by: syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> ---
+>  fs/nfsd/nfssvc.c | 22 ++++++++++++++++++----
+>  1 file changed, 18 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
+> index 2edf716ea022..da6fce79efae 100644
+> --- a/fs/nfsd/nfssvc.c
+> +++ b/fs/nfsd/nfssvc.c
+> @@ -890,17 +890,31 @@ nfsd(void *vrqstp)
+>  {
+>  	struct svc_rqst *rqstp =3D (struct svc_rqst *) vrqstp;
+>  	struct svc_pool *pool =3D rqstp->rq_pool;
+> -	struct svc_xprt *perm_sock =3D list_entry(rqstp->rq_server->sv_permsock=
+s.next, typeof(struct svc_xprt), xpt_list);
+> -	struct net *net =3D perm_sock->xpt_net;
+> -	struct nfsd_net *nn =3D net_generic(net, nfsd_net_id);
+> +	struct svc_serv *serv =3D rqstp->rq_server;
+> +	struct svc_xprt *perm_sock;
+> +	struct net *net =3D NULL;
+> +	struct nfsd_net *nn =3D NULL;
+>  	struct nfsd_thread_local_info ntli =3D { };
+>  	bool have_mutex =3D false;
+> +	int err =3D 0;
 > +
-> +		/* A link event can enable the receiver after a failed
-> +		 * resume, so check the rings too
-> +		 */
-
-[Severity: Low]
-
-Is a link event really what sets CMD_RX_EN here? The commit message gives
-the same cause:
-
-  But after a failed resume the MAC sits in software reset, and the
-  next link event takes it out and enables it.
-
-After a failed resume, the PHY state machine is not handling link changes:
-
-- On the non-WoL path, bcmgenet_netif_stop(dev, true) in suspend already
-  called phy_stop().
-- On the WoL path, the fallback calls phy_stop() if the PHY was started.
-  Otherwise bcmgenet_wol_power_down_cfg() leaves phydev->state = PHY_READY.
-
-Either way, bcmgenet_mii_setup()->bcmgenet_mac_config() is not reached. That
-is the code that clears CMD_SW_RESET and sets CMD_TX_EN | CMD_RX_EN on link
-up.
-
-The bit seems to come from the next WoL suspend instead. It takes the new
-early return in bcmgenet_suspend(), and then runs
-bcmgenet_suspend_noirq()->bcmgenet_power_down()->bcmgenet_wol_power_down_cfg():
-
-	/* Can't suspend with WoL if MAC is still in reset */
-	if (reg & CMD_SW_RESET)
-		reg &= ~CMD_SW_RESET;
-
-	/* Receiver must be enabled for WOL MP detection */
-	reg |= CMD_RX_EN;
-
-bcmgenet_wol_power_up_cfg() leaves RX_EN set when it puts the MAC back into
-SW_RESET. bcmgenet_resume() then sees CMD_RX_EN with no rings.
-
-The added priv->tx_cbs check covers this case anyway. Could the comment and
-the commit message describe this path instead?
-
-> +		if (priv->tx_cbs && (reg & CMD_RX_EN)) {
->  			/* Successfully exited WoL, just resume data flows */
->  			list_for_each_entry(rule, &priv->rxnfc_list, list)
->  				if (rule->state == BCMGENET_RXNFC_STATE_ENABLED)
-
-[ ... ]
-
-> @@ -4343,6 +4354,15 @@ static int bcmgenet_suspend(struct device *d)
->  	if (!netif_running(dev))
->  		return 0;
->  
-> +	/* A failed resume has torn the datapath down already. Resume still
-> +	 * enables irq1 on the WoL path, so it has to be disabled here.
-> +	 */
-> +	if (!priv->tx_cbs) {
-> +		if (device_may_wakeup(d) && priv->wolopts)
-> +			disable_irq(priv->irq1);
-> +		return 0;
+> +	spin_lock_bh(&serv->sv_lock);
+> +	if (list_empty(&serv->sv_permsocks)) {
+> +		err =3D -ENOTCONN;
+> +	} else {
+> +		perm_sock =3D list_first_entry(&serv->sv_permsocks,
+> +					     struct svc_xprt, xpt_list);
+> +		net =3D perm_sock->xpt_net;
 > +	}
+> +	spin_unlock_bh(&serv->sv_lock);
+>=20
+>=20
 
-[Severity: Medium]
+There is another way to get to the nfsd_net here. It turns out that the
+sv_stats field for nfsd always points to the one embedded in nfsd_net,
+so we could avoid the socket lists altogether by just doing something
+like:
 
-With WoL enabled, can this early return arm the default filter and the
-non-wake HFB filters as wake sources?
+  struct nfsd_net *nn =3D container_of(rqstp->rq_server->sv_stats,
+                                   struct nfsd_net, nfsd_svcstats);
 
-bcmgenet_resume() calls bcmgenet_hfb_restore() before the
-bcmgenet_init_dma() call that can fail. That goes through
-bcmgenet_hfb_clear(), which enables the catch-all filter 0 and sets
-RBUF_HFB_EN. It then restores every runtime rxnfc filter. Nothing undoes
-this when init_dma fails.
+That avoids the extra locking, but it seems a little weird to depend on
+the sv_stats field. Maybe we could wrap that in a little helper or
+something to make it less ugly?
 
-On the next suspend, this return skips the "Suspend non-wake Rx data flows"
-block further down. That block normally keeps only the RX_CLS_FLOW_WAKE
-rules enabled and clears RBUF_HFB_EN when there are none:
+An alternative would be to add a serv->sv_net field, but most services
+are not per-net. nfsd is the exception so it's the only one that would
+use it.
 
-		} else {
-			bcmgenet_hfb_reg_writel(priv, hfb_enable << 1,
-						HFB_FLT_ENABLE_V3PLUS + 4);
-		}
-		if (!hfb_enable)
-			reg &= ~RBUF_HFB_EN;
+> =20
+> +	if (!err)
+> +		nn =3D net_generic(net, nfsd_net_id);
+>  	/* At this point, the thread shares current->fs
+>  	 * with the init process. We need to create files with the
+>  	 * umask as defined by the client instead of init's umask.
+>  	 */
+> -	svc_thread_init_status(rqstp, unshare_fs_struct());
+> +	svc_thread_init_status(rqstp, err ?: unshare_fs_struct());
+> =20
+>  	current->fs->umask =3D 0;
+> =20
 
-bcmgenet_suspend_noirq() still calls
-bcmgenet_power_down(GENET_POWER_WOL_MAGIC), and
-bcmgenet_wol_power_down_cfg() then does:
-
-	reg = UMAC_IRQ_MPD_R;
-	if (hfb_ctrl_reg & RBUF_HFB_EN)
-		reg |=  UMAC_IRQ_HFB_SM | UMAC_IRQ_HFB_MM;
-
-Could ordinary received traffic that matches filter 0 then wake the system,
-even when only magic-packet wake was requested?
-
-This looks like it is still there at the end of the series. The later
-patches keep the clock on after a failed resume, so these register writes
-take effect.
-
->  	netif_device_detach(dev);
->  
->  	if (device_may_wakeup(d) && priv->wolopts) {
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017-nb-genet-fini-dma-net-v1-0-47e7c57f6834%40tipi-net.de
+--=20
+Jeff Layton <jlayton@kernel.org>
