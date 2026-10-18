@@ -1,129 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BCA239E9B
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:04:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1072868AB
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:10:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792285455; cv=none; b=oIHopBMRzvI61MIkqq3kqtd4ZdQgoyA2R44AN3yUE161V2XRrruWI7JB4f0R20XNsr+X6EOIogAX5IxX+QhS6BAtBAfH6wBxzUhHkn9PN++kJiE0W2Fuzp8Wao7Wn/ErxmLeImAwmxSoAW60EnUQpUIXE6hvqz9dBde9R3yt7NQ=
+	t=1792285839; cv=none; b=tO5qA0Eiuy7pcCr+DbB9TB15nslcrrSoOvAmgCMRqtMw0oYicmoSy/aLk9MP8GyDssNisUjlt1MvP0WKPF/1+Vp2Ngzxyes+cIxMeHC7FkuqmUO3U0+QaWj1WnBv1bXs7WukSZ6j+TpuYDHpiPIBoj5OjfsbYOIyCMh/eVs1JG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792285455; c=relaxed/simple;
-	bh=NDvJpBkgXlJ9jleGf3wJQt0UZywvdyte7pZcLG/aMdE=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=CrBEpIQXyAtzOUavqgz8KZDicbXNh31RzkXzzu1RwQfERDJoyt4bKTgF2QDwrP1Vcipl0Rxzpy5C0WV4J1yJQvGvGKPt4qn6UIhlVGXZT2IkU/IM+TQvGspX/zrLau5vvOjaBVfGOA1H4DrHvuyxyj2npNnLFJtCrcFL/+vCkts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=rQpNBk6P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792285839; c=relaxed/simple;
+	bh=eTL3zCKW2b+yMArvP33aNj0EbUaBajQIzEbeKrRKhQk=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=tyRhgoZEcRd9M/uN1JiNpbiJO8tVZTyT6CfdFc3fCmDPYGTuyXxYsW9rKhr7gsGa6Yzuwbvu4ct+WOaxG05SFOuWm415VeNwrUdJn316U/InEunPUGnR6sx+j8efczxA5cPjX12SCFjuxN/EZmDcWIrySzAuYrL131drVDoDhKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Zy08EHhg; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="rQpNBk6P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3131F000C4;
-	Sun, 18 Oct 2026 01:04:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792285453;
-	bh=yBzg1XnqQp2xTgPKm6aEo7hheg/CtG2kAo70FRWV5Qw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=rQpNBk6PIcbBYEEtVcMCyzy80nO9U+u4EV/iOS1fliNGnoTGiXg0V252S8AWxZsPp
-	 3q/U+l5BlcKB9IibCRC4lVptDnbNoPCXsbT5riniSZD/gGa6hiibfTBZ1ms3t3f5t1
-	 IwdJmCFc6rir3HRCpwCMKJEhgm90/Lem6T6/EFVo=
-Date: Sat, 17 Oct 2026 18:04:12 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Jann Horn
- <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] mm/mremap: do not charge a shrinking move twice
-Message-Id: <20261017180412.a79a36e873c5268df126cde1@linux-foundation.org>
-In-Reply-To: <20261017233527.797191-1-nickolai@csail.mit.edu>
-References: <20261017233527.797191-1-nickolai@csail.mit.edu>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Zy08EHhg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792285837; x=1823821837;
+  h=date:from:to:cc:subject:message-id;
+  bh=eTL3zCKW2b+yMArvP33aNj0EbUaBajQIzEbeKrRKhQk=;
+  b=Zy08EHhgSyM0/9yIvUIiRvuXphgIVgyRcnkR9shL0rpjFoPIgGO5P7nw
+   x3CSKJKW+vwWizbU+rtyHGZOZFKHl8WVe+j7tzEy196w6SCpLYnDrayti
+   dcEcTmeVoI9m2QZnHWB6w9YH/IIax391AMN0mrdHN0HqtLUXxE/ELyMQ1
+   xpcANXBI+I/jmPymOZiEKy469heEHfXqRO5bNP2ObNoQfnbj4sEFDaani
+   fcFuhyzD0ps2JOsfcEX2j376jdagyhDpSwcDtpW/kORAvfeIIql/yT0f0
+   2z6uqwm5BdUpdb58uYGnZ8eOmNhEO1mAmewqyFPgAC33J7hPvaCJHE/P1
+   w==;
+X-CSE-ConnectionGUID: EwU6wmqRQySG0HTHogGGDw==
+X-CSE-MsgGUID: 32lfwYnFRtSyPdkfWrDyLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="898004"
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="898004"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 18:10:36 -0700
+X-CSE-ConnectionGUID: JBoYHGWRTDicc4GaLghELA==
+X-CSE-MsgGUID: sk8yhIzCQ3egQJUX1CHu6g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="2608537"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 17 Oct 2026 18:10:34 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xIFQ0-00000000Jwi-147C;
+	Sun, 18 Oct 2026 01:10:32 +0000
+Date: Sun, 18 Oct 2026 09:10:17 +0800
+From: kernel test robot <lkp@intel.com>
+To: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: drivers/media/cec/core/cec.o: warning: objtool:
+ cec_receive_notify.isra.0+0x44b: ignoring unreachables due to jump table
+ quirk
+Message-ID: <202610180940.mjhxIMez-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sat, 17 Oct 2026 19:35:26 -0400 Nickolai Zeldovich <nickolai@csail.mit.edu> wrote:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   90201351a862182bdabfc1ad1c97b1e1b6ed5931
+commit: f2c356d1d0f048e88c281a4178c8b2db138d3ac1 kbuild,objtool: Defer objtool validation step for CONFIG_KLP_BUILD
+date:   1 year ago
+config: x86_64-buildonly-randconfig-1000-20261018 (https://download.01.org/0day-ci/archive/20261018/202610180940.mjhxIMez-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261018/202610180940.mjhxIMez-lkp@intel.com/reproduce)
 
-> Since v6.15 every mremap() that shrinks an accounted mapping and moves
-> it with MREMAP_MAYMOVE | MREMAP_FIXED leaves old_len - new_len bytes
-> charged to vm_committed_as for good.  An unprivileged process that
-> repeats such a call keeps raising Committed_AS in /proc/meminfo; with
-> vm.overcommit_memory=2 it reaches CommitLimit, after which every
-> accounted allocation in the system (private writable mmap(), brk(),
-> fork()) fails with ENOMEM until reboot.  A loop of 1000 calls moving a
-> 2 MiB private anonymous mapping to a 1 MiB fixed destination raises
-> Committed_AS by 1 GiB.
-> 
-> mremap_to() first unmaps the tail of the source with shrink_vma(),
-> which uncharges it, and then sets old_len to new_len so that the move
-> looks like a same-size one.  vrm->delta, the absolute difference of the
-> two lengths computed in do_mremap(), is not updated, and
-> vrm_calc_charge() charges delta pages for the move.  For a move that
-> does not unmap the source the charge only has to cover the growth from
-> old_len to new_len, which here is zero; nothing ever releases the extra
-> charge.  Before the vma_remap_struct conversion move_vma() charged
-> new_len - old_len with the updated old_len.
-> 
-> Recompute delta after the shrink.
-> 
-> Tested with the program in the notes under QEMU (x86_64 defconfig):
-> Committed_AS grows by about 1 GiB per run without this patch and stays
-> flat with it.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: f2c356d1d0f0 ("kbuild,objtool: Defer objtool validation step for CONFIG_KLP_BUILD")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610180940.mjhxIMez-lkp@intel.com/
 
-So I'm training my LLM to do better reviews.  It sucks in Tejun's
-review prompts which suck in Chris's prompts (which Sashiko also uses).
-It also incorporates some of the prompts which Sashiko overlays on
-Chris's prompts.
+All warnings (new ones prefixed by >>):
 
-And now rather than just checking code I'm getting it to step back and
-take a broader, more architectural/design view.  Scan the lists for
-similar changes, look into the revision history to understand why
-things are as they are.  Study comparable code sites.  One way I'm
-doing this, which might be innovative, is to feed it some of the more
-impressive human/maintainer reviews I see and ask it "what rules can
-you set in place to make your reviews more like those people's".
+>> drivers/media/cec/core/cec.o: warning: objtool: cec_receive_notify.isra.0+0x44b: ignoring unreachables due to jump table quirk
 
-I'd like to start using it on people so I can also obtain
-author/maintainer comments on its reviews.  I can then feed those
-reviews-of-reviews back into it to get it to learn and improve.
-
-It's a work in progress. Here's what it said about this patch:
-
-
-Hi Nickolai,
-
-The code change looks correct to me. After shrink_vma() has unmapped
-and uncharged the tail, resetting vrm->delta to zero correctly avoids
-charging again for the remaining same-size move. I checked the other
-delta consumers and error paths and found no introduced problems.
-
-One changelog correction:
-
-> For a move that does not unmap the source the charge only has to
-> cover the growth from old_len to new_len
-
-This is backwards. MREMAP_DONTUNMAP retains the source and charges
-the entire new mapping. An ordinary move unmaps the source and
-requires additional commitment only for growth.
-
-I'd suggest:
-
-"For an ordinary move, which unmaps the source, only an increase in
-mapping size requires additional commit accounting. Here shrink_vma()
-has already unmapped and uncharged the tail, so the remaining
-same-size move requires no additional charge."
-
-Two minor points:
-
-- "Until reboot" is too strong: other processes can release
-  committed memory, although the leaked charge itself persists.
-- The vrm_set_delta() comment says "difference in VMA size specified
-  by user", which is no longer quite accurate when called after
-  adjusting old_len.
-
-The Fixes: tag looks correct. Given the potentially system-wide
-ENOMEM failures under strict overcommit, Cc: stable seems appropriate.
-
-With those minor changes, I think this is ready to go.
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
