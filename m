@@ -1,148 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625173A1E80;
-	Sun, 18 Oct 2026 06:24:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D607E3F58DC
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:24:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792304662; cv=none; b=DxJhQVCrM08eqKx2chE55WdjRfp/fcmGTFitTTKeZtH3KhfiuMg8hKmz4MH41n91Xif/9eK2/Ugloo2GPWSE6HDheNXKQcGkSCZa2p8YoP4V4o6o8AAqOJNw/5Rk/DtUVXaIAu37nj4Yz3YHuuGoGHtN8OoAuFJV4rCwVq33Ra8=
+	t=1792304673; cv=none; b=BY4Y8RKmtbYRNZI+iOQbFAMSrwuFpOfrIDhSTA5p+X4VOgQStV+NIKVUgqzT3gRY/SKLacmy+Gn9PonxxfNEpUKzmmUFt0r1lHJjxc1NMWMmgG/T0/n3J+jilTRosiEMqnhiyQXbGN9R0L8tSBRErCTzxTArwSnSWTSoaFoskOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792304662; c=relaxed/simple;
-	bh=/agrnax0wfksccKHgEoBGnRbFp7OLiMy5dYjThZCV3M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=laLTFZ0L8EZtYibBQZssoj7jd0mVxO66dr9IpZMNj1jnDWhfKquCcGMmPlyiqE6zP3iBjCDJ47Xt3smhd/pN0+vp6fZBbLQim9fRP3mp+3H2XezU8gSR20e6LXLRnJt+x6erH5WZD4yZN4h11BfGyU8VeFSJ9P3Dt7yspp9meVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ePeHDgCz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792304673; c=relaxed/simple;
+	bh=u60/h86UtCV0RHUmtNCYmhLRPiuBkicoYzvb6oTOgXk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P3tswWMCOVZGtjqaxhR3XV8JL/ebnfxlA5pm6xyOdMNUHPmXCfJCfBhmMbd6ts6pC/rqpFum1skWg/fIUB40+3C+gtzLZoyZS6CtUDu7EyoXyfgeL+8bL6yUom3Pk9QjbvhRiFIcoTTosYaWieUXADlV8hMfZMeMgMUZuZU4X5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg; spf=pass smtp.mailfrom=gt.tech.gov.sg; dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b=sP5FjZ6A; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ePeHDgCz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CA51F000C4;
-	Sun, 18 Oct 2026 06:24:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792304660;
-	bh=w2Qw0jIYjCcszsE1XhibnTlIkBb9EQqyKTQh4sDtAhk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ePeHDgCzDAgLo5tVEJsA16jTv75lNDD4irGGQJwjWhGDdajzpwDF1XoZKX2cH8FKG
-	 6+84L4TEf90k5sfW+5L0TxhPmVmwCWlmu6H+ZGx8D0RX67pZp744hZPBx9G1cHMBot
-	 UdMQaY3PzH1HKDwkxskY0TPGkM4ms2SL1DZcxvgCbnagZIRlGcBPr0XL7gbNWxaaQf
-	 JAsWz6BXTpZdRev/RVo/hBr4Zj8ghnrg0namZ1kxJS40CHQhfFnLtZ57xyk73av15d
-	 ZCXRYLjrG5uGL7EwCp1kRZbF1khfUAb/o+8QTP4rJ9tHcijYsoX88mHRWVDalZCG4O
-	 u5IIlWgJaAxvA==
-Date: Sat, 17 Oct 2026 23:24:19 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Sunil V L <sunilvl@oss.qualcomm.com>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	x86@kernel.org, devicetree@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v9 5/5] riscv_cbqri: Add CBQRI capacity allocation
- platform driver
-Message-ID: <atRmE5lKNxmskzTm@thelio>
-References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
- <20261003-dfustini-atl-sc-cbqri-dt-v9-5-52fd8be98dcf@kernel.org>
- <CAB19ukEMKp7iFHrTPawNj2dwf1n0D9VDBC2ycBPdCRbkGYN2eg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.b="sP5FjZ6A"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ab4178ee33so898742a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:24:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gt.tech.gov.sg; s=google; t=1792304671; x=1792909471; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q5RPMRI/Z07lJ0xDImPcnvLDgkc0YFq5cW2OslfyXR0=;
+        b=sP5FjZ6AP55RaaNfHtG6IPu9Tot9po2x6OnJDLU7+n2LhOFxC6CejgUGRboE/Vq6fB
+         CPg+LjHXPxuofU3UVQR3jgaIa77V9ff/9Ldo8+JWqRofhOxltttDU2X25nEG2MYrNIBb
+         0EANDKv/mmwxP6qIFPcmxij4ll5w1EnvCGDBw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792304671; x=1792909471;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q5RPMRI/Z07lJ0xDImPcnvLDgkc0YFq5cW2OslfyXR0=;
+        b=uVVs7mMESY0LXU+uWGJthwQA+s4QONMAM5i9dSvDFgGWUdav8OIk94vtmTPOrE25dg
+         VYOr5S+FEDGlCAVV/KCwH9CzAEC2RFB+PBc6hy+RFl9WaXJJNvZv3LIU9siWb0Ai1LVE
+         xozSI4JMIbODb5qZ5XsbkzVJUqHCBFvTrfqRLuJQelvCMMWcz0z+TMN5KlJGUPLZwtdl
+         bngRItwfw6g/fHZOeGrHbSJChEiSGNpryIs3uW84Dq2RZ6gOt5tuMaCDbjCChdGX0FJk
+         7CRRKSTLzepckgj3KOo/bqSVui+YLzsokqIFkijr4YvNNRqElZRnbPDqRHtmP3w4tHYn
+         scsg==
+X-Forwarded-Encrypted: i=1; AKwUvByifq86rS3FHUFdpGZbBE+xRLd6tCkEvs7dkUimUryxq6UepoYfP9B7ouqFJNPg5ysQRWZWeUHvSznAYo8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZSZABlCw/7W0woQp/xzUQ0Qevqqq2Q02nBzgi1tJ10hg0hEWj
+	P/I9EJjxXhU1Kji8x7qNf12DCljrnmy/jf+VEjqQ1nRQNzoiVCc4dNPgih57iR7ZAE0=
+X-Gm-Gg: AYBFou1zPtapQ+1UhGMD+FYdd71tnjHOEGVJ0BQPEgi6SYI24j0dIYrfveCJQTGWyHC
+	ZFtUQGBbrhqC7tvfAyIePROVpHqk0VbquphoqQJiS6Xmkj1HUbkLx8hrpLsfop4oTBMZoQMUvtE
+	vbNONdqGjMPYv+MF02X32OPRdcRbMcZgrl2BXlFuhS7e9T0i4ZgK0ScyH7nt+NMxKuhYvBgV787
+	NKlK75ctYGDo0xgMwmObkzGaWTb2F2ijKM9BheNMScz7oE0Rg5rYidMQqFeyi0uWRYSfVJZoQb1
+	IcCCnQ1Pa5j8fWyp+5ux8J7ToPJ/H0U6rR1282KCG58+idvDZZ6qV1elEKNr/MVlj8Q+b5eGI39
+	KfBP1eLoSoA8xCHDyg22T0j34620Kzs5YM8Xdtct+nN7g+MxTFl1f3gbcP+/2ighNVq9ferKjKl
+	jeryrbAiLoMQZazAnCgKBA103AfSq/619TEWxm9ghCfzWtw+ydi6nH5haNK8luVbyl/jcTfbRs2
+	Z6ZpRczRZORVyPJ466ARAPbob2AFhyMY+rLrepepjdvKG83B0Ok9is=
+X-Received: by 2002:a17:90b:2708:b0:3ac:80dc:f409 with SMTP id 98e67ed59e1d1-3acef5dcbe4mr3210265a91.61.1792304671066;
+        Sat, 17 Oct 2026 23:24:31 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain (bb119-74-6-224.singnet.com.sg. [119.74.6.224])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc46ee274sm10513293a91.4.2026.10.17.23.24.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 23:24:30 -0700 (PDT)
+From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+To: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+	UNGLinuxDriver@microchip.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Woojung Huh <woojung.huh@microchip.com>,
+	netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wei Jie Law <98lawweijie@gmail.com>
+Subject: [PATCH net v3 0/2] net: usb: lan78xx: do not use uninitialized data after short reads
+Date: Sun, 18 Oct 2026 14:24:17 +0800
+Message-ID: <20261018062419.21921-1-law.wei.jie@gt.tech.gov.sg>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAB19ukEMKp7iFHrTPawNj2dwf1n0D9VDBC2ycBPdCRbkGYN2eg@mail.gmail.com>
 
-On Mon, Oct 12, 2026 at 10:33:21PM +0530, Sunil V L wrote:
-> On Sat, Oct 3, 2026 at 12:45 PM Drew Fustini <fustini@kernel.org> wrote:
-> >
-> > Add a platform driver for CBQRI capacity controllers described in
-> > device tree with the riscv,cbqri-capacity-controller compatible.
-> >
-> > The controller node points at the cache it governs with a
-> > riscv,cbqri-cache phandle. The driver looks that cache up in cacheinfo
-> > and uses its cache id as the resctrl domain id, so the binding does not
-> > need to carry a CPU mask. The controller is then handed to the CBQRI
-> > core, which probes its capabilities and decides whether to expose it
-> > through resctrl.
-> >
-> > Nothing is vendor-specific and reg is the CBQRI register block itself,
-> > so any SoC that describes a CBQRI capacity controller in device tree can
-> > use the driver unchanged.
-> >
-> > Assisted-by: LLM
-> > Tested-by: Chen Pei <cp0613@linux.alibaba.com>
-> > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> > ---
-> >  MAINTAINERS                      |   1 +
-> >  drivers/resctrl/Kconfig          |  15 +++++
-> >  drivers/resctrl/Makefile         |   1 +
-> >  drivers/resctrl/cbqri_capacity.c | 127 +++++++++++++++++++++++++++++++++++++++
-> >  4 files changed, 144 insertions(+)
-[..]
-> > diff --git a/drivers/resctrl/cbqri_capacity.c b/drivers/resctrl/cbqri_capacity.c
-> > new file mode 100644
-> > index 000000000000..0670a676bdb1
-> > --- /dev/null
-> > +++ b/drivers/resctrl/cbqri_capacity.c
-[..]
-> > +static int cbqri_capacity_probe(struct platform_device *pdev)
-> > +{
-> > +       struct device *dev = &pdev->dev;
-> > +       struct cbqri_controller_info info = {};
-> > +       struct device_node *cache_np;
-> > +       struct resource *res;
-> > +       u32 rcid_count, cache_level;
-> > +       int cache_id, cpu, ret;
-> > +
-> > +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> > +       if (!res)
-> > +               return -EINVAL;
-> > +
-> Unless I am missing something, I think you can simplify the code by
-> using devm_platform_ioremap_resource().
+lan78xx_read_reg() and lan78xx_read_stats() accept a control transfer
+that returns fewer bytes than requested and then use the uninitialized
+rest of their kmalloc()ed buffers. A device that sends short replies can
+get stale heap contents used as the MAC address of the interface, and makes
+ethtool -S report them to unprivileged users, including kernel text and
+direct map pointers.
 
-Yes, I'll switch to devm_platform_get_and_ioremap_resource().
+Patch 2 makes both helpers fail on short reads. Patch 1 comes first so
+that a failing statistics read does not report uninitialized stack data
+instead.
 
-[..]
-> > +
-> > +       info.type = CBQRI_CONTROLLER_TYPE_CAPACITY;
-> > +       info.addr = res->start;
-> > +       info.size = resource_size(res);
-> > +       info.rcid_count = rcid_count;
-> > +       info.cache_id = cache_id;
-> > +
-> > +       ret = riscv_cbqri_register_cc_dt(&info, cache_level);
-> >
-> As I mentioned in the comment for another patch, this function doesn't
-> need to have "_dt" in its name.
+The bugs need a malicious or emulated USB device, which
+Documentation/process/threat-model.rst treats as a regular bug rather
+than a vulnerability, so they are posted publicly.
 
-Good point, I'll drop it.
+Testing: the series builds without warnings (W=1) on net and passes
+checkpatch --strict. It applies unchanged to v6.12.105, where it was
+tested with a LAN7800 emulated by raw-gadget + dummy_hcd, booted with
+init_on_alloc=0:
 
-Thanks,
-Drew
+- Zero-length statistics replies. Before: 40 to 88 of the 235 ethtool -S
+  counters are non-zero, including usb_api_blocking_completion() and
+  direct map pointers. After: every read fails with -EIO and all
+  counters stay zero.
+
+- 100 byte statistics replies. Before: 110 of the 235 counters are
+  non-zero. With patch 1 only: 29 are, so the stale tail of the buffer
+  still gets through. With both patches: the read fails with -EIO and
+  all counters stay zero.
+
+- Zero-length RX_ADDRL/RX_ADDRH replies. Before: the MAC address
+  differs on every probe, is programmed into the MAC filter and is
+  used as the address of the interface. After: the
+  probe fails with -EIO.
+
+Both bugs were found, and the patches written, with LLM assistance,
+hence the Assisted-by tags.
+
+Changes in v3:
+- add the missing Signed-off-by; no other changes
+Changes in v2 (review by Sashiko):
+- 2/2: the commit message now says that with patch 1 only a partial
+  statistics reply (1 to 187 bytes) still leaks, and that patch 2 depends on
+  patch 1; the MAC address paragraph no longer claims a write-back to
+  RX_ADDRL/RX_ADDRH, which happens only for an invalid address. The cover
+  letter gains a partial-reply test. No code change.
+- v2: https://lore.kernel.org/all/20261018061734.19488-1-law.wei.jie@gt.tech.gov.sg/
+- v1: https://lore.kernel.org/all/20261014025602.26334-1-law.wei.jie@gt.tech.gov.sg/
+
+Wei Jie Law (2):
+  net: usb: lan78xx: do not update statistics after a failed read
+  net: usb: lan78xx: reject short register and statistics reads
+
+ drivers/net/usb/lan78xx.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+
+base-commit: 7ec48f396a1d89532c0537bc38b408b8c31ee37f
+-- 
+2.43.0
+
