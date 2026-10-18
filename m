@@ -1,72 +1,72 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7673E5EE7
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:44:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892C1402429
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:44:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341871; cv=none; b=dydxIIM43F0lpzlF7RkhsJv6dyUb2xYamh/26er3YUb+7ES/XOgKm5DVBfsm8kRBIGYS2s8nDiXEfyUNGSkU94l6EutpkjUBWhd3gbwNMqDzP3JPKUHJ3fvkQCBZnmtZbNWfvvZIvzZ7gfiVYwEcCdfuSOHomB/reKhwnqMDcLE=
+	t=1792341878; cv=none; b=hawKhIR05gi8udkrcdxLi2D3axWkFHMpxN5o4f1zX7lw03E/+sBF879EZ8RSZ4C5ht1hvFrvEvWSEeWeG9v/umxdt+qEAUr4ByEWiD8Ru1FeU62KMidOxJqwoSZyYgHRdmpDZlscGgW3yGFTpW8DzS/h3BQu0M5t5oFSca+SmbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341871; c=relaxed/simple;
-	bh=xmKSzd6y7H5F5I8iOqTKJHpC+nO1N6svEATVQw+WmA4=;
+	s=arc-20240116; t=1792341878; c=relaxed/simple;
+	bh=LWPTncakzMA1NdKYwWnp03DoB2kYRjGmf51L1bPeqhU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eTJ3GK/bQO2p6aQsT5gteGhYlNC7fua3TPCGQam+nED/+eBu4YkB4BYl95J3qUnk4QEdvOjU++fsIOL3eawHkWRmlbJ4C00wi9d/o+PY7fEYOlq8Lwz6fublZLPySJF2TsdLRRoJ5gvv97AmdMQ/c9/GZZ1mnU8Y4Eb5wvOkQw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s6lfJ1o5; arc=none smtp.client-ip=74.125.82.181
+	 MIME-Version; b=mHtMHM1bUwa+SYFblRJM+RDRugsaz9wJL4uG/Nj6s2ezIruZ4SB0rfpAu9beBxKHP9nuJWocjxYuMwJJfe04x8lpS7k2O1ujzw/qVqmwDyEUfKtSu1kqzapOoU9a1T7danZhVCvgj37BUl97/lOXhtmjsM8RibytWG2znjTlcDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fEbeL+XS; arc=none smtp.client-ip=74.125.82.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s6lfJ1o5"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so2836746eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:44:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fEbeL+XS"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so1702717eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:44:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792341866; x=1792946666; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792341870; x=1792946670; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tjyLgG+lbAo9+1NVw/+tnv0kQ6Ik8T6x0RHmp6w96Tw=;
-        b=s6lfJ1o5ZYhQOUuEULXwAF41oJzb8Q5rcA1mLKjO85EJX87P1ajDJ+zgSiVgB8pi0p
-         k5OVAA19Ro/LQgRo+OCKR5GQ/ZgcdVLXIHItfyA0cOcr2+dXwfaEmedDFoDPZz0Cf13Q
-         x1rMmZfbdGBSufeWdgqD2Zz/dHKxmZrwVcfd0PnDC/OAZCgwoHC9HbzVox81QuKWshFg
-         uMAKfolq5BMvikU3x0Xa/IZngjIL3+6/U/4CmpBDH0ybZb3/LuQR/8gU+l5cQgu45Fam
-         Gq3+oYxN/37aD0mXF5lvRDqeGMYTFfoyjh4QS33uGJ9BP29G3C/sV3xS8HZNrOL7L+wD
-         aU/Q==
+        bh=FFVVWVKO3HLX1qQu6kZSSrSNRYdIWUkeFrec4EBCv2E=;
+        b=fEbeL+XS2JgIkjigsPlGgoc14VOyxpbD/GCxV2nVBy9Nx/X2BjSB46+r/y1hL3wCKM
+         uyCi8vPJwgisOQFhwhM+U9/0NFEwUw2ZDFZThlp1aNzJSYYOExmnpdw6KKQp7TOIUBpt
+         SCqq5ezdjWO9b98L6CSzBXExenYbsyBA5KrgctysCufIwXtj3+QfI+XmTcCv1LM8o0z0
+         aUlTiMDlnyOeyNziRA6xl3lAXykb0JR1zOM9AVINz0h2wUHFJUpw3e4sixXjgDkS467f
+         TFArHMgjlnKpUfFvx6+FTiaD/NIrncjoV33kbkmZ0GrzxWBSpw7CcIugeI7bhN0wMdxY
+         1Gzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792341866; x=1792946666;
+        d=1e100.net; s=20260707; t=1792341870; x=1792946670;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tjyLgG+lbAo9+1NVw/+tnv0kQ6Ik8T6x0RHmp6w96Tw=;
-        b=OGd47JIHOR+kg6pQhZLJdDqTASX++W/tHKMrHh6kyP+axVe0JkpcGEN0OskfozFkPZ
-         +RpYadfGriOxh+M1bv2VmP/erpdT0y2mSauktoot97Qmne7tcwRx9CgF7KW9reFL4f9p
-         pyRWJuE1ynNVwiYHR1h0ZY+GBuZT7k8HUMUg8/V1IOLiGnEK2xUfKvSo2fAYN2weNvSJ
-         ttFCYvT0k89ldkf2M1X/QJS2vlXDWVvXO3aJQXOX6QqWfrNn6Mw9BUL5bpCY57j+1TDy
-         8RFRM794JGXfjNLWLlMXQEZzvUpm5I81mLoCBy8JPD1ovGPPA08pMtjP9pYYZB26gLsh
-         p1Sw==
-X-Forwarded-Encrypted: i=1; AKwUvByvOpFtmXT65h8d5YFgVvDUQmlejYzYMGw8muP1z1dVpJUcQUYn89a+DQfyJe8CgmgsoaQwTGfok9otGO0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6ke2SzlDCbyi9GjP9g+F3Q5bmPQcSUmeyuGqMTtxTKGm3cUG7
-	3lKJwJijJwwQP8zaIhBbkM7TT8UdG5BTi2k6K7ASAPSiXhiUYcu8D6Yn
-X-Gm-Gg: AYBFou3sF9bjRLEB3vjLzZYLwnLkU4oD0xzlg6PdL8eggs9VdM21my9xc1Z9TlIo4Uq
-	dsLAtK0j1HAyGkYpblBk1XJVOwo/bjffWbMc1hmdEmItpNLaiXdE6Lvo+gpgQ5RfF9wSVj6gI7F
-	78ZPVaN6YFkoQJnEQtrlTbJrY/FpJ4IKpR/pPsGu1x69fP5lymyQrvQY0aV+vfPG6RlNKPJJpif
-	4+b0tS2qmdny/zehC6oPty5ee/oPppYWHG32yGEpmwe7i/gSIyOFiU5UP3R4ANruox9AFbhaQj/
-	82gQF2b6hbo3OYEGAo/QXeUsKn98XORfng7z0Ld8dwioam9UfTUHY4lvkcH5NGhn6zGFRDZpSRO
-	Sr/hNXIuknBlujtuQCGsUSy2zqXLLTEAaNMXk5eNNmSHdY2Ee3m5dW7SRhWCseUjNag2my+Wcws
-	WvHJRc5dEbzaZsmHHS21I4mnaO1eg8YI7ka+yeiKAwmGauTKlzXEbZxleA3dD46MJ59MFnr5Zhn
-	YLWaZ7Kw8UpDNAYqw==
-X-Received: by 2002:a05:7301:4d17:b0:35e:9562:ff1b with SMTP id 5a478bee46e88-361a3127f0cmr7590409eec.39.1792341865986;
-        Sun, 18 Oct 2026 09:44:25 -0700 (PDT)
+        bh=FFVVWVKO3HLX1qQu6kZSSrSNRYdIWUkeFrec4EBCv2E=;
+        b=nD2bguuyIVo79yYl7MMJHbGxFBFfsCtkdKjnpECP+8Zug1uxPKcWXTTfA/SuMo60Jk
+         GvSRkXlund9LWs97HWPDP+anu7/WSq86dTfZnlttD25/lfOc1bQOqo88foY6XhfJp/nk
+         WkyLg47diA4LPaeB07ho+4Nir7hcVyA9ebNMsBEXnIe6BK1z2vZM0EevFOCz+MOdB6eE
+         P7641A020rcUqtNf+EAbvtFFtWdDByk/pWcKx22200TEhitLQT45MT/+IXDbNHonW0Hk
+         sCuNWpztJrOs9/h/ousRmvL8tNs+PHWgEKrNE8zPAO8dd1pyxkT3KKaNB9XxtY9H8jlO
+         WFqw==
+X-Forwarded-Encrypted: i=1; AKwUvByVxz7VK63zqurMBUytUMyB6rMsKBSwPbyoVkD9gXZlVdbSBzUHtmtl11/C5X0s34lJ02UnNB2ovvHnaLE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOcw4bQF/WbC/oKCIDc2+9L6/B8PueDVCygnqZLB0dvMwmWAJ4
+	MB+q/UfA9InhmvsAJFYPlIaLNbyEXxSmTmw202YfbafLOeedMdcF0PjC
+X-Gm-Gg: AYBFou3pA1fQDeGuAnJhMUhK91InjjvIpNu6PtFgjMohX+Hn51nFJW2ci2RyrMy5S96
+	sIz04eCaAva+bHLSkzFVueBwfgrGQsz3P+jkC5zGgB15WA3nUXUg+5ESTLq9xhMPO2xaY6XE7MY
+	vtAR1WEetyjbSt7nBjRLJAZfNBtf8GXYA8cuctJS1fsge630gD5aand7WjUTj9el8RyUFtugWkZ
+	r9pOwbQmsZmau6DdbMMTgZtrqQIjlDHNAA0bhP/Hb0yeRZF9HWLKxYJczpjJaV723Xjd9LNdG2b
+	zFDaNNHUd/ZDKVutApmfStyLj7FKhbfaID8DWaDQCJn9QVK3ZwugKJF6ZiLeHSEK0cqE36Uv7Ae
+	A7VmT2y8C/dDCC5zKVEIX32ItcdjSkvHI9E6PpmvB5j51m08h/1OCY0uiYDUCLR83kNAFGlX52l
+	VmK3tENPM6esImfGoMPB8esZET+ysElWHBmPxcsKTrGJmz2U0vlyO6Sf1TpS+buF6OnLQ7c4fvn
+	ymnLzalWvapJ4o/ZA==
+X-Received: by 2002:a05:7301:2727:b0:343:fb75:a5f2 with SMTP id 5a478bee46e88-361a1865981mr7975622eec.9.1792341870232;
+        Sun, 18 Oct 2026 09:44:30 -0700 (PDT)
 Received: from Vicious.localdomain ([117.99.24.166])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608258aa66sm31431363eec.20.2026.10.18.09.44.23
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608258aa66sm31431363eec.20.2026.10.18.09.44.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 09:44:25 -0700 (PDT)
+        Sun, 18 Oct 2026 09:44:29 -0700 (PDT)
 From: Ashmit Kumar <work.ashmitkumar@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Ashmit Kumar <work.ashmitkumar@gmail.com>
-Subject: [PATCH 1/3] staging: rtl8723bs: use PTR_ALIGN() for pointer alignment
-Date: Sun, 18 Oct 2026 16:44:00 +0000
-Message-ID: <20261018164403.14921-2-work.ashmitkumar@gmail.com>
+Subject: [PATCH 2/3] staging: rtl8723bs: remove unnecessary pointer-to-integer casts
+Date: Sun, 18 Oct 2026 16:44:01 +0000
+Message-ID: <20261018164403.14921-3-work.ashmitkumar@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261018164403.14921-1-work.ashmitkumar@gmail.com>
 References: <20261018164403.14921-1-work.ashmitkumar@gmail.com>
@@ -78,99 +78,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver open-codes pointer alignment using round_up() with the
-custom SIZE_PTR macro, or performs manual arithmetic on pointer
-addresses.
+The pointer pframe in rtw_mlme_ext.c is cast to (SIZE_PTR) before
+being passed as an argument or evaluated in expressions where it is
+already a pointer type. In xmit_linux.c, the buffer length was
+calculated using unnecessary casts:
+(SIZE_PTR)pfile->cur_addr - (SIZE_PTR)pfile->buf_start
+where standard pointer subtraction pfile->cur_addr - pfile->buf_start
+yields ptrdiff_t directly without any casting.
 
-Replace these open-coded pointer alignments with the standard
-PTR_ALIGN() macro, and remove the now unused temporary variable
-addr in rtw_xmitframe_coalesce().
+Remove these redundant casts to simplify the code and use standard C
+pointer arithmetic.
 
 Signed-off-by: Ashmit Kumar <work.ashmitkumar@gmail.com>
 ---
- drivers/staging/rtl8723bs/core/rtw_security.c | 6 +++---
- drivers/staging/rtl8723bs/core/rtw_sta_mgt.c  | 3 +--
- drivers/staging/rtl8723bs/core/rtw_xmit.c     | 8 ++------
- 3 files changed, 6 insertions(+), 11 deletions(-)
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 8 ++++----
+ drivers/staging/rtl8723bs/os_dep/xmit_linux.c | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_security.c b/drivers/staging/rtl8723bs/core/rtw_security.c
-index ae64823afb8b..e9043104544c 100644
---- a/drivers/staging/rtl8723bs/core/rtw_security.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_security.c
-@@ -92,7 +92,7 @@ void rtw_wep_encrypt(struct adapter *padapter, u8 *pxmitframe)
- 				arc4_crypt(ctx, payload + length, crc.f1, 4);
- 
- 				pframe += pxmitpriv->frag_len;
--				pframe = (u8 *)round_up((SIZE_PTR)(pframe), 4);
-+				pframe = PTR_ALIGN(pframe, 4);
- 			}
- 		}
- 	}
-@@ -492,7 +492,7 @@ u32 rtw_tkip_encrypt(struct adapter *padapter, u8 *pxmitframe)
- 			arc4_crypt(ctx, payload + length, crc.f1, 4);
- 
- 			pframe += pxmitpriv->frag_len;
--			pframe = (u8 *)round_up((SIZE_PTR)(pframe), 4);
-+			pframe = PTR_ALIGN(pframe, 4);
- 		}
- 	}
- 	return res;
-@@ -977,7 +977,7 @@ u32 rtw_aes_encrypt(struct adapter *padapter, u8 *pxmitframe)
- 
- 			aes_cipher(prwskey, pattrib->hdrlen, pframe, length);
- 			pframe += pxmitpriv->frag_len;
--			pframe = (u8 *)round_up((SIZE_PTR)(pframe), 4);
-+			pframe = PTR_ALIGN(pframe, 4);
- 		}
- 	}
- 	return res;
-diff --git a/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c b/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c
-index ba7e53140bdd..a10672c11643 100644
---- a/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c
-@@ -56,8 +56,7 @@ u32 _rtw_init_sta_priv(struct	sta_priv *pstapriv)
- 	if (!pstapriv->pallocated_stainfo_buf)
- 		return _FAIL;
- 
--	pstapriv->pstainfo_buf = pstapriv->pallocated_stainfo_buf + 4 -
--		((SIZE_PTR)(pstapriv->pallocated_stainfo_buf) & 3);
-+	pstapriv->pstainfo_buf = PTR_ALIGN(pstapriv->pallocated_stainfo_buf, 4);
- 
- 	INIT_LIST_HEAD(&pstapriv->free_sta_queue.queue);
- 	spin_lock_init(&pstapriv->free_sta_queue.lock);
-diff --git a/drivers/staging/rtl8723bs/core/rtw_xmit.c b/drivers/staging/rtl8723bs/core/rtw_xmit.c
-index 364de3c8d148..aded0cb27be9 100644
---- a/drivers/staging/rtl8723bs/core/rtw_xmit.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_xmit.c
-@@ -853,7 +853,7 @@ static int xmitframe_addmic(struct adapter *padapter, struct xmit_frame *pxmitfr
- 			payload = pframe;
- 
- 			for (curfragnum = 0; curfragnum < pattrib->nr_frags; curfragnum++) {
--				payload = (u8 *)round_up((SIZE_PTR)(payload), 4);
-+				payload = PTR_ALIGN(payload, 4);
- 				payload = payload + pattrib->hdrlen + pattrib->iv_len;
- 
- 				if ((curfragnum + 1) == pattrib->nr_frags) {
-@@ -1066,8 +1066,6 @@ int rtw_xmitframe_coalesce(struct adapter *padapter, struct sk_buff *pkt, struct
- 
- 	s32 frg_inx, frg_len, mpdu_len, llc_sz, mem_sz;
- 
--	SIZE_PTR addr;
--
- 	u8 *pframe, *mem_start;
- 	u8 hw_hdr_offset;
- 
-@@ -1162,9 +1160,7 @@ int rtw_xmitframe_coalesce(struct adapter *padapter, struct sk_buff *pkt, struct
- 			break;
- 		}
- 
--		addr = (SIZE_PTR)(pframe);
--
--		mem_start = (unsigned char *)round_up(addr, 4) + hw_hdr_offset;
-+		mem_start = PTR_ALIGN(pframe, 4) + hw_hdr_offset;
- 		memcpy(mem_start, pbuf_start + hw_hdr_offset, pattrib->hdrlen);
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+index 511eccf5b5a3..9e89d4a0392d 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+@@ -707,8 +707,8 @@ unsigned int OnAuth(struct adapter *padapter, union recv_frame *precv_frame)
+ 		offset = 4;
  	}
  
+-	algorithm = le16_to_cpu(*(__le16 *)((SIZE_PTR)pframe + WLAN_HDR_A3_LEN + offset));
+-	seq	= le16_to_cpu(*(__le16 *)((SIZE_PTR)pframe + WLAN_HDR_A3_LEN + offset + 2));
++	algorithm = le16_to_cpu(*(__le16 *)(pframe + WLAN_HDR_A3_LEN + offset));
++	seq	= le16_to_cpu(*(__le16 *)(pframe + WLAN_HDR_A3_LEN + offset + 2));
+ 
+ 	if (auth_mode == 2 &&
+ 			psecuritypriv->dot11_privacy_algrthm != _WEP40_ &&
+@@ -856,8 +856,8 @@ unsigned int OnAuthClient(struct adapter *padapter, union recv_frame *precv_fram
+ 
+ 	offset = (GetPrivacy(pframe)) ? 4 : 0;
+ 
+-	seq	= le16_to_cpu(*(__le16 *)((SIZE_PTR)pframe + WLAN_HDR_A3_LEN + offset + 2));
+-	status	= le16_to_cpu(*(__le16 *)((SIZE_PTR)pframe + WLAN_HDR_A3_LEN + offset + 4));
++	seq	= le16_to_cpu(*(__le16 *)(pframe + WLAN_HDR_A3_LEN + offset + 2));
++	status	= le16_to_cpu(*(__le16 *)(pframe + WLAN_HDR_A3_LEN + offset + 4));
+ 
+ 	if (status != 0) {
+ 		if (status == 13) { /*  pmlmeinfo->auth_algo == dot11_auth_algrthm_auto) */
+diff --git a/drivers/staging/rtl8723bs/os_dep/xmit_linux.c b/drivers/staging/rtl8723bs/os_dep/xmit_linux.c
+index 6ee2a1f29aa4..91ab0f8bcb69 100644
+--- a/drivers/staging/rtl8723bs/os_dep/xmit_linux.c
++++ b/drivers/staging/rtl8723bs/os_dep/xmit_linux.c
+@@ -9,7 +9,7 @@
+ 
+ unsigned int rtw_remainder_len(struct pkt_file *pfile)
+ {
+-	return (pfile->buf_len - ((SIZE_PTR)(pfile->cur_addr) - (SIZE_PTR)(pfile->buf_start)));
++	return pfile->buf_len - (pfile->cur_addr - pfile->buf_start);
+ }
+ 
+ void _rtw_open_pktfile(struct sk_buff *pktptr, struct pkt_file *pfile)
 -- 
 2.43.0
 
