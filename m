@@ -1,64 +1,68 @@
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1602492E20
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDE4495530
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792325704; cv=none; b=f/BJLwT7WofRy1wA04Uq0VHmFZxN6j2C6mMp1jusxiMLSQXOv99o1/nMJVaFpriddSFDig6q1VDWqNQCZ9qqA5knbLT219/XXgUF1Q0D+yznMzkhg8gTPOsPWBq9LAxegt1re2sKsM4xK4UpNkPMTck3tx3IIUmpsTHcMXz5VXU=
+	t=1792325707; cv=none; b=dTylNbodiMS9QkYS+ChO0uDB/hdG3WMFgKEs20yVVmp8y/XDbQeP8/U/Ju4pZmMyqQjMoCpXRMSPXdAFAH98IfjqG+TZNjjcGNJOZSBsqK8E0OLTQPPsOBlvrMf4nOEkbdcj+FS/w5Cunsnlb9ATI95ogjOMgj33p/hquD6+p50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792325704; c=relaxed/simple;
-	bh=UxjNk5uYSfx/E2gN0ht+iOoT2oc1pgXeBDd9V0fyIt0=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=hD9hNIRniBDV7GsKpyFV9m4oyulbOPl7YZWhT9fka5sR4VlHYi7txJ0x/FZMwmamCMd6xofbfGAQOKTH81lIc7hxd0YH+pQlbE0BO9mqi4y0/UnwgbYn8v1ALsDclbC40FgftlUBduwZ5ZmURY4IEbKmmcAMwoLPVjB/RcdRBLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GsU7fzCW; arc=none smtp.client-ip=209.85.221.72
+	s=arc-20240116; t=1792325707; c=relaxed/simple;
+	bh=BW+uARivC6jjD/2a75VRmqqWhOr1I5QX4BGUopHD3Zk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=LkhPXvBbTpVc48KbjWMoONKG5Kpg1TSzxstyJv8iedzZgKVYMaprY3WvpprIlmZWTlKucIQ5AwZIwrFE0FcPrMbSepIkiMWAoLx8xYpi7u9USlLJOMsnplIMU8niJ39O8ZPpyok9qrQTCQJH58RknUQ0qhPz7K4ULWMKctkc4lI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TxvzM0ex; arc=none smtp.client-ip=209.85.221.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GsU7fzCW"
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b00febba3so1053444f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:15:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TxvzM0ex"
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c415561aaso798159f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:15:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792325700; x=1792930500; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OyLJ1fPr/NVzbEHVO60EnzIzzO/ppvi8bngayEfvgMs=;
-        b=GsU7fzCWvjM6psPd3s+jFJuUX7FUdwAx1TCds0ZqBkTrRzSn/wwU5XJMiSIwK6h16q
-         jF2oQMcOwHCkFw17By7CtyUC8yMcd4W/HcbXBSmPqgPn2s54rIEscpfl1GkZyTlr+En6
-         UgaYols++PlN/NzuDOCIWs2chn/GKhVZB7Qfu2XLw2r9duAjiRe0ZEfyuZbDBTXQjf3+
-         nfyG4uTnq7oDPeY3bGZTSnEzFbf+RZ9A3fAno00vJBrjHx1yDZhmtsMNESMJz/B52vuY
-         x/eGFmUYVYCdhWzmoBl3Q+kUOh1DTBjJEJMXtH1yDyo/o6oIiKCmTfQptsTJiLFCWAk5
-         1iBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792325700; x=1792930500;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792325704; x=1792930504; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OyLJ1fPr/NVzbEHVO60EnzIzzO/ppvi8bngayEfvgMs=;
-        b=ZmDmt9MGnbe2nZ44xH5SN8eX+NIdIn1e27r3HxHB/Tcrf0SyRIx2UMX9LC9k/bNzVm
-         IGwo6y4N8Ohf83WQ7n70bxHZZNLXnXiTnRd45BzXqQylgXNmLVNCortEvOV3fguE+0oi
-         cVxSaroz6+9YK2tsqIAlpsU8970S3I9RJ9GADLV4KXb+gx5Cb1TyWSLHS2x9s/5N8wsf
-         9noB10MglEfV2EPmsLvE2Js57Ry5glwIAasnvTTTL+P47vWDB2Iu8Sdb9T/P2RmMNzZa
-         AkBPVGwNNDHv3EbXaExAUjvu3HCZIG7f0l8HBgrZ3MX+EwxnrFsJ9ZBABWcq8/KcT/fF
-         Lxzg==
-X-Forwarded-Encrypted: i=1; AKwUvByzPKx7f1X8Zau6Fb3RL0hgnYCqbD63N0VXHH5biiyH347t0jB9lZzm/bcmiO2owUw2kp9ltibBWmlwOIo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIhYtNaQdlNlY7bxWxQSg+jJSKWT3LyrdqRX+pa+OvLW+PuJO6
-	CQAlu+o2GtK2naumM1x91lWrJFBy0zwbYqLhZu1GGbZGgfuyqmrzRMZxTsbwJvsRD72CIhxrr+9
-	F3SqDZaus3DpFvA==
-X-Received: from wmbdn26.prod.google.com ([2002:a05:600c:655a:b0:4a1:aef5:769c])
+        bh=Diqeqj2OU9UtngRhSx/ZRJRD+vZIyN5fgaD++Yc3pxU=;
+        b=TxvzM0exc1fwGXjYQcDahqTve0bMo5jdQ8nlC55u+sl+Gc3deWy/mrDfm4OTSR/G89
+         suezIswy1nJj0+afNWKNC+kskTbMhBBMSy5PxMunpRRFLDGh5CgK2gccef+7ogyBANQJ
+         dXeSr0M79y4Vuaf9y4DhWKNGNCYIp4F3gxvIDj9sAp7bnbpDAXU9ybJRiiNPBGhZ0G3G
+         Thqt3hvEmrnO/8lAhxl8EqmCTM13yyjWr340aTMDn1knEsNtBECiZpn2iACIG8unh/um
+         nLbBp1ewSTLfTdxjBAi/YemKkadd8Um1CyFsxEt30Tmjk2YiWHxApLGFMaVdUrqy34/3
+         US3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792325704; x=1792930504;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Diqeqj2OU9UtngRhSx/ZRJRD+vZIyN5fgaD++Yc3pxU=;
+        b=ZdosL+5KkZI2aonuqIRarKiEyJZ4zhNjqvU2JEklYoqOIfiS5jvVVJU+cwM8pn7v0Y
+         /i6NQTPVoKsLXpIGG1kIVHsHutLDhvJdhXjAEWaJZZkepPnwV+s2uVrJJRZP0noam5Fm
+         zRqK6B5qmP/9UhzR+YHYGID/TxwqpsAEtQ5V99xcKbPbYHEaeGuZbMpiEWRa3aGfar5s
+         2dFKiPlfrQToPFQGln65anUbww0k+agyL6NVwUUH/gXLJN+8kPUb9B6Oavd8XEKjt/qc
+         VHwH0hx4FVL+LGpW+oTu0gGHMTN2TsEuVZruUoJUvWVG1cBnsoqFimywSVPWU5lgb8mW
+         4p/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwxUpUabQkMueDk05uP+0ArrDJra7nuwYHYmOaL9XXpDNWOEYLdiMce+/0sNDgqvr2cK1WqGLJkswW6O9A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLP4dqQ+C3F7JRVyqsv1KRQ89fYuHYmOMkwujVaR6d+yATGiYrm
+	Rgw1diqWG2rB5G3202G6aOcAZQauMmBeu4xToWhCyUZN2EnXYNwIYsSAoPa+poYiJ9Qq/THipWh
+	vJSI5xl7Dwk2cjA==
+X-Received: from wrdv26.prod.google.com ([2002:a5d:591a:0:b0:48d:efdd:ded])
  (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:3ba6:b0:4a1:cef3:622e with SMTP id 5b1f17b1804b1-4a1d75e6f17mr121936875e9.6.1792325699781;
- Sun, 18 Oct 2026 05:14:59 -0700 (PDT)
-Date: Sun, 18 Oct 2026 12:14:44 +0000
+ 2002:adf:f8c2:0:b0:48d:fbf4:895e with SMTP id ffacd0b85a97d-48e07fb31demr5661713f8f.11.1792325703377;
+ Sun, 18 Oct 2026 05:15:03 -0700 (PDT)
+Date: Sun, 18 Oct 2026 12:14:47 +0000
+In-Reply-To: <cover.1792248922.git.jpiecuch@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <cover.1792248922.git.jpiecuch@google.com>
 X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <cover.1792248922.git.jpiecuch@google.com>
-Subject: [RFC PATCH sched_ext/for-7.4 0/5] sched_ext: Make ops.cpu_acquire/release()
- reliable
+Message-ID: <45315290c86670e424bb38a547d2c325a6a9a7c7.1792248922.git.jpiecuch@google.com>
+Subject: [RFC PATCH 3/5] sched_ext: Release the CPU when its running task
+ leaves SCX
 From: Kuba Piecuch <jpiecuch@google.com>
 To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
 	Changwoo Min <changwoo@igalia.com>
@@ -66,132 +70,75 @@ Cc: Kuba Piecuch <jpiecuch@google.com>, Peter Zijlstra <peterz@infradead.org>, s
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+When the task running on a CPU switches from SCX to another sched_class
+through sched_setscheduler() or a PI boost, the CPU is taken away from
+the BPF scheduler without a context switch. sched_change_begin() calls
+put_prev_task() with a NULL @next, so put_prev_task_scx() can't tell
+where the task is going, and the new class's set_next_task() doesn't
+notify SCX. The BPF scheduler is never told that the CPU has been
+released.
 
-ops.cpu_acquire() and ops.cpu_release() are meant to tell the BPF
-scheduler when a CPU becomes available to it and when it's taken away.
-As they are now, they can't be used to reliably track that:
+Release the CPU from switched_from_scx() if @p is the CPU's scheduling
+context. Every class @p can switch to is above SCX, so the CPU is no
+longer available. As the new class isn't known yet, report the new
+SCX_CPU_PREEMPT_CLASS_CHANGE reason, with @args->task pointing to @p.
+The release happens before ops.disable() for @p.
 
-- An RT task waking up on an idle CPU doesn't trigger ops.cpu_release().
-  The release is only emitted from put_prev_task_scx(), i.e. when an SCX
-  task is switched out.
+switched_from_scx() is the only reliable place for this:
+put_prev_task_scx() with a NULL @next is also called for changes which
+keep @p in SCX, and the wakeup_preempt() call at the end of
+sched_change_end() is skipped if rq->next_class has already been raised.
 
-- A running SCX task moving to a higher class through
-  sched_setscheduler() or a PI boost doesn't trigger it either, as no
-  context switch takes place.
+The reverse direction needs nothing new: when a running task switches to
+SCX, sched_change_end() calls set_next_task_scx(), which acquires the
+CPU.
 
-- ops.cpu_acquire() is emitted speculatively from dispatch_one(). If a
-  higher class task wins the pick afterwards (dispatch dropped the rq
-  lock, RETRY_TASK, core-sched picking for a sibling), the CPU stays
-  acquired while an RT task runs on it.
+sched_setscheduler() and PI boosting can target a task running on
+another CPU, so ops.cpu_release() can now be invoked for a remote CPU,
+with that CPU's rq locked. The legacy scx_bpf_reenqueue_local() was
+already switched to the locked rq to handle this.
 
-- rq->scx.cpu_released carries over from one scheduler to the next and
-  CPU hotplug isn't handled.
+Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
+---
+ kernel/sched/ext/ext.c      | 11 +++++++++++
+ kernel/sched/ext/internal.h |  2 ++
+ 2 files changed, 13 insertions(+)
 
-Commit a3f5d4822253 ("sched_ext: Allow scx_bpf_reenqueue_local() to be
-called from anywhere") deprecated the callbacks, as closing these gaps
-was thought to require a hook invoked regardless of sched class. This
-series shows that it doesn't.
-
-Whether a CPU is available to the BPF scheduler only depends on the
-class of rq->donor: the CPU is available while an SCX task or the idle
-task runs on it and released while a stop, DL, RT or fair (partial
-mode) task does. Every change of availability has an SCX task or the
-idle task on one side of the switch, so the ext and idle classes' own
-put_prev_task() and set_next_task() see all of them. Switches between
-higher class tasks never change availability. The one remaining case, a
-running task leaving SCX without a context switch, is caught by
-switched_from_scx().
-
-kernel/sched/core.c is left untouched. The idle class gets two calls
-next to its existing scx_update_idle() calls and sched.h gets one new
-scx_rq flag.
-
-Points worth discussing:
-
-- Core-sched forced idle counts as available. Whether a task can be
-  placed on a forced idle CPU depends on that task's cookie, which is
-  for the BPF scheduler to judge.
-
-- ops.cpu_acquire() moves from before ops.dispatch() to the point where
-  the CPU actually switches to an SCX task or idle, so ops.dispatch()
-  may now run on a released CPU. A speculative acquire before dispatch
-  can't be made reliable without hooks in every class.
-
-- The callbacks may be invoked for a remote CPU, with that CPU's rq
-  locked: sched_setscheduler() or a PI boost of a task running on
-  another CPU, and scheduler enable. Patch 1 makes the legacy
-  scx_bpf_reenqueue_local() re-enqueue the locked rq's local DSQ instead
-  of assuming smp_processor_id().
-
-- Every CPU starts out released, and each available online CPU is
-  acquired when the scheduler is enabled. The callbacks are only
-  invoked between ops.cpu_online() and ops.cpu_offline(). Because
-  rq_online_scx() runs before ops.cpu_online() when a CPU comes up,
-  this uses a new SCX_RQ_OPS_ONLINE flag rather than SCX_RQ_ONLINE.
-
-- Schedulers which don't implement the callbacks only pay for a static
-  branch.
-
-- The callbacks stay cpu-form only, which makes them root-only by
-  construction. cid-form variants and fan-out to sub-schedulers (gated
-  on SCX_CAP_BASE, like ops.update_idle()) could follow if there's
-  interest.
-
-Patch 1 makes the legacy scx_bpf_reenqueue_local() target the locked
-rq. Patch 2 emits the callbacks on actual transitions and handles
-scheduler enable/disable and CPU hotplug. Patch 3 releases the CPU when
-its running task leaves SCX. Patch 4 un-deprecates the callbacks and
-documents the contract. Patch 5 adds selftests.
-
-Testing was done in virtme-ng with PROVE_LOCKING, DEBUG_ATOMIC_SLEEP,
-SCHED_CORE and EXT_SUB_SCHED enabled. The full sched_ext selftest suite
-passes without splats. The new cpu_avail test checks the reported state
-on every context switch through a sched_switch tracepoint and covers
-idle -> RT, remote class changes, the legacy re-enqueue from a remote
-release, PI boosting, hotplug, scheduler reloads and partial mode. It
-fails on the base kernel (idle -> RT) and with only patches 1-2 applied
-(remote class change). cpu_avail_core, run in an SMT VM, checks that
-core-sched forced idle doesn't release a CPU while an RT task with a
-matching cookie does.
-
-Not included:
-
-- tools/sched_ext/include/scx/*autogen* isn't regenerated for the new
-  SCX_CPU_PREEMPT_FAIR and SCX_CPU_PREEMPT_CLASS_CHANGE values. I'll add
-  that as a separate patch in a non-RFC posting.
-
-- Unrelated to this series: the comment on SCX_RQ_ONLINE in sched.h says
-  it tracks the ops.cpu_online()/cpu_offline() state, but as noted above
-  rq_online_scx() runs before ops.cpu_online() on hotplug. I can send a
-  separate fix if that's useful.
-
-Kuba Piecuch (5):
-  sched_ext: Make legacy scx_bpf_reenqueue_local() target the locked rq
-  sched_ext: Emit ops.cpu_acquire/release() on actual CPU transitions
-  sched_ext: Release the CPU when its running task leaves SCX
-  sched_ext: Un-deprecate ops.cpu_acquire/release()
-  selftests/sched_ext: Add cpu_avail tests
-
- kernel/sched/ext/ext.c                        | 265 +++++--
- kernel/sched/ext/ext.h                        |  19 +
- kernel/sched/ext/internal.h                   |  69 +-
- kernel/sched/idle.c                           |   4 +
- kernel/sched/sched.h                          |   6 +
- tools/testing/selftests/sched_ext/Makefile    |   2 +
- .../selftests/sched_ext/cpu_avail.bpf.c       | 218 ++++++
- tools/testing/selftests/sched_ext/cpu_avail.c | 717 ++++++++++++++++++
- tools/testing/selftests/sched_ext/cpu_avail.h | 237 ++++++
- .../selftests/sched_ext/cpu_avail_core.c      | 256 +++++++
- .../testing/selftests/sched_ext/maximal.bpf.c |  10 +
- 11 files changed, 1706 insertions(+), 97 deletions(-)
- create mode 100644 tools/testing/selftests/sched_ext/cpu_avail.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/cpu_avail.c
- create mode 100644 tools/testing/selftests/sched_ext/cpu_avail.h
- create mode 100644 tools/testing/selftests/sched_ext/cpu_avail_core.c
-
-
-base-commit: 2f2f7eeef8b0a1a9b9ca998231419873ccae8d4e
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 4d02d2d6e6d0..d56c692f3dfa 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -4433,6 +4433,17 @@ static void switching_to_scx(struct rq *rq, struct task_struct *p)
+ 
+ static void switched_from_scx(struct rq *rq, struct task_struct *p)
+ {
++	/*
++	 * The running task changing class (sched_setscheduler(), PI boost)
++	 * keeps the CPU without a context switch, so neither
++	 * put_prev_task_scx() nor the idle class sees it. Every class @p can
++	 * switch to is above SCX, release the CPU. The new class isn't known
++	 * yet. The scheduler being disabled is excluded by the static key.
++	 */
++	if (static_branch_unlikely(&__scx_cpu_avail_enabled) &&
++	    task_current_donor(rq, p))
++		scx_cpu_release(rq, SCX_CPU_PREEMPT_CLASS_CHANGE, p);
++
+ 	if (task_dead_and_done(p))
+ 		return;
+ 
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index 2d8c789c1e76..65b6ec7dc2f3 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -300,6 +300,8 @@ enum scx_cpu_preempt_reason {
+ 	SCX_CPU_PREEMPT_UNKNOWN,
+ 	/* next task is being scheduled by &fair_sched_class (partial mode) */
+ 	SCX_CPU_PREEMPT_FAIR,
++	/* the running task switched from SCX to another sched_class */
++	SCX_CPU_PREEMPT_CLASS_CHANGE,
+ };
+ 
+ /*
 -- 
 2.56.0.176.g3575e65682-goog
 
