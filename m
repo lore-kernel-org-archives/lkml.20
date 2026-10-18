@@ -1,135 +1,93 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06364403E89;
-	Sun, 18 Oct 2026 17:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B15409637
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:09:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792343399; cv=none; b=TNx7MhUbgS1uKVd5cHIcwqEIrJM37d0WA7O8wmkh94dKTdPPblZgM6gKV3UkIkfXYOz3dNQ2aHoS2UP0JcMlqYyS/iR6ZUY1td+pP2yBebpl/MpO1TTqHEd2bNijyiFJtJDngBkRbEi41jN0wVHl+fm5TNG0Z0vOfLuBMrQjKUY=
+	t=1792343401; cv=none; b=SGsbVeX5YpfsXA0WUVnOStntlaqoZ/nQkJZareokOl0SG7Mhb/Q3E3Um6tHLk3zdH8aPF0hhkUaRQv//ul6wtXC0kHQk2uP2HFD3wrbdQVfDXIWGa69DSv3PWC9eUUmUqHV9LWacAaPJ2lJs3up44tULLKxjfCBMc/uLjmlC4uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792343399; c=relaxed/simple;
-	bh=3BML9Diq2iDrub7cVCUHA7zANQIQ6dIa5AeZEvig3qM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AqXVb9gI1jr8CxoWDQ2ud5M61SrJkV3+mrQre2yyJrxqvu37qAjH9fwFqc28wrhc4cUa7j6QJFSEtCwuNvB0EQBBmpZf2sJf8RYr8fPWZURFCnWZsSAlRXc0aXfsgdS1WVkqSmSB9lHFJ3tdgJVvyRLmWdc6LLBtdKaaQD8t1O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ncQePMUR; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792343401; c=relaxed/simple;
+	bh=+WJ/hu/3Wga52spo7IQdSXB7WSieQhEpzGVW/oaXQhc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
+	 Content-Type:Date:Message-ID; b=HGttIJeZhHsYCAJNm72fGpUqIhsfEQVGT1s4YWQ3rkjydr42SSs9B67UrFEALPrw/WUEsi+AD9pkp9OecuEFkyTrxIQWUTBcvRjoWgExSRAOIojBSzef80gFi2vGoxDccx5KdDlk4HWuAOr2I4Hyni8nhlsX97aZhIAK9oM0Zt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LHsk/YMk; arc=none smtp.client-ip=74.125.227.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ncQePMUR"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69IFF3si1295584;
-	Sun, 18 Oct 2026 17:09:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=jOSTDu/LPV2hnD8er
-	mLoXOjRDsEmLDyWj3fpyB7Btwc=; b=ncQePMURka/Kh+eEy3BK2xjbM8NC4HBj1
-	Z0ajk+Zx0MwMaxo+d4H88YYRy/4VHr6CsQG77wZeUOuLufm1z4yvCMlbAMv5PKpJ
-	ZLdCRkX/w5yn/jAupu7dnb8w0iEBFAwn6Ybp8yg/xqiY6wQ3PPMlLkNuxJA2GjCi
-	S8Of8Kl80PzZOBFsAKjbBWcHtIOc+jdlmlz/IYCCGAdcHWzOgHtBybQqF1thFKiY
-	KTtWB2bo/8x0rFGl6lcHcdgxcP/xy9FpGi4UYRWYCy1I3jCwOobwpnUjioPRfWN2
-	EicFOUl9eQxWu/hJoHNeD6LEHYU3qG3ZBAel8LJmHKI/HfZHONs2g==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0r7ep1g-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 18 Oct 2026 17:09:44 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69IFYm0S2728115;
-	Sun, 18 Oct 2026 17:09:43 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hckqva9pg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 18 Oct 2026 17:09:43 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69IH9dag39911888
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 18 Oct 2026 17:09:39 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 194C220043;
-	Sun, 18 Oct 2026 17:09:39 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 29C2420040;
-	Sun, 18 Oct 2026 17:09:31 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.125.165])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sun, 18 Oct 2026 17:09:30 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
-        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
-        rnsastry@linux.ibm.com, ssrish@linux.ibm.com, stable@vger.kernel.org
-Subject: [PATCH v5 4/9] keys/trusted_keys: propagate wrapping key generation errors
-Date: Sun, 18 Oct 2026 22:38:39 +0530
-Message-ID: <20261018170844.491252-5-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261018170844.491252-1-ssrish@linux.ibm.com>
-References: <20261018170844.491252-1-ssrish@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LHsk/YMk"
+Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3ad211ad92bso233110a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:09:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792343399; x=1792948199; darn=vger.kernel.org;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+WJ/hu/3Wga52spo7IQdSXB7WSieQhEpzGVW/oaXQhc=;
+        b=LHsk/YMkVAj/JDH0R9Cn2AaeSDuZT+CToHn+gDN5M+G0sg8uKEdpiaAGoV3JaYlaFN
+         N+N9UTu/M1cL2Nor+whWrkcvv/4pOPJj6pkxgbpC/zIQ6IArcbcBkGM9sKdloaCfBvcz
+         lQk6ci1aatKa6+vrdtMR1WMz1d2dFK7wK9/EsinGGDfMNLdVAqj+RaKDFJvw8nt03+/1
+         8NEtxsNVHPgKODVIl2XJ1oRQoWbDaSdfADM+Yp9KWInDAR7l0pwcbDVVnZuCPp3ajVRO
+         KezsJnW4GJd4bKF//TyfFSoFILOdqhqQ0fjnZTEjGtfwjurWkCvYA5CjU+VEBjdunlVB
+         xuhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792343399; x=1792948199;
+        h=message-id:date:content-transfer-encoding:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+WJ/hu/3Wga52spo7IQdSXB7WSieQhEpzGVW/oaXQhc=;
+        b=Y2F76yu+EBkb540anBYanE8tyINM4OIuNJRRmNKC5Mc2lrWEyM56Lr0+P4mGKgnDFk
+         VT9a2LNW4BwodhY7eqri9Q54T/uTNOqoov9eHdgT76ZPQGL8YPTvpEXAjbeRRXwaD+S9
+         mYS4RLzhpFrep/n0d0pQT7MmUJ76iqy1WPXUh2YtEm3uuRdV+dTYgcJ8HI4Pf3bbryFd
+         dYk0a0wJsBj1egI6PbHIzB4jsX6JnwVdiJuCYnwcw10x6o7qXFNkiJly/sfjbErLsKwX
+         QAQb04IXJBJ1b37nWoErQi6zWFsy+pSZqibBAWgGI08jstCfiyTz/vfDA8wcBczrkh/d
+         OKlA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVzdS4KYDyHt41cA8JcQ926F8gv2X5aqRsbrvA4PtZYozv6P6davIjPx6GyTYPI9DJTlT0KqFBRZmOof8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKWOYijTFnIwPTVHWMzh7faBRbm3pQpOewyDymts4LyAKCmDPl
+	VNGT/3zBow2ot+TE/T+9Ift6efux1lMKXG0RH1ekCT6VVgAzTzKRMO9T
+X-Gm-Gg: AYBFou3Wk9ZHwh2OdcUEYMg82yOdjvAMZyBsvHQ0pseemGfnk34zPxJSRlhj3AsO2WR
+	rxYMPyc1VzaEWETpWSXVYoZPdXK7UAAjkzMVnANc18k12f0B811yEKEgrrRlDydj/PkSHaxLBJg
+	J861OC2fKJSYUfMcMbLKPLt5zUlxMlz9QVL2inKk+RawS70YV/c6TXD7cb/TyLwOM1FLll5lb6Z
+	mypi0KYKTBvsDq0r2g4RBYRmlUrBotmQSOMoiqNNNd1ImheVKb7ReehaQMa9f32PgqksM11qG7y
+	mEJkygFdBuRDuS+gg8iRRYciMcXW+/xJrZ2VV+5Oh3uIbYgo/y4ISViQxzugsmHZZrziyCiDpfc
+	8owANN/2b+P5qbZbYJ2J/hos3G5z0j9DF3FMpN0SBJTw13nuEr9OfBHlIwJanPvFF2ytoauxGu5
+	D6wfroftAM83Rdd+JAeh/YTRhFR7BkJa1q3QCh8GDSw6K7GDiDd374jJ+NX8CBD+F6wF0KXa3I7
+	QIUtJpjPEQdPIrAV7oJw0cNGP7bQ/VBbrPllpFGAW8ZZZwoS21Pd0pd+T25Y48TYWqBlYqjiJhd
+	h44=
+X-Received: by 2002:a17:90b:57c3:b0:3ac:8ee5:e007 with SMTP id 98e67ed59e1d1-3aceec24801mr4102774a91.20.1792343399360;
+        Sun, 18 Oct 2026 10:09:59 -0700 (PDT)
+Received: from [10.20.15.86] (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac94798212sm17396301a91.14.2026.10.18.10.09.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 10:09:59 -0700 (PDT)
+From: Aveline Noir <jm5905938@gmail.com>
+To: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+Cc: SJ Park <sj@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ damon@lists.linux.dev, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/damon/sysfs.py: stop obsolete_target shells
+ hanging the test
+In-Reply-To: <20261018020415.35567-1-jaeyeon.lee.dev@gmail.com>
+References: <20261018020415.35567-1-jaeyeon.lee.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE4MDA2NiBTYWx0ZWRfX8q9CNpFAV8ur
- yj2/smJ/tEDcEg5HKvs+RZEcJkk4aUnZP/IOk3W2qvI8QejYWN3Yiz6HCceqWir5e0SR6aEyIS4
- 6zqzy/M81Wp4L9J8PjeTBa1VuJkqVpI=
-X-Authority-Analysis: v=2.4 cv=PrUG/AM3 c=1 sm=1 tr=0 ts=6ad4fd58 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=sFUY0Dm8-Bub5huaTLsA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE4MDA2NiBTYWx0ZWRfX8DZFHfxOZ2Ds
- sZYXlQyKR84DSYsLJGv3g81DzuWlkW3rdMkARehrvn0n0qSqoVsdtF9flx7tL0b9p6DGuTiHB01
- IfrdHcxOBDxkv37RmMZmnanO/pwv/xrUviDndilS43PxC8Gl7UJdvyBk8HSvF+cP3nEQn/14bBG
- bZUsGe9JOPXJSoYt9RpDOEEsX1oJIxhUAnqRh5VrcUPw6OZTgXn+m2ch0D2sCorBw6lLOKzjgTk
- LMibFxd43NAQC4mEEMZguvFnXiNIGnv8aMzScp0VgRsO3piierSP3ZgPP/56jtsStpIzQlQB2Ux
- T01ajRExcfw45WXp5Jk4IE7sAXtXHbMf5DxnqnHOsfq72GbeaMANLAspnbjlE7YDhgVh68+NiiR
- s5EE/Cz+z/QeKK2eq2awEFtgg0JOwHg6VQrDLh/mhcueuMDCnPC2/fwIfUsEeuScF9+He8AVanW
- VfwqzZWhIj1m+JTvKBg==
-X-Proofpoint-GUID: u2lyCvo9vtmdwdoUSzGznFb6o1M3bcpb
-X-Proofpoint-ORIG-GUID: 7ZUgzm6nJCh0fEGHvSCApWjhJzYHoV4l
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-18_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
- clxscore=1015 priorityscore=1501 malwarescore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610180066
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Date: Mon, 19 Oct 2026 01:09:02 +0800
+Message-ID: <179234334286.2.7819752603607417566.damon-sysfs-tested@gmail.com>
 
-plpks_gen_wrapping_key() returns a negative errno when default wrapping key
-generation fails. However, trusted_pkwm_init() returns -EINVAL for all such
-failures, discarding the original error.
+Hi Jaeyeon,
 
-Propagate the error returned by plpks_gen_wrapping_key() unchanged.
+> Fix this by passing stdin=subprocess.PIPE when spawning the processes.
 
-Fixes: c99fcb0d735b ("keys/trusted_keys: establish PKWM as a trusted source")
-Cc: stable@vger.kernel.org # 7.0
-Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
----
- security/keys/trusted-keys/trusted_pkwm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Tested on x86-64 KVM, works fine.
 
-diff --git a/security/keys/trusted-keys/trusted_pkwm.c b/security/keys/trusted-keys/trusted_pkwm.c
-index b6b5697426a8..633a7674d065 100644
---- a/security/keys/trusted-keys/trusted_pkwm.c
-+++ b/security/keys/trusted-keys/trusted_pkwm.c
-@@ -170,7 +170,7 @@ static int trusted_pkwm_init(void)
- 	ret = plpks_gen_wrapping_key();
- 	if (ret) {
- 		pr_err("Failed to generate default wrapping key\n");
--		return -EINVAL;
-+		return ret;
- 	}
- 
- 	return register_key_type(&key_type_trusted);
--- 
-2.52.0
+Tested-by: Aveline Noir <jm5905938@gmail.com>
 
+Thanks,
+Aveline Noir
