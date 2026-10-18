@@ -1,63 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3A536167E;
-	Sun, 18 Oct 2026 18:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C0F39B48D;
+	Sun, 18 Oct 2026 18:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792347487; cv=none; b=AI4xFanPMc4zTFUqIMMhLXnc/dKpQYRdP2G0TnKdrdweBTp5sxJnfblAvbTEVUDbXL4hCk2NCn74NrSyNFpnlO9L0zB7WDxYMY58OrRfdo03zLH/GG5wpYo9fOo01jroivWfW7g+0fLTLKipVwP9phDZuWqmKF25qrcWq4xerhE=
+	t=1792347494; cv=none; b=o1gIdYY27I4zR36KkAwmtplwKzL+htL9q/N3ux3G3e67KJw759preHXZhSM+0By+neY6GWxpLwHtmfg2wAmsLAWdG+/fgP0gitNrgaPfLhDOhBvGKVSV5Z1h72WuwDqShAiJoeWBzbr5XqPG5l6mA81NC0wqu4Wxez5V/CNTPCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792347487; c=relaxed/simple;
-	bh=XJth+HKxvYna6YDFIFBLrjzpehs6n6LP+6RgkSTn5ec=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=glQ28MOoOsBjIX1j1CBAulg1N3GCUfetp0D2N3gUzuDy1m2hBVP9T3c5T3i3nsi3wsCcA1dLfFyG+2UZQEtAmu4ETfKymCKQOCOAj4jDVUlql1Iq9XCC+nYGQrQrBWSRWy8L2sZ30/Qsl8TZg2OI6Olca9rMNXZl7R99sWpLZow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bA515O6i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792347494; c=relaxed/simple;
+	bh=wfF20U5MreQNHz9FrFezfUpfgZX4o0Msnt6kSdZ4558=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SIjifBFQODXLsWDyfNhPFgjD5fm9QWYO9vklBLu7JZnhtOeV5QVoCD2FYmhw3TYVhAHjtC/pJxprAnG0539RTWwfwpKklkbu7LbEOX6gWIiyCHz+WaYsFQnPgK0s6kFfwhx8oaCZCPWPJN3ACAnmeX40h8Ej/2nEZZgzcgZN35k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=UlZ95RLD; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bA515O6i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071FF1F000C4;
-	Sun, 18 Oct 2026 18:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792347486;
-	bh=22jeEpUyPP/pwrwGF4/O8LzXdVriFcQz5XvICjLCcnI=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=bA515O6i0tKz6njMMnfjRs9MecCTEvenDUWvGb/y+SbC9mErb9EDa0AeNvkniCef6
-	 x/g/ZAszHJgnx58eHHKR9jp0X4ptwW5a+KuWVuOtzwOQ0xoKctaXrdT/QtgMg1OUa/
-	 JtFEdHmKhrFTsN1FH4hGuB9T04puwIiiWRbGyx740M8+Bu1MtZv04eChxqTfawvltN
-	 ULaXDqTca79jx/8x8BPp9RYLecH58Tb+IHBl566JtlNF2YazAkJAI+oW7x+LnN9F51
-	 2OPFWGpLykElk2HMSrS1XOUJoFSFDzJr4N6wxkPq5ZL9m5nAIqCyGOakNy+OaGM0ZK
-	 Y8pcZXv97Bz6A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F166E381196A;
-	Sun, 18 Oct 2026 18:18:05 +0000 (UTC)
-Subject: Re: [GIT PULL] firewire fixes for v7.3-final
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261018103634.GA346762@sakamocchi.jp>
-References: <20261018103634.GA346762@sakamocchi.jp>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261018103634.GA346762@sakamocchi.jp>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git tags/firewire-fixes-7.3-final
-X-PR-Tracked-Commit-Id: 7f9f2d6abc40f79e802b4063859eda343043b85c
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: a0ff06b3a7bd3aa0cd99d0294e60b3ed28c9bfac
-Message-Id: <179234748448.1773475.6407537424612811996.pr-tracker-bot@kernel.org>
-Date: Sun, 18 Oct 2026 18:18:04 +0000
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, linux1394-devel@lists.sourceforge.net, stable@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="UlZ95RLD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=ErZB2ZZ3XmQhb+Taa2wj1GmXp8EN7dNa3whRakTKL+M=; t=1792347493; x=1793557093; 
+	b=UlZ95RLDl4Y1C6//8xHFjmjDBIL9o19mrDOySS0ySiT9q5DmJmSgzdGqivxJeTtIvy4RBr6PHZd
+	MiFzn2Ae9FGzaqosryUFNkeETVdMj8FHgnWsVt6/Tywr/8zo+lY96+uQsgmXd92ZDFP5y46LYWUx6
+	7l4oTMI1vaDmPtEjTLZ3MciiEwO1tWNBDZQLd9IjTamA+uu2MunYH4J3istBIP3CRRWB4VxP04IJN
+	uYUOCeZ7W2vZoyf78FvO6RClFzTf8vTotLnrU6wHFej8j2KItQk2PEPqNBpl9lOEZbkzgnKH4u8NP
+	42KXMsvqzPHpQnsYSzRqWpzutEAy2UZWbUxQ==;
+Date: Sun, 18 Oct 2026 20:17:47 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang
+ <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, Aaro Koskinen
+ <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
+ <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, hns@goldelico.com
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
+Subject: Re: [PATCH RFC 0/9] drm: panel: Add support for Epson Moverio BT
+ 200 display
+Message-ID: <20261018201747.0f1280f3@kemnade.info>
+In-Reply-To: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
+References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Sun, 18 Oct 2026 19:36:34 +0900:
+On Tue, 22 Sep 2026 08:16:57 +0200
+Andreas Kemnade <andreas@kemnade.info> wrote:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/ieee1394/linux1394.git tags/firewire-fixes-7.3-final
+> This series depends on
+> https://lore.kernel.org/lkml/20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com/.
+> That series is still v7.2 based, but this needs -next material, to work.
+> It compiles on -rc.
+> 
+just of of couriosity: I got no Sashiko mails here. So really nothing to
+complain here?
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/a0ff06b3a7bd3aa0cd99d0294e60b3ed28c9bfac
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Regards,
+Andreas
