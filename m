@@ -1,417 +1,170 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-156.mta1.migadu.com [95.215.58.156])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED5B3DDDDE;
-	Sun, 18 Oct 2026 17:10:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69896401A2E
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792343448; cv=none; b=Otunp5MGFMp3+3ZnBFSSiyhqlLK+yiCH63J0AP0F2+oVdZLGPqIEMFigKGNMrUx0GRT342KmQU8pUSlXimBTzFF4ctlUX6LeafFliAKdGwVxF6Fj4BkuSALpK4bwGkMCBEH40bP8Ja6DC3bzryNORaYJP/GKIYLV+i1Ktj2hAtI=
+	t=1792343463; cv=none; b=OxPk1fGExr1G17LLBGkGGwMEPTrSaoH6NvdfONDO8i012+86xSgiD/c4fd2I9DfFEC3fZ8rgG73paXkUgCuTX/nb+3rtVFvKVmhduQoiGUHuWd3qp9Y4IirJXvZUsy7oeRcQWgc0CelT1/hQj2gGGuB1nkahz40phmHOqplahWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792343448; c=relaxed/simple;
-	bh=IczeKj09vJ2QtGelJvKRp27QdB760I/MWOLgeMntrq0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s7N/NO+V5doTt9BJB05EpT9FOekc+bb23Uju//vD+RFD7qMXpfMzide6Qirs4+tzbyaJuk1QlfHsoO8JymaaM/sj4RjYaLPmdkhqmjz9aopp75PipKXx0YysfrIfwqKmJoieZnVPIUlqbVjkr4GwxDKSg8T+kENiQOktISFRK7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qJi7zZ4L; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792343463; c=relaxed/simple;
+	bh=mduY6HgdcQ75b916LUYe4gXKk+KkQRoSwIiSWRZW4GY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SAlRyfSDlEMEucZpgz+hNevQ51GPRFRZ/aNezgadPnymbiNO/IuBrIMqcTsFkvRNwlN/tbh1RGGhpjmKut9X28w/gT9WvMT/8Fyq6tDVamdWLZIlmuPlwttzIfQbnYZUWPp/jxqUr4cv1A2dppTZXPy+SNC1vdptGpxzS1xe1NA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K/4l1wIz; arc=none smtp.client-ip=95.215.58.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qJi7zZ4L"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69IFFYqk1296187;
-	Sun, 18 Oct 2026 17:10:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=m02Yr+9N1QpAgfZYW
-	q5+IlhDDBi0u15BcC72v3r8GnM=; b=qJi7zZ4LWYpGA/Qj6s3oDWbB6fqgkxmLR
-	kTcaR4i0wXM+FLhkfXpyDZ8VXW3L0OYs4/umeSOfWK5qUaYVlRr+eQgBPVtM/Mly
-	nIPSQxvVM98SLK+b1ARphcFhQ2vYUqjcrabOVtLk1WivFAnRKF3uzp+I8vjwewEG
-	TkmK0CrVaU06SHvTyATVTRVWtXdwSYdkR4CcsyHlQuIuizvffc4lGhIu9zGjntHz
-	Qu/qYNdY9Chij+vFzp6l/F19vp5ZJXiVMRTkzEJGH4PHcb4EaGYcJoxQJ2ypEJOi
-	jIIg9YjlNxikVmurzUEKoNjovCD8hujo8ShKochBPwKQC2jDEmA6g==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0r7ep4m-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 18 Oct 2026 17:10:30 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69IFK3P82729546;
-	Sun, 18 Oct 2026 17:10:29 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hckbq2c8q-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 18 Oct 2026 17:10:29 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69IHAPms47317282
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 18 Oct 2026 17:10:25 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 899CC20040;
-	Sun, 18 Oct 2026 17:10:25 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1D16220043;
-	Sun, 18 Oct 2026 17:10:15 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.125.165])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sun, 18 Oct 2026 17:10:14 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-        James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
-        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
-        rnsastry@linux.ibm.com, ssrish@linux.ibm.com
-Subject: [PATCH v5 8/9] keys/trusted_keys: enable PKWM wrapping key selection by label
-Date: Sun, 18 Oct 2026 22:38:43 +0530
-Message-ID: <20261018170844.491252-9-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261018170844.491252-1-ssrish@linux.ibm.com>
-References: <20261018170844.491252-1-ssrish@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K/4l1wIz"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mduY6HgdcQ75b916LUYe4gXKk+KkQRoSwIiSWRZW4GY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792343459; v=1; x=1792948259;
+ b=K/4l1wIzs87dAzoK2z8GBO/FheDddcI8Zk9bOcGd0PSCndpUefy0S2d09LoFGYTw3QMkHEam
+ oXys1e0bmGJf8tY7PpXSBcUa96SXAip8Y7Kav42AAR/jc60Z9WHcaBVIzzOki8STYo4lukJCO2O
+ JFuZ9n3Ebk32psP70P+KwVPI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2aac9a6afb92554e;
+	Sun, 18 Oct 2026 17:10:59 +0000
+X-Mizu-Trace-ID: 2aac9a6afb92554e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4bf9e6b0-4f6e-4faf-a2b6-a57143ef3f23@linux.dev>
+Date: Sun, 18 Oct 2026 19:10:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/7] HID: asus: Re-send the Zenbook Duo keyboard
+ handshake after probe
+To: Paolo Pisati <p.pisati@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Luke Jones <luke@ljones.dev>,
+ Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+ Ivan Levchenko <me@livan.pro>, Nathan Chancellor <nathan@kernel.org>
+References: <20261013104033.36079-1-p.pisati@gmail.com>
+ <20261013104033.36079-8-p.pisati@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261013104033.36079-8-p.pisati@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE4MDA2NiBTYWx0ZWRfXzVpSwmC7L+25
- SHzJd1SBoTbUqeCqV2wUdTOjAlRb/gdpYhLhPe7a9pKhsvTftDOKLU0aB/imPJBrRxsUFvYqOAc
- F1LLrX5IbUpUgGLggrGiQNpV8m5Pw+s=
-X-Authority-Analysis: v=2.4 cv=PrUG/AM3 c=1 sm=1 tr=0 ts=6ad4fd86 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=_1a9KapSLEuvdD3BKzMA:9
- a=mGxJDu7xY38OflIk:21
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE4MDA2NiBTYWx0ZWRfX9o6KBjGpMNZk
- GF/iba0hlFy7qC9n7Kk7Omqt4pC7JslABqoJlxI/6M/ieIoAP9EuELoECYTU5mg6jWiXCsL/QSb
- 1yKfX8iNSUI/xYgA6LDtguqcN1A4AajUNH4cvUVF+3LRuC1fGASUJRwKd36AQj40D5hsv6i8FJm
- QHrPHgswDUzxb6CcQtoT0PJXsUFhU6qsAMyXWi/rLh4MaDXue66GYBP0LylPnIixmMrbCPTR8FV
- Ps9EVsl6Zsg1iBJH/Esz0Vi5abIz6hK0sWB4ATokDuQ0UNQHKfIYgSm3CvexcsKr4C5CA2KfS9k
- xl3E4gUh9S/RTCIYk1VNjvXK/2ttDIvF7A4qZyDBUowFH8/dbgjHZH+KnKKkPhrnJkk5Te9ExQn
- mRRgpKRqqFGonTkTsKEqmO+EsoGa7Q4vTLtuzAL9ZczH+LDKn+leaGBTPBl0AK4iLFDAd9qGtTe
- K0tykc6XoUrkknSBBPw==
-X-Proofpoint-GUID: N-bWdt5tYioACQvQRsGn1LJK2i9j5U4_
-X-Proofpoint-ORIG-GUID: 1Fcb60SqRqNsvGXbm3nYkCRvC6EOGDDl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-18_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
- clxscore=1015 priorityscore=1501 malwarescore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610180066
 
-The PKWM trusted source currently uses the default wrapping key for all
-seal and unseal operations. However, PKWM supports multiple wrapping keys,
-enabling better isolation between trusted keys.
 
-Allow users to provide an active wrapping key of their choice created
-through sysfs when sealing trusted keys through a new wrapping_key=<label>
-option. If no label is specified, the default wrapping key is used for
-sealing.
+On 10/13/26 12:40, Paolo Pisati wrote:
+> From: Rebecca Mara Müller <rebecca.mara@posteo.de>
+>
+> When docked, the Zenbook Duo keyboard powers up in F-key mode and
+> needs the "ASUS Tech.Inc." handshake to emit hotkeys at all. The
+> handshake sent from probe is lost again when hid-multitouch configures
+> the touchpad on the sibling USB interface, which resets the keyboard
+> to F-key mode, so the hotkeys stop working as soon as the touchpad is
+> set up.
+>
+> Re-send the handshake from delayed work two seconds after probe.
 
-Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
----
- .../security/keys/trusted-encrypted.rst       |  4 +-
- arch/powerpc/include/asm/plpks.h              | 10 ++++-
- arch/powerpc/platforms/pseries/plpks.c        | 44 ++++++++-----------
- include/keys/trusted_pkwm.h                   |  3 ++
- security/keys/trusted-keys/trusted_pkwm.c     | 38 ++++++++++++++--
- 5 files changed, 66 insertions(+), 33 deletions(-)
 
-diff --git a/Documentation/security/keys/trusted-encrypted.rst b/Documentation/security/keys/trusted-encrypted.rst
-index ddff7c7c2582..76fda28fddb1 100644
---- a/Documentation/security/keys/trusted-encrypted.rst
-+++ b/Documentation/security/keys/trusted-encrypted.rst
-@@ -83,7 +83,7 @@ safe.
- 
-      (5) PKWM (PowerVM Key Wrapping Module: IBM PowerVM + Platform KeyStore)
- 
--         Rooted to a unique, per-LPAR key, which is derived from a system-wide,
-+         Rooted to unique, per-LPAR keys, which are derived from a system-wide,
-          randomly generated LPAR root key. Both the per-LPAR keys and the LPAR
-          root key are stored in hypervisor-owned secure memory at runtime,
-          and the LPAR root key is additionally persisted in secure locations
-@@ -366,6 +366,8 @@ Usage::
-                        0x01: require secure boot to be in either audit or
-                              enforced mode
-                        0x02: require secure boot to be in enforced mode
-+       wrapping_key= optional wrapping key label as a string. The default
-+                     wrapping key is used when no label is provided.
- 
- "keyctl print" returns an ASCII hex copy of the sealed key, which is in format
- specific to PKWM key-blob implementation.  The key length for new keys is
-diff --git a/arch/powerpc/include/asm/plpks.h b/arch/powerpc/include/asm/plpks.h
-index 707c9ce14365..abf8a71cf3f2 100644
---- a/arch/powerpc/include/asm/plpks.h
-+++ b/arch/powerpc/include/asm/plpks.h
-@@ -50,6 +50,12 @@
- #define PLPKS_MAX_TIMEOUT		(5 * USEC_PER_SEC)
- #define PLPKS_FLUSH_SLEEP		10000 // usec
- 
-+// Label for the PKWM default wrapping key
-+#define PLPKS_DEFAULT_WRAPKEY_LABEL	"default-wrapping-key"
-+
-+// Component for a PKWM wrapping key
-+#define PLPKS_WRAPKEY_COMPONENT	"PLPKSWR"
-+
- struct plpks_var {
- 	char *component;
- 	u8 *name;
-@@ -117,10 +123,10 @@ int plpks_config_create_softlink(struct kobject *from);
- 
- bool plpks_wrapping_is_supported(void);
- 
--int plpks_gen_wrapping_key(void);
-+int plpks_gen_wrapping_key(struct plpks_var *var);
- 
- int plpks_wrap_object(u8 **input_buf, u64 input_len, u16 wrap_flags,
--		      u8 **output_buf, u64 *output_len);
-+		      u8 **output_buf, u64 *output_len, struct plpks_var *var);
- 
- int plpks_unwrap_object(u8 **input_buf, u64 input_len,
- 			u8 **output_buf, u64 *output_len);
-diff --git a/arch/powerpc/platforms/pseries/plpks.c b/arch/powerpc/platforms/pseries/plpks.c
-index 97797ae6ee6c..2c72ba15aec7 100644
---- a/arch/powerpc/platforms/pseries/plpks.c
-+++ b/arch/powerpc/platforms/pseries/plpks.c
-@@ -9,9 +9,6 @@
- 
- #define pr_fmt(fmt) "plpks: " fmt
- 
--#define PLPKS_WRAPKEY_COMPONENT	"PLPKSWR"
--#define PLPKS_DEFAULT_WRAPKEY_LABEL	"default-wrapping-key"
--
- /*
-  * To 4K align the {input, output} buffers to the {UN}WRAP H_CALLs
-  */
-@@ -943,6 +940,7 @@ EXPORT_SYMBOL_GPL(plpks_revoke_is_supported);
- /**
-  * plpks_gen_wrapping_key() - Generate a new random key with the 'wrapping key'
-  * policy set.
-+ * @var: variable representing the wrapping key to be created
-  *
-  * The H_PKS_GEN_KEY HCALL makes the hypervisor generate a new random key and
-  * store the key in a PLPKS object with the provided object label. With the
-@@ -968,25 +966,22 @@ EXPORT_SYMBOL_GPL(plpks_revoke_is_supported);
-  *
-  * Returns: On success 0 is returned, a negative errno if not.
-  */
--int plpks_gen_wrapping_key(void)
-+int plpks_gen_wrapping_key(struct plpks_var *var)
- {
- 	unsigned long retbuf[PLPAR_HCALL_BUFSIZE] = { 0 };
- 	struct plpks_auth *auth;
- 	struct label *label;
- 	int rc, pseries_status;
--	struct plpks_var var = {
--		.name = PLPKS_DEFAULT_WRAPKEY_LABEL,
--		.namelen = sizeof(PLPKS_DEFAULT_WRAPKEY_LABEL) - 1,
--		.policy = PLPKS_WRAPPINGKEY,
--		.os = PLPKS_VAR_LINUX,
--		.component = PLPKS_WRAPKEY_COMPONENT
--	};
-+
-+	if (!var || !var->name || !*var->name)
-+		return -EINVAL;
- 
- 	auth = construct_auth(PLPKS_OS_OWNER);
- 	if (IS_ERR(auth))
- 		return PTR_ERR(auth);
- 
--	label = construct_label(var.component, var.os, var.name, var.namelen);
-+	label = construct_label(var->component, var->os, var->name,
-+				var->namelen);
- 	if (IS_ERR(label)) {
- 		rc = PTR_ERR(label);
- 		goto out;
-@@ -994,7 +989,7 @@ int plpks_gen_wrapping_key(void)
- 
- 	rc = plpar_hcall(H_PKS_GEN_KEY, retbuf,
- 			 virt_to_phys(auth), virt_to_phys(label),
--			 label->size, var.policy,
-+			 label->size, var->policy,
- 			 NULL, PLPKS_WRAPPING_KEY_LENGTH);
- 
- 	if (!rc) {
-@@ -1006,8 +1001,6 @@ int plpks_gen_wrapping_key(void)
- 		if (rc != -EEXIST)
- 			pr_err("H_PKS_GEN_KEY failed. pseries_status=%d, rc=%d",
- 			       pseries_status, rc);
--		else
--			rc = 0;
- 	}
- 
- 	kfree(label);
-@@ -1018,13 +1011,14 @@ int plpks_gen_wrapping_key(void)
- EXPORT_SYMBOL_GPL(plpks_gen_wrapping_key);
- 
- /**
-- * plpks_wrap_object() - Wrap an object using the default wrapping key stored in
-- * the PLPKS.
-+ * plpks_wrap_object() - Wrap an object using the specified wrapping key stored
-+ * in the PLPKS.
-  * @input_buf: buffer containing the data to be wrapped
-  * @input_len: length of the input buffer
-  * @wrap_flags: object wrapping flags
-  * @output_buf: buffer to store the wrapped data
-  * @output_len: length of the output buffer
-+ * @var: variable representing the wrapping key to be used
-  *
-  * The H_PKS_WRAP_OBJECT HCALL wraps an object using a wrapping key stored in
-  * the PLPKS and returns the wrapped object to the caller. The caller provides a
-@@ -1059,7 +1053,7 @@ EXPORT_SYMBOL_GPL(plpks_gen_wrapping_key);
-  * Returns: On success 0 is returned, a negative errno if not.
-  */
- int plpks_wrap_object(u8 **input_buf, u64 input_len, u16 wrap_flags,
--		      u8 **output_buf, u64 *output_len)
-+		      u8 **output_buf, u64 *output_len, struct plpks_var *var)
- {
- 	unsigned long retbuf[PLPAR_HCALL9_BUFSIZE] = { 0 };
- 	struct plpks_auth *auth;
-@@ -1069,12 +1063,9 @@ int plpks_wrap_object(u8 **input_buf, u64 input_len, u16 wrap_flags,
- 	int rc = 0, pseries_status = 0;
- 	bool sb_audit_or_enforce_bit = wrap_flags & BIT(0);
- 	bool sb_enforce_bit = wrap_flags & BIT(1);
--	struct plpks_var var = {
--		.name = PLPKS_DEFAULT_WRAPKEY_LABEL,
--		.namelen = sizeof(PLPKS_DEFAULT_WRAPKEY_LABEL) - 1,
--		.os = PLPKS_VAR_LINUX,
--		.component = PLPKS_WRAPKEY_COMPONENT
--	};
-+
-+	if (!var || !var->name || !*var->name)
-+		return -EINVAL;
- 
- 	if (!input_len || input_len > PLPKS_MAX_WRAPPING_INPUT_SIZE)
- 		return -EINVAL;
-@@ -1083,7 +1074,8 @@ int plpks_wrap_object(u8 **input_buf, u64 input_len, u16 wrap_flags,
- 	if (IS_ERR(auth))
- 		return PTR_ERR(auth);
- 
--	label = construct_label(var.component, var.os, var.name, var.namelen);
-+	label = construct_label(var->component, var->os, var->name,
-+				var->namelen);
- 	if (IS_ERR(label)) {
- 		rc = PTR_ERR(label);
- 		goto out;
-@@ -1146,7 +1138,7 @@ int plpks_wrap_object(u8 **input_buf, u64 input_len, u16 wrap_flags,
- EXPORT_SYMBOL_GPL(plpks_wrap_object);
- 
- /**
-- * plpks_unwrap_object() - Unwrap an object using the default wrapping key
-+ * plpks_unwrap_object() - Unwrap an object using its associated wrapping key
-  * stored in the PLPKS.
-  * @input_buf: buffer containing the data to be unwrapped
-  * @input_len: length of the input buffer
-diff --git a/include/keys/trusted_pkwm.h b/include/keys/trusted_pkwm.h
-index 4035b9776394..53a5f780edd2 100644
---- a/include/keys/trusted_pkwm.h
-+++ b/include/keys/trusted_pkwm.h
-@@ -6,10 +6,13 @@
- #include <linux/bitops.h>
- #include <linux/printk.h>
- 
-+#define WRAPPING_KEY_LABEL_LEN_MAX	239
-+
- extern struct trusted_key_ops pkwm_trusted_key_ops;
- 
- struct trusted_pkwm_options {
- 	u16 wrap_flags;
-+	unsigned char wrapping_key_label[WRAPPING_KEY_LABEL_LEN_MAX + 1];
- };
- 
- static inline void dump_options(struct trusted_key_options *o)
-diff --git a/security/keys/trusted-keys/trusted_pkwm.c b/security/keys/trusted-keys/trusted_pkwm.c
-index b5c3d17be475..c44b50d68d4c 100644
---- a/security/keys/trusted-keys/trusted_pkwm.c
-+++ b/security/keys/trusted-keys/trusted_pkwm.c
-@@ -13,10 +13,12 @@
- enum {
- 	Opt_err,
- 	Opt_wrap_flags,
-+	Opt_wrapping_key_label,
- };
- 
- static const match_table_t key_tokens = {
- 	{Opt_wrap_flags, "wrap_flags=%s"},
-+	{Opt_wrapping_key_label, "wrapping_key=%s"},
- 	{Opt_err, NULL}
- };
- 
-@@ -50,6 +52,12 @@ static int getoptions(char *datablob, struct trusted_key_options *opt)
- 				return -EINVAL;
- 			pkwm->wrap_flags = wrap_flags;
- 			break;
-+		case Opt_wrapping_key_label:
-+			if (strlen(args[0].from) > WRAPPING_KEY_LABEL_LEN_MAX)
-+				return -EINVAL;
-+			strscpy(pkwm->wrapping_key_label, args[0].from,
-+				sizeof(pkwm->wrapping_key_label));
-+			break;
- 		default:
- 			return -EINVAL;
- 		}
-@@ -83,6 +91,7 @@ static int trusted_pkwm_seal(struct trusted_key_payload *p, char *datablob)
- 	struct trusted_key_options *options = NULL;
- 	struct trusted_pkwm_options *pkwm = NULL;
- 	u8 *input_buf, *output_buf = NULL;
-+	struct plpks_var var = { 0 };
- 	u64 output_len, input_len;
- 	int rc;
- 
-@@ -108,8 +117,18 @@ static int trusted_pkwm_seal(struct trusted_key_payload *p, char *datablob)
- 
- 	pkwm = options->private;
- 
-+	if (pkwm->wrapping_key_label[0]) {
-+		var.name = (u8 *)pkwm->wrapping_key_label;
-+		var.namelen = strlen(pkwm->wrapping_key_label);
-+	} else {
-+		var.name = (u8 *)PLPKS_DEFAULT_WRAPKEY_LABEL;
-+		var.namelen = strlen(PLPKS_DEFAULT_WRAPKEY_LABEL);
-+	}
-+	var.os = PLPKS_VAR_LINUX;
-+	var.component = PLPKS_WRAPKEY_COMPONENT;
-+
- 	rc = plpks_wrap_object(&input_buf, input_len, pkwm->wrap_flags,
--			       &output_buf, &output_len);
-+			       &output_buf, &output_len, &var);
- 	if (!rc) {
- 		memcpy(p->blob, output_buf, output_len);
- 		p->blob_len = output_len;
-@@ -161,15 +180,26 @@ static int trusted_pkwm_unseal(struct trusted_key_payload *p, char *datablob)
- static int trusted_pkwm_init(void)
- {
- 	int ret;
-+	struct plpks_var var;
- 
- 	if (!plpks_wrapping_is_supported()) {
- 		pr_err("H_PKS_WRAP_OBJECT interface not supported\n");
- 		return -ENODEV;
- 	}
- 
--	ret = plpks_gen_wrapping_key();
--	if (ret) {
--		pr_err("Failed to generate default wrapping key\n");
-+	var = (struct plpks_var) {
-+		.name = (u8 *)PLPKS_DEFAULT_WRAPKEY_LABEL,
-+		.namelen = sizeof(PLPKS_DEFAULT_WRAPKEY_LABEL) - 1,
-+		.policy = PLPKS_WRAPPINGKEY,
-+		.os = PLPKS_VAR_LINUX,
-+		.component = PLPKS_WRAPKEY_COMPONENT
-+	};
-+
-+	ret = plpks_gen_wrapping_key(&var);
-+
-+	/* An existing default wrapping key is considered success. */
-+	if (ret && ret != -EEXIST) {
-+		pr_err("Failed to generate default wrapping key: %d\n", ret);
- 		return ret;
- 	}
- 
--- 
-2.52.0
+So this patch is based on an arbitrary wait that is based on the
+assumption that some other device gets initialized...
 
+Can you try making this deterministic? Maybe returning from
+_probe a specific value will postpone binding of this driver after
+all other drivers and you can comment in code why it was done...
+
+Or perhaps you can setup some way of hid-multitouch to signal
+completion?
+
+Regardless I will also review what we have here in case this ends
+up to be the best way to go.
+
+> Assisted-by: LLM
+> Signed-off-by: Rebecca Mara Müller <rebecca.mara@posteo.de>
+> Link: https://lore.kernel.org/r/20260811125548.1975748-1-rebecca.mara@posteo.de
+> [pisati: taken from Rebecca's standalone UX8407AA patch and adapted to
+>  the current driver; initialize and cancel the work unconditionally]
+> Assisted-by: LLM
+> Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
+> ---
+>  drivers/hid/hid-asus.c | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+>
+> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> index 503396963eeb..ce413eb011c4 100644
+> --- a/drivers/hid/hid-asus.c
+> +++ b/drivers/hid/hid-asus.c
+> @@ -173,6 +173,7 @@ struct asus_drvdata {
+>  	unsigned long battery_next_query;
+>  	struct asus_hid_listener listener;
+>  	bool fn_lock;
+> +	struct delayed_work reinit_work;
+
+Why not reusing the workqueue we have already?
+
+>  };
+>  
+>  static int asus_report_battery(struct asus_drvdata *, u8 *, int);
+> @@ -1474,6 +1475,17 @@ static int __maybe_unused asus_reset_resume(struct hid_device *hdev)
+>  	return 0;
+>  }
+>  
+> +static void asus_reinit_work(struct work_struct *work)
+> +{
+> +	struct asus_drvdata *drvdata = container_of(work, struct asus_drvdata,
+> +						    reinit_work.work);
+> +	int ret;
+> +
+> +	ret = asus_kbd_init(drvdata->hdev, FEATURE_KBD_REPORT_ID);
+> +	if (ret < 0)
+> +		hid_warn(drvdata->hdev, "Failed to re-initialize the keyboard: %d\n", ret);
+> +}
+> +
+>  static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  {
+>  	struct hid_report_enum *rep_enum;
+> @@ -1570,6 +1582,8 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  			is_vendor = true;
+>  	}
+>  
+> +	INIT_DELAYED_WORK(&drvdata->reinit_work, asus_reinit_work);
+> +
+>  	ret = asus_worker_create(hdev, drvdata);
+>  	if (ret) {
+>  		hid_warn(hdev, "Failed to initialize worker: %d\n", ret);
+> @@ -1605,6 +1619,16 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  		}
+>  	}
+>  
+> +	/*
+> +	 * When docked, the Zenbook Duo keyboard drops back to F-key mode when
+> +	 * hid-multitouch configures the touchpad on the sibling USB interface,
+> +	 * which can happen after the handshake above. Send it again once the
+> +	 * dust has settled.
+> +	 */
+> +	if (is_vendor && (drvdata->quirks & QUIRK_ZENBOOK_DUO_KEYBOARD) &&
+> +	    hid_is_usb(hdev))
+> +		schedule_delayed_work(&drvdata->reinit_work, msecs_to_jiffies(2000));
+> +
+>  	/* Laptops keyboard backlight is always at 0x5a */
+>  	if (is_vendor && (drvdata->quirks & QUIRK_USE_KBD_BACKLIGHT) &&
+>  	    (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID)) &&
+> @@ -1639,6 +1663,7 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>  
+>  	return 0;
+>  err_stop_hw:
+> +	cancel_delayed_work_sync(&drvdata->reinit_work);
+>  	if (drvdata->listener.brightness_set)
+>  		asus_hid_unregister_listener(&drvdata->listener);
+>  
+> @@ -1654,6 +1679,7 @@ static void asus_remove(struct hid_device *hdev)
+>  	if (drvdata->listener.brightness_set)
+>  		asus_hid_unregister_listener(&drvdata->listener);
+>  
+> +	cancel_delayed_work_sync(&drvdata->reinit_work);
+>  	asus_worker_stop(drvdata->worker);
+>  	hid_hw_stop(hdev);
+>  }
