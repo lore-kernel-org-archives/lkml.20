@@ -1,167 +1,85 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC353A48C8;
-	Sun, 18 Oct 2026 15:48:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1967238DC53;
+	Sun, 18 Oct 2026 15:50:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338538; cv=none; b=GKJ9UBFuvyseTUZSFkegIrFcpdScEq6lNXgJSYT1aQnPfDbxD+vMuESs8Cc6BHu2FJ8NMNWIt1kSq/ZQC3Vc8AMDvrWwJu31q1Sv6UyBI3HKKpGE9xV5NpEOfJ+8aOcPUY2qk85hSUG9/VelkxivFm7+kMvjR8fzPLdIFLlytMg=
+	t=1792338602; cv=none; b=tItG+CZtlB55/lJHwFwxt5tCPJxCPLciJtqixS6jAEtq1IgbtPq3Drwu+Kol7ucwh0AKoLsIZfu5TlJxrdVJfDpYqQN60LJBWO5eSNOLtFNgl5zfUJ24vbrQlFJvIb/l0aS254H4csctFP8syOXWctPIWeFAVt9A4hFblPstIJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338538; c=relaxed/simple;
-	bh=GPCoCYZQtteLZlcwOjGXqBmMG1EEEu/HlmWvQG4yR7s=;
+	s=arc-20240116; t=1792338602; c=relaxed/simple;
+	bh=nuWm5cdLlbh+eTVljmY2s0zpnWdBSnZbHIzuUMimW9U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sTn5btLDv91qmT/9yOfkbVpD91XvfzKqCyJYCULIFGQuBHIXtJEqc3hsWsUqS1Wxw2oNvIe3kg5ocsD679VIyX9+Jd6pVYqh+TEvGi3FDaXYSBHtSaKdXoKes5R5fs4GKQYOA+vWYx7V7pJv7LoKunWjrVkRqRPGvs/5U1bddV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=IhDlV3ZE; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cb07jpP9xJ7JhEy7fJOPtkVdmzYBLuQYVPu7KRehgidOM7GOT43WvJ4ZQA6vOFENU922gduFfCqn0DJCF3NvPcCQQ4hlEhBww0NuYXS7TF8ojq/AGXOYoes6T8GhHUAfeYciyzsULthqjw4m9RJUkM1QSjGQZEIPi06oD/t3MgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5cqjmm0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="IhDlV3ZE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Jy49RzWlgkvzIBqKndlJQi4XZ9ezklP+1R+XXKRDsU8=; b=IhDlV3ZEL7Z5Uo1hxwrPPKViB0
-	L3BcGrP1nT53MCVrT72Xo9c3cGdi8MBxkroRSe+P4EFWCPleeXkeIEfGwzk4serdWAPKl7lKAejae
-	fodueCfUe9b2WdSfi90b84zt23Zqy+SaBLv9B0U5rUvRn1j/3SEacrexpo6ABUejR7O0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xIT7n-00BVKs-JN; Sun, 18 Oct 2026 17:48:39 +0200
-Date: Sun, 18 Oct 2026 17:48:39 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Daniel Thompson <daniel@riscstar.com>,
-	Alexander Duyck <alexanderduyck@fb.com>
-Cc: Alex Elder <elder@riscstar.com>, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 2/2] net: pcs: xpcs: select operating mode for
- 10G-baseR capable PCS
-Message-ID: <fe13016b-ebd6-4a2f-a07b-324f46b456d3@lunn.ch>
-References: <20261014223100.304486-1-elder@riscstar.com>
- <20261014223100.304486-3-elder@riscstar.com>
- <f8c01002-da88-4f0f-a02a-7480591f4296@lunn.ch>
- <atI1IK6blP-vumLQ@aspen.lan>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5cqjmm0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E9FE1F000C4;
+	Sun, 18 Oct 2026 15:49:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792338600;
+	bh=6LphvJRgdMJSniREV29w572IWK1vBbe+xqjQ4ijfnWg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R5cqjmm0/pxO8eWkiE374zCrnaP6BYGUuQpanGQXmgKXv6qo9G0XALv+JAGPsZWBQ
+	 82hnVRlC0cPE7YUB38NmsqyKeqrc16j3oJ19PIB17au1ZkjQyPXUGHHUZzNlARMPsv
+	 0KcvhFPPxRiTgsG0EezciP9cGMpaHNwgsYzqn8lvZXtjxZ+oNUsGS7mqiF1Ov6t243
+	 f4W5VXcv5VBZR8rpCQXrIvRUjVZCHlavSHklpYDj03gHAnBS8LpzOPNh1vgNqa7IIH
+	 0XWlf3iNIi9ydffoEZCHNbPp9FWcUk9Q22rNrJE83iRR059mRwAvbwJW4HK1gc365z
+	 0gP2Scs7OvnNQ==
+Date: Sun, 18 Oct 2026 17:49:50 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Alasdair Kergon <agk@redhat.com>, 
+	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
+	Benjamin Marzinski <bmarzins@redhat.com>, David Howells <dhowells@redhat.com>, 
+	Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+	Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Andrew Halaney <andrew@amutable.com>, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	bpf@vger.kernel.org, fsverity@lists.linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [PATCH bpf-next v2 0/3] keys: Add well known IDs for
+ fs-verity/dm-verity keys
+Message-ID: <20261018-skrupel-ungefiltert-bauamt-99f4c40aa5f8@brauner>
+References: <20261008-ajhalaney-dmverity-key-identifier-v2-0-008456d189cb@amutable.com>
+ <20261012-broschen-inanspruchnahme-gebilde-d72cf2b99cda@brauner>
+ <DM5UD20248FG.3BXPS76LK06F5@gmail.com>
+ <20261016-ratlos-endkunde-eindimensional-1fe5eef08d13@brauner>
+ <DM6CJUE4J2LX.2NR5QB5X3N0Y6@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <atI1IK6blP-vumLQ@aspen.lan>
+In-Reply-To: <DM6CJUE4J2LX.2NR5QB5X3N0Y6@gmail.com>
 
-On Fri, Oct 16, 2026 at 03:30:56PM +0100, Daniel Thompson wrote:
-> On Thu, Oct 15, 2026 at 11:09:14PM +0200, Andrew Lunn wrote:
-> > I don't know this PCS driver, so maybe dumb questions....
+On Fri, Oct 16, 2026 at 02:53:23PM +0000, Alexei Starovoitov wrote:
+> On Fri Oct 16, 2026 at 8:27 AM UTC, Christian Brauner wrote:
+> > On Fri, Oct 16, 2026 at 12:38:11AM +0000, Alexei Starovoitov wrote:
+> >> On Mon, Oct 12, 2026 at 12:38 PM Christian Brauner <brauner@kernel.org> wrote:
+> >> > Applied to the vfs-7.4.keyring branch of the vfs/vfs.git tree.
+> >> > Patches in the vfs-7.4.keyring branch should appear in linux-next soon.
+> >> 
+> >> What is this branch based on ?
+> >> v2 was sent against bpf-next, because
+> >> commit 264d8fd2794f ("bpf, keys: Add a bpf keyring for program signature validation")
+> >> is only there.
+> >> All hunks in keyctl.h, key.h and process_keys.c have its lines as
+> >> context, so the patches don't apply to -rc as-is.
+> >> And patch 3 documents KEY_SPEC_BPF_KEYRING.
 > >
-> > > Currently the XPCS found on Toshiba TC9564 is unable to operate at
-> > > 2500base-X and slower with a PHY connected using SGMII/2500base-X
-> > > (in our case a Qualcomm QCA8081).
-> >
-> > Is the PHY actually relevant here? What about SGMII/2500base-X for an
-> > SFP?
+> > It's based on the portion of bpf-next that has Daniel's keyring patches.
+> > Which means I just wait until bpf-next is merged and then send it as a
+> > follow-up pr.
 > 
-> No, I don't think the phy is relevant here (the bit in brackets just
-> records the specific hardware combination that we observed the problem
-> on).
-> 
-> 
-> > Is this purely a PCS problem, or does what the PCS connect to make a
-> > difference?
-> 
-> AFAIK it is purely a PCS problem (but it's all soldered down so I have
-> no chance to prove I am right by testing it).
+> ohh. that should work. If it's simpler I can take this patch set into bpf-next,
+> so you wouldn't need to monitor merge window that closely.
 
-Thanks. Given it was stated i was thinking it could be relevant. But
-how can it be relevant? And then i thought that the PCS only supports
-10Gbase-R, and the PHY is using rate adaptation to handle slower media
-speeds?
-
-That seemed unlikely.
- 
-> > > The problem arises because this XPCS supports 10Gbase-R. That means
-> > > that the reset value of SR_XS_PCS_CTRL2:PCS_TYPE_SEL (0) is valid and
-> > > this suppresses the modal switching based on bit 13 of SR_PMA_CTRL1
-> > > or SR_XS_PCS_CTRL1.
-> >
-> > ~/linux/drivers/net/pcs$ grep SR_XS_PCS_CTRL1 *
-> > ~/linux/drivers/net/pcs$ grep SR_PMA_CTRL1 *
-> > ~/linux/drivers/net/pcs$
-> >
-> > This is not helping me understand what is going on here.
-> 
-> These names are exactly as they appear in the technical documentation
-> for the TC9564. I assumed these to be inherited from the Synopsis XPCS
-> docs and would make sense in the context of the XPCS driver.
-
-I however don't have this documentation, just the driver, and 802.3.
-
-> However, now you mention it I can see that "Speed selection bit (13) of
-> PCS control 1" would be considerably clearer for reviewers who take a
-> wider view! Will fix this and will also be a bit clearer about how XPCS
-> treats PCS_TYPE_SEL.
-> 
-> 
-> > > +	if (mdio_stat2 & MDIO_PCS_STAT2_10GBR) {
-> > > +		switch (interface) {
-> > > +		case PHY_INTERFACE_MODE_SGMII:
-> > > +		case PHY_INTERFACE_MODE_1000BASEX:
-> > > +		case PHY_INTERFACE_MODE_2500BASEX:
-> > > +			/*
-> > > +			 * Why are we writing MDIO_PCS_CTRL2_TYPE + 1? We want
-> > > +			 * the modal behaviour that comes when we pick a
-> > > +			 * reserved value. XPCS allocates extra bits to this
-> > > +			 * field and allocates values from 15 down so
-> > > +			 * MDIO_PCS_CTRL2_TYPE + 1 is the value likely to be
-> > > +			 * allocated last (and hopefully never).
-> >
-> > MDIO_PCS_CTRL2_TYPE is 3. Looking at 802.3, the value 4 is
-> > 40GBASE-R. The 2022 version of the standard has values defined up to
-> > 10011b, for speeds up to 400G,
-> >
-> > Alex added support for 25G, 50G, 100G.
-> >
-> > Is this an issue?
-> 
-> It will probably be an issue when the kernel is first called up on to
-> support an XPCS that supports 40GBASE-R.
-
-Which is likely to happen sometime in the future. Maybe Alex's
-hardware even supports it, but if you can do 50G, why bother with 40G?
-
- 
-> The XPCS (at least in TC956x) handles MDIO_PCS_CTRL2 in a slightly odd way.
-> It 4 bits wide and accepts 10GBASE-R, 10GBASE-X, 5GBASE-R and 2.5GBASE-X
-> is defined in the standards up to 2018. All other bit patterns are
-> reserved and instruct the XPCS to use Speed selection bit (13) of PCS
-> control 1 to choose between 10GBASE-X or 1000BASE-X.
-
-We probably need Alex in this thread, what happens for 25G, 50G, 100G?
-
-Maybe there are different revisions of the IP, and later revisions
-make this register follow the standard?
-
-> 
-> That means we *must* write a reserved value to this register because the
-> default value after a reset prevents <=1G modes from working (I think
-> automatic switch over between 1G and 2.5G also liked this to a reserved
-> value but I don't fully recall right now).
-> 
-> On that basis the best bit pattern to use one that isn't implemented by
-> whatever XPCS we happen to be running on. One simple approach might be
-> keep using 40GBASE-R but to check PCS Status 2 to ensure we fail in a
-> non-silent manner on hypothesized future XPCS hardware:
-> 
-> 	if (mdio_stat2 & MDIO_PCS_STAT2_10GBR) {
-> 		if (mdio_stat2 & MDIO_PCS_STAT2_40GBR) {
-> 			dev_err(dev, "40GBASE-R is *not* a reserved "
-> 			              value on this XPCS");
-> 			return -ENOTSUP;
-> 		}
-
-Maybe. But we need to ensure it does not cause regressions for fbnic,
-which might actually support this speed.
-
-	Andrew
+LLMs make that kinda trivial. I need to send late merge window PRs a lot
+when we e.g., do tree-wide changes that would cause a lot of merge
+conflicts if constantly carried in -next.
