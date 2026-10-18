@@ -1,191 +1,234 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazolkn19011056.outbound.protection.outlook.com [52.103.14.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904513F58CC;
-	Sun, 18 Oct 2026 16:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.14.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341945; cv=fail; b=s+XevR2lccWkxi5IO96vkHv6tuurGXj429DvvtpFIb0SgTf58LlhO0OMQnO/w9M1T4E3xsm6Z+bpLIg6s5BWy4Fq8/pv5A144mHX/oiNEuGNIFmmgDJ+s4XemTDHlxu+V7cvbaoECAc28noV/Ux338v5VqrsBnUj9HDLLIiGe6o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341945; c=relaxed/simple;
-	bh=D/fiVCHxLYmdAIrcs/iAyx8GR2wgnap5f1xA/I72GKM=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Gr/CcjNtjzbeqTwwaNoF5aQBB/20b+x5A7jWUYjfIuilGPL6alM5oKEADyd6tVx2WH9MoU4ghcdXd/7XIaLAnKsdkM2BAY5JZeTkZe5BP0jNFcZxHrdl4kXChccdsR4BPS7Jsl+sDovJE9/L50fww2gM9Wx3/WKfv5QnDOYHRK8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=mysl+oAb; arc=fail smtp.client-ip=52.103.14.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C4C3DDDD2
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792342128; cv=none; b=Qc7PbbT5kdlzanqTOOjI2SfQEAO6VVW/8rKnmCkhPmYkM67X/cLfKxmFMOPE7k1NcJjAKXJcE+64J+ACoCeId2qkGqpkeigDRUdHSLt4hBN/+t62gr1bdmkaGI/3SEl6SqtaYJQh5Rbj7axZ6Vz/7H6g4EE8X0FZiCrYfASYrtM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792342128; c=relaxed/simple;
+	bh=BQwom/JpLTa5hVv/QW0sgO7TAm5bZ2zgWUdehMZk33I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Js80bgebgcQ+eFWmrlN6lAwkhNk/Sx+v67vnx67YVqI9oi5uMN0e/QkXFJe0GS0rb0RZxHWRQ9Bcjp0dESMTWfbVRQ4HnVUsaG5K8JpQHV6wDDQAHTJZ0AKL8JFlG7fKpkte5IXiFn30gug5aMIlydZyH0G19l4fw52F2TZ4QcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N99ZUS+U; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="mysl+oAb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c9hbEVd8n5v/kHQOIrRgGYzxlqz+RF7M7yNeXCILGA7meD6fqNvvGsmultb6kmStpZZqzB4w+Dohtk/qZdXPtPLgvtUg+J7+cACJl1CMLjcDu+wf9b0TBHYG0NhwY9LCHyAaiG6ovkTJhAnIcyTH7WkRifMvcKu5j+PZUxUfJkOBreBxAkjx9ENFq5k7VIb0jg6IXrCoUbk3UvuDeiKoE34fFyHYAvjWcSc39851FjnSO25hDga17RT9UJs2GkSoVozPhM2fClAbrBu9VRIpM07bjHN8cHaoQcynuO4Lv7pbwgMaQZR/eRaA3CILHTs5dDggoWZqzOtiPBpJh2TInA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ovpgcvCplm+qXgwpOoDIH71lYHkA9hal/0RP5B3xuj8=;
- b=Wva/RMwky2LehvJb9i1jWfYvxyPGgoL46wYlL3BscoZ80jN9sf4Ja4k7R5unwwZHXhlcO/VFSrjRAxzmaQaexwlPHhxVNXrljeLMXlsU1NopkSpS4gOkkGiYQxW1TtTcL2ezUfDHLpVNArVCpakqHgCEqYIgnrA/6i8YxQuPqySrVJJ3SVpligKXn8Dt2QOYeIiq+mV1jciLraEkoncU2qTAXdsPoH8qcBbbmtCkjYbfw/pfeo7KniggwVQWp9VGKZcoZoNgfkcc564zvNn5AJYXm5zFohBxjmNR5aQ5oCAUn9+INMYgenJdQLnjQIqTSc96INYtH3QL2lS69yydQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ovpgcvCplm+qXgwpOoDIH71lYHkA9hal/0RP5B3xuj8=;
- b=mysl+oAbbqbOF0cIUKgzxhm4XtWTiAvjs5ii0p0zKOMj37giA/G6oQJ5bQjz0ABNxqoFL/ufjHXxtjgQSyA4OzWCEnerx9g7vIXkJfNaX3/uKSNiVBecvneL8C1oCfs8ezpjNJybmTRoBkqr8MrclxpWdGr90tRslQ5KyQzi1g0j3dcD4vj+XA7gAKoHdy4pwTw6V5sMec1d0CnybwB/xZPJY1NN18KrWwop0GPivFHkFI0yjT6FnW1yhzM2vTU9Q0mtlg0tjyVSqLACesJhSq3F8M72mBO4nov3bmobU/cTiIsQcSK+BBMi00heq4e+1th0je4kui/I2awFozypOg==
-Received: from CH5PR19MB997156.namprd19.prod.outlook.com
- (2603:10b6:610:2f1::23) by CH9PR19MB9514.namprd19.prod.outlook.com
- (2603:10b6:610:2da::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Sun, 18 Oct
- 2026 16:45:37 +0000
-Received: from CH5PR19MB997156.namprd19.prod.outlook.com
- ([fe80::4f59:5a3e:6e0d:ee17]) by CH5PR19MB997156.namprd19.prod.outlook.com
- ([fe80::4f59:5a3e:6e0d:ee17%6]) with mapi id 15.21.0522.017; Sun, 18 Oct 2026
- 16:45:37 +0000
-From: Liu Changjie <liucj1228@outlook.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
- Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org
-Cc: =?utf-8?q?St=C3=A9phane?= Grosjean <s.grosjean@peak-system.fr>,
- Pengpeng Hou <pengpeng@iscas.ac.cn>, linux-kernel@vger.kernel.org,
- Liu Changjie <liucj1228@outlook.com>
-Subject: [PATCH net] can: peak_usb: accept short uCAN end-of-list records
-Date: Mon, 19 Oct 2026 00:46:34 +0800
-Message-ID:
- <CH5PR19MB997156AB3BE253C3BE445223B0AC992@CH5PR19MB997156.namprd19.prod.outlook.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SE2P216CA0078.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2c6::15) To CH5PR19MB997156.namprd19.prod.outlook.com
- (2603:10b6:610:2f1::23)
-X-Microsoft-Original-Message-ID:
- <179234199485.15890.14766470918134463502@outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N99ZUS+U"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so821811a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:48:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792342126; x=1792946926; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fjh022Vk0Y78tFOJ30N8yOVXBDcISHKO2EIs3a224Vc=;
+        b=N99ZUS+U3YN4fBaa1JLi+eCGkecFGJUnpQLfmxOn0Pdl3Q1pbqPRyCYO6mIK1s2dj0
+         I3RQPYExDCnb6CYwXMyp+XLcyiawuCaTyG7nYyrJZxhOQQ/pTT7CRnvhMLxlkKtg1KZh
+         lnIlYezT/aakZHIQIoAbQtO3A6dHN3L67QWnLYcBWa4nGqTY19lCOyQFS2nBrq5soWZD
+         GwkkAA5XidlEbkr12T0HHQ2PpLJTUQZZPuYqoIq7wWDaR/e3FTwpJZCL46QnWLyUc82z
+         mJdul3M7Kce93eHGQORwOCqFpG0gKxLyB/2QUc8jIukNl8wkAQdMEdjwx+W3FrN6+C0b
+         2jkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792342126; x=1792946926;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Fjh022Vk0Y78tFOJ30N8yOVXBDcISHKO2EIs3a224Vc=;
+        b=d6/tLrs3juyowbtRl7tMoPRSGj/3g9l+CmsWiv5xnBOfnfgcjuEPO1wAHhdMyzpt5L
+         CyURiJXHg56/YVzpQ5E87jmCJA+Oa9cYQyRSE4Mp6N7cDuwhv8xnr1lLCvgGTAS1RAA8
+         6gMPgL5K7go6sYJYRs0B8ltIaJDOB2fIIOhKySrwcwHMK1KIuDjHoKqpNEyAvJzK0T0q
+         EOtieBFvqh1ijRINSL0mH++iZrqP+ZYtI7ZHFBmyson3D4tj8/L9OU/0bIUP/pgt4wxG
+         97J3wVBsT2qXg7bLiEWKZ3RcCb+Eq5Fj6JzVTHdKzV3aWeB8UpdZtky7Smi6/BWISLIe
+         bKiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwTEzbOR5ypxrQ1KTPlE0Pa51l101zqHVsVIKntCw8Edi0RFcFR717q1/HnAc50qzHFjwrzjKMvr0sw9Ks=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBtDwIMK8aFiJ8U/8ulSwkRTu+Wcp3SkQczrs4KUCgEyGKfUZ7
+	lVVnKTvKJINT0q90fy80dWpgl5xdVg7i5fUrpAng5syRrcc/s9tAh3VaLSXMCw==
+X-Gm-Gg: AYBFou114PC+tK0HNaopPJjKuommYxFtHY4iTHw8PjXlenL7BSPsGzPuLQXahizIGsn
+	Z3NCCsflVTsuExcYZ1bxIJ4iSDtSWTYZVEKBGxWP8VQsqORKpDtrS1gdAn2UsETVfQmhoPMZgq0
+	4kbkxgSoN3jfwT5NlPlgMKyBm2+86abDbdElVzE+JeJrXIE769msWsCuO7qM2ArI00il9V/ADIW
+	bnfgST2cjld1O/169HZxjpfVxAQp2kwDhGGCAICvTTtW8sCYKGILOaqnSjuDIvjn26v85pGV1sm
+	l6btaAEZIJu94rXfr8GdnkW9jeCPplipByJ9kwjwzuU6T7DjRv2Phk8an3mIIyd99FFtRklGHye
+	POGtDQ2bX4rlpwr8dQ950M8JPhHuDVJQIIkN3cYqnr9hSLHLKd0rWDADco83ce/tnLIkclem7ZC
+	0XHjRUxqnNbiMrjVRj4hUWKFeSn/JTk1fSxLJJBCN2bGCNkSHNg6BOL1OmEO+NPxd1cqYUFtWtV
+	k1qxy+1GElywcHN3yPfhGRwKReMirbvtKORa8Y3sN82yU48+PExa2Rvxe4=
+X-Received: by 2002:a17:90b:4d0a:b0:39e:21a7:5df5 with SMTP id 98e67ed59e1d1-3acef293029mr4763179a91.24.1792342125232;
+        Sun, 18 Oct 2026 09:48:45 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acddc37958sm10551724a91.14.2026.10.18.09.48.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 09:48:44 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <170e005b-c6e5-4b48-bc01-9b07ff918252@roeck-us.net>
+Date: Sun, 18 Oct 2026 09:48:43 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH5PR19MB997156:EE_|CH9PR19MB9514:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4842331d-b33d-412f-72c0-08df2d373c88
-X-MS-Exchange-SLBlob-MailProps:
-	YfhX3sd/0TWTq462A1ci1xfPBdi3ebdl+v8WK0FRsKoAWHtRup7F59kWFjb8qFA0lHt63wU6dCZ7hVx/Po3ZqjNMMJbmoLvoQjL4GgvIcEgwog5v7d14zDRAFR7EygCkDVPBEsWxcVkyk7IE11CZxAWSifG3pDPTulqsRozsXT3u4X53SsCTRjA+3C1UQgLkuEehB5F+ciqpogo8V8I8Smw9ZSFUKBFU/VmNZz8/yi0+uRulGHX9IckcFsycLcYcTGjI2mj3u6T8Z0xEJ4j+j6CVHTqVqHuPIEgfyTTaudLuVdg/ZCRdeLNsuee0+EMdOmvF/8lre8Fe4zCwxra+hoPEvX2HnRyG47Ii8mjtRCOGaAWM81YVT/Odq+bk1wO4nMHgm9hZiJ3lnaXVCvgsQcWzeGcJwfGtpG+BxW/yi269izesqphYgStqG/buPCV99VocBOAOJXmtt7VuY3bwF3OPfh1u7Thlxl6nDr71sE9NOFB3AILNntP3hpIyLh4AHvvgqOKemUd2koIx52nEVAJvsd0YEgYXY8q4HmIeQZYlqszzDvXyTMQT/kpHGUwZlxdx4KTZntsBGFiqfheTd60AszhPtg/3m1OTF5K7VeH4TEnPDWCg2TuefczuNulSl140i4UgNaTFo0RcuDrZiTcxLkfMB8t4uACSWze8WiC19tvKeLsTTixoCmhkDsNi/Fd+2jb4S5PfS6g16gEQ4MlrFxFcohxsVfpYGFYANznOTGtWKTJOtp+xVyS2yuIw4Qm7yVGxyLGod38K78pc4CHSbaL/Gd0rxR2TfcI2LwY=
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|15080799012|5062599005|6090799003|5072599009|37011999003|23021999003|22121099003|12121999013|39105399006|19110799012|8060799015|25010399006|24021099003|4140399003|440099028|3412199025|26104999009|40105399003|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?81N+3WLEAfySIa01lpmLGmGAarFxI3qUFnl7Zd2VoWxvX76fUowNNcoZF7ND?=
- =?us-ascii?Q?3IUQFPkCuUPZTbg6w3iAbm7DWMdu+gwtLLRve5RCWqKUbCD5RQDRAWncTXt/?=
- =?us-ascii?Q?5Yxv+mrF1xC2v7atBShUm73kmavDK8qV+IAiMoGZ0LlsLgVJRJohNJukVeqk?=
- =?us-ascii?Q?dBeQg/koEpZMJ+KyKolRR8DhV/gOCqyAJSrb1LCLMFkDJpM/8tl8JFv0YwAt?=
- =?us-ascii?Q?EPaB5V5W6Xf//+v+oEYNe5CelxakgtmNAAa4KFZM5lmVAcDXDyv5UsTWsIM7?=
- =?us-ascii?Q?5LgJmUiTZIRGCIwD1VQTbaISnLHTfdGLttI+hP27nch+H7G08BELzAxy3UrF?=
- =?us-ascii?Q?C5Ekr7hjMdCGJGL1iMvmW3ZDPLojcA+mV6sCtEdikL6zRYIJu+tp0/KJlCJ0?=
- =?us-ascii?Q?NdqzbFj0mD2XKVgCdRJGJBFzEMG6kiwLbCcyQ3DHql7iOYUSpEddTMD4zBav?=
- =?us-ascii?Q?ESicvT8jHpWzIBKy54VuiRC1o777r/lEt1Qh4bvv5hFMyt/Ua9YWVEI002Ot?=
- =?us-ascii?Q?1Ky3BcAxOjRxA5eTUf6i+k/DEr70RMR4s/hs7Zx3oOpIYwfAhPPlhc2G2BsR?=
- =?us-ascii?Q?ZeKJ+qhUSaiHNRr0bILiu1XBx4dx7sJ2GD5uPAi8PAHJW9kwuOKrhgnkdhtH?=
- =?us-ascii?Q?JrfXkP23AJvWuHwMyPskJVG4nVOYh21l0Es0FzUhPwavUO9ehSS37dsLQNev?=
- =?us-ascii?Q?m8ShxZMMNQ0+irYvFhH03aZGOgK7VlexOrAgmgw/Tt5ma+v0NZiFgpYOndFC?=
- =?us-ascii?Q?J4WeNS5fVhpKOREU6NnNL2Ay2mNV3PZzu7n377fobdn2L+JKOCTEbNvGlqOP?=
- =?us-ascii?Q?MC4B2ctlcaoTOIPXBB+ZJdkLi57eb/TVXTjh9RstyLWPipw53nC/EgNv/TJx?=
- =?us-ascii?Q?0fVs4i+jvsufhJXvWpj7s1vxOKRxDZ53vVpP5iksrjCtURuAbC3fv0H75wG+?=
- =?us-ascii?Q?LGTmjkiCy7TeF/fAQz8Dc+G+q5wccQq8LEhtPDUhnLkl5pUYKgQizRLLR/Oi?=
- =?us-ascii?Q?SP1A8tCBXfyOhBMUBb7SGSCef/gveJBr2/p3fklX62K/bZF15vHm+z4p60bh?=
- =?us-ascii?Q?388dXNnHsN43e44EuzGkIQyw4PgKT8smmhpDzDZCwaQGqkYQfnBA/w65Wgir?=
- =?us-ascii?Q?xjqfvX1NCWY/?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?y1GEKqb3iE4Jb3FMwg0VRrpstKCyTIHQUGTWrAFb4EFm37VJ5wgmbV3w1uaT?=
- =?us-ascii?Q?vZMGH8WCcyD1bZ92AmC90q6aZYClCTG5jeaTsfLfIkhB/cJ+UANnDFQWInEm?=
- =?us-ascii?Q?zFKuNEX/V15ud3evE/kRVui8SMrPqJncPZPVeWC4vhdYfQEGT5QTArr4shxn?=
- =?us-ascii?Q?moZSLZG43KW9Rpuu8Ts5e7yicdVmLCk5hpWiG4c7JVxHgSnD8o75yKkaOoL6?=
- =?us-ascii?Q?MB5k7B03QsEq4SvU84dGSNXPbRKe34TRlw6PmJnpFN0fTB+7EYw4TI9DAA6I?=
- =?us-ascii?Q?gTLWzMqJ4/6rG3aU/O4hPB6740wgeYxD24t/HCs0211LKm7ju7GbdbpJkrBN?=
- =?us-ascii?Q?+A3kCL+lkok7dgvSuYomzxteyHTBuwoSDiOfg4raefFTxvUUPWTf4MAproXa?=
- =?us-ascii?Q?urDP8qvA9CZI8o2RZiFa92wYs/rdulpnf6WMSm1hBJuVRkRrkdWTqgg2cG+g?=
- =?us-ascii?Q?2uK2vQsYfyPoDLOaelbvkGen9x3CprP+xSpHbFp84Ro6It+Co2t3hytzG/TZ?=
- =?us-ascii?Q?+XXy3uMwGK+rg7baiAe+4QeqpB6iLRazvtiso5zxD0RgmriLGe7bHXPOpLp5?=
- =?us-ascii?Q?kM0F8xVKrXtkRWA+1YrRvCoKosiLjA7mv1JwmHHpTdBUkR5sZtudrTOxtUKN?=
- =?us-ascii?Q?gvFQFXWd+CuNtFjiwOc5MCikO8ojBhlzL29AqiCO8q9ECL3/rOoygZxLIZUy?=
- =?us-ascii?Q?RdmWnvXz0hWGsYhwPipYf6aUq/zRjEjGY7hweU9Ndk0ZazM6Tpuj0qUpbqxq?=
- =?us-ascii?Q?D6wuziHzdrS1jPYJwReHtt7Pk9Xip5Z+//+rH+yziB+MO3fQrE3dNfWdrgJW?=
- =?us-ascii?Q?mZkQSCkywcSeeDY5kuRiYYGHDNR0jhZR3aOjeSvzezsIUGKXj6E+JRf6BX7I?=
- =?us-ascii?Q?xeGKU/QHAIp31vOreYoCaXd0E1o84DEQXBX63gh3/wMGd+VstE26tkK7krff?=
- =?us-ascii?Q?eKtCGd6dWFWFh1ojRm/+rksNjUwqC2OjJQzpxVXUIYi2m5PLZlllnMZEVzt4?=
- =?us-ascii?Q?7wP39rMy0omGCZEbBjNta5LFeFm+n2T4gjPMYR6lj4JgDPXx5pNU/QJEiZdP?=
- =?us-ascii?Q?9oORKof3HoD1jnw1Gk8dTYHBKkFEg76Ny/o6FGWLoBrCD3wo9F0pnLuaPbJu?=
- =?us-ascii?Q?wEprF4f2jXCFbFAPdd+y67yC9huhxlUT7uDlJ2I7y6ZrcKAKSCLdwlTl7hfb?=
- =?us-ascii?Q?6paE+E3fsKp0Btgy+8DRbgd049vaJktdyZLcntec2e1i7VdIJThLNlyrFhxT?=
- =?us-ascii?Q?VB14n80ft2O2BAynH/QBJdOTRzWmfAOCU6PPjZZsBR0RMGPgRrR2vBzsG45k?=
- =?us-ascii?Q?bvPinHNkabddC8j/Fq4TNEND30vg//+YnwcPRCwy41OcE3wEOBdFDftmlUo4?=
- =?us-ascii?Q?oEYeOEMtqNW36OVhyIMtyEIVzztQVyLNL2wpOImyuZfdBKogZg=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4842331d-b33d-412f-72c0-08df2d373c88
-X-MS-Exchange-CrossTenant-AuthSource: CH5PR19MB997156.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2026 16:45:37.3662
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR19MB9514
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] watchdog: allow WATCHDOG_PRETIMEOUT_GOV_SEL=y
+To: Dmitry Voytik <voytikd@gmail.com>
+Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>
+References: <20261004213755.554191-1-voytikd@gmail.com>
+ <e7c99dc5-dfa4-4ce7-b7da-a3a70a2710a8@roeck-us.net>
+ <CAAX90H0qGF-H8BYcmT_vbUGoqN9RbfeGxMdTTRyQPK_h8MzFhA@mail.gmail.com>
+ <053269a6-41ab-41eb-8756-b6a04eea2e5a@roeck-us.net>
+ <CAAX90H1-tzrH6hwHHrvfQi2e-TXQKmgNy0Lj2TXG7yDbKYy3Og@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CAAX90H1-tzrH6hwHHrvfQi2e-TXQKmgNy0Lj2TXG7yDbKYy3Og@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-A PCAN-USB FD v2 running firmware 3.2.0 sends a 16-byte status
-record followed by a four-byte zero-size end marker. These transfers
-cause repeated receive-buffer dumps while the interface is up.
+On 10/17/26 15:27, Dmitry Voytik wrote:
+> On Sat, Oct 17, 2026 at 11:42 PM Guenter Roeck <linux@roeck-us.net> wrote:
+>>
+>> On 10/17/26 08:59, Dmitry Voytik wrote:
+>>> Hi Guenter,
+>>>
+>>> Thanks for reviewing the patch!
+>>>
+>>> On Fri, Oct 16, 2026 at 8:21 PM Guenter Roeck <linux@roeck-us.net> wrote:
+>>>>
+>>>> On 10/4/26 14:37, Dmitry Voytik wrote:
+>>>>> Fix the issue when WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =y,
+>>>>> and always is =m.
+>>>>>
+>>>>> The issues can be reproduced with the following steps:
+>>>>>         make mrproper
+>>>>>         make defconfig
+>>>>>         ./scripts/config \
+>>>>>           -e WATCHDOG_CORE \
+>>>>>           -e WATCHDOG_PRETIMEOUT_GOV \
+>>>>>           -e WATCHDOG_PRETIMEOUT_GOV_SEL \
+>>>>>           --refresh
+>>>>>         make olddefconfig
+>>>>>         make mod2yesconfig
+>>>>>
+>>>>>         grep '=m$' .config
+>>>>> returns only CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL as module:
+>>>>>         CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL=m
+>>>>>
+>>>>> "make menuconfig" doesn't let it to be switched from =m to =y either.
+>>>>>
+>>>>
+>>>> This does not explain what the problem actually is that is supposed
+>>>> to be solved with this patch. Since this is just a selector used to
+>>>> enable other configurations, and the configuration option does not
+>>>> result in any packages built, "WATCHDOG_PRETIMEOUT_GOV_SEL can't be
+>>>> set to =y" on its own is not a problem.
+>>>
+>>> The issue is that
+>>>     make mod2yesconfig
+>>> doesn't work as expected. Help says "Change answers from mod to yes if
+>>> possible".
+>>
+>> This does say "If possible".
+>>
+>>> I might have misunderstood it, but I thought all configs should be =y
+>>> for this make target.
+>>>
+>>
+>> $ make allmodconfig
+>> $ make mod2yesconfig
+>> $ grep =m .config | wc -l
+>> 51
+>>
+>> Not really.
+>>
+>>> Maybe a dumb question, but why does only this config have " default m"
+>>> and others use
+>>> "default WATCHDOG_CORE"? Does it have some special meaning with "default m"?
+>>>
+>>
+>> Again, this configuration option is only used to set the (default) value
+>> for the watchdog pretimeout governor, and the "=m" states that the default
+>> should be WATCHDOG_PRETIMEOUT_GOV_PANIC=m, not =WATCHDOG_CORE.
+> 
+> This doesn't explain why it's =m by default.
+> 
+>>> I want to have no modules and still not disable the module load
+>>> ability, and it annoys me
+>>> that some configs don't allow "=y" :-) otherwise when I do
+>>>    grep '=m$' .config
+>>> I need to remember that CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL is a special case.
+>>>
+>>> FYI, for Arch Linux based config, only
+>>> CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL pops up with =m.
+>>> A fix for the same issue with CONFIG_TDX_HOST_SERVICES seems to be accepted:
+>>> https://lore.kernel.org/lkml/as04AoNxjzlvh-K8@thinkstation/
+>> You are comparing apples with oranges. That commit states:
+>>
+>>     Fix the issue when the driver always gets compiled as a module.
+>>
+>> There is no module that can or will be compiled based on
+>> WATCHDOG_PRETIMEOUT_GOV_SEL.
+> 
+> Sure, I understand that. What is the semantic meaning of making it by
+> default =m? And why can't I make it =y?
+> I understand the build artifacts are the same, but I'm curious why =m?
+> Why WATCHDOG_PRETIMEOUT_GOV_PANIC is not =m by default?
+> Thanks for the explanation in advance!
+> 
 
-pcan_usb_fd_decode_buf() requires a complete 12-byte struct pucan_msg
-before checking the size field, so it rejects the end marker with
--EBADMSG.
+The idea is to build WATCHDOG_PRETIMEOUT_GOV_PANIC as module
+by default. There is no "why" to answer. Why build anything as module
+by default ? Are you going to question all those 478 default=m
+configurations in the kernel ?
 
-Check that the size field is present before testing for an end marker.
-Require the full header for nonzero-size records and keep the remaining
-record and payload length checks.
+You still do not explain what actual problem you are trying to fix,
+except that WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =y, which is
+not a problem. The only problem I can see is that you don't like it,
+which is not a reason for making any changes.
 
-Fixes: 93fcab2c6968 ("can: peak_usb: validate uCAN receive record lengths")
-Assisted-by: LLM
-Signed-off-by: Liu Changjie <liucj1228@outlook.com>
----
-Built and tested the original and patched peak_usb modules on Arch
-Linux 7.2.11-arch1-1 with matching kernel headers.
+Guenter
 
-  - Classic CAN, 500 kbit/s: 25 decoder errors in 5 s before the fix;
-    none in 15 s after.
-  - CAN FD, 500 kbit/s nominal and 2 Mbit/s data: 26 decoder errors
-    in 5 s before the fix; none in 60 s after.
-  - Three additional down/up cycles: no decoder errors.
-
-USB captures during the patched tests contained 406 packets with
-short end markers. Neither receive-buffer dump recurred.
-
-The CAN bus was disconnected; external TX/RX was not tested.
-One startup "can_change_state: oops, state did not change" message and
-an RX dropped count reaching 2 were observed during the patched tests.
-Their causes remain undetermined.
-
- drivers/net/can/usb/peak_usb/pcan_usb_fd.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-index 0d46f4c..39f0740 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_fd.c
-@@ -755,7 +755,7 @@ static int pcan_usb_fd_decode_buf(struct peak_usb_device *dev, struct urb *urb)
- 		u16 rx_msg_type, rx_msg_size;
- 		size_t rx_msg_min_size;
- 
--		if (msg_end - msg_ptr < sizeof(*rx_msg)) {
-+		if (msg_end - msg_ptr < sizeof(rx_msg->size)) {
- 			err = -EBADMSG;
- 			break;
- 		}
-@@ -766,6 +766,11 @@ static int pcan_usb_fd_decode_buf(struct peak_usb_device *dev, struct urb *urb)
- 			break;
- 		}
- 
-+		if (msg_end - msg_ptr < sizeof(*rx_msg)) {
-+			err = -EBADMSG;
-+			break;
-+		}
-+
- 		rx_msg_size = le16_to_cpu(rx_msg->size);
- 		rx_msg_type = le16_to_cpu(rx_msg->type);
- 
