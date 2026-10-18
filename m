@@ -1,80 +1,74 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B063D6479
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5707944471C
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:27:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792315597; cv=none; b=hHRHF/4UgxWPiZl92uzobYDAMuNm17OLMK6yHwJeeke4UVMSRcIVVMzdZYk4si/9JbBG9RWE/gVwVzl0VUdt8MnEmMOZLK4mQsXNShh49xVGkWqVZs8NnSrJSrW3X5BQkGHJqy8RaPEYVPWKuF1KgeY3v1nfPrKabi1sSZHbhlA=
+	t=1792315631; cv=none; b=PshuN/pVBHKCUwA92Yas1F4uudiSf7e5944LhbWIdeKOYSwhTDDDuWFalzbxlgmP1ta9qUkE7VNp7duDk52FBnQOgh4jnFTAHrI5y3OmI1QAw2RGSxFHakHc/qVa8m9VLlHUwlocaXs9JeV00IuNuw2dhOyLe9bc+bAK13xv9vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792315597; c=relaxed/simple;
-	bh=sqARz4DDY1N+PlAJEiB0r03j6B9CK5WMxtFBbcAoFe4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UpoUwKrk/sBEEiXcOIZWj6s6aBSld/XtbtcZh7NVIQjPYS4om6/bKhBgwcb71VjsaxOJMrIKb/GT87ANWy/SzRhsmR0o+ZrEuy+b6d92hgSw7LUVPua63Gw1nlCBhrYpHcOviT5DiVkNbyh9g+ZM3OdfCarqf13I+vdSt/j6SOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AYqfs6pL; arc=none smtp.client-ip=209.85.222.178
+	s=arc-20240116; t=1792315631; c=relaxed/simple;
+	bh=Wsa1/xhWCYq2/IBwiWNMt2tj93MBzhsZUygXRpg69xM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TkXaio/afCO0crU4nl2aaHZXBcX4ojQvWWo74F0gKUgQm/kxzx1QGC2gz65lXwJQw+0/TaJuE2xExgLr2x7if03OXWY8cednoOdH5tDGVzmZ9cfajk0ecK212JenTThkt9H2YrVWmc20LaGwbQgsoWanM79ksP10+edwa3MI/uU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OswCbOGe; arc=none smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AYqfs6pL"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f269e335eso178886685a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:26:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OswCbOGe"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2720398eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:27:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792315595; x=1792920395; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792315629; x=1792920429; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XkDhS0lrLqY3csnPxpMgprHIENPXU4BhnWQmwT8yNMw=;
-        b=AYqfs6pL2YQIbd2gCLPZD7kI2o7Z4DdOcxcBl+8zihBnMBZPSZHJend/UvEY5x11wq
-         eg7/+hORMoIT92/fQ99/h5CNn22YtV0pbJskz6/58rSHFvy1rHha/RQYTG6vTEqWQJl3
-         K5mbZatbuZZRFwiY5oL8Gd7NVXbFrj8Qmms4oU6vCJXaiBn80VVX5sclo24vB7Macq62
-         ISU1MCJxCL3kbqIqPMk+a+YANhcqV8P5OmiDKWtKYaTt0hTSFaDMvXr8MizXGZEBOzTQ
-         7uM5eaCItSP6sO7CkTX38LqVRh9e/A3mD/grMbDc05F5WaHizmxSF89vSMQlOGNlMGZQ
-         HEBg==
+        bh=r6jUk0an0lKrrWdJXHLKdAJiipusBLjsQVAGLXI1SyU=;
+        b=OswCbOGebAXOE0BXT6s3sSs9jG5CeVPtdhDl+In4WVjxQnSB2x/WbZAhAErapj/Iv1
+         zKOaxXnKtzRiT8fApkRmVTy3usTJSemlGQw/vmrgbxI5IEkoMOEX0WPI84XU8BCe/rpl
+         C1oqQc4dbpT+f3qR6O8CX9vDaMQenmy3JJRYu8YC5NAjZehdGwhyfBqHs3kaT4yXSeLo
+         Lzz0tGbSbxjvWvjZHN//inaVp9xXhWSrsSGEjdiIeMDuSWyfenXEh2pwjT9NRR02/54Y
+         4yvTo90G0osjYnDc3JiUpgUDyLQRT+lapu1+CKD1RUaXJeyBHLNQ6LYXG2Vtj9TBMBsG
+         jqhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792315595; x=1792920395;
+        d=1e100.net; s=20260707; t=1792315629; x=1792920429;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XkDhS0lrLqY3csnPxpMgprHIENPXU4BhnWQmwT8yNMw=;
-        b=kiV6okn2pdgqIcGDMr0FydTMfQ6JG/2PGJd3jlegMDjsL2wqBAATqkd+mhSHekB8Sr
-         B0oiOiqk0ghJ/cGwuP/yUS2Qp5n54o8lUMQjAWZ9y4tNAwcSg23X2IzZIZhWht9aN6rj
-         Yu/MyzvbeBgaUZE+na8Z2rhx5chE/fFh+WjbIoUM/jRthmy4i29++5Shc9U92hSyHf4M
-         w7LpTZ+eRlEfUKvRwj+oY8OYxVa9HLZ4talZuH5rBGXr4VWvBOfQFMVAAmSWcxVDHeLS
-         9lPiuVJUQP6oKNxuD5gdCHoLh3oyzULYdaF8J8pz258St+83WXtsVNHEqU3g+ijtQC4Z
-         OdtA==
-X-Forwarded-Encrypted: i=1; AKwUvBxvG9suM9VOf6c63f03+4WiR9qwk/ZF/5TarFF/vp11Dn+ijZk1pJxzAPDbWBWuC5WKWKxM4Knhnrc7nxs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIisVw8DxLkK55o/T9bQuUAQNX38FCViodxLspQJWo7teowEDlG
-	xCiupQzOFADCxMSsZlGsrWwS2T4RILTxnr0b8E6CDACUTYahCY85eK/T
-X-Gm-Gg: AYBFou0C1oSb6otSc+zAFWJknRxk6SloB6CdPlSw/62a9UrujPvsXrO5Cdro2X9JWDv
-	Qq2esSZBXR/n9HNorM9TtGbey+CSNYNr152u4mUmz0KBaIy368kmw4zQDU/66RqB9QgUCOfgXec
-	AuuJjsfsPN0ka/j5dYlXNw7gYn6N12J/+/eGjLwzOie/7xaZzaAAsyesAItsMWTNSpLm70zgcPX
-	zgXof+xnee3Q+CW7FeXpUT/G8NHBLLhmGq2BmBRadTsH2dXlMvngo0yjgbM+H3WfhLJ+hxYmOdu
-	a967hw7LRhJJD/0VSElsM90renXYAwuMoamZg5U7bBel+K6zYMQlpK3qcuCjkNt7LvBjWiHz9Fy
-	1TjSON0XKOPcFCh0k6SkoN5Slk/wUEgC3LA4eUhIgnNapdh4cl/6ZNGQx4Kl3sORTeNoPrtStce
-	TsNMAZ35LPe1MLf3eJas0mWpdt8PDduGD+42Ddq6ONRR5ebz3uvrNGy+J9b3G+OYoSpU2L
-X-Received: by 2002:a05:620a:c47:b0:93e:bdeb:f067 with SMTP id af79cd13be357-93f29d5a24bmr780953485a.48.1792315594891;
-        Sun, 18 Oct 2026 02:26:34 -0700 (PDT)
-Received: from localhost ([103.41.177.23])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a197c21sm655123385a.31.2026.10.18.02.26.34
+        bh=r6jUk0an0lKrrWdJXHLKdAJiipusBLjsQVAGLXI1SyU=;
+        b=ZG2cw3lIhYPga+S0CkC72vb2VvqimGWrbtYIhzxrPzZv/VtRMD1KtbKCdxRLuxoeNn
+         5vtxde7L+Zj1aly0VyYHUmOops/3Vz8+Dl3CJ04y9tpP94acIjhiHRe9ZaEb0OBR588F
+         c2m7Jxqp1UqCtf56/u8qs4jE6+mxEd5j8QtguG5oAxi2uf2dp56S36stzsfkBDgJuWag
+         czQyoa5J94ZFEiaJCoc57KrEei+M2rhUtPo3YVshNGL3iNSCI0EZ+mw7pg+RZTreV8qt
+         MmE+/DtH5N5LIv/mKmGLwLCWHR5fAW6gEun4t8ql9dBSGcJLsTZMoWO8u0SQfbGfTRkL
+         l2CA==
+X-Forwarded-Encrypted: i=1; AKwUvBxt7dZkr8DEZhaSESTBqlMwZaOcvMknsSBn72KygM70B+SbMoN/ZAuD7XrrF6ioJjPkPY6TPEPYbJ42qKk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbNJkkAgjO8E/km0daj6pWrYRMHUHCWKaCshfooZ57mAlXJzEd
+	BF6aUGEGtSiYb+O7VthuhLjitQnweWaiCq1/fd13vWM62jjpPXZo2bThzRZJUzyD
+X-Gm-Gg: AYBFou2m4FlX+erlkqBc9iW2BxcSAQs3yDI9I4Mskfhz6YFcZGccWAzM5aL/2sib4bi
+	3e3k/PlVOFNb+B/WZe2TgzVtsvPzbmSz9QNZdE6SkGeQitGSypFXXBgi+BfxvWeOCoELSB16VMx
+	aN43HKhx24hI/87GSrcUszg9kFKvSp5wwEdShNo6gDCk2Ki9LZwMyJK/i2AxySiykk2Vid8S/rn
+	0l4qi7UYEEUmJPyubzQWoKe9BW3RKfqD6PSbgii8IuVRHU2JLgT4Eul+xZD7Z72j9cXWdxTBaK5
+	rG/rEjurhC55tXHMkyubqPo9RR5lQCSUfiW0AFtFuvKmDLZXjKJhWjZFPVtDUmgdKeEwYzbstmu
+	JcqPdvyzJByijnu3OBsuJ8KefSxoai6FASnuCxE1YTtvHXpwx21qcgWg8lffjsw0jl84gXXV96J
+	ZP5k/cjKWKtpwbnOSUQJ2qjJbRCs+TyNERQrKiWm2Wdnwg/Q/4fMkf+8uix8Y/vRBe+L+115S5Y
+	cM6W6kapmera2xV1Q==
+X-Received: by 2002:a05:7301:b13:b0:360:dfac:6817 with SMTP id 5a478bee46e88-361a18632fdmr6512862eec.18.1792315629172;
+        Sun, 18 Oct 2026 02:27:09 -0700 (PDT)
+Received: from himanshubakshi ([2401:4900:1c2c:5bac:6f4f:b477:6604:1f68])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360826875b3sm23637101eec.21.2026.10.18.02.27.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 02:26:34 -0700 (PDT)
-From: Eduard Zateev <hackerowskiy@gmail.com>
-To: bpf@vger.kernel.org
-Cc: Eduard Zateev <hackerowskiy@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next] libbpf: Prefer mounted tracefs over debugfs
-Date: Sun, 18 Oct 2026 11:26:29 +0200
-Message-ID: <20261018092629.585046-1-hackerowskiy@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sun, 18 Oct 2026 02:27:07 -0700 (PDT)
+From: himanshu bakshi <himanshu.bakshi478@gmail.com>
+To: sudipm.mukherjee@gmail.com,
+	teddy.wang@siliconmotion.com
+Cc: gregkh@linuxfoundation.org,
+	linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	himanshu bakshi <himanshu.bakshi478@gmail.com>
+Subject: [PATCH] staging: sm750fb: Simplify M2XCLK divisor encoding
+Date: Sun, 18 Oct 2026 14:56:51 +0530
+Message-ID: <20261018092651.49924-1-himanshu.bakshi478@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,72 +77,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The tracefs path helpers look up /sys/kernel/debug/tracing first, even
-when tracefs is already mounted at /sys/kernel/tracing. This can trigger
-an unnecessary legacy tracefs mount and selects a path beneath debugfs,
-which is commonly restricted.
+Replace the switch statement with a macro to encode the M2XCLK
+divisor in the corresponding register bits.
 
-Prefer the direct tracefs mount when statfs() reports TRACEFS_MAGIC.
-Checking the filesystem type avoids selecting an existing but unmounted
-sysfs mountpoint. Preserve the existing debugfs fallback and the default
-tracefs path when neither location is available.
+This is my first Linux kernel patch.
 
-Fixes: a1ac9fd6c650 ("libbpf: fallback to tracefs mount point if debugfs is not mounted")
-Closes: https://github.com/libbpf/libbpf/issues/966
-Assisted-by: LLM
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+Signed-off-by: himanshu bakshi <himanshu.bakshi478@gmail.com>
 ---
+ drivers/staging/sm750fb/ddk750_chip.c | 18 +++---------------
+ drivers/staging/sm750fb/ddk750_reg.h  |  5 +----
+ 2 files changed, 4 insertions(+), 19 deletions(-)
 
-Validation on Fedora 44 (aarch64):
-- Built static and shared libbpf with the default warning settings.
-- Exercised all five path helpers using wrapped syscalls for both mounts,
-  tracefs only, debugfs only, an unmounted tracefs directory, and neither
-  path available. The original code fails the both-mounts scenario.
-- Confirmed the direct tracefs paths on the host's mounted tracefs.
-Privileged BPF attach/mount tests were not run.
-
- tools/lib/bpf/libbpf.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-index cb09ded90..9db0a8bde 100644
---- a/tools/lib/bpf/libbpf.c
-+++ b/tools/lib/bpf/libbpf.c
-@@ -59,6 +59,10 @@
- #define BPF_FS_MAGIC		0xcafe4a11
- #endif
+diff --git a/drivers/staging/sm750fb/ddk750_chip.c b/drivers/staging/sm750fb/ddk750_chip.c
+index aa78d0bc1..2cb849dea 100644
+--- a/drivers/staging/sm750fb/ddk750_chip.c
++++ b/drivers/staging/sm750fb/ddk750_chip.c
+@@ -109,21 +109,9 @@ static void set_memory_clock(unsigned int frequency)
  
-+#ifndef TRACEFS_MAGIC
-+#define TRACEFS_MAGIC		0x74726163
-+#endif
-+
- #define MAX_EVENT_NAME_LEN	64
+ 	/* Set the corresponding divisor in the register. */
+ 	reg = peek32(CURRENT_GATE) & ~CURRENT_GATE_M2XCLK_MASK;
+-	switch (divisor) {
+-	default:
+-	case 1:
+-		reg |= CURRENT_GATE_M2XCLK_DIV_1;
+-		break;
+-	case 2:
+-		reg |= CURRENT_GATE_M2XCLK_DIV_2;
+-		break;
+-	case 3:
+-		reg |= CURRENT_GATE_M2XCLK_DIV_3;
+-		break;
+-	case 4:
+-		reg |= CURRENT_GATE_M2XCLK_DIV_4;
+-		break;
+-	}
++	if (divisor == 0 || divisor > 4)
++		divisor = 1;
++	reg |= CURRENT_GATE_M2XCLK_DIV(divisor);
  
- #define BPF_FS_DEFAULT_PATH "/sys/fs/bpf"
-@@ -12713,12 +12717,17 @@ static int append_to_file(const char *file, const char *fmt, ...)
- 
- static bool use_debugfs(void)
- {
--	static int has_debugfs = -1;
-+	static int needs_debugfs = -1;
-+	struct statfs st_fs;
- 
--	if (has_debugfs < 0)
--		has_debugfs = faccessat(AT_FDCWD, DEBUGFS, F_OK, AT_EACCESS) == 0;
-+	if (needs_debugfs < 0) {
-+		if (statfs(TRACEFS, &st_fs) == 0 && st_fs.f_type == TRACEFS_MAGIC)
-+			needs_debugfs = 0;
-+		else
-+			needs_debugfs = faccessat(AT_FDCWD, DEBUGFS, F_OK, AT_EACCESS) == 0;
-+	}
- 
--	return has_debugfs == 1;
-+	return needs_debugfs == 1;
+ 	sm750_set_current_gate(reg);
  }
- 
- static const char *tracefs_path(void)
-
-base-commit: a6303535c2ad9d49598d52556183911f02287791
+diff --git a/drivers/staging/sm750fb/ddk750_reg.h b/drivers/staging/sm750fb/ddk750_reg.h
+index fe412ead7..b796e32ab 100644
+--- a/drivers/staging/sm750fb/ddk750_reg.h
++++ b/drivers/staging/sm750fb/ddk750_reg.h
+@@ -312,10 +312,7 @@
+     #define CURRENT_GATE_M2XCLK_112MHZ                (0x2 << 12)
+     #define CURRENT_GATE_M2XCLK_84MHZ                 (0x3 << 12)
+ #else
+-    #define CURRENT_GATE_M2XCLK_DIV_1                 (0x0 << 12)
+-    #define CURRENT_GATE_M2XCLK_DIV_2                 (0x1 << 12)
+-    #define CURRENT_GATE_M2XCLK_DIV_3                 (0x2 << 12)
+-    #define CURRENT_GATE_M2XCLK_DIV_4                 (0x3 << 12)
++    #define CURRENT_GATE_M2XCLK_DIV(divisor)          (((divisor) - 1) << 12)
+ #endif
+ #define CURRENT_GATE_VGA                              BIT(10)
+ #define CURRENT_GATE_PWM                              BIT(9)
 -- 
-2.55.0
+2.56.0
 
