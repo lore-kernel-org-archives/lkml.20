@@ -1,58 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E362E2F745D;
-	Sun, 18 Oct 2026 10:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1E93D75D7
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792318165; cv=none; b=FlNPkgXTBG6gsAtuxHSvAyo0K/mnNrg4cGs4txMZ2jt9T1EJ1MplPgXfZwArNIK2XMIMosTAW6xHa6oP75hRI1VIQRUI/zc8nMqOQgYB9iYFAI8QEuRx4/qw3pHFwEwjdrHjreFXK2vemXGjV5FgwYpkjUwCcFIvz5/8Y2K9PX8=
+	t=1792318358; cv=none; b=ZvIj9X7tyWJu5wiBGUrPSJ3RZN6gRuUHXJx+wkQh3xj0z437VRSyTKsBwZCDo/YOxTxoYlsU1R5iDp/G5fn19heVUy2xwBz9k1NkJkr0eJLkOytqqFZ9WNvJXbM9Gb0WP7iV/g0e8hhtahamuWSIRSW/BB0LoinJW64T7sjLTxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792318165; c=relaxed/simple;
-	bh=f5LfeOOR+T+AJ9JCbpP5ObMTllY+dxdUVy7vwtRdYzo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XXdItocac0+jRyOuFYCcveKQa+02ozfYy7dbJcB1Tw95oXesdk+RkKcpqUHQ/qVzdtXJ1bQn9ncShmbn2cOQIc5TFwRKarvAMHrVLS9waw/VJUmvIiKi6AbIOS+PygrvAyfUQYzMCkF8QP1yS9nU6BfDoimLg4KO9w4yf9SVGUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UD8TMk98; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792318358; c=relaxed/simple;
+	bh=vYij15bCwlFcLFRf/ENZgrFgL1x2lTA/ql4e8grew8M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a3Pm9BWs8gwXTsPIDzGYpKK856DQqHBzkmILsfHBdBkF6gSpm8hpkUu25bXBBhsNPiGoyChk36ZDCdXujBrASb+TyuqlP7PfHVPECucNUnciFJEDbTNAQicj3c8dC+tmGH86++M8iicmLRrcEgdIC3VCfqeM8G7GmpgyxyQZzyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kw3SeibA; arc=none smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UD8TMk98"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131801F000C4;
-	Sun, 18 Oct 2026 10:09:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792318159;
-	bh=5aWf32wcpf9vmrl4EC28Fl01gzRwMBwB7dBfgd5BTC4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UD8TMk98m1XgQb6VJKpMshy6kzEFYey8Q6ie6xeqHU4NwteMDdHBsW7dYNoR0SE3Z
-	 TfNXOFQQLVyvmNOQABv3pkMJS+xalY4q+aJVSwDVRe36lL8BqycTva3sxzZxLaiMiD
-	 D5IVrSepOOMM5rEFFo5UA6YBLWefm5W6NdTT6Eny3cdnL43yBPREpnQgmlGHHcQRSi
-	 whX4rRpnbCOCuA53cRu1zQ98l8dJ/1j893tcEg40cnTx2gpD0zpX0Abh/BQfV3kpDn
-	 0y3ggLDDBC5z76L/hBvlS1SSPCj/X0CDYeUkbp200U7SX0Kc6pyYqbTqqzeeFw3mHB
-	 kwcCjbsP3cCSQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 7.2 00/10] 7.2.12-rc1 review
-Date: Sun, 18 Oct 2026 12:09:08 +0200
-Message-ID: <20261018100908.50076-1-ojeda@kernel.org>
-In-Reply-To: <20261017155059.698368299@linuxfoundation.org>
-References: <20261017155059.698368299@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kw3SeibA"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3514b90bb89so3094876eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:12:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792318355; x=1792923155; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=djGSWMOqw6nAnZwCAbuBdUV5LRPyHSJU7HJCLAv77/Q=;
+        b=kw3SeibA4HzDszafNh6NaILFO0+YKyUo8xA4FZVqA9Z0I65KFkUue2X2+n6VP8Ck4h
+         Ha3xhsgjLpCTsEdnxbVks0dmmaYQmm1SFwQANWNtMj08Y0kKWzrzVp6/lLZzpMUiOXaq
+         qu6OQf/CRuG4hbBGw2bxq0j8LU7ljJlnz7jimEnVKFlfI6QZvEaubvdLKjn6s+Cw5GvQ
+         ScAKy78ayNLkAAj1QGWwZ0jWNuI+L5FpZp1JNDPG4mW7dHiWfvQ6AX7D5wnz7Z6VNZ8H
+         zmNDTrrvjJ12JF/jHISwLXb8GLfUSILPtSaYsqCAhG7sevsqxY6pvWRI3ICjvtz+DaHV
+         lJGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792318355; x=1792923155;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=djGSWMOqw6nAnZwCAbuBdUV5LRPyHSJU7HJCLAv77/Q=;
+        b=hlQbl2zk9o3MQEvDYmZ8rGhGois3lvh0zw12Mu69lIic19NrbE5gwUZdUcoIxB8u/6
+         RnSbGd6LOqNsxdbi8AO4QEhuNqnModuVjmKW2tBRQWy7eLT3DVrMLrC91ngsXRGodoe6
+         x1FXsOj1hYK+89PBJmolX4I5rsv32C7hhzemKuOcu2Z4GIVhhkQ9NfltaffDinfFbJQX
+         HG/amDVOuFPTlEOTNjGzJQSswlFQXo0g/L2YUWfpmYApcam239wnxS14o7Cle4ecf/hV
+         GdmgFoOX/Vb4v8gRN/49qsSOBMSVEfEK8YlspN/UbyoMz/lrejM9NinXtomSoDHMPUik
+         A2fg==
+X-Gm-Message-State: AFq9FYKeXC9AZACkPr4OLwLVQsy+d71ape7s7VNLo1CtNftlnYE1ijYh
+	6Y5aGzZ6r/h4Xqtf0uLnVJECIX3/O9hnRGdezXV9o57IlfYn2o9+VXPdusZrPjGF
+X-Gm-Gg: AYBFou2imj1iYGDqWMyoRPxn6VUEvO74o5ooa8h95b2twfl3X+MPNxzG1gRJrpWNhxV
+	nrjiPBt32zZZ1Cap2udcv0k6iB7C1d01UjCEcixcc6amLOE87Bn/cncwydvft1mnMBqhCu+MbAk
+	9fiVPCRV2URiangn1KBmLF+beUiKZmmcNV6IKywk3uEz48SZgrtMv5LMGwkksImsOcSqsv7VS8d
+	AaYOqiFnhBisb03yqXFOF15IyFF6iLUfNl2om2P5Mnms6D/ERsThccUUpg81zhD79IcYENlDHzS
+	6St+c1yl18MYxf8UrF2g3QfX+Jki4frbyGUVxj7/q1cv1lEc6VjTBRkqAAvhUPAf4IKy5Z+tCm/
+	nf507wDrORsMY5smUcmahgbqy+vkpaFu2cF7UIEFjvlL/hcUiQ16fNU7t0wSMLBinhTtYKBZ5xW
+	4QPuSV9mvOY2SSU8wFpqQSAubS2ZsctSUSRK1IDqdSDKndJNQ9X3yVtPhrNrOCnTFs6eEp9rhAp
+	uI+UmEG/QldZT0vH80zxVcsY7TTAHYMsU8frJBxuA==
+X-Received: by 2002:a05:7022:b050:b0:184:329d:eced with SMTP id a92af1059eb24-1851267070bmr6875108c88.25.1792318354631;
+        Sun, 18 Oct 2026 03:12:34 -0700 (PDT)
+Received: from Biostar-A520MT.. ([187.94.15.112])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b37ce3fsm17967876c88.14.2026.10.18.03.12.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 03:12:34 -0700 (PDT)
+From: Breno Rodrigues Alves <breno3011alves@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: Andy Whitcroft <apw@canonical.com>,
+	Joe Perches <joe@perches.com>,
+	Dwaipayan Ray <dwaipayanray1@gmail.com>,
+	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+	Breno Rodrigues Alves <breno3011alves@gmail.com>
+Subject: [RFC PATCH 0/4] scripts: convert four small Perl utilities to Python
+Date: Sun, 18 Oct 2026 07:12:23 -0300
+Message-ID: <20261018101227.7680-1-breno3011alves@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,25 +75,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sat, 17 Oct 2026 17:54:29 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.12 release.
-> There are 10 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
-> Anything received after that time might be too late.
+This series converts four small Perl utilities in scripts/ to
+Python 3, following the precedent of kernel-doc.py, spdxcheck.py,
+checkkconfigsymbols.py, and bpf_doc.py.
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+Each conversion is a faithful 1:1 port: same CLI, same output,
+same behavior (including pre-existing bugs, documented in the
+individual commit messages). All use only the Python standard
+library.
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+The four scripts are:
+  - bootgraph.pl          -> bootgraph.py          (SVG boot timeline)
+  - checkincludes.pl      -> checkincludes.py      (duplicate #include finder)
+  - markup_oops.pl        -> markup_oops.py        (oops annotation)
+  - profile2linkerlist.pl -> profile2linkerlist.py (readprofile to linker list)
 
-I see some `objtool` warnings with Rust nightly (there was a change
-upstream to `core`), so I will send a patch to mainline as usual.
+Tested by running the Perl and Python versions side by side on
+the same input; output is byte-for-byte identical for the three
+scripts that have verifiable output (bootgraph, checkincludes,
+profile2linkerlist). markup_oops requires a live oops and
+matching vmlinux to fully test.
 
-Thanks!
+Breno Rodrigues Alves (4):
+  scripts: convert bootgraph.pl to Python
+  scripts: convert checkincludes.pl to Python
+  scripts: convert markup_oops.pl to Python
+  scripts: convert profile2linkerlist.pl to Python
 
-Cheers,
-Miguel
+-- 
+2.43.0
