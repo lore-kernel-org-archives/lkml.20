@@ -1,131 +1,102 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49205.qiye.163.com (mail-m49205.qiye.163.com [45.254.49.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C30312AAF1
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E5B35E94E;
+	Sun, 18 Oct 2026 15:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792335576; cv=none; b=EUOFD0PC/yS6ZPqMLsWs8kbX83g91OCgyX4/xTkviI5zMWxUezNXVBs9cAgIjNdapJxsuu8QnDmRzBYuem5/9qNwBLFGay/uyGH6tenCZFcusrQl7KDpqnoNLv2Pb7XT/EF1pHMrO/gyuecqx6rP+SQV6UB/dK3uGmDCztJdr7w=
+	t=1792335674; cv=none; b=O0Rt3R/UL/cN+IFPbNhOIJbqm9Ieaw3bIrhhTnU956I3ayAya+tQhjAzE8ie5t1adPvU2YtWc9LM1/krz21LtkB9RMMpZ8XZvLGOcXH0LhLWN5m31nKSI5AMyLoKb7xqeeduTwbBRbrYg+95Xk63a2cNFImxj0Q7yP3yT5In22U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792335576; c=relaxed/simple;
-	bh=eAePSMguL6EqnK6uLPXhTD4oc8nXCafCbmC72gKkFhI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WEt9Jwm9sqJjCMlZaBX3ETnpTgnq+KdWTkI7S268PJWO1xxNgAIDwi18+/JDyXFEL29SjEyIjDDqJw7LtpXm949li21cTUoRAXx/SqjeBloJOCRHJO9COx5yF+pvvyPbhfd7ghpAFxsUihSGrg+T0Nb3J5M2cKAeZdUMLP02tMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bbwm2+Rc; arc=none smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792335674; c=relaxed/simple;
+	bh=srAiUMpK7y43VgCXgSSRRUSoTZXfh7Bw33q2dM+BQw0=;
+	h=Content-Type:Message-ID:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:From:Date; b=Ys/AmBA+RQtrQUuaDrJgix0xUaFPduq1UVvazBoGajF9fCvdGKhcJ3A1B9OG7x6wK9+kDN/MDdcfhh7HRTGNT/qOWazPytXyYM59V4CYy+j2FLjcY5V+8GjUZXpBkYSyLicz4Ynpd95aoYY0HWqn4vIRlV2nCLBOY9ixG+WCqTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=SOlrcv2G; arc=none smtp.client-ip=45.254.49.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bbwm2+Rc"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so379839a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:59:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792335575; x=1792940375; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f6pyy7nH+NFSMHTDEazkO6g8qtUhCZCbtKhuHMJcuO4=;
-        b=bbwm2+RcdVwwfpw5dk22GVPjbO9YwRSW0Q8XpSzJaTW7Sn/Vbh6llKlDy+wQgvkjMb
-         ltrJUITxZ4QPvyY+UssiE3m8npL0xLPfgu+oqom3l4jvTA7e4YCQyURTxHaJ3IQCYdwq
-         //26yCN3fEgwWmkD3UX7STc4XEA1p59zjSp7jZqAN+tHiPYO84A2SEum55ib8bZVcCy9
-         8mnVhUQsbun54h/qLr58d+Jbl83BYwk3oik+393m4QZL5LoC1IftWoKPTXMgZORV/Gcc
-         +VWanwWB5gyEvQUwQ8fOFqhnBiG5gSfozdps/0xsP2t1b3vg1bw9mUXTwCceGsSG+ltU
-         hjzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792335575; x=1792940375;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f6pyy7nH+NFSMHTDEazkO6g8qtUhCZCbtKhuHMJcuO4=;
-        b=Q1Qq62NDbQUtYJj1455xgWZy581hQqBKyrvLnOCsuLfPV4m68Xv/yMuwTJKRfIZ9/2
-         ZWWfWLaaaT132F2+I8/Hkf5Ylg+l1W6ZgLtt0im8spuQzREMEkBkGykhJSiFv7fspjTL
-         Lhqgpb7KtYdgr6NFHSJNfuntSqCXvbti9xiHGGN2V05H5O42IZRjRK+y6vO/pb1gHmK5
-         yJy3WD50OXdRHKPM1nD6xWYjNow9cyB6ezyIyFLgHo7VHU9rFXg8FJ8x5nLIPqgc0Y4M
-         beEWMs4ldxOLPb/Rzy7oU5Sd8xyoom0vHTnVfyZdzU17bCv67ZTqOvtaLtBx+ak03oBY
-         qoSg==
-X-Forwarded-Encrypted: i=1; AKwUvBzim1MKq7u2/cA+ZUJFs1JPj8iL3tbpbF7QUVda5NnJFk7SyfgwE6cr/IwAunLITPzUuQKXYdSlQ3HRlnY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqNunvGq7vfxOsioDqIWNWeG2doSoHuWxw2VVoKPr8KQ3MsuEq
-	JnlxnJW1g91QnLdxcODSC8zCsdw0xXkOkZis7GpfV9tPfWKcWgD2HrlU
-X-Gm-Gg: AYBFou02yrj7pODo/A+ykIgkM+lFG3XtVuHW+fHpeUqtjkBLrkxpQVFTFu+XvU1j73U
-	l/ZGaXzZq/KkAYl4B+WHDIs3DuCSg9FHhxTsCVfOJZgY5aACO8QRg1GVHP2VQiCprd3e0/6x0Jn
-	N4b9umVKZmvCbcMcoqdkKXSzwpCX7dzxXOyXTV1pJovdcExrAkKzsP67I4kLCrTpiqZyhtLYEnC
-	86IEVptQqhLlo8wkhl2461+dP15edSuNs6THyBkNyYKwOa3M8g/SeD21aNBxg8Ah8+2iKIaF/yK
-	b6NCYXU3w+6VX+GjdmKpUv45Q+oovq55J7ffh2WKXNRtilv8F3Gm867hj4ilXkP1rCilAclLIX4
-	VgjQJPB1nskr76f5+iq6EcJ+0WA72VYoGPg3PpQsfv3+efAsFWzA+KyId6/iAY8RfqASy+hxl30
-	E99mO/d6p71krI7GRebhiJ0joRDer+WAdK1qoN1ygXdplZ7svvVzumPbtH6zhJlOYKD27Hz5O/a
-	ubG8EL/
-X-Received: by 2002:a17:90a:d00f:b0:3ab:b39f:41cd with SMTP id 98e67ed59e1d1-3acef543057mr4181119a91.60.1792335574786;
-        Sun, 18 Oct 2026 07:59:34 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac1:7aa0:50::245:a2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc487cccdsm12001698a91.8.2026.10.18.07.59.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 07:59:34 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: jmaloy@redhat.com,
-	tung.quang.nguyen@est.tech,
-	netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+0017742620a9d06f06ef@syzkaller.appspotmail.com
-Subject: [PATCH] tipc: unshare skb in tipc_l2_rcv_msg() before decrypting
-Date: Sun, 18 Oct 2026 21:59:28 +0700
-Message-ID: <20261018145928.58317-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="SOlrcv2G"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Message-ID: <AHsANwCHLMchNnGgXdupaKri.3.1792334744120.Hmail.2017202219@tju.edu.cn>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSF0gYnRyZnM6IHByZXZlbnQgZGVsZXRpbmcgdGhlIHdyb25nIHN1YnZvbHVtZSBieSBJRA==?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+In-Reply-To: <2ab739b4-7d28-4914-9e37-a5c99a2f2175@suse.com>
+References: <20261018073709.1586733-1-guolingxing@tju.edu.cn> <2ab739b4-7d28-4914-9e37-a5c99a2f2175@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from 2017202219@tju.edu.cn( [2409:8d28:39:f54:403e:4083:f623:91af] ) by ajax-webmail ( [127.0.0.1] ) ; Sun, 18 Oct 2026 22:45:44 +0800 (GMT+08:00)
+From: =?UTF-8?B?6YOt546y5YW0?= <guolingxing@tju.edu.cn>
+Date: Sun, 18 Oct 2026 22:45:44 +0800 (GMT+08:00)
+X-HM-Tid: 0aa14f77ab2ed457kusyda2a04d295f8
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGEofVktPT05NGRkfHkkaSFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0tCQUMfSUNBSEJBHU5PQU9LSB5BT0tDSEEdTUlIQU
+	JKGh1ZV1kWGg8SFR0UWUFZT0tIVUJCSU5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=SOlrcv2Grtic2l68t5Bbk5CezS4ONrXtYh23lbPPJ5E0gxkW1/zCFQk0Y5RfJrxAtKd85aa6o3kZlN4gJdUv3sTfEZYyNHc+c4FtzziRgDYY7xgAV5EbXyAKYEVjukHDp83JFjk2/1LAhtmz6bHhfu2NlfZPTBsfpbuYK5XFfWo=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
+	bh=srAiUMpK7y43VgCXgSSRRUSoTZXfh7Bw33q2dM+BQw0=;
+	h=date:mime-version:subject:message-id:from;
 
-Packet taps such as AF_PACKET sockets bound to ETH_P_TIPC take an extra
-reference on the skb before handing it to the TIPC packet handler.
-tipc_l2_rcv_msg() passes it on as is, and for an encrypted message
-tipc_aead_decrypt() calls skb_cow_data(), which may end up in
-pskb_expand_head() and hit BUG_ON(skb_shared(skb)):
-
-  kernel BUG at net/core/skbuff.c:2308!
-  pskb_expand_head
-  __pskb_pull_tail
-  skb_cow_data
-  tipc_aead_decrypt
-  tipc_crypto_rcv
-  tipc_rcv
-  tipc_l2_rcv_msg
-  __netif_receive_skb_core
-
-A packet_type handler must not modify a shared skb. Use
-skb_share_check() on entry, which clones a shared skb and frees the
-original reference.
-
-Reported-by: syzbot+0017742620a9d06f06ef@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0017742620a9d06f06ef
-Fixes: fc1b6d6de220 ("tipc: introduce TIPC encryption & authentication")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- net/tipc/bearer.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/net/tipc/bearer.c b/net/tipc/bearer.c
-index 05dcd2f9e887..5e7e220fa7f5 100644
---- a/net/tipc/bearer.c
-+++ b/net/tipc/bearer.c
-@@ -659,6 +659,10 @@ static int tipc_l2_rcv_msg(struct sk_buff *skb, struct net_device *dev,
- {
- 	struct tipc_bearer *b;
- 
-+	skb = skb_share_check(skb, GFP_ATOMIC);
-+	if (!skb)
-+		return NET_RX_DROP;
-+
- 	rcu_read_lock();
- 	b = rcu_dereference(dev->tipc_ptr) ?:
- 		rcu_dereference(orig_dev->tipc_ptr);
--- 
-2.43.0
-
+ClRoYW5rcyBmb3IgdGhlIHJldmlldyEKSSBhZ3JlZSB0aGF0IC1FTk9FTlQgaXMgbWlzbGVhZGlu
+ZyBoZXJlLCBhcyB0aGUgcmVxdWVzdGVkIHN1YnZvbHVtZSBtYXkgc3RpbGwgZXhpc3QuIEknbGwg
+Y2hhbmdlIGl0IHRvIC1FQUdBSU4gaW4gdjIuCkFuIGludGVybmFsIHJldHJ5IHdvdWxkIGJlIHBy
+ZWZlcmFibGUsIGJ1dCBpdCB3b3VsZCByZXF1aXJlIHJlZmFjdG9yaW5nIHRoZSBjdXJyZW50IHBh
+dGggcmVzb2x1dGlvbiBhbmQgY2xlYW51cCBmbG93LiBJJ2QgcHJlZmVyIHRvIGtlZXAgdGhpcyBm
+aXggbWluaW1hbCBmb3Igbm93IGFuZCBsZWF2ZSB0aGUgcmV0cnkgbG9naWMgZm9yIGEgc2VwYXJh
+dGUgY2hhbmdlLgpJJ2xsIHVwZGF0ZSB0aGUgcGF0Y2ggYW5kIHJlcnVuIHRoZSByZXByb2R1Y2Vy
+LgoKCgoKCgoKRnJvbTogUXUgV2VucnVvIDx3cXVAc3VzZS5jb20+CiBEYXRlOiAyMDI2LTEwLTE4
+IDE3OjA5OjU3ClRvOmd1b2xpbmd4aW5nIDxndW9saW5neGluZ0B0anUuZWR1LmNuPixEYXZpZCBT
+dGVyYmEgPGRzdGVyYmFAc3VzZS5jb20+LENocmlzIE1hc29uIDxtYXNvbkBrZXJuZWwub3JnPgog
+Y2M6IE1hcmNvcyBQYXVsbyBkZSBTb3V6YSA8bXBkZXNvdXphQHN1c2UuY29tPixsaW51eC1idHJm
+c0B2Z2VyLmtlcm5lbC5vcmcsbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZwpTdWJqZWN0OiBS
+ZTogW1BBVENIXSBidHJmczogcHJldmVudCBkZWxldGluZyB0aGUgd3Jvbmcgc3Vidm9sdW1lIGJ5
+IElEPgo+Cj7lnKggMjAyNi8xMC8xOCAxODowNywgZ3VvbGluZ3hpbmcg5YaZ6YGTOgo+PiBXaGVu
+IGRlbGV0aW5nIGEgc3Vidm9sdW1lIGJ5IElELCBidHJmc19pb2N0bF9zbmFwX2Rlc3Ryb3koKSBm
+aXJzdAo+PiByZXNvbHZlcyB0aGUgcmVxdWVzdGVkIElEIHRvIGEgbmFtZSwgdGhlbiBsb29rcyB1
+cCB0aGF0IG5hbWUgYWdhaW4KPj4gdW5kZXIgdGhlIHBhcmVudCBkaXJlY3RvcnkgbG9jay4KPj4g
+Cj4+IEEgY29uY3VycmVudCByZW5hbWUgY2FuIGNoYW5nZSB3aGljaCBzdWJ2b2x1bWUgaXMgYXNz
+b2NpYXRlZCB3aXRoCj4+IHRoZSBuYW1lIGJldHdlZW4gdGhlc2Ugb3BlcmF0aW9ucy4gU2luY2Ug
+dGhlIGRlbGV0aW9uIHBhdGggZG9lcyBub3QKPj4gdmVyaWZ5IHRoZSBJRCBvZiB0aGUgcmVzb2x2
+ZWQgc3Vidm9sdW1lLCBpdCBjYW4gZGVsZXRlIGEgZGlmZmVyZW50Cj4+IHN1YnZvbHVtZSB3aGls
+ZSBsZWF2aW5nIHRoZSByZXF1ZXN0ZWQgb25lIGludGFjdC4KPj4gCj4+IFRoaXMgd2FzIHJlcHJv
+ZHVjZWQgYnkgcmVwZWF0ZWRseSBleGNoYW5naW5nIHRoZSBuYW1lcyBvZiB0d28KPj4gc3Vidm9s
+dW1lcyB1c2luZyByZW5hbWVhdDIoUkVOQU1FX0VYQ0hBTkdFKSB3aGlsZSBkZWxldGluZyBvbmUg
+b2YKPj4gdGhlbSBieSBJRC4gVGhlIHdyb25nIHN1YnZvbHVtZSB3YXMgZGVsZXRlZCBpbiA5IG91
+dCBvZiAxNCBpbmRlcGVuZGVudAo+PiB0ZXN0cy4KPj4gCj4+IEZpeCB0aGlzIGJ5IGNoZWNraW5n
+IHRoYXQgdGhlIHJlc29sdmVkIHN1YnZvbHVtZSBJRCBtYXRjaGVzIHRoZQo+PiByZXF1ZXN0ZWQg
+SUQgd2hpbGUgaG9sZGluZyB0aGUgcGFyZW50IGRpcmVjdG9yeSBsb2NrLiBSZXR1cm4gLUVOT0VO
+VAo+PiBpZiB0aGUgSURzIGRpZmZlciwgcHJldmVudGluZyBkZWxldGlvbiBvZiB0aGUgd3Jvbmcg
+c3Vidm9sdW1lLgo+Cj4tRU5PRU5UIGNhbiBiZSBjb25mdXNpbmcgdG8gdXNlciBzcGFjZSwgdGhl
+IHN1YnZvbHVtZWlkIGlzIHN0aWxsIHRoZXJlLgo+Cj4tRUFHQUlOIG1heSBiZSBiZXR0ZXI/Cj4K
+PkFub3RoZXIgdGhpbmcgaXMsIGlmIHdlIGdvdCBhIGluY29ycmVjdCBzdWJ2b2x1bWUgdHJlZSwg
+dGhlIGJldHRlciB3YXkgCj5tYXkgYmUgcmV0cnkgdGhlIHBhdGggcmVzb2x1dGlvbiBhbmQgbG9j
+ayBhZ2FpbiB1bnRpbCB3ZSBnb3QgZWl0aGVyIAo+LUVOT0VOVCBmcm9tIHBhdGggcmVzb2x1dGlv
+bi4KPgo+QnV0IHRoZSBjdXJyZW50IGNvZGUgYmFzZSBtYWtlcyBpcyBwcmV0dHkgaGFyZCB0byBy
+ZXRyeS4gQSByZWZhY3RvciBtYXkgCj5iZSBuZWVkZWQgaWYgeW91IHdhbnQgdG8gdGhhdCByZXRy
+eSBwYXRoLgo+Cj4+IAo+PiBGaXhlczogOTQ5OTY0YzkyODQzICgiYnRyZnM6IGFkZCBuZXcgQlRS
+RlNfSU9DX1NOQVBfREVTVFJPWV9WMiBpb2N0bCIpCj4+IENjOiBzdGFibGVAdmdlci5rZXJuZWwu
+b3JnCj4+IFNpZ25lZC1vZmYtYnk6IGd1b2xpbmd4aW5nIDxndW9saW5neGluZ0B0anUuZWR1LmNu
+Pgo+PiAtLS0KPj4gICBmcy9idHJmcy9pb2N0bC5jIHwgMTEgKysrKysrKysrKysKPj4gICAxIGZp
+bGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKQo+PiAKPj4gZGlmZiAtLWdpdCBhL2ZzL2J0cmZz
+L2lvY3RsLmMgYi9mcy9idHJmcy9pb2N0bC5jCj4+IGluZGV4IDU3NmNkNzZjYTBiZi4uMzllYjc3
+MjI5OThkIDEwMDY0NAo+PiAtLS0gYS9mcy9idHJmcy9pb2N0bC5jCj4+ICsrKyBiL2ZzL2J0cmZz
+L2lvY3RsLmMKPj4gQEAgLTIzODAsNiArMjM4MCwxNyBAQCBzdGF0aWMgbm9pbmxpbmUgaW50IGJ0
+cmZzX2lvY3RsX3NuYXBfZGVzdHJveShzdHJ1Y3QgZmlsZSAqZmlsZSwKPj4gICAKPj4gICAJaW5v
+ZGUgPSBkX2lub2RlKGRlbnRyeSk7Cj4+ICAgCWRlc3QgPSBCVFJGU19JKGlub2RlKS0+cm9vdDsK
+Pj4gKwo+PiArCS8qCj4+ICsJICogQSBjb25jdXJyZW50IHJlbmFtZSBtYXkgaGF2ZSBjaGFuZ2Vk
+IHdoaWNoIHN1YnZvbHVtZSB0aGUgbmFtZQo+PiArCSAqIHJlZmVycyB0by4gVmVyaWZ5IHRoYXQg
+dGhlIHJlc29sdmVkIElEIHN0aWxsIG1hdGNoZXMgdGhlIHJlcXVlc3RlZCBJRC4KPj4gKwkgKi8K
+Pj4gKwlpZiAoZGVzdHJveV92MiAmJiAodm9sX2FyZ3MyLT5mbGFncyAmIEJUUkZTX1NVQlZPTF9T
+UEVDX0JZX0lEKSAmJgo+PiArCSAgICBidHJmc19yb290X2lkKGRlc3QpICE9IHZvbF9hcmdzMi0+
+c3Vidm9saWQpIHsKPj4gKwkJcmV0ID0gLUVOT0VOVDsKPj4gKwkJZ290byBvdXRfZW5kX3JlbW92
+aW5nOwo+PiArCX0KPj4gKwo+PiAgIAlpZiAoIWNhcGFibGUoQ0FQX1NZU19BRE1JTikpIHsKPj4g
+ICAJCS8qCj4+ICAgCQkgKiBSZWd1bGFyIHVzZXIuICBPbmx5IGFsbG93IHRoaXMgd2l0aCBhIHNw
+ZWNpYWwgbW91bnQKPgo+Cg==
