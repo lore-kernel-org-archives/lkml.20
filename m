@@ -1,191 +1,134 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E3C3822B7
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792357927; cv=none; b=EXrMim7LM7YpugCbFwik4ZQuiUbkKfb6mxfr+P8CT59kO71a0sYgI3SR2EjayAc14aprMxm36iK6qx9eowCr7kuPRSiQpXFIz4PahwtX/XZi1Q9JOmqYc/d5TIfF3ZCX3YByvdUAo/f8C2jouArrhxpWisbnvzU1YeAOQmst7xY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792357927; c=relaxed/simple;
-	bh=+AhBVTr7AVwgOwcBqSG3YDlgmZAw3nrSuWm0g675vUE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D0E49AA4B
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:12:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792357951; cv=pass; b=m72+9irjlVNqI3ZDy1HQ1PIiq2IYUbkZ1ZrxoW21PYVBDuT1nqHD5kI6P1X/+NlTKSq22Bi+pDZJgnusVNLH90PkPznepB4RnEuyQ/CiNhLPQE5PQUPVY8l5xra86bzu52WYez11IUzcwh8D5MSX76rCOSvMHMnfIOtI52t96D4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792357951; c=relaxed/simple;
+	bh=NPsBucZoFwuxN8LiTRthSe0scFYGQmpl05b1JbjgYpE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Sra1JIC+F31cjfcgo5GsXggBXCiAxbj40S/2bC+JWlGJkk11VOA9HfgYRcuI/NS1uGrwKZZjLniC6g51Jih3/qiALUHjjUrYsAbSQtAOQr1wiasw/IJceWuYGbJG77EJpfHWmJSEVLjgs0yPoGz77bNalF+LYcUcLktY/fgdsmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LhGR8GRz; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	 To:Cc:Content-Type; b=BlbNEscgSSikSJncPBvx14LL/5NYbk74Q1QcCrmZW6Cau+iLovxIho9+vWPXehG+DqQ3wO9AQnph6VdlYJvLXWXvPnrDEbs1hpsLVo+O2Q+6d7AnCBP1AT1dTtU4BbXIqYjrg5yCCN+nu9nTpcF5sEMFxAmaSF1ztqRXL+Zh0jw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=irKFaquj; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LhGR8GRz"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2dc63f8d8aso230056966b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:12:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="irKFaquj"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso1631353a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:12:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792357948; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JCSSA1vLLfpl92//3VTUxYGeCHoPYpfS9QN4Aw3yRBVPYOazvn2TXRHoebEfRfUP+U
+         MGuskOqGWGjL7KFiZVAlu2v+vdqwIB3GMqLHRph0yo0vxL1wLN9x+tiP6uKTJ/kTzO2/
+         JmF04gKKbEAWlnRrJF6wcK3ZPuVgOekM+HFx23xU1c4ixMtLlKIpBJoGz7n/qJk7AylL
+         fHwMju0gw122UDWhtmV+DKwGpODQ3s3KjpcGjkSDE6N4Wd+YpCuBflM+oKhvwkXjCaL2
+         hpfEXtsXiXfukJzeJ+cgtJOCh3T6i4Ykmz2fvGei2IwDBtpXifb7Bs19jRo+IqZvHYv4
+         2jtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2EAVBbyjDy1OgZjxuIB+FMdM7v3vfb3dDBg1zMveAqQ=;
+        fh=QQXobB4jQoGzVOu7wyRcVZs3Zx8/tWUyJ9zbF1D1t4E=;
+        b=JilPPN0gXjqnsbGBr9mRYxOsuxI6GUjBkjqlZ5baC3u2LfUCw2f94aQRBdnP9fw0Sg
+         XsH3W7GUgN/VZ/1X+QWRo14CNHI2NkfLY4hw3rnkcKjtSpwZ8f1LPiuSb63y7dAwuEid
+         ddQjEcoIoIffvSOqc/IKV4AK5JogeXkTwLxQ+VhiuAytq/GwU6zbqbSfkF1S8Br1b95r
+         gPQCYe8B0Wpu2jhOtKrNIlJ6WnBb8aqKRSMTHQ+8cTJ8lkUVVR1D0+7mDF+rviyoDSKY
+         vwTIiYB2GL5DZJxIK1Pfswzhwv9p/+AKO3kX/IqvP5hwMZiTLeEPbU3DsONs48whVqaG
+         uBpA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1792357923; x=1792962723; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FhrOh9ObXddFM4Jcmg5gPf4RqgcAG0wBDdYKHUigitI=;
-        b=LhGR8GRzf18t7PFEbQN/2Cqng+ndH/M0wlqtpHJpxWvv/TTJL/KmcQb0Yv40s40v+4
-         nx2vutp9jz/dORTOPYcwKR7u9ogGojLMCNaof9/1s40AfpNtXq8Hfj3NWhVys7L2LJMX
-         JNjtqN0KRkX35i7T92FdxL8P/TgutiiRB5f1A=
+        d=gmail.com; s=20251104; t=1792357948; x=1792962748; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2EAVBbyjDy1OgZjxuIB+FMdM7v3vfb3dDBg1zMveAqQ=;
+        b=irKFaqujIcNIfHOszmaA9Phyke49g8IlIzaokVTm227c63VyLNBw8fEpPo3hB/BKWC
+         +mABFka9Be2goaVwu7CrfheV5Z4XMdvud6KhxOZdDSFFNN6Dbb89bsmAhqt9pfakVufJ
+         c6QMZOLUbtBGruXxjQrocF2xa9buR7S5hpBOozkHSba37E52cEo8qghDYecOXXoBddX3
+         IlqTCh/klMUV/+fRaTBoCqz/KG/1ChML3oYFlJrLOW4g1jkkRfHiv9JeF/0r7BzdJWrc
+         CHVguQJTRsWfbzhxZ1ySDOLxdBAzzIphhTWvt1E0pm6mPZqrR73GlZOXciME1LpImhz9
+         /r7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792357923; x=1792962723;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FhrOh9ObXddFM4Jcmg5gPf4RqgcAG0wBDdYKHUigitI=;
-        b=UR9v300qzijK5aXNC4ChXNeGu8Pi0TeD7rm5KtFgyOEP6jSTSAAipL48WfZrZ7Y8AO
-         ZP0lCxMO4/xY8/cGwNXqub0hXeRw/4/pCWnUPqvOf22v52Z2mkuZ/Stg/X8FHvGMGYLG
-         y7usZIyMplhIHbXeRceyOiw+EPhZL5rUlpg5FlLRk5riJKOxegTWXETVsRE//c8yqi4E
-         GrgTRpGHWDEs24ervq7k9obpU7RityRah5yv/hsTUgHljEjmL+4rc6Q4Xum/nVvC50Ko
-         ap2E1q9UoJfOSU173dxqsXPGfyDImf7I/dHZCjFwKEvIVDoeqY5PtKFANwF/0iWYuQVE
-         E5yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzD7nYDJPGxCEs21sO5gak/W3BQokDcy/lOwBkKUNbrOmgZwTcW9ysPvUZcskwb8LSUthQmdk2wTSdkRsM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKursE7j2h6Lj7u8eyCc8T6JXnw+0Dd3G3zdWCObBUS5ub02x+8
-	OgM9CUBuXx/eIbJfDAJ/jFYs1vQbSfvJXldP9Yrk0M53CAoAAZuQ+Gf3ktx367roSxB9aIPAwdL
-	8O6OjXW8=
-X-Gm-Gg: AYBFou3+DfLQW9lJt/tdOZWDI2plK+uw2GUIar3OgbUVRe+LP0kHUUsNMasUhtVVmAx
-	TG7bbH3Bh2jMEXDI/0xA3Eseb1VknLL1eA0I0dfmwUcggaFZJkV3v9lYd6byptcUSe9vA9ZiVil
-	6SC3CfXB4wCCSDJfTXEAG357xagXg6KFkFzvGcxTm/1OLavGVoanWsv2zcJ46OLDE6f8st363KK
-	touzrxnwh9Sav+7pBthoyhE0Oqf2qRlCFO60ev7oCxpHan3sFreVUfSU845XBdAyZUDzc79MBdo
-	MweZzKiDTXDaR7vwfMtuAWKdcp4bClmPzOxrCvpnDEZsez4/j9d5jb8S3jz4DqQajQzImC1SYT/
-	FbQ/+VKQcba5sAGxaQWKbjyldHGeSAtomyB5Wdl9Da/dM8u8m+RfpXHLQxehKpkx1s9WpxU4v1z
-	F9JHUxUZIDCGbEYiAgMlNQDuCVHoVz9/n1BB8iazAXEhGgzCxi9snDgpIii61XUrOFtBsW+lJh1
-	yyTa5I2oG3Amj4ii/PhdfYPratO82OBixgtEYH4Woo5rRA0AlmXe2PM3w==
-X-Received: by 2002:a17:906:c150:b0:c3f:d8f2:f08e with SMTP id a640c23a62f3a-c41a01f2fd9mr409563066b.44.1792357923205;
-        Sun, 18 Oct 2026 14:12:03 -0700 (PDT)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com. [209.85.208.46])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dceadesm301421166b.20.2026.10.18.14.12.02
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 14:12:02 -0700 (PDT)
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so2176321a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:12:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBymzAllVCgW0d/SqrK4wYHvL+NRKw6gJjomI5fjKhL81p0jYN21wxeu80fYLumIBJjWAw2bRKg+N54k2K8=@vger.kernel.org
-X-Received: by 2002:a17:907:86aa:b0:c31:e958:408c with SMTP id
- a640c23a62f3a-c419f803714mr362945266b.38.1792357922492; Sun, 18 Oct 2026
- 14:12:02 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792357948; x=1792962748;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2EAVBbyjDy1OgZjxuIB+FMdM7v3vfb3dDBg1zMveAqQ=;
+        b=sdwE8ZYXukJuZOWPIeyYD5KRcIEo39YP2O+eIQRYWQlIamEZywvr/P6qa8+yaKmRHP
+         YP0t8aL8fWlY7d42D7qz798OjEk3PokmQ6kEWoXcALSRCnBgYzCeDtdQF0IL4RdQgeL2
+         nwWuI/FINVCpIe7EF9JAInDXVk6CS0GFRUWLIo/rbM3lz1vfeQnLFnAQ02hUuTKB/4RG
+         omEVbUA169nD2Ek37kZkKb/ppt9dnZWBJXu9vXzLWRc60PkWZwfBEy+0eJ1nzgfyA1iz
+         rmbMM0MMHOJUd2czbi4GWcackVceuCsAa4kJuGynmds9IhJeviTGRYoeNae4eJWTqXDs
+         0KCg==
+X-Forwarded-Encrypted: i=1; AKwUvBzVACo3t35imsCHiI7r91hyJ5MGNEqlqx91dwF2ZF1JelJeoRW/NJpVFbOKyNOOGyghoyDQKhCiecLRFeg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbcHunKiK65MFn3blBFVhoMSmcCEHji7n6hujMSbAwDFgkafS9
+	c10rfY6BhJma9Hicc43/K3KTUbrzUK0KMqSn1O3zcTb+3h8N1vci5n73LcX0a8ALHThS67eDaWD
+	TaqrqO5vFIhOrD7gUFloX1MqoloxktijQHK6b
+X-Gm-Gg: AYBFou2ICn87m05alfni1km9OzqZIPToL64/MIJXrGFXVR1yd9YFvosGjq1s8krMpPC
+	zwxUp2P0tWHnr0WTPGIwIeysiZ1pgskNaJ32mci1Rhk52QO1EPWRDKp0TmcpW3/Ot4R5pFParpo
+	6rWCCfUk+UGzOubHW+GDuVcg4HxDImtE7bI0Ki1OQj2f7QvvkWV9eJ8YUsDZc5c46SKZ9cf1M8s
+	q0CTgSt2ciGuRlnuQ3wRLOiKh7rqkhZi64ZAHjEt9Q2WpC6n2SmTwYZwXACbP7hDtuoNc1Sm8nd
+	NogoB2i6lLUru/EIboK9gDHvkMtOs+EZtiBeG4Ka6PImRv9tKX6ZZLKK8IrzM1kOiSIeOrGZhSn
+	ydHmdDnLLHMlUdAVka3aXT9lFAymjwNknMnuo0hf+mLLKr/2bWAI2
+X-Received: by 2002:a05:6402:190e:b0:6ac:b9b5:8e8b with SMTP id
+ 4fb4d7f45d1cf-6b3a8176960mr3673422a12.15.1792357948108; Sun, 18 Oct 2026
+ 14:12:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com> <20261018152358-mutt-send-email-mst@kernel.org>
- <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
-In-Reply-To: <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Sun, 18 Oct 2026 11:11:44 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wjxOy24XQnSSGimnHbp9mVjUETBE5HrS+W9E8mRrtxBLw@mail.gmail.com>
-X-Gm-Features: AclHuK-BuQ_t8DyWOTykYSUp3UkUFx2INkZ9fVII4LHbFyz6TFQuNw2DbQZKHk4
-Message-ID: <CAHk-=wjxOy24XQnSSGimnHbp9mVjUETBE5HrS+W9E8mRrtxBLw@mail.gmail.com>
-Subject: Re: [BUG] vhost/vringh: __get_user without access_ok leaks kernel
- memory via vDPA passthrough
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Haoran Wang <haoranwangsec@gmail.com>, jasowangio@gmail.com, kvm@vger.kernel.org, 
-	virtualization@lists.linux.dev, netdev@vger.kernel.org, eperezma@redhat.com, 
-	linux-kernel@vger.kernel.org, security@kernel.org
-Content-Type: multipart/mixed; boundary="000000000000482e69065e23d9f5"
-
---000000000000482e69065e23d9f5
+References: <20261018122734.2594904-1-stian@itx.no> <e3068b5c97884032e7cbd12c78f6b5534d75e30c.camel@physik.fu-berlin.de>
+ <6e2d2b2b7aa4029c261831016d8b6c40bc335341.camel@itx.no> <4f7dacd9b4cf0a43209be84f2408e6f7e033fd3d.camel@itx.no>
+ <CA+=Fv5R31wpXsm-7_H7ZR_U4ASubis+_zWKotpj2iNeWW_MTUg@mail.gmail.com> <d233287d5dcb6726403703a7b923b05a8134cb1a.camel@itx.no>
+In-Reply-To: <d233287d5dcb6726403703a7b923b05a8134cb1a.camel@itx.no>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 18 Oct 2026 23:12:16 +0200
+X-Gm-Features: AclHuK-e2-z8ormz3qEfmYHF3HvTKszgUZZKRMKr4teyS0FgOEFwplPC8KtpOVc
+Message-ID: <CA+=Fv5S1kF19rOgYjYoMP51QBvhEng+HbO9wDdj7Ue8rVrRO5g@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] sparc64: Randomize mmap base and PIE executables
+To: Stian Halseth <stian@itx.no>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Andreas Larsson <andreas@gaisler.com>, 
+	"David S . Miller" <davem@davemloft.net>, Kees Cook <kees@kernel.org>, 
+	Michel Lespinasse <michel@lespinasse.org>, Jan Engelhardt <jengelh@inai.de>, sparclinux@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 18 Oct 2026 at 10:34, Linus Torvalds
-<torvalds@linuxfoundation.org> wrote:
+Hi Stian,
+
+On Sun, Oct 18, 2026 at 11:08=E2=80=AFPM Stian Halseth <stian@itx.no> wrote=
+:
 >
-> And __get_user() together with access_ok() is actively wrong and
-> stupid. It's slower, bigger, and more bug-prone than just using
-> "get_user()".
+> Hi Magnus,
+>
+> On Sun, 2026-10-18 at 22:37 +0200, Magnus Lindholm wrote:
+> > >
+> > > Additionally, outside of qemu testing, I'm a bit worried about
+> > > sparc32
+> > > machines with virtually indexed caches. I've heard those can be
+> > > fun,
+> > > and I wouldn't feel confident about implementing it without testing
+> > > on
+> > > the "real thing".
+> > >
+> >
+> > Stian, following your exchange with Adrian, would you be willing to
+> > put
+> > together a native sparc32 version? I can test it  on my Hypersparc
+> > SS-20.
+> >
+> Sure, I could do that.
+>
+> Ideally, I would like to get this sparc64 series through review before
+> I add anything else. Could be a follow up series based on this one.
+>
 
-Btw, if you have *multiple* accesses to the same structure, that was a
-historical reason to use access_ok() with multiple __get_user() calls.
+Agree, no need to mess with this series while it's in flight.
 
-But it's not a useful pattern today - and hasn't been for years -
-because the real cost is not the access_ok(), but the stac/clac that
-surrounds __get_user() on modern hardware.
-
-If performance is really crticial, the new "unsafe_get_user()" model
-is the way to go.
-
-Here's an UNTESTED example patch of how to do a conversion. It
-generates much better code than __get_user() ever did. That patch
-looks good to me, but again: I didn't actually *test* it (and the
-reason this signal.c code has never been updated to the modern pattern
-is that it really doesn't matter for performance - I decided to use it
-as an example not because it matters, but because it's a good example
-code-sequence for the legacy model conversion).
-
-Somebody should test it.
-
-                     Linus
-
---000000000000482e69065e23d9f5
-Content-Type: text/x-patch; charset="US-ASCII"; name="patch.diff"
-Content-Disposition: attachment; filename="patch.diff"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mveblmwl0>
-X-Attachment-Id: f_mveblmwl0
-
-IGtlcm5lbC9zaWduYWwuYyB8IDU2ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMzAgaW5zZXJ0aW9ucygrKSwg
-MjYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEva2VybmVsL3NpZ25hbC5jIGIva2VybmVsL3Np
-Z25hbC5jCmluZGV4IGQzMWViY2I2ZWQ0ZC4uMGZkMTI5NmU5MTJiIDEwMDY0NAotLS0gYS9rZXJu
-ZWwvc2lnbmFsLmMKKysrIGIva2VybmVsL3NpZ25hbC5jCkBAIC00Nzc2LDEyICs0Nzc2LDEyIEBA
-IFNZU0NBTExfREVGSU5FMyhzaWdhY3Rpb24sIGludCwgc2lnLAogCiAJaWYgKGFjdCkgewogCQlv
-bGRfc2lnc2V0X3QgbWFzazsKLQkJaWYgKCFhY2Nlc3Nfb2soYWN0LCBzaXplb2YoKmFjdCkpIHx8
-Ci0JCSAgICBfX2dldF91c2VyKG5ld19rYS5zYS5zYV9oYW5kbGVyLCAmYWN0LT5zYV9oYW5kbGVy
-KSB8fAotCQkgICAgX19nZXRfdXNlcihuZXdfa2Euc2Euc2FfcmVzdG9yZXIsICZhY3QtPnNhX3Jl
-c3RvcmVyKSB8fAotCQkgICAgX19nZXRfdXNlcihuZXdfa2Euc2Euc2FfZmxhZ3MsICZhY3QtPnNh
-X2ZsYWdzKSB8fAotCQkgICAgX19nZXRfdXNlcihtYXNrLCAmYWN0LT5zYV9tYXNrKSkKLQkJCXJl
-dHVybiAtRUZBVUxUOworCQlzY29wZWRfdXNlcl9yZWFkX2FjY2VzcyhhY3QsIEVmYXVsdCkgewor
-CQkJdW5zYWZlX2dldF91c2VyKG5ld19rYS5zYS5zYV9oYW5kbGVyLCAmYWN0LT5zYV9oYW5kbGVy
-LCBFZmF1bHQpOworCQkJdW5zYWZlX2dldF91c2VyKG5ld19rYS5zYS5zYV9yZXN0b3JlciwgJmFj
-dC0+c2FfcmVzdG9yZXIsIEVmYXVsdCk7CisJCQl1bnNhZmVfZ2V0X3VzZXIobmV3X2thLnNhLnNh
-X2ZsYWdzLCAmYWN0LT5zYV9mbGFncywgRWZhdWx0KTsKKwkJCXVuc2FmZV9nZXRfdXNlcihtYXNr
-LCAmYWN0LT5zYV9tYXNrLCBFZmF1bHQpOworCQl9CiAjaWZkZWYgX19BUkNIX0hBU19LQV9SRVNU
-T1JFUgogCQluZXdfa2Eua2FfcmVzdG9yZXIgPSBOVUxMOwogI2VuZGlmCkBAIC00NzkxLDE1ICs0
-NzkxLDE4IEBAIFNZU0NBTExfREVGSU5FMyhzaWdhY3Rpb24sIGludCwgc2lnLAogCXJldCA9IGRv
-X3NpZ2FjdGlvbihzaWcsIGFjdCA/ICZuZXdfa2EgOiBOVUxMLCBvYWN0ID8gJm9sZF9rYSA6IE5V
-TEwpOwogCiAJaWYgKCFyZXQgJiYgb2FjdCkgewotCQlpZiAoIWFjY2Vzc19vayhvYWN0LCBzaXpl
-b2YoKm9hY3QpKSB8fAotCQkgICAgX19wdXRfdXNlcihvbGRfa2Euc2Euc2FfaGFuZGxlciwgJm9h
-Y3QtPnNhX2hhbmRsZXIpIHx8Ci0JCSAgICBfX3B1dF91c2VyKG9sZF9rYS5zYS5zYV9yZXN0b3Jl
-ciwgJm9hY3QtPnNhX3Jlc3RvcmVyKSB8fAotCQkgICAgX19wdXRfdXNlcihvbGRfa2Euc2Euc2Ff
-ZmxhZ3MsICZvYWN0LT5zYV9mbGFncykgfHwKLQkJICAgIF9fcHV0X3VzZXIob2xkX2thLnNhLnNh
-X21hc2suc2lnWzBdLCAmb2FjdC0+c2FfbWFzaykpCi0JCQlyZXR1cm4gLUVGQVVMVDsKKwkJc2Nv
-cGVkX3VzZXJfd3JpdGVfYWNjZXNzKGFjdCwgRWZhdWx0KSB7CisJCQl1bnNhZmVfcHV0X3VzZXIo
-b2xkX2thLnNhLnNhX2hhbmRsZXIsICZvYWN0LT5zYV9oYW5kbGVyLCBFZmF1bHQpOworCQkJdW5z
-YWZlX3B1dF91c2VyKG9sZF9rYS5zYS5zYV9yZXN0b3JlciwgJm9hY3QtPnNhX3Jlc3RvcmVyLCBF
-ZmF1bHQpOworCQkJdW5zYWZlX3B1dF91c2VyKG9sZF9rYS5zYS5zYV9mbGFncywgJm9hY3QtPnNh
-X2ZsYWdzLCBFZmF1bHQpOworCQkJdW5zYWZlX3B1dF91c2VyKG9sZF9rYS5zYS5zYV9tYXNrLnNp
-Z1swXSwgJm9hY3QtPnNhX21hc2ssIEVmYXVsdCk7CisJCX0KIAl9CiAKIAlyZXR1cm4gcmV0Owor
-CitFZmF1bHQ6CisJcmV0dXJuIC1FRkFVTFQ7CiB9CiAjZW5kaWYKICNpZmRlZiBDT05GSUdfQ09N
-UEFUX09MRF9TSUdBQ1RJT04KQEAgLTQ4MTMsMTIgKzQ4MTYsMTIgQEAgQ09NUEFUX1NZU0NBTExf
-REVGSU5FMyhzaWdhY3Rpb24sIGludCwgc2lnLAogCWNvbXBhdF91cHRyX3QgaGFuZGxlciwgcmVz
-dG9yZXI7CiAKIAlpZiAoYWN0KSB7Ci0JCWlmICghYWNjZXNzX29rKGFjdCwgc2l6ZW9mKCphY3Qp
-KSB8fAotCQkgICAgX19nZXRfdXNlcihoYW5kbGVyLCAmYWN0LT5zYV9oYW5kbGVyKSB8fAotCQkg
-ICAgX19nZXRfdXNlcihyZXN0b3JlciwgJmFjdC0+c2FfcmVzdG9yZXIpIHx8Ci0JCSAgICBfX2dl
-dF91c2VyKG5ld19rYS5zYS5zYV9mbGFncywgJmFjdC0+c2FfZmxhZ3MpIHx8Ci0JCSAgICBfX2dl
-dF91c2VyKG1hc2ssICZhY3QtPnNhX21hc2spKQotCQkJcmV0dXJuIC1FRkFVTFQ7CisJCXNjb3Bl
-ZF91c2VyX3JlYWRfYWNjZXNzKGFjdCwgRWZhdWx0KSB7CisJCQl1bnNhZmVfZ2V0X3VzZXIoaGFu
-ZGxlciwgJmFjdC0+c2FfaGFuZGxlciwgRWZhdWx0KTsKKwkJCXVuc2FmZV9nZXRfdXNlcihyZXN0
-b3JlciwgJmFjdC0+c2FfcmVzdG9yZXIsIEVmYXVsdCk7CisJCQl1bnNhZmVfZ2V0X3VzZXIobmV3
-X2thLnNhLnNhX2ZsYWdzLCAmYWN0LT5zYV9mbGFncywgRWZhdWx0KTsKKwkJCXVuc2FmZV9nZXRf
-dXNlcihtYXNrLCAmYWN0LT5zYV9tYXNrLCBFZmF1bHQpOworCQl9CiAKICNpZmRlZiBfX0FSQ0hf
-SEFTX0tBX1JFU1RPUkVSCiAJCW5ld19rYS5rYV9yZXN0b3JlciA9IE5VTEw7CkBAIC00ODMxLDE2
-ICs0ODM0LDE3IEBAIENPTVBBVF9TWVNDQUxMX0RFRklORTMoc2lnYWN0aW9uLCBpbnQsIHNpZywK
-IAlyZXQgPSBkb19zaWdhY3Rpb24oc2lnLCBhY3QgPyAmbmV3X2thIDogTlVMTCwgb2FjdCA/ICZv
-bGRfa2EgOiBOVUxMKTsKIAogCWlmICghcmV0ICYmIG9hY3QpIHsKLQkJaWYgKCFhY2Nlc3Nfb2so
-b2FjdCwgc2l6ZW9mKCpvYWN0KSkgfHwKLQkJICAgIF9fcHV0X3VzZXIocHRyX3RvX2NvbXBhdChv
-bGRfa2Euc2Euc2FfaGFuZGxlciksCi0JCQkgICAgICAgJm9hY3QtPnNhX2hhbmRsZXIpIHx8Ci0J
-CSAgICBfX3B1dF91c2VyKHB0cl90b19jb21wYXQob2xkX2thLnNhLnNhX3Jlc3RvcmVyKSwKLQkJ
-CSAgICAgICAmb2FjdC0+c2FfcmVzdG9yZXIpIHx8Ci0JCSAgICBfX3B1dF91c2VyKG9sZF9rYS5z
-YS5zYV9mbGFncywgJm9hY3QtPnNhX2ZsYWdzKSB8fAotCQkgICAgX19wdXRfdXNlcihvbGRfa2Eu
-c2Euc2FfbWFzay5zaWdbMF0sICZvYWN0LT5zYV9tYXNrKSkKLQkJCXJldHVybiAtRUZBVUxUOwor
-CQlzY29wZWRfdXNlcl93cml0ZV9hY2Nlc3MoYWN0LCBFZmF1bHQpIHsKKwkJCXVuc2FmZV9wdXRf
-dXNlcihwdHJfdG9fY29tcGF0KG9sZF9rYS5zYS5zYV9oYW5kbGVyKSwgJm9hY3QtPnNhX2hhbmRs
-ZXIsIEVmYXVsdCk7CisJCQl1bnNhZmVfcHV0X3VzZXIocHRyX3RvX2NvbXBhdChvbGRfa2Euc2Eu
-c2FfcmVzdG9yZXIpLCAmb2FjdC0+c2FfcmVzdG9yZXIsIEVmYXVsdCk7CisJCQl1bnNhZmVfcHV0
-X3VzZXIob2xkX2thLnNhLnNhX2ZsYWdzLCAmb2FjdC0+c2FfZmxhZ3MsIEVmYXVsdCk7CisJCQl1
-bnNhZmVfcHV0X3VzZXIob2xkX2thLnNhLnNhX21hc2suc2lnWzBdLCAmb2FjdC0+c2FfbWFzaywg
-RWZhdWx0KTsKKwkJfQogCX0KIAlyZXR1cm4gcmV0OworCitFZmF1bHQ6CisJcmV0dXJuIC1FRkFV
-TFQ7CiB9CiAjZW5kaWYKIAo=
---000000000000482e69065e23d9f5--
+Magnus
