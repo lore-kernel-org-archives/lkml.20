@@ -1,309 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from a3.inai.de (a3.inai.de [144.76.212.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDD43FE64A;
-	Sun, 18 Oct 2026 22:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCDD35C692;
+	Sun, 18 Oct 2026 22:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.212.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792362046; cv=none; b=UDtcoONHjO3DWSrz+X00QUL+4mQ4OjzXZR8+nr8rFNIu7z58LzGGxVzqErlXwmGAyr5TGK8SKZRMc0bvePQpAiuc81sjQ4tUUzYMIZSGPeZMsivrNd16d/vtS16khURPaqy24dLele4imZomUMijVszWrTtjFU0uOle4YTVhgyU=
+	t=1792362448; cv=none; b=dFxyZRtirAuXcKkw9Bw7Mf5KGGGgzSmrzeQZeZTvRF+u0CaRtWTi5B+LjMMeXs/VToZZBsxpvAkHV0NgCFvH9IrR3RTsEj0oKT9HUY9fjgH+cUh7jyVNfvyr9VcZ457WCeBERqOOh451oymuN42+dzwAfky33K1qzLs0OvipVt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792362046; c=relaxed/simple;
-	bh=pc5DL6Ipj+12s6VkC7/qjpwpDNT1m8xY2XPopt3dY1I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RYBivS5xl0bYnnGMd50evBn+wQ+xcYH4IvMFjfIY14uTo98C9zoCTLHJmGlk1Xfd4Xf1Pf4cEssgtLYuBcFqaJJGmnTogEGTfSu18UHAAOMU4pQqzPiL745/mvJdXHNpgoDXeTF8NIgI1K+QB+NwsljK4z2UjPmN6SALbtursBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QRvez5sx; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QRvez5sx"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2B1DDC2BCF7;
-	Sun, 18 Oct 2026 22:20:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792362046;
-	bh=pc5DL6Ipj+12s6VkC7/qjpwpDNT1m8xY2XPopt3dY1I=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=QRvez5sxYPa2ATV4smpO45pvIr78zUFNImqvhMXpm3npygZJecL+8NSth/pm+/1Sn
-	 vYzDE4yn7jAp10U0dwuaO8C0OsOvvQHwb+BOkBpzJn4FCJkAiNrwhCKGQHxqaOiIjH
-	 iO3ICjbaVgkcy7ur65MCELvj5H2AGsmOcAFZ553lKb8nrFg3D0cY6GfygM644RQe5j
-	 cUJvUyByIUQUXUDFv7+wtxkj8qWIpQh38arxQyzXZ0LgpvOBg+AHTJ+EU/qYpfsAmo
-	 vkwGvpi3rLNOvlMlIX5Vun2A8Iynfytrfy5Q84VcdvH8UnvZSCZ8EMAVEfx3ZijMzx
-	 JjTIkx7KkLhHA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 145FCCCF2C9;
-	Sun, 18 Oct 2026 22:20:46 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Sun, 18 Oct 2026 17:20:34 -0500
-Subject: [PATCH] thermal: tegra: Add Tegra210B01 Support
+	s=arc-20240116; t=1792362448; c=relaxed/simple;
+	bh=2NVOb7z3F4kDcm+Z2BiiTLIkK+yMkKv/C+dtySFMK2Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UJOTYFvc9aHb7wgqWfP4R9zoI5P+p8zSJv8uF91j9mOdJ6sYSmhg7HS0X5l7GlRQRFHriNdLqdh/W15EZERo7ETOwIkH/bfibjw5pQAQ7ro8v335vwOOgwVOeMqi9shah+P1/x3NbO+6N4AuJTVsAgKd9urU65d3jqQhlgAm+uk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=inai.de; spf=pass smtp.mailfrom=inai.de; arc=none smtp.client-ip=144.76.212.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=inai.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inai.de
+Received: by a3.inai.de (Postfix, from userid 65534)
+	id 3C97C1003BF4B4; Mon, 19 Oct 2026 00:27:24 +0200 (CEST)
+X-Spam-Level: 
+Received: from a4.inai.de (a4.inai.de [IPv6:2a01:4f8:202:600a::a4])
+	by a3.inai.de (Postfix) with ESMTP id ECEE51003BF4B4;
+	Mon, 19 Oct 2026 00:27:23 +0200 (CEST)
+From: Jan Engelhardt <jengelh@inai.de>
+To: davem@davemloft.net
+Cc: sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Stian Halseth <stian@itx.no>
+Subject: [PATCH] sparc: populate sysfs cache topology information on sun4v
+Date: Mon, 19 Oct 2026 00:27:23 +0200
+Message-ID: <20261018222723.43442-1-jengelh@inai.de>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-t210b01-thermal-v1-1-af15746d86a3@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avIrBN0sISuEi3MphooC5UIpLsnL
- d/i/wKJIlOCXhSIdHPiM1ToRoDfXFhJ8lwNqLBTVhuZUatJaZk3iofbJaKlzi8zttZAra5ICz/
- /cRjf9wNRmrJbYQAAAA==
-X-Change-ID: 20260714-t210b01-thermal-227e6cfd2574
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Srikar Srimath Tirumala <srikars@nvidia.com>, 
- Eugene Vernik <crimsonslayer76@gmail.com>, 
- Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792362045; l=8514;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=tasHCnJCsRYbeWivlJvsHpb3bzuaoA6s/dlDC0QLHE8=;
- b=cu6omQ6B4u1Lx3XbAu0A4hkEOuNQzHB6vuHd9TmEv3j/xfc5IAD1DUSL1bFCnVPauRsq735xe
- QLo3u/Ynt3+Chb8FUHtwb4P3tgekHKV1neMPZdYI5wWL96KD/DrqX7P
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Aaron Kling <webgeek1234@gmail.com>
+The SPARC port does not publish any cache topology information. The
+lscpu utility therefore falls back to assuming the published cache
+sizes are for unshared caches, and as a result, reports way more
+cache than there really is present in the system. On a T5240 machine:
 
-Add Tegra210B01 SOC_THERM configuration. There are two main differences
-from the original Tegra210:
+```
+$ lscpu
+Architecture:          sparc64
+  CPU op-mode(s):      32-bit, 64-bit
+  Byte Order:          Big Endian
+CPU(s):                128
+  On-line CPU(s) list: 0-127
+Model name:            UltraSparc T2 (Niagara2)
+  Thread(s) per core:  4
+  Core(s) per socket:  16
+  Socket(s):           2
+  Flags:               sun4v
+Caches (sum of all):
+  L1d:                 1 MiB (128 instances)
+  L1i:                 2 MiB (128 instances)
+  L2:                  512 MiB (128 instances)
+```
 
-* There is no mem thermal sensor
-* Pdiv and pdiv_ate differ
+This patch implements population of the sysfs cacheinfo structures
+for sun4v (systems with mdesc). The proper amount is now reflected in
+lscpu's output:
 
-Based-on: https://gitlab.com/nvidia/nv-tegra/linux-5.10/-/commit/b15149a15154e6b2fc827f4f169e37c9e5b389d9
-Based-on-patch-by: Srikar Srimath Tirumala <srikars@nvidia.com>
-Co-developed-by: Eugene Vernik <crimsonslayer76@gmail.com>
-Signed-off-by: Eugene Vernik <crimsonslayer76@gmail.com>
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+```
+Caches (sum of all):
+  L1d:                 128 KiB (16 instances)
+  L1i:                 256 KiB (16 instances)
+  L2:                  8 MiB (2 instances)
+```
+
+Signed-off-by: Jan Engelhardt <jengelh@inai.de>
 ---
-thermal: tegra: Add Tegra210B01 Support
----
- drivers/thermal/tegra/soctherm.c          |   4 +
- drivers/thermal/tegra/soctherm.h          |   1 +
- drivers/thermal/tegra/tegra210-soctherm.c | 133 ++++++++++++++++++++++++++++++
- 3 files changed, 138 insertions(+)
+ arch/sparc/include/asm/cpudata_64.h |  8 +++-
+ arch/sparc/kernel/mdesc.c           | 61 +++++++++++++++++++++++++++++
+ 2 files changed, 68 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/thermal/tegra/soctherm.c b/drivers/thermal/tegra/soctherm.c
-index d8e988a0d43e9..95451d1bd4e62 100644
---- a/drivers/thermal/tegra/soctherm.c
-+++ b/drivers/thermal/tegra/soctherm.c
-@@ -2082,6 +2082,10 @@ static const struct of_device_id tegra_soctherm_of_match[] = {
- 		.compatible = "nvidia,tegra210-soctherm",
- 		.data = &tegra210_soctherm,
- 	},
-+	{
-+		.compatible = "nvidia,tegra210b01-soctherm",
-+		.data = &tegra210b01_soctherm,
-+	},
- #endif
- 	{ },
- };
-diff --git a/drivers/thermal/tegra/soctherm.h b/drivers/thermal/tegra/soctherm.h
-index aa4af9268b05d..4bc1e44e28827 100644
---- a/drivers/thermal/tegra/soctherm.h
-+++ b/drivers/thermal/tegra/soctherm.h
-@@ -156,6 +156,7 @@ extern const struct tegra_soctherm_soc tegra132_soctherm;
+diff --git a/arch/sparc/include/asm/cpudata_64.h b/arch/sparc/include/asm/cpudata_64.h
+index 056b3c0e7ef9..e28b841ffe23 100644
+--- a/arch/sparc/include/asm/cpudata_64.h
++++ b/arch/sparc/include/asm/cpudata_64.h
+@@ -18,13 +18,19 @@ typedef struct {
+ 	unsigned int	irq0_irqs;
+ 	unsigned int	__pad2;
  
- #ifdef CONFIG_ARCH_TEGRA_210_SOC
- extern const struct tegra_soctherm_soc tegra210_soctherm;
-+extern const struct tegra_soctherm_soc tegra210b01_soctherm;
- #endif
+-	/* Dcache line 2, rarely used */
++	/* Dcache line 2+3, rarely used */
+ 	unsigned int	dcache_size;
+ 	unsigned int	dcache_line_size;
++	unsigned int	dcache_assoc;
++	unsigned int	dcache_id;
+ 	unsigned int	icache_size;
+ 	unsigned int	icache_line_size;
++	unsigned int	icache_assoc;
++	unsigned int	icache_id;
+ 	unsigned int	ecache_size;
+ 	unsigned int	ecache_line_size;
++	unsigned int	ecache_assoc;
++	unsigned int	ecache_id;
+ 	unsigned short	sock_id;	/* physical package */
+ 	unsigned short	core_id;
+ 	unsigned short  max_cache_id;	/* groupings of highest shared cache */
+diff --git a/arch/sparc/kernel/mdesc.c b/arch/sparc/kernel/mdesc.c
+index 23b51a32e96e..029d9d812074 100644
+--- a/arch/sparc/kernel/mdesc.c
++++ b/arch/sparc/kernel/mdesc.c
+@@ -818,6 +818,7 @@ static void fill_in_one_cache(cpuinfo_sparc *c, struct mdesc_handle *hp, u64 mp)
+ 	const u64 *level = mdesc_get_property(hp, mp, "level", NULL);
+ 	const u64 *size = mdesc_get_property(hp, mp, "size", NULL);
+ 	const u64 *line_size = mdesc_get_property(hp, mp, "line-size", NULL);
++	const u64 *assoc = mdesc_get_property(hp, mp, "associativity", NULL);
+ 	const char *type;
+ 	int type_len;
  
- #endif
-diff --git a/drivers/thermal/tegra/tegra210-soctherm.c b/drivers/thermal/tegra/tegra210-soctherm.c
-index f6e1493f0202f..b4f2c7837fd69 100644
---- a/drivers/thermal/tegra/tegra210-soctherm.c
-+++ b/drivers/thermal/tegra/tegra210-soctherm.c
-@@ -44,6 +44,14 @@ static const struct tegra_tsensor_configuration tegra210_tsensor_config = {
- 	.tsample_ate = 480,
- };
+@@ -828,15 +829,21 @@ static void fill_in_one_cache(cpuinfo_sparc *c, struct mdesc_handle *hp, u64 mp)
+ 		if (of_find_in_proplist(type, "instn", type_len)) {
+ 			c->icache_size = *size;
+ 			c->icache_line_size = *line_size;
++			c->icache_assoc = assoc ? *assoc : 0;
++			c->icache_id = mp;
+ 		} else if (of_find_in_proplist(type, "data", type_len)) {
+ 			c->dcache_size = *size;
+ 			c->dcache_line_size = *line_size;
++			c->dcache_assoc = assoc ? *assoc : 0;
++			c->dcache_id = mp;
+ 		}
+ 		break;
  
-+static const struct tegra_tsensor_configuration tegra210b01_tsensor_config = {
-+	.tall = 16300,
-+	.tiddq_en = 1,
-+	.ten_count = 1,
-+	.tsample = 240,
-+	.tsample_ate = 480,
-+};
+ 	case 2:
+ 		c->ecache_size = *size;
+ 		c->ecache_line_size = *line_size;
++		c->ecache_assoc = assoc ? *assoc : 0;
++		c->ecache_id = mp;
+ 		break;
+ 
+ 	default:
+@@ -1251,6 +1258,60 @@ void mdesc_fill_in_cpu_data(cpumask_t *mask)
+ 	smp_fill_in_sib_core_maps();
+ }
+ 
++int init_cache_level(unsigned int cpu)
++{
++	struct cpu_cacheinfo *i = get_cpu_cacheinfo(cpu);
++	i->num_levels = 2;
++	i->num_leaves = 3;
++	return 0;
++}
 +
- static const struct tegra_tsensor_group tegra210_tsensor_group_cpu = {
- 	.id = TEGRA124_SOCTHERM_SENSOR_CPU,
- 	.name = "cpu",
-@@ -63,6 +71,25 @@ static const struct tegra_tsensor_group tegra210_tsensor_group_cpu = {
- 	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
- };
- 
-+static const struct tegra_tsensor_group tegra210b01_tsensor_group_cpu = {
-+	.id = TEGRA124_SOCTHERM_SENSOR_CPU,
-+	.name = "cpu",
-+	.sensor_temp_offset = SENSOR_TEMP1,
-+	.sensor_temp_mask = SENSOR_TEMP1_CPU_TEMP_MASK,
-+	.pdiv = 12,
-+	.pdiv_ate = 6,
-+	.pdiv_mask = SENSOR_PDIV_CPU_MASK,
-+	.pllx_hotspot_diff = 10,
-+	.pllx_hotspot_mask = SENSOR_HOTSPOT_CPU_MASK,
-+	.thermtrip_any_en_mask = TEGRA210_THERMTRIP_ANY_EN_MASK,
-+	.thermtrip_enable_mask = TEGRA210_THERMTRIP_CPU_EN_MASK,
-+	.thermtrip_threshold_mask = TEGRA210_THERMTRIP_CPU_THRESH_MASK,
-+	.thermctl_isr_mask = THERM_IRQ_CPU_MASK,
-+	.thermctl_lvl0_offset = THERMCTL_LEVEL0_GROUP_CPU,
-+	.thermctl_lvl0_up_thresh_mask = TEGRA210_THERMCTL_LVL0_UP_THRESH_MASK,
-+	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
-+};
++int populate_cache_leaves(unsigned int cpu)
++{
++	struct cacheinfo *leaf = get_cpu_cacheinfo(cpu)->info_list;
++	cpuinfo_sparc *cs = &cpu_data(cpu);
 +
- static const struct tegra_tsensor_group tegra210_tsensor_group_gpu = {
- 	.id = TEGRA124_SOCTHERM_SENSOR_GPU,
- 	.name = "gpu",
-@@ -82,6 +109,25 @@ static const struct tegra_tsensor_group tegra210_tsensor_group_gpu = {
- 	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
- };
- 
-+static const struct tegra_tsensor_group tegra210b01_tsensor_group_gpu = {
-+	.id = TEGRA124_SOCTHERM_SENSOR_GPU,
-+	.name = "gpu",
-+	.sensor_temp_offset = SENSOR_TEMP1,
-+	.sensor_temp_mask = SENSOR_TEMP1_GPU_TEMP_MASK,
-+	.pdiv = 12,
-+	.pdiv_ate = 6,
-+	.pdiv_mask = SENSOR_PDIV_GPU_MASK,
-+	.pllx_hotspot_diff = 5,
-+	.pllx_hotspot_mask = SENSOR_HOTSPOT_GPU_MASK,
-+	.thermtrip_any_en_mask = TEGRA210_THERMTRIP_ANY_EN_MASK,
-+	.thermtrip_enable_mask = TEGRA210_THERMTRIP_GPU_EN_MASK,
-+	.thermtrip_threshold_mask = TEGRA210_THERMTRIP_GPUMEM_THRESH_MASK,
-+	.thermctl_isr_mask = THERM_IRQ_GPU_MASK,
-+	.thermctl_lvl0_offset = THERMCTL_LEVEL0_GROUP_GPU,
-+	.thermctl_lvl0_up_thresh_mask = TEGRA210_THERMCTL_LVL0_UP_THRESH_MASK,
-+	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
-+};
++	leaf->id                    = cs->icache_id;
++	leaf->attributes            = CACHE_ID;
++	leaf->level                 = 1;
++	leaf->type                  = CACHE_TYPE_INST;
++	leaf->coherency_line_size   = cs->icache_line_size;
++	leaf->ways_of_associativity = cs->icache_assoc;
++	leaf->size                  = cs->icache_size;
++	leaf->priv                  = cs;
++	if (cs->icache_line_size > 0 && cs->icache_assoc > 0)
++		leaf->number_of_sets = cs->icache_size / cs->icache_line_size /
++		                       cs->icache_assoc;
++	++leaf;
 +
- static const struct tegra_tsensor_group tegra210_tsensor_group_pll = {
- 	.id = TEGRA124_SOCTHERM_SENSOR_PLLX,
- 	.name = "pll",
-@@ -99,6 +145,23 @@ static const struct tegra_tsensor_group tegra210_tsensor_group_pll = {
- 	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
- };
- 
-+static const struct tegra_tsensor_group tegra210b01_tsensor_group_pll = {
-+	.id = TEGRA124_SOCTHERM_SENSOR_PLLX,
-+	.name = "pll",
-+	.sensor_temp_offset = SENSOR_TEMP2,
-+	.sensor_temp_mask = SENSOR_TEMP2_PLLX_TEMP_MASK,
-+	.pdiv = 12,
-+	.pdiv_ate = 6,
-+	.pdiv_mask = SENSOR_PDIV_PLLX_MASK,
-+	.thermtrip_any_en_mask = TEGRA210_THERMTRIP_ANY_EN_MASK,
-+	.thermtrip_enable_mask = TEGRA210_THERMTRIP_TSENSE_EN_MASK,
-+	.thermtrip_threshold_mask = TEGRA210_THERMTRIP_TSENSE_THRESH_MASK,
-+	.thermctl_isr_mask = THERM_IRQ_TSENSE_MASK,
-+	.thermctl_lvl0_offset = THERMCTL_LEVEL0_GROUP_TSENSE,
-+	.thermctl_lvl0_up_thresh_mask = TEGRA210_THERMCTL_LVL0_UP_THRESH_MASK,
-+	.thermctl_lvl0_dn_thresh_mask = TEGRA210_THERMCTL_LVL0_DN_THRESH_MASK,
-+};
++	leaf->id                    = cs->dcache_id;
++	leaf->attributes            = CACHE_ID;
++	leaf->level                 = 1;
++	leaf->type                  = CACHE_TYPE_DATA;
++	leaf->coherency_line_size   = cs->dcache_line_size;
++	leaf->ways_of_associativity = cs->dcache_assoc;
++	leaf->size                  = cs->dcache_size;
++	leaf->priv                  = cs;
++	if (cs->dcache_line_size > 0 && cs->dcache_assoc > 0)
++		leaf->number_of_sets = cs->dcache_size / cs->dcache_line_size /
++		                       cs->dcache_assoc;
++	++leaf;
 +
- static const struct tegra_tsensor_group tegra210_tsensor_group_mem = {
- 	.id = TEGRA124_SOCTHERM_SENSOR_MEM,
- 	.name = "mem",
-@@ -125,6 +188,12 @@ static const struct tegra_tsensor_group *tegra210_tsensor_groups[] = {
- 	&tegra210_tsensor_group_mem,
- };
- 
-+static const struct tegra_tsensor_group *tegra210b01_tsensor_groups[] = {
-+	&tegra210b01_tsensor_group_cpu,
-+	&tegra210b01_tsensor_group_gpu,
-+	&tegra210b01_tsensor_group_pll,
-+};
++	leaf->id                    = cs->ecache_id;
++	leaf->attributes            = CACHE_ID;
++	leaf->level                 = 2;
++	leaf->type                  = CACHE_TYPE_UNIFIED;
++	leaf->coherency_line_size   = cs->ecache_line_size;
++	leaf->ways_of_associativity = cs->ecache_assoc;
++	leaf->size                  = cs->ecache_size;
++	leaf->priv                  = cs;
++	if (cs->ecache_line_size > 0 && cs->ecache_assoc > 0)
++		leaf->number_of_sets = cs->ecache_size / cs->ecache_line_size /
++		                       cs->ecache_assoc;
 +
- static const struct tegra_tsensor tegra210_tsensors[] = {
- 	{
- 		.name = "cpu0",
-@@ -193,6 +262,58 @@ static const struct tegra_tsensor tegra210_tsensors[] = {
- 	},
- };
- 
-+static const struct tegra_tsensor tegra210b01_tsensors[] = {
-+	{
-+		.name = "cpu0",
-+		.base = 0xc0,
-+		.config = &tegra210b01_tsensor_config,
-+		.calib_fuse_offset = 0x098,
-+		.fuse_corr_alpha = 1085000,
-+		.fuse_corr_beta = 3244200,
-+		.group = &tegra210b01_tsensor_group_cpu,
-+	}, {
-+		.name = "cpu1",
-+		.base = 0xe0,
-+		.config = &tegra210b01_tsensor_config,
-+		.calib_fuse_offset = 0x084,
-+		.fuse_corr_alpha = 1126200,
-+		.fuse_corr_beta = -67500,
-+		.group = &tegra210b01_tsensor_group_cpu,
-+	}, {
-+		.name = "cpu2",
-+		.base = 0x100,
-+		.config = &tegra210b01_tsensor_config,
-+		.calib_fuse_offset = 0x088,
-+		.fuse_corr_alpha = 1098400,
-+		.fuse_corr_beta = 2251100,
-+		.group = &tegra210b01_tsensor_group_cpu,
-+	}, {
-+		.name = "cpu3",
-+		.base = 0x120,
-+		.config = &tegra210b01_tsensor_config,
-+		.calib_fuse_offset = 0x12c,
-+		.fuse_corr_alpha = 1108000,
-+		.fuse_corr_beta = 602700,
-+		.group = &tegra210b01_tsensor_group_cpu,
-+	}, {
-+		.name = "gpu",
-+		.base = 0x180,
-+		.config = &tegra210b01_tsensor_config,
-+		.calib_fuse_offset = 0x154,
-+		.fuse_corr_alpha = 1074300,
-+		.fuse_corr_beta = 2734900,
-+		.group = &tegra210b01_tsensor_group_gpu,
-+	}, {
-+		.name = "pllx",
-+		.base = 0x1a0,
-+		.config = &tegra210b01_tsensor_config,
-+		.calib_fuse_offset = 0x160,
-+		.fuse_corr_alpha = 1039700,
-+		.fuse_corr_beta = 6829100,
-+		.group = &tegra210b01_tsensor_group_pll,
-+	},
-+};
++	return 0;
++}
 +
- /*
-  * Mask/shift bits in FUSE_TSENSOR_COMMON and
-  * FUSE_TSENSOR_COMMON, which are described in
-@@ -230,3 +351,15 @@ const struct tegra_soctherm_soc tegra210_soctherm = {
- 	.use_ccroc = false,
- 	.thermtrips = tegra210_tsensor_thermtrips,
- };
-+
-+const struct tegra_soctherm_soc tegra210b01_soctherm = {
-+	.tsensors = tegra210b01_tsensors,
-+	.num_tsensors = ARRAY_SIZE(tegra210b01_tsensors),
-+	.ttgs = tegra210b01_tsensor_groups,
-+	.num_ttgs = ARRAY_SIZE(tegra210b01_tsensor_groups),
-+	.tfuse = &tegra210_soctherm_fuse,
-+	.thresh_grain = TEGRA210_THRESH_GRAIN,
-+	.bptt = TEGRA210_BPTT,
-+	.use_ccroc = false,
-+	.thermtrips = tegra210_tsensor_thermtrips,
-+};
-
----
-base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
-change-id: 20260714-t210b01-thermal-227e6cfd2574
-
-Best regards,
+ /* mdesc_open() - Grab a reference to mdesc_handle when /dev/mdesc is
+  * opened. Hold this reference until /dev/mdesc is closed to ensure
+  * mdesc data structure is not released underneath us. Store the
 -- 
-Aaron Kling <webgeek1234@gmail.com>
-
+2.56.0
 
