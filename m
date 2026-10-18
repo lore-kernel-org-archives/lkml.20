@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D503148CF;
-	Sun, 18 Oct 2026 01:59:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F663382CD;
+	Sun, 18 Oct 2026 01:59:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792288799; cv=none; b=bUJ4sXcDcTQkuZtBP8ICdXcfoAhxhGqsoB3DjmZDrTHyOfuc8UNCNzPBBhuh7GOOpe2njXh1mPalQsZ92ikuEmcagg1n7biCaF0Jc2yJdGMl89AGHaoM03wMe+LDlhjAzPK5kRSi+WlcQHOUVBzQbSFwCjLm9qlHo4CNV9GbNao=
+	t=1792288801; cv=none; b=b/8NF2pD9F6g28VzJcBjvFpUsdgWV1G0waSCjrbu5ZomOBJgcUrZpXI00TBW9Zwx+Ur5Vq6LA0/NL692vdBqRwZ9JjvG5bN50bZROM/G2NBWONNaT8okvrvSuOHnJ9rhDoDCy+jDwOxcWvPIsGYiSImD5uRT9hSiBFytMXjvklw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792288799; c=relaxed/simple;
-	bh=26Krbsbq0EEvc4LeK/hrzKAj4aPYTtfP6ThBlGlkru0=;
+	s=arc-20240116; t=1792288801; c=relaxed/simple;
+	bh=hcZaOyV/Ocb4fvtYIH98ZGCrunylaxsfYB+xh1eplKo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bDWZlkYyLsSZ6cUSaLzZ9lVhlnPwozIyxmGp74M5ecGObT3EBnYvIZq8ZmDkH5BMY/32JENXmpseH+n87qrjkkDx+nQ/IKh3tcI8NgNS7Gi00aMZ83GDKdp1IzdapM/89q2/xdLoTtZBZqj6BsEGxbX+qIp8WmPJRrPycbGd76o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QEOMjFXE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LvKrAFQto3WIlDGqZ9F2ZNq50k8J6Y0tzH1Gbzb/hbthynooGKu+Rh28T72cBqy1ALNtqzNsa0yvwU//By2qwp11nr0hkPDOvW+fFhlGtTp9hur7SwnLYp4n7UYjC5RrbGM2xiRXN79zsU3bd3dlw5WSwxOw52PlLGdNxMflNeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XmLCoZdE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QEOMjFXE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7409A1F000C4;
-	Sun, 18 Oct 2026 01:59:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XmLCoZdE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8289C1F000C5;
+	Sun, 18 Oct 2026 01:59:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792288797;
-	bh=afQx7TLficYCld0UPk18VJh2xa7+K+TdtF10oKzhaVw=;
+	s=k20260515; t=1792288799;
+	bh=XGKin8HwW0nEzPhFPS/TEnDvISmxa+ed801be4BRrEg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QEOMjFXEADxXzmeZsPXORZpHgHRDxRAOQFltNSTv8LtbNrPh4l3P5F1uqDxd7KyDp
-	 d7Ah3VoRdUVqitOn/bQIEJaF66/I6GkHX8dBAWMFUz+LPEmeA9fhRCDWn3gqfkl7R9
-	 MPg3XDeQudHc4jGSmWQiMDJwEd7POHiSiKXy2dBS76K5j+2nPdbUtnGa0TNm3mSRTC
-	 PWaJAyDNaRPPd6+8rKDfXKARrywV4ojNd7iQ98OdLrNBjheiUTOf1hJnUX1c98Gs/w
-	 nddurJqtJoM36ocXuF6eUcxBIcnP+7aOvK2XMmjGHfNU55k7d14TFSUEfD3KqcQZ1E
-	 mjIgQOXPNRuog==
+	b=XmLCoZdEdK13fc+d5Vc+Bh2/9q/6JNcoSkIM09/4pmL8Z72rTqUDlYwwKLlmVkqWp
+	 ddFpTPsh3cTdvqaCp6lHjJg0DeEO1VGmqCPRnj+cFKOQsCzA0cVT+2UY3JQYk3Fj1O
+	 Tg70aeY0QtT5EJ97t/J2E2B9zCPoXfzOGs/JB708edzbHUScH3q/hXSj/59ZBOScxK
+	 WC+KwsuKd8i+l21aRC7NdAnxOsEVuj0CEOM7/Z+4GZtZUAmLEKjaESAmRaQmqpLCkg
+	 eJaEfaRJPgooDrHsaN/vbUg/ufNnh+4b/S36axZMD8dEZ7cIOHQ2U28dX22ki5pfJW
+	 gtZ62+tJayIpA==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -35,9 +35,9 @@ Cc: David Vernet <void@manifault.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 4/6] sched_ext: Deliver ecaps only while the root has the cpu online
-Date: Sat, 17 Oct 2026 15:59:50 -1000
-Message-ID: <20261018015952.1499528-5-tj@kernel.org>
+Subject: [PATCH 6/6] sched_ext: Leave suspend and hibernation out of the ecaps reports
+Date: Sat, 17 Oct 2026 15:59:52 -1000
+Message-ID: <20261018015952.1499528-7-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261018015952.1499528-1-tj@kernel.org>
 References: <20261018015952.1499528-1-tj@kernel.org>
@@ -49,293 +49,324 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A sub-scheduler's ecaps ops run in dispatch context, and ops.cpu_online()
-and ops.cpu_offline() document that the cpu doesn't call ops.dispatch()
-outside them. The reseed of a cpu coming back is queued before the root's
-ops.cpu_online(), so the ops of a sub-scheduler and its parent can run for a
-cpu the root still considers offline.
+Suspend and hibernation take down every non-boot cpu and bring them back. A
+loss and a regain per cpu to every sub-scheduler would be noise. Leave them
+out: a cpu they take down reports no loss and keeps the caps last delivered,
+and the reseed after resume reports only the net change. Their downs are the
+ones with cpuhp_tasks_frozen set between the PM notifications. A kexec jump
+sets the flag too but sends no PM notification.
 
-Add SCX_RQ_OPS_ONLINE, set while the root considers the cpu online, from its
-ops.cpu_online() or its enable until its ops.cpu_offline(). A sync outside
-that span leaves the ecaps alone, and the reseed, now queued after
-ops.cpu_online(), reports the net change. SCX_RQ_ONLINE can't be used, as
-the core changes it ahead of the root's view on both edges.
+Two things need care. A cpu that suspend or hibernation takes down doesn't
+wait for its syncs, and no ecaps_report() mark can be pending on it then.
+The attach report runs while the attaching task waits uninterruptibly, which
+holds off the freezer, and the detach report holds cpus_read_lock().
 
-A cpu going offline still drops its caps without a report.
+The detach report reaches only active cpus, and the loss on a cpu that
+suspend or hibernation took down was never delivered. The detach waits for
+those cpus to come back, so every loss is delivered. They come back before
+the tasks thaw, so the wait doesn't hold up the freezer. If one fails to
+come back, the hierarchy is aborted at the end of the PM cycle.
 
-While at it, fix the SCX_RQ_ONLINE comments, which claimed that the flag
-tracks ops.cpu_online() and ops.cpu_offline().
-
-v2: Fix the SCX_RQ_ONLINE comments.
+v2: Fix why no report mark is pending at a PM down, add a data_race().
 
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- kernel/sched/ext/ext.c      | 28 +++++++++++-------
- kernel/sched/ext/internal.h |  6 ++++
- kernel/sched/ext/sub.c      | 57 ++++++++++++++++++++++++++++++-------
- kernel/sched/ext/sub.h      |  2 ++
- kernel/sched/sched.h        | 15 ++++++++--
- 5 files changed, 84 insertions(+), 24 deletions(-)
+ kernel/sched/ext/ext.c      |  15 ++++
+ kernel/sched/ext/internal.h |   5 +-
+ kernel/sched/ext/sub.c      | 148 ++++++++++++++++++++++++++++++++----
+ kernel/sched/ext/sub.h      |   6 ++
+ 4 files changed, 160 insertions(+), 14 deletions(-)
 
 diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index a34c1452f8c6..c2df269959e4 100644
+index c2df269959e4..4d5bb2d7dd2d 100644
 --- a/kernel/sched/ext/ext.c
 +++ b/kernel/sched/ext/ext.c
-@@ -2173,11 +2173,11 @@ static void direct_dispatch(struct scx_sched *sch, struct task_struct *p,
- bool scx_rq_online(struct rq *rq)
+@@ -4165,6 +4165,7 @@ static void handle_hotplug(struct rq *rq, bool online)
+ 	s32 cpu_or_cid = cpu;
+ 
+ 	atomic_long_inc(&scx_hotplug_seq);
++	scx_update_frozen_cpus(cpu, online);
+ 
+ 	/*
+ 	 * scx_root updates are protected by cpus_read_lock() and will stay
+@@ -9467,6 +9468,20 @@ static int scx_pm_handler(struct notifier_block *nb, unsigned long event, void *
  {
- 	/*
--	 * Test both cpu_active() and %SCX_RQ_ONLINE. %SCX_RQ_ONLINE indicates
--	 * the online state as seen from the BPF scheduler. cpu_active() test
--	 * guarantees that, if this function returns %true, %SCX_RQ_ONLINE will
--	 * stay set until the current scheduling operation is complete even if
--	 * we aren't locking @rq.
-+	 * Test both cpu_active() and %SCX_RQ_ONLINE. %SCX_RQ_ONLINE follows the
-+	 * core's rq online state. cpu_active() test guarantees that, if this
-+	 * function returns %true, %SCX_RQ_ONLINE will stay set until the
-+	 * current scheduling operation is complete even if we aren't locking
-+	 * @rq.
- 	 */
- 	return likely((rq->scx.flags & SCX_RQ_ONLINE) && cpu_active(cpu_of(rq)));
- }
-@@ -4177,11 +4177,6 @@ static void handle_hotplug(struct rq *rq, bool online)
- 	if (scx_enabled())
- 		scx_idle_update_selcpu_topology(&sch->ops);
+ 	struct scx_sched *sch;
  
--	if (online)
--		scx_online_ecaps(rq);
--	else
--		scx_offline_ecaps(rq);
--
- 	/*
- 	 * The tables can't be retired while this function is running as the
- 	 * retirement is inside cpus_read_lock. However, scx_cpu_arg() is
-@@ -4210,6 +4205,14 @@ static void handle_hotplug(struct rq *rq, bool online)
- 		}
- 	}
- 
-+	/*
-+	 * ecaps are delivered for @cpu only after ops.cpu_online() and before
-+	 * ops.cpu_offline(). The ecaps ops may read online_cmask, so
-+	 * scx_offline_ecaps() and scx_online_ecaps() run after its update.
-+	 */
-+	if (!online)
-+		scx_offline_ecaps(rq);
++	/* track the PM cycle whether or not a root is loaded */
++	switch (event) {
++	case PM_HIBERNATION_PREPARE:
++	case PM_SUSPEND_PREPARE:
++	case PM_RESTORE_PREPARE:
++		scx_sub_pm_begin();
++		break;
++	case PM_POST_HIBERNATION:
++	case PM_POST_SUSPEND:
++	case PM_POST_RESTORE:
++		scx_sub_pm_end();
++		break;
++	}
 +
- 	if (online && SCX_HAS_OP(sch, cpu_online))
- 		SCX_CALL_OP(sch, cpu_online, NULL, cpu_or_cid);
- 	else if (!online && SCX_HAS_OP(sch, cpu_offline))
-@@ -4219,6 +4222,9 @@ static void handle_hotplug(struct rq *rq, bool online)
- 			 SCX_ECODE_ACT_RESTART | SCX_ECODE_RSN_HOTPLUG,
- 			 "cpu %d going %s, exiting scheduler", cpu,
- 			 online ? "online" : "offline");
-+
-+	if (online)
-+		scx_online_ecaps(rq);
- }
+ 	guard(rcu)();
  
- void scx_rq_activate(struct rq *rq)
-@@ -8353,6 +8359,8 @@ static void scx_root_enable_workfn(struct kthread_work *work)
- 		goto err_disable;
- 	}
- 
-+	scx_init_rq_ops_online();
-+
- 	/*
- 	 * Make the scheduler instance visible. Must be inside cpus_read_lock().
- 	 * See handle_hotplug().
+ 	sch = rcu_dereference(scx_root);
 diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index 43aa1354e79b..1dea516b377d 100644
+index 619c08700064..26df9da3a4d2 100644
 --- a/kernel/sched/ext/internal.h
 +++ b/kernel/sched/ext/internal.h
-@@ -927,6 +927,10 @@ struct sched_ext_ops {
- 	 * Deliveries continue while this sched bypasses. Its tasks are then on
- 	 * the bypass DSQs, where this op can't insert or move them. Deliveries
- 	 * stop once this sched is being disabled.
-+	 *
-+	 * Deliveries for a cid happen only while the root considers the cid's
-+	 * cpu online, never before the root's ops.cpu_online() or after its
-+	 * ops.cpu_offline() for the cpu.
+@@ -934,7 +934,10 @@ struct sched_ext_ops {
+ 	 * Deliveries for a cid happen only while the root considers the cid's
+ 	 * cpu online, never before the root's ops.cpu_online() or after its
+ 	 * ops.cpu_offline() for the cpu. A cpu going offline reports the loss
+-	 * of every cap on it, and a cpu coming back reports the regain.
++	 * of every cap on it, and a cpu coming back reports the regain. A cpu
++	 * that suspend or hibernation takes down reports no loss and keeps its
++	 * caps while down. Only its net change, if any, is reported once it is
++	 * back.
  	 */
  	void (*sub_ecaps_updated)(s32 cid, u64 before, u64 after);
  
-@@ -980,6 +984,7 @@ struct sched_ext_ops {
- 	 *
- 	 * @cpu just came online. @cpu will not call ops.enqueue() or
- 	 * ops.dispatch(), nor run tasks associated with other CPUs beforehand.
-+	 * ops.sub_child_ecaps_updated() runs for @cpu only after this op.
- 	 */
- 	void (*cpu_online)(s32 cpu);
- 
-@@ -989,6 +994,7 @@ struct sched_ext_ops {
- 	 *
- 	 * @cpu is going offline. @cpu will not call ops.enqueue() or
- 	 * ops.dispatch(), nor run tasks associated with other CPUs afterwards.
-+	 * ops.sub_child_ecaps_updated() runs for @cpu only before this op.
- 	 */
- 	void (*cpu_offline)(s32 cpu);
- 
 diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index a3f7c0be98ac..2c5853d193d7 100644
+index d88a436f8963..f7f33fd0c5e9 100644
 --- a/kernel/sched/ext/sub.c
 +++ b/kernel/sched/ext/sub.c
-@@ -1164,13 +1164,19 @@ void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
- 		 * Before the sched's has_op is set, only the parent's op would
- 		 * run, and the change would never reach the sched.
- 		 * ecaps_enable() enables deliveries on each cpu once has_op is
--		 * set. Until then, a sync leaves the ecaps alone.
-+		 * set. Deliveries also need the cpu online to the root, see
-+		 * handle_hotplug().
-+		 *
-+		 * A sync that can't deliver leaves the ecaps alone. It may
-+		 * still carry a mark that is cleared below. Don't skip the rest
-+		 * of the loop for it.
- 		 */
- 		old = READ_ONCE(pcpu->ecaps);
--		if (pcpu->flags & SCX_SCHED_PCPU_ECAPS_ENABLED)
--			ecaps = calc_effective_caps(ps, cid);
--		else
-+		if (!(pcpu->flags & SCX_SCHED_PCPU_ECAPS_ENABLED) ||
-+		    !(rq->scx.flags & SCX_RQ_OPS_ONLINE))
- 			ecaps = old;
-+		else
-+			ecaps = calc_effective_caps(ps, cid);
- 		WRITE_ONCE(pcpu->ecaps, ecaps);
+@@ -56,6 +56,19 @@ static struct rcuwait ecaps_report_wait = __RCUWAIT_INITIALIZER(ecaps_report_wai
+ /* a cpu going down waits here for its marked syncs, see scx_offline_ecaps() */
+ static DECLARE_WAIT_QUEUE_HEAD(ecaps_offline_waitq);
  
- 		lost = old & ~ecaps;
-@@ -1192,7 +1198,8 @@ void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
- 		 * covers them.
- 		 */
- 		if (ecaps != pcpu->reported_ecaps &&
--		    (pcpu->flags & SCX_SCHED_PCPU_ECAPS_ENABLED)) {
-+		    (pcpu->flags & SCX_SCHED_PCPU_ECAPS_ENABLED) &&
-+		    (rq->scx.flags & SCX_RQ_OPS_ONLINE)) {
- 			struct scx_sched *parent = scx_parent(pcpu->sch);
- 			struct scx_dsp_ctx *dspc;
- 
-@@ -1247,15 +1254,42 @@ void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
++/*
++ * The cpus that suspend or hibernation took down and that haven't come back.
++ * Their losses are not delivered, see scx_offline_ecaps(). Hotplug updates the
++ * set under cpus_write_lock(), and scx_sub_pm_end() clears it under
++ * cpus_read_lock(). A cpu that fails to come back stays in the set until
++ * regular hotplug brings it back or the PM cycle ends.
++ */
++static struct cpumask scx_frozen_cpus;
++static DECLARE_WAIT_QUEUE_HEAD(scx_frozen_cpus_waitq);
++
++/* between the PREPARE and POST notifications of a PM cycle */
++static bool scx_pm_in_progress;
++
+ /**
+  * scx_skip_subtree_pre - Skip @pos's subtree in a pre-order walk
+  * @pos: current position
+@@ -1130,6 +1143,17 @@ static void ecaps_offline_done(struct rq *rq, struct scx_sched_pcpu *pcpu)
+ 		irq_work_queue(&ecaps_offline_irq_work);
  }
  
- /*
-- * A cpu came back. Re-seed each sub-sched's ecaps on the cpu's cid. The sync
-- * recomputes effective caps from the pshard and fires ops.sub_ecaps_updated()
-- * only on a real change since offline.
-+ * Called with cpus_read_lock() held before the root is published. The cpus
-+ * active now are online to the root without ops.cpu_online(), so they can
-+ * deliver ecaps. handle_hotplug() maintains %SCX_RQ_OPS_ONLINE from here on.
++/*
++ * Test whether the hotplug operation in progress is suspend or hibernation
++ * taking a cpu down or bringing it back. A kexec jump also sets
++ * cpuhp_tasks_frozen but sends no PM notification, so outside a PM cycle its
++ * cpu downs deliver their losses as in regular hotplug.
 + */
-+void scx_init_rq_ops_online(void)
++static bool scx_pm_frozen(void)
 +{
-+	s32 cpu;
++	return cpuhp_tasks_frozen && READ_ONCE(scx_pm_in_progress);
++}
 +
-+	lockdep_assert_cpus_held();
+ /**
+  * __scx_process_sync_ecaps - Sync this cpu's ecaps to pshard->caps[]
+  * @rq: the cid's cpu rq
+@@ -1185,6 +1209,8 @@ void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
+ 		 * An inactive cpu that can deliver is going down and reads as
+ 		 * capless. A delivery below can drop the rq lock and the cpu's
+ 		 * active state can change between syncs, so test it per sync.
++		 * Suspend and hibernation don't deliver the loss of a cpu they
++		 * take down, see scx_offline_ecaps().
+ 		 *
+ 		 * A sync that can't deliver leaves the ecaps alone. It may
+ 		 * still carry a mark that is cleared below. Don't skip the rest
+@@ -1196,6 +1222,8 @@ void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
+ 			ecaps = old;
+ 		else if (cpu_active(cpu))
+ 			ecaps = calc_effective_caps(ps, cid);
++		else if (scx_pm_frozen())
++			ecaps = old;
+ 		else
+ 			ecaps = 0;
+ 		WRITE_ONCE(pcpu->ecaps, ecaps);
+@@ -1270,6 +1298,64 @@ void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
+ 		scx_schedule_reenq_local(rq, SCX_REENQ_CAP_REVOKE);
+ }
+ 
++void scx_sub_pm_begin(void)
++{
++	WRITE_ONCE(scx_pm_in_progress, true);
++}
 +
-+	for_each_possible_cpu(cpu) {
-+		struct rq *rq = cpu_rq(cpu);
-+
-+		guard(rq_lock_irqsave)(rq);
-+		if (cpu_active(cpu))
-+			rq->scx.flags |= SCX_RQ_OPS_ONLINE;
-+		else
-+			rq->scx.flags &= ~SCX_RQ_OPS_ONLINE;
++/*
++ * Called on every cpu down and up whether or not a root is loaded, so that the
++ * set stays exact when a root is enabled or disabled during a PM cycle. A cpu
++ * that failed to come back from suspend or hibernation can come back through
++ * regular hotplug before the PM cycle ends, e.g. through the SMT control. The
++ * reseed at its activation reports the net change, so any up removes the cpu
++ * from the set.
++ */
++void scx_update_frozen_cpus(s32 cpu, bool online)
++{
++	if (online) {
++		if (!cpumask_test_cpu(cpu, &scx_frozen_cpus))
++			return;
++		__cpumask_clear_cpu(cpu, &scx_frozen_cpus);
++		if (cpumask_empty(&scx_frozen_cpus))
++			wake_up_all(&scx_frozen_cpus_waitq);
++	} else if (scx_pm_frozen()) {
++		__cpumask_set_cpu(cpu, &scx_frozen_cpus);
 +	}
 +}
 +
 +/*
-+ * A cpu came back and the root's ops.cpu_online() has run. Let the cpu deliver
-+ * ecaps again and reseed each sub-sched's ecaps on its cid. The sync recomputes
-+ * effective caps from the pshard and fires ops.sub_ecaps_updated() only on a
-+ * real change since offline.
++ * The PM cycle is over. A cpu still in the set failed to come back, and its
++ * loss can't be delivered anymore. That breaks the guarantee that every ecaps
++ * change reaches the sub-scheds and their parents, so abort every sched. A root
++ * without sub-scheds is owed no reports and keeps running.
++ *
++ * Abort before clearing the set and waking the detaches in scx_sub_disable(),
++ * so that a parent whose ops.sub_detach() runs with that loss unreported is
++ * already being disabled, which ops.sub_detach() allows for. No exit cpu is
++ * recorded, as the cpu running this isn't the one that failed.
++ */
++void scx_sub_pm_end(void)
++{
++	/* hotplug updates the set under cpus_write_lock() */
++	guard(cpus_read_lock)();
++
++	if (unlikely(!cpumask_empty(&scx_frozen_cpus)) && scx_has_subs()) {
++		struct scx_sched *root;
++
++		guard(rcu)();
++		root = rcu_dereference(scx_root);
++		if (root)
++			__scx_exit(root, SCX_EXIT_ERROR, 0, -1,
++				   "%u cpu(s) failed to come back after suspend or hibernation",
++				   cpumask_weight(&scx_frozen_cpus));
++	}
++
++	WRITE_ONCE(scx_pm_in_progress, false);
++	cpumask_clear(&scx_frozen_cpus);
++	wake_up_all(&scx_frozen_cpus_waitq);
++}
++
+ /*
+  * Called with cpus_read_lock() held before the root is published. The cpus
+  * active now are online to the root without ops.cpu_online(), so they can
+@@ -1362,6 +1448,11 @@ void scx_online_ecaps(struct rq *rq)
+  * resched_sync_ecaps(). Only the marked syncs count, so a flood of changes on
+  * the cid can't hold up the hotplug. After the wait, every sub-sched's ecaps on
+  * the cpu are zero, and the later syncs have nothing to deliver.
++ *
++ * The loss on a cpu that suspend or hibernation takes down is not delivered, so
++ * that the scheds don't see a PM cycle as cpus leaving and coming back. The cpu
++ * keeps the caps last delivered until it comes back, and the reseed then
++ * reports the net change.
   */
- void scx_online_ecaps(struct rq *rq)
+ void scx_offline_ecaps(struct rq *rq)
  {
- 	struct scx_sched *root, *pos;
- 	s32 cid;
+@@ -1376,7 +1467,7 @@ void scx_offline_ecaps(struct rq *rq)
+ 	 * processed and the wait would never end. scx_enabled() can't change
+ 	 * during hotplug.
+ 	 */
+-	if (scx_enabled()) {
++	if (scx_enabled() && !scx_pm_frozen()) {
+ 		scoped_guard (rq_lock_irqsave, rq) {
+ 			root = scx_root_protected();
+ 			cid = __scx_cpu_to_cid(cpu);
+@@ -1809,11 +1900,16 @@ static void ecaps_enable(struct scx_sched *sch)
+  * through the dispatch path and wait for it. An inactive cpu is skipped. It may
+  * already be offline, where the mark would never be processed and the wait
+  * would never end. On attach, the reseed at its activation reports its caps. On
+- * detach, its loss was reported as it went down.
++ * detach, its loss was reported as it went down. A cpu that suspend or
++ * hibernation took down is back by then, or the hierarchy is aborting, see
++ * scx_sub_disable().
+  *
+- * If a marked cpu goes down meanwhile, it clears the mark while still online,
+- * as ecaps_report_irq_work would never run on an offline cpu. A cpu going down
+- * waits for the marked sync in scx_offline_ecaps().
++ * If a marked cpu goes down meanwhile, a regular down waits for the marked sync
++ * in scx_offline_ecaps() while the cpu is still online, as
++ * ecaps_report_irq_work would never run on an offline cpu. Suspend and
++ * hibernation don't wait, but no report runs across their downs. The attach
++ * report runs while the attaching task waits uninterruptibly, which holds off
++ * the freezer, and the detach report holds cpus_read_lock().
+  *
+  * Called with scx_enable_mutex held. A sched's attach and detach reports must
+  * not overlap, as the mark is one bit per pcpu.
+@@ -1881,15 +1977,41 @@ void scx_sub_disable(struct scx_sched *sch)
+ 	 * skips has finished going down. Its loss was reported as it went down,
+ 	 * see scx_offline_ecaps().
+ 	 *
+-	 * An enable that failed before its attach report has nothing to report.
+-	 * If it failed before scx_link_sched(), the root's disable doesn't wait
+-	 * for it and may have retired the cid tables that the report reads.
++	 * The loss on a cpu that suspend or hibernation took down is not
++	 * delivered. Wait for such cpus to come back so that the report reaches
++	 * them. They go down only after the freezer has frozen the tasks and
++	 * come back before the tasks thaw, so the wait doesn't hold up the
++	 * freezer. If one fails to come back, the wait can last until the PM
++	 * cycle ends, and scx_sub_pm_end() aborts every sched first.
++	 *
++	 * The check and the report run in one cpus_read_lock() section so that
++	 * no cpu goes down for PM between them. scx_sub_pm_end() can still
++	 * clear the set meanwhile, which is fine, as it aborts every sched
++	 * first. The report also needs scx_enable_mutex, see ecaps_report(). A
++	 * cpu coming back takes cpus_write_lock(), so the wait drops
++	 * cpus_read_lock(). It drops scx_enable_mutex too so that other enables
++	 * and disables don't wait behind the PM cycle, and retakes both in
++	 * order.
++	 *
++	 * An enable that failed before its attach report has nothing to report
++	 * and doesn't wait. If it failed before scx_link_sched(), the root's
++	 * disable doesn't wait for it and may have retired the cid tables that
++	 * the report reads.
+ 	 */
+-	scoped_guard(cpus_read_lock) {
+-		clear_all_caps(sch);
+-		if (sch->ecaps_enabled)
+-			ecaps_report(sch);
+-	}
++	cpus_read_lock();
++	while (sch->ecaps_enabled && !data_race(cpumask_empty(&scx_frozen_cpus))) {
++		cpus_read_unlock();
++		mutex_unlock(&scx_enable_mutex);
++		/* lockless hint, the loop retests */
++		wait_event_idle(scx_frozen_cpus_waitq,
++				data_race(cpumask_empty(&scx_frozen_cpus)));
++		mutex_lock(&scx_enable_mutex);
++		cpus_read_lock();
++	}
++	clear_all_caps(sch);
++	if (sch->ecaps_enabled)
++		ecaps_report(sch);
++	cpus_read_unlock();
  
-+	guard(rq_lock_irqsave)(rq);
-+
-+	rq->scx.flags |= SCX_RQ_OPS_ONLINE;
-+
- 	/*
- 	 * Only a live hierarchy can have ecaps to reseed. This also keeps the
- 	 * table reads below away from an enable that failed before publishing
-@@ -1265,8 +1299,6 @@ void scx_online_ecaps(struct rq *rq)
- 	if (!scx_enabled())
- 		return;
- 
--	guard(rq_lock_irqsave)(rq);
--
- 	root = scx_root_protected();
- 	cid = __scx_cpu_to_cid(cpu_of(rq));
- 
-@@ -1284,7 +1316,8 @@ void scx_online_ecaps(struct rq *rq)
- }
- 
- /*
-- * A cpu is going down. Zero each sub-sched's in-effect ecaps so cap checks
-+ * A cpu is going down, and the root's ops.cpu_offline() follows. Stop the cpu's
-+ * ecaps deliveries and zero each sub-sched's in-effect ecaps so cap checks
-  * treat the cpu as capless while offline. Pending and late-queued syncs are
-  * discarded at consumption by scx_process_sync_ecaps() while the cpu is
-  * inactive. Leave reported_ecaps. Ownership is unchanged, so the
-@@ -1313,6 +1346,8 @@ void scx_offline_ecaps(struct rq *rq)
- 		if (pcpu->flags & SCX_SCHED_PCPU_ECAPS_REPORT)
- 			ecaps_report_done(pcpu);
- 	}
-+
-+	rq->scx.flags &= ~SCX_RQ_OPS_ONLINE;
- }
- 
- /*
+ 	percpu_down_write(&scx_fork_rwsem);
+ 	scx_cgroup_lock();
 diff --git a/kernel/sched/ext/sub.h b/kernel/sched/ext/sub.h
-index 63769205c013..46c7e2a578d1 100644
+index 46c7e2a578d1..eb1dba6d51e2 100644
 --- a/kernel/sched/ext/sub.h
 +++ b/kernel/sched/ext/sub.h
-@@ -32,6 +32,7 @@ void scx_free_pshards(struct scx_sched *sch);
+@@ -32,6 +32,9 @@ void scx_free_pshards(struct scx_sched *sch);
  s32 scx_alloc_pshards(struct scx_sched *sch);
  void scx_init_root_caps(struct scx_sched *sch);
  void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev);
-+void scx_init_rq_ops_online(void);
++void scx_sub_pm_begin(void);
++void scx_update_frozen_cpus(s32 cpu, bool online);
++void scx_sub_pm_end(void);
+ void scx_init_rq_ops_online(void);
  void scx_online_ecaps(struct rq *rq);
  void scx_offline_ecaps(struct rq *rq);
- void scx_discard_ecaps_to_sync(s32 cpu, struct scx_sched_pcpu *pcpu);
-@@ -109,6 +110,7 @@ static inline void scx_free_pshards(struct scx_sched *sch) {}
+@@ -110,6 +113,9 @@ static inline void scx_free_pshards(struct scx_sched *sch) {}
  static inline s32 scx_alloc_pshards(struct scx_sched *sch) { return 0; }
  static inline void scx_init_root_caps(struct scx_sched *sch) {}
  static inline void scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev) {}
-+static inline void scx_init_rq_ops_online(void) {}
++static inline void scx_sub_pm_begin(void) {}
++static inline void scx_update_frozen_cpus(s32 cpu, bool online) {}
++static inline void scx_sub_pm_end(void) {}
+ static inline void scx_init_rq_ops_online(void) {}
  static inline void scx_online_ecaps(struct rq *rq) {}
  static inline void scx_offline_ecaps(struct rq *rq) {}
- static inline void scx_discard_ecaps_to_sync(s32 cpu, struct scx_sched_pcpu *pcpu) {}
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 22a2628a04a2..05cf0f0056e9 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -781,12 +781,21 @@ struct cfs_rq {
- /* scx_rq->flags, protected by the rq lock */
- enum scx_rq_flags {
- 	/*
--	 * A hotplugged CPU starts scheduling before rq_online_scx(). Track
--	 * ops.cpu_on/offline() state so that ops.enqueue/dispatch() are called
--	 * only while the BPF scheduler considers the CPU to be online.
-+	 * Set while the core has the rq online, see rq_online_scx() and
-+	 * rq_offline_scx(). A hotplugged cpu starts scheduling before
-+	 * rq_online_scx(). ops.enqueue() and ops.dispatch() are called for the
-+	 * cpu only while it is set, see scx_rq_online() and
-+	 * scx_dispatch_sched().
- 	 */
- 	SCX_RQ_ONLINE		= 1 << 0,
- 	SCX_RQ_CAN_STOP_TICK	= 1 << 1,
-+	/*
-+	 * Set while the root considers the cpu online, from its
-+	 * ops.cpu_online() until its ops.cpu_offline(). ecaps are delivered
-+	 * only while it is set. %SCX_RQ_ONLINE follows the core's rq state
-+	 * instead, which changes ahead of the root's view on both edges.
-+	 */
-+	SCX_RQ_OPS_ONLINE	= 1 << 2,
- 	SCX_RQ_CLK_VALID	= 1 << 5, /* RQ clock is fresh and valid */
- 	SCX_RQ_BAL_CB_PENDING	= 1 << 6, /* must queue a cb after dispatching */
- 	SCX_RQ_SUB_IDLE_RENOTIFY	= 1 << 7, /* sub-scheds are owed update_idle() */
 -- 
 2.56.0
 
