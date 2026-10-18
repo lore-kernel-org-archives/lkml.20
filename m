@@ -1,65 +1,64 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826B8375F96
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:03:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE6C44B693
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792317829; cv=none; b=HPie4VxCRSCiBUJZKg0k/urHVeHTXVgQ1HdPag4nBqoAlMuV+PhgnJ2pTJCbIw6JpJF21BUyJe461ic0yO0KTa0XXSZXXrboX1N8iw7TJIoXdxmk/lbg1N0gHViSGos2fLQkTh6DH9ZyLfgi6i6lXTAjFz323b2HWc8+XeBsfyI=
+	t=1792317836; cv=none; b=CVbMJ+xK4B2HzTMgfftA6xIKPWxyavD2uPLIZ+cPcb3CcO0s0rocNwrFT5Wl8+ldasqEK47vleWFy0vE+2BgKsRJKYxnUPL9dX0MJf7LDurxI1z7uPn0dcHubMRh8KmZGGRN34QAcnHgq9LIjOZ9haNI4PmRxwItEyTy84fjogU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792317829; c=relaxed/simple;
-	bh=z8Y+wKG8EFkD01BXFdYzYSiCuup2iIQxAVs1jj4m414=;
+	s=arc-20240116; t=1792317836; c=relaxed/simple;
+	bh=jzqpau56VN3IE3iVC5vb2dGoOd4juOAncsoECpWr6AE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WDuUuhCQ5PqlwqabuMNrJZWAkPQSjkSq4GNh+dYpHFsi0Gv7SbUi6V9IBB2KCM8FEFDjveMDZQ+D5b5QxuZ00K7dLVstFRWG8dl3M3uS2Uw0vhhhHvJxEv+vw3TboALJgVF/2gsO2OdP0XF8TRD2/Y2RQ54lZernGOETWpRBfU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=eQ0NbqI4; arc=none smtp.client-ip=209.85.216.41
+	 MIME-Version; b=ksw/0aexzMLNEi7uOXpCeJaOephT1mbEDs+0JZd8gLDwrFTpbLDctRUpCxzpZtGXyXs+g4BBH0h/ETZvNR9xd6oczS7gJ3Zv9mHtjugc7vRFyHvT2vbSxfbbVpcjCvlGbkgqFEIc0pi/u2yUvmn7cTeV/hEFW5ZLRSiPYP3KOHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=ZggQkM3M; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="eQ0NbqI4"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso712617a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:03:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="ZggQkM3M"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so839485a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:03:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1792317828; x=1792922628; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sJXCyXh4PPjdgA3K8xycNiIpP4i/Fqn0ZXUWsIMZzoE=;
-        b=eQ0NbqI4FdCKI+GESCSoFghY6xeSk8oAPnWS1GIHu9C/BPUXzXYG/efC3NIn5YZ1kn
-         IZjR9wc6gxalg7zLaabjl1nxW/ZL2DEOvBk3nP1QvL6O6JC8sq8sz7sNa/8dgxgykcch
-         7hOrXjpZYkuoOV3OcMEPbbumduwPxHqZq5M4lQF70SA6XYi8Rexl2KXf9qkPlixBYDNR
-         mldIgVZPb8q+hGoRRZbqBII0aYCKFpWpiRacfBVdZzoXr3nffO/i4dSV9iobRImJQgIq
-         es+aq4/9YEkm4oOWkkSQ3m8Sg2nVDnmPZVwETqxelADm6Tq+EECNpc/W4F7FTuUMHlSh
-         wfgA==
+        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1792317834; x=1792922634; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pCfhRxE7qYlrgHwKZ8TjP+Iw1tU1/S+jN6DMoQb7zIU=;
+        b=ZggQkM3MVMalbK1YN01e6omTnMDmu4Zf2U1RsvF1xb6zNkSDZGW6Lr67mwKcSMd2fz
+         SDHMM3+mCE9bKmb+6Z0hvcJmQgkbzUy6BMZXd18FMm4/OC4gJfr5XOuWF2XwiKhjPq+j
+         xaSnDrIST8uA6bY9mTDd29l1a3JDLXg9spmHyz/qLID9tpnU9R5nU3CnPTaBZ8Mc7Ult
+         hXXnDETiue/VaGybWYtzXoYnMyTuQON5Z6DQTQcHkWQubpMbjs6EXIQPoJr3A8ez0Zdi
+         +ZzQiLIxJhqgD8lDwc+XhF2V15BScQEAJX23/Ap6RTy+y1Uf4sP7CbiuCkxT2ihgjgAS
+         HQuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792317828; x=1792922628;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sJXCyXh4PPjdgA3K8xycNiIpP4i/Fqn0ZXUWsIMZzoE=;
-        b=oUtTdkGVv31762l/WpfWcBWRtsqEP6TGWjohkxhNpaH5bnal6hUevL0RQdirm6Ney3
-         EJZDKPLKcXYa7JWQWbm1iJJyvOIYL7Dy0kdIBFMig123ZHGgjGRLFA+HWoC48LuskYPq
-         90Y1DnwXcVqtDt2Hp05qlVmv+2VCA1mAcDZGZESr8vCBssBFIDkwtggkcJShLBFv1fP1
-         5iYiRVax0IMmu9iw8QEcIWiwMglFQqvIhMKdvB/T4MOwkfz2D4mCKt8PAUy6AVpHffTB
-         6zHKFBHNDFUFXv2pOoINXlhaGI7/H2YU/iWlTv9WP+rA2VjLjRnFnvNujtu4ml0U+uzM
-         IgNg==
-X-Forwarded-Encrypted: i=1; AKwUvBzXppmWj/B/Hcgwc+38v33rBLXpc3r4pEzaZeyfwPNalDpew0T7GXM4xDOxT8+hTRDGLAQLUu81i9PWdwY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkV0DoqNUukzEFD31r4L0aneWyYHR6zARpuNQpr7MR2XAG9UEh
-	RBq1IXpSbbJ9osvol410zXypkV5nTx293mAhqy3sNm1Icd8kPa3kHxwtaH707+pFsQ==
-X-Gm-Gg: AYBFou3Hdk2YqerzNrs1w3e3hiIP+QJT+KCID+5mtcRfr6ktnGQkkdcL69Jwm2zciaK
-	NHE0sv4W1BC2M8rmyp3FCOYhgge0Z7ghNcmz5aUHhPsix9xwfkHQOSRL0sOQdmDN009FoaD+Fcu
-	nXY4/bwlEutDlZwZDksFVHs66XrpdK54UPfst8zqbhON3/hNFNGdY4duYjJ3LALd8pfS2EcdsQ3
-	OBQohXaho+1dEX2hhC90UV1tIWb8Pi04u7UHEjJlHRW+dhBcGkm8wuLTurwzg/n/DEYQIyqWvkh
-	ynmeN4pjUdMC7kWc8V2e/UqplolaGp8ywcDmJqh3k20eKWjx3MuYsN4ImGe3GbrXIyjoOLLyHsR
-	ZPztFcXTlLdUhBFTyqyxvvxDEf6Lueu+4Dv9yRgNGPC/g0hNb60rJP2B0ltuja4GXExM4aYxAov
-	NuLqwfKU+tftQ4aOt0s5ffqsghz9yLiCunvdqx+FwTUX8zVkYFEQdhi++D7N4m9e44rD4uLpiNl
-	HIcevB5AcMXE/ZMp+ClUwJfTJXL8Nx+ukFViR5ttb/7C3kUobF8MmrKKnvovBA=
-X-Received: by 2002:a17:90b:184d:b0:3ab:4262:1a3a with SMTP id 98e67ed59e1d1-3acef6300c9mr3733016a91.61.1792317827585;
-        Sun, 18 Oct 2026 03:03:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792317834; x=1792922634;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pCfhRxE7qYlrgHwKZ8TjP+Iw1tU1/S+jN6DMoQb7zIU=;
+        b=VvaGDJ/rZjyBzSb7ljb2GsO6R/mG9mnnCtSoOe/cd6llAKNzGUkclXZMGBhdwMQSW8
+         9xekJyM5T9DX0oVsY5z4lvvgNmQmOHinB1ScFezmKYClDwWccfFniew2J4mz4vCIOyCE
+         bRJRpdi3GSQhY1KOU/ORTdUcqQMu6viy8MFkQg6q2B3jfMMTg67jDChwogMRr8mSoy3x
+         36s7qBz/YtV1yBNs9Kb8CTvWl+Fa68jkk7oFGUzHmeJHhim3B3bPL42biXpDizzMvZgg
+         oKn9aJzDRTV2GyZxi6yLNH5epsQGLG1OIV4IxRVnmgaGFoWpaZQQBd9TM1N85zpGAG3s
+         uqmw==
+X-Forwarded-Encrypted: i=1; AKwUvBzB/9Njao61YezbyCuwUaZpSkIX6MXmbJfyUZrbGex6gd9kaDD65D/5vhpjoOuU7hDbhJAzjKj6JACJ0ZM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItIwScBMylSnKg3NGkot+ojaoJrBfbYyN0jlU9MT+9cVkfg14P
+	IZluQG340vyDNNgWLdTHoVDrJVVj0FOszNDW/SMCHN71e6q30G2PxFgNqlGGwwz5bg==
+X-Gm-Gg: AYBFou3RgafaTAxFjne8o6WO9mxNEuNzSO3AWOkcPV8MhKZPAjE4Dymb8pbx3emhZkv
+	0d8Jie+G82k9bF8fiB2rhzGzPp/xteAx8K+Mc0kx2OseG+YrzYDvmlbAgiDELIX7Zvo/mi5dnbk
+	5/wo3xM6BAeLlGwWWCyj+GqFCeM9grxT0OshdLCAnhwzfsOrFwWHieA8cwoCe/ry09xvl8V11H8
+	jl06ZKwRxgxyIHtujSvqNmNvShIum6n1jTgtIObkGsI85VpYuyH9gWNxwb2AT5kln8GyzSHm8/t
+	vVFhfgVP6XlDlM8kMwWzf+hD0x/jZ5Nazv5O0vc+nnuEcpCTWwasZ+in+IIb1lqhz9pnM9f4uNe
+	QdpsMLjLKbQrrTKXk/0ObsrU4+GrJrEZgYJfQgnCUegWt0uL8OlOTd3/zyq936oQ1SkpaYA5Qt7
+	8cgrcUkQV5j/+kTXIzDstaHtLDGijqKEpavRpxeIBcHgOutYNa3lIRMKRmlR6TGa0kjDBSzOWwP
+	qesqMAGNrznN3Xsi9EVduMLrAt1HMHoXVU2HwfyNVGctL64wwQZ8FVdVkreF9k=
+X-Received: by 2002:a17:90b:4d88:b0:3a8:cb54:e135 with SMTP id 98e67ed59e1d1-3acef134c30mr4826419a91.19.1792317834545;
+        Sun, 18 Oct 2026 03:03:54 -0700 (PDT)
 Received: from cantal.lan ([58.136.73.153])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac940055f5sm16101210a91.0.2026.10.18.03.03.40
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac940055f5sm16101210a91.0.2026.10.18.03.03.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 03:03:46 -0700 (PDT)
+        Sun, 18 Oct 2026 03:03:54 -0700 (PDT)
 From: James Clark <jjc@jclark.com>
 To: "David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
@@ -84,9 +83,9 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
 	Hubert Feurstein <h.feurstein@gmail.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 5/6] net: macb: implement timestamped MDIO writes
-Date: Sun, 18 Oct 2026 17:02:56 +0700
-Message-ID: <20261018100257.566267-6-jjc@jclark.com>
+Subject: [PATCH net-next v2 6/6] net: mdio: bcm-unimac: implement timestamped MDIO writes
+Date: Sun, 18 Oct 2026 17:02:57 +0700
+Message-ID: <20261018100257.566267-7-jjc@jclark.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261018100257.566267-1-jjc@jclark.com>
 References: <20261018100257.566267-1-jjc@jclark.com>
@@ -96,239 +95,268 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 Implement write_sts to provide system timestamp bounds for completion
 of an MDIO write. This enables tighter system timestamp bounds in PHY
 implementations of gettimex64.
 
-Take system timestamps around the command register write, then shift
-them by the time from the command write until the MDC edge that
-clocks the last data bit, calculated from the MDC rate.
+Take system timestamps around the command start, then shift them by
+the time from the command start until the MDC edge that clocks the last
+data bit, calculated from the reference clock rate and the configured
+MDC divider.
 
 A clause 22 frame is 64 MDC periods long, and the transfer ends on the
 rising edge of MDC in the last period, half way through it. So if the
-frame starts with the command write, that edge comes 63.5 periods after
-the command write. If MDC runs freely, the frame can start up to one
-period after the command write, so by default bound the edge by 63.5 and
-64.5 periods. Add the MACB_CAPS_MDC_WRITE_SYNC flag for a MAC that
-starts the frame with the command write, and use exactly 63.5 periods
-there.
+frame starts with the command start, that edge comes 63.5 periods after
+the command start. If MDC runs freely, the frame can start up to one
+period after the command start, so bound the edge by 63.5 and 64.5
+periods. A UniMAC whose divider restarts with the command puts the edge
+at 63.5 periods, still within these bounds.
 
-Set the flag for RP1. Measurements performed on a Raspberry Pi CM5 with
-its BCM54210PE PHY show the transfer consistently takes 63.5 periods.
-The PHY's PHC was read with PTP_SYS_OFFSET_EXTENDED while the MDC
-divisor was switched between 48 and 128 through /dev/mem. With 63.5
-periods, the PHC offset jumped by under 2 ns at each switch, after
-compensating for drift. A frame starting on average half a period after
-the command write would have made it jump by 200 ns. The spread of the
-PHC offsets also did not change with the divisor.
+Measurements performed on a Raspberry Pi CM4 with its BCM54210PE PHY
+show that the MDC divider of BCM2711 runs freely. The PHY's PHC was read
+with PTP_SYS_OFFSET_EXTENDED while the MDC divider field was switched
+between 9 and 39 through /dev/mem. With 64 periods, the midpoint of the
+bounds, the PHC offset jumped by under 10 ns at each switch, after
+compensating for drift. With 63.5 periods it would have jumped by
+150 ns. The PHC offsets also spread evenly over one MDC period at each
+divider.
 
-write_sts runs under the MDIO bus lock, so it can't call clk_get_rate(),
-which takes the clock framework's prepare_lock: a clock provider that
-does MDIO accesses, such as air_en8811h's, takes the two locks in the
-other order. So record the MDC rate when macb_mdc_clk_div() chooses the
-divisor, which it does at probe and when the MAC is opened or resumed.
-If the pclk rate changes after that, neither the driver nor write_sts
-adjusts to the new rate; handling this is outside the scope of this
-patch.
+Without the preamble, a clause 22 frame is 32 MDC periods long. But with
+the preamble suppressed, the same test put the edge one period later
+than a 32-bit frame would, as if the UniMAC still sent one preamble bit.
+So without the preamble, bound the edge by 31.5 and 33.5 periods, which
+also covers a UniMAC that sends just the 32-bit frame.
+
+Take the reference rate from a clock on the mdio node, and offer
+write_sts only when there is one. This is how the standalone UniMAC
+already uses that clock: unimac_mdio_clk_set() computes the MDC divider
+from its rate. When GENET creates the UniMAC device, the clock it passes
+is its own main clock, which gates register access but is not the MDC
+reference. No in-tree DT gives an mdio node a clock yet. For BCM2711,
+the GISB clock, which MDC is divided from, is being added to clk-bcm2835
+separately. It is marked critical there, so the UniMAC driver does not
+need to enable it. A deferral of the clock lookup is passed on, as for
+any clock, so the MDIO bus waits for the clock's provider.
 
 Signed-off-by: James Clark <jjc@jclark.com>
 Assisted-by: LLM
 ---
 Changes in v2:
-- Bound the edge by 63.5 and 64.5 MDC periods by default, and use
-  exactly 63.5 with MACB_CAPS_MDC_WRITE_SYNC, which RP1 sets
-- Explain how 63.5 follows from the frame timing
-- Record the MDC rate when the divisor is chosen, in place of reading
-  NCFGR (Théo)
-- Explain why clk_get_rate() can't be called under the MDIO bus lock
-  (Théo)
-- Say that neither the driver nor write_sts adjusts to a change of the
-  pclk rate, and that handling one is outside the scope of this patch
-- Make macb_mdio_write_c22_sts() separate from macb_mdio_write_c22(),
-  as Andrew asked for UniMAC
-- Express the delay with MDIO_C22_FRAME_BITS (Andrew)
+- Take the reference rate from a clock on the mdio node, and offer
+  write_sts only when there is one, instead of hardcoding 200 MHz for
+  brcm,bcm2711-genet-v5 (Florian, Nicolai)
+- Allow for a suppressed preamble, in place of not offering write_sts
+  (Andrew)
+- Explain how 63.5 to 64.5 follows from the frame timing
+- Make unimac_mdio_write_sts() separate from unimac_mdio_write()
+  (Andrew)
+- Express the delay with MDIO_C22_FRAME_BITS and MDIO_PREAMBLE_BITS
+  (Andrew)
+- Wrap a line to 80 columns (checkpatch)
 
- drivers/net/ethernet/cadence/macb.h      |   2 +
- drivers/net/ethernet/cadence/macb_main.c | 115 ++++++++++++++++++++++-
- 2 files changed, 116 insertions(+), 1 deletion(-)
+On BCM2711 this has no effect until the mdio node gets its clock.
+Nicolai Buchwitz's patches adding the GISB clock:
+https://lore.kernel.org/netdev/41c32f5a6f38ec9df8a79ce896912fb9@tipi-net.de/
 
-diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/cadence/macb.h
-index 82499ec6a9f..b19370221c5 100644
---- a/drivers/net/ethernet/cadence/macb.h
-+++ b/drivers/net/ethernet/cadence/macb.h
-@@ -785,6 +785,7 @@
- #define MACB_CAPS_USRIO_HAS_MII			BIT(26)
- #define MACB_CAPS_USRIO_HAS_REFCLK_SOURCE	BIT(27)
- #define MACB_CAPS_USRIO_HAS_TSUCLK_SOURCE	BIT(28)
-+#define MACB_CAPS_MDC_WRITE_SYNC		BIT(29)
+ drivers/net/mdio/mdio-bcm-unimac.c | 128 +++++++++++++++++++++++++++++
+ 1 file changed, 128 insertions(+)
+
+diff --git a/drivers/net/mdio/mdio-bcm-unimac.c b/drivers/net/mdio/mdio-bcm-unimac.c
+index 31e396cc9fb..a18e213e383 100644
+--- a/drivers/net/mdio/mdio-bcm-unimac.c
++++ b/drivers/net/mdio/mdio-bcm-unimac.c
+@@ -16,6 +16,7 @@
+ #include <linux/phy.h>
+ #include <linux/platform_data/mdio-bcm-unimac.h>
+ #include <linux/platform_device.h>
++#include <linux/ptp_clock_kernel.h>
+ #include <linux/sched.h>
  
- /* LSO settings */
- #define MACB_LSO_UFO_ENABLE			0x01
-@@ -1334,6 +1335,7 @@ struct macb {
- 	struct macb_or_gem_ops	macbgem_ops;
+ #define MDIO_CMD		0x00
+@@ -42,6 +43,7 @@ struct unimac_mdio_priv {
+ 	void			*wait_func_data;
+ 	struct clk		*clk;
+ 	u32			clk_freq;
++	unsigned long		mdio_ref_rate;
+ };
  
- 	struct mii_bus		*mii_bus;
-+	unsigned long		mdc_rate;
- 	struct phylink		*phylink;
- 	struct phylink_config	phylink_config;
- 	struct phylink_pcs	phylink_usx_pcs;
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 020a47353d0..863f3ef19a5 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -415,6 +415,112 @@ static int macb_mdio_write_c22(struct mii_bus *bus, int mii_id, int regnum,
- 	return status;
+ static inline u32 unimac_mdio_readl(struct unimac_mdio_priv *priv, u32 offset)
+@@ -73,6 +75,27 @@ static inline void unimac_mdio_start(struct unimac_mdio_priv *priv)
+ 	unimac_mdio_writel(priv, reg, MDIO_CMD);
  }
  
-+static u32 macb_mdc_divisor(struct macb *bp, u32 config)
++static void unimac_mdio_start_sts(struct unimac_mdio_priv *priv,
++				  struct ptp_system_timestamp *sts)
 +{
-+	static const u16 gem_divisors[] = {
-+		[GEM_CLK_DIV8] = 8,
-+		[GEM_CLK_DIV16] = 16,
-+		[GEM_CLK_DIV32] = 32,
-+		[GEM_CLK_DIV48] = 48,
-+		[GEM_CLK_DIV64] = 64,
-+		[GEM_CLK_DIV96] = 96,
-+		[GEM_CLK_DIV128] = 128,
-+		[GEM_CLK_DIV224] = 224,
-+	};
-+	static const u16 macb_divisors[] = {
-+		[MACB_CLK_DIV8] = 8,
-+		[MACB_CLK_DIV16] = 16,
-+		[MACB_CLK_DIV32] = 32,
-+		[MACB_CLK_DIV64] = 64,
-+	};
-+
-+	if (macb_is_gem(bp))
-+		return gem_divisors[GEM_BFEXT(CLK, config)];
-+	return macb_divisors[MACB_BFEXT(CLK, config)];
-+}
-+
-+/* write_sts runs under the MDIO bus lock, so it can't call
-+ * clk_get_rate(): that takes the clock framework's prepare_lock, and a
-+ * clock provider that does MDIO accesses, such as air_en8811h's, takes
-+ * the two locks in the other order. So record the MDC rate when the
-+ * divisor is chosen.
-+ */
-+static void macb_record_mdc_rate(struct macb *bp, unsigned long pclk_hz,
-+				 u32 config)
-+{
-+	unsigned long rate = pclk_hz / macb_mdc_divisor(bp, config);
-+
-+	if (rate)
-+		WRITE_ONCE(bp->mdc_rate, rate);
-+}
-+
-+static void macb_mdio_sts_delays(struct macb *bp, u64 *pre_ns, u64 *post_ns)
-+{
-+	u64 rate2 = 2ULL * READ_ONCE(bp->mdc_rate);
-+	u64 half_periods = 2ULL * MDIO_C22_FRAME_BITS - 1;
-+
-+	/* The MDC edge that clocks the last bit comes half a period
-+	 * before the end of the frame. A MAC with MACB_CAPS_MDC_WRITE_SYNC
-+	 * starts the frame with the command write. Otherwise MDC may run
-+	 * freely, so the frame starts up to one period after the command
-+	 * write.
-+	 */
-+	*pre_ns = div64_u64(half_periods * NSEC_PER_SEC, rate2);
-+	if (!(bp->caps & MACB_CAPS_MDC_WRITE_SYNC))
-+		half_periods += 2;
-+	*post_ns = div64_u64(half_periods * NSEC_PER_SEC + rate2 - 1, rate2);
-+}
-+
-+static int macb_mdio_write_c22_sts(struct mii_bus *bus, int mii_id, int regnum,
-+				   u16 value, struct ptp_system_timestamp *sts)
-+{
-+	struct macb *bp = bus->priv;
-+	u64 pre_ns, post_ns;
 +	unsigned long flags;
-+	int status;
-+	u32 cmd;
++	u32 reg;
 +
-+	status = pm_runtime_resume_and_get(&bp->pdev->dev);
-+	if (status < 0)
-+		goto mdio_pm_exit;
-+
-+	status = macb_mdio_wait_for_idle(bp);
-+	if (status < 0)
-+		goto mdio_write_exit;
-+
-+	cmd = MACB_BF(SOF, MACB_MAN_C22_SOF)
-+	      | MACB_BF(RW, MACB_MAN_C22_WRITE)
-+	      | MACB_BF(PHYA, mii_id)
-+	      | MACB_BF(REGA, regnum)
-+	      | MACB_BF(CODE, MACB_MAN_C22_CODE)
-+	      | MACB_BF(DATA, value);
-+	macb_mdio_sts_delays(bp, &pre_ns, &post_ns);
-+
++	reg = unimac_mdio_readl(priv, MDIO_CMD);
++	reg |= MDIO_START_BUSY;
 +	local_irq_save(flags);
 +	ptp_read_system_prets(sts);
-+	/* macb_writel() is relaxed; order it after the timestamp. */
++	/* Order the timestamp before the relaxed command write. */
 +	mb();
-+	macb_writel(bp, MAN, cmd);
++	unimac_mdio_writel(priv, reg, MDIO_CMD);
 +	/* Flush the posted write before taking the upper bound. */
-+	macb_readl(bp, NSR);
++	unimac_mdio_readl(priv, MDIO_CMD);
 +	/* Order the read-back before the system timestamp. */
 +	rmb();
 +	ptp_read_system_postts(sts);
 +	local_irq_restore(flags);
++}
 +
+ static int unimac_mdio_poll(void *wait_func_data)
+ {
+ 	struct unimac_mdio_priv *priv = wait_func_data;
+@@ -151,6 +174,82 @@ static int unimac_mdio_write(struct mii_bus *bus, int phy_id,
+ 	return ret;
+ }
+ 
++static int unimac_mdio_sts_delays(struct unimac_mdio_priv *priv,
++				  u64 *pre_ns, u64 *post_ns)
++{
++	u32 cmd, config, divisor, bits, extra_bit = 0;
++	u64 ref_rate2 = 2ULL * priv->mdio_ref_rate;
++	int ret;
++
++	/* The delays assume the controller is idle. */
++	ret = read_poll_timeout(unimac_mdio_readl, cmd,
++				!(cmd & MDIO_START_BUSY),
++				1, 1000, false, priv, MDIO_CMD);
++	if (ret)
++		return ret;
++
++	config = unimac_mdio_readl(priv, MDIO_CFG);
++	divisor = 2 * (((config >> MDIO_CLK_DIV_SHIFT) &
++			MDIO_CLK_DIV_MASK) + 1);
++	bits = MDIO_C22_FRAME_BITS;
++	if (config & MDIO_SUPP_PREAMBLE) {
++		bits -= MDIO_PREAMBLE_BITS;
++		/* Measured on BCM2711: with the preamble suppressed, the
++		 * UniMAC sends one period more than the 32-bit frame, as if
++		 * one preamble bit were still sent. The upper bound allows
++		 * for that period.
++		 */
++		extra_bit = 1;
++	}
++	/* Assume that the PHY acts on the write at the earliest time it
++	 * physically can: when it samples the last bit, on the rising
++	 * MDC edge halfway through the last period of the frame, which
++	 * is bits periods long. Measurements on BCM2711 support this
++	 * assumption and show that the MDC divider can run freely, so
++	 * that the frame starts up to one period after the write that
++	 * sets MDIO_START_BUSY. The edge therefore comes between
++	 * bits - 0.5 and bits + 0.5 periods after that write.
++	 */
++	*pre_ns = div64_u64((2ULL * bits - 1) * divisor * NSEC_PER_SEC,
++			    ref_rate2);
++	*post_ns = div64_u64((2ULL * (bits + extra_bit) + 1) * divisor *
++			     NSEC_PER_SEC + ref_rate2 - 1, ref_rate2);
++
++	return 0;
++}
++
++static int unimac_mdio_write_sts(struct mii_bus *bus, int phy_id, int reg,
++				 u16 val, struct ptp_system_timestamp *sts)
++{
++	struct unimac_mdio_priv *priv = bus->priv;
++	u64 pre_ns, post_ns;
++	u32 cmd;
++	int ret;
++
++	ret = clk_prepare_enable(priv->clk);
++	if (ret)
++		return ret;
++
++	ret = unimac_mdio_sts_delays(priv, &pre_ns, &post_ns);
++	if (ret)
++		goto out;
++
++	/* Prepare the write operation */
++	cmd = MDIO_WR | (phy_id << MDIO_PMD_SHIFT) |
++		(reg << MDIO_REG_SHIFT) | (0xffff & val);
++	unimac_mdio_writel(priv, cmd, MDIO_CMD);
++
++	unimac_mdio_start_sts(priv, sts);
 +	ptp_adjust_system_prets(sts, pre_ns);
 +	ptp_adjust_system_postts(sts, post_ns);
 +
-+	status = macb_mdio_wait_for_idle(bp);
-+	if (status < 0)
-+		goto mdio_write_exit;
++	ret = priv->wait_func(priv->wait_func_data);
++out:
++	clk_disable_unprepare(priv->clk);
 +
-+mdio_write_exit:
-+	pm_runtime_put_autosuspend(&bp->pdev->dev);
-+mdio_pm_exit:
-+	return status;
++	return ret;
 +}
 +
- static int macb_mdio_write_c45(struct mii_bus *bus, int mii_id,
- 			       int devad, int regnum,
- 			       u16 value)
-@@ -1166,6 +1272,8 @@ static int macb_mii_init(struct macb *bp)
- 	bp->mii_bus->name = "MACB_mii_bus";
- 	bp->mii_bus->read = &macb_mdio_read_c22;
- 	bp->mii_bus->write = &macb_mdio_write_c22;
-+	if (bp->mdc_rate)
-+		bp->mii_bus->write_sts = &macb_mdio_write_c22_sts;
- 	bp->mii_bus->read_c45 = &macb_mdio_read_c45;
- 	bp->mii_bus->write_c45 = &macb_mdio_write_c45;
- 	snprintf(bp->mii_bus->id, MII_BUS_ID_SIZE, "%s-%x",
-@@ -3018,6 +3126,8 @@ static u32 gem_mdc_clk_div(struct macb *bp)
- 	else
- 		config = GEM_BF(CLK, GEM_CLK_DIV224);
- 
-+	macb_record_mdc_rate(bp, pclk_hz, config);
-+
- 	return config;
+ /* Workaround for integrated BCM7xxx Gigabit PHYs which have a problem with
+  * their internal MDIO management controller making them fail to successfully
+  * be read from or written to for the first transaction.  We insert a dummy
+@@ -234,11 +333,21 @@ static int unimac_mdio_clk_set(struct unimac_mdio_priv *priv)
+ 	return ret;
  }
  
-@@ -3039,6 +3149,8 @@ static u32 macb_mdc_clk_div(struct macb *bp)
- 	else
- 		config = MACB_BF(CLK, MACB_CLK_DIV64);
- 
-+	macb_record_mdc_rate(bp, pclk_hz, config);
++static bool unimac_mdio_init_sts(struct unimac_mdio_priv *priv,
++				 struct clk *ref_clk)
++{
++	/* The reference rate is taken to be fixed, so read it once. */
++	priv->mdio_ref_rate = clk_get_rate(ref_clk);
 +
- 	return config;
- }
++	return priv->mdio_ref_rate != 0;
++}
++
+ static int unimac_mdio_probe(struct platform_device *pdev)
+ {
+ 	struct unimac_mdio_pdata *pdata = pdev->dev.platform_data;
+ 	struct unimac_mdio_priv *priv;
+ 	struct device_node *np;
++	struct clk *ref_clk;
+ 	struct mii_bus *bus;
+ 	struct resource *r;
+ 	int ret;
+@@ -277,11 +386,23 @@ static int unimac_mdio_probe(struct platform_device *pdev)
+ 		priv->wait_func_data = pdata->wait_func_data;
+ 		bus->phy_mask = ~pdata->phy_mask;
+ 		priv->clk = pdata->clk;
++		/* priv->clk is GENET's main clock, which gates register
++		 * access. ref_clk is the clock used as the MDC reference,
++		 * which we get from the MDIO node. The presence of this
++		 * clock enables write_sts.
++		 */
++		ref_clk = devm_clk_get_optional(&pdev->dev, NULL);
++		if (IS_ERR(ref_clk) && PTR_ERR(ref_clk) != -EPROBE_DEFER) {
++			dev_warn(&pdev->dev, "no MDC reference clock: %pe\n",
++				 ref_clk);
++			ref_clk = NULL;
++		}
+ 	} else {
+ 		bus->name = "unimac MII bus";
+ 		priv->wait_func_data = priv;
+ 		priv->wait_func = unimac_mdio_poll;
+ 		priv->clk = devm_clk_get_optional(&pdev->dev, NULL);
++		ref_clk = priv->clk;
+ 	}
  
-@@ -5853,7 +5965,8 @@ static const struct macb_config raspberrypi_rp1_config = {
- 		MACB_CAPS_JUMBO |
- 		MACB_CAPS_GEM_HAS_PTP |
- 		MACB_CAPS_EEE |
--		MACB_CAPS_USRIO_HAS_MII,
-+		MACB_CAPS_USRIO_HAS_MII |
-+		MACB_CAPS_MDC_WRITE_SYNC,
- 	.dma_burst_length = 16,
- 	.usrio = &at91_default_usrio,
- 	.jumbo_max_len = 10240,
+ 	if (IS_ERR(priv->clk)) {
+@@ -289,9 +410,16 @@ static int unimac_mdio_probe(struct platform_device *pdev)
+ 		goto out_mdio_free;
+ 	}
+ 
++	if (IS_ERR(ref_clk)) {
++		ret = PTR_ERR(ref_clk);
++		goto out_mdio_free;
++	}
++
+ 	bus->parent = &pdev->dev;
+ 	bus->read = unimac_mdio_read;
+ 	bus->write = unimac_mdio_write;
++	if (unimac_mdio_init_sts(priv, ref_clk))
++		bus->write_sts = unimac_mdio_write_sts;
+ 	bus->reset = unimac_mdio_reset;
+ 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-%d", pdev->name, pdev->id);
+ 
 -- 
 2.56.0
 
