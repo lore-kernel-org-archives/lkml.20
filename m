@@ -1,169 +1,170 @@
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+Received: from out-utut-a195.jellyfish.systems (out-utut-a195.jellyfish.systems [198.177.127.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96FA53C3F51
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792355338; cv=pass; b=gUKtm89hkGiPAEUIWkY+U4gd9zt86gqNQd0xOj6DF/8eV/q6PKTUQMvbe9HIE4EHNwJys5Hl333XGZ6mYRoqYPhL8T6nYupPFgpB+WBsz39I2gBWN4Uecj0eP/igKGhXY6y+wS/DtnANy7nWZPs3Fd2O49na0Fh4wG5nvrwePz4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792355338; c=relaxed/simple;
-	bh=b5hzFXuS/ZaPKWwYVS/ZTQhs479P1FbROJSqXhgoLZs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YncRBCljOoyFyu6WfRxG2D056mQarl1NIx97cqSmnST4ul7Ra2atYwqgvcqcgKvlqxuUfIJUeOwwxY8QXjaGv0f9zly2GnyUrB23QttqmGogLR9Czleuw30PFzAMi5Uqbojy/jhhXI178T5/hyqtF9vlrRnUYmm4y8i8wLzDnAA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=R16xhDgz; arc=pass smtp.client-ip=74.125.224.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50D23AC00
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:29:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.177.127.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792355377; cv=none; b=TbTpkOI1rv/wRn3Z6Hhcc5jBGZeneNGzcHI356ggDsj0LiP/vXh1AtWtvRW8EsXDYC8YQTlHuz1Sbj65/DnPnGSCgzS9CVrI48Ddj6H9NtjuO7OkvKhe/jIk0G6oQkcHs+2FHKBoQOcxUXzIUNCaNZFwFBsfomGveMej0Cgzjlo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792355377; c=relaxed/simple;
+	bh=K5tVx83eZko7Hl+sBbrVkmUzvN6AVp1ARz5pSHuClps=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bY5XxyHpiSI24TSPUnKGeaar+WCvs9BdEf1/ru0ZiPtXei8NOtwpUg0aUr2xBceTmk472AwRz9pZSeiAavaW+zMs8wcjjhlAiwmcI6qf8aS1dRaWjReAOu4IdIChxkG+fHwFUr7Pum0kRwIh51ATD9hLT5VRON1Zb9PYSAJkZ8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=PWEByqwy; arc=none smtp.client-ip=198.177.127.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="R16xhDgz"
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-679a420b5afso1297450d50.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:28:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792355336; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KdHXnejZ0r5ca+yeaLYFkVDDjXCfsKowdKVA0Lb77LgVLLhC9wQvV/W1haT3wEYZMR
-         9jrXW2dih5BDZZbWW/MtlcPAzzOhayo1ltynNjAnG8HaL7Dg+xy0Zboc8SCHyD4dzbY3
-         KCdpwAzWIALnkfZCI5sHVJbW+kQCOE1cEQF0W9ZgpwGJhB61zW8BtuhX3DokO+c6o51M
-         dW69h78I90FOKwHXA3tFg5GoGI01Ycum9PlTJb+9DSnHQp0PrTU3D9TQbM6PnIMIaZCG
-         xN554J3yJuoRaogmaQM5qR3rj3KV/2MFoWSSqDEUAC2Xq7dm/F14wYiYeyYeQH3N5qoj
-         O0sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=b5hzFXuS/ZaPKWwYVS/ZTQhs479P1FbROJSqXhgoLZs=;
-        fh=mZtKAPeS3c8lJlYea7c2kmXqdEqIuwGQy7dunX0cMQE=;
-        b=Py/RgWx9QynTtw1JZ0iRV0lOUgfVwWDGjmq9ZlXdmtl7cT80HlIq9BF0swzpOkDv2O
-         r9kOvbNDVGmlUq+dunDSqzDaQVGJ52H7ZAArUDglzKd5qFWGM6LpxvV86POvtpnKNxPk
-         op0E9rN4mI5jfo/Ssm6jGyYehDVyN/8Hk903JhwAMQJkHYqRa2+Qa/qoKtyJrcUq75BA
-         59aGLsFV0f4vTXte8UlYd96WGyFltw23kmKtoX1bc8ttivLWlRuCmmquciJI9AWoFa2d
-         yBTA+clFDdmCLDYzr6P7I2JshPe5drStCsNAXq+s4lxFxm1o8Y8+0cRcJvm/MG3DmUfA
-         EYag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792355336; x=1792960136; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=b5hzFXuS/ZaPKWwYVS/ZTQhs479P1FbROJSqXhgoLZs=;
-        b=R16xhDgzK+nSm377ST9a48JvX4CIduKKkz+G5EmPfXavYrxOdYumc8hwIyGhz9OMEq
-         oVB9prRIH3ymilGBOq6R6B/xIi9Y/9VNUIpm00RsEaglG1bm5c5CW1/JTNeSLAt6Ynxz
-         9FEx9uyWM3JXZxdBdGiONY3yYIpQapM4jratMJK+H/pkRi0rs2pZ+xzPPnRBtF45cJPr
-         FXVULnmqYYBt04sWoB+aWG77hPmayrm+POKrtF4ntGuWMV1WGvhf1qiWImuiqdcNbmxY
-         XW1ZxJM6pib1vET2JHdJfg5zdpbsUX5KVjNbgN3W5xHCJvsJmxDEnZ4qFgKOMPxc7hbO
-         pYSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792355336; x=1792960136;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b5hzFXuS/ZaPKWwYVS/ZTQhs479P1FbROJSqXhgoLZs=;
-        b=omig9Qa80Xs9TZcRAhGFiYvduyF3zksIQ3p1BjFBeDiO9vjn7N/kuhrMXTfd2LmhW9
-         K4Yv76G5wzXwuiWwqI3DKoQlMA9EADX9N9XzGvt+TE9EZTjP3k1FwAkXlZMl8bLZDgfq
-         mhsK1seRolaDGknQUm4KVjy1zSyFfSrrIA39TZbNJQqmoGOTylKqz2zPua4uuFag8nXT
-         G0Y9q1h4LLVOxiM338Y9vmEQHki0mGJ2LiJnhpfMFQbYnfOYNHTt1URj7j3ViLeDdOrr
-         HsCkx1xfwNNkbQaG78y0JBooHthOyIEZoRZlUf6py09hxPqhqCoXDQZ3dVnl8emv16DS
-         4knA==
-X-Forwarded-Encrypted: i=1; AKwUvBxA6vu1bT4emtnbEVLD6trbHx5j5G1cH/874+ob4Uva7q38HNoubhBl/bHWBPpKBw1TZNQx1knHv2W6uyA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2vqa4r522aTEEqlUJTY+1EItQcHO61s8T1joGgR9PdyWRSz3K
-	WXJRfqW+u+/iHzNGIy5zoAm9dSYbSbQNj8+l+TO86CapsdhSbqQ+G2Z2HlIx9QpoGNG2+y9OnFq
-	eDY5yG7q4gA/wBmcFEmycpuyxqw/RceWFtcLBLIn6
-X-Gm-Gg: AYBFou3WhGL51SN6x4e0DGqIliuXRtdm+IFXCAGZam3Y6diskrzEodbBpKGlKmvWnFc
-	j/1U7Cuh7IjZicEoncoIHBtjtpAahQbjWnKZGTJ3Z79zWOAzuECiaMx81M2XqelY7iCIkUu5uEA
-	Dd5gjt9jwKch9EblpcOwHvhCj4fUbtydUQM3aP0Utk+ddx8mcQZnOmGuUPA3TYORBseJ/a/j5OO
-	61ZWRN2R0p/3kF9QDa4EE988XqPXK6tu9r/BxWhpUf7sDEwfxEf2YDd/F3t/cW6WvU7yUUOTt5Y
-	2S97kJiJfBFHUXdVxrLIaCYOUDxXMCXRz/sT+d6DIY3yGc/OixSOH4veeH3koLqU0V6GbVfwzBm
-	q8+etjmXmkw==
-X-Received: by 2002:a05:690e:118e:b0:679:2a5f:52d3 with SMTP id
- 956f58d0204a3-679ca95a0c8mr1537687d50.161.1792355335893; Sun, 18 Oct 2026
- 13:28:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="PWEByqwy"
+Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4j78Hm18rQz8sWR;
+	Sun, 18 Oct 2026 19:43:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
+	s=spacemail; t=1792352630;
+	bh=x1Jv6GO0wPuojhw9KPg5KMy9xKjoXPBBoSTMpj3/LZI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=PWEByqwyOcIRB+puisOnF81Sa0mgfaAbahDN9ulzoYKHj5TwpCjam3fOmZ1Urecxq
+	 am4a2L7VkuC+rpSKiPX3jlNWjm/wL5DcYofqlwEKLMJI3wMGlZ06CpqlBeD8IFgEkM
+	 xrWxa/3GsCxFuhObAhm36HEAq8SCIsyVT+qUxjQgYfBoPDqghID3N1UB188Ul8HoQx
+	 wTl7848eyDbt05VVfgT6ZW7O7X91H8dbOIpSc1f9vte1/4oTqsT6OIVmujBawVCe/c
+	 ITCrtCVZJooqZ5twRfEEMUqrtU/PjWNRiWwOhrJncKBfrptrzx6xshFITvNn2c1Z9u
+	 olZo/gYDBnCKQ==
+From: Ross Cawston <ross@r-sc.ca>
+To: lee@kernel.org,
+	pavel@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ross Cawston <ross@r-sc.ca>
+Subject: [PATCH 1/3] dt-bindings: leds: add Realtek RTL9301 port LEDs
+Date: Sun, 18 Oct 2026 12:43:36 -0700
+Message-ID: <20261018194339.132-2-ross@r-sc.ca>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261018194339.132-1-ross@r-sc.ca>
+References: <20261018194339.132-1-ross@r-sc.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921230603.2518652-1-samagazaryan@google.com>
- <arY6DfVf_9tZ_TCu@black.igk.intel.com> <arZTphXbVF5wagy2@shikoro>
- <CAHreonFzhYk6fDswn7OVZfL3ybUHU15G3_q9+1sDhe8h670r3A@mail.gmail.com> <as487H8-0Gc77mXI@ashevche-desk.local>
-In-Reply-To: <as487H8-0Gc77mXI@ashevche-desk.local>
-From: Sam Agazaryan <samagazaryan@google.com>
-Date: Sun, 18 Oct 2026 13:28:44 -0700
-X-Gm-Features: AclHuK8PXQM2VfsIRVEDKyHaajGYEQ3CpfznmQSW3MY9pGrSxyVsVdcPzi-iqk4
-Message-ID: <CAHreonHiesGbR4VB+3sRxoLDmNHXFFEB=6_o6TNedm-N6VksEQ@mail.gmail.com>
-Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i3c@lists.infradead.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Meagan Lloyd <meaganlloyd@linux.microsoft.com>, 
-	Vitor Soares <vitor.soares@toradex.com>, 
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, 
-	Boris Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: ross@r-sc.ca
 
-> Yes and more as this bus (i3c) is still non-discoverable (am I mistaken?)=
-.
+Add a binding for RTL9300 switch port LEDs under software control. The
+node is a child of the switch and gives the offset of the software LED
+control registers; each LED child names its switch port and its place
+among the port's LEDs.
 
-I3C is a dynamically discoverable bus. During DAA each I3C target reports a
-Provisioned ID (PID), Bus Characteristic Register (BCR), and Device
-Characteristic
-Register (DCR), and is assigned a dynamic address by the controller.
+Signed-off-by: Ross Cawston <ross@r-sc.ca>
+---
+ .../leds/realtek,rtl9301-port-leds.yaml       | 84 +++++++++++++++++++
+ 1 file changed, 84 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/leds/realtek,rtl9301-port-leds.yaml
 
-> This makes even less usefulness in my eyes. Immediate Q: if 4 already hav=
-e the
-> proper driver in the kernel, what's wrong to make it for the fifth one?
+diff --git a/Documentation/devicetree/bindings/leds/realtek,rtl9301-port-leds.yaml b/Documentation/devicetree/bindings/leds/realtek,rtl9301-port-leds.yaml
+new file mode 100644
+index 00000000000..8d6b3552526
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/realtek,rtl9301-port-leds.yaml
+@@ -0,0 +1,84 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/realtek,rtl9301-port-leds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Realtek RTL9300 switch port LEDs under software control
++
++maintainers:
++  - Ross Cawston <ross@r-sc.ca>
++
++description: |
++  The RTL9300 switch drives up to four LEDs per port over its LED interface,
++  serial or scanned, each normally showing a hardware function chosen by the
++  LED set of the port. The LEDs listed here are taken over by software instead
++  and switched on and off as LED class devices, for port LEDs that have no
++  hardware function such as the PoE status LED of a PoE switch. The node is a
++  child of the switch, whose registers it uses.
++
++properties:
++  compatible:
++    const: realtek,rtl9301-port-leds
++
++  reg:
++    description: The software LED control registers, from SW_LED_LOAD to the
++      end of LED_PORT_SW_CTRL, as an offset into the switch registers.
++    maxItems: 1
++
++  "#address-cells":
++    const: 2
++
++  "#size-cells":
++    const: 0
++
++patternProperties:
++  "^led@[0-9a-f]+,[0-3]$":
++    $ref: /schemas/leds/common.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        items:
++          - items:
++              - description: Switch port
++                maximum: 27
++              - description: LED of the port, numbered as in the port's
++                  LED set
++                maximum: 3
++
++    required:
++      - reg
++
++required:
++  - compatible
++  - reg
++  - "#address-cells"
++  - "#size-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/leds/common.h>
++
++    led-controller@cc48 {
++        compatible = "realtek,rtl9301-port-leds";
++        reg = <0xcc48 0x84>;
++        #address-cells = <2>;
++        #size-cells = <0>;
++
++        led@0,2 {
++            reg = <0 2>;
++            color = <LED_COLOR_ID_GREEN>;
++            function = "poe";
++            function-enumerator = <1>;
++        };
++
++        led@8,2 {
++            reg = <8 2>;
++            color = <LED_COLOR_ID_GREEN>;
++            function = "poe";
++            function-enumerator = <2>;
++        };
++    };
+-- 
+2.55.0.windows.5
 
-1. The original use case was hardware bring-up, silicon validation, and deb=
-ug
-(i3ctransfer): Just like spidev, engineers need a debug interface
-to issue ad-hoc SDR/HDR transfers during bring-up or hardware validation be=
-fore
-a driver exists.
-
-2. Userspace firmware recovery / update tools (OCP Secure Firmware
-Recovery, Caliptra RoT):
-The recovery protocol is purely a polled request/response transport
-(no IBIs allowed per spec)
-used by userspace update tooling (fwupd / BMC recovery daemons) to
-parse signed firmware
-manifests, stream recovery image chunks to INDIRECT_FIFO_DATA, and
-poll RECOVERY_STATUS=E2=80=94similar
-to how userspace firmware updaters operate over spidev, hidraw, or
-USB/NVMe ioctls rather than
-putting firmware image parsing and update policy inside the kernel. In
-my response to
-Wolfram above I discussed this some more.
-
-> What if the device needs more? Or if this is a multi-functional device th=
-at
-> may have driver for only one part?
-
-If a device needs more than basic transfers (such as IBIs,
-hot-join handling, or integration with a subsystem like hwmon/iio/mctp),
-it should use a dedicated kernel driver.
-
-For multi-function devices, if the functions are exposed as MIPI I3C
-Targets (e.g. a device exposing both an mctp-i3c interface and
-an OCP recovery interface), each virtual target is assigned its own
-dynamic address and DCR during ENTDAA and is enumerated as a distinct
-i3c_device instance on the bus. Conversely, if multiple functions share
-a single I3C target address and register map, i3cdev intentionally does
-not allow userspace to access a target while a kernel driver is bound
-to it (avoiding the I2C_SLAVE_FORCE problem where userspace can race
-with a bound driver), so that case should be handled by an in-kernel
-MFD driver - but that is not the use case being targeted here with OCP
-recovery.
-
-
-
-> What to do with the i2c devices connected to i3c bus in the compatible mo=
-de?
-
-I3C master controllers register an i2c adapter for i2c devices running on a=
-n
-i3c mixed mode bus - they are identified as i2c_bus_type, not i3c.
-
-Thanks,
-Sam
