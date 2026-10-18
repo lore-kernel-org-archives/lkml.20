@@ -1,104 +1,128 @@
-Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BDA3DAABE
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685AC3DAAB8
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341171; cv=none; b=rSxvwJlPLVXPIYa3OfJym4U8TB3Do0NNgtD9Rtk6/zlt8oHgMFTAekmLAN5fWnPTyUjjMxH4R1umN4M9utObCTczkfCw7cmM8m2EHnptk1ii6OlpEj9mWJ4lIlSa7pvqMO26JQLysWnniG7tR9mI7DPScp+gNTdMPtdC8uNVp0U=
+	t=1792341193; cv=none; b=i6Dw8VO1/IgEJsO9RM4wOmb/X4KRuef2DBjNe5XFTd5EGMkNbXm3VpsJ8vXol2XH3FpiYBouC/jTlG6baUqVutBNnty621sIODB+Gro6kb3lkzNttUaUZPKwy2VVjk5kK2QRsytv+ACr0PFPFBx9jPPyLZ9CQiM+VpnWdCIFRa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341171; c=relaxed/simple;
-	bh=cYFV4Zhdqv7Lx4ML754VZ5O4c2k3efDLoxAKMMwG9uM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s4NE0h8u/5MJ9qPxenCi7s/+srnwC2yJ/A0b+I+ZWc4IR0NSbJtHdFpvTzF/UGuGgD0/YUnG/uyPULHIrt1pETtZEV+e8JQ7PXQ8b5cT8tCSq8FlDoOlRa7/XvADNxxKejeiAyYkLwkwGAABoro5PRagH/SAE/0nBwu+rWlLxmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=B8XLanQP; arc=none smtp.client-ip=95.215.58.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792341193; c=relaxed/simple;
+	bh=AJ/km8sE6GctD4RuE/KlvnKKGAXGH2QdqK+ac6g6Ezo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BE9b+MjfUSJhi9L5u/bM0Aqn91MXQiv01NVnMxivGn4L+ktyOeYgurHAZ9OOwOA5e2O7+WmPJ1kjUCmlI5VSGZJalPOkC0OnaZb2gynvSZKca2KTglhZjGSnGNpfkT5KUfsQTCBq9XUKKQKgmf3/Pjy8bbIZ8S83nU3ru7pYsIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A2tNA6R3; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="B8XLanQP"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cYFV4Zhdqv7Lx4ML754VZ5O4c2k3efDLoxAKMMwG9uM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792341167; v=1; x=1792945967;
- b=B8XLanQPcolyiNDtb8rGaSuoh1BTjafb45ilE8yTOBEAEUu705+4Whwri5WNGiJ0qJrCNCUA
- m+3Za3jVZRQ6L1f8/jseNcr/7Q794Pkmrh3l/bSwZEdt7BUzEqOLs2V/82KzF79G9HMh0ZTbp7G
- uiacywW2Ojzx/kYgILtRoGnw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1c9fe71dca233eac;
-	Sun, 18 Oct 2026 16:32:46 +0000
-X-Mizu-Trace-ID: 1c9fe71dca233eac
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6ea0eae1-9183-4da4-be7a-3e9436dda5b7@linux.dev>
-Date: Mon, 19 Oct 2026 00:32:37 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A2tNA6R3"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e987a2ba0cso10558555ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:33:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792341192; x=1792945992; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8lASuEAWr02cFkueHsd07yvRwkaU6dw60ogYfI+giIU=;
+        b=A2tNA6R3Vkx0sbAjhxknPHRb+hTU4X5Hjo3H3xLWAypJXOUWqXsLhSaLVZD5AXy4tU
+         sj1/jYi+16zV3sW1W/tuFc8zIJco2PgtyAiS+KI9zfpBtASAzOXulIHbMQzmuh4c2OCe
+         CGsrQ2LAQfpFEbO/Ni+RT4D8VBFFYL8aMR/gVRYCMAO4ptIk/tXvCSgz5OVSemO1fwgh
+         Yc/qoea0n1PfS0ZhXh2cpp1YiTWX5aMsUbYVm7HioD6WbksWs8KQGvHEadH+BtMQ1AT7
+         c7RHxtiARNrAKya43R1IGw3Hh+I3KMBZdoM3s5rOR5x35FbfnXc6kv3uIJtKEkO2aKK3
+         O0uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792341192; x=1792945992;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8lASuEAWr02cFkueHsd07yvRwkaU6dw60ogYfI+giIU=;
+        b=hFyKZN9VNWmXSbJwWIMF6bvxthGPj18JyPK3hlQHA1vW6xQ8hPvEsqx1/AuXcOqbKf
+         cPqcA5kdOkbyELQNaEXDSD73YXR1OACtIn42CFaha4OPtoA/4iAFmkxf39p52BbQHBpb
+         8BEsIlKNWkB7z7Y8MZzpYNe4fZxsCwX8cR+rHGBImGcQaLWD6H5cx872VP+k/19hJxWW
+         xTThxet+dbRLxCR0bdHlK3uqJ7mKJ6OaJSzZNMHPojFE4Y6Lgwi8kAFpo7VNWNJI7wUq
+         saUdWtkQHgxv7JGQ3IIgMtyFF1JDkCJHiN5EmE/O1Z3klUtfwPgtEythF0bKTTQf/jHR
+         BrhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOESNSS0usOBMLx6YnmU/QKY9Ewi7rRWhyIyfL3VrXe03ijp5dftG8qPelKbXW4jNdvV57orcGLSQ6NBM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8VQB0sEXeUdjncwjEgP55xiyN9r9QoMorYq2QATOgV7TU1bb9
+	t77aUZQBejvbRmV1J+Cxcam7QmJMCehD4fI8ctQFFhTUzXyFUoZdZkYM
+X-Gm-Gg: AYBFou0wkDeWGBmqkOzpkwkOA8PXH1Xk/PEAy3He815pJx4g28EzqY2B79AhKI4jlU9
+	WQ4UFB3imMpmxoRyCxhxY615NwkozQYzoq3EUokQgaVqj7q68sAD+UBEjEg6Qq24ksn6rGBXgo5
+	7WahX3xOuH4q3vjumvPiNi7Wsxu4XERTLKleCisUyzobWiHxQ+NYcciDEfjBN9taGC0UoE601SC
+	R06KR2fu7qDg9t/7U2XKUGQPY8McetxdAkuR/3D2l3mEdbJmJBTW1fvH78B4iY9xJDDolfxTMu2
+	eaNfAkJAfk8OvuFpSnQVajE09BOz4d7KbfG5VoatJWf3FtaoxPIpeXahczZMoPWXEBbl3MGk/hN
+	TnOCnyngiqH+dDCLWhbHtgh/4KghFFvD3mSYAMERWm9yC7W05tVN6sx5PnZEMvqSbCOf4EKmwp/
+	2mjimbQWYiO26nPu5J7d89UhqIvDtx88Kc7xjdTwdx9QM7ilXKlFZ0p8NGCTaEXzaCf7TDJrrSk
+	pgqH1yBfLvoa3tBPgoDTaY=
+X-Received: by 2002:a17:902:e748:b0:2e9:8510:6acf with SMTP id d9443c01a7336-2e9a6bff6c2mr46257275ad.25.1792341191722;
+        Sun, 18 Oct 2026 09:33:11 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e83406bsm29315425ad.38.2026.10.18.09.33.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 09:33:11 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 18 Oct 2026 09:33:10 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Sanan Hasanov <sanan.hasanou@gmail.com>
+Cc: Marius Zachmann <mail@mariuszachmann.de>,
+	Sanan Hasanov <sanan.hasanov@ucf.edu>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aleksa Savic <savicaleksa83@gmail.com>,
+	syzbot+0f98b0c0bdeaab2dc2fd@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (corsair-cpro) Make wait_input_report_lock IRQ
+ safe
+Message-ID: <0b7c972c-f3e2-41ee-bd75-45bcae83a34a@roeck-us.net>
+References: <20261008205310.30832-1-sanan.hasanou@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next 4/6] libbpf: Factor out __bpf_sys_fd helper
-To: bot+bpf-ci@kernel.org, bpf@vger.kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, hawk@kernel.org, john.fastabend@gmail.com,
- sdf@fomichev.me, rostedt@goodmis.org, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, shuah@kernel.org, kuniyu@google.com,
- liuhangbin@gmail.com, mkarsten@uwaterloo.ca, masashi.honma@gmail.com,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20261017142649.51047-5-leon.hwang@linux.dev>
- <eb32cc32c29af7d8ad5a342bbd9a0da19c8b53d31a71754b98953a5be62638f0@mail.kernel.org>
-Content-Language: en-US
-From: Leon Hwang <leon.hwang@linux.dev>
-In-Reply-To: <eb32cc32c29af7d8ad5a342bbd9a0da19c8b53d31a71754b98953a5be62638f0@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008205310.30832-1-sanan.hasanou@gmail.com>
 
-On 2026/10/17 22:53, bot+bpf-ci@kernel.org wrote:
->> libbpf: Factor out __bpf_sys_fd helper
+On Thu, Oct 08, 2026 at 04:52:45PM -0400, Sanan Hasanov wrote:
+> From: Sanan Hasanov <sanan.hasanov@ucf.edu>
 > 
-> TL;DR: Commit message nit only: subject and body call the new helper
-> __bpf_sys_fd, but the code names it __sys_bpf_fd. Should the message match?
+> ccp_raw_event() is the HID ->raw_event() callback and takes
+> wait_input_report_lock with a plain spin_lock(). This callback can run
+> in very different contexts depending on the transport: from process
+> context (e.g. uhid, via a write() to /dev/uhid) with softirqs and
+> interrupts enabled, and from URB completion, which is softirq context
+> for HCDs using HCD_BH and hard interrupt context for HCDs that do not
+> (e.g. OHCI, UHCI).
 > 
->> libbpf: Factor out __bpf_sys_fd helper
->>
->> In the next patch, it also needs to use the extended BPF syscall to
->> receive the reported log.
->>
->> So, factor out __bpf_sys_fd helper.
->>
->> No functional changes intended.
->>
->> Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+> Taking the lock from process context with softirqs enabled while the
+> same lock is also taken from softirq context can deadlock if the
+> softirq interrupts the lock holder on the same CPU. Lockdep reports:
 > 
-> This isn't a bug, but the subject and body name the helper __bpf_sys_fd,
-> while the function the patch adds is:
+>   WARNING: inconsistent lock state
+>   inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
+>   ...
+>    spin_lock include/linux/spinlock.h:347 [inline]
+>    ccp_raw_event+0x51/0x110 drivers/hwmon/corsair-cpro.c:161
+>    __hid_input_report+0x41c/0x580 drivers/hid/hid-core.c:2175
+>    hid_irq_in+0x492/0x710 drivers/hid/usbhid/hid-core.c:287
+>    __usb_hcd_giveback_urb+0x378/0x540 drivers/usb/core/hcd.c:1657
+>    dummy_timer+0xa91/0x4cc0 drivers/usb/gadget/udc/dummy_hcd.c:2023
 > 
-> +static int __sys_bpf_fd(union bpf_attr *attr, const size_t attr_sz, enum bpf_cmd cmd,
-> +			struct bpf_log_opts *log_opts)
+> For the same reason, the spin_lock_bh() in send_usb_cmd() is not
+> sufficient when ccp_raw_event() is called from hard interrupt context.
 > 
-> which follows the existing sys_bpf(), sys_bpf_fd() and sys_bpf_ext_fd()
-> naming.
+> Use spin_lock_irqsave() in ccp_raw_event(), since it may be called with
+> interrupts already disabled, and spin_lock_irq() in send_usb_cmd(),
+> which always runs in process context.
 > 
-> Should the subject and body say __sys_bpf_fd instead, so that searching the
-> log for the real function name finds this commit?
+> Fixes: d02abd57e794 ("hwmon: (corsair-cpro) Protect ccp->wait_input_report with a spinlock")
+> Reported-by: syzbot+0f98b0c0bdeaab2dc2fd@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=0f98b0c0bdeaab2dc2fd
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sanan Hasanov <sanan.hasanov@ucf.edu>
 
-Will change __bpf_sys_fd to __sys_bpf_fd in the subject and body.
+Applied.
 
 Thanks,
-Leon
-
-> 
-> 
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-> 
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39042048581
-
+Guenter
