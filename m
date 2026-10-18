@@ -1,248 +1,82 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF8F49D58D
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B74549EC47
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792327949; cv=none; b=QbshfUI30uontForXh9jRT5vSHwMXR3TmhHtjTI5+lpf3zps132Bpac9atK+RRKP6izsjVLWPTmLjL1hKau4bhIYLXIWqa+DEC/iQee7vkDhFI3OQzH4LeYrSS8y/p2qb9DcfSgGZCeWBL6C+FVVCRmCTNrjyepwj0zJQtYk0g0=
+	t=1792327971; cv=none; b=UzYIDgI3PBTFSBZUfvUAo2IepUT6fn6KXx9J+RpeTUHFkL3gs8vnuv60Do5/nhdTnOC+TfaRjX69em13JFSCIqIbkArBZ/cHv7O2ezJJ8Tw0b+/CKi0jHu2cDdRatNVZ3n8eTFZnRSqO0U3/8Xjmb2afgQ+KJ8OiuH+aGn5QFNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792327949; c=relaxed/simple;
-	bh=4e/cZlNHFugnl0GQlTF6D9lv8zDe84gkKeLcigX3E04=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Js0JYwN6rNV7U8MSwpb/TjcLx2HYWzvMTFVI1oRQl9BmJz4PdmdxiLwGrZvc7Wdno3Q05srxIEJLPOQx9Mg1Iy+o1ZU8s2pZFzBL6DgebVUaX79u5OR2yryWMzPOCn0YJ/EXUzb/4EdVi003YGaUUkuN/jer3AObyapRWtt8io4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b597558c4cso2685788b6e.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:52:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792327947; x=1792932747;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ynpU3sFABEIJ2y70VYaPsZuLbo5x2o5qkA8rVhUTAfM=;
-        b=iEZYx+l6kCjpq5bEqthpPyWdFx1GYOfeHLFYTOJ2D1Y2lLajNj9cZgTExuMoxW89cl
-         /pK/jrzylhIhQtpe0cwEXG1Cylpht/u/QBJZdTazWiGgvGD8O4eoUXOFfWh5OFuMre9I
-         JORfp5TtRVJXG21vQ6+b6XHxk/h8wuXOsCtUXyfFfSkWd8YQq8dtbkMjpXHR5jSGTVg2
-         L+QWVrFusbS/wFb+N69lqqkf77dfgLImyth6SNKmqQK619LHtrowRx+kM78lP1ZhxmKl
-         uBI4MBRGa0DHbnOqB80Rtj9sunALkWNsEPhZy490vZlH7iULJLgpWjLYwT7wfGWOWm7V
-         shng==
-X-Forwarded-Encrypted: i=1; AKwUvByOLeYvgHcfUSI85ZG3nRs0UZRue1mhHF3/cW6nopLO1LxxUsUTj7y1SE6p6Hfv8zBA34SCU5qsLRLcZnk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMUYsZBrIjpxoCTWxQu9+UcLPn05+jIswaZb3IYasukxgPo397
-	1Umh2qmm1xnMnbH++3AjWMH7ApjkLXij6yEJ6Ootiv3HfDGba/VRlr2RXPUcfornFZDs1SYncPq
-	OrM3NvLpRtIU0oMCXj5wWqoeN8VHvbfyqf5AzVjMKSCmSAgj71rSfOOIU7wc=
+	s=arc-20240116; t=1792327971; c=relaxed/simple;
+	bh=k1cEz2DJS9J8J/nXKByrgqOisCZybPQFc2+UYuf3Fjs=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=lnAwhpjoYz/2hkeClCJhaF+24Ijh/aeqW2Exs8Z55MAKOTL+HR+Kn3HvzRoWYDBLSL5lVwn59MNG5ldfx2BZN8ibugGEpN6FYT4pyXejiJmeJ4QRn9U4icLwBqE9dnHkMzMVVSWa2VS/sEtpTLxaJOezROh+Nwrj/eMDbw369U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OqTJi3o9; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OqTJi3o9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F1EB1F000C7;
+	Sun, 18 Oct 2026 12:52:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792327966;
+	bh=YuXbH4FOUc5F23HxTXdA3xfCJ8FVEXawstGMCXdU9hY=;
+	h=From:To:Cc:Subject:Date;
+	b=OqTJi3o9BQiZtoGrcKnw7Ys8uu23U/ySnIRrcI7FgB7B2aMlUmBlyQ8pvZAAUBdKG
+	 hyNGDGim9vTwT+be3STatmApRK4O4+eSLG53bMncjwQNm+TgPeYEdHmMQHkGXZlyHL
+	 JzFZEPTkdAKARUW/zzALKPpvOvZDD4FSVunhuM2Ls4ZE9owVH7ARjxUKbito84ltlY
+	 bS3Pu0Q0yJx3Q71R9dsdyjf+xNSce3KmiIiLESH36gfNOcFlDF4rrTRvgWHdxt/El2
+	 bvIgYENsFvlgAhBbFo3XC/unrAOuRIHUx/IR3SstlV+0zuryZG5bFroPFIdJyuICag
+	 N7TznttarCt3A==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 0B4901AC57D1; Sun, 18 Oct 2026 13:52:23 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] regmap fixes for v7.3-rc7
+Date: Sun, 18 Oct 2026 13:50:28 +0100
+Message-Id: <20261018125223.0B4901AC57D1@finisterre.sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2384:b0:4f8:716d:793e with SMTP id
- 5614622812f47-53cd2a696camr3829902b6e.46.1792327946845; Sun, 18 Oct 2026
- 05:52:26 -0700 (PDT)
-Date: Sun, 18 Oct 2026 05:52:26 -0700
-In-Reply-To: <6a6c0d7d.b1a781d0.210f9.001a.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad4c10a.6814cce4.34c49f.00f2.GAE@google.com>
-Subject: Re: [syzbot] [xfs?] KASAN: slab-use-after-free Read in xfs_defer_item_unpause
-From: syzbot <syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com>
-To: cem@kernel.org, djwong@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-xfs@vger.kernel.org, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, viennaoffh@gmail.com
-Content-Type: text/plain; charset="UTF-8"
 
-syzbot has found a reproducer for the following issue on:
+The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
 
-HEAD commit:    32c52ec87d62 x86/insn-eval: Fix shadowed segment index in ..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13778bc9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
-dashboard link: https://syzkaller.appspot.com/bug?extid=e7f24354da9f7915bc54
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13ca1e9c580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17ca1e9c580000
+  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-32c52ec8.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e3667e150f2a/vmlinux-32c52ec8.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/603cc202ff6c/bzImage-32c52ec8.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/97b1c323a9b6/mount_0.gz
-  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=15ca1e9c580000)
+are available in the Git repository at:
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git tags/regmap-fix-v7.3-rc7
 
-==================================================================
-BUG: KASAN: slab-use-after-free in xfs_defer_item_unpause+0x116/0x250 fs/xfs/libxfs/xfs_defer.c:1256
-Read of size 4 at addr ffff88803b37d0fc by task syz.0.22/5598
+for you to fetch changes up to d5a821f66047c2effd06147b84775f9b2ce0f4aa:
 
-CPU: 0 UID: 0 PID: 5598 Comm: syz.0.22 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- xfs_defer_item_unpause+0x116/0x250 fs/xfs/libxfs/xfs_defer.c:1256
- xrep_newbt_free+0x3fe/0x5f0 fs/xfs/scrub/newbt.c:522
- xrep_ibt_build_new_trees+0xafd/0xdc0 fs/xfs/scrub/ialloc_repair.c:752
- xrep_iallocbt+0x24e/0x340 fs/xfs/scrub/ialloc_repair.c:828
- xrep_attempt+0x184/0x7c0 fs/xfs/scrub/repair.c:78
- xfs_scrub_metadata+0xce4/0x1910 fs/xfs/scrub/scrub.c:747
- xfs_ioc_scrubv_metadata+0x7ac/0xb70 fs/xfs/scrub/scrub.c:980
- xfs_file_ioctl+0x916/0x1590 fs/xfs/xfs_ioctl.c:1308
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc864b9e559
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fc865a8b028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007fc864e25fa0 RCX: 00007fc864b9e559
-RDX: 0000200000041d40 RSI: 00000000c0285840 RDI: 0000000000000005
-RBP: 00007fc864c35ab8 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fc864e26038 R14: 00007fc864e25fa0 R15: 00007ffe67582028
- </TASK>
+  regmap: Fix cache lifecycle locking and teardown (2026-10-13 00:11:44 +0100)
 
-Allocated by task 5598:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:351 [inline]
- __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:377
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x2b9/0x600 mm/slub.c:5010
- xfs_defer_alloc fs/xfs/libxfs/xfs_defer.c:843 [inline]
- xfs_defer_add+0x143/0x480 fs/xfs/libxfs/xfs_defer.c:871
- xfs_extent_free_defer_add+0x1bf/0x3b0 fs/xfs/xfs_extfree_item.c:507
- xfs_defer_extent_free+0x2a8/0x400 fs/xfs/libxfs/xfs_alloc.c:2682
- xfs_alloc_schedule_autoreap+0xb0/0x170 fs/xfs/libxfs/xfs_alloc.c:2727
- xrep_newbt_add_blocks+0x22a/0x3f0 fs/xfs/scrub/newbt.c:211
- xrep_newbt_alloc_ag_blocks+0x81e/0xcc0 fs/xfs/scrub/newbt.c:311
- xrep_ibt_build_new_trees+0x75e/0xdc0 fs/xfs/scrub/ialloc_repair.c:696
- xrep_iallocbt+0x24e/0x340 fs/xfs/scrub/ialloc_repair.c:828
- xrep_attempt+0x184/0x7c0 fs/xfs/scrub/repair.c:78
- xfs_scrub_metadata+0xce4/0x1910 fs/xfs/scrub/scrub.c:747
- xfs_ioc_scrubv_metadata+0x7ac/0xb70 fs/xfs/scrub/scrub.c:980
- xfs_file_ioctl+0x916/0x1590 fs/xfs/xfs_ioctl.c:1308
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+----------------------------------------------------------------
+regmap: Fixes for v7.3
 
-Freed by task 5598:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6509 [inline]
- kmem_cache_free+0x182/0x650 mm/slub.c:6636
- xfs_defer_cancel_list fs/xfs/libxfs/xfs_defer.c:505 [inline]
- xfs_defer_finish_noroll+0xf8b/0x14e0 fs/xfs/libxfs/xfs_defer.c:737
- xfs_defer_finish+0x1c/0x180 fs/xfs/libxfs/xfs_defer.c:755
- xrep_defer_finish+0x16e/0x240 fs/xfs/scrub/repair.c:242
- xrep_newbt_alloc_ag_blocks+0x86c/0xcc0 fs/xfs/scrub/newbt.c:318
- xrep_ibt_build_new_trees+0x75e/0xdc0 fs/xfs/scrub/ialloc_repair.c:696
- xrep_iallocbt+0x24e/0x340 fs/xfs/scrub/ialloc_repair.c:828
- xrep_attempt+0x184/0x7c0 fs/xfs/scrub/repair.c:78
- xfs_scrub_metadata+0xce4/0x1910 fs/xfs/scrub/scrub.c:747
- xfs_ioc_scrubv_metadata+0x7ac/0xb70 fs/xfs/scrub/scrub.c:980
- xfs_file_ioctl+0x916/0x1590 fs/xfs/xfs_ioctl.c:1308
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+The main thing here is a fix for lockdep warnings with MMIO regmaps that
+use a raw spinlock and a cache, some other lockdep fixes we'd done for
+the benefit of the maple tree on sleeping buses meant that we were doing
+allocations for those MMIO regmaps under a raw spinlock.  While fixing
+that Michael Reeves also noticed that the debugfs files were briefly
+available without the cache structures backing them.
 
-The buggy address belongs to the object at ffff88803b37d0c0
- which belongs to the cache xfs_defer_pending of size 64
-The buggy address is located 60 bytes inside of
- freed 64-byte region [ffff88803b37d0c0, ffff88803b37d100)
+There's also a fix for interrupt freeing on error in regmap-irq which
+had been hanging around because it's not super urgent.
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88803b37d600 pfn:0x3b37d
-flags: 0x4fff00000000200(workingset|node=1|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 04fff00000000200 ffff888033947dc0 ffff888033c36588 ffff888033c36588
-raw: ffff88803b37d600 00000002002a0010 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 131, tgid 131 (kworker/u4:5), ts 153391648879
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7418
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x399/0x600 mm/slub.c:5010
- xfs_defer_alloc fs/xfs/libxfs/xfs_defer.c:843 [inline]
- xfs_defer_add+0x143/0x480 fs/xfs/libxfs/xfs_defer.c:871
- xfs_bmap_add_extent_hole_real+0xd61/0x1a40 fs/xfs/libxfs/xfs_bmap.c:2782
- xfs_bmapi_allocate+0x248c/0x2f20 fs/xfs/libxfs/xfs_bmap.c:3975
- xfs_bmapi_write+0x843/0x1330 fs/xfs/libxfs/xfs_bmap.c:4265
- xfs_dquot_disk_alloc+0x4af/0xae0 fs/xfs/xfs_dquot.c:385
- xfs_qm_dqread+0xfe/0x520 fs/xfs/xfs_dquot.c:724
- xfs_qm_dqget+0x18a/0x3d0 fs/xfs/xfs_dquot.c:927
- xfs_qm_quotacheck_dqadjust+0xdd/0x5a0 fs/xfs/xfs_qm.c:1260
- xfs_qm_dqusage_adjust+0x4ad/0x670 fs/xfs/xfs_qm.c:1389
-page last free pid 9 tgid 9 ts 153295791972 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
- __slab_free+0x274/0x2c0 mm/slub.c:5823
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __kmalloc_cache_noprof+0x29f/0x600 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- nsim_fib6_rt_create drivers/net/netdevsim/fib.c:547 [inline]
- nsim_fib6_rt_insert drivers/net/netdevsim/fib.c:752 [inline]
- nsim_fib6_event drivers/net/netdevsim/fib.c:856 [inline]
- nsim_fib_event+0xf37/0xa3a0 drivers/net/netdevsim/fib.c:889
- nsim_fib_event_work+0x244/0x3b0 drivers/net/netdevsim/fib.c:1493
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+----------------------------------------------------------------
+Mark Brown (2):
+      regmap: irq: Free the irqdomain we create
+      regmap: Fix cache lifecycle locking and teardown
 
-Memory state around the buggy address:
- ffff88803b37cf80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88803b37d000: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff88803b37d080: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
-                                                                ^
- ffff88803b37d100: fc fc fc fc fa fb fb fb fb fb fb fb fc fc fc fc
- ffff88803b37d180: fa fb fb fb fb fb fb fb fc fc fc fc fa fb fb fb
-==================================================================
+Michael Reeves (2):
+      regmap: Remove debugfs before cache teardown
+      regmap: Drop map lock during cache init and exit
 
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ drivers/base/regmap/regcache-maple.c |  9 +++++++--
+ drivers/base/regmap/regcache.c       |  6 ------
+ drivers/base/regmap/regmap-debugfs.c |  1 +
+ drivers/base/regmap/regmap-irq.c     |  2 +-
+ drivers/base/regmap/regmap.c         | 15 +++++++++------
+ include/linux/maple_tree.h           |  4 ++++
+ 6 files changed, 22 insertions(+), 15 deletions(-)
