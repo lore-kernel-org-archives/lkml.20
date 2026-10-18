@@ -1,279 +1,194 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0F543711C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:31:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713174C67F6
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792333918; cv=none; b=ufYI+Pz9/IhyqeP/y5oudVc+UFryx1j6//4Aldq53W9o2ZHVzvAI9SDtHqx7niZ7uYROeDaHiuPGzCjOKYEdZAj+Qsw/LJPRh702xenTCktHScuIH/FbirCYb9PljjbTKAXVluVnKFrv1JzTC6GvsTo2bbBWM+E8EIACCvc13jU=
+	t=1792333922; cv=none; b=BmNB7ThQ+QL60J88lIK/QdKz5ousSUPr8+bb9fo9cViBAqNuElwvFzI9ottUTfn8KrOJ5/rd9b5cfAMOytW0HqCPEmqiF5MgF2mTiZ/wWJY4DD6leZPbhmBjnd2X1w/PD5puSyKm74gAgir8JUJyWypy8FwkS0v8jlQkjWN2boY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792333918; c=relaxed/simple;
-	bh=NzNRVwVjsWTD8UVC1actwGWsyViFrlnqg11fylj0BqM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=faWzAyPs28Kf+aFjes9rwJz4dtO8TOwFWl9N2icED1/Barc7Qujx3KS1cRrm9V1pR07FpSyD6rvjpgLM+PE97bFBZEj9GOKEHxhNn6hbM0r+X11bXw76g5s+OXAZuxiN2eAQ0TwNaTyFmYrtZoD/kTF11IbmP6zuCWx1cqF50cY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iCh44ljl; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792333922; c=relaxed/simple;
+	bh=HiTtcdQ3+Ds0m4DX1z6pWYfQBN5jbny1N8mHXunV++8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HlJ0DaTNflgQ8TaQTw270iHfxVPSmk3Ji2sSbDOH1IHYbXmy+h7U0r06IKwgtIctRns+MQCJfPMSJvEogXf+gYdzldPW4tYEPrxWoMg0njAl5WAq/FTpHEnNzAvO/65k+S2LKNyshnEf8i+tn0UQnCPnhn+gFMXbt0yDeDrzWAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=jan.claussen10@web.de header.b=wG+7PyWp; arc=none smtp.client-ip=212.227.17.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iCh44ljl"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e10a70540so215408f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:31:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792333915; x=1792938715; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z4DinWw4y4cul7vchZoeDhjRTd9lXiDvj9Lx77xpfpw=;
-        b=iCh44ljl9foPqJFmFdKS+4TuNkz5IRohceZN/58qzCgfoYFv9PfHTqv16BCzAFGDm3
-         lGgQgSIy2UJ9wOjWuy0It3ogudT4zGH+JE0AyHPEAokdV7hLwerYodSfyz3KEaUl+cBB
-         u4hK7L/z1Usbz4xxh+ymmofBWdQ6BVhplSqPo2wiABCqlOQWOjUzNA4W/nHh5x5nrgbJ
-         twoXL9Vw7HtbbqWjS9ZMOZbeoZQHLbIAyn8kHN5kg95xsLW83nXcXaIG/qarHS3iecdO
-         6DQ3qkLKKhHXJnh2Y+SjQ0zhJwvLwnbTgreb9ktPgio+Ahu2yeHxoqVBIr876ton6IJe
-         XVIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792333915; x=1792938715;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z4DinWw4y4cul7vchZoeDhjRTd9lXiDvj9Lx77xpfpw=;
-        b=Ic/8+/kauU+7lAg8x6YcfXfIy1TwNFCcj2DDO8wUShMCKigjq6BBQtEQorZvYjyZNp
-         CCo1ETasJUqC8Leab5Q8Z2/0RU1WPH1akbYYw3ob+MGdMszYQhN/P8L248KVw6E4G766
-         ap2WHVZ44eckjV9ISu8w80qTaoOmNigAJWl509gptuFKmZiXPIibiWfhzv4qFMQi8bdE
-         Dizshst504yCIbaXvFi9ybP27n3fNrvvGpyQnDXl3MVr2YjgbQT/gqrMFo/eZ5QWPzoY
-         byahk1JtZs7oTeRL8WD1Uj4GobNUnIxy+K7KHXlgH0DvJq8icyKgB+P+H42z4nyNBbpl
-         tlzA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlwvQtGYG3rki1otBjeirZygRgmfnN7leRj/ZxJjg8MIlW9MOQsZEOmDT+bQpCDwZgGpxbKVLrNR7TUEw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvNUVSBLXgqj9YdqvX7WEhzN3sA36t68obDmGzL6pFIP16dhJG
-	DEWFOK+ctlq2autrLwN7+JP3CHaWgJgnon6XrRiiCbBeIhOro1y4Fv7b
-X-Gm-Gg: AYBFou1L7RG5ifgMt1DN955Eyh+YvnRXjgEAzo9Bd0ZLhY63FJlASqbQM+PLSe3WNNm
-	1xGyfAgZkmuBtiSRtzK0Ok5HEKiZBYLuy0eVQ52+RtHBA723RPCo9UZEe6a31wx+0QxyxdH6RUy
-	QYzokuCWFJw1XKtZlhQbAV0NTWIK+IpYQK8Aa7pYkI/6RrVFv47Bn3xUuAsqq27bYVNLyzUk6Um
-	o2AzvcNS514Iz5wzamfaP7U3Ba/AGxWs6p3mD8gTrfej4aXwuqJ+cKCuqn4AL8SXClzjRzL7Cui
-	BTOz/FvTl2EB9j9ZgZMZhmQskPoIN3yUHgv9nTsRLNB1PhMC26cwzrsSEaZf/c5G20aTugNfais
-	+vyDUE/5twCrW7SFb7tPtUav9lFnM0pYm2lYPoI5vbBCNZ9NJBkj2y/R3SP/BGT61QydfxpD4EY
-	tmaMPpPSxP8JirVYtcZ2mIuO2dzb2cYkipF7w/DLveoneW1rZHQ8bOkDE3EcWt4C4w7Ij/zvDcg
-	lUbNKBuGyFNeeLbnJn39VFdYPBAKiImfWdJ
-X-Received: by 2002:adf:f28a:0:b0:48d:ffe7:e883 with SMTP id ffacd0b85a97d-48e07fab956mr7309333f8f.46.1792333915122;
-        Sun, 18 Oct 2026 07:31:55 -0700 (PDT)
-Received: from localhost.localdomain ([188.190.249.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a72sm18823645f8f.4.2026.10.18.07.31.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 07:31:54 -0700 (PDT)
-From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-	Faisal Hassan <faisal.hassan@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vladyslav Tymoshchuk <tvlad744@gmail.com>
-Subject: [PATCH] usb: dwc3: qcom: Defer VBUS override update during system suspend
-Date: Sun, 18 Oct 2026 17:31:26 +0300
-Message-ID: <20261018143126.3978-1-tvlad744@gmail.com>
-X-Mailer: git-send-email 2.45.1.windows.1
+	dkim=pass (2048-bit key) header.d=web.de header.i=jan.claussen10@web.de header.b="wG+7PyWp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1792333918; x=1792938718; i=jan.claussen10@web.de;
+	bh=+YwrntOyRknbggwrQKU1gw4YodNY/Moq08w7g8XJTR0=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=wG+7PyWpup7hsPpifcmYVWqz/xo8f2c4SH8WRbQBaLT2hfd6/HweGHOz+sgEOAf6
+	 bpvBrel6tt5d/CdwRzYNm5/Hf2hp6wqB7GvFcujb+F/ZW8bCHNfM/7QNeVavcTfV/
+	 fue4TM2vV6IrYvievpeW5wZW2RRswPRPgguAo2WHYbPjsjGc+f7dKfomK+2xsciSq
+	 zCuWPcNQaxJ00oDKbG2sYUGN8GC8snSUPcKbeNmvbNRBWctX1mqOSEgoc1Qqb1Or/
+	 w50iEt1zsKTrgOASOEZ+rq+8mDWsXY5qTOm85QU6jXFgLdvwHlWHjUe3DFZNtxAm6
+	 wvJBJDg9NCleixUlJw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MIL0Q-1xLlqk1AKy-00EL6A; Sun, 18
+ Oct 2026 16:31:58 +0200
+From: =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/7] drm/connector: Fix typo in colorspace error messages
+Date: Sun, 18 Oct 2026 16:31:07 +0200
+Message-ID: <20261018143135.5745-2-jan.claussen10@web.de>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261018143135.5745-1-jan.claussen10@web.de>
+References: <20261018143135.5745-1-jan.claussen10@web.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:tPi+IaPaL73wKlshkUqjvqof9I/VHEUHTuiXSzDIjLiy3ctQTuH
+ +HZuWOR9J2RZyJCEnnCJ25k5HJAFQWnj0/fLIfPXh9WBxD3+NyDmRdDodSTzFEZ1xn2QTI7
+ Y09HOfCPvGGvUyK6UjNXlmB7qulzCi0B1+QaZNPJd7a5Q3tvvb9sW3aZV+Ewg7weT2bfJcP
+ a/0Z7/gfbAj4fuE6WA37A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Kd4jchQlTNM=;6prRlzE+MstJVgT7AuQiyE/yfYF
+ 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
 
-dwc3_qcom_set_role_notifier() updates the VBUS override in QSCRATCH
-synchronously, from the context of the usb_role_switch_set_role()
-caller. The glue assumes that role switches only happen from a
-freezable workqueue, but that holds for the dwc3 core's mode switch,
-not for this notifier: the UCSI connector work, for one, runs on the
-non-freezable system workqueue.
+Change provded to provided.
 
-On SM8750, when the USB cable is unplugged while the system is in
-s2idle, the UCSI connector work for the change runs before the devices
-have resumed. It switches the role to USB_ROLE_NONE, and the notifier
-accesses QSCRATCH while the glue clocks are still off, before
-dwc3_qcom_pm_resume() turns them back on. The access does not complete
-and the SoC resets. pm_runtime_resume_and_get() does not prevent this:
-runtime PM is disabled at that point and the device is still marked
-active, so it returns success without resuming anything.
+Signed-off-by: Jan Clau=C3=9Fen <jan.claussen10@web.de>
+=2D--
+ drivers/gpu/drm/drm_connector.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-While the glue is suspended for system sleep, only record the VBUS
-override update and apply it from dwc3_qcom_pm_resume() once the
-clocks are on. Apply it after the core has resumed, since resuming the
-gadget enables the override and the role switch is the more recent
-event. Serialize the notifier against system suspend and resume with a
-mutex, so that a role switch can't race with the clocks being turned
-off.
-
-Fixes: 21188e8d6d75 ("usb: dwc3: qcom: Implement glue callbacks to facilitate runtime suspend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
----
-Tested on SM8750 (OnePlus Pad 3; the board DT is not upstream yet),
-v7.3-rc5 plus board patches, with the UCSI connector work still on
-system_wq. The test kernel also has local ucsi_glink and qcom_battmgr
-changes that make a cable plug or unplug wake the system from s2idle,
-similar to Jishnu Prakash's ucsi_glink patch [3]:
-- cable unplugged during s2idle: resumed in 2 of 2 runs; without this
-  patch the SoC reset in all 6 earlier runs. The switch to
-  USB_ROLE_NONE came 14-17 ms after the start of the resume, during
-  the noirq phase, and was only recorded; dwc3_qcom_pm_resume()
-  cleared the override about a second later.
-- cable plugged in during s2idle, s2idle with the cable connected,
-  and unplug/replug while awake: no change in behaviour.
-
-I have not tested this patch without the wakeup changes.
-
-The UCSI side is discussed in Abel Vesa's RFC to queue the connector
-work on system_freezable_wq [1]. This patch is needed either way, as
-not every caller of usb_role_switch_set_role() is frozen during system
-sleep.
-
-Faisal Hassan's SA8255P series [2] also changes dwc3_qcom_pm_suspend()
-and dwc3_qcom_pm_resume() (the wakeup argument becomes a pm_message_t);
-whichever goes in second needs a small rebase.
-
-I used an AI assistant (Claude) for the analysis and to draft this
-patch and its description; I reviewed the result and ran the tests on
-my device.
-
-[1] https://lore.kernel.org/all/20250205-ucsi-schedule-conn-worker-on-freezable-wq-v1-1-107d1356b77b@linaro.org/
-[2] https://lore.kernel.org/all/20261010053246.2991984-3-faisal.hassan@oss.qualcomm.com/
-[3] https://lore.kernel.org/all/20260722-ucsi_glink_wakeup-v2-1-b43dee56df24@oss.qualcomm.com/
-
- drivers/usb/dwc3/dwc3-qcom.c | 67 ++++++++++++++++++++++++++++--------
- 1 file changed, 52 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-index ac68b4218b56..2997479988c7 100644
---- a/drivers/usb/dwc3/dwc3-qcom.c
-+++ b/drivers/usb/dwc3/dwc3-qcom.c
-@@ -10,6 +10,7 @@
- #include <linux/irq.h>
- #include <linux/of_clk.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/kernel.h>
- #include <linux/interconnect.h>
- #include <linux/platform_device.h>
-@@ -85,6 +86,11 @@ struct dwc3_qcom {
- 	struct icc_path		*icc_path_apps;
- 
- 	enum usb_role		current_role;
-+
-+	/* Serializes the role notifier against system suspend and resume */
-+	struct mutex		role_lock;
-+	bool			vbus_override_pending;
-+	bool			vbus_override;
- };
- 
- #define to_dwc3_qcom(d) container_of((d), struct dwc3_qcom, dwc)
-@@ -561,27 +567,40 @@ static int dwc3_qcom_setup_irq(struct dwc3_qcom *qcom, struct platform_device *p
- static void dwc3_qcom_set_role_notifier(struct dwc3 *dwc, enum usb_role next_role)
- {
- 	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
-+	bool enable;
-+
-+	guard(mutex)(&qcom->role_lock);
- 
- 	if (qcom->current_role == next_role)
- 		return;
- 
-+	enable = qcom->current_role != USB_ROLE_DEVICE;
-+
-+	/*
-+	 * Not every caller of usb_role_switch_set_role() is frozen during
-+	 * system sleep, e.g. the UCSI connector work can run in the noirq
-+	 * resume phase. The glue clocks are off then and runtime PM can't
-+	 * turn them on, so leave QSCRATCH alone and let
-+	 * dwc3_qcom_pm_resume() apply the update.
-+	 */
-+	if (qcom->pm_suspended) {
-+		qcom->vbus_override_pending = true;
-+		qcom->vbus_override = enable;
-+		qcom->current_role = next_role;
-+		return;
-+	}
-+
- 	if (pm_runtime_resume_and_get(qcom->dev)) {
- 		dev_dbg(qcom->dev, "Failed to resume device\n");
- 		return;
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connect=
+or.c
+index 893716a9e489..66f53e155342 100644
+=2D-- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -2768,14 +2768,14 @@ static int drm_mode_create_colorspace_property(str=
+uct drm_connector *connector,
+ 		return 0;
+=20
+ 	if (!supported_colorspaces) {
+-		drm_err(dev, "No supported colorspaces provded on [CONNECTOR:%d:%s]\n",
+-			    connector->base.id, connector->name);
++		drm_err(dev, "No supported colorspaces provided on [CONNECTOR:%d:%s]\n"=
+,
++			connector->base.id, connector->name);
+ 		return -EINVAL;
  	}
- 
--	if (qcom->current_role == USB_ROLE_DEVICE)
--		dwc3_qcom_vbus_override_enable(qcom, false);
--	else if (qcom->current_role != USB_ROLE_DEVICE)
--		dwc3_qcom_vbus_override_enable(qcom, true);
-+	qcom->vbus_override_pending = false;
-+	dwc3_qcom_vbus_override_enable(qcom, enable);
- 
- 	pm_runtime_mark_last_busy(qcom->dev);
- 	pm_runtime_put_sync(qcom->dev);
- 
--	/*
--	 * Current role changes via usb_role_switch_set_role callback protected
--	 * internally by mutex lock.
--	 */
- 	qcom->current_role = next_role;
- }
- 
-@@ -624,6 +643,10 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 
- 	qcom->dev = &pdev->dev;
- 
-+	ret = devm_mutex_init(dev, &qcom->role_lock);
-+	if (ret)
-+		return ret;
-+
- 	qcom->resets = devm_reset_control_array_get_optional_exclusive(dev);
- 	if (IS_ERR(qcom->resets)) {
- 		return dev_err_probe(&pdev->dev, PTR_ERR(qcom->resets),
-@@ -756,6 +779,8 @@ static int dwc3_qcom_pm_suspend(struct device *dev)
- 	if (ret)
- 		return ret;
- 
-+	guard(mutex)(&qcom->role_lock);
-+
- 	ret = dwc3_qcom_suspend(qcom, wakeup);
- 	if (ret)
- 		return ret;
-@@ -772,17 +797,29 @@ static int dwc3_qcom_pm_resume(struct device *dev)
- 	bool wakeup = device_may_wakeup(dev);
- 	int ret;
- 
--	ret = dwc3_qcom_resume(qcom, wakeup);
--	if (ret)
--		return ret;
-+	scoped_guard(mutex, &qcom->role_lock) {
-+		ret = dwc3_qcom_resume(qcom, wakeup);
-+		if (ret)
-+			return ret;
- 
--	qcom->pm_suspended = false;
-+		qcom->pm_suspended = false;
-+	}
- 
- 	ret = dwc3_pm_resume(&qcom->dwc);
--	if (ret)
--		return ret;
- 
--	return 0;
-+	/*
-+	 * Apply a VBUS override update from a role switch that came in while
-+	 * suspended. Do it after the core has resumed, as resuming the gadget
-+	 * enables the override and the role switch is the more recent event.
-+	 */
-+	scoped_guard(mutex, &qcom->role_lock) {
-+		if (qcom->vbus_override_pending) {
-+			dwc3_qcom_vbus_override_enable(qcom, qcom->vbus_override);
-+			qcom->vbus_override_pending = false;
-+		}
-+	}
-+
-+	return ret;
- }
- 
- static void dwc3_qcom_complete(struct device *dev)
-
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
--- 
-2.43.0
+=20
+ 	if ((supported_colorspaces & -BIT(DRM_MODE_COLORIMETRY_COUNT)) !=3D 0) {
+-		drm_err(dev, "Unknown colorspace provded on [CONNECTOR:%d:%s]\n",
+-			    connector->base.id, connector->name);
++		drm_err(dev, "Unknown colorspace provided on [CONNECTOR:%d:%s]\n",
++			connector->base.id, connector->name);
+ 		return -EINVAL;
+ 	}
+=20
+=2D-=20
+2.56.0
 
