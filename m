@@ -1,115 +1,134 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194553DAACB;
-	Sun, 18 Oct 2026 18:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792347712; cv=pass; b=bx1wVyiJ2pmzShfoRIhFVrk0YPHTeomqMFBhHFOALDjUAAw1kL5KjxxtQj3/A7qRpZls0PbqZl1mD/ZMiWKFcXCpBjmMGdcvzDFlBbokAQMQXdfNdXxln5kPvBkgQ5RXGI+ClF8mGSXJYPl8dA/g9ntDSV89N0i53vZLylCCdcI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792347712; c=relaxed/simple;
-	bh=3pKT3x2ThQdMxHZhCFYPZjzhmVUEvaSkjCmS5Kxzclc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rK0IJSXI3NA4FPHToh/vtFpQpYyRyzQAIosPPuHQsDDXWNqmvyBS1UMJJfUgqpey5O2bSqYqAOL1zQz1FpGVZlhIi51Rf1cAif88KLU3kjGFuzo+amaWqUlRaTYAg7zMM4F0wGu7aCHE5f2euROOQ2ml5o4FzJ7CGVIiD8PIqKw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=iFh4bgYo; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=3ymZfxcJ; arc=pass smtp.client-ip=81.169.146.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89D9414A2F;
+	Sun, 18 Oct 2026 18:21:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792347722; cv=none; b=EAS/ns0w2I9B456lsQxRltVJgc2/NcQNQsoDgzP4dyDPm5TEU0Cjc5CtS4xnpnVrPJaeEW7N9RbQv2voH3uafoVPpfTdsRFgOuSu7jCNR2QNvTZ8+uk3LKJzibWzNLsBlN5s150uff38JSAF0NxseN0r7Jar1sQitGQpyyQQGe8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792347722; c=relaxed/simple;
+	bh=xKWI8VHYlBY/HTmh+M8x6260lLCjIcPCV0ddDwMCfQc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iqdGgxj8PTngdOr5MTynvd4UIHaw8Y+ZnL89SekBWmFc4/yOIigYTnhz0403BX6tWi6TXpr/78zOq86ZxkekYcASDFiH/XkxZj6ejNlSm9p6v096ycTn3wDCAUb83AsJuMDQgLqv9YtTfxa4WZBwv8z5p/956jpMTyK4r0o8qL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NmzX3MEp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="iFh4bgYo";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="3ymZfxcJ"
-ARC-Seal: i=1; a=rsa-sha256; t=1792347701; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=p/cYTrrHL9DsBsr2+ou0E5MsJhCzYv1XJsvePJ1grYsACz0MhqI851j9A8AqEzG998
-    j/ClzCw9Uz6xKp2FidDallmUheg8u+L8qsvg/cMFJ9R6mY8ryY8RyFyQQ8F31Kb33v86
-    BHbhWrCPVC5GJnx+95K0V8YsCjsI1NmdY8yU2U3/EhQLf1l8vyvqktG2OfYHIOeE5kR+
-    ghd44FoUj1Skj3gOdhPyJ2x50Hn9YYAE4jGAczanePjlG2/REhcWeV8OtSH9j+MOFhPH
-    0i/hwU+mEqxSdX8CpuwCDcfbuAPrgMrxVNggH3pjr6mMj/VK6YNMXDV92F9W0ijC3N5Q
-    zozg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792347701;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=3pKT3x2ThQdMxHZhCFYPZjzhmVUEvaSkjCmS5Kxzclc=;
-    b=WWoRmwSn9ezX1Se+lFpGoGiKtgRVOvHMCy5mdrYfDlJlq5gYQEvk4u/G0bd9XAG7Wc
-    3xlLHzqqhKkpY3Ibb5G2VMe7gSQPJjsg2ahuxYkgGOV9Mx33xJMbIAXCKPs4NnEev5sn
-    G6mSpxuUO4eR5RI2tMF3wq0tcX/BGgdu+YfPf3VtGfopjiBjOjB8hlDOGj1VPztr9Cn8
-    0gJuHy/lgABsfKPZNRZyvS1H8kL/YBwjuel2vR3DYX3NRd+srA6h901DzTF+XhbYauPH
-    6AC1n1bOMP4JbQ8WhPwlmefjh/L30OzKQV28+UCHnyomBjufTxCTAdOgTsEDadTF+ehv
-    ZrBg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792347701;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=3pKT3x2ThQdMxHZhCFYPZjzhmVUEvaSkjCmS5Kxzclc=;
-    b=iFh4bgYollk2iwNasoW0IxYJs0TaN/p2I3hQUuPQh2kvNGXtI0u1docBIO6HuiYyZq
-    cGR710G9NnE4Va1BEq5pzJ+O49+vd+afSCW1ecMZFl+Mnpjn8XKZkj/kQ802fPs7C9AM
-    whInmkwvXVWLnC3q8hWgUtbdATysOejTxpYKeIxk9QeGivjbkpWh9rw+xqnnBt/wSw1z
-    HHg5qHW62ijkyWPXRW8feRB/rv7ra/KkHoGyLge4PD5l1CMp+th0Yd+YeiLCNxDMcT60
-    V9wpePX9BgJ9UQA+P0o4+SfwNuPeNJ+OYo/Sd9spzHOmvER2LsFYCCruH+DoIZxoB/wl
-    xBDA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792347701;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=3pKT3x2ThQdMxHZhCFYPZjzhmVUEvaSkjCmS5Kxzclc=;
-    b=3ymZfxcJgFv9ZRBiLMwcWu9Tqs0gK2Q8yhaq6SqGMmYOqfHOLWEfnl4zWFG5O1SuEY
-    sx5PJTzN69pDq6NFLCDA==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGeWpIGzZge/Z0bJo/ZKBs7IP24cD2xnjN93xVc="
-Received: from p200300c5873684d949ea70d47c97a062.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29IILeHJa
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 18 Oct 2026 20:21:40 +0200 (CEST)
-Message-ID: <361e83f8ae479909597238b4ddf9b3a1e40ef0c2.camel@iokpp.de>
-Subject: Re: [PATCH v2 1/5] scsi: ufs: bsg: Complete the job on error
-From: Bean Huo <beanhuo@iokpp.de>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K. Petersen"
- <mkp@kernel.org>,  "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche
- <bvanassche@acm.org>,  Bean Huo <beanhuo@micron.com>, Peter Wang
- <peter.wang@mediatek.com>, Brian Kao <powenkao@google.com>, 
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Sun, 18 Oct 2026 20:21:39 +0200
-In-Reply-To: <20261015001855.3450573-2-stanleyjhu@google.com>
-References: <20261015001855.3450573-1-stanleyjhu@google.com>
-	 <20261015001855.3450573-2-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NmzX3MEp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D519C1F000C4;
+	Sun, 18 Oct 2026 18:21:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792347719;
+	bh=XBs2FXCA6qnCpb4CayYP/c3nAPMcY0TUyFp21jMm66w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NmzX3MEpZIqBgelyzK3oZOmsCnNovPpyEXrbkMmncB0Cr3ncA4BO4LjzADF6fjR3d
+	 JT0xbPkYjRh6EB5m60owfgrTFGxw7T8s1Jl3RURC1yajufbYpG58Vcw/greBh/zatT
+	 /aNLzy42xuoW30vODYC+RvUg//aLEdZDolZsyXkZhK5CzMZe5oMRphimRYiW58jnNj
+	 htrltR9Pnyu57FZxxSVGJY6C33L1XmaWOt19p08gKBJ6AJPti0qBwbJ1U0+3pgJbrj
+	 x0XJ8xB/GFmV4HJ08ZdgdQbDh50lWXz8S7NdW6MDVcFFkbV4rpO8ADKexmbeIwgIoA
+	 EhMEItVIrv+8A==
+Date: Sun, 18 Oct 2026 19:21:51 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Jishnu Prakash
+ <jishnu.prakash@oss.qualcomm.com>, Daniel Lezcano
+ <daniel.lezcano@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Dan
+ Carpenter <error27@gmail.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <u.kleine-koenig@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>,
+ Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: qcom-spmi-adc5-gen3: Allocate unique ADC_TM
+ aux device IDs
+Message-ID: <20261018192151.1115a40a@jic23-hlaptop>
+In-Reply-To: <20261008031154.3440632-1-shengchao.guo@oss.qualcomm.com>
+References: <20261008031154.3440632-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-T24gVGh1LCAyMDI2LTEwLTE1IGF0IDA4OjE4ICswODAwLCBTdGFubGV5IEpodSB3cm90ZToKPiBp
-bmRleCA3YTY2OTE3YjNmYzAuLjE4YzMxOGQ3ODEyMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3Vm
-cy9jb3JlL3Vmc19ic2cuYwo+ICsrKyBiL2RyaXZlcnMvdWZzL2NvcmUvdWZzX2JzZy5jCj4gQEAg
-LTE5NSwxNCArMTk1LDEyIEBAIHN0YXRpYyBpbnQgdWZzX2JzZ19yZXF1ZXN0KHN0cnVjdCBic2df
-am9iICpqb2IpCj4gwqDCoMKgwqDCoMKgwqDCoHVmc2hjZF9ycG1fcHV0X3N5bmMoaGJhKTsKPiDC
-oMKgwqDCoMKgwqDCoMKga2ZyZWUoYnVmZik7Cj4gwqDCoMKgwqDCoMKgwqDCoGJzZ19yZXBseS0+
-cmVzdWx0ID0gcmV0Owo+IC3CoMKgwqDCoMKgwqDCoC8qIGNvbXBsZXRlIHRoZSBqb2IgaGVyZSBv
-bmx5IGlmIG5vIGVycm9yICovCj4gLcKgwqDCoMKgwqDCoMKgaWYgKHJldCA9PSAwKSB7Cj4gK8Kg
-wqDCoMKgwqDCoMKgaWYgKHJldCA9PSAwKQo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgam9iLT5yZXBseV9sZW4gPSBycG1iID8gc2l6ZW9mKHN0cnVjdCB1ZnNfcnBtYl9yZXBseSkg
-Ogo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgc2l6ZW9mKHN0cnVjdCB1ZnNfYnNnX3JlcGx5KTsK
-PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgYnNnX2pvYl9kb25lKGpvYiwgcmV0LCBi
-c2dfcmVwbHktPnJlcGx5X3BheWxvYWRfcmN2X2xlbik7Cj4gLcKgwqDCoMKgwqDCoMKgfQo+ICvC
-oMKgwqDCoMKgwqDCoGJzZ19qb2JfZG9uZShqb2IsIHJldCwgYnNnX3JlcGx5LT5yZXBseV9wYXls
-b2FkX3Jjdl9sZW4pOwoKU2luY2UgdGhlIG9sZCBjb21tZW50IGlzIGdvbmUsIGl0J3MgYmV0dGVy
-IHRvIGFkZCBhIHNob3J0IG9uZSBiZWZvcmUKYnNnX2pvYl9kb25lKCkgc2F5aW5nIHdlIG11c3Qg
-YWx3YXlzIGNvbXBsZXRlIHRoZSBqb2IgYW5kIHJldHVybiAwPwoKb3RoZXJ3aXNlIGEgbGF0ZXIg
-Y2hhbmdlIGNvdWxkIGVhc2lseSBicmluZyBiYWNrIGVpdGhlciB0aGUgbGVhayBvciB0aGUgZG91
-YmxlCmNvbXBsZXRpb24gdGhhdCBiMTNhMzUzOWViMmEgZml4ZWQ/CgpSZXZpZXdlZC1ieTogQmVh
-biBIdW8gPGJlYW5odW9AbWljcm9uLmNvbT4KCj4gwqAKPiAtwqDCoMKgwqDCoMKgwqByZXR1cm4g
-cmV0Owo+ICvCoMKgwqDCoMKgwqDCoHJldHVybiAwOwo+IMKgfQoK
+On Thu,  8 Oct 2026 11:11:54 +0800
+Shawn Guo <shengchao.guo@oss.qualcomm.com> wrote:
+
+> adc5_gen3_add_aux_tm_device() never sets the auxiliary device id, so
+> every ADC5 Gen3 instance with at least one qcom,adc-tm channel tries
+> to register the same device name. With ADC_TM channels on more than
+> one PMIC, the second instance to probe fails:
+> 
+>   sysfs: cannot create duplicate filename '/bus/auxiliary/devices/qcom_spmi_adc5_gen3.adc5_tm_gen3.0'
+>   ...
+>   auxiliary qcom_spmi_adc5_gen3.adc5_tm_gen3.0: adding auxiliary device failed!: -17
+>   qcom-spmi-adc5-gen3 c400000.spmi:pmic@8:adc@7200: error -EEXIST: Failed to add auxiliary TM device
+> 
+> The ADC probe then fails as a whole, so that PMIC loses both its IIO
+> channels and its thermal zones. This shows up on Nord, which has
+> thermistor channels on two PMAU0102 PMICs.
+
+Fixes tag?  Just replying to this thread is fine rather than sending
+a v2 just for that.
+
+> 
+> Allocate the id from a driver-wide IDA and release it from the
+> auxiliary device release callback. The ADC_TM driver matches on the
+> device name only, so the instance number does not affect binding.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  drivers/iio/adc/qcom-spmi-adc5-gen3.c | 21 ++++++++++++++++++---
+>  1 file changed, 18 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+> index c68c6c5f6aca..f0b2544c1632 100644
+> --- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+> +++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/dev_printk.h>
+>  #include <linux/err.h>
+>  #include <linux/export.h>
+> +#include <linux/idr.h>
+>  #include <linux/iio/adc/qcom-adc5-gen3-common.h>
+>  #include <linux/iio/iio.h>
+>  #include <linux/interrupt.h>
+> @@ -608,7 +609,14 @@ static void adc5_gen3_delete_aux(void *data)
+>  	auxiliary_device_delete(data);
+>  }
+>  
+> -static void adc5_gen3_aux_device_release(struct device *dev) {}
+> +static DEFINE_IDA(adc5_gen3_aux_ida);
+> +
+> +static void adc5_gen3_aux_device_release(struct device *dev)
+> +{
+> +	struct auxiliary_device *adev = to_auxiliary_dev(dev);
+> +
+> +	ida_free(&adc5_gen3_aux_ida, adev->id);
+> +}
+>  
+>  static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc)
+>  {
+> @@ -642,9 +650,16 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc)
+>  
+>  	aux_device->n_tm_channels = adc->n_tm_channels;
+>  
+> -	ret = auxiliary_device_init(&aux_device->aux_dev);
+> -	if (ret)
+> +	ret = ida_alloc(&adc5_gen3_aux_ida, GFP_KERNEL);
+> +	if (ret < 0)
+>  		return ret;
+> +	aux_device->aux_dev.id = ret;
+> +
+> +	ret = auxiliary_device_init(&aux_device->aux_dev);
+> +	if (ret) {
+> +		ida_free(&adc5_gen3_aux_ida, aux_device->aux_dev.id);
+> +		return ret;
+> +	}
+>  
+>  	ret = devm_add_action_or_reset(adc->dev, adc5_gen3_uninit_aux,
+>  				       &aux_device->aux_dev);
 
