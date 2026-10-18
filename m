@@ -1,66 +1,37 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AC33431F8
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EC0422E2E;
+	Sun, 18 Oct 2026 04:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792299210; cv=none; b=EPugQ4eLkGiwuYS4FiLE1OAQ3RNi2MEOiik7WJ3N5p0vC/0DMspIwvwZYH8TJWKa8grOFe3e8dHPJmncgkj2IU94AyuxaZjjoV3hRHzrWQ7v2V9ui9XIlRwxBjlu5oOVQG2WQhZyyEZKuFO3NRa+DcfpmbOLUn7EGDnWeuANd6A=
+	t=1792299313; cv=none; b=bdyilkNr99+tKqp+LaflXcFmYdcZ48bxjEK8guR93n/7oHu3rdS8yK0zACXbK30U5eGxigf4BggXOWRBsu17PhcQZJe/3XWBAVtMMK5T5VylUP8In7JblSqdBDl1vrVsE7fGyeg0g2yZs1n2ObQ5yxlTmmhsBkUDU1dh0JdvSZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792299210; c=relaxed/simple;
-	bh=GIFuLgBYOU3S6hNBW1sPmhXTgyGUBsgExEcQliklD1s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FMiY1cSqYXyvZl9ofJbwMELzH2dIY9Od1+ltvCMO69p9s9ychS6HFGp0Dzdls5eC64+LUYoE2icloG2hcGOuq07VxYcnWrUPgjc1b0NLHIlgpvKsoZQlYUV+3RFjlZ5SJQ5wmOkuxYfklTkFcoy7JgtTrk3yGyyUggJ6D9PQrc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WD8B9cCG; arc=none smtp.client-ip=74.125.82.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792299313; c=relaxed/simple;
+	bh=fUdq2VvosvV5UWVKEKg821xAaTCVqPc2wV9SA9hzTFA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=l/YpQENZZqAWHukOoz5dS7lcCCMY+1c4gotnXVhVR1uLBJmN+7t6Aa9hT40l+K62TYfRp/lABv42Y9blMnvGtgF5aI4+J8iBlj/y2YYzeYUyB6roUJeug5tdZJs1HIkERQK+TtD7o2yy8jzbSRJ4FzxmQQAW5znzquqQmgF5w7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8kp6cvP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WD8B9cCG"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35943f55c06so1558025eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:53:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792299209; x=1792904009; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NL6FeozJTfgi7BCvp1Y94ucO1gEoaYL+GaN20Lo4AzI=;
-        b=WD8B9cCGTtel0Gv1QOEW2LfqWFIdr/VepiOsvsonQnwszzJ6yLnDu42DGynqBGyEwv
-         ZJpbijbe3yqXc607iB6bGFtUE1plOKlmlzsZfZQabNf6OPlpnmigtkcL+ceihG+3xDpv
-         kFrdI6vlXs4wQPrhqfHHPHpQYpA4b9gz2PCVxzywY/q/86RV/v4oeeT8E/2CR8FmgGD+
-         mw8sPIieKvt2equtglIJV5OAm7p8CjYhcqMtj8xV82j0DXxYuIrM+AFEnt+clVsD4u1N
-         IzC5P49rjE3OcbXAoi+SPjA5IuUtpPKqrzU9et+m+mcdWo//ftebIy+lA8T3hoXVFX+K
-         7HnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792299209; x=1792904009;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=NL6FeozJTfgi7BCvp1Y94ucO1gEoaYL+GaN20Lo4AzI=;
-        b=h/fbUdbc2RE1H1X1h4O2tPiftVD5v+9jpIQFb1aItm1+EPvR8Fr7heUSuCN+6JVDjR
-         YeHhMe6QRhiNCEQTTmNEEij5diSkq4uVxrhfRRtu1rEkUOvHGEa+a018ObS1+/Z/76ap
-         ShDyLqbCncFwx0xhgWrM7Ozm73QUdyS8OkfSqVYpKsTHe7KUHueglNkC4Up8TwVQzyl/
-         JZqeTAlsSQ5h6UXgTolwWSgOgz7pg6rUek+HD09FtSNWxzWYVQ9oETx1uqST3I3evMG7
-         1YwlQ/sKyumlIs+oGIutBBtH0T+YFYGF4pKo/j7Xfz3+q9rIYixhTMGvjoSewmPeze4p
-         N1Cw==
-X-Forwarded-Encrypted: i=1; AKwUvBwiI6kc5hm9hkRZZj6rMs++D2TLYr2YmV2l6PoB4w9ZbAfW5iH3i2effEnsuhDSC1rmOrbCHbEWgoiU7MI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjTUAmOgLtlVFJyQv4obQKVtFn8uhvbtnjeaF6oYNB4NFP4kvQ
-	d7hZkrEhpui5E6lHxdV8CByLE9h1l2vljrtu8HGoUkcM4tmP6hofqEMB
-X-Gm-Gg: AYBFou1GsRs0cmJqfTtI3bWC+q0MIi/p0XRLspW+O4trFv4W0kfzSb4ytr9E4l2SPP/
-	+VAUWBgsXzNY51r7nIuYSGSs0Ch9Sa4bhf97sKqIso4WR7lzJagWEtJntmO55T/NYqFPXMverE0
-	ftmehA2OKsMi4f88u1vEoaPqS2aK/pe+p9ZTcUrRHG6c7CnH6Sl/QI14urwhO+0GfDeyjqcnpI+
-	kzWRNgSPvp+mDnK8D3GqcRWOzi42/qMKitzSPzfdncw+Z8qRMk+GxtBOPZt74F2nbn9IIjQgM/2
-	GkeCAKUH5a1+dWyx/lojM9ypg5GXndgageMTKBGlR2GvXdJ8Rt0yyJN6pN/3x7Kc/uF34BWobU7
-	gs258hxuAMMVKXHtL/pwl91AK+3ZXs13/e7+D2G2zc0WaOU/lTAUDif39EpQjREPeJDfTy72Z1j
-	aY0ghAOINXXh38Z0IV8Xb81hNK+fqPXBSjPCZp2FX4eAZb+SHhmTL7dE/YIk6i6xHAtHPILqiZ7
-	NIF
-X-Received: by 2002:a05:7300:3aa9:b0:360:aeee:9b8a with SMTP id 5a478bee46e88-360aeee9f90mr7930486eec.8.1792299208567;
-        Sat, 17 Oct 2026 21:53:28 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360826875b3sm21621460eec.21.2026.10.17.21.53.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 21:53:28 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Sun, 18 Oct 2026 12:53:22 +0800
-Subject: [PATCH] selftests/mm: keep ksm_tests on small pages
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8kp6cvP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D28DCC2BCFD;
+	Sun, 18 Oct 2026 04:55:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792299312;
+	bh=fUdq2VvosvV5UWVKEKg821xAaTCVqPc2wV9SA9hzTFA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=F8kp6cvPLCznrDZQRsfWwsbMwi8ryaNHvXrMLCEVa08Wfi/crE7frkp4zq/LIWvKN
+	 8snGkDu4d6PluMefPivoYxgwdyC12loGvdTOcyL1bAcKRRk9+2ncvKMfEyvfa8Cr+U
+	 1+Ao1VduB4YEgTv1QxigHtWFY7Xd942cFcSHjj9iydth/d+PEAAkHD8evBP26Lp0gI
+	 JF6DNQl0MK0wZD00EJLTXYl2BIIVlbpzynBmqBuXBSiRkPMyhhSB6X/SR1ORIKnCS1
+	 qaEzP8H4XL8RkJwJIaKq0s6+RE18hylbrWYXoqPDbBiiUnmk2Wmp3ro29+FJJA+8ni
+	 vXWO7jPIalrrg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AAD78CCF2C4;
+	Sun, 18 Oct 2026 04:55:12 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Subject: [PATCH 0/2] Label the fans on Kobol Helios64
+Date: Sun, 18 Oct 2026 07:54:58 +0300
+Message-Id: <20261018-helios64-fan-label-v1-0-69a3f96d4efa@iav.lv>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,72 +40,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-bug-selftests-mm-ksm-tests-nohugepage-v1-1-55ed54bdad35@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAMFQ1GoC/yXNwQqDMBCE4VeRPXchKxKkr1J60DqJS5soWS0F8
- d0b2uN3+GcOMhSF0bU5qOCtpkuukEtDj3nIEaxTNbWu9eLE87hHNrzCBtuMU+KnJf4jL/MesQ4
- 1kk663vfT6BCobq0FQT+/n9v9PL9GwPhqdwAAAA==
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
- Usama Arif <usamaarif642@gmail.com>, Yu Zhao <yuzhao@google.com>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-B4-Tracking: v=1; b=H4sIACJR1GoC/x3MQQqEMAxG4atI1gaMDipeRVykM79joFRpQYTi3
+ S0uv8V7mRKiIdFUZYo4LdkeCqSu6Ltp+IPtV0xt0/bSyMgbvO2p//Cqgb06eFYZOsUgDg5UwiN
+ iteudzst9P0FKSfJkAAAA
+To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
 X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1298; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=fUdq2VvosvV5UWVKEKg821xAaTCVqPc2wV9SA9hzTFA=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlXAlVnOwqGVKsLxp8pFLmVty+gpnDn3QfGWpO672yNT
+ Nv5MPtuRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZjIcSeG/znP3I4tdzJ2dc71
+ 3fzX/M6ErX+XmzBnMzFNmvo3fOa0nU2MDM8+G82JLt9QcuiksMlzXQGPoD3Kc49b287pUZ18Wmx
+ uNCcA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 
-ksm_tests fills regions with identical data and checks KSM's counters
-after merging them. allocate_memory() maps these regions without any
-THP hint.
+Helios64 has two identical PWM fans, and userspace can tell them apart
+only by their platform device names. Patch 1 makes pwm-fan.yaml
+reference fan-common.yaml, as Rob suggested, which also allows label;
+the hwmon core already exposes it as the label attribute. Patch 2 names
+the fans after their headers, P6 and P7.
 
-With mTHP enabled the regions can be backed by large folios, which KSM
-splits before merging. Splitting an anonymous folio maps its
-zero-filled pages to the shared zeropage, so with use_zero_pages=0
-those pages never become KSM pages and "KSM zero page merging" fails
-its count. "ksm_tests -Z -p 10 -z 0", 20 runs:
+To: Guenter Roeck <linux@roeck-us.net>
+To: Jean Delvare <jdelvare@suse.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: linux-hwmon@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
 
-  THP setup                     before    after
-  default                         0/20     0/20
-  every mTHP size "always"       20/20     0/20
-
-Map the regions with MADV_NOHUGEPAGE, as ksm_functional_tests does.
-ksm_merge_hugepages_time() maps its own THP-backed region and is not
-affected.
-
-Fixes: b1f202060afe ("mm: remap unused subpages to shared zeropage when splitting isolated thp")
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
- tools/testing/selftests/mm/ksm_tests.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Igor Velkov (2):
+      dt-bindings: hwmon: pwm-fan: Reference the common fan schema
+      arm64: dts: rockchip: Label the fans on Kobol Helios64
 
-diff --git a/tools/testing/selftests/mm/ksm_tests.c b/tools/testing/selftests/mm/ksm_tests.c
-index 5fd7792a0d479..140ea833353b6 100644
---- a/tools/testing/selftests/mm/ksm_tests.c
-+++ b/tools/testing/selftests/mm/ksm_tests.c
-@@ -178,6 +178,16 @@ static void  *allocate_memory(void *ptr, int prot, int mapping, char data, size_
- 		ksft_perror("mmap");
- 		return NULL;
- 	}
-+	/*
-+	 * Splitting a large folio before merging maps its zero-filled pages
-+	 * to the shared zeropage, so keep the pages small. Ignore EINVAL on
-+	 * kernels without THP.
-+	 */
-+	if (madvise(map_ptr, map_size, MADV_NOHUGEPAGE) && errno != EINVAL) {
-+		ksft_perror("madvise");
-+		munmap(map_ptr, map_size);
-+		return NULL;
-+	}
- 	memset(map_ptr, data, map_size);
- 	if (mprotect(map_ptr, map_size, prot)) {
- 		ksft_perror("mprotect");
-
+ .../devicetree/bindings/hwmon/pwm-fan.yaml         | 22 +++++-----------------
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    |  4 ++--
+ 2 files changed, 7 insertions(+), 19 deletions(-)
 ---
-base-commit: 90201351a862182bdabfc1ad1c97b1e1b6ed5931
-change-id: 20261016-bug-selftests-mm-ksm-tests-nohugepage-1414868db0ef
+base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
+change-id: 20261018-helios64-fan-label-a173ae71bebe
 
 Best regards,
 -- 
-Qiliang Yuan <odys.yuan@gmail.com>
+Igor Velkov <iav@iav.lv>
+
 
