@@ -1,82 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B62C381E8C;
-	Sun, 18 Oct 2026 19:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05DBD3822B7;
+	Sun, 18 Oct 2026 19:14:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792350461; cv=none; b=Yd3f5aYk+dd7upXh+/FVBZ/sF7cL+sJdB/+QPn90eWylwsXu0qYiykHWn7tPtdS6p/y7cx3dIhkUOuaF4n/QkeIg8yVaCe7Dx/46vutTnKVJ2iqSjC545JP7ocVOQCcQJIwSrLYpvp7LruwCgcPsbMHRsW0H1PLZUg6NEoFryVU=
+	t=1792350849; cv=none; b=Fqqq6zEllXcx75rTvj6IbNTcPOaQYRnKQyuGk7snN+bbs1GdoHStRkTiH4kul8CaHb9V+WRqfxt1JpipQvHEcU57XoWgHVTS8w79oI/V94uBnzy5DwLEgSbmT6+QYVZ59kgQnlOSUC5tq5A1eRG2g/dOK61GsLl0HYC5YGwkClg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792350461; c=relaxed/simple;
-	bh=e+c+Qr6wRgnB+pbZI6vB3M8zw7iAvlqaVvfwzJMV1PA=;
+	s=arc-20240116; t=1792350849; c=relaxed/simple;
+	bh=ZZ4Jr6igQloVs1kOy3pHxivzGlidTY6Iphg3SZY0OEs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p4zaYu4CDveiT9VTdGJVpWfZxDoNlWKGWhR/mHY8L/xU3qnb9PS6ydKomJUDqcKwyNIHWvgtzFfuQdYKp7duVWNVF6i1cBRl29tM0rLoPZNiGVaM0dk3xzuaCie+bHMSb/IaCRE3MregrCkT7DyEB8w41hb4JFZWJ/ZlGqhXqQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IjoM/Km4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DX6BtsXmBd7i10MSuyqMuaG6R3R8yJSfUfEXtM1DO/uHmRaJ6ayT0wtyFW5pbSXPRKXBUV9Kl7hNKCQkwwMCrELOwbO49sUKRrEd7GHCDea+DFZ19LsPH17EeG7dHu3SYtpaC+XVr7foMauTP5ywV5VArIzpjc+8f2gX3irv34c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=yPYY2r0i; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IjoM/Km4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB9F1F000C4;
-	Sun, 18 Oct 2026 19:07:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792350459;
-	bh=e+c+Qr6wRgnB+pbZI6vB3M8zw7iAvlqaVvfwzJMV1PA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IjoM/Km4qurTHg6X3VUKkq0sVqcVlDd/aAkXlKRvsUdQSxo07GDTE/jL9XtQ+5Vid
-	 HfdF3qSUWejo0STGYT3pHdq20iiPyTVB0L4Wg7F9EqgzbXbBIJgOaSfcUcZ9g/iOOc
-	 ms72xOhnzqo0ci/6fD3/fqLImjzCurUSR1Xz7jh0uSITtC8S0md9N/WdcZ9Z/kpGoX
-	 8oAKZp1KDUUCp//IwADPJ3RDmWv9PougqV6dzNWHf5jzfQtUBNR9erNgpVE+0m4IgO
-	 550NJHRh4Q0cXQIShc82V+ehVMHwWH70Z7Wm2eAyI13peqm6X6VhaJnlFguRnv7G2O
-	 +KdEBqNAEbDWA==
-Date: Sun, 18 Oct 2026 20:07:34 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Florian Fainelli <f.fainelli@gmail.com>
-Cc: linux-mips@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
-	Robert Marko <robert.marko@sartura.hr>,
-	"open list:WATCHDOG DEVICE DRIVERS" <linux-watchdog@vger.kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>, manuel.lauss@gmail.com
-Subject: Re: [PATCH 2/5] dt-bindings: watchdog: gpio: Describe minimum
- heartbeat intervals
-Message-ID: <20261018-series-matron-f2991ecea141@spud>
-References: <20261016221617.2223004-1-f.fainelli@gmail.com>
- <20261016221617.2223004-3-f.fainelli@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="yPYY2r0i"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=qHbV8LAtUSWSGGDa0h86rBDpCNFJieHVVQNqm9YZ5qo=; b=yPYY2r0i/4SBAk3Wp2l0SNL8ht
+	UhECU/Z+YTPeuUAGG4bK05uHGVaL9zmDZqEXfQpSxbMN8xQ53XZ/VsSLCh/3gbNaBOqCucVd18NNh
+	Odoib4cVuTRL0P2imPCAQ79rahZeX1PMcn30hXj9SuRp/KcfqjRUCi8YpdJmjnXyFHsA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xIWKI-00BWKf-O9; Sun, 18 Oct 2026 21:13:46 +0200
+Date: Sun, 18 Oct 2026 21:13:46 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Eric Woudstra <ericwouds@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] net: phy: air_en8811h: use firmware loaded by
+ the bootloader
+Message-ID: <2d6df47b-2cc3-4003-85db-f72b878427d9@lunn.ch>
+References: <20261017180251.3618606-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="g0N2ukCb0WMIz+mv"
-Content-Disposition: inline
-In-Reply-To: <20261016221617.2223004-3-f.fainelli@gmail.com>
-
---g0N2ukCb0WMIz+mv
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261017180251.3618606-1-f@lex.la>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+On Sat, Oct 17, 2026 at 09:02:51PM +0300, Aleksei Sviridkin wrote:
+> On a Keenetic KN-1012 (MT7981) the EN8811H sits behind a port of an
+> MT7531 switch. The driver has to be built in there: as a module it loads
+> after DSA has validated the port against the generic PHY driver and
+> failed to set it up. Built in, it probes when the Ethernet MDIO bus is
+> registered, before the root filesystem is mounted, so
+> request_firmware_direct() fails with -ENOENT, the PHY stays without a
+> driver and the port never comes up, although the bootloader has already
+> loaded and started the MD32 firmware.
+> 
+> When the firmware files cannot be read and the MCU reports ready, keep
+> the running firmware and let the first .config_init() restart it, so the
+> PHY starts from a freshly started MCU as after a download rather than
+> from whatever state the bootloader left. Nothing changes when the files
+> are there. A board that relies on this must not give phylib a
+> reset-gpios line, as the pulse at registration stops the MCU. The
+> AN8811HB path is unchanged.
+> 
+> Tested on the KN-1012: with the bootloader load the PHY binds and links;
+> without it 0x8009 reads 0x0 and the probe fails as before; a rebind with
+> the files present downloads them as before.
+> 
+> Suggested-by: Andrew Lunn <andrew@lunn.ch>
+> Assisted-by: LLM
+> Signed-off-by: Aleksei Sviridkin <f@lex.la>
+> ---
+> This replaces "net: phylink: wait for a PHY that probes after the MAC"
+> https://lore.kernel.org/netdev/20261006124731.1528963-1-f@lex.la/
+> following Andrew's suggestion in
+> https://lore.kernel.org/netdev/b175c750-104a-4859-a137-09de78a6d8bb@lunn.ch/
+> 
+>  drivers/net/phy/air_en8811h.c | 21 +++++++++++++++++----
+>  1 file changed, 17 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
+> index a03d63dd4ac9..efe4e64d213a 100644
+> --- a/drivers/net/phy/air_en8811h.c
+> +++ b/drivers/net/phy/air_en8811h.c
+> @@ -518,6 +518,17 @@ static int an8811hb_load_firmware(struct phy_device *phydev)
+>  	return en8811h_wait_mcu_ready(phydev);
+>  }
+>  
+> +/* No firmware files, but the bootloader may have started the MCU */
+> +static int en8811h_use_running_fw(struct phy_device *phydev, int err)
+> +{
+> +	if (phy_read_mmd(phydev, MDIO_MMD_VEND1, EN8811H_PHY_FW_STATUS) !=
+> +	    EN8811H_PHY_READY)
+> +		return err;
+> +
+> +	en8811h_print_fw_version(phydev);
+> +	return 1;
+> +}
+> +
+>  static int en8811h_load_firmware(struct phy_device *phydev)
+>  {
+>  	struct device *dev = &phydev->mdio.dev;
+> @@ -526,11 +537,13 @@ static int en8811h_load_firmware(struct phy_device *phydev)
+>  
+>  	ret = request_firmware_direct(&fw1, EN8811H_MD32_DM, dev);
+>  	if (ret < 0)
+> -		return ret;
+> +		return en8811h_use_running_fw(phydev, ret);
+>  
+>  	ret = request_firmware_direct(&fw2, EN8811H_MD32_DSP, dev);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		ret = en8811h_use_running_fw(phydev, ret);
+>  		goto en8811h_load_firmware_rel1;
+> +	}
 
---g0N2ukCb0WMIz+mv
-Content-Type: application/pgp-signature; name=signature.asc
+Is it possible to figure out from the firmware blob what version it
+is?
 
------BEGIN PGP SIGNATURE-----
+There is no point spending time downloading firmware from the
+filesystem if it is the same or older than what is already in the
+device.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatUY9QAKCRB4tDGHoIJi
-0n24AP0VU7I1LO8QuVr77O0ieUH0HAgJ6vxjIha615mrn+PwbwEAzFTyZ76tRxvA
-o4A1XfUZSzmtB+jF5vyliDCiDUfFXAw=
-=o4BX
------END PGP SIGNATURE-----
-
---g0N2ukCb0WMIz+mv--
+	Andrew
