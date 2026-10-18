@@ -1,243 +1,220 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3173F107E
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:44:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792356269; cv=pass; b=mjm0yPpSqxOg6LsiSpq2o+6yibDewcQwVwYT8qriRaDWlXj7iBzVUPJYcm0OuvjAi8WJsen9jLVyGTBFTddZAD/OsPV/vBB9vK51kIb9K5i9kOMsoTykfbA8z6VFPB3TMpmBj4fmeOqZ/WhPZXq0O0jdw/EUABCGi2+J7y4Ws7o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792356269; c=relaxed/simple;
-	bh=g/M7nl8CAMWTDaPZrkIyMM2srI0yx3TbivxMXYTz5I0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cDXEQx6QWqI4yutT2ozYZIf+u76tbEI46/YTmbUDUg6YB1LSGETVs38k3Tc7JEPdikAGXqOwlF/o0TILE/Ouy1hbFZaqwEvIp/ru59FLRM/wj19h7VPiLMTy1aBf5xxUAYbys7pjYK7jTCBaAfJszj+h4xhjqPjL11hOELnTNXE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZkIX/iv+; arc=pass smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0163BB115
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:45:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792356355; cv=none; b=L1Pp03rpRXaalv3Ioa0UMLcTvth6cK28svGZxTBP8p+FwLFanwrbrmG9qJoQZPmHnJz9FYpowUsKzC//hPRJrmiMkvhpjuzsOMuXU3Gjy81Y2yLRr334IqnkkFl9szYU5MHcGkOutRAYQqyM+wnOBFB26JXsDrWpTl5+PpplSjI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792356355; c=relaxed/simple;
+	bh=jOBMEOP/PAlTzGnhvm9r/bDO0egyALjQ8pLUTu4xduU=;
+	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
+	 References:Date:Message-id; b=lOum/zhkaBrKz7HGwDjmq9w4eDrKaLiSIDaDSj+wbJOHw1EJSezhuRjLBHRpUkbcBXIaNqP4yEpjR0AsYErgkyfk95X8xXy46uhzHJtBT6KjunHzEAdZVfCq/t+gw9l7UnsvCIf/IDbRK6ZTQhlnErUDCL9/P91NFfxz3VIzyBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=izFlRjmP; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UNnSYy9z; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZkIX/iv+"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2055573c8cso168221166b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:44:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792356266; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iuVyHyccUjnTsXxGt7EMevWF/+j3hc40vw9ru9WaXrNOGb2n9fGDfA8/7GwpP+/TQ9
-         mdndJpogUuacHB2WNfwn4ba9cbfYOqNpmeOJAAIglhFSm24Qu8LMj/H0hI+y9Y9IsdXv
-         oFpzsB+T7FI59MrcIsgY9srSqjTtIxz1YJ6Tb+at63Idp/LCYV0y6mm14Aqtj8EFbCqi
-         gwS+j0rpyfjvY7yr2iwWCXuJR12qRSp4tXlJ5s+gROTokLG2qHJHttUUosUeaBA5fRke
-         VVSdOacRA5OiI7qHj8zjU7RwK3khtyoUMWfOIN+XmujrzOSBL5TBIqyPaJOILBLK+RRL
-         ySvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6+3d8Jw9619cDYgKWR0sQxv7zRJyClsX6yDbXUYOrpg=;
-        fh=Ht7LP9UptD6evLYKcbnk5sbnn3c4/7geOxzAykJ7UQo=;
-        b=RKHp5pVGCRW3HQue+HkNd5+0aFrsQoS8wYa++gZ+q5C8cWfLDGcTycxIZqYfswMNva
-         oitmvPZS5F/LFLRy8Nanm+nKe1Vnb41bfxQDtnPrstdW8hql1o5ONahDCd2V4/bXNr5N
-         e3+x93evzrGNCE5XTWt5gB4iU/85iBHaV1y2dJoGE38NyFXZVIh97exwgQR8ADZ7GC21
-         jDO3p4EjrovmFrTcqTHPo9yco2aWzFWkrKkjiNTw5xWs3IgMSHsvQvLRFKvcQJNvnjEI
-         PVDD5p+6j4MFvBdslEeISvNXphpdXARW/yLKgCyLqyUiaL7cQ4kXk4ixaFWu5rE8iBDc
-         iTVQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792356266; x=1792961066; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6+3d8Jw9619cDYgKWR0sQxv7zRJyClsX6yDbXUYOrpg=;
-        b=ZkIX/iv+M5/D5yFFEj4YlZqpvdMPOnIP7LxI4kX0MHkVXHUTrZjUssaWS7QfMP3Ahj
-         SJZf9d30friV9jy+z6n0SDOkXcceSReOcnCS+N2ssL49mzRVjamZqGkgJKbgflNeZmrX
-         E21w6A4PgRhgLETAxAhbr49KgEJPliP/fmK5OLgeo6FqhLea3AQHof+UP8O8pXp2N3y3
-         25XGEBja6XHlGIvktNLgsqYu4/DBVAsxadcCCmguHM8Bb4GahwWERWE8EumPRFEIZAXd
-         lqovZ9Vpcng0BDcBJxpbErtOKtakiQyP0eyUMpzjmDP7VUrpRMAejay/HP2S6l9TIgIL
-         Wz1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792356266; x=1792961066;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6+3d8Jw9619cDYgKWR0sQxv7zRJyClsX6yDbXUYOrpg=;
-        b=BJxJ9iB7rcY1ONnEQCXaXZJ80m+F15n/hUqvrpQXfel5djEtnnhcfLxj/80E+2YkXS
-         N1sop76n3RrS25FnJx8yc0bsTYksXoWCqJdN7g/6kVF0+y8Vs85sxfuznfu2Xx73rqRx
-         J5gAicP/qCE1ShswncS7KPLx9zSiV9KAU1OJtHtF5MBrk2YZ68t7p09fFOSISXZfoesl
-         yQGR31svi6PIVtXuKOxmTZKGipdJ/xMvpIlHaEwjN4fW0yDx1NmcNovEbmdldyhH/AEU
-         AXCaGCLg6VDUk6DQHDwzy0l+quhcILzaW1/b2ZB3I0BNc+PfZTMuwWrlSzNBQD4oxpJM
-         icqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwF9K59lrWfHUpDvhIZhxWcghKOt0IpBts0csPvQq+yfC6p7OzwktM+EPKLoHdx/+/KirxEOeq0ca327rQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEMK5uXjZZo1uegKKsgEUzDUh7VgABRVhjUZ9/ETqnY42o9Nm7
-	vMU2Pm2zFp7SdGz0VCw4mciVQPjM3XafPzOiEIpFtSyi3yMLi/3f1vfBmne8SYZRAMAyO7e9trR
-	KwqLkmPAdYjWyxcI8jfbuWXaeBQeCTP39OivMCNk=
-X-Gm-Gg: AYBFou1BHrbVR4ZzXgBCwLQYQNWx0NVKnfdngoDcCj8WD+C8xa0Evp6J2BVB8eesGvz
-	vCQwXSk/b6OaXZXG1NLloldDvKek7AMPHVOWjT5bw2u0WlEJfEaUzmJxBeVlKP5u9LD7EBNeUFQ
-	IxVMeQPksqINjol/CrhMrnnbJKdQ7cJzEGrsH9R93Ch2sEe4NvJNnJCgajAwG1xk+F0oDVAjsTt
-	SQ3lHAWK/jIa4C8bQhDZ9teLW+qe3mEFJC8C0VIb8pBgSJFcduh5B8zRcpDzL0+zv/9iX+98aVp
-	tx+G9mZACpedhX1FSvMmfhWPTTrC2BnSTlDclzro1TUxrsAt+bUQoiAUUlR/nUIgcgPyHclmxFo
-	dMqJ330daiCLMClQf9EELGpnBgpPa5gFmP1xczij00hDeHHUOZKBz9+Z3vLDLSlU39OhxFTTwhL
-	W70GE=
-X-Received: by 2002:a17:907:5c1:b0:c3f:8c92:3b4a with SMTP id
- a640c23a62f3a-c419df3e37emr375365066b.8.1792356266116; Sun, 18 Oct 2026
- 13:44:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="izFlRjmP";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UNnSYy9z"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 993707A0151
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:45:52 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Sun, 18 Oct 2026 16:45:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
+	1792356352; x=1792442752; bh=CL051/IwMBR8epOZ3ipeSU8+br7sH5TRShd
+	AfH3s3vs=; b=izFlRjmPfoURfKnc2mlhIO4jB2R+k6UmqcrGQogzaPWQUNQDlWs
+	fy7IfMFSGggUPTkLXYtR+C33t97KC8lMWyaNRHTxzs45wLTOt+Ro4XN8xeZwp6x7
+	5jm+QfXZ48FpqokpHBZ2xFcXew/Xr6TPB8NlH6YIukPminh31b3FCtSpj2db5JTw
+	w6vYYlOwrYeNZ/sOM4+uyFs0w0pbCMadgerIqrb7h2dS6usptDuABT6mOKH7EhHy
+	h9mkkq/FlKHTU9KQFA9wBjIY6BKKEllPU7omqkwrmJ4oIoVfWykCQewqJOSruPMS
+	arhytNCwlPpcQsOA92MMHiZ4GfV9eYCiYmQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792356352; x=
+	1792442752; bh=CL051/IwMBR8epOZ3ipeSU8+br7sH5TRShdAfH3s3vs=; b=U
+	NnSYy9zN2nkYfHEtzQntyy//xounkGzBd0i/IIuj5FMZ/nrFYzz/nguddhun1kCl
+	s4vem7YIo8KbmHUYjIJPhh+yd/h6UcaqJlUPFqQczbh78JFkwJyw4/smPYRDIF2n
+	wMhkVuHaD7Z7ewB+GWHnl9/fwwpPwCZS2zZBgxj2x9vnCRUq4Bw6455PHr1W5oIQ
+	IWNuMKNaJt0//eZc2FvhptT2NMf6/g73fumSRdHlyIT8cEYyVaOup+AJ2qtk0ZHt
+	7x5cabtZTJNjzYQ10aPPrStJbjn4At/RW27A7o+0BPMzSPTRN2BliEHDR2kofbXJ
+	psCtCq65BuUhYoc/xy0Dw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792356352; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Katua1cbzDn1QDR1rMpl1ya40fsfCT0Zd9HJUjYimxYcdF+
+	BbMSPqUpRA8Ugp1T/J3UFkCA0iB/dc1XSEe5td1Zj04fdH4gpcWIVV65hKmjbI5v
+	A4MkuW+rFJHFurSYyDi/jtMn27MuDSVXMWVnuHeQMZb4xqRICCzqE9Ac2P/Pavl+
+	l1Dd/9jVb0KbRrXQfI4X8naQ6qq8SwMxJnHgpK0JupMWN4uZw+UBQx+LnE42Rb9E
+	ie6eKZSR9jGD0TcKobtdARYQMxXxXynd8dxrQHs7JE62ijEoOrp+mH6hADUJ7xnX
+	Tg//YiqarjHx2BJh/V82QvCjYHk2GN+k+Xe2wuQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,reply-to,
+	subject,to;
+Message-Instance: m=1; h=sha256:m/zaef+hacF4bhoJieFwitJT++vqpv09fahZnb2symk=:jOBMEOP/PAlTzGnhvm9r/bDO0egyALjQ8pLUTu4xduU=;
+X-ME-Sender: <xms:_y_Vap1JeXj-3w6cXGFihAl92ecv093TfI8611L0FiAaJXuEd_slEQ>
+    <xme:_y_Var84aD3uyFWOOBAjcjs6Wt8wgfGZgf3ANdxjirLfM1v7RFT5lL2I99xeB1Auu
+    YjzHiWs4DMOn8vEL9rcQjd_-91dn2f-1UxRN7hwu9hixd1O7g>
+X-ME-Received: <xmr:_y_Vam7eOoosoSu5oSE4c9Wug_xLmvpcN3_f41WEbd_yzQbwF-RDgT8-REE2ETfibqWxVm_PrTzPC4qTW4KIbJjtXFrcPmg>
+X-ME-Proxy-Cause: dmFkZTFECpY9M9UWM0stSSHWUlcugPteC7xF1kHuUOu15yqKQpxIQPQWsChTppyCXsGHNp
+    RaQ3cVmcOkV+F16/VwJXpOuD6HDEIdGAakWA9w8tSsBT+NqWuVYR6zZFtv5ZiRJ4qyHme1
+    AukhphtAl2lTKGfWr7iSZkdyo0lH8gnCbyjyDm5uYLiwn+jWvULabGO++gEZRn8K6tQg0T
+    S5zLGLzluA7AJ/xnYn7K4ZOE3w4aDwvNtU/XKni3l6QMc6kjh1tLcy+QDp1VIVZn7DieHh
+    NmQm5NzRR/TQr81Nojl5X5kUIXwEfQ7nVYLFlt5RcAtE5+B5/4fU/WtsPqdmbS4htOjMS5
+    q8bJf+FFwf3MI4FMs7E4HJ8PjATHIgkd2Lp23IRiadlxBUO9zq8+ciSvoAHodeJFAcaV+J
+    zroFLZjMMaotejok6ddzJq9YK1w6uNLo1qBOnBqc8oo3JjpBByfDzRNmAlWFUn7Q1tW7OB
+    ytbTKImsYpdQXEmgfbCFuUoUgWxoy52jFHAvaCGlr/vM/J6tVqrS/Uo5k+AEjeWJv+JnPU
+    VmsmRFVEpc5krPTeKZqvV+5jIld7luzTUWF0oSASmuIjQwRLP4yvkkVZSFdA0BSCsuPCzP
+    zBbqu3B1paTxqC6KbtFTQJD0EVEB8W7uMPFum1d7JrjoHQ1mo9Rkd9oky5Yg
+X-ME-Proxy: <xmx:_y_VarvzgO0OHWC1fPr34DwaQux7r5LbYDNJWjmB8s0Ppr-parqAyg>
+    <xmx:_y_Vag0Cl53HW2sJhGX3KA0AFU4aRRGOTmNpkMk9hturEvN7WLgavQ>
+    <xmx:_y_VasrKzSHTx1T4878Ue2X3z0yC20jKgKpVwX0rUMEZ-NXicA-HOg>
+    <xmx:_y_VaoJqk61-DPjV7NAQ381zQ4561MkJAfG27jyODMqs63upbgC5Sw>
+    <xmx:ADDVakHEkl6IS8hQXbgOeQmzmEIf62eY0fYKWet7yhfSBcQ0MM9K4Zsp>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 18 Oct 2026 16:45:48 -0400 (EDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004213755.554191-1-voytikd@gmail.com> <e7c99dc5-dfa4-4ce7-b7da-a3a70a2710a8@roeck-us.net>
- <CAAX90H0qGF-H8BYcmT_vbUGoqN9RbfeGxMdTTRyQPK_h8MzFhA@mail.gmail.com>
- <053269a6-41ab-41eb-8756-b6a04eea2e5a@roeck-us.net> <CAAX90H1-tzrH6hwHHrvfQi2e-TXQKmgNy0Lj2TXG7yDbKYy3Og@mail.gmail.com>
- <170e005b-c6e5-4b48-bc01-9b07ff918252@roeck-us.net>
-In-Reply-To: <170e005b-c6e5-4b48-bc01-9b07ff918252@roeck-us.net>
-From: Dmitry Voytik <voytikd@gmail.com>
-Date: Sun, 18 Oct 2026 22:44:03 +0200
-X-Gm-Features: AclHuK-b7gXo_-aEK7081eT4PczvypQ9XyQklJwYCDAyJl8ejlUOVi5e2L1RXsI
-Message-ID: <CAAX90H052BKT1d6NZSt4AvnHVc5A6xC2ntkybKmPj=LqhGA18g@mail.gmail.com>
-Subject: Re: [PATCH] watchdog: allow WATCHDOG_PRETIMEOUT_GOV_SEL=y
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Nathan Chancellor <nathan@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: NeilBrown <neilb@ownmail.net>
+To: "Jeff Layton" <jlayton@kernel.org>
+Cc: "Deepanshu Kartikey" <kartikey406@gmail.com>, cel@kernel.org,
+ okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com, bfields@fieldses.org,
+ skinsbursky@parallels.com, linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
+Subject: Re: [PATCH] nfsd: fix out-of-bounds read of sv_permsocks when
+ starting a thread
+In-reply-to: <c19a047cc3abde3ee342cf4188620e70ab51b429.camel@kernel.org>
+References: <20261018113312.10455-1-kartikey406@gmail.com>
+  <c19a047cc3abde3ee342cf4188620e70ab51b429.camel@kernel.org>
+Date: Mon, 19 Oct 2026 07:45:44 +1100
+Message-id: <179235634403.1724252.2120669689990867061@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-On Sun, Oct 18, 2026 at 6:48=E2=80=AFPM Guenter Roeck <linux@roeck-us.net> =
-wrote:
->
-> On 10/17/26 15:27, Dmitry Voytik wrote:
-> > On Sat, Oct 17, 2026 at 11:42=E2=80=AFPM Guenter Roeck <linux@roeck-us.=
-net> wrote:
-> >>
-> >> On 10/17/26 08:59, Dmitry Voytik wrote:
-> >>> Hi Guenter,
-> >>>
-> >>> Thanks for reviewing the patch!
-> >>>
-> >>> On Fri, Oct 16, 2026 at 8:21=E2=80=AFPM Guenter Roeck <linux@roeck-us=
-.net> wrote:
-> >>>>
-> >>>> On 10/4/26 14:37, Dmitry Voytik wrote:
-> >>>>> Fix the issue when WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =3Dy=
-,
-> >>>>> and always is =3Dm.
-> >>>>>
-> >>>>> The issues can be reproduced with the following steps:
-> >>>>>         make mrproper
-> >>>>>         make defconfig
-> >>>>>         ./scripts/config \
-> >>>>>           -e WATCHDOG_CORE \
-> >>>>>           -e WATCHDOG_PRETIMEOUT_GOV \
-> >>>>>           -e WATCHDOG_PRETIMEOUT_GOV_SEL \
-> >>>>>           --refresh
-> >>>>>         make olddefconfig
-> >>>>>         make mod2yesconfig
-> >>>>>
-> >>>>>         grep '=3Dm$' .config
-> >>>>> returns only CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL as module:
-> >>>>>         CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL=3Dm
-> >>>>>
-> >>>>> "make menuconfig" doesn't let it to be switched from =3Dm to =3Dy e=
-ither.
-> >>>>>
-> >>>>
-> >>>> This does not explain what the problem actually is that is supposed
-> >>>> to be solved with this patch. Since this is just a selector used to
-> >>>> enable other configurations, and the configuration option does not
-> >>>> result in any packages built, "WATCHDOG_PRETIMEOUT_GOV_SEL can't be
-> >>>> set to =3Dy" on its own is not a problem.
-> >>>
-> >>> The issue is that
-> >>>     make mod2yesconfig
-> >>> doesn't work as expected. Help says "Change answers from mod to yes i=
-f
-> >>> possible".
-> >>
-> >> This does say "If possible".
-> >>
-> >>> I might have misunderstood it, but I thought all configs should be =
-=3Dy
-> >>> for this make target.
-> >>>
-> >>
-> >> $ make allmodconfig
-> >> $ make mod2yesconfig
-> >> $ grep =3Dm .config | wc -l
-> >> 51
-> >>
-> >> Not really.
-> >>
-> >>> Maybe a dumb question, but why does only this config have " default m=
-"
-> >>> and others use
-> >>> "default WATCHDOG_CORE"? Does it have some special meaning with "defa=
-ult m"?
-> >>>
-> >>
-> >> Again, this configuration option is only used to set the (default) val=
-ue
-> >> for the watchdog pretimeout governor, and the "=3Dm" states that the d=
-efault
-> >> should be WATCHDOG_PRETIMEOUT_GOV_PANIC=3Dm, not =3DWATCHDOG_CORE.
-> >
-> > This doesn't explain why it's =3Dm by default.
-> >
-> >>> I want to have no modules and still not disable the module load
-> >>> ability, and it annoys me
-> >>> that some configs don't allow "=3Dy" :-) otherwise when I do
-> >>>    grep '=3Dm$' .config
-> >>> I need to remember that CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL is a speci=
-al case.
-> >>>
-> >>> FYI, for Arch Linux based config, only
-> >>> CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL pops up with =3Dm.
-> >>> A fix for the same issue with CONFIG_TDX_HOST_SERVICES seems to be ac=
-cepted:
-> >>> https://lore.kernel.org/lkml/as04AoNxjzlvh-K8@thinkstation/
-> >> You are comparing apples with oranges. That commit states:
-> >>
-> >>     Fix the issue when the driver always gets compiled as a module.
-> >>
-> >> There is no module that can or will be compiled based on
-> >> WATCHDOG_PRETIMEOUT_GOV_SEL.
-> >
-> > Sure, I understand that. What is the semantic meaning of making it by
-> > default =3Dm? And why can't I make it =3Dy?
-> > I understand the build artifacts are the same, but I'm curious why =3Dm=
-?
-> > Why WATCHDOG_PRETIMEOUT_GOV_PANIC is not =3Dm by default?
-> > Thanks for the explanation in advance!
-> >
->
-> The idea is to build WATCHDOG_PRETIMEOUT_GOV_PANIC as module
-> by default.
+On Sun, 18 Oct 2026, Jeff Layton wrote:
+> On Sun, 2026-10-18 at 17:03 +0530, Deepanshu Kartikey wrote:
+> > nfsd() derives its struct net from the first entry of
+> > serv->sv_permsocks using list_entry() without checking that the list
+> > is non-empty. If the list is empty, list_entry() returns a bogus
+> > svc_xprt computed from the list head embedded in struct svc_serv, and
+> > the following perm_sock->xpt_net load reads far past the end of the
+> > svc_serv allocation:
+> >=20
+> >   BUG: KASAN: slab-out-of-bounds in nfsd+0x118/0xbc0 fs/nfsd/nfssvc.c:894
+> >   Read of size 8 at addr ffff88802d423f50 by task nfsd/5988
+> >=20
+> > The list can be empty because nothing guarantees that a permanent
+> > listener exists while a thread starts. With dynamic thread spawning, a
+> > thread can begin running after the last listener has been closed and
+> > removed.
+> >=20
+> > Take sv_lock, which protects sv_permsocks, and check for an empty list
+> > and read xpt_net in the same critical section. If there is no
+> > permanent socket, report -ENOTCONN through svc_thread_init_status(),
+> > which wakes the creator and exits the thread, instead of dereferencing
+> > a bogus pointer.
+> >=20
+> > Fixes: 88c476661719 ("nfsd: pass proper net to nfsd_destroy() from NFSd k=
+threads")
+> > Reported-by: syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D561b859d032c8bf2fb53
+> > Tested-by: syzbot+561b859d032c8bf2fb53@syzkaller.appspotmail.com
+> > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> > ---
+> >  fs/nfsd/nfssvc.c | 22 ++++++++++++++++++----
+> >  1 file changed, 18 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
+> > index 2edf716ea022..da6fce79efae 100644
+> > --- a/fs/nfsd/nfssvc.c
+> > +++ b/fs/nfsd/nfssvc.c
+> > @@ -890,17 +890,31 @@ nfsd(void *vrqstp)
+> >  {
+> >  	struct svc_rqst *rqstp =3D (struct svc_rqst *) vrqstp;
+> >  	struct svc_pool *pool =3D rqstp->rq_pool;
+> > -	struct svc_xprt *perm_sock =3D list_entry(rqstp->rq_server->sv_permsock=
+s.next, typeof(struct svc_xprt), xpt_list);
+> > -	struct net *net =3D perm_sock->xpt_net;
+> > -	struct nfsd_net *nn =3D net_generic(net, nfsd_net_id);
+> > +	struct svc_serv *serv =3D rqstp->rq_server;
+> > +	struct svc_xprt *perm_sock;
+> > +	struct net *net =3D NULL;
+> > +	struct nfsd_net *nn =3D NULL;
+> >  	struct nfsd_thread_local_info ntli =3D { };
+> >  	bool have_mutex =3D false;
+> > +	int err =3D 0;
+> > +
+> > +	spin_lock_bh(&serv->sv_lock);
+> > +	if (list_empty(&serv->sv_permsocks)) {
+> > +		err =3D -ENOTCONN;
+> > +	} else {
+> > +		perm_sock =3D list_first_entry(&serv->sv_permsocks,
+> > +					     struct svc_xprt, xpt_list);
+> > +		net =3D perm_sock->xpt_net;
+> > +	}
+> > +	spin_unlock_bh(&serv->sv_lock);
+> >=20
+> >=20
+>=20
+> There is another way to get to the nfsd_net here. It turns out that the
+> sv_stats field for nfsd always points to the one embedded in nfsd_net,
+> so we could avoid the socket lists altogether by just doing something
+> like:
+>=20
+>   struct nfsd_net *nn =3D container_of(rqstp->rq_server->sv_stats,
+>                                    struct nfsd_net, nfsd_svcstats);
+>=20
+> That avoids the extra locking, but it seems a little weird to depend on
+> the sv_stats field. Maybe we could wrap that in a little helper or
+> something to make it less ugly?
+>=20
+> An alternative would be to add a serv->sv_net field, but most services
+> are not per-net. nfsd is the exception so it's the only one that would
+> use it.
 
-Doesn't this contradict to:
+Most services don't use svc_create_pooled() either - only nfsd.
+I would add a 'struct net*' arg to svc_create_pooled() and
+store it in serv->sv_net as you suggest.
 
-config WATCHDOG_PRETIMEOUT_GOV_PANIC
-    default WATCHDOG_CORE
+Thanks,
+NeilBrown
 
-I double checked with "make menuconfig" - when I select "WatchDog
-Timer Driver Core"
-and then "Enable watchdog pretimeout governors", it sets by default
-"Panic watchdog pretimeout governor" as =3Dy, not =3Dm.
+>=20
+> > =20
+> > +	if (!err)
+> > +		nn =3D net_generic(net, nfsd_net_id);
+> >  	/* At this point, the thread shares current->fs
+> >  	 * with the init process. We need to create files with the
+> >  	 * umask as defined by the client instead of init's umask.
+> >  	 */
+> > -	svc_thread_init_status(rqstp, unshare_fs_struct());
+> > +	svc_thread_init_status(rqstp, err ?: unshare_fs_struct());
+> > =20
+> >  	current->fs->umask =3D 0;
+> > =20
+>=20
+> --=20
+> Jeff Layton <jlayton@kernel.org>
+>=20
+>=20
 
-Anyway, I'll stop arguing. I may be misunderstanding something here.
-I'll just remember
-that CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL can't be set =3Dy for whatever reas=
-on.
-
-Thanks for looking into it.
-
-> There is no "why" to answer. Why build anything as module
-> by default ? Are you going to question all those 478 default=3Dm
-> configurations in the kernel ?
->
-> You still do not explain what actual problem you are trying to fix,
-> except that WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =3Dy, which is
-> not a problem. The only problem I can see is that you don't like it,
-> which is not a reason for making any changes.
-
-> Guenter
->
-
-Best regards,
-Dmitry Voytik.
