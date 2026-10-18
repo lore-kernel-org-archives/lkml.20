@@ -1,72 +1,75 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3E938AC68
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:32:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458BD3CDBD7
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792294363; cv=none; b=fjySLmcgyZPTfV6elwx5dJi2UyQGnKU7jPjFCIaXdoWfOZs+zJu8NT60yofkvfgYcyltZErIqp19ABbv6qm2/J9r9cpAHRoOz1kORrRg8ErWMAxNceDvf8Ywm9YKFfPfdlAq2YV+P97juuB6nq2xn+4FXL6FgrCDVBxTuxOnLtg=
+	t=1792294439; cv=none; b=PZ827c1Gs2hA5DmFBHK0nkMypwep3xaZVUIH0SrWlLD+dysrU5ykMtXPzuiVjW/jyOjI2YmHuiEPre0JRQQwxnKLgyAnzeap8Ye6kZLiWL46T9vpaQIlm5tRSQKlbjZqZYYHuae7DdjM2UXDbj/2jVHsfe4T6UxrEaHmqs/Ft2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792294363; c=relaxed/simple;
-	bh=UvTEXTqw1lVFneCi4baLXWwmAJ0n7GhdLElXFhLHYX8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RG+0+zhh+Yh9PLGQZJFz2wfACmh7u/GczIYZmN1Y4OA60G7H7RwTb97HfbeC9H4DT0Tr+7+6wV4EZS9Gcmg+IqvMU3V40mrNMlvIJDOizKwvdfyer1izj5pi7NB0aaOAFzCn8UBAuGJ4DdPGMLcXdlqCvp1wnDSE1x6YmweDwxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KxYEW5J/; arc=none smtp.client-ip=74.125.82.170
+	s=arc-20240116; t=1792294439; c=relaxed/simple;
+	bh=iVbohgY+rmCUkvsLlybYzGH5dGh+hT2gpULT/kkoPak=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=OqjfTswSeo3roR2LeuEb/dTzNLSkgiaskKmqmMebMG6ZTat5b+6xMtm13psjYRtcDWaPhzbySB+UNFlFLvQ0WQuMr//u0n2vWsa6mVOiNcQOmoVOOxBlykZJ0U6hcan77HG0uO8iNgSdb35wwuSPqd+AnHKeTY5o2+WcALSh9XQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jWx3gb9i; arc=none smtp.client-ip=209.85.219.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KxYEW5J/"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35f036b17easo1910794eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:32:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jWx3gb9i"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91b8306b9f8so17420566d6.3
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:33:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792294362; x=1792899162; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O9jsrD/kdtezFUO00VsW4JeI4Jo/i5FLlkQ/PljGjWE=;
-        b=KxYEW5J/3kBw4o71EOTrzD4pz2KWlycMUXwHiDuZbjqGJyVcIwzYVGDZcpkKT0qnsM
-         QNE9xfhwL9+akeqWR7qJdnlEJ4ODrxaBcZIig+ZbSu6VE6FvEBd/g9um88Ylb0nbkh1v
-         tZ1ZZmAJp5SpjXL56HeBK+Y8HxsrZZnn9T3i5snCxmUeQnTtd62f70gcB50EDUxZ/981
-         dT41GUMPdinKhgrwfksFIUulnRu9OmDLp7jrgnPTEz9HBL78m5RCctHsunjFa/sRpNuN
-         7oPHRG6C8eVI6MiYQfEzU9VdrLbJ0B3wSAmedJmecEiqZbMqvMi4PlZYmPOwRnmpuRym
-         Sfsw==
+        d=gmail.com; s=20251104; t=1792294436; x=1792899236; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L0T1mzJG9BohDm53AyHgfyQvkB4J+HKUMcwN4frFX8Q=;
+        b=jWx3gb9iDI7aNvOQzqcvrzi5EwXlVAKxhTFtwVEx1kKgPh7C2CtobtwCNEAZo4ee6M
+         bUvUDWTijPbZYPMoY3gNPNTGAWVdpnorFzhz//TfhMCs4j7E1nI6ODIJx+McXhaijHcr
+         kO2TZfS8XgTtqTi4ZqkNkO/caLn6xcySxBMUtqNLEZS/Yos1D5eN334BueXXK9Kb4sKT
+         OXk0ENqmcnDzd0ei/vni62Ml0ZamYCWGRhoP/ThY26DL4N7OfxsScJr3Hq5X/OxhGV/z
+         nQZuOE11Ia0E0o5inRChIhMzA/ougpnks0qSDVDXNjZ0xawOcmxuDP7Ts96JYO6Te5Eh
+         4nrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792294362; x=1792899162;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O9jsrD/kdtezFUO00VsW4JeI4Jo/i5FLlkQ/PljGjWE=;
-        b=YnavAW2tBP9iJ4byCXDvd5xwupke+JxvLjAOaoYUS74vzOlzfjcaGdMk2zfqLSP97u
-         cpI+31XIKIOBM9yqaCnAK9Gymr6s7L7VyIFi7/SDfAlhInwyYELqz6WVwvFbeSiLgbyU
-         R+po+C+Tjqbr1giQk7yiOpR8f97nCXY5djkU6msGzjZacIURLmUQTpWsmF/boQalZB41
-         RYeUkZ6j4hg2DEAtvjGRX1j5bnvSSlj2eCHJRyB7m3tabgse7epweW0O1ic8uOD1bETC
-         4au+X7E6Xq2Qb9lOnYftfNxK7RSt7vE4T5gMkP9jJ2vJ2SnyHSinQsiedE1Mm0cbSJcu
-         RuYg==
-X-Forwarded-Encrypted: i=1; AKwUvBwETLZn/y7uVLeEPwUivFyN0RETadCPoIhs8LAmQNUzDN3UjGILAXPUWC23RIDQCorvbgmIDvixqyX/I/o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKS+rElH9BE5CU7RWOHdBsbypJ1JqnRtxxdNS9LUkhCpdZ8pqXA
-	Ra3ZLlaB4WRzFJu1XP6o5MJcpAYgq9E+OR06O3RjXD45VvCQC9z7DKtXS0zR+spVrrbcLw==
-X-Gm-Gg: AYBFou2bCSWWiAsrIj0hmwCDmi2QfAKoRIkSTVvMTVp64IEAgvJh4xzoIKVnwpbaFt0
-	n+HGN2wD/widZAEouGHT87ir5yvcoW4I+u9zuQs70wdbACzuvoNhkLfwVU89iiCJhXv+Jd3KgTe
-	F91lxwVmby93FEIUNT0dHdJHKoNhDcnSuygR3I4G9KgkJN/VL388bGvPHTXW3ipWBLe9jVcQzfr
-	o+IFYhayKSOjke5erK5ONgeHkFia56unNa7TEjhxxDxY1+ndXET1PbeAiRM8OcYlE+qqh3dskDH
-	A+oOF8bfG2Urs/eA98Zv7VlXTedCFLFwYeUjfkMDdCLGN/zEvcqnhO2rS4W2KhzACD0i+wCVzWP
-	EKlEaFD/PpHJAqu1XblkLMK5U3qxF+4dpiUZ46b+cNxfkiw8vYY5Xe0uPmkvX6oNB6Hqh3E92oC
-	Sx3tqywN3KS9w8GDAAowX1o9ET1/Mmexdtfp2cNOwnUgL07312Yzcn2LggqMjUWe8cVfP6MBa0V
-	kSAKfy2fwlLhOIPovUWBcc=
-X-Received: by 2002:a05:7300:ff4a:b0:351:f762:a10c with SMTP id 5a478bee46e88-3619b20edd9mr5915279eec.0.1792294361434;
-        Sat, 17 Oct 2026 20:32:41 -0700 (PDT)
-Received: from NithishVelan.localdomain ([152.57.87.120])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607bc950f9sm22261572eec.0.2026.10.17.20.32.37
+        d=1e100.net; s=20260707; t=1792294436; x=1792899236;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L0T1mzJG9BohDm53AyHgfyQvkB4J+HKUMcwN4frFX8Q=;
+        b=ySu82GwFuiVUFbV6wulVp8VgSxkT00Q9SjnB4VeMjw/8T4oXdAuD817r9UentlanIx
+         GjzAk+DfgFatoPN6/0ydCvB9moLmYjZGlGIVnkci3yoQOjxP/hq2m4MXkRJhkhW7KiTV
+         a96vmjMpntOJfbhNRxkF1hdFnCcvcy6rJ9tSUkd09Wfffioum+QRwn08R+TatRQO6kni
+         bZL/myOE08dskhUgRj/3ocWbGPoH2md93xN0S0HGGd2NpNs0E8cKzs5S4qeCINTq9Be/
+         aYvJZ0Ik+G5MEvcPwHoSW62OSc4UaVU/vN2LjgXHGtU9bMBG6M1kC72ORKU6i75WKM9+
+         08vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzXKC2S1fpEGbQ9pt2Wz0ONiPJZ5oJ1hFwYN/CvEfNwx1Z5e65i6CmaJgZ3wfGYufOvjSuiKRw5EX/+rFM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaNmnSTwbV+wSjk4+CpaLmSpVDrMavc4ReUUkf793GefWIO2LV
+	mgObng+cJBx67u94jnuHacsLDTkBe7Cmr+sUG7btyPaHe0JcS7uTUzL6vWz8zz4=
+X-Gm-Gg: AYBFou2YxLACWzc26TneJl7SfDwARka9gEB3Z6Cr766AZivsaP9m85LSIu4AWXscgQm
+	74YKYivS+P3uC+VzXG8jqw2gHabIbhsjlVcDEecIvR5gN+xFrux2sQGMVpccP+YH1Ye2eqL54pc
+	npoGRleztSvl3pqBC7iyHbxyaDuFm4uZRQNG/VxG9RmsVfeGeuczh90htUlCN62CgDwHbLK699X
+	/LPI2K0N1uhTsI4bjRdG/prKDQazZAVHvkMfrF0aBbKMb3qBFWcsWH5xOHwXyBHCWXD6ltVgWXr
+	mMqZ9svzVhxslGPpkZWRE6GFiXnSoer1R7x4mPrHWikBK5eKweUX+9EeXE2S6E0GtBcvaaT8iSD
+	Z0kh+vhLXGosP2A8BFLfe+/yYgJgKQM/oa08oeZ1Ve8L1IY1J5641d6+mhl7L84myZF6Y3uWQFu
+	HOsaOv8/Cu/0LuWVnU2ZAwDCp10TPGjBYxAr1iAzHArlG1La86kq/elV3hdS3hgQ/5O8RPdzEkh
+	b0iE1aHR7d0DFGbv5gEgzlQW1PMZIrGMDtpKOnv8fWEAUgop+ZRPuY8nm+a//P7Ogu3OGUk6eg3
+	h8mgxNoHOTJg9tglP0O6fhXXKKia
+X-Received: by 2002:a05:6214:4521:b0:91b:5d39:e144 with SMTP id 6a1803df08f44-91bdf6392e9mr71140146d6.57.1792294435926;
+        Sat, 17 Oct 2026 20:33:55 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba4b9f0sm62831896d6.10.2026.10.17.20.33.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 20:32:41 -0700 (PDT)
-From: Nithishvelan M <mnithishvelan@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
+        Sat, 17 Oct 2026 20:33:55 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jennifer Guo <guojy.bj@gmail.com>,
-	Nithishvelan M <mnithishvelan@gmail.com>
-Subject: [PATCH v1] staging: rtl8723bs: remove empty if branch in halbtc8723b1ant_RunSwCoexistMechanism
-Date: Sun, 18 Oct 2026 03:31:43 +0000
-Message-ID: <20261018033144.865-1-mnithishvelan@gmail.com>
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] platform/x86: gpd pocket fan: Cancel work before releasing GPIOs
+Date: Sat, 17 Oct 2026 23:33:53 -0400
+Message-ID: <179229442299.3956787.17526066623947466315.gpd-pocket-fan@gmail.com>
 X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,36 +78,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In halbtc8723b1ant_RunSwCoexistMechanism(), the if branch checking
-halbtc8723b1ant_IsCommonAction() is empty, leaving the assignment to
-preAlgorithm in the else branch. This triggers a checkpatch warning
-about unnecessary braces for single-statement blocks.
+The fan worker changes the direction of both GPIOs and schedules its
+next run. Its managed cancellation action is registered before the GPIOs
+are acquired, so devres releases the GPIOs before cancelling the work. A
+running worker can therefore change a GPIO after the driver has released
+it.
 
-Invert the condition and eliminate the empty if branch and braces,
-simplifying the logic and resolving the checkpatch warning.
+Register the work cancellation action after both GPIO acquisitions. This
+makes devres cancel and drain the worker before releasing either GPIO.
+No work has been queued yet if GPIO acquisition or action registration
+fails.
 
-Signed-off-by: Nithishvelan M <mnithishvelan@gmail.com>
+This issue was identified as part of our ongoing research while
+reviewing kernel code.
+
+Fixes: b82a7b018b93 ("platform/x86: gpd pocket fan: Clean-up by using managed work init")
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+
 ---
- drivers/staging/rtl8723bs/hal/HalBtc8723b1Ant.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Compile-tested with Clang, W=1. No hardware runtime testing.
 
-diff --git a/drivers/staging/rtl8723bs/hal/HalBtc8723b1Ant.c b/drivers/staging/rtl8723bs/hal/HalBtc8723b1Ant.c
-index 0613beaa37..dfe921033f 100644
---- a/drivers/staging/rtl8723bs/hal/HalBtc8723b1Ant.c
-+++ b/drivers/staging/rtl8723bs/hal/HalBtc8723b1Ant.c
-@@ -1903,11 +1903,8 @@ static void halbtc8723b1ant_RunSwCoexistMechanism(struct btc_coexist *pBtCoexist
- 	algorithm = halbtc8723b1ant_ActionAlgorithm(pBtCoexist);
- 	pCoexDm->curAlgorithm = algorithm;
- 
--	if (halbtc8723b1ant_IsCommonAction(pBtCoexist)) {
--
--	} else {
-+	if (!halbtc8723b1ant_IsCommonAction(pBtCoexist))
- 		pCoexDm->preAlgorithm = pCoexDm->curAlgorithm;
--	}
- }
- 
- static void halbtc8723b1ant_RunCoexistMechanism(struct btc_coexist *pBtCoexist)
--- 
-2.53.0
+Based on mainline 0fcb05b72344f40806cbe810de8872f1698bf053.
 
+diff --git a/drivers/platform/x86/gpd-pocket-fan.c b/drivers/platform/x86/gpd-pocket-fan.c
+index c923673..ced9379 100644
+--- a/drivers/platform/x86/gpd-pocket-fan.c
++++ b/drivers/platform/x86/gpd-pocket-fan.c
+@@ -153,10 +153,6 @@ static int gpd_pocket_fan_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	fan->dev = &pdev->dev;
+-	ret = devm_delayed_work_autocancel(&pdev->dev, &fan->work,
+-					   gpd_pocket_fan_worker);
+-	if (ret)
+-		return ret;
+ 
+ 	/* Note this returns a "weak" reference which we don't need to free */
+ 	fan->dts0 = thermal_zone_get_zone_by_name("soc_dts0");
+@@ -175,6 +171,11 @@ static int gpd_pocket_fan_probe(struct platform_device *pdev)
+ 	if (IS_ERR(fan->gpio1))
+ 		return PTR_ERR(fan->gpio1);
+ 
++	ret = devm_delayed_work_autocancel(&pdev->dev, &fan->work,
++					   gpd_pocket_fan_worker);
++	if (ret)
++		return ret;
++
+ 	gpd_pocket_fan_force_update(fan);
+ 
+ 	platform_set_drvdata(pdev, fan);
