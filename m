@@ -1,108 +1,85 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mta0.migadu.com (out-93.mta0.migadu.com [91.218.175.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C4D367B96
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:22:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A95B367B96
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.93
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792304532; cv=none; b=t2j8Px1/cpAzjKlhJUPBp4N1h9AYtB8WII1DOM+11pAwFZMTvcmMBbjYEaktcbYQ7CINSEmFmTLtYp9DLoLOrwVwO0Rseq9a9tgWq0iFzMY5Widnr5ARttvfarXYGygrYqOR+5PLiCEE3tYyKNJNhlcqgABjk1Y5d8lOxRcB/Sc=
+	t=1792304564; cv=none; b=oa+F0qqghAFN1ichCh0dNate8xEKrZQ3CwmTZBn45t//QuGSi9JCbIdrWd6MIj+8KAKbmyDAOUswpc4GzOgB4cQ/wN8ANDiVNPU+iEm9ZpceRM4U35C2LvoOGCk1jz+Ewg5+Zo3GETNGUtXky/mQbfg+rnM0UKMcN2FGSRM9c1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792304532; c=relaxed/simple;
-	bh=y8F7dXJHndM13xZhNRXHWKnJACtvf/G0EiIhGDJJtWw=;
+	s=arc-20240116; t=1792304564; c=relaxed/simple;
+	bh=L5Dnhm6NG0TC7wQ45/nC5deJSj63hjDiiipgdq6joRs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SooJHYjE3u0kPwfIW1NMq1PlfB+cEOby1rI5oEsO9xyPavJ98XEhL6p1ysrRtgLwncIrxZhVodXzlwaOeopdNP2kUwgdttItEhoh596rcUeI9JIvjDEuxIw5yOX7kurmd8tzV5gBbMG5fVuaXbi7fpqi3ttGa0TxuPihLo8bjws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jpRZ6G95; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=ElLQbtLISQQkphdBje8mztIlXa8TCdyHxX8JiTUYRrpH8IlpSNlfTycPFPEa4S4v+tuaYM8ab05asZV4QQi5DpKL/zu05Ws5v3RL5u0ExIPMpek+8Yr/7BiF5yJ5/WKRajVjmY6F+nKQNCgpIejtylRSdwM/0ymKapNjhy9f2/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OsHCmT4y; arc=none smtp.client-ip=91.218.175.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jpRZ6G95"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8520161fdb9so662672b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:22:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792304530; x=1792909330; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9ImNMEDi8oPrWIx71COnlaNJwSBMr2u0fGsfEGtTKVc=;
-        b=jpRZ6G95dVbCisuXSRF1PGL7VWpZfc7cqqzlvnta0wcWdu7mkYPlgmpooLCj7yNDcV
-         +7JooiXIsgUqoeARYKEPCsesEBLTcQwBq7pDTavELZTRJpSJ9zNNz3iKaOCOVhmJzX7j
-         1+z2POJbvLq5itzyfI8qpw5syO7D7robQJAC6nV9vLvATm6ekntSHSo2nXI208gbI0l6
-         cQisLx1Am2Z0t6Z1QjAoSqVZfIF021GMN86X9zDmUMXwHgsKiGjxrWE8JL+9mIgrHtOs
-         Bad5Nr5MDW5i4lqaRCSRkHM3PqyUjjjDx+lFZGp5L0n1M7kJQFrTEQoDGfyncVS4H6Sh
-         GhUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792304530; x=1792909330;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9ImNMEDi8oPrWIx71COnlaNJwSBMr2u0fGsfEGtTKVc=;
-        b=Fe6UDAU51uExwXKGqOxt1Ag9VHZ11zMG18QNj0f0/QRV6vfz+FztY24JGJsqf5loSy
-         psrOO3sA8vDmNUy/Ko5dYIkqaM2NOLJrSEEie0TnBxS2OCVw8l5o3aW6jmnkTjqFsK/p
-         EsWG+Ws47zNoT+C2Wui4QorHJKo9rBxDvKwB2mJcnE44hvjdroLEZSwAbebA1jwnQDBD
-         AnDW7wolWKb83hvyxJ4cT1TcNMrPth5vR+QBrnIObR0mOXsnJQbiDMU6hpQRD0gMxwYh
-         fkgtR2u1DzXRV6l56a7bHz/QOa9bxW84pqUf8TBswrJf0aXPp9m06td4J5NoIeZjheHW
-         +GUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy5DJoZMEbmsBwtzgoXHNaswY3v4NQy4/QxtZUCC0lcvYQjHdC0LR9rVB+VctCiDEIGAKAdlsGEtnwjjJk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjheFEg+m2Co1JMN3RcIJrUHnc3Iq3A05kLY7IigDw4TBMBx+5
-	djwA4R+2qm/h0ALwy5rUTXzO+8Jf1FRdBqSd9TTxztHSQF+4tGTHeDOT
-X-Gm-Gg: AYBFou2CZwP4IZlmc/apNA/JsvHOI8D2T2KqZ8bovXnEyiYvIINyGns4DqBPVuQE5dj
-	pYP4PEhyrjuUlRKY+oHzpPgG4Xzukfc3qEU2qePBAJjjFLQl+WCY5ZDxfpqH233uvtvrkdp1IHe
-	5rR+aCZ6KrDU0RQzPOMje0B6mjjXDabOsGEgdKA4qAXlCGgy1MC2vxi4dEfGooLOIka8vo6kSzp
-	lBNXUxUMHz80g0NFFhoDNZj6ZppjHo8XM3rS3KAVsLl1ZRTAWjjlqh4tM4kmhtTHUoZWoy6aLq/
-	bgznCM/11z6LskHXrUMi5bn7dStAy8BG6zqIoXHMlUmirqH9hosh32MEo9t+JafLUOPfwteqq9b
-	+7NxVY7HuignC7f1syxrz1kV33UixGMo88OzY4AmuGXa4/yMlcz8BsGuWhRg9zR5SO3ObcWLcVj
-	7cWdpu9EUnXFS7nKrUhEQuHAd2JsCph/VFQRkHDVynBgmxMJeM06fAq/ENlNXUZdMnOYfl9KMzX
-	6rlei4p+TeRcDXw8oy0lBbpt/gz
-X-Received: by 2002:a05:6a00:1707:b0:882:ae75:b846 with SMTP id d2e1a72fcca58-8a04ac2a7e8mr3453484b3a.4.1792304529741;
-        Sat, 17 Oct 2026 23:22:09 -0700 (PDT)
-Received: from localhost.localdomain ([222.254.197.26])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a05d4b04dcsm584738b3a.16.2026.10.17.23.22.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 23:22:09 -0700 (PDT)
-From: Nguyen Duc Thinh <ducthinh100812@gmail.com>
-To: Weijie Yuan <wy@wyuan.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OsHCmT4y"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=L5Dnhm6NG0TC7wQ45/nC5deJSj63hjDiiipgdq6joRs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792304561; v=1; x=1792909361;
+ b=OsHCmT4y/LajFmI0bK7LG2zgbrqRqa+ldNTsDcfgUbYxYYHDLVh5KAERwWpzGFekusOTShiS
+ bgOyjNeY1r9LTv8EbaSHJolXmvehSG/DyoLfdzRZ+92zM1tT5zw+5jIXa1FHjRrFmipVxmdMoo2
+ ceGX8Fs+qtXYggUpm/R+I9Tg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 582e136e2d86482f;
+	Sun, 18 Oct 2026 06:22:41 +0000
+X-Mizu-Trace-ID: 582e136e2d86482f
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	liam@infradead.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	agl@us.ibm.com,
+	mel@csn.ul.ie,
+	riel@surriel.com,
+	peterx@redhat.com,
+	kas@kernel.org,
+	rppt@kernel.org,
+	josef@toxicpanda.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Nguyen Duc Thinh <ducthinh100812@gmail.com>
-Subject: Re: [PATCH] docs: submitting-patches: use git switch to create branches
-Date: Sun, 18 Oct 2026 13:22:00 +0700
-Message-ID: <20261018062200.29256-1-ducthinh100812@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <ardqGdjnd7kC1B-E@wyuan.org>
-References: <ardqGdjnd7kC1B-E@wyuan.org>
+	stable@vger.kernel.org
+Subject: Re: [PATCH 03/10] mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()
+Date: Sun, 18 Oct 2026 14:22:35 +0800
+Message-ID: <20261018062235.15630-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261015-urgent_fixes-v1-3-42796911043b@kernel.org>
+References: <20261015-urgent_fixes-v1-3-42796911043b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 26, 2026 at 14:45:45 +0800, Weijie Yuan wrote:
->     \$ git checkout -t -b my-topical-branch master
-> +    \$ git switch -t -c my-topical-branch master
->      Branch 'my-topical-branch' set up to track local branch 'master'.
->      Switched to a new branch 'my-topical-branch'
-> 
-> @@ -882,7 +882,7 @@ notice that it will have the ``base-commit:`` trailer at the very
->  bottom, which provides the reviewer and the CI tools enough information
->  to properly perform ``git am`` without worrying about conflicts::
-> 
-> -    \$ git checkout -b patch-review [base-commit-id]
-> +    \$ git switch -c patch-review [base-commit-id]
->      Switched to a new branch 'patch-review'
->      \$ git am patches.mbox
->      Applying: First Commit
 
-Hi Weijie,
+On Thu, Oct 15, 2026 at 06:07:09PM +0200, David Hildenbrand (Arm) wrote:
+>Let's fix another instance where we use a folio after dropping the PTL,
+>where someone else could e.g., MADV_DONTNEED it once we drop the PTL,
+>making us trigger a use-after-free on the folio.
+>
+>Fixes: cb6acd01e2e4 ("hugetlbfs: fix races and page leaks during migration")
+>Fixes: 1c9e8def43a3 ("userfaultfd: hugetlbfs: add UFFDIO_COPY support for shared mappings")
+>Cc: stable@vger.kernel.org
+>Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
 
-Thank you for putting this patch together and for the credit. The
-conversion to the modern command layout keeps the guide fully up to
-date with current Git usage practices.
+Nice work!
 
-Reviewed-by: Nguyen Duc Thinh <ducthinh100812@gmail.com>
-
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
