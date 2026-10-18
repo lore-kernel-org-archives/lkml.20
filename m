@@ -1,154 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30B2332EAE;
-	Sun, 18 Oct 2026 02:16:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CC91D5AC2
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:18:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792289764; cv=none; b=b05dWJsaO5QwCwNHSSvKEiFoqbR5a79A1OvSqJY7dYJwBgycUVsqKSQ3EX9ZlrwA2hCiDDPcBGIghBFhxwNqvm8wUhkTvDO/1JTO8XHYGIuc/9lliSn8u93hvjZwaX6XO9CF+z8LJ4nnyJrpSfSr25hydn4WNxIzaXWIAXEKtSA=
+	t=1792289905; cv=none; b=CD73Pi66zm0+9WXWs2jHvrY8XHAoNpZYayeSnFcY2vgWpesrEiE2l9SKdEnvkAZBeOmUzaUk3UKqm2+5/slJ30oH9ZgZFFwKVPSk2ffMD6HDeKHiEAruNsVRM7CAG66AN6xnxSGOykymB4WtDZu5DWaUtZquNpd41LIPWtaqI1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792289764; c=relaxed/simple;
-	bh=MCBDNn+GAvMyOiNBMihMyhGU843T71BkR+dn5RvRS08=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g5ggHsnGv2pRbujNhMwNHqK93ilJi7Rr2UjRMjuN4noRZFyJ6g4qR8Ypyk0I0G3j5wl3M23/0LOHnZQ6tr5zdaBcTxjZ95puGGPMO4gJldVtrbA7YnR0H0BCTdaWQ8Hr05x6F4wbstV7fVX5jguvF2xUF86TWymQ8LnSCP8hFGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CK0IWhs/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792289905; c=relaxed/simple;
+	bh=Ldrass7YZ/p74jIXxz7+C6GAjM5NGsD+baovS0Mp7zI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gBvrWn3UZlWF6t4cPfz2kHyQcL700WoLcn4at2GYi5ex7GFgXfe6ShZNsrwNm5DXj9RkGF+vcxvD8AOO1Pk0KUNlKLJ7lZisxDbHEBEvnDvOuuAA4JjEQhaSSpWfuaGYwBRZ87/7HrYH9cGi7rLrHTp2H9W1RsfoPS6uu9KsWVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R3ee+uTw; arc=none smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CK0IWhs/"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 095381F000C4;
-	Sun, 18 Oct 2026 02:16:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792289762;
-	bh=D/3OmxhF3KjupCfKBAayd7RQOmw8hHSPmYeQBhfl3T0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CK0IWhs/+gbPpaOUy3bu/ssu+Jq8qYUN3UxkF/RHgNcLkfGTvuJwFq8VC9l2478e7
-	 CBf0VsQqehGmRaWbOTd7Z2sH02Wjkrd2RsNklzk33uld7j2GjzTFx4DyqTnmt3LQLJ
-	 K7hKYgOAZQvtcDkrrfu4QGOFrKlZoBV0aqPVY8yZyF2WomeDo8U2pHAxPYsOF8CO5v
-	 b3ySNzohaTgGaiy2YEoe4Rg/RdbPnAQ9J0k/+KnQ7J02Ew3zHBoAFnLE9jNwgxpHOp
-	 t2lFl3vTaqifGqoRShnHxsMkYg/J8ORw8bwebL2tCEKJZVMv067fNcb2OXK7lXxFLX
-	 w7p6yPs2f6/HQ==
-Date: Sun, 18 Oct 2026 05:15:59 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
-	serge@hallyn.com, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Subject: Re: [PATCH] keys: Protect the read method check against type removal
-Message-ID: <atQr3xpmgJc5q_t4@kernel.org>
-References: <pm-key-management-objects-candidate-0010-v5-c6b7ca2813c6913e500a@gmail.com>
- <atQoKlA_JfF6JBmc@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R3ee+uTw"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53648215f9dso8245771cf.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:18:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792289902; x=1792894702; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6h7cwshK4bhZz90I/AWA8AjZrCXIbK39PmBPiXuKICY=;
+        b=R3ee+uTwprxc2JW14NDU0JtduFzxZnaWS1T1MlwOEjFRaxm/knlA4OC18hfT/Bfp8X
+         Ar8xNgnzfOeyYTj9acl4HCwCqVRaILVss1phmPzkRRKo0Ezre0762/e7a8U4+S/BN1V4
+         oVCeLR5kxZ1vfU5QDSR6c4buJMawfIZS+/Y1UmVz/lhh8Vcsg860ZC5fsIZhfdsNF5cY
+         iF0SAOjjeFdnE7UjW1mukr63bXq3rYdyOeiA+yYGRuWbCqtbgdkJLhq3FFVhXCNL+2x8
+         ixJ7d8NOKYBnDFhMueLibCgHBTZqlDPjepJ8cCcRwEYz22QmZUQGEmfpYuk3rXOeJxFI
+         /dWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792289902; x=1792894702;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6h7cwshK4bhZz90I/AWA8AjZrCXIbK39PmBPiXuKICY=;
+        b=JLLkd4+W/46N9aJrWwxcu1jwx/FqYL0R05CL9o7AT56oHndAWKefkRDzSt7ptG/Rmi
+         a7aufYj+UCMtnlYR2sUc+ZFYr7UHUMOAsfE5wVLt85GE6uhvpd0xRMa+7trd6Ixa9OqX
+         NKCPC4IIw3WVHLaITQoW3XJrnLOxGrqb4eY2c6e4QqDaz+M5k9AhKcmBl4u/y53DWFjs
+         NMGA7be+s9cm9Lsru0YTIYkdaRBhaHJHh5w4SQw7FcVDB3NqhwsUfNt1coP3YMWU+h76
+         Rz59vdT8gtokYqJ1ZF61sHe4cBae8z4cdYAKJ5WINo6NT87g6r7H8VUAJDKOeZ+k7qsm
+         3DVQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOFrbJV16fet4jwckGUGjfKXGCi6FrT4fqbRnjccWs05v5HQrp2FW5wKqbXeEbDA/ZXulfkip60D5Hmgo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFuJrGMCo1HPMejX0ly9uZFwI0Er7kkji5F3RAMKxJd5sfilPb
+	xQUQp30lwARe0oW337+Bbcj/A5O2z2B99k+zzHZgerQ4KlIe3hgRJW0=
+X-Gm-Gg: AYBFou34vYOWRzqHHDF0Dq6y27Y5Z8xnKG1YtlVbMaiC1DokdwunRR9Idi+bFSbvmX0
+	PPR3BgSJXMA8VpkGxdwTtI/kjoa6JrD4XSS865PJCKBujO1DJbeoHhnEW3aUtH65sgZzwzi29r/
+	72vGTaJjgmJCgjMy1yuNYJWiQB9WzA8k7Ich2tQefacts1bEw6nRziL8pY/tZqin7uqLC+E9I+B
+	q3n+F1V3PTt4rTL2JF/X2R9nAuiQD51yqX0xhehhmO3kfdh2viorFaY8NBEa29T0aNc32t9RyLb
+	9rQj5IbgobV04JW4jhBuErV7Wqi3/wclaSGGHG1fXnI7zoAzH0u1vbQhLJANU0hCNmqnzZDwpn/
+	QDnkdUyF269Y7Wx9GrGGMu2zaVAmBkDymNcHKoYVGRQyY+l9DvaBBQumHZs4xJ/HUF6wNXDnB0Y
+	G7eMCVbHDI8o+qz9AVQrLulZwHtoSOJqs5uc8jLBx5jeqseHpYyx9+wGVeeNXZdsxexIgIxTlMi
+	8u3A2wWHyWIsR3+RIKnbyrbgvetwOm2ZnuyZJhqqFnUnqCSlWlqBNz3NIXmhGwej5ElR3AbExxW
+	qDOmM9uCQ7HJ/gEwrRqmIZYVBGJs
+X-Received: by 2002:a05:622b:c8:20b0:535:1683:5a71 with SMTP id d75a77b69052e-53645ff1af1mr42415901cf.38.1792289902347;
+        Sat, 17 Oct 2026 19:18:22 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362aa68f8esm61881881cf.29.2026.10.17.19.18.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 19:18:21 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v4] ASoC: wm8962: Stop IRQ from requeuing mic_work on remove
+Date: Sat, 17 Oct 2026 22:18:17 -0400
+Message-ID: <20261018021817.3859256-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atQoKlA_JfF6JBmc@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 05:00:14AM +0300, Jarkko Sakkinen wrote:
-> On Sat, Oct 17, 2026 at 03:30:56PM +0800, Cen Zhang wrote:
-> > The key type must remain alive while its read method is checked.
-> > keyctl_read_key() holds a reference to the key, but checks
-> > key->type->read without holding key->sem. The reference keeps the key
-> > alive, but does not pin the module containing its type.
-> > 
-> > With AF_RXRPC built as a module, a positive RxRPC key can pass
-> > key_read_state() and the Read permission or possession checks while
-> > another task unloads the module. Unload is possible once the module
-> > refcount reaches zero, e.g. when no RxRPC socket remains open. The
-> > reader can be delayed between loading key->type and reading its read
-> > member, allowing this order:
-> > 
-> >   KEYCTL_READ task                  Module unload and key GC
-> >   lookup_user_key()
-> >   key_read_state()
-> >   key_permission() / is_key_possessed()
-> >   load key->type
-> >                                     af_rxrpc_exit()
-> >                                     unregister_key_type()
-> >                                     key_gc_keytype() schedules the GC
-> >                                       pass and waits for it
-> >                                     GC takes key->sem for writing
-> >                                     GC retypes key to key_type_dead
-> >                                     GC releases key->sem
-> >                                     unregister_key_type() returns
-> >                                     free_module() frees type storage
-> >   read saved type's read member
-> > 
-> > The last access reads freed module storage and can fault in
-> > keyctl_read_key(). The later read invocation is already protected by
-> > key->sem and key_validate() in __keyctl_read_key(), but neither covers
-> > this earlier check.
-> > 
-> > Take key->sem for reading around the read-method check. The garbage
-> > collector retypes the key under a write hold on key->sem, so it must
-> > wait for the check to finish; key_gc_keytype() in turn waits for that
-> > GC pass before unregister_key_type() returns, so the module text cannot
-> > be freed until the check has completed. If retyping happens first, the
-> > check sees key_type_dead, which has no read method. Release the
-> > semaphore before returning -EOPNOTSUPP or proceeding to buffer
-> > allocation, preserving the early unsupported-operation result and
-> > keeping user copies outside the semaphore.
-> > 
-> > Oops report as below:
-> > 
-> >     BUG: unable to handle page fault for address: fffffbfff8048bc5
-> >     #PF: supervisor read access in kernel mode
-> >     #PF: error_code(0x0000) - not-present page
-> >     RIP: 0010:keyctl_read_key+0x1aa/0x600
-> >     Call Trace:
-> >      __do_sys_keyctl+0x2a7/0x4f0
-> > 
-> > Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> > Assisted-by: LLM
-> 
-> Would be better to finish off the work unfinished and fix the patches
-> under circulation instead of spamming new ones while at it. I.e. fix
-> them first and don't starvate us with unfinished patches.
-> 
-> If this was merge ready this would be acceptable, but in this even the
-> tags above are in the wrong order. This is not a lottery machine where
-> you dump whatever LLM gives you without your attention, so please don't
-> do that.
-> 
-> > 
-> > ---
-> > diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-> > index 5a5efa26ed0e..756368422b7c 100644
-> > --- a/security/keys/keyctl.c
-> > +++ b/security/keys/keyctl.c
-> > @@ -863,10 +863,13 @@ long keyctl_read_key(key_serial_t keyid, char __user *buffer, size_t buflen)
-> >  
-> >  	/* the key is probably readable - now try to read it */
-> >  can_read_key:
-> > -	if (!key->type->read) {
-> > -		ret = -EOPNOTSUPP;
-> > +	down_read(&key->sem);
-> > +	ret = -EOPNOTSUPP;
-> > +	if (key->type->read)
-> > +		ret = 0;
-> > +	up_read(&key->sem);
-> > +	if (ret)
-> >  		goto key_put_out;
-> > -	}
-> >  
-> >  	if (!buffer || !buflen) {
-> >  		/* Get the key length from the read method */
-> 
-> Why did you chose this over embedding the check inside __keyctl_read_key()?
-> 
-> I'm assuming you have considered both options.
+The WM8962 IRQ remains registered to the I2C device when an ASoC card is
+unbound. wm8962_remove() cancels mic_work, but a MICD or MICSCD interrupt
+can queue it again before the component is destroyed. The work then
+accesses the component and reports to the old jack.
 
-I.e. to reformalize: how does that change guarantee key->type->read
-validity for the __keyctl_read_key() that follow?
+Mask microphone interrupts and disable detection in wm8962_mic_detect(),
+wait for any handler that already read the old mask, and drain mic_work
+before changing the jack pointer. When installing a new jack, unmask its
+interrupts before enabling detection, preserving the existing hardware
+sequence. Call this path from component remove while the component is
+still valid, leaving the IRQ registered for FLL, FIFO and thermal events.
 
-My first idea would be put the check inside __keyctl_read_key() 
-while key->sem is taken.
+Tegra's card remove callback runs after ASoC removes the codec component
+and PCM runtimes. Drop its redundant microphone cleanup.
 
-Please explain because I'm not fully following with that change.
-I could get something wrong but it is against the assumed most 
-common sense fix imaginable.
+Fixes: 0512615db6db ("ASoC: wm8962: Convert interrupt handler to direct regmap usage")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Changes in v4:
+- Always disable microphone detection before draining the IRQ and work,
+  then unmask microphone interrupts before re-enabling detection for a
+  new jack, as requested by Charles Keepax.
+- Keep the redundant Tegra card remove callback deletion; Charles
+  withdrew his initial objection in the follow-up review.
 
-Br, Jarkko
+Changes in v3:
+- Mask microphone interrupts, synchronize the IRQ and cancel mic_work
+  before replacing the jack pointer in wm8962_mic_detect().
+- Use wm8962_mic_detect(component, NULL) from component remove and drop
+  the redundant Tegra card remove callback.
+- Keep the IRQ registered for the other interrupt sources.
+
+Changes in v2:
+- Do not disable the IRQ from wm8962_i2c_remove(); card unbind does not
+  unbind the I2C client.
+- Keep the devm IRQ on the I2C device for FLL, FIFO and thermal events.
+
+Found by inspection. Compile-tested both modified objects with GCC 15,
+W=1, x86_64 and COMPILE_TEST=y. No hardware or runtime testing.
+
+Review: https://lore.kernel.org/r/arY6GbRBjKxJDKVn@opensource.cirrus.com/
+Follow-up: https://lore.kernel.org/r/arY%2FVSKn%2Fsq32sr0@opensource.cirrus.com/
+
+ sound/soc/codecs/wm8962.c      |   36 +++++++++++++++++++++---------------
+ sound/soc/tegra/tegra_wm8962.c |   13 -------------
+ 2 files changed, 21 insertions(+), 28 deletions(-)
+
+diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+index 8a9598161b35..253b41fff8ab 100644
+--- a/sound/soc/codecs/wm8962.c
++++ b/sound/soc/codecs/wm8962.c
+@@ -3230,21 +3230,29 @@
+ {
+ 	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
+ 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
+-	int irq_mask, enable;
++	int mic_irq_mask = WM8962_MICD_EINT | WM8962_MICSCD_EINT;
++
++	/*
++	 * Mask microphone events, then drain the IRQ and work before
++	 * changing the jack.
++	 */
++	snd_soc_component_update_bits(component, WM8962_INTERRUPT_STATUS_2_MASK,
++				      mic_irq_mask, mic_irq_mask);
++	snd_soc_component_update_bits(component, WM8962_ADDITIONAL_CONTROL_4,
++				      WM8962_MICDET_ENA, 0);
++	if (wm8962->irq)
++		synchronize_irq(wm8962->irq);
++	cancel_delayed_work_sync(&wm8962->mic_work);
+ 
+ 	wm8962->jack = jack;
+ 	if (jack) {
+-		irq_mask = 0;
+-		enable = WM8962_MICDET_ENA;
+-	} else {
+-		irq_mask = WM8962_MICD_EINT | WM8962_MICSCD_EINT;
+-		enable = 0;
+-	}
+-
+-	snd_soc_component_update_bits(component, WM8962_INTERRUPT_STATUS_2_MASK,
+-			    WM8962_MICD_EINT | WM8962_MICSCD_EINT, irq_mask);
+-	snd_soc_component_update_bits(component, WM8962_ADDITIONAL_CONTROL_4,
+-			    WM8962_MICDET_ENA, enable);
++		snd_soc_component_update_bits(component,
++					      WM8962_INTERRUPT_STATUS_2_MASK,
++					      mic_irq_mask, 0);
++		snd_soc_component_update_bits(component,
++					      WM8962_ADDITIONAL_CONTROL_4,
++					      WM8962_MICDET_ENA, WM8962_MICDET_ENA);
++	}
+ 
+ 	/* Send an initial empty report */
+ 	snd_soc_jack_report(wm8962->jack, 0,
+@@ -3592,9 +3600,7 @@
+ 
+ static void wm8962_remove(struct snd_soc_component *component)
+ {
+-	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
+-
+-	cancel_delayed_work_sync(&wm8962->mic_work);
++	wm8962_mic_detect(component, NULL);
+ 
+ 	wm8962_free_gpio(component);
+ 	wm8962_free_beep(component);
+diff --git a/sound/soc/tegra/tegra_wm8962.c b/sound/soc/tegra/tegra_wm8962.c
+index 31f9d9181595..a79d464b6a80 100644
+--- a/sound/soc/tegra/tegra_wm8962.c
++++ b/sound/soc/tegra/tegra_wm8962.c
+@@ -97,18 +97,6 @@
+ 	return 0;
+ }
+ 
+-static int tegra_wm8962_remove(struct snd_soc_card *card)
+-{
+-	struct snd_soc_dai_link *link = &card->dai_link[0];
+-	struct snd_soc_pcm_runtime *rtd = snd_soc_get_pcm_runtime(card, link);
+-	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
+-	struct snd_soc_component *component = codec_dai->component;
+-
+-	wm8962_mic_detect(component, NULL);
+-
+-	return 0;
+-}
+-
+ SND_SOC_DAILINK_DEFS(wm8962_hifi,
+ 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
+ 	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm8962")),
+@@ -129,7 +117,6 @@
+ 	.owner = THIS_MODULE,
+ 	.dai_link = &tegra_wm8962_dai,
+ 	.num_links = 1,
+-	.remove = tegra_wm8962_remove,
+ 	.fully_routed = true,
+ };
+ 
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+-- 
+2.53.0
