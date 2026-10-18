@@ -1,293 +1,246 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53025357CED;
-	Sun, 18 Oct 2026 04:35:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476FD33E345;
+	Sun, 18 Oct 2026 04:37:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792298127; cv=none; b=QIVUyHFALMi1YoltJqr9wBWD67BMGGGmI0IgZ7W1AoOxWqe2Y1fegEDRjqvE1GqxGVfOGcLDnBRmyMH7mPYen3C/lO9mzZa1M0z5UOcWDiSRBZXKN1ZQKGPp9lD3aRIIkQP4WuWisvhNZGYRCR31VtfMLK8Bydp6eQHi+/pEBFw=
+	t=1792298242; cv=none; b=lZDxNpK1Mt4PoSKiFUlAqp43bpjBu4iAQ0cUsMTGKgOcqaBAv+zjtnj6s6b3ZLmx9bGFhq8A/ICoUrPLFYR83Kk6tgBdV7kw0g+1xiCJe3FQ651OntOffezrjD67o0OxRr9y4fsuEyrSr62CFKlo84SQblNU015+iDhv2Hb8gJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792298127; c=relaxed/simple;
-	bh=fIIzO3YeQ89hHkR10kQq/oT7VhSRWJgqIhFbWPKhPV4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AVhW05Rc6KcLKTcNnlXCagQNbgo+d0dbnVpQES/NpKGl6A04t3rDid7SWRF6UtFXFe0+NV39gKZvQlp5hvBTBsEx9a4QRaNk0KY5EKgGe9nJiAotqHp1O4xCLk47T4mbyOym2749jV4OzjeQ0rxSqRHVFotdIB6ykKnIsAlLQb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXtI6rEf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792298242; c=relaxed/simple;
+	bh=NvGLDLqSPDaWs1URPPrWucekvPGW/18Rqow9t6xI+Qs=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=EABvFSljRJUKNu/r9rKxgn0I+9E+2UAm0kKMGzeR80rxkwtph09a5Bk0L091gJ7SFNG5dNNMQnTNRsYEIszL65x3j2RcQ+DR1mXk0MlwaQnQnpDKC++aAjSt1xKGuL1Hg1SS3wIXZ5a8hZBjmoJJ0Pg3/tlQh/8hLMogg+Z9nIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=kA3anhgn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXtI6rEf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5678F1F000C4;
-	Sun, 18 Oct 2026 04:35:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792298125;
-	bh=PRpTZJSpbXXgxWwOLofA5Y6mVk1ATVD63mzOc94TFVM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZXtI6rEfp1QOABC3VVWMBFS+Pg0XYpu2vUbXchMn+UZlgj3JuZaaXefIcbtrqnF1B
-	 WPU7ghCLPECMB9AkykZZQa6k5BdDi93ZjwR0+Rz5nUqFhrY0EFfNbuE5BV5LZih9T3
-	 x9e0tcBgYUjyfF7aSY6wLYocQjuGnUPJeft+1inG8IPM5T1uf1pAzdT0waOooSZPNQ
-	 X+Zd3+LzAXT6JVLDfpY86ttM6ZwtW03R5gATQ4vkCCzyJAQ6BGjxooPj/AwPFmJ2ke
-	 ltI54e53Se8cb0ARS25wAbQ6qx8kfcFCAvDAkO+wWiqvHMtRhddYoEOoUvC0TtuHSh
-	 L2YTVRvLXMxww==
-Subject: Re: [PATCH net v2] selftests/net: test network sysctl extremes
-From: netdev-bot+sashiko@kernel.org
-To: sahaj123.sc@gmail.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, shuah@kernel.org, netdev@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 18 Oct 2026 04:35:24 +0000
-Message-ID: <179229812489.3135.14817248906900099268@kernel.org>
-In-Reply-To: <20261014041446.2821085-1-sahaj123.sc@gmail.com>
-References: <20261014041446.2821085-1-sahaj123.sc@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="kA3anhgn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88DEF1F000C4;
+	Sun, 18 Oct 2026 04:37:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792298240;
+	bh=X9BtmiPUdXaKyy1Yxwr/J43UplsvVeIhpbcLZE0ZH2o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kA3anhgnIbg8huv8B+zi9XeS9ph1nKGLhlku8EvIXLFMJ2JBxs7t94mE5wJa8QOy+
+	 1pHVBECkOGC39HNNw8cZ8VFbuhKt92jrL7b7BieMeFAYoXyWjQUaO+Nsz8DeYmsEfJ
+	 +mUGDScckDLtFEl5d3D4WWIm3ZCosyMH37636els=
+Date: Sat, 17 Oct 2026 21:37:20 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: syzbot <syzbot+af37a78f810994eae641@syzkaller.appspotmail.com>
+Cc: cgroups@vger.kernel.org, hannes@cmpxchg.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, mhocko@kernel.org,
+ muchun.song@linux.dev, roman.gushchin@linux.dev, shakeel.butt@linux.dev,
+ syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [mm?] INFO: rcu detected stall in filemap_fault (4)
+Message-Id: <20261017213720.4f529d19d625743bba7a0e85@linux-foundation.org>
+In-Reply-To: <6ad407e5.6814cce4.34c49f.00a4.GAE@google.com>
+References: <6ad407e5.6814cce4.34c49f.00a4.GAE@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+On Sat, 17 Oct 2026 16:42:29 -0700 syzbot <syzbot+af37a78f810994eae641@syzkaller.appspotmail.com> wrote:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 3
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    70dd4ee72eb2 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=15b2320d580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
+> dashboard link: https://syzkaller.appspot.com/bug?extid=af37a78f810994eae641
+> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10de5da9580000
+> 
+> Downloadable assets:
+> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-70dd4ee7.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/f1d9bae25289/vmlinux-70dd4ee7.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/d8b2b9fc2571/bzImage-70dd4ee7.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+af37a78f810994eae641@syzkaller.appspotmail.com
+> 
+> rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thanks.  AI tells me "Yeah, this happens.  Don't Do That":
 
-- [Medium] selftests/net: unhandled EPIPE when reading /dev/kmsg causes
-  spurious test failures
-- [Low] main() in tools/testing/selftests/net/sysctl_net_test.c uses the
-  kselftest.h API against its documented contract.
-- [Low] The UDP part of the test cannot exercise the documented effect of
-  the UDP sysctls it selects, so its 'UDP 16/16' result says nothing…
-- [Low] v2 adds a facility filter to check_kernel_log() (`prefix =
-  strtoul(record, NULL, 10); if (prefix >> 3 != 0) continue;`, lines…
 
---
+This looks like real-time scheduler starvation rather than an MM bug.
 
-selftests/net: test network sysctl extremes
+The reproducer contains:
 
-This adds a new net selftest, sysctl_net_test. It finds the accepted lower
-and upper bounds of four per-netns sysctls (tcp_rmem, tcp_wmem,
-udp_rmem_min, udp_wmem_min) and runs TCP and UDP loopback traffic at each
-bound. While it runs, it watches /dev/kmsg for kernel splats, and it
-restores the original values after each probe.
+    prlimit64(0x0, 0xe, ...={0x8, 0x8b}, 0x0)
+    sched_setscheduler(0x0, 0x2, ...=0x8)
 
-Link: https://lore.kernel.org/r/20261007054508.1059927-1-sahaj123.sc@gmail.com
+These enable SCHED_RR at real-time priority 8.  The reproducer
+runs six processes on a single-CPU VM.
 
-> diff --git a/tools/testing/selftests/net/sysctl_net_test.c b/tools/testing/selftests/net/sysctl_net_test.c
-> new file mode 100644
-> index 0000000000000..6360616132c41
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/sysctl_net_test.c
-> @@ -0,0 +1,925 @@
+This can starve normal-priority tasks, including tasks preempted
+inside RCU read-side critical sections.  The report also explicitly
+states:
 
-[ ... ]
+    rcu: rcu_preempt kthread starved for 1643 jiffies!
 
-> +static bool check_kernel_log(void)
-> +{
+This failure mode is specifically described in the RCU stall
+documentation:
 
-[ ... ]
+    https://docs.kernel.org/RCU/stallwarn.html
 
-> +		record[n] = '\0';
-> +		message = strchr(record, ';');
-> +		if (!message)
-> +			continue;
-> +		/* Ignore messages that userspace wrote to /dev/kmsg. */
-> +		prefix = strtoul(record, NULL, 10);
-> +		if (prefix >> 3 != 0)
-> +			continue;
-> +		message++;
-> +		for (i = 0; i < ARRAY_SIZE(splats); i++) {
-> +			if (!strstr(message, splats[i]))
-> +				continue;
-> +			set_failure("kernel splat detected: %.180s", message);
-> +			return false;
-> +		}
-> +	}
-> +}
+The documentation explains how CPU-bound real-time tasks can
+prevent preempted RCU readers from running, indefinitely delaying
+grace periods.
 
-[Severity: Medium]
-What happens in check_kernel_log() when the printk ring buffer wraps
-past this reader between two calls?
+The task in mem_cgroup_from_task() was interrupted by the timer
+interrupt and preempted.  There is no evidence that it was stuck
+in that function.  filemap_fault() appears to be an innocent
+bystander.
 
-devkmsg_read() reports that case once as -EPIPE. It then moves the
-reader forward to the oldest record that is still available:
+Could we rerun the reproducer with sched_setscheduler() and
+prlimit64() removed?  If that eliminates the stall, it would
+strongly support the scheduling-starvation explanation.
 
-kernel/printk/printk.c:devkmsg_read() {
-    ...
-	if (pmsg.dropped) {
-		/* our last seen message is gone, return error and reset */
-		atomic64_set(&user->seq, pmsg.seq);
-		ret = -EPIPE;
-		goto out;
-	}
-    ...
-}
+I don't see evidence of an MM bug here.
 
-The loop here handles EINTR and EAGAIN/EWOULDBLOCK. Any other errno
-goes to set_failure() and returns false.
-
-So on a busy machine where something else logs heavily during the run,
-the test fails with "cannot read /dev/kmsg: Broken pipe". Nothing in
-the network stack went wrong in that case. probe_value(),
-prepare_sysctl() and exercise_value() all turn this into a failure.
-main() then stops testing the remaining sysctls. That makes the test
-flaky on noisy CI hosts.
-
-The next read() after -EPIPE succeeds, so could this case simply
-continue the loop? If you want the output to show that records were
-missed, and a splat could therefore have been lost, a "# " diagnostic
-line might be enough. Or do you prefer to treat lost records as a
-failure?
-
-[Severity: Low]
-The commit message says the test passed "also while userspace wrote
-WARNING:/BUG: lines to /dev/kmsg". This facility check covers that case,
-because devkmsg_write() forces LOG_USER on those records.
-
-Does it keep all user-controlled text out of the match, though? Records
-that the kernel itself generates still carry facility 0 even when they
-embed user strings. Also, strstr() matches anywhere in the message body.
-For example, on x86 show_signal_msg() puts the task comm at the start of
-the line:
-
-arch/x86/mm/fault.c:show_signal_msg() {
-    ...
-	printk("%s%s[%d]: segfault at %lx ip %px sp %px error %lx",
-		loglvl, tsk->comm, task_pid_nr(tsk), address,
-    ...
-}
-
-Suppose an unprivileged process calls prctl(PR_SET_NAME, "BUG:") and then
-segfaults while this test runs. The record "BUG:[1234]: segfault at ..."
-passes the prefix >> 3 check and matches "BUG:". The test then reports a
-kernel splat and fails.
-
-Would it help to match the markers only at the start of the message
-(for example "WARNING: CPU:", "------------[ cut here ]", or "BUG: " at
-offset 0)?
-
-[ ... ]
-
-> +static int udp_loopback(void)
-> +{
-
-[ ... ]
-
-> +	addr.sin_port = htons(server_port);
-> +	n = sendto(client, &data, sizeof(data), 0, (struct sockaddr *)&addr,
-> +		   sizeof(addr));
-
-[Severity: Low]
-How much does the "UDP 16/16" result say about udp_rmem_min and
-udp_wmem_min?
-
-udp_loopback() sends and receives a single byte, which normally stays
-below the protocol memory limit. In that case __sk_mem_raise_allocated()
-returns before it reads udp_rmem_min:
-
-net/core/sock.c:__sk_mem_raise_allocated() {
-    ...
-	/* Under limit. */
-	if (allocated <= sk_prot_mem_limits(sk, 0)) {
-		sk_leave_memory_pressure(sk);
-		return 1;
-	}
-    ...
-	if (kind == SK_MEM_RECV) {
-		if (atomic_read(&sk->sk_rmem_alloc) < sk_get_rmem0(sk, prot))
-			return 1;
-    ...
-}
-
-Documentation/networking/ip-sysctl.rst also says udp_rmem_min applies
-"even if total pages of UDP sockets exceed udp_mem pressure". For
-udp_wmem_min it says "this tunable has no effect".
-
-The test never creates UDP memory pressure. Unless the system is already
-under pressure, wouldn't both bounds of both UDP sysctls pass whether or
-not the minimum buffer handling works?
-
-> +	if (n != sizeof(data)) {
-> +		if (n >= 0)
-> +			errno = EIO;
-> +		goto out;
-> +	}
-
-[ ... ]
-
-> +int main(int argc, char **argv)
-> +{
-
-[ ... ]
-
-> +	ksft_print_header();
-> +	ksft_set_plan(1);
-> +
-> +	if (unshare(CLONE_NEWNET))
-> +		ksft_exit_skip("cannot create network namespace: %s\n",
-> +			       strerror(errno));
-> +
-> +	kmsg_fd = open("/dev/kmsg", O_RDONLY | O_NONBLOCK | O_CLOEXEC);
-> +	if (kmsg_fd < 0)
-> +		ksft_exit_skip("cannot read /dev/kmsg: %s\n", strerror(errno));
-> +	if (lseek(kmsg_fd, 0, SEEK_END) < 0)
-> +		ksft_exit_skip("cannot seek /dev/kmsg: %s\n", strerror(errno));
-> +	if (set_loopback_up())
-> +		ksft_exit_skip("cannot bring loopback up: %s\n", strerror(errno));
-
-[ ... ]
-
-> +	if (!failure[0] && !tested_files)
-> +		ksft_exit_skip("no selected writable numeric network sysctls found\n");
-
-[ ... ]
-
-> +	ksft_test_result_pass("TCP %zu/%zu, UDP %zu/%zu deliveries succeeded\n",
-> +			      tcp_successes, tcp_attempts,
-> +			      udp_successes, udp_attempts);
-> +	ksft_finished();
-> +	close(kmsg_fd);
-> +	return KSFT_PASS;
-> +
-> +fail:
-> +	ksft_test_result_fail("%s\n", failure);
-> +	ksft_finished();
-> +	close(kmsg_fd);
-> +	return KSFT_FAIL;
-> +}
-
-[Severity: Low]
-Can the close(kmsg_fd) and return statements after ksft_finished() ever
-run? ksft_finished() expands to ksft_exit(), and that always calls either
-ksft_exit_pass() or ksft_exit_fail(). Both are __noreturn.
-
-So the exit status comes from the kselftest counters, not from the
-KSFT_PASS or KSFT_FAIL returned here. The same applies to the fail: path.
-
-Separately, ksft_exit_skip() is called after ksft_set_plan(1). This
-happens on the unshare(), /dev/kmsg open and seek, loopback, and "no
-selected writable numeric network sysctls" paths. kselftest.h calls this
-pattern a misuse:
-
-tools/testing/selftests/kselftest.h:ksft_exit_skip() {
-    ...
-	/*
-	 * FIXME: several tests misuse ksft_exit_skip so produce
-	 * something sensible if some tests have already been run
-	 * or a plan has been printed.  Those tests should use
-	 * ksft_test_result_skip or ksft_exit_fail_msg instead.
-	 */
-    ...
-}
-
-The header works around this today and prints "ok 1 # SKIP", so the TAP
-output is still valid. Would ksft_test_result_skip() followed by
-ksft_finished() be a better fit on these paths?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014041446.2821085-1-sahaj123.sc%40gmail.com
+> rcu: 	Tasks blocked on level-0 rcu_node (CPUs 0-0): P5320/1:b..l
+> rcu: 	(detected by 0, t=10502 jiffies, g=61125, q=864 ncpus=1)
+> task:syz-execprog    state:R  running task     stack:22864 pid:5320  tgid:5314  ppid:5313   task_flags:0x440040 flags:0x00080000
+> Call Trace:
+>  <TASK>
+>  context_switch kernel/sched/core.c:5533 [inline]
+>  __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+>  preempt_schedule_irq+0x4b/0x90 kernel/sched/core.c:7606
+>  irqentry_exit_to_kernel_mode include/linux/irq-entry-common.h:539 [inline]
+>  irqentry_exit+0x14f/0x920 kernel/entry/common.c:167
+>  asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+> RIP: 0010:task_css include/linux/cgroup.h:548 [inline]
+> RIP: 0010:mem_cgroup_from_task+0x8f/0x120 mm/memcontrol.c:1134
+> Code: 38 48 c7 c7 58 c8 d9 8f be ff ff ff ff e8 a9 1a a8 09 85 c0 75 23 49 83 c6 2c 4c 89 f0 48 c1 e8 03 42 0f b6 04 38 84 c0 75 6e <41> f6 06 04 75 09 e8 76 f7 68 ff 85 c0 74 28 48 83 c3 20 48 89 d8
+> RSP: 0018:ffffc9000e0ef610 EFLAGS: 00010246
+> RAX: 0000000000000000 RBX: ffffffff8fd9f0c0 RCX: 0000000000000046
+> RDX: 000000009a0f617f RSI: ffffffff8e6f5004 RDI: ffffffff8c6dec80
+> RBP: 1ffff110061db463 R08: ffffffff8242ae78 R09: 0000000000000000
+> R10: dffffc0000000000 R11: ffffed10070f1e47 R12: ffff88803878f230
+> R13: dffffc0000000000 R14: ffff888000f525ac R15: dffffc0000000000
+>  get_mem_cgroup_from_mm+0xd6/0x290 mm/memcontrol.c:1187
+>  __mem_cgroup_charge+0x15/0x80 mm/memcontrol.c:5226
+>  mem_cgroup_charge include/linux/memcontrol.h:662 [inline]
+>  filemap_add_folio+0x140/0x4e0 mm/filemap.c:965
+>  page_cache_ra_unbounded+0x46d/0x9d0 mm/readahead.c:293
+>  do_page_cache_ra mm/readahead.c:348 [inline]
+>  page_cache_ra_order+0xb47/0xee0 mm/readahead.c:558
+>  do_sync_mmap_readahead+0x75e/0x990 mm/filemap.c:3443
+>  filemap_fault+0x7d9/0x13b0 mm/filemap.c:3597
+>  __do_fault+0x138/0x2a0 mm/memory.c:5565
+>  do_read_fault mm/memory.c:6000 [inline]
+>  do_fault mm/memory.c:6134 [inline]
+>  do_pte_missing+0x2215/0x34b0 mm/memory.c:4700
+>  handle_pte_fault mm/memory.c:6558 [inline]
+>  __handle_mm_fault mm/memory.c:6707 [inline]
+>  handle_mm_fault+0x1a53/0x3750 mm/memory.c:6876
+>  do_user_addr_fault+0xa4f/0x1340 arch/x86/mm/fault.c:1343
+>  handle_page_fault arch/x86/mm/fault.c:1483 [inline]
+>  exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
+>  asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
+> RIP: 0033:0x46fe0e
+> RSP: 002b:000010e09c0a5178 EFLAGS: 00010216
+> RAX: 00000000015e4970 RBX: 000000000173a820 RCX: 0000000000000000
+> RDX: 000000000001a058 RSI: 00000000015ca918 RDI: 000000000041db80
+> RBP: 000010e09c0a51a0 R08: 00000000015ca918 R09: 00000000015cb3b8
+> R10: 0000000001911ec0 R11: 0000000000000000 R12: 0000000043fdf3b9
+> R13: 0000000000000000 R14: 000010e09c078960 R15: 000000000000012a
+>  </TASK>
+> rcu: rcu_preempt kthread starved for 1643 jiffies! g61125 f0x0 RCU_GP_WAIT_FQS(5) ->state=I ->cpu=0
+> rcu: 	Unless rcu_preempt kthread gets sufficient CPU time, OOM is now expected behavior.
+> rcu: RCU grace-period kthread stack dump:
+> task:rcu_preempt     state:I stack:27496 pid:17    tgid:17    ppid:2      task_flags:0x208040 flags:0x00080000
+> Call Trace:
+>  <TASK>
+>  context_switch kernel/sched/core.c:5533 [inline]
+>  __schedule+0x17db/0x58f0 kernel/sched/core.c:7284
+>  preempt_schedule_common+0x7f/0xd0 kernel/sched/core.c:7463
+>  preempt_schedule_thunk+0x16/0x40 arch/x86/entry/thunk.S:12
+>  __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:211 [inline]
+>  _raw_spin_unlock_irqrestore+0x76/0x80 kernel/locking/spinlock.c:221
+>  debug_object_assert_init+0x20d/0x380 lib/debugobjects.c:1072
+>  debug_timer_assert_init kernel/time/timer.c:803 [inline]
+>  debug_assert_init kernel/time/timer.c:848 [inline]
+>  __mod_timer+0x4b/0xed0 kernel/time/timer.c:1025
+>  schedule_timeout+0x14d/0x2c0 kernel/time/sleep_timeout.c:98
+>  rcu_gp_fqs_loop+0x30c/0x11f0 kernel/rcu/tree.c:2122
+>  rcu_gp_kthread+0x9e/0x2b0 kernel/rcu/tree.c:2330
+>  kthread+0x38b/0x480 kernel/kthread.c:436
+>  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+>  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>  </TASK>
+> rcu: Stack dump where RCU GP kthread last ran:
+> CPU: 0 UID: 0 PID: 5761 Comm: syz.2.24 Not tainted syzkaller #0 PREEMPT(full) 
+> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> RIP: 0010:get_current arch/x86/include/asm/current.h:25 [inline]
+> RIP: 0010:__sanitizer_cov_trace_pc+0x8/0x80 kernel/kcov.c:212
+> Code: 8b 3d 34 de ab 0c 48 89 de 5b e9 93 fc 66 00 cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 48 8b 04 24 <65> 48 8b 0d c8 9d ce 12 65 48 8b 15 c8 9d ce 12 f7 c2 00 01 00 ff
+> RSP: 0018:ffffc9000d3278e8 EFLAGS: 00000202
+> RAX: ffffffff8be56f10 RBX: 1ffff11006b094a2 RCX: ffff888034c90000
+> RDX: ffff88803584a508 RSI: ffff88803584a508 RDI: ffffc9000d327ab8
+> RBP: 1ffff11006b094a1 R08: ffff888034c9001b R09: 1ffff11006992003
+> R10: dffffc0000000000 R11: ffffed1006992004 R12: ffff88803584a508
+> R13: ffff88803584a508 R14: ffff88803584a508 R15: ffff88803584a510
+> FS:  00007f0baa9bd6c0(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 0000200000000058 CR3: 000000004004c000 CR4: 0000000000352ef0
+> Call Trace:
+>  <TASK>
+>  __list_add include/linux/list.h:172 [inline]
+>  list_add_tail include/linux/list.h:206 [inline]
+>  plist_add+0x420/0x580 lib/plist.c:111
+>  __futex_queue+0xed/0x160 kernel/futex/core.c:866
+>  futex_queue kernel/futex/futex.h:333 [inline]
+>  futex_wait_setup+0x424/0x590 kernel/futex/waitwake.c:695
+>  __futex_wait+0x15f/0x400 kernel/futex/waitwake.c:717
+>  futex_wait+0x121/0x390 kernel/futex/waitwake.c:750
+>  do_futex+0x3e7/0x4e0 kernel/futex/syscalls.c:133
+>  __do_sys_futex kernel/futex/syscalls.c:210 [inline]
+>  __se_sys_futex+0x3a8/0x450 kernel/futex/syscalls.c:191
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> RIP: 0033:0x7f0ba9b9e559
+> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+> RSP: 002b:00007f0baa9bd0e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
+> RAX: ffffffffffffffda RBX: 00007f0ba9e25fa8 RCX: 00007f0ba9b9e559
+> RDX: 0000000000000000 RSI: 0000000000000080 RDI: 00007f0ba9e25fa8
+> RBP: 00007f0ba9e25fa0 R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+> R13: 00007f0ba9e26038 R14: 00007ffe158db450 R15: 00007ffe158db538
+>  </TASK>
+> 
+> 
+> ---
+> This report is generated by a bot. It may contain errors.
+> See https://goo.gl/tpsmEJ for more information about syzbot.
+> syzbot engineers can be reached at syzkaller@googlegroups.com.
+> 
+> syzbot will keep track of this issue. See:
+> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> 
+> If the report is already addressed, let syzbot know by replying with:
+> #syz fix: exact-commit-title
+> 
+> If you want syzbot to run the reproducer, reply with:
+> #syz test: git://repo/address.git branch-or-commit-hash
+> If you attach or paste a git patch, syzbot will apply it before testing.
+> 
+> If you want to overwrite report's subsystems, reply with:
+> #syz set subsystems: new-subsystem
+> (See the list of subsystem names on the web dashboard)
+> 
+> If the report is a duplicate of another one, reply with:
+> #syz dup: exact-subject-of-another-report
+> 
+> If you want to undo deduplication, reply with:
+> #syz undup
