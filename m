@@ -1,132 +1,85 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+Received: from out-zbxj-a78.jellyfish.systems (out-zbxj-a78.jellyfish.systems [198.54.127.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1543A3DCDB0
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217583DE44C
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:20:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792365569; cv=none; b=RDvzNGnYneBzvqsLSex8wpjUpQyBmy1t3NJgZaxeUm+c6UmXtzZg1GkvNZicSInWlkmf8poEcOL3SPMfbwMGoLrQ4Xq3dIkHiB1oybal+dIpv5mkXm+5oi5NjoITjckKW+Nr4eswo52OMBxEsQjaxeEoGF+EtZnQCijrcyHD6+w=
+	t=1792365640; cv=none; b=A9i1QJ7kL3Os82c75AeMYxJyRGZkgui/YxhA4hc7KExovNhr8TNUAdHLhae4rp23ffHG1cMI/++ePQjb1jBC978LIKyfecLKBf9uAJNL6Md+pw0KQUc8yPhPI+Nxf5PolgzxTXrCcVGxhQl+mcqS2FgrCfVMAUxvHUivp+WhZio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792365569; c=relaxed/simple;
-	bh=gdz37LkTHwvbfI9D9K7It0lfMaiEj5WSEbCh952KDbg=;
+	s=arc-20240116; t=1792365640; c=relaxed/simple;
+	bh=k/i3Nsiw4H9TRxL0j87EVx9jYyettyuwElHn7x2/IBQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ivTtrdiZBVVv9+rV3iTqmyv6CnKBvUqoGINmUiayiesQkV7QiLLfAYHWUMxFJvnrUznUABQsOT9ioCC0Z6Bm4fs5FYdxidGiFI/Uq2BYzwTKnV1X7SLL79FlI2B+tmNgF2GWasTbYEwuA/yedB/KSarTIoufUVxMMd1Mn36xSM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EMWYdnQx; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=SccNBS9Qc6vfbF3Zqmt7/39GApsVWZiWtI1+x6DF254cqV15ZeSJw2XDZX2H+jwZKCWT0rLnwESN58QDMdxpv+vHHOWmRQqqqM58AQpFFLldWxIV34Lo+wM3xqn9mR6+Vi77yJWr0v2XOor8R1uQ0zIxJKfGPz8Ov/KBduIPDKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=E5j+KawY; arc=none smtp.client-ip=198.54.127.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EMWYdnQx"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33fb4680717so2094640eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:19:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792365567; x=1792970367; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OWqYlByYg+LLSmUqyC52+4NrO2sQWAJKmNCEfDxhRSw=;
-        b=EMWYdnQxZey3mb+xgwl+gVL2mOgi54HWG8Gq31xYJGS+4047/1hHURZg9n9n0o0K3n
-         ktUOftWo+AfEI2DHotksbuPLQX+bG9MrpKVkpIDlRVu7xPKlEfjYBDcuxi0FJBZyMGEe
-         XdfWH0qKFQ262svOlLv9dRF44SNRe1WxXoWKS1Uzw3qPVdUfrcxbnPlS/fz1zC/5VyuO
-         Ds1BAvZq+oEs6zagXIkq5ooDAHvPEXGz9pNNf5tpa16JKR/CPNw3VrX2BNPfbLu7QkNC
-         XBwUqXiy/P8TBSXbw0WlmqXqLZE2PC0UjAAhn0uqsNeBD7v2fo9VlxOzSGYc8Qtlqqgt
-         EQQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792365567; x=1792970367;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OWqYlByYg+LLSmUqyC52+4NrO2sQWAJKmNCEfDxhRSw=;
-        b=MTevVFeWrRdNMWcgOF7lnlnf+oEokCL66321nkrJdv1OPlu7M9DPeAttjSwZ3Xkrb/
-         89DybF/82PRjwf141JoW3NpY0fkiONfd2aO3GdXYlf2ronl8jnI6irLty+ctY9A0mycu
-         E/p4VZ+hmtY7hBQt87jBJPnCbFW9QxJ2OtAVzemOEFmtldkKJLv8TLYsu7gVUHIJfAMj
-         gLBOZroop+ZtL0Xfr+gAGDHBhjjOpKZR3/9w/X7kiUq688SV+LyP6Eo5dBJz07TRjrX/
-         Eg/AlfKYY82CRX2V/mKh1iIh26KnIubVxD2pKRxtwqsiXdVhMY5EsxngYM9+P7UNvAVH
-         K4ew==
-X-Gm-Message-State: AFq9FYJ3ati2ctCB48CdE1XiGt5snC5uHlNOxW5EzLgmk1iMzXpwbAjf
-	rwNPNx/XJ/gaK0ynXW+eMBgwPEWivllXRR8i/pFgrJrWnN7AKp/f3Q7NrbTEiLQN
-X-Gm-Gg: AYBFou3+VvzDH+MZgVKuLzigkZeB19kPRNzoMFeZVh1jcBkYdaQiiCb9NBfPYFMPl6i
-	mf8UssYGOgs1XDO7KxN6UmbdBqf+BXSFG5TUBVxdQ7JaFXrZKVAee+vW+4j89oi/FN6X9AZw/Ez
-	9AU7MQcNs/ITSlqH1TM47euj6mxsZY+XVpgcd4jjfSzXv1lodTC00Y6dVuM19uGA5uE3hxGZ7G3
-	6Hs95wzF+ixpZlStY74AKV4mSyZUjDlJERxmly37RMnPaYOvBjarM5T2eZvfJ0f9a7ESSA6HsvT
-	+VcEDQJewxWJb4Sxr1m8WmxSACu9cl3H3fq4/ZHcGVwBZMmnqU3CDaEjq6KHwHTxQgrIFDSC8tR
-	w7pnRhUXrjVGP8JGepswqOSde1iZjcn31jorYAgO9fn3FqUwWlddMHV9pIMOgegRo6y+MyiOVq2
-	5F5037w7FDOlUKBsPQgonaINjdregXOSWSRNCKEN2XaSaxDJLlNKZLCDzQJBeYIH1yKXyVeehRn
-	pW2Ek0Mk/dsp/tLhKC/rQ2YjhywygQG15vZyniwYQ==
-X-Received: by 2002:a05:7022:170d:b0:145:4ef:e8de with SMTP id a92af1059eb24-1850c9cf21fmr8532556c88.6.1792365566923;
-        Sun, 18 Oct 2026 16:19:26 -0700 (PDT)
-Received: from Biostar-A520MT.. ([187.94.15.112])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18314b1722asm25115638c88.1.2026.10.18.16.19.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 16:19:25 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Andy Whitcroft <apw@canonical.com>,
-	Joe Perches <joe@perches.com>,
-	Dwaipayan Ray <dwaipayanray1@gmail.com>,
-	Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Subject: Re: [RFC PATCH 0/7] scripts: convert seven more Perl utilities to Python
-Date: Sun, 18 Oct 2026 20:19:16 -0300
-Message-ID: <20261018231917.74657-1-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <87fqy2afnk.fsf@trenco.lwn.net>
-References: <87fqy2afnk.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="E5j+KawY"
+Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4j7F5f5FkZz8sWQ;
+	Sun, 18 Oct 2026 23:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
+	s=spacemail; t=1792365623;
+	bh=k/i3Nsiw4H9TRxL0j87EVx9jYyettyuwElHn7x2/IBQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=E5j+KawYgqYYcTobdqa3Y7Ldaa+3FTZw7GAJhzxHXjOcx03vb2+se1rs90BESlczf
+	 7emm0ugBi2Faozym1+OEMK9n7naGEf+8BvN4oz5jGTPPtLkY28rYQWNMezJpc9fNSk
+	 i87MHcF+xamwqWyEIHA89tYSrolGSLFkpbsQ/udMlSsTjgT2sPihiS4btvwmQ7tZUX
+	 5M2jo0RM5N8kMqhuTa1CeDSdYxegdYKVGxJN9H54SZWW/5uRkrtvm7Y86o+3hDJDeJ
+	 M6TnBfLRm3H7OxMDWF6/e24/JNbu1k18dzhqPgr/GJ9qI7XxCUCejEzpJqrty7F1R5
+	 yqe3m3vSXBGvw==
+From: Ross Cawston <ross@r-sc.ca>
+To: andrew@lunn.ch
+Cc: lee@kernel.org,
+	pavel@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ross Cawston <ross@r-sc.ca>
+Subject: Re: [PATCH 0/3] leds: add Realtek RTL9300 port LEDs under software control
+Date: Sun, 18 Oct 2026 16:20:14 -0700
+Message-ID: <20261018232015.527-1-ross@r-sc.ca>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <59f75e7d-9b56-441d-a4b5-58ad3862267e@lunn.ch>
+References: <20261018194339.132-1-ross@r-sc.ca> <59f75e7d-9b56-441d-a4b5-58ad3862267e@lunn.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Envelope-From: ross@r-sc.ca
 
-> So an important part of describing any change is *why* you are doing it.
-> Why are you doing all of these conversions?  Some of these scripts have
-> not seen changes in decades and are likely unused; why do we want to
-> mess with them now?
+On Sun, Oct 18, 2026 at 10:36 PM UTC, Andrew Lunn wrote:
+> Port LEDs should be within the port node of the switch in DT. Ideally
+> you want all LEDs for a port to start the with basics, on/off control.
+[...]
+> So please don't make these LEDs special.
 
-You're right, and thanks for pushing on this — I should have framed
-the *why* in the cover letter.
+That makes sense. The catch is that RTL9300 has no switch driver
+upstream yet, so there is no port node with a driver behind it to put
+them in: mainline only has drivers for the switch's I2C and MDIO
+controllers.
 
-I ran a quick analysis of each script to separate what's actually
-used from what's likely dead code. Three groups:
+Unless you see a place they could go in the meantime, I'll withdraw
+this series until there is one.
 
-1. Actively used by developers or build:
-   - get_maintainer.pl: 28 references in Documentation/ alone.
-   - recordmcount.pl: called from scripts/Makefile.build when
-     CONFIG_FTRACE_MCOUNT_USE_RECORDMCOUNT is enabled.
-   - generate_initcall_order.pl: called from scripts/Makefile.build
-     when initcall tracing is enabled.
+Chris, do you know of anyone working on an RTL9300 switch driver? If
+so, I'd be glad to help with the port LEDs there.
 
-2. Used by developers, not integrated into the build:
-   - leaking_addresses.pl: security-research tool run manually.
-
-3. Likely obsolete:
-   - checkdeclares.pl: no build, doc, or in-tree references.
-     (Last-modified not verified locally — shallow clone — but no
-     reference is the stronger signal.)
-   - checkversion.pl: one reference in scripts/Makefile.build, but
-     the check itself is narrow.
-   - extract_xc3028.pl: no references; extracts firmware for DVB
-     hardware unmaintained for over a decade.
-
-The honest conclusion is that group 3 is a removal candidate, not
-a conversion target. I did not do this analysis before v1 and I
-should have.
-
-Plan for v2:
-  - Keep get_maintainer, recordmcount, generate_initcall_order,
-    leaking_addresses.
-  - Drop checkdeclares and extract_xc3028 from the series.
-  - Decide checkversion separately (keep, or propose for removal
-    after a public call for users).
-  - Rewrite the cover letter to state the motivation explicitly.
-
-Broader motivation for the kept four: kernel CI and tooling
-already assume Python for kernel-doc, spdxcheck, bpf_doc.
-Keeping Perl alive solely for a handful of scripts forces two
-runtimes for the same class of tools. Converting the active ones
-closes that gap; converting dead ones does not.
-
-Breno
+Ross
