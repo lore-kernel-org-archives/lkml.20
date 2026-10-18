@@ -1,228 +1,297 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17AFB3DAADB;
-	Sun, 18 Oct 2026 23:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D29427603F;
+	Sun, 18 Oct 2026 23:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792366202; cv=none; b=Ge+B7PTzUbRPQFNNIc6jJ1gFkmNhESYpCHro9v8z+99kuegreEQ7RrqZ1Xo0M11MXzQji2JAg/MbY6jdM2nAJP118ZubGDvARiXBBipHjJKIyINJcaijwuKHcy7BKLvfl5ntRXQvoBeG2k7fTo+mDTtzGAQbdVVXmhMa9hLt4VQ=
+	t=1792366544; cv=none; b=srZGgy7SkM3OYptllu6EBFYgLyL5gaz3XXDpNCmyJ4DKGznMyYQbLXbzZjlpy/W4L0KGe+iYyPHuEfMKrdHjyQT7fGfQA6zObn2OcWF7Q58/Fq/veCrg6F8f2IDuiOVs8YCk49tmSrFDnQ0nJKajHNw//qQlk+tfgVoyW5nzFfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792366202; c=relaxed/simple;
-	bh=sAvbJTRu8ZSxB5bP58kEDYXqHsPZPLiCqrS9+gn/c4s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Yk55hPwEehGayV0h8h5NRJpGzcXfuBptXUnl/xzGTqYXHj8hoaUbTRBPFxbCJd62nBn+tqrWIZuQNqfkJ3mYkwhtDED99xRADCX97mA5BKY/5/UIbiMDTTJNMKgVRE9CovHyZAcNRW54aZs1012glnZq99GUyH2fkR93fPbUTTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=XMIr6sOp; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1792366544; c=relaxed/simple;
+	bh=snoflEx/q8vayezJt95DyHxVw+uoK4j4eNOwlls+J1o=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aggiUlsDZqKGDzI1hV7iLXwsNIdTkhLoZ/B0SWdSNssN3NDTTViyGbYmm5tTb7x9ji+1CZ7QfWEXASfhOXHLo/rD6roaQyZV/pmSIJ6d3+GUJYHUo7aYdhzQ4QYUOj4FYkOU30W7Uvkwzf4wEd6OynNPrMMNwH+9CiFrWu9BmKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wez2HOfo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="XMIr6sOp"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 7D3D55340428;
-	Mon, 19 Oct 2026 01:29:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1792366194;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=cxv9peWI8l26Jzq3BiiH6v311pkQdBeWOmm4lBs4J/Q=;
-	b=XMIr6sOpJebZ8drvpfLngwyVq+yCTExaENQKbETSYI/d+aEldmwEJxaQycNQN5xZQ8Ud7F
-	irj/ZsNYmP6OQUm/56fSwQBx7u5ovKkm3N9Co1up2gJw60lNPWA4OYRofgEOC8PVxkHk2c
-	gPJJJQ89VAiir90eG3Ycf18+r8CsZGo=
-Message-ID: <391498ea-51f1-4390-b84a-d0d738ec409d@ixit.cz>
-Date: Mon, 19 Oct 2026 01:29:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wez2HOfo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559671F000C4;
+	Sun, 18 Oct 2026 23:35:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792366543;
+	bh=DqFqrz+5RnxxxPjeHegXNpR9f1B3r0EVBiH+BJlB7yE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Wez2HOfoFU4XTOe6YBt3+wOwOwc/WebQBLERf13nobmiQlB3vu07JOCiUo6VhiooW
+	 FckmMczvz15qF6Gd71fg0dmgcmmT8GHAnj3Hi9yqRZFF2qAX4WCMxqUjofBf2L4p0d
+	 3rCAj4yM2BZ1YotRpc1T7dcKml+wUB8JZGKFU0bd4HQDIHOibmMfC0e/n+z/oZm2EG
+	 5TWSUTn5ghO/a00LFqmSO5YDOtCxNTWB+3NU56E40q880emHEZ1J6Imc5cdR9mIsjS
+	 GUGRLRMj08XvAOdwigFR9+1oSrRdDoW1C26SYq2TpgdYqgUeXEht4Vz8yYeIdLp8E4
+	 xcFVJDBqZw89A==
+Date: Mon, 19 Oct 2026 00:35:37 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Michal Simek
+ <michal.simek@amd.com>, Conall O'Griofa <conall.ogriofa@amd.com>,
+ <linux-iio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <git@amd.com>, Sai Krishna Potthuri
+ <sai.krishna.potthuri@amd.com>
+Subject: Re: [PATCH v4 15/15] iio: adc: xilinx-xadc: Add I2C interface
+ support
+Message-ID: <20261019003537.617423a8@jic23-hlaptop>
+In-Reply-To: <20261005094205.1045874-16-dileepkumar.nagavarapu@amd.com>
+References: <20261005094205.1045874-1-dileepkumar.nagavarapu@amd.com>
+	<20261005094205.1045874-16-dileepkumar.nagavarapu@amd.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 06/12] usb: typec: qcom: Add gen1 Type-C port support
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Alexey Minnekhanov <alexeymin@minlexx.ru>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Lee Jones <lee@kernel.org>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- phone-devel@vger.kernel.org, mfd@lists.linux.dev
-References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
- <20260926-typec-v1-6-31adc19f32c6@ixit.cz>
- <4f089c98-a479-45c9-9b11-0207c895367a@linaro.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <4f089c98-a479-45c9-9b11-0207c895367a@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 26/09/2026 16:22, Bryan O'Donoghue wrote:
-> On 26/09/2026 13:40, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> Add a port backend for the first generation of the Qualcomm PMIC Type-C
->> block, found on PM660 and PMI8998.
->>
->> On gen1 the Type-C CC logic is part of the charger's USBIN peripheral
->> (base 0x1300) instead of the standalone Type-C peripheral used by
->> PM8150B and later PMICs. All Type-C events (CC state change,
->> tCCDebounce done, VBUS change and error) are signalled through a single
->> aggregate "type-c-change" interrupt, the handler re-reads TYPEC_STATUS_4
->> to find out what changed. The PD PHY is register compatible with PM8150B
->> and is reused as is.
->>
->> Differences to the PM8150B backend:
->>   - get_cc() returns -EBUSY until the hardware reports tCCDebounce done,
->>     instead of using a software debounce.
->>   - As a source, only the default and 1.5A Rp can be advertised, 3.0A
->>     requests are advertised as 1.5A.
->>   - The PBS workaround of the downstream SMB2 driver (TM_IO_DTEST4_SEL)
->>     is applied on every power role change.
->>
->> VBUS sourcing is optional and only used when the connector provides
->> a vbus-supply, as the charger doesn't expose a VBUS regulator yet.
->>
->> Assisted-by: LLM
->> Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
->> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   drivers/usb/typec/tcpm/qcom/Makefile               |   1 +
->>   drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c      |   9 +
->>   .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.c    | 605 +++++++++++++++++++++
->>   .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.h    |  15 +
->>   4 files changed, 630 insertions(+)
->>
->> diff --git a/drivers/usb/typec/tcpm/qcom/Makefile b/drivers/usb/typec/tcpm/ 
->> qcom/Makefile
->> index cc23042b94878..b8b9350184c19 100644
->> --- a/drivers/usb/typec/tcpm/qcom/Makefile
->> +++ b/drivers/usb/typec/tcpm/qcom/Makefile
->> @@ -1,7 +1,8 @@
->>   # SPDX-License-Identifier: GPL-2.0
->>   #
->>   obj-$(CONFIG_TYPEC_QCOM_PMIC)        += qcom_pmic_tcpm.o
->>   qcom_pmic_tcpm-y            += qcom_pmic_typec.o \
->>                          qcom_pmic_typec_port.o \
->> +                       qcom_pmic_typec_port_gen1.o \
->>                          qcom_pmic_typec_pdphy.o \
->>                          qcom_pmic_typec_pdphy_stub.o \
->> diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c b/drivers/usb/ 
->> typec/tcpm/qcom/qcom_pmic_typec.c
->> index 41aaae6bb3724..ea1d5b0927436 100644
->> --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
->> +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c
->> @@ -12,16 +12,17 @@
->>   #include <linux/slab.h>
->>   #include <linux/usb/tcpm.h>
->>   #include <drm/bridge/aux-bridge.h>
->>   #include "qcom_pmic_typec.h"
->>   #include "qcom_pmic_typec_pdphy.h"
->>   #include "qcom_pmic_typec_port.h"
->> +#include "qcom_pmic_typec_port_gen1.h"
->>   typedef int (*pmic_typec_port_probe_fn)(struct platform_device *pdev,
->>                       struct pmic_typec *tcpm,
->>                       const struct pmic_typec_port_resources *res,
->>                       struct regmap *regmap, u32 base);
->>   struct pmic_typec_resources {
->>       const struct pmic_typec_pdphy_resources    *pdphy_res;
->> @@ -134,31 +135,39 @@ static void qcom_pmic_typec_remove(struct 
->> platform_device *pdev)
->>       struct pmic_typec *tcpm = platform_get_drvdata(pdev);
->>       tcpm->pdphy_stop(tcpm);
->>       tcpm->port_stop(tcpm);
->>       tcpm_unregister_port(tcpm->tcpm_port);
->>       fwnode_handle_put(tcpm->tcpc.fwnode);
->>   }
->> +static const struct pmic_typec_resources gen1_typec_res = {
->> +    .pdphy_res = &pm8150b_pdphy_res,
->> +    .port_res = &gen1_port_res,
->> +    .port_probe = qcom_pmic_typec_gen1_port_probe,
->> +};
->> +
->>   static const struct pmic_typec_resources pm8150b_typec_res = {
->>       .pdphy_res = &pm8150b_pdphy_res,
->>       .port_res = &pm8150b_port_res,
->>       .port_probe = qcom_pmic_typec_port_probe,
->>   };
->>   static const struct pmic_typec_resources pmi632_typec_res = {
->>       /* PD PHY not present */
->>       .port_res = &pm8150b_port_res,
->>       .port_probe = qcom_pmic_typec_port_probe,
->>   };
->>   static const struct of_device_id qcom_pmic_typec_table[] = {
->> +    { .compatible = "qcom,pm660-typec", .data = &gen1_typec_res },
->>       { .compatible = "qcom,pm8150b-typec", .data = &pm8150b_typec_res },
->>       { .compatible = "qcom,pmi632-typec", .data = &pmi632_typec_res },
->> +    { .compatible = "qcom,pmi8998-typec", .data = &gen1_typec_res },
+On Mon, 5 Oct 2026 15:12:05 +0530
+Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com> wrote:
+
+> Add I2C interface support for Xilinx System Management Wizard IP along
+> with the existing AXI memory-mapped interface. This support enables
+> monitoring the voltage and temperature on UltraScale+ devices where the
+> System Management Wizard is connected via I2C.
 > 
-> I think this should be
+> Key changes:
+> - Implement 32-bit DRP (Dynamic Reconfiguration Port) packet format
+>   as per Xilinx PG185 specification.
+> - Add separate I2C probe with xadc_i2c_of_match_table to handle same
+>   compatible string ("xlnx,system-management-wiz-1.3") on I2C bus.
+> - Add NULL checks for get_dclk_rate callback function in sampling rate
+>   functions to support interfaces without clock control
+> - Create separate iio_info structure(xadc_i2c_info) without event
+>   callbacks for I2C devices
+> - Add xadc_i2c_transaction() function to handle I2C read/write operations
+> - Add XADC_TYPE_US_I2C type to distinguish I2C interface from AXI
+> - Defer XADC hardware initialization until first device access, since the
+>   I2C path reaches the PL SysMon indirectly through a platform controller
+>   DRP bridge that may not yet be operational at probe() time. Initializing
+>   on first read/write instead avoids probe failures caused by transient
+>   unavailability of that downstream path.
 > 
->  > +    { .compatible = "qcom,pm660-typec", .data = &pm660_typec_res },
->  >       { .compatible = "qcom,pm8150b-typec", .data = &pm8150b_typec_res },
->  >       { .compatible = "qcom,pmi632-typec", .data = &pmi632_typec_res },
->  > +    { .compatible = "qcom,pmi8998-typec", .data = &pmi8998_typec_res },
-> 
-> Since I'm not sure "gen1" is a real thing and besides, I see this gen1/gen2/gen3 
-> stuff in CAMSS and it means almost nothing. The silicon version is the salient 
-> thing.
+> Co-developed-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+> Signed-off-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+> Signed-off-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+Hi Dileep,
 
-Best I can do is GenZ.
-But now seriously, I hoped someone from Qualcomm will chime in and tells me how 
-is this type-c block generation properly called.
+Various comments inline - mostly stuff where we can make things
+a little more readable or extensible.
 
-David
+Jonathan
 
-[...]
+> diff --git a/drivers/iio/adc/xilinx-xadc-core.c b/drivers/iio/adc/xilinx-xadc-core.c
+> index 2addb61cf5b1..80199c4ddf69 100644
+> --- a/drivers/iio/adc/xilinx-xadc-core.c
+> +++ b/drivers/iio/adc/xilinx-xadc-core.c
+> @@ -227,7 +227,7 @@ static int xadc_power_adc_b(struct xadc *xadc, unsigned int seq_mode)
+>  	 * non-existing ADC-B powers down the main ADC, so just return and don't
+>  	 * do anything.
+>  	 */
+> -	if (xadc->ops->type == XADC_TYPE_US)
+> +	if (xadc->ops->type == XADC_TYPE_US || xadc->ops->type == XADC_TYPE_US_I2C)
+>  		return 0;
+Maybe add what ever this is similar to below. If it's in the ops structure
+we avoid having to add new types like this.
+
+>  
+>  	/* Powerdown the ADC-B when it is not needed. */
+> @@ -249,7 +249,7 @@ static int xadc_get_seq_mode(struct xadc *xadc, unsigned long scan_mode)
+>  	unsigned int aux_scan_mode = scan_mode >> 16;
+>  
+>  	/* UltraScale has only one ADC and supports only continuous mode */
+> -	if (xadc->ops->type == XADC_TYPE_US)
+> +	if (xadc->ops->type == XADC_TYPE_US || xadc->ops->type == XADC_TYPE_US_I2C)
+>  		return XADC_CONF1_SEQ_CONTINUOUS;
+
+Perhaps add this to the ops structure as well as a field called something like
+bool continuous_only;
+
+>  
+>  	if (xadc->external_mux_mode == XADC_EXTERNAL_MUX_DUAL)
+
+>  
+>  struct iio_dev *xadc_device_setup(struct device *dev, int size, const struct xadc_ops **ops)
+> @@ -784,7 +797,11 @@ struct iio_dev *xadc_device_setup(struct device *dev, int size, const struct xad
+>  		return ERR_PTR(-ENOMEM);
+>  
+>  	indio_dev->name = xadc_type_names[(*ops)->type];
+> -	indio_dev->info = &xadc_info;
+> +	if ((*ops)->type == XADC_TYPE_US_I2C)
+
+Why not put the info in the ops structure?  Then you can set it
+unconditionally here.  Generally matching a 'type' ends up
+messier than just adding more stuff to the type specific structure.
+
+> +		indio_dev->info = &xadc_i2c_info;
+> +	else
+> +		indio_dev->info = &xadc_info;
+
+> diff --git a/drivers/iio/adc/xilinx-xadc-i2c.c b/drivers/iio/adc/xilinx-xadc-i2c.c
+> new file mode 100644
+> index 000000000000..cee2f7b3f9bd
+> --- /dev/null
+> +++ b/drivers/iio/adc/xilinx-xadc-i2c.c
+
+> +
+> +#include <linux/iio/iio.h>
+> +
+> +#include "xilinx-xadc.h"
+> +
+> +#define XADC_I2C_READ_DATA_SIZE		2
+> +#define XADC_I2C_WRITE_DATA_SIZE	4	/* 32-bit DRP packet */
+Hmm. Put this as a terminating entry in an enum with the DRP elements
+below. The it becomes clear how they are associated with each other.
+
+> +#define XADC_I2C_INSTR_READ		BIT(2)
+> +#define XADC_I2C_INSTR_WRITE		BIT(3)
+> +
+> +#define XADC_I2C_DRP_DATA0_MASK		GENMASK(7, 0)
+> +#define XADC_I2C_DRP_DATA1_MASK		GENMASK(15, 8)
+> +#define XADC_I2C_DRP_ADDR_MASK		GENMASK(7, 0)
+All of these seem unnecessary. See below
+> +
+> +/* Byte offsets within the 32-bit DRP packet, per Xilinx PG185 */
+> +#define XADC_I2C_DRP_DATA_LOW		0
+> +#define XADC_I2C_DRP_DATA_HIGH		1
+> +#define XADC_I2C_DRP_ADDR		2
+> +#define XADC_I2C_DRP_INSTR		3
+
+> +
+> +static int xadc_i2c_read_transaction(struct xadc *xadc, unsigned int reg, u16 *val)
+> +{
+> +	struct xadc_i2c *xadc_i2c = container_of(xadc, struct xadc_i2c, xadc);
+> +	u8 write_buffer[XADC_I2C_WRITE_DATA_SIZE] = { 0 };
+
+Might as well set the values you have below here rather than init to 0 and then
+override.
+
+> +	struct i2c_client *client = xadc_i2c->client;
+> +	u8 read_buffer[XADC_I2C_READ_DATA_SIZE];
+> +	int ret;
+> +
+> +	write_buffer[XADC_I2C_DRP_ADDR] = FIELD_GET(XADC_I2C_DRP_ADDR_MASK, reg);
+As below. Not seeing much value in this FIELD_PREP as the reg should always fit
+
+I think?
+
+> +	write_buffer[XADC_I2C_DRP_INSTR] = XADC_I2C_INSTR_READ;
+> +
+> +	ret = i2c_master_send(client, write_buffer, XADC_I2C_WRITE_DATA_SIZE);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = i2c_master_recv(client, read_buffer, XADC_I2C_READ_DATA_SIZE);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	*val = FIELD_PREP(XADC_I2C_DRP_DATA0_MASK, read_buffer[XADC_I2C_DRP_DATA_LOW]) |
+> +	       FIELD_PREP(XADC_I2C_DRP_DATA1_MASK, read_buffer[XADC_I2C_DRP_DATA_HIGH]);
+	*val = get_unaligned_le16(&read_buffer[XADC_I2C_DRP_DATA_LOW]);
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int xadc_i2c_write_transaction(struct xadc *xadc, unsigned int reg, u16 val)
+> +{
+> +	struct xadc_i2c *xadc_i2c = container_of(xadc, struct xadc_i2c, xadc);
+> +	struct i2c_client *client = xadc_i2c->client;
+> +	u8 write_buffer[XADC_I2C_WRITE_DATA_SIZE];
+> +	int ret;
+> +
+> +	/* low byte of the 16-bit DRP data value */
+> +	write_buffer[XADC_I2C_DRP_DATA_LOW] = FIELD_GET(XADC_I2C_DRP_DATA0_MASK, val);
+> +	/* high byte of the 16-bit DRP data value */
+> +	write_buffer[XADC_I2C_DRP_DATA_HIGH] = FIELD_GET(XADC_I2C_DRP_DATA1_MASK, val);
+
+	put_unaligned_le16(val, &write_buffer[XADC_I2C_DRP_DATA_LOW]);
+and no comments needed.
+
+> +	write_buffer[XADC_I2C_DRP_ADDR] = FIELD_GET(XADC_I2C_DRP_ADDR_MASK, reg);
+
+Given this is just a clamp to size of something that I assume always fits,
+I'd drop the FIELD_PREP as providing no value.
+
+> +	write_buffer[XADC_I2C_DRP_INSTR] = XADC_I2C_INSTR_WRITE;
+> +
+> +	ret = i2c_master_send(client, write_buffer, XADC_I2C_WRITE_DATA_SIZE);
+
+I guess in this particular case we know what the i2c master is so can assume
+this never runs short?  (in practice they never do but I think the interface
+allows for that case).
+
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+
+
+
+> +
+> +static int xadc_i2c_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	unsigned int conf0, bipolar_mask;
+> +	const struct xadc_ops *ops;
+> +	struct iio_dev *indio_dev;
+> +	struct xadc_i2c *xadc_i2c;
+> +	struct xadc *xadc;
+> +	int ret;
+> +
+> +	indio_dev = xadc_device_setup(dev, sizeof(*xadc_i2c), &ops);
+> +	if (IS_ERR(indio_dev))
+> +		return PTR_ERR(indio_dev);
+> +
+> +	xadc_i2c = iio_priv(indio_dev);
+> +	xadc_i2c->client = client;
+> +	xadc = &xadc_i2c->xadc;
+
+It might be worth a little helper for here...
+
+> +	xadc->ops = ops;
+> +
+> +	ret = devm_mutex_init(dev, &xadc->mutex);
+> +	if (ret)
+> +		return ret;
+> +
+> +	spin_lock_init(&xadc->lock);
+
+to here to initialize the xadc structure as I don't think
+the individual drivers should really know about xadc->lock etc.
+
+
+> +
+> +	ret = xadc_device_configure(indio_dev, 0, &conf0, &bipolar_mask);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to setup the device\n");
+> +
+> +	xadc_i2c->conf0 = conf0;
+> +	xadc_i2c->bipolar_mask = bipolar_mask;
+> +	xadc_i2c->hw_initialized = false;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static const struct of_device_id xadc_i2c_of_match_table[] = {
+> +	{
+> +		.compatible = "xlnx,system-management-wiz-1.3",
+> +		.data = &xadc_system_mgmt_wiz_i2c_ops,
+> +	},
+> +	{}
+Trivial but local IIO preference is
+	{ }
+
+I wanted to standardise these on something, and happened to pick
+that a few years back.
+
+> +};
+> +MODULE_DEVICE_TABLE(of, xadc_i2c_of_match_table);
+
