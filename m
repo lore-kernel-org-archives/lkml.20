@@ -1,73 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E623F107E;
-	Sun, 18 Oct 2026 21:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14834DE72C
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:38:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792359495; cv=none; b=fVwzvkAJbVWj9nf++DwuaJAPk/+4u73gmawTzArTFFEtUywJIqpuuZyDIqFeHiIAivFNgSOBADxBzMxsw5VSJSeXjhihgMw5/XiVpFZVxDkJT1hfcFGkHj7dmyOuJgNtI0+j2VffJhJ/rerxya2Y3LILvxAHnYq58A9T55UdQ7E=
+	t=1792359498; cv=none; b=ETCHNf/F7BTHnsNXNT2EMNiUL4IRp+uWbMZer0NVGKIRkT1taB9En22GfGRbp+I57rKDpO72ie4dv923n0KlPL/VFRPhG+RR+cirtCA2GppZ2pJzbMWZoeclfkEoK0NkFTkF3pDDa9t7yA8WU1n04Wm40aLe5U9r4t84ENKhfls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792359495; c=relaxed/simple;
-	bh=bx3SDqjkNUdIhgxZIPUeL43cyj3rdifBiAut4X7l+AY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P99/1meKCIh8J+ECb/n2ThwTKnyJ7DnghA8c2fppNcRVytjfoeepsCmiMBdCx7T5UzU+iGs7ST7yHL0gvQcWkiqQWVuBWvvcm5kcOOWOdyYKhijUblGvfI357Fgtb5fRPLh7WSsGB2kUAwBjk85y5BnLcgYEnHXKaDt+9LgbK5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TTX1G7zM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792359498; c=relaxed/simple;
+	bh=r75zBVmugnnLzV+NcNmRfpcT5eTmGOYD4BVPBqzaA/A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oddL2Wysz4tGuTuSnJAGv+WAt3BNth4HM/d4tUwWflNfUcQ3uoWES2fGVF+14vB9GMvvBdTUUt+ExmldfOyvphxu+Ps32bcBJX1csXOgssXVKwk+4Hz6vYQPXJ3zyXXpesXrfDCLwrGBtEFlVGB5bXf/AdMZMGUB/vhay67RqNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UZ4IuHny; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TTX1G7zM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E96E1F000C4;
-	Sun, 18 Oct 2026 21:38:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792359494;
-	bh=OkQx0kcaUeYPHkHiDcRMc78J8sbTqOl+Cvm5G4bPTTc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TTX1G7zMWcVCkC86iL0CWDJNlkk6Apr7pyV9TFDMTp9bZtlcCzf94Fi2usLsucAdX
-	 7revi5qro+RTUaLfzHg+3w8ojPSWwppSVRTKo+Ek8XAPlZDPGCf8seC1jspDjoM0vP
-	 iVQf2z6Zrxv5xfSCRyKBu7JuhzH4tVChNdbK9waXBQOMmxe3EaeB/T0hww4NndvGAW
-	 5gMKohCahkN4pfLCu1x0N5N/4Z3+OB41h/5Q6qXskZwwEo1PnZwc+bM9L9UrSZHVrg
-	 fMAYaI9cNEWkW2OFisfjtkSWEBkQ9LzPiO/uR+3y7rUy3HC1HNwEaI0Xol5kTcMVko
-	 rjClchWzpueZA==
-Date: Sun, 18 Oct 2026 14:38:09 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Denis Benato <denis.benato@linux.dev>
-Cc: Paolo Pisati <p.pisati@gmail.com>, Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Joshua Leivenzon <hacker1024@users.sourceforge.net>,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Luke Jones <luke@ljones.dev>, Ivan Levchenko <me@livan.pro>,
-	Rebecca Mara =?iso-8859-1?Q?M=FCller?= <rebecca.mara@posteo.de>
-Subject: Re: [PATCH v3 2/7] HID: asus: Add missing Zenbook Duo hotkeys
-Message-ID: <20261018213809.GB4068315@ax162>
-References: <20261013104033.36079-1-p.pisati@gmail.com>
- <20261013104033.36079-3-p.pisati@gmail.com>
- <7dfed94a-f7f9-417d-ba0d-09f199047b70@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UZ4IuHny"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4d648aacso1263340e87.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:38:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792359495; x=1792964295; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eqnHzvfmWXKTXBUOY4n+0mAVt82slF3AITsKMweBycc=;
+        b=UZ4IuHnyZc4V19WnHhuuEaIecdmf1ikMb9OBxJVAMjgLQUpYPbyFr19LqPvE7DMtwe
+         Jq1TzK+CMyiQCJdbuedDJVXSNCzB+c1UH1Ion1TmL8TKkSavhwPjJa+UKU3wYOnowgSz
+         uKiJ/2vCpvUc1Ez/PnUQ9Y9g30bWDKTvJIawwcB5PdvGvqvmc048c1G3sECIZ1WjRolH
+         6vent1xicYEozZtYwvvR+Iryaaa8blZCrzJ9vwbRlajTLteNJlnGZjwxICbjRM1MRPOt
+         Ejj0Rt2AfkyqaWkzoZnAeoMBXnavjBTEBb4Nt8VNXGrirglkozKv3fjjTKyc24i5twfe
+         fSvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792359495; x=1792964295;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eqnHzvfmWXKTXBUOY4n+0mAVt82slF3AITsKMweBycc=;
+        b=ntFF+14DbYVxzklTHtsemow1VtZG/m8OSosE6AOTWR91kkbhYX5fgNfJZOY4OlvNaY
+         uH9fJQxVwLhS/FY8qhYrsRG1HfkW8Mt10FD1AUDGyrmXLJu51GRcpSZ8SAJFxI/VHWEZ
+         InbLtzbFcynKXsxH9MB+Sr4rN5RZ3tT7zIH8NCu1PBamH8Wd73N0yqHesBGiZPqojNl0
+         2JyJG6xnxqmLLazPnGszy3/8t0Rze2ZqSA6DdilB/Nu+FeRtqu3cCV6kxwTHZocTdNXq
+         D6uMWNDXl8bPRL+f6OhuAbdfuOeohkzPP5m3/S8umbw7i4V3Ok/DV1S4m046/n18et2Y
+         s/9g==
+X-Forwarded-Encrypted: i=1; AKwUvBxUQfsijaWh9RLSytc3YVUE0SrUPV5gWCkcNVVppGvsuvbstrmEh4RW4rRguB08xkuDrr7T+fU9taF5QpU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjwjZT9O62H0mViMJRPjVVVMQKAcOPgEO6EaJC2gDGft1Hf2cW
+	Moh/Gu7nHYI725mJ25HeIQYgWheiFgUDjtZ9AD8mwgCqkvlYIQBFk51e
+X-Gm-Gg: AYBFou3wzqel2gjdiFNkidDGpx25BIqHpzd775+cvA5yrVSn6t0wHWMlrgFRz3bga5z
+	5fDx1/a5aqqy3QA+szncg1Zn/HErfvGDdqUTXGsYMAm/zc71Rj5cCFJOreYPILa/sUg27/E+BEd
+	uVAKBMCfX5mtgGLiZSLm5r4qs11s1g5ZefbfaTEFOIYDeUS095X4ZBydMX6gNthe4ICEm2wRMv2
+	xcG8OZuJBB7wubJcbhHs15df4ZTpocdEcanJi0qGxTRIljeLOoS/tWjgbmqw/YXyjBE304x24Zq
+	oumNG4Tt2uO5HSdUsFAppa3G8Z0QrToPWLRkaQn+7odada+xRLYA+FDUF4GXIpEg9m2FuRi+AHn
+	BaQpznDXTJWN9CRbGxlOD2PqQgbsuIePq6ZNRFaSFKkHWPFF2jbZtt9LiaRNd522pYN19IB7sry
+	EYLlWqhQqeyTlilRTeRQ20YTFyCssAEmtlCT05Wnr/IYGhTlpZQiGNjh38fjP57Wk3D9edEAXGQ
+	v5xiY0x4GgC27OQyej20nAIrkxKaICQjbGkfZZ8tB2ECm5yaQWbOiPd9OhZkASwe0rlqM+MSWh0
+	/lSIyII=
+X-Received: by 2002:a05:6512:2349:b0:5be:58ad:1b93 with SMTP id 2adb3069b0e04-5be58ad1d08mr677208e87.15.1792359494523;
+        Sun, 18 Oct 2026 14:38:14 -0700 (PDT)
+Received: from yantra.. (nekmmqtaaozvmkd1587-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:5185:c9b3:741a:edb7])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a3fcf07sm1584244e87.3.2026.10.18.14.38.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 14:38:13 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: andriy.shevchenko@intel.com
+Cc: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: qcom-spmi-adc5-gen3: fix lock annotations on mutex helpers
+Date: Mon, 19 Oct 2026 00:38:12 +0300
+Message-ID: <20261018213812.56858-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <asIRkK-uUz4FKQBN@ashevche-desk.local>
+References: <20261003214516.128573-1-zoone.rupert@gmail.com> <asIRkK-uUz4FKQBN@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7dfed94a-f7f9-417d-ba0d-09f199047b70@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 05:55:02PM +0200, Denis Benato wrote:
-> On 10/13/26 12:39, Paolo Pisati wrote:
-> > Assisted-by: LLM
-> 
-> Assisted-by tags have harness:model like this:
-> 
-> Assisted-by: opencode:deepseek-v4.1-flash
+On Sun, Oct 04, 2026 at 11:42:56AM +0300, Andy Shevchenko wrote:
+> On Sun, Oct 04, 2026 at 12:45:16AM +0300, Rupesh Majhi wrote:
+> > The __acquires() and __releases() on adc5_gen3_mutex_lock() and
+> > adc5_gen3_mutex_unlock() name adc, a local declared in the body. With
+> > context analysis enabled for this file, the build fails:
+> >
+> >   error: use of undeclared identifier 'adc'
+> >
+> > The lock and unlock are split across these two helpers for the ADC_TM
+> > driver, so mark them __context_unsafe() instead.
+>
+> Doesn't sound right to me. The __acquires() and __releases() IIRC are sparse
+> annotations. If clang has something special, it needs to be addressed in
+> the compiler-clang.h, no?
 
-Just an FYI, Assisted-by: was adjusted to Paolo's current format in
+Sparse support for them went away in v7.0 with 5b63d0ae94cc
+("compiler-context-analysis: Remove Sparse support"). They are now
+defined in compiler-context-analysis.h and expand to clang's
+acquire_capability() and release_capability(), or to nothing.
 
-  816d9992d9ed ("coding-assistants: simplify attribution")
+The argument is parsed at the declaration, where only dev is in scope,
+so no header change can make adc visible there.
 
-in 7.3 and it is being removed altogether in 7.4 with
-
-  1e035297ffda ("docs: remove Assisted-by references")
-
-currently sitting in -next.
-
--- 
-Cheers,
-Nathan
+Sorry for the slow reply.
