@@ -1,135 +1,203 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264BC3A5443
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792346186; cv=none; b=Giz/9h6nzKVAOwWo9M8b8T4qBpTp2By8dJCBwYSP8BzHU/o3AT3lJELm+nOM24yD3VmrptGAHgofL3oFG18iH2XZqAoZ/iEU+Zixf0mZKumTCzQcjjspATLjDVdEqMpv1e4GKLzzV4rl0ed/G1KbEhFN7s/fJSrndeNb2Gs1P20=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792346186; c=relaxed/simple;
-	bh=C4zvxQ3ByJGufk7XoL4+jX2SllFBBV52SY2visrIqkY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=G04iSiKTBd7TfP7xYWDa+uWpHK5ITlTwSHtXhpAr3/cGvx2Rg0YFA4bw5vFVtTsUpxkLj2og2Egskw41uDxEGckS4PhbRdIeO9SwyvAhNUSB225IlziqsACTnK9SUtpOm4k8JGf17iUjPlFglaEuJ5C861Es8CnFfFJJiX9I32c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iIPbEQYH; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5560A3A5443
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792346223; cv=pass; b=IfnSQFQZudNy2FbwXItieD12pKWdhqchP0dBTo4JPTxAlR/MH8489e1723oIjVTU+MdqqX0GSbQcbV3yAmYVXfA+8UTMAuXOjV7XWhXqab4AdVr05MVBp2urFD0oF3j3lbwvlU6ZkQxmhsTFtV5CEBdIqbrHb232R3XjhOyTejI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792346223; c=relaxed/simple;
+	bh=ein2Kxm/7ddUQW+oHSZ4NEDEcr868l3pq4onBaj8gos=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BOzkEZw673R4nYBHXkS1DsKy8n7kt57NWAn9EqW94/uGtS4V8hkdCAXWQ4HyXwCnOSAk0Jgx6Kzh70GQ0gC8psZeeQCfPuzENOIoVDWbL3Vt0G9+IJoKGJu+livPeOb2luXBTcvnWwLkgqcTiZSxMvmRWKIrLe2wvWHdRugIyao=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VuKSafKM; arc=pass smtp.client-ip=74.125.82.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iIPbEQYH"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1e34ecb02so3037075e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:56:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VuKSafKM"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33e623bd651so111950eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:57:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792346221; cv=none;
+        d=google.com; s=arc-20260327;
+        b=n7OdndK+9yC5EiawAGszxOAZe7g3kU9vkQrqjC+pusRrWIvdSwxBiXPWv2tOdPxLtT
+         fFLZnBU87H5nGRr7pGEbzh00rC1sicWqnPkvdcFzCJnqTiWcA/9CJAcnQHhXFbCUHXYa
+         U+Qzw/2xd8FMAPlDqSI5LpC9K0mFL1jzalKYoW8tF84x5wS+UyzUINQ/0fP8IC0cMv5p
+         54CF1UZbAtWYfqJ935YHeIkxD793Hn6tth3pBMwIkEwBHjXpcRVKFfBuOtDlLO2cSGLh
+         Q4BjyVjdv71QFRINaEiy4XvpOMa1LnY8UZZH+L3SruP0H6luTRN7qVjAKyYxWYXLTTYn
+         SP2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bKssVqS+1fUgzpvGYUPB7GmCd4wpzuePwRHvRr1rp2U=;
+        fh=SgoF+8aScetYIWuNRfaxTTxGQ5zpfooSSCSJdhNKqH8=;
+        b=PMl1q5pU7wvi3hmFTevqq08EQoL4GQxwXpIH+4Aer4oQatx9MBUnDzO5qGhfkbDkZ9
+         wS9wmc4k18bsqEE1aMtUoG7wARxMOMnAMetpoUrZNpv/AxJUZv8GKU7/DnkaG5Eq0LfZ
+         WmrGy46sBYwh274Z5nGmwxIzcYfG7iEqyAGRNQUmGiImxrthwmzoQ9g+3NeXyyOsDNHc
+         +vn6UHl1bz9C0zqXia4lkNWXSHhyufCrl1WNHJNG8XILAbr33JniZzPbC0HiHmrTg9n1
+         EvvdYbcp6I1QCO9GzdgS0yOsi8mt7aL/kFVg78eCveopjSiM4lyaq3jMWOzAay5S1krM
+         A7uA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792346183; x=1792950983; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cOllkDlXTVHDfSWD1mHeu4GOOrDPlAc+Nz12Oh59KqY=;
-        b=iIPbEQYH6lfHraOfWFXgHMfAKqjqIzcddjsZeV1hDbdPFD0uHoEE+1hmVkzeWEk47V
-         hMYiHo0tux+vSn1P9t6/x8nGq1z1jplR4TmzBMTvRgsupUsrSpK6XzOkE1VIBK1PRZar
-         ZUiEF1bDZMmMY3rVl0fNqNlY6ItcojSzbNBkurmSg4/49FVBHCB2E/oUMw5+dWhdHVIa
-         u+tqDyh0lHncm28KJ3ia66sv4mGEPT4gLVKM4cZG+NKtrw/ciajA0dOFjSJPpdGXcXxR
-         +ere9rnDAe9lXe7v7XvD2hY76wQ8q+n46Y9V7X+TghStTX2klu8jito4tZvPCUHSNG0Z
-         1KHA==
+        d=gmail.com; s=20251104; t=1792346221; x=1792951021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bKssVqS+1fUgzpvGYUPB7GmCd4wpzuePwRHvRr1rp2U=;
+        b=VuKSafKMez6dANuC4OAkzaUUQ0QhKEUmnTCCRXY4qkh4XjBrgEaJSjU/L2iDnU4m5y
+         DMldodLQGCaWyFU5wwiBqhm/xz04Q33b9tQQdfJ6yaShtJHWsB0wSfRWAe/8JQlxBktl
+         9AhfCJAfXgNboCcf1hsPkAX4UKanipQNy+CfyO0V14l+njp3hSgnLAzXFWoFcUO+yFGe
+         MVIgDXmRsr4ln7ilDaYNIoaVRZKFV1w5JMyCE4PGi7jUIRkJxqLlOoV5sGiedMZ2+/Hd
+         7sOd2ty1ExwXoKZdUSAzWD1TZIIKDxx3jP124qr6ZK2Pw57KWCDBE4G5PbF7q6Gxblcs
+         cDaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792346183; x=1792950983;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cOllkDlXTVHDfSWD1mHeu4GOOrDPlAc+Nz12Oh59KqY=;
-        b=QQjrptwBJebT1rqsHqZdFWLdI1WrrzIQ/CNG8pLnBljcLl+Q82uO15GShpTCdq6OpW
-         J1HUk7UnDExHvcg0nkRc5EMQKftbVscAA7bCXVGZnQ+R2QNMUApCKztJhtD99KkmGEk8
-         39VO99Jv9Vtme7bX8V77fZU+ApmlfztuvPbs2Rc4J1ADzEMmOHz8pOESgPWm4FZ3laow
-         cJ/alfJ/hK8I4+5+cRhSMeGdnYnCdsdhvVFGpPWKxl/84RuTaaLHswKPKWR6yqeuSJZf
-         d7EpJSoqFagBlUlw0j1y4RAfS2IQqOjsGQ2ADgz3JUVCserKZXFdgIEgArPdPzH3fpeY
-         1T4A==
-X-Forwarded-Encrypted: i=1; AKwUvBy8ddrymOq7AThJ8kQsd5NzALb9jbRiZ6D6JISXSD9TKS4AiZsi3qynjsf4GTfyHlCsrQiTiWnhkBvfSkw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1DGlK7WZhZGfpMMAWqGN1DUHVrs7QlBf7UaoBuTx2wOiATJFW
-	IsefwPogFtK/cL9OIjpwiiSCBcd94ptVDdCvamB4vHzhp8AXbRUIRCUax2taKw==
-X-Gm-Gg: AYBFou3c+8MgwtpPSlmMbiFyHbfLbtk2AmiCuw3P08XCT4Dq/8Wj0z1qM7Q5G1wqu8x
-	2CBQmo9NLYxTuevQRasDedL+oiOf9V8jLrJ5ma46zBBx7BvgiuEVIJlGyNqk+oreQlgoE2MKUU3
-	hduIdOyZ19ov46GOPoWJJKX3JTnAa84xZQnBGqc+aL/MDL2yh99K2ICu0cT9JFIcXazWSBcDxmC
-	fvQidsHbI17krk+MrInfA7MuQSrx0JlAe1pHLFi8gUgQoe5cH9DjQZCz+O0w1idbCy/N7b0o1lh
-	v296m/I57I/dePdNs+2ukm8BRL+rxMgK+vlRoh8qinofpwTM2wCvJ73BcrXfinQI4Va33vD1pF1
-	4lnsjI72gmE0CpFkCr8tAPS6t/CO4Z6x56LdzKFZ2mU+zu83C4xP1AO3Rkaa8MABGJZGc6D3ICA
-	W3J/uFgWIlS49AB9aGpsNwpjupKk75cvv1NJ0iHyE9iD2+vd7X6FyLir5dIuO0qMJEb87Pb9N9t
-	ZC+pbXotZlCuVtP9kYHl2q4nSihWXdsTj2J+fGFsTKECNrqvgXF4SKDqIWa2iMMtH6sOZhoGLB8
-	5sOZw179H8ltqyMWRXoUv28Jpi5lMIo2/DHj4+X/HQwmgIfgORBjrAJeu/3CppWWIM09RV1av4P
-	syp0s
-X-Received: by 2002:a05:600c:5492:b0:4a1:e4c4:f6a9 with SMTP id 5b1f17b1804b1-4a1e4c4f8a8mr32200995e9.23.1792346183097;
-        Sun, 18 Oct 2026 10:56:23 -0700 (PDT)
-Received: from MBP-von-Karl.localdomain (dynamic-2a02-3100-b13f-0501-c85b-b4b7-2475-2549.310.pool.telefonica.de. [2a02:3100:b13f:501:c85b:b4b7:2475:2549])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d756ce69sm140854855e9.4.2026.10.18.10.56.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 18 Oct 2026 10:56:22 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	dmaengine@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dmaengine: dmatest: make wait parameter reads interruptible
-Date: Sun, 18 Oct 2026 19:56:06 +0200
-Message-Id: <20261018175606.38045-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1792346221; x=1792951021;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bKssVqS+1fUgzpvGYUPB7GmCd4wpzuePwRHvRr1rp2U=;
+        b=TvzOp6Dcgw/Qsnk54cDDBWM/nf3IqXaSrlYPE+DkSZiIPXY9Q/Ht6jl9cHbl0rKh1s
+         u32DStW7VIjWvF549bVgkV8qLQTVSV1PLKrONiOPoK4QMpO062xOqD1qUekldUZUeHB6
+         X2UHQ1sMKawPR/h9z9O9RkBeP4LqeACbAsIEzvjAJEyijZzp1cDkBACoOHdR10a22t6l
+         E3SxI/s461Il6XJUDFpqpg8zfaAsuQqhroxNFwpN1k2O1/4UjSuNGYlNAlc4eCRlM6Ih
+         GTyCMZFqHx5WOjpk2u9mWu7PJgBfaZBvxAHQa+z/tmwiJ4FcuXWo+LZeyOL1FZta1JgN
+         zd5g==
+X-Forwarded-Encrypted: i=1; AKwUvBwneVrCyR4dri+vkb4NlOmdMOPC7c5pvy2tFYGyxi8o/JyBDEYpuPg4z49i5pruLQGITqOwiOlRY6/gAFg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+8xbZdFzXTUkcv6B9pHxcLNYiAQPhf//3IiLQQLrXsAJZAjYr
+	pCEPX7bZsoKZl75D2KHnlltlKhA+mb+BOb6YdqQwxlotMYq7/nHEmzODNGAkLRhYYt3wjKGXvcp
+	JDjrPPV9oOWczsAUxLnKt9kWWrmn1Kko=
+X-Gm-Gg: AYBFou311YmCAde0WXCOSo/Dw6CYwS1uC9ViAzv0FYjrNm/UgdIkwZZvSLw2884rhnj
+	iwKzSilbPVdKFY+SXwTLtKUN7i0yOoJaWXNar/62lauk1FaXU6j6I7yy8eoOolhIb0crhJL1r0p
+	xSiODVa7ufNIKEqKuGqLKg2KXx0oujq7dIf84DOrZDLSyL5Qwu+paU+Mmtno9WWLffgPACwf5zc
+	Xt7P9VPObKi0aJIKzw9Tl5bsOdg7nztnm7Y9Dk4DtWj8l9aLdwAnsjPR0AgxFumqcbPIFvYoYbX
+	RrbLYlDDCmXpNxF+GFXy9j54FV7TIZ1GOewzjDcAXRID9JTYvAFDK9AO3dgI8cPU8UGVahluPw+
+	IsN1xszQ0qGcvFsURgu+8xkKQae0Qr+xalTCZTmJoqWQX6X4PKvP7K8pgnawMW76EUOb5nB4Aqe
+	wDwCk89HELFB1LLrDNM7fHf4/T02/KRU1C4tk1/HCiHgkeEwkyNhruI0ZOn9iAWA==
+X-Received: by 2002:a05:7301:da84:b0:358:7ed4:a049 with SMTP id
+ 5a478bee46e88-3619b212ef3mr13057373eec.0.1792346221395; Sun, 18 Oct 2026
+ 10:57:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261018175457.87803-1-ojeda@kernel.org>
+In-Reply-To: <20261018175457.87803-1-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 18 Oct 2026 19:56:48 +0200
+X-Gm-Features: AclHuK_3ymV6Lp1a_ivM4oJdQMCp7Ooe_ysoxuTMLzooZXb3XPtxZZvpcBg_tIc
+Message-ID: <CANiq72=zv6uDRu+x=BpSLWsZnB2XCnPduQ1PXPPQNzxDgtm54w@mail.gmail.com>
+Subject: Re: [PATCH] x86/rust: use `-Zindirect-branch-cs-prefix` for RETPOLINE builds
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, Peter Zijlstra <peterz@infradead.org>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	stable@vger.kernel.org, Kent Overstreet <kent.overstreet@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reading the wait parameter during a finite test uses wait_event(). The
-reader remains in uninterruptible sleep until all test threads finish.
-Long runs trigger the hung-task detector, and signals cannot stop the
-reader:
+On Sun, Oct 18, 2026 at 7:55=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
+te:
+>
+> The C compiler is asked to add a `cs` prefix to the `call` and `jmp`
+> instructions that go through the indirect thunks for the `r8`-`r15`
+> registers, which makes them 6 bytes long instead of 5. That gives
+> `patch_retpoline()` enough room to inline them, e.g. as `lfence; call
+> *%r11` for `spectre_v2=3Dretpoline,lfence`.
+>
+> However, Rust code does not get the prefix, e.g. for a
+> `CONFIG_MITIGATION_RETPOLINE=3Dy` build:
+>
+>     $ objdump -dr rust/kernel.o
+>     ...
+>       e2b: e8 00 00 00 00        call   e30 <...>
+>                 e2c: R_X86_64_PLT32  __x86_indirect_thunk_r11-0x4
+>
+> Moreover, since commit 4a1e02b15ac1 ("x86,retpoline: Optimize
+> patch_retpoline()"), `emit_indirect()` assumes there is enough room
+> for the inlined sequence -- e.g. with `spectre_v2=3Dretpoline,lfence`,
+> the kernel warns and dies while patching a site inside `core`:
+>
+>     WARNING: arch/x86/kernel/alternative.c:736 at apply_retpolines+0x2ee/=
+0x400, CPU#0: swapper/0/0
+>     ...
+>     Call Trace:
+>      <TASK>
+>      ? _RNvMs6_NtNtCshS2CUL9MEDn_4core3fmt8buildersNtB5_9DebugList21finis=
+h_non_exhaustive+0x5b/0xd0
+>      ...
+>      alternative_instructions+0x1d/0x60
+>      arch_cpu_finalize_init+0x5a/0xb0
+>      start_kernel+0x1f4/0x280
+>
+> Similarly, paranoid FineIBT rewrites each kCFI call site into a fixed
+> 20-byte sequence, i.e. the 14 bytes of the kCFI check plus a 6-byte
+> call. For a 5-byte call, that overwrites the first byte of the next
+> instruction, corrupting Rust code:
+>
+>     SMP alternatives: Using paranoid FineIBT CFI
+>     ...
+>     Oops: double fault: 0000 [#1]
+>     ...
+>     RIP: 0010:_RNvNtCsdVypMZsLRAh_4core3fmt5write+0x1e9/0x210
+>     Code: ... b8 68 81 16 9f 41 3b 43 f5 2e 4d 8d 5b f0 75 fd 41 ff e3 <c=
+c> c0 eb 02 b0 01 ...
+>     ...
+>     Kernel panic - not syncing: Fatal exception in interrupt
+>
+> Non-paranoid FineIBT is not affected, since it only rewrites the kCFI
+> check and leaves the call itself to `apply_retpolines()`.
+>
+> We added support for `-Zindirect-branch-cs-prefix` [1][2] in Rust 1.91.0
+> [3]. Thus pass it for `RETPOLINE` builds when possible, which makes all
+> sites indeed get the prefix:
+>
+>       e3c: 2e e8 00 00 00 00     cs call e42 <...>
+>                 e3e: R_X86_64_PLT32  __x86_indirect_thunk_r11-0x4
+>
+> The kernel above boots fine with `spectre_v2=3Dretpoline,lfence`, inlinin=
+g
+> the Rust sites as well.
+>
+> For older Rust compilers, set the LLVM module flag instead, which
+> has the same code-generation effect. This means that every Rust version
+> that the kernel supports gets the prefix, that the kernel boots fine with
+> `spectre_v2=3Dretpoline,lfence`, and that paranoid FineIBT no longer
+> corrupts.
+>
+> In addition, add it to our target modifier workaround for `rustdoc`.
+>
+> Cc: stable@vger.kernel.org # 6.18.y+
+> Link: https://github.com/rust-lang/rust/issues/116852 [1]
+> Link: https://github.com/rust-lang/compiler-team/issues/899 [2]
+> Link: https://github.com/rust-lang/rust/pull/140740 [3]
+> Reported-by: Kent Overstreet <kent.overstreet@linux.dev>
+> Assisted-by: LLM
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 
-  INFO: task cat:71690 blocked for more than 120 seconds.
-  Call trace:
-   dmatest_wait_get+0x17c/0x1d8 [dmatest]
-   param_attr_show+0x6c/0xb0
+Not sure if `Fixes:` tags may be wanted here, since this was simply a
+matter of not having added the support after we got it into the
+upstream compiler, but two candidates are:
 
-Use wait_event_interruptible() and propagate the signal error so Ctrl-C
-and timeout can abort the sysfs read. The test threads continue
-independently.
+  Fixes: 97e59672a9d2 ("x86/ibt: Add paranoid FineIBT mode")
+  Fixes: 4a1e02b15ac1 ("x86,retpoline: Optimize patch_retpoline()")
 
-On a Raspberry Pi 500+ RP1 DMA channel, a script configured dmatest with
-1 MiB buffers and two threads of 2,000 iterations each. The unpatched
-run completed all 4,000 tests without failures in 267 seconds, but
-emitted hung-task reports at 120 and 241 seconds.
+I hope this helps.
 
-With the patch, the same 4,000 tests completed without failures in 269
-seconds and emitted no hung-task report. In a separate patched run,
-SIGTERM terminated the reader. Both test threads continued and completed
-all 200 tests without failures.
-
-Fixes: 2d88ce76eb98 ("dmatest: add a 'wait' parameter")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- drivers/dma/dmatest.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/dma/dmatest.c b/drivers/dma/dmatest.c
-index 2ae346939..7e6b6c446 100644
---- a/drivers/dma/dmatest.c
-+++ b/drivers/dma/dmatest.c
-@@ -287,9 +287,14 @@ static int dmatest_wait_get(char *val, const struct kernel_param *kp)
- {
- 	struct dmatest_info *info = &test_info;
- 	struct dmatest_params *params = &info->params;
-+	int ret;
- 
--	if (params->iterations)
--		wait_event(thread_wait, !is_threaded_test_run(info));
-+	if (params->iterations) {
-+		ret = wait_event_interruptible(thread_wait,
-+					       !is_threaded_test_run(info));
-+		if (ret)
-+			return ret;
-+	}
- 	wait = true;
- 	return param_get_bool(val, kp);
- }
--- 
-2.39.5 (Apple Git-154)
-
+Cheers,
+Miguel
