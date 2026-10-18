@@ -1,64 +1,64 @@
 Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2169488234
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:57:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1FD4D4889
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:57:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792357059; cv=none; b=P1lOVaZNjQHnTY3pMd/KmNtMLP6hEMizF/ANIz69e721JbOsVUso02auOLptY5LMdoK+00j1PMlwK/zSO06JkDclemX7uN48uBpr+bl8QHYS0cA5q39uafM/ems64LvJC1Wi/saviXCte4O3iHL/uKoovPlmzv97yPdZYfZhy0w=
+	t=1792357056; cv=none; b=NuJRvhFCZBs5eit93D5oD+xrx18Jzk8GnUD/Pf9juxVDGE8dKvADJ+9dHZCZgvLFCwtNVIPhbY+MQnOycTybLGoThoFBxUEwbts2knUrCMIjqY//+/jorDdQyCOPzibR5h7wHfDtFmQPuuqz2IY1e4AGLQ+w5gxoKrFuui7tbJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792357059; c=relaxed/simple;
-	bh=in8qrMhhCn8+iRl1pHPQhgbmr3OKXurF25m+dmvmaas=;
+	s=arc-20240116; t=1792357056; c=relaxed/simple;
+	bh=9L1MUWesKnzW/j4nbifU5MtwwWjDVVgJAfvHXW+dGEs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pfg/CzSmZNDrFb08+YVHLKUufGSyCyS9cczSwPsbzBnA3WIxZlvT0PkXvLt5XgVO7glP/gIpiQgyIkL6tZ/6BTf2/cMZftttI5hSKiK8IMDt5nw03vsQq5UsTsIfkb+JveswfHOe/H+0X04nrTnIRyIReiV8iPZ1dyf9GNQF6XU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R6j546mz; arc=none smtp.client-ip=209.85.221.43
+	 MIME-Version; b=BXoWNtTAtUec9hTZY4rq5MKdxnslP+XEUbesBlrG/ZlHCk+/LMyFxEqmMyDDmkT6Gw6gCTxTt03AKYFdyWCqNmO9vyCTa9YLt1nVDJucfiGfICVSraqYcaOjz2kdicZPPYbnZfAEmDHI+oFc3EdS2lGF6Lxcuoqyoku859Me8Ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cYGgecfF; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R6j546mz"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so1035400f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:57:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cYGgecfF"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso1167640f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:57:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792357055; x=1792961855; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792357050; x=1792961850; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CwYhA8yuwTltEmhlw7+AMc/GWC8sIlkGYHOhcUohYjQ=;
-        b=R6j546mzN8EMmpPFf8Z3tWPkbcJSctbTeu6CVjzOuw9OuQhSpz1OchwCoA422oFFvx
-         R3h1HKBUo9wBjRciu7Wudd9I71riTwdawQ9e+HdoD+Seb+Dm1gqIuaO5Ltis5vo0doXO
-         lTxRqc9UgKdjzv6XN/t7k2LKCYYc+KT8uHAsVHuXdj+SUOtBPXpEui+YaKyKDS/ngzso
-         pSx1oF5EbSsQkVI9ukL+E5FCSzIpwIXHoDg//SD6UjQnGvbnjRQknBPns2QppFtgGZXw
-         wFEFEWvEZI9xJyKux4fME11qnLsIXS8GNvgi1z9OdNlUu7rAviVEVnJYK4CbpY9CidQo
-         OQAA==
+        bh=aMy4jUecZbAP9r0NgW4diLy64NCzpGcs+Y/SryrXpU8=;
+        b=cYGgecfFZX40jkQ75AjpprkBWFgN8qEgZcV/6K5NpcMAithaMVcFfV8Mka9OM72KJ3
+         A/qCaiZHKhWzcOJTCjbES4oWzH/zvkouNkrmbDUF4yzcOg2n9bBa/2TW9oKpw3ZJ2TEy
+         UcyUA44/5aDv1xGnGUYDTcDHTvBu5KxWF2Qk0Veekke/9xC6paguhE+OX1dJL/jvtgYA
+         rcxUcPuxqsd0G59zYN6NF89s+wuurYrBumBFaJTG8PsMJ4WVRuQnrbFFSytmvJQIWuzh
+         /Y10oSDWM+EBuQ4Qr1fLlqCqwVw0ef0+LijOSJAis8DicqGndg/kGvrY463ebi2ePAJc
+         bXPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792357055; x=1792961855;
+        d=1e100.net; s=20260707; t=1792357050; x=1792961850;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CwYhA8yuwTltEmhlw7+AMc/GWC8sIlkGYHOhcUohYjQ=;
-        b=ZwMgKVWWoBKcBRz+KrZ4jq5Qy/LJBTUXuITmroA+W8bVOD9DcQk0HoiPsII+OGDDlZ
-         LVGZuZjcPASNhIyK5MRV//Hlg0Q9MnpO+XQplDA6YE6KTxrbNnNjjz0xiUlVBCrGRl1g
-         68bZsIG83Yms86/8gH62kIQcm4qojCCEtI4q3+3vJZmOJ2ssC6gK3JluZptwMfqQoD6/
-         K6KJeaplBViDoXaM/vOr/d9z6u/tUBExdyNyhzzugiuiHb569tc9FId3WsAPgQf9/6Ay
-         eWjMsPh5kRxiPOi5ot/cIfzSTtQB4sEA7aJZc2zKo35i9LRIGja9rp3kRZF+7F/xHT+V
-         ueGA==
-X-Forwarded-Encrypted: i=1; AKwUvByRSiRWQYVdZHSk1wg0/ECNEG4IJy62X+xT54e4BbZ2trGou3soECWdV/CxNL38DM7CL8PYg7wRCR43YKM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsBxdFTupcZeK22sQq2soLLLBH7sOo5b5L/PHNCTOy+oidbCAX
-	PjQnHeU8jjeF8qivZrU9S2bu0ednupSrbMj+sbojX0W7ZSL4QQ906Egd
-X-Gm-Gg: AYBFou2qHoPbEZ3dURAXpYUqdGR5NytkxxVyfxUdR9O0mbhGnUmNNaLzW0pQaAjKsFq
-	tTKaK77M4SLh39G+dD7dYR8b/kFsg7ZhS3EFcSVsH/ueumOKiDNOn3nXDaTdHd5nTWqn7cURCEa
-	zVQv3i10I1Grj517+SfMDZGRnr3xXKNrW9VUaTD738m3vpkMuHABlZsNOhA1bBhkT9KAHY5GB5q
-	uFrJz1tccVieHGQdksuC1IisqrffF+Q8qkhSQvYEUrYsYD4BAuRh+HVBVEHTY66xLHoPsix8ROg
-	sj/x9f0MX940B5oQHAm3lkwJQVf614EEzyKx7BofxdoJl9zaKriUbZhcT1yaXovgGU7xGYD0dau
-	LIbvo4LhPAoqh/LQ1umoJ2RKxbkDdqkc11s4ww1jkwsZywDUFx58mPMZDXFSnBUP0PixtD/FwPP
-	nk+vCy/wUuAIA40Uuxf4d7oHAjSkh8m5NEK0o5tCYuv9McIoN0wdqNy0ntgWSmsxpRQBFiiSfAl
-	LA3QbYU9J10hMKo4U57pBt6gzHOONKuE1gRavYBa9VwD9Q635Yo3mWh/U4mQI8R2JxQsg==
-X-Received: by 2002:a5d:5d08:0:b0:48d:efcb:1fea with SMTP id ffacd0b85a97d-48e07911cf3mr13691712f8f.0.1792357054881;
-        Sun, 18 Oct 2026 13:57:34 -0700 (PDT)
+        bh=aMy4jUecZbAP9r0NgW4diLy64NCzpGcs+Y/SryrXpU8=;
+        b=LQqkFxXBd7aCmhUclRvGzopyo0S1YP9W/71C/JvO1JWCBobeJMXJHXu5ygL0h0Ki2+
+         XOfTwCpjz3k5ppTfSURYhgfBwZqTTx5zMJAt1vuCL5ZqpmsHSzUPP6i86HcwL2unZS5y
+         rO/BNg5r2YrDdTsRPszFjqNJRtbznJdYmqJWpNIpRlMaSGsMLfBBWNEwo2eOpKsrjYCC
+         w6aw4h7+D+M6mH3Fz0T1g9jHod3oZ0fCju/Wx5TxBvL6zF7ZLCOOA/GWuyLL5hjS2P+Q
+         /bgPbed0eJtQE6Ln4eDy02lX+hiF2hHsY0PS9udcFgVbnMrFzn4Obn/Ri4vN8dabInkC
+         qq1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzMRI8d8y2ghVVwC0FVkYDKmJwK7ljYYnB+m6/u8Irl4aINAKewHfhkXq1h10R1xhQnQbcfIfZOnIbENA4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKO7+aKty2VZnawGPwBRNHTLJ6jORQurQkXpPH79wPciUjYl+iI
+	p/er7tYk5QwQgwXzlRbg2CkzYtmRHZ30SSEgLlH4FfYBfE5akaaq89wV
+X-Gm-Gg: AYBFou3/TvZG03F/RgDoXSMjhL5Ppm8STngO/RFuuebKfuwMqzaj/m7o2RC35TdmhZ+
+	Gwssu/NhgTomQT4j9J8VWSUxgQ744ayH0YhOPHGyLDcIwjHQlnEAAPI5qWO2GXUIpYs7OVti5IK
+	VrTDsZ0zCBAnTjHqwKjTMqLRnGDRJfuf+NVgCSZ4W9KY6LiBqur4HW+h5ygu9XLYJi7ZFGbk/v9
+	2o0/oWqShYUo4ht8QLZyPFTVYusoDe3XkEzN3fxNZciAk/d8j2RYx0hp2bcx+HKVSXx03q0I1tp
+	jN3WHicInd1bNSSI6QZET0aSsUIygSmaWZTDlD6eobKhAwEJWX0NY75LWxMzn3gq0EN+B6buCUK
+	pacJEkgEZo0nJUT0YjngI7aPn6QK2kKsO70WtWQGOboAG/j2gHCPPpBQ+s3m6KUR3L3zNQBqAiR
+	bIuTgD7XOxXTkMVISW59reoBGQG78GQNc7sdYZ0B7nPsEL6b7BZ4uIGDL42OO1VG8GVbkIpxI/2
+	jMsFC2jCdqPy58xZyBt5po+pcgiajcXuJjCb9phYKi+EJ2nP/uo9r2KFxmkhZlCnsCPdA==
+X-Received: by 2002:a05:6000:3c4:b0:486:fb08:2353 with SMTP id ffacd0b85a97d-48e07bc3e93mr12097107f8f.31.1792357049803;
+        Sun, 18 Oct 2026 13:57:29 -0700 (PDT)
 Received: from localhost ([178.214.243.78])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f5177sm18496263f8f.30.2026.10.18.13.57.31
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f5177sm18496263f8f.30.2026.10.18.13.57.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 13:57:33 -0700 (PDT)
+        Sun, 18 Oct 2026 13:57:28 -0700 (PDT)
 From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 To: jikos@kernel.org,
 	bentiss@kernel.org,
@@ -69,9 +69,9 @@ Cc: tiwai@suse.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v10 6/8] ALSA: usb-audio: add the Topping M62's port power settings
-Date: Mon, 19 Oct 2026 01:57:08 +0500
-Message-ID: <20261018205711.168291-7-mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v10 4/8] ALSA: usb-audio: add the Topping E2x2 OTG's vendor controls
+Date: Mon, 19 Oct 2026 01:57:06 +0500
+Message-ID: <20261018205711.168291-5-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261018205711.168291-1-mikhail.v.gavrilov@gmail.com>
 References: <20261018205711.168291-1-mikhail.v.gavrilov@gmail.com>
@@ -83,260 +83,706 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An M62 whose USB-C port the vendor's application has set to Off or
-Discharge does not charge from the computer it is connected to, and
-runs its battery down; nothing on Linux shows that setting or changes
-it, nor the power of the OTG port. Both are kept in the card, and the
-application offers them under Device.
+The E2x2 OTG keeps its input gains, its faders, its output and loopback
+source selectors and its output switches behind the vendor protocol
+hid-topping speaks, and reports none of them back. A Linux host cannot
+set them at all, and inherits whatever the last host left in the card,
+which saves its own state across power cycles: with the three output
+switches left off by the vendor application, the card plays nothing
+and nothing on Linux can turn it back on.
 
-Offer both as enumerated controls with the application's items: "USB-C
-Port Power" (Charge, Discharge, Off) and "OTG Port Power" (Discharge,
-Off), at 0x11/0x1c and 0x11/0x1b, in every mode.
+The control tables become per model, chosen by USB ID. A model is all
+this file knows of a card: its rows, the properties written at every
+bind without a control, and whether bcdDevice tells its mode, as the
+M62's does. The per-card state is sized from the model, so a card with
+more controls is only a longer table. A row may now be an on/off
+switch, and a selector names its own list of sources. The E2x2 OTG
+takes its gains and faders as Q25, through a table of what each step
+writes, as the M62's loopback gains do.
 
-Like every other value here, both are written at the first bind: the
-USB-C port to Charge, so that a card left on Off or Discharge by another
-host takes power from this one again, and the OTG port to Off, which
-leaves a phone on it to its own battery rather than the card's.
-alsactl's restore then puts back what the user chose. The card reports
-both settings in its announce, and a report updates the control, as for
-the volumes; but it sends each of the two once in an announce and leaves
-one or both out of some announces, 13 of 120 in one run here, so the
-announce cannot stand in for the write. The vendor application reads
-them from the announce and never pushes them; a host that is to charge
-the card cannot leave that to an announce that may not come.
+Every control is written at the first bind, as for the M62: the gains at
++0 dB, the faders at 0 dB, the outputs on Playback 1/2, each loopback on
+Playback 3/4, 5/6 and 7/8, the output switches on and the headphone
+amplifier's extra gain off. Four properties of unknown meaning get the
+values the vendor application always writes.
+
+48V, INST and the monitor mix knob are left to the front panel. MON
+is not, although it has buttons there and the card reports them:
+after every power-on the card mixes as though monitoring were on, so
+the monitor mix knob sits in the playback path -- at its leftmost
+position nothing is heard -- until MON on both inputs has been
+switched off. The vendor application writes both at every connect,
+and so does this driver at every bind, starting from off. A MON off
+written to IN 2 while IN 1 monitors also silences the monitor mix
+until a MON on is written, so after either MON is written the other
+is written again if it is on.
 
 Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 ---
- sound/usb/mixer_topping.c | 143 ++++++++++++++++++++++++++++----------
- 1 file changed, 108 insertions(+), 35 deletions(-)
+ sound/usb/mixer_quirks.c  |   1 +
+ sound/usb/mixer_topping.c | 407 +++++++++++++++++++++++++++++++-------
+ 2 files changed, 332 insertions(+), 76 deletions(-)
 
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index 78d1966..fe68975 100644
+--- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -4545,6 +4545,7 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ 		err = snd_evo_controls_create(mixer);
+ 		break;
+ 
++	case USB_ID(0x152a, 0x8756): /* Topping E2x2 OTG */
+ 	case USB_ID(0x152a, 0x875c): /* Topping M62 */
+ 		err = snd_topping_init(mixer);
+ 		break;
 diff --git a/sound/usb/mixer_topping.c b/sound/usb/mixer_topping.c
-index 725db57..854ff0a 100644
+index cd848a3..725db57 100644
 --- a/sound/usb/mixer_topping.c
 +++ b/sound/usb/mixer_topping.c
-@@ -2,16 +2,17 @@
+@@ -1,16 +1,17 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
  /*
-  * Topping M62 and E2x2 OTG -- the cards' vendor controls.
+- * Topping M62 -- the card's vendor controls.
++ * Topping M62 and E2x2 OTG -- the cards' vendor controls.
   *
-- * The M62's analogue input gains, output volumes, source selectors and
-- * loopback gains, and the E2x2 OTG's digital input gains, faders,
-- * source selectors and output switches, are not described by the USB
-- * Audio Class.  They are reached over a vendor protocol on the card's
-- * HID interface, which hid-topping speaks.  This file owns the
-- * controls; that driver is the transport.  The two meet through the
-- * component framework, with this side as the master, in the same shape
-- * as HD-audio and the graphics drivers in sound/hda/core/component.c:
-- * the master owns a struct topping_component, and the HID driver fills
-- * in its one operation when it binds and clears it when it unbinds.
-+ * The M62's analogue input gains, output volumes, source selectors,
-+ * loopback gains and port power settings, and the E2x2 OTG's digital
-+ * input gains, faders, source selectors and output switches, are not
-+ * described by the USB Audio Class.  They are reached over a vendor
-+ * protocol on the card's HID interface, which hid-topping speaks.
-+ * This file owns the controls; that driver is the transport.
-+ * The two meet through the component framework, with this side
-+ * as the master, in the same shape as HD-audio and the graphics
-+ * drivers in sound/hda/core/component.c: the master owns a struct
-+ * topping_component, and the HID driver fills in its one operation
-+ * when it binds and clears it when it unbinds.
+  * The M62's analogue input gains, output volumes, source selectors and
+- * loopback gains are not described by the USB Audio Class.  They are
+- * reached over a vendor protocol on the card's HID interface, which
+- * hid-topping speaks.  This file owns the controls; that driver is
+- * the transport.  The two meet through the component framework, with
+- * this side as the master, in the same shape as HD-audio and the
+- * graphics drivers in sound/hda/core/component.c: the master owns a
+- * struct topping_component, and the HID driver fills in its one
+- * operation when it binds and clears it when it unbinds.
++ * loopback gains, and the E2x2 OTG's digital input gains, faders,
++ * source selectors and output switches, are not described by the USB
++ * Audio Class.  They are reached over a vendor protocol on the card's
++ * HID interface, which hid-topping speaks.  This file owns the
++ * controls; that driver is the transport.  The two meet through the
++ * component framework, with this side as the master, in the same shape
++ * as HD-audio and the graphics drivers in sound/hda/core/component.c:
++ * the master owns a struct topping_component, and the HID driver fills
++ * in its one operation when it binds and clears it when it unbinds.
   *
   * THE CONTROLS LIVE AS LONG AS THE CARD.  They are created at the first
   * bind of the HID driver and not removed when it unbinds: a value
-@@ -27,19 +28,22 @@
-  * THE CARD'S STATE CANNOT BE READ.  The card reports what a hand does to
-  * its hardware, every turn of a front-panel knob, and when a session
-  * opens it announces the gains of the inputs that have something
-- * plugged in; nothing answers a request for a value.  A host that does
-- * not set the card inherits whatever the last host, or a hand on the
-- * panel, left in a battery-powered card.  So the first bind writes
-+ * plugged in and the M62's port power settings, though an announce can
-+ * leave those out; nothing answers a request for a value.  A host that
-+ * does not set the card inherits whatever the last host, or a hand on
-+ * the panel, left in a battery-powered card.  So the first bind writes
-  * everything, and from then on the cache is the truth, which the card's
-  * own reports keep up to date: each output listens to the host's main
-  * stream, Playback 1/2, with the mixer out of the path, or at 0 dB
-  * through it where there is no way around it, as on an M62 in Mobile
-  * Mode; every input gain starts at 0 dB, where it changes nothing; the
-- * analogue headphone stage starts at its quiet end; and the digital
-- * stream to a phone starts at unity.  That follows the usual Linux
-- * division -- the kernel puts the hardware into a defined state, and the
-- * level a user hears is set from userspace, by alsactl's restore or init
-- * and by the sound server, both of which run after the card appears.
-+ * analogue headphone stage starts at its quiet end; the digital stream
-+ * to a phone starts at unity; and the M62's USB-C port charges the card,
-+ * while its OTG port leaves a phone to its own battery.  That follows
-+ * the usual Linux division -- the kernel puts the hardware into a
-+ * defined state, and the level a user hears is set from userspace, by
-+ * alsactl's restore or init and by the sound server, both of which run
-+ * after the card appears.
-  */
- 
- #include <linux/bits.h>
-@@ -250,14 +254,43 @@ struct topping_enum_desc {
+@@ -107,8 +108,10 @@ struct topping_ctl_desc {
+ 	u8 prop;
+ 	int min, max;
+ 	int first;		/* written at the first bind */
+-	const unsigned int *tlv;
++	const unsigned int *tlv;	/* NULL for a switch */
+ 	const s32 *map;		/* what each step writes, or NULL: the step */
++	bool sw;		/* an on/off switch, not a level */
++	u8 resend;		/* written again after this one if on, or 0 */
  	u8 modes;		/* the modes that have it, or 0 for all */
  };
  
-+/* the power settings of the two ports, as the vendor application has them */
-+static const char * const topping_m62_usbc_power[] = {
-+	"Charge", "Discharge", "Off",
-+};
-+
-+static const u8 topping_m62_usbc_power_value[] = { 1, 2, 3 };
-+
-+static const struct topping_sources topping_m62_usbc = {
-+	topping_m62_usbc_power, topping_m62_usbc_power_value,
-+	ARRAY_SIZE(topping_m62_usbc_power),
-+};
-+
-+static const char * const topping_m62_otg_power[] = { "Discharge", "Off" };
-+
-+static const u8 topping_m62_otg_power_value[] = { 1, 0 };
-+
-+static const struct topping_sources topping_m62_otg = {
-+	topping_m62_otg_power, topping_m62_otg_power_value,
-+	ARRAY_SIZE(topping_m62_otg_power),
-+};
-+
- /*
-- * A selector answers on ONE target of a pair, unlike a volume or a
-- * mute, which must be written to both: the second target of an
-+ * A source selector answers on ONE target of a pair, unlike a volume
-+ * or a mute, which must be written to both: the second target of an
-  * output's pair, the first of a loopback return's.  It is never
-  * reported, so it is always written at the first bind.  The outputs
-  * start on the host's main stream, the loopback returns where the
-  * vendor application puts them.
-  *
-+ * The power settings of the USB-C port the card is connected by and of
-+ * its OTG port are in the card's announce, but not in every one, and
-+ * another host can leave them anywhere: set to Off or Discharge, the
-+ * USB-C port does not charge the card from this computer, and the card
-+ * runs its battery down.  So they are written like everything else, the
-+ * USB-C port to Charge and the OTG port to Off, which leaves a phone on
-+ * that port to its own battery rather than the card's.
-+ *
-  * The names end in "Source", not "Route": alsa-lib's simple mixer joins
-  * a "... Playback Route" or "... Capture Route" enumeration to the
-  * volume of the same name and then reads and writes only the
-@@ -277,6 +310,8 @@ static const struct topping_enum_desc topping_m62_enums[] = {
- 	  TOPPING_M62_BT, &topping_m62_src, TOPPING_PRO },
- 	{ "Loopback 7/8 Capture Source", 0x57, 0x02,
- 	  TOPPING_M62_OTG_IN, &topping_m62_src, TOPPING_PRO },
-+	{ "USB-C Port Power", 0x11, 0x1c, 0, &topping_m62_usbc },	/* Charge */
-+	{ "OTG Port Power", 0x11, 0x1b, 1, &topping_m62_otg },		/* Off */
+@@ -201,8 +204,6 @@ static const struct topping_ctl_desc topping_m62_ctls[] = {
+ 	  0, topping_tlv_lb, .modes = TOPPING_MOBILE },
  };
  
+-#define TOPPING_NUM_CTLS	ARRAY_SIZE(topping_m62_ctls)
+-
  /*
-@@ -610,7 +645,9 @@ static void topping_sync(struct topping_mixer *tm)
- 	for (i = 0; i < m->num_enums; i++) {
- 		if (!topping_here(tm, m->enums[i].modes))
- 			continue;
--		topping_write_sel(tm, i, tm->sel[i]);
-+		scoped_guard(spinlock_irqsave, &tm->val_lock)
-+			value = tm->sel[i];
-+		topping_write_sel(tm, i, value);
- 	}
- 	for (i = 0; i < m->num_fixed; i++)
- 		topping_write(tm, m->fixed[i].target, m->fixed[i].prop,
-@@ -640,6 +677,41 @@ static void topping_resume_work(struct work_struct *work)
-  * control's own private_free clears kctl[] under this lock.  It is safe
-  * from here: it takes read_lock_irqsave and allocates with GFP_ATOMIC.
+  * WHAT AN OUTPUT CAN LISTEN TO.  The same numbering serves the outputs
+  * and the loopback returns, and it has a hole where 4 and 5 would be,
+@@ -228,11 +229,24 @@ static_assert(ARRAY_SIZE(topping_m62_sources) ==
+ #define TOPPING_M62_PLAYBACK_1_2	9
+ #define TOPPING_M62_PLAYBACK_3_4	10
+ 
++/* the items of a selector, and what the card wants for each */
++struct topping_sources {
++	const char * const *items;
++	const u8 *values;
++	unsigned int num;
++};
++
++static const struct topping_sources topping_m62_src = {
++	topping_m62_sources, topping_m62_source_value,
++	ARRAY_SIZE(topping_m62_sources),
++};
++
+ struct topping_enum_desc {
+ 	const char *name;
+ 	u8 target;
+ 	u8 prop;
+ 	unsigned int first;	/* the item written at the first bind */
++	const struct topping_sources *src;
+ 	u8 modes;		/* the modes that have it, or 0 for all */
+ };
+ 
+@@ -252,21 +266,210 @@ struct topping_enum_desc {
   */
-+static void topping_report_sel(struct topping_mixer *tm, u8 target,
-+			       u8 prop, s32 value)
+ static const struct topping_enum_desc topping_m62_enums[] = {
+ 	{ "Headphone Playback Source", 0x64, 0x02,
+-	  TOPPING_M62_PLAYBACK_1_2, TOPPING_PRO },
++	  TOPPING_M62_PLAYBACK_1_2, &topping_m62_src, TOPPING_PRO },
+ 	{ "OTG Playback Source", 0x62, 0x02,
+-	  TOPPING_M62_PLAYBACK_1_2, TOPPING_PRO },
++	  TOPPING_M62_PLAYBACK_1_2, &topping_m62_src, TOPPING_PRO },
+ 	{ "Loopback 1/2 Capture Source", 0x51, 0x02,
+-	  TOPPING_M62_PLAYBACK_1_2, TOPPING_PRO },
++	  TOPPING_M62_PLAYBACK_1_2, &topping_m62_src, TOPPING_PRO },
+ 	{ "Loopback 3/4 Capture Source", 0x53, 0x02,
+-	  TOPPING_M62_PLAYBACK_3_4, TOPPING_PRO },
++	  TOPPING_M62_PLAYBACK_3_4, &topping_m62_src, TOPPING_PRO },
+ 	{ "Loopback 5/6 Capture Source", 0x55, 0x02,
+-	  TOPPING_M62_BT, TOPPING_PRO },
++	  TOPPING_M62_BT, &topping_m62_src, TOPPING_PRO },
+ 	{ "Loopback 7/8 Capture Source", 0x57, 0x02,
+-	  TOPPING_M62_OTG_IN, TOPPING_PRO },
++	  TOPPING_M62_OTG_IN, &topping_m62_src, TOPPING_PRO },
++};
++
++/*
++ * THE E2X2 OTG REPORTS LITTLE OF WHAT IS SHOWN HERE.  Its gains, faders,
++ * selectors and output switches are only ever written, by its vendor
++ * application as by this driver, so every one of them is written at
++ * the first bind and the cache is the truth from then on.  None of them
++ * has a control on the front panel, so another host can leave any of
++ * them anywhere -- every output switched off, say -- and this side has
++ * to be able to put it back.  What the panel owns is left alone: the
++ * 48V and INST buttons, and the monitor mix knob, which the card
++ * reports and does not take from the host anyway.  MON is the
++ * exception, for the reason given at its rows.
++ *
++ * The card keeps its own state, saving a change about five seconds
++ * after it is made, so nothing is written that does not have to be: a
++ * put that leaves the cache as it was writes nothing, and only a bind
++ * or a resume writes everything.
++ *
++ * Input gain is digital, +0 to +20 dB in whole decibels, and these are
++ * the values the vendor application writes for each step.  The Mobile
++ * input's gain is the one on its left channel, 0x22; it moves both.
++ */
++static const s32 topping_e2x2_gain[] = {
++	33554432, 37648680, 42242512, 47396908, 53180188, 59669144,
++	66949880, 75119016, 84284904, 94569240, 106108440, 119055624,
++	133582616, 149882144, 168170512, 188690432, 211714144, 237547200,
++	266532320, 299054176, 335544320,
++};
++
++static_assert(ARRAY_SIZE(topping_e2x2_gain) == 21);
++
++/* A fader in whole decibels: step 0 is off, step n is n - 81 dB. */
++static const s32 topping_e2x2_fader[] = {
++	0, 3355, 3765, 4224, 4740, 5318,
++	5967, 6695, 7512, 8428, 9457, 10611,
++	11906, 13358, 14988, 16817, 18869, 21171,
++	23755, 26653, 29905, 33554, 37649, 42243,
++	47397, 53180, 59669, 66950, 75119, 84285,
++	94569, 106108, 119056, 133583, 149882, 168171,
++	188690, 211714, 237547, 266532, 299054, 335544,
++	376487, 422425, 473969, 531802, 596692, 669499,
++	751190, 842849, 945692, 1061084, 1190556, 1335826,
++	1498821, 1681705, 1886904, 2117142, 2375472, 2665323,
++	2990542, 3355443, 3764869, 4224253, 4739689, 5318019,
++	5966916, 6694989, 7511902, 8428492, 9456924, 10610843,
++	11905562, 13358260, 14988214, 16817053, 18869044, 21171415,
++	23754719, 26653233, 29905419, 33554432,
++};
++
++static_assert(ARRAY_SIZE(topping_e2x2_fader) == 82);
++
++static const DECLARE_TLV_DB_SCALE(topping_tlv_fader, -8100, 100, 1);
++
++static const struct topping_ctl_desc topping_e2x2_ctls[] = {
++	{ "Mic1 Digital Capture Volume", 0x21, 0, 0x05, 0, 20,
++	  0, topping_tlv_gain, topping_e2x2_gain },
++	{ "Mic2 Digital Capture Volume", 0x23, 0, 0x05, 0, 20,
++	  0, topping_tlv_gain, topping_e2x2_gain },
++	{ "OTG Capture Volume", 0x22, 0, 0x05, 0, 20,
++	  0, topping_tlv_gain, topping_e2x2_gain },
++	/*
++	 * Output 1+2's fader as "Master": the sound server's stock
++	 * profile takes a control by that name for the volume of the
++	 * output, so the desktop's own slider moves this fader, and there
++	 * is no second level left somewhere out of sight.
++	 */
++	{ "Master Playback Volume", 0x31, 0x32, 0x03, 0, 81,
++	  81, topping_tlv_fader, topping_e2x2_fader },
++	{ "OTG Playback Volume", 0x33, 0x34, 0x03, 0, 81,
++	  81, topping_tlv_fader, topping_e2x2_fader },
++	{ "SPDIF Playback Volume", 0x5a, 0x5b, 0x03, 0, 81,
++	  81, topping_tlv_fader, topping_e2x2_fader },
++	{ "Loopback 1+2 Capture Volume", 0x51, 0x52, 0x03, 0, 81,
++	  81, topping_tlv_fader, topping_e2x2_fader },
++	{ "Loopback 3+4 Capture Volume", 0x53, 0x54, 0x03, 0, 81,
++	  81, topping_tlv_fader, topping_e2x2_fader },
++	{ "Loopback 5+6 Capture Volume", 0x55, 0x56, 0x03, 0, 81,
++	  81, topping_tlv_fader, topping_e2x2_fader },
++	/*
++	 * Not "Headphone Playback Switch": the sound server's stock
++	 * profile would take a control by that name for the mute of the
++	 * whole output, and muting would then silence the headphones
++	 * alone while TRS and AUX play on.
++	 */
++	{ "Output 1+2 Headphone Playback Switch", 0x37, 0, 0x01, 0, 1, 1,
++	  .sw = true },
++	{ "Output 1+2 TRS Playback Switch", 0x37, 0, 0x03, 0, 1, 1,
++	  .sw = true },
++	{ "Output 1+2 AUX Playback Switch", 0x37, 0, 0x05, 0, 1, 1,
++	  .sw = true },
++	{ "Output 1+2 Headphone Gain Playback Switch", 0x35, 0, 0x02, 0, 1, 0,
++	  .sw = true },
++	/*
++	 * MON has buttons on the front panel, and the card reports them,
++	 * but it is written here all the same.  After every power-on the
++	 * card mixes as though monitoring were on, whatever the buttons
++	 * show: the monitor mix knob stays in the playback path, passing
++	 * all of it at its rightmost position and none at its leftmost,
++	 * until MON on IN 1 and on IN 2 have both been switched off, from
++	 * the panel or by a write.  The vendor application writes both at
++	 * every connect, and this driver does the same at every bind.
++	 *
++	 * Written from the host, MON off on IN 2 also silences the monitor
++	 * mix while IN 1 still monitors, until the knob is turned or a MON
++	 * on is written.  So after either is written, the other is written
++	 * again if it is on: a MON on is the cure, and a second MON off
++	 * would be the very write that does the harm.
++	 */
++	{ "Mic1 Monitor Playback Switch", 0x21, 0, 0x01, 0, 1, 0,
++	  .sw = true, .resend = 0x23 },
++	{ "Mic2 Monitor Playback Switch", 0x23, 0, 0x01, 0, 1, 0,
++	  .sw = true, .resend = 0x21 },
++};
++
++/* The vendor application's numbering, in the order of its menu. */
++static const char * const topping_e2x2_sources[] = {
++	"Mix A", "Mix B", "Mix C", "Mix D", "IN 1", "IN 2", "IN 1+2",
++	"Mobile IN", "Playback 1/2", "Playback 3/4", "Playback 5/6",
++	"Playback 7/8",
++};
++
++static const u8 topping_e2x2_source_value[] = {
++	11, 12, 13, 14, 1, 3, 5, 2, 7, 8, 9, 10,
++};
++
++static_assert(ARRAY_SIZE(topping_e2x2_sources) ==
++	      ARRAY_SIZE(topping_e2x2_source_value));
++
++static const struct topping_sources topping_e2x2_src = {
++	topping_e2x2_sources, topping_e2x2_source_value,
++	ARRAY_SIZE(topping_e2x2_sources),
++};
++
++/*
++ * The outputs listen to the host's main stream, and each loopback to
++ * one of the others, as the vendor application sets them: nothing is
++ * recorded from a loopback until someone chooses what.
++ */
++static const struct topping_enum_desc topping_e2x2_enums[] = {
++	{ "Output 1+2 Playback Source", 0x35, 0x01, 8, &topping_e2x2_src },
++	{ "OTG Playback Source", 0x36, 0x01, 8, &topping_e2x2_src },
++	{ "SPDIF Playback Source", 0x5c, 0x01, 8, &topping_e2x2_src },
++	{ "Loopback 1+2 Capture Source", 0x57, 0x01, 9, &topping_e2x2_src },
++	{ "Loopback 3+4 Capture Source", 0x58, 0x01, 10, &topping_e2x2_src },
++	{ "Loopback 5+6 Capture Source", 0x59, 0x01, 11, &topping_e2x2_src },
+ };
+ 
+-#define TOPPING_NUM_ENUMS	ARRAY_SIZE(topping_m62_enums)
+-#define TOPPING_NUM_KCTLS	(TOPPING_NUM_CTLS + TOPPING_NUM_ENUMS)
++/* written at every bind and after every resume, with no control */
++struct topping_fixed {
++	u8 target;
++	u8 prop;
++	s32 value;
++};
++
++/*
++ * What the vendor application writes, always the same, to properties
++ * whose meaning is not known; written here so that the card is in the
++ * state that application leaves it in whatever another host did.
++ */
++static const struct topping_fixed topping_e2x2_fixed[] = {
++	{ 0x36, 0x02, 0 },
++	{ 0x37, 0x02, 1 },
++	{ 0x37, 0x04, 1 },
++	{ 0x37, 0x06, 1 },
++};
++
++struct topping_model {
++	const struct topping_ctl_desc *ctls;
++	unsigned int num_ctls;
++	const struct topping_enum_desc *enums;
++	unsigned int num_enums;
++	const struct topping_fixed *fixed;
++	unsigned int num_fixed;
++	bool bcd_mode;		/* tells its mode in bcdDevice, as the M62 does */
++};
++
++static const struct topping_model topping_m62 = {
++	.ctls = topping_m62_ctls,
++	.num_ctls = ARRAY_SIZE(topping_m62_ctls),
++	.enums = topping_m62_enums,
++	.num_enums = ARRAY_SIZE(topping_m62_enums),
++	.bcd_mode = true,
++};
++
++static const struct topping_model topping_e2x2_otg = {
++	.ctls = topping_e2x2_ctls,
++	.num_ctls = ARRAY_SIZE(topping_e2x2_ctls),
++	.enums = topping_e2x2_enums,
++	.num_enums = ARRAY_SIZE(topping_e2x2_enums),
++	.fixed = topping_e2x2_fixed,
++	.num_fixed = ARRAY_SIZE(topping_e2x2_fixed),
++};
+ 
+ /*
+  * One per card, and as long-lived as the card's controls: each control
+@@ -280,6 +483,7 @@ struct topping_mixer {
+ 	struct snd_card *card;
+ 	struct usb_mixer_interface *mixer;
+ 
++	const struct topping_model *model;
+ 	u8 mode;			/* TOPPING_MOBILE or TOPPING_PRO */
+ 	struct topping_component comp;
+ 	struct work_struct resume_work;
+@@ -295,11 +499,11 @@ struct topping_mixer {
+ 	bool created;			/* the controls exist */
+ 
+ 	spinlock_t val_lock;		/* the cache and kctl[] against reports */
+-	int val[TOPPING_NUM_CTLS];
+-	unsigned int sel[TOPPING_NUM_ENUMS];
++	int *val;			/* one per row of the model's ctls */
++	unsigned int *sel;		/* one per row of its enums */
+ 
+-	/* the volume controls first, then the selectors */
+-	struct snd_kcontrol *kctl[TOPPING_NUM_KCTLS];
++	/* the volume controls and switches first, then the selectors */
++	struct snd_kcontrol **kctl;
+ };
+ 
+ static void topping_mixer_release(struct kref *ref)
+@@ -307,6 +511,9 @@ static void topping_mixer_release(struct kref *ref)
+ 	struct topping_mixer *tm = container_of(ref, struct topping_mixer,
+ 						ref);
+ 
++	kfree(tm->kctl);
++	kfree(tm->sel);
++	kfree(tm->val);
+ 	mutex_destroy(&tm->lock);
+ 	kfree(tm);
+ }
+@@ -329,11 +536,25 @@ static bool topping_here(const struct topping_mixer *tm, u8 modes)
+ 	return !modes || (modes & tm->mode);
+ }
+ 
++/* -1 when this frame is not one of ours */
++static int topping_index_of(const struct topping_mixer *tm, u8 target,
++			    u8 prop)
 +{
 +	const struct topping_model *m = tm->model;
-+	const struct topping_enum_desc *d;
-+	struct snd_kcontrol *kctl;
-+	unsigned int item;
 +	int i;
 +
-+	for (i = 0; i < m->num_enums; i++) {
-+		d = &m->enums[i];
-+		if (d->target == target && d->prop == prop &&
-+		    topping_here(tm, d->modes))
-+			break;
-+	}
-+	if (i == m->num_enums)
-+		return;			/* a meter, or something unnamed */
-+
-+	for (item = 0; item < d->src->num; item++)
-+		if (d->src->values[item] == value)
-+			break;
-+	if (item == d->src->num)
-+		return;
-+
-+	guard(spinlock_irqsave)(&tm->val_lock);
-+
-+	if (tm->sel[i] == item)
-+		return;
-+	tm->sel[i] = item;
-+
-+	kctl = tm->kctl[m->num_ctls + i];
-+	if (kctl)
-+		snd_ctl_notify(tm->card, SNDRV_CTL_EVENT_MASK_VALUE, &kctl->id);
++	for (i = 0; i < m->num_ctls; i++)
++		if (m->ctls[i].target == target && m->ctls[i].prop == prop &&
++		    topping_here(tm, m->ctls[i].modes))
++			return i;
++	return -1;
 +}
 +
- static void topping_report(struct topping_component *comp, u8 target,
- 			   u8 prop, s32 value)
+ static int topping_write_ctl(struct topping_mixer *tm, int idx, int value)
  {
-@@ -648,8 +720,10 @@ static void topping_report(struct topping_component *comp, u8 target,
- 	int idx;
+-	const struct topping_ctl_desc *d = &topping_m62_ctls[idx];
++	const struct topping_ctl_desc *d = &tm->model->ctls[idx];
+ 	s32 wire = d->map ? d->map[value] : value;
+-	int err;
++	int err, other, on;
  
- 	idx = topping_index_of(tm, target, prop);
--	if (idx < 0)
--		return;			/* a meter, or something unnamed */
-+	if (idx < 0) {
-+		topping_report_sel(tm, target, prop, value);
-+		return;
+ 	err = topping_write(tm, d->target, d->prop, wire);
+ 	if (!err && d->target_pair) {
+@@ -343,16 +564,22 @@ static int topping_write_ctl(struct topping_mixer *tm, int idx, int value)
+ 		 */
+ 		err = topping_write(tm, d->target_pair, d->prop, wire);
+ 	}
++	if (!err && d->resend) {
++		other = topping_index_of(tm, d->resend, d->prop);
++		scoped_guard(spinlock_irqsave, &tm->val_lock)
++			on = tm->val[other];
++		if (on)
++			err = topping_write(tm, d->resend, d->prop, on);
 +	}
- 	if (value < tm->model->ctls[idx].min ||
- 	    value > tm->model->ctls[idx].max)
+ 	return err;
+ }
+ 
+ static int topping_write_sel(struct topping_mixer *tm, int idx,
+ 			     unsigned int item)
+ {
+-	const struct topping_enum_desc *d = &topping_m62_enums[idx];
++	const struct topping_enum_desc *d = &tm->model->enums[idx];
+ 
+-	return topping_write(tm, d->target, d->prop,
+-			     topping_m62_source_value[item]);
++	return topping_write(tm, d->target, d->prop, d->src->values[item]);
+ }
+ 
+ /*
+@@ -368,22 +595,26 @@ static int topping_write_sel(struct topping_mixer *tm, int idx,
+  */
+ static void topping_sync(struct topping_mixer *tm)
+ {
++	const struct topping_model *m = tm->model;
+ 	int i, value;
+ 
+ 	lockdep_assert_held(&tm->lock);
+ 
+-	for (i = 0; i < TOPPING_NUM_CTLS; i++) {
+-		if (!topping_here(tm, topping_m62_ctls[i].modes))
++	for (i = 0; i < m->num_ctls; i++) {
++		if (!topping_here(tm, m->ctls[i].modes))
+ 			continue;
+ 		scoped_guard(spinlock_irqsave, &tm->val_lock)
+ 			value = tm->val[i];
+ 		topping_write_ctl(tm, i, value);
+ 	}
+-	for (i = 0; i < TOPPING_NUM_ENUMS; i++) {
+-		if (!topping_here(tm, topping_m62_enums[i].modes))
++	for (i = 0; i < m->num_enums; i++) {
++		if (!topping_here(tm, m->enums[i].modes))
+ 			continue;
+ 		topping_write_sel(tm, i, tm->sel[i]);
+ 	}
++	for (i = 0; i < m->num_fixed; i++)
++		topping_write(tm, m->fixed[i].target, m->fixed[i].prop,
++			      m->fixed[i].value);
+ }
+ 
+ static void topping_resume_work(struct work_struct *work)
+@@ -400,20 +631,6 @@ static void topping_resume_work(struct work_struct *work)
+ /* what the HID driver tells this side					*/
+ /* ------------------------------------------------------------------ */
+ 
+-/* -1 when this frame is not one of ours */
+-static int topping_index_of(const struct topping_mixer *tm, u8 target,
+-			    u8 prop)
+-{
+-	int i;
+-
+-	for (i = 0; i < TOPPING_NUM_CTLS; i++)
+-		if (topping_m62_ctls[i].target == target &&
+-		    topping_m62_ctls[i].prop == prop &&
+-		    topping_here(tm, topping_m62_ctls[i].modes))
+-			return i;
+-	return -1;
+-}
+-
+ /*
+  * Every frame the card sends, meters included, in the HID driver's
+  * interrupt context -- hence the spinlock.
+@@ -433,8 +650,8 @@ static void topping_report(struct topping_component *comp, u8 target,
+ 	idx = topping_index_of(tm, target, prop);
+ 	if (idx < 0)
+ 		return;			/* a meter, or something unnamed */
+-	if (value < topping_m62_ctls[idx].min ||
+-	    value > topping_m62_ctls[idx].max)
++	if (value < tm->model->ctls[idx].min ||
++	    value > tm->model->ctls[idx].max)
  		return;
-@@ -795,7 +869,7 @@ static const struct snd_kcontrol_new topping_sw = {
+ 
+ 	guard(spinlock_irqsave)(&tm->val_lock);
+@@ -484,10 +701,12 @@ static const struct topping_audio_ops topping_mixer_ops = {
+ static int topping_ctl_info(struct snd_kcontrol *kctl,
+ 			    struct snd_ctl_elem_info *uinfo)
+ {
++	struct topping_mixer *tm = snd_kcontrol_chip(kctl);
+ 	const struct topping_ctl_desc *d;
+ 
+-	d = &topping_m62_ctls[kctl->private_value];
+-	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	d = &tm->model->ctls[kctl->private_value];
++	uinfo->type = d->sw ? SNDRV_CTL_ELEM_TYPE_BOOLEAN :
++			      SNDRV_CTL_ELEM_TYPE_INTEGER;
+ 	uinfo->count = 1;
+ 	uinfo->value.integer.min = d->min;
+ 	uinfo->value.integer.max = d->max;
+@@ -513,8 +732,8 @@ static int topping_ctl_put(struct snd_kcontrol *kctl,
+ 	int value, prev, err;
+ 
+ 	value = ucontrol->value.integer.value[0];
+-	if (value < topping_m62_ctls[idx].min ||
+-	    value > topping_m62_ctls[idx].max)
++	if (value < tm->model->ctls[idx].min ||
++	    value > tm->model->ctls[idx].max)
+ 		return -EINVAL;
+ 
+ 	/*
+@@ -566,6 +785,15 @@ static const struct snd_kcontrol_new topping_ctl = {
+ 	.put = topping_ctl_put,
  };
  
++/* the same, with no scale to read */
++static const struct snd_kcontrol_new topping_sw = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,
++	.info = topping_ctl_info,
++	.get = topping_ctl_get,
++	.put = topping_ctl_put,
++};
++
  /* ------------------------------------------------------------------ */
--/* the source selectors							*/
-+/* the selectors: sources, and the M62's port power			*/
+ /* the source selectors							*/
  /* ------------------------------------------------------------------ */
- 
+@@ -573,15 +801,18 @@ static const struct snd_kcontrol_new topping_ctl = {
  static int topping_sel_info(struct snd_kcontrol *kctl,
-@@ -833,24 +907,23 @@ static int topping_sel_put(struct snd_kcontrol *kctl,
+ 			    struct snd_ctl_elem_info *uinfo)
+ {
+-	return snd_ctl_enum_info(uinfo, 1, ARRAY_SIZE(topping_m62_sources),
+-				 topping_m62_sources);
++	struct topping_mixer *tm = snd_kcontrol_chip(kctl);
++	const struct topping_enum_desc *d;
++
++	d = &tm->model->enums[kctl->private_value - tm->model->num_ctls];
++	return snd_ctl_enum_info(uinfo, 1, d->src->num, d->src->items);
+ }
+ 
+ static int topping_sel_get(struct snd_kcontrol *kctl,
+ 			   struct snd_ctl_elem_value *ucontrol)
+ {
+ 	struct topping_mixer *tm = snd_kcontrol_chip(kctl);
+-	int idx = kctl->private_value - TOPPING_NUM_CTLS;
++	int idx = kctl->private_value - tm->model->num_ctls;
+ 
+ 	guard(spinlock_irqsave)(&tm->val_lock);
+ 	ucontrol->value.enumerated.item[0] = tm->sel[idx];
+@@ -592,12 +823,12 @@ static int topping_sel_put(struct snd_kcontrol *kctl,
+ 			   struct snd_ctl_elem_value *ucontrol)
+ {
+ 	struct topping_mixer *tm = snd_kcontrol_chip(kctl);
+-	int idx = kctl->private_value - TOPPING_NUM_CTLS;
++	int idx = kctl->private_value - tm->model->num_ctls;
+ 	unsigned int item, prev;
+ 	int err;
+ 
+ 	item = ucontrol->value.enumerated.item[0];
+-	if (item >= ARRAY_SIZE(topping_m62_sources))
++	if (item >= tm->model->enums[idx].src->num)
+ 		return -EINVAL;
  
  	guard(mutex)(&tm->lock);
+@@ -678,30 +909,30 @@ static int topping_add_kctl(struct topping_mixer *tm,
  
--	/*
--	 * No report ever moves a selector, so the cache can be compared
--	 * and changed outside the spinlock; the spinlock is still taken
--	 * for the reader's sake.
--	 */
--	prev = tm->sel[idx];
--	if (prev == item)
--		return 0;
--	scoped_guard(spinlock_irqsave, &tm->val_lock)
-+	/* as for a volume: the cache first, and a report has the last word */
-+	scoped_guard(spinlock_irqsave, &tm->val_lock) {
-+		if (tm->sel[idx] == item)
-+			return 0;
-+		prev = tm->sel[idx];
- 		tm->sel[idx] = item;
-+	}
+ static int topping_create_kctls(struct topping_mixer *tm)
+ {
++	const struct topping_model *m = tm->model;
+ 	int i, err;
  
- 	if (!tm->bound)
- 		return 1;
- 
- 	err = topping_write_sel(tm, idx, item);
- 	if (err < 0) {
--		scoped_guard(spinlock_irqsave, &tm->val_lock)
--			tm->sel[idx] = prev;
-+		scoped_guard(spinlock_irqsave, &tm->val_lock) {
-+			if (tm->sel[idx] == item)
-+				tm->sel[idx] = prev;
-+		}
- 		return err;
+-	for (i = 0; i < TOPPING_NUM_CTLS; i++) {
+-		if (!topping_here(tm, topping_m62_ctls[i].modes))
++	for (i = 0; i < m->num_ctls; i++) {
++		if (!topping_here(tm, m->ctls[i].modes))
+ 			continue;
+-		err = topping_add_kctl(tm, &topping_ctl,
+-				       topping_m62_ctls[i].name, i,
+-				       topping_m62_ctls[i].tlv);
++		err = topping_add_kctl(tm, m->ctls[i].sw ? &topping_sw :
++							   &topping_ctl,
++				       m->ctls[i].name, i, m->ctls[i].tlv);
+ 		if (err < 0)
+ 			goto err_remove;
  	}
+-	for (i = 0; i < TOPPING_NUM_ENUMS; i++) {
+-		if (!topping_here(tm, topping_m62_enums[i].modes))
++	for (i = 0; i < m->num_enums; i++) {
++		if (!topping_here(tm, m->enums[i].modes))
+ 			continue;
+-		err = topping_add_kctl(tm, &topping_sel,
+-				       topping_m62_enums[i].name,
+-				       TOPPING_NUM_CTLS + i, NULL);
++		err = topping_add_kctl(tm, &topping_sel, m->enums[i].name,
++				       m->num_ctls + i, NULL);
+ 		if (err < 0)
+ 			goto err_remove;
+ 	}
+ 	return 0;
+ 
+ err_remove:
+-	for (i = 0; i < TOPPING_NUM_KCTLS; i++)
++	for (i = 0; i < m->num_ctls + m->num_enums; i++)
+ 		if (tm->kctl[i])
+ 			snd_ctl_remove(tm->card, tm->kctl[i]);
+ 	return err;
+@@ -875,7 +1106,9 @@ static void topping_private_free(struct usb_mixer_interface *mixer)
+ }
+ 
+ static struct topping_mixer *topping_mixer_new(struct usb_mixer_interface *mixer,
+-					       struct device *dev, u8 mode)
++					       struct device *dev,
++					       const struct topping_model *m,
++					       u8 mode)
+ {
+ 	struct topping_mixer *tm;
+ 	int i;
+@@ -885,6 +1118,7 @@ static struct topping_mixer *topping_mixer_new(struct usb_mixer_interface *mixer
+ 		return NULL;
+ 
+ 	kref_init(&tm->ref);		/* the mixer's */
++	tm->model = m;
+ 	tm->mode = mode;
+ 	tm->dev = dev;
+ 	tm->card = mixer->chip->card;
+@@ -894,11 +1128,19 @@ static struct topping_mixer *topping_mixer_new(struct usb_mixer_interface *mixer
+ 	mutex_init(&tm->lock);
+ 	spin_lock_init(&tm->val_lock);
+ 
++	tm->val = kzalloc_objs(*tm->val, m->num_ctls);
++	tm->sel = kzalloc_objs(*tm->sel, m->num_enums);
++	tm->kctl = kzalloc_objs(*tm->kctl, m->num_ctls + m->num_enums);
++	if (!tm->val || !tm->sel || !tm->kctl) {
++		kref_put(&tm->ref, topping_mixer_release);
++		return NULL;
++	}
++
+ 	/* what the cache is born with is what the first bind writes */
+-	for (i = 0; i < TOPPING_NUM_CTLS; i++)
+-		tm->val[i] = topping_m62_ctls[i].first;
+-	for (i = 0; i < TOPPING_NUM_ENUMS; i++)
+-		tm->sel[i] = topping_m62_enums[i].first;
++	for (i = 0; i < m->num_ctls; i++)
++		tm->val[i] = m->ctls[i].first;
++	for (i = 0; i < m->num_enums; i++)
++		tm->sel[i] = m->enums[i].first;
+ 
+ 	return tm;
+ }
+@@ -907,6 +1149,7 @@ int snd_topping_init(struct usb_mixer_interface *mixer)
+ {
+ 	struct snd_usb_audio *chip = mixer->chip;
+ 	struct component_match *match = NULL;
++	const struct topping_model *model;
+ 	struct topping_master_res *res;
+ 	struct usb_interface *intf;
+ 	struct topping_mixer *tm;
+@@ -914,7 +1157,19 @@ int snd_topping_init(struct usb_mixer_interface *mixer)
+ 	u8 mode = TOPPING_PRO;
+ 	int err;
+ 
+-	if (le16_to_cpu(chip->dev->descriptor.bcdDevice) >> 8 == 0x01)
++	switch (chip->usb_id) {
++	case USB_ID(0x152a, 0x875c):
++		model = &topping_m62;
++		break;
++	case USB_ID(0x152a, 0x8756):
++		model = &topping_e2x2_otg;
++		break;
++	default:
++		return -ENODEV;
++	}
++
++	if (model->bcd_mode &&
++	    le16_to_cpu(chip->dev->descriptor.bcdDevice) >> 8 == 0x01)
+ 		mode = TOPPING_MOBILE;
+ 
+ 	/*
+@@ -931,7 +1186,7 @@ int snd_topping_init(struct usb_mixer_interface *mixer)
+ 		return -ENODEV;
+ 	dev = &intf->dev;
+ 
+-	tm = topping_mixer_new(mixer, dev, mode);
++	tm = topping_mixer_new(mixer, dev, model, mode);
+ 	if (!tm)
+ 		return -ENOMEM;
  
 -- 
 2.43.0
