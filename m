@@ -1,145 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34194C1502;
-	Sun, 18 Oct 2026 13:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B86414A1F;
+	Sun, 18 Oct 2026 13:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792330482; cv=none; b=uEv76RscjOIFh1+aldwssxoyIKZ9SKXdO6/ny2p8LZcrUxkG7LK01v6YD++xDbeegvReN6zh97khL5Q2LBkhyDlrSmBYbasCFAH+NHLekGxXJgqM3p9VYLQeVnJOlhBZK51y5lGfxyzcL91wMS+jJAWPZf3+JYTM7SCVNplOpN8=
+	t=1792330695; cv=none; b=dRYly4t2mFS1Oqeug5KZuN3mzBP8Mfwr6D3lqH/dxZNpgoiW+iEfFl9/ZmEEqDsldjTgxjPQPsJyt78J0LuuZNxRoKxh245xMv2oKwGdiaoKhxeykHPat1VkrwUIKcrzHbCirwCfX60gN/HqaYctbnth3V1jzkaHzDRBuDXMbbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792330482; c=relaxed/simple;
-	bh=tWZpPr+y5iI7rQ2kRmtRPIa9JCkBecJCd0d4FvjnUOw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q0mbAsTEDf+JQ7frxW1s5VYUzDiBSk+E3hf1KuBbcmn9eZ7WCd04P6Su33KuLCh7jXkJBgD0bNYfrQRqtbyRDR5db6zDlD1YrPCIE6ZivEj9oq0McwmRJphFwl6i5PA0OTytmiSQ2BKLXHZdA7iT5Gk2pUvmvf7vAywZFnhQIZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mJFwDNic; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792330695; c=relaxed/simple;
+	bh=O3PNJs4NiGtilEQpWdRqiG+quBu7ASA7JyGTHSsV4qc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WhM5DBzse+Q3rKM6r3b4Mw+JhCoHFeUnkorcaOP5J5UOarjJkPeJWPJuxRZYuwC9uXVS+uAYvARjanNoAO2DH09Y0uQ1ARSFsmB5WZFvXrp+2qoNp9wwvZl6/hUVNRwHn2DiZuP45G8Ru6VlabRTU+cRzFyVxgX39ybMgxW1NEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=QQaIQZeZ; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mJFwDNic"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00901F000C4;
-	Sun, 18 Oct 2026 13:34:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792330480;
-	bh=O7yz2OKqhkZNNxyQ1ZO8vH9vpGVze5rHOehgXigtANg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mJFwDNicCn7icS3SLBBY1PkBFtbtuFDDto0K3wNZqQ8pQF1nDzaXzkqQ7e+c+i3WI
-	 yBUjEbKBMEMdDDsxqOIfFR+vtk6iMaKdPoEerBRof+iVZRa5CaWYnZ8+AN338PBwdU
-	 O5kSCKaQGMT4QPPIlb6t4EZ2KEuPK4AalOyqrVAc=
-Date: Sun, 18 Oct 2026 15:34:34 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: gadget: f_mass_storage: take filesem in nofua store
- to fix backing-file UAF
-Message-ID: <2026101833-harmonica-jackpot-14ca@gregkh>
-References: <20261018130519.65850-1-yuz08559@gmail.com>
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="QQaIQZeZ"
+Message-ID: <4f7dacd9b4cf0a43209be84f2408e6f7e033fd3d.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1792330692;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O3PNJs4NiGtilEQpWdRqiG+quBu7ASA7JyGTHSsV4qc=;
+	b=QQaIQZeZxo16u7UdAOq4kPy1bHh5wCdCBH3QZYCg5PimPB58GI9wTdfFUotn+h0Z6v2BVp
+	u1poagQVYS3BGkVyq/Md3JtwjPxUGO4tWjKXdDBlmhiq53uFEsv4XbrV1lGHtHYHOXUfLl
+	cIxyUDqNWLy862uBUKeV5H2v+UifeUU=
+Subject: Re: [PATCH v2 0/3] sparc64: Randomize mmap base and PIE executables
+From: Stian Halseth <stian@itx.no>
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Andreas
+ Larsson <andreas@gaisler.com>, "David S . Miller" <davem@davemloft.net>
+Cc: Kees Cook <kees@kernel.org>, Michel Lespinasse <michel@lespinasse.org>, 
+ Jan Engelhardt
+	 <jengelh@inai.de>, sparclinux@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Date: Sun, 18 Oct 2026 15:38:11 +0200
+In-Reply-To: <6e2d2b2b7aa4029c261831016d8b6c40bc335341.camel@itx.no>
+References: <20261018122734.2594904-1-stian@itx.no>
+	 <e3068b5c97884032e7cbd12c78f6b5534d75e30c.camel@physik.fu-berlin.de>
+	 <6e2d2b2b7aa4029c261831016d8b6c40bc335341.camel@itx.no>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-PHAaQr8Laoy3OBzen5hN"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018130519.65850-1-yuz08559@gmail.com>
 
-On Sun, Oct 18, 2026 at 11:05:19PM +1000, Yu Zhang wrote:
-> fsg_store_nofua() syncs the LUN's backing file when switching from async
-> to sync mode:
-> 
-> 	if (!nofua && curlun->nofua)
-> 		fsg_lun_fsync_sub(curlun);
-> 
-> fsg_lun_fsync_sub() dereferences curlun->filp (vfs_fsync(filp)). Unlike
-> every other store that touches the backing file -- fsg_store_ro() and
-> fsg_store_cdrom() (down_read), fsg_store_file() (down_write) --
-> fsg_store_nofua() holds no filesem while doing so.
-> 
-> A concurrent close of the backing file runs under down_write(filesem) and
-> does fput(curlun->filp) in fsg_lun_close() (fsg_store_file() with an empty
-> path, the SCSI START_STOP eject in do_start_stop(), or forced_eject), so
-> it can free the file while fsg_store_nofua() is dereferencing it:
-> 
-> 	BUG: KASAN: slab-use-after-free in vfs_fsync+0x20/0xe0
-> 	 vfs_fsync+0x20/0xe0
-> 	 fsg_lun_fsync_sub+0xa0/0xd0
-> 	 fsg_store_nofua+0x138/0x160
-> 	 configfs_write_iter+0x1a7/0x250
-> 	 vfs_write+0x5df/0x940
-> 	Allocated by task 3459:
-> 	 fsg_store_file+0x150/0x1f0
-> 	 configfs_write_iter+0x1a7/0x250
-> 	Freed by task 3459:
-> 	 __fput+0x456/0x6c0
-> 	 __fput_deferred+0x10d/0x330
-> 	 fsg_store_file+0x9e/0x1f0
-> 	 configfs_write_iter+0x1a7/0x250
-> 
-> Take filesem for read around the fsync in fsg_store_nofua(), as the sibling
-> stores do, so the backing file cannot be closed underneath it.
-> 
-> Reproduced on a mass_storage gadget over dummy_hcd by writing lun.N/nofua
-> (1 then 0) from one task while another task rewrites and clears lun.N/file.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-> ---
->  drivers/usb/gadget/function/f_mass_storage.c | 6 ++++--
->  drivers/usb/gadget/function/storage_common.c | 5 ++++-
->  drivers/usb/gadget/function/storage_common.h | 3 ++-
->  3 files changed, 12 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/gadget/function/f_mass_storage.c b/drivers/usb/gadget/function/f_mass_storage.c
-> index 0000001..0000002 100644
-> --- a/drivers/usb/gadget/function/f_mass_storage.c
-> +++ b/drivers/usb/gadget/function/f_mass_storage.c
-> @@ -2663,8 +2663,9 @@
->  			   const char *buf, size_t count)
->  {
->  	struct fsg_lun		*curlun = fsg_lun_from_dev(dev);
-> +	struct rw_semaphore	*filesem = dev_get_drvdata(dev);
->  
-> -	return fsg_store_nofua(curlun, buf, count);
-> +	return fsg_store_nofua(curlun, filesem, buf, count);
->  }
->  
->  static ssize_t file_store(struct device *dev, struct device_attribute *attr,
-> @@ -3239,7 +3240,10 @@
->  static ssize_t fsg_lun_opts_nofua_store(struct config_item *item,
->  				       const char *page, size_t len)
->  {
-> -	return fsg_store_nofua(to_fsg_lun_opts(item)->lun, page, len);
-> +	struct fsg_lun_opts *opts = to_fsg_lun_opts(item);
-> +	struct fsg_opts *fsg_opts = to_fsg_opts(opts->group.cg_item.ci_parent);
-> +
-> +	return fsg_store_nofua(opts->lun, &fsg_opts->common->filesem, page, len);
->  }
->  
->  CONFIGFS_ATTR(fsg_lun_opts_, nofua);
-> diff --git a/drivers/usb/gadget/function/storage_common.c b/drivers/usb/gadget/function/storage_common.c
-> index 0000003..0000004 100644
-> --- a/drivers/usb/gadget/function/storage_common.c
-> +++ b/drivers/usb/gadget/function/storage_common.c
-> @@ -415,7 +415,8 @@
->  }
->  EXPORT_SYMBOL_GPL(fsg_store_ro);
->  
-> -ssize_t fsg_store_nofua(struct fsg_lun *curlun, const char *buf, size_t count)
-> +ssize_t fsg_store_nofua(struct fsg_lun *curlun, struct rw_semaphore *filesem,
-> +			const char *buf, size_t count)
->  {
->  	bool		nofua;
->  	int		ret;
-> @@ -424,11 +425,13 @@
->  	if (ret)
->  		return ret;
->  
-> +	down_read(filesem);
 
-guard()?
+--=-PHAaQr8Laoy3OBzen5hN
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-That's what happens when you use a LLM for kernel work, it only knows
-old-styles of what to do.
 
-thanks,
+On Sun, 2026-10-18 at 15:33 +0200, Stian Halseth wrote:
+> Hi Adrian,
+>=20
+> On Sun, 2026-10-18 at 15:09 +0200, John Paul Adrian Glaubitz wrote:
+> >=20
+> > What about sparc32? Does it use address base randomization at all?
+> >=20
+>=20
+> sparc32 is at the same state as sparc64 was before this series. Only
+> the stack moves.
+>=20
+> I've only tested 32-bit programs on sparc64. The same approach will
+> probably work, but needs testing on real sparc32. Could be possibly
+> be
+> added as a follow up, if someone with sparc32 hardware can test it.
+>=20
+> /Stian
+>=20
 
-greg k-h
+Additionally, outside of qemu testing, I'm a bit worried about sparc32
+machines with virtually indexed caches. I've heard those can be fun,
+and I wouldn't feel confident about implementing it without testing on
+the "real thing".
+
+/Stian
+
+--=-PHAaQr8Laoy3OBzen5hN
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCatTLwwAKCRDoeAEuJe36
+Vl7RAP48VGMJlbwWIQ7VHqi25QkjzG+Eh44RA0bTgOXyVfzwmgEA8nOr9l4i+AbW
+Ux5a921hTL1xjAjla4+mWeEC5nU7dwY=
+=2Xlx
+-----END PGP SIGNATURE-----
+
+--=-PHAaQr8Laoy3OBzen5hN--
