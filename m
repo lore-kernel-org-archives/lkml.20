@@ -1,109 +1,152 @@
-Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD82F3EBF0C;
-	Sun, 18 Oct 2026 19:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.77.166.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4133F12EB;
+	Sun, 18 Oct 2026 19:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792352416; cv=none; b=JPnqP4mmAl9UgXGmUit3rM5FSBoxq/kxt3vJm4EgOnRPnzROJ/no7iFHnblA8lfSrqPDMwIOpVjWod/jD3i8+yy2+vbhISGNMfhYPo1sWocMbVZdpehxtZqoMdbQE+/sfJLeRgG7A4rsDPTw0A9JCxdYGbiKiEaMJXHsUxZjjA4=
+	t=1792352494; cv=none; b=ZNbOmwALjMNwOuuNNTmIyIU7yEjIQuA9K5zPTDzqVSpsjexX1OAwOy3/mLoES3q1O2BMTiLHv18XI37l+YVZO7/Hiuo/TkIGr9qNXe7fhcS4ZgjQHZw5Zku2hmPdDOP3+ltuaTc4vTcT1JpPAoCgjXEv5V42Bqg83omFdqfDiG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792352416; c=relaxed/simple;
-	bh=M140TgpDd5AN4bSSqJOSognDUr7mdaJjGjL+X9E34PU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oU+gf9GbtbcoR7iKm2Zp1eQuNodaG+9mxanSpBOO2Nir4AWTmcMfiSmuYDvcviP2a0mjuxJMDS4612sqb1uyAv3h/xNL5Id8GBa1NiHxPdXY5w4jqEwnB2hczWrxibV9vi/55d9gYI3H6I0H6YhjaHP1pXJJdGOcWNYbHsys4g0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=qVlfLvpj; dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b=qVlfLvpj; arc=none smtp.client-ip=140.77.166.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ens-lyon.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bounce.ens-lyon.org
+	s=arc-20240116; t=1792352494; c=relaxed/simple;
+	bh=QOS9qehBLDG0nNsemc7O/SDV/AphexsQO3Xo7I6UicM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Sx1HyzyR6AzMryY2uB53jFwq1Gj4C8zDsTBmzWyn+q/Ld9CvwJB5douaQzRsUHMTnbHJjFo4NlbsAMg/WZVyf3TZqLQX1gLdrXVQkSjaiRWPQHqh4h3oQtbEYFY6FcNHnNyIhF2hrbC/U/2gbUGk9emoMaqjqltf3bq6uA0YrOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QuXb1XGO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="qVlfLvpj";
-	dkim=pass (2048-bit key) header.d=ens-lyon.org header.i=@ens-lyon.org header.b="qVlfLvpj"
-Received: from localhost (localhost [127.0.0.1])
-	by sonata.ens-lyon.org (Postfix) with ESMTP id 8E76AA1C00;
-	Sun, 18 Oct 2026 21:40:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1792352412; bh=M140TgpDd5AN4bSSqJOSognDUr7mdaJjGjL+X9E34PU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qVlfLvpjiSrKeL/0ISeVHa9wELJAqYuCtVyyX8WlhoRGeq7scjLMU8S+yGLjXS/On
-	 b4D2VHol3ZAcJGpdT5ndTu5BW4AGvpiCx4OzAXxc2umq8pjGenPIlzbNFKWtQh1zx0
-	 Fnujv2LGPNyM2Ule7ZDNKNfPjRLwEUuT8cTAiRPDVUOKS0RFfT2tR8ezj281cPvLHo
-	 EoiidWVIoIKZ3ahLAkwU8EXeerZ1nuq/bYxWenMLhHqLkzD7ZDfNYkuuNZe1ARLpK6
-	 wwKG818dZRT0rLy62fq8kKQefFbTZN9zZMe/FhhwL4pW1Gi/LibjAr9IvCN3LblrJW
-	 QlX/7RPzD4piA==
-Received: from sonata.ens-lyon.org ([127.0.0.1])
-	by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id cG1I5t_hY4eW; Sun, 18 Oct 2026 21:40:12 +0200 (CEST)
-Received: from end (lfbn-bor-1-980-210.w90-120.abo.wanadoo.fr [90.120.173.210])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by sonata.ens-lyon.org (Postfix) with ESMTPSA id 5045CA01A3;
-	Sun, 18 Oct 2026 21:40:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ens-lyon.org; s=dkim;
-	t=1792352412; bh=M140TgpDd5AN4bSSqJOSognDUr7mdaJjGjL+X9E34PU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qVlfLvpjiSrKeL/0ISeVHa9wELJAqYuCtVyyX8WlhoRGeq7scjLMU8S+yGLjXS/On
-	 b4D2VHol3ZAcJGpdT5ndTu5BW4AGvpiCx4OzAXxc2umq8pjGenPIlzbNFKWtQh1zx0
-	 Fnujv2LGPNyM2Ule7ZDNKNfPjRLwEUuT8cTAiRPDVUOKS0RFfT2tR8ezj281cPvLHo
-	 EoiidWVIoIKZ3ahLAkwU8EXeerZ1nuq/bYxWenMLhHqLkzD7ZDfNYkuuNZe1ARLpK6
-	 wwKG818dZRT0rLy62fq8kKQefFbTZN9zZMe/FhhwL4pW1Gi/LibjAr9IvCN3LblrJW
-	 QlX/7RPzD4piA==
-Received: from samy by end with local (Exim 4.100.1)
-	(envelope-from <samuel.thibault@ens-lyon.org>)
-	id 1xIWjr-00000002CPB-2vjB;
-	Sun, 18 Oct 2026 21:40:11 +0200
-Date: Sun, 18 Oct 2026 21:40:11 +0200
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Hongyu Xie <xiehongyu1@kylinos.cn>
-Cc: speakup@linux-speakup.org, linux-kernel@vger.kernel.org,
-	gregkh@linuxfoundation.org, chris@the-brannons.com, kirk@reisers.ca,
-	w.d.hubbs@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH 4/4] speakup: Serialize synth clearing against locked
- readers
-Message-ID: <atUgm3nwEQrJibxn@end>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Hongyu Xie <xiehongyu1@kylinos.cn>, speakup@linux-speakup.org,
-	linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
-	chris@the-brannons.com, kirk@reisers.ca, w.d.hubbs@gmail.com,
-	stable@vger.kernel.org
-References: <20261014071713.321914-1-xiehongyu1@kylinos.cn>
- <20261014071713.321914-5-xiehongyu1@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QuXb1XGO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706DC1F000C4;
+	Sun, 18 Oct 2026 19:41:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792352493;
+	bh=CDvBfxAFQEqTyH9qMRpRLe7CJ9PkduG+Ui+RwfZJI+M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=QuXb1XGOgJMTKhpNUGye08eF5lX3lhif9R1hm0QyJeF9JKuRe5lOcth7TnO2NxqFo
+	 +dHn9Nzx82qiyaeZ1d1cpkiIFoHvO29G6Q/J3NGEc2J6Huk/oYf5eLgYKlfyHRATye
+	 BxCFDvyIszPmMLNj0wnX7X17MNH65v1LaXR6GLGoxjItPECEcqa/WKBR1O7/AQW3LQ
+	 Bgf1+Xoj4/zwphYvKwjiwpJXS0ZF+qaYDn9SSEofbEXh++QF2aAsk6dhp06Ue9IbGO
+	 uSdC+U5xjoIJZzc+5NwoABlS9LdnwCJDtHWb1rsgm5spk4q5xsQEuNf5PIgSlw8uMp
+	 n4xAgtLf088aw==
+Subject: Re: [PATCH v1] net/mlx5: Use generic power management
+From: netdev-bot+sashiko@kernel.org
+To: vaibhavgupta40@gmail.com
+Cc: helgaas@kernel.org, bhelgaas@google.com, bjorn@helgaas.com,
+ saeedm@nvidia.com, leon@kernel.org, tariqt@nvidia.com, mbloch@nvidia.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 18 Oct 2026 19:41:31 +0000
+Message-ID: <179235249198.3135.3606400485703838782@kernel.org>
+In-Reply-To: <20261017194104.2684-1-vaibhavgupta40@gmail.com>
+References: <20261017194104.2684-1-vaibhavgupta40@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014071713.321914-5-xiehongyu1@kylinos.cn>
-Organization: I am not organized
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Indeed, the check for the synth pointer should be guarded, so it doesn't
-disappear suddenly.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Your patch makes sense, but while at it:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> diff --git a/drivers/accessibility/speakup/devsynth.c b/drivers/accessibility/speakup/devsynth.c
-> index e3d909bd04804..19799a362948d 100644
-> --- a/drivers/accessibility/speakup/devsynth.c
-> +++ b/drivers/accessibility/speakup/devsynth.c
-> @@ -29,6 +29,10 @@ static ssize_t speakup_file_write(struct file *fp, const char __user *buffer,
->  		count -= bytes;
->  		ptr += bytes;
->  		spin_lock_irqsave(&speakup_info.spinlock, flags);
-> +		if (!synth) {
-> +			spin_unlock_irqrestore(&speakup_info.spinlock, flags);
-> +			return -ENODEV;
-> +		}
->  		synth_write(buf, bytes);
->  		spin_unlock_irqrestore(&speakup_info.spinlock, flags);
->  	}
+- [Medium] After this patch, the PCI core puts the mlx5 function into
+  D3hot/D3cold in pci_pm_suspend_noirq() once mlx5_suspend() returns.
 
-You can as well remove the check above for simplicity, since it becomes duplicate.
+--
 
-That is the same in mostly all other places of the patch.
+net/mlx5: Use generic power management
 
-Thanks,
-Samuel
+This patch moves mlx5_core from the legacy pci_driver suspend and resume
+hooks to dev_pm_ops. It converts mlx5_suspend() and mlx5_resume() to take
+a struct device and registers them with DEFINE_SIMPLE_DEV_PM_OPS() and
+pm_sleep_ptr().
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/main.c b/drivers/net/ethernet/mellanox/mlx5/core/main.c
+> index 5f28d906c35b6..d8dba3328bb6a 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/main.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/main.c
+
+[ ... ]
+
+> @@ -2281,8 +2285,7 @@ static struct pci_driver mlx5_core_driver = {
+>  	.id_table       = mlx5_core_pci_table,
+>  	.probe          = probe_one,
+>  	.remove         = remove_one,
+> -	.suspend        = mlx5_suspend,
+> -	.resume         = mlx5_resume,
+> +	.driver.pm      = pm_sleep_ptr(&mlx5_pm_ops),
+
+[Severity: Medium]
+With dev_pm_ops in use, the PCI core now calls pci_prepare_to_sleep() from
+pci_pm_suspend_noirq() after mlx5_suspend() returns. That puts the function
+into D3hot or D3cold. The legacy path did not do this.
+
+Can the PTP overflow worker still touch the device after that point? The
+suspend path is:
+
+mlx5_suspend()->mlx5_unload_one(dev, true)->mlx5_unload()->mlx5_clock_unload()
+
+mlx5_clock_unload() unregisters the PPS notifier and cancels out_work:
+
+	mlx5_eq_notifier_unregister(mdev, &mdev->clock_state->pps_nb);
+	cancel_work_sync(&mdev->clock_state->out_work);
+
+It does not stop the PTP aux worker. That worker is started in
+mlx5_init_clock_dev():
+
+	if (clock->ptp)
+		ptp_schedule_worker(clock->ptp, 0);
+
+It only stops when ptp_clock_unregister() runs from
+mlx5_destroy_clock_dev() on the cleanup_once path, and suspend never takes
+that path. The worker runs on a kthread worker from kthread_run_worker(),
+which is not freezable.
+
+mlx5_timestamp_overflow() re-arms itself every overflow_period. Its only
+guard is:
+
+	if (mdev->state == MLX5_DEVICE_STATE_INTERNAL_ERROR)
+		goto out;
+
+mlx5_unload_one_devl_locked() leaves dev->state at MLX5_DEVICE_STATE_UP, so
+the worker goes on to timecounter_read()->read_internal_timer()->
+mlx5_read_time(), which reads BAR0:
+
+	timer_h = ioread32be(real_time ? &dev->iseg->real_time_h :
+			     &dev->iseg->internal_timer_h);
+
+In s2idle, timekeeping comes back when s2idle_loop exits. A delayed work
+that expired during sleep then fires right away. That can happen before
+dpm_resume_noirq() returns mlx5 to D0. It can also happen in the window
+between mlx5's suspend_noirq and sleep entry.
+
+Would those reads then reach a function in D3hot, complete as Unsupported
+Request and return all-ones? They may also log AER errors.
+
+If so, timecounter_read() would take the all-ones value (masked by
+cc->mask) as a real counter value. It would move tc->nsec and cycle_last
+forward, and mlx5_update_clock_info_page() would publish the bad values to
+the clock_info page that RDMA userspace maps.
+
+Nothing on the resume path (mlx5_load()->mlx5_clock_load()) appears to
+re-initialize the timecounter.
+
+Should the overflow worker be stopped in the unload path when suspending
+(for example with ptp_cancel_worker_sync()) and rescheduled on load?
+
+>  	.shutdown	= shutdown,
+>  	.err_handler	= &mlx5_err_handler,
+>  	.sriov_configure   = mlx5_core_sriov_configure,
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017194104.2684-1-vaibhavgupta40%40gmail.com
