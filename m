@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30201343893;
-	Sun, 18 Oct 2026 10:47:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02C833A0E93;
+	Sun, 18 Oct 2026 10:47:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792320459; cv=none; b=sZz9/oW2azMHdF4t4J7iLykXRoAiScUZbHIzEkf+tPwP4drcaGLQoQRaaixBQgf2Q9GhB4rgQVnUJe3bcT3CvEAT7MG9RyVV1Ez8UB40GEZH5v78upq026iW/53SqQkqVfqr4SIZhN+L1MBV8Vlnqz/LYYSiKbNyTvkZ7qENjYs=
+	t=1792320468; cv=none; b=R46gec+FoBPGLEX3at23TuVL5EAikK6ilEewJ75rWwI5JKZ7U6JROeAOhP2Vyh06zK9uRTKkmM945fzMLZs8/1ONKdBkpTt88qgznquUPYSGId5lN1e7kiIbdjronww97wO9VEqn5xGdOKJJW9quzrJhpXaxEbBOygIeht3aFg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792320459; c=relaxed/simple;
-	bh=jVh3kMTXEuLejXZd68s7RGU8yjBRB0wCVzZRQ0q94ao=;
+	s=arc-20240116; t=1792320468; c=relaxed/simple;
+	bh=0GRnjQsWnanc89UNZjgK3BZ9t/JHKtQgzIkhJakAJdo=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nokUztuPV/SF+SyIO7Lr6pMmD+u2rzGTF1wFCgKAUwxay7Klrjm7EScaq3Eel+76Feyz8qpu5owvZn4cVwFTOKV5NP5YqP3ZfhUMroXtMh5wB3CGp/LL5k9PQV0d7KV3oMTNjPC5vKBgz0hIdc1G9wRzNiC/29lAgxJs7A9uoQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zw1YrLIB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=SYzR59AnSkw/t6+jaGXz91viw7lwoBr/9dDbafM/J1wu3EVOtzUXK0xEJSb7imqe6QV+Rk0/dPvEvuH9o7U1eTGZQDg0Dii7GCV5dPKta0PexOmMkOyC/MYlxNR7mg8BdfdQYCHeXonzfbkKmPt+W9tQGO1PzFcNkZ8G06+B58g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nqtSWVLo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zw1YrLIB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1A21F000C4;
-	Sun, 18 Oct 2026 10:47:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqtSWVLo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7AF1F000C6;
+	Sun, 18 Oct 2026 10:47:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792320456;
-	bh=zQq5x4BuVgqNJxwt+zusD+7dTAQnaf9g8c8aBwQ/NUc=;
+	s=k20260515; t=1792320460;
+	bh=p5TpCCsQqnD4QG+2bjVbDEjYxKSQEwUSAkDIhu0AbYI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Zw1YrLIBD8PWqTCWUkyjzHz9t7igQwO0NVU4OCDEIoQx5Mxe1BiQkz5nT9J0C4fxl
-	 kAOkMi8osveoEya9xtKzEgVdeCNP1zHPzXOCSSHcllnrbLz11/PtZsSvawFXiZqIp1
-	 +4s+OSXwgVZMrLp1tHSfYkGhVdTT1U3Trlts8trjrfpNyUg9hknQWAy2KtOktQEI7y
-	 7pvZqg+SY//7dzYg0iMqT+FVsNOtL+6KpYt0njHeNaNSQCv/evqDFGIA8Q43/DrydL
-	 O+8M7+8kcQD/YQ1tAnuVS6bTa75xKlnn6U5yAaUEwuAsiiq92QM7uQWqjEtTDek9pq
-	 fj2BXbmPiWa8A==
-Subject: Re: [PATCH net-next v3 4/9] net: stmmac: qcom-ethqos: fix RGMII_ID
- mode to use DLL bypass
+	b=nqtSWVLoBK2Humt8uvOaWCveH2suxdczI2gVBMRmQfPK+TvBFJMtq15befhSrbV+P
+	 vHa3QBeMt4Mf2B8PiWuBhDb5Md/X3gvEiH5OfMdNpSx+0bFYmP3TtJsELqiguoPLwP
+	 Lg2l9wqxq2g0NOnOnrUnUhr+n7LFRQmlXd9WX8eDVF3hzTWKUjOdNfjQExIPUNktMG
+	 Hy5a3U2SNyze/vS1/pjAEhFBwU9nDWfOckLKRHo2K7Abq9zoE1lLsJEX2HGR1wWMCd
+	 BTZDKLGAOrBRG7OJOfta3VYnnn39//dp6Dnut0Vb75Wly3X41fnKh+Om/qTo4aP3Vx
+	 198K8V01ul07w==
+Subject: Re: [PATCH net-next v3 6/9] net: stmmac: qcom-ethqos: set initial
+ RGMII link clock to lowest speed
 From: netdev-bot+sashiko@kernel.org
 To: mohd.anwar@oss.qualcomm.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
@@ -41,11 +41,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Sun, 18 Oct 2026 10:47:34 +0000
-Message-ID: <179232045490.3135.14337314664378256554@kernel.org>
-In-Reply-To: <20261017-shikra_ethernet-v3-4-26a8beb44b8f@oss.qualcomm.com>
-References: <20261017-shikra_ethernet-v3-4-26a8beb44b8f@oss.qualcomm.com>
-X-sashiko-severity: Medium
+Date: Sun, 18 Oct 2026 10:47:38 +0000
+Message-ID: <179232045880.3135.12626840484816071779@kernel.org>
+In-Reply-To: <20261017-shikra_ethernet-v3-6-26a8beb44b8f@oss.qualcomm.com>
+References: <20261017-shikra_ethernet-v3-6-26a8beb44b8f@oss.qualcomm.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -55,10 +55,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -66,191 +66,95 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] In rgmii-id mode at 100M and 10M, ethqos_set_clk_tx_rate() now
-  calls clk_set_rate(link_clk, 25000000) or clk_set_rate(link_clk,…
-- [Medium] net: stmmac: qcom-ethqos: rgmii_setmask() on multi-bit
-  RGMII_CONFIG2_RSVD_CONFIG15
-- [Low] The commit is titled and described as a fix for a defect in the
-  current tree, but it has no Fixes: tag.
+- [High] Probe now sets the RGMII link clock to the 10M rate.
 
 --
 
-net: stmmac: qcom-ethqos: fix RGMII_ID mode to use DLL bypass
+net: stmmac: qcom-ethqos: set initial RGMII link clock to lowest speed
 
-In rgmii-id mode, this commit powers down the DLL, sets DDR bypass and
-programs the IO_MACRO through a new ethqos_rgmii_id_macro_init() helper,
-so the MAC adds no delay of its own. It also stops ethqos_set_clk_tx_rate()
-from doubling the link clock at 100M/10M in rgmii-id mode.
-
-> net: stmmac: qcom-ethqos: fix RGMII_ID mode to use DLL bypass
->
-> When "rgmii-id" is selected the PHY supplies both TX and RX delays, so
-> the MAC must not add its own. The driver currently falls through to the
-> generic DLL initialisation path which programs it to add a delay.
-
-[ ... ]
-
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-
-[Severity: Low]
-Should this have a Fixes: tag?
-
-Before this patch, rgmii-id went through the generic DLL path in
-ethqos_fix_mac_speed_rgmii() and then ethqos_rgmii_macro_init(). Only the
-TX phase shift was suppressed there.
-
-The MAC RX delay was still programmed:
-
-  - at 1G: PRG_RCLK_DLY of 57 or 115, plus PRG_DLY_EN
-  - at 10/100: EXT_PRG_RCLK_DLY_CODE of 5, plus EXT_PRG_RCLK_DLY and
-    EXT_PRG_RCLK_DLY_EN
-
-The PHY adds its own RX delay in this mode, so the RX delay was applied
-twice.
-
-A likely candidate is:
-
-Fixes: 164a9ebe9742 ("net: stmmac: dwmac-qcom-ethqos: Respect phy-mode and TX delay")
-
-That commit made rgmii-id handling cover the TX delay only and left the
-MAC RX delay in place.
+At probe, this patch sets the RGMII link clock using SPEED_10 instead of
+SPEED_1000, so the 250 MHz source clock is no longer running while there
+is no link. The commit message says set_clk_tx_rate will update the rate
+once a link comes up.
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 44270c25d874f..53fb9de4d92c7 100644
+> index a92bf4a6a2dbd..2471871562ed9 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-
-[ ... ]
-
-> @@ -183,7 +186,15 @@ static int ethqos_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
->  	if (rate < 0)
->  		return rate;
+> @@ -814,7 +814,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>  				     "Failed to get serdes phy\n");
 >  
-> -	return clk_set_rate(ethqos->link_clk, rate * 2);
-> +	/* Clock Rate Requirements:
-> +	 * MAC added delay: 250/50/5 Mhz for 1G/100M/10M
-> +	 * No MAC delay (DLL bypass): 250/25/2.5 Mhz for 1G/100M/10M
-> +	 */
-> +	if (ethqos->phy_mode != PHY_INTERFACE_MODE_RGMII_ID ||
-> +	    speed == SPEED_1000)
-> +		rate *= 2;
-> +
-> +	return clk_set_rate(ethqos->link_clk, rate);
+>  	ethqos_set_clk_tx_rate(ethqos, NULL, plat_dat->phy_interface,
+> -			       SPEED_1000);
+> +			       SPEED_10);
 
-[Severity: Medium]
-Can qcs404 and sc8280xp actually produce 25 MHz and 2.5 MHz on the link
-clock?
+[Severity: High]
+After this change, is the 1G DLL calibrated against the wrong link_clk
+rate on the first gigabit link-up after boot?
 
-On qcs404 the "rgmii" link clock is GCC_ETH_RGMII_CLK. Its parent's
-frequency table only has these entries:
+In stmmac_mac_link_up(), fix_mac_speed() runs before set_clk_tx_rate():
 
-drivers/clk/qcom/gcc-qcs404.c:ftbl_emac_clk_src
-    5 MHz, 50 MHz, 125 MHz, 250 MHz
-
-On sc8280xp it is GCC_EMAC0_RGMII_CLK, and the lowest entry is 50 MHz:
-
-drivers/clk/qcom/gcc-sc8280xp.c:ftbl_gcc_emac0_rgmii_clk_src
-    50 MHz, 125 MHz, 250 MHz
-
-Both branch clocks have CLK_SET_RATE_PARENT. The parent RCGs round up
-rather than fail:
-
-drivers/clk/qcom/clk-rcg2.c:clk_rcg2_determine_rate() {
-	...
-	return _freq_tbl_determine_rate(hw, rcg->freq_tbl, req, CEIL);
+drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:stmmac_mac_link_up() {
+    ...
+	if (priv->plat->fix_mac_speed)
+		priv->plat->fix_mac_speed(priv->plat->bsp_priv, interface,
+					  speed, mode);
+    ...
+	if (priv->plat->set_clk_tx_rate) {
+		ret = priv->plat->set_clk_tx_rate(priv->plat->bsp_priv,
+						priv->plat->clk_tx_i,
+						interface, speed);
+    ...
 }
 
-So in rgmii-id mode at 100M/10M, the request would silently become 50 MHz
-or 5 MHz on qcs404, and 50 MHz on sc8280xp. clk_set_rate() would still
-return 0.
+In the non-ID RGMII modes (rgmii, rgmii-rxid, rgmii-txid), the first
+SPEED_1000 link-up then runs the whole 1G DLL bring-up in
+ethqos_fix_mac_speed_rgmii() while link_clk is still at 5 MHz:
 
-Below 1G, ethqos_rgmii_id_macro_init() clears DDR_MODE and
-TX_CLK_PHASE_SHIFT_EN and sets RSVD_CONFIG15, which assumes the 1x clock.
-That gives a link clock at 2x the required rate at 100M on both SoCs and at
-10M on qcs404. At 10M on sc8280xp it is 20x. No error is reported in any
-of these cases.
+drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c:ethqos_fix_mac_speed_rgmii() {
+    ...
+		/* wait for DLL LOCK */
+		if (read_poll_timeout_atomic(rgmii_readl, val,
+					     val & SDC4_STATUS_DLL_LOCK,
+					     1000, 1000000, true,
+					     ethqos, SDC4_STATUS))
+			dev_err(dev, "Timeout while waiting for DLL lock\n");
+	}
 
-A later patch in this series, "net: stmmac: qcom-ethqos: warn about legacy
-RGMII PHY modes", tells users of these boards (qcs404-evb-4000 and
-sa8540p-ride) to move to rgmii-id DTs, which puts them on this path.
-Shikra, sm8150, sc8180x and qcs615 do have 25 MHz and 2.5 MHz entries.
+	if (speed == SPEED_1000)
+		ethqos_dll_configure(ethqos);
+    ...
+}
 
-Should the rate actually applied be checked here, for example with
-clk_get_rate() after clk_set_rate()? Or does rgmii-id below 1G need
-different handling on these SoCs?
+ethqos_set_clk_tx_rate() raises link_clk to 250 MHz only after this. As
+far as I can tell, nothing recalibrates the DLL at the new rate until the
+next link-up.
 
-[ ... ]
+Before this patch, probe left link_clk at 250 MHz, so the first 1G
+calibration saw the correct rate. That masked an ordering change from
+commit 9192320a65b7 ("net: stmmac: qcom-ethqos: convert to
+set_clk_tx_rate() method"). Before that commit, ethqos_fix_mac_speed()
+called ethqos_update_link_clk() before ethqos_configure().
 
-> @@ -475,6 +485,42 @@ static void ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
->  		      RGMII_IO_MACRO_CONFIG);
->  }
+Could this produce "Timeout while waiting for DLL lock" or CK_OUT_EN
+timeout errors? It could also mean up to about 3 seconds of busy-waiting
+in read_poll_timeout_atomic() on the link-up path, or a DLL tuned to the
+wrong period until the link flaps.
+
+In-tree boards that use these modes include qcs404-evb-4000.dts (rgmii),
+sa8155p-adp.dts (rgmii) and sa8540p-ride.dts (rgmii-txid, two ports).
+rgmii-id (DLL bypassed) and 10/100 links are not affected.
+
+Later patches in the series do not appear to change this ordering or the
+probe rate.
+
+Would it make sense to call set_clk_tx_rate() before fix_mac_speed() in
+stmmac_mac_link_up()? The other option is to update the link clock inside
+the qcom fix_mac_speed path before the DLL is configured.
+
 >  
-> +static void ethqos_rgmii_id_macro_init(struct qcom_ethqos *ethqos, int speed)
-> +{
-> +	rgmii_clrmask(ethqos, RGMII_CONFIG2_TX_TO_RX_LOOPBACK_EN,
-> +		      RGMII_IO_MACRO_CONFIG2);
-> +
-> +	if (speed == SPEED_1000)
-> +		rgmii_setmask(ethqos, RGMII_CONFIG_DDR_MODE, RGMII_IO_MACRO_CONFIG);
-> +	else
-> +		rgmii_clrmask(ethqos, RGMII_CONFIG_DDR_MODE, RGMII_IO_MACRO_CONFIG);
-> +	rgmii_setmask(ethqos, RGMII_CONFIG_BYPASS_TX_ID_EN, RGMII_IO_MACRO_CONFIG);
-> +	rgmii_clrmask(ethqos, RGMII_CONFIG_POS_NEG_DATA_SEL, RGMII_IO_MACRO_CONFIG);
-> +	rgmii_clrmask(ethqos, RGMII_CONFIG_PROG_SWAP, RGMII_IO_MACRO_CONFIG);
-> +
-> +	if (ethqos->has_emac_ge_3)
-> +		rgmii_clrmask(ethqos, RGMII_CONFIG2_DATA_DIVIDE_CLK_SEL,
-> +			      RGMII_IO_MACRO_CONFIG2);
-> +	else
-> +		rgmii_setmask(ethqos, RGMII_CONFIG2_DATA_DIVIDE_CLK_SEL,
-> +			      RGMII_IO_MACRO_CONFIG2);
-> +
-> +	rgmii_clrmask(ethqos, RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN,
-> +		      RGMII_IO_MACRO_CONFIG2);
-> +
-> +	if (speed == SPEED_1000)
-> +		rgmii_clrmask(ethqos, RGMII_CONFIG2_RSVD_CONFIG15, RGMII_IO_MACRO_CONFIG2);
-> +	else
-> +		rgmii_setmask(ethqos, RGMII_CONFIG2_RSVD_CONFIG15, RGMII_IO_MACRO_CONFIG2);
-> +
-> +	if (ethqos->rgmii_config_loopback_en)
-> +		rgmii_setmask(ethqos, RGMII_CONFIG_LOOPBACK_EN, RGMII_IO_MACRO_CONFIG);
-> +	else
-> +		rgmii_clrmask(ethqos, RGMII_CONFIG_LOOPBACK_EN, RGMII_IO_MACRO_CONFIG);
-> +
-> +	rgmii_setmask(ethqos, RGMII_CONFIG2_RX_PROG_SWAP, RGMII_IO_MACRO_CONFIG2);
-> +}
-> +
->  static void ethqos_fix_mac_speed_rgmii(void *bsp_priv,
->  				       phy_interface_t interface, int speed,
->  				       unsigned int mode)
-
-[Severity: Medium]
-Does the programming guide really expect all of bits 31:17 in
-RGMII_IO_MACRO_CONFIG2 to be set at 100M and 10M?
-
-RGMII_CONFIG2_RSVD_CONFIG15 is GENMASK(31, 17), which is a 15-bit
-field. The suffix looks like the field width, as it is for
-RGMII_CONFIG_MAX_SPD_PRG_9 (GENMASK(16, 8)) and
-RGMII_CONFIG_MAX_SPD_PRG_2 (GENMASK(7, 6)).
-
-rgmii_setmask() is just rgmii_updatel(ethqos, mask, mask, offset). So
-below 1G, ethqos_rgmii_id_macro_init() writes 0x7fff into this field,
-which is 0xfffe0000 in RGMII_IO_MACRO_CONFIG2.
-
-The existing ethqos_rgmii_macro_init() path only ever clears this
-field, so this is the first place a non-zero value is written to it.
-
-If the hardware expects a specific value there, for example 1, then
-10M/100M links in rgmii-id mode would run with every reserved bit in
-that range set. The effect of that is unknown, and it could break
-those link speeds.
-
-Should this be rgmii_updatel() with
-FIELD_PREP(RGMII_CONFIG2_RSVD_CONFIG15, val) for the value the guide
-gives? If all ones really is what the guide asks for, could you add a
-comment saying so? Otherwise it reads like a single-bit setmask applied
-to a multi-bit field by mistake.
+>  	qcom_ethqos_set_sgmii_loopback(ethqos, true);
+>  	ethqos_set_func_clk_en(ethqos);
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017-shikra_ethernet-v3-0-26a8beb44b8f%40oss.qualcomm.com
