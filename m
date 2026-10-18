@@ -1,63 +1,63 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99D94C8C7F
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A14A4C6527
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:49:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792331391; cv=none; b=uynmGxVRwghZadHQXd9+ecLX3osSDA6gsJ6aAnEHk5RD7xBzdOkNsEieXHIpz05fo2XFYlP67Hh4PfwqO6eTfV4QiukfKZrlFK4EcnaaXSazSzC2HoaV8s7Mg+buCoWf1CnTvTDw7mX2Sg2wynkE0pDUTjo2cgl4RtT9qPqTRvA=
+	t=1792331394; cv=none; b=eTEZhtB4eIGAKK8jZdj/2YRXOubUyYwkuDOs4ugVGFaYaqFkFVbPIsH5QM4u1GmbpE+HnDGJo7OELIfyDwWbMz7DNHbgljGiUA9iXrMhhmo7/RqN9Qzzu8I1SPP8eQKuQCM3bWmtRDbHVQwJMx+VEFmGHPR6eNALRiW7Fyi8doo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792331391; c=relaxed/simple;
-	bh=ksgM4aW4RJ6BFt7624R4WNOTNQ4S1mGDEclXW8DzxFk=;
+	s=arc-20240116; t=1792331394; c=relaxed/simple;
+	bh=6bijUlXAbL/N3wCEuzy67Wc9+cqaf06lnVeWNhLXdQQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TmdWLO364ueNJMnhJm3T3vNYcIPMeAhA6/QGnOexs87U1e6do1DeeAuGqAh99NQpKXBH5uDkleuSYlGP8aHmUWJNQQAzzKJwGXmnLp3JI8qI75l4/E5l+t8a1gUZJtOk+7rN7X7n5NAytBH5FXEuh7FdGBcen3YINADIZ+uXYwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IRaqQr0B; arc=none smtp.client-ip=209.85.218.53
+	 MIME-Version; b=Zf/vxlUdz+KUTAQp3sH8/LpHH0z7CfVgl5sLzqDo+/W6lO7ohLd9hcM2f2sp+w/nZreXFq/So5ItVRZETw/LDli/1YfQORVrb9Sag2DlN4tqmRjg8ug0hOai19UeADR0eB8G2fQGSmHZYS7puzzR0Hdz4oI/WgsBL7mJwB35WiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iqTMWcyH; arc=none smtp.client-ip=209.85.218.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IRaqQr0B"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so120828866b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:49:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iqTMWcyH"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2e8c710847so149271366b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:49:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792331388; x=1792936188; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792331390; x=1792936190; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xf4DsDndYrdpWXL1CLcg308mCcphdBjI61Eg5LQ4nys=;
-        b=IRaqQr0BDmfhPj7fo9er2WKQZMm761INxOo/GA6O2YXEETXfMfofwrV6cz1ifCS7z+
-         /qNlkj963bxJMr3CpXXQgDHhr6+4eRUfMGcMvRWA3uE63eXgHbFEwj7XtRGflRna/4OL
-         omF5SpdJU75Zcp60q6uAw3tDrjSJfzGXGhZuBUk3QtvDMeagcGowJxKeb9Fg2PVqvY9C
-         pPu368COaHYtXUCJ7kT4Y9AF6pqjI2Wo874YA3rgc7k4Op34GLAko1xlC4IeMVHhLYDP
-         +95aL/RGZhpR+Q5zHQjhYwyMYuidXCKj3N62SzGScp9iv/+joXkgyFgQwDocC0BuyGkU
-         YZIQ==
+        bh=lpRhgnnQ3c69BKtA52SSfn2OKHjIwq2qtwMcYorMrto=;
+        b=iqTMWcyHWkDCeh3FocsbKTRCJWMW64g5M/SZwnro/CqvKjBIaBBh6tXfeRcM7JaL5R
+         HUb52wqCHkzPDXvfwfiKseKOo0k3Mc3FeSWceSObZiao/aMgVD4sqR1G/ghXXCwMxyvG
+         9XDsDc6cFg5bCu3UFETpF3wIoLCt/YdPgjmgeRUXxdevcQJ+RsklgMFNDquBh9Z0/jie
+         qvqBhlRuXsK0RrTQCv4qxF2GuGovrLMXQcayaN4jQJCdv8fT2PSjtAuXqCbzl+d/slUe
+         ZsnA9G4nBJ5SDSoA4+RO1xF5Q/RD8pZj7CRITUEBePdpHXDzYLWSSB4qVGD6b8NU9Mhz
+         54zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792331388; x=1792936188;
+        d=1e100.net; s=20260707; t=1792331390; x=1792936190;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xf4DsDndYrdpWXL1CLcg308mCcphdBjI61Eg5LQ4nys=;
-        b=iXVpaywDv0V9MXZNwuY89/4RZ0N2ZNYpE0/Z7y/aQVqZB8awXwgoWSqMb1jX3IV7bA
-         Lb6FBPvBV/jZM/S/4n3DY950pLXMuQUyTrSpYE7J6CEV9OjjJpPtIYgPuu0cqUmrFsag
-         p9vvMTlQHLIZTADMzGt71WTVBxtnnou5GJeRLc3cCWVkjqsyTo+lsm90v6jIuIq97zNi
-         St52S5STIEn8mZK+kT9Thq56uj00K5LPzQNRivs3sxkK+xp6vAN7iv1SHIqMSZpait6H
-         MsAXzRf1HBdFHX/xt043MFTkhfvdlZEIKz9fi5HbBE2psN+ccp3EVe9R1I1k5cG36YMu
-         IVjQ==
-X-Gm-Message-State: AFq9FYK0fcBI7+8odzy7/s8c7wNPXgjCdeTC6NU2QveUI9Nuotj1+lSV
-	fBAqMBE2RezaaUMwd9aSYlLDIttnSWy7gQ2c0ZBVSc3EzrzgZuNxxmKJ
-X-Gm-Gg: AYBFou0XAbucy9m6Bzx/zJeEVhUGWFQRbjTk9DTqgA79Yt0qaihiMX71Rkr00Pli+Nn
-	x+v0eLQw7Up1PIDD7ziOHnWYYm7Z+c4E7e6Va1FR/yULIgnrDm2c5KAW0MIAlU5nQyXN/6DTzfv
-	wOtr1a0YfonSo4pJcCq52l5vtSFguUER/CmilgMqZ93eYaNQKWq8IhcBvEZX8oJWiGqrULDc8tQ
-	Z9PJwltwgRDxhqTPGVwuBkJe/TqGuvqK6sZxgR1zuN6MUNs7RdWyBU8HUdeo5DGHmtoxZqe8Zjy
-	/0LCgy7eXMQSOoD/v25ffL2xH5Z6LQw40l5yXiwJ0A1Igm2+xbDtu6T2BskMVYGmQvpr8cagiCz
-	aNlHZg/nEVeLwaMbFRfpWHP63JBlKdcP5Mt2hsnw1Xhwldk2/IWJWMLcnv2HfwE5Q2R+L2Z79y9
-	cY7Lc1uB/IJCvydRzSbf5u7n3KaZUR8klJS1qNT22hoYalYqMRPRzYHVy81mzq9OtkKeg2Zj50H
-	+JwkLp/HMzOGIxNPlisfX6ChfEbZ4v5f3dZHiAt
-X-Received: by 2002:a17:907:d48f:b0:c32:110d:682f with SMTP id a640c23a62f3a-c419e63cbc2mr357315666b.18.1792331387779;
-        Sun, 18 Oct 2026 06:49:47 -0700 (PDT)
+        bh=lpRhgnnQ3c69BKtA52SSfn2OKHjIwq2qtwMcYorMrto=;
+        b=XZtlXZ69DXBy/JmLf40M3hpjRywRlDERo9Nhfgq9gYP4oNJqINy+aTy95B6KgiadMI
+         5tAfbojFVlsxyluJt+3IQRSEEwXOSpx3EoyMwVBFBKjsbwuBYilx92YS0/PhXqqbUumf
+         mDEUYxSyoJixisNeZwZY1Ulp+upwMoFRz3PyFYCe+C2S58raEOCfzdRYu1iwAZk+1h3Z
+         /VnRmDoS0b+GFodzVNvBYief/87pnJC6GQ1RV7l2gCuJPpWtFVp13l7UFlMtfproC0cj
+         hSPWwx9ZgC2Zv1iiwxRrte0xLzDoaQ46VIK81sUW4T5FFherto/SQECl2O8xc4zJk4X+
+         U6/g==
+X-Gm-Message-State: AFq9FYLmW748v3MbiyYszKjNH2sVZDeoatfi8EJjffPYt7Vu4aT51ZJO
+	vUprQlqlAlPo+HXGYLToox9bKQnOW3HmjM7TvH401rIPdTgYIWKc9Zco
+X-Gm-Gg: AYBFou3gKo3CA7h+EU0ukMeK0TUb7YeHAJ2CSDfHSruxbBpaGgxpPgMNlZ4JgYWJFD2
+	N0J9x1j22XC7kLfGFEdfKH4RT0d8im/8KqKsFxCHLuP7eScGDHwAF1hEhHfLit7D7Rm7EbxJ0YO
+	VlLkRaUjIz9juagcIcWBHg6xvzvVYiH0L+Z+lRVg9E3qii5/v+vjPrVZsYPxTnCLvLLTqY9JhBh
+	e7KcraCNrVvSKjvbjJteWLDafBA2e/lYAZaeLKbFKJWGs/prtSQJWzujTZu171ono3JtUJRzMzG
+	uk5Gkrn192gFT3tOM9NqOONwG/IKj21CDb9UdIZPenWEsIUUtQ99o6NP+01Q2v3+a9O89OX33pv
+	9tlM0aLacLGIKN3VUt67S8nVBb4Zg6bCWAZxJdDWNd4ZbbpUKqStj2InbHH8Lpa5zjjuaCw1SzP
+	APu0NMBk9gfsoPFjxIKrGenVR0DpLsqDTYDd/lHV3d0hlnukPYiOjQXbtZ12/raA4nj3Aj/+bgF
+	ns+0j0X4UK3fUDnGW8nw6kNe6O1LpfSwA7kLZk4
+X-Received: by 2002:a17:907:1c8f:b0:c26:1649:47a5 with SMTP id a640c23a62f3a-c419f121280mr341217266b.27.1792331390333;
+        Sun, 18 Oct 2026 06:49:50 -0700 (PDT)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919c0402sm267678266b.61.2026.10.18.06.49.45
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919c0402sm267678266b.61.2026.10.18.06.49.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 06:49:46 -0700 (PDT)
+        Sun, 18 Oct 2026 06:49:48 -0700 (PDT)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: davem@davemloft.net,
 	andreas@gaisler.com,
@@ -70,9 +70,9 @@ Cc: linux-kernel@vger.kernel.org,
 	krzk@kernel.org,
 	oleg@redhat.com,
 	linmag7@gmail.com
-Subject: [PATCH v4 09/10] sparc64: add M3000 Oberon PCIe support
-Date: Sun, 18 Oct 2026 15:45:11 +0200
-Message-ID: <20261018134738.1016106-10-linmag7@gmail.com>
+Subject: [PATCH v4 10/10] hvc: add an M3000 firmware console backend
+Date: Sun, 18 Oct 2026 15:45:12 +0200
+Message-ID: <20261018134738.1016106-11-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261018134738.1016106-1-linmag7@gmail.com>
 References: <20261018134738.1016106-1-linmag7@gmail.com>
@@ -84,382 +84,280 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Recognize Oberon from its firmware compatible property without a platform
-Kconfig option, preserving firmware link setup. Flush DVMA translations
-and changed noncoherent IOTSB cache lines, and route legacy interrupts
-using the bridge's ten-bit target ID.
+Provide hvc0 through the M3000 Open Firmware pseudo-console, validating
+the firmware model and console endpoints before registering it. Keep
+firmware buffers in locked kernel mappings and serialize their use in
+atomic console contexts through the existing SPARC p1275 interface.
 
-Cache the bridge type and share target encoding. Leave MSI queues
-uninitialized so the existing architecture path uses legacy interrupts
-even with CONFIG_PCI_MSI=y; native bridge error handling is not provided.
+Poll input while the TTY is open and synchronize close with timer
+rearming. Return zero on no progress so HVC retries buffered TTY output
+but drops stalled console chunks instead of spinning indefinitely.
+A firmware call that does not return remains unbounded.
 
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/sparc/include/asm/iommu_64.h |  1 +
- arch/sparc/include/asm/irq_64.h   |  1 +
- arch/sparc/kernel/iommu.c         | 44 +++++++++++++++++++++++++++
- arch/sparc/kernel/irq_64.c        | 50 ++++++++++++++++++++++++-------
- arch/sparc/kernel/pci_fire.c      | 26 ++++++++++++++--
- arch/sparc/kernel/pci_impl.h      |  1 +
- arch/sparc/kernel/prom_irqtrans.c |  5 ++++
- 7 files changed, 115 insertions(+), 13 deletions(-)
+ MAINTAINERS                 |   7 ++
+ drivers/tty/hvc/Kconfig     |  11 ++
+ drivers/tty/hvc/Makefile    |   1 +
+ drivers/tty/hvc/hvc_m3000.c | 202 ++++++++++++++++++++++++++++++++++++
+ 4 files changed, 221 insertions(+)
+ create mode 100644 drivers/tty/hvc/hvc_m3000.c
 
-diff --git a/arch/sparc/include/asm/iommu_64.h b/arch/sparc/include/asm/iommu_64.h
-index 0ef6dedf747e..abd7bb0fa615 100644
---- a/arch/sparc/include/asm/iommu_64.h
-+++ b/arch/sparc/include/asm/iommu_64.h
-@@ -62,6 +62,7 @@ struct iommu {
- 	unsigned long		iommu_tsbbase;
- 	unsigned long		iommu_flush;
- 	unsigned long		iommu_flushinv;
-+	unsigned long		iommu_cache_flush; /* Oberon IOTSB cache */
- 	unsigned long		iommu_tags;
- 	unsigned long		iommu_ctxflush;
- 	unsigned long		write_complete_reg;
-diff --git a/arch/sparc/include/asm/irq_64.h b/arch/sparc/include/asm/irq_64.h
-index 8c4c0c87f998..c3e88f2f8e80 100644
---- a/arch/sparc/include/asm/irq_64.h
-+++ b/arch/sparc/include/asm/irq_64.h
-@@ -45,6 +45,7 @@ void irq_install_pre_handler(int irq,
- 			     void *arg1, void *arg2);
- #define irq_canonicalize(irq)	(irq)
- unsigned int build_irq(int inofixup, unsigned long iclr, unsigned long imap);
-+unsigned int oberon_build_irq(int inofixup, unsigned long iclr, unsigned long imap);
- unsigned int sun4v_build_irq(u32 devhandle, unsigned int devino);
- unsigned int sun4v_build_virq(u32 devhandle, unsigned int devino);
- unsigned int sun4v_build_msi(u32 devhandle, unsigned int *irq_p,
-diff --git a/arch/sparc/kernel/iommu.c b/arch/sparc/kernel/iommu.c
-index 66aaafbf1621..27d269a8b52c 100644
---- a/arch/sparc/kernel/iommu.c
-+++ b/arch/sparc/kernel/iommu.c
-@@ -52,6 +52,8 @@ static void iommu_flushall(struct iommu_map_table *iommu_map_table)
- 	struct iommu *iommu = container_of(iommu_map_table, struct iommu, tbl);
- 	if (iommu->iommu_flushinv) {
- 		iommu_write(iommu->iommu_flushinv, ~(u64)0);
-+		if (iommu->iommu_cache_flush)
-+			(void)iommu_read(iommu->write_complete_reg);
- 	} else {
- 		unsigned long tag;
- 		int entry;
-@@ -67,6 +69,30 @@ static void iommu_flushall(struct iommu_map_table *iommu_map_table)
- 	}
- }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..21e4f4e558bd 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -10728,6 +10728,13 @@ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+ F:	drivers/platform/x86/fujitsu-laptop.c
  
++FUJITSU M3000 FIRMWARE CONSOLE
++M:	Magnus Lindholm <linmag7@gmail.com>
++L:	linux-serial@vger.kernel.org
++L:	sparclinux@vger.kernel.org
++S:	Maintained
++F:	drivers/tty/hvc/hvc_m3000.c
++
+ FUJITSU TABLET EXTRAS
+ M:	Robert Gerlach <khnz@gmx.de>
+ L:	platform-driver-x86@vger.kernel.org
+diff --git a/drivers/tty/hvc/Kconfig b/drivers/tty/hvc/Kconfig
+index 5866195de26a..d940fa0d68e0 100644
+--- a/drivers/tty/hvc/Kconfig
++++ b/drivers/tty/hvc/Kconfig
+@@ -134,3 +134,14 @@ config HVCS
+ 	  will depend on arch specific APIs exported from hvcserver.ko
+ 	  which will also be compiled when this driver is built as a
+ 	  module.
++
++config HVC_M3000
++	bool "M3000 firmware pseudo-console"
++	depends on SPARC64
++	select HVC_DRIVER
++	help
++	  Provide hvc0 using Open Firmware stdin/stdout on the Fujitsu M3000
++	  (IKKAKU platform).
++	  Input is polled; no native UART registers are accessed.
++	  Firmware calls are serialized and use a locked-image bounce buffer.
++	  Say Y to use the M3000 firmware pseudo-console as hvc0.
+diff --git a/drivers/tty/hvc/Makefile b/drivers/tty/hvc/Makefile
+index 98880e357941..38c8cf349053 100644
+--- a/drivers/tty/hvc/Makefile
++++ b/drivers/tty/hvc/Makefile
+@@ -11,3 +11,4 @@ obj-$(CONFIG_HVC_IUCV)		+= hvc_iucv.o
+ obj-$(CONFIG_HVC_UDBG)		+= hvc_udbg.o
+ obj-$(CONFIG_HVC_RISCV_SBI)	+= hvc_riscv_sbi.o
+ obj-$(CONFIG_HVCS)		+= hvcs.o
++obj-$(CONFIG_HVC_M3000)		+= hvc_m3000.o
+diff --git a/drivers/tty/hvc/hvc_m3000.c b/drivers/tty/hvc/hvc_m3000.c
+new file mode 100644
+index 000000000000..e2150d479308
+--- /dev/null
++++ b/drivers/tty/hvc/hvc_m3000.c
+@@ -0,0 +1,202 @@
++// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Oberon's noncoherent IOTSB needs each changed 64-byte cache line flushed
-+ * along with its DVMA translations. Call only for device-inactive mappings.
++ * M3000 Open Firmware pseudo-console backend.
++ * Copyright (C) 2026 Magnus Lindholm
 + */
-+static void iommu_sync_mapping(struct iommu *iommu, iopte_t *base,
-+			       unsigned long npages)
-+{
-+	unsigned long slot, i;
++#include <linux/cleanup.h>
++#include <linux/console.h>
++#include <linux/err.h>
++#include <linux/init.h>
++#include <linux/irqflags.h>
++#include <linux/mutex.h>
++#include <linux/string.h>
++#include <linux/spinlock.h>
++#include <linux/timer.h>
++#include <asm/oplib.h>
++#include <asm/spitfire.h>
++#include "hvc_console.h"
 +
-+	if (!iommu->iommu_cache_flush || !npages)
++#define M3000_PROM_IO_ARGS	3
++#define M3000_PROM_IO_RETURNS	1
++#define M3000_PROM_ERROR		(-1)
++#define M3000_PROM_NO_DATA	(-2)
++
++struct m3000_console {
++	struct timer_list poll_timer;
++	struct mutex poll_mutex; /* Serialize open against synchronous close. */
++	raw_spinlock_t buffer_lock;
++	spinlock_t poll_lock; /* Protect active state and timer rearming. */
++	int stdin;
++	u8 buffer[256];
++	bool ready;
++	bool poll_active;
++};
++
++/* Keep the firmware buffer within the locked kernel image mappings. */
++static struct m3000_console m3000_consoles[] = {
++	{
++		.buffer_lock = __RAW_SPIN_LOCK_UNLOCKED(m3000_consoles[0].buffer_lock),
++		.poll_mutex = __MUTEX_INITIALIZER(m3000_consoles[0].poll_mutex),
++		.poll_lock = __SPIN_LOCK_UNLOCKED(m3000_consoles[0].poll_lock),
++	},
++};
++
++static struct m3000_console *m3000_console(u32 termno)
++{
++	if (termno >= ARRAY_SIZE(m3000_consoles))
++		return NULL;
++	return &m3000_consoles[termno];
++}
++
++/*
++ * HVC's idle backoff can exceed the firmware input FIFO's capacity.
++ * Wake its worker each tick while open; keep PROM calls out of the timer.
++ */
++static void m3000_poll_tick(struct timer_list *timer)
++{
++	struct m3000_console *con = timer_container_of(con, timer, poll_timer);
++
++	guard(spinlock_irqsave)(&con->poll_lock);
++	if (con->poll_active) {
++		hvc_kick();
++		mod_timer(&con->poll_timer, jiffies + 1);
++	}
++}
++
++static int m3000_open(struct hvc_struct *hp, int data)
++{
++	struct m3000_console *con = m3000_console(hp->vtermno);
++
++	if (!con)
++		return -ENODEV;
++	guard(mutex)(&con->poll_mutex);
++	guard(spinlock_irqsave)(&con->poll_lock);
++	con->poll_active = true;
++	mod_timer(&con->poll_timer, jiffies + 1);
++	return 0;
++}
++
++static void m3000_close(struct hvc_struct *hp, int data)
++{
++	struct m3000_console *con = m3000_console(hp->vtermno);
++
++	if (!con)
 +		return;
-+	slot = base - iommu->page_table;
-+	/* Publish IOPTE stores before invalidating the hardware caches. */
-+	wmb();
-+	for (i = 0; i < npages; i++, slot++) {
-+		iommu_write(iommu->iommu_flush,
-+			    iommu->tbl.table_map_base + (slot << IO_PAGE_SHIFT));
-+		if ((slot & 7) == 7 || i == npages - 1)
-+			iommu_write(iommu->iommu_cache_flush,
-+				    __pa(iommu->page_table + slot));
-+	}
-+	(void)iommu_read(iommu->write_complete_reg);
++	guard(mutex)(&con->poll_mutex);
++	scoped_guard(spinlock_irqsave, &con->poll_lock)
++		con->poll_active = false;
++	/* Block reopen until the callback has finished and cannot rearm. */
++	timer_delete_sync(&con->poll_timer);
 +}
 +
- #define IOPTE_CONSISTENT(CTX) \
- 	(IOPTE_VALID | IOPTE_CACHE | \
- 	 (((CTX) << 47) & IOPTE_CONTEXT))
-@@ -240,6 +266,8 @@ static void *dma_4u_alloc_coherent(struct device *dev, size_t size,
- 		first_page += IO_PAGE_SIZE;
- 	}
- 
-+	iommu_sync_mapping(iommu, iopte - (size >> IO_PAGE_SHIFT),
-+			   size >> IO_PAGE_SHIFT);
- 	return ret;
- }
- 
-@@ -253,6 +281,15 @@ static void dma_4u_free_coherent(struct device *dev, size_t size,
- 	npages = IO_PAGE_ALIGN(size) >> IO_PAGE_SHIFT;
- 	iommu = dev->archdata.iommu;
- 
-+	if (iommu->iommu_cache_flush) {
-+		iopte_t *base = iommu->page_table +
-+			((dvma - iommu->tbl.table_map_base) >> IO_PAGE_SHIFT);
-+		unsigned long i;
-+
-+		for (i = 0; i < npages; i++)
-+			iopte_make_dummy(iommu, base + i);
-+		iommu_sync_mapping(iommu, base, npages);
-+	}
- 	iommu_tbl_range_free(&iommu->tbl, dvma, npages, IOMMU_ERROR_CODE);
- 
- 	order = get_order(size);
-@@ -316,6 +353,7 @@ static dma_addr_t dma_4u_map_phys(struct device *dev, phys_addr_t phys,
- 
- 	for (i = 0; i < npages; i++, base++, phys += IO_PAGE_SIZE)
- 		iopte_val(*base) = iopte_protection | phys;
-+	iommu_sync_mapping(iommu, base - npages, npages);
- 
- 	return ret;
- 
-@@ -432,6 +470,7 @@ static void dma_4u_unmap_phys(struct device *dev, dma_addr_t bus_addr,
- 	/* Step 2: Clear out TSB entries. */
- 	for (i = 0; i < npages; i++)
- 		iopte_make_dummy(iommu, base + i);
-+	iommu_sync_mapping(iommu, base, npages);
- 
- 	iommu_free_ctx(iommu, ctx);
- 	spin_unlock_irqrestore(&iommu->lock, flags);
-@@ -523,6 +562,9 @@ static int dma_4u_map_sg(struct device *dev, struct scatterlist *sglist,
- 			paddr += IO_PAGE_SIZE;
- 		}
- 
-+		iommu_sync_mapping(iommu, iommu->page_table + entry,
-+				   base - (iommu->page_table + entry));
-+
- 		/* If we are in an open segment, try merging */
- 		if (segstart != s) {
- 			/* We cannot merge if:
-@@ -577,6 +619,7 @@ static int dma_4u_map_sg(struct device *dev, struct scatterlist *sglist,
- 
- 			for (j = 0; j < npages; j++)
- 				iopte_make_dummy(iommu, base + j);
-+			iommu_sync_mapping(iommu, base, npages);
- 
- 			iommu_tbl_range_free(&iommu->tbl, vaddr, npages,
- 					     IOMMU_ERROR_CODE);
-@@ -653,6 +696,7 @@ static void dma_4u_unmap_sg(struct device *dev, struct scatterlist *sglist,
- 
- 		for (i = 0; i < npages; i++)
- 			iopte_make_dummy(iommu, base + i);
-+		iommu_sync_mapping(iommu, base, npages);
- 
- 		iommu_tbl_range_free(&iommu->tbl, dma_handle, npages,
- 				     IOMMU_ERROR_CODE);
-diff --git a/arch/sparc/kernel/irq_64.c b/arch/sparc/kernel/irq_64.c
-index 4cceeba726ab..338f58246feb 100644
---- a/arch/sparc/kernel/irq_64.c
-+++ b/arch/sparc/kernel/irq_64.c
-@@ -206,6 +206,7 @@ struct irq_handler_data {
- 	struct ino_bucket bucket;
- 	unsigned long	iclr;
- 	unsigned long	imap;
-+	bool		oberon;
- };
- 
- static inline unsigned int irq_data_to_handle(struct irq_data *data)
-@@ -364,6 +365,16 @@ static int irq_choose_cpu(unsigned int irq, const struct cpumask *affinity)
- 	real_hard_smp_processor_id()
- #endif
- 
-+/* Oberon IMAP destination is a ten-bit interrupt target ID. */
-+#define OBERON_IMAP_TID_SHIFT	21
-+#define OBERON_IMAP_TID_MASK	(0x3ffUL << OBERON_IMAP_TID_SHIFT)
-+
-+static unsigned long oberon_imap_target(unsigned long val, unsigned int cpuid)
++static ssize_t m3000_io(struct m3000_console *con, u8 *in,
++			const u8 *out, size_t count)
 +{
-+	return (val & ~OBERON_IMAP_TID_MASK) |
-+		((cpuid << OBERON_IMAP_TID_SHIFT) & OBERON_IMAP_TID_MASK);
++	unsigned long args[3 + M3000_PROM_IO_ARGS + M3000_PROM_IO_RETURNS];
++	int ret;
++
++	if (!count)
++		return 0;
++	count = min(count, in ? 1 : sizeof(con->buffer));
++	/* Console writes can run with interrupts disabled; this lock cannot sleep. */
++	scoped_guard(raw_spinlock_irqsave, &con->buffer_lock) {
++		if (!in)
++			memcpy(con->buffer, out, count);
++		args[0] = (unsigned long)(in ? "read" : "write");
++		args[1] = M3000_PROM_IO_ARGS;
++		args[2] = M3000_PROM_IO_RETURNS;
++		args[3] = (unsigned int)(in ? con->stdin : prom_stdout);
++		args[4] = (unsigned long)con->buffer;
++		args[5] = count;
++		args[6] = (unsigned long)M3000_PROM_ERROR;
++		p1275_cmd_direct(args);
++		ret = (int)args[6];
++		if (ret > 0 && ret <= count && in)
++			memcpy(in, con->buffer, ret);
++	}
++	if (ret == M3000_PROM_NO_DATA || ret == 0)
++		return 0;
++	if (ret < 0 || ret > count)
++		return -EIO;
++	return ret;
 +}
 +
- static void sun4u_irq_enable(struct irq_data *data)
- {
- 	struct irq_handler_data *handler_data;
-@@ -377,12 +388,16 @@ static void sun4u_irq_enable(struct irq_data *data)
- 				       irq_data_get_affinity_mask(data));
- 		imap = handler_data->imap;
- 
--		tid = sun4u_compute_tid(imap, cpuid);
--
- 		val = upa_readq(imap);
--		val &= ~(IMAP_TID_UPA | IMAP_TID_JBUS |
--			 IMAP_AID_SAFARI | IMAP_NID_SAFARI);
--		val |= tid | IMAP_VALID;
-+		if (handler_data->oberon) {
-+			val = oberon_imap_target(val, cpuid);
-+		} else {
-+			tid = sun4u_compute_tid(imap, cpuid);
-+			val &= ~(IMAP_TID_UPA | IMAP_TID_JBUS |
-+				 IMAP_AID_SAFARI | IMAP_NID_SAFARI);
-+			val |= tid;
-+		}
-+		val |= IMAP_VALID;
- 		upa_writeq(val, imap);
- 		upa_writeq(ICLR_IDLE, handler_data->iclr);
- 	}
-@@ -401,12 +416,16 @@ static int sun4u_set_affinity(struct irq_data *data,
- 		cpuid = irq_choose_cpu(data->irq, mask);
- 		imap = handler_data->imap;
- 
--		tid = sun4u_compute_tid(imap, cpuid);
--
- 		val = upa_readq(imap);
--		val &= ~(IMAP_TID_UPA | IMAP_TID_JBUS |
--			 IMAP_AID_SAFARI | IMAP_NID_SAFARI);
--		val |= tid | IMAP_VALID;
-+		if (handler_data->oberon) {
-+			val = oberon_imap_target(val, cpuid);
-+		} else {
-+			tid = sun4u_compute_tid(imap, cpuid);
-+			val &= ~(IMAP_TID_UPA | IMAP_TID_JBUS |
-+				 IMAP_AID_SAFARI | IMAP_NID_SAFARI);
-+			val |= tid;
-+		}
-+		val |= IMAP_VALID;
- 		upa_writeq(val, imap);
- 		upa_writeq(ICLR_IDLE, handler_data->iclr);
- 	}
-@@ -646,6 +665,17 @@ unsigned int build_irq(int inofixup, unsigned long iclr, unsigned long imap)
- 	return irq;
- }
- 
-+unsigned int oberon_build_irq(int inofixup, unsigned long iclr,
-+			      unsigned long imap)
++static ssize_t m3000_get(u32 termno, u8 *buf, size_t count)
 +{
-+	unsigned int irq = build_irq(inofixup, iclr, imap);
-+	struct irq_handler_data *data = irq_get_handler_data(irq);
++	struct m3000_console *con = m3000_console(termno);
 +
-+	if (data)
-+		data->oberon = true;
-+	return irq;
++	return con ? m3000_io(con, buf, NULL, count) : -ENODEV;
 +}
 +
- static unsigned int sun4v_build_common(u32 devhandle, unsigned int devino,
- 		void (*handler_data_init)(struct irq_handler_data *data,
- 		u32 devhandle, unsigned int devino),
-diff --git a/arch/sparc/kernel/pci_fire.c b/arch/sparc/kernel/pci_fire.c
-index db160eeb0ffe..f2776144d1d4 100644
---- a/arch/sparc/kernel/pci_fire.c
-+++ b/arch/sparc/kernel/pci_fire.c
-@@ -46,11 +46,21 @@ static int pci_fire_pbm_iommu_init(struct pci_pbm_info *pbm)
- 	iommu->iommu_tsbbase  = pbm->pbm_regs + FIRE_IOMMU_TSBBASE;
- 	iommu->iommu_flush    = pbm->pbm_regs + FIRE_IOMMU_FLUSH;
- 	iommu->iommu_flushinv = pbm->pbm_regs + FIRE_IOMMU_FLUSHINV;
-+	if (pbm->is_oberon) {
-+		/*
-+		 * 0x40100 flushes an IOTSB cache line by physical address;
-+		 * 0x40010 flushes a translated DVMA page.
-+		 */
-+		iommu->iommu_flush = pbm->pbm_regs + 0x40010UL;
-+		iommu->iommu_cache_flush = pbm->pbm_regs + 0x40100UL;
-+		iommu->write_complete_reg = iommu->iommu_control;
-+	}
- 
- 	/* We use the main control/status register of FIRE as the write
- 	 * completion register.
- 	 */
--	iommu->write_complete_reg = pbm->controller_regs + 0x410000UL;
-+	if (!iommu->iommu_cache_flush)
-+		iommu->write_complete_reg = pbm->controller_regs + 0x410000UL;
- 
- 	/*
- 	 * Invalidate TLB Entries.
-@@ -62,6 +72,8 @@ static int pci_fire_pbm_iommu_init(struct pci_pbm_info *pbm)
- 	if (err)
- 		return err;
- 
-+	/* Make initialized IOPTEs visible before publishing the table base. */
-+	wmb();
- 	upa_writeq(__pa(iommu->page_table) | 0x7UL, iommu->iommu_tsbbase);
- 
- 	control = upa_readq(iommu->iommu_control);
-@@ -70,6 +82,10 @@ static int pci_fire_pbm_iommu_init(struct pci_pbm_info *pbm)
- 		    0x00000002 /* Bypass enable */		|
- 		    0x00000001 /* Translation enable */);
- 	upa_writeq(control, iommu->iommu_control);
-+	if (iommu->iommu_cache_flush) {
-+		upa_writeq(~(u64)0, iommu->iommu_flushinv);
-+		(void)upa_readq(iommu->iommu_control);
-+	}
- 
- 	return 0;
- }
-@@ -425,6 +441,7 @@ static int pci_fire_pbm_init(struct pci_pbm_info *pbm,
- 	}
- 
- 	pbm->numa_node = NUMA_NO_NODE;
-+	pbm->is_oberon = of_device_is_compatible(dp, "pciex108e,80f8");
- 
- 	pbm->pci_ops = &sun4u_pci_ops;
- 	pbm->config_space_reg_bits = 12;
-@@ -444,13 +461,15 @@ static int pci_fire_pbm_init(struct pci_pbm_info *pbm,
- 
- 	pci_get_pbm_props(pbm);
- 
--	pci_fire_hw_init(pbm);
-+	if (!pbm->is_oberon)
-+		pci_fire_hw_init(pbm);
- 
- 	err = pci_fire_pbm_iommu_init(pbm);
- 	if (err)
- 		return err;
- 
--	pci_fire_msi_init(pbm);
-+	if (!pbm->is_oberon)
-+		pci_fire_msi_init(pbm);
- 
- 	pbm->pci_bus = pci_scan_one_pbm(pbm, &op->dev);
- 
-@@ -510,6 +529,7 @@ static const struct of_device_id fire_match[] = {
- 		.name = "pci",
- 		.compatible = "pciex108e,80f0",
- 	},
-+	{ .name = "pci", .compatible = "pciex108e,80f8" },
- 	{},
- };
- 
-diff --git a/arch/sparc/kernel/pci_impl.h b/arch/sparc/kernel/pci_impl.h
-index 83718876f1d4..92505fcc3cf3 100644
---- a/arch/sparc/kernel/pci_impl.h
-+++ b/arch/sparc/kernel/pci_impl.h
-@@ -117,6 +117,7 @@ struct pci_pbm_info {
- 	/* State of 66MHz capabilities on this PBM. */
- 	int				is_66mhz_capable;
- 	int				all_devs_66mhz;
-+	bool				is_oberon;
- 
- #ifdef CONFIG_PCI_MSI
- 	/* MSI info.  */
-diff --git a/arch/sparc/kernel/prom_irqtrans.c b/arch/sparc/kernel/prom_irqtrans.c
-index 558ed5114664..58c5b4565f41 100644
---- a/arch/sparc/kernel/prom_irqtrans.c
-+++ b/arch/sparc/kernel/prom_irqtrans.c
-@@ -481,6 +481,7 @@ static void __init pci_sun4v_irq_trans_init(struct device_node *dp)
- struct fire_irq_data {
- 	unsigned long pbm_regs;
- 	u32 portid;
-+	bool oberon;
- };
- 
- #define FIRE_IMAP_BASE	0x001000
-@@ -537,6 +538,8 @@ static unsigned int fire_irq_build(struct device_node *dp,
- 	 */
- 	ino |= (irq_data->portid << 6);
- 	ino -= int_ctrlr;
-+	if (irq_data->oberon)
-+		return oberon_build_irq(ino, iclr, imap);
- 	return build_irq(ino, iclr, imap);
- }
- 
-@@ -559,6 +562,7 @@ static void __init fire_irq_trans_init(struct device_node *dp)
- 
- 	dp->irq_trans->data = irq_data;
- 
-+	irq_data->oberon = of_device_is_compatible(dp, "pciex108e,80f8");
- 	irq_data->pbm_regs = regs[0].phys_addr;
- 	irq_data->portid = of_getintprop_default(dp, "portid", 0);
- }
-@@ -784,6 +788,7 @@ static struct irq_trans __initdata pci_irq_trans_table[] = {
- 	{ "pci108e,a801", tomatillo_irq_trans_init },
- 	{ "SUNW,sun4v-pci", pci_sun4v_irq_trans_init },
- 	{ "pciex108e,80f0", fire_irq_trans_init },
-+	{ "pciex108e,80f8", fire_irq_trans_init },
- };
- #endif
- 
++static ssize_t m3000_put(u32 termno, const u8 *buf, size_t count)
++{
++	struct m3000_console *con = m3000_console(termno);
++
++	/* HVC retries zero for TTY writes but drops stalled console output. */
++	return con ? m3000_io(con, NULL, buf, count) : -ENODEV;
++}
++
++static const struct hv_ops m3000_ops = {
++	.get_chars = m3000_get,
++	.put_chars = m3000_put,
++	.notifier_add = m3000_open,
++	.notifier_del = m3000_close,
++	.notifier_hangup = m3000_close,
++};
++
++static bool __init m3000_property_matches(phandle node, const char *prop,
++					  const char *expected)
++{
++	char value[64];
++	int len;
++
++	len = prom_getproperty(node, prop, value, sizeof(value) - 1);
++	if (len <= 0)
++		return false;
++	value[len] = '\0';
++	return !strcmp(value, expected);
++}
++
++static int __init m3000_console_init(void)
++{
++	struct m3000_console *con = &m3000_consoles[0];
++	phandle node;
++	int ret;
++
++	if (tlb_type != sparc64_vii)
++		return -ENODEV;
++	if (!m3000_property_matches(prom_finddevice("/"), "model", "IKKAKU"))
++		return -ENODEV;
++	con->stdin = prom_getint(prom_chosen_node, "stdin");
++	if (!con->stdin || con->stdin == -1 || !prom_stdout || prom_stdout == -1)
++		return -ENODEV;
++	node = prom_inst2pkg(prom_stdout);
++	if (!m3000_property_matches(node, "name", "pseudo-console"))
++		return -ENODEV;
++	node = prom_inst2pkg(con->stdin);
++	if (!m3000_property_matches(node, "name", "pseudo-console"))
++		return -ENODEV;
++	ret = hvc_instantiate(0, 0, &m3000_ops);
++	if (ret < 0)
++		return ret;
++	con->ready = true;
++	return 0;
++}
++console_initcall(m3000_console_init);
++
++static int __init m3000_tty_init(void)
++{
++	struct m3000_console *con = &m3000_consoles[0];
++	struct hvc_struct *hp;
++
++	if (!con->ready)
++		return -ENODEV;
++	timer_setup(&con->poll_timer, m3000_poll_tick, 0);
++	hp = hvc_alloc(0, 0, &m3000_ops, sizeof(con->buffer));
++	if (IS_ERR(hp))
++		return PTR_ERR(hp);
++	hp->ws.ws_row = 24;
++	hp->ws.ws_col = 80;
++	return 0;
++}
++device_initcall(m3000_tty_init);
 -- 
 2.43.0
 
