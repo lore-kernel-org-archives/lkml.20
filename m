@@ -1,124 +1,419 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9934941D628
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792360247; cv=pass; b=aGqsUCIaCCFO2VW+CX57eiXn88waMuLl81XMbFuMjkotfvBe+DUcpX+xGhs4IEd2PQUrLw1eLs3CqGH8dpQIN/0SHJko/srEWruOebtkE1nri8YlKD9QYzVhCoI79pOOHEq2DPjcAudknRKKiZ/ckSDTekrgUXGNetdyGE+d4Yw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792360247; c=relaxed/simple;
-	bh=JsApNxqREUvCCfWYG4AGYT7TQ/2LL6l0vjt9rZikPwk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aWeWpjpUSOKqbbLNtTIoIfp13xJ7OTIr/oMULI/zJVC+tx/iwQZNvDbbQDlvKss7k9EVSvcR09+JyW+x7SjTAPPP2CWU9W2pCHUNR0XvaY7VHJRsUPoZGqPi6VAPW3CCK8q5lzitNHIRYz86TXgfKsOZ4UT7QwJ0H8gorEy6GiM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o6ywAr6b; arc=pass smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA173E3D98
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:55:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792360549; cv=none; b=Kq3maQcUujXMyTuRd70emR5zfPFlpnGrn70GS9RM+ceTKhAEdYPOkxA9I7nTGh6M1Z+15TXphX7uz+52ez6WjTT3wX/Ro33gitBLV9SEvFakErWaOGSTt8jK261RIAky/R7lvvYBdjLKj41+j+NDSYm+r5hrAamHjPGnG4c2Dfw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792360549; c=relaxed/simple;
+	bh=/81qyDB2ZTDWuhk8Dbjw7F0rpwlTXhCjHBMyPIqZqPY=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JX5cAa+AEae5MjyuzQVUyr6v8Y9LS9YzbUtr/fb4QrSdoRYMWKkZ2mRhGhJUT89CnuGto80f/ICNL82gBeT0HqhVzgUShk1ke3Mm07teVpX6L5d8uChxFFhpIKon7GoTNrRf78478LjE3049O+BgiBZ68+pzmEL7s1TmXt+Bf/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j1g05Qn7; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o6ywAr6b"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8ab43af5e97so14374317b3.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:50:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792360245; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OpO4xg21RSTNJXv5nYW/GwIXm7b0Ei+9MgBjqxhw0bWWJ1PhEjDV+9UiA4l62a6Rm9
-         mgGVpi1HpAN0v579FuS2NfeL/0lpkcn435IYNy6En8PEIwLchj0ZudBmyPKta0dlA9s/
-         pZt4KqVvGXz1YLQhE9ouGTWJI8N93SXS7AgLw6ylrifxjiOZNTP73TgZgjoHBttx8dwM
-         6r4MGIAJGGZq0d05MN0+mQ6oyaF8nHKSUq/GZuo+p78SsdFS+3VEY1ouPYJrJqEh6rdj
-         746Ybnoj8es+aSlOnOVL2VNUgdMneIQkCyYmJPMTUUXamz+8J9s86wOP2nQSZ+hX7+qH
-         llpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yi4OcEVBleuTF2zelBND0PJXNDFdIaerPT1ALBRVIDA=;
-        fh=WDsQ+e08f1r3Clp173gGOCgK3NmHWFxCI+O1/W0wgno=;
-        b=S2c8s0P4bkNb3hpAAKaaY0qUp5BgqAdgm1I9U3IcYJbyIJmZl8Ytj+KgglFyyfrLbi
-         /2M70NNkaecxTQB53UKKBo4pQsJuVLFpudD7rwsAbk8/bYZevuvEKeVlG4BU2DDrnkPa
-         KmylBdpbm41G97T4trsgVz9AFKELuEkTPFS076zmzydMtU6BnYi1OgSUpmAYdTz4YKn3
-         YV/nvtECX8wtSiJXFTy+ulqXRWDeNyVPqX75Dg6P05dG+E0EnEY3jFfnEGf/EY9eYiUv
-         RrF4qM8LnCm4QDGYlgJblUZLv/agkWUewRvJHS2GrVxNUHaL7Kx75hj4KiGVMAr9E7qE
-         YGZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j1g05Qn7"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso15690535e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:55:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792360245; x=1792965045; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792360545; x=1792965345; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=yi4OcEVBleuTF2zelBND0PJXNDFdIaerPT1ALBRVIDA=;
-        b=o6ywAr6bBKcGxnHovZwY1obvhUfAELAPHL1XSZ4k8zuwz5XWvWzry/XtxDpz5mvNk+
-         rhnVl+6+B+I/0yWzWQ+1Cj3anzCHboxaLCtN2dQF+Epw41zevM7BazZvqkYP6z4xAhhf
-         tx4IIGtFcJVKNc30f9qW3u/XZrr180GjcvwDdCANNo52j3GR8kTGeM6FANcm2SzlLrS7
-         FrE55G30Y6NRjVorMYzYcGQbZK4DEntN30rVHnXwulWi9KCcC6Msv6vA5Ckhz/lZv1NM
-         +L02qdSeM65lnpp+0xumguf/UYge2C+9ibmeGyA4svvgXAVg0mMDWZ7rNuw2MM1feZ0p
-         yVPg==
+        bh=mO8z2rdDr7jvYldNhIWGcld34J+7H1AXGt8+f2Y4wRM=;
+        b=j1g05Qn7bQT/vTqcmRC2e5bdVnoa+bPRbcOY2Qjci7DZ1SwH58WL61IONwyEebvg//
+         tJlUE+1WjGqvFcE/QT0wI4U9RloCEn7b3J35y/Ilsezo1caFMMwnJJYbFAs5jJqkH1zt
+         A5IBToL6JhEMVmTwI18gR64fV2qvWPAs3sXP+WIjHjoqwX9OI4kNTpRKykDiQErIW4Om
+         n3RUrzzcu8pRlbZORxlj5T/fxanZGoV7UnTH0TRD5nVr9DvMM9kSpx3uSj2yeSCyksqb
+         MxcXZdpfA3pv8prfeFcw5HdfJNqw9hCNRFea9Mf0kmWehx512hbexSM/+vUhoXB1J7JW
+         2Tjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792360245; x=1792965045;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792360545; x=1792965345;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yi4OcEVBleuTF2zelBND0PJXNDFdIaerPT1ALBRVIDA=;
-        b=kTR+FXacQycB4Ee3qBN5d8wz5ORQEBuXz76jiwyQiN3iZqcF9CJEV72piNa+ygMqdH
-         X7mwbpLQZNUVRFwVkIyCPNMfwrq57sljicLyBhUyOBtGOSgyFcrvJ3Sl8qkSkE91cBn6
-         s7JlTg5zEfV5vPyuQQSkCrso9WZ80nR/mIpmFLBdwemhZ/t5Nf9aQ3HihZXY+/lefq9+
-         pCosWIQmdkzFShyiO/qdDx6q6afsKesapxu7fxqCTpoR1sWuzz9SCU/KpM88rZKvQQ/I
-         sToGHnd9OkIrP8T7PwtgpTEaBNB/LhA0wjinCnd5F4n+CfAZTaiv3hr2XQxl1FV7UVSg
-         Vz2g==
-X-Forwarded-Encrypted: i=1; AKwUvBwxMGoYRf28YXEo1HdYei/VLXBnxvIFIJ/DfWRxuSaVv78OdHfkzcCiopHJc57+he8VOtXPq3aHuCa9l+A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXM2BCYx5PgIVIEJVra36xR7Hc1Iwwu5d0LbV9/XBYXXMztb8V
-	1tpk2tTu1RREgHKyQ6Ee+2QwefmpUYIRkLjaETslQokoT5adWkZD1Rz8jF50zUrDFcNixT52uUR
-	rQ7rKOV0aUp8unuTSTkQzv6eJIgWQDlY=
-X-Gm-Gg: AYBFou2qZ/6gR1LotvupP641JdW1Howu5GIJrxVh2rSumC5pyUkEaq8xA4TpxSc6uts
-	Wconv68RHMQ6+PCDEwtlU2ZRSxQipfZ3oLVIePUebPIYE/dZgANkjadDzzsz3OPc7YTF42jqHnO
-	iiy4cKwuk2m9QdTFs8VH8XShp5w6uTpZT/ZksObziHnVBrFJWqdCnX5YnBxjk/SazCtywG2T/k/
-	zJZFxpusO0Yrwyt647hFb50Z5LqluHr93oxU7JUlMIdqbmWm1Zo8cbinArIenVen5GKMnTheT1i
-	jBb43TFSe3ZKqJSz2ZL6n0Ci3BNXWNcHBHNinPmMElXauQyCJqzFP9eGm1YpYAJkJfgWGugzpEE
-	8bSkYP29EScNmrjgBwKnurdCsjB9OY3knctw8mb439tghJArj6VwEGgAUSuH6likNy23ZG50rNZ
-	mwzvSrn3sPsnEcAFiEYWGHGc/xYMj3gRkwxETx4g==
-X-Received: by 2002:a05:690c:60c6:b0:8b0:56e6:54ff with SMTP id
- 00721157ae682-8b0f20f2b8fmr20435397b3.6.1792360245450; Sun, 18 Oct 2026
- 14:50:45 -0700 (PDT)
+        bh=mO8z2rdDr7jvYldNhIWGcld34J+7H1AXGt8+f2Y4wRM=;
+        b=VdSUOY7kt+5eUGqQvYGeagBzPIm6PfDLQCzU7ihdm8wCdzMmswdUWteyauGJtwZ2/U
+         cXoyP2jVRm9Oyoo6QHbakn/kiO07+NlJ6fWrJiZwqr2T/2eMGEHRwAqPXafLSk8UrNzS
+         4PirKFkel0n0/fc/GyHqDXNZgpX/0xe/2hQ+fjJHQSvDtUABExc0Dnxgm94NE4GQIUAe
+         4knqJz6YpOcLqeSHFuAfFKq9sBY+pE+LesJfibeurZ3YTStLqmAyWHhUJaLxS/h3SKsH
+         ZOKOC8deVKTYkhvSjI/KH5dDGNs32Nkxf2T/wULIUgOusWC2giU44C3x+Nb2mYXhlsXY
+         CZsw==
+X-Forwarded-Encrypted: i=1; AKwUvBzrLlnN3AQWqMw6edmlGypu65YoWwibvOnhaKZlOJJgylelV8vB1WP3BKKAJdaBRMGs/sbY0l6TG8OKvkY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfruvk+glwg97o74SwYpM3DxVLK85xkb64M3WTg3Xz8nSzfG+s
+	4uEsneiTVsDOb9FI4eJ1s0CMzWMlUjkVcrsE64c6B1JU43sYIJgENEtRB/3rmg==
+X-Gm-Gg: AYBFou2JBC4MU8WzMHETAtAEECx0XoFYr+wzMvyXsU8cR55P3f7gI3OhZAJ4VMWzhWH
+	2kEY6WyXUFWUgQ+A18i19zEoeD2oDx0vPzOBXhWx5QMfTbXu+dfa8y9hWuKUhXKP6t/0EHjXgW3
+	O98q9uq95Fp3nckvb7fJS36hnngexV8p39r3yeuxS8WMMJ6ZIH+r+mifFDsVC6gP2wP+o699Ucx
+	izQyCwdjdoYC37x4ERI88aBtYiACcgIuYAG8QgRhNU5x+WIYIL3vUSeGvhCYJ2se4mwWiRBwiSA
+	how2Hwt7MTyGXL/7Y/2ltyRTmI5k6R4QyvnGqiDngVsNyi9KSfVDcdHhElsVxYZe08XsdS6SxHg
+	Kidc6I7AcjXaDAbVIY5BBilL5+d3l6Q4NAGjogQ41lXahWYhZVKa9d2gBlYd+D083Q89MPRxnIT
+	phkri0lfiJ1jol1iKWrK5/6KK8t8aIrMzAV/Ki1M9GZfhqQ6mDZmzwbS2O+FIQK0/TdTRPD4nwn
+	e0HtMh2NRbX667F7EnBkkxO5dygRC7gDEBWwyIblEB/f+qMzJk6Bmlzm0pYbw==
+X-Received: by 2002:a05:600c:5254:b0:4a1:e57b:667e with SMTP id 5b1f17b1804b1-4a1e57b68c7mr44096785e9.4.1792360545025;
+        Sun, 18 Oct 2026 14:55:45 -0700 (PDT)
+Received: from Ansuel-XPS. (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d3e2e602sm233945255e9.5.2026.10.18.14.55.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 14:55:44 -0700 (PDT)
+Message-ID: <6ad54060.58e5e2d3.9d5ca.ba8b@mx.google.com>
+X-Google-Original-Message-ID: <atVAXtsBXdMec-Jo@Ansuel-XPS.>
+Date: Sun, 18 Oct 2026 23:55:42 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stanislaw Pal <kuncy7@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] net: dsa: qca8k: report port statistics from
+ the MIB
+References: <20261018153658.209999-1-kuncy7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261015222735.89251-1-okhuomonajayi54@gmail.com>
- <fcdee571-d94c-a5ae-5ae5-b41977f22073@inria.fr> <2026101653-repeal-deploy-2aa5@gregkh>
-In-Reply-To: <2026101653-repeal-deploy-2aa5@gregkh>
-From: Okhuomon Ajayi <okhuomonajayi54@gmail.com>
-Date: Sun, 18 Oct 2026 22:50:34 +0100
-X-Gm-Features: AclHuK-ckhS_4r7IKrzFrVbhZJ4prq24_eCMG7slNkkX4fQeUlsVEZ3ToJ1oygE
-Message-ID: <CAFpMFfB4ssJ=YnLeDu16NUXJ2mTWK81+krJ40qzQueHOM4=GhA@mail.gmail.com>
-Subject: Re: [PATCH] staging: greybus: add blank lines after struct
- definitions in gbphy.h
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Julia Lawall <julia.lawall@inria.fr>, outreachy@lists.linux.dev, 
-	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, greybus-dev@lists.linaro.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018153658.209999-1-kuncy7@gmail.com>
 
-On Fri, Oct 16, 2026 at 5:54=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Thu, Oct 15, 2026 at 10:17:35PM -0400, Julia Lawall wrote:
-> >
-> >
-> > On Thu, 15 Oct 2026, Okhuomon Ajayi wrote:
-> >
-> > > Add blank lines between the structure definitions and the
-> > > to_gbphy_dev() and to_gbphy_driver() macros to improve
-> > > readability. This fixes the following checkpatch warning:
-> >
-> > Thanks for the patch.  But I suspect that the lack of a newline was
-> > intentional, to show that the #define is closely associated with the
-> > previous structure declaration.
->
-> That is correct.
->
-> thanks,
+On Sun, Oct 18, 2026 at 05:36:58PM +0200, Stanislaw Pal wrote:
+> qca8k has no .get_stats64, so a user port's netdev counts only the
+> frames that cross the CPU port, through the DSA user netdev's own
+> tstats. Whatever the switch forwards between its own ports in a
+> hardware-offloaded bridge never reaches the CPU and never shows up in
+> the counters of either port. The same goes for a conduit that forwards
+> in hardware past the host: on a GL.iNet GL-B3000 (IPQ5018 with a
+> QCA8337 on SGMII) with the conduit offloaded, a 482 MB upload over the
+> WAN port moved the wan netdev's TX bytes by 0.74 MB, while the switch's
+> own TxByte counter for that port grew by 503 MB.
+> 
+> The switch counts every frame in its per-port MIB. .get_stats64 may be
+> called in atomic context and the MIB sits behind MDIO (or the Ethernet
+> management frames), so read it from a delayed work every 3 s, as ar9331
+> and rtl8365mb do, and hand out the cached result. The counters keep
+> their value across reads (QCA8K_MIB_CPU_KEEP); only the difference since
+> the previous read is added, so a 32-bit counter wrapping between two
+> reads does not corrupt the total.
 
+If we really want we can reset after each read but that is problematic for
+the ethtool OPs unless we also update that function to store local u64 MIB
+for everything.
 
-Thank you i would drop the patch now
+Up to you... I would start with keeping and updating all the below things
+and then evaluate the needed changes to reset at every read.
+
+> 
+> With the change, on the same board and setup, a 732 MB upload moved the
+> wan netdev's TX bytes by 764.9 MB, the same as the switch's TxByte.
+>
+
+This really seems a task for the MIB from mgmt frame... May I ask why those
+are not used here?
+ 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
+> ---
+> Tested on a GL.iNet GL-B3000 with the patch on OpenWrt's 6.18 kernel,
+> where it differs only in the context of struct qca8k_priv. Built for
+> arm64 on net-next with W=1; checkpatch --strict is clean.
+> 
+>  drivers/net/dsa/qca/qca8k-8xxx.c | 157 +++++++++++++++++++++++++++++++
+>  drivers/net/dsa/qca/qca8k.h      |  47 +++++++++
+>  2 files changed, 204 insertions(+)
+> 
+> diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+> index 07227ae8b..9fef54a88 100644
+> --- a/drivers/net/dsa/qca/qca8k-8xxx.c
+> +++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+> @@ -1851,6 +1851,156 @@ static void qca8k_setup_hol_fixup(struct qca8k_priv *priv, int port)
+>  			   mask);
+>  }
+>  
+> +/* Without .get_stats64 a DSA user port counts only what crosses the CPU
+> + * port, which is nothing of the traffic the switch forwards between its own
+> + * ports. Report the switch's own port counters instead.
+> + */
+> +#define QCA8K_STATS_INTERVAL	(3 * HZ)
+> +
+
+I would like to see define in the header file, not in the middle of
+functions and declaration.
+
+> +static const u8 qca8k_stats_mib[QCA8K_STATS_MIB_COUNT] = {
+> +	[QCA8K_STATS_RX_MULTI]		= 0x08,
+> +	[QCA8K_STATS_RX_FCS_ERR]	= 0x0c,
+> +	[QCA8K_STATS_RX_ALIGN_ERR]	= 0x10,
+> +	[QCA8K_STATS_RX_RUNT]		= 0x14,
+> +	[QCA8K_STATS_RX_FRAGMENT]	= 0x18,
+> +	[QCA8K_STATS_RX_64]		= 0x1c,
+> +	[QCA8K_STATS_RX_128]		= 0x20,
+> +	[QCA8K_STATS_RX_256]		= 0x24,
+> +	[QCA8K_STATS_RX_512]		= 0x28,
+> +	[QCA8K_STATS_RX_1024]		= 0x2c,
+> +	[QCA8K_STATS_RX_1518]		= 0x30,
+> +	[QCA8K_STATS_RX_MAX]		= 0x34,
+> +	[QCA8K_STATS_RX_TOO_LONG]	= 0x38,
+> +	[QCA8K_STATS_RX_OVERFLOW]	= 0x4c,
+> +	[QCA8K_STATS_FILTERED]		= 0x50,
+> +	[QCA8K_STATS_TX_UNDERRUN]	= 0x60,
+> +	[QCA8K_STATS_TX_64]		= 0x64,
+> +	[QCA8K_STATS_TX_128]		= 0x68,
+> +	[QCA8K_STATS_TX_256]		= 0x6c,
+> +	[QCA8K_STATS_TX_512]		= 0x70,
+> +	[QCA8K_STATS_TX_1024]		= 0x74,
+> +	[QCA8K_STATS_TX_1518]		= 0x78,
+> +	[QCA8K_STATS_TX_MAX]		= 0x7c,
+> +	[QCA8K_STATS_TX_OVERSIZE]	= 0x80,
+> +	[QCA8K_STATS_TX_COLLISION]	= 0x8c,
+> +	[QCA8K_STATS_TX_ABORT_COL]	= 0x90,
+> +	[QCA8K_STATS_TX_LATE_COL]	= 0xa4,
+> +};
+
+Why STATS and not MIB? Also I would like to have all these register
+converted to define if really needed and update the ar8327_mib struct.
+
+Also Also why not use that directly?
+
+> +
+> +#define QCA8K_MIB_RX_GOOD_BYTE	0x3c
+> +#define QCA8K_MIB_TX_BYTE	0x84
+> +
+
+Why this? For 64 bit?
+
+> +static int qca8k_stats_read64(struct qca8k_priv *priv, u32 reg, u64 *val)
+> +{
+> +	u32 lo, hi;
+> +	int ret;
+> +
+> +	ret = qca8k_read(priv, reg, &lo);
+> +	if (!ret)
+> +		ret = qca8k_read(priv, reg + 4, &hi);
+> +	if (!ret)
+> +		*val = ((u64)hi << 32) | lo;
+> +
+> +	return ret;
+> +}
+> +
+
+Maybe generalize the logic in get_ethtool_stats?
+
+> +static u64 qca8k_stats_delta64(u64 now, u64 *last)
+> +{
+> +	/* a flushed MIB starts again from zero */
+> +	u64 delta = now >= *last ? now - *last : now;
+> +
+> +	*last = now;
+> +	return delta;
+> +}
+> +
+> +static void qca8k_stats_read_port(struct qca8k_priv *priv, int port)
+> +{
+> +	struct qca8k_port_stats *ps = &priv->port_stats[port];
+> +	u32 raw[QCA8K_STATS_MIB_COUNT], d[QCA8K_STATS_MIB_COUNT];
+> +	u32 base = QCA8K_PORT_MIB_COUNTER(port);
+> +	struct rtnl_link_stats64 *s = &ps->stats;
+> +	u64 rx_bytes, tx_bytes;
+> +	int i;
+> +
+> +	/* all of the slow MDIO reads before the lock */
+> +	if (qca8k_stats_read64(priv, base + QCA8K_MIB_RX_GOOD_BYTE, &rx_bytes) ||
+> +	    qca8k_stats_read64(priv, base + QCA8K_MIB_TX_BYTE, &tx_bytes))
+> +		return;
+> +
+> +	for (i = 0; i < QCA8K_STATS_MIB_COUNT; i++)
+> +		if (qca8k_read(priv, base + qca8k_stats_mib[i], &raw[i]))
+> +			return;
+> +
+
+As said MDIO here is extra slow especially for MIB every x seconds...
+
+Autocast MIB is a MUCH BETTER WAY.
+
+> +	spin_lock_bh(&ps->lock);
+> +
+> +	for (i = 0; i < QCA8K_STATS_MIB_COUNT; i++) {
+> +		d[i] = raw[i] - ps->last[i];
+> +		ps->last[i] = raw[i];
+> +	}
+> +
+> +	s->rx_bytes += qca8k_stats_delta64(rx_bytes, &ps->last_rx_bytes);
+> +	s->tx_bytes += qca8k_stats_delta64(tx_bytes, &ps->last_tx_bytes);
+> +	s->rx_packets += (u64)d[QCA8K_STATS_RX_64] + d[QCA8K_STATS_RX_128] +
+> +			 d[QCA8K_STATS_RX_256] + d[QCA8K_STATS_RX_512] +
+> +			 d[QCA8K_STATS_RX_1024] + d[QCA8K_STATS_RX_1518] +
+> +			 d[QCA8K_STATS_RX_MAX];
+> +	s->tx_packets += (u64)d[QCA8K_STATS_TX_64] + d[QCA8K_STATS_TX_128] +
+> +			 d[QCA8K_STATS_TX_256] + d[QCA8K_STATS_TX_512] +
+> +			 d[QCA8K_STATS_TX_1024] + d[QCA8K_STATS_TX_1518] +
+> +			 d[QCA8K_STATS_TX_MAX];
+> +	s->multicast += d[QCA8K_STATS_RX_MULTI];
+> +	s->rx_length_errors += (u64)d[QCA8K_STATS_RX_RUNT] +
+> +			       d[QCA8K_STATS_RX_FRAGMENT] +
+> +			       d[QCA8K_STATS_RX_TOO_LONG];
+> +	s->rx_crc_errors += d[QCA8K_STATS_RX_FCS_ERR];
+> +	s->rx_frame_errors += d[QCA8K_STATS_RX_ALIGN_ERR];
+> +	s->rx_missed_errors += d[QCA8K_STATS_RX_OVERFLOW];
+> +	s->rx_dropped += d[QCA8K_STATS_FILTERED];
+> +	s->rx_errors += (u64)d[QCA8K_STATS_RX_FCS_ERR] +
+> +			d[QCA8K_STATS_RX_ALIGN_ERR] + d[QCA8K_STATS_RX_RUNT] +
+> +			d[QCA8K_STATS_RX_FRAGMENT] + d[QCA8K_STATS_RX_OVERFLOW] +
+> +			d[QCA8K_STATS_RX_TOO_LONG];
+> +	s->tx_fifo_errors += d[QCA8K_STATS_TX_UNDERRUN];
+> +	s->tx_aborted_errors += d[QCA8K_STATS_TX_ABORT_COL];
+> +	s->tx_window_errors += d[QCA8K_STATS_TX_LATE_COL];
+
+Is it correct to give window_errors to TX late collision?
+
+> +	s->tx_errors += (u64)d[QCA8K_STATS_TX_OVERSIZE] +
+> +			d[QCA8K_STATS_TX_ABORT_COL] + d[QCA8K_STATS_TX_UNDERRUN] +
+> +			d[QCA8K_STATS_TX_LATE_COL];
+> +	s->collisions += d[QCA8K_STATS_TX_COLLISION];
+> +
+> +	spin_unlock_bh(&ps->lock);
+> +}
+> +
+> +static void qca8k_stats_poll(struct work_struct *work)
+> +{
+> +	struct qca8k_priv *priv = container_of(work, struct qca8k_priv,
+> +					       stats_work.work);
+> +	struct dsa_port *dp;
+> +
+> +	dsa_switch_for_each_user_port(dp, priv->ds)
+> +		qca8k_stats_read_port(priv, dp->index);
+> +
+
+No reason to scan for a port that is disabled or not connected...
+
+> +	schedule_delayed_work(&priv->stats_work, QCA8K_STATS_INTERVAL);
+> +}
+> +
+> +static void qca8k_get_stats64(struct dsa_switch *ds, int port,
+> +			      struct rtnl_link_stats64 *s)
+> +{
+> +	struct qca8k_priv *priv = ds->priv;
+> +	struct qca8k_port_stats *ps = &priv->port_stats[port];
+> +
+> +	spin_lock_bh(&ps->lock);
+> +	memcpy(s, &ps->stats, sizeof(*s));
+> +	spin_unlock_bh(&ps->lock);
+> +}
+> +
+> +static void qca8k_teardown(struct dsa_switch *ds)
+> +{
+> +	struct qca8k_priv *priv = ds->priv;
+> +
+> +	cancel_delayed_work_sync(&priv->stats_work);
+> +}
+> +
+>  static int
+>  qca8k_setup(struct dsa_switch *ds)
+>  {
+> @@ -2020,6 +2170,11 @@ qca8k_setup(struct dsa_switch *ds)
+>  	/* Set max number of LAGs supported */
+>  	ds->num_lag_ids = QCA8K_NUM_LAGS;
+>  
+> +	for (int port = 0; port < QCA8K_NUM_PORTS; port++)
+> +		spin_lock_init(&priv->port_stats[port].lock);
+
+Considering everything is run under the same delayed work, does it make
+sense to have a spinlock for each port?
+
+Either have a delayed work for each port or a global spinlock for the task.
+
+> +	INIT_DELAYED_WORK(&priv->stats_work, qca8k_stats_poll);
+> +	schedule_delayed_work(&priv->stats_work, 0);
+> +
+>  	return 0;
+>  }
+>  
+> @@ -2033,9 +2188,11 @@ static const struct phylink_mac_ops qca8k_phylink_mac_ops = {
+>  static const struct dsa_switch_ops qca8k_switch_ops = {
+>  	.get_tag_protocol	= qca8k_get_tag_protocol,
+>  	.setup			= qca8k_setup,
+> +	.teardown		= qca8k_teardown,
+>  	.get_strings		= qca8k_get_strings,
+>  	.get_ethtool_stats	= qca8k_get_ethtool_stats,
+>  	.get_sset_count		= qca8k_get_sset_count,
+> +	.get_stats64		= qca8k_get_stats64,
+>  	.set_ageing_time	= qca8k_set_ageing_time,
+>  	.support_eee		= dsa_supports_eee,
+>  	.set_mac_eee		= qca8k_set_mac_eee,
+> diff --git a/drivers/net/dsa/qca/qca8k.h b/drivers/net/dsa/qca/qca8k.h
+> index 956338893..47e9e5631 100644
+> --- a/drivers/net/dsa/qca/qca8k.h
+> +++ b/drivers/net/dsa/qca/qca8k.h
+> @@ -442,6 +442,51 @@ struct qca8k_led {
+>  	struct led_classdev cdev;
+>  };
+>  
+> +/* MIB counters behind .get_stats64, in the order qca8k_stats_mib[] reads them */
+> +enum qca8k_stats_mib_idx {
+> +	QCA8K_STATS_RX_MULTI,
+> +	QCA8K_STATS_RX_FCS_ERR,
+> +	QCA8K_STATS_RX_ALIGN_ERR,
+> +	QCA8K_STATS_RX_RUNT,
+> +	QCA8K_STATS_RX_FRAGMENT,
+> +	QCA8K_STATS_RX_64,
+> +	QCA8K_STATS_RX_128,
+> +	QCA8K_STATS_RX_256,
+> +	QCA8K_STATS_RX_512,
+> +	QCA8K_STATS_RX_1024,
+> +	QCA8K_STATS_RX_1518,
+> +	QCA8K_STATS_RX_MAX,
+> +	QCA8K_STATS_RX_TOO_LONG,
+> +	QCA8K_STATS_RX_OVERFLOW,
+> +	QCA8K_STATS_FILTERED,
+> +	QCA8K_STATS_TX_UNDERRUN,
+> +	QCA8K_STATS_TX_64,
+> +	QCA8K_STATS_TX_128,
+> +	QCA8K_STATS_TX_256,
+> +	QCA8K_STATS_TX_512,
+> +	QCA8K_STATS_TX_1024,
+> +	QCA8K_STATS_TX_1518,
+> +	QCA8K_STATS_TX_MAX,
+> +	QCA8K_STATS_TX_OVERSIZE,
+> +	QCA8K_STATS_TX_COLLISION,
+> +	QCA8K_STATS_TX_ABORT_COL,
+> +	QCA8K_STATS_TX_LATE_COL,
+> +	QCA8K_STATS_MIB_COUNT
+> +};
+> +
+> +/* Port counters for .get_stats64. That callback runs in atomic context and
+> + * the MIB sits behind MDIO, so a worker reads it and this holds the result.
+> + * The MIB counters are cumulative; last[] keeps the previous raw values so
+> + * only the difference is added and a 32-bit counter may wrap between reads.
+> + */
+> +struct qca8k_port_stats {
+> +	spinlock_t lock; /* protects stats against the worker */
+> +	struct rtnl_link_stats64 stats;
+> +	u32 last[QCA8K_STATS_MIB_COUNT];
+> +	u64 last_rx_bytes;
+> +	u64 last_tx_bytes;
+> +};
+> +
+>  struct qca8k_priv {
+>  	u8 switch_id;
+>  	u8 switch_revision;
+> @@ -469,6 +514,8 @@ struct qca8k_priv {
+>  	struct qca8k_pcs pcs_port_6;
+>  	const struct qca8k_match_data *info;
+>  	struct qca8k_led ports_led[QCA8K_LED_COUNT];
+> +	struct qca8k_port_stats port_stats[QCA8K_NUM_PORTS];
+> +	struct delayed_work stats_work;
+>  };
+>  
+>  struct qca8k_mib_desc {
+> -- 
+> 2.43.0
+> 
+
+-- 
+	Ansuel
