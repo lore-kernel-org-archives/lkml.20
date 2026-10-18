@@ -1,105 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C184B3DB632;
-	Sun, 18 Oct 2026 17:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3A0329E5D
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792345694; cv=none; b=qaDKVNduG2u9CMmbXNItyHze0CJH7qFoLN72Vr1i6ywIasiklHDVV9VJuNIhaf0wGnJAFon/vrw0Y4l/OTBb4UkPj8lMjDO3maFXbr3B0Ye9lCVO0hFTYZMSelJQpjaSPYGfwrnPwjt91lYTNsD9oRAiKnPVSi+yaBb6/mm06q0=
+	t=1792345751; cv=none; b=lQe1dOdHXQdHYeNdD91+pQyL8mU8/MoAqnh9ulec85uAq1CbeAyH4gh1FzD/Bxa67c95bEo9uXR1i4QbCfcrS2mZgoGtRri2g6cKNNFz4Uxd9VzHkh99NnudGcoyGVVb8tR/umYaM6vQwmFNunICLUR43/Xie4ZAETn3r2L4GSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792345694; c=relaxed/simple;
-	bh=QWq3i3vzm1mSRgoW4PRUGVCNPZiytoi3lzMyn9N9VfE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=NFjfcAPlsXsLSa2HnXxTct/E4/vA9cC4zvqCo8gvWrQze5FBqQf17SMjo1c5HTrvGYI0VjktmOkDxeCefrnWIBn3mafoW5PlZVgnOccy6W/P8KRgbxB1j31wFMYeSNLCzC/Y+xSmZGvMoaABr0WAz3X7J5qi/hbhjCSWrxFZh7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmMsRKJX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792345751; c=relaxed/simple;
+	bh=BwWMyvrKeF1oP82YqETjYoJP9xag1JdR0itv32xJpVw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ykpl9xGgTv9brqKmrTwH4sGDDeK1n5zBhiz6bOgxLbCrhxUeDxM42xJxh5dHTEcph4LdPy8fMTQ2vcSRoqcTj7pUHg2/BkQvLQmObNfXNB8KGqWa+ZVBeV/RfhLRGodUDpT0v2+NmvKKxeO1Sk/E6NANSsHyKMZ2NBmB3kpiFZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=PWhiDE+Z; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmMsRKJX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831251F000C4;
-	Sun, 18 Oct 2026 17:47:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792345691;
-	bh=dY2M5OxJo8HeSyHYgOk8jaF2BQkfRQ9MFiTg1z74do8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=WmMsRKJXRHA7kPl/KchgJmnzSCOk7/+AC+7m/LM0me8m9EDoyPAcPxzuBhYDus1Km
-	 zWbojCUpK18UhP3qRdL892hvkftGS4bxpMycE0ee/k+gptg+4P3hSHAuuUzTG/p1As
-	 54GX7SH6OudgfWflcFNGP4tsQSeVKdwpKyEg45qLjNj8n9tuECQ69gts09fcFByRXc
-	 hmtoM0NETvSt6Wr4Sn1NvZ+wemUmxcV0qNQyCpDMGi0exdaQ3m9ECEZpgJNVkdEWma
-	 qJSjO/hV5zpUoxxpsxOell4pJwwp7y+RLR0CTEA+6Ngh6Zk5ypQTwMjq8o4O1FFGkE
-	 Ttx+6MC2wKGLg==
-From: Mark Brown <broonie@kernel.org>
-To: Val Packett <val@packett.cool>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
- Conor Dooley <conor+dt@kernel.org>, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261016073157.611956-1-val@packett.cool>
-References: <20261016073157.611956-1-val@packett.cool>
-Subject: Re: (subset) [PATCH 0/5] Enable soundcard on Motorola Edge 30
-Message-Id: <179218647657.3162228.4284806308774013026.b4-ty@b4>
-Date: Fri, 16 Oct 2026 22:34:36 +0100
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="PWhiDE+Z"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2055573c8cso160029866b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:49:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bairaktaris.de; s=google; t=1792345749; x=1792950549; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S4WyeWiluWZ/Mjjk4RgwTvDiC7qiMUMmbWBorO5RZpc=;
+        b=PWhiDE+Z5iWLd9DsNTY5+s32SqQBCm4ACIanhxre9TxqGiL16QtQa/yKBzCSmNJUCb
+         Q7aEnddzHR9WrLt3hxU9LvXsyHiJKPhpQzf0u5U78MyL5iGcoz8lWmQFKiNRdxrWG3U9
+         vsBmf/P3y9q1BJaDGT789060Bz7ZemBk1XEbqQyS3t2+/kTWk5UajRiBXCxRCmilzQDC
+         aBbrPqn/Bu6Pl+8XTK5nThF4um4bHrUS9W1wf0tFICHfA8z0pO4vT4Sdi01bj2SBQ2QT
+         +pLPgZkOZad9U/58LxQpa8PxhGrprTra4bW35qJg8pEQ1V1flU9gMKeACSIP7CAWqLnw
+         58FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792345749; x=1792950549;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S4WyeWiluWZ/Mjjk4RgwTvDiC7qiMUMmbWBorO5RZpc=;
+        b=NwA6XOPCsU0eDGvI+E9D4HmcsMhZw9DOPFUwlFCzQZAq0utXVUpkoGmacOuksdaWni
+         fErLlHt/5sVoqIzVGFfb7Hb+w8ZdWjKlmC19tRwxLCD5nZBb7eRvPDRaocHmR2T/WW+i
+         o5Rr0AqiN/eaYMOyH+CnblAM/j6qyXjPzEsE60sr8LxiKW3peEn5gKJFJxp2byjXlnZy
+         VLQWZhLXjVrxTpGRuyo+1twXrSAO1hRMaBIIoskh3wLM9xDOI0G9HtNmV1xBJU48o3oL
+         J9iYlXV7R8QiG6ra5lJW9zo3Gyhgis35HhEr5LAyjCX07U4RecZaSc77USf/VxQAFryf
+         6QLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx2CKk1HH0wVPvNjJgV6CVxWPQWADBr/8Ufj330YXT7O3ELoW7z619XBB95ZL1CeeBjjDlmko+d9l7xx30=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbuPvmlSUzayR8TMdFYCoB25POJnH7EKzctsUfT7W3tWbbHaHk
+	8JvZjbZL+uuR3xtAr/FJ+FXCSEfdaNEZ7DcE5lX2qQgvwN74/miTsV0TDdQu1k9QSA==
+X-Gm-Gg: AYBFou3ubQEMRt1OYvPwymFcytleVL+PuT4k5fOjAnaQWwrfOYXwC0pfM2faVUsv/Iw
+	ltVfbFHLdgctwXxEwqsDM406kTOCLA39eGw2GtAzfbBc0PmsWpuHd+S4RM6yO/GgfzjHvxP1Tro
+	pNvLZNvNPby/7d3i21nuP7fYYkWuQH+ty2UOQJ70naVXbxEFlAz8OmepBq2PtqRDE4GECjzWYge
+	a4IyvxZ2mDqWkARbcAXLcmv3Vu320TTazsRK+Gn21XJCny/AlUfMGVUQZBMD9+4iqSYkCsdw3YP
+	PEofOOSfNZ6kULTtycSQerRzL35NaoopORK4+0fZ2/YGQELDD0jXPiAI5jopeQVyzGEuYbWMIfe
+	pOXtPdoG5MdRxqOB75unk7/w24Mftjz0yr5vcirrWwgnf5j8GvLBUArRcZHvPFgRLrKWN7+t9bX
+	dlWLQFguLeK24iPZMyFWjQVChaG4bCBXtL1Qu6icnjCuNiOjimxmZpUGf4LfnUQy4WBC0D3bkCe
+	iaQzKREBuQL8FNhqx9pdtDqdSO5gprKIlG579xxOYzG+BhG/iaF5YV1Yut8WK/2xd0d+JjDXHw9
+	jDymxRy+KgFLcA6llfbXYAFfh/qI46Q/fPIXpGRPkWxaMR4/vdZvNa2dJkfvFH664ooDBauXOHC
+	uOswr+mzLoIZde0vk7OX47E8acosIdexlR6aVvlzrdcFc96nU1q6uo3EYdQWWhOc8taZDJXVa0V
+	Zuc8RHEdJo
+X-Received: by 2002:a17:907:1c8f:b0:c26:1649:47a5 with SMTP id a640c23a62f3a-c419f121280mr364849866b.27.1792345748685;
+        Sun, 18 Oct 2026 10:49:08 -0700 (PDT)
+Received: from Desktop.fritz.box ([185.181.130.213])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eb14a7sm291056366b.76.2026.10.18.10.49.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 10:49:07 -0700 (PDT)
+From: Julius Bairaktaris <julius@bairaktaris.de>
+To: jjohnson@kernel.org
+Cc: linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	tamizh.raja@oss.qualcomm.com,
+	jtornosm@redhat.com,
+	baochen.qiang@oss.qualcomm.com,
+	rameshkumar.sundaram@oss.qualcomm.com,
+	vasanthakumar.thiagarajan@oss.qualcomm.com,
+	sriram.ramachandran@oss.qualcomm.com,
+	yaojiale02@163.com,
+	quic_pradeepc@quicinc.com,
+	kvalo@kernel.org,
+	sven@narfation.org,
+	john@phrozen.org,
+	toke@toke.dk
+Subject: [PATCH ath-next v5 0/9] wifi: ath11k: airtime queue limits, airtime fairness and a driver TXQ scheduler
+Date: Sun, 18 Oct 2026 19:48:55 +0200
+Message-ID: <20261018174904.1757161-1-julius@bairaktaris.de>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1766; i=broonie@kernel.org;
- h=from:subject:message-id; bh=QWq3i3vzm1mSRgoW4PRUGVCNPZiytoi3lzMyn9N9VfE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKusjnsvXlOalPSOZVfXa8bu/+I8OkxWf7w8jAqFpoSy
- Prz5FfRjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEyk/gwjw8zn6WtWG1dc15Wp
- 0V5uN3veliU7/bv4ZY/ZWDjIsS209mH4K6D/WvhS66x3x/XOFOqIcstM+Pr2/T21BemvF0Wc+JK
- lzA0A
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 04:31:48 -0300, Val Packett wrote:
-> Enable soundcard on Motorola Edge 30
-> 
-> This series enables sound support on motorola-dubai, at least the
-> speakers.. The WCD that handles microphones and analog USB-C sound
-> is left out because it would first need:
-> https://lore.kernel.org/all/20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com/
-> 
-> [...]
+ath11k sets neither NL80211_EXT_FEATURE_AQL nor
+NL80211_EXT_FEATURE_AIRTIME_FAIRNESS, so a saturated download queues
+every frame in the hardware TX rings, where there is no AQM. This series
+sets both, registers tx and rx airtime, and runs the TXQ scheduler from
+the driver and from tx completion.
 
-Applied to
+IPQ8074 AP, TCP download from a wired host to one 1x1 VHT80 station,
+default limits, 20 s, three interleaved runs per arm:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+                        Mbit/s              sender RTT mean ms
+  auto rate  without    92.9, 94.4, 94.3    111, 232, 231
+             with       93.7, 88.0, 93.6    124,  51, 167
+  VHT MCS 0  without    21.4, 22.3, 22.6    587, 550, 526
+             with       22.9, 22.2, 22.3     44,  42,  43
 
-Thanks!
+Airtime weights are accepted but leave a 2x2 HE160 station at 45 to 49%
+of the airtime against a 1x1 VHT80 station at 1:1, 4:1 and 1:4, because
+the firmware serves every station with frames queued in turn. Ending the
+round at 256 MSDUs in flight, as Toke suggested, gives the HE160 station
+65 to 80% at 4:1, but at 1:1 its aggregates shrink from 258 to 100 MSDUs
+(one run) and the two-station throughput drops by a third, so the series
+leaves it out.
 
-[1/5] ASoC: qcom: qdsp6: q6routing: add Senary MI2S ports
-      https://git.kernel.org/broonie/sound/c/2b20c976bb63
-[2/5] ASoC: qcom: sm8250: add Senary MI2S RX support
-      https://git.kernel.org/broonie/sound/c/41c6eb15291f
-[3/5] ASoC: dt-bindings: qcom,sm8250: Add Motorola Edge 30 sound card
-      https://git.kernel.org/broonie/sound/c/a0f1887655af
-[4/5] ASoC: qcom: sm8250: Add motorola-dubai soundcard compatible
-      https://git.kernel.org/broonie/sound/c/32c9d661dab0
+The series is based on "wifi: ath11k/ath12k: implement TX flow control"
+v7 [1], patches 1-3.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+v5:
+ - rebase onto ath-next cd026e68fdbf and [1] patches 1-3
+ - patch 5: the free-slot check runs inside the round
+ - patch 7: charge rx airtime to the PPDU's TID (Tamizh)
+ - patch 8: a round that ends for lack of room restarts on the next
+   tx completion
+ - drop the dependency on the mac80211 weight patch
+ - v4: https://lore.kernel.org/all/20260908135319.754140-1-julius@bairaktaris.de/
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+[1] https://lore.kernel.org/all/20260917064825.12747-1-jtornosm@redhat.com/
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Julius Bairaktaris (9):
+  wifi: ath11k: free tx skbs through ieee80211_free_txskb()
+  wifi: ath11k: enable airtime queue limits
+  wifi: ath11k: report the pending tx MSDU count in soc_dp_stats
+  wifi: ath11k: report tx airtime and enable airtime fairness
+  wifi: ath11k: schedule TXQs from the driver
+  wifi: ath11k: run the TXQ scheduler on tx completion
+  wifi: ath11k: charge received airtime to the station deficit
+  wifi: ath11k: stop a scheduling round when the hardware refuses a
+    frame
+  wifi: ath11k: budget the tx completion handler
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+ drivers/net/wireless/ath/ath11k/core.h    |  7 ++
+ drivers/net/wireless/ath/ath11k/debugfs.c | 10 +++
+ drivers/net/wireless/ath/ath11k/dp.c      | 10 ++-
+ drivers/net/wireless/ath/ath11k/dp_rx.c   | 31 +++++++++
+ drivers/net/wireless/ath/ath11k/dp_tx.c   | 55 ++++++++++++---
+ drivers/net/wireless/ath/ath11k/dp_tx.h   |  3 +-
+ drivers/net/wireless/ath/ath11k/mac.c     | 81 ++++++++++++++++++++---
+ drivers/net/wireless/ath/ath11k/mac.h     |  1 +
+ 8 files changed, 175 insertions(+), 23 deletions(-)
 
-Thanks,
-Mark
+
+base-commit: cd026e68fdbf88b9cc522b76c7a9d92c9a41f709
+prerequisite-patch-id: ff44eb6f1d673e75bc013e3ffc870d7d30252c17
+prerequisite-patch-id: 59bd66038e87bf2ee9ecb2a916286685c789f865
+prerequisite-patch-id: c86d3c9047c851f45b5d46398850c9d810d82258
+-- 
+2.53.0
 
