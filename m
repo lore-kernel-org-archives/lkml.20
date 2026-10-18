@@ -1,330 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18B93B0ADE
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB7B43B6C4;
+	Sun, 18 Oct 2026 10:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792320194; cv=none; b=Ej9BLMZ6I7kEOsHyJZ7VgsGKMsPgE5eyn/GCG0FX5adk0gdJ4y/eWoFTc/W65IlbwSta6DsuFzeU9IukfxUfI8n0eI/zHBchrsCXWtS9G2d351zQLMMuu1UitPcxALqkNxbaOuTNOLwwLp4UwhJn80JqPeIBFlXJAR5Zcko82MI=
+	t=1792320209; cv=none; b=aqGb3HX4hEmZVJeMiDyngxBkDOuT/ntOoz0Dpf3GwhpfQ2dLGOvexOHsTAunmXVVtcFs3yrulcjdAU8ehnDQ/hKeJutrNwEVzyl8Im4vQVka4FunwQik9mzcC8zX8Skc1CQFDBqhBefQABv2tCMAyMRFEP03D3LkywiV+aw2psg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792320194; c=relaxed/simple;
-	bh=jsHKP7y0jYd0lnvn/m65jzNXMtKPbmnsnGmzr+FcrFI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=LIAUxiLihKoN4bRyB3dkCTP1/gQHfet9vJbMMqjdkdkZOxTScAb7sH1jcfQ01A6msv9FTtmZyZYVT9YHfHg+uVAnvm25LivjSUFkh7MyXWUbIEqvXxJNDmp2RGu6q1n9voTtcMoFM22ZE/ZSmLrjNW0GGX4VVni388exAPRM24A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M67kFu6c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792320209; c=relaxed/simple;
+	bh=OFr5bbgnZp4JE8C50XzzBCbjig1t3O/sEsV9+5TnH7A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MbmVP7gnp9heI7OmhJvwD40TF8d9yJcoEYVPdtJaazx7lp7x5B4gqhpa2kI6N6718bQ+ducd8haVPzJtqrlD7vjuntjK7UyVz6mZ9H3zcwe8xwYfsOmzx2aY0rE9EV/xd1xYPveY3OUKeKIWQcvmN++rC1Rn/40ciPkDIx6nXLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=DGs7msJX; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M67kFu6c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5F41F000C4;
-	Sun, 18 Oct 2026 10:43:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792320191;
-	bh=Dbr0S12EshEsBMcEg9hNTS2Erf5h8zE4B1k8O/KfvxI=;
-	h=Date:From:To:Cc:Subject;
-	b=M67kFu6cW6GgZPLBF/ceL47Q4dHMH+JZl0as6bXh3ImVLJllnBa2naDzXnpOT9phj
-	 MPMq8Q1KuOwhiFOISzx5iO73ES2LUPloilVEZyqO/4qUSQc7rWk0cWJEI6c7OWm1qq
-	 UvN7yvb4PeL9oD7ndAoc9R/ybXr3eScp7RM7dZ1O2Rcq4kZrRx/2dhdB3Bf4eP8aNe
-	 Rva4WrydjbR2RBPwRMO4ODgiDuQCiaVXKB6oWvnkyiHDm5fu2Xh+JLFMdWIvA07d33
-	 Yw6G1pjbk/RPTsFLB0HRkD4pp/ZEMrtiwZzVFipIbmjT4gWbtg9x5z+HBblmwlGoVI
-	 3uKO8YShj5MNw==
-Date: Sun, 18 Oct 2026 12:43:04 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Mel Gorman <mgorman@suse.de>,
-	Tejun Heo <tj@kernel.org>, Valentin Schneider <vschneid@redhat.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	John Stultz <jstultz@google.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>
-Subject: [GIT PULL] Scheduler updates for v7.4
-Message-ID: <atSiuBt4n03_iQNW@gmail.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="DGs7msJX"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id BF54E53403D3;
+	Sun, 18 Oct 2026 12:43:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792320195;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=2br6McTfZBbzB+hdFmShIIxkZ8bTCB3AbBeEVqYx/JU=;
+	b=DGs7msJXF9hRJBvoFGTeTE4JimI6mRoJiqR9CNVxknWG/NaSNP+qeMJgTwF/H5kn93THRs
+	36dhdcpl8P6d+xpEB3D2SqYfkjIDQWicNmoZ3j6GjKdoxoG+/IezeDpuZYcWAodaHik1I3
+	cnd8DrXWtNvslfANr2UVZn7ixjfVrAA=
+Message-ID: <a8176ca7-2c4b-404b-b1f4-c59eaca9d106@ixit.cz>
+Date: Sun, 18 Oct 2026 12:43:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] power: supply: bq27xxx: detect bq27541 behind bq27411
+ compatible
+To: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>,
+ linux-pm@vger.kernel.org
+Cc: pali@kernel.org, sre@kernel.org, afd@ti.com,
+ konrad.dybcio@oss.qualcomm.com, krzk@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261018-master-v5-0-0be16441cdd1@gmail.com>
+ <20261018-master-v5-1-0be16441cdd1@gmail.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261018-master-v5-1-0be16441cdd1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 18/10/2026 02:51, Rinat Muhamedgaliev wrote:
+> OnePlus 6 and 6T replacement battery packs may contain either a bq27411
+> or a bq27541 fuel gauge at I2C address 0x55. The device tree currently
+> identifies the gauge as bq27411, but a bq27541 uses a different register
+> map and then reports invalid battery values.
+> 
+> Read the DeviceType control subcommand when probing a bq27411. Keep the
+> existing profile for DeviceType 0x0421, but select the bq27541 profile
+> for DeviceType 0x0541. This retains the established DT ABI and supports
+> replacement packs without introducing a generic compatible.
+> 
+> Tested on OnePlus 6T (fajita) with DeviceType 0x0541: voltage, state of
+> charge, and temperature were reported correctly. Testing on hardware with
+> DeviceType 0x0421 would be appreciated.
+> 
+> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+> ---
+>   drivers/power/supply/bq27xxx_battery_i2c.c | 39 ++++++++++++++++++++++++++++++
+>   1 file changed, 39 insertions(+)
+> 
+> diff --git a/drivers/power/supply/bq27xxx_battery_i2c.c b/drivers/power/supply/bq27xxx_battery_i2c.c
+> index 94b00bb89c17..8c05740f1173 100644
+> --- a/drivers/power/supply/bq27xxx_battery_i2c.c
+> +++ b/drivers/power/supply/bq27xxx_battery_i2c.c
+> @@ -16,6 +16,11 @@
+>   static DEFINE_IDR(battery_id);
+>   static DEFINE_MUTEX(battery_mutex);
+>   
+> +#define BQ27XXX_REG_CTRL		0x00
+> +#define BQ27XXX_DEVICE_TYPE		0x0001
+> +#define BQ27411_DEVICE_TYPE		0x0421
+> +#define BQ27541_DEVICE_TYPE		0x0541
+> +
+>   static irqreturn_t bq27xxx_battery_irq_handler_thread(int irq, void *data)
+>   {
+>   	struct bq27xxx_device_info *di = data;
+> @@ -136,6 +141,34 @@ static int bq27xxx_battery_i2c_bulk_write(struct bq27xxx_device_info *di,
+>   	return 0;
+>   }
+>   
+> +static int bq27xxx_battery_i2c_check_device_type(struct bq27xxx_device_info *di)
+> +{
+> +	int ret;
+> +
+> +	ret = di->bus.write(di, BQ27XXX_REG_CTRL, BQ27XXX_DEVICE_TYPE,
+> +			    false);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = di->bus.read(di, BQ27XXX_REG_CTRL, false);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	switch (ret) {
+> +	case BQ27411_DEVICE_TYPE:
+> +		return 0;
+
+Hello Rinat.
+
+Thanks for the next version, comments below :)
+
+you made the function generic, that's good, but then when it's BQ27411 returning 
+success. The switch should account that you comparing model acquired from 
+compatible against the model you detected, not blindly assume original chip is 
+27411.
+
+> +	case BQ27541_DEVICE_TYPE:
+> +		dev_warn(di->dev,
+> +			 "detected DeviceType 0x%04x instead of expected 0x%04x\n",
+> +			 ret, BQ27411_DEVICE_TYPE);
+> +		di->chip = BQ27541;
+> +		return 0;
+> +	default:
+> +		dev_err(di->dev, "unrecognized DeviceType 0x%04x\n", ret);
+> +		return -ENODEV;
+> +	}
+> +}
+> +
+>   static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
+>   				     const struct i2c_device_id *id)
+>   {
+> @@ -169,6 +202,12 @@ static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
+>   	di->bus.read_bulk = bq27xxx_battery_i2c_bulk_read;
+>   	di->bus.write_bulk = bq27xxx_battery_i2c_bulk_write;
+>   
+
+I would suggest dropping comment here that's a list of models which we can 
+detect verify.
+
+> +	if (di->chip == BQ27411) {
+
+With our data, can should be able detect BQ27541 -> BQ27411 too. I would suggest 
+transforming this into some switch statement block.
+
+Thank you
+David
+
+> +		ret = bq27xxx_battery_i2c_check_device_type(di);
+> +		if (ret)
+> +			goto err_failed;
+> +	}
+> +
+>   	ret = bq27xxx_battery_setup(di);
+>   	if (ret)
+>   		goto err_failed;
+> 
 
-Linus,
-
-Please pull the latest sched/core Git tree from:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git sched-core-2026-10-18
-
-for you to fetch changes up to b99b7f60c5b473d374c68b53753153b4aa9e0702:
-
-Scheduler updates:
-
-Kconfig updates:
-
- - Simplify PREEMPT_DYNAMIC (Mark Rutland)
-
-Fair scheduler updates:
-
- - Remove redundant RUN_TO_PARITY check (Elif Topuz)
-
- - Declare augmented callbacks per field, fix rb_add_augmented_cached()
-   descent (Yiwei Lin, Peter Zijlstra)
-
- - Restart fair hrtick after same-task repicks (Shubhang Kaushik)
-
- - Improve the scheduling latency of short slice tasks (Vincent Guittot)
-
-Deadline/RT scheduler updates:
-
- - Check start_dl_timer expiry with ktime_before()
-   (Liang Hao)
-
- - irq_work: CPU-hotplug improvements on PREEMPT_RT (Sebastian Andrzej
-   Siewior)
-
-Energy-aware scheduling updates:
-
- - Implement the steal_governor, introduce preferred CPUs and
-   steal-driven vCPU backoff (Shrikanth Hegde)
-
-Multi-processor load-balancing updates:
-
- - Enable preferred SMT siblings on NVIDIA Olympus (Andrea Righi)
-
- - Randomize equally shallow idle CPU picks (Christian Loehle)
-
- - Remove redundant core_sched_seq (Hui Su)
-
-Cache-aware scheduling updates:
-
- - Avoid publishing partial LLC utilization (Jemmy Wong)
-
-NUMA-balancing updates:
-
- - Reset NUMA fault locality after scan period update (Eric Kim)
-
-Proxy execution updates:
-
- - Ongoing work to implement sleeping owner handling for proxy
-   execution (John Stultz, Vasily Gorbik)
-
- - Preparatory steps to make sched_ext compatible with proxy
-   execution (Andrea Righi)
-
-Scheduler infrastructure updates & fixes:
-
- - Remove the RCU wait from PSI trigger destruction (Shakeel Butt)
-
- - Avoid modifying wait-entry on failed priority registration
-   (Hui Su)
-
- - Use the new static key API for sched_feat (Hongyan Xia)
-
- - Convert paravirt_steal to new static key APIs (Hongyan Xia)
-
- - cputime: Don't account idle time twice after dyntick-idle
-   (Stian Halseth)
-
-Scheduler debugging updates:
-
- - Set TIF_NEED_RESCHED before calling __trace_set_need_resched()
-   (Sechang Lim)
-
- - Fix context analysis errors in non-preferred CPU push (Shrikanth
-   Hegde)
-
-Misc cleanups and fixes by Christian Loehle, Shubhang Kaushik,
-Thomas Huth and Vladimir Zapolskiy.
-
- Thanks,
-
-	Ingo
-
------------------->
-Andrea Righi (7):
-      sched/core: Drop mutex locks before proxy rescheduling
-      sched/core: Dequeue waking proxy donors before reset
-      sched/core: Mark wakeups completed through ttwu_runnable()
-      sched: Add helper to block retained proxy donors
-      sched: Add sched_ext hooks for proxy execution
-      sched/fair: Honor asymmetric SMT priority in idle selection
-      sched/topology: Add asymmetric SMT packing override
-
-Christian Loehle (3):
-      sched/fair: Drop idle recency from slow-path CPU selection
-      sched/fair: Randomize equally shallow slow-path candidates
-      sched: Replace nr_iowait_cpu() with a bool accessor
-
-Elif Topuz (1):
-      sched/eevdf: Remove redundant RUN_TO_PARITY check
-
-Eric Kim (1):
-      sched/fair: Reset NUMA fault locality after scan period update
-
-Hongyan Xia (2):
-      sched: Convert paravirt_steal to new static key APIs
-      sched/feat: Use the new static key API for sched_feat
-
-Hui Su (2):
-      sched/core: Remove redundant core_sched_seq
-      sched/wait: Avoid modifying entry on failed priority registration
-
-Jemmy Wong (1):
-      sched/cache: Avoid publishing partial LLC utilization
-
-John Stultz (4):
-      sched/core: Avoid migrating blocked_on tasks
-      sched: Switch rq->next_class in proxy_reset_donor()
-      sched: Break out core of attach_tasks() helper into sched.h
-      sched: Migrate whole chain in proxy_migrate_task()
-
-Kayra Cizmeci (2):
-      sched/fair: Remove dead code on enqueue_task_fair()
-      Revert "sched/fair: Remove dead code on enqueue_task_fair()"
-
-Liang Hao (1):
-      sched/deadline: check start_dl_timer expiry with ktime_before()
-
-Mark Rutland (7):
-      sched: dynamic: Make PREEMPT_DYNAMIC depend on ARCH_HAS_PREEMPT_LAZY
-      sched: dynamic: Simplify {cond,might}_resched()
-      sched: dynamic: Simplify preempt_schedule{,_notrace}()
-      sched: dynamic: Simplify irqentry_exit_cond_resched()
-      sched: dynamic: Remove HAVE_PREEMPT_DYNAMIC_{CALL,KEY}
-      sched: dynamic: Simplify preempt model accessors
-      sched: dynamic: Fix preemption model strings
-
-Peter Zijlstra (Intel) (1):
-      rbtree: Declare augmented callbacks per field with RB_AUG()
-
-Sebastian Andrzej Siewior (3):
-      irq_work: Update a comment regarding CPU hotplug invocation
-      irq_work: Flush lazy work CPU down on PREEMPT_RT
-      smpboot: Don't park the thread if work is pending
-
-Sechang Lim (1):
-      sched: Set TIF_NEED_RESCHED before calling __trace_set_need_resched()
-
-Shakeel Butt (1):
-      sched/psi: Remove the RCU wait from trigger destruction
-
-Shrikanth Hegde (14):
-      sched/cputime: Add kcpustat_field_total helper
-      cpumask: Introduce cpumask_intersects_and
-      sched/docs: Document cpu_preferred_mask and Preferred CPU concept
-      cpumask: Introduce cpu_preferred_mask
-      sysfs: Add preferred CPU file
-      sched/core: Try to use a preferred CPU in is_cpu_allowed
-      sched/fair: Load balance only among preferred CPUs
-      sched/core: Push current task from non preferred CPU
-      sched/debug: Add migration stats due to non preferred CPUs
-      virt: Introduce steal governor driver
-      virt/steal_governor: Add control knobs for handling steal values
-      virt/steal_governor: Implement steal_governor policy loop
-      virt/steal_governor: Enable the driver
-      sched/core: Fix context analysis errors in non-preferred CPU push
-
-Shubhang Kaushik (Ampere) (2):
-      sched: Restart fair hrtick after same-task repicks
-      sched/wait: Clarify WF_SYNC wakeup semantics
-
-Stian Halseth (1):
-      sched/cputime: Don't account idle time twice after dyntick-idle
-
-Thomas Huth (1):
-      sched/headers: Replace __ASSEMBLY__ with __ASSEMBLER__ in the <uapi/linux/sched.h> header
-
-Vasily Gorbik (2):
-      sched/core: Don't steal a proxy-exec donor
-      sched/core: Don't proxy-exec unmatched cookie lock owners
-
-Vincent Guittot (3):
-      sched/eevdf: Ensure that vprot will never go above a min slice
-      sched/eevdf: Align update_protect_slice to set_protect_slice
-      sched/eevdf: Handle more short slice waking cases
-
-Vladimir Zapolskiy (1):
-      sched: Remove unneeded function type cast in do_balance_callbacks()
-
-Yiwei Lin (3):
-      rbtree_test: Use rb_add() and rb_add_cached() for the basic tests
-      rbtree: Update augmented data on the way down in rb_add_augmented_cached()
-      rbtree_test: Use rb_add_augmented_cached() for the cached augmented test
-
-
- Documentation/ABI/testing/sysfs-devices-system-cpu |  14 +
- Documentation/admin-guide/kernel-parameters.txt    |  12 +
- Documentation/core-api/rbtree.rst                  |  27 +-
- Documentation/driver-api/index.rst                 |   1 +
- Documentation/driver-api/steal-governor.rst        | 151 +++++++
- Documentation/scheduler/index.rst                  |   1 +
- Documentation/scheduler/sched-paravirt.rst         |  67 +++
- MAINTAINERS                                        |   9 +
- arch/Kconfig                                       |  38 --
- arch/arm64/Kconfig                                 |   1 -
- arch/arm64/include/asm/preempt.h                   |  10 -
- arch/arm64/kernel/paravirt.c                       |   4 +-
- arch/loongarch/Kconfig                             |   1 -
- arch/loongarch/kernel/paravirt.c                   |   4 +-
- arch/powerpc/Kconfig                               |   1 -
- arch/powerpc/platforms/pseries/setup.c             |   4 +-
- arch/riscv/Kconfig                                 |   1 -
- arch/riscv/kernel/paravirt.c                       |   4 +-
- arch/s390/Kconfig                                  |   1 -
- arch/s390/include/asm/preempt.h                    |  11 -
- arch/s390/kernel/hiperdispatch.c                   |  10 +-
- arch/s390/kernel/idle.c                            |   4 +-
- arch/x86/Kconfig                                   |   1 -
- arch/x86/include/asm/preempt.h                     |  28 --
- arch/x86/kernel/cpu/vmware.c                       |   4 +-
- arch/x86/kernel/kvm.c                              |   4 +-
- drivers/base/cpu.c                                 |  12 +
- drivers/virt/Kconfig                               |  17 +
- drivers/virt/Makefile                              |   1 +
- drivers/virt/steal_governor.c                      | 296 +++++++++++++
- drivers/xen/time.c                                 |   4 +-
- fs/proc/uptime.c                                   |   6 +-
- include/asm-generic/preempt.h                      |  10 -
- include/linux/bitmap.h                             |  14 +
- include/linux/cpumask.h                            |  42 ++
- include/linux/irq-entry-common.h                   |  17 +-
- include/linux/irq_work.h                           |   2 +
- include/linux/kernel.h                             |  20 -
- include/linux/kernel_stat.h                        |  18 +-
- include/linux/preempt.h                            |  20 +-
- include/linux/rbtree_augmented.h                   | 201 ++++++---
- include/linux/sched.h                              |  37 +-
- include/linux/sched/cputime.h                      |   6 +-
- include/linux/sched/stat.h                         |   2 +-
- include/uapi/linux/sched.h                         |   2 +-
- kernel/Kconfig.preempt                             |  13 +-
- kernel/cpu.c                                       |   6 +
- kernel/entry/common.c                              |  17 +-
- kernel/irq_work.c                                  |  16 +-
- kernel/sched/core.c                                | 464 +++++++++++----------
- kernel/sched/cputime.c                             |  63 ++-
- kernel/sched/deadline.c                            |   9 +-
- kernel/sched/debug.c                               |  21 +-
- kernel/sched/ext/ext.c                             |  18 +-
- kernel/sched/ext/ext.h                             |   7 +
- kernel/sched/fair.c                                | 279 +++++++------
- kernel/sched/idle.c                                |   5 +-
- kernel/sched/psi.c                                 |  25 +-
- kernel/sched/rt.c                                  |   7 +-
- kernel/sched/sched.h                               |  80 +++-
- kernel/sched/stop_task.c                           |   5 +-
- kernel/sched/topology.c                            |  18 +
- kernel/sched/wait.c                                |  25 +-
- kernel/smp.c                                       |   1 +
- kernel/smpboot.c                                   |   6 +-
- kernel/time/tick-sched.c                           |  22 +-
- lib/bitmap.c                                       |  17 +
- lib/rbtree_test.c                                  |  62 +--
- tools/perf/trace/beauty/include/uapi/linux/sched.h |   2 +-
- 69 files changed, 1513 insertions(+), 815 deletions(-)
- create mode 100644 Documentation/driver-api/steal-governor.rst
- create mode 100644 Documentation/scheduler/sched-paravirt.rst
- create mode 100644 drivers/virt/steal_governor.c
