@@ -1,74 +1,76 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F4F395240
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11B64052D5
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792356875; cv=none; b=IHILX9XFFxBZvPgO+oTQIQY61Wr4bLHiDeBardws+LHClLzLvKVHjZUp/NYKdueX55dwSkg8grlZ287DLPXaUjuCuQPwYgwlfqNPI458dEpNNpFveR7vJkgrIKicrIz3yT0/tfmI5Iogp35angjga7VwLv8CYmqcyRdHJ8P/S3c=
+	t=1792357041; cv=none; b=pBvjuRRQI8xgceJlG9QYxVHwYizXTetXQO5/5nc4JQLEple4ZHNNATqkuET1hW64ycrkAj4QNINkAopD3na8qjspQ0v+u74MzdUc84UDmCDT/4pO3MpTxnFFmJpEC7eObwCQrdvcyU1uM5OeJLTasC0F79uQp2zCUG3ug4/Iaik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792356875; c=relaxed/simple;
-	bh=UBAs82337AolrLkIf5FGFx1bFmLafbgzPEUVV70lYTU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qj6x4kdQKsvMAh3iUJIl278G4qox4jtCbS2N8UCmnkRRcrLJeXuzwRkt4VcGDpdhvWDP++Mfb+NV8WdCQfkVQoUUlAB1UpDqSLH6sWGdqFNKNXcMAJaNs4XjRA10nUqkqgGQpN16AYDCJoxoBu4XNRBPhu9g6/1IdjuQLoP/qeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c/atrUVX; arc=none smtp.client-ip=209.85.160.178
+	s=arc-20240116; t=1792357041; c=relaxed/simple;
+	bh=x3Df/eIGv6o4/7feO2EA+lXeYAnRrb5+0INU/XhijVQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KQZYbjruRen0sgwBkDhPB4dFCKqo+aazT8xCtxjd041Hj0xzv9zbL3tiaJfrRFJy74wWtxn3LEAThBBibLYyUUCs6eKqIy7nozZHxsPwryDVK5SfL+XbnaxLs/CfFyB3mP8LjfGTZw9KAMjqCzdAAPaNzQ83Kt+SbeX9MyTD9UE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RbOTx1Tk; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/atrUVX"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-53381e53b80so19627781cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:54:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RbOTx1Tk"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so1035351f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:57:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792356873; x=1792961673; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792357038; x=1792961838; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C++u6t/j/bpdXW85SGtKu8asGtwuQpgg01rY7vIXavw=;
-        b=c/atrUVXn/et8k51J1C56WKsuDa8bVYdBjz9PZrRTTbioT1JjSyWkJ3A8YPe36Nda7
-         SUC0yGrzvLl0+cYkKXLuUmwVaPyniXBoKdJqAnVxBO3f78fXxkWkZf5j+md1pjbtWYl4
-         5yXbhnVYiWJ8J7YL6D8as5fiBpiRZJs+jdaopUVxaBo+iYii8ar9OYWsm52yuAFqMRpy
-         TzcZLf+amSEDv8rv/3SZI7H40OY+RxpCTxHf2wpStln3thcr7Y8GbkTQrMSKYItWKkoQ
-         n8HEgM2+R8ylWsWw1VD3HFPsIlF44/TlgvRPbXDVd32cmsMkfx2xhTlVFQnUlpu9K0ga
-         wUAw==
+        bh=xVaVgwdVIKoTGAYIK7qaWv0TXT25+xxApfVDrPP1pI0=;
+        b=RbOTx1TkpaduRZMdmAdp8IrMlGJcGFowuwdoYO6ePHqxaY2xGXHaQS/sSGX/elnrWg
+         HDuCfXwT+z4Mi9AirPayRWTlgBAUPgDJnAeLUF4v3hj9kTWDmeDpoyVx4ek8Q7rfzcrR
+         Bb4Gp3cKnyqi5xrSi90PCGzwnwSmbPmmJ8F+hYdpPGtY0MznO2lrrFRQd572IktVuELw
+         hqHRwcvBfBUsHKVUzRyxh/sOtysH6SIxv1jCPL5jUcSYrIjBERGfBUM+/LQ7gWZZ5A5Q
+         B7P87jjTrGQsPFbP6zGzyQwF2atzdxuW8kPLOdMSzvT+QnXaMGRZ0I4zPlxRSvN4VsKI
+         ICjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792356873; x=1792961673;
+        d=1e100.net; s=20260707; t=1792357038; x=1792961838;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C++u6t/j/bpdXW85SGtKu8asGtwuQpgg01rY7vIXavw=;
-        b=0H2upanMef5kHlDdwQQX616IAnAopk2oWawlZPMtpd4uLMoMR/HshlP9i6K76CKOKu
-         ckazqYSLnm1+ZcU4iwG5CXn7kgjB79uxaBWbSsXvlMBZMJVW0jdBjSUscDaSRKFBx3KD
-         t5S0bGt7DjhE5NSCUHGdadiec52mQiBvC34DceXwD2wPaxd3dEQuyVauYe+SZm76YhJ5
-         cWUS73mA8OxNpqyZH1puuCdOZ9Pa1qCCeFfYgOlKy7uKEEyntKvA5yhZDexYIPf+L013
-         2MQC2J1KDA1gyFDoBtKPOGUuxaUQWe0QY4QGYGjKzm4vnC+729GrtRisa1cFZZNsXUJt
-         wKLg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIrW3tWm9YLVz+2RdkoEHAcPAvgJgtZABw1yxv1zLEpVH7n0cKvMyhmDOOSdY/WMbgEEgKFPa+Ig5YrEE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBE6bQM2t4rslxiPdzT4sXagq6cnxMrhaAhRUHBZsbDfxChbAO
-	3oxek5Lu9xoYJfebeslTvWzJJR8f5pGj1Ozx/QLfLJ/in7H1h5OaVXtB
-X-Gm-Gg: AYBFou3CXtp8O9mVtw+6OF7OS/wlhyPd4QjiM6OFROw0nqFArPW/eu+9r6iXM5URnij
-	btkOzJmCmjs2iTganNDLBmv5jJsULOPQI1rDggWBN/XunjiMkM7bBmD510Qbj8ALd4xKuwRs5QR
-	5HhJmC1HfwKBK4keyikguszJ9F1IkuHxhNA5jatBTsxVuD/xkmjrnwNvw1MHHxn+LemQ454vqRT
-	DaMIMrryYW3XzAplIAXeTY3R6AMRfI2BgAHc07BuLdliKtBMy2pgvrD0T9M+zsRNhXfvb2CUklU
-	1k/f/kMzVZm2UQOwBria2oosxsUdd6fSMz9YxN7l6wQMecNlMFzH4/tjHiPfh6/9SznNJUdWgLW
-	xNKLKJtSUCxT/bVqHrDAst3w3/Eg4JJH72VYO0hruo0uyNt1juwPNBTLH1HDcbTJvhTfANxDzao
-	9B0LtqOV16m79dDi6tPcMza0QEMKuHsemjLbcMa/BPdKbDnF+3hAJGQMXdHK255pQUsPCKbChxR
-	06519vlcyAWszgghy1RJWwwj2tq
-X-Received: by 2002:a05:622a:138f:b0:535:e8c:4258 with SMTP id d75a77b69052e-53645feaae2mr88127051cf.54.1792356872708;
-        Sun, 18 Oct 2026 13:54:32 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362a8dac81sm80471341cf.6.2026.10.18.13.54.32
+        bh=xVaVgwdVIKoTGAYIK7qaWv0TXT25+xxApfVDrPP1pI0=;
+        b=YVumM0/Lwor2cEEmOXrwAsdw+1Nbi0rCbw0D9mgHoLFRQpDo6qJh9aFmuQQP5dGYfW
+         nxTtuTaqAUr7J7lxqZ13c3/zSLcC9Nv1snIYoVzh9h2aoGDiWCh823uuhdmnzksKfvS1
+         Nef8qxDgBjJODZdzz2Oj3Zp3tv2AO1foqDC/dE/lSblURPdSnw7pMXga6eOf+o8bTYlJ
+         3679dyiIDGRC9PzzybIL9DDuNkOKLROy/ie7EoBVwYl5G2orHroqG7oLul72cXosECyD
+         vrvlOORhp4O+urKqBCGHhXSGDaklR9r9zUschPBNth4dYFVG02IPFB9ZfqUkO7TnBjkR
+         naIA==
+X-Forwarded-Encrypted: i=1; AKwUvByZMid3YTALr5zKzXLxazkH+hT8Mt7/GyLJ72kz8x7FGg2rGDQq1NjJsJzNm/NzPnz3v5XStohNwwOsa2c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuDeI9KoOUB61QOmAG413+F8SzrVlXX0xZtlhmEO53NfoWqHoA
+	UWiEixKAeoM5JdLcz+QBRx9qvV2JqmmqMbBiIIEsi6OQo2MsXlDOHNsb
+X-Gm-Gg: AYBFou1nsfYn3jLVBhjmgfcdj+AWEedM3VH6sgwwNV+yq7IBbUJWhvKJHffpFEK3Z+Q
+	kBI2XOMI3cOOOEeUiJ7FobH8ZQQJQT1toJC/RGlh0NBCSCye068HPyTqbRAmqrAX4XNhSL1n1PO
+	4/PhjpyJVkBiVCVOscZ42g1id3ldVehXs89vav9oCVrTPbBd63vZ12v10Ij3b0T1jfl24JhKQj+
+	jUHsMer/EaxLQPJJup9Z0mPa1H5n2trhG0Hi7xdaNKfCTSkb/gTgXdeQztGLH/Ox/D3/oj8UyeL
+	8WzLyeDAwMEPFLncGJaISU3m8dIezzPZFkqUbza2JBKS2FIi2/WhhMGVynsY39d2qwjZQuvUE9B
+	HJIjY/2+lUGf0eD70ANao4/nv5eNTdPQmpzc12aleTZ2zCYevAxrEhxqCf4FFPtJo2/EdTgDypp
+	d8fOyTXCJL3ZD1hXANKCqAeNaMUbFbLqovilzdYEYOJZ5i0OF9UrUeyIs/2ToYNCazAHw7vOqGa
+	PmVpI0I7tc3Sz0BiTrb3uX44HyKIPFtynpx+Z/IM7TiRlMnI81wgWgq+uq+KBGJvW1p4w==
+X-Received: by 2002:a5d:5610:0:b0:48c:72fc:3644 with SMTP id ffacd0b85a97d-48e07fa927amr9407194f8f.22.1792357037830;
+        Sun, 18 Oct 2026 13:57:17 -0700 (PDT)
+Received: from localhost ([178.214.243.78])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f5177sm18496263f8f.30.2026.10.18.13.57.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 13:54:32 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] NVMe: KASAN slab-use-after-free in __run_timer_base
-Date: Sun, 18 Oct 2026 16:54:14 -0400
-Message-ID: <20261018205420.4080423-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 18 Oct 2026 13:57:16 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org,
+	tiwai@suse.de
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-input@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v10 0/8] the Topping M62's and E2x2 OTG's vendor controls, on the component framework
+Date: Mon, 19 Oct 2026 01:57:02 +0500
+Message-ID: <20261018205711.168291-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,170 +79,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Kernel Maintainers,
+The Topping M62 and E2x2 OTG keep part of their mixer behind a vendor
+protocol on a HID interface, outside the USB Audio Class: on the M62 the
+analogue input gains, the output volumes, the MUTEs beside them and the
+output and loopback routing, on the E2x2 OTG the input gains, the
+faders, the routing and the output switches. On Linux they can only be
+set by hand on the front panel where it has a knob for them, and not at
+all where it has none. An E2x2 OTG whose headphone, TRS and AUX outputs
+were switched off by the vendor's application stays silent on Linux, and
+so does an M62 input or output that application left muted. The M62's
+battery level, which the card reports, shows nowhere, and an M62 whose
+USB-C port that application has set not to charge from the computer runs
+its battery down, with nothing on Linux to set it back.
 
-I hit the following report while testing current upstream kernel:
+This series makes them ordinary ALSA controls on the card snd-usb-audio
+already creates. 1/8 is a HID driver that carries the protocol, and 2/8
+adds the M62's controls to its mixer quirk, which is also the component
+master the HID driver binds to. 3/8 and 4/8 add the E2x2 OTG, which
+speaks the same frame; 5/8 offers the M62's battery level as a power
+supply, 6/8 the power settings of its two USB ports as controls, 7/8 the
+M62's MUTEs as switches and 8/8 the E2x2 OTG's input MUTEs. 1/8, 3/8 and
+5/8 are HID, the other five ALSA: the ALSA patches build on the header
+1/8 adds and need nothing else from the HID side.
 
-KASAN: slab-use-after-free in __run_timer_base
+Changes since v9
+(https://lore.kernel.org/all/20261018124838.129349-1-mikhail.v.gavrilov@gmail.com/),
+all three after Sashiko's review of it:
 
-on commit: 58161ead29e50d70a317ea26b472e0c7508e69da (2026-10-16)
+  - 5/8: the battery's power supply is registered without devres, its
+    name made at probe, and unregistered in .remove() once the reports
+    have stopped. component_bind() keeps a devres group open on the HID
+    device while topping_bind() runs, and a battery report that came in
+    meanwhile could put the supply registered with devm into that group,
+    so that the audio side's next unbind freed it under the driver;
+  - 5/8: the bind opens its session under a runtime PM reference, taken
+    before the component is published. A bind outside any USB probe, as
+    when hid-topping is loaded onto an interface usbhid already holds,
+    could otherwise outlast the autosuspend delay while it waits for the
+    card's answer to the handshake;
+  - 1/8: pm_ptr() around the PM callbacks. That is the only change to
+    1/8, so it keeps Jiri Kosina's Acked-by.
 
-To help trigger the bug more reliably, we applied a minimal diagnostic patch
-that only adds delays and print statements.
+The selectors keep "... Source". Named "... Playback Route" or
+"... Capture Route", a selector would join the volume of the same name
+in alsa-lib's simple mixer, which then reads and writes only the
+selector.
 
-The reproducer and .config files are here.
-https://gist.github.com/shuangpengbai/353855e21730d39b56943359215df2f8
+Tested
 
-I'm happy to test debug patches or provide additional information.
+Fedora, 7.3.0-rc7-32c52ec87d62 plus this series, with KASAN (generic),
+lockdep and UBSAN, an M62 (firmware V87.05.45.48.27, bcdDevice 3.27 in
+Pro Audio Mode, 1.45 in Mobile Mode) and an E2x2 OTG (firmware V1.10,
+bcdDevice 1.10). Both loaded modules were matched against the installed
+files by build ID.
 
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+  - fifty cycles of hid-topping unload and load with both cards
+    connected and PipeWire running: a hundred binds, two per cycle,
+    every mixer control of both cards the same before and after, and the
+    M62's battery supply there again after the last load;
+  - five audio-side rebinds of each card with the HID driver left bound,
+    all three snd-usb-audio interfaces unbound and the control interface
+    bound again: ten binds, every control there again, and the M62's
+    battery supply still there after each;
+  - "alsactl restore" exits 0 on both cards;
+  - suspend to RAM and back: the controls of both cards unchanged, and
+    afterwards the M62's headphone knob and an E2x2 OTG MON button each
+    reported to their own card;
+  - the cable pulled out twice on each card during playback while a loop
+    wrote a loopback gain: each time the card bound again once plugged
+    back; after the last plug the control took the loop's writes again
+    and read the last one written, and neither hid-topping nor the
+    quirk logged an error;
+  - the M62 switched to Mobile Mode and back, twice: the driver's twenty
+    controls in Mobile Mode, the first bind writing every one of them,
+    and alsactl's restore the stored gains 0.10 to 0.12 s later;
+  - the M62's port power at eighteen first binds with the HID driver
+    loaded after the card, out of reach of alsactl's restore: on a card
+    left on Off and Discharge the bind wrote Charge and Off, and Off and
+    Discharge written right after the bind, as a restore of those values
+    would, left the card on the bus for the 10 s it was watched; every
+    value of the two the card announced afterwards was the one last
+    written;
+  - the M62 answered each of the 75 handshakes captured in these runs
+    11 to 378 ms after it, and no other frame of the protocol was sent
+    to it in between;
+  - the M62's Loopback 1/2, with a 1 kHz tone at -20 dBFS peak on
+    Playback 1/2 and all sixteen capture columns recorded: its source
+    set to Playback 3/4 turned the two Loopback 1/2 columns into digital
+    zero and set back brought the tone back; its gain at -20 and +12 dB
+    moved them by -20.00 and +12.00 dB;
+  - each M62 input's switch turned off took the input to digital zero,
+    in its own capture columns in Pro Audio Mode and in the recording in
+    Mobile Mode, and turned on brought it back;
+  - each E2x2 OTG input's switch turned off silenced the card's meter of
+    that input; a gain set while it was off was not written, and the
+    switch turned on wrote it and the meter came back;
+  - no WARNING, BUG, KASAN, UBSAN, lockdep report or call trace in the
+    kernel log over these runs, and lockdep still on after the last.
 
-[   97.002406] ==================================================================
-[   97.002426] BUG: KASAN: slab-use-after-free in __run_timer_base (include/linux/list.h:1175 kernel/time/timer.c:1820 kernel/time/timer.c:2356 kernel/time/timer.c:2386)
-[   97.002500] Write of size 8 at addr ffff88811d710e40 by task swapper/0/0
+The M62's battery shows as a power supply, and in UPower, 2.6 to 2.8
+seconds after the card is plugged in, and 1.8 to 3.5 seconds after it
+comes back in Mobile Mode.
 
-[   97.002533] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   97.002541] Call Trace:
-[   97.002547]  <IRQ>
-[   97.002552]  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-[   97.002567]  print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-[   97.002602]  kasan_report (mm/kasan/report.c:595)
-[   97.002628]  __run_timer_base (include/linux/list.h:1175 kernel/time/timer.c:1820 kernel/time/timer.c:2356 kernel/time/timer.c:2386)
-[   97.002682]  tmigr_handle_remote (kernel/time/timer_migration.c:985 kernel/time/timer_migration.c:1076 kernel/time/timer_migration.c:564 kernel/time/timer_migration.c:581 kernel/time/timer_migration.c:1135)
-[   97.002742]  handle_softirqs (kernel/softirq.c:645)
-[   97.002757]  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
-[   97.002768]  sysvec_apic_timer_interrupt (archkernel/apic/apic.c:1062 archkernel/apic/apic.c:1062)
-[   97.002783]  </IRQ>
-[   97.002787]  <TASK>
-[   97.002791]  asm_sysvec_apic_timer_interrupt (archinclude/asm/idtentry.h:674)
-[   97.002802] RIP: 0010:pv_native_safe_halt (archinclude/asm/irqflags.h:48 archkernel/paravirt.c:63)
-[   97.002818] Code: 83 fa 01 00 cc 66 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 55 5c 19 00 f3 0f 1e fa fb f4 <e9> 58 fa 01 00 cc 0f 1f 80 00 00 00 00 90 90 90 90 90 90 90 90 90
-All code
-========
-   0:	83 fa 01             	cmp    $0x1,%edx
-   3:	00 cc                	add    %cl,%ah
-   5:	66 90                	xchg   %ax,%ax
-   7:	90                   	nop
-   8:	90                   	nop
-   9:	90                   	nop
-   a:	90                   	nop
-   b:	90                   	nop
-   c:	90                   	nop
-   d:	90                   	nop
-   e:	90                   	nop
-   f:	90                   	nop
-  10:	90                   	nop
-  11:	90                   	nop
-  12:	90                   	nop
-  13:	90                   	nop
-  14:	90                   	nop
-  15:	90                   	nop
-  16:	90                   	nop
-  17:	f3 0f 1e fa          	endbr64
-  1b:	eb 07                	jmp    0x24
-  1d:	0f 00 2d 55 5c 19 00 	verw   0x195c55(%rip)        # 0x195c79
-  24:	f3 0f 1e fa          	endbr64
-  28:	fb                   	sti
-  29:	f4                   	hlt
-  2a:*	e9 58 fa 01 00       	jmp    0x1fa87		<-- trapping instruction
-  2f:	cc                   	int3
-  30:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
-  37:	90                   	nop
-  38:	90                   	nop
-  39:	90                   	nop
-  3a:	90                   	nop
-  3b:	90                   	nop
-  3c:	90                   	nop
-  3d:	90                   	nop
-  3e:	90                   	nop
-  3f:	90                   	nop
+With PipeWire and the M62's UCM profile
+(https://github.com/alsa-project/alsa-ucm-conf/pull/826), in Pro Audio
+Mode the M62's headphone level follows the desktop volume and the
+front-panel knob both ways; with the E2x2 OTG's profile, to be sent
+after that pull request, the desktop volume moves the E2x2 OTG's
+Master.
 
-Code starting with the faulting instruction
-===========================================
-   0:	e9 58 fa 01 00       	jmp    0x1fa5d
-   5:	cc                   	int3
-   6:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
-   d:	90                   	nop
-   e:	90                   	nop
-   f:	90                   	nop
-  10:	90                   	nop
-  11:	90                   	nop
-  12:	90                   	nop
-  13:	90                   	nop
-  14:	90                   	nop
-  15:	90                   	nop
-[   97.002826] RSP: 0018:ffffffff85607ce8 EFLAGS: 00000206
-[   97.002839] RAX: ffff8882d1236000 RBX: ffffffff85615880 RCX: ffffffff846b6184
-[   97.002847] RDX: 0000000000000001 RSI: 0000000000000004 RDI: 0000000000017cc4
-[   97.002854] RBP: ffffffff85607db8 R08: ffff888258030f8b R09: 1ffff1104b0061f1
-[   97.002860] R10: dffffc0000000000 R11: ffffed104b0061f2 R12: 0000000000000000
-[   97.002866] R13: 1ffffffff0ac2b10 R14: 0000000000000000 R15: dffffc0000000000
-[   97.002884]  default_idle (archkernel/process.c:767 archkernel/process.c:768)
-[   97.002893]  default_idle_call (kernel/sched/idle.c:122)
-[   97.002902]  do_idle (kernel/sched/idle.c:199 kernel/sched/idle.c:355)
-[   97.002934]  cpu_startup_entry (kernel/sched/idle.c:454)
-[   97.002945]  rest_init (init/main.c:732)
-[   97.002987]  start_kernel (init/main.c:1190)
-[   97.002999]  x86_64_start_reservations (archkernel/head64.c:310)
-[   97.003060]  x86_64_start_kernel (archkernel/head64.c:291)
-[   97.003073]  common_startup_64 (archkernel/head_64.S:418)
-[   97.003088]  </TASK>
+Not tested:
 
-[   97.003095] Allocated by task 380 on cpu 1 at 16.265072s:
-[   97.003104]  kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
-[   97.003116]  __kasan_kmalloc (mm/kasan/common.c:409 mm/kasan/common.c:426)
-[   97.003125]  nvme_rdma_create_ctrl (include/linux/slab.h:991 include/linux/slab.h:1312 drivers/nvme/host/rdma.c:2289 drivers/nvme/host/rdma.c:2367)
-[   97.003138]  nvmf_dev_write (drivers/nvme/host/fabrics.c:1361 drivers/nvme/host/fabrics.c:1408)
-[   97.003148]  vfs_write (fs/read_write.c:685)
-[   97.003157]  ksys_write (fs/read_write.c:739)
-[   97.003166]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
-[   97.003175]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+  - runtime autosuspend: power/control was "on" on both cards, so the
+    reference the bind now takes kept nothing awake;
+  - hibernation, and with it .reset_resume;
+  - kmemleak, compiled in here but disabled at boot;
+  - a card whose battery has run down;
+  - a big-endian host.
 
-[   97.003186] Freed by task 26 on cpu 0 at 76.560994s:
-[   97.003193]  kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
-[   97.003202]  kasan_save_free_info (mm/kasan/generic.c:584)
-[   97.003210]  __kasan_slab_free (mm/kasan/common.c:264 mm/kasan/common.c:296)
-[   97.003220]  kfree (include/linux/kasan.h:235 mm/slub.c:2748 mm/slub.c:6509 mm/slub.c:6802)
-[   97.003230]  nvme_free_ctrl (drivers/nvme/host/core.c:5202)
-[   97.003240]  device_release (drivers/base/core.c:?)
-[   97.003251]  kobject_put (lib/kobject.c:689 lib/kobject.c:720 include/linux/kref.h:65 lib/kobject.c:737)
-[   97.003263]  process_scheduled_works (kernel/workqueue.c:3396 kernel/workqueue.c:3479)
-[   97.003272]  worker_thread (kernel/workqueue.c:3560)
-[   97.003281]  kthread (kernel/kthread.c:436)
-[   97.003291]  ret_from_fork (archkernel/process.c:158)
-[   97.003304]  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+The plain E2x2, 152a:8752, is left out: it needs its own channel names
+and a test by someone who has one.
 
-[   97.003316] Last potentially related work creation:
-[   97.003320]  kasan_save_stack (mm/kasan/common.c:57)
-[   97.003330]  kasan_record_aux_stack (mm/kasan/generic.c:556)
-[   97.003338]  insert_work (kernel/workqueue.c:2272)
-[   97.003345]  __queue_work (kernel/workqueue.c:2448)
-[   97.003356]  queue_work_on (kernel/workqueue.c:2501)
-[   97.003364]  nvme_delete_ctrl (include/linux/workqueue.h:700 drivers/nvme/host/core.c:268)
-[   97.003376]  process_scheduled_works (kernel/workqueue.c:3396 kernel/workqueue.c:3479)
-[   97.003384]  worker_thread (kernel/workqueue.c:3560)
-[   97.003392]  kthread (kernel/kthread.c:436)
-[   97.003401]  ret_from_fork (archkernel/process.c:158)
-[   97.003411]  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+Mikhail Gavrilov (8):
+  HID: topping: transport for the M62's vendor controls
+  ALSA: usb-audio: add the Topping M62's vendor controls
+  HID: topping: add the E2x2 OTG
+  ALSA: usb-audio: add the Topping E2x2 OTG's vendor controls
+  HID: topping: report the M62's battery level
+  ALSA: usb-audio: add the Topping M62's port power settings
+  ALSA: usb-audio: add the Topping M62's mutes
+  ALSA: usb-audio: add the Topping E2x2 OTG's input mutes
 
-[   97.003422] Second to last potentially related work creation:
-[   97.003427]  kasan_save_stack (mm/kasan/common.c:57)
-[   97.003435]  kasan_record_aux_stack (mm/kasan/generic.c:556)
-[   97.003442]  insert_work (kernel/workqueue.c:2272)
-[   97.003449]  __queue_work (kernel/workqueue.c:2448)
-[   97.003457]  call_timer_fn (kernel/time/timer.c:1748)
-[   97.003470]  __run_timer_base (kernel/time/timer.c:1794 kernel/time/timer.c:2374 kernel/time/timer.c:2386)
-[   97.003480]  tmigr_handle_remote (kernel/time/timer_migration.c:985 kernel/time/timer_migration.c:1076 kernel/time/timer_migration.c:564 kernel/time/timer_migration.c:581 kernel/time/timer_migration.c:1135)
-[   97.003492]  handle_softirqs (kernel/softirq.c:645)
-[   97.003502]  __irq_exit_rcu (kernel/softirq.c:679 kernel/softirq.c:519 kernel/softirq.c:758)
-[   97.003512]  sysvec_apic_timer_interrupt (archkernel/apic/apic.c:1062 archkernel/apic/apic.c:1062)
-[   97.003523]  asm_sysvec_apic_timer_interrupt (archinclude/asm/idtentry.h:674)
+ MAINTAINERS               |   10 +
+ drivers/hid/Kconfig       |   22 +
+ drivers/hid/Makefile      |    1 +
+ drivers/hid/hid-ids.h     |    4 +
+ drivers/hid/hid-quirks.c  |    4 +
+ drivers/hid/hid-topping.c |  716 ++++++++++++++++++
+ include/sound/topping.h   |   57 ++
+ sound/usb/Makefile        |    1 +
+ sound/usb/mixer_quirks.c  |    6 +
+ sound/usb/mixer_topping.c | 1452 +++++++++++++++++++++++++++++++++++++
+ sound/usb/mixer_topping.h |    7 +
+ 11 files changed, 2280 insertions(+)
+ create mode 100644 drivers/hid/hid-topping.c
+ create mode 100644 include/sound/topping.h
+ create mode 100644 sound/usb/mixer_topping.c
+ create mode 100644 sound/usb/mixer_topping.h
 
-[   97.003534] The buggy address belongs to the object at ffff88811d710000
-which belongs to the cache kmalloc-4k of size 4096
-[   97.003542] The buggy address is located 3648 bytes inside of
-freed 4096-byte region [ffff88811d710000, ffff88811d711000)
+base-commit: f6e8d5ebde5ceb7d3c0eef6e9e4d82862b503ade
+-- 
+2.43.0
 
-
-Best,
-Shuangpeng
