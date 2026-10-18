@@ -1,579 +1,252 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012033.outbound.protection.outlook.com [52.101.48.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039B8472096
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:29:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792322945; cv=none; b=oyiUf/nTMyMRANCiyStJnsel09e3MWwfqVSuktkUtP+3x6SaPfk4r5/Hm7djI+86m6R1ze7hExxixvzjpTuCatrEqCq5sJibAmFEnnUmtRN7UoPRpLFnBPsbno75l1Y97TLe5Er8WjNrOTsANNgZaZG7JZwXr5Y3C8G0Nw716GQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792322945; c=relaxed/simple;
-	bh=vZTInbnLWR+L7CgVWocP6JwjT0S3Zu0bjwvQ6Bq7T04=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gWOqVkibf/kHqte6eCT5PSqJlWne10XcT8756ESO/HDGNfmGoqi67c+KHWpJeUjE/4MUxitiC6DbVNEumW/PO8jN/Mg//pmhIZOjSIL4hkq0FG/TmCSvaQlNt1cu9oShgqnVAreIOnhPSlIjJcB+ll3Nzau+UbsxAbalyzV/sAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dCaj2Ua0; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CCC3486B80;
+	Sun, 18 Oct 2026 11:32:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792323142; cv=fail; b=UNi9i+lQfFk4UwuaXcViO9oRkbq3gNn/Mp73oAIpHNGHkY/SiaqSrfDdupvuVFidyEXU0EItOKHs7gImDdLhCCbmsOeqQ/t7x2IXQ6GqOBbZ7AyQEjZVj51zA3b1qkwgaDSu/PgeF2ogVSrOlcAoTWaE6cTLyi6uk3+jwLneN4E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792323142; c=relaxed/simple;
+	bh=FDGq4t2dR0h0hQaG9zVfMki8AwKtoPszlXEMr2w3fRE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=A1MnNm83HQ2dLLNYmRE3c37uL+46O1biXghriIb4ow1joFtl+vIPX+NruIKWDrmp56j3Rk4NC/zlrPbQ8njjFNTeFFgKjKI26YeOYJp1m6dsIrx89YMh1xauRl9K5WwSibMjW38b5wy59V/WfudE1xiPhvbej4E+D/dJcfWEB94=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=UpaIW8tJ; arc=fail smtp.client-ip=52.101.48.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dCaj2Ua0"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35f036b17easo2601501eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:29:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792322943; x=1792927743; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=okIh6DhrJqyZnVkUythpaRAohxglOTMz3kWfaFl/SnM=;
-        b=dCaj2Ua0LnldvfyRrXASGyoLyzpgwtTelNjHTdy8efKMc1q5udq/ERkNLvl1QaiEGC
-         klffe1aIXi7XIsJf11M5pl4ZuHuumgLRfoU3lONG+7jC1LbHIzjNSygTyk8ApMoqO+PJ
-         XWli1e4vG5zeTjqVKPKWQ3x/E2VWjNt9WVfMRpxgunuGVqwhYbvpqly4TWQARjl+ScBB
-         SjXVKKrtDe4WyOWbz6UYoAeGx8G0X2FYndrL8n7LMJ+frYpQmUFPWUbIGaCjOfrCXoo+
-         f2cn4LwTIyZS52v4lN1+2CLKhtse9loVEKoa+nxYXoI85wF6RdDXF2m1yoShU0WhzbKI
-         tZgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792322943; x=1792927743;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=okIh6DhrJqyZnVkUythpaRAohxglOTMz3kWfaFl/SnM=;
-        b=p9tqYAsQeAeN5kKYKtPgL6CZ8eZCOFavyrFuvYh/HsDSvIc4nfrZRWdPQZSQPugSBK
-         LIRWiSQ8oKwWQXuiQepZ3ZduvT2eKduVVFAVRfxGjR1mJP/IlSpeTH/bXBY8a6AMsrQL
-         kYlMQrrrNLmSValkGU0DESzV3GMoJ/enyM0aw0o9eiAV9FYIcPqtsf2kopVuqsaZOZ6t
-         tkrvFt44qEHHZvn8ZrkVxCuf2gSIG8t2BUihS4ShNrLjK8Tftr2CgO2XdZg8iWeDx0RE
-         6MhRs1KK3m74DxqE0t/P9FYLgs4XgIq5vVKpPFPIoC2dX73amCPUHIElZuZbzNyt+a1r
-         W54Q==
-X-Gm-Message-State: AFq9FYKfMIR3ZPsahrgNXNageVhBnisKXgVPRhdOCt4V9bHU5is7bQGp
-	LcX8EZt0FP5Fkd5e3lvE0SG6Wvhrs9+K61OlJ5BC09F7rmHmpPLgWzCage0zpSc1
-X-Gm-Gg: AYBFou0RiWhPb76nz2ZxjMl+42lhMybhCGowSOsFpsZmd0+a6sAUs+7X+NYhdvmo8oy
-	+PniihydKqT5Wra7txG5NDFE6F0C4GP4gvtutC0rUsO9t9UXR3SYJmJL6COmcnXPK2zt1Ke9Z00
-	Q5cCke+Lw1C1R43VrjF9anNoYPY2RgOfnqWA+d5LfqTDhdiA9hFQ3fCogkMIOSK0wmWMHvbMsZq
-	MhptNpFY0nOMtaQc6WsByPSKASpUyou0vgUm753XYH08pVQzr9Bq75RBE0vv36yK6Xp5T9l2Gws
-	1HaeWngZrOBgedUrX1Dia2YnyQ4bG8Wn3JB/IpzF5e8JY4PJUSmuUVgpP0sTNno93iVvxu/kay9
-	ib/2ALT1n+5TDC+A3//+A6WGN4hg2hG2xOmgFfK3z2NxUkNF9oSwg1HV6VKusdPDWWbTlPUfLzG
-	u/Grln4lZJThc4k2K5PX5OC9rgntAb8/3aIjwbRUF8mZL+VwxgCVsStD3SJUunb0FY7NiESZLyz
-	34RlHDIcLKlTR9IG6jtcUNIqYqxMUo9TCVplwarHA==
-X-Received: by 2002:a05:693c:8354:b0:35e:2c6:d484 with SMTP id 5a478bee46e88-361a1365d77mr6728014eec.7.1792322942870;
-        Sun, 18 Oct 2026 04:29:02 -0700 (PDT)
-Received: from Biostar-A520MT.. ([187.94.15.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082a7b33bsm42560779eec.24.2026.10.18.04.28.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 04:29:00 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: Andy Whitcroft <apw@canonical.com>,
-	Joe Perches <joe@perches.com>,
-	Dwaipayan Ray <dwaipayanray1@gmail.com>,
-	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [RFC PATCH 7/7] scripts: convert streamline_config.pl to Python
-Date: Sun, 18 Oct 2026 08:28:38 -0300
-Message-ID: <20261018112838.16355-8-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261018112838.16355-1-breno3011alves@gmail.com>
-References: <20261018112838.16355-1-breno3011alves@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="UpaIW8tJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YOyhwG8blIwbOxv/R7161ridgH9pPMPokkxTvpnf39soeXrZqttsdHazEsZ51u/8sT+x5w50+vU/y/RmFpzIT547CYIj4AwsE2n6dE5NZT4XLLtouPOLxzYo+BRjxZ5mGjViape8gmy9SLLYUIG9sIWbKcOvoUfzwgm1FtQH/DxggDe11LNeSlURp6KRi5sdh56/UV7lGio7AKdTa59QnJ4Rk7Mh+uYGWWM8jHtH888e3iHcqKbU7nq9xJJW3Sa2ZpznXR7O+0Tme+l0ISUjNzU+n5/DsTk1FQCZ8ieJyPYSD2HyikDB5w/dhmoLmfw6YLieR0y/vAnfJ2vgyb/LLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Day0hymDiG5dr1uv67roBMwzP/6hkspVFG/LqT7Ocso=;
+ b=ewiuOSf9/PABvPxI3O4mr0+Uv/Ud7g8ldYUse/m48HRtii1ONoWxWRudMXyRwCDDpFQ4LfpPmeinQMLRo1hKOYRRSiuKu1yscJu/ZaDB2OwipyD3ZbTJCL6oe2hj7fIJRLQXOo3R7vMKWIY1Tn7l7WGcRGNbJCTX8wGjYa05mLNUL4RlSLGqP6huRF4LDTe8AitgW+LLEPZtzfgwq1raxTJGK474fIpy5V9h000K1wtuEriRMss9rYlvNsl7qub2uqw6JKfyN5wXlaByly1BB11h4VY4Y/7aSuLxMSY7QaEz/JgzpqHRZdKHPkSAtE0QjpMGjMPt1QZQk56NNKXICQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Day0hymDiG5dr1uv67roBMwzP/6hkspVFG/LqT7Ocso=;
+ b=UpaIW8tJKlnh8y6nkpEGNofQfGbHIxD6MG4atPFEVbjY+z9cUj2UTdjMgyFt82ATpBtDE3HIomhqRbLkTU77fqGwiNc476e6WEmIXI+oYoaE0yxh4aEVtsYwWsX7xnSmBVKDLm/QqSVRWf3AUruiw3XdBRquM5dBfdaDP+ughD0=
+Received: from CH0P223CA0011.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::26)
+ by PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Sun, 18 Oct
+ 2026 11:32:14 +0000
+Received: from CH1PEPF0000AD7E.namprd04.prod.outlook.com
+ (2603:10b6:610:116:cafe::62) by CH0P223CA0011.outlook.office365.com
+ (2603:10b6:610:116::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Sun,
+ 18 Oct 2026 11:32:13 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7E.mail.protection.outlook.com (10.167.244.87) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Sun, 18 Oct 2026 11:32:13 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 18 Oct
+ 2026 06:32:06 -0500
+Received: from [192.168.0.101] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Sun, 18 Oct 2026 06:32:01 -0500
+Message-ID: <09e61c95-97bd-46c7-9d96-c3926e324c26@amd.com>
+Date: Sun, 18 Oct 2026 17:01:55 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] perf/amd/ibs: Simplify event state handling with
+ IBS_CAPS_DIS
+To: Jim Mattson <jmattson@google.com>
+CC: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Jayapal Ashwin Nair <janair@amd.com>, Arnaldo Carvalho de Melo
+	<acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Ian Rogers
+	<irogers@google.com>, <x86@kernel.org>, <linux-perf-users@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Santosh Shukla <santosh.shukla@amd.com>,
+	Ananth Narayan <ananth.narayan@amd.com>, Sandipan Das <sandipan.das@amd.com>,
+	Manali Shukla <manali.shukla@amd.com>, Ravi Bangoria <ravi.bangoria@amd.com>
+References: <20261015060430.5877-1-ravi.bangoria@amd.com>
+ <20261015060430.5877-4-ravi.bangoria@amd.com>
+ <CALMp9eRTG=uLkAWohYW0HOoS1xvNc_0brovYsfbCUS_mf4H3Kw@mail.gmail.com>
+Content-Language: en-US
+From: Ravi Bangoria <ravi.bangoria@amd.com>
+In-Reply-To: <CALMp9eRTG=uLkAWohYW0HOoS1xvNc_0brovYsfbCUS_mf4H3Kw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7E:EE_|PH7PR12MB5974:EE_
+X-MS-Office365-Filtering-Correlation-Id: f88bd5d7-57ec-4b8c-89a1-08df2d0b74a2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|22082099003|18002099003|10067099003|13003099007|4143699003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	KnLdpAzNK6Xgx51gqPmFYVQ5gr0HxhrXhqknC+9HRPuz9N9kVuGxcDVh3tDIgKwMFmbOrGhm/0Y1i5InkGE5EA9EGcsQWla8uDmjBgv/O9hI1JhdaIgBagkA8qsKA1jynzMOmK30qGG140zcWzY2WHBkFLv6zfkiPM9XVm/H/GX9ow7VMtOFif1PUJ5QjQkSTl6oP0mMm7Fazgv2s6aZEWu9MG35s5/PQ5dCibKsWtWoEvpZrK8l16hOymXL0tqijKhw1/P82WeiH/NPBBWQe3VBQouMN0DP6eJpwgOaJ/QQ50Ipdsm6tuEC0usc5bf+AYhu6Y0h0SZVfIGH89bjxw+UyYzwuYVe389vCFbDiPNxj9HMLvGOF0ncyrSaPN/WRT4eFFw1ezLxB45XQdbyNGgYsDdk/rVQ5ynQnhfMfUOt7HMox7R8nethuMOsWI6t409ZEGzQOUL+1oyEDn4iqlaw9iW9PLgAVRmYvENGE5rqrr/Mj71URV0FDsG98oSpVH28BJqosEJHFB+5zdvAUxZyOZA2gSMYTr0JWZnq0tnOGVa+2W9BOz2EifDSD73ZNr1H/I+QfkRVSPuj0elolex5P6BuSjf89B5EgYz09/HBjj5zGNx/+EWOJiuSuLij5+UBaCp5QmK0U4VHISIaaQtfRqQe7RugOnqTyQVUuZM=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(22082099003)(18002099003)(10067099003)(13003099007)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	35BY+ulZyBGMJAhbP2+B5qx3dex9npItPvltmYzfYkFc8qNbW6oLjFOnut6ZKAwW9Wb8kC5TeHBzgP2pfewPCnq5N5JzRilmYZEcdCEx6nZNWWJYhmqgvuRvhrnkObISIAxjKXIg3WelK/JOi4KrbgjDJK+HUxLs0EaxdPfPu4mV0LAs7fyHlE75lqcPN5UiA71mxR6/rNvkG+dXPoXtu4WRUAUw9OufIFBS63FKzu4PNCiC/Btp845Zui+L4BkSNPb2blWR/rNLa/QwAPgZ3WkUIW568oTG5ToLN4z8cNkxhQzfzEZrXifck7N8jdtw0TakT/4tX4uRw9j6QZJC84nirKBsNyaztfNiMfUSY+5+WgaFKONR0sKDkPMeCNHd3aQQmXd6Aa5Q/RyJ0ztZHvQzHfKJCkeECzJPgQn5AI3BI2oD/4OaMx5DCemg0Sku
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2026 11:32:13.4283
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f88bd5d7-57ec-4b8c-89a1-08df2d0b74a2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD7E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5974
 
-Faithful re-implementation of streamline_config.pl in Python 3
-(stdlib only). Same Kconfig recursion, same Makefile parsing,
-same dependency/select resolution, same LMC_KEEP preservation.
+Jim,
 
-Requires a .config and loaded modules to fully test; logic is
-1:1 with the Perl version.
+Thanks for the detailed review.
 
-Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+>> The IBS_{FETCH|OP}_CTL2[Dis] bit allows IBS sampling to be stopped without
+>> a RMW of IBS_{FETCH,OP}_CTL. Systems providing this bit therefore do not
+>> require the IBS_STARTED and IBS_STOPPED states used to coordinate control
+>> MSR updates with late NMIs.
+> 
+> CTL2[Dis] doesn't make late NMIs go away. Hence, this patch needs a
+> 50us poll. With the two-line fix in my original patch, the existing
+> scheme handles late NMIs indefinitely: IBS_STOPPED remains set until a
+> late NMI consumes it, even if the event has been restarted in the
+> meantime. This patch trades that for a 50us window, after which a late
+> NMI is unknown (which *is* fatal with unknown_nmi_panic). Moreover,
+> since we still have to handle hardware without IBS_CAPS_DIS, we now
+> have two state machines instead of one.
+
+IBS_STOPPED only records that "a late NMI might exist". It can't tell
+whether the disable actually completed or whether that late NMI has
+already arrived. Trying to infer from software state is fundamentally
+broken, since the WRMSR and a software state transition can't be made
+atomic.
+
+Given that Zen6 provides a clear hardware state machine, I believe using
+it, rather than a software state machine, is the right approach.
+
+I ran a fuzzer for several hours with my patch (+Manali's patch [1]) and
+saw no Unknown NMIs on Zen6.
+
+However, With your patch[2] (+Manali's patch), the same fuzzer continued
+to produce quite a few Unknown NMIs on Zen6. One race I was able to
+identify (with your patch applied) is described below.
+
 ---
- scripts/streamline_config.py | 475 +++++++++++++++++++++++++++++++++++
- 1 file changed, 475 insertions(+)
- create mode 100755 scripts/streamline_config.py
+  o FETCH and OP both are enabled.
 
-diff --git a/scripts/streamline_config.py b/scripts/streamline_config.py
-new file mode 100755
-index 000000000..f2e53975f
---- /dev/null
-+++ b/scripts/streamline_config.py
-@@ -0,0 +1,475 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Copyright 2005-2009 - Steven Rostedt
-+#
-+# Simplify the kernel config to only the modules loaded on this system.
-+
-+import os
-+import re
-+import subprocess
-+import sys
-+
-+DEBUG = 'LOCALMODCONFIG_DEBUG' in os.environ
-+
-+# Module state populated by read_kconfig()
-+depends = {}
-+selects = {}
-+prompts = {}
-+objects = {}
-+config2kfile = {}
-+defaults = {}
-+read_kconfigs = {}
-+ksource = '.'
-+
-+
-+def dprint(*args):
-+    if DEBUG:
-+        print(*args, file=sys.stderr)
-+
-+
-+def read_config():
-+    uname = subprocess.check_output(['uname', '-r'], text=True).strip()
-+
-+    searchconfigs = [
-+        ('.config', 'cat', None),
-+        ('/proc/config.gz', 'zcat', None),
-+        (f'/boot/config-{uname}', 'cat', None),
-+        (f'/boot/vmlinuz-{uname}', 'scripts/extract-ikconfig',
-+         'scripts/extract-ikconfig'),
-+        ('vmlinux', 'scripts/extract-ikconfig', 'scripts/extract-ikconfig'),
-+        (f'/lib/modules/{uname}/kernel/kernel/configs.ko',
-+         'scripts/extract-ikconfig', 'scripts/extract-ikconfig'),
-+        ('kernel/configs.ko', 'scripts/extract-ikconfig',
-+         'scripts/extract-ikconfig'),
-+        ('kernel/configs.o', 'scripts/extract-ikconfig',
-+         'scripts/extract-ikconfig'),
-+    ]
-+
-+    for file, exec_cmd, test_cmd in searchconfigs:
-+        if not os.path.isfile(file):
-+            continue
-+        if test_cmd is not None:
-+            r = subprocess.run([test_cmd, file], capture_output=True)
-+            if r.returncode:
-+                continue
-+        print(f"using config: '{file}'", file=sys.stderr)
-+        try:
-+            out = subprocess.check_output(
-+                f'{exec_cmd} {file}', shell=True, text=True,
-+                stderr=subprocess.DEVNULL)
-+        except subprocess.CalledProcessError:
-+            continue
-+        return out.splitlines(keepends=True)
-+
-+    sys.exit('No config file found')
-+
-+
-+def read_kconfig(kconfig, if_state):
-+    """Recursively read a Kconfig file, populate globals.
-+
-+    if_state is a [level, [deps...]] list for mutation.
-+    """
-+    state = 'NONE'
-+    config = ''
-+    cont = False
-+    line = ''
-+
-+    source = f'{ksource}/{kconfig}'
-+    last_source = ''
-+    while re.search(r'\$\((\w+)\)', source) and source != last_source:
-+        last_source = source
-+        m = re.search(r'\$\((\w+)\)', source)
-+        source = source.replace(m.group(0), os.environ.get(m.group(1), ''))
-+
-+    try:
-+        with open(source) as f:
-+            raw_lines = f.readlines()
-+    except OSError:
-+        sys.exit(f"Can't open {source}")
-+
-+    iflevel = if_state[0]
-+    ifdeps = if_state[1]
-+
-+    for raw in raw_lines:
-+        line_text = raw.rstrip('\n')
-+
-+        if cont:
-+            line_text = line + ' ' + line_text
-+
-+        if line_text.endswith('\\'):
-+            cont = True
-+            line = line_text[:-1]
-+            continue
-+        cont = False
-+
-+        m = re.match(r'^source\s+"?([^"]+)', line_text)
-+        if m:
-+            sub = m.group(1)
-+            if sub not in read_kconfigs:
-+                read_kconfigs[sub] = 1
-+                read_kconfig(sub, if_state)
-+            continue
-+
-+        m = re.match(r'^\s*(?:menu)?config\s+(\S+)\s*$', line_text)
-+        if m:
-+            state = 'NEW'
-+            config = m.group(1)
-+            config2kfile[f'CONFIG_{config}'] = kconfig
-+            for i in range(if_state[0]):
-+                if i:
-+                    depends[config] = depends.get(config, '') + ' ' + ifdeps[i]
-+                else:
-+                    depends[config] = ifdeps[i]
-+                state = 'DEP'
-+            continue
-+
-+        m = re.match(r'^\s*depends\s+on\s+(.*)$', line_text)
-+        if m and state in ('NEW', 'DEP'):
-+            if state == 'NEW':
-+                depends[config] = m.group(1)
-+                state = 'DEP'
-+            else:
-+                depends[config] = depends.get(config, '') + ' ' + m.group(1)
-+            continue
-+
-+        m = re.match(r'^\s*def(?:_(?:bool|tristate)|ault)\s+(\S.*)$',
-+                     line_text)
-+        if m and state != 'NONE':
-+            dep = m.group(1)
-+            defaults[config] = 1
-+            if not re.match(r'^\s*(?:y|m|n)\s*$', dep):
-+                dep = re.sub(r'.*\sif\s+', '', dep)
-+                depends[config] = depends.get(config, '') + ' ' + dep
-+                dprint(f'Added default depends {dep} to {config}')
-+            continue
-+
-+        m = re.match(r'^\s*select\s+(\S+)', line_text)
-+        if m and state != 'NONE':
-+            conf = m.group(1)
-+            if conf in selects:
-+                selects[conf] += ' ' + config
-+            else:
-+                selects[conf] = config
-+            continue
-+
-+        if state != 'NONE' and \
-+                re.match(r'^\s*(?:tristate\s+\S|prompt\b)', line_text):
-+            prompts[config] = 1
-+            continue
-+
-+        m = re.match(r'^if\s+(.*\S)\s*$', line_text)
-+        if m:
-+            deps_str = re.sub(r'^[^a-zA-Z0-9_]*', '', m.group(1))
-+            deps_str = re.sub(r'[^a-zA-Z0-9_]*$', '', deps_str)
-+            parts = re.split(r'[^a-zA-Z0-9_]+', deps_str)
-+            if if_state[0] < len(ifdeps):
-+                ifdeps[if_state[0]] = ':'.join(parts)
-+            else:
-+                ifdeps.append(':'.join(parts))
-+            if_state[0] += 1
-+            continue
-+
-+        if re.match(r'^endif', line_text):
-+            if if_state[0]:
-+                if_state[0] -= 1
-+            continue
-+
-+        if re.match(r'^\s*(?:---)?help(?:---)?\s*$', line_text) or \
-+                re.match(r'^(?:comment|choice|menu)\b', line_text):
-+            state = 'NONE'
-+
-+
-+def convert_vars(line, make_vars):
-+    """Expand $(VAR) references in a Makefile line."""
-+    out = ''
-+    while True:
-+        m = re.match(r'^(.*?)(\$\(([^()]+)\))(.*)$', line)
-+        if not m:
-+            out += line
-+            break
-+        out += m.group(1)
-+        var = m.group(3)
-+        if var in make_vars:
-+            out += make_vars[var]
-+        else:
-+            out += m.group(2)
-+        line = m.group(4)
-+    return out
-+
-+
-+def main(argv):
-+    global ksource
-+
-+    config_file = read_config()
-+
-+    localmodconfig = False
-+    localyesconfig = False
-+    args = []
-+    for a in argv:
-+        if a == '--localmodconfig':
-+            localmodconfig = True
-+        elif a == '--localyesconfig':
-+            localyesconfig = True
-+        else:
-+            args.append(a)
-+
-+    ksource = args[0] if args else '.'
-+    kconfig = args[1] if len(args) > 1 else None
-+    lsmod_file = os.environ.get('LSMOD')
-+
-+    try:
-+        makefiles = subprocess.check_output(
-+            ['find', ksource, '-name', 'Makefile', '-or', '-name', 'Kbuild'],
-+            text=True, stderr=subprocess.DEVNULL).splitlines()
-+    except subprocess.CalledProcessError:
-+        makefiles = []
-+
-+    if kconfig:
-+        read_kconfig(kconfig, [0, []])
-+
-+    # Parse Makefiles for obj-$(CONFIG_FOO) += obj.o
-+    for makefile in makefiles:
-+        line = ''
-+        make_vars = {}
-+        try:
-+            with open(makefile) as f:
-+                for raw in f:
-+                    line_text = raw.rstrip('\n')
-+                    if line_text.endswith('\\'):
-+                        line += line_text[:-1]
-+                        continue
-+                    line += line_text
-+                    expanded = convert_vars(line, make_vars)
-+                    line = ''
-+
-+                    m = re.match(
-+                        r'obj-\$[({](CONFIG_[^})]*)[)}]\s*[+:]?=\s*(.*)',
-+                        expanded)
-+                    objs = None
-+                    var = None
-+                    if m:
-+                        var = m.group(1)
-+                        objs = m.group(2)
-+                    else:
-+                        m = re.match(r'^\s*(\S+)\s*[:]?=\s*(.*\S)',
-+                                     expanded)
-+                        if m:
-+                            make_vars[m.group(1)] = m.group(2)
-+                    if objs is not None:
-+                        for o in re.split(r'\s+', objs):
-+                            o = o.replace('-', '_')
-+                            m = re.match(r'(.*)\.o$', o)
-+                            if m:
-+                                objects.setdefault(m.group(1), []).append(var)
-+        except OSError:
-+            continue
-+
-+    # Get loaded modules
-+    modules = {}
-+    if lsmod_file:
-+        if not os.path.isfile(lsmod_file):
-+            alt = os.path.join(os.environ.get('objtree', ''), lsmod_file)
-+            if os.path.isfile(alt):
-+                lsmod_file = alt
-+            else:
-+                sys.exit(f'{lsmod_file} not found')
-+        with open(lsmod_file) as f:
-+            lines = f.readlines()
-+    else:
-+        lsmod = 'lsmod'
-+        for d in ('/sbin', '/bin', '/usr/sbin', '/usr/bin'):
-+            if os.path.isfile(f'{d}/lsmod') and os.access(
-+                    f'{d}/lsmod', os.X_OK):
-+                lsmod = f'{d}/lsmod'
-+                break
-+        try:
-+            out = subprocess.check_output([lsmod], text=True,
-+                                          stderr=subprocess.DEVNULL)
-+            lines = out.splitlines(keepends=True)
-+        except (subprocess.CalledProcessError, FileNotFoundError):
-+            sys.exit(f'Can not call lsmod with {lsmod}')
-+
-+    for line in lines:
-+        if line.startswith('Module'):
-+            continue
-+        m = re.match(r'^(\S+)', line)
-+        if m:
-+            modules[m.group(1)] = 1
-+
-+    # Build config set from objects
-+    configs = {}
-+    for mod in modules:
-+        if mod in objects:
-+            for conf in objects[mod]:
-+                configs[conf] = mod
-+                dprint(f'{conf} added by direct ({mod})')
-+        else:
-+            print(f'{mod} config not found!', file=sys.stderr)
-+
-+    # Read current configs
-+    orig_configs = {}
-+    for line in config_file:
-+        m = re.search(r'(CONFIG_[A-Za-z_0-9]*)=(m|y)', line)
-+        if m:
-+            orig_configs[m.group(1)] = m.group(2)
-+
-+    valid = 'A-Za-z_0-9'
-+
-+    def parse_config_depends(p, depconfig):
-+        nonlocal repeat
-+        while re.search(rf'[{valid}]', p):
-+            m = re.match(rf'^[^{valid}]*([{valid}]+)', p)
-+            if not m:
-+                sys.exit('parse_config_depends: unexpected')
-+            conf = 'CONFIG_' + m.group(1)
-+            p = re.sub(rf'^[^{valid}]*[{valid}]+', '', p, count=1)
-+
-+            if conf not in orig_configs or orig_configs[conf] == 'y':
-+                continue
-+            if conf not in configs:
-+                repeat = 1
-+                dprint(f'{conf} selected by depend {depconfig}')
-+                configs[conf] = 1
-+
-+    def parse_config_selects(config, p):
-+        nonlocal repeat
-+        next_config = None
-+        while re.search(rf'[{valid}]', p):
-+            m = re.match(rf'^[^{valid}]*([{valid}]+)', p)
-+            if not m:
-+                sys.exit('parse_config_selects: unexpected')
-+            conf = 'CONFIG_' + m.group(1)
-+            p = re.sub(rf'^[^{valid}]*[{valid}]+', '', p, count=1)
-+
-+            if conf not in orig_configs:
-+                dprint(f'{conf} not set for {config} select')
-+                continue
-+            if orig_configs[conf] != 'm':
-+                dprint(f'{conf} (non module) selects {config}, we are good')
-+                return
-+            if conf in configs:
-+                dprint(f'{conf} selects {config} so we are good')
-+                return
-+            if next_config is None:
-+                next_config = conf
-+
-+        if next_config is None:
-+            if config not in defaults:
-+                print(f'WARNING: {config} is required, but nothing in the',
-+                      file=sys.stderr)
-+                print(f'  current config selects it.', file=sys.stderr)
-+            return
-+
-+        repeat = 1
-+        configs[next_config] = 1
-+        dprint(f'{next_config} selected by select {config}')
-+
-+    repeat = 1
-+    while repeat:
-+        repeat = 0
-+        process_selects = {}
-+        for config in list(configs.keys()):
-+            if config in orig_configs and orig_configs[config] != 'm':
-+                continue
-+            short = config.replace('CONFIG_', '', 1)
-+            if short in depends:
-+                parse_config_depends(depends[short], short)
-+            if short not in prompts and short in selects:
-+                process_selects[short] = 1
-+
-+        for config in process_selects:
-+            dprint(f'Process select {config}')
-+            parse_config_selects(config, selects[config])
-+
-+    # Preserve list
-+    preserved = []
-+    if 'LMC_KEEP' in os.environ:
-+        preserved = os.environ['LMC_KEEP'].split(':')
-+
-+    def in_preserved(conf):
-+        kconf = config2kfile.get(conf)
-+        if kconf is None:
-+            return False
-+        for excl in preserved:
-+            if re.match(f'^{excl}', kconf):
-+                return True
-+        return False
-+
-+    setconfigs = {}
-+
-+    for line in config_file:
-+        # IKCONFIG special case
-+        m = re.search(r'CONFIG_IKCONFIG', line)
-+        if m:
-+            if '# CONFIG_IKCONFIG is not set' in line:
-+                print('CONFIG_IKCONFIG=m')
-+                print('# CONFIG_IKCONFIG_PROC is not set')
-+            else:
-+                sys.stdout.write(line)
-+            continue
-+
-+        m = re.match(r'CONFIG_MODULE_SIG_KEY="(.+)"', line)
-+        if m:
-+            orig_cert = m.group(1)
-+            default_cert = 'certs/signing_key.pem'
-+            if 'MODULE_SIG_KEY' not in depends or \
-+                    f'"{default_cert}"' not in depends['MODULE_SIG_KEY']:
-+                print(f'WARNING: MODULE_SIG_KEY assertion failure, '
-+                      f'update needed to {sys.argv[0]}', file=sys.stderr)
-+                sys.stdout.write(line)
-+            elif orig_cert != default_cert and not os.path.isfile(orig_cert):
-+                print(f'Module signature verification enabled but module '
-+                      f'signing key "{orig_cert}" not found. Resetting '
-+                      f'signing key to default value.', file=sys.stderr)
-+                print(f'CONFIG_MODULE_SIG_KEY="{default_cert}"')
-+            else:
-+                sys.stdout.write(line)
-+            continue
-+
-+        m = re.match(r'CONFIG_SYSTEM_TRUSTED_KEYS="(.+)"', line)
-+        if m:
-+            orig_keys = m.group(1)
-+            if not os.path.isfile(orig_keys):
-+                print(f'System keyring enabled but keys "{orig_keys}" not '
-+                      f'found. Resetting keys to default value.',
-+                      file=sys.stderr)
-+                print('CONFIG_SYSTEM_TRUSTED_KEYS=""')
-+            else:
-+                sys.stdout.write(line)
-+            continue
-+
-+        m = re.match(r'^(CONFIG.*)=(m|y)', line)
-+        if m:
-+            conf, val = m.group(1), m.group(2)
-+            if in_preserved(conf):
-+                dprint(f'Preserve config {conf}')
-+                sys.stdout.write(line)
-+                continue
-+            if conf in configs:
-+                if localyesconfig:
-+                    setconfigs[conf] = 'y'
-+                    print(f'{conf}=y')
-+                    continue
-+                setconfigs[conf] = val
-+            elif val == 'm':
-+                print(f'# {conf} is not set')
-+                continue
-+        sys.stdout.write(line)
-+
-+    # Integrity check
-+    for mod in modules:
-+        if mod not in objects:
-+            continue
-+        if not any(c in setconfigs for c in objects[mod]):
-+            print(f'module {mod} did not have configs', end='',
-+                  file=sys.stderr)
-+            for c in objects[mod]:
-+                print(f' {c}', end='', file=sys.stderr)
-+            print(file=sys.stderr)
-+
-+    return 0
-+
-+
-+if __name__ == '__main__':
-+    sys.exit(main(sys.argv[1:]))
-\ No newline at end of file
--- 
-2.43.0
+  perf_ibs_stop() /* For OP */
+  {
+       set IBS_STOPPED
+       op state: ENABLED | STARTED |
+                 STOPPING | STOPPED
 
+       OpVal is 0 in hardware
+
+                                               NMI due to FETCH
+                                               {
+                                                    FETCH: Val=1, sample handled,
+                                                    fetch re-armed
+
+                                                    OP: STARTED is set, OpVal is 0 so
+                                                    test_and_clear(IBS_STOPPED)
+                                                    clears the STOPPED state
+
+                                                    OP continues to run, it overflows,
+                                                    sets OpVal=1 and a new NMI is
+                                                    latched by the OP hardware
+
+                                                    return handled=2
+                                               }
+
+       op state: ENABLED | STARTED |
+                 STOPPING
+
+       WRMSR OpCtl2.Dis=1
+       leaves the valid sample in OpCtl
+
+       clear IBS_STARTED
+
+       op state: ENABLED | STOPPING
+
+                                               NMI (late) due to OP
+                                               {
+                                                    FETCH: Val=0 -> return 0
+
+                                                    OP: STARTED is clear and
+                                                    STOPPED is already clear.
+
+                                                    return 0 without reading
+                                                    IbsOpCtl
+
+                                                    return handled=0
+
+                                                    Unknown NMI
+                                               }
+---
+
+[1]: https://lore.kernel.org/r/20260310060022.15120-2-manali.shukla@amd.com
+[2]: https://lore.kernel.org/r/20261007234815.4026028-1-jmattson@google.com
+
+[...]
+
+>> +/* ->stop() for platforms with additional CTL2[Dis] bit. */
+>> +static void perf_ibs_stop_dis(struct perf_event *event, int flags)
+>> +{
+>> +       struct hw_perf_event *hwc = &event->hw;
+>> +       struct perf_ibs *perf_ibs = container_of(event->pmu, struct perf_ibs, pmu);
+>> +       struct cpu_perf_ibs *pcpu = this_cpu_ptr(perf_ibs->pcpu);
+>> +       u64 config;
+>> +       u64 ctl2;
+>> +
+>> +       WARN_ON_ONCE(test_bit(IBS_STOPPING, pcpu->state));
+>> +
+>> +       set_bit(IBS_STOPPING, pcpu->state);
+> 
+> This function needs to be reentrant. If an IBS event is a sibling in a
+> group led by a core PMU event, and the leader is throttled,
+> perf_event_throttle_group() will stop the IBS sibling from the core
+> PMU's NMI handler:
+> 
+>     amd_pmu_v2_handle_irq() ->
+>       perf_event_overflow() ->
+>         __perf_event_overflow() ->
+>           __perf_event_account_interrupt() ->
+>             perf_event_throttle_group() ->
+>               perf_event_throttle() ->
+>                 perf_ibs_stop() ->
+>                   perf_ibs_stop_dis()
+
+Core and IBS, both are of hardware PMU type and thus can not be
+grouped together.
+
+[...]
+
+>> +       if (in_nmi())
+>> +               wrmsrq(hwc->config_base, config);
+> 
+> As we saw above, in_nmi() doesn't mean that we're in
+> perf_ibs_handle_irq() for this sample. If IBS Val=1 and the IBS NMI is
+> still pending, this clears Val. When the IBS NMI arrives,
+> perf_ibs_handle_irq() finds CTL2[Dis]=1 and Val=0, and therefore
+> returns 0, leading to an unknown NMI.
+
+The back-to-back NMI handling logic in the x86 generic NMI code should
+already handle this. No?
+
+Thanks,
+Ravi
