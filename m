@@ -1,81 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1721849F12B;
-	Sun, 18 Oct 2026 12:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3F54949EC
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:56:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792328125; cv=none; b=JaGXQXMfHTMa11CmsXSzXaw5vYzvpWmO5WPlCseMu4C/jRVFXZ1W3r81uibBXx5YfXuWRymKVkrtTMtaTGcu6nm1lQcplwlTic9Eq7SGup6oiCGL0xREMgWOn9LX/rldYStIOVJP1Fq50rzJ4AVy0F+3QhvOy5rWQB8wL4gGSF4=
+	t=1792328211; cv=none; b=nBKK4UtihlLFj59cEWCfXPR17+2wwnK/A0D75lioaVmc+oy8kkDzIdn+tL4dx0vMwa8sojfijm864EjRiacu20vSdGOKilWbW3vn9i8LbFtuTlU7nIBV6FuQ4o1rqawllHf2jyzlzTYfBmjNjLhikAO8mH7xXKlOeuy7z923ejE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792328125; c=relaxed/simple;
-	bh=680s3p/4km2avW6oqRYoU9OZh2xsbUZBPuIMcApqAqE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lIdP9Yc3Mcj7Irc+832hWLRVVMchX9acn+XSbxODqSSfyi9k4vCaEYQiwLpdYaISKIIuo/95R2qa8fUjoacT1Eur7gUmNmTaZC8qtqx67T0RboMZ0NE8NO6R7Vs15cB9J//ljPTkvrDvtZQdYTBfaYARgAcc4UhZnoEGVbeopso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iNPNue4I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792328211; c=relaxed/simple;
+	bh=2WJTSDjAEakWpXPC/NVEOZ+BPuvaLCgPchT0JxuXVV4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UuEylJvp88cVExO6J6waeKHMwcCnO3fQi8mt21OWkxJExmYcyNHvtq02/51/+xug5KSD6Yv7aQm/h8DaIWkp5oiupTkWyIuFTjvgsXquH38C+l2gYL6gQZPIM/w9Zf5fo8Rp180u5AYBdSASiKW9wnG4XkulJU2qJbkvymCf26o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sthafnpB; arc=none smtp.client-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iNPNue4I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD331F000C6;
-	Sun, 18 Oct 2026 12:55:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792328124;
-	bh=tPZvxr18psUo+iJLn+gqHxeX1JtATabu4FfpskVFjaM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iNPNue4I+2PgEGfVb9x0HKZWcr2XUgmQ4K7+eiu9Yz0Ia+N/UAz1y2pWPmhA6/V7/
-	 /z+K1Yk05twGPBwddFSIn/L3tJ2n3ww5Hsh09cF6lU6prZN+5Gf/nr1ACrOCDaC6E6
-	 iIBRfK5jHxpzTuICWJKKcVMbkQRC00tuO6R+YjJUevNi1isIAyOX1I/L8DSoyzzd5V
-	 Fe4QYvfnKUdbykXntvxulDygzMb0cMwNZuwzbUDVgitcNudvafrVWlWFj96b9z/05L
-	 ja1XhUYS2tEwqUvfDfrIxhVHbbChEaOhSO8OBwoITXrX/OBbziHPcRgsCEINci3rlI
-	 nb0yOInkUJPrQ==
-Date: Sun, 18 Oct 2026 15:55:20 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Yuho Choi <oss.patchbox@gmail.com>
-Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Ariel Levkovich <lariel@nvidia.com>,
-	Jianbo Liu <jianbol@nvidia.com>, Alex Vesker <valex@nvidia.com>,
-	Yevgeny Kliteynik <kliteyn@nvidia.com>,
-	Itamar Gozlan <igozlan@nvidia.com>, netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v1 0/4] net/mlx5: Don't free CQs whose destroy
- failed
-Message-ID: <20261018125520.GE64621@unreal>
-References: <20261016045849.813696-6-oss.patchbox@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sthafnpB"
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15dd124bbe7so2439305c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:56:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792328209; x=1792933009; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JERkWB0TDE76PWFJHk1bArxy1QoTkEsYgt43aA6L+iw=;
+        b=sthafnpB/g8QaQsUMmsJww5liZNrt3yXIg6uCJg+Ufq7UZQmYmmKIdKhp2UYatLF24
+         jwoootDi2Vj2WoFVKATyJTe/5TN6QVtyiGkew5UgWZzXdxw9sJFMNcNyi0ykZsoVYTG9
+         RgsNaP+s8bnCTrwHJ7JmVjyjL5B/DeYPgCm57VWL5SBH15zjitjWAIAcpFA9mHipVmhU
+         vlyvf9NyfnSbLY4pN4xfToTQFtYWu6DD4v5/eYgk6tAqDkibXrcf8CJ4I7h1aCY/9xfF
+         VbOvVEl0KieN2THUIVQzWmvCQfuZEaQa/6aQBhDLhulzIbXooyL5azaQRAntEjN7wSdY
+         MbJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792328209; x=1792933009;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JERkWB0TDE76PWFJHk1bArxy1QoTkEsYgt43aA6L+iw=;
+        b=bV4KDvQ3211wvLDVSl78fFQlHrgXuT+I4uAKcce2s5t24lL2d5EsX8IXbbNgd+OV01
+         SNiOun4Ym4lE5Fs+kzlkKXnPxCKo+AIdJGzs9DxounfGVNqhQe68qNYq0DrDmsalKJKW
+         quEE3RlSNH+b0/QrgtUPMo84NZ/y9XHe1B6wkNg5iyUuk0ZwwPN5V7ZR+420ndB2iKMM
+         CyQnxcsOshrTVJ1B4Ch+CxAh8rFULlZ45Ndz1sRXRk2FmAjq+Skb5h/lJVsR0Z3ngpLY
+         Jho0nRMXO9/43hmNX3idygXUPGwIg2aq8F5HCqqpvhLiWAk/fc6HrN2kutglBOcp3CZd
+         xPxw==
+X-Gm-Message-State: AFq9FYLOfl/t0BL4PQx7KuRpM+VgBW4rSj8LmF53DlEWAGqn5M2pd42X
+	xeYudauBGSMr6LNQiF10Km3CCefEZldvXr1yuSYg2aK/McgReK0kw41CKWGajZoe
+X-Gm-Gg: AYBFou0rQtPEXctkMHuASeXEJAM9AWdfaMienbGlIrTjDDoVTIDSwYkfK2hvS80C4pk
+	LK5DQVszWN+l35pZLDMvB9IbLGMzhVgD0clKsXilFPQXmI4AIFtBf42dNTKC/0Zzg/oY2m04RNo
+	+WH1zILz9IX3UZhRGwvPlwFHgo+55DnTHksUHBdThny+Lz8b8L4DfvOmUOln6r8i57Fo3em80ue
+	Suzoh7uQTSRUH9dcOUE4DBv3z+ARVLGXibro3ZJSrA/HglfG9SZSV0/LuTGU9jV6pvhJGMRGmkZ
+	VBklCxIoNEHbxWnCS+qayvVhjZpHdpvUcCyzfX+DHYE4fRHIcdMfmXVgnm/sdTU0HcegzPcCM0e
+	mBoO97S7n2kifaT57ZaySnMFQwPsrNoazLNdGNzcJfUt9fGWBkBPEtLEuNeYvPsGCuI+gFPo/Hb
+	13Rq/yo14+4LJOV1KrGF+6hcGJeRiKMqq1Rc9bVNAqExhkqjQTG/O525+r0hJ/g7YDN7TpQ1mJf
+	cVGmUoP/qJTcIN8yL/nWkLjZMgNRGChVMNQ7TgDvA==
+X-Received: by 2002:a05:701b:2816:b0:151:d6e5:596b with SMTP id a92af1059eb24-18511ad88c3mr6664435c88.9.1792328208664;
+        Sun, 18 Oct 2026 05:56:48 -0700 (PDT)
+Received: from Biostar-A520MT.. ([187.94.15.112])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c4d4675sm20404082c88.21.2026.10.18.05.56.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 05:56:46 -0700 (PDT)
+From: Breno Rodrigues Alves <breno3011alves@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Breno Rodrigues Alves <breno3011alves@gmail.com>
+Subject: [RFC PATCH 0/5] perf/tests: convert Perl test helpers to Python
+Date: Sun, 18 Oct 2026 09:56:36 -0300
+Message-ID: <20261018125641.23064-1-breno3011alves@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016045849.813696-6-oss.patchbox@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 12:57:45AM -0400, Yuho Choi wrote:
-> mlx5_core_destroy_cq() can fail
+This series converts five Perl test helpers in tools/ to Python 3,
+continuing the Perl-to-Python conversion effort for the kernel's
+auxiliary scripts.
 
-No, it should not fail. If it does, the firmware is completely broken
-or some other catastrophic bug.
+Each conversion is a faithful 1:1 port: same CLI, same output,
+same exit codes. All use only the Python standard library.
 
-> nd when it does the CQ may still exist in firmware with access to its buffer and doorbell record. It
-> also returns early in that case, without waiting for EQ handlers that
-> may already hold a reference to the CQ. The four helpers in this series
-> ignore that error and free the CQ buffer anyway, while their teardown
-> paths also free the object that embeds the struct mlx5_core_cq.
-> 
-> Keep the buffer and the object that embeds the CQ when DESTROY_CQ
-> fails, as the regular mlx5_ib CQ destroy path does. The HWS send ring
-> CQs are polled and never armed, so the HWS patch keeps only their
-> buffer rather than passing the error up through the queue open and
-> close paths.
-> 
-> The issues were found with a static analysis tool from ongoing, not yet
-> published research, and confirmed by code inspection. None of them was
-> reproduced, so this targets net-next; I can resend for net if you
-> prefer.
+The five scripts are:
+  - prefix.pl                      -> prefix.py
+  - check_all_patterns_found.pl    -> check_all_patterns_found.py
+  - check_no_patterns_found.pl     -> check_no_patterns_found.py
+  - check_all_lines_matched.pl     -> check_all_lines_matched.py
+  - check_errors_whitelisted.pl    -> check_errors_whitelisted.py
 
-Please drop this series. The flow is impossible in current HW implementation.
+All five were verified byte-for-byte identical to their Perl
+counterparts on synthetic inputs.
 
-Thanks
+These files are used by perf test shell scripts to validate
+test output; they have no dependency on the perf binary or its
+Python bindings, so they can be converted independently.
+
+Breno Rodrigues Alves (5):
+  perf/kselftest: convert prefix.pl to Python
+  perf/tests: convert check_all_patterns_found.pl to Python
+  perf/tests: convert check_no_patterns_found.pl to Python
+  perf/tests: convert check_all_lines_matched.pl to Python
+  perf/tests: convert check_errors_whitelisted.pl to Python
+
+Breno Rodrigues Alves (5):
+  perf/kselftest: convert prefix.pl to Python
+  perf/tests: convert check_all_patterns_found.pl to Python
+  perf/tests: convert check_no_patterns_found.pl to Python
+  perf/tests: convert check_all_lines_matched.pl to Python
+  perf/tests: convert check_errors_whitelisted.pl to Python
+
+ .../shell/common/check_all_lines_matched.py   | 45 +++++++++++++++
+ .../shell/common/check_all_patterns_found.py  | 35 ++++++++++++
+ .../shell/common/check_errors_whitelisted.py  | 55 +++++++++++++++++++
+ .../shell/common/check_no_patterns_found.py   | 35 ++++++++++++
+ tools/testing/selftests/kselftest/prefix.py   | 24 ++++++++
+ 5 files changed, 194 insertions(+)
+ create mode 100755 tools/perf/tests/shell/common/check_all_lines_matched.py
+ create mode 100755 tools/perf/tests/shell/common/check_all_patterns_found.py
+ create mode 100755 tools/perf/tests/shell/common/check_errors_whitelisted.py
+ create mode 100755 tools/perf/tests/shell/common/check_no_patterns_found.py
+ create mode 100755 tools/testing/selftests/kselftest/prefix.py
+
+-- 
+2.43.0
+
