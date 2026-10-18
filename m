@@ -1,185 +1,109 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F1139733E
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:33:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792355641; cv=pass; b=d/CC3NMdA2uVohT+XcUA06wSFMLdbg1hQFAiERMSfiAKj0tl4zRAG7Dc8h51v3E94ls5r0mDYHlXXZNHbK0g14O0m0tNeLcKPFIXkXhE+Dspdcwdx+EEq2wXFp7uTTnCekWSImov/qyk20pjhSrReqK6ZcxuWxBkZu/16OrWkWs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792355641; c=relaxed/simple;
-	bh=RFgQrkdBBoSzqRJg6uyFYGy9xtoJxOpfXrhpBF3Bg9o=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9823EC81A
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792355673; cv=none; b=ABAbnKxWiOXPgC6ySYd30enEsv+9qOdS7zqdqMRaExsA3QGIlG3UU2kCxGo1ZjJj1Sw+1dV5ZgooMQ60Wi1DRzPj8oSQFjbSrVi5WgoR8wemW48ILYGo/V/SNFyKLXHZnbt8vKschC+pMVanbCMT3ORW3p+Z1IKNGl0XP2A07Ts=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792355673; c=relaxed/simple;
+	bh=mGtMxGvGMAPxZX+KuCd0vFb++3GQYItv+c8z4egM++c=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QaMmLG74BK2x/nDYWVEFXS7rgtCDC9SrUcdDUJ7yk1xDGuLYmQJrcNOMD16hmgWWdvsFFmulGiwHTXdA0SzWQ+CqJRpryJvwolMnNbS4O24npemigYISr87RuC0FmrAiBhyVCYv61kCiZ6uk9UOcYTrtAA7cxGvaGvV5d35l/w4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LVZIIG+q; arc=pass smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=e48ZA6U2QTt7VKNpOHAJXhsbTDDsJtEmGl4RCOysYu79/VoES4Zl41REL6DR/eD5/GDImXEwtFucJsiE8/jE6pYfRe7YHMD0W05lIJ8P60pzNgJQEMHpe5PR59bZP2RkUy+IiuM4EeZnfD6yCSKfnQpADDiGmbIqKQhTcYifdLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gqwLDKu5; arc=none smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LVZIIG+q"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-535f598d126so206061cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:33:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792355637; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XyizZILK7VC0+g6ND7tFHX4osRKfrwBdgL4H3YcH1EqVWqmpVAgMPutufjmlsxriWl
-         Gr6ffbiyDPTRB7HF5i+2Tb+UvCCOYLNyqgrVofXrI/ph2NyfBJJ9FKg+mzuRc/kxxlu4
-         QNJA9yWnHmtLW3CozqFzdQQZisEGY7WweSreNAkLAerZ78+SY6cwHTXJ2upTBnfsTgQQ
-         1YFYSztm4bgLVK6CDJ3ZgbgjtHwYS2M2/ydL2Lz/jsEjHBzGVckycgjDTdy1zAAmtgzv
-         xFNyt/G14CqvULhNsdTDC8XasyFxxcdp5O2TxcP268A02u/6xNX5mudSAgnqbRQWY6m3
-         MLmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=U0yEFYFRImHyutXHpD0puy2q2sce26+Y2mx28kTrK4Y=;
-        fh=tPvkVRi3LGcncDumiwnMfyIQqa9Qfnv+kjeDDhelD6g=;
-        b=XcicjkpJe2wJIUwykLJ7HIulBAVKHBbCgo/GSEIpF6u+UJykwUrO841wJ1euuy8JGS
-         MNT40AMKcOlJleo//tjvNrEI0pKe2yaDe9M/oedDBY/6YCEoLXCJxWBBWF7/kT4Hyw0w
-         JmpgnOq9IAJPgac0+ldAwxNe2PCutM05RK3+YfnJUp4gxfYNFTkWX2G87hdEkM5f+UTH
-         DoYN1Fo5T1SNvLiNkCI6XG9FvT6NywMMM/TI30F3SLPmAb2SDtykLdzXm8GdSPR3lbFu
-         DBfy77Ca5nmlxUo0tcfRC5Mc7Bkj73QlF2ZSBdWdytI9jujwJHMZneYWL1iQebVDf/3R
-         pfww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gqwLDKu5"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2e8c710847so168432666b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:34:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792355637; x=1792960437; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U0yEFYFRImHyutXHpD0puy2q2sce26+Y2mx28kTrK4Y=;
-        b=LVZIIG+qqnAcURfmMEeonWIDylU9U8tcAr+Wdd5p5JSTNgUlE28fOCnGufZuqr5xF7
-         tUv9CBXdcxVlvHTIdkVNgzpc2h055kF9YoYuwoi0qobCrABIayOesUpsltb8sU9r0/qV
-         PzQipiGAkEHN3ep+52S97/XhS0VFF4EBHr4g2op5xlLSuVwpUbc90dm0p9YO/wwuPvxG
-         kVkZWCEIHeXXjkdijauV8aEI0y011C51Rc4vJWkrfvZsSEAJ8Hpe04U4a03RSvR8I8Vz
-         fN9c8s5MwLQ8gxpIA91xDQW9tIYFSk6ICgGhsmdRsclTho/jzbzAkbgslbjHOBdcw9jA
-         0inQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792355637; x=1792960437;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linuxfoundation.org; s=google; t=1792355669; x=1792960469; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=U0yEFYFRImHyutXHpD0puy2q2sce26+Y2mx28kTrK4Y=;
-        b=13y7jqEgpywTw3bELUzjz5CAWMJnXTdt3y3ikdaCoZth9NkRATC254sbidaqhafXlj
-         84bmd2npF1J0FQq6MUXOojNCZJUmsbZ7sIQEccvYfaMxynQgNjZ56Ibj3NT+ui/Utals
-         C2mADWKvCKaVc2EFLd+iM1xXFUmmbeyApAfeNSMWKlKWgRBxqogVEuHcSdJlMVDmNQmE
-         GlSupcbXbJIPRq79qzA3RB1X4st1zX1dfyiXKb2sJeJ/IUphrsiHffGKSDOB5jzJ63Wz
-         I5QCX86qo9SaEv9ECP0Ucl5EuuHNcqh26SZnm5COzm0XTFtfM4cW6r/jJiGYGOQwglEJ
-         3s1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzrwodywfwL8mPXZJB3/DWKVzaYw8EL8GYbZYKwuIe684p5WElDI31gQ2xwazrBHDUFMSMC/bEL3o368Mo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZMWrac7dODL3nWywWZFVKtkrsPsZhP5OZLIoxL8nCalScNuHr
-	sG6pezn9+tJsmoK9IickJ/m3AcYgo3ZxDjfoxZBOpDJkorN3N+1mskUD8QeTIx5rD6db9K+rcce
-	jiN2F3zFPruhKkSUMhecKlz8tjB2gFIVZL0xdb6Ua
-X-Gm-Gg: AYBFou1Tg9WGMgOntktiMW6l2GmKKsTWCG9A22AMt7z+F3D375Qij5K899qhHv5VwdH
-	ewC5Ozc98G/eZ0+kMSODsFkv89C543EnPdMu6kATAvM/6tFNdrcTQMvfZ0IGJw//QwNCEkS8msE
-	2iJ/JLQso/RV93an27guhBIgFSgwZOV5VNxaKw59sgyMCatW6EK0bMdMVjKoqEGjJc8q6C3p8l7
-	vq5+J+nCL4ZhZ2IOWSgq+yXj0HUbg7jXuBk1oH7RXncUw75ZUF63cVUnGoIdK6wVbhDOqh6EySM
-	XAIElsINxOhiLbroUGe23ghBpm0zAU4tqfY6BR1FjADhsTYkebj+aY0m
-X-Received: by 2002:a05:622a:15c2:b0:534:d386:c3f1 with SMTP id
- d75a77b69052e-53646271decmr27164221cf.9.1792355636727; Sun, 18 Oct 2026
- 13:33:56 -0700 (PDT)
+        bh=LcZudtVZGXqPCpJjVd+PjoGGou1YwE9FLeXdn5NeRV4=;
+        b=gqwLDKu5s9gordUFCi6XC70nosY/hZjBZv6Qb8r48rLLHMiDWFg/swEdylGSGbWspM
+         uU+2cPaD8Ciz9MwAuWxhkoE1LjLgrtgsp5EGEtw5FFerYl1WGfU5WBn2tvDkb8QkSGs5
+         FjQRhQrl5cEPlT327Je2O5ZAphnx0itGXUk3s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792355669; x=1792960469;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LcZudtVZGXqPCpJjVd+PjoGGou1YwE9FLeXdn5NeRV4=;
+        b=JWBdPkGeXJ3ItC7RPHlo+BEo6kSANOb7W1yDBJo0EJKe9FBhP1V5lYuC3BbIzIZPiH
+         ecOh6DIESpc1ikVAGmTNKIWEeI5z8b/bs1SkhoT4Oq3b1JqkQmWio8vCFHMGxwYqlN+H
+         xZGtoTbVK34FCM5hJ1g31uQHRKDP5lu+m8/UtIEemMjYk5mMuLgPW+fkjudsACFKTy0l
+         514X2T0JaPCMOYaqRHDPE45bXHHY2OyfuPsvzWRumdFeN+1RHuE7q8gL2CKXffthWOdn
+         RJyscbngpUdnBlIf7FG1h7XOhcNIRkNvs8vzTMHSXQXClpYf1w1/jkyCdgHzhSdwwezH
+         umPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTF5mc4O2sGc7o+LN8HjoKnr8II3KFPMQzHgX7AktM54/A/aYjVPmjhZDzIAJnizHAT9j7j3zQexzKbzU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwhujWL9lVLvzzMifWEpmr07qqBGXTpQ346vBLW/o8rZQd6fbJ
+	CVs/TmQnAn1h715jxmSjv3Bkl72obSeXTWtvCDLrAPI/Bjm1FNwxFdBtj9B6EfWTrhlTLw8NYMa
+	2LKJrWFI=
+X-Gm-Gg: AYBFou012+UhbcPVgcgeuKUuMvtxGesMMvwObysG4FjU6rtW/mC9juktSY+AGonRtb/
+	+BWgX5tPjdVrgy4GYU76QZy9qs7nrJabBwIwu2vOtpQ8Pe161N2xtrFPohMvgOmT2RXq7K0SIeM
+	HbWFbenYRM66aEoqJrlzq2nUpmcezqbf3tNMLiEUsnRpKGq/xov3w8VG6hWxRdYzfyW8tSx92dO
+	tV2XRHIKPvF/A+TfmwLEn7s4jmRFFSp695cCtAZT3F1PCZOspGXxw1v/AYujjl+fxOZe/fjs3Cv
+	BQkqEafjXfFaSaT4keuNoNHS4QoRdY7SQTra3/6ce98dDj+hmI8b7EHKWh2WNh+0O3dSTVd4a3G
+	39te6HHA2Xhs1dwFyI4E8gneoypoJQSdBXBqGIO84kIuCETGqaOP2J3sKDjJZsQFuFD2KyqMY7F
+	drtinr81tAOimFHVYoRIJxayX/iF9w1/Gfeyh5D2TK6SdOISCyfdcHXYZpeI/dI+x6lsNVy56aa
+	AEUoPcIioWZwQmoPLNo/E2ZQe6IqSj4BRPkgITLIMniCpI=
+X-Received: by 2002:a17:907:e1c5:20b0:c41:cf68:bbd0 with SMTP id a640c23a62f3a-c41cf68f3a2mr207361166b.26.1792355669297;
+        Sun, 18 Oct 2026 13:34:29 -0700 (PDT)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com. [209.85.218.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919c0402sm291737066b.61.2026.10.18.13.34.28
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 13:34:29 -0700 (PDT)
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2e8c710847so168431566b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:34:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxiyhQEc1ruFOHaOhTC0JwlFfXXOpZ+m6yIB2W+h7BEADC/TcekYMa6EKT17NzogkugzAz2saRadHBREtM=@vger.kernel.org
+X-Received: by 2002:a17:907:6d0b:b0:c26:1649:47ad with SMTP id
+ a640c23a62f3a-c419faf81bemr359351966b.35.1792355668398; Sun, 18 Oct 2026
+ 13:34:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261018163741.850434-1-namhyung@kernel.org> <20261018163741.850434-2-namhyung@kernel.org>
-In-Reply-To: <20261018163741.850434-2-namhyung@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Sun, 18 Oct 2026 13:33:45 -0700
-X-Gm-Features: AclHuK8V4M0U4M5iq4S8ju7FIqL_Da28CgHw9_xNkRgcxcyq4pB9WpORoP3ni7Y
-Message-ID: <CAP-5=fWt5r++c1=BnM+459WsiZiwvihGpcjZ+j5_6Kr4P7sDUw@mail.gmail.com>
-Subject: Re: [PATCH v1 2/5] perf test: Make sure maps to have a machine
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org
+References: <6ad07f8a.a0c71a5e.2d2efd.977a@mx.google.com> <20261018152358-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20261018152358-mutt-send-email-mst@kernel.org>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Sun, 18 Oct 2026 10:34:12 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
+X-Gm-Features: AclHuK98aalKW5kTezoePJe0elXfnFi_e6X010Sl6ShLR7WlXp_TWSCo1UYtPLA
+Message-ID: <CAHk-=wiUn9EbV4TJ4J7OPY0fVc3UC+xb-pp=+rg3hRc4jQqihg@mail.gmail.com>
+Subject: Re: [BUG] vhost/vringh: __get_user without access_ok leaks kernel
+ memory via vDPA passthrough
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Haoran Wang <haoranwangsec@gmail.com>, jasowangio@gmail.com, kvm@vger.kernel.org, 
+	virtualization@lists.linux.dev, netdev@vger.kernel.org, eperezma@redhat.com, 
+	linux-kernel@vger.kernel.org, security@kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 18, 2026 at 9:37=E2=80=AFAM Namhyung Kim <namhyung@kernel.org> =
-wrote:
+On Sun, 18 Oct 2026 at 09:26, Michael S. Tsirkin <mst@redhat.com> wrote:
 >
-> It's be easier if we could guarantee that maps always have a machine.
-> IIUC this is true for all real use cases, but only the test code has
-> an exception.  Let's get rid of it and make sure they have machines.
->
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> ---
->  tools/perf/tests/maps.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/perf/tests/maps.c b/tools/perf/tests/maps.c
-> index 2c05d62f40dcdf72..f40b68f5fa5fe2c1 100644
-> --- a/tools/perf/tests/maps.c
-> +++ b/tools/perf/tests/maps.c
-> @@ -1,5 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0
->  #include <inttypes.h>
-> +#include <unistd.h>
->  #include <linux/compiler.h>
->  #include <linux/kernel.h>
->  #include "tests.h"
-> @@ -100,8 +101,12 @@ static int test__maps__merge_in(struct test_suite *t=
- __maybe_unused, int subtest
->         };
->         struct map *map_kcore1, *map_kcore2, *map_kcore3;
->         int ret;
-> -       struct maps *maps =3D maps__new(NULL);
-> +       struct machine *machine =3D machine__new_live(/*host_env=3D*/NULL=
-,
-> +                                                   /*kernel_maps=3D*/fal=
-se,
-> +                                                   getpid());
-> +       struct maps *maps =3D maps__new(machine);
->
-> +       TEST_ASSERT_VAL("failed to create machine", machine);
->         TEST_ASSERT_VAL("failed to create maps", maps);
->
->         for (i =3D 0; i < ARRAY_SIZE(bpf_progs); i++) {
-> @@ -159,6 +164,7 @@ static int test__maps__merge_in(struct test_suite *t =
-__maybe_unused, int subtest
->         map__zput(map_kcore1);
->         map__zput(map_kcore2);
->         map__zput(map_kcore3);
-> +       machine__delete(machine);
->         return TEST_OK;
->  }
->
-> @@ -189,8 +195,12 @@ static int test__maps__fixup_overlap_and_insert(stru=
-ct test_suite *t __maybe_unu
->         struct map *map_split, *map_eclipse;
->         int ret;
->         unsigned int i;
-> -       struct maps *maps =3D maps__new(NULL);
-> +       struct machine *machine =3D machine__new_live(/*host_env=3D*/NULL=
-,
-> +                                                   /*kernel_maps=3D*/fal=
-se,
-> +                                                   getpid());
+> +               __virtio16 __user *uaddr = ivec.iov.iovec[0].iov_base;
+> +
+> +               if (!access_ok(uaddr, sizeof(*p)))
+> +                       return -EFAULT;
+> +               ret = __get_user(tmp, uaddr);
 
-For completeness should we pass in a host_env like in builtin-top.c?
-https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
-t/tree/tools/perf/builtin-top.c?h=3Dperf-tools-next#n1661
+You should never use __get_user() in the first place. It is almost
+always just a bug.
 
-Thanks,
-Ian
+And __get_user() together with access_ok() is actively wrong and
+stupid. It's slower, bigger, and more bug-prone than just using
+"get_user()".
 
-> +       struct maps *maps =3D maps__new(machine);
->
-> +       TEST_ASSERT_VAL("failed to create machine", machine);
->         TEST_ASSERT_VAL("failed to create maps", maps);
->
->         for (i =3D 0; i < ARRAY_SIZE(initial_maps); i++) {
-> @@ -230,6 +240,7 @@ static int test__maps__fixup_overlap_and_insert(struc=
-t test_suite *t __maybe_unu
->         TEST_ASSERT_VAL("eclipse check failed", !ret);
->
->         maps__zput(maps);
-> +       machine__delete(machine);
->         return TEST_OK;
->  }
->
-> --
-> 2.56.0.176.g3575e65682-goog
->
+The *only* reason ever to use __get_user() is in very very iffy code
+that might use a kernel pointer and doesn't want the access_ok() code.
+
+Or old legacy code from the last century when __get_user() was faster
+and was inlined.
+
+               Linus
