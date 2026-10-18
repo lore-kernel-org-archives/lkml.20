@@ -1,132 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com [115.124.28.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4334CF496;
-	Sun, 18 Oct 2026 02:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E7330FC27;
+	Sun, 18 Oct 2026 02:22:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792290121; cv=none; b=sXF/aGo94giDbLO11opZBl+KSTkQl0AYGQtfWw3L2MqDijlbGj7GttP6MHxB2UqduhQZWGiT7T/oCeEtFL/8HAVH7sJwuGumaEHe2sv9tyNYqYr8O/5Y6OI/80foY+fQkW0djfIT7w6jrJEFmPGzZerH6rcUZ9UZWXKwZw0YwwY=
+	t=1792290131; cv=none; b=SRDG0cHaDOw4bLGNdPDLHcZnEbgZfc9H5AkhtqHWlWvBjF6zXToR7fpZES/Ib2ZKEYb2/P9LC4BYbtf4QjuOwDp6brX/dMWKDvq3tPo7ANa2D/vXFZnV/Iqj2wL65Di06jua8qdVRGMyXQ6WFJtpakejQPWlq5uz3T2Kh91Jj10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792290121; c=relaxed/simple;
-	bh=YigvOe6r5fb0SoNXwtOtI+Uf5J7Z4N3KYja54tlt0W8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HeK3FYeo22gD8PDeSGkDESSyCNOF23caxBJu0PIzKPwE/PelfKLkZdw5owlYFe3xf5H5Alvnuqha4zCrvBiJGXc1xCi5XT58sssMSFlz7/WvEPC/ATqd/RoqprIG+K/buJdwpc4+TW9LetXzCYcCB3nMru574BlrTFctjBuzz5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EaSYBebu; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EaSYBebu"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5D2311F000C4;
-	Sun, 18 Oct 2026 02:21:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792290119;
-	bh=xy2v8N4lc3FWiPThm0d4wC/5Rf0Ef0WoaiQ/i8Bm5KU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EaSYBebuHUV0eLF4gszmrNEWD8UmJElmdte1hKKIj0puvOVCRcrTpNqyYRQ+dElxl
-	 ot59n9D+sFqp6TTXK1I4l53i0MQmoKAgZldOsrA/o1/ZhBPA1CbQ+FiWTTC/ldBzEc
-	 xYsJCv09cdKpl6f2nQQpdf/etA6gJ1O9BNj4wmj3gHi2qoLZ8st1C4Z0tFcYpmfmVY
-	 Eypvzb7Z31GNYXZrLsZI2A0owOmvN8BhN2PdbtO661JVFNenkeYlUk4wjR+rUdHB8m
-	 J6DkZ4ByGhEOWbtqoaxD1jsOMhL7X17nUBzlRkGNqFcGrPjbP6swANF+YuAjTfaQOS
-	 qwBdSuhj1zc/Q==
-Date: Sun, 18 Oct 2026 05:21:56 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
-	serge@hallyn.com, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ebiggers@kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-Subject: Re: [PATCH] keys: Avoid owner account dereferences in /proc/keys
-Message-ID: <atQtRK3wy6g8YdIV@kernel.org>
-References: <pm-keys-proc-owner-uid-followup-20261017-v2-8f8f34a41eb1bbb94ef0@gmail.com>
+	s=arc-20240116; t=1792290131; c=relaxed/simple;
+	bh=1DWik1XeTIl9dbLlEmmRSj1UTyRfnjl9dxdEcXzP7H4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=XinqCrzfMgdapzPH1RXljwWVlDknJDp3gnvrNC8U4ny//pGZjVAMKQCTb7R+ec0jnnzrnw/ImAbpi8DrEXtaqVIH35XSj6lfdITks/gp+lyY0TLojMzSaUll007HB/lzgzv3EC5K2al8XAPhQEKTDqKwbHi/hb/IoQAy+ub8Sxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07427776|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.04611-0.00409288-0.949797;FP=16348516055681926321|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jiTRcWC_1792290117;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jiTRcWC_1792290117 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 18 Oct 2026 10:21:57 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com
+Subject: [PATCH net-next v26 1/3] dt-bindings: net: Document Motorcomm YT8824 PHY package
+Date: Sun, 18 Oct 2026 10:21:49 +0800
+Message-Id: <20261018022151.2677056-2-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261018022151.2677056-1-kyle.switch@motor-comm.com>
+References: <20261018022151.2677056-1-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <pm-keys-proc-owner-uid-followup-20261017-v2-8f8f34a41eb1bbb94ef0@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 17, 2026 at 04:16:22PM +0800, Cen Zhang wrote:
-> The namespace filters in find_ge_key() and key_serial_next() read
-> key->user->uid while traversing the serial tree under key_serial_lock.
-> That lock keeps the key allocated, but it does not protect the separate
-> key_user from ownership changes.
-> 
-> A /proc/keys read reaches find_ge_key() through proc_keys_start(), and
-> key_serial_next() through proc_keys_next(). The lock stays held until
-> proc_keys_stop().
-> 
-> A successful privileged KEYCTL_CHOWN on the same key replaces key->user
-> under key->sem and drops the old owner's reference after releasing the
-> semaphore. If that was the old dynamic key_user's last reference, a
-> /proc/keys reader can access freed memory:
-> 
->     /proc/keys reader                   KEYCTL_CHOWN
->     proc_keys_start()                    keyctl_chown_key()
->       spin_lock(key_serial_lock)          down_write(key->sem)
->       find_ge_key()
->         old = minkey->user
->                                           zapowner = key->user
->                                           key->user = newowner
->                                           key->uid = uid
->                                           up_write(key->sem)
->                                           key_put(key)
->                                           key_user_put(zapowner)
->                                             kfree(zapowner)
->         read old->uid -> use-after-free
->     proc_keys_stop()
->       spin_unlock(key_serial_lock)
-> 
-> Use the inline key->uid in both filters, following the approach already
-> used by find_keyring_by_name(). The serial-tree lock keeps the containing
-> key alive, so filtering no longer depends on the quota owner's lifetime.
-> This also uses the same owner UID as proc_keys_show() and the permission
-> check.
-> 
-> For thread keyrings, key_fsuid_changed() can update key->uid without
-> changing the quota owner. The filters now follow that current owner UID,
-> including when its namespace mapping differs from the quota owner's.
-> 
-> Fixes: 454804ab0302 ("keys: make procfiles per-user-namespace")
-> Suggested-by: Eric Biggers <ebiggers@kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
 
-These tags could be ordered correctly.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+---
+ .../bindings/net/motorcomm,yt8824.yaml        | 78 +++++++++++++++++++
+ MAINTAINERS                                   |  2 +
+ 2 files changed, 80 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
 
-> 
-> ---
->  security/keys/proc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/security/keys/proc.c b/security/keys/proc.c
-> index 4f4e2c1824f1..aea06a74d0fe 100644
-> --- a/security/keys/proc.c
-> +++ b/security/keys/proc.c
-> @@ -68,7 +68,7 @@ static struct rb_node *key_serial_next(struct seq_file *p, struct rb_node *n)
->  	n = rb_next(n);
->  	while (n) {
->  		struct key *key = rb_entry(n, struct key, serial_node);
-> -		if (kuid_has_mapping(user_ns, key->user->uid))
-> +		if (kuid_has_mapping(user_ns, key->uid))
->  			break;
->  		n = rb_next(n);
->  	}
-> @@ -100,7 +100,7 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
->  		return NULL;
->  
->  	for (;;) {
-> -		if (kuid_has_mapping(user_ns, minkey->user->uid))
-> +		if (kuid_has_mapping(user_ns, minkey->uid))
->  			return minkey;
->  		n = rb_next(&minkey->serial_node);
->  		if (!n)
-> 
-> base-commit: a626e44fd64c456d373ae8c28b939197b9446a02
+diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+new file mode 100644
+index 000000000000..4c67f8afcf27
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+@@ -0,0 +1,78 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/motorcomm,yt8824.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MotorComm YT8824 Ethernet PHY
++
++maintainers:
++  - Kyle Switch <kyle.switch@motor-comm.com>
++
++description:
++  Motorcomm YT8824 Ethernet PHY is a PHY package of 4 PHYs.
++
++$ref: ethernet-phy-package.yaml#
++
++properties:
++  compatible:
++    enum:
++      - motorcomm,yt8824-package
++
++  motorcomm,package-mode:
++    description: |
++      PHY package can be configured in 2 modes:
++      - internal: YT8824 is embedded in the switch, using
++        an internal interface to the MAC.
++      - 10g-qxgmii: YT8824 is a standalone external PHY,
++        connected via 10G QXGMII.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [ internal, 10g-qxgmii ]
++
++  reg:
++    description:
++      The absolute MDIO address of the YT8824 shared top extend
++      register block.
++      For internal mode, this is fixed at 9;
++      For external mode, it is the base MDIO address of the four
++      member PHYs plus 4, where base is typically 0x0.
++      Note that this is NOT the reg of the first member PHY.
++
++required:
++  - compatible
++  - motorcomm,package-mode
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy-package@9 {
++            #address-cells = <1>;
++            #size-cells = <0>;
++            compatible = "motorcomm,yt8824-package";
++            reg = <9>;
++
++            motorcomm,package-mode = "internal";
++
++            ethernet-phy@4 {
++                reg = <4>;
++            };
++
++            ethernet-phy@5 {
++                reg = <5>;
++            };
++
++            ethernet-phy@6 {
++                reg = <6>;
++            };
++
++            ethernet-phy@7 {
++                reg = <7>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 23e9194483d9..ac8e12e7b839 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -18424,8 +18424,10 @@ F:	drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
+ 
+ MOTORCOMM PHY DRIVER
+ M:	Frank <Frank.Sae@motor-comm.com>
++M:	Kyle Switch <kyle.switch@motor-comm.com>
+ L:	netdev@vger.kernel.org
+ S:	Maintained
++F:	Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+ F:	Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml
+ F:	drivers/net/phy/motorcomm.c
+ 
+-- 
+2.25.1
 
-I don't want to circulate this further.
-
-
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-Br, Jarkko
