@@ -1,94 +1,76 @@
-Received: from mta1.migadu.com (out-21.mta1.migadu.com [95.215.58.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043F4418A58
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913A648D864;
+	Sun, 18 Oct 2026 18:53:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792349599; cv=none; b=r7es7CSJScrbiSRg9GVNYd8oDynSsVaQ5Zx/pSYlcjuHUG6krnyF18MhhRrPIfXVg8LCEYdPV+BgpReZuivQTiO85JrL+kgzYDW6cQF+aMphxFlqqV3jG4lRyvq4o1dTn0qYekvtLl01g08LPMWZAIbGOXVdqZtUWABfI4jQyS4=
+	t=1792349622; cv=none; b=igx9zjXakunha6mgCL92AsrbYCbG0vr1dnSAS1FAcvKQBOq8qkTErP0f/iu6CCSYP68peim9e3IsbHW2E/r3ekDZ77Z7iXMHW4Dr/uFCYEdCJCXTdI4GWDfvVGp0+O1fCRESpTva6qM6XTFCCYvS090II4FfMfg4x6KgELgE3Nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792349599; c=relaxed/simple;
-	bh=gvK5NFJp9PSzi9hRYXJM0Oi1MlUUKy+sqFwkKYu8iFs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BN3x3IIYEqC2yxvRbSJZmxMCtqwon/i/RZ+rS5UuJffLzGUFclAcXC7W2AqGm0GPnACoMh2j+UYisOR468D71Zo/g/QYk6vJxMnLZBu9NcPRY4nzv5IWCwBWWOMckyyhOaLf0moqtodoYSSTBcNQ0H9ov9WbT8+4XEIe73GaRik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dyD9V4zW; arc=none smtp.client-ip=95.215.58.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792349622; c=relaxed/simple;
+	bh=Csfu+p7DecNNEaF3nmVC8sIFseRFu0794bq3QCYty+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BTDvxwXEbAukC1XUVbXuhikpapEikWot9Q6RrcxtkiMVfcsORQPC+3y3S5cCEfW7diTveRydH/ufw3Wo26xnJ43qeVzU/lrUkWIOy9jUzDbp6sWnBPL0ZQYJgQL7eP4C/Lxp+ZskI6FRt+LvuxCQINWZxgZPdcR17LJwZQKb6U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jjA4CUnd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dyD9V4zW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gvK5NFJp9PSzi9hRYXJM0Oi1MlUUKy+sqFwkKYu8iFs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792349593; v=1; x=1792954393;
- b=dyD9V4zWFb81O7FzhY6EGMAzOP2fP6g7FzdFPL5L3Lpnq4vuziLb7Tyf0snLWJsd1SPQgvyG
- OE50OyO/NwA8dW53zkyaqxjv6xB3ffbzjqHkFXNYHFhEZp2TQhPobm3XGTtFQ9dxQpkn21zlD3g
- pLfaI/aEPpb0Vud8gxMKKRlI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 34e63a552c797ddf;
-	Sun, 18 Oct 2026 18:53:13 +0000
-X-Mizu-Trace-ID: 34e63a552c797ddf
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be4a7b9e6fso5160e87.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:53:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz5hLUkTBXfxMF9lmEizw2wlZG+FLGvCRt59JhAV4me1mqWwKO+g1dHo525JYaijDkZCQANC4IzPOD5ljk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIE/yVUgpgmTLDlrh4YmsonUQiU3nBBsjkZAx8dHF9go3Ku3vW
-	r+UbDZsN7ogPWn4zSWGjCJT3Ob9TDzMu9B2Qr6m+lhuWaCxTLsrKpfn+8bcGR3V3mbgIvc4fLOV
-	igCAbhg59128pcBE60uOJxtyh03LahklVoL9kx3A2
-X-Received: by 2002:a05:6512:3a95:b0:5bc:ce5b:96f3 with SMTP id
- 2adb3069b0e04-5be51cf3ca3mr112016e87.4.1792349592319; Sun, 18 Oct 2026
- 11:53:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jjA4CUnd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00AB1F000C4;
+	Sun, 18 Oct 2026 18:53:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792349620;
+	bh=Csfu+p7DecNNEaF3nmVC8sIFseRFu0794bq3QCYty+w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jjA4CUndG4pAHeZbrm1BxDlNpX+HwJnx5LMzyQhuRncmok2Is9Ye8llG9g5VDAMjg
+	 x0jPf3L6EIV5jtbCf0rrWHecI+WUgQ2BYjvJ7U79qlJ2tlyaEvMDG2WkxVZMG9nzKN
+	 g9xNf6xCxfV0Wbo+ntKJTxxnYs57ATObOtUGAj08h4M8VKPpDHSsEDMTD44dFVas0W
+	 RQ9L3b8Nrml2q2PgegnN1dqxu0GPb8trAEyETF8LmgJnn4CH9oB8DjF+GGT7FpsTwi
+	 8ThRNHtvUjIjNA9yU4XuEbZK7tzUhg6jDqQRrBnfrG1PsgMKQNhzILU/VJ4yMs+ZlL
+	 QJewmA3n03Pmg==
+Date: Sun, 18 Oct 2026 19:53:35 +0100
+From: Conor Dooley <conor@kernel.org>
+To: tianshi12127 <tianshi12127@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	dri-devel@lists.freedesktop.org,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: display: panel: add Smartisan TD4362
+Message-ID: <20261018-snorkel-mollusk-0bfba29ae1f8@spud>
+References: <20261017083531.766557-1-tianshi12127@gmail.com>
+ <20261017103250.800109-1-tianshi12127@gmail.com>
+ <20261017103250.800109-3-tianshi12127@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261018080921.3942517-1-fuad.tabba@linux.dev> <8633u229lq.wl-maz@kernel.org>
-In-Reply-To: <8633u229lq.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Sun, 18 Oct 2026 19:52:35 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTwHP7h_=e1s-iCDekMNvHGAQA3K1zv5v_4=PXQw9ueiFg@mail.gmail.com>
-X-Gm-Features: AclHuK_UQW_4n5Vfv2y3fMN8nLjYC3wYR4AsLV2Y4-Ndgvu9PNfAVf7ecY50duQ
-Message-ID: <CA+EHjTwHP7h_=e1s-iCDekMNvHGAQA3K1zv5v_4=PXQw9ueiFg@mail.gmail.com>
-Subject: Re: [PATCH v2] KVM: arm64: Only enable S1PIE and S1POE with the
- features they imply
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Mark Brown <broonie@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lC/VVTF4dvcK+DOZ"
+Content-Disposition: inline
+In-Reply-To: <20261017103250.800109-3-tianshi12127@gmail.com>
 
-Hi Marc,
+--lC/VVTF4dvcK+DOZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sun, 18 Oct 2026 18:37:37 +0100, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> I'm afraid that this only addresses part of the problem. Ultimately,
-> the idregs themselves require some sanitisation because KVM uses this
-> as the source of truth. I was pointing this in my reply to Broonie,
-> and this is (probably) what sashiko is blabbing on about.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-It seems so. The trap tables were only one of the places that read
-S1PIE and S1POE. Sashiko found another: PIR_EL2, PIRE0_EL2 and POR_EL2
-accessed from vEL2 have no FGT bit, so accesses to them reached the
-hardware registers.
+--lC/VVTF4dvcK+DOZ
+Content-Type: application/pgp-signature; name=signature.asc
 
-> I hacked something that could be used as the bases for such
-> sanitisation, although it is quite crude and doesn't cover all of the
-> possible requirements, see below. I've only boot-tested it in a nested
-> guest, and I'm not even sure it actually works (my test box doesn't
-> have these features).
+-----BEGIN PGP SIGNATURE-----
 
-I'll send your patch as v3, rebased on -rc3 with you as the author,
-once I've tested it. I'm dropping v2's trap table changes, since
-they're redundant once the ID registers are sanitised. I made two
-changes to your patch. The sanitisation now runs before
-kvm_init_nv_sysregs(), so the nested RESx masks are computed from the
-sanitised values. I dropped the res1 half, which isn't set by
-anything.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatUVrwAKCRB4tDGHoIJi
+0qsmAQDCxEOSqGcSTiPp8dYp93pj9cpI6gg97r3RkkHx9lbjaQEAu81O/c5LeMu5
+GPjVL9aFsE6ayuPTU9LuBlQWBOl8RQY=
+=NMlV
+-----END PGP SIGNATURE-----
 
-Cheers,
-/fuad
+--lC/VVTF4dvcK+DOZ--
