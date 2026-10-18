@@ -1,110 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-utut-a192.jellyfish.systems (out-utut-a192.jellyfish.systems [198.177.127.192])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FF239A7F6;
-	Sun, 18 Oct 2026 23:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E61346E5D
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.177.127.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792367116; cv=none; b=XS/m93YMb/k2GVLK0J0kSZoZe1lKW1Tdd0ElP437K892MHz2dYjlagxJDF+jybLkns3wNeGZgMozJAQy29q06Nh961zZfl8B+imh98OlITaj++u05FiqZskMtRRUowPxp+oECDXSs46yDjX8FL3q2CvFXBwZRPdZMZNDFDMvfdc=
+	t=1792367134; cv=none; b=JfrFaA103Xab/KlvsXrD/spD+9Z1vo4AZ4Vmlg53wmHLwTP6aSFUdknvm3Jw3FtQGGHcGMb4fmd2AbVjQhcjSWpLuRKuo9onGOsaeD+RkN30Ell9M5ExS1ETFcDkxLc3wERoNZKKeoXs+Q9ykz9ZwlEFZAyzVjlvMxkx4H6/TbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792367116; c=relaxed/simple;
-	bh=LM7c0H2c7tCQMEuCtzVlJKszmWyqyAaE77EzKZquQ04=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qWaDlwv9mi3Y4jiIDL3afKNOGd5/4G0iaJjbe4hDQNesmn9iP5FPxBa+ZPA9XpXcgg15AKGyLb1zkfJfXfHLe94Sekj++Oi0noGLt5PMyUBb2/pNdVNQrSqrkFGuc1GcRuA1tpoJAkGE1IzbZY6z7i4Wnv7BA3UgXrAzvo35+6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LRhYcRE9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792367134; c=relaxed/simple;
+	bh=4oRVV0Sq19UY5y51DFj9OghAxvL7UUqG4sywn84IEkU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sRwfzcVeMd9a+bHIzBa/zGEmRXkeXc4llP20CPak2HyswlgUwbQej5rjIyib73WhDxYQk5+QGf6DwSEQEpzRUT6g91UBpZL6iKyGELHwSwTMMkNcARlXcSkgzuswMiO9cwt7i1zqXOKeVZh5bPlg3YkC5TAhMA8KOFHyySIgaCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=G8zl6yHr; arc=none smtp.client-ip=198.177.127.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LRhYcRE9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4FD1F000C4;
-	Sun, 18 Oct 2026 23:45:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792367115;
-	bh=fXPvQXd0lkDK6wKKARZ/K9s2fytmVFJ734ryxD1PjQk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LRhYcRE9QwXhqv9RXutoCMJ5WQi3lGLUsubqOJUe6bd2+lBX5ae207UeWMYmY4Elp
-	 J6VYgendJmlmxjEGbKwNe7N3oblLvzOC7+Jm4BbVwIps2CUWHw/9NlhYQVc3d2jCKe
-	 sDtYqHIatkjuZzYM93j418x/CgKhWUx39AkZnpVHyufvvD9fBAZ/NrQUwtik/Xz2Yz
-	 +MecAjoV6FlQ5i3BpJx7P35VEvyztC11BSdclN6BJc7WQ/dtAzN0LKRhfbyxQUKWgd
-	 0JK5LMBc9rHVderCXcD1wU/+MrbbaABXw70iPH3bocnosGPmlUcV1PYwj5Wvigm5QO
-	 SWQb5pxHfeIYQ==
-Date: Mon, 19 Oct 2026 00:45:09 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Rupesh Majhi <zoone.rupert@gmail.com>, Andy Shevchenko
- <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, Jishnu Prakash
- <jishnu.prakash@oss.qualcomm.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, linux-arm-msm@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Marco Elver
- <elver@google.com>, Bart Van Assche <bvanassche@acm.org>
-Subject: Re: [PATCH] iio: adc: qcom-spmi-adc5-gen3: fix lock annotations on
- mutex helpers
-Message-ID: <20261019004509.68409863@jic23-hlaptop>
-In-Reply-To: <asIRkK-uUz4FKQBN@ashevche-desk.local>
-References: <20261003214516.128573-1-zoone.rupert@gmail.com>
-	<asIRkK-uUz4FKQBN@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="G8zl6yHr"
+Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4j78Hp3MXdz8sWP;
+	Sun, 18 Oct 2026 19:43:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
+	s=spacemail; t=1792352632;
+	bh=KwnYgGkKVJxn1/6IzIyhwZUksddwH2puKpniqIhWWKk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=G8zl6yHrLWUlUW82i904lMXjQKXh+LFpIJIpUVNWDnobdn1b6UGRQBKZ7HEfFQhki
+	 vi11ka71HVDRt7Hoe7jLLAH/LR9GVA6ZNPKg71LpxYI4HvlcV3bO7zgFcp7RC18/Sj
+	 yd7tInP/zKQb2vnlj2WSOkZu8c8zEipzpL3Iaa26FYYWTsC+c0+AMhmgKR9Y88csxt
+	 8ZvE0Q/xROcjrLeb/tIuGGpbE2H39+TaGOTu0RiXgk5/PStod3L1ZK3P39rdFlS8HX
+	 0hlptLZFIouhIE2KD3ahea12nx7MXG3oNRIMIZt9OMPHXwYD+CF1xMqUygMzW1EWMg
+	 m7fiRaSvr96Jg==
+From: Ross Cawston <ross@r-sc.ca>
+To: lee@kernel.org,
+	pavel@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ross Cawston <ross@r-sc.ca>
+Subject: [PATCH 2/3] dt-bindings: net: realtek,rtl9301-switch: add port LED controller
+Date: Sun, 18 Oct 2026 12:43:37 -0700
+Message-ID: <20261018194339.132-3-ross@r-sc.ca>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261018194339.132-1-ross@r-sc.ca>
+References: <20261018194339.132-1-ross@r-sc.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: ross@r-sc.ca
 
-On Sun, 4 Oct 2026 11:42:56 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+The switch drives the port LEDs, and some boards wire LEDs to it that
+have no hardware function and are switched in software, such as PoE
+status LEDs. Allow the software LED control block, described by
+realtek,rtl9301-port-leds, as a child of the switch like its I2C and
+MDIO controllers.
 
-> On Sun, Oct 04, 2026 at 12:45:16AM +0300, Rupesh Majhi wrote:
-> > The __acquires() and __releases() on adc5_gen3_mutex_lock() and
-> > adc5_gen3_mutex_unlock() name adc, a local declared in the body. With
-> > context analysis enabled for this file, the build fails:
-> > 
-> >   error: use of undeclared identifier 'adc'
-> > 
-> > The lock and unlock are split across these two helpers for the ADC_TM
-> > driver, so mark them __context_unsafe() instead.  
-> 
-> Doesn't sound right to me. The __acquires() and __releases() IIRC are sparse
-> annotations. If clang has something special, it needs to be addressed in
-> the compiler-clang.h, no?
-> 
-It's in compiler-context-analysis.h and for now I believe is clang
-only.  Reuses the older sparse definitions. I think the intent is to avoid
-churn.
+Signed-off-by: Ross Cawston <ross@r-sc.ca>
+---
+ .../devicetree/bindings/net/realtek,rtl9301-switch.yaml        | 3 +++
+ 1 file changed, 3 insertions(+)
 
-I currently have no idea if this is the right fix. The only users
-today are places where a lock is intentionally skipped.
-
-+CC Marco and Bart and putting back the patch content for context.
-
-> diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-> index c68c6c5f6aca..6a3cabedf4e8 100644
-> --- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-> +++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
-> @@ -663,7 +663,7 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc)
->  }
->  
->  void adc5_gen3_mutex_lock(struct device *dev)
-> -	__acquires(&adc->lock)
-> +	__context_unsafe(/* returns with adc->lock held */)
->  {
->  	struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
->  	struct adc5_chip *adc = iio_priv(indio_dev);
-> @@ -673,7 +673,7 @@ void adc5_gen3_mutex_lock(struct device *dev)
->  EXPORT_SYMBOL_NS_GPL(adc5_gen3_mutex_lock, "QCOM_SPMI_ADC5_GEN3");
->  
->  void adc5_gen3_mutex_unlock(struct device *dev)
-> -	__releases(&adc->lock)
-> +	__context_unsafe(/* releases adc->lock */)
->  {
->  	struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
->  	struct adc5_chip *adc = iio_priv(indio_dev);
-> 
-> base-commit: 04434a1d0f311d76b1f15fa987918b471a0b8c6a
-> -- 
-> 2.43.0
-
-
-
-
+diff --git a/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml b/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml
+index 80eabc17066..9529327ee0c 100644
+--- a/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml
++++ b/Documentation/devicetree/bindings/net/realtek,rtl9301-switch.yaml
+@@ -57,6 +57,9 @@ patternProperties:
+   'mdio-controller@[0-9a-f]+$':
+     $ref: realtek,rtl9301-mdio.yaml#
+ 
++  'led-controller@[0-9a-f]+$':
++    $ref: /schemas/leds/realtek,rtl9301-port-leds.yaml#
++
+ required:
+   - compatible
+   - reg
+-- 
+2.55.0.windows.5
 
