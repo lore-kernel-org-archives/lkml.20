@@ -1,43 +1,43 @@
 Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D191F37B018;
-	Sun, 18 Oct 2026 15:53:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221163B3C14;
+	Sun, 18 Oct 2026 15:53:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338790; cv=none; b=GH6qL3qYpfHTwQLDdbhaGXvmNpA3DJFQ2/df9zo7LsrAGoWmqZ/d1BrtVyyOybraNmPhd11iLunawr+HxXyVhHhk7pWSJxNDESP0dKl0lCvTSLv/WkM9Uak7AlzMMcvM7vv0+qNT/3GSU/WGZdkYJCv31l/08MClbCDsINxI9q0=
+	t=1792338821; cv=none; b=jFP6MXNZVwY51Ykayvo0q8tvfrAjyYf0F321Cp0yry7Wuh9CYAGTjUlrafKFKl2fM2MjzepB6bpmZdu2sWHWmrNveb4boxYc/zHXdCvz/HsQcl8z7x22fSjL5xKF9etUdIwfljj+mBoDqvjNG+8MPECntSy+fsLqufyoG7IDzHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338790; c=relaxed/simple;
-	bh=DiKpmdS4KQm2r0VrjKS9ujJ5b9ErohUGt5MV9Z7+fA8=;
+	s=arc-20240116; t=1792338821; c=relaxed/simple;
+	bh=ti/pJ6n/J7rKpaYT9Mk8BukscTkwrN44pFD3IfsI628=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=HxPPN8mez273P9OgfgsUW0sHAvj/Ud5900XaE1yK7eTIJI+T5Lw1dJiocy0dBP5GWX9glhhljB3WzUd23wf7vy/2hJvpaEwu59BL2YXmCn1iye8j4KJJJnk21H7VWDhGhxf4YBtbWXSAqCDXyLNxA6U+GK4V2eaABVYTxlmUXwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=pBsAGL86; arc=none smtp.client-ip=185.226.149.37
+	 MIME-Version; b=gVzIcorU0fxoX1NgCSUJwSXuNpLguHU/xwuzVN32GYKr6bqBu1oNFIdF7KP5nnAS7TpXEhI4GHCu+4rMYVNvud2+2kSAHJiM+CoX+B+dm+WfnSWgBebcvQXef355bZSNfaueryO2IHvL5dV5wcazpk9Sn7Bwx34gEg00NdMIhF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=G4kbf5QG; arc=none smtp.client-ip=185.226.149.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="pBsAGL86"
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="G4kbf5QG"
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
 	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITC4-000Icw-BX; Sun, 18 Oct 2026 17:53:04 +0200
+	id 1xITC5-000IdY-95; Sun, 18 Oct 2026 17:53:05 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
 	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
 	:Message-Id:Date:Subject:Cc:To:From;
-	bh=XLWj42Gp3WKATmlphZIlU2KwFHLwg2r80unskEaDjI4=; b=pBsAGL86PAIBI04TLn6wz/ToTu
-	Tz20Sk7hhC4p/AK6XBcT94QcC0nS4fkCxfY9WKI7sT+RE6Ez9IrRdoppXxk+qDFx2WSmAXhJFmtda
-	KgNk8vgqdRkQjOPgBjjWraWAThZKK9v8ijOdep5KY/hJiUavZDplMaIOgF2uPiqK91jrrUwQZ7Akc
-	UB0Tpb9GtjybScVmVybxgdIjsH8UiSPYNmwV4jzTfm97l31uIHHcEE+JJAoqymR3UAalxlhJ0Ng49
-	cGyYF8vt4UDrkIi0Jbr1q6no6V2Daovc7FDF3lI9nXENsAC6ZrPVe50YjdZsxWBh4yvW1lF6MGaaZ
-	6dGZrW2Q==;
+	bh=Xu9IW1jhtoKX0vGf+P8HUldKzEJOhAB84g1ZPSWkoHo=; b=G4kbf5QGaqiEPVaKEAWQkqI8sG
+	hIEFgE7UAt0Vx0cxBBM+4+tHg1S8qmSxu5gnvVj7GBP1S8/agTYjxT6h+2QWCXaLmbo1sZ13vISEY
+	JT/vxKx/F7Eqt3ny0nCTwWZc+aeoXY/wZERa3PSF8HtWPysN90l8UgwSO0q8crDPGxiVm/abPcXHm
+	1JZ6DZ/+/4FC+uRzIT32O/ozFPnghGni5Ahpwjc6HzCo3wbBotM663poUc9p6KAyDO48VHkRbMDxz
+	WmdmClyilqn4fBg9qE5NcG2lsv6FK4RQOPjkmqKNr7BWJK//firCBT5abOdYE/sG7fxRrdZzkFNBF
+	dMZvvfBw==;
 Received: from [10.9.9.74] (helo=submission03.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITBy-0001pZ-UX; Sun, 18 Oct 2026 17:52:59 +0200
+	id 1xITBz-0000Bj-Sr; Sun, 18 Oct 2026 17:53:00 +0200
 Received: by submission03.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.95)
-	id 1xITBj-004q3U-SQ;
-	Sun, 18 Oct 2026 17:52:43 +0200
+	id 1xITBh-004q3U-OA;
+	Sun, 18 Oct 2026 17:52:41 +0200
 From: David Laight <david.laight.linux@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Petr Mladek <pmladek@suse.com>,
@@ -51,9 +51,9 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: Luis Chamberlain <mcgrof@kernel.org>,
 	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
 	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH v2 next 12/15] kallsyms: scripts/kallsyms: Optimise compress_symbols()
-Date: Sun, 18 Oct 2026 16:52:03 +0100
-Message-Id: <20261018155206.132411-13-david.laight.linux@gmail.com>
+Subject: [PATCH v2 next 08/15] kallsyms: Support changing the density of the kallsyms_markers[] array
+Date: Sun, 18 Oct 2026 16:51:59 +0100
+Message-Id: <20261018155206.132411-9-david.laight.linux@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261018155206.132411-1-david.laight.linux@gmail.com>
 References: <20261018155206.132411-1-david.laight.linux@gmail.com>
@@ -65,131 +65,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When (say) axyb is replaced with azb instead of decrementing the
-token_profit[] value for every pair of token in the old string before
-the substitution and then incrementing it afterwards just decrement
-the counts for ax and yb and increment the ones for az and zb.
-Set the count for xy (the number of actual substitions) to zero
-afterwards.
+The density is a tradeoff between data size and execution speed.
+Reducing it from 256 to 64 gives a 35% improvement for name lookups.
 
-This pretty much halves the time taken to do the actual compression
-which is by far largest part of the entire process.
-
-Output file unchanged.
+Change scripts/kallsyms to take the density from a --marker-shift command
+line parameter so that it can be build specific.
+The default is unchanged at 1 marker per 256 symbols.
 
 Signed-off-by: David Laight <david.laight.linux@gmail.com>
 ---
- scripts/kallsyms.c | 74 ++++++++++++++++++----------------------------
- 1 file changed, 29 insertions(+), 45 deletions(-)
+ kernel/kallsyms.c          | 16 +++++++---------
+ kernel/kallsyms_internal.h |  1 +
+ scripts/kallsyms.c         | 30 ++++++++++++++++++++++--------
+ 3 files changed, 30 insertions(+), 17 deletions(-)
 
+diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
+index e393ede35111..ff2da8c8f7e3 100644
+--- a/kernel/kallsyms.c
++++ b/kernel/kallsyms.c
+@@ -148,13 +148,11 @@ static int kallsyms_strcmp_symbol(unsigned int off, const char *name)
+ static unsigned int get_symbol_offset(unsigned long pos)
+ {
+ 	const u8 *name;
+-	int i, len;
++	int len;
+ 
+-	/*
+-	 * Use the closest marker we have. We have markers every 256 positions,
+-	 * so that should be close enough.
+-	 */
+-	name = &kallsyms_names[kallsyms_markers[pos >> 8]];
++	/* Scan from the marker before the requested symbol number */
++	name = &kallsyms_names[kallsyms_markers[pos >> kallsyms_marker_shift]];
++	pos &= (1 << kallsyms_marker_shift) - 1;
+ 
+ 	/*
+ 	 * Sequentially scan all the symbols up to the point we're searching
+@@ -162,7 +160,7 @@ static unsigned int get_symbol_offset(unsigned long pos)
+ 	 * so we just need to add the len to the current pointer for every
+ 	 * symbol we wish to skip.
+ 	 */
+-	for (i = 0; i < (pos & 0xFF); i++) {
++	while (pos--) {
+ 		len = *name;
+ 
+ 		/*
+@@ -186,7 +184,7 @@ static unsigned long get_name_address(unsigned int name_offset)
+ 	unsigned int low, pos, high;
+ 
+ 	low = 0;
+-	high = ((kallsyms_num_syms - 1) >> 8) + 1;
++	high = ((kallsyms_num_syms - 1) >> kallsyms_marker_shift) + 1;
+ 
+ 	while (high - low > 1) {
+ 		pos = low + (high - low) / 2;
+@@ -197,7 +195,7 @@ static unsigned long get_name_address(unsigned int name_offset)
+ 	}
+ 
+ 	pos = kallsyms_markers[low];
+-	for (low <<= 8; pos < name_offset; low++) {
++	for (low <<= kallsyms_marker_shift; pos < name_offset; low++) {
+ 		unsigned int len = kallsyms_names[pos];
+ 		if (len & 0x80)
+ 			len += (kallsyms_names[pos + 1] << 7) - 0x7f;
+diff --git a/kernel/kallsyms_internal.h b/kernel/kallsyms_internal.h
+index e4a1f737aed1..b98469b5c2f5 100644
+--- a/kernel/kallsyms_internal.h
++++ b/kernel/kallsyms_internal.h
+@@ -12,6 +12,7 @@ extern const unsigned int kallsyms_num_syms;
+ extern const char kallsyms_token_table[];
+ extern const u16 kallsyms_token_index[];
+ 
++extern const unsigned int kallsyms_marker_shift;
+ extern const unsigned int kallsyms_markers[];
+ 
+ extern const unsigned int kallsyms_off_size;
 diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-index 9e1bc0fdaa9f..ee06a9c7435f 100644
+index 2e579e1cf7de..d2d3ac8c33a1 100644
 --- a/scripts/kallsyms.c
 +++ b/scripts/kallsyms.c
-@@ -479,13 +479,11 @@ static void learn_symbol(const unsigned char *sym, int len)
- 		token_profit[PAIR(sym[i], sym[i + 1])]++;
- }
+@@ -58,6 +58,8 @@ static struct sym_entry **table;
+ static unsigned int table_size, table_cnt;
+ static int all_symbols;
+ static int pc_relative;
++/* Default to one kallsyms_markers[] entry for each 256 symbols */
++static unsigned long marker_shift = 8;
  
--/* decrease the count for all the possible tokens in a symbol */
--static void forget_symbol(const unsigned char *sym, int len)
-+static void adjust_profit(unsigned int old_left, unsigned int new_left,
-+			  unsigned int old_right, unsigned int new_right)
+ static int token_profit[0x10000];
+ 
+@@ -68,7 +70,7 @@ static unsigned char best_table_len[256];
+ 
+ static void usage(void)
  {
--	int i;
--
--	for (i = 0; i < len - 1; i++)
--		token_profit[PAIR(sym[i], sym[i + 1])]--;
-+	token_profit[PAIR(old_left, old_right)]--;
-+	token_profit[PAIR(new_left, new_right)]++;
+-	fprintf(stderr, "Usage: kallsyms [--all-symbols] in.map > out.S\n");
++	fprintf(stderr, "Usage: kallsyms [--all-symbols] [--pc-relative] [--marker-shift=n] in.map > out.S\n");
+ 	exit(1);
  }
  
- /* do the initial token count */
-@@ -497,13 +495,12 @@ static void build_initial_token_table(void)
- 		learn_symbol(symbol[i]->sym, symbol[i]->len);
- }
+@@ -391,8 +393,9 @@ static void write_src(void)
+ 	printf(".size kallsyms_names, . - kallsyms_names\n");
+ 	printf("\n");
  
--static unsigned char *find_token(unsigned char *str, int len,
-+static unsigned char *find_token(unsigned char *str, unsigned char *end,
- 				 unsigned int want)
++	output_value("kallsyms_marker_shift", marker_shift);
+ 	output_label("kallsyms_markers");
+-	for (i = 0; i < table_cnt; i += 256)
++	for (i = 0; i < table_cnt; i += 1u << marker_shift)
+ 		printf("\t.long\t%u\n", table[i]->seq);
+ 	printf(".size kallsyms_markers, . - kallsyms_markers\n");
+ 	printf("\n");
+@@ -696,17 +699,28 @@ int main(int argc, char **argv)
  {
- 	unsigned int token = PAIR(0, *str++);
--	int i;
+ 	while (1) {
+ 		static const struct option long_options[] = {
+-			{"all-symbols",     no_argument, &all_symbols,     1},
+-			{"pc-relative",     no_argument, &pc_relative,     1},
++			{"all-symbols", no_argument, &all_symbols, 1},
++			{"pc-relative", no_argument, &pc_relative, 1},
++			{"marker-shift", required_argument, NULL, 'm'},
+ 			{},
+ 		};
  
--	for (i = 0; i < len - 1; i++) {
-+	while (str < end) {
- 		token = PAIR(RIGHT(token), *str++);
- 		if (token == want)
- 			return str - 2;
-@@ -512,46 +509,33 @@ static unsigned char *find_token(unsigned char *str, int len,
- }
- 
- /* replace a given token in all the valid symbols. Use the sampled symbols
-- * to update the counts */
--static void compress_symbols(unsigned int token_pair, int idx)
-+ * to update the counts.
-+ * Marked noinline to help register allocation. compress_symbols() is only called
-+ * about 200 times whereas find_token() can be called well over a million times. */
-+static __attribute__((noinline)) void compress_symbols(unsigned int token_pair, int idx)
- {
--	unsigned int i, len, size;
--	unsigned char *p1, *p2;
-+	unsigned int i, len;
-+	unsigned char *sym, *p, *end;
- 
- 	for (i = 0; i < symbol_cnt; i++) {
+-		int c = getopt_long(argc, argv, "", long_options, NULL);
 -
--		len = symbol[i]->len;
--		p1 = symbol[i]->sym;
--
--		/* find the token on the symbol */
--		p2 = find_token(p1, len, token_pair);
--		if (!p2) continue;
--
--		/* decrease the counts for this symbol's tokens */
--		forget_symbol(symbol[i]->sym, len);
--
--		size = len;
--
--		do {
--			*p2 = idx;
--			p2++;
--			size -= (p2 - p1);
--			memmove(p2, p2 + 1, size);
--			p1 = p2;
--			len--;
--
--			if (size < 2) break;
--
--			/* find the token on the symbol */
--			p2 = find_token(p1, size, token_pair);
--
--		} while (p2);
--
--		symbol[i]->len = len;
--
--		/* increase the counts for this symbol's new tokens */
--		learn_symbol(symbol[i]->sym, len);
-+		sym = symbol[i]->sym;
-+		end = sym + symbol[i]->len;
-+
-+		for (p = sym; (p = find_token(p, end, token_pair)); p++) {
-+			len = end - p - 2;
-+			end--;
-+			*p = idx;
-+			if (p != sym)
-+				adjust_profit(p[-1], p[-1], LEFT(token_pair), idx);
-+			if (!len)
-+				break;
-+			adjust_profit(RIGHT(token_pair), idx, p[2], p[2]);
-+			memmove(p + 1, p + 2, len);
+-		if (c == -1)
++		switch (getopt_long(argc, argv, "", long_options, NULL)) {
++		case -1:
+ 			break;
+-		if (c != 0)
++		case 0:
++			continue;
++		case 'm':
++			if (!optarg[0])
++				continue;
++			marker_shift = strtoul(optarg, NULL, 10);
++			if (marker_shift > 24)
++				usage();
++			continue;
++		default:
+ 			usage();
 +		}
-+		symbol[i]->len = end - sym;
++		break;
  	}
-+
-+	token_profit[token_pair] = 0;
- }
  
- /* search the token with the maximum profit */
+ 	if (optind >= argc)
 -- 
 2.39.5
 
