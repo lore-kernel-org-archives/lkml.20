@@ -1,187 +1,262 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444823914E2;
-	Sun, 18 Oct 2026 03:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62C13BAD81;
+	Sun, 18 Oct 2026 03:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792294141; cv=none; b=pqoFE2ooxeiwg1DawVM3SIf5QkuXt8dPnBuEI+yNSDUAtaMajJWOQfKynQx3wADmMgTJOw7iFfWJn9ViM0ehv43dWTnLHssyvoLBFevLJtOgg0nyUVw/BR9zbID0fSDjHSSHYGNZsz9eKirdJJa8lU3d5v787STjwConLKS3Phc=
+	t=1792294145; cv=none; b=WMLt/LHNP5vYFOzN/qetlQE/C/DBxIly3yo6GOHuZPImTQSlrsqdlGd0AMEpWnaafrUs5+Znx1TseqQo5HlUITKgv6YmOs3DRlkl5Cnjl2IkceZW9JA+XzpnM6nG9u8MXQnp3iDyDjC3ZvuTgrBHnIN/dVxQAxW9FwQD/J8MVLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792294141; c=relaxed/simple;
-	bh=F+Hq0GMwdlaQdyJkkOLy2FYTmXa++UKxr1RzWfqR9Qk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iFMNBCm6wW7TsatzRtBF8X84/fnD8ixhROG9ZF0NiRd0lUHlc+DEIkOTweAHNR8gk8b6Djwu7pdrjgpGFkUbcY6oEPz/Hf8DL8zc0C/K75B4Ev4zbiWI40RY85d/wM/u2uYTxDEp2SkH20ZKwNYCZFJdhu8Rk2DydzRPo+5pNk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GGYJafbg; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792294145; c=relaxed/simple;
+	bh=1tll22J59xsF/c7AE3QmrA+McfvyvyxYVZiQgx9gxNE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ayzZ3yRL5ODJtmn7GvY2iQTy6WGIHG/tsE7ffpaA5871w0mofpwP9JHe0tenfkpgtV120Sw9kHR/Eje7ENfZ4j2WRoIMFp2W5evBk5HSA1P0RPSLoJRCqZRKmH657mKNPCIrSkXShvmHk48uHXwCKtMQzkDvYTmcSRRRYNXuiUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jtn3lQI3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GGYJafbg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792294138; x=1823830138;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=F+Hq0GMwdlaQdyJkkOLy2FYTmXa++UKxr1RzWfqR9Qk=;
-  b=GGYJafbgbKrmhVqtLIfWe3CF0RhVTtyDkP1yTQAXZuvF95OScm+pdHws
-   mAEHV6Wd4BVpnW7H3YsKJYVGBkYqczonKf//UKouuy4U5zYutN8lGAkzQ
-   Hv6fwQoT21KChfnVE/vFDG/MVyzQ7Gvlsxeni4LrnatHuUZigFr2Frb8r
-   Xw+jRd+Mn57DZBidnUR2kPVPIbz1yJrloWXkN63/7umHURmie6B8k91tK
-   5lsIMAqPPILFig+X3ouQgZWF8FRf84spYcmgpIxhkw0N3T4JYLlstgOwp
-   +LmjJw0k0ePuo0D48d6QJEzSlv7QtxwdMn7QYRpj1B99JSgkCIGPCK98A
-   Q==;
-X-CSE-ConnectionGUID: u2dcIjv7QSW5qhbvfeGsNQ==
-X-CSE-MsgGUID: BRzNgwMSQkOgNQramYCcsw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="1033961"
-X-IronPort-AV: E=Sophos;i="6.27,165,1787036400"; 
-   d="scan'208";a="1033961"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 20:28:57 -0700
-X-CSE-ConnectionGUID: H2kq8ComQM28lxHqC8d2EA==
-X-CSE-MsgGUID: K2jZON5XSQWVuvrP1P0Z7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,165,1787036400"; 
-   d="scan'208";a="2246898"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa002.jf.intel.com with ESMTP; 17 Oct 2026 20:28:52 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xIHZo-00000000K2M-0QN0;
-	Sun, 18 Oct 2026 03:28:48 +0000
-Date: Sun, 18 Oct 2026 11:28:29 +0800
-From: kernel test robot <lkp@intel.com>
-To: Leon Hwang <leon.hwang@linux.dev>, bpf@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Martin Karsten <mkarsten@uwaterloo.ca>,
-	Masashi Honma <masashi.honma@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next 2/6] bpf: Add syscall common attrs support for
- xdp link_create
-Message-ID: <202610181150.jL2DnHl7-lkp@intel.com>
-References: <20261017142649.51047-3-leon.hwang@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jtn3lQI3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B48F01F000C5;
+	Sun, 18 Oct 2026 03:28:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792294141;
+	bh=osv9pyDkowGvTx/I0/emUosd7vDDhGqa7XKl5MfoodA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Jtn3lQI3miAG11KaQHszY+kWwis8P6IHUPDwDyqXtzjDSkCZiIWn2gTbsv2aWY+O9
+	 Lf0+mNhSkO4j1bFNxcmhqlbaYhmA+EI+LF8dFEwBXDG0sXYblFSv02Lv22BTCD6ds5
+	 POMggDtPw7i8+SRU6DUj6bF71G5/m+odF2EFBnJFf/Q/H32xgc8+PpVqEu3OA9VvvB
+	 UJ7+Fiu/GAV1LdRybqSJgu7YEBQjgY6k+CgibudLKGUg8ITXHSg6bMMAdCr5ILTZ8+
+	 Wi6Iwt71/kGDbpN6O+Q7BZapO5dlB2EHPC6M/n76iHk1itFaza0JqmagjFADTcLXfp
+	 iqs9jQlCKcztg==
+Date: Sun, 18 Oct 2026 04:28:54 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andrei Stancovici via B4 Relay
+ <devnull+andrei.stancovici.analog.com@kernel.org>
+Cc: andrei.stancovici@analog.com, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Beguin <liambeguin@gmail.com>,
+ linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/6] iio: adc: ltc2497: add FA/FB line-frequency
+ rejection selection
+Message-ID: <20261018042854.00c0d6a1@jic23-hlaptop>
+In-Reply-To: <20261009-submission-ltc2493-support-v1-v1-5-3dad1d4b152a@analog.com>
+References: <20261009-submission-ltc2493-support-v1-v1-0-3dad1d4b152a@analog.com>
+	<20261009-submission-ltc2493-support-v1-v1-5-3dad1d4b152a@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017142649.51047-3-leon.hwang@linux.dev>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Leon,
+On Fri, 09 Oct 2026 11:43:38 +0300
+Andrei Stancovici via B4 Relay <devnull+andrei.stancovici.analog.com@kernel.org> wrote:
 
-kernel test robot noticed the following build errors:
+> From: Andrei Stancovici <andrei.stancovici@analog.com>
+> 
+> The LTC2499 can suppress mains interference at 50Hz, 60Hz, or
+> simultaneously at both (the power-up default). Expose it through
+> filter_mode and filter_mode_available on the voltage channels.
+> 
+> The conversion time also depends on the rejection mode: 50Hz-only is the
+> longest at 163.5 ms (1x). The previous 150 ms budget was 13.5 ms short,
+> risking a mid-conversion reprogram in 50Hz-only 1x mode.
+> 
+> Tested on live LTC2499 hardware connected through an IIO network backend:
+> all three modes are selectable and readable; voltage reads succeed in each
+> mode; conversion times are respected; temperature reads honour the
+> rejection selection.
+> 
+> Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/2499fa.pdf
+> Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
+> ---
+>  drivers/iio/adc/ltc2497-core.c | 159 +++++++++++++++++++++++++++++++++--------
+>  drivers/iio/adc/ltc2497.c      |  50 +++++++++----
+>  drivers/iio/adc/ltc2497.h      |  44 +++++++++---
+>  3 files changed, 200 insertions(+), 53 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/ltc2497-core.c b/drivers/iio/adc/ltc2497-core.c
+> index 816312bf0e90..e5a8ab568128 100644
+> --- a/drivers/iio/adc/ltc2497-core.c
+> +++ b/drivers/iio/adc/ltc2497-core.c
 
-[auto build test ERROR on bpf-next/master]
+> +
+> +static int ltc2497core_set_filter_mode(struct iio_dev *indio_dev,
+> +				       const struct iio_chan_spec *chan,
+> +				       unsigned int val)
+> +{
+> +	struct ltc2497core_driverdata *ddata = iio_priv(indio_dev);
+> +
+> +	mutex_lock(&ddata->lock);
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Leon-Hwang/bpf-Add-syscall-common-attrs-support-for-link_create/20261017-222644
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git master
-patch link:    https://lore.kernel.org/r/20261017142649.51047-3-leon.hwang%40linux.dev
-patch subject: [PATCH bpf-next 2/6] bpf: Add syscall common attrs support for xdp link_create
-config: um-i386_defconfig (https://download.01.org/0day-ci/archive/20261018/202610181150.jL2DnHl7-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261018/202610181150.jL2DnHl7-lkp@intel.com/reproduce)
+Can use a guard() here as well as below.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610181150.jL2DnHl7-lkp@intel.com/
+Maybe look more generally at making use of that newer stuff
+in the driver (not as part of this series though!)
 
-All errors (new ones prefixed by >>):
+> +	ddata->rejection = val;
+> +	/*
+> +	 * The new rejection mode only takes effect once the second command byte
+> +	 * is reprogrammed, so force the next read to reprogram rather than reuse
+> +	 * the value already latched for this address.  LTC2497_CONFIG_DEFAULT is
+> +	 * not a valid channel/temperature address, so it is a safe re-arm
+> +	 * sentinel (as used at probe).
+> +	 *
+> +	 * A conversion started under the old rejection mode may still be in
+> +	 * flight; its own duration (conv_time_prev), not the new mode's, still
+> +	 * gates the next reprogram, so the timing state is left untouched here.
+> +	 */
+> +	ddata->addr_prev = LTC2497_CONFIG_DEFAULT;
+> +	mutex_unlock(&ddata->lock);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ltc2497core_get_filter_mode(struct iio_dev *indio_dev,
+> +				       const struct iio_chan_spec *chan)
+> +{
+> +	struct ltc2497core_driverdata *ddata = iio_priv(indio_dev);
+> +	enum ltc2497_rejection rejection;
+> +
+> +	mutex_lock(&ddata->lock);
+Consider if worth doing:
+	guard(mutex)(&data->lock);
 
-   /usr/bin/ld: net/core/dev.o: in function `bpf_xdp_link_attach':
->> net/core/dev.c:10789:(.text+0x96f9): undefined reference to `bpf_log'
-   collect2: error: ld returned 1 exit status
+	return ddata->rejection;
 
+Trade off is looks different from existing code (unless you fancy
+updating that as well).
 
-vim +10789 net/core/dev.c
+> +	rejection = ddata->rejection;
+> +	mutex_unlock(&ddata->lock);
+> +
+> +	return rejection;
+> +}
 
- 10774	
- 10775	int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
- 10776				struct bpf_verifier_log *log)
- 10777	{
- 10778		struct net *net = current->nsproxy->net_ns;
- 10779		struct bpf_link_primer link_primer;
- 10780		struct netlink_ext_ack extack = {};
- 10781		struct bpf_xdp_link *link;
- 10782		struct net_device *dev;
- 10783		int err, fd;
- 10784	
- 10785		rtnl_lock();
- 10786		dev = dev_get_by_index(net, attr->link_create.target_ifindex);
- 10787		if (!dev) {
- 10788			rtnl_unlock();
- 10789			bpf_log(log, "Invalid target_ifindex.\n");
- 10790			return -EINVAL;
- 10791		}
- 10792	
- 10793		link = kzalloc_obj(*link, GFP_USER);
- 10794		if (!link) {
- 10795			err = -ENOMEM;
- 10796			goto unlock;
- 10797		}
- 10798	
- 10799		bpf_link_init(&link->link, BPF_LINK_TYPE_XDP, &bpf_xdp_link_lops, prog,
- 10800			      attr->link_create.attach_type);
- 10801		link->dev = dev;
- 10802		link->flags = attr->link_create.flags;
- 10803	
- 10804		err = bpf_link_prime(&link->link, &link_primer);
- 10805		if (err) {
- 10806			kfree(link);
- 10807			goto unlock;
- 10808		}
- 10809	
- 10810		netdev_lock_ops(dev);
- 10811		err = dev_xdp_attach_link(dev, &extack, link);
- 10812		netdev_unlock_ops(dev);
- 10813		rtnl_unlock();
- 10814	
- 10815		if (err) {
- 10816			link->dev = NULL;
- 10817			bpf_link_cleanup(&link_primer);
- 10818			bpf_log(log, extack._msg);
- 10819			trace_bpf_xdp_link_attach_failed(extack._msg);
- 10820			goto out_put_dev;
- 10821		}
- 10822	
- 10823		fd = bpf_link_settle(&link_primer);
- 10824		/* link itself doesn't hold dev's refcnt to not complicate shutdown */
- 10825		dev_put(dev);
- 10826		return fd;
- 10827	
- 10828	unlock:
- 10829		rtnl_unlock();
- 10830	
- 10831	out_put_dev:
- 10832		dev_put(dev);
- 10833		return err;
- 10834	}
- 10835	
+>  #define LTC2497_CHAN(_chan, _addr, _ds_name, _extra_mask) { \
+>  	.type = IIO_VOLTAGE, \
+>  	.indexed = 1, \
+> @@ -404,6 +484,27 @@ int ltc2497core_probe(struct device *dev, struct iio_dev *indio_dev)
+>  	if (!ddata->chip_info->has_temp)
+>  		indio_dev->num_channels--;
+>  
+> +	if (ddata->chip_info->has_rejection_mode) {
+> +		struct iio_chan_spec *channels;
+> +		unsigned int i;
+> +
+> +		/*
+> +		 * Rejection applies to every channel; ext_info is attached at
+> +		 * probe because a const table would expose filter_mode on all
+> +		 * parts unconditionally.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+You could have a bonus set of channels to pick instead of using a copy
+and update approach.  As such I'd drop this comment as somewhat confusing.
+The implementation is fine.
+
+> +		 */
+> +		channels = devm_kmemdup(dev, indio_dev->channels,
+> +					indio_dev->num_channels * sizeof(*channels),
+> +					GFP_KERNEL);
+> +		if (!channels)
+> +			return -ENOMEM;
+> +
+> +		for (i = 0; i < indio_dev->num_channels; i++)
+> +			channels[i].ext_info = ltc2497core_ext_info;
+> +
+> +		indio_dev->channels = channels;
+> +	}
+
+> diff --git a/drivers/iio/adc/ltc2497.c b/drivers/iio/adc/ltc2497.c
+> index a655b04e2454..0df2ad9b3243 100644
+> --- a/drivers/iio/adc/ltc2497.c
+> +++ b/drivers/iio/adc/ltc2497.c
+> @@ -38,6 +38,23 @@ struct ltc2497_driverdata {
+>  	} data __aligned(IIO_DMA_MINALIGN);
+>  };
+>  
+> +/*
+> + * The reserved FA = FB = 1 combination is not reachable: the enum has no
+> + * enumerator for it.
+> + */
+> +static u8 ltc2497_rejection_bits(enum ltc2497_rejection rejection)
+> +{
+> +	switch (rejection) {
+> +	case LTC2499_REJECT_50:
+> +		return LTC2499_FB;
+> +	case LTC2499_REJECT_60:
+> +		return LTC2499_FA;
+
+As mentioned below, I'd use values 0 1 and 2 rather than the bit
+values. That avoids the oddity of REJECT_50_60 not being b11 which
+you'd expect if the bits were independent things.
+
+> +	case LTC2499_REJECT_50_60:
+> +	default:
+> +		return 0;
+> +	}
+> +}
+
+> diff --git a/drivers/iio/adc/ltc2497.h b/drivers/iio/adc/ltc2497.h
+> index 219f7d49854b..34ea62c2a4bc 100644
+> --- a/drivers/iio/adc/ltc2497.h
+> +++ b/drivers/iio/adc/ltc2497.h
+
+>  /*
+>   * Sentinel passed as `address` to result_and_measure() to request a
+> @@ -24,13 +28,29 @@
+>  /* Second config-byte bits (LTC2499 / LTC2493 only) */
+>  #define LTC2499_EN2			BIT(7)	/* enable second config byte */
+>  #define LTC2499_IM			BIT(6)	/* 1 = measure internal temp sensor */
+> +#define LTC2499_FA			BIT(5)	/* line-rejection select bit A */
+> +#define LTC2499_FB			BIT(4)	/* line-rejection select bit B */
+Hmm. Next to each other. Given reject both is b00 I'd just make these
+a 2 bit field and have the values as 0, 1, 2
+>  #define LTC2499_SPD			BIT(3)	/* 1 = 2x output rate (offset cal off) */
+>  
+> +/*
+> + * Line-frequency rejection modes selected by FA/FB in the second config byte.
+> + * The datasheet's fourth combination (FA = FB = 1) is reserved, so it is not
+> + * given an enumerator and is unreachable through this driver.
+
+I'd drop this bit. Not a detail we need to call out in the driver. If anyone
+wonders, they can go look at the datasheet. If we called out every reserved
+value we'd end up with a lot of boring docs!
+
+>  Applies to both
+> + * voltage and temperature conversions (unlike SPD, which the part ignores while
+> + * measuring temperature).
+> + */
+> +enum ltc2497_rejection {
+> +	LTC2499_REJECT_50_60,	/* FA=0 FB=0: simultaneous 50/60Hz (default) */
+> +	LTC2499_REJECT_50,	/* FA=0 FB=1: 50Hz only */
+> +	LTC2499_REJECT_60,	/* FA=1 FB=0: 60Hz only */
+> +};
+
+>  
+> @@ -41,8 +61,14 @@ struct ltc2497core_driverdata {
+>  	struct mutex lock;
+>  	const struct ltc2497_chip_info	*chip_info;
+>  	u8 addr_prev;
+> -	bool speed_2x;	/* SPD: false = 1x (default), true = 2x */
+> -	/* Conversion time (ms) of the conversion currently in flight. */
+> +	bool speed_2x;		/* SPD: false = 1x (default), true = 2x */
+
+I'm not seeing a clear advantage in changing that indent. So put it back
+to reduce the noise in the patch.
+
+> +	enum ltc2497_rejection rejection;	/* FA/FB line-rejection select */
+> +	/*
+> +	 * Conversion time (ms) of the conversion currently in flight.  It is
+> +	 * fixed by the mode active when that conversion was started, which
+> +	 * differs from the newly selected mode for the first read after a
+> +	 * sampling_frequency or filter_mode change.
+> +	 */
+>  	unsigned int conv_time_prev;
+>  	int (*result_and_measure)(struct ltc2497core_driverdata *ddata,
+>  				  u8 address, int *val);
+> 
+
