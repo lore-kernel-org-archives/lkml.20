@@ -1,131 +1,155 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF351F30BB
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 00:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4DC3594A
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 00:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792283982; cv=none; b=gmWBy8WhdbqPUPw9hpBFxg9UbjG5JK7NKbpc1jr4T7U0qFBv2bA074LR6d9o2nhAP6IL/sCR0ZvvIgLxllVX2shvuBRF/7Ka25NlhgVUt4PAHDxdKwY6bjpDCxxMGhrqEUv5VIpc6CwZVU4LS7unTqi4zRLszXQkpyWvck96vw4=
+	t=1792284055; cv=none; b=mjwkNiQqh7+4AepfzvVAX0vkbdxkY6JD1RY+al47eh8DGLb3dT8pDO4pSAxZDEZ0bYdlDicCU2lK0f3kFLUMMc7VkWrdjtzHzSqrtVfMnZpR4Ci5fRdUoOholqVI191+praQ5LD4Ue1swdMUPG30+beQWUK0q4WA7AS02WjgMP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792283982; c=relaxed/simple;
-	bh=NkfoYPwTZN+canY3pFkS9HfCxE5wNmxHd3PQVxTOzzM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l0/fE0Cg5iBe9NC62wSmjkNIn5aKpC3S6TbMQrq8u8mUkhaiZTocbeJu414v13ASovkNGb5A1av/PyZRHw3ftdS5gKqlgOkkccVDD0x+t7j5dSS69wP3T+ggPMX1I5waYRAcS42TTIrbS/PGXOdaKaH+s4upIDlCzTbF927YHuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=qPr2xvq8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Hp9mX5n0; arc=none smtp.client-ip=202.12.124.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1792284055; c=relaxed/simple;
+	bh=S0QsVwqgiedVjJDg5PsW4oqHFzwpZoU7HJKzN5DEMq4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=Rtfk0O/UaqwCUpisvJjziw6L5oETcCHKVFGXRqq7PxJA2dkw+GZhiVMMg0V/ZRuRJ2/yovOEl1CpDp+RWueSCO/cLbgijkIrl7etKEp/MuFEA02366T9XW8WL6DkleU9e8zX00YC7XNDYR5hd5q6pOFyDFpcOb1qwrHdRrdpzQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y6Pb51qe; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="qPr2xvq8";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Hp9mX5n0"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfout.stl.internal (Postfix) with ESMTP id 5E8671D00066
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:39:39 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-12.internal (MEProxy); Sat, 17 Oct 2026 20:39:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1792283979; x=
-	1792370379; bh=JiGUKMxhkl6t+/m7adlAHHwNXtX4gzjcwJvHHAG5OjE=; b=q
-	Pr2xvq8d4HeOFhvA7Z2cqhLF2iWUN/QDRWd3EN9rjmcsMYDnCuK5CCcjB1E4/eyJ
-	mw7puhWS/1tMSJsdZmsmtjquaaoi2vBeTjkfI0OFtNUFAkjIR6SlBZJs0JovvTgD
-	dMHJcC5GFy/mjgdPW5/6QXIXRDYCNl5G4wcR1qLjFoxRq5nSzbdF12GrJu3udhme
-	O2owBakoqMxiea3ryJLv/G3AHKT9deCBO0BaKuHw9nT8gzDI59eRTKtYU642xFyu
-	rP+2Qa3eMNspfDH7yM5Md6nf6jXagVNQGc3ccYVWUn38+ebCpJQJY62ay+O6sXiy
-	VWrF4ToKLEW51PJYrygmA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792283979; x=1792370379; bh=JiGUKMxhkl6t+/m7adlAHHwNXtX4gzjcwJv
-	HHAG5OjE=; b=Hp9mX5n0UhGN17/WKPwpp2ATr2XLKkSWMSgO64NrTZzfZxNvbol
-	oWuTk5FjIGG2ogSwHmqgp83L9lIFXQhmucHAYkzZ9kKGdt52v8SgYlp3WDs1JL22
-	HkbEXG44jp5Rinz0ryh20r1nTuUR9cRefZMvrLo4az2gdwZzBnZ/StqiVriT7Hb9
-	PwOFvNj9zjFgf7SVntHnb2jdmSqEJFila1f0EnuZJ+LRE2apjnZnEtPPZ37mqbb1
-	gzKDjJUxiNsqsv7W10473MRwcf3CZjLGa52YuIVhof7SUcorSsWjhYAsX/2ntNku
-	iWT981xpsszToRovzDptq4HP4L0A87h/V8w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792283979; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:idmNwBVFyhQ1t67f9vE5X95GfM231ysI8DuuHPv97TF0NPM
-	tiAWQXiymoAh71lDoutVY8iGzVqwPajKsWzsFy+O94ncfgDXG0373sZ42SyHwO0w
-	8lROzceE6pMFLkGsfrgDlDC9dZLVVhwmqBAWP/wJcIEegAfSXPjnZS6jTI1qN6bC
-	0LhIdXlVqw8pQF+9JwylZVMLYYesHSLAtZI4xfmklhPEVW64HecprWTnsY3Y4pMg
-	N7YBORzr3wHoXSAx9U4g1MvzTPqc4xrKoDvJb4+O1kfbgcBTSttOiiGVYFWWiWje
-	ChgXUOCHhvhUheN9JptlMyh2DMVTEjGrwHtIVtA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,mail-followup-to,message-id,mime-version,references,
-	subject,to;
-Message-Instance: m=1; h=sha256:mRa68anMYfxb/OYmX31Xcx3NI7sPhr5yhIct4+XYmjw=:NkfoYPwTZN+canY3pFkS9HfCxE5wNmxHd3PQVxTOzzM=;
-X-ME-Sender: <xms:ShXUahHsxMACKL3GfOB3cI4Lr-C-bocrrABCAVGEjRrDrMwtUU0HZw>
-    <xme:ShXUakQSdoUewcoHae40CXWYv9kANP2RJTzGgyUI4XQ800WmQaenReUMgHhl9qWxc
-    2Rv-lBG-aZ0U7QLk4Cn-LGLrbdmOEzj006ipsoNJa0uiAiqGPnITE1->
-X-ME-Received: <xmr:ShXUaqtcJaC_3wom_lgTHDJspIqWBBBaT8ZoN91sM1svxS8eSTOtPm2w20iev--13mJOK0ZR09BvWHJuq8AeqY1ftVMI>
-X-ME-Proxy-Cause: dmFkZTFNNFliXbZgjbEmvJhDjie9jmGxw5dMDUWiKERgaxHt+jyYNqaHKb/DrgeZmgQ1N8
-    TZXQ8q5/NgCtAALfabakjggkdRi3bcKFPhMjS9WEejMySQcP3IuDjEtNINU8wpi7crzk5h
-    N+KYXbJD5Ojhgt+Id4sEnTaI7zjhl6RNF7opJXLjdA5GOSiEErowXYuayJ1PLcVYpcXsH4
-    eVUKvRaJD+l9hz1UlNFnPg5/VLVar5ZtfvKTkaICvypCELQbro7+j1Dnrq9kMBJmk/t5by
-    Jl06/qY69ixTbL/3bEkvGRJgJTirIYn1HY03GKChpJByHLrzADf4zSVapnFqGCv3NTAgOq
-    ftztZbqkL3ZNSyV777yYKtconDqfcm8m1deHn9dD4eUmhYwfxjRWjSJ9BM+m7JczNfaCh2
-    6X9IyEs5DDru8Y6FrMNMDROWPe4Vw5MU0+M18STnWq5SRPRPiCDiKGUJEugJEPdogSKLKt
-    Q9tvvdyDsHPNDBM1XL2wXskhOwx1qcJgFWssCQ33L+mKKobmFkUaLAH5xEqlcS9vkqkYc7
-    J+BIhQO7JhLLgbTCmDZO3YHxGLUHJcq6MHCzUTONKikOi7YrsQtEpN3I0SrsHmOE0z85pw
-    q4/+l/un3PGnWuclLYWVpVd2tGTC3QGEyYEZ/6xDwqzTeAK73cwvxxoxmnJg
-X-ME-Proxy: <xmx:ShXUajwCZhapHarUHhfTBTW8wsQqm9aWRpCnTNA3L-Xy9WWjwRVXDA>
-    <xmx:ShXUak6OVSKWebt5OH6k_X7A_tXMzHreLxmBrxu3t-b9ey5qZrifnw>
-    <xmx:ShXUatWiAQJAmA0r6sY50iP3Hexp75qUejndly4UsHG_drsk5-VsIw>
-    <xmx:ShXUag2711kRqhV1fzJxkLe3o3ujyp4YN86bWjfSbffUhr1FJV-WDg>
-    <xmx:SxXUavaz5XoyMWAaV-RMQMHOXXhUSrZSd-7HTczyAR4gJpi1H91p2Tdm>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 17 Oct 2026 20:39:37 -0400 (EDT)
-Date: Sun, 18 Oct 2026 09:39:35 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] firewire: core: use release/acquire pair when replacing
- underlying driver on card removal
-Message-ID: <20261018003935.GA278783@sakamocchi.jp>
-Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-References: <20261017081720.186688-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y6Pb51qe"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so1396798a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 17:40:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792284053; x=1792888853; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=S0QsVwqgiedVjJDg5PsW4oqHFzwpZoU7HJKzN5DEMq4=;
+        b=Y6Pb51qecalWrz6sg8Uw/H7mpl1GIbqXIak8P7izZ4db21ckaYfML8KVzc/EEO37vE
+         hr49r3ukY6aDlmXYLU3MU37TLlsPSiWFYwoUgEaOGqmU6EMkFfZ1GANlqaXzdPsOjM0t
+         tFC/6+GGbMj0bgcUvFS7TGBNRIYajBzndBlj64XN3Vp+F2MDqTpQnII37EFdRfQFv6Zp
+         oqF3ipjPUkVJVSZd+z291g6KxFpx0OB1QwRPFbHzgk6fIFRAhYYG0ddDdRRnhQLK5H4W
+         6TyFD9R0U3rZbYeQdxD3hgn0kHNBJLbBGvaKw09o0K7VZcaWsX5uxlmOe3EAYDlDm1dj
+         QkiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792284053; x=1792888853;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S0QsVwqgiedVjJDg5PsW4oqHFzwpZoU7HJKzN5DEMq4=;
+        b=iv2lmPtj+nfdwhOzpyuSMv+yE7mF/HtNJ0cV4VZmVpzzcQtCY3MvUI2MKDaM25/ee5
+         rGnNW1eJ1Jf9VQiVEaRoliUJBYh4X5IyiKHRftn9oJ6rrSKkKVOf0VRSplgBrR1+iWj8
+         C8RFnTeTxWgxN0aq9zZDrWj9rkRtXevcL+zSHj02tuVYerxrpxbML0KixBO+pYvAzQZi
+         quzU/yaq+fsok5jHsiWwSw+7YsNu2cCmZVgBJJmQgf394uKg7BTu6Fq00mmF+JkjyJlt
+         BFVbIIqKrWjR728dz1ctQ/Hf795gAjLsKJkniHLylqudGLeoI1QrpjqOJzc6RZvjR7av
+         R4rQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxfdsxbwaPO3ZJaq7YS4IBkY8+8yjROidvd7racn42kl30j/vhepjoIdXBTM+QrfCzw2Weey2XiqT268bI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4T1HHBumLO3bn5zhLZRHr9H1tzRgXVN3W02AjjIvWQe/P/kWE
+	eR2dOhwElzcGVZmu6Sr7b8OmvWojH6G0qaWDVdFN36SdhDfs6jEfMBJZ
+X-Gm-Gg: AYBFou1if4fYfygBm07H/o+Y5pa6JMlOZmuttdnQXGuOuvTqdv9dxa7ozJXsLvIY/tT
+	46nUHrkqthPXE3lssDBFzjyWDXugBWLqMTEl9zzy4PJMEbSg12rcbdr/joS9ZSSM6H2eoLJ+8/m
+	PisBmkZ3g2oACHIzDSc0wRXK56cVKD1j97KDHbiz4FvXqE8eREKZZ8Af9YhKcGBfCv+6bAuOeCd
+	6xIHUSaZifBaQTkaGzxSBoxl0Wd78Irj+nY3YmKngR6kpC9YrpQaapXdwKmfO6Gd9N9GV6xbmLM
+	VqfgO7vpltjKyCKAF//bY4KlGQZmcUGezeip5QZt2cqUVpJuVGFpBUVXsm+YVY+PiB8ImpJ+zac
+	hJ7jyHSM1JmHxBEROUfEIUJIHBA3E5FkVCYCWpkaOHKhSAqD2RjQPs6mOelnz37qbjnGpRTPOIk
+	ymgYVEvqPxIlFaS652ikNrHu8TUUYebCiTfQ0af9EIperkggcCNbW25pXq1iOeRR/q3YA02913P
+	1l7Kvp5ciYG+S43wCjhil3ckPTdBd0rd7kCQQamUNPeBDb0KJhzS2VP6aijNZGecCnMAPs2ezyh
+	DFU=
+X-Received: by 2002:a17:90b:48c5:b0:3ac:9ed8:f301 with SMTP id 98e67ed59e1d1-3acef4e131cmr2448674a91.30.1792284053166;
+        Sat, 17 Oct 2026 17:40:53 -0700 (PDT)
+Received: from localhost ([153.61.198.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947cf9a5sm14830794a91.15.2026.10.17.17.40.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 17 Oct 2026 17:40:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017081720.186688-1-o-takashi@sakamocchi.jp>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 18 Oct 2026 00:40:51 +0000
+Message-Id: <DM7JO6OZIF73.153P5K24I3ZWU@gmail.com>
+Cc: <ast@kernel.org>, <daniel@iogearbox.net>, <john.fastabend@gmail.com>,
+ <andrii@kernel.org>, <eddyz87@gmail.com>, <memxor@gmail.com>,
+ <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
+ <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
+ <shuah@kernel.org>, <nathan@kernel.org>, <ndesaulniers@google.com>,
+ <morbo@google.com>, <justinstitt@google.com>,
+ <donggeunyoo.kernel@gmail.com>, <leon.hwang@linux.dev>,
+ <menglong8.dong@gmail.com>, <yatsenko@meta.com>, <jiangfeng@kylinos.cn>,
+ <bjorn@kernel.org>, <puranjay@kernel.org>, <vineet.gupta@linux.dev>,
+ <mykolal@fb.com>, <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <llvm@lists.linux.dev>
+Subject: Re: [PATCH bpf-next v2 0/7] selftests/bpf: Fix selftests failures
+ with LLVM 23
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "KaFai Wan" <kafai.wan@linux.dev>, <patchwork-bot+netdevbpf@kernel.org>
+X-Mailer: aerc 0.20.1-349-gb940a4174a3e-dirty
+References: <20261014113043.640435-1-kafai.wan@linux.dev>
+ <179211120751.4176565.4973025143783418812.git-patchwork-notify@kernel.org>
+ <f77fd2b8bce1a029ac295b4482402a8c2203db57.camel@linux.dev>
+In-Reply-To: <f77fd2b8bce1a029ac295b4482402a8c2203db57.camel@linux.dev>
 
-On Sat, Oct 17, 2026 at 05:17:20PM +0900, Takashi Sakamoto wrote:
-> When removing a card instance, the underlying driver is replaced to handle
-> closing operations. Without proper memory reordering, other CPUs may
-> observe the driver before it is fully initialized.
-> 
-> Use a release/acquire pair to ensure that the driver's initialization is
-> visible before the driver is accessed for close operations.
-> 
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> ---
->  drivers/firewire/core-card.c        | 16 ++++++++-------
->  drivers/firewire/core-cdev.c        |  2 +-
->  drivers/firewire/core-device.c      |  8 ++++----
->  drivers/firewire/core-iso.c         | 32 +++++++++++++++++++++--------
->  drivers/firewire/core-transaction.c | 20 +++++++++---------
->  5 files changed, 47 insertions(+), 31 deletions(-)
+On Sat Oct 17, 2026 at 12:57 AM UTC, KaFai Wan wrote:
+> On Fri, 2026-10-16 at 00:40 +0000, patchwork-bot+netdevbpf@kernel.org wro=
+te:
+>> Hello:
+>>=20
+>> This series was applied to bpf/bpf-next.git (master)
+>> by Alexei Starovoitov <ast@kernel.org>:
+>>=20
+>> On Wed, 14 Oct 2026 19:30:36 +0800 you wrote:
+>> > Building with clang/LLVM 23 breaks several selftests. Patches #1 to #4=
+ fix
+>> > those failures.
+>> >=20
+>> > The following self-tests also fail under specific invocations of
+>> > test_progs:
+>> >=20
+>> > - ./test_progs -t prog_tests_framework/test_fail -v
+>> > =C2=A0test_prog_tests_framework:FAIL:skip_cnt_check
+>> > =C2=A0unexpected skip_cnt_check: actual 0 !=3D expected 2
+>> >=20
+>> > [...]
+>>=20
+>> Here is the summary with links:
+>> =C2=A0 - [bpf-next,v2,1/7] bpf: Determine freplace staticness from BTF l=
+inkage
+>> =C2=A0=C2=A0=C2=A0 (no matching commit)
+>> =C2=A0 - [bpf-next,v2,2/7] selftests/bpf: Fix stack_arg precision backtr=
+acking log expectation
+>> =C2=A0=C2=A0=C2=A0 (no matching commit)
+>> =C2=A0 - [bpf-next,v2,3/7] selftests/bpf: Fix stack arg pruning test JOI=
+N log expectation
+>> =C2=A0=C2=A0=C2=A0 (no matching commit)
+>> =C2=A0 - [bpf-next,v2,4/7] selftests/bpf: Use _exit() in uprobe_multi_te=
+st clone-ed child
+>> =C2=A0=C2=A0=C2=A0 (no matching commit)
+>> =C2=A0 - [bpf-next,v2,5/7] selftests/bpf: Fix prog_tests framework subte=
+st count checks
+>> =C2=A0=C2=A0=C2=A0 https://git.kernel.org/bpf/bpf-next/c/c87652656a55
+>> =C2=A0 - [bpf-next,v2,6/7] selftests/bpf: Skip expected_msgs subtests wh=
+en stdout is not saved
+>> =C2=A0=C2=A0=C2=A0 https://git.kernel.org/bpf/bpf-next/c/cc4b1c161d92
+>> =C2=A0 - [bpf-next,v2,7/7] selftests/bpf: Skip compare_text subtest when=
+ stdout is not saved
+>> =C2=A0=C2=A0=C2=A0 https://git.kernel.org/bpf/bpf-next/c/7ebf808caa76
+>>=20
+>> You are awesome, thank you!
+>
+> Hi Alexei,
+>
+> I resent the last 3 patches in v2 and changed the subject, expecting v2 t=
+o be reviewed first so we
+> could skip v1. Sorry, it didn=E2=80=99t work. The bot closed this thread =
+while applying the 3 patches from
+> v1. Should I resend the first 4 patches?
+>
+> Sorry for the inconvenience.
 
-Applied to for-next branch.
+Sorry. My fault.
+Pls resend. It will be easier on bots.
 
 
-Regards
-
-Takashi Sakamoto
