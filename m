@@ -1,245 +1,191 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E337B370AE3
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:17:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5143B4C150B
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.136.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792336649; cv=none; b=KpKFNmyYEhCUa+BZ0wXbD1paLQI0cN+yGvJCakXxXqbfH5ymFVleZ+3UJtwkiiy4n5G5GkFl/cD9GXPJXiMgwLU4gak/wnAorXvwydEZYj+I+2JdeuFchzxJyZE8NfdBwhFmxC5tF11FmuY/Oc/oUcx7RMUi5zDs/IwRoL1+6DM=
+	t=1792336960; cv=none; b=VRVVWQGJBv5cjDQ5VloYfQf8atz2pJWIuPnEaSaADaMYV1u9wrigX7/4ZQqF4BCPWPhQ6dWfVq79zH9CUjwAKor3fqEUbIKWREA81gTuVsC7ltWe+HKun0QgG1+QP7aiePXQmiHXCHhILi02P2aBZaEgoXcxaXkT+vSuYzJVjlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792336649; c=relaxed/simple;
-	bh=/74jK33fOqw/cOdR6zE+IM5rPMS2awzsSNjxf/ICu8c=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=Yk5Ci+vdBhG21XwJdL6H0VZs2wdGBcgPe9WPU2KeKh2azAU/w9p44IUbVHlmBwwDDqsSjOFDhuJ1pIeXX/twErK5sqWJU7s5cNG3+ZkcoWHpCIl1U48Pn52/8tGW7Lzl5O6RNnj4AB3qkTHruho031/lzporJXeEd+8Y/rjTnuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qe8qEt3i; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792336960; c=relaxed/simple;
+	bh=P13TJoe00kc6udm3KCSaNvlrXfjrcNvar4DnoqMgWKs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DgLSqYLZCMFZWXgC1Z/EZeY8H0E/An/KLJodgH0imKU2Dtz+40JfZ3FEMFrQg9t/n3lj6ZcDdqWHsFEdr3M0IGGj7ev5A0UCrTu2FT29+93jFAOR3hLvNhrgsyydV68rHZSp80reOxZfJH5iVYZnF98kZ+AcuWiqOk+4L+lhV94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it; spf=pass smtp.mailfrom=cs.unibo.it; dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b=QRZr3vKy; arc=none smtp.client-ip=130.136.161.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qe8qEt3i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792336648; x=1823872648;
-  h=date:from:to:cc:subject:message-id;
-  bh=/74jK33fOqw/cOdR6zE+IM5rPMS2awzsSNjxf/ICu8c=;
-  b=Qe8qEt3i5Wzw2LktcQmnZMbavy/yyY03UWz11HMEKNFGwSCIHztCc+AH
-   tL+cYh69LbsBYTYXG+Kz0/AZwzJvRlDxoPrK/tnPQUikaPeaCMZhcrGCN
-   dTlsaMqLg456FF0DJnTk9G8rX64w5W/O/FZXHEldv6Xsr873qoJkEHQoT
-   hhaZT4kCM2otON4hzkll0zWb5rZIBKfTCHsZKwAjSXn+29Mh9MKM817T4
-   47i+87e+CeGQWVjUKC9b7o6702ehVR0dXNSee/Yn2+DI82dK4GylGghwu
-   L6ReAvP+HkvDojxaHNzNnaL7FQkoFtN9uQUFmuzxJeLLhZ3P6U5x+Gk27
-   A==;
-X-CSE-ConnectionGUID: XrtoEuAUReygetb+9rLLvw==
-X-CSE-MsgGUID: UckG1tv+S1GGFq3lhwHs2w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1062217"
-X-IronPort-AV: E=Sophos;i="6.27,165,1787036400"; 
-   d="scan'208";a="1062217"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 08:17:27 -0700
-X-CSE-ConnectionGUID: MlIQJDgkSaOy4lRthZW3xg==
-X-CSE-MsgGUID: WBIoBi44SZyuOlGxYZZb5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,165,1787036400"; 
-   d="scan'208";a="2677756"
-Received: from igk-lkp-server01.igk.intel.com (HELO 3c253b998be3) ([10.211.93.152])
-  by fmviesa007.fm.intel.com with ESMTP; 18 Oct 2026 08:17:25 -0700
-Received: from kbuild by 3c253b998be3 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xISdW-0000000059T-2OXi;
-	Sun, 18 Oct 2026 15:17:22 +0000
-Date: Sun, 18 Oct 2026 17:17:02 +0200
-From: kernel test robot <lkp@intel.com>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>
-Subject: kernel/events/core.c:5424:21: sparse: sparse: cast removes
- address space '__rcu' of expression
-Message-ID: <202610181712.Iwovwyoc-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.b="QRZr3vKy"
+Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
+	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 23A301C007A;
+	Sun, 18 Oct 2026 17:15:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
+	s=virtlab; t=1792336553;
+	bh=P13TJoe00kc6udm3KCSaNvlrXfjrcNvar4DnoqMgWKs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=QRZr3vKy+trCv6l5OJFuzXmy9KjgkCb/g2dhU2mUOi69UPm04Ge6W0xED+Cvoulp8
+	 LUPfGbKjKJaU//TOScNm72qH1AqHFcRyWEjNtcOOW4D8VH6d7uV0pdPTxMlv/PYHhv
+	 r7oB7qvVdlTx0gw82MNVEx3ZZ8EU1SwgqRX7Y04k=
+From: Renzo Davoli <renzo@cs.unibo.it>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>
+Cc: Davide Berardi <berardi.dav@gmail.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
+	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Renzo Davoli <renzo@cs.unibo.it>,
+	Oleg Nesterov <oleg@redhat.com>,
+	"Dmitry V . Levin" <ldv@strace.io>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH] powerpc/syscall: Return the preset value of skipped syscalls
+Date: Sun, 18 Oct 2026 17:15:33 +0200
+Message-ID: <20261018151539.440213-1-renzo@cs.unibo.it>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   32c52ec87d6245ee2d12ed5dd509e40062939b50
-commit: 4960626f956d63dce57f099016c2ecbe637a8229 perf/core: Fix slow perf_event_task_exit() with LBR callstacks
-date:   9 months ago
-config: riscv-randconfig-r2302-20261018 (https://download.01.org/0day-ci/archive/20261018/202610181712.Iwovwyoc-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 8a679464f19c426ef76aad9f4587b703dd3e584d)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261018/202610181712.Iwovwyoc-lkp@intel.com/reproduce)
+From: Davide Berardi <berardi.dav@gmail.com>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 4960626f956d ("perf/core: Fix slow perf_event_task_exit() with LBR callstacks")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610181712.Iwovwyoc-lkp@intel.com/
+When ptrace or seccomp skip a system call, the return value they set in
+regs->gpr[3] gets lost or the tracer is affected, since two recent
+changes:
 
-sparse warnings: (new ones prefixed by >>)
-   WARNING: invalid argument to '-march': '_zacas_zabha'
-   kernel/events/core.c:1585:15: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:1585:15: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:1585:15: sparse:    struct perf_event_context *
-   kernel/events/core.c:1598:28: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:1598:28: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:1598:28: sparse:    struct perf_event_context *
-   kernel/events/core.c:3776:20: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:3776:20: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:3776:20: sparse:    struct perf_event_context *
-   kernel/events/core.c:3780:18: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:3780:18: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:3780:18: sparse:    struct perf_event_context *
-   kernel/events/core.c:3781:23: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:3781:23: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:3781:23: sparse:    struct perf_event_context *
-   kernel/events/core.c:3834:25: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:3834:25: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:3834:25: sparse:    struct perf_event_context *
-   kernel/events/core.c:3835:25: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:3835:25: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:3835:25: sparse:    struct perf_event_context *
-   kernel/events/core.c:4252:15: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:4252:15: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:4252:15: sparse:    struct perf_event_context *
-   kernel/events/core.c:4660:15: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:4660:15: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:4660:15: sparse:    struct perf_event_context *
-   kernel/events/core.c:5149:25: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:5149:25: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:5149:25: sparse:    struct perf_event_context *
-   kernel/events/core.c:6927:9: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:6927:9: sparse:    struct perf_buffer [noderef] __rcu *
-   kernel/events/core.c:6927:9: sparse:    struct perf_buffer *
-   kernel/events/core.c:5424:21: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct perf_ctx_data [noderef] __rcu **___op @@     got struct perf_ctx_data **__ai_oldp @@
-   kernel/events/core.c:5424:21: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct perf_ctx_data [noderef] __rcu *__new @@     got struct perf_ctx_data *[assigned] cd @@
->> kernel/events/core.c:5424:21: sparse: sparse: cast removes address space '__rcu' of expression
-   kernel/events/core.c:5435:37: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct perf_ctx_data [noderef] __rcu **___op @@     got struct perf_ctx_data **__ai_oldp @@
-   kernel/events/core.c:5435:37: sparse: sparse: cast removes address space '__rcu' of expression
-   kernel/events/core.c:6310:24: sparse: sparse: incorrect type in assignment (different base types) @@     expected restricted __poll_t [usertype] events @@     got int @@
-   kernel/events/core.c:6678:22: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:6678:22: sparse:    struct perf_buffer [noderef] __rcu *
-   kernel/events/core.c:6678:22: sparse:    struct perf_buffer *
-   kernel/events/core.c:6802:14: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:6802:14: sparse:    struct perf_buffer [noderef] __rcu *
-   kernel/events/core.c:6802:14: sparse:    struct perf_buffer *
-   kernel/events/core.c:6835:14: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:6835:14: sparse:    struct perf_buffer [noderef] __rcu *
-   kernel/events/core.c:6835:14: sparse:    struct perf_buffer *
-   kernel/events/core.c:6948:14: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:6948:14: sparse:    struct perf_buffer [noderef] __rcu *
-   kernel/events/core.c:6948:14: sparse:    struct perf_buffer *
-   kernel/events/core.c:6964:14: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:6964:14: sparse:    struct perf_buffer [noderef] __rcu *
-   kernel/events/core.c:6964:14: sparse:    struct perf_buffer *
-   kernel/events/core.c:8946:15: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:8946:15: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:8946:15: sparse:    struct perf_event_context *
-   kernel/events/core.c:9034:13: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:9034:13: sparse:    struct perf_buffer [noderef] __rcu *
-   kernel/events/core.c:9034:13: sparse:    struct perf_buffer *
-   kernel/events/core.c:9138:61: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *real_parent @@
-   kernel/events/core.c:9138:61: sparse:     expected struct task_struct *p
-   kernel/events/core.c:9138:61: sparse:     got struct task_struct [noderef] __rcu *real_parent
-   kernel/events/core.c:9140:61: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected struct task_struct *p @@     got struct task_struct [noderef] __rcu *real_parent @@
-   kernel/events/core.c:9140:61: sparse:     expected struct task_struct *p
-   kernel/events/core.c:9140:61: sparse:     got struct task_struct [noderef] __rcu *real_parent
-   kernel/events/core.c:9876:15: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:9876:15: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:9876:15: sparse:    struct perf_event_context *
-   kernel/events/core.c:11071:9: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:11071:9: sparse:    struct swevent_hlist [noderef] __rcu *
-   kernel/events/core.c:11071:9: sparse:    struct swevent_hlist *
-   kernel/events/core.c:11110:17: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:11110:17: sparse:    struct swevent_hlist [noderef] __rcu *
-   kernel/events/core.c:11110:17: sparse:    struct swevent_hlist *
-   kernel/events/core.c:11385:23: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:11385:23: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:11385:23: sparse:    struct perf_event_context *
-   kernel/events/core.c:12462:1: sparse: sparse: symbol 'dev_attr_nr_addr_filters' was not declared. Should it be static?
-   kernel/events/core.c:14496:9: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:14496:9: sparse:    struct perf_event_context [noderef] __rcu *
-   kernel/events/core.c:14496:9: sparse:    struct perf_event_context *
-   kernel/events/core.c:15016:17: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:15016:17: sparse:    struct swevent_hlist [noderef] __rcu *
-   kernel/events/core.c:15016:17: sparse:    struct swevent_hlist *
-   kernel/events/core.c:197:9: sparse: sparse: context imbalance in 'perf_ctx_lock' - wrong count at exit
-   kernel/events/core.c:213:9: sparse: sparse: context imbalance in 'perf_ctx_unlock' - unexpected unlock
-   kernel/events/core.c: note: in included file (through include/linux/rbtree.h, include/linux/mm_types.h, include/linux/mmzone.h, include/linux/gfp.h, ...):
-   include/linux/rcupdate.h:898:9: sparse: sparse: context imbalance in 'perf_lock_task_context' - different lock contexts for basic block
-   kernel/events/core.c:1632:17: sparse: sparse: context imbalance in 'perf_pin_task_context' - unexpected unlock
-   kernel/events/core.c:3106:9: sparse: sparse: context imbalance in '__perf_install_in_context' - wrong count at exit
-   kernel/events/core.c:5123:17: sparse: sparse: context imbalance in 'find_get_context' - unexpected unlock
-   kernel/events/core.c: note: in included file:
-   kernel/events/internal.h:204:46: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void const [noderef] __user *from @@     got void const *src @@
-   kernel/events/core.c:10924:17: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:10924:17: sparse:    struct swevent_hlist [noderef] __rcu *
-   kernel/events/core.c:10924:17: sparse:    struct swevent_hlist *
-   kernel/events/core.c:10944:17: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:10944:17: sparse:    struct swevent_hlist [noderef] __rcu *
-   kernel/events/core.c:10944:17: sparse:    struct swevent_hlist *
-   kernel/events/core.c:11060:16: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:11060:16: sparse:    struct swevent_hlist [noderef] __rcu *
-   kernel/events/core.c:11060:16: sparse:    struct swevent_hlist *
-   kernel/events/core.c:11060:16: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:11060:16: sparse:    struct swevent_hlist [noderef] __rcu *
-   kernel/events/core.c:11060:16: sparse:    struct swevent_hlist *
-   kernel/events/core.c:11060:16: sparse: sparse: incompatible types in comparison expression (different address spaces):
-   kernel/events/core.c:11060:16: sparse:    struct swevent_hlist [noderef] __rcu *
-   kernel/events/core.c:11060:16: sparse:    struct swevent_hlist *
+1. Commit 05c033db7e9a ("entry, treewide: Make
+   syscall_enter_from_user_mode[_work]() indicate syscall execution")
+   made system_call_exception() return syscall_get_error() for a skipped
+   system call.  syscall_get_error() is 0 for any non-error value, so a
+   success value set by a tracer at a PTRACE_EVENT_SECCOMP stop (e.g.
+   with PTRACE_POKEUSER), or by a SECCOMP_RET_USER_NOTIF listener, is
+   replaced with 0.
 
-vim +/__rcu +5424 kernel/events/core.c
+2. Commit 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for
+   seccomp and ptrace") made syscall_set_return_value() set
+   TIF_SYSCALL_RET with set_thread_flag(), i.e. on current rather than on
+   the task passed in.  When the caller is a tracer, as in
+   PTRACE_SET_SYSCALL_INFO with op == PTRACE_SYSCALL_INFO_EXIT, the flag
+   ends up on the tracer, and the next system call of the tracer is
+   silently not executed.  Setting it on the right task would not be
+   enough either: at a syscall-exit stop the flag would then skip the
+   next system call of the tracee.
 
-  5412	
-  5413	static int
-  5414	attach_task_ctx_data(struct task_struct *task, struct kmem_cache *ctx_cache,
-  5415			     bool global)
-  5416	{
-  5417		struct perf_ctx_data *cd, *old = NULL;
-  5418	
-  5419		cd = alloc_perf_ctx_data(ctx_cache, global);
-  5420		if (!cd)
-  5421			return -ENOMEM;
-  5422	
-  5423		for (;;) {
-> 5424			if (try_cmpxchg(&task->perf_ctx_data, &old, cd)) {
-  5425				if (old)
-  5426					perf_free_ctx_data_rcu(old);
-  5427				/*
-  5428				 * Above try_cmpxchg() pairs with try_cmpxchg() from
-  5429				 * detach_task_ctx_data() such that
-  5430				 * if we race with perf_event_exit_task(), we must
-  5431				 * observe PF_EXITING.
-  5432				 */
-  5433				if (task->flags & PF_EXITING) {
-  5434					/* detach_task_ctx_data() may free it already */
-  5435					if (try_cmpxchg(&task->perf_ctx_data, &cd, NULL))
-  5436						perf_free_ctx_data_rcu(cd);
-  5437				}
-  5438				return 0;
-  5439			}
-  5440	
-  5441			if (!old) {
-  5442				/*
-  5443				 * After seeing a dead @old, we raced with
-  5444				 * removal and lost, try again to install @cd.
-  5445				 */
-  5446				continue;
-  5447			}
-  5448	
-  5449			if (refcount_inc_not_zero(&old->refcount)) {
-  5450				free_perf_ctx_data(cd); /* unused */
-  5451				return 0;
-  5452			}
-  5453	
-  5454			/*
-  5455			 * @old is a dead object, refcount==0 is stable, try and
-  5456			 * replace it with @cd.
-  5457			 */
-  5458		}
-  5459		return 0;
-  5460	}
-  5461	
+TIF_SYSCALL_RET is not needed anymore: after the change described in 1.
+the generic entry code tells whether ptrace or seccomp skipped the
+system call, and every in-kernel caller of syscall_set_return_value() on
+the syscall entry path (SECCOMP_RET_ERRNO, SECCOMP_RET_TRACE without a
+tracer, SECCOMP_RET_USER_NOTIF) also makes it return false.  A user
+calling syscall(-1) without tracer or seccomp still gets -ENOSYS.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Remove the flag and return regs->gpr[3] for a skipped system call, as
+done before the conversion to GENERIC_ENTRY.  The syscall exit path
+already converts a negative error value to the "sc" ABI, and
+syscall_set_return_value() keeps CR0.SO in sync for positive error
+values.
+
+Fixes: 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for seccomp and ptrace")
+Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
+Cc: Michal Suchánek <msuchanek@suse.de>
+Cc: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Assisted-by: claude-opus-5-5
+Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
+---
+How this was found and tested: QEMU pseries (TCG, -cpu power9), ppc64le
+guest config, v7.3-rc6 (7b63ef2d55f2), with a small reproducer
+(ppc_skip_repro.c, available on request) which
+
+ - sets the getpid() return value at a syscall-exit stop with
+   PTRACE_SET_SYSCALL_INFO, then makes a syscall in the tracer;
+ - skips getpid() at a PTRACE_EVENT_SECCOMP stop with PTRACE_POKEUSER
+   (r0 = -1, r3/CR0.SO = return value), with both "sc" and "scv 0".
+
+                                             v7.3-rc6      with this patch
+  tracer syscall after SET_SYSCALL_INFO      returns 0     correct
+  skipped syscall, success value, sc/scv     returns 0     correct
+  skipped syscall, error value, sc/scv       correct       correct
+  selftests/ptrace set_syscall_info test    FAIL          pass
+  selftests/seccomp/seccomp_bpf              11 failures   all pass (*)
+
+  failing in v7.3-rc6: user_notification_{basic,child_pid_ns,
+  sibling_pid_ns,fault_recv,addfd,addfd_rlimit,sync,fifo,wait_killable},
+  TRACE_syscall.seccomp.syscall_faked, plus the timing-only one below.
+
+(*) user_notification_wait_killable_after_reply (100000 notifications
+    with a 1 ms itimer) can hit the 30 s harness timeout under emulation,
+    with and without this patch.
+
+Build-tested with W=1: ppc64le guest config, ppc64_defconfig (BE),
+pmac32_defconfig.
+
+ arch/powerpc/include/asm/syscall.h     |  6 ------
+ arch/powerpc/include/asm/thread_info.h |  1 -
+ arch/powerpc/kernel/syscall.c          | 15 ++++++++-------
+ 3 files changed, 8 insertions(+), 14 deletions(-)
+
+diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
+index 32be22b995cc..4b3c52ed6e9d 100644
+--- a/arch/powerpc/include/asm/syscall.h
++++ b/arch/powerpc/include/asm/syscall.h
+@@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
+ 			regs->gpr[3] = val;
+ 		}
+ 	}
+-	/*
+-	 * Mark that a return value has been explicitly set by seccomp or
+-	 * ptrace so that system_call_exception() can skip the syscall
+-	 * unconditionally, even when the user requested syscall(-1).
+-	 */
+-	set_thread_flag(TIF_SYSCALL_RET);
+ }
+ 
+ static inline void syscall_get_arguments(struct task_struct *task,
+diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
+index 1e069a2e7ce8..0487e94d3416 100644
+--- a/arch/powerpc/include/asm/thread_info.h
++++ b/arch/powerpc/include/asm/thread_info.h
+@@ -120,7 +120,6 @@ void arch_setup_new_exec(void);
+ #endif
+ #define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
+ #define TIF_32BIT		20	/* 32 bit binary */
+-#define TIF_SYSCALL_RET		21	/* syscall error value set */
+ 
+ /* as above, but as bit values */
+ #define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
+diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
+index fbefe1927b10..52ceff4ef41b 100644
+--- a/arch/powerpc/kernel/syscall.c
++++ b/arch/powerpc/kernel/syscall.c
+@@ -18,13 +18,14 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
+ 	long ret;
+ 	syscall_fn f;
+ 
+-	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
+-		clear_thread_flag(TIF_SYSCALL_RET);
+-		return syscall_get_error(current, regs);
+-	}
+-
+-	if (unlikely(test_and_clear_thread_flag(TIF_SYSCALL_RET)))
+-		return syscall_get_error(current, regs);
++	/*
++	 * If ptrace or seccomp decided to skip the syscall, regs->gpr[3] holds
++	 * the return value they set (or the unmodified first argument, e.g.
++	 * for PTRACE_SYSEMU). Return it as is, the exit path takes care of
++	 * the error encoding for the "sc" ABI.
++	 */
++	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0)))
++		return regs->gpr[3];
+ 
+ 	if (unlikely(r0 >= NR_syscalls)) {
+ 		if (unlikely(trap_is_unsupported_scv(regs))) {
+-- 
+2.55.0
+
