@@ -1,136 +1,87 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EABD43E48B
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:38:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792355892; cv=pass; b=n6m9eea5/o+EOg9MDA2L7xWEJcLAhn8YuGlLXuAIuPhQS0J1shP0O1pK8Ujor1upO0SxtNUKLZtCKEJhAXBJcX96nMkWn6x0gP7sNXqBliVRM1s5MvnsX3bK5gUxuEDTn1V1KsGM1p0dESbtefLVdIis/9boKi3yvKP979mFCDM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792355892; c=relaxed/simple;
-	bh=grwPLF9rvrThlCbEVNYFA11CM//ZaiKIyqYKtaq9cYQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RgCqcQw3UqaPXiumLH905HmN2U0flb6Xe4Rvw8aMDHcboMC8ojVLXhDvLD2uZFMpFodRPFjUVhD9r9vacupR+u46ela0ITMTgAmQWf1z6C9A8e9khdYwahcjA3r4skqXZk1WGqfVL1j+Er8cA3pO+U+B5sQsaNerkXSnU/wWUO8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J/ruDCtl; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606CD43B4BC;
+	Sun, 18 Oct 2026 20:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792356094; cv=none; b=pJsoe9WgfWIJEPMPowRutgu9UPao18Dmr41eLi9jqjtB403k4biEEFJpBDgKmUYXvaKDlHyDjhPU8DjKVKk5Rzmuh1d8BlJCuAVgwtuDLKT89AnGQdeNsdDs+q1wKCf8ZONMgdbp3ouKlOFt4xypBippLH1zozE5KqvNXP/zkos=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792356094; c=relaxed/simple;
+	bh=puRJF6b4XSquydSVBlYDP3nIomGvJq/gteOjU5paHDw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=lTvIW8dOEn2eO3JfD2rFo3i6pAqo6d4IhZdK0mFZC19S0j3aL8l3DMMYaaqt7yGRaArd1ZLQE26Ev3OWzWL8+HCczOjVtEYha7I7MtuIh3QNKLaETGCbV9x3AhyDVYG7HOAMAUxwktV2vpe3NnL2f21qasdmsyqWFMOl8r8raQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T+Iq1pBt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J/ruDCtl"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6aa9164072cso1849196a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:38:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792355889; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ArnXt2y62V/qZEm5nL3ASLGA40FPY/nb+dvJI88fOnoUQkMExRp4zgdk8KkC7RaD9X
-         TKnhb34GgBZ1N5tbj8VjX2Ioyrit6M7qn3eCn9XP4L5xv+uzgWNmkcPUwAcz1stDnQNV
-         yQDE08czrdJ+7c/PQsD6LFzURWg8h+MAaNO17CbrgnrYPJ7mdwnZ/qfeuMZxspSzYv0W
-         RUzMOQQ2XU2CeLa4MGV8l1fm8jLHOTzmFXNNJVAL5xuyrHv+iZdnysI96PVHcQHk7olA
-         AGUv+Wz2mmy5bkOQKIh+qPQD5x2XCkeTzg9XyPEqbgt1Kno/BcISXcQk1jOHdxW+gs7T
-         QjxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JQEuJfxQYvtnYsFieIFSsWi3xut1QyYW+h2Ko2bI0iw=;
-        fh=Y0+T6znVXilvEWfqBe0WNs+Ob8xNJBIblBFM0jLw0D4=;
-        b=qttZCkQC5PdWoFeeUvEDDpdeUgInVohEYrBRGJclhO3IyZ/0SmVUf/CkxgfyzcMjHx
-         mOrv0WYbbbyQ4cO4VyPJJ7IoBYRn5dj95cHvij9OQvIYtZTEOwBpnU0ZyheGKWPUGjAc
-         XjQlf3j6E7DInvFHLDuYALXQVYJTutK2JlDEdA9t9VIYduzA5skmKgIvx4opKvDhu8N+
-         hEkvXCkzmQN52dg2fOD/NVuEQmvk2TecXzsC7s+xY2RsCUHrnXJeOFTFfXO4X24o5rbV
-         f5fLirwgX3r7oGDJHTEBa/lHydcTMZfdWN0t0Y6K40NZPvktCptoAYAdDcPtDqTUzR50
-         7Xwg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792355889; x=1792960689; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JQEuJfxQYvtnYsFieIFSsWi3xut1QyYW+h2Ko2bI0iw=;
-        b=J/ruDCtlP5Bs5KVBK2O4gdMy8ltSGLFVDGMguwLjwiR9SsupD44G+swuqbtMv0JLRr
-         BaJ8lBh4ghZe8giEIxGgml8pRpQg7X19ABGTsBUwfqiFufHDd+2yI/nPDjyE3eawu3V3
-         acbI1Ew/Hi3fNz/jrjTbAGcrIOy9iDxLhxaTVt/LGIMUpUB9Ex/WobcAj1hpzpT0QcRL
-         gTJORb70jK1+BL8qrwxKXEnK/816Fz0/soPdpccU+kipNJS8aAPn/XZv9s6K+mxi3tLM
-         f4zANHD5ix24J9py5e4GxMeO++wiXit6BMxLVs/v7iSilL2OTPoHlhGZ7O/YE6Vm5tx9
-         cSTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792355889; x=1792960689;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JQEuJfxQYvtnYsFieIFSsWi3xut1QyYW+h2Ko2bI0iw=;
-        b=xjB/+1vELmhYFiFKiBSCb9VcPVPz+pbqie7wvnT9GpappXlEZDK4fR/mXKu8MvLrGN
-         ntqdaZKUz1PhXsNjtVbxBQjRFSq/EKopXZ5NCcNa63K9/e27+eaPdlCLE+10kF55KKU8
-         8BHoF4jyXiE5JcuDHjlUtzkvRExVzftcPQI69g0ncH+WrhQNtqz/jfUQ0etm2TzcuGEa
-         kFNYSsuapfE1omxVvU102T3MSp3BMFLHnRk2Gk2PlLNBKf6fekpFv5cru17aKHVH8wpA
-         XtwMoPb34HkyXLXohfMmc3x8JkyRGYTyJgN1RYg8Hr1NFdpSofxTA+wzVtY1E1Hq+ZX/
-         oF6g==
-X-Forwarded-Encrypted: i=1; AKwUvBz+IlLQiW1n6hoCt12QIblViMpfXcAoxo6hyRz+S0ON9sf4z/BImaYvca3OBsrFy/Ob2fLmmbLURqmvaqc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6Lc52TRZXTRMIJ7qE6Tql5I3TNvQ0PGta28Z8IUqkQjEfsJev
-	ncwGIgktW5Wl5NaFFrvH48CYOjY9Kl1JwlHrcTDeFJRQ9oVdoy+L2WQVkYUdk3G6vtiNHlsXe9B
-	Axk9fUXU2tM/3AcT92RjUPu82n7gkQ9E=
-X-Gm-Gg: AYBFou3yO6SV77z94KwAQi9w8LWQdFWrkZK8daTAhvO5Ilm2087/aNUl2hQ9JmGbeIl
-	36RaFubgu9QXjD+YLOcwxP5ZKH+uc6vkrlhnjUQi4oVFOB7Ddqq5Joo/Xt+yYlYFfkcIYk+BjwE
-	3ptz7G/dul4sny2AqOomJaCn4K66pI2PrVy/VxDpmWYZgH9AQqy1cfy3vFmjlvC/mEO55/6BGyf
-	0dtGszEm4DyzAmSVgSJtUFhzreFCpMOjbyHXYodPSp6QBHtBfTtdn5K/i6jCkS5NTP+SWTGj7Sv
-	e2d3SSpqLsN8V0kY5kyxYq6coa4OYhH74/V/E9f8hEWiwLtLJ33d3HbrhwzYKfYi/vkPNoJdrEh
-	6UtUz/jgoUYBEgYhXREABrsf/M/BXD8m4yqU6GGvuQg==
-X-Received: by 2002:a05:6402:21c4:b0:6b3:bcb8:8a9e with SMTP id
- 4fb4d7f45d1cf-6b3bcb88dd3mr1755246a12.23.1792355888546; Sun, 18 Oct 2026
- 13:38:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T+Iq1pBt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B04A21F000C4;
+	Sun, 18 Oct 2026 20:41:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792356093;
+	bh=KZl1E7ojGN4UcuQl+IdP+UtPm4+3Dzwnc6HOFL1y8LU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=T+Iq1pBtHwyque6J9oxwUmCpSdytj3Ee9KHh2R2JfnacRVOaHb9vfVX6xlH8vLh9K
+	 sfpn6ZfkIli/NCGK1hhAQ0i+6f75kO713KyLgZTOadD9wXcAXW1RivzHKE8dFmJHeR
+	 ijg5G3+bzbNVAvI+ScKXS16+gkyod22KBcQePHfagmPy1KXraHoB5iIjSuLBCrrLvI
+	 nGJNqlivzcZA31JBlw/7hddeW5yH+I6BxtmQuhOZ6GjBfsv/+GgDaZeW5jeRqZxUAI
+	 sdjvRgFNRU6p51ddQFa+E5JYLMWJ4fF0KB7YWwy4iNBtgq2Lfj0l/SrkjHtz+3Pbvb
+	 az5gF6M9q6Yfg==
+From: Mark Brown <broonie@kernel.org>
+To: Weibin Liu <liuwb@xiaopeng.com>
+Cc: jth@kernel.org, linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261013054339.77477-1-liuwb@xiaopeng.com>
+References: <20261013054339.77477-1-liuwb@xiaopeng.com>
+Subject: Re: [PATCH v2] spi: ch341: handle transfers without a TX or RX
+ buffer
+Message-Id: <179232568178.3162228.6393530462413113880.b4-ty@b4>
+Date: Sun, 18 Oct 2026 13:14:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261018122734.2594904-1-stian@itx.no> <e3068b5c97884032e7cbd12c78f6b5534d75e30c.camel@physik.fu-berlin.de>
- <6e2d2b2b7aa4029c261831016d8b6c40bc335341.camel@itx.no> <4f7dacd9b4cf0a43209be84f2408e6f7e033fd3d.camel@itx.no>
-In-Reply-To: <4f7dacd9b4cf0a43209be84f2408e6f7e033fd3d.camel@itx.no>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sun, 18 Oct 2026 22:37:57 +0200
-X-Gm-Features: AclHuK9-5GZYJ5otQ0xBPe9DcsaMy9Ec48RLx_aOqeCX25Ag9ve1MlPXyk4JPi4
-Message-ID: <CA+=Fv5R31wpXsm-7_H7ZR_U4ASubis+_zWKotpj2iNeWW_MTUg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] sparc64: Randomize mmap base and PIE executables
-To: Stian Halseth <stian@itx.no>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Andreas Larsson <andreas@gaisler.com>, 
-	"David S . Miller" <davem@davemloft.net>, Kees Cook <kees@kernel.org>, 
-	Michel Lespinasse <michel@lespinasse.org>, Jan Engelhardt <jengelh@inai.de>, sparclinux@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1120; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=puRJF6b4XSquydSVBlYDP3nIomGvJq/gteOjU5paHDw=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKu6n3WP7y2bdLSeKlfZ1l3mGqmfyldFWQieP75oW8m7
+ hm1FYc4OkpZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRLCOG/7kbfnBxeex30Jnk
+ bPYp4fPLkD2p4s2FtccF/8u2vG7w1mH4p5A5+Z2J9ZVD/Gmrmronh36fuMk4vi/9SM/zuric0us
+ 5LAA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi,
+On Tue, 13 Oct 2026 13:43:39 +0800, Weibin Liu wrote:
+> spi: ch341: handle transfers without a TX or RX buffer
 
-On Sun, Oct 18, 2026 at 3:38=E2=80=AFPM Stian Halseth <stian@itx.no> wrote:
->
->
-> On Sun, 2026-10-18 at 15:33 +0200, Stian Halseth wrote:
-> > Hi Adrian,
-> >
-> > On Sun, 2026-10-18 at 15:09 +0200, John Paul Adrian Glaubitz wrote:
-> > >
-> > > What about sparc32? Does it use address base randomization at all?
-> > >
-> >
-> > sparc32 is at the same state as sparc64 was before this series. Only
-> > the stack moves.
-> >
-> > I've only tested 32-bit programs on sparc64. The same approach will
-> > probably work, but needs testing on real sparc32. Could be possibly
-> > be
-> > added as a follow up, if someone with sparc32 hardware can test it.
-> >
-> > /Stian
-> >
->
-> Additionally, outside of qemu testing, I'm a bit worried about sparc32
-> machines with virtually indexed caches. I've heard those can be fun,
-> and I wouldn't feel confident about implementing it without testing on
-> the "real thing".
->
+Applied to
 
-Stian, following your exchange with Adrian, would you be willing to put
-together a native sparc32 version? I can test it  on my Hypersparc SS-20.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+
+Thanks!
+
+[1/1] spi: ch341: handle transfers without a TX or RX buffer
+      https://git.kernel.org/broonie/spi/c/84182c48999f
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Magnus
+Mark
+
