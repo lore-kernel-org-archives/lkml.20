@@ -1,61 +1,63 @@
 Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A72F2765E2
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:06:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6DC46EF61
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792321607; cv=none; b=B4m3FJbjQtKKx5U945DJYlfsIDciw5gRTq52nSbZ6AhMel0sSvhn4i6RPsfhYaABVuHm91V1Yb+7GUiClFJexV+syLhdHKBh5xnkf49vfNSbHm2VLn3MfxNIN7IPi3OJVkTAiuUAWcfVFUtfF06Xvaiv1K/MRMQssG3YxsiChLo=
+	t=1792321609; cv=none; b=Wecud7Q1k2zjzFHqXs46bkC1IqEHlARIOrXj6Olw54AiJRqjg1VPjFB0xDdzE0WmMZyYOgYGzt+Fn+6BTARAo4EK9hg8ySGCCCf0/bTca/pcCwk7niSWB1kkMhB20UnInsYGtaaf8gKHMrECCPEkM/kVEdWYlw1I6wFKIpJ9XAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792321607; c=relaxed/simple;
-	bh=f3B3iNW5Jyz48dyQPAFvEgnbdMtc0lDbUiZ7uRdYGfQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oa+wr0KGKiaK8o/V7IPYnnmZlYk3J/zttnfot7Lbm+q5dEzYyZ4LQ65pi/0HEQX6XKX9y3Y69i+koZmCEakWq8N3lcClfcxbcultewpkIAkHrFN9QULvLlpisyDDM/Fq3j5jeo5se8i5HPpp/Iyg6124ed0q/nGKnCS/iWX7zpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YQ9Azgdl; arc=none smtp.client-ip=74.125.82.180
+	s=arc-20240116; t=1792321609; c=relaxed/simple;
+	bh=rIBfix0b3dF0ycKQjA6Ym6QJTSoB2ktnb0nPAcT+DMI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=by4ngirNzb4G2qoxEQaLlXy3BC9KhWw05Ag8hGY0bNVUBdi2J600IMhlA8Y4ARoZ9/jesLOyaj+A0Eh/gYuQpFYhYCQVt4VitKRbU0OfZsU8zbOElfK7n2SwHLkhgZLz5HULciIixnoSAGuehpUyiSLLx5azlBCqFVqki+cHIzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e4nRRjMr; arc=none smtp.client-ip=74.125.82.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YQ9Azgdl"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3514b90bb89so3134757eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:06:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e4nRRjMr"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35c76e9614aso2253229eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:06:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792321605; x=1792926405; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O49igHudPgI9v3/i9aS7QF2TqZJHWwnC2xXfiNP4KC8=;
-        b=YQ9AzgdlXdF8NI4i/66fFUsG78V+0Oxq+KtEgzTz76EepMW5xSA8a0Vx7TQsIXJ5Yw
-         +QGKqTMZxA+EzURSBRQLZ3xiAv8muje7EPYM7dGlDvimL0m1+1yPpkcJZAXaMV/UWh9/
-         90AZ6YUIGfQGrFagB876/g4VhHr+2TcwmZQCiABSgTj+4HNqCVe7NUeUCI5OIJ6eKAht
-         6VSUxoanHVTHaIgjDUjrjvumSKr5+ugjZuEFeYoTCJQIZpMBbI5GXnBQZ8Qq3x7O3cjG
-         NKtfbkXPMyEoJDSdAxW3O6Uzhsbl+g7KIAYaQZK+nZ6QR0c1NJf7lvpwVeJAqrDiRGvW
-         Jwgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792321605; x=1792926405;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792321607; x=1792926407; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O49igHudPgI9v3/i9aS7QF2TqZJHWwnC2xXfiNP4KC8=;
-        b=LjFke45PInX0mtPGrvp7+XsYtco2v9mlPbuoVutMCeQV8J8ax2T/OdzhGUikifxLCR
-         GNjwU1VBEyXYGfbxPtHO2lRPmHR/yENzUmJzK91VM2SqHFaQz+0Gbb4gdkqs18WLrHjv
-         +Bn80CUXvNQI0ZBABpl+3o7+e+GjBTjxKAqIWFakj5qe/M0Gxj7TluJyctkaXgzrogUR
-         dieDI1vjQzBMTrlFuEbiSgapYnxXbEhWWffAFijPDFJfPO+fhm4X1SLXPLRZ67pdGKdl
-         hgoKGuDt1qji9niClm4gyMgl58X+ilsVyZ4NWLKfQQfnF3s8hDL0W3cOvJZQCEkjANQO
-         5MBw==
-X-Gm-Message-State: AFq9FYKYhRnt9ddykRXc7idjcuKTWxMctcs7NZrXq9VQBjiNXsXzSFOV
-	dfBtp4YSDBDDJSIv2g8E98ZPCC+d0yezJeeMsa2iLSVO+TwyxprvR70GQNAMtYwU
-X-Gm-Gg: AYBFou1MfDujgdzmmp5ARSdP70qlA+2w6YAnc62cgpSSa/iV1YN8stYMZgNQNM5CF9V
-	r554fktyIY+TACnhlLgL/uoz+cemsaz0vEXgCTsDzXsBVdOA4TNngq1wwBt9tGBW7hgxwi8QR90
-	B17t8nznJr0x8Cbxy8sYBkNeAMI7AbsdoJ2/H8u+/RMY2Ea99vg5b3b+84Mxao8IVNoBNrAaJaX
-	0SyPrXhkdRcjhh3P2vMGbV8xoKacBwi3VWkV5y5JE/ywNXAcrjqldgLxvQEvyLJRAZ5bm89FMoC
-	6xA3VNNK8x7ZQ0SYU0RXbX9nDgpiHPBgx5LhvS9JeDNgiyZ6haiQsICScRMpBFS4olZoXFwctTX
-	2L1GzjdC1osU6mnZLBns6xKY5OJHa6JqbHL0QMDGrzGTYoPdaP2UKHEbrl9W3phPdUiI8oURms9
-	LhASSudgyzk+lDfrTY8mysMpVc0ZrCHO0x2oHYDKQc9ZWClKD7V0MBmOAp5SD+/7z6hsLvA3gwK
-	/UD/MOLZ/vv3WB1QGOyYxGGxfM0PyG7GThSpaWk6IIKSTE5kRSm
-X-Received: by 2002:a05:693c:4090:b0:33c:16f1:2e11 with SMTP id 5a478bee46e88-361a146def6mr8684834eec.7.1792321604948;
-        Sun, 18 Oct 2026 04:06:44 -0700 (PDT)
+        bh=gzjZYWl/Kozn7jVMuZoo3jmNv4flOMdcbNDMFBKzxEY=;
+        b=e4nRRjMrYnYr+TJgzYiGgrXzNrSm83kNXN7nryeU+kWDTC8WztUmeE1D+UXj30QrrG
+         m0KqCRKTciwG4KxPKai6crkj08sQSkRsOgumuI/sXJbEm1u/DQ8JzIE2GXPtxXys4BC2
+         K16gozdDtc+BzyzwJ+iCtiGB82Kl0opEXrCC0YOW+LFdtn74tspDdoi0kUiYY9uV9eEE
+         lykYBPFQ1TtKt+czkm9f6i/FVIsloYCF+Xz3E9aLaHPlqYIlQKCfXeaekqGb09ewHaiS
+         TT81juB4s18Msc2PYh/1MsZnaZXUk3GjubldqxdtLAXc5GPqgL6iqZiWXtt151AcxK2m
+         lfuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792321607; x=1792926407;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gzjZYWl/Kozn7jVMuZoo3jmNv4flOMdcbNDMFBKzxEY=;
+        b=AcKAXjR9M+nNbgm3bDILDwjipQ/QwpNL39eOI+VA615W3ibdbNjjDaI8OoH3L1Uxf1
+         46hb+bWPk2czwyeMoYdjjSd0dzMR779vxTQywzJX1FPigovHDY3MIxtQpKZpiIMljtK2
+         0REE9lSMjguE0W5J+6Ev0Xxsz+6fjl60yZ8wopEGjsjtMuOLAKz9nIUfE77aTsx3SNLu
+         UJDHMLqlDFZb1ho6KUYx7AVUFAoUbDzyDw4FuHm1S/fc3jTpQ57roHqIb6B0meFffflF
+         yWnW7WGDhOZT21dWTxQm0g91/pSKttQdBhikTEAFdqzSyZdq2douVIU/LrQPUvhWjD/0
+         n90g==
+X-Gm-Message-State: AFq9FYK6u2Cfmp+kGsm650l1Vfg54DZiACLmUxrycM2O4liuOh85jdvN
+	btjKeSDwsOCN9aZ6tgxIHvqfRqtg1AxcB1TjGuCHIA5OSzpL7CCzj3adg6IJp2DI
+X-Gm-Gg: AYBFou1hEzH0TNsPDpdxWSbQ1tuTv6A0L+VUexWTfZt30TjrFba8zUcxcK3HEBelZvx
+	lHnC3kSWZSED2eMlBeDN6QUKLvWAVFh++tmzENiIqmpLMOuu1GiaWmxYWyoRbpbxsR1Fr33VGVZ
+	J3xra6jkmdua6j+KMikuTY1iJVEPtmDnxmbWWrbqe6f1JbWtcHZMTfy7CKrfZfLVZblKhLRhs5T
+	mEWELVKiFq0IeSS4D1RzPWbRzp4qdhr2eYpVrjvuhhj5pFJOD5GP42XkFcJMHsdF8wWYCN7bUw6
+	87ymWv3I5g75rBRlMrCTYJSLV/xV8Hu/OecsQrvCmJdfHlUpW7KkuVUvVvZsAf9cVh7sMgJE331
+	ARp+vCed0J35xZVJ0keHAXrKREAGDn9AsEBvAsOfhnIZQdZBrvrDJE+ETy/7YViTNjNVbEubIiR
+	48bQrXkeNWvMN9iGTl32gNL3nyG0GlDVSXPcbPDRC8CAwV4/tMDvWglOodpC5fUt3HLmePUGXVO
+	eCfHyeEwxhn1ZPhn81eC82PH9OvHSi5MUKAY7L9MNxSZ7ZoAoDn
+X-Received: by 2002:a05:7300:ae22:b0:359:2a1f:520 with SMTP id 5a478bee46e88-361a2052f01mr7138379eec.24.1792321607250;
+        Sun, 18 Oct 2026 04:06:47 -0700 (PDT)
 Received: from Biostar-A520MT.. ([187.94.15.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm28647706eec.3.2026.10.18.04.06.42
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm28647706eec.3.2026.10.18.04.06.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 04:06:44 -0700 (PDT)
+        Sun, 18 Oct 2026 04:06:46 -0700 (PDT)
 From: Breno Rodrigues Alves <breno3011alves@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: Andy Whitcroft <apw@canonical.com>,
@@ -63,10 +65,12 @@ Cc: Andy Whitcroft <apw@canonical.com>,
 	Dwaipayan Ray <dwaipayanray1@gmail.com>,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
 	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [RFC PATCH 0/7] scripts: convert seven more Perl utilities to Python
-Date: Sun, 18 Oct 2026 08:06:31 -0300
-Message-ID: <20261018110638.9947-1-breno3011alves@gmail.com>
+Subject: [RFC PATCH 1/7] scripts: convert checkdeclares.pl to Python
+Date: Sun, 18 Oct 2026 08:06:32 -0300
+Message-ID: <20261018110638.9947-2-breno3011alves@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261018110638.9947-1-breno3011alves@gmail.com>
+References: <20261018110638.9947-1-breno3011alves@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,39 +79,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series converts seven more Perl utilities in scripts/ to
-Python 3, following the checkpatch.py + bootgraph.py +
-checkincludes.py + markup_oops.py + profile2linkerlist.py
-series already submitted.
+Faithful re-implementation of checkdeclares.pl in Python 3
+(stdlib only). Same output, same detection logic.
 
-Each conversion is a faithful 1:1 port: same CLI, same output,
-same behavior. All use only the Python standard library.
+Tested byte-for-byte against the Perl version.
 
-The seven scripts are:
-  - checkdeclares.pl          -> checkdeclares.py
-  - checkversion.pl           -> checkversion.py
-  - extract_xc3028.pl         -> extract_xc3028.py
-  - generate_initcall_order.pl -> generate_initcall_order.py
-  - get_maintainer.pl         -> get_maintainer.py
-  - leaking_addresses.pl      -> leaking_addresses.py
-  - recordmcount.pl           -> recordmcount.py
+Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+---
+ scripts/checkdeclares.py | 64 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
+ create mode 100755 scripts/checkdeclares.py
 
-Verified byte-for-byte identical to the Perl versions for the
-scripts that have deterministic output. recordmcount.py tested
-for x86_64 and arm64.
-
-Not implemented in get_maintainer.py: --interactive, --self-test,
---git-blame. These can be added in follow-up patches.
-
-Breno Rodrigues Alves (7):
-  scripts: convert checkdeclares.pl to Python
-  scripts: convert checkversion.pl to Python
-  scripts: convert extract_xc3028.pl to Python
-  scripts: convert generate_initcall_order.pl to Python
-  scripts: convert get_maintainer.pl to Python
-  scripts: convert leaking_addresses.pl to Python
-  scripts: convert recordmcount.pl to Python
-
+diff --git a/scripts/checkdeclares.py b/scripts/checkdeclares.py
+new file mode 100755
+index 000000000..32c826ac8
+--- /dev/null
++++ b/scripts/checkdeclares.py
+@@ -0,0 +1,64 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: GPL-2.0
++#
++# checkdeclares: find struct declared more than once
++#
++# Copyright 2021 Wan Jiabing <wanjiabing@vivo.com>
++# Inspired by checkincludes.pl
++#
++# This script checks for duplicate struct declares.
++# Note that this will not take into consideration macros so
++# you should run this only if you know you do have real dups
++# and do not have them under #ifdef's.
++
++import re
++import sys
++
++RE_STRUCT_DECL = re.compile(r'^\s*struct\s*(\w*);$')
++
++
++def usage():
++    print('Usage: checkdeclares.py file1.h ...', file=sys.stderr)
++    print('Warns of struct declaration duplicates', file=sys.stderr)
++    sys.exit(1)
++
++
++def process_file(path):
++    """Return (dup_count, error_msg)."""
++    try:
++        with open(path, 'r') as f:
++            lines = f.readlines()
++    except OSError as e:
++        return 0, f"Cannot open {path}: {e}."
++
++    declared = {}
++    for line in lines:
++        m = RE_STRUCT_DECL.match(line)
++        if m:
++            declared[m.group(1)] = declared.get(m.group(1), 0) + 1
++
++    dups = 0
++    for name, n in declared.items():
++        if n > 1:
++            print(f"{path}: struct {name} is declared more than once.")
++            dups += 1
++    return dups, None
++
++
++def main(argv):
++    if not argv:
++        usage()
++    dup_counter = 0
++    for path in argv:
++        n, err = process_file(path)
++        if err:
++            print(err, file=sys.stderr)
++            sys.exit(1)
++        dup_counter += n
++    if dup_counter == 0:
++        print('No duplicate struct declares found.')
++    return 0
++
++
++if __name__ == '__main__':
++    sys.exit(main(sys.argv[1:]))
+\ No newline at end of file
 -- 
 2.43.0
 
