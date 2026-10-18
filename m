@@ -1,108 +1,223 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F89B23394D
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3E92C21D8;
+	Sun, 18 Oct 2026 03:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792292352; cv=none; b=dMH2oWMc7Bg3IAPvj+5CFFzeEubkPg6s5FpXV36iR8i4VVanJaD9PSvQG6TyvxaKT88AHKpO6KxiLsGk8u/kfb8lw1fFkf1o1FvEjHCLx/BkweQrwMLUTYYfCtmusQpMYTOraQ2JByXb4IMxrGys0gBydIvY8j3hZJMraZHKvPo=
+	t=1792292488; cv=none; b=piJz3kFteTkB5NWNZ0Wl0Rvm8sKa96WxSZGtbWUIQb4Fb8v5rd7by3X8vi+5ugz0uuv8PCeb8cl12NTb8L1wUqGHSgZ0xGdcDII5400+Cc8TrVWYX01UpXJe4wjrG7gwI1cm+DP42nNPostqgT4gFpRc9gyv8RuSeq9Me91483k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792292352; c=relaxed/simple;
-	bh=xOT2xhgG4HvHxboNomCCB8zMtEcw47CfY+5UMisvHbk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A2LVpRGnPzDYd7zswl9tR4/cQo8v1XBIvfPz8H2BC3gSY52dujzOajWbw29ILHLm/n93olW8hZvqC5XsVj2TfoSM2oaEUHP1wDJa/J4h/7IpNnrKvgDlMaxck5Mr1drbL1bi+fbs2aD3DjFqsEQ33t+emBuvdnBjH89szr8XVHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pr5DoapW; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792292488; c=relaxed/simple;
+	bh=Lmsjoh8UIFUpUQXizL2oNfvxpyB3IZX8IjubtEvtIkU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AGlJ0jspjK4KXzbxKGTKPuHGL38Ou4mXXwX1hiZZyWS2ozggEhuGiFjBxOHiSOVldt7FWgVHi9te1Q5B20ygSjWfe3jqL3Ku8wGYNaRGsA4NIV21JTirg9pUA1NPS1pIle8db2CAwrir7Nvo+SGQDeyDIA0NbwtXJHLu6FhVW7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfohei4h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pr5DoapW"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c4be28b82so822513f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:59:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792292350; x=1792897150; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xOT2xhgG4HvHxboNomCCB8zMtEcw47CfY+5UMisvHbk=;
-        b=Pr5DoapWgRT9SxZuQfvGgKwDD54Bgj9H/lkAtLlLj6X8Y9Q35ZZtTG3XYeU3Z2gAeY
-         j0/KjqBz0V7YKSls9+VcsGJgoI2mnFbOSL6rqcJe0VYQ1ew08YpY20sowe+XlLawcKMt
-         AISEQ0wo7p/IxtUfSXUza/xall1bFEz7g1o31SAFuYt4RUz2L9fyGkUTELJ95yr4NPGI
-         gagxKmyQVSB3MWRdGX80thzFoVd+oRN1lDlYowAnvVo8c2Z5cuesWnD55UOgMEhNdCYd
-         Lo5ui0TQMSRrez4N61wbNU5/7oYqsn0wvTlfEjr9+jOnYvXYzPm0LxDeB/HTQz/Z0U5v
-         Pbrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792292350; x=1792897150;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xOT2xhgG4HvHxboNomCCB8zMtEcw47CfY+5UMisvHbk=;
-        b=ft5K/B2MW6l/oLS3XW3pqcyKaCQ/SO8v0NO1gihkDVacd9f827GwXCsWFzzfYGHsmF
-         rxSEdrmZTrvE4gDCtNaTNzpJR2bnQShco0AWPUYj9eZWxuiaHIemo5cCSj8nFHt9j8Lj
-         Dcl9iNJNZ7/+3Bu6uxmAx/ZD19aHzLckwHEZd7LwHZivtHMxlns6bBFjGqe5Otlq6V3R
-         S24ImPBCDslRepw4iMR/qhijVNiP5frVl7EblFpThFYKdWX1vabI6rsVUYz4LGCr4w/f
-         Mx+26sWzC0vIeA5rtjiGtbnq4abhPlzHICcgziIYOIdNRKSnOVMQGIOQNW7e2TmH1Wfr
-         WAUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwqe8UapjLDQudFq3gNzq1GuOb8NtUsjkNteeDd4lvKXO43EM1Tzp/bLSy5v6X/KrPQbDgu59oxgTU4Qms=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7fvuwtuLmwEx8yFVeAqrQ5+sg7d+fySBFfVD3dFQZYeydJLNE
-	PoLetQjRBT6dVBi/xbPqIonh5K1EJ9Ff5a0DiUmiiBh9TmSVtB8T4EwO
-X-Gm-Gg: AYBFou0Aw1lfaMunXakoGkeFZW4cAVKmY5hgy/u6pozXqhgKam+PxzoUg7IHc+vJ1X0
-	dvSXs0h8QzOjcUKBJveDdiLAX0t3wk+lA2u97QIi1Bpwx1tXNAlIzACPgsEufTXgxyNbUM4NPlE
-	CEDlhLlFMmPW23hCKLA7NAKX8GLkjTbYa/zafznO6Kv6gmdebX+bcQNdmXegiQetvzekC4JJZ30
-	AJKUhgNxQdVK5weFttHZrEddv0S+Fgxe/J2FQ9/bI/+c9Ftj+2oz4WAXsAAH9uRbMn7vobGQU5q
-	8uhJQCeKXINFJjxsvJyrkfneebETgdl+ByrmE1W5iBH+2ydMK2bpmXaSqIPATsQD46GJsWOSPXu
-	vuNXLjYNAZ0g0yJ+ra56CR3bOzPYhG3mo+zz35Fn7IfvDr9srNnUiOyrREhcj+Ix04ayYt9HfVm
-	jTReeoVakHS33uczs/Y/IqdtK9l4UVQoR9ECtk7c2xbeeMIJpv31qLFBusQcP+ER1PtaIND0sIa
-	x2ivt4H7SAjzIxph3/LqUocnEegKV9P3bRsRxKNVL4wMu9yZ2qhHl/XowvrKTf+rEMpWQ==
-X-Received: by 2002:a05:6000:2c0b:b0:48a:f3c6:7bfa with SMTP id ffacd0b85a97d-48e07fbd825mr6459320f8f.52.1792292349489;
-        Sat, 17 Oct 2026 19:59:09 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8bd9sm14785161f8f.35.2026.10.17.19.59.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 19:59:09 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kazuki Hanai <hnkz.64@gmail.com>,
-	linux-mm@kvack.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: Re: [PATCH v6 16/39] mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT if not mm-managed
-Date: Sun, 18 Oct 2026 03:59:05 +0100
-Message-ID: <20261018025905.201296-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-16-1aa3c9b139f9@kernel.org>
-References: <20261013-b4-mmap-prepare-vma-flag-sanify-v6-16-1aa3c9b139f9@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfohei4h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3DB81F000C4;
+	Sun, 18 Oct 2026 03:01:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792292487;
+	bh=96j1+7Gq4xGSW3f14VDoE2SlvoRfO3Rvy+gD/XIxceI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nfohei4hGdgpHxDsRZaMIiXN+4MgLrmCJlDgoX2BaziVwy1CfuTuR6el+Nj1KPKCR
+	 JnAqdwl48YKUBMMc+PJ2CSOFX6AbwsznrzvMVhgQK5Ekm5je8z+rZtTI0TJMxlX8Lu
+	 GUGTfl3S12Mg7meaGj8B0aiXvOTbmMxLdyksM47G2Y2Lu1K2yp5lPSHNs2vqqwyHv4
+	 dd0lsXQL3OLoyEMMG2cgVny9hldVwxVHHW6+dj/xU6NrasBa4jcJNiu+r4a7YoK2Jg
+	 fQgdgbqIha3ofBJPb8v9p6+ylHB0z2q/9S8lyNMw5GXrlXgq7DR39vWDCxFPI4U6nw
+	 VTOzaGSRxb+Bg==
+Date: Sun, 18 Oct 2026 04:01:22 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Kanak Shilledar <kanak.shilledar@axis.com>, Henrik Grimler
+ <henrik.grimler@axis.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jean-Baptiste Maneyrol
+ <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts <joshua.crofts1@gmail.com>,
+ Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 6/6] iio: imu: inv_icm42607: Add accelerometer
+ calibbias support
+Message-ID: <20261018040122.27de8bf4@jic23-hlaptop>
+In-Reply-To: <as1XY5EfKwfnb2DX@debian-BULLSEYE-live-builder-AMD64>
+References: <20261009-b4-inv_icm42370p-v6-0-e53884f185ff@axis.com>
+	<20261009-b4-inv_icm42370p-v6-6-e53884f185ff@axis.com>
+	<as1XY5EfKwfnb2DX@debian-BULLSEYE-live-builder-AMD64>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Lorenzo,
+On Mon, 12 Oct 2026 18:55:47 -0300
+Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
 
-I think one site was missed: usb_stream_hwdep_mmap() in
-sound/usb/usx2y/us122l.c clears VM_MAYWRITE on the read buffer since
-71c610aeb177 ("ALSA: us122l: Prevent write upgrades for read mappings"),
-but sets neither VM_PFNMAP nor VM_MIXEDMAP (pages come from .fault via
-vmf->page, like the PCM status page in 13/39).
+> On 10/09, Kanak Shilledar wrote:
+> > Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
+> > registers are stored in MREG1. The calibration bias is written to
+> > OFFSET_USER4 to OFFSET_USER8 registers in MREG1. Reject the out of
+> > limit calibbias values instead of clamping it.
+> >=20
+> > Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-423=
+70-p
+> > Datasheet: https://www.lcsc.com/product-detail/C5129967.html
+> > Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+> > --- =20
+> ...
+> > +static int inv_icm42607_accel_read_offset(struct inv_icm42607_state *s=
+t,
+> > +		struct iio_chan_spec const *chan, int *val, int *val2)
+> > +{
+> > +	struct device *dev =3D regmap_get_device(st->map);
+> > +	unsigned int msb_reg, lsb_reg, nib, byte;
+> > +	int offset;
+> > +	s64 val64;
+> > +	s32 bias;
+> > +	int ret;
+> > +	u32 raw;
+> > +
+> > +	if (chan->type !=3D IIO_ACCEL)
+> > +		return -EINVAL;
+> > +
+> > +	switch (chan->channel2) {
+> > +	case IIO_MOD_X:
+> > +		msb_reg =3D INV_ICM42607_REG_OFFSET_USER4;
+> > +		lsb_reg =3D INV_ICM42607_REG_OFFSET_USER5;
+> > +		break;
+> > +	case IIO_MOD_Y:
+> > +		msb_reg =3D INV_ICM42607_REG_OFFSET_USER7;
+> > +		lsb_reg =3D INV_ICM42607_REG_OFFSET_USER6;
+> > +		break;
+> > +	case IIO_MOD_Z:
+> > +		msb_reg =3D INV_ICM42607_REG_OFFSET_USER7;
+> > +		lsb_reg =3D INV_ICM42607_REG_OFFSET_USER8;
+> > +		break;
+> > +	default:
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> > +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	guard(mutex)(&st->lock);
+> > +
+> > +	ret =3D regmap_read(st->map, msb_reg, &nib);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret =3D regmap_read(st->map, lsb_reg, &byte);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	/* 12 bits signed value */
+> > +	if (chan->channel2 =3D=3D IIO_MOD_Y)
+> > +		raw =3D FIELD_PREP(INV_ICM42607_OFFSET_MSB,
+> > +				 FIELD_GET(INV_ICM42607_OFFSET_USER_NIBBLE_LO, nib));
+> > +	else
+> > +		raw =3D FIELD_PREP(INV_ICM42607_OFFSET_MSB,
+> > +				 FIELD_GET(INV_ICM42607_OFFSET_USER_NIBBLE_HI, nib));
+> > +
+> > +	raw |=3D FIELD_PREP(INV_ICM42607_OFFSET_LSB, byte);
+> > +	offset =3D sign_extend32(raw, 11);
+> > +
+> > +	/*
+> > +	 * Convert raw offset to g then to m/s=C2=B2
+> > +	 * 12 bits signed raw step 0.5mg to g: 5 / 10000
+> > +	 * g to m/s=C2=B2: 9.806650
+> > +	 * Result in micro (1000000)
+> > +	 * (offset * 5 * 9.806650 * 1000000) / 10000
+> > +	 */ =20
+> Maybe add a comment here highlighting that this is an exception among IIO=
+ ABI
+> and provide an additional patch extending the note on in_accel_x_calibbia=
+s ABI
+> doc to include icm42370. Having to amend the ABI doc that way looks to ha=
+ve been
+> an unfortunate need (also according to commit 69c93a7df74b).
+>=20
+> icm42370 seems to be similar to icm42600 so extending the exception might=
+ be
+> okay in this case. Creating new ABI is probably too much.
 
-So a MAP_PRIVATE mapping of the read buffer, or MAP_SHARED on an O_RDWR
-fd, now hits the WARN_ON_ONCE in mmap_validate() and fails with -EINVAL.
+I'm a little unsure why scaling matters that much.
+_calibbias is usual considered a 'pot twiddler' type of control
+so unit less.  Obviously it's nice to have units from a useability
+point of view but often these are actually controlling an analog
+front end circuit with unknown and sometimes non linear behaviour.
 
-The VM_MAYWRITE clear is a security fix, and the VMA must stay
-expandable for mremap(), so converting it like 13/39 or setting
-VM_MIXEDMAP seems the way to go.
+So it would be acceptable to not worry about units at all and
+just expose the offset value.  Putting it another way the
+scaling is driver specific.  I think the existing special case
+in the ABI docs might have been a result of cleaning up an entry
+that was a duplicate after that stopped working (due to the
+ABI getting built into the main docs and duplicates being detected.)
 
-Found by code reading, not tested on hardware.
+Jonathan
 
-Cheers
+>=20
+> > +	val64 =3D (s64)offset * 5LL * 9806650LL;
+> > +	/* For rounding, add + or - divisor (10000) divided by 2 */
+> > +	bias =3D DIV_S64_ROUND_CLOSEST(val64, 10000L);
+> > +	*val =3D bias / (long)MEGA;
+> > +	*val2 =3D bias % (long)MEGA;
+> > +
+> > +	return IIO_VAL_INT_PLUS_MICRO;
+> > +}
+> > +
+> > +static int inv_icm42607_accel_write_offset(struct iio_dev *indio_dev,
+> > +					   struct iio_chan_spec const *chan,
+> > +					   int val, int val2)
+> > +{
+> > +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
+> > +	struct device *dev =3D regmap_get_device(st->map);
+> > +	s32 min, max;
+> > +	u8 msb, lsb;
+> > +	s16 offset;
+> > +	s64 val64;
+> > +	int ret;
+> > +
+> > +	if (chan->type !=3D IIO_ACCEL)
+> > +		return -EINVAL;
+> > +
+> > +	/* inv_icm42607_accel_calibbias: min - step - max in micro */
+> > +	min =3D inv_icm42607_accel_calibbias[0] * (long)MEGA -
+> > +	      inv_icm42607_accel_calibbias[1];
+> > +	max =3D inv_icm42607_accel_calibbias[4] * (long)MEGA +
+> > +	      inv_icm42607_accel_calibbias[5];
+> > +
+> > +	val64 =3D val * (s64)MEGA;
+> > +	if (val >=3D 0)
+> > +		val64 +=3D val2;
+> > +	else
+> > +		val64 -=3D val2;
+> > +
+> > +	if (val64 < min || val64 > max)
+> > +		return -EINVAL;
+> > +
+> > +	/*
+> > +	 * Convert m/s=C2=B2 to g then to raw value
+> > +	 * m/s=C2=B2 to g: 1 / 9.806650
+> > +	 * g to raw 12 bits signed, step 0.5mg: 10000 / 5
+> > +	 * val in micro (1000000)
+> > +	 * val * 10000 / (9.806650 * 1000000 * 5)
+> > +	 */ =20
+> Unless Jonathan thinks it to be too verbose, we can also have an ABI comm=
+ent here.
+>=20
+> With the ABI exception somehow highlighted,
+> Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+>=20
+> > +	val64 *=3D 10000LL;
+> > +	offset =3D DIV_S64_ROUND_CLOSEST(val64, 9806650 * 5); =20
+>=20
+> With best regards,
+> Marcelo
+
