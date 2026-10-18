@@ -1,138 +1,214 @@
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420704C2270
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:58:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2714C9E10
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792331908; cv=none; b=JcY7MFfiz8rND2HtjaCpx8SCBq93diaE574SsXG7pWODKgkJTzdlE2ler+Qv6LAr2JXaw6K3kb7bXMGVrnXuWNfsj+DzBv2lDim035qHNZrFWp89LwXwOvnTrR0pmpbTpVapE2ZX6u4JYXvVvSExtcjz6BEhjdccYXBjhk/Ez28=
+	t=1792331991; cv=none; b=j9DEaeElUJPQSl9fI15CWAs0zi3PYxTIwnU6IVlteMnv8d0MWN8umZcjERzFMz4zac84aiHsZ4zjvagrn5CyoBg7Ru9Rb8Vyo7mozO5YnVeKiGXNfCfEVe9x7QoTbsrS7pPfms9yALZJZQ9NQRokLFZYnA2LGuVybCmWVKYOnKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792331908; c=relaxed/simple;
-	bh=IwHavXJVs5lyTOCcn+pET+ahPXOw4vfy6zPC2ELLFdk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cRTU9PffhW6tTVHQlKg3ojOxzsd6mmJF5TF6FIA4WIlVZZz/8YgXXT7CdI3O+1wF/9/Xno1O6umYM+NS+70cAk3wT2IP8BqrmdCrAYrxq/dkmhXkfWdxvhsC/UAWD4hHTOTSl61nHxV71kRrHTgij6QSvWBqBNb9H//3de34Kbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=PZMI4w2M; arc=none smtp.client-ip=209.85.217.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	s=arc-20240116; t=1792331991; c=relaxed/simple;
+	bh=8+dudQneRtlky3L0134Uq63K6jUPTy15f15f59Dl2JQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eeOXg2uZZdGsJ5d3p82bVLce9XeytW0JDnWkF1wrFn3SRXxePa28dnM1IWLsUQVsJBqQxF9PxwaAlHNKLyZuSsOnsEwr9hu7KwmihSMT/lYZ69C4/BqIJ1dPvxArFMfYOtyFCoj/GhpF9wNDSHhm63g9i7qIhyN1/QSFOQGR7N0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=cdGObsrm; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="PZMI4w2M"
-Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-7cc0892f92cso301112137.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:58:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="cdGObsrm"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1215226a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:59:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792331906; x=1792936706; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ayMWfGshO3UNwVYFCcSN2BNh422miW8cad5xrtcnUvg=;
-        b=PZMI4w2MQRZzUU9IeVIa38517zEmudcio4i+U+Rm7RBsKFrLnnc7KXRC2kSh3EA3bu
-         K+DCOu8JjEzqnsxTysqWYUb2KU22ydIvG/HeV2q31xT6HylIqghGEsypGHngXgdjm7Cz
-         SSx1awLt0YgW4pIXDtfIFCb79/sB8O+lfASlhuBb8/5kw8Zthi8BDbx0dATSOs42d2PP
-         bG7NeKlNyfvVrizMWXJiftjgsHiS3BOZqo+Ep4RWC/nqOkDveesjVCmz18fqvtD9f+Jb
-         vXLd1lmmXu2FuwpzWOgeDPlDu2EvO20KZ3glq82KNmw7yb8nqpyOdQZ9aC7mPiuT4gMy
-         SlIQ==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792331986; x=1792936786; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TfIM6O5XGdPMggK0iswqZ9O/3wNWaaWuby0Fr894zwY=;
+        b=cdGObsrmW4D5w3Uh65A93PJlPk4Ne81C6dPBXTGA1bSIi9TtoW7Nf4INcqhQpS25hh
+         oot1e1bDKehX4rbmcmuXG6MaoDPKwws9k/eF+QIJih6ABM23sDxMrcXzmBThzwFHX4Tt
+         RVEKp+Pqs8VuL46JApnfP3yGdlyMMkWqXOt6XCKiuXyXTRGDgDHy8FhfrekjBcLHoMjb
+         Zwz4v0c+zOcZBBlayNhyuhNtM2y6VtJKEhyobm7n3y+BLQ9cSgH9UGz54B7KrvF1rHD8
+         ZLBc49qLIzIw7j0tyRw7z2sM/ZrQXCKdZVizD8xkMMqCrXI8WrD4laMjzLyL9KWC74sQ
+         lmVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792331906; x=1792936706;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ayMWfGshO3UNwVYFCcSN2BNh422miW8cad5xrtcnUvg=;
-        b=QE+vXJetA1UGUBNRpa6WwBPXyoeYaAqOwjrSvkHCwVl08h1kkc9CgwcyHFwOy4UAj/
-         ak5ci2GhtJtzM4YX9UEIOnBS0r2XD0CuV1i6QTH33KVAWBFkMcSJRx6vFRe/ZjdnFPDe
-         XSeB1QgY5Zk6AXr4/E1KW3LuOoNeU5NNR6L8ZRixNZQnUXV27PVmUnJRtAW4Q6W4C3Be
-         q4gttIuQwpbpZ8Z5r1sHHIBeaj5XnHEJnlSiAKoP4pm34l2pT6lutS1TRpvJW3CRePBs
-         6rfReY/+kKuQKSbRPjXTExOYAO+wP2d7ohEMVSzESJ0K51q8I6i6t/W8I9reQ5wsLO8r
-         SepQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw4zyn27PQgEqkv34QR3jmsjodvwH73TfAdNlc8GqXU9T4KUakbj396m/5OhORZutTY4RT2tVHbe8Q4lBA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqIP3CjTbcbN37T08U2XtRqwLJIe9TsiUAwKdxCppxqpX0PhW7
-	ZI+zstGND4zl0VB9LQDpjualTHvcgAsRcxxv5TKRckNEYgaV4P8U3DkO39KjRUKWH+I=
-X-Gm-Gg: AYBFou2xJK+GlEC2AXHJa7IAcwGxEqRckJnXgMEEHq+GmdNLAaBYu6SkwtPrAPgV6gR
-	KmhkWCwVGtC3VYeT7s2f6a2VkR6ZU5nGIrmFjJnVFrTaLX6E8whpWf8fdP8lWGw4GKEIDxWgGKG
-	/iMQZkG2GbfFqqb9zEcY//U/IbL7CCkoKB3RglSEoZ4q48UqJ0AlIkG3udRJCiTA8dTjyT2Rr4O
-	13hUHYExlOvg8k/XruxKYQ5Y9X5zb67WtX9dCkKt71XhjIsYHK2DOYSoXGsLqKjPGuFvAyb3RAk
-	xy2D7u5sUTMkKGvR6fh/a5Dg8HJpyGoUW78qkrOJvb5osb79PLaedFojUvYmpHITZTPAWzCGrTo
-	yi+bac6AdoBiT3Lvi31s9BWgEkfOF4kiCfaaKQkFmUt53pAaZ6+8eIWBvUFkoCIMsBv/644jymF
-	jn/ETrUwyFuwgASmW/Lz7EzxslvTATewdSvY1+qDZ+S3kiKP8CS/v48WDghaD1svsOHcw+C5qzK
-	5dnXboyfeP/Yn/mIMk22VHR+ijhFDa2hLQGs+WHqC3rCRwsijbNdbUEjTiitdqmE35uSTUTKxE=
-X-Received: by 2002:a05:6102:5809:b0:7a7:19aa:f0d4 with SMTP id ada2fe7eead31-7cc36af7150mr1191922137.33.1792331906038;
-        Sun, 18 Oct 2026 06:58:26 -0700 (PDT)
-Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9908366328dsm6405154241.12.2026.10.18.06.58.24
+        d=1e100.net; s=20260707; t=1792331986; x=1792936786;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TfIM6O5XGdPMggK0iswqZ9O/3wNWaaWuby0Fr894zwY=;
+        b=bn/QrdjHjD2YMOfNck8mNO04eAECx3fhKSpAHngn9EYL18MU5VU88ppvDk6JAVBGOu
+         YA6eWZurqjJhK2GNEj8/IRIaRlKHYxW7FXdGHJ2btVOYGNeSOLwFh9vAL3w8jO1p3k/7
+         FSXtWRYvk1qV/x4c48dzKnv9xJZchnkOCvu79kU9fk/Kpni/8Zs1SBpHK+feOcpw5NFW
+         jZcAzX5451QLniO5o78MXEDc6YztOmjy0s6fBTGdDNnQw0HgDyNNIBmaFDVCpubIkRh1
+         pPdh1Xc92EXZ4jGzEzks3Gw4lrJJPLBJk1tZzB304UMQ6nHQDDpDvR4X6qIene1YZolj
+         kUcA==
+X-Forwarded-Encrypted: i=1; AKwUvBzolpZJchNh3yya1iaHRrDsdPcl/WRgYHgC06LxvWbhyJlz5Uo8/pFDPC2vZwyAJT/Mxwh+7zcESmIDhVU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjTcbnwXNUZtpO6klm9keuF+GiQNHStLMe9eX/NQBNFLTMB6zn
+	AkwyOTDwRA8S/LunrgNjSeRbmcC1mIhyDh8+JS2eXWgeiMXZavAva3ch6e2FfY88Vt4=
+X-Gm-Gg: AYBFou0AbB31bbGU95FQ5ddq1NEH+rZhQJSo9hPJ7nGqulUfv2/zwDqzKynREWh3Hki
+	q2APaHXzrZ9FPzXEeLX1DivIWg28pcthvDvRYycxIVl1xLMqfg1kB1RKI7euyTirqiHOySowIC8
+	LYTZ1pP9G7gOXEZLSkK+h+TUNl1A22v12vRR2SY60OL7R18livMtDxtNtgk/3Ft4/mQKb6FAbHR
+	SFsep2mxtyb+wd/U5SEoHPLczCUuuq7PBhrCKpmcGolgiJIuEjz9fPh4fZBaMpNoAbtiqSHl1It
+	5TV0lz2Np1x2W/zCo0UWSDXoUxyzDnUKEKcMPY8CaQqdq6hrAOPCMsd/a6pdiyFZee3wQJcVkHr
+	/hzPAiZk1Eh2fF1LSy5fPA4TmGGpVliEmuQK4vPvmDVC3ZAQ+a6HE6NeEy5pCv+BWfIQ11r1fIV
+	reyTokYAe2U1ljdRLHBQeWAGjNJBSVUbylIlP+rKBGtJi9gaSS0UtuOpt6CHxHUNEEw6VSJ0dZS
+	nS2iv9+ATBGzY7W81+4Yg==
+X-Received: by 2002:a17:90b:1806:b0:3ab:e588:c2a8 with SMTP id 98e67ed59e1d1-3acef538909mr4550140a91.64.1792331986138;
+        Sun, 18 Oct 2026 06:59:46 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:6c71:58da:ec95:3c04])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac947928b4sm16263797a91.11.2026.10.18.06.59.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 06:58:25 -0700 (PDT)
-Date: Sun, 18 Oct 2026 09:58:24 -0400
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: "Luck, Tony" <tony.luck@intel.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, kees@kernel.org,
-	rppt@kernel.org, juri.lelli@redhat.com, nik.borisov@suse.com,
-	tglx@kernel.org, vschneid@redhat.com, kprateek.nayak@amd.com,
-	vincent.guittot@linaro.org, bp@alien8.de, thorsten.blum@linux.dev,
-	cgroups@vger.kernel.org, david@kernel.org, mingo@redhat.com,
-	akpm@linux-foundation.org, linux-mm@kvack.org, seanjc@google.com,
-	ljs@kernel.org, zhangguopeng@kylinos.cn, dietmar.eggemann@arm.com,
-	mhocko@suse.com, vinicius.gomes@intel.com, tj@kernel.org,
-	vbabka@kernel.org, linux-kernel@vger.kernel.org,
-	peterz@infradead.org, surenb@google.com, hpa@zytor.com,
-	x86@kernel.org, dmatlack@google.com, tim.c.chen@linux.intel.com,
-	kexec@lists.infradead.org, pratyush@kernel.org,
-	dave.hansen@linux.intel.com, rostedt@goodmis.org,
-	gmonaco@redhat.com, jgross@suse.com, mgorman@suse.de,
-	graf@amazon.com, linux-edac@vger.kernel.org, liam@infradead.org,
-	ridong.chen@linux.dev, longman@redhat.com, bsegall@google.com
-Subject: Re: [PATCH v1 0/8] x86, sched, mm: Speed up CPU hotplug on large
- systems
-Message-ID: <atTQgM72TWSFZ0AX@google.com>
-References: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
- <atFGxagFo50iG6IS@agluck-desk3>
+        Sun, 18 Oct 2026 06:59:45 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Karan Tilak Kumar <kartilak@cisco.com>,
+	Narsimhulu Musini <nmusini@cisco.com>,
+	Sesidhar Baddela <sebaddel@cisco.com>,
+	"Martin K . Petersen" <mkp@kernel.org>
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] scsi: snic: reject a target count larger than the response buffer
+Date: Sun, 18 Oct 2026 22:59:30 +0900
+Message-ID: <20261018135930.3190279-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atFGxagFo50iG6IS@agluck-desk3>
+Content-Transfer-Encoding: 8bit
 
-On 10-15 14:33, Luck, Tony wrote:
-> On Thu, Oct 15, 2026 at 11:33:23AM -0400, Pasha Tatashin wrote:
-> >    - Patch 3 bounds cmci_rediscover() on CPU teardown. Currently,
-> >      cmci_rediscover() broadcasts an IPI via on_each_cpu() to all online
-> >      CPUs, serializing them on cmci_discover_lock while reading up to 32
-> >      MCA MSRs. Because any disabled MCA bank is shared at most with an
-> >      SMT sibling, L2 cluster peer, or die/package peer, probing a single
-> >      online topology peer via smp_call_function_single() (or returning
-> >      immediately when no shared banks were orphaned) reduces 479-CPU
-> >      offline time on Intel from 11.42 s to 9.63 s (-15.7%) and total time
-> >      from 22.50 s to 20.74 s (-7.8%).
-> 
-> I took this series for a spin on a timy 2-socket Icelake (36 cores, 72
-> threads per socket). My test was to just offfline/online the 72 logical
-> CPUs on socket 1, and I saw some good speedups:
-> 
-> 	offline: 4.833s -> 3.17s
-> 	online: 6.157s -> 3.796s
-> 
-> I noticed that your cmci_rediscover() improvements mean even better
-> offline performance if you work from high to low CPU numbers as the
-> shared banks are assigned to the lowest numbered CPU within the sharing
-> topology domain. So working from high to low avoids creating as many
-> orphan banks that then need to find new owners.
-> 
-> 	reverse order offline: 2.984s
-> 
-> I haven't looked into the code yet. But the general direction seems
-> good.
+snic_queue_report_tgt_req() sizes the REPORT TARGETS response buffer for
+min(fwinfo.max_tgts, shost->max_id) entries.  The completion handler walks
+that buffer for as many entries as the adapter reports in tgt_cnt, and the
+only thing in the way is
 
-Thank you for the data, and your point about the ordering is spot on. 
-However, once single-thread performance is adequate, my end goal is to 
-parallelize the operation so the number of CPUs won't significantly 
-affect the total time it takes to remove them and add them back to the 
-scheduler. This is crucial for the live update work, as transferring CPUs 
-to Caretaker is part of the brownout, and in some configurations, the 
-blackout of the live update process.
+	SNIC_BUG_ON(tgt_cnt > snic->fwinfo.max_tgts);
 
-Pasha
+which compares against the adapter's exchange-version value rather than
+the bound the allocation was built with, and which is a WARN_ON_ONCE in
+any build without DEBUG, so it falls through into the walk.  An adapter
+reporting more targets than were asked for reads past the buffer, and the
+count is also stored for snic_handle_tgt_disc() to walk a second time and
+create a target per entry.
 
-> 
-> -Tony
+The same exchange-version handler already clamps max_sgs_per_cmd against a
+driver limit; max_tgts is taken as it arrives.
+
+Compare the reported count against the bound the request was built with,
+and fail the completion the way an empty target list is already failed.
+
+I have no Cisco VIC hardware; the completion is injected under a KUnit
+harness so that the adapter reports 259 targets for a 256-entry request.
+The W taint below is the UML test machine's own virtio_pcidev warning:
+
+BUG: KASAN: slab-out-of-bounds in snic_report_tgt_cmpl_handler+0x266/0x410
+Read of size 4 at addr 00000000622c0810 by task kunit_try_catch/20
+
+CPU: 0 UID: 0 PID: 20 Comm: kunit_try_catch Tainted: G        W        N  7.3.0-rc7-g58161ead29e5-dirty #7 VOLUNTARY
+Tainted: [W]=WARN, [N]=TEST
+Stack:
+60d4e7dc 6220f200 622c20d8 00000000
+ffffff00 60d4e7dc 60d56045 622c0810
+60dcd680 6009aac3 622cfce0 6003e621
+Call Trace:
+[<6009aac3>] ? dump_stack_lvl+0x5e/0x7a
+[<6003e621>] ? _printk+0x0/0xd7
+[<6004b21d>] ? print_report+0x14b/0x517
+[<603bdf3b>] ? kasan_save_track+0x1b/0x40
+[<6003e621>] ? _printk+0x0/0xd7
+[<600897a3>] ? snic_report_tgt_cmpl_handler+0x266/0x410
+[<603beebb>] ? kasan_report+0x11b/0x160
+[<600897a3>] ? snic_report_tgt_cmpl_handler+0x266/0x410
+[<60073dad>] ? _dev_printk+0x0/0xe8
+[<600897a3>] ? snic_report_tgt_cmpl_handler+0x266/0x410
+[<6008a11c>] ? snic_lt_silent_overrun.cold+0x46/0x4da
+[<6089d880>] ? snic_lt_silent_overrun+0x0/0x330
+[<600bf62d>] ? os_nsecs+0x2d/0x40
+[<600a16a4>] ? timer_read+0x14/0x30
+[<602235de>] ? ktime_get_ts64+0x8e/0x2c0
+[<60223550>] ? ktime_get_ts64+0x0/0x2c0
+[<606fa06c>] ? kunit_try_run_case+0x1bc/0x310
+[<606f9eb0>] ? kunit_try_run_case+0x0/0x310
+[<603c08f0>] ? __kasan_check_read+0x0/0x20
+[<600bf020>] ? um_set_signals+0x0/0x60
+[<600bf020>] ? um_set_signals+0x0/0x60
+[<6013e3cd>] ? __kthread_parkme+0xdd/0x1c0
+[<606f9eb0>] ? kunit_try_run_case+0x0/0x310
+[<60700130>] ? kunit_generic_run_threadfn_adapter+0x0/0x100
+[<607001ac>] ? kunit_generic_run_threadfn_adapter+0x7c/0x100
+[<6014464e>] ? kthread+0x36e/0x560
+[<601442e0>] ? kthread+0x0/0x560
+[<6009f0de>] ? new_thread_handler+0xce/0x130
+
+The buggy address belongs to the object at 00000000622c0000
+which belongs to the cache kmalloc-4k of size 4096
+The buggy address is located 0 bytes to the right of
+allocated 2064-byte region [00000000622c0000, 00000000622c0810)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x22c0
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x40(head|zone=0)
+page_type: f5(slab)
+raw: 0000000000000040 0000000061402140 0000000000000122 0000000000000000
+raw: 0000000000000000 0000000000040004 00000000f5000000
+head: 0000000000000040 0000000061402140 0000000000000122 0000000000000000
+head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000003
+head: 000000009f279a01 00000000ffffffff 00000000ffffffff 0000000000000000
+head: 0000000000000000 00000000ffffffff
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+00000000622c0700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00000000622c0780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>00000000622c0800: 00 00 fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+                        ^
+00000000622c0880: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+00000000622c0900: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+
+Fixes: c8806b6c9e82 ("snic: driver for Cisco SCSI HBA")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/scsi/snic/snic_disc.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/scsi/snic/snic_disc.c b/drivers/scsi/snic/snic_disc.c
+index 71d34a702f2ab..df7da6413f84a 100644
+--- a/drivers/scsi/snic/snic_disc.c
++++ b/drivers/scsi/snic/snic_disc.c
+@@ -385,7 +385,7 @@ snic_report_tgt_cmpl_handler(struct snic *snic, struct snic_fw_req *fwreq)
+ {
+ 
+ 	u8 typ, cmpl_stat;
+-	u32 cmnd_id, hid, tgt_cnt = 0;
++	u32 cmnd_id, hid, tgt_cnt = 0, ntgts;
+ 	ulong ctx;
+ 	struct snic_req_info *rqi = NULL;
+ 	struct snic_tgt_id *tgtid;
+@@ -406,7 +406,19 @@ snic_report_tgt_cmpl_handler(struct snic *snic, struct snic_fw_req *fwreq)
+ 	/* printing list of targets here */
+ 	SNIC_HOST_INFO(snic->shost, "Target Count = %d\n", tgt_cnt);
+ 
+-	SNIC_BUG_ON(tgt_cnt > snic->fwinfo.max_tgts);
++	if (snic->fwinfo.max_tgts)
++		ntgts = min_t(u32, snic->fwinfo.max_tgts, snic->shost->max_id);
++	else
++		ntgts = snic->shost->max_id;
++
++	if (tgt_cnt > ntgts) {
++		SNIC_HOST_ERR(snic->shost,
++			      "Target count %u exceeds the %u requested.\n",
++			      tgt_cnt, ntgts);
++		ret = 1;
++
++		goto end;
++	}
+ 
+ 	for (i = 0; i < tgt_cnt; i++)
+ 		SNIC_HOST_INFO(snic->shost,
+-- 
+2.43.0
+
