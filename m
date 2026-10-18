@@ -1,95 +1,153 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B86414A1F;
-	Sun, 18 Oct 2026 13:38:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF8D4C33F3;
+	Sun, 18 Oct 2026 13:41:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792330695; cv=none; b=dRYly4t2mFS1Oqeug5KZuN3mzBP8Mfwr6D3lqH/dxZNpgoiW+iEfFl9/ZmEEqDsldjTgxjPQPsJyt78J0LuuZNxRoKxh245xMv2oKwGdiaoKhxeykHPat1VkrwUIKcrzHbCirwCfX60gN/HqaYctbnth3V1jzkaHzDRBuDXMbbg=
+	t=1792330908; cv=none; b=jfbqO3wWPHVeANC6/bwAgp7ojKZct11k30V8rcTwfpaYFmLA/GNLmndn7dfoPDAAwC4cRWyW8/1k0Uo+fKsE//x+euRftTWlt41hR8VKH9GJni2qd8E1EOagcK/vgTmN1hrLTZL2+4z1/OQuD84C7rwFbxncwc+DfFLDg0zbalI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792330695; c=relaxed/simple;
-	bh=O3PNJs4NiGtilEQpWdRqiG+quBu7ASA7JyGTHSsV4qc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WhM5DBzse+Q3rKM6r3b4Mw+JhCoHFeUnkorcaOP5J5UOarjJkPeJWPJuxRZYuwC9uXVS+uAYvARjanNoAO2DH09Y0uQ1ARSFsmB5WZFvXrp+2qoNp9wwvZl6/hUVNRwHn2DiZuP45G8Ru6VlabRTU+cRzFyVxgX39ybMgxW1NEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=QQaIQZeZ; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1792330908; c=relaxed/simple;
+	bh=qUNuo08HuRCsYyRBRIxHEBGkyY0NfHIo/OpUESBmZLg=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=q4fcuGr6UQ8/H0YAod04TT7zKI144yzYH88iwuLBvAnh6YSBx956hOsNMnEgCfBrXya6SFP/xkOUHGbQv4WVU7cGIHZ4irmPGLdxaXd1AyLfE87/vUs2YQ7xzew02S1uhfVgM0SDn+692eV7LDkDHJmnbDOmZIhsCwctQel3Tu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WyW0Woep; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="QQaIQZeZ"
-Message-ID: <4f7dacd9b4cf0a43209be84f2408e6f7e033fd3d.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1792330692;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O3PNJs4NiGtilEQpWdRqiG+quBu7ASA7JyGTHSsV4qc=;
-	b=QQaIQZeZxo16u7UdAOq4kPy1bHh5wCdCBH3QZYCg5PimPB58GI9wTdfFUotn+h0Z6v2BVp
-	u1poagQVYS3BGkVyq/Md3JtwjPxUGO4tWjKXdDBlmhiq53uFEsv4XbrV1lGHtHYHOXUfLl
-	cIxyUDqNWLy862uBUKeV5H2v+UifeUU=
-Subject: Re: [PATCH v2 0/3] sparc64: Randomize mmap base and PIE executables
-From: Stian Halseth <stian@itx.no>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Andreas
- Larsson <andreas@gaisler.com>, "David S . Miller" <davem@davemloft.net>
-Cc: Kees Cook <kees@kernel.org>, Michel Lespinasse <michel@lespinasse.org>, 
- Jan Engelhardt
-	 <jengelh@inai.de>, sparclinux@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Date: Sun, 18 Oct 2026 15:38:11 +0200
-In-Reply-To: <6e2d2b2b7aa4029c261831016d8b6c40bc335341.camel@itx.no>
-References: <20261018122734.2594904-1-stian@itx.no>
-	 <e3068b5c97884032e7cbd12c78f6b5534d75e30c.camel@physik.fu-berlin.de>
-	 <6e2d2b2b7aa4029c261831016d8b6c40bc335341.camel@itx.no>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-PHAaQr8Laoy3OBzen5hN"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WyW0Woep"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 69ABAC2BCC7;
+	Sun, 18 Oct 2026 13:41:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792330908;
+	bh=qUNuo08HuRCsYyRBRIxHEBGkyY0NfHIo/OpUESBmZLg=;
+	h=From:To:Cc:Subject:Date:Reply-To:From;
+	b=WyW0Woep2MnOEIkdY4c/2Hah8g22awdg3C05bRp9hRJegSQMcUEUu2AIMNWkl4tNB
+	 7WQXUQnwRwBMrgb+AQdysyU76khJJByrPpWFHNiq138xrVlx6gPqBqPbOxBsDS4A5D
+	 ogmaeDA1pvtMArtvtbgSWqG91JzTojIUQjoQ3PtVKvqqvAXzq7wxbjknU9vBFQlryS
+	 WKiyRcSG3ttCci1hBNUdYFnloKdCLFKdavaUfqCKoimbKk9dBY20wyetCBpYHaNbeJ
+	 HlY1lTkHd4or/maSwbojzCoiwQckr2GG0fwVfG+qE9eOfbJdTe+xjyiZMdJShdyGfW
+	 PfR5AvKnGxGVA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5546FCCA490;
+	Sun, 18 Oct 2026 13:41:48 +0000 (UTC)
+From: Wenqiang Zhao via B4 Relay <devnull+berringtoni36.gmail.com@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, linux@analog.com, 
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 RESEND] iio: accel: adxl345: update period cache after
+ successful write
+Date: Sun, 18 Oct 2026 21:42:00 +0800
+Message-ID: <20261018-adxl345-period-cache-v2-resend-1@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792330907; l=2895;
+ i=berringtoni36@gmail.com; s=review-20261018; h=from:subject:message-id;
+ bh=gzk/oV5DxvB5SYVBfqj3OWFCMqVZXw8MAoKLN74hP0E=;
+ b=Mb2B/AFNc0QLKH07NYJvnlGaYS7HB1+5O8/qSTVwxi2BHmLjWSes3ii3rGw+VFP5siTpmfMl9
+ dJtMUq5ujayB/0IjKUNid+XcFDN3juinVN/izAo10tdTHP5Qd3DYg8/
+X-Developer-Key: i=berringtoni36@gmail.com; a=ed25519;
+ pk=rRiAvRvS4MMqogNnloZgVnqWliVWNDq+PcP6vMYXOvs=
+X-Endpoint-Received: by B4 Relay for
+ berringtoni36@gmail.com/review-20261018 with auth_id=1226
+X-Original-From: Wenqiang Zhao <berringtoni36@gmail.com>
+Reply-To: berringtoni36@gmail.com
 
+From: Wenqiang Zhao <berringtoni36@gmail.com>
 
---=-PHAaQr8Laoy3OBzen5hN
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+The ADXL345 event-period read path returns st->inact_time_ms. The setters
+for inactivity, free-fall and the ODR-derived default currently update
+this cache before writing TIME_INACT or TIME_FF. If the regmap write
+fails, the sysfs write reports an error but a subsequent read returns
+the requested period even though it was not programmed.
 
+Update the cached period only after the corresponding regmap write
+succeeds.
 
-On Sun, 2026-10-18 at 15:33 +0200, Stian Halseth wrote:
-> Hi Adrian,
->=20
-> On Sun, 2026-10-18 at 15:09 +0200, John Paul Adrian Glaubitz wrote:
-> >=20
-> > What about sparc32? Does it use address base randomization at all?
-> >=20
->=20
-> sparc32 is at the same state as sparc64 was before this series. Only
-> the stack moves.
->=20
-> I've only tested 32-bit programs on sparc64. The same approach will
-> probably work, but needs testing on real sparc32. Could be possibly
-> be
-> added as a follow up, if someone with sparc32 hardware can test it.
->=20
-> /Stian
->=20
+Fixes: 8a1536cc4a1c ("iio: accel: adxl345: add inactivity feature")
+Fixes: f6f22950d925 ("iio: accel: adxl345: extend inactivity time for less than 1s")
+Assisted-by: LLM
+Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
+---
+Resend: unchanged code; submitted via b4 web submission to avoid delivery-time wrapping.
 
-Additionally, outside of qemu testing, I'm a bit worried about sparc32
-machines with virtually indexed caches. I've heard those can be fun,
-and I wouldn't feel confident about implementing it without testing on
-the "real thing".
+v2:
+- Keep Fixes: tags on a single line (Nuno)
+- Use a Latin-script name in From: and Signed-off-by: (Nuno)
+- Drop the long validation notes; build-tested only, not tested on hardware
 
-/Stian
+The missing serialization between concurrent sysfs callers that Nuno
+pointed out is a separate issue and will be addressed in a follow-up
+patch.
 
---=-PHAaQr8Laoy3OBzen5hN
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+ drivers/iio/accel/adxl345_core.c | 27 ++++++++++++++++++++++-----
+ 1 file changed, 22 insertions(+), 5 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/iio/accel/adxl345_core.c b/drivers/iio/accel/adxl345_core.c
+index 6c9080d..cd58304 100644
+--- a/drivers/iio/accel/adxl345_core.c
++++ b/drivers/iio/accel/adxl345_core.c
+@@ -391,30 +391,47 @@ static int adxl345_set_default_time(struct adxl345_state *st)
+ 	odr = FIELD_GET(ADXL345_BW_RATE_MSK, regval);
+ 	val = clamp(max_boundary - adxl345_odr_tbl[odr][0],
+ 		    min_boundary, max_boundary);
+-	st->inact_time_ms = MILLI * val;
+ 
+ 	/* Inactivity time in s */
+-	return regmap_write(st->regmap, ADXL345_REG_TIME_INACT, val);
++	ret = regmap_write(st->regmap, ADXL345_REG_TIME_INACT, val);
++	if (ret)
++		return ret;
++
++	st->inact_time_ms = MILLI * val;
++
++	return 0;
+ }
+ 
+ static int adxl345_set_inactivity_time(struct adxl345_state *st, u32 val_int)
+ {
++	int ret;
++
++	ret = regmap_write(st->regmap, ADXL345_REG_TIME_INACT, val_int);
++	if (ret)
++		return ret;
++
+ 	st->inact_time_ms = MILLI * val_int;
+ 
+-	return regmap_write(st->regmap, ADXL345_REG_TIME_INACT, val_int);
++	return 0;
+ }
+ 
+ static int adxl345_set_freefall_time(struct adxl345_state *st, u32 val_fract)
+ {
++	int ret;
++
+ 	/*
+ 	 * Datasheet max. value is 255 * 5000 us = 1.275000 seconds.
+ 	 *
+ 	 * Recommended values between 100ms and 350ms (0x14 to 0x46)
+ 	 */
++	ret = regmap_write(st->regmap, ADXL345_REG_TIME_FF,
++			   DIV_ROUND_CLOSEST(val_fract, 5));
++	if (ret)
++		return ret;
++
+ 	st->inact_time_ms = DIV_ROUND_UP(val_fract, MILLI);
+ 
+-	return regmap_write(st->regmap, ADXL345_REG_TIME_FF,
+-			    DIV_ROUND_CLOSEST(val_fract, 5));
++	return 0;
+ }
+ 
+ /**
 
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCatTLwwAKCRDoeAEuJe36
-Vl7RAP48VGMJlbwWIQ7VHqi25QkjzG+Eh44RA0bTgOXyVfzwmgEA8nOr9l4i+AbW
-Ux5a921hTL1xjAjla4+mWeEC5nU7dwY=
-=2Xlx
------END PGP SIGNATURE-----
+base-commit: 9ee8306121495d2a25aa5d1bfd519f2748786b83
+-- 
+2.50.1 (Apple Git-155)
 
---=-PHAaQr8Laoy3OBzen5hN--
