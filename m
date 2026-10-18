@@ -1,131 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-251.mta1.migadu.com [95.215.58.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9C54D4882;
-	Sun, 18 Oct 2026 16:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA314D795D
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792340800; cv=none; b=lWESyXEKwRNnvCrHfgBVZ8I7zPDnMiROedsGJybwUmG3iedRwY2D/P10AdSt0GaOrU319VeOHmqe5YF2GmTk6GATr5TzmyZCZPiFpJmwapvhIg7kOhBy0xONAMPPcIw8y+C9DPP8VBYlsCz32a8QtA6Mylrp+T6RGMYhJRUyxRo=
+	t=1792340839; cv=none; b=NVs4XOBKaqka19klvlEKkO0Qc5SmHKrERdB9+uwQ/N2OzCD10/DQVZbumCHFzppgWPHARta4p0lGKf+gh4idaHFSN18w9aSw0S2cQu9dkbt6gaNmCjj4UysPzBPy2znYbq0NxUTELIbqNClJBKUqRkhxXLoQaLdzVEkmrNwIEVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792340800; c=relaxed/simple;
-	bh=OEEx0dlobv67lzd13O1rEYRQGAPQ98o8Kptz9a/PdS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gqWX05gyZC7D/5TPAvvxdUXVEfv4EOZbHv67zFvuQIoocqqveR2tHYTlR9HHiEH6wmBctW8G4x7sym2bgVdX0pRgIxhotlNJdbqWx34F0LFXcHoVkzBDiGWxatHrlFqQmsN2oIktsWbe3MKk0TRJF9bDwLsR0kzfqvSOvvUmWnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOGsMcZn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792340839; c=relaxed/simple;
+	bh=fSqrzaDICGEJ0LU/VHMQJYPwzZ2/9uo5D+VsIbLo8uk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TOhEn/X8opTKrNOy0j1tVfgULK8pDajU2IOuU90pNvHY47bAAX1+ujWcNOsVjCcoBX3pL5iiQrFPo1qVAtPOifjBLXNnAZLYaPCRDdFh9nnF2MOw12iBfhnr/h76la6+o0xcqzKLiW1ZYuxvNIJ/akF0mJyOuD1iS4iExIe8Suk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uLA5eNX2; arc=none smtp.client-ip=95.215.58.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOGsMcZn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92F721F000C4;
-	Sun, 18 Oct 2026 16:26:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792340799;
-	bh=gYsjcOuJ8RvseAN9vU8QaSbB2+GoxMgbSDabUxmiCWA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cOGsMcZnBNAlfkRepca8DGGWX4PM6WzExH9LB8Y6/Uh5tDwoOoiJZ+mMbiHlrP5EQ
-	 eN8GAQa9WhYsQaRGw21NmpZ9tt9R9C5oXoOwcN7uv/1lNjVuOQ7RdBdvZBQtDX3IEk
-	 vvDFionoZbOg0Kby70+n2pwYjHz9gRN2qW3Sztj5QfR6iGdWdEw8X572GV27jrvnp+
-	 baKefuKvJi4BO4Z6apYr42cUu4Etcke/eW0LfkE0iYXpPtQqwxgnxjrbCY32Yxr6Z6
-	 G6QlKu4gDwjfVr2yp2WfGWyilZlYQ9PhaGcUYiWsrJFqmbsd/VNaV8hE9zYEwZr0KQ
-	 05PqQPlc/xm4g==
-Date: Sun, 18 Oct 2026 09:26:36 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Alireza Haghdoost <haghdoost@uber.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/5] perf dso: Allow reading DSO data from an explicit
- file
-Message-ID: <atTzPJJvR2-sqtJn@google.com>
-References: <20261005-perf-symbol-memory-send-v5-0-165dceb2b049@uber.com>
- <20261005-perf-symbol-memory-send-v5-2-165dceb2b049@uber.com>
- <asbDJrY97tRqoPaR@google.com>
- <CA+w=M=TtAfiHVQqiwmchtsWwNeN5So5MxWW=82RRAUXHhg8D+A@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uLA5eNX2"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fSqrzaDICGEJ0LU/VHMQJYPwzZ2/9uo5D+VsIbLo8uk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792340834; v=1; x=1792945634;
+ b=uLA5eNX2PZY0qczyYm6Dw3AIwWnKtIsgcIQiVfCD4zeG6NHuacSMTy3RjQ1wC4CR9tAMoUJt
+ GU0pVn/dVETdD7aNa8Hq/q/GufuH+aXWFhS/s28+CxPIzMtXz35S15rc48fp5AhRV8+A5VSONpa
+ ZdB3kBfl9nGd1tjYWzTqBoGk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eec9daf701e69fdf;
+	Sun, 18 Oct 2026 16:27:14 +0000
+X-Mizu-Trace-ID: eec9daf701e69fdf
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <cc579458-5817-47d3-bf80-781e2e68595f@linux.dev>
+Date: Sun, 18 Oct 2026 18:27:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CA+w=M=TtAfiHVQqiwmchtsWwNeN5So5MxWW=82RRAUXHhg8D+A@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/7] HID: asus: Cycle the platform profile from the
+ Zenbook Duo profile key
+To: Paolo Pisati <p.pisati@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Luke Jones <luke@ljones.dev>, Ivan Levchenko <me@livan.pro>,
+ =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>,
+ Nathan Chancellor <nathan@kernel.org>
+References: <20261013104033.36079-1-p.pisati@gmail.com>
+ <20261013104033.36079-5-p.pisati@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261013104033.36079-5-p.pisati@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello Alireza,
 
-On Sun, Oct 18, 2026 at 08:09:41AM -0700, Alireza Haghdoost wrote:
-> Hi Namhyung,
-> 
-> Sorry for the late reply, and thank you for the clarification.
-> 
-> On Wed, Oct 7, 2026 at 3:09 PM Namhyung Kim <namhyung@kernel.org> wrote:
-> > I'm afraid it may confuse perf annotate where it needs to read binary
-> > data from a file as well as lazy-load symbols from another.  I'm working
-> > on cleaning up the relevant code and I'm reluctant to add 'path' to the
-> > dso.  We have too many names for a DSO already. :)
-> >
-> > For a short term solution, I'm afraid you need to use dso__get_filename()
-> > with symtab_type and read the file without using the data cache API.
-> 
-> I understand the concern about storing this path in the DSO. Perf
-> annotate and the lazy loader can read different files. I will drop this
-> patch in the next revision (v6).
-> 
-> For context, the v1 lazy loader kept one file descriptor open for each
-> DSO. In your v1 review, you asked me to use dso__data_read_offset().
-> This let the data cache control the open descriptors and close them
-> when necessary.
-> 
-> Using dso__data_read_offset() also showed a problem with split
-> debuginfo. The symbol name offsets refer to the symbol table file.
-> However, the data cache opens the runtime binary. The same offset in
-> these two files can contain different data. That is why I needed to
-> tell the data cache to open the symbol table file.
-> 
-> I put this support in a separate patch after your v2 review requested
-> that I split the exact-path DSO data-cache support into an independent
-> split-debuginfo fix.
-> 
-> For v6 revision, the lazy loader will call dso__get_filename() with the symtab
-> type. It will open the returned file, read the names with pread(), and
-> close the file. Thus, it will not keep one descriptor open for each
-> DSO. It will also not change the existing data cache.
-> 
-> This short-term solution can open the same file many times. It also
-> cannot use one DSO cache entry for nearby names. However, later reads
-> can usually use data that is still in the kernel page cache and avoid
-> storage I/O. Therefore, the main additional costs are the open, close,
-> and pread system calls.
-> 
-> The performance cost is small in the test profile. Eager loading takes
-> 3.2 seconds. v5 lazy loading takes 1.4 seconds. v6 lazy loading takes
-> 1.5 seconds. All three produce identical output.
+On 10/13/26 12:40, Paolo Pisati wrote:
+> From: Joshua Leivenzon <hacker1024@users.sourceforge.net>
+>
+> The Zenbook Duo keyboard reports Fn+F, the performance mode key, as
+> vendor usage 0x9d. On the built-in keyboards of other ASUS laptops the
+> same key arrives through asus-wmi, which cycles the platform profile
+> in response. Do the same here so the key works on the detachable
+> keyboard too.
+>
+> asus_event() runs from the HID input path, which for USB is the URB
+> completion handler, while platform_profile_cycle() takes a mutex, so run
+> it from the driver's worker like the Fn-lock toggle, and consume the
+> event. Queue at most one cycle at a time, so that a device repeating the
+> key cannot grow the worker's list. Only call it when the platform
+> profile class is reachable: it is not built on architectures without
+> ACPI, where HID_ASUS still is, and it may be a module while HID_ASUS is
+> built in.
+>
+> Signed-off-by: Joshua Leivenzon <hacker1024@users.sourceforge.net>
+> [pisati: defer platform_profile_cycle() to the worker and queue at
+>  most one cycle, return 1 from asus_event() instead of propagating
+>  its return value, and guard the call with
+>  IS_REACHABLE(CONFIG_ACPI_PLATFORM_PROFILE)]
+> Assisted-by: LLM
+> Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
+> Tested-by: Rebecca Mara Müller <rebecca.mara@posteo.de> # UX8407AA
+> ---
+>  drivers/hid/hid-asus.c | 67 ++++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 65 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> index d69431615c27..b127f5c38f60 100644
+> --- a/drivers/hid/hid-asus.c
+> +++ b/drivers/hid/hid-asus.c
+> @@ -29,6 +29,7 @@
+>  #include <linux/input/mt.h>
+>  #include <linux/usb.h> /* For to_usb_interface for T100 touchpad intf check */
+>  #include <linux/power_supply.h>
+> +#include <linux/platform_profile.h>
+>  #include <linux/leds.h>
+>  
+>  #include "hid-ids.h"
+> @@ -115,6 +116,7 @@ enum asus_work_action_type {
+>  	FN_LOCK_SYNC,
+>  	BRIGHTNESS_SET,
+>  	WMI_FAN,
+> +	PLATFORM_PROFILE_CYCLE,
+>  };
+>  
+>  struct hid_raw_event_data {
+> @@ -423,6 +425,42 @@ static int asus_kbd_fn_lock_set(struct asus_drvdata *drvdata, bool enabled)
+>  	return 0;
+>  }
+>  
+> +static int asus_platform_profile_cycle(struct asus_drvdata *drvdata)
+> +{
+> +	struct asus_worker *worker = drvdata->worker;
+> +	struct asus_work_action *action, *pending;
+> +	unsigned long flags;
+> +	int ret = 0;
+> +
+> +	if (!IS_REACHABLE(CONFIG_ACPI_PLATFORM_PROFILE))
+> +		return 0;
+> +
+Isn't IS_REACHABLE a macro? Why not using #if and/or #else ?
+> +	spin_lock_irqsave(&worker->lock, flags);
+> +
+> +	/*
+> +	 * One pending cycle is enough: a key press cannot outrun the
+> +	 * worker, and a device repeating the key must not grow the list.
+> +	 */
+> +	list_for_each_entry(pending, &worker->actions, node) {
+> +		if (pending->type == PLATFORM_PROFILE_CYCLE)
+> +			goto unlock;
+> +	}
+> +
+> +	action = kzalloc_obj(struct asus_work_action, GFP_ATOMIC);
+> +	if (!action) {
+> +		ret = -ENOMEM;
+> +		goto unlock;
+> +	}
+> +
+> +	action->type = PLATFORM_PROFILE_CYCLE;
+> +	INIT_LIST_HEAD(&action->node);
+> +	asus_worker_schedule(worker, action);
+> +
+> +unlock:
 
-Thanks for checking this!
+asus_platform_profile_cycle_unlock please because label names
+are unique, not per-function
 
-> 
-> > In the long term, I think it needs to pass a binary type arguments to
-> > read data from the dso.  It'd clarify what users want to read and
-> > support different files at the same time.
-> 
-> Ack. Your recent cleanup keeps the binary type separate from the symtab
-> type during symbol loading. The DSO also has a separate debug-info type.
-> These fields identify the files that a caller wants to read. The data
-> cache does not use this information yet.
-> 
-> Unless you are already working on this part, I can send a separate
-> series to make the data cache type-aware. The series will add a type
-> argument to the read API and keep separate cache state for each backing
-> file. I can then change the lazy loader to use the data cache again. I
-> will keep this work separate from the lazy loader patch series.
+> +	spin_unlock_irqrestore(&worker->lock, flags);
+> +	return ret;
+> +}
+> +
+>  static int asus_kbd_wmi_fan_send(struct asus_drvdata *drvdata, u8 *report_data,
+>  				 size_t report_size)
+>  {
+> @@ -459,8 +497,25 @@ static int asus_event(struct hid_device *hdev, struct hid_field *field,
+>  	if ((usage->hid & HID_USAGE_PAGE) == HID_UP_ASUSVENDOR &&
+>  	    (usage->hid & HID_USAGE) != 0x00 &&
+>  	    (usage->hid & HID_USAGE) != 0xff && !usage->type) {
+> -		hid_warn(hdev, "Unmapped Asus vendor usagepage code 0x%02x\n",
+> -			 usage->hid & HID_USAGE);
+> +		/*
+> +		 * Some vendor usages do not map to a key and need special
+> +		 * handling.
+> +		 */
+> +		switch (usage->hid & HID_USAGE) {
+> +		case 0x9d: /* Zenbook Duo Fn+F: cycle the platform profile */
+> +			if (value) {
+> +				ret = asus_platform_profile_cycle(drvdata);
+> +				if (ret) {
+> +					hid_err(hdev, "Failed to cycle the platform profile: %d\n",
+> +						ret);
+> +					return ret;
+> +				}
+> +			}
+> +			return 1;
+> +		default:
+> +			hid_warn(hdev, "Unmapped Asus vendor usagepage code 0x%02x\n",
+> +				 usage->hid & HID_USAGE);
+> +		}
 
-Sounds good.  Please go ahead!
+If asus recycles 0x9d to make something else is nome other hardware it will end up
+doing something else... It's acceptable I think but perhaps a guard may be better?
+After all there is a warn about that already...
 
-Thanks,
-Namhyung
+>  	}
+>  
+>  	if (usage->type == EV_KEY && value) {
+> @@ -765,6 +820,7 @@ static void asus_work(struct work_struct *work)
+>  	struct asus_worker *worker = container_of(work, struct asus_worker, work);
+>  	struct asus_work_action *action = NULL;
+>  	unsigned long flags;
+> +	int ret;
+>  
+>  	/* Save the action to be performed and clear the flag */
+>  	spin_lock_irqsave(&worker->lock, flags);
+> @@ -788,6 +844,13 @@ static void asus_work(struct work_struct *work)
+>  	case WMI_FAN:
+>  		asus_kbd_wmi_fan(worker->hdev, &action->data.fan_hid_data);
+>  		break;
+> +	case PLATFORM_PROFILE_CYCLE:
+> +		if (!IS_REACHABLE(CONFIG_ACPI_PLATFORM_PROFILE))
+> +			break;
 
+As before: #if !IS_REACHABLE(...)
+
+> +		ret = platform_profile_cycle();
+> +		if (ret)
+> +			hid_dbg(worker->hdev, "Failed to cycle the platform profile: %d\n", ret);
+> +		break;
+>  	default:
+>  		hid_err(worker->hdev, "Invalid action type: %d\n", action->type);
+>  		break;
