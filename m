@@ -1,90 +1,95 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76AE366DD3
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085E5332EAE
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:55:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792292027; cv=none; b=f7Ucq1exJA7mkGtiE4HKVzzYDPAVNnbIqRHXzXV8zn/padlmchtc9y2II5Y0naqqRVj5cJUzHlgBFzPwXA5csI7LWRjJUWWgr9+lNQiK3CEBlsRZIOmvPiSqygsJWR2CwPeEMrTAirfvzh1X5rTbVU/q8h8lh5xQet0W+eS2iQw=
+	t=1792292111; cv=none; b=s459oz/fscObiRM8OTcOmnPHFn2r3TJ9cYJFG0RooDZtMRVhNWt2TRi8W/EIghXJ8KWfA9V19Cn6V/oqifYf2xmjiPZgPXlqqhiX+UZAPGGqYL8ri2073ZJxVoXB3sMuLxo90YhkcJYSfvBGf8qIZg9dUxxZZHdyoSzytYkBv4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792292027; c=relaxed/simple;
-	bh=bBj6psTg0atPzJHuE/vK78ETes9bC48NNTa8QuWS9mE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fv4hLDkAsT+w/yZ+YlGeOt17l7ILTYA3Xe4d1wnhyTdbdWtuG4pE6JOwsKOEBqrS0ybshC9LhxEFLBL8QerVqCtG0b9Iyx91ogUnTyzGax9y1q5ISCIMv+3p4hcM52bQp5wqAxqYl0pdomP7S0EaKENUnHh3xwxx/PxTOZidLj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=HYZISQcq; arc=none smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	s=arc-20240116; t=1792292111; c=relaxed/simple;
+	bh=RwBPxlm8zIzi9zYbkB7uCRvJVvU1Yu85C2n+Ve6sFac=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=obErh7w7TvSnvsUq6GsIi/6dEZ6o7s5bsqivavOMPhyKJ8Y3pRAtl8nRGxeZ3DHRn0ASlZBwDf7tH0Eal5Lvj1aPlbDiT9K8tIqm+djZmAAmX0Gyp2n+dKTBTgQYWKdI6u0jlECw2qyVIs8Lw7JkLXszA4sB7EY6AGOhc0e/TKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=MtC3hFYg; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AoY6u2Vt; arc=none smtp.client-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="HYZISQcq"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso1177606a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:53:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1792292024; x=1792896824; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bBj6psTg0atPzJHuE/vK78ETes9bC48NNTa8QuWS9mE=;
-        b=HYZISQcqf5hf4y0N6uHqGFkBZiXkDh6h/RZxTr7yStUo5ktO8PWjm+C9OFcEa8KW/A
-         1/fz8IVJmBFQmH+hPqnBQBgUswKQM5CqYgoohxyiPvTg6myMdFrYfe+f3B7/4IIeH3TL
-         KS4GzAajFpXG7DfWIwUE2zKDoTcgI+aRG1Y3MTQRH9odrszYjxo2Apune39h8yT5td7F
-         M+Zdc6GHxpvd6TYao3g8jPrfnBdJj62icL6h/3lwFOCDpEkLMqFPHuRpS35w7xzlDcT8
-         p9xrYWM2pxz1I9giuBT1KRAO9DCKbQT4vCVjtt0H2nakwPEbpAYULd+WEhLzqxieeX1V
-         zqsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792292024; x=1792896824;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bBj6psTg0atPzJHuE/vK78ETes9bC48NNTa8QuWS9mE=;
-        b=WqYgHwmTvZtPvfhdNNfJn7qDm8iTKdnlmrrXBOHoZTsHHwfP6ZNN10WGiuWAgaFiT3
-         dO4ONLtMFpaEr3adIsZmFHpi5LNd1r5BA4pilLBaCD7jhhQ9HOFgzIua5LvfRefDaxFO
-         ygLmiNeeFwsVdrZf0rLScrDA886jx56SwraqJUHuXZrcgsAlEi0C8gKsIbPvXzZpkVbi
-         POz+b43MQY4+UyqpaoU43Bt/iqtIKky/BAmgXM+JPuOOTCTdNuMOJKLLdZhVpkIZwsUv
-         d7NIgkeIx6QDgdKFn/HD3ziZQNdotKitlJF7Ll3w/bv+u/ZmM8eGAdQkcTo6Ylokk16I
-         fVMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxm2NKFQo8C+gplNntLcehrbbvLO3nxwIJU6BOz+K/QM2j7HAqnArUQvlaL7Vezig1ox28nux2tJl6RO84=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNx3ZoUaKZRSJ+Yn7yoWEitcM8ugtUaXVBQ6oLqsSYoB7bQ6bu
-	RCyb7mQ+FLqC8KShyKDkmtQdDtZb25+T9q7H/UmebI4hIoBwnb0VWMrzHgEoGw9npw==
-X-Gm-Gg: AYBFou1Kz+ov7EGHOxsJvr8Do7DF9mUNn2eOmWs7S2Nr+meYrTRGGTNtSszEXSjY1dB
-	cloFDzzzvPbXO6AdqPZc8nKuqFVMjGs3GKqIP5oS7eBbU9beDAzNTrA86A6rYl9Q3e0suxsQpe5
-	SsrQz3lScjxh+o/mGxrfrFXaaOBBjiQ9qqqtte1O9ozVrbtD9yma/mwRR/lo4e4hG2DvHcnl145
-	rfRUGZx+Fk/nvfyc729grJsgY202oLKbj7/B6OyyDIl8vECS/lEy9Ydqp/Rg2NNaHpP9z4SM54T
-	0faQ2a1JbdMxQe358yoWNgZwdmv42EVAunTz7H35wxI28Mi2GhzW4HBSiPjbjdvK3K01L+kbuHB
-	njuYUQs6Wy9Y0csJLe7pUUXUzk4lAEo2kUh6ECoAK0rksmZq99QvMuMlbGmV2tF0yvaioA0r/n4
-	E0VO7JfgjNWaJhavQXRWVt118R77K4NT4Tr/L5tf8oIt4gSXReRQEg1XMvgN4EnnpElHwvKBCCI
-	1MQ1Ar+n2cZxR8A46oQUCW+ClAV6+0oIZ4zKftq16EGjCwJJFsI8KvzcjBdRAs+Vdq3Ty7r/F4a
-	Q34Xjlemqkws0f/EpGTEQbXem35CfD0wxlyGHcQVAMsQqiKygg60kc0jg1Qgts0kHr9eU6PxMrT
-	u+8G0UbYD7zvmIY5oSmNsNWxDDE7JyDaN8Q1WMfciQGdpj00ZYeHsZU3V1yafzRlBjWPqy5jMBH
-	nV0gxe6dxi85UNY8m6hRWJ9BtkswR6hbZ+tilbqjXc0RqQLoyBLF5/UliP/u+SKRc5QGlA
-X-Received: by 2002:a17:907:94d0:b0:c41:285a:46a9 with SMTP id a640c23a62f3a-c41a08d9fc4mr265085666b.46.1792292004094;
-        Sat, 17 Oct 2026 19:53:24 -0700 (PDT)
-Received: from Desktop.fritz.box (p200300f24740ac10545cfe8be1a407c1.dip0.t-ipconnect.de. [2003:f2:4740:ac10:545c:fe8b:e1a4:7c1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dd1130sm227219666b.25.2026.10.17.19.53.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 19:53:22 -0700 (PDT)
-From: Julius Bairaktaris <julius@bairaktaris.de>
-To: pablo@netfilter.org
-Cc: netfilter-devel@vger.kernel.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	andrew+netdev@lunn.ch,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nbd@nbd.name
-Subject: Re: [PATCH nf-next 2/3] netfilter: flowtable: update upper device stats in the fast path
-Date: Sun, 18 Oct 2026 04:53:19 +0200
-Message-ID: <20261018025319.1445197-1-julius@bairaktaris.de>
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="MtC3hFYg";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AoY6u2Vt"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id F05AE1D0006E
+	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 22:55:07 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Sat, 17 Oct 2026 22:55:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1792292107; x=1792378507; bh=2K7GpnnkpC
+	mriI2pJfz2e7D71NoKLssGKUJjtYZwiPc=; b=MtC3hFYgQPEIJbMkMzv6sD/aAk
+	4Va33/uvtreJK/m+3d3JqMdR6+8C8mwvCVEmiJikeIVIjqwqszrwvqG2P44vxmXQ
+	GnzYbSz4ffiCEkDJr4KqHP6FGMrSjDE3sqkOwA99CKVvo9SgnRFU5CeFDPfeYgWl
+	jnZBf7e13ixKPVrAa3cM5zXHl+Xg58yBCUTVf0M9qos2TsfBe93F2Pi4qvh9LRca
+	TT8ROP8XP5Y1ndJgjeoq72qHuxAIu8blHswA8pqTQ3AwQKHq7zkdfgyo+1YtEBlq
+	SmE3PBGn00xbdTbtUgIC6V3eUchP60LxN/jZBUlZ42uxtv7WRjAEJwWzjo4g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792292107; x=1792378507; bh=2K7GpnnkpCmriI2pJfz2e7D71NoKLssGKUJ
+	jtYZwiPc=; b=AoY6u2Vt2Zw+YwZfUC1QJEsHxuXdVnMrT/Tus3BCZo9dJvz0eUL
+	+gttCDFgWquzP4eZMANW5zeHsQcRrFAHaqeSDbAopg/uHmot2IWQU8s/JupG0WEy
+	94AwWly640SofjEC7CyW9jLug61dZeigcDMGDvi6NWEbLoPtfFX8tO6c32PFdteE
+	bnq/Y/IlHKxpUlOCHzZ2xB3JBiHnspJgRQhTR4RZJmTRxSH/g5bYXUcpzvOB9VHY
+	ajc1BRJMw1VI1V3/RYcmAvasHcYdQBsIeRzLKx7uL7ME/A0/AL66h0OeQcPXaOiT
+	TWuMSw8wmuNqCKPM8HFC3whfHvND2WE22jA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792292107; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Pu9RmiTCiN5vX95TQi/m/5jbN5NXumYhcwv/bt7/W9XGi56
+	qB3joNc2y/siuJb3hd9bhXHh5Z1Dqht4OFgrL/4H3AMkXpBqs9qTRF1Wiz6cKQaF
+	GVSl9LQvYcyot0E8Uim3o5Td2LIFNUmmoOoCQeMxubAUIXAmzakijzS8LOcjFwjj
+	05mQ6mjJWCaPZdqggs1oAlNd5MPzhMHyHlf8anddILJbrZyCI5c3RSdvtDXV69Z8
+	dpN0gKYqG0cc7HXy5T7Zai7IUoE6FYdJyNuxFUO5jrboYTc01VQwvNNLoaAeDmoT
+	XW0pP8p9aXerchwuVtq8g0m+lUgdiXlvFqUQC/Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:Sn1LKvgATmKSR9lqOVYsb/u4SD6y5DzxV4abH0aAHaI=:RwBPxlm8zIzi9zYbkB7uCRvJVvU1Yu85C2n+Ve6sFac=;
+X-ME-Sender: <xms:CzXUamgTrECrvapQkMpqrhHwBXK5bFsmPvuqpiDrdFO0md9kioL6sQ>
+    <xme:CzXUak_8bV5GFe08_JEUcysRZoxppeq8NLJ8ogSshiLdVnaIBqUx8WUVQ4fSMkOup
+    OZoZTLBMWgoxA554J12Yw9Y4TCzp64jvDtyT1QlQctBeJaGwVsdsV4>
+X-ME-Received: <xmr:CzXUalrlHQpp1noF538Am1roYWpTc2qkNK8EOCBEz6SQx-AuT43T9HmGXfe8FSeOZOJZLGMrwCLCGjmN5nfIviniTeb_t16_qRaI9l3KM6Js>
+X-ME-Proxy-Cause: dmFkZTGNuYtGb5IfLnheiBuBhXkepFvxKPqCCivo+WwTzZl2njmNYGZY7JXXTQ5KvH1WE+
+    DZByVu7DIm/j3ziVAVAohb//Fbb51w7Pq9phjoUBvwjY+guVVX2GB2k+KwNQPO1byBYcVX
+    3NXce3gA6uO0g/SFdk+SivWktt7GZdPJLfk/mFG4SGDeOC2fm7Jmfn1CXnmRv1x/baRVLQ
+    Q3Eqmpmr86ZGFAothaO5qwyyZzrOOUu6bYOp5WSnRMiQBSTW7hMDdAGZFe2v+vLeovc+k6
+    shy/nbpWfhHnkWrqYkEmw/wl37G8rX/mqcMDQwdQIATPBDV8FyoJ7YzPcWfAMWtUhHaWRT
+    dq/tfH1FrEcsZnvQ2j9MNfOKthBJQ3VRfYsHs5lJ1awaGhwpbqlRsfE+VKZS3dg6Y+NPMQ
+    cbVgX3hMcaSp8y+D8oNDCoKqkMBoBecchLFdlqE4BVJB9ZZuViQUT37YwaR0ieUf5dCmIy
+    mYmGxi2R96/qUAj6ORk5VI1JSX51T/c6IkQZ3+QEhj3HSSxey7YHvaBulTnS+h7bZh+npe
+    0AsAP9iEuNY8TTlYVxukIydjZmxxo1gC3DKWXAN9oGd3rgKfcrweo7u2dAS8bu7pNViNIS
+    Dei/NVAV+ZMRDwwtgrsiyzQJ9rIAL6wD1UiHfAdCfCGFc8up0pVqRFP7ZGrw
+X-ME-Proxy: <xmx:CzXUar9uWUMS-sC7GFfQ1GovkrRs6gAWkAu_aQq7B0HEShLrG5E52g>
+    <xmx:CzXUahV0PJxJ_3UMAH7SfyqptRg4hVVAxsN1GIrxBoUb37WQApoG7A>
+    <xmx:CzXUapBCNsFIlOm5NdXR9JKmuqAZQhwHx6j7nw9PGj0ecB5N7ub-Xw>
+    <xmx:CzXUaqy_JXUXv8FWJin_HtQD_Zkho-bqgwq42vWcCVegqF9j33UkZA>
+    <xmx:CzXUakUF3iA-n0wLinnfRKMDyYy6t6PfXJ7GUG2Amzx6DC8YTSY7Dshg>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 17 Oct 2026 22:55:06 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] firewire: core: fix race condition in split transaction handling
+Date: Sun, 18 Oct 2026 11:55:04 +0900
+Message-ID: <20261018025504.290598-1-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <atQmpPlfT_DSd9dq@chamomile>
-References: <atQmpPlfT_DSd9dq@chamomile>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,21 +98,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 03:53:40AM +0200, Pablo Neira Ayuso wrote:
-> I mentioned it is a feature that these counters are not bumped,
-> because packets are not passing through this devices in the bypass.
->
-> This allows users to see what packets follow classic path?
+For a split transaction, either fw_core_handle_response() or
+split_transaction_timeout_callback() may manipulate the same transaction
+entry in the pending transaction list. The return value of timer_delete()
+is used to determine which function handles the entry. If the transaction
+is a split transaction and timer_delete() returns zero, the timeout
+callback may already be running. In this case, the response handler must
+leave the entry in the list for the timeout callback to remove.
 
-OpenWrt users report it as a bug. On my router a 268 MB download moved
-0.15 MB on br-lan, while the port below it counted all of it.
-conntrack already shows which flows are offloaded.
+A previous code refactoring broke this behavior, introducing a race
+condition in which both functions could process the same transaction.
+This could lead to a use-after-free on the transaction initiator side.
 
-> But if you insist, then explore a way to synchronize these counters
-> offline (ie. not from packet path) to see how it looks like.
+Fix the regression by ensuring that the response handler does not process
+the transaction when timer_delete() returns zero. The timeout callback is
+responsible for removing the entry from the pending transaction list.
 
-OK. The gc could add the conntrack counter delta to the upper devices,
-which would also cover hardware offloaded flows. I will try it
-downstream and post it after the fdb series.
+Fixes: fa2dc2710076 ("firewire: core: code refactoring to find and pop transaction entry")
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ drivers/firewire/core-transaction.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Julius
+diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
+index 22ae387ae03c..016070560c74 100644
+--- a/drivers/firewire/core-transaction.c
++++ b/drivers/firewire/core-transaction.c
+@@ -89,8 +89,12 @@ void fw_cancel_pending_transactions(struct fw_card *card)
+ 			break;						\
+ 		}							\
+ 	}								\
+-	if (t && try_cancel_split_timeout(t))				\
+-		remove_transaction_entry(card, t);			\
++	if (t) {							\
++		if (try_cancel_split_timeout(t))			\
++			remove_transaction_entry(card, t);		\
++		else							\
++			t = NULL;					\
++	}								\
+ 	t;								\
+ })
+ 
+-- 
+2.53.0
+
