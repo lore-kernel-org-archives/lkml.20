@@ -1,223 +1,73 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179294DE71F
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:02:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DBB41BA69;
+	Sun, 18 Oct 2026 21:02:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792357340; cv=none; b=BcMH2bPDEZiMdWwSvIXVQnk1hHJTH85j3VD7LxLAkM8APU0tT+DPnGokxwt0ttg6H9F0IHeLEXtm12CsQLjNiy3JErQL66wB4kRxDXT8p1Lmlwk0hPxkJIXrCAyb26bb9MUGgdtjfRTtWgTzhB6mFFm+dedQk6lkTwmFnaGKFaM=
+	t=1792357349; cv=none; b=uq8QTgDfEYv8Kp6iwOrfRMn2DJjVBNgCSanoA+nDcVmG8+LUA7Payxb69sT3pu+0OGt0oKqqo2oqtZmAOjSb870tOgLxl54OH3kKmuJpEUEnotR/DTRmII9ZJ77mORavRC7Pv4WwI278V+RRLRoxUNVXp2cyyXixflxDGHl6pho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792357340; c=relaxed/simple;
-	bh=MbM68oLnHfgMNHhrjsVH1A+OpQzDA+M/S9wUQXSTyxc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hbZujdn7HcUUOcmMU3UmlYYqRNjrMo+kEfzR2wpW5fisGStULi4mdfVXkKkHH8jsfN648xvZMZvoNWv3ijDR9tOIdhXxzb73+NB+S0hjBuSTr3bUvFW20cFIFvPk/IciR+6dTP9R4hGv9lA8PD4PUriDLUPwSHZwOOdJezEmdAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=RdqdOMYB; arc=none smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	s=arc-20240116; t=1792357349; c=relaxed/simple;
+	bh=+LAnEU6qsVNyQhYvAmAyc4CEOpHcSxtjMfXcgVED7n8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DUVN60JR2DYiCHO6ckLhssgdH4rr/Mxzr5oJ24MXSXjppbWsfvbrAyC89lHLRcqve5NaEg+cGRKmMciE0HkJ0VApFb6PkZhUxVF1/uFz/2siPYk9thsLvLxOPlNmc2p/F+kBrj0NvLNG8SWtkqzGJJmmvBxHRI/0phpXxZyFjjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EQFtakhb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="RdqdOMYB"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c40e30c26a4so334577766b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:02:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1792357336; x=1792962136; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IjCL8rWWQCqnPM2ezT/ruQu8lgpi8/XSKN8Gv6f2o+4=;
-        b=RdqdOMYBxUvoznXYcXvFs8ItyZ1ApbLKROv7LRkcPKQrzP5jNWn84PkZE5Bp/p4knj
-         buz9uRLkOfAVO0BAptntmJFvjrFP0cGbCxen2+pRpQOaG60HD8eilEYgF5b2di548YUg
-         WCfc/SlbtwVeOCWXDSmtyH6cJcrSAbnxzCG6Z0naxKYrc9FvpCskyHYf54QzRzBHkMFM
-         2reAOIcFpgNCYmcnLUXeKIh19M4ZSOHCbLakHiYEeWWuvUH794Jq7S3GNyXccy2zyVox
-         UJBMdGjBoCH5dSmdVmFm8zFcuHJ4h1NjQ1e9ubEJHpKTCUMdXrM90X2Fo3npdXl6mQa7
-         MYYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792357336; x=1792962136;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IjCL8rWWQCqnPM2ezT/ruQu8lgpi8/XSKN8Gv6f2o+4=;
-        b=zEErQUD1bzauYT06OyGyeIs29LOloAFG6GZF7MkOAeDOACfM5gbe/LzocBYrYcIBb4
-         9+5BTEI8Xdio6YfQwpNolpiqpuhGr1Pnj5/MGGDPVRXjzSjc93olfpKpIKCd7aKhjifK
-         fObUSrgiRxyogKLc1H0o1WT+WwgQ2zpvFKYfafiOzpc/IuxI/T1PCUt/TOP2k1xdUheS
-         dNoqFhgjyTEkpWsdwoSUNzmQEN4qhTVnJFHijeL8VzjZvf3uXfgr7d9MFlNLhQwsKp1e
-         LX+kWTE+9dRzaNobBVT0VncWvEYfPHFP8vNV7oTSagY7yEGIDyGdThKyBK5MAi0IziXk
-         TfrA==
-X-Forwarded-Encrypted: i=1; AKwUvBz78OKHaRU5cxJZVw0J9psQOjrz3FSjSAf3lHLLBPHPIQaCm1mB7GGKsmHBdPJt9twtZC+Mj86tOf2HKWs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInHHmR3OYUbouUbx1biljnEjliVxmrkXAcmKR4Ae8yeAq7gA2R
-	8Ef6/SmqZXtij1BbpmX9sMDe651cs9ro0WTAVQHHooU3OkNe/c9IWs6Fl9ejuWEXYQ==
-X-Gm-Gg: AYBFou3jjCjgssN2LHUDWuITg+2k3shR4ZSEeZsFrbJOYZ44CD/rQDGALPgK6UjXjUY
-	KuAIyzOEV0upunbhTtlDqL29vt7YtxxXmGTc6ZnOpPj0DUaBG1qVXheOau+8bsdUoa6chZAjzqj
-	UG8I7DzCqiob2jDHySavNCaw7jJrxJyTumQV047MJaF/FZz7u+WVl0t1+NnVGbd5NZiOUcJN9Oj
-	HhepiYas7B7T3MIVjKi7FogqiYLck8AVT6esrjyeL1KchKViqlpjvCnnpu/0GImUYCQ7rO26Gqx
-	uloG+OIudJMbWuoekdaJMnww7w8WeZnQsHe0Uk0s0/kRG2KeWTisn0nfGy6TeyITqmXgRKxmzce
-	c2LPQh4q54bYZaB6se7zxdvmLag6e0Z58uXiiDHUhE+IeaQNEc08pXKlNA69yqHoxYAroTgyvkV
-	gO0V1mZE3uE/YQPSFg21rceHHbyNNXmvEFcLL8Ezd7cjO/LDpI/LPX/IbSHTiyiPlAGxtQou35B
-	BnMHc65oipniZWYhxdnDEl7W3A6IVJgp7UHzjCwLNLysCagzvkgLwKjYxSTZ3sLgGn2F3nx5YCO
-	UwaSlRwisTw7gzojV7WrdRUZBpwOkG0ZtiVHtD3wo2DHR/pIwM89ewpuotnyVepDXTEuqbnC7RI
-	RnnFjd34lfo4gfi7y4j5CDCvf3rw2Zft21xRHE1W78OX+QIC5gqI9cUixrfUWVGYc3KjPVx2YzK
-	mDXv1ZnBC+fQ==
-X-Received: by 2002:a17:907:2d0a:b0:c31:5918:86d1 with SMTP id a640c23a62f3a-c419e03a4c8mr432252966b.10.1792357336034;
-        Sun, 18 Oct 2026 14:02:16 -0700 (PDT)
-Received: from Desktop.fritz.box ([185.181.130.213])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4465eb0c67sm21953166b.12.2026.10.18.14.02.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 14:02:13 -0700 (PDT)
-From: Julius Bairaktaris <julius@bairaktaris.de>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: ath11k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	Kalle Valo <kvalo@kernel.org>
-Subject: [PATCH RFC ath-next] wifi: ath11k: advance the TX PN of keys reinstalled after a firmware restart
-Date: Sun, 18 Oct 2026 23:02:12 +0200
-Message-ID: <20261018210212.1926073-1-julius@bairaktaris.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EQFtakhb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E21B31F000C5;
+	Sun, 18 Oct 2026 21:02:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792357348;
+	bh=H7Y9ThppzfrV33D7sGdW6+UwLbobaDsHQokLbYYwjPU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EQFtakhbCUEHbwvCm8U+Gf6OW+ckGwdIoDky03Cetc90gPjOr6UgR2pavGx/KVnby
+	 renSiQ5mbKU0XzqxWuAe8OVUQgL4Q8VxvT+zuvFPPm1ZR4Ehi3fdY7jWv3zBMC127p
+	 XtS09V7CNzkiFRT3pS5VhGsWPvv0lVqdxaVuqm+tB3s5wrY9LeNQOBGS+F6jiU5Kgq
+	 aXpNVAgxC9DjrRwW9X549KgTC/aU1jH6Zqz2f/fasOoCkhvrBXhq+7pU7HYZY2z8R+
+	 E7WJAIuT8wYl0l5e/lmWN4vxTF0FDTTQ5yGo7XhemWV7CroA4Gmfh11ldlUmVL5ZmF
+	 Yb2+siOXm+0Iw==
+Date: Sun, 18 Oct 2026 14:02:22 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jan Koester <jan.koester@gmx.net>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Serge E. Hallyn" <serge@hallyn.com>, Jan Kara <jack@suse.cz>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Paul Moore <paul@paul-moore.com>, Arnd Bergmann <arnd@arndb.de>,
+	linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-arch@vger.kernel.org,
+	linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-cifs@vger.kernel.org, netdev@vger.kernel.org,
+	audit@vger.kernel.org, keyrings@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 09/41] uidgid: let kuid_t and kgid_t hold a UUID or a
+ GUID
+Message-ID: <20261018210222.GA9623@quark>
+References: <cover.1792346472.git.jan.koester@gmx.net>
+ <9c17a1f7f82b953e6f4d9e17f4ca19d5220d7f2b.1792346472.git.jan.koester@gmx.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9c17a1f7f82b953e6f4d9e17f4ca19d5220d7f2b.1792346472.git.jan.koester@gmx.net>
 
-After a firmware crash mac80211 installs the same pairwise and group
-keys again. ath11k_install_key() leaves key_tsc_counter at zero, so the
-restarted firmware sends with PNs the key has already used: stations
-drop the frames as replays until the PN passes the last one they
-received, and CCMP and GCMP reuse the nonce under the same key.
+On Sun, Oct 18, 2026 at 08:01:30PM +0200, Jan Koester wrote:
+> Make kuid_t and kgid_t (and vfsuid_t and vfsgid_t, which share their
+> layout) tagged unions: a classic 32 bit id, an RFC 9562 UUID, or a
+> Microsoft GUID. KID_LEGACY is 0, so zeroed memory still holds the root
+> ids, and KUIDT_INIT()/KGIDT_INIT() keep building classic ids, so the
+> bulk of the kernel needs no change. The member is renamed from val to
+> legacy so the compiler finds code that peeks at it directly.
 
-A station that had received 11, 2012 and 3512 frames before the crash
-accepted downlink again only after 11-13, 1817-2119 and 3324-3627
-frames after the restart. Broadcast ARP requests are dropped as well,
-so a station whose neighbour entry expires stays unreachable.
+Most Linux systems aren't going to want this bloat to the core uid and
+gid types.  So if this is supported at all (unclear it's worth it...),
+it will need to be controlled by a default-off kconfig option.
 
-Start a reinstalled key past any PN it may have used. An HE PPDU
-carries at most 256 MPDUs and lasts at least 40 us, so add 8 PNs per
-microsecond since mac80211 last started the radio to the key's tx_pn.
+Side note: the subject line says the series contains 41 patches, but it
+seems only 11 were actually sent.
 
-Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
-
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
----
-RFC because WLAN.HK.2.9.0.1-02146 ignores the field: with key_tsc_counter
-set to 83834696 on every reinstalled key, the station that had received
-3511 frames still needed 3324-3627 frames before it accepted downlink
-(1 run).
-
-Which command or field sets the TX PN of an installed key on this
-firmware? Without one the stations need new keys after a restart.
-
- drivers/net/wireless/ath/ath11k/core.h |  5 +++++
- drivers/net/wireless/ath/ath11k/mac.c  | 12 ++++++++++++
- drivers/net/wireless/ath/ath11k/mac.h  |  3 +++
- drivers/net/wireless/ath/ath11k/wmi.c  |  4 ++++
- drivers/net/wireless/ath/ath11k/wmi.h  |  1 +
- 5 files changed, 25 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/ath11k/core.h b/drivers/net/wireless/ath/ath11k/core.h
-index a0d725923ef24..683d6b750439c 100644
---- a/drivers/net/wireless/ath/ath11k/core.h
-+++ b/drivers/net/wireless/ath/ath11k/core.h
-@@ -668,6 +668,11 @@ struct ath11k {
- 	u8 mac_addr[ETH_ALEN];
- 	struct ath11k_he ar_he;
- 	enum ath11k_state state;
-+	/* last mac80211 start, and the TX PN advance for keys reinstalled
-+	 * after a firmware restart
-+	 */
-+	ktime_t start_time;
-+	u64 restart_pn_advance;
- 	bool supports_6ghz;
- 	struct {
- 		struct completion started;
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index 1a237adaa37d1..0f9bf1d00546f 100644
---- a/drivers/net/wireless/ath/ath11k/mac.c
-+++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -4421,6 +4421,13 @@ static int ath11k_install_key(struct ath11k_vif *arvif,
- 		key->flags |= IEEE80211_KEY_FLAG_GENERATE_IV |
- 			      IEEE80211_KEY_FLAG_RESERVE_TAILROOM;
- 
-+	/* The restarted firmware has lost the TX PN of a key that mac80211
-+	 * installs again, so start it past any PN the key may have used.
-+	 */
-+	if (ar->state == ATH11K_STATE_RESTARTED)
-+		arg.key_tsc_counter = atomic64_add_return(ar->restart_pn_advance,
-+							  &key->tx_pn);
-+
- install:
- 	ret = ath11k_wmi_vdev_install_key(arvif->ar, &arg);
- 
-@@ -6645,6 +6652,9 @@ static int ath11k_mac_op_start(struct ieee80211_hw *hw)
- 		break;
- 	case ATH11K_STATE_RESTARTING:
- 		ar->state = ATH11K_STATE_RESTARTED;
-+		/* Every key in use was installed after the last start */
-+		ar->restart_pn_advance = ATH11K_MAX_MPDU_PER_US *
-+			ktime_us_delta(ktime_get_boottime(), ar->start_time);
- 		ath11k_mac_wait_reconfigure(ab);
- 		break;
- 	case ATH11K_STATE_RESTARTED:
-@@ -6656,6 +6666,8 @@ static int ath11k_mac_op_start(struct ieee80211_hw *hw)
- 		goto err;
- 	}
- 
-+	ar->start_time = ktime_get_boottime();
-+
- 	ret = ath11k_wmi_pdev_set_param(ar, WMI_PDEV_PARAM_PMF_QOS,
- 					1, pdev->pdev_id);
- 
-diff --git a/drivers/net/wireless/ath/ath11k/mac.h b/drivers/net/wireless/ath/ath11k/mac.h
-index 127cb476b44b7..cde8f1c08eb0e 100644
---- a/drivers/net/wireless/ath/ath11k/mac.h
-+++ b/drivers/net/wireless/ath/ath11k/mac.h
-@@ -20,6 +20,9 @@ struct ath11k_generic_iter {
- };
- 
- /* number of failed packets (20 packets with 16 sw reties each) */
-+/* An HE PPDU carries at most 256 MPDUs and lasts at least 40 us */
-+#define ATH11K_MAX_MPDU_PER_US			8
-+
- #define ATH11K_KICKOUT_THRESHOLD		(20 * 16)
- 
- /* Use insanely high numbers to make sure that the firmware implementation
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
-index 5c27e7057e6ad..0deab00939af7 100644
---- a/drivers/net/wireless/ath/ath11k/wmi.c
-+++ b/drivers/net/wireless/ath/ath11k/wmi.c
-@@ -1876,6 +1876,10 @@ int ath11k_wmi_vdev_install_key(struct ath11k *ar,
- 		memcpy(&cmd->key_rsc_counter, &arg->key_rsc_counter,
- 		       sizeof(struct wmi_key_seq_counter));
- 
-+	if (arg->key_tsc_counter)
-+		memcpy(&cmd->key_tsc_counter, &arg->key_tsc_counter,
-+		       sizeof(struct wmi_key_seq_counter));
-+
- 	tlv = (struct wmi_tlv *)(skb->data + sizeof(*cmd));
- 	tlv->header = FIELD_PREP(WMI_TLV_TAG, WMI_TAG_ARRAY_BYTE) |
- 		      FIELD_PREP(WMI_TLV_LEN, key_len_aligned);
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.h b/drivers/net/wireless/ath/ath11k/wmi.h
-index b2dade0516ac7..049c90fa80c4d 100644
---- a/drivers/net/wireless/ath/ath11k/wmi.h
-+++ b/drivers/net/wireless/ath/ath11k/wmi.h
-@@ -3690,6 +3690,7 @@ struct wmi_vdev_install_key_arg {
- 	u32 key_txmic_len;
- 	u32 key_rxmic_len;
- 	u64 key_rsc_counter;
-+	u64 key_tsc_counter;
- 	const void *key_data;
- };
- 
-
-base-commit: cd026e68fdbf88b9cc522b76c7a9d92c9a41f709
-prerequisite-patch-id: cd9f2849ade92e165f15fe3f887edabd1d06b6e8
-prerequisite-patch-id: 3c9ba2aec0d93942448aba1dc5d26b632d519e5a
-prerequisite-patch-id: 9a833c602db147b490fba6df590eeea3847f4877
-prerequisite-patch-id: 6fd3e11242fb3ead65751e3cd9972c4d7c63f989
-prerequisite-patch-id: 01e149ed860e5e40e79725580548ce4034f344b2
--- 
-2.53.0
-
+- Eric
