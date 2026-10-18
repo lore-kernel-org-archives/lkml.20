@@ -1,202 +1,230 @@
-Received: from a3.inai.de (a3.inai.de [144.76.212.145])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCDD35C692;
-	Sun, 18 Oct 2026 22:27:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.212.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688512D738F;
+	Sun, 18 Oct 2026 22:31:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792362448; cv=none; b=dFxyZRtirAuXcKkw9Bw7Mf5KGGGgzSmrzeQZeZTvRF+u0CaRtWTi5B+LjMMeXs/VToZZBsxpvAkHV0NgCFvH9IrR3RTsEj0oKT9HUY9fjgH+cUh7jyVNfvyr9VcZ457WCeBERqOOh451oymuN42+dzwAfky33K1qzLs0OvipVt4=
+	t=1792362668; cv=none; b=b2irppqt2ZWrEXji8i397LuMTj5LqU9s+ZhOD0DAgIu9PdsyneDTBncHFpf+YcMWvYDyi2D7opUXANyXBniDUzYBebWIGyyR36Vpz9CitkABepSmgnKS4XlNcY5KnBT1mvMBnjzxgcVYHnJ6Hp8fouLNM2hMJEyVrEhbLxwCayY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792362448; c=relaxed/simple;
-	bh=2NVOb7z3F4kDcm+Z2BiiTLIkK+yMkKv/C+dtySFMK2Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UJOTYFvc9aHb7wgqWfP4R9zoI5P+p8zSJv8uF91j9mOdJ6sYSmhg7HS0X5l7GlRQRFHriNdLqdh/W15EZERo7ETOwIkH/bfibjw5pQAQ7ro8v335vwOOgwVOeMqi9shah+P1/x3NbO+6N4AuJTVsAgKd9urU65d3jqQhlgAm+uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=inai.de; spf=pass smtp.mailfrom=inai.de; arc=none smtp.client-ip=144.76.212.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=inai.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inai.de
-Received: by a3.inai.de (Postfix, from userid 65534)
-	id 3C97C1003BF4B4; Mon, 19 Oct 2026 00:27:24 +0200 (CEST)
-X-Spam-Level: 
-Received: from a4.inai.de (a4.inai.de [IPv6:2a01:4f8:202:600a::a4])
-	by a3.inai.de (Postfix) with ESMTP id ECEE51003BF4B4;
-	Mon, 19 Oct 2026 00:27:23 +0200 (CEST)
-From: Jan Engelhardt <jengelh@inai.de>
-To: davem@davemloft.net
-Cc: sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Stian Halseth <stian@itx.no>
-Subject: [PATCH] sparc: populate sysfs cache topology information on sun4v
-Date: Mon, 19 Oct 2026 00:27:23 +0200
-Message-ID: <20261018222723.43442-1-jengelh@inai.de>
-X-Mailer: git-send-email 2.56.0
+	s=arc-20240116; t=1792362668; c=relaxed/simple;
+	bh=BWnOAvNsu6Hn1Yo/1ltCClpl+2xOU9XjAaNDugUcWVk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cysZntdsnRg/VpGyn7wnNTKmOw9YmPHbNfIDdj6q8quRLHDRPqn2BpSJPmgPQrTKjAUvTM9HQ225KgIRx7dxtZUFx3TKqRgF2sCgyGn1I2b/1f3vRAI3sY2vPfl2LWE1XNQIIEHZVveY6t4zhCO1smIxYWdhfuql8aGE0WSZjUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4J8Tivn; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4J8Tivn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428FE1F000C4;
+	Sun, 18 Oct 2026 22:31:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792362666;
+	bh=dZ+A9sRdQCSyqdCPlLTuLfwp38QHp8qh0nL7TJQw3CU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=n4J8Tivn+mJoUtx+Gf4drLXbJsSJdn2WlHNN1IhKDueNbqz7j6XFq4G20QaeqjeIk
+	 9nnLMA0R+gOlew7SCrCKCaUyggPy89kmsGUaDDtwu94TxJVL7yJj8JXEgLfr+R4ESx
+	 vnOdYAUV1biruiG01fhSnKKCtn72Caj+AhAN6/preC2K1GhjOzylwxmWjr47ZPEEwo
+	 Kh5wN7tQ5i5esYcPw+wZouEAzBSJjZ0kmbQaRQakN7D4rZW5+e6ub5hYzVabIzDQTk
+	 Kzy3vHshnLYTss3yVZsd5cIshVj7y5PWwDWeLtBdALAAcN2kyTx4YFvGf42qGLtrYs
+	 2pH1rsP7krWNg==
+Subject: Re: [PATCH net v4] net: ipv4: add zero check for snd_cwnd_clamp
+From: netdev-bot+sashiko@kernel.org
+To: kj2864@nyu.edu
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, edumazet@google.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
+Date: Sun, 18 Oct 2026 22:31:05 +0000
+Message-ID: <179236266579.3135.14593132945174653104@kernel.org>
+In-Reply-To: <20261017214845.28769-2-kj2864@nyu.edu>
+References: <20261017214845.28769-2-kj2864@nyu.edu>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The SPARC port does not publish any cache topology information. The
-lscpu utility therefore falls back to assuming the published cache
-sizes are for unshared caches, and as a result, reports way more
-cache than there really is present in the system. On a T5240 machine:
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-```
-$ lscpu
-Architecture:          sparc64
-  CPU op-mode(s):      32-bit, 64-bit
-  Byte Order:          Big Endian
-CPU(s):                128
-  On-line CPU(s) list: 0-127
-Model name:            UltraSparc T2 (Niagara2)
-  Thread(s) per core:  4
-  Core(s) per socket:  16
-  Socket(s):           2
-  Flags:               sun4v
-Caches (sum of all):
-  L1d:                 1 MiB (128 instances)
-  L1i:                 2 MiB (128 instances)
-  L2:                  512 MiB (128 instances)
-```
+Critical: 0 · High: 0 · Medium: 3 · Low: 0
 
-This patch implements population of the sysfs cacheinfo structures
-for sun4v (systems with mdesc). The proper amount is now reflected in
-lscpu's output:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-```
-Caches (sum of all):
-  L1d:                 128 KiB (16 instances)
-  L1i:                 256 KiB (16 instances)
-  L2:                  8 MiB (2 instances)
-```
+- [Medium] The patch silently changes tcp_snd_cwnd_set() in
+  include/net/tcp.h, a hot-path helper used by every TCP congestion…
+- [Medium] The new check in ip_metrics_convert() rejects the wrong set of
+  inputs.
+- [Medium] net: ipv4: snd_cwnd_clamp still 0 in tcp_init_metrics() via
+  RTAX_LOCK
 
-Signed-off-by: Jan Engelhardt <jengelh@inai.de>
----
- arch/sparc/include/asm/cpudata_64.h |  8 +++-
- arch/sparc/kernel/mdesc.c           | 61 +++++++++++++++++++++++++++++
- 2 files changed, 68 insertions(+), 1 deletion(-)
+--
 
-diff --git a/arch/sparc/include/asm/cpudata_64.h b/arch/sparc/include/asm/cpudata_64.h
-index 056b3c0e7ef9..e28b841ffe23 100644
---- a/arch/sparc/include/asm/cpudata_64.h
-+++ b/arch/sparc/include/asm/cpudata_64.h
-@@ -18,13 +18,19 @@ typedef struct {
- 	unsigned int	irq0_irqs;
- 	unsigned int	__pad2;
- 
--	/* Dcache line 2, rarely used */
-+	/* Dcache line 2+3, rarely used */
- 	unsigned int	dcache_size;
- 	unsigned int	dcache_line_size;
-+	unsigned int	dcache_assoc;
-+	unsigned int	dcache_id;
- 	unsigned int	icache_size;
- 	unsigned int	icache_line_size;
-+	unsigned int	icache_assoc;
-+	unsigned int	icache_id;
- 	unsigned int	ecache_size;
- 	unsigned int	ecache_line_size;
-+	unsigned int	ecache_assoc;
-+	unsigned int	ecache_id;
- 	unsigned short	sock_id;	/* physical package */
- 	unsigned short	core_id;
- 	unsigned short  max_cache_id;	/* groupings of highest shared cache */
-diff --git a/arch/sparc/kernel/mdesc.c b/arch/sparc/kernel/mdesc.c
-index 23b51a32e96e..029d9d812074 100644
---- a/arch/sparc/kernel/mdesc.c
-+++ b/arch/sparc/kernel/mdesc.c
-@@ -818,6 +818,7 @@ static void fill_in_one_cache(cpuinfo_sparc *c, struct mdesc_handle *hp, u64 mp)
- 	const u64 *level = mdesc_get_property(hp, mp, "level", NULL);
- 	const u64 *size = mdesc_get_property(hp, mp, "size", NULL);
- 	const u64 *line_size = mdesc_get_property(hp, mp, "line-size", NULL);
-+	const u64 *assoc = mdesc_get_property(hp, mp, "associativity", NULL);
- 	const char *type;
- 	int type_len;
- 
-@@ -828,15 +829,21 @@ static void fill_in_one_cache(cpuinfo_sparc *c, struct mdesc_handle *hp, u64 mp)
- 		if (of_find_in_proplist(type, "instn", type_len)) {
- 			c->icache_size = *size;
- 			c->icache_line_size = *line_size;
-+			c->icache_assoc = assoc ? *assoc : 0;
-+			c->icache_id = mp;
- 		} else if (of_find_in_proplist(type, "data", type_len)) {
- 			c->dcache_size = *size;
- 			c->dcache_line_size = *line_size;
-+			c->dcache_assoc = assoc ? *assoc : 0;
-+			c->dcache_id = mp;
- 		}
- 		break;
- 
- 	case 2:
- 		c->ecache_size = *size;
- 		c->ecache_line_size = *line_size;
-+		c->ecache_assoc = assoc ? *assoc : 0;
-+		c->ecache_id = mp;
- 		break;
- 
- 	default:
-@@ -1251,6 +1258,60 @@ void mdesc_fill_in_cpu_data(cpumask_t *mask)
- 	smp_fill_in_sib_core_maps();
- }
- 
-+int init_cache_level(unsigned int cpu)
-+{
-+	struct cpu_cacheinfo *i = get_cpu_cacheinfo(cpu);
-+	i->num_levels = 2;
-+	i->num_leaves = 3;
-+	return 0;
-+}
-+
-+int populate_cache_leaves(unsigned int cpu)
-+{
-+	struct cacheinfo *leaf = get_cpu_cacheinfo(cpu)->info_list;
-+	cpuinfo_sparc *cs = &cpu_data(cpu);
-+
-+	leaf->id                    = cs->icache_id;
-+	leaf->attributes            = CACHE_ID;
-+	leaf->level                 = 1;
-+	leaf->type                  = CACHE_TYPE_INST;
-+	leaf->coherency_line_size   = cs->icache_line_size;
-+	leaf->ways_of_associativity = cs->icache_assoc;
-+	leaf->size                  = cs->icache_size;
-+	leaf->priv                  = cs;
-+	if (cs->icache_line_size > 0 && cs->icache_assoc > 0)
-+		leaf->number_of_sets = cs->icache_size / cs->icache_line_size /
-+		                       cs->icache_assoc;
-+	++leaf;
-+
-+	leaf->id                    = cs->dcache_id;
-+	leaf->attributes            = CACHE_ID;
-+	leaf->level                 = 1;
-+	leaf->type                  = CACHE_TYPE_DATA;
-+	leaf->coherency_line_size   = cs->dcache_line_size;
-+	leaf->ways_of_associativity = cs->dcache_assoc;
-+	leaf->size                  = cs->dcache_size;
-+	leaf->priv                  = cs;
-+	if (cs->dcache_line_size > 0 && cs->dcache_assoc > 0)
-+		leaf->number_of_sets = cs->dcache_size / cs->dcache_line_size /
-+		                       cs->dcache_assoc;
-+	++leaf;
-+
-+	leaf->id                    = cs->ecache_id;
-+	leaf->attributes            = CACHE_ID;
-+	leaf->level                 = 2;
-+	leaf->type                  = CACHE_TYPE_UNIFIED;
-+	leaf->coherency_line_size   = cs->ecache_line_size;
-+	leaf->ways_of_associativity = cs->ecache_assoc;
-+	leaf->size                  = cs->ecache_size;
-+	leaf->priv                  = cs;
-+	if (cs->ecache_line_size > 0 && cs->ecache_assoc > 0)
-+		leaf->number_of_sets = cs->ecache_size / cs->ecache_line_size /
-+		                       cs->ecache_assoc;
-+
-+	return 0;
-+}
-+
- /* mdesc_open() - Grab a reference to mdesc_handle when /dev/mdesc is
-  * opened. Hold this reference until /dev/mdesc is closed to ensure
-  * mdesc data structure is not released underneath us. Store the
+net: ipv4: add zero check for snd_cwnd_clamp
+
+This patch makes ip_metrics_convert() reject a zero RTAX_CWND metric.
+The goal is to avoid a divide error in tcp_cong_avoid_ai() when
+snd_cwnd_clamp is zero. The patch also changes tcp_snd_cwnd_set() so it
+no longer has the WARN_ON_ONCE() and instead clamps the written value to
+at least 1.
+
+> diff --git a/include/net/tcp.h b/include/net/tcp.h
+> index 4416cdf9bf30e..ad80b8fb8a520 100644
+> --- a/include/net/tcp.h
+> +++ b/include/net/tcp.h
+> @@ -1521,8 +1521,7 @@ static inline u32 tcp_snd_cwnd(const struct tcp_sock *tp)
+>  
+>  static inline void tcp_snd_cwnd_set(struct tcp_sock *tp, u32 val)
+>  {
+> -	WARN_ON_ONCE((int)val <= 0);
+> -	WRITE_ONCE(tp->snd_cwnd, val);
+> +	WRITE_ONCE(tp->snd_cwnd, max(val, 1U));
+>  }
+
+[Severity: Medium]
+Is this change meant to be part of this fix? The commit message only
+talks about rejecting zero in ip_metrics_convert(). This hunk changes
+tcp_snd_cwnd_set(), which every congestion control module uses.
+
+The WARN_ON_ONCE() came from commit 40570375356c ("tcp: add accessors to
+read/set tp->snd_cwnd"). Its purpose was to catch where and when
+tp->snd_cwnd gets set to an illegal value. After this change, a zero
+cwnd from any caller is silently turned into 1, with no diagnostic.
+
+Underflowed values such as 0x80000000 used to trigger the warning
+because (int)val <= 0. max(val, 1U) leaves them unchanged, so they now
+pass without any warning.
+
+It also looks like this hunk, not the metrics.c check, is what actually
+prevents the reported divide error. With snd_cwnd_clamp == 0,
+tcp_reno_cong_avoid()->tcp_slow_start() now stores 1 instead of 0. That
+means tcp_cong_avoid_ai() no longer divides by zero.
+
+Could the WARN_ON_ONCE() be kept? If the setter change is really needed,
+could it go in a separate patch, or at least be described in the commit
+message?
+
+> diff --git a/net/ipv4/metrics.c b/net/ipv4/metrics.c
+> index ad40762a8b383..cb36686973e57 100644
+> --- a/net/ipv4/metrics.c
+> +++ b/net/ipv4/metrics.c
+> @@ -54,6 +54,10 @@ static int ip_metrics_convert(struct nlattr *fc_mx,
+>  			NL_SET_ERR_MSG(extack, "Unknown flag set in feature mask in metrics attribute");
+>  			return -EINVAL;
+>  		}
+> +		if (type == RTAX_CWND && !val) {
+> +			NL_SET_ERR_MSG(extack, "RTAX_CWND must be greater than zero");
+> +			return -EINVAL;
+> +		}
+
+[Severity: Medium]
+Does this fully close the zero snd_cwnd_clamp case? The new check only
+runs when an RTAX_CWND attribute is actually present in fc_mx.
+
+ip_fib_metrics_init() allocates fib_metrics with kzalloc_obj(), so
+metrics[RTAX_CWND - 1] starts out as zero. Consider a route request
+whose RTA_METRICS has RTAX_LOCK with (1 << RTAX_CWND) set but no
+RTAX_CWND attribute at all. It passes ip_metrics_convert() with CWND
+locked and the CWND value still zero.
+
+tcpm_suck_dst() then sees dst_metric_locked(dst, RTAX_CWND) and copies
+both the lock bit and dst_metric_raw(dst, RTAX_CWND), which is 0, into
+the tcp_metrics_block. tcp_init_metrics() applies a locked CWND
+without checking for zero. TCP_METRIC_SSTHRESH and
+TCP_METRIC_REORDERING are only applied when non-zero:
+
+net/ipv4/tcp_metrics.c:tcp_init_metrics() {
+    ...
+	if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+		tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
+
+	val = READ_ONCE(net->ipv4.sysctl_tcp_no_ssthresh_metrics_save) ?
+	      0 : tcp_metric_get(tm, TCP_METRIC_SSTHRESH);
+	if (val) {
+		WRITE_ONCE(tp->snd_ssthresh, val);
+		if (tp->snd_ssthresh > tp->snd_cwnd_clamp)
+			WRITE_ONCE(tp->snd_ssthresh, tp->snd_cwnd_clamp);
+	}
+    ...
+}
+
+So tp->snd_cwnd_clamp is still set to 0. If a saved ssthresh exists,
+tp->snd_ssthresh is clamped down to 0 as well.
+
+tcp_init_cwnd() then returns min(cwnd, tp->snd_cwnd_clamp), which is
+0. The congestion control paths that clamp against snd_cwnd_clamp keep
+computing a cwnd of 0. These include tcp_slow_start(),
+tcp_cong_avoid_ai(), hstcp_cong_avoid(), htcp_cong_avoid(),
+tcp_veno_cong_avoid() and tcp_vegas_cong_avoid().
+
+With the tcp.h hunk, tcp_snd_cwnd_set() silently turns that 0 into 1.
+The divide error goes away, but the connection is pinned at a cwnd of
+1.
+
+BPF congestion control programs (net/ipv4/bpf_tcp_ca.c) are also
+allowed to write tp->snd_cwnd directly, bypassing tcp_snd_cwnd_set().
+They can still end up with snd_cwnd == 0.
+
+This needs CAP_NET_ADMIN, but so does the RTAX_CWND == 0 case the
+patch is trying to close.
+
+Would it be better to validate the final result after the loop? For
+example, reject the route when metrics[RTAX_LOCK - 1] has
+(1 << RTAX_CWND) set and metrics[RTAX_CWND - 1] is zero. Or should
+tcp_init_metrics() ignore a locked CWND of zero, the same way it
+already ignores a zero ssthresh?
+
+[Severity: Medium]
+Should this check only apply when RTAX_CWND is locked?
+
+TCP uses the CWND metric as snd_cwnd_clamp only when it is locked:
+
+net/ipv4/tcp_metrics.c:tcp_init_metrics() {
+    ...
+	if (tcp_metric_locked(tm, TCP_METRIC_CWND))
+		tp->snd_cwnd_clamp = tcp_metric_get(tm, TCP_METRIC_CWND);
+    ...
+}
+
+When it is not locked, RTAX_CWND only seeds TCP_METRIC_CWND through
+tcpm_suck_dst(). After that, tcp_update_metrics() treats it as a running
+estimate and overwrites it:
+
+net/ipv4/tcp_metrics.c:tcp_update_metrics() {
+    ...
+		if (!tcp_metric_locked(tm, TCP_METRIC_CWND)) {
+			val = tcp_metric_get(tm, TCP_METRIC_CWND);
+			if (tcp_snd_cwnd(tp) > val)
+				tcp_metric_set(tm, TCP_METRIC_CWND,
+					       tcp_snd_cwnd(tp));
+		}
+    ...
+}
+
+So an unlocked zero means the same thing as unset. With this patch,
+route requests that used to be accepted, such as "ip route add ...
+cwnd 0" without "lock", now fail with -EINVAL.
+
+ip_metrics_convert() is shared by IPv4 through
+fib_create_info()->ip_fib_metrics_init() and by IPv6 through
+ip6_route_info_create()->ip_fib_metrics_init(). The stricter input
+check therefore applies to IPv6 routes too, even though the subject
+says "net: ipv4". The commit message does not mention this change in
+accepted input.
+
+Also, a locked CWND with no RTAX_CWND attribute at all still seems to be
+accepted. That leaves metrics[RTAX_CWND - 1] at zero, which
+tcp_init_metrics() then copies into snd_cwnd_clamp.
+
+Would it be better to check for "CWND locked and final value zero" after
+the loop, rather than rejecting a zero attribute value?
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017214845.28769-2-kj2864%40nyu.edu
