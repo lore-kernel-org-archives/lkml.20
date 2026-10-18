@@ -1,124 +1,111 @@
-Received: from smtp-8fac.mail.infomaniak.ch (smtp-8fac.mail.infomaniak.ch [83.166.143.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69C3421247
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23373F23C0;
+	Sun, 18 Oct 2026 18:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792349110; cv=none; b=bl6gEx3zkPCnVJ7wfN6kv8S7tn6plVHmNKOg2+0ox/MpSKTgo/A1ScSgvcKF8YDI4wbERWo9fEEFMFsCmPUdqwbOXUZFdXH2rCHocbAJhqq9twOewyWOLIlTlMStN2WAATZpN8Rvx1u7fqAna/SYgDG8eDnKxDWlJXfymnhBPuk=
+	t=1792349437; cv=none; b=Jd7byMCWSh/7XYI7PKQCKd5SspqLe1/RctVSDg0Hczd8RvGU4cLA1PipAL2HAO76PW6rWIoFmhh8vUwM16Si/I83l7DRZ+euGOsEHxaur1Zp4Hss6pdYyvd6ABPESbMUB/cFUJuQPtix3RV3SbDIEBKY9PJ6EE6BwMMclGPhlPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792349110; c=relaxed/simple;
-	bh=lX+5dhgX4NC37aSTPQkLBUr6y8jXX7ECoAi6+Pd+qxw=;
-	h=Subject:Message-ID:Date:From:To:Cc:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=uxh4nqivgAh95MAfNKsQnKSJDUdVaUWc7dKq6GRg2F+38fmreEZlnke+DQVfKZRcPrBiPQ8mNujpB43rgp/aOx5tSg4D/soCcn5gDZrIXKWoD2fP0o/oc3ht3s6lGG/WqxEXFi2kcPpTs1v/DRMUI2GbE+2lV9n3ENb7853POq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=snyders.xyz; spf=pass smtp.mailfrom=snyders.xyz; dkim=pass (2048-bit key) header.d=snyders.xyz header.i=@snyders.xyz header.b=fKXTOTVT; arc=none smtp.client-ip=83.166.143.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=snyders.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snyders.xyz
+	s=arc-20240116; t=1792349437; c=relaxed/simple;
+	bh=ujufb1hsN+idDb+vBcB3cB6Jxmd7uHUq8KKZNzTcgc4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N3jmyuWHan1nfaH0Y26l4ACJGMpaQDA7gYL6/KfcdHfyVz40am7jQ+f9Fbi74+HihabYdbdVKIonOsfs900fagWNBFYklVqERfc1xLZ3aw7EjICngtwi3okCOrQx7vScjcBEbmKRqqwq8htyYn4LSUcbKKB+43B2QYift4YG9Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZHEI+AC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=snyders.xyz header.i=@snyders.xyz header.b="fKXTOTVT"
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j76zw4J0wzV5Z;
-	Sun, 18 Oct 2026 20:45:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=snyders.xyz;
-	s=20251118; t=1792349100;
-	bh=tiVAKs4hM0hfl1tlMLQJmGB+/I9Qxi99EZnZZxfXMO8=;
-	h=Subject:Date:From:To:Cc:Reply-To:References:In-Reply-To:From;
-	b=fKXTOTVT9AfcYa40wbFClGkXyXf356KfNsB4NIJlm5PEBu+/hAtcrvdqUJLnzWqV6
-	 6pXK9n9EU9LDaFGQW4+WaE1RHrksbFN+UfFkbcdqSn4z6+UveCs0pSL1TLiIswDwpX
-	 A7q+55UPaouvvOgZcbjeBmjfj7To1047RrKPjbeVE2Xy+7mDbnhXNU4E+xn4dj9Y4/
-	 LlpH03MFdpceC3OlbQNkeaXjIMGUTDZtRj1EMW+2S1PWWxHgEtV99MPMQBRqnQ4aAf
-	 27DQJ3R0AocSK5LODIoM1ZlL/RL3sTR02q843Ff50RcXIpnz8dFaUc+YyYIksc493r
-	 uZGDMd1/Ez+OQ==
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4j76zv3jBbzB73;
-	Sun, 18 Oct 2026 20:44:59 +0200 (CEST)
-Subject: Re: [PATCH v3 2/2] power: supply: qcom_smbx: add SMB5 support
-Message-ID: <7e5c96b8-e1ae-4819-874f-db818061be58@mail.infomaniak.com>
-Date: Sun, 18 Oct 2026 20:44:59 +0200
-From: Robin Snyders <robin@snyders.xyz>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Casey Connolly <casey.connolly@linaro.org>, Sebastian Reichel
- <sre@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Selvaraj
- <foss@joelselvaraj.com>, linux-arm-msm@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Robin Snyders <robin@snyders.xyz>
-Reply-To: Robin Snyders <robin@snyders.xyz>
-X-WS-Location: eJxzKUpMKykGAAfpAmU-
-References: <20260813-submit-qcom-smbx-send-v1-v3-0-27be0091d7c7@snyders.xyz>
- <20260813-submit-qcom-smbx-send-v1-v3-2-27be0091d7c7@snyders.xyz>
- <hryxv7fl3alrhnekb7bqn5zgexdyv3p6ndug7kp3uqxsiiwmsv@wtvg3za3qspu>
-In-Reply-To: <hryxv7fl3alrhnekb7bqn5zgexdyv3p6ndug7kp3uqxsiiwmsv@wtvg3za3qspu>
-X-Mailer: Infomaniak Workspace (1.3.1376)
-X-WS-User-Origin: eyJpdiI6ImtobERxMUZTdUNyZ1Q5QjFtTFlaaWc9PSIsInZhbHVlIjoiOWVGVCtlblA3am9VcGRhbktlQUliUT09IiwibWFjIjoiZmM1NzU0YmZiMWJhMzM3MDNkZjk1NzYzODExNjQwNjczZTc3OGNkZWMwYTllYzNjY2ZmZDUwNDA5ZDcyZjdlZCIsInRhZyI6IiJ9
-X-WS-User-Mbox: eyJpdiI6Im1LVzkyZWVkWTBsOGJKOVZYZUljS2c9PSIsInZhbHVlIjoiL2d5d3Rab3pySDkwT1QzZzl0RFJRZz09IiwibWFjIjoiZWZiZTFjMmFhMThjNzI3Y2I3ZTE3NGQxNGI2YzVhMjBmNmQ1NmE2YmRkNjdmOTRhYzNkYzA1ZGZlMDc5NGVkZCIsInRhZyI6IiJ9
-X-WS-LOCALE: fr_FR
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZHEI+AC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD2B91F000C4;
+	Sun, 18 Oct 2026 18:50:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792349436;
+	bh=RMwpf0KMhGlsmAsma1velbB+PsLjkn1Z8ybJYZMeYUo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nZHEI+ACoaQ1CoG7DYretXyau9ldDUaNwf9AvT8S/+O6GrHSSahpvqSRzLG6eYDYT
+	 IXvU0/qf/1NakNt1XnIiw0ivgCIvwIMoyVpCjYBB2+thB7luJTDmaomq7TA7bwyT16
+	 Pzhd4EsqMckE7zianpkD8fcjfHswtgO6DqI3Sz7wLgHbISIgT5JZS/lclhHbAl0J5s
+	 ZuBWgiTvydWn4gfri9wmv44VEkUK1anBc/MtP/x+b1RHfddxrV7gF0K5dPzf8tCICY
+	 IaK247G8YcK2LQIodU0FE0L0Z17rRwbXOMkqth9TAub5TUout6ynDTfSXSIDTRz9m9
+	 4+9RrVHoZEToA==
+Date: Sun, 18 Oct 2026 19:50:31 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Christoph Rudorff <chris@rudorff.com>
+Cc: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: iio: light: gp2ap002: add vled
+Message-ID: <20261018-giggly-reminder-4404507f3f23@spud>
+References: <20261017-iio-light-gp2ap002-v2-0-d6879767a446@rudorff.com>
+ <20261017-iio-light-gp2ap002-v2-1-d6879767a446@rudorff.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+Mn879I/TmKW1p6b"
+Content-Disposition: inline
+In-Reply-To: <20261017-iio-light-gp2ap002-v2-1-d6879767a446@rudorff.com>
+
+--+Mn879I/TmKW1p6b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-X-Infomaniak-Routing: alpha
 
-Hi Dmitry,
+On Sat, Oct 17, 2026 at 07:27:41PM +0200, Christoph Rudorff wrote:
+> According to datasheet page 8 "Recommended external circuit",
+> it can have tree supplies: vio, vdd and vled. As vdd and vled wants the
+> same voltage, they may be connected to a single supply.
+>=20
+> Signed-off-by: Christoph Rudorff <chris@rudorff.com>
 
-Sorry for the long delay in getting back to you on this.
-
-On Thu, Aug 13, 2026 at 06:52:24PM +0300, Dmitry Baryshkov wrote:
-> I remember that in SMB2 case the TCPM and charger drivers were
-> programming the registers from the same block. Is there no such conflict
-> on the SMB5 platforms?
-
-On PM8150B the register sets are disjoint. The charger node sits at
-0x1000, the dedicated Type-C port at 0x1500 and the PD PHY at 0x1700.
-With SMB5, qcom_smbx only writes the charger core (0x1042, 0x1061,
-0x1070), DCDC (0x1108, 0x110b), USB input / BC1.2 (0x1340-0x1380) and
-the watchdog/AICL timer (0x1651-0x1661) blocks. qcom_pmic_typec writes
-are all in 0x1544-0x1560, and the PD PHY stays in its 0x1700 block.
-
-The one name that looks like an overlap is TYPE_C_CFG, but on SMB5
-that is offset 0x358, i.e. 0x1358 in the USB input peripheral, and not
-the Type-C port register at 0x1544. The driver only clears
-APSD_START_ON_CC_BIT there, so that BC1.2 detection is not started
-directly from CC state while TCPM owns the port.
-
-By design, the SMB5 path also leaves Type-C power role and VBUS control
-to TCPM and the qcom_usb_vbus regulator. It does not touch OTG/VBUS
-boost, and it only clears the HVDCP modes so stale firmware settings
-cannot raise VBUS.
-
-> Have you tested that this doesn't break the USB-C
-> dongles being connected to the device?
-
-Yes. I validated the exact v4 driver on a OnePlus 7T Pro (PM8150B,
-6.16-based board tree; the only other change was an
-unrelated SLPI debug parameter in qcom_q6v5_pas.c) with TCPM
-managing the port, in both plug orientations:
-
-- Powered dock: the phone became data host and power sink (USB PD,
-  usb_vbus disabled). The USB 2/3 hubs, an RTL8153 Ethernet adapter
-  and a mass storage device enumerated, and a 64 MiB read gave the
-  same hash every time. The charger stayed online, health Good.
-
-- The same dock with its external power removed: the phone stayed
-  data host and switched to power source, with usb_vbus enabled. The
-  hubs, Ethernet adapter and storage re-enumerated and worked, and
-  the storage hash matched. The SMB5 charger correctly reported
-  offline/discharging.
-
-- Then back to a PC cable without rebooting: device/sink roles
-  returned, usb_vbus was disabled, USB gadget networking and SSH
-  worked again, and the charger resumed charging at its 500 mA
-  limit.
-
-None of these transitions produced an oops, lockdep splat, UVLO, OCP
-or OVP event. Ethernet traffic (no cable at hand) and visual
-DisplayPort output were not part of that run.
-
-I'll repeat this on the exact v5 tree before sending it, and summarize
-the register ownership and these results in the v5 changelog.
+Valid comments from Jonathan here,
+pw-bot: changes-requested
 
 Thanks,
-Robin
+COnor.
+
+> ---
+>  Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.y=
+aml b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
+> index 99bddf31cbed..f5b2c6a4d7e3 100644
+> --- a/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
+> +++ b/Documentation/devicetree/bindings/iio/light/sharp,gp2ap002.yaml
+> @@ -33,6 +33,10 @@ properties:
+>    vio-supply:
+>      description: VIO power supply a phandle to a regulator
+> =20
+> +  vled-supply:
+> +    description: LED power supply a phandle to a regulator
+> +      Optional. It may already be connected to VDD.
+> +
+>    io-channels:
+>      maxItems: 1
+>      description: ALSOUT ADC channel to read the ambient light
+>=20
+> --=20
+> 2.39.5
+>=20
+
+--+Mn879I/TmKW1p6b
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatUU8gAKCRB4tDGHoIJi
+0ublAQDq52TunNmV5wm29HeKs/ujJmoXxHkPditf6vJE+X+6xgEAoWmSd8+sREvm
+zoS7VRUp+0o9gvF5GqtidQdz3M0TxQk=
+=hIke
+-----END PGP SIGNATURE-----
+
+--+Mn879I/TmKW1p6b--
