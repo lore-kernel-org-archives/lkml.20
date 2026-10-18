@@ -1,63 +1,63 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C44346E5D
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616FD41F7ED
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:07:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792321620; cv=none; b=qxWn0o0ldsM2yO6dZ0lImcA4CXUcZS52phaTS6ckWxbbADFYTOvWAYuaqnSlyACxJhACoLoeN9WEKqZZG/tyi56pKHZaUZnmBJ/yxBLwJby0gUCRuBPrCe/d2fr1Xmg+k2IT7Svk4TZH5Byl0eD/uypg0Ebdby5IJ58xKjWa/nE=
+	t=1792321622; cv=none; b=cNNa7p7f3nuLAgYEhJtmjnmVoqx+CnO4sebmMQmtdQ3jWUlvNP4WJkJWkaBrA1zullb2UN2i7zn/GNvVOsyQfeJHUn90I0MA5Keh/fqarV4Y98MEbCDUmyFby8huSpvJAV3LBYC5sl4jtk8nyLFcURhZG085/MQweJvG86gbvHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792321620; c=relaxed/simple;
-	bh=zhN92FfYCH53jpESLHCiEhwAvRfoOCv8dvVDXirrkgU=;
+	s=arc-20240116; t=1792321622; c=relaxed/simple;
+	bh=ALrl2RGUzlXN5xhcL7wZPi3AbsGka30hhw7ftTT99iw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cRcUtuKMF+ZWccGl8J9WyU10FbHFj027D34BGixMVaktMv94EjPEJHm+2TN73vY5RyrY8nhl9BUtupI1N5KOh5O6YyiCcIsIJdq7rf0eIlS5dlYpzPJYLY4KD8nDx4iO6P2YXapnjdkwaTY4ePugcvJ10uaqiT3Jk/WSfovmBD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c/vwNtSc; arc=none smtp.client-ip=74.125.82.177
+	 MIME-Version; b=uFoSeDzCdIR7B/1/OzbvDuU0N9FbZ8PAJbT1+uXrCq7XoZ+UZP6njDI/K5fyleTWGTJMbn3zL2hOVsPq3ht2u5twwZclcrPGfkIcekYjNmreiJEOYZAFos3/j1qP66ebdSFSNmFOgkdh95u4Lhx4cxL29KVQr+pbc36j2qtuSck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ScBmfbaM; arc=none smtp.client-ip=74.125.82.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/vwNtSc"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3535a54bed9so1669225eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:06:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ScBmfbaM"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35a31bb9fb6so2973662eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:07:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792321617; x=1792926417; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792321619; x=1792926419; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KxyhP7L+C4UcDX4+OsAjNzEz0kw5dnOiAkHApfXnYWI=;
-        b=c/vwNtScbX6ADbk5OKUA75gKzcv6EmNKfboIRD0/pw8evWajV2/qzqYzAFDGGMvUvx
-         sd9blKcVsTytvGCDHlz11rVn6Hk0WXrNvfAvb2z6PoDJhmnkDOB/Pdpc2myT8eqWJ1+s
-         gfGF+xV0lTF+GeP5SomCmk6H/nz470dS0MBHNjBJSDS3qZLqfsPEgrdhIvBUsvSRFJaQ
-         dlKymqt4QTxigjgz+xe7rdJ+6IU/r6A1MM8zqGrbph00QUViRXmlAj5YHzDKbv26Rnqs
-         WTzJ3Ukls4Ruxwg2LCQra/cNVjOk+/Unkk8AmPknenV6b9efdlpzdXHj5VLQQJf22OHY
-         i4aA==
+        bh=tjxzy/EiGxBx8JgOHOQAu4umV7/l7agpWQEdIl4EN7E=;
+        b=ScBmfbaML1g7lsftRtuMgS7LRMfAGB524FW8vbtRqF/OYsMHA3Q99LwwSoc6GImEmz
+         C9FkdOwA0FBeBgqbBA6EDyBE3YD90VRvmlWBAXbLdTv1JVqwVLMNOswFBrOjqbCNLNci
+         qgNFBxwXtOltdkgbrxNtcp0QyO6E/VmxrpE6WL9jkb9AU1znQ1XtkeF9X/9kv3nRB4YQ
+         v1fB06TsGcJH/tkLB5w11tXk7i7h794u+5YbC+J58UrK0fuElLiEr+AWMGrj88fqOdaG
+         RO/Zr3OuRCQywO7w4/rdwb4/gaS1yy3obiK8RXpOugVo/lGp6th7cAfUSndp2spbH8AG
+         irzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792321617; x=1792926417;
+        d=1e100.net; s=20260707; t=1792321619; x=1792926419;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KxyhP7L+C4UcDX4+OsAjNzEz0kw5dnOiAkHApfXnYWI=;
-        b=KNsrTXy/jml4hHEZcdmq1+U/rS39CxSNDtpoOvdCyG3PxgwEVMjFvb1aHuwuc6GB7S
-         CMRUeH/GOaKsI7TG8mGu1vGfQfPasQNfcpkrJQfTdMIw+nIf/bMLzbDGz497H4+YsdP4
-         7i2EkIJd53Hvuk2hYswwzPUe3m3rIzGQalrQhL3E/obsw4MIVJTxBf3qG4ioqFp8B6SH
-         G5qib7mO4Zr+lf5MSZB4w6mVmgbhAHWCKMRWcvKvSp18fSCGCH5qqUTn5dzN/fCrgNMO
-         GJH1WKCMiD99CJLwMpvXcmRK+UcGzh0R/AJ+mFCDuXYD7SA+SSpxyvmQH1vFX4kr29oZ
-         PUsA==
-X-Gm-Message-State: AFq9FYLiZRwUMUjUjS2fHSpk4jR2y2GjG/hETze6ByPSBSQTiCORYIo9
-	BwW+3qQf0E1VxAY+hsfyGjEruC3Nyfa4TEVI2DITWouh0oQnHnup0/sAkpAOSwAW
-X-Gm-Gg: AYBFou3WV9KMlqfVF7DTxxljDrucGy7mdNKzp9Nj/d/DAYB8GzCtRCpGFKpDOtkGYb/
-	CQZ4pxd1HOOYf3SwMO0CHWxoKe/TgK/uTf8ExoPbkg+CZ46PXoDAsOca1S3Xmr/GzE00xryyXWR
-	ZGYm1XmE7SimK4uvcWXEmwxCtZ8AiGvPxh555lK3yBXvyJsFoANxrL2WzuqFuQNSyS9v9c/c3rw
-	a9JVZDxTEMVKMoXd2bmekkHxB/Nu2ixwB7d3L22/YHyclyX7zRdCHWsUi0luYZHOloNsIiSLrua
-	Q5oBXawyf0oEvqjMFdUMgCBNnEYJCgPCZ5sarU5LfD2ESwVPtG0Z73cZLSU3ZkMnPFsHN0MekDP
-	1vf58eWygfc4VUFxorUukvSBYNoF900zI1ULNU0MsezLqDeislTUBE9u+7MQjlYhtSyNxID7yJt
-	NH6kuvvDatbFFWNLnOu7B0sakDK2h1sqpFdDsxVpOzCu9TdbLWJ7dZ3R/pqI3fpQKL0IwS/9FeN
-	z8LzAAvfgzqlSu7ITAA7XtuckKCN9TJ3mZLWLAKAg==
-X-Received: by 2002:a05:693c:415a:20b0:361:aca0:522b with SMTP id 5a478bee46e88-361aca053bcmr7248408eec.11.1792321616888;
-        Sun, 18 Oct 2026 04:06:56 -0700 (PDT)
+        bh=tjxzy/EiGxBx8JgOHOQAu4umV7/l7agpWQEdIl4EN7E=;
+        b=vC7a04Rqgdhj+4UWP7Qhj33/OvNcMdvtQgNhuiWwQk/Fnqhl9PeilDrABx0tJ1XnA6
+         TMfFmSkbLqiZWDDKx7cmDMQzuX4F7W74pO4x/NkLXKRtB07kd1LiJG1ltIgwnEu2chCr
+         Pt3aHAAUHd9AwZK/NSt/xgOYTxeoDlA2GokaWDF/hUxsLcXLcPZZnnhSueGmIb81trVD
+         FO3HsWmHaumYYi0FlTYKO8C9swd4joDYm/++4xfrmjkE0uggPb5GYyLeKsQy/h4rj/sb
+         txK+RcDcKqcPIJfRv+Jd7upvSI5AEwItT9h+Bt29xIVY2pDEeHIl2kzkMILSQ5ty50wg
+         7D5w==
+X-Gm-Message-State: AFq9FYKt99FS8s9nvRi8DkavALO/kmCrNSQCf8MqVx0YaQ13hnW0dwR5
+	eXEEGE+hZFrmzvoCeizGAdf98GyjiaWLdfx4NhyVkfXoiI9hvsDrfLcUYFZolN6K
+X-Gm-Gg: AYBFou1nalRnWyzYcmnqE+Kcao03iHgV1OmPCvTxCwWq2/w4c2SC3ZaVxa9lDHxmnhS
+	k6g+D4652GdFzhS7oXQwUI43R2OjgiZCewZIWXEKVLnleF4BaF8cvL/CjfzfyXt78hxng1/jFnu
+	c+fEBSkRw0BKnPjnGi16SbNYA2r7qAUVKJCKL3/SP8sNiqKp9GygMxwKlzVFw+N2nSKWodF1SXT
+	6Txq3N6nQSElDHt5gtaC7G2DuMYsOOtUpC0vpry0Z50nreg1XaFkcZ1NhIpGPD7hLmpbKtaVzwo
+	2JIIco8TR/Mcg1alM9kw5UqpnB2prj5becQikQQiCnBAsKo/YNvRrjw8vASugVPFDTiasOYtIKA
+	GW37fNkbrS6WJlzfdmVewMVUlvfh7Y1juP5QSelOvo6Gd+rdrk16quPFU3jVBy5Dvg4Vh3JZEmh
+	+1W596PBDGaR4PwQxDh3pMF0I2g+R3UwHnQ0eYHGx+sLojTbLX9+g+F6mbMGnnKN2A7pQmxwR4e
+	3VygOdpruPVD30iOlbvevztusaLFgTg3RpOU+cRWyeycq/rh6lT
+X-Received: by 2002:a05:7301:1885:b0:361:7edc:1541 with SMTP id 5a478bee46e88-361a126f7b2mr6723836eec.7.1792321619184;
+        Sun, 18 Oct 2026 04:06:59 -0700 (PDT)
 Received: from Biostar-A520MT.. ([187.94.15.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm28647706eec.3.2026.10.18.04.06.54
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm28647706eec.3.2026.10.18.04.06.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 04:06:56 -0700 (PDT)
+        Sun, 18 Oct 2026 04:06:58 -0700 (PDT)
 From: Breno Rodrigues Alves <breno3011alves@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: Andy Whitcroft <apw@canonical.com>,
@@ -65,9 +65,9 @@ Cc: Andy Whitcroft <apw@canonical.com>,
 	Dwaipayan Ray <dwaipayanray1@gmail.com>,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
 	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [RFC PATCH 5/7] scripts: convert get_maintainer.pl to Python
-Date: Sun, 18 Oct 2026 08:06:36 -0300
-Message-ID: <20261018110638.9947-6-breno3011alves@gmail.com>
+Subject: [RFC PATCH 6/7] scripts: convert leaking_addresses.pl to Python
+Date: Sun, 18 Oct 2026 08:06:37 -0300
+Message-ID: <20261018110638.9947-7-breno3011alves@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261018110638.9947-1-breno3011alves@gmail.com>
 References: <20261018110638.9947-1-breno3011alves@gmail.com>
@@ -79,632 +79,447 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Faithful re-implementation of get_maintainer.pl in Python 3
-(stdlib only). Same MAINTAINERS parsing, same file-pattern
-matching, same output format including role annotations.
-
-Verified byte-for-byte identical to the Perl version for:
-  - scripts/checkpatch.pl (file mode)
-  - 0001-scripts-convert-bootgraph.pl-to-Python.patch (patch mode)
-  - --git-chief-penguins mode
-
-Not implemented: --interactive, --self-test, --git-blame.
-These can be added in follow-up patches.
+Faithful re-implementation of leaking_addresses.pl in Python 3
+(stdlib only). Same architecture detection, same false-positive
+filtering, same dmesg and /proc walk.
 
 Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
 ---
- scripts/get_maintainer.py | 607 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 607 insertions(+)
- create mode 100755 scripts/get_maintainer.py
+ scripts/leaking_addresses.py | 430 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 430 insertions(+)
+ create mode 100755 scripts/leaking_addresses.py
 
-diff --git a/scripts/get_maintainer.py b/scripts/get_maintainer.py
+diff --git a/scripts/leaking_addresses.py b/scripts/leaking_addresses.py
 new file mode 100755
-index 000000000..9b36026dc
+index 000000000..a1664a66d
 --- /dev/null
-+++ b/scripts/get_maintainer.py
-@@ -0,0 +1,607 @@
++++ b/scripts/leaking_addresses.py
+@@ -0,0 +1,430 @@
 +#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
++# SPDX-License-Identifier: GPL-2.0-only
 +#
-+# (c) 2007, Joe Perches <joe@perches.com>
-+# Print selected MAINTAINERS information for the files modified in a
-+# patch, or for a file.
++# (c) 2017 Tobin C. Harding <me@tobin.cc>
 +#
-+# usage: get_maintainer.py [OPTIONS] <patch>
-+#        get_maintainer.py [OPTIONS] -f <file>
++# leaking_addresses.py: Scan the kernel for potential leaking addresses.
++#
++# Use --debug to output path before parsing.
 +
 +import argparse
-+import json
 +import os
++import platform
 +import re
++import signal
 +import subprocess
 +import sys
 +
-+V = '0.27'
++DIRS = ('/proc', '/sys')
++TIMEOUT = 10
 +
-+PENGUIN_CHIEFS = [
-+    ('Linus Torvalds', 'torvalds@linux-foundation.org'),
-+]
-+TYPEVALUE = []
-+KEYWORD_HASH = {}
-+MFILES = []
++SKIP_ABS = {
++    '/proc/kmsg',
++    '/proc/device-tree',
++    '/proc/1/syscall',
++    '/sys/firmware/devicetree',
++    '/sys/kernel/tracing/trace_pipe',
++    '/sys/kernel/debug/tracing/trace_pipe',
++    '/sys/kernel/security/apparmor/revision',
++}
 +
-+RE_TYPE_VALUE = re.compile(r'^([A-Z]):\s*(.*)')
-+RE_RFC822 = re.compile(
-+    r'^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$')
-+RE_MAILMAP_1 = re.compile(r'^([^<]+)<([^>]+)>$')
-+RE_MAILMAP_2 = re.compile(r'^<([^>]+)>\s*<([^>]+)>$')
-+RE_MAILMAP_3 = re.compile(r'^(.+)<([^>]+)>\s*<([^>]+)>$')
-+RE_MAILMAP_4 = re.compile(r'^(.+)<([^>]+)>\s*(.+)\s*<([^>]+)>$')
++SKIP_ANY = {
++    'pagemap', 'events', 'access', 'registers', 'snapshot_raw',
++    'trace_pipe_raw', 'ptmx', 'trace_pipe', 'fd', 'usbmon',
++}
++
++RE_ARCH_X86 = re.compile(r'i[3456]86')
++
++# Active per-arch state
++_ARCH = platform.machine() or ''
++_OPT_32BIT = False
++_PAGE_OFFSET_32BIT = 0
++_PGTABLE_LEVELS = None
++_KALLSYMS = []
++_KERNEL_CONFIG_FILE = ''
++_PAGE_OFFSET_CACHE = None
 +
 +
-+class Mailmap:
-+    def __init__(self):
-+        self.names = {}
-+        self.addresses = {}
++def dprint(*args):
++    if _DEBUG:
++        print(*args, file=sys.stderr)
 +
 +
-+MAILMAP = Mailmap()
++def is_x86_64():
++    return _ARCH == 'x86_64'
 +
 +
-+def which_conf(name):
-+    for base in ('.', os.path.expanduser('~'), '.scripts'):
-+        p = os.path.join(base, name)
-+        if os.path.isfile(p):
-+            return p
++def is_ppc64():
++    return _ARCH == 'ppc64'
++
++
++def is_ix86_32():
++    return bool(RE_ARCH_X86.match(_ARCH))
++
++
++def is_32bit():
++    return _OPT_32BIT or bool(_PAGE_OFFSET_32BIT) or is_ix86_32()
++
++
++def get_kernel_config_option(option):
++    files = []
++    if _KERNEL_CONFIG_FILE:
++        files = [_KERNEL_CONFIG_FILE]
++    elif os.access('/proc/config.gz', os.R_OK):
++        try:
++            import gzip
++            with gzip.open('/proc/config.gz', 'rt') as f:
++                for line in f:
++                    if line.startswith(option):
++                        return line.split('=', 1)[1].strip()
++        except OSError as e:
++            dprint(f'failed reading /proc/config.gz: {e}')
++        return ''
++    else:
++        rel = subprocess.check_output(['uname', '-r'], text=True).strip()
++        files = [f'/boot/config-{rel}', '/boot/config']
++
++    for path in files:
++        try:
++            with open(path) as f:
++                for line in f:
++                    if line.startswith(option):
++                        return line.split('=', 1)[1].strip()
++        except OSError:
++            continue
 +    return ''
 +
 +
-+def load_conf_args():
-+    conf = which_conf('.get_maintainer.conf')
-+    if not conf:
-+        return []
-+    args = []
-+    try:
-+        with open(conf) as f:
-+            for line in f:
-+                line = line.strip()
-+                if not line or line.startswith('#'):
-+                    continue
-+                for tok in line.split():
-+                    if tok.startswith('#'):
-+                        break
-+                    args.append(tok)
-+    except OSError:
-+        pass
-+    return args
++def get_page_offset():
++    global _PAGE_OFFSET_CACHE
++    if _PAGE_OFFSET_CACHE is not None:
++        return _PAGE_OFFSET_CACHE
++    default = 0xc0000000
++    if _PAGE_OFFSET_32BIT:
++        _PAGE_OFFSET_CACHE = _PAGE_OFFSET_32BIT
++        return _PAGE_OFFSET_CACHE
++    val = get_kernel_config_option('CONFIG_PAGE_OFFSET')
++    if val:
++        _PAGE_OFFSET_CACHE = int(val, 16)
++        return _PAGE_OFFSET_CACHE
++    _PAGE_OFFSET_CACHE = default
++    return default
 +
 +
-+def load_ignore_emails():
-+    path = which_conf('.get_maintainer.ignore')
-+    if not path:
-+        return set()
-+    ignore = set()
-+    try:
-+        with open(path) as f:
-+            for line in f:
-+                line = re.sub(r'#.*$', '', line).strip()
-+                if line and RE_RFC822.match(line):
-+                    ignore.add(line)
-+    except OSError:
-+        pass
-+    return ignore
++def is_false_positive_64(match):
++    if re.search(r'\b(0x)?(f|F){15}[0-9a-f]\b', match) or \
++       re.search(r'\b(0x)?0{16}\b', match):
++        return True
++    if is_x86_64() and _in_vsyscall(match):
++        return True
++    return False
 +
 +
-+def parse_email(formatted):
-+    name = ''
-+    address = ''
-+    m = re.match(r'^([^<]+)<(.+@.*)>.*$', formatted)
-+    if m:
-+        name, address = m.group(1), m.group(2)
-+    else:
-+        m = re.match(r'^\s*<(.+@\S*)>.*$', formatted)
-+        if m:
-+            address = m.group(1)
-+        else:
-+            m = re.match(r'^(.+@\S*).*$', formatted)
-+            if m:
-+                address = m.group(1)
-+    name = name.strip().strip('"')
-+    if re.search(r'[^\w \-]', name):
-+        name = '"' + name.replace('"', '\\"') + '"'
-+    return name, address.strip()
++def is_false_positive_32(match):
++    if re.search(r'\b(0x)?(f|F){7}[0-9a-f]\b', match):
++        return True
++    if int(match, 16) < get_page_offset():
++        return True
++    return False
 +
 +
-+def format_email(name, address, use_name=True):
-+    name = name.strip().strip('"')
-+    if re.search(r'[^\w \-]', name):
-+        name = '"' + name.replace('"', '\\"') + '"'
-+    if use_name and name:
-+        return f'{name} <{address}>'
-+    return address
++def is_false_positive(match):
++    if is_32bit():
++        return is_false_positive_32(match)
++    return is_false_positive_64(match)
 +
 +
-+def read_mailmap(root):
-+    global MAILMAP
-+    path = os.path.join(root, '.mailmap')
-+    if not os.path.isfile(path):
-+        return
-+    try:
-+        with open(path) as f:
-+            for raw in f:
-+                line = re.sub(r'#.*$', '', raw).strip()
-+                if not line:
-+                    continue
-+                m = RE_MAILMAP_1.match(line)
-+                if m:
-+                    name, addr = parse_email(f'{m.group(1)} <{m.group(2)}>')
-+                    MAILMAP.names[addr] = name
-+                    continue
-+                m = RE_MAILMAP_2.match(line)
-+                if m:
-+                    MAILMAP.addresses[m.group(2)] = m.group(1)
-+                    continue
-+                m = RE_MAILMAP_3.match(line)
-+                if m:
-+                    name, addr = parse_email(
-+                        f'{m.group(1)} <{m.group(2)}>')
-+                    MAILMAP.names[m.group(3)] = name
-+                    MAILMAP.addresses[m.group(3)] = addr
-+                    continue
-+                m = RE_MAILMAP_4.match(line)
-+                if m:
-+                    name, addr = parse_email(
-+                        f'{m.group(1)} <{m.group(2)}>')
-+                    wrong = format_email(m.group(3).strip(), m.group(4))
-+                    MAILMAP.names[wrong] = name
-+                    MAILMAP.addresses[wrong] = addr
-+    except OSError:
-+        pass
++def _in_vsyscall(match):
++    v = int(match, 16)
++    return 0xffffffffff600000 <= v <= 0xffffffffff601000
 +
 +
-+def mailmap_email(line):
-+    name, address = parse_email(line)
-+    email = format_email(name, address)
-+    real_name, real_addr = name, address
-+    if email in MAILMAP.names or email in MAILMAP.addresses:
-+        real_name = MAILMAP.names.get(email, real_name)
-+        real_addr = MAILMAP.addresses.get(email, real_addr)
-+    elif address in MAILMAP.names or address in MAILMAP.addresses:
-+        real_name = MAILMAP.names.get(address, real_name)
-+        real_addr = MAILMAP.addresses.get(address, real_addr)
-+    return format_email(real_name, real_addr)
++def get_address_re():
++    if is_ppc64():
++        return re.compile(r'\b(0x)?[89abcdef]00[[:xdigit:]]{13}\b'
++                          .replace('[[:xdigit:]]', r'[0-9a-fA-F]'))
++    if is_32bit():
++        return re.compile(r'\b(0x)?[0-9a-fA-F]{8}\b')
++    global _PGTABLE_LEVELS
++    if _PGTABLE_LEVELS is None:
++        val = get_kernel_config_option('CONFIG_PGTABLE_LEVELS')
++        _PGTABLE_LEVELS = int(val) if val else 0
++    if _PGTABLE_LEVELS == 5:
++        return re.compile(r'\b(0x)?ff[0-9a-fA-F]{14}\b')
++    return re.compile(r'\b(0x)?ffff[0-9a-fA-F]{12}\b')
 +
 +
-+def convert_glob(value):
-+    v = value.replace('.', r'\.')
-+    v = v.replace('**', '\x00')
-+    v = v.replace('*', '.*')
-+    v = v.replace('?', '.')
-+    v = v.replace('\x00', '(?:.*)')
-+    return v
-+
-+
-+def read_maintainer_file(path):
-+    try:
-+        with open(path) as f:
-+            for line in f:
-+                line = line.rstrip('\n')
-+                m = RE_TYPE_VALUE.match(line)
-+                if m:
-+                    t, v = m.group(1), m.group(2)
-+                    if t in ('F', 'X'):
-+                        v = convert_glob(v)
-+                        if os.path.isdir(v):
-+                            v = re.sub(r'([^/])$', r'\1/', v)
-+                    elif t == 'K':
-+                        KEYWORD_HASH[len(TYPEVALUE)] = v
-+                    TYPEVALUE.append(f'{t}:{v}')
-+                elif line.strip() and not line.lstrip().startswith('#'):
-+                    TYPEVALUE.append(line)
-+    except OSError as e:
-+        sys.exit(f"Can't open MAINTAINERS file '{path}': {e}")
-+
-+
-+def read_all_maintainer_files(root, extra_path=None, find_all=False):
-+    path = extra_path or os.path.join(root, 'MAINTAINERS')
-+    if os.path.isdir(path):
-+        if find_all:
-+            for dirpath, _, files in os.walk(path):
-+                if 'MAINTAINERS' in files:
-+                    MFILES.append(os.path.join(dirpath, 'MAINTAINERS'))
-+        else:
-+            for name in os.listdir(path):
-+                if not name.startswith('.'):
-+                    p = os.path.join(path, name)
-+                    if os.path.isfile(p):
-+                        MFILES.append(p)
-+    elif os.path.isfile(path):
-+        MFILES.append(path)
-+    else:
-+        sys.exit(f"MAINTAINER file not found '{path}'")
-+    if not MFILES:
-+        sys.exit(f"No MAINTAINER files found in '{path}'")
-+    for p in MFILES:
-+        read_maintainer_file(p)
-+
-+
-+def find_first_section():
-+    i = 0
-+    while i < len(TYPEVALUE):
-+        if RE_TYPE_VALUE.match(TYPEVALUE[i]):
-+            break
-+        i += 1
-+    return i
-+
-+
-+def find_starting_index(index):
-+    while index > 0 and RE_TYPE_VALUE.match(TYPEVALUE[index]):
-+        index -= 1
-+    return index
-+
-+
-+def find_ending_index(index):
-+    while index < len(TYPEVALUE) and RE_TYPE_VALUE.match(TYPEVALUE[index]):
-+        index += 1
-+    return index
-+
-+
-+def file_match_pattern(path, pattern):
-+    if pattern.endswith('/'):
-+        return re.match(pattern, path) is not None
-+    if re.match(pattern, path):
-+        s1 = path.count('/')
-+        s2 = pattern.count('/')
-+        if s1 == s2 or '(?:' in pattern:
++def may_leak_address(path, line):
++    if re.match(r'^SigBlk:', line) or re.match(r'^SigIgn:', line) \
++            or re.match(r'^SigCgt:', line):
++        return False
++    if re.search(r'\bKEY=[0-9a-fA-F]{9,14} [0-9a-fA-F]{16} '
++                 r'[0-9a-fA-F]{16}\b', line):
++        return False
++    if path.endswith('key') and re.search(
++            r'\b[0-9a-fA-F]{9,14} [0-9a-fA-F]{16} [0-9a-fA-F]{16}\b',
++            line):
++        return False
++    pattern = get_address_re()
++    for m in pattern.finditer(line):
++        if not is_false_positive(m.group(0)):
 +            return True
 +    return False
 +
 +
-+def range_is_maintained(start, end):
-+    for i in range(start, end):
-+        m = RE_TYPE_VALUE.match(TYPEVALUE[i])
-+        if m and m.group(1) == 'S' and \
-+                re.search(r'maintain|support', m.group(2), re.I):
-+            return True
-+    return False
-+
-+
-+def range_has_maintainer(start, end):
-+    for i in range(start, end):
-+        m = RE_TYPE_VALUE.match(TYPEVALUE[i])
-+        if m and m.group(1) == 'M':
-+            return True
-+    return False
-+
-+
-+def get_subsystem_name(index):
-+    return TYPEVALUE[find_starting_index(index)]
-+
-+
-+def deduplicate_email(line, use_mailmap):
-+    name, address = parse_email(line)
-+    email = format_email(name, address)
-+    if use_mailmap:
-+        email = mailmap_email(email)
-+    return email
-+
-+
-+def vcs_find_signers(root, file_path, since, git_cmd='git'):
-+    cmd = [git_cmd, 'log', '--no-color', '--follow',
-+           f'--since={since}', '--numstat', '--no-merges',
-+           '--format=GitAuthor: %an <%ae>', '--', file_path]
++def parse_dmesg():
 +    try:
-+        out = subprocess.check_output(cmd, cwd=root, text=True,
++        out = subprocess.check_output(['dmesg'], text=True,
 +                                      stderr=subprocess.DEVNULL)
 +    except (subprocess.CalledProcessError, FileNotFoundError):
-+        return [], 0
-+    signers = []
-+    commits = 0
-+    for line in out.splitlines():
-+        if line.startswith('GitAuthor: '):
-+            commits += 1
-+        elif re.search(r'^[ \t]*(Signed-off-by|Reviewed-by|Acked-by):',
-+                       line, re.I):
-+            m = re.search(r':\s*(.+)$', line)
-+            if m:
-+                signers.append(deduplicate_email(m.group(1).strip(), True))
-+    return signers, commits
-+
-+
-+def find_maintainers(files, opts):
-+    results = []  # list of (email, role)
-+    seen_names = set()
-+    seen_addrs = set()
-+    scm, web, bug, subsystem, status = [], [], [], [], []
-+
-+    def add_email(line, role):
-+        name, addr = parse_email(line)
-+        if not addr:
-+            return
-+        if opts.remove_duplicates:
-+            if (name and name.lower() in seen_names) or \
-+               (addr.lower() in seen_addrs):
-+                return
-+            if name:
-+                seen_names.add(name.lower())
-+            seen_addrs.add(addr.lower())
-+        results.append((format_email(name, addr, opts.email_usename),
-+                        role))
-+
-+    for path in files:
-+        # --- Find MAINTAINERS sections matching this file ---
-+        sections = []  # list of (start, end)
-+        i = find_first_section()
-+        while i < len(TYPEVALUE):
-+            start = find_starting_index(i)
-+            end = find_ending_index(i)
-+            excluded = False
-+            for j in range(start, end):
-+                m = RE_TYPE_VALUE.match(TYPEVALUE[j])
-+                if m and m.group(1) == 'X' \
-+                        and file_match_pattern(path, m.group(2)):
-+                    excluded = True
-+                    break
-+            if not excluded:
-+                for j in range(start, end):
-+                    m = RE_TYPE_VALUE.match(TYPEVALUE[j])
-+                    if not m:
-+                        continue
-+                    t, v = m.group(1), m.group(2)
-+                    if t == 'F' and file_match_pattern(path, v):
-+                        sections.append((start, end))
-+                        break
-+                    if t == 'N' and re.search(v, path):
-+                        sections.append((start, end))
-+                        break
-+            i = end + 1
-+
-+        # --- Extract M/R/L/T/W/B/S from matched sections ---
-+        for start, end in sections:
-+            subname = TYPEVALUE[start]
-+            for j in range(start + 1, end):
-+                m = RE_TYPE_VALUE.match(TYPEVALUE[j])
-+                if not m:
-+                    continue
-+                t, v = m.group(1), m.group(2)
-+                if t == 'M' and opts.email_maintainer:
-+                    add_email(v, f'maintainer:{subname}')
-+                elif t == 'R' and opts.email_reviewer:
-+                    add_email(v, f'reviewer:{subname}')
-+                elif t == 'L' and opts.email_list:
-+                    addr_only = v.split()[0]
-+                    suffix = '' if subname == 'THE REST' else f':{subname}'
-+                    if 'subscribers-only' in v:
-+                        if opts.email_subscriber_list:
-+                            add_email(addr_only, f'subscriber list{suffix}')
-+                    elif 'moderated' in v:
-+                        if getattr(opts, 'email_moderated_list', True):
-+                            add_email(addr_only, f'moderated list{suffix}')
-+                    else:
-+                        add_email(addr_only, f'open list{suffix}')
-+                elif t == 'T':
-+                    scm.append(v)
-+                elif t == 'W':
-+                    web.append(v)
-+                elif t == 'B':
-+                    bug.append(v)
-+                elif t == 'S':
-+                    status.append(v)
-+            subsystem.append(subname)
-+
-+        # --- git history fallback ---
-+        if opts.email and opts.git_fallback:
-+            signers, _ = vcs_find_signers(opts.tree_root, path,
-+                                          opts.git_since)
-+            for s in signers:
-+                add_email(s, 'git-signer')
-+
-+    chief_addrs = [addr for _, addr in PENGUIN_CHIEFS]
-+    if getattr(opts, 'git_chief_penguins', False):
-+        results = [(e, 'chief penguin:' + (r.split(':', 1)[1]
-+                                           if ':' in r else 'THE REST'))
-+                   if any(addr in e for addr in chief_addrs) else (e, r)
-+                   for e, r in results]
-+    else:
-+        results = [(e, r) for e, r in results
-+                   if not any(addr in e for addr in chief_addrs)]
-+
-+    return results, scm, web, bug, subsystem, status
-+
-+
-+def output_list(items, multiline, separator):
-+    if not items:
 +        return
-+    if multiline:
-+        for it in items:
-+            print(it, flush=True)
-+    else:
-+        print(separator.join(items), flush=True)
++    for line in out.splitlines(keepends=True):
++        if may_leak_address('dmesg', line):
++            sys.stdout.write('dmesg: ' + line)
++
++
++def skip(path):
++    if path in SKIP_ABS:
++        return True
++    return os.path.basename(path) in SKIP_ANY
++
++
++def parse_binary(path):
++    try:
++        with open(path, 'rb') as f:
++            data = f.read()
++    except OSError:
++        return
++    for addr, symbol in _KALLSYMS:
++        off = data.find(addr)
++        if off != -1:
++            print(f"{path}: {symbol} @ {off}")
++
++
++def parse_file(path):
++    if not os.access(path, os.R_OK):
++        return
++    # Skip pseudo-binaries
++    if path.startswith(('/sys/kernel/btf/', '/sys/devices/pci',
++                        '/sys/firmware/efi/efivars/', '/proc/bus/pci/')):
++        return
++    try:
++        with open(path, 'r', errors='replace') as f:
++            for line in f:
++                line = line.rstrip('\n')
++                if may_leak_address(path, line):
++                    print(f"{path}: {line}")
++    except (OSError, UnicodeDecodeError):
++        if _KALLSYMS:
++            parse_binary(path)
++
++
++def check_path_for_leaks(path):
++    if may_leak_address(path, path):
++        print(f"Path name may contain address: {path}")
++
++
++def timed_parse_file(path):
++    def handler(signum, frame):
++        raise TimeoutError()
++    old = signal.signal(signal.SIGALRM, handler)
++    signal.alarm(TIMEOUT)
++    try:
++        parse_file(path)
++    except TimeoutError:
++        print(f"timed out parsing: {path}", file=sys.stderr)
++    finally:
++        signal.alarm(0)
++        signal.signal(signal.SIGALRM, old)
++
++
++def walk(dirs):
++    stack = list(dirs)
++    while stack:
++        pwd = stack.pop()
++        try:
++            entries = os.listdir(pwd)
++        except OSError:
++            continue
++        for name in entries:
++            if name in ('.', '..'):
++                continue
++            path = os.path.join(pwd, name)
++            if os.path.islink(path):
++                continue
++            # Skip /proc/PID except /proc/1
++            if re.match(r'^/proc/\d+$', path) and path != '/proc/1':
++                continue
++            if skip(path):
++                continue
++            check_path_for_leaks(path)
++            if os.path.isdir(path):
++                stack.append(path)
++                continue
++            dprint(f'parsing: {path}')
++            timed_parse_file(path)
++
++
++def format_output(path, raw, squash_path, squash_filename, suppress_dmesg):
++    if raw or not (squash_path or squash_filename):
++        _dump_raw(path, suppress_dmesg)
++        return
++    total, dmesg, paths, files = _parse_raw(path)
++    print(f"\nTotal number of results from scan (incl dmesg): {total}")
++    if not suppress_dmesg:
++        _print_dmesg(dmesg)
++    if squash_filename:
++        _squash_by(files, 'filename')
++    if squash_path:
++        _squash_by(paths, 'path')
++
++
++def _dump_raw(path, suppress_dmesg):
++    try:
++        with open(path) as f:
++            for line in f:
++                if suppress_dmesg and line.startswith('dmesg:'):
++                    continue
++                sys.stdout.write(line)
++    except OSError as e:
++        sys.exit(f"{path}: {e}")
++
++
++def _parse_raw(path):
++    total = 0
++    dmesg = []
++    paths = {}
++    files = {}
++    try:
++        with open(path) as f:
++            for line in f:
++                total += 1
++                if line.startswith('dmesg:'):
++                    dmesg.append(line)
++                    continue
++                idx = line.find(': ')
++                if idx < 0:
++                    continue
++                p = line[:idx]
++                v = line[idx + 2:]
++                paths.setdefault(p, []).append(v)
++                files.setdefault(os.path.basename(p), []).append(v)
++    except OSError as e:
++        sys.exit(f"{path}: {e}")
++    return total, dmesg, paths, files
++
++
++def _print_dmesg(dmesg):
++    print("\ndmesg output:")
++    if not dmesg:
++        print('<no results>')
++        return
++    for line in dmesg:
++        idx = line.find(': ')
++        sys.stdout.write(line[idx + 2:] if idx >= 0 else line)
++
++
++def _squash_by(ref, desc):
++    print(f"\nResults squashed by {desc} (excl dmesg). "
++          f"Displaying [<number of results> <{desc}>], <example result>")
++    if not ref:
++        print('<no results>')
++        return
++    for key in ref:
++        vals = ref[key]
++        print(f"[{len(vals)} {key}] {vals[0]}")
++
++
++def _load_kallsyms(path):
++    with open(path) as f:
++        for line in f:
++            parts = line.split()
++            if len(parts) < 3:
++                continue
++            addr_text = parts[0]
++            if addr_text.startswith('0'):
++                continue
++            try:
++                addr = int(addr_text, 16)
++            except ValueError:
++                continue
++            _KALLSYMS.append((addr.to_bytes(8, 'little'), parts[2]))
 +
 +
 +def main(argv):
-+    conf_args = load_conf_args()
-+    parser = argparse.ArgumentParser(add_help=False)
-+    parser.add_argument('--email', action='store_true', default=True)
-+    parser.add_argument('--no-email', dest='email', action='store_false')
-+    parser.add_argument('--git', action='store_true')
-+    parser.add_argument('--no-git', dest='git', action='store_false',
-+                        default=True)
-+    parser.add_argument('--git-fallback', action='store_true', default=True)
-+    parser.add_argument('--no-git-fallback', dest='git_fallback',
-+                        action='store_false')
-+    parser.add_argument('--git-since', default='1-year-ago')
-+    parser.add_argument('--m', dest='email_maintainer', action='store_true',
-+                        default=True)
-+    parser.add_argument('--no-m', dest='email_maintainer',
-+                        action='store_false')
-+    parser.add_argument('--r', dest='email_reviewer', action='store_true',
-+                        default=True)
-+    parser.add_argument('--no-r', dest='email_reviewer',
-+                        action='store_false')
-+    parser.add_argument('--l', dest='email_list', action='store_true',
-+                        default=True)
-+    parser.add_argument('--no-l', dest='email_list', action='store_false')
-+    parser.add_argument('--s', dest='email_subscriber_list',
-+                        action='store_true', default=False)
-+    parser.add_argument('--n', dest='email_usename', action='store_true',
-+                        default=True)
-+    parser.add_argument('--no-n', dest='email_usename',
-+                        action='store_false')
-+    parser.add_argument('--remove-duplicates', action='store_true',
-+                        default=True)
-+    parser.add_argument('--no-remove-duplicates',
-+                        dest='remove_duplicates', action='store_false')
-+    parser.add_argument('--mailmap', action='store_true', default=True)
-+    parser.add_argument('--no-mailmap', dest='mailmap',
-+                        action='store_false')
-+    parser.add_argument('--scm', action='store_true')
-+    parser.add_argument('--status', action='store_true')
-+    parser.add_argument('--subsystem', action='store_true')
-+    parser.add_argument('--web', action='store_true')
-+    parser.add_argument('--bug', action='store_true')
-+    parser.add_argument('--sections', action='store_true')
-+    parser.add_argument('--json', action='store_true')
-+    parser.add_argument('--git-chief-penguins', action='store_true',
-+                        default=False)
-+    parser.add_argument('--moderated', dest='email_moderated_list',
-+                        action='store_true', default=True)
-+    parser.add_argument('--no-moderated', dest='email_moderated_list',
-+                        action='store_false')
-+    parser.add_argument('--multiline', action='store_true', default=True)
-+    parser.add_argument('--no-multiline', dest='multiline',
-+                        action='store_false')
-+    parser.add_argument('--separator', default=', ')
-+    parser.add_argument('--no-tree', dest='tree', action='store_false',
-+                        default=True)
-+    parser.add_argument('-f', '--file', dest='from_filename',
-+                        action='store_true')
-+    parser.add_argument('--maintainer-path')
-+    parser.add_argument('-v', '--version', action='store_true')
-+    parser.add_argument('-h', '--help', action='store_true')
-+    parser.add_argument('files', nargs='*')
++    global _OPT_32BIT, _PAGE_OFFSET_32BIT, _KERNEL_CONFIG_FILE, _DEBUG
++    p = argparse.ArgumentParser(add_help=False)
++    p.add_argument('-d', '--debug', action='store_true')
++    p.add_argument('-h', '--help', action='store_true')
++    p.add_argument('-o', '--output-raw')
++    p.add_argument('-i', '--input-raw')
++    p.add_argument('--suppress-dmesg', action='store_true')
++    p.add_argument('--squash-by-path', action='store_true')
++    p.add_argument('--squash-by-filename', action='store_true')
++    p.add_argument('--raw', action='store_true')
++    p.add_argument('--kallsyms')
++    p.add_argument('--kernel-config-file')
++    p.add_argument('--32-bit', action='store_true')
++    p.add_argument('--page-offset-32-bit', type=lambda v: int(v, 0),
++                   default=0)
++    args = p.parse_args(argv)
 +
-+    opts = parser.parse_args(conf_args + argv)
-+
-+    if opts.help:
-+        parser.print_help()
++    if args.help:
++        print(f"Usage: {sys.argv[0]} [OPTIONS]")
++        print()
++        print("Options:")
++        print("  -o, --output-raw=<file>     Save results for future processing.")
++        print("  -i, --input-raw=<file>      Read results from file instead of scanning.")
++        print("        --raw                 Show raw results (default).")
++        print("        --suppress-dmesg      Do not show dmesg results.")
++        print("        --squash-by-path      Show one result per unique path.")
++        print("        --squash-by-filename  Show one result per unique filename.")
++        print("        --kernel-config-file=<file>  Kernel configuration file (e.g /boot/config).")
++        print("        --kallsyms=<file>     Read kernel symbol addresses from file.")
++        print("        --32-bit              Scan 32-bit kernel.")
++        print("        --page-offset-32-bit=o  Page offset (for 32-bit kernel).")
++        print("  -d, --debug                 Display debugging output.")
++        print("  -h, --help                  Display this help and exit.")
++        print()
++        print("Scans the running kernel for potential leaking addresses.")
 +        return 0
-+    if opts.version:
-+        print(f'get_maintainer.py {V}')
++    _DEBUG = args.debug
++    _OPT_32BIT = args.__dict__['32_bit']
++    _PAGE_OFFSET_32BIT = args.page_offset_32_bit
++    if args.kernel_config_file:
++        _KERNEL_CONFIG_FILE = args.kernel_config_file
++
++    if args.input_raw:
++        format_output(args.input_raw, args.raw, args.squash_by_path,
++                      args.squash_by_filename, args.suppress_dmesg)
 +        return 0
-+    if not opts.files:
-+        sys.exit('missing patchfile or -f file')
 +
-+    # --sections implies no email
-+    if opts.sections:
-+        opts.email = False
-+    elif opts.email is None:
-+        opts.email = True
++    if not (is_x86_64() or is_ppc64() or is_ix86_32()
++            or _OPT_32BIT or _PAGE_OFFSET_32BIT):
++        print("\nScript does not support your architecture, sorry.\n")
++        print("Currently we support: x86_64, ppc64, x86\n")
++        return 129
 +
-+    root = os.getcwd()
-+    # If not in a tree, fall back to the nearest ancestor with MAINTAINERS.
-+    cur = root
-+    while cur != '/':
-+        if os.path.isfile(os.path.join(cur, 'MAINTAINERS')):
-+            root = cur
-+            break
-+        cur = os.path.dirname(cur)
-+    opts.tree_root = root
-+
-+    read_all_maintainer_files(root, opts.maintainer_path,
-+                              getattr(opts, 'find_maintainer_files', False))
-+    if not TYPEVALUE:
-+        print(f"[get_maintainer] warning: no MAINTAINERS entries "
-+              f"parsed from {root}", file=sys.stderr)
-+    if opts.mailmap:
-+        read_mailmap(root)
-+
-+    def is_patch_format(text):
-+        """Line-anchored detection (never matches regex literals)."""
-+        for i, line in enumerate(text.splitlines()):
-+            if i > 100:
-+                break
-+            if re.match(r'^(?:diff --git |diff -u |--- [^ ]|\+\+\+ b/)',
-+                        line):
-+                return True
-+            if re.match(r'^From [0-9a-f]{40} ', line):
-+                return True
-+            if line == '---':
-+                return True
-+        return False
-+
-+    def vcs_file_exists(path):
-+        for cmd in (['git', 'ls-files', '--error-unmatch'],
-+                    ['hg', 'files']):
-+            try:
-+                r = subprocess.run(cmd + [path], capture_output=True,
-+                                   cwd=root, timeout=5)
-+                if r.returncode == 0:
-+                    return True
-+            except (FileNotFoundError, subprocess.TimeoutExpired):
-+                continue
-+        return False
-+
-+    files = []
-+    for f in opts.files:
-+        f = os.path.normpath(f)
-+        if opts.from_filename:
-+            if not os.path.exists(f):
-+                sys.exit(f"file '{f}' not found")
-+            files.append(f)
-+            continue
++    out_fd = None
++    if args.output_raw:
 +        try:
-+            with open(f) as fh:
-+                content = fh.read()
-+        except OSError as exc:
-+            sys.exit(f"Can't open {f}: {exc}")
-+        # Match Perl's behavior: filename takes priority if it's a real
-+        # file (tracked in VCS or on disk); only parse as patch when it
-+        # genuinely looks like a patch.
-+        if not is_patch_format(content) or vcs_file_exists(f):
-+            files.append(f)
-+        else:
-+            for line in content.splitlines():
-+                m = re.search(r'^diff --git a/(\S+) b/(\S+)', line)
-+                if m:
-+                    files.append(m.group(1))
-+                    files.append(m.group(2))
-+                    continue
-+                m = re.match(r'^(?:\+\+\+|---)\s+(?:[ab]/)?(\S+)',
-+                             line)
-+                if m and m.group(1) != '/dev/null':
-+                    files.append(m.group(1))
++            out_fd = open(args.output_raw, 'w')
++        except OSError as e:
++            sys.exit(f"{args.output_raw}: {e}")
++        # Redirect print() calls
++        sys.stdout = out_fd
 +
-+    files = sorted(set(files))
++    if args.kallsyms:
++        _load_kallsyms(args.kallsyms)
 +
-+    results, scm, web, bug, subsystem, status = find_maintainers(files, opts)
++    parse_dmesg()
++    walk(DIRS)
 +
-+    if opts.json:
-+        entries = []
-+        for email, role in results:
-+            name, addr = parse_email(email)
-+            e = {'name': name, 'email': addr}
-+            if role:
-+                e['role'] = role
-+            entries.append(e)
-+        out = {'maintainers': entries}
-+        if scm: out['scm'] = scm
-+        if status: out['status'] = status
-+        if subsystem: out['subsystem'] = subsystem
-+        if web: out['web'] = web
-+        if bug: out['bug'] = bug
-+        print(json.dumps(out))
-+        return 0
-+
-+    if opts.email and results:
-+        formatted = [f'{e} ({r})' if r else e for e, r in results]
-+        output_list(formatted, opts.multiline, opts.separator)
-+    if opts.scm:
-+        output_list(scm, opts.multiline, opts.separator)
-+    if opts.status:
-+        output_list(status, opts.multiline, opts.separator)
-+    if opts.subsystem:
-+        output_list(subsystem, opts.multiline, opts.separator)
-+    if opts.web:
-+        output_list(web, opts.multiline, opts.separator)
-+    if opts.bug:
-+        output_list(bug, opts.multiline, opts.separator)
++    if out_fd:
++        out_fd.close()
++        sys.stdout = sys.__stdout__
 +    return 0
 +
 +
