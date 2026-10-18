@@ -1,264 +1,406 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5B13264F5;
-	Sun, 18 Oct 2026 01:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FC72F3C19
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792288427; cv=none; b=EJ2Yk+OrwN68/wBbMlqBNOUQkJPCqYoM7cJhoSXxCiocQJiflDsrsmLknA36kczJiBHguHI5eOySIKuMa/6fcdBDHucPbFf+10+L00C/GWLNQE6FR4IAdWOGQWZNSgIKMeaTi0FtlwWYqVj2VGWJUp4MLlp+nemuixloX72Ugbk=
+	t=1792288680; cv=none; b=WyCra4ECaK3rKNjYFPTYPV4HLN1wEsyAk9MOUjXLAizeWOfFKwf3wt1vWqaNPyR/6Nru4MGaRroiLFZq8v10SXINCmuXybuT5arLOt/nz04bBjyl7oH7jDeA4rs0Ba2syhW/d7Tfkwapqlu1wZYwKr0eXvAOxgNWm+0xvm/E9vY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792288427; c=relaxed/simple;
-	bh=XCIiK8hlCwzFwF0mXYvpuGixKQNN116lxwDGeZOX/SU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IdTbBYdsx/iWaW6OraoZTgmuVh6vWWF3xXX/EeNL+89AUvFiHctKfl08wqHzqIYgPajD8R/zQ8PhiyiaP0t4k0QXOWfq5+uVdDeQUDxrtU3yjd7PE9or2gwQggryoyll81IeBqdOFg4Gmd56AjM+ozi6tH9+inPcnKxwwJ4J2kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=YYYsa08L; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	s=arc-20240116; t=1792288680; c=relaxed/simple;
+	bh=AgpbGPSZBv7fIsyqDluUWGcJl0Y4LcGyVNY2R+JYg6I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tceW5kCHkSdDfdq4MGGVuRYs+CaJ7mJc+TMZ+f+HfkRmWtljCF7kwacyhXymUigEv68ku9l5EMFwpCLxiQvqWHUV2kYsIzUvHsWHsGHggWhvrGEO6upoE4XssY03cSu0RfT3X2gFZt5rw21Fws42O9UJUZUULlUAdlV1bg87LCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CwBca3hj; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="YYYsa08L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1792288423;
-	bh=aGyrDya+Q51fnSt6cvt2rWR0GqJGNLTVYGw124H+8Wg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YYYsa08Lj2CA4ia7bwu45mSNDNCBikYK1uGSGe04VEMSlPLRKh+/gVzvdFK3Bc+Qz
-	 4yBRZpVr701q7a1EWipe74wAan2f9Dax4UlgzXWKl67lhUG455vZ6zPBMbMMMuZxSU
-	 9Nf+CtDApQ3H6lLkjp8jp7sTDAWUnjalG53q0UQmCVd8KDf6Bwp4CN8y2RmVP6jxGO
-	 /L4jyk8mnD3AKd4FHY9Fl4mGulpP1eHmAikllyvf9UebXf7tCuAFyNG2l3/7uHelDq
-	 jfY1jVBkPAMqbiJ3hq+fplAIey8QzX/jP4NUpyghVXbwUksPSQHiCAAuwHEqvlvzyA
-	 oZy8aFoNrsxGw==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 9304C60057;
-	Sun, 18 Oct 2026 03:53:43 +0200 (CEST)
-Date: Sun, 18 Oct 2026 03:53:40 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Julius Bairaktaris <julius@bairaktaris.de>
-Cc: netfilter-devel@vger.kernel.org, fw@strlen.de, phil@nwl.cc,
-	coreteam@netfilter.org, netdev@vger.kernel.org, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	nbd@nbd.name
-Subject: Re: [PATCH nf-next 2/3] netfilter: flowtable: update upper device
- stats in the fast path
-Message-ID: <atQmpPlfT_DSd9dq@chamomile>
-References: <20261004171616.3544880-1-julius@bairaktaris.de>
- <20261004171616.3544880-3-julius@bairaktaris.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CwBca3hj"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e09aa5264so419056f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 18:57:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792288677; x=1792893477; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tmtTQKk0AOt8SGZA4T+/LDTBNGRaKX0oU4HelRq+Lo4=;
+        b=CwBca3hju0/bQ7IKnQhEiTJ5cjSUC1PI/5xJFIMY6OUrm5kJyrfHxVoy1NU0bKB9zx
+         YUXDSxB331G5Oai19ePHjdKE5H2VyjxuzqlngWXTXZWmAWa5iCLwCqwMyikLoFhPOG9G
+         mKE5bwqIh6RkJ3A+3wKvUrmdXv6ZiHpMFuWxGCWzx72tXZN9nTx7010FCtnrB3lxYbbP
+         Pw73QIR81D8zc/uP8vpI0pYDih8mp7iQGMG/ukX8EDQdp0bFbi44V6/Z2c5smXjK4I6w
+         Nc8B7sdLiRRfFhtZMlHS+c+TSjf7fTKKyRDS/NzYPvbwYYQbrmdADbrFI4fdqNpfhaNe
+         8lVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792288677; x=1792893477;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tmtTQKk0AOt8SGZA4T+/LDTBNGRaKX0oU4HelRq+Lo4=;
+        b=UdMMvG1OAwTSHe8kc2HSb39NQTjWtbmvV14520FNajGYkjVaz7wNnx7sWSfjhcgdBF
+         fe7Qo/Fc8smaL1FzjHRcvCdzbA68Zkl7hbYfLHFl7S5MXnYNMu1Gy7TLUQ1Dgi0MSchV
+         3BhIuCnm5bz5DuRS2SFo3FHr5vvD6Sc7bb31mGusBa3aaF1BYBWWla1TvWTX88ZJeK00
+         XZkCtaATD5RcnIjnoTEePXdtSzAPRimN0bAD7mGjsiHrWAeQ3dIwVO1h3L2h7+E4adNP
+         7RCyHyxziRR/ePEDsnUeYdkHF7Gtjz3Ib16gv22NpeXeFdvrGnXwhDw0OQpDUKmKwrbu
+         QEWw==
+X-Forwarded-Encrypted: i=1; AKwUvBzbEGfFaHYmWvGu4NpZaJ9rNuNvnvY7eZ9yQDa3VNXzTYAIjgN7V/KGTsk3mPNZikqvbn3MtRUvFjMlq/I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJF2NJd2779QWnjN/+rIZZq0v4AJt3XMcgeJjmNxDqrW/I0zmdc
+	B8zO2Y+9Z31cMegMV9D+zj3LKmcfGXFHzgrocG69ElDXE+Sv3VjvcrE6
+X-Gm-Gg: AYBFou0z7IDdl0ib7ZGGw4wSCbx8W9XOV+aVlKhRxcjim2jRngWDnT60LMUqdKOUBcV
+	ZT0VyBc5jIUen9OikPBRTNre3dVSacGXiMbhR3lnLbjwyNr/MPyfXRAwJ8kQHtZH9qyXsGw9/Vc
+	NhCk13SY+TCFqk6J2IMgOJFpj4XAZ/u4Px8WgB0hgar7kx05MHFK5ajc45NXKg40ZdvniIeIZdW
+	xUd/DR1sH7xE7aaMqWJiMP3g6PRMbVFCyNKGQ0J8btN1SHqeTqa7vcUmH+Czny0R2dBW5BCOcIn
+	+jnQeb+/0snPOvexcGGzckW5NPHxmiKBsGx0bjjfSOydOm2pArbjt+dDehNF6v+4t9Gk7GgAk5e
+	8CNEOF4gA+/KmcNfA65UlUPWWRkhNfa2Huq7mpaApFz/4X6IZXv4BjMid56aHIh1ykV7ciOLCiZ
+	QAMZj6hRp+Q8t0RfSlfI0gjP6n/FIaBA8VSNpMB6NoPzIhLvV4i6yCgXkunKMnD4XIEA==
+X-Received: by 2002:a05:600c:1d04:b0:4a1:7ed5:99e8 with SMTP id 5b1f17b1804b1-4a1d7612037mr88701355e9.22.1792288676985;
+        Sat, 17 Oct 2026 18:57:56 -0700 (PDT)
+Received: from fedora ([2a02:4540:50c3:8cc5:1dcc:116:906d:9d11])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8a81587sm322406465e9.1.2026.10.17.18.57.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 18:57:56 -0700 (PDT)
+From: m-amirpour <ampr.mhd@gmail.com>
+To: stern@rowland.harvard.edu
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	m-amirpour <ampr.mhd@gmail.com>
+Subject: [PATCH] usb: ohci-omap: handle root hub overcurrent
+Date: Sun, 18 Oct 2026 05:27:47 +0330
+Message-ID: <20261018015747.246611-1-ampr.mhd@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261004171616.3544880-3-julius@bairaktaris.de>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 04, 2026 at 07:16:15PM +0200, Julius Bairaktaris wrote:
-> The software fast path receives and transmits on the lowest devices of
-> the input and output stacks, so the bridge, VLAN, PPPoE and tunnel
-> devices above them stop counting after the first packets of a
-> connection.
-> 
-> Store the ifindexes of these devices from the forward path and update
-> their counters from the fast path. Each device counts what it counts in
-> the classic path: the IP packet plus the headers of the devices above it
-> (PPPoE, outer IP, inner VLAN tag), plus the Ethernet header on transmit
-> for Ethernet devices.
-> 
-> A GSO packet sent through a PPPoE device is counted once. The classic
-> path segments it in front of the ppp device and counts every segment.
-> 
-> struct flow_offload grows from 296 to 328 bytes.
-> 
-> Assisted-by: Claude:claude-fable-5-1
+Handle overcurrent GPIO interrupts, disable port power when
+overcurrent is detected, and report the status through the
+root hub port status.
 
-This does not look very good...
+Signed-off-by: m-amirpour <ampr.mhd@gmail.com>
+---
+ drivers/usb/host/ohci-omap.c | 212 +++++++++++++++++++++++++++++++----
+ 1 file changed, 191 insertions(+), 21 deletions(-)
 
-I mentioned it is a feature that these counters are not bumped,
-because packets are not passing through this devices in the bypass.
+diff --git a/drivers/usb/host/ohci-omap.c b/drivers/usb/host/ohci-omap.c
+index f6e56c4b9914..2a08147dc5fa 100644
+--- a/drivers/usb/host/ohci-omap.c
++++ b/drivers/usb/host/ohci-omap.c
+@@ -15,6 +15,7 @@
+  * This file is licenced under the GPL.
+  */
+ 
++#include <linux/irqreturn.h>
+ #include <linux/clk.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/err.h>
+@@ -33,6 +34,9 @@
+ #include <linux/signal.h>
+ #include <linux/usb.h>
+ #include <linux/usb/hcd.h>
++#include <linux/interrupt.h>
++#include <linux/spinlock.h>
++#include <linux/usb/ch11.h>
+ 
+ #include "ohci.h"
+ 
+@@ -46,6 +50,10 @@ struct ohci_omap_priv {
+ 	struct clk *usb_dc_ck;
+ 	struct gpio_desc *power;
+ 	struct gpio_desc *overcurrent;
++	spinlock_t overcurrent_lock;
++	bool overcurrent_status;
++	bool overcurrent_changed;
++	int overcurrent_irq;
+ };
+ 
+ static const char hcd_name[] = "ohci-omap";
+@@ -181,11 +189,110 @@ static int ohci_omap_reset(struct usb_hcd *hcd)
+ 	return 0;
+ }
+ 
++static irqreturn_t ohci_omap_overcurrent_irq(int irq, void *data)
++{
++	struct usb_hcd *hcd = data;
++	struct ohci_omap_priv *priv = hcd_to_ohci_omap_priv(hcd);
++	unsigned long flags;
++	int status;
++
++	status = gpiod_get_value_cansleep(priv->overcurrent);
++	if (status < 0)
++		return IRQ_HANDLED;
++
++	if (status && priv->power)
++		gpiod_set_value_cansleep(priv->power, 0);
++
++	spin_lock_irqsave(&priv->overcurrent_lock, flags);
++	if (!!status != priv->overcurrent_status)
++		priv->overcurrent_changed = true;
++	priv->overcurrent_status = !!status;
++	spin_unlock_irqrestore(&priv->overcurrent_lock, flags);
++
++	usb_hcd_poll_rh_status(hcd);
++
++	return IRQ_HANDLED;
++}
++
++static int ohci_omap_hub_status_data(struct usb_hcd *hcd, char *buf)
++{
++	struct ohci_omap_priv *priv = hcd_to_ohci_omap_priv(hcd);
++	unsigned long flags;
++	bool changed;
++	int length;
++
++	length = ohci_hub_status_data(hcd, buf);
++
++	spin_lock_irqsave(&priv->overcurrent_lock, flags);
++	changed = priv->overcurrent_changed;
++	spin_unlock_irqrestore(&priv->overcurrent_lock, flags);
++
++	if (changed) {
++		if (!length) {
++			buf[0] = 0;
++			length = 1;
++		}
++		buf[0] |= BIT(1);
++	}
++
++	return length;
++}
++
++static int ohci_omap_hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
++				 u16 wIndex, char *buf, u16 wLength)
++{
++	struct ohci_omap_priv *priv = hcd_to_ohci_omap_priv(hcd);
++	unsigned long flags;
++	bool status, changed;
++	__le32 *portstatus;
++	u32 value;
++	int ret;
++
++	ret = ohci_hub_control(hcd, typeReq, wValue, wIndex, buf, wLength);
++	if (ret)
++		return ret;
++
++	if (typeReq == ClearPortFeature && wIndex == 1 &&
++	    wValue == USB_PORT_FEAT_C_OVER_CURRENT) {
++		unsigned long flags;
++
++		spin_lock_irqsave(&priv->overcurrent_lock, flags);
++		priv->overcurrent_changed = false;
++		spin_unlock_irqrestore(&priv->overcurrent_lock, flags);
++		return 0;
++	}
++
++	if (typeReq != GetPortStatus || wIndex != 1)
++		return ret;
++
++	spin_lock_irqsave(&priv->overcurrent_lock, flags);
++	status = priv->overcurrent_status;
++	changed = priv->overcurrent_changed;
++	spin_unlock_irqrestore(&priv->overcurrent_lock, flags);
++
++	portstatus = (__le32 *)buf;
++	value = le32_to_cpu(*portstatus);
++
++	if (status)
++		value |= USB_PORT_STAT_OVERCURRENT;
++	else
++		value &= ~USB_PORT_STAT_OVERCURRENT;
++
++	if (changed)
++		value |= USB_PORT_STAT_C_OVERCURRENT;
++	else
++		value &= ~USB_PORT_STAT_C_OVERCURRENT;
++
++	*portstatus = cpu_to_le32(value);
++
++	return 0;
++}
++
+ /*-------------------------------------------------------------------------*/
+ 
+ /**
+  * ohci_hcd_omap_probe - initialize OMAP-based HCDs
+- * @pdev:	USB controller to probe
++ * @pdev: USB controller to probe
+  *
+  * Context: task context, might sleep
+  *
+@@ -196,50 +303,53 @@ static int ohci_omap_reset(struct usb_hcd *hcd)
+ static int ohci_hcd_omap_probe(struct platform_device *pdev)
+ {
+ 	int retval, irq;
+-	struct usb_hcd *hcd = 0;
++	struct usb_hcd *hcd;
+ 	struct ohci_omap_priv *priv;
+ 
+ 	if (pdev->num_resources != 2) {
+ 		dev_err(&pdev->dev, "invalid num_resources: %i\n",
+-		       pdev->num_resources);
++			pdev->num_resources);
+ 		return -ENODEV;
+ 	}
+ 
+-	if (pdev->resource[0].flags != IORESOURCE_MEM
+-			|| pdev->resource[1].flags != IORESOURCE_IRQ) {
++	if (pdev->resource[0].flags != IORESOURCE_MEM ||
++	    pdev->resource[1].flags != IORESOURCE_IRQ) {
+ 		dev_err(&pdev->dev, "invalid resource type\n");
+ 		return -ENODEV;
+ 	}
+ 
+ 	hcd = usb_create_hcd(&ohci_omap_hc_driver, &pdev->dev,
+-			dev_name(&pdev->dev));
++			     dev_name(&pdev->dev));
+ 	if (!hcd)
+ 		return -ENOMEM;
+ 
+ 	hcd->rsrc_start = pdev->resource[0].start;
+-	hcd->rsrc_len = pdev->resource[0].end - pdev->resource[0].start + 1;
++	hcd->rsrc_len = pdev->resource[0].end -
++			pdev->resource[0].start + 1;
+ 	priv = hcd_to_ohci_omap_priv(hcd);
+ 
+-	/* Obtain two optional GPIO lines */
+-	priv->power = devm_gpiod_get_optional(&pdev->dev, "power", GPIOD_ASIS);
++	spin_lock_init(&priv->overcurrent_lock);
++	priv->overcurrent_status = false;
++	priv->overcurrent_changed = false;
++	priv->overcurrent_irq = -1;
++
++	priv->power = devm_gpiod_get_optional(&pdev->dev, "power",
++					      GPIOD_ASIS);
+ 	if (IS_ERR(priv->power)) {
+ 		retval = PTR_ERR(priv->power);
+ 		goto err_put_hcd;
+ 	}
++
+ 	if (priv->power)
+ 		gpiod_set_consumer_name(priv->power, "OHCI power");
+ 
+-	/*
+-	 * This "overcurrent" GPIO line isn't really used in the code,
+-	 * but has a designated hardware function.
+-	 * TODO: implement proper overcurrent handling.
+-	 */
+-	priv->overcurrent = devm_gpiod_get_optional(&pdev->dev, "overcurrent",
+-						    GPIOD_IN);
++	priv->overcurrent = devm_gpiod_get_optional(&pdev->dev,
++						    "overcurrent", GPIOD_IN);
+ 	if (IS_ERR(priv->overcurrent)) {
+ 		retval = PTR_ERR(priv->overcurrent);
+ 		goto err_put_hcd;
+ 	}
++
+ 	if (priv->overcurrent)
+ 		gpiod_set_consumer_name(priv->overcurrent, "OHCI overcurrent");
+ 
+@@ -277,23 +387,77 @@ static int ohci_hcd_omap_probe(struct platform_device *pdev)
+ 	if (!hcd->regs) {
+ 		dev_err(&pdev->dev, "can't ioremap OHCI HCD\n");
+ 		retval = -ENOMEM;
+-		goto err2;
++		goto err_release_mem;
+ 	}
+ 
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0) {
+ 		retval = irq;
+-		goto err3;
++		goto err_iounmap;
+ 	}
++
+ 	retval = usb_add_hcd(hcd, irq, 0);
+ 	if (retval)
+-		goto err3;
++		goto err_iounmap;
++
++	if (priv->overcurrent) {
++		int status;
++		unsigned long flags;
++
++		priv->overcurrent_irq = gpiod_to_irq(priv->overcurrent);
++		if (priv->overcurrent_irq < 0) {
++			retval = priv->overcurrent_irq;
++			goto err_remove_hcd;
++		}
++
++		retval = request_threaded_irq(priv->overcurrent_irq, NULL,
++					      ohci_omap_overcurrent_irq,
++					      IRQF_ONESHOT |
++					      IRQF_TRIGGER_RISING |
++					      IRQF_TRIGGER_FALLING,
++					      "ohci-omap-overcurrent", hcd);
++		if (retval) {
++			priv->overcurrent_irq = -1;
++			goto err_remove_hcd;
++		}
++
++		/*
++		 * Synchronize the initial GPIO sample with the threaded
++		 * handler so it cannot overwrite the sampled state.
++		 */
++		disable_irq(priv->overcurrent_irq);
++
++		status = gpiod_get_value_cansleep(priv->overcurrent);
++		if (status < 0) {
++			retval = status;
++			enable_irq(priv->overcurrent_irq);
++			goto err_remove_hcd;
++		}
++
++		spin_lock_irqsave(&priv->overcurrent_lock, flags);
++		priv->overcurrent_status = !!status;
++		priv->overcurrent_changed = true;
++		spin_unlock_irqrestore(&priv->overcurrent_lock, flags);
++
++		if (status && priv->power)
++			gpiod_set_value_cansleep(priv->power, 0);
++
++		enable_irq(priv->overcurrent_irq);
++		usb_hcd_poll_rh_status(hcd);
++	}
+ 
+ 	device_wakeup_enable(hcd->self.controller);
+ 	return 0;
+-err3:
++
++err_remove_hcd:
++	if (priv->overcurrent_irq >= 0) {
++		free_irq(priv->overcurrent_irq, hcd);
++		priv->overcurrent_irq = -1;
++	}
++	usb_remove_hcd(hcd);
++err_iounmap:
+ 	iounmap(hcd->regs);
+-err2:
++err_release_mem:
+ 	release_mem_region(hcd->rsrc_start, hcd->rsrc_len);
+ err_unprepare_dc_ck:
+ 	clk_unprepare(priv->usb_dc_ck);
+@@ -327,6 +491,10 @@ static void ohci_hcd_omap_remove(struct platform_device *pdev)
+ 	struct ohci_omap_priv *priv = hcd_to_ohci_omap_priv(hcd);
+ 
+ 	dev_dbg(hcd->self.controller, "stopping USB Controller\n");
++	if (priv->overcurrent_irq >= 0) {
++		free_irq(priv->overcurrent_irq, hcd);
++		priv->overcurrent_irq = -1;
++	}
+ 	usb_remove_hcd(hcd);
+ 	omap_ohci_clock_power(priv, 0);
+ 	if (!IS_ERR_OR_NULL(hcd->usb_phy)) {
+@@ -413,6 +581,8 @@ static int __init ohci_omap_init(void)
+ 		return -ENODEV;
+ 
+ 	ohci_init_driver(&ohci_omap_hc_driver, &omap_overrides);
++	ohci_omap_hc_driver.hub_status_data = ohci_omap_hub_status_data;
++	ohci_omap_hc_driver.hub_control = ohci_omap_hub_control;
+ 	return platform_driver_register(&ohci_hcd_omap_driver);
+ }
+ module_init(ohci_omap_init);
+-- 
+2.55.0
 
-This allows users to see what packets follow classic path?
-
-But if you insist, then explore a way to synchronize these counters
-offline (ie. not from packet path) to see how it looks like.
-
-Even though, I'm not sure lying to userspace that packets are going
-through these devices via stats can be right.
-
-> Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
-> ---
->  include/net/netfilter/nf_flow_table.h |  8 +++-
->  net/netfilter/nf_flow_table_core.c    |  3 ++
->  net/netfilter/nf_flow_table_ip.c      | 53 +++++++++++++++++++++++++++
->  net/netfilter/nf_flow_table_path.c    |  9 +++++
->  4 files changed, 72 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/net/netfilter/nf_flow_table.h b/include/net/netfilter/nf_flow_table.h
-> index f2e2771f188f..1f451fcf05d0 100644
-> --- a/include/net/netfilter/nf_flow_table.h
-> +++ b/include/net/netfilter/nf_flow_table.h
-> @@ -106,6 +106,8 @@ enum flow_offload_xmit_type {
->  };
->  
->  #define NF_FLOW_TABLE_ENCAP_MAX		2
-> +/* Devices above the flowtable device in a forward path. */
-> +#define NF_FLOW_TABLE_UPPER_MAX		(NET_DEVICE_PATH_STACK_MAX - 1)
->  
->  struct flow_offload_tunnel {
->  	union {
-> @@ -153,7 +155,8 @@ struct flow_offload_tuple {
->  					encap_num:2,
->  					needs_gso_segment:1,
->  					tun_num:2,
-> -					in_vlan_ingress:2;
-> +					in_vlan_ingress:2,
-> +					num_uppers:3;
->  	u16				mtu;
->  	u32				dst_cookie;
->  	struct dst_entry		*dst_cache;
-> @@ -171,6 +174,7 @@ struct flow_offload_tuple {
->  			u32		iifidx;
->  		} tc;
->  	};
-> +	u32				upper_ifidx[NF_FLOW_TABLE_UPPER_MAX];
->  };
->  
->  struct flow_offload_tuple_rhash {
-> @@ -228,6 +232,8 @@ struct nf_flow_route {
->  			u8			num_encaps:2,
->  						num_tuns:2,
->  						ingress_vlans:2;
-> +			u32			upper_ifidx[NF_FLOW_TABLE_UPPER_MAX];
-> +			u8			num_uppers;
->  		} in;
->  		struct {
->  			u32			ifindex;
-> diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
-> index 03241d4bfd5e..2c9a0d97c9fb 100644
-> --- a/net/netfilter/nf_flow_table_core.c
-> +++ b/net/netfilter/nf_flow_table_core.c
-> @@ -122,6 +122,9 @@ static int flow_offload_fill_route(struct flow_offload *flow,
->  
->  	flow_tuple->tun = route->tuple[dir].in.tun;
->  	flow_tuple->encap_num = route->tuple[dir].in.num_encaps;
-> +	memcpy(flow_tuple->upper_ifidx, route->tuple[dir].in.upper_ifidx,
-> +	       sizeof(flow_tuple->upper_ifidx));
-> +	flow_tuple->num_uppers = route->tuple[dir].in.num_uppers;
->  	flow_tuple->needs_gso_segment = route->tuple[dir].out.needs_gso_segment;
->  	flow_tuple->tun_num = route->tuple[dir].in.num_tuns;
->  
-> diff --git a/net/netfilter/nf_flow_table_ip.c b/net/netfilter/nf_flow_table_ip.c
-> index c8c29a9a1684..e1a3511d5f1f 100644
-> --- a/net/netfilter/nf_flow_table_ip.c
-> +++ b/net/netfilter/nf_flow_table_ip.c
-> @@ -453,6 +453,49 @@ static void nf_flow_encap_pop(struct nf_flowtable_ctx *ctx,
->  		nf_flow_ip_tunnel_pop(ctx, skb);
->  }
->  
-> +/* The fast path bypasses the devices above the flowtable device. */
-> +static void nf_flow_upper_stats_add(struct net *net,
-> +				    const struct flow_offload_tuple *tuple,
-> +				    bool rx, unsigned int len)
-> +{
-> +	unsigned int n, vlan_hlen = 0;
-> +	struct net_device *dev;
-> +	int i;
-> +
-> +	for (i = 0; i < tuple->num_uppers; i++) {
-> +		dev = dev_get_by_index_rcu(net, tuple->upper_ifidx[i]);
-> +		if (!dev)
-> +			continue;
-> +
-> +		n = len;
-> +		if (!rx && dev->type == ARPHRD_ETHER)
-> +			n += ETH_HLEN;
-> +
-> +		if (is_vlan_dev(dev)) {
-> +			/* Q-in-Q: the outer VLAN device counts the inner tag. */
-> +			n += vlan_hlen;
-> +			if (rx)
-> +				vlan_dev_sw_netstats_rx_add(dev, n);
-> +			else
-> +				vlan_dev_sw_netstats_tx_add(dev, 1, n);
-> +			vlan_hlen += VLAN_HLEN;
-> +		} else if (dev->pcpu_stat_type == NETDEV_PCPU_STAT_TSTATS) {
-> +			if (rx)
-> +				dev_sw_netstats_rx_add(dev, n);
-> +			else
-> +				dev_sw_netstats_tx_add(dev, 1, n);
-> +		}
-> +
-> +		/* The devices below also count this device's header. */
-> +		if (dev->type == ARPHRD_PPP)
-> +			len += PPPOE_SES_HLEN;
-> +		else if (dev->type == ARPHRD_TUNNEL)
-> +			len += sizeof(struct iphdr);
-> +		else if (dev->type == ARPHRD_TUNNEL6)
-> +			len += sizeof(struct ipv6hdr);
-> +	}
-> +}
-> +
->  static struct flow_offload_tuple_rhash *
->  nf_flow_offload_lookup(struct nf_flowtable_ctx *ctx,
->  		       struct nf_flowtable *flow_table, struct sk_buff *skb)
-> @@ -512,6 +555,11 @@ static int nf_flow_offload_forward(struct nf_flowtable_ctx *ctx,
->  	if (flow_table->flags & NF_FLOWTABLE_COUNTER)
->  		nf_ct_acct_update(flow->ct, tuplehash->tuple.dir, skb->len);
->  
-> +	nf_flow_upper_stats_add(dev_net(ctx->in), &tuplehash->tuple, true,
-> +				skb->len);
-> +	nf_flow_upper_stats_add(dev_net(ctx->in), &flow->tuplehash[!dir].tuple,
-> +				false, skb->len);
-> +
->  	return 1;
->  }
->  
-> @@ -1107,6 +1155,11 @@ static int nf_flow_offload_ipv6_forward(struct nf_flowtable_ctx *ctx,
->  	if (flow_table->flags & NF_FLOWTABLE_COUNTER)
->  		nf_ct_acct_update(flow->ct, tuplehash->tuple.dir, skb->len);
->  
-> +	nf_flow_upper_stats_add(dev_net(ctx->in), &tuplehash->tuple, true,
-> +				skb->len);
-> +	nf_flow_upper_stats_add(dev_net(ctx->in), &flow->tuplehash[!dir].tuple,
-> +				false, skb->len);
-> +
->  	return 1;
->  }
->  
-> diff --git a/net/netfilter/nf_flow_table_path.c b/net/netfilter/nf_flow_table_path.c
-> index 1e55644f2edb..ba5ac3ebe614 100644
-> --- a/net/netfilter/nf_flow_table_path.c
-> +++ b/net/netfilter/nf_flow_table_path.c
-> @@ -83,6 +83,8 @@ static int nft_dev_fill_forward_path(const struct dst_entry *dst_cache,
->  
->  struct nft_forward_info {
->  	const struct net_device *dev;
-> +	u32 upper_ifidx[NF_FLOW_TABLE_UPPER_MAX];
-> +	u8 num_uppers;
->  	struct id {
->  		__u16	id;
->  		__be16	proto;
-> @@ -187,6 +189,10 @@ static int nft_dev_path_info(struct net_device_path_stack *stack,
->  		}
->  	}
->  
-> +	for (i = 0; info->dev && stack->path[i].dev != info->dev; i++)
-> +		info->upper_ifidx[i] = stack->path[i].dev->ifindex;
-> +	info->num_uppers = i;
-> +
->  	if (nf_flowtable_hw_offload(&ft->data) &&
->  	    nft_is_valid_ether_device(info->dev))
->  		info->xmit_type = FLOW_OFFLOAD_XMIT_DIRECT;
-> @@ -253,6 +259,9 @@ static int nft_dev_forward_path(const struct nft_pktinfo *pkt,
->  
->  	route->tuple[!dir].in.num_encaps = info.num_encaps;
->  	route->tuple[!dir].in.ingress_vlans = info.ingress_vlans;
-> +	memcpy(route->tuple[!dir].in.upper_ifidx, info.upper_ifidx,
-> +	       sizeof(info.upper_ifidx));
-> +	route->tuple[!dir].in.num_uppers = info.num_uppers;
->  
->  	if (info.xmit_type == FLOW_OFFLOAD_XMIT_DIRECT) {
->  		memcpy(route->tuple[dir].out.h_source, info.h_source, ETH_ALEN);
-> -- 
-> 2.53.0
-> 
