@@ -1,110 +1,148 @@
-Received: from mta0.migadu.com (out-174.mta0.migadu.com [91.218.175.174])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7487B3CF1ED
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:11:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307923C4B79
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:16:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792307487; cv=none; b=SMURLUul086ZgkENJ9VY62v8Tk6K4bCBhw8EVU5+wq8gGDSQBAk91ZFjj7RXntXXQb872FmIuJUbEYUZ5/UP4FRzRF0XhnXQRNMcXma6rKzIKTzeyKBNIKe/+b394pq+UuyQP+hnJaxIaGuD3YWvbzcck0zCr5sFuv9cQA6Kge8=
+	t=1792307803; cv=none; b=TpvUpCpwaxaeNJEYW3ZVSQt9RpuCrvojDe/EV6F4arfPkf3lnyuM/AY0yDzJFC+rZHfLinIuBiBcbVje0DmZfVDF2XPdgppfm7ZIREB2iDnqBFBfgGbdPUSqYt31hWE/PSJu/RfslFYUG5dNuOfwg7pcgGawbRVNYGrlw8u23Sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792307487; c=relaxed/simple;
-	bh=lGb4nruPMj51RONlIa9w9I0Qf0y/WffyQUyIb347g3E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bavI/JHMHUmHakMFHh2D6Ug2r/TH1w/69C2i0UNvFxkYoS6bjzZXOJdusklgOLAPDRgA0vzjrviaClP7r3kcIXfRhxRoWLB99H1IV4m9gGNenmKhJ9HEJA+X0iOdLj+qcJ1PdRyh03XSaVxVeWupXdF4NdWRvE+k39i08J3xFYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LYLyWErn; arc=none smtp.client-ip=91.218.175.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792307803; c=relaxed/simple;
+	bh=nvVFUq/61qzab7zOKRtEl9kkbUwupZvr5gTkYS91nQs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iQ7EReND4aqiFHSrasBRD4mUPhKyIX/R5VcpRztQPu3poE/XIqPJJP9eSkg+ph4Ti56Bn2ERBlybjo59rqtsq+It4WGvF7Tgf+5hjVzLl4lye2jbnXDcaTNdhVWB72sS4SmTj7ZJB5y28ikSWFfIij3JM0X/nofOua2784BA43g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aj1iBFTd; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LYLyWErn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lGb4nruPMj51RONlIa9w9I0Qf0y/WffyQUyIb347g3E=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792307482; v=1; x=1792912282;
- b=LYLyWErn9bNn7Rpo0VTkVWYu5HqNGmQcbWSCIkdQcW1Fvf+nsoVuPXLgsHzTboBz1CrxwP4t
- NDNbcI+x667eJ2oEKWBRpdkMQid6XUTidBtv6oazh34rbCJt0m64LbbyC/rxy2jh2aQ5INlJ2aO
- Lv34iDGRXXdh/ZG9rWUhCe8U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 970df750e1cbd372;
-	Sun, 18 Oct 2026 07:11:21 +0000
-X-Mizu-Trace-ID: 970df750e1cbd372
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	agl@us.ibm.com,
-	mel@csn.ul.ie,
-	riel@surriel.com,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org,
-	josef@toxicpanda.com,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aj1iBFTd"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e940d5d2beso3998305ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 00:16:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792307801; x=1792912601; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fm+8hE4os7LvlJdHIvQMczxhBtCibQ83SWWXxfbxmcs=;
+        b=aj1iBFTdSwsKANMPlPG0PyzmeE6Ym+3QmMHp6nleL2ctUTQRbK74jj5m10EtAbJ+zq
+         eoSnHTpaN6nVF/4VnLnAXBZGyZXA8pioglIEAf9F8oTJ1u1okkUlrQIFSMuchJVfZpRt
+         ifew6+ncepgYjCwaUwxh5n3EPpFr7KfC3LJn5APhmwoSBmkUQs3QtINEtpa4KsLp7Ph+
+         19mG1q22g4biYJliI1Hx3A76MVUB+UAJEyiajSHp8qWrDSDf9bDAIYMyPLZxib90sRKz
+         oQbszV5t/ydq43kYtJErGC8+RKUkDYmtDmLx+VuQ4mKnIHsWS/il/50mB90fsN0zoVjQ
+         817w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792307801; x=1792912601;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fm+8hE4os7LvlJdHIvQMczxhBtCibQ83SWWXxfbxmcs=;
+        b=mvRrElDluIRNpZq1zpCl7xITrjOk6rmYSnq+cR9yGG+N0dE5U7e9UL1Nf621CsAeJj
+         bimD8eIXBWQkSFvK52/JUcLItCyADz7PoqaoeSxJ8CGXbIMkJqQeRnFBQDZLpBvbNHt3
+         9ttTlGgu4rTzt3yA8XCBpD/5z+aA1EmLlba03kC/n4E1BHowMvpBEKSUGlKf+Unr6UiR
+         6XiYm6FTXm/QALPGr/AyX0VJCNzquzKZoRmdwaRZk+TdL1mrIVXqm9x6dWUGQpdd3wu3
+         5U2uqpXxcptsVsPvxRspgiiCfI0MRPbmCEX6ThlFM5nlsTEAluqggFQ9VK39TVPYo1BS
+         Ud2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx3TdSK8iVldbezUjx+xfOsguodRvf9bTjhk0soKVfM6TuWlQeZ3AfThzNGeAo1239RQTI9wIJOqR8hUlM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2ggeYwsHM5OlTUC+ZJyp3qe84kfTMrx4CgxQk4sdt2Yc3Djyo
+	uULMZhM5nF5tzoEWHSYFz1Xsl5ZOAzUcMTefqVtcEiBkj1wUwnben47AT7xds4rm
+X-Gm-Gg: AYBFou1hd+CYK5ayckTgBLeN/Z7y7Hijwv4HmekRcPLovrOaAGZgfH6qiheZGs1047R
+	RpMNF3RbKfwUoQKin75RaUhx7deGokqDGdVH+ApWu4MwP5RbY+Fh1cXM8Q5NbXc5mTyG3OaL+Jd
+	oAkQR/1B99lgVuI9jEvROHNKYZxK4XH6SJUamnnIwLXVUaJLnI9Bp5McUPotAkP0ha8zyCRvNIZ
+	62vcMXV6g4tsF8tCAvRVCAgGGEhAh+HuQsuCtFbR5B2dScqjXUCdQlxMdmToJHlPxnQzDaA+a53
+	HllGbKNy/DPPPux+xtyNsJSumX9XBhQ3qnvrg50M84cB/rQQljYdHZ5VloK/0yDQaee3c6j7KDr
+	BmHgqh5NYJBHBoQrSUqoGEUpU56jt9iAtftfho2X4p8ruZfQvVoz68WBAX2CegFhX64UWTB21vx
+	gAB6kLhOE2uY007jiAnS3VatDB8HDcgfPky0vP2UM2WTTOCTSV+ug0BdOtFHCofa0CfOuebA==
+X-Received: by 2002:a17:902:ce11:b0:2e2:e24e:a88a with SMTP id d9443c01a7336-2e9a68d91bfmr36318835ad.22.1792307801324;
+        Sun, 18 Oct 2026 00:16:41 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7ac0:50::3d0:3f])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e835063sm26509325ad.33.2026.10.18.00.16.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 00:16:40 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	mason@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 06/10] mm/hugetlb: fix endless write fault on a leftover uffd bit
-Date: Sun, 18 Oct 2026 15:11:16 +0800
-Message-ID: <20261018071116.20342-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261015-urgent_fixes-v1-6-42796911043b@kernel.org>
-References: <20261015-urgent_fixes-v1-6-42796911043b@kernel.org>
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+feeb9b5352b9ff89618a@syzkaller.appspotmail.com
+Subject: [PATCH] block: annotate lockless task ioprio accesses
+Date: Sun, 18 Oct 2026 14:16:36 +0700
+Message-ID: <20261018071636.79198-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+__get_task_ioprio() reads task->io_context and ioc->ioprio without
+task_lock() when called on current, e.g. from init_sync_kiocb() on every
+write.  set_task_ioprio() can update both for another task at any time,
+including the first publication of a new io_context.  KCSAN reports it:
 
-On Thu, Oct 15, 2026 at 06:07:12PM +0200, David Hildenbrand (Arm) wrote:
->From: Josef Bacik <josef@toxicpanda.com>
->
->hugetlb_fault() resolves the uffd bit on a write fault only if the VMA is
->registered for userfaultfd write protection, and hugetlb_wp() bails out
->for any entry with the uffd bit set assuming hugetlb_fault() has already
->resolved it.
->
->When a read-only hugetlb entry with the uffd bit set is mapped in a VMA
->that is not registered for uffd-wp, a write fault to it never makes
->progress. If the access comes from the kernel, e.g. read(2) from
->/dev/zero into such page, the task spins in the page fault handler,
->ignores SIGKILL and keeps holding the locks taken by the system call.
->
->Such entries should not exist, but an unprivileged user can create them,
->for example with MADV_DONTNEED of a page protected with UFFDIO_RWPROTECT
->or with UFFDIO_COPY in MODE_WP racing with UFFDIO_UNREGISTER.
->
->Clear the uffd bit when the VMA is not registered for uffd-wp and let the
->fault proceed to hugetlb_wp(), like do_wp_page() does for regular pages.
->
->Note that a FOLL_FORCE write to a page protected with UFFDIO_RWPROTECT in
->a private VMA that was made PROT_NONE now drops the RWP protection of
->that page.
->
->Original fix generated by an LLM and sent in private by Josef.
->
->Fixes: 60d5b473d61b ("mm/hugetlb: fix uffd wr-protection for CoW optimization path")
->Reported-by: Chris Mason <mason@kernel.org>
->Cc: stable@vger.kernel.org
->Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->[rppt: massage commit message]
->Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
->[ david: convert comment into a TODO ]
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+  BUG: KCSAN: data-race in __kernel_write_iter / set_task_ioprio
+  value changed: 0x0000000000000000 -> 0xffff888109813730
 
-LGTM!
+A stale or torn value is harmless, a task simply gets the old or new
+priority, but the compiler may tear or refetch the accesses and the
+io_context fields must be visible before the pointer is.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Publish the pointer with smp_store_release(), read it with READ_ONCE()
+(address dependency orders the ioprio load), and mark the ioprio
+accesses.
+
+Reported-by: syzbot+feeb9b5352b9ff89618a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=feeb9b5352b9ff89618a
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+Tested with a KCSAN kernel in QEMU. syzbot's coredump repro is too slow to hit
+the window, so a thread loops pwrite() on a tmpfs file while the main thread
+does the first ioprio_set() on its tid (~35k iterations per run). Same pair,
+same "0 -> pointer" value change: 26 reports per run before, 0 in two runs
+after. No Fixes: tag, the history I have is grafted.
+ block/blk-ioc.c        | 5 +++--
+ include/linux/ioprio.h | 5 +++--
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/block/blk-ioc.c b/block/blk-ioc.c
+index d15918d7fabb..12ddc672f41d 100644
+--- a/block/blk-ioc.c
++++ b/block/blk-ioc.c
+@@ -277,9 +277,10 @@ int set_task_ioprio(struct task_struct *task, int ioprio)
+ 		if (task->io_context)
+ 			kmem_cache_free(iocontext_cachep, ioc);
+ 		else
+-			task->io_context = ioc;
++			/* Pairs with READ_ONCE() in __get_task_ioprio() */
++			smp_store_release(&task->io_context, ioc);
+ 	}
+-	task->io_context->ioprio = ioprio;
++	WRITE_ONCE(task->io_context->ioprio, ioprio);
+ out:
+ 	task_unlock(task);
+ 	return 0;
+diff --git a/include/linux/ioprio.h b/include/linux/ioprio.h
+index 5210e8371238..56371e9ea306 100644
+--- a/include/linux/ioprio.h
++++ b/include/linux/ioprio.h
+@@ -56,7 +56,8 @@ static inline int task_nice_ioclass(struct task_struct *task)
+  */
+ static inline int __get_task_ioprio(struct task_struct *p)
+ {
+-	struct io_context *ioc = p->io_context;
++	/* Paired with smp_store_release() in set_task_ioprio() */
++	struct io_context *ioc = READ_ONCE(p->io_context);
+ 	int prio;
+ 
+ 	if (!ioc)
+@@ -66,7 +67,7 @@ static inline int __get_task_ioprio(struct task_struct *p)
+ 	if (p != current)
+ 		lockdep_assert_held(&p->alloc_lock);
+ 
+-	prio = ioc->ioprio;
++	prio = READ_ONCE(ioc->ioprio);
+ 	if (IOPRIO_PRIO_CLASS(prio) == IOPRIO_CLASS_NONE)
+ 		prio = IOPRIO_PRIO_VALUE(task_nice_ioclass(p),
+ 					 task_nice_ioprio(p));
+-- 
+2.43.0
+
