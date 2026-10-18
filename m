@@ -1,63 +1,63 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7381547C10D
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2A647C0E9
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:28:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792322939; cv=none; b=F9NbRl+rQEokZjNqg0BaPM86nmnM/DSzT3JL76K8VLHdlG5HK/soiw0/s5jy6LWu4Js2w6q+9EDq+fJX9iFUiVeazSmOu52GPCvkircP9NGoJNaXMYkAJiVZK0jOt1cU7J2uSNLNekSmhHb0RQFtZn4rnj+5Knaz7VhfTkjvCVY=
+	t=1792322943; cv=none; b=ORbKfLdpWy0Gq6EXNOLYxmtaJ+lNNA3zHT3hjeL0/2WzO626nqdTeE3Vgr5XSHepYuqDCUqGayGmnlM+3JAwrJtQKZTN9pa96L7/pGNLLwLiheByMoXrqEvsmbzMJ7mo1UDnfwLIXNWqR5Y8RTa2OscOyknj8l2LDug+98d3S6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792322939; c=relaxed/simple;
-	bh=i5Z3/kQvRv6MdttRQMhWbN6TPi0qhuEolDhAtApCcGQ=;
+	s=arc-20240116; t=1792322943; c=relaxed/simple;
+	bh=IawjRmv3AMIErK1y9uxfC2plS/472oz4PcrnLIzZtB8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JTsX7CDSVN2IyWuvn/1hLHONX/kcxQXpJec2mw5GCeOiKktAHEM6SJBnCqnHvnGkDXxyyRt7Tkj0vl3VWfUBeSg3LarPlKIiOjG8V6+YQJZKfMjzy3f470bH6Nng6h+i4hv4AeST74GAxOJnH9OVS9bpJ5l6te0FALIrwOLuXCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nMVxilwe; arc=none smtp.client-ip=74.125.82.176
+	 MIME-Version; b=nBreGYLCIJ+6D7EsOze44EXNoNw474JZ6kVYkz2cVLOEp/qHcIvoaMtcoB6nZ46/9CtBIETRWN+k5T5B8qwSlY2tSDHmVgT3GsEwH/Gh8NnEpH8xQUjbp8NKCF4MHW2OpETxI+TAVabx87hfc1W4bgZ6uIXLUvpOHuJpG72Kh24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BJ5qiVyr; arc=none smtp.client-ip=74.125.82.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nMVxilwe"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso3067873eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:28:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BJ5qiVyr"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3514b90bb89so3154369eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:28:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792322936; x=1792927736; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792322939; x=1792927739; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=j6vfUV+xfoWUycON3Bin1a31lIGNUVsBJU1jJ/ORLR0=;
-        b=nMVxilweWwHlu+kSG17+HgPRE+D0V6rWloMF4QnVi0pKGe85tJLUCufXHWjww0Lhrm
-         r/0QG5OaVkhIIbOrd07KWqUIFErz9wpF5+uVyNDeEm83f6KtTrzRMdU5QpaypNgRXToz
-         N2HKgzDo0bqAuNbCD/YaYQQq4cJ+oYr4zfLu9PT71OXOyxa3peJgXzeKbv8nI0mDTlki
-         Bc/oN3rg3ZxuXwpTf6Ga+udy1wPuu88hrPkGgAtKwzEbA+UNotsRngSVjBwJORtzxjwG
-         PUy3CVrAT1BESms7NOLbUKeQ2C3Ta2grsMuDX6bE2obh2/ECV505jIsz7FyuxOPafM7q
-         G8sg==
+        bh=1gfU32GixhTO6jDGXVYG5kFE1u97nKqN/0WesGHqMWQ=;
+        b=BJ5qiVyry2y8sLvk2W+o3OrBKaE8fCu62PKGL1c/PgvVKVv3EdVO4cfSssf1Djo2NP
+         ND7Vylt+77bnD2PTgAtq+4QtghVC/toAjvB2nMiXCoSkNJmWoJlKLiSr55nXeJMIQies
+         d1/0IDZp6SJWQC0i5fYhtH2BPDnnfTGdSoQ9RVnFqXGj/90TrtMpdD5Dmwnx3xZ0xJmh
+         o3JkLAlqPty6kQaRtrxNQ8366Zb74S9n39gbSkrVGkYIHY1gC6hYgSAQXOBiUkHqOS93
+         4EnozSCsvYnFS0xVNJHmFvpuQ7izeMG9PcSZvKSfL7PK1z6J8PCR/WzDPi2CyAR8NUgS
+         xgMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792322936; x=1792927736;
+        d=1e100.net; s=20260707; t=1792322939; x=1792927739;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j6vfUV+xfoWUycON3Bin1a31lIGNUVsBJU1jJ/ORLR0=;
-        b=vjTiC+u5M/SDcDjLjmujiHxCOJazPPvlC0G3sYwftdHSCu9E7Z+1mfK2KJNA51ixXB
-         Ps12f81UvNXw56bRf6jHnVQ3S9jc3uWYHXHr75R3/9L8x0fb9jjccdmJxHq7ptcfEXGZ
-         2MpcxF4Y/sFchXJpscHcEWVoehlT+upAgm2FPovlQQ2uh2QzegtlSINVJjhO/mnaUFsB
-         8rwlFeHX2oWLChHVCGvlMq0XM95ey7VlCwUPIVuzCWqI68k2mFU+RL08tFV2f3rejtc4
-         GUH69oQshCpWhMrohG/zVH8r3nk81hRhQXilOSG+RztYkShcgcRtPTReKmn6V2b8tV8b
-         9YwQ==
-X-Gm-Message-State: AFq9FYIxmlqlOuz9DIGekK8+cIOxXp4hiZc1qLxPX7Vw0gWRNYeGZVnG
-	qXGRSHVsKrBIr4Kfv4glsEef6KVwkmA7cCdkrzFV+0fA+WdLdd0HFX+X97qMPLQj
-X-Gm-Gg: AYBFou1px4DvFudDSkMFFm4swQKwspEek30fB9tfZ0hapwYSdlrAMOtdHOVV2z3e2X7
-	jmgegRsv0RsGN+p4hD8S/RPDtovYzzWMoT1TGpeKtOt1Oy4LWsY4nPgTN5wyl29XcXGbL4Za8F4
-	1PX3MzcxIu4soIbgn14XbHbuVbREbEQpjWF3FnPHCypryGMcPCDTEjt51TkYzkbqm7HATeLyhD8
-	YbXyjn/mniPQrmlzVNPkkt/wyMOdREdGKDR6PBk7wDE6mPczrtg/rnKqO7VYWwrLs0H4qtKa4jw
-	MHR6VqehvXxYokLelXwOvU85/yEH0MyV23MZgzUapfb2yv+nY6n3J0t9mWILc/LbbirYz30Q3oB
-	a/yloUZY/f80Qh2QXnu6F2gcnd5r8r7w27O15sMlnu1J4cfS4mKqikzM9KtAMBRXYTXs6vKhdwe
-	JWA9j0Iz0yHxSr6xTe6p5p5+OUMG8SQnCA6JgdmTvXduNf7MznSq1Ycd0SYFD5lCa5iOMI3uC5b
-	SEXb+m6iXSZii29fEKXavkZRUHkQCb/Zv95YcICYw==
-X-Received: by 2002:a05:7300:ce0d:b0:34c:5831:8a19 with SMTP id 5a478bee46e88-361a361222emr6106007eec.40.1792322936281;
-        Sun, 18 Oct 2026 04:28:56 -0700 (PDT)
+        bh=1gfU32GixhTO6jDGXVYG5kFE1u97nKqN/0WesGHqMWQ=;
+        b=SgGqMRRX6qGPaHm+0yYPPl3cXzNHmcZzIav4cnGe/Xq8unG/jE7u3xQPdwSnpB+2zD
+         yXeIFBQsyJjxoE+P/xB/xuM/sdos7U4PrHnqeaXpHs61UD+8cp3XUxNGkBav91/YykC8
+         POI4dcmUavcp49XI7fE3slBcuQzOW9TJNpohTQOehZInairxiKr9WbhWtqERv8cfWJnZ
+         LkKnu4CZQVdVSrrXYIxVbymKz1A5TATFMJ9ggrMcE3IJJaXv2qsqVvmXVWETYxIhY6kf
+         +U1FXbv2ydM0TR8wBo4pX/LMJEhguksYpwdwJj4L427+TcNv38/llv8IZKVLvsR9ypkm
+         q2bg==
+X-Gm-Message-State: AFq9FYLK8klbf7WaSVCr5MAvm+vGtJGoNTSGSNSTqOuT0BWXJIaT9kSL
+	4C+hPJS6ex2Gn/Ke1FLwdqA+7fVTLQutSBzaOsm7Dg0brr/KKCnMhQu6o+0nWXvu
+X-Gm-Gg: AYBFou0EgP5D0hfV8ETjncqdfLG80+stY6IpqWS5BDgTNIeiFWzDnfGRtlBotoREWpv
+	0eWDFx75FjCjDTO481uMMoOTcxqSzAwv8cGhEkVEgbV/i9SYFR2pyhKIfsIA3iSaIgmIKCNFTKO
+	MXrQ20s6kxPObNoJvBGH6JkWeqzVkuDZaKdb9MFGbrITqcuZRg0TXlKk5ZxSAfw8bCmE8m/i0Is
+	FNezrMUcM0zn03mbCYS8E1rMIbLrKrKZB+2c+OntAXVAfNpdclAsU4ukJqq76BsJvnep2oKnXDu
+	BaVH9F84D7Tb4qoWaMEE84qyeqTACHILQHgiWCnjep9R9/LJbuhl/7meCDn572VGDnfXdIYZ3xk
+	mvJ2JFp6Qi9czN3ntoN/bUAbxnCIgYChyh2BudazQPiq2Fy1x+8q4msz3nar4cvALruGQAAsKcg
+	omJL+NuSzSp158EYa+IascZYPnZbRYmF5ZkLF/lNPM15uDcF+88fxYMLF1SlQfrRJ1E0jQ/HrIP
+	FG9zow2/FYjuis/BM5e9/5ZPSfIVF4MYVIzUp84SGzpMqB0swMP
+X-Received: by 2002:a05:7301:da84:b0:34d:755b:d60b with SMTP id 5a478bee46e88-361a2d369eamr7555777eec.34.1792322938649;
+        Sun, 18 Oct 2026 04:28:58 -0700 (PDT)
 Received: from Biostar-A520MT.. ([187.94.15.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082a7b33bsm42560779eec.24.2026.10.18.04.28.53
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082a7b33bsm42560779eec.24.2026.10.18.04.28.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 04:28:55 -0700 (PDT)
+        Sun, 18 Oct 2026 04:28:58 -0700 (PDT)
 From: Breno Rodrigues Alves <breno3011alves@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: Andy Whitcroft <apw@canonical.com>,
@@ -65,9 +65,9 @@ Cc: Andy Whitcroft <apw@canonical.com>,
 	Dwaipayan Ray <dwaipayanray1@gmail.com>,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
 	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [RFC PATCH 5/7] scripts: convert kconfig-sym-check.pl to Python
-Date: Sun, 18 Oct 2026 08:28:36 -0300
-Message-ID: <20261018112838.16355-6-breno3011alves@gmail.com>
+Subject: [RFC PATCH 6/7] scripts: convert parse-maintainers.pl to Python
+Date: Sun, 18 Oct 2026 08:28:37 -0300
+Message-ID: <20261018112838.16355-7-breno3011alves@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261018112838.16355-1-breno3011alves@gmail.com>
 References: <20261018112838.16355-1-breno3011alves@gmail.com>
@@ -79,198 +79,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Faithful re-implementation of kconfig-sym-check.pl in Python 3
-(stdlib only). Same Kconfig parsing, same symbol-reference
-detection, same excludes-file handling, same exit code.
+Faithful re-implementation of parse-maintainers.pl in Python 3
+(stdlib only). Same section parsing, same --order preferred
+ordering, same --input/--output/--section behavior.
 
 Verified byte-for-byte identical to the Perl version on the
-full kernel tree (~/linux).
+kernel MAINTAINERS file (30,222 lines).
 
 Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
 ---
- scripts/kconfig-sym-check.py | 177 +++++++++++++++++++++++++++++++++++
- 1 file changed, 177 insertions(+)
- create mode 100755 scripts/kconfig-sym-check.py
+ scripts/parse-maintainers.py | 136 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 136 insertions(+)
+ create mode 100755 scripts/parse-maintainers.py
 
-diff --git a/scripts/kconfig-sym-check.py b/scripts/kconfig-sym-check.py
+diff --git a/scripts/parse-maintainers.py b/scripts/parse-maintainers.py
 new file mode 100755
-index 000000000..f15b25535
+index 000000000..520f66ab8
 --- /dev/null
-+++ b/scripts/kconfig-sym-check.py
-@@ -0,0 +1,177 @@
++++ b/scripts/parse-maintainers.py
+@@ -0,0 +1,136 @@
 +#!/usr/bin/env python3
 +# SPDX-License-Identifier: GPL-2.0
 +#
-+# Detect unknown symbols referenced in Kconfig files.
-+# Usage: kconfig-sym-check.py <srctree> [excludes file]
++# Sort MAINTAINERS file sections alphabetically.
 +
-+import os
++import argparse
 +import re
-+import subprocess
 +import sys
++from functools import cmp_to_key
 +
-+VALID = re.compile(r'^[a-zA-Z0-9_]+$')
-+RE_DEF = re.compile(r'^\s*(?:config|menuconfig)\s+([a-zA-Z0-9_]+)\s*(?:#.*)?$')
-+RE_HELP = re.compile(r'^\s*(?:help|---help---)$')
-+RE_REF = re.compile(
-+    r'^\s*(?:default|def_bool|def_tristate|select|depends\s+on|imply|'
-+    r'visible\s+if|range|if|bool|tristate|int|hex|string|prompt)\s+(.+)\s*$')
-+RE_STRING = re.compile(r'"(?:[^"\\]|\\.)*"|\'(?:[^\'\\]|\\.)*\'')
-+RE_SKIP = re.compile(r'^\s*(?:#.*)?$')
++PREFERRED_ORDER = 'MRLSWQBCPTFXNK'
 +
 +
-+def indent_depth(ws):
-+    col = 0
-+    for c in ws:
-+        if c == '\t':
-+            col = (col // 8) * 8 + 8
-+        else:
-+            col += 1
-+    return col
++def by_category_cmp(a, b):
++    aa = a.upper().replace('THE REST', 'ZZZZZZ')
++    bb = b.upper().replace('THE REST', 'ZZZZZZ')
++    return (aa > bb) - (aa < bb)
 +
 +
-+def find_kconfig_files(srctree):
-+    try:
-+        out = subprocess.check_output(
-+            ['git', '-C', srctree, 'ls-files', '*Kconfig*'],
-+            text=True, stderr=subprocess.DEVNULL)
-+        files = [ln.strip() for ln in out.splitlines() if ln.strip()]
-+        if files:
-+            return [os.path.join(srctree, f) for f in files]
-+    except (subprocess.CalledProcessError, FileNotFoundError):
-+        pass
-+    try:
-+        out = subprocess.check_output(
-+            ['find', srctree, '-name', '*Kconfig*'], text=True)
-+        return [ln.strip() for ln in out.splitlines() if ln.strip()]
-+    except (subprocess.CalledProcessError, FileNotFoundError):
-+        return []
++def by_pattern_cmp(a, b):
++    a1 = a[0].upper() if a else ''
++    b1 = b[0].upper() if b else ''
++    ai = PREFERRED_ORDER.find(a1)
++    bi = PREFERRED_ORDER.find(b1)
++    if ai < 0:
++        ai = 1000
++    if bi < 0:
++        bi = 1000
++    if (a1 == 'F' and b1 == 'F') or (a1 == 'X' and b1 == 'X'):
++        return (a > b) - (a < b)
++    if ai < bi:
++        return -1
++    if ai == bi:
++        return 0
++    return 1
 +
 +
-+def parse_kconfig(path, configs, refs):
-+    with open(path) as f:
-+        raw = f.readlines()
++def trim(s):
++    return s.strip()
 +
-+    merged = []
-+    i = 0
-+    while i < len(raw):
-+        line = raw[i].rstrip('\n')
-+        while line.endswith('\\') and i + 1 < len(raw):
-+            line = line[:-1] + ' ' + raw[i + 1].rstrip('\n')
-+            i += 1
-+        merged.append(line)
-+        i += 1
 +
-+    help_mode = False
-+    help_level = 0
-+    i = 0
-+    while i < len(merged):
-+        line = merged[i]
-+
-+        if not line.strip():
-+            i += 1
-+            continue
-+        if line.lstrip().startswith('#'):
-+            i += 1
-+            continue
-+
-+        level = indent_depth(re.match(r'^(\s*)', line).group(1))
-+
-+        if help_mode and level < help_level:
-+            help_mode = False
-+        if help_mode:
-+            i += 1
-+            continue
-+
-+        if RE_HELP.match(line):
-+            help_mode = True
-+            j = i + 1
-+            while j < len(merged) and RE_SKIP.match(merged[j]):
-+                j += 1
-+            if j >= len(merged):
-+                break
-+            next_level = indent_depth(
-+                re.match(r'^(\s*)', merged[j]).group(1))
-+            if next_level >= level:
-+                help_level = next_level
++def alpha_output(ref, filename, order):
++    if not ref:
++        return
++    with open(filename, 'w') as f:
++        sep = None
++        for key in sorted(ref.keys(), key=cmp_to_key(by_category_cmp)):
++            if key == ' ':
++                f.write(ref[key])
 +            else:
-+                help_mode = False
-+            i = j
++                if sep is None:
++                    sep = '\n'
++                else:
++                    f.write(sep)
++                f.write(key + '\n')
++                patterns = ref[key].split('\n')
++                if order:
++                    patterns = sorted(patterns, key=cmp_to_key(by_pattern_cmp))
++                for p in patterns:
++                    if p:
++                        f.write(p + '\n')
++
++
++def file_input(ref, filename):
++    lastline = ''
++    case = ' '
++    ref[case] = ''
++
++    with open(filename) as f:
++        lines = f.readlines()
++
++    for line in lines:
++        m = re.match(r'^([A-Z]):\s*(.*)', line)
++        if m:
++            line = m.group(1) + ':\t' + trim(m.group(2)) + '\n'
++            if lastline == '':
++                ref[case] += line
++                continue
++            case = trim(lastline)
++            if case in ref:
++                sys.exit(f"Header '{case}' already exists")
++            ref[case] = line
++            lastline = ''
 +            continue
 +
-+        m = RE_DEF.match(line)
-+        if m:
-+            configs[m.group(1)] = configs.get(m.group(1), 0) + 1
-+            i += 1
++        if case == ' ':
++            ref[case] += lastline
++            lastline = line
 +            continue
++        if trim(lastline) != '':
++            sys.exit(f"Odd non-pattern line '{lastline}' for '{case}'")
++        lastline = line
 +
-+        m = RE_REF.match(line)
-+        if m:
-+            s = m.group(1)
-+            s = RE_STRING.sub('', s)
-+            s = re.sub(r'#.*', '', s)
-+            s = re.sub(r'\$\((?:[^()]*|\((?:[^()]*|\([^()]*\))*\))*\)', '', s)
-+            s = re.sub(r'%%[^%]*%%', '', s)
-+            for sym in re.split(r'[^a-zA-Z0-9_]+', s):
-+                if not sym or not sym[0].isalpha():
-+                    continue
-+                if sym in ('if', 'y', 'n', 'm'):
-+                    continue
-+                if re.match(r'^0[xX][0-9a-fA-F]+$', sym):
-+                    continue
-+                refs[sym] = refs.get(sym, 0) + 1
-+        i += 1
++    ref[case] += lastline
 +
 +
 +def main(argv):
-+    if not argv:
-+        s = ''
-+        try:
-+            s = subprocess.check_output(
-+                ['git', 'rev-parse', '--show-toplevel'],
-+                text=True, stderr=subprocess.DEVNULL).strip()
-+        except (subprocess.CalledProcessError, FileNotFoundError):
-+            pass
-+        msg = f'Usage: {sys.argv[0]} <srctree> [excludes file]\n'
-+        msg += 'Please provide <srctree>.'
-+        if s:
-+            msg += f" Is it '{s}'?"
-+        sys.exit(msg + '\n')
++    p = argparse.ArgumentParser(add_help=False)
++    p.add_argument('--input', default='MAINTAINERS')
++    p.add_argument('--output', default='MAINTAINERS.new')
++    p.add_argument('--section', default='SECTION.new')
++    p.add_argument('--order', action='store_true', default=False)
++    p.add_argument('-h', '--help', '--usage', action='store_true')
++    p.add_argument('patterns', nargs='*')
++    args = p.parse_args(argv)
 +
-+    srctree = argv[0]
-+    excludes = argv[1] if len(argv) > 1 else None
++    if args.help:
++        print_usage()
++        return 0
 +
-+    files = [f for f in find_kconfig_files(srctree)
-+             if '/scripts/kconfig/tests/' not in f]
++    hash_ = {}
++    file_input(hash_, args.input)
 +
-+    configs = {}
-+    refs = {}
-+    for f in files:
-+        parse_kconfig(f, configs, refs)
++    new_hash = {}
++    for pattern in args.patterns:
++        for key in list(hash_.keys()):
++            if re.search(pattern, key) or re.search(pattern, hash_[key]):
++                new_hash[key] = hash_[key]
++                del hash_[key]
 +
-+    known = {}
-+    if excludes:
-+        with open(excludes) as f:
-+            for line in f:
-+                line = line.rstrip('\n')
-+                if not line.strip() or line.lstrip().startswith('#'):
-+                    continue
-+                m = re.match(r'^\s*([a-zA-Z0-9_]+)\s*(?:#.*)?$', line)
-+                if m:
-+                    known[m.group(1)] = 1
++    alpha_output(hash_, args.output, args.order)
++    alpha_output(new_hash, args.section, args.order)
++    return 0
 +
-+    ret = 0
-+    for k in sorted(refs):
-+        if k in configs or k in known:
-+            continue
-+        print(k, end='')
-+        if k in ('N', 'Y', 'M'):
-+            print(f" - warning: '{k}' is probably not what you want; "
-+                  f"Kconfig tristate literals are always lowercase "
-+                  f"('n', 'y', 'm')", end='')
-+        print()
-+        ret = 1
-+    return ret
++
++def print_usage():
++    print(f'''usage: {sys.argv[0]} [options] <pattern matching regexes>
++
++  --input => MAINTAINERS file to read (default: MAINTAINERS)
++  --output => sorted MAINTAINERS file to write (default: MAINTAINERS.new)
++  --section => new sorted MAINTAINERS file to write (default: SECTION.new)
++  --order => Use the preferred section content output ordering (default: 0)''')
 +
 +
 +if __name__ == '__main__':
