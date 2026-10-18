@@ -1,116 +1,115 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from mail.noirlang.tr (mail.noirlang.tr [217.18.210.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519F2471431;
-	Sun, 18 Oct 2026 11:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93E33DA5C1
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.18.210.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792322112; cv=none; b=YEpyzEgTe1A5psNEhjkicXEvdmRAhBa7m4+OVl4dHrqz/QleCrmzwVuiHspfc0sy4heJQrIdsgZTsRJGP9HEhEXkiqPDnh9n95wkHad/amIit2BzDV5JZDoHNzUS2NZWTPNO4vqrPHoDLRmVwzlsusuF5niZJoGjGHX7/SBwBpw=
+	t=1792322140; cv=none; b=dD4Nkx5MHQlaFEAwvaRfWzRF8TLzpPGtInxKHvmDOyVvxuzZyfxt+1C+GeZnS3GFjX+9riivOVyyr0fIqhdBIBlXg/D4w3wz4zE7zuzIEcFEGe9AY6Yc2+8CLA6kgUzzrjbDkEiq2AAz6KMilTZXudQ89I5GicI1064h78XKdUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792322112; c=relaxed/simple;
-	bh=pBj7c5Io9bQcdgxtpTU0ghGU1f44mfp5Ga3cdwpuynk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=sXMOfP0BPxN72N2GxjagrwrygakbU2mydBmw5CgV5JOMAEkU/ygpcZDRAfeUUxSLOuWD8o3+owW6hWgnHSt9jdulnedGaDluuu4zxD8DY8A8XAiLH+lxUkSMuoThuB//XD3O9e6loSb4qvSds4wu45R9EomKYvO4G/mAWxixbUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CTLZZH8O; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792322140; c=relaxed/simple;
+	bh=uagooDmWdsyPLKYdmSRczmN/LIDb7VqxAfG/z/3uxug=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aoaI2D2fA/bNc1ycVQ8q8ZYJZR6hcZCvHuMpA9RqgG9CKGYQPFAF798md49ZFGB+rPNj+NvZawn4FTDFnSbbvyW8Bntciu29Cc5TvRMwssXAix8ix0QGvuGtemBGUUn8R1IFMKAwpnr4X6AgrU/rYx8RCK0JXoFEbpCfgMYye5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=noirlang.tr; spf=pass smtp.mailfrom=noirlang.tr; dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b=XZhNIahh; arc=none smtp.client-ip=217.18.210.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=noirlang.tr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=noirlang.tr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CTLZZH8O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=pBj7c5Io9bQcdgxtpTU0ghGU1f44mfp5Ga3cdwpuynk=; b=C
-	TLZZH8OFDy7cCsdpWdfYY4m6lNW2ZywW9ULoN5R1MMEu0ZjPz0nN8X3iRwztpqAK
-	ENLB0YN8dlXJWuYj9IDOWvSfAYUY+1FCZUMnYY1OEBMKiuaSM58QW5Gp8YBihh5/
-	hxy3v0UKRdAOrwEDHdOlXOkL6/s1jPrdkPK0uxhuRw=
-Date: Sun, 18 Oct 2026 19:14:37 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Cc: "Manivannan Sadhasivam" <mani@kernel.org>,
-	"Jeff Hugo" <jeff.hugo@oss.qualcomm.com>,
-	"Alex Elder" <elder@kernel.org>, mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re:Re: [PATCH] bus: mhi: ep: cancel reset work during controller
- teardown
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <74679635.183c.1a14eb6b4b9.Coremail.19888972804@163.com>
-References: <20261018040614.533366-1-yaojiale02@163.com>
- <2026101841-unroasted-carbon-e514@gregkh>
- <74679635.183c.1a14eb6b4b9.Coremail.19888972804@163.com>
-X-NTES-SC: AL_Qu2SAP+ZvUgs4SibZOkdnEkQgO0/WsS1vfQu2Y5Wc+wGmz/80BwQf1tMBVrcwvyrATGTrTGyeR9D4eBRZrRhBHTw7gbVr/rUA1ClSfRoHg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b="XZhNIahh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=noirlang.tr; s=mail;
+	t=1792322136; bh=uagooDmWdsyPLKYdmSRczmN/LIDb7VqxAfG/z/3uxug=;
+	h=From:To:Cc:Subject:Date:From;
+	b=XZhNIahhZK1fE7wFkXofCz3uoDx21fCzxRAh7KeD0b70XJ/dMJOMLPZdvRuHcy44h
+	 VJpWWBT4m5bxZ8Mdt6dKJ6mQeaIJn5T+bgVibFSV6mYZ9UMZWRkKefXVJamMYJ1F0U
+	 BKQowx3UkYw8wFIa5N+DRmVhCT4TJANsZQ9Czy7pCjeLTbhR2BMxpNK5Rxhw5UrFe2
+	 C9uS+bnBrZq8pvkgHXJRXXqIwkRr+a0yWd+uesj5aPdsmvkw6yebSRGDuFTDKuUyto
+	 RmAIOT/OhA5iAtATjVCKd7MBsaEcY30E2o0i+SlT3manqItTC1VQr0faSfs9Lb3nHj
+	 AmneD1p5lppqg==
+From: Melih Emik <melihemik@noirlang.tr>
+To: xinliang.liu@linaro.org
+Cc: sumit.semwal@linaro.org,
+	yongqin.liu@linaro.org,
+	jstultz@google.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/hisilicon: inline drm_simple_encoder_init()
+Date: Sun, 18 Oct 2026 14:15:34 +0300
+Message-ID: <20261018111534.354449-1-melihemik@noirlang.tr>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <12a313f8.184a.1a14eb88490.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:kCgvCgD3v7odqtRq4lRbAA--.709W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8B2Bu2rUqh02ZAAA3M
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-QXQgMjAyNi0xMC0xOCAxOToxMjozOSwgImppYWxlIHlhbyIgPDE5ODg4OTcyODA0QDE2My5jb20+
-IHdyb3RlOgo+QXQgMjAyNi0xMC0xOCAxNDozNDowNiwgIkdyZWcgS3JvYWgtSGFydG1hbiIgPGdy
-ZWdraEBsaW51eGZvdW5kYXRpb24ub3JnPiB3cm90ZToKPj5PbiBTdW4sIE9jdCAxOCwgMjAyNiBh
-dCAxMjowNjoxNFBNICswODAwLCBKaWFsZSBZYW8gd3JvdGU6Cj4+PiBUaGUgZG9vcmJlbGwgSVJR
-IHNjaGVkdWxlcyByZXNldF93b3JrIG9uIHRoZSBzeXN0ZW0gd29ya3F1ZXVlIHdoZW4gdGhlCj4+
-PiBob3N0IHJlcXVlc3RzIGFuIE1ISSByZXNldC4gVGhlIGNvbnRyb2xsZXIgdGVhcmRvd24gb25s
-eSBkcmFpbnMgdGhlCj4+PiBwcml2YXRlIE1ISSB3b3JrcXVldWUgYmVmb3JlIHJlbGVhc2luZyB0
-aGUgY29udHJvbGxlciBzdGF0ZSwgc28KPj4+IHJlc2V0X3dvcmsgY2FuIHN0aWxsIHJ1biBhZnRl
-ciB0aGF0IHN0YXRlIGhhcyBiZWVuIGZyZWVkLgo+Pj4gCj4+PiBDYW5jZWwgcmVzZXRfd29yayBi
-ZWZvcmUgZGVzdHJveWluZyB0aGUgcHJpdmF0ZSB3b3JrcXVldWUgYW5kIHJlbGVhc2luZwo+Pj4g
-dGhlIGNvbnRyb2xsZXIgcmVzb3VyY2VzLiBUaGUgY2FsbGVyIGlzIHJlcXVpcmVkIHRvIHBvd2Vy
-IGRvd24gdGhlCj4+PiBjb250cm9sbGVyIGZpcnN0LCBzbyB0aGUgSVJRIGNhbiBubyBsb25nZXIg
-cXVldWUgdGhlIHdvcmsgYXQgdGhpcyBwb2ludC4KPj4+IAo+Pj4gRml4ZXM6IDdhOTdiNmI0NzM1
-MyAoImJ1czogbWhpOiBlcDogQWRkIHN1cHBvcnQgZm9yIGhhbmRsaW5nIE1ISV9SRVNFVCIpCj4+
-PiBTaWduZWQtb2ZmLWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4+IC0tLQo+
-Pj4gIGRyaXZlcnMvYnVzL21oaS9lcC9tYWluLmMgfCAxICsKPj4+ICAxIGZpbGUgY2hhbmdlZCwg
-MSBpbnNlcnRpb24oKykKPj4KPj5Ib3cgd2FzIHRoaXMgZm91bmQgYW5kIHRlc3RlZD8gIFdoYXQg
-YWJvdXQgYSBjYzogc3RhYmxlPwo+Cj5jYzpzdGFibGUgaXMgbmVjZXNzb3J5LiBUaGUgYnVnIHdh
-cyBmb3VuZCBieSBteSBzdGF0aWMgYW5hbHlzaXMgdG9vbHMuCgpDYzogc3RhYmxlQHZnZXIua2Vy
-bmVsLm9yZwoKPgo+VG8gdGVzdCBpdCwgSSByZWdpc3RlcmVkIGEgcmVhbCBtaGlfZXBfY250cmwg
-ZnJvbSBhIHNtYWxsIG91dC1vZi10cmVlIG1vZHVsZShzb2Z0d2FyZSBJUlEgKyBmYWtlIHJlZ2lz
-dGVyIGZpbGUpLAo+ZHJvdmUgdGhlIHJlYWwgbWhpX2VwX2lycSgpIGFuZCB0aGUgcmVhbCBtaGlf
-ZXBfdW5yZWdpc3Rlcl9jb250cm9sbGVyKCksIGFuZCBvcmRlcmVkIHRoZSB3b3JrZXIgdG8gcnVu
-IGFmdGVyCj50aGUgZnJlZXMuIE5vIGtlcm5lbCBzb3VyY2UgY2hhbmdlcy4KPgo+S0FTQU46Cj4K
-PkJVRzogS0FTQU46IHNsYWItdXNlLWFmdGVyLWZyZWUgaW4gbWhpX2VwX3JpbmdfaW5pdCsweDE5
-Mi8weDI0MAo+V3JpdGUgb2Ygc2l6ZSA0IGF0IGFkZHIgZmZmZjg4ODEwNDI1NzExOCBieSB0YXNr
-IGt3b3JrZXIvMDoxLzExCj4KPkNQVTogMCBVSUQ6IDAgUElEOiAxMSBDb21tOiBrd29ya2VyLzA6
-MSBUYWludGVkOiBHICAgICAgICBXICBPICAgICAgICA3LjMuMC1yYzQgIzMgUFJFRU1QVChsYXp5
-KQo+VGFpbnRlZDogW1ddPVdBUk4sIFtPXT1PT1RfTU9EVUxFCj5IYXJkd2FyZSBuYW1lOiBRRU1V
-IFN0YW5kYXJkIFBDIChpNDQwRlggKyBQSUlYLCAxOTk2KSwgQklPUyAxLjE1LjAtMSAwNC8wMS8y
-MDE0Cj5Xb3JrcXVldWU6IGV2ZW50cyBtaGlfZXBfcmVzZXRfd29ya2VyCj5DYWxsIFRyYWNlOgo+
-IDxUQVNLPgo+IGR1bXBfc3RhY2tfbHZsKzB4MmQvMHg3MAo+IHByaW50X3JlcG9ydCsweDE3NS8w
-eDdkMAo+ID8gbWhpX2VwX3JpbmdfaW5pdCsweDE5Mi8weDI0MAo+IGthc2FuX3JlcG9ydCsweDEz
-OS8weDE3MAo+ID8gbWhpX2VwX3JpbmdfaW5pdCsweDE5Mi8weDI0MAo+IG1oaV9lcF9yaW5nX2lu
-aXQrMHgxOTIvMHgyNDAKPiBtaGlfZXBfcG93ZXJfdXArMHgxMGUvMHhhNzAKPiA/IG11dGV4X3Vu
-bG9jaysweDZiLzB4YzAKPiBwcm9jZXNzX3NjaGVkdWxlZF93b3JrcysweDdjMC8weGYxMAo+IHdv
-cmtlcl90aHJlYWQrMHg4OTgvMHhjNTAKPiA/IF9yYXdfc3Bpbl9sb2NrX2lycXNhdmUrMHg2Zi8w
-eDEzMAo+IGt0aHJlYWQrMHgyZTkvMHgzYzAKPiA/IF9fcGZ4X3dvcmtlcl90aHJlYWQrMHgxMC8w
-eDEwCj4gPyBfX3BmeF9rdGhyZWFkKzB4MTAvMHgxMAo+IHJldF9mcm9tX2ZvcmsrMHgxODgvMHg0
-ZjAKPiA/IF9fcGZ4X2t0aHJlYWQrMHgxMC8weDEwCj4gcmV0X2Zyb21fZm9ya19hc20rMHgxYS8w
-eDMwCj4gPC9UQVNLPgo+Cj5BbGxvY2F0ZWQgYnkgdGFzayA4MToKPiBrYXNhbl9zYXZlX3RyYWNr
-KzB4M2YvMHg4MAo+IF9fa2FzYW5fa21hbGxvYysweDcyLzB4OTAKPiBtaGlfZXBfcmVnaXN0ZXJf
-Y29udHJvbGxlcisweDU5My8weDEwNDAKPgo+RnJlZWQgYnkgdGFzayA4MjoKPiBrYXNhbl9zYXZl
-X3RyYWNrKzB4M2YvMHg4MAo+IGthc2FuX3NhdmVfZnJlZV9pbmZvKzB4NDAvMHg1MAo+IF9fa2Fz
-YW5fc2xhYl9mcmVlKzB4M2EvMHg2MAo+IGtmcmVlKzB4MTBkLzB4M2IwCj4gbWhpX2VwX3VucmVn
-aXN0ZXJfY29udHJvbGxlcisweDExMi8weDFhMAo+Cj5UaGUgYnVnZ3kgYWRkcmVzcyBiZWxvbmdz
-IHRvIHRoZSBvYmplY3QgYXQgZmZmZjg4ODEwNDI1NzEwMAo+IHdoaWNoIGJlbG9uZ3MgdG8gdGhl
-IGNhY2hlIGttYWxsb2MtMTkyIG9mIHNpemUgMTkyCj5UaGUgYnVnZ3kgYWRkcmVzcyBpcyBsb2Nh
-dGVkIDI0IGJ5dGVzIGluc2lkZSBvZgo+IGZyZWVkIDE5Mi1ieXRlIHJlZ2lvbiBbZmZmZjg4ODEw
-NDI1NzEwMCwgZmZmZjg4ODEwNDI1NzFjMCkKPgo+TWVtb3J5IHN0YXRlIGFyb3VuZCB0aGUgYnVn
-Z3kgYWRkcmVzczoKPiBmZmZmODg4MTA0MjU3MDAwOiBmYSBmYiBmYiBmYiBmYiBmYiBmYiBmYiBm
-YiBmYiBmYiBmYiBmYiBmYiBmYiBmYgo+IGZmZmY4ODgxMDQyNTcwODA6IGZiIGZiIGZiIGZiIGZi
-IGZiIGZiIGZiIGZjIGZjIGZjIGZjIGZjIGZjIGZjIGZjCj4+ZmZmZjg4ODEwNDI1NzEwMDogZmEg
-ZmIgZmIgZmIgZmIgZmIgZmIgZmIgZmIgZmIgZmIgZmIgZmIgZmIgZmIgZmIKPiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBeCj4gZmZmZjg4ODEwNDI1NzE4MDogZmIgZmIgZmIgZmIgZmIgZmIg
-ZmIgZmIgZmMgZmMgZmMgZmMgZmMgZmMgZmMgZmMKPiBmZmZmODg4MTA0MjU3MjAwOiAwMCAwMCAw
-MCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMAo+PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Cj4KPkFs
-bG9jYXRpb24gaW4gbWhpX2VwX3JlZ2lzdGVyX2NvbnRyb2xsZXIoKSwgZnJlZSBpbiBtaGlfZXBf
-dW5yZWdpc3Rlcl9jb250cm9sbGVyKCksCj5hY2Nlc3Mgb24gV29ya3F1ZXVlOiBldmVudHMgbWhp
-X2VwX3Jlc2V0X3dvcmtlci4KPgo+Pgo+PnRoYW5rcywKPj4KPj5ncmVnIGstaAo=
+The helper drm_simple_encoder_init() is deprecated because it adds an
+unnecessary intermediate layer between atomic modesetting and DRM drivers,
+as documented in Documentation/gpu/todo.rst.
+
+Inline the functionality by calling drm_encoder_init() directly with a
+local instance of struct drm_encoder_funcs. This allows removing the
+dependency on <drm/drm_simple_kms_helper.h> in favor of
+<drm/drm_encoder.h>.
+
+Signed-off-by: Melih Emik <melihemik@noirlang.tr>
+---
+Tested:
+- Compiled with W=1 on x86_64 with zero warnings or errors.
+- Verified with lockdep and debug mutexes enabled
+  (CONFIG_PROVE_LOCKING=y, CONFIG_DEBUG_MUTEXES=y).
+- Boot-tested full bzImage in QEMU with initcall_debug, confirming
+  successful driver registration (dsi_driver_init returned 0) and
+  zero lockdep/kernel warnings.
+- Verified with scripts/checkpatch.pl (0 errors, 0 warnings).
+
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+index 15042365dec0..8c83fb09dda7 100644
+--- a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
++++ b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+@@ -20,11 +20,11 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_device.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
+ 
+ #include "dw_dsi_reg.h"
+ 
+@@ -695,6 +695,10 @@ static const struct drm_encoder_helper_funcs dw_encoder_helper_funcs = {
+ 	.disable	= dsi_encoder_disable
+ };
+ 
++static const struct drm_encoder_funcs dw_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
+ static int dw_drm_encoder_init(struct device *dev,
+ 			       struct drm_device *drm_dev,
+ 			       struct drm_encoder *encoder)
+@@ -708,7 +712,8 @@ static int dw_drm_encoder_init(struct device *dev,
+ 	}
+ 
+ 	encoder->possible_crtcs = crtc_mask;
+-	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_DSI);
++	ret = drm_encoder_init(drm_dev, encoder, &dw_encoder_funcs,
++			       DRM_MODE_ENCODER_DSI, NULL);
+ 	if (ret) {
+ 		DRM_ERROR("failed to init dsi encoder\n");
+ 		return ret;
+-- 
+2.56.0
+
+
