@@ -1,54 +1,52 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AAD2FFF9D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7265033AD8C
 	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792289250; cv=none; b=ur6Dk2FB9kYOTu1NysDz3dCEQ+Qm0+ryxcVikZd1TB0d0dfML207x6cyrhTQk7utpkrwTn7boXwj6YnsE0swhviVAVF/4FYBNTNRxtX/RDnAmqGNiSanpdpAYBAhKHos6dghk9hhHLycIURwmxkmScT/6X5jsP5HqopUsoGmBPw=
+	t=1792289250; cv=none; b=it1RVaYAdm1C/tkb5YoqdT1Wfv8H5I1fJk+tLve7N1Awew7cFOk4Y8nJ+LSoEZfK0Wd3lR3r+xeGs0Jh6yeaVB5FEjgKQAe2O6AGihoqdKLN3V4XUXtg87vGOQsQ84/Hyo+l667caGFDglvsFVCxRb8zDIaWzaS8Yx620D5m5cM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792289250; c=relaxed/simple;
-	bh=h64g/b0720y2ZRKty+R1YMO5NWwggUNzbsyMCGCOtwM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=lwNqEmVRQU19kWyzrR9TnedU4gEhSbbp483ELWuCRolMF/uMgZ2Rx70c6C1VmmgX8xnu/Bl7weeQP5vpQ7d3nLUghc5Qc31vyoFty/Y/7FHZtHl0JV9lYE3R1t9pYrR4EsX3NAu6MylFW6kkSrfAWSRvlmGEbL/6zlzAXs0aENk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
+	bh=FCxuUWFdE1bxI/wTxADxrVDuoRNMQQhH7wpxO0Neurk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=RKqUcaHZHYed5HiLAMmQSAu1p3DKXGUwtQh0ddKSszBX0zbgPW0nx5JHmFHpbaxCcRbjbf5wP1PNSUwGWdxzmMVxQVWf37I2UpkxT/dfU4RR5SwD4eKD8FrNpVUgKoZzfmpugKXeXdM/VlHVAwjN/74P/QolVDBBX3fFs3IUpFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-846863cd436so712577a34.0
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-83f6f9096baso1744607a34.2
         for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:07:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1792289246; x=1792894046;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OSIzwYp+kpSkd3JrVxUdpyc6DkTq2zzJU/4smuBmDK8=;
-        b=QCkg6M+//sX9gKBt/+lXLR2IaQnuBng8QbaXbyeb32owNTaVZLCgQE+YMUdgSJo3fU
-         /BM3rEXbcpnPf10LEwxTAmf5e3FMfZRrRv+hRKVQWSo0Y3aEjLSiPAP8nmGvmPnDbbzv
-         jt+aX2a64dW3ly0kaQ5FCcU9fzVykcUzhYpcxqBwm3J2v+ltX0sOzKKNqGKFpSz+OKUi
-         ZSh3ppWpzQcnLHdtlIos8XSET9x9YiWVGoU38n3GkUyA9e5anpIwo2/6k4lXkX1rUB3T
-         k/63ur+X5kSfcDc5Iiw2wYXezuvRLcf5QK4GA4s1B65o7R5o7NlPjvWqjUs8eRtV3jaI
-         rr6g==
-X-Forwarded-Encrypted: i=1; AKwUvBxsc7ldrd5kKr3WgeAtPoUmKBWBuJ/9W5TD54uc7TXNLOA8Gj+lDAiNNqVziU9goF+j2rYz7ZUMaZNZYKo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyqVPCiramuDB+5+wrZ28XyNs1siLtV6vCuX0HLLMry+faEjDr
-	8o11VZcpwxAvWup2yNtHkYfyD7m7evnwvo/5qaCW7aC5AFqE9Mv9DbfTHsAMXkY2hcEXNSgzR/4
-	An/FfWkB+eqNbtpXCf8hMYVVAcM4lwVuiDxtInfMadIJ0Zy2WX4TgW8XMcQc=
+        bh=s0staK1toosvVTYdUZvQImybVckAdiMM5CzJz98ALkE=;
+        b=k5xAjRFRjibnrA5Xtktu4ljdcYZXCd8eA8FyGxOybXJBjz4TF1SZhgGlO0xQU8KZkO
+         bTdKkz/VaNfGB81lL5XZaFvsATcu2IjQX5QKod6qOpUUSTHA6XClC8ECDhLxZsb2ZHkj
+         P1oRac/DL7GA5p4qbLvkU1I5DC9AE3C3OUYR9rotbQfFJfuDxEizoE35LO6cQkwfB8tG
+         FZxE6d221w+ypbqv3XuWeraLTvcdhWSbZ3A3tWfcDuJfzrt7SaHYdcy0zhMh8S5Za3pS
+         VrNEOVFtr3Y70SUDge3KSux15uyfI4A5dgfTl7l66877Q76Tftnzw39FRQr4PsyigCRy
+         77Pg==
+X-Forwarded-Encrypted: i=1; AKwUvBzR3WS8kePtWDEbrqCrIM9fmEmQDJtFSFoGyhOHj8+eD4JlTyqdDjFm+b3M57gZJ5gdTFwJteNp3nFEqOo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwA7edH/S/gu74Wxem6iKgjw0h03Pqc4k0wjPH4ma5VncjnBDY
+	6cWil5+JtgjShSSsdZjg9uk64/3F44tDcXGdBqjIVYNkwxtY08dDuhAmVY14wgx1A2hOu0ZE67L
+	nE6uwg7fDRBnS/ofD0GzQs4N+ZScQTendr0w28dryFpzoB0zIkSSppBPxfps=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f8f:b0:4d5:2b09:a6a7 with SMTP id
- 5614622812f47-53cd93a4abcmr2967907b6e.65.1792289246563; Sat, 17 Oct 2026
+X-Received: by 2002:a05:6808:199b:b0:4f3:e931:9f27 with SMTP id
+ 5614622812f47-53cd1202ba2mr4493923b6e.53.1792289246314; Sat, 17 Oct 2026
  19:07:26 -0700 (PDT)
 Date: Sat, 17 Oct 2026 19:07:26 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad429de.7f4e89eb.3d59aa.00aa.GAE@google.com>
-Subject: [syzbot] [net?] BUG: unable to handle kernel paging request in ndisc_alloc_skb
-From: syzbot <syzbot+7b5c2544e5ff37a729cb@syzkaller.appspotmail.com>
-To: davem@davemloft.net, dsahern@kernel.org, edumazet@kernel.org, 
-	horms@kernel.org, idosch@nvidia.com, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, 
+Message-ID: <6ad429de.7f4e89eb.3d59aa.00a9.GAE@google.com>
+Subject: [syzbot] [arm?] WARNING in __run_timer_base (3)
+From: syzbot <syzbot+c4582e7bc680cba1fcfb@syzkaller.appspotmail.com>
+To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
 	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
@@ -58,12 +56,13 @@ syzbot found the following issue on:
 
 HEAD commit:    7a19f0cc94ad Merge branch 'for-next/core' into for-kernelci
 git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=16df313e580000
+console output: https://syzkaller.appspot.com/x/log.txt?x=128d8121580000
 kernel config:  https://syzkaller.appspot.com/x/.config?x=26d6221a572842ac
-dashboard link: https://syzkaller.appspot.com/bug?extid=7b5c2544e5ff37a729cb
+dashboard link: https://syzkaller.appspot.com/bug?extid=c4582e7bc680cba1fcfb
 compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
 userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1555fda9580000
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11904895580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=113a2621580000
 
 Downloadable assets:
 disk image: https://storage.googleapis.com/syzbot-assets/296cd4b77dbf/disk-7a19f0cc.raw.xz
@@ -71,62 +70,68 @@ vmlinux: https://storage.googleapis.com/syzbot-assets/e57669ed895f/vmlinux-7a19f
 kernel image: https://storage.googleapis.com/syzbot-assets/c679c1ad76d4/Image-7a19f0cc.gz.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+7b5c2544e5ff37a729cb@syzkaller.appspotmail.com
+Reported-by: syzbot+c4582e7bc680cba1fcfb@syzkaller.appspotmail.com
 
-Unable to handle kernel paging request at virtual address dfff80000000020c
-KASAN: probably user-memory-access in range [0x0000000000001060-0x0000000000001067]
-Mem abort info:
-  ESR = 0x0000000096000005
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x05: level 1 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0
-[dfff80000000020c] address between user and kernel address ranges
-Internal error: Oops: 0000000096000005 [#1]  SMP
+------------[ cut here ]------------
+WARNING: kernel/time/timer.c:1786 at expire_timers kernel/time/timer.c:1786 [inline], CPU#1: swapper/1/0
+WARNING: kernel/time/timer.c:1786 at __run_timers kernel/time/timer.c:2374 [inline], CPU#1: swapper/1/0
+WARNING: kernel/time/timer.c:1786 at __run_timer_base+0x598/0x744 kernel/time/timer.c:2386, CPU#1: swapper/1/0
 Modules linked in:
-CPU: 0 UID: 0 PID: 12 Comm: kworker/u8:0 Tainted: G   M                syzkaller #0 PREEMPT 
+CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Tainted: G   M                syzkaller #0 PREEMPT 
 Tainted: [M]=MACHINE_CHECK
 Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/23/2026
-Workqueue: ipv6_addrconf addrconf_dad_work
-pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ndisc_alloc_skb+0x284/0x460 net/ipv6/ndisc.c:435
-lr : read_pnet_rcu include/net/net_namespace.h:431 [inline]
-lr : dev_net_rcu include/linux/netdevice.h:2816 [inline]
-lr : ndisc_alloc_skb+0x270/0x460 net/ipv6/ndisc.c:435
-sp : ffff80008f9178c0
-x29: ffff80008f9178c0 x28: 1fffe00019eaa40d x27: 0000000000000001
-x26: ffff80008f917900 x25: 1ffff00011f22f20 x24: ffff0000d5973990
-x23: ffff0000d5973976 x22: dfff800000000000 x21: 0000000000000000
-x20: 0000000000001060 x19: ffff0000d59738c0 x18: 00000000d557e235
-x17: 0000000006512135 x16: dfff800000000000 x15: 0000000000000001
-x14: 00000000001cb30b x13: 0000000000000009 x12: 0000000000000009
-x11: 00000000f2fb2cc2 x10: 0000000000000003 x9 : 0000000000000000
-x8 : 000000000000020c x7 : ffff80008579a0c0 x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008579a1a4
-x2 : 0000000000000001 x1 : ffff0000c1a00000 x0 : 0000000000000000
+pstate: 434000c5 (nZcv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : expire_timers kernel/time/timer.c:1786 [inline]
+pc : __run_timers kernel/time/timer.c:2374 [inline]
+pc : __run_timer_base+0x598/0x744 kernel/time/timer.c:2386
+lr : expire_timers kernel/time/timer.c:1786 [inline]
+lr : __run_timers kernel/time/timer.c:2374 [inline]
+lr : __run_timer_base+0x598/0x744 kernel/time/timer.c:2386
+sp : ffff80008f7f7d40
+x29: ffff80008f7f7e50 x28: ffff0001a4fdfd00 x27: 0000000000000000
+x26: ffff0000c8d96970 x25: 00000000ffff98f0 x24: ffff80008f7f7dc8
+x23: ffff0000c8d96988 x22: 1fffe000349fbfa0 x21: 1ffff00011efefb9
+x20: dfff800000000000 x19: ffff0001a4fdfcc0 x18: 1fffe000349fbc28
+x17: ffff80011b89c000 x16: ffff80008f7f0000 x15: 0000000000000000
+x14: 00000000001e00c1 x13: 0000000000000001 x12: 0000000000000003
+x11: 0000000000000000 x10: 0000000000000003 x9 : 0000000000000102
+x8 : 0000000000000000 x7 : ffff8000819951c0 x6 : 0000000000000000
+x5 : 0000000000000001 x4 : 0000000000000001 x3 : ffff800080538560
+x2 : 0000000000000002 x1 : ffff0000c1aa8000 x0 : 0000000000000000
 Call trace:
- ndisc_alloc_skb+0x284/0x460 net/ipv6/ndisc.c:435 (P)
- ndisc_ns_create+0x1f4/0x54c net/ipv6/ndisc.c:627
- ndisc_send_ns+0xbc/0x168 net/ipv6/ndisc.c:669
- addrconf_dad_work+0x77c/0xfe8 net/ipv6/addrconf.c:4318
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
-Code: 96ba87a4 52820c08 8b0802b4 d343fe88 (38766908) 
+ expire_timers kernel/time/timer.c:1786 [inline] (P)
+ __run_timers kernel/time/timer.c:2374 [inline] (P)
+ __run_timer_base+0x598/0x744 kernel/time/timer.c:2386 (P)
+ run_timer_base+0x84/0x1b8 kernel/time/timer.c:2395
+ run_timer_softirq+0x20/0x48 kernel/time/timer.c:2405
+ handle_softirqs+0x324/0xcbc kernel/softirq.c:645
+ __do_softirq+0x14/0x20 kernel/softirq.c:679
+ ____do_softirq+0x10/0x1c arch/arm64/kernel/irq.c:78
+ call_on_irq_stack+0x30/0x48 arch/arm64/kernel/entry.S:901
+ do_softirq_own_stack+0x1c/0x28 arch/arm64/kernel/irq.c:83
+ invoke_softirq kernel/softirq.c:526 [inline]
+ __irq_exit_rcu+0x10c/0x318 kernel/softirq.c:758
+ irq_exit_rcu+0x14/0x84 kernel/softirq.c:775
+ __el1_irq arch/arm64/kernel/entry-common.c:569 [inline]
+ el1_interrupt+0x40/0x60 arch/arm64/kernel/entry-common.c:581
+ el1h_64_irq_handler+0x18/0x24 arch/arm64/kernel/entry-common.c:586
+ el1h_64_irq+0x78/0x7c arch/arm64/kernel/entry.S:602
+ __daif_local_irq_enable arch/arm64/include/asm/irqflags.h:26 [inline] (P)
+ arch_local_irq_enable arch/arm64/include/asm/irqflags.h:48 [inline] (P)
+ default_idle_call+0xa0/0xb8 kernel/sched/idle.c:129 (P)
+ cpuidle_idle_call kernel/sched/idle.c:199 [inline]
+ do_idle+0x1ec/0x450 kernel/sched/idle.c:355
+ cpu_startup_entry+0x5c/0x74 kernel/sched/idle.c:454
+ secondary_start_kernel+0x1d8/0x1fc arch/arm64/kernel/smp.c:275
+ __secondary_switched+0xc0/0xc4 arch/arm64/kernel/head.S:400
+irq event stamp: 286461
+hardirqs last  enabled at (286460): [<ffff80008030a4e0>] handle_softirqs+0x1e8/0xcbc kernel/softirq.c:629
+hardirqs last disabled at (286461): [<ffff8000868a164c>] __raw_spin_lock_irq include/linux/spinlock_api_smp.h:163 [inline]
+hardirqs last disabled at (286461): [<ffff8000868a164c>] _raw_spin_lock_irq+0x28/0x70 kernel/locking/spinlock.c:189
+softirqs last  enabled at (283904): [<ffff80008030ae24>] softirq_handle_end kernel/softirq.c:491 [inline]
+softirqs last  enabled at (283904): [<ffff80008030ae24>] handle_softirqs+0xb2c/0xcbc kernel/softirq.c:673
+softirqs last disabled at (286459): [<ffff8000800203f0>] __do_softirq+0x14/0x20 kernel/softirq.c:679
 ---[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess):
-   0:	96ba87a4 	bl	0xfffffffffaea1e90
-   4:	52820c08 	mov	w8, #0x1060                	// #4192
-   8:	8b0802b4 	add	x20, x21, x8
-   c:	d343fe88 	lsr	x8, x20, #3
-* 10:	38766908 	ldrb	w8, [x8, x22] <-- trapping instruction
 
 
 ---
