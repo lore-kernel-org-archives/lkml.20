@@ -1,71 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F915342523;
-	Sun, 18 Oct 2026 02:33:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C85E342523
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:33:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792290825; cv=none; b=p+zsqlLow//rGYXwNt0CnBVjmoYFAEeWzijgW7N7VJWwpuvYmW9Y7heiK0u1n81S/bAXKB7W3YjHYINcQKaxVx3BBFxkHsx4NeMsw2hFlPBh9yGtn/QafjrGDIRlTslrOcTR0VvZYnRTeSY2Givgmy7eLzcp5kPvHaZMVFFfBuE=
+	t=1792290840; cv=none; b=FKCu0BKsEzj4Cn+Uvo2lriJWyYNUFIoHq4Z4SZAERqacBsZQACTwwXYCgjG4nenuuA+uk+JoslIUViZ9Z+VtMWefZe1NTq5shO68VjyNdcIAmLJ+jTdWf74Wr7ZN1sbE2TN1OT+0tNS66OQn89L4AzOpdmAmhYK8TXRrIdrih14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792290825; c=relaxed/simple;
-	bh=/q5PbLNw2ChnqLUDimmbQ6ILn66UIYEl00R7gRZz/wg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X8oxQD+5buNbeiOJH+yER+GoSEw8cAHUaamQnqMzyOsu3XGfXTU66JmcUJPKRzB8I+aoFh5vxfCXp5d6WTSILYhDLBovPVVxLIoZzXq6SXIyNlt9/qq+VJ6tF0PGCQEv5CI526HE01Di8nhEdb07zO5cAJVxtEr4i/DQIyVDZ1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DXQrFILH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792290840; c=relaxed/simple;
+	bh=ZfxlxtmL3f3PRGLmnA/UFU+0uUoCd85J9y/mFCt9dxM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IwjJ0WSB5I6qf5LvMp5hLI3k73P5s9TG0I3tlqY4FqMiyWB4OGvBoA96EMWFm7glSx3GEh5DYErdfFMM1K4Y2i5g3+VFIAwvFI44IR4MVh0wztsJs8hlnXGL82BMZxu+8CHkBab6YRUR0wfR/04SCsZGfrvzWshRmlolfAieBOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=CMtqfJvy; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DXQrFILH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3480C1F000C4;
-	Sun, 18 Oct 2026 02:33:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792290824;
-	bh=dX19vZ/sQ7rmexNY/w8tQK6/vEzEILtO03C1ggNJsFU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DXQrFILHTBM/RjwT2IPIqYs049BUyb2DjcRR0pWRwySC+sTnKq7sRWvQGAybVghrL
-	 WNcBUkuB6AgOM5lczQoP8EAHZonDYYQPPNbIgO1hDoZBdJnHDJ6B+UOOUj3kWRqNGy
-	 CoKcORFQAdob/+sTphNXlGnIJugnkbbObKUEof7Qt2CsohR0efMHILzZI2Dep7/6fb
-	 iV1YkN8le5rInwKsWdrwZeT6UIluR7b/sIBg/egf9NyaGTm8Gnu9wVqOj5PaFuaPg4
-	 cjZDf9WspQzuy/AbOBY9LMOwWE5WWlLLsEHAhSUGlo6/G0XNPzhmE4ejH4uscMsgba
-	 9AD+8JwF2oc0g==
-Date: Sun, 18 Oct 2026 03:33:37 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "Jean-Baptiste Maneyrol" <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
- Chris Morgan <macromorgan@hotmail.com>, <kernel@axis.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 4/6] iio: imu: inv_icm42607: Add support for
- ICM-42370-P
-Message-ID: <20261018033337.3d2d9fbf@jic23-hlaptop>
-In-Reply-To: <20261002-b4-inv_icm42370p-v5-4-c65281b745c9@axis.com>
-References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
-	<20261002-b4-inv_icm42370p-v5-4-c65281b745c9@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="CMtqfJvy"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91b55859245so18234326d6.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:33:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1792290836; x=1792895636; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HeSnSeSZP+b+6MzP6ewtTRyYSL3RxjlUFlHftt5R+jo=;
+        b=CMtqfJvy46Fu1j6MExudMxmUp2GT2OE0bSguoLYv0MphSj/eGgo4ZYP0maOHYiCUkS
+         AZVbUzj3tcQV750AeRXlEW0QcZrJ338gskkoSkSGRyy0gMjUjpIQS4VWHNtubpooxxNF
+         YZiUT0ArxEvSiF829KEyXk68lukAz074kX/pk0Rsbfd4QsCmTTmD9ePZj7XU4nxaGd6M
+         E23oEB2HiI6SEgO9LMGHRRGgMBCwkZXfvQESz3s/lopaT20RG1EHev2MIpz5OJ6hpY3O
+         M0Bbnp30gTq8OP7d+m/viHwNICNIJk5t77IJLCueY08jgYiB889sfDEtodLMGBXJNg78
+         hHjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792290836; x=1792895636;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HeSnSeSZP+b+6MzP6ewtTRyYSL3RxjlUFlHftt5R+jo=;
+        b=wgi55WV8Y3b2jspEjTCRM1beO/+UTsP37cQ9WDIiFbMbLv3Op/9qBmc3F9h7B6+NJr
+         cDugwof2oqz1+EXVrCI8QIwuimM0NH5UFB3o0lc9g847E+OOleC/3daXKeXvB+IiPQnU
+         5O/XHBtS1M48cnAFYsMi7skjnCRvM0PjWbQ3So6pyF0D7Arz1qXO+zy2uDE1O/chzOZk
+         rY6GNr84EktKmpDKcqB7iEa/Dz5qHxaL2Fzfe1Bt54fdz4RQymU3hpvoaGFgElBEVVz/
+         BGJSNozDX2vaCgXs86CxkbT5ewUPd1pvxM5ediNQolRZiZz5qNoUuubHsebeN7+HYjuG
+         5QNw==
+X-Gm-Message-State: AFq9FYJbHXWHpgLp7B6xc2ydR+Fkf39DlD/WeCFt79bi2r1RV6vgChI/
+	4rrIDQV89yjMcBt+GZptm7StL9FarqPswHv8wVA7MuXL7sa/wevv4XQ+T9LeF05eIWA=
+X-Gm-Gg: AYBFou1AqqDKiscXLhVf/Ppuf10azvTbsex+rTKhd9/qU/WzB6nHkvX5dIiwp6gEdsq
+	KN83YyMClxI6MisLJCye0yQ4mpGPNi3mr75JPb6CjNNDl5ozkFhRnnsFM7wlTlZWYAf6n0NsjbS
+	x8Cr70nUrXvLKotllxnuAn/9L0KGPxGoRfnd+8AedBiZtHKbSF3OPfu0cZy2CcrSNF1qi88WWCu
+	H+f2ZnnheRVg72DrShgV1XczPRjfqiIP9w10FijE9XYCv2QCBD8lSB92TN8NR1LqOGG2l8f38j8
+	IuznnkIH/Bo6gvbEL78AOHuQN1ICWuu2qXr7tPvhF+amMI2mQBOvFz68RVXLscAVFWWK/7Jp7IX
+	YiZdWlOfJxNQihASASC16lJ/wHDJSz4heJg3YR/s+v20QGk61s2vyaH/ezeVfxOjhh+PPsCeF3b
+	K1KOwSQiY2jkaonptD4qwF0zP9DbpkfseBYPZYOQrtD95NdQ+i63L5i9/lLBIgeRvwXgOBR7YGA
+	GeolekqTh8yNiyWcK1CfmD6jRV/XUGpmlMXaudzecE64r3VnKGy1zOJv1Nx
+X-Received: by 2002:a05:6214:2a4d:b0:91b:5d39:e13f with SMTP id 6a1803df08f44-91bdf517971mr74943116d6.52.1792290835889;
+        Sat, 17 Oct 2026 19:33:55 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba473easm61705926d6.17.2026.10.17.19.33.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 19:33:55 -0700 (PDT)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	gourry@gourry.net,
+	ziy@nvidia.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	pasha.tatashin@soleen.com,
+	mhocko@suse.com,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/mempolicy: apply bind policies against the scoped allocation zone
+Date: Sat, 17 Oct 2026 22:33:49 -0400
+Message-ID: <20261018023349.1697434-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2 Oct 2026 13:54:28 +0200
-Kanak Shilledar <kanak.shilledar@axis.com> wrote:
+QEMU fails to start a guest with a VFIO device when guest RAM comes
+from a memory backend bound to a movable-only node:
 
-> Add support for the Invensense ICM-42370-P MEMS MotionTracking 3-axis
-> accelerometer with built-in temperature sensor. This device is almost
-> identical to the existing Invensense ICM-42607-P IMU, but lacks
-> gyroscope. The device supports I2C, SPI and I3C. Implement only I2C
-> support for now, and provide support for raw sensor reads via sysfs.
-> There is also a built-in temperature sensor but it can not be turned off
-> similar to the ICM-42607.
-> 
-> While at it, change so dev_err_probe() is returned
-> when the WHO_AM_I read fails.
-Say why this is useful.  We don't have prints on every register
-read fail, so why does it make sense for this particular one?
+  vfio_container_dma_map(0x55b1b1317800, 0x0, 0x10000000,
+                         0x7f39a2200000)
+    = -12 (Cannot allocate memory)
+
+VFIO pins guest RAM when the device is realized, and the pin faults
+the pages in. io_uring fixed buffers fail the same way. Faulting the
+range in before pinning lets the same pin succeed, since resident
+pages are migrated off the node instead.
+
+A long-term pin faults under memalloc_pin_save(). PF_MEMALLOC_PIN makes
+current_gfp_context() clear __GFP_MOVABLE, but policy_nodemask() tests
+apply_policy_zone() against the caller's gfp.
+
+The bind keeps its movable-only nodemask, and the allocation finds no
+usable zone:
+
+  page allocation failure:
+      order:0,
+      mode:0x140dc2(GFP_HIGHUSER|__GFP_ZERO|__GFP_COMP),
+      nodemask=1,cpuset=/,mems_allowed=0-1
+
+  Call Trace:
+   warn_alloc+0x136/0x150
+   __alloc_frozen_pages_noprof+0xed8/0x1720
+   alloc_pages_mpol+0xaa/0x170
+   vma_alloc_folio_noprof+0x65/0xd0
+   __handle_mm_fault+0x137b/0x1ac0
+   handle_mm_fault+0xa0/0x270
+   __get_user_pages+0x250/0xfd0
+   __gup_longterm_locked+0x116/0x870
+   gup_fast_fallback+0xcfc/0xdf0
+   pin_user_pages_fast+0x47/0x60
+   io_pin_pages+0x9a/0x110
+
+Base page faults fail with -ENOMEM.
+hugetlb faults fail with -EFAULT.
+
+Check the policy zone against current_gfp_context(gfp), so a pin-scoped
+fault falls back off the movable-only nodemask, like any other
+non-movable allocation under the same bind.
+
+Tested in qemu with a dax/kmem movable-only node 1. io_uring and VFIO
+pins of unfaulted base pages and 2MB hugetlb pages now succeed and land
+on node 0 (correct). QEMU now starts with the same backend binding.
+
+Fixes: 8e3560d963d2 ("mm: honor PF_MEMALLOC_PIN for all movable pages")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ mm/mempolicy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 70298fded1b4a..0884c629670dd 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -2302,7 +2302,7 @@ static nodemask_t *policy_nodemask(gfp_t gfp, struct mempolicy *pol,
+ 		break;
+ 	case MPOL_BIND:
+ 		/* Restrict to nodemask (but not on lower zones) */
+-		if (apply_policy_zone(pol, gfp_zone(gfp)) &&
++		if (apply_policy_zone(pol, gfp_zone(current_gfp_context(gfp))) &&
+ 		    cpuset_nodemask_valid_mems_allowed(&pol->nodes))
+ 			nodemask = &pol->nodes;
+ 		if (pol->home_node != NUMA_NO_NODE)
+-- 
+2.53.0-Meta
+
