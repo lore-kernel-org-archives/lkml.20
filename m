@@ -1,94 +1,34 @@
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085E5332EAE
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AC4332EAE;
+	Sun, 18 Oct 2026 02:55:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792292111; cv=none; b=s459oz/fscObiRM8OTcOmnPHFn2r3TJ9cYJFG0RooDZtMRVhNWt2TRi8W/EIghXJ8KWfA9V19Cn6V/oqifYf2xmjiPZgPXlqqhiX+UZAPGGqYL8ri2073ZJxVoXB3sMuLxo90YhkcJYSfvBGf8qIZg9dUxxZZHdyoSzytYkBv4o=
+	t=1792292148; cv=none; b=DxbR0plajIX729JY3bhdcxivNcp8NP6a0q4FMAQakwpTIaiq4foPJBiQDGqOglMnhcuI2VtdaFhni89Zpi/1UMZzjC98svEnEBTWfh9+9J/HzKJDMoTG+H0fvy/jDY1DcdQriHNd8GgP6C7B6Byhvc+vAuyIjL4iX5c4wYdeiB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792292111; c=relaxed/simple;
-	bh=RwBPxlm8zIzi9zYbkB7uCRvJVvU1Yu85C2n+Ve6sFac=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=obErh7w7TvSnvsUq6GsIi/6dEZ6o7s5bsqivavOMPhyKJ8Y3pRAtl8nRGxeZ3DHRn0ASlZBwDf7tH0Eal5Lvj1aPlbDiT9K8tIqm+djZmAAmX0Gyp2n+dKTBTgQYWKdI6u0jlECw2qyVIs8Lw7JkLXszA4sB7EY6AGOhc0e/TKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=MtC3hFYg; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AoY6u2Vt; arc=none smtp.client-ip=202.12.124.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="MtC3hFYg";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AoY6u2Vt"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id F05AE1D0006E
-	for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 22:55:07 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Sat, 17 Oct 2026 22:55:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm2; t=1792292107; x=1792378507; bh=2K7GpnnkpC
-	mriI2pJfz2e7D71NoKLssGKUJjtYZwiPc=; b=MtC3hFYgQPEIJbMkMzv6sD/aAk
-	4Va33/uvtreJK/m+3d3JqMdR6+8C8mwvCVEmiJikeIVIjqwqszrwvqG2P44vxmXQ
-	GnzYbSz4ffiCEkDJr4KqHP6FGMrSjDE3sqkOwA99CKVvo9SgnRFU5CeFDPfeYgWl
-	jnZBf7e13ixKPVrAa3cM5zXHl+Xg58yBCUTVf0M9qos2TsfBe93F2Pi4qvh9LRca
-	TT8ROP8XP5Y1ndJgjeoq72qHuxAIu8blHswA8pqTQ3AwQKHq7zkdfgyo+1YtEBlq
-	SmE3PBGn00xbdTbtUgIC6V3eUchP60LxN/jZBUlZ42uxtv7WRjAEJwWzjo4g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792292107; x=1792378507; bh=2K7GpnnkpCmriI2pJfz2e7D71NoKLssGKUJ
-	jtYZwiPc=; b=AoY6u2Vt2Zw+YwZfUC1QJEsHxuXdVnMrT/Tus3BCZo9dJvz0eUL
-	+gttCDFgWquzP4eZMANW5zeHsQcRrFAHaqeSDbAopg/uHmot2IWQU8s/JupG0WEy
-	94AwWly640SofjEC7CyW9jLug61dZeigcDMGDvi6NWEbLoPtfFX8tO6c32PFdteE
-	bnq/Y/IlHKxpUlOCHzZ2xB3JBiHnspJgRQhTR4RZJmTRxSH/g5bYXUcpzvOB9VHY
-	ajc1BRJMw1VI1V3/RYcmAvasHcYdQBsIeRzLKx7uL7ME/A0/AL66h0OeQcPXaOiT
-	TWuMSw8wmuNqCKPM8HFC3whfHvND2WE22jA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792292107; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:Pu9RmiTCiN5vX95TQi/m/5jbN5NXumYhcwv/bt7/W9XGi56
-	qB3joNc2y/siuJb3hd9bhXHh5Z1Dqht4OFgrL/4H3AMkXpBqs9qTRF1Wiz6cKQaF
-	GVSl9LQvYcyot0E8Uim3o5Td2LIFNUmmoOoCQeMxubAUIXAmzakijzS8LOcjFwjj
-	05mQ6mjJWCaPZdqggs1oAlNd5MPzhMHyHlf8anddILJbrZyCI5c3RSdvtDXV69Z8
-	dpN0gKYqG0cc7HXy5T7Zai7IUoE6FYdJyNuxFUO5jrboYTc01VQwvNNLoaAeDmoT
-	XW0pP8p9aXerchwuVtq8g0m+lUgdiXlvFqUQC/Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:Sn1LKvgATmKSR9lqOVYsb/u4SD6y5DzxV4abH0aAHaI=:RwBPxlm8zIzi9zYbkB7uCRvJVvU1Yu85C2n+Ve6sFac=;
-X-ME-Sender: <xms:CzXUamgTrECrvapQkMpqrhHwBXK5bFsmPvuqpiDrdFO0md9kioL6sQ>
-    <xme:CzXUak_8bV5GFe08_JEUcysRZoxppeq8NLJ8ogSshiLdVnaIBqUx8WUVQ4fSMkOup
-    OZoZTLBMWgoxA554J12Yw9Y4TCzp64jvDtyT1QlQctBeJaGwVsdsV4>
-X-ME-Received: <xmr:CzXUalrlHQpp1noF538Am1roYWpTc2qkNK8EOCBEz6SQx-AuT43T9HmGXfe8FSeOZOJZLGMrwCLCGjmN5nfIviniTeb_t16_qRaI9l3KM6Js>
-X-ME-Proxy-Cause: dmFkZTGNuYtGb5IfLnheiBuBhXkepFvxKPqCCivo+WwTzZl2njmNYGZY7JXXTQ5KvH1WE+
-    DZByVu7DIm/j3ziVAVAohb//Fbb51w7Pq9phjoUBvwjY+guVVX2GB2k+KwNQPO1byBYcVX
-    3NXce3gA6uO0g/SFdk+SivWktt7GZdPJLfk/mFG4SGDeOC2fm7Jmfn1CXnmRv1x/baRVLQ
-    Q3Eqmpmr86ZGFAothaO5qwyyZzrOOUu6bYOp5WSnRMiQBSTW7hMDdAGZFe2v+vLeovc+k6
-    shy/nbpWfhHnkWrqYkEmw/wl37G8rX/mqcMDQwdQIATPBDV8FyoJ7YzPcWfAMWtUhHaWRT
-    dq/tfH1FrEcsZnvQ2j9MNfOKthBJQ3VRfYsHs5lJ1awaGhwpbqlRsfE+VKZS3dg6Y+NPMQ
-    cbVgX3hMcaSp8y+D8oNDCoKqkMBoBecchLFdlqE4BVJB9ZZuViQUT37YwaR0ieUf5dCmIy
-    mYmGxi2R96/qUAj6ORk5VI1JSX51T/c6IkQZ3+QEhj3HSSxey7YHvaBulTnS+h7bZh+npe
-    0AsAP9iEuNY8TTlYVxukIydjZmxxo1gC3DKWXAN9oGd3rgKfcrweo7u2dAS8bu7pNViNIS
-    Dei/NVAV+ZMRDwwtgrsiyzQJ9rIAL6wD1UiHfAdCfCGFc8up0pVqRFP7ZGrw
-X-ME-Proxy: <xmx:CzXUar9uWUMS-sC7GFfQ1GovkrRs6gAWkAu_aQq7B0HEShLrG5E52g>
-    <xmx:CzXUahV0PJxJ_3UMAH7SfyqptRg4hVVAxsN1GIrxBoUb37WQApoG7A>
-    <xmx:CzXUapBCNsFIlOm5NdXR9JKmuqAZQhwHx6j7nw9PGj0ecB5N7ub-Xw>
-    <xmx:CzXUaqy_JXUXv8FWJin_HtQD_Zkho-bqgwq42vWcCVegqF9j33UkZA>
-    <xmx:CzXUakUF3iA-n0wLinnfRKMDyYy6t6PfXJ7GUG2Amzx6DC8YTSY7Dshg>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 17 Oct 2026 22:55:06 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] firewire: core: fix race condition in split transaction handling
-Date: Sun, 18 Oct 2026 11:55:04 +0900
-Message-ID: <20261018025504.290598-1-o-takashi@sakamocchi.jp>
+	s=arc-20240116; t=1792292148; c=relaxed/simple;
+	bh=XFsqnkhAoyYGTF88mgBQ1fcnUIdUfTLVik086Lc5+2I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RoFAMwhO6XXkZulrpsg8O8unmsm+7XDx6UkaziokjJ7bIRsuyHXq17AqvOfFw/d8JdPuq26mbWzZA56LHy2FJHtqpHPa3vO7bg9mYHnSeHMjqr6anzqduNYZilhLYnHfVlkiRXMMBNAN5xn+fW/zn3UYCESKUfKLuPZH6lrTKec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xIH3l-004RVH-E7;
+	Sat, 17 Oct 2026 22:55:41 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Jens Axboe <axboe@kernel.dk>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] splice: retry tee() instead of returning 0 when it races
+Date: Sat, 17 Oct 2026 22:55:41 -0400
+Message-ID: <20261018025541.799135-1-nickolai@csail.mit.edu>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -98,47 +38,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For a split transaction, either fw_core_handle_response() or
-split_transaction_timeout_callback() may manipulate the same transaction
-entry in the pending transaction list. The return value of timer_delete()
-is used to determine which function handles the entry. If the transaction
-is a split transaction and timer_delete() returns zero, the timeout
-callback may already be running. In this case, the response handler must
-leave the entry in the list for the timeout callback to remove.
+tee() can return 0 while the input pipe still has writers, when
+another task reads the input pipe or fills the output pipe at the same
+time. tee(2) documents 0 as "no data was copied" because the input pipe
+has no writers, and loops built on it (the man page example breaks out
+on 0) stop early. In a test with one thread writing 1 byte at a time
+to the input pipe, one reading it and one draining the output pipe,
+about one tee() call in 150 returned 0.
 
-A previous code refactoring broke this behavior, introducing a race
-condition in which both functions could process the same transaction.
-This could lead to a use-after-free on the transaction initiator side.
+do_tee() runs ipipe_prep() and opipe_prep() to wait for data and room,
+each under its own pipe lock, and only then takes both locks in
+link_pipe(). If the input pipe was emptied or the output pipe filled in
+between, link_pipe() finds nothing to do and returns 0.
+splice_pipe_to_pipe(), which was modelled on tee(), handles the same
+race by dropping both locks and going back to the prep steps ("A zero
+return value means EOF, so retry instead"), and returns -EAGAIN for
+SPLICE_F_NONBLOCK.
 
-Fix the regression by ensuring that the response handler does not process
-the transaction when timer_delete() returns zero. The timeout callback is
-responsible for removing the entry from the pending transaction list.
+Do the same in link_pipe(): move the prep steps into it and retry when
+nothing was linked although the input pipe still has writers.
 
-Fixes: fa2dc2710076 ("firewire: core: code refactoring to find and pop transaction entry")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Tested under QEMU (x86_64) with the program in the notes: 154 of 22698
+tee() calls returned 0 before the change, none of 34429 after it.
+
+Fixes: aadd06e5c56b ("[PATCH] splice: fix problems with sys_tee()")
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 ---
- drivers/firewire/core-transaction.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
-index 22ae387ae03c..016070560c74 100644
---- a/drivers/firewire/core-transaction.c
-+++ b/drivers/firewire/core-transaction.c
-@@ -89,8 +89,12 @@ void fw_cancel_pending_transactions(struct fw_card *card)
- 			break;						\
- 		}							\
- 	}								\
--	if (t && try_cancel_split_timeout(t))				\
--		remove_transaction_entry(card, t);			\
-+	if (t) {							\
-+		if (try_cancel_split_timeout(t))			\
-+			remove_transaction_entry(card, t);		\
-+		else							\
-+			t = NULL;					\
-+	}								\
- 	t;								\
- })
+Notes:
+    Reproducer:
+    
+    #define _GNU_SOURCE
+    #include <fcntl.h>
+    #include <pthread.h>
+    #include <stdio.h>
+    #include <time.h>
+    #include <unistd.h>
+    
+    static int a[2], b[2];
+    static volatile int stop;
+    
+    static void *writer(void *arg)
+    {
+    	while (!stop)
+    		if (write(a[1], "x", 1) < 0)
+    			break;
+    	return NULL;
+    }
+    
+    static void *drain(void *arg)
+    {
+    	char buf[4096];
+    	int fd = *(int *)arg;
+    
+    	while (!stop)
+    		if (read(fd, buf, sizeof(buf)) < 0)
+    			break;
+    	return NULL;
+    }
+    
+    int main(void)
+    {
+    	pthread_t t[3];
+    	long calls = 0, zero = 0;
+    	ssize_t ret;
+    
+    	if (pipe(a) || pipe(b))
+    		return 1;
+    	pthread_create(&t[0], NULL, writer, NULL);
+    	pthread_create(&t[1], NULL, drain, &a[0]);	/* concurrent reader of the tee input */
+    	pthread_create(&t[2], NULL, drain, &b[0]);	/* keeps the tee output from filling */
+    	for (time_t end = time(NULL) + 5; time(NULL) < end; calls++) {
+    		ret = tee(a[0], b[1], 65536, 0);
+    		if (ret == 0)
+    			zero++;
+    		else if (ret < 0)
+    			perror("tee");
+    	}
+    	printf("%ld tee() calls, %ld returned 0 while the input pipe had a writer\n",
+    	       calls, zero);
+    	return zero != 0;
+    }
+    
+    gcc -O2 -pthread -o tee-race tee-race.c && ./tee-race
+    
+    Before: 22698 tee() calls, 154 returned 0 while the input pipe had a writer
+    After:  34429 tee() calls, 0 returned 0 while the input pipe had a writer
+    
+    tee() with SPLICE_F_NONBLOCK on an empty pipe with a writer still returns
+    -EAGAIN, a tee() of queued data still leaves the data in the input pipe,
+    and an empty input pipe without writers still returns 0.
+
+ fs/splice.c | 43 +++++++++++++++++++++++++++++++------------
+ 1 file changed, 31 insertions(+), 12 deletions(-)
+
+diff --git a/fs/splice.c b/fs/splice.c
+index 9d8f63e2fd1a..baadec16d6df 100644
+--- a/fs/splice.c
++++ b/fs/splice.c
+@@ -1856,6 +1856,15 @@ static ssize_t link_pipe(struct pipe_inode_info *ipipe,
+ 	unsigned int i_tail, o_tail;
+ 	ssize_t ret = 0;
  
++retry:
++	ret = ipipe_prep(ipipe, flags);
++	if (ret)
++		return ret;
++
++	ret = opipe_prep(opipe, flags);
++	if (ret)
++		return ret;
++
+ 	/*
+ 	 * Potential ABBA deadlock, work around it by ordering lock
+ 	 * grabbing by pipe info address. Otherwise two different processes
+@@ -1877,13 +1886,32 @@ static ssize_t link_pipe(struct pipe_inode_info *ipipe,
+ 		i_head = ipipe->head;
+ 		o_tail = opipe->tail;
+ 
++		if (pipe_empty(i_head, i_tail) && !ipipe->writers)
++			break;
++
+ 		/*
+ 		 * If we have iterated all input buffers or run out of
+ 		 * output room, break.
+ 		 */
+ 		if (pipe_empty(i_head, i_tail) ||
+-		    pipe_full(o_head, o_tail, opipe->max_usage))
+-			break;
++		    pipe_full(o_head, o_tail, opipe->max_usage)) {
++			if (ret)
++				break;
++
++			if (flags & SPLICE_F_NONBLOCK) {
++				ret = -EAGAIN;
++				break;
++			}
++
++			/*
++			 * We raced with another reader/writer and haven't
++			 * linked any buffers. A zero return value means EOF,
++			 * so retry instead.
++			 */
++			pipe_unlock(ipipe);
++			pipe_unlock(opipe);
++			goto retry;
++		}
+ 
+ 		ibuf = pipe_buf(ipipe, i_tail);
+ 		obuf = pipe_buf(opipe, o_head);
+@@ -1954,16 +1982,7 @@ ssize_t do_tee(struct file *in, struct file *out, size_t len,
+ 		if ((in->f_flags | out->f_flags) & O_NONBLOCK)
+ 			flags |= SPLICE_F_NONBLOCK;
+ 
+-		/*
+-		 * Keep going, unless we encounter an error. The ipipe/opipe
+-		 * ordering doesn't really matter.
+-		 */
+-		ret = ipipe_prep(ipipe, flags);
+-		if (!ret) {
+-			ret = opipe_prep(opipe, flags);
+-			if (!ret)
+-				ret = link_pipe(ipipe, opipe, len, flags);
+-		}
++		ret = link_pipe(ipipe, opipe, len, flags);
+ 	}
+ 
+ 	if (ret > 0) {
+
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
 -- 
 2.53.0
 
