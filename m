@@ -1,100 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96977331203;
-	Sun, 18 Oct 2026 16:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CDE331203
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:57:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792342595; cv=none; b=Cax6bxSySCNWO+lamiXDDKtamukDuumeWHLJ3484KZNJzzqfv2Vl77Yc+7VlpDarIeu0HJ031d2CR6ZB9+BBbSjUjMS+0Jm0r+aAwQHSS6ESxSk+t7Rf9UB0mEsbkP/FQQuNK1F3iiYhOPYG68kh4/MDZV8SHldv0G5XRPvJUhM=
+	t=1792342643; cv=none; b=TuyqwurQAPKM0NjRxXoUqcqPClbw5cnnL2QrDcesCgdcska4B1SemhUx0vfqUHdw4LJRXixLob/i3PTCw5ZowSLsUWdqKPY8RlXH4O1LjNSWWnQsjQVKecgJ6ByODUu+8oVntqI16Z0D8S1tE174aHaoRkfrxAmhDevKVZAHBF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792342595; c=relaxed/simple;
-	bh=d3ay5FXVBDcidVSbB5fN4cGPC7NcpEA77jmvawpdrdI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZhVoGp3uBB84dKSpvtX4J4XU3tjh3ziM3XP+4xOOvLhRyQWX2Mvgu+JeY6nozSI2zWXtfScTXNypGVSqgK9yMUhTI4WeJGec4MKBFBwC9t10kkM/3BjficW0bnq+0TUCCvqg5QJBY5x7oGGiL800k/SdO83meCl5UsVgwvUtH5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCl/OMXx; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792342643; c=relaxed/simple;
+	bh=O4MbYrdad66SorgorHSE57MaSNqfUI2Gvbh0mmAJiX8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MxWNSCOP8eh6CbO9wNPTWAGm2OE7h/iYj3DtwRtijxyvKIcO55wtJAsI7d7sTJQ25vaLU0qH+bzwBomgFT2QzNR0+XrhgRMDoiJluLOXvKlH9XjvnbpcM8d9yfL+2MJnNrX2YTSGnWKnUZlZdhmZgnAQn04IE1h9ZTJZLBINalE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Odx+GV9r; arc=none smtp.client-ip=91.218.175.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCl/OMXx"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 36708C2BCC7;
-	Sun, 18 Oct 2026 16:56:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792342595;
-	bh=d3ay5FXVBDcidVSbB5fN4cGPC7NcpEA77jmvawpdrdI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=JCl/OMXxBcGhi2Ll/A5UPVqONZLV0PSFH4cwDTB9PnRFNj1hXb5UcFENGP2WMZLOp
-	 NED5yX0u80HjEt9JhGv5pLjurLBFDaqLgLWPbsLxDsXY1WpyUmGJE/v6PGH7v6XO1o
-	 fGZASlgyqToSsH3lNiGrGGEXdFxlOj/K+NuymrOwroxaz4yKcJKHnBU91mIxaLkR1d
-	 hYEFNIQ3xPP0R+N0u07kHjTyOlvh7KlSrHNf7Mn8pcRmx9EjInwQeksPaDo3Gb1QiS
-	 ZGii2oC3rKREujlC9rgS95Fm/TwtpW+qJj/rIClxhdjPyq5Q8dExHNi98TKVhbK8MU
-	 ToioVsYHRXRFg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 22ADACCA490;
-	Sun, 18 Oct 2026 16:56:35 +0000 (UTC)
-From: George Christidis via B4 Relay <devnull+gxristidis.gmail.com@kernel.org>
-Date: Sun, 18 Oct 2026 18:56:31 +0200
-Subject: [PATCH] ALSA: hda/realtek: Fix headset mic on ASUS Zenbook 14
- UX3402VA
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Odx+GV9r"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=O4MbYrdad66SorgorHSE57MaSNqfUI2Gvbh0mmAJiX8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792342639; v=1; x=1792947439;
+ b=Odx+GV9rjwFzkqBDCf5NLXW3NrzuVEG48G1/T4f6suGe7elJZeEW52kCIsZExliPZWNnARPR
+ ckoW7eNjkXyQshxHgvmAa6vdEyRTR9O2TXLS4iq/lNZ2YGod77+VbyEbi14fA60s9WwtrnG7hdp
+ Ex9WFYF4WaJAkdM8r2J+bP68=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id facac7dfeedf9400;
+	Sun, 18 Oct 2026 16:57:19 +0000
+X-Mizu-Trace-ID: facac7dfeedf9400
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <42cfc8c8-869f-41e2-a58c-0d6c5ce4a6ba@linux.dev>
+Date: Sun, 18 Oct 2026 18:57:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-for-linus-v1-1-4d8e9ff27d89@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAMBSA4VfRubbaVkZeRS6MM4402jEpeXfD5
- Vd//wWMgZChzi4IeBDT6hNUnkE/dX5EQUMyaKmNkqoSbg1iIR9ZaGt1aWRnC2cg9VtAR+f3atr
- fHO2M/f4O4L4f5zB/zG0AAAA=
-X-Change-ID: 20261018-for-linus-2bb2760ab5f6
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, George Christidis <gxristidis@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792342594; l=1568;
- i=gxristidis@gmail.com; s=20261018; h=from:subject:message-id;
- bh=WO42s5RZ6hbZHX1anwLnUs6RiGT8aq0KXyrmR3Fn9vI=;
- b=QgWJrj9Qpp1fCpRoh16U+axun5rMtlsLJ/obgxrMZptprt+QU8kMl0U/dMuYYg3D9Y0nsg0hy
- p0h9w83tomhAJA7xDeWYteWFx+8QV5fZZetdGYyjRhH+OnU7W0ftD9Q
-X-Developer-Key: i=gxristidis@gmail.com; a=ed25519;
- pk=LWp/LBe13KlT/70ZpW3a73MV3ESP4a0DmOo2Zrz0Dhg=
-X-Endpoint-Received: by B4 Relay for gxristidis@gmail.com/20261018 with
- auth_id=1227
-X-Original-From: George Christidis <gxristidis@gmail.com>
-Reply-To: gxristidis@gmail.com
-
-From: George Christidis <gxristidis@gmail.com>
-
-The UX3402VA (1043:16a3) BIOS leaves pin 0x19 unconfigured, so the
-headset mic does not work. Use ALC294_FIXUP_ASUS_SPI_HEADSET_MIC like
-the UX3405MA, it sets up the mic and keeps the CS35L41 speaker fixup.
-
-Tested on a UX3402VA: headset mic, internal mic and speakers work.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: George Christidis <gxristidis@gmail.com>
----
- sound/hda/codecs/realtek/alc269.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 1623cf926..cea8c7091 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7867,7 +7867,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1663, "ASUS GU603ZI/ZJ/ZQ/ZU/ZV", ALC285_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1664, "ASUS ExpertBook PM3406CHA", ALC256_FIXUP_ASUS_PM3406CHA),
- 	SND_PCI_QUIRK(0x1043, 0x1683, "ASUS UM3402YAR", ALC287_FIXUP_CS35L41_I2C_2),
--	SND_PCI_QUIRK(0x1043, 0x16a3, "ASUS UX3402VA", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x16a3, "ASUS UX3402VA", ALC294_FIXUP_ASUS_SPI_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x16d3, "ASUS UX5304VA", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
-
----
-base-commit: 8e8cd9a4c6dc006e9bd51b8ad0079fb4576b48d3
-change-id: 20261018-for-linus-2bb2760ab5f6
-
-Best regards,
---  
-George Christidis <gxristidis@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/7] HID: asus: add prod-id, quirk for Zenbook Duo
+ keyboard
+To: Paolo Pisati <p.pisati@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: Luke Jones <luke@ljones.dev>, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Joshua Leivenzon <hacker1024@users.sourceforge.net>,
+ Ivan Levchenko <me@livan.pro>, =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?=
+ <rebecca.mara@posteo.de>, Nathan Chancellor <nathan@kernel.org>
+References: <20261013104033.36079-1-p.pisati@gmail.com>
+ <20261013104033.36079-7-p.pisati@gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261013104033.36079-7-p.pisati@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
+On 10/13/26 12:40, Paolo Pisati wrote:
+> From: Luke Jones <luke@ljones.dev>
+
+A piece of mail header opening a commit? Never seen this.
+
+I'd say remove this: that this comes from Luke can be deducted
+in the Signed-off-by.
+
+My question is why has this not been accepted before? Did I miss
+this while we transitioned maintainer? If so apologies.
+
+> The 2024/2025/2026 ASUS Zenbook Duo has a similar keyboard setup as
+> many of the ROG range of laptops, with the same init sequence and
+> control for backlight. Enable the keyboard control and backlight by:
+> - adding the product ID for 2024/2025/2026 Zenbook Duo keyboard MCU
+> - adding the Bluetooth Zenbook Duo keyboard IDs
+>
+> Intended for the UX8406-style product line with the fully removable
+> keyboard.
+>
+> The keyboard also exposes its touchpad as a separate HID device with
+> the same IDs, an interface of the USB device and a second device over
+> Bluetooth, so bind the IDs to the HID_GROUP_GENERIC group only, like
+> the ROG Z13 Folio, and leave the touchpad to hid-multitouch.
+>
+> Fn-lock is left out for now: with QUIRK_HID_FN_LOCK the Fn-lock report
+> is sent to every interface of the device, before the handshake, and on
+> the UX8407AA that stalled the hotkey interface for good. It can be
+> added back once the driver only sends it where and when it belongs.
+>
+> Signed-off-by: Luke Jones <luke@ljones.dev>
+> Signed-off-by: Joshua Leivenzon <hacker1024@users.sourceforge.net>
+> Signed-off-by: Ivan Levchenko <me@livan.pro>
+> [pisati: bind the IDs to HID_GROUP_GENERIC only, drop
+>  QUIRK_HID_FN_LOCK]
+> Assisted-by: LLM
+
+Same as all others regarding Assisted-by.
+
+When you have removed the weird start:
+
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
+
+> Signed-off-by: Paolo Pisati <p.pisati@gmail.com>
+> Tested-by: Rebecca Mara Müller <rebecca.mara@posteo.de> # UX8407AA
+> ---
+>  drivers/hid/hid-asus.c | 24 ++++++++++++++++++++++++
+>  drivers/hid/hid-ids.h  |  6 ++++++
+>  2 files changed, 30 insertions(+)
+>
+> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> index 7b17553e94b6..503396963eeb 100644
+> --- a/drivers/hid/hid-asus.c
+> +++ b/drivers/hid/hid-asus.c
+> @@ -1849,6 +1849,30 @@ static const struct hid_device_id asus_devices[] = {
+>  	  QUIRK_USE_KBD_BACKLIGHT | QUIRK_ROG_NKEY_KEYBOARD },
+>  	{ HID_DEVICE(BUS_USB, HID_GROUP_GENERIC,
+>  		USB_VENDOR_ID_ASUSTEK, USB_DEVICE_ID_ASUSTEK_T101HA_KEYBOARD) },
+> +	/*
+> +	 * Zenbook Duo detachable keyboards. The touchpad shows up as a
+> +	 * separate HID device with the same IDs, over USB and Bluetooth:
+> +	 * bind to the HID_GROUP_GENERIC group only, like the ROG Z13 Folio,
+> +	 * so that hid-multitouch keeps handling it.
+> +	 */
+> +	{ HID_DEVICE(BUS_USB, HID_GROUP_GENERIC, USB_VENDOR_ID_ASUSTEK,
+> +	    USB_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8406MA_KEYBOARD),
+> +	  QUIRK_USE_KBD_BACKLIGHT | QUIRK_ZENBOOK_DUO_KEYBOARD },
+> +	{ HID_DEVICE(BUS_BLUETOOTH, HID_GROUP_GENERIC, USB_VENDOR_ID_ASUSTEK,
+> +	    BT_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8406MA_KEYBOARD),
+> +	  QUIRK_USE_KBD_BACKLIGHT | QUIRK_ZENBOOK_DUO_KEYBOARD },
+> +	{ HID_DEVICE(BUS_USB, HID_GROUP_GENERIC, USB_VENDOR_ID_ASUSTEK,
+> +	    USB_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8406CA_KEYBOARD),
+> +	  QUIRK_USE_KBD_BACKLIGHT | QUIRK_ZENBOOK_DUO_KEYBOARD },
+> +	{ HID_DEVICE(BUS_BLUETOOTH, HID_GROUP_GENERIC, USB_VENDOR_ID_ASUSTEK,
+> +	    BT_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8406CA_KEYBOARD),
+> +	  QUIRK_USE_KBD_BACKLIGHT | QUIRK_ZENBOOK_DUO_KEYBOARD },
+> +	{ HID_DEVICE(BUS_USB, HID_GROUP_GENERIC, USB_VENDOR_ID_ASUSTEK,
+> +	    USB_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8407AA_KEYBOARD),
+> +	  QUIRK_USE_KBD_BACKLIGHT | QUIRK_ZENBOOK_DUO_KEYBOARD },
+> +	{ HID_DEVICE(BUS_BLUETOOTH, HID_GROUP_GENERIC, USB_VENDOR_ID_ASUSTEK,
+> +	    BT_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8407AA_KEYBOARD),
+> +	  QUIRK_USE_KBD_BACKLIGHT | QUIRK_ZENBOOK_DUO_KEYBOARD },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(hid, asus_devices);
+> diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+> index b3aca5aa9176..59f44204d738 100644
+> --- a/drivers/hid/hid-ids.h
+> +++ b/drivers/hid/hid-ids.h
+> @@ -228,6 +228,12 @@
+>  #define USB_DEVICE_ID_ASUSTEK_ROG_NKEY_KEYBOARD	0x1866
+>  #define USB_DEVICE_ID_ASUSTEK_ROG_NKEY_KEYBOARD2	0x19b6
+>  #define USB_DEVICE_ID_ASUSTEK_ROG_Z13_FOLIO		0x1a30
+> +#define USB_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8406MA_KEYBOARD	0x1b2c
+> +#define BT_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8406MA_KEYBOARD	0x1b2d
+> +#define USB_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8406CA_KEYBOARD	0x1bf2
+> +#define BT_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8406CA_KEYBOARD	0x1bf3
+> +#define USB_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8407AA_KEYBOARD	0x1cd7
+> +#define BT_DEVICE_ID_ASUSTEK_ZENBOOK_DUO_UX8407AA_KEYBOARD	0x1cd8
+>  #define USB_DEVICE_ID_ASUSTEK_ROG_Z13_LIGHTBAR		0x18c6
+>  #define USB_DEVICE_ID_ASUSTEK_ROG_NKEY_ALLY		0x1abe
+>  #define USB_DEVICE_ID_ASUSTEK_ROG_NKEY_ALLY_X		0x1b4c
