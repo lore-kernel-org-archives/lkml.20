@@ -1,580 +1,138 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89DA4C9007
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420704C2270
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792331875; cv=none; b=Weall3y4aKobgYmlOnJSEWP475XReD6bmd/Eb8W6BJpN+fyt37ueUrHtgSzfTJq6kxndHZq5ZW013MDcV6fkpF/2GAk1ulqQ4NGoeZAU5JRMLrd5XOJAoV/yHw4t26VEC//AUxf7tLuGzH7uXSF+2Ug70I/MM/lRzLp/AjJOZPA=
+	t=1792331908; cv=none; b=JcY7MFfiz8rND2HtjaCpx8SCBq93diaE574SsXG7pWODKgkJTzdlE2ler+Qv6LAr2JXaw6K3kb7bXMGVrnXuWNfsj+DzBv2lDim035qHNZrFWp89LwXwOvnTrR0pmpbTpVapE2ZX6u4JYXvVvSExtcjz6BEhjdccYXBjhk/Ez28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792331875; c=relaxed/simple;
-	bh=eDjfI3mI8si5qW3zIL41yClDpsbPIiA8flR+fdsEFUs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OxglH7ssUbL6nC0RRtfMfNVSzppWWQi0w7Cowi0qED18jwhw4RV6XL0oENmoOc4M2GlD0vtu61tAeL8pBIpVm77mlc/IzXDZmjXM9kBX6raBA/aZPdeqFr7YVcI473lNv8I4cNfF2wOoke3BwqV2s0wn9SVrgDk2NKB/L0zNeXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m8h5pgUm; arc=none smtp.client-ip=74.125.82.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792331908; c=relaxed/simple;
+	bh=IwHavXJVs5lyTOCcn+pET+ahPXOw4vfy6zPC2ELLFdk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cRTU9PffhW6tTVHQlKg3ojOxzsd6mmJF5TF6FIA4WIlVZZz/8YgXXT7CdI3O+1wF/9/Xno1O6umYM+NS+70cAk3wT2IP8BqrmdCrAYrxq/dkmhXkfWdxvhsC/UAWD4hHTOTSl61nHxV71kRrHTgij6QSvWBqBNb9H//3de34Kbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=PZMI4w2M; arc=none smtp.client-ip=209.85.217.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m8h5pgUm"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso3236583eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:57:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="PZMI4w2M"
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-7cc0892f92cso301112137.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:58:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792331871; x=1792936671; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/KeH/CN9m54NZU37BIOh5ncMFyBfA5+dhCQDckxvLRI=;
-        b=m8h5pgUmO70R0BdP5pqzOmi8cR9KkYB7+hLKjLZKnN1Ofp9rLuwhH4+lWgR+UpF2CQ
-         /fVgCpMKexwSRdRy83uETCKSDJDfLRPXYLmrNr8beA0TO/tyeNri4Cl35xha/Csh4qXZ
-         rK2AjQR1l9Hv42KEVYDlpPawt7g5Cm6QPet1UEMTJhMBKewRFdBuyLdswQZEob4MBDs7
-         yg7mtAt4firmLDBTDu/Rzza05Vbt43cnci9C01RnqTNot67O6aj12y0hERQHiQpkxbTO
-         H++9uL378GVaXTSa338DjNviE7uuZwzDtLRP+3phYutj/LfaI/2czWI3EwAHc4pBY+p9
-         KMuQ==
+        d=soleen.com; s=google; t=1792331906; x=1792936706; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ayMWfGshO3UNwVYFCcSN2BNh422miW8cad5xrtcnUvg=;
+        b=PZMI4w2MQRZzUU9IeVIa38517zEmudcio4i+U+Rm7RBsKFrLnnc7KXRC2kSh3EA3bu
+         K+DCOu8JjEzqnsxTysqWYUb2KU22ydIvG/HeV2q31xT6HylIqghGEsypGHngXgdjm7Cz
+         SSx1awLt0YgW4pIXDtfIFCb79/sB8O+lfASlhuBb8/5kw8Zthi8BDbx0dATSOs42d2PP
+         bG7NeKlNyfvVrizMWXJiftjgsHiS3BOZqo+Ep4RWC/nqOkDveesjVCmz18fqvtD9f+Jb
+         vXLd1lmmXu2FuwpzWOgeDPlDu2EvO20KZ3glq82KNmw7yb8nqpyOdQZ9aC7mPiuT4gMy
+         SlIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792331871; x=1792936671;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/KeH/CN9m54NZU37BIOh5ncMFyBfA5+dhCQDckxvLRI=;
-        b=TGQWVf8h6yYbEkO/add9FrOvK8NZq3YUCs38l0RHHz2w1DaK82QXGjSPcXMyfrcaQH
-         4tZxjgsF20QvMAUncbrh831YNR2u8sEYC4/9Glj3nyu9gRSRj1Uz6N0t+4tUdcqkh7C5
-         UNzKRL1VQoQL7lphO5sq44hBl0fwEzf/8CjKwgYdWq6qRJ1ZVB0azSwtsVer5Xs09QTs
-         ytEqL3iikctwcdrzrj0d/ch2ujsqaz0QKVvjS60ooC9bbjlmEhAjljyaI47Fb3Z4h32R
-         pSvS/4VBzA0F2cCi5Kotz3zDLVp6yTr+I0H4M7g+sYrYRGRzjvE3PLWRJegsMRGtyqna
-         a62w==
-X-Gm-Message-State: AFq9FYLYxkP96JbBj0/Ok065dc2u4QZQNcGzS1QDsdLn2zrWDQ2DfSUM
-	4uJIX3Xi+c1wPuVBOHS1FhiEAA3aZqd04udMXX9amJP/tbdaMnlQJ1k7IzJkVlQ5
-X-Gm-Gg: AYBFou2u0ex3Uk+JFi/dMmbsaseeQzgHpvfgrTOHRE0/z72I7dwysj2ydUCg91Sg7aB
-	iHIRhiWAg9SXjJm9RZVKiawL7xT+CjrnNuz2YmOCS838Z9m6d/EJns5NJjwPYojRszopsDKDXdy
-	yo/baGm2ZZlawlYxQiq3XeA3KExGoymId1zdOwm9a1ENHAXuYjkNm+WvtlhS5to3GE40aY5/eyS
-	4PkgoycAa40qQNv2DfxGW/HNhR7UVVsxutYV0Fk9fX8sM0dhKoqeyq4SSyjF/HD0K1jecE8SDgK
-	QcQJM8Taqedv9h12MJGaotY+tKpDFKw9t9YPkcrabCrzf5RixC7uE23yIb6VuJq6jPD150Z8v19
-	GQH9SZuawBy8T5ZgsdwZUcvSrc7JFTtxy1GYllxfaw+HLqXiFayYOc1U2Y08IMs7lN6KUMZYjJh
-	s7+lTvlIHK95aoogvF3cjElc49lFQw/rzQY9AOCjpOYXvrd+svLdbaHSLSO22ytNBWdTB0bOFNL
-	iW7S5aeJZb64EFQLtzHS8qh+Q7mYiRZEi+jBWK+yw==
-X-Received: by 2002:a05:7300:1351:b0:35f:b0f:d15c with SMTP id 5a478bee46e88-361a35169c0mr11629428eec.39.1792331870653;
-        Sun, 18 Oct 2026 06:57:50 -0700 (PDT)
-Received: from Biostar-A520MT.. ([187.94.15.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6791sm27653533eec.6.2026.10.18.06.57.47
+        d=1e100.net; s=20260707; t=1792331906; x=1792936706;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ayMWfGshO3UNwVYFCcSN2BNh422miW8cad5xrtcnUvg=;
+        b=QE+vXJetA1UGUBNRpa6WwBPXyoeYaAqOwjrSvkHCwVl08h1kkc9CgwcyHFwOy4UAj/
+         ak5ci2GhtJtzM4YX9UEIOnBS0r2XD0CuV1i6QTH33KVAWBFkMcSJRx6vFRe/ZjdnFPDe
+         XSeB1QgY5Zk6AXr4/E1KW3LuOoNeU5NNR6L8ZRixNZQnUXV27PVmUnJRtAW4Q6W4C3Be
+         q4gttIuQwpbpZ8Z5r1sHHIBeaj5XnHEJnlSiAKoP4pm34l2pT6lutS1TRpvJW3CRePBs
+         6rfReY/+kKuQKSbRPjXTExOYAO+wP2d7ohEMVSzESJ0K51q8I6i6t/W8I9reQ5wsLO8r
+         SepQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw4zyn27PQgEqkv34QR3jmsjodvwH73TfAdNlc8GqXU9T4KUakbj396m/5OhORZutTY4RT2tVHbe8Q4lBA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqIP3CjTbcbN37T08U2XtRqwLJIe9TsiUAwKdxCppxqpX0PhW7
+	ZI+zstGND4zl0VB9LQDpjualTHvcgAsRcxxv5TKRckNEYgaV4P8U3DkO39KjRUKWH+I=
+X-Gm-Gg: AYBFou2xJK+GlEC2AXHJa7IAcwGxEqRckJnXgMEEHq+GmdNLAaBYu6SkwtPrAPgV6gR
+	KmhkWCwVGtC3VYeT7s2f6a2VkR6ZU5nGIrmFjJnVFrTaLX6E8whpWf8fdP8lWGw4GKEIDxWgGKG
+	/iMQZkG2GbfFqqb9zEcY//U/IbL7CCkoKB3RglSEoZ4q48UqJ0AlIkG3udRJCiTA8dTjyT2Rr4O
+	13hUHYExlOvg8k/XruxKYQ5Y9X5zb67WtX9dCkKt71XhjIsYHK2DOYSoXGsLqKjPGuFvAyb3RAk
+	xy2D7u5sUTMkKGvR6fh/a5Dg8HJpyGoUW78qkrOJvb5osb79PLaedFojUvYmpHITZTPAWzCGrTo
+	yi+bac6AdoBiT3Lvi31s9BWgEkfOF4kiCfaaKQkFmUt53pAaZ6+8eIWBvUFkoCIMsBv/644jymF
+	jn/ETrUwyFuwgASmW/Lz7EzxslvTATewdSvY1+qDZ+S3kiKP8CS/v48WDghaD1svsOHcw+C5qzK
+	5dnXboyfeP/Yn/mIMk22VHR+ijhFDa2hLQGs+WHqC3rCRwsijbNdbUEjTiitdqmE35uSTUTKxE=
+X-Received: by 2002:a05:6102:5809:b0:7a7:19aa:f0d4 with SMTP id ada2fe7eead31-7cc36af7150mr1191922137.33.1792331906038;
+        Sun, 18 Oct 2026 06:58:26 -0700 (PDT)
+Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9908366328dsm6405154241.12.2026.10.18.06.58.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 06:57:49 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: Andy Whitcroft <apw@canonical.com>,
-	Joe Perches <joe@perches.com>,
-	Dwaipayan Ray <dwaipayanray1@gmail.com>,
-	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [RFC PATCH v2 7/7] scripts: convert streamline_config.pl to Python
-Date: Sun, 18 Oct 2026 10:57:22 -0300
-Message-ID: <20261018135722.27410-8-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261018135722.27410-1-breno3011alves@gmail.com>
-References: <20261018112838.16355-1-breno3011alves@gmail.com>
- <20261018135722.27410-1-breno3011alves@gmail.com>
+        Sun, 18 Oct 2026 06:58:25 -0700 (PDT)
+Date: Sun, 18 Oct 2026 09:58:24 -0400
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: "Luck, Tony" <tony.luck@intel.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, kees@kernel.org,
+	rppt@kernel.org, juri.lelli@redhat.com, nik.borisov@suse.com,
+	tglx@kernel.org, vschneid@redhat.com, kprateek.nayak@amd.com,
+	vincent.guittot@linaro.org, bp@alien8.de, thorsten.blum@linux.dev,
+	cgroups@vger.kernel.org, david@kernel.org, mingo@redhat.com,
+	akpm@linux-foundation.org, linux-mm@kvack.org, seanjc@google.com,
+	ljs@kernel.org, zhangguopeng@kylinos.cn, dietmar.eggemann@arm.com,
+	mhocko@suse.com, vinicius.gomes@intel.com, tj@kernel.org,
+	vbabka@kernel.org, linux-kernel@vger.kernel.org,
+	peterz@infradead.org, surenb@google.com, hpa@zytor.com,
+	x86@kernel.org, dmatlack@google.com, tim.c.chen@linux.intel.com,
+	kexec@lists.infradead.org, pratyush@kernel.org,
+	dave.hansen@linux.intel.com, rostedt@goodmis.org,
+	gmonaco@redhat.com, jgross@suse.com, mgorman@suse.de,
+	graf@amazon.com, linux-edac@vger.kernel.org, liam@infradead.org,
+	ridong.chen@linux.dev, longman@redhat.com, bsegall@google.com
+Subject: Re: [PATCH v1 0/8] x86, sched, mm: Speed up CPU hotplug on large
+ systems
+Message-ID: <atTQgM72TWSFZ0AX@google.com>
+References: <20261015153331.1872641-1-pasha.tatashin@soleen.com>
+ <atFGxagFo50iG6IS@agluck-desk3>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atFGxagFo50iG6IS@agluck-desk3>
 
-Faithful re-implementation of streamline_config.pl in Python 3
-(stdlib only). Same Kconfig recursion, same Makefile parsing,
-same dependency/select resolution, same LMC_KEEP preservation.
+On 10-15 14:33, Luck, Tony wrote:
+> On Thu, Oct 15, 2026 at 11:33:23AM -0400, Pasha Tatashin wrote:
+> >    - Patch 3 bounds cmci_rediscover() on CPU teardown. Currently,
+> >      cmci_rediscover() broadcasts an IPI via on_each_cpu() to all online
+> >      CPUs, serializing them on cmci_discover_lock while reading up to 32
+> >      MCA MSRs. Because any disabled MCA bank is shared at most with an
+> >      SMT sibling, L2 cluster peer, or die/package peer, probing a single
+> >      online topology peer via smp_call_function_single() (or returning
+> >      immediately when no shared banks were orphaned) reduces 479-CPU
+> >      offline time on Intel from 11.42 s to 9.63 s (-15.7%) and total time
+> >      from 22.50 s to 20.74 s (-7.8%).
+> 
+> I took this series for a spin on a timy 2-socket Icelake (36 cores, 72
+> threads per socket). My test was to just offfline/online the 72 logical
+> CPUs on socket 1, and I saw some good speedups:
+> 
+> 	offline: 4.833s -> 3.17s
+> 	online: 6.157s -> 3.796s
+> 
+> I noticed that your cmci_rediscover() improvements mean even better
+> offline performance if you work from high to low CPU numbers as the
+> shared banks are assigned to the lowest numbered CPU within the sharing
+> topology domain. So working from high to low avoids creating as many
+> orphan banks that then need to find new owners.
+> 
+> 	reverse order offline: 2.984s
+> 
+> I haven't looked into the code yet. But the general direction seems
+> good.
 
-Requires a .config and loaded modules to fully test; logic is
-1:1 with the Perl version.
+Thank you for the data, and your point about the ordering is spot on. 
+However, once single-thread performance is adequate, my end goal is to 
+parallelize the operation so the number of CPUs won't significantly 
+affect the total time it takes to remove them and add them back to the 
+scheduler. This is crucial for the live update work, as transferring CPUs 
+to Caretaker is part of the brownout, and in some configurations, the 
+blackout of the live update process.
 
-Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
----
- scripts/kconfig/streamline_config.py | 475 +++++++++++++++++++++++++++
- 1 file changed, 475 insertions(+)
- create mode 100755 scripts/kconfig/streamline_config.py
+Pasha
 
-diff --git a/scripts/kconfig/streamline_config.py b/scripts/kconfig/streamline_config.py
-new file mode 100755
-index 000000000..f2e53975f
---- /dev/null
-+++ b/scripts/kconfig/streamline_config.py
-@@ -0,0 +1,475 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Copyright 2005-2009 - Steven Rostedt
-+#
-+# Simplify the kernel config to only the modules loaded on this system.
-+
-+import os
-+import re
-+import subprocess
-+import sys
-+
-+DEBUG = 'LOCALMODCONFIG_DEBUG' in os.environ
-+
-+# Module state populated by read_kconfig()
-+depends = {}
-+selects = {}
-+prompts = {}
-+objects = {}
-+config2kfile = {}
-+defaults = {}
-+read_kconfigs = {}
-+ksource = '.'
-+
-+
-+def dprint(*args):
-+    if DEBUG:
-+        print(*args, file=sys.stderr)
-+
-+
-+def read_config():
-+    uname = subprocess.check_output(['uname', '-r'], text=True).strip()
-+
-+    searchconfigs = [
-+        ('.config', 'cat', None),
-+        ('/proc/config.gz', 'zcat', None),
-+        (f'/boot/config-{uname}', 'cat', None),
-+        (f'/boot/vmlinuz-{uname}', 'scripts/extract-ikconfig',
-+         'scripts/extract-ikconfig'),
-+        ('vmlinux', 'scripts/extract-ikconfig', 'scripts/extract-ikconfig'),
-+        (f'/lib/modules/{uname}/kernel/kernel/configs.ko',
-+         'scripts/extract-ikconfig', 'scripts/extract-ikconfig'),
-+        ('kernel/configs.ko', 'scripts/extract-ikconfig',
-+         'scripts/extract-ikconfig'),
-+        ('kernel/configs.o', 'scripts/extract-ikconfig',
-+         'scripts/extract-ikconfig'),
-+    ]
-+
-+    for file, exec_cmd, test_cmd in searchconfigs:
-+        if not os.path.isfile(file):
-+            continue
-+        if test_cmd is not None:
-+            r = subprocess.run([test_cmd, file], capture_output=True)
-+            if r.returncode:
-+                continue
-+        print(f"using config: '{file}'", file=sys.stderr)
-+        try:
-+            out = subprocess.check_output(
-+                f'{exec_cmd} {file}', shell=True, text=True,
-+                stderr=subprocess.DEVNULL)
-+        except subprocess.CalledProcessError:
-+            continue
-+        return out.splitlines(keepends=True)
-+
-+    sys.exit('No config file found')
-+
-+
-+def read_kconfig(kconfig, if_state):
-+    """Recursively read a Kconfig file, populate globals.
-+
-+    if_state is a [level, [deps...]] list for mutation.
-+    """
-+    state = 'NONE'
-+    config = ''
-+    cont = False
-+    line = ''
-+
-+    source = f'{ksource}/{kconfig}'
-+    last_source = ''
-+    while re.search(r'\$\((\w+)\)', source) and source != last_source:
-+        last_source = source
-+        m = re.search(r'\$\((\w+)\)', source)
-+        source = source.replace(m.group(0), os.environ.get(m.group(1), ''))
-+
-+    try:
-+        with open(source) as f:
-+            raw_lines = f.readlines()
-+    except OSError:
-+        sys.exit(f"Can't open {source}")
-+
-+    iflevel = if_state[0]
-+    ifdeps = if_state[1]
-+
-+    for raw in raw_lines:
-+        line_text = raw.rstrip('\n')
-+
-+        if cont:
-+            line_text = line + ' ' + line_text
-+
-+        if line_text.endswith('\\'):
-+            cont = True
-+            line = line_text[:-1]
-+            continue
-+        cont = False
-+
-+        m = re.match(r'^source\s+"?([^"]+)', line_text)
-+        if m:
-+            sub = m.group(1)
-+            if sub not in read_kconfigs:
-+                read_kconfigs[sub] = 1
-+                read_kconfig(sub, if_state)
-+            continue
-+
-+        m = re.match(r'^\s*(?:menu)?config\s+(\S+)\s*$', line_text)
-+        if m:
-+            state = 'NEW'
-+            config = m.group(1)
-+            config2kfile[f'CONFIG_{config}'] = kconfig
-+            for i in range(if_state[0]):
-+                if i:
-+                    depends[config] = depends.get(config, '') + ' ' + ifdeps[i]
-+                else:
-+                    depends[config] = ifdeps[i]
-+                state = 'DEP'
-+            continue
-+
-+        m = re.match(r'^\s*depends\s+on\s+(.*)$', line_text)
-+        if m and state in ('NEW', 'DEP'):
-+            if state == 'NEW':
-+                depends[config] = m.group(1)
-+                state = 'DEP'
-+            else:
-+                depends[config] = depends.get(config, '') + ' ' + m.group(1)
-+            continue
-+
-+        m = re.match(r'^\s*def(?:_(?:bool|tristate)|ault)\s+(\S.*)$',
-+                     line_text)
-+        if m and state != 'NONE':
-+            dep = m.group(1)
-+            defaults[config] = 1
-+            if not re.match(r'^\s*(?:y|m|n)\s*$', dep):
-+                dep = re.sub(r'.*\sif\s+', '', dep)
-+                depends[config] = depends.get(config, '') + ' ' + dep
-+                dprint(f'Added default depends {dep} to {config}')
-+            continue
-+
-+        m = re.match(r'^\s*select\s+(\S+)', line_text)
-+        if m and state != 'NONE':
-+            conf = m.group(1)
-+            if conf in selects:
-+                selects[conf] += ' ' + config
-+            else:
-+                selects[conf] = config
-+            continue
-+
-+        if state != 'NONE' and \
-+                re.match(r'^\s*(?:tristate\s+\S|prompt\b)', line_text):
-+            prompts[config] = 1
-+            continue
-+
-+        m = re.match(r'^if\s+(.*\S)\s*$', line_text)
-+        if m:
-+            deps_str = re.sub(r'^[^a-zA-Z0-9_]*', '', m.group(1))
-+            deps_str = re.sub(r'[^a-zA-Z0-9_]*$', '', deps_str)
-+            parts = re.split(r'[^a-zA-Z0-9_]+', deps_str)
-+            if if_state[0] < len(ifdeps):
-+                ifdeps[if_state[0]] = ':'.join(parts)
-+            else:
-+                ifdeps.append(':'.join(parts))
-+            if_state[0] += 1
-+            continue
-+
-+        if re.match(r'^endif', line_text):
-+            if if_state[0]:
-+                if_state[0] -= 1
-+            continue
-+
-+        if re.match(r'^\s*(?:---)?help(?:---)?\s*$', line_text) or \
-+                re.match(r'^(?:comment|choice|menu)\b', line_text):
-+            state = 'NONE'
-+
-+
-+def convert_vars(line, make_vars):
-+    """Expand $(VAR) references in a Makefile line."""
-+    out = ''
-+    while True:
-+        m = re.match(r'^(.*?)(\$\(([^()]+)\))(.*)$', line)
-+        if not m:
-+            out += line
-+            break
-+        out += m.group(1)
-+        var = m.group(3)
-+        if var in make_vars:
-+            out += make_vars[var]
-+        else:
-+            out += m.group(2)
-+        line = m.group(4)
-+    return out
-+
-+
-+def main(argv):
-+    global ksource
-+
-+    config_file = read_config()
-+
-+    localmodconfig = False
-+    localyesconfig = False
-+    args = []
-+    for a in argv:
-+        if a == '--localmodconfig':
-+            localmodconfig = True
-+        elif a == '--localyesconfig':
-+            localyesconfig = True
-+        else:
-+            args.append(a)
-+
-+    ksource = args[0] if args else '.'
-+    kconfig = args[1] if len(args) > 1 else None
-+    lsmod_file = os.environ.get('LSMOD')
-+
-+    try:
-+        makefiles = subprocess.check_output(
-+            ['find', ksource, '-name', 'Makefile', '-or', '-name', 'Kbuild'],
-+            text=True, stderr=subprocess.DEVNULL).splitlines()
-+    except subprocess.CalledProcessError:
-+        makefiles = []
-+
-+    if kconfig:
-+        read_kconfig(kconfig, [0, []])
-+
-+    # Parse Makefiles for obj-$(CONFIG_FOO) += obj.o
-+    for makefile in makefiles:
-+        line = ''
-+        make_vars = {}
-+        try:
-+            with open(makefile) as f:
-+                for raw in f:
-+                    line_text = raw.rstrip('\n')
-+                    if line_text.endswith('\\'):
-+                        line += line_text[:-1]
-+                        continue
-+                    line += line_text
-+                    expanded = convert_vars(line, make_vars)
-+                    line = ''
-+
-+                    m = re.match(
-+                        r'obj-\$[({](CONFIG_[^})]*)[)}]\s*[+:]?=\s*(.*)',
-+                        expanded)
-+                    objs = None
-+                    var = None
-+                    if m:
-+                        var = m.group(1)
-+                        objs = m.group(2)
-+                    else:
-+                        m = re.match(r'^\s*(\S+)\s*[:]?=\s*(.*\S)',
-+                                     expanded)
-+                        if m:
-+                            make_vars[m.group(1)] = m.group(2)
-+                    if objs is not None:
-+                        for o in re.split(r'\s+', objs):
-+                            o = o.replace('-', '_')
-+                            m = re.match(r'(.*)\.o$', o)
-+                            if m:
-+                                objects.setdefault(m.group(1), []).append(var)
-+        except OSError:
-+            continue
-+
-+    # Get loaded modules
-+    modules = {}
-+    if lsmod_file:
-+        if not os.path.isfile(lsmod_file):
-+            alt = os.path.join(os.environ.get('objtree', ''), lsmod_file)
-+            if os.path.isfile(alt):
-+                lsmod_file = alt
-+            else:
-+                sys.exit(f'{lsmod_file} not found')
-+        with open(lsmod_file) as f:
-+            lines = f.readlines()
-+    else:
-+        lsmod = 'lsmod'
-+        for d in ('/sbin', '/bin', '/usr/sbin', '/usr/bin'):
-+            if os.path.isfile(f'{d}/lsmod') and os.access(
-+                    f'{d}/lsmod', os.X_OK):
-+                lsmod = f'{d}/lsmod'
-+                break
-+        try:
-+            out = subprocess.check_output([lsmod], text=True,
-+                                          stderr=subprocess.DEVNULL)
-+            lines = out.splitlines(keepends=True)
-+        except (subprocess.CalledProcessError, FileNotFoundError):
-+            sys.exit(f'Can not call lsmod with {lsmod}')
-+
-+    for line in lines:
-+        if line.startswith('Module'):
-+            continue
-+        m = re.match(r'^(\S+)', line)
-+        if m:
-+            modules[m.group(1)] = 1
-+
-+    # Build config set from objects
-+    configs = {}
-+    for mod in modules:
-+        if mod in objects:
-+            for conf in objects[mod]:
-+                configs[conf] = mod
-+                dprint(f'{conf} added by direct ({mod})')
-+        else:
-+            print(f'{mod} config not found!', file=sys.stderr)
-+
-+    # Read current configs
-+    orig_configs = {}
-+    for line in config_file:
-+        m = re.search(r'(CONFIG_[A-Za-z_0-9]*)=(m|y)', line)
-+        if m:
-+            orig_configs[m.group(1)] = m.group(2)
-+
-+    valid = 'A-Za-z_0-9'
-+
-+    def parse_config_depends(p, depconfig):
-+        nonlocal repeat
-+        while re.search(rf'[{valid}]', p):
-+            m = re.match(rf'^[^{valid}]*([{valid}]+)', p)
-+            if not m:
-+                sys.exit('parse_config_depends: unexpected')
-+            conf = 'CONFIG_' + m.group(1)
-+            p = re.sub(rf'^[^{valid}]*[{valid}]+', '', p, count=1)
-+
-+            if conf not in orig_configs or orig_configs[conf] == 'y':
-+                continue
-+            if conf not in configs:
-+                repeat = 1
-+                dprint(f'{conf} selected by depend {depconfig}')
-+                configs[conf] = 1
-+
-+    def parse_config_selects(config, p):
-+        nonlocal repeat
-+        next_config = None
-+        while re.search(rf'[{valid}]', p):
-+            m = re.match(rf'^[^{valid}]*([{valid}]+)', p)
-+            if not m:
-+                sys.exit('parse_config_selects: unexpected')
-+            conf = 'CONFIG_' + m.group(1)
-+            p = re.sub(rf'^[^{valid}]*[{valid}]+', '', p, count=1)
-+
-+            if conf not in orig_configs:
-+                dprint(f'{conf} not set for {config} select')
-+                continue
-+            if orig_configs[conf] != 'm':
-+                dprint(f'{conf} (non module) selects {config}, we are good')
-+                return
-+            if conf in configs:
-+                dprint(f'{conf} selects {config} so we are good')
-+                return
-+            if next_config is None:
-+                next_config = conf
-+
-+        if next_config is None:
-+            if config not in defaults:
-+                print(f'WARNING: {config} is required, but nothing in the',
-+                      file=sys.stderr)
-+                print(f'  current config selects it.', file=sys.stderr)
-+            return
-+
-+        repeat = 1
-+        configs[next_config] = 1
-+        dprint(f'{next_config} selected by select {config}')
-+
-+    repeat = 1
-+    while repeat:
-+        repeat = 0
-+        process_selects = {}
-+        for config in list(configs.keys()):
-+            if config in orig_configs and orig_configs[config] != 'm':
-+                continue
-+            short = config.replace('CONFIG_', '', 1)
-+            if short in depends:
-+                parse_config_depends(depends[short], short)
-+            if short not in prompts and short in selects:
-+                process_selects[short] = 1
-+
-+        for config in process_selects:
-+            dprint(f'Process select {config}')
-+            parse_config_selects(config, selects[config])
-+
-+    # Preserve list
-+    preserved = []
-+    if 'LMC_KEEP' in os.environ:
-+        preserved = os.environ['LMC_KEEP'].split(':')
-+
-+    def in_preserved(conf):
-+        kconf = config2kfile.get(conf)
-+        if kconf is None:
-+            return False
-+        for excl in preserved:
-+            if re.match(f'^{excl}', kconf):
-+                return True
-+        return False
-+
-+    setconfigs = {}
-+
-+    for line in config_file:
-+        # IKCONFIG special case
-+        m = re.search(r'CONFIG_IKCONFIG', line)
-+        if m:
-+            if '# CONFIG_IKCONFIG is not set' in line:
-+                print('CONFIG_IKCONFIG=m')
-+                print('# CONFIG_IKCONFIG_PROC is not set')
-+            else:
-+                sys.stdout.write(line)
-+            continue
-+
-+        m = re.match(r'CONFIG_MODULE_SIG_KEY="(.+)"', line)
-+        if m:
-+            orig_cert = m.group(1)
-+            default_cert = 'certs/signing_key.pem'
-+            if 'MODULE_SIG_KEY' not in depends or \
-+                    f'"{default_cert}"' not in depends['MODULE_SIG_KEY']:
-+                print(f'WARNING: MODULE_SIG_KEY assertion failure, '
-+                      f'update needed to {sys.argv[0]}', file=sys.stderr)
-+                sys.stdout.write(line)
-+            elif orig_cert != default_cert and not os.path.isfile(orig_cert):
-+                print(f'Module signature verification enabled but module '
-+                      f'signing key "{orig_cert}" not found. Resetting '
-+                      f'signing key to default value.', file=sys.stderr)
-+                print(f'CONFIG_MODULE_SIG_KEY="{default_cert}"')
-+            else:
-+                sys.stdout.write(line)
-+            continue
-+
-+        m = re.match(r'CONFIG_SYSTEM_TRUSTED_KEYS="(.+)"', line)
-+        if m:
-+            orig_keys = m.group(1)
-+            if not os.path.isfile(orig_keys):
-+                print(f'System keyring enabled but keys "{orig_keys}" not '
-+                      f'found. Resetting keys to default value.',
-+                      file=sys.stderr)
-+                print('CONFIG_SYSTEM_TRUSTED_KEYS=""')
-+            else:
-+                sys.stdout.write(line)
-+            continue
-+
-+        m = re.match(r'^(CONFIG.*)=(m|y)', line)
-+        if m:
-+            conf, val = m.group(1), m.group(2)
-+            if in_preserved(conf):
-+                dprint(f'Preserve config {conf}')
-+                sys.stdout.write(line)
-+                continue
-+            if conf in configs:
-+                if localyesconfig:
-+                    setconfigs[conf] = 'y'
-+                    print(f'{conf}=y')
-+                    continue
-+                setconfigs[conf] = val
-+            elif val == 'm':
-+                print(f'# {conf} is not set')
-+                continue
-+        sys.stdout.write(line)
-+
-+    # Integrity check
-+    for mod in modules:
-+        if mod not in objects:
-+            continue
-+        if not any(c in setconfigs for c in objects[mod]):
-+            print(f'module {mod} did not have configs', end='',
-+                  file=sys.stderr)
-+            for c in objects[mod]:
-+                print(f' {c}', end='', file=sys.stderr)
-+            print(file=sys.stderr)
-+
-+    return 0
-+
-+
-+if __name__ == '__main__':
-+    sys.exit(main(sys.argv[1:]))
-\ No newline at end of file
--- 
-2.43.0
-
+> 
+> -Tony
