@@ -1,85 +1,114 @@
-Received: from mta0.migadu.com (out-93.mta0.migadu.com [91.218.175.93])
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A95B367B96
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.93
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792304564; cv=none; b=oa+F0qqghAFN1ichCh0dNate8xEKrZQ3CwmTZBn45t//QuGSi9JCbIdrWd6MIj+8KAKbmyDAOUswpc4GzOgB4cQ/wN8ANDiVNPU+iEm9ZpceRM4U35C2LvoOGCk1jz+Ewg5+Zo3GETNGUtXky/mQbfg+rnM0UKMcN2FGSRM9c1s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792304564; c=relaxed/simple;
-	bh=L5Dnhm6NG0TC7wQ45/nC5deJSj63hjDiiipgdq6joRs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ElLQbtLISQQkphdBje8mztIlXa8TCdyHxX8JiTUYRrpH8IlpSNlfTycPFPEa4S4v+tuaYM8ab05asZV4QQi5DpKL/zu05Ws5v3RL5u0ExIPMpek+8Yr/7BiF5yJ5/WKRajVjmY6F+nKQNCgpIejtylRSdwM/0ymKapNjhy9f2/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OsHCmT4y; arc=none smtp.client-ip=91.218.175.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4681D35F184
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792304568; cv=pass; b=G2VIzAk5ItekZqt7jGt3vNutDDICHEzjF64L8SxOo+Xo8ZHvW4izqJuJ4DCyPpNqYwOM2a3n28l3ZCa4TA1mg6rSC0kZFW+/x1roWV0klnvaO4TO/PK5teDeuup7mLJSETuf47lFs/OSZZKnOtB2dSOHkP7LzfWDv0NTAdaQRCk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792304568; c=relaxed/simple;
+	bh=HlmuKfI3kJB59+iXbrxqBJk3gEIqwcG51Ecw2r8EOIE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IQXI6xtrTktNzNYTvBfStaAX6fPHBGAJ/aQeDiUlVBCwg8EPRw/GE25mQgDTb/z72jbIdYJiiRsm52+LMTWWucvtDPbz+AnbDYgdFga2juC0GZZQJrBuQGCZaLzkSmz3KiOGa85RzE7u9u8G6DM9Jg8L8cznrOlbQE6hHV7eKnM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PhDh+qrO; arc=pass smtp.client-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OsHCmT4y"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=L5Dnhm6NG0TC7wQ45/nC5deJSj63hjDiiipgdq6joRs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792304561; v=1; x=1792909361;
- b=OsHCmT4y/LajFmI0bK7LG2zgbrqRqa+ldNTsDcfgUbYxYYHDLVh5KAERwWpzGFekusOTShiS
- bgOyjNeY1r9LTv8EbaSHJolXmvehSG/DyoLfdzRZ+92zM1tT5zw+5jIXa1FHjRrFmipVxmdMoo2
- ceGX8Fs+qtXYggUpm/R+I9Tg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 582e136e2d86482f;
-	Sun, 18 Oct 2026 06:22:41 +0000
-X-Mizu-Trace-ID: 582e136e2d86482f
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	agl@us.ibm.com,
-	mel@csn.ul.ie,
-	riel@surriel.com,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org,
-	josef@toxicpanda.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 03/10] mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()
-Date: Sun, 18 Oct 2026 14:22:35 +0800
-Message-ID: <20261018062235.15630-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261015-urgent_fixes-v1-3-42796911043b@kernel.org>
-References: <20261015-urgent_fixes-v1-3-42796911043b@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PhDh+qrO"
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6dcf573c429so785669eaf.2
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 23:22:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792304566; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Joia7Cy1NydVjPNHLJgHiLB+bvQ47VUsf37v/GwJ96jWx1BMBoY4FZTR2G5VvlIU1q
+         RvVqibb97Qgfs95n/KI62pZHSy9jN9aLE/6Oa4ydSLNeJnLRx1kEv9wzTHOZlRC+9XVG
+         qUKtKczcai/qXmtSdNPtkd21JyqSduq9kghtplcgwVzkP1WPz0f2v8yrcTRVUiYZaoiO
+         YChUugldRZjap582msVbW9uzrK+j0pyFGnIJ+02ARg44DHamqVUFsBWw4gVOtQA2+aHC
+         10XjczJpmDyauvzahfF/AKzegPF9ZjMw8MxareBXVawJob5d+8U0dT5+GcfLOPawpgNq
+         t6MA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=HlmuKfI3kJB59+iXbrxqBJk3gEIqwcG51Ecw2r8EOIE=;
+        fh=YXTF7nkMcq1J/RDi6LdxiqaLpEhJG46kiNoWY3x44m4=;
+        b=qZaSA/3jZfw+Lt4ncdBMgVeorcnywLq+PH7R4rJAAdBIFuhV1uXYkLfSSFW8jvzRYk
+         FCRZe+O3wckjJ7G/50yB+3cfePUJ6UsGhyNItsffMsxnjchn9mR5lCq5uykF6/HadZDG
+         8rEfK8/QySTqlLc/mKv092hlEJx+iAiRi8dQ+TteDg6H3oUqqEhRwH+5fS2nJzO1qxdI
+         wa4hgVPCoFwQe+T9IH36/3E/16gdecMSDGnk3d860ajtRyGj66dWy8KqSqOP3ijUNopW
+         dC6gCh6oQ+8xZSNvubRDHjAhbcH11JeCxbhJFbV7pjpOBUYZ5a1K3g6lpyrm8VtD1VjZ
+         adDQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792304566; x=1792909366; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HlmuKfI3kJB59+iXbrxqBJk3gEIqwcG51Ecw2r8EOIE=;
+        b=PhDh+qrOhxN77Im0x/CueAthayuaBjMkGBIkEp+yKQ2fsOeRAU8FUWk0P6oy+dhH44
+         Qv2ArKugNW7pjoiALVApj0wCwrEMqm3ukBFPS07qWoo/Ak6DHA7Ubg7ex4kaB0RaAsnD
+         E6Z7lXKG3WLfuVQH78+Sdp4ARVS+f0q0LripIU00IGzN2iiXYBSQd86EThnGbaieRGqu
+         rAbyntrQiEZxRIO49tTDbs8hQ8VFDlvTbzLUBI9M2OTR50Trvu5lt3QfVZPxmQw4B9ux
+         21DSgLfdnaX0fxpdySGIsxsW6yeD62HH0t0g5ZhScXUt7pP0pkEOTcV8b/uui2XYXaG2
+         I3KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792304566; x=1792909366;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HlmuKfI3kJB59+iXbrxqBJk3gEIqwcG51Ecw2r8EOIE=;
+        b=KqAEh1cesL2gybK9Ffd+6DbD/eFnIx15CXsFDZWFERDsWvMtcacULis2LeflvBCDYu
+         cCbWvEctoR0ewRaTBRo2io3qZ59RFxa/HeOQRCUXCdH6aQddcDxvXzAgmLaYrIAr9qHe
+         NI6dkHfSPOHKNno3fwBuuUOXxE/dzaUSCSufK8FZkXRVQJ5R7bLtVJXOr4qyDvrlZHTc
+         tS5Q2OfRN4ZCicxYXbW9X7t0GGKtH7HI4LsrraP3IZVz8Sy9ZNzgGLZ3AMPzgCHaD1ju
+         jIxALdExXsE4zKwsnCmlIQohrmGadyiSW5OupPhdt9NOr291XoSFV9YWd6GXT8Y/5S2t
+         xmpA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3sF84HpY9nH/GI0ZCc1Wd7gZpoM/xZFSQZdqkP2XeHJOC9eabaXdeX63q6ESNXqVJxk757ByGA6s4EQU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5/AeQJ91bICZe18rKIuTNp04Sw2S2KzDK0zQ05C1GTbN6QY2i
+	LWIV0KRWzi4Z6VMK1GbpEh4BExSFSA0mxoJTTpu5v7vnqTxo1vTHr1Uo7A4b1zgMjWrNQ064p1J
+	Gn6fnOnOkVCAPbcSkrXMRY1H31x6/q4A=
+X-Gm-Gg: AYBFou1joHKkhs5fcW5Ap1rq6z+nsTDHL/umAOZJBm/FPiq5mihjxncUP5Y0mo0/KLQ
+	rJNVXnE6yQm1dnvMZJMhzEqVWL/u7wl3eWUfOOV5cLwEPSdkMntNOX9BhfqXM3ES1z+VOSUnNes
+	cZ1tRRysPT8Zz88KJBft+i5WxKl3rjfcdH0WRiNCULS148/Grsfg0mVIJad5ZW1y09U8bMMxVJd
+	foESiIWwQtxdPKMuTIOgnB8UTlboNTej70ANxBZ++e6W4uAs984nJrs6c8lnG8Zsp4fSndfJj1I
+	l/yDQLO40/YCj7uGdgZtEb3N9emHi8MpsHwd2BEzP1jxU083CZ+DIfGq
+X-Received: by 2002:a05:6820:4b8d:b0:701:795:4eea with SMTP id
+ 006d021491bc7-70357495e00mr3531298eaf.62.1792304566146; Sat, 17 Oct 2026
+ 23:22:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261014091111.20059-1-abdelnasserhussein11@gmail.com> <20261017231747.4906975c@jic23-hlaptop>
+In-Reply-To: <20261017231747.4906975c@jic23-hlaptop>
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Date: Sun, 18 Oct 2026 09:22:35 +0300
+X-Gm-Features: AclHuK_Ca_Uy-OZ7tfLlUzH9RqHtWG8Rwb9-cwyEYDkMviqvqgdGx4a3apmhzxQ
+Message-ID: <CANpqX3YDqtqGeeqscxF0YqMWMmSB9fpkMbxapq8WbbZWSQH=EA@mail.gmail.com>
+Subject: Re: [PATCH v3] staging: iio: adt7316: use kstrtobool() for sysfs
+ boolean parsing
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: gregkh@linuxfoundation.org, dlechner@baylibre.com, nuno.sa@analog.com, 
+	andy@kernel.org, u.kleine-koenig@baylibre.com, joshua.crofts1@gmail.com, 
+	linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Jonathan,
 
-On Thu, Oct 15, 2026 at 06:07:09PM +0200, David Hildenbrand (Arm) wrote:
->Let's fix another instance where we use a folio after dropping the PTL,
->where someone else could e.g., MADV_DONTNEED it once we drop the PTL,
->making us trigger a use-after-free on the folio.
->
->Fixes: cb6acd01e2e4 ("hugetlbfs: fix races and page leaks during migration")
->Fixes: 1c9e8def43a3 ("userfaultfd: hugetlbfs: add UFFDIO_COPY support for shared mappings")
->Cc: stable@vger.kernel.org
->Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+Thank you for your feedback.
 
-Nice work!
+I apologize for the confusion regarding Joshua's tag. When Joshua
+reviewed v1, he pointed out the necessary fixes and concluded with
+"Otherwise LGTM." Therefore, I mistakenly assumed that I was required
+to add a "Reviewed-by" tag for him in the next version to acknowledge
+his review.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Thank you for clarifying this for me, and I hope it didn't cause too
+much extra noise.
+
+I also really appreciate your encouraging words about these small cleanups.
+
+Best regards, Abdelnasser
