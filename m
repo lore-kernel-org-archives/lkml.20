@@ -1,109 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.unwrap.rs (mail.unwrap.rs [172.232.15.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37583DCDA3;
-	Sun, 18 Oct 2026 16:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE517286A5;
+	Sun, 18 Oct 2026 16:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=172.232.15.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341623; cv=none; b=uHWX+V29Gk8gEb23isYsG7DI+WVy3Mj+TzOCGDDdh95jjMrlbsvL4XoTjq/AfV70znZ5bAbrnejq0e9g0giHkPyFBdSRhiFjQhB5ze7n2Zc8HAERydQOiuVzj2COvcfkkKX4DxnQ8uPPOg7BRR16rK3qooyAUdy8UEV22fsACAE=
+	t=1792341640; cv=none; b=V0ERtia9+oIDeu6JbGyZ8ifYERAGS07PdOAAXVaZx+SLKFk7Cb7YPqcN82en+9DPuCHDh8MYuynVmAQQ34RADi6d3vVYvvJ86qbsMu19ml+EXRKH4WLu6p8AgrOAP2cCi8U+8Z8W700QL/XjkDDMoi6T9xubwI/Q5GFkuDCbK1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341623; c=relaxed/simple;
-	bh=FWWx4ZDDiefNjXUI40xB48tjNw6eYDDMGUG7UkGpCvQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iEbHYHyxpfFyGDXBp6R7fvQ8I8ggZgQASKO1GoKEY9Z+GWidcSjX+hUjId4m4JcOgy3JfxvILZ3AKwbitmJwkGDkbNwfrtoB1U9OQfMvuqGhDDhfZFPly+G3WfED6YEPYYDiMtSn5ugXLyHZQmZEqCK26vzEmwp7ycBUL/Lb1c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Vd68iNZi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792341640; c=relaxed/simple;
+	bh=srs7dtHAwwNYQ2JL1zx6Oix5Hvf9coSfZJceTwN2lUo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CATewN9LN3GyS0ygUudtFnkAMawVsL8SFmpB6zgQy7yn85MTsLblMsDARNmwYRLomHYr0DDbj243m8yQHfjI/HOVwvTlK/Ky0/PsR1Aklx6eRYPkmgHKwg68riNPKu0aHVbNq6Fep6JrPYUZfq3BzrKs8To468Y2maAUBJ5SBwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs; spf=pass smtp.mailfrom=unwrap.rs; dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=PSoKXqHm; dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=SM7wkrlC; arc=none smtp.client-ip=172.232.15.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unwrap.rs
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Vd68iNZi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE551F000C4;
-	Sun, 18 Oct 2026 16:40:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792341620;
-	bh=oqQrhlRf8+x6VkzRmu9l8lO/YsPfcMgj53KVL4Drs3g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vd68iNZij3CfVWSXBbbAj08PC725nSk5NIW90FA3PFGtaSQz28KaxR5DCWMfSSMdc
-	 YJLxJV7BUepHrPYeGxt6m1Rkj+cMaYat9upaFWCiqv+gVQwsPHvFjp0jcfogyf+0fd
-	 +Z1diFWo7Q5IufixqWZoNc/RD39EHB839rIxLPSk=
-Date: Sun, 18 Oct 2026 18:38:39 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Eklavya Singh <eklavyasingh2106@gmail.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+1459655b2bf1e798f9d0@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: gadgetfs: fix use-after-free after a failed bind
-Message-ID: <2026101825-glacial-slapstick-a133@gregkh>
-References: <20261018163434.129569-1-eklavyasingh2106@gmail.com>
+	dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="PSoKXqHm";
+	dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="SM7wkrlC"
+DKIM-Signature: v=1; a=rsa-sha256; s=202503r; d=unwrap.rs; c=relaxed/relaxed; r=y;
+	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341631; bh=pCKsnZzzQU
+	klhIVb1fk/+cwj/EuYdFTeu++dyamkAVY=; b=PSoKXqHmBchRCTMc5+EKjF5dszSgV+ObJ01Y1
+	BAjc9Ii87VIbx0NlAar2sTTxyfAcYX7ck8cM5QMyeheO25w9t7ZF0XvwrTQVw4Eo15lafzGKmlg
+	RptQrdteUh79Q1sgaNkaoXdNNTmQsEswA2fKewCD7LgErpMSkAyeSfxb7TOdiRLNWAY9ZbLWbko
+	cVvXzWlv9BkVU/6e5IovnFjuPBsWEuc8JkWh6uHZdNEJNWSAQANdHr7Rt9n384XQe0+41e1DEck
+	FmkLyoYts751EH4HDHiFKccZuoWdh3Gw4XyC6C4LQHQnh2hOOvYcfOWDOBA7iwZyTO1a8Z2L1TL
+	6jihA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202503e; d=unwrap.rs; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341631; bh=pCKsnZzzQU
+	klhIVb1fk/+cwj/EuYdFTeu++dyamkAVY=; b=SM7wkrlCJ4TS0vGLHKaAH6kK113CTacLkka6r
+	vH10j+teN56a6F9VhL7f2pbvgDZFH8tv6Gcm3R/BoklHv9DBw==;
+From: Cole Leavitt <cole@unwrap.rs>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Cole Leavitt <cole@unwrap.rs>,
+	Pavel Machek <pavel@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] PM: hibernate: Don't lose create_image() errors to arch_resume_nosmt()
+Date: Sun, 18 Oct 2026 12:39:42 -0400
+Message-ID: <20261018164004.132785-1-cole@unwrap.rs>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018163434.129569-1-eklavyasingh2106@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 04:34:34PM +0000, Eklavya Singh wrote:
-> gadgetfs_bind() takes its reference on dev_data only right before it
-> returns success, but its error path calls gadgetfs_unbind(), which
-> always calls put_dev(). So when bind fails it drops a reference it
-> never took.
-> 
-> With ep0 open the count is 2, one for the superblock and one for the
-> open file. A failed bind takes it to 1, closing ep0 frees dev_data,
-> and the superblock still points at it. The next open of ep0 then takes
-> dev->lock on freed memory:
-> 
->   BUG: KASAN: slab-use-after-free in _raw_spin_lock_irq+0x3d/0x50
->    gadget_dev_open+0x4b/0x1b0 drivers/usb/gadget/legacy/inode.c:1919
-> 
-> syzbot gets there by making an allocation in bind fail, which is the
-> "failed to start USB Gadget filesystem: -12" message right before the
-> report.
-> 
-> Take the reference before anything in bind can fail, so that
-> gadgetfs_unbind() always has one to drop.
-> 
-> I tested this on dummy_hcd by writing a config to ep0 with fail-nth
-> set and then closing and reopening ep0, for every fail-nth value the
-> write goes through. Without the patch KASAN reports the use-after-free
-> right after the first failed bind. With it, 122 failed binds give no
-> reports and the last bind works.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: syzbot+1459655b2bf1e798f9d0@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=1459655b2bf1e798f9d0
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
-> ---
->  drivers/usb/gadget/legacy/inode.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-> index 67c6ffaf4..f5b97dcd4 100644
-> --- a/drivers/usb/gadget/legacy/inode.c
-> +++ b/drivers/usb/gadget/legacy/inode.c
-> @@ -1688,6 +1688,7 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
->  		return -ENODEV;
->  	}
->  
-> +	get_dev(dev);
->  	set_gadget_data (gadget, dev);
->  	dev->gadget = gadget;
->  	gadget->ep0->driver_data = dev;
-> @@ -1706,7 +1707,6 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
->  	spin_lock_irq(&dev->lock);
->  	dev->state = STATE_DEV_UNCONNECTED;
->  	spin_unlock_irq(&dev->lock);
-> -	get_dev (dev);
->  	return 0;
->  
->  enomem:
-> -- 
-> 2.55.0
-> 
+create_image() calls arch_resume_nosmt() on every path that returns
+with in_suspend cleared and assigns its return value to error.  That
+includes the error paths taken when pm_sleep_disable_secondary_cpus()
+or syscore_suspend() fails, which jump to Enable_cpus/Enable_irqs.
 
-Isn't this already fixed in the usb-next tree?
+When SMT is not disabled (for example on CPUs without SMT, where
+cpu_smt_control is CPU_SMT_NOT_SUPPORTED), arch_resume_nosmt() returns
+0, so the failure is lost:  create_image() returns 0 with in_suspend
+unset, hibernation_snapshot() treats that as a successful restore and
+hibernate() reports success to user space although no image was
+created.  A wakeup event that aborts image creation in syscore_suspend()
+is thus indistinguishable from resuming a hibernation image.
 
-thanks,
+Only call arch_resume_nosmt() when image creation succeeded.  Failures
+now propagate, so a wakeup event that makes syscore_suspend() fail
+returns -EBUSY to user space, like wakeup aborts in freeze_processes()
+and dpm_suspend() already do.
 
-greg k-h
+Fixes: ec527c318036 ("x86/power: Fix 'nosmt' vs hibernation triple fault during resume")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cole Leavitt <cole@unwrap.rs>
+---
+
+Notes:
+    Tested on a Lenovo ThinkPad P16 Gen 3 (Core Ultra 9 275HX, JHL9580
+    Barlow Ridge host, I226 Ethernet), in daily use since 2026-09-17.
+
+ kernel/power/hibernate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+index c13f68ab7f6e..f53f844114a1 100644
+--- a/kernel/power/hibernate.c
++++ b/kernel/power/hibernate.c
+@@ -380,7 +380,7 @@ static int create_image(int platform_mode)
+ 	pm_sleep_enable_secondary_cpus();
+ 
+ 	/* Allow architectures to do nosmt-specific post-resume dances */
+-	if (!in_suspend)
++	if (!in_suspend && !error)
+ 		error = arch_resume_nosmt();
+ 
+  Platform_finish:
+
+base-commit: 32c52ec87d6245ee2d12ed5dd509e40062939b50
+-- 
+2.54.0
+
