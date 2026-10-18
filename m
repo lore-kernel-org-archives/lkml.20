@@ -1,600 +1,199 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8729F39E6F8;
-	Sun, 18 Oct 2026 16:08:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 677B03B442F
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792339689; cv=none; b=d0LFK2IZZgayAmQR2pzUV9W6rNIcA8uBiqoEx008TcXD6ukiuxGrDe1ukscasTtso6cYea88RdPAKT4j6E7kxCLLwuM+ILu2K84naGpyv9sQqZV8wqcDajDljSjm5nq8MCbijRuk/IZum6+M1GPG4TiMfGCHtougYfWABTS7TPQ=
+	t=1792339795; cv=none; b=oSEQRidQs1Hk8TxLlaj9bqQU9hugge6GfaFfVcW/iaIJTL3RA678dNoazqUQTQBToLIvOxDnyA8O7L2dZIBq6Sah3mzfitqiLBMzPnm76w9g4i4l5XBPwhLZFFSF7A9AAbfujAV6FuQ4zbrbUmnnVq4uth1+vbB5gTVfg/eHRCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792339689; c=relaxed/simple;
-	bh=Wsr6bXNmZRkZP+EAo65pdu+n2DgWCx8LmeI+fM+gN9s=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SBSqQmIYPRYormiI7ZiWcM8g6tUqNzQ2dpPb3R6w7ciKDksY4zPVcWgmcFnWiTD98+aT0+aBovseTzEwQzj3/mzar6rV6+N2cjjNwZtNTPmDam88FXxvabEf8DzQCFEnOEaxqustQ++RYlm03XBCRCeufwIDZF3ZiuyZ+izzGZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=pQ3cZvF4; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1792339795; c=relaxed/simple;
+	bh=K7+HPRoT8cC9vA5FhgvhzRNw1g9Mo76Ky1GUeYVLRfM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P3VZS2wrLzP278iC5ANd7en41aPGqKn5eeEwRX+EIJGjGgQLkkuz6jGqcD+YPk6u2oWZ34TcdN+t2P3cH6lgOeTJvmPUPRCOYqu47h1ZAHiHLSLQ13NjXFGEdFWw3TpUh+NE3T0SIlOcwUkfnB1gDgp5vrUdfDtPJHjHe6kaYkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hIxOpE27; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="pQ3cZvF4"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69IG6rssE1115124, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1792339614; bh=FsRmFlz9ZRObrfMNJVu6TCNHRLgfKJUWa3/EYFyN+Ws=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=pQ3cZvF4IKJo93T2LNQRcnNtQEw/NI4AUYABx1JpFaqGyzyKJjCXmJkyDulEwS7Ed
-	 yyLA6WWGxF40a1X5dfUPS4w+X1DNRO+pKxcK7hnqOHW5VkyQQDheFgMsR/4CalF4YW
-	 fBzHLN2mlX1DCleZBfP9mLBzy3VvRLR0ChG0NGeXpvA9QcOA73zSBqql1ZsW6tuttq
-	 7ENYoDP4yJdH4gth1jdRFxttTvys7TD64sSCl+NQ2sQLK+SOUr235yYRd0Tu9gXer2
-	 9C04gwz9Prr7uRh/JiHU5f6HPbywu5D3JZOZda7i1vGMaZM6ZEqOeEbwhP9Bk5vQ4v
-	 JnyxfnjXUVsPA==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69IG6rssE1115124
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 19 Oct 2026 00:06:53 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 00:06:54 +0800
-Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS06.realtek.com.tw
- (10.21.1.56) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Mon, 19 Oct 2026 00:06:54 +0800
-From: Yu-Chun Lin <eleanor.lin@realtek.com>
-To: <tglx@kernel.org>, <radu@rendec.net>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <lee@kernel.org>,
-	<afaerber@suse.com>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<mfd@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-realtek-soc@lists.infradead.org>, <james.tai@realtek.com>,
-	<cy.huang@realtek.com>, <stanley_chang@realtek.com>,
-	<eleanor.lin@realtek.com>
-Subject: [PATCH v5 4/8] irqchip/realtek-intc-common: Add basic support for Realtek DHC SoCs
-Date: Mon, 19 Oct 2026 00:06:49 +0800
-Message-ID: <20261018160653.3940371-5-eleanor.lin@realtek.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261018160653.3940371-1-eleanor.lin@realtek.com>
-References: <20261018160653.3940371-1-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hIxOpE27"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso114673eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:09:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792339791; x=1792944591; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ltRwcLJB2IvTeYU1P4tvckFXLR/qTUoJOrgmykztVO4=;
+        b=hIxOpE27TBfTd9z+/+LRrmHxFaBFUK02GZk2NjHeQZhrilLl35DZPUGoSGyKspiRYc
+         w6B14WFbVzsVyYd3htwhh5wECpHyZhTbqreTE0sMwinZwtHooW3vXwgKg5pfrrsC+Yll
+         BxgrdNEEdRwnNkCflDm+PktPFkRb3vmca04vOPDNiIZPIWuaJF1y5GqctM/xCMK+oAog
+         kwAsNMfs/qcojris8KuT5Bqgga35j1BrnxpStdJ66+wtXKZ6HCObC6TwY4gYK9JSs72L
+         35DE6ZDgdu3Mk+BpEMTqtcOcsQDtCmJfrUcFexvkGxt3m0xC5vle/I31SXI7ZxZoswu/
+         7qsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792339791; x=1792944591;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ltRwcLJB2IvTeYU1P4tvckFXLR/qTUoJOrgmykztVO4=;
+        b=16IsL8h4a4zUqRpC/l/ATU7nlwPISHCq/DL5XVm40vX/YDqcAyTb4iBXaq3T49Y8fF
+         71e3kdGgKGHqX3qYQmvSvSa69YdEexvP7mkMzTBQyQFkUdnVlTlkWqw7iY1vD+GXa80u
+         CoBdG/JoGlp50ovLoBgli8BrizI9ch8Zo5H7vrfRH8BqqfEwX1tNTne8FXuDBhrA42NK
+         cuaQ76eDa1UAoOEu4OsVnkvIVC215S23u0cud+nyM984iaJqZmdhOskB0PDvR8MOHth9
+         0BbDKwucb7nIlsILrcTWtvHgwKxZJwXR/kbmir9MND6YYgeLGFhMmx3J+2rY7pAs8d60
+         9KYg==
+X-Forwarded-Encrypted: i=1; AKwUvBwKiBw1xlmWJo0lhmlpLElmv+0vSsgLlCWugy57Eut84I4PwiHVH5/G9Wru4PqPftDLEphczfohkWWCRoI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2bdLlPMyPjH4VO15cEIS1dcW0wBrWUPml7KYZlo8MrEEXNl5w
+	OvV5Y8tT/uSJH84YCRQf2+7G5box+vnx8yWz493FypoBCmwvmbp2/Hnq
+X-Gm-Gg: AYBFou00KaA0ZjfJ7H2WjON86TYI0Sy5l22hHcs7hA4C1knYSQzqXo9iHJzQav8L07P
+	eWLHP2pnUpypcz/8i3t3BuNGv7v6moe5bbF5YS17UZMKaF8HR00cEtHdU0QwOGF4O2yewtYs+vN
+	2SxKlMsD1iuboZ1d7r3JS7Ee6kPYkETinquJIl7V7Yg/wsF6QHQHzV21b+CKkdmutsxnDAQw4E+
+	GkXgu5u+kuhJ5rLi2T1vYE43T7DWWgOVaHUae8y8X1Di8UKieAUjt/KD0R/6Zo/od2ecFJqUFxa
+	hLyK+Oza5IrM44wiKQv2gNfFvqy4z/oGJ3auO6UlmghxLGgWtoL7SAB9T/R+FuCn95vLOhHLGGX
+	XBMnc7qyIG8Z5dfE+1bKo+SC/WdU16TOKWLxnc0Xs7ZpMBPPHXkognpzKpQuiwvOhDZKCtwKU54
+	r3mmf11CuY4KuxY1ri/0OmzWHn8d/gIgYnVedq080bfS+CrvhOkALEcCvUcelQKF8AUIxky8UpU
+	6dCvwt4TP9I
+X-Received: by 2002:a05:701b:21c7:b0:168:6ad8:e8c6 with SMTP id a92af1059eb24-18512c382d1mr7146694c88.15.1792339790889;
+        Sun, 18 Oct 2026 09:09:50 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm28812835c88.16.2026.10.18.09.09.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 09:09:50 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 18 Oct 2026 09:09:49 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Cc: david.nystrom@est.tech, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	ricardo.neri@intel.com
+Subject: Re: [PATCH v2] hwmon: (coretemp) Return -ENODATA for invalid
+ temperature readings
+Message-ID: <ef041f4b-4592-4693-a9d7-a5c82aab9c77@roeck-us.net>
+References: <20261006-coretemp-enodata-v2-1-64e788acc7dc@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006-coretemp-enodata-v2-1-64e788acc7dc@linux.intel.com>
 
-From: James Tai <james.tai@realtek.com>
+On Tue, Oct 06, 2026 at 06:04:56AM -0700, Ricardo Neri wrote:
+> IA32_THERM_STATUS and IA32_PACKAGE_THERM_STATUS have a valid bit, bit 31.
+> The Intel SDM documents it only for the former, but the package register
+> implements it too: x86_pkg_temp_thermal has required it since commit
+> f1a18a105660 ("Thermal: CPU Package temperature thermal").
+> 
+> This driver checked the bit for both registers as well, until
+> commit bf6ea084ebb5 ("hwmon: (coretemp) Do not return -EAGAIN for low
+> temperatures") made it ignore the bit because some CPUs clear it while
+> the temperature is too low to be measured. Since then, temp%d_input
+> reports such a reading as a real temperature. Userspace cannot tell it
+> apart from a genuinely low one.
+> 
+> Fail the read with -ENODATA while the CPU reports the reading as invalid.
+> On a CPU that clears the bit, reading temp%d_input now fails where it
+> used to return a low value. sensors(1) shows N/A in its place.
+> 
+> Suggested-by: Guenter Roeck <linux@roeck-us.net>
+> Link: https://lore.kernel.org/all/46f9f319-de71-412f-a424-6cb801478456@roeck-us.net/
+> Signed-off-by: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
 
-Realtek DHC (Digital Home Center) SoCs share a common interrupt controller
-design. Introduce a universal interrupt controller driver to provide
-support for various variants within the Realtek DHC SoC family.
+Applied.
 
-The common code introduces 'struct realtek_intc_desc' to describe one or
-more sets of interrupt status and enable registers and allow the common
-code to support both single- and multi-bank interrupt controllers.
+Thanks,
+Guenter
 
-There is a unique hardware routing quirk:
-Some peripherals have their interrupt lines routed directly to the GIC but
-still share the same status register within this IRQ MUX. To prevent the
-MUX handler from clearing and stealing these interrupts from the direct
-GIC handler, the driver employs a mask mapping array
-('isr_to_scpu_int_en_mask').
-
-In addition, to handle Wire-OR shared interrupts, this driver introduces a
-'shared_irq_mask' in 'struct realtek_intc_desc'. It allows the driver to
-dynamically register shared lines using devm_request_irq() with
-'IRQF_SHARED | IRQF_NO_THREAD'.
-
-Signed-off-by: James Tai <james.tai@realtek.com>
-Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
----
- MAINTAINERS                               |   1 +
- drivers/irqchip/Kconfig                   |   5 +
- drivers/irqchip/Makefile                  |   1 +
- drivers/irqchip/irq-realtek-intc-common.c | 353 ++++++++++++++++++++++
- drivers/irqchip/irq-realtek-intc-common.h |  93 ++++++
- 5 files changed, 453 insertions(+)
- create mode 100644 drivers/irqchip/irq-realtek-intc-common.c
- create mode 100644 drivers/irqchip/irq-realtek-intc-common.h
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 782389bd5cd3..aae6d91fe39e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3485,6 +3485,7 @@ F:	Documentation/devicetree/bindings/arm/realtek.yaml
- F:	arch/arm/boot/dts/realtek/
- F:	arch/arm/mach-realtek/
- F:	arch/arm64/boot/dts/realtek/
-+F:	drivers/irqchip/irq-realtek-intc-common.*
- F:	drivers/pinctrl/realtek/
- 
- ARM/RISC-V/RENESAS ARCHITECTURE
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 20b77fbc51ee..cddbf9915510 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -282,6 +282,11 @@ config RDA_INTC
- 	bool
- 	select IRQ_DOMAIN
- 
-+config REALTEK_DHC_INTC
-+	tristate
-+	select IRQ_DOMAIN
-+	select MFD_SYSCON
-+
- config RENESAS_INTC_IRQPIN
- 	bool "Renesas INTC External IRQ Pin Support" if COMPILE_TEST
- 	select IRQ_DOMAIN
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index ab33cccd8471..bc8f5c534a4a 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -48,6 +48,7 @@ obj-$(CONFIG_IRQ_MIPS_CPU)		+= irq-mips-cpu.o
- obj-$(CONFIG_IXP4XX_IRQ)		+= irq-ixp4xx.o
- obj-$(CONFIG_JCORE_AIC)			+= irq-jcore-aic.o
- obj-$(CONFIG_RDA_INTC)			+= irq-rda-intc.o
-+obj-$(CONFIG_REALTEK_DHC_INTC)		+= irq-realtek-intc-common.o
- obj-$(CONFIG_RENESAS_INTC_IRQPIN)	+= irq-renesas-intc-irqpin.o
- obj-$(CONFIG_RENESAS_IRQC)		+= irq-renesas-irqc.o
- obj-$(CONFIG_RENESAS_RZA1_IRQC)		+= irq-renesas-rza1.o
-diff --git a/drivers/irqchip/irq-realtek-intc-common.c b/drivers/irqchip/irq-realtek-intc-common.c
-new file mode 100644
-index 000000000000..cc08535217bd
---- /dev/null
-+++ b/drivers/irqchip/irq-realtek-intc-common.c
-@@ -0,0 +1,353 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Realtek DHC SoCs interrupt controller driver
-+ *
-+ * Copyright (c) 2023-2026 Realtek Semiconductor Corporation
-+ */
-+
-+#include <linux/interrupt.h>
-+#include <linux/irqdomain.h>
-+#include <linux/irqchip/chained_irq.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+
-+#include "irq-realtek-intc-common.h"
-+
-+static bool realtek_intc_dispatch(struct realtek_intc_subset_data *subset_data)
-+{
-+	const struct realtek_intc_info *bank_info = subset_data->bank_info;
-+	struct realtek_intc_data *data = subset_data->common;
-+	u32 ints, inte, mask, val;
-+	irq_hw_number_t hwirq;
-+	bool handled = false;
-+	int irq;
-+
-+	if (regmap_read(data->base, bank_info->isr_offset, &val))
-+		return false;
-+
-+	ints = val & subset_data->subset_mask->ints_mask;
-+
-+	if (!ints)
-+		return false;
-+
-+	if (regmap_read(data->base, bank_info->scpu_int_en_offset, &inte))
-+		return false;
-+
-+	while (ints) {
-+		irq = __ffs(ints);
-+		ints &= ~BIT(irq);
-+
-+		mask = bank_info->isr_to_scpu_int_en_mask[irq];
-+		if (mask != IRQ_ALWAYS_ENABLED && !(inte & mask))
-+			continue;
-+
-+		hwirq = (subset_data->bank_idx * 32) + irq;
-+
-+		if (!generic_handle_domain_irq(data->domain, hwirq))
-+			handled = true;
-+
-+		regmap_write(data->base, bank_info->isr_offset, BIT(irq) & CLEAN_INTC_STATUS);
-+	}
-+
-+	return handled;
-+}
-+
-+static void realtek_intc_handler(struct irq_desc *desc)
-+{
-+	struct realtek_intc_subset_data *subset_data = irq_desc_get_handler_data(desc);
-+	struct irq_chip *chip = irq_desc_get_chip(desc);
-+
-+	chained_irq_enter(chip, desc);
-+
-+	realtek_intc_dispatch(subset_data);
-+
-+	chained_irq_exit(chip, desc);
-+}
-+
-+static irqreturn_t realtek_intc_shared_handler(int irq, void *dev_id)
-+{
-+	struct realtek_intc_subset_data *subset_data = dev_id;
-+
-+	if (realtek_intc_dispatch(subset_data))
-+		return IRQ_HANDLED;
-+
-+	return IRQ_NONE;
-+}
-+
-+static void realtek_intc_mask_irq(struct irq_data *data)
-+{
-+	struct realtek_intc_data *intc_data = irq_data_get_irq_chip_data(data);
-+	const struct realtek_intc_desc *desc = intc_data->desc;
-+	const struct realtek_intc_info *bank_info;
-+	int bank_idx, bit_idx;
-+	u32 mask;
-+
-+	bank_idx = data->hwirq / 32;
-+	bit_idx  = data->hwirq % 32;
-+
-+	bank_info = &desc->banks[bank_idx];
-+
-+	mask = bank_info->isr_to_scpu_int_en_mask[bit_idx];
-+	if (!mask || mask == IRQ_ALWAYS_ENABLED)
-+		return;
-+
-+	regmap_assign_bits(intc_data->base, bank_info->scpu_int_en_offset, mask, false);
-+}
-+
-+static void realtek_intc_unmask_irq(struct irq_data *data)
-+{
-+	struct realtek_intc_data *intc_data = irq_data_get_irq_chip_data(data);
-+	const struct realtek_intc_desc *desc = intc_data->desc;
-+	const struct realtek_intc_info *bank_info;
-+	int bank_idx, bit_idx;
-+	u32 mask;
-+
-+	bank_idx = data->hwirq / 32;
-+	bit_idx  = data->hwirq % 32;
-+
-+	bank_info = &desc->banks[bank_idx];
-+	mask = bank_info->isr_to_scpu_int_en_mask[bit_idx];
-+	if (!mask || mask == IRQ_ALWAYS_ENABLED)
-+		return;
-+
-+	regmap_set_bits(intc_data->base, bank_info->scpu_int_en_offset, mask);
-+}
-+
-+static const struct irq_chip realtek_intc_chip = {
-+	.name	     = "realtek-intc",
-+	.irq_mask    = realtek_intc_mask_irq,
-+	.irq_unmask  = realtek_intc_unmask_irq,
-+};
-+
-+static int realtek_intc_domain_map(struct irq_domain *d, unsigned int irq, irq_hw_number_t hw)
-+{
-+	struct realtek_intc_data *data = d->host_data;
-+
-+	irq_set_chip_and_handler(irq, &realtek_intc_chip, handle_level_irq);
-+	irq_set_chip_data(irq, data);
-+
-+	return 0;
-+}
-+
-+static int realtek_intc_xlate(struct irq_domain *d, struct device_node *ctrlr,
-+			      const u32 *intspec, unsigned int intsize,
-+			      unsigned long *out_hwirq, unsigned int *out_type)
-+{
-+	if (intsize < 1) {
-+		return -EINVAL;
-+	} else if (intsize < 2) {
-+		*out_hwirq = intspec[0];
-+	} else {
-+		if (intspec[1] >= 32)
-+			return -EINVAL;
-+
-+		*out_hwirq = (intspec[0] * 32) + intspec[1];
-+	}
-+
-+	*out_type = IRQ_TYPE_NONE;
-+
-+	return 0;
-+}
-+
-+static const struct irq_domain_ops realtek_intc_domain_ops = {
-+	.xlate = realtek_intc_xlate,
-+	.map   = realtek_intc_domain_map,
-+};
-+
-+static int realtek_intc_subset(struct platform_device *dev, struct realtek_intc_data *data,
-+			       unsigned int bank_idx, unsigned int subset_idx,
-+			       unsigned int parent_irq_idx)
-+{
-+	struct realtek_intc_subset_data *subset_data = &data->subset_data[parent_irq_idx];
-+	const struct realtek_intc_info *bank_info = &data->desc->banks[bank_idx];
-+	const struct realtek_intc_mask *mask = &bank_info->subset_mask[subset_idx];
-+	int irq, ret;
-+	bool is_shared;
-+
-+	irq = platform_get_irq(dev, parent_irq_idx);
-+	if (irq < 0)
-+		return irq;
-+
-+	subset_data->common = data;
-+	subset_data->subset_mask = mask;
-+	subset_data->bank_info = bank_info;
-+	subset_data->bank_idx = bank_idx;
-+	subset_data->parent_irq = irq;
-+
-+	is_shared = !!(data->desc->shared_irq_mask & BIT(parent_irq_idx));
-+
-+	if (is_shared) {
-+		ret = devm_request_irq(&dev->dev, irq, realtek_intc_shared_handler,
-+				       IRQF_SHARED | IRQF_NO_THREAD, dev_name(&dev->dev),
-+				       subset_data);
-+		if (ret)
-+			dev_err(&dev->dev, "failed to request shared irq %d\n", irq);
-+
-+		return ret;
-+	}
-+
-+	irq_set_chained_handler_and_data(irq, realtek_intc_handler, subset_data);
-+
-+	return 0;
-+}
-+
-+int realtek_intc_suspend(struct device *dev)
-+{
-+	struct realtek_intc_data *data = dev_get_drvdata(dev);
-+	const struct realtek_intc_desc *desc = data->desc;
-+	unsigned int i = 0;
-+	int ret;
-+
-+	for (; i < desc->bank_num; i++) {
-+		const struct realtek_intc_info *info = &desc->banks[i];
-+
-+		ret = regmap_read(data->base, info->scpu_int_en_offset, &data->saved_en[i]);
-+		if (ret)
-+			goto err;
-+
-+		ret = regmap_write(data->base, info->scpu_int_en_offset, DISABLE_INTC);
-+		if (ret)
-+			goto err;
-+
-+		ret = regmap_write(data->base, info->isr_offset, CLEAN_INTC_STATUS);
-+		if (ret)
-+			goto err;
-+	}
-+
-+	return 0;
-+
-+err:
-+	dev_err(dev, "Failed to suspend bank %u (ret = %d)\n", i, ret);
-+
-+	while (i--) {
-+		const struct realtek_intc_info *info = &desc->banks[i];
-+
-+		regmap_write(data->base, info->scpu_int_en_offset, data->saved_en[i]);
-+	}
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(realtek_intc_suspend);
-+
-+int realtek_intc_resume(struct device *dev)
-+{
-+	struct realtek_intc_data *data = dev_get_drvdata(dev);
-+	const struct realtek_intc_desc *desc = data->desc;
-+	unsigned int i = 0;
-+	int ret;
-+
-+	for (; i < desc->bank_num; i++) {
-+		const struct realtek_intc_info *info = &desc->banks[i];
-+
-+		ret = regmap_write(data->base, info->isr_offset, CLEAN_INTC_STATUS);
-+		if (ret)
-+			goto err;
-+
-+		ret = regmap_write(data->base, info->scpu_int_en_offset, data->saved_en[i]);
-+		if (ret)
-+			goto err;
-+	}
-+
-+	return 0;
-+
-+err:
-+	dev_err(dev, "Failed to resume bank %u (ret = %d)\n", i, ret);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(realtek_intc_resume);
-+
-+static void realtek_intc_teardown_irqs(struct realtek_intc_data *data,
-+				       struct device *dev,
-+				       unsigned int count)
-+{
-+	for (unsigned int i = 0; i < count; i++) {
-+		if (data->desc->shared_irq_mask & BIT(i)) {
-+			devm_free_irq(dev, data->subset_data[i].parent_irq,
-+				      &data->subset_data[i]);
-+		} else {
-+			irq_set_chained_handler_and_data(data->subset_data[i].parent_irq,
-+							 NULL, NULL);
-+		}
-+	}
-+}
-+
-+int realtek_intc_probe(struct platform_device *pdev, const struct realtek_intc_desc *desc)
-+{
-+	struct realtek_intc_data *data;
-+	struct device *dev = &pdev->dev;
-+	struct device_node *node = dev->of_node;
-+	unsigned int total_subset_num = 0;
-+	int ret, parent_irq = 0;
-+
-+	for (unsigned int i = 0; i < desc->bank_num; i++)
-+		total_subset_num += desc->banks[i].subset_num;
-+
-+	data = devm_kzalloc(dev, struct_size(data, subset_data, total_subset_num),
-+			    GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->saved_en = devm_kcalloc(dev, desc->bank_num, sizeof(*data->saved_en), GFP_KERNEL);
-+	if (!data->saved_en)
-+		return -ENOMEM;
-+
-+	data->base = syscon_node_to_regmap(node->parent);
-+	if (IS_ERR(data->base))
-+		return PTR_ERR(data->base);
-+
-+	data->desc = desc;
-+
-+	data->domain = irq_domain_create_linear(of_fwnode_handle(node),
-+						32 * desc->bank_num,
-+						&realtek_intc_domain_ops, data);
-+	if (!data->domain)
-+		return -ENOMEM;
-+
-+	for (unsigned int i = 0; i < desc->bank_num; i++) {
-+		const struct realtek_intc_info *info = &desc->banks[i];
-+
-+		for (unsigned int j = 0; j < info->subset_num; j++) {
-+			ret = realtek_intc_subset(pdev, data, i, j, parent_irq);
-+			if (ret < 0) {
-+				dev_err(dev, "failed to init bank %u subset %u: %d\n",
-+					i, j, ret);
-+				goto irq_domain_cleanup;
-+			}
-+
-+			parent_irq++;
-+		}
-+	}
-+
-+	platform_set_drvdata(pdev, data);
-+
-+	return 0;
-+
-+irq_domain_cleanup:
-+	realtek_intc_teardown_irqs(data, dev, parent_irq);
-+	irq_domain_remove(data->domain);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(realtek_intc_probe);
-+
-+void realtek_intc_remove(struct platform_device *pdev)
-+{
-+	struct realtek_intc_data *data = platform_get_drvdata(pdev);
-+	const struct realtek_intc_desc *desc = data->desc;
-+	struct device *dev = &pdev->dev;
-+	unsigned int count = 0;
-+
-+	for (unsigned int i = 0; i < desc->bank_num; i++)
-+		count += desc->banks[i].subset_num;
-+
-+	realtek_intc_teardown_irqs(data, dev, count);
-+	irq_domain_remove(data->domain);
-+}
-+EXPORT_SYMBOL_GPL(realtek_intc_remove);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Realtek DHC SoC Interrupt Controller Driver");
-diff --git a/drivers/irqchip/irq-realtek-intc-common.h b/drivers/irqchip/irq-realtek-intc-common.h
-new file mode 100644
-index 000000000000..8ea34416d036
---- /dev/null
-+++ b/drivers/irqchip/irq-realtek-intc-common.h
-@@ -0,0 +1,93 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2023-2026 Realtek Semiconductor Corporation
-+ */
-+
-+#ifndef _IRQ_REALTEK_INTC_COMMON_H
-+#define _IRQ_REALTEK_INTC_COMMON_H
-+
-+#include <linux/bits.h>
-+#include <linux/limits.h>
-+#include <linux/types.h>
-+
-+/**
-+ * struct realtek_intc_mask - The mask of an interrupt subset.
-+ * @ints_mask: The interrupt mask.
-+ */
-+struct realtek_intc_mask {
-+	u32	ints_mask;
-+};
-+
-+/**
-+ * struct realtek_intc_info - Configuration information for a single interrupt bank.
-+ * @subset_mask:		The masks of the interrupt subsets.
-+ * @subset_num:			The number of interrupt subsets.
-+ * @isr_offset:			The offset of the interrupt status register.
-+ * @scpu_int_en_offset:		The offset of the interrupt enable register.
-+ * @isr_to_scpu_int_en_mask:	The array mapping ISR bit indices to the SCPU interrupt
-+ *				enable masks. Use IRQ_ALWAYS_ENABLED for interrupt
-+ *				that do not require an enable check.
-+ */
-+struct realtek_intc_info {
-+	const struct realtek_intc_mask	*subset_mask;
-+	int				subset_num;
-+	unsigned int			isr_offset;
-+	unsigned int			scpu_int_en_offset;
-+	const u32			*isr_to_scpu_int_en_mask;
-+};
-+
-+/**
-+ * struct realtek_intc_subset_data - The data of interrupt subset.
-+ * @parent_irq:		The upstream interrupt source number.
-+ * @bank_idx:		The index of the interrupt bank this subset belongs to.
-+ * @bank_info:		The configuration information of the specific interrupt bank.
-+ * @subset_mask:	The subset interrupt masks.
-+ * @common:		The configuration data of the main interrupt controller.
-+ */
-+struct realtek_intc_subset_data {
-+	int				parent_irq;
-+	unsigned int			bank_idx;
-+	const struct realtek_intc_info *bank_info;
-+	const struct realtek_intc_mask	*subset_mask;
-+	struct realtek_intc_data	*common;
-+};
-+
-+/**
-+ * struct realtek_intc_desc - Hardware description.
-+ * @banks:		Array of interrupt bank configurations.
-+ * @bank_num:		The number of interrupt banks.
-+ * @shared_irq_mask:	Bitmask indicating which parent interrupts are shared.
-+ *			(e.g., BIT(0) means parent IRQ index 0 is shared)
-+ */
-+struct realtek_intc_desc {
-+	const struct realtek_intc_info	*banks;
-+	unsigned int			bank_num;
-+	u32				shared_irq_mask;
-+};
-+
-+/**
-+ * struct realtek_intc_data - The configuration data for interrupt controller driver.
-+ * @base:		Regmap for the interrupt registers.
-+ * @desc:		The hardware description of this interrupt controller instance.
-+ * @domain:		Interrupt domain of the interrupt controller.
-+ * @saved_en:		Array storing the state of the interrupt enable registers for each bank.
-+ * @subset_data:	The data for the interrupt subset.
-+ */
-+struct realtek_intc_data {
-+	struct regmap				*base;
-+	const struct realtek_intc_desc		*desc;
-+	struct irq_domain			*domain;
-+	unsigned int				*saved_en;
-+	struct realtek_intc_subset_data		subset_data[];
-+};
-+
-+#define IRQ_ALWAYS_ENABLED	U32_MAX
-+#define DISABLE_INTC		0
-+#define CLEAN_INTC_STATUS	GENMASK(31, 1)
-+
-+int realtek_intc_probe(struct platform_device *pdev, const struct realtek_intc_desc *desc);
-+void realtek_intc_remove(struct platform_device *pdev);
-+int realtek_intc_suspend(struct device *dev);
-+int realtek_intc_resume(struct device *dev);
-+
-+#endif /* _IRQ_REALTEK_INTC_COMMON_H */
--- 
-2.43.0
-
+> ---
+> Changes in v2:
+> - Patches 1 and 2 of v1 have been applied. This is a rework of patch 3.
+> - Drop temp%d_fault and fail temp%d_input with -ENODATA instead. (Guenter)
+> - Link to v1: https://lore.kernel.org/r/20260924-coretemp-temp-fault-v1-0-1884f0ff97d5@linux.intel.com
+> ---
+>  Documentation/hwmon/coretemp.rst |  3 +++
+>  drivers/hwmon/coretemp.c         | 21 +++++++++++++++------
+>  2 files changed, 18 insertions(+), 6 deletions(-)
+> 
+> 
+> ---
+> base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
+> change-id: 20261003-coretemp-enodata-e424540e3b4c
+> 
+> Best regards,
+> 
+> diff --git a/Documentation/hwmon/coretemp.rst b/Documentation/hwmon/coretemp.rst
+> index 349301683381..09f885a847e3 100644
+> --- a/Documentation/hwmon/coretemp.rst
+> +++ b/Documentation/hwmon/coretemp.rst
+> @@ -50,6 +50,9 @@ All sysfs entries are named with their core_id (represented here by 'X').
+>  
+>  ================= ========================================================
+>  tempX_input	  Core temperature (in millidegrees Celsius).
+> +		  Reading fails with -ENODATA while the CPU reports the
+> +		  temperature as invalid. Some CPUs do this when the
+> +		  temperature is too low to be measured.
+>  tempX_max	  Maximum recommended operating temperature (Tcontrol).
+>  		  All cooling devices should be turned on.
+>  tempX_crit	  Maximum junction temperature (in millidegrees Celsius).
+> diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+> index 0ab6bbff5637..a9edbb4924a7 100644
+> --- a/drivers/hwmon/coretemp.c
+> +++ b/drivers/hwmon/coretemp.c
+> @@ -60,6 +60,8 @@ enum coretemp_attr_index {
+>  
+>  /*
+>   * Per-Core Temperature Data
+> + * @temp_valid: Whether the CPU reported @temp as valid. @temp is not
+> + *		reported when this is false.
+>   * @tjmax: The static tjmax value when tjmax cannot be retrieved from
+>   *		IA32_TEMPERATURE_TARGET MSR.
+>   * @last_updated: The time when the current temperature value was updated
+> @@ -72,6 +74,7 @@ enum coretemp_attr_index {
+>   */
+>  struct temp_data {
+>  	int temp;
+> +	bool temp_valid;
+>  	int tjmax;
+>  	unsigned long last_updated;
+>  	unsigned int cpu;
+> @@ -398,7 +401,8 @@ static ssize_t show_temp(struct device *dev,
+>  {
+>  	struct msr val;
+>  	struct temp_data *tdata = container_of(devattr, struct temp_data, sd_attrs[ATTR_TEMP]);
+> -	int tjmax;
+> +	int tjmax, temp;
+> +	bool valid;
+>  
+>  	mutex_lock(&tdata->update_lock);
+>  
+> @@ -407,17 +411,22 @@ static ssize_t show_temp(struct device *dev,
+>  		tjmax = get_tjmax(tdata, dev);
+>  		rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
+>  		/*
+> -		 * Ignore the valid bit. In all observed cases the register
+> -		 * value is either low or zero if the valid bit is 0.
+> -		 * Return it instead of reporting an error which doesn't
+> -		 * really help at all.
+> +		 * Bit 31 indicates whether the reading is valid. Some CPUs
+> +		 * clear it while the temperature is too low to be measured.
+> +		 * Such a reading is not a temperature. Do not report it.
+>  		 */
+> +		tdata->temp_valid = (val.l >> 31) & 1;
+>  		tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
+>  		tdata->last_updated = jiffies;
+>  	}
+>  
+> +	valid = tdata->temp_valid;
+> +	temp = tdata->temp;
+>  	mutex_unlock(&tdata->update_lock);
+> -	return sprintf(buf, "%d\n", tdata->temp);
+> +
+> +	if (!valid)
+> +		return -ENODATA;
+> +	return sprintf(buf, "%d\n", temp);
+>  }
+>  
+>  static int create_core_attrs(struct temp_data *tdata, struct device *dev)
