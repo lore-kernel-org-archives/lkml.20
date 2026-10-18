@@ -1,125 +1,143 @@
-Received: from mta1.migadu.com (out-105.mta1.migadu.com [95.215.58.105])
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C51E3C0601
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:26:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B493C3F73
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792311967; cv=none; b=M3x3+4+DMAUNVF98iBAZ2fHQ4SjfaZm2asc0AqJBuE6GIGhTul6PwjJs4a3oIQyVmYHc+7e0po7f9GAKuZkillhyZpiG/s9H2Nj2ZkHbTXozge2IgfVHIdKzG1iCGzSGiYccfDa90djUCHDEpmFAg6EZRcvbZivZ50v/6Z8X2Kc=
+	t=1792312024; cv=none; b=tnXMYA6Uos3IBR/WEC3ZnLk65hQ9mEATe/djjBHSvAN60HWwc/fBKaRvVWn6NIeY86oZC97eHylKVaG2zAS6139sco15singSybt80MmMBKm+0wHVqSuRhweOtO9GuffKe83/HQqj9yPzrggOK3sbRYlLUhZnQ+CG3E+deSXWlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792311967; c=relaxed/simple;
-	bh=J5PC8gST+ZMQ+PlrJ0ItD5SSPSAhiAZWA1TUm9ZN3l8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DC1IZl+uH8gl3c4BiZGLdzA6UvxHZQWPXkOIjq4YDRd4hBJur5xrb8BDppStfUuLI49hfBeQDJj07bJ7Jc1GlA8b1k64BfVx0cDtQXK72fw7zfHt7BabQdRBHI02UT7ByLugfAGL1iWMeKSJ7bItzbn54cr+ahjYUnROiFjjbEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Zf14Chhv; arc=none smtp.client-ip=95.215.58.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792312024; c=relaxed/simple;
+	bh=OU2RgGcn5fSxNJyu4xx+Tr5/huDJO1BJBxy1gAUCxSA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=u4DnfgRt8NPy4I2uvb+oG0BNQRSFohcJWqCeE3xQsPxf52T0Nd4NcF1SlWynw6y0ZktLoFar8pY4Sa9ggojP5xph31cZaXoF6ioH0M26ED+T4/NWR+35ldBfZ3okDensrcHf82Jd4+vTGcolU+MbWFR0o2FBdxWKTqFfG5RzM74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RodOpz+m; arc=none smtp.client-ip=209.85.218.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Zf14Chhv"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=J5PC8gST+ZMQ+PlrJ0ItD5SSPSAhiAZWA1TUm9ZN3l8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792311964; v=1; x=1792916764;
- b=Zf14ChhvB9YE2ZvT/kedHWyOZNKHJjcKsmDD66tuzAs55O+6tgR3gXth1Tnp1kRWXYDl9r9y
- tNVz/KkU5kgsqndckJYa8a2kzpX2SxL7qcsv8QQkKnn0mZe+ciobwDU3jg0LSHyJmjRkQcYY2KF
- Io7O3+u891NnyLP5VvkpBN/0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1d910006412fb8d7;
-	Sun, 18 Oct 2026 08:26:03 +0000
-X-Mizu-Trace-ID: 1d910006412fb8d7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <795ed7a1-0610-4215-a0f5-398dbf558704@linux.dev>
-Date: Sun, 18 Oct 2026 10:25:32 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RodOpz+m"
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c40bbd26f74so94597966b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:27:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792312020; x=1792916820; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QkOWVJGDMEJpVMoa9QrtOzGeGfuXdeF8I51bc2Lb2JM=;
+        b=RodOpz+maGi0rM7MTP6+yZjcb4sqGvSPZA46RMBB4ATUOCCDB5uelUHmn5/U8YuyE7
+         9iubk1/ZOMuQZs9/mM0iAzlGVWcujieyZp7xhwNQcbv9+r7R4jQL2pS7iHX/aZVT3r37
+         1/tj1gfCp01l4hRJEPn3VJJN0nTBO09jReMGS1Mm80AyfRMXSF+S3HK1COjZV3/E99RY
+         sSurxkjqLIh+QHoc/AheWzK9TblBKnbKkTvTNR4W+v+qN/tN1yWStAgdDBTaV84YtGxT
+         GRzLgUiuDRZrAMQNY5uAKeH5b0UdXV1SaQOZDwSUgeGb5wKEhBxzkyCLbC9uDOYtpvMT
+         B1cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792312020; x=1792916820;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QkOWVJGDMEJpVMoa9QrtOzGeGfuXdeF8I51bc2Lb2JM=;
+        b=xa4CwDCyrRcZB3RO3ds+zM18+LlxW7nRd/GXbg03JSRJDRzd40+e3QBl5mBzbjjAiO
+         9A04uuD+VIocGR5aXz3dUno6wnceahxB9s22SrfQkoJk0+wbU5yXKlqYTMx5u3TQLAPE
+         C7mKBQ3kC/S6K5FB/bSMD+tibvfQeXdrbT6FEq8kIw8VYCmfyfXwbSqJSyH8eMAHpmDN
+         avyMPSIH4G5cRvqzz5IdklOkDzyXDWzOGtXcrZkDG6ZjMI8avbsEpC4T27N4BAzNooX6
+         WNni6CoOmBst9vQbqxm2tJbXUrhTa0auRhOqKQhH13oBWZkJAByYaeVOES9+0RzMyyqb
+         X2Sw==
+X-Forwarded-Encrypted: i=1; AKwUvByyZklBPQe7SpnSCaJ+vSC++pJ4PvU5k5nGPKbYFkOtFjXyCT2iVKmX/vLK1J63EHEznoik+ZTuJLb+PyY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZPz5eTHdr+iZ/5cvfqFGsMzB/RyrfGDHpogYMVtzRRXrgIELn
+	kdYWBWSOLzFtimtMxVj0zgbmiNsJRpmHsb15DBDUez4WAkwnjphHfOEnXNLNzOss6Cs2fl6tz7w
+	bxFI2OYH8DbT9D5Yt8Q==
+X-Received: from ejzu11.prod.google.com ([2002:a17:906:c40b:b0:c42:1a41:d93])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:906:7946:b0:c33:ca5e:8ddb with SMTP id a640c23a62f3a-c419eb33ac1mr311884866b.28.1792312019486;
+ Sun, 18 Oct 2026 01:26:59 -0700 (PDT)
+Date: Sun, 18 Oct 2026 08:26:58 +0000
+In-Reply-To: <CABdmKX1fLKvC_TnO3g_DkPjcfoXiU2rM-Fa+ZjriYctVQPkFTQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] ASoC/soundwire: remove ghost peripherals from the
- mach table
-To: "Liao, Bard" <bard.liao@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>, "tiwai@suse.de" <tiwai@suse.de>
-Cc: "vinod.koul@linaro.org" <vinod.koul@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "peter.ujfalusi@linux.intel.com" <peter.ujfalusi@linux.intel.com>
-References: <20260915131327.1783551-1-yung-chuan.liao@linux.intel.com>
- <528a9777-1587-4dfc-a366-000fc0867d4b@linux.dev>
- <SJ2PR11MB8424E1911A4CA6F9414A07DAFFB92@SJ2PR11MB8424.namprd11.prod.outlook.com>
- <SJ2PR11MB8424E1FAF2D8D1EAD84C3B92FF942@SJ2PR11MB8424.namprd11.prod.outlook.com>
- <3b718d6e-462e-4d22-b42b-915cd88bd60f@linux.dev>
- <SJ2PR11MB8424C255FBA45B9F4CA02113FF932@SJ2PR11MB8424.namprd11.prod.outlook.com>
- <175ea8c2-2375-4b1c-a2d0-dcc7998c9e76@linux.dev>
- <SJ2PR11MB8424CCF92DD83A5E890E9C39FF9F2@SJ2PR11MB8424.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <SJ2PR11MB8424CCF92DD83A5E890E9C39FF9F2@SJ2PR11MB8424.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261016-binder-memcg-v1-0-d659b8ae088b@google.com>
+ <20261016-binder-memcg-v1-2-d659b8ae088b@google.com> <CABdmKX1fLKvC_TnO3g_DkPjcfoXiU2rM-Fa+ZjriYctVQPkFTQ@mail.gmail.com>
+Message-ID: <atSC0lHwc7N_6rVv@google.com>
+Subject: Re: [PATCH 2/2] rust_binder: charge allocated pages to memcg
+From: Alice Ryhl <aliceryhl@google.com>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos Llamas <cmllamas@google.com>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, linux-mm@kvack.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Oct 16, 2026 at 11:41:55AM -0700, T.J. Mercier wrote:
+> On Fri, Oct 16, 2026 at 6:30=E2=80=AFAM Alice Ryhl <aliceryhl@google.com>=
+ wrote:
+> >
+> > Pages allocated for a binder VMA are currently not charged to any memor=
+y
+> > cgroup. Thus, use `Page::alloc_page_memcg()` to charge them to the
+> > owning process's `mm_struct`.
+> >
+> > Suggested-by: T.J. Mercier <tjmercier@google.com>
+> > Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+> > ---
+> >  drivers/android/binder/page_range.rs | 13 +++++++++++--
+> >  1 file changed, 11 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/android/binder/page_range.rs b/drivers/android/bin=
+der/page_range.rs
+> > index 52ffbf3504e7..57da47243967 100644
+> > --- a/drivers/android/binder/page_range.rs
+> > +++ b/drivers/android/binder/page_range.rs
+> > @@ -27,7 +27,7 @@
+> >      ffi::{c_ulong, c_void},
+> >      mm::{virt, Mm, MmWithUser},
+> >      new_mutex, new_spinlock,
+> > -    page::{Page, PAGE_SHIFT, PAGE_SIZE},
+> > +    page::{MemcgAllocError, Page, PAGE_SHIFT, PAGE_SIZE},
+> >      prelude::*,
+> >      str::CStr,
+> >      sync::{aref::ARef, Mutex, SpinLock},
+> > @@ -399,7 +399,16 @@ pub(crate) fn use_range(&self, start: usize, end: =
+usize) -> Result<()> {
+> >      /// Assumes that `i` is in bounds.
+> >      #[cold]
+> >      unsafe fn use_page_slow(&self, i: usize) -> Result<()> {
+> > -        let new_page =3D Page::alloc_page(GFP_KERNEL | __GFP_HIGHMEM |=
+ __GFP_ZERO)?;
+> > +        let new_page =3D Page::alloc_page_memcg(GFP_KERNEL | __GFP_HIG=
+HMEM | __GFP_ZERO, &self.mm)
+>=20
+> Not related to this change, but I think it might be better to ditch
+> GFP_KERNEL | __GFP_HIGHMEM and use GFP_HIGHUSER. We're already mapping
+> this into userspace (and now charging the memcg for it).
+>=20
+> Is current the sender here? If memory.high is exceeded, current gets
+> blamed for it in try_charge_memcg()'s done_restock section. So if it's
+> the sender, that's not exactly what we want since the sender would be
+> throttled for it. So I think this depends on
+> https://lore.kernel.org/all/20261010210957.1350874-4-shakeel.butt@linux.d=
+ev/.
 
->> Well, you've got two problems here.
->>
->> a) there's a difference between generations. Starting with ACE2.0, the
->> SoundWire bus is started much earlier than in previous generations,
->> where the SoundWire bus was started after firmware download.
->>
->> In other words, the timing to sync and report as attached differs by
->> orders of magnitude. I am worried that this code might break stuff on
->> older platforms.
-> 
-> The commits will not check the existence of the peripherals for the
-> ACE2.0- platforms. So it should be fine.
+Yes, current is the sender process here, allocating a page on behalf
+of the recipient process (`self.mm`).
 
-ok
+Because current is the sender, I don't think we want GFP_HIGHUSER: the
+only difference between GFP_KERNEL | __GFP_HIGHMEM and GFP_HIGHUSER is
+__GFP_HARDWALL, which enforces current's cpuset (current->mems_allowed)
+in cpuset_current_node_allowed(). Enforcing a hardwall against the
+sender's cpuset when allocating a page for the recipient doesn't seem
+right.
 
->> b) there's nothing in the MIPI spec that says how much time a device
->> should take to report as ATTACHED. A well-intended implementation
->> following Recommendation {2121} would e.g. try to find the sync word
->> with a default frame shape of 48x2, which isn't used at all by Intel.
-> 
-> Can't we rely on reading device 0 to know whether all peripherals are
-> enumerated? Is it possible that a peripheral can be attached after some
-> time when all other peripherals on the same bus are attached?
+And yes, it looks like we do indeed depend on Shakeel's patch.
 
-yes that's entirely possible. A peripheral may be extra cautious to
-avoid synchronizing on a wrong pattern, and take extra time to report as
-Device 0.
-
-> Will it trigger another interrupt in that case? My assumption is that
-> a bus will only get one attached interrupt when it starts. And we will
-> keep reading the device 0 and programing the device number nutil there
-> is no device 0.
-
-yes that's the problem. Worst case you would get N interrupts for each
-of the N peripherals.
-
->> If you want to keep the code above, you absolutely need to record the
->> time at which the bus started and wait TBD ms before signaling
->> enumeration_complete(). You would also need to deal with a case where
->> another device shows up with a delay, would you throw another
->> complete_all() then?
->>
-> 
-> Can we add a peripheral property to indicate a waiting time and wait the
-> largest waiting time of the peripherals?
-
-that would be ideal, but it's not easy to get this sort of information.
-This could depend on the clock base and frame shape as well which is
-system dependent.
-
-It's probably easier to introduce a default at the bus level and a
-kernel parameter to bump that value up in case of problems.
-
-You should also flag the case with a dev_err in case of a second
-interrupt, that'd be a clear evidence of the delay not being large enough.
-
-Keeping track of the time since the bus reset completed would help as well.
-
-It's all small potatoes but it'd help harden your solution.
-
+Alice
