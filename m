@@ -1,98 +1,85 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D67143F8B6
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA0E3264FD
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792323676; cv=none; b=OGhMW6UfTp4Imkd91e1qPEVqNpi0Van81Y8pV3zquotW2IIrUAheF7iVeERca/k1SEIKBN1qh7f04ZaGkHQaFzQpnaEJpPbXDSuaMCRcnlJG7pTSWjQWt8vT+t9WzdeVGjBoLIC/WpqZRcn7CEEH80SC0CWQZ70WxijmPouSFkE=
+	t=1792323740; cv=none; b=i5DEl4MTfQQXXbv5Fg4pYQxylGKkMvSiNuN6wKhJ0cWKoH+aauWiQnhZDbfQwdNTa07wSTD8ItU2dsGbnIr6sO9wN7amTZ75mqVILJ2IMpkI9RuAbovrjzvp9xucMkhRkPRXSmH7MW8dHMSopLfA+Pl+y0w5GLt9tbjAKz7ijY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792323676; c=relaxed/simple;
-	bh=41jZF0FhRZvxgRg4A8KoMKXC0gkjAiETiNceCeHp4gg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K34KiwuSPi9M6Muvl6r3nMUh597hInnD0qEkRcRbFHTLv0ccMbc5MgJPWZOZznZ8GYoZzDE9uezHVK0t8cdlZApbq8r83uYv1S00cB+tw9/rZy/UHa04UfrVAnxOinVqBdjBnaBkUSIlHDvWQQMeILSK0dcTkWhVb/cMsSqDJFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=cXgYvDIC; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	s=arc-20240116; t=1792323740; c=relaxed/simple;
+	bh=MKO8sUr3s2DYtswXsCRYLWd6shx1Mz7Sv3h+p/jZ2zQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YT55dItnFZm3MyIlzbWL/cgFOGmleq75dpCept/M0Oyqt9iL7T6Kd9qGcYU4pmsYhsYH7HY+NHst/nThArEVN08wRBLmv+/Ye5FGtWL1ZHHHBOWbssGcmlr9uKBbgu42K4IgFWlGjl9V7SW0Pn+fLUK0qhK0J1E9B55z8YgeDfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mAWAypNE; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="cXgYvDIC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1792323671;
-	bh=41jZF0FhRZvxgRg4A8KoMKXC0gkjAiETiNceCeHp4gg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cXgYvDICv/LaLhpT209gxk1h6KkbzFKd2AiRC7T37O3yBBJeiO4YCzeXz0gTFnVp7
-	 NxuQA/zx0dem4r7X0LfQW0nUjXEjXR+FzUbKczU7ZY/bUG7jVP6vEmv2gdpkQlFZ84
-	 dpz9RvKG8cCFA4l4DTR7kYSrdsJVYuYseLA8cqtY=
-Date: Sun, 18 Oct 2026 13:41:11 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-To: Daniel Palmer <daniel@thingy.jp>
-Cc: w@1wt.eu, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tools/nolibc: Fix WIFSIGNALED(0)
-Message-ID: <dc1db82f-1f48-4742-99d1-1231f64a0ece@t-8ch.de>
-References: <20261018105341.243797-1-daniel@thingy.jp>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mAWAypNE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=pA
+	JV6ndl+LoSI158hLZI0dGxxOXR9P4+L6TBh9+PTBI=; b=mAWAypNEcr9VoRyPk3
+	IU0GfP0yHWLlNUmHVifY0FMA89YQ85sOkmGLHKwl/XZGw/8KoCK97tV2veSbRqXC
+	2bbE5IBW8QuvXR5rIFuxwERCDGbiG6Z83XZfGVEZL84FFQc1dCTR8kmmmQN0WXDS
+	t+TkFSihrLvo+t2JN0QlS6WkQ=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgDHt3tgsNRqLpIMAg--.32387S2;
+	Sun, 18 Oct 2026 19:41:21 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Tristan Ye <tristan.ye@oracle.com>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH] ocfs2: validate non-coherent freefrag bitmap inode
+Date: Sun, 18 Oct 2026 19:41:18 +0800
+Message-Id: <20261018114118.927071-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018105341.243797-1-daniel@thingy.jp>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgDHt3tgsNRqLpIMAg--.32387S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZw4UtFykWr17Wr45CrW5Awb_yoWfuwcE9F
+	Z7CrWq9w4UKF1fZ34qvrn5ZrZ5Kw4vg3WfWws7t34UCr9rX3WDArs2vF93AryUur1DAFs8
+	JryfJryj9r45ZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRCMKCtUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wEUTmrUsGGshQAA3y
 
-Hi Daniel,
+The non-coherent freefrag ioctl path reads the global bitmap inode
+directly and trusts its chain list. A malformed cl_next_free_rec value
+can therefore index beyond cl_recs while scanning chains.
 
-On 2026-10-18 19:53:41+0900, Daniel Palmer wrote:
-> WIFSIGNALED(0) currently returns true, so a process that exited
-> normally with status 0 looks like it was killed by a signal.
-> 
-> The macro uses a trick of checking whether status - 1 is below
-> 0xff but is subtly broken because of using signed arithmetic.
-> For 0 it computes -1 < 0xff which is true.
-> 
-> Do what musl does: mask the status to 16 bits and use unsigned
-> arithmetic so 0 wraps to 0xffff and the comparison fails.
-> The mask also prevents bits we don't care about from sneaking in.
+Validate the inode block before consuming its bitmap and chain metadata.
 
-We already have commit 368fae47c6ca ("tools/nolibc: fix WIFSIGNALED()
-for status 0") for this issue in nolibc-next. This implementation is
-masking the status with 0xffff. OTOH the musl implementation of
-WIFCONTINUED() is also missing the masking, so I am not sure how
-necessary it is.
+Fixes: d24a10b9f8ed ("Ocfs2: Add a new code 'OCFS2_INFO_FREEFRAG' for o2info ioctl.")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ fs/ocfs2/ioctl.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-I'll look into it some more.
+diff --git a/fs/ocfs2/ioctl.c b/fs/ocfs2/ioctl.c
+index cbe59d231666..8383f900c847 100644
+--- a/fs/ocfs2/ioctl.c
++++ b/fs/ocfs2/ioctl.c
+@@ -575,6 +575,12 @@ static int ocfs2_info_freefrag_scan_bitmap(struct ocfs2_super *osb,
+ 			mlog_errno(status);
+ 			goto bail;
+ 		}
++
++		status = ocfs2_validate_inode_block(osb->sb, bh);
++		if (status < 0) {
++			mlog_errno(status);
++			goto bail;
++		}
+ 	}
+ 
+ 	gb_dinode = (struct ocfs2_dinode *)bh->b_data;
+-- 
+2.34.1
 
-> Fixes: 8c934d4822c7 ("tools/nolibc: add helpers for wait() signal exits")
-> Signed-off-by: Daniel Palmer <daniel@thingy.jp>
-> ---
-> 
-> I'm putting off sending anything else (dirfd and some other bits)
-> until after the merge window has finished.. but this one seems like
-> it should be fixed sooner.
-
-Feel free to send the patches already. We won't apply them until after
-the merge window, but we can discuss them before. There are no other
-trees with changes to nolibc, so there won't be any conflicts.
-
-> I found this while debugging an annoying issue in my homebrew nolibc
-> based shell.
-> 
->  tools/include/nolibc/types.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/include/nolibc/types.h b/tools/include/nolibc/types.h
-> index 8f3cb18df7f1..d241629b9e67 100644
-> --- a/tools/include/nolibc/types.h
-> +++ b/tools/include/nolibc/types.h
-> @@ -119,7 +119,7 @@ struct timeval {
->  #define WEXITSTATUS(status) (((status) & 0xff00) >> 8)
->  #define WIFEXITED(status)   (((status) & 0x7f) == 0)
->  #define WTERMSIG(status)    ((status) & 0x7f)
-> -#define WIFSIGNALED(status) ((status) - 1 < 0xff)
-> +#define WIFSIGNALED(status) (((status) & 0xffff) - 1U < 0xffU)
->  
->  /* standard exit() codes */
->  #define EXIT_SUCCESS 0
-> -- 
-> 2.53.0
-> 
