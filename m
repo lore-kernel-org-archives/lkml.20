@@ -1,38 +1,78 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66249341068;
-	Sun, 18 Oct 2026 02:46:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9D33431F8
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 02:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792291568; cv=none; b=mLU8jdOXlcSfQdTrDzgcsx8JO/NXMLPRK4jdZOLxYrxPb1+q5sXdXucYkdLJTDI+Mx9Q6hdKjMLKFNVfmjRK1CE2UjTRgPVitoL3cpK1mxlItkOMghAeutkkLXH6mMGMM/KQGtOH345zBywuEswRrjDsLTqvCwouAbPGB5Tx8eU=
+	t=1792291620; cv=none; b=CpSPG3341p5PjV5qIRWHwTk9OK7MF/udpCb4m5gY7eKhTI1TYi0DTRCxcC20Jcv8Dr+ap1iVoLyZY/8Ax0FBlwZeDvGK6q8CahfV8+832PNjGvVQlwMK14nzM3y5F1cZqQvRKJgayWit2azjYgJzTZQPdK1KqpNgMXGAXTwZjHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792291568; c=relaxed/simple;
-	bh=N3JZHamr3xmeGJnZ7mJpty8nceqWqiUlMmPZkiBjhXY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U1YWJV3PUGXFv3XiVNqPf0BZG/OKguqkpwe9fUMykPenP1p+BSYXeeRZrwSqeYjnS5PLSniVJH+EfP7YcqcC1xBxMzbWuaKof7by8+td7VB3VWU1ypfBDtFo2fKDm99n4WJO0kPo9+1bcxyCugdjkiwZEvpPcjJfuQaG1qgOPVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xIGuD-004PQI-7m;
-	Sat, 17 Oct 2026 22:45:49 -0400
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: Jan Kara <jack@suse.cz>,
-	Chuck Lever <cel@kernel.org>,
-	Yongjian Sun <sunyongjian1@huawei.com>,
-	Hugh Dickins <hughd@google.com>,
-	NeilBrown <neil@brown.name>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
+	s=arc-20240116; t=1792291620; c=relaxed/simple;
+	bh=L/rz686i3x+RUZOvwJlGil8/fc8KWkc+EpZkgvybyLs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=a9BDPCB03hHT/sGenYZjMOfj+Z+noaZM7pwxCvFy5fa0whS9Zrahcru4x3NloRveT3DlnbiNix/5BdUr9Oph4+m6c+383WY/Fwlb1E1dVZbGI37eCd66KqCuPhJ7dFrPCy9/3qj3Dqt5ZwRjG0G4k1x3ki03eImCjTrX0XFxLuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QzQqAC2g; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QzQqAC2g"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53634b8328eso9032991cf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 19:46:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792291618; x=1792896418; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fgrg8W6lnkrXwWeLJ4XV9VoZQLYHNzAPN0f6A3bXfzc=;
+        b=QzQqAC2ghDvfgnioeHY+Pw3cnTvcYm4Y2H81llUUkEaQ1SZXMZSwf4dtPXSEhH0CvC
+         KS7mD4uy+OqADPs3+SCHqOp/rz5nJPn/RukBqm2uPLRxjmE3x0FDsB+cvtBLp1AugiMM
+         3rfNVlj85BraKhX1SznppT2Z+huCf+uN9fEGDs0YUJf+XFjte4HLosSvP/PW+WhV8QoW
+         9A/1x14uFqQjCmOLxBruHyjLg51UDnEI47unJpAbS+KADPILJXyJge5cgXy2N+dkboXm
+         v46JVVa0DOZYvQKvmat9Tw+uRU1IpGBYyzOfFCyCN528r8LkFrkcN8hdkVbyMhjVhrQW
+         hivw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792291618; x=1792896418;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fgrg8W6lnkrXwWeLJ4XV9VoZQLYHNzAPN0f6A3bXfzc=;
+        b=P8y2n1b74k83e/6vSwTmhIEw0L8GlPSWyhoL/RXaaZ1lN5yDrWyK5SCloEpriXO349
+         lGxIt0doiahJS1qjBBhaf6+HZleQpnIKyW4Lq9bWBccOf9HYsveJVSXQpX1ltQUuhHik
+         DXPDQ8efntLLnGcCYbxMXkuqYbvALtpKADU9E8zTkja9W5RM18P0JONJLQI3lhPI5LG9
+         /0tRBmBp+utmHVjZiKGHmt19UKlK9tztrVRpfJCR6VLAFzROKyO9Lhxdqj4PCLMNI1t8
+         iFYDAEU05N0UZH01F4sfGUmp1TEq00Egfp60RGBEljD9IziA7FK7KSqARlNY9x5NaZNB
+         PpnA==
+X-Forwarded-Encrypted: i=1; AKwUvBx8JT/daqHh8lYPtYGvcBjKpIy+nBw4OqvWLd6yU4CQCUFYWN5rnBpKf9ghemrtu4k38GEsNSM8EwxP/yA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+4F2VSBEnY32sKzaLEfdzke+jCgHGNI8gcLczKIzemUAw6VSO
+	jYvGjuFe326pZm0Uc97vjgSgcLLUpYRgreYQ9a/TTMj1j0XB8cD1uzpRemOnOKM=
+X-Gm-Gg: AYBFou3BFoINDpQ+6NTgz11Qmweko1pP8wzFWxF3VXxN78oCKDKIiNpP3dr+PjcHBqA
+	tDdyqr8zMUCaik2d9dHuLaILDrhxcOGPMktgzevosMhelUM4QdlYh0Fjcx/Mogmm0PhXSjTGLfL
+	+hUbKT0X0qzaTmkaoPUX8vW+Jo7DEFBfl/vSQlCM57SQbVHRFKEUvzIjYt8ZgwODNN1w3/JOpI1
+	Ag2ObA+lHS+OCtQE6kezySpjra101pylYXdXO+jzmE2E0KWHqYh8qAlMKjowIgnDspT1RsTOOEz
+	KX6WRobevoKd/yR9La0FsByST3VnrWpy4awnqJDBm0aed4wNCAYK8C5tize+YsG44fAnyPjdpgU
+	/VygYczeOM3oysR19i6rI5eNX/0ZAuAmY1gT4Eo89UQUQxkFGY3s21bXksZKnR09DpyFmCy8XdZ
+	2L5RTk6V+6L0uCuBPk3E6jb8JruBL845PwcU4Iv2Pq80mrYZE8TJFKVsrFqZ9+9OX+keCZ9hyIz
+	z5wYfjD+RRMoLtV7IfdZEXTrUo1f93XoVBfwj1CuETZ8HNymxOplHBgJzQysy3EdShgAHsm/Lsw
+	fShnYFE+IiM52Ayq7ew17eO7VE7V
+X-Received: by 2002:ac8:7f06:0:b0:535:f9db:4567 with SMTP id d75a77b69052e-53646103232mr63060221cf.64.1792291617890;
+        Sat, 17 Oct 2026 19:46:57 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcba4b9f0sm62019456d6.10.2026.10.17.19.46.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 17 Oct 2026 19:46:57 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Niklas =?UTF-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v1] libfs: end the readdir walk when no entry is left at or below ctx->pos
-Date: Sat, 17 Oct 2026 22:45:48 -0400
-Message-ID: <20261018024549.798968-1-nickolai@csail.mit.edu>
+	Ijae Kim <ae878000@gmail.com>,
+	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 0/2] media: rcar-isp: fix core registration and IRQ lifetime
+Date: Sat, 17 Oct 2026 22:46:52 -0400
+Message-ID: <20261018024654.3913088-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -40,159 +80,47 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On tmpfs, a getdents64() call that continues a directory listing
-returns the whole directory again if the entry it was due to resume at
-has been unlinked and no entry with a lower offset is left.  "ls" or any
-other readdir loop then reports every name twice.  It is enough that the
-oldest entry in the directory is removed while a listing that has
-returned all the other entries has not yet reached the end: create five
-files, read them one getdents64() call at a time until only the oldest
-is left, unlink it, and the next call returns the four newer names
-again instead of 0.  No privilege is needed beyond write access to the
-directory.
+The ISP core IRQ is registered before the RPPX1 object and interrupt
+handler state are initialized. On removal, it remains registered until
+after RPPX1 has been freed. A handler can therefore access RPPX1 outside
+its lifetime.
 
-offset_iterate_dir() walks d_children from the newest entry towards
-the oldest and leaves ctx->pos at the offset of the next entry to emit.
-On the next call offset_dir_lookup() maps ctx->pos back to an entry
-with mas_find_rev(), which returns the entry at ctx->pos or, if that
-one is gone, the next older one.  When nothing is left at or below
-ctx->pos it returns NULL, and find_positive_dentry(parent, NULL, false)
-treats NULL as "start at the first child", so the walk restarts at the
-head of the list.
+Patch 1 prepares the return-value handling for the later IRQ request in
+patch 2. It converts registration-stage -ENODEV to -ENXIO after cleanup,
+so the parent does not mistake that failure for an absent optional core.
+As requested by Niklas, the caller uses only the return value and does
+not inspect core->base. Resource-setup results and the existing
+channel-selector fallback behavior remain unchanged.
 
-mas_find_rev() came in with commit f70681e9e606 ("libfs: Fix
-duplicate directory entry in offset_dir_lookup"); with the forward
-mas_find() it replaced, NULL meant that nothing had been emitted yet and
-restarting at the head was right.  With the reverse search NULL means
-that every remaining entry has already been emitted, so return NULL and
-let offset_iterate_dir() report the end of the directory.
+Patch 2 requests the IRQ after its dependencies are initialized and
+releases it before destroying RPPX1. Its code is unchanged from v2.
 
-Reproduced on x86_64 under QEMU with the program in the notes: before
-the change the call after the unlink returns file4..file1 again, after
-it returns 0.
+Compile-tested with Clang 22.1.2, W=1 (arm64). No runtime testing.
 
-Fixes: f70681e9e606 ("libfs: Fix duplicate directory entry in offset_dir_lookup")
-Assisted-by: LLM
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
+Changes in v3:
+- Replace the caller's core->base check with -ENODEV to -ENXIO translation
+  at the registration error exit in risp_core_probe().
+- Keep resource-setup return values and fallback behavior unchanged.
+- Describe patch 1 as a prerequisite for patch 2, without assuming that
+  the existing V4L2 registration helpers return -ENODEV.
+- Keep the IRQ lifetime fix in patch 2 unchanged.
 
-Notes:
-    Reproducer (root, mounts a tmpfs on /t; any kernel since v6.14):
-    
-      gcc -O2 -static -o offset_eod offset_eod.c && ./offset_eod
-    
-      /*
-       * List a tmpfs directory one entry per getdents64() call until only the
-       * oldest file is left, unlink that file, then call getdents64() again:
-       * the directory must be at its end.
-       */
-      #define _GNU_SOURCE
-      #include <fcntl.h>
-      #include <stdio.h>
-      #include <string.h>
-      #include <sys/mount.h>
-      #include <sys/stat.h>
-      #include <sys/syscall.h>
-      #include <unistd.h>
-    
-      struct d64 {
-      	unsigned long long ino;
-      	long long off;
-      	unsigned short reclen;
-      	unsigned char type;
-      	char name[];
-      };
-    
-      #define NFILES 5
-    
-      int main(void)
-      {
-      	char buf[40], path[64];
-      	int fd, i, n, seen = 0, dups = 0;
-      	long r;
-    
-      	mkdir("/t", 0755);
-      	if (mount("tmpfs", "/t", "tmpfs", 0, NULL))
-      		perror("mount tmpfs");
-      	mkdir("/t/d", 0755);
-      	for (i = 0; i < NFILES; i++) {
-      		snprintf(path, sizeof(path), "/t/d/file%d", i);
-      		close(open(path, O_CREAT | O_WRONLY, 0644));
-      	}
-      	fd = open("/t/d", O_RDONLY | O_DIRECTORY);
-      	/* newest first: file4 .. file1, file0 still to come */
-      	while (seen < NFILES - 1) {
-      		r = syscall(SYS_getdents64, fd, buf, sizeof(buf));
-      		if (r <= 0)
-      			return 1;
-      		for (n = 0; n < r; n += ((struct d64 *)(buf + n))->reclen) {
-      			struct d64 *d = (struct d64 *)(buf + n);
-    
-      			if (d->name[0] != '.')
-      				seen++;
-      			printf("listed %s\n", d->name);
-      		}
-      	}
-      	unlink("/t/d/file0");
-      	printf("unlinked file0\n");
-      	while ((r = syscall(SYS_getdents64, fd, buf, sizeof(buf))) > 0) {
-      		for (n = 0; n < r; n += ((struct d64 *)(buf + n))->reclen) {
-      			printf("listed again %s\n", ((struct d64 *)(buf + n))->name);
-      			dups++;
-      		}
-      	}
-      	printf("%s: %d entries after the unlink\n", dups ? "FAIL" : "PASS", dups);
-      	return dups != 0;
-      }
-    
-    Before (master 70dd4ee72eb2, x86_64 defconfig, QEMU):
-    
-      listed .
-      listed ..
-      listed file4
-      listed file3
-      listed file2
-      listed file1
-      unlinked file0
-      listed again file4
-      listed again file3
-      listed again file2
-      listed again file1
-      FAIL: 4 entries after the unlink
-    
-    After:
-    
-      listed .
-      listed ..
-      listed file4
-      listed file3
-      listed file2
-      listed file1
-      unlinked file0
-      PASS: 0 entries after the unlink
+Changes in v2:
+- Split the error-handling change into patch 1.
+- Explain the RPPX1 allocation, free and pre-lock IRQ accesses in patch 2.
 
- fs/libfs.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+v2: https://lore.kernel.org/r/20261015004159.2202899-1-mhun512@gmail.com
+v1: https://lore.kernel.org/r/20261011214448.2043581-1-mhun512@gmail.com
 
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 27d7dc16fcb0..6ebffad7c028 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -485,7 +485,9 @@ offset_dir_lookup(struct dentry *parent, loff_t offset)
- 	else {
- 		rcu_read_lock();
- 		child = mas_find_rev(&mas, DIR_OFFSET_MIN);
--		found = find_positive_dentry(parent, child, false);
-+		/* nothing at or below @offset: no entry is left to emit */
-+		if (child)
-+			found = find_positive_dentry(parent, child, false);
- 		rcu_read_unlock();
- 	}
- 	return found;
+Myeonghun Pak (2):
+  media: rcar-isp: distinguish absent cores from registration failures
+  media: rcar-isp: release the core interrupt before destroying RPPX1
 
-base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
--- 
-2.53.0
+ drivers/media/platform/renesas/rcar-isp/core.c      | 16 +++++++++++-----
+ drivers/media/platform/renesas/rcar-isp/risp-core.h |  2 ++
+ 2 files changed, 13 insertions(+), 5 deletions(-)
 
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
