@@ -1,64 +1,64 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE29144F57A
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B516B2E06ED
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792327704; cv=none; b=HSuor1tRFcE1Y/lQzIzAnafwsS+MI0CtItT1U+3j6OMev7V+x68CcfMjsNfQH8FQsOiON1UxaDMRrsEgyQcSuSQZ0swfHr9iEBxBKpFPluAiq0mU6T2v1CS78+AL9MOrg1NtxggT0r33hlfsWbT3hPGd3xsU52vJsPIqyrEqHHQ=
+	t=1792327704; cv=none; b=Q27JLDosZkXo72TDOBvytomFz6GF5M+A1AJVkIY12RmdYEwUVBo/bM+Hidm/kEE93PpkICHzut/KIqcSQcVDAeZBYkNTuyOTHsifZNeEHvZst8/cvwdCUspXLPmlKOT3/Y7PfMOFSHVe5wCzgrABgwdNjGnA1Uoa8Fpm9h5Dgjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792327704; c=relaxed/simple;
-	bh=lN41a61/nKGGG/YTHpOK/9MR+fMHvrEQ5y32R9jcciw=;
+	bh=sz4GE5UZkFlUYZOEejeNShGGHZyb/yr9VaGXbV0JW3s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O6mlmz0rNGZrZ3wkO4X0Nls1PiIUxFo/RPHCLSk/YZx5d+bzT24abVn+2iRsX8+OSkExYofyjwjs+6KwUGqZCioj0zWvfWVcV76cJN8gCczoI4ZLgrfBt/u2zwyqUtvfID8HqCETd4OcYMAo+O3tMyRhgVcwFM7J3VFTf+1I9V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UuNjyExD; arc=none smtp.client-ip=209.85.216.45
+	 MIME-Version; b=j/+nQwElKlnwY9uuG3tsEc/IQ6tlv8h66HsGOUS8dh+W5s6Cu7e+LaJzgk63dQsjm/UAhGaASQo4wMHAZbTsbNxJSLEVyWCVCE4kCBG8wm5rwywOfa+x4fLNUkTpGGqerxjfz5EnlwOXLMmMOa+bFFdUFhjoiMnweDD7CyaC8+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RtLXN3tG; arc=none smtp.client-ip=209.85.210.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UuNjyExD"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so1248316a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:48:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RtLXN3tG"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a06210b29fso79920b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:48:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792327699; x=1792932499; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792327703; x=1792932503; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+CsZ2iMRB1tUMxGPpgV7ei32dAx256Q8EZ78cw7J4Mk=;
-        b=UuNjyExDUrlOn6vVkCs5mF5LqDTWLaUF0a6+XMJKICgfPVgdzyshJ+Hk0MCfZ7gk20
-         77lHy92V2EdUiOp9H26/E3yTdfdh4cS8VvbRlcmZAMZEJWFmvKBreq3Deg8o1x0nfTGE
-         AwoIHCBZZ4xiJnWC6F4mL1awElepMlIaog56Heg4Pn+bkObUVOa4UNiUCNKOZFXUw1Fn
-         KLDfOL3PacI9tEBhHue4PC/VlgZr1JUORhrCbQTVVCwqc0bbMKbyIle/aLYKNsABiA2c
-         y+fkmNSLzX/q7mkmN0yVyV2qbVrKi5nPYi1yoCvaLdB5bbjHwMrfaOMSVupXxtO/YgIK
-         Mm5w==
+        bh=FnheYDRM6vYnCG89OFLcuiT1asg22kwip+wXziGfAlM=;
+        b=RtLXN3tG3URGJV11DxejzEe81zujVlzksMwyUgMKIU9I4mS4T+68MqxObJpy+HDLnT
+         2Xqj3OuyqxCHxK9S97WMRaRzcZHpgfWNiFm0ghpUZyO4dxVUUd1lbK9fqx1oRjWfe++j
+         aH/yWpypRorEgNEA1atZg1KHHAE9JED6CWSNJQzLKDfSjfbqcMghbNzO6Eddi9+6HfBQ
+         IJLs5LrX7bKZDz1huK0h6ALFZiLTBuKI2D07fiXFZRZQjQhLz49udqgdq6qcFfM17ml+
+         uOEX4TsG/S2eRU29nUk1D3qsr8OAeMhMHVzMo+kC+lkGv2P2/sVek+pLT+9wQ9uK4w42
+         9UpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792327699; x=1792932499;
+        d=1e100.net; s=20260707; t=1792327703; x=1792932503;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+CsZ2iMRB1tUMxGPpgV7ei32dAx256Q8EZ78cw7J4Mk=;
-        b=jQmPznSWj0t3RI5WXs6Uek15/QFT/eIfmqlAlwiYw0TTMA0Xej9F78GWaXqFaawhRz
-         zwHlNNgMBMSwo2p61uC5DtUB6jGn9Pna9X+gMH6WgQn+7FzVpgsWQuGYgWkWQ139ASWJ
-         F0RpDz/4nyxQ3Y9NS8ELMgEE0hRNv1xiPUfStP2jGP1Jc6Ij8grlJcmJeIWCsgUZL4hA
-         /xWukpnC5U+SQSG4AoWBnPzKXq6diHPpgDfoXwhtgom39EmtoqnCr0mECiW7AzhUi9VM
-         P0SANG5IHRh1BpTZ/xWTosOHOM7rcP/YhMPIQmvyGoRb39UaabflTGe/US/ROAfPH6rh
-         tOyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzD8rcAmFZektV0B0cCg9B51Zi8DkvgNEXpnfyf49FfcgyIFfJt/8oGUNZVLB+jm4S7Se9IEutUAxR1etw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIp0jV4HXS435K78vjyHzxNGSawtiPn5ZMZ+uvAS9NZXNIR1ixY
-	FliXVuw1O3sL2dYIsXGhkpHgMQnuHKOs/XFUr4tJGcY2DLg/Ln8i5XJa
-X-Gm-Gg: AYBFou0DrP0BNY9ar3YupFLRCyQoALY/cqNsLSwLexnOTtLn9wA19G9zRacjnX2bvLY
-	uj1i04dKZ59pAmZPYeLvN96QIk/tkov3AUOakeAxvN8/ioEdF/y0VS6XRsuJF6ixBzWCBwYRnWr
-	AXr3w6KlxQep6dobWvpdZTnC0id618VpKpHL3OvyiLmiBes6bB7HdZ/GnQ5bUWLMnYeAlihCIDR
-	Fz/j0sCNGk20uvWDuRlu5+845Rczdbdu1oNioKw9YvPpVxPNjMVmRMRgsOWpSWky0lr3ZQFrK/B
-	C+YriMa3Cme8mAeR9VSTQQL4b4Ib82ZLcBK8arwLMCplykSfJY7Y+TeeW5qxcLWU2JILma4A+hc
-	WcLkvib7rqN0gHFV0JXsp2yLEr9LUtDTlSlu8xEX3P6fWrhg+MORcexOOg6f2AMce1fAdvGTtWc
-	qUTtPyMGBTuF7KeU72A+TTk2Z8Jw7yk9sfnqgjb9T4XjySAl4SkC4KuCr54nsDaQf2ofXApWQ5m
-	LeM9c0YjBtoowHKt2uapLI=
-X-Received: by 2002:a17:90b:2701:b0:3a7:3474:b1ee with SMTP id 98e67ed59e1d1-3acef11c1b5mr4055247a91.60.1792327698656;
-        Sun, 18 Oct 2026 05:48:18 -0700 (PDT)
+        bh=FnheYDRM6vYnCG89OFLcuiT1asg22kwip+wXziGfAlM=;
+        b=De/lB+0WIko/mn1+SJrC0sC+w+k4kO5Onj9soBiCE5mg/lLW0BrQ73iXtzfA5LBo65
+         A5jstsri4+07JRkPyWuldMwOuydLr1VMN1uDtdOYii6oyfHa+7WvcXvMdjL5Y9NhngPa
+         7wETeUdBEJ2NshZTGN810iVdOJ4R8sUqbGoXlBbfKSjNfSELEJbU3AZYm2JIW1LqRIeb
+         T41EHdxTX8xRv9H2+3wAkm1isXBFuFwOmuWnLqXReqzX97HrJvfl2TcgDv0q5ykWQ1M3
+         eGPI4cDN7AAnJRLNH2/jjAU8YMezxxcSv3KFN7KSGxVrnmK/a12GzR6Pxc9Mq+wWTfwQ
+         aIMw==
+X-Forwarded-Encrypted: i=1; AKwUvByfZq7ZY/ViaPKKau7VxU0pcHDsmbLQBbzyhQx7SOrs2RD9cZBnhTCKNDhQmq5G2ufN8Rt0fbrR7HIxvds=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2EUV7vn9jdfgdKXiuvDrvKzzfQ4WykJP+mIJ8sjNocj7lnX4U
+	QSHH+k6iOf/dMf4Y91bRfr92oHaRHEf2rwjzahtdUVGWhTJ7ct0kUdaU
+X-Gm-Gg: AYBFou1Bppqft9unTBK9+KlUnyQYEmvytWtCJO9KdOw1ZQHoLMn5DU68qWnPtkGzEjH
+	T29phDyzyMaBbWJOsBIIzi50ui/hwxcivaeK4M2lutJKwyoCL/7I2Fn60yAJTBamjQJx8Q0U9OJ
+	19zEiIAIK7TfONoBltK+MQ3CPkvHfFRcHGL8sRea4EQAxD1ZTnqH1Yq0vf7WyGeDK5cyDdUt7Ya
+	UnuEmijnkfXHarjux0hA+26TgZKoZ3WUASbVIHnTvFZOni71jxPCxcPeNvUQc672MmM83NEvR0K
+	D5Fq94YdAq5Nwsi+bL3vYt8NYYclW+pGDydq/Z1MEVvPrwGQLOQ/vwChEruKqWPB8tuRNU4s6Af
+	wEh2mNRoGWmsQLb9i57DbJPpTKCQjUXGPTyDmq7RU4wb9frRxxmBPPgM0te2b5krut6s34sv/SI
+	zh/jQZtOB9u5eWGJODgcrnTgMyXyDHRyCytNis/VfQNc8qr2JJNta4/rDkwifWg9bcPVAgBDV4W
+	gzmPASg4Zm4wvkh75eq6+A=
+X-Received: by 2002:a05:6a20:43a7:b0:3dd:85a9:55b7 with SMTP id adf61e73a8af0-3e225f84339mr3880841637.34.1792327703067;
+        Sun, 18 Oct 2026 05:48:23 -0700 (PDT)
 Received: from jmoon ([118.220.156.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549ee946sm2804669a12.20.2026.10.18.05.48.14
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549ee946sm2804669a12.20.2026.10.18.05.48.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 05:48:16 -0700 (PDT)
+        Sun, 18 Oct 2026 05:48:21 -0700 (PDT)
 From: Jinmo Yang <jinmo44.yang@gmail.com>
 To: ping.cheng@wacom.com,
 	jason.gerecke@wacom.com,
@@ -70,9 +70,9 @@ Cc: dmitry.torokhov@gmail.com,
 	stable@vger.kernel.org,
 	Jinmo Yang <jinmo44.yang@gmail.com>,
 	"Claude Opus 4.6" <noreply@anthropic.com>
-Subject: [PATCH v3 5/6] HID: wacom: add NULL input guards to Bamboo touch/button handlers
-Date: Sun, 18 Oct 2026 21:47:54 +0900
-Message-ID: <20261018124755.850888-6-jinmo44.yang@gmail.com>
+Subject: [PATCH v3 6/6] HID: wacom: add NULL touch_input guards to remaining touch handlers
+Date: Sun, 18 Oct 2026 21:47:55 +0900
+Message-ID: <20261018124755.850888-7-jinmo44.yang@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261018124755.850888-1-jinmo44.yang@gmail.com>
 References: <20260927041138.4112920-1-jinmo44.yang@gmail.com>
@@ -85,72 +85,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-wacom_bpt_touch() dereferences both touch_input and pad_input.
-wacom_bpt3_touch_msg() dereferences touch_input.
-wacom_bpt3_button_msg() dereferences pad_input.
+wacom_24hdt_irq() (also handles WACOM_27QHDT), wacom_intuos_pro2_bt_touch(),
+and wacom_bamboo_pad_touch_event() dereference wacom->touch_input without
+checking it.
 
-All three can be NULL when the corresponding
-wacom_setup_{touch,pad}_input_capabilities() returns -ENODEV during a
-successful probe. Add per-function guards.
+As with the other handlers in this series, touch_input can be NULL when
+wacom_setup_touch_input_capabilities() returns -ENODEV during an
+otherwise successful probe.
 
 Fixes: 2a6cdbdd4cc0 ("HID: wacom: Introduce new 'touch_input' device")
-Fixes: 862cf5535c0c ("HID: wacom: Introduce a new WACOM_DEVICETYPE_PAD device_type")
+Cc: stable@vger.kernel.org
 Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 ---
- drivers/hid/wacom_wac.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
+ drivers/hid/wacom_wac.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
 diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index e0bf03123cf9..a34db1505625 100644
+index a34db1505625..e3fff2471d43 100644
 --- a/drivers/hid/wacom_wac.c
 +++ b/drivers/hid/wacom_wac.c
-@@ -3151,6 +3151,12 @@ static int wacom_bpt_touch(struct wacom_wac *wacom)
- 	if (data[0] != 0x02)
- 	    return 0;
+@@ -1483,6 +1483,12 @@ static void wacom_intuos_pro2_bt_touch(struct wacom_wac *wacom)
+ 	int num_contacts_left = 5;
+ 	int i, j;
  
-+	if (!input || !pad_input) {
-+		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
-+			      "%s: input is NULL\n", __func__);
-+		return 0;
-+	}
-+
- 	for (i = 0; i < 2; i++) {
- 		int offset = (data[1] & 0x80) ? (8 * i) : (9 * i);
- 		bool touch = report_touch_events(wacom)
-@@ -3185,8 +3191,17 @@ static void wacom_bpt3_touch_msg(struct wacom_wac *wacom, unsigned char *data)
- {
- 	struct wacom_features *features = &wacom->features;
- 	struct input_dev *input = wacom->touch_input;
--	bool touch = data[1] & 0x80;
--	int slot = input_mt_get_slot_by_key(input, data[0]);
-+	bool touch;
-+	int slot;
-+
-+	if (!input) {
++	if (!touch_input) {
 +		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
 +			      "%s: touch_input is NULL\n", __func__);
 +		return;
 +	}
 +
-+	touch = data[1] & 0x80;
-+	slot = input_mt_get_slot_by_key(input, data[0]);
- 
- 	if (slot < 0)
- 		return;
-@@ -3229,6 +3244,12 @@ static void wacom_bpt3_button_msg(struct wacom_wac *wacom, unsigned char *data)
- 	struct input_dev *input = wacom->pad_input;
- 	struct wacom_features *features = &wacom->features;
+ 	for (i = 0; i < finger_frames; i++) {
+ 		unsigned char *frame = &data[i*finger_frame_len + 109];
+ 		int current_num_contacts = frame[0] & 0x7F;
+@@ -1654,6 +1660,12 @@ static int wacom_24hdt_irq(struct wacom_wac *wacom)
+ 	int byte_per_packet = WACOM_BYTES_PER_24HDT_PACKET;
+ 	int y_offset = 2;
  
 +	if (!input) {
 +		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
-+			      "%s: pad_input is NULL\n", __func__);
-+		return;
++			      "%s: touch_input is NULL\n", __func__);
++		return 0;
 +	}
 +
- 	if (features->type == INTUOSHT || features->type == INTUOSHT2) {
- 		input_report_key(input, BTN_LEFT, (data[1] & 0x02) != 0);
- 		input_report_key(input, BTN_BACK, (data[1] & 0x08) != 0);
+ 	if (touch_is_muted(wacom) && !wacom->shared->touch_down)
+ 		return 0;
+ 
+@@ -3418,6 +3430,12 @@ static int wacom_bamboo_pad_touch_event(struct wacom_wac *wacom,
+ 	int x, y;
+ 	bool valid;
+ 
++	if (!input) {
++		dev_warn_once(&container_of(wacom, struct wacom, wacom_wac)->hdev->dev,
++			      "%s: touch_input is NULL\n", __func__);
++		return 0;
++	}
++
+ 	prefix = data[0];
+ 
+ 	for (id = 0; id < wacom->features.touch_max; id++) {
 -- 
 2.53.0
 
