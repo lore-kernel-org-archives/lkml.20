@@ -1,109 +1,118 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371A33A5443
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:27:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29AE4397B1C
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 17:30:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792344468; cv=none; b=GxinW1v3YlSRCExCVP2umE5t01cN8e2PuRyvPwa1ZGMoEI1TPP20qqZHDHjUYp5HgwzQ5Z79kWJ6YoTerjow0JffGVm35fJl6v7UB5H+xKMTlcVzK1B3DmYBlhOrn0FWmNh7jiwjNF9GRvuOcYcFCWwDr3RjYCsY8P+MS71B/yc=
+	t=1792344644; cv=none; b=Y+zHS7IbOVZ78Jsa1hzzDoZltsjyZfWKPD/FURntVVC5yWguae5wKJoDSWfz+SjQOydho4WJmR5DuOH22Qw2lrk13MVpt+ugcx9qOoH584LurfZEjvLeQlxvZrTNYzdtt9qB2pmSPVVrOOwt06bASXYebmNUkjE3oRWWW3VPs5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792344468; c=relaxed/simple;
-	bh=rkp+TJ9i5bbiS7zbelTL69SgmxfZjEfWqntjkizog4U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VxIZAE7TpbzzZerP8rEfyWy/lwqI/4x1NtUrtXCAKS91fRfRNtrE6E60UQKqO/n/tSsvlgD2c3NWa+vPUfj3Dbrg8RYb/kDeTXNyUJ1nLcpMIW5U+E7qn6ckHurxiakRVsLba8RM745FOeMHPI3+YjhJ7lRkbrzogmSneS2pyjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N1lltT2y; arc=none smtp.client-ip=74.125.82.171
+	s=arc-20240116; t=1792344644; c=relaxed/simple;
+	bh=74zW7bX+zhXYnzIJmFSSuGPDBD3IIhvKVExVvMEfcu0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nN7J3P67uGGIHGWH/Ll0edFHsBSdsOpILeJiX+OxDBPdg7puTFnsMIe3d8YbfOa7c4AKHlLD4al9do14wuKvlBq5It+j1qjJvF55EaQhyTAhj+hjU2eR7JjbaIMLwbawS8N/gg8L/IudbhYJPIP/yg0FSWAATS/xybQSnbtUzbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mzen8RkI; arc=none smtp.client-ip=209.85.215.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N1lltT2y"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35943f55c06so2040411eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:27:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mzen8RkI"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc52c1b8286so716053a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 10:30:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792344464; x=1792949264; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s8BhmEAwrAS5v1BhAMr5BoqzbHilf+inH/YH2jYRtiI=;
-        b=N1lltT2yUmqSJ3i7vMtTLzBw2Dw1HiiwtN4YXynzJ1uOrVxSOH/3bi10VI84lX+e9X
-         NpK/CiaYI8u3ZGaYukQlBkdWODeI0bTgGrqgC5IaMZh9dVP0c19mvHJ/SnBFpjiFc1G2
-         gAyuEOVUni3r5Qtxu+eaMgyu3f/cTflDtchoe6+KfVK2uvgkrlZ8T6aChtf2AP7Voosw
-         Ad0nVOVcpe2oE+ECNoO/gy02Zp1Sbeu7FxJRbOnOlmPRRxntw2d/qSZtfXDn5Go5OPjl
-         MthNXQlQ+xwpTBlEIzJZ/xrnPQTlvGp9D8cRU6WaMLkui8jQLmsC6Gj8W4TOs8GuO70t
-         AYQQ==
+        d=gmail.com; s=20251104; t=1792344642; x=1792949442; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3ixHYsvcVa+4o7T8DatH23CM41eHYBblIhIu3k33z0A=;
+        b=mzen8RkIKqMI7TjU1lIdnHbzS7VzH+7+3587M2lrbdmQbKevP+rQ6AnGB41fZrMe7H
+         1L12pFORyigwSzHMcv2PE80bQmuGJ8CXRC4/4pe8rQHzq9wUU4AYn6xhZp8J32UCTSsc
+         3LnuDlph8caZC9YJdYoPVg/B+NC3l1mURD5MZOSV9aJKlLs5joZyl2PWh1wM8t5ibB8q
+         tTYZQ+aKW4D1ZtAjQizYm5t63YwJ8lk6/ez9t4kz9MbpWgjAA2yaxzKBB422iL+5DJ5I
+         n7mI+UF/yJPCgK/FEzHTvIwrawJ/d4yGcO+v1YGlca/rn05AmwHZIPDHZX2qknYMwdfa
+         bgRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792344464; x=1792949264;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792344642; x=1792949442;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=s8BhmEAwrAS5v1BhAMr5BoqzbHilf+inH/YH2jYRtiI=;
-        b=nli80W8Ey0h1zw960crCtWG3vwwlOFE2/eKG2yGw5Qaxz9oe9IIWdm8PwAiBnS2Dsi
-         FjMaqBnFWhndOGn7/n/Q0iqzs8mMnlJPp/zW+WwZ7Ont0L3Cr1xYMvbjCeP6XSJ/iJ+1
-         oqCBSDig2sGg7CpH1jrAQWxhukuISL8ZokxWTMZIi4oiZB72hX+q53gHSk2wkEIOS+Kc
-         FOwmt9OqGuFpvNBS3ShBcOmDuZBlHlu/O4umLca1rSmDr4+Iy8iOT9nZe8xh3EtoUJUm
-         xt3uHkA36tGeCl9DF4VavZoiXQ9dxuoaJ3nW20lta0SYtvrnZ7xjRftNmLsL9Ij2IOYi
-         lgbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxfuwS+U8qQa8La18eNdNJBVCaZUdQrx9e9pZNWof7Ll5glWFEyPJAwstOE6Q7HG8E/sb052cvvHo3TI9g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjhCgXmV3lF7zitiigtefbDlTMhyFyi0YfYMOy+L6i9K2R+n+V
-	74ZwfOiAffMbFUBJ41xYzdajkXiPApKqLPdPsTqL6OKAanwY3FsJGLJR
-X-Gm-Gg: AYBFou1CVGSku/kmg6gykIWDQvicgBbh0CDcDw5Krf7w1ugDg9qNOiuiBXXqSi4BGjP
-	tLiAIYiCaaXkXxqCkcELeXm6TVGMIybOYU/FcYnFOzFCj/RStntbN5IV44LepoEdX9QXNHicj/S
-	POVyu+KCRFTgoKzLiSNQNW71KymwBDTuWr2WSKDRyFmY21j4kd4wX6tTqpUGlKfPLN0901vSe/Y
-	Zq7fwsyZ7baRzuP3PTUAg7GkYMU6HXiHYLMeqwvAyErfN6weuntjbUL3+VX4JlEQoqmhzUvFQDo
-	aFnGOZqqhcyskRDk8MZRk5PSP3xzxqMJ2xRxXp9/NfnKFSXhP/B9Rk240CgCJQKs7xMr3LYxg4x
-	OtefbZqTWj+wKULQW2BRw0r87OQ+4bQy+ClnJGrsh5s6jl2Pcjg7pOXs7oaWV+ko94OKZkW3Aea
-	sFr4mj/ErMGNFAbt8EW/5FxN6qasYbEOoQj2DN335ZnncVY3pOYmYLd7DLcImw/CDWVd2XzHGSs
-	kpSjLTND12OB1o=
-X-Received: by 2002:a05:7301:5406:b0:355:29c0:9cac with SMTP id 5a478bee46e88-3602dcda842mr11919489eec.10.1792344464092;
-        Sun, 18 Oct 2026 10:27:44 -0700 (PDT)
-Received: from localhost.localdomain ([2409:40f0:11a:4ca8:f773:d2e6:c98e:8b27])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608308a87csm42654054eec.28.2026.10.18.10.27.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 10:27:43 -0700 (PDT)
-From: Torra Sowmya <sowmyatorra@gmail.com>
-To: outreachy@lists.linux.dev
-Cc: johan@kernel.org,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] staging: greybus: fix loopback Kconfig help text
-Date: Sun, 18 Oct 2026 22:57:11 +0530
-Message-ID: <20261018172711.8013-1-sowmyatorra@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        bh=3ixHYsvcVa+4o7T8DatH23CM41eHYBblIhIu3k33z0A=;
+        b=EGc1KNuCqdwfsCH65oaUye1/xAy+eEIO2jacYbxeDEWhfjSTVrRY74MWl3WKz3rjEB
+         JpVkpjstYy1Z9zCXD81jZ2IvaVubXTJRMbZrNDtNb+l44xrkFIrBKoPEq6MS2nU+o/c0
+         SOv+FNB90yzMZagxCKcXnGp7hRG/dIZxdOW2iISCcm0v8et8cPKRlPeU7nDmtw0mIYvT
+         +8oQv3LO0hWjBCtscM/iVqKykGW8I5RVYzELDj+jQLcmLVNZQ8A/9PEf+fHcJ5MYJ0nQ
+         HMG2V1d+TTZcPFDeYb6cR/8dOb4RbTykCiMmPYLYx2HVMzgIQQhuKpyQVqtXPZDM5WVr
+         Wr3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzNBNi1eTOfaf9J5DZxLspKONDlO+Ya5YrTel0UZ6k3CBOjIRqe1C2XfDwf1NyGKFYzDmEUuqaMM/8WZeA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbHSBGdvq7RkaJYPNHlc7Q90+E3Nks0rFBWBchYHUvkRI2mw9C
+	gTi8d4mz7EWLY4sUJpcu5/hjiN3fD4hZzojdVCW6rAtfankdcmI5YsM4
+X-Gm-Gg: AYBFou3KBkfC47AS+qkWgrwRt5pZzN8Gr6LWnO5RiZB7TWo1U99MaHR9ftNsv5pY1BN
+	FbxVVTLRWJWDAAVl21CAp3OdwzZm3n2gCgv85rSC9sAiGw81m6UxLFa/EHjeHx72OVcNG/kjwOr
+	eg0yOTgOnYtzwiPQWCHQmS72JZ+ARbHh7kVE51YOY83RlSAdaTh4/k1VfMV62tjn+f2ZyyqkWPu
+	nw1DaYuMXqVlfOn39q1NCXs+o5saSFT9+gaAE/CzUzbjNKxnIXeK2kSBCwLw9rshDMBK5rQHMUX
+	/nc/eYs2LtbPe9QV4Rq3s32Mzn8QGxhGWI3yPBpReaf6eovQuEBq41lPdHLqcYbQG0o8Kn5FaMp
+	2nBrbCtXtDLg10vjyeGcyN2nP882tlGW7kdET1Osaau2uyMLohQh/TGw69b4fkaxNS9KE0nUSjz
+	3FFHsc6cDa41JbrHYO9b3fBQKx/MgpJgSfwxFwSd9vH5+4noKjih2lTRyKgINnXcb7j4cbrA9xl
+	0hoMg==
+X-Received: by 2002:a17:90a:da87:b0:3a7:9ec3:ea0e with SMTP id 98e67ed59e1d1-3acef144e3emr3623867a91.22.1792344642433;
+        Sun, 18 Oct 2026 10:30:42 -0700 (PDT)
+Received: from [192.168.89.2] ([14.67.155.18])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acddc37958sm10649439a91.14.2026.10.18.10.30.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 10:30:41 -0700 (PDT)
+Message-ID: <fe746c04-391e-4b7e-a5c9-7dfd3cd07913@gmail.com>
+Date: Mon, 19 Oct 2026 02:30:39 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] docs: hwmon: Document the uhwmon userspace interface
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-api@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1791531025.git.hurryman2212@gmail.com>
+ <c02aeee5b7e7a5d159d4df5baabe925e16814e94.1791559095.git.hurryman2212@gmail.com>
+ <e77719ee-c813-400e-b49a-9f8a3b0e2e91@roeck-us.net>
+Content-Language: en-US
+From: Jihong Min <hurryman2212@gmail.com>
+In-Reply-To: <e77719ee-c813-400e-b49a-9f8a3b0e2e91@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The GREYBUS_LOOPBACK help text incorrectly describes the Debug Log
-Class and names gb-log.ko as the module. Correct the description to
-refer to the Loopback Class and name gb-loopback.ko, matching the
-driver and Makefile.
+Ok. Then I will withdraw these patch series.
 
-Signed-off-by: Torra Sowmya <sowmyatorra@gmail.com>
----
- drivers/staging/greybus/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+But then let me ask you the initial question that brought this patch
+series: Do you think it is at least OK to add kernel drivers for
+network-based sensors? Or do you think those are also to be subjected to
+be rejected (or remained in DKMS projects)?
 
-diff --git a/drivers/staging/greybus/Kconfig b/drivers/staging/greybus/Kconfig
-index e1d7ffdf4a6f..3ff47550081d 100644
---- a/drivers/staging/greybus/Kconfig
-+++ b/drivers/staging/greybus/Kconfig
-@@ -75,10 +75,10 @@ config GREYBUS_LOOPBACK
- 	tristate "Greybus Loopback Class driver"
- 	help
- 	  Select this option if you have a device that follows the
--	  Greybus Debug Log Class specification.
-+	  Greybus Loopback Class specification.
- 
- 	  To compile this code as a module, chose M here: the module
--	  will be called gb-log.ko
-+	  will be called gb-loopback.ko
- 
- config GREYBUS_POWER
- 	tristate "Greybus Powersupply Class driver"
--- 
-2.47.3
+
+Sincerely,
+Jihong Min
+
+On 10/19/26 01:06, Guenter Roeck wrote:
+> On Sat, Oct 10, 2026 at 12:38:44AM +0900, Jihong Min wrote:
+>> Document the uhwmon UAPI for developers implementing userspace hwmon
+>> drivers. Cover device registration, request handling, notifications
+>> and device lifetime.
+>>
+>> Assisted-by: Codex:gpt-6-astra
+>> Signed-off-by: Jihong Min <hurryman2212@gmail.com>
+> 
+> I am not going to review, much less apply, this series.
+> Exposing subsystem internals to userspace is a bad idea and would limit
+> future improvements of the hardware monitoring subsystem. User space file
+> systems are bad enough and cause all kinds of trouble. I don't want to have
+> to deal with the same kind of issues in the hardware monitoring subsystem.
+> 
+> Interested parties should implement kernel hardware monitoring
+> drivers instead.
+> 
+> Guenter
 
