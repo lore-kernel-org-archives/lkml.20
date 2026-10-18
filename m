@@ -1,114 +1,171 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB91D3ECBDA
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AAC83D7D8D;
+	Sun, 18 Oct 2026 18:29:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792348152; cv=none; b=SqdS91Re3MwzxCDI+2yCVj6JM8l1U4HqlYDS136ofq1r06cnVFaUkoX858xzxyeWGqZXINLC6jGBNjDxTJs0Csf1Kl1Z+uN1+FFZmaM4be7vjNfT+458ORiTGJbKeA4XU38UdlVbTBn3bG+voyT6D/1+JDY/SWlZLyAZC10rMqM=
+	t=1792348174; cv=none; b=tmaXIjybN3w8dhVPWSJY0DHJaUok9nWwF98RiHLo7Obpu7Tvr8GOAak9FY3vr/xE8LvlZIXIEg8v7GG9sN9hesTu83c2EFX6NGlc3jVPz8m3wOpkyPWKcaev5/Z6Wjf3MlzwrIr6QXPhDPSm1w45/uf+2hTJdweh+r7/Xe5+e98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792348152; c=relaxed/simple;
-	bh=/FcEJrTo+6kZTxeMfMC9pkD1SOm/pbQOF2ZkPY9zZeM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EGsZmBDJJZBRS2UdE/3M/BJseo1EkjN2gw3RgkUCxVqMJGYgnJuSMZ6QeCCTtQJuHPnKl+8PbyAAsxnAh1wqZoIcfzfCKy05JCNwmYq8ZptCJrNJMaeDiM0eS14JMfO2cJaKBxW24HTYfJDRmU+q9tU2zlMRZLEVcPqYQzOxZT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ra4ENuct; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792348174; c=relaxed/simple;
+	bh=Vl3tdMyMwe/I+x3N6QbrwknBSVKJP09DniWkB0JmIq8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Q/8O0m4fmIKfn1t/bP5PtXr5kDeEgxgFdU8hpAOJMU1PGDDHrUZpn0YqJ1LR+97gs2nmcsKHqDRFX2FAjQFsfyaiXhxUgcr9wqWCtkcsZ8JjodUeBKugIHWyRws15+NcLi1v3eD9ixGulcHivkfPlwhMhh9ihNSEDpk/V8S5Hiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qB4MSuel; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ra4ENuct"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso6397775ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:29:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792348150; x=1792952950; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qhL7iYYfEcNdbRQqdb6S37zX0Ja75Am4y9nFDdcH8xg=;
-        b=Ra4ENuctVuw5geoZ8Nzsp4m3/+geTDfFQH3RT9MliC+rp3KwDrH51peoB7hywe9EFW
-         lQtJ3CuJ8EiWABPWgNo1LU0UoZoCbQWraoQuvylyK+UO41TsNYXnAnUX3hNXlZZzzFaN
-         epO5jsnWZDg6QNV1wg0irZVnQRdnhtuKnEgvBFdLV64ZWYEOWQ43z523Ja3UhNc05Ytz
-         ItathiLRQN6jGN8E1mzTGIlEfcb+1QG+VFBxulP+Fs8ozI97DCX9J5nzj1pMR0vdScmG
-         YXtM9bJY0HGYvbuEnyGkehAGm8PqRrdhN0FQyaNeJBmVmCvihugIxpw6IW0qKcnVPwpS
-         4NkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792348150; x=1792952950;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qhL7iYYfEcNdbRQqdb6S37zX0Ja75Am4y9nFDdcH8xg=;
-        b=bGpvXOE+HzLnX1Il5QyfDqgXgik8R0qSRh4WDE+OAitDcQ/iwCtHnwQy+6FH7VPxHp
-         b3Zw11CFTQobcpZNQzhQm1DIQ9g9aFA0HEgflGpNmBi8Ud9HyF39OE4XCTM8/SnvKxYH
-         pM73LGFH7Vsb23NdxHYLyurpXLeRIEWJefagr1uDEwi13DBZeHgmvSEVJlX1kg856uIh
-         SoBbGpGr5WVOVwtsQPi9EZJ2+0V1yypiTuXMLd6nQ3QbaZ4kBZ0b5/+iUL/B6XTy897B
-         94FPYqqBKKGgRZ9p6W6hZtqURvL8l85xE3jswvC+G+YYoWESZm5T49xD111Fe+/PF8Yo
-         i4eg==
-X-Gm-Message-State: AFq9FYK5bVH6SPmNFiN+vNsDE6zDMI/ATYWqUwCQsbHhzJuxBC+3NLew
-	bNwTCU+mtN6pq4HWlfFv96iIDCB2ag7Xb3yk1iPDFaxog+adtIu0y8EU
-X-Gm-Gg: AYBFou0QVCbtz5oPTOReLbCWiOlpmIju7O/9O6a+nrSeOWDnI2JaVPNHmfOgboZ1Fay
-	U+elCka1C+wIp3BY3pkcO0d08lyLF3FcqNCtS1BvMlPg6toTUwSbsB7qHu1lXgeUExWiSfC28S0
-	UPLwzGMA8n/s0oYUlK3ncjVM1Gm5fRQr2SiIl8rnmwZ46UT/WEpQXAfEDPmoHIW/DvteTGsxssu
-	xD4eL6mc9UzibrkETO1FhXZl41CjjZEwBvmbVNtKYSF8dP3cEU6a3YT0WFqHU04BkhDI1fTa7IB
-	RhQe4zoOO8xPSdeUVLSRNLzu1Rij5tZftHcqkWs6toPkDn2UINsiPeXaGSTaUe38RiIVm1Jrb1E
-	8ylR2r1jhI+SGBv41ReSH070WsOLiBaLxVsPjo3V8tGqLAOR5aboZNfBQcBQAqn+MNam4jFss1h
-	oKoWKUPChGyVDj4zRoyEL88ny0rTIinl/9GGmukPFX+mOBqjigNd7QrQ6vKsr0yUdqg7tJtwRWC
-	8skMuDaPrLh2uVRLwwih9++YEIguigFMb1VHccnJ+6xJRZYJIKOSGeoPhao7I8NM4At3ig/wV4W
-	erO5JsD51fWaOFui1VHnoin1YA==
-X-Received: by 2002:a17:902:ea03:b0:2e9:7719:4104 with SMTP id d9443c01a7336-2e9a6834bdemr43504965ad.8.1792348149928;
-        Sun, 18 Oct 2026 11:29:09 -0700 (PDT)
-Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (114-38-149-183.dynamic-ip.hinet.net. [114.38.149.183])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e5d4e51sm29796255ad.1.2026.10.18.11.29.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 11:29:06 -0700 (PDT)
-From: Yuan-Hao Hsu <aa9736195201@gmail.com>
-To: Rik van Riel <riel@surriel.com>
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	linux-mm@kvack.org
-Subject: Re: [RFC PATCH v3 4/8] mm/gup: break out follow_one_pte() helper
-Date: Mon, 19 Oct 2026 02:29:00 +0800
-Message-ID: <20261018182900.671-1-aa9736195201@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <7ba9d2e6370d6134ad34cdffcff5cc79b9192df1.camel@surriel.com>
-References: <20260811025157.1632867-1-riel@surriel.com> <20260811025157.1632867-5-riel@surriel.com> <CAJuCfpF47Mpi40=8yujBNruCDvY-Ezk0WFEacCqxcdRjmUqt4g@mail.gmail.com> <7ba9d2e6370d6134ad34cdffcff5cc79b9192df1.camel@surriel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qB4MSuel"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E3403C2BCC7;
+	Sun, 18 Oct 2026 18:29:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792348174;
+	bh=Vl3tdMyMwe/I+x3N6QbrwknBSVKJP09DniWkB0JmIq8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=qB4MSuelJMTHPzi+7eRtiMUD969zk4mODI2azEO0T4FN3oCPLKBowk+seeKSujpUp
+	 7CkaOg5s/zLvSsYKgosGMO2U/TesOTboTcBRZ5ldHpfJaH2yEcdCuZ3Gzh+MGCcUVi
+	 7cjEwOaqUdvhW6Eb08bTz20weszYlTZe8gM9fHLrbpOVHneZDxq3hR8d0LzWEg5Vco
+	 BbzNthOmrFIUZGlxosesGmo7WsLWobkbkIO4igGEl3rJPY/7HU/tlKB2jBYXZQZXp0
+	 4MiLUw6XccPPb+yPhxQDQ5uV7JzOoLtcHBPs+44PDWQJb6Q6xCcmL/k+CNVI2vWTYQ
+	 A9SOgZNndSWyg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CCE54CCF2C9;
+	Sun, 18 Oct 2026 18:29:33 +0000 (UTC)
+From: Mohammed AlHashim via B4 Relay <devnull+eng.m7mdhashim.1.gmail.com@kernel.org>
+Date: Sun, 18 Oct 2026 21:29:32 +0300
+Subject: [PATCH] drm/msm/a6xx: Don't set GPU freq before the GMU freq table
+ is built
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261018-msm-gmu-freq-guard-v1-1-dd92dcccee86@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDtgLJHQq5QuYpzEEWJ1pikF8
+ e5N6/It/t9BSZgUbs0OQm9Wfi4V5tJAmPySCHmshq7tetMah1kzplwwCm2YipcRyfrgrtaZOFi
+ o4SoU+fOf3h+ntQwzhdfvBMfxBbuZL5F2AAAA
+X-Change-ID: 20261018-msm-gmu-freq-guard-e5ac83581fb5
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792348172; l=4160;
+ i=eng.m7mdhashim.1@gmail.com; s=20261018; h=from:subject:message-id;
+ bh=4u668IecDd1UekaSTwsKFOC3XIkk1vPT8fcmnCTf8Hk=;
+ b=uJCnknCpmYyjxARyh20Jf9ipZVqQKQNP+stUYUqzspq+FIqGyzszrghTb9KDeTefvvSRYScFW
+ VXemMVvY6b6DlN7D6aTi9gM9Fk9gPikey3/VkBcBwpEeO/37UyQtp+U
+X-Developer-Key: i=eng.m7mdhashim.1@gmail.com; a=ed25519;
+ pk=nadicxm5lJrpr6u2tkxbYV+wi8bWOYqheGU3HolXoXA=
+X-Endpoint-Received: by B4 Relay for eng.m7mdhashim.1@gmail.com/20261018
+ with auth_id=1228
+X-Original-From: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+Reply-To: eng.m7mdhashim.1@gmail.com
 
-On Fri, 28 Aug 2026 22:11:07 -0400, Rik van Riel wrote:
-> On Fri, 2026-08-28 at 16:47 -0700, Suren Baghdasaryan wrote:
-> > Before refactoring in the above case we would "goto out" and
-> > no_page_table() would not be called even if pte_none(pte). Now I
-> > think
-> > you will call it if pte_none(pte). I'm not sure if this does not
-> > matter but this seems like a functional change.
->
-> Good catch, now we may end up calling no_page_table()
-> on a VMA where we are not allowed to write, for a
-> FOLL_WRITE access, while before we did not.
->
-> That might turn 0 into -EFAULT in some corner cases.
+From: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
 
-That exit is reached with a present PTE: follow_one_pte() has already
-returned 0 for !pte_present() above it, and pte_none() is false for
-any present PTE.
+a6xx_gpu_init() registers devfreq through adreno_gpu_init() ->
+msm_gpu_init() -> msm_devfreq_init(), and only afterwards calls
+a6xx_gmu_init(), which fills gmu->gpu_freqs[] and sets
+gmu->nr_gpu_freqs. The devfreq sysfs node is visible in that window,
+so a write to min_freq or max_freq can reach a6xx_gmu_set_freq() while
+nr_gpu_freqs is still 0.
 
-So "!ret && pte_none(pte)" in follow_page_pte() can only be true on
-the !pte_present() path, and the old "goto no_page; if
-(!pte_none(pte)) return 0;" sent exactly that case to no_page_table()
-as well.
+The lookup loop then compares a u32 perf_index against
+gmu->nr_gpu_freqs - 1. With a count of 0 the bound converts to
+UINT_MAX, so the loop reads past the end of gpu_freqs[] until it hits
+unmapped memory. It faults with devfreq's lock held, so every later
+GPU user blocks and the machine hangs.
 
-The can_follow_write_pte() and pte_protnone() exits still end in a
-plain return 0, as before.  No functional change here, so nothing to
-fix for v4.
+This was hit at boot on an X1P42100 (Adreno X1-45) laptop, where a udev
+rule wrote min_freq as soon as the devfreq device appeared:
 
-Yuan-Hao Hsu
+  Unable to handle kernel paging request at virtual address ffff000b80000000
+  Internal error: Oops: 0000000096000005 [#1]  SMP
+  CPU: 0 UID: 0 PID: 487 Comm: (udev-worker) Tainted: G        W  O
+  Hardware name: SAMSUNG ELECTRONICS CO., LTD. Galaxy Book4 Edge/NP750XQA-KB2US
+  pc : a6xx_gmu_set_freq+0x74/0x2a0 [msm]
+  lr : a6xx_gmu_set_freq+0x3c/0x2a0 [msm]
+  ...
+  x4 : 00000000ffffffff ...
+
+x4 holds the wrapped loop bound. The faulting address is 1 GiB
+aligned, which matches a linear read running off the end of the
+linear map.
+
+Return early while the table is empty. The request is not lost: the
+limit is kept as a PM QoS request, and devfreq applies it the next time
+it re-evaluates its target, for example when the GPU resumes. The root
+cause is the init ordering, and registering devfreq after
+a6xx_gmu_init() would also close the window. This guard is the smaller
+change and is easy to backport.
+
+Fixes: a2c3c0a54d4c ("drm/msm/a6xx: Add devfreq support for a6xx")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+---
+How this was found and tested:
+
+- Seen twice at boot (2026-10-03 and 2026-10-05) on a Samsung Galaxy
+  Book4 Edge 15" (NP750XQA, X1P42100 / Adreno X1-45) running a
+  downstream 7.2.7 tree with an out-of-tree device tree. Both oopses
+  were at a6xx_gmu_set_freq+0x74, about 9 s after power-on, from a udev
+  rule writing min_freq when the devfreq device appeared. The log ends
+  at "Call trace:" because the machine hung.
+- With this guard applied to the same downstream tree, the laptop has
+  booted 20 times since 2026-10-14 with no oops. That shows the guard
+  does no harm. It does not prove it closes the race, because the udev
+  rule was moved to a delayed systemd unit on 2026-10-06 and the window
+  is narrow.
+- On v7.3-rc7 the change is only build-tested (arm64 defconfig, W=1).
+  It has not been run on mainline or msm-next. The function is
+  identical in v7.3-rc7, msm-next and msm-fixes, so it should apply to
+  any of them.
+
+If you'd rather fix the ordering, so devfreq is registered after
+a6xx_gmu_init(), I'm happy to rework it that way.
+
+AI disclosure: an LLM coding assistant helped read the oops, trace the
+init ordering and draft this commit message. I reviewed the result,
+tested it as described above, and take responsibility for it.
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 6d49c51df..b1cbe5d34 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -164,6 +164,14 @@ void a6xx_gmu_set_freq(struct msm_gpu *gpu, struct dev_pm_opp *opp,
+ 	unsigned long gpu_freq;
+ 	int ret = 0;
+ 
++	/*
++	 * devfreq is registered before a6xx_gmu_init() builds the freq table,
++	 * so a min_freq write can land here with nr_gpu_freqs == 0. The u32
++	 * bound below would then wrap to UINT_MAX and walk off gpu_freqs[].
++	 */
++	if (!gmu->nr_gpu_freqs)
++		return;
++
+ 	gpu_freq = dev_pm_opp_get_freq(opp);
+ 
+ 	if (gpu_freq == gmu->freq)
+
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20261018-msm-gmu-freq-guard-e5ac83581fb5
+
+Best regards,
+--  
+Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
+
+
