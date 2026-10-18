@@ -1,236 +1,596 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF034DAFA5
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792362732; cv=pass; b=JAAiu4nKXTo2S7yuUL8ndCjJcfgIOEfL2WaEKcM2zYEQ+hk6Gt2xYK4S+FlbFvmpeNeiKJUKav52qXpcUbhx0V7HEcyhANCpqInUtucyKuHv5egU4Y1ekD95WtvTpFm5AAAn+fAlMcA83LDBwTcCVv4O1e6ksOYUBQOumXNF7SA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792362732; c=relaxed/simple;
-	bh=EpvAQ69oX2PZfPd7/XNk/kWpL7ZP4lCDG9GHkZbyLdg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O8aVZe0t5V9KwpIL29K7tWQ6yuHr8qM7JohFrxxDZqA3TkWp2hg3K4sm4pdMx2kJgJk4Bm6C5MHsKjikGHIy4T/fNSTD6QGXzil9ICig8OXDkOz/uwC6Pc7stqL+ZJ7ZXGcWYyYTAC42r2v5HzL6sE65OEOluUjLFpkEHI1mYIM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=LNoH3+WV; arc=pass smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF8639CCEC
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792362803; cv=none; b=SQ0KhdovLiJkc5HlgJ888R8zfsy1MtgxoOIMfVgL10Z9dcFEnKPkX1wwKB/Mvq9wylHeLGhFoN8DQXb7Tn9V8KLWsgqdrGtKa59H7d4ctpXKtzxEe2J1lu0FdyDXPHx435zEOmA1JmcJ6XzlZRbIVCFinGcUlHlKhOEcT/J47w8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792362803; c=relaxed/simple;
+	bh=r4fRx6yvMRz9zcMoZsQcjza2F1X+3OKXwUQ7hvtYEwM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aps9x2yv0sKYmph6+mIoDVU5ezSIHX1oqQVvcbKfRKnKSf1GwNV+6roRqjNIyV/sDu95YOeu8jtNM/jGoknYhzXWiMWgwgsArLwVqEta9TvTo3eO/IvnPxBgF+fKcKPQQPkAId55RnccVd8XU8EBN9nEsrydSSUV8XxVaHwzU0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UEiB4s2i; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="LNoH3+WV"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a01cac8733so859110b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:32:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792362730; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cgibGGVblgbAewdbnvhSe47XDyjUSxBfld9pjqEOzDtr46VvbnZgiMYBShs33CRY5t
-         4ErZ4AjrxSUavZn7sRDMmRFXIKC9qK7ucWQu8tkz0CMzni3OGbhch0Y3Z0EAaHqcsN6K
-         uesLIrRcmUV8Kz21sLo0e8azGwYOBnNIf3JuN1faCckCbJgNwhl4Tb/4TSds+szc+Z35
-         0sGm8uSHw0h+0136jAX+jFevUAEy3c5mHgyEh2KD0En7jMKNPzXJ1/1o1+0dBBK5LP9G
-         GIKFTDcO3almOPpFT5eplBq0cZi7qpEU1QRgnyRkonKhCjf1CopoV1d1RR9T0nUJGKJj
-         Og4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=538lzUoX6jPHx1owv0jysMnR5L7Iq3ebRGIPhVTonyc=;
-        fh=h41vOuQbQy33fAdl6y5Y2j8Asgr/888tzqZhXEbmRvI=;
-        b=IwrEGZFxQZg0GVU4xQoH+aua3FAdByYtpTnctpzsdSt8+AepA4vNWToZkj04dJNOsi
-         KdZMEquqzB7z11uipGxC6WrWKxTBFp/uK4BMsw993LExCsP1DhHUQxZYKe3OKRkAgxU8
-         KIhPndoeE527zRbDtvm3cIOmeH5BWkHKZeaGDycb6MGVZdbwA0xgOTkmU/z4iECdFMwD
-         iECs49jR5ws2ppnrGx1duUoDByvGx6HGUzjZHJfjzVZntxfZOKh8wIr8GESZZrztXrr5
-         9Yc1IjdZdYHYUUWWcBhgQwVwsUKF5hk7U8ajSMYbtdPFowN5Xa4dwaPStUbIphEvYYIP
-         CPBQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UEiB4s2i"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso17732995e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:33:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1792362730; x=1792967530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=538lzUoX6jPHx1owv0jysMnR5L7Iq3ebRGIPhVTonyc=;
-        b=LNoH3+WVb7kGda3VE5gFJR8BANrFitkoH6oaDhF35fOETpLhewxipz7OjK8rkYwiVQ
-         GjQvKysNO2cIfIuxMKvtJekWsPjlEoW4u9lKz6FboKCxGwznA4RHpTYsYUI3SV6ZHRox
-         b4Yo6MS5kltt+RWGy8eLAf5CbvK5aEEy37OCM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792362730; x=1792967530;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792362799; x=1792967599; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=538lzUoX6jPHx1owv0jysMnR5L7Iq3ebRGIPhVTonyc=;
-        b=iqHSlIFiNabgPCBNjTv7CEBWww7NJN0POzvtEt1o4wKEdtk7M3yYoI6DQhf+TIz5U2
-         JooNU8rAwY+t7METZWts0SxbaYUHH6JfaYscMscl1mpb1/h9Bf90F90P2lF2pfsEWXEV
-         2xZeMskCa+8XzwkdBzmIx6SFo+mJNzCRzk+EB4VSyttVrxA6c2ErPUvjp75galGE7Og3
-         RRv6iedxt4HKZDl4ATayWuiU0qMWDEsyM++VkP5SmMr2ny31SJgYfyh6WbG1nX/aaI/l
-         oQjXOuNQqGzMoE29DgBlw48eExvnHDaoxpvKLPOWYBvrWmW76ztaehlxZIGXwoNjGK94
-         HuZw==
-X-Forwarded-Encrypted: i=1; AKwUvBzsOQvhM+K1fxXTXSkoO41Nd95ZPFzTLaGqIiRF8oxyDA7BGiF9rLaJg5JFH6m1m615T1E4tSL3cFg540I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzI6q6y82zuM5Y9OSCfZJz5aX03Y/BTOTUCoNIWivyVu61rqmB
-	kXS9RYIR7rx3gRx7mTgxi3Fa1xRq9WlAeRPTbP182IO2nu0CFz+NU+zzLAofcsTQ/D7hp1atwgV
-	jT6HzNPTjgAtNtSgiT9/yUkbEg4TB4WWakmMjeCWA
-X-Gm-Gg: AYBFou2h/j7U7P/1hxT4FLYII430lTrddWm40EnrtLheE0uLS8+HH4O3F9qAO9O3u8K
-	0XcVwniVGXHwGgGPC3+JAmpTTk0pIifH+yc728c3A8BH3CbwBNgPdsruKWhlOF4rvMzBSQQputx
-	hjw0a2gtEa4bipXFIyzgR7bkp4rXLYAfWpzSQck5ODI/JW7naND2Cpm+SSPZtrmdmHU/uLU5qqC
-	uCJZa91iO1KP68BYo8qhle2go0WT6aseBji8q33J1ff1VzE9+IIJFmRNphwa5J4idDKFLcSc/Ta
-	1X2XS8wXs6I6gPGkoZ3eyy3o/OUKiThk3RV59SlpgjStyAys6V6Bp4l9uELQwlErFXVyNJu+s0+
-	a8cn2HZ2T71hS/ls8ic7bH9/wbuGZekCCVw==
-X-Received: by 2002:a05:6a20:4310:b0:3de:80a3:cc30 with SMTP id
- adf61e73a8af0-3e225fe03f2mr4804348637.19.1792362729717; Sun, 18 Oct 2026
- 15:32:09 -0700 (PDT)
+        bh=oCJAnzj1NjOaiq+tJZP55CQlXI8UkMm0uN4TgAt51rM=;
+        b=UEiB4s2if5l+bHvEutvLBXiRAwG7ckLHDTaB2IPtYCMZ3x3WzMR5fJaFImpqzLLlfJ
+         PoxOalul1wewYwtUR5ZkHn/avsR5FlLnXXpGfZRco2tt1ASym9s3O9wrV2FEa9JC9Vy8
+         SS3Gla6yhsKlaDRxXFloqvh6W7VMAYczVNlf68d0FpysGJp9CNEwFfmRF6cR1CG4YV/s
+         OCBfY0xn/heMcbaZsFlmaCP/+jjrXI9IjE7eF9X6lFDyP3bWIJgaYtd6g0l3e8H++Pds
+         mbwNSJiIaRIntfYY1fun9IMyiL1vjDES44599j30KfR8EEbQlP6wucdNYat8YQedW3WK
+         RbtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792362799; x=1792967599;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oCJAnzj1NjOaiq+tJZP55CQlXI8UkMm0uN4TgAt51rM=;
+        b=eyeQi0FmQvwAKRDMdinmJzyDPv+nnfDVfKsC2da3X7U9NXq+Wf00Tz2GoolNMhAWv4
+         QXbJ1Hps1bxSMye2tyvSS/SAMJSAKOsi0rmzXc3JH9VVGBxklaM06Pd+T6oUgZxnQEWI
+         Py54pQ1wc2KzwB3+DIPoidqQU7Gy8T5FuozY23NOBAoMrnH94ZkkUimQU0GcM1qMdXSZ
+         xh2LV8KIqDID+ff59O/Htr5MOknYHqTNDIAybLJF5UC6huPxJw9LpTx2ZQB4p7qvdTTx
+         QkbNNfehUeqBOhe5+oG0SqD57dgc2DkHmsrKkShaefrRTiJpHy3rRqEQvTOcHePD9D8V
+         oCxA==
+X-Forwarded-Encrypted: i=1; AKwUvBy2Cr4r+U/ktbckLScWjuYoq0ueZjv62rVakNVuAu4u879zm+f+JZgvY6cOPq8mcENLD9AOIizfoyemP5Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISP89ffC6i4qfNPbXCDOyTjgZPNQ3YV9lb4/fqJ19DG7II0MKj
+	r8lSweX9j69OaYFkTjGgCNYElOTuB+I3bLGrf2KcuW4CCC48A3DBQTLR
+X-Gm-Gg: AYBFou3EDHXcIabIfkSBKKsLWOEohtMoKuMi2k7jsAizZbT+Dkxsv2wS3hcTbr5IMT2
+	7PF9qTCp6SVEufFqipOnWRiTb6wyeHTNvmHeqaEXklutP1i+NjwAYgME8EvLIL1KzrdL4zymeKM
+	v9MMR2xmVQFDzBCXrcpD6qAxTccxjmAtTG514Sh38LDrJaHS+PVBAkY1TcEmXnLZK1Fpuf2nfdv
+	oaGVFRQKj55Va3EIqylMCqyXQNyoTrGS4hDkDloe1h/waVTkd7Xc0JNpmpIB8MQX9sOC8J8GJ2z
+	ierT2udTa4gMWElfxqS0S1VzZXFIGwFfbXKI7+pqakhvXvXbgDdAqJjVdiqzORaAi++TXjlNXXs
+	FkcUCSnd6IhmV+xD8j8QyLHtbsXgNGDK2EtpftUAyS/k9jamXor1C8fkuj2ZS6fKia+fFyCJ6ef
+	j8uC2MmIQppzRi5OLJ+VBgdAahiaK2+2CLZ3eAprbttDjx3S/476kIiSHihYQHrlWyXGO+m8cHH
+	xPKpVhQ
+X-Received: by 2002:a05:600c:6297:b0:4a1:9ec4:d939 with SMTP id 5b1f17b1804b1-4a1c66cc3a4mr235983075e9.17.1792362799221;
+        Sun, 18 Oct 2026 15:33:19 -0700 (PDT)
+Received: from fedora.domain.name ([217.218.152.225])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c5932sm20382753f8f.18.2026.10.18.15.33.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 15:33:18 -0700 (PDT)
+From: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: stern@rowland.harvard.edu,
+	linux-usb@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+Subject: [PATCH v4] usb: ohci-omap: implement overcurrent handling for GPIO-based power control
+Date: Mon, 19 Oct 2026 02:03:12 +0330
+Message-ID: <20261018223312.120913-1-ampr.mhd@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <tencent_2D4F4848C75F5AE9E26589170CF60CC4DD08@qq.com>
-In-Reply-To: <tencent_2D4F4848C75F5AE9E26589170CF60CC4DD08@qq.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Sun, 18 Oct 2026 18:31:57 -0400
-X-Gm-Features: AclHuK8Fr-SvjE7bV0jfcKnvIZEK1eXgf_dfYq6_pa6v26cqsECV8L2OQiffThk
-Message-ID: <CAM0EoMkBPWyMKBem2pjvL9Ko0zwpHvBRt7JB7H1rg7L8+zc25g@mail.gmail.com>
-Subject: Re: [PATCH net] net/sched: act_api: collapse duplicated slots in DELACTION
-To: Hang Nan <2122295973@qq.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 12:58=E2=80=AFPM Hang Nan <2122295973@qq.com> wrote=
-:
->
-> A batched RTM_DELACTION takes one reference per slot in
-> tca_action_gd() and drops them one by one in tcf_action_delete().
-> Every slot also calls tcf_idr_delete_index() with the index it saved
-> before the put, and that helper drops the IDR reference as soon as
-> the count reaches zero.
->
-> Nothing stops userspace from naming the same action in several
-> slots.  With N slots holding the same action the request takes N
-> references, performs N puts, and calls tcf_idr_delete_index() for
-> every slot whose put did not reach zero; that helper drops the IDR
-> reference again each time.  From N =3D=3D 3 on, one drop lands on an
-> action that has already been freed:
->
+The OMAP OHCI driver has had optional GPIO lines for VBUS power control
+and overcurrent detection since the gpiolib conversion, but the
+overcurrent line was never wired up — it was marked with a TODO comment.
 
+On boards like the OMAP1 OSK, the VBUS power switch (TPS2045) is
+controlled via a TPS65010 GPIO, and overcurrent is reported on a
+separate GPIO. Without this patch, an overcurrent condition is not
+detected by software and VBUS power is not cut, relying solely on the
+hardware current limiter.
 
-Nacked-by: Jamal Hadi Salim <jhs@mojatatu.com>
+This patch implements the missing overcurrent handling:
+- Requests a threaded IRQ on the overcurrent GPIO (both edges)
+- Cuts VBUS power via the power GPIO when overcurrent is detected
+- Reports overcurrent status and change through the root hub port
+  status callbacks so the USB hub core can react
+- Handles SetPortFeature/ClearPortFeature(POWER) to drive the VBUS
+  GPIO alongside the OHCI hardware register
+- Turns off VBUS on driver removal and probe failure
 
-See: https://lore.kernel.org/netdev/QDISC-K1TH.v1.r3.20261012134653-1@mojat=
-atu.com/
+Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+---
+v4:
+  - Remove spinlock entirely; use READ_ONCE/WRITE_ONCE for the
+    overcurrent flags (Greg KH).  This also fixes the bug where
+    gpiod_set_value_cansleep() was called under spin_lock_irqsave(),
+    which sleeps on the I2C-attached TPS65010 (Sashiko).
+  - Rename overcurrent_status to overcurrent_active and
+    overcurrent_changed to overcurrent_change_pending (Greg KH)
+  - Fix include order to be alphabetical (Greg KH)
+  - Add comment explaining BIT(1) = port 1 (Greg KH)
+  - Add comment explaining overcurrent_irq = -1 sentinel (Greg KH)
+  - Add VBUS power-off in err_remove_hcd and ohci_hcd_omap_remove()
+    so VBUS is not left enabled after driver unbind (Sashiko)
+  - Re-check overcurrent_active after enabling VBUS in
+    SetPortFeature(POWER) to close the race window (Sashiko)
+  - Rewrite commit message to explain motivation (Greg KH)
 
-cheers,
-jamal
->     refs =3D 1 (IDR) + N
->
->     slot 0: put -> N,     delete_index -> N - 1
->     ...
->     slot k: put -> 1,     delete_index -> 0  (idr_remove + free)
->     slot k+1: put on the freed action        (refcount underflow)
->
-> With two slots the second put is the one that reaches zero, so
-> __tcf_action_put() returns 1 and that slot skips the
-> tcf_idr_delete_index() call; the accounting stays balanced, which is
-> why the bug needs three slots.
->
-> A three-slot RTM_DELACTION for an unbound gact action (index 0x1002)
-> on 7.3.0-rc7-00245-g32c52ec87d62 reports
->
->     refcount_t: underflow; use-after-free.
->     WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90
->     Call Trace:
->      __tcf_action_put+0x7e/0x80
->      tca_action_gd+0x439/0x640
->      tc_ctl_action+0x10a/0x170
->      rtnetlink_rcv_msg+0x14c/0x3f0
->
-> and returns -ENOENT, because the IDR entry is already gone.
->
-> Collapse a repeated action while the slots are being resolved: the
-> batch keeps the first reference and releases the extra ones, so the
-> IDR reference is dropped exactly once and the delete succeeds.
-> Comparing the resolved pointers is equivalent to comparing
-> {kind, index} and also covers actions that live in a per-action
-> IDR.
->
-> Fixes: 97a3f84f2c84 ("net_sched: remove unnecessary ops->delete()")
-> Signed-off-by: Hang Nan <2122295973@qq.com>
->
-> ---
-> This report was produced with the help of AI tooling, so per
-> Documentation/process/security-bugs.rst it is being reported publicly; th=
-e
-> reproducer is not attached and is available on request.
->
-> The two kernels were built from 32c52ec87d62 with the same config
-> (CONFIG_NET_ACT_GACT=3Dy) and run the same initramfs.  A batch of two dis=
-tinct
-> actions is deleted on both.  Two duplicate slots also delete cleanly on b=
-oth.
-> With three duplicate slots the unpatched kernel prints the warning above =
-and
-> returns -ENOENT, while the patched kernel collapses the batch and deletes=
- the
-> action (no warning, rc =3D 0).  Each kernel was run twice with the same r=
-esult.
->
->  net/sched/act_api.c | 29 +++++++++++++++++++++++++++--
->  1 file changed, 27 insertions(+), 2 deletions(-)
->
-> diff --git a/net/sched/act_api.c b/net/sched/act_api.c
-> index 9eb1dec..dc51ccf 100644
-> --- a/net/sched/act_api.c
-> +++ b/net/sched/act_api.c
-> @@ -2021,11 +2021,28 @@ static int tcf_del_notify(struct net *net, struct=
- nlmsghdr *n,
->                             n->nlmsg_flags & NLM_F_ECHO);
->  }
->
-> +/* A batched request may name the same action in more than one slot.  Ea=
-ch
-> + * slot takes its own reference, but tcf_action_delete() drops the IDR
-> + * reference once per slot, so a duplicated action must be collapsed bef=
-ore
-> + * the deletion starts.
-> + */
-> +static bool tcf_action_batch_dup(struct tc_action *actions[], int n,
-> +                                const struct tc_action *act)
-> +{
-> +       int i;
-> +
-> +       for (i =3D 0; i < n; i++)
-> +               if (actions[i] =3D=3D act)
-> +                       return true;
-> +
-> +       return false;
-> +}
-> +
->  static int
->  tca_action_gd(struct net *net, struct nlattr *nla, struct nlmsghdr *n,
->               u32 portid, int event, struct netlink_ext_ack *extack)
->  {
-> -       int i, ret;
-> +       int i, ret, nact =3D 0;
->         struct nlattr *tb[TCA_ACT_MAX_PRIO + 1];
->         struct tc_action *act;
->         size_t attr_size =3D 0;
-> @@ -2050,8 +2067,16 @@ tca_action_gd(struct net *net, struct nlattr *nla,=
- struct nlmsghdr *n,
->                         ret =3D PTR_ERR(act);
->                         goto err;
->                 }
-> +               if (event =3D=3D RTM_DELACTION &&
-> +                   tcf_action_batch_dup(actions, nact, act)) {
-> +                       /* The IDR reference is dropped once, by the firs=
-t
-> +                        * slot that names this action.
-> +                        */
-> +                       tcf_action_put(act);
-> +                       continue;
-> +               }
->                 attr_size +=3D tcf_action_fill_size(act);
-> -               actions[i - 1] =3D act;
-> +               actions[nact++] =3D act;
->         }
->
->         attr_size =3D tcf_action_full_attrs_size(attr_size);
->
+v3:
+  - Fix power GPIO polarity: 1 = VBUS off, 0 = VBUS on
+  - Fix wPortChange bit: shift USB_PORT_STAT_C_OVERCURRENT by 16
+  - Add clock and PHY cleanup to probe error path
+  - Use IRQF_NO_AUTOEN to close race window during probe
+  - Only set overcurrent_changed at probe when overcurrent is active
+  - Guard hub_status_data and hub_control behind priv->overcurrent
+  - Handle SetPortFeature/ClearPortFeature(POWER) for VBUS GPIO
+  - Remove shadowed flags variable in hub_control
+
+v2:
+  - Use real name in From: and Signed-off-by: lines
+
+ drivers/usb/host/ohci-omap.c | 282 +++++++++++++++++++++++++++++------
+ 1 file changed, 237 insertions(+), 45 deletions(-)
+
+diff --git a/drivers/usb/host/ohci-omap.c b/drivers/usb/host/ohci-omap.c
+index f6e56c4b9914..c71721243905 100644
+--- a/drivers/usb/host/ohci-omap.c
++++ b/drivers/usb/host/ohci-omap.c
+@@ -19,20 +19,23 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/err.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/interrupt.h>
+ #include <linux/io.h>
++#include <linux/irqreturn.h>
+ #include <linux/jiffies.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+-#include <linux/usb/otg.h>
+-#include <linux/platform_device.h>
+ #include <linux/platform_data/usb-omap1.h>
+-#include <linux/soc/ti/omap1-usb.h>
++#include <linux/platform_device.h>
++#include <linux/signal.h>
++#include <linux/soc/ti/omap1-io.h>
+ #include <linux/soc/ti/omap1-mux.h>
+ #include <linux/soc/ti/omap1-soc.h>
+-#include <linux/soc/ti/omap1-io.h>
+-#include <linux/signal.h>
++#include <linux/soc/ti/omap1-usb.h>
+ #include <linux/usb.h>
++#include <linux/usb/ch11.h>
+ #include <linux/usb/hcd.h>
++#include <linux/usb/otg.h>
+ 
+ #include "ohci.h"
+ 
+@@ -46,13 +49,23 @@ struct ohci_omap_priv {
+ 	struct clk *usb_dc_ck;
+ 	struct gpio_desc *power;
+ 	struct gpio_desc *overcurrent;
++	/*
++	 * Accessed with READ_ONCE/WRITE_ONCE from the threaded IRQ
++	 * handler and from hub_control in process context.  No lock
++	 * is needed: the IRQ handler is the sole writer of
++	 * overcurrent_active (IRQF_ONESHOT prevents re-entry), and
++	 * overcurrent_change_pending is a single-byte flag where a
++	 * missed clear just causes one extra poll cycle.
++	 */
++	bool overcurrent_active;
++	bool overcurrent_change_pending;
++	int overcurrent_irq; /* -1 means no IRQ has been allocated yet */
+ };
+ 
+ static const char hcd_name[] = "ohci-omap";
+ static struct hc_driver __read_mostly ohci_omap_hc_driver;
+ 
+-#define hcd_to_ohci_omap_priv(h) \
+-	((struct ohci_omap_priv *)hcd_to_ohci(h)->priv)
++#define hcd_to_ohci_omap_priv(h) ((struct ohci_omap_priv *)hcd_to_ohci(h)->priv)
+ 
+ static void omap_ohci_clock_power(struct ohci_omap_priv *priv, int on)
+ {
+@@ -70,15 +83,15 @@ static void omap_ohci_clock_power(struct ohci_omap_priv *priv, int on)
+ static void start_hnp(struct ohci_hcd *ohci)
+ {
+ 	struct usb_hcd *hcd = ohci_to_hcd(ohci);
+-	const unsigned	port = hcd->self.otg_port - 1;
+-	unsigned long	flags;
++	const unsigned port = hcd->self.otg_port - 1;
++	unsigned long flags;
+ 	u32 l;
+ 
+ 	otg_start_hnp(hcd->usb_phy->otg);
+ 
+ 	local_irq_save(flags);
+ 	hcd->usb_phy->otg->state = OTG_STATE_A_SUSPEND;
+-	writel (RH_PS_PSS, &ohci->regs->roothub.portstatus [port]);
++	writel(RH_PS_PSS, &ohci->regs->roothub.portstatus[port]);
+ 	l = omap_readl(OTG_CTRL);
+ 	l &= ~OTG_A_BUSREQ;
+ 	omap_writel(l, OTG_CTRL);
+@@ -89,11 +102,11 @@ static void start_hnp(struct ohci_hcd *ohci)
+ 
+ static int ohci_omap_reset(struct usb_hcd *hcd)
+ {
+-	struct ohci_hcd		*ohci = hcd_to_ohci(hcd);
+-	struct omap_usb_config	*config = dev_get_platdata(hcd->self.controller);
+-	struct ohci_omap_priv	*priv = hcd_to_ohci_omap_priv(hcd);
+-	int			need_transceiver = (config->otg != 0);
+-	int			ret;
++	struct ohci_hcd *ohci = hcd_to_ohci(hcd);
++	struct omap_usb_config *config = dev_get_platdata(hcd->self.controller);
++	struct ohci_omap_priv *priv = hcd_to_ohci_omap_priv(hcd);
++	int need_transceiver = (config->otg != 0);
++	int ret;
+ 
+ 	dev_dbg(hcd->self.controller, "starting USB Controller\n");
+ 
+@@ -110,10 +123,11 @@ static int ohci_omap_reset(struct usb_hcd *hcd)
+ 	if (IS_ENABLED(CONFIG_USB_OTG) && need_transceiver) {
+ 		hcd->usb_phy = usb_get_phy(USB_PHY_TYPE_USB2);
+ 		if (!IS_ERR_OR_NULL(hcd->usb_phy)) {
+-			int	status = otg_set_host(hcd->usb_phy->otg,
+-						&ohci_to_hcd(ohci)->self);
+-			dev_dbg(hcd->self.controller, "init %s phy, status %d\n",
+-					hcd->usb_phy->label, status);
++			int status = otg_set_host(hcd->usb_phy->otg,
++						  &ohci_to_hcd(ohci)->self);
++			dev_dbg(hcd->self.controller,
++				"init %s phy, status %d\n", hcd->usb_phy->label,
++				status);
+ 			if (status) {
+ 				usb_put_phy(hcd->usb_phy);
+ 				return status;
+@@ -141,7 +155,7 @@ static int ohci_omap_reset(struct usb_hcd *hcd)
+ 
+ 	/* board-specific power switching and overcurrent support */
+ 	if (machine_is_omap_osk()) {
+-		u32	rh = roothub_a (ohci);
++		u32 rh = roothub_a(ohci);
+ 
+ 		/* power switching (ganged by default) */
+ 		rh &= ~RH_A_NPS;
+@@ -181,6 +195,128 @@ static int ohci_omap_reset(struct usb_hcd *hcd)
+ 	return 0;
+ }
+ 
++static irqreturn_t ohci_omap_overcurrent_irq(int irq, void *data)
++{
++	struct usb_hcd *hcd = data;
++	struct ohci_omap_priv *priv = hcd_to_ohci_omap_priv(hcd);
++	int status;
++	bool was_active;
++
++	status = gpiod_get_value_cansleep(priv->overcurrent);
++	if (status < 0)
++		return IRQ_HANDLED;
++
++	if (status && priv->power)
++		gpiod_set_value_cansleep(priv->power, 1);
++
++	was_active = READ_ONCE(priv->overcurrent_active);
++	WRITE_ONCE(priv->overcurrent_active, !!status);
++	if (was_active != !!status)
++		WRITE_ONCE(priv->overcurrent_change_pending, true);
++
++	usb_hcd_poll_rh_status(hcd);
++
++	return IRQ_HANDLED;
++}
++
++static int ohci_omap_hub_status_data(struct usb_hcd *hcd, char *buf)
++{
++	struct ohci_omap_priv *priv = hcd_to_ohci_omap_priv(hcd);
++	int length;
++
++	length = ohci_hub_status_data(hcd, buf);
++
++	if (!priv->overcurrent)
++		return length;
++
++	if (READ_ONCE(priv->overcurrent_change_pending)) {
++		if (!length) {
++			buf[0] = 0;
++			length = 1;
++		}
++		buf[0] |= BIT(1); /* port 1 */
++	}
++
++	return length;
++}
++
++static int ohci_omap_hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
++				 u16 wIndex, char *buf, u16 wLength)
++{
++	struct ohci_omap_priv *priv = hcd_to_ohci_omap_priv(hcd);
++	int ret;
++
++	/*
++	 * Drive the VBUS power GPIO alongside the OHCI hardware register.
++	 * On boards like the OSK, the OHCI PPS bit does not control the
++	 * real power switch — the GPIO does.
++	 */
++	if (priv->power && wIndex == 1) {
++		if (typeReq == SetPortFeature &&
++		    wValue == USB_PORT_FEAT_POWER) {
++			ret = ohci_hub_control(hcd, typeReq, wValue, wIndex,
++					       buf, wLength);
++			if (!ret && !READ_ONCE(priv->overcurrent_active))
++				gpiod_set_value_cansleep(priv->power, 0);
++			/*
++			 * Re-check: the overcurrent IRQ may have fired
++			 * between the check above and the GPIO call.
++			 * A mutex would close this fully, but the window
++			 * is microseconds and the hardware current limiter
++			 * provides the final safety net.
++			 */
++			if (!ret && READ_ONCE(priv->overcurrent_active))
++				gpiod_set_value_cansleep(priv->power, 1);
++			return ret;
++		}
++		if (typeReq == ClearPortFeature &&
++		    wValue == USB_PORT_FEAT_POWER) {
++			ret = ohci_hub_control(hcd, typeReq, wValue, wIndex,
++					       buf, wLength);
++			if (!ret)
++				gpiod_set_value_cansleep(priv->power, 1);
++			return ret;
++		}
++	}
++
++	ret = ohci_hub_control(hcd, typeReq, wValue, wIndex, buf, wLength);
++	if (ret)
++		return ret;
++
++	if (!priv->overcurrent)
++		return ret;
++
++	if (typeReq == ClearPortFeature && wIndex == 1 &&
++	    wValue == USB_PORT_FEAT_C_OVER_CURRENT) {
++		WRITE_ONCE(priv->overcurrent_change_pending, false);
++		return 0;
++	}
++
++	if (typeReq != GetPortStatus || wIndex != 1)
++		return ret;
++
++	{
++		bool active = READ_ONCE(priv->overcurrent_active);
++		bool changed = READ_ONCE(priv->overcurrent_change_pending);
++		__le32 *portstatus = (__le32 *)buf;
++		u32 value = le32_to_cpu(*portstatus);
++
++		if (active)
++			value |= USB_PORT_STAT_OVERCURRENT;
++		else
++			value &= ~USB_PORT_STAT_OVERCURRENT;
++
++		if (changed)
++			value |= (USB_PORT_STAT_C_OVERCURRENT << 16);
++		else
++			value &= ~(USB_PORT_STAT_C_OVERCURRENT << 16);
++
++		*portstatus = cpu_to_le32(value);
++	}
++
++	return 0;
++}
++
+ /*-------------------------------------------------------------------------*/
+ 
+ /**
+@@ -201,18 +337,18 @@ static int ohci_hcd_omap_probe(struct platform_device *pdev)
+ 
+ 	if (pdev->num_resources != 2) {
+ 		dev_err(&pdev->dev, "invalid num_resources: %i\n",
+-		       pdev->num_resources);
++			pdev->num_resources);
+ 		return -ENODEV;
+ 	}
+ 
+-	if (pdev->resource[0].flags != IORESOURCE_MEM
+-			|| pdev->resource[1].flags != IORESOURCE_IRQ) {
++	if (pdev->resource[0].flags != IORESOURCE_MEM ||
++	    pdev->resource[1].flags != IORESOURCE_IRQ) {
+ 		dev_err(&pdev->dev, "invalid resource type\n");
+ 		return -ENODEV;
+ 	}
+ 
+ 	hcd = usb_create_hcd(&ohci_omap_hc_driver, &pdev->dev,
+-			dev_name(&pdev->dev));
++			     dev_name(&pdev->dev));
+ 	if (!hcd)
+ 		return -ENOMEM;
+ 
+@@ -221,6 +357,10 @@ static int ohci_hcd_omap_probe(struct platform_device *pdev)
+ 	priv = hcd_to_ohci_omap_priv(hcd);
+ 
+ 	/* Obtain two optional GPIO lines */
++	WRITE_ONCE(priv->overcurrent_active, false);
++	WRITE_ONCE(priv->overcurrent_change_pending, false);
++	priv->overcurrent_irq = -1;
++
+ 	priv->power = devm_gpiod_get_optional(&pdev->dev, "power", GPIOD_ASIS);
+ 	if (IS_ERR(priv->power)) {
+ 		retval = PTR_ERR(priv->power);
+@@ -229,13 +369,8 @@ static int ohci_hcd_omap_probe(struct platform_device *pdev)
+ 	if (priv->power)
+ 		gpiod_set_consumer_name(priv->power, "OHCI power");
+ 
+-	/*
+-	 * This "overcurrent" GPIO line isn't really used in the code,
+-	 * but has a designated hardware function.
+-	 * TODO: implement proper overcurrent handling.
+-	 */
+-	priv->overcurrent = devm_gpiod_get_optional(&pdev->dev, "overcurrent",
+-						    GPIOD_IN);
++	priv->overcurrent =
++		devm_gpiod_get_optional(&pdev->dev, "overcurrent", GPIOD_IN);
+ 	if (IS_ERR(priv->overcurrent)) {
+ 		retval = PTR_ERR(priv->overcurrent);
+ 		goto err_put_hcd;
+@@ -277,23 +412,73 @@ static int ohci_hcd_omap_probe(struct platform_device *pdev)
+ 	if (!hcd->regs) {
+ 		dev_err(&pdev->dev, "can't ioremap OHCI HCD\n");
+ 		retval = -ENOMEM;
+-		goto err2;
++		goto err_release_mem;
+ 	}
+ 
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0) {
+ 		retval = irq;
+-		goto err3;
++		goto err_iounmap;
+ 	}
+ 	retval = usb_add_hcd(hcd, irq, 0);
+ 	if (retval)
+-		goto err3;
++		goto err_iounmap;
++
++	if (priv->overcurrent) {
++		int status;
++
++		priv->overcurrent_irq = gpiod_to_irq(priv->overcurrent);
++		if (priv->overcurrent_irq < 0) {
++			retval = priv->overcurrent_irq;
++			goto err_remove_hcd;
++		}
++
++		retval = request_threaded_irq(
++			priv->overcurrent_irq, NULL, ohci_omap_overcurrent_irq,
++			IRQF_ONESHOT | IRQF_NO_AUTOEN | IRQF_TRIGGER_RISING |
++				IRQF_TRIGGER_FALLING,
++			"ohci-omap-overcurrent", hcd);
++		if (retval) {
++			priv->overcurrent_irq = -1;
++			goto err_remove_hcd;
++		}
++
++		status = gpiod_get_value_cansleep(priv->overcurrent);
++		if (status < 0) {
++			retval = status;
++			goto err_remove_hcd;
++		}
++
++		WRITE_ONCE(priv->overcurrent_active, !!status);
++		WRITE_ONCE(priv->overcurrent_change_pending, !!status);
++
++		if (status && priv->power)
++			gpiod_set_value_cansleep(priv->power, 1);
++
++		enable_irq(priv->overcurrent_irq);
++		if (status)
++			usb_hcd_poll_rh_status(hcd);
++	}
+ 
+ 	device_wakeup_enable(hcd->self.controller);
+ 	return 0;
+-err3:
++
++err_remove_hcd:
++	if (priv->overcurrent_irq >= 0) {
++		free_irq(priv->overcurrent_irq, hcd);
++		priv->overcurrent_irq = -1;
++	}
++	usb_remove_hcd(hcd);
++	omap_ohci_clock_power(priv, 0);
++	if (!IS_ERR_OR_NULL(hcd->usb_phy)) {
++		(void)otg_set_host(hcd->usb_phy->otg, NULL);
++		usb_put_phy(hcd->usb_phy);
++	}
++	if (priv->power)
++		gpiod_set_value_cansleep(priv->power, 1);
++err_iounmap:
+ 	iounmap(hcd->regs);
+-err2:
++err_release_mem:
+ 	release_mem_region(hcd->rsrc_start, hcd->rsrc_len);
+ err_unprepare_dc_ck:
+ 	clk_unprepare(priv->usb_dc_ck);
+@@ -308,7 +493,6 @@ static int ohci_hcd_omap_probe(struct platform_device *pdev)
+ 	return retval;
+ }
+ 
+-
+ /* may be called with controller, bus, and devices active */
+ 
+ /**
+@@ -323,16 +507,22 @@ static int ohci_hcd_omap_probe(struct platform_device *pdev)
+  */
+ static void ohci_hcd_omap_remove(struct platform_device *pdev)
+ {
+-	struct usb_hcd	*hcd = platform_get_drvdata(pdev);
++	struct usb_hcd *hcd = platform_get_drvdata(pdev);
+ 	struct ohci_omap_priv *priv = hcd_to_ohci_omap_priv(hcd);
+ 
+ 	dev_dbg(hcd->self.controller, "stopping USB Controller\n");
++	if (priv->overcurrent_irq >= 0) {
++		free_irq(priv->overcurrent_irq, hcd);
++		priv->overcurrent_irq = -1;
++	}
+ 	usb_remove_hcd(hcd);
+ 	omap_ohci_clock_power(priv, 0);
+ 	if (!IS_ERR_OR_NULL(hcd->usb_phy)) {
+-		(void) otg_set_host(hcd->usb_phy->otg, 0);
++		(void)otg_set_host(hcd->usb_phy->otg, 0);
+ 		usb_put_phy(hcd->usb_phy);
+ 	}
++	if (priv->power)
++		gpiod_set_value_cansleep(priv->power, 1);
+ 	iounmap(hcd->regs);
+ 	release_mem_region(hcd->rsrc_start, hcd->rsrc_len);
+ 	clk_unprepare(priv->usb_dc_ck);
+@@ -344,7 +534,7 @@ static void ohci_hcd_omap_remove(struct platform_device *pdev)
+ 
+ /*-------------------------------------------------------------------------*/
+ 
+-#ifdef	CONFIG_PM
++#ifdef CONFIG_PM
+ 
+ static int ohci_omap_suspend(struct platform_device *pdev, pm_message_t message)
+ {
+@@ -368,8 +558,8 @@ static int ohci_omap_suspend(struct platform_device *pdev, pm_message_t message)
+ 
+ static int ohci_omap_resume(struct platform_device *dev)
+ {
+-	struct usb_hcd	*hcd = platform_get_drvdata(dev);
+-	struct ohci_hcd	*ohci = hcd_to_ohci(hcd);
++	struct usb_hcd *hcd = platform_get_drvdata(dev);
++	struct ohci_hcd *ohci = hcd_to_ohci(hcd);
+ 	struct ohci_omap_priv *priv = hcd_to_ohci_omap_priv(hcd);
+ 
+ 	if (time_before(jiffies, ohci->next_statechange))
+@@ -392,7 +582,7 @@ static struct platform_driver ohci_hcd_omap_driver = {
+ 	.probe		= ohci_hcd_omap_probe,
+ 	.remove		= ohci_hcd_omap_remove,
+ 	.shutdown	= usb_hcd_platform_shutdown,
+-#ifdef	CONFIG_PM
++#ifdef CONFIG_PM
+ 	.suspend	= ohci_omap_suspend,
+ 	.resume		= ohci_omap_resume,
+ #endif
+@@ -402,8 +592,8 @@ static struct platform_driver ohci_hcd_omap_driver = {
+ };
+ 
+ static const struct ohci_driver_overrides omap_overrides __initconst = {
+-	.product_desc	= "OMAP OHCI",
+-	.reset		= ohci_omap_reset,
++	.product_desc = "OMAP OHCI",
++	.reset = ohci_omap_reset,
+ 	.extra_priv_size = sizeof(struct ohci_omap_priv),
+ };
+ 
+@@ -413,6 +603,8 @@ static int __init ohci_omap_init(void)
+ 		return -ENODEV;
+ 
+ 	ohci_init_driver(&ohci_omap_hc_driver, &omap_overrides);
++	ohci_omap_hc_driver.hub_status_data = ohci_omap_hub_status_data;
++	ohci_omap_hc_driver.hub_control = ohci_omap_hub_control;
+ 	return platform_driver_register(&ohci_hcd_omap_driver);
+ }
+ module_init(ohci_omap_init);
+-- 
+2.55.0
+
