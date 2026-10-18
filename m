@@ -1,131 +1,109 @@
-Received: from mail.unwrap.rs (mail.unwrap.rs [172.232.15.166])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A5203DD532;
-	Sun, 18 Oct 2026 16:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=172.232.15.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37583DCDA3;
+	Sun, 18 Oct 2026 16:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341593; cv=none; b=f+Wb6HDa0D+Rc27D2UzE3EP7LG70cYCsKihdlQOArEhm6fsedgKVSjl9ujwfPe1cCV8bBwkGP2uU76e1CT42GM69lsUZPDGsIE9ZL2XvbFjYfKFjjddWKQd42wqkpM3A6Lw1IXw64pIrTueMruBbGnZvWJAI9JXmU22F/lZPgtI=
+	t=1792341623; cv=none; b=uHWX+V29Gk8gEb23isYsG7DI+WVy3Mj+TzOCGDDdh95jjMrlbsvL4XoTjq/AfV70znZ5bAbrnejq0e9g0giHkPyFBdSRhiFjQhB5ze7n2Zc8HAERydQOiuVzj2COvcfkkKX4DxnQ8uPPOg7BRR16rK3qooyAUdy8UEV22fsACAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341593; c=relaxed/simple;
-	bh=xnz7VyyvGosr1DkFBgY1vAtFglzhSfCFgKNu3qVaUPM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DO/dNY5raO35sNZl7xXhENUx6o11DI2Wg62T5PQ05t9LqFQlsxjk/WmjufDtY94Lg5X7kKRTAajWLYHYN8uI9kpeo+1Lpip3Pwrfak/HzwLUIr2zPaLoPceztQKRpMPhRZ7Bml6jH0zUw3JUc/7Qlpft5m+/n/uBBUxy2M22nbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs; spf=pass smtp.mailfrom=unwrap.rs; dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=CheW6/hz; dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b=FNMkCy1W; arc=none smtp.client-ip=172.232.15.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=unwrap.rs
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unwrap.rs
+	s=arc-20240116; t=1792341623; c=relaxed/simple;
+	bh=FWWx4ZDDiefNjXUI40xB48tjNw6eYDDMGUG7UkGpCvQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iEbHYHyxpfFyGDXBp6R7fvQ8I8ggZgQASKO1GoKEY9Z+GWidcSjX+hUjId4m4JcOgy3JfxvILZ3AKwbitmJwkGDkbNwfrtoB1U9OQfMvuqGhDDhfZFPly+G3WfED6YEPYYDiMtSn5ugXLyHZQmZEqCK26vzEmwp7ycBUL/Lb1c4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Vd68iNZi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="CheW6/hz";
-	dkim=permerror (0-bit key) header.d=unwrap.rs header.i=@unwrap.rs header.b="FNMkCy1W"
-DKIM-Signature: v=1; a=rsa-sha256; s=202503r; d=unwrap.rs; c=relaxed/relaxed; r=y;
-	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341582; bh=uZDJsaDR/e
-	x/tkUGgMpptdKBo0kd2xMrKUBmb9WaJLc=; b=CheW6/hzWWTs6Q0f9DJrbXmmcvztpxl0w1lfY
-	UbyI3jaabrWlzrvk/Cj8gjonharhj2G/rn5iPCBEvghgQx0dSAptXQseDBp8hH0L/YIHnZ6Xs5W
-	qEdYBYe/8INAymm/RQgsyEtqOJ98rG6Ng7Q8tS3a6TU6Mr9++Y8rGf4qoq/glssY3SA6KaraYcA
-	sTWcxdMqsDJv9IgxO02Ncrxsy5Ul3LTBbPiDa31fbgNsqYv4Y7/IkyDXQIn91FciEkJdgVKAut7
-	XgY0PZQf9jH7sIjmLuYMVmaSTWucuTHhLseAFM5BtgDYq3sPAyePe2Xf8QpAJrPt42RYLARXyqe
-	0K2qg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202503e; d=unwrap.rs; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From:Content-Type; t=1792341582; bh=uZDJsaDR/e
-	x/tkUGgMpptdKBo0kd2xMrKUBmb9WaJLc=; b=FNMkCy1WyChku0/YDsvm3bS6vq01aCTNy0/61
-	ostvN7wYmAYXAbP9yhAzonI3ABb2p2ZLf39ErQnWoeIjKx4AA==;
-From: Cole Leavitt <cole@unwrap.rs>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Mika Westerberg <westeri@kernel.org>
-Cc: Cole Leavitt <cole@unwrap.rs>,
-	Lukas Wunner <lukas@wunner.de>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-pci@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] thunderbolt: Don't resume the software CM if the host controller is gone
-Date: Sun, 18 Oct 2026 12:39:08 -0400
-Message-ID: <20261018163910.132231-2-cole@unwrap.rs>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261018163910.132231-1-cole@unwrap.rs>
-References: <20261018163750.130470-1-cole@unwrap.rs>
- <20261018163910.132231-1-cole@unwrap.rs>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Vd68iNZi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE551F000C4;
+	Sun, 18 Oct 2026 16:40:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1792341620;
+	bh=oqQrhlRf8+x6VkzRmu9l8lO/YsPfcMgj53KVL4Drs3g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Vd68iNZij3CfVWSXBbbAj08PC725nSk5NIW90FA3PFGtaSQz28KaxR5DCWMfSSMdc
+	 YJLxJV7BUepHrPYeGxt6m1Rkj+cMaYat9upaFWCiqv+gVQwsPHvFjp0jcfogyf+0fd
+	 +Z1diFWo7Q5IufixqWZoNc/RD39EHB839rIxLPSk=
+Date: Sun, 18 Oct 2026 18:38:39 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Eklavya Singh <eklavyasingh2106@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+1459655b2bf1e798f9d0@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: gadgetfs: fix use-after-free after a failed bind
+Message-ID: <2026101825-glacial-slapstick-a133@gregkh>
+References: <20261018163434.129569-1-eklavyasingh2106@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018163434.129569-1-eklavyasingh2106@gmail.com>
 
-nhi_resume_noirq() sets nhi->going_away when the host controller is not
-present anymore on resume (commit bdccf295d7cd ("thunderbolt: Do not
-touch the hardware if the NHI is gone on resume")). With going_away set
-tb_ring_start() refuses to start the control channel rings, but the
-software connection manager's tb_resume_noirq() still goes through the
-whole resume sequence. Every control channel request then fails with
--ESHUTDOWN from __tb_ring_enqueue(), and tb_cfg_read()/tb_cfg_write()
-WARN for each one:
+On Sun, Oct 18, 2026 at 04:34:34PM +0000, Eklavya Singh wrote:
+> gadgetfs_bind() takes its reference on dev_data only right before it
+> returns success, but its error path calls gadgetfs_unbind(), which
+> always calls put_dev(). So when bind fails it drops a reference it
+> never took.
+> 
+> With ep0 open the count is 2, one for the superblock and one for the
+> open file. A failed bind takes it to 1, closing ep0 frees dev_data,
+> and the superblock still points at it. The next open of ep0 then takes
+> dev->lock on freed memory:
+> 
+>   BUG: KASAN: slab-use-after-free in _raw_spin_lock_irq+0x3d/0x50
+>    gadget_dev_open+0x4b/0x1b0 drivers/usb/gadget/legacy/inode.c:1919
+> 
+> syzbot gets there by making an allocation in bind fail, which is the
+> "failed to start USB Gadget filesystem: -12" message right before the
+> report.
+> 
+> Take the reference before anything in bind can fail, so that
+> gadgetfs_unbind() always has one to drop.
+> 
+> I tested this on dummy_hcd by writing a config to ep0 with fail-nth
+> set and then closing and reopening ep0, for every fail-nth value the
+> write goes through. Without the patch KASAN reports the use-after-free
+> right after the first failed bind. With it, 122 failed binds give no
+> reports and the last bind works.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: syzbot+1459655b2bf1e798f9d0@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=1459655b2bf1e798f9d0
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+> ---
+>  drivers/usb/gadget/legacy/inode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+> index 67c6ffaf4..f5b97dcd4 100644
+> --- a/drivers/usb/gadget/legacy/inode.c
+> +++ b/drivers/usb/gadget/legacy/inode.c
+> @@ -1688,6 +1688,7 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+>  		return -ENODEV;
+>  	}
+>  
+> +	get_dev(dev);
+>  	set_gadget_data (gadget, dev);
+>  	dev->gadget = gadget;
+>  	gadget->ep0->driver_data = dev;
+> @@ -1706,7 +1707,6 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+>  	spin_lock_irq(&dev->lock);
+>  	dev->state = STATE_DEV_UNCONNECTED;
+>  	spin_unlock_irq(&dev->lock);
+> -	get_dev (dev);
+>  	return 0;
+>  
+>  enomem:
+> -- 
+> 2.55.0
+> 
 
-  tb_cfg_write: -108
-  WARNING: drivers/thunderbolt/ctl.c:1157 at tb_cfg_write+0x94/0xf0 [thunderbolt]
-  Call Trace:
-   tb_switch_configure+0x8f/0x1d0 [thunderbolt]
-   tb_switch_resume+0xb9/0x3d0 [thunderbolt]
-   tb_resume_noirq+0x5d/0x2e0 [thunderbolt]
-   tb_domain_resume_noirq+0x42/0x60 [thunderbolt]
-   ...
-  tb_cfg_read: -108
-  WARNING: drivers/thunderbolt/ctl.c:1131 at tb_cfg_read+0x94/0xf0 [thunderbolt]
-  ...
-  thunderbolt 0000:8a:00.0: 0: failed to restore TMU configuration
+Isn't this already fixed in the usb-next tree?
 
-This happens on a discrete Barlow Ridge host when the root port link
-does not come back in time on resume from s2idle: pciehp marks the
-subtree disconnected in pciehp_resume_noirq(), so pci_device_is_present()
-returns false for the NHI and the (about to be removed) domain is then
-"resumed" through dead rings.
+thanks,
 
-The firmware connection manager already honors the flag in
-icm_complete(). Do the same in the software connection manager and skip
-tb_resume_noirq() when the host controller is gone. The domain is torn
-down when the controller is removed, and hotplug_active stays false so
-no events are processed in the meantime.
-
-Fixes: bdccf295d7cd ("thunderbolt: Do not touch the hardware if the NHI is gone on resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cole Leavitt <cole@unwrap.rs>
----
-
-Notes:
-    Tested on a Lenovo ThinkPad P16 Gen 3 (Core Ultra 9 275HX, JHL9580
-    Barlow Ridge host, I226 Ethernet), in daily use with s2idle since
-    2026-09-17.
-
- drivers/thunderbolt/tb.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-index 4e5d0578fd4b..d236de1e5568 100644
---- a/drivers/thunderbolt/tb.c
-+++ b/drivers/thunderbolt/tb.c
-@@ -3177,6 +3177,19 @@ static int tb_resume_noirq(struct tb *tb)
- 	unsigned int usb3_delay = 0;
- 	LIST_HEAD(tunnels);
- 
-+	/*
-+	 * The host controller is gone (for example the last device was
-+	 * unplugged, or the PCIe hotplug driver found the controller
-+	 * removed or replaced during system sleep). The control channel
-+	 * rings are not started in that case so every config space access
-+	 * below would just fail. Leave the domain as is; it is torn down
-+	 * when the controller is removed.
-+	 */
-+	if (tb->nhi->going_away) {
-+		tb_dbg(tb, "host controller not present, skipping resume\n");
-+		return 0;
-+	}
-+
- 	tb_dbg(tb, "resuming...\n");
- 
- 	/*
--- 
-2.54.0
-
+greg k-h
