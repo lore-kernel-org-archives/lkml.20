@@ -1,148 +1,151 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1870A48FF76
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:14:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03B349252E
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:15:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792325647; cv=none; b=r+kIQhoVEdtVkQVcHp7htu0ZpaYrstFHrB1Mq1wuClqCprchTDbAAXcAIxgEFDkCanzX0Pojoz71S3UJnFL6DtPdEOtaExuuG6Si1RxBnvbVQeBzlWLxWTdP+KeEjh4JGDQ6KQoMhyGt8ZsKYtDuHQQrOylQ6GPu59sghu0MwcE=
+	t=1792325704; cv=none; b=iK/tGQu6prWj6JihNa5dcreoB4E6VngXB0T7NHr6kaecV5NnlTZAQQ94tuGulzYAIZ+wUhLF/bnHP6iw47l4i1PGGJxTT0k5Lh1BA2XlKU7IKEaHZhC0Z8cR2CuNgDaDvU+3w9JlUpZAKmX2dIjwOd9VK8KoqWBNidEmZKURrZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792325647; c=relaxed/simple;
-	bh=0ZUoTOrw2sVIIJsHysZ9LrpXCPGOLNSWoimGoqE2U2E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jxIOIiyMZuu/3sP9p17pXJGfs6nBv49lt/qkxc5ZIzyyBGjOmvxOv+oytq95+zH6pLx2EtrCxk0X/GzMv9iQCTJKpu6tjeziFvTNwe436hjNQdWQHwUg9XVZ90ly+SUaQNy3pxq2RbpuDlKLrXSLNGSJt51M719Wwa2sIX4qKhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hpinP1vp; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792325704; c=relaxed/simple;
+	bh=jJzrwDcLPPwtfFvIwpbsnemnHUZlCxNXhbp9HY7MxhM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Sr7mj3utcBlrJAE8oxS9Sf0FaYl37FyzN0Mx9lOIvmK6XmoDBN3w/jOOrHaT/suZ6EQ0+TdKFuGvXYPPnGhpwflpaUOhO2ZZ5mQNxoM9WHbPcm67kg7j5YRpgwnsgOteh8gDgOwRifUz4grpZkia02PhGwcX2baNGwG+Ti9tPMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mjHfP/f2; arc=none smtp.client-ip=209.85.218.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hpinP1vp"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso628765a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:14:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mjHfP/f2"
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c41dae9db9dso67538566b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:15:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792325645; x=1792930445; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rTNuU8y07OWc3gpsCtxs9hMoDORTFAVO+j50HlgZwnM=;
-        b=hpinP1vpFyJpDdPHICXGzIQIRyImrKMVDhw1wgqsbp/SHHH8D77WA05IczWynz+ZQU
-         cE4hrlX3BUbq7wjQ2t4DM6bRSyXh/0EXGO5qZlEud8ZvnbFJGqykMI+TPhQQv0kS7MfQ
-         xFQoKTXBNyOirmkztWZlwE/YDM+shn63+be1LPBgy/2eS3R3X2gnx2amqEzRF2LNeQkE
-         HZseIBZNuNsA747O7X3E7lW71cbVvbIh/lGQg3N38dnYaB8kNGwKHCz7Ajg0WrVWuWx2
-         q2YRb2LbIMcOHjEUexc9g5nVeahpZZ7W33eKZE8hXJROfPktp6fSIBjvD7hMOqBXHKSr
-         Cxew==
+        d=google.com; s=20251104; t=1792325701; x=1792930501; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FwDexhyU7jAUc+oJl4oPya3q4dZ70NmO2jnrwQScHtU=;
+        b=mjHfP/f2S8mP+qz0SrDdPJHii4SSroP/XZDv4peKYr0lFRxkmCWOQUr+oEYeCVOgXU
+         zb0OeV8hfrllQUv4wYE62XNlRtC2VLnEP4pJj03hFqKbzm+qKayvPhYbaFqP1SrmXFqt
+         oyN5jYMAGs4oV707exr092hYhANNs4LHy6ciWBv1QxNZSixwRsVeLMClXFHt3b3I/G4w
+         GOPmTyuRL4qtHVmm/TlAQeLM2pWrkmwB9q3rHu52VEjq93W3JwygGf2gP661/8BG4Qa+
+         ththhQrlnXqA3Yg8AjzTF2yWoZS8xyFyOS7nidDq+niuNrMXpkZgkEt9NwTMU58zqEgz
+         7TQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792325645; x=1792930445;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792325701; x=1792930501;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rTNuU8y07OWc3gpsCtxs9hMoDORTFAVO+j50HlgZwnM=;
-        b=2Y+xFtPcyENUI5YzPvW5UVSthGihdVBgZwYTZl8EHJEijNYjgwkEQb5gj62xUn4fF1
-         SIOvQhDOCCF3DwEGzquW7nLC1v04dlId6UJ+4nNbECQ8CBbD8pvyiib+dkrfwsIdq9XL
-         7C90fLCqv69vqfV2PvUrOsGw2cSRnXHi6tUywDPopc6ZiDIHKihSs95LVVhvmIUPbvZk
-         2hIbc/7SGHOHx8MU3VoGRmi8+YmkEUn+r+vpYWGJ/VnyD7/NirkVsjf+xRu5FO97KcRv
-         NObhTKkHMNpiDggs4OhDTcfYHOOvZJVgkVhT6HOAo8z9nbhmQSLg9ZBYKV95qOpP2PRX
-         W7kg==
-X-Forwarded-Encrypted: i=1; AKwUvBxUYmn1jG9+1Eipv3N1RwaPEq+GIWDmalMLT+QNyaNo3qDzk0bQItRFi/H21axUuRyW3BXusb34cuJ9mC8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxaxm6q5YK3SKWhEnPR7BRq8GVkNIvuPSgSJr9mzpD6Fl7g1Xa
-	9EssMvMO7JIfSdPik6mmMXfbJoJlSpNunNIqXlyWN1PZAbESNJODGCLK
-X-Gm-Gg: AYBFou1sxzAZTCtdA5nikKyBXHL3UbbGvOQzTOjorTfm8SsW+ZTPx0y/x3Qvj8cVw2v
-	CWs13NzVyd6jrOPNnKDhTvpKa43SFGTyOW5aG9HPpEpE2f9cXSXXDUUlSeuTST7d8q1dx+sti/m
-	ZMePN94w7UqVlcYOb7ft4YmM8MDTQrP5/fJCGkZzdPfwirB0Vp7KZzHNwc5d39Jaqy8gtHs8LHS
-	lYNL0IY2mEvlyMoJJIrkdf5sc6jYBx7X3OfLtOa/8OFFXy93erC5n79y/S4JWPPCbohclkz+r0L
-	THeiYD6sYYIMWp+zhWqQEItdEKieJoVdBrGk0GPUtugpGMz0KbkLKQYwVyIqmHjA5fkYgepywco
-	u2uESy88f9tbSV3vVJJ94cvFijFDEmlUogpycblnNDKnfJxefHRiziPnsENUA3pIsG7fbrTg33q
-	B91WvzvuPjiNrUxaDVa9xDqJOLo3JTykuJRvEi+UqxP/2V9Dkj48PMlPPNPh7wYwK+jDhnTTIFU
-	RNjRbBtS38NNrMg6A2WEDbjLEbewmaWr+/8QIuZvQtsgfTwG09RvDR6CUgBEGBJhSO/5+LQE32y
-	Ibmq+SfO0CdmqDtHiVkPKz3Z9tDEvI3dG5sZzz2GTXu760st
-X-Received: by 2002:a17:90b:2c90:b0:3ac:a521:953 with SMTP id 98e67ed59e1d1-3acef0ff0cdmr4044977a91.46.1792325645279;
-        Sun, 18 Oct 2026 05:14:05 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48e8646sm11116604a91.10.2026.10.18.05.14.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 18 Oct 2026 05:14:04 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Mike Christie <michael.christie@oracle.com>
-Cc: Dmitry Bogdanov <d.bogdanov@yadro.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	target-devel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yu Zhang <yuz08559@gmail.com>
-Subject: [BUG] scsi: target: PR OUT CLEAR registration-list teardown races concurrent PR OUT -> UAF / double list_del
-Date: Sun, 18 Oct 2026 22:13:57 +1000
-Message-ID: <20261018121357.63980-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=FwDexhyU7jAUc+oJl4oPya3q4dZ70NmO2jnrwQScHtU=;
+        b=Pzoti4NplUeoDSttGrrqpKpbyLlKgD60WZgJy7rdJK6QWK+Z4EVem4xmh3fkbuspHV
+         kD4Jy+FDuuStYbUcQRZ5pFsUWflo4CTie8uJ3IS1OnC4QeYxNRGAXaABJ0FxS0WOZ39i
+         XjjtleAWJLyQFjm5Yi93F0V5Zbb0HAgDnk4EA2IxG844ZkjtafN3accdnfhSocvNidme
+         Woi1lp+3Hwi+SLInPYC3AFKyzlEJpXhmIqxg5yn7q6bEZ+CfDbdJewOFZ+0P3glDUBGS
+         LEleuywNo2mc2IayljlOFbi8E/Hd7auzBNY9W9bnmC0ogrnwD+wNw5NZ/OAP9SMoAIJI
+         wd/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxzEfcNO34TDB/IEmza51wmZf/huIObvlhaa0CANUpW2BHMpSs9GmUKeE05agWUn3c3aK1zPLss/XUrDsQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRgTa2fG+j6lkMMKAbd4RBARIL+QcwLJMlatXa7barPSqL+GkV
+	e8FapDreb2cNqp4N3vXWeR0hfrf4DUIgO1e6MtcGTYLW5VLgQ9Rie2XK4D/VuECGumgpwsnWYNF
+	MAc3yYh4Kx/OCew==
+X-Received: from ejsh11.prod.google.com ([2002:a17:906:584b:b0:c31:533d:60fe])
+ (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:c510:b0:c2e:5f8f:e60e with SMTP id a640c23a62f3a-c41a01fd45emr300164466b.38.1792325700997;
+ Sun, 18 Oct 2026 05:15:00 -0700 (PDT)
+Date: Sun, 18 Oct 2026 12:14:45 +0000
+In-Reply-To: <cover.1792248922.git.jpiecuch@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <cover.1792248922.git.jpiecuch@google.com>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+Message-ID: <177fec80ae740d23baea0d5e50fb231ce165057e.1792248922.git.jpiecuch@google.com>
+Subject: [RFC PATCH 1/5] sched_ext: Make legacy scx_bpf_reenqueue_local()
+ target the locked rq
+From: Kuba Piecuch <jpiecuch@google.com>
+To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
+	Changwoo Min <changwoo@igalia.com>
+Cc: Kuba Piecuch <jpiecuch@google.com>, Peter Zijlstra <peterz@infradead.org>, sched-ext@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-core_scsi3_emulate_pro_clear() tears down the global registration_list holding
-only pr_tmpl->registration_lock, and __core_scsi3_free_registration() drops that
-lock across its pr_res_holders busy-wait:
+The legacy, synchronous scx_bpf_reenqueue_local() can only be called
+from ops.cpu_release(). It assumes that ops.cpu_release() always runs on
+the CPU being released and re-enqueues the tasks on the local DSQ of
+smp_processor_id().
 
-	spin_lock(&pr_tmpl->registration_lock);
-	list_for_each_entry_safe(pr_reg, pr_reg_tmp,
-			&pr_tmpl->registration_list, pr_reg_list) {
-		...
-		__core_scsi3_free_registration(dev, pr_reg, NULL, calling_it_nexus);
-		...
-	}
-	spin_unlock(&pr_tmpl->registration_lock);
+That assumption is about to stop holding. A following patch emits
+ops.cpu_release() when the task running on a CPU leaves SCX through
+sched_setscheduler() or a PI boost. That can happen from any CPU, with
+the target CPU's rq locked. Picking the rq from smp_processor_id() would
+then trip lockdep_assert_rq_held() and walk another CPU's local DSQ
+without holding that CPU's rq lock.
 
-__core_scsi3_free_registration():
+SCX_CALL_OP() already records the rq the operation is invoked for in
+scx_locked_rq(), and scx_bpf_dsq_reenq() /
+scx_bpf_reenqueue_local___v2() already resolve SCX_DSQ_LOCAL against it.
+Do the same in the legacy kfunc. Nothing else in reenq_local() depends
+on running on the target CPU: the local DSQ is protected by the rq lock,
+and direct dispatches to a third CPU's local DSQ are already deferred
+through ddsp_deferred_locals.
 
-	if (!list_empty(&pr_reg->pr_reg_list))
-		list_del(&pr_reg->pr_reg_list);
-	...
-	spin_unlock(&pr_tmpl->registration_lock);
-	while (atomic_read(&pr_reg->pr_res_holders) != 0)
-		cpu_relax();
-	...
-	spin_lock(&pr_tmpl->registration_lock);
-	...
-	kmem_cache_free(t10_pr_reg_cache, pr_reg);
+No functional change for the existing callers, which all run on the CPU
+whose rq is locked.
 
-Unlike PR OUT PREEMPT (core_scsi3_pro_preempt), which holds
-dev->dev_reservation_lock across its entire registration_list free loop, CLEAR
-drops dev_reservation_lock before the loop. The same registration_lock-only
-teardown appears in core_scsi3_free_pr_reg_from_nacl() and the PR OUT REGISTER
-unregister path. PR OUT has no device-level serialization, so two I_T nexuses
-can run teardown loops concurrently.
+Also update the kerneldoc of scx_bpf_reenqueue_local___v2(), which still
+says that it works on the local DSQ of the caller's CPU, to match
+scx_bpf_dsq_reenq().
 
-list_for_each_entry_safe() caches the next entry. While one CLEAR is parked in
-__core_scsi3_free_registration()'s registration_lock drop, a second concurrent
-CLEAR acquires registration_lock and list_del()s + kmem_cache_free()s exactly
-that cached next entry. The first CLEAR then advances onto the freed entry ->
-use-after-free read of ->pr_reg_list.next, list_del() on a poisoned node, and a
-double kmem_cache_free().
+Signed-off-by: Kuba Piecuch <jpiecuch@google.com>
+---
+ kernel/sched/ext/ext.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-Reproduced on a KASAN kernel with two tcm_loop I_T nexuses mapped to one iblock
-LUN, each looping { PR OUT REGISTER own-key ; PR OUT CLEAR own-key } via SG_IO:
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index f1b9d52f624a..f64438290218 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -9501,9 +9501,10 @@ __bpf_kfunc_start_defs();
+  * scx_bpf_reenqueue_local - Re-enqueue tasks on a local DSQ
+  * @aux: implicit BPF argument to access bpf_prog_aux hidden from BPF progs
+  *
+- * Iterate over all of the tasks currently enqueued on the local DSQ of the
+- * caller's CPU, and re-enqueue them in the BPF scheduler. Returns the number of
+- * processed tasks. Can only be called from ops.cpu_release().
++ * Iterate over all of the tasks currently enqueued on the local DSQ of the CPU
++ * ops.cpu_release() is being invoked for, and re-enqueue them in the BPF
++ * scheduler. Returns the number of processed tasks. Can only be called from
++ * ops.cpu_release().
+  */
+ __bpf_kfunc u32 scx_bpf_reenqueue_local(const struct bpf_prog_aux *aux)
+ {
+@@ -9515,7 +9516,13 @@ __bpf_kfunc u32 scx_bpf_reenqueue_local(const struct bpf_prog_aux *aux)
+ 	if (unlikely(!sch))
+ 		return 0;
+ 
+-	rq = cpu_rq(smp_processor_id());
++	/*
++	 * Use the rq ops.cpu_release() was invoked for rather than the local
++	 * one. They are not necessarily the same CPU.
++	 */
++	rq = scx_locked_rq();
++	if (WARN_ON_ONCE(!rq))
++		return 0;
+ 	lockdep_assert_rq_held(rq);
+ 
+ 	return reenq_local(sch, rq, SCX_REENQ_ANY);
+@@ -10057,7 +10064,9 @@ __bpf_kfunc void scx_bpf_dsq_reenq(u64 dsq_id, u64 reenq_flags,
+  * @aux: implicit BPF argument to access bpf_prog_aux hidden from BPF progs
+  *
+  * Iterate over all of the tasks currently enqueued on the local DSQ of the
+- * caller's CPU, and re-enqueue them in the BPF scheduler. Can be called from
++ * rq the current scheduler operation is locked to - e.g. the CPU
++ * ops.cpu_release() is being invoked for - or the calling CPU's when no rq is
++ * locked, and re-enqueue them in the BPF scheduler. Can be called from
+  * anywhere.
+  *
+  * This is now a special case of scx_bpf_dsq_reenq() and may be removed in the
+-- 
+2.56.0.176.g3575e65682-goog
 
-	list_del corruption, ffff...->next is LIST_POISON1 (dead000000000100)
-	kernel BUG at lib/list_debug.c:56!
-	RIP: __list_del_entry_valid_or_report+0xc2/0x140
-	Call Trace:
-	 __core_scsi3_free_registration+0x12d/0x430
-	 target_scsi3_emulate_pr_out+0xac0/0x13f0
-	 __target_execute_cmd+0x56/0x140
-	 target_execute_cmd+0x1a0/0x5b0
-	 tcm_loop_write_pending+0x15/0x20
-	 transport_generic_new_cmd+0x40b/0x700
-	 __target_submit+0xae/0x1e0
-	 target_queued_submit_work+0x64/0x190
-
-Note for a fix: simply taking dev_reservation_lock across the CLEAR teardown
-loop (mirroring PREEMPT) is not sufficient -- it deadlocks. A PR OUT command
-takes a pr_res_holders reference on its own registration via
-core_scsi3_locate_pr_reg() *before* acquiring dev_reservation_lock, so one CLEAR
-busy-waiting in __core_scsi3_free_registration() for another nexus's
-registration to reach pr_res_holders == 0 waits forever on a nexus whose own PR
-OUT is blocked on dev_reservation_lock (observed as an RCU stall). A correct fix
-likely needs the registration lifetime reworked (drop the locate reference
-before teardown, or defer the free to the last put) rather than only widening
-the lock.
-
-Reported-by: Yu Zhang <yuz08559@gmail.com>
