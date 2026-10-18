@@ -1,234 +1,169 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C4C3DDDD2
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:48:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723893E7635
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792342128; cv=none; b=Qc7PbbT5kdlzanqTOOjI2SfQEAO6VVW/8rKnmCkhPmYkM67X/cLfKxmFMOPE7k1NcJjAKXJcE+64J+ACoCeId2qkGqpkeigDRUdHSLt4hBN/+t62gr1bdmkaGI/3SEl6SqtaYJQh5Rbj7axZ6Vz/7H6g4EE8X0FZiCrYfASYrtM=
+	t=1792342172; cv=none; b=RnJBiuuPl1cNwZMFat78w8c5iWLQp4TC8mBPWee1SOWBY/YvFY83X4hkWe55DGbnDFvipRufXRs3r71v95Y1QsV9YLMFzSVcyPOkeXtNONQXVkb8/CFzDAmS6P40RM+m23dMX5XYOP/7GAX+I/d2u1Ef5zGUs2hXCHeR0fshj1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792342128; c=relaxed/simple;
-	bh=BQwom/JpLTa5hVv/QW0sgO7TAm5bZ2zgWUdehMZk33I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Js80bgebgcQ+eFWmrlN6lAwkhNk/Sx+v67vnx67YVqI9oi5uMN0e/QkXFJe0GS0rb0RZxHWRQ9Bcjp0dESMTWfbVRQ4HnVUsaG5K8JpQHV6wDDQAHTJZ0AKL8JFlG7fKpkte5IXiFn30gug5aMIlydZyH0G19l4fw52F2TZ4QcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N99ZUS+U; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1792342172; c=relaxed/simple;
+	bh=nigSKyk4TnxZ3aJHJc63V91xRtePvQ/VQifQk2tmR2s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GCoSFR6tWzK0YJ6q45vhgKvYDqJtXdOMLEVyzNRkF319xmTKFOEP31hPjXt6yIilLPcsGwqpv2REnXVOC0pip2P0/ZmrOS2TXGLXsU7/cWHZI/BRKnNBRJeJxVVTaEC1E8bzBqKKPr5UXYelKu3080bqV4QZX7VVaMN13jaz34k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DSW5eY+/; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N99ZUS+U"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so821811a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:48:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DSW5eY+/"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so859166a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:49:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792342126; x=1792946926; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fjh022Vk0Y78tFOJ30N8yOVXBDcISHKO2EIs3a224Vc=;
-        b=N99ZUS+U3YN4fBaa1JLi+eCGkecFGJUnpQLfmxOn0Pdl3Q1pbqPRyCYO6mIK1s2dj0
-         I3RQPYExDCnb6CYwXMyp+XLcyiawuCaTyG7nYyrJZxhOQQ/pTT7CRnvhMLxlkKtg1KZh
-         lnIlYezT/aakZHIQIoAbQtO3A6dHN3L67QWnLYcBWa4nGqTY19lCOyQFS2nBrq5soWZD
-         GwkkAA5XidlEbkr12T0HHQ2PpLJTUQZZPuYqoIq7wWDaR/e3FTwpJZCL46QnWLyUc82z
-         mJdul3M7Kce93eHGQORwOCqFpG0gKxLyB/2QUc8jIukNl8wkAQdMEdjwx+W3FrN6+C0b
-         2jkw==
+        d=gmail.com; s=20251104; t=1792342166; x=1792946966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y5fE8Lslo5prpIPlzBnw8CBP8b/bdGGy/PtlPJV/98Y=;
+        b=DSW5eY+//Jkyq55cFFPzHVMoSBIAIQv0tUxrgtXCM8c3eGs4uXmTRitsE9uG/RQ3/o
+         YI5TEK07PMcNt0ZjAcachiW00Pb1YaQvaHCyqd6jJ66MYV8DlyG72OsF/JNZQwJZg1bH
+         /WouFAMUi58nM6CcgMR3P8q6IHLEOflVPhan/EEAZ1/IxvXIs3cHDNniRiQUZP+qhf2e
+         lt5usV2DYDp9zc6Pftkf4skeawHxY3SpFid4n2Cft3Cg1sGF9d0jwDPS4+wrXHMOC7gW
+         Nq3mmiwPXLzc11VyLU0m5bIWQaRjPM0isvmifCtU8vEc9YjAPzI1MSL9QiRLbJOKMjA5
+         A6Gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792342126; x=1792946926;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Fjh022Vk0Y78tFOJ30N8yOVXBDcISHKO2EIs3a224Vc=;
-        b=d6/tLrs3juyowbtRl7tMoPRSGj/3g9l+CmsWiv5xnBOfnfgcjuEPO1wAHhdMyzpt5L
-         CyURiJXHg56/YVzpQ5E87jmCJA+Oa9cYQyRSE4Mp6N7cDuwhv8xnr1lLCvgGTAS1RAA8
-         6gMPgL5K7go6sYJYRs0B8ltIaJDOB2fIIOhKySrwcwHMK1KIuDjHoKqpNEyAvJzK0T0q
-         EOtieBFvqh1ijRINSL0mH++iZrqP+ZYtI7ZHFBmyson3D4tj8/L9OU/0bIUP/pgt4wxG
-         97J3wVBsT2qXg7bLiEWKZ3RcCb+Eq5Fj6JzVTHdKzV3aWeB8UpdZtky7Smi6/BWISLIe
-         bKiw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTEzbOR5ypxrQ1KTPlE0Pa51l101zqHVsVIKntCw8Edi0RFcFR717q1/HnAc50qzHFjwrzjKMvr0sw9Ks=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBtDwIMK8aFiJ8U/8ulSwkRTu+Wcp3SkQczrs4KUCgEyGKfUZ7
-	lVVnKTvKJINT0q90fy80dWpgl5xdVg7i5fUrpAng5syRrcc/s9tAh3VaLSXMCw==
-X-Gm-Gg: AYBFou114PC+tK0HNaopPJjKuommYxFtHY4iTHw8PjXlenL7BSPsGzPuLQXahizIGsn
-	Z3NCCsflVTsuExcYZ1bxIJ4iSDtSWTYZVEKBGxWP8VQsqORKpDtrS1gdAn2UsETVfQmhoPMZgq0
-	4kbkxgSoN3jfwT5NlPlgMKyBm2+86abDbdElVzE+JeJrXIE769msWsCuO7qM2ArI00il9V/ADIW
-	bnfgST2cjld1O/169HZxjpfVxAQp2kwDhGGCAICvTTtW8sCYKGILOaqnSjuDIvjn26v85pGV1sm
-	l6btaAEZIJu94rXfr8GdnkW9jeCPplipByJ9kwjwzuU6T7DjRv2Phk8an3mIIyd99FFtRklGHye
-	POGtDQ2bX4rlpwr8dQ950M8JPhHuDVJQIIkN3cYqnr9hSLHLKd0rWDADco83ce/tnLIkclem7ZC
-	0XHjRUxqnNbiMrjVRj4hUWKFeSn/JTk1fSxLJJBCN2bGCNkSHNg6BOL1OmEO+NPxd1cqYUFtWtV
-	k1qxy+1GElywcHN3yPfhGRwKReMirbvtKORa8Y3sN82yU48+PExa2Rvxe4=
-X-Received: by 2002:a17:90b:4d0a:b0:39e:21a7:5df5 with SMTP id 98e67ed59e1d1-3acef293029mr4763179a91.24.1792342125232;
-        Sun, 18 Oct 2026 09:48:45 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acddc37958sm10551724a91.14.2026.10.18.09.48.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 09:48:44 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <170e005b-c6e5-4b48-bc01-9b07ff918252@roeck-us.net>
-Date: Sun, 18 Oct 2026 09:48:43 -0700
+        d=1e100.net; s=20260707; t=1792342166; x=1792946966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y5fE8Lslo5prpIPlzBnw8CBP8b/bdGGy/PtlPJV/98Y=;
+        b=ZO0jrYklUe3lF4sGV4Yr73Ut+9ZPAo9b8pxWFeO+SPP/jCvjQWdCYxQOvQhxysDrKv
+         nMUxEwFLxhZFFPkBy9Il+ppa+OtRHaGAHNTuiu5cLcOtvbbItkXfug4zAEpEHzUOOWsh
+         a/m6hmMbA9kdx1VSSDDoC1hFOGuL2NeDAn7qbSycoINh1JpcVzZTWNXtWq6eub2p0mCH
+         +fGcrmY/YmsYmRL1olvThnJ2tNpgfD93wz9fjtRRjPYmGAPRer10y5MlAjWHOTPzmXEh
+         lAX1dhVt+J36gGMa8KwREbTf0vbBYbJuQlIWCNPkoq6MrlUgqE2ngandpEinRQRalknj
+         qluQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw2DMqqsfiIb5WZpJbhH4FPJVmjIOREcMF2uCm9b/Qa7ChQan7umFJHo1MZN+/pWSexm7Z37Pl3sn5ZwN4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfXIs8mo12GrKpbtQLQ7/jDvMY3ltcRHWEYHR01/b815OLHCFd
+	jKm5XqiYvfL8kkoECckD99Qu3lQTaSPOuYpj/WMpwxTWUCHKDfCtHSQe
+X-Gm-Gg: AYBFou3a6ZS3viovU73vRyjux1KeBY/eXcEiN591sY3BlpGrTn3HJ++OGACYEKspVSI
+	clWvPviDWvmZh2peLwAnbIklv6kgZ++BZiW9G03NPwbud1cYpjFkY/02BI7n3f6nwVx4nMSxEVe
+	0XxdKOs1hOsyn6tpYBka2m1/tdD+QuRdfTjc40rjGdxZd4oYU/3xa9E3NFHecc00noivh0av2sc
+	NhUej/9G8Wj4ggnyq2Vj/KsZU0hc91NkXWcozTngf23eVoW0CpCS1oeyHrogEy17ryKRF1QMVya
+	Uvi2DTHTHl+dNV3rfMh2onmi6QtfRUYdz9FRlGHU2c24w+pk70J4ZotUgjKnCPFKApNWvDxDEha
+	nOXkHanhU+BToW633jrCAPXYDPAqtXbiQlL3hNrAcvGiaQqp1hDtH/Azu8MiWu4a3nu/ZmO/iAV
+	G0AfR5blJVnWzBgJJF1RBgHLHxH7bmolgujRRUd1UJp5bfVVX0fnWYVKN2SU6JYo0dYdVD0hHsA
+	SsNMRPzgoAnyTSMuqRAyfOQCb0AP9JnfqEzWic=
+X-Received: by 2002:a17:90b:5743:b0:3ac:9772:8da3 with SMTP id 98e67ed59e1d1-3acef13e5c1mr4453029a91.31.1792342165209;
+        Sun, 18 Oct 2026 09:49:25 -0700 (PDT)
+Received: from obadmin-Precision-3680.atlascopco.group ([136.226.232.175])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad335ca338sm744527a91.10.2026.10.18.09.49.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 09:49:24 -0700 (PDT)
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Marek Vasut <marek.vasut@gmail.com>
+Subject: [PATCH] gpio: pca953x: Handle direction register read errors in IRQ paths
+Date: Sun, 18 Oct 2026 22:20:03 +0530
+Message-ID: <20261018165003.3372368-1-sahaj123.sc@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] watchdog: allow WATCHDOG_PRETIMEOUT_GOV_SEL=y
-To: Dmitry Voytik <voytikd@gmail.com>
-Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
- Nathan Chancellor <nathan@kernel.org>
-References: <20261004213755.554191-1-voytikd@gmail.com>
- <e7c99dc5-dfa4-4ce7-b7da-a3a70a2710a8@roeck-us.net>
- <CAAX90H0qGF-H8BYcmT_vbUGoqN9RbfeGxMdTTRyQPK_h8MzFhA@mail.gmail.com>
- <053269a6-41ab-41eb-8756-b6a04eea2e5a@roeck-us.net>
- <CAAX90H1-tzrH6hwHHrvfQi2e-TXQKmgNy0Lj2TXG7yDbKYy3Og@mail.gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <CAAX90H1-tzrH6hwHHrvfQi2e-TXQKmgNy0Lj2TXG7yDbKYy3Og@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 10/17/26 15:27, Dmitry Voytik wrote:
-> On Sat, Oct 17, 2026 at 11:42 PM Guenter Roeck <linux@roeck-us.net> wrote:
->>
->> On 10/17/26 08:59, Dmitry Voytik wrote:
->>> Hi Guenter,
->>>
->>> Thanks for reviewing the patch!
->>>
->>> On Fri, Oct 16, 2026 at 8:21 PM Guenter Roeck <linux@roeck-us.net> wrote:
->>>>
->>>> On 10/4/26 14:37, Dmitry Voytik wrote:
->>>>> Fix the issue when WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =y,
->>>>> and always is =m.
->>>>>
->>>>> The issues can be reproduced with the following steps:
->>>>>         make mrproper
->>>>>         make defconfig
->>>>>         ./scripts/config \
->>>>>           -e WATCHDOG_CORE \
->>>>>           -e WATCHDOG_PRETIMEOUT_GOV \
->>>>>           -e WATCHDOG_PRETIMEOUT_GOV_SEL \
->>>>>           --refresh
->>>>>         make olddefconfig
->>>>>         make mod2yesconfig
->>>>>
->>>>>         grep '=m$' .config
->>>>> returns only CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL as module:
->>>>>         CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL=m
->>>>>
->>>>> "make menuconfig" doesn't let it to be switched from =m to =y either.
->>>>>
->>>>
->>>> This does not explain what the problem actually is that is supposed
->>>> to be solved with this patch. Since this is just a selector used to
->>>> enable other configurations, and the configuration option does not
->>>> result in any packages built, "WATCHDOG_PRETIMEOUT_GOV_SEL can't be
->>>> set to =y" on its own is not a problem.
->>>
->>> The issue is that
->>>     make mod2yesconfig
->>> doesn't work as expected. Help says "Change answers from mod to yes if
->>> possible".
->>
->> This does say "If possible".
->>
->>> I might have misunderstood it, but I thought all configs should be =y
->>> for this make target.
->>>
->>
->> $ make allmodconfig
->> $ make mod2yesconfig
->> $ grep =m .config | wc -l
->> 51
->>
->> Not really.
->>
->>> Maybe a dumb question, but why does only this config have " default m"
->>> and others use
->>> "default WATCHDOG_CORE"? Does it have some special meaning with "default m"?
->>>
->>
->> Again, this configuration option is only used to set the (default) value
->> for the watchdog pretimeout governor, and the "=m" states that the default
->> should be WATCHDOG_PRETIMEOUT_GOV_PANIC=m, not =WATCHDOG_CORE.
-> 
-> This doesn't explain why it's =m by default.
-> 
->>> I want to have no modules and still not disable the module load
->>> ability, and it annoys me
->>> that some configs don't allow "=y" :-) otherwise when I do
->>>    grep '=m$' .config
->>> I need to remember that CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL is a special case.
->>>
->>> FYI, for Arch Linux based config, only
->>> CONFIG_WATCHDOG_PRETIMEOUT_GOV_SEL pops up with =m.
->>> A fix for the same issue with CONFIG_TDX_HOST_SERVICES seems to be accepted:
->>> https://lore.kernel.org/lkml/as04AoNxjzlvh-K8@thinkstation/
->> You are comparing apples with oranges. That commit states:
->>
->>     Fix the issue when the driver always gets compiled as a module.
->>
->> There is no module that can or will be compiled based on
->> WATCHDOG_PRETIMEOUT_GOV_SEL.
-> 
-> Sure, I understand that. What is the semantic meaning of making it by
-> default =m? And why can't I make it =y?
-> I understand the build artifacts are the same, but I'm curious why =m?
-> Why WATCHDOG_PRETIMEOUT_GOV_PANIC is not =m by default?
-> Thanks for the explanation in advance!
-> 
+Three IRQ paths ignore the result of reading the direction registers
+and then use the destination bitmap. pca953x_read_regs() does not populate
+that bitmap when regmap_bulk_read() fails, leaving the callers to use
+uninitialized stack data.
 
-The idea is to build WATCHDOG_PRETIMEOUT_GOV_PANIC as module
-by default. There is no "why" to answer. Why build anything as module
-by default ? Are you going to question all those 478 default=m
-configurations in the kernel ?
+This can select incorrect GPIOs for direction changes during IRQ bus
+synchronization, corrupt the saved input state during IRQ setup, or
+produce incorrect pending interrupt decisions.
 
-You still do not explain what actual problem you are trying to fix,
-except that WATCHDOG_PRETIMEOUT_GOV_SEL can't be set to =y, which is
-not a problem. The only problem I can see is that you don't like it,
-which is not a reason for making any changes.
+Check the read result at all three sites. Release irq_lock without
+changing GPIO directions on failure, leave the IRQ history untouched
+when pending detection fails, and propagate the error from IRQ setup.
+The read helper already logs the error.
 
-Guenter
+Fixes: 0f25fda840a9 ("gpio: pca953x: Zap ad-hoc reg_direction cache")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+---
+Testing:
+- Built an ARM64 kernel with CONFIG_GPIO_PCA953X_IRQ=y,
+  CONFIG_PM_SLEEP=y and CONFIG_SUSPEND=y, containing this fix alone.
+- Booted it on AM642 and confirmed both expected expanders bound to
+  pca953x, with an untainted kernel.
+- Ran the isolated exact-function harness on an AM642 CPU: 22 checks,
+  three failures before and none after. The same isolated checks passed
+  host ASan and UBSan. This harness simulates kernel and hardware APIs.
 
+The hardware test covers boot and probe, not the IRQ error paths.
+Neither expander has IRQs configured in this board's device tree, so
+direction-register read failures were exercised only in the harness.
+
+ drivers/gpio/gpio-pca953x.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
+index aac9ea7520b6..b6f0849d3bdf 100644
+--- a/drivers/gpio/gpio-pca953x.c
++++ b/drivers/gpio/gpio-pca953x.c
+@@ -862,6 +862,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
+ 	DECLARE_BITMAP(irq_mask, MAX_LINE);
+ 	DECLARE_BITMAP(reg_direction, MAX_LINE);
+ 	int level;
++	int ret;
+ 
+ 	guard(mutex)(&chip->i2c_lock);
+ 
+@@ -880,7 +881,9 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
+ 	}
+ 
+ 	/* Switch direction to input if needed */
+-	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	if (ret)
++		goto out;
+ 
+ 	bitmap_or(irq_mask, chip->irq_trig_fall, chip->irq_trig_raise, gc->ngpio);
+ 	bitmap_or(irq_mask, irq_mask, chip->irq_trig_level_high, gc->ngpio);
+@@ -890,6 +893,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
+ 	for_each_andnot_bit(level, irq_mask, reg_direction, gc->ngpio)
+ 		pca953x_gpio_direction_input_unlocked(&chip->gpio_chip, level);
+ 
++out:
+ 	mutex_unlock(&chip->irq_lock);
+ }
+ 
+@@ -984,7 +988,9 @@ static bool pca953x_irq_pending(struct pca953x_chip *chip, unsigned long *pendin
+ 	}
+ 
+ 	/* Remove output pins from the equation */
+-	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	if (ret)
++		return false;
+ 
+ 	bitmap_copy(old_stat, chip->irq_stat, gc->ngpio);
+ 
+@@ -1084,7 +1090,9 @@ static int pca953x_irq_setup(struct pca953x_chip *chip, int irq_base)
+ 	 * interrupt.  We have to rely on the previous read for
+ 	 * this purpose.
+ 	 */
+-	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	if (ret)
++		return ret;
+ 	bitmap_and(chip->irq_stat, irq_stat, reg_direction, gc->ngpio);
+ 	mutex_init(&chip->irq_lock);
+ 
+
+base-commit: ac46dac1613a7c971e28e16d3a7a6ad4b1ae6c5a
+-- 
+2.43.0
