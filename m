@@ -1,63 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E80381E8C;
-	Sun, 18 Oct 2026 19:06:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B62C381E8C;
+	Sun, 18 Oct 2026 19:07:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792350405; cv=none; b=sL0USXxPPEneTg8iHMtAbNTYIWVl9veV/zcpjZsztfT6vJBWKZuvCUSOuso/r93xEI3l/mzzFsV1USSL8FqRddM3PS4lWk3olaW6nXGxYqm24hFc5qN8GOGRc9fgcikBN0ntcWbdv+WMlnurej6qGCoKFTPb6IHagd+rbdeaL7s=
+	t=1792350461; cv=none; b=Yd3f5aYk+dd7upXh+/FVBZ/sF7cL+sJdB/+QPn90eWylwsXu0qYiykHWn7tPtdS6p/y7cx3dIhkUOuaF4n/QkeIg8yVaCe7Dx/46vutTnKVJ2iqSjC545JP7ocVOQCcQJIwSrLYpvp7LruwCgcPsbMHRsW0H1PLZUg6NEoFryVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792350405; c=relaxed/simple;
-	bh=VJSlxiWiLlhRzX4DSRn2mTNdrBpvILYS0Grl3UgbhkI=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=O5E4YJnvHxN1VA0UpYhyS/ojPrl0aQZBeKHJrgPVi7pOga8kFSPMiF/yc608B4iddXK0Uoacvhmpuscm40UTPn/00WOMtyfEhCGHQtyfQ+vBBiTLECG0RzL33Obc3eqVxOBCQ7+wdOF/EqW+4AJ9mCXj6YRvU1hDRJiu4pNcqOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hPc9fm2L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792350461; c=relaxed/simple;
+	bh=e+c+Qr6wRgnB+pbZI6vB3M8zw7iAvlqaVvfwzJMV1PA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p4zaYu4CDveiT9VTdGJVpWfZxDoNlWKGWhR/mHY8L/xU3qnb9PS6ydKomJUDqcKwyNIHWvgtzFfuQdYKp7duVWNVF6i1cBRl29tM0rLoPZNiGVaM0dk3xzuaCie+bHMSb/IaCRE3MregrCkT7DyEB8w41hb4JFZWJ/ZlGqhXqQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IjoM/Km4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hPc9fm2L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064791F000C4;
-	Sun, 18 Oct 2026 19:06:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IjoM/Km4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB9F1F000C4;
+	Sun, 18 Oct 2026 19:07:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792350404;
-	bh=deIffueQWgcbAsKBXoJ0l/Y17kkwxBuqYSJJ9KHGm8o=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=hPc9fm2L2WoSai65ZKTu/L/Nyn17Bfl48WHKZ07twdJtlV+DbTWHM+e7IjHb9LW/w
-	 F4T7dTyn8k0ZkbGm8hii4XDdU3LGAgIL/F8d60qc1Tb5grOaARihHmWyVUr1b6GbOu
-	 C1du/lKOqu8igNpe3aKp67QaHFFwtOsjRltEqrRMRxjkSZ+QEtb1rrMK8C5/oTWIau
-	 d8SPT9vH9l9PSwE0OyEt6cSkTDc+vmlelwe3msfU3Nb2CbewyHohLTFGxLFD6vSsdI
-	 Z6XAezmEvhzq2PB7B7fLk1c4AJpPs0S918swqwr+y7CFZcz3LnBEfwWksSGtMDJXY4
-	 kyy+KwqD2RhYw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F1562381196D;
-	Sun, 18 Oct 2026 19:06:43 +0000 (UTC)
-Subject: Re: [GIT PULL] i2c fixes for v7.3-rc8
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <atTk4XFuPp9T88YL@zenone.zhora.eu>
-References: <atTk4XFuPp9T88YL@zenone.zhora.eu>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <atTk4XFuPp9T88YL@zenone.zhora.eu>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git i2c-fixes-7.3-rc8
-X-PR-Tracked-Commit-Id: d33373c565af9c8a28776af02bd20ba6e5724211
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 72732cbee632b1be22b636813c9be3df55c72bd9
-Message-Id: <179235040255.1786430.9834473388608451955.pr-tracker-bot@kernel.org>
-Date: Sun, 18 Oct 2026 19:06:42 +0000
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, lkml <linux-kernel@vger.kernel.org>, linux-i2c <linux-i2c@vger.kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+	s=k20260515; t=1792350459;
+	bh=e+c+Qr6wRgnB+pbZI6vB3M8zw7iAvlqaVvfwzJMV1PA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IjoM/Km4qurTHg6X3VUKkq0sVqcVlDd/aAkXlKRvsUdQSxo07GDTE/jL9XtQ+5Vid
+	 HfdF3qSUWejo0STGYT3pHdq20iiPyTVB0L4Wg7F9EqgzbXbBIJgOaSfcUcZ9g/iOOc
+	 ms72xOhnzqo0ci/6fD3/fqLImjzCurUSR1Xz7jh0uSITtC8S0md9N/WdcZ9Z/kpGoX
+	 8oAKZp1KDUUCp//IwADPJ3RDmWv9PougqV6dzNWHf5jzfQtUBNR9erNgpVE+0m4IgO
+	 550NJHRh4Q0cXQIShc82V+ehVMHwWH70Z7Wm2eAyI13peqm6X6VhaJnlFguRnv7G2O
+	 +KdEBqNAEbDWA==
+Date: Sun, 18 Oct 2026 20:07:34 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: linux-mips@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	Robert Marko <robert.marko@sartura.hr>,
+	"open list:WATCHDOG DEVICE DRIVERS" <linux-watchdog@vger.kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, manuel.lauss@gmail.com
+Subject: Re: [PATCH 2/5] dt-bindings: watchdog: gpio: Describe minimum
+ heartbeat intervals
+Message-ID: <20261018-series-matron-f2991ecea141@spud>
+References: <20261016221617.2223004-1-f.fainelli@gmail.com>
+ <20261016221617.2223004-3-f.fainelli@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="g0N2ukCb0WMIz+mv"
+Content-Disposition: inline
+In-Reply-To: <20261016221617.2223004-3-f.fainelli@gmail.com>
 
-The pull request you sent on Sun, 18 Oct 2026 17:29:16 +0200:
+--g0N2ukCb0WMIz+mv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git i2c-fixes-7.3-rc8
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/72732cbee632b1be22b636813c9be3df55c72bd9
+--g0N2ukCb0WMIz+mv
+Content-Type: application/pgp-signature; name=signature.asc
 
-Thank you!
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatUY9QAKCRB4tDGHoIJi
+0n24AP0VU7I1LO8QuVr77O0ieUH0HAgJ6vxjIha615mrn+PwbwEAzFTyZ76tRxvA
+o4A1XfUZSzmtB+jF5vyliDCiDUfFXAw=
+=o4BX
+-----END PGP SIGNATURE-----
+
+--g0N2ukCb0WMIz+mv--
