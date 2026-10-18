@@ -1,173 +1,303 @@
-Received: from mail-ed2-f6.google.com (mail-ed2-f6.google.com [74.125.228.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB8B4A0C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792323764; cv=pass; b=OxuHj3kYSXQjpg3xlswTMIc9n0Jfo4i9K6lkjbf4M1/yAkY8+i+DRYO7056NvKniB/cXXh9Bjea9jOCHpC4kAjJrvmYsn7rrkKuCRDdWrm7uy6Uh4Ruo90Sfx/m0QcvjkRBryFkMCb43ZeLde3y3Zbu52TrBPleSisPhr6R2c50=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792323764; c=relaxed/simple;
-	bh=pdTjjuUEZr5/eCLLGOgRPlhMNoP9YTMXhfMuFbbNRq8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nAV6hCmlgp3IMBFzN/tWhEBtrITta7IWalg9EOZQpaVkURtyau38WvZBMFspy/X7ccdJmgKW26WooDGSODo3oboDGYCF40K6+vz2tTRF6zMCWB0Obl1EWp3/pHMwuG/2cXfg0jDWIA+ItAWbMFWi7VyBvT/xfNAEDKn+9igV2xw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VgssXaO9; arc=pass smtp.client-ip=74.125.228.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6C24A0C
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:43:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792323831; cv=none; b=qJmQNUh027w9xXbDREKzQfd4VUX6a7tQnOnsvvZm2mEf/ZhsE+ZS0kyng6I55sURPMB+xY9w/BnRNCDL7xGlWG3oDfVs6trp3Yj3RpYuv4RFsS/z0GalMUyEIdN8ll0mINTS4g32hmCyC5flOMAk7EZpPekcn8Sa4iZcom2d5Sc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792323831; c=relaxed/simple;
+	bh=4JYFP4kjrC+opUek+Yn4PUjXpgZiiKF6i6FcxgRZx8Q=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=qNh4FKuYsI9RwDCslwM5wtagtNZSc/tDet6Ib4qblX7ZEAlfps4eKLV1LsmKsNwhoEhkwhx/OdtVaPmWyTgfCWNX6fDxaE4j7ndPdijjrwUpMmzGdndVnmrAUN0JDLsV+HT5czQcQGWrrVApxsrDaJw9nZ0MKil3zdFTQzcJSrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ShDh9nj3; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VgssXaO9"
-Received: by mail-ed2-f6.google.com with SMTP id 4fb4d7f45d1cf-6b1bac8b872so900803a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:42:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792323761; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CgJvlzrb7x16KsF3qZOCMwLn8TUszBJv2sLjeEo3QmG3ud2TigOPQARtca0hXiBZKN
-         0vwI2es1jwSRib6EFny24nN+RkebO/UcI7e2+oOmATweEDUc0iavYjapkmG3ycETAuwT
-         aOYzRjP0omsaqvP/BwfzF914F+mKlrYTMybt7r/MGibHLSwFz1zKf5UIvNLvDJp14CG7
-         9iIcAtYvzvfyTc4I7VsEAcJcRDNRHOaQU9Ygt4ZQc4w/fQebT9NLH4ebaCB0z51y3NbC
-         CE+Bqg5lEKuDVLoKcw8K8Qm8Re2vyKmT0ZPumCxyHrT3tZj0DH0XhLApOqq0FWPe022T
-         RbhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZLma18gptooWQFwxqC5664qisl8OyfBtIlcEuU76w1s=;
-        fh=T+YTRwmW1IulENoDM2/uo3SJzVLk9MUtwJGH2xJJ8wM=;
-        b=HBgOF3DiWgUIXsSFFwpbVJ3x2gTgCyCeRVEuHF+kLIz4BRdWVC8dD3DRgXiUZMcWV1
-         bZLPXwiDRnuWHsjdNx6KrAGaL+u7TY3Z5Sav3tRDVRjUk+NfZnJbXMliNNdYcxV44lRu
-         fDr3tH3SnDJpc/k6tq6eJo3XW+Q1cT7ebEddNU0I+BK+2v4IVlVGJSWfeNUiueaVxATb
-         y11U+OXS36DJY8d/QN/8gORjk8qo34FdLXSHj5hME9ltLhq+D2I6n+3NwJCuQ66qn2Bp
-         Ne98ZHdvn1eIWkxrXH/k/EYqqdQw9ii1hRScHC7RRWB8lB5knWQUVihQ4pEVJPbhF8+1
-         hrcg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792323761; x=1792928561; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZLma18gptooWQFwxqC5664qisl8OyfBtIlcEuU76w1s=;
-        b=VgssXaO9qp/vQllhL+eVY98U0X505B3wktYtOrRX3tqHgwenF34POmxSexqMlFr3Dd
-         G79xOIaG9tVDbaFRYqTXYf4/KlyveLyKI/mLw0GbEo48ZOyt3zTfSPiWGbXFk81kpr7h
-         AK7jYQrG9Dt8BEz7b5LNmcbYYTPjviMqovrV99jGP8VRlPqfdoieL+/xyVVcM2MCy1HG
-         f48vXNDSM802tfpqX/JperJjJa1spb7qtZrQaLseLsi00x8cwoy0MYroOj236xsPhyrX
-         GaH4R+YcBK6SYVAEUa8CmPIOWGUgEF5gxUWiUOlQoTv0/FUQryFmBfEYrJWoFEAoggdt
-         EnHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792323761; x=1792928561;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZLma18gptooWQFwxqC5664qisl8OyfBtIlcEuU76w1s=;
-        b=QAgPPA+TDr0GOFNciOCcW9F033+n9LUCGgAIdQj/MU96d+MJyZb90c/IoKsQAjNwUv
-         S78ApAEEj2d0G6ozLbTExVbUpuwsGI9rGrGxgDtwnejPHEw+OpSPPs8FPbipeQR9gOim
-         WMgX3tgb+BwD7iqJpyhW0XW2Khj9m8oNBdcDaWIeNMW9BVc44zU3D1hFF6ruuWX07dBF
-         Lz0hxZ4hxFVndITLRwDUOYo5q+2naAJyS02WOPkhzkXy0h3e/cfSlrXCqtgZLkZ2fCSV
-         vFmAR7SxeQOPux6jR9qUxd3oAyv6WJq+Ss6lSO5ArnuqDZP5RsfgKtM44CJOKuzvoTWy
-         1FBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw6wg6AIwVv9cwn37okhOAqO2RvpcyrvxdxhaByHGhOaYbhHp8H5uMKSKU0lfjVEvjo/uAkUQau+kIUusg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMA5NwwOZuP3J5/LShAqSN9yUJOfkxstJDiN2uJlxIZwsnWIEk
-	vzAjJrRY+4BBmIXryJetQPoUV1wOBr8BMb7dLc9so535dxyjv/c3LdWANsLRq0T7oEwQR5MDoaB
-	A+q2pQxWpOnnRiD/PxSF677rR2eqqCXk=
-X-Gm-Gg: AYBFou2tC8krR2bdiYWsiYKHtZsX6y0AmsF59hQAcnTg1CVjJrrxBr+4Z9lrCEc50y/
-	QAs35eFy89LnQzbhSmy/OQ9hpDgkuBUyTBlklEi94qVqTJqHLjhndRAB+nPMAA4U3cOAaAGQzZW
-	nOH/o8AyGSmtkuoGXVUppVV7hoDoi4+4jBNwngKmMMaN+30HusC8FZqvyLIG1ExPc9TlhvfGHPc
-	ecMhbCqDun0TZMOBmLJYvAbPeGatP7QSPrmUiyxDAMQOdI7zD4tzmQCeTSDNduoEwiL0cDKJGns
-	GVkVfd4jwcRkYRpF7N7v8I4qunmz7veN8vTPss8r08WP7DkK0R0CUBzQcorAx+OoW3AuhEig1j2
-	VUHWyLjdwU+nXR04uk53Z
-X-Received: by 2002:a05:6402:3204:b0:6b1:c299:b3f8 with SMTP id
- 4fb4d7f45d1cf-6b3a8188f53mr2836096a12.33.1792323761136; Sun, 18 Oct 2026
- 04:42:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ShDh9nj3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792323828; x=1823859828;
+  h=date:from:to:cc:subject:message-id;
+  bh=4JYFP4kjrC+opUek+Yn4PUjXpgZiiKF6i6FcxgRZx8Q=;
+  b=ShDh9nj3jH6EfbifMbdnzdEtW56nR4SXS+Ii1x508xTyLHzRWB9kZCxA
+   LXpjCu0gV918MZs1LBrKdRnWU3Ky+64tj73QCVKeUVwOAlt8ZJF3+1kIg
+   7xUKABt+kTcmaMRYVmdPEIhxqe6ejQ1sngu3b7YgOu2J8dt/KHNSmcmRk
+   sMBr0XD36W74y5g16Sj13bW4baI8muyDxNtboyot+O7yIBavZY9XDW8wf
+   ptF+16AXhE/NY6Rdq1j2ms6BfYmyUgcpMOG0EE+hJqMZp4vegGjTmmPMn
+   of0YIQfjcOmzLL6sYYLAXjd+NPRZJcPPG3jyDJCXCvkf86o9LPu4ObjTu
+   A==;
+X-CSE-ConnectionGUID: KnK7Pu4xQ26ktEMjNpXMHA==
+X-CSE-MsgGUID: 0PqsqO0uQVekBixa7aY6Yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="1041620"
+X-IronPort-AV: E=Sophos;i="6.27,165,1787036400"; 
+   d="scan'208";a="1041620"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 04:43:48 -0700
+X-CSE-ConnectionGUID: 1tCY3mHiTsKk8/7CSJvjAA==
+X-CSE-MsgGUID: oG+OsUjFQbKYqjbaxuCnNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,165,1787036400"; 
+   d="scan'208";a="2308013"
+Received: from igk-lkp-server01.igk.intel.com (HELO 3c253b998be3) ([10.211.93.152])
+  by orviesa002.jf.intel.com with ESMTP; 18 Oct 2026 04:43:45 -0700
+Received: from kbuild by 3c253b998be3 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xIPIk-0000000054t-17F6;
+	Sun, 18 Oct 2026 11:43:42 +0000
+Date: Sun, 18 Oct 2026 13:43:15 +0200
+From: kernel test robot <lkp@intel.com>
+To: Marco Elver <elver@google.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>
+Subject: crypto/scompress.c:92:11: warning: writing variable 'src'
+ requires holding spinlock 'scratch.lock' exclusively
+Message-ID: <202610181335.o2l6GmyB-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261017120144.3059-1-yymhvert@gmail.com> <willemdebruijn.kernel.3068e5bf74671@gmail.com>
-In-Reply-To: <willemdebruijn.kernel.3068e5bf74671@gmail.com>
-From: yymh <yymhvert@gmail.com>
-Date: Sun, 18 Oct 2026 19:42:28 +0800
-X-Gm-Features: AclHuK-M4GinSmZs-Gs-t6lI0SGAvtU4utZxfv2F0Y2YNSSctof4zzQNs0f4jyU
-Message-ID: <CADLWKdUB8M70VLgd+foRg5Usy8rUo-hXkPQ1nrkJHM9iHaa=cA@mail.gmail.com>
-Subject: Re: [PATCH net v2] seg6: Fix unset mac header in SRv6 End.DT VRF decapsulation
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>, David Ahern <dsahern@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	co+98d7de09cd94fec5@bugs.sh
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Thanks, Willem.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   32c52ec87d6245ee2d12ed5dd509e40062939b50
+commit: dc36d55d4e7259ff0f91a154744125ccc2228171 crypto: Enable context analysis
+date:   10 months ago
+config: s390-randconfig-2000-20261018 (https://download.01.org/0day-ci/archive/20261018/202610181335.o2l6GmyB-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 8a679464f19c426ef76aad9f4587b703dd3e584d)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261018/202610181335.o2l6GmyB-lkp@intel.com/reproduce)
 
-Andrea, David Ahern, could you share your thoughts on the v2 approach?
-In particular, does restoring the mac header after l3mdev_l3_rcv()
-returns properly fix the issue without introducing any regressions,
-especially in the VRF sniffer path?
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: dc36d55d4e72 ("crypto: Enable context analysis")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610181335.o2l6GmyB-lkp@intel.com/
 
-Thanks,
-Boyan
+All warnings (new ones prefixed by >>):
+
+>> crypto/scompress.c:92:11: warning: writing variable 'src' requires holding spinlock 'scratch.lock' exclusively [-Wthread-safety-precise]
+      92 |         scratch->src = page_address(page);
+         |                  ^
+   crypto/scompress.c:92:11: note: found near match 'scratch->lock'
+>> crypto/scompress.c:240:28: warning: reading variable 'src' requires holding spinlock '_scomp_lock_scratch().lock' [-Wthread-safety-precise]
+     240 |                 const u8 *src = scratch->src;
+         |                                          ^
+   crypto/scompress.c:240:28: note: found near match '_scomp_lock_scratch().lock'
+   crypto/scompress.c:242:31: warning: reading variable 'src' requires holding spinlock '_scomp_lock_scratch().lock' [-Wthread-safety-precise]
+     242 |                 memcpy_from_sglist(scratch->src, req->src, 0, slen);
+         |                                             ^
+   crypto/scompress.c:242:31: note: found near match '_scomp_lock_scratch().lock'
+   3 warnings generated.
 
 
-Willem de Bruijn <willemdebruijn.kernel@gmail.com> =E4=BA=8E2026=E5=B9=B410=
-=E6=9C=8817=E6=97=A5=E5=91=A8=E5=85=AD 23:57=E5=86=99=E9=81=93=EF=BC=9A
->
-> Boyan Liu wrote:
-> > SRv6 End.DT4/End.DT6 VRF decapsulation unsets the mac header in
-> > end_dt_vrf_rcv() so that the VRF device can rebuild it for packet
-> > sniffers. The VRF rx handler only performs the rebuild when a
-> > sniffer is actually attached to the VRF device (ptype_all
-> > non-empty); otherwise the packet continues up the stack with
-> > mac_header =3D=3D 0xffff.
-> >
-> > Every other receive path delivers packets with a valid mac header:
-> > NIC drivers set it in eth_type_trans(), and tunnels without an L2
-> > header (ipip, sit, gre, tun) reset it to the network header after
-> > decapsulation. skb_mac_header() even warns on the unset state with
-> > DEBUG_NET_WARN_ON_ONCE().
-> >
-> > If the decapsulated packet is an unexpected UDP GSO packet,
-> > udp_queue_rcv_skb() re-segments it after restoring skb->data to the
-> > mac header with __skb_push(skb, -skb_mac_offset(skb)). With the mac
-> > header unset, skb_mac_offset() returns a large positive value,
-> > which the unsigned __skb_push() argument turns into a huge length:
-> > skb->data moves far outside the buffer and skb->len is corrupted,
-> > so segmentation reads out of bounds:
-> >
-> >     BUG: KASAN: slab-out-of-bounds in inet_gso_segment (net/ipv4/af_ine=
-t.c:1383)
-> >     Read of size 1 at addr ffff88800da7ffff by task exploit/149
-> >     Call Trace:
-> >      inet_gso_segment (net/ipv4/af_inet.c:1383)
-> >      skb_mac_gso_segment (net/core/gso.c:53)
-> >      __skb_gso_segment (net/core/gso.c:124)
-> >      udp_queue_rcv_skb (net/ipv4/udp.c:2476 net/ipv4/udp.c:2466)
-> >      udp_unicast_rcv_skb (net/ipv4/udp.c:2620)
-> >      ip_local_deliver (net/ipv4/ip_input.c:262)
-> >      seg6_local_input_core (net/ipv6/seg6_local.c:1640)
-> >      lwtunnel_input (net/core/lwtunnel.c:465)
-> >      ipv6_rcv (net/ipv6/ip6_input.c:351)
-> >
-> > Restore a valid mac header, pointing at the network header, once
-> > the VRF rx handler returns. The sniffer rebuild happens inside the
-> > handler while the header is still unset, so tap behavior is
-> > unchanged; when no rebuild happened, the packet now carries the
-> > same mac header state as any packet received on an L3 device.
-> >
-> > Fixes: 664d6f86868b ("seg6: add support for the SRv6 End.DT4 behavior")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: co+98d7de09cd94fec5@bugs.sh
-> > Signed-off-by: Boyan Liu <yymhvert@gmail.com>
-> > ---
-> > v2:
-> > - Move the fix from the UDP GSO path to seg6local.
-> > - Restore the mac header after the VRF rx handler returns, preserving
-> >   the VRF sniffer behavior.
-> > - Verify the original reproducer, datagram delivery, and VRF sniffer
-> >   output under QEMU.
-> > v1: https://lore.kernel.org/netdev/20261010073015.7665-1-yymhvert@gmail=
-.com/
->
-> Thanks. As discussed in v1, this sounds the better approach to me too.
-> But it would be better to get the opinion of experts on VRF and SRv6.
+vim +92 crypto/scompress.c
+
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21   82  
+c47e1f4142a3823 Herbert Xu                2025-03-17   83  static int scomp_alloc_scratch(struct scomp_scratch *scratch, int cpu)
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21   84  {
+c47e1f4142a3823 Herbert Xu                2025-03-17   85  	int node = cpu_to_node(cpu);
+2d3553ecb4e316a Herbert Xu                2025-03-15   86  	struct page *page;
+71052dcf4be70be Sebastian Andrzej Siewior 2019-03-29   87  
+c47e1f4142a3823 Herbert Xu                2025-03-17   88  	page = alloc_pages_node(node, GFP_KERNEL, 0);
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19   89  	if (!page)
+c47e1f4142a3823 Herbert Xu                2025-03-17   90  		return -ENOMEM;
+c47e1f4142a3823 Herbert Xu                2025-03-17   91  	spin_lock_bh(&scratch->lock);
+c47e1f4142a3823 Herbert Xu                2025-03-17  @92  	scratch->src = page_address(page);
+c47e1f4142a3823 Herbert Xu                2025-03-17   93  	spin_unlock_bh(&scratch->lock);
+71052dcf4be70be Sebastian Andrzej Siewior 2019-03-29   94  	return 0;
+c47e1f4142a3823 Herbert Xu                2025-03-17   95  }
+c47e1f4142a3823 Herbert Xu                2025-03-17   96  
+c47e1f4142a3823 Herbert Xu                2025-03-17   97  static void scomp_scratch_workfn(struct work_struct *work)
+c47e1f4142a3823 Herbert Xu                2025-03-17   98  {
+c47e1f4142a3823 Herbert Xu                2025-03-17   99  	int cpu;
+c47e1f4142a3823 Herbert Xu                2025-03-17  100  
+c47e1f4142a3823 Herbert Xu                2025-03-17  101  	for_each_cpu(cpu, &scomp_scratch_want) {
+c47e1f4142a3823 Herbert Xu                2025-03-17  102  		struct scomp_scratch *scratch;
+c47e1f4142a3823 Herbert Xu                2025-03-17  103  
+c47e1f4142a3823 Herbert Xu                2025-03-17  104  		scratch = per_cpu_ptr(&scomp_scratch, cpu);
+dc36d55d4e7259f Marco Elver               2025-12-19  105  		if (context_unsafe(scratch->src))
+c47e1f4142a3823 Herbert Xu                2025-03-17  106  			continue;
+c47e1f4142a3823 Herbert Xu                2025-03-17  107  		if (scomp_alloc_scratch(scratch, cpu))
+c47e1f4142a3823 Herbert Xu                2025-03-17  108  			break;
+c47e1f4142a3823 Herbert Xu                2025-03-17  109  
+c47e1f4142a3823 Herbert Xu                2025-03-17  110  		cpumask_clear_cpu(cpu, &scomp_scratch_want);
+c47e1f4142a3823 Herbert Xu                2025-03-17  111  	}
+c47e1f4142a3823 Herbert Xu                2025-03-17  112  }
+c47e1f4142a3823 Herbert Xu                2025-03-17  113  
+c47e1f4142a3823 Herbert Xu                2025-03-17  114  static int crypto_scomp_alloc_scratches(void)
+dc36d55d4e7259f Marco Elver               2025-12-19  115  	__context_unsafe(/* allocates @scratch */)
+c47e1f4142a3823 Herbert Xu                2025-03-17  116  {
+c47e1f4142a3823 Herbert Xu                2025-03-17  117  	unsigned int i = cpumask_first(cpu_possible_mask);
+c47e1f4142a3823 Herbert Xu                2025-03-17  118  	struct scomp_scratch *scratch;
+c47e1f4142a3823 Herbert Xu                2025-03-17  119  
+c47e1f4142a3823 Herbert Xu                2025-03-17  120  	scratch = per_cpu_ptr(&scomp_scratch, i);
+c47e1f4142a3823 Herbert Xu                2025-03-17  121  	return scomp_alloc_scratch(scratch, i);
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  122  }
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  123  
+6a8487a1f29fa28 Ard Biesheuvel            2017-07-21  124  static int crypto_scomp_init_tfm(struct crypto_tfm *tfm)
+6a8487a1f29fa28 Ard Biesheuvel            2017-07-21  125  {
+3d72ad46a23ae42 Herbert Xu                2025-03-09  126  	struct scomp_alg *alg = crypto_scomp_alg(__crypto_scomp_tfm(tfm));
+71052dcf4be70be Sebastian Andrzej Siewior 2019-03-29  127  	int ret = 0;
+6a8487a1f29fa28 Ard Biesheuvel            2017-07-21  128  
+6a8487a1f29fa28 Ard Biesheuvel            2017-07-21  129  	mutex_lock(&scomp_lock);
+42d9f6c774790d2 Herbert Xu                2025-03-19  130  	ret = crypto_acomp_alloc_streams(&alg->streams);
+3d72ad46a23ae42 Herbert Xu                2025-03-09  131  	if (ret)
+3d72ad46a23ae42 Herbert Xu                2025-03-09  132  		goto unlock;
+a32f1923c6d6e9e Sabrina Dubroca           2025-04-24  133  	if (!scomp_scratch_users++) {
+71052dcf4be70be Sebastian Andrzej Siewior 2019-03-29  134  		ret = crypto_scomp_alloc_scratches();
+ddd0a42671c0d97 Herbert Xu                2025-03-15  135  		if (ret)
+a32f1923c6d6e9e Sabrina Dubroca           2025-04-24  136  			scomp_scratch_users--;
+ddd0a42671c0d97 Herbert Xu                2025-03-15  137  	}
+3d72ad46a23ae42 Herbert Xu                2025-03-09  138  unlock:
+6a8487a1f29fa28 Ard Biesheuvel            2017-07-21  139  	mutex_unlock(&scomp_lock);
+6a8487a1f29fa28 Ard Biesheuvel            2017-07-21  140  
+6a8487a1f29fa28 Ard Biesheuvel            2017-07-21  141  	return ret;
+6a8487a1f29fa28 Ard Biesheuvel            2017-07-21  142  }
+6a8487a1f29fa28 Ard Biesheuvel            2017-07-21  143  
+dc36d55d4e7259f Marco Elver               2025-12-19  144  #define scomp_lock_scratch(...) __acquire_ret(_scomp_lock_scratch(__VA_ARGS__), &__ret->lock)
+dc36d55d4e7259f Marco Elver               2025-12-19  145  static struct scomp_scratch *_scomp_lock_scratch(void) __acquires_ret
+c47e1f4142a3823 Herbert Xu                2025-03-17  146  {
+c47e1f4142a3823 Herbert Xu                2025-03-17  147  	int cpu = raw_smp_processor_id();
+c47e1f4142a3823 Herbert Xu                2025-03-17  148  	struct scomp_scratch *scratch;
+c47e1f4142a3823 Herbert Xu                2025-03-17  149  
+c47e1f4142a3823 Herbert Xu                2025-03-17  150  	scratch = per_cpu_ptr(&scomp_scratch, cpu);
+42d9f6c774790d2 Herbert Xu                2025-03-19  151  	spin_lock(&scratch->lock);
+c47e1f4142a3823 Herbert Xu                2025-03-17  152  	if (likely(scratch->src))
+c47e1f4142a3823 Herbert Xu                2025-03-17  153  		return scratch;
+c47e1f4142a3823 Herbert Xu                2025-03-17  154  	spin_unlock(&scratch->lock);
+c47e1f4142a3823 Herbert Xu                2025-03-17  155  
+c47e1f4142a3823 Herbert Xu                2025-03-17  156  	cpumask_set_cpu(cpu, &scomp_scratch_want);
+c47e1f4142a3823 Herbert Xu                2025-03-17  157  	schedule_work(&scomp_scratch_work);
+c47e1f4142a3823 Herbert Xu                2025-03-17  158  
+c47e1f4142a3823 Herbert Xu                2025-03-17  159  	scratch = per_cpu_ptr(&scomp_scratch, cpumask_first(cpu_possible_mask));
+c47e1f4142a3823 Herbert Xu                2025-03-17  160  	spin_lock(&scratch->lock);
+c47e1f4142a3823 Herbert Xu                2025-03-17  161  	return scratch;
+c47e1f4142a3823 Herbert Xu                2025-03-17  162  }
+c47e1f4142a3823 Herbert Xu                2025-03-17  163  
+42d9f6c774790d2 Herbert Xu                2025-03-19  164  static inline void scomp_unlock_scratch(struct scomp_scratch *scratch)
+dc36d55d4e7259f Marco Elver               2025-12-19  165  	__releases(&scratch->lock)
+c47e1f4142a3823 Herbert Xu                2025-03-17  166  {
+42d9f6c774790d2 Herbert Xu                2025-03-19  167  	spin_unlock(&scratch->lock);
+c47e1f4142a3823 Herbert Xu                2025-03-17  168  }
+c47e1f4142a3823 Herbert Xu                2025-03-17  169  
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  170  static int scomp_acomp_comp_decomp(struct acomp_req *req, int dir)
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  171  {
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  172  	struct crypto_acomp *tfm = crypto_acomp_reqtfm(req);
+2d3553ecb4e316a Herbert Xu                2025-03-15  173  	struct crypto_scomp **tfm_ctx = acomp_tfm_ctx(tfm);
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  174  	bool src_isvirt = acomp_request_src_isvirt(req);
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  175  	bool dst_isvirt = acomp_request_dst_isvirt(req);
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  176  	struct crypto_scomp *scomp = *tfm_ctx;
+2d3553ecb4e316a Herbert Xu                2025-03-15  177  	unsigned int slen = req->slen;
+2d3553ecb4e316a Herbert Xu                2025-03-15  178  	unsigned int dlen = req->dlen;
+2d3553ecb4e316a Herbert Xu                2025-03-15  179  	struct page *spage, *dpage;
+2d3553ecb4e316a Herbert Xu                2025-03-15  180  	unsigned int n;
+2c1808e5fe5afda Herbert Xu                2025-03-15  181  	const u8 *src;
+8a6771cda3f48a4 Herbert Xu                2025-03-15  182  	size_t soff;
+8a6771cda3f48a4 Herbert Xu                2025-03-15  183  	size_t doff;
+2c1808e5fe5afda Herbert Xu                2025-03-15  184  	u8 *dst;
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  185  	int ret;
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  186  
+2d3553ecb4e316a Herbert Xu                2025-03-15  187  	if (!req->src || !slen)
+71052dcf4be70be Sebastian Andrzej Siewior 2019-03-29  188  		return -EINVAL;
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  189  
+2d3553ecb4e316a Herbert Xu                2025-03-15  190  	if (!req->dst || !dlen)
+71052dcf4be70be Sebastian Andrzej Siewior 2019-03-29  191  		return -EINVAL;
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  192  
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  193  	if (dst_isvirt)
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  194  		dst = req->dvirt;
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  195  	else {
+5f3437e9c89eec7 Herbert Xu                2025-04-07  196  		if (dlen <= req->dst->length) {
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  197  			dpage = sg_page(req->dst);
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  198  			doff = req->dst->offset;
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  199  		} else
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  200  			return -ENOSYS;
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  201  
+ce00897b94bc5c6 David Hildenbrand         2025-09-01  202  		dpage += doff / PAGE_SIZE;
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  203  		doff = offset_in_page(doff);
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  204  
+e3f08b262573187 Herbert Xu                2025-04-23  205  		n = (dlen - 1) / PAGE_SIZE;
+e3f08b262573187 Herbert Xu                2025-04-23  206  		n += (offset_in_page(dlen - 1) + doff) / PAGE_SIZE;
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  207  		if (PageHighMem(dpage + n) &&
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  208  		    size_add(doff, dlen) > PAGE_SIZE)
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  209  			return -ENOSYS;
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  210  		dst = kmap_local_page(dpage) + doff;
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  211  	}
+c47e1f4142a3823 Herbert Xu                2025-03-17  212  
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  213  	if (src_isvirt)
+2c1808e5fe5afda Herbert Xu                2025-03-15  214  		src = req->svirt;
+2c1808e5fe5afda Herbert Xu                2025-03-15  215  	else {
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  216  		src = NULL;
+8a6771cda3f48a4 Herbert Xu                2025-03-15  217  		do {
+5f3437e9c89eec7 Herbert Xu                2025-04-07  218  			if (slen <= req->src->length) {
+8a6771cda3f48a4 Herbert Xu                2025-03-15  219  				spage = sg_page(req->src);
+2d3553ecb4e316a Herbert Xu                2025-03-15  220  				soff = req->src->offset;
+8a6771cda3f48a4 Herbert Xu                2025-03-15  221  			} else
+8a6771cda3f48a4 Herbert Xu                2025-03-15  222  				break;
+8a6771cda3f48a4 Herbert Xu                2025-03-15  223  
+ce00897b94bc5c6 David Hildenbrand         2025-09-01  224  			spage = spage + soff / PAGE_SIZE;
+2d3553ecb4e316a Herbert Xu                2025-03-15  225  			soff = offset_in_page(soff);
+744e1885922a994 Chengming Zhou            2023-12-27  226  
+002ba346e3d76bb Herbert Xu                2025-04-21  227  			n = (slen - 1) / PAGE_SIZE;
+002ba346e3d76bb Herbert Xu                2025-04-21  228  			n += (offset_in_page(slen - 1) + soff) / PAGE_SIZE;
+ce00897b94bc5c6 David Hildenbrand         2025-09-01  229  			if (PageHighMem(spage + n) &&
+8a6771cda3f48a4 Herbert Xu                2025-03-15  230  			    size_add(soff, slen) > PAGE_SIZE)
+8a6771cda3f48a4 Herbert Xu                2025-03-15  231  				break;
+2d3553ecb4e316a Herbert Xu                2025-03-15  232  			src = kmap_local_page(spage) + soff;
+8a6771cda3f48a4 Herbert Xu                2025-03-15  233  		} while (0);
+2c1808e5fe5afda Herbert Xu                2025-03-15  234  	}
+77292bb8ca69c80 Barry Song                2024-03-02  235  
+dc36d55d4e7259f Marco Elver               2025-12-19  236  	struct crypto_acomp_stream *stream = crypto_acomp_lock_stream_bh(&crypto_scomp_alg(scomp)->streams);
+8a6771cda3f48a4 Herbert Xu                2025-03-15  237  
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  238  	if (!src_isvirt && !src) {
+dc36d55d4e7259f Marco Elver               2025-12-19  239  		struct scomp_scratch *scratch = scomp_lock_scratch();
+dc36d55d4e7259f Marco Elver               2025-12-19 @240  		const u8 *src = scratch->src;
+2d3553ecb4e316a Herbert Xu                2025-03-15  241  
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  242  		memcpy_from_sglist(scratch->src, req->src, 0, slen);
+2d3553ecb4e316a Herbert Xu                2025-03-15  243  
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  244  		if (dir)
+2d3553ecb4e316a Herbert Xu                2025-03-15  245  			ret = crypto_scomp_compress(scomp, src, slen,
+2d3553ecb4e316a Herbert Xu                2025-03-15  246  						    dst, &dlen, stream->ctx);
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  247  		else
+2d3553ecb4e316a Herbert Xu                2025-03-15  248  			ret = crypto_scomp_decompress(scomp, src, slen,
+2d3553ecb4e316a Herbert Xu                2025-03-15  249  						      dst, &dlen, stream->ctx);
+2d3553ecb4e316a Herbert Xu                2025-03-15  250  
+42d9f6c774790d2 Herbert Xu                2025-03-19  251  		scomp_unlock_scratch(scratch);
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  252  	} else if (dir)
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  253  		ret = crypto_scomp_compress(scomp, src, slen,
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  254  					    dst, &dlen, stream->ctx);
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  255  	else
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  256  		ret = crypto_scomp_decompress(scomp, src, slen,
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  257  					      dst, &dlen, stream->ctx);
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  258  
+42d9f6c774790d2 Herbert Xu                2025-03-19  259  	crypto_acomp_unlock_stream_bh(stream);
+2d3553ecb4e316a Herbert Xu                2025-03-15  260  
+2d3553ecb4e316a Herbert Xu                2025-03-15  261  	req->dlen = dlen;
+77292bb8ca69c80 Barry Song                2024-03-02  262  
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  263  	if (!src_isvirt && src)
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  264  		kunmap_local(src);
+a7b1d0c5f1ca05c Herbert Xu                2025-03-19  265  	if (!dst_isvirt) {
+2d3553ecb4e316a Herbert Xu                2025-03-15  266  		kunmap_local(dst);
+2d3553ecb4e316a Herbert Xu                2025-03-15  267  		dlen += doff;
+2d3553ecb4e316a Herbert Xu                2025-03-15  268  		for (;;) {
+2d3553ecb4e316a Herbert Xu                2025-03-15  269  			flush_dcache_page(dpage);
+2d3553ecb4e316a Herbert Xu                2025-03-15  270  			if (dlen <= PAGE_SIZE)
+2d3553ecb4e316a Herbert Xu                2025-03-15  271  				break;
+2d3553ecb4e316a Herbert Xu                2025-03-15  272  			dlen -= PAGE_SIZE;
+ce00897b94bc5c6 David Hildenbrand         2025-09-01  273  			dpage++;
+77292bb8ca69c80 Barry Song                2024-03-02  274  		}
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  275  	}
+2d3553ecb4e316a Herbert Xu                2025-03-15  276  
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  277  	return ret;
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  278  }
+1ab53a77b772bf7 Giovanni Cabiddu          2016-10-21  279  
+
+:::::: The code at line 92 was first introduced by commit
+:::::: c47e1f4142a3823b6e963e14db295a8a733804b5 crypto: scomp - Allocate per-cpu buffer on first use of each CPU
+
+:::::: TO: Herbert Xu <herbert@gondor.apana.org.au>
+:::::: CC: Herbert Xu <herbert@gondor.apana.org.au>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
