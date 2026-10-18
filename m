@@ -1,296 +1,141 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517314C6521;
-	Sun, 18 Oct 2026 15:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9374D0CC3
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:27:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792337196; cv=none; b=SaluDxclq4lMRBnJ2QkZHt4TLQtWEpjpM9QvCDcfh2l4l5/FtvovrIxYEsgv9HAFZjtIgkcahW/d4sCicxLvS+v4PigdCDZxhygdolpGFFeuFxyX0twVBahePIhWXnJcS9UKNCB4AuLQ7oKx60CN6WEB/3KwL5R6y/k0rkG30p0=
+	t=1792337253; cv=none; b=Ay+fmOsixtG2N62XnlX+RnZD2mqs7yHkwrM8fac3dQ+717TeCUblSbGnOUZSQYcSD3rr1HwfJdxcx9yFfjx12xI1gO4pL7/YlkePiY77oKgULWUVHgfw06uk6PhviOR/yH/61Tb3o9czG+rT/o3SRrSSrytGgMq9FvecXTd8duY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792337196; c=relaxed/simple;
-	bh=DEzpFRMmEO4WxL6qHyNd2eprKiKJX8CQ5hMWYsDmcrw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mG/TlBqLpcarLoZPQd8HaSspRcxlVPjzah3DazahENGyregPuvrJVkh2yAULfp7UQG+h5E+EwF2RYlD45McSli46B8Iq4dRry57bmEEHbp4WqZVtHNrzMQt5SF9fpI800jHJ8NrfnzdMmKYJPMyU0lyjl3ZVLPEfHjUM8P1EbJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=lO1TLL37; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1792337253; c=relaxed/simple;
+	bh=Tc7Slxp62tn7lMBuq2MMamCQYVGOw9llz5BUjwRrgmU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=nWfnI9dunOt6F5GT7IOCaPfFFd8S3NT7/hDq40jufBZwlmjMRlzkt9uLH3ZVLxKEwzx9bj0K+zXbafz5ALck3qZ5CzmqQxRFxADBtZObTdEUdPma8zBoal3sOd7Riu+M2lN506ItJpZjy2PvEJe5MUVDqIEZ640a6VI0w+yRK38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eWU3XXLj; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="lO1TLL37"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69IFEM5k1294246;
-	Sun, 18 Oct 2026 15:26:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=whoUjQfO/MaEvOa7tAljG49R0UiUJE6SLq9r+UfLh
-	/8=; b=lO1TLL37qXwVVO1hlWhXGeFtxzsXC4HM+WAl1uv8Mw8FFvOChfVseJipf
-	gz+ermWKrVVHBv/4TQVdLe1TqHkKnEP0+MxsOralVOSmigYF5q9XBEYareeGLuSD
-	3Zy493gK+9g3WJf4CUyfbd7jBtZA3zfbGlBYAe14mhBQW3NXpYt3Vyu2qOZ/mzCw
-	wSMwZTIpfLYmKm8y0IjsGLLXsQLq7vIO1pRfIJkw9ZQ8B+x8LuZPgiBHDr29xw0q
-	MBQbFwfCIvMU3QB9ridyC4C6tSSqwU/RqJQkl5QDif7bLrkykHGWKOfoaZTIOA36
-	ScqaGQMryRDXqz7yUZGr1bL2r0SOA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0r7ea6v-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 18 Oct 2026 15:26:23 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69IFK8oc2779299;
-	Sun, 18 Oct 2026 15:26:23 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hcp1y9nan-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 18 Oct 2026 15:26:23 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69IFQJJX47055280
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 18 Oct 2026 15:26:19 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 279EC20043;
-	Sun, 18 Oct 2026 15:26:19 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DFDBD20040;
-	Sun, 18 Oct 2026 15:26:16 +0000 (GMT)
-Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibmuc.com (unknown [9.124.217.98])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sun, 18 Oct 2026 15:26:16 +0000 (GMT)
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: kees@kernel.org, maddy@linux.ibm.com, chleroy@kernel.org,
-        ritesh.list@gmail.com, sshegde@linux.ibm.com
-Cc: linux-hardening@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] gcc-plugins: Add a plugin to ease debugging of memory ordering bugs
-Date: Sun, 18 Oct 2026 20:56:06 +0530
-Message-ID: <20261018152608.1323494-1-gautam@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eWU3XXLj"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8520161fdb9so785063b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 08:27:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792337249; x=1792942049; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PLi9hVkCsH3YiZ+w7j8S3/cxhLWAMV2a1RCiWoqeuBU=;
+        b=eWU3XXLj1apmWWABy+WJ62AjGgj8RaOGCfKViHbBK82fHbhDBRSgK326S3zh3D2xhQ
+         IisfQdTU7oQsdCWMIx9HV9yNzFKRJhE2ngceFeqe4RxhLTd02J1N9yXBe5SLuETgdodU
+         BjL4oEpzZD0qZT8br4rz/wIEI87FAix1Whp+3Fmgc3mtFdoC6QtTRe7JaD9leWLlefyy
+         LpSZ1Uc4TrSgWZ3GT20MSTV0KTO4jIdoCu67X8jxOmB2Lpvcb7nHB9c4/zKGxSfvAxoO
+         cU3mFNz7BXbSxFVuY0Xv7Xa3UcAfExLB62GFtC9aQd8GFkGTbtAVJkMmhI7Bg7TWzWH9
+         kX2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792337249; x=1792942049;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PLi9hVkCsH3YiZ+w7j8S3/cxhLWAMV2a1RCiWoqeuBU=;
+        b=wK/+WiCt7/ZZ/s8n7AiMvmwdQxdwtJWvTyVupQlMFMwMsk7ZX3Njmw26o/F/asLEE1
+         5DnijcRjFQL4Z+OE9dOut1A9C1MLfzvA+D1qFsI9CBF9mfldLDiH/aF1gMjGCQn6Kg2y
+         rBp2HpqYrJr52u07CPE5BdyGlyAzKCDI78jc5UQDvbSsWYr4WmU4iqUOg/AUwW0CZFJV
+         n68FVoVxScHBQGW+jSWgA+vdESO7+PNOb02GKpMpkAMWdbCCNDf5zaRauphViJFkMQxk
+         jCDh97OvqQ/eJFqUlUTWL84EEdhqwSgnZLBVSO+MeG2imTOKe0U3ban1RJuRhyMK9+kP
+         lllw==
+X-Forwarded-Encrypted: i=1; AKwUvBzQM0tjY57uOVuSUNkIDOPZWrxu8hgng0matJPhEiTpi1WjwzPZ05An4VVLFtoYrhzXnSnVNeM20EeBOms=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmdEhsh9y/2+RS1ekmOUrM5goqqZowVprQqRxATJtu7ljFHLDw
+	hulNhyO5hvs5nJleBQ6DuSQLTW/H6tM5F6rqKhgDYWZQu3vgEOnSxUpi
+X-Gm-Gg: AYBFou2n7Dzm5OAdlmpMWHK3OVN6WcL6Y8Ys+IRT37tbVbA56EAN7RWJBpYtNED9j4Q
+	79RkIhHT8Pe3glCdurkI/Sx23356JFbsVZNQKiYxgOdvlAzVODpBKWAP9nxSur5XepdrdQqyS8b
+	w6dmFtD0oide4dL7GsB2+AOvKSjKKN2s2Z+RC+MALdGBbRdDEk74r86LABFNSPeZHlCvEfXXmV3
+	BE7/HBy6WafsJ7Sbc0j1Zj4J23OgwTDBsNzubOwM0CbbFVCG0eFl7Yk+JD9tpQxMhDwZLD3hqOP
+	L3kbQHLSpl4LFuNqTGmZWM+9US8wdKKZO/eK1SNK8sSujnatuaREZNyydRIxtVZ7eFTEOAqTKB7
+	1kMqFCSrFEvT1CUK79vMItY88Yh8L2WVMU5QZHYh3x1gph1jwfBB9uXJR5lnte7M3jPE1oClWfO
+	K2fRPFP9dbohjAGiAdzlWzEVQXaWY8DaAdaarXXL6yhVY7syt9LLpcphOpZ2MTGypkPz/pPrqOj
+	wP+KMX1WCUlzJvjGqin2OwMqE+jrNaLCu8WF9FrGql50N5oz6i7c3tpSm2+AG6xQxWqtzMm0ut7
+	aFzyDSDy0BAb/w==
+X-Received: by 2002:a05:6a00:b84:b0:89d:7f51:6492 with SMTP id d2e1a72fcca58-8a04cc24de8mr4216832b3a.32.1792337248874;
+        Sun, 18 Oct 2026 08:27:28 -0700 (PDT)
+Received: from localhost ([153.61.198.255])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f57b334e6sm2997008b3a.42.2026.10.18.08.27.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 08:27:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE4MDA2MCBTYWx0ZWRfX6/cXMyoNLVZM
- 7wRZ7fEKKbsbhgQhxyUi31OrpDYq9BZ+3KriVyWy6SzX5vDZzTye90lxRb3xbICJ2FbEztQHjTh
- Kjg0+HsCT3Z2TwFmKsrqi5QtRn7Z5oA=
-X-Authority-Analysis: v=2.4 cv=PrUG/AM3 c=1 sm=1 tr=0 ts=6ad4e520 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=SMgOnqTPEg9jcWRg:21 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=XxtmG6sFAAAA:8
- a=VnNF1IyMAAAA:8 a=Z-CbJQqKeFpCzIUWG4sA:9 a=CYKbh7h7szYBv2aNwBbU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE4MDA2MCBTYWx0ZWRfX+6PydY49q/Cf
- uZFJIDw0KZjvP4YoDfhZeNAiT7XyywZbkNSF9k92Xq5Xyrdnoy7+wXH7wsSJ6KtBobjNAnLTreT
- IcZ+/To8ToEtzvUvPbfVA6ZbZ2Wv19XwBG+t8uoOelDvro2yD9U3829yncdUlo2i3Bl1BTJi3WZ
- bpPaSOlpnNLcFQ3j3V89Lk8W7JEhnFlN6VRx0N1d7FKft51cXi2V3ALfg9oh58Ff7DskmF7noZf
- dKhFNWnmMPKerT25zKsMNelGoyr69mH8tZ2oyOesr3dgdyKmQlnRNc3G64ei5Qu7KuUNDBitRFo
- LQGgoyiqddZgKaT0XOceUf1xOFJksfJER40fQjmf0OCCDyeg2UPo/KcBGHJx4m3V2fpa9sG4qP9
- Le0L7DXiMypHPabWcySqvPmRzbZoO9zQOnUuUztMlO0/B1yL5yQwaM6H+CuxfNrjXIwF89RUvP3
- 5Ezvn5jcKx56Zl6Mu1w==
-X-Proofpoint-GUID: n7YQTyMxVFC0rcuCiZ0P3DPaZT7iAWIb
-X-Proofpoint-ORIG-GUID: 6VrlyuLNsFKf0D5A5dGykHD2sSqE8Ncn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-18_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
- clxscore=1011 priorityscore=1501 malwarescore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610180060
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 18 Oct 2026 15:27:26 +0000
+Message-Id: <DM82J03M6JWF.39ILAQJO5Z6E2@gmail.com>
+Cc: "Josef Bacik" <josef@toxicpanda.com>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Jonas
+ Bonn" <jonas@southpole.se>, "Stefan Kristiansson"
+ <stefan.kristiansson@saunalahti.fi>, "Peter Zijlstra"
+ <peterz@infradead.org>, "Will Deacon" <will@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, "Masami
+ Hiramatsu" <mhiramat@kernel.org>, <bpf@vger.kernel.org>,
+ <linux-snps-arc@lists.infradead.org>, <linux-hexagon@vger.kernel.org>,
+ <linux-openrisc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ "kernelci.org bot" <bot@kernelci.org>, "kernel test robot" <lkp@intel.com>
+Subject: Re: [PATCH bpf-next] locking/atomic: arc, hexagon, openrisc: Define
+ arch_cmpxchg_local()
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Sasha Levin" <sashal@kernel.org>, "Alexei Starovoitov"
+ <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
+ Nakryiko" <andrii@kernel.org>, "Vineet Gupta" <vgupta@kernel.org>, "Brian
+ Cain" <bcain@kernel.org>, "Stafford Horne" <shorne@gmail.com>
+X-Mailer: aerc 0.20.1-349-gb940a4174a3e-dirty
+References: <20261018132907.3823160-1-sashal@kernel.org>
+In-Reply-To: <20261018132907.3823160-1-sashal@kernel.org>
 
-On CPUs that support out of order execution, barriers are used to make
-sure that if a cpu updates a variable, all other cpus see the correct
-value. However, sometimes developers forget to put the barriers in the
-right place and this ends up causing bugs.
+On Sun Oct 18, 2026 at 1:29 PM UTC, Sasha Levin wrote:
+> Commit ccb88db8dac8 ("bpf: Don't hand out a linked element as extra
+> element") made alloc_htab_elem() take the per-cpu spare element with
+> try_cmpxchg_local(), the first caller of cmpxchg_local() outside of
+> architecture code. It doesn't build on arc, hexagon and openrisc:
+>
+>   include/linux/atomic/atomic-arch-fallback.h:384:27: error: implicit dec=
+laration of function 'arch_cmpxchg_local'; did you mean 'raw_cmpxchg_local'=
+? [-Werror=3Dimplicit-function-declaration]
+>
+> raw_cmpxchg_local() maps to arch_cmpxchg_local() unconditionally, but
+> these three architectures don't define it, and unlike nios2 and
+> microblaze they don't get it from asm-generic/cmpxchg.h either.
+>
+> cmpxchg_local() only has to be atomic with respect to the local CPU, so
+> an architecture's own arch_cmpxchg() can serve for the sizes it
+> supports. arc uses its relaxed LLOCK/SCOND variant when ARC_HAS_LLSC is
+> set and its atomic_ops_lock() variant otherwise, and openrisc uses its
+> LL/SC arch_cmpxchg(), the way arm64, riscv and s390 alias theirs. The
+> hexagon arch_cmpxchg() only handles 32-bit words, so hexagon uses the
+> generic version that disables interrupts, like sh, sparc32 and xtensa
+> do. Linux has no NMIs on hexagon, so that is sufficient there.
+>
+> Fixes: ccb88db8dac8 ("bpf: Don't hand out a linked element as extra eleme=
+nt")
+> Reported-by: kernelci.org bot <bot@kernelci.org>
+> Closes: https://d.kernelci.org/i/maestro:78b65519ee4561df1fbf1e72f1dec9da=
+7e5b153e
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202610181750.BoqAddaF-lkp@i=
+ntel.com/
+> Closes: https://lore.kernel.org/oe-kbuild-all/202610182048.aEaiBP8W-lkp@i=
+ntel.com/
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+> The only user is in bpf-next, so it is probably easiest to take this
+> through bpf-next with acks from the arc, hexagon and openrisc
+> maintainers. A similar change was posted in 2023 for objpool and
+> stalled once objpool stopped using try_cmpxchg_local():
+> https://lore.kernel.org/all/20231121142347.241356-1-wuqiang.matt@bytedanc=
+e.com/
+>
+> Build tested on arc with and without LLSC (including both KernelCI
+> configs), hexagon (clang) and openrisc.
 
-Introduce a new plugin that can insert barriers after every load/store
-to memory to make it easy to verify if a given bug is due to a missing
-barrier.
-
-Testing:
-To test this plugin on IBM Power systems, I reverted the commit
-bb9b52bd51dc ("KVM: PPC: Book3S HV: Add missing barriers to XIVE code and document them").
-
-I was able to see lockups in the KVM guest with the commit reverted. I
-then used the barriers plugin to insert barriers, and noticed that the
-lockups were no longer observed in the KVM guest.
-
-Assisted-by: LLM IBM-Bob
-Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
----
- scripts/Makefile.gcc-plugins          |   2 +
- scripts/gcc-plugins/Kconfig           |   6 ++
- scripts/gcc-plugins/barriers_plugin.c | 134 ++++++++++++++++++++++++++
- 3 files changed, 142 insertions(+)
- create mode 100644 scripts/gcc-plugins/barriers_plugin.c
-
-diff --git a/scripts/Makefile.gcc-plugins b/scripts/Makefile.gcc-plugins
-index b0e1423b09c2..cefc1cdad8df 100644
---- a/scripts/Makefile.gcc-plugins
-+++ b/scripts/Makefile.gcc-plugins
-@@ -8,6 +8,8 @@ ifdef CONFIG_GCC_PLUGIN_LATENT_ENTROPY
- endif
- export DISABLE_LATENT_ENTROPY_PLUGIN
- 
-+gcc-plugin-$(CONFIG_GCC_PLUGIN_BARRIERS)	+= barriers_plugin.so
-+
- # All the plugin CFLAGS are collected here in case a build target needs to
- # filter them out of the KBUILD_CFLAGS.
- GCC_PLUGINS_CFLAGS := $(strip $(addprefix -fplugin=$(objtree)/scripts/gcc-plugins/, $(gcc-plugin-y)) $(gcc-plugin-cflags-y)) -DGCC_PLUGINS
-diff --git a/scripts/gcc-plugins/Kconfig b/scripts/gcc-plugins/Kconfig
-index 6b34ba19358d..d73e00fbb732 100644
---- a/scripts/gcc-plugins/Kconfig
-+++ b/scripts/gcc-plugins/Kconfig
-@@ -36,4 +36,10 @@ config GCC_PLUGIN_LATENT_ENTROPY
- 	   * https://grsecurity.net/
- 	   * https://pax.grsecurity.net/
- 
-+config GCC_PLUGIN_BARRIERS
-+	bool "Insert barriers after every load/store"
-+	help
-+	  By saying Y here barriers will be inserted after every load/store
-+	  instruction.
-+
- endif
-diff --git a/scripts/gcc-plugins/barriers_plugin.c b/scripts/gcc-plugins/barriers_plugin.c
-new file mode 100644
-index 000000000000..54ee8b12e77b
---- /dev/null
-+++ b/scripts/gcc-plugins/barriers_plugin.c
-@@ -0,0 +1,134 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include "gcc-common.h"
-+
-+#if defined(__powerpc__)
-+# define BARRIER_ASM "sync"
-+#else
-+# define BARRIER_ASM ""  /* compiler barrier only: asm volatile("" ::: "memory") */
-+#endif
-+
-+__visible int plugin_is_GPL_compatible;
-+
-+static struct plugin_info barriers_plugin_info = {
-+	.version = PLUGIN_VERSION,
-+	.help = "Insert barriers after every load/store instruction\n"
-+};
-+
-+/*
-+ * Return true if this GIMPLE statement performs a non-stack memory access.
-+ */
-+static bool is_mem_based(tree expr)
-+{
-+	switch (TREE_CODE(expr)) {
-+	case MEM_REF:
-+	case INDIRECT_REF:
-+	case TARGET_MEM_REF:
-+		return true;
-+	case COMPONENT_REF:
-+		return is_mem_based(TREE_OPERAND(expr, 0));
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool gimple_has_mem_access(gimple stmt)
-+{
-+	if (gimple_code(stmt) == GIMPLE_CALL)
-+		return true;
-+
-+	if (gimple_code(stmt) != GIMPLE_ASSIGN)
-+		return false;
-+
-+	if (is_mem_based(gimple_assign_lhs(stmt)))
-+		return true;
-+
-+	if (is_mem_based(gimple_assign_rhs1(stmt)))
-+		return true;
-+
-+	return false;
-+}
-+
-+/*
-+ * Build a GIMPLE statement for "asm volatile(<barrier_instn> ::: "memory");".
-+ */
-+static gasm *build_mb_asm(void)
-+{
-+	vec <tree, va_gc> *clobbers = NULL;
-+	gasm *stmt;
-+	tree clob = build_tree_list(NULL_TREE, build_const_char_string(7, "memory"));
-+
-+	vec_safe_push(clobbers, clob);
-+	stmt = gimple_build_asm_vec(BARRIER_ASM, NULL, NULL, clobbers, NULL);
-+	gimple_asm_set_volatile(stmt, true);
-+	return stmt;
-+}
-+
-+static unsigned int insert_barriers_execute(void)
-+{
-+	basic_block bb;
-+	unsigned int i;
-+	gimple_stmt_iterator *gsi_p;
-+	gimple stmt;
-+	gasm *barrier;
-+
-+	FOR_EACH_BB_FN(bb, cfun) {
-+		/*
-+		 * Collect the iterator positions of all memory-accessing
-+		 * statements first, then insert. Inserting while iterating
-+		 * would visit the newly-added asm statements on the next step.
-+		 */
-+		auto_vec <gimple_stmt_iterator> to_instrument;
-+
-+		for (gimple_stmt_iterator gsi = gsi_start_bb(bb);
-+		     !gsi_end_p(gsi); gsi_next(&gsi)) {
-+			stmt = gsi_stmt(gsi);
-+			if (!is_gimple_debug(stmt) && gimple_has_mem_access(stmt))
-+				to_instrument.safe_push(gsi);
-+		}
-+
-+		FOR_EACH_VEC_ELT(to_instrument, i, gsi_p) {
-+			barrier = build_mb_asm();
-+			gsi_insert_after(gsi_p, barrier, GSI_CONTINUE_LINKING);
-+			update_stmt(barrier);
-+		}
-+	}
-+	return 0;
-+}
-+
-+#define PASS_NAME insert_barriers
-+#define NO_GATE
-+#define PROPERTIES_REQUIRED  PROP_gimple_any
-+
-+#include "gcc-generate-gimple-pass.h"
-+
-+__visible int plugin_init(struct plugin_name_args *plugin_info,
-+			  struct plugin_gcc_version *version)
-+{
-+	const char * const plugin_name = plugin_info->base_name;
-+	const int argc = plugin_info->argc;
-+	const struct plugin_argument * const argv = plugin_info->argv;
-+	int i = 0;
-+
-+	/*
-+	 * Run before "ssa", the entry to the main GIMPLE optimization pipeline.
-+	 * At this point no memory-access reordering has occurred yet, so the
-+	 * inserted barrier statements are seen by
-+	 * all subsequent passes and act as both compiler and hardware barriers,
-+	 * exactly like the kernel's smp_mb() macro.
-+	 */
-+	PASS_INFO(insert_barriers, "ssa", 1, PASS_POS_INSERT_BEFORE);
-+
-+	if (!plugin_default_version_check(version, &gcc_version)) {
-+		error(G_("incompatible gcc/plugin versions"));
-+		return 1;
-+	}
-+
-+	/* Give the information about the plugin */
-+	register_callback(plugin_name, PLUGIN_INFO, NULL,
-+						&barriers_plugin_info);
-+
-+	register_callback(plugin_name, PLUGIN_PASS_MANAGER_SETUP, NULL,
-+					&insert_barriers_pass_info);
-+
-+	return 0;
-+}
-\ No newline at end of file
--- 
-2.55.0
+Thanks for the quick fix. Applied.
 
