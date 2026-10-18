@@ -1,357 +1,248 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B235549BD9C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF8F49D58D
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:52:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792327804; cv=none; b=hlUOU8eCWYVeKE3bsud+JycJHO7RwwDBLAkodQ3jwboZsggKX33TykttxqbwlPoY1wBZdsLu4zBmbueH8tst/ahlgDD2TNCjRWA1uVuccmSOtS/hALTSuaYuk9/Ba9bi7P2tp1wlcVsQgRoodiq81eNkQfmrAAOgnB7H/+vKnUY=
+	t=1792327949; cv=none; b=QbshfUI30uontForXh9jRT5vSHwMXR3TmhHtjTI5+lpf3zps132Bpac9atK+RRKP6izsjVLWPTmLjL1hKau4bhIYLXIWqa+DEC/iQee7vkDhFI3OQzH4LeYrSS8y/p2qb9DcfSgGZCeWBL6C+FVVCRmCTNrjyepwj0zJQtYk0g0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792327804; c=relaxed/simple;
-	bh=egCkSl1ziENZtLgdaKC+K1+MML1bessZk/jEY6CYHho=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mT41QoM4jZkLLlJIZFVRPxZL7YdbTxoZey9rgWbmquzVQSsOf7WcQgiYu8GHzan6loiFbXhqhcpQnOfBkfYT+228h5RUC/mmssHJtsAve7lwMqv3QMdGlVz47ro6tJ2FdHhI+UVzuiuexaXY7ftO8R/708psjtLEQjBlJChxTyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oTEkWm4X; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oTEkWm4X"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1e3098ee2so3841455e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:49:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792327795; x=1792932595; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vlhaq0uy1Evc/akvQOutaQ2B/WUPQcS2vQ+budKfpsw=;
-        b=oTEkWm4Xdis3ALlVegoVTEDTAifaxwJ2n6rrMXtTJNtWF+LFPd9TkgCqTWBfgFfc5d
-         VTRmvkk/gE3JGRU6BejUyMG8ZNUgqfA2frNsjBL8xzbTMBpeXejYQHOSMOaE22W33ROk
-         vGfG2n+XNg61h02uiuSQU0/Je9gr7NmSMNsJyludgmTBfclM/DjE5KAHKepes8mL0stL
-         vk8YDF2q2gCNS9r5ZgtFwYBELl8WMn/hyYigcPG3Gn4350EqzcJJZcdD3HsKBo7fFsym
-         4NUOZICZB6jXncY8H6XPGAuE6I0uhQ069FQTsUBU2+7eWy1J8l7/A6U1HjQwxT6htrz/
-         hTVA==
+	s=arc-20240116; t=1792327949; c=relaxed/simple;
+	bh=4e/cZlNHFugnl0GQlTF6D9lv8zDe84gkKeLcigX3E04=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Js0JYwN6rNV7U8MSwpb/TjcLx2HYWzvMTFVI1oRQl9BmJz4PdmdxiLwGrZvc7Wdno3Q05srxIEJLPOQx9Mg1Iy+o1ZU8s2pZFzBL6DgebVUaX79u5OR2yryWMzPOCn0YJ/EXUzb/4EdVi003YGaUUkuN/jer3AObyapRWtt8io4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b597558c4cso2685788b6e.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 05:52:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792327795; x=1792932595;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vlhaq0uy1Evc/akvQOutaQ2B/WUPQcS2vQ+budKfpsw=;
-        b=T2++pNtQGmUH/DCK9Pz/70n7nfBbMg7BkPi3RoMp2jXMN24TiRI0MZn9WUA9QB8kaP
-         kCeeZ3FW+oZMHBUp7aH/KnA5odPuIQ+jJwbCLIHnsI1fv5yBmxVNnIekBGjbLb/1/ya0
-         wFr+Ij8+O+DqWE6bFCwEwS25Ha4zAbBe8wIl78BSVkvy2XF6qYf8Mniy1k2okx/sdSd6
-         i7mXr+jAA6mdbhhUTVwmJ5lC3dwN7KEw0TdmFYNkNduUNwtSVJ3CI6joVxRoL+iqMdNk
-         MhzlLn9vcvQxF+j4aDydXLB79/UkY16699FHrHl/usQ3O4/05+rvHA8U1anMwIxhwqtE
-         9TuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxmKN75dhEFIrl4vpBsbkGGq3N6Q106Kf4Gvw5Yu5Hidv3N9XgYYz2+pvNb5vnteRdWgBirHJgDT6K+PfQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5e3D5c6zVHh/7aYK6rvg9Bx4K2xemRF7pqoUwaM8MsOx4xCxb
-	ImOLEA3Trxeoi3iY5UDHda8P0Cev6HCXhgkqfdx2hMSWmF4OP3MG1FnX
-X-Gm-Gg: AYBFou0pryA/GqZqC0Gj1VMQlk+4Tjci+DH+vq/4ky9oIaBWasUXT5+isWorfYxom/w
-	JDSPIDce+I3vttM3HN+xq2c2Vn0owxFvUF+cuF+jpxn5ErMcK7i1NjwA0b55qONOT6mRMFiZ6PW
-	nWylSVLbUNE2Q2ahflfGUJSikLPeuXS45ahOppsNRbSQsejWSSsIMMnlvUo/ocd3LDz19537avY
-	UcadWAyYWdWb5/uHMoZZix5t7Jw5PRosqc3QvWWhTHMww+TmJ26SCUVqmvBh6NeKHC6SwU2Z+iM
-	tlD/KyQ4SntJG8xOxv0ECDrjW5cWY1NgIpLrMv8f7uxqYvUbn7tAmSNh0ep/iiL7cKr+BUzvFRP
-	PlNX7u5tCS2PrgQwtO0xAJFoxMAAT5DNPdUsk4eZt4Khsft7WHiT9mzMr1884cjm5fN0vgbNZ1t
-	xm0xR/TJO7GGtaOcuvPjKibq11dK96BvZSE/LAuwI4CNrVcFz11DVTl4lA8770UlqBK80XdRE17
-	G32fB4EA1iqn+/+rX+O5qO8Xb/KEfgznXIiKgKceJ4Dg1StFQyISHeBN7W/bBtqC3WBN31F1wo7
-	NVqX
-X-Received: by 2002:a05:600c:8b6f:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4a1d75f23e2mr87744845e9.9.1792327794494;
-        Sun, 18 Oct 2026 05:49:54 -0700 (PDT)
-Received: from localhost ([178.214.243.78])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e3ebb3aasm71214555e9.0.2026.10.18.05.49.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 05:49:53 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org,
-	tiwai@suse.de
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-input@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH v9 7/8] ALSA: usb-audio: add the Topping M62's mutes
-Date: Sun, 18 Oct 2026 17:48:37 +0500
-Message-ID: <20261018124838.129349-8-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261018124838.129349-1-mikhail.v.gavrilov@gmail.com>
-References: <20261018124838.129349-1-mikhail.v.gavrilov@gmail.com>
+        d=1e100.net; s=20260707; t=1792327947; x=1792932747;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ynpU3sFABEIJ2y70VYaPsZuLbo5x2o5qkA8rVhUTAfM=;
+        b=iEZYx+l6kCjpq5bEqthpPyWdFx1GYOfeHLFYTOJ2D1Y2lLajNj9cZgTExuMoxW89cl
+         /pK/jrzylhIhQtpe0cwEXG1Cylpht/u/QBJZdTazWiGgvGD8O4eoUXOFfWh5OFuMre9I
+         JORfp5TtRVJXG21vQ6+b6XHxk/h8wuXOsCtUXyfFfSkWd8YQq8dtbkMjpXHR5jSGTVg2
+         L+QWVrFusbS/wFb+N69lqqkf77dfgLImyth6SNKmqQK619LHtrowRx+kM78lP1ZhxmKl
+         uBI4MBRGa0DHbnOqB80Rtj9sunALkWNsEPhZy490vZlH7iULJLgpWjLYwT7wfGWOWm7V
+         shng==
+X-Forwarded-Encrypted: i=1; AKwUvByOLeYvgHcfUSI85ZG3nRs0UZRue1mhHF3/cW6nopLO1LxxUsUTj7y1SE6p6Hfv8zBA34SCU5qsLRLcZnk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMUYsZBrIjpxoCTWxQu9+UcLPn05+jIswaZb3IYasukxgPo397
+	1Umh2qmm1xnMnbH++3AjWMH7ApjkLXij6yEJ6Ootiv3HfDGba/VRlr2RXPUcfornFZDs1SYncPq
+	OrM3NvLpRtIU0oMCXj5wWqoeN8VHvbfyqf5AzVjMKSCmSAgj71rSfOOIU7wc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:2384:b0:4f8:716d:793e with SMTP id
+ 5614622812f47-53cd2a696camr3829902b6e.46.1792327946845; Sun, 18 Oct 2026
+ 05:52:26 -0700 (PDT)
+Date: Sun, 18 Oct 2026 05:52:26 -0700
+In-Reply-To: <6a6c0d7d.b1a781d0.210f9.001a.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad4c10a.6814cce4.34c49f.00f2.GAE@google.com>
+Subject: Re: [syzbot] [xfs?] KASAN: slab-use-after-free Read in xfs_defer_item_unpause
+From: syzbot <syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com>
+To: cem@kernel.org, djwong@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-xfs@vger.kernel.org, stable@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, viennaoffh@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-M Control Center shows a MUTE beside each level these controls offer,
-and the card keeps it: a MUTE left on by another host silences that
-input or output here, with nothing on Linux to show it or to clear it.
+syzbot has found a reproducer for the following issue on:
 
-Offer each as a switch named after its level, so that alsa-lib's simple
-mixer joins the two and a sound server mutes through the card: the
-inputs' MUTEs at property 05 of their targets, the outputs' at property
-04 of both targets of their pair, and in Mobile Mode those of the
-Playback 1/2 knob and the Recording fader at property 04 of theirs. The
-card takes 1 for muted, so each switch is the inverse, on when the
-sound passes. Each was pressed in the application and captured, in
-both modes. The application writes them all off at each connect, and
-so does the first bind here. The card reports the outputs' in its
-announce, as 0x64/04 and 0x62/04, and that report has the last word.
+HEAD commit:    32c52ec87d62 x86/insn-eval: Fix shadowed segment index in ..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13778bc9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
+dashboard link: https://syzkaller.appspot.com/bug?extid=e7f24354da9f7915bc54
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13ca1e9c580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17ca1e9c580000
 
-The card also releases a MUTE by itself. In Pro Audio and Live Streaming
-Mode, HP's volume written from the host while HP was muted released the
-MUTE in 29 writes of 54, by HP's sound through a cable to AUX, and the
-card reported each release at 0x64/04; a MUTE written right after the
-volume did not hold in 7 probes of 9. No other level written from the
-host released its MUTE. A sound server writes such a volume as a matter
-of course: PipeWire, switching back to a device it has saved as muted,
-writes the MUTE and then the volume 4 ms later, and the card released
-HP's MUTE after 11 such switches of 20, for about two seconds before
-PipeWire wrote the MUTE again. So a level set while its switch is off is
-only kept, and the switch writes it on its way on, just before the
-MUTE 0, as M Control Center writes a level turned under a MUTE before
-releasing it. A bind and a resume, which write a level and then its
-MUTE, leave a muted level to its switch the same way.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-32c52ec8.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e3667e150f2a/vmlinux-32c52ec8.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/603cc202ff6c/bzImage-32c52ec8.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/97b1c323a9b6/mount_0.gz
+  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=15ca1e9c580000)
 
-In Live Streaming Mode a level turned one step on the panel released its
-port's MUTE in 257 turns of 260. The card reported every release of HP,
-AUX and OTG OUT and most of IN 1's and IN 2's, and the switches follow
-those reports rather than guess: a release left unreported stays shown
-as muted, as M Control Center shows it. A level kept under a MUTE the
-card has released, or one the card has reported, is dropped rather than
-written over the card's own.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e7f24354da9f7915bc54@syzkaller.appspotmail.com
 
-The MUTE on each of Pro Audio Mode's loopback returns has no property of
-its own: the application writes the return's gain to off and, when
-released, back to its level, and a return carrying a tone stayed as it
-was with 1 written to 04 or 05 of its targets. Off is already the
-bottom step of that volume control, so the returns get no switch.
+==================================================================
+BUG: KASAN: slab-use-after-free in xfs_defer_item_unpause+0x116/0x250 fs/xfs/libxfs/xfs_defer.c:1256
+Read of size 4 at addr ffff88803b37d0fc by task syz.0.22/5598
 
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+CPU: 0 UID: 0 PID: 5598 Comm: syz.0.22 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ xfs_defer_item_unpause+0x116/0x250 fs/xfs/libxfs/xfs_defer.c:1256
+ xrep_newbt_free+0x3fe/0x5f0 fs/xfs/scrub/newbt.c:522
+ xrep_ibt_build_new_trees+0xafd/0xdc0 fs/xfs/scrub/ialloc_repair.c:752
+ xrep_iallocbt+0x24e/0x340 fs/xfs/scrub/ialloc_repair.c:828
+ xrep_attempt+0x184/0x7c0 fs/xfs/scrub/repair.c:78
+ xfs_scrub_metadata+0xce4/0x1910 fs/xfs/scrub/scrub.c:747
+ xfs_ioc_scrubv_metadata+0x7ac/0xb70 fs/xfs/scrub/scrub.c:980
+ xfs_file_ioctl+0x916/0x1590 fs/xfs/xfs_ioctl.c:1308
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fc864b9e559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fc865a8b028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007fc864e25fa0 RCX: 00007fc864b9e559
+RDX: 0000200000041d40 RSI: 00000000c0285840 RDI: 0000000000000005
+RBP: 00007fc864c35ab8 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fc864e26038 R14: 00007fc864e25fa0 R15: 00007ffe67582028
+ </TASK>
+
+Allocated by task 5598:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:351 [inline]
+ __kasan_slab_alloc+0x6c/0x80 mm/kasan/common.c:377
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ kmem_cache_alloc_noprof+0x2b9/0x600 mm/slub.c:5010
+ xfs_defer_alloc fs/xfs/libxfs/xfs_defer.c:843 [inline]
+ xfs_defer_add+0x143/0x480 fs/xfs/libxfs/xfs_defer.c:871
+ xfs_extent_free_defer_add+0x1bf/0x3b0 fs/xfs/xfs_extfree_item.c:507
+ xfs_defer_extent_free+0x2a8/0x400 fs/xfs/libxfs/xfs_alloc.c:2682
+ xfs_alloc_schedule_autoreap+0xb0/0x170 fs/xfs/libxfs/xfs_alloc.c:2727
+ xrep_newbt_add_blocks+0x22a/0x3f0 fs/xfs/scrub/newbt.c:211
+ xrep_newbt_alloc_ag_blocks+0x81e/0xcc0 fs/xfs/scrub/newbt.c:311
+ xrep_ibt_build_new_trees+0x75e/0xdc0 fs/xfs/scrub/ialloc_repair.c:696
+ xrep_iallocbt+0x24e/0x340 fs/xfs/scrub/ialloc_repair.c:828
+ xrep_attempt+0x184/0x7c0 fs/xfs/scrub/repair.c:78
+ xfs_scrub_metadata+0xce4/0x1910 fs/xfs/scrub/scrub.c:747
+ xfs_ioc_scrubv_metadata+0x7ac/0xb70 fs/xfs/scrub/scrub.c:980
+ xfs_file_ioctl+0x916/0x1590 fs/xfs/xfs_ioctl.c:1308
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 5598:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6509 [inline]
+ kmem_cache_free+0x182/0x650 mm/slub.c:6636
+ xfs_defer_cancel_list fs/xfs/libxfs/xfs_defer.c:505 [inline]
+ xfs_defer_finish_noroll+0xf8b/0x14e0 fs/xfs/libxfs/xfs_defer.c:737
+ xfs_defer_finish+0x1c/0x180 fs/xfs/libxfs/xfs_defer.c:755
+ xrep_defer_finish+0x16e/0x240 fs/xfs/scrub/repair.c:242
+ xrep_newbt_alloc_ag_blocks+0x86c/0xcc0 fs/xfs/scrub/newbt.c:318
+ xrep_ibt_build_new_trees+0x75e/0xdc0 fs/xfs/scrub/ialloc_repair.c:696
+ xrep_iallocbt+0x24e/0x340 fs/xfs/scrub/ialloc_repair.c:828
+ xrep_attempt+0x184/0x7c0 fs/xfs/scrub/repair.c:78
+ xfs_scrub_metadata+0xce4/0x1910 fs/xfs/scrub/scrub.c:747
+ xfs_ioc_scrubv_metadata+0x7ac/0xb70 fs/xfs/scrub/scrub.c:980
+ xfs_file_ioctl+0x916/0x1590 fs/xfs/xfs_ioctl.c:1308
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88803b37d0c0
+ which belongs to the cache xfs_defer_pending of size 64
+The buggy address is located 60 bytes inside of
+ freed 64-byte region [ffff88803b37d0c0, ffff88803b37d100)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88803b37d600 pfn:0x3b37d
+flags: 0x4fff00000000200(workingset|node=1|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 04fff00000000200 ffff888033947dc0 ffff888033c36588 ffff888033c36588
+raw: ffff88803b37d600 00000002002a0010 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 131, tgid 131 (kworker/u4:5), ts 153391648879
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7418
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ kmem_cache_alloc_noprof+0x399/0x600 mm/slub.c:5010
+ xfs_defer_alloc fs/xfs/libxfs/xfs_defer.c:843 [inline]
+ xfs_defer_add+0x143/0x480 fs/xfs/libxfs/xfs_defer.c:871
+ xfs_bmap_add_extent_hole_real+0xd61/0x1a40 fs/xfs/libxfs/xfs_bmap.c:2782
+ xfs_bmapi_allocate+0x248c/0x2f20 fs/xfs/libxfs/xfs_bmap.c:3975
+ xfs_bmapi_write+0x843/0x1330 fs/xfs/libxfs/xfs_bmap.c:4265
+ xfs_dquot_disk_alloc+0x4af/0xae0 fs/xfs/xfs_dquot.c:385
+ xfs_qm_dqread+0xfe/0x520 fs/xfs/xfs_dquot.c:724
+ xfs_qm_dqget+0x18a/0x3d0 fs/xfs/xfs_dquot.c:927
+ xfs_qm_quotacheck_dqadjust+0xdd/0x5a0 fs/xfs/xfs_qm.c:1260
+ xfs_qm_dqusage_adjust+0x4ad/0x670 fs/xfs/xfs_qm.c:1389
+page last free pid 9 tgid 9 ts 153295791972 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
+ __slab_free+0x274/0x2c0 mm/slub.c:5823
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ __kmalloc_cache_noprof+0x29f/0x600 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ nsim_fib6_rt_create drivers/net/netdevsim/fib.c:547 [inline]
+ nsim_fib6_rt_insert drivers/net/netdevsim/fib.c:752 [inline]
+ nsim_fib6_event drivers/net/netdevsim/fib.c:856 [inline]
+ nsim_fib_event+0xf37/0xa3a0 drivers/net/netdevsim/fib.c:889
+ nsim_fib_event_work+0x244/0x3b0 drivers/net/netdevsim/fib.c:1493
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Memory state around the buggy address:
+ ffff88803b37cf80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88803b37d000: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff88803b37d080: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
+                                                                ^
+ ffff88803b37d100: fc fc fc fc fa fb fb fb fb fb fb fb fc fc fc fc
+ ffff88803b37d180: fa fb fb fb fb fb fb fb fc fc fc fc fa fb fb fb
+==================================================================
+
+
 ---
- sound/usb/mixer_topping.c | 106 +++++++++++++++++++++++++++++++++++---
- 1 file changed, 98 insertions(+), 8 deletions(-)
-
-diff --git a/sound/usb/mixer_topping.c b/sound/usb/mixer_topping.c
-index 854ff0a..5fd14b3 100644
---- a/sound/usb/mixer_topping.c
-+++ b/sound/usb/mixer_topping.c
-@@ -46,6 +46,7 @@
-  * after the card appears.
-  */
- 
-+#include <linux/bitmap.h>
- #include <linux/bits.h>
- #include <linux/build_bug.h>
- #include <linux/cleanup.h>
-@@ -115,6 +116,7 @@ struct topping_ctl_desc {
- 	const unsigned int *tlv;	/* NULL for a switch */
- 	const s32 *map;		/* what each step writes, or NULL: the step */
- 	bool sw;		/* an on/off switch, not a level */
-+	bool mute;		/* a MUTE, 1 when on: the switch is its inverse */
- 	u8 resend;		/* written again after this one if on, or 0 */
- 	u8 modes;		/* the modes that have it, or 0 for all */
- };
-@@ -163,21 +165,51 @@ static_assert(ARRAY_SIZE(topping_m62_lb_gain) == 103);
- 
- static const DECLARE_TLV_DB_SCALE(topping_tlv_lb, -9000, 100, 1);
- 
-+/*
-+ * Each level has the MUTE the vendor application shows beside it, as a
-+ * switch of the same name: property 05 for an input and 04 for an
-+ * output, where 1 is muted.  The application writes all of them with
-+ * the sound on at every connect, and so does the first bind here; the
-+ * card reports the outputs' in its announce, and that report has the
-+ * last word.  The card also releases a MUTE by itself: HP's in about
-+ * half the writes of HP's volume made under it, and any port's when its
-+ * level is turned on the panel.  So a level set while its switch is off
-+ * is only kept, and written on the switch's way on, as the application
-+ * writes a level turned under a MUTE before releasing it.  The card
-+ * reports most of its own releases, and the switch follows the report;
-+ * a release left unreported is not guessed at.  A loopback return's
-+ * MUTE has no property: the application writes the gain to off and
-+ * back, and off is the bottom step of the return's volume here.
-+ */
- static const struct topping_ctl_desc topping_m62_ctls[] = {
- 	{ "Mic1 Analog Capture Volume", 0x21, 0, 0x04, 0, 88,
- 	  0, topping_tlv_gain },			/* 0 dB */
-+	{ "Mic1 Analog Capture Switch", 0x21, 0, 0x05, 0, 1, 1,
-+	  .sw = true, .mute = true },
- 	{ "Mic2 Analog Capture Volume", 0x22, 0, 0x04, 0, 88,
- 	  0, topping_tlv_gain },			/* 0 dB */
-+	{ "Mic2 Analog Capture Switch", 0x22, 0, 0x05, 0, 1, 1,
-+	  .sw = true, .mute = true },
- 	{ "Aux Capture Volume", 0x23, 0, 0x04, 0, 99,
- 	  81, topping_tlv_out_9 },		/* 0 dB */
-+	{ "Aux Capture Switch", 0x23, 0, 0x05, 0, 1, 1,
-+	  .sw = true, .mute = true },
- 	{ "Bluetooth Capture Volume", 0x25, 0, 0x04, 0, 99,
- 	  99, topping_tlv_out_0 },		/* 0 dB */
-+	{ "Bluetooth Capture Switch", 0x25, 0, 0x05, 0, 1, 1,
-+	  .sw = true, .mute = true },
- 	{ "OTG Capture Volume", 0x27, 0, 0x04, 0, 99,
- 	  99, topping_tlv_out_0 },		/* 0 dB */
-+	{ "OTG Capture Switch", 0x27, 0, 0x05, 0, 1, 1,
-+	  .sw = true, .mute = true },
- 	{ "Headphone Playback Volume", 0x64, 0x63, 0x03, 0, 99,
- 	  0, topping_tlv_out_9 },		/* the quiet end */
-+	{ "Headphone Playback Switch", 0x64, 0x63, 0x04, 0, 1, 1,
-+	  .sw = true, .mute = true },
- 	{ "OTG Playback Volume", 0x62, 0x61, 0x03, 0, 99,
- 	  99, topping_tlv_out_0 },		/* 0 dB, unity */
-+	{ "OTG Playback Switch", 0x62, 0x61, 0x04, 0, 1, 1,
-+	  .sw = true, .mute = true },
- 	/*
- 	 * A loopback return's gain is written to both targets of its pair
- 	 * and never reported.  It starts at 0 dB, unity, as the vendor
-@@ -197,15 +229,20 @@ static const struct topping_ctl_desc topping_m62_ctls[] = {
- 	 * headphones, which carry it with every input while the recording
- 	 * does not, and its Recording fader, the level of the recording.
- 	 * Both are whole decibels, -90 to +12 and -90 to 0, where Pro Audio
--	 * Mode takes Q25 on the same targets.  Neither is reported, so the
--	 * first bind writes 0 dB: the knob then passes the playback's level
--	 * on unchanged, as Pro Audio Mode's outputs do with the mixer out of
--	 * the path, and the fader is at its top.
-+	 * Mode takes Q25 on the same targets.  Neither is reported, nor is
-+	 * either MUTE, so the first bind writes 0 dB and the sound on: the
-+	 * knob then passes the playback's level on unchanged, as Pro Audio
-+	 * Mode's outputs do with the mixer out of the path, and the fader is
-+	 * at its top.
- 	 */
- 	{ "PCM Playback Volume", 0x53, 0x54, 0x03, -90, 12,
- 	  0, topping_tlv_lb, .modes = TOPPING_MOBILE },
-+	{ "PCM Playback Switch", 0x53, 0x54, 0x04, 0, 1, 1,
-+	  .sw = true, .mute = true, .modes = TOPPING_MOBILE },
- 	{ "Recording Capture Volume", 0x51, 0x52, 0x03, -90, 0,
- 	  0, topping_tlv_lb, .modes = TOPPING_MOBILE },
-+	{ "Recording Capture Switch", 0x51, 0x52, 0x04, 0, 1, 1,
-+	  .sw = true, .mute = true, .modes = TOPPING_MOBILE },
- };
- 
- /*
-@@ -535,6 +572,7 @@ struct topping_mixer {
- 
- 	spinlock_t val_lock;		/* the cache and kctl[] against reports */
- 	int *val;			/* one per row of the model's ctls */
-+	unsigned long *kept;		/* levels set under their MUTE, unwritten */
- 	unsigned int *sel;		/* one per row of its enums */
- 
- 	/* the volume controls and switches first, then the selectors */
-@@ -548,6 +586,7 @@ static void topping_mixer_release(struct kref *ref)
- 
- 	kfree(tm->kctl);
- 	kfree(tm->sel);
-+	bitmap_free(tm->kept);
- 	kfree(tm->val);
- 	mutex_destroy(&tm->lock);
- 	kfree(tm);
-@@ -585,12 +624,45 @@ static int topping_index_of(const struct topping_mixer *tm, u8 target,
- 	return -1;
- }
- 
-+/* whether the row after @idx is the MUTE of the level in it */
-+static bool topping_muted(const struct topping_model *m, int idx)
-+{
-+	return idx + 1 < m->num_ctls && m->ctls[idx + 1].mute;
-+}
-+
- static int topping_write_ctl(struct topping_mixer *tm, int idx, int value)
- {
--	const struct topping_ctl_desc *d = &tm->model->ctls[idx];
--	s32 wire = d->map ? d->map[value] : value;
-+	const struct topping_model *m = tm->model;
-+	const struct topping_ctl_desc *d = &m->ctls[idx];
-+	s32 wire = d->mute ? !value : d->map ? d->map[value] : value;
-+	bool kept;
- 	int err, other, on;
- 
-+	/*
-+	 * A level set while its switch is off is only kept: written under
-+	 * the MUTE, it may be taken for a release.  The switch writes it on
-+	 * its way on, before the MUTE 0, so that the sound comes back at it.
-+	 */
-+	if (topping_muted(m, idx)) {
-+		scoped_guard(spinlock_irqsave, &tm->val_lock) {
-+			on = tm->val[idx + 1];
-+			if (!on)
-+				__set_bit(idx, tm->kept);
-+		}
-+		if (!on)
-+			return 0;
-+	} else if (d->mute && value) {
-+		scoped_guard(spinlock_irqsave, &tm->val_lock) {
-+			kept = test_bit(idx - 1, tm->kept);
-+			other = tm->val[idx - 1];
-+		}
-+		if (kept) {
-+			err = topping_write_ctl(tm, idx - 1, other);
-+			if (err)
-+				return err;
-+		}
-+	}
-+
- 	err = topping_write(tm, d->target, d->prop, wire);
- 	if (!err && d->target_pair) {
- 		/*
-@@ -599,6 +671,10 @@ static int topping_write_ctl(struct topping_mixer *tm, int idx, int value)
- 		 */
- 		err = topping_write(tm, d->target_pair, d->prop, wire);
- 	}
-+	if (!err && topping_muted(m, idx)) {
-+		scoped_guard(spinlock_irqsave, &tm->val_lock)
-+			__clear_bit(idx, tm->kept);
-+	}
- 	if (!err && d->resend) {
- 		other = topping_index_of(tm, d->resend, d->prop);
- 		scoped_guard(spinlock_irqsave, &tm->val_lock)
-@@ -622,7 +698,8 @@ static int topping_write_sel(struct topping_mixer *tm, int idx,
-  * values the cache was born with; at a later bind, with what was set
-  * while this side was alone, which is still only in the cache; and after
-  * a resume, in case the card came up on its own defaults or was changed
-- * on its panel while the host slept.
-+ * on its panel while the host slept.  A level whose switch is off is
-+ * kept for the switch, as a put keeps it.
-  *
-  * Errors are not passed on.  The HID driver logs the ones that mean
-  * something, and a card that cannot be written now is written again by
-@@ -724,12 +801,24 @@ static void topping_report(struct topping_component *comp, u8 target,
- 		topping_report_sel(tm, target, prop, value);
- 		return;
- 	}
-+	if (tm->model->ctls[idx].mute)
-+		value = !value;
- 	if (value < tm->model->ctls[idx].min ||
- 	    value > tm->model->ctls[idx].max)
- 		return;
- 
- 	guard(spinlock_irqsave)(&tm->val_lock);
- 
-+	/*
-+	 * The card's word, on a level or on the release of its MUTE, drops
-+	 * a level kept under that MUTE, rather than have it written over
-+	 * the card's later.
-+	 */
-+	if (topping_muted(tm->model, idx))
-+		__clear_bit(idx, tm->kept);
-+	else if (tm->model->ctls[idx].mute && value)
-+		__clear_bit(idx - 1, tm->kept);
-+
- 	if (tm->val[idx] == value)
- 		return;
- 	tm->val[idx] = value;
-@@ -1202,9 +1291,10 @@ static struct topping_mixer *topping_mixer_new(struct usb_mixer_interface *mixer
- 	spin_lock_init(&tm->val_lock);
- 
- 	tm->val = kzalloc_objs(*tm->val, m->num_ctls);
-+	tm->kept = bitmap_zalloc(m->num_ctls, GFP_KERNEL);
- 	tm->sel = kzalloc_objs(*tm->sel, m->num_enums);
- 	tm->kctl = kzalloc_objs(*tm->kctl, m->num_ctls + m->num_enums);
--	if (!tm->val || !tm->sel || !tm->kctl) {
-+	if (!tm->val || !tm->kept || !tm->sel || !tm->kctl) {
- 		kref_put(&tm->ref, topping_mixer_release);
- 		return NULL;
- 	}
--- 
-2.43.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
