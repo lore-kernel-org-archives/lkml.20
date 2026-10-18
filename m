@@ -1,62 +1,45 @@
-Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FDE74C8C7F
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3B73A6F09;
+	Sun, 18 Oct 2026 16:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792340554; cv=none; b=VJNDzJq/uAxmoVLp8ZaivNXdaXKKPElxtLqFMUIEtyom+eVkSgCcqIj6kby/0mnX4dQ73yrwhi5yTPc4qE5uF0iMWIdyGt/4wILqrn5uCoUayG9fQlG5Bjq4wPXqaSi4VF0eAnrN1RgPzXGT+6aEfjTXF86HG1NU47akDPddQXQ=
+	t=1792340618; cv=none; b=H8k3bXCA3nF/QdB0yxdlgT7YmF+8cYszGHIlS9KR78v2ihlVKweNADKMaE/5VpycOeY1kmPi2uaz6fM7j6rXfLTQedsQY1j9jdrxFB6h3eV81uucfy5fyq2IR5IgyB7Pel/ycrN0I0IUZkA7uqP+SvanFf0UHcqaXHQws246Mg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792340554; c=relaxed/simple;
-	bh=nTcwQzVmYTm1AM1FCgaobdw7AEwpJ5PD2dkwIfWaH2o=;
+	s=arc-20240116; t=1792340618; c=relaxed/simple;
+	bh=HwNXUeNKdwzjy+YPEJg5pGa3SbGf1bmlntlDyn92vb0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ErALjwn/N2xVwvIE+nEPijTIZDhiWkABMAbdNe4H6ua2IZfjz5PP1AlLupXu0dXtLpMdOSyUosh4GlW3p+RpgluuyM0Hd4Htzylqf6Z7ju/gEHjaBVaOS6KF1t/eR+Ykat+ic3PJwUImettXOhVrzWgK0d/0LnTYd2KXOuJOCno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=zWLdnRC8; arc=none smtp.client-ip=84.16.241.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
+	 MIME-Version; b=pl4flpw0LK/FntQbRk29nHSd2gdrNlm3sFNUiQZyL3u4hIQOrkmfdg7dgpwCAzMXUJyl+h55O63Mg6LAhAEbAmTfUhLU54Ce78vVxDxQm0MCkKrHQkZikZ5NVVTKbl0s6UkphFn5Tk2ECUHnmTzfsKEHycNrQdzkMLR/DVPGty8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P6pSUoE0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="zWLdnRC8"
-Received: from terra.vega.svanheule.net (2a02-1812-1620-5d00-3535-4149-dfc3-da80.ip6.access.telenet.be [IPv6:2a02:1812:1620:5d00:3535:4149:dfc3:da80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sander@svanheule.net)
-	by polaris.svanheule.net (Postfix) with ESMTPSA id DB333955CA0;
-	Sun, 18 Oct 2026 18:13:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
-	s=mail1707; t=1792339987;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rAAuUDUvjZiBRrJikF39Y3eo8LqEoa2iyoxYHrM3k/Q=;
-	b=zWLdnRC8rdCeciXmrZoT+8p0cDvfPZRfUl5+4T9uTbIgKQAE8CfEBVW+db/48xpv8o+8Lf
-	fEtDowq0ug+fi4rJM2B+AoIGxpZQcHyRFy5YEEXCsdkze6/wwmMyTuQjhCVPMrZxQVibal
-	awK/VHrb8unG9I4KHRcmKWCAthT3JaaVfH5tHSavF1uJ87Hua9arrRuuXQ5c92dSd1sNMv
-	zi9FeLnv2UjBYzT3oPgl+gO3MGc4d8R2NEOk/dHPDytvpttOmpuHz/hEZNouRW+JER1ZHJ
-	V5auXFPbW5brd2NKgaBLf92JsPto591XPHH9+7XDvMn6T5+9Vjk5O/Fss+14SA==
-From: Sander Vanheule <sander@svanheule.net>
-To: Jonas Jelonek <jelonek.jonas@gmail.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sander Vanheule <sander@svanheule.net>
-Subject: [PATCH net-next 2/2] net: pse-pd: realtek-pse-mcu: add gen1 I2C transport
-Date: Sun, 18 Oct 2026 18:12:48 +0200
-Message-ID: <20261018161248.376205-3-sander@svanheule.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261018161248.376205-1-sander@svanheule.net>
-References: <20261018161248.376205-1-sander@svanheule.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P6pSUoE0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D40A31F000C4;
+	Sun, 18 Oct 2026 16:23:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792340617;
+	bh=PkvCnZp3GqJK4bIvD1zVQOPN0TOHqm9DCWSAjzxS07o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=P6pSUoE0uF9R61EmmdJ/FHRrRUP+N3n8/JOStw3k3xMxktDAZ9yjDt6raMWvnFs5r
+	 uTBxSI4ODXNjzZWV+iMaAY5Eo8+aNEsYoWI9w4fR2/Mx742HJQvD88czJXIG0UJtsh
+	 E4N8qevijiTh2YnwIrS1lvZ8QSi6b+vRnZ4QDROCVGvM61VF+F9VPLf/CzITV4Tf71
+	 YMYMWbfXe7eYuGr/tZ7sJJHWKWr4My4sbUy0KPpN89fyQTXNuaOfwYCjuEsQtHIqYm
+	 vvEI3gAzUDGrzJ1FDtwWyABA2tdZQz2OtJZcNmI8+E8YWx3n9joQ4Y206uVsHG1INU
+	 Ifk14sum/ay8g==
+From: SJ Park <sj@kernel.org>
+To: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/damon/sysfs.py: stop obsolete_target shells hanging the test
+Date: Sun, 18 Oct 2026 09:23:29 -0700
+Message-ID: <20261018162330.107844-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261018020415.35567-1-jaeyeon.lee.dev@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,59 +48,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Provide the required data for the gen1 raw I2C binding, which like for
-gen2 is simply the gen1 protocol data with the native_i2c flag set.
+On Sun, 18 Oct 2026 04:04:15 +0200 Jaeyeon Lee <jaeyeon.lee.dev@gmail.com> wrote:
 
-Signed-off-by: Sander Vanheule <sander@svanheule.net>
----
- drivers/net/pse-pd/realtek-pse-mcu-core.c | 8 +++++++-
- drivers/net/pse-pd/realtek-pse-mcu-i2c.c  | 1 +
- drivers/net/pse-pd/realtek-pse-mcu.h      | 1 +
- 3 files changed, 9 insertions(+), 1 deletion(-)
+> The obsolete_target test spawns three 'sh' processes as monitoring
+> targets.  The processes inherit stdin from the test.  When the test is
+> run via 'make run_tests' from an interactive terminal, the kselftest
+> runner executes it under 'timeout', which puts it in a background
+> process group.  The 'sh' processes then try to read the terminal, so
+> the kernel sends SIGTTIN to the whole process group.  This stops the
+> 'sh' processes, and also the child the test has just forked to spawn
+> the next 'sh', before it can run 'sh'.  The test then waits on that
+> child forever, until the kselftest runner kills it after 45 seconds.
+> The test passes when run directly.
+> 
+> Fix this by passing stdin=subprocess.PIPE when spawning the processes.
+> The processes then read from a pipe that never receives input, so they
+> stay alive and idle as the test expects.
 
-diff --git a/drivers/net/pse-pd/realtek-pse-mcu-core.c b/drivers/net/pse-pd/realtek-pse-mcu-core.c
-index e64f13ea6e4e..c70b09ca2012 100644
---- a/drivers/net/pse-pd/realtek-pse-mcu-core.c
-+++ b/drivers/net/pse-pd/realtek-pse-mcu-core.c
-@@ -986,7 +986,13 @@ const struct rtpse_mcu_match_data rtpse_mcu_gen2_data = {
- };
- EXPORT_SYMBOL_GPL(rtpse_mcu_gen2_data);
- 
--/* Same dialect as gen2, but the MCU expects raw-I2C framing. */
-+/* Same dialects as above, but the MCU expects raw-I2C framing. */
-+const struct rtpse_mcu_match_data rtpse_mcu_gen1_i2c_data = {
-+	.dialect = &rtpse_mcu_dialect_gen1,
-+	.native_i2c = true,
-+};
-+EXPORT_SYMBOL_GPL(rtpse_mcu_gen1_i2c_data);
-+
- const struct rtpse_mcu_match_data rtpse_mcu_gen2_i2c_data = {
- 	.dialect = &rtpse_mcu_dialect_gen2,
- 	.native_i2c = true,
-diff --git a/drivers/net/pse-pd/realtek-pse-mcu-i2c.c b/drivers/net/pse-pd/realtek-pse-mcu-i2c.c
-index b6769ac1d470..bbded772eddf 100644
---- a/drivers/net/pse-pd/realtek-pse-mcu-i2c.c
-+++ b/drivers/net/pse-pd/realtek-pse-mcu-i2c.c
-@@ -128,6 +128,7 @@ static int rtpse_mcu_i2c_probe(struct i2c_client *client)
- 
- static const struct of_device_id rtpse_mcu_i2c_of_match[] = {
- 	{ .compatible = "realtek,pse-mcu-gen1-smbus", .data = &rtpse_mcu_gen1_data },
-+	{ .compatible = "realtek,pse-mcu-gen1-i2c", .data = &rtpse_mcu_gen1_i2c_data },
- 	{ .compatible = "realtek,pse-mcu-gen2-smbus", .data = &rtpse_mcu_gen2_data },
- 	{ .compatible = "realtek,pse-mcu-gen2-i2c", .data = &rtpse_mcu_gen2_i2c_data },
- 	{ /* sentinel */ }
-diff --git a/drivers/net/pse-pd/realtek-pse-mcu.h b/drivers/net/pse-pd/realtek-pse-mcu.h
-index d75e91669b8f..5e31dd0993dd 100644
---- a/drivers/net/pse-pd/realtek-pse-mcu.h
-+++ b/drivers/net/pse-pd/realtek-pse-mcu.h
-@@ -88,6 +88,7 @@ struct rtpse_mcu_ctrl {
- int rtpse_mcu_register(struct rtpse_mcu_ctrl *pse);
- 
- extern const struct rtpse_mcu_match_data rtpse_mcu_gen1_data;
-+extern const struct rtpse_mcu_match_data rtpse_mcu_gen1_i2c_data;
- extern const struct rtpse_mcu_match_data rtpse_mcu_gen2_data;
- extern const struct rtpse_mcu_match_data rtpse_mcu_gen2_i2c_data;
- 
--- 
-2.56.0
+Thank you for finding and fixing the bug!
 
+> 
+> Assisted-by: LLM
+> Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+I applied  this patch to damon/next [1] tree.  We are now quite close to next
+merge window.  It may better to focus on making mm.git more stabilized and
+therefore ready for the next merge window, rather than adding more changes that
+are not really urgent.  I understand this series is not really urgent.  Hence,
+Andrew might not add this patch until next -rc1 release.  In the case, I will
+request adding this to mm.git after next -rc1 release.  So, no action from your
+side is needed for now.  Let me know if you think this is really  urgent.
+
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+
+
+Thanks,
+SJ
+
+[...]
