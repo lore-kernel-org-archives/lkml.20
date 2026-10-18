@@ -1,45 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA123E7BB2;
-	Sun, 18 Oct 2026 16:37:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31E73F1044
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792341477; cv=none; b=BLYWxs7ojrszYr4QWRlCr7rJIZd8y5vvJl6WP3B1/d2jHYDAHUDDMVmNkYGstDEGARsw4JX5a68tu8WVD2hHCKhP5A+OekXIBMYWcPTJxfcrbxC6YRmCBl5EOz3ip3RNbIgNQ8UeKmM0bJowGtiVXJFTRTHo2b+Ob4u+goP3frk=
+	t=1792341497; cv=none; b=U4SDXj/6ZksngRKinShOC8pR9Kw2wG1hJexQybnN+0iOcWgW6GJ4ouXdkXSZukR9Qc3aHx+QRvzuYHJOiW4AqgoNQE2/XoxPyRyy449qwa4RutobhdernYzGYTI1VCRhUq6zEmZyKYVVVPc9wnoyfNBQHK4tFZP6aW040djQutA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792341477; c=relaxed/simple;
-	bh=OL7XdJljnYykZ6cGJygqKILHqIpHMQsHB66PjADmr6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AG01bNZocV/K81i/S3tCRzTMoQT9ap7fZh4NHNHTcAwfNd3iCUS6C797x7gtaDTYO+yHB5XuZYaTTIKQ1p9AvXcgg2H/cPY84KAR6eBFnwDvm5ksYc+f08HPfZ1e2bdsD7HIHxVg/BVNjTvVDwehakawlCl9b/6QTRTQ6TydTEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fj1YOlZA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792341497; c=relaxed/simple;
+	bh=cWbrnQSlLPZR13S2XvAfyai9aYQ6B1FO4xtNhX/Qx4M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hBdNbz5CO4HSIGYDv66wybgC0y+c6l84YwNLPJmQE5spiMbxx0vKjutpIkdQOhN8pgCTfdozdHvLPp1zvh3xB3yyXnE17z6xJDrUWyHW38CV81hGSO+HXx6/CgnyRzG3lt6e+SNU2ZAntvtEUfOeszmn6DA0+LW5EcSJgrD6CZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iUr1RGgJ; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fj1YOlZA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C45D1F000C4;
-	Sun, 18 Oct 2026 16:37:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792341464;
-	bh=nqhII2yqgaJn4OHee6C9EiqMArA3HDYaoMptyZzOhkg=;
-	h=From:To:Cc:Subject:Date;
-	b=Fj1YOlZAbMm5BLHyyNev/1uZF2pldGWKlyEJNTEJbEc5PiSOwK8aFVMXfJTOe/UCO
-	 eC+xJK8BGaIAuFhq4V6ldLIoLP+waa3Mcaelcjxqg6G/LGtZBlcEWegbR5la5IWwFu
-	 7/Xu6jP/EpKlUYNwkZ+RJBEV4DN4BSYeO+nS6VF9un/7F38wXG53z9dCdR3ehAogo+
-	 pqL0fjuLHg0B9t2qmFv0s6BPGjfkzyoa8iBZ/10Nj3zwaOzDWA5YxklhMhmMd+H1W3
-	 i0BCisO3TGP6jExwSQJFelnSnr8YAyawYY/ygBQAvi32dt5bcv1qMHW8Pz6GmmOSW1
-	 s1fwEeSzuTffg==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v1 1/5] perf test: Fix a memory leak in PE file parsing test
-Date: Sun, 18 Oct 2026 09:37:37 -0700
-Message-ID: <20261018163741.850434-1-namhyung@kernel.org>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iUr1RGgJ"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1e477fe16so2426425e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 09:38:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792341487; x=1792946287; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TUsjSvWYWV+jMep3Ewn28rSL6gnhBkjB2DvYwQ5XLq4=;
+        b=iUr1RGgJrvWVubQmNgV6Brv5RxQCXzHv27D49TgZTx5jctorfkH9t10V7X6CoI8GIe
+         3Z4YKok8jtpRQ4CE546T+9b/2BuMOxpxFCs2a2Gjappoj5BqF9SRHJsi/yjbPFv+2fVD
+         ycj652tN7XbZckRChijHBlVI6A0kZP9bRwrRhf97kkh6+Jldsdj+AW16Y8VWdKwz5d12
+         eQncEQQpE7WQ1vzFTivEATMXgFmAayd+FrHfI1aCr3FcxFe0F9nJRJDMTktbvSmGdg7e
+         Ub5FefKrlH63LV7HhvipTIeRARZg9CAEIM+A1BuuugaDHbxBYE8Z4sSxhjb0nBwB5sQn
+         srxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792341487; x=1792946287;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TUsjSvWYWV+jMep3Ewn28rSL6gnhBkjB2DvYwQ5XLq4=;
+        b=qJHgBL76NyK8nlGh2g5nUPMa71xJfkioKP3cMNx7P13wTEEe4H+q4kvnpvcxoAsNjt
+         4c+LvFIn+ETKlteTVJojpanaSPY2d1aiabBsO3hviLOYq3c15iCz+4t5itW5r6sw8Axl
+         1IqSC1nv0zqSGzI89OiSvHskZX+i8cuv+0P6rOolgS9ubmlSMDya3rYwqLvNkvwg7VGt
+         YD7QXPdUDoRr4isc9i9FXyVsqzVQXIuTw1Zix+guzqsQKPRSLjN8DveEdvALSWE3vfza
+         jR9m6MGXJZUtacBbb7+U0OZZoWAvJb42Z+KuIGEz50LGQTonWo9YivXCF1wZg9Krplt9
+         n2Ug==
+X-Forwarded-Encrypted: i=1; AKwUvBxedSj1Gq0NYXkusyH/aSSaXiQbyfxA+HoDA1xt1HuKFk8IU4unw/x34VTSqWUrhuUvAb8F6SrK5fRXpx8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJA0JKHUb5PiXuXgPOc/RtY7+BoE/WkHeR61HJCX/06Pi+6n8KH
+	R4Bj9kZs5klaC70bEtt80H4St+OWuGkwIBAzYbB4+/4MG3MxE2Q2to2r
+X-Gm-Gg: AYBFou0FxH7HNjGrL2eg0M+HyqNeo3OBwosIFVtZUqIPJADC+hb5SiXseAa7RoGljvj
+	7JKiI/zn9CUjQxU8C6kxxugmW55BQd2fctYoW/ckPTZq6Si6ezswjuHXATf2CIMpA3kzZCIGA83
+	g7gpKmmYgU/BkMWDy2axd6aNcYNOaPVe+54H0EocdhfrE2RleMhxN5qWB8vW/EiuYPrAbiRohT3
+	UnYeG/9OQLXFYsdtj1lLBS2sSuN1PVSGBQAbtLTKUwOn5w6NdUK0rU83Jmbu8iMjUU7i99azE+F
+	mHvoquGfOoDmEtMe7WYd0OUbRG7gFUbll/23S2BN9dDqk41ouED+mklm1pGGILjfMdOj78KvNwI
+	QwBeoaM3+sYDczMZTvPAshrZHlUqiBTjWkvTw4Gjpk4k5CSB8sViIZga+5mf0/tOaC85+2zGo8C
+	osZnGBZGPzHS1Dti3AizrDNfag4IbLeLXTuB0xoJu44NL+LdpxULQsltLSM4Dy8FO3na7PY6Eqe
+	xh2rF+cwe667Ji3c1S6jthNqWMqkEDf+kLxws1VNdf5Hqn+cfXUbqcJ18MzabgkmQ==
+X-Received: by 2002:a05:600c:1d05:b0:4a1:bd69:526f with SMTP id 5b1f17b1804b1-4a1d75ab235mr106971665e9.4.1792341486776;
+        Sun, 18 Oct 2026 09:38:06 -0700 (PDT)
+Received: from localhost.localdomain (bba-217-164-203-125.alshamil.net.ae. [217.164.203.125])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd47104csm19824339f8f.8.2026.10.18.09.38.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 18 Oct 2026 09:38:06 -0700 (PDT)
+From: Ximing Zhang <xzhangjr@gmail.com>
+To: ycistak@gmail.com
+Cc: linux@roeck-us.net,
+	linux-hwmon@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (coretemp) Document sysfs numbering and label meaning
+Date: Sun, 18 Oct 2026 20:36:54 +0400
+Message-ID: <20261018163654.45358-1-xzhangjr@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261015171759.704526-1-ycistak@gmail.com>
+References: <20261015171759.704526-1-ycistak@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,51 +82,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The get_argv_exec_path() returns a dynamically allocated string so it
-should be freed.  Let's check the return value first so that it
-doesn't crash snprintf().
+I tested the documented sysfs numbering on an Intel Core i7-10510U
+running 7.2.5-1-cachyos, with all eight logical CPUs online.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/sashiko-outbox-168781@kernel.org
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
----
- tools/perf/tests/pe-file-parsing.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+coretemp exposed the package sensor as temp1 with label "Package id 0".
+The four per-core sensors were exposed as temp2 through temp5 with
+labels "Core 0" through "Core 3", respectively.
 
-diff --git a/tools/perf/tests/pe-file-parsing.c b/tools/perf/tests/pe-file-parsing.c
-index 190520ffc3ad6d0c..ed95aa5d8ca2af92 100644
---- a/tools/perf/tests/pe-file-parsing.c
-+++ b/tools/perf/tests/pe-file-parsing.c
-@@ -74,19 +74,26 @@ static int test__pe_file_parsing(struct test_suite *test __maybe_unused,
- {
- 	struct stat st;
- 	char path_dir[PATH_MAX];
--	const char * const tests_dirs[] = {
-+	static const char * const tests_dirs[] = {
- 		"./tools/perf/tests",
- 		"./tests",
- 		"./source/tests",
--		path_dir,
- 	};
--	snprintf(path_dir, PATH_MAX, "%s/tests", get_argv_exec_path());
-+	char *exec_path;
- 
- 	for (size_t i = 0; i < ARRAY_SIZE(tests_dirs); ++i) {
- 		if (!lstat(tests_dirs[i], &st))
- 			return run_dir(tests_dirs[i]);
- 	}
- 
-+	exec_path = get_argv_exec_path();
-+	TEST_ASSERT_VAL("Failed to allocate exec_path", exec_path);
-+	snprintf(path_dir, PATH_MAX, "%s/tests", exec_path);
-+	free(exec_path);
-+
-+	if (!lstat(path_dir, &st))
-+		return run_dir(path_dir);
-+
- 	pr_debug("cannot find the tests directory\n");
- 	return TEST_SKIP;
- }
--- 
-2.56.0.176.g3575e65682-goog
+The topology files reported the following SMT sibling pairs:
 
+  cpu0/cpu4: core_id 0
+  cpu1/cpu5: core_id 1
+  cpu2/cpu6: core_id 2
+  cpu3/cpu7: core_id 3
+
+This confirms that the per-core attribute number is core_id + 2 and
+that the label identifies the core_id rather than the logical CPU
+number.
+
+Tested-by: Ximing Zhang <xzhangjr@gmail.com>
+Reviewed-by: Ximing Zhang <xzhangjr@gmail.com>
