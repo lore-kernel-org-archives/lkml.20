@@ -1,230 +1,143 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0401939E164;
-	Sun, 18 Oct 2026 22:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A9639E164
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792361830; cv=none; b=uTKZFBSxhvNRD3U1qfcaoZBjNdCbF6WF4lxzh5gBgrv980dEGBF7JXkJ72Lxw4PcQyjA3Mj10tNDnKohWy0nE5LOYutxmzeWDMxAG5lF1gCi/boT74bJeqqmo77TeqgjaD+B9k1MU0oePokQsaiDsFMaXMDlAq2HCp+OaszK5BM=
+	t=1792361855; cv=none; b=CkgMshBmQ1Xcx5TxY1lvW18MI/oHw+2udgGLq7Qb4uQ7H8wTtWfXAJ72YN1+tWEslWjybqnD46cfZ0LYB4/fJEe6mB7CNbfGemmgYMP5mnjGpaHTUMHvmVRocIVm1FAY0y/bsp/iHudc5UjMtT0vYZxIt1Wzsddvf4PUExBw/K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792361830; c=relaxed/simple;
-	bh=SvhNGhOEbCTd8VfY9SRoWVjGv4wCDw0h+B6OWIL6QdE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jqIRZLtSHiV0UPLjcOZHaFLT1s4oZzaQJDqkBDjJzHrQq/dhmgWinGos+I91cQOQCsXmer0sSBGuatIIy6TDMBNA+5XwHCD5FVO1sIVibzkjHYFMbP8ijMr5hMISDyZsz+xUpXmUzqb06Lk+v7bYURNEw1xkG6R+CK1y1tptTKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=Wnwi0Rbc; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1792361855; c=relaxed/simple;
+	bh=z7Q6lTYTs4EbXKb1DjFff2cwqua2rRbn3u+3K+dQjQg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c+doquY6kcskm7rs2fRQsEDC2S+aNrFg0lMRx0deld5/hby5BkDSSaMowe0Y9vrULbH3X3aNBfhY3yUH4aOItuZ+L8gbnoJjB4D4aXLXVM3sgphYPMWM6lyMEZDAv6GyyLaIr1thpDh1b/joN9ve8wBIsDsH+Mj5QBDsl9EJk64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IsnL4Hjt; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="Wnwi0Rbc"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id CF04E53402B0;
-	Mon, 19 Oct 2026 00:17:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1792361826;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=oD9Nnq+2dQo6ClH+FSfZOnSV+NNBLuALLaa9RbVSkNk=;
-	b=Wnwi0Rbcg+FJs3nGVruAOKye+iDKCItS2U4DnQzZdXxRE4nJ4tiYoiDLNGlOb2LypsmJ8+
-	vOdU1ZVr7fEa/23DmxttHTwtfChzfSCJZfuGf90v/Jyhro2Dv0ySYbiX8J3GqyoXKwT6iH
-	25qhq7vUuYk8ouE+mv/Pih4QnP9tFp4=
-Message-ID: <923282d7-cc31-400e-89e7-f3646edd06c8@ixit.cz>
-Date: Mon, 19 Oct 2026 00:17:05 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IsnL4Hjt"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso14169465e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:17:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792361852; x=1792966652; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nAF9oPetXs/1/u0SmZXy5Zxa0XcvT5gTByOb4pwMeyU=;
+        b=IsnL4HjtW7GtPVVBetuWv8PMY2i3vt22dzSq7Qh3FIlk1XLW80kDstTrD5wUDBp8Jn
+         fXOSUhN2Su6HWoPkmqCTG1QAqkE5WtMJqLdMJTY9p04lNGbAZ4ulOXmOV+SyGHbs/k1X
+         NKjffX+nI49+uEGcjo4WaffU+bWHVxy2LdJF8aqFFM4JwbtHcOjaP1kNHOGkTJIWFCaY
+         lBxoGiUelrbXTtJdn4aQsQb5kumaG6nhuGDjIEDD4umCye+q4Ni2Yk43BSdGcUff2rsT
+         l7MWCozM53p/1nxz9TVhMID7B9jTmAmBmQjYNODjnHD2DIopIM4tz6mhcvIv5n/7tBVW
+         Oy9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792361852; x=1792966652;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nAF9oPetXs/1/u0SmZXy5Zxa0XcvT5gTByOb4pwMeyU=;
+        b=L1eFW/0iRiD4CZjdeNy6b9JtmBqNKtfPQlcPRHQFDfaVeWom/iKzA4g1SYblzFfFwj
+         0yTvazJb83oFI4taNkgNZ3PCXk4DhzujTA6DZToKoB2YTodtcef2dcByP39kdej4ijXc
+         kP4Ks2rU5fF/yIGwJlrprPnyTHSzzQh1lRDJGEhdSLRg0nPPeMN21A3Oyde1TD14nwUm
+         iwCayxUuEvPC9vphFsaxq7tsASJ/HueTRXqIHgebeth/SvpWxv2lvSrOybYvaA3lUwJH
+         a0kltJjtreV27an+CzUhufR2KKT94p38NvhC6GvbwdszfQJrDi3C28SGWldKCRQYq1OI
+         QAjA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/lkgP+ksQQ7JYZSb6leACX+pwqGkgttEeEGjBhHsBwRT8EX/iA4QxRF5in1BSzJkICoW7WFKu2rxz7F4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0OhAr7GJ95nx3NhVRtY+Av+nuEtyeUBfWURbPHWNES9DwwtY2
+	hNQHvl1RFIGx0bWPEjPi8qHq3JTE89iO3WebKJuizubHKhcP4Z5MhgV0
+X-Gm-Gg: AYBFou1MRmi9vykN3SraV3pTKWd9yibf3lIvpuf/1v4qGW0VmMU9uUWcvAS3MTFKJSh
+	sRvUfm7rzBONOyZXpVPZGwoquvih04VsJmvjg9dMOsXH7RNtjpBoTbPAsHfoYl6fwPQThgsaVoD
+	e/VDz/kvn3r2TTPFRM67qF4HE2TJbpVxeJsytIGFD721IHLIDBoazShy9dhssvpFA3k2wH2kzDL
+	Y9509bBdz8ZoXgCEtbSKPSNq5V8QMMPXWIWXFhprKKqmeIFf9cNDz4Ua/m4ZwRwHLzslalXnOX0
+	0Ke5zcCQQGr+6rRFSzKwcyBzHDLGUS6bEBIch+yns7LMLXNwRqAbaEd4iClJU/hd8JFkkr2kgML
+	VFY1zfMGwRHHDowXAO8DdbMTpTj2hmQyFW8n0doJtP+FdOGcx4rfLC2IFSYOBabE5epzhzLie76
+	zSHZJT36xcAXKsPOD/AG182niesNPC/mwOX4aF2Bl8UhMOvCIdyfDzPLxZjTw+MNEB/Ii4sjPEF
+	mZWoZdFWSinId3Kp7Rqf3Ar82lzOgF1mFX9rU5ZL38lJS4MQNE2GPgQ+wJbxog5AlKJNw==
+X-Received: by 2002:a05:600c:8219:b0:4a1:85d9:13be with SMTP id 5b1f17b1804b1-4a1d76031bfmr129943605e9.20.1792361851851;
+        Sun, 18 Oct 2026 15:17:31 -0700 (PDT)
+Received: from localhost ([178.214.243.78])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d85f92d9sm155398425e9.4.2026.10.18.15.17.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 15:17:31 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>,
+	Alvin Lee <Alvin.Lee2@amd.com>,
+	Jun Lei <Jun.Lei@amd.com>,
+	Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+	Fangzhi Zuo <jerry.zuo@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH] drm/amd/display: set allow_freesync before validating a new stream
+Date: Mon, 19 Oct 2026 03:17:26 +0500
+Message-ID: <20261018221726.27259-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] power: supply: bq27xxx: detect bq27541 behind bq27411
- compatible
-To: rinat.muhamedgaliev@gmail.com, linux-pm@vger.kernel.org
-Cc: pali@kernel.org, sre@kernel.org, afd@ti.com,
- konrad.dybcio@oss.qualcomm.com, krzk@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261019-master-v6-0-c4b36129721e@gmail.com>
- <20261019-master-v6-1-c4b36129721e@gmail.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <20261019-master-v6-1-c4b36129721e@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18/10/2026 23:15, Rinat Muhamedgaliev via B4 Relay wrote:
-> From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-> 
-> OnePlus 6 and 6T replacement battery packs may contain either a bq27411
-> or a bq27541 fuel gauge at I2C address 0x55. The device tree currently
-> identifies the gauge as bq27411, but a bq27541 uses a different register
-> map and then reports invalid battery values.
-> 
-> Read the DeviceType control subcommand when probing a bq27411. Keep the
-> existing profile for DeviceType 0x0421, but select the bq27541 profile
-> for DeviceType 0x0541. This retains the established DT ABI and supports
-> replacement packs without introducing a generic compatible.
-> 
-> Tested on OnePlus 6T (fajita) with DeviceType 0x0541: voltage, state of
-> charge, and temperature were reported correctly. Testing on hardware with
-> DeviceType 0x0421 would be appreciated.
-> 
-> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-> ---
->   drivers/power/supply/bq27xxx_battery_i2c.c | 57 ++++++++++++++++++++++++++++++
->   1 file changed, 57 insertions(+)
-> 
-> diff --git a/drivers/power/supply/bq27xxx_battery_i2c.c b/drivers/power/supply/bq27xxx_battery_i2c.c
-> index 94b00bb89c17..0b957888ad2b 100644
-> --- a/drivers/power/supply/bq27xxx_battery_i2c.c
-> +++ b/drivers/power/supply/bq27xxx_battery_i2c.c
-> @@ -16,6 +16,11 @@
->   static DEFINE_IDR(battery_id);
->   static DEFINE_MUTEX(battery_mutex);
->   
-> +#define BQ27XXX_REG_CTRL		0x00
-> +#define BQ27XXX_DEVICE_TYPE		0x0001
-> +#define BQ27411_DEVICE_TYPE		0x0421
-> +#define BQ27541_DEVICE_TYPE		0x0541
-> +
->   static irqreturn_t bq27xxx_battery_irq_handler_thread(int irq, void *data)
->   {
->   	struct bq27xxx_device_info *di = data;
-> @@ -136,6 +141,46 @@ static int bq27xxx_battery_i2c_bulk_write(struct bq27xxx_device_info *di,
->   	return 0;
->   }
->   
-> +static int bq27xxx_battery_i2c_check_device_type(struct bq27xxx_device_info *di)
-> +{
-> +	enum bq27xxx_chip detected_chip;
-> +	int expected_type;
-> +	int ret;
-> +
-> +	ret = di->bus.write(di, BQ27XXX_REG_CTRL, BQ27XXX_DEVICE_TYPE,
-> +			    false);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = di->bus.read(di, BQ27XXX_REG_CTRL, false);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	switch (ret) {
-> +	case BQ27411_DEVICE_TYPE:
-> +		detected_chip = BQ27411;
-> +		break;
-> +	case BQ27541_DEVICE_TYPE:
-> +		detected_chip = BQ27541;
-> +		break;
-> +	default:
-> +		dev_err(di->dev, "unrecognized DeviceType 0x%04x\n", ret);
-> +		return -ENODEV;
-> +	}
-> +
-> +	if (detected_chip == di->chip)
-> +		return 0;
-> +
-> +	expected_type = di->chip == BQ27411 ? BQ27411_DEVICE_TYPE :
-> +		BQ27541_DEVICE_TYPE;
+After resume from S3, DC enables SubVP on a single FreeSync display at
+a high refresh rate, although dcn32_allow_subvp_high_refresh_rate() is
+meant to keep SubVP off that configuration ("For single display cases,
+freesync must be disabled").  On an RX 7900 XTX driving a FreeSync TV
+at 3840x2160@120, amdgpu_dm_capabilities reports sub-viewport disabled
+after boot and enabled after "rtcwake -m mem", and the memory clock
+starts switching.  It stays that way until a later commit re-validates
+the state; a CRTC gamma change (toggling Night Light) turns SubVP off
+again.
 
-This is not that generic, I would go for extensible design, something like:
+The policy reads dc_stream_state::allow_freesync while the new state
+is validated, but amdgpu_dm sets that field only in
+amdgpu_dm_update_freesync_state_on_stream(), on the first flip after
+the commit.  A stream created by a modeset is therefore validated as
+if FreeSync were off.  On resume, dm_destroy_cached_state() drops the
+streams and forces a modeset, so the resumed state is validated
+without FreeSync.
 
-switch (di->chip) {
-case BQ27411:
-     expected_type = BQ27411_DEVICE_TYPE
-case BQ27541:
-     expected_type = BQ27541_DEVICE_TYPE
-default:
-     dev_warn(di->dev, "expected chip undefined\n");
-}
+Set allow_freesync in amdgpu_dm_get_freesync_config_for_crtc(), which
+atomic check calls for every active CRTC and which already writes
+ignore_msa_timing_param to the stream.  It uses vrr_supported, the
+condition the flip-time value is derived from.  With this change the
+same TV keeps SubVP disabled across "rtcwake -m mem".
 
+On this machine SubVP is also what exposes the single-frame scanout
+corruption reported in the thread linked below, so the FreeSync
+setting stopped working as a workaround after every suspend.
 
-> +	dev_warn(di->dev,
-> +		 "detected DeviceType 0x%04x instead of expected 0x%04x\n",
-> +		 ret, expected_type);
-> +	di->chip = detected_chip;
-> +
-> +	return 0;
-> +}
-> +
->   static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
->   				     const struct i2c_device_id *id)
->   {
-> @@ -169,6 +214,18 @@ static int bq27xxx_battery_i2c_probe(struct i2c_client *client,
->   	di->bus.read_bulk = bq27xxx_battery_i2c_bulk_read;
->   	di->bus.write_bulk = bq27xxx_battery_i2c_bulk_write;
->   
-> +	/* BQ27411 and BQ27541 may be interchanged in replacement battery packs. */
+Fixes: 87f0c16e0eeb ("drm/amd/display: Enable SubVP for high refresh rate displays")
+Link: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c    | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-We can see this from the code. The comment should imply the list should be 
-extended with devices which can be detected over i2c.
-
-For all devices supporting reporting it's ID - if we can check at boot it's 
-really reporting, it brings the value - e.g. broken or different device will not 
-show 0 or 100% of battery charge, but fail to load.
-
-Otherwise IMHO looks good.
-Thanks
-
-> +	switch (di->chip) {
-> +	case BQ27411:
-> +	case BQ27541:
-> +		ret = bq27xxx_battery_i2c_check_device_type(di);
-> +		if (ret)
-> +			goto err_failed;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
->   	ret = bq27xxx_battery_setup(di);
->   	if (ret)
->   		goto err_failed;
-> 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+index 7e484adb4120..f26dd206dffa 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+@@ -128,6 +128,14 @@ void amdgpu_dm_get_freesync_config_for_crtc(
+ 					vrefresh >= aconnector->min_vfreq &&
+ 					vrefresh <= aconnector->max_vfreq;
+ 
++	/*
++	 * DC reads allow_freesync while validating the new state, for example
++	 * to keep SubVP off a single FreeSync display, but it is otherwise set
++	 * only on the first flip after the commit.  Set it here, so that a
++	 * stream created by this commit is not validated without it.
++	 */
++	new_crtc_state->stream->allow_freesync = new_crtc_state->vrr_supported;
++
+ 	if (new_crtc_state->vrr_supported) {
+ 		new_crtc_state->stream->ignore_msa_timing_param = true;
+ 		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
+-- 
+2.56.0
 
