@@ -1,104 +1,129 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0108D23B638
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:03:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BCA239E9B
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 01:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792285432; cv=none; b=fFJ+J51E7mj9wGXAcL7t7O65uHs1U99j9NO+bl82JIgIG+eJZSJK6n2Mbd3QaSA7vkMd4GioR0qKbJcRkxfozr1ini4d58m7MMcjpEbBk5ocusImnLqRXHqJGC7KxTszTTqjzHQ6EVoYmFLKbqPqz+UkY1wm/cloPRIWRb7npMo=
+	t=1792285455; cv=none; b=oIHopBMRzvI61MIkqq3kqtd4ZdQgoyA2R44AN3yUE161V2XRrruWI7JB4f0R20XNsr+X6EOIogAX5IxX+QhS6BAtBAfH6wBxzUhHkn9PN++kJiE0W2Fuzp8Wao7Wn/ErxmLeImAwmxSoAW60EnUQpUIXE6hvqz9dBde9R3yt7NQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792285432; c=relaxed/simple;
-	bh=59FIW6AoxPUKehPGzIxOMuGmAzYpk8/yXkoWF3/rClo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=r0ECgj8Zap478BqlBSousNxA2SAiMjmPD+LKtiFlTABydfU+qypyGGPtTS/rICngk2Txk6SpLQXWtJIgXX4nb7Md6vd1eMuKhhu9sTAxd/bdvbSc/3kLn0U1MsqJopwMwdl6V++vsFBRGKTehnpjQDhbV+2skqya2jeiUBaTX6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=WoVdI/9x; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1792285455; c=relaxed/simple;
+	bh=NDvJpBkgXlJ9jleGf3wJQt0UZywvdyte7pZcLG/aMdE=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=CrBEpIQXyAtzOUavqgz8KZDicbXNh31RzkXzzu1RwQfERDJoyt4bKTgF2QDwrP1Vcipl0Rxzpy5C0WV4J1yJQvGvGKPt4qn6UIhlVGXZT2IkU/IM+TQvGspX/zrLau5vvOjaBVfGOA1H4DrHvuyxyj2npNnLFJtCrcFL/+vCkts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=rQpNBk6P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="WoVdI/9x"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id B54A1D1DAD;
-	Sun, 18 Oct 2026 04:03:39 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro B54A1D1DAD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1792285421;
-	bh=kb0DgD9gEHv7zY1qNXYNJPY5G2hG6MA/GER2shJe9w8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=WoVdI/9xI465FPzgCVPPyc49W+BHYm8znGl7tAZN/9X0uStHxlJdOkcl+TJWp8W5r
-	 IFNrosVrID2R9J/TQm85e6ESrxCYps0Y/vimfZCymLiBlaEBYgUcfe1ImhBLMTnFRa
-	 K7Kz6cd63ckoRm9DsKNGl76t8084Di3ZLtoTTz/DIo0r3xwEGxn7TULVSgo9F2WT//
-	 XwuPASosLUpHQNyXLCloJj7R2xC6zZAAxL4upQRMBGFlKSsbMr/lXXHCOJalbPWy/S
-	 odJnf1ImRcW4cWsN7opkq3VGo3bij64EwaBAdzFdUlgFCfi09MySCcrjJq/+/ZdJh0
-	 bQwDPXEtzY2bQ==
-Message-ID: <85c78f925ecac67f82e98675f80520bc6f71ab16.camel@rendec.net>
-Subject: Re: [PATCH v6 2/9] irqchip/imx-irqsteer: Validate IRQ count before
- creating domain
-From: Radu Rendec <radu@rendec.net>
-To: Zhipeng.wang_1@oss.nxp.com, Thomas Gleixner <tglx@kernel.org>, Marc
- Zyngier	 <maz@kernel.org>, Frank Li <Frank.Li@nxp.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
-	 <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Jindong Yue
-	 <jindong.yue@nxp.com>, xuegang.liu@nxp.com, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Date: Sat, 17 Oct 2026 21:03:37 -0400
-In-Reply-To: <20261008090231.796511-3-Zhipeng.wang_1@oss.nxp.com>
-References: <20261008090231.796511-1-Zhipeng.wang_1@oss.nxp.com>
-	 <20261008090231.796511-3-Zhipeng.wang_1@oss.nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="rQpNBk6P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3131F000C4;
+	Sun, 18 Oct 2026 01:04:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792285453;
+	bh=yBzg1XnqQp2xTgPKm6aEo7hheg/CtG2kAo70FRWV5Qw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=rQpNBk6PIcbBYEEtVcMCyzy80nO9U+u4EV/iOS1fliNGnoTGiXg0V252S8AWxZsPp
+	 3q/U+l5BlcKB9IibCRC4lVptDnbNoPCXsbT5riniSZD/gGa6hiibfTBZ1ms3t3f5t1
+	 IwdJmCFc6rir3HRCpwCMKJEhgm90/Lem6T6/EFVo=
+Date: Sat, 17 Oct 2026 18:04:12 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Jann Horn
+ <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] mm/mremap: do not charge a shrinking move twice
+Message-Id: <20261017180412.a79a36e873c5268df126cde1@linux-foundation.org>
+In-Reply-To: <20261017233527.797191-1-nickolai@csail.mit.edu>
+References: <20261017233527.797191-1-nickolai@csail.mit.edu>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-10-08 at 18:02 +0900, Zhipeng.wang_1@oss.nxp.com wrote:
-> From: Fabio Estevam <festevam@nabladev.com>
->=20
-> The IRQ count is validated after creating the IRQ domain. If it is
-> invalid, probe returns without removing the domain, leaving its host
-> data pointing at devm-managed memory that is freed on probe failure.
->=20
-> Validate the count before allocating resources to avoid the leak and
-> dangling pointer.
->=20
-> Fixes: 28528fca4908 ("irqchip/imx-irqsteer: Add multi output interrupts s=
-upport")
-> Signed-off-by: Fabio Estevam <festevam@nabladev.com>
-> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-> ---
-> =C2=A0drivers/irqchip/irq-imx-irqsteer.c | 7 ++-----
-> =C2=A01 file changed, 2 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx=
--irqsteer.c
-> index 1b8d0c8eedb9..766756e76c47 100644
-> --- a/drivers/irqchip/irq-imx-irqsteer.c
-> +++ b/drivers/irqchip/irq-imx-irqsteer.c
-> @@ -218,6 +218,8 @@ static int imx_irqsteer_probe(struct platform_device =
-*pdev)
-> =C2=A0	 */
-> =C2=A0	data->irq_count =3D DIV_ROUND_UP(irqs_num, 64);
-> =C2=A0	data->reg_num =3D irqs_num / 32;
-> +	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT)
-> +		return -EINVAL;
-> =C2=A0
-> =C2=A0	if (IS_ENABLED(CONFIG_PM)) {
-> =C2=A0		data->saved_reg =3D devm_kzalloc(&pdev->dev,
-> @@ -246,11 +248,6 @@ static int imx_irqsteer_probe(struct platform_device=
- *pdev)
-> =C2=A0	}
-> =C2=A0	irq_domain_set_pm_device(data->domain, &pdev->dev);
-> =C2=A0
-> -	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT) {
-> -		ret =3D -EINVAL;
-> -		goto out;
-> -	}
-> -
-> =C2=A0	for (i =3D 0; i < data->irq_count; i++) {
-> =C2=A0		data->irq[i] =3D irq_of_parse_and_map(np, i);
-> =C2=A0		if (!data->irq[i])
+On Sat, 17 Oct 2026 19:35:26 -0400 Nickolai Zeldovich <nickolai@csail.mit.edu> wrote:
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+> Since v6.15 every mremap() that shrinks an accounted mapping and moves
+> it with MREMAP_MAYMOVE | MREMAP_FIXED leaves old_len - new_len bytes
+> charged to vm_committed_as for good.  An unprivileged process that
+> repeats such a call keeps raising Committed_AS in /proc/meminfo; with
+> vm.overcommit_memory=2 it reaches CommitLimit, after which every
+> accounted allocation in the system (private writable mmap(), brk(),
+> fork()) fails with ENOMEM until reboot.  A loop of 1000 calls moving a
+> 2 MiB private anonymous mapping to a 1 MiB fixed destination raises
+> Committed_AS by 1 GiB.
+> 
+> mremap_to() first unmaps the tail of the source with shrink_vma(),
+> which uncharges it, and then sets old_len to new_len so that the move
+> looks like a same-size one.  vrm->delta, the absolute difference of the
+> two lengths computed in do_mremap(), is not updated, and
+> vrm_calc_charge() charges delta pages for the move.  For a move that
+> does not unmap the source the charge only has to cover the growth from
+> old_len to new_len, which here is zero; nothing ever releases the extra
+> charge.  Before the vma_remap_struct conversion move_vma() charged
+> new_len - old_len with the updated old_len.
+> 
+> Recompute delta after the shrink.
+> 
+> Tested with the program in the notes under QEMU (x86_64 defconfig):
+> Committed_AS grows by about 1 GiB per run without this patch and stays
+> flat with it.
+
+So I'm training my LLM to do better reviews.  It sucks in Tejun's
+review prompts which suck in Chris's prompts (which Sashiko also uses).
+It also incorporates some of the prompts which Sashiko overlays on
+Chris's prompts.
+
+And now rather than just checking code I'm getting it to step back and
+take a broader, more architectural/design view.  Scan the lists for
+similar changes, look into the revision history to understand why
+things are as they are.  Study comparable code sites.  One way I'm
+doing this, which might be innovative, is to feed it some of the more
+impressive human/maintainer reviews I see and ask it "what rules can
+you set in place to make your reviews more like those people's".
+
+I'd like to start using it on people so I can also obtain
+author/maintainer comments on its reviews.  I can then feed those
+reviews-of-reviews back into it to get it to learn and improve.
+
+It's a work in progress. Here's what it said about this patch:
+
+
+Hi Nickolai,
+
+The code change looks correct to me. After shrink_vma() has unmapped
+and uncharged the tail, resetting vrm->delta to zero correctly avoids
+charging again for the remaining same-size move. I checked the other
+delta consumers and error paths and found no introduced problems.
+
+One changelog correction:
+
+> For a move that does not unmap the source the charge only has to
+> cover the growth from old_len to new_len
+
+This is backwards. MREMAP_DONTUNMAP retains the source and charges
+the entire new mapping. An ordinary move unmaps the source and
+requires additional commitment only for growth.
+
+I'd suggest:
+
+"For an ordinary move, which unmaps the source, only an increase in
+mapping size requires additional commit accounting. Here shrink_vma()
+has already unmapped and uncharged the tail, so the remaining
+same-size move requires no additional charge."
+
+Two minor points:
+
+- "Until reboot" is too strong: other processes can release
+  committed memory, although the leaked charge itself persists.
+- The vrm_set_delta() comment says "difference in VMA size specified
+  by user", which is no longer quite accurate when called after
+  adjusting old_len.
+
+The Fixes: tag looks correct. Given the potentially system-wide
+ENOMEM failures under strict overcommit, Cc: stable seems appropriate.
+
+With those minor changes, I think this is ready to go.
