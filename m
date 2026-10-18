@@ -1,186 +1,91 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1A030C157
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:13:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33803A5445;
+	Sun, 18 Oct 2026 03:13:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792293225; cv=none; b=mqh16M9TtvS3ZAiELwi+PAgbdPbEDBke+fv/FfowE5/PIOqYaYXo6v6+xlKShGjUKs2FM7Af+KNdMZQzOpVbqu6kniMLeJggLLGbSmPf2hD5Un3Pcd8G0HCPoAvcxI4gPdu8r8oAVQZ/GIgVaUMXrHf7wEDntZ27yTX6XpK9duI=
+	t=1792293232; cv=none; b=JONZLI9gFujBaeD5I2ThDuvoMzC/eFvqm2EOkHcviZkAHZ6WMqQ7TkAZzgooLorYAJYx8MMgNEy7lFHv8Zsg2GpEFzSVzBOUHrUGDggAeg4JmY7B10tG/wIb8jVDBoUYk5YCpHSGx559VPnc3aQ3AYm4rIziG4I05FGpmTrXfbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792293225; c=relaxed/simple;
-	bh=A+vfuO7ROmtWXBPzpK7EUmQ9O/cmbMOIA/GzzeWpEtU=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=JeB7EZujGnsO++VU7Y7CXVMFfxaYYL2zFZOk8NzYsW7R6cycCFOqDFxPEtELEu+APU3HBubO5KvXK1ercxnfBmiJn99/j05wJSjldpRQw9pSlZJfdiL+OEpEwu16m6onZdA8VHzZFvDa25BH+rAgGkYlqQeO6+okw2cZJklzvCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b2d1eb484aso1905214b6e.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:13:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792293222; x=1792898022;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C55urHXM8JlROycY9AfN15KmNEJWdk4MSj4BGdwapNY=;
-        b=hmusE9XK9r5mWnNMOlDVqzIV6sHjb8OheYHR7eyXJzWUqhLQGGSJp50yiusb6oLqkI
-         eCpQe89CzivsLx3wCtOQTEhauyWLc7+NDX5+sp1UWI15wZ4cLr1FY74EQaDtaGGj2N2s
-         w+YPUv35i7QuVj/yGiEHCDZ+QMJEDuurw7wSlHYO9I5019ikW20RIoUnRtCggolQ+2QR
-         9GsFNWVZc/D8ik/EEMOkSca3ytqAN2vIqJ+6/Zc0yXkufhEJN6BsRSVH4UMQc5wgBezY
-         VVqYvgo3PCrnl7cOcK6AhSy4oSFcCX02v5pY832XwIGpv31lpUMuFe1LBweX63hO8jJL
-         poMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwT7EEe3cHHrPIHYxajlGisQgT00AN9RAs/3jOvagnKV6ATXq3p770BLMzVWQ5ipOd9wwoQ10RJWg22h6g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdCtWau0Fb0qM/lwY/qgEwcLOKeLnB2WLTcZHTDg9CVVgT4hU0
-	lZ4w29Q7gDR78JE3cw4wU92IlYk8z6qzuYgem2Y/39lmWzNO6qmLO6iYC/8qxbtYGuVMzVgz+6x
-	ImO9G1yP0NubN5tIIHCRASSzRuc2KkFE6EgCQBI9omD1SsHQyNPIBt90ENuA=
+	s=arc-20240116; t=1792293232; c=relaxed/simple;
+	bh=kSmw2hp2kR2lGR35g8XIaZmEI28wNuXKChyz8/4F1cE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=foNwTdpyIZ/mO0mTdpzXXIwdXabdrUQRr3JlEUJS/XzgVFtdDJOhjzKlGNJiVivNIbsWNUmkJqI5zAYtGUo5GLGLyIuZUsXp6RRDlvRLlchTcS81pRi//CTCmhaGtA7MLGOxe5/XUwFkx5XH5uPbEguMfIASsprfybyr87NhZ1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEwjF4gj; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEwjF4gj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3C01F000C4;
+	Sun, 18 Oct 2026 03:13:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792293230;
+	bh=wHdY1xPFPZttG4uKs1wCydcqFXStNj75zmExskNwhS4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=oEwjF4gjGxKbbe92+laFtChwmpvuAN6ezhZzVNH6pHCtwrN/Vgnlj9Mf1DcR+PfJQ
+	 F3DnQDF3Sbrw07MnbJ25dp/kD+k82S3hE9CfTGyHH9qmpdmE0qw9siPvYcCcQvTL6W
+	 cr5BsUqy/BOJFFcb6GVH80YSXeogrs9B8PAyPLXSMGmtpGXT3ondXbK2YHCaV7Cumg
+	 dm7+JSDU7nknUPKXippind7Pmwzlddgw0Tn7G508YWxeXfZcnWXentHoWsa9HwAGym
+	 Jtt+0aGw0c7vlMrN42a43MhLsDlXIwWFF6X/AKnz/ZDqhgKgMaZcdOPiln2qxAY6m2
+	 mPshuEVa6iTHQ==
+Date: Sun, 18 Oct 2026 04:13:42 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andrei Stancovici via B4 Relay
+ <devnull+andrei.stancovici.analog.com@kernel.org>
+Cc: andrei.stancovici@analog.com, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Beguin <liambeguin@gmail.com>,
+ linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/6] iio: adc: ltc2497: add LTC2493 support
+Message-ID: <20261018041342.0c5dda2d@jic23-hlaptop>
+In-Reply-To: <20261009-submission-ltc2493-support-v1-v1-2-3dad1d4b152a@analog.com>
+References: <20261009-submission-ltc2493-support-v1-v1-0-3dad1d4b152a@analog.com>
+	<20261009-submission-ltc2493-support-v1-v1-2-3dad1d4b152a@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2224:b0:4f4:fc4e:77e9 with SMTP id
- 5614622812f47-53ccf4ebfa1mr4414588b6e.42.1792293222065; Sat, 17 Oct 2026
- 20:13:42 -0700 (PDT)
-Date: Sat, 17 Oct 2026 20:13:42 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad43966.a6d1a155.34a93f.006e.GAE@google.com>
-Subject: [syzbot] [net?] INFO: trying to register non-static key in dst_destroy
-From: syzbot <syzbot+de0b38c748fd9021e85f@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On Fri, 09 Oct 2026 11:43:35 +0300
+Andrei Stancovici via B4 Relay <devnull+andrei.stancovici.analog.com@kernel.org> wrote:
 
-syzbot found the following issue on:
+> From: Andrei Stancovici <andrei.stancovici@analog.com>
+> 
+> The LTC2493 is the 4-channel member of the LTC2499 family: 4 single-ended
+> inputs or 2 differential pairs, with the same command format and 24-bit
+> result. Add it with its own channel table.
+> 
+> Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/2493fe.pdf
+> Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
+Hi Andrei,
 
-HEAD commit:    7a19f0cc94ad Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=154e0f01580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=26d6221a572842ac
-dashboard link: https://syzkaller.appspot.com/bug?extid=de0b38c748fd9021e85f
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12e49621580000
+My only comment on here is 'where there are 16 and 4 channel similar chips,
+an 8 channel and maybe even a 2 channel are likely to show up!'.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/296cd4b77dbf/disk-7a19f0cc.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e57669ed895f/vmlinux-7a19f0cc.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c679c1ad76d4/Image-7a19f0cc.gz.xz
+So upshot. Use an integer for number of channels instead of
+that bool.
+> diff --git a/drivers/iio/adc/ltc2497.h b/drivers/iio/adc/ltc2497.h
+> index cee9a2f50b82..219f7d49854b 100644
+> --- a/drivers/iio/adc/ltc2497.h
+> +++ b/drivers/iio/adc/ltc2497.h
+> @@ -31,6 +31,7 @@ struct ltc2497_chip_info {
+>  	u32 resolution;
+>  	bool has_temp;
+>  	bool has_speed_mode;	/* SPD bit in the 2nd config byte (LTC2499/LTC2493) */
+> +	bool four_channel;	/* 4 inputs (LTC2493) instead of 16 */
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+de0b38c748fd9021e85f@syzkaller.appspotmail.com
+This feels like it will bite us in future. Can we instead just
+encode the number of channels?  That will mean setting the value
+to 16 for existing entrees but that doesn't seem too bad to me.
 
-nvme nvme0: request 0x1a genctr mismatch (got 0xc expected 0x2)
-nvme nvme0: invalid id 49178 completed on queue 0
-nvme nvme0: request 0x1b genctr mismatch (got 0xc expected 0x2)
-nvme nvme0: invalid id 49179 completed on queue 0
-INFO: trying to register non-static key.
-The code is fine but needs lockdep annotation, or maybe
-you didn't initialize this object before use?
-turning off the locking correctness validator.
-CPU: 0 UID: 0 PID: 4383 Comm: kworker/0:3 Tainted: G   M                syzkaller #0 PREEMPT 
-Tainted: [M]=MACHINE_CHECK
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-Workqueue: rcu_gp process_srcu
-Call trace:
- show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
- __dump_stack+0x30/0x40 lib/dump_stack.c:94
- dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
- dump_stack+0x1c/0x28 lib/dump_stack.c:129
- assign_lock_key+0xcc/0xdc kernel/locking/lockdep.c:1028
- register_lock_class+0xf8/0x31c kernel/locking/lockdep.c:1343
- __lock_acquire+0x140/0x2b08 kernel/locking/lockdep.c:5162
- lock_acquire+0x13c/0x320 kernel/locking/lockdep.c:5942
- __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
- _raw_spin_lock_irqsave+0x5c/0x7c kernel/locking/spinlock.c:181
- ref_tracker_free+0x114/0x6b4 lib/ref_tracker.c:310
- netdev_tracker_free include/linux/netdevice.h:4551 [inline]
- netdev_put include/linux/netdevice.h:4568 [inline]
- dst_destroy+0xf4/0x2c0 net/core/dst.c:115
- dst_destroy_rcu+0x20/0x30 net/core/dst.c:133
- rcu_do_batch kernel/rcu/tree.c:2650 [inline]
- rcu_core+0x790/0xfbc kernel/rcu/tree.c:2919
- rcu_core_si+0x10/0x1c kernel/rcu/tree.c:2936
- handle_softirqs+0x324/0xcbc kernel/softirq.c:645
- __do_softirq+0x14/0x20 kernel/softirq.c:679
- ____do_softirq+0x10/0x1c arch/arm64/kernel/irq.c:78
- call_on_irq_stack+0x30/0x48 arch/arm64/kernel/entry.S:901
- do_softirq_own_stack+0x1c/0x28 arch/arm64/kernel/irq.c:83
- invoke_softirq kernel/softirq.c:526 [inline]
- __irq_exit_rcu+0x10c/0x318 kernel/softirq.c:758
- irq_exit_rcu+0x14/0x84 kernel/softirq.c:775
- __el1_irq arch/arm64/kernel/entry-common.c:569 [inline]
- el1_interrupt+0x40/0x60 arch/arm64/kernel/entry-common.c:581
- el1h_64_irq_handler+0x18/0x24 arch/arm64/kernel/entry-common.c:586
- el1h_64_irq+0x78/0x7c arch/arm64/kernel/entry.S:602
- __daif_local_irq_enable arch/arm64/include/asm/irqflags.h:26 [inline] (P)
- arch_local_irq_enable arch/arm64/include/asm/irqflags.h:48 [inline] (P)
- __raw_spin_unlock_irq include/linux/spinlock_api_smp.h:219 [inline] (P)
- _raw_spin_unlock_irq+0x34/0x80 kernel/locking/spinlock.c:229 (P)
- try_check_zero+0xf8/0x4f0 kernel/rcu/srcutree.c:1132
- srcu_advance_state kernel/rcu/srcutree.c:1845 [inline]
- process_srcu+0x2f8/0x13b8 kernel/rcu/srcutree.c:1954
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
-list_add corruption. prev is NULL.
-------------[ cut here ]------------
-kernel BUG at lib/list_debug.c:26!
-Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-Modules linked in:
-CPU: 0 UID: 0 PID: 4383 Comm: kworker/0:3 Tainted: G   M                syzkaller #0 PREEMPT 
-Tainted: [M]=MACHINE_CHECK
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-Workqueue: rcu_gp process_srcu
-pstate: 634000c5 (nZCv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : __list_add_valid_or_report+0xcc/0x148 lib/list_debug.c:25
-lr : __list_add_valid_or_report+0xcc/0x148 lib/list_debug.c:25
-sp : ffff80008f7e7b40
-x29: ffff80008f7e7b40 x28: 1fffe000191988ed x27: ffff0000c8cc4768
-x26: ffff0000c8cc4760 x25: dfff800000000000 x24: ffff700011efcf74
-x23: 1fffe0001ac2ca28 x22: 0000000000000000 x21: ffff0000d6165140
-x20: 0000000000000000 x19: ffff0000c8cc4700 x18: 00000000ffffffff
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
-x14: 00000000000006b6 x13: 0000000000000001 x12: 0000000000000003
-x11: 0000000000000000 x10: 0000000000000103 x9 : 10c42bc48b746e00
-x8 : 10c42bc48b746e00 x7 : 0000000000000001 x6 : ffff800080483084
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008048db84
-x2 : 0000000000000102 x1 : ffff0000c6ecd880 x0 : 0000000000000022
-Call trace:
- __list_add_valid_or_report+0xcc/0x148 lib/list_debug.c:25 (P)
- __list_add_valid include/linux/list.h:104 [inline]
- __list_add include/linux/list.h:169 [inline]
- list_add_tail include/linux/list.h:206 [inline]
- list_move_tail include/linux/list.h:357 [inline]
- ref_tracker_free+0x248/0x6b4 lib/ref_tracker.c:329
- dst_des
+>  };
+>  
+>  struct ltc2497core_driverdata {
+> 
 
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
