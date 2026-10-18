@@ -1,198 +1,373 @@
-Received: from mout.web.de (mout.web.de [212.227.17.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0F23D7D6C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FAC43711C
 	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792333939; cv=none; b=KtVk1y9HCG7Z1clesKSmexJGJZqd9YqfGGgksNHXoyrepR2SK/j8koxJIXW7hZwrzaT0KmDzDCrmleQvoNBERxuE4xFVcG9fGHhKSEYm8QemzJ8luaHBfNFsgmQWUEv0HqnEBGGiXu6UTf1soAFWalXH6jCbeWupkziZTfIykxY=
+	t=1792333940; cv=none; b=rEwf1K6s/VtCWdGFce2DirxJ6urETa+2N9DTIvVop8cFy43VbLIfnEWYDw58nYzjAJRGP4ZKqHc7HukTo984DaiMxwccTAbpfbHgL3CdHTfBNh/NOxTXyivJY9XEo4hulkp5NzxZBGLBVm7AjYJ2GgXbh99XLwl5M1VGi1ACS3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792333939; c=relaxed/simple;
-	bh=YMQaZYoWCEjZOJsUNyybSKHgjzBxXSFJYQFROm/a2XU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VFYCnC+wTzpIkEdsQdFmcn0DWSJQiUb456DH/Qyd8GC/BBv4JBObNiHCSJYUFDW9A29v+n/Nm0q8gIghkuDla+r9yY9NG1NSa2J0SUXOM7k1c++qDY7BRB3cb4DVhV/ZHL7YUb1sos8OAPg67xrEtma2jJ9tyIypGhzu76lMQ5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=jan.claussen10@web.de header.b=o/AdPbqu; arc=none smtp.client-ip=212.227.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1792333940; c=relaxed/simple;
+	bh=hO1lb9C3PGd2eLddLtW3HNb9sxEOVVq71jcipiN125w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mjLswTvn4t/zeMluaA2pR1gU26847iwsxG8bVRr8lbucw0TjS8Lo7aMMo5PzPPjVFNFXWss/O4S0qwf/jw0EGHs6B458tpv9njQZaEr3R8fqJk8xEXlvaDFIYQb1iCCkmXleiu9K5r2fB+qR/Cmx5uIAo9ElUtcT+EDFL1rbMhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bFqW2MBe; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=jan.claussen10@web.de header.b="o/AdPbqu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1792333934; x=1792938734; i=jan.claussen10@web.de;
-	bh=CCCBgC3t202EBUvzUuRYpuK9FpeOT8mgidQb08HiPmk=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=o/AdPbquqKSOzEk/GzE0OYBbwGXpjGvo14eAEWbmHufIagIrVgauaZ7tqgAUHZ7H
-	 3asmYIOCudGYJzHBcMJi39VIiX81KrDpZPsRzw9yToF28OMDNMc4WXcouQqNjryVE
-	 7D1uMHXDqS/jGeYoAcJ0uvlZ9mnBR3CuPX6ExU2WNAoTKcm+8y8VqVDsLzJYl9mu0
-	 /4Fh1/vHFq2bWUf82EKhSC08bvarvZbNdkTe14T0c8ERxz5ImRmvj1dwNJrSeAKAb
-	 ab5eCeYQIbAp++uRd13c3MWDctZrmaJUfNRr62fAemwFqQfPa/cFS+yTWZumDdCjk
-	 sXYEAtpOO1IzBs9ywQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MPrPV-1wxC1e3feN-00MtoQ; Sun, 18
- Oct 2026 16:32:14 +0200
-From: =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Daniel Stone <daniels@collabora.com>,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	=?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>
-Cc: John Harrison <John.Harrison@Igalia.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/7] drm/display: hdmi-state-helper: Force modeset on colorspace change
-Date: Sun, 18 Oct 2026 16:31:08 +0200
-Message-ID: <20261018143135.5745-3-jan.claussen10@web.de>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261018143135.5745-1-jan.claussen10@web.de>
-References: <20261018143135.5745-1-jan.claussen10@web.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bFqW2MBe"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c5358fc28so1064147f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:32:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792333936; x=1792938736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zkN2oKFPPbg5tFRXQX1y714/CfymyQfd47i4DNaqs98=;
+        b=bFqW2MBeHK4bpq1BXa0fnCWeQBhl34e84cJWrzrZnAzrl/cZZNbNGLlWf0yKe3fV7p
+         MS6fgYJrVhsODcD7qRAnrMkdNmWja/nF9Rwu3QveNihkEkzabPmPSb8UyDhtmRQcuP11
+         HAFL5YTcKDGWr3qCiyqb6grEk8U4yiykCrbKIIKWq0RO2rgcLrm/uEW8F8BnRT3XVnWC
+         ZXrKAoaOJCOsW906FgfN+zFKkt1zAxhsteYPom0pMBnlRO3gvj2CvTcY9yksSieKCt4+
+         dUhWJ5EU/YqQshiBshDs/dzSKDywaCged0bS5O1VwLNcMI4LxMoSXUPw+HIgWFJs50Vy
+         RIyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792333936; x=1792938736;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zkN2oKFPPbg5tFRXQX1y714/CfymyQfd47i4DNaqs98=;
+        b=vmyElnK2a48BFnGdVwPstAnh0ziSr6DXTu/9LccFhlwW+s+5YxMarkCRS0i2hoxPt3
+         nHYpXSilxGDmfnYz41tb72+5IkYcLrxKN2YFnFm1u7Vn3w4zf6Dwow7YG2OA5Fn8zcKC
+         yWBJa7DCy3qiX2LXDIrU//nz6qO2ZLx+GpCfQQ7fsy3n7hY8GNUlINH5YJJYoQ9Xus7W
+         Zwk1QsvRnffwalBqrL6C3lKzju3o4S348brRxzXbdcihr72GMJjMHOY82KcrDc688MVg
+         Wdau/Vq1iByvtjIUAs+5+1/f2G3jP+oT4H9hQ6cgXSnEJc96AJXjjR8xPrIAJnfSSV9p
+         ujyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwwQ8n9WKV9XYAnsIC10lb3fszGSrEyixkJfHVydfrgatFW2hJSOCaN2fQOJPpvoErdTidxIGNz/yxmUjs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYID4Pn2nSu0kCHc4X3C8C/631dlJdXmDhufYVgEVWEy+J6u0swe
+	NXABZhozxIF+kXW1AUTqixjp9+KWHiHknB7rHu2jWOC28jm0nzDR8FRi
+X-Gm-Gg: AYBFou1t8SCxn61aPcz3UDqTvK8PlsUF96TZY2d6RqeMKWWuMfPzumc7kFG2+VflLNE
+	2kLs4tGhx8F6QSxMY9qpypWg0r3so99n+MrST7Zg+pXUOXfHdGwLeexd/WRGZwaUQNxrMVU8M6q
+	rW+uxbVCsriA7Gw/hRd5OatojTdk6Vz6QbovfnEkWObwY7OALhSNCeMqkkA4QEzHPmrgfBzAyzl
+	1ahLxZmvFJXTzbZWObHWTU/DPF6PJ23uQuMRi3geVKXe/tq1lEFfcSD4LrjTztzMOwm1xlYOrqG
+	OCF4wOp3JjQuG+qPIirGFP3SGpX6M21GOF7xqpCNp3OwTtuVvFQhgBej41TCeHMAOLVDY57E6AY
+	1DENPFpuHfmE+j9SOPF0/iGEuFJlsDKi3GH6hI07jUTQwsZM4kgs1WHtrq2cTEhoWH8YOqt3bND
+	ygWv0pVCyszOY9NlaJfWxE4Ipt57BoMt7KQp0tqRvJx8SFBGn/Ijx4wFfUiXGoLyo6rrYzN6NiE
+	zSQ6oyrNPmH6L8iUkw=
+X-Received: by 2002:a05:6000:468d:b0:48d:fd4d:7fbf with SMTP id ffacd0b85a97d-48e07988954mr7012542f8f.4.1792333936135;
+        Sun, 18 Oct 2026 07:32:16 -0700 (PDT)
+Received: from fedora ([154.182.76.211])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4fe9d9sm16240317f8f.40.2026.10.18.07.32.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 07:32:15 -0700 (PDT)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: jic23@kernel.org,
+	linux-iio@vger.kernel.org
+Cc: nuno.sa@analog.com,
+	Michael.Hennerich@analog.com,
+	dlechner@baylibre.com,
+	andy@kernel.org,
+	linux@analog.com,
+	linux-kernel@vger.kernel.org,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v4] staging: iio: adt7316: use kstrtobool() for sysfs boolean parsing
+Date: Sun, 18 Oct 2026 17:31:08 +0300
+Message-ID: <20261018143108.14750-1-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:rnoV9k6mQhqwtCYjmAbVRxizqFA0KIufM61bxII2JCW2Malc5Fa
- uRnmh4Ma3yceQyFQkgPykx88KnabvcjrRJQyzmeew6dF+K7qOwxubu2MnEsVNC7S6L4Stfl
- L/+gwNLRWAdxmTX0iy9ETLzsElhZ66aHAxcxOY/aC0bKYGjabSbz0Si4ouGKE19mJhVmzvO
- dYwtx84K3hZ/LOm315xvA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:nYCeqgIiivQ=;4Y0a7UiJ3lxOK0NYeso+fMMoi1h
- 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
+Content-Transfer-Encoding: 8bit
 
-The colorimetry signalled to the sink is part of the AVI infoframe,
-which is only updated on a modeset. A change of the colorspace
-property therefore never reaches the sink.
+Replace manual character checks (e.g., buf[0] == '1') with the standard
+kstrtobool() API in sysfs store functions.
 
-Treat a colorspace change like a change of the Broadcast RGB, output
-bpc or output format, and force a modeset.
+Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+---
+Changes in v4:
+- Removed Joshua's Reviewed-by tag.
 
-Signed-off-by: Jan Clau=C3=9Fen <jan.claussen10@web.de>
-=2D--
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Changes in v3:
+- Change _adt7316_store_enabled() parameter type from int to bool to match callers (Andy Shevchenko).
+- Update adt7316_disable() and adt7316_enable() to pass false/true instead of 0/1 (Andy Shevchenko).
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu=
-/drm/display/drm_hdmi_state_helper.c
-index 7cdb7ca3dc12..9368e53c5945 100644
-=2D-- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -925,7 +925,8 @@ int drm_atomic_helper_connector_hdmi_check(struct drm_=
-connector *connector,
-=20
- 	if (old_conn_state->hdmi.broadcast_rgb !=3D new_conn_state->hdmi.broadca=
-st_rgb ||
- 	    old_conn_state->hdmi.output_bpc !=3D new_conn_state->hdmi.output_bpc=
- ||
--	    old_conn_state->hdmi.output_format !=3D new_conn_state->hdmi.output_=
-format) {
-+	    old_conn_state->hdmi.output_format !=3D new_conn_state->hdmi.output_=
-format ||
-+	    old_conn_state->colorspace !=3D new_conn_state->colorspace) {
- 		struct drm_crtc *crtc =3D new_conn_state->crtc;
- 		struct drm_crtc_state *crtc_state;
-=20
-=2D-=20
-2.56.0
+Changes in v2:
+- Include <linux/kstrtox.h>.
+- Rename the boolean variable from 'req' to 'val' for clarity.
+- Add Reviewed-by tag from Joshua Crofts.
+
+ drivers/staging/iio/addac/adt7316.c | 101 ++++++++++++++++++++++------
+ 1 file changed, 81 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/staging/iio/addac/adt7316.c b/drivers/staging/iio/addac/adt7316.c
+index 20f6052cc7fb..ec1c33ad5ace 100644
+--- a/drivers/staging/iio/addac/adt7316.c
++++ b/drivers/staging/iio/addac/adt7316.c
+@@ -17,6 +17,7 @@
+ #include <linux/i2c.h>
+ #include <linux/rtc.h>
+ #include <linux/module.h>
++#include <linux/kstrtox.h>
+ 
+ #include <linux/iio/iio.h>
+ #include <linux/iio/events.h>
+@@ -220,7 +221,7 @@ static ssize_t adt7316_show_enabled(struct device *dev,
+ }
+ 
+ static ssize_t _adt7316_store_enabled(struct adt7316_chip_info *chip,
+-				      int enable)
++				      bool enable)
+ {
+ 	u8 config1;
+ 	int ret;
+@@ -246,12 +247,12 @@ static ssize_t adt7316_store_enabled(struct device *dev,
+ {
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+-	int enable;
++	bool enable;
++	int ret;
+ 
+-	if (buf[0] == '1')
+-		enable = 1;
+-	else
+-		enable = 0;
++	ret = kstrtobool(buf, &enable);
++	if (ret)
++		return ret;
+ 
+ 	if (_adt7316_store_enabled(chip, enable) < 0)
+ 		return -EIO;
+@@ -285,13 +286,18 @@ static ssize_t adt7316_store_select_ex_temp(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config1;
++	bool val;
+ 	int ret;
+ 
+ 	if ((chip->id & ID_FAMILY_MASK) != ID_ADT75XX)
+ 		return -EPERM;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	config1 = chip->config1 & (~ADT7516_SEL_EX_TEMP);
+-	if (buf[0] == '1')
++	if (val)
+ 		config1 |= ADT7516_SEL_EX_TEMP;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG1, config1);
+@@ -482,10 +488,15 @@ static ssize_t adt7316_store_disable_averaging(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config2;
++	bool val;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	config2 = chip->config2 & (~ADT7316_DISABLE_AVERAGING);
+-	if (buf[0] == '1')
++	if (val)
+ 		config2 |= ADT7316_DISABLE_AVERAGING;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG2, config2);
+@@ -521,10 +532,15 @@ static ssize_t adt7316_store_enable_smbus_timeout(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config2;
++	bool val;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	config2 = chip->config2 & (~ADT7316_EN_SMBUS_TIMEOUT);
+-	if (buf[0] == '1')
++	if (val)
+ 		config2 |= ADT7316_EN_SMBUS_TIMEOUT;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG2, config2);
+@@ -559,10 +575,15 @@ static ssize_t adt7316_store_powerdown(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config1;
++	bool val;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	config1 = chip->config1 & (~ADT7316_PD);
+-	if (buf[0] == '1')
++	if (val)
+ 		config1 |= ADT7316_PD;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG1, config1);
+@@ -597,10 +618,15 @@ static ssize_t adt7316_store_fast_ad_clock(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config3;
++	bool val;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	config3 = chip->config3 & (~ADT7316_ADCLK_22_5);
+-	if (buf[0] == '1')
++	if (val)
+ 		config3 |= ADT7316_ADCLK_22_5;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
+@@ -640,13 +666,18 @@ static ssize_t adt7316_store_da_high_resolution(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config3;
++	bool val;
+ 	int ret;
+ 
+ 	if (chip->id == ID_ADT7318 || chip->id == ID_ADT7519)
+ 		return -EPERM;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	config3 = chip->config3 & (~ADT7316_DA_HIGH_RESOLUTION);
+-	if (buf[0] == '1')
++	if (val)
+ 		config3 |= ADT7316_DA_HIGH_RESOLUTION;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
+@@ -685,12 +716,17 @@ static ssize_t adt7316_store_AIN_internal_Vref(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config3;
++	bool val;
+ 	int ret;
+ 
+ 	if ((chip->id & ID_FAMILY_MASK) != ID_ADT75XX)
+ 		return -EPERM;
+ 
+-	if (buf[0] != '1')
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
++	if (!val)
+ 		config3 = chip->config3 & (~ADT7516_AIN_IN_VREF);
+ 	else
+ 		config3 = chip->config3 | ADT7516_AIN_IN_VREF;
+@@ -728,10 +764,15 @@ static ssize_t adt7316_store_enable_prop_DACA(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config3;
++	bool val;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	config3 = chip->config3 & (~ADT7316_EN_IN_TEMP_PROP_DACA);
+-	if (buf[0] == '1')
++	if (val)
+ 		config3 |= ADT7316_EN_IN_TEMP_PROP_DACA;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
+@@ -767,10 +808,15 @@ static ssize_t adt7316_store_enable_prop_DACB(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config3;
++	bool val;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	config3 = chip->config3 & (~ADT7316_EN_EX_TEMP_PROP_DACB);
+-	if (buf[0] == '1')
++	if (val)
+ 		config3 |= ADT7316_EN_EX_TEMP_PROP_DACB;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
+@@ -967,10 +1013,15 @@ static ssize_t adt7316_store_DA_AB_Vref_bypass(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 dac_config;
++	bool val;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	dac_config = chip->dac_config & (~ADT7316_VREF_BYPASS_DAC_AB);
+-	if (buf[0] == '1')
++	if (val)
+ 		dac_config |= ADT7316_VREF_BYPASS_DAC_AB;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_DAC_CONFIG, dac_config);
+@@ -1006,10 +1057,15 @@ static ssize_t adt7316_store_DA_CD_Vref_bypass(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 dac_config;
++	bool val;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	dac_config = chip->dac_config & (~ADT7316_VREF_BYPASS_DAC_CD);
+-	if (buf[0] == '1')
++	if (val)
+ 		dac_config |= ADT7316_VREF_BYPASS_DAC_CD;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_DAC_CONFIG, dac_config);
+@@ -1969,10 +2025,15 @@ static ssize_t adt7316_set_int_enabled(struct device *dev,
+ 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 	u8 config1;
++	bool val;
+ 	int ret;
+ 
++	ret = kstrtobool(buf, &val);
++	if (ret)
++		return ret;
++
+ 	config1 = chip->config1 & (~ADT7316_INT_EN);
+-	if (buf[0] == '1')
++	if (val)
+ 		config1 |= ADT7316_INT_EN;
+ 
+ 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG1, config1);
+@@ -2084,7 +2145,7 @@ static int adt7316_disable(struct device *dev)
+ 	struct iio_dev *dev_info = dev_get_drvdata(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 
+-	return _adt7316_store_enabled(chip, 0);
++	return _adt7316_store_enabled(chip, false);
+ }
+ 
+ static int adt7316_enable(struct device *dev)
+@@ -2092,7 +2153,7 @@ static int adt7316_enable(struct device *dev)
+ 	struct iio_dev *dev_info = dev_get_drvdata(dev);
+ 	struct adt7316_chip_info *chip = iio_priv(dev_info);
+ 
+-	return _adt7316_store_enabled(chip, 1);
++	return _adt7316_store_enabled(chip, true);
+ }
+ 
+ EXPORT_GPL_SIMPLE_DEV_PM_OPS(adt7316_pm_ops, adt7316_disable, adt7316_enable);
+-- 
+2.54.0
 
