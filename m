@@ -1,63 +1,63 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DCE4B923B
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E694C2270
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 13:57:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792331860; cv=none; b=FV1iKA2KI7dS769oM/BY12H5v8wFOq7MWxuX1HnGHFrwvjFAYddSPQfxbe2dXJK4KKMV0WOA7Gl9NhAa2MTeQTj2Pu6TThm/VC7paiajcGeL3vyg6Vy5+FCY8ZF8ldmRHrEBx3r9YHFj44AxU2tiP2zujyoMbIQ/H98JGKgtgj8=
+	t=1792331862; cv=none; b=UAReZSIHayXmJ4MOrSck+0GhBTimjUM2wZBmuUtuEaAVYbyGVgVtTJUq6e03fjB24ytQsWTKXs5eiDLbdxBAbb65vaeVRnBWqZ+ZoBNW95QLGu3x0BH+SuGBDPpvc52njRmhcKnZOacRYC203VZlEKDGqaaDlbigw634Gu24HGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792331860; c=relaxed/simple;
-	bh=JgbsXmeGM3IPhuwkjx2qdHvZpjaPrclkCL16FAjgun4=;
+	s=arc-20240116; t=1792331862; c=relaxed/simple;
+	bh=VlvgQ/fPnzlNeZ/d8s9JUAo0EmaICESF7BtkezSt8MM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NowftLfesofDdqoQGHcOxpwnta3hn9NiAjRxSSW9+ieMSMUjufW/Dh41VlK1l04Fm0exqqOl988dfLENXGKikOdGyBa9qBOweUdbzYfAt6Mln52MTugH5tc6gco54uWx+ZLj4Kj9c9sqmzFxGNxctoeDc8kx6lLNxUaZ2mjnuwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ptpg5Hpt; arc=none smtp.client-ip=74.125.82.169
+	 MIME-Version; b=P3UT7roys3mExZrUxAUTS9MSbBjF/ST2HvVejoRTmmKd0d00vDv6fDiP69u74iLc4UXwfKR4G/dE+V2QPWQnlaXZ3/6G8xS7BABoiNA+fudYgH0UuaFr55h4Jk61QQD9eZzux2D35Sv66hd16lNYc66bqFeTnF/zE3brhZp+gC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m1KBnCm0; arc=none smtp.client-ip=74.125.82.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ptpg5Hpt"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-354ba08cfd1so2174625eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:57:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m1KBnCm0"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35f1f76ea84so2314982eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 06:57:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792331858; x=1792936658; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792331860; x=1792936660; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oUbBraO3pFQWfVGdbbFYqo3e+uawDNeGdfaAp9s49Zk=;
-        b=ptpg5HptUAnzrT6e6RoyLnsgkcUwcbd1ZBYY7Q7rTEv6Qnzk3XracQex+xfyQIpB1I
-         mRq2Z/6D3FdMtISH+q4zFAmX36zXbscDwewm6GdQayrPOpfYuzvVYtw4lZiE1vrb1DOJ
-         pCgQq3P62apvpjiAD4cJYaktELo3SSowvMPs2PJyC+BCVJ0QBTOwGhtDLth8b0nXdzyM
-         O/4REIL7ViFNEy1czhAx1LuOszNhEv7KxYbA9ZBDSPiRduqwrDumNQiMjgpPW1aXJwUg
-         HJZ2RaPndMCNJUw+R8MJ0/ucPwtvFdcz/G+Qi+0CgQ8++7Sk2kO4m11WOsdkyYKHkwEE
-         q6MQ==
+        bh=BtTnOVNUm4BmMYxyMUgfuuBNnwTj7EfEu/u6UU5rBMU=;
+        b=m1KBnCm0961tLcDbENV1WCphvCcmAtARgJ+UL+nPcvL7diRXg2KI0GoeaV17DaJpVK
+         lejsVT18z2Y7uzKnV5Nhuw+8Ob0rz/huahZQbQ6MPRaHqedhG8XsCvdIo3pjmfgbBULy
+         312vc2E7w4VVWOH4/eMk2iLHYr06dIXu9QIWaW3wbbRGuXc0gdnWMIMTpm3B+pYKCMAZ
+         tjv6tFjqpCce/pS1YwjxVNllGPZA8yLq+PBVvMJ6sLGXK0djFT9RcQSN0u34bRMfAPsG
+         ilSRiSFYTHA6msIMUyb8muoAHCQvIZNPHpvu0LBs0kIMnIyKFSlkWjatBf3I6GxxIkfC
+         nW0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792331858; x=1792936658;
+        d=1e100.net; s=20260707; t=1792331860; x=1792936660;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oUbBraO3pFQWfVGdbbFYqo3e+uawDNeGdfaAp9s49Zk=;
-        b=JO5i030zSia4jxN9kGuVXq1EOFZuBOSN7yHTwWQdFky18uV16U7tFSBgloLKMC1XWt
-         f5JcLh4xTupRIAthd3DGLaP1f7QohVphaub35H9+vEHI9cbVI6YEdsSm+RVeDRC1thJR
-         pUp+zxfwLyjxV3FnsT6kl9T8gisPCdgrlRqVSj8HS9zeQe4/xTeqC9KKyYUq8IZBOIqr
-         khWfQWMRIm/wGgcfYZ7ECMX77tV6QQ0ZcOno6lWoBRnpjkJjoFZMnBUq9hHijAbtYoUo
-         4ym5aNdFySGFwrlIEMw5+rPABam8CI0xg5GFiZCXCy6A7Oy8BSDxGfrDKeoVu3P5Ar1K
-         OnxA==
-X-Gm-Message-State: AFq9FYLwgji+OtU06OnlW1/ql7DKkxiRSx1mLKfso7kCh9QFuzAc690H
-	vBHJGK7zLzJS6ccWJJ/bC/CaKpFuJrZGVLyZvG+qJA5uAEK0bBd+zP+wWbTMmEt1
-X-Gm-Gg: AYBFou2HN3yktZAPaAxvlP+OJK6gG1UDtY/fhjmpeoz/g3ElzjPBiZoHCzU2M6kadZ4
-	Nu/+tFZ0swdxRgOoWNSWkG15zxHMsjm/pKh+RLS1zP8s942HJMadnEWfv/Pu+Bw/d5QnIq6CeM4
-	86g7QytOsAs9qyWlbc3CdfTB2xt9VoUW0QG8UdhRmeJjx/bwajMKwbYV3/DPeWkVHShikCi8NgG
-	MiV/gEP6dT09A9Kcbhxq+2R96cidtX1ZYxkWrKcF/HasfcSWANWClZOlZKo13d5AgQ/W3WrwsMI
-	5HnVr2z8Ua2uXtQns+sphr8hEczuFXMWWvl0dxYU9cOA4QD9aPclX6IrDQ31j/GWqpPRnEuXH2+
-	ripr8ZgX+9wjnzzuPV5gE+yhoHw/Ft6ZGjGCe7B67ZWbjIQleVi3EfUicPg3BmM7Mmmxe9pxuPM
-	Yj/QQ57iiJ8t0JREvaGCw+z5qgjq5sVQrHdDy0JvSbqphWYz75sTLyFf3/aMvM92JICyGFopgql
-	ruqqH0y2rDIZR7mWeEkuRv3SFW1HcsoDSGlo8Z+8MmRtMtQ+nUL
-X-Received: by 2002:a05:693c:8810:10b0:361:aff7:6cc with SMTP id 5a478bee46e88-361aff70ae2mr7610910eec.19.1792331857942;
-        Sun, 18 Oct 2026 06:57:37 -0700 (PDT)
+        bh=BtTnOVNUm4BmMYxyMUgfuuBNnwTj7EfEu/u6UU5rBMU=;
+        b=yKhyypfTNApdv5V4f+NsPsobvKYlymmlRqK7vSil0pce4a49alyDx4r5YRzF+fI6Z3
+         iUk3N4ZVDPK3TdVLY4lDadHrXIauSaAH5vcRKqDelSL9sZZhlwyMIRpWoSXyeAlbxE0h
+         QF39+8aEkV2Z9DhwwrdXkUdIyEahlkQEBk4ePD4R4G3jloWPJ+s4VPEBQPuTM5m8R9G6
+         eFsyQuvQMjNxolk/Yj7aISiVhsRTWhIhKwc+TGaddxgRS1/LgonEbRgofzmipdfwalAY
+         QmDoJFJA+gO58hFZ65qJccboOCHKMZyS1kaZOI3fX+RLKAPBiWXKykWPopaWa6GACvwR
+         VTVQ==
+X-Gm-Message-State: AFq9FYI90tdEA74uf2A1ytWCj4xUEL9SpKrG5ABcVoGoPa2A8GhRfQ7u
+	cnaLfiVyX/mxf09Kdz16cJehLV1l6PfuxVdBL9Ybbxtv5OcePEhGcUqMiy5sX1uy
+X-Gm-Gg: AYBFou3eltPA+IWHo+8LwlFj7tQAyiCCWxkx2CIqHzZBWRE1sabW6MxRht+pn9PpaQO
+	u8wJOafcYdt1Ju+afwinlbfxWkGl6e/7KCFMTMVFKOlUsidtzlZM3/l5QQ9wlxKd5OYpm7sbzYG
+	7P2G7FixfN3/UyXvWyA61m2abPLpip5CByZNWqDANUHDnnpjzF8kP11czF0kPalS4qI7mSbpivB
+	iEgJ28tqbzXQSRd5sxzwGjXyj0rHdX40WgluUrlwdmk7pJ+8ogcNDMqux7ZXdkoLAMfWgu4wbbr
+	sZB8mQIaamj/ASX0WFM18TWjB688jgCO1mS6BbUqdNGYUNd1pVvIggiifAZUbEYXy0BJ4m2PGJY
+	Lx5xz8KBAwveR6d6TMVmHyAevzNySfpH+n1JbEM09Y8ofRv3bVuPCWQI8CQYNpa80/j7ROLxtdh
+	jRbZCmYEkHPCgdWAIXZ25Pann6rsFxXAhukpjuvJBDK++06XsDdxRsy2cholLT0C9PcqkiNboks
+	f1W1IJq4QRZLkIZB+TqmULUJ3JUYj1ZCA0N/oFA9cU=
+X-Received: by 2002:a05:693c:8353:b0:34d:2c1a:9892 with SMTP id 5a478bee46e88-361a274b361mr7381421eec.40.1792331860411;
+        Sun, 18 Oct 2026 06:57:40 -0700 (PDT)
 Received: from Biostar-A520MT.. ([187.94.15.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6791sm27653533eec.6.2026.10.18.06.57.35
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6791sm27653533eec.6.2026.10.18.06.57.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 06:57:37 -0700 (PDT)
+        Sun, 18 Oct 2026 06:57:39 -0700 (PDT)
 From: Breno Rodrigues Alves <breno3011alves@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: Andy Whitcroft <apw@canonical.com>,
@@ -65,9 +65,9 @@ Cc: Andy Whitcroft <apw@canonical.com>,
 	Dwaipayan Ray <dwaipayanray1@gmail.com>,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
 	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [RFC PATCH v2 3/7] scripts: convert extract-sys-certs.pl to Python
-Date: Sun, 18 Oct 2026 10:57:18 -0300
-Message-ID: <20261018135722.27410-4-breno3011alves@gmail.com>
+Subject: [RFC PATCH v2 4/7] scripts: convert headerdep.pl to Python
+Date: Sun, 18 Oct 2026 10:57:19 -0300
+Message-ID: <20261018135722.27410-5-breno3011alves@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261018135722.27410-1-breno3011alves@gmail.com>
 References: <20261018112838.16355-1-breno3011alves@gmail.com>
@@ -80,153 +80,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Faithful re-implementation of extract-sys-certs.pl in Python 3
-(stdlib only). Same vmlinux section-table parsing, same symbol
-lookup (nm with System.map fallback), same VMA-to-file-offset
-translation.
+Faithful re-implementation of headerdep.pl in Python 3
+(stdlib only). Same include graph construction, same cycle
+detection, same GraphViz output mode (--graph).
 
-Requires a vmlinux with the system certificate list to fully
-test; logic is 1:1 with the Perl version.
+Verified byte-for-byte identical to the Perl version on a
+synthetic cyclic include chain.
 
 Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
 ---
- scripts/extract-sys-certs.py | 132 +++++++++++++++++++++++++++++++++++
- 1 file changed, 132 insertions(+)
- create mode 100755 scripts/extract-sys-certs.py
+ scripts/headerdep.py | 137 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 137 insertions(+)
+ create mode 100755 scripts/headerdep.py
 
-diff --git a/scripts/extract-sys-certs.py b/scripts/extract-sys-certs.py
+diff --git a/scripts/headerdep.py b/scripts/headerdep.py
 new file mode 100755
-index 000000000..92a414eb3
+index 000000000..4b9a57ab1
 --- /dev/null
-+++ b/scripts/extract-sys-certs.py
-@@ -0,0 +1,132 @@
++++ b/scripts/headerdep.py
+@@ -0,0 +1,137 @@
 +#!/usr/bin/env python3
 +# SPDX-License-Identifier: GPL-2.0
 +#
-+# extract-sys-certs.py [-s <systemmap-file>] <vmlinux-file> <keyring-file>
++# Detect cycles in the header file dependency graph.
++# Vegard Nossum <vegardno@ifi.uio.no>
 +
++import argparse
++import os
 +import re
-+import subprocess
 +import sys
 +
-+RE_SECTION = re.compile(
-+    r'\s*([0-9]+)\s+(\S+)\s+([0-9a-f]+)\s+([0-9a-f]+)\s+'
-+    r'([0-9a-f]+)\s+([0-9a-f]+)\s+2\*\*([0-9]+)')
-+RE_SYMBOL = re.compile(r'([0-9a-f]+)\s([a-zA-Z])\s(\S+)')
++deps = {}
++opt_include = []
 +
 +
-+def parse_symbols(lines):
-+    syms = {}
-+    n = 0
-+    for line in lines:
-+        m = RE_SYMBOL.search(line)
-+        if m:
-+            syms[m.group(3)] = int(m.group(1), 16)
-+            n += 1
-+    return syms, n
++def strip(filename):
++    for inc in opt_include:
++        prefix = inc + '/'
++        if filename.startswith(prefix):
++            return filename[len(prefix):]
++    return filename
++
++
++def search(filename):
++    if os.path.isfile(filename):
++        return filename
++    for inc in opt_include:
++        path = f'{inc}/{filename}'
++        if os.path.isfile(path):
++            return path
++    return None
++
++
++def parse_all(headers):
++    queue = list(headers)
++    while queue:
++        h = queue.pop()
++        if h in deps:
++            continue
++        deps[h] = []
++        path = search(h)
++        if path is None:
++            continue
++        with open(path) as f:
++            lines = f.readlines()
++        for i, line in enumerate(lines):
++            m = re.match(r'^#\s*include\s*<(.*?)>', line)
++            if m:
++                dep = m.group(1)
++                queue.append(dep)
++                deps[h].append((i + 1, dep))
++
++
++def print_cycle(cycle):
++    # Shift line numbers to align with the "In file included" message
++    cycle = list(cycle)
++    for i in range(len(cycle) - 1):
++        cycle[i] = (cycle[i + 1][0], cycle[i][1])
++    cycle[-1] = (0, cycle[-1][1])
++
++    first = cycle.pop(0)
++    last = cycle.pop() if cycle else None
++
++    msg = 'In file included'
++    if last is not None:
++        print(f'{msg} from {last[1]},')
++    for hdr in reversed(cycle):
++        marker = ' <-- here' if last is not None and hdr[1] == last[1] else ''
++        print(f'{" " * len(msg)} from {hdr[1]}:{hdr[0]}{marker}')
++    print(f'{first[1]}:{first[0]}: warning: recursive header inclusion')
++
++
++def detect_cycles(headers, opt_all):
++    queue = [[(0, h)] for h in headers]
++    while queue:
++        top = queue.pop()
++        name = top[-1][1]
++        for dep in deps.get(name, []):
++            chain = top + [(dep[0], dep[1])]
++            if any(c[1] == dep[1] for c in top):
++                print_cycle(chain)
++                if not opt_all:
++                    return
++                continue
++            queue.append(chain)
++
++
++def mangle(name):
++    return name.replace('/', '__').replace('.', '_').replace('-', '_')
++
++
++def graph():
++    print('digraph {')
++    print()
++    print('\t/* vertices */')
++    for h in deps:
++        print(f'\t{mangle(h)} [label="{h}"];')
++    print()
++    print('\t/* edges */')
++    for h in deps:
++        for dep in deps[h]:
++            print(f'\t{mangle(h)} -> {mangle(dep[1])};')
++    print('}')
 +
 +
 +def main(argv):
-+    args = list(argv)
-+    sysmap = ''
-+    if len(args) == 4 and args[0] == '-s':
-+        sysmap = args[1]
-+        args = args[2:]
-+    elif len(args) != 2:
-+        sys.exit(f'Format: {sys.argv[0]} [-s <systemmap-file>] '
-+                 f'<vmlinux-file> <keyring-file>')
++    global opt_include
 +
-+    vmlinux, keyring = args
++    p = argparse.ArgumentParser(add_help=False)
++    p.add_argument('--all', action='store_true')
++    p.add_argument('--graph', action='store_true')
++    p.add_argument('-I', dest='includes', action='append', default=[])
++    p.add_argument('files', nargs='*')
++    p.add_argument('-h', '--help', '--version', action='store_true')
++    args = p.parse_args(argv)
 +
-+    try:
-+        objdump_out = subprocess.check_output(
-+            ['objdump', '-h', vmlinux], text=True)
-+    except (subprocess.CalledProcessError, FileNotFoundError) as e:
-+        sys.exit(f'{vmlinux}: {e}')
++    if args.help:
++        print(f'Usage: {sys.argv[0]} [options] file...')
++        return 0
 +
-+    sections = []
-+    for line in objdump_out.splitlines():
-+        m = RE_SECTION.search(line)
-+        if not m:
-+            continue
-+        sections.append({
-+            'name': m.group(2),
-+            'len': int(m.group(3), 16),
-+            'vma': int(m.group(4), 16),
-+            'foff': int(m.group(6), 16),
-+        })
++    opt_include = list(args.includes) + ['include']
++    # Match Perl: grep { strip($_) } keeps the ORIGINAL path, using
++    # strip() only as a truthiness filter. This makes deps keys
++    # consistent with the Perl version (e.g. 'include/x.h', not 'x.h').
++    headers = [h for h in args.files if strip(h)]
 +
-+    print(f'Have {len(sections)} sections')
++    parse_all(headers)
 +
-+    try:
-+        nm_out = subprocess.check_output(
-+            ['nm', vmlinux], text=True, stderr=subprocess.DEVNULL)
-+    except (subprocess.CalledProcessError, FileNotFoundError):
-+        nm_out = ''
-+
-+    symbols, nr = parse_symbols(nm_out.splitlines())
-+
-+    if nr == 0 and sysmap:
-+        print(f'No symbols in vmlinux, trying {sysmap}')
-+        with open(sysmap) as f:
-+            symbols, nr = parse_symbols(f.readlines())
-+
-+    if nr == 0:
-+        sys.exit('No symbols available')
-+    print(f'Have {nr} symbols')
-+
-+    if '__cert_list_start' not in symbols or \
-+            'system_certificate_list_size' not in symbols:
-+        sys.exit("Can't find system certificate list")
-+
-+    start = symbols['__cert_list_start']
-+    size_sym = symbols['system_certificate_list_size']
-+
-+    found = None
-+    size = 0
-+    buf = b''
-+    with open(vmlinux, 'rb') as f:
-+        for sec in sections:
-+            s_vma = sec['vma']
-+            s_len = sec['len']
-+            s_vend = s_vma + s_len
-+
-+            if start < s_vma or start >= s_vend:
-+                continue
-+
-+            if size_sym < s_vma or size_sym > s_vend:
-+                sys.exit('Certificate list size was not found on the same section')
-+
-+            if found is not None:
-+                sys.exit(f"Cert object in multiple sections: "
-+                         f"{sec['name']} and {found['name']}")
-+
-+            size_off = size_sym - s_vma + sec['foff']
-+            f.seek(size_off)
-+            packed = f.read(8)
-+            if len(packed) != 8:
-+                sys.exit(vmlinux)
-+            size = int.from_bytes(packed, sys.byteorder)
-+            end = start + size
-+
-+            print(f'Have {size} bytes of certs at VMA 0x{start:x}')
-+            if end > s_vend:
-+                sys.exit(f"Cert object partially overflows section {sec['name']}")
-+            found = sec
-+
-+        if found is None:
-+            sys.exit('Cert object not inside a section')
-+
-+        print(f"Certificate list in section {found['name']}")
-+        foff = start - found['vma'] + found['foff']
-+        print(f'Certificate list at file offset 0x{foff:x}')
-+        f.seek(foff)
-+        buf = f.read(size)
-+        if len(buf) != size:
-+            sys.exit(f'Short read on {vmlinux}')
-+
-+    with open(keyring, 'wb') as f:
-+        f.write(buf)
++    if args.graph:
++        graph()
++    else:
++        detect_cycles(headers, args.all)
 +    return 0
 +
 +
