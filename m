@@ -1,373 +1,214 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FAC43711C
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48DC4AA416
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 14:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792333940; cv=none; b=rEwf1K6s/VtCWdGFce2DirxJ6urETa+2N9DTIvVop8cFy43VbLIfnEWYDw58nYzjAJRGP4ZKqHc7HukTo984DaiMxwccTAbpfbHgL3CdHTfBNh/NOxTXyivJY9XEo4hulkp5NzxZBGLBVm7AjYJ2GgXbh99XLwl5M1VGi1ACS3I=
+	t=1792333957; cv=none; b=hkkTUtVCoRhlU5cmVw/aqNKkp8v7lDYbGr/58zZoausvRz9QcRjK/VoPTVKmU5513vwF32kFTdGWqZY0pirfZe0zcaocqT/ge4rcqOZwfyUjFihIBpAIfITyj/3IXMyuzY70vPgqHc3e2Tz2PKAF6Ag6iuU8AD29Jxh6fICxLec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792333940; c=relaxed/simple;
-	bh=hO1lb9C3PGd2eLddLtW3HNb9sxEOVVq71jcipiN125w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mjLswTvn4t/zeMluaA2pR1gU26847iwsxG8bVRr8lbucw0TjS8Lo7aMMo5PzPPjVFNFXWss/O4S0qwf/jw0EGHs6B458tpv9njQZaEr3R8fqJk8xEXlvaDFIYQb1iCCkmXleiu9K5r2fB+qR/Cmx5uIAo9ElUtcT+EDFL1rbMhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bFqW2MBe; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792333957; c=relaxed/simple;
+	bh=PKJTlDVAjSSCiZ4sse/d9hXP8acgrgKHHDNHT4z8ufs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=htaZSAaoGzjYMoeWw0h5jPZrncqFizwlDXV/nEapZuUq6CICmh9ogevtew6FY8W3/m2KoQTeLwwL3TrkCr7NZdOr6RzveTK9GnXpFpWFQETvmiPdChJrRSOdxBvrH/I8LjvSGMB147SjW6wcGcONsmIrng4Spx/yOqbtlUNTd3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=jan.claussen10@web.de header.b=QCDkCAmD; arc=none smtp.client-ip=212.227.15.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bFqW2MBe"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c5358fc28so1064147f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 07:32:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792333936; x=1792938736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zkN2oKFPPbg5tFRXQX1y714/CfymyQfd47i4DNaqs98=;
-        b=bFqW2MBeHK4bpq1BXa0fnCWeQBhl34e84cJWrzrZnAzrl/cZZNbNGLlWf0yKe3fV7p
-         MS6fgYJrVhsODcD7qRAnrMkdNmWja/nF9Rwu3QveNihkEkzabPmPSb8UyDhtmRQcuP11
-         HAFL5YTcKDGWr3qCiyqb6grEk8U4yiykCrbKIIKWq0RO2rgcLrm/uEW8F8BnRT3XVnWC
-         ZXrKAoaOJCOsW906FgfN+zFKkt1zAxhsteYPom0pMBnlRO3gvj2CvTcY9yksSieKCt4+
-         dUhWJ5EU/YqQshiBshDs/dzSKDywaCged0bS5O1VwLNcMI4LxMoSXUPw+HIgWFJs50Vy
-         RIyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792333936; x=1792938736;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zkN2oKFPPbg5tFRXQX1y714/CfymyQfd47i4DNaqs98=;
-        b=vmyElnK2a48BFnGdVwPstAnh0ziSr6DXTu/9LccFhlwW+s+5YxMarkCRS0i2hoxPt3
-         nHYpXSilxGDmfnYz41tb72+5IkYcLrxKN2YFnFm1u7Vn3w4zf6Dwow7YG2OA5Fn8zcKC
-         yWBJa7DCy3qiX2LXDIrU//nz6qO2ZLx+GpCfQQ7fsy3n7hY8GNUlINH5YJJYoQ9Xus7W
-         Zwk1QsvRnffwalBqrL6C3lKzju3o4S348brRxzXbdcihr72GMJjMHOY82KcrDc688MVg
-         Wdau/Vq1iByvtjIUAs+5+1/f2G3jP+oT4H9hQ6cgXSnEJc96AJXjjR8xPrIAJnfSSV9p
-         ujyA==
-X-Forwarded-Encrypted: i=1; AKwUvBwwQ8n9WKV9XYAnsIC10lb3fszGSrEyixkJfHVydfrgatFW2hJSOCaN2fQOJPpvoErdTidxIGNz/yxmUjs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYID4Pn2nSu0kCHc4X3C8C/631dlJdXmDhufYVgEVWEy+J6u0swe
-	NXABZhozxIF+kXW1AUTqixjp9+KWHiHknB7rHu2jWOC28jm0nzDR8FRi
-X-Gm-Gg: AYBFou1t8SCxn61aPcz3UDqTvK8PlsUF96TZY2d6RqeMKWWuMfPzumc7kFG2+VflLNE
-	2kLs4tGhx8F6QSxMY9qpypWg0r3so99n+MrST7Zg+pXUOXfHdGwLeexd/WRGZwaUQNxrMVU8M6q
-	rW+uxbVCsriA7Gw/hRd5OatojTdk6Vz6QbovfnEkWObwY7OALhSNCeMqkkA4QEzHPmrgfBzAyzl
-	1ahLxZmvFJXTzbZWObHWTU/DPF6PJ23uQuMRi3geVKXe/tq1lEFfcSD4LrjTztzMOwm1xlYOrqG
-	OCF4wOp3JjQuG+qPIirGFP3SGpX6M21GOF7xqpCNp3OwTtuVvFQhgBej41TCeHMAOLVDY57E6AY
-	1DENPFpuHfmE+j9SOPF0/iGEuFJlsDKi3GH6hI07jUTQwsZM4kgs1WHtrq2cTEhoWH8YOqt3bND
-	ygWv0pVCyszOY9NlaJfWxE4Ipt57BoMt7KQp0tqRvJx8SFBGn/Ijx4wFfUiXGoLyo6rrYzN6NiE
-	zSQ6oyrNPmH6L8iUkw=
-X-Received: by 2002:a05:6000:468d:b0:48d:fd4d:7fbf with SMTP id ffacd0b85a97d-48e07988954mr7012542f8f.4.1792333936135;
-        Sun, 18 Oct 2026 07:32:16 -0700 (PDT)
-Received: from fedora ([154.182.76.211])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4fe9d9sm16240317f8f.40.2026.10.18.07.32.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 07:32:15 -0700 (PDT)
-From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-To: jic23@kernel.org,
-	linux-iio@vger.kernel.org
-Cc: nuno.sa@analog.com,
-	Michael.Hennerich@analog.com,
-	dlechner@baylibre.com,
-	andy@kernel.org,
-	linux@analog.com,
-	linux-kernel@vger.kernel.org,
-	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Subject: [PATCH v4] staging: iio: adt7316: use kstrtobool() for sysfs boolean parsing
-Date: Sun, 18 Oct 2026 17:31:08 +0300
-Message-ID: <20261018143108.14750-1-abdelnasserhussein11@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=web.de header.i=jan.claussen10@web.de header.b="QCDkCAmD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1792333946; x=1792938746; i=jan.claussen10@web.de;
+	bh=BF/1P4AvrIIFA9XMFtkI38tLivXVyi3Hsju2semGjjo=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=QCDkCAmD9TGN65nu9dvswkZDYKUnW/VaokEIWuKElDfymUIiUQaP9XzDgLOEWSrh
+	 pxxrMN6ai9HFYgbzF1VBoIspBkul0rlHgh2aW2PldAjWovTORoGduHAGzJdN273I4
+	 ZTFSwoY41mxP6gHhm2dvacmnbJmIkhpFzNjRBKat/Z5uTJbIdqc7BdGwWbDe2Gb/k
+	 ZfDMidFzV/ow1WtQWCP5xTpflchBpqHeF5VncmxidSeAMTij5xTBv/liD5BT2jiQV
+	 e6/e3hJw8VFQZZah/kl9xxh/iwnZB49mmkbqcToFRy8qJRpWEnhWq2BFrJPG4sXnn
+	 ESVLyanyijWxwFN9ZA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MeUbo-1wi1Fu041s-00pK4h; Sun, 18
+ Oct 2026 16:32:26 +0200
+From: =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 3/7] drm/connector: hdmi: Create the colorspace property
+Date: Sun, 18 Oct 2026 16:31:09 +0200
+Message-ID: <20261018143135.5745-4-jan.claussen10@web.de>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261018143135.5745-1-jan.claussen10@web.de>
+References: <20261018143135.5745-1-jan.claussen10@web.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:MDo4pCISQZA70n+i0rtAfbWSnws4DuzLXd+f9w+mPTp4R36G4Ju
+ 4QmS2EF6XYLwSWopaZKeDm2CFYKoui1/NMHxm3Jw9ue7jcA/l+w+q9SStxVEiFKfJE5ACYx
+ iByKKfMYZY8ZdT6WkzQoMmCIl6VPSEqeJPABMBpCX6GBn4SqpYQ0wyMsxJ9UI6Mk5FxrNfA
+ Pc4v+EhVVvcD1QTi7y4Dg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:IG8STSxpLW4=;7QXhcRRHEmAno/u76itknQtOz3K
+ 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
+ oQtoi3rw==
 
-Replace manual character checks (e.g., buf[0] == '1') with the standard
-kstrtobool() API in sysfs store functions.
+HDMI connectors initialised through drmm_connector_hdmi_init() do not
+expose the colorspace property, so userspace cannot signal colorimetry
+such as BT.2020 for HDR output. KWin, for instance, does not offer HDR
+without it.
 
-Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
----
-Changes in v4:
-- Removed Joshua's Reviewed-by tag.
+Add a supported_colorspaces bitmask to struct drm_connector_hdmi_funcs.
+If a driver sets it, create and attach the colorspace property with
+the colorspaces it lists, next to the other HDMI properties.
 
-Changes in v3:
-- Change _adt7316_store_enabled() parameter type from int to bool to match callers (Andy Shevchenko).
-- Update adt7316_disable() and adt7316_enable() to pass false/true instead of 0/1 (Andy Shevchenko).
+Signed-off-by: Jan Clau=C3=9Fen <jan.claussen10@web.de>
+=2D--
+ drivers/gpu/drm/drm_connector.c | 9 +++++++++
+ include/drm/drm_connector.h     | 7 +++++++
+ 2 files changed, 16 insertions(+)
 
-Changes in v2:
-- Include <linux/kstrtox.h>.
-- Rename the boolean variable from 'req' to 'val' for clarity.
-- Add Reviewed-by tag from Joshua Crofts.
-
- drivers/staging/iio/addac/adt7316.c | 101 ++++++++++++++++++++++------
- 1 file changed, 81 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/staging/iio/addac/adt7316.c b/drivers/staging/iio/addac/adt7316.c
-index 20f6052cc7fb..ec1c33ad5ace 100644
---- a/drivers/staging/iio/addac/adt7316.c
-+++ b/drivers/staging/iio/addac/adt7316.c
-@@ -17,6 +17,7 @@
- #include <linux/i2c.h>
- #include <linux/rtc.h>
- #include <linux/module.h>
-+#include <linux/kstrtox.h>
- 
- #include <linux/iio/iio.h>
- #include <linux/iio/events.h>
-@@ -220,7 +221,7 @@ static ssize_t adt7316_show_enabled(struct device *dev,
- }
- 
- static ssize_t _adt7316_store_enabled(struct adt7316_chip_info *chip,
--				      int enable)
-+				      bool enable)
- {
- 	u8 config1;
- 	int ret;
-@@ -246,12 +247,12 @@ static ssize_t adt7316_store_enabled(struct device *dev,
- {
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
--	int enable;
-+	bool enable;
-+	int ret;
- 
--	if (buf[0] == '1')
--		enable = 1;
--	else
--		enable = 0;
-+	ret = kstrtobool(buf, &enable);
-+	if (ret)
-+		return ret;
- 
- 	if (_adt7316_store_enabled(chip, enable) < 0)
- 		return -EIO;
-@@ -285,13 +286,18 @@ static ssize_t adt7316_store_select_ex_temp(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 config1;
-+	bool val;
- 	int ret;
- 
- 	if ((chip->id & ID_FAMILY_MASK) != ID_ADT75XX)
- 		return -EPERM;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connect=
+or.c
+index 66f53e155342..eea27bb6557c 100644
+=2D-- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -672,6 +672,15 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 	/* TODO: remove after conversion to new drmm_connector_hdmi_init() */
+ 	connector->max_bpc =3D hdmi_funcs->max_bpc;
+=20
++	if (hdmi_funcs->supported_colorspaces) {
++		ret =3D drm_mode_create_hdmi_colorspace_property(connector,
++							       hdmi_funcs->supported_colorspaces);
++		if (ret)
++			return ret;
 +
- 	config1 = chip->config1 & (~ADT7516_SEL_EX_TEMP);
--	if (buf[0] == '1')
-+	if (val)
- 		config1 |= ADT7516_SEL_EX_TEMP;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG1, config1);
-@@ -482,10 +488,15 @@ static ssize_t adt7316_store_disable_averaging(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 config2;
-+	bool val;
- 	int ret;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
++		drm_connector_attach_colorspace_property(connector);
++	}
 +
- 	config2 = chip->config2 & (~ADT7316_DISABLE_AVERAGING);
--	if (buf[0] == '1')
-+	if (val)
- 		config2 |= ADT7316_DISABLE_AVERAGING;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG2, config2);
-@@ -521,10 +532,15 @@ static ssize_t adt7316_store_enable_smbus_timeout(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 config2;
-+	bool val;
- 	int ret;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
+ 	if (hdmi_funcs->max_bpc > 8)
+ 		drm_connector_attach_hdr_output_metadata_property(connector);
+=20
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 2ee7c59329aa..9d2d133463ba 100644
+=2D-- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1521,6 +1521,13 @@ struct drm_connector_hdmi_funcs {
+ 	 */
+ 	unsigned long supported_formats;
+=20
++	/**
++	 * @supported_colorspaces:
++	 *
++	 * Bitmask of &enum drm_colorspace listing supported color spaces.
++	 */
++	unsigned long supported_colorspaces;
 +
- 	config2 = chip->config2 & (~ADT7316_EN_SMBUS_TIMEOUT);
--	if (buf[0] == '1')
-+	if (val)
- 		config2 |= ADT7316_EN_SMBUS_TIMEOUT;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG2, config2);
-@@ -559,10 +575,15 @@ static ssize_t adt7316_store_powerdown(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 config1;
-+	bool val;
- 	int ret;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
-+
- 	config1 = chip->config1 & (~ADT7316_PD);
--	if (buf[0] == '1')
-+	if (val)
- 		config1 |= ADT7316_PD;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG1, config1);
-@@ -597,10 +618,15 @@ static ssize_t adt7316_store_fast_ad_clock(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 config3;
-+	bool val;
- 	int ret;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
-+
- 	config3 = chip->config3 & (~ADT7316_ADCLK_22_5);
--	if (buf[0] == '1')
-+	if (val)
- 		config3 |= ADT7316_ADCLK_22_5;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
-@@ -640,13 +666,18 @@ static ssize_t adt7316_store_da_high_resolution(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 config3;
-+	bool val;
- 	int ret;
- 
- 	if (chip->id == ID_ADT7318 || chip->id == ID_ADT7519)
- 		return -EPERM;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
-+
- 	config3 = chip->config3 & (~ADT7316_DA_HIGH_RESOLUTION);
--	if (buf[0] == '1')
-+	if (val)
- 		config3 |= ADT7316_DA_HIGH_RESOLUTION;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
-@@ -685,12 +716,17 @@ static ssize_t adt7316_store_AIN_internal_Vref(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 config3;
-+	bool val;
- 	int ret;
- 
- 	if ((chip->id & ID_FAMILY_MASK) != ID_ADT75XX)
- 		return -EPERM;
- 
--	if (buf[0] != '1')
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
-+
-+	if (!val)
- 		config3 = chip->config3 & (~ADT7516_AIN_IN_VREF);
- 	else
- 		config3 = chip->config3 | ADT7516_AIN_IN_VREF;
-@@ -728,10 +764,15 @@ static ssize_t adt7316_store_enable_prop_DACA(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 config3;
-+	bool val;
- 	int ret;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
-+
- 	config3 = chip->config3 & (~ADT7316_EN_IN_TEMP_PROP_DACA);
--	if (buf[0] == '1')
-+	if (val)
- 		config3 |= ADT7316_EN_IN_TEMP_PROP_DACA;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
-@@ -767,10 +808,15 @@ static ssize_t adt7316_store_enable_prop_DACB(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 config3;
-+	bool val;
- 	int ret;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
-+
- 	config3 = chip->config3 & (~ADT7316_EN_EX_TEMP_PROP_DACB);
--	if (buf[0] == '1')
-+	if (val)
- 		config3 |= ADT7316_EN_EX_TEMP_PROP_DACB;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG3, config3);
-@@ -967,10 +1013,15 @@ static ssize_t adt7316_store_DA_AB_Vref_bypass(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 dac_config;
-+	bool val;
- 	int ret;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
-+
- 	dac_config = chip->dac_config & (~ADT7316_VREF_BYPASS_DAC_AB);
--	if (buf[0] == '1')
-+	if (val)
- 		dac_config |= ADT7316_VREF_BYPASS_DAC_AB;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_DAC_CONFIG, dac_config);
-@@ -1006,10 +1057,15 @@ static ssize_t adt7316_store_DA_CD_Vref_bypass(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 dac_config;
-+	bool val;
- 	int ret;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
-+
- 	dac_config = chip->dac_config & (~ADT7316_VREF_BYPASS_DAC_CD);
--	if (buf[0] == '1')
-+	if (val)
- 		dac_config |= ADT7316_VREF_BYPASS_DAC_CD;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_DAC_CONFIG, dac_config);
-@@ -1969,10 +2025,15 @@ static ssize_t adt7316_set_int_enabled(struct device *dev,
- 	struct iio_dev *dev_info = dev_to_iio_dev(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 	u8 config1;
-+	bool val;
- 	int ret;
- 
-+	ret = kstrtobool(buf, &val);
-+	if (ret)
-+		return ret;
-+
- 	config1 = chip->config1 & (~ADT7316_INT_EN);
--	if (buf[0] == '1')
-+	if (val)
- 		config1 |= ADT7316_INT_EN;
- 
- 	ret = chip->bus.write(chip->bus.client, ADT7316_CONFIG1, config1);
-@@ -2084,7 +2145,7 @@ static int adt7316_disable(struct device *dev)
- 	struct iio_dev *dev_info = dev_get_drvdata(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 
--	return _adt7316_store_enabled(chip, 0);
-+	return _adt7316_store_enabled(chip, false);
- }
- 
- static int adt7316_enable(struct device *dev)
-@@ -2092,7 +2153,7 @@ static int adt7316_enable(struct device *dev)
- 	struct iio_dev *dev_info = dev_get_drvdata(dev);
- 	struct adt7316_chip_info *chip = iio_priv(dev_info);
- 
--	return _adt7316_store_enabled(chip, 1);
-+	return _adt7316_store_enabled(chip, true);
- }
- 
- EXPORT_GPL_SIMPLE_DEV_PM_OPS(adt7316_pm_ops, adt7316_disable, adt7316_enable);
--- 
-2.54.0
+ 	/**
+ 	 * @max_bpc: Maximum bits per char the HDMI connector supports.
+ 	 */
+=2D-=20
+2.56.0
 
