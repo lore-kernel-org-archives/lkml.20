@@ -1,30 +1,32 @@
 Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1C73CBE8F;
-	Sun, 18 Oct 2026 12:27:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B14545A2A0;
+	Sun, 18 Oct 2026 12:27:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792326468; cv=none; b=YGssEAprEXDFVKP9I39YUil3TciCQMP+mSpqufsslXSKaR4+ZtvN5VDe+fVkfdSjRB+rWfdiSMG1SiTXyrTrZDLN0rtb6cEaz3Fm0fGjuYnb6ftZiIMPHRP1YEneVSq+aArbT2vTD/NkiU6PhHtUpP6GDEpUf9x5k9ATrfeBsEg=
+	t=1792326468; cv=none; b=l71r2uLm4n2Sz4CIZe1cCi/2irtsccPFglqI3l22TEZQcEfE/V5p3EEAFM3l5vUVH4wVgF1hAbqJOrloJpR17pT41ZEWie2JOTj9Y0HOtdXPsStc6GCPrtaOu4dycvBDH7yREUyCuuTY5+kX81XEHIwUElAhZHDRYQMUjaRJUP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792326468; c=relaxed/simple;
-	bh=GmmF0QJRdzpzhmf7Q064KOktoztMoNkAQCm3dNg3dno=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d32JX3V7xNdV58Xt1c6OpY6TtisCZSqEZ/LijpCs3SJE2wMGRQVty8c9RrpbM/SPA/q6GrUJCGzRIwhM7xF6R2o/FDqPNFeHcC+gi83xnd0FoVu+YTZgyb3Kx6D8ild9izEQg8LthJQaG98BgOAv/Hquy7JbFTwNSSgOAlNWilI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=XOKoEzin; arc=none smtp.client-ip=91.189.121.228
+	bh=Ld+ygGJfbu8w+PlgG4RYQTM9l4FqkoF6C1OSp+IuHnU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TCkwaMqUaYl99tXknx5ko194tthQgRtLow5a+lHmaGGTAg/M/EN16d27BNIMHB3au80h6wAFdMNLmkm8wWQIOFx/+tE85e+rwHzWl4F5AHcMYRpX8+PGevb4F8a+1Q6RchZR43PVGpzyqQV420bUAhysF/2F6CEPlsqePppWcss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=CXbp6ygD; arc=none smtp.client-ip=91.189.121.228
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="XOKoEzin"
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="CXbp6ygD"
 From: Stian Halseth <stian@itx.no>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
 	t=1792326465;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=lYkr+husjlk64iLj9K/N8BDK8HbaHvelmyk4t5RYKIE=;
-	b=XOKoEzinrSofyoPTQy8RmxgyigBmHkTwjEOouaBzs8DaJgvpEgGuYf07MTNk1r0plL//ZT
-	BhI62j8GlGTUsiIpOsu24dFCaeyKTIQAzabV3NasVEXyjBK5rPW1grKH1LFlDtHsHTvkcr
-	Q5OWUXMigj0q607Gji1n3040QHYYx8U=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4Txe+udQ287O1wqGtPm5D/O405MfUgofaZ8ktocn6Qo=;
+	b=CXbp6ygDR4mch8ZkAo7K+mbmv97iMMp3lHwhKEoUyzdAxA2hvatFtwtwnCkU3hIejNan9s
+	q6IiEUMiFdFoTMBFJZn5G7YyQP3B8IAsq7RaSC+gkSF5b3KI3RPrQkeXpLSoJBsqNxwweb
+	oEOdRRjjlrdWiKjMGdW1otfjsW7iPvo=
 To: Andreas Larsson <andreas@gaisler.com>,
 	"David S . Miller" <davem@davemloft.net>
 Cc: Kees Cook <kees@kernel.org>,
@@ -34,9 +36,11 @@ Cc: Kees Cook <kees@kernel.org>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Stian Halseth <stian@itx.no>
-Subject: [PATCH v2 0/3] sparc64: Randomize mmap base and PIE executables
-Date: Sun, 18 Oct 2026 14:27:31 +0200
-Message-ID: <20261018122734.2594904-1-stian@itx.no>
+Subject: [PATCH v2 3/3] sparc64: Randomize the load address of PIE executables
+Date: Sun, 18 Oct 2026 14:27:34 +0200
+Message-ID: <20261018122734.2594904-4-stian@itx.no>
+In-Reply-To: <20261018122734.2594904-1-stian@itx.no>
+References: <20261018122734.2594904-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,49 +49,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On sparc64 a 64-bit process gets little address space randomization:
-the stack moves, but shared libraries, anonymous mappings, PIE
-executables and the brk heap land at the same address on every run.
+On sparc64 every PIE executable (ET_DYN with PT_INTERP) is loaded at
+exactly ELF_ET_DYN_BASE, with its brk heap at a fixed offset after it.
+The stack and the mmap base are randomized; the program image and brk
+are not.
 
-Patch 1 makes arch_get_unmapped_area() start at the randomized
-mm->mmap_base again, which it has ignored since v3.8. Patch 2 moves the
-32-bit PIE base out of the legacy mmap area, so that patch 3 can select
-ARCH_HAS_ELF_RANDOMIZE and randomize PIE executables and brk as on
-other architectures.
+load_elf_binary() adds arch_mmap_rnd() to the load bias and calls
+arch_randomize_brk(), but without ARCH_HAS_ELF_RANDOMIZE both are
+no-ops. sparc64 already has a suitable mmap_rnd() for the mmap base.
+Rename it to arch_mmap_rnd(), add arch_randomize_brk() with the ranges
+x86 and the generic version use, and select ARCH_HAS_ELF_RANDOMIZE.
 
-Found while adding PIE support to the sparc64 Go port:
-https://github.com/sparclinux/issues/issues/119
+Closes: https://github.com/sparclinux/issues/issues/119
+Tested-by: Jan Engelhardt <jengelh@inai.de>
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
+ .../features/vm/ELF-ASLR/arch-support.txt          |  2 +-
+ arch/sparc/Kconfig                                 |  1 +
+ arch/sparc/kernel/sys_sparc_64.c                   | 14 ++++++++++++--
+ 3 files changed, 14 insertions(+), 3 deletions(-)
 
-Tested on a T4-1 and a T7-1 (sun4v) and a V240 (sun4u), with 64-bit and
-32-bit userland. With the series the program image, brk, shared
-libraries and mmap base move between runs, and with
-randomize_va_space=0 or setarch -R the layout is the same as before.
-The exec and mm selftests, glibc's elf and nptl tests, the Python test
-suite and a kernel build give the same results with and without the
-series.
-
-Changes in v2:
-- New patch 2: move COMPAT_ELF_ET_DYN_BASE below the 32-bit legacy mmap
-  base, so a 32-bit PIE and the brk of an explicitly executed loader no
-  longer land in the mmap area (Sashiko). Tested on the T4 with 32-bit
-  userland, including PIEs with large p_align.
-- Add Jan's Tested-by to patches 1 and 3.
-
-v1: https://lore.kernel.org/all/20261017100451.2266781-1-stian@itx.no/
-
-Stian Halseth (3):
-  sparc64: Start bottom-up mmap searches at mm->mmap_base
-  sparc64: Move the 32-bit PIE base below the legacy mmap base
-  sparc64: Randomize the load address of PIE executables
-
- .../features/vm/ELF-ASLR/arch-support.txt      |  2 +-
- arch/sparc/Kconfig                             |  1 +
- arch/sparc/include/asm/elf_64.h                |  2 +-
- arch/sparc/kernel/sys_sparc_64.c               | 18 ++++++++++++++----
- 4 files changed, 17 insertions(+), 6 deletions(-)
-
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+diff --git a/Documentation/features/vm/ELF-ASLR/arch-support.txt b/Documentation/features/vm/ELF-ASLR/arch-support.txt
+index 57406c0d53531..d4a34c9fbae86 100644
+--- a/Documentation/features/vm/ELF-ASLR/arch-support.txt
++++ b/Documentation/features/vm/ELF-ASLR/arch-support.txt
+@@ -24,7 +24,7 @@
+     |       riscv: |  ok  |
+     |        s390: |  ok  |
+     |          sh: | TODO |
+-    |       sparc: | TODO |
++    |       sparc: |  ok  |
+     |          um: | TODO |
+     |         x86: |  ok  |
+     |      xtensa: | TODO |
+diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
+index ab77d3f2536e1..82c989b9e7831 100644
+--- a/arch/sparc/Kconfig
++++ b/arch/sparc/Kconfig
+@@ -71,6 +71,7 @@ config SPARC64
+ 	def_bool 64BIT
+ 	select ALTERNATE_USER_ADDRESS_SPACE
+ 	select ARCH_HAS_DELAY_TIMER
++	select ARCH_HAS_ELF_RANDOMIZE
+ 	select HAVE_FUNCTION_TRACER
+ 	select HAVE_FUNCTION_GRAPH_TRACER
+ 	select HAVE_KRETPROBES
+diff --git a/arch/sparc/kernel/sys_sparc_64.c b/arch/sparc/kernel/sys_sparc_64.c
+index 087595fa43081..2948d5769e768 100644
+--- a/arch/sparc/kernel/sys_sparc_64.c
++++ b/arch/sparc/kernel/sys_sparc_64.c
+@@ -26,6 +26,8 @@
+ #include <linux/ipc.h>
+ #include <linux/personality.h>
+ #include <linux/random.h>
++#include <linux/elf-randomize.h>
++#include <linux/sizes.h>
+ #include <linux/export.h>
+ #include <linux/context_tracking.h>
+ #include <linux/timex.h>
+@@ -280,7 +282,7 @@ unsigned long get_fb_unmapped_area(struct file *filp, unsigned long orig_addr, u
+ EXPORT_SYMBOL(get_fb_unmapped_area);
+ 
+ /* Essentially the same as PowerPC.  */
+-static unsigned long mmap_rnd(void)
++unsigned long arch_mmap_rnd(void)
+ {
+ 	unsigned long rnd = 0UL;
+ 
+@@ -294,9 +296,17 @@ static unsigned long mmap_rnd(void)
+ 	return rnd << PAGE_SHIFT;
+ }
+ 
++unsigned long arch_randomize_brk(struct mm_struct *mm)
++{
++	if (test_thread_flag(TIF_32BIT))
++		return randomize_page(mm->brk, SZ_32M);
++
++	return randomize_page(mm->brk, SZ_1G);
++}
++
+ void arch_pick_mmap_layout(struct mm_struct *mm, const struct rlimit *rlim_stack)
+ {
+-	unsigned long random_factor = mmap_rnd();
++	unsigned long random_factor = arch_mmap_rnd();
+ 	unsigned long gap;
+ 
+ 	/*
 -- 
 2.43.0
 
