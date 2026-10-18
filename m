@@ -1,43 +1,41 @@
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F33E3CC32E;
-	Sun, 18 Oct 2026 15:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958E635BDDB;
+	Sun, 18 Oct 2026 15:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338801; cv=none; b=XbwxnXwmT4N+8zkGTrQaWO56XyJ2T1yw0MPIMnSD/5D5cBxmIwGKw79bHy2RrbmSKcTn+q9YwRLgH3a0OcEzEcWMxHtFdzc4QZ5a6nszlTuEScd4oAPouRU2srjTv9fweSwzKZqt6qVT8hHeVtztvzRtIXxpOQFLRu0zR/psXVI=
+	t=1792338779; cv=none; b=l8m1uMwcWVPQASK6xIpDX9KTgftaItrMqK/4O55GJ/aFzxXJoR8vtCUGtiZXkCkiCVI6uN3r0ekP2oQFG/IFoxfj1tKjJhRo28F9nfp+igi6W9g6PqTqpIQz5wCQ2eus7/qUjED1S4pbx+nZbF5jk3OUeKsJ3Vo0uGPNpzCiXLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338801; c=relaxed/simple;
-	bh=i1EzgNJL2S9vOfb5HZhYVap6XLyQf3vqrUkue/U4mNE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=E+lrU3m6sI3CnhOc9XmF7br8IpJiB8p4n317CI9tjlD4VJsyjmXzl0sHIjuxntftLYnQDhjAMKBh3ca9mJQ7+7esomVVD0bnX/zqWFW7SWV4BpsRRNaaql9oMpBkVwyzmBrHlCGTaVkw2kfAL/dsZEYgxAmG7/g/5gqOAIRTsvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=VtoHCC/S; arc=none smtp.client-ip=185.226.149.38
+	s=arc-20240116; t=1792338779; c=relaxed/simple;
+	bh=bSY+Wg81R5doIrPXunpAxMdUOlcqaqggcKkKzyktlqg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fikk3vizYloLSTbo2q51n9o6MolkpN/HpFsq+UdV8UGnKOfCUsnQZSk/Yyxk2uq9w4haHQm7NexPiB53+5LBkkP6Lj8CYIK5US4OVwrTL7O9UIwlH45Jg6yqXxTT//4AKP2bS+QF/BB0/39htL0TvArpvIvFk8BEpVkG+93/8z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=VRtGmRPq; arc=none smtp.client-ip=185.226.149.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="VtoHCC/S"
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="VRtGmRPq"
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITC4-001KBK-JB; Sun, 18 Oct 2026 17:53:04 +0200
+	id 1xITBj-000IYJ-Gb; Sun, 18 Oct 2026 17:52:43 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
-	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
-	:Message-Id:Date:Subject:Cc:To:From;
-	bh=onZbcfovHqzmXwY+mqMgdCZsa6Vs2UJUZMC/6Kvk400=; b=VtoHCC/ShOmdtVZsIgjjMtmLyX
-	OaSjp7vE0I8DcveP2RFBRqKH6cnQBSEHtET+vCTGd6Er6c42m5OpR+RVTmJgUBi7DyH0AaPSpTsdi
-	6nbyThM759mUrzFIfTDxa1l2rio/bMYlqRYybjNbKCESsUz+y6AUku1pv5/SLTJ9jV/LBCgNuymrw
-	y9YYgekMCUghktRFJ29zWc/csj2qdUVlIi13NcKLDr2iFMvdSA7XOx2YFXfxFxSPeOFf+2G86Rc4s
-	6VLzdKx3V1tIAj/q+lhSKb9h22Oji0Lmnjp/6xLwqJCdccEnVAmLnMQPKpdHlzY5NJjpfnTribNnn
-	9gDh/mhA==;
+	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=Zo28feUDuI1/SUSfNI7MWlmWtcDRYT1SZvODl6HstRw=; b=VRtGmR
+	Pqx9kofe1R0E3/bf5dSzWgSl7t2ZFLDpyBAnuMgHB8t+ibDrEB6+0FI4GG0WCWzWr7/2cvzWL0Y+l
+	9JXdtjerVh4FeQbdK0UaLqm0vyXPxaJgosc0gjDXxkETTvu8RqSaoEllPqKu6WU0aRYUSUa/HYAJM
+	iJ0OWTLRNluk/AlyLQl5HpRpL8ICl+Ls2sw61KYk1qWxm9PsJhjG+s8SkT+zMMWjF9H+eCoE/9+IF
+	zYJTLDVA44Yuckg8Mnv3w/EkED6F0V3BWQlS0+BBSBc+2m6GChKZwqB6nusLVyXljn1Kau+1Obkw9
+	N1nFwGiDacvnuh5ULu9FAB/6J12Q==;
 Received: from [10.9.9.74] (helo=submission03.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITBz-0001pi-Av; Sun, 18 Oct 2026 17:52:59 +0200
+	id 1xITBd-00009n-KH; Sun, 18 Oct 2026 17:52:37 +0200
 Received: by submission03.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.95)
-	id 1xITBi-004q3U-Pv;
-	Sun, 18 Oct 2026 17:52:42 +0200
+	id 1xITBW-004q3U-VE;
+	Sun, 18 Oct 2026 17:52:31 +0200
 From: David Laight <david.laight.linux@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Petr Mladek <pmladek@suse.com>,
@@ -51,12 +49,10 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: Luis Chamberlain <mcgrof@kernel.org>,
 	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
 	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH v2 next 10/15] kallsyms: scripts/kallsyms: Rename some variables for clarity
-Date: Sun, 18 Oct 2026 16:52:01 +0100
-Message-Id: <20261018155206.132411-11-david.laight.linux@gmail.com>
+Subject: [PATCH v2 next 00/15] kallsyms: optimise symbol search by name
+Date: Sun, 18 Oct 2026 16:51:51 +0100
+Message-Id: <20261018155206.132411-1-david.laight.linux@gmail.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261018155206.132411-1-david.laight.linux@gmail.com>
-References: <20261018155206.132411-1-david.laight.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,397 +61,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rename the array that holds the symbol table from table[] to symbol[].
-The typical use is then symbol[i] - giving the data for the i'th symbol.
-Rename table_size to symbol_table_size and table_cnt to symbol_cnt to match.
-Save repetetive code by using struct sym_entry *se = symbol[i] in loops.
-(That might make the code better because it saves reloading the pointers,
-or make it worse because it causes a spill to stack.)
+These patches speed up the lookup of symbol names by a factor of about 18
+while both reducing the size of the compressed data by 9.5% (for my kernel)
+and speeding up the compression code itself.
+As well as improving the normal symbol lookup, looking up symbols that occur
+a lot of times is also massively improved.
 
-Add a comment block explaining token_profit[] (it used to have a short
-comment when it was the 'profit' field of a struct) and add defines
-LEFT(), RIGHT() and PAIR() for converting token pairs to/from indexes.
+Patch 1 is a stack buffer overrun - but in a program run during the build
+    so is isn't that improtant.
+Patches 2 and 4 are minor fixes.
+Patch 3 is a big update to the selftest output to make it less affected by
+    interrupts (etc) and visually more obvious.
+Patch 5 is from Jim Cromie and optimises the name compare.
+    I think this is the final version of his patch, but any one will do.
+    The following patches are built on top of it.
+Patches 6 and 7 improve the search by name code.
+Patches 8 and 9 make the 'marker density' a kernel build option and change
+    the default from 1:256 to 1:64 (one bit for two symbols).
+    This change gives a 33% improvement on top of that from patches 6 and 7.
+Patches 10 and 11 are preparatory changes to scripts/kallsyms.c.
+Patch 12 speeds up the compression code by about 50%, it will be a more
+    for kernels with a lot of long symbol names.
+    Reading and writing the files isn't quick, but is faster than the
+    compression code.
+Patch 13 reuses unused compression tokens to improve the compression ratio.
+    (Patch 11 means they don't have to be kept to expand tokens.)
+Patch 14 just shortens the output file.
+    I didn't go as far as replacing all the printf("%u", x) with
+    fputs(str[x], stdout) - but that is a lot faster.
+Patch 15 improves the compression ratio by splitting little used tokens so that
+    they can be used for more common token pairs.
 
-Put the two arrays that contain info about the tokens used the
-compressed data into an 'array of struct'.
-This should give better d-cache locality.
-No idea why they were called best_table[] - the search gives the
-'best token' but the value is a 'token' not a 'best'.
-(You can't use 'symbol' for the compression output because the code
-is compressing a symbol table.)
+Most of the testing was done with a rather hacked together userspace wrapper
+that contains enough #defines to compile the kernel files as a user program.
+The program and its Makefile could be commited somewhere - suggestions?
 
-No logic changes and the output file is unchanged.
+As well as my normal kernel (I've booted a kernel containing most of the changes)
+I've run the tests on an x86-64 allyesconfig build, the timings are similar.
+I've not run the selftests on the allyesconfig with the original code - I don't
+want to think how long it would take!
 
-Signed-off-by: David Laight <david.laight.linux@gmail.com>
----
- scripts/kallsyms.c | 154 ++++++++++++++++++++++++---------------------
- 1 file changed, 83 insertions(+), 71 deletions(-)
+Some test ouput...
 
-diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-index d2d3ac8c33a1..5603b2a6c77b 100644
---- a/scripts/kallsyms.c
-+++ b/scripts/kallsyms.c
-@@ -54,19 +54,29 @@ static struct addr_range text_ranges[] = {
- #define text_range_text     (&text_ranges[0])
- #define text_range_inittext (&text_ranges[1])
- 
--static struct sym_entry **table;
--static unsigned int table_size, table_cnt;
-+static struct sym_entry **symbol;
-+static unsigned int symbol_table_size, symbol_cnt;
- static int all_symbols;
- static int pc_relative;
- /* Default to one kallsyms_markers[] entry for each 256 symbols */
- static unsigned long marker_shift = 8;
- 
-+/*
-+ * token_profit[PAIR(left, right)] is the number of times the characters
-+ * left and right appear adjacent (in that order) and is usually the same
-+ * as the number of bytes saved (the profit) by replacing the pair with
-+ * a single byte token.
-+ */
-+#define LEFT(pair) ((pair) & 0xff)
-+#define RIGHT(pair) ((pair) >> 8)
-+#define PAIR(left, right) ((left) | (right) << 8)
- static int token_profit[0x10000];
- 
- /* the table that holds the result of the compression */
--static unsigned char best_table[256][2];
--static unsigned char best_table_len[256];
--
-+static struct token_table {
-+	unsigned short len;
-+	unsigned char  ch[2];
-+} token_table[256];
- 
- static void usage(void)
- {
-@@ -234,16 +244,16 @@ static void shrink_table(void)
- 	unsigned int i, pos;
- 
- 	pos = 0;
--	for (i = 0; i < table_cnt; i++) {
--		if (symbol_valid(table[i])) {
-+	for (i = 0; i < symbol_cnt; i++) {
-+		if (symbol_valid(symbol[i])) {
- 			if (pos != i)
--				table[pos] = table[i];
-+				symbol[pos] = symbol[i];
- 			pos++;
- 		} else {
--			free(table[i]);
-+			free(symbol[i]);
- 		}
- 	}
--	table_cnt = pos;
-+	symbol_cnt = pos;
- }
- 
- static void read_map(const char *in)
-@@ -262,14 +272,14 @@ static void read_map(const char *in)
- 		if (!sym)
- 			continue;
- 
--		sym->seq = table_cnt;
-+		sym->seq = symbol_cnt;
- 
--		if (table_cnt >= table_size) {
--			table_size += 10000;
--			table = xrealloc(table, sizeof(*table) * table_size);
-+		if (symbol_cnt >= symbol_table_size) {
-+			symbol_table_size += 10000;
-+			symbol = xrealloc(symbol, sizeof(*symbol) * symbol_table_size);
- 		}
- 
--		table[table_cnt++] = sym;
-+		symbol[symbol_cnt++] = sym;
- 	}
- 
- 	free(buf);
-@@ -301,12 +311,12 @@ static int expand_symbol(const unsigned char *data, int len, char *result)
- 		c = *data;
- 		/* if the table holds a single char that is the same as the one
- 		 * we are looking for, then end the search */
--		if (best_table[c][0]==c && best_table_len[c]==1) {
-+		if (token_table[c].ch[0] == c && token_table[c].len == 1) {
- 			*result++ = c;
- 			total++;
- 		} else {
- 			/* if not, recurse and expand */
--			rlen = expand_symbol(best_table[c], best_table_len[c], result);
-+			rlen = expand_symbol(token_table[c].ch, token_table[c].len, result);
- 			total += rlen;
- 			result += rlen;
- 		}
-@@ -340,7 +350,7 @@ static int compare_names(const void *a, const void *b)
- 
- static void sort_symbols_by_name(void)
- {
--	qsort(table, table_cnt, sizeof(table[0]), compare_names);
-+	qsort(symbol, symbol_cnt, sizeof(symbol[0]), compare_names);
- }
- 
- static void write_src(void)
-@@ -348,46 +358,47 @@ static void write_src(void)
- 	unsigned int i, k, off, off_size, table_size;
- 	unsigned int best_idx[256];
- 	char buf[1 + KSYM_NAME_LEN];
-+	struct sym_entry *se;
- 
- 	printf("\t.section .rodata, \"a\"\n");
- 
--	output_value("kallsyms_num_syms", table_cnt);
-+	output_value("kallsyms_num_syms", symbol_cnt);
- 
- 	output_label("kallsyms_names");
- 	off = 0;
--	for (i = 0; i < table_cnt; i++) {
--		table[i]->seq = off;
-+	for (i = 0; i < symbol_cnt; i++) {
-+		se = symbol[i];
-+		se->seq = off;
- 
- 		/* There cannot be any symbol of length zero. */
--		if (table[i]->len == 0)
-+		if (se->len == 0)
- 			errx(1, "unexpected zero symbol length");
- 
- 		/* Only lengths that fit in up-to-two-byte ULEB128 are supported. */
--		if (table[i]->len > 0x3FFF)
-+		if (se->len > 0x3FFF)
- 			errx(1, "unexpected huge symbol length");
- 
- 		/* Encode length with ULEB128. */
--		if (table[i]->len <= 0x7F) {
-+		if (se->len <= 0x7F) {
- 			/* Most symbols use a single byte for the length. */
--			printf("\t.byte 0x%02x", table[i]->len);
--			off += table[i]->len + 1;
-+			printf("\t.byte 0x%02x", se->len);
-+			off += se->len + 1;
- 		} else {
- 			/* "Big" symbols use two bytes. */
- 			printf("\t.byte 0x%02x, 0x%02x",
--				(table[i]->len & 0x7F) | 0x80,
--				(table[i]->len >> 7) & 0x7F);
--			off += table[i]->len + 2;
-+				(se->len & 0x7F) | 0x80, (se->len >> 7) & 0x7F);
-+			off += se->len + 2;
- 		}
--		for (k = 0; k < table[i]->len; k++)
--			printf(", 0x%02x", table[i]->sym[k]);
-+		for (k = 0; k < se->len; k++)
-+			printf(", 0x%02x", se->sym[k]);
- 
- 		/*
- 		 * Now that we wrote out the compressed symbol name, restore the
- 		 * original name and print it in the comment.
- 		 */
--		expand_symbol(table[i]->sym, table[i]->len, buf);
--		strcpy((char *)table[i]->sym, buf);
--		printf("\t/* %s */\n", table[i]->sym);
-+		expand_symbol(se->sym, se->len, buf);
-+		strcpy((char *)se->sym, buf);
-+		printf("\t/* %s */\n", se->sym);
- 	}
- 	table_size = off;
- 	printf(".size kallsyms_names, . - kallsyms_names\n");
-@@ -395,8 +406,8 @@ static void write_src(void)
- 
- 	output_value("kallsyms_marker_shift", marker_shift);
- 	output_label("kallsyms_markers");
--	for (i = 0; i < table_cnt; i += 1u << marker_shift)
--		printf("\t.long\t%u\n", table[i]->seq);
-+	for (i = 0; i < symbol_cnt; i += 1u << marker_shift)
-+		printf("\t.long\t%u\n", symbol[i]->seq);
- 	printf(".size kallsyms_markers, . - kallsyms_markers\n");
- 	printf("\n");
- 
-@@ -404,7 +415,7 @@ static void write_src(void)
- 	off = 0;
- 	for (i = 0; i < 256; i++) {
- 		best_idx[i] = off;
--		expand_symbol(best_table[i], best_table_len[i], buf);
-+		expand_symbol(token_table[i].ch, token_table[i].len, buf);
- 		printf("\t.asciz\t\"%s\"\n", buf);
- 		off += strlen(buf) + 1;
- 	}
-@@ -418,18 +429,19 @@ static void write_src(void)
- 
- 	output_label("kallsyms_offsets");
- 
--	for (i = 0; i < table_cnt; i++) {
-+	for (i = 0; i < symbol_cnt; i++) {
-+		se = symbol[i];
- 		if (pc_relative) {
--			long long offset = table[i]->addr - _text;
-+			long long offset = se->addr - _text;
- 
- 			if (offset < INT_MIN || offset > INT_MAX)
- 				errx(1, "relative symbol value %#llx out of range",
--				     table[i]->addr);
-+				     se->addr);
- 			printf("\t.long\t_text - . + (%d)\t/* %s */\n",
--			       (int)offset, table[i]->sym);
-+			       (int)offset, se->sym);
- 		} else {
- 			printf("\t.long\t%#x\t/* %s */\n",
--			       (unsigned int)table[i]->addr, table[i]->sym);
-+			       (unsigned int)se->addr, se->sym);
- 		}
- 	}
- 	printf(".size kallsyms_offsets, . - kallsyms_offsets\n");
-@@ -439,9 +451,10 @@ static void write_src(void)
- 	off_size = table_size < (1u << 23) ? 24 : 32;
- 	output_value("kallsyms_off_size", off_size);
- 	output_label(off_size == 24 ? "kallsyms_off_24_of_names" : "kallsyms_off_32_of_names");
--	for (i = 0; i < table_cnt; i++) {
--		off = table[i]->seq << 1;
--		if (i && !strcmp((char *)table[i - 1]->sym + 1, (char *)table[i]->sym + 1))
-+	for (i = 0; i < symbol_cnt; i++) {
-+		se = symbol[i];
-+		off = se->seq << 1;
-+		if (i && !strcmp((char *)symbol[i - 1]->sym + 1, (char *)se->sym + 1))
- 			/* Mark that this is a duplicate of the previous symbol */
- 			off |= 1;
- 		if (off_size == 24) {
-@@ -449,10 +462,9 @@ static void write_src(void)
- 			off = __builtin_bswap32(off) >> 8;
- #endif
- 			printf("\t.byte\t0x%02x, 0x%02x, 0x%02x\t/* %s */\n",
--				off & 0xff, (off >> 8) & 0xff, off >> 16,
--			       table[i]->sym);
-+				off & 0xff, (off >> 8) & 0xff, off >> 16, se->sym);
- 		} else {
--			printf("\t.long\t%#04x\t/* %s */\n", off, table[i]->sym);
-+			printf("\t.long\t%#04x\t/* %s */\n", off, se->sym);
- 		}
- 	}
- 	/* Terminator without the 'duplicate' flag. */
-@@ -471,21 +483,21 @@ static void write_src(void)
- /* table lookup compression functions */
- 
- /* count all the possible tokens in a symbol */
--static void learn_symbol(const unsigned char *symbol, int len)
-+static void learn_symbol(const unsigned char *sym, int len)
- {
- 	int i;
- 
- 	for (i = 0; i < len - 1; i++)
--		token_profit[ symbol[i] + (symbol[i + 1] << 8) ]++;
-+		token_profit[PAIR(sym[i], sym[i + 1])]++;
- }
- 
- /* decrease the count for all the possible tokens in a symbol */
--static void forget_symbol(const unsigned char *symbol, int len)
-+static void forget_symbol(const unsigned char *sym, int len)
- {
- 	int i;
- 
- 	for (i = 0; i < len - 1; i++)
--		token_profit[ symbol[i] + (symbol[i + 1] << 8) ]--;
-+		token_profit[PAIR(sym[i], sym[i + 1])]--;
- }
- 
- /* do the initial token count */
-@@ -493,8 +505,8 @@ static void build_initial_token_table(void)
- {
- 	unsigned int i;
- 
--	for (i = 0; i < table_cnt; i++)
--		learn_symbol(table[i]->sym, table[i]->len);
-+	for (i = 0; i < symbol_cnt; i++)
-+		learn_symbol(symbol[i]->sym, symbol[i]->len);
- }
- 
- static unsigned char *find_token(unsigned char *str, int len,
-@@ -516,17 +528,17 @@ static void compress_symbols(const unsigned char *str, int idx)
- 	unsigned int i, len, size;
- 	unsigned char *p1, *p2;
- 
--	for (i = 0; i < table_cnt; i++) {
-+	for (i = 0; i < symbol_cnt; i++) {
- 
--		len = table[i]->len;
--		p1 = table[i]->sym;
-+		len = symbol[i]->len;
-+		p1 = symbol[i]->sym;
- 
- 		/* find the token on the symbol */
- 		p2 = find_token(p1, len, str);
- 		if (!p2) continue;
- 
- 		/* decrease the counts for this symbol's tokens */
--		forget_symbol(table[i]->sym, len);
-+		forget_symbol(symbol[i]->sym, len);
- 
- 		size = len;
- 
-@@ -545,10 +557,10 @@ static void compress_symbols(const unsigned char *str, int idx)
- 
- 		} while (p2);
- 
--		table[i]->len = len;
-+		symbol[i]->len = len;
- 
- 		/* increase the counts for this symbol's new tokens */
--		learn_symbol(table[i]->sym, len);
-+		learn_symbol(symbol[i]->sym, len);
- 	}
- }
- 
-@@ -580,7 +592,7 @@ static void optimize_result(void)
- 
- 		/* if this table slot is empty (it is not used by an actual
- 		 * original char code */
--		if (!best_table_len[i]) {
-+		if (!token_table[i].len) {
- 
- 			/* find the token with the best profit value */
- 			best = find_best_token();
-@@ -588,12 +600,12 @@ static void optimize_result(void)
- 				break;
- 
- 			/* place it in the "best" table */
--			best_table_len[i] = 2;
--			best_table[i][0] = best & 0xFF;
--			best_table[i][1] = (best >> 8) & 0xFF;
-+			token_table[i].len = 2;
-+			token_table[i].ch[0] = LEFT(best);
-+			token_table[i].ch[1] = RIGHT(best);
- 
- 			/* replace this token in all the valid symbols */
--			compress_symbols(best_table[i], i);
-+			compress_symbols(token_table[i].ch, i);
- 		}
- 	}
- }
-@@ -603,11 +615,11 @@ static void insert_real_symbols_in_table(void)
- {
- 	unsigned int i, j, c;
- 
--	for (i = 0; i < table_cnt; i++) {
--		for (j = 0; j < table[i]->len; j++) {
--			c = table[i]->sym[j];
--			best_table[c][0]=c;
--			best_table_len[c]=1;
-+	for (i = 0; i < symbol_cnt; i++) {
-+		for (j = 0; j < symbol[i]->len; j++) {
-+			c = symbol[i]->sym[j];
-+			token_table[c].ch[0] = c;
-+			token_table[c].len = 1;
- 		}
- 	}
- }
-@@ -692,7 +704,7 @@ static int compare_symbols(const void *a, const void *b)
- 
- static void sort_symbols(void)
- {
--	qsort(table, table_cnt, sizeof(table[0]), compare_symbols);
-+	qsort(symbol, symbol_cnt, sizeof(symbol[0]), compare_symbols);
- }
- 
- int main(int argc, char **argv)
+kallsyms_selftest output (run in a userspace wrapper).
+The results are comparable to each other, but the in-kernel results
+seem to be faster (possibly due to optimisation choices for functions
+like memcpy().
+
+TL;DR
+The average value is a much better indication of speed than the
+fastest (usually the middle of the table).
+The slow times are likely to be worse than the figures imply, the tests
+take long enough that the cpu clock frequency is likely to increase.
+
+Baseline (based  on 7.3.0-rc4):
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1584006   |      2969490  |  53.34   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7507638 ns
+kallsyms_on_each_match_symbol() traverse all: 9418 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 3753 ns
+	fastest 341 ns (bpf_get_netns_cookie_sock_ops_proto)
+	slowest 78069 ns (__func__.0)
+	Distribution, 1280ns per column, 8714 counts per *:
+	|  *
+	|  *
+	|  *
+	|  *
+	|  **
+	| ***
+	| ***
+	|************ ****************                 ***************
+
+After 'Match compressed tokens on the fly during binary search'.
+This doesn't make much difference (yet) because the linear scan dominates.
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1584006   |      2969490  |  53.34   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7521035 ns
+kallsyms_on_each_match_symbol() traverse all: 7986 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 3661 ns
+	fastest 411 ns (pciehp_poll_mode)
+	slowest 76677 ns (__func__.0)
+	Distribution, 1280ns per column, 8759 counts per *:
+	|  *
+	|  *
+	|  *
+	|  *
+	|  *
+	| ***
+	| ***
+	|******** *  *   **    **   **                            ***
+
+After 'Optimise symbol name search'.
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1584006   |      2969490  |  53.34   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7547445 ns
+kallsyms_on_each_match_symbol() traverse all: 1733 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 377 ns
+	fastest 90 ns (pkcs1pad_create)
+	slowest 4578 ns (io_register_clone_buffers)
+	Distribution, 80ns per column, 3494 counts per *:
+	|   ***
+	|   ***
+	|   ***
+	|  *****
+	|  *****
+	|  *****
+	|  ******
+	| *******************           ***        *              *
+
+After 'Optimise detection of duplicate symbol names'
+marker density 256:
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1584006   |      2969490  |  53.34   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7620445 ns
+kallsyms_on_each_match_symbol() traverse all: 2976 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 336 ns
+	fastest 90 ns (shmem_unuse)
+	slowest 2044 ns (The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_sho)
+	Distribution, 40ns per column, 1912 counts per *:
+	|      *****
+	|     *******
+	|    ********
+	|    *********
+	|    *********
+	|    *********
+	|   ***********
+	|  ******************                               *
+
+With the marker denstity reduced to 64
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1584006   |      2969490  |  53.34   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7654179 ns
+kallsyms_on_each_match_symbol() traverse all: 2405 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 204 ns
+	fastest 60 ns (_rs.0)
+	slowest 802 ns (The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_sho)
+	Distribution, 20ns per column, 2783 counts per *:
+	|         **
+	|        ****
+	|        ****
+	|        *****
+	|       ******
+	|       *******
+	|      *********
+	|   **********************               *
+
+After 'Reuse tokens that have no references'.
+Improves the compressions ratio slightly.
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1575323   |      2969490  |  53.05   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7652996 ns
+kallsyms_on_each_match_symbol() traverse all: 2625 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 203 ns
+	fastest 60 ns (_rs.0)
+	slowest 831 ns (The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_sho)
+	Distribution, 20ns per column, 2876 counts per *:
+	|         **
+	|        ****
+	|        ****
+	|        *****
+	|       ******
+	|       *******
+	|      *********
+	|   ********************   *     *        *
+
+
+Final version.
+Improves the compression ratio again.
+ ---------------------------------------------------------
+| nr_symbols | compressed size | original size | ratio(%) |
+|---------------------------------------------------------|
+|     123312 |       1505184   |      2969490  |  50.68   |
+ ---------------------------------------------------------
+kallsyms_on_each_symbol() traverse all: 7742950 ns
+kallsyms_on_each_match_symbol() traverse all: 951 ns
+kallsyms_lookup_name() looked up 123312 symbols, average 200 ns
+	fastest 60 ns (_rs.0)
+	slowest 662 ns (The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_sho)
+	Distribution, 20ns per column, 2916 counts per *:
+	|         **
+	|        ****
+	|        ****
+	|        ****
+	|       ******
+	|       *******
+	|      *********
+	|   ******************  **    * * *
+
+
+David Laight (14):
+  kallsyms: scripts/kallsyms.c: Avoid overrunning on-stack buffer
+  kallsyms: Fix selftest startup delay
+  kallsyms: Improve selftest test_perf_kallsyms_lookup_name() output
+  kallsyms: scripts/kallsyms: Check for output file write errors
+  kallsyms: Optimise symbol name search
+  kallsyms: Optimise detection of duplicate symbol names
+  kallsyms: Support changing the density of the kallsyms_markers[] array
+  kallsyms: Add a kernel parameter for the marker shift
+  kallsyms: scripts/kallsyms: Rename some variables for clarity
+  kallsyms: scripts/kallsyms: Keep full expansion of tokens
+  kallsyms: scripts/kallsyms: Optimise compress_symbols()
+  kallsyms: scripts/kallsyms: Reuse tokens that have no references
+  kallsyms: scripts/kallsyms: Reduce the output file size
+  kallsyms: scripts/kallsyms: Improve compression by about 2%
+
+Jim Cromie (1):
+  kallsyms: Match compressed tokens on the fly during binary search
+
+ init/Kconfig               |  19 ++
+ kernel/kallsyms.c          | 242 +++++++++------
+ kernel/kallsyms_internal.h |   6 +-
+ kernel/kallsyms_selftest.c | 169 ++++++++---
+ scripts/Makefile           |   1 +
+ scripts/kallsyms.c         | 586 ++++++++++++++++++++++++-------------
+ scripts/link-vmlinux.sh    |   6 +
+ 7 files changed, 687 insertions(+), 342 deletions(-)
+
 -- 
 2.39.5
 
