@@ -1,136 +1,72 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5960429CE6
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:30:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36C92C027F
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792297853; cv=none; b=eO43p43OJO1hcHPwZVpwD17Ttdqb9vvv2VAjICQ8ZXYIQPaBYwBSAtUPPFs46aGGCa2VoJJxDh3L1duPqaC3411INVUpyT8r1+3I1AFIg+I8oAK/EdqSsqLeaQ6rQOs/tYQjse7d+ZJL0f00Hwbo05gXfaDsNd3vtJ+YhW/rB2E=
+	t=1792297984; cv=none; b=lC8RANQeESnLi5Lp2OSbR+t3+HDPpCpDyOlfJSqfl3JJPeIBEP+Lmz69iYfcQ1WdxzuLgqGRbHIImNEw8iHIpNQ+dNLIieYXMmAcnXIuJb0CAyEkCMRvQRNtHk96MyuPquN1YtQYagJb9ntwzTSIfo/rhZKXcNwz9Zx4yoLhJso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792297853; c=relaxed/simple;
-	bh=V1PrfALe+dXwVq1n5n/hITI7hGqfkZud86/hme5sr+Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uUYqQoh+M6gJCuIrPwzhRi7VGRLzcXlUXlkxPz84sKp7IsglkPpvbD4iYCZ0Ez1vvIgrge6bCBRNChOIUIatAsaQpeHXaO/bOCIUCsiSGR/aX9DiqockZ7DQbxKzW/9T/R9yJvmcG3F1WGbRcUvsG4bojWavltoZInyzw0ZW6ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AiDHFkgK; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AiDHFkgK"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso5014665ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:30:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792297839; x=1792902639; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JyrovHosLdX2LQj1aC6ideMoPUaKKiI6CstREEz9Rbg=;
-        b=AiDHFkgKgTtqrGV/pACAL8QeR3YGPRzDSBXywJIF6f9wfJDwzDVmmEddWI7PaShnbd
-         FJfNZegkH5+dPNJ0D8nk1v3ZdwFxch0q52MQT7/hYQzyhKQq8jtd82zlF4CXxVfXvKWx
-         wn/g2h7k6n3MM0gnrZfZZdFggOZ11slw9R33iORWeRbQ0My5xTBsVB5ECIduL/NyMhdy
-         1Q00tCIjUUfK0Ay+r5X2L0USJGGMG8XD3vngyUm5DXHkKDsKws6P0oH64zx+5+w06cMz
-         DmRGB3zUPzZZUFx2DwV8xDpbIr9dTUFzO6V6bKQfAJb7I8814WTsxNtOT2k/98ojtfz7
-         zWPQ==
+	s=arc-20240116; t=1792297984; c=relaxed/simple;
+	bh=DTsztXCRLXFiqzWZNQE6MucPEvn7oAznYiFmNCQEWzg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=g0J+l/EmO9TqdNkJCi/fN33eiibe8J8S35atZBWcl0GvvU8S2kWvW9F7mIWZwl8PLuHgrRCs1r/MdQ45CWaSb8W4XZEOypuxZxPubsHpbGZZNgoiwVCv1LwuHtRtwa6wMhF2XdhDhmLlOYRX08RD8y32BCKjPC3HD8qCWDU7h2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f4612a1a5cso3190421b6e.0
+        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 21:33:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792297839; x=1792902639;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JyrovHosLdX2LQj1aC6ideMoPUaKKiI6CstREEz9Rbg=;
-        b=vUe1whQuX5x6Wtl1hLinPcYU9bku6y5LeuTCGgGg3+p1oGRtC5eqpINqeuCR4s1TUU
-         4JXQ3k6TCb8crU4W+ggIBfisFIlKoVNi8KoDb55ZRmkl7pu0QSHY9Jqqmc+/RPY8sJer
-         PsF1PDhQLpgx9QvhRbbBRdtiqqSFvokRt+2YokiHilgWZbt6chA2OkJ+GIUgLF4zJZy3
-         CtPaHaw/fyPCDDmL9ASh2VCESeUTZsEX8gnyPKIXQMWC+oMv4OQCj0ON+aI7TLvp6JM9
-         1tZxHvNnnn3zXI9+7pvRnVFCvYgOsWQ7RoCpB3i1WaWo6J0eMkr1f8F2jUXn9MTakxzo
-         wuBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz00Z1AVbCW4ZFxYzpIjDt8CSroE5d8ZeAh3rL4VXw0iVD4G0KaUGwc6eW8VT+9Qq+KnJd87z7BAIvo4OI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWPjkXfwtlV+H5udksMrU7I5ZCfliD7T7b9p8s5i9H3qWDx9uE
-	P74JtHCc8BCKl1H8XB0ODLR5BoK7W+j3Qc0Me86mB3LRIh7OgpkR+65w
-X-Gm-Gg: AYBFou0BDkPoiENcys4kMvwOLygRtt34C3m/TNQC5e6JY2s2d0J61nQgJo/jIr+HtjZ
-	T16mIK88CRHtqYnRhknFzK5XaXFkPp0rUDyb1kMS0HXLhJOA6oDdpPFPRhVqUYUupN1l0oKpvRX
-	1qvXFe2AsC5wrG8mu9Hdz9EafAnfELf80VRL4dTBJtwou5svg8vRWER7N4buJiQg2yakG4Lag5M
-	ZlGMDbI1j28FmpUJStId3uETD0dv2imkMvYYgqahB7rA+jP0WabNlmMC1nTX7Tv6PJEDddMwq6c
-	u1LgbrmiFsvRC/AxQ4KIpTFvNX3+zOUEtTroXn6Bk5ate3HH+L3x165aM44xgAIo+ks7PN59swP
-	LKMXCU7fHD7MFbcYVzNQLrV9ktUSrTAo+yzFzAOtvtLg3Zs2a6yOp1drpipeiS+vr0EjUgyedhz
-	oat48B/HUifqRFlOqnF7rcSFuOgulNOatl4JkDCtUR0ACeFv0bxPso6ZTamwtpTkI=
-X-Received: by 2002:a17:90b:380b:b0:39e:59a0:46b5 with SMTP id 98e67ed59e1d1-3acef14451fmr3843389a91.24.1792297839161;
-        Sat, 17 Oct 2026 21:30:39 -0700 (PDT)
-Received: from [127.0.0.2] ([2404:c0:7618:4e1c:8841:a092:12c2:47d7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9e47588sm5885369a91.1.2026.10.17.21.30.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 21:30:38 -0700 (PDT)
-From: Reza Kurniawan <imkyufie@gmail.com>
-Date: Sun, 18 Oct 2026 04:29:24 +0000
-Subject: [PATCH v2 4/4] arm64: dts: qcom: msm8917: Use a shallower cluster
- state to fix unresponsive idle
+        d=1e100.net; s=20260707; t=1792297982; x=1792902782;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=09OsNjVNYZIeGql7sfQvkNIgXkVvgIhSMIekeT5Tf8E=;
+        b=xydrrKIplXf1dciSi96szQiS036a6Qhl1Syscvl+gP5sAMWGUqNXDpNHnjSXbsWWJf
+         9UOm4jzUia5xrt0KO02Lw6vbAXCGy1/c/zL/pWjpshkR5BQM+2agAX6c+h5Cz+Hc+AIb
+         YkKCyve2IBMe0fiUwfbhKCPn7OpBExm2VAM4Fv4S8Ve6U3oSRYQd3goLH89QtYBfkS0X
+         xWK4EKYx3y3bdcyBA6JWo/Rstx/HxfZNya1PxEOmCQOJkKBmFNZ2zUXzrEERNFgXgc6C
+         HEfOrt2sEBXbB1/SIsXC4p8kE9ssWZBuPL8TusN7QFZZdIx4ObLyZ+ZDsy87+biWJVHt
+         aDpw==
+X-Forwarded-Encrypted: i=1; AKwUvByH72kGvXgYk8IZf811mhKoBcoRLAodL7TyMEurzwHlOl77xE3v6HgXv83P1tGGeL9Mahu5JRut9eohsGY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIi3GX1EIr6eiwX7sm9ENe60ifW2hz2G7clrYVKe7E9ply2Z1S/
+	qZ2xbibYOaAMQ/ZlOUKrDsBQmBVmLeiqkNhrInBJH1GWmv50/qdwi5HB3uF+zn/RKElIS4of4V7
+	RmZ3wQkbehsThHN20YkavJlMSobstSF0S3Nu99iQTiuMt7Q+1gJFGyLIxbNc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-psci-fix-v2-4-35f65b59eb9a@gmail.com>
-References: <20261018-psci-fix-v2-0-35f65b59eb9a@gmail.com>
-In-Reply-To: <20261018-psci-fix-v2-0-35f65b59eb9a@gmail.com>
-To: Mark Rutland <mark.rutland@arm.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Christian Loehle <christian.loehle@arm.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Val Packett <val@packett.cool>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Reza Kurniawan <imkyufie@gmail.com>
-X-Mailer: b4 0.15.2
+X-Received: by 2002:a05:6808:690c:b0:4ec:1bf1:fa82 with SMTP id
+ 5614622812f47-53702bea09fmr4950831b6e.46.1792297982596; Sat, 17 Oct 2026
+ 21:33:02 -0700 (PDT)
+Date: Sat, 17 Oct 2026 21:33:02 -0700
+In-Reply-To: <20261018035409.695-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad44bfe.7f4e89eb.3d59aa.00ad.GAE@google.com>
+Subject: Re: [syzbot] [nvme?] BUG: corrupted list in nvmet_fc_remove_port
+From: syzbot <syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-MSM8917 is a single cluster SoC, so powering down the cluster means
-powering down the whole system. This causes two problems:
+Hello,
 
-1. The system becomes unresponsive, even to common interrupts. Waking it
-   requires an interrupt from the MPM (MSM Power Manager) or scheduling
-   the MPM to wake the system later. Linux currently has no way of doing
-   the latter, so the cluster may never resume operation.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-2. Entering power collapse blanks the screen. When the state is entered
-   and exited repeatedly, this shows up as visible flicker.
+Reported-by: syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com
+Tested-by: syzbot+c98b21427617af7f547a@syzkaller.appspotmail.com
 
-Even if MPM scheduling were implemented, the second problem would remain
-and it wouldn't fix the system being unresponsive at idle.
+Tested on:
 
-Replace the idle state with PSCI mode 4 (dubbed GDHS downstream), which
-is less aggressive and can wake up from conventional interrupt sources.
+commit:         58161ead Merge tag 'drm-fixes-2026-10-17' of https://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13a8dda9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b38d39c45202f4fa
+dashboard link: https://syzkaller.appspot.com/bug?extid=c98b21427617af7f547a
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1286b4e1580000
 
-Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
----
- arch/arm64/boot/dts/qcom/msm8917.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/msm8917.dtsi b/arch/arm64/boot/dts/qcom/msm8917.dtsi
-index f0771187d0..7730977e6e 100644
---- a/arch/arm64/boot/dts/qcom/msm8917.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8917.dtsi
-@@ -112,10 +112,10 @@ core3 {
- 		domain-idle-states {
- 			cluster_sleep_0: cluster-sleep-0 {
- 				compatible = "domain-idle-state";
--				arm,psci-suspend-param = <0x41000053>;
--				entry-latency-us = <700>;
--				exit-latency-us = <1000>;
--				min-residency-us = <6500>;
-+				arm,psci-suspend-param = <0x41000043>;
-+				entry-latency-us = <240>;
-+				exit-latency-us = <280>;
-+				min-residency-us = <806>;
- 			};
- 		};
- 
-
--- 
-2.55.0
-
+Note: testing is done by a robot and is best-effort only.
