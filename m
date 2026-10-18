@@ -1,149 +1,164 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E830346E5D
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792321296; cv=pass; b=pJ36lemkr1GdW+xrLhnztZhLfLYDWdUoRJNLW9fv5HUJXXkhT0RSxbFc1PhJHVqVO/6C3SoAzH6u5+Y9WD69vFUP7xpHAwM9feo2ifN7iGuhzmekKeufFXb+wdgvYsHGpfvofRD996cMgnLomoc/7uRA2b2yyXez88AexAkGtCc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792321296; c=relaxed/simple;
-	bh=yfqpp8WYOenmjb3oYHuHBnzp/XrvWdHp+mrIFBFp1P0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=seICNrcYp73iBw6J2ZCCJfuNbBMK2hy9KZQUKbyIAhN696Ke5/lTJtiJvThFN/lO36xUttrrpHQqYfOz02V6nhVzVHXvX6RyI7QqxvdFH/ydsd1dsx2Q8og86PIL5IF4QHPgX7WwPb8TxRgvIJTVl1IFZx2l/pUFuFrsXj6c4wI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c4TAq7QJ; arc=pass smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF8D3B9617;
+	Sun, 18 Oct 2026 11:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792321304; cv=none; b=P8SCOZY/IQxlAmfvROJquifIdaC4nL1hLAi54EnBFZkqiUZTUQ2tjnTummOE58JNeyTrfRI0A+re7JCrbVbaQSsyvb6gpx3v7Z03QjigyOoKp/VI5y4pwXBzyeG3YT6bKDTcoRYwWGRQd55RgF02qz2rHKBjsTEvZwnM8TjokRc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792321304; c=relaxed/simple;
+	bh=kKUf+wyrPXLf+iritmuLT66EthHJlY/efhQM0sYmk1o=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XJSED6W1k3l0diKd+LeY006C45P9sspY+acvH9M3qxPYXmwp8NF0Ph5qXeTMOOfeMwukbhRlJmGTihm8gC97XckWzDiRCOamo+NRTZ74FPg8nJEFHG8kYF9QNgvH5uxOJRtm5XOtV2dComuxJexNdVavEGhWYcbZCUyoCc+ImuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XJu+2zrE; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c4TAq7QJ"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8acda240937so9002617b3.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:01:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792321292; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KdjcnGcBMJJUJUG9wD1UE20W7fvw/y6ItyDYLdAdDUN/QFgMDizhE4MjR4NfFVgiDW
-         jTW2NyWnvnSt9ki0eCWcKYBYUJxfgKLO87VN4b0Y+UDznaSFkAqeqLwp7DmVgVCLUbCa
-         4U2HqS5rob8AKmNhsjhoKmAf/WGzUER68XYKDHtSwSPtq3g6WvRaCSDifwV/p/RubOCY
-         P5AkQDuTEt/T0Plf7i79eVkt3mCrNg+9CN+yvWC4Yj6MY3XlU7VwkylBTPcnau74RPPr
-         vVhEKsqtf7yAcjnsl19Ff1hjswKALvPY6bBMua8bYwicjaimuGxW08aLdHlwaZ+G+oX5
-         6L+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+ZFmROfgidpQl1un31xXH76vvuzAN+m1uLmNu7y+jkk=;
-        fh=1KrSsXe0pjQq0qrbIrnkmfyyD984ZTcxPsb2vuYDWss=;
-        b=aKZvR1vCzEbM2tCOVnmyAopO/DOvN86mp2/qKCd0Opvkg7ZOL4IYbxMTRwGQplI/a4
-         B4SkghY3UGqJPCCrFTfnp1axH1LWLiERV/Ik46pA8RYhTNm4MiKoW8/oAjZvNPL89SJw
-         /6uHL3Z26EkZ5O3q6Ef5bYB5IhaS+B8R+5YBv65uRiElUpPGUhlCLZsVZifWNLpkfR49
-         D7MqL8/bIhMNYCnk1tGGxps74jNYk6XFprLvIEMmicnCnY1ndHyBdLMR+T7dJTpyL8Ba
-         TNB+sYCLE/k0HdLqSRjmIeMJIRN6RjOm/WY7fMWU4cAsOqA0yTYzHIdDpA/MBTG1Xjup
-         990g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792321292; x=1792926092; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+ZFmROfgidpQl1un31xXH76vvuzAN+m1uLmNu7y+jkk=;
-        b=c4TAq7QJJBL9dlSRrxQCpk9oyce6hB0woIYKJFS9r6rbmd5jjc2heRT2GCc8xySk26
-         TmMsIjG734+5YicmvQZbah/HtH+n8dDalk6fXYgwCZl2OLuqIxrhQo23w3LbDhwAWiul
-         DUGL3IAda+bMMrTZte8U2ziW7J09qxRO2qXy2YloCOdqaMHILramMN5A6HtfwYKYOHAj
-         vJEGsumXH2+mQ1/0EBa619gcJMPSSlepT8uQ91a1SOVingNRFFIuQn4xLGwbDGCPRXGD
-         kupctFxlIOZAqM22H1XZeh43/RU48w5CWSLJ7VfCupy6Dmh0t0OopNxBNI8WnG7dVAei
-         wRFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792321292; x=1792926092;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+ZFmROfgidpQl1un31xXH76vvuzAN+m1uLmNu7y+jkk=;
-        b=U0uM3OovBFBGDVXojblh4IytVIPQEfCfLnRGk7Dxn4mljzM6RPmOiaBQxL44y1OBDG
-         fJ7O2TVsQALB3xzcmveKA4N1KH68fws4z7mFn56SaGeinJgqsY6TV7PQOtjHSCgcBSs7
-         CsN5mbSp6U85jdlVNhWHXDgsdcsEWw7WNysRSGKPIGGGjtfIG3cfBctMn/yy1FiJXy7U
-         Umdiei+4A6V5hDNFzqjv9JdjcwgW35xmga3eh8yRHeGu5dc184tEYZqiIkYrTzl5RaCV
-         WrGFS4dKORhAi+4omSX0uoRboDdvYRv8vXqZUyY4A/kD+6V+uDLH7zmVf2iQDpiw+AWl
-         hS1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxkcOQcEZ219+fJ+Z5R5NZxfZGLrHYw7g9BHA694AJ4swv7CAF/ruOQ+UYtJgaiIMu9FjDnOnzRk9bEhqM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcWIvzSh1zrA83MuUbrEPpdhwhxgWsUnA1RVD1NSg5zhirdr2j
-	nm+YtcKKKVh2or3jCv2x2s9bVsSqrK84gbEMGQDOv9DPmc9i93boVZM0Y5CETw4SWiLyacVvVw8
-	rc+q0LP/VpWgoNaeiAljeplqEZqLHuuM=
-X-Gm-Gg: AYBFou2PFLFaHKfwo4c2tDDhJgQlBIue9pFxiDcLlbBO1yVi5RWdo6z2Jkmbz27tGpd
-	/UMPKs2AQG9Sf463bLygtVx5wQQBc2Z9B6NUiGsbcoG+y58bT58KPWxYa7tZWpU/iPSykwX+gKc
-	8IXJmd/H2p51jRv6fkzejoKvHnC4cl8FgQf6I7AeRFWytaOJtQusrvT2SKtN30Bx1b1HDl18Kwh
-	UofPz/3qkKgFa/s0hi/uYMk+TeD8ZduW19RSgCbUWB4t4viA612v34BCxPB773P3vgfyTUBhMq1
-	PZIAOf6JHdRC2DLPBhgoyDzhIED9fSzdPmB61KSMkOcyKKsX3oVvBQu7h17mWOoJTxNgV8pa8zH
-	7BjqVfH7d14+SzMlyGcuTdQssJZcOJ2V51V52l9C5yY5COXbJi7lVSFA=
-X-Received: by 2002:a05:690c:d87:b0:8b0:a8f3:bf69 with SMTP id
- 00721157ae682-8b0f213a4fdmr14586047b3.12.1792321292329; Sun, 18 Oct 2026
- 04:01:32 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XJu+2zrE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1l
+	uLgnBcrkWgyQiNOQM+tX6aW18OMNJZRXvxKwZF7kE=; b=XJu+2zrEWe0lR8njsc
+	5n1LmSMytwYgzUweVmD/49RvqIuIy2H2SXeuRiivVwld8EIKZdLpQOWH19iCW1Sj
+	KYUaafBRytcosllYF4tH6K38AD+hmadpKNFMz9nXz9+5Rokwlv6fic6gu0H+BnpI
+	vAknzTeRbSxsD37Bk3v5ZTxoU=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDXHzfHptRq3jfHAw--.46856S2;
+	Sun, 18 Oct 2026 19:00:27 +0800 (CST)
+From: wrmfwv@163.com
+To: nuno.sa@analog.com,
+	jic23@kernel.org,
+	robh@kernel.org
+Cc: Michael.Hennerich@analog.com,
+	dlechner@baylibre.com,
+	andy@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tenglong Guo <admin@micronull.cn>,
+	Sashiko AI <sashiko-bot@kernel.org>
+Subject: [PATCH v3] dt-bindings: iio: adc: add documentation for adi,ad7816
+Date: Sun, 18 Oct 2026 19:00:15 +0800
+Message-Id: <20261018110015.39497-1-wrmfwv@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260806080018.10050-1-kartikey406@gmail.com>
-In-Reply-To: <20260806080018.10050-1-kartikey406@gmail.com>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Sun, 18 Oct 2026 16:31:19 +0530
-X-Gm-Features: AclHuK-AoWK7tKNVkf-gKvfJPvt-qsoCPL8hIasuPDqutLeNvQ4YAPBMihpV1tg
-Message-ID: <CADhLXY76C=O9x5iecg=tFVonu0dWCDK0QqGbsU4oXo=XA7gK4A@mail.gmail.com>
-Subject: Re: [PATCH] Input: sur40 - fix use-after-free in sur40_open()
-To: dmitry.torokhov@gmail.com
-Cc: kees@kernel.org, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+683f6c071b5abfc266c1@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXHzfHptRq3jfHAw--.46856S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF47Xr4xCFyrtw1kGF45Jrb_yoW5Gr15pF
+	4kCr93K3yfK3W3Ka9xta40kFW5Z3Z5Cw15K3WDWr15GrZ0gF1jyw4akF13ZwnrGFyvqF9r
+	WFyavr15tw18Zr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UkCzNUUUUU=
+X-CM-SenderInfo: xzupw4ry6rljoofrz/xtbC5QysmGrUpswNJwAA3j
 
-On Thu, Aug 6, 2026 at 1:30=E2=80=AFPM Deepanshu Kartikey <kartikey406@gmai=
-l.com> wrote:
->
-> If any of the registration steps after input_register_device() fail
-> (v4l2_device_register(), vb2_queue_init(), ctrl handler setup,
-> video_register_device()), the error path frees sur40 via
-> input_free_device() + kfree() without ever calling
-> input_unregister_device(). Since the input device was already
-> registered, it remains live and openable, so a racing open() (e.g.
-> from udevd) can dereference the freed sur40 via sur40_open().
->
-> Split the unwind so that once input_register_device() has succeeded,
-> the failure path properly calls input_unregister_device() before
-> freeing sur40 and its buffer.
->
-> Fixes: 08b936012964 ("Input: sur40 - switch to using polled mode of input=
- devices")
-> Reported-by: syzbot+683f6c071b5abfc266c1@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D683f6c071b5abfc266c1
-> Tested-by: syzbot+683f6c071b5abfc266c1@syzkaller.appspotmail.com
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
->  drivers/input/touchscreen/sur40.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscree=
-n/sur40.c
-> index fe63d53d56db..b0958422ff76 100644
-> --- a/drivers/input/touchscreen/sur40.c
-> +++ b/drivers/input/touchscreen/sur40.c
-> @@ -808,6 +808,10 @@ static int sur40_probe(struct usb_interface *interfa=
-ce,
->         video_unregister_device(&sur40->vdev);
->  err_unreg_v4l2:
->         v4l2_device_unregister(&sur40->v4l2);
-> +       input_unregister_device(input);
-> +       kfree(sur40->bulk_in_buffer);
-> +       kfree(sur40);
-> +       return error;
->  err_free_buffer:
->         kfree(sur40->bulk_in_buffer);
->  err_free_input:
-> --
-> 2.34.1
->
+From: Tenglong Guo <admin@micronull.cn>
 
-Gentle Reminder. Please let me know the status of this patch.
+Add a YAML binding document for the AD7816 family of ADCs.
+This fixes the checkpatch.pl warning about un-documented
+DT compatible strings in the staging driver.
 
-Thanks
+Reviewed-by: Sashiko AI <sashiko-bot@kernel.org>
+Signed-off-by: Tenglong Guo <admin@micronull.cn>
+---
+ .../bindings/iio/adc/adi,ad7816.yaml          | 83 +++++++++++++++++++
+ 1 file changed, 83 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
 
-Deepanshu
+diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
+new file mode 100644
+index 000000000000..a969e046883a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
+@@ -0,0 +1,83 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/adi,ad7816.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Analog Devices AD7816/AD7817/AD7818 ADC
++
++maintainers:
++  - Tenglong Guo <admin@micronull.cn>
++
++description: |
++  The AD7816/AD7817/AD7818 are 10-bit ADCs with on-chip temperature sensors.
++  They use a SPI interface for communication.
++
++properties:
++  compatible:
++    enum:
++      - adi,ad7816
++      - adi,ad7817
++      - adi,ad7818
++
++  reg:
++    maxItems: 1
++
++  rdwr-gpios:
++    maxItems: 1
++    description: GPIO connected to the RD/WR pin.
++
++  convert-gpios:
++    maxItems: 1
++    description: GPIO connected to the CONVST pin.
++
++  busy-gpios:
++    maxItems: 1
++    description: GPIO connected to the BUSY pin. Required for AD7816 and AD7817.
++
++  interrupts:
++    maxItems: 1
++    description: Optional interrupt for over-temperature indication.
++
++required:
++  - compatible
++  - reg
++  - rdwr-gpios
++  - convert-gpios
++
++allOf:
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - adi,ad7816
++              - adi,ad7817
++    then:
++      required:
++        - busy-gpios
++    else:
++      properties:
++        busy-gpios: false
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        adc@0 {
++            compatible = "adi,ad7816";
++            reg = <0>;
++            rdwr-gpios = <&gpio0 1 GPIO_ACTIVE_HIGH>;
++            convert-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
++            busy-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
++            interrupts-extended = <&gpio0 4 IRQ_TYPE_LEVEL_LOW>;
++        };
++    };
++...
+-- 
+2.25.1
+
