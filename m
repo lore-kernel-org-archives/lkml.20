@@ -1,70 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6122D662F;
-	Sun, 18 Oct 2026 10:05:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E362E2F745D;
+	Sun, 18 Oct 2026 10:09:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792317907; cv=none; b=t67qT7TWGLxOsK/WEzU+4P/pPHmYnd9z9x8+rF/+bYLbHar9GWxD5xlqFfpen2jc3a8E8n16b5JcC/dMlnjtsltk2Ik6CvsZm92hCfAXb4bOKGPcFS24qqza2hw+IIuxdebdfTT03QVSgZeANMnltF0CqTdzNMaLYSIus6Ikpw4=
+	t=1792318165; cv=none; b=FlNPkgXTBG6gsAtuxHSvAyo0K/mnNrg4cGs4txMZ2jt9T1EJ1MplPgXfZwArNIK2XMIMosTAW6xHa6oP75hRI1VIQRUI/zc8nMqOQgYB9iYFAI8QEuRx4/qw3pHFwEwjdrHjreFXK2vemXGjV5FgwYpkjUwCcFIvz5/8Y2K9PX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792317907; c=relaxed/simple;
-	bh=iBBOOIDSN4rXVq8ehqpWoq1aASxZVdGjTkjA9rAhVC0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cBdAypULRal79QN15jdJTROTfqDmTWj7frjxkDxq92e/z9hb9WKuNS/ggispPWm1VmYU2MJG+GDS2eqTuBzCw5w8HfS5Z6zfveAL49eQtUMY+IO0bBkDP1nZ7U0BZDgEVzN6zQTut/5CMvpdaZQdMBHa93GivyX/nhOh2S6X3c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/XJS435; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792318165; c=relaxed/simple;
+	bh=f5LfeOOR+T+AJ9JCbpP5ObMTllY+dxdUVy7vwtRdYzo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XXdItocac0+jRyOuFYCcveKQa+02ozfYy7dbJcB1Tw95oXesdk+RkKcpqUHQ/qVzdtXJ1bQn9ncShmbn2cOQIc5TFwRKarvAMHrVLS9waw/VJUmvIiKi6AbIOS+PygrvAyfUQYzMCkF8QP1yS9nU6BfDoimLg4KO9w4yf9SVGUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UD8TMk98; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/XJS435"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DBFA1F000C4;
-	Sun, 18 Oct 2026 10:05:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UD8TMk98"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131801F000C4;
+	Sun, 18 Oct 2026 10:09:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792317906;
-	bh=iBBOOIDSN4rXVq8ehqpWoq1aASxZVdGjTkjA9rAhVC0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R/XJS4355XpZOyE4U1Q76yO0n14JTSVZ7LWyPgM8uQOjphEgunOhHV5srhThC7JdG
-	 9nSDsvTLpsT35lQQ6w4qk81deT4+usx0YKSOZEMu8Ax35WB7rm6KWghRcCMiZ6Tx/8
-	 X/tleW35rndn2m2ICLL/bvSxcqXYceOkNcPFNYvUgoNVAQaI4yTpc3pQGEHZmn0I6k
-	 4DYy+6ofipopRn/dJ3Ofx9+FblVqsHdYIgUB7Ls0az6OUHOc+1jpOr+RI6Smmna/ng
-	 e7clEw804Y+LTPeJqUsv4dy79UTqc6ViSRmKMbcIMBWcI4S6bYoSR6QoV6gQ0TO/RP
-	 zmK2qoApyUFGw==
-Date: Sun, 18 Oct 2026 13:05:01 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Andrei-Alexandru Bleortu <me@andrei-z.com>
-Cc: Bart Van Assche <bvanassche@acm.org>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Jack Wang <jinpu.wang@ionos.com>, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 2/3] RDMA/srp: Post command IUs inline
-Message-ID: <20261018100501.GA41539@unreal>
-References: <20261015125118.2966247-1-me@andrei-z.com>
- <20261015125118.2966247-3-me@andrei-z.com>
- <fa01c872-9d1d-4b60-b994-08ba86a5ebaa@acm.org>
- <20261015212227.3338582-1-me@andrei-z.com>
+	s=k20260515; t=1792318159;
+	bh=5aWf32wcpf9vmrl4EC28Fl01gzRwMBwB7dBfgd5BTC4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UD8TMk98m1XgQb6VJKpMshy6kzEFYey8Q6ie6xeqHU4NwteMDdHBsW7dYNoR0SE3Z
+	 TfNXOFQQLVyvmNOQABv3pkMJS+xalY4q+aJVSwDVRe36lL8BqycTva3sxzZxLaiMiD
+	 D5IVrSepOOMM5rEFFo5UA6YBLWefm5W6NdTT6Eny3cdnL43yBPREpnQgmlGHHcQRSi
+	 whX4rRpnbCOCuA53cRu1zQ98l8dJ/1j893tcEg40cnTx2gpD0zpX0Abh/BQfV3kpDn
+	 0y3ggLDDBC5z76L/hBvlS1SSPCj/X0CDYeUkbp200U7SX0Kc6pyYqbTqqzeeFw3mHB
+	 kwcCjbsP3cCSQ==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 7.2 00/10] 7.2.12-rc1 review
+Date: Sun, 18 Oct 2026 12:09:08 +0200
+Message-ID: <20261018100908.50076-1-ojeda@kernel.org>
+In-Reply-To: <20261017155059.698368299@linuxfoundation.org>
+References: <20261017155059.698368299@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015212227.3338582-1-me@andrei-z.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 09:22:27PM +0300, Andrei-Alexandru Bleortu wrote:
-> On 10/15/26 Bart Van Assche wrote:
+On Sat, 17 Oct 2026 17:54:29 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.12 release.
+> There are 10 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
+> Anything received after that time might be too late.
 
-<...>
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
 
-> If you, Jason and Leon are fine with thi
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-To be honest, when I saw these AI-generated instructions in the cover letter,
-I ignored the entire thread:
+I see some `objtool` warnings with Rust nightly (there was a change
+upstream to `core`), so I will send a patch to mainline as usual.
 
- "Tell me if you would rather inline only when it is posted alone. Before
- going further I would like to know whether you want these."
+Thanks!
 
-As for your question, we need to hear from someone in the ULP community
-that this series is important to them.
-
-Thanks
+Cheers,
+Miguel
