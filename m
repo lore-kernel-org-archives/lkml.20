@@ -1,183 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273AF394EB0;
-	Sun, 18 Oct 2026 22:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249674C1502;
+	Sun, 18 Oct 2026 22:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792360988; cv=none; b=J//KTTMoO/IcR+cVA4wMdF2DwU45YhUB39YRwMz3K18+lCScU5L/uHwAAYa2+qgR0dM0bX84X4xwsQdU3VhJYEdiR+iXr/G/aw9knzJlewyo5UYcY+4f7x28Nkb7gXG8zVVOeHVZqUee/81+MNkuT8TTI7jbGwaxsN3WTkMdn7k=
+	t=1792361029; cv=none; b=Ir03fKwU/NCQG6vRUp+zy3CTeR3i3pGdW54ryWY7zG4pcPRCJFU67ZjSnzgUT/Kdf8C3Yoxzg0EW0JvlVCDFuLd1ACdVJP2JNmzpqqFznY86zDu2ePfjgoPEmxZCp6QQwlCs5TJOjAFgxTVztja+PQR8DfuOVrxI+7UsKOddALk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792360988; c=relaxed/simple;
-	bh=twLiNJ2iWt/8LUbRgsm5ooLbyC12UPzg7TGB8ejiu0Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QL29NoVwf89QEkFyRTJhrGjBTHgri8aiSiXE9+zK49JcUGR6Laq25YeVl+1o8OyX338QXF2BIfEVecJbRuYRZu8zDYr1MBgl2utP+DetST5lQIFU/pnz+Gxp5LGeQ4AbWINiadYKuJmGIgt438b0H/AmpueEX2W6X7LYPivhWEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PO1SlCH6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792361029; c=relaxed/simple;
+	bh=R/lIBi5xVRT9GBvuisR5VhE0gQGV119/5xNOWD1DMVs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=emmfzPNyajpsZNL+AeVSvKhMDVRwXlNBUELvIw1IlO/Nn+bBGZi16IphkShVVF+VvFLco2nu4Jgqj4cRqGO2LCUYpT8YwyiH0tZJihK+vaZRf7OIS8KBxSKb20rWNgMYhdkVaPR7MHwwpCgHNL0oPjYri/T9g7v2x7JKQK/eTiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NRg/Xckn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PO1SlCH6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 896111F000C4;
-	Sun, 18 Oct 2026 22:03:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792360986;
-	bh=9jIwRePGhGl7Lj5AtdjryQO+SfZ1sGL+oGdwGuNfa24=;
-	h=From:To:Cc:Subject:Date;
-	b=PO1SlCH62VrarZagP9eLCG2Zz/sSoHA25CDWscQESh9Jq62Iu5LnFfmDh8f54vvNM
-	 mKQg9EFCHasXibgNzVZtonckwtoUm76FsgS4R8lUqAW+1Yu5885OHZ/Ulhm9/1MddY
-	 E+TSJ0h1MKBmQDWb3fRQ/aOl4zyh+OLTmE4kcrujbQwUNf1YPVYTsJDhQkx2SpMg0Z
-	 xMuiniBCwvhm4J6tqBlYGnUibF9HbliZsa29LOi5C4bFSXBHOsRdU79Aehhf3OEHUD
-	 dNcAwF+k+V8jPs3aswqV3EmHp+yZzwyt70eQz9FBc25zdS8IWwf4lQelbi3HJkBYek
-	 hbLnkEaLN5b8A==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH] mm/damon/core: filter out damos address filter-split failed region
-Date: Sun, 18 Oct 2026 15:02:52 -0700
-Message-ID: <20261018220253.158238-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NRg/Xckn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ADD3DC2BCC7;
+	Sun, 18 Oct 2026 22:03:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792361028;
+	bh=R/lIBi5xVRT9GBvuisR5VhE0gQGV119/5xNOWD1DMVs=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=NRg/Xcknlkr3IvhUJUWbVme6VH0oK4vax/Uyan/pzxAwp3dU+pazzj7au7yy91D2s
+	 yRzvJRMsgzADbT9ZYNv/iVbcHtGtQoNwYopOSaMiF+v/rUzhHU2Vl7ejBi1arnR3Nt
+	 jLPnM/m5iCPmMi/QJijSQ2Qc1FALQr1xXH+cWl0sDqdnWqLw65lHrcMftV8Q+zaPVv
+	 sMJ8VuVScMMWC5B0kVKMDIKT/jt0frjGdqXW6XGvh5Q5mKv3lftDV7+F6wABl5+i05
+	 2srB/Bvl0nxytgVUkzIMkz2kATsdz3AJT/m3eTPTW0eEUgNkcUuEp66Z2pRTa/a7ba
+	 7HxL0sSLvE61w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8973CCCF2C9;
+	Sun, 18 Oct 2026 22:03:48 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Subject: [PATCH v2 0/2] drm/tegra: Support YVU420
+Date: Sun, 18 Oct 2026 17:03:45 -0500
+Message-Id: <20261018-tegra-drm-yvu420-v2-0-512889103ab4@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NTQ6CMBBGr0Jm7ZhpqT9x5T0Mi9IOMImAabGRk
+ N7dygFcvpd879sgchCOcKs2CJwkyjwV0IcK3GCnnlF8YdCkz4roigv3waIPI67pbTSh8m17UYb
+ 4ZCyU2StwJ589+WgKDxKXOaz7Q1I/+yeWFBJ6p5wxtSPq6ns/Wnke3TxCk3P+ArsvzFmwAAAA
+X-Change-ID: 20261008-tegra-drm-yvu420-1dbb7140e54a
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792361027; l=1534;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=R/lIBi5xVRT9GBvuisR5VhE0gQGV119/5xNOWD1DMVs=;
+ b=FRC4bjtGu7E6H/zvKW1tazwdCKnbUQd6u7L6Nt632QmVvTijrfpLho+6G4U5I3gD2JV9xSXMF
+ nrujb+NNsd1BebpvpBJUSNgYBZUyghEMf9ZURmf4OzA/fxY5KdmSyyr
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-When an address type DAMOS filter is configured, DAMOS tries to split
-the region for the filter range, and apply DAMOS action to the filter-in
-region.  The split operation (damon_split_region_at()) could fail from
-allocation failure under extreme memory pressure.  In the case, DAMOS
-action could be applied more or less than expected, ignoring the address
-filter.
+This is not directly supported by the display controller hardware.
+However, this can be handled efficiently by just passing the chroma
+planes to the hardware backwards and reporting it as yuv420.
 
-The issue only rarely happens under extreme memory pressure.  No crash
-or leak happens.  Occasionally not applying the action to a few regions
-shouldn't be a real problem.  But applying the action to a region that
-the user has excluded via address filter could be a surprise depending
-on the use case.  It is only theoretical.  No such real case is found
-yet.
+The format is required by AOSP for software decoded video playback among
+other things. An attempt was made to handle this in gralloc by swapping
+the chroma planes there, but it wasn't working. This kernel
+implementation is working and is more generic anyways. This has been
+verified on a SHIELD TV 2019 Pro for the tegradc path and a Jetson TX2
+NX for the nvdisplay path.
 
-Filter out the entire region if the split is failed.  Update
-damos_filter_match() signature to receive the error from split.  Also
-update kunit tests for the updated signature.
-
-The issue was discovered [1] by sashiko.
-
-[1] https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org
-
-Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
-Cc: <stable@vger.kernel.org> # 6.6.x
-Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c             | 15 ++++++++++++---
- mm/damon/tests/core-kunit.h | 11 ++++++-----
- 2 files changed, 18 insertions(+), 8 deletions(-)
+Changes in v2:
+- In patch 1, simplify pre-nvdisplay path to a swap of the window base
+  address
+- In patch 1, address sashiko report about failure to copy the new
+  struct entry in duplicate_state
+- In patch 2, address sashiko report that yvu420 was missing from
+  tegra20_overlays when the targets already support yuv420.
+- Link to v1: https://lore.kernel.org/r/20261008-tegra-drm-yvu420-v1-0-dc1c443c00f3@gmail.com
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b63e60ef89901..4d34587387456 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2551,13 +2551,14 @@ static void damos_update_stat(struct damos *s,
- 
- static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos_filter *filter,
--		unsigned long min_region_sz)
-+		unsigned long min_region_sz, int *err)
- {
- 	bool matched = false;
- 	struct damon_target *ti;
- 	int target_idx = 0;
- 	unsigned long start, end, wsum;
- 
-+	*err = 0;
- 	switch (filter->type) {
- 	case DAMOS_FILTER_TYPE_TARGET:
- 		damon_for_each_target(ti, ctx) {
-@@ -2588,7 +2589,9 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 			break;
- 		}
- 		/* start inside the range */
--		damon_split_region_at(t, r, end - r->ar.start);
-+		*err = damon_split_region_at(t, r, end - r->ar.start);
-+		if (*err)
-+			return false;
- 		matched = true;
- 		break;
- 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-@@ -2607,10 +2610,16 @@ static bool damos_core_filter_out(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos *s)
- {
- 	struct damos_filter *filter;
-+	bool matching;
-+	int err;
- 
- 	s->core_filters_allowed = false;
- 	damos_for_each_core_filter(filter, s) {
--		if (damos_filter_match(ctx, t, r, filter, ctx->min_region_sz)) {
-+		matching = damos_filter_match(ctx, t, r, filter,
-+				ctx->min_region_sz, &err);
-+		if (err)
-+			return true;
-+		if (matching) {
- 			if (filter->allow)
- 				s->core_filters_allowed = true;
- 			return !filter->allow;
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 3fbb4e4e36fac..43e2f950f8ff4 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -1783,6 +1783,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	struct damon_target *t;
- 	struct damon_region *r, *r2;
- 	struct damos_filter *f;
-+	int err;
- 
- 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
- 	if (!f)
-@@ -1803,27 +1804,27 @@ static void damos_test_filter_out(struct kunit *test)
- 	damon_add_region(r, t);
- 
- 	/* region in the range */
--	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 2;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region after the range */
- 	r->ar.start = 6;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region started before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 4;
--	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
-@@ -1839,7 +1840,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	r->ar.start = 2;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_TRUE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
+---
+Aaron Kling (2):
+      drm/tegra: Support swapping chroma planes
+      drm/tegra: Support YVU420
 
-base-commit: dbff06b9dcfe3a45b66fcf20d0fec8c3e56f5624
+ drivers/gpu/drm/tegra/dc.c    |  9 ++++++++-
+ drivers/gpu/drm/tegra/hub.c   | 15 ++++++++++-----
+ drivers/gpu/drm/tegra/plane.c | 13 ++++++++++++-
+ drivers/gpu/drm/tegra/plane.h |  3 ++-
+ 4 files changed, 32 insertions(+), 8 deletions(-)
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261008-tegra-drm-yvu420-1dbb7140e54a
+
+Best regards,
 -- 
-2.47.3
+Aaron Kling <webgeek1234@gmail.com>
+
+
