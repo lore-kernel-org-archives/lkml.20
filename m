@@ -1,145 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 305E53E4113;
-	Sun, 18 Oct 2026 23:21:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792365719; cv=none; b=MOxWTDIj0NkTYkOeLzYFN27q3cAP5PAwPt2Y7kVpwClRXHc5EYZ0fpSRE1VDFQnX0itrj/Ky3E4ByNbJ/AqScmdrM0L3UasOcPpxWrJK6Y8HSAk9eF4XSXrnDpwzVFFhbXkKMctew95/X40dFTN6vzkl8emT+orSs3CmSeUMmPs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792365719; c=relaxed/simple;
-	bh=KQLRzRMUlrsXTRFRLW7P2CFU+Gm+rH1A3HUFJ17tiUI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pLtwiiZJO5W3IRLBkHO0WpW5Zm7B2rQFVd7NbGQ733ersK2wO6ErH91s5RJwl1yXw37u0k+vnTclYO0PQLTbqFVuZAhHgFabMbtLCqZ4o5pT6Xjv124Pm9BbMjaVjpzV1eSt2wSQKtugTKzqQ5XHMsjReWuogzU6gyuHc1efL/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZwZo+0Z; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB84E35F5E3
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792365843; cv=pass; b=vEG9lfi+uU3OF3Bb+tWpTTyNDTQGc8AfYQEtJa91NxpW/zCp+4NqIz+yLpY6YGSOuYxT3/hRXPSStIKRX495pGU2PVo0ZgGJaylwELTHHCchuaPe5h8s4NklOXZWVzuKsBht2BOgwkXDfwk4puLYm1WzOcRkVsOMm62DqIPt5B0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792365843; c=relaxed/simple;
+	bh=KShYi/fVTCBKlya3MspTCdR63OOWBWaD8wBUta4wq2g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ISyACcNXENLK/Q+I31QCGh1WjR9h322XLZ1MbiWJWkqAlD0P7zdZxE4PHXFKncP5x7Mo9IFuwpvcgXP62Quyx+KHagQzC1NxDXpUS1ZBmJXyyvKQYpXXihSASR16nhE+Ifg+Klqx9X3TIZvHCxFiVO4rrk0+VVWOHZnoIngEhww=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=APplhDZk; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZwZo+0Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D4F41F000C4;
-	Sun, 18 Oct 2026 23:21:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792365716;
-	bh=0fOW3qR5mV2aphpr3TLbv4HR1F98rR5DFuqzthisAJg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dZwZo+0ZaWDzoTbspNcnF0Dk7B6++xEgY77f4rFKh6GeWtfElNevwJKTrSZ2U1FIf
-	 3wdvSVTOYQObazcGuxot7WtCly/2AjewaIMIJzIdFvgOTO6v5NuDURTKcJ52JtcZUq
-	 rsVrejROIrN5+DGjwwver2uQRU066TXtJ+r4Sjl7InKFhxkzDIOo+i4q8DLbeQCEYl
-	 FhO8Sh9Rp74t/fZh627jHpkij1YDqe0j2FiGsN1D8BA5CdHL9sFKlD720XpKZLua86
-	 9xyEs8jVFEos4clwfqTL+dchdLpZX8ZIYlUfOpw7HXEFlxWwr6vCCEc2TifoftGtKb
-	 cngs2eixToLvg==
-Date: Mon, 19 Oct 2026 00:21:49 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Michal Simek
- <michal.simek@amd.com>, Conall O'Griofa <conall.ogriofa@amd.com>,
- <linux-iio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <git@amd.com>, Sai Krishna Potthuri
- <sai.krishna.potthuri@amd.com>
-Subject: Re: [PATCH v4 12/15] iio: adc: xilinx-xadc: Add helper functions
- for the device setup
-Message-ID: <20261019002149.7f90c78f@jic23-hlaptop>
-In-Reply-To: <20261005094205.1045874-13-dileepkumar.nagavarapu@amd.com>
-References: <20261005094205.1045874-1-dileepkumar.nagavarapu@amd.com>
-	<20261005094205.1045874-13-dileepkumar.nagavarapu@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="APplhDZk"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c423b145922so106675166b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 16:24:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792365840; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cGEusqvhrIN6ojhuR1ErV5RsxTXBApGqVDEnvJlqczAU6rOAAkVlZu8ht3dNueqhg6
+         3+fNXMWHEBhiC9/fj3s5Nm5mlCj1D54JWw//eZY9z4vkkAyFVeWKrta6T3PK5HrbkcA0
+         Z9Yf2YzBVOfm0nF9VXkNIEwxMN3KY8fP41r6wlZl/2vC2iZXudjgrp25iBHOa/FQGv4u
+         xLo62Ihzo/qQmige0S7nKksSFK5sHr+CgSncCICPud1MQnQzoZ8Vo/1ap3hzEoqrv4Uw
+         N5vXBrxP6cjxsMSas9DeMcJEglllmSpO0WYlTu2F8w37xcqdtKVkVaDutH1Orymjw1Wi
+         /khA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/y5Ibz7qqr2/Gn8YzXISVGzkygivhG6/sV2wNe5WmBg=;
+        fh=hyHVjSRUQnlGkJTFIgban9YlgM+gTVoafzcQw/j1BFA=;
+        b=N/KKwJwRIallK8HDDCY3BH+iCQjOPVNv2CxpBgcVDYmUlOjY2Fa1JLEu4f3QQImoCk
+         Syzo8TU7gTvgxbim2yErVC+7qye/iPNDYvIQHIVw1CfHs0MfcbQE6qn3d0jioYVGahBM
+         oM/7LXQFGvM5go+s2Ktb7XocWOzQz5N57D19Hi1knWK1BiKp4eMfS5cOE8dfdlNA7Xfx
+         xUIgOrTF7f70xQeqZTn1tPjE8RG6dF1hlQEqzH/3JA/F36ctae1N46XEyg0hXoKWZ4D1
+         kGIDI9qiIGP7cXuswkUJnncjdaWOV591XSyoUHHq2+Ez0xFO0ET+c2iNrYuEEgddiEzc
+         kEcg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792365840; x=1792970640; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/y5Ibz7qqr2/Gn8YzXISVGzkygivhG6/sV2wNe5WmBg=;
+        b=APplhDZk6qkbaqfQMmY9eNroeCxtaDtrZCBZ/z5o2brtuI8FpfZtg2HKujxuOhesb3
+         ZJlFAZagyF4MvoStRG+b4BNqj9OxBRw65AJZyoo5/kYuZn/Qu3+t3m+IcIW3U1M4abLR
+         CR9K8Tl26v6XwALKB2P9aiFfCWl4g108Y63oDDtLnDZlwpQxIp2UGMTsNcHe+RTSnt10
+         nKKIliHnSIpKc44uOihkm8V6xyoowaH1JDe+kYCxnDEyHb/qdRrJphnBruAw1qTePFho
+         Pgg4O2yLvP5X2UjTf/fhs/lSo7oyVWQENOJx8czEaKZRj6i8kioZL2FKHzXIxHWbCtv0
+         Jypg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792365840; x=1792970640;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/y5Ibz7qqr2/Gn8YzXISVGzkygivhG6/sV2wNe5WmBg=;
+        b=FGcDKgKPvbDm0X+Z4VGnsBDenIMDHT2EWoTzmCGaBgWAgYtvYlyTVxMTZm9cIePuZX
+         M/lUnShvw/nHz0GzZNPWpScV3rwqBYboyxHD0Ec5q66odddT93jKD40g2kkiVooGmdcn
+         sMSlyGBBfsF5FEIFu9Kl6/2ftrqKLaAp1LE7rb/rSoaYAqeBQhslYB0bNJVHCHeej4km
+         sYyjGfroqQ1Ah+qjdcvNrLOg0/B25d8Z96A4ePv5vDaqdcxfBD070bFMQE38JkzuKHtk
+         VSCUpIdR33luGKOyJS8VNGmlgHxQGPBTaJog5kglytOAHA0xyNOC2bqi1M4RAnmYNWHC
+         uQ6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxZ458PqRrpJmz9RBgIHkiR2hTttKE94lO9XM5SctA50HyVEK8LbZlZDUJho86H0Ks/RzjTq9WDPjekX0c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfBUb4HS1Te9Lzxtid2lThtBEqfCQgM2U0DrbcAzf4hxXgb1Mo
+	0o20B6y6V6UNX6fn9r3JmlkctsGtPsI1lj3yVAk4Ja7rbXvpiQMxynTYzmpwWhSVzuXE7Y37H6U
+	MQ3uaKb6Pj0Oz6gnK6QHw19GJ5fw7lYQ=
+X-Gm-Gg: AYBFou1xwm9lqInK+31mqJpUvPJO+/Bc7FArgGVLr3xQSYH0o9DK4L3fvD1ZXgQE7l5
+	g1MzEPOLDPHwRXGkkAAgkDSLHzz7zWplJA5wBF72s9U0X8cO1CuyyvnuWygVg9iMZpTOB0RGb9B
+	MJZR7Cp0k2bSQIujGmzZl1OPQLQOM9f/6c30s6pOPNktSR7Hk1c1lVsF3OP0YVcCjVwE1dsF3EV
+	aLTYVjDjsTew1YWbnUZ5MGgSdedo5I4ALspJ+5IIc42vJGMe0EkE7pXaSChYmB/d9kjNlwunHK0
+	jhrOa+G2mmrXcrfgogJwwEZlSroIqps8p0YYEiwBvWO4831t2wk3BQ2TPZF3LxtAykBBPfH9i7o
+	9DFYDLcEbo21nnrzm2RwGuP0yeZCmnX7yyXumLCEzE25IFiuAAXGxHrZo0d0sYsmP/18Cz1EKKF
+	1tO8TNr1EpViavfq4k7nTR8yLTtwatgUUVJNNctB2At1z+b/wnymPo7L+Ndmti7QYv/W2j21tm1
+	b5o
+X-Received: by 2002:a17:906:ba89:b0:c34:1ed:54d9 with SMTP id
+ a640c23a62f3a-c41999720a9mr361332166b.4.1792365839724; Sun, 18 Oct 2026
+ 16:23:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261018231348.36884-1-rosenp@gmail.com> <179236550812.3290.9443229332836486177@kernel.org>
+In-Reply-To: <179236550812.3290.9443229332836486177@kernel.org>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Sun, 18 Oct 2026 16:23:48 -0700
+X-Gm-Features: AclHuK-ZP5haimlzeCjYliwXiklfpxalvRr6YNlaNSwVnHmT-R9sguD0SlezVBA
+Message-ID: <CAKxU2N8rq4bhk-5zAKd3hEWvUh-bfJtntQb9iJ-niZvXgT8rUg@mail.gmail.com>
+Subject: Re: [PATCH net] net: bgmac: fix TX DMA unmapping on fragment mapping failure
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Felix Fietkau <nbd@openwrt.org>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 5 Oct 2026 15:12:02 +0530
-Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com> wrote:
-
-> Refactor the platform driver probe function by extracting device
-> setup and configuration logic into reusable helper functions:
-> xadc_device_setup(): handles IIO device allocation and basic setup
-> xadc_device_configure(): handles device tree parsing and bipolar mask
-> configuration
-> 
-> Move the bipolar channel mask calculation immediately after
-> xadc_parse_dt(), as the channel information used to build
-> the mask is populated there and remains unchanged before it is consumed.
-> 
-> This refactoring reduces code duplication and prepares for sharing the
-> common setup logic between platform and I2C drivers.
-> 
-> Co-developed-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-> Signed-off-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-> Signed-off-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-> ---
->  drivers/iio/adc/xilinx-xadc-core.c | 105 +++++++++++++++++++----------
->  1 file changed, 71 insertions(+), 34 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/xilinx-xadc-core.c b/drivers/iio/adc/xilinx-xadc-core.c
-> index 92cd38cd1834..d95a84e7e561 100644
-> --- a/drivers/iio/adc/xilinx-xadc-core.c
-> +++ b/drivers/iio/adc/xilinx-xadc-core.c
-> @@ -933,6 +933,33 @@ static int xadc_read_raw(struct iio_dev *indio_dev,
->  	}
->  }
->  
-> +static int xadc_setup_buffer_and_triggers(struct iio_dev *indio_dev, int irq)
-> +{
-> +	struct device *dev = indio_dev->dev.parent;
-> +	struct xadc *xadc = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	if (!(xadc->ops->flags & XADC_FLAGS_BUFFERED))
-> +		return 0;
-> +
-> +	ret = devm_iio_triggered_buffer_setup(dev, indio_dev, &iio_pollfunc_store_time,
-> +					      &xadc_trigger_handler, &xadc_buffer_ops);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (irq > 0) {
-Unless it gets modified in later patches, flip this to reduce indent a bit + early exit
-in the simple case of no irq.
-	if (irq <= 0)
-		return 0;
-
-	xadc->convst_...
-
-> +		xadc->convst_trigger = xadc_alloc_trigger(indio_dev, "convst");
-> +		if (IS_ERR(xadc->convst_trigger))
-> +			return PTR_ERR(xadc->convst_trigger);
-> +
-> +		xadc->samplerate_trigger = xadc_alloc_trigger(indio_dev, "samplerate");
-> +		if (IS_ERR(xadc->samplerate_trigger))
-> +			return PTR_ERR(xadc->samplerate_trigger);
-> +	}
-> +
-> +	return 0;
-> +}
-
-> +static struct iio_dev *xadc_device_setup(struct device *dev, int size, const struct xadc_ops **ops)
-> +{
-> +	struct iio_dev *indio_dev;
-> +
-> +	*ops = device_get_match_data(dev);
-> +	if (!*ops)
-> +		return ERR_PTR(-ENODEV);
-Having this in here seems more complex to me than moving it
-to the caller and passing (*ops)->type in as a parameter
-for this function.
-
-Whilst I appreciate the aim of reducing repetition, I'm not
-totally convinced this helper has the right balance of
-saving code to readability.
-
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, size);
-> +	if (!indio_dev)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	indio_dev->name = xadc_type_names[(*ops)->type];
-> +	indio_dev->info = &xadc_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	return indio_dev;
-> +}
+On Sun, Oct 18, 2026 at 4:18=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
+:
 >
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+This was found by an AI review of a related bgmac patch and confirmed by
+code inspection. It has not been observed in practice; it requires a
+fragment DMA mapping failure. Compile tested only; not tested on
+hardware.
+>
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
