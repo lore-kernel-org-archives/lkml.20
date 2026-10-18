@@ -1,37 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248B14B923E;
-	Sun, 18 Oct 2026 22:03:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205CC394EB0
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:05:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792361029; cv=none; b=j+UqGJBq8h2THQZymrYs8bzFmHoIwDOdh9B1BCuU9rxUwgFwu4YLuZ08oeA0noDCrqTMFuxYhWGb3MpRcJOcntbidJkVOvweXLksI/vS5C7vTWSRH8m9jPPy5r+tQlvtEI8zdkgwUxDBqv/RFO/245XILSAsI3jPxvge3IIil+4=
+	t=1792361101; cv=none; b=i4z5l0CaNzSLHgqCR73ciEtO/325PNbo0uaiqPnjeyYxbtFxG5be62c6uh8J52cr8xTmHOMhQYEXV2UEN9QVv1A+LZLfQGMP/m7a3ZcZrh5BY0QNEhP3afmgJZbdLmraUPHx3ixGaXWE3eCiFgjZ9m9vmoQwTmrkzgsJfNKHL2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792361029; c=relaxed/simple;
-	bh=09VHhiwJd7bTVssvm/nN2IhGWzCo6OX16LPn+5tjF3o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MHSAEs2c1GdOPdcASaO4FEVIf1nKif5m6ujZd5TZAX4bzGLqmCHdhrhrVgxJkhAPkznBUZmBpgCQB0cQKFeXL3JHUckebhskuCXTMVDVzq4Nv7DhkRS1yaQvLpZdkRxqEj/6nQt3V3VXgagLP9SBEDiPoc9O9kwZrUeG5hdCLPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhw8M8ok; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792361101; c=relaxed/simple;
+	bh=HMm8MU0ai0yuTQwxN6AZ7cjuZpabyMi4cgQPa/Jbj9E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UB9fIcIVTiXGROt8z10ri73Q0imiODcarqEn9NJ8urVCIB2ntHsYmgErMMxrS3XuhF3hKk4WEN22Ii5zti7oOhreF0hv7pqIxC0Q09/OU7I1fk1fgOdFJNbI76PYehmUAIdFSDM09d8QoZrB0dEqXuqT1q169fA3QGLmW9AqAYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jWGnEfjJ; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhw8M8ok"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BC40CC2BCFC;
-	Sun, 18 Oct 2026 22:03:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792361028;
-	bh=09VHhiwJd7bTVssvm/nN2IhGWzCo6OX16LPn+5tjF3o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=lhw8M8ok6wSEaaaIKXRO8hJJAmcN9mMg3WEdGkyPRYHNsZV0YrH9rY8P0RGd37nP7
-	 MvzIU/oBNB6FcYSdQVvSpxZSSeQuHxqK/pS/XrBCTBYxIWXisDyu+xannaTGWhfknk
-	 UCBV5h3WXZ8ilx00aoJ2Dwd9qXAz36l0BKgeGyomYQRobWtw4YfxLS+WViZ3COGT/p
-	 8feuk+L6BbpIV6Ps9pRyW92Av9TcUJo8nfQNHru7XnTbsfcZhYuP0TFNtli35kRd5V
-	 YE2SvyZZSmPRpL11yEfrzYu/z+cDmBCrCfWKFObB4vzktv1zjtIHo/eHUJLJ542sbD
-	 S+YTXj7qEUtCA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C75FCCA490;
-	Sun, 18 Oct 2026 22:03:48 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Sun, 18 Oct 2026 17:03:46 -0500
-Subject: [PATCH v2 1/2] drm/tegra: Support swapping chroma planes
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jWGnEfjJ"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e977109392so5886475ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:05:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792361099; x=1792965899; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FXXu6sXqJk8SsG+U0f2HwCixxxfND+avQe3AD+r/VSs=;
+        b=jWGnEfjJPniSeVcbPWrgIpVJxSHni9qn5y5aId108nT9OEkVkw/sP2up90WI1DEudt
+         JiePtdWJpkYxSEo7YwLTkdKamKahooJbe6HhiJfjB6aeixqV/ThT56WmSBgyut41O4Ru
+         Cj4zolTkA9EkjTspPSySt+OMUC0DDy+W0FlUX3XZSj9BofSn8yX2bD/x85Ux4vFrMLfF
+         1HuwsAJqhMuZjzsyOJgXCa3xvTc43GBtNxWYbjMtiE0y+62z+4Lbiuc7GWWEFdYATRIE
+         vrHqpmtcFjFbs9+yzySQpW7q4jshQguU5zn1o3l+Kh2++hIZF9PMiDr1lbLEy0Ca7Hyt
+         LP4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792361099; x=1792965899;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FXXu6sXqJk8SsG+U0f2HwCixxxfND+avQe3AD+r/VSs=;
+        b=jqm6ftaih9iumtzmAWlo0bspu9D4yuSZDz9Iu1EjFtmjU+fD6U9bgM9Te8xDdPNh5o
+         mOTSushOy+RZmWUIWaOayKpqyqxCwCROenWh11vQalaypjI7e6f0yKk9WcuTjeYG7LS+
+         QefhCEIHkSOZIDWnzXUDLn5AXgpC5J6g7Ts0+dnYVmDVz/IEW+tCKNwLc2b9A+8hrpfn
+         QSN+ycHMNNd97tGau8EvnW0EHz7HawmHshKGywxpDdJfTyDSTxULeOgYGHOIgecXhUfV
+         Zo3hgAHrWEz0FmRDC1JJV9Q6HeTxRKhM0ENPb0pKgqq5ggRxYqTJ6g1/SXkASRKRfe/0
+         UszA==
+X-Forwarded-Encrypted: i=1; AKwUvBzwPrUcoFzSPTOTCLH1cuhJBWXuTRUMcuThuTv9aJx/q60vAzhxo1SDVmHUnlof24OKro4J+6eETqgbomY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPFDfK1FvT1+wYW9H8HcDuCsRaTP8GK+eddW2A+V1RKquoNAXx
+	Bx6D8GF0FHd6ewv2GmQq5JoavV/nHhk9VhX+0famGQ9tBm4OiWlcyDMG
+X-Gm-Gg: AYBFou2tAhbrGZ4+aYwngTYuMlHHfM1wj3HJW2EnvGUbJQSSqCtQUeY2l6K/2SY/A2V
+	MyhzJCLLwrBTqdzc5gVGWPtASCd5u+rxMKTkA0xreI1MEjlytPMc+AfvlUEDkJ1jj5Y0GMUxdvP
+	2VDyM2nH7Pnq29Wg3gly30cLuW8l+qPseez5Y8U8Yu9qmjrsj9Rv40eQUMKu9Oedw1awwgqKPr8
+	/CP0OPtDFCyF4iOrXYRJj66f7NM3ms+t7JKyhVLUGBw8fA80VTzMY+Nftt95RirhjLIZ37M8hkR
+	B51rDCOgMORMWYq3EM7KtuXxV3h/LJM5QxyURndM1OeBrIt/movce6uYeUPdTA7g3FcyDT2Q+QD
+	l+LpyOFO8UoJsnP6vI3+tcfneQL9VcQ1c6ccN/JgrbAudQNSJ+HTkxKGtAqqtj6Lnphwu0NFWiY
+	FsvVrPO1ekXSpq3NpPToxAoIZHtwVy+TFQyz9UOjYZJ7RlcP6YodLVp9jDEL15pTSeuGC7sQ==
+X-Received: by 2002:a17:90b:580d:b0:396:41d1:cbc7 with SMTP id 98e67ed59e1d1-3acee2939c2mr4818318a91.3.1792361099415;
+        Sun, 18 Oct 2026 15:04:59 -0700 (PDT)
+Received: from [10.1.2.130] ([67.185.120.12])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac945e72c6sm17718271a91.5.2026.10.18.15.04.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 15:04:58 -0700 (PDT)
+From: Kir Kolyshkin <kolyshkin@gmail.com>
+Subject: [PATCH 0/2] cgroup: fix cgroup.kill for exited thread group leader
+Date: Sun, 18 Oct 2026 15:04:38 -0700
+Message-Id: <20261018-cgroup-kill-exited-leader-v1-0-c71ad94c20cc@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,163 +69,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261018-tegra-drm-yvu420-v2-1-512889103ab4@gmail.com>
-References: <20261018-tegra-drm-yvu420-v2-0-512889103ab4@gmail.com>
-In-Reply-To: <20261018-tegra-drm-yvu420-v2-0-512889103ab4@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBG4avIrDuQSbHYXkW6CMlfHQwqEy2Ce
+ PeGLr/FeycVmKLQqznJ8NWiy1wht4biGOYBrKmavPMPcdJxHGzZV540Z8ahGxJnhATjIK20T3T
+ R3x3VfjV89Pi/+/d1/QDnsFMnawAAAA==
+X-Change-ID: 20261018-cgroup-kill-exited-leader-a15159e8c230
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Serge Hallyn <serge@hallyn.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Christian Brauner <brauner@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: "Eric W. Biederman" <ebiederm@xmission.com>, 
+ Oleg Nesterov <oleg@redhat.com>, cgroups@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Kir Kolyshkin <kolyshkin@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792361027; l=4832;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=8f9/kgf/w+kZjuzlQw+QdyCPQS3aC0rzLtNVhOjyJ/w=;
- b=zXJ3DOw+bT6jInahrAwSnUEHLyWh1V3+w2pB1UE/WEWe5DkTmvKyGxaxboMPergZZy/2NiUsN
- RWQiKFTitlNDrsOSRXuRm+AalDAxZxCqMl3Uf6KGlY2zUvtEHgni77E
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
 
-From: Aaron Kling <webgeek1234@gmail.com>
+cgroup.kill fails to kill a process whose thread group leader has
+exited while other threads are still running, leaving the cgroup
+populated. This can be used by a process in a container to survive
+the container being killed, including the case of a container with a
+private PID namespace, where such a process is the container's init.
 
-The Tegra display controller supports some yuv types, but not their
-chroma swapped variants. For example, yuv420 is supported but yvu420 is
-not. This can be efficiently worked around by just passing the hardware
-said chroma planes backwards. Add a flag to the plane state struct and
-handling to both tegradc and nvdisplay paths.
+Patch 1 fixes __cgroup_kill() to walk all threads and to send a
+thread-group-directed SIGKILL. Patch 2 adds selftests for both
+scenarios described in patch 1; they fail without the fix.
 
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+Tested on v7.3-rc7 (x86_64 VM): test_kill passes (30 runs), other
+cgroup selftests show no changes compared to the unpatched kernel.
+
+The issue was found in crun, see patch 1 for details.
+
+Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
 ---
- drivers/gpu/drm/tegra/dc.c    |  6 +++++-
- drivers/gpu/drm/tegra/hub.c   | 14 +++++++++-----
- drivers/gpu/drm/tegra/plane.c |  5 ++++-
- drivers/gpu/drm/tegra/plane.h |  3 ++-
- 4 files changed, 20 insertions(+), 8 deletions(-)
+Kir Kolyshkin (2):
+      cgroup: fix cgroup.kill for exited thread group leader
+      selftests/cgroup: test cgroup.kill with an exited thread group leader
 
-diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-index b0bfa946e6979..39c2e920d76a6 100644
---- a/drivers/gpu/drm/tegra/dc.c
-+++ b/drivers/gpu/drm/tegra/dc.c
-@@ -740,7 +740,8 @@ static int tegra_plane_atomic_check(struct drm_plane *plane,
- 
- 	err = tegra_plane_format(new_plane_state->fb->format->format,
- 				 &plane_state->format,
--				 &plane_state->swap);
-+				 &plane_state->swap,
-+				 &plane_state->swap_uv);
- 	if (err < 0)
- 		return err;
- 
-@@ -872,6 +873,9 @@ static void tegra_plane_atomic_update(struct drm_plane *plane,
- 			window.stride[i] = fb->pitches[i];
- 	}
- 
-+	if (tegra_plane_state->swap_uv)
-+		swap(window.base[1], window.base[2]);
-+
- 	tegra_dc_setup_window(p, &window);
- }
- 
-diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
-index 448f49f3a7d7e..6427155ac4fdf 100644
---- a/drivers/gpu/drm/tegra/hub.c
-+++ b/drivers/gpu/drm/tegra/hub.c
-@@ -440,7 +440,8 @@ static int tegra_shared_plane_atomic_check(struct drm_plane *plane,
- 
- 	err = tegra_plane_format(new_plane_state->fb->format->format,
- 				 &plane_state->format,
--				 &plane_state->swap);
-+				 &plane_state->swap,
-+				 &plane_state->swap_uv);
- 	if (err < 0)
- 		return err;
- 
-@@ -664,24 +665,27 @@ static void tegra_shared_plane_atomic_update(struct drm_plane *plane,
- 	tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE);
- 
- 	if (yuv && planes > 1) {
--		base = tegra_plane_state->iova[1] + fb->offsets[1];
-+		uint8_t u = tegra_plane_state->swap_uv ? 2 : 1;
-+		uint8_t v = tegra_plane_state->swap_uv ? 1 : 2;
-+
-+		base = tegra_plane_state->iova[u] + fb->offsets[u];
- 		base |= addr_flag;
- 
- 		tegra_plane_writel(p, upper_32_bits(base), DC_WINBUF_START_ADDR_HI_U);
- 		tegra_plane_writel(p, lower_32_bits(base), DC_WINBUF_START_ADDR_U);
- 
- 		if (planes > 2) {
--			base = tegra_plane_state->iova[2] + fb->offsets[2];
-+			base = tegra_plane_state->iova[v] + fb->offsets[v];
- 			base |= addr_flag;
- 
- 			tegra_plane_writel(p, upper_32_bits(base), DC_WINBUF_START_ADDR_HI_V);
- 			tegra_plane_writel(p, lower_32_bits(base), DC_WINBUF_START_ADDR_V);
- 		}
- 
--		value = PITCH_U(fb->pitches[1]);
-+		value = PITCH_U(fb->pitches[u]);
- 
- 		if (planes > 2)
--			value |= PITCH_V(fb->pitches[2]);
-+			value |= PITCH_V(fb->pitches[v]);
- 
- 		tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE_UV);
- 	} else {
-diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plane.c
-index 2148b0c59815c..757bc552809fe 100644
---- a/drivers/gpu/drm/tegra/plane.c
-+++ b/drivers/gpu/drm/tegra/plane.c
-@@ -59,6 +59,7 @@ tegra_plane_atomic_duplicate_state(struct drm_plane *plane)
- 	copy->tiling = state->tiling;
- 	copy->format = state->format;
- 	copy->swap = state->swap;
-+	copy->swap_uv = state->swap_uv;
- 	copy->reflect_x = state->reflect_x;
- 	copy->reflect_y = state->reflect_y;
- 	copy->opaque = state->opaque;
-@@ -319,11 +320,13 @@ int tegra_plane_state_add(struct tegra_plane *plane,
- 	return 0;
- }
- 
--int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap)
-+int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_uv)
- {
- 	/* assume no swapping of fetched data */
- 	if (swap)
- 		*swap = BYTE_SWAP_NOSWAP;
-+	if (swap_uv)
-+		*swap_uv = false;
- 
- 	switch (fourcc) {
- 	case DRM_FORMAT_ARGB4444:
-diff --git a/drivers/gpu/drm/tegra/plane.h b/drivers/gpu/drm/tegra/plane.h
-index e33a581e6490e..dba5f1b254e98 100644
---- a/drivers/gpu/drm/tegra/plane.h
-+++ b/drivers/gpu/drm/tegra/plane.h
-@@ -49,6 +49,7 @@ struct tegra_plane_state {
- 	struct tegra_bo_tiling tiling;
- 	u32 format;
- 	u32 swap;
-+	bool swap_uv;
- 
- 	bool reflect_x;
- 	bool reflect_y;
-@@ -88,7 +89,7 @@ void tegra_plane_cleanup_fb(struct drm_plane *plane,
- int tegra_plane_state_add(struct tegra_plane *plane,
- 			  struct drm_plane_state *state);
- 
--int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap);
-+int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_uv);
- bool tegra_plane_format_is_indexed(unsigned int format);
- bool tegra_plane_format_is_yuv(unsigned int format, unsigned int *planes, unsigned int *bpc);
- int tegra_plane_setup_legacy_state(struct tegra_plane *tegra,
+ kernel/cgroup/cgroup.c                     |   4 +-
+ tools/testing/selftests/cgroup/test_kill.c | 158 +++++++++++++++++++++++++++++
+ 2 files changed, 160 insertions(+), 2 deletions(-)
+---
+base-commit: f909e534f5e34feb2ea2701d54df63e21aa506fc
+change-id: 20261018-cgroup-kill-exited-leader-a15159e8c230
 
+Best regards,
 -- 
-2.54.0
-
+Kir Kolyshkin <kolyshkin@gmail.com>
 
