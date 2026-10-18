@@ -1,54 +1,115 @@
-Received: from mail.noirlang.tr (mail.noirlang.tr [217.18.210.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D604498E0E
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 12:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.18.210.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B44D47532E;
+	Sun, 18 Oct 2026 12:22:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792325944; cv=none; b=qRET+SFChi1pGsVC7zadXhel/Ddh05xIlUBUpspmoY+YNODU6+TvygtfLSCQWn8pRFdvyMngMZ4w+s0Eb/4ioaYvtT73Q1KXT7f9ny3uYMsFLm/lwYzz8AkF6Qr7fn6Xp8Eq+G7j4wWXqs6hVLsIlCqwFYtQhbp8X1nAm6F5Tgk=
+	t=1792326156; cv=none; b=RlmQuZAXj5JMVaMS0gjxwB2MJPx2MfCe4NQBjAgXmRLFyaKa1iCdHj17do9rmPn7T+TzF5Mjq1lmLwxJ7hKIOUZ3n6of76gLYPttELNUQyNSnZb0r2G+djanjbK/wQZVS/tSQbBj+/347Qc8Qz6q89XoE913bCrafzxmm+tLGW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792325944; c=relaxed/simple;
-	bh=Gg55PsbPGtcN7IiPxEHl7XyjGCUmgryzK6hatiGnGjo=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID; b=YamFPOfEcbF5ab5TIZdSYbkVChxnLw+07olLS7WNoEOpoFya/MdBC2KZu/amtNBUZ2epwlS0s6YQF63U+ovvHgmGivqtdhU11/wr0pKijj6Hl4FfP9mFrMCsxE7Dp5xb/rkuCj+5R9Yyd4GZGvNKsG1wOkIOPkos3Zk8aBssqH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=noirlang.tr; spf=pass smtp.mailfrom=noirlang.tr; dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b=N8lpprFy; arc=none smtp.client-ip=217.18.210.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=noirlang.tr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=noirlang.tr
+	s=arc-20240116; t=1792326156; c=relaxed/simple;
+	bh=88MdtRV5c1OfblwXIh5USkyoQj5IG6VXjRd0Ceysiaw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fsnzwulFXzIMbAuRewK2hng49eg02SqAWarQsgkoi6k/QLOuIjpvxy8KngGyk/uH/zdoZZLDjKLzmRyVwIEEk2NadCk9D2n5T12bcKbWEoVlei9c9YNvGoTPaZHML8LpkYI1U+VTVPsWE4rZjCt+bBL1ZtFGcpjsn6pf1YfoxZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=I6XMtjHT; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b="N8lpprFy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=noirlang.tr; s=mail;
-	t=1792325938; bh=Gg55PsbPGtcN7IiPxEHl7XyjGCUmgryzK6hatiGnGjo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=N8lpprFyhEcTwi9DxQIHpXympUP7FlDNI8v6NnHagCtedwD5hjZxmP3p9KQQ7/jzt
-	 ZGvJupdxUXOiEgF8AH7+UoyQ1raIJisCZXtm2m6TonJFjH5m3KV7UNTJmiC5RdggKu
-	 iaYJxrPuVtvaNAY0p/nxi/0kFHVtHvO2qYwcJpfMN1iLxjmnM2WyWYUSeNULdnieXT
-	 2/FGpNmZ6uaBIqqdnDnYcg8g76LNnj9wKKPkgJFoICfourEoojH54cMI+IvDkU3hpT
-	 k98dwFDLZJoC//cWErFCbd+g/1AF3Agtp6ZvP2uWlMr/xgczhiqs5lA1IpHEJZJHC+
-	 qOgESIx/bRvCg==
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="I6XMtjHT"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 3D43D810E5;
+	Sun, 18 Oct 2026 14:22:31 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id KMPTO3mHBsKi; Sun, 18 Oct 2026 14:22:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1792326150; bh=88MdtRV5c1OfblwXIh5USkyoQj5IG6VXjRd0Ceysiaw=;
+	h=From:To:Cc:Subject:Date;
+	b=I6XMtjHTKOLL0VYiLG8rfZ5X10zDZyRwfkRBAT/ElCdNyf10aAL+CUV1EDQhnYFkg
+	 7CvYWSkkD/q3ZvpM+9infGhG1Tl5jWfFR7V0G6X4YWu1+YaiPV7KIUfmIVu4JTMsGK
+	 YO7wTtk8Ex3zgihiZF7wFJYcxUoXOyKZYdsnfMmYTbqsdD0hesiYVWqUx6R4NoplUZ
+	 HobKpFe00mJI99rGxpirlJr2JaFppAEKGie4oJf75PMJH1CCYshkH2EFPDy4gJGkmY
+	 Bpy2rEQo64dhMn1wn38znjECmHa5zKuvh6EPhRLI6cbknqltH15micq+UnWG4wrJlM
+	 NPxviXV6mlGXw==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Rong Zhang <i@rong.moe>,
+	Len Brown <lenb@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Ike Panhc <ikepanhc@gmail.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Charis Stratakis <c.stratakis@proton.me>,
+	Avraham Hollander <anhollander516@gmail.com>,
+	=?UTF-8?q?Jeffrey=20W=C3=A4lti?= <jeffrey@waelti.dev>,
+	Rick <rickk1166@gmail.com>,
+	linux-acpi@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] ACPI: Serialize battery, INT3403 _TMP and ideapad methods
+Date: Sun, 18 Oct 2026 15:22:16 +0300
+Message-ID: <20261018122220.678822-1-aliamemis@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: Melih Emik <melihemik@noirlang.tr>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Dan Carpenter <error27@gmail.com>, parthiban.veerasooran@microchip.com, christian.gromm@microchip.com, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: most: dim2: remove redundant dev_err() calls
-In-Reply-To: <2026101833-envision-landless-4b41@gregkh>
-References: <20261018110058.296436-1-melihemik@noirlang.tr> <2026101833-envision-landless-4b41@gregkh>
-Date: Sun, 18 Oct 2026 15:18:57 +0300
-Message-ID: <179232593722.414429.5720805089949576862@noirlang.tr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-SGkgR3JlZywgRGFuLAoKRmFpciBwb2ludCwgYW5kIEknbSBzb3JyeSBhYm91dCB0aGF0LgoKSSBh
-bSBhIGJlZ2lubmVyIHRyeWluZyB0byBsZWFybiBrZXJuZWwgZGV2ZWxvcG1lbnQuIEkgYWN0dWFs
-bHkgYW5hbHl6ZWQgdGhlCmNvZGUsIGJ1aWx0IGl0IHdpdGggVz0xLCBhbmQgcmFuIHRoZSBRRU1V
-IGJvb3QgdGVzdHMgbXlzZWxmLCBidXQgYmVjYXVzZQpFbmdsaXNoIGlzIG5vdCBteSBuYXRpdmUg
-bGFuZ3VhZ2UsIEkgdXNlZCBhbiBMTE0gdG8gaGVscCBkcmFmdCB0aGUgY29tbWl0Cm1lc3NhZ2Ug
-YW5kIHRoZSByZXBseS4gVGhhdCBtYWRlIGl0IHNvdW5kIGxpa2UgZ2VuZXJpYyBjb3Jwb3JhdGUg
-QUkgZmx1ZmYsCndoaWNoIHdhcyBteSBtaXN0YWtlLgoKSSB1bmRlcnN0YW5kIHRoZSBzdGFnaW5n
-IHBvbGljeSBhbmQgcmVzcGVjdCB5b3VyIHRpbWUuIEZyb20gbm93IG9uLCBJIHdpbGwKd3JpdGUg
-YWxsIG15IG1lc3NhZ2VzIGFuZCBjb21taXQgbG9ncyBpbiBteSBvd24gd29yZHMuCgpUaGFua3Mg
-Zm9yIHRoZSBmZWVkYmFjaywKTWVsaWgK
+On ThinkPad P1 Gen2 and P53, INT3403 _TMP switches the EC page selector
+without taking the mutex the battery methods use.  On some Lenovo
+IdeaPad and Yoga models, the battery _BIX and the ideapad GBMD take the
+EC mutex and a serialized method in opposite order and deadlock until
+an AML mutex times out.
+
+As discussed in [1], add exclusive variants of the AML evaluation
+helpers and use them for the battery, INT3403 _TMP and ideapad methods.
+Patches 2-4 depend on patch 1.
+
+Changes in v3:
+- Also evaluate _TMP exclusively where int3403 and processor_thermal
+  probe for it
+
+Changes in v2:
+- Merge the follow-up series [2] and drop its EC query and UCSI patches
+  until they are shown to help
+- Add acpi_execute_simple_method_exclusive() for _BTP and ideapad
+- Make the helpers wrappers that take the lock around the existing ones
+- Join lines up to 100 columns, add a Link: for Suggested-by:
+- Drop Hans' Reviewed-by from patch 1 due to the rework
+
+Link: https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=VW4Wi2y1-s+k23bpzmX9aAZ0Rsv4z9Q@mail.gmail.com/ [1]
+Link: https://lore.kernel.org/all/20261014190544.150093-1-aliamemis@disroot.org/ [2]
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221065
+v2: https://lore.kernel.org/all/20261017130652.318778-1-aliamemis@disroot.org/
+v1: https://lore.kernel.org/all/20261014132703.93355-1-aliamemis@disroot.org/
+
+Ali Ahmet Memiş (4):
+  ACPI: utils: Add exclusive AML evaluation helpers
+  ACPI: battery: Evaluate battery methods exclusively
+  thermal: intel: int340x: Evaluate _TMP exclusively
+  platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively
+
+ drivers/acpi/battery.c                        | 12 +++---
+ drivers/acpi/utils.c                          | 41 +++++++++++++++++++
+ drivers/platform/x86/lenovo/ideapad-laptop.c  | 12 ++++--
+ .../intel/int340x_thermal/int3403_thermal.c   |  3 +-
+ .../int340x_thermal/int340x_thermal_zone.c    |  6 ++-
+ .../processor_thermal_device.c                |  2 +-
+ include/acpi/acpi_bus.h                       |  7 ++++
+ 7 files changed, 68 insertions(+), 15 deletions(-)
+
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.55.0
+
