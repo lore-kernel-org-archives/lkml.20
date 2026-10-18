@@ -1,128 +1,165 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80383B8D7B
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 03:17:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BB1366DD3;
+	Sun, 18 Oct 2026 03:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792293435; cv=none; b=KS3D1GG055zm7oHD+1aTAc4WMIRkrTPmleC4G9umh9JAwY7MxKpCyT2lAWwW3h1dWA7Up0yArSSCGDTVysJRscFf3dd2KRSca/wn09+TBBQJ720KA7fJIgqflhvBCMq0q+u9j2gsk1s+XRcg90Bsc4+8wF5VZVZbNRQp73eJpKo=
+	t=1792293466; cv=none; b=T8+47P1ibenPKGDF7YXzgpDec1Wl0suReUwBkHEetMSqXQpaKjfzyaxVAs8L5ghciErJGdHmBqgcGvepTpApnRf8AK7fGYA44T7rFZwF5MPL7EAjKJiX1lZcT+ONYWe6Yaq9938cluyBEx01ER+kQsSubglRnZdF+FrGYGjsvu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792293435; c=relaxed/simple;
-	bh=Dqx7bjnJ9ljoxyRAQVnpEUe+0UkIBf/9p0mvgs9N0O4=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=numnKlUmTgcdIFTrg86ILnQ2A7EQo3HChDVZHA9bCw/sI22TZok99/4IVNhVpwLLGDnKvd9UKrAGpPXvIDpGzYU792jOzBW5YlJiEHPC4w3LKdUT3WbRn/tW1Bcx4q8GW4I83cWo7LgYFNeI/b7+kCEtgZGqz1+Ao0fT6DQLkbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fQ6GSPMq; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792293466; c=relaxed/simple;
+	bh=Vb+ei8N3NRQz/AMvH9MLTC6259M+aZ0Bg/jP410ctPQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IEpUxfTZwmnrriMEsQs14Y8OJPE569wXjy38yfPmhCkrfh/wbm8QUsTBZ2EGT1ctqlPtIbRPpMak0fhe6Pgbx4YG5ojZJtvTBn+O/+oKjZxd9JhKTiwBgdtjc4vwikEmqr5sGNDENSYilGngJ37K1kySDLPtrDGkA/VGSQlYQnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2QqiDhm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fQ6GSPMq"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93f1e5d7450so111198185a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 17 Oct 2026 20:17:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792293432; x=1792898232; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gw9rUTlrYem7cQv596Vt7Cu3AvgaFkq7BPIa8azNfUM=;
-        b=fQ6GSPMqDoX/tmCPchJRPG7ST6C5dNUmthZnTJ7WQJ0v/YNr8xdO40r9ujacGz4LK3
-         V11V7U39s/QLeQ8P23Etr8fFJidCX3Oz4tNTiHtZvRVRAggXFkiv4DtGEJ4ar4VijU+p
-         KV53XZqif3KiveG7Dziji1gMqLyfEVvNbV1Pknb2gJxo/vb8Mg+UB25fLXwmIjhntaaM
-         s0u1QGK8D8Zc2z1hmsB6SNZPzTl8KY0ZVPT7fAq4vBS5vDqc9w0a7IfWQ8YlVOYB2EIr
-         XVAbhaOKo8cybM9NAMOPYXGnk4habannJno2Fzf1dZs3HvKdnB516+bEsOH2a7laVCbq
-         hWaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792293432; x=1792898232;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Gw9rUTlrYem7cQv596Vt7Cu3AvgaFkq7BPIa8azNfUM=;
-        b=y8D1gecImv+D6mxtzKA80IqMzBJ4fH+WSRLGdMt+nFDEPOnwe1JJsZljavpBpU1mA0
-         6a6Hild77zHcaKqV51WiOi+4xmPEN37Rln99gaHM/jZEtFS7nfsEv2GVx4Hx4H3RfExk
-         w5JfzijchBgbH5bJi+b1iDYCoIYOZ727MPZ58hOKZFOAA80olRr99AaIuvM9aBZ6gOBW
-         zPBXPtKx6bwfFIh1fKg6vMbH+PIgDKsyXlgZvxDJt2/szzN6RjdFyzUnv2CBkTaot7wQ
-         khqJM5VsqIDVfInojI5eub+DYzOhh31TaryKArRAjmtOkKJflkUzdzKKKstpQELJf2bd
-         /+gg==
-X-Forwarded-Encrypted: i=1; AKwUvBzjh+LFueio1IMOP7XibIKpVRz2m+rd+wcjgL2uNJT4CbREHJ5uaQu9DOGDs6A6TboFMlWrhBGpyzucZcU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKd3xbHdCYk4EEnUmbmpx+acmSh89l2ogZlmoYVxfLnA/fKTOTT
-	LCNmH5kg7Z4btkGnELwWKjxdpHBO3EbCqw3zOcHu+jU34JRQOl+LIpo=
-X-Gm-Gg: AYBFou3AXo+rYebs/6mqbd7O1LLetXmqiNdImvj59NelrHC+Jr9LOV4Iy5fxONQDNC8
-	1cYZqc3WCdu8/Fqgbgw0FaXi4/QzWAC93xMcSp20HEXf1erReKXmA9/gh7PRyOYF2FlULBTblaw
-	jmV0hGhdtUw+6orO6HrUKwBLkUiEnfft5R7QhQnE+MMGSsM8KkTJ7D/riCqib66+jvuihcbGwn4
-	TYGUH4YTAoELeZ7jyWmL+YUm7bRmOjRA+2wS+wQ1wCqZHTTmiZQQojEhuwDq18+GJtstpld5fW1
-	ktLzuBSG1FKhaeiN4/G/iI3xFtIGoF0v5A+oD5UUnIcLH/hyu7NnY1PqGI3KKrZQPTRzB3FDgu4
-	xoEXKWRG7OXuEnp7JQnSpf/vUj4SmLO6q8z6HANLobsEtu1idoSpkIKeFnPcHs6uJjy7vK9o0wf
-	Ein9q2wlizaaFCt0IdRM9PCq+a6etowHivhKdSiNbfjMPidjGzS/Hq6/53y+BDfXthCn3TT66oH
-	+/Cf09JD/Li2m4gEPKWg4InLF/OhEgnUxQEueN0gBV/4na7xz2s4Hb18xX5mgg38GHCcemKOCVf
-	4lAefZ+bygM5icsC2umPfWLmTVjl
-X-Received: by 2002:a05:620a:4109:b0:93f:35fc:5266 with SMTP id af79cd13be357-93f35fc586emr276156485a.44.1792293432462;
-        Sat, 17 Oct 2026 20:17:12 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a1688aesm602519385a.8.2026.10.17.20.17.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 20:17:11 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Rui Miguel Silva <rui.silva@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] usb: isp1760: shut down the VBUS timer before unregistering the UDC
-Date: Sat, 17 Oct 2026 23:17:09 -0400
-Message-ID: <179229341115.3942822.5484449075463010207.isp1760@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2QqiDhm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717A21F000C4;
+	Sun, 18 Oct 2026 03:17:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792293465;
+	bh=yqieXVip+Y0+11WxWPmjTLS4Expr9Kk2s6GQ/K7PRo8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=j2QqiDhmAGa4krixvX1h5yNduq5tKZqeQj03+TKGTt48YPwP/CmDzoMU+10+m+ayN
+	 FXJsZYl7UtrjVzbxkbi5XAJWkJoj2vVf6RMbqNsU/ZriqgWZFL60AyRjErS1Yk8YDl
+	 hCxbOdVVWjgRFaolUovh8ShhNCfGthdSr0vGnT/5HBJN1DP/+MaCfZp6buno8WHSK1
+	 BcpDUr8l5cylxlU0k0qjdtevFdXOqnL83z+3LUqBtIVSFMmjSjY4yBi00+Cd1+jDUL
+	 YIY9FrJqIgQiQujI1KPuoSe7See1L+zg1LLBjVAdaLWREXv3Oa6VNzkUpLYXIb0fO7
+	 uuaqbSiJkKqeg==
+Subject: Re: [PATCH net 2/2] net: usb: lan78xx: reject short register and
+ statistics reads
+From: netdev-bot+sashiko@kernel.org
+To: law.wei.jie@gt.tech.gov.sg
+Cc: Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, woojung.huh@microchip.com,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 98lawweijie@gmail.com, stable@vger.kernel.org
+Date: Sun, 18 Oct 2026 03:17:43 +0000
+Message-ID: <179229346399.3135.12116533277810426921@kernel.org>
+In-Reply-To: <20261014025602.26334-3-law.wei.jie@gt.tech.gov.sg>
+References: <20261014025602.26334-3-law.wei.jie@gt.tech.gov.sg>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The VBUS interrupt handler can arm vbus_timer until its IRQ is freed.
-Although isp1760_udc_stop() deletes the timer synchronously, it does so
-before disabling the controller. An interrupt in that window can rearm
-the timer, leaving it pending after usb_del_gadget_udc() and free_irq().
-The timer then accesses the devm-allocated controller state after
-removal.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Shut down the timer before unregistering the gadget so that pending
-callbacks are drained while the gadget is still registered and further
-IRQ-driven rearming is ignored. Also shut it down on registration
-failure after releasing the IRQ. Keep the temporary stop operation
-unchanged so that a gadget driver can subsequently be bound again.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-This issue was identified as part of our ongoing research while
-reviewing kernel code.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 0316ca6319b9 ("usb: isp1760: Add device controller support")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+- [Medium] Three statements in this commit message (tagged for stable) do
+  not match the code at its parent.
 
----
-Compile-tested with Clang, W=1. No hardware runtime testing.
+--
 
-Based on mainline 0fcb05b72344f40806cbe810de8872f1698bf053.
+net: usb: lan78xx: reject short register and statistics reads
 
-diff --git a/drivers/usb/isp1760/isp1760-udc.c b/drivers/usb/isp1760/isp1760-udc.c
-index e45a54c..7b60bd9 100644
---- a/drivers/usb/isp1760/isp1760-udc.c
-+++ b/drivers/usb/isp1760/isp1760-udc.c
-@@ -1581,6 +1581,7 @@ int isp1760_udc_register(struct isp1760_device *isp, int irq,
- error:
- 	if (udc->irq >= 0)
- 		free_irq(udc->irq, udc);
-+	timer_shutdown_sync(&udc->vbus_timer);
- 	kfree(udc->irqname);
- 
- 	return ret;
-@@ -1593,6 +1594,9 @@ void isp1760_udc_unregister(struct isp1760_device *isp)
- 	if (!udc->isp)
- 		return;
- 
-+	/* The IRQ handler can rearm the timer until free_irq() below. */
-+	timer_shutdown_sync(&udc->vbus_timer);
-+
- 	usb_del_gadget_udc(&udc->gadget);
- 
- 	free_irq(udc->irq, udc);
+This patch makes lan78xx_read_reg() and lan78xx_read_stats() return -EIO
+when usb_control_msg() transfers fewer bytes than requested. Before this,
+uninitialized kmalloc() memory could be used as a register value or as the
+statistics counters.
+
+> With an emulated device on a kernel booted with init_on_alloc=0:
+>
+> - A zero-length reply to the statistics request makes ethtool -S, which
+>   needs no privileges, report the stale contents of the kmalloc-192
+>   buffer. One counter pair read back as 0xffffffff8a427800, the
+>   address of usb_api_blocking_completion(), next to several direct
+>   map pointers.
+>
+> - A zero-length reply to the RX_ADDRL/RX_ADDRH reads in
+>   lan78xx_init_mac_address() turns uninitialized heap memory into the
+>   MAC address (12:85:1f:dc:2e:bd and e6:93:44:41:9b:9f on two probes),
+>   which is then written back to the device in RX_ADDRL/RX_ADDRH and
+>   MAF_LO(0)/MAF_HI(0).
+>
+> Treat a short transfer as -EIO in both helpers. With this change the
+> same device fails to probe with -EIO, and with only the statistics
+> reply cut short all counters stay zero.
+
+[Severity: Medium]
+
+Can the zero-length statistics case still be reproduced at this patch's
+parent?
+
+The previous patch in the series, "net: usb: lan78xx: do not update
+statistics after a failed read", already updates curr_stat only when the
+return value is positive:
+
+drivers/net/usb/lan78xx.c:lan78xx_update_stats() {
+    ...
+	if (lan78xx_read_stats(dev, &lan78xx_stats) > 0) {
+		lan78xx_check_stat_rollover(dev, &lan78xx_stats);
+
+		for (i = 0; i < (sizeof(lan78xx_stats) / (sizeof(u32))); i++)
+			data[i] = (u64)p[i] +
+				  ((u64)count[i] * ((u64)max[i] + 1));
+	}
+    ...
+}
+
+A zero-length reply makes usb_control_msg() return 0. Then
+lan78xx_read_stats() returns 0 and dev->stats.curr_stat is never written.
+
+With that patch applied, it looks like only a partial reply of 1 to 187
+bytes still leaks the uninitialized tail of the kmalloc() buffer. The
+message doesn't mention that case.
+
+For the same reason, wouldn't "with only the statistics reply cut short all
+counters stay zero" also be true without this patch when the reply has zero
+length?
+
+Could the message also mention that it depends on the previous patch? Both
+patches are Cc: stable, but they have different Fixes: tags (20ff55655a93
+and 55d7de9de6c3).
+
+If this patch is backported alone, lan78xx_read_stats() returns -EIO
+without writing data. The old lan78xx_update_stats() still runs the loop
+unconditionally:
+
+	if (lan78xx_read_stats(dev, &lan78xx_stats) > 0)
+		lan78xx_check_stat_rollover(dev, &lan78xx_stats);
+
+	for (i = 0; i < (sizeof(lan78xx_stats) / (sizeof(u32))); i++)
+		data[i] = (u64)p[i] + ((u64)count[i] * ((u64)max[i] + 1));
+
+The heap leak would then become a leak of the uninitialized on-stack
+lan78xx_stats through ethtool -S, and the counters would not stay zero.
+
+In the MAC paragraph, is the RX_ADDRL/RX_ADDRH write-back accurate? In
+lan78xx_init_mac_address(), those registers are only written when the
+address is invalid, after addr has been replaced from DT, EEPROM, OTP or a
+random address:
+
+	if (!is_valid_ether_addr(addr)) {
+		...
+		ret = lan78xx_write_reg(dev, RX_ADDRL, addr_lo);
+		...
+		ret = lan78xx_write_reg(dev, RX_ADDRH, addr_hi);
+		...
+	}
+
+	ret = lan78xx_write_reg(dev, MAF_LO(0), addr_lo);
+
+Both quoted addresses (12:85:1f:dc:2e:bd and e6:93:44:41:9b:9f) are valid
+unicast addresses, so they skip that block. Only MAF_LO(0)/MAF_HI(0) and
+the netdev address set by eth_hw_addr_set() receive the value taken from
+the heap.
+
+The code change itself looks correct.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014025602.26334-1-law.wei.jie%40gt.tech.gov.sg
