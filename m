@@ -1,43 +1,43 @@
 Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653D53C378A
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 15:53:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2781A3BB687;
+	Sun, 18 Oct 2026 15:53:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792338792; cv=none; b=ph0DS3vjeCiMTEKHIFTDROjASi2x0FAvRchtGj+fdrBKHQd/wMFeAQTTJAgGBqO4ttzLm2C2pjK2ewBBKYg/5ePqJE6xchDYIDXOWrSLzAZ9AE0b2p/0kJvHFjLeeiMUetsSRJ8i10ysGLZPR3+FQ72ccOvItngXkqraPMH80Y4=
+	t=1792338794; cv=none; b=Dynhw3/+Cm0FPefVfReK8qMvgE/NTDIypAS9icI6C5Mqd42hw90Ex7i/jB51GBaR3kq9RxQ9yloZrcNxZcl8lk98ZYdrZdqfRIBtgMiTPT01OQRN9F5LTUcbwjsQ2Od9r0i4mcVifzfDBiLErdVcfH4osoHCrxU9zWK6aCo4lkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792338792; c=relaxed/simple;
-	bh=h48Jt4DOAyx1UsN/SeYOc9zyhdVg5SaIyCPO+fI7Atc=;
+	s=arc-20240116; t=1792338794; c=relaxed/simple;
+	bh=zNceYR6R8GGDn+3YVEowWazLXgZtJDU4P+7MLUo4JpY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JQ00j0eurS3JS7jJuKzkrUM+9kaCfTDOsaducw3GMFeQfumd+UmW+IclLnBdLRtcZIXMRmTJ2WrGDDtUksBcd0jKs6V5qIZtBPfAq6unuJMlVVBMtA0bLZlqsRSVgIjFWt55tnWRofjWfxdjY3nEGZG//4sHVeTxSJieq+qguOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=dZF1Ry3J; arc=none smtp.client-ip=185.226.149.37
+	 MIME-Version; b=ISO9k0MLlu0Koek+Y8SphQF8IFuodqATAfhUHc7hErMxbfWuKM/2NRHxmH7aXMsZsjR4//RVGw5jGThVESW3ASi8K+ZIP024RrsV/Inww00Vs82IR1kJPvpkm513sbm1nxm/6L5Y0Qzqgo/MFz+FxqDaO4ozqwLKnAWZYGvUIPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=runbox.com; dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b=ifUiZXGS; arc=none smtp.client-ip=185.226.149.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="dZF1Ry3J"
+	dkim=pass (2048-bit key) header.d=runbox.com header.i=@runbox.com header.b="ifUiZXGS"
 Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
 	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITC5-000Idy-P1; Sun, 18 Oct 2026 17:53:05 +0200
+	id 1xITC6-000IeB-AS; Sun, 18 Oct 2026 17:53:06 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
 	 s=selector1; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
 	:Message-Id:Date:Subject:Cc:To:From;
-	bh=EL6NkSrwprg57F2VdDLVn9DgamauTvELvhUv6gcZ5dk=; b=dZF1Ry3J3eoaLckiS2i2rsFylN
-	Q7RZimipLRhzbf4xFJezMrAOwe1DsffrOTSWxYyk3ZjOQhHpkwbh1vmnghLlR1fHn5vrj2FNb4hHc
-	45xW2CCVvGMWadbTSsVbw84zuNWxrMygVD8sAj3B+WFHE2u9DfSkKjRLsXccKtDpfrvbR9dJQjK4j
-	BSjj0HiG1dpabNCReEqylRYw+9gFRmjstQzQXz0Fo9yF0Z2ElascKuFxT6bo+mfBU8FMjQ6AXRSse
-	myFcxrbzIxz/OY3s/dpJxV/JPpY+T5wbSAwrDD6oIZTLDx5h0/LU1WV8r4PqeFfqj6YSxpFVvr5x3
-	mA4wJ3Sw==;
+	bh=jRboKxvlUefbj4z2+0WRdzGhr7Fy1gLY61mf41YU3JQ=; b=ifUiZXGSn4Z8bXrY166aZq9xeV
+	WfZxUhgN7LJZ5O6oH+mQjWRJzS2sEAVW2rEx+MRz47eWS2+a3M2vZJPxbivM31DGcCHKLOTpoK9bg
+	RQvz4P28loTv7+hSWd7c+vT6mxMrbFfWGqPpk3PmbChYZ54GcMjO3Ptx17404WzE7y+dzxzE+AdqQ
+	oI57MKPLmC4h713uvP2mt9mBvtDr/TCjBUTRYp24QokUtCl3l1sOJN82S4vYQKa8D9YO7UpZoTWCf
+	5E01KXUi25w07+CVU/4gQnpx/qpV1lrY2G91qbVFJDSnrK9fj15X5zRsc8Z0+/wyDqdZ0vm7VJTky
+	TRFg54nw==;
 Received: from [10.9.9.74] (helo=submission03.runbox)
 	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
 	(envelope-from <david.laight.linux_spam@runbox.com>)
-	id 1xITC0-0000Bo-Ek; Sun, 18 Oct 2026 17:53:00 +0200
+	id 1xITC0-0000Bx-QX; Sun, 18 Oct 2026 17:53:00 +0200
 Received: by submission03.runbox with esmtpsa  [Authenticated ID (1493616)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.95)
-	id 1xITBk-004q3U-DC;
-	Sun, 18 Oct 2026 17:52:44 +0200
+	id 1xITBe-004q3U-0Y;
+	Sun, 18 Oct 2026 17:52:38 +0200
 From: David Laight <david.laight.linux@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Petr Mladek <pmladek@suse.com>,
@@ -51,9 +51,9 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: Luis Chamberlain <mcgrof@kernel.org>,
 	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
 	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH v2 next 13/15] kallsyms: scripts/kallsyms: Reuse tokens that have no references
-Date: Sun, 18 Oct 2026 16:52:04 +0100
-Message-Id: <20261018155206.132411-14-david.laight.linux@gmail.com>
+Subject: [PATCH v2 next 01/15] kallsyms: scripts/kallsyms.c: Avoid overrunning on-stack buffer
+Date: Sun, 18 Oct 2026 16:51:52 +0100
+Message-Id: <20261018155206.132411-2-david.laight.linux@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261018155206.132411-1-david.laight.linux@gmail.com>
 References: <20261018155206.132411-1-david.laight.linux@gmail.com>
@@ -65,143 +65,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Keep track of the number of times each compression token is used.
-If the count becomes zero (eg if the only x are in axb and y is
-substituted for xb giving ay) then x can be reused.
+A maximum length symbol can be KSYM_NAME_LEN long (including the '\0').
+But the name being compressed contains a leading symbol type (e.g. T).
+So when the compressed name is expanded (after the hex is written out)
+the buffer needs to be KSYM_NAME_LEN+1 bytes long to allow to both the
+symbol type and the '\0'.
+But it is declared 'char buf[KSYM_NAME_LEN] so a maximal length name
+overwrites something on stack.
 
-This means that a token can refer to a long string without needing
-tokens for all the shorter strings.
+Found by code inspection, seems to have been broken before the code
+was imported into git.
 
-For my normal kernel build four tokens get reused saving 8.5k of data.
-The savings may be greater if there are symbols with long matching prefix.
+I expect there aren't any maximal length symbols and/or the byte that
+is overwritten is something that is either zero or 'don't care'.
 
 Signed-off-by: David Laight <david.laight.linux@gmail.com>
 ---
- scripts/kallsyms.c | 45 ++++++++++++++++++++++++++++++++-------------
- 1 file changed, 32 insertions(+), 13 deletions(-)
+ scripts/kallsyms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-index ee06a9c7435f..189fb50ec8c5 100644
+index 494852ade6d8..bda8921c95ef 100644
 --- a/scripts/kallsyms.c
 +++ b/scripts/kallsyms.c
-@@ -76,6 +76,7 @@ static int token_profit[0x10000];
- static struct token_table {
- 	char           *str;		/* Full expansion, '\0' terminated */
- 	unsigned short len;		/* Length of str */
-+	unsigned int   refs;		/* Number of time used in a symbol */
- } token_table[256];
+@@ -341,7 +341,7 @@ static void write_src(void)
+ 	unsigned int i, k, off;
+ 	unsigned int best_idx[256];
+ 	unsigned int *markers, markers_cnt;
+-	char buf[KSYM_NAME_LEN];
++	char buf[1 + KSYM_NAME_LEN];
  
- static void usage(void)
-@@ -404,7 +405,8 @@ static void write_src(void)
- 	for (i = 0; i < 256; i++) {
- 		best_idx[i] = off;
- 		off += token_table[i].len + 1;
--		printf("\t.asciz\t\"%s\"\n", token_table[i].str);
-+		printf("\t.asciz\t\"%s\"\t/* %u: %u */\n",
-+		       token_table[i].str, i, token_table[i].refs);
- 	}
- 	printf(".size kallsyms_token_table, . - kallsyms_token_table\n");
- 	printf("\n");
-@@ -512,10 +514,11 @@ static unsigned char *find_token(unsigned char *str, unsigned char *end,
-  * to update the counts.
-  * Marked noinline to help register allocation. compress_symbols() is only called
-  * about 200 times whereas find_token() can be called well over a million times. */
--static __attribute__((noinline)) void compress_symbols(unsigned int token_pair, int idx)
-+static __attribute__((noinline)) unsigned int compress_symbols(unsigned int token_pair, int idx)
- {
- 	unsigned int i, len;
- 	unsigned char *sym, *p, *end;
-+	unsigned int substitutions;
+ 	printf("\t.section .rodata, \"a\"\n");
  
- 	for (i = 0; i < symbol_cnt; i++) {
- 		sym = symbol[i]->sym;
-@@ -535,7 +538,10 @@ static __attribute__((noinline)) void compress_symbols(unsigned int token_pair,
- 		symbol[i]->len = end - sym;
- 	}
- 
-+	substitutions = token_profit[token_pair];
- 	token_profit[token_pair] = 0;
-+
-+	return substitutions;
- }
- 
- /* search the token with the maximum profit */
-@@ -558,29 +564,41 @@ static int find_best_token(void)
- /* this is the core of the algorithm: calculate the "best" table */
- static void optimize_result(void)
- {
--	int i, best;
--	unsigned int len;
-+	unsigned int i, idx, len, refs;
- 	struct token_table *left, *right;
-+	unsigned char to_process[256];
- 	char *str;
-+	int best;
- 
--	/* Use the '\0' symbol last so the output is unchanged */
--	for (i = 255; i >= 0; i--) {
--		/* Ignore tokens used for the original character codes. */
--		if (token_table[i].len)
--			continue;
-+	/* Generate a list of the unused tokens. */
-+	for (i = 0, idx = 0; i < 256; i++) {
-+		if (!token_table[i].len)
-+			to_process[idx++] = i;
-+	}
- 
-+	do {
- 		/* find the token pair with the best profit value */
- 		best = find_best_token();
- 		if (best < 0)
- 			break;
-+		i = to_process[--idx];
- 
- 		/* replace this token pair in all the valid symbols */
--		compress_symbols(best, i);
-+		refs = compress_symbols(best, i);
-+
-+		/* Update the number of times each token is used */
-+		token_table[i].refs += refs;
- 
- 		/* Generate the full name for this symbol */
- 		left = &token_table[LEFT(best)];
- 		right = &token_table[RIGHT(best)];
-+		if (!(left->refs -= refs))
-+			/* There are no references left, reuse the token. */
-+			to_process[idx++] = LEFT(best);
-+		if (!(right->refs -= refs))
-+			to_process[idx++] = RIGHT(best);
- 
-+		/* Generate the full name for this symbol */
- 		len = left->len + right->len;
- 		str = xmalloc(len + 1);
- 		str[len] = 0;
-@@ -588,7 +606,7 @@ static void optimize_result(void)
- 		memcpy(str + left->len, right->str, right->len);
- 		token_table[i].str = str;
- 		token_table[i].len = len;
--	}
-+	} while (idx);
- }
- 
- /* start by placing the symbols that are actually used on the table */
-@@ -598,13 +616,14 @@ static void insert_real_symbols_in_table(void)
- 
- 	for (i = 0; i < symbol_cnt; i++) {
- 		for (j = 0; j < symbol[i]->len; j++) {
--			token_table[symbol[i]->sym[j]].len = 1;
-+			token_table[symbol[i]->sym[j]].refs++;
- 		}
- 	}
- 
- 	for (i = 0; i <= 255; i++) {
--		if (!token_table[i].len)
-+		if (!token_table[i].refs)
- 			continue;
-+		token_table[i].len = 1;
- 		token_table[i].str = xmalloc(2);
- 		token_table[i].str[0] = i;
- 		token_table[i].str[1] = 0;
 -- 
 2.39.5
 
