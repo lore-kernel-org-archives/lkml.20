@@ -1,63 +1,63 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF8B3BED66
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6E63B9956
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 11:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792321612; cv=none; b=BmrKmA7uL0q0ACz7B2PfTGJ7Nha8AkcXsdHE1cZZKypTAltNe2fcSuCo1itasocZKpYcHmp2e8o2yWvORaMUEL6KZxnPOt0mureACUe/G+IENW7iBSCsWPu2+fnBl9UvUWvUoZzYkvSyeVbx515mkYYSaqh8B+PuzkR0gDqkzkA=
+	t=1792321614; cv=none; b=diz8iRuSkDenhNc0J5Rdn36G41ePM+nPX165431ssTXOWtSiY/2NvAFB6qax+6o+Kbc7whuH43NVK94o3hKPeiZlfpDL+yXdc89gtpEff0sVADXJAofe4y2/eywFCXiRz5vUMecWC5xZYKA6pb589OJdCHokTNbgb5u4PAHfzSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792321612; c=relaxed/simple;
-	bh=8G6IOAJEgiWhWhpVc42mPIPoS4G7kUvTPmBfUJLF/ew=;
+	s=arc-20240116; t=1792321614; c=relaxed/simple;
+	bh=BCQv1Y89y53mmt7ukvnahB9gLDPWcrJPFPU4+sw83sE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G3rVPwgB3Pn7pm9mnpAXZ2TXY9CkAiR0ncVlU3H34qwRtzSLvPRjLHfsvDbbNvU2XylorOqMGFM/i5+XxyHRInvTv8rY8CRIwBdzt29EiVEUgfgDfJroZmH1tQ9W7PHs3UBZlE0RnClIJLZAcQ3xs260qYHiKl2k4XZT6jehpeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F/F8vx+n; arc=none smtp.client-ip=74.125.82.173
+	 MIME-Version; b=Rb46Spj4eXOrrh0gM2iPXYCIP261bdpHW7P4RzWdoLia3+MFLlej6hK/GzML1KPs2yyZYTt93FbwhT6wS0UCS4JzGxgKKrIvLtWO7wq+Hibiwyd8pYrR8bK08Xl2BkqzjN5hNKV//rNPoE6V0v5zP/levdsXh89xqApfTZ0MA6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XL28c46B; arc=none smtp.client-ip=74.125.82.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F/F8vx+n"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35943f55c06so1758615eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:06:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XL28c46B"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-33fb4680717so1263405eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 04:06:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792321610; x=1792926410; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792321612; x=1792926412; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Gn5bYcrNXxH6FfMHBz90uaBNr6cmcEAxzEZuytilVPY=;
-        b=F/F8vx+n6Q0IXsPSiLD3wdLQDGKCOM0s5JdNxXQM2oGXxQx8qD6QKIOdWrmN+KCSIJ
-         LRm1G/vVl7P565UmqfbkF+jSQhWjo3a85itt9cF0+ONmEsilt5zJI4+LI/6ugd0o6iD5
-         Cfc4Ul1LciaAWOBrKtvA6UANowkvDrKQkD3wvFSWzT2kdlaWvus/hzz65g9Heugtp1lY
-         xD04dOstT9+EzGfSicj8OrblFTfW4GTyHJZoSHn1uusOniNT4DfBk8lVgz2zgCIiJcjk
-         RqelWTOKReSc9oUXPvHqNcYbfmZwkDjL27EyjX6ootykxmTH+f8ys+nzUbBlMto8k804
-         JXtg==
+        bh=JoPW8LSEn2pTi3J+8JF/uUFRB3rHpOu8BxGhZSQPXiI=;
+        b=XL28c46B2rBrP0Vd45W+8lRcciOiM8liu8gHWb9Lnb8wpX+JjCQfXY8pYn1+Nxw1Ex
+         /BDBYcF8qdlcwHXRiklvnt/Ta1xaPaep5ICPjh5bEYBlMOeLxwdYs7KHko57m5T/R6f0
+         ezJkOdYmpwfry2ffEw0/ByjQXrPLneWjJuqvsdekZT+pVupIxeQj417FJP/J4bhslwo5
+         iBErmGLLFNRmLof6UcLOLmpElerzX6vrwRWbqLp1PIdsNYpCj1t8EOrDZmFzIvBu9Ypo
+         Tqr38Ka+KG0S6io/2IgaoDiXi+mNnaHLheL1W92ATX7lOQJZrsrIa1cQtV1zr68Dk41J
+         3G2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792321610; x=1792926410;
+        d=1e100.net; s=20260707; t=1792321612; x=1792926412;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gn5bYcrNXxH6FfMHBz90uaBNr6cmcEAxzEZuytilVPY=;
-        b=wxL+HpmzdMQlOl+PcrfjbDCY+ENNDxXCUXAvBwRMyh/ByzftoF0vGrqddFEqkuuUhQ
-         Dp2FygFuiu3tBaaoYy1GedPIVemHW+mJVCiZht4wsOVCxHnpIUcIHleJ7f3qdsVA6wQ9
-         EDkmBAYkZgpZdjPb2fwkyp6nhnuq2CLaRcCWRJM1vROms7EXCirVoOKqm+vMQrHofzZj
-         +0j1NZwe+S0uZGMYYV7ilCMkY+oFaS/Pssdz8KqaBXVarwyWNDNgm1HmYWjS5eTulHhJ
-         UZZyUJeoI3lqdTuflT1oM3HmNwMRkU53/VpiN+3yl4/QxV2ryjVBLenPy0kviIlJbLXB
-         wJrw==
-X-Gm-Message-State: AFq9FYID5NjY06kAS6v0UtNkqSj1HzLHtMlue0J4tEeX9iSOuxNyqHlK
-	cKzQ1V13ilR3vPjRziHz7lmE/KNymgTCWdtof+nLxZFT21gIIW7unigx9+MvXCn9
-X-Gm-Gg: AYBFou2HymXvhPm9ZM3jarWr1a6C66qzobSUlqCTN8lrAZED4vaeOPeY1gJjUVQqmw7
-	vNTQlhBhilFq6GaobtwVJv09Ioj5Rbk1qtc+Lcy8/a+QI2q2oZ8Vn4a2+EYsiexCqTmsv3FvRwL
-	9oe4kyQYEVyMXoPTFtyzC8Sm/eCu7eVxUDKA4qgMRRTSwstp+bwrfe2juMJpZ5D56Hrb8IyFFMH
-	pl1fBq8j/uVXJ5xAnvPcnBKlaMAwyNK3Fo6bh5FG24G1ca8vcEY6Uj/Vl7ZdsOJRlHbSC1TqjiN
-	SeaTlwpz3kcFxgeebHkDQAoPLGV5+5AT9p1ylRbPJxtDJhs2685QWh5mx1krJ0ZmgKAJbhxQGef
-	GXfm8JnieTHkkVqpRX4/HNh+65ng/4uKin6Y+4L6lQXVbLKrw3KrW48w2c+FVppGFUfG2wYtcuA
-	KPUfPnEr+aR2EBu/W463zkVrIedAs5KDvRWRs9ouaDwwlHy1oc/Uob0jjyQTKDA2DiZkQEvV+Og
-	ysZi0xbFdcWbsot+vbNgxJjw9+d+NdsD473Y1uaJg==
-X-Received: by 2002:a05:7301:e2f:b0:354:53af:7f2 with SMTP id 5a478bee46e88-3602ddd1da9mr10819068eec.11.1792321609763;
-        Sun, 18 Oct 2026 04:06:49 -0700 (PDT)
+        bh=JoPW8LSEn2pTi3J+8JF/uUFRB3rHpOu8BxGhZSQPXiI=;
+        b=K3mOoC1172Vx/u8FjL7n3baHoWYH4vgba5ChwwHjcM7KzjIFSccH1J0OTBdXRYDqqh
+         i0v3w+KLjHAmUEDXouA1bUxNoqKVFrENnL/bHAX6rXASEG/p+EWM5js60OxkHldb05ov
+         ZhyzO9Z7AYtiAyN5eGikyG++xse9eMf4ZdGxZmnW5qS70gmjVK539LLu6j1k99Tv8rU7
+         mArN6/il+N8FOkEUILfWkqHHbw8YQvHI4nKpyCwFEmctPeISI5gbMaPljiTF3bWUSnVt
+         sFbPFkdHxYdNWj6W6/lOUCR3QWZQLidX1D37W6dGQDkNK4ifIdEDRfhfWA0wpvUV+rHS
+         JXiQ==
+X-Gm-Message-State: AFq9FYIRpQxHydau4UwkVnNLd8WbKDRZ8hTT3ArjJ/LdKuXOSIMAlkNz
+	7Py+0GHqEi5w3Yx5ObdH3e1ev+ntuvQlGw96bQOCdSi8qealEC56eYZsU8KQgj9/
+X-Gm-Gg: AYBFou065arpPPfIFRWq0NIecZk1XIlxz9vMriV8kc8IPlWYviqu3/uR8PBoJoqykZL
+	7EoKoA3UR7+u31AEvnAqChOpHVGCWbtPTjQqspVSunBDAgDdNgOu7DYu7J8DoQQqojIrP9SiEkn
+	Y1Lk2mA9KxULUjV2gMAVvmCKdCHKwArlmTrsXy1h3wOeJMKH0GVesciNzLYgr3kFOXbQaorIBuW
+	OFGXdf5B1OVtLIt+aLA5/ZJvLiu+gmnPDZk2URVmAVwiXaNR2r3dGihVSURLzO5NNqGx47V0Htu
+	YS9E49wHGt13UeZCzTnNUEJabfWmRL4WNe6RCD5fsGCoIEzNdwthnHIBwTYqu0pP45oVUxsPtQ2
+	9XKY00wisPpT8mvG4tjclHW2ozPNaGBJtlh2MlWnIfE9ipZl4ZQyHsgtZ5EUuIOHJw0s5OtoUlB
+	HvAu3ZhsSeILPTE4jn35NDsgfvXkg90qTQJOwBPr9uY7dOUdmWwwF+JLu8QEndx2nSDISCMGoeN
+	2IH+JtWTIrLzmD4E+pvi1J63yICDXi6w2aY7HDiPw==
+X-Received: by 2002:a05:693c:88d0:10b0:339:7b3b:236d with SMTP id 5a478bee46e88-361a1f5575bmr7064187eec.15.1792321612092;
+        Sun, 18 Oct 2026 04:06:52 -0700 (PDT)
 Received: from Biostar-A520MT.. ([187.94.15.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm28647706eec.3.2026.10.18.04.06.47
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0cab0sm28647706eec.3.2026.10.18.04.06.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 04:06:49 -0700 (PDT)
+        Sun, 18 Oct 2026 04:06:51 -0700 (PDT)
 From: Breno Rodrigues Alves <breno3011alves@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: Andy Whitcroft <apw@canonical.com>,
@@ -65,9 +65,9 @@ Cc: Andy Whitcroft <apw@canonical.com>,
 	Dwaipayan Ray <dwaipayanray1@gmail.com>,
 	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
 	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: [RFC PATCH 2/7] scripts: convert checkversion.pl to Python
-Date: Sun, 18 Oct 2026 08:06:33 -0300
-Message-ID: <20261018110638.9947-3-breno3011alves@gmail.com>
+Subject: [RFC PATCH 3/7] scripts: convert extract_xc3028.pl to Python
+Date: Sun, 18 Oct 2026 08:06:34 -0300
+Message-ID: <20261018110638.9947-4-breno3011alves@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261018110638.9947-1-breno3011alves@gmail.com>
 References: <20261018110638.9947-1-breno3011alves@gmail.com>
@@ -79,143 +79,307 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Faithful re-implementation of checkversion.pl in Python 3
-(stdlib only). Same comment/string stripping, same
-line-number reporting.
+Faithful re-implementation of extract_xc3028.pl in Python 3
+(stdlib only). The firmware layout tables replace the
+~1900 lines of repetitive write_leXX() calls with data;
+byte-for-byte identical output for the same .sys input.
 
 Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
 ---
- scripts/checkversion.py | 121 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 121 insertions(+)
- create mode 100755 scripts/checkversion.py
+ scripts/extract_xc3028.py | 284 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 284 insertions(+)
+ create mode 100755 scripts/extract_xc3028.py
 
-diff --git a/scripts/checkversion.py b/scripts/checkversion.py
+diff --git a/scripts/extract_xc3028.py b/scripts/extract_xc3028.py
 new file mode 100755
-index 000000000..4016cb5cb
+index 000000000..ef02b5d2f
 --- /dev/null
-+++ b/scripts/checkversion.py
-@@ -0,0 +1,121 @@
++++ b/scripts/extract_xc3028.py
+@@ -0,0 +1,284 @@
 +#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
++# SPDX-License-Identifier: GPL-2.0-only
 +#
-+# checkversion finds uses of macros in <linux/version.h> without the
-+# corresponding #include; or includes of <linux/version.h> without any
-+# use.
-+# Copyright (C) 2003, Randy Dunlap <rdunlap@infradead.org>
++# Copyright (c) Mauro Carvalho Chehab <mchehab@kernel.org>
++#
++# Extract xc3028 firmware from vendor Windows drivers.
++#
++# 1) Download one of:
++#    wget http://www.twinhan.com/files/AW/BDA T/20080303_V1.0.6.7.zip
++#    wget http://www.stefanringel.de/pub/20080303_V1.0.6.7.zip
++#    wget http://www.steventoth.net/linux/xc5000/HVR-12x0-14x0-17x0_1_25_25271_WHQL.zip
++# 2) unzip -j 20080303_V1.0.6.7.zip 20080303_v1.0.6.7/UDXTTM6000.sys
++#    unzip -j HVR-12x0-14x0-17x0_1_25_25271_WHQL.zip Driver85/hcw85bda.sys
++# 3) ./extract_xc3028.py
++# 4) cp xc3028-v24.fw xc3028-v27.fw /lib/firmware
 +
-+import re
++import hashlib
++import shutil
++import struct
 +import sys
 +
-+SKIP_FILES = (
-+    'include/generated/uapi/linux/version.h',
-+    'usr/include/linux/version.h',
-+)
++# Entry layout:
++#   regular:  (offset, length, type, id_hi, id_lo)
++#   scode:    (offset, length, type, id_hi, id_lo, if_mhz)   # 5th=None => regular
 +
-+RE_VERSION_MACROS = re.compile(
-+    r'LINUX_VERSION_CODE|(?<!\w)KERNEL_VERSION|LINUX_VERSION_MAJOR'
-+    r'|LINUX_VERSION_PATCHLEVEL|LINUX_VERSION_SUBLEVEL')
-+RE_INCLUDE_Q = re.compile(r'^\s*#\s*include\s*"linux/version\.h"')
-+RE_INCLUDE_A = re.compile(r'^\s*#\s*include\s*<linux/version\.h>')
++# Firmware 24 (from UDXTTM6000.sys, hash cb9deb5508a5e150af2880f5b0066d78)
++FW24 = [
++    (257752, 6635, 0x00000003, 0, 0),
++    (264392, 6635, 0x00000007, 0, 0),
++    (271040, 6525, 0x00000401, 0, 0),
++    (277568, 6539, 0x00000c01, 0, 0),
++    (284120, 6633, 0x00000001, 0, 0),
++    (290760, 6617, 0x00000005, 0, 0),
++    (297384, 161, 0x00000000, 0x1, 0x7),
++    (297552, 169, 0x00000004, 0x1, 0x7),
++    (297728, 161, 0x00000000, 0x2, 0x7),
++    (297896, 169, 0x00000004, 0x2, 0x7),
++    (298072, 161, 0x00000000, 0x4, 0x7),
++    (298240, 169, 0x00000004, 0x4, 0x7),
++    (298416, 161, 0x00000000, 0x8, 0x7),
++    (298584, 169, 0x00000004, 0x8, 0x7),
++    (298760, 161, 0x00000000, 0x3, 0xe0),
++    (298928, 169, 0x00000004, 0x3, 0xe0),
++    (299104, 161, 0x00000000, 0xc, 0xe0),
++    (299272, 169, 0x00000004, 0xc, 0xe0),
++    (299448, 161, 0x00000000, 0x0, 0x200000),
++    (299616, 169, 0x00000004, 0x0, 0x200000),
++    (299792, 161, 0x00000000, 0x0, 0x4000000),
++    (299960, 169, 0x00000004, 0x0, 0x4000000),
++    (300136, 149, 0x00010030, 0, 0),
++    (300296, 149, 0x00000068, 0, 0),
++    (300448, 149, 0x00000070, 0, 0),
++    (300608, 149, 0x00000088, 0, 0),
++    (300760, 149, 0x00000090, 0, 0),
++    (300920, 149, 0x00000108, 0, 0),
++    (301072, 149, 0x00000110, 0, 0),
++    (301232, 149, 0x00000208, 0, 0),
++    (301384, 149, 0x00000210, 0, 0),
++    (301554, 135, 0x00000400, 0, 0),
++    (301688, 161, 0x00000000, 0x0, 0x10),
++    (301856, 169, 0x00000004, 0x0, 0x10),
++    # 34 commented out in Perl
++    (302032, 161, 0x00000000, 0xc, 0x400000),
++    (302200, 161, 0x00000000, 0x0, 0x800000),
++    (302368, 161, 0x00000000, 0x0, 0x8000),
++    (302536, 161, 0x00001000, 0x0, 0x8000),
++    (302704, 161, 0x00003000, 0x0, 0x8000),
++    (302872, 169, 0x00000004, 0x0, 0x8000),
++    (303048, 161, 0x00000000, 0x0, 0xb700),
++    (303216, 161, 0x00001000, 0x0, 0xb700),
++    (303384, 161, 0x00003000, 0x0, 0xb700),
++    (303552, 161, 0x00000000, 0x0, 0x2000),
++    (303720, 169, 0x00000004, 0x0, 0xb700),
++    (303896, 169, 0x00001004, 0x0, 0xb700),
++    (304072, 169, 0x00003004, 0x0, 0xb700),
++    # SCODE: (offset, length, type, id_hi, id_lo, if_mhz)
++    (309048, 192, 0x60000000, 0x0, 0x0, 3280),
++    # 49 commented out
++    (309432, 192, 0x60000000, 0x0, 0x0, 3440),
++    (309624, 192, 0x60000000, 0x0, 0x0, 3460),
++    (306936, 192, 0x60210020, 0x0, 0x0, 3800),
++    (309240, 192, 0x60000000, 0x0, 0x0, 4000),
++    (307128, 192, 0x60410020, 0x0, 0x0, 4080),
++    (308856, 192, 0x60000000, 0x0, 0x0, 4200),
++    (305208, 192, 0x60008000, 0x0, 0x8000, 4320),
++    (309816, 192, 0x60000000, 0x0, 0x0, 4450),
++    (304824, 192, 0x6002b004, 0x0, 0xb700, 4500),
++    (305016, 192, 0x60023000, 0x0, 0x8000, 4600),
++    (304440, 192, 0x620003e0, 0x0, 0x0, 4760),
++    (308664, 192, 0x60000000, 0x0, 0x0, 4940),
++    (307704, 192, 0x60000000, 0x0, 0x0, 5260),
++    (307896, 192, 0x60008000, 0xf, 0x7, 5320),
++    (304248, 192, 0x65000380, 0x0, 0x0, 5400),
++    (306744, 192, 0x60110020, 0x0, 0x0, 5580),
++    (305592, 192, 0x60000000, 0x3, 0x7, 5640),
++    (305784, 192, 0x60000000, 0xc, 0x7, 5740),
++    (307512, 192, 0x60000000, 0x0, 0x0, 5900),
++    (305576, 192, 0x60008000, 0xc, 0x4c000f0, 6000),
++    (306552, 192, 0x68050060, 0x0, 0x0, 6200),
++    (305400, 192, 0x60000000, 0x0, 0x10, 6240),
++    (308472, 192, 0x60008000, 0x0, 0x200000, 6320),
++    (306360, 192, 0x60000000, 0x0, 0x200000, 6340),
++    (308280, 192, 0x60008000, 0xc, 0x44000e0, 6500),
++    (304632, 192, 0x60090020, 0x0, 0x0, 6580),
++    (306168, 192, 0x60000000, 0x3, 0xe0, 6600),
++    (308088, 192, 0x60008000, 0x3, 0xe0, 6680),
++    (307320, 192, 0x60810020, 0x0, 0x0, 8140),
++    # 79 commented out
++]
++
++# Firmware 27 (from hcw85bda.sys, hash 0e44dbf63bb0169d57446aec21881ff2)
++FW27 = [
++    (813432, 8718, 0x00000003, 0, 0),
++    (822152, 8712, 0x00000007, 0, 0),
++    (830872, 8562, 0x00000401, 0, 0),
++    (839440, 8576, 0x00000c01, 0, 0),
++    (848024, 8706, 0x00000001, 0, 0),
++    (856736, 8682, 0x00000005, 0, 0),
++    (865424, 161, 0x00000000, 0x1, 0x7),
++    (865592, 169, 0x00000004, 0x1, 0x7),
++    (865424, 161, 0x00000000, 0x2, 0x7),
++    (865592, 169, 0x00000004, 0x2, 0x7),
++    (866112, 161, 0x00000000, 0x4, 0x7),
++    (866280, 169, 0x00000004, 0x4, 0x7),
++    (866112, 161, 0x00000000, 0x8, 0x7),
++    (866280, 169, 0x00000004, 0x8, 0x7),
++    (866800, 161, 0x00000000, 0x3, 0xe0),
++    (866968, 169, 0x00000004, 0x3, 0xe0),
++    (867144, 161, 0x00000000, 0xc, 0xe0),
++    (867312, 169, 0x00000004, 0xc, 0xe0),
++    (867488, 161, 0x00000000, 0x0, 0x200000),
++    (867656, 169, 0x00000004, 0x0, 0x200000),
++    (867832, 161, 0x00000000, 0x0, 0x4000000),
++    (868000, 169, 0x00000004, 0x0, 0x4000000),
++    (868176, 149, 0x00010030, 0, 0),
++    (868336, 149, 0x00000068, 0, 0),
++    (868488, 149, 0x00000070, 0, 0),
++    (868648, 149, 0x00000088, 0, 0),
++    (868800, 149, 0x00000090, 0, 0),
++    (868960, 149, 0x00000108, 0, 0),
++    (869112, 149, 0x00000110, 0, 0),
++    (868648, 149, 0x00000208, 0, 0),
++    (868800, 149, 0x00000210, 0, 0),
++    (869584, 135, 0x00000400, 0, 0),
++    (869728, 161, 0x00000000, 0x0, 0x10),
++    (869896, 169, 0x00000004, 0x0, 0x10),
++    (870072, 169, 0x00000000, 0x10, 0x400000),
++    (870248, 161, 0x00000000, 0xc, 0x400000),
++    (870416, 161, 0x00000000, 0x0, 0x800000),
++    (870584, 161, 0x00000000, 0x0, 0x8000),
++    (870752, 161, 0x00001000, 0x0, 0x8000),
++    (870920, 161, 0x00003000, 0x0, 0x8000),
++    (871088, 169, 0x00000004, 0x0, 0x8000),
++    (871264, 161, 0x00000000, 0x0, 0xb700),
++    (871432, 161, 0x00001000, 0x0, 0xb700),
++    (871600, 161, 0x00003000, 0x0, 0xb700),
++    (871264, 161, 0x00000000, 0x0, 0x2000),
++    (871936, 169, 0x00000004, 0x0, 0xb700),
++    (872112, 169, 0x00001004, 0x0, 0xb700),
++    (872288, 169, 0x00003004, 0x0, 0xb700),
++    (811896, 192, 0x60000000, 0x0, 0x0, 3280),
++    (813048, 192, 0x60000000, 0x0, 0x0, 3300),
++    (812280, 192, 0x60000000, 0x0, 0x0, 3440),
++    (812472, 192, 0x60000000, 0x0, 0x0, 3460),
++    (809784, 192, 0x60210020, 0x0, 0x0, 3800),
++    (812088, 192, 0x60000000, 0x0, 0x0, 4000),
++    (809976, 192, 0x60410020, 0x0, 0x0, 4080),
++    (811704, 192, 0x60000000, 0x0, 0x0, 4200),
++    (808056, 192, 0x60008000, 0x0, 0x8000, 4320),
++    (812664, 192, 0x60000000, 0x0, 0x0, 4450),
++    (807672, 192, 0x6002b004, 0x0, 0xb700, 4500),
++    (807864, 192, 0x60023000, 0x0, 0x8000, 4600),
++    (807288, 192, 0x620003e0, 0x0, 0x0, 4760),
++    (811512, 192, 0x60000000, 0x0, 0x0, 4940),
++    (810552, 192, 0x60000000, 0x0, 0x0, 5260),
++    (810744, 192, 0x60008000, 0xf, 0x7, 5320),
++    (807096, 192, 0x65000380, 0x0, 0x0, 5400),
++    (809592, 192, 0x60110020, 0x0, 0x0, 5580),
++    (808440, 192, 0x60000000, 0x3, 0x7, 5640),
++    (808632, 192, 0x60000000, 0xc, 0x7, 5740),
++    (810360, 192, 0x60000000, 0x0, 0x0, 5900),
++    (808824, 192, 0x60008000, 0xc, 0x4c000f0, 6000),
++    (809400, 192, 0x68050060, 0x0, 0x0, 6200),
++    (808248, 192, 0x60000000, 0x0, 0x10, 6240),
++    (811320, 192, 0x60008000, 0x0, 0x200000, 6320),
++    (809208, 192, 0x60000000, 0x0, 0x200000, 6340),
++    (811128, 192, 0x60008000, 0xc, 0x44000e0, 6500),
++    (807480, 192, 0x60090020, 0x0, 0x0, 6580),
++    (809016, 192, 0x60000000, 0x3, 0xe0, 6600),
++    (810936, 192, 0x60008000, 0x3, 0xe0, 6680),
++    (810168, 192, 0x60810020, 0x0, 0x0, 8140),
++    (812856, 192, 0x60000000, 0x0, 0x0, 8200),
++]
 +
 +
-+def strip_comments(line, in_comment):
-+    """Return (line_without_comments, in_comment)."""
-+    out = []
-+    i = 0
-+    while i < len(line):
-+        if in_comment:
-+            end = line.find('*/', i)
-+            if end == -1:
-+                return ''.join(out), True
-+            i = end + 2
-+            in_comment = False
-+        else:
-+            start = line.find('/*', i)
-+            if start == -1:
-+                out.append(line[i:])
-+                break
-+            out.append(line[i:start])
-+            i = start + 2
-+            in_comment = True
-+    return ''.join(out), in_comment
-+
-+
-+def strip_strings(line, in_string):
-+    """Return (line_without_strings, in_string)."""
-+    out = []
-+    i = 0
-+    while i < len(line):
-+        if in_string:
-+            end = line.find('"', i)
-+            if end == -1:
-+                return ''.join(out), True
-+            i = end + 1
-+            in_string = False
-+        else:
-+            start = line.find('"', i)
-+            if start == -1:
-+                out.append(line[i:])
-+                break
-+            out.append(line[i:start])
-+            i = start + 1
-+            in_string = True
-+    return ''.join(out), in_string
-+
-+
-+def check_file(path, debugging=False):
++def verify(filename, expected_hash):
++    """Verify the md5 of the downloaded .sys file."""
 +    try:
-+        with open(path, 'r') as f:
-+            lines = f.readlines()
++        h = hashlib.md5()
++        with open(filename, 'rb') as f:
++            for chunk in iter(lambda: f.read(8192), b''):
++                h.update(chunk)
 +    except OSError as e:
-+        print(f"Can't open {path}: {e}", file=sys.stderr)
-+        return
++        sys.exit(f"Cannot open {filename}: {e}")
++    if h.hexdigest() != expected_hash:
++        sys.exit(f"Hash of extracted file does not match "
++                 f"(found {h.hexdigest()}, expected {expected_hash}!)")
 +
-+    in_comment = False
-+    in_string = False
-+    version_linenr = 0
-+    uses_version = False
 +
-+    for idx, raw in enumerate(lines, 1):
-+        line, in_comment = strip_comments(raw, in_comment)
-+        if in_comment and not line.strip():
++def get_hunk(infile, offset, length):
++    infile.seek(offset)
++    data = infile.read(length)
++    if len(data) != length:
++        sys.exit("Ran out of data")
++    return data
++
++
++def write_hunk(outfile, infile, offset, length):
++    outfile.write(get_hunk(infile, offset, length))
++
++
++def write_hunk_fix_endian(outfile, infile, offset, length):
++    """Read a length-prefixed sequence of endian-swapped records."""
++    data = get_hunk(infile, offset, length)
++    out = bytearray()
++    i = 0
++    while i < length:
++        size = data[i] * 256 + data[i + 1]
++        out += data[i + 1:i + 2] + data[i:i + 1]
++        i += 2
++        if 0 < size < 0x8000:
++            out += data[i:i + size]
++            i += size
++    outfile.write(out)
++
++
++def main_firmware(outfile_path, name, version, nr_desc, entries, infile):
++    """Write one complete firmware file."""
++    name_bytes = name.encode('ascii').ljust(32, b'\x00')
++    with open(outfile_path, 'wb') as out:
++        out.write(name_bytes)
++        out.write(struct.pack('<H', version))
++        out.write(struct.pack('<H', nr_desc))
++
++        for entry in entries:
++            offset, length, typ, id_hi, id_lo = entry[:5]
++            is_scode = len(entry) > 5
++            if_mhz = entry[5] if is_scode else None
++
++            out.write(struct.pack('<I', typ))
++            out.write(struct.pack('<Q', (id_hi << 32) | id_lo))
++            if is_scode:
++                out.write(struct.pack('<H', if_mhz))
++            out.write(struct.pack('<I', length))
++            if is_scode:
++                write_hunk(out, infile, offset, length)
++            else:
++                write_hunk_fix_endian(out, infile, offset, length)
++
++
++def extract_firmware():
++    targets = [
++        ('UDXTTM6000.sys',
++         'cb9deb5508a5e150af2880f5b0066d78',
++         'xc3028-v24.fw', 'xc2028 firmware', 516, 77, FW24),
++        ('hcw85bda.sys',
++         '0e44dbf63bb0169d57446aec21881ff2',
++         'xc3028-v27.fw', 'xc2028 firmware', 519, 80, FW27),
++    ]
++    for sysfile, md5, outfile, name, version, nr_desc, entries in targets:
++        try:
++            with open(sysfile, 'rb') as infile:
++                verify(sysfile, md5)
++                # Count active (non-SCODE) entries for the header;
++                # the Perl passes 77/80 regardless, so use that.
++                main_firmware(outfile, name, version, nr_desc, entries,
++                              infile)
++        except FileNotFoundError:
 +            continue
-+
-+        if RE_INCLUDE_Q.search(line):
-+            version_linenr = idx
-+
-+        line, in_string = strip_strings(line, in_string)
-+        if in_string and not line.strip():
-+            continue
-+
-+        if RE_INCLUDE_A.search(line):
-+            version_linenr = idx
-+
-+        if RE_VERSION_MACROS.search(line):
-+            uses_version = True
-+            if version_linenr:
-+                break
-+
-+    if uses_version and not version_linenr:
-+        print(f"{path}: {len(lines)}: need linux/version.h")
-+    if version_linenr and not uses_version:
-+        print(f"{path}: {version_linenr} linux/version.h not needed.")
-+    if debugging:
-+        if version_linenr and uses_version:
-+            print(f"{path}: version use is OK ({version_linenr})")
-+        if not version_linenr and not uses_version:
-+            print(f"{path}: version use is OK (none)")
-+
-+
-+def main(argv):
-+    for path in argv:
-+        if any(skip in path for skip in SKIP_FILES):
-+            continue
-+        check_file(path)
-+    return 0
 +
 +
 +if __name__ == '__main__':
-+    sys.exit(main(sys.argv[1:]))
++    extract_firmware()
++    print("Firmwares generated.")
 \ No newline at end of file
 -- 
 2.43.0
