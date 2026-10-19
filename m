@@ -1,62 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792444730;
-	b=BFUCmrUEZf5TUS2RVZB7rnASO4sySPBCL40aBAQAQuNViof/8SL77GmrAEtSjrAww4Vc
-	 5oD7O+sDcvpq4Na6NW/MVaUCh3MMYqtnzNaFpp0ZkQozjRV7d+Y+T4mnZsRp9XfeRiEsp
-	 i1FWDDvqTCNRYesG25LBNjO9PlAjH7ev8mlOrzG1s7S9l9RiqTogXWS0gJga+GAI0M5V5
-	 zdkFbc5bZbld1GbaNy4C8rnxzuNcaV/QQuhWGDFzO9TccSI8DsgIu5snQRKY8QYzciO0b
-	 /5ugeVHAys0fulUkBnYV7G595c3dG3Qf20ROEOqwxg1ci3Bgj8UujsZucjK2GL2ABkw==
+	t=1792444734;
+	b=ruadZ25xX6qc8m1DOEbbmBdFD9vVN1GDuntD36KATqE8J2x5CVlEcIR5juLYzZK/BmTO
+	 tVd164l3T3FRo18ccTet6UiN1jf2hwT+LwSIN0RL67Ta82ZtI5fZIKFe+YGYeaftfCxk6
+	 68XgdsrpRC0FS5ccH5N30rfSUBw7VJxAZf7Nx0VxIgtBvpoZ5Ydeiruviumt35c/8iZSd
+	 Qq66IYNUSGl7SsdOqYYkOq/4domm1KV4IyInzIFtnXB0JWOZGg5Bb6eu40A1Hg/HW17KM
+	 kpjdjngXkmZ8LjDpvQEfh9zmRcg3eeXfBR0waWX9jitHMB68jUq7jer+deOe4gC3Jjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792444730;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792444734;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=J//4qIzQNPDXQaDEozFWZXv7kTTt8kmxa1XPyOuc5VA=;
-	b=hISQ1XgjJ3+ZjGieJ2WSrlE9n3D6kKdsKsQl53olm4UnqK8bt+CVYwqxVBfhjYWRyeYW
-	 v2pfEVmDlQzXmOerolmQC7+sPN6vS66Tk4oXx8eDsSJ4zWW2+oI0y7rXshdJM72EGZH2w
-	 Z4xgsnXcMANbK6WbG67OoAQJ2YbEc+Be7b+Gmw0+aY3VWNkmEpAb6ta6R55Ib4NwfPi3k
-	 n1hDJislrHQ/GEgnWHeyqgx5va4txpDDNG8rHCltRsXeuxd1XuzYk6wy+mKuhm+7TgTcv
-	 tWKp8EuyhleLT2UopsOzlNnQHEraXNqFM9MBR8BCn/lYXrpOciXDjj7PsR3c0vZ0fjg==
+	bh=1aY/ovidFv5oOqnqGNioiPlwdlj0XKYaRdg6c0us2fg=;
+	b=PLNBwAAC+GMbNe5fKut9a/ptJUDGam0/fq7szVcTXXUNMCBhw6EeZselhJ8M8Vr+mrTW
+	 +pSR5srE+89QkGMQ7iuIhLujm42jWpPQXizELGWGTIcs4fcLK1IJ8v2SoRfVJKc8P3zBA
+	 Nl77svFMhyrRveHUtf3EwF2BZOWj2j6TkvOM961c72IRRy99ZAJqAOHFa8WLxuxIiGuZO
+	 mCYF83NvuAli4PVbjlaSKo/YLMSWrbb1pSEv33dzAQ2PVt9hhS0Erkbjth3c8CL0yOhNQ
+	 2fFKh4tVNsLJHrzc9iME5w4VgrWcxakCs+lI7Ki4BLRto/F/sh9/WbzLN5uUUyxoo/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ShKqsu8g;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DztTtqai;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF1E606A31E;
-	Mon, 19 Oct 2026 21:18:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DF1E606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60629606A327
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:18:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60629606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ShKqsu8g
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DztTtqai
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 90C94C5CD5C;
-	Mon, 19 Oct 2026 21:19:44 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E65CD1A1246;
+	Mon, 19 Oct 2026 21:18:51 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5916E60582;
-	Mon, 19 Oct 2026 21:18:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6BCB010328C22;
-	Mon, 19 Oct 2026 23:18:41 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BA22960582;
+	Mon, 19 Oct 2026 21:18:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C749C10328C52;
+	Mon, 19 Oct 2026 23:18:46 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792444721; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1792444727; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=J//4qIzQNPDXQaDEozFWZXv7kTTt8kmxa1XPyOuc5VA=;
-	b=ShKqsu8gVDQXUYopVVvo5HaUxUBgKyKMPfJDsOwTZYk7BegHfP5caIx0+qQNt7TASwyu/j
-	imYMfcsnry7VRtBjHAbfInOIE/hNelR4sw02Rlwh+rcs/cC3KWhb+mjTJLedAEroSW5zNM
-	u/0ObHy5mg5JbybuKcR2d8WjHNvHYbHXNWI0+OUvCq+2Dz5bKS/U8oIhSNEtc8nFWSiRfO
-	qur5+u3ZrrS+/2VT7WzYyjz++2euItMK4E2k6kpk820VteTZgRZddQLS5QMCjMpPsNa/9v
-	Y18pciU9XsqLYnmJBTHWX69xoNy1zTE5K5A4hJdSs2yNTlYBmRYfgGVVINwIiA==
+	bh=1aY/ovidFv5oOqnqGNioiPlwdlj0XKYaRdg6c0us2fg=;
+	b=DztTtqaiMFNxQyeT/XjiWwK1V6UffMiaMoegSAVrYBY6q+Sq5lG9Men7q2iCjuO3qYEusE
+	LZJfVRHOqRNva2Ht11r9c5SzJDXU7oaXb8Xgw8qfD+YkgSDQpAlnozdmiGIKVWwzPDQKMj
+	PuYiw6Op4ELUS+ooThQFuvY3BxCjhgM8h+wnw3H49sbBoc7Qr2WFRFtLlKeKmSmigS7BeH
+	VBDRHs3uTitLTuTm+IBSSLJYZ9roCxTB+AwmWtHMyLKgSKcnxbdSScA5MiuZ7NVAi6JoMq
+	T28SUIn3TtaE+0j55Kt6jBMRlVHqzGJ5m7tkb0th9fHuAEGZx3qOQV8Hi808tw==
 From: alexandre.belloni@bootlin.com
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org,
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 02/19] rtc: ac100: use guard
-Date: Mon, 19 Oct 2026 23:18:03 +0200
-Message-ID: <20261019211827.126262-2-alexandre.belloni@bootlin.com>
+Subject: [PATCH 03/19] rtc: asm9260: use guard
+Date: Mon, 19 Oct 2026 23:18:04 +0200
+Message-ID: <20261019211827.126262-3-alexandre.belloni@bootlin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019211827.126262-1-alexandre.belloni@bootlin.com>
 References: <20261019211827.126262-1-alexandre.belloni@bootlin.com>
@@ -78,46 +80,29 @@ Use guard() to simplify error handling
 
 Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 ---
- drivers/rtc/rtc-ac100.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/rtc/rtc-asm9260.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/rtc/rtc-ac100.c b/drivers/rtc/rtc-ac100.c
-index bba7115ff3ad..ee9fdb7fb63b 100644
---- a/drivers/rtc/rtc-ac100.c
-+++ b/drivers/rtc/rtc-ac100.c
-@@ -529,12 +529,12 @@ static irqreturn_t ac100_rtc_irq(int irq, void *data)
- 	unsigned int val = 0;
- 	int ret;
+diff --git a/drivers/rtc/rtc-asm9260.c b/drivers/rtc/rtc-asm9260.c
+index 705470ae8428..422c2e5d83aa 100644
+--- a/drivers/rtc/rtc-asm9260.c
++++ b/drivers/rtc/rtc-asm9260.c
+@@ -116,15 +116,13 @@ static irqreturn_t asm9260_rtc_irq(int irq, void *dev_id)
+ 	u32 isr;
+ 	unsigned long events = 0;
  
--	rtc_lock(chip->rtc);
-+	guard(rtc_ops)(chip->rtc);
- 
- 	/* read status */
- 	ret = regmap_read(regmap, AC100_ALM_INT_STA, &val);
- 	if (ret)
--		goto out;
-+		return IRQ_HANDLED;
- 
- 	if (val & AC100_ALM_INT_ENABLE) {
- 		/* signal rtc framework */
-@@ -543,16 +543,14 @@ static irqreturn_t ac100_rtc_irq(int irq, void *data)
- 		/* clear status */
- 		ret = regmap_write(regmap, AC100_ALM_INT_STA, val);
- 		if (ret)
--			goto out;
-+			return IRQ_HANDLED;
- 
- 		/* disable interrupt */
- 		ret = ac100_rtc_alarm_irq_enable(chip->dev, 0);
- 		if (ret)
--			goto out;
-+			return IRQ_HANDLED;
+-	rtc_lock(priv->rtc);
++	guard(rtc_ops)(priv->rtc);
+ 	isr = ioread32(priv->iobase + HW_CIIR);
+ 	if (!isr) {
+-		rtc_unlock(priv->rtc);
+ 		return IRQ_NONE;
  	}
  
--out:
--	rtc_unlock(chip->rtc);
- 	return IRQ_HANDLED;
- }
+ 	iowrite32(0, priv->iobase + HW_CIIR);
+-	rtc_unlock(priv->rtc);
+ 
+ 	events |= RTC_AF | RTC_IRQF;
  
 -- 
 2.56.0
