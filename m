@@ -1,305 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB06B4D9915;
-	Mon, 19 Oct 2026 10:23:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68254D09EA
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:24:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405439; cv=none; b=R3Jcwagqy8VXcoQgfZZnQPng9ANLeSw/M6arqUsIK1eOsHePpRedgC7M+crU/LlX0dZ0a3K1hQ0qdYMGtlSlm5F4nImixE3ChrKC1gmgQuXTkTqsual19oMTuPTHGypYz4XUfeKQ3O8A6FEeiXeAkm+nwpQj3Dj3XCt7BaNkTps=
+	t=1792405453; cv=none; b=rDxcw8ma4vPUcWdCCe1iMagW6zvwaE3cNKXmlOGPT6mxS8Dk4b60q9DlaV/ouCPfWecc7GUE8s05QoLkkiKtN0Nq8F4Xm0q1cRDkr1EVKQf/SFPH2LxsoK1Tgq/ien7e7El87mXwM1/AXgzuOl9I2IoNMFyb5lIGvhlo4UA/0+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405439; c=relaxed/simple;
-	bh=pkDrc3y4WjnuBX6TKDDWXgnnFcWPPe0uIY6QOK+ORgY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LOe0+4GnUT/kU3A+zkjbRr9TRGRttDwqYTAM7UfkQiL9Z0MyR6IIBJ4TNKgirjTU9S/kRiYuBW768WRLCj1Mj8AplOnI4HOBYGdVmW0f+MX60vVkpi7EyhVk7Nn0YfUXBDhZ5YGOElfj1HUPIZgp/U4cbli8Du2FCkyty9CqKtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlcoXOsY; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792405453; c=relaxed/simple;
+	bh=hwq6n3lMri6f0tS9cV1XHP1OuBW9AhFJjSclegmlXgk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=srjJJncJEfVNCiVcEeKO1SAfuleQtnQzZCNjuFSGGaqBfck1XbqyWeMhj7UVxTo6rHhd4c0V4H/qbkkYLxt9+Fucar9rUwlNePK3+an972l1OyRtUgCWzPFzAseqpf8/u9zfeHWIEWvnfz33H8E0A4nJCKc2X39VnHjEwvP6qNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uR5KCq9G; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlcoXOsY"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 582DBC2BCFD;
-	Mon, 19 Oct 2026 10:23:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792405439;
-	bh=pkDrc3y4WjnuBX6TKDDWXgnnFcWPPe0uIY6QOK+ORgY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=UlcoXOsYlHjNe0MJtJMBc+1Rl286CypxUjFL9QCvrQBMTl99D85tB3qCLLp528uS6
-	 pWyEdsOkwyZZQSIezgVoiI41fU3JEWxgNOXrjF5Pobq42OU07Ah1/kDOx3Cg45qIMo
-	 IE2Wm3iH2+qUBDOWxj+Sb0J2FV2uT9peGjag1bQM/g9HKYefq4o2HxHfjARyxPNtPO
-	 VDf7t8Wh4DFCpdixXQcAFYClIwoUowGbh+6DHC0wqE7CbKWYsZMNyNGWvP0gd1VTIJ
-	 Hi5Q1G+EnIGn4zFyS5Eiw8kPTzSNrD23rrlEmnDFXsmC0/O4Wim5NWgHfV0oOVisRB
-	 9ptaxTRfYADhg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BCC9CCF2D3;
-	Mon, 19 Oct 2026 10:23:59 +0000 (UTC)
-From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Date: Mon, 19 Oct 2026 11:23:50 +0100
-Subject: [PATCH v2 4/5] arm64: dts: exynos: Add initial support for
- Exynos5515 SoC
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uR5KCq9G"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so24089375e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:24:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792405450; x=1793010250; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZQPRCU8mulrVTcYx+mtCokl0uJBA6jXozBw1EvQlJfk=;
+        b=uR5KCq9G1RH2lqdq1UlEEcHMbz43vLpROotfjGGvjHIDuEgPeKnq9RwDQkivZgKNDC
+         Sq8X4Dn0cwH/Fzh6/IyF7NW1gFENktFgycejmzj9AtTaJvnIjTq99B4cAaQS8FOClx2j
+         5+X7V0t6CZUfaKMZhkVIc1heItesw9YQrMEOJIBjF3OvJKDBnQliRsZIYFyGKZhK/JPz
+         YYBgX8rwsRXcwPek+NvYVQ7CL6mddfqKlEC+EBwZM//qlagqzpHlBqs8cMyd5JTzhgR2
+         5vFHodufphnwbuzChUTSKU6jrJ3dBAwiRKZr/oogHRYoVcQpY1pPNfJ+3t5rhvJW2UTg
+         Skjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792405450; x=1793010250;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZQPRCU8mulrVTcYx+mtCokl0uJBA6jXozBw1EvQlJfk=;
+        b=gExqV8revpHLk813mj4qRB9tXbKxej3VrZKlVU7NwyHNsBLUd2BYZdkIgoA3/4ASFv
+         kLNREWMOb8eT7mqgRhlx2IA+9Us/kveQngzanqMhmsyrkEfKhDrjvFmPF4Tw2p4bIB4t
+         rvizt1TR/VuPy5IIYeKjhk4MQihTdgBrYoguS5/9bZVytKI9nZNudRdskZsGB/UdCWPw
+         LmD/o7lTDW/ZR73kii6YKgIpkb6M+teJoiMIuiAYNERmkmAGPyT/3lz3GX8fu255M9MI
+         Emrdloy0NfrXPX176n+8iQoZ5elZmUzS3FUe+T8pi9Jm1rhLS0DDnEpv8CoF/LUBJB+P
+         5GsA==
+X-Forwarded-Encrypted: i=1; AKwUvBwrxkBgCxbKTTF9EgSfJcyDuGRB4jDuCYQP+DwyMnUYApJMlVK9u9K+X6EG71D2tZf01bgvRMzkaxYQjLY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7x9+6lEeI6yBlWK9U/vMPrIkSAW6aOsm+hXcEhyu55/X5Qn2X
+	NPF9DG2AuZK4OFbe6yiYP5qCIrd693MV2XssNHpKKJYDcEiqXNC+7jq6mwyJy9dwGO4=
+X-Gm-Gg: AYBFou2ngmdyHlAJZQhk846b2uWM3sB4fBsV7ws8d7MBQSY3VSwG1GoQIrD/zSnkWEN
+	PKBdL5Eu7zlh8/XU+rTn7iG7b3ROCeqhZx+2LUWZjBeMpg7Amv7gc7QN5ZiufDQqZyPTKj2XlDk
+	bXGDc3a4CxvO42bGy45JbDIPTyazbD0HfKTcek9y07mLJ/Y5P/7YTzL5asI6eGCoBhAD5kPvgN+
+	p8qL0fkiMQnCZbInz/q4x1Ohw7NG1u2E1vSnV0ACvfcNsXy72keR9Rg3ETjt7az06sSUB9lJUX+
+	ISmFcNOpngPEAqw62oj0jla+Gwe+Ywja1tHKY/ywkA2TzQsmyY0Zsbn6sVDb5pcQQnDSpYvKZa4
+	hKr/TecPB3IyWz3jbdInIN4p7q1gLgf05Hq9irH7bOU3844s68AUtu8KCh16p7QCztw/ppS3ASY
+	+ibXYnwgXmMX21ggHhzUo7rDYaemiEwo0o/t1Ura7B4dhQWNXSD8SAKwVLW2Da+fDb6fUZuHlbf
+	yhlhGwqXSmWMGPsM5YbGg==
+X-Received: by 2002:a05:600c:4e50:b0:4a1:76c9:5408 with SMTP id 5b1f17b1804b1-4a1d7600190mr157794965e9.11.1792405449821;
+        Mon, 19 Oct 2026 03:24:09 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.252.76])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e3ebb3aasm187781085e9.0.2026.10.19.03.24.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 03:24:09 -0700 (PDT)
+Message-ID: <c6d963f5-a57e-4086-972a-4f04af2c5b42@linaro.org>
+Date: Mon, 19 Oct 2026 11:24:07 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-for-next-lucky7-v2-4-c4ecab4b1c4c@member.fsf.org>
-References: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
-In-Reply-To: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6189;
- i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=pASwubJHFvW3MAEHlbZcTMjHS7aYU3sKpBSvWxJR3+k=;
- b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq1e+7ZIyarByefmJ3m8z7F32OtpibXbAzErQfA
- 0xi2aou0gOJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCatXvuxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+tzJxAArvxYkZJ6mFZH3iaMde30Lu9e/Qp83c1
- 8RdN9ejqbbgojBPBDkBsmhP35jOh4i+hrMrRKbriW6+eoEQKvJJX39wah+FOqnCa80n+CgVRhax
- 4DkcngRvl5wnkXzhl54cavUsF6Tvim5kMy27+rkH2Z1XQb9pe7a9bWhJ9z5GhcVzGneqdUaH1VZ
- r8aGVwUyIzU1TVJmjO1R6vk7y/ax8tONNYbOFVMNiUXkuKkJWGCkyBsrM6ec+yCHFXjsulkaYfK
- I+EOQYxIcLW1NhHTIYWgYf4Rj46tH3NRNk8QkVywz5yIVWKj+0Ozq+SDzGqe0XFMcfKweCUdknW
- 2LON4pyB/MJS0hkvWruT3rk7DraReCPpK46Kg0xz2ipbS8wArX1mu8B0IYd3CR0Z1uJS46zWXVL
- 5xJE5rbTpdhfd13d71MvmSWhVQaD2f/nqvOGtfXgFdkmzKoepVXxmYHjvGX0iFO6IIHLj4nCA6C
- e8Z0Kd+oRLtH03r6zaZkDihxXs5R0C3LZaD1zTK8LYnA2qZM4XL6FNV95Wz9rSJbVa0wWiv6tgf
- SfqF3zvzNxhn0c9U8T3cQY5+FRo5B9qzMj0vGckKqwZ/GUSWh4nbga0ySHPz5BR0cll9NPx+jkT
- ymEsuVJl10c3N103c/rQVk4W3gZHM8ccknJXi+y+uVLtFJ7ktt24=
-X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
- fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
-X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
- auth_id=956
-X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
-Reply-To: aidenisik@member.fsf.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, david@ixit.cz,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
+ vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+ mchehab@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
+ jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
+ akapatra@quicinc.com, linux-media@vger.kernel.org,
+ krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
+ konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
+ alex.vinarskis@gmail.com
+References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
+ <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
+ <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Aiden Isik <aidenisik@member.fsf.org>
+On 18/10/2026 00:00, Bryan O'Donoghue wrote:
+>> +    unsigned int        lanes;
+> 
+> This statement and how you go about using the data aren't consistent.
 
-The Exynos5515 is an ARMv8 wearable SoC, used in the following devices:
-- Samsung Galaxy Watch 4 (SM-R860/SM-R865/SM-R870/SM-R875)
-- Samsung Galaxy Watch 4 Classic (SM-R880/SM-R885/SM-R890/SM-R895)
-- Samsung Galaxy Watch FE (SM-R861/SM-R866)
-- Samsung Galaxy Watch 5 (SM-R900/SM-R905/SM-R910/SM-R915)
-- Samsung Galaxy Watch 5 Pro (SM-R920/SM-R925)
-- Samsung Galaxy Watch 6 (SM-R930/SM-R935/SM-R940/SM-R945)
-- Samsung Galaxy Watch 6 Classic (SM-R950/SM-R955/SM-R960/SM-R965)
+Re-reading this.
 
-Add the following support for this SoC:
-- Both Cortex-A55 cores
-- ChipID
-- Generic timer
-- Watchdog timer
-- CMU_TOP, CMU_PERI, and CMU_FSYS clock management units
+unsigned int trios; would be fine too => data_lanes and lane_polarities 
+is a multiple of trios - always three - does it imply that the first 
+three entries in data-lanes == the first trio ?
 
-The devices using this SoC suffer from the same issue as many other
-Samsung devices, where the stock bootloader does not configure CNTFRQ_EL0.
-To mitigate this, the correct frequency is hardcoded in the timer node.
+Presumably.
 
-The VGIC maintenance interrupt on this SoC is also unavailable.
+That would work too.
 
-Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+data-lanes = <4 5 6 1 2 3>;
+
+=>
+
+trios = 2
+
+=>
+
+data_lanes[4, 5, 6, 1, 2, 3];
+
+trio[0]:lanes == [4, 5, 6];
+trio[1]:lanes == [1, 2, 3];
+
+Probably "trios" instead of "lanes" makes more sense here and the driver 
+just always validates that count(data_lanes) % 3 is always false.
+
 ---
- arch/arm64/boot/dts/exynos/exynos5515.dtsi | 189 +++++++++++++++++++++++++++++
- 1 file changed, 189 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/exynos/exynos5515.dtsi b/arch/arm64/boot/dts/exynos/exynos5515.dtsi
-new file mode 100644
-index 000000000000..ce6fcbfffdb2
---- /dev/null
-+++ b/arch/arm64/boot/dts/exynos/exynos5515.dtsi
-@@ -0,0 +1,189 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Samsung Exynos 5515 SoC device tree source
-+ *
-+ * Copyright (c) 2026 Aiden Isik <aidenisik+git@member.fsf.org>
-+ */
-+
-+#include <dt-bindings/clock/samsung,exynos5515-cmu.h>
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+/ {
-+	compatible = "samsung,exynos5515";
-+	#address-cells = <2>;
-+	interrupt-parent = <&gic>;
-+	#size-cells = <1>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu-map {
-+			cluster0 {
-+				core0 {
-+					cpu = <&cpu0>;
-+				};
-+
-+				core1 {
-+					cpu = <&cpu1>;
-+				};
-+			};
-+		};
-+
-+		cpu0: cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a55";
-+			reg = <0x0>;
-+			enable-method = "psci";
-+		};
-+
-+		cpu1: cpu@100 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a55";
-+			reg = <0x100>;
-+			enable-method = "psci";
-+		};
-+	};
-+
-+	oscclk: osc-clock {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-output-names = "oscclk";
-+	};
-+
-+	pmu {
-+		compatible = "arm,armv8-pmuv3";
-+		interrupt-affinity = <&cpu0>,
-+				     <&cpu1>;
-+		interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
-+			     <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+
-+	psci {
-+		compatible = "arm,psci-1.0";
-+		method = "smc";
-+	};
-+
-+	soc: soc@0 {
-+		compatible = "simple-bus";
-+		ranges = <0x0 0x0 0x0 0x20000000>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		chipid@10000000 {
-+			compatible = "samsung,exynos5515-chipid",
-+				     "samsung,exynos850-chipid";
-+			reg = <0x10000000 0x100>;
-+		};
-+
-+		sysreg_peri: syscon@10020000 {
-+			compatible = "samsung,exynos5515-peri-sysreg", "syscon";
-+			reg = <0x10020000 0x10000>;
-+		};
-+
-+		cmu_peri: clock-controller@10030000 {
-+			compatible = "samsung,exynos5515-cmu-peri";
-+			reg = <0x10030000 0x10000>;
-+			#clock-cells = <1>;
-+			clocks = <&oscclk>,
-+				 <&cmu_top CLK_DOUT_CMU_PERI_BUS>,
-+				 <&cmu_top CLK_DOUT_CMU_PERI_IP>,
-+				 <&cmu_top CLK_DOUT_CMU_PERI_UART>;
-+			clock-names = "oscclk",
-+				      "bus",
-+				      "ip",
-+				      "uart";
-+			samsung,sysreg = <&sysreg_peri>;
-+		};
-+
-+		watchdog: watchdog@10050000 {
-+			compatible = "samsung,exynos5515-wdt";
-+			reg = <0x10050000 0x100>;
-+			clocks = <&cmu_peri CLK_GOUT_PERI_WDT0_PCLK>,
-+				 <&oscclk>;
-+			clock-names = "watchdog",
-+				      "watchdog_src";
-+			interrupts = <GIC_SPI 185 IRQ_TYPE_LEVEL_HIGH>;
-+			samsung,syscon-phandle = <&pmu_system_controller>;
-+
-+			status = "disabled";
-+		};
-+
-+		cmu_fsys: clock-controller@10400000 {
-+			compatible = "samsung,exynos5515-cmu-fsys";
-+			reg = <0x10400000 0x10000>;
-+			#clock-cells = <1>;
-+			clocks = <&oscclk>,
-+				 <&cmu_top CLK_DOUT_CMU_FSYS_BUS>,
-+				 <&cmu_top CLK_DOUT_CMU_FSYS_MMC_CARD>,
-+				 <&cmu_top CLK_DOUT_CMU_FSYS_MMC_EMBD>,
-+				 <&cmu_top CLK_DOUT_CMU_FSYS_USB20DRD>;
-+			clock-names = "oscclk",
-+				      "bus",
-+				      "mmc_card",
-+				      "mmc_embd",
-+				      "usb20drd";
-+			samsung,sysreg = <&sysreg_fsys>;
-+		};
-+
-+		sysreg_fsys: syscon@10420000 {
-+			compatible = "samsung,exynos5515-fsys-sysreg", "syscon";
-+			reg = <0x10420000 0x10000>;
-+		};
-+
-+		pmu_system_controller: system-controller@12860000 {
-+			compatible = "samsung,exynos5515-pmu",
-+				     "samsung,exynos7-pmu",
-+				     "syscon";
-+			reg = <0x12860000 0x10000>;
-+		};
-+
-+		cmu_top: clock-controller@15410000 {
-+			compatible = "samsung,exynos5515-cmu-top";
-+			reg = <0x15410000 0x10000>;
-+			#clock-cells = <1>;
-+			clocks = <&oscclk>;
-+			clock-names = "oscclk";
-+			samsung,sysreg = <&sysreg_top>;
-+		};
-+
-+		sysreg_top: syscon@15430000 {
-+			compatible = "samsung,exynos5515-top-sysreg", "syscon";
-+			reg = <0x15430000 0x10000>;
-+		};
-+
-+		gic: interrupt-controller@15601000 {
-+			compatible = "arm,gic-400";
-+			reg = <0x15601000 0x1000>,
-+			      <0x15602000 0x2000>,
-+			      <0x15604000 0x2000>,
-+			      <0x15606000 0x2000>;
-+			#address-cells = <0>;
-+			#interrupt-cells = <3>;
-+			interrupt-controller;
-+			/* VGIC maintenance interrupt is not available */
-+		};
-+	};
-+
-+	timer {
-+		compatible = "arm,armv8-timer";
-+		/*
-+		 * Non-updatable, broken stock Samsung bootloader does not
-+		 * configure CNTFRQ_EL0
-+		 */
-+		clock-frequency = <26000000>;
-+		interrupts = <GIC_PPI 13
-+			     (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 14
-+			     (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11
-+			     (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10
-+			     (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 12
-+			     (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>;
-+	};
-+};
-+
-+#include "arm/samsung/exynos-syscon-restart.dtsi"
-
--- 
-2.54.0
-
-
+bod
