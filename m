@@ -1,146 +1,104 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A23E496D53;
-	Mon, 19 Oct 2026 10:23:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA1A4CB8BD;
+	Mon, 19 Oct 2026 10:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405434; cv=none; b=bnKRO82AD9DE+cwNIKdI5TE1aSlaAEPcM0aZs5ysFbIQkEWQbGP8UdafTllNWKvBEjVDlCp26K2thuqOOkQmFkFH560ZYV6j4Bylr8/oCkcOAi2/EF9bKqebGZyfu4BWIJ4LwjZklY/4HIvynmHzRoq9I2nXiVfwDDhNDWGFb1w=
+	t=1792405439; cv=none; b=NZ2zdvNvaqUqLJjmzWOOXD1tGyS/x9WCTD3P+Y8WrPbmuB1TyaS4dBqZ/KRB9NgGiAQdzdt1WKivfCQbUhI8IhswN103kcKJXxXMaiBWZd9rRQOhjHrt7Ei+v4Yadlo8kn23g1HoczijiiDonOa3EnJu/o6tr9EWbq2GOKq7YbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405434; c=relaxed/simple;
-	bh=CaoT/uf9yGNMSnZay0+VPUgCwq0nmEaTd91fIYl4ZGY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AZ4rP2XurhItX+P+BQPUVfLq32pWnWokEjrvDY5gylz8x4S4o3Vn7RJ37/zh0v5+BDJm3ANz3Vx8wEDhjj7oT1Gqt0I8b6T3Z5K1FAFucBugDFV+zis1SX5HAddFEyEltwbAC60rt/mOaCCM18XSVl7/MKDkBT21pZvHWSg+gbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LiLydUbe; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ubskq2ys; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LiLydUbe; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ubskq2ys; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792405439; c=relaxed/simple;
+	bh=7Mv+oJW/mPnKR3svLelXXrT/qOxMYXOtEWSTjcCySOA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MTe0kOuuZrqGzx8Xn+iTBzTC74P+4pLhmV8h8PGR86z9IUmqkiceK51jWw93bf44kgk4z8zOI4OFV/fae49hv6i8jw7Ws7VNf7DavCLKDls6ivpjeMT1GSLXADNuHOoqJUaH6T1E/0ctT2AQm1X0dInPoxosbXb768wv00K1nn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SYTOc2+O; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LiLydUbe";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ubskq2ys";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LiLydUbe";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ubskq2ys"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 83AF31F441;
-	Mon, 19 Oct 2026 10:23:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792405431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=f3aO6QrmEmWuqorGy29ChZkGSEnc+9ZjcNq9MHbp1SQ=;
-	b=LiLydUbeh9XPXivskgMhZV5sbzrBvy6f65S50Fm7khERCx625dNOtfW+eskD19BPtP4wbv
-	ppTwIIpu8CtVIh3BBoPCZMbC0wzg9MvGI+/zj0b6TZJk1/vU99Axlpepys7Tvp16BY70+x
-	Gbxh6gWcoFLGjxwOuj55UkRoxFylbaA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792405431;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=f3aO6QrmEmWuqorGy29ChZkGSEnc+9ZjcNq9MHbp1SQ=;
-	b=Ubskq2ysujDo2MnFhg8mRbULv8QAKaEQP/aqDLesGJeJ2Kp0IMTcP2bvcogA6blbQm7wNQ
-	k4sosM9zI8P/vNDg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792405431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=f3aO6QrmEmWuqorGy29ChZkGSEnc+9ZjcNq9MHbp1SQ=;
-	b=LiLydUbeh9XPXivskgMhZV5sbzrBvy6f65S50Fm7khERCx625dNOtfW+eskD19BPtP4wbv
-	ppTwIIpu8CtVIh3BBoPCZMbC0wzg9MvGI+/zj0b6TZJk1/vU99Axlpepys7Tvp16BY70+x
-	Gbxh6gWcoFLGjxwOuj55UkRoxFylbaA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792405431;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=f3aO6QrmEmWuqorGy29ChZkGSEnc+9ZjcNq9MHbp1SQ=;
-	b=Ubskq2ysujDo2MnFhg8mRbULv8QAKaEQP/aqDLesGJeJ2Kp0IMTcP2bvcogA6blbQm7wNQ
-	k4sosM9zI8P/vNDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 428E8136CC;
-	Mon, 19 Oct 2026 10:23:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YIgjBrfv1WoXWwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 10:23:51 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Will Bush <will@willbush.dev>
-Subject: [PATCH] ALSA: usb-audio: Avoid applying boot quirk for Behringer UMC204HD
-Date: Mon, 19 Oct 2026 12:23:38 +0200
-Message-ID: <20261019102347.2425406-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SYTOc2+O"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B3BB9C2BD04;
+	Mon, 19 Oct 2026 10:23:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792405438;
+	bh=7Mv+oJW/mPnKR3svLelXXrT/qOxMYXOtEWSTjcCySOA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=SYTOc2+OnGwTPiktILEYNuQxI+m56ROM/ovXr7os4s8jbmt6uAhntPKf74Fqvuiu1
+	 lpG5Sf1s2MTWKcBVRld0KrzNqkNL/creOPr2O40m9cTigN7a3ImuoTNrHgdTZOwFOk
+	 a2A88DH6B0Y6VvnAaNwuGQXh9XuQk03KRF67k5qwMHX2Lfddbp7zwDXlhsaPwjeFcD
+	 QId0bT1eh+F3i5of5CH4/pnUckMl8PuceYdAyRViQDeYBQ37l/hLJhG/6u6qEsIb/d
+	 oL9aUrNrrjFG2bPFCxkiv7zUkhJX2MwuME9oHiZMKO594EM48oWrgrHIoAFzm8tCJD
+	 CGCFyj874jfGQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89F95CCF2D6;
+	Mon, 19 Oct 2026 10:23:58 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Date: Mon, 19 Oct 2026 11:23:48 +0100
+Subject: [PATCH v2 2/5] dt-bindings: soc: samsung: exynos-pmu: Add
+ Exynos5515 compatible
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.com:url,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-for-next-lucky7-v2-2-c4ecab4b1c4c@member.fsf.org>
+References: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
+In-Reply-To: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=956;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=u5w9oDBuV+q/JxmEewB9ecAjYkFIvHtUgbXKYE3snfg=;
+ b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq1e+7qKwtn/AtJxY1XoSwej2KfOWWVj/ql3ZhS
+ 0epIVrGOwWJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCatXvuxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+uhdhAAs6wYyfqFQE8Kf9EhnMzIlElTCyjVbxs
+ 5gvWepRuxfRjVHx2o+HU5iNRveaO69wHCxgZ53q90nV4VMEfqTYSU5pS/B4cpLXfs7fztUFX//Q
+ 6kVUG1cl6zNj6Aw5OePRWrYntLSvxj94rUqR0Flu8J46ZxVtVcY6rMxm53ahzFuDDh0l+FLVvhs
+ E5ISks01UnNZ+Ac6NleHOiZ3/XpEXUC5+PwDUPDJh/gdUShy46hsF4y4eX1535sUC1+XVjwLyRs
+ HPkHFeQtl6zkX35y94ILJNpD7bK45VfQEWkh4foTbKSdxfeQW79QcO/RrHa3XAhna+BX/LWDeqw
+ m3IQEaHA+6OrVoOTyzI1K4X9gKMXetHt9A6pKsixv3r1aFzYt1ZnXZMPhLUUOUoeBEj3MmzAdc9
+ iMD6kvXRha3T6nQhrR0iqYWWillS8UKJYK2zy25nsPsTubQ+Xxoa7nZDaq40DyjM87W/LynDRKk
+ wlMhQRt15CVQ9HEEwmWHXxKhAaWr9oqX4IpnYg4drWKXEtgjpHWpIpucmgsBnwu12oxre59mXN2
+ UL4pJaKMKneosaaeisppdjsvKyg26JTZO7q4Mpfq+VB8rSLaYj4FrNdRIb0GXrJi7BwBmbJ17Ln
+ Vwn9JrgbG7tT+zQLs8RXhxFitAx8dRy6em6UUPwcxbg+NgjhLdbs=
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
 
-There have been reports about a regression with the recent boot quirk
-for Behringer devices; it broke UMC204HD models(1397:0508 and
-1397:0509).  The quirk was to just run usb_get_descriptor(), so I
-expected it rather harmful, but in this case, it doesn't look so,
-resulting in an error like 'failed to read device descriptor: -110'
-that leads to a fatal probe error.
+From: Aiden Isik <aidenisik@member.fsf.org>
 
-As a quick workaround, skip the quirk for those UMC204HD models.
+Add exynos5515-pmu compatible to the device tree bindings documentation.
+Use the samsung,exynos7-pmu compatible, as it works the same for Exynos7
+and Exynos5515.
 
-Fixes: b5c4823cf3e4 ("ALSA: usb-audio: Apply boot quirk for Behringer models generically")
-Reported-by: Will Bush <will@willbush.dev>
-Closes: https://lore.kernel.org/45162613-2802-401c-84c9-742f9c8c68e6@app.fastmail.com
-Closes: https://bugzilla.suse.com/show_bug.cgi?id=1285896
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
 ---
- sound/usb/quirks.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 4fadb1fdcdea..4ac4aef47dd7 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1790,8 +1790,15 @@ int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
- 	}
- 
- 	/* Behringer devices may need explicit device descriptor read at boot */
--	if (USB_ID_VENDOR(id) == 0x1397)
-+	if (USB_ID_VENDOR(id) == 0x1397) {
-+		/* the quirk seems breaking on some Behringer devices */
-+		switch (id) {
-+		case USB_ID(0x1397, 0x0508): /* UMC204HD */
-+		case USB_ID(0x1397, 0x0509): /* UMC204HD */
-+			return 0;
-+		}
- 		return snd_usb_cm1a_boot_quirk(dev);
-+	}
- 
- 	return 0;
- }
+diff --git a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+index 5bd39876e3b3..1a0d9de79696 100644
+--- a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
++++ b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+@@ -33,6 +33,7 @@ properties:
+           - enum:
+               - axis,artpec9-pmu
+               - samsung,exynos2200-pmu
++              - samsung,exynos5515-pmu
+               - samsung,exynos7870-pmu
+               - samsung,exynos7885-pmu
+               - samsung,exynos8890-pmu
+
 -- 
-2.55.0
+2.54.0
+
 
