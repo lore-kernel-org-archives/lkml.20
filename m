@@ -1,116 +1,104 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6502F4B8276;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C6E4B9201;
 	Mon, 19 Oct 2026 09:49:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403397; cv=none; b=h/11z8Pm6CAuy/G6tDLmtFE+gBhg4rqj9ND3p0DxMfHyAzRv42HM2mN/g+2gZoeQAJhu1+dvylZmn8/pnaQlfRGjNMLZ0BYILxNjbOmBq41OhnxlOzkZEGT2oKItBy0+XLzMX5jH0Hzs0e+WNV8Kk5H4arIHFcyU13rSH4AT5FE=
+	t=1792403398; cv=none; b=rykb2tftwi/5SIvrj9hPvo4xyxVVPE21zc4fMfDpJ8nJb845lUGC/cC3GLfD5/H345LhNqqJr7ae92DIFFRl0Qo21q9UFQYKBBzSICZTvkrid/eAXHlRHP8SI4JFapc0/NwzDbrf+qsEkgIoav/Q0HhaXyrCjYo5LUcxe14pfvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403397; c=relaxed/simple;
-	bh=tNwh0NgMwC2NxmyZzoBmi8wtLFpnWDZrPMg2XzlB5WI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kUyJJ7QO0Ct/rPFVcagfMYCDwp6hhCJuDvLTQS8RJL9/jLzvqnL6nJ29pMyGMSbYuSiwUr/nAyRmRMGvB5Osvfy4Tasn8Um7HY5FHePMK+EuBdvEdo7FcOmuUkGDT7qPl1AcG66MVZ4Yj1jvFDlI+Imnaa4HL0aVN2C85G3+kNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=FmiHeiqw; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1792403398; c=relaxed/simple;
+	bh=4T8X+mnirwDXrJzYavy3/QN/Xx0CmFgmoKtciO5afpM=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o0hjtLzv8Ot9UVc+VXTKWP3TnLmeNjFDcRrQEdnNVP+leWXpn7efNQDngcjpnkUxsMEkWBgy05PDIEkTG4EwxO+2ENeBgirogJArbIMC8ChMX3nY5Sx3YExkPVIIoJgnP8N+PD9s60iZddq+auprYxOe/BYksQvJxdpsyzpCkrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=CZSYLcy+; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="FmiHeiqw"
-Message-ID: <156ed58445e869ffb783bfee0c07bc784f6178ad.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1792403390;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Bn4aGHXHs3sa40Ens1ww3bFvwndhquiAPhSKtFdOVUw=;
-	b=FmiHeiqwpE9q8wlbdZYTJ2H6clE3pAQHuI/kAbL7irNE581hmsL20y2aaEAqDKahaFt27N
-	nqURCj7esDaGWoCwW4cs5WngqyLh/R9D/gIZVl3GtUA8/AQPI7l0nsNWKHuQmxZ9fovFxS
-	zbwcS7tgF+Oh20fAz91Zvm9pkh4fCtE=
-Subject: Re: [PATCH] sparc: populate sysfs cache topology information on
- sun4v
-From: Stian Halseth <stian@itx.no>
-To: Jan Engelhardt <jengelh@inai.de>, davem@davemloft.net
-Cc: sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org, John Paul
- Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Date: Mon, 19 Oct 2026 11:49:49 +0200
-In-Reply-To: <20261018222723.43442-1-jengelh@inai.de>
-References: <20261018222723.43442-1-jengelh@inai.de>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-MkgeK9/okFuKXT4SCUx/"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="CZSYLcy+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1792403393; x=1823939393;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4T8X+mnirwDXrJzYavy3/QN/Xx0CmFgmoKtciO5afpM=;
+  b=CZSYLcy+3EuUOv2tLBbOLxm1msliAcgCc0iv/GAnTl3zM7CZjkfC2Zcr
+   ietVLs2DD+L77l+Xv5v4XeNJQXBfxij7STOFTGYd9qqOFzwhux77Hy81/
+   ywpyFSzoZtWEMzjnlE4ztS7z2Pqk4tnJjGdCa+eunHFKLgu1BiE0tzf3n
+   D4DTxBiorDAK+qDSFblndna5+uFeWUiLvH/PyqavcBOwqLP9WYbZP5St4
+   vMVI9bi++PZCljpWA2JR7OJwE5vwZ98xqBicGdhJhurHdqI6COmATrbWi
+   aFFzLckWhK2u/VH9rmTR124DW69kHlY8jbkRslkIKf75pbVtRC3sAf2fo
+   g==;
+X-CSE-ConnectionGUID: Bjc3CSJCRReGvAr2uSyZ1w==
+X-CSE-MsgGUID: tO8BcGNTTvWkJw7Wrzmxgg==
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="75656201"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:49:52 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Mon, 19 Oct 2026 02:49:52 -0700
+Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex04.mchp-main.com
+ (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Mon, 19 Oct 2026 02:49:49 -0700
+Date: Mon, 19 Oct 2026 11:49:48 +0200
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Rosen Penev <rosenp@gmail.com>
+CC: <netdev@vger.kernel.org>, Chris Snook <chris.snook@gmail.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Oleksij Rempel <o.rempel@pengutronix.de>, open list
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net v2] net: ag71xx: re-enable TX interrupts on RX OOM
+Message-ID: <20261019094948.q7kis563ir7zxb4s@DEN-DL-M70577>
+References: <20261019020147.213746-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261019020147.213746-1-rosenp@gmail.com>
 
+> When the RX ring runs out of buffers the OOM path calls
+> napi_complete() but does not re-enable interrupts.  Because
+> INT_POLL masks both RX and TX events, TX completions are
+> blocked until the OOM timer fires (~100 ms), which can cause
+> TX ring exhaustion and dropped packets.
 
---=-MkgeK9/okFuKXT4SCUx/
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Is that not exactly what the OOM timer is for? It schedules napi and tx buffers
+will eventually be freed. I mean, it seems like it was designed to work like
+this.
 
-Hi Jan, thanks for looking into this!
+> 
+> Restore TX interrupt delivery so the engine can drain completed
+> descriptors while NAPI waits for RX buffer memory.
+> 
+> Fixes: d51b6ce441d3 ("net: ethernet: add ag71xx driver")
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  v2: add Fixes: . 
+>  drivers/net/ethernet/atheros/ag71xx.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/net/ethernet/atheros/ag71xx.c b/drivers/net/ethernet/atheros/ag71xx.c
+> index d93fd91ff884..5a33759be3cf 100644
+> --- a/drivers/net/ethernet/atheros/ag71xx.c
+> +++ b/drivers/net/ethernet/atheros/ag71xx.c
+> @@ -1746,6 +1746,7 @@ static int ag71xx_poll(struct napi_struct *napi, int limit)
+>  
+>  	mod_timer(&ag->oom_timer, jiffies + AG71XX_OOM_REFILL);
+>  	napi_complete(napi);
+> +	ag71xx_int_enable(ag, AG71XX_INT_TX);
+>  	return 0;
+>  }
+>  
+> -- 
+> 2.56.0
+> 
 
-On Mon, 2026-10-19 at 00:27 +0200, Jan Engelhardt wrote:
-> +int init_cache_level(unsigned int cpu)
-> +{
-> +	struct cpu_cacheinfo *i =3D get_cpu_cacheinfo(cpu);
-> +	i->num_levels =3D 2;
-> +	i->num_leaves =3D 3;
-
-Using the MD node as the cache id with CACHE_ID set looks to me like
-the right way to do it. I tried it on my T4-1 and V240 and have a few
-comments.
-
-mdesc.c is also built for sun4u and there the new *_id fields are never
-filled in and stay 0, so both CPUs end up sharing every cache. On my
-V240 lscpu goes from 128K L1d in 2 instances to 64K in 1, and the same
-for L1i and L2. A tlb_type =3D=3D hypervisor check here, like the one in
-setup_per_cpu_areas(), and -ENOENT otherwise puts it back to how it is
-today. I tested that too.
-
-The fixed 2 levels / 3 leaves also only fits T1-T3. On the T4-1 L1 and
-L2 come out right now (16K and 128K per core, 8 instances), but the
-4M L3 shared by all strands is missing. I dumped the cache nodes from
-/dev/mdesc on my T4-1 and T7-1:
-
-  T4:  L1i/L1d per core, L2 128K per core, L3 4M shared by all
-  M7:  L1i/L1d per core, L2 data per 2 cores + L2 instn per 4 cores
-       (both level 2), L3 8M per 4 cores
-
-On M7 the L2 you get is whichever level 2 node fill_in_one_cache()
-hits last (data here), labelled Unified. That's what Tony saw on his
-S7 too. The missing L3 isn't just cosmetic either. The scheduler,
-sched_ext and the page allocator use the last leaf as the LLC, so the
-T4 would end up with a per-core 128K L2 as its LLC.
-
-Maybe it's simpler to just walk the MD directly in init_cache_level()
-and populate_cache_leaves(), following the same arcs as
-fill_in_one_cpu(), and add one leaf per cache node? Then you get the
-split L2 and the L3 for free, and cpuinfo_sparc doesn't have to grow.
-
-Tony, about your first list: CACHE_ID is right, it's the flag that
-tells the generic code leaf->id is valid. I built the T4 kernel without
-it as well, and then nothing shows up at all, cacheinfo just says
-"Failed to find cpu0 device node" and gives up. The functions override
-the __weak ones in drivers/base/cacheinfo.c, so they have to stay
-non-static. The L2 split and the L3 you found on the S7 are real
-though.
-
-/Stian
-
-
-
---=-MkgeK9/okFuKXT4SCUx/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCatXnvQAKCRDoeAEuJe36
-VhcHAQD8KumrLMH1zPG9vdglrfCbvFsITFLJDqpPhVwdaunJRgEA3RJ5VWUjeMIc
-x47qVdMf0mzY37f0nHfOEpQvt3GXcgQ=
-=O+JQ
------END PGP SIGNATURE-----
-
---=-MkgeK9/okFuKXT4SCUx/--
+/Daniel
