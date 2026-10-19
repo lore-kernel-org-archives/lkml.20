@@ -1,100 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792441296;
-	b=CIQWyuxex4POhUMeWbM+MG/8JQNGM37xNfgdnSKt8bq5jnSUqZjxnMacMHokwgTCRT8T
-	 zYTtbI6C9KVadNYYs6kwMHD/rRFqOYCiwHAY1KwwobbWxV0rTOt+3Mo1VU6b6D12M1SA4
-	 qZiwPx1vmFAzcxFtv7bmU0kX+jGjcYCaeDd5PpjIRjspb0Ni8rl02MQlG8wXRUcAla+ge
-	 FWkM2GdgNvluTVxVZAeOSz6Dz6u+2YT4IaI1xgLh8mV7sH7Q7X1qPuBSlRTIDVa/QPb6V
-	 AoxACPe+imEcghTxYVCWraxktixmD4vNpIEaEnp3TLF7Kww3RH4oMnvd3Zb7S3lM3SQ==
+	t=1792441324;
+	b=1aDQEg96fdAqKfrXb8Z93mNUnaHOc5cE9flP0gadUF4b1ugv12FPnyghJUDtMFQIyyrc
+	 hENvhoib3XQUJAvMQoBIp/m45ravMDsUyKGO1dEj9bQZhdqtbpH4acMxmtirV3u3EeMqB
+	 EIgtI2j4DBerkVnjphyNZkYqh5mg7Z5jcKjo8ytqdtsEuySJy/Jm0p61nn7XaH5PHIofU
+	 jolNvj40vZGu2dhueteLYMVTkOtAmSpXc50V+b08tH6+ZXJOAoa7Ngj/kt/0xoRwhv5Hd
+	 J8BuMaTaJtgWstsLEkqcOO4muypB0wAbXSxJgu6zkpDilkoVRoD0VzVBQMvo0NZ8H9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792441296;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792441324;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=lxY+bUlnXkp9HLTP6VBDyo9xmYaSPEc8yORJWUbNihU=;
-	b=FS6c6fUcdmVmiq5x9Z2FbuTQLngZKJrVhPg5AgX6JxUq8wAvQzP6Z9X7c9GeUYKkPvyb
-	 6w2sFmUJ56WFIHgQBKha9dtMXugshW9fNV/b9RstfYqxoPVFUe0beZnn0Y0WotyWePDP5
-	 eqkmlzzCrqqJQWJ9oNvfFzlytlXsuxLho68jxCu78VuNd8+I/Ce3dXKiYVbjAotU47ZqA
-	 IdQpuA3nFC+Nttvadp8SzSC7QY/GaAAlvzguHLUzVcnjwsH/lXxRaPoLjNaTTggDWNBV+
-	 UJ9PfdLiEZQsuqhJVCZxT4K7nA7LEbLVh8Wu/7/DBr8AXWVAmOebFBuHG77UrrGqfQw==
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=xaZswgjMQxqUYMWBnUZYKi38KmIZV7yoAiPyk8ZDoPQ=;
+	b=md5IT0Ct8wWTCVVSsCZioefheIK6kuVZCfxfD4ekUtgxjg2YCVoCnOjPrUFmAsjWnEOu
+	 3jCETVomz2aPHoCoU4v3p9pWXpE8445XxbeL4dKFl3sIdRLBOxs95ODA4AihQDBw66Ds1
+	 1ajGwKHYk5aGpJ7loW/oEJrJss6ewEAs9pTQRetyKuZrbwW2pR5KRJTcAXNrtt2TxEEGK
+	 hmXiWBHUmaZMY+blzGy4sIKlkp0kdPKH0QWRmi3rDX6iUCdfS3ZAbhtCF07w3w2XiziHW
+	 NE5zlbqXCyPQMNVYx+tcYMTS82pLQqgZdIpkj1qiZzImZpQnGqbi99UNmElvQX9779w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XiBEVISy;
-	arc=none smtp.remote-ip=209.85.217.47
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Etj1uhkN;
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40716606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:21:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40716606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B691C606A322
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:22:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B691C606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XiBEVISy
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7c4818e4165so50530137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:21:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Etj1uhkN
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53512cd2f85so28786041cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:22:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792441295; x=1793046095; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lxY+bUlnXkp9HLTP6VBDyo9xmYaSPEc8yORJWUbNihU=;
-        b=XiBEVISyRUSaKTM2KkccmpCYmSCxtkzIT9pO0e1ILZqqpIDrCarUcKeRKwEiqGqFjs
-         eTQ9qd8be3XLJSDCMiafjEnEUjd8zt1HB16T6EqvAo0fhnwhTkEWS0MStUFlZOm49U5t
-         jcW42PITAbU6s1v6JmqyMJCwYN0hkuXsoj2oP6T+Iv97KQ7gA7ICDvzCgsYE5TjxO6wn
-         UYYeAgUoeOlxW/2tqeR/V3WkNnyeZVHXii+Q/vMNkX7r+pROjGz2tKzAzWPwkxey7DAJ
-         SvlyEv1Olggw8DwwpfLuv77Ht85Lvi9uB8DN4EZzuwSYDA/hnvDofsVInA4wxHL0UUwy
-         g8bg==
+        d=gourry.net; s=google; t=1792441323; x=1793046123; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xaZswgjMQxqUYMWBnUZYKi38KmIZV7yoAiPyk8ZDoPQ=;
+        b=Etj1uhkNvH8RmH0+szbsI7rPAC+zjPoSSyxVhXzvlVrSY+ns7YGODT4bOwTgjA91Rt
+         IDwpcB+IXEgM2bOa2uOeSxB338D8WmTmdn4K/E0ZhucxX9r1EQPJVVk1bDrRSWg/NDZX
+         bW8pM7QZ+rrMjXVeD/cVCf5/DOgBg2ZlzFaulek6kUSn2St0M1Z4hh+baeluInQ8r0hU
+         Ld4BQMPv5BS3mGIpcnKmMqSEREfhXRZrFPGcG68WHFsLK9LN0lgJ+iGfBCDiq9enpvYx
+         c9jfxOb141iKJRj2s7puROofBAXH4WVFtwYT2K7Bi3S7J+imaSrbv8ZMa4WcLRTpQOfB
+         paLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792441295; x=1793046095;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lxY+bUlnXkp9HLTP6VBDyo9xmYaSPEc8yORJWUbNihU=;
-        b=AznJsqEO8+AMBdomZIwSld3dl2vgY8Ro0tpZOLIdaOKV/KTVHJ62u506Z5OBFhUGwF
-         AgjLGuks/zs8Vmx3a/02VdMTCkBBOYaCsK+D4zVNC+VL4jEk2JX8vuWSMiSEq9XVRoVx
-         EPi57gmamzaqp13GwDAIfhVeMwaDd2lWXlVyNvV9PrMZ9fq6Goq9UvHjIIDTyiPgMqIV
-         88Gyd95RN0NO0eb7VKiLLWvoPVWmcrasY/yvGpTA4v2GxXxTMLjWSwkoB1Ejf9g6SUzQ
-         13XzC8VD4xknU3J5pX+jSc4+ngsrmNUmdlBP+tir0oON8I4lHLjmW+myNCmc/nbuz64R
-         OZsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwcIK10wppfFRy/J0drzERGut89DMy95k9+WtJNBDp75Gzb7IOXWYms107EnsLFUBkBfeyl9qFq4Xgc2c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQqFbGyZmX2zJOmiw4IMFtWPTBEh32dmhqy5mIB6MYW0ZmD+17
-	3CRs20FhWQC3D3pfmsJn0ys+uiWDr5Oo3HUz/eGj99eTUiTG/716WKwq
-X-Gm-Gg: AYBFou0kZQTvoMx0y9AN0qgARWz+lCOpK4dA3XZPYVddLhgeXJjgo8bYLvfQrFyh8bO
-	3JW+ALW6zJ+ByXbpv/9o30a3sKuptMAtjoA9OOwn5LCTrWW4IqOGihx1UIklQa12P1YcpCf7o14
-	QCd0+RN3FNnEurA7H5eN0KrrvsVdFEZYEhsiHFb8Yrw/n0AdACoxt1AcHEfSED93aSNMxKVRtyz
-	HEzEPEq+MmeMRdKjTvPIQyBhlTFm3aP07pfpNVTaqs+PrV9v4w3gp/4PRM20hd/wQ7xkz/XNaCE
-	RgWmEsqlGcYvmWe3mhV8B7Um5tY1yCIcHbWPps6pYmGRaBla5IZFSMV10LuRcrs6Mp57/xAxx+r
-	MP4AdyIhXfbCddEFQNRD+u/u1Q8O3RbCA3qA3Sk5KOuvyBlvxP5xEpoVMhFSez82D66maqiCMKZ
-	LEc6px54OCpBzObpUHWQhPqsw1C8oXej7mA0TsTsJWlWpa2MluXyPlU0RZX1qrfCXRnYb8lRGpS
-	ZXq9tFa5RbwYfxWKQ==
-X-Received: by 2002:a05:6102:4410:b0:7bb:64cc:1362 with SMTP id ada2fe7eead31-7cc7bac38f4mr58992137.6.1792441295093;
-        Mon, 19 Oct 2026 13:21:35 -0700 (PDT)
-Received: from localhost ([2804:30c:4067:b00:a68b:4892:7af1:b51d])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc77264634sm1081672137.9.2026.10.19.13.21.33
+        d=1e100.net; s=20260707; t=1792441323; x=1793046123;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xaZswgjMQxqUYMWBnUZYKi38KmIZV7yoAiPyk8ZDoPQ=;
+        b=RKbmYSoq/8yCVJPv8gXNOaPQafhmV6P57epvAeVnoSqoS6lgPFATpRZiQRZXGxoO/m
+         /wEQf//RradfJWxGqOMUHvLKcoL6umZTwhKK+byEsy2lMXfmGo8cXOeWC1VcRz34pz3y
+         +Y3Aqy5c55Bdu/cMMCpTyY0cN9MCe2wsRDvUP4uliRQ3uQ34UA3pU9A5STnPNPr1iZNz
+         ic1kxXrl0W78qGQsHaiwRXp8V+Sjyfjzmzoe87VMvGEh4HvvsRH+sBrQATP7Sunfda23
+         mJuKzwrFBF22bIuu8zIukme3dMusHPcKPxdZ9rej2oRov11RWPTE2zrJFOyQEzXp9scs
+         D43w==
+X-Forwarded-Encrypted: i=1; AKwUvBxI8PGluHJpAEDadJx4dFUasuzoFmovfxcBgDoY8GkV2aZGQeToUb2ZogsCRULfs90y9dY13F2+ba05690=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7Hs7CvCoPyb0fu8yejtQhA+iyzCoq6dygHvOBgzdeCCeKSXpI
+	nCvWziskCshnR3NsFa52Fyh55ds6zyF00NBQGPSGVyEpcy1IN+bGY9S8spSvWvQ2ybo=
+X-Gm-Gg: AYBFou0OvlGDEGZ+pIUj9INSOjLOhR2XU2KXi09cMy8mVoFrpu8R5l2qXNlJNgqHTs7
+	g7WLt7whQPjFfxdW/CAoZAphnmSngM2X4TcrWOZM7jnb7jJA8gVxbt5GQM0oBk+44ydCHe8/Drw
+	UXjpSYres5yGrRML+uqPbKgo9sfBlfE6bTb1g8TdJCVi4UflqOGhF6XdgbhBrn3BN1rfn8wXI7x
+	mnSevzfx/Ca3Jr2Jfh5Gchjs41DpoWoym4V9M3iHTOq8uVbHst4SqSjwq55xceLnEtzvdlzmdJd
+	c4LeI75x/8t0PWqqGp7f3D/4c+YSi5rv3Vp++wfVkb1+pH1MUsAUDfTym8fF8Y8Z7X7uY+qOlqK
+	5PvzzHWRsRNH3rlp8XMWdi0aQV1/0jhRzMjg+xq5cAWitBDRSoabzEJNu5Ljoy85jFLM3UY29jp
+	sgZtgka4mLa2axft6DjaUzd0vcm1nt/JduDctYl5+s643jvrE1Ur6GJqsgIBi1GTg+mGDebRmIj
+	RNdqFcEC+Iu5CKVX8QRTb+yJs684QBFPNKc1tek/8iw6acVKEhe5oY=
+X-Received: by 2002:a05:620a:258d:b0:93a:f9:614a with SMTP id af79cd13be357-93f29d3838cmr1482213385a.34.1792441322748;
+        Mon, 19 Oct 2026 13:22:02 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4b0b9098sm46239385a.30.2026.10.19.13.22.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 13:21:33 -0700 (PDT)
-Date: Mon, 19 Oct 2026 17:22:36 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux@analog.com, nuno.sa@analog.com, dlechner@baylibre.com,
-	andy@kernel.org, Michael.Hennerich@analog.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v5 05/15] iio: adc: ad4134: Serialize single-read
- operations
-Message-ID: <atZ8DPLg1Zqzhba0@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1792200021.git.marcelo.schmitt@analog.com>
- <fadebc9f9fd6fe3924d086bdd7f549555dc069bb.1792200021.git.marcelo.schmitt@analog.com>
- <20261017193929.12ce61bc@jic23-hlaptop>
+        Mon, 19 Oct 2026 13:22:02 -0700 (PDT)
+Date: Mon, 19 Oct 2026 16:22:00 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Zi Yan <ziy@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, david@kernel.org, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
+	ying.huang@linux.alibaba.com, weixugc@google.com, aneesh.kumar@linux.ibm.com
+Subject: Re: [PATCH] mm/memory-tiers: reset demotion targets of nodes without
+ memory
+Message-ID: <atZ67m_JYJADzY-C@gourry-fedora-PF4VCD3F>
+References: <20261019184712.3422641-1-gourry@gourry.net>
+ <DM91RXTJ5EFF.2YQARRB6TXQIK@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,34 +98,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261017193929.12ce61bc@jic23-hlaptop>
+In-Reply-To: <DM91RXTJ5EFF.2YQARRB6TXQIK@nvidia.com>
 
-On 10/17, Jonathan Cameron wrote:
-> On Fri, 16 Oct 2026 22:57:47 -0300
-> Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
+On Mon, Oct 19, 2026 at 03:04:45PM -0400, Zi Yan wrote:
+> On Mon Oct 19, 2026 at 2:47 PM EDT, Gregory Price (Meta) wrote:
+> > When a node loses its last memory, offline_pages() clears N_MEMORY
+> > before the memory-tier callback rebuilds the demotion targets.
+> > disable_all_demotion_targets() resets only N_MEMORY nodes, so the node
+> > keeps its old node_demotion[] entry while it has no memory. Before
+> > 6c542ab75714, the reset covered every online node.
 > 
-> > Protect single-sample read operations from going wrong if two or more of
-> > them run concurrently. Serialize the data read operation so to avoid
-> > single-sample read requests disrupting each other.
+> establish_demotion_targets() uses for_each_node_state(node, N_MEMORY),
+> because the to-be-online node is already added into N_MEMORY?
 > 
-> Why isn't this a fix (with appropriate fixes tag)?
-> If nothing else comes up and you agree it should have one just
-> reply to this email with it.
 
-I seem to have forgotten to add that.
+NODE_ADDED_FIRST_MEMORY happens after the memory is already added
+(though not necessarily online). 
 
-Fixes: e0bc6d7e2584 ("iio: adc: Initial support for AD4134")
+NODE_REMOVED_LAST_MEMORY happens after the last memory block is removed
+(and therefore N_MEMORY is gone).
 
+slightly different timing for each event.  There isn't a reasonable
+change we can make otherwise.
+
+> >
+> > A reclaimer reads the stale entry only between the node regaining memory
+> > and its targets being rebuilt, and it filters the entry against the
+> > current allowed targets, so there is no user-visible effect. To see it,
+> > online and then offline a node's only DIMM: a debugger still finds the
+> > lower-tier node in node_demotion[nid].preferred.
+> >
+> > Reset the targets of every node.
+> >
+> > Fixes: 6c542ab75714 ("mm/demotion: build demotion targets based on explicit memory tiers")
+> > Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> > ---
+> >  mm/memory-tiers.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
+> > index 25e121851b586..7197f1a67a340 100644
+> > --- a/mm/memory-tiers.c
+> > +++ b/mm/memory-tiers.c
+> > @@ -378,7 +378,7 @@ static void disable_all_demotion_targets(void)
+> >  	struct memory_tier *memtier;
+> >  	int node;
+> >  
+> > -	for_each_node_state(node, N_MEMORY) {
+> > +	for_each_node(node) {
 > 
-> Otherwise LGTM
+> I think the above code deserves a comment explaining why for_each_node()
+> is needed instead of for_each_node_state(N_MEMORY), because when a node
+> is added or removed during memory hotadd or hotremove matters here.
 > 
-> > 
-> > Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-Thanks,
-Marcelo
+Sure.  Will respin tomorrow and give others a chance to look at it.
+
+~Gregory
