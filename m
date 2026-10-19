@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C67D5A463C;
-	Mon, 19 Oct 2026 13:59:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8797358B6CE;
+	Mon, 19 Oct 2026 13:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418384; cv=none; b=Hx8N8mypoQfQMbZ9hq2rauQnkcs7oLmIayDEQ5UgCybpFnkX3FU3EXSzFwk4etqDdRiWPbMVsBURPaTPFFclyqKjfNUSSLC0VM4crQaQ3hLMZgRJ2b3O71tWEQFTJB2EWJhy2MiWUbo8WYivvbUNjSnZqyEDVkXLUsBpRXp2mrY=
+	t=1792418386; cv=none; b=NGUl353MognCx2mGUiwszckl3OqY7/V/rYynJhQbD0/ktWsHHzCIVgp7w4R4rwLb1W4ONwYAFz1oqqnAdYP+TL7jLUsZtwEVkm/euIn9k+7XRDAic/0QZohXmRxSCTSfQfWFL924LFHWeoDIG6yS9uvOWSmmC0KaakJFxorrbIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418384; c=relaxed/simple;
-	bh=N64ofjkUpTGPkSvl3GDa1BCGYS9Nq0epO3Thd5wJkRQ=;
+	s=arc-20240116; t=1792418386; c=relaxed/simple;
+	bh=XZPghCTjb1jX+Q7cqp8MHf8/5S+roAFYzazEhZS/viw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cwAIQcOQ3PIOiOi5EV8Pgy8EsC+iCHcD9EJfzJO4V1+P2Ss7NEpVApLcWCaeGnBzbPjwyID+HDcXU746rySFQDtvFxOpgReLzlsyTQ1vfXJ5EmDsWzgQZiNzD8I+a5Ki0ZD+wbBdJgrSY2nR0zOV9aDYZXT47EU4QTxKD3LoeH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q4gOCc79; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ZLn3BBUTvKEoVPSHe2/2zWk29uI5Jv8rSen/nPPB8nr0vyOqoegDkalIe0UXtL8D8YgIMRVqtQxFa+X0s1cVSp0qbikbjBUH1x2X9blBq5QhVxDivPXjXgCYheCHLSIUdENh75NyyajMDHZ0tF+wQ+14Zhk5LAxRsmHevTskm3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZBDC7KCX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q4gOCc79"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9731F000C6;
-	Mon, 19 Oct 2026 13:59:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZBDC7KCX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF6C1F000CA;
+	Mon, 19 Oct 2026 13:59:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418381;
-	bh=u1Tf6MsgB65J8rRmT2HY3mDOWGviM+UbICT+94mEk8A=;
+	s=k20260515; t=1792418383;
+	bh=D1aPOgBERGuCo14oNo+vtfsa1n/bJR50FBv53Np1Kr8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q4gOCc79QGcIY4EuWyLMDQDpSqvLa3rRhu5hw0Dq+1bkuBOfTu3yxHDUco9lbLZv7
-	 WDdxB2uPRz5tOQ4zWaFyeLWDwTaQn8gM/BC9rfhJZMVpXXgHoA5ZR45xBgreZkDqs/
-	 CuLnEhMRhpR0+8+cdb79UtWJTE+CrkvVrdC756SibJlz0+p6zui5VFgLx8NIolowyy
-	 mEEUeGShxVsIynxbqrYOo31MzJjcH1EcNM8CKoLmqU3n+QXgARE9o8jzBWy486tYzM
-	 HlC5UZjzqwZGxAO9L1a2ff8TzRd+EbYE5clc7gc1Y2WehBZQ7dqY/zZA2JqazytstN
-	 HmvjPHUlfOLbA==
+	b=ZBDC7KCX6j3nXvNmoW/nF3EUWlcoopMnzFDY9eDQU4e31bvGb4nWvPwQrali/yyaS
+	 VTfQcGekeFvvXEf8b+XYacwm5yEjpy/xGk0dSqivLjVxfB3xpWGc0y5WMv8r9k+Pwj
+	 jYyY14a2rbeCRQIpEg61fwR2hwxyVn//wSiKfgix/0wBcZX7E+A2EMBKpCy+EGLFQ+
+	 sG7j1H27cMRxrUglCcp8S8mhQNzackUMmLFNdv0xZTVvNZ3ERpQd2ahZCB+GiSEFEg
+	 aWzKdgrJyarbGSeTBrFQsy6ziikn6P/yKYatjWo9K0ttl4nwBnN7LezJOFZ+FV5uf4
+	 IEzx0Kb4MXPaQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+Cc: Mike Tipton <mike.tipton@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Ulf Hansson <ulfh@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org,
-	linux-perf-users@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] perf/core: Fix kernel register info leak via hardware skid
-Date: Mon, 19 Oct 2026 09:48:19 -0400
-Message-ID: <20261019135441.1420968-208-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] pmdomain: qcom: rpmhpd: Skip retention by default
+Date: Mon, 19 Oct 2026 09:48:21 -0400
+Message-ID: <20261019135441.1420968-210-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -55,506 +54,422 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+From: Mike Tipton <mike.tipton@oss.qualcomm.com>
 
-[ Upstream commit 166f10836a653dfa280d4335603b52f685b8b1ef ]
+[ Upstream commit 7178817f190496f2bfdec181fb4aa72832448468 ]
 
-An unprivileged hardware perf event using exclude_kernel=1 can leak kernel
-register data to user space via PERF_SAMPLE_REGS_INTR or PERF_SAMPLE_IP.
-Due to hardware skid, a PMI may trigger after the CPU has already entered
-kernel space (Ring 0), bypassing the perf_allow_kernel() privilege
-barrier.
+Retention is very rarely an operational corner. In the majority of
+cases, HW cannot operate properly at Retention levels and so the minimum
+operational level when enabling a rail is the first corner above
+Retention. A small subset of always-on use cases can operate at
+Retention, but those aren't controlled from HLOS.
 
-This security vulnerability is severely exacerbated by upcoming support
-for SIMD register sampling via XSAVES, which could expose sensitive kernel
-FPU states (such as active cryptographic keys).
+Currently, we allow Retention by default and only disallow it special
+cases. But this leaves us open to various failures when the PD is
+enabled without first being voted to an OPP above Retention. Such as
+when a child GDSC PD requests to enable its parent RPMh PD. In this
+case, the GDSC would get stuck powering on.
 
-Fix this by ensuring that sampled register data is dropped if the event's
-exclude_kernel attribute is set but the PMI catches the CPU in kernel mode.
+Newer chips have started supporting Retention on rails that didn't
+previously (such as for MMCX). Instead of adding more special cases to
+skip Retention on MMCX, start skipping Retention by default since it's
+almost never desired from an HLOS perspective.
 
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://lore.kernel.org/all/20260529085613.CCAFB1F00893@smtp.kernel.org/
-Link: https://patch.msgid.link/20260616044654.3468742-8-dapeng1.mi@linux.intel.com
+Signed-off-by: Mike Tipton <mike.tipton@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Ulf Hansson <ulfh@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have enough to decide: this is a real unprivileged kernel-register
-leak on 6.18.53, and the fix is small enough to backport.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1: Subject line**
+- Record: `[pmdomain/qcom/rpmhpd] [Skip] Skip Retention voltage as the
+  default enable corner`
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: [perf/core] [Fix] [Stop unprivileged hardware sampling from
-leaking kernel IP/register state when PMI skid lands in Ring 0]
+**Step 1.2: Tags**
+- Record:
+  - `Signed-off-by: Mike Tipton <mike.tipton@oss.qualcomm.com>` (author,
+    Qualcomm)
+  - `Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>`
+    (Qualcomm SoC reviewer)
+  - `Signed-off-by: Ulf Hansson <ulfh@kernel.org>` (GENERIC PM DOMAINS
+    maintainer)
+  - No `Fixes:` tag (expected)
+  - No `Cc: stable` (expected)
+  - No `Reported-by`, `Tested-by`, `Link`, or syzbot tags
+- Notable: Qualcomm author + Qualcomm reviewer + subsystem maintainer
+  SOB. No user/syzbot report.
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-Record:
-- Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com> (author)
-- Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-  (perf/core maintainer; merged into tip perf/core)
-- Link: https://lore.kernel.org/all/20260529085613.CCAFB1F00893@smtp.ker
-  nel.org/ (earlier discussion; lore fetch returned 403)
-- Link: https://patch.msgid.link/20260616044654.3468742-8-
-  dapeng1.mi@linux.intel.com (v4 series, this patch)
-- No Fixes: tag (expected)
-- No Cc: stable (expected)
-- No Reported-by / Tested-by / Reviewed-by / Acked-by besides SOBs
-- Ignore: Signed-off-by: Sasha Levin and "[Upstream commit
-  166f10836a653dfa280d4335603b52f685b8b1ef]" (pipeline markers)
+**Step 1.3: Body**
+- Record:
+  - **Bug:** HLOS enable of an RPMh PD without an OPP above Retention
+    can vote Retention. Most hardware cannot run at Retention.
+  - **Symptom:** Child GDSC enable of a parent RPMh PD leaves the GDSC
+    stuck powering on (hardware hang, not a kernel oops).
+  - **Root cause:** Retention is allowed by default; only MXC opted out
+    via `skip_retention_level`. Newer chips now expose Retention on
+    rails that previously did not (e.g. MMCX).
+  - **Fix approach:** Skip Retention for every rail when building the
+    cmd-db mapping, instead of adding more per-rail flags.
+  - **Version info:** None in the message. “Newer chips” / MMCX is the
+    motivation.
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
-Record:
-- Bug: An unprivileged hardware perf event with `exclude_kernel=1` can
-  still observe kernel register data through `PERF_SAMPLE_REGS_INTR` or
-  `PERF_SAMPLE_IP`.
-- Symptom/failure mode: Kernel IP and interrupt-time register state
-  (GPRs; on some Intel platforms PEBS XMM too) are copied into the
-  userspace mmap buffer. That is a KASLR / kernel-state info leak. The
-  message also warns that later XSAVES SIMD sampling would make this
-  worse (crypto-key material in FPU/SIMD state).
-- Trigger: Hardware PMI skid: the overflow interrupt is delivered after
-  the CPU has already entered kernel mode, so `perf_allow_kernel()` at
-  `perf_event_open()` time is bypassed.
-- Root cause: Sample preparation always dumps `regs` / IP from the PMI
-  frame, with no check that `exclude_kernel` is consistent with
-  `user_mode(regs)`.
-- Versions: No kernel-version range in the message. The REGS_INTR dump
-  path dates to 2014; guest IP helper to 2024.
+**Step 1.4: Hidden bug fix?**
+- Record: Not hidden. It is a real hardware-failure fix described as a
+  default-policy change. Skipping Retention is the workaround, not a
+  cleanup.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not a disguised cleanup. Subject and body state a security leak
-and a surgical filter. Not a hidden bug.
+## Phase 2: Diff analysis
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+**Step 2.1: Inventory**
+- Record:
+  - File: `drivers/pmdomain/qcom/rpmhpd.c` (+9 / −5)
+  - Functions/data: `struct rpmhpd` (drop `skip_retention_level`), `mxc`
+    / `mxc_ao` initializers, `rpmhpd_update_level_mapping()`
+  - Scope: single-file surgical change
 
-Step 2.1: INVENTORY THE CHANGES
-Record:
-- File: `kernel/events/core.c` (+30 / -7)
-- Functions: `perf_instruction_pointer()`, `perf_sample_regs_intr()`,
-  call site in `perf_prepare_sample()`
-- Scope: single-file surgical fix
+**Step 2.2: Code flow**
+- Record:
+  - **Before:** `rpmhpd_update_level_mapping()` copied cmd-db aux levels
+    into `rpmhpd->level[]`. Retention (vlvl 16) was skipped only if
+    `skip_retention_level` was set. That flag was true only on `mxc` /
+    `mxc_ao`. `enable_corner` became the first non-zero mapped corner,
+    which could be Retention.
+  - **`rpmhpd_power_on()`:** `corner = max(pd->corner,
+    pd->enable_corner)` then aggregate. Enable without an OPP uses
+    `enable_corner`.
+  - **After:** Retention is always skipped. `enable_corner` is the first
+    corner above Retention. MXC’s flag is redundant and removed.
+  - Path affected: probe-time mapping, then every power-on that does not
+    already have a higher OPP (including parent enable from a child
+    GDSC).
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Record:
-- Hunk 1 (`perf_instruction_pointer`): Before, guest and host always
-  returned the captured IP. After, if `exclude_kernel` and the captured
-  context is not userspace (host `!user_mode(regs)`, or guest without
-  `PERF_GUEST_USER`), IP is replaced with 0.
-- Hunk 2 (`perf_sample_regs_intr`): Before, always `regs_intr->regs =
-  regs` and a real ABI. After, if `exclude_kernel && !user_mode(regs)`,
-  ABI is `PERF_SAMPLE_REGS_ABI_NONE` and `regs` is NULL so
-  `perf_output_sample()` writes a zero ABI and skips register payload.
-- Hunk 3 (`perf_prepare_sample`): Passes `event->attr.exclude_kernel`
-  into the new parameter. Sample header size already accounts for a NULL
-  `regs` pointer (`if (data->regs_intr.regs)`), so dyn_size stays
-  consistent.
+**Step 2.3: Bug mechanism**
+- Record: **Hardware workaround / logic fix.** Retention as min enable
+  corner is not a valid operational vote for HLOS. Child GDSC parent-on
+  uses that corner and the GDSC never completes power-on.
+- Verified path: `gdsc_register()` attaches GDSCs as genpd subdomains of
+  the clock-controller’s `dev->pm_domain` (`drivers/clk/qcom/gdsc.c`).
+  `genpd_power_on()` walks parents and calls `rpmhpd_power_on()` with no
+  performance state. DT has many `power-domains = <&rpmhpd RPMHPD_MMCX>`
+  nodes (sm8450/sm8550/sm8650/sm8750 and others).
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record: Memory-safety / info-leak (unprivileged kernel-state
-disclosure), not UAF/leak-of-heap.
-- Mechanism: PMI skid + `exclude_kernel=1` still presents kernel
-  `pt_regs` to userspace.
-- Fix: Drop register payload and zero IP when the sample is kernel-mode
-  but the event asked to exclude the kernel.
-- Analogous to the 2017 attempt `cc1582c231ea0` ("Drop kernel samples
-  even though :u is specified"), which was reverted in `6a8a75f323572`
-  because dropping the whole sample broke rr overflow signals. This
-  patch keeps the sample/signal and only redacts contents.
+**Step 2.4: Fix quality**
+- Record: Obviously correct given the existing skip logic. Minimal. If
+  cmd-db has no Retention entry, the new `if` never matches (no-op on
+  older rails). Regression risk is a slightly higher min vote (Retention
+  16 → typically MIN_SVS 48) on rails that advertised Retention; the
+  author states HLOS must not use Retention. No API/ABI change.
 
-Step 2.4: ASSESS THE FIX QUALITY
-Record:
-- Obviously correct: the predicate matches the existing
-  `sample_is_allowed()` / `perf_exclude_event()` tests (`exclude_kernel
-  && !user_mode(regs)`).
-- Minimal: three related sites, no API/UAPI change (ABI_NONE is the
-  documented empty-regs encoding).
-- Regression risk: low for kernel correctness. Userspace profilers can
-  see IP=0 on skid samples; kernel test robot reported `perf-sanity-
-  tests.Object_code_reading.fail` for that. Author said the kernel
-  behavior is intended and the test should skip IP 0. rr is not broken
-  because overflow still fires. Privileged `exclude_kernel=0` events are
-  unchanged.
+## Phase 3: Git history
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 3.1: Blame**
+- Record:
+  - Mapping loop: `279b7e8a62cc` (“soc: qcom: rpmhpd: Add RPMh power
+    domain driver”, 2019)
+  - `enable_corner`: `e3e56c050ab6` (“soc: qcom: rpmhpd: Make power_on
+    actually enable the domain”, 2021) — this is what makes Retention
+    reachable as the enable vote
+  - Opt-in skip: `ddab91f4b2de5` (“Skip retention level for Power
+    Domains”, 2024), MXC only, `Cc: stable@vger.kernel.org # v5.17`
+  - This change: `7178817f19049` (2026-07-13)
 
-Step 3.1: BLAME THE CHANGED LINES
-Record:
-- `perf_sample_regs_intr()` introduced by `60e2364e60e86e` (Stephane
-  Eranian, 2014-11-16) "perf: Add ability to sample machine state on
-  interrupt".
-- `perf_instruction_pointer(event, regs)` guest split from
-  `2c47e7a74f4454` / `04782e63917dbc` (Colton Lewis, 2024-11-13)
-  "perf/core: Correct perf sampling with guest VMs".
-- The leak of kernel IP on `:u` sampling has been a known class since at
-  least 2017.
+**Step 3.2: Fixes tag**
+- Record: None. Closest predecessor is `ddab91f4b2de5` (MXC-only skip).
+  Both `ddab91f4b2de5` and `e3e56c050ab6` are ancestors of this HEAD.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No Fixes: tag. Historical related commits:
-- `cc1582c231ea0` (2017): dropped entire skid kernel samples; Cc:
-  stable.
-- `6a8a75f323572` (2017): reverted that because rr depends on overflow
-  signals, not sample contents.
-- `030a976efae83` (2022): reintroduced `sample_is_allowed()` only for
-  sigtrap, not for sample output. In this tree it is used solely at
-  `kernel/events/core.c:10445`.
+**Step 3.3: File history**
+- Record: Recent work is mostly new SoC tables. No later revert of
+  default-skip. Eliza MXC/MMCX add was reverted for unrelated reasons
+  (`9fca7779ad185`). Standalone v1 patch, not part of a numbered series.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record: Sibling security patches in the same Dapeng series (self-
-contained, not prerequisites of this hunk):
-- `perf/core: Check kernel access when kernel callchains are requested`
-  (callchain permission hole)
-- `perf/x86/intel: Fix kernel address leakages in LBR stack`
-This patch does not need those to compile or to close the IP/REGS_INTR
-hole.
+**Step 3.4: Author**
+- Record: Mike Tipton (Qualcomm); this is his only recent commit on
+  `drivers/pmdomain/qcom/`. Konrad reviews rpmhpd regularly. Ulf is the
+  pmdomain maintainer.
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Dapeng Mi is an Intel PMU/perf contributor. Peter Zijlstra
-(subsystem maintainer) signed off and queued it on tip perf/core (commit
-166f10836a653dfa280d4335603b52f685b8b1ef, 2026-06-30). Author's other
-`kernel/events` work in this clone is unrelated cpu-clock fixes.
+**Step 3.5: Dependencies**
+- Record: Needs `enable_corner` + Retention skip `continue` in
+  `rpmhpd_update_level_mapping()`. Both exist here. Applies standalone
+  on a tree that still has `skip_retention_level`. No other patches
+  required.
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: Standalone. All symbols used (`user_mode`,
-`PERF_SAMPLE_REGS_ABI_NONE`, `should_sample_guest`, `perf_guest_state`,
-`PERF_GUEST_USER`, `perf_guest_get_ip`) exist in v6.18.53. Signature
-change of static `perf_sample_regs_intr()` has a single call site in
-`core.c`.
+## Phase 4: Mailing list / external
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 4.1: Original discussion**
+- Record: `b4 dig -c 7178817f19049` →
+  https://patch.msgid.link/20260629-rpmhpd-skip-
+  ret-v1-1-d94180ad9a29@oss.qualcomm.com
+- Series: **v1 only** (no v2/v3).
+- Thread (mbox): Ulf Hansson: “Applied for next, thanks!” No NAKs, no
+  stable nomination, no reviewer risk flags.
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- b4 dig matched patch-id to lore; msgid
-  `20260616044654.3468742-8-dapeng1.mi@linux.intel.com`
-- Evolved from the v8 SIMD/XSAVES sampling series (2026-05-29) into a
-  standalone "miscellaneous PMU bug fixes" series:
-  - v1 2026-06-05: only `perf_sample_regs_intr` (no IP redaction)
-  - v2–v4: added `perf_instruction_pointer` host+guest IP redaction
-    (committed form)
-- Merged to tip perf/core 2026-06-30 by Peter Zijlstra; no NAK found.
-- Later (2026-09-15) kernel test robot: userspace `Object code reading`
-  test fails on IP 0. Dapeng: expected; test should filter IP 0. That is
-  not a kernel functional/security regression.
+**Step 4.2: Recipients (`b4 dig -w`)**
+- Record: Ulf Hansson, linux-arm-msm, linux-pm, linux-kernel, Bjorn
+  Andersson, Konrad Dybcio, Taniya Das (author of the MXC skip), Fenglin
+  Wu. Right lists and people.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record: Recipients (b4 dig -w): Peter Zijlstra, Ingo Molnar, Arnaldo
-Carvalho de Melo, Namhyung Kim, Ian Rogers, Adrian Hunter, Alexander
-Shishkin, Andi Kleen, Stephane Eranian, Mark Rutland, linux-kernel,
-linux-perf-users. Maintainer SOB is the strongest review signal found.
-Lore HTML itself returned 403; discussion reconstructed from
-openwall/lkml mirrors.
+**Step 4.3: Bug report**
+- Record: No public user/syzbot/bugzilla report. Failure mode is
+  described by the Qualcomm author from platform bring-up.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot/bugzilla. Motivated by analysis around SIMD register
-sampling. The IP leak is independently real: unprivileged `perf record
--e cycles:u` is a common path, and 2017 already treated skid kernel
-samples as a security issue.
+**Step 4.4: Related series**
+- Record: Standalone. Extends `ddab91f4b2de5` rather than depending on a
+  multi-patch series.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Same series also has callchain permission and LBR address-leak
-fixes. Those are separate holes. This commit does not depend on
-SIMD/XSAVES patches; v6.18.53 has no XSAVES SIMD sampling (`git grep` of
-XSAVES SIMD sample paths on v6.18.53 was empty). XMM-via-PEBS already
-exists on Ice Lake+ (`PERF_REG_EXTENDED_MASK` in
-`arch/x86/events/core.c`).
+**Step 4.5: Stable list**
+- Record: lore.kernel.org/stable fetch returned 403. UNVERIFIED whether
+  stable@ discussed this subject. The 2024 MXC skip *was* Cc:stable.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable search returned 403. No evidence this was
-rejected for stable. Absence of Cc: stable is expected for this review
-pipeline.
+## Phase 5: Semantic / call graph
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 5.1: Functions**
+- Record: `rpmhpd_update_level_mapping()` (changed), `rpmhpd_power_on()`
+  / `rpmhpd_set_performance_state()` (consumers of `enable_corner`,
+  unchanged).
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `perf_instruction_pointer`, `perf_sample_regs_intr`,
-`perf_prepare_sample`. Related existing helpers: `sample_is_allowed`,
-`perf_allow_kernel`, `perf_output_sample`.
+**Step 5.2: Callers**
+- Record: `rpmhpd_update_level_mapping()` ← `rpmhpd_probe()` only.
+  `rpmhpd_power_on()` is `generic_pm_domain.power_on`, called from genpd
+  (including parent-on for child GDSCs). Probe + device/runtime PM, not
+  a syscall-only path.
 
-Step 5.2: TRACE CALLERS
-Record:
-- `perf_instruction_pointer()`: only used from `perf_prepare_sample()`
-  (`data->ip = ...`) when `PERF_SAMPLE_IP` (or dependent
-  `PERF_SAMPLE_CODE_PAGE_SIZE`) is set.
-- `perf_sample_regs_intr()`: only called from `perf_prepare_sample()`
-  for `PERF_SAMPLE_REGS_INTR`.
-- `perf_prepare_sample()`: `__perf_event_output()` (normal mmap
-  samples), `bpf_overflow_handler()`, PEBS/BTS/s390 sampling paths.
-  Hardware PMI → `perf_event_overflow()` → overflow handler → output.
-  Confirmed `__perf_event_overflow()` does **not** drop skid kernel
-  samples today; `sample_is_allowed()` is sigtrap-only.
+**Step 5.3: Callees**
+- Record: `cmd_db_read_aux_data()`, then later
+  `rpmhpd_aggregate_corner()` → `rpmhpd_send_corner()` (RPMh votes).
 
-Step 5.3: TRACE CALLEES
-Record: `user_mode(regs)`, `perf_arch_instruction_pointer()`,
-`perf_guest_get_ip()`, `perf_guest_state()`, `perf_reg_abi()`. Output
-path: `perf_output_sample()` already treats ABI 0 as "no regs".
+**Step 5.4: Reachability**
+- Record: Yes, from normal Qualcomm device probe. Clock-controller GDSCs
+  are subdomains of rpmhpd (often MMCX). Userspace does not need a
+  special trigger; enabling display/video/camera clocks is enough.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Reachable from unprivileged `perf_event_open()`:
-- `sysctl_perf_event_paranoid > 1` requires `exclude_kernel=1`
-  (`perf_allow_kernel()` at `kernel/events/core.c:13553`).
-- `PERF_SAMPLE_IP` has no extra privilege check (default sample type).
-- `PERF_SAMPLE_REGS_INTR` is gated only by
-  `security_locked_down(LOCKDOWN_PERF)`, not paranoid. Without lockdown
-  (typical without Secure Boot), unprivileged REGS_INTR is allowed.
-Trigger is common: non-precise `cycles:u` around syscalls/page faults.
+**Step 5.5: Similar patterns**
+- Record: Only MXC used `skip_retention_level`. MMCX/`mmcx_w_cx_parent`
+  did not. That matches “instead of adding more special cases for MMCX.”
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Same `exclude_kernel && !user_mode(regs)` already used in
-`sample_is_allowed()`, `perf_exclude_event()`, and tracepoint matching.
-This patch extends that policy to sample payload. Remaining sibling
-holes (callchain, LBR) are other commits.
+## Phase 6: This tree only
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 6.1: Does the buggy code exist here?**
+- Record:
+  - Local tree: **Linux 7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`,
+    Makefile `VERSION=7 PATCHLEVEL=3`).
+  - `drivers/pmdomain/qcom/rpmhpd.c` is present. Pre-commit code had
+    `skip_retention_level` only on MXC.
+  - `7178817f19049` is already an ancestor of HEAD (in v7.3-rc1; **not**
+    in v7.2). Current file already skips Retention unconditionally.
+  - Bug class (Retention as `enable_corner`) dates to `e3e56c050ab6`
+    (2021) whenever cmd-db lists Retention; MMCX Retention on newer
+    chips is why this default change was made. That hardware **is**
+    represented in this 7.3 tree.
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: Yes. Local tree is **6.18.53** (`git describe HEAD` =
-`v6.18.53-5049-g0f0bdc2b0dffb`, Makefile VERSION=6 PATCHLEVEL=18
-SUBLEVEL=53). At tag `v6.18.53`:
-- `perf_instruction_pointer` returns guest/host IP unconditionally.
-- `perf_sample_regs_intr(regs)` always assigns `regs`.
-- Call site is `perf_sample_regs_intr(&data->regs_intr, regs);`
-- `git merge-base --is-ancestor 166f10836a653dfa280d4335603b52f685b8b1ef
-  v6.18.53` is false.
+**Step 6.2: Backport difficulty**
+- Record: Against current HEAD the patch is already applied (forward
+  apply would fail). Against 7.3 immediately before this commit it is a
+  clean apply (same file layout, `skip_retention_level` present). No
+  extra backport rework for this tree’s rpmhpd.c.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Clean apply expected. Pre-image of both functions and the call
-site on v6.18.53 matches the patch. `PERF_GUEST_USER` is in
-`include/linux/perf_event.h`. No conflicting refactor of these functions
-on 6.18.y.
+**Step 6.3: Related fixes already here**
+- Record: MXC-only skip (`ddab91f4b2de5`) is here; it does **not** cover
+  MMCX/CX/etc. `2a93c6cbd5a70` (enabled_corner aggregation) is a
+  different bug (peer off during sync_state). No substitute for this
+  commit.
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: The 2017 full-sample drop is **not** present (reverted).
-`sample_is_allowed()` does not redact IP/REGS_INTR. No other in-tree
-substitute for this leak on 6.18.53.
+## Phase 7: Subsystem context
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 7.1**
+- Record: `drivers/pmdomain/qcom/` — Qualcomm RPMh power domains.
+  **IMPORTANT** (not core mm/fs, but used on a large set of Snapdragon
+  phones, laptops, and embedded boards). Maintainer: Ulf Hansson
+  (`GENERIC PM DOMAINS`).
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: [perf/core, `kernel/events/core.c`] [CORE for
-observability/security: `perf_event_open` is a common unprivileged
-syscall; leak is kernel-wide, not driver-specific]
+**Step 7.2**
+- Record: Active (new SoC tables: Nord, Hawi, Eliza, Kaanapali, Glymur,
+  etc.). The Retention default is independent of those tables.
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Actively maintained (Peter Zijlstra). File still receives
-UAF/deadlock fixes on 6.18.y; these two functions have been stable for
-years.
+## Phase 8: Impact and risk
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 8.1: Who is affected**
+- Record: Qualcomm rpmhpd platforms (`CONFIG_QCOM_RPMHPD`), especially
+  SoCs whose cmd-db advertises Retention on MMCX or other non-MXC rails.
+  Not universal; not staging.
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Any unprivileged user who can open a hardware sampling event
-with `exclude_kernel=1` (default paranoid). Universal on systems with a
-hardware PMU. REGS_INTR extra impact depends on lockdown; IP leak does
-not.
+**Step 8.2: Trigger**
+- Record: Common: child GDSC on, parent rpmhpd has no OPP. Happens at
+  probe/runtime PM. Unprivileged userspace can cause it indirectly by
+  using multimedia devices; it also happens at boot when those
+  controllers probe.
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Common. Non-precise userspace-only sampling (`cycles:u`) plus
-kernel entry/exit. Unprivileged-triggerable. Timing-dependent (skid) but
-well documented and previously reproduced in 2017.
+**Step 8.3: Failure mode**
+- Record: GDSC stuck powering on → device/controller hang, probe
+  failure, missing display/video/camera (or boot issues if that path is
+  on the critical path). Severity: **HIGH** (hardware hang), not a
+  KASAN/UAF class crash.
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: [Kernel address / register info leak, KASLR bypass; on PEBS XMM
-also SIMD state] [Severity: HIGH / security. Not a panic. XSAVES full-
-SIMD crypto-key leak is **not** in 6.18; XMM PEBS already is.]
+**Step 8.4: Risk-benefit**
+- Record:
+  - **Benefit:** Prevents GDSC/parent-rail hangs on Qualcomm platforms
+    in this tree, including MMCX without extending a per-rail flag list.
+  - **Risk:** Low. 14-line change; no-op if Retention is absent from
+    cmd-db; MXC behavior unchanged; Qualcomm + maintainer reviewed.
+  - **Ratio:** Benefit > risk.
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- Benefit: HIGH — closes an unprivileged kernel-IP leak on a default
-  sampling path; also covers REGS_INTR.
-- Risk: LOW — ~30 lines, static helper, keeps overflow (rr-safe),
-  existing ABI_NONE encoding.
-- Residual: userspace tools may see IP=0 (test already did). That is the
-  security behavior, not a kernel crash.
-- Ratio: strongly favors backport.
+## Phase 9: Synthesis
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+**Step 9.1: Evidence**
 
-Step 9.1: COMPILE THE EVIDENCE
-FOR:
-- Real unprivileged info leak via PMI skid; same class previously sent
-  to stable in 2017.
-- Current code on 6.18.53 still emits kernel IP/regs;
-  `sample_is_allowed()` no longer drops samples.
-- Surgical, obviously correct, maintainer-signed, applies cleanly.
-- Avoids the rr regression by redacting payload instead of dropping the
-  event.
+For:
+- Concrete hang: parent RPMh PD at Retention → child GDSC stuck on.
+- Call path and DT consumers verified in this tree.
+- Small, obviously correct extension of an existing skip that was
+  already Cc:stable for MXC.
+- Safe no-op when Retention is not in cmd-db.
+- Reviewed by Konrad, applied by Ulf; Taniya Das (original skip author)
+  was on Cc.
+- This 7.3 tree has rpmhpd, `enable_corner`, `skip_retention_level`, and
+  MMCX users.
 
-AGAINST:
-- Userspace perf "object code reading" test can fail on IP 0 (author:
-  fix the test).
-- No Fixes:/Cc:stable (not a negative per rules).
-- XSAVES SIMD exacerbation is not in 6.18; the IP/GPR (and PEBS XMM)
-  leak still is.
+Against:
+- No `Fixes:` / public reproducer / syzbot (not a negative per rules).
+- Default change for all rails, not only MMCX (mitigated: Retention skip
+  is a no-op where unused).
+- lore.kernel.org/stable search could not be fetched (403).
 
-UNRESOLVED:
-- Full lore HTML was 403; review reconstructed from mirrors and b4.
-  Peter Zijlstra SOB still verified.
-- Whether a userspace-only test fix later landed is unverified in this
-  clone; it does not block the kernel fix.
+**Step 9.2: Stable rules**
+1. Obviously correct and tested? **PASS** — v1 accepted, maintainer
+   applied, Qualcomm review.
+2. Real user-visible bug? **PASS** — GDSC stuck on parent enable.
+3. Important (hang/corruption/security)? **PASS** — hardware hang on a
+   widely used SoC family; HIGH, not a panic.
+4. Small and contained? **PASS** — +9/−5, one file.
+5. No new features/APIs? **PASS** — same skip, defaulted; no userspace
+   API.
+6. Can apply to this tree? **PASS** — 7.3 has the pre-image; the commit
+   is in 7.3-rc1.
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? PASS — maintainer merged; robot only
-   hit expected IP=0.
-2. Fixes a real bug that affects users? PASS — unprivileged
-   `perf_event_open` + hardware sampling.
-3. Important issue (crash, security, corruption, deadlock)? PASS —
-   security info leak / KASLR.
-4. Small and contained? PASS — one file, +30/-7.
-5. No new features or APIs? PASS.
-6. Can apply to the local tree? PASS — v6.18.53 pre-image matches.
+**Step 9.3: Exception category**
+- Record: Hardware workaround (skip a non-operational corner), same
+  class as the 2024 MXC Retention skip.
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary security
-bugfix.
+**Step 9.4: Decision**
+This tree is 7.3.0-rc4. The rpmhpd driver, the Retention-
+as-`enable_corner` bug, and MMCX parent-GDSC consumers are all here. The
+change is a small, correct hang fix, not a feature. It should be in this
+tree.
 
-Step 9.4: MAKE YOUR DECISION
-This tree is 6.18.53. The buggy dump path is present. The patch is a
-small, rr-safe security fix with no missing prerequisites. It should be
-backported.
+---
 
-------------------------------------------------
-What the commit solves for stable users
-Unprivileged hardware sampling with `exclude_kernel=1` can still capture
-kernel IP and interrupt registers when the PMI skids into Ring 0. On
-6.18 that includes default `PERF_SAMPLE_IP` and, unless lockdown,
-`PERF_SAMPLE_REGS_INTR` (including PEBS XMM on capable Intel CPUs). The
-fix redacts that payload without dropping the sample, so overflow-based
-tools keep working.
+### What it solves for users of this tree
 
-Risk vs benefit
-Benefit is a real KASLR/register leak on a common syscall path. Risk is
-low: tiny core.c change, existing empty-regs ABI, no locking/API change.
-The only observed fallout is userspace seeing IP 0, which is intended.
+Without it, enabling a Qualcomm GDSC whose parent RPMh rail (often MMCX)
+has no OPP votes Retention. That rail cannot actually run there, so the
+GDSC never finishes power-on. Display, video, camera, and similar
+controllers that list `power-domains = <&rpmhpd RPMHPD_MMCX>` hit this
+on probe or runtime PM. Skipping Retention when building the cmd-db map
+makes the min enable corner the first real operational level.
 
-Concerns
-No series dependencies for this hunk. XSAVES SIMD is not in 6.18; that
-does not reduce the IP leak. A follow-up is only needed for the perf
-selftest, not for kernel correctness.
+### Risk vs benefit
 
-Verification:
-- [Phase 1] Parsed tags: Dapeng Mi author, Peter Zijlstra SOB, two
-  lore/msgid links; no Fixes/Reported-by
-- [Phase 2] Diff: `perf_instruction_pointer` zeros IP;
-  `perf_sample_regs_intr` uses ABI_NONE; `perf_prepare_sample` passes
-  `exclude_kernel`
-- [Phase 3] `git blame v6.18.53`: REGS_INTR dump from `60e2364e60e86e`
-  (2014); guest IP from `2c47e7a74f4454` (2024)
-- [Phase 3] `git log -S sample_is_allowed -- kernel/events/core.c`: 2017
-  drop reverted; current use is sigtrap-only
-- [Phase 3] `git show 6a8a75f323572`: revert because rr needs overflow
-  signals
-- [Phase 4] `b4 dig -c 7db4d13613f57`: matched v4 msgid
-  20260616044654.3468742-8; recipients include Peter Zijlstra et al.
-- [Phase 4] `b4 dig -a`: originated in SIMD series v8, then standalone
-  bugfix series v1–v4; IP redaction added after v1
-- [Phase 4] openwall 2026-09-15: author confirms IP=0 is the leak fix;
-  test should skip it
-- [Phase 5] grep: `perf_instruction_pointer` / `perf_sample_regs_intr`
-  only used from `perf_prepare_sample`; overflow path does not drop skid
-  samples
-- [Phase 5] `perf_allow_kernel()` at open requires `exclude_kernel` for
-  unprivileged users; REGS_INTR only checks lockdown
-- [Phase 6] `git describe HEAD` / Makefile: 6.18.53; v6.18.53 still has
-  the unfiltered dump; ancestor check of 166f10836a65 vs v6.18.53 is
-  false
-- [Phase 6] `PERF_GUEST_USER` present; function pre-image matches patch
-- [Phase 6] no XSAVES SIMD sampling in v6.18.53; XMM PEBS already
-  present
-- [Phase 8] Failure mode: unprivileged kernel IP/register disclosure,
-  HIGH security
-- UNVERIFIED: full lore.kernel.org thread body (HTTP 403); stable@ list
-  search (403)
+Benefit is avoiding a platform hang on common Qualcomm PM paths. Risk is
+low: SoCs without Retention in cmd-db are unchanged; MXC already skipped
+Retention; HLOS is not supposed to use Retention.
+
+### Concerns
+
+No public reproducer. Stable-list discussion unverified (HTTP 403).
+Slightly higher min vote on rails that listed Retention is intended, not
+a silent functional change for rails that never had it.
+
+### Verification
+- [Phase 1] Parsed tags: author/reviewer/maintainer SOBs only; no
+  Fixes/stable/syzbot
+- [Phase 2] Diff: +9/−5 in `rpmhpd.c`; drop `skip_retention_level`;
+  always skip `RPMH_REGULATOR_LEVEL_RETENTION` (16)
+- [Phase 2] `rpmhpd_power_on()` uses `max(pd->corner,
+  pd->enable_corner)` — verified in file
+- [Phase 2] GDSC subdomain attach in `gdsc_register()` — verified
+- [Phase 2] DT MMCX consumers in sm8450/sm8550/sm8650/sm8750 dtsi —
+  verified
+- [Phase 3] `git describe HEAD` / `make kernelversion`: v7.3-rc4 /
+  7.3.0-rc4
+- [Phase 3] `git merge-base --is-ancestor 7178817f19049 HEAD`: yes; not
+  in v7.2; in v7.3-rc1
+- [Phase 3] Blame: mapping 279b7e8a62cc (2019); enable_corner
+  e3e56c050ab6 (2021); MXC skip ddab91f4b2de5 (2024)
+- [Phase 3] Pre-image: `skip_retention_level` only on mxc/mxc_ao; mmcx
+  had no flag
+- [Phase 4] `b4 dig -c 7178817f19049`: lore/msgid `20260629-rpmhpd-skip-
+  ret-v1-1-d94180ad9a29@oss.qualcomm.com`
+- [Phase 4] `b4 dig -a`: v1 only; Ulf “Applied for next”; no NAK
+- [Phase 4] `b4 dig -w`: Ulf, Bjorn, Konrad, Taniya Das, linux-arm-msm,
+  linux-pm
+- [Phase 4] UNVERIFIED: lore.kernel.org/stable (403)
+- [Phase 5] `rpmhpd_update_level_mapping()` called only from
+  `rpmhpd_probe`
+- [Phase 6] Post-fix code already in this checkout; related MXC skip
+  present and insufficient
+- [Phase 8] Failure mode: GDSC stuck on — HIGH hang, Qualcomm-specific
 
 **YES**
 
- kernel/events/core.c | 37 ++++++++++++++++++++++++++++++-------
- 1 file changed, 30 insertions(+), 7 deletions(-)
+ drivers/pmdomain/qcom/rpmhpd.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 018a1e4ef5b0d..3b01c2853d681 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7499,10 +7499,20 @@ unsigned long perf_misc_flags(struct perf_event *event,
- unsigned long perf_instruction_pointer(struct perf_event *event,
- 				       struct pt_regs *regs)
- {
--	if (should_sample_guest(event))
--		return perf_guest_get_ip();
-+	/*
-+	 * Hardware skid can lead to a scenario where a PMI is
-+	 * delivered after the CPU has already entered kernel mode.
-+	 * In that case, user-space sampling must not expose kernel
-+	 * register state.
-+	 */
-+	if (should_sample_guest(event)) {
-+		return event->attr.exclude_kernel &&
-+		       !(perf_guest_state() & PERF_GUEST_USER) ?
-+			0 : perf_guest_get_ip();
-+	}
+diff --git a/drivers/pmdomain/qcom/rpmhpd.c b/drivers/pmdomain/qcom/rpmhpd.c
+index 4c3cbf3abc750..fc61ec45755c3 100644
+--- a/drivers/pmdomain/qcom/rpmhpd.c
++++ b/drivers/pmdomain/qcom/rpmhpd.c
+@@ -41,7 +41,6 @@
+  * @addr:		Resource address as looped up using resource name from
+  *			cmd-db
+  * @state_synced:	Indicator that sync_state has been invoked for the rpmhpd resource
+- * @skip_retention_level: Indicate that retention level should not be used for the power domain
+  */
+ struct rpmhpd {
+ 	struct device	*dev;
+@@ -58,7 +57,6 @@ struct rpmhpd {
+ 	const char	*res_name;
+ 	u32		addr;
+ 	bool		state_synced;
+-	bool            skip_retention_level;
+ };
  
--	return perf_arch_instruction_pointer(regs);
-+	return event->attr.exclude_kernel && !user_mode(regs) ?
-+		0 : perf_arch_instruction_pointer(regs);
- }
+ struct rpmhpd_desc {
+@@ -176,7 +174,6 @@ static struct rpmhpd mxc = {
+ 	.pd = { .name = "mxc", },
+ 	.peer = &mxc_ao,
+ 	.res_name = "mxc.lvl",
+-	.skip_retention_level = true,
+ };
  
- static void
-@@ -7536,10 +7546,22 @@ static void perf_sample_regs_user(struct perf_regs *regs_user,
- }
+ static struct rpmhpd mxc_ao = {
+@@ -184,7 +181,6 @@ static struct rpmhpd mxc_ao = {
+ 	.active_only = true,
+ 	.peer = &mxc,
+ 	.res_name = "mxc.lvl",
+-	.skip_retention_level = true,
+ };
  
- static void perf_sample_regs_intr(struct perf_regs *regs_intr,
--				  struct pt_regs *regs)
-+				  struct pt_regs *regs,
-+				  bool exclude_kernel)
- {
--	regs_intr->regs = regs;
--	regs_intr->abi  = perf_reg_abi(current);
-+	/*
-+	 * Hardware skid can lead to a scenario where a PMI is
-+	 * delivered after the CPU has already entered kernel mode.
-+	 * In that case, user-space sampling must not expose kernel
-+	 * register state.
-+	 */
-+	if (exclude_kernel && !user_mode(regs)) {
-+		regs_intr->abi = PERF_SAMPLE_REGS_ABI_NONE;
-+		regs_intr->regs = NULL;
-+	} else {
-+		regs_intr->regs = regs;
-+		regs_intr->abi = perf_reg_abi(current);
-+	}
- }
+ static struct rpmhpd nsp = {
+@@ -974,7 +970,15 @@ static int rpmhpd_update_level_mapping(struct rpmhpd *rpmhpd)
+ 		return -EINVAL;
  
+ 	for (i = 0; i < rpmhpd->level_count; i++) {
+-		if (rpmhpd->skip_retention_level && buf[i] == RPMH_REGULATOR_LEVEL_RETENTION)
++		/*
++		 * Most HW won't function properly at Retention. The minimum
++		 * operational level is the first level above Retention. The
++		 * small subset of HW that can operate at Retention isn't
++		 * controlled by HLOS. Skip the Retention level to avoid HW
++		 * failures when the PD is enabled without first having an
++		 * explicit OPP level set.
++		 */
++		if (buf[i] == RPMH_REGULATOR_LEVEL_RETENTION)
+ 			continue;
  
-@@ -8427,7 +8449,8 @@ void perf_prepare_sample(struct perf_sample_data *data,
- 		/* regs dump ABI info */
- 		int size = sizeof(u64);
- 
--		perf_sample_regs_intr(&data->regs_intr, regs);
-+		perf_sample_regs_intr(&data->regs_intr, regs,
-+				      event->attr.exclude_kernel);
- 
- 		if (data->regs_intr.regs) {
- 			u64 mask = event->attr.sample_regs_intr;
+ 		rpmhpd->level[i] = buf[i];
 -- 
 2.53.0
 
