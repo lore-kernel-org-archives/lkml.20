@@ -1,103 +1,240 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4674F96A7;
-	Mon, 19 Oct 2026 13:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.38.247.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2044F85C3
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417641; cv=none; b=QQ7iLNzBesnc2wo6h+PwsNO2ku6oz5T0ZwU+ztf5VqaClrp7ENf57It3HurEgOAvdFWYr1ZKEFbtfKOSFm3yMKIeN/tpNpZDsCbdW/689GxyQtw5NZ8pi4sxXYl88WETFYchkP7PUPwLlukCtiFUVDQR/vbrSdiOacTbYToqyzM=
+	t=1792417704; cv=none; b=YNOHpgJ+2cWm8C4WAsrElznWLxOsXbfC265lOCQ8mXFfMcFSsCUs5MiLYLsYsXeTIJ7/UnjB1+mnkjkQF31/jsJHWViBWrgovd60IuQuNXcqhidv2bLgulg6kQkWb6e15Aond5fSSBsLUR6v0eUJ5SflOdL4vYS89E2/ed7rA2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417641; c=relaxed/simple;
-	bh=YNKMO+U3lthxm+K4hM8ZjNmnNKm0FYUbQBfDIReK6zc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DgiMyYDKMC0sgejsbpSO8mbhioQ+zO83Z8WIFgFh/tgeMyNnEgqfx3/X3okvWh3u50mdD/cka0s+N6zktNfRneP55eGq0I5lMsV1GF5WCDpRJ/cD9lk/HJDTe66MouloW7woxkugpTs1/dj2JXA0E2Qn6r33ecetiGBRzyOYWoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=gpr0cQZ9; arc=none smtp.client-ip=46.38.247.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1792417704; c=relaxed/simple;
+	bh=tLRfmvsQxuz+ZnT4lHMKw9IOC40CPpnagJ0AjgLCpr8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BU43IEcafBoKHJgcARZlfgok7651TMnk/1hNWO9xJ2Pm4TPZdBMirD1j0W7Teqbp2JeKuMVNym4w5MrYjfx/j/PA9DNp23SIqcwVcak96Hk44zl23LsnZUauQC8lob0nmoTkc3YloT53XzDFivh54+PLuT4CQYms+Wx9gfn9H7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jlw4cnzK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kO87Y2OY; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="gpr0cQZ9"
-Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4j7cG22w3Yz8HnD;
-	Mon, 19 Oct 2026 15:43:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1792417434;
-	bh=YNKMO+U3lthxm+K4hM8ZjNmnNKm0FYUbQBfDIReK6zc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gpr0cQZ9ya/AeveVduxB4wIMO6Bjfms+lNCuvXls3aK9QE3YWYXRlakP9dgUS7L7Y
-	 Svz4xaz/G8FvV6xQkAIBJ1B/owU2Xn6bFYzPFkCKiMFjuh7YBIwU7G9+O4QSQUlgBA
-	 Jf/yoyqzLWjGz5Lh0++XIGEATZd90yjKhGOin8yUwsRPyT8hgk75lrK1V9QjNApCQL
-	 aywuu7XeBjqgUttkHiPCGsig7lB7PoUQpUKVTYUcfVJZI8Yppve2YmhWhrOsukj6DH
-	 4x7+ai+DnI7qBV/zt8WTD8ITP6Jhpzu9CoJrrKejP0TEpv//mibOVlJl7oYaco4WIT
-	 Wg03kn1xNggeg==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4j7cFY6WDzz4ymd;
-	Mon, 19 Oct 2026 15:43:29 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.901
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4j7cFW3thqz8tkD;
-	Mon, 19 Oct 2026 15:43:27 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id A1D5C5F8E8;
-	Mon, 19 Oct 2026 15:43:21 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <c3c4d140-07ec-4402-a18b-389520df188e@leemhuis.info>
-Date: Mon, 19 Oct 2026 15:43:21 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jlw4cnzK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kO87Y2OY"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8P1TK2042122
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:48:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Zpych/XnIuCmoabW/bSIyQ
+	n1vDjzC48Sem0ex5wfaVQ=; b=jlw4cnzK16VuAX+DAAsEW501QJpzVfoRd+djnh
+	IoWcZmIkFafSwoqlLHagJ6eIk7nHJo/+PIhTpf6bq5fRwddPhpMHFx2Y+1ObMj76
+	93SO+5i52c8gwkUISpgCYhh49fwTiAF0XvEUZBNyZ9hpUzEzKE48RABNuhYS19OV
+	RiWgr9Y5QMNJbg0HbxuQ6zFnSqvSKOKxDdaJlrxmKP5SFQX4lf1KWEjndSjxolv6
+	MVTCnYHAOL98qLbHa73vX9luqJmxgieE/SclPPXTYm/V8ONtyLWleDfsQvQKCIt4
+	JeGGFHOy8N1hEapuq+s0GSnxDOxbyed2OHMnTqfHoUO4e1DQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5ur3034-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:48:21 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a1de6d5c3so520595685a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:48:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792417701; x=1793022501; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Zpych/XnIuCmoabW/bSIyQn1vDjzC48Sem0ex5wfaVQ=;
+        b=kO87Y2OYcVtCnECsL31wuk9ozB48yw1QNxhftC565saVC8iX/UwrGBl3o+jX6yazvg
+         6xBoRDR6CZmDxVwfRnvgdwxrAI7K/c+1sURhfSdvrVTlYrxygbsWIpsVCnAakIxv2rxF
+         UfoKvXbBWBU1AOp9wRl08iZvcRMgEQFYg/5LmxiuLWWqj99/JF85PkeD6K3gnu29F8xI
+         +i0ThG+yMi+CPHp6WnODTtC3/vZBeavYFPh6NlO2IDWjddAZDmMzzvC4PtROb+zgILdN
+         RETqWxLyt27Ixye7A52nSKU8WKJXQuH7+bHo3lX3xbZrBMUa6B5tzB5EqpvC7DLEYMgd
+         tHJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792417701; x=1793022501;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Zpych/XnIuCmoabW/bSIyQn1vDjzC48Sem0ex5wfaVQ=;
+        b=eSZnL4Pmk9+IMjr0nMZFL+CSnWpL3G++5CeltMyqztbpXlZxAjlT4XHpnbYJxTtSuo
+         534Qz/lXFRd5YV2W0L5xy3NgpWcvDD1A5iUe6cOZarGOP4g6/68aEpXdjqdPYWgErIcg
+         h/PBZAUsaVxST6uKH121uv4+i3qi28NPRJfMIPttbozZpw53AFXcS5annThI7CAw3L+D
+         kb8Btnw4UuZwCs4peeVwTnJRbBQGIJbhX3Q34dyDgWbrOvCiVJaIKIbGRnmYvovi4RBI
+         HQaaJNtCetuWtLcjiiaonPmYnOvc/8YFkt5v7n3Wpfc6JXsD3uEKnCR3MjqQkuwuDgV3
+         rTpQ==
+X-Forwarded-Encrypted: i=1; AKwUvByPmXkz4b5Xo5dj1F2kALiheB/Im0z+vk1Zh/dsgkEwN8w+QenZztYXlKhU8ov8S1RR9rH+8Ego/xs/6B8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLsWbFK8RocOFpwW8DmyQZqU1cHtEGo0scP4t4jlPdU29Cwa2W5
+	YCThBY5Q/gbSKJbEPtl/Iso8aIK9ZY/bjvoUJcg64mQPPXSovjFi8m4wrzlsgdNTj/nY3okILz4
+	nzxqkNHZflOb98GPXDXkHo2DudJUoQFC+MncG/PQj5m7hRTSlhGuyigK27WVLVwc5hFo=
+X-Gm-Gg: AYBFou0JCx33Ky3qEFXLDI/N+T9UXMKol9I6q6VeKe0lZTd4yf3z/CPaRqRf3uK1uil
+	SD1c06hgtyivJGTvTohHaXftoK1FdU+Yd8Z0m1Pb5tmQI8Dkk8crWhp8UJMHHK4+oHoW0FKqXl9
+	aW/yTKkElxSc3xACfmsmgTQEfnsWa870ciugX7TEvrjFzZ4lGRn7skCSmmbMoOyeA45u/TH6k0w
+	R6MqqpOy/nLUeQv2PTHwDUbQtRW6rVBiWbHwXXvUC1fjAVPfI/X+CN8+4CgU6NEjwq86/G7Ukgq
+	HQP2GcrDUwqqmMmjQkfQzIkp2wgh6vJ98eDdXOiwiQkqX2DYV8WWFbDHEg+e2EVnw4CLXAGAMIE
+	WPubD1R9t7xmR+ymleN7oukBBSHba
+X-Received: by 2002:a05:620a:2989:b0:93c:80d8:57ec with SMTP id af79cd13be357-93f29dbeab1mr1377074485a.64.1792417700565;
+        Mon, 19 Oct 2026 06:48:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:2989:b0:93c:80d8:57ec with SMTP id af79cd13be357-93f29dbeab1mr1377070285a.64.1792417700050;
+        Mon, 19 Oct 2026 06:48:20 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c4fc4sm20595574f8f.15.2026.10.19.06.48.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 06:48:19 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v11 0/3] crypto - qce: fix self-test issues in aead
+Date: Mon, 19 Oct 2026 15:48:07 +0200
+Message-Id: <20261019-qce-fixes-aead-v11-0-11c55cc7a695@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/msm/a8xx: Enable CLX feature on Adreno X2-85
-To: Oleg Keri <okerixx@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-References: <ar_AuRr1eaZzOfw9@baldur>
- <179096320161.1973.2852858792260211089@gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <179096320161.1973.2852858792260211089@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179241740268.799053.7614387115975151164@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: A1D5C5F8E8
-X-NC-CID: mZAHi/GmfJ9xo2HkEE4KHVNY31ngGahIZ3EtVrBm6I8qAw8W4Po=
+X-B4-Tracking: v=1; b=H4sIAJcf1moC/x2LSwqAMAwFryJZG2giCvUq4qLUp2bjpwURxLtbX
+ M4M81BGMmTqq4cSLsu2bwVE6oriGrYFbFMRpE47ceL5jODZbmQOCBND1c9BnbRoqExHwl/LM4z
+ v+wGOalMzYQAAAA==
+X-Change-ID: 20261019-qce-fixes-aead-e229fa2015e3
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eneas U de Queiroz <cotequeiroz@gmail.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Eric Biggers <ebiggers@kernel.org>,
+        Demi Marie Obenour <demiobenour@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org, Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3817;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=tLRfmvsQxuz+ZnT4lHMKw9IOC40CPpnagJ0AjgLCpr8=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq1h+dXyU//X8RcKw2W3vd43VcfpMInoM/EcTX7
+ rkTFzc6DceJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCatYfnQAKCRAFnS7L/zaE
+ w1yTEACWX/WQGWgvL4uFWGc6oEczG5quppTjYc7NwYMv+fKC0ZT4KOUn2ElfaJUl1Pxi4gWcXwi
+ rfAFqlk3UkF/aBAe93QKYkdlG7jxjIp4T2VcMhcWElwYTzJc56OsFJVWW7H8u+AWGLk6Sbh7CJl
+ oC0FOaMiZBrDp5o2oVBrgA+QiG/JEMJAEMofvgXUurUEHY4b/LNDQ9eIb6VYooUxOwN5h4qQOz8
+ q4yAI0waGnEH+YqscMYq8Pm2+1ep/7WF7JZU9tMSl14UYyW/a0yr8KE/vcb/MRtAdL/42i5dnOF
+ mehLGZ29QvkP3y3Wtu5GSdU3nPVwo1rWP/EzuXZf3TPeTqw3bkrNWcNcGqhMm8pZ20TjHoyihIO
+ hFa7vzqdOeM5PnB5OMor2iiqALBC2tKVNO0JqLro8sFwNlcvrW2dwnYuDPS6+2o6c8X3wvs6Vja
+ SY3LtEPikgdKN4bab2NJN4b2VWsAcwhWyS223P6JsHIT9xeQOXoedsk0b+mTm218SV46x8eDsZd
+ J4xaJEFZDGX3qQL+P18r9U1ivybbzZLHw6z6UJpj4hiwBFbSpptDQqgMqZ9MSg3y31VFMCWjjO3
+ 5OywGLwfUSuYwwTGS1KuKFfZrF1FNRTcgFDPfncfacYWmcG0gLCzVg5pXbRc+Q/ZpSdPPl5VQ6X
+ u54pSyT8EHlk3LA==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1NCBTYWx0ZWRfXxP+kItjMtno/
+ 7fQ8xdayBfzwQuEKZugrnx9yoQRzet9K9fLuL0B67lXiSSDQ/XfJ+2MIJnu6M9pQn3MPPch7FS8
+ KF22m59mKvchQODcQBC3K2R3t6UUvGY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1NCBTYWx0ZWRfXw89IfNWvJmfg
+ gDaJ5myoGVqaAmkCxmS6AHOPSCNNNrEMwl8AX2P15TRQjEO/nZTwhu1aCETEKOoJxPumpvkWuSb
+ 0/9tEQusBD5E2QHB4k9AbCPhsKc/T3E4JTDkjDV5ART4c/9BLFXAWHwG3NZFqjv4n4ymjy81j+Y
+ CO3SWAXO2JYS8YRr7ZB3NZj5aveMQKO9Jv6mx+JMIXe+bkWcaQEudPYm32GmNOI1mhP+CcSrHnO
+ Qal0nnMTGAQb5laNbqcgCpPJteZERLxs2nnPdD9B9sRMur/bFELRnvDZzq6Ex2W+5uNhIMje0r+
+ iOj69O0zpO4Rg9gHjGHZBUQfM3knBS3Iy6z5BxrgNzgAU1Uibf8MziPREghB05zTLvI1+6Qalcf
+ k92WJpDpQp8Wzc6lhkJ+XapGD63Gj+wskw/OO6b3nWqcazA2OjBgPEAFJUdkj8JGi9jqgs5McfA
+ 3CX/Pm3svesX1Uy2n4w==
+X-Proofpoint-ORIG-GUID: KKYtSWx9J4qR0Ix6BfcaRuucmxMWEmrd
+X-Proofpoint-GUID: KKYtSWx9J4qR0Ix6BfcaRuucmxMWEmrd
+X-Authority-Analysis: v=2.4 cv=CP6/zhrD c=1 sm=1 tr=0 ts=6ad61fa5 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=iK5QPMNa_E_FA8V_BHUA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190054
 
-On 10/2/26 19:47, Oleg Keri wrote:
->> This patch landed in next-20261001 and while it works on my Glymur CRD
->> (COB), on the Asus Zenbook A14 I see the following failure during boot:
->
-> Same on a Lenovo Yoga Slim 7x Gen 11 (Glymur) with next-20261001, GMU
-> firmware v5.2.38:
-> 
-> [    1.632277] platform 3d6c000.gmu: [drm:a6xx_hfi_wait_for_msg_interrupt] *ERROR* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 11 timed out waiting for response
-> [    1.642345] platform 3d6c000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x4
-> [    1.642360] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* gpu hw init failed: -110
-> [    8.053367] platform 3d6c000.gmu: [drm:a6xx_gmu_resume] *ERROR* GMU firmware initialization timed out
-> [    8.053584] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* Couldn't power up the GPU: -110
-> 
-> Compositor fails on the first start and works on the second.
-> 
-> Reverting this patch fixes it here as well.
-What's the status here? Was this fixed meanwhile? Or is this regression
-how heading towards mainline now that the merge window is open?
+As requested by Herbert: this is the aead part of the QCE fixes sent
+separately for easier review.
 
-Ciao, Thorsten
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Changes in v11:
+- Split out the aead patches into a smaller series for easier review
+- add a patch fixing a race condition resulting from sharing
+  ctx->eed_fallback by concurrent requests
+- Link to v10: https://patch.msgid.link/20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com
+
+Changes in v10:
+- don't pass a NULL buffer to sg_init_one()
+- fix byte order of the imported hash state on empty finalization
+- don't recompute the CTR counter in software for every request
+- reject skcipher requests with a too short scatterlist
+- check fragmentation for empty CCM decryption requests too
+- don't use a static loop iterator (duh...)
+- initialize the return value in qce_handle_queue()
+- Link to v9: https://patch.msgid.link/20260922-qce-fix-self-tests-v9-0-b1aa742e79af@oss.qualcomm.com
+
+Changes in v9:
+- Rebase on top of cryptodev/master
+- Rephrase Kconfig help text changes
+- Link to v8: https://patch.msgid.link/20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com
+
+Changes in v8:
+- Add a patch making the crypto driver *not* register algos by default
+  but only if the user explicitly requests it with the provided module
+  parameter
+- Use the "offloader" name for the crypto IP instead of "accelerator"
+- Fix device module table issues
+- Make the core driver use a list (despite it only having a single
+  member now) of child auxiliary devices to register to make it clear we
+  have the intention of extending this once we start the work on secure
+  media playback
+- Link to v7: https://patch.msgid.link/20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com
+
+Changes in v7:
+- Add follow-up changes converting the QCE crypto driver to auxiliary
+  bus, adding the core QCE driver under drivers/soc/ registering the
+  auxiliary device and removing the BROKEN Kconfig label
+- Link to v6: https://patch.msgid.link/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com
+
+Changes in v6:
+- Handle all zero-length HMAC finalizations (like imported state with
+  data already hashed), not only the genuinely empty message case
+- Add an additional patch addressing the fragmented skcipher payload
+  issue
+- Link to v5: https://patch.msgid.link/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com
+
+Changes in v5:
+- Dropped patch 1/8 that's already queued
+- Use the pre-allocated fallback ahash for HMAC transforms (Herbert)
+- Link to v4: https://patch.msgid.link/20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com
+
+Changes in v4:
+- Remove remaining ECB and DES3 bits
+- Pick up tags
+- Link to v3: https://patch.msgid.link/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com
+
+Changes in v3:
+- Remove even more algorithms and dead code in patch 1/8
+- Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
+
+Changes in v2:
+- Add fixes for the full suite of crypto self-tests
+- Add Fixes and Cc tags
+- Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
+
+---
+Bartosz Golaszewski (3):
+      crypto: qce - Don't modify the TFM context for per-request fallback
+      crypto: qce - Use a fallback for CCM with a partial final block
+      crypto: qce - Use fallback for CCM with a fragmented payload
+
+ drivers/crypto/qce/aead.c | 40 ++++++++++++++++++++++++++++++++++------
+ 1 file changed, 34 insertions(+), 6 deletions(-)
+---
+base-commit: 0aac16003b01b9282491ea3d454697c2dc7e8c78
+change-id: 20261019-qce-fixes-aead-e229fa2015e3
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
