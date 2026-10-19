@@ -1,56 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792446999;
-	b=miq6VmhPcNZalwIKrDF8uu7IR6YKJRRIvMDDGJo5YbU/y+rr7PuLySOzk6rJHJpdueGR
-	 CM1kiEtzi7uGe+M0/VBMFQAnBN8ZhjdfyPIRqwQQiQyExSGQioyd9ssVJ6vkNutfPxxvi
-	 0qf4MBWcnD0rZktctB0HCeV0vaa4MFeal7a/ffQ/nFjWuPjwP2tq8uCyBXq1mO4/gA1bf
-	 MdLEUmGsqqZfz8Z/5BKpeHfQ1wMLNlebwQCHYYrxn31G6WpIEDqHMBXWY6P2+V1FExpbY
-	 Og15/YZnBEh4PlDs2QxxyOD7vXuBm9k+O2gY8H7kwszkDODLhno0miOOYaLKyG+YZ+Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792446999;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uDbDRvDPkLpFWAxgfb5Uv4pS9UiCoXyEbXPvzTb819Q=;
-	b=WGKx8APegkS/rrmN3bQa8a/oMIP3JL56wJGXnxk9BP47lDFMssfoIbT1BJZp8m6qLR9C
-	 SWZ3OVmsOGx4Fjr9t3ooCAGQGzMwAQhI6h7TsMczPijATOKfsGZusnmoXaVdfpzaMCd41
-	 lV78hSKHajLcFn+O/m4I33SNRJcnB96HfkXwwzKDTJsnSgJOnokM22ShP7yKsP4YP8Cc7
-	 m9L5PP5j8YFjzIj9T9bILdwL6EjAXyMAW6NdDELux88gKYSO0bi64Xyos35ySvJ2BrA60
-	 SUHlLkSw8p2diQFWMnkruEHBh0wsbQaHWzCI72UekCce5h0kHWOPrOpm82osoyxqeXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jPo1ul98;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792447001;
+	b=PXffdEMkO2ZYjKClFJchHBVW2whfAsB+bSU96A48QKCdpeM8ZbcZ/crHz0iO7bb651X1
+	 P5Ck1mMurehPiPzGYgRjGc1044B4VvO3Vg+X4gd7w/dFeZ9N1XJYu3GA6iFmF9qqNPy9C
+	 fO37VJ/tjxPhPaNIFlkSX6ZpMn7Q4N0JMXbRyahPyPWYA3MYHxnk/WqmUkkvqQgGxndua
+	 TxeReJDp5NWnCmsbNw6X/0Jna2xSzHwmuWfPBdxgQ7MbZI0HSaNOj+sMN7Smni+iaAid8
+	 9Y4Q6w/rONtvyE4wiVZmHVtZIlIziAd8ydIEU6L5ePVBk8xtTHD+F1RUJD2gj4fd22A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792447001;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:From:MIME-Version:In-Reply-To:References:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=iy6FFFbMo4zXlK5qylbVO8N+6UI0KHzjfQawpde353Y=;
+	b=SQdmiFm5tFCIARYjvL7+1e47EjtJhglQQJMxL3vuULyC6DFKAb76wrpmOb6JmiU2U6wc
+	 EtsxC843Kdvlz0v19JG1uah4/SUp2zmANIp34KLcz4quxLfUUu3KcNDX/MTvO/ncYHpNu
+	 mlgvLDv9xtYz5ogr0fAimx/Lh6C7/e+Q06PrZedOpHnoxG2mAY8ZGeSSCdOikyZTq7wQU
+	 01jDzFov/Cm68Ig4WZPBKMtwJy+lUsKe/DaPsRBKjHg9bzeFYSrKiiTAhzRAH0tUlwSAN
+	 +TnuxRM/NYRaHz6RX5HHAfdiaz7/buO0CTUty0xf/x74kJmKJU9+3o7PCWJGTtt+BLA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=carboniste.com;
+	spf=pass smtp.mailfrom=carboniste.com;
+	dkim=pass header.d=carboniste.com header.i=@carboniste.com header.a=rsa-sha256 header.s=google header.b=j0W3Ljly;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.46
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292D3606A320;
-	Mon, 19 Oct 2026 21:56:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E19606A329
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:56:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13E19606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=carboniste.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=carboniste.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jPo1ul98
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D711F000C4;
-	Mon, 19 Oct 2026 21:56:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792446999;
-	bh=uDbDRvDPkLpFWAxgfb5Uv4pS9UiCoXyEbXPvzTb819Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=jPo1ul98XSAB2kcTe2SNsbLB7qBABuJZkr3HXYqzidmUi1YUiqsfPNEco7nZZElgW
-	 bLBtGpozjQL1RlXUWLE5MNuJnQUxqek+96SMy1HKFPJ7qtW7RA2SypTbJ5d2/47sRk
-	 vkfjQDgB/CRc/o4OKtjZVTZi75hbeyp2cGaGuiIzMaQqnk/AVeYtIW06NNaVABd4B+
-	 rpoHXgk9Wo7aIoL4DfW0cs5bWV0DkVGtN26ZEt/1RAEhGiLG5ORsuBmrKo7Zp+v+BD
-	 NfQdnxtrkDvSuxiSooQ46HtzsTWBSiyyIxaahmypzjRR4A3lHGwTyeDZdL9FAsq6oJ
-	 j0Z3GF4xuNM6A==
-Date: Mon, 19 Oct 2026 16:56:37 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Sumit Kumar <sumit.kumar@oss.qualcomm.com>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] pci: designware: Set DMA_BYPASS bit in outbound IATU
- CTRL2 register
-Message-ID: <20261019215637.GA2267961@bhelgaas>
+	dkim=pass (2048-bit key, unprotected) header.d=carboniste.com header.i=@carboniste.com header.a=rsa-sha256 header.s=google header.b=j0W3Ljly
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6795df33283so381705d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:56:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792446999; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E2bvHu66s+1NpEkAcQdj+5xPNp+o5PjyFTDMwSp/AIHE/eDtct6MAf/aQcsNnwdz0f
+         +yZn53Xq1J3YlOnPB3hAH+PhKq0IU9vu3IbzKMEon9l1+VcY7puURi+cbIhLpKzHAF2t
+         6xSwSIPNUFMLKc9vDvssk6d4NB6tVWhZ4v46ogVprzvpMcCAxC9vArSJQlHjqZDusne/
+         EevNqbmQzL4dvYyniqSq0QRmLy5EjRLIIe0TKmRRKd6TsLGE0T0BMPugfV/T2JxvSzcK
+         SDzhgav+2BR6rOLVeCsOfWa7X71iXZBms6bh4AFvo4R6xeDzdlv0KYcUsRfZouaTuQMx
+         XEdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:mime-version
+         :from:dkim-signature;
+        bh=iy6FFFbMo4zXlK5qylbVO8N+6UI0KHzjfQawpde353Y=;
+        fh=YnWtRSiQC/o9Z/80qnW2+3+ZQiDkR0UlAkkAmgeu9lU=;
+        b=DhPnR+/AXMrf1mtugspmWKQJ6FMNPwjbKQMADv6CxwVHkfZ03HVCTJdIMCIiL3Vfe2
+         Ixep5zcx0A9odw9JLufc3wuX6y51Wqg0HDbGgWENtF8n/Ms41VdzNd6IRJd/iXxtZtrq
+         fG5Lo4XAxjYb6lBjFLymfhvgZLhRNFzGhdVKu54KYW9wvsO2gfLC27+pcqdvRJwY+94F
+         yTJfIcWC2SJp5Rw3+2fcx/0EKafU4Zx8mc6jPOTx/dwGHpKO6RS5e4NLQqaQlLyyoDpj
+         odJ4v5Rw6UcprfQHdiCrlKgnAvlD88HiI3TG7PLLX0XZHIbrv0QsQ5wLhLo0TW7hYHpP
+         nk4Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=carboniste.com; s=google; t=1792446999; x=1793051799; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :mime-version:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iy6FFFbMo4zXlK5qylbVO8N+6UI0KHzjfQawpde353Y=;
+        b=j0W3LjlyKLqE+vOP81E1g2zt2kiaiImKkPo+yyE/W++ykdHspgJKCGrtCC4up8BmqG
+         7opm7ELP/oPtBh29Wa/6gPKqPMqc7PdKVjApIrBtdghtjG17cAV9HYqQ7E4pR0DjoggB
+         0WS+1chPGSVTFUlFLVwXKsD+4ATBFsCZCgDbcM0dxi2L6a/GB0jnUy84w9a8mDuAlhTx
+         9ktqOGuyE7Luk34VTk6QxFS23q6aN9Aur+tJanVqUwHoTwnaQdGt18gr4FYLF1vcE8oL
+         GFuF8HQxLxWYcUQJiRj6UXOAwxngmegHb7n41OLCjvviwfqrAVXO2tQYdljET7vfb3K+
+         t6tA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792446999; x=1793051799;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :mime-version:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iy6FFFbMo4zXlK5qylbVO8N+6UI0KHzjfQawpde353Y=;
+        b=qy9IUxl3Ilmq07cECeQMbRB4fDEd+Q+feOkT8b5MJ2brxuY64OYS5BXHpz/gO2JI0Z
+         aG+mQfYnjGs6NhUIAjDaHCMuSsjiXSTHv429/PNnjEJMSZGtQBoiJi1aUlsSErRQ7BIX
+         5QREQ0peRw4bijbIBkYsKe1VCCaLB6C3TyY41Iq7AnQZCavFS7vRTyu0ozHvp41QGR/x
+         3nhF3Po++Gx4wyvc7Ik3kR7GlbCGVxH8kyIOxGGDEj16BOMP/9loOEz2LM1GsB2D0fS5
+         v0TMzTAemhCQwWkpOXHlOGniIPOPlPzAdGwzdcJF7nJUW3y/hLld8oH4xa8DPFNKJT/Z
+         galg==
+X-Forwarded-Encrypted: i=1; AKwUvBwWzDmDPS67B2GR2gxoEMCqtMED1NaZvU2MYuCXf+nbqZiiKMDYt7W4pa73LS4NS9wi6nJ/nLCyijFNivI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLh8D4HHAmarnBKth1/H9rx3/G5mM4ciGvzYwNZnk/IiOe9ULrB
+	cHGL/JCN61nVL1fJzGVboOEQazDIY0EqyT7hvQPe+NBluOiiV6Gc7TywuY7uqGaYzMuowygGGYO
+	z/2dd3HJ73K73TaKBxZQW/r0ta1gSYSMNE/sNNtF0zyA=
+X-Gm-Gg: AYBFou2hkMDdOpKgN67hHOLT3PITYRTZuLVQpKgdmkMzMRl52+WCIs9Ug9ffpnKxdsv
+	gCRYpYlQHDnSLJWFEziCp0H9x86GEjJFdjVBMJMo2TB4O4blp//XeORIcaFjc9zIl1aVDi8J46F
+	rBD1KIFOB7sEHkk6K4YkXYEAYXB22F8c4RgcEa2kOBg6It9k8saiJzLwvRpC1iEynT3eqd+G1Fl
+	W5BC0eP7JX18Cz0/cgqkJk93PDDAAvs+J6JAEPseA52NKwIHm05bSpXwlF/85ebWaAiNStEwO8e
+	a27rycGtT7aL1pBr4hRLdPj9JBw3xoyrZTPQoPAB9EHma4cGXMhaon5WIoWwEUzMkQU=
+X-Received: by 2002:a05:690c:6303:b0:871:3e81:955f with SMTP id
+ 00721157ae682-8b0f2055da7mr52311397b3.1.1792446999140; Mon, 19 Oct 2026
+ 14:56:39 -0700 (PDT)
+Received: from 658150881093 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 19 Oct 2026 16:56:38 -0500
+Received: from 658150881093 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 19 Oct 2026 16:56:38 -0500
+From: Dan Person <it@carboniste.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,57 +107,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019215514.GA2267032@bhelgaas>
+In-Reply-To: <CABZx5Lu3ShYsPtEsKFfL+Ch6G6KywH9eZ8e=YDYgJqu-k33kJw@mail.gmail.com>
+References: <CABZx5Lu3ShYsPtEsKFfL+Ch6G6KywH9eZ8e=YDYgJqu-k33kJw@mail.gmail.com>
+Date: Mon, 19 Oct 2026 16:56:38 -0500
+X-Gm-Features: AclHuK98tWdLxJ5Ptsrl5ocriRgzu6Qah0653CJkL69oCt_cti_0kmtGhHOWoFQ
+Message-ID: <CABZx5LvZ29kUp2OEhLebLS5DRELRsh1LXH5-YDMEkvsG4c06mA@mail.gmail.com>
+Subject: [PATCH 1/2] media: ipu6: isys: use the port B 2-lane PHY settings for
+ 1-lane sensors
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@intel.com>
+Cc: Tianshu Qiu <tian.shu.qiu@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 19, 2026 at 04:55:15PM -0500, Bjorn Helgaas wrote:
-> On Thu, Oct 15, 2026 at 11:10:49AM +0530, Manivannan Sadhasivam wrote:
-> > On Wed, Oct 14, 2026 at 02:20:49PM -0500, Bjorn Helgaas wrote:
-> > > On Tue, Sep 08, 2026 at 11:48:22AM +0530, Sumit Kumar wrote:
-> > > > An outbound iATU region matches any local (AXI/application-side)
-> > > > address that falls within its Base/Limit window and rewrites it to
-> > > > the PCIe-side address programmed in that region's Target Address
-> > > > Registers before the transaction goes out on the link. This matching
-> > > > does not distinguish CPU-initiated transactions from ones issued by
-> > > > the internal DMA engine (eDMA/HDMA).
-> > > > 
-> > > > Example: outbound region 0 is programmed with Base/Limit covering
-> > > > local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
-> > > > CPU-initiated accesses. The DMA engine is later given a descriptor
-> > > > whose destination is the host address 0x8000_0080, which happens to
-> > > > fall inside region 0's Base/Limit range. The iATU matches the DMA
-> > > > transaction against region 0 too and rewrites it to 0x1_0000_0080
-> > > > instead of passing 0x8000_0080 through unchanged. The transaction
-> > > > then lands on the wrong host address, causing data corruption or an
-> > > > IOMMU fault when the rewritten address has no valid mapping.
-> > > > 
-> > > > Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
-> > > > programming outbound iATU regions so only CPU/AXI-initiated
-> > > > transactions are matched against the region; DMA engine transactions
-> > > > bypass the translation and go out on the PCIe link with their
-> > > > original address.
-> > > > 
-> > > > Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-> > > 
-> > > Thanks for the fix.  A data corruption is pretty disastrous.
-> > > 
-> > > Is there a Fixes: tag we can add here?
-> > > 
-> > > Probably also a stable tag?
-> > 
-> > Just to clarify, there is no reported data corruption due to kernel.
-> > Our internal teams saw corruption in the bootloader with overlapped
-> > mapping between iATU and eDMA and fixed it with this BYPASS flag. So
-> > Sumit wanted to do the same thing in kenrel to avoid hitting such
-> > scenarios. That's why there is no fixes or stable tag.
-> 
-> This doesn't sound very comforting to me.  Unless there's some reason
-> similar corruption can't happen in the kernel, I think this deserves
-> Fixes: and a stable tag.
-> 
-> The fact that nobody's reported it doesn't mean it's not happening or
-> won't happen.
+On the Lenovo ThinkPad X1 Carbon Gen 11 (Raptor Lake, IPU6EP) the IR
+camera, an OmniVision OV9234 (ACPI OVTI9234), is a single-lane CSI-2
+sensor on driver port 0, which ipu6_isys_driver_port_to_phy_port() maps
+to MCD PHY port B. With x1_port1_config_regs the receiver accepts the
+stream - firmware open/start are acknowledged, the PHY reports ready and
+the CSI-2 error status stays clear - but no frame is ever written and
+every capture ends in a buffer timeout and "stream stop time out".
 
-I guess I had already added a stable tag, but if we knew a Fixes
-commit, that would still be helpful for stable kernels.
+The Windows IPU6 driver for this machine embeds the same MCD PHY register
+tables. It has no 1-lane table for port B; a 1-lane sensor there is
+programmed with the 2-lane port B set (PPI 3/4/5). The Linux 1-lane port B
+table also writes 0x5d060100 to register 0xaa8, a value that appears in
+no Windows table and breaks the pattern of every other data-lane entry.
+
+Use x2_port1_config_regs for 1-lane sensors on port B and drop the
+now-unused x1_port1_config_regs. With this change the OV9234 streams
+Y10 644x364 at 30 fps, alongside the 2-lane OV2740 on the other port.
+
+Tested on Linux 6.14 and 7.0 with an out-of-tree OV9234 driver.
+
+Signed-off-by: Dan Person <it@carboniste.com>
+---
+ .../media/pci/intel/ipu6/ipu6-isys-mcd-phy.c  | 31 ++++---------------
+ 1 file changed, 6 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-mcd-phy.c
+b/drivers/media/pci/intel/ipu6/ipu6-isys-mcd-phy.c
+index 71aa500..cae4dc7 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-mcd-phy.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-mcd-phy.c
+@@ -150,30 +150,6 @@ static const struct phy_reg x1_port0_config_regs[] = {
+ 	{0x00000000, 0x00000000}
+ };
+
+-static const struct phy_reg x1_port1_config_regs[] = {
+-	{0x00000c94, 0xc80060fa},
+-	{0x00000c80, 0xcf47abea},
+-	{0x00000c90, 0x10a0840b},
+-	{0x00000ca8, 0xdf04010a},
+-	{0x00000d00, 0x57050060},
+-	{0x00000d10, 0x0030001c},
+-	{0x00000d38, 0x5f004444},
+-	{0x00000d3c, 0x78464204},
+-	{0x00000d48, 0x7821f940},
+-	{0x00000d4c, 0xb2000433},
+-	{0x00000a94, 0xc91030fa},
+-	{0x00000a80, 0x5a166ed0},
+-	{0x00000a90, 0x10a0540b},
+-	{0x00000aa8, 0x5d060100},
+-	{0x00000b00, 0xef053460},
+-	{0x00000b10, 0xa030101c},
+-	{0x00000b38, 0xdf808444},
+-	{0x00000b3c, 0xc8422204},
+-	{0x00000b40, 0x0180088c},
+-	{0x00000b74, 0x00000000},
+-	{0x00000000, 0x00000000}
+-};
+-
+ static const struct phy_reg x1_port2_config_regs[] = {
+ 	{0x00001294, 0x28f000fa},
+ 	{0x00001280, 0x08130cea},
+@@ -475,7 +451,12 @@ static const struct phy_reg x4_port3_config_regs[] = {
+
+ static const struct phy_reg *x1_config_regs[4] = {
+ 	x1_port0_config_regs,
+-	x1_port1_config_regs,
++	/*
++	 * A 1-lane sensor on PHY port B does not stream with a dedicated
++	 * 1-lane table; program it with the 2-lane port B set, as the
++	 * Windows driver does.
++	 */
++	x2_port1_config_regs,
+ 	x1_port2_config_regs,
+ 	x1_port3_config_regs
+ };
+-- 
+2.53.0
