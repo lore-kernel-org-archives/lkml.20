@@ -1,61 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792452395;
-	b=jGbgeo2eodLubfHR/FMBzY4I6kSo7VO8MMliHTrtz7YSHr53gaqL6YvT+Z27D1V2v6Rq
-	 cP0IOPFaS/U7HRbNRHkj0Pwsts9tbw0UrXNNHKMQpbQNAQ1hSOrqBGmzo6wNn7HG8baKd
-	 jIa46UmBLIj8xQtUlszqcPRrD63uQY+hf4tEVOkR2iVpc/gIZwqEJJyyjgP/InPZNdhSi
-	 yGLG/SIhOgaeRrd5UsWWBM/5HWaz9r8/DCpD1tWDwFOERiunHAwThiCScvOoJmhgQn3kl
-	 F1hy8WJJyRXcRCA5pb/cVQcegobLfkA2e48mYeqmAiwGnKYcvCB0aak8Mk5CW/+N1GA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792452395;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=moqLdOiXIDJEjW3F803DCdqiZDaCP8DoGvvPaOoz/Ac=;
-	b=wgNmBTIyRZn+iU82gQZ5z7gnpAKY+ImCTQiutiG7TVNmB1k+FuVSoZLkbYHX6RgRM2SX
-	 QQNVd8Trr6nk2S27iR8hXGmTe1X4IxeRkbtAUsMwBjHFvnXAi7SknW0DhbmNp/cwiNG6+
-	 UU9lYobSe/rwj2t4aNQkQpnu7a/UNM0/3C/WwQ/f7C5ZJczxNZw7UZEtwNIUjXoh+Drz0
-	 Nqymmn61M7stH+xGNpFVoELBH2QbDBrTSlX2yodrBEZ63rN830QAShO5dlkzTq2I67X8x
-	 0pRzzoaw0Kh7ow7b2Pz5yRyGelHtye9KPhjytDDH8RzUsPMyDFp+ykHsc/p1z/x44LQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=DH2nIci1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792452439;
+	b=BNDtDrugwnzlPTq3juV+EEjaN6sWWZDIGq2Fuq7pHecras2qy98FB3WWlG6AqDPcH9Ur
+	 LBezbfuJUu4kOXbCqeQPdJUjrYRRYlJmUGw2w/6Mt4Yv0bd5X0WGqm/scNRI2BbwaR3f5
+	 hE0H5dHr4qdJ4qxFjSgb9hFUh/dSEpDQaskhD2czscmg5ooRnYGHlZP/KR/bZq5cdSOSK
+	 NuqHQA6qHW3UtS9PA0zxdgQhf1fZPam0c+/nmcCH0304e1quOWMMKsDS0DVrTjLx7tS1d
+	 +Mw4FhTNMD0BbknpY6pWDme1IyqsyvefECdcY1lBFTC+q6VfwAqPkSmd3N/WFPDKlPA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792452439;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=iAg170E4FUgZR0p10N0VN8bstzxCfYw47fKh6j7QY1M=;
+	b=YgwWCrsWyL71r9k7mcng+4srTUF9ezoMDIlP+uEnVdbjwFg/dJJXcPq2HEZfjP3WdJlj
+	 1TZNm8NaNrHpD030+/03XSL002ktBSLC66/6pMHyvgJSkga4hAckgmmaYlYYZrfnYeExT
+	 gBIp7OoBWprh3azE+yajyrZG/tYzg3ayPRPrpNIm7+Eji0e3X+kTiKvrzMP+rbvh62CFR
+	 hHtkNM6NulW+fFVCYTxq312OwYiw/RIrg/3Kz1lMuU5mWv8nkV6+hT9+ospiNuw5bGvwu
+	 HZV2NEeF4J2ZmIiIzOBu+SuIgh2gh9eWnZtNn76fF4GXobOnKc/w8A5FlygLRkXtKiA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQNGLnS3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C22606A321;
-	Mon, 19 Oct 2026 23:26:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C22606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0712F606A319;
+	Mon, 19 Oct 2026 23:27:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=DH2nIci1
-ARC-Seal: i=1; a=rsa-sha256; t=1792452365; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=U8ld6WWX3mcb1RV1pJIc+LCY7QkKDA7/ldPaGJ4ETA4Sx8/tv+SOPpdvRE9v1EdDAuB4DwosKrSZ8r450gB9OwdogHmP3QIj9Sq07/JW8+ztCyQAQg9Gv/UFmcVuS3qQOmyDp7UNH+1+t/aJhNDeXlvAiew3C9IT5J37vGiy8ek=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792452365; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=moqLdOiXIDJEjW3F803DCdqiZDaCP8DoGvvPaOoz/Ac=; 
-	b=AGk1lyzQf56GLIEct82TwJjEWQ8RKEPq30/uJ6/lDJfginva/Z9ZtCCP92VUixucNAHB2UMngkFI/8S4Jr35l5/yo+39lo5gJvfVluAUswNxhFStAIekYwT/kcs7n7Cd9Q1QD8JeNqAvJxxZHbaqcUcWIs+NOtwdhayHFfcUK9c=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
-	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792452365;
-	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=moqLdOiXIDJEjW3F803DCdqiZDaCP8DoGvvPaOoz/Ac=;
-	b=DH2nIci1Vbqc9fQt9bi+uL3AHYkQknniCaILc/ecHByIla5MuB7apuNwah+P/2vQ
-	bVkdu31EG7nYy/OgjzDVYJ36CG4gbrmpkhd77S29K5M2rZ3l7Vore6IDOpOOe+Vjxxc
-	h8rkrG4mlGyj96lmMMHj3sQfhR+FQIAeJoiKIkoo=
-Received: by smtp.zohomail.com with SMTPS id 17924523640151015.6731131646758;
-	Mon, 19 Oct 2026 16:26:04 -0700 (PDT)
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Mon, 19 Oct 2026 16:26:00 -0700
-Subject: [PATCH v4 2/2] drm/tyr: safely write GpuInfo to userspace
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UQNGLnS3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697A51F000C4;
+	Mon, 19 Oct 2026 23:27:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792452438;
+	bh=iAg170E4FUgZR0p10N0VN8bstzxCfYw47fKh6j7QY1M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UQNGLnS33Ibj2Oq+eiHjXJphzg2CFaF3SbhAX4DdT47Qkgb6IGnYUnKj24tIYfTuT
+	 p7dDUq9aGjGISMAEZtvoH6Ei5aQZ7ol+Pw9ETiWr0kv+4aU9/vcFCHqdQxOLDnmF+S
+	 rTH1OO77aKSHhzFAvOT6T1Qra3S+riOmlgIf/nq/V8TcXzDWoU3FXGPns6BKXwI3vE
+	 aIFWn2vtmHjT3Gvbqk8u7EatdxS3efJgoPCG2UdwRQ8fOGQ30nU/4JfzLRKTHloc66
+	 JiNiWwWeNzvgWai8HQTn2QmeS82/TGvOsXXPc4BuOg2vU0/NfMO/LbIzDF4FIkHJzV
+	 eEY4z7fKTNKxg==
+Date: Mon, 19 Oct 2026 13:27:17 -1000
+Message-ID: <6cfe7cba3720e25400118d43643e55a6@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Kir Kolyshkin <kolyshkin@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, Serge Hallyn <serge@hallyn.com>, Shakeel Butt <shakeel.butt@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, Christian Brauner <brauner@kernel.org>, Shuah Khan <shuah@kernel.org>, "Eric W. Biederman" <ebiederm@xmission.com>, Oleg Nesterov <oleg@redhat.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 0/2] cgroup: fix cgroup.kill for exited thread group leader
+In-Reply-To: <20261018-cgroup-kill-exited-leader-v1-0-c71ad94c20cc@gmail.com>
+References: <20261018-cgroup-kill-exited-leader-v1-0-c71ad94c20cc@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,138 +57,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-b4-gpu_info_intobytes-v4-2-0bc04df46549@collabora.com>
-References: <20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com>
-In-Reply-To: <20261019-b4-gpu_info_intobytes-v4-0-0bc04df46549@collabora.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3790;
- i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=q6p6zlWWJ8BQv6wAOLNRbYzWEvvkZCGR72/7FruQfKg=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFnXlnOEz58s0h7nzWKiF6wcOl/URqpNeFfS8ckRcTs0X
- p2rbUnuKGFhEONikBVTZDlrb9QjXvXeSHf+/2aYOaxMIEMYuDgFYCLT5Bh+zPlWtGXT/Lxn+89V
- nfj9Krx7yoRLZquN15wRrJ5mOdvtOiPDgaBJsxpnOR3x/PU0ps34j5aIxgRdrjdKlzifH7751Ia
- ZFwA=
-X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
- fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 
-Tyr creates the struct drm_panthor_gpu_info from the Panthor UAPI
-bindings. It initializes this struct by querying the gpu and then writes
-the struct into userspace memory faithfully byte-by-byte.
+> Kir Kolyshkin (2):
+>       cgroup: fix cgroup.kill for exited thread group leader
+>       selftests/cgroup: test cgroup.kill with an exited thread group leader
 
-Currently, the struct drm_panthor_gpu_info does not have any implicit
-padding, but if implicit padding were added in the future Rust does not
-guarantee that it would be initialized. Then when Tyr writes the struct
-back to userspace it could expose uninitialized kernel memory.
+Applied 1-2 to cgroup/for-7.4-fixes with the following tags added to patch 1:
 
-Tyr implements the unsafe trait AsBytes for GpuInfo whereby the developer
-guarantees that struct drm_panthor_gpu_info does not include implicit
-padding, pointers, or interior mutability. This allows Tyr to safely copy
-the struct into userspace memory. However, relying on the unsafe trait
-AsBytes is fragile because if the Panthor UAPI changes, the SAFETY
-guarantees may no longer be accurate.
+    Cc: stable@vger.kernel.org # v5.14+
+    Acked-by: Oleg Nesterov <oleg@redhat.com>
 
-Instead, use the derive macro `zerocopy_derive::most_traits` for struct
-drm_panthor_gpu_info. This macro will attempt to implement the zerocopy
-traits for struct drm_panthor_gpu_info. If the Panthor UAPI changes so
-that the traits IntoBytes or Immutable can no longer be implemented, Tyr
-will no longer compile.
+Thanks.
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
----
- drivers/gpu/drm/tyr/file.rs |  2 +-
- drivers/gpu/drm/tyr/gpu.rs  | 16 +++-------------
- rust/bindgen_parameters     |  3 +++
- 3 files changed, 7 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-index 9f60a90d4948..ceadde976502 100644
---- a/drivers/gpu/drm/tyr/file.rs
-+++ b/drivers/gpu/drm/tyr/file.rs
-@@ -54,7 +54,7 @@ pub(crate) fn dev_query(
-                     )
-                     .writer();
- 
--                    writer.write(&reg_data.gpu_info)?;
-+                    writer.write_slice(reg_data.gpu_info.as_bytes())?;
- 
-                     Ok(0)
-                 }
-diff --git a/drivers/gpu/drm/tyr/gpu.rs b/drivers/gpu/drm/tyr/gpu.rs
-index e1b04a0c5159..4808bcbcc3b9 100644
---- a/drivers/gpu/drm/tyr/gpu.rs
-+++ b/drivers/gpu/drm/tyr/gpu.rs
-@@ -16,7 +16,6 @@
-     },
-     prelude::*,
-     time::Delta,
--    transmute::AsBytes,
-     uapi, //
- };
- 
-@@ -28,6 +27,8 @@
-     }, //
- };
- 
-+use zerocopy_derive::Immutable;
-+
- /// Struct containing information that can be queried by userspace. This is read from
- /// the GPU's registers.
- ///
-@@ -35,7 +36,7 @@
- ///
- /// - The layout of this struct is identical to the C `struct drm_panthor_gpu_info`.
- #[repr(transparent)]
--#[derive(Clone, Copy)]
-+#[derive(Clone, Copy, IntoBytes, Immutable)]
- pub(crate) struct GpuInfo(pub(crate) uapi::drm_panthor_gpu_info);
- 
- impl GpuInfo {
-@@ -134,17 +135,6 @@ fn deref_mut(&mut self) -> &mut Self::Target {
-     }
- }
- 
--// SAFETY: `GpuInfo`'s invariant guarantees that it is the same type that is
--// already exposed to userspace by the C driver. This implies that it fulfills
--// the requirements for `AsBytes`.
--//
--// This means:
--//
--// - No implicit padding,
--// - No kernel pointers,
--// - No interior mutability.
--unsafe impl AsBytes for GpuInfo {}
--
- struct GpuModels {
-     name: &'static str,
-     arch_major: u32,
-diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-index 8402b0c93545..332bc8d6a9f7 100644
---- a/rust/bindgen_parameters
-+++ b/rust/bindgen_parameters
-@@ -71,3 +71,6 @@
- # Structs should implement `Zeroable` when all of their fields do.
- --with-derive-custom-struct .*=MaybeZeroable
- --with-derive-custom-union .*=MaybeZeroable
-+
-+# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
-+--with-derive-custom-struct '^drm_panthor_gpu_info$'=zerocopy_derive::most_traits
-
--- 
-2.56.0
-
+--
+tejun
