@@ -1,55 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792453689;
-	b=WGZ6i9ni6Q/NejpyYSQl1QvkvHAVzDyAp/+jWb8Ey2zfxkxHT+6xrTVXFgZ8f7gSzoVU
-	 4fH/NSW3KfPwaQjcsEa3EukaCXYAtW7BFRNOlmf+ysr397sqtoQ9H03K64iSOqB9lnlF9
-	 Gf9NBLb0kNsZxavZA38whgvebtUxagE2E+APHK5fcuw18I/iKYlPOzFnWi/HpJQpDr8se
-	 ChOqB3kJesMVzj7kiSPPLjEV6I0z0Hm+h35LgHV/hjO/FTumbG9+WpLtk/1XG5xyGgNmL
-	 aHLRbghAqxMMQDB3rvMUXS8lQnfrUBcZ/WlhqD05pMAeDaql1JqXflGJcxxR2jfiYlw==
+	t=1792453801;
+	b=GaDmK0zZpGcwvNBJneD0mIkxeA8xri0ykXHNuNMW6yd4jA4UG1nA+/KQK10Hvfp4HXnk
+	 EdIZFSoOIf/l0J/WRovobabhZRSG1qvqF/QsQqgv7FfS3c07VB3nxlokInbLJeUcjjj7b
+	 4HLi5p3eIDzgVKQ44SHz5eIynf12mL8GZdaa9KTVN2PG4QZkjS40kMhswPSrMwDVtHUfH
+	 VQxoUrsbm7EwA1y8Qz/e1/TzXVpcG6Pe3XVsmNFuIxSctbEkEsOFEzEuqDsorHPFYoxSC
+	 TpUDB47alHYZR8gR4a4kP/KJv/EHipYQSDci46LdjZTBv0bB0Eov46n/yzrEHjdS+fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792453689;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=NgUgGYEdXUH4DLTqTb+i6zWjjXHXqFWh5z6PHbqh+Fc=;
-	b=EY5Bx93yDfIuImD6UH4spbubi4r/JgetesWyxsoGlXbZIgOs1nHZCyKLVRdzUuqb/DEt
-	 34Z1iNEO3os0QGsKG+EO3Jzi8jX2GdeT8OoFE9lMpcDwlXdl5YG3Ean/zHV5FRfO1J5Ci
-	 CN3lyy5Q/g07wY1eOxcRhn5HXZfv6yOXxjDkmZZrfXd+3KrGlqAm2NXxSf7dK3osArxvz
-	 zee8HLKCUnuVEx5LqeEUyP/d+LXRiakjzHQwLPRf+MJKVzuSb8IhwPn4vx2ePc2vUkMMW
-	 PP0n2bGA8YmIMJgnTUq70RSVlwBYTzSkvH80LqzRpCzjxYay85o6i71UsLJocquc+fA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792453801;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DD8Fwe5v4TmgrbD+fiaZCMxv0O6FicbhV371nOaahNo=;
+	b=JjG8XBhG1+QYtZXmQc6V/Ny6obH4PQpyFTw5anWSABGcVvqQNLiSlofRB/4emNzA9229
+	 qKBhtUpHLwmQ19T9gHzKULnmWHhsfzlSelj5yb1AAKjia7PYul+dqQfca9loyi7TkB7in
+	 n3VZDhESouIa+blG7JT4w8OXpf30k9xXS0cA0QaY1n6mcsPYpVyAJpWzUSNuh/1cTg681
+	 myUHKmsaYDlL/6X80XSvAoGKSC2cpvE6/kJPkfvQlr/Y0wTPJg3NvRouj238XV4rq9qSs
+	 Uu2fcAQJSgXRqIF3PT1u6iNiUcByFoUfFHe5kyNrpYkCbmX7m8Z4yfQEVO1ZoAiklQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWvDamp7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=BuBitvpw;
+	arc=none smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B67606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:48:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DF7606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:49:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32DF7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWvDamp7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6201F000C4
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:48:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792453688;
-	bh=NgUgGYEdXUH4DLTqTb+i6zWjjXHXqFWh5z6PHbqh+Fc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FWvDamp7UlG+1r21LWu47kUBu6e+TeMNAsaWBjYJfhBldBbZroHj6YoLtJpCAriEe
-	 EqU+o9h1p80DjeOM+QrQzPSf4197Gy8HdUuPgRRhFZyDi5QHFdnwur5iMK5gyCykOR
-	 7d4dhhDBO4ZuiGXUR1LV9LrnQQa0rdHUBI57mCXh08xm+lvIq6K39JVbpICPb3GDK0
-	 1uMoNi6Ss2w1GKWZgGp+fWPJJnwoAz00tQkMAnQENL5Nli365FTizygkJkFNGte5+R
-	 9P4DfnIqlLmo3y06x2QsLSWXzfE7KBN8qiS2UAPSIL2AyF791SEP8k9ZnzMu1ThyCG
-	 PMBt/WeuyideA==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4301e334ceso116804166b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:48:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxI3iVxRbtw6R+ZK1FY4KETHFoWUJxtL/rIeUu1s5dSuAI2hnIN+F9SvHgX2u1lU2Qny8baZqFXOHq9wyw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJryFZ62MyFdkAI80o1psg+dfuOig9U+asUUwZoJyB5EDq7pYBM
-	vv1xsQmbGVNUx2hsC1vkD+32UZ38WZYT0R+Cqpguy9os9afzrWfCX6t24IvZ/F5dn8bpXdcXlW7
-	AGk802Pgc2tkcbDclDG1Zx2beavseFJ4=
-X-Received: by 2002:a17:907:d86:b0:c41:1750:59a4 with SMTP id
- a640c23a62f3a-c41a0bd6576mr614219766b.39.1792453687521; Mon, 19 Oct 2026
- 16:48:07 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=BuBitvpw
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-8256106635eso1147038a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:49:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1792453799; x=1793058599; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DD8Fwe5v4TmgrbD+fiaZCMxv0O6FicbhV371nOaahNo=;
+        b=BuBitvpwDNha2KoIMFUJffgsDubBjIpaqFrYn8XYX9wcTIZ36LW31ysJLNvqiEN1x/
+         Bo08/cpMI7CbvzNBVfP92BIIAjTE7Wirrx+OQJAr8aVbZUQjGZUlvMuihQ76VrJ10vAe
+         bfydW3rcaLyRdsFezRDA6GlT2OHLpVsN3drz8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792453799; x=1793058599;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DD8Fwe5v4TmgrbD+fiaZCMxv0O6FicbhV371nOaahNo=;
+        b=aUenQw9ZiCPs8D/3P1HDRwT2tQTt1KoD2w5oJEuC4DFdySLhZspgtCaaSTyOpACA2z
+         mDznGWtVk4V7nqCDdlMENa5SKpiusDg9E4fZHoSjgCwQiJw9r39kkyVOD+WgGsky1qxP
+         Bsx3ZDJRTrSXAsOlZJlTYFEjepWmlS1aS1qu/Fv40Q5AF8Rl3Moo/w5fMlouZW4lJigK
+         5rVMyO18zix6/sGsD0ABimg9td36y2nUEUHH4tl5WbSF2MrzdNuej2DMxqODgQ+pPjNX
+         1+2yFfrQuGatC3Rz51jHpRxUAp7ZUPMeicSK26GYAJbGd4kuYCDToOEfnSppQzkzw3or
+         jRxA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbQcCcNhg4X6RrDwA6CaT7hxUm8N8Kibhs+adX2ZWXdA/NIXaQOsBawJo3F8Y7+pVbNpRyBRO+lB/oCmM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKk7YNuIzXvm0Q32FqKeT+XDItZn4JvgkRyXd4K6ajAYUunXqpb
+	oEOQJew/C8joM4jvZ2f6kSF8Cf150Hxid6fMuBqesYEZbzMD6O7JNqt0c6fweTobRxj1TlVvl5Q
+	oymAfkBg=
+X-Gm-Gg: AYBFou0qnBjrEYuHEZR9DB9h96K6ElpU3oIxnrqxPYAUj4ggNfhdzrb9FjTB+SJ1SwR
+	nQSr+5an4tK2uRTjCC9XKqIR0wmqmQhjx43NR1Zu5yqA6tAjad8ZkBSMcHu4BsooHXptr3G5xW1
+	uRGpJdu+SeLdK/q0XjrbzAowzH7q1SYUk/8sXl3bWUYFTnQFJ8T2RlSWVZy3jmTij6HAFIJehcT
+	ioxRVeN+1CwnTJGl/2ApGDo7JFTRKNcko1oeu6a79gZ04E6iLK0k0lyL/AURZ4bK39DZ1ioXrKT
+	IikyPn5FmMtNBwNvWR431/Us74+GnOshjjfN0RDieRlcIrS3OfMLsd05M4XcH6gValzjpuQLPjo
+	xgVGfH72I59wycfnZjcZbfS2/aTxkWtCwpwlhM2rGbfJctDllQz6Fxp0pOv8gSZ9WH8BXDGEIBW
+	zFDGpYvwqwr2uV1pURBqlljIMVSeOCMxUvgPUqZfU5eFVok2lTpzabWzb917KwQijHgQLno0QmV
+	mnjEAhc
+X-Received: by 2002:a05:6830:83b4:b0:7fa:5c68:d04d with SMTP id 46e09a7af769-8450097d1fcmr9148770a34.23.1792453799136;
+        Mon, 19 Oct 2026 16:49:59 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a53d8a52sm10631518a34.11.2026.10.19.16.49.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 16:49:58 -0700 (PDT)
+Message-ID: <c93ef8f1-5d63-4a99-ac1c-c07ed233e22d@linuxfoundation.org>
+Date: Mon, 19 Oct 2026 17:49:51 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,48 +89,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAKYAXd_50E7cH51hxKi9xWfE3Hjyj0PhwccgsuGX416pEJVs8A@mail.gmail.com>
- <20261017034051.72932-1-charsyam@gmail.com>
-In-Reply-To: <20261017034051.72932-1-charsyam@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 20 Oct 2026 08:47:54 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9ueojJ40xXmVfRKuOZGZ1sxJCtxXiYodgtXRQkfEtf9Q@mail.gmail.com>
-X-Gm-Features: AclHuK-LdNI1l4YXOY-OMrlNkd6SJpfpHJiBlt2LrhzNDHSdQOdRrjZr5MXmVuw
-Message-ID: <CAKYAXd9ueojJ40xXmVfRKuOZGZ1sxJCtxXiYodgtXRQkfEtf9Q@mail.gmail.com>
-Subject: Re: [PATCH 0/2] ksmbd: fix SetAllocation EOF and rounding
-To: DaeMyung Kang <charsyam@gmail.com>
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/869] 6.12.114-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261017160036.979869304@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 17, 2026 at 12:40=E2=80=AFPM DaeMyung Kang <charsyam@gmail.com>=
- wrote:
->
-> In response to Namjae's review of my earlier SetAllocation patch, this
-> series separates two fixes. Patch 1/2 prevents the existing cleanup
-> branch from extending EOF on disk and then restoring only the in-memory
-> size. It carries Fixes and Cc: stable. Patch 2/2 rounds the request to
-> f_bsize, the allocation unit ksmbd advertises in FS_SIZE_INFORMATION,
-> instead of 512 bytes.
->
-> The other review point, reserving the requested range when shrinking,
-> remains open. I tried fallocate before truncate, but the decision to
-> shrink uses an EOF value read before vfs_truncate() takes inode_lock.
-> The existing block-count branch already has this race; extending
-> truncate to additional sparse-file cases would expose it more widely.
-> If another client truncates and writes in that interval, our truncate
-> can extend the file again with zeros. I reproduced this with an
-> injected delay in QEMU. Rechecking EOF after fallocate narrows the
-> window but does not close it.
->
-> A VFS operation that checks EOF and truncates under the same inode_lock
-> without extending the file may be needed. I plan to discuss the
-> reservation fix separately with linux-fsdevel and would welcome your
-> thoughts on that approach.
->
-> DaeMyung Kang (2):
->   ksmbd: avoid restoring only in-memory EOF after allocation change
->   ksmbd: round SetAllocation to the advertised allocation unit
-Applied them to #ksmbd-for-next.
-Thanks!
+On 10/17/26 09:47, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.114 release.
+> There are 869 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 19 Oct 2026 15:59:15 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.114-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
+
+Compiled and booted on my test system. No dmesg regressions.
+
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+
+thanks,
+-- Shuah
