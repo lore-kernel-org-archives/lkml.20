@@ -1,86 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422876;
-	b=K0hIi3Ha2u0zZhwdlDFJCm9QEA9NpflzbpN9ERe/5GDkiWrn2GkCg4wB4uNVAhAUlb0I
-	 M1aN1LO/EnFGUGspOcJccxKEUaT+k0zAIaD0hYUd5Hz1YohG8RGfXC4OHd5Z364XCjjJZ
-	 tTTqZwdXGSmSEJAYtNOy3sayHagjHynmyFjZr0PXElQta51e5GofpHYjvlEKsTX9wUbvK
-	 iJ9mPEz7zpuSKAmmRCKkYBiYwmxPiPw26a8YhQKwkXhbQPb/vUH++ieP7C2nrrzUt/7ek
-	 mjp5OrMrQgys2R3vm3xgjkerSuLFA/uKW0zSvsycThzrFd1wF/oZbmrwEaKmRDstG2w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422876;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792421829;
+	b=BoaU54HUQS5MHZALrOvNgEHz8IlijgL1skXaGqISEn7DCmeYlBeIs/d1fKIwkkly97lA
+	 zsm4TttDfYNil3ZVFzjccmENcaHxLZAZzji/XwFIJ+stoFfvTI+OrkcJs/RFz/jTluKJE
+	 ettQ6Dbc6yDlkRX3rTj/rx4lD77ehCQg1ci9Zzg//2MFB+WZSTzFiJ7JgzCieEKqDiVjC
+	 4NAfMAUjF3bYx077mzqvIR+8Lo+MdUhtal8WQZrXBguGV6GtkE4v4rWEgpRILsCDdw2ga
+	 E4S9L132TYsgnMQE+ENmU6EioqyUdt1u54DQhLEyaTLLWYUUGqNnm2nITkxNWvmfpyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792421829;
+	h=Received:Received:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=K3c6U7vZET0ArCQqZ6t3FK0dhz2IPxufvWBSMOwbpIM=;
-	b=ieowm5M+YH2wcDs7SaM40Of9qHHIMi+wPdZ7vaJLpeMq1lznjbQoTczaovRC7f5Wr2+O
-	 /IsZxK4eypw0n/9Trl60WySv5i/Mg+B4yiHnLvBOzW4eQiuzXrteIY6dQrYqcMMStViMM
-	 ALm2kp0cgw1YvAxNZYXPhLplsKVAMlcdHTEdeM2l2xmdH0NdKVBbYK53F5wqCLvBsogCF
-	 w39av6zkVVT4jqtEozfxcxYZNBjrln0HHw11HUFgdXl+Xg649XEa4VYPpnyyJ7IVFXq+W
-	 8uajpQeMrC86K6foYK7hqTk6uGy+T3HstfgnSeF8izq6msnsdD/wRcqmkxUEZuUKYFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZP6SlRId;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE09609CEC6;
-	Mon, 19 Oct 2026 15:14:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCE09609CEC6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	bh=VCgwC73CEIkR5p1wAPzHafgllwFVQaoLyQhXqaXGVnk=;
+	b=dRY7RYev8/gaGOgIEOS5RAxDD3P7WmUSOir2aYt4KP16gQsbOtIlpSM8ZaOSGZRp4LSv
+	 h1TLZdyl0rof1GqRKQhW+fXAsN7Mgo0Ur8Ht4wue21l+agNUYLIqSS4Aa/OV/T16PmtR3
+	 h51Oeng0uMrdOvDldFpMa/3eStfVkeyXbX1SDCmlH9g6yjUL2vjbQYZCUpWF4dEYmqR6U
+	 27Ma2ZcPuakwQ8LlvaJ7mV00UQAypPD/ko+4v9CQzC0+xtZXC30OWo5VlBIJP7NS/AyeH
+	 OF0oNUUaUJ4p79FIsLp3Q4QNWEkzIDi9ZOSVWYYXz9FVSkf3IwUU6QTgQkFTn6q4nkQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kmO6KxO0;
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=10.30.226.211
+Received: from aws-us-west-2-korg-listserv-1.web.codeaurora.org (ip-10-30-226-211.us-west-2.compute.internal [10.30.226.211])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BEE206074095;
+	Mon, 19 Oct 2026 14:57:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZP6SlRId
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422876; x=1823958876;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=fBdQxqP0ia731zZUJ9lS/7B/cmQuMcRcrOzsQArbmhA=;
-  b=ZP6SlRIdTDQW3snjBGztPQfuBENAezR788WbEraZxv7L+hfnY0MNSCDS
-   gyeg85r+cB6Pn/5E7CJsiC0YnHEo7aAasZo7nOyf6o5gJ1SUQkHd7W7oH
-   ceUzYFOACZ0DRk6Cf2CSOmA5kcOwTWXJap3+GdvNWSsJ0plKGL4l7DEWR
-   JrIWbw/a08QjEQ/4Pt56VitZSrBmyD9kCunGnhJ9g4GU+2Qxfdm9Gv6G6
-   2acJRSgh8Ti7ebBWRp7uV3bEvapZMCtFi1PQXPtVdkCAPuVWgXN5XgED+
-   ILP1PYa5mifhjI6E3pFBi97pLqSjYjL1JZiCyjn5qefAx7wdx/XXG7DEH
-   w==;
-X-CSE-ConnectionGUID: jV2VEcjAQmmo77QQ2R3Jhw==
-X-CSE-MsgGUID: ZJ8++HgITdC523Aj/GVeeg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986906"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="986906"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:34 -0700
-X-CSE-ConnectionGUID: IW4Pg3uWRke1ETqnKEma+A==
-X-CSE-MsgGUID: wvzt0xZURDC/fcWi/g05Wg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2536958"
-Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:33 -0700
-From: Daniel Byrne <daniel1.byrne@intel.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>
-Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kmO6KxO0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4F7FC6513FF;
+	Mon, 19 Oct 2026 14:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421829; cv=none; b=fdS1wquQYSdBMqJm4rspcZC1A5mpxtYDrwC8cO/MtR4gnMQGW23/1mB1+2vczzFKRwNQSrRCM8AR5TkNJYd/Bg7C2Jbs4Tmitf+iS7LcdfWoQz/dbaMKquQiQdF8g+Wacxu2T/l/gzKAXB+I5AAKoJXke6mZ9Ic2zsDoHWNqqqY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421829; c=relaxed/simple;
+	bh=YlaWlYaZIkAnlD2LKt78HyIT9RVMdmLuS6Ccg2ZGCLU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jtf8ti1aauayl3xP1b0silwqDJCiE7sepjGYUHawEqQvW6Qqwg6H/pmSdRxTUHERKFmEA1vK77GnNDAWnoEWy/FOQyJZOSp+9av45LtHVID9g51yXTygk0JG6b7q/nZlF4Qp4pdExvpni/QDd0W4jcbTNjrVHDXZId/U3YsI1vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kmO6KxO0; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7E16E1D34;
+	Mon, 19 Oct 2026 07:57:04 -0700 (PDT)
+Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.131])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 99A763F673;
+	Mon, 19 Oct 2026 07:57:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792421827; bh=YlaWlYaZIkAnlD2LKt78HyIT9RVMdmLuS6Ccg2ZGCLU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=kmO6KxO0EaT2UX7XQwEqVTYJDoqisGCaBNf49e9mWIIU090eRvJ4LbuYMZ+lkWJ52
+	 jh8Sd9Z7Tj4QgtvLHKai+ACKt9MPl+sdTOou5BpHyBQ+/Ipgfl2HZRRdL+EU5KHJjH
+	 /iM9CYyMaNTNhJwd0oCJ7A1AYKHeB2nalvjwIcsQ=
+From: Pierre Gondois <pierre.gondois@arm.com>
+To: linux-kernel@vger.kernel.org
+Cc: James Morse <james.morse@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
+	Breno Leitao <leitao@debian.org>,
+	Terry Bowman <terry.bowman@amd.com>,
 	Dan Williams <djbw@kernel.org>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Kristen Accardi <kristen.c.accardi@intel.com>,
-	dmaengine@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 05/17] dmaengine: idxd: unbind the device driver before its work queues go away
-Date: Mon, 19 Oct 2026 08:06:18 -0700
-Message-ID: <20261019150630.4026341-6-daniel1.byrne@intel.com>
+	Ard Biesheuvel <ardb@kernel.org>,
+	Morduan Zang <zhangdandan@uniontech.com>,
+	linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	acpica-devel@lists.linux.dev
+Subject: [PATCH 1/6] ACPI: extlog: fix extlog_mem_event build issue
+Date: Mon, 19 Oct 2026 16:56:08 +0200
+Message-ID: <20261019145643.1877246-2-pierre.gondois@arm.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
-References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+In-Reply-To: <20261019145643.1877246-1-pierre.gondois@arm.com>
+References: <20261019145643.1877246-1-pierre.gondois@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,151 +95,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-idxd_remove() unregisters the work queue conf_devs first, and each
-queue is freed by its conf_dev release. Only then does it unregister
-the device's own conf_dev, whose driver remove, idxd_device_drv_remove(),
-walks idxd->wqs and reads wq->state to disable the queues still
-active. On a PCI unbind of an enabled device that is a read of freed
-memory for every queue, which KASAN reports as a slab-use-after-free.
-The usual administrative flow disables the device first and never hits
-it.
+With CONFIG_ACPI_EXTLOG=n and with the following command:
+make -j4 drivers/acpi/acpi_extlog.o drivers/acpi/
 
-Release the device driver before the queues are unregistered, so its
-remove sees them while they exist. The conf_dev is unregistered where it
-was, now without a driver bound, and the reference taken there only
-keeps the memory alive for the remaining cleanup.
+trace_extlog_mem_event() is not defined. Add a extlog_mem_err_event()
+wrapper to fix the build issue.
 
-That remove also releases the driver of every bound queue, not only of
-the queues that read enabled. A halt's clear_state leaves a bound queue
-disabled, and skipping it would unregister the dma_device while that
-queue's channel is still registered, so the queue's own unbind later
-freed the channel and the device a second time.
-
-The devices on the dsa bus stay open to a sysfs bind until they are
-unregistered, and the bus does not take the parent's lock, so the PCI
-device lock that the remove holds does not exclude a bind. The early
-unbind leaves the device reading enabled while its queues' drivers are
-released, and disabled before it is unregistered, which a queue probe
-and the device probe accept respectively. The remove therefore marks
-the device as going away before it unbinds the driver, and the device
-probe and the queue enable, which every queue driver's probe calls,
-refuse a device so marked, as the driver core did once the devices
-were unregistered.
-
-Fixes: 745e92a6d816 ("dmaengine: idxd: idxd: move remove() bits for idxd 'struct device' to device.c")
-Assisted-by: Claude:claude-fable-5-1
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
+Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
 ---
- drivers/dma/idxd/device.c | 26 +++++++++++++++++++++++---
- drivers/dma/idxd/idxd.h   |  1 +
- drivers/dma/idxd/init.c   | 28 +++++++++++++++++++++++-----
- 3 files changed, 47 insertions(+), 8 deletions(-)
+ drivers/acpi/acpi_extlog.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma/idxd/device.c b/drivers/dma/idxd/device.c
-index 131138483b87..a83b5da88f8c 100644
---- a/drivers/dma/idxd/device.c
-+++ b/drivers/dma/idxd/device.c
-@@ -1415,6 +1415,16 @@ int idxd_drv_enable_wq(struct idxd_wq *wq)
+diff --git a/drivers/acpi/acpi_extlog.c b/drivers/acpi/acpi_extlog.c
+index 7ad3b36013cc..e764d61f71ca 100644
+--- a/drivers/acpi/acpi_extlog.c
++++ b/drivers/acpi/acpi_extlog.c
+@@ -180,6 +180,15 @@ extlog_cxl_cper_handle_prot_err(struct cxl_cper_sec_prot_err *prot_err,
+ #endif
+ }
  
- 	lockdep_assert_held(&wq->wq_lock);
- 
-+	/*
-+	 * The device remove releases the queues' drivers before it disables
-+	 * the device, so the device still reads enabled meanwhile.
-+	 */
-+	if (test_bit(IDXD_FLAG_REMOVING, &idxd->flags)) {
-+		idxd->cmd_status = IDXD_SCMD_DEV_NOT_ENABLED;
-+		rc = -ENODEV;
-+		goto err;
-+	}
++static void
++extlog_mem_err_event(struct cper_sec_mem_err *mem, u32 err_seq,
++		     const guid_t *fru_id, const char *fru_text, u8 sev)
++{
++#if defined(CONFIG_ACPI_EXTLOG) || defined(CONFIG_ACPI_EXTLOG_MODULE)
++	trace_extlog_mem_event(mem, err_seq, fru_id, fru_text, sev);
++#endif
++}
 +
- 	if (idxd->state != IDXD_DEV_ENABLED) {
- 		idxd->cmd_status = IDXD_SCMD_DEV_NOT_ENABLED;
- 		goto err;
-@@ -1563,6 +1573,9 @@ int idxd_device_drv_probe(struct idxd_dev *idxd_dev)
- 	struct idxd_device *idxd = idxd_dev_to_idxd(idxd_dev);
- 	int rc = 0;
- 
-+	if (test_bit(IDXD_FLAG_REMOVING, &idxd->flags))
-+		return -ENODEV;
-+
- 	/*
- 	 * Device should be in disabled state for the idxd_drv to load. If it's in
- 	 * enabled state, then the device was altered outside of driver's control.
-@@ -1623,9 +1636,16 @@ void idxd_device_drv_remove(struct idxd_dev *idxd_dev)
- 		struct idxd_wq *wq = idxd->wqs[i];
- 		struct device *wq_dev = wq_confdev(wq);
- 
--		if (wq->state == IDXD_WQ_DISABLED)
--			continue;
--		dev_warn(dev, "Active wq %d on disable %s.\n", i, dev_name(wq_dev));
-+		/*
-+		 * A halt's clear_state leaves a bound queue DISABLED while
-+		 * its driver still holds the queue's channel and resources.
-+		 * Release every bound driver, not only the enabled queues',
-+		 * before the dma_device below frees their channels. For a
-+		 * queue without a driver the release is a no-op.
-+		 */
-+		if (wq->state != IDXD_WQ_DISABLED)
-+			dev_warn(dev, "Active wq %d on disable %s.\n", i,
-+				 dev_name(wq_dev));
- 		device_release_driver(wq_dev);
- 	}
- 
-diff --git a/drivers/dma/idxd/idxd.h b/drivers/dma/idxd/idxd.h
-index ce78b9a7c641..2343f0367d62 100644
---- a/drivers/dma/idxd/idxd.h
-+++ b/drivers/dma/idxd/idxd.h
-@@ -269,6 +269,7 @@ enum idxd_device_flag {
- 	IDXD_FLAG_CMD_RUNNING,
- 	IDXD_FLAG_PASID_ENABLED,
- 	IDXD_FLAG_USER_PASID_ENABLED,
-+	IDXD_FLAG_REMOVING,	/* PCI remove under way, refuse binds */
- };
- 
- struct idxd_dma_dev {
-diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
-index 4b827a329756..4443d23fde5a 100644
---- a/drivers/dma/idxd/init.c
-+++ b/drivers/dma/idxd/init.c
-@@ -1267,13 +1267,31 @@ static void idxd_remove(struct pci_dev *pdev)
+ static int extlog_print(struct notifier_block *nb, unsigned long val,
+ 			void *data)
  {
- 	struct idxd_device *idxd = pci_get_drvdata(pdev);
+@@ -229,8 +238,9 @@ static int extlog_print(struct notifier_block *nb, unsigned long val,
+ 			struct cper_sec_mem_err *mem = acpi_hest_get_payload(gdata);
  
-+	/*
-+	 * The devices on the dsa bus stay registered, and so open to a
-+	 * sysfs bind, until the unregisters below. A bind during the
-+	 * removal would re-probe the device or enable one of its queues
-+	 * while they are torn down, and the PCI device lock held here does
-+	 * not exclude it, so the probes test this first. The command path
-+	 * changes IDXD_FLAG_CMD_RUNNING in the same word with non-atomic
-+	 * bit operations under cmd_lock, which would lose a bit set
-+	 * concurrently, so the flag is set under that lock too.
-+	 */
-+	spin_lock_irq(&idxd->cmd_lock);
-+	set_bit(IDXD_FLAG_REMOVING, &idxd->flags);
-+	spin_unlock_irq(&idxd->cmd_lock);
-+	/*
-+	 * The idxd sub-driver's remove walks idxd->wqs to disable the
-+	 * active queues, and each wq is freed with its conf_dev. Unbind
-+	 * that driver while the queues still exist.
-+	 */
-+	device_release_driver(idxd_confdev(idxd));
- 	idxd_unregister_devices(idxd);
- 	/*
--	 * When ->release() is called for the idxd->conf_dev, it frees all the memory related
--	 * to the idxd context. The driver still needs those bits in order to do the rest of
--	 * the cleanup. However, we do need to unbound the idxd sub-driver. So take a ref
--	 * on the device here to hold off the freeing while allowing the idxd sub-driver
--	 * to unbind.
-+	 * When ->release() is called for the idxd->conf_dev, it frees all
-+	 * the memory related to the idxd context. The driver still needs
-+	 * those bits in order to do the rest of the cleanup, so take a ref
-+	 * on the device here to hold off the freeing until that is done.
- 	 */
- 	get_device(idxd_confdev(idxd));
- 	device_unregister(idxd_confdev(idxd));
+ 			if (gdata->error_data_length >= sizeof(*mem))
+-				trace_extlog_mem_event(mem, err_seq, fru_id, fru_text,
+-						       (u8)gdata->error_severity);
++				extlog_mem_err_event(mem, err_seq, fru_id,
++						     fru_text,
++						     (u8)gdata->error_severity);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
+ 			struct cxl_cper_sec_prot_err *prot_err =
+ 				acpi_hest_get_payload(gdata);
 -- 
 2.43.0
 
