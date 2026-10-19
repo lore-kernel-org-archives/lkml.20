@@ -1,246 +1,167 @@
-Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010062.outbound.protection.outlook.com [52.101.201.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21484CE685
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:17:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408625; cv=none; b=m9efpEWCNg3xs52kPB29IfN9bkXaSDt5fjaG4YPpcgkLvCSoZVkjns7uXe1ETZVISQE4meWXYdmaYesqneBtTx4NmnSql6lBArgNF6As8uF8uR2Dn/oju3NFq7tBMJ1fSVWXA7YRhqvs4kaQn7zZxerp0yhVrqA3W2n0AmqU3L8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408625; c=relaxed/simple;
-	bh=O+NWByob2gVZL0+tsbFgHWpFXaQuqITlhKc4tDqFErw=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=o4RBcL2lYNmj3ajHZTnf88jVCOhqGsVX0ZexCBrSlIYjw3wnqe2edPwYARhgNpdH8GsKO8lyzGwZwpfhKUPz3sF+KcoVN1e73KKp5Bs4wzCzL7cEvGagMZ25SFbdRGeWYApwarltegZvnbkiwx65m7IuJhAOPgp0khpzXOmElOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=b9d7dDhE; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rDB3KOnx; arc=none smtp.client-ip=202.12.124.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C4C3DDB04;
+	Mon, 19 Oct 2026 11:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792408638; cv=fail; b=djVz5RVcG9YG0Iw+4k4071Nf51mkXQlev1I6fLT86rRHmwKrK6Rbx32X6ikua5W9QtOEdNjHGw8hbdZjTWT6q587Ckcyc62Y/jyZp707z0VVp0eJKfLgLGZx2+0RBLCVDLPruDGGeErSZLokyqL673KQXyrRvG1ZVcoRZlivBMg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792408638; c=relaxed/simple;
+	bh=/bBtAjpPTD5ZOFl6srz1+dFFndWg0uFDbyDygUGV25k=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=W2RqtLKlQhDOE9OwU/0aDSlrnLDcVx8ntGeZfbLni34zDVGaTdH68PcC5995QnIf33gWAgTwsX0y/MtauQ+8ncQVkxDGEr+QgVoHUEGL16oWs2/+oWls1DGCMqLAqVoNlauQXYJKM9sg6x+IqRDLTWAvSGnnDbZF7pOArwI3qzE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LbRsZuvv; arc=fail smtp.client-ip=52.101.201.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="b9d7dDhE";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rDB3KOnx"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 083C77A00AB
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:16:59 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 07:17:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792408615;
-	 x=1792495015; bh=zgLYa/JnxT/8EIQ/TE2CX6B+wBarwWr0qwjQhA9dpNI=; b=
-	b9d7dDhE9PatOGwZBYyfkXv3N3OjEFxIPcP3FItJP4pZeMhgK9InPcYIaBjpDOtq
-	d+FKaldDcFyG6HsPEjdruPhwf/rhWdfenmcIQWxN2M7Qn/QKcI8AJNgw8nolYIsK
-	DTGExytUlEnhp0xBt81fHxzcRUQ9oCHG8PuzUQexVOfVA4fjfkUuRksqs1admKbs
-	nWP33JQCAWF1VOnM6wk2x0CzGkBRr+r4SVb9HkWvNtPmGYwfN/FphQzxzd0s++3A
-	mFF1EdItiemGEvO0PN9jQm7KUeA7lA8kx2MneLi8J/VERryhqT5TgcdoOBSDYzaV
-	6MaLNbD2m+VG+U0SyQkkEg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792408615; x=
-	1792495015; bh=zgLYa/JnxT/8EIQ/TE2CX6B+wBarwWr0qwjQhA9dpNI=; b=r
-	DB3KOnxG8B8v7pIH2IVJwBK6wpdcjQl1Rr5eZjm2eVJrvU5Eel78XLQOP0QWnl5E
-	VFct/6DAZOU7ozsnfU+nPmpi/4U7dOqcDpa2PGLigpf3dPKyKFb2sizoCJlzxZcA
-	6638nm7LgI41Jp+ElTp6OxN/jc/Kbh8MMLGcY9k2/97fn3esDoMvy90+ZxS6w+Hx
-	Z8uS2qNH1IBsLVryeS6ciLmyca0GOMJGu34urEui/ka1AgkUoM8l06jxVNhOh+Or
-	AA9YfqAuZ1WOCOAGqL5n/TzJYcmxumjxhJYJn+iQKVmeNEGCrJgHJYdDHRt2AxRw
-	9c53KgKiX/V700NJvz1IA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792408615; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:h6ZSe2L/XMiIva8fcHUDH15bZeLm2gE/uN9TRFzN4kTh8u5
-	q4xINu8rWd5mLhr2uDr4ydkDLpyMAyH0BKii6Tu7xLdiEgwO5lS8mDROlwIbRxYv
-	T2pc2BEpoRLfrdWKy7cNagRTUFVUNwWOgA89xT0dMR94Yd6fCu3WAKGSvCtuKyBl
-	zBbufhtIVXWNk471Pi5skfAhPbpY5k0hjlW1HleB4oClZtv5TDI3RwckTKVMAa3O
-	0/xX92pgFjci1XIbedeo770KCHuZtWLhoCSa0f+og8FwinLDpfPYFhYY1By2IRB1
-	0kybPliU/5TPGseyJflb5wGSdlfyPCtEk2juQhg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:zJKx6kBh4q2kkDyKsibzk02wNoyknxOpIXYcNiMoR90=:O+NWByob2gVZL0+tsbFgHWpFXaQuqITlhKc4tDqFErw=;
-X-ME-Sender: <xms:I_zVarT5Lgv-2DoJUZgLQMZFY97RfuFlkPOeDxLbChcpwDkB2Qksvg>
-    <xme:I_zVannd1hxnR8nmeYawmXognSuRkBoL3a_hs9rbym3hZQJt8IjFV1glt28N99gQY
-    fu6w9bRmiYXB-nWDWe1G6hFJ-SghD1tmgYdCicUU8KWRLCeQT4tpufs>
-X-ME-Proxy-Cause: dmFkZTEePN2YjTBxNqBq6SGh7R9IGsuxzB9KQLpmOmK8t2xw8fGIOVtNR0QZoXk1P/Q/g8
-    OZkIR4pW2xOs+HI1XHcf+t3+iGN20YB/VTDRi4vrloTts1K8NgzN7aN5327SNIuAdTv0Q+
-    5Ecv0zod5j88/5rvNstwTWrgPmUQCScJJlL6HsmGB9E4+Rn5sVUO3X32XsclpFyb50Vsmf
-    MDGOrh8xHZmUqqduCMKeCeXdnrT2XpHr1ajdCNwUikRiFq8J+7h/2XWE5S/qFlSpZPUwBe
-    o5UPjj51lL0iGsTrdo2NNCpri1PwEv6O2DvJpnWeqk2HX0AGUcLvuxKBmaeeuV7JCfy3Z7
-    6NBS/rrbaeTm8NwGyEwtTfVp0wMI6Cuf5GhOq1BoBYD/8a1ZoTEJtGZcAYkueo0jSq/zzA
-    Y9V6WDXeM6wQrG9B9vYcuphhepJHG4ekCh1ZGYTOetk22buwMQVjBMyT7CUsS/LwXo/+er
-    /Df7BxOS2YRh2E+zDNem3o3CNOV0C9PEX7Jy3k33LXVU7hSMkZ3wopMqF3jeHmDEcFrNWM
-    Mlj3yB6zOtWaruwSGlFZUK6WV66erjBVjCEyUskQ3owvfv9iiLHZAFfvWIoEvsuQ3AU+SD
-    c0pGq6O1qaHeG3qT88Uu4eqisdG9ZLZhSAwYM8log1bxF8ZXMuAO3rMqC+DQ
-X-ME-Proxy: <xmx:JfzValXUnZpTpDusRZV1vLvtQNbAWaxKSU_Ak8W6Lc_-sq4oelrcog>
-    <xmx:JfzVai-ecXK3lnBb4vQ-CR1vgF378ComkXeXPHiPsaIpauZrZ1Bx-Q>
-    <xmx:JfzVaosL1TyTy9XB4kT8GI18YvMZt0yb62eACVS7DlxHs2B85iIcDQ>
-    <xmx:JfzVai01-RAq6QmJxGw7hgGwPqm4wTvrzdsD_gLN5rNWuOW874IkTg>
-    <xmx:J_zVajy6JIXpwrovofzYrk4T4uBzCgl6TpTFIuJIaSYYt_YkaFgkYAtw>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 6352A32A008E; Mon, 19 Oct 2026 07:16:51 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LbRsZuvv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wxhZpdECVY9ix6rm7WkSyjqSk502kaGenirqk8g91OcU5CUSIJs+pX4071oE1PY9/xeyhYZRLRBrOfj1xU9TLE/wYO9KpPGpBhiFNIZdyWPmjXFCUP+F33Y1va/DJgs9LAYFb9M1c6Q/vMKp9RV+qvFkkyo6Uiu+dmrUA7OVudbmTSuUKyRe5cGK7nnKqzxa+yffcMMi1yjiI62gKK6nHOyDBca0xL1NYcOcXsyrJPJbRx47k+gtECMvLE5tf0sTjXrNzmQDEnIRbcjynvI2gV2OaL+UOl3mQrnkfPT8DDgSzsomGQby9gmUbxfed9ZbMmuw2u9ND3ISj8zMdEs7BA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8G3GKTn9Sjd31fVfs1gxwCOWHBE6PLh3CYswoBrTx2s=;
+ b=w5IpmPyoQxbBB54eRucJbjh0l2lwef05rdAYWp8inUp6KrC6K02ikhBo1gxnXQDOxsz24Rm8/+1b1pbtIXUI+K5HOPle3uGUBYlD7OL4r3duidMThcdRLJmFuV/grNTDu/adA1Z1ArF8fkR2GXWZ+2hsNveDn8z/fOcPmAmdXElD12agn1O1OOSqptctuUHewnTfiQSH8L+XfXeE7dnAETf8ciD2JPwIIkryvdP6ZMOzuqlAFU5YGHg7Iv8WwVob0JDCDpbKlK0vE0YgOTAsdAkluzSQJPd5yekHhZFYG7pr/7tyZAZDVGclcSqvCP5Giohs2MouZD6g6bjTMmPOXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8G3GKTn9Sjd31fVfs1gxwCOWHBE6PLh3CYswoBrTx2s=;
+ b=LbRsZuvvoLkSnqcLqGFQFfS1EL2PREz9BnsV0+s+KipgmM+J8to1knkUDxKmoexAYlNQ4eiTCo4gTP4Mygi5Nr6r1pMZPCY0cP9z8Awor0fXg9CdVx8oPsAxLEICpKNfpzSR4ZSE9ExqXB+GN2UK485tzKsHyIp9lY+s5LHX03WZGrDQ4AixfpdDfy5J/3/epY1v7Io8iS6LOeIBF53VqPjNj8I53/MJj4jgCaRinHmHc4SSUVxPoTM2D1kvHT2KZDcQEo5+vU91W5rpWPgGanmVBnlxbK7kBNNonNJSjcKYh/T5v+yyDTyQyaCgiygFPdfCIf4VPojIaOziKID39w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) by
+ SA3PR12MB8045.namprd12.prod.outlook.com (2603:10b6:806:31d::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.24; Mon, 19 Oct 2026 11:17:11 +0000
+Received: from DS0PR12MB8245.namprd12.prod.outlook.com
+ ([fe80::e7c5:cfca:a597:7fa4]) by DS0PR12MB8245.namprd12.prod.outlook.com
+ ([fe80::e7c5:cfca:a597:7fa4%3]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 11:17:11 +0000
+Message-ID: <14da8b54-6e53-4466-83f2-e8a2cfa9e8a2@nvidia.com>
+Date: Mon, 19 Oct 2026 16:47:03 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] PCI: tegra194: Avoid full Endpoint reinit on PERST#
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof Wilczynski <kwilczynski@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ Rob Herring <robh@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
+ Jon Hunter <jonathanh@nvidia.com>, Vidya Sagar <vidyas@nvidia.com>,
+ Niklas Cassel <cassel@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
+References: <20260923072554.1141864-1-mmaddireddy@nvidia.com>
+ <20260923072554.1141864-3-mmaddireddy@nvidia.com>
+ <6b4ffagwiepvhctdffzulxqvkie7rpk6eq47ssel4l6ilrkazr@j76sfnd3eush>
+Content-Language: en-US
+X-Nvconfidentiality: public
+From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+In-Reply-To: <6b4ffagwiepvhctdffzulxqvkie7rpk6eq47ssel4l6ilrkazr@j76sfnd3eush>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN0PR01CA0017.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:4f::22) To DS0PR12MB8245.namprd12.prod.outlook.com
+ (2603:10b6:8:f2::16)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A2HaaWELKR9F
-Date: Mon, 19 Oct 2026 13:16:14 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
- "Dinh Nguyen" <dinguyen@kernel.org>,
- "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>,
- "Ley Foon Tan" <lftan@altera.com>
-Cc: linux-kernel@vger.kernel.org, "kernel test robot" <lkp@intel.com>,
- linux-snps-arc@lists.infradead.org, linux-parisc@vger.kernel.org,
- "linux-openrisc@vger.kernel.org" <linux-openrisc@vger.kernel.org>
-Message-Id: <47eb6b48-d664-440f-84b6-ba09f34d5e08@app.fastmail.com>
-In-Reply-To: <20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de>
-References: <20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de>
-Subject: Re: [PATCH] nios2: ksyms: Declare __mulsi3 export
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB8245:EE_|SA3PR12MB8045:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8120a3d6-c086-4a3a-6e68-08df2dd2853d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|7416014|23010399003|10067099003|6133799003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	4wtgcRI0PlR4/vuxnI7o0nMqHqhn0dsRZeq4+2e4ZuoUz4jK9abpl/ztry/lAb3TxZcz6LSvXbnNPJpW3fsLoPElWmld+N1K0NgvrMCQJgNsZ/5ZQ+3w3w8SXDTCJvPZkTbukdTzpd0+YG9fxMGpdTWcaVOSer8sXYtQLgSO4E+jgdX+LoHvpcPrO0JHxJOPsWxGumAm6SRS46m2mBiNkC0u836rFuO7etAxaXvNB/bQLAcAYZMR7eKqlbyzELkVkFY0/xw7kYhQKs2mtzTNse2OpUBf2APEfEK4x+4OnQRjV2eYf5rLuwhCQp+wCHRVfBHOooU3mAVM8Qi3L76T5XrJM7AIw/S+4OaIIeago1hKlYBDSMtRlowBRergM+oqqj9t19sA1GGi8g3lhbqX0sDmtXSW2h7Ok+OtCWofMShOd+JnTM1Zu596n60T/IpUnXLn3gOJLIIiznOrLX5YBKRD6x0MR/VYYoQcCv24ZnYKbBTi0mfPbIEA30hFTvKK92/T8Ky+/ukT5u+G2g1X3bnD0d6wnseVARPWY+uz62nMyPQUoD+qwzG6S8nIa1zE0/K8WFdbET2Rf62dHTV3GSAQVAD4iR+Rg5aGSPzHfZR3svMq0W+NWFkCpadUZh3u6vPb9VkLR3scz8a+IvX4eIkHNrNSV5Y5bi+deeM0dA8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB8245.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7416014)(23010399003)(10067099003)(6133799003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V3BvSkVmc2Y5WXlvd1c3RElaTlJMWGFMeHdUNE5SODAvZUs0dlhNNnI1RnU2?=
+ =?utf-8?B?MEpkYUVmSDMxVC84Vy9WZ2NJK3NnL2U1OE5nbWxvdVBIU0lkdC9QWWI5WDlp?=
+ =?utf-8?B?MjFSR09rZDlkZ0d2aHo3d2RoU25TdlNGanFJN2xQckpZRTE2MzI3Ty9JemIr?=
+ =?utf-8?B?a0xFMGxwSUR5RWhpbVoya1pYNWVVN1R6UHMrV241MyszZCtQbnlkYmE1U1dP?=
+ =?utf-8?B?TmhBejVnNm0yMjBNM2ZzUDl6bW1uSTlzV1RPcmdmeHdRY1dXOWxhUFhHVGRF?=
+ =?utf-8?B?RXhUSndJdVppNCtsTG1YczZhS0kzejdhUEZuSlN3S3VUN2ZldFdaaDNVUCtE?=
+ =?utf-8?B?blpkWWFLT3AwT1ZUK2QrT2llN1UyVkIycWtnaEYrbUxSVkluUlo3UXVZOTNK?=
+ =?utf-8?B?NXI2QzlRcjFObnFremd3ZmlaWlhHUjlrSlRMRy9sUldkUWtMc290Qk1KM2k4?=
+ =?utf-8?B?QnlZb3Y5UXlEZkUza1VoUzdSVWpucDIvQnFjZlh3a1RVZDU0VkovMlViZGM2?=
+ =?utf-8?B?SDhsMm96bS9mREwwbVd6cHhNckdIYTNjLzZUdnhtd080Z3ZhcE81V01UUVdI?=
+ =?utf-8?B?dWdZMFRmVnRwTDFFd202UFdFR0txdmJhditjRUgycmQ3WThzVEJ0emFrM2Uw?=
+ =?utf-8?B?alhIUjZoUmpjSTlsUkRualR3MDh2UnhIQ0tHOWVKc3hDTHJmRzhaUzJUZmF2?=
+ =?utf-8?B?cWVkUUQxaVJOZHJtY1VkT3lJTDA3cCswU1RaUE1NUlhBL01uY0kyaEI1aHE5?=
+ =?utf-8?B?Z05qTlJPUlVmbFdUTk8yamI4ekUvRGk5ZUt1c2N4QnFpQ052ZFdNVmlVallN?=
+ =?utf-8?B?OFBuQVRqdzVXQXpScCtVMnY0OUMybjkzQWRCTHNGdlFSY3AxbXY4VDdoOFZ6?=
+ =?utf-8?B?TGtwMXVCNTV4cHYxekNSUHRoL2l2Skg2bTJGUThiNVArRUdOcjFxRm1PMG04?=
+ =?utf-8?B?SzJSaDJKc1JES1hPMFlKckkrUTA0WXl2UW9BQjVuM2xBaFozRVd4UWZjWWJh?=
+ =?utf-8?B?RE1QL29kR2JPMG40c09qalJQTnJiOXFXai9zWUNjT0NadGtsNWROZWRzMnM3?=
+ =?utf-8?B?OFZLQ09oU1dDRzdSOVg3enJaN1NRVGt0Qi84OHZZUjFPWS95ZXk1OHdjMmNW?=
+ =?utf-8?B?S25tYm94OGJXT1I3NjJDZ3dlVFU1MzAxakpXVFIxaWp3dWJHeE03a0o4UWUr?=
+ =?utf-8?B?VzFjS3VRWktnVWdWV0kzNU83VFk0QnJPeU00c01GZGFFUWkzZ2FOVFNQdTRP?=
+ =?utf-8?B?STVlaWphZDZzdW1FZVo5aEtqbXVoa2p5SVZvKzJJYmRSYjZqNm1FYXJlRURF?=
+ =?utf-8?B?VTE1aFZRRnAzMENqSGlld3N0RStBWHNJaVV1QmRXNGpwYzEwaitUZ0h5T1Jz?=
+ =?utf-8?B?d2FqSDE4ZzdqZVFOVWpqQUlFSWtqTGZhcmFVT0hXYVZ1VlB0VG9obGNwSFln?=
+ =?utf-8?B?T3ZEWGVobnMrU1BIdlI2N0NOUFpUSlhFVE92R05LTVowQWVnVmt4WkJLRGlx?=
+ =?utf-8?B?eHVYQmJiYUVZOHhrSVNqVEdQc2VVVVhoK1FIUWQybmxYY1p6bENYKzFQMHdY?=
+ =?utf-8?B?N01UcUlCbk54QnZjbjZEMDBidUhWYXVJcWl1cit1ajE0TVBxNXozbXJqSHhj?=
+ =?utf-8?B?VkQ1N3FZNzd4d1hPUlFFeGVWVitkZHE4RlJEeXlpcGpVRXhkd3ZsRHZnVWph?=
+ =?utf-8?B?bXFXTmNZMk9yZ2EwTlkvTkpwTFZ5QmFNR29UUk1nTnVUbzRMNDdUUGJmeVFF?=
+ =?utf-8?B?dFU4dEYwMkUyb1VDb1E2cjRaTnZjQmlSYkRvc2NkWFV6SlYzS09tL0JNMFJ1?=
+ =?utf-8?B?R1ExbExZbSs0R3pKYURlODlDd1d6Y0lXbGszN1FmbC9GMW44SjhMTkZWRitD?=
+ =?utf-8?B?alNranBvdXdzTGEva1pucTZ4OHhXSmk0NzNQcGU4WFhROGxhR002QVBxV2h3?=
+ =?utf-8?B?U2JrdWFOVmtEd1F5WTRJRWVEWFI1WXV1RXpCbzlqQW8zUG1ZNU5JaUpKNUZj?=
+ =?utf-8?B?K1FIRGRDOG54ZGxXS2JkOHVnVnUyNmlFU3JQRlhmMmJzQjYxa05adGhRZ2Nr?=
+ =?utf-8?B?V2hrcmw0bDZHUkM3SXNRL3JTY2lWWkZmYU4rVm1MNGhoWVA1NGFoK2lGbEFV?=
+ =?utf-8?B?RHFUZmpMWVJ6ay9ZWmhOK0NaNGtTUnpPLytXeGlmbEhZU2d2ZWNEK3NpeUZ0?=
+ =?utf-8?B?VW1GTlhycWg5bGZmcnhtRFJnTGZEZGRDSjRBUllLeFg3LzlZUTl4Nnl1ZFZN?=
+ =?utf-8?B?SFg5VzVYZ2R4bDRmOVZvS0JGWGxQUW4zOFNsK2QzTlUxemVCc2NEa29hME50?=
+ =?utf-8?B?LzNWTVBUQzBnZ0lyc0g0aWE4cHYrZnNCN1licFVReThzOXhHcnBKQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8120a3d6-c086-4a3a-6e68-08df2dd2853d
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB8245.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 11:17:11.5558
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /Y+t1ZViB2O0SEVU2XQ2gnB1C33rJiet3w7PU0hMpDK8xqVg0q85kyTMvEpKecpvkSFtXHJUh0T3+zrHEdFgaQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8045
 
-On Mon, Oct 19, 2026, at 11:49, Thomas Wei=C3=9Fschuh wrote:
-> GCC may emit libcalls to __mulsi3(). As modpost is not aware that this
-> function is provided through the linked in libgcc, it fails:
->
-> ERROR: modpost: kernel/locking/test-ww_mutex.ko: symbol '__mulsi3' und=
-efined!
-> ERROR: modpost: kernel/time/test_udelay.ko: symbol '__mulsi3' undefine=
-d!
-> ERROR: modpost: kernel/resource_kunit.ko: symbol '__mulsi3' undefined!
-> ERROR: modpost: fs/fuse/virtiofs.ko: symbol '__mulsi3' undefined!
-> etc.
->
-> Make sure modpost can see the symbol from libgcc.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes:=20
-> https://lore.kernel.org/oe-kbuild-all/202610171933.J4bFOfL8-lkp@intel.=
-com/
-> Fixes: 2fc8483fdcde ("nios2: Build infrastructure")
-> Signed-off-by: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
 
-The patch looks correct to me, but it would also be nice to not use
-libgcc at all. What I see is that only arc, nios2, openrisc and
-parisc still link against the toolchain-provided libgcc, everything
-else uses the kernel's own runtime.
+On 17/10/26 2:47 pm, Manivannan Sadhasivam wrote:
+> On Wed, Sep 23, 2026 at 12:55:53PM +0530, Manikanta Maddireddy wrote:
+>> Tegra194 and Tegra234 Endpoint mode receive PERST# as a fundamental
+>> reset. Controller registers are lost across that reset, but DWC
+>> Endpoint resources live for the controller lifetime.
+>>
+> 
+> What do you mean by 'DWC Endpoint resources are live for controller lifetime'?
+> What resources you mean?
+> 
+> - Mani
+> 
 
-It's probably not even that hard to do right, here is what I found
-is imported from libgcc.
+I mean the DWC software objects retained while the driver remains bound, 
+rather than hardware register contents. The existing initialization 
+already reuses several allocated objects; the unnecessary repeated 
+teardown/setup primarily concerns debugfs and eDMA where present. I’ll 
+name the resources explicitly and distinguish their lifetime from the 
+reset-lost register state.
 
-* Generic library helper exists, can be enabled through Kconfig:
+- Manikanta
 
-=3D=3D=3D __lshrdi3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-arch/nios2/kernel/nios2_ksyms.c
-arch/openrisc/kernel/or32_ksyms.c
-arch/parisc/kernel/parisc_ksyms.c
--> lib/lshrdi3.c
-=3D=3D=3D __ashldi3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-arch/nios2/kernel/nios2_ksyms.c
-arch/openrisc/kernel/or32_ksyms.c
-arch/parisc/kernel/parisc_ksyms.c
--> lib/ashldi3.c
-=3D=3D=3D __ashrdi3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-arch/nios2/kernel/nios2_ksyms.c
-arch/openrisc/kernel/or32_ksyms.c
-arch/parisc/kernel/parisc_ksyms.c
--> lib/ashrdi3.c
-=3D=3D=3D __cmpdi2 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
--> lib/cmpdi2.c
-=3D=3D=3D __muldi3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-arch/nios2/kernel/nios2_ksyms.c
-arch/openrisc/kernel/or32_ksyms.c
-arch/parisc/kernel/parisc_ksyms.c
--> lib/muldi3.c
-=3D=3D=3D __ucmpdi2 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-arch/nios2/kernel/nios2_ksyms.c
-arch/openrisc/kernel/or32_ksyms.c
-arch/parisc/kernel/parisc_ksyms.c
--> lib/ucmpdi2.c
+-- 
+nvpublic
 
-* 64-bit division probably should not be provided on arc or
-  nios2 (and sparc32, which has a private copy).
-  parisc64 should get these from libgcc/libgcc2.c.
-
-=3D=3D=3D __divdi3 =3D=3D=3D
-arch/parisc/kernel/parisc_ksyms.c
-=3D=3D=3D __udivmoddi4 =3D=3D=3D
-arch/nios2/kernel/nios2_ksyms.c
-=3D=3D=3D __udivdi3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-arch/parisc/kernel/parisc_ksyms.c
-=3D=3D=3D __umoddi3 =3D=3D=3D
-arch/nios2/kernel/nios2_ksyms.c
-arch/parisc/kernel/parisc_ksyms.c
-=3D=3D=3D __moddi3 =3D=3D=3D
-arch/nios2/kernel/nios2_ksyms.c
-arch/parisc/kernel/parisc_ksyms.c
-
-* floating-point math should not be provided by kernel:
-
-=3D=3D=3D __divdf3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-=3D=3D=3D __divsf3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-=3D=3D=3D __fixunsdfsi =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-=3D=3D=3D __floatunsidf =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-=3D=3D=3D __floatunsisf =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-=3D=3D=3D __muldf3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-
-* no generic implementation in kernel, need to copy from
-  libgcc/lib1funcs.S code:
-
-=3D=3D=3D __divsi3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-arch/nios2/kernel/nios2_ksyms.c
-arch/openrisc/kernel/or32_ksyms.c
--> arch/arm/lib/lib1funcs.S
-   arch/m68k/lib/divsi3.S
-   arch/microblaze/lib/divsi3.S
-   arch/xtensa/lib/divsi3.S
-=3D=3D=3D __modsi3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-arch/nios2/kernel/nios2_ksyms.c
-arch/openrisc/kernel/or32_ksyms.c
--> arch/m68k/lib/modsi3.S
-   arch/microblaze/lib/modsi3.S
-   arch/xtensa/lib/modsi3.S
-=3D=3D=3D __udivsi3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-arch/nios2/kernel/nios2_ksyms.c
-arch/openrisc/kernel/or32_ksyms.c
--> arch/arm/lib/lib1funcs.S
-   arch/m68k/lib/udivsi3.S
-   arch/microblaze/lib/udivsi3.S
-   arch/sh/lib/udivsi3.S
-   arch/xtensa/lib/udivsi3.S
-=3D=3D=3D __umodsi3 =3D=3D=3D
-arch/arc/kernel/arcksyms.c
-arch/nios2/kernel/nios2_ksyms.c
-arch/openrisc/kernel/or32_ksyms.c
--> arch/arm/lib/lib1funcs.S
-   arch/m68k/lib/umodsi3.S
-   arch/microblaze/lib/umodsi3.S
-   arch/xtensa/lib/umodsi3.S
