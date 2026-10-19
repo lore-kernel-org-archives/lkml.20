@@ -1,272 +1,151 @@
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB0E29ACFD
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:08:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09FD320459A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792372114; cv=none; b=bI0OqSzfU4NoA6F2r/wl1GIELtIT9dHmzrnjAbOZ3/MdO2ciTCwgz/TT3q/iiGsa2eRd7pf7sZtL0nNMsjntBu6rO99UcyhcIxPgG5STMVKHIusurp3NYRG+InBbjaWW5OiIqvndL4j/l9xZVl7O1GtZe331NMuXcvqXEYJMjaw=
+	t=1792372335; cv=none; b=W1MLSjL+ePk1FFL8f1BytvE+5LXl6EdZOcgBZZCn6918BrMNK65JKSkJleoqPujKJa+CF9bZ5X34aHcQ58PDbzLBmP0+xC9Z4VWuxqF4m/VgpKawM6qYv707daXWivLLCgfeR1avRDCyTTUqfTHYLf4PmX4ISKrzfoDgTfZFH3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792372114; c=relaxed/simple;
-	bh=p42K430ZcBqHIxS0nWM3yiKs1nh/sx8iWsFs6cJ03aM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=fPD4UjnJ4gStzrWI923rydpy4ioIPYOLo8/OHJhrt+I+BAwLwcjih1ajWRouIfopvPBtmA6gsD9JR9KNzpdmgni0SkEh/5dwmEACTgFGuZ7En2CYP5Rmskm877hlyWsZ3USCBn7xnt9rRPZOz4RKweAvBBk2IQgfU0RNGigGMro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-458326d2d9aso2408985fac.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:08:32 -0700 (PDT)
+	s=arc-20240116; t=1792372335; c=relaxed/simple;
+	bh=YuNuB52kvQgcX349nqKkv4i/2o2bUEHQba83Zru1I+U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=inJVOPseio87xnGbnhLAdo1AgSyjo7FNTejz8QTNLAKVoDS9DxkiQ3HFlkkZ8kYExH3o/ZGuA0Uq/Qj/jACudbtne3gzPwuYxTBxUi1SFKAAgj6Qp8ILaw8x6+7l8Es+/eAwjxURsYgUrmMgb/e1Isb8GZRGecIN1WVxlQRim00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PSfTWYOU; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PSfTWYOU"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso7593165ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:12:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792372333; x=1792977133; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9iMW1/+hYAmRNDgdBSskmyjNh4Q5P7SaRq2YqDn9vmg=;
+        b=PSfTWYOU5EUIVR1NV5JpVqiAK4657QXW4DL7WbAH7p+FW1e9huBC8x05Oysc3pbuw6
+         8QLZIQlseAOICPW+tzujajx1uVcGqLn2kEbXeRk4mOfAfF2B24sn9jXPnRAp0Qq7nYIi
+         Lf/ArIDXjFqsU3ZGM26D0dPWx2kLD+D634Vhv1fgPIbiGxSvGUzCt7GaeS4Xh7FqSL09
+         Ws/hdqYNyze7iy9/cVurRg1zjHUowD/8iNnQBa9Soztry5hKs6V/P3N+Kz4bv5XcHHXG
+         T+gdoBXJ0r0LM3AHwu/GB4vPgxXZFK5Q9z30OhTQoPaRj/B3OJgRgHW4qs6mOO+UC2cA
+         y18w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792372112; x=1792976912;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=10eExBUClpAaqEOeBS1LeHVWYKjEkHMLvsM4ks904So=;
-        b=dYfLl43vcASx+TSh/D57hC94vvFEOgdic3xN+MGtqIqdf6VUy3ZkwlEms5fCArsjmP
-         Gf8w0q5MqZl3HD6e8QgKiuprKDqRgN2zkR2aRCZ5d+XSWMWBI9iOjJ5C8HGL5GsVn7gt
-         ZWLWgufv5AruRuXGN4SiWZsTO2o6DC+aR2ZXhVjLopiKCk4qQPQ4gRmoZI4TRVYz92/i
-         Xfu4Tute8EL43p44cRftPjgqYaj0f6m/nw4WuO4C5z+u2Rk+gdFYBVLuR9Gzi9ICffVU
-         A3+5bq1udemFT3uydLe4ZfuUMxyyPJmbm2vm+6gerMO9Y3iheZ3gmf6iKKxtSWJ8+93U
-         qlIg==
-X-Forwarded-Encrypted: i=1; AKwUvBzF+WHuPgaYgyq10oX0IkC1IBvB5Rfeg1KpKJiG58qOlFaC0lGhVkA0L9LRgkK7Q8TO076o8dJYEvHSC/0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZ6Rzm4YOOAFS2gGn4PkLkdThi1TgQTqUex/jTuA5h1qmxdT/9
-	AyXaipY+P7wKAXB6cZK9xoriBkwsGKTYoCaS4XvqruSoDbD90WcQAdzH0MWp2hZJmRL1L6JTXap
-	F86eTEEnbfAyGY/ZZKOu12jeTsbLq1Wo+MoFWTrF8JTMuxlhcJ4D7XWZQonI=
+        d=1e100.net; s=20260707; t=1792372333; x=1792977133;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9iMW1/+hYAmRNDgdBSskmyjNh4Q5P7SaRq2YqDn9vmg=;
+        b=zwhXnCCLpiSZMGxyxvrV2GsXUqSqL31R61/BJgSEJVKLoJH6hAB38bilnydYUqU6ub
+         XhdeXsWdAYZ5wHgr+ma2issKzsPCLGohUyfBAMivdMBSH9Gz+zM7hYrAhTMoNHcDbkQt
+         VtgxC3pz2gdiqCFzMaYu+sVpciyj2COXzNHaspeJ+TRds1RYRmtxFtmjPsZWiTFEjcbG
+         AeO76zSu8aqJoSHtA+vYZB0rBFPir+x065uKNzrMj87Z3CxqmjEhCUNcqR7dHOYdMGpX
+         gOGojoT+BDkuxuDFupZiT1BxaMovHpn+emCm0vTTKipVbmJWiVsban6xzek9VCbsInAS
+         X9OQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFQ73rjTC12+wpL5QpNhhzS3yCJ9KMWari9EDbhU5kRjGlZxXymVCR6VPsF+yqjLxjjn4jmF79mZ8wWoo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLtnIKfkBU7wIshELqBaP7IbtvheIuf2qoKwBA74WwLtzA2g8BX
+	0Lxv5D0ahd7dqlKmMomFLW0jQZwyMFR93LAhN4HOmIAtuMyMlHWIn3EY
+X-Gm-Gg: AYBFou16yhdTAoX6Dl88ZHPOdCDsURmfgFghEdapJBrfpV/6/1G2bqqugbYUHHcnFzV
+	s5KwxgbQDMZdyuWpyuAT//LvTYLhLwX6Nwtny8N+04hwjAjF+diCNuSwIA5Ai7F5UTRFnOEn1Xo
+	mW0pmkduVTV9ls+FPQoXfLrWYdhftaOSBxMTwiBpStaDL1Yr2XJVkN09hDHf5KL8Vvo5uzB1AlI
+	/ip0UxhUop6j7YHwt75Z0hMl9G0DcNvRmurZJtEwZEPJPFxZvvDkKbYubKrBR49FzzxGfAmb2H9
+	ELR77uTB3rZmu4CfOCV2tOhUsh7k0s4LaRub+9PQ/uX7UuVpWPU9nNhNFun45T3BgbFACtP6kAH
+	QearntDhE7UGfTOYAD1Loy69IahizrQAQHmIY0xnairD4PxiE2q1X7R5w1EUjTM98okJDRBQD0w
+	GiW0Tm4mXDOrwMS4GCChmE3Ik+teJa4WPoTc2rjvT9ZBSEVUTByiHF7Scbb2FkXYzuEHg4TxLqu
+	GWozpfC30PTMtSp0DfLaKlA8Qds/e2dpjLHSaWxFIQEUAGxFK2+4qax
+X-Received: by 2002:a17:90b:390f:b0:3ac:8897:7ba5 with SMTP id 98e67ed59e1d1-3acef5f5bd8mr5441712a91.59.1792372333228;
+        Sun, 18 Oct 2026 18:12:13 -0700 (PDT)
+Received: from 1u1g-b650-0212.nvidia.com ([72.25.70.131])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc9d266d6sm7011793a91.1.2026.10.18.18.12.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 18:12:12 -0700 (PDT)
+From: Samarth Narang <samarth.colleges@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Xu Xin <xu.xin@linux.dev>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Peter Xu <peterx@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Samarth Narang <samarth.colleges@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a page
+Date: Sun, 18 Oct 2026 18:09:34 -0700
+Message-ID: <20261019010934.697895-1-samarth.colleges@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c40a:b0:4c3:bc6a:a328 with SMTP id
- 5614622812f47-53ccca4217bmr4634545b6e.31.1792372111987; Sun, 18 Oct 2026
- 18:08:31 -0700 (PDT)
-Date: Sun, 18 Oct 2026 18:08:31 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad56d8f.6814cce4.34c49f.0143.GAE@google.com>
-Subject: [syzbot] [dri?] KASAN: slab-use-after-free Read in
- drm_sysfs_hotplug_event (2)
-From: syzbot <syzbot+f5ecf25277b844fd38f2@syzkaller.appspotmail.com>
-To: airlied@gmail.com, airlied@redhat.com, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, sean@poorly.run, simona@ffwll.ch, 
-	syzkaller-bugs@googlegroups.com, tzimmermann@suse.de
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+replace_page() maps the KSM page with a PTE built from scratch, so the
+soft-dirty and uffd bits of the PTE it replaces are lost. Due to this, a
+write before the merge no longer shows as soft-dirty, the next write to
+a uffd-wp page raises no write-protect fault, and because the page is
+mapped with the VMA's normal permissions, on a uffd-rwp VMA the next
+access raises no RWP fault.
 
-syzbot found the following issue on:
+Copy the soft-dirty and uffd bits from the original PTE to the new PTE,
+and restore PAGE_NONE for RWP VMAs, as try_to_map_unused_to_zeropage()
+does.
 
-HEAD commit:    0fcb05b72344 Merge tag 'libcrypto-fixes-for-linus' of git:..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=134e7a21580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4118aaa2d227be26
-dashboard link: https://syzkaller.appspot.com/bug?extid=f5ecf25277b844fd38f2
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: i386
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/c7b208871bdb/disk-0fcb05b7.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/cc9896352195/vmlinux-0fcb05b7.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/7d6edb0c1319/bzImage-0fcb05b7.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f5ecf25277b844fd38f2@syzkaller.appspotmail.com
-
-udl 2-1:0.0: [drm] *ERROR* Read EDID byte 0 failed err ffffffb9
-==================================================================
-BUG: KASAN: slab-use-afte
-BUG: KASAN: slab-use-after-free in get_kobj_path_length lib/kobject.c:119 [inline]
-BUG: KASAN: slab-use-after-free in kobject_get_path+0x91/0x2f0 lib/kobject.c:158
-Read of size 8 at addr ffff88802a29ee18 by task kworker/1:2/1654
-
-CPU: 1 UID: 0 PID: 1654 Comm: kworker/1:2 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: events output_poll_execute
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- get_kobj_path_length lib/kobject.c:119 [inline]
- kobject_get_path+0x91/0x2f0 lib/kobject.c:158
- kobject_uevent_env+0x29e/0x9e0 lib/kobject_uevent.c:548
- drm_sysfs_hotplug_event+0x10e/0x150 drivers/gpu/drm/drm_sysfs.c:451
- output_poll_execute+0x846/0xab0 drivers/gpu/drm/drm_probe_helper.c:854
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 5684:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x321/0x600 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- class_dir_create_and_add drivers/base/core.c:3295 [inline]
- get_device_parent+0x255/0x3a0 drivers/base/core.c:3355
- device_add+0x2d4/0xb80 drivers/base/core.c:3685
- drm_minor_register+0x145/0x2e0 drivers/gpu/drm/drm_drv.c:195
- drm_dev_register+0x179/0xd80 drivers/gpu/drm/drm_drv.c:1093
- udl_usb_probe+0xb7/0x150 drivers/gpu/drm/udl/udl_drv.c:99
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2713
- hub_port_connect drivers/usb/core/hub.c:5585 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
- port_event drivers/usb/core/hub.c:5889 [inline]
- hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5971
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 25:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6509 [inline]
- kfree+0x1c5/0x650 mm/slub.c:6802
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x222/0x550 lib/kobject.c:737
- cleanup_glue_dir+0x1b2/0x220 drivers/base/core.c:3487
- device_del+0x77d/0x8f0 drivers/base/core.c:3986
- drm_minor_unregister drivers/gpu/drm/drm_drv.c:226 [inline]
- drm_dev_unregister+0x436/0x700 drivers/gpu/drm/drm_drv.c:1185
- drm_dev_unplug+0x4b/0xb0 drivers/gpu/drm/drm_drv.c:507
- udl_usb_disconnect+0x3e/0x50 drivers/gpu/drm/udl/udl_drv.c:115
- usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:461
- device_remove drivers/base/dd.c:618 [inline]
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x4f5/0x880 drivers/base/dd.c:1372
- bus_remove_device+0x444/0x560 drivers/base/bus.c:664
- device_del+0x524/0x8f0 drivers/base/core.c:3965
- usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1484
- usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2355
- hub_port_connect drivers/usb/core/hub.c:5425 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
- port_event drivers/usb/core/hub.c:5889 [inline]
- hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5971
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff88802a29ee00
- which belongs to the cache kmalloc-96 of size 96
-The buggy address is located 24 bytes inside of
- freed 96-byte region [ffff88802a29ee00, ffff88802a29ee60)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2a29e
-flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000000 ffff88801c041280 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 50, tgid 50 (kworker/u8:3), ts 7340126275
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7418
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __kmalloc_cache_noprof+0x39b/0x600 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- blk_mq_alloc_ctxs block/blk-mq.c:4367 [inline]
- blk_mq_init_allocated_queue+0xc2/0x13c0 block/blk-mq.c:4644
- blk_mq_alloc_queue+0x1ba/0x2e0 block/blk-mq.c:4435
- scsi_alloc_sdev+0x79d/0xc60 drivers/scsi/scsi_scan.c:339
- scsi_probe_and_add_lun+0x156/0x47b0 drivers/scsi/scsi_scan.c:1228
- __scsi_scan_target+0x199/0xd10 drivers/scsi/scsi_scan.c:1805
- scsi_scan_channel drivers/scsi/scsi_scan.c:1895 [inline]
- scsi_scan_host_selected+0x391/0x6c0 drivers/scsi/scsi_scan.c:1924
- do_scsi_scan_host drivers/scsi/scsi_scan.c:2057 [inline]
- do_scan_async+0x10e/0x660 drivers/scsi/scsi_scan.c:2067
- async_run_entry_fn+0x9d/0x430 kernel/async.c:129
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff88802a29ed00: 00 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc
- ffff88802a29ed80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
->ffff88802a29ee00: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-                            ^
- ffff88802a29ee80: 00 00 00 00 00 00 00 00 00 06 fc fc fc fc fc fc
- ffff88802a29ef00: 00 00 00 00 00 00 00 00 00 00 00 00 fc fc fc fc
-==================================================================
-
-
+Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+Cc: stable@vger.kernel.org
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Assisted-by: LLM
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Notes:
+    v1: https://lore.kernel.org/all/20261018122957.526467-1-samarth.colleges@gmail.com/
+    
+    Changes since v1 (thanks, Lance):
+    - Fixes: point the uffd-wp and RWP tags at the commits that make the
+      registration modes reachable (63b2d4174c4a, 2d427bb01639).
+    - Shorten the comment; the uffd bit carries RWP state too.
+    - Add Lance's Tested-by.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+ mm/ksm.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+diff --git a/mm/ksm.c b/mm/ksm.c
+index dbfb8f98b189..de144fa07c49 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -34,6 +34,7 @@
+ #include <linux/memory.h>
+ #include <linux/mmu_notifier.h>
+ #include <linux/swap.h>
++#include <linux/userfaultfd_k.h>
+ #include <linux/ksm.h>
+ #include <linux/hashtable.h>
+ #include <linux/freezer.h>
+@@ -1463,6 +1464,17 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+ 		dec_mm_counter(mm, MM_ANONPAGES);
+ 	}
+ 
++	/*
++	 * Preserve soft-dirty and uffd bits when replacing the page.
++	 * Restore PAGE_NONE for RWP-protected PTEs.
++	 */
++	if (pte_soft_dirty(orig_pte))
++		newpte = pte_mksoft_dirty(newpte);
++	if (pte_uffd(orig_pte))
++		newpte = pte_mkuffd(newpte);
++	if (pte_uffd(orig_pte) && userfaultfd_rwp(vma))
++		newpte = pte_modify(newpte, PAGE_NONE);
++
+ 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+ 	/*
+ 	 * No need to notify as we are replacing a read only page with another
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+base-commit: 48fe11c8d0f1e4e59426a3606f20ac1130b6d8dc
+-- 
+2.53.0
 
-If you want to undo deduplication, reply with:
-#syz undup
