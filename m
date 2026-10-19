@@ -1,221 +1,259 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDEE4AA02F;
-	Mon, 19 Oct 2026 09:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBFD4B8270;
+	Mon, 19 Oct 2026 09:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403581; cv=none; b=siEy9MSRut3/71AeLBbQmU3bEwru4qiT6Rk20pTXkwpZpnusCUphtOSJSycUlFYpJ3/dsE3s+aPkBJoNp/0j0w5dx0lmD81/K6FWYyrK7zvmcCxQhHFNpQLfkF59yz6ltT9pqTM6RpGc2shLDB3oz51F4MHGoT+QW/EjAOlfO2s=
+	t=1792403613; cv=none; b=AiD6Vd7F35rGq6DpzUITgT5069gwo4VCNgIirTBB8F6iRyV7T5aesjzZZ1Fpt7COxNxFp+Xrpuyjf2s7+1sfSx68S0bAOvbZlXtDWiqYRvc8iL2Wv7cipBTC8ORwIykqYTL0k1i2mGFqTZLYSG9j8ULI/2NIjpXVE0tyhmpRFbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403581; c=relaxed/simple;
-	bh=RtHTe7QubVQyF1bsd5sbaxAs+AIF7ZuQ8rfsNI87UMo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e/hvoDzGhGAqZjRNXuVP7/jh7XsX7RjXdrlFIKqHvBuvR9ki5xCQBm6iaM4ERXVD4bAwOPiULwtGSr2kHDCZDCUF2t4BfzGw8NW8GhmpxFOsthwkm7kZ1uMP3IRxV4VHh0hbKpQHN+WMz0dsmKgB+VaEFkGnXqBFY8dUESjbPGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=adlM8tMl; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1792403613; c=relaxed/simple;
+	bh=LL45I+R6h545NOISuRIggUtq27/B1IK8pCC6oyxCegU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MyCdj3cfrtKpJOBPt00rUGgvXW5O+5f44HrDlogP+PptR5aAhf/0RsIOxOr52t4b2tMnm3u1bXKsnPWVKMICx8HbR1e2a1iE6yXDDliyJz9TdrNbWC06iuLnQ1y8a2cTPFHwCyLM2i3FHsNcoPV4jWM4T6Z/U9Drjm5DtpMWYDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TNiH6jAG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IMKWDODb; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TNiH6jAG; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IMKWDODb; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="adlM8tMl"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E7478A161D;
-	Mon, 19 Oct 2026 11:52:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792403577; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=N54jH3zE5IPk+OMB+vYpKxb9DnWTdrSa3op9/m4/h34=;
-	b=adlM8tMlW6OBJcCf2Pr2833rVSSAIJjVqX4/USNbWHYO7dBaGkQ3EZ6QJ3G2B7anhBBC5S
-	3k0/pwxvjaZ4yUCrpd7EW44PA0z84Q1RxoNmF3OUvYuwJq5yCfnH0aBWMqgGRMMfRbYE7Q
-	eMJG5pVVYSw+duLIJw2l+HF/T2HwUZnrchiPO6fpbIt/07uLGzPMIsJDTSZr5q89dF2T8U
-	fnbKym8LMznKSiWJhyCVP5Pk1IMxacl6/JIIJasfwbOcfcg6t+JvUm2tpq0jzYd4Gik9lG
-	tCKHe98xXGRQYmELvzFBfV+ZNL+fmPpzr/rqHYxeDgG6GmlD/K+o+wKSyOV94g==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Mon, 19 Oct 2026 11:52:47 +0200
-Subject: [PATCH net v2 1/2] net: bcmgenet: recover from a failed resume
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TNiH6jAG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IMKWDODb";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TNiH6jAG";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IMKWDODb"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3BB3121AC0;
+	Mon, 19 Oct 2026 09:53:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792403610; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DKiqBw8kgNDEliDnoLY6tY5aR14ZoTfXZiHIpRU4Bno=;
+	b=TNiH6jAGWzJ+CcphCjW4j7aj5U0zeU2N7JUCu5ljMtqB9zQxmzOq8YRau0SpCDN/Tnb02Q
+	ahicBwHrHCw5SO2pH6kRe68ZDqSaS7aHEX9UPBg8P5zUXJ7Puj/y+xTRwvkrsHE4jTNiAB
+	kRcd3Vn7S05FSmK01RYD+x5vtTkQBUk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792403610;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DKiqBw8kgNDEliDnoLY6tY5aR14ZoTfXZiHIpRU4Bno=;
+	b=IMKWDODbku31f9X+imJzQOexZonmmj16TZ2NhoXcsP1S/iPoyWMdMHJAmLh+ZIE4EYWEan
+	6BsoR6hGM5kS4FCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792403610; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DKiqBw8kgNDEliDnoLY6tY5aR14ZoTfXZiHIpRU4Bno=;
+	b=TNiH6jAGWzJ+CcphCjW4j7aj5U0zeU2N7JUCu5ljMtqB9zQxmzOq8YRau0SpCDN/Tnb02Q
+	ahicBwHrHCw5SO2pH6kRe68ZDqSaS7aHEX9UPBg8P5zUXJ7Puj/y+xTRwvkrsHE4jTNiAB
+	kRcd3Vn7S05FSmK01RYD+x5vtTkQBUk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792403610;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DKiqBw8kgNDEliDnoLY6tY5aR14ZoTfXZiHIpRU4Bno=;
+	b=IMKWDODbku31f9X+imJzQOexZonmmj16TZ2NhoXcsP1S/iPoyWMdMHJAmLh+ZIE4EYWEan
+	6BsoR6hGM5kS4FCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0BBCD134B3;
+	Mon, 19 Oct 2026 09:53:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Hk4/NZjo1Wo2OwAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 19 Oct 2026 09:53:28 +0000
+Date: Mon, 19 Oct 2026 10:53:27 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+	Daehyeon Ko <4ncienth@gmail.com>
+Subject: Re: [PATCH v2] mm/vma: avoid spurious write locks when
+ mm->mm_lock_seq overflows
+Message-ID: <atXjbsDn7DJybsHU@pedro-suse.tail5790ac.ts.net>
+References: <20261016-fix-vma-lock-overflow-v2-1-9eb778b79b58@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-nb-genet-fini-dma-net-v2-1-b85f6b92654a@tipi-net.de>
-References: <20261019-nb-genet-fini-dma-net-v2-0-b85f6b92654a@tipi-net.de>
-In-Reply-To: <20261019-nb-genet-fini-dma-net-v2-0-b85f6b92654a@tipi-net.de>
-To: Doug Berger <opendmb@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Florian Fainelli <f.fainelli@gmail.com>, 
- Justin Chen <justin.chen@broadcom.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-fix-vma-lock-overflow-v2-1-9eb778b79b58@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	FREEMAIL_CC(0.00)[linux-foundation.org,google.com,infradead.org,kernel.org,linux.dev,suse.com,lwn.net,kvack.org,vger.kernel.org,gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-A resume that fails in bcmgenet_init_dma() returns with the interface
-still IFF_UP and the datapath gone. The next ifdown runs the teardown
-a second time and napi_disable() waits for a NAPI_STATE_SCHED bit that
-nothing will clear:
+On Fri, Oct 16, 2026 at 12:34:33PM +0100, Lorenzo Stoakes (ARM) wrote:
+> So far the assumption has been that mm->mm_lock_seq overflow is benign,
+> resulting only in readers spuriously falling back to the mmap lock, however
+> it turns out that this was an unsafe assumption.
+> 
+> If a VMA can be spuriously considered write locked that means read lock
+> exclusion does not take place, and thus a VMA can end up write-locked with
+> concurrent readers.
+> 
+> Since overflow only occurs every 2^31 write lock/unlock cycles, resolve the
+> issue by resetting every VMA's vma->vm_lock_seq each time such an overflow
+> occurs.
+> 
+> This is done in vma_end_write_all(), which is called when the mmap write
+> lock is released, i.e. in mmap_write_unlock() and mmap_write_downgrade().
+> 
+> Care must be taken, as resetting the sequence count at overflow means
+> changing the seqcount of VMAs which are already attached and observable.
+> 
+> The mm's seqcount is guaranteed to be odd when a write lock is held, and
+> thus any write locked VMA will have an odd seqcount assigned.
+> 
+> Therefore resetting to an even value prevents spurious write locks, since
+> these can only occur with the mmap write lock held, at which point the mmap
+> seqcount will be odd.
+> 
+> However, vma_start_read() also checks vma->vm_lock_seq == mm->mm_lock_seq,
+> bailing if so (indicating a write lock).
+> 
+> This would cause any even reset value chosen to prevent VMA read locks from
+> being taken - avoid this by also checking whether the VMA seqcount is odd
+> before bailing on the read lock.
+> 
+> So far, vma->vm_lock_seq has defaulted to UINT_MAX, but this has been
+> unnecessary since commit e5e7fb278e59 ("mm: convert mm_lock_seq to a proper
+> seqcount"), since this is assigned when the VMA is still detached, and
+> cannot be observed.
+> 
+> Therefore perform both reset and initialisation of vma->vm_lock_seq by
+> simply setting vma->vm_lock_seq to zero.
+> 
+> The reset, performed in __mm_reset_vma_seqcounts(), only needs to
+> WRITE_ONCE() the value.
+> 
+> However the read of vma->vm_lock_seq in vma_start_read() needs to have
+> acquire semantics to pair with the smp_wmb() in do_raw_write_seqcount_end()
+> so a reader reading a reset value also observes VMA modifications made
+> under the write lock.
+> 
+> Since all VMA write locks were just released and the mmap write lock is
+> still held, there are no concurrent VMA writers.
+> 
+> Concurrent VMA readers are unaffected. New VMA readers observe either zero,
+> never a write lock, or the prior seqcount, behaving as before the reset.
+> 
+> Since this only occurs every 2^31 write lock/unlock cycles, the time taken
+> to update all VMAs is considered to be acceptable.
+> 
+> Also update comments, documentation and VMA userland tests to reflect the
+> change.
+> 
+> User facing effects are - dangerous races that could cause memory
+> corruption or NULL pointer derefences (especially on page table traversal)
+> are avoided.
+> 
+> Reported-by: Daehyeon Ko <4ncienth@gmail.com>
+> Closes: https://lore.kernel.org/all/20261015143735.1630957-1-4ncienth@gmail.com/
+> Fixes: 5e31275cc997 ("mm: add per-VMA lock and helper functions to control it")
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+> Andrew - no stable tag please.
+> 
+> I will do the stable backports manually, they can be solved with a different
+> approach.
+> 
+> Also, since, we're so close to the merge window I'm applying this against
+> mm-unstable.
+> 
+> So I think it's fine to just send it (early :) in the merge window.
+> ---
+> v2:
+> * Updated comment in vma_seqcount_is_write_locked() to mention the VMA
+>   being attached.
+> * Renamed reset_vma_seqcounts() to __mm_reset_vma_seqcounts().
+> * Used acquire semantics in vma_start_reads() to avoid race with reset -
+>   there is another acquire immediately after this one so it should just be
+>   noise perf-wise.
+> * Removed stable tag, will do the backports manually (just make the value
+>   64 bits...)
 
-  task:ip  state:D
-    usleep_range_state+0xec/0x158
-    napi_disable_locked+0x254/0x318
-    napi_disable+0x3c/0x68
-    bcmgenet_netif_stop+0x1c8/0x318
-    bcmgenet_close+0x24/0xd0
-    __dev_close_many+0x18c/0x310
+I guess you're fitting this where __vm_anon_pgoff_lo now sits? If so, then
+this patch probably wants backporting to 7.3.
 
-RTNL is held across the wait, so everything else blocks behind it.
+> * Updated comments to reflect changes.
+> * Added user-facing effects as per Vlasta ;)
+> 
+> v1:
+> https://lore.kernel.org/r/20261015-fix-vma-lock-overflow-v1-1-01beb245d9da@kernel.org
+> ---
+>  
+> +/*
+> + * Called with mmap write lock held after mm->mm_lock_seq just overflowed (and
+> + * therefore zero), with all VMA write locks now released.
+> + *
+> + * The stores below follow the smp_wmb() in do_raw_write_seqcount_end(), so
+> + * a reader that observes a reset value also observes this cycle's VMA
+> + * modifications (ordered by the ACQUIRE on vma->vm_lock_seq in
+> + * vma_start_read()).
+> + */
+> +void __mm_reset_vma_seqcounts(struct mm_struct *mm)
+> +{
+> +	struct vm_area_struct *vma;
+> +	VMA_ITERATOR(vmi, mm, 0);
+> +
+> +	mmap_assert_write_locked(mm);
+> +	VM_WARN_ON_ONCE(mm->mm_lock_seq.sequence);
+> +
+> +	/*
+> +	 * Failing to reset means stale vma->vm_lock_seq values could result in
+> +	 * those VMAs becoming spuriously write locked when mm->mm_lock_seq
+> +	 * happens to match their values.
+> +	 *
+> +	 * This is problematic, as it causes the VMA write lock to not exclude
+> +	 * readers, which can result in concurrent readers while a VMA write
+> +	 * lock is held.
+> +	 *
+> +	 * Avoid this by resetting to an even value (indicates no write lock
+> +	 * held).
+> +	 *
+> +	 * Readers will either observe zero (not write locked) or the previous
+> +	 * value, so this is safe.
+> +	 */
+> +	for_each_vma(vmi, vma)
+> +		WRITE_ONCE(vma->vm_lock_seq, 0);
 
-The same resume gates the clock and detaches the device. Close releases
-the clock a second time and ifup fails with -ENODEV. The hardware filters
-stay armed, so the next WoL suspend wakes on any frame. That suspend sets
-CMD_RX_EN for magic packet detection, so the WoL resume reuses rings that
-are gone.
-
-A failed resume should leave a state the ordinary paths can handle. Clear
-rx_cbs and tx_cbs as they are freed so they answer whether a datapath
-exists, and leave the hardware as bcmgenet_resume_noirq() set it up so
-close and suspend finish the teardown once. The WoL resume rebuilds
-instead, so stop the PHY first, phy_start() only takes PHY_READY or
-PHY_HALTED.
-
-Flagged in a sashiko review and reproduced on a CM4 by forcing the resume
-allocation to fail.
-
-Fixes: b6e978e50444 ("net: bcmgenet: add suspend/resume callbacks")
-Fixes: 254f3239dd07 ("net: bcmgenet: revise suspend/resume")	# for the WoL parts
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 46 +++++++++++++++++++++-----
- 1 file changed, 37 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index e8908916558b1..34acd3c47cc55 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -3107,7 +3107,9 @@ static void bcmgenet_fini_dma(struct bcmgenet_priv *priv)
- 	bcmgenet_free_rx_buffers(priv);
- 	bcmgenet_destroy_rx_page_pools(priv);
- 	kfree(priv->rx_cbs);
-+	priv->rx_cbs = NULL;
- 	kfree(priv->tx_cbs);
-+	priv->tx_cbs = NULL;
- }
- 
- /* init_edma: Initialize DMA control register */
-@@ -3165,6 +3167,7 @@ static int bcmgenet_init_dma(struct bcmgenet_priv *priv, bool flush_rx)
- 	priv->tx_cbs = kzalloc_objs(struct enet_cb, priv->num_tx_bds);
- 	if (!priv->tx_cbs) {
- 		kfree(priv->rx_cbs);
-+		priv->rx_cbs = NULL;
- 		return -ENOMEM;
- 	}
- 
-@@ -3184,7 +3187,9 @@ static int bcmgenet_init_dma(struct bcmgenet_priv *priv, bool flush_rx)
- 		bcmgenet_free_rx_buffers(priv);
- 		bcmgenet_destroy_rx_page_pools(priv);
- 		kfree(priv->rx_cbs);
-+		priv->rx_cbs = NULL;
- 		kfree(priv->tx_cbs);
-+		priv->tx_cbs = NULL;
- 		return ret;
- 	}
- 
-@@ -3493,7 +3498,9 @@ static int bcmgenet_close(struct net_device *dev)
- 
- 	netif_dbg(priv, ifdown, dev, "bcmgenet_close\n");
- 
--	bcmgenet_netif_stop(dev, false);
-+	/* A failed resume has torn the datapath down already */
-+	if (priv->tx_cbs)
-+		bcmgenet_netif_stop(dev, false);
- 
- 	/* Really kill the PHY state machine and disconnect from it */
- 	phy_disconnect(dev->phydev);
-@@ -3501,6 +3508,9 @@ static int bcmgenet_close(struct net_device *dev)
- 	free_irq(priv->irq0, priv);
- 	free_irq(priv->irq1, priv);
- 
-+	/* A failed resume left the device detached, __dev_open() refuses that */
-+	netif_device_attach(dev);
-+
- 	if (priv->internal_phy)
- 		ret = bcmgenet_power_down(priv, GENET_POWER_PASSIVE);
- 
-@@ -4258,7 +4268,11 @@ static int bcmgenet_resume(struct device *d)
- 
- 	if (device_may_wakeup(d) && priv->wolopts) {
- 		reg = bcmgenet_umac_readl(priv, UMAC_CMD);
--		if (reg & CMD_RX_EN) {
-+
-+		/* The WoL power down sets CMD_RX_EN itself, so the bit
-+		 * alone does not mean the rings survived
-+		 */
-+		if (priv->tx_cbs && (reg & CMD_RX_EN)) {
- 			/* Successfully exited WoL, just resume data flows */
- 			list_for_each_entry(rule, &priv->rxnfc_list, list)
- 				if (rule->state == BCMGENET_RXNFC_STATE_ENABLED)
-@@ -4288,6 +4302,9 @@ static int bcmgenet_resume(struct device *d)
- 		bcmgenet_rdma_disable(priv);
- 		bcmgenet_intr_disable(priv);
- 		bcmgenet_fini_dma(priv);
-+		if (phy_is_started(dev->phydev) ||
-+		    dev->phydev->state == PHY_ERROR)
-+			phy_stop(dev->phydev);
- 		enable_irq(priv->irq1);
- 	}
- 
-@@ -4310,8 +4327,9 @@ static int bcmgenet_resume(struct device *d)
- 	/* Reinitialize TDMA and RDMA and SW housekeeping */
- 	ret = bcmgenet_init_dma(priv, false);
- 	if (ret) {
-+		/* Leave the block clocked, close and suspend tear it down */
- 		netdev_err(dev, "failed to initialize DMA\n");
--		goto out_clk_disable;
-+		return ret;
- 	}
- 
- 	if (!device_may_wakeup(d))
-@@ -4322,12 +4340,6 @@ static int bcmgenet_resume(struct device *d)
- 	netif_device_attach(dev);
- 
- 	return 0;
--
--out_clk_disable:
--	if (priv->internal_phy)
--		bcmgenet_power_down(priv, GENET_POWER_PASSIVE);
--	clk_disable_unprepare(priv->clk);
--	return ret;
- }
- 
- static int bcmgenet_suspend(struct device *d)
-@@ -4340,6 +4352,22 @@ static int bcmgenet_suspend(struct device *d)
- 	if (!netif_running(dev))
- 		return 0;
- 
-+	/* A failed resume has torn the datapath down already. Resume still
-+	 * enables irq1 on the WoL path, so it has to be disabled here.
-+	 */
-+	if (!priv->tx_cbs) {
-+		if (device_may_wakeup(d) && priv->wolopts) {
-+			/* No rings to receive into, so no filter wake */
-+			bcmgenet_hfb_reg_writel(priv, 0, HFB_CTRL);
-+			bcmgenet_intrl2_0_writel(priv, 0xFFFFFFFF,
-+						 INTRL2_CPU_MASK_SET);
-+			bcmgenet_intrl2_0_writel(priv, 0xFFFFFFFF,
-+						 INTRL2_CPU_CLEAR);
-+			disable_irq(priv->irq1);
-+		}
-+		return 0;
-+	}
-+
- 	netif_device_detach(dev);
- 
- 	if (device_may_wakeup(d) && priv->wolopts) {
+I'm concerned by the possible latency when doing this to many VMAs. Do you
+have any numbers?
 
 -- 
-2.53.0
-
+Pedro
