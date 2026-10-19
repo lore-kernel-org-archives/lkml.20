@@ -1,156 +1,120 @@
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADBB33CEBD;
-	Mon, 19 Oct 2026 01:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EB3282F20;
+	Mon, 19 Oct 2026 01:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792374090; cv=none; b=qMgYvR3DXH6ffGw0UjWzJWGzrva/5iZm7cg6iDZpxkgptQj2ce2B5lJ4Wu79QQxc5ZKUP0ewMSgB4K/Fm1RUrgemruVku6GsNo4WazjxY9opcnfn974APnhkYzX3xo79hPdVafS88IQVAsTMipQoTKvhoHscrjYSOuPV64C866E=
+	t=1792374281; cv=none; b=hQ0XOBspSy7LZhugv2buxeIbgRJjJPePwfp+q2I5XWFf5YPfaktd9zq/pEPwgtBgx/xvQ5ucyauCWZCwWIrQDQiOEL/cALsgOnjbdlJlpcJrCN2bSvsFilyld4KK6cbNn8NwC1he+HZSHHc9hJnDuEyGP+6SSIjoOIu2p+Y00qY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792374090; c=relaxed/simple;
-	bh=eZUkITTygu9kWmqLJjEQApGjH1GyMZc+ZWj4uOwlHKY=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PXbmP5x+w5MenacPeNv9ghcFFKu1oEGuSp1y5sMiP5fShMtVMt/kADOLlX8E4Gg1prKyygQP9wZM+/CgWAVhNxm9uGXGRDnvMCJArNHJMUAQMc0CbcUYWye1KtLq8MRp7nb9Be9h3Hz19ojbj7XpKXuHK9NNVdnhesKmQGEAeoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=EfBA1wB1; arc=none smtp.client-ip=162.62.57.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1792374281; c=relaxed/simple;
+	bh=7eI3IaTypjjI9p6cXdcE5Bsew3K00VFP+zPqZIWWoTg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kaZ4EOLjta3XXWcsJClbuZ/3hSxg2GOgU3QAUbrWxi+yRrSzI6hP4fdFIx6emHuGX3oc4CGX5ftDLoyumM69Ud431QwVo5ZbJY3qt0bCW8+6Zl5gt74ODuAD/dAUFxpmfHfo6vEmuR9ZWFwliUPEm3f9xDAlQTXtuWzD2/2RDHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CgrCItbL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="EfBA1wB1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792374081; bh=Vqm5NiksGY4HrQbWx/n2zQ+tsPVca38MSEIqYskeCW4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EfBA1wB1kcALsHrJtIN6wpbGdUM7bnqMj7VYkgbHd0DomKlFcjJ2JoHciWyoQV8pq
-	 b5kU3cF0qSA7NosrvjLlwaHB22WkJ6tWGPR1sqJqvEVY9EbAA2NrhlAR1Vd+6q8mZP
-	 Ffzw7OzDaaLFPoEQOwmVp72hlvWWS8UHm6CKHnwU=
-Received: from fedora ([2408:8207:c43:1bd0:c595:d7b2:f1d6:8a28])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id A4DBBE69; Mon, 19 Oct 2026 09:41:13 +0800
-X-QQ-mid: xmsmtpt1792374073tqzj49z64
-Message-ID: <tencent_FE9F89DF33773710DF821792DB952E8AE306@qq.com>
-X-QQ-XMAILINFO: NnYhxYSyuBnL/G/d/G+g99ale/grdxAGBmoOJg4kfvQJXfm2lB5iyAcuTWzMmn
-	 2ngtY0wowG2i0OGO5cRzn6C/kwFMZlyRoPSE+1x9MIAZyHIqq30SyR6IdlCLCmhN7e6j97w2XhP8
-	 MaBS60tDddPunpbgiTJojYURVqIKV2LswpYeZDmdiVaN3FjWWAoMPO+LhJOG71NfOqI8gfwM4aQs
-	 1ghNngMpYyk8ohGwdZUNdxcFihClBBuf5UzOXMaD206H9aY0HeutC9tTb3IWToOUf3fBc67fVZke
-	 Q8HUWVMsnN4TRRONRmUNnCAMAFP+UCh5qW1RyULrjYR/huqfsZat+OM7lDA/7hmZhKyzOAQT6Rca
-	 PpBY26sNx4krLkTD9J4YGdU21RlMMeRhLChTWPeW+je/yu6wJr62UBxWzg0/ihj4VOX5rYkhAaWS
-	 XmqsLqoiQeR27CiQ74AxYHRMoDYx9jZiVtLxyFUI927a5gSrBPzE4E7AZvYysxpnWKtBftQ+LI4X
-	 XYsVwBDBVnfs5beDRHy1zt+Ktta/Ya1RMHf5D+tHJ1Bi4Jkp3R3psdPU+EgfkYWcwnoCn64ob1C6
-	 i2rsyCpwzIocLX7o6x+Mv1C9YYYfiVPwTT6TZTjCzuN8HvDPWwaVPg3ATyleR86wGSfJlN1noJ3L
-	 iw7Il9T5fRgWJWjNXEHytOvEWOdtnVNleJgjOn09zAnlgsRZ0kpZSqCJkeuSQmyOtf0p7NLFJmXz
-	 8gz0ymE46cMc7h1+Wen9czFFu+YTnBG4SGETWifvY6YFzLsw9uF7ytnJuD4tDOvAbOGqa6yWBmGh
-	 mf89GtW2xNhQsSEnC/brwiF0q29FiEfBeqXcstZN79AH/HqnMb9iS0DlKlO/eoDClSagBnYNEL3h
-	 1+3hNO5oBB9RrnegLIdKh96621WpIu9vRrMYs4WfS3LgpPclP7/7heGHPJHz7DNOgq2MgyKCFXhH
-	 5fxE2UNLri3yq2A42DNlJ0En6/c7H23OSYDqYnHo/WGO7SNObXnZvObyPvkJ9eWvLoXC/SjGg4bR
-	 5xxs/8xbHP1132K2Tumj3tF8tOOphVeXxuQY/mfw==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-Date: Sun, 18 Oct 2026 17:38:48 -0700
-From: Pingfan Liu <atlarge80@qq.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Pingfan Liu <piliu@redhat.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Simon Horman <horms@kernel.org>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Philipp Rudo <prudo@redhat.com>, Viktor Malik <vmalik@redhat.com>,
-	Jan Hendrik Farr <kernel@jfarr.cc>, Baoquan He <bhe@redhat.com>,
-	Dave Young <dyoung@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	kexec@lists.infradead.org, bpf@vger.kernel.org,
-	systemd-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCHv7 00/13] kexec: Use BPF lskel to enable kexec to load PE
- format boot image
-X-OQ-MSGID: <atVmmBqDNXz6AjfU@fedora>
-References: <20260322014402.8815-1-piliu@redhat.com>
- <20261011201325.GA918242@nvidia.com>
- <722bd9d8-5620-498a-a6c2-d9a1f498e0b7@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CgrCItbL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2F531F000C4;
+	Mon, 19 Oct 2026 01:44:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792374280;
+	bh=ztfhN2Zgys+821X+EG35gcoSxytBIE2DIH6v1kD6QD0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=CgrCItbLPcJTPs5s1r5RBB/fe5NqVZk/CHecmXNwh2/RHobkS9UDmUDQNU6KcW3qu
+	 cmFf6eVvwEKPBpjKcibAQRSjPZgcrPUfxDpxfQGDFtx9s7X+mgv72f40gAT2GUZF4e
+	 v80goT7ZO10T/kYPV/WGSqrs2JiJzCN3W4QhBBGMgCb9IuWmlNOuyoXr3Dg0+I5DU5
+	 wAxv425vlHTGDgAJ8RjMTPQR6IFcaCsAowfsbsURqQ4FOzUaawvPIFUXtQ/K+7byXc
+	 poJEsW3s4qs33nnlKDkyzE5/eFO1HxAZg1w106Q33TU/cacbtNxgpbfYn8/Q8Hisaq
+	 UA2fP6IxBjdMQ==
+Date: Mon, 19 Oct 2026 02:44:35 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Archit Anant <architanant5@gmail.com>
+Cc: dlechner@baylibre.com, andy@kernel.org, nuno.sa@analog.com,
+ u.kleine-koenig@baylibre.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 01/10] iio: adc: ti-ads1015: use
+ DEFINE_RUNTIME_DEV_PM_OPS()
+Message-ID: <20261019024435.0acdf067@jic23-hlaptop>
+In-Reply-To: <20260930171204.12863-2-architanant5@gmail.com>
+References: <20260930171204.12863-1-architanant5@gmail.com>
+	<20260930171204.12863-2-architanant5@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <722bd9d8-5620-498a-a6c2-d9a1f498e0b7@app.fastmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 13, 2026 at 09:19:28PM +0200, Ard Biesheuvel wrote:
-> Hi Jason,
-> 
-> Thanks for chiming in.
-> 
-> On Sun, 11 Oct 2026, at 22:13, Jason Gunthorpe wrote:
-> > On Sun, Mar 22, 2026 at 09:43:49AM +0800, Pingfan Liu wrote:
-> >> *** The history ***
-> >> 
-> >> Nowadays, UEFI PE bootable images are becoming increasingly popular
-> >> among distributions. Currently, we have several kinds of image format
-> >> parsers in user space (kexec-tools). However, this approach breaks the
-> >> integrity protection of the images. To address this integrity protection
-> >> concern, several approaches have been proposed to resolve this issue,
-> >> but none of them have been accepted upstream yet.
-> >> 
-> >> The summary of those approaches:
-> >>   -1. UEFI service emulator for UEFI stub
-> >>   -2. PE format parser in kernel
-> >>   -3. Signing the arm64/boot/Image
-> >
-> > I recently had an interesting discussion with Ard around DRTM for
-> > kexec and we sort of independently concluded that #1 would be the best
-> > (only?) option there.
-> >
-> > All the implementations of DRTM today live in the EFI stub and
-> > intercept the boot process as it goes along. After ExitBootServices
-> > the DRTM implementation will launch the kernel in a different way.
-> > Even worse today's x86 version strongly requires EFI boot services to
-> > connect the Linux stub with a trampoline helper provided earlier in
-> > the boot chain.
-> >
-> > A kexec flow that only works on decompressed vmlinux, with no option
-> > to run any EFI code, is going to be difficult to support. There is
-> > enough information and choices involved in DRTM that it is undesirable
-> > for the predecessor kernel to try and DRTM launch it on behalf of the
-> > successor, let alone trying to get the insane x86 trampolines into a
-> > kexec successor kernel.
-> >
-> > Given those constraints entering the successor kernel through the
-> > normal EFI entry point is highly desirable. This would allow x86 to
-> > continue to provide the DRTM trampolines through an EFI mechanism and
-> > means the Linux EFI stub always handles the launch with identical code
-> > in all scenarios.
-> >
-> 
-> With some help from my friend Claude, I've prepared a prototype that
-> reuses my efiloader Rust crate to boot EFI stub images (bare Image,
-> zboot, UKI) in the kernel: the EFI boot phase is invoked at kexec
-> load time, and runs under the preceding kernel up until the point
-> where ExitBootServices() is called. Then, the actual kexec call
-> will return from ExitBootServices() after shutting down the first
-> kernel.
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/ardb/linux.git/log/?h=efiloader-kexec
-> 
+On Wed, 30 Sep 2026 22:41:55 +0530
+Archit Anant <architanant5@gmail.com> wrote:
 
-Sorry, I haven't had time to go through it yet. But I'm curious how you
-would address the portability issues, especially those related to the
-console, that you pointed out in my emulator implementation.
+> Replace the deprecated SET_RUNTIME_PM_OPS() with the modern
+> DEFINE_RUNTIME_DEV_PM_OPS() macro. This allows for the removal of the
+> macro automatically handles dropping unused functions when PM is
+> disabled.
 
+Hi Archit,
+
+
+It does more than that...  Take a look at the definition of that
+macro. Key is it also uses the runtime callbacks for suspend and
+resume (the sleep PM operations).
+
+That shouldn't be a problem but good to make it clear this is a functional
+change and to have a good think about whether that matters.
 
 Thanks,
 
-Pingfan
-> There are some limitations (4k pages only, CONTIG_ALLOC support
-> required) but it seems to work as expected.
+Jonathan
+
 > 
-> I haven't looked at measured boot or DRTM specifics.
+> Update the driver struct to use pm_ptr() to avoid unused variable
+> warnings.
 > 
+> Signed-off-by: Archit Anant <architanant5@gmail.com>
+> ---
+>  drivers/iio/adc/ti-ads1015.c | 12 +++++-------
+>  1 file changed, 5 insertions(+), 7 deletions(-)
 > 
+> diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
+> index 0fbfa4e499aa..93a165c5416a 100644
+> --- a/drivers/iio/adc/ti-ads1015.c
+> +++ b/drivers/iio/adc/ti-ads1015.c
+> @@ -1059,7 +1059,6 @@ static int ads1015_probe(struct i2c_client *client)
+>  	return devm_iio_device_register(&client->dev, indio_dev);
+>  }
+>  
+> -#ifdef CONFIG_PM
+>  static int ads1015_runtime_suspend(struct device *dev)
+>  {
+>  	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
+> @@ -1080,12 +1079,11 @@ static int ads1015_runtime_resume(struct device *dev)
+>  
+>  	return ret;
+>  }
+> -#endif
+>  
+> -static const struct dev_pm_ops ads1015_pm_ops = {
+> -	SET_RUNTIME_PM_OPS(ads1015_runtime_suspend,
+> -			   ads1015_runtime_resume, NULL)
+> -};
+> +static DEFINE_RUNTIME_DEV_PM_OPS(ads1015_pm_ops,
+> +				 ads1015_runtime_suspend,
+> +				 ads1015_runtime_resume,
+> +				 NULL);
+>  
+>  static const struct ads1015_chip_data ads1015_data = {
+>  	.channels	= ads1015_channels,
+> @@ -1140,7 +1138,7 @@ static struct i2c_driver ads1015_driver = {
+>  	.driver = {
+>  		.name = ADS1015_DRV_NAME,
+>  		.of_match_table = ads1015_of_match,
+> -		.pm = &ads1015_pm_ops,
+> +		.pm = pm_ptr(&ads1015_pm_ops),
+>  	},
+>  	.probe		= ads1015_probe,
+>  	.id_table	= ads1015_id,
 
