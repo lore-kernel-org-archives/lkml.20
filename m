@@ -1,176 +1,214 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B734D2ECC
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477254CA279
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405861; cv=none; b=RjEuYdsS2CQ3zt9uf8fTc57xMW1nnRPvsFlRGloR6ycOYF74bzlMHlrtj/JeX9i7wUoojFmx7DFuYVXoOGFYwl1jc/MYlAFh52J6aBhfR63D4bzjcyMqs3Wd31EjWwmucebI+ApEsWkq8oeZo7MoNPUNusawcyKspbTuVn6CHBY=
+	t=1792405877; cv=none; b=FyeSPK5Adh2Lzt+I2Ycbk3O4HK+8fg2AA3LLmN1NuRmsuhha663/cXrdM0MOSUReYSqR6SRTDQEb9HePTyl5rOMCaAZ9MwceXvgqpr5MyvA507NVgU/uqaPzjmXojeQadilTjlRGW5n6ygYwfuAF4CZtToa6gBt8s8Qsi9g6RGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405861; c=relaxed/simple;
-	bh=DXr0SWEL5Dre/H1WhO/WhmrprjnQpVq59lOhAu/vwuo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=pJyLQ0cmqtMpY1eWGeOCjQhdWUDZJ0ZRoXve2wm9xt1Gr2CSt+AfqUI1jOEpog9hpz5Qq987mUDuaLkbsc4/Orf741TeZ4pzOtVvs7AdwS2odQmto5dBj64WcFIyMNfAfp/3fIWr6qH7NWAzIAny4D8jSVWYaRPOBZzrceyC5i0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JV+pznOU; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792405877; c=relaxed/simple;
+	bh=xLOGKGdR/TkesfS5Hh1P1f17v+nmPE9pRniwwMVSoy4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ts1VpGnSqrzun1yrTk3YUuKG5bCfJTIKV91Nu5akJvUelPp7vnVzJtsLV3wiABfiu6Y+JrNKCJ0hjNd83t8xNQxs7Vmj2iC5spbN4D+VfwbMj0o/xD3uMnw3mS3pSvyIGfaUqXh0K3S7E9cXaAUIJORVXBYVrgnNv3GlmS3CcDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rmw8KTi0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HGEn5sEv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JV+pznOU"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e8246b13cbso14617905ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:31:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rmw8KTi0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HGEn5sEv"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8YgkJ2688702
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:31:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RYK1463Om0BeLkjtSbKer/jvmkMwEuX1kL+uNM6n95M=; b=Rmw8KTi0pUVSCpBY
+	wiF8RiATQWk60bVp/6dCGSJIy1eEb7SEmXjJhM/T7Ku82wna+2M16RzB7oHjuq9I
+	6EBZlQXb+bAbnaQMACOajPSc8TtRZobmWmiNNB6yQWiVu6RA/+QTUKUAwJKbRKSo
+	vB+0NY8vnFX0nqkI676eJNB7IdeamuyHa3VJJU1FCBJlK+CoBWZF7I33jluOk2ni
+	naStfiVbo6lArR7JOy9y9iJhB0p6t6h6qc5U02bdBMZmxIrPt9B9UofwuranTAEh
+	xvTDVLBoxxPGcGDNG624IEM2QfeM/qsWE/eI4/pPRErWn0Kei0r45YawOfQn6RG6
+	zwIyBg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdftn0en4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:31:15 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cb1091fffso17542485a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:31:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792405860; x=1793010660; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792405874; x=1793010674; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lXN1+8ZK0dBrxbkINaYoPOnUZ+nBaten6ac7/D0HEVg=;
-        b=JV+pznOUZMhbZ+sQzFEdhuGtH+qaz73Ptw/fU215xnNsv0aHdFvW+tLhg0qaNj6QXZ
-         4feldnxDIt5buobZa696/SUounnvdtJXH4/zQmjzsLsG/iq36vkXA1A9If+U8+GJgxhA
-         U91J9MBl/NNGBTNJ0AOsnZru1lF7gQ3OaJQQLhkZxJXw170PiFmOE2uAr8FsWe6DwClS
-         b3MzGIQnzS9JHuxRvG0nIKDbzN9up9Lnf+kxvRwbIuWYxe3vc0ywpSCysEzmcUBckNYt
-         GVWo0+ATl8AL79+HQB0jfyejPNpwyZLO/MID296MF5O155fcJ6qcHVqGPLDA8xmqoCYc
-         4BHg==
+        bh=RYK1463Om0BeLkjtSbKer/jvmkMwEuX1kL+uNM6n95M=;
+        b=HGEn5sEvPcrgevtdQtyH/4Dz5R4V7VEd2i1e457WCAYwrtyU7CppGVcoEICAFYcq0W
+         3DZz4CYX8TaAieBpryMeLpvylPpxFEeIjovlCQB8KQH7860Us7gU8TZN8y1vRIQNWdjT
+         OOSTrxYlwuqhIHd/b8E7W4KNRKrild4A80rMwvvAZEsozi0onKsA62DUbVm+mUVLcX/C
+         WAXRFf+6izzZR2bVgKaIMRZtOj/VyJUAasBUKWUEBg33aAD9+01lyg85s+70Hzfjv2Mx
+         XQ1Jollwnoe1yrDLgINFEvFVCFKRAFRHSVH5nVh5TRsBgTIh8xdDw3Ht24aJOC3YLEkW
+         b0Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792405860; x=1793010660;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lXN1+8ZK0dBrxbkINaYoPOnUZ+nBaten6ac7/D0HEVg=;
-        b=cmjBNCKfHJt6zcp4TQ75W6xdLwJQwRFIkTYfpPo0TQMsxa/ScT0qcABVToLCJYQclu
-         l7rk8fojsbUxgIIbJbdUgkmTIfyVwKv7oMCh1VstDaGqzHGe7RTWKkwwr2Z7dNtoC2PQ
-         C6v75/XAEIf0ojzO8gMnL3t+8hodmTaiRFHfDQ4JqnfZH+u09/Kp1pl6M0N45VGxpYg+
-         lScn4Zbc2OKKWrmtDADd78HwvimaMPoSPGVmiL4XgPdDwvyXvXOxluQ/yjHT2Yl1eIrA
-         uxTb9NrUkFjQH1rZtBcvBbo6jL2SGAJbLg4X01f/dbc0oOB+ExkojACI/q5zBLp2Blzq
-         eC4A==
-X-Forwarded-Encrypted: i=1; AKwUvBze22dQqDdsJLnbID9JD8FwwZoH4Jwe0BawFGAkVMlz706pBMunaSsfR1n2EgWQ3olTm8WrvbXFlIjU/og=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4O0z5SNde7NQrFRhFttD0HbLHxiJ/LLf0xlY4XwHLFAgnTL27
-	aWP1F16lLpe3UNLFX1AKKuOx94Kx4nkGtHZzNAEfCh6ImjfWxEIMN29m
-X-Gm-Gg: AYBFou32L69a99Sg9TPI/ATu+BehxOUk0xPogFIWccGo+KkJL3SEhN6EMvqIRqg54+A
-	q7QGuuPnOnTXAiPyFFUCOidq7NYut66gy/qAOoNx+vp+3flhzubpykToc1JDR+p9fBL55X5wCof
-	miYTKOQjk9iLz+M8g59UFCyJQl5XFQQeCvt/VkmNBPdUzFg4K4ENYMG1/fXLjD+HFpp7HFYFIJR
-	4NEnmqYZhxEI9Y5kqqk15FUv7bYUEc6AV8xaisSIF+dGojMa6TCXCzjEwQ6FRAXtw0TYz6mGHW+
-	qunE2PYjT/aSwsHnQpEdQNH6YB2TiMVfNHlRCMIFZy+2a1KOtLkSfY9FTj02N1TzXxN+1MHkw6u
-	F/LkZAKhsA1tQ1sJu6k9t909Vsnah+LU/meGqarMb9mSdxUZivmQupnSffYL5f/C9nvNA3PTS2Q
-	+ERG7uH/F4rXzwRRKujM+xuAQUG6Zczg4JkPGdaQsUDRBHIU4LMl+5Id9xtY/kp9Tt/Q==
-X-Received: by 2002:a17:903:22c6:b0:2e4:b37a:d583 with SMTP id d9443c01a7336-2e9a6d367b9mr60158785ad.61.1792405859533;
-        Mon, 19 Oct 2026 03:30:59 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea0cda9d8fsm2427565ad.14.2026.10.19.03.30.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:30:59 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ALSA: jack: Pin the module while debugfs files are open
-Date: Mon, 19 Oct 2026 18:30:54 +0800
-Message-Id: <pm-pmb-431ddb947e1a13b95d3a-v3-02d37dd7b4eb4774e100@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1792405874; x=1793010674;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RYK1463Om0BeLkjtSbKer/jvmkMwEuX1kL+uNM6n95M=;
+        b=OMTKtKC+tOdj9tR5+2WEHq/wfzjRQFJWuhj0l0zWeIw9uik694XEDVCP3uO5wkqndH
+         VVLbxOdnbFEeex+MjonjDOoQNJXO3jt+U703boFURIIQvP+WiEnjwvvdoce5aB4OorUF
+         /MzEslEW2Bnhg7H3weBVpUTLdeWTMjrEf/w59pPDFsxTP7oA6cmQF9WCK7GmjcH3An99
+         s8rAlJ+MZ2Cl1kEbXCCYj0c9F76aBPR4r40uoUcX42GOlQrBRV7RjVhrELbsPeIdLhZ1
+         feBNQpK5sxgfUTV4gnW6OolH+CXpN+oiS1bMZaVzhawDwBeatFJY/xb+2P1Xp14SpO36
+         t6vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxkHBVddsp6yxmLj7MoivlOJ7nKs2x4/Z2iNw+pVM3xISw7ZONJOWd+Hxo6ntbpMwrPQ+VJRNThZ785FKk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKX5BvMAZqkq5Fkd1SsKlIMLHS8rZrpDe0wqckf5BhX4QOAdofm
+	TlgbXnvET6+osST0Qcj/rGH/AT+I2NzoktrL6TSYACV+WGRwN6WyOAx41eyTn5dnjIPDmK2N34A
+	dFc0tn/f3bR0neMEKABzrPwA6qPL+HA3g3HTKKVN175JTJHYOxdRuOHhCLdK17KdIayw=
+X-Gm-Gg: AYBFou1xaDgt31+P4Jtyl/raINaJ/Z7bKpaMRWfMjvXzw83Oywv6fr8M4j42GQs0fCb
+	+KpAb8V+JAEWAVjeegrSneTgk61tFkRsX65acWMAeltEzOIotqLSSJz+ihKmwOSpwnHZnpGZwPj
+	jSE2w26w+XlG6s9fhtkomwvdhwxW8haVLGjUrQE+UH0aWAXSDKZD48934bbNKXGiZ/Z+TnmJ5+7
+	yxSS9OwDuRIk9j2dX0qvDLL508JDyijnwhnPjk35dPLnBJjORQTQe8yeD98gJCxL90XDH7l+t/i
+	N9xwfs9nzRn5tVIrgNKLI5xoBDCd+iO/M+YNQIbZYaeVszedzYve7lqo+2e5LLj2XJlOkeu3AJz
+	YSFjKwP8eNDqD0PKSok0m/g==
+X-Received: by 2002:a05:620a:2a0a:b0:93c:61e0:81ff with SMTP id af79cd13be357-93f29b88632mr1364648085a.1.1792405870986;
+        Mon, 19 Oct 2026 03:31:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:2a0a:b0:93c:61e0:81ff with SMTP id af79cd13be357-93f29b88632mr1364644685a.1.1792405870444;
+        Mon, 19 Oct 2026 03:31:10 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091fade41sm343284966b.82.2026.10.19.03.31.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 03:31:09 -0700 (PDT)
+Message-ID: <5cfc6414-735d-4df3-868d-c8c3c4a98e30@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 12:31:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
+ Laptop 8th Edition
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Maximilian Luz
+ <luzmaximilian@gmail.com>,
+        Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Douglas Anderson <dianders@chromium.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        dri-devel@lists.freedesktop.org
+References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
+ <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
+ <245e5eef-e18a-4ec5-b57c-65e561101351@oss.qualcomm.com>
+ <52adff3a-370c-4445-9797-e0b0dde36fab@oss.qualcomm.com>
+ <5568fd0f-e412-4f2a-9f1e-729a469da572@oss.qualcomm.com>
+ <65f6883d-8ead-4c6e-80f5-81f6857df0b8@oss.qualcomm.com>
+ <f624b075-df3b-4862-8231-8fcae7f18d50@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <f624b075-df3b-4862-8231-8fcae7f18d50@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0MSBTYWx0ZWRfXx0YjIGll5nmN
+ Fv14D1eE7KFJEJZ6dl/oyNknrbB/SK/aKCZW4AuE9XIDA4aBaNqYFFTKK41Mjbr2FpZ5FgKuCan
+ ufpr1s6vkUwcOaf35UrCR4tH51h4kYc=
+X-Proofpoint-GUID: ZLfdRXY2n2frPHy7g6o88KANPHMCU3Hh
+X-Proofpoint-ORIG-GUID: ZLfdRXY2n2frPHy7g6o88KANPHMCU3Hh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0MSBTYWx0ZWRfX4aHthSKHDQSk
+ gRT6eHxTMnfin9ssGkn8ZPPaxgIfnw37Q3/wZGYt8uHbZ/+lvZEcNO8B5hSK2xHTWQ8ASZrWhUA
+ DQByffkFRxK/16e859Q7QadgxsX+04PXFezV9OpszxtE8ukR/nyKnVblQxaawWNH3TH0Y1/0wc2
+ sDdZGlz/XBzTreP91fWr+ySp5cWpPaAexPTgZwF9vhieIe8E5BnipwBmdfCIHB460lLlBYgpHWH
+ t3hwzZnZUcqXugl5nfJVZDdg+60EN5JEEzEH4nPrQ1gEpZHxdAhCybwf5BmI6k+pIVNsHjwZJ4a
+ E0oUS9qb/VB7iweDLi7hsoQ2KtHVmXW6DMuFf8QYh932FPeCfhwmSYshWLyqZYgL50TvpnV0pu+
+ Zo4di4F/CRX57Esx+JfTsy28bVW5DS86IgTvCFL+3WgoHMo6qw8+i2FZUiyZu/RcLA6rENFygcF
+ ff1V4Bc/xQaFwBfLCnQ==
+X-Authority-Analysis: v=2.4 cv=OvTaWC/t c=1 sm=1 tr=0 ts=6ad5f173 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=8k6WQxmsAAAA:8 a=-HwF9I-Zzcp5qfXbVEgA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610190041
 
-With CONFIG_SND=m and CONFIG_SND_JACK_INJECTION_DEBUG enabled, an in-tree
-HDA jack creates these debugfs files through snd_jack_new() and
-snd_jack_add_debugfs(). Their file_operations live in snd, but none sets
-.owner. full_proxy_open_regular() therefore takes no snd module reference
-when it calls fops_get(real_fops).
+On 10/16/26 11:26 AM, Sibi Sankar wrote:
+> 
+> 
+> On 15/10/2026 19:02, Konrad Dybcio wrote:
+>> On 10/15/26 2:47 PM, Gopikrishna Garmidi wrote:
+>>> Hi Konrad,
+>>>
+>>> On 10/13/2026 2:09 PM, Konrad Dybcio wrote:
+>>>> On 10/7/26 9:11 AM, Gopikrishna Garmidi wrote:
+>>>>>
+>>>>>
+>>>>> On 10/6/2026 3:20 PM, Gopikrishna Garmidi wrote:
+>>>>>> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
+>>>>>>
+>>>>>> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+>>>>>> ---
+>>
+>> [...]
+>>
+>>
+>>> Thanks for checking. The only matches I see are in the MPTF thermal
+>>> package, which ships"883ROT13Inch.bin" and "883ROT15Inch.bin". Nothing
+>>> else mentions ROT.
+>>>
+>>> I also checked all the ACPI tables but didn't find a codename there.
+>>> The tables are here:
+>>>
+>>>    https://github.com/aarch64-laptops/build/pull/176
+>>>
+>>> Following the Lenovo gen8 naming, would something like
+>>> "microsoft,surface-laptop-gen8-13p8in"
+>>> (mahua-microsoft-surface-laptop-gen8-13p8in.dts) work? I'm open to
+>>> whatever you and Krzysztof prefer.
+>>
+>> FWIW the "gen" naming comes directly from Lenovo's product name,
+>> i.e. if you go on lenovo.com it says "ThinkPad T14s Gen 7".
+> 
+> Official Documentation say "Surface Laptop, 13.8 inch (8th Edition)"
+> 
+> We have to create a dedicated board file for the fifteen inch variant
+> since it is expected to have a sd-card port and another one for 13inch
+> specifically to enable ufs. All of them will have only lcd panels. So
+> how about if we go with the following?
+> 
+> microsoft,surface-laptop-8-lcd13
+> microsoft,surface-laptop-8-lcd13p8
+> microsoft,surface-laptop-8-lcd15
 
-A debugfs descriptor can outlive removal of its HDA card. Once the card
-and dependent modules, including the OSS emulation modules, have been
-removed, snd can be unloaded while that descriptor is still open:
+sgtm
 
-  Descriptor holder                   Card/module teardown
-  -----------------                   --------------------
-  open jack debugfs file
-    full_proxy_open_regular()
-      fops_get(real_fops)
-        owner == NULL: no snd pin
-  keep descriptor open
-                                      remove HDA card
-                                        snd_card_disconnect()
-                                          snd_jack_dev_disconnect()
-                                          remove debugfs nodes
-                                        snd_jack_dev_free()
-                                      unload dependent modules
-                                      rmmod snd
-                                        alsa_sound_exit()
-                                        free_module(): unmap snd
-  close descriptor
-    full_proxy_release()
-      read real_fops->release
-      fops_put(real_fops)
-        read real_fops->owner
+> With this is mind it might make sense to create a common
+> file mahua-microsoft-surface-laptop-8.dtsi that all these
+> boards can import from as well.
 
-debugfs_remove() drains active operations, but does not wait for idle
-open descriptors. Release deliberately bypasses removal protection and
-reads the real table even when no release callback is installed. The
-last close can therefore access unloaded snd storage.
+If they're sufficiently similar, sure thing
 
-Set .owner to THIS_MODULE in all six tables. The existing proxy
-fops_get()/fops_put() pair then keeps snd loaded through the final table
-access on close.
-
-Fixes: 2d670ea2bd53 ("ALSA: jack: implement software jack injection via debugfs")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
----
-
-diff --git a/sound/core/jack.c b/sound/core/jack.c
-index 0f04018181acb20f6bf85b11a9f6d4c7d3179e5a..4451249d055d028c8aa2757d75d0706fa47b4ad7 100644
---- a/sound/core/jack.c
-+++ b/sound/core/jack.c
-@@ -303,6 +303,7 @@ static ssize_t jack_type_read(struct file *file,
- }
- 
- static const struct file_operations jack_type_fops = {
-+	.owner	=	THIS_MODULE,
- 	.open	=	simple_open,
- 	.read	=	jack_type_read,
- 	.llseek	=	default_llseek,
-@@ -310,6 +311,7 @@ static const struct file_operations jack_type_fops = {
- #endif
- 
- static const struct file_operations sw_inject_enable_fops = {
-+	.owner	=	THIS_MODULE,
- 	.open	=	simple_open,
- 	.read	=	sw_inject_enable_read,
- 	.write	=	sw_inject_enable_write,
-@@ -317,24 +319,28 @@ static const struct file_operations sw_inject_enable_fops = {
- };
- 
- static const struct file_operations jackin_inject_fops = {
-+	.owner	=	THIS_MODULE,
- 	.open	=	simple_open,
- 	.write	=	jackin_inject_write,
- 	.llseek	=	default_llseek,
- };
- 
- static const struct file_operations jack_kctl_id_fops = {
-+	.owner	=	THIS_MODULE,
- 	.open	=	simple_open,
- 	.read	=	jack_kctl_id_read,
- 	.llseek	=	default_llseek,
- };
- 
- static const struct file_operations jack_kctl_mask_bits_fops = {
-+	.owner	=	THIS_MODULE,
- 	.open	=	simple_open,
- 	.read	=	jack_kctl_mask_bits_read,
- 	.llseek	=	default_llseek,
- };
- 
- static const struct file_operations jack_kctl_status_fops = {
-+	.owner	=	THIS_MODULE,
- 	.open	=	simple_open,
- 	.read	=	jack_kctl_status_read,
- 	.llseek	=	default_llseek,
+Konrad
