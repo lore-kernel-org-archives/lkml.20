@@ -1,60 +1,78 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D254AB1A8
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51A640099C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:51:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407084; cv=none; b=q+EEKcbuMzPK+mRXDUxWT2TI9zdo/DTswYMirF+pJeIfM7zuxTYLdGLbhp/YxFt6tVAm6ydOHv51oksMFAPzhbGSSN5x95O7nWYpYfsoMISopcMJaFBR9iyCo6qBdsOoFGgTZImKA3rTCifA8dHITCc1az2ITwYM254XzyqY+6Q=
+	t=1792407119; cv=none; b=XADx3tTcqtN8GlJTdXXaD5L7CKi9oYFUZ1/xAcKNW7Ig8Gs7Hlm86XGEepb7rOhJZ+xRe1Q22mpWsWVAify+44zkz1oLodidtgcCeYfm3jLZ3YzK+kHGLfYhcC7LAT+jeB4wSeJsxFdWXvQT+p0QnsLSmEjBMMUaHMFxOsGrj1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407084; c=relaxed/simple;
-	bh=J4nB9Al3uidABUjksxa6XMBj/oy8WmJTTsqBQu++jtI=;
+	s=arc-20240116; t=1792407119; c=relaxed/simple;
+	bh=DYETpg2ch3RE6Zgv4/hYXxN4Wo2kZmgkDZJdYz89Evk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sDgOLZrV+A84wjqzbf2S+67GCgZDtv0ZCocP8ekZyykeIOOnw5Qvlb6nD+fCTCRQDYH/QupQ3rw1GTyrRiZe7J4jkq0hEfHtLtDOV++PSClF4VDWt81JjPJLB3m7rQaDDOxWel6Y9vIyh9JPc9NFTkaa6zyl/sXcDf0HD7TgBwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Pqz3ra9k; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=La0mveeu+UsgFIilvxw+Pw9rkCNyYctFII/cIEtY2rFIbA0rdfBVQkMu7r83GXCRcPL13Rp+XbkllKFNmmJm9sALhZJoFSvuzR+hUCp9f3zUexaSPpzlFdc06lCsW2919TYETbMcquxfCzAGK2tnRPy0eKHhIXyLwiNyiql+ouk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=mihnb2lN; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Pqz3ra9k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792407079;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=izaJnKxTe0eZ1TUwO9IVgWRI/sGQVVqPLpbyYjGGUVA=;
-	b=Pqz3ra9kAEmRpzAYNfc4nHIpadUh5y5eUtSvJJWB4wgDo8QSL0t2EP1Z+i+gi/nuXE1GqM
-	q/vxeTJISmJ2oOUdL8P2Y5KTo8D+9rVbpSXhaJOj332+o6eChDE+RY2DQ6qZQJbR8qdIuk
-	rv6Ib6pMwF9yzfWVEqM0vq5AUiwMT9A=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-691-02ITIMlBOMmX2oHJJzxmSw-1; Mon,
- 19 Oct 2026 10:51:16 +0000
-X-MC-Unique: 02ITIMlBOMmX2oHJJzxmSw-1
-X-Mimecast-MFC-AGG-ID: 02ITIMlBOMmX2oHJJzxmSw_1792407074
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CEE9C195BDF5;
-	Mon, 19 Oct 2026 10:51:07 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 8FF5741B;
-	Mon, 19 Oct 2026 10:51:03 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon, 19 Oct 2026 12:51:07 +0200 (CEST)
-Date: Mon, 19 Oct 2026 12:51:02 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Binbin Deng <18983559317@163.com>
-Cc: mhiramat@kernel.org, peterz@infradead.org, mingo@redhat.com,
-	acme@kernel.org, namhyung@kernel.org, mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-	irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org,
-	andrii@kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] uprobe: Assign session ID before publishing consumer
-Message-ID: <atX2FsqHIkOvhrLy@redhat.com>
-References: <20261019080709.477548-1-18983559317@163.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="mihnb2lN"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso1149013f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:51:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792407116; x=1793011916; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DYETpg2ch3RE6Zgv4/hYXxN4Wo2kZmgkDZJdYz89Evk=;
+        b=mihnb2lNs0zq84B4egRQGOF7XNQjSy4XS7+axCL8ohb4ZufbZE/XPSK//tOwjI0Iss
+         tZB1MjbHTh1WjwPqo4/Wbh9I9Z3519yPIbieIXnUzmVKGuVX30bnJ+qy69c2jwktGbsY
+         +aF4+AYoiNofdREcuASsGN1UHlJulqZ0QJlsDnSs6Z3ta3rs/gazBKg7lI7oB7J0r+j2
+         JdDuzLZUglB4nLIMvm3boevXEFKYLfzQtd1krffrx4Pk6/or4vl4Bk1SJjzYYRyKJ4c1
+         HEQ03NgADEXDldMr8Qx4yyOeDalMHo6RKUW2VIn31ioByHF+tUZ8eFYPsRGxazYzjBcS
+         XWyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792407116; x=1793011916;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DYETpg2ch3RE6Zgv4/hYXxN4Wo2kZmgkDZJdYz89Evk=;
+        b=1uG6LcA/JLaRoib1fWrUmb0Zmb0cq3876UC8LIsoeCkc6oDik34XeljPOwioR9hqfy
+         QHSdf1RoVb02UD/OyLyPodDWHC1mAz52RZuiYaXJsHn+UFN7jGIm933EQYBaz5NdvHss
+         H0iGJxkf3sIIvpbadxKFBfCmKix/AHgzqSDOxkZlx66clwbTn6qoDnSIU4vMtG/nmQm6
+         AiTF2CmTpECGiwmh9hFU0QCEzGjBgXxOe9d87+NU77sKba2Ct5xW0bdbsGLWhVFOq6Lg
+         YNYRB/ATJeQbtTFbdVRe1dXYVhluhPG6f4AbSMBmFN8NRXuJ+LueIOyzS8WEv6rGvd0k
+         9Zdg==
+X-Forwarded-Encrypted: i=1; AKwUvByz3/HbsDVmsNRSxYCqdgIp0Gcor0WWFXDslcVpCCwMqw/qZBz7zQZwaUWnysUnyzcWHyfaGofziZm+f0M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMKQZX4wtEJzJxkjrxPouCkC7vO6e/GlHUhjQSajAfI5L7xX2W
+	Ew9LkNP/VIQyB8mxhZQabME0aKZS6lR9J4l8/dAUSsFT5YIqrdgJr8hsWtE3eBGykgI=
+X-Gm-Gg: AYBFou2IzTsEriexkZtHCPEbR40LbR9P8ypf7h26X+Yj7P9i25ulTopALQYQ2TjDzgm
+	KK1xRDQPnGRasCGI4xYbdJPDXSYd2H1AeRYJ4+ogFOMe4QPvrSWMSdwuv6c8bKcvVoskSikIcG6
+	xx7cQy7+6bxZ6oNZFkUu/S50OpgPRqeU+ktC3ou9isCMZNBjoFeVol+utILicFZXYYkcKm7b2wb
+	hLdXfS17Cmj5pjUwOiLBsqC6sM2yDW4ULyaWWgkQonSocBdX4tk2Ce9R91pOFF6/7AabEMSTqgU
+	2IdpXA45oThToLB1QJE6Cb87dtQPDvOD/WxznikSiS0YhCgsqyROUu7SpYKcgcuW2hjsnbdP/YS
+	68wzxEaktGZoHB4shA7L9LOJ/bzTrMnJYIODRvRu91CxzFDAsF8X1RSfhOXuYZDcbrhUF1mRhZi
+	TaFt0Cs9iCD+hAAY/IWDyPc5OkCFGMfsNiLMIAso3bFZzBqG7RURSJZQyoBaaPAFXqVkIBZU4EO
+	TgGFCv3kMTCfAMsDhH5vsIgsjlzQ88/65Pj2rbvCawTN+Xxu4b9q88BA2bZpa503IK2+EG5jRSG
+	aIrDX4YNQXzS6oc+Zhs9rBdyVoHznBrHt2nHihW9IAO2sapovtqthOTcM89NtXvk6EOC8w==
+X-Received: by 2002:a05:600c:1da1:b0:49f:ce78:3562 with SMTP id 5b1f17b1804b1-4a1d76011ffmr159510145e9.19.1792407115972;
+        Mon, 19 Oct 2026 03:51:55 -0700 (PDT)
+Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b303csm349369535e9.8.2026.10.19.03.51.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 03:51:55 -0700 (PDT)
+Date: Mon, 19 Oct 2026 11:51:53 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: Luka Panio <lukapanio@gmail.com>
+Cc: lee@kernel.org, danielt@kernel.org, jingoohan1@gmail.com,
+	pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, deller@gmx.de, dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] backlight: Add Awinic AW99703 backlight driver
+Message-ID: <atX2Sf4GJNFYq2ZY@aspen.lan>
+References: <20261016162912.64581-1-lukapanio@gmail.com>
+ <20261016162912.64581-3-lukapanio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,38 +81,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019080709.477548-1-18983559317@163.com>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+In-Reply-To: <20261016162912.64581-3-lukapanio@gmail.com>
 
-On 10/19, Binbin Deng wrote:
+On Fri, Oct 16, 2026 at 06:29:12PM +0200, Luka Panio wrote:
+> Add a driver for the Awinic AW99703 3-string WLED backlight controller.
 >
-> consumer_add() publishes a consumer on uprobe->consumers
-> before assigning its session ID.  handler_chain() traverses the consumer
-> list under the trace RCU read-side critical section and can therefore
-> observe the new consumer while uc->id still contains its initial value.
->
-> The race is reachable when an uprobe at the same inode:offset is already
-> active and a task hits its entry breakpoint while another CPU registers a
-> second session consumer.  handler_chain() may store the stale ID in the
-> return_instance consumer array.  By the time the function returns,
-> uc->id has been assigned a nonzero value, so return_consumer_find() fails
-> to match the saved ID and the session ret_handler is incorrectly skipped.
+> Register values follow the AW99703 datasheet (V1.6), the structure
+> follows the aw99706 driver.
 
-I guess we don't really care, this doesn't differ from the case when
-consumer_add() is called right after list_for_each_entry_rcu() in
-handler_chain().
+Given how much the structure follows the aw99706 driver I'd expect there
+to be more code sharing between the drivers.
 
-But the patch looks "obviously good" to me anyway, so
+Cold AW99703 support be implemented by extending the existing aw99706
+driver?
 
-> @@ -1032,8 +1032,8 @@ static void consumer_add(struct uprobe *uprobe, struct uprobe_consumer *uc)
->  	static atomic64_t id;
->
->  	down_write(&uprobe->consumer_rwsem);
-> -	list_add_rcu(&uc->cons_node, &uprobe->consumers);
->  	uc->id = (__u64) atomic64_inc_return(&id);
-> +	list_add_rcu(&uc->cons_node, &uprobe->consumers);
->  	up_write(&uprobe->consumer_rwsem);
->  }
 
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-
+Daniel.
