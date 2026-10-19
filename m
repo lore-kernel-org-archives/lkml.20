@@ -1,141 +1,166 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652D44F799F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:37:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0409529992B;
+	Mon, 19 Oct 2026 13:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417030; cv=none; b=D61+ybLd+6SXOV+wTwJyYFnUmjsCrXNywYawiJelX4ZEV+urQlCBsjLdXHPqMIWpAxXC4ZpXNF91PM435LrCJ6sDI80pImui3aDbOWP0698St/ygTZ2VAoDhJ3oSIol7wN7TPEHUSPlJnEGKmX0xR5jRg0Yn4y9nQGjH5lgaZao=
+	t=1792417057; cv=none; b=d5vjMxE4H4GTQ7Y9Y3NaJkln5TpGP9Nv8zmHrxQ86Ep5ws7erVmdlwItsAPMLJUs53bdknUqCIkBht20KQIccFLOVAcuEFrV8Ok9i8DfEXBjlVVZAjS9RathJuecJXaPm0r3SMWnn5G71Tc7+6czItTg2j1+4Kah3hPPVwXM3Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417030; c=relaxed/simple;
-	bh=fwAYS3zcXGkdd+Ibq1n5HFY65n1XJA1GPMTC7CY2epw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jJfyyi86Wnhp37j/tKdT1sAqKBPVZH3yGOXKOQmmUZfSmD81aM4se9fpz/MKWruXRzCx5/SkKvKRXeFgN1hrVexOq4o89tya8WhFeNrGPumRLTv/iQ10kTKp+ym1ejDqvWEJdiV78eiSkZRFSA08+gFM9KvKTZnbX0V54VyOcjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=GRMVerAw; arc=none smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	s=arc-20240116; t=1792417057; c=relaxed/simple;
+	bh=yoDuwaoTWLvDt97OblECL52QxBpB44G9LCtIekhYmag=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FTcXCt5uaUFdWgTB2gCN1/QAmdSQWlh9zUedfoyH5v6rTOU1xA8ymn1OxbF0h+bL5uT2mUtZaFp21Igvd4ujbttmQm+FwY+XUW4evZjMXS5tBzEUqImxmr913ztE7ZckaTlPLaQE9j53nFA9QOO8pCvHn85G3dbIgDGFGAr2N7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAoVD4YU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="GRMVerAw"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so3088070a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:37:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1792417024; x=1793021824; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kc0HBa20pNgTgn9A/dNG9MRjR4EzrI7cz68avvggZvk=;
-        b=GRMVerAwcSlBgQLJXCczlnCC2hPazNifPPo54m81DGcuQY7ikPldj5xjQXhXfjH3v+
-         gSlmDnn2zVjexWn4H4KBbX2biJ0jf/GMVqK+YDwDvBHum+y4JdRyz8NQg1IJJK2npq5A
-         uo+VHQYI/8/Y3Xe5TzKEMo/w/Iare/9WPQViP61JiVsVZTbco5GqofgHnH+ItR4OfnQp
-         o6LRnLB0mI0Lfwq5FhL0fx7S/PS1SHb/p4abXOSlUM80UQqLjh9UBkKIBx4d6njqOHeg
-         gZn/VJNZMu0J6SWhymnd6dtLLn0VBtCD6CDDVOND1YD1cr9PFG4tJJpGXNYclrUfvCd7
-         L22w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792417024; x=1793021824;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kc0HBa20pNgTgn9A/dNG9MRjR4EzrI7cz68avvggZvk=;
-        b=xoVVkt8hmc2iF54VEOWr/ZlmGvpwY+IAaQgQNXIYT/hCuvRQr1BVhnXxd7f6CHL6wR
-         a4BspFimdbQE84q/cCZPabiHZ/ElcvlV8muSC+INX8OSEIg7SCLnzzdeFpP9n7Fm5AAQ
-         q5pKpySMxSLlBqFYhgH9P3XZfeIc5Ov9T6CYx0DWj5BduaWTQDWZt4w1yWXTIwNxLhhs
-         Kxp6tgJlyeg35UrrMi1AsX//oh7dviUxq+TsWl13tYN87tj7bMpHdYEstr/sYR7u7NVM
-         83YEdBqyam8/0sOtx7x9ax3jQmMvUOmC4ardupTp+oaLuSzl9CKrOnirheiOe5DL/Txi
-         PuBg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWCfGCry8USeyZvt6gVpPYr3oSHHAdN0WFYBV47psXRALb4s+tdpi26aiMFunpvZODg/ZeUxuKcdXnXWw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdTyTsznTyFMThV38nj+rJB1vIXl4pYBvOwC45nCtfYf0yQuTv
-	VK2twdlmJWiuW3OANTo9xkevdEFsvybAm6tKSjjYhyYXUbHaOnEQlLTQ/Dvq0TyUiYE=
-X-Gm-Gg: AYBFou0COwHkgf24t8CedOSUNSJ0FJ/yjdjnsuTQJYFSvOuWA3S8iPAT2phl5BhNQCg
-	7c9NmW8XzNpw3VIx3jx1DJO2p8ZYXXp5zbKaQxQNHaZPJurwJBH32+xdcefurJdQNbS5EnOGZC5
-	wtIPKXZJNpvXetAm9zOhoQOrAfmK1XRhGvt6a7D9Vom2K+Ris8mMcg6zxhfdD8kz14vELyg9J4J
-	llxyvyeVcqdf3blHOTr+oYycCsq/Gsq4gkd7vcl/QRGScffXKgw+BwVQf2Fpj4ftWnq2afY5K9/
-	JV+E3n64zE3Fe7ilCP8WI6iZA60em/N9YCUW06UyYYSPE1MacTb5QTmjZ3qVE1SPZnKLD0KVZ3R
-	kfGmdkNmXI6FS6BKuGmN1iN+gneS8blfcJT2hLDW9DuNis/HyjUY+5hl/V4wJVKiq7Ryfoma7kU
-	4uOqkBFEVAdY+WjAwI8OHHVA4VYOKXj4TzTCybCo2PwTQM2wGm29Um4Mx/DYvesdAGPm5QwYHeS
-	2Qb8vw=
-X-Received: by 2002:a05:6402:5489:b0:6af:8a4b:7aad with SMTP id 4fb4d7f45d1cf-6b3a81a6d00mr4333695a12.28.1792417023411;
-        Mon, 19 Oct 2026 06:37:03 -0700 (PDT)
-Received: from [192.168.50.4] ([82.78.167.221])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f5177sm22897379f8f.30.2026.10.19.06.36.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 06:37:01 -0700 (PDT)
-Message-ID: <14f60932-9a85-45ee-ad87-593c20cc116b@tuxon.dev>
-Date: Mon, 19 Oct 2026 16:36:57 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAoVD4YU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AAC3CC2BCF4;
+	Mon, 19 Oct 2026 13:37:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792417056;
+	bh=yoDuwaoTWLvDt97OblECL52QxBpB44G9LCtIekhYmag=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=BAoVD4YUPJ+RnmRP5Jri3wJBrh5QkILdiPfL9FzrAvzyXJg1fIl+p18QWm4iKlyvw
+	 bYapei2/j7LV8A+1C1Y1s7pzTlnqnhEPu9UmVJpemCR2mj+PGHsuFHO7o8qnrEIeG8
+	 1O7IBQhNoYy3T65blvT8vrdY1zZMmCURwfEDUPkZeeorEUKP/+Ci5BT3JMRg0uhPXQ
+	 niKEkUxuQLJ7dlasIkzaT43p2Ec5PfsNcNRoxIRSlMbYch0xKddynwX/VCnNhEO6D3
+	 TQEiBwuaFUTNBVzTSBGa3k5xInHC76XNMgtHykxejFXPKbJCAQx7UKSJkSGApqC9L4
+	 yf8OPLi+gCT9w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BDD9CCF2DE;
+	Mon, 19 Oct 2026 13:37:36 +0000 (UTC)
+From: Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
+Date: Mon, 19 Oct 2026 15:37:33 +0200
+Subject: [PATCH v2] iio: imu: inv_icm42600: fix parsing of all FIFO frames
+ for odr change
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/11] ASoC: renesas: rz-ssi: Remove redundant component
- open callback
-To: phucduc.bui@gmail.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- povik+lin@cutebit.org, Andrei Simion <andrei.simion@microchip.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Heiko Stuebner <heiko@sntech.de>
-Cc: Kees Cook <kees@kernel.org>, Syed Saba Kareem <syed.sabakareem@amd.com>,
- wangdicheng <wangdicheng@kylinos.cn>,
- Chris Bainbridge <chris.bainbridge@gmail.com>,
- Linus Walleij <linusw@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Neo Chang <YLCHANG2@nuvoton.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- u.kleine-koenig@baylibre.com, Pengpeng Hou <pengpeng@iscas.ac.cn>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Hemanth Selam <hemanth.selam@gmail.com>,
- Md Shofiqul Islam <shofiqtest@gmail.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Zain Aboobacker <zainaboobacker33@gmail.com>,
- Sang-Heon Jeon <ekffu200098@gmail.com>, Bo Shen <voice.shen@atmel.com>,
- Vinod Koul <vkoul@kernel.org>, linux-sound@vger.kernel.org,
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- patches@opensource.cirrus.com, linuxppc-dev@lists.ozlabs.org,
- imx@lists.linux.dev, linux-rockchip@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016040946.521195-1-phucduc.bui@gmail.com>
- <20261016040946.521195-11-phucduc.bui@gmail.com>
-Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20261016040946.521195-11-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261019-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v2-1-d72a69c327ff@tdk.com>
+X-B4-Tracking: v=1; b=H4sIABwd1moC/6WOTQ6CMBBGr0K6dkzbAKIr72FYtGWUUUpNWxoN4
+ e4W9AYuX/K+n5kF9ISBnYqZeUwUyI0Z5K5gplfjDYG6zExyWQsuaiByQHYCGhOQsaWsOYcrvcB
+ 1Hn4RTDjGbIAaBrh6ZTHAoVRHYbRslNQstz895tS2fGm/HCZ9RxPXudXoKUTn39u1JFbv/xdJg
+ AAttRZ1o3hViXPsHnvjLGuXZfkAOQ2nmw4BAAA=
+X-Change-ID: 20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-74a91cb28a2b
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792417055; l=3281;
+ i=jean-baptiste.maneyrol@tdk.com; s=20240923; h=from:subject:message-id;
+ bh=kD1/ng0GS6kPMK14Mq3qWLm6q2zMJ+jIcdvPt6Xp/Vo=;
+ b=DAWMDcOLqRRr7iqC6DWTped4J4M9UNqklDYVqXiraMEK1fslvlmpH7O4i+UCorQ2C3UCeS0Cw
+ dxi5AoZlxs/CjA0LPxi0W3PhIz2XivYnxoetCD1fkKagTl2fqN8/MlJ
+X-Developer-Key: i=jean-baptiste.maneyrol@tdk.com; a=ed25519;
+ pk=bRqF1WYk0hR3qrnAithOLXSD0LvSu8DUd+quKLxCicI=
+X-Endpoint-Received: by B4 Relay for
+ jean-baptiste.maneyrol@tdk.com/20240923 with auth_id=218
+X-Original-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Reply-To: jean-baptiste.maneyrol@tdk.com
 
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
+For getting all odr change events, we need to parse all FIFO frames
+in each iio device. Fix this correctly by sending effectively all
+frames to all iio devices.
 
-On 10/16/26 07:09, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc<phucduc.bui@gmail.com>
-> 
-> In DMA mode, the generic dmaengine PCM component already applies
-> the integer PERIODS constraint in snd_dmaengine_pcm_open().
-> 
-> Since rz_ssi_pcm_open_dma() only applies this constraint, remove
-> the redundant component .open callback.
-> 
-> Signed-off-by: bui duc phuc<phucduc.bui@gmail.com>
+Previously only batches of frames containing a matching sensor event
+were sent to the corresponding iio device.
 
-FTR:
+Fixes: f670d4d34773 ("iio: imu: inv_icm42600: fix odr change not caught in certain cases")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+---
+Changes in v2:
+- Add blank line and direct return at end of functions.
+- Link to v1: https://patch.msgid.link/20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-v1-1-b2bb168a0551@tdk.com
 
-Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Tested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+To: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: linux-iio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c | 24 +++++++++-------------
+ 1 file changed, 10 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
+index 2bf9fc29d7d2..5bff2a3a44bc 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
+@@ -532,22 +532,20 @@ int inv_icm42600_buffer_fifo_parse(struct inv_icm42600_state *st)
+ 		ts = &gyro_st->ts;
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
+ 						st->timestamp.gyro);
+-		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
+-		if (ret)
+-			return ret;
+ 	}
+ 
++	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
++	if (ret)
++		return ret;
++
+ 	/* handle accelerometer timestamp and FIFO data parsing */
+ 	if (st->fifo.nb.accel > 0) {
+ 		ts = &accel_st->ts;
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_accel,
+ 						st->timestamp.accel);
+-		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
+-		if (ret)
+-			return ret;
+ 	}
+ 
+-	return 0;
++	return inv_icm42600_accel_parse_fifo(st->indio_accel);
+ }
+ 
+ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
+@@ -572,20 +570,18 @@ int inv_icm42600_buffer_hwfifo_flush(struct inv_icm42600_state *st,
+ 	if (st->fifo.nb.gyro > 0) {
+ 		ts = &gyro_st->ts;
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
+-		ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
+-		if (ret)
+-			return ret;
+ 	}
+ 
++	ret = inv_icm42600_gyro_parse_fifo(st->indio_gyro);
++	if (ret)
++		return ret;
++
+ 	if (st->fifo.nb.accel > 0) {
+ 		ts = &accel_st->ts;
+ 		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
+-		ret = inv_icm42600_accel_parse_fifo(st->indio_accel);
+-		if (ret)
+-			return ret;
+ 	}
+ 
+-	return 0;
++	return inv_icm42600_accel_parse_fifo(st->indio_accel);
+ }
+ 
+ int inv_icm42600_buffer_init(struct inv_icm42600_state *st)
+
+---
+base-commit: a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
+change-id: 20261016-iio-imu-inv-icm42600-fix-odr-change-event-in-all-frames-74a91cb28a2b
+
+Best regards,
+--  
+Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+
 
