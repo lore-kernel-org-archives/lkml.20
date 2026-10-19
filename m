@@ -1,105 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792446014;
-	b=aOVZmQTWllazPoSpwacByqL18I0IpI1kdjy3K2NbbUKli7JpS6oMjPHWRyCtAtAXDqz/
-	 kb09wze6qDFKTy9TZ8TvVEcgewkDHY3MKDd9GQLnUNBFE5f4I6mnSA1m2SDIppg1aBD5T
-	 B7c2YoMp+7OxWul5Qzd1ulFmayv0Aszqj6dZ+zkARNP/0v8LxW/zXsKJ5b6Pnitj5ot/6
-	 WQEKLqmRMcwn6v5O/GyyzNLbYUio2hGCwMlIQYtlhSqS6XlGPFnMrPKyqGt3AUpNMW773
-	 IR0BMlyv6m0nIvjxVyey/u82Ib13H5N9Opug+oNFtTz+IjV1MTF0LU7ahtf8w/gOEOw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792446014;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=fbdkiBRqceNsAEo7WpDOWPS1EXWmU9r7NLF53sieob0=;
-	b=4PHB5WM+SlAupxPifmOeqQdYQU7C6nhKw759ytCMMUHbiIzBok+p3QRffiGNQqjj56ir
-	 0F3tHrenGwiiDQ+Y2TyocFZAzV7TnoBs3TnZnHWWiA7Y6uyV0fNc8Rn7vzCTT9fdyn+Xs
-	 NaDKR+PjVODR124SwsVJ8h8PBoQWh8teSka52s81AfItxfCn0ewUn4mari6W2MKK5qGaV
-	 WcXBMHa6wY5kKH9Gnv09RJpN6QtzIZyViFzynnEB0yW1amd5UMT4x0+EFd+E++lbzvsAE
-	 fPiVOB5pyi+ANUqFpupg6B9OP5wWFXGzkICDHlRcitVuru3LI397/siEdxTlDFGbMug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="D/n0/0Mp";
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792446046;
+	b=gngYgEkwwUS9o4+bG5O315oQm4DzkUt9uua+zES3TfSYTPzTwnNisdyyu5vaB4kCTPGU
+	 vu61MahpBz8Fx/bTCjahzNC8FI7XA+W7VC8ZDezKiY0AEBpgQUfSkG5uo/OOGYeSm3aBY
+	 b4kIoaILjfas7myuGEQ+udsbooCShXvxQw1PplUiCzjy80eEd+hAJDTWDOb5U6UWHPTeR
+	 ipJ0QYU8xLfO8wSvJhGsZFFHgbOlS3mU8mYOrCaXlFL8hNl/YtDg4DucHsWqKZM9bi+G6
+	 bHex0Z+rUCBUlb8XSKd2LnzF/k3ipES6d/1KxFBJNrGGtvCFVc8uTQnUPGGcbVG+LHA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792446046;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=r5lantx5T1q6bN4wiI36oD3VJ/9gICPU472zEAG06qk=;
+	b=IXF3EfqYCoKGXRzqmxrlAHlMn98/tRmWmNlkZ0kEIkW1riG5Gi9LqC8WEkdhn5U0Bh6c
+	 53VGExxXsPebV4OmgKW7vTREcfQHQIq8Q9jcEkxPvBZZYHn38+32gG3fohlr/uHA+15nM
+	 uM5rmoZo5ridAAxeSczeOp04TNwA7BuY59vN7Q7GUOS2CDyDJOsf8EYIm4jJAWPGtcwNu
+	 qMS1kXGRagaTlLvlFWtIVoNw3pn1oA7+RvrJ+jtT19oVCyh8Y4tr1GN1zgZW/QolBsUu/
+	 00/+84Dt6jfpdYfCsPQicvK1pOEAHAH5BJ6QatztFz57LMw6ibmHKvd6f/w0zZBulFQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=grmjwNzc;
+	arc=fail smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C02606A339;
+	Mon, 19 Oct 2026 21:40:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=grmjwNzc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792446045;
+	b=eGGeAbMjuvThgHW4jO3ThLv+PfV6w1sBZ3U4aB3htHMORPaodIZTaUZgg/5hjtTN8GHS
+	 wXd9SPAPorqnG0LeT3EOIe7M6aXENHaiw9abEU9VYPwYZo2ONhG2ni8wXstxezd0WL1mh
+	 THEoZFfbb1hdS6ePPBOeO/XaHkAiaA9PtHSTyy/DOO33tuN+Jh0PcZOmgKkRcvN5ooxLj
+	 w5oRt0lGp55k05ElyL9tGJG7ChomQrW9rAT7fhy8HAMiTtT4x8QMguWwBNcGza35yTVYT
+	 mToDIMevzEPPqnonLcjbGmUoA9bhHuRszLd5w2Dnh+4C9ojMZUXz2KqEykIwojZxiAg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792446045;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=r5lantx5T1q6bN4wiI36oD3VJ/9gICPU472zEAG06qk=;
+	b=EsDZU8mrXSUVLhqAORAoKy+pJtedIWE2PxCUdDz3zJ5ikpHeYwKosz8ZDY+anzrv1CxV
+	 qAW7s6WOUQd4NTjIdgHskdtYiVd0co8YOpKoBUBtIFQ7Kp3oMyKHhZLHaA8gjiu7rGkfl
+	 Rvf4kpt6TG+2kTnk2awHmZxzz0uFXOIiWD4NQwGwuKhLB3Xz0W5FxeySqt8jZm/GQGneT
+	 5Sul/WAM23gisfZV3y/q/FvYOAEnlaQIPJX8HieHFlxQgg6cqgc1r0y3FJ4SjGLYN5z+3
+	 fxMb7mbgNu0CB403P0nsnjZmA9rTrtsuQJ7N18V6z8L1IxMHVmRBAX67BNbTsE2PuGw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0CE606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:40:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB0CE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=D/n0/0Mp
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso53534f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:40:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1792446012; x=1793050812; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fbdkiBRqceNsAEo7WpDOWPS1EXWmU9r7NLF53sieob0=;
-        b=D/n0/0Mp+g8eT01Flr7cS3DvgB/7WqEMp4jJWnop2FRFBeLFmGaSaL2LQTIDr6xMFY
-         BM45uekHscpxMa1cdCQ7OzbgwllEzZBy//JVwTSKUJGtFyckIjuUbUcyZT5LGZjBl3vu
-         hQd54YmOTh/piSQEuanmLVU7Ndxd8Ox9K6Q0ClV3LV9UX1Utur+rKJMSsx1vZIdl3NSN
-         4quHEg+mggOgbZO2zeHBG6eilCmHrXMO0OCb3eyeajt2DY3JqAKDmGcSyf/uEML4WCOt
-         Kghq/GjQaS8bzUm/+UJzfHV3y0sGrb+V8x6ib4HfrxiDjj1pyz9NAjlzYBV8AgI4k69V
-         yIHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792446012; x=1793050812;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fbdkiBRqceNsAEo7WpDOWPS1EXWmU9r7NLF53sieob0=;
-        b=cY2v4hUenpknGDxrJZQpp9zaDzQpRVkb+VqhsttALuDAPNEO/PveI6Ohng9Lz9VdVR
-         eJwFovpnHuOqrAhgZ8rypti6hSv7d+iMVQHlsLLkwmqcB6pNXpx+duUXoauxSTqn3yMb
-         g/e85m3jaEULgnaFyvo+6T9x6Wtny9F0sUiYE92gv7saezYHf2E9ixrg57FSFqCqKyd+
-         gRXzg4xSas9au/eGOi2rZzKd+cGR0+DuHIrxDy3Av7D4WIWeP7GsUGs4+9L9NkSzNR+H
-         egKYKqdCywLbyVwZ+1PlgQ831Gj2qeQjkF0zd6lK1s4CQ8UMY+ewRpfnMNGKuWKym5Lm
-         YkTg==
-X-Forwarded-Encrypted: i=1; AKwUvByvGvP4bZspxvZkaq+aeU3khbHNe6rFMFxPjAnrySPHdKFjTETSARKEXSHk1rZV0MIl12hDZk9ad1pOsSM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0dxkkpCrF8pT5ma4bcjJWK5Ico5aG6JVnYvG73qLanhFgjVgq
-	wA/r977iBlkErzc8sjdFcu8+1cFpkIIQen9rJdsHaQgYHYuOtlmvIfGG9U0sY/Iya+xmIBcbb2g
-	jr+lfLdM=
-X-Gm-Gg: AYBFou2hPfDZdp6NCqPVSphaEE+zNz+5GB1reeNJz2y1LaNGBmw0DfA3kFGnkOQuDlV
-	D2aLzIbZCjFz8j/rqx6l0O6PEz6IEJNu8EMuLTVVIkAWvvAJo2JZHTgAkOYVMoX9fhuX4yPTuOh
-	A/yZXv2uV3KQ49hUAFIkXQaBKrqAuyxEnxwNR0lGnetx4y5jQPcuCYYQUj8lFUUUkqa/1oIQM3n
-	FOfhqYpAqaTaKw24xbPo7GnMKJz2gKJGeYABUK9lAeGhs+cbsukBofZa2OY5SScFpeKKv+5yvMh
-	it4aab2+CoNnT/GWFmktp5DYW1bLDMNNf3PbnHeprK86/w0HsoKmjKhD8VDlX0t/p/9JaCH+goA
-	KeDbQg6Hj5hQN8CBUo0uZHLLBN33RR0zL3xBkhg3shaxyW/VCfglcLw3r0qO05uurwleUqmm6kh
-	9e3Fk4DjB1QVEPK5layqpjX5g1IUCJPBob34FFRpRDFz4iy4UnknxwukRMsGjGYgtzeGIOqkTPb
-	p2nfGHZurYTqg0mREdVyU47gcfcug==
-X-Received: by 2002:a05:600c:2256:b0:4a1:e478:7878 with SMTP id 5b1f17b1804b1-4a1f53dce01mr4437525e9.18.1792446011568;
-        Mon, 19 Oct 2026 14:40:11 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e1d83a338sm1464721f8f.59.2026.10.19.14.40.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 14:40:10 -0700 (PDT)
-Date: Mon, 19 Oct 2026 14:40:07 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Daniel Wagner <dwagner@suse.de>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Hannes Reinecke <hare@suse.de>
-Subject: Re: [PATCH v6 07/18] nvme: Introduce FENCING and FENCED controller
- states
-Message-ID: <20261019214007.GO2931-mkhalfella@purestorage.com>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-8-mkhalfella@purestorage.com>
- <179242929827.3619480.8550407233438315193.b4-review@b4>
- <ebc2064d-70d8-44c9-8230-5ba4b24cf5d9@flourine.local>
+	by smtp.kernel.org (Postfix) with ESMTPS id B2AAE1F000C6;
+	Mon, 19 Oct 2026 21:40:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792446045;
+	bh=r5lantx5T1q6bN4wiI36oD3VJ/9gICPU472zEAG06qk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=grmjwNzcQ5BRj//giAsTZ3a4i41shrVcHWCOgpfCOKxwgZlcrFqvRKJ+SpVpCLoNv
+	 8iwrqOm//IZwaKdYjCjoeqHQdB7ns8+cxthdUQLXV/62WT4B/kYvsVwu0Z/HQxJJ52
+	 F/q84fuRZz7nVR+WbwLXBlHjfTZ+C2n1D16daEsnDo7NlezMO66SqR4TDi8FwZg38H
+	 4LjJoUhZ6G9clTljLjgZ9TdG5bx71+e05deo9xqqPJvSgYuB30Y4KTt8KI+GM4yK4e
+	 RUPZiWHdPCZhyUqyZ7VB5gbxesh0b3jSvePi6Ncrao9CbAsYGL5cXpT9/nP4+aasWz
+	 gCgbD7IeP+GRQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 083D140631;
+	Mon, 19 Oct 2026 21:40:43 +0000 (UTC)
+From: Manuel Huber via B4 Relay <devnull+manuelh.nvidia.com@kernel.org>
+Date: Mon, 19 Oct 2026 21:40:25 +0000
+Subject: [PATCH RFC 1/4] ipe: add the .ipe policy keyring
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,52 +82,269 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ebc2064d-70d8-44c9-8230-5ba4b24cf5d9@flourine.local>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261019-b4-ipe-keyring-rfc-v1-1-156f0b93e843@nvidia.com>
+References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
+In-Reply-To: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
+To: Fan Wu <wufan@kernel.org>, David Howells <dhowells@redhat.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>, 
+ Andrew Halaney <andrew@amutable.com>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ linux-security-module@vger.kernel.org, keyrings@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Manuel Huber <manuelh@nvidia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792446042; l=7425;
+ i=manuelh@nvidia.com; s=20261019; h=from:subject:message-id;
+ bh=pzmdNrjH0K9jBZOsygXh8Yb7f2fOt7gvUDgHY5ObJnM=;
+ b=224d2yttNRkgR9OFGtyo3Av3E6VfoYQzjQs75w2w9gzlveaL4NqBDAD/bPpkGmLk8nKssW5tw
+ bnMFsrT4dQqDt7AuC0tNnj5u5wi9HMLbltX0uZGNIerHOwUPuFqmWxJ
+X-Developer-Key: i=manuelh@nvidia.com; a=ed25519;
+ pk=uKggxpZ/mM0qtFnudxvh5Dfz8I6VoehwoM3eYCe3tyU=
+X-Endpoint-Received: by B4 Relay for manuelh@nvidia.com/20261019 with
+ auth_id=1244
+X-Original-From: Manuel Huber <manuelh@nvidia.com>
+Reply-To: manuelh@nvidia.com
+Content-Transfer-Encoding: 7bit
 
-On Mon 2026-10-19 19:18:32 +0200, Daniel Wagner wrote:
-> On Mon, Oct 19, 2026 at 07:01:38PM +0200, Daniel Wagner wrote:
-> > > --- a/drivers/nvme/host/sysfs.c
-> > > +++ b/drivers/nvme/host/sysfs.c
-> > > @@ -542,6 +542,8 @@ static ssize_t nvme_sysfs_show_state(struct device *dev,
-> > >  	static const char *const state_name[] = {
-> > >  		[NVME_CTRL_NEW]		= "new",
-> > >  		[NVME_CTRL_LIVE]	= "live",
-> > > +		[NVME_CTRL_FENCING]	= "fencing",
-> > > +		[NVME_CTRL_FENCED]	= "fenced",
-> > >  		[NVME_CTRL_RESETTING]	= "resetting",
-> > >  		[NVME_CTRL_CONNECTING]	= "connecting",
-> > >  		[NVME_CTRL_DELETING]	= "deleting",
-> > 
-> > The ABI documentation needs to be updated.
-> 
-> And while you’re at it, what’s the impact on blktests? I can’t quite
-> recall what you presented during ALPSS regarding blktests. Is this
-> covered?
+From: Manuel Huber <manuelh@nvidia.com>
 
-Both [1] and [2] trigger "fencing" state. [1] focuses on not seeing
-corruption while [2] also inspects kernel logs to make sure that CCR and
-CQT are triggered when they should. There is no explict check of the
-controller state in these tests. We know that CCR/CQT will happen in
-"fencing" state though.
+Add a dedicated .ipe keyring for IPE policy signature verification,
+modeled after the .dm-verity and .bpf keyring implementations.
 
-> 
-> Keith, Christoph, and I are mostly concerned about this patch.
-> Experience tells us that anyone touching the state machine will
-> introduce regressions. Because of that, I’d really like to make sure the
-> upstream testing side is covered. I know you’ve run tests in your lab,
-> but we need test cases that everyone can execute in their own
-> environments, and blktests is the right vehicle for that.
-> 
+With this, userspace can provision its own keys into the keyring,
+then restrict it and activate it for IPE policy signature verification.
 
-I documented part of the testing I did in lab in my ALPSS slides [3].
+This enables scenarios in which a trusted userspace component generates
+an IPE policy, and creates an ephemeral policy-signing key pair,
+provisions its public certificate, and restricts the IPE keyring during
+the early lifetime of a system. The trusted component can then sign the
+IPE policy, destroy the private key, and load and activate the policy.
+During that phase, the system is considered in a trusted state whereas
+the system transitions into a possibly untrusted state afterwards,
+running arbitrary user-provided applications. In such a scenario, the
+trusted userspace component could reside on a dm-verity protected
+rootfs disk, and applications would reside on additional dm-verity
+protected disks. The latter disks would be dynamically attached and
+their dm-verity root hashes and/or signatures not known a priori to
+launching the system.
 
-I addition to [1] and [2], what kind of blktest you would like to see?
-If you describe the blktest in detail I will implement it and put it for
-review.
+A concrete usage scenario could be Kata Containers, which enables
+running Kubernetes pods in ephemeral, headless utility VMs, possibly
+without systemd. The rootfs disk is static and known beforehand, but
+containerd's image layers might be acquired and transported into the
+VM using the erofs snapshotter and dynamic block device attachment
+using dm-verity.
 
-1- https://lore.kernel.org/all/20260917020752.1672578-1-mkhalfella@purestorage.com/
-2- https://lore.kernel.org/all/20260921205951.3023714-1-mkhalfella@purestorage.com/
-3- https://drive.google.com/file/d/17lt_H3FxeoDSWD8q32diO7e03JYJaimn/view?usp=drive_link
+Signed-off-by: Manuel Huber <manuelh@nvidia.com>
+---
+ Documentation/admin-guide/kernel-parameters.txt |  9 +++
+ security/ipe/Makefile                           |  1 +
+ security/ipe/ipe.c                              |  2 +
+ security/ipe/keyring.c                          | 79 +++++++++++++++++++++++++
+ security/ipe/keyring.h                          | 16 +++++
+ security/ipe/policy.c                           | 10 ++++
+ 6 files changed, 117 insertions(+)
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index e75344f4e0cd..fd508dd779ed 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -2733,6 +2733,15 @@ Kernel parameters
+ 			Determine whether IPE starts in permissive (0) or
+ 			enforce (1) mode. The default is enforce.
+ 
++	ipe.keyring_unsealed=
++			[IPE]
++			Format: <bool>
++			When set to 1, leave the IPE policy keyring
++			unsealed after initialization so userspace can provision
++			keys. Once the keyring is nonempty and restricted, it is
++			searched during policy-signature verification. The default
++			is 0, which creates the keyring restricted and empty.
++
+ 	ipe.success_audit=
+ 			[IPE]
+ 			Format: <bool>
+diff --git a/security/ipe/Makefile b/security/ipe/Makefile
+index 2ffabfa63fe9..109e736696a5 100644
+--- a/security/ipe/Makefile
++++ b/security/ipe/Makefile
+@@ -20,6 +20,7 @@ obj-$(CONFIG_SECURITY_IPE) += \
+ 	hooks.o \
+ 	fs.o \
+ 	ipe.o \
++	keyring.o \
+ 	policy.o \
+ 	policy_fs.o \
+ 	policy_parser.o \
+diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
+index 495bb765de1b..f5232f850dc2 100644
+--- a/security/ipe/ipe.c
++++ b/security/ipe/ipe.c
+@@ -7,6 +7,7 @@
+ #include "ipe.h"
+ #include "eval.h"
+ #include "hooks.h"
++#include "keyring.h"
+ 
+ extern const char *const ipe_boot_policy;
+ bool ipe_enabled;
+@@ -97,4 +98,5 @@ DEFINE_LSM(ipe) = {
+ 	.init = ipe_init,
+ 	.blobs = &ipe_blobs,
+ 	.initcall_fs = ipe_init_securityfs,
++	.initcall_late = ipe_keyring_init,
+ };
+diff --git a/security/ipe/keyring.c b/security/ipe/keyring.c
+new file mode 100644
+index 000000000000..ea8d164b62a6
+--- /dev/null
++++ b/security/ipe/keyring.c
+@@ -0,0 +1,79 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++ */
++
++#include <linux/cred.h>
++#include <linux/err.h>
++#include <linux/key.h>
++#include <linux/moduleparam.h>
++
++#include "ipe.h"
++#include "keyring.h"
++
++static struct key *ipe_keyring __ro_after_init;
++
++static bool ipe_keyring_unsealed __ro_after_init;
++
++/* Set the right module name for built-in parameters. */
++#ifdef KBUILD_MODNAME
++#undef KBUILD_MODNAME
++#define KBUILD_MODNAME "ipe"
++#endif
++
++module_param_named(keyring_unsealed, ipe_keyring_unsealed, bool, 0444);
++MODULE_PARM_DESC(keyring_unsealed, "Leave the IPE keyring unsealed");
++
++/**
++ * ipe_keyring_lookup() - Get the IPE keyring if it is ready for use.
++ *
++ * Return: A borrowed pointer to the IPE keyring if it is nonempty and
++ * restricted, or %NULL otherwise. The keyring has system lifetime.
++ */
++struct key *ipe_keyring_lookup(void)
++{
++	if (!ipe_keyring)
++		return NULL;
++
++	if (!READ_ONCE(ipe_keyring->keys.nr_leaves_on_tree) ||
++	    !READ_ONCE(ipe_keyring->restrict_link))
++		return NULL;
++
++	return ipe_keyring;
++}
++
++/**
++ * ipe_keyring_init() - Allocate and configure the IPE keyring.
++ *
++ * Return: Always %0. A failure leaves IPE without its dedicated keyring.
++ */
++int __init ipe_keyring_init(void)
++{
++	struct key *keyring;
++	int rc;
++
++	keyring = keyring_alloc(".ipe", GLOBAL_ROOT_UID, GLOBAL_ROOT_GID,
++				current_cred(),
++				KEY_POS_SEARCH |
++				KEY_USR_VIEW | KEY_USR_READ | KEY_USR_WRITE |
++				KEY_USR_SEARCH | KEY_USR_SETATTR,
++				KEY_ALLOC_NOT_IN_QUOTA, NULL, NULL);
++	if (IS_ERR(keyring)) {
++		pr_err("failed to allocate keyring: %ld\n", PTR_ERR(keyring));
++		return 0;
++	}
++
++	if (!ipe_keyring_unsealed) {
++		rc = keyring_restrict(make_key_ref(keyring, true), NULL, NULL);
++		if (rc) {
++			pr_err("failed to restrict keyring: %d\n", rc);
++			key_revoke(keyring);
++			key_put(keyring);
++			return 0;
++		}
++	}
++
++	ipe_keyring = keyring;
++
++	return 0;
++}
+diff --git a/security/ipe/keyring.h b/security/ipe/keyring.h
+new file mode 100644
+index 000000000000..3d450a465511
+--- /dev/null
++++ b/security/ipe/keyring.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
++ */
++
++#ifndef _IPE_KEYRING_H
++#define _IPE_KEYRING_H
++
++#include <linux/init.h>
++
++struct key;
++
++int __init ipe_keyring_init(void);
++struct key *ipe_keyring_lookup(void);
++
++#endif /* _IPE_KEYRING_H */
+diff --git a/security/ipe/policy.c b/security/ipe/policy.c
+index e542329726bc..abc1ff9ac230 100644
+--- a/security/ipe/policy.c
++++ b/security/ipe/policy.c
+@@ -9,6 +9,7 @@
+ #include "ipe.h"
+ #include "eval.h"
+ #include "fs.h"
++#include "keyring.h"
+ #include "policy.h"
+ #include "policy_parser.h"
+ #include "audit.h"
+@@ -160,6 +161,7 @@ struct ipe_policy *ipe_new_policy(const char *text, size_t textlen,
+ 				  const char *pkcs7, size_t pkcs7len)
+ {
+ 	struct ipe_policy *new = NULL;
++	struct key *keyring;
+ 	int rc = 0;
+ 
+ 	new = kzalloc_obj(*new);
+@@ -189,6 +191,14 @@ struct ipe_policy *ipe_new_policy(const char *text, size_t textlen,
+ 						    VERIFYING_UNSPECIFIED_SIGNATURE,
+ 						    set_pkcs7_data, new);
+ #endif
++		if (rc == -ENOKEY || rc == -EKEYREJECTED) {
++			keyring = ipe_keyring_lookup();
++			if (keyring)
++				rc = verify_pkcs7_signature(NULL, 0, new->pkcs7,
++							    pkcs7len, keyring,
++							    VERIFYING_UNSPECIFIED_SIGNATURE,
++							    set_pkcs7_data, new);
++		}
+ 		if (rc)
+ 			goto err;
+ 	} else {
+
+-- 
+2.53.0
+
+
