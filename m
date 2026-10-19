@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792425343;
-	b=tIUsy6oFBcrj3vYEbYIvcUpWRigbxB2WmpafRAonEoMwXyQ7LR8g73sKK6RmgVbnGQ6P
-	 CBMCZHNTf/1Vn+22+G2j+1Q3X5cExl3fmIQPxGN66q/40WQFI/gIXjsEAQirlC6yL0koJ
-	 DisFk8+DVPMB2oQNYuNDKXrIg116xUTQ0ljEbof5RprnRQoPJG4MPE71retBMUMTjL4Ur
-	 9CF39u/WpW+Df6qGFX4e3rjWC8xKKsrk3NsQTlgMVilpmTNrwlHSn5yd16QPiduaq3M5V
-	 ggZaaesC5rS8PEHe/RrYzL5wPvaKub0KxdCSMR/nWzZ2myBU89HT5qC/Jp9nQKiGqKw==
+	t=1792425419;
+	b=xesU7D4DCmf1syESuwCqYcfWsxmpcW57L0LCAx0kldULvgrLhL5bNbr7arexB5bQ5JUx
+	 W5gJzQePF1NPNWpm9hlDmldhp2H0CTyJRgnHzfqz+PCotK6aAUwxo/cWy40i3gAUb7X0W
+	 6apgjt7LrESTe5gIPWTe5GJ1LlgtkLDnguaOMgzljxJgiJvhCbyxJh7j09BRKJ8UlnsIu
+	 YsEi0C9wPoDYEyDhwOPqqJNddlG4AuNkFQYgAs5fPT9/cy/ISSj339n7IKNQLUrfqedgJ
+	 86D6YB1YJxycEWhW3fAL/3Cw2eS5147HGh9HD4p75kDQZJweUOMOvBuoxgAzGaPxbtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425343;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=BA9zoqXOo/u1x2NpKUaBSGpkeU42OJi0fUHglu0fhGGFcqv5igRFimf01C7plC6/EkM7
-	 971SueuE0+hI+pBPQYI8ZwPkA3p+w1IxUVxbGN19dQe7rloGDNOjwmajlqEY1HIUab0K/
-	 nF6OJjlMvKDY/KyxqdjWtmUpDT+xaBreZ2FMeyDRzY3MbMxYJS6fbRp2Cxm2IhZDJOscB
-	 RvAe3tPAs4pgttFrAi3ItdnbUPVaP9Ph3cB4vXhCblLDWcws6lHoHQ/7ygNzbLptbn0Z5
-	 EIIL7I4wPPLlrax6gwp5GSu+6rXOppZ9px7JlhL7Ynm7EHjqjgSUJaKV3F8NRMC7jHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792425419;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=BCPGdn08In8hsRvJ/xlYMeYzGiSxsIAjqufejJHxudc=;
+	b=GUDbDTGnN9X2TxGGYLT9jjLBWr/Rgj/QbZABNosIWhQkZlltVp+lTkudt82TP4ke67uB
+	 1J5OAp8ADcSFW9ZH4II62ZNlg0NQbB2VkeWQn7OkGAaJuVp2JF0vDbLCzE80Mgd02+rpf
+	 /lOfhXcC70wco4bP82aZs8Qs9cS29Hpu4bXofR9Ke2Z/ETGtO/r9ItgSq4lhyQ8lMPXZ7
+	 iVYvM2ZC0OzEut/wqktlOyenEO67uvEkJbQLk78+0HPiBRi03+Jls2vSmk05GJuWevVjA
+	 B8yJgmi2DaXJxLn+BmJTAm6jCsll9G7StgUf/mm4clDMh11vRuUByPhjks2tSJH2uug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PT3bTU1L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A078606C158;
-	Mon, 19 Oct 2026 15:55:42 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=P+DJK3K8;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B311B606C15D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:56:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B311B606C15D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PT3bTU1L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0288D1F000C4;
-	Mon, 19 Oct 2026 15:55:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792425342;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PT3bTU1LF3kvkeZfpU/17oVGDFJU+mvPHPE8xSHnWvvlJMv8PRmawiPhYpEv2xah2
-	 zzmhh+rkAVFlyZ4D6Q/0rJeph7myDtuaUDA6PPUvKmZPolmARRluIgbJaEN7qNFe+2
-	 J0TT50RslHVfmGsWJ3FJzYy7HSUAnWvDrucbdERHYOUYNzinMWOiqC9DRw9zgmvlxI
-	 LRblNkTdnP9qI037SRTKOhR/K2/OJcQb0GP4yfREQAjhzmS6+E+wBR37OF2uACdZoB
-	 wiUiV3UlX5DyQ5AoFi1DQ0hz2snyXgPV/GaDUWk6zsZwxUET/HBhUrxx2AdhflnOAN
-	 C99T4hmaWBPfg==
-From: netdev-bot+sinfo@kernel.org
-To: Qihang <q.h.hack.winter@gmail.com>
-Cc: netdev@vger.kernel.org, steffen.klassert@secunet.com, chopps@labn.net,
- herbert@gondor.apana.org.au, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
- idosch@nvidia.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v5 0/3] xfrm: fix vti tunnel device use-after-free
- across async crypto resumption
-Date: Mon, 19 Oct 2026 15:55:41 +0000
-Message-ID: <179242534145.3290.3021737362277964895@kernel.org>
-In-Reply-To: <20261019153247.89957-1-q.h.hack.winter@gmail.com>
-References: <20261019153247.89957-1-q.h.hack.winter@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=P+DJK3K8
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D726F169E;
+	Mon, 19 Oct 2026 08:56:54 -0700 (PDT)
+Received: from arm.com (RQ4T19M611-7.cambridge.arm.com [10.0.144.35])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B8CDA3F7D8;
+	Mon, 19 Oct 2026 08:56:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792425418; bh=FTlPPvQLOuIgddMm6UeqHnpF/oK8sW3b5I0vLFpaGFE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=P+DJK3K8pwaa4+8Yow2pf7Q0ivZ/XICojej4Co7OwLdOEl/oiSOF78MWnDUe5feSf
+	 A+MbMP79i/mjXUxVink/0N+U5DW2PWeRHiY4hgCU/GP7hquFH/fQFV3vE/JmrFRhIk
+	 YKu2+5HD7FY6MGesOjj8rVwgxvdkoIPH6vztddYE=
+Date: Mon, 19 Oct 2026 16:56:53 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] mm: kmemleak: scan modified objects as soon as they are
+ grayed
+Message-ID: <atY9xT4MfPL7R8fo@arm.com>
+References: <20261016-kmemleak-gray-drain-v1-1-3270256fdc8e@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,21 +61,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-kmemleak-gray-drain-v1-1-3270256fdc8e@debian.org>
 
-Hi!
+On Fri, Oct 16, 2026 at 09:07:24AM -0700, Breno Leitao wrote:
+> diff --git a/mm/kmemleak.c b/mm/kmemleak.c
+> index 8fa409a4f9fb26..6e12bcd95312d2 100644
+> --- a/mm/kmemleak.c
+> +++ b/mm/kmemleak.c
+> @@ -1696,8 +1696,10 @@ static void scan_gray_list(void)
+>   * Conditionally call resched() in an object iteration loop while making sure
+>   * that the given object won't go away without RCU read lock by performing a
+>   * get_object() if necessaary.
+> + * If @scan_gray is set, also scan the gray list while the RCU lock is dropped.
+>   */
+> -static void kmemleak_cond_resched(struct kmemleak_object *object)
+> +static void kmemleak_cond_resched(struct kmemleak_object *object,
+> +				  bool scan_gray)
+>  {
+>  	if (!get_object(object))
+>  		return;	/* Try next object */
+> @@ -1709,6 +1711,8 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
+>  	raw_spin_unlock_irq(&kmemleak_lock);
+>  
+>  	rcu_read_unlock();
+> +	if (scan_gray)
+> +		scan_gray_list();
+>  	cond_resched_tasks_rcu_qs();
+>  	rcu_read_lock();
+>  
+> @@ -1910,7 +1914,7 @@ static int __kmemleak_scan(bool full)
+>  		raw_spin_unlock_irq(&object->lock);
+>  
+>  		if (need_resched())
+> -			kmemleak_cond_resched(object);
+> +			kmemleak_cond_resched(object, false);
+>  	}
+>  	rcu_read_unlock();
+>  
+> @@ -1981,8 +1985,13 @@ static int __kmemleak_scan(bool full)
+>  	 */
+>  	rcu_read_lock();
+>  	list_for_each_entry_rcu(object, &object_list, object_list) {
+> -		if (need_resched())
+> -			kmemleak_cond_resched(object);
+> +		/*
+> +		 * Scan newly grayed objects now, not after the walk: one may
+> +		 * hold the only reference to another and be freed by then,
+> +		 * like a maple tree node that keeps being replaced.
+> +		 */
+> +		if (need_resched() || !list_empty(&gray_list))
+> +			kmemleak_cond_resched(object, true);
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+I think that's a good way to reduce the false positives for such maple
+tree scenario. Do you have any numbers on how much this extends the scan
+time by? If it's too expensive, we could rate-limit it, say every jiffy.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+>  
+>  		/*
+>  		 * This is racy but we can save the overhead of lock/unlock
+> @@ -2082,7 +2091,7 @@ static void kmemleak_scan(void)
+>  		bool dedup_print;
+>  
+>  		if (need_resched())
+> -			kmemleak_cond_resched(object);
+> +			kmemleak_cond_resched(object, false);
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Nitpick: instead of passing 'false' in a few places, rename
+kmemleak_cond_resched() to kmemleak_resched_drain() (well, some better
+name) call get kmemleak_cond_resched() to call that with 'false'. We
+could also move need_resched() in such function, being a small wrapper
+the compiler should inline it.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Either way,
+
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
