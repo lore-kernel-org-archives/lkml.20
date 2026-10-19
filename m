@@ -1,68 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792440038;
-	b=YQCgnu+UyVm1uFfymP1tEwBk57lnElvidjhOQEJOy5kiaF4MZfBBaqce62IX95cP4lXo
-	 2wgbFE4KUppAWcB89BxVyWGPGh+jyiGmZiRpncw0tjY8BamKXmewzeDXwtpzUcrLTOu5S
-	 0HWzZtVshEShZniRnK5jH+SSV7fjemDJ+6YmE3QslmAZzGH026A88agy+HJ/BoPk8ghDs
-	 VKFf7n09xhoQSWB911fEMo7sGXTsyEQ5OQ5rdWtCWvFsA3PAqLlFWzewwm+d3A+fnnWTj
-	 3/qUYOAQVQBegzgKQ21WpmZQjNcvj38vpOUkgyQiT9GnImCQmyhjnMxPQ/y0z3JMl6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792440038;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Ux87Or6H1qG//7PVLz/zBWhaIEX1urIy5837nD8GIWI=;
-	b=XI/d9Pe3sKsuPxqsR91s/sqaEmzTye3G40ij3iG5YD1VMFpDZBMS2Yj2MQxspfnJqJTQ
-	 yn78lzsf7ybHx1dj1VMf3G9NfUI3HNL+XBOias+1i8w3dgUwYHmUFdkjbJV3s09chOsls
-	 0hp0+nWfffMae64kNfqm6b7gWKnyz63SH4gmzEDXw9xuqsuiEO+tRnv26Obb0ii020PnC
-	 HRdrqtMNUOyjrp0r3pRTDT4j5FqNpWNteU669l6bu2jCd+MaEpTSVvglzajpPjL0FGXS5
-	 RJ2kkpZne9akCmyDQppbPJv8NJijQYA3okppT6OR1PS1VlUtNYxYxd1bbkd2djOv+lA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XSJ7dFQt;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792440212;
+	b=Z60BpvDofxoAmMMyML5xMX9sybcWuXqpQVAFx5eaSbSAOYx4ncq+s5g5M1jqyq+cVS0L
+	 gHLL65UQDNbVN64bBFAmePoaLpzIxPRw1xDxstP8U1u+vlnEBdN6Asgt5jLB9r+xLfXTt
+	 siENI+bGRhFkFblNb7fF96lwyheKjV6RXZAwvc+9WZaEbfK3rp/IzfTVjIJrPjug9HKgg
+	 BphmGAkovQNPxOiKqzF51T/TDsx3d4LT10wfy0SPHH6LMgkya/LYRkR63WrWKX/73mpS7
+	 IRlBILUZHPtTfqOT8kG0e3QHt4/+fQVFe+jj96FbIcIHCzCnU6I+aqtfvvW9vZt0xHQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792440212;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i8MNxol060O6EW3B3WyFVJdha1qRJwS9VM/FovGS3EM=;
+	b=r+MmdR1kCwuMherM7bjFqmRrNHWex816bHYe5o030b+nlhXmfN0n3ilevsop3y75fKFF
+	 09pY17fHhgsYLhC+9Ijr/M2gZ5EqrrF22n4Yzep1f3y7X65H+ai0jwi/uS0TpHx2Bk2+e
+	 MbEMTDYEhLxxQBrX/x0zEU/dA1GitcRs3+WoyNkj9PmK4shmlMLiN6GA4imErK1xDIMsI
+	 M9LjclXhxyMRJrkO//UhS1aG4WR8/geEOYtiVU+zDN4wQWLeYOiAeAKesx87DGpCol7eO
+	 /MPgl5VUCRTwJyrg87JCXxy5gjUaFjz/OVZmRVwlVmCv3n1RfPhnHAqdTDx36+WqxQw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8sWZu4l;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E70606A320;
-	Mon, 19 Oct 2026 20:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73E70606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4406606A31A;
+	Mon, 19 Oct 2026 20:03:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XSJ7dFQt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792440038; x=1823976038;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=vF6bNVA+qNH7VHEXonZQinzjh9XzXcyQM1oQrXK6c7E=;
-  b=XSJ7dFQt45XPReX5Lpp4qpdiXUPgZuSqmMv/4XCAZV3KNFatGk2On5df
-   Yo1EnXdKXhRxgXc6/Oo/Y5v9R6+1PVhbedm8ouApKQfBlhLigLXO9BdHB
-   uKLAM0wW84RHH9n3kaMQXbeUAslTqEBqLaGF1grSYnpAB7F0YsNIuSOp9
-   1CH2qlerjeeO3J+tRgk5j/bowcUwRZYKGGL1+opcn1dK6PU67J1rQZcDI
-   2EO9cEE+5vw5gzBakU1Ny2dbcwu6jEzOXsCH+JZHx0Pir2M7+GuS6qvRv
-   jCKATtJBoktV4vqXBJgA9fxQZHwqMu0mdal6syQn/vmdl4cD45fToVv3h
-   g==;
-X-CSE-ConnectionGUID: ECVWlTRkRsOMJ92dyEO0BA==
-X-CSE-MsgGUID: sXRnzNrjSBeV6nwj44DNCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1038557"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1038557"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:00:37 -0700
-X-CSE-ConnectionGUID: JmMnBhH0Q/Wbj77Ebm42pQ==
-X-CSE-MsgGUID: 3zBaHN3KTyqiAj1KbEZ9AQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2586766"
-Received: from gabaabhi-mobl2.amr.corp.intel.com (HELO [10.125.111.28]) ([10.125.111.28])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:00:35 -0700
-Message-ID: <893aaa95-5663-4a22-9c3a-1b9cf97e3dfe@intel.com>
-Date: Mon, 19 Oct 2026 13:00:33 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8sWZu4l
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792440211;
+	b=buWFXOVBRqN52T5/OzeBqg+g9RUXkkS7WuxfQHL8VQV3emQf3PbKo9SnBPO5Kat0C5YQ
+	 Wqvjjhv+SuMlVolAn1BEa0xRNvsarexGLH7FPwjd16JtIxoRUpY8gNfBDxQ48eFN2JTsb
+	 N36tiQlSmBW1qwcnZVLp45NGlL4BO3Ll4W8EO2zduOXN4hWVJ68Usc83gJH8AKaR/FUYb
+	 n/3YmDG6N3eHgStUYhqkTFYhaB3s/MRrMr+XxasoUMkwHSmlPaSGTuvFI9rEHdTyq3fGw
+	 R3Y8w+zqEVnc6QRZbJcLjTC5s0P24EYPXKgaAZwrte/mzEwqM6M0AdC1Tsd3mqWWfOQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792440211;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i8MNxol060O6EW3B3WyFVJdha1qRJwS9VM/FovGS3EM=;
+	b=0AzWiSbjbZEN3uI2S3WX48UH+50l7D1WNR76Uhoe5hLg00gR25ZGYu5zCWf24esDohIW
+	 5Y9xMC7kH7U+0g6B65RT/Kn2p84y6EkwNEtuuGKTVuKw/0ymynK2/9vZYYuh0sipfmTbb
+	 Fqri9TwfKuW/GA+ggF/06NOKBPr8I6NOnaT8LAlQFatI+j44+Qr+Ag6N/1mKGUQsQ/TOn
+	 EujNbiPYPnOWMKinj4ybTjHXAChtrz7lTTGK3IA1EGjaVs7j2LOkDMsoCGFQxC4di/c2M
+	 YoARsLekuF7lVJvL/CKwJ1hkr8lqAxank04w/xuoMaW5zIV/bSAkC+OfCR1UyPATV/g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id BF7BD1F000C4;
+	Mon, 19 Oct 2026 20:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792440211;
+	bh=i8MNxol060O6EW3B3WyFVJdha1qRJwS9VM/FovGS3EM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=V8sWZu4lAwFcg6J5u7cVBbe+vuiGLEV77Q4tDgu1x30K93qo3uE0fuonzrZXuEX0G
+	 kWDSAbNcgo5ZB63yItcJIz2jatqtAafBF/m8L8JEMHo1KUoanpClUr9Q8lPnJsMyFb
+	 AN3vK8LqED85ZdJHmEOvMQypjqaCtb/ccHdl3k47U9vPUZ08+35zO8AmUUch4BoeIW
+	 9XfVFjdhRJLy9i7Ld6wiGzQlivnyuBActp/sMcovPFIdDwZzJcLD0GZ+jRBFwSktOh
+	 nvYRK8ox9I7yqswndWG6F9e8iqffFfhG8mnM3SV4SabC1mIb3WMAEe9ZyQgc2ShQD8
+	 klp7eagakAofQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5018B400AB;
+	Mon, 19 Oct 2026 20:03:30 +0000 (UTC)
+From: Travis Howard via B4 Relay <devnull+thoward.lafayetteinstrument.com@kernel.org>
+Date: Mon, 19 Oct 2026 20:03:10 +0000
+Subject: [PATCH net] tg3: Add Datto SIRIS 5 1U Server to restart AER quirk
+ table
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,388 +83,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 5/5] cxl/region: Register device poison before
- exposing RAM
-To: Richard Cheng <icheng@nvidia.com>,
- Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Andrew Morton
- <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>,
- Breno Leitao <leitao@debian.org>, Ira Weiny <iweiny@kernel.org>,
- Li Ming <ming.li@zohomail.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
- Kiryl Shutsemau <kas@kernel.org>, Harry Yoo <harry@kernel.org>
-References: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
- <20261010162017.62506-6-shaikhkamal2012@gmail.com>
- <atCGJHmnk8Ll8pA_@MWDK4CY14F>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <atCGJHmnk8Ll8pA_@MWDK4CY14F>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261019-tg3-datto-aer-quirk-v1-1-f0eccfb2ab5d@lafayetteinstrument.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBG4avIrB1IDEjtVUoXIfm1QyHqJEohe
+ PcGl9/ivUoZKsj07CopTsmypgbbdxQ+Pi1gic00mGG0xk5cFsfRl7Kyh/J+iH7ZBvcwcJNDGKm
+ Vm2KW3319UUKh93X9AT5jtKFqAAAA
+X-Change-ID: 20261019-tg3-datto-aer-quirk-1c380e393ec6
+To: Pavan Chebbi <pavan.chebbi@broadcom.com>, 
+ Michael Chan <mchan@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Lenny Szubowicz <lszubowi@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Travis Howard <thoward@lafayetteinstrument.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792440210; l=1864;
+ i=thoward@lafayetteinstrument.com; s=20261019; h=from:subject:message-id;
+ bh=FQAa09JcOMIFgEiW9Oki1Yij0dC7wNyid9KU2wn2HgE=;
+ b=kwubS8wgB9x8wOWlt3wML8AyxENUtJiqe2UyVQnlXbOrY99ByBcGu4WttrdIZ+yg0sKqXNGYI
+ VHordkMzvsNCM2L7ye3M719/4m6Svo+lIqNrBAuESWBWz8/CxWsqvcY
+X-Developer-Key: i=thoward@lafayetteinstrument.com; a=ed25519;
+ pk=rtL9URAe9ViV6WvIEtBEMb/2i9C1CKXa5RwTxC6I6Vw=
+X-Endpoint-Received: by B4 Relay for
+ thoward@lafayetteinstrument.com/20261019 with auth_id=1243
+X-Original-From: Travis Howard <thoward@lafayetteinstrument.com>
+Reply-To: thoward@lafayetteinstrument.com
 Content-Transfer-Encoding: 7bit
 
+From: Travis Howard <thoward@lafayetteinstrument.com>
+
+The Datto SIRIS 5 1U Server is a Dell OEMR XL R640 (Dell's OEM-ready
+variant of the PowerEdge R640) sold under Datto's identity. Its DMI
+strings report sys_vendor "datto" and product_name "SIRIS 5 1U Server",
+so it does not match the existing "PowerEdge R640" entry in
+tg3_restart_aer_quirk_table.
+
+As on the PowerEdge R640, a system restart triggers a fatal PCIe AER
+on the BCM5720 during ACPI _PTS for S5, which the iDRAC logs as
+PCI1318 and which hangs the reboot. Power off is unaffected.
+
+Clearing the same PCI_EXP_DEVCTL error-reporting bits on both BCM5720
+functions from userspace immediately before restart allows the system
+to reboot normally, confirming the quirk applies to this platform.
+
+Fixes: e0efe83ed325 ("tg3: Disable tg3 PCIe AER on system reboot")
+Signed-off-by: Travis Howard <thoward@lafayetteinstrument.com>
+---
+Tested on the affected system (Ubuntu 26.04, 7.0.0-38-generic) with
+this change applied to tg3: reboot completes and no PCI1318 is logged.
+Without it, every restart hangs with PCI1318 logged against the BCM5720.
+---
+ drivers/net/ethernet/broadcom/tg3.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/net/ethernet/broadcom/tg3.c b/drivers/net/ethernet/broadcom/tg3.c
+index 8b6806a79edf..b6aa10f2bdf7 100644
+--- a/drivers/net/ethernet/broadcom/tg3.c
++++ b/drivers/net/ethernet/broadcom/tg3.c
+@@ -18229,6 +18229,12 @@ static const struct dmi_system_id tg3_restart_aer_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R750"),
+ 		},
+ 	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "datto"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "SIRIS 5 1U Server"),
++		},
++	},
+ 	{}
+ };
+ 
+
+---
+base-commit: 78731b46967e3e7102b5cd5062bef185f3404b5c
+change-id: 20261019-tg3-datto-aer-quirk-1c380e393ec6
+
+Best regards,
+-- 
+Travis Howard <thoward@lafayetteinstrument.com>
 
 
-On 10/15/26 12:59 AM, Richard Cheng wrote:
-> On Sat, Oct 10, 2026 at 09:50:13PM +0800, Shaikh Kamaluddin wrote:
->> The trigger_poison_list interface may retrieve poison after CXL memory
->> is already online, which is too late to prevent known-bad frames from
->> entering the page allocator.
->>
->> During RAM-region probe, retrieve a poison-list snapshot for each
->> participating endpoint decoder. Validate each record against the
->> decoder's assigned DPA range, translate its poisoned DPA units to HPA
->> and PFN, and collect the affected PFNs in an xarray. Coalesce consecutive
->> PFNs and register the resulting ranges with the pre-online hwpoison
->> registry before creating the DAX region.
->>
->> When Get Poison List is supported, abort region probe if the list is
->> incomplete, malformed, or cannot be translated. If volatile poison-list
->> retrieval is unsupported, preserve the existing behavior and warn that
->> poison cannot be withheld before memory onlining.
->>
->> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
->> ---
->>  drivers/cxl/core/region.c | 322 ++++++++++++++++++++++++++++++++++++++
->>  1 file changed, 322 insertions(+)
->>
->> diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
->> index c72524923b38..e3ffa77927df 100644
->> --- a/drivers/cxl/core/region.c
->> +++ b/drivers/cxl/core/region.c
->> @@ -14,6 +14,7 @@
->>  #include <linux/string_choices.h>
->>  #include <cxlmem.h>
->>  #include <cxl.h>
->> +#include <linux/memory-failure.h>
->>  #include "core.h"
->>  #include "mce.h"
->>  
->> @@ -3038,6 +3039,323 @@ int cxl_get_poison_by_endpoint(struct cxl_port *port)
->>  	return rc;
->>  }
->>  
->> +/*
->> + * Device-reported poison is gathered at RAM-region probe, before the range
->> + * reaches dax/kmem, and registered with the pre-online registry so the
->> + * frames it covers are withheld when the memory is onlined.
->> + */
->> +static int cxl_poison_store_pfn(struct xarray *pfns, u64 hpa)
->> +{
->> +	return xa_err(xa_store(pfns, PHYS_PFN(hpa), xa_mk_value(1),
->> +			GFP_KERNEL));
->> +}
->> +
->> +static int cxl_poison_store_hpa(struct cxl_region *cxlr, struct xarray *pfns,
->> +				u64 hpa)
->> +{
->> +	struct cxl_region_params *p = &cxlr->params;
->> +	int rc;
->> +
->> +	/* Outside this region: not ours to withhold. */
->> +	if (!cxl_resource_contains_addr(p->res, hpa))
->> +		return -ERANGE;
->> +
->> +	rc = cxl_poison_store_pfn(pfns, hpa);
->> +	if (rc || !p->cache_size)
->> +		return rc;
->> +
->> +	/*
->> +	 * An extended linear cache makes the same DPA visible a second time
->> +	 * at hpa - cache_size. Match the translation used by the
->> +	 * cxl_general_media and cxl_dram trace events.
->> +	 */
->> +	if (WARN_ON_ONCE(hpa < p->res->start + p->cache_size))
->> +		return -ERANGE;
->> +
->> +	return cxl_poison_store_pfn(pfns, hpa - p->cache_size);
->> +}
->> +
->> +static int cxl_poison_record_to_pfns(struct cxl_region *cxlr,
->> +				     struct cxl_memdev *cxlmd,
->> +				     const struct cxl_poison_record *record,
->> +				     struct xarray *pfns)
->> +{
->> +	struct cxl_region_params *p = &cxlr->params;
->> +	u64 raw = le64_to_cpu(record->address);
->> +	u64 units = le32_to_cpu(record->length);
->> +	u64 dpa = raw & CXL_POISON_START_MASK;
->> +	u8 source = raw & CXL_POISON_SOURCE_MASK;
->> +	u64 length, end, step, cur;
->> +
->> +	if (!units ||
->> +	    check_mul_overflow(units, (u64)CXL_POISON_LEN_MULT, &length) ||
->> +	    check_add_overflow(dpa, length, &end))
->> +		return -EPROTO;
->> +
->> +	/*
->> +	 * A corrected error never reaches the poison list, so every record
->> +	 * is uncorrectable. Only a failure of the device's own media is
->> +	 * withheld: External poison was written by the host into healthy
->> +	 * media and a rewrite or Clear Poison recovers it, and Injected
->> +	 * poison is a test artifact. Withholding either would make a
->> +	 * recoverable state permanent.
->> +	 */
->> +	if (source != CXL_POISON_SOURCE_INTERNAL) {
->> +		dev_dbg(&cxlr->dev, "%s: dpa %#llx source %u not withheld\n",
->> +			dev_name(&cxlmd->dev), dpa, source);
->> +		return 0;
->> +	}
->> +
->> +	/*
->> +	 * Translate once per unit of HPA contiguity rather than per 64
->> +	 * bytes. Consecutive DPAs within an interleave granule map to
->> +	 * consecutive HPAs, and a granule no larger than a page lies within
->> +	 * one page, so stepping by min(granule, PAGE_SIZE) from an aligned
->> +	 * start reaches every page the record covers.
->> +	 */
->> +	step = clamp_t(u64, p->interleave_granularity, CXL_POISON_LEN_MULT,
->> +		       PAGE_SIZE);
->> +
->> +	for (cur = ALIGN_DOWN(dpa, step); cur < end; cur += step) {
->> +		u64 hpa = cxl_dpa_to_hpa(cxlr, cxlmd, max(cur, dpa));
->> +		int rc;
->> +
->> +		/* Not mapped by this region; nothing here to withhold. */
->> +		if (hpa == ULLONG_MAX)
->> +			continue;
->> +
->> +		rc = cxl_poison_store_hpa(cxlr, pfns, hpa);
->> +		if (rc)
->> +			return rc;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static int cxl_region_collect_decoder_poison(struct cxl_region *cxlr,
->> +					     struct cxl_endpoint_decoder *cxled,
->> +					     struct xarray *pfns)
->> +{
->> +	struct cxl_memdev *cxlmd = cxled_to_memdev(cxled);
->> +	struct cxl_poison_snapshot snapshot;
->> +	int rc;
->> +
->> +	rc = cxl_poison_snapshot_init(cxlmd, &snapshot);
->> +	if (rc == -EOPNOTSUPP) {
->> +		dev_info(&cxlr->dev,
->> +			 "%s: no Get Poison List support, nothing withheld\n",
->> +			 dev_name(&cxlmd->dev));
->> +		return 0;
->> +	}
->> +	if (rc)
->> +		return rc;
->> +
->> +	rc = cxl_get_poison_by_decoder(cxled, &snapshot,
->> +				       CXL_POISON_QUERY_PREONLINE);
->> +	if (rc == -EFAULT) {
->> +		/*
->> +		 * The device keeps no poison list for volatile ranges, which
->> +		 * CXL r3.2 8.2.9.8.4.1 permits. Online the region as today.
->> +		 */
->> +		dev_info(&cxlr->dev,
->> +			 "%s: no volatile poison list, nothing withheld\n",
->> +			 dev_name(&cxlmd->dev));
->> +		rc = 0;
->> +		goto out;
->> +	}
->> +	if (rc)
->> +		goto out;
->> +
->> +	/*
->> +	 * Withholding from a partial list would online the region on the
->> +	 * belief that every bad frame had been named.
->> +	 */
->> +	if (snapshot.truncated ||
->> +	    (snapshot.device_flags & CXL_POISON_FLAG_OVERFLOW)) {
->> +		dev_err(&cxlr->dev, "%s: poison list incomplete\n",
->> +			dev_name(&cxlmd->dev));
->> +		rc = -EOVERFLOW;
->> +		goto out;
->> +	}
->> +	if (snapshot.device_flags & CXL_POISON_FLAG_SCANNING) {
->> +		dev_err(&cxlr->dev, "%s: media scan in progress\n",
->> +			dev_name(&cxlmd->dev));
->> +		rc = -EBUSY;
->> +		goto out;
->> +	}
->> +
->> +	for (u32 i = 0; i < snapshot.nr_records; i++) {
->> +		rc = cxl_poison_record_to_pfns(cxlr, cxlmd,
->> +					       &snapshot.records[i], pfns);
->> +		if (rc)
->> +			break;
->> +	}
->> +out:
->> +	cxl_poison_snapshot_destroy(&snapshot);
->> +	return rc;
->> +}
->> +
->> +static unsigned int cxl_count_poison_ranges(struct xarray *pfns)
->> +{
->> +	unsigned long index, previous = 0;
->> +	unsigned int nr = 0;
->> +	void *entry;
->> +	bool first = true;
->> +
->> +	xa_for_each(pfns, index, entry) {
->> +		if (first || index != previous + 1)
->> +			nr++;
->> +		first = false;
->> +		previous = index;
->> +	}
->> +	return nr;
->> +}
->> +
->> +/*
->> + * The xarray holds each PFN once and xa_for_each() walks them in ascending
->> + * order, so runs of consecutive indices are exactly the sorted,
->> + * nonoverlapping ranges preonline_hwpoison_register() requires.
->> + */
->> +static int cxl_pfns_to_ranges(struct xarray *pfns,
->> +			      struct preonline_hwpoison_range **ranges_out,
->> +			      unsigned int *nr_ranges_out)
->> +{
->> +	struct preonline_hwpoison_range *ranges;
->> +	unsigned long index, previous = 0, run_start = 0;
->> +	unsigned int nr_ranges, nr = 0;
->> +	void *entry;
->> +	bool first = true;
->> +
->> +	nr_ranges = cxl_count_poison_ranges(pfns);
->> +	if (!nr_ranges) {
->> +		*ranges_out = NULL;
->> +		*nr_ranges_out = 0;
->> +		return 0;
->> +	}
->> +
->> +	ranges = kvmalloc_array(nr_ranges, sizeof(*ranges), GFP_KERNEL);
->> +	if (!ranges)
->> +		return -ENOMEM;
->> +
->> +	xa_for_each(pfns, index, entry) {
->> +		if (first) {
->> +			run_start = index;
->> +			previous = index;
->> +			first = false;
->> +			continue;
->> +		}
->> +		if (index == previous + 1) {
->> +			previous = index;
->> +			continue;
->> +		}
->> +		ranges[nr++] = (struct preonline_hwpoison_range) {
->> +			.start_pfn = run_start,
->> +			.nr_pages = previous - run_start + 1,
->> +		};
->> +		run_start = index;
->> +		previous = index;
->> +	}
->> +	ranges[nr++] = (struct preonline_hwpoison_range){
->> +		.start_pfn = run_start,
->> +		.nr_pages = previous - run_start + 1,
->> +	};
->> +
->> +	WARN_ON_ONCE(nr != nr_ranges);
->> +	*ranges_out = ranges;
->> +	*nr_ranges_out = nr;
->> +	return 0;
->> +}
->> +
->> +static void cxl_unregister_device_poison(void *data)
->> +{
->> +	preonline_hwpoison_unregister(data);
->> +}
->> +
->> +static int cxl_region_register_device_poison(struct cxl_region *cxlr)
->> +{
->> +	struct cxl_region_params *p = &cxlr->params;
->> +	struct preonline_hwpoison_range *ranges = NULL;
->> +	struct preonline_hwpoison *handle;
->> +	unsigned int nr_ranges = 0;
->> +	unsigned long nr_frames = 0;
->> +	struct xarray pfns;
->> +	int rc = 0;
->> +
->> +	lockdep_assert_held(&cxl_rwsem.region);
->> +	lockdep_assert_held(&cxl_rwsem.dpa);
->> +
->> +	/* The region may have been decommitted while the lock was dropped. */
->> +	if (p->state < CXL_CONFIG_COMMIT)
->> +		return -ENXIO;
->> +
->> +	if (test_bit(CXL_REGION_F_NORMALIZED_ADDRESSING, &cxlr->flags)) {
->> +		dev_info(&cxlr->dev,
->> +			 "normalized addressing, poison not translated\n");
->> +		return 0;
->> +	}
->> +
->> +	xa_init(&pfns);
->> +
->> +	for (int i = 0; i < p->nr_targets; i++) {
->> +		struct cxl_endpoint_decoder *cxled = p->targets[i];
->> +
->> +		if (!cxled->dpa_res || !resource_size(cxled->dpa_res))
->> +			continue;
->> +		rc = cxl_region_collect_decoder_poison(cxlr, cxled, &pfns);
->> +		if (rc)
->> +			goto out;
->> +	}
->> +
->> +	if (xa_empty(&pfns))
->> +		goto out;
->> +
->> +	rc = cxl_pfns_to_ranges(&pfns, &ranges, &nr_ranges);
->> +	if (rc)
->> +		goto out;
->> +
->> +	rc = preonline_hwpoison_register(ranges, nr_ranges, &handle);
->> +	if (rc == -EOPNOTSUPP) {
->> +		/* No poison tracking in this kernel; nothing to withhold. */
->> +		rc = 0;
->> +		goto out;
->> +	}
->> +	if (rc)
->> +		goto out;
->> +
->> +	for (unsigned int i = 0; i < nr_ranges; i++)
->> +		nr_frames += ranges[i].nr_pages;
->> +	dev_warn(&cxlr->dev,
->> +		 "withholding %lu frame(s) reported poisoned by the device\n",
->> +		 nr_frames);
->> +
->> +	rc = devm_add_action_or_reset(&cxlr->dev, cxl_unregister_device_poison,
->> +				      handle);
-> 
-> Hi Shaikh,
-> 
-> I think you are trying to propose the architecture as the following ?
-> - CXL region driver collects the device's poison info and owns the registration
-> - MM use the registration to keep poisoned pages out of the page allocator
->   when memory is onlined
-> - DAX/kmem adds and removes the corresponding system RAM
-> 
-> The registration belongs to the driver, but the memory that needs it can
-> outlive the driver binding.
-> 
-> Unbinding the driver doesn't necessarily remove the memory. If some mem blocks
-> are still online, removal of the range can fail.
-> When driver cleanup removes the registration, MM loses poison info of those
-> memory blocks as well.
-> 
-> I don't have a good idea how we should re-design the ownership here, maybe
-> we can discuss about it.
-
-Maybe MM should own the registry and keyed by physical range. Then the lifetime of the poison would match the region being put into MM? The CXL driver would only need to add entries. 
-
-> 
-> Best regards,
-> Richard Cheng.
-> 
