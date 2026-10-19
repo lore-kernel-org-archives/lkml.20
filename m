@@ -1,109 +1,161 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2252E266C;
-	Mon, 19 Oct 2026 02:12:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777EC35C1B1;
+	Mon, 19 Oct 2026 02:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792375975; cv=none; b=iNivxWU6piL20jZGeRs/H2aGkgjbALIN1X2Q0QzOuVCOOLfADWrK6wI7E2/dzZ9i+ERGGk0lSlXF/yF0GpkDC3wvrPyuMyCr+3MggWwrrHwXVrM8xL0lTl/Lbco2EqUZyxGw9ljxqT8DPpezLMoHjsvARzGbs7VIduVN7qX1dWc=
+	t=1792376020; cv=none; b=VtVeHdWYXKkpZkeuE1rV2jZkTmi/haIYr8J9EGh1edr7ZMFVtorSMJvNlFe7Q1hf5aHYUc9liS/+t0oRlATD7VU/10Urw9Jpubx9xoTmzXoChbYIQc+9ONWpUNOJtxqQKry7x0SdrLhsNJEBSEcs9PnsC/o7DdVOPHl+F5fCFHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792375975; c=relaxed/simple;
-	bh=bGqlz5cBHrHXBrQ6NnmaZgdhO1kC0yfueLXmcKZAixU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rsEIbXXq7Htg7d1jmcmCXB7kTij0DNOVq7iadFiW63m8bRl6dqpupVcoqo8SQ9lskGFsrgXvm+R2h+C6UHJs234kYhw4GbflTpSDOzP091fExyu+NO5ToOnKLl1eLP/+eGnKwIQ+gGzHBj5Vd5aguNvvoXMTWjt84z2zMzBsJdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=dea22Ug6; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1792376020; c=relaxed/simple;
+	bh=wxDdBy0anSXi0XacyEa0RDHc47kzkwLEQAmg0kUTRwE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LqlJJytt5HwY1Tr8RT0XuTdGCyx9EziO0QXMGK7g3EgTlKLQjeX/AN5wF/F5YRL0Bf2QRH6qRbwq6Y1TdmXMdm0KHfvdAYJb/aAnpWFeIK8s0BqlE4HrEAkO5y5fOm30kqXB2Uge4CYNeMwj45bVJZga2w7/VFVpIGx9B/9c508=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GKU6Xjhh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="dea22Ug6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1792375967;
-	bh=OB1MoZD5HIeqlKWyggxYNOuX3XR1hccsZRuPmfAhQXc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dea22Ug61H0AdMSjWd59Ub3A1aKxxigchzKsJgt+hOg0fghOmobqG2BY7/3QFTi7E
-	 ubbsfUr590AnupLUBHpNf4OVHV5uu7Oxv8to54vgjHIwf6oAQhSnxWMkTbZecFp/p+
-	 O9UyTrg/8zd8iywyH1y51BfgdqOgd6vPk8/nV9dxLMK+aTYper5yWCZxAvV67XaX+O
-	 DANZci+wOlzZProSL8OtG3bIFemxY320VH2QMJyGskSiWXBylpejFpMKzc/9Psrg16
-	 reg8S26PQWG2eTsnVJNHOZwuLbc8R7ti+z87rB3IkXNFgw3zMO1eqh9STxlxpo/XMx
-	 rAlb6jGOFRn+w==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4j7Jwb63DKz4wSr; Mon, 19 Oct 2026 13:12:47 +1100 (AEDT)
-Date: Mon, 19 Oct 2026 13:12:40 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 06/74] dtc: Move fill_fullpaths() into
- build_dt_info()
-Message-ID: <atV8jpAnPNNvmitA@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-7-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GKU6Xjhh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F52E1F000C4;
+	Mon, 19 Oct 2026 02:13:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792376019;
+	bh=OTeAHhDu6rLdIC+c7Ig9cS6MPdi5FFeMFdNOO55dM1c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GKU6XjhhijXdkLvmKWqe2lHLbB69e8YJyKEBgRBXBX0UKQ9bA6S9G+Om7USxlUmSe
+	 0pQX1fEdIOiBPTfh2TQf6BFvoNNh9Ga0CwTWmPoeeEQcp3d9kVQVatwi84yNU75fD3
+	 rwxyaZcB1ozG7EuT5EpDA/o1xO+w/wN4s4C7IaxDzKSuZuC+TQJXSy2+EL9wOSJzM5
+	 AV+CEses5L1/LgQBDoJVCtXOCizpoHWfDmsJC/Nc1g9v11BEr+Z7/Xm2wfBPrTWM4x
+	 DkE92auy1x01Gcu2YXObxGdnKnjqOizVA83Mw/k7G3lFUiEJs+taTrAmvtC1vDggBi
+	 07MykhZB0Xhnw==
+Date: Mon, 19 Oct 2026 03:13:33 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Lee
+ Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>, Luca Leonardo
+ Scorcia <l.scorcia@gmail.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v4 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
+ driver
+Message-ID: <20261019031333.1010682f@jic23-hlaptop>
+In-Reply-To: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-2-23533a0d30e3@gmail.com>
+References: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com>
+	<20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-2-23533a0d30e3@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t1fP9h2zFa7Ehq4F"
-Content-Disposition: inline
-In-Reply-To: <20260826094950.1088288-7-herve.codina@bootlin.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
---t1fP9h2zFa7Ehq4F
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Mon, 28 Sep 2026 15:57:20 -0500
+Ryan Brue <ryanbrue.dev@gmail.com> wrote:
 
-On Wed, Aug 26, 2026 at 11:48:35AM +0200, Herve Codina wrote:
-> fill_fullpaths() is called unconditionally after parsing to set the full
-> path of each node in the parsed device tree.
->=20
-> There is no reason to call it outside build_dt_info().
->=20
-> Furthermore, future metadata support will need post-parsing operations
-> in build_dt_info() to produce a fully consistent dt_info. Those future
-> operations will need the full paths filled by fill_fullpaths().
->=20
-> Move the fill_fullpaths() call into build_dt_info() in preparation.
-> No functional change expected.
+> The mt6397 AUXADC is a 10-bit ADC behind the SoC's PMIC wrapper. On boards
+> built around this PMIC it is the only way to read the battery: the SoC's
+> AUXADC is wired to board thermistors and the charger ICs these boards use
+> have no ADC of their own.
+> 
+> Add a driver exposing the battery voltage and battery temperature
+> channels. Only those two are described, so a channel ID in the device tree
+> indexes the driver's channel array rather than the PMIC's channel number,
+> as mt6323-auxadc does. The ready bit lives in a channel's raw result
+> register, but the value comes from the chip's factory-calibrated copy.
+> 
+> The battery voltage is measured through ISENSE, because a board with a
+> switching charger in the power path leaves BATSNS on the charger's system
+> rail instead of on the pack. The thermistor only reads correctly with the
+> PMIC's battery-detect bias and input buffer enabled, which take 20 ms to
+> settle. Both are switched back off afterwards.
+> 
+> Reads average sixteen conversions in software; the chip's sample
+> accumulator makes no measurable difference at any setting, so it is left
+> at one sample per conversion.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Hi Ryan
 
-This seems like a good idea, independent of the rest of the series.
-Applied.
+Sorry for the delay.
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+Just one thing inline. If I wasn't tired from a long day
+of review I might just have made the change and asked you
+to check it. So bad luck on that!
 
---t1fP9h2zFa7Ehq4F
-Content-Type: application/pgp-signature; name=signature.asc
+Thanks,
 
------BEGIN PGP SIGNATURE-----
+Jonathan
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrVfI4ACgkQzQJF27ox
-2GcZ0hAAlCCHjMxGcKUi8Hef3cUYeUEoiRv/iXVIvatULeOlLWNGf+MvOmj3918z
-SFv/iLS/0CWmWyXUAEVQy4ZvladcD5vXnkDCGvWu+vlX1XwDlttxtH98gjWRy7fB
-uwWtJnRSWH76MlCaxbYe/YzgDplM/wAkpZdecwq7JFu29YjJu1ZphA2BKPmo5nlE
-hNLN+pHL6Oz7PZ3E5taV2QnXiKCcduD7sq4wjarw+ZBwLeteJDuGSDdag8zCqT4C
-cOMtNrVOZJ1eS3+QkAdPlRKqAtuPLl+n+clR1AgW+c8gEbuRpfHCueUzUKojcHb9
-Bv480p6vvc6TvXPEElkWnVaHGQt8C7eDGuNj3rbV6htaEd8TpncOvkXgBdYqQx5V
-HnItqUzH/TXB5PevOCFstM/0Frt/1AQ2NlfuD3C3Vjb3dpZRg87oWqvvZvGY3jJv
-OihWZQoznbqifa0x93vTtALpTEnH3dYRmOIwkj+FSMz4256VUQ5ziCykp1XvFzKJ
-/ZTLLYs3EgrYFo8bLaceWcveelbYrXRM7/LCSUIgw/7R8zi1fuRqTjdUHcQ2H90G
-Q1+q1zAVdTggLHrUcQAFxHlh7d7DZ2YHaYaQ9qeOFoo6lE225Pmgg506naAmLYS2
-Rs3R99e8t39Nmqzxts3SIApwUzfYg4kJ77zusq2LO7aiYkSgJZ8=
-=Qrxl
------END PGP SIGNATURE-----
+> diff --git a/drivers/iio/adc/mt6397-auxadc.c b/drivers/iio/adc/mt6397-auxadc.c
+> new file mode 100644
+> index 000000000000..8d1702658876
+> --- /dev/null
+> +++ b/drivers/iio/adc/mt6397-auxadc.c
 
---t1fP9h2zFa7Ehq4F--
+> +static void mt6397_auxadc_release(struct mt6397_auxadc *adc,
+> +				  const struct iio_chan_spec *chan)
+> +{
+> +	/* Lowering START leaves the converter unarmed between reads. */
+> +	regmap_clear_bits(adc->regmap, MT6397_AUXADC_CON1, MT6397_AUXADC_CON1_START);
+> +
+> +	if (chan->channel == MT6397_AUXADC_ISENSE)
+> +		mt6397_auxadc_isense_disable(adc);
+> +	else
+> +		mt6397_auxadc_battemp_bias_off(adc);
+> +}
+> +
+> +static int mt6397_auxadc_read_channel(struct iio_dev *indio_dev,
+> +				      const struct iio_chan_spec *chan,
+> +				      int *val)
+> +{
+> +	struct mt6397_auxadc *adc = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	mutex_lock(&adc->lock);
+> +
+> +	if (chan->channel == MT6397_AUXADC_ISENSE) {
+> +		ret = mt6397_auxadc_isense_enable(adc);
+> +		if (ret)
+> +			goto out_release;
+> +
+> +		fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
+> +	} else {
+> +		ret = mt6397_auxadc_battemp_bias_on(adc);
+> +		if (ret)
+> +			goto out_release;
+> +
+> +		fsleep(MT6397_AUXADC_BATTEMP_SETTLE_US);
+> +	}
+> +
+> +	ret = mt6397_auxadc_read_burst(adc, chan, val);
+> +
+> +out_release:
+> +	mt6397_auxadc_release(adc, chan);
+This ends up rather confusing.  Would you mind instead doing it as a pair of helpers
+and a top level bit of code that does.
+
+	guard(mutex)(&adc->lock);
+	if (chan->channel == MT6397_AUXADC_ISENSE) {
+		return mt6397_auxadc_isense_read();
+	else
+		return mt6397_auxadc_battemp_read();
+
+
+The only thing that get duplicated is the call to read_burst()
+which seems simpler than having a pair of if / else on the channel
+(one hidden in this release).
+
+> +	mutex_unlock(&adc->lock);
+> +
+> +	return ret;
+> +}
+
+
