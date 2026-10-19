@@ -1,87 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792436597;
-	b=N6TXe2SxU9Z7usI1tr+blXZjNEnEH5VcSDxnu94KnPyVWXRqRe7r7p7V5fZlTYXhPAA6
-	 34MnztdFOfGrDmMfrb8mo1svgakvHWMKat46Gj+84nWu0i5oEUnbdwuOLca0cVYE975ka
-	 sE9Im5w745Gtz9V+45+vJD/15nWTGEqB5GsucyP3ULTQW5vW637lC9dILOcQ+ep+iwt9m
-	 pmbJ+tLHueccc63ZN8sV80RMrVTHw1dJeNr2Z5twSQCU7kmXTeBvCb1RWTUZF9ScIE8YG
-	 pfGLBvCfSy7hrt2FHW3ojWnRtLVRilNI1CaSzQp9Hjg9hlwseIeNT6COBLjwLd6XNiQ==
+	t=1792436643;
+	b=YVzw2eeCthL4RZ1plAwvMPqYbcid0zy4qPOlYTIZ3IsrcK07p52Vw8rMNQvw08ygvAPA
+	 7RNG3K/YlrdmC7KHgeozOTMDyG7pFPRHxs9AeHPl7W4xTQEyhlGPtArGgbRZMnV9NJQMb
+	 gCNmbFzC2+kJDcbS2pK62QvnrPVjpohblqZWLlz+JdF3IYQcTayofHqXX4kh0LgVIySv2
+	 7o0vjE51QUTrnGU9c9Ox4ZA4fRCC7peQOFqCPU5pBe2f0lgIgL/PlwLhT3noSfhDZW/w6
+	 wJj8nPHBVI6pZBeLJ8e3UeUGG6OXMQGGUs5wtzz51/Nv+os5ZvZGEpLSajZ18w/IhhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792436597;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zwQ9u0fSM+DQnMR6u0nh+yQlIZlqj4FNm9oRCXT8s+I=;
-	b=BrRli6Nlf3F9SO8+Y1ehssftprlRaAcvZIkaSoATZmvDkEavCZRnyu3Mi9B42chirrtB
-	 shLi2Ho4wFgSxTP5tdEpRfa3hRzSMv+Ad/itXA0qU7xhophmqxccg4O01BB+qc1zRsyug
-	 E3x0Z7h39lVVmh21myYlDsx8icIDC0pRhJzQRvocNpgoJRcs8WOXcz54ONhXi+iDv51Im
-	 X4g1DIFU0f+PXQLGcVVYrsxiDvr+2+kNzG1mVKgg365S8QaOyF/rpUDYvmkQ5GuTQ/VFX
-	 vMEyD/L5qp2xLiiEhKb7JGgepRLNXcqcih947Je4u9pf/LNJAiuw5ClEiR5d3eJneFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792436643;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=dL8ZGUobikYXfeavA/hCoH0m0XNsNI0h4JXi+H04Ge4=;
+	b=w1byPiLT3QicaMDc74213dnBVHuBU1VcGZv0Xh7+zfv77Z2sCKWhcC8Pm15yPThdv50J
+	 XAyrLAgGAoxIUPhgXHXgrchOYicDb/vaIu5sCRSQuC1KH4MhXjHOWA9td7LHzTywQI7Go
+	 erxwMg+nP68KeCSeszZNSCfM97abVDF/EaZLhTj6AVbAe9R/NbaSU87vA0swTpnkt0NBP
+	 UXT29YuZ4MvjyFSJeU4uuAVbZ5aGYe02vmKmexaRjbZsnf2z0bnIO4lnyZbZU0ENX/FUC
+	 ICQxWY98KZEwpM/FC7dW5uAsO2ec6ILDbxJfpo7JNPLDIZyFldwAoGjPFVD8ty7k7Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="SURF/8Cg";
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Liz8OJdp;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD21606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:03:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAD21606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2CC606A320;
+	Mon, 19 Oct 2026 19:04:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E2CC606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SURF/8Cg
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd5d2dafeccso816611a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:03:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792436596; x=1793041396; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zwQ9u0fSM+DQnMR6u0nh+yQlIZlqj4FNm9oRCXT8s+I=;
-        b=SURF/8CgkNjhyggV1vHabzT5HCG8ZPYK4de42JYHtxtERqLWnOX+pXGLoUfiAIxSSc
-         S4JGVUD7+0/WDoDkfY8w1rq57FcNu2x/+j44W0cN0hHUxvbPhCMWWLb11zoilEk9zo/s
-         wgPvAzot/FKY8Rn5aIDnzysZwn87EYY+FFyVVnKptN0T9sAPyZ1+ecZ9LDfrew3SG2DA
-         ktmylYFID9huR3u31lvT/XRwL22/uUsANtJAAocgCMbqDPF1IgKxW1HuifEPGhf6Tb3Y
-         XFuyP2MmOJomLbxD1yBhA4ENzW2HOVcoZCMvLRUSRz5SMzPJ1uohNaleLP+vRDv8eEi2
-         daCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792436596; x=1793041396;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zwQ9u0fSM+DQnMR6u0nh+yQlIZlqj4FNm9oRCXT8s+I=;
-        b=14Roow3kzvr4ovUS+reh1D+F0jsQxTt+8kAwWKo7jAQnuWpNKnlZoTmthxa9SawFTw
-         KxeS0hn1S7yNqaN58BsdWuRZnUjxBgzILjHDMC2IJQw1NBdP/a67u3iQkD7zUE613uMg
-         rxUHQKLfjAkFTVEoyXQ3oa4o020c/BCCW/Yf0lEww2A7AalZL2lU/lakuCMQhnsisdu/
-         jjyMP+oifpKMTN5No/GlbNU4nexmuIu0XkoYsyGiOTAqQjKPJgTrYqf/tQ1T0FQ35+I/
-         3N2cXKiwL0faTrkO1sMqGLk53ZHN345WnxrEa/slep4aFtLbL/zG8SuvXv7RXaZPKJLi
-         iLbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwHHzVMvAYEdw9FCqpXb5h0+h8n2MyVcKMZiyGjnVXwHxdQ9CTlUrCtVKPLb/MkRmeMty8H6ljn3s5Pr1k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITJ7/mf/UfIUGORYNqCuRZfx2BQHMXfDt9ULWdkV6kF2+LWVgC
-	Wov1yVzSOhin7K2VQPcQ/K+vmaz/m67FJRhvNfTwqICFOSOzV3gd0/FJ
-X-Gm-Gg: AYBFou1ytKF1EJbjK4aeS8F3df+b1PwvXM3+BvMfaLhnWQ0AkJTOoTlAOy/T1qOvUNL
-	FC9CCIGnVbB8KNU7uVJNzl9OYtjmLLILM3Jew5LO+Nup8BKIQy1B+GhpiEWXJAj5rxOxvr8pKPe
-	d8BX302GrGCXjjW2eFoWroLV2IpcBGp1xZMbTuSW7yXhAOqHZo5ZRrLGoJsoT0jI7WeGLf1vilj
-	V21dZiUSCkwsEXjMIT7CkayOXHFVzcRe8sCkhZDndRvf/3B8dcohex5fseUerBlaUUR0edPp5Dt
-	HylPtFw27kp/iG6YRZo8ZWg8mAk1zc9gyNIEO+tG4cjB03IIVk5vIyKcn+Mv0R2UTmzxsr6wgKp
-	uUXtcioQtkoz+tt8p1ANlNnaNKuo3AaX1ju2TfpQHheCxHR5KQpQlroY7lThjuQ7g8PXmiTc7WS
-	5XsTAyQah/3uNGmShZfAHgJO5LvaDgahA8gcvH8SkhKipHt3Gt6H0DzrCZV8bG24wxxjwJH47Hj
-	1uOWot8OXWKoarHaQdSvThH
-X-Received: by 2002:a05:6a21:498f:10b0:3e2:678a:b521 with SMTP id adf61e73a8af0-3e2678ab8f5mr535254637.71.1792436595996;
-        Mon, 19 Oct 2026 12:03:15 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549c7034sm4220834a12.16.2026.10.19.12.03.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 12:03:15 -0700 (PDT)
-Message-ID: <5fbcd61c-a997-471f-8a63-9f70f323bcdf@gmail.com>
-Date: Mon, 19 Oct 2026 12:03:07 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Liz8OJdp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792436643; x=1823972643;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=J+FWQwTwrvLkVXTmczbs/r9eIiKcg2wlsFRu0rFmGOA=;
+  b=Liz8OJdpPD1tPYnlcOdsa4gqlBAjMM4horDj7xNL+hOFsMrcoNUhNXZ0
+   7AApGgM8Ou0I34oq81pnjdErnp5OXAlJqmWuSLCotbqMWuazFY7JVitvP
+   Pl+v1dD/WX2esAn/r2U8uex4hhMtlNDQokpQQTVce1EqswKiAZUA3dGY7
+   9eEBOn8GVzR9vsrWmlgrKU83GEO7HyehXGuF/mPgMveKjsfHvO6lf35ws
+   GyCG7dsfg4HYA/WR3ySSDcIe7YEHWzrUzj3ufWkDcxK7uCLyz8QR6GIe1
+   RmByG85g4e5V+6dsacuU4zQYPrwVj+1YAkXc/G90ABYqx5XIE0cSpnz6U
+   g==;
+X-CSE-ConnectionGUID: 3RVBW4zQSDyFC9pdrhh/oA==
+X-CSE-MsgGUID: uayJRRENQMeTfRYoCMFnJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1009432"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1009432"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:03:45 -0700
+X-CSE-ConnectionGUID: DaLQB0JGQtiDRU5HnhCXig==
+X-CSE-MsgGUID: Ty9MtHA9QCqcz04CqgeBSw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2619666"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 12:03:42 -0700
+Date: Mon, 19 Oct 2026 22:03:40 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: amiratefabdallah1122@gmail.com
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] staging: iio: frequency: ad9834: use guard(mutex)
+Message-ID: <atZpjGgTBcdVMtQJ@ashevche-desk.local>
+References: <179241934543.347.7026859519510388428.20261019-ad9834-guard-mutex-v3@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,45 +84,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/10] 7.2.12-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261017155059.698368299@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261017155059.698368299@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179241934543.347.7026859519510388428.20261019-ad9834-guard-mutex-v3@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/17/26 08:54, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.12 release.
-> There are 10 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.12-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On Mon, Oct 19, 2026 at 05:15:45PM +0300, Amir Atef via B4 Relay wrote:
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+> Use guard(mutex) to manage the state lock in ad9834_write() and
+> ad9834_store_wavetype(). This simplifies error handling by allowing
+> early returns instead of setting the return code and breaking out of the
+> switch statement to manually unlock the mutex.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+If you want to continue improving the code, you can research the use of
+sysfs_match_string() and rather use it as an outer check.
+
+static const char * const wavetypes[] = { "sine", "triangle", "square" };
+
+	int wavetype;
+	...
+	wavetype = sysfs_match_string(wavetypes);
+	if (wavetype < 0)
+		return wavetype;
+
+but it might be actually worse than existing. Again, it needs a research to be
+conducted.
+
+As for this change, it's good enough.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
 -- 
-Florian
+With Best Regards,
+Andy Shevchenko
+
+
