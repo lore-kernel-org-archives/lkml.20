@@ -1,230 +1,123 @@
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25684F3ECD
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792412796; cv=pass; b=mKP4JMXDBmHurWaynt9cOsf2lA1/8MLmG5C+91pb9yzBKKOYGjCeghjQbBqC5EFhM6mK3gbIHZIwRzESiscQiCbDE/UI0jDo1S1STUkrHy5JeLYNQGtG34IFa6EuLmbyEbK3VpV24baJva7AuPLCFForcJtgzMBcSCDN6In/gfk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792412796; c=relaxed/simple;
-	bh=Qyaw4WaZyQRRV/Cc2XdlJP27n/ju5hKMwRZCMx1IgrY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UFwS7i4LajGezkzVqnk5h6FhouN7SUx5/1HWtm/LmfNbkPE7Eu5t8JOv9QrpcTz0LSjUQrJ7jvSVfXjHnnEyz94S2XAl3TRj3n+8i0U0ft+dt3yQALLlc60IBt1OGM3hHKqqPqh3qYJchRzqbqsccA5hVyXg2t9mxnn0zIYqwfQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wetterwald.eu; spf=pass smtp.mailfrom=wetterwald.eu; dkim=pass (2048-bit key) header.d=wetterwald.eu header.i=@wetterwald.eu header.b=Xh6hcOND; arc=pass smtp.client-ip=209.85.167.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wetterwald.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wetterwald.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7DE4DE718
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792412806; cv=none; b=lM93F8ZR1VcGa4nho66HNwsU3F6H4Me4a7GClKTLyC5TrUfpXlpALBsVGInSeYJfLlvQoaUYR7A2SlqunoNrx9hfkN2Ip+lnIyr4oF7BnIoGa7oUDUqnP4Wt6k9ESZJZFiMqLiLDvo7IMRgm0cAAS1u21yir+qKRb8P07/DFlzY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792412806; c=relaxed/simple;
+	bh=2J4QDg/aPsDzAlpppkrAn+r7m+C0v3TwtrRFcMn0Hq0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UlZjL3/OQUdy2vxvIj+z44UXUGcumiyhakq7vwLDq/3V7QyIfiseSdLBRO4E9PxR4USyDrr75uPiJ/42rcvM1fIeIJDbv6tTJD/2O4B4CPLAzjR6AY3PXwrefPBxNHgOxwXv8bOvRVZKOdweG57Cui+FVKyLE4g3czSAoxc3RY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=klLcXACd; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wetterwald.eu header.i=@wetterwald.eu header.b="Xh6hcOND"
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b8b3c8c4bbso731307e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:26:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792412786; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NZu/w1kyZCPEw5wzaGsNtAO+xfWRvRSzoFEYXtvveaONL7kcbt1DfqYQYaDdogd2Ia
-         iGPAAXXrzCu4BBVaq00OIBlNQsAL7Jm4+fWGKQxoynfXhwypupgaERLV/QPGYAmz7ibA
-         rQ5AfAkdbBJJPi6fwjSzD1R8u//W6u+Gxp97YHq6crB1B8ZnvYpaPUdIWFVfa62Moypq
-         vnlqA+8nN+rZx4Rmyo4nSHSslX/o0eUvIL7mTQsFIs5UCMj/VKSB8bD1p8PVPUc1B+kV
-         Ad4hsq2gAZn7Oo7R50HrrfwNyTaBDZcuop0Syk0m/+yfrnws2SHUNA0gfkolNl5fqLpz
-         oA9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PNE/h2ESkoSNRC++cgLzYuUYgKGhlzmmCNhasBPr9xM=;
-        fh=KOKGY03aTejKXpW3OrimcGdPaB3pHxyyrIGglY8ZGc0=;
-        b=dzthBW+9r9he6JxQT09f2UWJc6QCIa1RhvX+TWPmfjy/kkLW/SWyg30jCQY82fyToP
-         6Jmg568JqB0OjS0889MLmzqYZBOg7Go0q6DCzetPizTXUtbBSNV5y/pE6znaqv6JbIdX
-         8t3o5GLOATLPMTb5QTAKlUVFby9LvTbr+YPEtFPyJbeUF3LvXnn2Qmg54TV3fHp80+GF
-         4vdWHEyDpfAwARP/UeUpbgab5sdumoZKtW76oYKH8EQ+PqwXljb83HrNNrptCQuKfnY4
-         z/sOZGxSF63teCms4ClAG582l9/edOAlId6lZF7XLtFed6jxYTXdFjA/pOBNxyQcxbMg
-         oTtg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="klLcXACd"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so6309525e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:26:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wetterwald.eu; s=wetter; t=1792412786; x=1793017586; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PNE/h2ESkoSNRC++cgLzYuUYgKGhlzmmCNhasBPr9xM=;
-        b=Xh6hcONDQrCIQw1D3jpxTmBxrXHCClzUiOLL3X/2YhSkyGUXc1fCi/pM0gLhXa11c4
-         P5pSaOwzvXVVOSzUPLS9y4deF9p2i3yw4tJ3JH74R0K6w7ycMi6eVVfBhgURZcWLyhmu
-         0Wo/UxFuWMSxnmiaMmbo8NreqJc777FPDkftCqu0wc6AUki7r0XsaI7bdLDiZVIEaVPa
-         49U0/Vf8d3w12jGPyKSQSVFHC9Ra5kgKC3GZDB/vVivFaKTGOKT5sWuDt/JgSDK+4eoy
-         uETzK+T4SC3warb3CqTgXPPJOPXuucr8+KDu6AsV6vZGiCEbxnE+I9GT32Og2cNAAbd5
-         qcJQ==
+        d=gmail.com; s=20251104; t=1792412794; x=1793017594; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EtKFCm4Kb4fRyfZVN6sFqWcdE1J66fmbQkE6r6uUAyc=;
+        b=klLcXACdA2X+s7HCk4dX/NKhaCCFnczanr/W2bKJSEjkf3+aVXYcl5Qsk1fD9xGBH2
+         LwvVNje72D993rHpXuM08ZiqwrZmr9uy3ChTkPWDwzMWAmPl64DCAqTtXvwLYH8SylET
+         F4bFDLrGVAr27oiUN3XAa6h/gqSGmw4Z9j2ws9/zYQUR2VKOPre3kn54ZD3BmWCcX2Im
+         IpXEWXQYiCcNIh34dyE0XwHHIZ8frX0kYd/0YoB2ndR0qEv5NRo/OC0kKCqkHbrpKzM0
+         Sf/EXIVxurWWMEQIkMArr6o7bd8I9SEzcbLB7Tx//32T6whFxw41ih/81ZCC9P6ZbpYP
+         v8tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792412786; x=1793017586;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PNE/h2ESkoSNRC++cgLzYuUYgKGhlzmmCNhasBPr9xM=;
-        b=munPPvNJkKzt4dRfLsr5TvWJ2JVzPDSCv53mtrUwk0yk4qNPOeT8OyY72zTqtgYuSh
-         hov7sYPV4dpCGsTlcKb3rONjcRPeAjBs32uxeGdC5wrMXjjGrQVvUKEcpNxK/AdOy6Ah
-         rsgRfcViZ9ImLzovQBdQUw7fwXNLew1NCpGrrMwSqB1XMcSqPCY9xV+Aq3n2Wkr3HVyP
-         3vzKFuvrwZANIzpaUl9mXCmBfFnGCUmd4Yqb5Zs35K3+FJka+VIDAZHgn++7MPRKvKqG
-         bsLKe05zHBEUgTfLzQ4bwzkK/LISSZkp3Wi9aMi61LDrVngGicZfPJcj6+tvlc61TdOH
-         edfw==
-X-Forwarded-Encrypted: i=1; AKwUvByVzi5QgA/cgMGYET7mgmVw1pxy+tWXL12fLacmurUPtqlYtBfBCLsW/GTKWQVu5HLUXcJCMVZVqPUh1Ec=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKem7Xvu244wKUfqfnfiJt+7Xgh8/H6JJ70Kc8UvkZNkegM2zBY
-	C1qrFtvPQj37Ukf3zoE8M7vmnMyxtlWEAFbs8TtyWqrm6RlNDGYev+yBc0jD6XE7Yv8NbpOj+Yv
-	EDxnjYKVdjq/QFKcvK3ZYmKKxd7wQ+dAj5Jm6nELVFg==
-X-Gm-Gg: AYBFou0FDsBJ8XmkkEKE7gb125KLpi0AVKL/nEsnWiNLiELnieS//fhn64VYiRMFGsL
-	pxBcwwlcBNRi+HQhMnPAFinDTSWt7kUb721tLTcW5e6gFLyFnoQK7Z1kN9MPhyH3A8EGmEazSMX
-	x/AFrYvi7cMiMilfTYaxLfLOSTxw/EkTns7flH+RUq/VoikFLskjPy5iUz7tbB4k0n1431/TXbT
-	bjc6uk3K8HW59tMMlMQcYBUDEoFqdFJT/hYgoNE0SRzSs4KkgrhhCtc1RmSIKIFLXkmuWkycHce
-	j2jfIc2nsaTXpY+M6/2QXz9vA+Q4fwczGWTYNMn6ffpEOiVRAAFdwznLF4zJZb5Ed9BRyDrEjsl
-	YBZt36nG+ng==
-X-Received: by 2002:a05:6512:3d17:b0:5be:41a5:d9ed with SMTP id
- 2adb3069b0e04-5be47936d9dmr3010694e87.37.1792412786489; Mon, 19 Oct 2026
- 05:26:26 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792412794; x=1793017594;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EtKFCm4Kb4fRyfZVN6sFqWcdE1J66fmbQkE6r6uUAyc=;
+        b=q13NS8ykuCif9PUPbMpv2Ggl1Zekx3nrmANrx3LcZXBZvXht2jGB5DCW8UZPB8+JwA
+         EegPNlMV6e4UZt0uJT/Q3V3iAgRyssU5ashdOMQ4TcLAhQxgcuJktNgEwKsJ2B/94RXc
+         HuLn6gZuZBoXG4OdRgEK5GONr+F7Wp5qoy5nXzx865k1Lq1OtcwKley3wyToFqo4KS4+
+         ZPEH41fNfTVelnSLc3biEVA3mXxB06BG1rVVIC2MeRG/Z9+L9qZN9pPWJKtsFtlnHHIG
+         LL4PG6hk8CdkOKW4Z6DqmMPO8FXbdpZRU1HoCZ28VVyk3PRM256F7bVktlwrEQ/cRkNF
+         U1SQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwPgjKrG0bipQR4a/2XRdh7pis55uNcJ5I+5f+2fDRXWVDciS3zbv1cXTwIllr5f3VNy9vh76YQz6qW3k0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrZqWIKj4gLZj/U4D0ikDmDe7bRZgUT6YZHQYREEgp82W3dzHb
+	8jNoIZ898PMohFt9pdHR6FmpNYWIrv3RQRgZVev9Erw7CDsAH89HFYP2twI5vXln9Tg=
+X-Gm-Gg: AYBFou32qDbkkDO8/rKA9BsY+go6ipwXM8ubV9YXnZGNXP5D91grs0B59045+sqgCtw
+	UtheO0GfJo8JMwxoxWMR78H2e8Dr9NF8cNa4Qma2WbS3Rj3DF5HZUq3RK3EOyVktJs8RUO0sKS/
+	QJpk1Oz9Tt7k6N/ENNECMIEwSIlXFK/KsehoH+cAMSsiL4QCII0Vu6EJL7LhlBsQ+Nhote/7ozp
+	VY8GP3HQc6RKM+lewDiMGyg9DBvomKo/JoWPFwdfaxMh/IsrUZDDZ43Som7ibrYSECPjTrSEUZS
+	ZPVwb5zd+17FbIoye535j95bvsDIt1grsTJ5rKE0QZnI9hrOn6jVKBXCwRoVB08xbCUeDR3VNfv
+	C1hSmUQ9vv0OmMovfEFeGlIHrtCe+yYcmbCRBN5pJeMi6CRqsvCuNU6x61qDgCQpOnjI/k65Ozy
+	dHXS8L9k8lyUveXrp/Ej6ZWJC3LuFpUAHqME7DSi+8vZL/i39Uk54wHbrYeccQAX0SPBoudIWSx
+	qfV+jgPU6xjAjg=
+X-Received: by 2002:a7b:c3c1:0:b0:4a1:8849:17ae with SMTP id 5b1f17b1804b1-4a1c663b460mr182215415e9.1.1792412793709;
+        Mon, 19 Oct 2026 05:26:33 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4778:c500:e497:1486:f91f:acf4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4e7889sm23101961f8f.24.2026.10.19.05.26.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 05:26:33 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Trond Myklebust <trondmy@kernel.org>
+Cc: Anna Schumaker <anna@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] NFS: restore directory index when resuming readdir
+Date: Mon, 19 Oct 2026 15:26:30 +0300
+Message-ID: <20261019122630.200561-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAFERDQ0FpdVvA5VJxOyRAE_pgxnPVmFx1tkZio5R272j6Bs4tg@mail.gmail.com>
- <20261013131435.1454019-1-martin@wetterwald.eu> <DM5Q9NKRO89O.22R04QM8YBKWM@gmail.com>
- <CAFERDQ12QwtC6cCVWQGU1b5KCv988kAvahNKwosxG2z8Mzm4sw@mail.gmail.com> <DM8869QP3IID.1I1KT6A7M2UNB@gmail.com>
-In-Reply-To: <DM8869QP3IID.1I1KT6A7M2UNB@gmail.com>
-From: Martin Wetterwald <martin@wetterwald.eu>
-Date: Mon, 19 Oct 2026 14:26:15 +0200
-X-Gm-Features: AclHuK93P2jPD4PyUwT4dOLVOgxbBF4VVZAqE1H94JjIS4xMMkZCEQTzudX9ZIs
-Message-ID: <CAFERDQ3DWBnkSok_SiVZGx+GTmYKP=Q46yFYkNt9YQkKxxQxyw@mail.gmail.com>
-Subject: Re: [PATCH] platform/raspberrypi: vchiq: register bus at subsys_initcall
-To: Gaston Gonzalez <gascoar@gmail.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Stefan Wahren <wahrenst@gmx.net>, 
-	Phil Elwell <phil@raspberrypi.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Umang Jain <uajain@igalia.com>, Kees Cook <kees@kernel.org>, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	regressions@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 9:53=E2=80=AFPM Gaston Gonzalez <gascoar@gmail.com>=
- wrote:
+nfs_readdir() restores the cached folio index and cookie when
+resuming directory iteration, but leaves current_index at zero.
+In 32-bit index mode, nfs_readdir_search_for_cookie() then
+reports a folio-relative offset instead of the absolute entry
+position.
 
-> Running 'speaker-test -t wav -D plughw:1,0 -c 2' crash the system, so
-> thinks seem not to be working with that interface.
->
-> Im trying to debug what happens in that condition; I will need a couple
-> of days I guess. So far, this is what I could check.
->
-> Any feedback on the test or debugging would be appreciated.
+Restore current_index from the saved logical folio index before
+searching the cache.
 
-Hi Gaston,
-Thanks for digging into this.
+This solution relies on the current behavior of 
+nfs_readdir_seek_next_array(), where folio_index advances by 
+one and current_index advances by nfs_readdir_array_maxentries()
+for each full, nonterminal folio.
 
-The patch only changes when the VCHIQ bus and driver are registered during
-boot. So it's enough to check these two cases to validate the patch:
-- without my patch: dmesg shows the "unable to register with bus_type
-  'vchiq-bus'" error, and bcm2835_hdmi is absent from /proc/asound/cards.
-- with my patch: the error is gone and bcm2835_hdmi is present in
-  /proc/asound/cards.
+Fixes: f648022faa68e ("NFS: Convert readdir page cache to use a cookie based index")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+I tried a couple other ways of recovering current_index like 
+tracking it with a new variable in nfs_open_dir_context and 
+deriving it from ctx->pos but the first option ended up expanding
+the change-set drastically and the 2nd option had an issue of 
+freshness after directory changes.
 
-(Since the Pi Zero has no Headphones jack, you need to test both cases with
-snd_bcm2835.enable_hdmi=3D1 in the command line. Otherwise the card never s=
-hows
-up, even when everything works.)
+I was able to reproduce both the failure and confirm the fix is valid
+locally.
 
-Could you check these two cases?
+ fs/nfs/dir.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
+index 49394123bd09..a1ad04b2f307 100644
+--- a/fs/nfs/dir.c
++++ b/fs/nfs/dir.c
+@@ -1253,6 +1253,8 @@ static int nfs_readdir(struct file *file, struct dir_context *ctx)
+ 	spin_lock(&file->f_lock);
+ 	desc->dir_cookie = dir_ctx->dir_cookie;
+ 	desc->folio_index = dir_ctx->page_index;
++	desc->current_index = (loff_t)desc->folio_index *
++			      nfs_readdir_array_maxentries();
+ 	desc->last_cookie = dir_ctx->last_cookie;
+ 	desc->attr_gencount = dir_ctx->attr_gencount;
+ 	desc->eof = dir_ctx->eof;
 
-Testing that you can hear the sound going through bcm2835-audio is a full
-functional test that goes even further than the patch: it does not only tes=
-t
-bus registration but also that the audio driver is working.
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.43.0
 
-On my side, without vc4-drm, I can successfully hear sound through both bcm=
-2835
-Headphones and bcm2835 HDMI:
-
-  # aplay -l
-  **** List of PLAYBACK Hardware Devices ****
-  card 0: HDMI [bcm2835 HDMI], device 0: bcm2835 HDMI [bcm2835 HDMI]
-  [...]
-  card 0: HDMI [bcm2835 HDMI], device 1: IEC958 [IEC958]
-  [...]
-  card 1: Headphones [bcm2835 Headphones], device 0: bcm2835
-Headphones [bcm2835 Headphones]
-  [...]
-
-  # speaker-test -D plughw:0,0 # (HDMI)
-
-  # speaker-test -D plughw:1,0 # (Headphones, not on the Pi Zero)
-
-
-If you still want to output sound through bcm2835_hdmi (optional):
-
-There can only be one owner of the HDMI port: either the firmware or the
-kernel.
-When the Raspberry Pi boots, the firmware first owns the HDMI and displays =
-a
-rainbow splash. Then it launches Linux.
-
-There are 2 ways for the kernel to deal with the video output:
-
-1) With vc4-drm (CONFIG_DRM_VC4), the kernel takes over the HDMI controller
-   from the firmware and handles everything itself (this is your case).
-2) With simple-framebuffer (CONFIG_DRM_SIMPLEDRM or CONFIG_FB_SIMPLE), the
-   kernel leaves the HDMI to the firmware and just writes pixels to a
-memory area
-   (the framebuffer) set up by the firmware.
-
-I get a similar problem on my side when sending sound through bcm2835_hdmi =
-with
-vc4-drm loaded: my screen shuts down (but the kernel is still alive).
-It most likely comes from the firmware and the kernel both trying to drive =
-the
-same HDMI port: with vc4-drm, the kernel owns the HDMI controller, and the
-firmware (which bcm2835-audio talks to through VCHIQ) is not supposed to to=
-uch
-it.
-
-A simple way to output sound through bcm2835_hdmi is to not use the vc4-drm
-driver at all, and use simple-framebuffer if you still want a display.
-
-To remove vc4-drm:
-- Do not compile the driver into the kernel (CONFIG_DRM_VC4=3Dn) or blackli=
-st the
-  module.
-- Remove any vc4 overlay in config.txt file (e.g. remove dtoverlay=3Dvc4-km=
-s-v3d).
-
-To enable simple-framebuffer, use one of the two configs:
-
-  CONFIG_DRM=3Dy
-  CONFIG_DRM_SIMPLEDRM=3Dy
-  CONFIG_DRM_FBDEV_EMULATION=3Dy
-  CONFIG_FRAMEBUFFER_CONSOLE=3Dy
-
-or, the older way:
-
-  CONFIG_FB=3Dy
-  CONFIG_FB_SIMPLE=3Dy
-  CONFIG_FRAMEBUFFER_CONSOLE=3Dy
-
-(FRAMEBUFFER_CONSOLE=3Dy, and DRM_FBDEV_EMULATION in the DRM case, are only
-needed to see the boot messages on the screen, with console=3Dtty1 on the c=
-ommand
-line.)
-
-If you have remote access to your Pi Zero (either through network+SSH or
-through serial console), you actually don't even need the simple-framebuffe=
-r:
-you can just remove vc4-drm, and let the firmware display its rainbow splas=
-h on
-the HDMI port.
-Then you can login to your Pi Zero through SSH for example and launch
-speaker-test.
-As long as the HDMI video output is active, it's enough for the sound to be
-able to go through, even if the image was not drawn by Linux.
-
-But again, this full functional test is optional.
-
-Regards,
-Martin
