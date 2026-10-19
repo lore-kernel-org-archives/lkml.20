@@ -1,73 +1,56 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from ocn-dfr-mts-121c2.ocn.ad.jp (ocn-dfr-mts-121c2.ocn.ad.jp [153.128.190.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57378484247;
-	Mon, 19 Oct 2026 13:06:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792415172; cv=pass; b=mvgUKqz6HGaUpR9Rieq3jgFqxXIe4jGkCzo1gfBW8oazoPRX6+U9RrW5eeiOZ+OfbiUHTG1kwUUz3ZlNG5uV+9iiqnCnd+9zcQOYumeEGUYMD0RqcqXp+WU9S6hS6dHk7SwOcRaEsy5H2bkVTgF5BR1u1IND/Pr7KM0SZjlEOdY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792415172; c=relaxed/simple;
-	bh=lMv0086OCrsoNq47I1OeAj8x5XrmaajeehkMx6jyrN4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NL5eKx5XPvp6siBCBmxZDrOUEto9z2DkQKtWWN0dabHeCscrj8W3CUv1+kKA9kPCNSHXLo6yHsf+vISiziRthu1UBcw1DUmft+5NxFWrAqygxylY95UN78ywnOAiwtt0KgZRCANTC/XuuupmBiJhXY/WinT2XfJYU3xNb4ekRqE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=ez3IQRq1; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D31A4B7A50
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:06:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=153.128.190.147
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792415188; cv=none; b=eCHBAB3yLYmh22AxI+kE8aV2WttUFevVc1CsBmf8MCj0B/NcJQ3XFRIFRroM2Upd2XG6wzdjw6r0rak0J/FwnPwHv5Vm4zz/yjRCqiNViF3TPWvC/WmEMnj9XYEXh7vjt5j6pz6dsxvts/wb4skB5y7bSBer6ZDSTearWAXW6PI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792415188; c=relaxed/simple;
+	bh=yTJK65vtCWoQGAdDX9KjcA0ppmoYfDkoKSIPicrNvA4=;
+	h=From:To:Cc:Subject:Date:MIME-Version:Content-Type:In-Reply-To:
+	 References:Message-Id; b=R9oFfAWuc8C1f2Wb8y6YON/a8TskBbIS6crD8fObZ0tFN/GYWGe51DjiY3yflDCqVVKyRZZ9Q5oh4SBmtrP5X2Lkx6k+vCUej/an36shsRPoZQbWcxRhts++pifS0xdP8bzHtfLA6WePQmeNzHy+k48HSghbjC4wUwPcPxlohUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=docomonet.jp; spf=pass smtp.mailfrom=docomonet.jp; dkim=pass (1024-bit key) header.d=docomonet.jp header.i=@docomonet.jp header.b=EEu0Ruv2; arc=none smtp.client-ip=153.128.190.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=docomonet.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=docomonet.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="ez3IQRq1"
-Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::109])
-	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 636532018D2;
-	Mon, 19 Oct 2026 15:06:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792415168;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z6HJywsKHh53IEWEiQpClvaHw8ghTVJq39aZi8BPCAo=;
-	b=ez3IQRq12gsTNGODFXZzRllu3D9nArUc50OhODwJaryVGgHgr3lKN7z5gkUq6YGAjiBkUx
-	I+JWC6O3m7yg7a0Fsk8UHpl7Kwi+tRfbmM2dQ/TjHhg9GkDfT0OPQFAjJk3vsks4Yc23Tc
-	6Hjq5bdr5OtWFxAXHZrvOLHFWLR6uAqMYoPJJJKGcBKZ3pjxj+AWEeDdQ1jAsA7djkQlUc
-	K7azMvWs+RYWvE+WT7da20JU6yngSf6tUbdZqyouLP2JSg0uYbATSuxHCTzBUASiEFYk59
-	jFWfZHTuX/OlnY61kxayWjrPBLpHMUF9xnvKekXnkdMuFFcziWxnaFvrWw37RQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792415168; a=rsa-sha256;
-	cv=none;
-	b=F7JKLT4pj0z1IeY8KRGE7/e/m+c9gCF0VBc2EaTEwJSlsYbpsJnScsEyzsdavR66yvdd86
-	ixgx6UZ6X+rhM0u0JXN3gL5VMCfZNJDywNGuHY5wt/pkxaGKOwY2pIvyYmCEunjD+0e4E1
-	fAsn/exgsqqgCXzrsabpzDqQQI0KSS51bavBaOSurR8reOWek9BiDtfxjM11J/nws15SJF
-	1REqCkSOvKewpJ3mWND24ryHn0jAuL3iUaAZ2h/3+ld9snd0G7iFuVepDvYoyT2ZSq/ikb
-	T9S2vO0BLIYQaQUQ77NA2qy58kbrFpGE1mpiwpawa2mFukjRwwl4mqZnf4jzOg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=mfe@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792415168;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z6HJywsKHh53IEWEiQpClvaHw8ghTVJq39aZi8BPCAo=;
-	b=MUrUnoHjrAdHgjnvm20c8PmZCK0FBPh1LvuZaMvM2bIqEKqibe8Aszc6D45bCGucyjN8HF
-	iH23iMTePkaohvp2UGF32FVgnMhF5ePIey+cVS781J/VDPcV3qoJDE5OSoB8kPvLNKxDy5
-	KnzRsTug3JRoIeJyjwZnPjYVWAnvGI5WyP/3U2lfZZ88XHnQsUPUdoCJKyqcmuBKjbMRwn
-	YSJkz/9HgI22oNOroCEaSbAtc0T5S/TkYRab5wO4cBGgIpjjHsXyDY9pW+5bVw8QqVB+vY
-	Mjm+snA6iInjdYHZvd645cJwW6XLsrLSyOAHc81SYfUv/RkgAMlVaiJDniXdZw==
-Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1064)
-	id 4CE841C0145; Mon, 19 Oct 2026 15:06:08 +0200 (CEST)
-Date: Mon, 19 Oct 2026 15:06:08 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Joy Zou <joy.zou@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Ye Li <ye.li@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
-	Jacky Bai <ping.bai@nxp.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev
-Subject: Re: [PATCH 1/2] dt-bindings: arm: fsl: add i.MX937 FRDM board
-Message-ID: <2l6vjbw6nkyq6jouilhhg7kebnuka25z36tu6yecyc5hpogluo@kljl5qqoz7s4>
-References: <20261019-b4-imx937-frdm-v1-0-76d949a61954@oss.nxp.com>
- <20261019-b4-imx937-frdm-v1-1-76d949a61954@oss.nxp.com>
+	dkim=pass (1024-bit key) header.d=docomonet.jp header.i=@docomonet.jp header.b="EEu0Ruv2"
+Received: from ocn-ckd-mts-119c39.ocn.ad.jp (ocn-ckd-mts-119c39.ocn.ad.jp [122.28.130.104])
+	by ocn-dfr-mts-121c2.ocn.ad.jp (Postfix) with ESMTP id 440D91C000206
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:59:08 +0900 (JST)
+Received: from ocn-spm-mts-104c1.ocn.ad.jp (ocn-spm-mts-104c1.ocn.ad.jp [153.128.190.232])
+	by ocn-ckd-mts-119c39.ocn.ad.jp (Postfix) with ESMTP id 42FCF340032D3;
+	Mon, 19 Oct 2026 21:59:00 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=docomonet.jp;
+	s=20240125; t=1792414740;
+	bh=yTJK65vtCWoQGAdDX9KjcA0ppmoYfDkoKSIPicrNvA4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=EEu0Ruv2yoOrQu9N3zcQHbQaBcjmQgV6wRhead7Mde7vWztBjumtNi063EO95Yfoq
+	 YlgSwrDCAf1zp2dQPZonG1C6joXrrLrn4J5FC+byIg+0C37gkRG9Km72XISExQlfkb
+	 58WD0a8EP9qw16xQAxiIspVer1ndV1xQGKN0E9H4=
+Received: from ocn-vc-mts-109c1.ocn.ad.jp ([153.149.236.232])
+ by ocn-spm-mts-104c1 with ngmta
+ id bfbdb06f-18dfefb5a722c3ca; Mon, 19 Oct 2026 21:59:00 +0900
+Received: from ocn-sdpx-mts-113c1.ocn.ad.jp ([153.128.117.211])
+ by ocn-vc-mts-109c1 with ngmta
+ id 283b07fa-18dfefb56136f94d; Mon, 19 Oct 2026 21:58:59 +0900
+Received: from docomonet.jp (p3688129-ipoe.ipoe.ocn.ne.jp [153.238.101.128])
+	by ocn-sdpx-mts-113c1.ocn.ad.jp (Postfix) with ESMTPA;
+	Mon, 19 Oct 2026 21:58:58 +0900 (JST)
+From: "Asai, Shigeaki" <y-asai.0816@docomonet.jp>
+To: iav@iav.lv,
+ Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] irqchip/meson-gpio: Allow the GPIO interrupts to wake the system
+Date: Mon, 19 Oct 2026 21:58:58 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,52 +58,25 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-b4-imx937-frdm-v1-1-76d949a61954@oss.nxp.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: HidemaruMail 7.42 (WinNT,A00)
+In-Reply-To: <20261010-meson-gpio-wake-v2-1-790ecc6df792@iav.lv>
+References: <20261010-meson-gpio-wake-v2-1-790ecc6df792@iav.lv>
+Message-Id: <FDD5FC99B1D1792F3006A@docomonet.jp>
 
-Hi Joy,
 
-On 26-10-19 19:10, Joy Zou wrote:
-> Add DT compatible string for NXP i.MX937 FRDM board.
-> 
-> Signed-off-by: Joy Zou <joy.zou@oss.nxp.com>
-> ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-> index c8290a83205b..af10cac62f90 100644
-> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
-> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-> @@ -1570,6 +1570,13 @@ properties:
->            - const: toradex,osm-imx93
->            - const: fsl,imx93
->  
-> +      - description: i.MX937 based Boards
-> +        items:
-> +          - enum:
-> +              - fsl,imx937-frdm           # i.MX937 FRDM Board
-> +          - const: fsl,imx937
-> +          - const: fsl,imx952
+On 10/10/26 20:20, Igor Velkov via B4 Relay wrote:
+> Set IRQCHIP_SKIP_SET_WAKE, like the other hierarchical irqchips with a
+> GIC parent.
 
-At least to me it seems odd that you specify two SoC compatibles here.
+Tested on an ODROID-GO Ultra (S922X), where the RK818 and RK817 PMIC
+interrupts come through this controller (GPIOAO_7 and GPIOAO_5).
 
-Side note (obviously not something you could influence):
+With this patch, an alarm on the RK818 RTC woke the board from s2idle
+4/4, and the power key (rk805-pwrkey on the RK817) 3/3. /proc/interrupts
+counted each wakeup on the right interrupt. Without the patch, neither
+of them woke the board from s2idle in my earlier tries.
 
-NXP should really work on their product family names. If some
-i.mx95<foo> is compatible with i.mx95<bla> I would call it i.mx95<foo>
-and not i.mx93<foo>.
+Tested-by: Shigeaki Asai <y-asai.0816@docomonet.jp>
 
-Regards,
-  Marco
-
-> +
->        - description: i.MX94 based Boards
->          items:
->            - enum:
-> 
-> -- 
-> 2.34.1
-> 
-> 
-> 
+(This reply was written with the help of Claude.)
