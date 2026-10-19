@@ -1,353 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012009.outbound.protection.outlook.com [52.101.66.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB5E48E0C8;
-	Mon, 19 Oct 2026 07:48:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792396113; cv=none; b=fT5aYLPnUmrOzpYEsYrtbimEoWffAJPQdJx6MQ5ObJHN9j2jxrf3lJUyrskghat8rzNFzrzmxqC4F7b+mulcfHMNPVbKGKSrQsnYA/TPxJAjQ7xFZNFz1E+iYQVsqDmbE7WISJMx+5w3h61YpmYQO4htwB0WuaVleWprq3CTwNY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792396113; c=relaxed/simple;
-	bh=HwvIyERcTboKVk5ALtRMpcsMVGSoX9OJsNLH4jPAD9o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e1gu5BD8iJwOlj27qu2zujujiUGqLplWr+mf2feSt1dNteFgoMa0dHHIB7OsdMdiroIbGx3WcpqqCphEv7AXwEoPfrOrQ1w2JYedqwLbfO2DQ2gvs/H+XES7TQYl7xheGi0JvlTx7Uhuzf55wop7ej0HkY5hJN+0NkJeE9KrIRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtLPwN45; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321BB46F4A4;
+	Mon, 19 Oct 2026 07:49:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792396168; cv=fail; b=TTT3v3wdk65h+91/DaqA7L7DUbRWXc1SUBhCooOn8AOEDtr5NQavhQY1VZfTT6Oajf6nX6ohmQUE4364e7wdV/tDvWxqHmyJQdzzTnpsELCQRnhGgrHO+YoU9NBewbFZaLU6iMnA45rPucBgxXCk28PVauLxkgn2WILy7P07mQg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792396168; c=relaxed/simple;
+	bh=gshe/0ztyemx3BYmj7FJaCxVN1t6bRNxb0J3fyu+Klk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ru7k0y62P4bmcW6rh4refrVv64dJ3gGRZP7IzjXXXoO+bSA3PTY4pOe63J6mCHpyMLfYEDPAVaeS02OcAkvxdDs4EORgHJrqkz23kGwDedzyFehaQf++N2Z+ccDCM+Zbq3hepKjdQJz5jQR/vx0TYALwyDIbmSrqGy0NtC3OXm4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=oeDdUaSh; arc=fail smtp.client-ip=52.101.66.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtLPwN45"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2171E1F000C5;
-	Mon, 19 Oct 2026 07:48:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792396111;
-	bh=UFe0OkQtMoIoH7uDUZIBKfcLV2DCg3uzYEgFzr/ymTQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KtLPwN45x/L2gyztWYH+o//fEXM9H/MYD6fMyepvBVwvRxpM63Oe1mtD7RnWNwvOD
-	 PKEQ7eFUw3ia0fL+NndH7UHvXplQUANE5tPcxlbsvLK0+3ul6LHr7rDt/UJR0MTfxC
-	 iIbCqN5id65LYAbtMZBJziezij1wjne62DCBTdobHW9Kx+Y08JcahECxP+0Iez5iUq
-	 xWVWAcHGJgMRAiJwPKLDnSmjTnFS+l/PaAst07LM+H64Hq6zKVBbeuUZNTM39pERAV
-	 rdio4KXkGKzvRuOTGLnNkfQjrboZ0y9GGlyJ3FEM7UwaiYqkptp+QRCaJsSIT0p0KU
-	 dXQtujp3GPwIA==
-Date: Mon, 19 Oct 2026 09:48:26 +0200
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Shihuang Liu <shlomojune6@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Marcus Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
-	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] Input: misc - replace strlcat() with strscpy()
-Message-ID: <atXHuHxCqqkIuV2w@debian>
-References: <20261016170411.51025-1-shlomojune6@gmail.com>
- <20261016170411.51025-3-shlomojune6@gmail.com>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="oeDdUaSh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=urjyv+UB1IB+thoHVa9EI9l2UyzzHLim+SKXl+rvyACMJXTvyW2URVx/NW3aiCPgwXt+Rp11+5g85pyzC6iAxFuppp4Vcr7nbbExeKBRn4nSUdhsVydVHvKJwCKP6VEAPwudc4e+4FT+bcCUnduRA1whygp8CM6CnOk/UfChhUJzHU+GAqYCd3BbAAikccMrr+nmoH/m16OilH+cniUenz3BoVVuIz4x5WwZp3A2ylqoshs1iB2enCWCQkedva1A3CvttYw66kypgDUOBpXkZq10BmJpLa6J+Zl4NhBvUEws63enm7IhdiNkm4YcnPKTSLzbTJuhJ0UxJERcnsVwcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ld+zTAOHD/rbwuWaPwGxU5r8NwC8vHbt7mPYvDpN+GE=;
+ b=vH4IWhg5RSTm84MndlqvPWlDnSkiHN1R3pHFMTTgWt58jS21pUeBhjciwr2CuC8x5ZndZvhFEyqyAAJinFi39WQ1VGgW2uORLSTEB2wsHf/bPuDmAXnN7PFcWJOtSYa8RrCcdaQtl+tSdMte2gWPUUrHmzmoMa7UUxJie3LD7hZK1GrkLE2eguU7843rCulZQUS67EdcsIR3ISg1xQGuM5lTuN0ZxQzYl+4NUCDBitrPneD2P0iyE0qLG2qWyUJSfF+ZNYbn547E3/RomF0uCx9yDD97I0qklxRVLO9CtmdydycsWjoDhWoqxPjDbryZKY9AbW1yXFCGMOu9yBEvGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ld+zTAOHD/rbwuWaPwGxU5r8NwC8vHbt7mPYvDpN+GE=;
+ b=oeDdUaShxPqOGpz2znsCIPnKEJ2cOoqidsrIb12bTYzshwEGapWKXnA8Aa5yBc4+/jDy83rCEvUiSCKLieOo7uu/4WXlI2H4xPG0BYxg5dfOUXT8ll9CCaMfuEmnxb9+LepXr8T+DnYsWC8Oa+tO6pHKxj6umJJZ6uZc4VmYxy+iPyJLQ4k9doQ9h9Py1ktyhvsOh0Lgs3qVJXiOy1YieLhsmJFxYw4tuxza2HzAtzOieIomTQ9QdIpdtlJfDsROf4TLxSas9prWT1uhRy0gfOU9BP9EX1XAQK6JveYWofUdDyukoaZtbQLpRpxiTyNR5M7aWzKXdresDAz9HW6/Vg==
+Received: from PAZP264CA0040.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fc::22)
+ by MMZPR10MB979095.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:190:4e::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 07:49:23 +0000
+Received: from ZR1PEPF0000E6B3.eurprd05.prod.outlook.com
+ (2603:10a6:102:1fc:cafe::19) by PAZP264CA0040.outlook.office365.com
+ (2603:10a6:102:1fc::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
+ 19 Oct 2026 07:49:23 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ ZR1PEPF0000E6B3.mail.protection.outlook.com (10.167.241.90) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 07:49:23 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 19 Oct
+ 2026 09:49:40 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 19 Oct
+ 2026 09:49:22 +0200
+Message-ID: <7247f5b5-5eba-4afe-8287-19731e71d4b9@foss.st.com>
+Date: Mon, 19 Oct 2026 09:49:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="do6dlx2k7e2qhtqq"
-Content-Disposition: inline
-In-Reply-To: <20261016170411.51025-3-shlomojune6@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: i2c: vd55g1: Register as a sensor sub-device
+To: George Neacsu <geocausa@gmail.com>
+CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Peter Marshall <pm@petermarshall.ca>, <linux-media@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20261016-vd55g1-async-sensor-v1-1-cd72f6d68ea4@gmail.com>
+ <073e5fa2-313d-4d7b-ac10-3a74c57d3c62@foss.st.com>
+ <20261016145542.37322-1-geocausa@gmail.com>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <20261016145542.37322-1-geocausa@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZR1PEPF0000E6B3:EE_|MMZPR10MB979095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8829114a-5088-4114-aaac-08df2db57dc4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|376014|36860700016|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	XUYRM2T7ZIjWsdu+fWtwPWazfTU+IbwabtqxIbDMg8RtNdphSrWfj7ZBFS406D+dDGfrnupujUB/Cgtmwm5Pmqc0Ik3ka0wBVjRut/1N92hrFtkblFSs3pN0knwA4MHfHuO4ETCA1MN5dH0ENoVlyDwK7w8Q4FfrWKodVukSxz7Q2c2TViZSVj8oo24LrPNGf6imC6pt4dSJTx8gNHkbm+uIZwVxdTM5I+SzmadBf5NtD5aTXQIax+yo8aRNQZRn/hl5Ll+hlMA6Kz38kmivc5LmdW2BD2+GzWT5kS2xe94XUyL9fNVM3SaHIe/MDp7BZVb1hYQyzpPdXLqGBlva2JA0N0KBqu8wByuldj4Qc5fLzt77cqmIgio9NVjqZG0eLvdFGAM/HAyc4LQLlUq6bRqCPAUKvOKSHyCwS97ZEAz99VFwWBH/YWqU4edXSbI9lqcQzcPphSRSdhVjx4mcrEdkosWzaYIsPVsXjIsGTNrnmT7UmoAYdgeqrS7voxxnXAoxsQXWS4wOhUBeFSR5LeAIaxHOVuVG5AUbT/lHdnoZWUad/vrRs7Tf5f3/rBD1hgsnn8it5W9hotMpvW18OrDSIlg2IewlVcd1SYS39BvRBj4BnrlYdWSIPnuLQ5Rcvdu2XCkeMBXdG+JIEMg4etoyJDsWcWko9PEnc4eZoMSMvRc4f4MjoI2/nPvXbKadDwlFEk35QsUCYxR7g23Ylg==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(376014)(36860700016)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zVXIDPf3EX7EyO+6ov3LiKQsp0UXFh9qdthUibKpt2osnj6pg49+dhZP5BHMsWH6FdnKCCkg8Glg3ijM85KPXdZmKJGBxkT+rAgcX2JGg/cmvNCy0UNqwWt3yDVxEHTfsa6TkGzZY/J1IVWrDlrkG7+AS/gDV4gU2lBsoIWWCakAE+Py7i9fy9rHbRxCkJFeaxKSpPEROzDnq4Gm4642cl25Idqv2idN35//hZIEa5z6sWr+Aw/EwW9AD32N8ZjkGc8NcSAzrlavndq1ZEY/SD+iAmL8i/DpKa9ZOWEUsPIGa77f7UfDQLu1r3WQKV9hdvkVxlA/CnvRcgUZ9OZ/Q4JmavcnwUShp2EDXMGd2hEVKl49rNM1LPuqG21KLd13dgQBZVQzCQELRpuw21TTmgQlZR4DM14VA8on2gVf6Q7x3VPX0GeNSlZSzEB2rVj/
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 07:49:23.1632
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8829114a-5088-4114-aaac-08df2db57dc4
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	ZR1PEPF0000E6B3.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR10MB979095
 
+Hi George,
 
---do6dlx2k7e2qhtqq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Shihuang Liu <shlomojune6@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Marcus Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
-	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] Input: misc - replace strlcat() with strscpy()
-Message-ID: <atXHuHxCqqkIuV2w@debian>
-References: <20261016170411.51025-1-shlomojune6@gmail.com>
- <20261016170411.51025-3-shlomojune6@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20261016170411.51025-3-shlomojune6@gmail.com>
+Le 16/10/2026 à 16:55, George Neacsu a écrit :
+> Hi Benjamin,
+> 
+> On 16/10/2026 12:04, Benjamin Mugnier wrote:
+>> Signed-off-by: Benjamin Mugnier <benjamin.mgunier@foss.st.com>
+> 
+> Thank you for looking at it. Did you mean Reviewed-by or Acked-by here?
+> The address in the tag also reads "mgunier" rather than "mugnier", so
+> the tools would pick it up as written.
 
-Hi Shihuang,
+Of course, I apologise. Here is the correct tag :
 
-> Date: 2026-10-17 01:04:08+0800
-> From: Shihuang Liu <shlomojune6@gmail.com>
->
-> The ati_remote2, cm109, ims-pcu, keyspan_remote, powermate and
-> yealink drivers build the physical path by appending a constant
-> "/input0" suffix with strlcat() after usb_make_path().
->=20
-> In preparation for removing the deprecated strlcat() API[1],
-> replace it with strnlen() followed by strscpy() into the remainder
-> of the buffer, as commit 34b228b739f5 ("HID: usbhid: replace
-> strlcat with better alternatives") did for the usbhid drivers.
->=20
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
-> ---
->
->  drivers/input/misc/ati_remote2.c    | 4 +++-
->  drivers/input/misc/cm109.c          | 4 +++-
->  drivers/input/misc/ims-pcu.c        | 8 ++++++--
->  drivers/input/misc/keyspan_remote.c | 4 +++-
->  drivers/input/misc/powermate.c      | 4 +++-
->  drivers/input/misc/yealink.c        | 4 +++-
->  6 files changed, 21 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/input/misc/ati_remote2.c b/drivers/input/misc/ati_re=
-mote2.c
-> index 8db2dca84975c..929163f52177e 100644
-> --- a/drivers/input/misc/ati_remote2.c
-> +++ b/drivers/input/misc/ati_remote2.c
-> @@ -767,6 +767,7 @@ static int ati_remote2_probe(struct usb_interface *in=
-terface, const struct usb_d
->  	struct usb_device *udev =3D interface_to_usbdev(interface);
->  	struct usb_host_interface *alt =3D interface->cur_altsetting;
->  	struct ati_remote2 *ar2;
-> +	size_t len;
->  	int r;
-> =20
->  	if (alt->desc.bInterfaceNumber)
-> @@ -823,7 +824,8 @@ static int ati_remote2_probe(struct usb_interface *in=
-terface, const struct usb_d
->  		goto fail3;
-> =20
->  	usb_make_path(udev, ar2->phys, sizeof(ar2->phys));
-> -	strlcat(ar2->phys, "/input0", sizeof(ar2->phys));
-> +	len =3D strnlen(ar2->phys, sizeof(ar2->phys));
+Reviewed-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
 
-Why strnlen(3)?  ar2->phys should be a string, right?  If it is not,
-then we'd already have a buffer overread in strlcat(3), and then the
-commit should be reporting a bug fix.  This should use strlen(3)
-instead.
+I think you'll need to manually remove the wrong tag for your tool.
 
-> +	strscpy(ar2->phys + len, "/input0", sizeof(ar2->phys) - len);
+> 
+> Thanks,
+> George
 
-NAKing this.  This is precisely what strlcat(3)'s documentation in
-OpenBSD says you shouldn't do:
+-- 
+Regards,
+Benjamin
 
-	Since it is known how many characters were copied the first
-	time, things can be sped up a bit by using a copy instead of an
-	append:
-
-		char *dir, *file, pname[PATH_MAX];
-		size_t n;
-
-		...
-
-		n =3D strlcpy(pname, dir, sizeof(pname));
-		if (n >=3D sizeof(pname))
-			goto toolong;
-		if (strlcpy(pname + n, file, sizeof(pname) - n) >=3D sizeof(pname) - n)
-			goto toolong;
-
-	However, one may question the validity of such optimizations, as
-	they defeat the whole purpose of strlcpy() and strlcat().  As a
-	matter of fact, the first version of this manual page got it
-	wrong.
-
-<https://man.openbsd.org/strlcpy>
-
-The right approach is to have a function that does the right thing.
-There are two viable alternatives:
-
--  Write strscat().  It would take the strlen() internally, and so it
-   would be unnecessarily inefficient.  Prefer the next one.
-
--  Write stpecpy().  It returns a pointer, which allows chaining easily.
-
-Here's a viable implementation of stpecpy():
-
-	char *
-	stpecpy(char *dst, const char end[0], const char *restrict src)
-	{
-		ssize_t  dlen;
-
-		if (dst =3D=3D NULL)
-			return NULL;
-
-		dlen =3D strscpy(dst, src, end - dst);
-		if (dlen < 0)
-			return NULL;
-
-		return dst + dlen;
-	}
-
-This would need to be accompanied by a seprintf() too, which would be
-used by usb_make_path() to produce a pointer suitable for chaining.
-I've been working on adding those.
-
-If you want to keep it easy, I'd do strscat().  We can modify it later
-to be more efficient.  After all, we already have the inefficiency of
-calling strlcat(3) now.
-
-
-Have a lovely day!
-Alex
-
->  	strlcat(ar2->name, "ATI Remote Wonder II", sizeof(ar2->name));
-> =20
-> diff --git a/drivers/input/misc/cm109.c b/drivers/input/misc/cm109.c
-> index 353d3c1d347d5..d3aee3c498702 100644
-> --- a/drivers/input/misc/cm109.c
-> +++ b/drivers/input/misc/cm109.c
-> @@ -685,6 +685,7 @@ static int cm109_usb_probe(struct usb_interface *intf,
->  	struct input_dev *input_dev =3D NULL;
->  	int ret, pipe, i;
->  	int error =3D -ENOMEM;
-> +	size_t len;
-> =20
->  	interface =3D intf->cur_altsetting;
-> =20
-> @@ -766,7 +767,8 @@ static int cm109_usb_probe(struct usb_interface *intf,
-> =20
->  	/* find out the physical bus location */
->  	usb_make_path(udev, dev->phys, sizeof(dev->phys));
-> -	strlcat(dev->phys, "/input0", sizeof(dev->phys));
-> +	len =3D strnlen(dev->phys, sizeof(dev->phys));
-> +	strscpy(dev->phys + len, "/input0", sizeof(dev->phys) - len);
-> =20
->  	/* register settings for the input device */
->  	input_dev->name =3D nfo->name;
-> diff --git a/drivers/input/misc/ims-pcu.c b/drivers/input/misc/ims-pcu.c
-> index b1a0edcc49b4e..697813fb11da8 100644
-> --- a/drivers/input/misc/ims-pcu.c
-> +++ b/drivers/input/misc/ims-pcu.c
-> @@ -205,6 +205,7 @@ static int ims_pcu_setup_buttons(struct ims_pcu *pcu,
->  	struct input_dev *input;
->  	int i;
->  	int error;
-> +	size_t len;
-> =20
->  	input =3D input_allocate_device();
->  	if (!input) {
-> @@ -216,7 +217,8 @@ static int ims_pcu_setup_buttons(struct ims_pcu *pcu,
->  		 "IMS PCU#%d Button Interface", pcu->device_no);
-> =20
->  	usb_make_path(pcu->udev, buttons->phys, sizeof(buttons->phys));
-> -	strlcat(buttons->phys, "/input0", sizeof(buttons->phys));
-> +	len =3D strnlen(buttons->phys, sizeof(buttons->phys));
-> +	strscpy(buttons->phys + len, "/input0", sizeof(buttons->phys) - len);
-> =20
->  	memcpy(buttons->keymap, keymap, sizeof(*keymap) * keymap_len);
-> =20
-> @@ -286,6 +288,7 @@ static int ims_pcu_setup_gamepad(struct ims_pcu *pcu)
->  	struct ims_pcu_gamepad *gamepad;
->  	struct input_dev *input;
->  	int error;
-> +	size_t len;
-> =20
->  	gamepad =3D kzalloc_obj(*gamepad);
->  	input =3D input_allocate_device();
-> @@ -302,7 +305,8 @@ static int ims_pcu_setup_gamepad(struct ims_pcu *pcu)
->  		 "IMS PCU#%d Gamepad Interface", pcu->device_no);
-> =20
->  	usb_make_path(pcu->udev, gamepad->phys, sizeof(gamepad->phys));
-> -	strlcat(gamepad->phys, "/input1", sizeof(gamepad->phys));
-> +	len =3D strnlen(gamepad->phys, sizeof(gamepad->phys));
-> +	strscpy(gamepad->phys + len, "/input1", sizeof(gamepad->phys) - len);
-> =20
->  	input->name =3D gamepad->name;
->  	input->phys =3D gamepad->phys;
-> diff --git a/drivers/input/misc/keyspan_remote.c b/drivers/input/misc/key=
-span_remote.c
-> index 70cd6586459ef..f0f31f2823d57 100644
-> --- a/drivers/input/misc/keyspan_remote.c
-> +++ b/drivers/input/misc/keyspan_remote.c
-> @@ -430,6 +430,7 @@ static int keyspan_probe(struct usb_interface *interf=
-ace, const struct usb_devic
->  	struct usb_keyspan *remote;
->  	struct input_dev *input_dev;
->  	int i, error;
-> +	size_t len;
-> =20
->  	error =3D usb_find_int_in_endpoint(interface->cur_altsetting, &endpoint=
-);
->  	if (error)
-> @@ -482,7 +483,8 @@ static int keyspan_probe(struct usb_interface *interf=
-ace, const struct usb_devic
->  			 le16_to_cpu(udev->descriptor.idProduct));
-> =20
->  	usb_make_path(udev, remote->phys, sizeof(remote->phys));
-> -	strlcat(remote->phys, "/input0", sizeof(remote->phys));
-> +	len =3D strnlen(remote->phys, sizeof(remote->phys));
-> +	strscpy(remote->phys + len, "/input0", sizeof(remote->phys) - len);
->  	memcpy(remote->keymap, keyspan_key_table, sizeof(remote->keymap));
-> =20
->  	input_dev->name =3D remote->name;
-> diff --git a/drivers/input/misc/powermate.c b/drivers/input/misc/powermat=
-e.c
-> index 754379d2625cf..dbf9f06f3059e 100644
-> --- a/drivers/input/misc/powermate.c
-> +++ b/drivers/input/misc/powermate.c
-> @@ -299,6 +299,7 @@ static int powermate_probe(struct usb_interface *intf=
-, const struct usb_device_i
->  	struct input_dev *input_dev;
->  	int pipe, maxp;
->  	int error =3D -ENOMEM;
-> +	size_t len;
-> =20
->  	interface =3D intf->cur_altsetting;
->  	if (interface->desc.bNumEndpoints < 1)
-> @@ -334,7 +335,8 @@ static int powermate_probe(struct usb_interface *intf=
-, const struct usb_device_i
->  	pm->input =3D input_dev;
-> =20
->  	usb_make_path(udev, pm->phys, sizeof(pm->phys));
-> -	strlcat(pm->phys, "/input0", sizeof(pm->phys));
-> +	len =3D strnlen(pm->phys, sizeof(pm->phys));
-> +	strscpy(pm->phys + len, "/input0", sizeof(pm->phys) - len);
-> =20
->  	spin_lock_init(&pm->lock);
-> =20
-> diff --git a/drivers/input/misc/yealink.c b/drivers/input/misc/yealink.c
-> index 560f895a00cda..1a3bebc8c3513 100644
-> --- a/drivers/input/misc/yealink.c
-> +++ b/drivers/input/misc/yealink.c
-> @@ -812,6 +812,7 @@ static int usb_probe(struct usb_interface *intf, cons=
-t struct usb_device_id *id)
->  	struct yealink_dev *yld;
->  	struct input_dev *input_dev;
->  	int ret, pipe, i;
-> +	size_t len;
-> =20
->  	interface =3D intf->cur_altsetting;
-> =20
-> @@ -891,7 +892,8 @@ static int usb_probe(struct usb_interface *intf, cons=
-t struct usb_device_id *id)
-> =20
->  	/* find out the physical bus location */
->  	usb_make_path(udev, yld->phys, sizeof(yld->phys));
-> -	strlcat(yld->phys,  "/input0", sizeof(yld->phys));
-> +	len =3D strnlen(yld->phys, sizeof(yld->phys));
-> +	strscpy(yld->phys + len, "/input0", sizeof(yld->phys) - len);
-> =20
->  	/* register settings for the input device */
->  	input_dev->name =3D nfo->name;
-> --=20
-> 2.43.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---do6dlx2k7e2qhtqq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrVy0MACgkQ64mZXMKQ
-wqlUZQ//deuCQGNox42bGafpkmWhvIKhu/fXy9q79P/UJIslTrRblWKaYgfEMkZm
-qA0ZSvG7IBr6O8FL7FSe5gUDJ+TEneE8b3xzYYsqlgKl9gQcdtvXEHudSH1fePBr
-PtdBD05LNMWbnEvd4RLM5/JSA6Dv1Z5k+NJ6YHJbfcvvdnHwEsoz7GYqcbKmqJiR
-ZZLMpBcCPp0EubIHvod15e6nCkw1E+skQSgbrFSo3L5ujPkAirc07RB1jSvk1Pax
-BX45AoEfIFRdvp9BQ7F4rT13gLFZK0JGIiYHsAmagDoxBD15S3ulUcAkShgoWuvs
-Xcz0ukRbrIxRdv9sJ+HakOhA0O94I0BOLQwIgz4TRc+DYd9E8izF2c5BPhIDXAjv
-N3ozMJn5XIJVM3SbzP1Flfc/e9K94s7z7OJRsg3hEHt/0Yak5fxVgTJfZBtyG+u1
-X2v0ErXjIOkpHpT7m2nc+/wM628SBj2QJzUMEP8X4tIzNxhKne/uAgGIU2BSAWrc
-krk5PrKmk64njRYMr9nVH8KN+t56X1y5r35d1GtzGbSl0eeJJDvNqvlI9SqDKGjN
-VU8OtX3aUfW9ngHi/iZJtXlfpkmfvUqWTQFwd8JAB57c2E23YLamhXypetvhrPOT
-uI5HU+sSUiOBJFdTn2JEZKNF4aKRHkayGv8l/uW+JO1QkJUos+Q=
-=aYCm
------END PGP SIGNATURE-----
-
---do6dlx2k7e2qhtqq--
