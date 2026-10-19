@@ -1,182 +1,187 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mta0.migadu.com (out-196.mta0.migadu.com [91.218.175.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE3749DB97
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:44:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E47496D3E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399451; cv=none; b=aKxSzVsUYnkKYUDtaQ2DLOb4HYL5Tg9BJ/l+ng54udcqziXEpruMJMfel8QkyNWK/LSSkUrlEIlxpXBPMPvs1OQ3Wo4frmrZXh7Wnn4ci4gFLSBU2qp5pfMGgLc/MOam3EytTLNgfKBuP0Zg9Z0F29lMd8owSFy9IOJA5jMRWoY=
+	t=1792399463; cv=none; b=eafn+2iE8+ULjDe55VtBLWPWTw9QQ/VE+cBRiD7llH1HrUtKVj6vx6BoYA3se0oD8NR/O3kilELnRhTgMtfe+H31h54lcmTEfFocaZK0z7U4U0IAJUkQqZ70Ax9WnFFpKDfuLoJ4u9hnFX8UW/FK+YBBva+22AUk0YXS8G2zOnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399451; c=relaxed/simple;
-	bh=eUlgZa4mByAmqLLYHZlpmODtiKLs/uZsRAEQoW4P2VI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OMmAPFLUe9uv9f6LMpJyhy5T2YriZ9TMKR0Ist5Z9Ro3LTHRmvxa9C6iui6p28dQDqXPVwkXcArnNNbX+MRzC2lylrrH2f7s7/qAPYd+2mzWu/l++40QwvsKYfD/UZPQkxlrzvfHQ3/82cwWR50GgypdvtaqqVRXUtyP26YyWak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=grGRAqts; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792399463; c=relaxed/simple;
+	bh=VuUI5I5Plith8bOrcJuwZxksr2hAMP7W06KU56M8g1s=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=YGmKGYo0hj8frCNhZMKEJ2V+xz36mwzvB44gpacPCwfUz34JiBv+a8RYwiRBjmKmYK5NbIXZKKaO+dSL6zIE5Zq0OQCmgGo2RA7m9OsIearDKOyJhlWOjq6PrTQm82GHtCKfA94hNkUrhqAnQKSV2jiF0ZlWnuCHgXPh2SHBBt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wQRzvpe9; arc=none smtp.client-ip=91.218.175.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="grGRAqts"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso1174862a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:44:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792399449; x=1793004249; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aZAjpnZdcieC/RDo5HIFt+JRBt/XWhH9vOMNbiyGsFc=;
-        b=grGRAqts5cd0je1D5xiuGm3XQAiM9jaMZkYb+jUUcldIg685f4For9AOSBJgHPKLEP
-         QkA6H8h3NotZ3lgZsWfbbPVLNeQ9qNOxfMdGrLV3wwpnw+P8yVweceTP75X412JjvqSt
-         3SsvVIPy9sVe27VxYXUkFSKMN5DIQ5AABD915uoNILNf5UyHgn04Yci1TYdvN6IzSWza
-         jyq0ZEfaCbbwq0gKDled2ugFpUI9Z5MasWV1JddiQvYqfkERi3tjbprvGVqvYsVeLuUa
-         FbQVqk3bh3av03qg3/5LrqhXvVShW2/O9Xkhsh6gXLrvpxkZgOcQSIxTVeK7j7VsDP9i
-         +7OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792399449; x=1793004249;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aZAjpnZdcieC/RDo5HIFt+JRBt/XWhH9vOMNbiyGsFc=;
-        b=y9yYReL/4iYIc7KcBu6ohpxMIsGys4ELpmd7XXBxNzwmeTkQaG6hwFPCkEbHJ9zJOP
-         XilGlEgdC+kOD27lmUR/UYz9zYi9M3v8Byl5eEXVLBwKLufN3QYacgWc0B90nmj3NOay
-         URUG8bhvDBzTCnO4kpRQ2VkvNxpjbcAbI8QmO7t1GUlNk5rO+kHirk7zkGJg+1zEvwHt
-         db1Jwra8YXFIuu7w3GdxL3wIL0jaSSWDQyjeci7MPeLRRtSq+3wNQGnevSk9wr/S6ano
-         W1+a92VndCrrPji2tEnlX/Uzy2nCVa9dnJ0unLKKZ8HK/t9kegwFi5yMAqZWwCkoCuIf
-         V+qg==
-X-Forwarded-Encrypted: i=1; AKwUvBz5dLrQeVx/PpXqmVQaV0bGkPxHWzXYWe1GEkG86zCyxM6Ybio0ETTz4+CnpsRkOw2EIa02VhxwhM6Xb3U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMTFu3RBfIvhVAxp72r+Mkkv7hIRLw3oPoUA9vE7cY5b5mU4RU
-	1YfxsX5kvdfpmbrhhmOsCVzydsMAS/4pOrf4DFbYPcg3QQ6ZMJFdvzBy
-X-Gm-Gg: AYBFou2WOODqMfWcVPBWqsI71kv+7nQ38JcSZ/kmljYKEwDll9wD1TuZnEofJ3bbZu3
-	tHY0V7hgUusnn7ihO9wC5ya3Jsd3v4FYBMY0SvP6Bkx/wD3+ijY93rjon6AWFSsmqFg6QLKGdlD
-	/SuLqELXTMWSj06F4KR+mtI4ySxr3/4RwglYyALBR4YTfQQJSAAu2gG/scmXQCGPiL3GGP0V4sS
-	giB654U0yW66yo94U9zm1gmYdT+JyEsE9k/zafnX5G3vu6dgzPFTCPtC+X2BodlG2EvQp6pOcUz
-	0b/Uu7oj6d2EJt9EWy5VlL148HMZmxuoahJjeZTX5DxdUsAJ8aO/f3b9BUMgblX3XQdrs6mLMEU
-	n6vqKDtzSKT3dyPrainwBgmwSxXQ5hUnUKzGUv70Td+2YO/4gcwpvpNUG+0MwKV0pVUsh11Gnk/
-	9Jx70KBC3q2Q2+SUhWvbszO3KgPb6Y7UaepeUbf45nJqoltyApbL/toWOfTtWLm7ALNFurIh5ye
-	fx8+cuperV19tXYQgQlUw==
-X-Received: by 2002:a17:90b:180b:b0:3ac:c90a:10bf with SMTP id 98e67ed59e1d1-3aceefbf728mr5189425a91.17.1792399448796;
-        Mon, 19 Oct 2026 01:44:08 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48f19d9sm14644858a91.11.2026.10.19.01.44.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 01:44:07 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>
-Cc: Naman Jain <namjain@linux.microsoft.com>,
-	Saurabh Sengar <ssengar@linux.microsoft.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] mshv_vtl: reject poll files with multiple waitqueues
-Date: Mon, 19 Oct 2026 17:43:49 +0900
-Message-ID: <49e4b702301d3d413d4adb7d4062e0a9b78a350e.1792398881.git.4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1792398881.git.4ncienth@gmail.com>
-References: <cover.1792398881.git.4ncienth@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wQRzvpe9"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VuUI5I5Plith8bOrcJuwZxksr2hAMP7W06KU56M8g1s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792399457; v=1; x=1793004257;
+ b=wQRzvpe9wUABp18JXIWXaXVbvfvnUOfTdmsOuSBjpYKXd5wlhb9iT4fwgO9lpA7M5zDgX5Bl
+ M0U4ex92ZDSWd/8tP/RCIsUsO1JkZ7GvlJqddUi9SwvMNNEDr81IgP3W8CIT1hcMj/41GN1CPr7
+ PP+I4loiiH1IegBshHkYaSzE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id ef060ed4dbf3e91d;
+	Mon, 19 Oct 2026 08:44:17 +0000
+X-Mizu-Trace-ID: ef060ed4dbf3e91d
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 0/5] mm: hugetlb: add CMA support for PMD-sized page
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <988249c7-abf0-4f4f-9386-27e835a4d2de@gmail.com>
+Date: Mon, 19 Oct 2026 16:43:58 +0800
+Cc: Qi Zheng <zhengqi.arch@bytedance.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ osalvador@suse.de,
+ david@kernel.org,
+ akpm@linux-foundation.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <EE02C2AF-E4BD-4854-B235-928842456253@linux.dev>
+References: <cover.1792136742.git.zhengqi.arch@bytedance.com>
+ <FA455F0C-0A46-4B5B-AB50-E9968001D2C9@linux.dev>
+ <4a7ad39d-fee6-4390-beff-d40ecf49cbdc@bytedance.com>
+ <BEADD50D-94AA-4B05-B9AD-136E37247FDD@linux.dev>
+ <988249c7-abf0-4f4f-9386-27e835a4d2de@gmail.com>
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-MSHV_SET_POLL_FILE invokes a file descriptor poll callback with a poll
-table backed by a single embedded wait entry. A poll callback may,
-however, register the table with more than one waitqueue. pipe_poll()
-does this naturally for an O_RDWR FIFO.
 
-The second registration currently warns but then inserts the same list
-node into another list. The new insertion overwrites the entry links while
-the first waitqueue still points at it, corrupting the first waitqueue and
-causing an invalid callback traversal when that queue wakes.
 
-Reject a second distinct waitqueue, remove the first registration through
-the common removal helper, and return -EINVAL from the ioctl. Repeated
-registration of the same waitqueue is treated as a no-op. A rejected
-replacement leaves the CPU slot unregistered, consistent with the existing
-remove-before-register ordering. Single-waitqueue users such as the OpenHCL
-io_uring poll file keep their existing behavior.
+> On Oct 19, 2026, at 16:20, Jose A. Perez de Azpillaga =
+<azpijr@gmail.com> wrote:
+>=20
+> On 10/19/26 9:50 AM, Muchun Song wrote:
+>>=20
+>>=20
+>>> On Oct 19, 2026, at 15:37, Qi Zheng <zhengqi.arch@bytedance.com> =
+wrote:
+>>>=20
+>>> Hi Muchun,
+>>>=20
+>>> On 10/19/26 2:50 PM, Muchun Song wrote:
+>>>>=20
+>>>>=20
+>>>>> On Oct 16, 2026, at 18:07, Qi Zheng <qi.zheng@linux.dev> wrote:
+>>>>>=20
+>>>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>>>>=20
+>>>>> Hi all,
+>>>>>=20
+>>>>> Allocating PMD-sized HugeTLB pages at runtime can become slow or =
+fail
+>>>>> as physical memory becomes fragmented. Reserving HugeTLB pages at =
+boot
+>>>>> avoids this problem, but keeps unused pages unavailable to =
+ordinary
+>>>>> allocations.
+>>>>>=20
+>>>>> Live upgrades are one example: they need additional HugeTLB pages =
+only
+>>>>> during the upgrade. HugeTLB already supports CMA for gigantic =
+pages,
+>>>>> but reserving a CMA pool for 1 GiB pages can fail when physical =
+KASLR
+>>>>> and other early reservations leave too few suitable 1 GiB-aligned
+>>>>> ranges. At runtime, 1 GiB allocations can also fail when pages =
+cannot
+>>>>> be migrated out of a suitable contiguous range.
+>>>>=20
+>>>> Yes, that's our use case at ByteDance. Allocating a 1GB HugeTLB =
+page from
+>>>> the CMA pool is more prone to failure than allocating a 2MB one. To =
+improve
+>>>> the probability of successful allocation, we typically configure =
+the CMA
+>>>> size to be larger than our actual requirement, keeping a certain =
+margin to
+>>>> handle cases where temporary kernel operations (such as DMA) =
+prevent successful
+>>>> migration. For 1G HugeTLB pages, since the margin must be an =
+integer multiple
+>>>> of 1G, the extra memory configured as headroom is also relatively =
+large,
+>>>> making it less flexible than 2M pages.
+>>>>=20
+>>>>>=20
+>>>>> Extend CMA support to PMD-sized pages so their backing memory can =
+be
+>>>>> reserved at boot while remaining usable for movable allocations =
+until
+>>>>> needed. This relaxes the reservation alignment requirement and =
+reduces
+>>>>> the contiguous range required per allocation.
+>>>>>=20
+>>>>> The series adds an optional @<page-size> suffix to hugetlb_cma and =
+a
+>>>>> separate PMD-sized pool. For example, on x86-64:
+>>>>>=20
+>>>>> hugetlb_cma=3D4G hugetlb_cma=3D1G@2M
+>>>>=20
+>>>> Different sizes of gigantic pages already share a single HugeTLB =
+CMA pool.
+>>>> Given that, why not let 2M pages also reuse this same pool? Would =
+that make
+>>>> the overall code implementation simpler? And if it does make things =
+simpler,
+>>>> should we go ahead and do it first?
+>>>=20
+>>> Sharing the pool would simplify the implementation. My concern is =
+that
+>>> small PMD allocations could fragment the default pool and prevent =
+later
+>>> gigantic allocations.
+>>=20
+>> Yes. However, the premise is that there has to be a mixed-use =
+scenario.
+>> I'm not sure if this kind of mixed usage is a common scenario.
+>>=20
+>> Of course, we don't have much experience to draw on, because on most
+>> architectures there is generally only one kind of gigantic page, and
+>> prior to this, mixed-use scenarios could not arise.
+>>=20
+>> Therefore, I think that before the need arises, a simpler design is
+>> easier to maintain.
+>=20
+> wouldn't a shared pool still be sized and aligned for 1G? then the 2M
+> headroom stays a multiple of 1G and the 1G-aligned reservation can =
+still
+> fail, which is what the series is trying to avoid.
 
-An LLM assisted the source audit, fix development, and validation of this
-issue.
+If we decide to use a shared pool, I think the current alignment =
+strategy
+should be adapted as well, it should be changed to align with the =
+minimal
+acquirement, like 2M.
 
-Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
- drivers/hv/mshv_vtl_main.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+For example, if a user reserves 1G+2M through hugetlb_cma, then the =
+memory
+reserved by the pool is also 1G+2M, except that the starting address =
+needs
+to be aligned to the largest gigantic page (1G). Therefore, this pool is
+suitable for both 1GB and 2MB allocation. The only problem I see with a
+shared pool is that it may not support mixed-use scenarios very well.
 
-diff --git a/drivers/hv/mshv_vtl_main.c b/drivers/hv/mshv_vtl_main.c
-index c6f1e2157d258..9133646b5b66c 100644
---- a/drivers/hv/mshv_vtl_main.c
-+++ b/drivers/hv/mshv_vtl_main.c
-@@ -73,6 +73,7 @@ struct mshv_vtl_poll_file {
- 	wait_queue_entry_t wait;
- 	wait_queue_head_t *wqh;
- 	poll_table pt;
-+	int error;
- 	int cpu;
- };
- 
-@@ -482,7 +483,18 @@ static void mshv_vtl_ptable_queue_proc(struct file *file, wait_queue_head_t *wqh
- {
- 	struct mshv_vtl_poll_file *poll_file = container_of(pt, struct mshv_vtl_poll_file, pt);
- 
--	WARN_ON(poll_file->wqh);
-+	if (poll_file->error)
-+		return;
-+
-+	if (poll_file->wqh) {
-+		if (poll_file->wqh == wqh)
-+			return;
-+
-+		mshv_vtl_poll_file_remove_wait_queue(poll_file);
-+		poll_file->error = -EINVAL;
-+		return;
-+	}
-+
- 	poll_file->wqh = wqh;
- 	add_wait_queue(wqh, &poll_file->wait);
- }
-@@ -492,6 +504,7 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
- 	struct file *file, *old_file;
- 	struct mshv_vtl_poll_file *poll_file;
- 	struct mshv_vtl_set_poll_file input;
-+	int ret;
- 
- 	if (copy_from_user(&input, user_input, sizeof(input)))
- 		return -EFAULT;
-@@ -518,6 +531,7 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
- 
- 	old_file = poll_file->file;
- 	poll_file->file = file;
-+	poll_file->error = 0;
- 	poll_file->cpu = input.cpu;
- 
- 	if (file) {
-@@ -525,13 +539,18 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
- 		init_poll_funcptr(&poll_file->pt, mshv_vtl_ptable_queue_proc);
- 		vfs_poll(file, &poll_file->pt);
- 	}
-+	ret = poll_file->error;
-+	if (ret)
-+		poll_file->file = NULL;
- 
- 	mutex_unlock(&mshv_vtl_poll_file_lock);
- 
- 	if (old_file)
- 		fput(old_file);
-+	if (ret)
-+		fput(file);
- 
--	return 0;
-+	return ret;
- }
- 
- /* Static table mapping register names to their corresponding actions */
--- 
-2.55.0
+What do you think?
+
+Thanks,
+Muchun
+
+>=20
+> --=20
+> cheers,
+> jose a. p-a
+
 
