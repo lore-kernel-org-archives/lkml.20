@@ -1,145 +1,217 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F040F4C9DEC
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:02:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404130; cv=pass; b=IRq7HHLvzOMy9MkUpqI844jgKk+2rxgQC1bbneg9q+qEoyTzk7Dn8fjLSv888eM7BswtIghRa0cqZUlOt5jtCtJ8dgmlMC195nWnlariJB+Qwz2f1kgubrrjZn/4D/cRJT66FrEqz4W59TnZX3cuVEmMeBf9oK1hgE49ATOaquI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404130; c=relaxed/simple;
-	bh=vpWpmb3YDa75S+dGCCi7peYWMhttJoCHOLpxALx7pic=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uo17gcjhzTxBgRPVKLTdra0TmHAuF9OEcY02W3eqw/lAXKIoLClwzRnim78qNYfx/gF90ICt/Oe0exGmvg1F0NbOHJX3RkkMErdvXP/TeSHU8p3+FKTbdIMLrSfyt9yAtpfeuLnF456ferUAapGlSVWiDWyZJeD3tdq6Hw9zEt4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PE8h4Syn; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=U2hfNfew; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A104C7558
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:02:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792404140; cv=none; b=sfwMhtZkip7kmtNAsZz+rvtSsRaiqZW2265pOKSN1GsjQ5bVi/x67qp4vCNK+Ka4S5Q6WjMXfPp26KZfL5X5XNhXNwumuwl/9FaThVrQ3UJW9e+CIaWXRvrO5ydoldRdm8UPQ+2BoXaxucDEmU4Uwja5plqxRDk5hBk73ik36M8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792404140; c=relaxed/simple;
+	bh=N7PXZUkiTdbMXD4NeB/Yd+o/nzef9+30qjiQJEgOvI4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oIbyHLB4/60dEzjkSheE8KEA2QSP8jWX8vau5J93YwItGsa+ITGYxhScIqsuP+HGUnyq8maUSlnGBUjchtHXBfL1HSWQU2zzICpgYdCuIydGyUi9YurIl2L9jARpG30rRgI1y741RoJyuLZsW6Ph/dukBNlzRZLX6zpfkodHrBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=YQ8X/Zox; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PE8h4Syn";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="U2hfNfew"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792404128;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vpWpmb3YDa75S+dGCCi7peYWMhttJoCHOLpxALx7pic=;
-	b=PE8h4Syn7fcVff4360KKeGmn9N3z463/JATIHJjViNxj6YmKhKje8QXX/zwu5p72FWCwPl
-	19XNdLYoIZj+BhJS4xNJTu1k+0wSqVs3pdOu+q94VbjoJO7S66MiEp3irwd97DZo7Ty/t6
-	mJH7FeWbAepp6GiRn7AQnlZej/hhkJI=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-554-Mdk8wnRuPXuly9LzBg2g-w-1; Mon, 19 Oct 2026 10:02:06 +0000
-X-MC-Unique: Mdk8wnRuPXuly9LzBg2g-w-1
-X-Mimecast-MFC-AGG-ID: Mdk8wnRuPXuly9LzBg2g-w_1792404125
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c210c66672eso227954166b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:02:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792404125; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cAspQftqjfgG/avcsuABtc1Vu9RJnGiyEBcCi1G5HsZ1b4zHD0pJ7gs+qGQPK5QKn3
-         FSPH5SCmRRA0RgImO/NZcNat8ZtzBiWw3NzwHpR3OvZ9vdvTseUHz8GS7p1XTvFj54jm
-         pjLF+WsU3pbGmae83J80OXasln9e36Nq6awOfIjY9ORIGRKX2lcRBo7Y43vo+A9yP6j4
-         rPU0TmTJ5/HWhqj8d7uh8+RSD5L0rsPFQnnoe95Ck8ebVleRj7Lc42hGyqu2eSgJid+a
-         ndIvUGmR6DXQcXXEG9vB7O0F3aR62oOjxpPwA+1HDcGMJOK7EYqhUMlMJseYCmCmR/Qr
-         WQDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vpWpmb3YDa75S+dGCCi7peYWMhttJoCHOLpxALx7pic=;
-        fh=gtKYzILaB0LR1L2rfXIb8R4O9Sdhnmovu39j1QGiIJg=;
-        b=HWJUMVT7Nxoi2xD9iqhBiFS7EPaa+X60d5u/jsZEjYdkd1VxKzULCUllLFVVKhlPcZ
-         DLXFLtD3O5elEo3axsE9ft6Yl/t2ivQtuUl2XeHes9QpIqQCXcu/K+OacV79cqYcACAi
-         JX+XBf3UyntfyZMfLo6q8Nyv0VbT43ujM21x4vSIFKJLXSOIxfmQDqJE5AAOym+wuwuy
-         Hna0ydlVsrUBxZrrHrKo4CApwgHo2tHuC+DpL3VCkVO6ZxghQz9EI1V7OrTuZPPGgU+9
-         Ur8m7qQlZ/i61/pt64QU/KXr+o+JT5XExtvpSVa6ejpduZim3l8k7BkchMnkaXLjn18l
-         Nv8Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792404125; x=1793008925; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vpWpmb3YDa75S+dGCCi7peYWMhttJoCHOLpxALx7pic=;
-        b=U2hfNfewy1hD8UOmqJUmLOdTyhkIfqYpBwI2KYmpBzMC2tCUzM7WFlfR0glfsjUb2v
-         K3iy0790fb2N8k6qlJWHMYi2bIoWVh1jF2G5Pj54lXN9devsmZfHmTZlLdNJlCBAkY0c
-         j26wZRlT+ZWhOrR1oGeKtw3cDOpEVBP0CfVPq1gqopLLo18hmNBWmaLvNbVg+hPus6ye
-         9pXKqabYTgWrrEEOupUDzrMIgFq9P/P20niiJ0YsWkxIrce/3CVg2tExyVtGk6yAP59D
-         mXYRgNjHxUFZPMi+d4WPV96idnixAN6HxT6QJzj+7rOaPTlcKlkBOiCHrJc3z3nHQKxO
-         /dXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792404125; x=1793008925;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vpWpmb3YDa75S+dGCCi7peYWMhttJoCHOLpxALx7pic=;
-        b=AAUy+l+3zGewiL7fi9NVid1gxZtuf5hftoZGNzr05+l9ljh9wcsyhIxyyxNAXW3EIi
-         v1hlRVDzzZB9qlTGOeJ2LLwBojYqnt8shXVUuYGuGzIUvSgE/ABhE95guX+oNTT3Sk3k
-         Mppjtz4qtdPsbbavaBrzcd76liMeA31HfWJIjdithW1dFQbIzP7TtgIlPZxyl6Mb3i2O
-         Dm+e8LxZSb7Z9UOV27kDVVl9lO/FevXwmBvy0oWNjMXXgniYrxl6/Zfe3PuyeLXaWSR+
-         zPY31ytelZql957/79gT2lEFUQyM6DLjMC054F3EpcMHIoijH4mOpcbmgr8LR5himYIE
-         myxA==
-X-Forwarded-Encrypted: i=1; AKwUvBx3PzTTucm3jkmJ9M/SXcVu/fnkMM2sryYD92k4rgxSRjsTo1Xgq+U5LGGuB4QaEEXc6kTUbetShIW/ZVo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfk3/5MO5PQcULCW8gRasmWUMp4L0owmFnsBbTRBznrM6FhgTD
-	O9JvxyBQoLV1STeY2tiiPPvjA1bT/puYjn/gvDVZUWp1z/yyqtaZKJoi4+AizysrA5OwIV4jT/h
-	1+YOT2sHKtBO7l6gwiXf91ax4L9Q9LSN3gI1Mts9pnPbFJRyEnSJKVRzxviq2VdDMw6vcUSClVo
-	YwWcz4dQy6Nf2GLBFy4Ckmzftf/YGVsd8lJ2cuhebC
-X-Gm-Gg: AYBFou1RlEWuOAaxVMfXqMGoG7nYctPIk/OqpI0LP2RdmaeETQEsP1F6fiNllrQzt+4
-	0fK0kEoRDMprHmX963FJM5Y2F0zUnlPBAZqzQ9gBsZhG0Tm1UJU7JsAAz5EfiPIleZVp9vhAbZ7
-	KQHer8poGx4Yg15oOu5jEi0WQV/oKXEy6ynhXAfk2G6WXCR4OCii9GwEnO/zsr631seUZHSqq64
-	OLmHit0wylGkw4=
-X-Received: by 2002:a17:907:a2cd:b0:c2e:7e0a:572f with SMTP id a640c23a62f3a-c419de3d0f6mr427564066b.21.1792404125340;
-        Mon, 19 Oct 2026 03:02:05 -0700 (PDT)
-X-Received: by 2002:a17:907:a2cd:b0:c2e:7e0a:572f with SMTP id
- a640c23a62f3a-c419de3d0f6mr427557966b.21.1792404124608; Mon, 19 Oct 2026
- 03:02:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="YQ8X/Zox"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=L84qJtfJ9S6/LuO4j3bavxjE6k5iFfNr5ESP2hqWuHs=; b=YQ8X/ZoxNjP+g2MhUZJXRGqEnW
+	6mYpopUv/1LB2a7VrhrvkhRsrlXmRQG+fhVOXlgCiAfa5eAQrLHTtdeVL1h+vwTQmn8exP9h6oiDk
+	By/6ZPMkZiD2qGRCbRiGVVkELtZOeD3XzmrtIWn0/qXUsEIQa5oCNup1RInAv81BuIUEOxbKvudhh
+	cpi4XFErr5THYXT54uHRmudry5idFcp9DrIyrkyO1sUxw3A3pCw1aEIisDe63MXB3KfBe2zu1ELK1
+	dqhCuSJdsG+I88kpAW17u0YwrimvWWEBMC1oke0KdJjrse4l1ekfTXLtoh73tJQVff1nTk7cWioIr
+	e3O4+qew==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xIkC1-003Lwi-UU; Mon, 19 Oct 2026 12:02:09 +0200
+Message-ID: <9bb46cf4-7982-463b-8289-06bbc319bba9@igalia.com>
+Date: Mon, 19 Oct 2026 11:02:08 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001152042.124445-1-gmonaco@redhat.com> <20261001152042.124445-11-gmonaco@redhat.com>
- <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com> <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
- <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com> <878q3xtptq.fsf@jogness.linutronix.de>
- <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com> <87bj8s8ih9.fsf@jogness.linutronix.de>
- <DM78SVMBI2XW.2XHVC67VON48A@gmail.com> <87v770uuyr.fsf@jogness.linutronix.de>
- <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com> <87ik2zryzo.fsf@jogness.linutronix.de> <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
-In-Reply-To: <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
-From: Tomas Glozar <tglozar@redhat.com>
-Date: Mon, 19 Oct 2026 12:01:52 +0200
-X-Gm-Features: AclHuK-g9NcQuSX2oEVaSkoEXxNQmoV5Ee9U7uVHOzoGFLemx-m8yG7uigcHu_s
-Message-ID: <CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-To: Gabriele Monaco <gmonaco@redhat.com>
-Cc: John Ogness <john.ogness@linutronix.de>, 
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	Steven Rostedt <rostedt@goodmis.org>, Nam Cao <namcao@linutronix.de>, 
-	Wen Yang <wen.yang@linux.dev>, Tobias Schaffner <tobias.schaffner@siemens.com>, 
-	Viktor Malik <vmalik@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v6.1 2/3] workqueue: Add support for real-time workers
+To: Tejun Heo <tj@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
+ Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Breno Leitao <leitao@debian.org>
+References: <20261001160711.59888-3-tvrtko.ursulin@igalia.com>
+ <20261001184848.61776-1-tvrtko.ursulin@igalia.com>
+ <3a139a32135c149f51bac4f2bd58ad56@kernel.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <3a139a32135c149f51bac4f2bd58ad56@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 11:05=E2=80=AFAM Gabriele Monaco <gmonaco@redhat.co=
-m> wrote:
->
-> Alright, I'll focus on trace_printk for now. As I said, it's rather trivi=
-al to
-> add another reactor later.
->
 
-One disadvantage of using bpf_trace_printk() for RV violation
-reporting is that the event will be caught by every instance that
-enables bpf_trace_printk() and does not explicitly filter rv out.
+On 02/10/2026 20:30, Tejun Heo wrote:
+> Hello,
+> 
+> The following is a Claude-generated review.
+> 
+> On Thu, Oct 01, 2026 at 07:48:48PM +0100, Tvrtko Ursulin wrote:
+>> For use cases such as the DRM scheduler submitting work to the GPU on
+>> behalf of low latency userspace applications, where latter have sufficient
+>> privileges to have had successfully obtained realtime Vulkan global
+>> priority, competing with random background CPU load can create large
+>> latency spikes which gets in the way of a smooth user experience.
+> 
+> Can you add the compositor / DRM master usage model from the v5 discussion
+> here? The cover letter also still says CAP_SYS_NICE is required while
+> group_priority_permit() accepts DRM master too.
 
-I can imagine an RV-specific trace event for that, however, it would
-require a separate kfunc to generate it, and ideally also distinct
-labeling of a BPF program eligible to call that kfunc. The "rv"
-userspace tool could then iterate over these labels so the user knows
-which violation events can be expected to occur on the system.
+Yeah forgot about this, will add.
 
-Tomas
+> 
+>> +	HIGHPRI_PRIORITY	= NICE_TO_PRIO(MIN_NICE),
+>> +	RT_PRIORITY		= MAX_RT_PRIO - 1,
+> 
+> MAX_RT_PRIO - 1 is what rt_priority 0 would map to, while
+> sched_set_fifo_low() gives the workers prio 98. Nothing depends on it today,
+> but maybe MAX_RT_PRIO - 2 with a comment tying it to sched_set_fifo_low(),
+> or soften the kerneldoc which says the encoding matches task_struct->prio?
+> Also, s/analoguous/analogous/ there.
+
+Done.
+
+>> +	if (wq->flags & WQ_RT) {
+>> +		attrs->prio = RT_PRIORITY;
+>> +		/*
+>> +		 * RT workqueues have strict CPU affinity for low
+>> +		 * latency execution.
+>> +		 */
+>> +		attrs->affn_scope = WQ_AFFN_CPU;
+>> +		attrs->affn_strict = true;
+> 
+> apply_workqueue_attrs() is unrestricted, so a caller can hand a WQ_RT wq the
+> attrs from alloc_workqueue_attrs() and turn it into a normal non-strict wq
+> while the flag stays set. Maybe apply_wqattrs_prepare() should force prio
+> and affinity for WQ_RT instead of restricting only the sysfs side?
+
+I am not entirely sure about this one. It could be done in 
+apply_wqattrs_prepare(), but it would end up redundant on the sysfs 
+path. Because currently there are two paths:
+
+1)
+alloc_wq_std_attrs
+  -> apply_workqueue_attrs_locked
+
+This is the hunk this review comment is about. Affinity and scope is set 
+from wq->flags.
+
+2)
+wq_sysfs_prep_attrs
+  -> apply_workqueue_attrs_locked
+
+Here the attributes have had the affinity and scope copied from the 
+respective workqueue (wq_sysfs_prep_attrs -> copy_workqueue_attrs).
+
+If we moved the scope and affinity setting from alloc_wq_std_attrs to 
+apply_wqattrs_prepare it would work, but on this path it would be redundant.
+
+Am I missing something?
+
+>> +	if (flags & WQ_RT) {
+>> +		if (WARN_ON_ONCE((flags & (WQ_HIGHPRI | WQ_UNBOUND)) !=
+>> +			         WQ_UNBOUND))
+>> +			return NULL;
+>> +	}
+> 
+> alloc_ordered_workqueue() with WQ_RT passes this and ends up with a single
+> pool spanning all CPUs because ordered wqs use dfl_pwq everywhere, while the
+> doc and sysfs say strict per-CPU. Should __WQ_ORDERED be rejected too? The
+> nested ifs can also be a single condition.
+
+Not sure - Tejun what is your guidance here? Is this purely an 
+implementation challenge because conceptually it should work, no?
+
+P.S. The nested ifs could be a single condition but I wanted to mimic 
+the existing style so it looks nicer:
+
+	if (flags & WQ_BH) {
+		if (WARN_ON_ONCE(flags & ~__WQ_BH_ALLOWS))
+			return NULL;
+		if (WARN_ON_ONCE(max_active))
+			return NULL;
+	}
+
+	if (flags & WQ_RT) {
+		if (WARN_ON_ONCE((flags & (WQ_HIGHPRI | WQ_UNBOUND)) !=
+			         WQ_UNBOUND))
+			return NULL;
+	}
+
+I can change if desired.
+
+> 
+>> -		pr_cont(" nice=%d", pool->attrs->nice);
+>> +		pr_cont(" nice=%d", PRIO_TO_NICE(pool->attrs->prio));
+> 
+> This prints nice=-21 for RT pools. Can you show "rt" here like nice_show()?
+
+Done.
+
+>> +	/* Do not allow cpumask changes for RT workers. */
+>> +	if (wq->flags & WQ_RT)
+>> +		return -EINVAL;
+> 
+> The three stores check WQ_RT and return -EINVAL while nice goes read-only
+> through is_visible below. Can all four go through
+> wq_sysfs_unbound_group_visible() returning 0444 for WQ_RT? That drops the
+> three store checks. Note that the global cpumask still applies to WQ_RT wqs
+> through workqueue_apply_unbound_cpumask(), so the comment overstates a bit.
+> The interface comment at the top of the sysfs section also still says nice
+> is RW int.
+
+Could do that if it would be acceptable for root to be still able to 
+write to them - Tejun?
+
+> 
+>> +	/* Do not allow priority changes for RT workers. */
+>> +	if ((wq->flags & WQ_RT) && !strcmp(attr->name, "nice"))
+>> +		return 0444;
+> 
+> attr == &dev_attr_nice.attr would avoid the strcmp.
+
+Ah.. :)
+
+>> +    prio = pool.attrs.prio.value_()
+>> +    if prio == rt_prio:
+>> +        prio = 'rt'
+>> +    print(f'pool[{pi:0{max_pool_id_len}}] flags=0x{pool.flags.value_():02x} ref={pool.refcnt.value_():{max_ref_len}} prio={prio:3} ', end='')
+> 
+> Can we keep printing nice for non-RT pools? prio=120 is the internal
+> encoding, sysfs and the pool dumps print nice, and the example output in
+> workqueue.rst would go stale. prog['RT_PRIORITY'] would match the rest of
+> the file too.
+
+We probably could if we wanted to. Tejun?
+
+Complication would be having to hardcode some priority conversion 
+helpers into the script.
+
+> One more thing which isn't in the diff. The rescuer of a WQ_RT |
+> WQ_MEM_RECLAIM wq, which is what panthor-drm-rt is, still runs at nice -20,
+> so under memory pressure the RT wq's work items run as CFS. Should
+> rescuer_thread() use sched_set_fifo_low() for WQ_RT?
+
+I did not think we should care much about latency when under severe 
+memory pressure. It should be enough to guarantee forward progress and 
+the latency restores back to normal once memory pressure stabilises.
+
+Regards,
+
+Tvrtko
 
