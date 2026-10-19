@@ -1,80 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422337;
-	b=B1Nla3TZDmgjdOmUphWbBswULwvn9P7w/B0cQHdO7SSvErqX29QnRv4MRjPBxLPBbs3y
-	 L/D4ZK5W0neTkawDYHx+tSH+nty8el9JVE9ivSGOKHpk/8/XvEcwz/IFH37wRW5CU7Y+K
-	 CwuESicO1pX9W8+w77rP/PHMwOZagLkinxe+JgamV3c5WZ0kHfsPE8PHAtDShBe7Ivp+c
-	 7LYNSqUH+Ou2tMT/PiY5lJ19XdZD/qhBGdifkKrNVjhYirkT9SI2Z/LtIQC/bwmFC5+lp
-	 Zj4z7nfut9WoZGvy7G8Nuw017y6hgzq8QibpSh3Wf0A1ID97yJUzGR9Lx6kN6myvatw==
+	t=1792422874;
+	b=g/40bU4wUVHgdvU71Y9LVMenIqldFb3jBa5AX0H4iBWfirXWolJmwIieumiGEqdCit34
+	 8lYlHw43xfM+0ET0Fi1CXi1AYA3NKh5W/73/tGMQRksHiJw15tN+o1ub1zDqt/bs6E47e
+	 D6TIvp2XvMgySP1iX9AXaPlLAqDeb0wcMOJHGeXiTfqhQpdL0uWQ85K1wHqRwcB8zpbHH
+	 bgFg1pgoHCxH3jp9B1AI45a2DkGltR31FhWtv5c9A5uh/bPBLQHoJLvl/Yk+U3pIB0XnP
+	 vGlplEIglfbuhTSfSq+T56sQyM66fOfV0fqqi62pRZEbMpev6jiC/438vQoQGVqpkxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422337;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422874;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=zHQ4u9vCVjmtcp76rQAxRfbRCi+loO0rEPPmE3dqhDo=;
-	b=yoVHJOGEySoW+1yMsqR5APb9FXjSk/503Ai9m5TpKojpm2++8NssbPxP7K8POPHOC2GG
-	 334jLaQtP6ZNlxoiQlkBjGsju80aYYHzwypgc/TjGU4vE90tRJKcVveyc4inrXtl3/Nav
-	 FuoPP601G8/RX+m5UEErl0jliXpuM3mz6GANPvW98C4z9ZmowjNsd4ioX0nzy2Tx6gBEa
-	 O0Ck71GONl/N8cxW67/VuZ9Baz2SOJ+pq/6nuZPdetOStJQewSdPteIjwOsdGSVWFKvcO
-	 Jq7s322qgFtdko2qLacLVpb3XIpEz/ztw3bPtofJTF3UbPhnhLThXsFzlQuRZEw3zMQ==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VV2/QhBOfjkXhzTFYdvHLRCxj0TZoUqZU1Dd4NeRj4E=;
+	b=NBQbQXIhYnSAs7zfAuaDJtlqw00rBa9Hp3lzM5BR+F+qvXLmwqwQOgTv7LzRGM9vyFu4
+	 q9mxhh807AWp9suI/D5mG5JV6OnJ9tNSBzg5kcRSX11QYjV5aMgMWiGl/9vh1pI7yCcUQ
+	 nTORE/qjlZWX0A5n04l/kOmDqERLE55u9ifc+xG9/n5v0A+XZVrKXRwVhZKECoFu1Pcic
+	 6pgDo7A5SwYy1Xol0SmA0FvCCBvijKjM9vBRPxbmA/LD/Pnb5W8wAfSMq5mZfB6z+8Tjf
+	 x1mZUp1ZUU1k1J3T8GUySGOh/7DHVE4krD2HTyHlPnfHTPTNNbqvl5aSrh/I+j6AUFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
+	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ti4nkkuW;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LJbxSRj0;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC56D6080AA9
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:05:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC56D6080AA9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE59609CEC9;
+	Mon, 19 Oct 2026 15:14:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DE59609CEC9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ti4nkkuW
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LJbxSRj0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422336; x=1823958336;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=qu/70rYg+vG2HLxPI4Uiia6m/VyuInts7xnBWyiDo/c=;
-  b=Ti4nkkuWLdNzeCg+7dD9QgHcGeRjuSFHAuLKZuJ3xFGqwacqq+txQZzD
-   QfpqBM25RopcIFiJpoBTsckaM04nLEEWh5KMXnonsYBm4Cs59CB63u4jY
-   8X7kVVvi0AijQZbVwVihUNO8KIPvIGG6W2ltFYCu0/PMhV3nL2zxUOf/V
-   zCBtt/drm8GC9VBDFKYlcU77GbelTBdiUSdX3hNwK1UvOM+kw1+IDRHPx
-   7VGcoMahx4H31hgCnMijlNb1IPYSqpFRY03GCtis+hPydCRbag3NAFaZf
-   B7nZzvEG1ebgWyKgBMXPcWmdmhFtOaL/Pg3Rtk7K7iYOtDfwLlBKcvDAg
-   A==;
-X-CSE-ConnectionGUID: YieQFHuCTeKprbizEDH3zA==
-X-CSE-MsgGUID: Yal9w+hvSL+hZlX5DWx0FA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="991258"
+  t=1792422875; x=1823958875;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Bs5aDyWkm0aROlwJOumVLELpoO93dWXLFgzgkbfgsm8=;
+  b=LJbxSRj0S/6s7dZJYW6iSfDE1e5vkP1c0KNvc9quUdQGA4MJpAudtJ6B
+   8uQjk4MlvrAoqdbXPm7shftF/4QDtsOw1LIzuBNZASjCG1mrJ5LUNeHFS
+   VLnMpDVSBGjp5TKyLSwHv8epuH9gF1HbT4pC8KW4cdKU3uGUnYg75nfu/
+   RNTAzOl4I+Ee8SanikFk2X/KI36QE9AUvU8NiIH9EkgRZo78EXF0Bp92j
+   Qgsr66kGOMLIwH4xTS3SynGjld60BxgalZW11luRAS6Ha/ZOj2ssEAH+g
+   wakq51zODA0bNmBLMOnUJbmjcLy4ush4pa10tJgYHSaMozwCV0shFAo9f
+   Q==;
+X-CSE-ConnectionGUID: FUjKxnKpTWijJg15stWL5g==
+X-CSE-MsgGUID: hZZf3F2eQiCRRdtSHtUhRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986894"
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="991258"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:05:36 -0700
-X-CSE-ConnectionGUID: MqMhmSnGQr2zmmj5aYuJqw==
-X-CSE-MsgGUID: BVwTOvCORJ+b7kKdZMSUPQ==
+   d="scan'208";a="986894"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:33 -0700
+X-CSE-ConnectionGUID: gCT8dYYBQg2iUthQ9K4TgA==
+X-CSE-MsgGUID: ucvG9Ox2RHe41cQ8n/qqJA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2634438"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:05:33 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ashwin Gundarapu <linuxuser509@zohomail.in>, intel-gfx
- <intel-gfx@lists.freedesktop.org>
-Cc: rodrigovivi <rodrigo.vivi@intel.com>, joonaslahtinen
- <joonas.lahtinen@linux.intel.com>, tursulin <tursulin@ursulin.net>,
- dri-devel <dri-devel@lists.freedesktop.org>, linux-kernel
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/i915/sdvo: Remove disabled HDMI buffer dump code
-In-Reply-To: <1a12556af17.597a885f7429.8559089497420287597@zohomail.in>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <1a12556af17.597a885f7429.8559089497420287597@zohomail.in>
-Date: Mon, 19 Oct 2026 18:05:31 +0300
-Message-ID: <7e2193324bc2d42d420d3afe227699c9dd09bff5@intel.com>
+   d="scan'208";a="2536942"
+Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
+  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:33 -0700
+From: Daniel Byrne <daniel1.byrne@intel.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>
+Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Kristen Accardi <kristen.c.accardi@intel.com>,
+	dmaengine@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 01/17] dmaengine: idxd: don't queue EVL fault work for kernel WQs
+Date: Mon, 19 Oct 2026 08:06:14 -0700
+Message-ID: <20261019150630.4026341-2-daniel1.byrne@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,67 +90,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Sat, 10 Oct 2026, Ashwin Gundarapu <linuxuser509@zohomail.in> wrote:
-> From cbebdc3b5dce2d4c0ce8c9b69c62b539fc77dce5 Mon Sep 17 00:00:00 2001
-> From: Ashwin Gundarapu <linuxuser509@zohomail.in>
-> Date: Sat, 10 Oct 2026 15:42:48 +0530
-> Subject: [PATCH] drm/i915/sdvo: Remove disabled HDMI buffer dump code
->
-> Signed-off-by: Ashwin Gundarapu <linuxuser509@zohomail.in>
+The event log fault path queues work on wq->wq, the workqueue that
+only the user (cdev) driver creates for its work queues. A completion
+record fault logged for a kernel work queue, as a dmaengine or
+iaa_crypto queue is, finds that pointer NULL and queue_work()
+dereferences it.
 
-Please read submitting-patches.rst.
+The fault worker only serves user contexts: it copies the completion
+record through the PASID xarray that cdev opens populate. On a kernel
+work queue there is nothing to do, so log the entry ratelimited and
+drop it. Test the queue's type and not the pointer alone, since a user
+probe that failed leaves the pointer dangling.
 
-BR,
-Jani.
+Fixes: c40bd7d9737b ("dmaengine: idxd: process user page faults for completion record")
+Cc: stable@vger.kernel.org # 6.4+
+Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
+---
+ drivers/dma/idxd/irq.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-
-> ---
->  drivers/gpu/drm/i915/display/intel_sdvo.c | 30 +----------------------
->  1 file changed, 1 insertion(+), 29 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-> index 3075ef04df56..d9c6a620377e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-> +++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-> @@ -974,35 +974,7 @@ static bool intel_sdvo_get_hbuf_size(struct intel_sdvo *intel_sdvo,
->  	return true;
->  }
->  
-> -#if 0
-> -static void intel_sdvo_dump_hdmi_buf(struct intel_sdvo *intel_sdvo)
-> -{
-> -	int i, j;
-> -	u8 set_buf_index[2];
-> -	u8 av_split;
-> -	u8 buf_size;
-> -	u8 buf[48];
-> -	u8 *pos;
-> -
-> -	intel_sdvo_get_value(encoder, SDVO_CMD_GET_HBUF_AV_SPLIT, &av_split, 1);
-> -
-> -	for (i = 0; i <= av_split; i++) {
-> -		set_buf_index[0] = i; set_buf_index[1] = 0;
-> -		intel_sdvo_write_cmd(encoder, SDVO_CMD_SET_HBUF_INDEX,
-> -				     set_buf_index, 2);
-> -		intel_sdvo_write_cmd(encoder, SDVO_CMD_GET_HBUF_INFO, NULL, 0);
-> -		intel_sdvo_read_response(encoder, &buf_size, 1);
-> -
-> -		pos = buf;
-> -		for (j = 0; j <= buf_size; j += 8) {
-> -			intel_sdvo_write_cmd(encoder, SDVO_CMD_GET_HBUF_DATA,
-> -					     NULL, 0);
-> -			intel_sdvo_read_response(encoder, pos, 8);
-> -			pos += 8;
-> -		}
-> -	}
-> -}
-> -#endif
-> +
->  
->  static bool intel_sdvo_write_infoframe(struct intel_sdvo *intel_sdvo,
->  				       unsigned int if_index, u8 tx_rate,
-
+diff --git a/drivers/dma/idxd/irq.c b/drivers/dma/idxd/irq.c
+index 6a25e1fd0e62..820b1ff69fb6 100644
+--- a/drivers/dma/idxd/irq.c
++++ b/drivers/dma/idxd/irq.c
+@@ -331,10 +331,25 @@ static void process_evl_entry(struct idxd_device *idxd,
+ 			if (!entry_head->rcr && status == DSA_COMP_DRAIN_EVL)
+ 				return;
+ 
++			struct idxd_wq *wq = idxd->wqs[entry_head->wq_idx];
++
++			/*
++			 * The fault worker only does user-context work,
++			 * copying the completion record through the wq's
++			 * PASID xarray, which is populated by cdev opens
++			 * alone. A kernel WQ has no cdev workqueue and no
++			 * user contexts, so queueing could only warn and
++			 * drop the record. Note it and move on.
++			 */
++			if (!is_idxd_wq_user(wq) || !wq->wq) {
++				dev_warn_ratelimited(dev,
++					"EVL fault on kernel wq %d, status %#x\n",
++					wq->id, status);
++				return;
++			}
++
+ 			fault = kmem_cache_alloc(idxd->evl_cache, GFP_ATOMIC);
+ 			if (fault) {
+-				struct idxd_wq *wq = idxd->wqs[entry_head->wq_idx];
+-
+ 				fault->wq = wq;
+ 				fault->status = status;
+ 				memcpy(&fault->entry, entry_head, ent_size);
 -- 
-Jani Nikula, Intel
+2.43.0
+
