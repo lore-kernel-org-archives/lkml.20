@@ -1,78 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792421871;
-	b=csWN5wHdGK7MA100qMZBBdEXrkp7gW3NwnnQzKh649+IBhlvVjQIFaR5syDvTJf+8Pks
-	 Gqh1u5OnJAtk9NiSHVgbfsiR8UflxljS9GjkRDpyL7Vek3afrRK+RvTkW6Q2AQdaqFNdq
-	 IhM2pXmYyVbiemh8KLm0xqsvihF1yq4/EoKb7145OFBByl2gWG2YOzXghwYiI5jETPaUx
-	 m+4p48ix+L+PqPE6fiJdsifdag16baoNY1PjQJW4zqkvgIXLvQDgEGfqq1BZuGFfeJdP9
-	 6JQJhEdC5FVeeJm/VUvlevq7qWQfBvxRr8ZbJ8AkF5hWa6Iq1tv5v411u37NFWGQ9BA==
+	t=1792422211;
+	b=rBEq9kGzlS+V5E0E9pz8+2Ji1dtNKVThV/lOhdpm757I0i6EIyPR/pN1OBI9y4kMsnQZ
+	 mQhqxzQtXH/Fl+P5g+iUw2/BZi7KE7WB8neLriweDRivxJK/l7+e7WFHcQ49cnCF9TaSB
+	 mK+MkxELjClZT/onqpX4dx7c17J5tbFfB2w1cyqjAWX1pX0h0rWhNHKrgRWJCrpilbXpt
+	 a1ixRsW26sGyZuVwBoGzMhAbRfwiHmszS3DaVWfs80qtcp19PZOUMNGxpYjhe14tILl97
+	 CkOfX0dF/DwpCJNh8/UIiD6Je7VB+nDxoAWUShy9uB80pRrAGUUDNn1aOAyNbV97Erg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792421871;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=YFVb1IU6fNY26GBJUlgfJlwY6pme2d3B7ur137a3WTk=;
-	b=4sPdY7/tYW0ZbqSf3oE1EHQe3OGWs/sH50DLCXF4VoYJVRG21Qh0RnN0J95vLQO4iNDH
-	 CFoEC4vWJN5uvcL88g3+ckKMBohpRpOSJA5BpqmvfxF5+aAunvRPulEuN/2N21bu0MEfI
-	 1p/5R7XXoGKCU3kDRrOqaGFs6mfHOWDR7ctgVI1IAKNOs76EARipsZhsHEvAlSIuCLKOW
-	 nFsPimpSxNPqnISYx05fIxt4EZ3J9/pppR04ioA+U3AMBBwuyj0vCUJBmAIwTEIfycJEm
-	 okvNsIohNXame94DwEYsresZPacOTIHK0ctDJlrU91kxMLMVpQuaqb/cWsKwiTLRTlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422211;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kKFgXAWOd0iYwNRMqtKFlgfZbmk+9qhcBIiWIQuiCC0=;
+	b=bXDwFunwlVRO3+Ecgdwrd8Xu378zsKI/fQHF9CvuZ2KmX3u4Bc5vZH1s5b855/D0lL4I
+	 aFjAxHb+KcWr7G1LirlFfrFokDWMxDWTQoGgKD9HcwyOWJngCwubFU+0+rm/Ru9Ku+rkB
+	 1K+jfcWR22Vdcb9MZAWF7Au2stoLJ3oYuy8uV9za68XGXCOctzq3Ywq9LnS8C6IBaDLc3
+	 Hlk1ywepIJreOWVAfMosvZZyMUJ+c02wzjDLAn8FeKnWrs28mKlLPVWaSy3fHPTDMUMV1
+	 bGazcGUd2dYLC+8/jB2r/5eyjlyOaryPU70kSdQosQ6szwV1gSdiqAKagMjL801iKSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OWI00Tk0;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3261E607550D;
-	Mon, 19 Oct 2026 14:57:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3261E607550D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=swXVzvoO;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1F9607DC46
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:03:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C1F9607DC46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OWI00Tk0
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 158C1201B;
-	Mon, 19 Oct 2026 07:57:47 -0700 (PDT)
-Received: from e135073.nice.Arm.com (e135073.arm.com [10.34.111.131])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E88E03F673;
-	Mon, 19 Oct 2026 07:57:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792421870; bh=1BM1lboV7WgRvMcC89XSrL4xPh2HeNzkYXEyfTqVKt8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OWI00Tk0tOaaNSb2m3NQMwuCRAhuAEHxLGISKYAeeF9YaKDgRluiFFlk13kpGmBc/
-	 rQzio6mevUHtiMUPp3/ph10lFhT6SQTbpZ/Q6pSfoq6H7HrzhsEZkzt8M5xklPdoLL
-	 OksvXmydfm9aTl8vkjzwrK5AjjGDT0MFbNIka1EE=
-From: Pierre Gondois <pierre.gondois@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: James Morse <james.morse@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	Dan Williams <djbw@kernel.org>,
-	Terry Bowman <terry.bowman@amd.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Morduan Zang <zhangdandan@uniontech.com>,
-	linux-acpi@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: [RFC PATCH 6/6] ACPI: extlog: add Memory Error Section 2 trace event
-Date: Mon, 19 Oct 2026 16:56:13 +0200
-Message-ID: <20261019145643.1877246-7-pierre.gondois@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019145643.1877246-1-pierre.gondois@arm.com>
-References: <20261019145643.1877246-1-pierre.gondois@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=swXVzvoO
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso144319eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:03:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792422210; x=1793027010; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kKFgXAWOd0iYwNRMqtKFlgfZbmk+9qhcBIiWIQuiCC0=;
+        b=swXVzvoOIS9tRIxsqOPkx3Yes0Qbd3d4yFtW23aGSulXrO5qMfUOvZzdCIqsbAZQfq
+         5KOK0kzD1Jc1Tphru6k6Nxf2FSgPGozCshr7iNoo5uABSyrUb2aqFClA+IT3I4GJ2vBO
+         5fHF2G84i6WMSzUA8cEY2Gv96WihJXgOc4VQELyuTsdEGrNQGSBH6OK6raSD3q1RhqWN
+         ntgISS458qWnSQf1tl4eCi7nGCaAde/tJqGKS4oUyLJGHXLHOxQZmNzC3CUXVHQ1B5or
+         l5PrF77DCgM6ojEtC8GqDK7wYk772bgnZjmk1wLOhwZ5m/UxVjbbr8Fd6V7ZyjKKwDSP
+         Ohgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792422210; x=1793027010;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kKFgXAWOd0iYwNRMqtKFlgfZbmk+9qhcBIiWIQuiCC0=;
+        b=2zdQCaAWgO3Kazj8WVsH1EqR3jK8ihDWC+bfr0CWDgtk1obQVGYzW2tWZYHq4qpaw9
+         +zDHui9rhG1O7UBFiC2E1dI27JCnSjawMryLahqsV9BfLw+CZTeHpS59NcEhoBjWgx2v
+         yxFVY/YC+ilISeIrp0rohegkwjuT5aO2DjOi3gDAZ+Oy/Oa5aDOZ2Ejmejq3las3pAhy
+         5eajeUeMXzXO8z9hnLxscvn11wGssrd/qk9yOmqmyFMv9ml9Sy9K9OpssE3rcz10rw4w
+         Gj77+OcfBnr7tMHPkjnYo0RdCtXmyVqOEYE3BCY7XcpmspiVRW4YrvOd5DnwdYCvWvSS
+         5UGw==
+X-Forwarded-Encrypted: i=1; AKwUvBzQVMo/ZyKf4bR1/3axeXRW/aCSvpVfbrFSdKzMD8G8LPim/h2LeYBAnK95vBOKk8Akwugq+hw1tjdVSVI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqbhnYdHJyhXcOzXtq2K0enyY3oq6pNBnkDf0anhOvr1q9kboM
+	x0ylEp3lgiEc6dDergnfgCN8cp8EeLgY4q5LM9kUS0aXhfDxDctuvF0q
+X-Gm-Gg: AYBFou3+1Q1bgs58Jm4OSZ+WW5p4IOxtrzqVd8JyFLtEnLnS0rfgkPT/UJW0e+A6g8a
+	A1MO5P/i8Pu74wpbNQg7Lp1w9FYVC10GNZGRAxFcsgmmb/Fqkg+QqVTXYzrVZSREr7PurlXWQ5M
+	i2CrRo7ZQMm/ggEhO50EGDAeBrrQVZJ7rSkCDsHq9wbZVXezQ9Ie3B1FLXhjsORHRXofPwOBX25
+	xpl/XRTPuY+2LWA2SisKgxNDHv/3EXW1VNMSksoB9RsxFEDAgJju65LCAtTHYAc37RPWN/3K1R3
+	HcWmrrNUCe8Muxz1lw3nBlzbPWi21UDpbd/4hbx7zjbyviuPd5oqker+nbk5BpPtSf9PV3d6UOR
+	KfjkQ4Nj5t6us0NreXZmZ3iL7Q8C4v9Jdw8zYD7NnVe96Qic0f5d5PwMmWMLqptrCLQSCNBwXY9
+	estcQrbOWyPn2qjs2HEafOkEtcpYVLMxJtC/kvQw6oFYg1mHZbNCQiT9uwreZx3+nzPgTjT5jUr
+	KruqWRqAuoZJdIwJvPz78yTGvaN
+X-Received: by 2002:a05:693c:87db:b0:35d:9516:eb26 with SMTP id 5a478bee46e88-361a1366c56mr10050323eec.13.1792422204963;
+        Mon, 19 Oct 2026 08:03:24 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6e33sm34648900eec.7.2026.10.19.08.03.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 08:03:24 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
+To: dev.jain@arm.com
+Cc: akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	david@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	zhaonanzhe@xiaomi.com,
+	lipengfei28@xiaomi.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Bo Zhang <zhangbo56@xiaomi.com>
+Subject: Re: [RFC PATCH v2 2/4] mm: compaction: target mTHP order for proactive compaction
+Date: Mon, 19 Oct 2026 23:03:15 +0800
+Message-Id: <20261019150315.2018934-1-zhangbo56@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <8e54025a-03da-4cba-bae8-1604463c7622@arm.com>
+References: <8e54025a-03da-4cba-bae8-1604463c7622@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,177 +120,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a separte handling for Memory Error Section 2 trace events with:
-- extlog_mem2_event()
-- extlog_mem2 trace event
-The fields of the record are individually printed so userspace
-can discover the layout more dynamically if a new field is added.
+On 19/10/26 1:42 pm, Dev Jain wrote:
+> I wonder if this function should be left alone?
+>
+> compaction_proactiveness, as I understand is given as a sysfs knob to
+> ensure that the user can control how much power they want to invest into
+> compacting. So suppose the value is 20, and the highest mTHP order is
+> only 2. This gives wmark = 90 * 2 / 9 = 20. So, even if 80% of the memory
+> can serve order-2 allocations, we will still perform compaction for
+> order-2. This seems "extremely proactive" :)
 
-Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
----
- drivers/acpi/acpi_extlog.c |  16 ++++++
- drivers/ras/ras.c          |   1 +
- include/ras/ras_event.h    | 102 +++++++++++++++++++++++++++++++++++++
- 3 files changed, 119 insertions(+)
+Thanks a lot for looking at this closely, and you are right that the
+scaling factor is the weakest part of this patch. I called it out as an
+open question in the cover letter and I don't have a solid theoretical
+basis for the linear order/COMPACTION_HPAGE_ORDER form.
 
-diff --git a/drivers/acpi/acpi_extlog.c b/drivers/acpi/acpi_extlog.c
-index e764d61f71ca..9c0b932e22bc 100644
---- a/drivers/acpi/acpi_extlog.c
-+++ b/drivers/acpi/acpi_extlog.c
-@@ -189,6 +189,15 @@ extlog_mem_err_event(struct cper_sec_mem_err *mem, u32 err_seq,
- #endif
- }
+What pushed me towards scaling the watermark at all was the opposite
+problem on the measurement side: without any scaling, the order-9
+threshold is essentially never reached for a small order, so proactive
+compaction effectively never runs for order-2.
 
-+static void
-+extlog_mem_err2_event(struct cper_sec_mem_err2 *mem, u32 err_seq,
-+		      const guid_t *fru_id, const char *fru_text, u8 sev)
-+{
-+#if defined(CONFIG_ACPI_EXTLOG) || defined(CONFIG_ACPI_EXTLOG_MODULE)
-+	trace_extlog_mem2_event(mem, err_seq, fru_id, fru_text, sev);
-+#endif
-+}
-+
- static int extlog_print(struct notifier_block *nb, unsigned long val,
- 			void *data)
- {
-@@ -241,6 +250,13 @@ static int extlog_print(struct notifier_block *nb, unsigned long val,
- 				extlog_mem_err_event(mem, err_seq, fru_id,
- 						     fru_text,
- 						     (u8)gdata->error_severity);
-+		} else if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM2)) {
-+			struct cper_sec_mem_err2 *mem = acpi_hest_get_payload(gdata);
-+
-+			if (gdata->error_data_length >= sizeof(*mem))
-+				extlog_mem_err2_event(mem, err_seq, fru_id,
-+						      fru_text,
-+						      (u8)gdata->error_severity);
- 		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
- 			struct cxl_cper_sec_prot_err *prot_err =
- 				acpi_hest_get_payload(gdata);
-diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
-index 03df3db62334..c6b14202a5e9 100644
---- a/drivers/ras/ras.c
-+++ b/drivers/ras/ras.c
-@@ -111,6 +111,7 @@ subsys_initcall(ras_init);
+I instrumented fragmentation_score_node() for order-2 on an 8G,
+data=journal kernel-build workload and sampled it at ~100ms. On the
+unpatched kernel the order-2 score looks like this:
 
- #if defined(CONFIG_ACPI_EXTLOG) || defined(CONFIG_ACPI_EXTLOG_MODULE)
- EXPORT_TRACEPOINT_SYMBOL_GPL(extlog_mem_event);
-+EXPORT_TRACEPOINT_SYMBOL_GPL(extlog_mem2_event);
- #endif
- EXPORT_TRACEPOINT_SYMBOL_GPL(mc_event);
- EXPORT_TRACEPOINT_SYMBOL_GPL(non_standard_event);
-diff --git a/include/ras/ras_event.h b/include/ras/ras_event.h
-index fdb785fa4613..0c0dbe068dc8 100644
---- a/include/ras/ras_event.h
-+++ b/include/ras/ras_event.h
-@@ -74,6 +74,108 @@ TRACE_EVENT(extlog_mem_event,
- 		  &__entry->fru_id,
- 		  __get_str(fru_text))
- );
-+
-+/*
-+ * Memory Error Section 2 exposes each field separately so userspace can
-+ * discover its layout. Validation bits use the UEFI Section 2 assignments.
-+ */
-+TRACE_EVENT(extlog_mem2_event,
-+	TP_PROTO(const struct cper_sec_mem_err2 *mem,
-+		 u32 err_seq,
-+		 const guid_t *fru_id,
-+		 const char *fru_text,
-+		 u8 sev),
-+
-+	TP_ARGS(mem, err_seq, fru_id, fru_text, sev),
-+
-+	TP_STRUCT__entry(
-+		__field(u32, err_seq)
-+		__field(u8, sev)
-+		__field_struct(guid_t, fru_id)
-+		__string(fru_text, fru_text)
-+		__field(u64, validation_bits)
-+		__field(u64, error_status)
-+		__field(u64, physical_addr)
-+		__field(u64, physical_addr_mask)
-+		__field(u16, node)
-+		__field(u16, card)
-+		__field(u16, module)
-+		__field(u16, bank)
-+		__field(u32, device)
-+		__field(u32, row)
-+		__field(u32, column)
-+		__field(u32, rank)
-+		__field(u32, bit_pos)
-+		__field(u8, chip_id)
-+		__field(u8, error_type)
-+		__field(u8, status)
-+		__field(u64, requestor_id)
-+		__field(u64, responder_id)
-+		__field(u64, target_id)
-+		__field(u32, mem_array_handle)
-+		__field(u32, mem_dev_handle)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->err_seq = err_seq;
-+		__entry->sev = sev;
-+		__entry->fru_id = *fru_id;
-+		__assign_str(fru_text);
-+		__entry->validation_bits = mem->validation_bits;
-+		__entry->error_status = mem->error_status;
-+		__entry->physical_addr = mem->physical_addr;
-+		__entry->physical_addr_mask = mem->physical_addr_mask;
-+		__entry->node = mem->node;
-+		__entry->card = mem->card;
-+		__entry->module = mem->module;
-+		__entry->bank = mem->bank;
-+		__entry->device = mem->device;
-+		__entry->row = mem->row;
-+		__entry->column = mem->column;
-+		__entry->rank = mem->rank;
-+		__entry->bit_pos = mem->bit_pos;
-+		__entry->chip_id = mem->chip_id;
-+		__entry->error_type = mem->error_type;
-+		__entry->status = mem->status;
-+		__entry->requestor_id = mem->requestor_id;
-+		__entry->responder_id = mem->responder_id;
-+		__entry->target_id = mem->target_id;
-+		__entry->mem_array_handle = mem->mem_array_handle;
-+		__entry->mem_dev_handle = mem->mem_dev_handle;
-+	),
-+
-+	TP_printk("{%u} %s error: validation_bits: 0x%llx "
-+		  "error_status: 0x%llx physical_addr: 0x%llx "
-+		  "physical_addr_mask: 0x%llx node: %u card: %u "
-+		  "module: %u bank: %u device: %u row: %u column: %u "
-+		  "rank: %u bit_pos: %u chip_id: %u error_type: %u "
-+		  "status: 0x%x requestor_id: 0x%llx responder_id: 0x%llx "
-+		  "target_id: 0x%llx mem_array_handle: 0x%x "
-+		  "mem_dev_handle: 0x%x FRU: %pUl %.20s",
-+		  __entry->err_seq, cper_severity_str(__entry->sev),
-+		  __entry->validation_bits,
-+		  __entry->error_status,
-+		  __entry->physical_addr,
-+		  __entry->physical_addr_mask,
-+		  __entry->node,
-+		  __entry->card,
-+		  __entry->module,
-+		  __entry->bank,
-+		  __entry->device,
-+		  __entry->row,
-+		  __entry->column,
-+		  __entry->rank,
-+		  __entry->bit_pos,
-+		  __entry->chip_id,
-+		  __entry->error_type,
-+		  __entry->status,
-+		  __entry->requestor_id,
-+		  __entry->responder_id,
-+		  __entry->target_id,
-+		  __entry->mem_array_handle,
-+		  __entry->mem_dev_handle,
-+		  &__entry->fru_id, __get_str(fru_text))
-+);
- #endif
+  order-2 score (unpatched, same workload):
+    mean      17.3
+    p90       47
+    p99       91
+    max       100
 
- /*
---
-2.43.0
+  fraction of time the score exceeds a given threshold:
+    > 90 (unscaled, the current order-9 wmark):  1.0%
+    > 20 (scaled down to order-2):              27.2%
+
+So with the current (unscaled) watermark, the order-2 score crosses the
+trigger only 1% of the time, which in practice proactive compaction almost
+never fires for order-2.
+
+That said, your example shows the linear scaling clearly overshoots in
+the other direction: a scaled wmark of ~20 can keep compacting while a
+large fraction of memory is already usable, which is not what the
+proactiveness knob is supposed to express. So I agree the current formula
+is not the right answer.
+
+I'd appreciate your thoughts on the direction here. A couple of options
+I can see:
+
+  1. Leave fragmentation_score_wmark() alone and instead make the score
+     itself order-aware / normalized, so that a given proactiveness value
+     maps to a comparable amount of work regardless of the target order.
+     This keeps the knob's meaning intact.
+
+  2. Keep scaling the watermark but with a floor / non-linear mapping so
+     it cannot collapse to a value that triggers when memory is clearly
+     sufficient.
+
+I haven't settled on either yet and would rather hear which direction you
+think makes more sense before reworking it.
+
+Also, thanks for the review on patch 4 -- good to know the
+costly/non-costly split seems like a reasonable compromise.
+
+Thanks,
+Bo
