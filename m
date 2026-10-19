@@ -1,54 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792448841;
-	b=DImx55iGfO7RQn1ZdmT0stWvoio1WZjfrb04ACERMZbKvVLcGj+o0QnPd617PO7jJ/pg
-	 kLUH3bbgrA6xoJm5oSeUP6E9QkJaBNpvgVTnrIy9fumMY4ss9lc9hHdW5ORhzIv6JmnQb
-	 pksQGnJxopPv+/9fktreh5rVXtErJDA0Fo2zuhyWuLuoCc+xu7lHprXka8PaZD9ICDFLz
-	 l+xeHmBiAS0zEybWJtU1Q6eEz7wZGOdBao/pqY6jEkBkuObTMUgB+WxzF2RreWOoccP+4
-	 OPly3dbZ0V7//LiLHc6i51z3GeQZBsQ+I9/j2VhE0WO6aKJjjLu2vwhEn3PTJrcMWMg==
+	t=1792448925;
+	b=OzmGnNTceclmgCtVOiflZ8XK9egZPQw4jJWBkzUf4R3DLSG+L6D/+9HMOkCOj3zSy3ee
+	 Lk4TO1ajtBu8zzuRHNXa3uEk4U04aA8nr84d4+BCSpIQ3djkEs8ZVmXD6yIMS+LRkVtoY
+	 regexXcCWBW+i64nvPwM5tpNb9VJCl0s0MpPsDVspPo8etgBB1q+9PZoKFoGnZzacVTX0
+	 TacRTOXGXfE8V5PlV3x25Tk0IrGrZkYQuL3HVibP2ZOuTnXZgmDVKQnYHhHdeQkhXDS2U
+	 061/dASM4e0othao8XZYxaywF3CJ9jP+xquP5nfHoywn7P0YXck1FeajuAa6CIaWA1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792448841;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=hMdIfyVj7PF9ML59JLA2Q0M+VPwWPBvPk1LmuPNm3pw=;
-	b=LYnzjmGSZr/YvXZSHJdhDC2+XhgVO6Btm/9JLlyLN0dthvLg7B4ZNP541o8JTk3jOdou
-	 iv6FJvIYK4yWP3uwIcN8BeQgwIm4sbHOScAmS9tXha4swf73Ji8a0E/e8g7BgdZu9Mg8I
-	 U6tNp0BZfootMsU4mI4uymT6Crg4UcOylcU97nRm0NC48C+BJkqARfb4lK3H+FVzjQQCh
-	 7H9gpViN8hYdyTP/sqPYpoS8XM3u8YASyeXXlXPzO+24EkFLlvI7CafDPRrcjKfshTwZJ
-	 RKN6Uf4i2TbwocjfzfHfxa4H4Bbhe88WO2k+xAwUO5OQE169j0+n80H3xN584t70X3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448925;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=OX7LJ5SbmTWyL1O7a6NbJLx6qKjyWvZdlldA1ZYQwo4=;
+	b=Vzp5s8WKSSn4TxL579BkqIaOoyLx3DFYKWAN3u4wrNk9U31rpBWSNd3d0gNj13RA5Ry2
+	 pHtQrwBZ7FscEYu+l4bxl9x4HOhlSNMQq4BV1VPUX2Bo96KWQW7J6Q5iY9tRpd//jotxo
+	 /slAqXH+98cvFYxq4XIeYuZPX4xz9oQA1fDoKbKIykJM0XMYCwNN8BMK1bB/x7TVYnLVS
+	 2m4k49bUL7+3Q+WtEoMgD7L6DEj+An1yLbnJNKulQR+dorB48C8Vr+HbNqgsh1/PZ9VYa
+	 FkgzpxdaRvt4tqxYhTD7NBjBAduqk792tVOAp/O2d6oJo0r9+EIWVlAjeWqC6TR6l0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=tyhicks.com;
+	spf=pass smtp.mailfrom=tyhicks.com;
+	dkim=pass header.d=tyhicks.com header.i=@tyhicks.com header.a=rsa-sha256 header.s=fm1 header.b=VNtgrOoa;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ACxxFw4C;
+	arc=none smtp.remote-ip=202.12.124.155
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DE0606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:27:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02DE0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a41f46d629so4754096b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:27:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792448840; x=1793053640;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hMdIfyVj7PF9ML59JLA2Q0M+VPwWPBvPk1LmuPNm3pw=;
-        b=J3078cci+2FNXZMwJKf4AITFtnCgDmpXo7MjizflqSKlff8X/+dBH6hjeGsvmo+znU
-         NwZeKGFT+Bhr7BEOg4BlxKFGRFVhOzCrrkMS5zKsGwtcehvRz8CmmUyQ4GN+8WMeXswW
-         9zH35ZJB4k5Er3XtV9zFBdtIRJaRWg1KnuMDKnzMxD3qkwhYH+8L9C+yyroYS9nwcVRG
-         n7H/LPs18Vg8buZIjXIrFqPPjwnFOiuc+5rdSDYFvimc8WDaE1t6w4UVvndZLLOnuh6L
-         b387Sb7kSa5WjQezDMuF3gY5GFUU7avwxySDdaQmddwIJCcyVyvEEMjdIN3/WA+wYDhu
-         001g==
-X-Forwarded-Encrypted: i=1; AKwUvBygHDVdDvTtPxw5NQz/jyrX0CNDSdSX4J072tS938Uptd9Vlmx1P/r/mgJjvO8xaEKxLf1Dp3dMm8c9KSU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBHRnRrgbzw5Iuoa1ch9Rlyxswn+Ls6O2Iz1yfYWrPQAm7kuN1
-	HeAkmGFU4ZO1Hi4xKldmLfK2bCNER9LBl6KS+WSPl0mJ8uVKZ5EGI13OBH8FqNHuXkDJyIbMRPv
-	LTMvVBMeGXpWcooIGVFfZdoLDVrCfbKjr/QCqW9Zo4goEG8knwQiFHDzUNEU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84516606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:28:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84516606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=tyhicks.com header.i=@tyhicks.com header.a=rsa-sha256 header.s=fm1 header.b=VNtgrOoa;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ACxxFw4C
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 09CD67A01F6
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:28:44 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Mon, 19 Oct 2026 18:28:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1792448923; x=1792535323; bh=OX7LJ5SbmT
+	WyL1O7a6NbJLx6qKjyWvZdlldA1ZYQwo4=; b=VNtgrOoa3LX00REjt0smYquiir
+	zYq4g2ZbeE4Z2BERW/mexPlmrunlZSTO6gU7wbE9PzY5MU8ITMABOjALWkFEslb6
+	HXkN3C3FPeJVXpjq7OzCzMpQDtys8JikdmhZ0uotOXdGj+PRlOJXRoiFNPiVo9Bo
+	oGpav81RQj41330KUT+Ai4GUBOE/ksmQwEPUfFShD4ZqJFs3KXStHWb0JFR2DGjd
+	WAK+zgvJOgKOiqpG13pMAXm7QTGURAaEvFw7rdd5MiLkx0/tUuGDVPfIoqOdgoq/
+	uKihKcVgwhlb5gKiP9UKZv4WYDcUQmKQKE15e+4N3Zq3kIgvt3ZYPh3h875Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792448923; x=1792535323; bh=OX7LJ5SbmTWyL1O7a6NbJLx6qKjyWvZdlld
+	A1ZYQwo4=; b=ACxxFw4CpVGdHHAj4+NOl+yQoCmrwhA0XebBgbi1mIvaZgmiZj0
+	sRYVjIbrAJNGgy6FXPS+t4cWDz110djNFaBYKlfG8xtH2Dqjbt4jTQXBMtv32RP1
+	WNX/eCMZKy067fjKxLi43JnguvK8OCmugaxZiBkMZ37qtF0Q0cFQv7AN/ptvRaw1
+	DmKPBhJi57t5wf5HfgmvR+3JMIniQITqQQAj1XWrfFJP1ugfvXXS+Ze9pZzqMDc1
+	NzX33BJtmlHqbui1SsJCscl0ulfcrgWIxxTVi8v7uNgkNzyZ+T7ESZvhAklciK+Y
+	00593g0c7vMIqrhG1J+JSHhPXbhYdI8gcPg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=tyhicks.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792448923; d=tyhicks.com;
+	mf=PGNvZGVAdHloaWNrcy5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:BVsR3Gfq1sstOse703tPTRoxVBqAHgeiz8ASDaKZxkToIJT
+	0dpuboz0pGss6ehVS442n8uA8NfIctY6RAjsrkWJybnNTWxRyEnN8v4zTH4S3xsr
+	+dF2pWYDLzIJg30A8qhrl4ArGqgEGmQdzN+qNY/MSy6+wECK4/ezCOBZBCyKI6ES
+	FxEw0I5T7xX3FMzE0kx2XLfq2YBpIvkglzKLBhMfJLrsF5K196b9WV5FKzcuayX+
+	DpewmLX57fGyCSnOhYyzFO6Znrp/NdNfN6ttNOSXPN7yaz922+W3vq7G3AP5e+SU
+	htzHiIPJuQ4qn0Z5GTm8GgK8De3gKoPRzPDzTsQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:mNwJugYNmHs/kUvTsxHSPPA3sykvPWFuRHjTzNWw7j0=:fV9H7cDxvj1c2HYvsZ1NqPDlLAHxBJgEpg3FzNoE7PQ=;
+X-ME-Sender: <xms:m5nWao5VlZA4ZbhugOVnTqhupKwcsU4dhFgLv-8Gyfts_AhdkI0izQ>
+    <xme:m5nWaqCC7MeGLw7mEiAM1LKCMJGY9KjJUtcGn9_z7xFCBw5FEClrCCwpuoU-vWU82
+    GnLaJO5nxX8ndFrmeT1W9PPJCCv8RinhOYjqJqO1rtKhht6kTLawAgj>
+X-ME-Received: <xmr:m5nWavZnYjbOrqTJkJUWiAQYdtZCXAz4qcq3W0bmO6T9EUer2c8u3TT_aA>
+X-ME-Proxy-Cause: dmFkZTGx7dumu3T38TPNhvSWlmXCNMMPf6psR3G1gYBNJcURGiJyYYpI6M7c/XXLevz9Fa
+    zK8GYwMuXm/L2h2JKGo/fl6Uij3w0Rk5RKYOO6dpBOfj/mF8uOJRNBI5h/kWDAfoVV4yOg
+    REOohXCsioEmgGam3lEjPfVZlw9HSozD8v1PQk25T7EFqKRqUUy/aHVGvrAsCwWxQXZaZV
+    zk0vcCs7fYkTljl7905vjTXzWLzacKfgS3gvMyhb9B5ml6Q2mYUhzyQufew5adKd+8TJDY
+    hCJDC1i+cCKh0NV3VEp8IOikOvxKG+OWGKObHy6W9tMtkihID+Xi1Y6Mpesn1qiZwbQ6Ip
+    YSUhXXvCznqhfjhARA1iJxapHSTqq8KK2qMMZYYMaNqSj4KohH/d3/Hy3cpyh/bkPT1F2o
+    60JsHDXgyeB5n4h3y4KahGnhgEy0Kh6Lj/a9RT6dc10SiuEIOJlS91OCnqATnYhND0uga6
+    z+fSHbNZUIhgsh7yh5wQeiUd/2EWKiiHmE73fsBAMYFyIcvdtZ2Bbxq090XJfSC6Ca4yzy
+    Nsis1ThQ71PTr7xlpAmiH41HDJLE987IYYBBOSUEfUcM2oDZPuqRMekam1Gxh6SxS7L2UI
+    POWtPI4a50mDA0Rfdi1B2BibjVlY7Sw7yNx86TEnJ/c4M/UW1DxaTmaP2c8A
+X-ME-Proxy: <xmx:m5nWalYIRB-_w9RGbPE6muvK5oq50BneXmvibVnbka6cBlslGKyNfw>
+    <xmx:m5nWam_epiAl_p3J_pLFzOrvpdcS8ncPhG6nrWUf4Av_81FgiYJKWQ>
+    <xmx:m5nWakh9WPy89P5sR8EXsk-TdZLeuvdFVRdkobpySkDFbYOs3zIz6A>
+    <xmx:m5nWamc93Y1Sshc7-J_RYHIlqGj-TDhBmR6xXV-EzpFhz8e0ZAxWvg>
+    <xmx:m5nWaspsojhRjgWUddtQUIZg9YZsJYB3J_UEcjjj212exjnzGUXzuTKB>
+Feedback-ID: i78e14604:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 18:28:42 -0400 (EDT)
+Date: Mon, 19 Oct 2026 17:28:30 -0500
+From: Tyler Hicks <code@tyhicks.com>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] ecryptfs: release the inode when lookup fails to read
+ the file size
+Message-ID: <ataZjvBo29sDyej3@yaupon>
+References: <20261018023840.798718-1-nickolai@csail.mit.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,96 +121,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2387:b0:4d6:92d4:c804 with SMTP id
- 5614622812f47-53cd20a090cmr6556751b6e.60.1792448839984; Mon, 19 Oct 2026
- 15:27:19 -0700 (PDT)
-Date: Mon, 19 Oct 2026 15:27:19 -0700
-In-Reply-To: <6ad23c08.7952420f.283480.0348.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad69947.8652420f.25107a.2841.GAE@google.com>
-Subject: Re: [syzbot] [edac?] WARNING: ODEBUG bug in mcheck_cpu_init
-From: syzbot <syzbot+553c9f2c5781192c2214@syzkaller.appspotmail.com>
-To: bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org, mingo@redhat.com, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org, tony.luck@intel.com, 
-	x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018023840.798718-1-nickolai@csail.mit.edu>
 
-syzbot has found a reproducer for the following issue on:
+On 2026-10-17 22:38:39, Nickolai Zeldovich wrote:
+> When eCryptfs cannot open the lower file of a regular file during
+> lookup, the lookup fails and leaks the eCryptfs inode it got, together
+> with that inode's reference on the lower inode.  Every failed lookup
+> leaks one more inode, and unmounting reports "VFS: Busy inodes after
+> unmount of ecryptfs" (a BUG with CONFIG_BUG_ON_DATA_CORRUPTION).  The
+> lower open fails, for example, with -ETXTBSY while the lower file is
+> being executed, or when an LSM or the lower file system's ->open()
+> refuses it; any user who can look up the name can repeat it.  A
+> concurrent lookup that found the new inode before it was unhashed
+> waits for I_NEW forever.
+> 
+> ecryptfs_lookup_interpose() gets the inode from iget5_locked() and,
+> for a regular file, reads the plaintext size with
+> ecryptfs_i_size_read() before unlocking a new inode.  On failure it
+> marks the inode bad and returns, but it neither clears I_NEW nor drops
+> the reference it holds.  The error path came with the deferred
+> unlock_new_inode() in commit 3b06b3ebf441 ("eCryptfs: Fix new inode
+> race condition").
+> 
+> Unlock a new inode and drop the reference on that path, as
+> iget_failed() does for a new inode.
+> 
+> Tested on x86_64 with a lower file on tmpfs that a process is
+> executing: 1000 failed stat() calls left 1000 inodes allocated and the
+> unmount warned about busy inodes; with the patch no inode is left and
+> the unmount is clean.
+> 
+> Fixes: 3b06b3ebf441 ("eCryptfs: Fix new inode race condition")
+> Assisted-by: LLM
+> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 
-HEAD commit:    c03c1a14507d Linux 7.3
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=112ccc95580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b38d39c45202f4fa
-dashboard link: https://syzkaller.appspot.com/bug?extid=553c9f2c5781192c2214
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=164119cd580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=132ccc95580000
+Hello - Thank you for the fix and the level of testing that you
+performed. Christian Brauner recently sent out a fix for the same issue.
+I've already acked his fix but please take a look to see if you disagree
+with anything there. It is slightly different than what you proposed.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/99fcc4d8c943/disk-c03c1a14.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ba99fd445f9b/vmlinux-c03c1a14.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/be10147815f2/bzImage-c03c1a14.xz
+ https://lore.kernel.org/ecryptfs/20261012-work-fs-sb_rdonly-v1-1-60743a3dc326@kernel.org/
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+553c9f2c5781192c2214@syzkaller.appspotmail.com
+If you have review feedback on Christian's patch, please reply in that
+thread. Thanks!
 
-------------[ cut here ]------------
-ODEBUG: init active (active state 0) object: ffff8880b85234a0 object type: timer_list hint: mce_timer_fn+0x0/0x280 include/linux/highmem-internal.h:-1
-WARNING: lib/debugobjects.c:632 at debug_print_object+0xec/0x230 lib/debugobjects.c:629, CPU#1: swapper/1/0
-Modules linked in:
-CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-RIP: 0010:debug_print_object+0x18a/0x230 lib/debugobjects.c:629
-Code: f8 48 c1 e8 03 80 3c 18 00 74 08 4c 89 ff e8 0d ac 58 fd 4d 8b 0f 4c 89 ef 48 8b 74 24 08 48 89 ea 44 89 e1 4d 89 f0 ff 34 24 <67> 48 0f b9 3a 48 83 c4 08 ff 05 e3 60 d7 0b 48 83 c4 10 5b 41 5c
-RSP: 0000:ffffc900001c7c20 EFLAGS: 00010046
-RAX: 1ffffffff16df3c0 RBX: dffffc0000000000 RCX: 0000000000000000
-RDX: ffffffff8bcc7640 RSI: ffffffff8bcc7240 RDI: ffffffff90bcd1e0
-RBP: ffffffff8bcc7640 R08: ffff8880b85234a0 R09: ffffffff8b6fb180
-R10: dffffc0000000000 R11: ffffffff81b2b760 R12: 0000000000000000
-R13: ffffffff90bcd1e0 R14: ffff8880b85234a0 R15: ffffffff8b6f9e00
-FS:  0000000000000000(0000) GS:ffff888124ab9000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000000 CR3: 000000000efb0000 CR4: 00000000003506b0
-Call Trace:
- <TASK>
- __debug_object_init+0x224/0x350 lib/debugobjects.c:818
- debug_timer_init kernel/time/timer.c:788 [inline]
- debug_init kernel/time/timer.c:836 [inline]
- timer_init_key+0x41/0x2c0 kernel/time/timer.c:880
- __mcheck_cpu_setup_timer arch/x86/kernel/cpu/mce/core.c:2087 [inline]
- mcheck_cpu_init+0x3dc/0x600 arch/x86/kernel/cpu/mce/core.c:2262
- identify_cpu+0x1f2c/0x3940 arch/x86/kernel/cpu/common.c:2126
- identify_secondary_cpu+0xaa/0x160 arch/x86/kernel/cpu/common.c:2187
- ap_starting+0x9c/0x150 arch/x86/kernel/smpboot.c:190
- start_secondary+0x66/0x110 arch/x86/kernel/smpboot.c:280
- common_startup_64+0x13e/0x157
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	f8                   	clc
-   1:	48 c1 e8 03          	shr    $0x3,%rax
-   5:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
-   9:	74 08                	je     0x13
-   b:	4c 89 ff             	mov    %r15,%rdi
-   e:	e8 0d ac 58 fd       	call   0xfd58ac20
-  13:	4d 8b 0f             	mov    (%r15),%r9
-  16:	4c 89 ef             	mov    %r13,%rdi
-  19:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
-  1e:	48 89 ea             	mov    %rbp,%rdx
-  21:	44 89 e1             	mov    %r12d,%ecx
-  24:	4d 89 f0             	mov    %r14,%r8
-  27:	ff 34 24             	push   (%rsp)
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	48 83 c4 08          	add    $0x8,%rsp
-  33:	ff 05 e3 60 d7 0b    	incl   0xbd760e3(%rip)        # 0xbd7611c
-  39:	48 83 c4 10          	add    $0x10,%rsp
-  3d:	5b                   	pop    %rbx
-  3e:	41 5c                	pop    %r12
+Tyler
 
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+> ---
+> 
+> Notes:
+>     Reproducer (CONFIG_ECRYPT_FS, CONFIG_TMPFS, CONFIG_KEYS; runs as /init
+>     in QEMU, root; the key is a dummy auth_tok, nothing gets encrypted):
+>     
+>       gcc -O2 -static -o init ecryptfs_inew.c   # packed as /init in an initramfs
+>       qemu-system-x86_64 -m 1G -nographic -kernel bzImage -initrd initramfs.cpio \
+>           -append "console=ttyS0 rdinit=/init"
+>     
+>     Before:
+>       stat: Text file busy
+>       inodes left by 1000 failed lookups: 1000
+>       VFS: Busy inodes after unmount of ecryptfs (ecryptfs)   (console)
+>       unmounted
+>     After:
+>       stat: Text file busy
+>       inodes left by 1000 failed lookups: 0
+>       unmounted
+>     
+>     The same leak was reported on the list as "[BUG] ecryptfs leaks an inode
+>     on lookup failure -> kernel BUG in generic_shutdown_super()" (Farhad
+>     Alemi, 2026-08-27), with -ETXTBSY from the lower open.
+>     
+>     /*
+>      * Look up a lower file that is being executed through eCryptfs 1000 times,
+>      * count the inodes left behind, then unmount.
+>      * Runs as /init in QEMU; needs CONFIG_ECRYPT_FS, CONFIG_TMPFS, CONFIG_KEYS.
+>      */
+>     #include <fcntl.h>
+>     #include <linux/keyctl.h>
+>     #include <stdio.h>
+>     #include <sys/mount.h>
+>     #include <sys/reboot.h>
+>     #include <sys/stat.h>
+>     #include <sys/sendfile.h>
+>     #include <sys/syscall.h>
+>     #include <unistd.h>
+>     
+>     static long inodes(void)
+>     {
+>     	long n = -1;
+>     	FILE *f = fopen("/proc/sys/fs/inode-nr", "r");
+>     
+>     	if (f) {
+>     		if (fscanf(f, "%ld", &n) != 1)
+>     			n = -1;
+>     		fclose(f);
+>     	}
+>     	return n;
+>     }
+>     
+>     int main(int argc, char **argv)
+>     {
+>     	static char tok[1024];
+>     	int fd, in, i;
+>     	long n;
+>     	struct stat st;
+>     
+>     	if (argc > 1) {		/* the copy in the lower directory */
+>     		pause();
+>     		return 0;
+>     	}
+>     
+>     	mount("proc", "/proc", "proc", 0, NULL);
+>     	mkdir("/lower", 0755);
+>     	mkdir("/upper", 0755);
+>     	mount("tmpfs", "/lower", "tmpfs", 0, NULL);
+>     	in = open("/init", O_RDONLY);
+>     	fstat(in, &st);
+>     	fd = open("/lower/f", O_CREAT | O_WRONLY, 0755);
+>     	sendfile(fd, in, NULL, st.st_size);
+>     	close(fd);
+>     	close(in);
+>     	if (!fork()) {
+>     		execl("/lower/f", "f", "sleep", NULL);
+>     		_exit(1);
+>     	}
+>     	sleep(1);
+>     
+>     	tok[0] = 0x04;		/* auth_tok version 0.4, ECRYPTFS_PASSWORD */
+>     	if (syscall(SYS_add_key, "user", "0123456789abcdef", tok, sizeof(tok),
+>     		    KEY_SPEC_USER_KEYRING) < 0)
+>     		perror("add_key");
+>     	if (mount("/lower", "/upper", "ecryptfs", 0,
+>     		  "ecryptfs_sig=0123456789abcdef,ecryptfs_cipher=aes,ecryptfs_key_bytes=16"))
+>     		perror("mount ecryptfs");
+>     
+>     	n = inodes();
+>     	for (i = 0; i < 1000; i++)
+>     		if (stat("/upper/f", &st) && i == 0)
+>     			printf("stat: %m\n");
+>     	printf("inodes left by 1000 failed lookups: %ld\n", inodes() - n);
+>     	if (umount("/upper"))
+>     		perror("umount");
+>     	printf("unmounted\n");
+>     	fflush(stdout);
+>     	reboot(RB_POWER_OFF);
+>     	return 0;
+>     }
+> 
+>  fs/ecryptfs/inode.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
+> index 525297c7ebd8..d7e90192efcf 100644
+> --- a/fs/ecryptfs/inode.c
+> +++ b/fs/ecryptfs/inode.c
+> @@ -363,6 +363,9 @@ static struct dentry *ecryptfs_lookup_interpose(struct dentry *dentry,
+>  		rc = ecryptfs_i_size_read(dentry, inode);
+>  		if (rc) {
+>  			make_bad_inode(inode);
+> +			if (inode_state_read_once(inode) & I_NEW)
+> +				unlock_new_inode(inode);
+> +			iput(inode);
+>  			return ERR_PTR(rc);
+>  		}
+>  	}
+> 
+> base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+> -- 
+> 2.53.0
+> 
