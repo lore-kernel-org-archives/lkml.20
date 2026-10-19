@@ -1,136 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.10
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792435831;
-	b=yZcSgnPaLnoGhNUU5T9Z3GUudKQEzCJCVvam0u1jR52vpF+h7TUivzJdsJ49euZDKYQv
-	 IDROUtk09CXmZ6t7ew1b+o3OEVYzHH89DpMm8Tdlzm2RXRMS2Pbj6PZjiLnj+oWaaENV5
-	 dkCKWDpkqi+xMstnpfmNEIh8is84rOzQqvcIUFTtDLZuXHvcGnpiPLhKweFTBVHqwncs0
-	 ABa7D//Ukw1bKfdrQZ6ivXYTZ3GF6Cnfqmor4GqfjaybXfisFFfkfUEJHt9P7TGeorwCv
-	 VdQrQMXQyR0CLroa5OQldmm2iWmNTzEDQq1b0MVs6tFHby8U7maQZGT9e1CtvPLitwA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435831;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=prFxCTKy6apq/Jn6aJacJzwvHeCYD1CwAwd34ScT3Kc=;
-	b=hMgbIFBQOyCUOtcW4NinvPgalgXTuqR6M2LnsD1YEKGZIIwlN2y8qvOfqYsIrKhIJnw3
-	 2MEDrcdiWskJO3gvpsWDBXXTc2/33EE9qH9XOUzxGovNbHT1HoHkUggDinHGNMXWex1dI
-	 RGhe7vKmsJeED9WKO9gK76/APpAc4WDQm8ToK54G3ZeisjyIN4bWIORzkhsTOMoiQay6U
-	 2AmvHKWjNfaJPv7vl0p/2+w2jDPpV0OsDyohHE7b6jwOFNJg/gFdPV2qFg8J3bAtFqRNh
-	 htR/36/5zKlItlvrnoMQMvd3g4tt9MPqZ1rNWWlCtaFeD0p+WhwnBVJ8n1+9a9tSc5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jqc43mhh;
-	arc=fail smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792435891;
+	b=b7mWptX2U/4FDqjQS0s4Sq+qmuO1NxTa81B+tWIKawkQzgiUlhVUTEEmaVEdSbeNB5ax
+	 ggX23Yg+sl643nUbIlsIAP135+EGG+czfac0nlsaKktLMzX/KSGjigFj5ApArtWlKB2it
+	 rLulxxI+W23gQpNM4qVAoRE9dh8nDo6/RAgjLw716lAUzTtxk6rNiXHo5vazFjx5+wfs7
+	 2BtNEGZRqXt0UvECT6VYrQN0OJX/uOWSQUOsP6Vz46N8RKuO+AN5gW2vhJPO6O7PWgBrn
+	 vGJ3EWm/TuKo2t2lRjveNSwh5L1b2F/lIc6vcqORJ+CbMPQz7z6IeYjQCUCw+/Q3Wlw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435891;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Z99wMaMNn5HsBWTHhvt8IeIQ7zA88qwFOi5fw1JQS00=;
+	b=zeaKn1DG7SrlV+x0kPkB5wmXJd4zFysQyLQT3S0JznQfe/jBFGf757UzZjG7Z9nhZK5n
+	 838t7weC+IgMsxtLdJ0Y822L8oTs8Ibbh+eSkG0hBEWGdq+iJcio9DPIHMy+kcxynB8XZ
+	 w2nvssxXnoFOmNpm1wR+zgHEWsW0dCHc/8m/InmpiPDr3gUjWj8txcopC0Oz9/E67vF9r
+	 Yw7moefzrralk+MEQ/fHS1rSKGOlB++vXl2NeioWXOazaZ1IV+xupVue12YyOqaP0qMZ8
+	 /QH5PDNYstf5r6aVAHgBklQ9VngYvB5F1ND/5v/yjCjsGfKYTo2FsKXlsM9e+YcxJSQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=csail.mit.edu;
+	spf=pass smtp.mailfrom=csail.mit.edu;
+	arc=none smtp.remote-ip=128.30.2.78
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741C0606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:50:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 741C0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jqc43mhh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792435829; x=1823971829;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=NtB8O1e/H6INNNp5XkefiyCz2MyTfoXf67MvpyygmdU=;
-  b=jqc43mhhXkTy7AHjxZ9JsINuIAJnQ/Th6fsi5LBpfHXHBHw3+XhcnI9c
-   KG3V3oaXnAejQn2YhPYmu9TxbWmfA3L884aqklEsT5MGA215f5wh4t9yV
-   bQDomRldHN6ni0UUSh7H9mLujhBi3CWFmrQWUu8yoXFkzOFQSzT3fE4Im
-   exDhxrffbbNI30dTSulsijqYV+fG2UvZhrvLg6+4Io2mGFHcgemzV1eaT
-   ra/k7mpVsWSZr2+ER0GgFkqd/h0CkPQUTcsir/GU7uFAoezA2MFEKzrir
-   +C/746rqREe7Hg3V+QQwOfux816TyALopEHjYKkMppt4CNrUt/SzGYE2Y
-   A==;
-X-CSE-ConnectionGUID: Lf9YzRluTh+bBEpr+zeOUg==
-X-CSE-MsgGUID: 0KnkkrzgR1GkdnMMKPpdEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1023157"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1023157"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 11:50:29 -0700
-X-CSE-ConnectionGUID: bMpbFAvMScSMcbcOjNpRbg==
-X-CSE-MsgGUID: 4BKYS89RQg+0gwE68y3tlA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="4436289"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 11:50:29 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 11:50:28 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 11:50:28 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.32) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 11:50:28 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oTiVv6t1D86TanUicX4zEhK38pWqJqnBCtRmYaOkFRo810DU0uv9ytQNPl+uswXdjta4zS3NQqs2QkGyrEb3iCMhEWwo0Jdfa76CYBCSOrg2OYzvILcfdNXT4mC/pLxvZ4sgcjJaMs1Su/X+INwVgqO7Qw2vt8Wo0d0p/cXtX6YUCE6Jb5mxq2MatQk50/Ux3GzapJs4zYIqJpLqKI0WyPj6l8k98mc1ztBLpfBDhv2H4+yBZWKe9A3GIh9BcZn6sK69bFxMyxjZFNSD8SbKuw9dpXvviJg0/wfH7J0L2kU36+zcF9XlXKZXISoYOldYolqaQh91nPDe+BNma7Xj/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=prFxCTKy6apq/Jn6aJacJzwvHeCYD1CwAwd34ScT3Kc=;
- b=UpD2MSj8ZXMCz7yfkaOa0zVJtam/HxUHy0XmicrY2J8bGKQf1/ZJw9r5RFXXwoYivTY5XSuCljwLtAqlFLM8CxUPutre9++mcl7CJkFzFiS86pZCr0/l6chfbet0EqWBeGX18YNhU5GZKaztJ5sgDtKUQoAKlszYrJRZo6QfeP1Eq31VKkNIFIzPLAj1jSRFXsyuVgRflGH6Vo17vPHvHBtKuFPI3x0Zb7GwUMru3oamp4PP4zQsEVD4thbwSalLhsE2NFeaa0IVTliaC0CUR7t9Oxbjo2o4Gq2mywAvQEjyMATAt44F8h8eZ8TVv9k+4iZs6haXjFz7BOLgseXfDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
- by SA3PR11MB649961.namprd11.prod.outlook.com (2603:10b6:806:532::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 18:50:14 +0000
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6%7]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 18:50:13 +0000
-Date: Mon, 19 Oct 2026 11:50:12 -0700
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Chen Yu <yu.c.chen@intel.com>
-CC: Fenghua Yu <fenghuay@nvidia.com>, Reinette Chatre
-	<reinette.chatre@intel.com>, Maciej Wieczor-Retman
-	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
- Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, "David E
- Box" <david.e.box@intel.com>, <x86@kernel.org>, Christoph Hellwig
-	<hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-Subject: Re: [PATCH v13 04/25] x86/resctrl: Centralize monitoring feature
- enumeration
-Message-ID: <atZmZD3vSvZHNofi@agluck-desk3>
-References: <20260928221509.68002-1-tony.luck@intel.com>
- <20260928221509.68002-5-tony.luck@intel.com>
- <atY6FPFvbwlat8JG@chenyu-dev>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <atY6FPFvbwlat8JG@chenyu-dev>
-X-ClientProxiedBy: SJ0PR03CA0011.namprd03.prod.outlook.com
- (2603:10b6:a03:33a::16) To SJ1PR11MB6083.namprd11.prod.outlook.com
- (2603:10b6:a03:48a::9)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DA0606A31D;
+	Mon, 19 Oct 2026 18:51:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5DA0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xIsSA-00Bx9b-V4;
+	Mon, 19 Oct 2026 14:51:22 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Saravana Kannan <saravanak@kernel.org>,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v2] driver core: Don't take the device lock in waiting_for_supplier_show()
+Date: Mon, 19 Oct 2026 14:51:22 -0400
+Message-ID: <20261019185122.805265-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,129 +55,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6083:EE_|SA3PR11MB649961:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4af0cca5-9af2-4a68-2572-08df2e11cf46
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|7416014|22082099003|18002099003|10067099003|3023799007|4143699003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: y4pt2ivk81eYVpcB3iIHjLw6OYvfxCSx7Gj7xNDZoY4jserSHleHoUyYyoH/Ym/o/kgIhHxMW86M6XhMq1lOdDQy8Lp2alv+RymtiU09p3B2VAFI0Y18T8OQf+A0rwyrz66t/iZzwom0H0f6kqRQHUykI8Sqo9SpLfrbL0RWL4fUWuqeQ5mKaUZ4y8R1Bi4QDBoLP3SADRUZIVRkDXX0ogR/0glVWv7i2po6J28EBuuB8vLljv9IJbxEznmbElFlJhvYIXfqa2aDq0e5bOAe+o/aZ33RFFRHBVbsF0HIJYsqDWQS8+uFAgbkZdRprwb8xpnHDevujsCFbAgmQWHQa28ajMtaTrSNARPHhYez0FEnBvu/nco+yPz5P2Zt3o35PX4oEwS7ld5u4HQyit5dVRoDvBvhqQ76hrZjuxLS/tvGAvqyKD2IscCyyPCYspIuoccPTao8eIopPQtBS5EACElXzdFrTUG3eUDhZvl+JUu2NUOchKnZoBAnYc2jTFNLOg4Vv4noC3vw0VbtsEr7CRrCRDUH1fpZbCAmGkLRiGKB9+JSpcP381k1XjK3wDxhiIVHw1FdM0fwGlEj6srYXs5VFwehagiBwvfCxpyAIhe10YLlRmVMIAwPBothp55qbf60Gm/d+zugX+gC9ZJQ/N8wnRcj7EIvhbDzbyU0r38=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(7416014)(22082099003)(18002099003)(10067099003)(3023799007)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Mo6xKj3cC7+9MCghpcADkDurjS6v0P50Ph5tDJ9qNR05jHerfZbD1wbQtOQw?=
- =?us-ascii?Q?P8w6RJ6dfe2j1hHH1Adlku9GcsbGQf4FCtfWgXnSX709VT7hdau+IMC+tyDt?=
- =?us-ascii?Q?03wSa5LHddA5ojeQmGzg5VTi5T5fzGGviKf8wHwZerJQXptxPea4dLC4TqS3?=
- =?us-ascii?Q?pQAqlxF8+TJ21hNnK3ktFByITnPS7DJqp7kQtN9FeikFTXRghwU7FacGKvmV?=
- =?us-ascii?Q?fi58WZ3SZIf0Yg5Nv3+5e7r0Socw1T2rxmk+zddW15jE3jyJORMBpfbxHz2m?=
- =?us-ascii?Q?kKjh+FfEEV0uI9BZ9PFnYvB/u5XqLYaGIg53v1F2GQAqCFnguMwPzp2sgDHO?=
- =?us-ascii?Q?Fq8Jmi2HMNgZtEy9pZrCfPGAdZh4R5Np8wI6+4WsP0ip2YB6gSrFEUhgsCYd?=
- =?us-ascii?Q?3VQp3APs4B6NRfWROU5MtBYgyKcz+9NBTN5P8SMvPm/lx743GpFT1LgjaS+9?=
- =?us-ascii?Q?ib22qIYlxjA9ZZ1DKo0zzQuaWtegM9QhcVYvnmfKQ5V1MuJAKayvEpZUh3rc?=
- =?us-ascii?Q?YK0TC6LqTjCY4N9ZRnktI8Sr5Yom/y2gq0eovG2cfzWcTxjQsQeCZTyUPXoO?=
- =?us-ascii?Q?KDjDm6ymlOGDE/9vUF+IJNz0wnkSzVMmkvqUYKm6W4XDyFe8Ho559OMRUu9M?=
- =?us-ascii?Q?sOAE5sgfPsRmGpVaX70ODDLN9a12akWmuwjlkntGTTrsL9xYqcJNwTFqqvbD?=
- =?us-ascii?Q?HHYFGPS0aNAfSE4Fa3BOSctho5s1fIoBgRh2WigKRY2WKEd3n4njMGVQ6+P1?=
- =?us-ascii?Q?mI9/39sIl2n22gMvSASq1KBXp9EeFzSnwkAu8cEmfgB81hc62JJLdDki/kyI?=
- =?us-ascii?Q?f+CZNMLaBCn+dF1aRQ5QUNh7mVjNkTV+lBDhqlVqLQGedS1Hgs4zPP3pRoq5?=
- =?us-ascii?Q?qQlnXlhJ4lcqjug0In6NJJE+Med54j8kjQMflgpdcBPkGGZHVX0ztM2+JHye?=
- =?us-ascii?Q?RCdL0JnatZWeNvahf8i6t1aCGmzNS73d2M95xU8ahVO+ZuNiglPr8jURCe8X?=
- =?us-ascii?Q?LBumyMyLHwO/UGFCdDfVPH++DDVSGfrztPvQQKB9f/DhSaAEBenxYzfgLwBh?=
- =?us-ascii?Q?BEwurO+hd5f2PWliNpqUQ/Ls+YuryiXKekBzrzfISWaCipZiYDelwQpG8bOR?=
- =?us-ascii?Q?JKG2T/UCyMood7GUabrK484QkJylakUVvDIE7QQzz8sO6dk54ApSE3ih7tk+?=
- =?us-ascii?Q?/v9JDqOXO1EAjbfXiti9SpwCNrUQSVJThygMBI0Yicjk43n/FMVBX6KdAZTD?=
- =?us-ascii?Q?cqDNEy580Ji4tyxJWWBezXlirKg6H9NFsds/uLWNgoE0jbnI8EU5OlRayWe+?=
- =?us-ascii?Q?ZEWsd2SFkzE+5mTCOlaXO50euMdzlcCxJ4/618ijKQAj0kOGTZiMRIGjyx1/?=
- =?us-ascii?Q?SrOKZxUdcW+TTv0vtywKReBcn4tT/7rjR9hAATEtmrX8OaJFguFh7c9/W7fP?=
- =?us-ascii?Q?/COgQpjOgPsHkOWZMTx40bLvQiUtc3A6XkEvOdXE+iIb7QlQQIZnX3HrcFHQ?=
- =?us-ascii?Q?dEGGBYBFn74eGwYgWNo8abxkpvJwb1QAYlJlYG0Q/DZmkQLI33yuJiKLXL/D?=
- =?us-ascii?Q?/hCmoqT2tELRPKl3gUquYLvSj+RwnCWTRDZ9ga5WlMjgkzjb9T9EDN0KIEFm?=
- =?us-ascii?Q?ZkZBR/ctKU5iqBZUkeQlOWgogNgs7FlHCEPsQcdf7xHYuiXmEoCVetGrLxl5?=
- =?us-ascii?Q?1J12ij0tkkgpxaYpFlR9/FA1YwvkLJvYP1yJGxX82Zofy0vpr+zwaIAm3uHS?=
- =?us-ascii?Q?zVpgZy86yg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: Mb+scOvu36r00C7nAf9HRCTTKwqlqgTaVXBajxh0dqi22rvlhVBEMt/F6E/xpcL66rZ8ARUOwVVnsrrvBiInSwJS8bJEi4ZXqKAT+AKsRkT79Mvs1PsWBKsoHcXUOXpkg0cyVtAfwtmF2Xemua/rv2zmOiO8GW6ru1M8Dr7D0/2CjGCOZ2szNBWQ7XXRvr95f4E2wS9wtlTCnWme9tVKMemEtNxHo2eCwQ1XPHd4xPGybK6ujOnqcQhFdYo1APKj4EWMiBINr4KH7zBnwGBe8kFtRNX1XlKZFSMuD/0ZBmbW1bIvkowVlmfKrd92GwDhDE/WbWTeAvke1C2+672/VQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4af0cca5-9af2-4a68-2572-08df2e11cf46
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 18:50:13.9027
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1TaOFtdRCrICN8ktHECHD0OCfhhkhRlPrnUH54Ly4qNfLPd3MJldtBdoZoA7f78a57i+wmi2Rp1ykzMfV2ioGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB649961
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 11:41:08PM +0800, Chen Yu wrote:
-> Hi Tony,
-> 
-> On Mon, Sep 28, 2026 at 03:14:48PM -0700, Tony Luck wrote:
-> > The original implementation of Intel Cache QoS Monitoring (CQM) planned
-> > to integrate with the "perf" and "cgroup" subsystems. With that plan it
-> > made sense for parameters from CPUID to be stored in fields of the
-> > cpuinfo_x86 structure. But that plan was abandoned and the resctrl file
-> > system user interface replaced it.
-> > 
-> > Centralize all L3 monitoring enumeration within resctrl in preparation for
-> > removal of resctrl fields from struct cpuinfo_x86.
-> > 
-> > Signed-off-by: Tony Luck <tony.luck@intel.com>
-> 
-> [ ... ]
-> 
-> > @@ -132,11 +133,9 @@ static inline void __resctrl_sched_in(struct task_struct *tsk)
-> >  
-> >  static inline unsigned int resctrl_arch_round_mon_val(unsigned int val)
-> >  {
-> > -	unsigned int scale = boot_cpu_data.x86_cache_occ_scale;
-> > -
-> > -	/* h/w works in units of "boot_cpu_data.x86_cache_occ_scale" */
-> > -	val /= scale;
-> > -	return val * scale;
-> > +	/* Round down to nearest h/w monitoring unit */
-> > +	val /= rdt_l3_mon_scale;
-> 
-> I wonder if we should take this chance to check if rdt_l3_mon_scale is
-> 0 on broken hardware?
+Reading a device's waiting_for_supplier attribute while the device is
+being probed hangs the reader and the probing task for good if the probe
+succeeds: driver_bound() removes the file under the device lock,
+kernfs_drain() waits for the reader's active reference, and the reader
+waits in device_lock(). The file is world readable and exists for every
+unbound device with a firmware node under the default fw_devlink=on, so
+any sysfs walk during a probe (udev, a plain cat) can wedge a module
+load and everything that takes that device's lock afterwards.
 
-RDT has now been on several generations of CPUs and so far h/w hasn't
-been broken in this way.
+The device lock is not needed: fwnode_links_check_suppliers() reads the
+supplier list under fwnode_link_lock, which every writer holds, and the
+active reference keeps the device alive during the callback. Drop it.
 
-> > +	return val * rdt_l3_mon_scale;
-> >  }
-> >  
-> > + */
-> > +unsigned int __ro_after_init rdt_l3_mon_scale;
-> > +
-> >  #define CF(cf)	((unsigned long)(1048576 * (cf) + 0.5))
-> >  
-> >  static int snc_nodes_per_l3_cache = 1;
-> > @@ -418,16 +423,37 @@ static __init int snc_get_config(void)
-> >  
-> >  int __init rdt_get_l3_mon_config(struct rdt_resource *r)
-> >  {
-> > -	unsigned int mbm_offset = boot_cpu_data.x86_cache_mbm_width_offset;
-> >  	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
-> > +	unsigned int mbm_offset;
-> >  	unsigned int threshold;
-> >  	u32 eax, ebx, ecx, edx;
-> > +	u32 num_rmid;
-> > +
-> > +	/* Resource monitoring leaf is 0xf. L3 monitoring details in subleaf 1 */
-> > +	cpuid_count(0xf, 1, &eax, &ebx, &ecx, &edx);
-> > +	mbm_offset = eax & GENMASK(7, 0);
-> > +	rdt_l3_mon_scale = ebx;
-> >
-> 
-> Sashiko warns me that ebx might be 0, would 
-> rdt_l3_mon_scale = max(ebx, 1);
-> be doable?
+Reproduced on x86_64 under QEMU with sym53c8xx as a module, whose probe
+waits for the SCSI settle delay: a read of the PCI device's
+waiting_for_supplier file during the load hangs before the change and
+returns 0 after it.
 
-That would silently hide this theoretical problem and give strange results
-to the user in ways that might be hard to debug.  Better to crash the
-kernel with the divide by zero. Debugging that would be easy and quickly
-point to h/w as the culprit.
+Fixes: da6d647598a6 ("driver core: Add waiting_for_supplier sysfs file for devices")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
 
-> thanks,
-> Chenyu
+Notes:
+    Changes in v2:
+      - Cc: stable (Greg's patch bot: the Fixes commit is in a released
+        kernel)
+      - shorter commit message
+    v1: https://lore.kernel.org/all/20261018001837.797946-1-nickolai@csail.mit.edu/
+    
+    Lockdep does not report the hang: dev->mutex is lockdep-novalidate.
+    
+    Every writer of the fwnode supplier list (fwnode_link_add(), the purge
+    helpers, __fwnode_links_move_consumers() via
+    fw_devlink_pickup_dangling_consumers(), and the cycle/link code under
+    fw_devlink_link_device()) holds fwnode_link_lock, so the walk in
+    fwnode_links_check_suppliers() needs nothing more.
+    
+    Reproducer (x86_64 defconfig + CONFIG_SCSI_SYM53C8XX_2=m + CONFIG_DETECT_HUNG_TASK,
+    QEMU with -device lsi53c895a,id=scsi0 -device scsi-hd,drive=d0,bus=scsi0.0; the
+    PCI device has an ACPI companion, so it owns a waiting_for_supplier file until a
+    driver binds; sym2_probe() resets the SCSI bus and the synchronous scan waits for
+    the settle delay, so the probe takes "settle" seconds). Busybox /init, with
+    sym53c8xx.ko in the initramfs:
+    
+    #!/bin/sh
+    mount -t proc proc /proc
+    mount -t sysfs sysfs /sys
+    mount -t devtmpfs devtmpfs /dev
+    for d in /sys/bus/pci/devices/*; do
+    	read v < $d/vendor; read i < $d/device
+    	[ "$v $i" = "0x1000 0x0012" ] && dev=${d##*/}
+    done
+    (insmod /sym53c8xx.ko settle=8 && echo "init: module load done") &
+    sleep 1
+    (echo "init: read returned $(cat /sys/bus/pci/devices/$dev/waiting_for_supplier), attribute access done") &
+    sleep 30
+    echo "init: after 30 s:"
+    ps | grep -E 'insmod|cat /sys'
+    echo w > /proc/sysrq-trigger
+    
+    qemu-system-x86_64 -cpu max -smp 2 -m 512M -nographic -no-reboot -kernel bzImage \
+        -initrd initramfs.cpio -drive file=disk.img,if=none,id=d0,format=raw \
+        -device lsi53c895a,id=scsi0 -device scsi-hd,drive=d0,bus=scsi0.0 \
+        -append "console=ttyS0 panic=-1 rdinit=/init loglevel=7"
+    
+    Before:
+      INFO: task insmod:72 blocked for more than 10 seconds.
+       kernfs_drain+0xf6/0x170
+       __kernfs_remove+0x188/0x250
+       kernfs_remove_by_name_ns+0x78/0xd0
+       device_links_driver_bound+0xd4/0x350
+       driver_bound+0x46/0x180
+       really_probe+0x1b1/0x360
+       __driver_attach+0xfc/0x1d0
+       bus_add_driver+0x15c/0x270
+       init_module+0xc9/0xff0 [sym53c8xx]
+      INFO: task cat:79 blocked for more than 10 seconds.
+       __mutex_lock+0x395/0xa00
+       waiting_for_supplier_show+0x1f/0xa0
+       dev_attr_show+0x17/0x60
+      INFO: task cat:79 is blocked on a mutex likely owned by task insmod:72.
+      init: after 30 s:
+         72 0        {insmod} /bin/sh /init
+         79 0        cat /sys/bus/pci/devices/0000:00:04.0/waiting_for_supplier
+      (a power-off afterwards hangs too: device_shutdown() takes the same lock)
+    After:
+      init: read returned 0, attribute access done
+      sd 2:0:0:0: [sda] Attached SCSI disk
+      init: module load done
 
--Tony
+ drivers/base/core.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/base/core.c b/drivers/base/core.c
+index 4c0c373998a1..a3a28d83d339 100644
+--- a/drivers/base/core.c
++++ b/drivers/base/core.c
+@@ -1317,10 +1317,8 @@ static ssize_t waiting_for_supplier_show(struct device *dev,
+ {
+ 	bool val;
+ 
+-	device_lock(dev);
+ 	scoped_guard(mutex, &fwnode_link_lock)
+ 		val = !!fwnode_links_check_suppliers(dev->fwnode);
+-	device_unlock(dev);
+ 	return sysfs_emit(buf, "%u\n", val);
+ }
+ static const DEVICE_ATTR_RO(waiting_for_supplier);
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.53.0
+
