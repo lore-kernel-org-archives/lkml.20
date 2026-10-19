@@ -1,126 +1,149 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6603839D6EC;
-	Mon, 19 Oct 2026 12:52:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15633DDDD2;
+	Mon, 19 Oct 2026 12:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414339; cv=none; b=JCIqlvOH3maJNVa2x6R+vUKsuIBNKaP9HgvfBftPe9FpWqdtDOvXhS1LnuG4SDYc5yCb02POxSu+rE4InkHx955UojTY9MyAkqYyYD1YmE3oMXT4ykQiRpHT0n4uxs9t9wBPn9DVDqxYXdSNv+KWTNe0LckXle0MgWRui5vZ1bI=
+	t=1792414355; cv=none; b=PIbOpbTpmolv4qdbaVUYMjzOdyU3o3XMekJr21qT+ER48FICMTq3lvCVkgtq31GgQrPVMHRdx6aJ/DQBZERggxyD4ivYa5fOjrRSrE3UYNX7mWWPfOuzyTwoB2ZT47OUWM1E3JJkchDxxTz13nzVXC3C0HIKDlKjtJhgPznoTQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414339; c=relaxed/simple;
-	bh=UvnW/ptFCVa6iQGyAM0E5xT9G7n7qsnHLg33EU/MtTg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nqet4a9CBoaDudyiSKp0Brl4L3sVBxNHZjMKMUVmbuBEJL2L6HMDKtsj3zIIU51WBF7pKSkQFgh51Ia163mUDxf14El7lt20Ml0NSRmktAL3NIOKP90+ZoGRs4KVyUGqTry1Ykb9/1rerq6jQ95zJ+VXJ2RXY13yOjuaSNr+X0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=g4SvlhnW; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1792414355; c=relaxed/simple;
+	bh=w2VeGlZBbxG5ZCWetKbFg1zbEFOtnl5wOp6izwN0bcE=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=Jff9jMaQ8L0VC0hcLmdL3VU/E4sbeaoWOs8FgCew6ZK6lbIkwtjBevofD0ROO/GVpzY3AozFkwlSg0alK2/EgY3fgHp5/wWjh8O8lIStl5FxleIBIXbGBBM2pP1tyIcVTO8/0aK9pkiZBw8L5W1bBk5wNjoMY8UfkQb1/w4ocIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=ujuL6CZX; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="g4SvlhnW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=U/XKh6GM1z/aGHCctk0Rw56ql2dui7YkAPDZ0Gsb3Qg=; b=
-	g4SvlhnWYEClp9ivcUM0jIP5DKxNAErNqCeiy0FSCi3oV6rccrH9cv7k+DKj3wjSN3rIF7ey3bTf+
-	ZV50wvHpWFThIA0CzBsxeKqXPnbhRqYEIhpTNbkhn7M5vMzgZ3z2OdO1sXtmbZJXWreb/owYT2E4l
-	tTR3ya6vZxg/KkS72s+ANQjSWguHZLVJpTUM6a51cfxsRfXKvqy6coc7ocEG32Cxthd1+hODoQ0ZJ
-	lsBucpqJmKiFfkZqnJNvvb42WgbA3SgJik1eMO60GI9LIN6G4LKo+YZXdIB64WKBcGNgnDjyMkFEC
-	Bc96EO+OZ3WS9SNmHInNso82wIJWQ7S2Gg==;
-Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xImqS-003Tpz-PJ; Mon, 19 Oct 2026 14:52:04 +0200
-From: Luis Henriques <luis@igalia.com>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: luis@igalia.com,
-	mszeredi@redhat.com,
-	fuse-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Matt Harvey <mharvey@jumptrading.com>,
-	kernel-dev@igalia.com,
-	stable@vger.kernel.org
-Subject: [PATCH] fuse: fix 'inval_wq' parameter setting during module initialisation
-Date: Mon, 19 Oct 2026 13:53:29 +0100
-Message-ID: <20261019125329.17932-1-luis@igalia.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="ujuL6CZX"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D4296A156C;
+	Mon, 19 Oct 2026 14:52:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792414350; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=sTQ3s+VlvanVN3XiSVNNqOr6UbCLcC2uXpq+HoxI8yc=;
+	b=ujuL6CZXalo6dl7tL/6ltG4pKz8ikd8pFuS2aTt5Un/30uziovbwzuhPVV5gBA9zmEx+Y4
+	S79/WcnjeZ32BqiOkIgl2EdHBMIzwHHyLzmhpF6+5tDZxmojkHi78f1PuGnFdSXPq55HSq
+	V+KTKQaomc4+BDpUMeo2Fbr2UjcnMozEkKeLZykw6VcPJrpFK5vEI4qWDhLqBK4o1fIXEp
+	oaX8QCKqF/1z4HUwxSIJ3Ju9ZTcO+rMVSVtbTGivtE1Y/hvnVN93r+tQI8/CHgo17Rcl+E
+	GKWSakVoVVQsb8DxzWEIvcN16uT/t7+leyeB34XbkSf7JiwpuzxjUZWzfWAeFw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Mon, 19 Oct 2026 14:52:28 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Paolo Valerio <pvalerio@redhat.com>, Vladimir Kondratiev
+ <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
+ <gregory.clement@bootlin.com>, =?UTF-8?Q?Beno=C3=AEt_Monin?=
+ <benoit.monin@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH net-next v5 2/3] net: macb: implement
+ ethtool_ops.get|set_channels()
+In-Reply-To: <20261016-macb-set-channels-v5-2-90ce0c0b8e75@bootlin.com>
+References: <20261016-macb-set-channels-v5-0-90ce0c0b8e75@bootlin.com>
+ <20261016-macb-set-channels-v5-2-90ce0c0b8e75@bootlin.com>
+Message-ID: <45fae7a00024b7d07cd3250d4f2b5b48@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-If the fuse module is loaded with a 'inval_wq' parameter the inval_wq_set()
-function will schedule work into dentry_tree_work.  However this worker is
-not initialised at this point because fuse_dentry_tree_init() will not have
-been executed yet.
+Hi Théo
 
-This can be fixed by delaying the work scheduling until later if the module
-is still being initialised.
+On 16.10.2026 18:58, Théo Lebrun wrote:
+> bp->num_queues is the total number of queues and is constant from 
+> probe.
+> Introduce bp->max_num_queues which takes the current role of
+> bp->num_queues and allow `0 < bp->num_queues <= bp->max_num_queues`.
+> MACB/GEM does not know about Rx/Tx specific queues; it only has
+> combined queues.
+> 
+> set_channels is reserved to devices with MACB_CAPS_QUEUE_DISABLE.
+> The tieoff workaround would not work as packets would still be routed
+> into queues with a tieoff descriptor.
+> 
+> Implement .set_channels() operation by refusing if netif_running(). We
+> need context-swapping support upstream for proper on-the-fly channel
+> count change.
+> 
+> Note we refuse the operation if any TAPRIO rules are in place on queues
+> that would get disabled. If we allow the operation to take place, then
+> a transmission window would be reserved but unusable.
+> 
+> Nit: fix an alignment issue inside gem_ethtool_ops which does not
+> deserve its own patch.
+> 
+> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+> ---
 
-While there, also simplify the sched/cancel by using mod_delayed_work()
-instead of schedule_delayed_work().  This will result in having the period
-being changed immediately instead of waiting for the next reschedule.
+> [...]
 
-Fixes: ab84ad597386 ("fuse: new work queue to periodically invalidate expired dentries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Luis Henriques <luis@igalia.com>
----
-Hi!
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
 
-My initial approach to fix this was to use DECLARE_DELAYED_WORK() to
-initialise the wq statically.  But this would then move the problem to
-fuse_dentry_tree_work(), as the worker could still be scheduled before
-the module finishes initialisation.
+> [...]
 
-Cheers,
--- 
-Luis
+> +static int macb_set_channels(struct net_device *netdev,
+> +			     struct ethtool_channels *ch)
+> +{
+> +	struct macb *bp = netdev_priv(netdev);
+> +	unsigned int count = ch->combined_count;
+> +	int ret;
+> +
+> +	/* MACB_CAPS_QUEUE_DISABLE means that the field QUEUE_DISABLE/BIT0 in
+> +	 * the per-queue RBQP/TBQP registers disable Tx/Rx queues. If we 
+> don't
+> +	 * have that capability we can have multiple queues but we must 
+> always
+> +	 * run with all enabled.
+> +	 */
+> +	if (!(bp->caps & MACB_CAPS_QUEUE_DISABLE))
+> +		return -EOPNOTSUPP;
+> +
+> +	/* TODO: reuse context swapping once it is merged. */
 
- fs/fuse/dir.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+Once context swapping is merged, this needs to be addressed in v6 ;-)
 
-diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-index e49b4e874b15..23c8259725c9 100644
---- a/fs/fuse/dir.c
-+++ b/fs/fuse/dir.c
-@@ -43,7 +43,6 @@ unsigned __read_mostly inval_wq;
- static int inval_wq_set(const char *val, const struct kernel_param *kp)
- {
- 	unsigned int num;
--	unsigned int old = inval_wq;
- 	int ret;
- 
- 	if (!val)
-@@ -62,11 +61,14 @@ static int inval_wq_set(const char *val, const struct kernel_param *kp)
- 
- 	*((unsigned int *)kp->arg) = num;
- 
--	if (num && !old)
--		schedule_delayed_work(&dentry_tree_work,
--				      secs_to_jiffies(num));
--	else if (!num && old)
--		cancel_delayed_work_sync(&dentry_tree_work);
-+	/* Only start/stop workqueue if we're past module initialisation */
-+	if (!module_is_coming(kp->mod)) {
-+		if (num)
-+			mod_delayed_work(system_percpu_wq, &dentry_tree_work,
-+					 secs_to_jiffies(num));
-+		else
-+			cancel_delayed_work_sync(&dentry_tree_work);
-+	}
- 
- 	return 0;
- }
-@@ -224,6 +226,14 @@ void fuse_dentry_tree_init(void)
- 		dentry_hash[i].tree = RB_ROOT;
- 	}
- 	INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
-+
-+	/*
-+	 * Start workqueue immediately if the module was loaded with the
-+	 * 'inval_wq' parameter set
-+	 */
-+	if (inval_wq)
-+		schedule_delayed_work(&dentry_tree_work,
-+				      secs_to_jiffies(inval_wq));
- }
- 
- void fuse_dentry_tree_cleanup(void)
+> +	if (netif_running(bp->netdev))
+> +		return -EBUSY;
+> +
+> +	/* If we allow disable a queue which has TAPRIO active, we'll keep a
+> +	 * transmission window which will be unusable.
+> +	 */
+> +	if (bp->taprio_gated_queues >> count) {
+> +		netdev_err(bp->netdev, "TAPRIO schedule gates queues >= %u; destroy 
+> the qdisc before reducing channels\n",
+> +			   count);
+> +		return -EBUSY;
+> +	}
+
+I think this can get stuck:
+
+- delete the  taprio qdisc after the link has been down for a while
+- device is is runtime suspend
+- taprio setup bails out before _destroy() is called
+- ethtool -L keeps failing with -EBUSY, even though there is no qdisc 
+anymore
+
+Something like:
+
+   ip link set eth0 up
+   tc qdisc replace dev eth0 root taprio ... flags 0x2
+   ip link set eth0 down
+   sleep 1
+   tc qdisc del dev eth0 root
+   ethtool -L eth0 combined 1
+
+> [...]
+
+Thanks,
+Nicolai
