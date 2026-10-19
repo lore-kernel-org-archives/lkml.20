@@ -1,62 +1,32 @@
-Received: from sonic312-25.consmr.mail.ne1.yahoo.com (sonic312-25.consmr.mail.ne1.yahoo.com [66.163.191.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E6D3ADBAC
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.191.206
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09055363C6F;
+	Mon, 19 Oct 2026 05:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792386615; cv=none; b=YLj2O0k3oUG6ph9md6+gEdhcFx8sBLbtMdzJJkzQW9TE6/zJm1+vi3M7Bm8fmiekmxP5gFeQSRSCdgJ9Hix1qHHPwEs/pnTtYCeLJY+1UWY2NYhgVzFD6HAr7rqGZvytoXHw32N17i7ApHCvMrQkyiTeeDvmTRRZJSY0MXb+Eck=
+	t=1792386630; cv=none; b=PQI9ikIV/AlGnl/5tcCS/8+8Sk7AOLPSsebjzPgxzQfbPC9G1iFPpfCJzMY9XgB7hz+YSKzbTLgYdGncCkoO+RFAWj61CxW/yhZBVcBIms1JMutSTEblHAHnqCTCIDzyu7GbrGTW66RwZC27IchRnFIMYvsSoiOdDgCkUtISKSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792386615; c=relaxed/simple;
-	bh=qckAoH21Ag2uf0YGlwleQDsAf9f8LWfR1FKSvJxeBL4=;
+	s=arc-20240116; t=1792386630; c=relaxed/simple;
+	bh=ZdBqok8rrBt2JcUhblYWiBRfSj38rVwAnuD3J5yeSMI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j+3cEsz7JTRTvGW/+Ngf1yGeBWMthXv3mlbv4ZTqzRqX3f+bK8pcSQdfc7WivPCpkQWFRl27ZgstqIFHxYqQW88Drs/0laj3ZSm1h5xIW2yoyDW/HTglHRN2Z7InUfn/lzwbsfIip5bwKoAbwfu9c+UEkASVVNZDUlNKwaqnTII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=A9/FBVat; arc=none smtp.client-ip=66.163.191.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	 In-Reply-To:Content-Type; b=R+RdAlUyqQSNtZav8/gh91qfgqAVJlMAttyRQm+ATscbUyYgZWBkmxOtHHlfu8AhQ5g/Pndxy4tb6Lf7Pf2ajx41NrD0ZH+eSGCogGFaEDdi3mL2xpIKjoxPoOzQeOs/QkBNL3Vo6X+0S4lDfnj7QnWmWb2xsJrTp9aOZm8kP5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=SUiSKX59; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="A9/FBVat"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792386604; bh=PqshCizSG4zH83hYBYiW1Kt2Yp5y780ZgAiv2pgXCKk=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=A9/FBVat7fiHPD5g814Ev7EKofdx4GmaRDP/EJ0fo6mBwunTfsshEIKTAHCYueHhkwqiaOzaPpgoSMLw54+/lvLBQSTIWIyOxZPoGw7MD2q1oBDAAQnef7Wm/HMf4zQq7s/nzjXY0Lr0T6sgCGB7dkf3F4bGxAkWE6vc1wDSgZzHIn3OOwfp8ufHI8TRnzhb7a1l+g3xcqmSkbITw2h4yr2yvM75O94kgRbflxV4rgJHSs49pysaCCsbzNkZPaHz5qERwJyelWsxw5Jl882t+mhAfd1LC5PIYJYiD36EgC6FGCj8Xpu3ckgga58ah1jpwFX7IFxVDb2db4IoqhZZeA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792386604; bh=pG2aRHqjBrqRTiOlQXxqNlwER5hcFkIi5yWXzw/sYM8=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=eFKjxNkXRopCTuYdE4I8HfWMYafzJgcGs94wGiU7O+gDu4J6kLrmVd7DmXbaig7YFpi6e6cQudVHVcWDXaMn6sE3tqpXz74pK0AK+/DixdAaj1fkJLEDqj1wk2VpBr7sQigA44ZLl1gZJ1+thsRj6rLuTHNDzo9H9NtFVvGVbMsCOlThHKwsl3VDT374d5xM7gq6kDLM+R/iDFupxmUfrgTvjj5BQMUIoiOjt1MoXNdL3nlOkzo6CS6knX3baUH3/Kh7zqDndaQJ1Ct13PXgButKwyVwUVOE9ygAHDjOxiKaM78xLK1FMZ3+bBLauMX0stRniNcgiTRVrGESzq+r7Q==
-X-YMail-OSG: gzTMN7AVM1nmCOuJ7Mm7ULpPsVJgIMx5bWw6AuZhDf85fGE9Tq5d8ehpnvZzYML
- xPWFWYq_V8nLaycsLEY7KZreYRjsh2x4_rSvaC4gJ8nkxFY5_6vObRrBJp3upuIVPqAegKDeLfyK
- 5pNUDBs0pYZCQ5fxu4seJ_rlGfJ8klg0MQH0VpXmo6DaDp3SaVsC6FR4Da9E_znvGEsJ4E4d3rx6
- wU8kkWWnbFKhwMiSNnju9THSgb1gpjlRAfPkmVYPUZg.zBDayvvZ_1DzsG9wiXB3fPGFRI8P95JX
- xHiXG697uUEl1nQVdD_6eDNEjBvk7AobwartQBcZZgCDALzgD30wUew3gTBQC_WC1L3tHkLAPeK8
- qwqq_eXXDd.l6ExKZct.uqY0lna7dnEEzNo3F_QQR0AvO3R76rUGrCBEBhg7Ozvf2VyESlCE1j3n
- yT83Gk5lmWZuBvbttOiduyYXGk9VliTAvLqaqbl.k6OiPe6gRszgWw0vSXiMSHqEbGdMEOLAMOab
- VzIzdLw.JMgwI0EYqy0tP9DyZRptZ48Er46bWFXPfvBu56Hv0aKQe9sZ.4dz5VDMMdC7ersLjx7p
- W88rprvmmiUAMCGDjkWAi20P1rkYP_HC3QaQxfHBn64ccFDFjrTA4SNwDkH2nhpp_9svpw7fc9xj
- Lads00mjank.6yjOdvTvlVGq_dPlB21ihK5NEIc9JzLSVbXpwNcODDhtNf584GdnShlS9tTKHKYS
- GYgFbepyhuCp6uqbAv_MKS__nCMEsKI24AY_vl7I.QWWVpM0irw1pyCyUHsyRnPpVL1lY4YXvFmf
- WaxVNzOgTgpIbg5fRR5vA0RC4dpxE3m7zh.zfXlLcYtBNUPBXZnu3ErD3nqkWTh3QFj9JW7hwPcR
- kfqIg5RQLZnxfsvcfj6T9YjdYKwSzadczWg8qW8MdHQU93DmwPWeQTyQGVF0uD7idUwXlZ_OxWTs
- TKh7TvR2umLHVSo1KExAbGbriffDPmvrJXO8VyG5mN08Gg1UQAjVB._rl1P2cFWAmfAK8qpEDCT5
- Hdz1BjCTMdpUk_Wb6n.jJJiryY2LQqddJJ8vkJOHiflIc5zzSbkEFwP8mZE0eTkAGs7bcWQaGRuV
- QmNttl0eJjiLoaWyh66XOURbAx2vgc8cn5LfC0Xt8fNAX7Xd.CRe5VTm6IGhjtYAVRYZS2p0aW7Z
- 57fZ6mVJegrERZTRJJkpc95S4pCmigpjBKp8RCj.JFY9QfjM98q0kA4Oriyc4bH2kyo.VKhbQmQl
- Wx1wqCA_CIOdUm1rLYUbdgRdCmpuzetr3RHTGVQrsKy3VxhcfBEDX2PgZuBxPiyW7fih4d5W1Hjb
- Jw5coI8U6HJZn13AkuLfoiIhMbORK5BDEYcyyfSh69dXJMW8zqyCJjTDiDn2p47vVpwMxVHr8wWt
- tK66Kn0LCoavL3RWTSpVi5ah4lgMxJZrMCv_pGzPWBzr0rkl5NKAOKwKBc8TF1kd_T7Ap_hth1.n
- CAnrAYg4S5p67c0JKXW6ELiN_a90H7ft0CKBt.UKRPKVsTdK2cxdxwluF_euXgTp9fPp4grClXZG
- O3ZAundmbRuG4BWJjeeYjLvqHfFZ9bd0IJstd2F75eYZt_8X7LniQ8ctMVyUN7GNt.PA4FDGcWRp
- qG5D_ZnOO2LrrA.VNZTk5EPit804fzgb1x8WpnmqzM4Y9eoT95SWRclQO3LxfZVmJykNRjBXsm36
- B7bq7v2atqZl2qa6nhxYKI70.uEw9iMMvuqHGSLFpi7eTTOUaJLOqeBkXjxlQGdvq9Dk49ULD27i
- EMnfrTQJ8F9aUlWyey66LeUfe4JnVojkWj9deZpx8wUr85wmtRapbwF49kDE6s6OOXL9jPzz9SdF
- CpdcaECRsGFMvbjIhFZxpDqmPjCWddXwO0wfnCU0YUCSAM.ygoE4cZg8Q5aYdbyy3yZwER22F3rD
- XMs4_F8b40oVB408EHicjFdW47ndNafCFf8JGjCzhkTEkpaLy8PzajrpqpsC9MrXeEfkwlCBMach
- I7rjfta3e7xqi12lCSfaxlsbrZ78OHAMTOEuFXA.W_ZkzKbtBmWvYhOY2tDtaD4RI7O0Hh4ryDAN
- 6iDNwpCRO5WrulgWkt1IrC04zawFbJD9xXgQJWJyGA.I5FoleYMuQyRMujm.DH6RAOXdLlfftdWs
- MMkWZhjWChdOSBdL5lvWGk9vh4SvaKhVbWUILbnYLfxsnyHXjKulicL55_8Y91Fo32iscCT23KpH
- ktpzwIIQfXzGu5uQQEVJGI3LYP03IkUQJU6xUwYoG9Q43I9.hysAuLUiAlI38XanBYuuwMOkatmd
- wYtBsTHWKvwoVbiyUWzVa6XftuUQSBUA5Ijh5nxVspQ--
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: b218638d-e80a-47c0-a190-bd8a68584711
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.ne1.yahoo.com with HTTP; Mon, 19 Oct 2026 05:10:04 +0000
-Received: by hermes--production-bf1-6d6877594b-clgz5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 09854f4a961b13c1c315fe5d98a68053;
-          Mon, 19 Oct 2026 05:10:00 +0000 (UTC)
-Message-ID: <9124a33c-55b5-4c7a-b8a7-25d0bd4e6936@yahoo.com>
-Date: Mon, 19 Oct 2026 07:09:44 +0200
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="SUiSKX59"
+Received: from [10.95.64.89] (unknown [4.194.122.136])
+	by linux.microsoft.com (Postfix) with ESMTPSA id C50A120B7168;
+	Sun, 18 Oct 2026 22:10:07 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C50A120B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792386610;
+	bh=99zGf1UYeMzipFM7ppAzhWPhBXUh3NmiRWjzT7zkbPc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SUiSKX59v4tiWL1TL1YbR6clUagEM7Os6Z9nDT5mR4w0Wi81mX5NNq9+IAJoRRn82
+	 H5Ydazoc3uJqhwfpkb9Eu2MhOPsWeD8dDuZdradenAB3U7kCK/4gkiZKCGTirZ7svG
+	 6x2AE/9XwWzwptv3DtuHeQ89DhOJ35AG/oJmG+h0=
+Message-ID: <b88b0341-a732-41e1-87df-4f0503df39cc@linux.microsoft.com>
+Date: Mon, 19 Oct 2026 10:40:11 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,81 +34,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v6 0/9] net: dsa: realtek: rtl8365mb: add support
- for RTL8367S-VB
-To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04.ref@yahoo.com>
- <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
- <CAJq09z4kKcQ+idfP+19pogi-H5s07SgKO-CGg7AWX8An-9p4Fw@mail.gmail.com>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <CAJq09z4kKcQ+idfP+19pogi-H5s07SgKO-CGg7AWX8An-9p4Fw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] mshv_vtl: reject poll files with multiple waitqueues
+To: Daehyeon Ko <4ncienth@gmail.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>
+Cc: Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>,
+ Roman Kisel <romank@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261016061114.1686153-1-4ncienth@gmail.com>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <20261016061114.1686153-1-4ncienth@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
-
-On 10/19/2026 4:44 AM, Luiz Angelo Daros de Luca wrote:
->> This series adds support for the RTL8367S-VB (chip ID 0x6642) to the
->> rtl8365mb driver. The chip belongs to a new "family D" that differs from
->> the existing family C in its VLAN table layout, speed/RGMII configuration
->> and SerDes (SDS13) handling.
-[...]
-> 
-> Support for Family D is very welcome and increasingly necessary, as Family C
-> ASICs are no longer being used in new designs. However, the current support
-> still feels incomplete in critical areas.
-> 
-> When porting a new switch family to rtl8365mb, each feature and hardware table
-> shared with Family C needs to be verified against the new family's register
-> layout. In particular, this series leaves rtl8365mb_l2.c untouched, but the L2
-> table layout in Family D differs from Family C (from memory, the table entry
-> format is 1 byte shorter and the bitfields are organized differently).
-> 
-> Passing basic traffic in a default router setup can easily give a false sense
-> of stability because the switch starts forwarding with factory defaults.
-> However, as soon as DSA attempts to configure FDB entries, dump the L2 table,
-> or manage multicast groups via bridge operations, the driver will interact with
-> the L2 table using the wrong layout, causing silent data corruption.
-> 
-> To make Family D truly upstream-ready, we should adapt these shared components
-> (especially L2/FDB handling) or, at the very least, explicitly return
-> -EOPNOTSUPP
-> for unsupported operations so the driver fails gracefully instead of corrupting
-> hardware state.
-> 
-> In the cover letter, you mentioned the test device. Do you have the Archer AX55
-> on your own bench now, or were these tests run remotely by users?
-> Exercising full
-> DSA functionality (FDB add/del/dump, VLAN filtering, STP, flooding controls)
-> usually requires a dedicated local test setup where you can generate, sniff,
-> and inspect traffic directly.
-> 
-> Best regards,
-> 
-> Luiz
 
 
-To answer your question: no, I do not have the Archer AX55 or any other
-RTL8367S-VB hardware on my bench, and I have no test environment of my own.
-I cannot exercise FDB, VLAN filtering, STP or flooding controls myself.
-All testing so far was done by other users who run this code on their
-devices, and I depend on their reports.
 
-The code was put together from the Realtek vendor SDK, the existing swconfig
-driver code and the help of other contributors. It works on the setups where
-it was tested (CPU port over HSGMII, bridge VLAN filtering and per-port
-PVIDs), but I could not verify the shared parts against the family D
-register layout, and you are right that rtl8365mb_l2.c is untouched.
+On 10/16/2026 11:41 AM, Daehyeon Ko wrote:
+> MSHV_SET_POLL_FILE invokes a file descriptor poll callback with a poll
+> table backed by a single embedded wait entry. A poll callback may,
+> however, register the table with more than one waitqueue. pipe_poll()
+> does this naturally for an O_RDWR FIFO.
+> 
+> The second registration currently warns but then inserts the same list
+> node into another list. The new insertion overwrites the entry links while
+> the first waitqueue still points at it, corrupting the first waitqueue and
+> causing an invalid callback traversal when that queue wakes.
+> 
+> Reject a second distinct waitqueue, remove the first registration, and
+> return -EINVAL from the ioctl. Repeated registration of the same waitqueue
+> is treated as a no-op. A rejected replacement leaves the CPU slot
+> unregistered, consistent with the existing remove-before-register ordering.
+> Single-waitqueue users such as the OpenHCL io_uring poll file keep their
+> existing behavior.
+> 
+> Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
 
-Without a way to test, I cannot develop this further responsibly. I am
-therefore leaving the series as it is for anyone with the hardware and a
-proper test setup to pick up, adapt the L2/FDB handling and the remaining
-shared code paths, and take it forward. I am happy for others to reuse,
-rework or resubmit any part of it.
+This tag is no longer valid on latest linux-next tip and gives 
+checkpatch error.
 
-Best regards,
-Mieczyslaw
+Code changes LGTM.
+
+> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+> ---
+>   drivers/hv/mshv_vtl_main.c | 24 ++++++++++++++++++++++--
+>   1 file changed, 22 insertions(+), 2 deletions(-)
+> 
+Regards,
+Naman
