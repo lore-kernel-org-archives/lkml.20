@@ -1,111 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443644;
-	b=2ZRUvh8kWvRmHiC3cv1xCigOcCPeK/ejMgSE1B9JL4Glprm20NiBmqE2HbMv88AUnmaX
-	 9Odx7iiD8gpZX+w59vLWSQ4nGUK3SOctW2o3Old7UDsI1y+xyySFx6gs0kKwl2dtCNLSH
-	 SuP7UacghvyWgwuaeLx+hPn7OdY9hRjtTPU8UqQ30JZxrgXHEGq9r7rkFqUb3aOOzaSSs
-	 O7jWuUMa7yVV+hKzymGI2z/OcOydSZOXRn12rM2OXS4qnIoxG83OfrkLVSBiUxTo3fdHJ
-	 hyfNMH/GgjxHSs1wC1UlP0GEfB4IOHgCzOyp6bTCZ6FqEon5Cy8UEGtPI+2cU+CPsDg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443644;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=KjyNIbmhJtLcX8pLZ9sLexkeYj/mpTZVno1qnq8Ygn4=;
-	b=TyexK7Oh4QybAchBceOerhV1eF5sozzNmYaem/n8VQRBvFh8BFAd1ktpKk2IeEbNYAFZ
-	 U7PTUztV6zf8hzCh1aPZnLe2iynUJ6TwOB7FdrGsVAUhA3NFLSHWLqH8E6fa67ftl60vC
-	 siYMEI8k7WnvjXhsacNiHiPgLFLyvt5ym2RQS1gjAmRxvqovetE3giESYm18L7u3Mh7x/
-	 ABYrsjvKqFqqINypPHI02JAUJ1Ti6Z+EG8EMHnFHQo9Xo+nE5lzAD1hh4JGV1I2TpRxWX
-	 NJvn2mGbI8bvZzdjskPRlVEJNG275pM7sk38zD4Z/a1h2Blx+dKVwIXAB69exUxIDTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=NlfvGiv8;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WrfnrLNV;
-	arc=none smtp.remote-ip=103.168.172.153
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.61
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792443687;
+	b=uihH08eSd7TC2a+p9lip34IFkvQ99/sCOiuU0kmx/3Dbv6x2rAsA0bmsZwdb2cgTMfrg
+	 jWkwS5jbniGPeaMLoxBUGuVBY7us7wcHAAzMpBGvyVFo/dalwojVV3wKiXslnQ2C2NO7R
+	 kaB+c1mlF3mtU8AwCUrelz/ry8ReTKRxDVYilmhYJFOQrbneW0H+TR+IBCD1kNkjtQkHL
+	 zODduhzwRzs0JL1bdX3VQznEbE+pqDfXynNu6PMxm0sO2DhdfG91mKDrYjve9/VhzBMsN
+	 bzk5MUz9mYMYgVYGDt46TlNkEHSaaCVUGl54aDvfHSRLirq9nVOLrOCxfRmDb/juVZQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443687;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=O5sU4mbAV9wmgoqRwzc/JMHHiOlH0VK8wQiIZnz272w=;
+	b=vGuiixuma9CtYtFZWWBazpj/7IJ9XwSejKtj1wJj8a5ai0ocoegnQYLUWMh1bGjQDikO
+	 Yw3xQZkw/sXcF8tby5bflIYxZ7ImS1tDvEQUcyPtKpW//HMBSwG54ZnDQDBg8rQsBZMaZ
+	 pxzVslxRYAUpZpZTBzQetCTSpcKv2rG8lnD6WaJzetJI2/X6GAi0N1z2ToTlYwVHG8tUH
+	 wx9PNUDMqSRiSEvCcvcY+ISiXW9LG4fcFKJkVAdI1xMzmooer73lpdN+cItLbQ7IuMo9M
+	 yHOHWzMFfItcqEqFAoNypzKa4ZuUFa19yfoSH1tWcgCndA+CbfvEiFQTPE/bgWCZjBA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="wXkq/qXN";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.61
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013061.outbound.protection.outlook.com [40.107.159.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676B9606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:00:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 676B9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F124606A31A;
+	Mon, 19 Oct 2026 21:01:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F124606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=NlfvGiv8;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WrfnrLNV
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 5313014000F6
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:00:42 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 17:00:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792443636;
-	 x=1792530036; bh=KjyNIbmhJtLcX8pLZ9sLexkeYj/mpTZVno1qnq8Ygn4=; b=
-	NlfvGiv87wLUx55iLNkrJHukPCiAn8jxJ9rEnyXxVo2xqwv5GZzIKtWmURYOE8yU
-	NPUcTketCznRPQhdVHA4XmbuX1nemQxQ5Qn/Bohkacv8Brv2BTTgoFHbo5wilwjg
-	CfC1c3AioWC4tvXzLOHBIX4LDacrRSL9wpOK9q9Q9s/Sf873IOFDRc5HJPjttWAc
-	Qvzt7yqUyuL0L8w/Bc+lZwh4qfY5w+3G1lroqzU76sfb2yPHFOaspyLbvdl0mRpk
-	A+GyGFrvR/roOoeak/Hg8zJZ8/ihgqiUsJLDLpqgtTKuGrZP3HCKBjD8wQrfNMWU
-	oWxAemsVm9ULYDhCObe7ZQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792443636; x=
-	1792530036; bh=KjyNIbmhJtLcX8pLZ9sLexkeYj/mpTZVno1qnq8Ygn4=; b=W
-	rfnrLNV1xkUum/cIM2H4wnj/2xXn/44IwjgBeYbgpfHjZTVGFgl+KCoZuyJNcx0v
-	4UzUn0+DYWIHKjnGv6mjAzUjMKeS3XfGDeG3dkuWl8iWIF3/Rb/xN8+HH/LlQN3x
-	TzHQx9IZnwLXMxmnJ3bjIdJa7RXlT3y2x21OiPYg0RD64imS7z6WSsY28YgjUS7d
-	7DgO5wXETOLg53x5DXUNHbhtnRCTPIcjpUjMqlOLvC5Tq3KVxlw8sj0o85VXZuco
-	8B9NT1YTR+ssKsCghPsZ2lLltsLoZYhLJgvf2RusfevBqdwe6T4k+tZU4U2xSNvU
-	fxR9Y6JANuOkaXIRWapGg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792443636; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:EQV5wzozN2WfkzDBI/5PEoOZUEuFOihFpxwsrD1Pz9yl9J9
-	hXogwOY/vHyI6ZnQ+PAC/FySNW6FrfWKxBnBMNcsb65j+CVxtvTtRBlaoy1TIeQD
-	ZEoYXhL/wsMgezsiaXJq/nemGrLpfD+40mnaKy6psQAXS4Z3gwWBy61xgUhs+Ypy
-	Efo7MrApKars/SLkwkyYMMq4oYdnomMwkJNaUK4KYuA0tm1O7ZfV/O5TrEe1A8Q0
-	5HSyPDVqCAKlhn04ka2WXAQJmIkFTorvWll+BiihFmyF0SAHzHIaSl3t97CjRI78
-	codfWZ9ct/sY3x9wDP/f+v9KVybudIh/gVWGTfA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:aNDAt1XYLWPxHqJwyBq7uIiI/zuEkt/fNVS+1sXAqpM=:kYpvSA7z0jmRXB+66iahCPiBJK7tWHdPhI2uILtlB3k=;
-X-ME-Sender: <xms:7ITWap0z4u2v8L0_7zEIxNP15MJE8QDxhimtwo80La4TrlEua1e9Rg>
-    <xme:7ITWaq7b-RlV5jcKm8GtGtB6QkA7L4eBG7vlSRF36CwxvjGydpTUJlNnQrap9AjnR
-    bcLmyb14wcg-D9e6BZPj6Dfk6RKo4sOmWVhYZb3BtmN6_OPyOcPWf0>
-X-ME-Proxy-Cause: dmFkZTEo6dAhbFojSRKShBA8egYb1rceYDkNZ+d81fcczEF78+KBX5j9Q0VwT52aX1Gbhx
-    jJBYW7lkrZiV5vE+4yKFqHJgaVnGi82bgLLVXnN90dy3IzAjthsHn+T1BR6uRPLKHtofHt
-    Pj+6fSe9YJd+gqAufjb1e4t1k/bTNzXosjgzVhtQEnd/ZJ1eEiobM8zgCIekfVomHimJ6T
-    8dPgpffcCM4LluEOgxLY2wM+5GJb8sjse8Hhz8N5UrZeavDOOmpLHoIBVztT+GPSjo9uCg
-    wO+FixwxxVFUdNdvz0VRUC2vw9SKosurzhAn4Iis+fevCAJEDPNnSJy7F7uP+jzflNSVSR
-    7VZzavN0B8UIz0TEYciVEDa2niMMFpoZDSf/oRwbvV7s8F7w8eB6UVkrx8bRFV13n4Rkis
-    XOW3yRgD3RqA8Xwhu3d/OarXZAlSVxTm+jYMO9kPesMRjROEluntbT/bnnFZfqo+cpqYF9
-    RLy34HUq7y1PsZdaJjY5S8EkdII4zGBVlPGnZJCy3xJCW4iGO2aEcW/8Wlo9yS1cjPe9RQ
-    MIQ2PsHh6GpWbzqSsX5xQGX/qnkYzEKAwdeGUM2drMSkpJeXVY5DrCb5tPi7ydOgZooDoZ
-    Bc3zJHyPSK+sNpeHzWnU4iJ4YD+VRCR3kXdzmYefNgHT+o3lzIdweoSqJbNw
-X-ME-Proxy: <xmx:74TWaiu_rjGta9nry98p--0aFKos5oeWOZsiRwEc2PmGPK_b8tvEWg>
-    <xmx:74TWavDWXQMq-L8Tj-39-qLZ90Klwf3bKytqKhsGe53GebwnXtCgcQ>
-    <xmx:74TWatYu-x3nhR-d4Vf-eahVel10emTHxUWBNMzRtPM5SyLfAww1Sg>
-    <xmx:74TWap-UAuVI6Xmd5xx753uT41fqIRKbDD8szuKgdFU5JB_fy1cgXg>
-    <xmx:9ITWaj-_K3V-Jc8woFiKx4c0ws9l441VjmKtGihonOpP9E6Au-CXOmyv>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id B0A2F32A0096; Mon, 19 Oct 2026 17:00:28 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=wXkq/qXN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sYSlieKZRBFl9zInU2cygmxxHpwXaTp07knniWNIJW3vW1WzkwRJBkaIn7VHtptSQhU9tUFGcmC7k/upmpFtEkby58vTrEcoqI97q3RY0RVRqT5ubqxXeo6xXYunv5q0FDPRgvymmwXKmSZWQeZFQzDrXMf+bl1pcmO/TW7c0/iNa5DNSbphOnIAKphwQZyeO3UB1FsWbDE0tvpeAPmiX6O9K8Ijb1IVZsuSTwH5C8bTEvsqRCZ+YpcuROZ6Fs3vu9nCBkb0P2ZtZqEsJ2dqXqfMKQYUmtETev4B9eAHbVM95yCpGBwIKA2XqGxS2tBQFYkhWkxdDIHpxqu10wLiSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O5sU4mbAV9wmgoqRwzc/JMHHiOlH0VK8wQiIZnz272w=;
+ b=thwcjSZF2YnO4vEXJlSzG1hCqXHKbBrD1MnERDLn2+r/LxnSchjuwchqnhHIIWw2sAbZ3Dn7P6KMUUj+hVIzRX8d5ZEasW6c6euqsoO1TPjZZlWq5vfvcKbzJcSdqieKSzk52zvBT+/bgyd4SdgE6uh/ysab2ix3G9oBfv+yoGCJPGK9F5ghVft1+baGRPrrdHak07KvKDknQ19qAPPgYB0Nr0SpoZYV7DYV6liMhdV66HLRfyPTHlVuEmgPnxzkT/InwQ/TI7/EVMWVXOFumdx7aca1qU5jjS0LiOqrmfJeHv4zrmeKg94rGkXTn772osZHYHDdvGHVduErUB96Tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O5sU4mbAV9wmgoqRwzc/JMHHiOlH0VK8wQiIZnz272w=;
+ b=wXkq/qXNdr92+Hr0eqHbfsA4HfbTk182PtDX4tft0hU5TPDR1JjXN4bBmZ89tzV8/bRO/IEN864X5TG/xrI7tIb8tkidDaT5BrmvRJNxN3kSQ3ZAvbi9HYdrOVFwdiqQEGZYEeahUJw3QvzqZE7tqcctwhwxOXlmv9IRLXHx0S7YN4J5HSLGYtoB0hZjWOodAOTXmkNqIMPAten8aT37ZI8RURSlV/jqDUoDJVnr/f7OYxjGxJ3meyDQFOxg8AwC8/EuI7r+Vf3rmwMeYx3MXQwdWKGI33SLWHE4XtBD3zLr7F73ko+yWdVjDbtKmt4oS0JTlEPKqC8e5kXjLJcKig==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV1PR04MB10605.eurprd04.prod.outlook.com (2603:10a6:150:20c::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Mon, 19 Oct
+ 2026 21:01:23 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 21:01:23 +0000
+Date: Mon, 19 Oct 2026 16:01:14 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org,
+	Frank Li <Frank.Li@kernel.org>, Dan Williams <djbw@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: dmatest: make wait parameter reads
+ interruptible
+Message-ID: <ataFGmkPoDIYMX3j@SMW015318>
+References: <20261018175606.38045-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018175606.38045-1-kmehltretter@gmail.com>
+X-ClientProxiedBy: PH5P222CA0006.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:34b::6) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,161 +97,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AICZ2hJ9SF6o
-Date: Mon, 19 Oct 2026 23:00:08 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Ian Rogers" <irogers@google.com>
-Cc: "Marc Kleine-Budde" <mkl@pengutronix.de>,
- "Thomas Gleixner" <tglx@linutronix.de>,
- "Stefan Kerkmann" <s.kerkmann@pengutronix.de>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Helge Deller" <deller@gmx.de>, "Andy Lutomirski" <luto@kernel.org>,
- "Vincenzo Frascino" <vincenzo.frascino@arm.com>,
- "Arnaldo Carvalho de Melo" <acme@redhat.com>, linux-parisc@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Eric Biggers" <ebiggers@google.com>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christophe Leroy" <christophe.leroy@csgroup.eu>,
- "Jason A . Donenfeld" <Jason@zx2c4.com>
-Message-Id: <c049b368-9cb5-44a9-8172-fcfc842e79be@app.fastmail.com>
-In-Reply-To: 
- <CAP-5=fV5OBeri3T5U9BsKyjDRUiFr7bgFiV62yQr7fO7Hf3rvA@mail.gmail.com>
-References: <20251016205126.2882625-1-irogers@google.com>
- <20251016205126.2882625-3-irogers@google.com>
- <47f8c30b-e326-4ff0-a2bc-5683209a9e2d@pengutronix.de>
- <20261006-dynamic-succinct-woodpecker-a36c7f-mkl@pengutronix.de>
- <2f6094ff-f585-4b8b-8c25-20c11d1bfc7d@app.fastmail.com>
- <CAP-5=fVt81pYz_EXj+QNG+hFGomb-xcpm-6=ZNzNm+c2sbP6UA@mail.gmail.com>
- <b2a50293-d6f7-41eb-854c-c43bc9874ffa@app.fastmail.com>
- <CAP-5=fW25k8uOeamGRhwbFUUZ8D0D1n5YK-NFF7_2JMJcGOsiw@mail.gmail.com>
- <20261019-rapid-loutish-porpoise-ac4efb-mkl@pengutronix.de>
- <CAP-5=fUwDOv9k1Ptz22h9kKYFJowg9UPa+LzWnnswJ72ptF8tA@mail.gmail.com>
- <18c92ae1-deaa-4c09-adca-157819cf005b@app.fastmail.com>
- <CAP-5=fV5OBeri3T5U9BsKyjDRUiFr7bgFiV62yQr7fO7Hf3rvA@mail.gmail.com>
-Subject: Re: [Regression] [PATCH v5 2/4] vdso: Switch get/put unaligned from packed
- struct to memcpy
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV1PR04MB10605:EE_
+X-MS-Office365-Filtering-Correlation-Id: 759226e7-245d-4497-a1c6-08df2e2421a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|19092799006|376014|366016|6133799003|18002099003|10067099003|22082099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Nf34v1dnEMN/1yLA8SpA6Hb4n/poAUN/080ETxVZnhAyXU52qqK/pUmdztYIXOZR3YBD5Mrzjh/zWb4tLtSnB7lJceLQ+7xBwoBRtqWzXuhFPonWaMTEZ4uUYQH99zrOSKNqxlNSpK0FkMhMxpXYtEeVZOqZNsFg89gAB+UQmUIWJS+uO6/dn3rH8wYQ29hWVJtiuuOVnjgxP3nm4FNqVT65D3a4r/FZGj7JA5mTAFOk5++wt/eT7wXWy7rrA1/gfxl47Fi4YG/zpPNkWA4FFa+wFB9sjcAKKpFcl6eZeP+iQvEz8wx/sH2mD5uPnk9c68LcZ2k29n5SETW6FYwSaQUjfUf1p90I6ZHaMoGahiQOpZ7Y8uEtg1NQWyesGSXEs4BEWGO0uS06udcC7VvDdnrumAufGCD0NiGBm9QYNptj8YFGY5mu83nlc83BkAlbllIaxm8kI5Sqy0r0AcvxGrDAVpMxNwwPGDv+U2mxfa7tbilAoRX1KE5AWDbLmUcVp0K9LNwVBQxS4pXN/DQbmn+O/vePdbQoMB7T5+u3kHULildigOVEV1TOLNky33NjNDYflU7P/MPwIFrHt2vr2UPIX4HFTiiN8SgPRfvpeVDtscOTYsJ3ObV1v0zd+os78dD2CCDZAQ7mSNz3BxGwkQkXEYdfTFJAzze2uqaNMqc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(19092799006)(376014)(366016)(6133799003)(18002099003)(10067099003)(22082099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ECh7BuTDwf+IrB6cUrZdiRZk37pR1t9WhvyQLG8vubHERS9KEL1DV5BsG/OW?=
+ =?us-ascii?Q?EPZG0aqgbuEfX/GIducaWtrWG5O9spLvyDFJTVWQ8ac0OXmhoHgGLgeiPqzi?=
+ =?us-ascii?Q?Cv9x3oxXtV7nfLJtDBQdUAekk5MetwL72z2J93+hC9sQkcIHLsDTyEZ1YJJA?=
+ =?us-ascii?Q?f1iM1AVMW9KrbKX9kmnPiC/8IQyljVKiZbyaymBXHBWdxR4VQKdr9HwG3Wsq?=
+ =?us-ascii?Q?atKAyziQEU6BCn5mYBreyGxsy4xCNOIv7/e5lD01Er8bFmCMjFAjpFqNZbnW?=
+ =?us-ascii?Q?C9SSPWnmcsdOtbD/yQqkX6+p5k60wUiwT25AjMmzmwyxz9OGpnL0qG9RMg9f?=
+ =?us-ascii?Q?P+7B1uEjALDRa30SoezHbl76sYD/OEy9zhHPF2UA4piyZF1JDDsKepArd56q?=
+ =?us-ascii?Q?XNrsrxTfx+owMzv55OUtOcdTSBSQjUVQe60O5KJWgYLmk3ngqzeE3pXBNDaH?=
+ =?us-ascii?Q?FYIGpN/CyWfCJkX122+53CMPbUhGePGLxnw5WETDf2tOSZUwR9WCzSXTxzHw?=
+ =?us-ascii?Q?cRbbFl/l71+jsnJFfFLcLwkf1dFCIBVqNskqm8jLL4GkNA/LTx9Tv9WuC3Qx?=
+ =?us-ascii?Q?cLKEI4sRGEaoqlPNXey4rLnqQeI7/syEyin30jq3TuA0jTToyq+NpWatfU2Q?=
+ =?us-ascii?Q?VXSP0irccK81HbVbGR/lmvSwF+xrr9DOhsrLYHaZOzS/zYv/5TUmHrOtAtqc?=
+ =?us-ascii?Q?jX9zJh6+/Zh1w7cwL57CuPg4giqs7pzdJ2Vv1XNNrTpNQSls4M4CnywxY45p?=
+ =?us-ascii?Q?uLxacC18Hs8yWvG/MVq+aUDo3YVPV5K8FpZXcsnwWVAYaItHST8C9pxxs8XE?=
+ =?us-ascii?Q?rffJpxKAcTvoeW0UZEuizICg/aM+DMw15Qiwbi/irmrdgecpY1+qVfop32k8?=
+ =?us-ascii?Q?1ClqwurpvVnbuu9Jt7hSx+XvXD6V6aHMIG7gotRspaft54CN4ZbH5hvVFGT3?=
+ =?us-ascii?Q?KoxRjjIizCYxAdXx9Knl9Lt8RtX532QdLzZvnF5Fi9060O86cj18CX0k5IFP?=
+ =?us-ascii?Q?lHuzZM5AEliQ3k7x9g3otZWkscPk/Olpahs1ttt5QrBCNyHcCQ9FLr/g//iA?=
+ =?us-ascii?Q?qH6/oe9Fd5frZfElj30epymxQt0p5MqNGp5qgBsgEyoKTEA+htivg2zce9XD?=
+ =?us-ascii?Q?I1WNWDQh1TAAZCQ+wpMrzYrvnecelqdHrwDlYHL5PV0OZeA1sN/g0ANVWskR?=
+ =?us-ascii?Q?QVT6VzZpQJPSS4tCP9HuMNkCaMkCpyDBM34l0PrTU00Q2TekTFz2fMb/jGKt?=
+ =?us-ascii?Q?cPhQNPxF57K1Jxrz2vmXYbVZv5zT+5W2wGvOad3Acilr0+NMhuV3XOAQl6gf?=
+ =?us-ascii?Q?lXVGrRd6LfGEhxqJRNr5wYGTmw/Ud405tRowas4kC2ZS9b36WqKEvijqlkGi?=
+ =?us-ascii?Q?BHveASyYeSlSXR2fauD+jIUCSAn6nDOnfrCOLUZyDS9mSpx8H7XIv7TaOrxi?=
+ =?us-ascii?Q?R56XqPvQbwXw09lWkxUjQe9wIyarMAbVp6XNZSiUZlv9qYYjF2tbidB6azkQ?=
+ =?us-ascii?Q?+kR2i02oe+PFcfgT3MIWPeC7KYpMdYdeP0MM4IQ8jnh7krRLqCLsX0EdtA6k?=
+ =?us-ascii?Q?8pFRKyf3nlLfyQ79IGQ3PBiL1AQd71xKO7Haw2Y9VLrxrpP/jM7ILD0L/W1k?=
+ =?us-ascii?Q?ftLIuDDxfIWDRHBh8KfrNmRS+6EfDqc4FQiV1gA+F5ek8iDsbkMZpcsa0xms?=
+ =?us-ascii?Q?Ij9FvhppR5ffdBUfECZxXHHh4Zf644DkuETkfjoXpdgjZKxoEV67x+jeIDFA?=
+ =?us-ascii?Q?+LGfIFSDBhOC3UJ2QGVgB6TfRYDqH6QwmUvxcEh3n3JZIUGnqs/F?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 759226e7-245d-4497-a1c6-08df2e2421a0
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 21:01:22.9902
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /fBGPJ1MQOVh+eIPE7RdDjClCMPTCmSHu7tBjRHOf4lWWloTnkEHTVnRmksHED7VbzFpJoTSra2Cv+YEuMoKkif7s2zGbL9njbNbdKPT3DsgnvDZHk5WXYXykMxbqN40
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10605
 
-On Mon, Oct 19, 2026, at 19:04, Ian Rogers wrote:
-> On Mon, Oct 19, 2026 at 9:28=E2=80=AFAM Arnd Bergmann <arnd@arndb.de> =
-wrote:
->> On Mon, Oct 19, 2026, at 17:10, Ian Rogers wrote:
->> > On Mon, Oct 19, 2026 at 5:37=E2=80=AFAM Marc Kleine-Budde <mkl@peng=
-utronix.de> wrote:
->> As I wrote, we need the packed struct version at least on mips32,
->> mips64, openrisc, riscv32, riscv64, sh4, sparc32, and sparc64 to avoid
->> the external library calls the same as on armv5, but I would prefer
->> to just always use that in the kernel. My guess is that this list
->> is actually the same as the architectures that lack unaligned word
->> access instructions in hardware, and armv5 is certainly not
->> a special case.
+On Sun, Oct 18, 2026 at 07:56:06PM +0200, Karl Mehltretter wrote:
+> Reading the wait parameter during a finite test uses wait_event(). The
+> reader remains in uninterruptible sleep until all test threads finish.
+> Long runs trigger the hung-task detector, and signals cannot stop the
+> reader:
 >
-> Is it more than conjecture that these architectures have regressed? I
-> have a hard time believing the codegen on say riscv64 is lagging
-> aarch64. When the series originally landed the issue was looked at and
-> workarounds were added, for example, to PA-RISC.
-
-I tried compiling a trivial function that calls get_unaligned() and
-looked at the assembler output for all architectures. The list is
-everything that does a function call to memcpy() rather than open-coding
-the data access.
-
-By default (but depending on the target CPU), riscv64-gcc avoids unalign=
-ed
-access because this is not a required hardware feature and may be
-emulated by machine mode firmware even when it does work, so a
-function call is cheaper than a trap.
-On arm64, armv7 and most other modern architectures, unaligned non-atomic
-word access is always faster than byte-at-a-time, so the compiler
-defaults to -mno-strict-align or -munaligned-access.
-
->> For 7.4 (and stable kernels) reverting the in-kernel header seems
->> best to me, and then we can think about what to use for the tools.
->>
->> Looking at the uses of get_unaligned() in the tools directory,
->> I notice that at least some of them should just not exist, e.g.
->> struct debug_entry in tools/perf/util/jitdump.h is just
->> needs a __packed attribute to correctly describe what it does,
->> and tools/testing/cxl/test/mem.c does not need the unaligned
->> helpers at all because the structs are all packed already.
+>   INFO: task cat:71690 blocked for more than 120 seconds.
+>   Call trace:
+>    dmatest_wait_get+0x17c/0x1d8 [dmatest]
+>    param_attr_show+0x6c/0xb0
 >
-> There was supposed to be an 8-byte alignment requirement for perf
-> events and unfortunately some events broke this and we added __packed
-> as a workaround. The unaligned accesses wouldn't trip a sanitizer in
-> our tests because we sadly lack testing on old perf.data files. There
-> is a difference in using __packed as an attribute and using type
-> punning to achieve an unaligned access.
-
-Yes, that was my point: if the unaligned data is annotated correctly
-as __packed, you don't need any type punning to access it -- you
-can rely on the compiler to pick sensible instructions for the
-target architecture, either an unaligned load/store a byte-at-a-time.
-
->> I'm also a bit suspicious of the usage in
->> tools/testing/selftests/bpf/test_kmods/bpf_testmod.c, which
->> looks like it may run into a corner case:
->>
->> __bpf_kfunc int bpf_kfunc_test_uninit_alias(int *out__uninit, const i=
-nt *in)
->> {
->>         int value =3D get_unaligned(in);
->>         put_unaligned(42, out__uninit);
->>         return value;
->> }
->>
->> The current version of get_unaligned() turns into __builtin_memcpy(),
->> and the function prototype defines both arguments as pointers
->> to naturally aligned objects. Do you see anything that would
->> stop the compiler from replacing the __builtin_memcpy() with
->>  an invalid pointer dereference? This bit is probably fine
->> because of the way gcc handles __builtin_memcpy() optimization,
->> but I'm not sure if that's an implementation detail or required
->> by the C standard, especially if strict aliasing rules say
->> that the int* argument cannot overlap a misaligned int*.
+> Use wait_event_interruptible() and propagate the signal error so Ctrl-C
+> and timeout can abort the sysfs read. The test threads continue
+> independently.
 >
-> I agree the pointers should be aligned given their types, ubsan
-> doesn't currently fail for this and waits for use of the pointer. So
-> there is the specification and also what sanitizers enforce.
-> For clang, when lowering from parsed C to machine code the compiler
-> will use alloca to model local variables and memcpy as an intrinsic
-> for aggregate copies. So:
+> On a Raspberry Pi 500+ RP1 DMA channel, a script configured dmatest with
+> 1 MiB buffers and two threads of 2,000 iterations each. The unpatched
+> run completed all 4,000 tests without failures in 267 seconds, but
+> emitted hung-task reports at 120 and 241 seconds.
 >
->   struct point { int x, y; } a, b;
->   a =3D b; // Compiler will generate a builtin memcpy to copy b into a
+> With the patch, the same 4,000 tests completed without failures in 269
+> seconds and emitted no hung-task report. In a separate patched run,
+> SIGTERM terminated the reader. Both test threads continued and completed
+> all 200 tests without failures.
+>
+> Fixes: 2d88ce76eb98 ("dmatest: add a 'wait' parameter")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
 
-The problem I am referring to is specifically where the object
-itself is unaligned and passed into a function through a non-__packed
-reference. In this case, the get_unaligned() must ensure both that
-all address bits of the pointer are used and that each load/store
-is done according to the target CPU definition and
--m{no-,}unaligned-access flag. We have had cases where x86_64-gcc=20
-optimized away the low-order pointer bits based on the psABI
-guarantees, and it wouldn't surprise me if the inlined memcpy
-tried to make similar assumptions in some corner cases on
--mno-unaligned-access targets.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-On ARMv5 and similar architectures this would still appear to
-work correctly but cause trapped loads that would be absolutely
-detrimental to performance, much worse than a few added memcpy()
-calls.
-
-> This is why I have a hard time believing the lowering is broken on so
-> many architectures. Calling memcpy to copy aggregates everywhere would
-> be madness. I believe, especially given the period of time this code
-> has been in the kernel, that this problem is specific to GCC and
-> ARMv5. Clearly fixing a bug in GCC and ARMv5 should be done, but in
-> the meantime, a config option workaround in the kernel is pragmatic.
-
-I'm not sure what you expect the compiler to do on ARMv5 and other
-targets with -mno-unaligned-access, or why you'd consider calling
-memcpy() a bug when that is literally what the code asks for and
-there is no easy way to convert it to word load/store.
-
-Comparing the gcc and clang output in https://godbolt.org/z/r8aq4n87z
-it's clear that the gcc version is at least shorter but depending
-on the CPU and caller it can also be faster, e.g. when the data
-is usually naturally aligned and the memcpy() library function
-does a single store while the clang version fails to write-combine
-the multiple bytes being written in the wrong order.
-
-       Arnd
+>  drivers/dma/dmatest.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/dma/dmatest.c b/drivers/dma/dmatest.c
+> index 2ae346939..7e6b6c446 100644
+> --- a/drivers/dma/dmatest.c
+> +++ b/drivers/dma/dmatest.c
+> @@ -287,9 +287,14 @@ static int dmatest_wait_get(char *val, const struct kernel_param *kp)
+>  {
+>  	struct dmatest_info *info = &test_info;
+>  	struct dmatest_params *params = &info->params;
+> +	int ret;
+>
+> -	if (params->iterations)
+> -		wait_event(thread_wait, !is_threaded_test_run(info));
+> +	if (params->iterations) {
+> +		ret = wait_event_interruptible(thread_wait,
+> +					       !is_threaded_test_run(info));
+> +		if (ret)
+> +			return ret;
+> +	}
+>  	wait = true;
+>  	return param_get_bool(val, kp);
+>  }
+> --
+> 2.39.5 (Apple Git-154)
+>
