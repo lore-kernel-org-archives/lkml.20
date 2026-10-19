@@ -1,120 +1,80 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65C73603EE
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:16:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27A83515CB;
+	Mon, 19 Oct 2026 02:17:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792376213; cv=none; b=CuPD92aBBLpayawGQ8GhCGTyQd3hJTLo9+fa9KaMQWQXi4B3VZrIVNwMAUfLBhG1cUO3iJdbTJ0gHVIxvbi+gIc2YIhIG4D1cA2/0hSD0UwJl8KzO6cnQxwru8EvDxmCOU1OQPOqxtd6GGVEeuzORBsMEVfwXpdxyW+98P6uDnU=
+	t=1792376233; cv=none; b=N+ROQIc9iB6lbzGBOb729zuNm14BakIKdCIod9RMuOw/WW0goDSnmHQgROBgnFZ4xs+HQ9WGMQlR1SP0G7MPgqSEwNuet+w382/dmRHpO7xLRnR3sIySyww7a8j3JxG4BuT7bLB26QSjPt5nu/W+5STge7B7rBs6yhqsVN17Q+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792376213; c=relaxed/simple;
-	bh=p6Yk20CJcylgrXxAJQUEvRF0p7sAsIT5anlc/D4U6qc=;
-	h=Message-Id:Subject:From:Content-Type:Date:Cc:Mime-Version:
-	 In-Reply-To:References:To; b=EX9XyTYhN3pKRNtLZgVZfgpV55icqgHHiXMB5PsqBlGLMXqQYdAzIMwXHELh0wYwqFOWIXVVKiTij4SyNRJPO2WArS1FsMUdYEFQOin8yZOSAURs327Lnxpz0mUfuHArYTfG6XEc2pF53sEfBvi+UtRFeRwrLYQ/pzgJNAbKNjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=SH5qAhvK; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1792376233; c=relaxed/simple;
+	bh=JBDexEjVkF4HcZ5xyK5okwNP+jA7IkDtihlK3ONAP7A=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DQe48fvFWlktADMszyn41JUOlntpujcyYP7JX3KXVvG7VNhIMgowh/ktPArzZiD/fIciY5PpDXUSfx8Rl8nLEIU5QiDfNPyB6C0cMM2AAFWfbwJzpfcqvX2l5BmSKfH7sUrvFNfXxIPAOdlHP3pXHl9Jaa4esupzyvu2QIrRKlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IWEFV8Zz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="SH5qAhvK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792376197; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=p6Yk20CJcylgrXxAJQUEvRF0p7sAsIT5anlc/D4U6qc=;
- b=SH5qAhvK0qs86QvmpYhBiy84VJnUttawWGKeJEwEgSeKwRtCs0dRR1LENGF7PazCdxedNg
- b1C7BjnzGo9N7tu1x/TdZqUayHcQ6oxf8sSgZeULMg4eO66LaK5gHAaZ3s3X3Ptekj6el+
- RsQ5lClDHLdagvurPqrMCW4mPJ2NoC2Ne0MQtBkJhUOGRlz5yZuLiy7n0vAiSQWbDR0BRS
- oOlPUKcGx5G3X5u3Fp/I5qQBAhOWqzxRtaHt4LQTlxHh5KLhwxjBoDPObKtnvzrdDQKLsO
- Jtg7bkIY5WN5/q0vCi3n/kzb36/Dth8DXs5qu+VpD5+Heen4XjattJ9wVL8OrQ==
-Message-Id: <451788d5e97cba38274e663d2b7952c593e959be.461d4034.890c.4720.915c.a7839a9cc59e@bytedance.com>
-Subject: Re: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-X-Lms-Return-Path: <lba+16ad57d83+19f2f5+vger.kernel.org+weiguixiong@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 10:16:32 +0800
-Cc: "Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>, 
-	"Muralidhara M K" <muralidhara.mk@amd.com>, <linux-edac@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Guixiong Wei" <weiguixiong@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IWEFV8Zz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C1721F000C4;
+	Mon, 19 Oct 2026 02:17:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792376232;
+	bh=jvtTMjda2t5otk3q4T/RwoeADaBqu1tfq5HYrbuA/+0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=IWEFV8ZzOx9LcJpVBKLGI3Oc99YXx6zLYgh1hGeL3JHLecKbfycsgRPsG9JAEgQT2
+	 vKkcM1SHNWIvGgH5S6YE6ibMzXnH0tmmE/xTmJBhaN0YIhvl/v+elWEIdceWdX366t
+	 I4i/1Le79LCeA2VQSyymOX3Tyi/lsq/cfkKL89mQ4UqfcoVeIKPHCkcSjCOc/7zmnn
+	 Mmf6C9NCrw7qUNlvLYDNxhzWKcKcCDdMrtwo3hQOgXe8iXWIK1BOiZ2zm0qRI/nMJA
+	 LhiJibcl//Ye4yQDC4r4PYIY90+Cm22EHeCA6ImvZbMCJiK/RSKWoTy3sYOeW53L+S
+	 fJxw46JG38IJQ==
+Date: Mon, 19 Oct 2026 03:17:06 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, <linux@analog.com>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/2] iio: adc: ad4080: add support for AD4886
+Message-ID: <20261019031706.53b3057e@jic23-hlaptop>
+In-Reply-To: <20260928104806.9330-1-antoniu.miclaus@analog.com>
+References: <20260928104806.9330-1-antoniu.miclaus@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <20261018223431.GA3236@yaz-khff2.amd.com>
-References: <20261009020447.90758-2-weiguixiong@bytedance.com> <20261012140330.GC15198@yaz-khff2.amd.com> <20261017195145.GAatPR0dQVZGEMHglh@fat_crate.local>
-	<20261018223431.GA3236@yaz-khff2.amd.com>
-Content-Transfer-Encoding: quoted-printable
-To: "Yazen Ghannam" <yazen.ghannam@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 28 Sep 2026 13:48:04 +0300
+Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
 
-> From: "Yazen Ghannam"<yazen.ghannam@amd.com>
-> Date:=C2=A0 Mon, Oct 19, 2026, 06:35
-> Subject:=C2=A0 Re: [PATCH] EDAC/mce_amd: Add missing long names for SMCA =
-bank types
-> To: "Borislav Petkov"<bp@alien8.de>
-> Cc: "Guixiong Wei"<weiguixiong@bytedance.com>, "Tony Luck"<tony.luck@inte=
-l.com>, "Muralidhara M K"<muralidhara.mk@amd.com>, <linux-edac@vger.kernel.=
-org>, <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-> On Sat, Oct 17, 2026 at 12:51:45PM -0700, Borislav Petkov wrote:
-> > On Mon, Oct 12, 2026 at 10:03:30AM -0400, Yazen Ghannam wrote:
-> > > These were intentionaly left out as it as it seems users have been
-> > > moving to user space decode tools.
-> >=C2=A0
-> > You're making the old mistake:
-> >=C2=A0
-> > a. a naked MCE record in dmesg, you have to open the PPRs and actually =
-decode
-> > it by hand. Or use a tool but most of the time, that tool is not update=
-d with
-> > the latest error definitions, and you need the exact machine info in or=
-der for
-> > the tool to decode properly, yadda yadda...
-> >=C2=A0
-> > b. Get a fully decoded error string in dmesg.
-> >=C2=A0
-> > What is better: a) or b) ?
-> >=C2=A0
->=C2=A0
-> "a" is better.
->=C2=A0
-> The same "is not updated with the latest error definitions" applies to
-> the kernel.
->=C2=A0
-> And it's usually easier to update tools than patch the kernel (and also
-> deal with backporting, etc.).
->=C2=A0
-> In any case, this patch isn't about error descriptions. It's only about
-> adding the names for some bank types.
->=C2=A0
-> The bank types were added three years ago. AFAIK, the missing names
-> haven't been an issue. So I'm curious if this patch is actually fixing a
-> problem. If so, then that's fine.
+> Add support for the AD4886, a dual-channel, 14-bit, 40 MSPS SAR ADC in
+> the AD4080 family. The AD4886 is the dual-channel variant of the AD4086
+> and, like the AD4885, has two independent ADC channels, each with its
+> own SPI configuration interface, so the part requires two chip selects
+> and two io-backends. It differs from the AD4885 in resolution and
+> therefore uses the same maximum LVDS conversion clock count as the
+> AD4086.
+> 
+> The first patch adds the devicetree binding compatible string; the
+> second adds the driver support (chip ID, channel spec, chip info and
+> device-table entries).
+> 
+Applied.
+Thanks,
 
-I found this while reviewing decode_smca_error(), rather than from
-an observed MCE or a user report. In particular, I was looking at:
+> Antoniu Miclaus (2):
+>   dt-bindings: iio: adc: ad4080: add AD4886 support
+>   iio: adc: ad4080: add support for AD4886
+> 
+>  .../bindings/iio/adc/adi,ad4080.yaml           |  2 ++
+>  drivers/iio/adc/ad4080.c                       | 18 ++++++++++++++++++
+>  2 files changed, 20 insertions(+)
+> 
+> 
+> base-commit: 873ba60d7f2e52a171845ca290cf366878864b1e
 
-=C2=A0=C2=A0 =C2=A0 =C2=A0=C2=A0 pr_emerg(HW_ERR "%s Ext. Error Code: %d",
-=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 smca_get_long=
-_name(bank_type), xec);
-
-For SMCA_MA_LLC, SMCA_USR_DP and SMCA_USR_CP, the corresponding
-smca_long_names[] entries are unset, so smca_get_long_name() returns
-NULL. The %s conversion would therefore print "(null)" instead of
-the bank name.
-
-That was what prompted the patch. I had assumed those entries were
-an oversight; the intention was to make the existing log output
-show the bank names.
-
-Regarding Boris's earlier comment, I agree that the Cc: stable tag
-was not justified here and will drop it.
-
-Thanks for the feedback.
-
-Guixiong
->=C2=A0
-> Thanks,
-> Yazen
->=C2=A0
