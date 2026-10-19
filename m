@@ -1,158 +1,157 @@
-Received: from mail-m2422.xmail.ntesmail.com (mail-m2422.xmail.ntesmail.com [45.195.24.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DC43DB31A;
-	Mon, 19 Oct 2026 10:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.195.24.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72054A3F1B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405741; cv=none; b=TA3jpR9+MlWZ7UqlKskQPGtQIgXGfqk6U5rkxWiB7Ey95a+z8wsCBVm8eQFXCkj0Oow4ht8OjBcbC9+HjTMNfakV18zQv3xqUSYIJa43oFhWc/EaQuBu1yHPrT4IfymP4qVSxk/lzd1t/qDO+g3VWdxWFJg8WgN7OmNgIhtwVT0=
+	t=1792405781; cv=none; b=Ar1IzVSw10TxDgnEtO4aad6ACdhzRdJdTURaMcODSWxNLIMmMWAALt2yF0vGYt4ZXmPnIduVZI4DGBeo5c8M0eSIXX9utWNOM6yMKwPLTmj85gFO97Z1wS9SxuhX6MV+oAwy1TGqpfIFEKtA3sk54EhL6jUhH8MW0OQFoCaQsR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405741; c=relaxed/simple;
-	bh=vU5Sf3HoDIzEzHMiVHgrX2awErv95i1t1LH4gR1/Cro=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=K+oBgT+tUHOLUl1HLsC+DKZUAfwys3iGCN3+dHm+dxA6zL8r3YAfqWY2E6RCqcGj+SPZTSTQdM0KZChPtymGOSumySMwBONTHPtrDHjv4o7NgvuovW47d3Q/F8ZzWhKvmD5ipMidW8KPzxKPgUlQCeIiESwjYxrcPW2PATLb+J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=UwB4wSn/; arc=none smtp.client-ip=45.195.24.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1792405781; c=relaxed/simple;
+	bh=W13c7d5g8Yx/PCNesjQ+Hj1xQt7NJ1OhYFThSmNdOJA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=WmARlAm6m68c5t1IJWYoRPBuAS4S9j73NXkgdAoHEri4JFsdwbcmcYitwpwX6pWMAvZwJ6MtUDNe5Wg753fUnWWVSYeV9fPwgc5c3U7j5kuWZLbN9umQIuVMgyt+WaH+M1XtDbXvsChV6AZ73Y1cheb1NSLnwjuzMnW87pfevD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YXZkeC3U; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="UwB4wSn/"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 518d3ddad;
-	Mon, 19 Oct 2026 18:28:48 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Sandy Huang <hjc@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dave Jones <s.dave.jones@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YXZkeC3U"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9f6a16aedso3289305ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:29:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792405779; x=1793010579; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=imqLr57W/P7U1FVAYJ5sw6ff47tbhxpPrkhx1LufKmY=;
+        b=YXZkeC3UQmxgMFQu+2VMOKIcyiZ103/0XuhL4vbgdWVJW8VzZh+8rryhNHdm4OtGjW
+         xB03RbFuM70+4cIIm4REm7Dx58nqLZ0tFGOYFTjN1Fnqnh9bAPYYYF2DjuBc//lN1z74
+         P6Pl4bqEdkR6qP//a1m2G5oZJWVnViY6PSSxRR0FJ+3dI8aO8YXQmbK/QDxfYBop7qxF
+         rK2AkYS/NbKETWdnngAWdb1Egip1z4SAPLq5IPqb9Hs6u9vDtzOV0hm0vCxVoUFCWr55
+         EnU4KkBr6foqg0L8N6TO4OvyAd+Dj3VF/f6jGYST41RLnOiVqhOpI+0ElGO0i4/0fdHu
+         MRJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792405779; x=1793010579;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=imqLr57W/P7U1FVAYJ5sw6ff47tbhxpPrkhx1LufKmY=;
+        b=VMzp5s3wn5XBA3U2eqoMAQkrZ0kHLUlP1y1KK/2UxbPs5p3EC0wD+C1toC8lY04A/2
+         kZWoESR7hwbw0/wNXL+Gt6n/jTZfoSTvrzrE0MsEWXd7cHkan4YwwDclrFU0vF0EaXv5
+         gkrQRFoE/I9qqm/S0bxN4iqYQSPng4RfHQ8DBp2Zyo69jz8s/xiPJ+C/JX79eTWOPE9c
+         HKOfhNrS4lM+X8aSLuBfBJblICj6x/hkO3Qe24vXh1iK3LGVAC5CK0PL3+rwHXDKpnYu
+         2mR1WdN3XO6x2JBf3QANBZ0PxiucMaBXaohOYO0H82MDrTlxIeAtolkJBEuAmZ0hIp5u
+         ze/g==
+X-Forwarded-Encrypted: i=1; AKwUvBzlh25JMMXWmoMXXa9UXDKm/4ZYd20cwo5EoRCQYiGqxBaw5M6d3MQPpz3ziNQD3TVMfugWuKjnjPik09Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJg6cuG7uW1GqhUkjAYV7YdCA03ASeuKKDBWnuWL/b8sWCZH7FH
+	xgq3BqiyKdWZLLY0lf7IDZzUm6IqKLjUpQzV6yXyq4/WqIPZ4kiZJRUQ
+X-Gm-Gg: AYBFou3RxHMpalf6MZH/42NjCv8VKtWqLTDSKfX+5TzM63WaXG7HOWIsG4/RvBeYXf9
+	l2szsbRnhpQgqUcwpF1XDBD+cc1nxIVp7RVivQoVl+KUeLthKuC6I+/8hurwWi4hA5h+UHMagEj
+	Quf+t4soAhjw8m8HASi3E84CVRqUhw529soYZr7Cl7dScgA5R30B1JS1GwsE3qbso8uxBLOn3Pe
+	H6mu4AcVOAc6tjhbJ3bumr9OAOVv2JAsqyW7wQ1KiXVo2VOMNcOUoPO4l6vng2TBIJghssyoTpY
+	8QfQOk6udGgBzyd5A7g2grsY1eoVuzGtibIa5ytmozv7RlSreeBxlRHZV4GMoSijffxEE4gEtFO
+	VtGC1hN1F/nydjx0l+zhvlALtNSnRCzGCXOS3xzU4gY6bKMPRaALrAYXem2d6v5zrgpmOaG9Jn1
+	zvB2aVonhUA4EPVi65+KXmfmhxiMvwJUcWpIfgI3m/NyxOOvAXts69WxDA+8ODxyrafQRl98IKB
+	U3F
+X-Received: by 2002:a17:903:2ac5:b0:2e9:9c65:1af7 with SMTP id d9443c01a7336-2e9a6e525dcmr67714845ad.45.1792405779150;
+        Mon, 19 Oct 2026 03:29:39 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e87994bsm36054495ad.60.2026.10.19.03.29.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 03:29:38 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v2 5/6] drm/rockchip: analogix_dp: Add support for RK3568
-Date: Mon, 19 Oct 2026 18:28:23 +0800
-Message-Id: <20261019102824.3157044-6-damon.ding@rock-chips.com>
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ALSA: pcm: Protect channel-map reads against runtime detach
+Date: Mon, 19 Oct 2026 18:29:33 +0800
+Message-Id: <pm-pmb-0b5d6bc7124d0b921f2c-v4-b9738bdeab8823999181@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019102824.3157044-1-damon.ding@rock-chips.com>
-References: <20261019102824.3157044-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa153b4ebb803a8kunme348c01b2f6c4e
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGk8ZVklJGElLSkhCQ04dGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=UwB4wSn/rBgxjYEqq23Aca4mCS85peuuusbGTAkUmvlqfXMP13iu4VEudylGE6F0rcQ62CoVlo5A4VXWaP4RRVEJZMJpAJsNlWf1GAUYzHtXmcAx9rVhTVXkFEIDRbc44mnDMY5sdp3Rd2s13lWLwug+epl/YclQxwjnnTUdCdU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=PIme3hcZlC53RfvT2IEjzq2swieDeYbsRW7Jr3b/EnY=;
-	h=date:mime-version:subject:message-id:from;
 
-The RK3568 eDP controller does not require any GRF configurations,
-so make the "rockchip,grf" property optional.  Also enable the
-optional avdd-0v9 and avdd-1v8 supplies which power the eDP PHY.
+Channel-map controls remain accessible between PCM opens. In-tree HDA
+code publishes the generic controls through add_std_chmaps(), so a
+SNDRV_CTL_IOCTL_ELEM_READ can overlap the final close of the same PCM
+substream.
 
-Add the "rockchip,rk3568-edp" compatible along with its chip data;
-the register base in the chip data is used to match the platform
-device memory resource.
+pcm_chmap_ctl_get() checks substream->runtime and later reads its channel
+count. Final close clears and frees that runtime under pcm->open_mutex,
+while the control callback holds only controls_rwsem:
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+  Control GET                         Final PCM close
+  -----------                         ---------------
+  snd_ctl_elem_read()
+    down_read(controls_rwsem)
+    pcm_chmap_ctl_get()
+      check substream->runtime
+                                      lock(pcm->open_mutex)
+                                      snd_pcm_release_substream()
+                                        snd_pcm_detach_substream()
+                                          substream->runtime = NULL
+                                          kfree(runtime)
+                                      unlock(pcm->open_mutex)
+      substream->runtime->channels
+        NULL or freed-pointer access
+    up_read(controls_rwsem)
+
+Reloading the cleared field can fault through NULL, while retaining the
+old pointer can access freed storage. controls_rwsem keeps the control
+alive, but does not serialize the matching PCM close.
+
+Copy the channel count under open_mutex and use that scalar for the map
+lookup. Use trylock with -EBUSY because snd_pcm_dev_disconnect() takes
+open_mutex before removing controls under controls_rwsem; blocking in
+the reverse order from GET could deadlock.
+
+Fixes: 2d3391ec0ecc ("ALSA: PCM: channel mapping API implementation")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
 ---
 
-Changes in v2:
-- Fail the probe when the chip data requires GRF configurations while
-  the "rockchip,grf" property is missing.(Sashiko)
----
- .../gpu/drm/rockchip/analogix_dp-rockchip.c   | 24 ++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index ccdd4b9ecdb8..38c78360842f 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -320,12 +320,17 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- 	struct device *dev = dp->dev;
- 	struct device_node *np = dev->of_node;
- 	struct clk *clk;
-+	int ret;
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+index 4d665b4148d7059402a55abb62fb24da8ff73f69..1ec7db324196f60d8c72a879c62ddae0a90ac0ff 100644
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -2496,6 +2496,7 @@ static int pcm_chmap_ctl_get(struct snd_kcontrol *kcontrol,
+ 	unsigned int idx = snd_ctl_get_ioffidx(kcontrol, &ucontrol->id);
+ 	struct snd_pcm_substream *substream;
+ 	const struct snd_pcm_chmap_elem *map;
++	unsigned int channels;
  
--	dp->grf = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
-+	dp->grf = syscon_regmap_lookup_by_phandle_optional(np, "rockchip,grf");
- 	if (IS_ERR(dp->grf))
- 		return dev_err_probe(dev, PTR_ERR(dp->grf),
- 				     "failed to get rockchip,grf property\n");
- 
-+	if (!dp->grf && (dp->data->lcdc_sel.valid || dp->data->edp_mode.valid))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "missing the required rockchip,grf property\n");
+ 	if (!info->chmap)
+ 		return -EINVAL;
+@@ -2504,11 +2505,20 @@ static int pcm_chmap_ctl_get(struct snd_kcontrol *kcontrol,
+ 		return -ENODEV;
+ 	memset(ucontrol->value.integer.value, 0,
+ 	       sizeof(long) * info->max_channels);
+-	if (!substream->runtime)
+-		return 0; /* no channels set */
++	/*
++	 * PCM disconnect takes open_mutex before removing controls.
++	 * Use trylock to avoid a deadlock with controls_rwsem.
++	 */
++	scoped_cond_guard(mutex_try, return -EBUSY,
++			  &info->pcm->open_mutex) {
++		if (!substream->runtime)
++			return 0; /* no channels set */
++		channels = substream->runtime->channels;
++	}
+ 	for (map = info->chmap; map->channels; map++) {
+ 		int i;
+-		if (map->channels == substream->runtime->channels &&
 +
- 	dp->grfclk = devm_clk_get_optional(dev, "grf");
- 	if (IS_ERR(dp->grfclk))
- 		return dev_err_probe(dev, PTR_ERR(dp->grfclk),
-@@ -351,6 +356,14 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- 		return dev_err_probe(dev, PTR_ERR(dp->apbrst),
- 				     "failed to get apb reset control\n");
- 
-+	ret = devm_regulator_get_enable_optional(dev, "avdd-0v9");
-+	if (ret && ret != -ENODEV)
-+		return dev_err_probe(dev, ret, "failed to enable avdd-0v9\n");
-+
-+	ret = devm_regulator_get_enable_optional(dev, "avdd-1v8");
-+	if (ret && ret != -ENODEV)
-+		return dev_err_probe(dev, ret, "failed to enable avdd-1v8\n");
-+
- 	return 0;
- }
- 
-@@ -530,6 +543,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
- 	{ /* sentinel */ }
- };
- 
-+static const struct rockchip_dp_chip_data rk3568_edp[] = {
-+	{
-+		.chip_type = RK3568_EDP,
-+		.reg = 0xfe0c0000,
-+	},
-+	{ /* sentinel */ }
-+};
-+
- static const struct rockchip_dp_chip_data rk3576_edp[] = {
- 	{
- 		.chip_type = RK3576_EDP,
-@@ -555,6 +576,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
- static const struct of_device_id rockchip_dp_dt_ids[] = {
- 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
- 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
-+	{.compatible = "rockchip,rk3568-edp", .data = &rk3568_edp },
- 	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
- 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
- 	{}
--- 
-2.34.1
-
++		if (map->channels == channels &&
+ 		    valid_chmap_channels(info, map->channels)) {
+ 			for (i = 0; i < map->channels; i++)
+ 				ucontrol->value.integer.value[i] = map->map[i];
