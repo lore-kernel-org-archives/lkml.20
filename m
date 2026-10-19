@@ -1,121 +1,139 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66BC747AF6B;
-	Mon, 19 Oct 2026 06:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27421484250
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:30:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792391399; cv=none; b=eDkVeR8dBpHpgboLI3qkkivprN1X34vjKRnZufFUol4CQUdEpI6c5TibHgFqGFkBePhholnpm2R6zzOXxJLbBTSy0p4lN8sEhReUTnymrkYOyjkEFcDQhgFtIU4CRNCW7XjtI9id42lZFBbz5aeBfBVL/49rArXZ2pFuOvLEpmo=
+	t=1792391404; cv=none; b=B44GZfqi006Tvbkpa5BJOpZgmDhQuKffA1yjC4dRuMgMgjxZFv2Dc+QoBkYnWbKeDbspvWO6lCZxmtkQdnWpVrAYXZ7fy0K12dE6PEjo1z3s7KnBQXf8hwPE4L70qVkrYXBbVW0orU08Oib5saC+drmGLYf9BGelmGsv/oYtmMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792391399; c=relaxed/simple;
-	bh=idL1xUFRh4dVpjSpwHPQXwDsHmFBW3rrPa5+BigKAxg=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=QUD+NSABXPTct/mh96CMgu427wWkN1i/zH5ZLv092lKFcCSpdGZiJ5b1kQ7jjOw3g1Mbg8kH5s5A4L7oux6d0Hue45ykF3w3I4qXFVgabA0NDIdiNxnsh7w6hFfs+icNK694OyZJsfAE+kPyl/9qPEYH8FzuYJJ3nFulVr0sdJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=XcqFV8bJ; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=2YN/nQEY; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1792391404; c=relaxed/simple;
+	bh=yjbk2QNzQvDDIqXE6slPatORoTUhYK/UtFATSLLWFtA=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=pEMc/iSy8dGqX51zsjG0ii2QHQO1E2MYZPLlPs2UoeX8Fci8X3Utv6xo/KilzaU8F9cr4vnn8HaNihn4Wg3vFJzdCohE0rUfx6WoWCtZg4lOteB4aqkjLrCICmyJqDyWGjKy8uhkwQI+B/8QqOATtodYy7ibKv5gAAzb/Nk3zvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=OzsRpPjM; arc=none smtp.client-ip=117.135.210.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="XcqFV8bJ";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="2YN/nQEY"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792391372; bh=Wreh1PDJrvE1eo0OygamB9n
-	WK47yEict8uXCKUXNDPs=; b=XcqFV8bJbPJdJLbQQ2B0ytpx8ADL7N0DSWRUgw9/9ta1GXYZdD
-	WtjkT4oCb3EGnSpHvfx2xyIjpXbPhO3qlrJyDR8dDVPO2YskYB1caNkjG63Z6JOA2Wwdi8cM7oY
-	x/RnCMY7mF/Fytk31l0foOcJ2JJjvb3iHm+t4unTkKS5OaxBcxW+yh1z8S/y6vm+UdFU9A5pkYe
-	ginHzY2143BzCbbyUO2Bs1hWXtf3tGGIFL03uDFe/rMcapqfgojsTnVyAit0bVaHGsVos5akS2x
-	4dkM9Tsb5mRXolkGt/FQAbexfKpi9il/HdZgJEu/26uzg1tzgetQXjscTOJ5vSsu4cA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1792391372; bh=Wreh1PDJrvE1eo0OygamB9n
-	WK47yEict8uXCKUXNDPs=; b=2YN/nQEY8haf4TdgDw1qh90kNLB1P2F9SD2tw7Rk9T025aC/nL
-	5ToOfMKUjHkOl1ZY5+TdVOtg84E0gRXy0kAQ==;
-Date: Mon, 19 Oct 2026 07:29:31 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: fuwenxin@linux.alibaba.com
-CC: boqun@kernel.org, dave@stgolabs.net, frederic@kernel.org,
- jiangshanlai@gmail.com, joelagnelf@nvidia.com, josh@joshtriplett.org,
- linux-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
- neeraj.upadhyay@kernel.org, oliver.yang@linux.alibaba.com,
- paulmck@kernel.org, qiang.zhang@linux.dev, rcu@vger.kernel.org,
- rostedt@goodmis.org, urezki@gmail.com, xlpang@linux.alibaba.com
-Subject: Re: [PATCH] rcutorture: Fix busted_srcud crash on module unload
-In-Reply-To: <20261019023644.2750352-1-fuwenxin@linux.alibaba.com>
-Message-ID: <C98A2196-D74E-4BB5-9B24-DE0B91D6973E@mainlining.org>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="OzsRpPjM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
+	Content-Type; bh=HKdkjO7NgXxWAbZCe6AWOGG9OZKcqPGFDM+xuXVWrUA=;
+	b=OzsRpPjM5lzrsmDVjn51zKpWiz5aLLIfJceVSEo2YQii9m0gMnYq+FmJKKk92s
+	scNISmfQEFdCpkeGrqzMT+JagYVP3YL9GF4HVS0vGg27hD6JDQdTE5wkj79HIv4a
+	172YfJBlIPPLZkLQRRV3vYEAuvYXj7jq2t0e2IlFXeVlI=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDXryXJuNVqZY6SBg--.35701S2;
+	Mon, 19 Oct 2026 14:29:30 +0800 (CST)
+Message-ID: <6AD5B8A4.5090307@126.com>
+Date: Mon, 19 Oct 2026 14:28:52 +0800
+From: Hongling Zeng <zhongling0719@126.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+To: Hyunchul Lee <hyc.lee@gmail.com>, 
+ Hongling Zeng <zenghongling@kylinos.cn>
+CC: linkinjeon@kernel.org, ntfs@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ntfs: handle a failed size rollback in the write error
+ path
+References: <20261004024822.640574-1-zenghongling@kylinos.cn> <asSM3LZyQymjjuj8@hyunchul-PC02>
+In-Reply-To: <asSM3LZyQymjjuj8@hyunchul-PC02>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-
-On 19 October 2026 03:36:44 BST, fuwenxin@linux.alibaba.com wrote:
->From: Fu Wenxin <fuwenxin@linux.alibaba.com>
->
->Commit e4ed20c1603c ("rcutorture: Exercise DEFINE_STATIC_SRCU_FAST() and
->init_srcu_struct_fast()") split SRCU torture initialization into two
->helpers: srcu_torture_init(), which now only points srcu_ctlp at the
->static srcu_ctl/srcu_ctlf/srcu_ctlfud structures, and the new
->srcud_torture_init(), which calls init_srcu_struct(&srcu_ctld) for the
->dynamically allocated srcu_ctld.
->
->That commit updated srcud_ops to use srcud_torture_init(), but left
->busted_srcud_ops pairing .init = srcu_torture_init (static srcu_ctl) with
->.cleanup = srcu_torture_cleanup (which unconditionally calls
->cleanup_srcu_struct(&srcu_ctld)). As a result srcu_ctld is never
->initialized when running torture_type=busted_srcud, yet it is torn down
->at module unload.
->
->cleanup_srcu_struct() then dereferences ssp->srcu_sup, which is still
->NULL for the zero-initialized srcu_ctld, and faults on the ->lock field
->accessed by raw_spin_lock_irq_rcu_node():
->
->  Unable to handle kernel paging request at virtual address dfff80000000001b
->  ...
->  el1_abort -> do_translation_fault -> do_bad_area -> die_kernel_fault
->
->(The fault address is the KASAN shadow of NULL + offsetof(srcu_usage,
->lock) == 0xd8.)
->
->This is trivially reproducible:
->
->  modprobe rcutorture torture_type=busted_srcud
->  sleep 45
->  rmmod rcutorture    # panic here
->
->Fix it by making busted_srcud_ops initialize the same srcu_ctld that its
->cleanup handler tears down, matching srcud_ops.
->
->Fixes: e4ed20c1603c ("rcutorture: Exercise DEFINE_STATIC_SRCU_FAST() and init_srcu_struct_fast()")
-
-Nice catch! I reproduced this bug on my PowerPC host:
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-Tested-by: Bradley Morgan <brads@mainlining.org> # Power10
-
->Signed-off-by: Fu Wenxin <fuwenxin@linux.alibaba.com>
->---
-> kernel/rcu/rcutorture.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->
->diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
->index 8a9282a0245cc..7cc78da1356f9 100644
->--- a/kernel/rcu/rcutorture.c
->+++ b/kernel/rcu/rcutorture.c
->@@ -991,7 +991,7 @@ static struct rcu_torture_ops srcud_ops = {
-> /* As above, but broken due to inappropriate reader extension. */
-> static struct rcu_torture_ops busted_srcud_ops = {
-> 	.ttype		= SRCU_FLAVOR,
->-	.init		= srcu_torture_init,
->+	.init		= srcud_torture_init,
-> 	.cleanup	= srcu_torture_cleanup,
-> 	.readlock	= srcu_torture_read_lock,
-> 	.read_delay	= rcu_read_delay,
->
+X-CM-TRANSID:_____wDXryXJuNVqZY6SBg--.35701S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXr4ktF1kJw18Zr17KFW7Jwb_yoW5CrWxpr
+	9rWrZ0yF4Dt34xCrnIqrWUXa4FvryrWr4UurW3tF17CFn5Cwn3WFyUKrW09rZ7tr98twsY
+	vF4DXry3uF1DXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jI0PfUUUUU=
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBoApwQWrVuMoWnQAA3d
 
 
+在 2026年10月06日 13:53, Hyunchul Lee 写道:
+> On Sun, Oct 04, 2026 at 10:48:22AM +0800, Hongling Zeng wrote:
+>> ntfs_file_write_iter() extends the data and initialized sizes before
+>> it copies the user data and restores them when the write then fails.
+>> The restoration is best-effort: both results are discarded, even
+>> though the extension is already recorded in the dirty MFT record.
+>> When the restoration fails too, the extended sizes reach the disk
+>> while the VFS inode keeps reporting the old ones: after a remount the
+>> file appears grown again, with an uninitialized tail where the failed
+>> write never put any data, and nothing records the failure.
+>>
+>> Keep both undo results: on failure, set NVolSetErrors(), which the next
+>> persistence point persists as VOLUME_IS_DIRTY, and log a message for
+>> the errors= policy.
+>>
+>> Fixes: 9c87959601e8 ("ntfs: update file operations")
+>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+>> ---
+>>   fs/ntfs/file.c | 29 +++++++++++++++++++++++++++--
+>>   1 file changed, 27 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+>> index 3ec82715a588..b5b30e44ac51 100644
+>> --- a/fs/ntfs/file.c
+>> +++ b/fs/ntfs/file.c
+>> @@ -678,14 +678,39 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>>   				&ntfs_iomap_folio_ops, NULL);
+>>   out:
+>>   	if (ret < 0 && ret != -EIOCBQUEUED) {
+>> +		int undo_err = 0;
+>> +
+>>   		if (ni->initialized_size != old_init_size) {
+>> +			int init_err;
+>> +
+>>   			mutex_lock(&ni->mrec_lock);
+>> -			ntfs_attr_set_initialized_size(ni, old_init_size);
+>> +			init_err = ntfs_attr_set_initialized_size(ni,
+>> +					old_init_size);
+> I think the rollback needs to distinguish resident and compressed
+> attributes.
+> If the data attribute is still resident,
+> ntfs_attr_set_initialized_size() always return -EINVAL.
+>
+Hi  Hyunchul：
+you are right, thanks.  The initialized size rollback now skips a
+   resident attribute, where the data size rollback restores both coupled
+   sizes, and ntfs_attr_truncate() is skipped on a compressed attribute
+   with a warning.
+>>   			mutex_unlock(&ni->mrec_lock);
+>> +			if (init_err && !undo_err)
+>> +				undo_err = init_err;
+>>   		}
+>>   		if (ni->data_size != old_data_size) {
+>> +			int data_err;
+>> +
+>>   			truncate_setsize(vi, old_data_size);
+>> -			ntfs_attr_truncate(ni, old_data_size);
+>> +			data_err = ntfs_attr_truncate(ni, old_data_size);
+> And ntfs_attr_truncate() always return -EOPNOTSUPP for a compressed
+> attribute.
+>
+>> +			if (data_err && !undo_err)
+>> +				undo_err = data_err;
+>> +		}
+>> +		if (undo_err) {
+>> +			/*
+>> +			 * The extension is recorded in the dirty MFT
+>> +			 * record already, so a failed rollback leaves the
+>> +			 * new sizes on disk while the VFS inode keeps
+>> +			 * reporting the old ones.  Record the error: the
+>> +			 * next persistence point persists it as
+>> +			 * VOLUME_IS_DIRTY.  Run chkdsk.
+>> +			 */
+>> +			NVolSetErrors(vol);
+>> +			ntfs_error(vi->i_sb,
+>> +				   "Failed to roll back the size update: %d",
+>> +				   undo_err);
+>>   		}
+>>   	}
+>>   out_lock:
+>> -- 
+>> 2.25.1
+>>
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
