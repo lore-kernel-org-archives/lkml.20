@@ -1,158 +1,142 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A01F331203
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:08:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D69496D40
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:08:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400904; cv=none; b=RkHuSyYldjZ6MS7UFOmp+Qu//06m7iAacR7VSxmZDJF650cSw8NNrlPf70nO4J6yZKSByne1ZBUHw1WutibP5ulwAoZxfFiJf1+lO/B+Kvye7ustf21Z+Npp6nqn6+BWut8xSQ/r37DX8PA0b0Srgz8m2+O0+GZAYKTZZfqY77U=
+	t=1792400922; cv=none; b=GnrkCRXXPu8Zecml3WEsi8b05DVr0B1GDw1f64TUUnRiVuAuJSruBdz49ZiGvM4sBZ+BtuGy9AAOYlourtPAzHlup4ffkVzvX3rCSZbu02r0stPlLfK2gpJ4n8qoQvrcPTPwDNU6gI2t6CG7wlWOwfnNyfZJgB5yyYfJM6RMIe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400904; c=relaxed/simple;
-	bh=ANWtDHrUN8yaLtWHmbxn0S/UOd3W2HnelMg3mN8P9Sg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Qx19RngKM3TFtNu5IU1FFVA3b3fVoVNE4mRyIJRHWnfP+rOptvpzv/w+SHYz43pD++jvG/3ibz9UJT+0/ykSLW1cEiPIEoNdon+ngv9iF5XHuKcxePM8A6giTCbm/drtPF3LeyxTL9RinXM47YfpbHjS6OIL+UiDeU8q8xvKU2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=He0AHl1x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SpISH4L+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792400922; c=relaxed/simple;
+	bh=8JXyz/iLrnOMQ+H+8M5mCSfykQy89HEytqAbfOPDnOw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XgOSeSsOVuy152qgDo/XLmquFtDfLj7/VG29L0XFopU5sKNAz51j0JlaVb7PQnSqQ5ohWjitjVcSB4VfEHv9V6S1N8lAcTA9N4AA7ghLWUxSQg8oeVe/KOWk+DfwwJ7pZwCPSliTVUZLObi8ioQ2ixE4fgA27huBfpatVZdcvcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=broUX/XB; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="He0AHl1x";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SpISH4L+"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8Ykb02688759
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:08:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iDOJUKPZ+vd5FVmRMKIpfjJCtt51gYVRZlZPGq8hbR0=; b=He0AHl1xU03PyNTv
-	xDsm+upddU4Xsx967MQJT4Wt34HjxqKkeRZI44q+7420ZbSnex0wMlSdCpI7KeRS
-	CkovQFWNZYbFqwMK1I8pXSatwO89sH4ShObIo0auHRPtOBek18pZh4iiPhWcKcJG
-	sPqmATo88qW7jjs43fw0bbAgcuR2ZcG8BQ5m//Qiom59mQ/zXYJ5FaSxHGNasN5H
-	qg1pnEk9iBohfJJITAZrEiILn9wSbAzyOViIBnWc4/1Hq9sbrW+lxiEpMK1ywBkT
-	+PgTeVlBqzSnySNuH1a29xXmH7uT5jgfbT50qWkSKq7Lt1nSAhazIAELbxuBK8I7
-	+Z7KAQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdftn047t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:08:21 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93df7a9466bso31025285a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:08:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="broUX/XB"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e8ad5b31c7so9502905ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:08:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792400901; x=1793005701; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iDOJUKPZ+vd5FVmRMKIpfjJCtt51gYVRZlZPGq8hbR0=;
-        b=SpISH4L+31opgNM3JGDUOi3zMxXLD0wmm0NdEmcLbeyE0577We3FZGyDzr1ozT2jQ0
-         kqA9deawQpXBSNR1BqBcVAr3a3DSmntlg0vn1IOYic9Pk8PIZidx+42hO3gLHnu/uUsa
-         byWa/AdRkXGtKrO1f5atsbavMSE1OdLZMIZI/sUWWTQFxE/tuyW/HpyhB6fvJnR0Ap44
-         xq8EhYn7h+G9Chfc2xyuaLQ+oibPUXf/arLBc38hVkSVplvWbTYZ/P3Luo8N855zFWUo
-         i8+OMMY7f+gdUfhwrq9vn9BkFaWUS4QTNArzlnWoov+wH/+2HaZQ0gk34nfJU1hYm+7r
-         sYUA==
+        d=bytedance.com; s=google; t=1792400920; x=1793005720; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/pB41CYmMwKsKbqW1foc/PLT2lTdajoPoPYMHSrvZcM=;
+        b=broUX/XBQZ9o1k7g3rLTvfTRC2wSEAoJzO6dvu9MBhJlFWDJZebatgYkjD5z/tlQ0d
+         0cJ1YWP8yTelAOkFsM0kPn5ubHhkXims0SQ2W7hLUE2htDroQVrtNw1PXm+qgZzAgKUt
+         UUAKI6IMfrZKB5rnk1EJfUOdFAHVp+tS7m9IcWvsR4XYdNOsuJa9wm74hbXbe2KEFuaJ
+         z/IoUXWWhIEAozhG66UF/0fl8w0qL6TlSU4vArb3k/pK2Ztd8CR18HI3hLxUK5Nz1VsQ
+         o8JCj7xxAZUXhzgCNLGtr/tleRoVNDJt4BacP0PGhmRw0H7/HJkUrOZJs4XC1cS/AaY6
+         hhdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792400901; x=1793005701;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792400920; x=1793005720;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iDOJUKPZ+vd5FVmRMKIpfjJCtt51gYVRZlZPGq8hbR0=;
-        b=zwUy6TpQml6/zA1MCoV356dcVDzG1h/swWN0HC/kfYUwizfJggXhQgpd2K8gsV9rrs
-         xu2yHOxoQOJ8R+pAo8n8C5J5OSqD9y6HKfXvfkFopS/cRoO808OKUlMEmi8tWSY7GXs+
-         wPpcPlcN2hxQybBDRazGo96PsDTtWsQuTqRo3JjuHqrUa1tm0KlhjeTOx23hB4lTioh5
-         sfuXggBeG9UWDZL6+2o1b3B1x/gVEXHBO+PbTPGXyHQHvkUWvL/yzenUqHrxxdh0z26k
-         mcK5hxWK2clq4ai7wMhvZ9Akjvdf4lie/u7PsKba78sihWujV6+31zDNwJyXcoXO6ARm
-         UBvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxHHsR/R+LiOsgjg7Xpweb8jMjG7NfjYDAk4NtF0gYNI/qxwf+itg3Zl8hVvNcVDV7fOCfjXsWX3+BeGWA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjj8Y8QPasj1Phz2TQkX1WLlF++pl8xA65cN9+zInOmPCeat13
-	rWnOw6WvlA1CPZxpfH3+DCCAKW1HUt8B6LuvZELfy3MTSH2UM5sD5lhPLLLKM3ajkQ5keT6WN5Q
-	sbhWvOG9nbf9hTtUvur55q1HdU6/2I1GWfFoeKPs+e9pfPkbnOwZM07JYVI0ky/Uedmo=
-X-Gm-Gg: AYBFou0cR2wCXmU00r02aMhxCRnRQQe7hLpHee4q7MRfigVTWJgOGnYuFK+VWwp6B3n
-	zu6ciIu/sAcBUF6DNWhWcZTIgubiKgaFGvSOV3NImvfJcCuO1pyadehNT5S4VrSWQEKX+zlBn5I
-	mi/JyAdI4pG1GW8Hjm0YOuRz8G7917EaAitlEe+vqUNyLWCLz4YW9UomF/1An+cNEAqwg/J4WHD
-	snPft2GL3Bze1K03N4G/VNj5SvyYqVkW11HcaGyk/GbYtLv5y6hU7LcvVHVCcs+2/xHE38b65Mi
-	NJ/sTHbACyglA18xbM4BS6G0kuP5UAGck/HKthCXclAV0obiaydNpz2ljPb0VnMFsp4uCM72Lqi
-	y8o+grD9aZXGOmeARss7q0w==
-X-Received: by 2002:a05:620a:4452:b0:93a:14c:329c with SMTP id af79cd13be357-93f29b38f59mr1324501085a.1.1792400900967;
-        Mon, 19 Oct 2026 02:08:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:4452:b0:93a:14c:329c with SMTP id af79cd13be357-93f29b38f59mr1324497185a.1.1792400900469;
-        Mon, 19 Oct 2026 02:08:20 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dd10ebsm339452466b.22.2026.10.19.02.08.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 02:08:19 -0700 (PDT)
-Message-ID: <20553686-c073-4b13-a23b-a4936da33dad@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 11:08:16 +0200
+        bh=/pB41CYmMwKsKbqW1foc/PLT2lTdajoPoPYMHSrvZcM=;
+        b=JRvXtNFNKxtgU+T3tISKX/LPR7SC5VnrC04c92HT+hLCxECTTRVzQLrFjr3B7y20ll
+         dV+VbxjDBouze2S9W7bY/ixRi3FAtd6C0GxWw7rpCqkpoCbSxapZsy8vRV3dtlLzFVME
+         py2RvZMFV2MC9PdUHNoYhHmwZBXEkmzCt3btY70tJr9d53+CXSV6lTGqBVdr1HHrDUJq
+         Y6FX909OTB4NIwkU2DyhqjzRxocSz83BbVGt9n7HkIehZ6xREjjRkv5jSbp7EloGlpIk
+         ePPOdtb+Fcz0sf/MBoBIC3JEaOFUngFWCXM/xn42wJwhhjVgjtvkTEkI3sdRpKyPtJR3
+         UNgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy3cFHmBLqtT5fNAkX3BhGh8sktFKTWbplrwe1uVm1S1yyANanjK/I/XcnQ/0tW4X+LJQJ4TJjbpuyUqRM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIh+cPC1HVwXVjBarrzjc0hpVYQvH76N0wRTAAAQsui+RhSG3UE
+	ZSAqYISsiRVvNN1TrFqzf0YCeD67/NhgN40b86buyDr9R2AzSx0vyslGx714TvZP3lQ=
+X-Gm-Gg: AYBFou3DQuUcdl6FniQ6TVdy2/sBqHo5CR8ewa/MB8vWqMspDBR4+wuI3fIW1QMsXvP
+	r3VMRePH+M9TXDQv6fNYONuXONk1oc9VTuQMCPf99uJ3iS/UYomwMbYgLcy1UpL/3kHbjoKHwS1
+	UGcDG3Y24WkUf0IdaphEhi25BHSADgcrwJk0qNloIM0O35NO02z5AVvXhStAu4WaewEuiWIdCUd
+	CL/Dongacj03Xg+RKlViHYIZ7b/Ilx2MCOCiFceq/HTVyZbBgFMHBMlvfduGCR6cq6pypNssWwi
+	CuncSHWt3aK9BNLEY1GJm30sqhqJ4dd87trVPiR0we5ev2dO2FiQHlIQioeIA+mf8yeFQRfKe4r
+	6hrjB9PnyuLyqxgiTlTSeYWeQCdvtbOwVINu5XslsHWX7jeFG7/yU36857ZGPEvyR5SFcWhZEUD
+	6HHAvxv5mzbr441RZ67pzMVcIBMeRmJGerHFzegschvKLSPxyGNQV2gpeHIKwyVBXTyfZv6iJZu
+	0NpCUy9toP4uFDYf+2I
+X-Received: by 2002:a17:902:dacf:b0:2e9:9f14:c44 with SMTP id d9443c01a7336-2e9a6d38bbamr62890025ad.49.1792400919921;
+        Mon, 19 Oct 2026 02:08:39 -0700 (PDT)
+Received: from n232-176-004.byted.org ([36.110.163.97])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e305f1dsm36707595ad.0.2026.10.19.02.08.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 02:08:38 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	linux-mm@kvack.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH 0/4] mm: Enforce read-only shared vmemmap tail mappings
+Date: Mon, 19 Oct 2026 17:08:26 +0800
+Message-ID: <20261019090830.1917657-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/a6xx: Don't set GPU freq before the GMU freq
- table is built
-To: eng.m7mdhashim.1@gmail.com, Rob Clark <robin.clark@oss.qualcomm.com>,
-        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20261018-msm-gmu-freq-guard-v1-1-dd92dcccee86@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261018-msm-gmu-freq-guard-v1-1-dd92dcccee86@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAzNiBTYWx0ZWRfX9aIAu+vW6BE9
- KduYmM7ykjaCQ9Mur2CfL7dmjHpQ306MqKtN7Xo1e5fU3A9l4G0WjojyPvMq1yGqtt1DZmKMRXz
- CmXG2aRLNWt47XXim73mr/Wpax3gxg0=
-X-Proofpoint-GUID: QE-zBIXCsgHs-935Oqnz7kt9NNP-46br
-X-Proofpoint-ORIG-GUID: QE-zBIXCsgHs-935Oqnz7kt9NNP-46br
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAzNiBTYWx0ZWRfX75REryqUuf4w
- +6jmp19FPqnIX47CsVwXTbtZRiAGN4rZWSMX+GbGlsTHdhpH6Jle8G7zXgjh14J3nQCYIrql+LQ
- fJAT0JBqe/cxTitdVWE4CAzCgidmhPa9LrC6ujTBJMGeo6zCyn/n873DLXTlXEzli00bKGLlJ78
- TpLo9DfpQ5eh26hxzwvOivUa7bRBcGfNIy7pVZXVGAAGahnJbcThh5VRQLS2IYG48eTwKucc08h
- begkWPai7LRIvUYxLq9u/WnwhEkF1dQHGIcUG5dh8N6MNgp9OHl9P3lQkA6vOeutvDXGINf5/rb
- FV7eo8qGnlVArwzNDzASFtw9RLBbwPPwgKuRZflJmFAPbaNYayTlQzaJv/QTwAXk2xcfbycrBWL
- CRhVkdRQmoI9Baf2tIj/fW1R3odVcK6iEyvPoqXYI0NFpYZG09/AKqAIa8dzgCQP9/xoAOKEA8m
- vwYtrx1agCG0buDbeig==
-X-Authority-Analysis: v=2.4 cv=OvTaWC/t c=1 sm=1 tr=0 ts=6ad5de05 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=pGLkceISAAAA:8 a=TId0fF7HYP2RL42ZpU8A:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 adultscore=0 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610190036
+Content-Transfer-Encoding: 8bit
 
-On 10/18/26 8:29 PM, Mohammed AlHashim via B4 Relay wrote:
-> From: Mohammed AlHashim <eng.m7mdhashim.1@gmail.com>
-> 
-> a6xx_gpu_init() registers devfreq through adreno_gpu_init() ->
-> msm_gpu_init() -> msm_devfreq_init(), and only afterwards calls
-> a6xx_gmu_init(), which fills gmu->gpu_freqs[] and sets
-> gmu->nr_gpu_freqs. The devfreq sysfs node is visible in that window,
-> so a write to min_freq or max_freq can reach a6xx_gmu_set_freq() while
-> nr_gpu_freqs is still 0.
+This series is split out from the earlier, larger series "mm: Generalize
+HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
+vmemmap optimization across HugeTLB and device DAX, this subset addresses
+a single, self-contained step: mapping shared vmemmap tail pages read-only
+at population time.
 
-[...]
+After the previous HugeTLB and device DAX conversions, both can install
+optimized shared-tail mappings during vmemmap population. These mappings
+should be read-only because each shared tail vmemmap page backs metadata
+for many tail pages. HugeTLB applies this protection in a later,
+subsystem-specific pass, but device DAX currently lacks it.
 
-> If you'd rather fix the ordering, so devfreq is registered after
-> a6xx_gmu_init(), I'm happy to rework it that way.
+This series moves the protection into the generic sparse-vmemmap and
+powerpc radix population paths. This protects device DAX mappings and
+makes the HugeTLB-specific vmemmap_wrprotect_hvo() pass redundant. With
+that pass gone, the bootmem-only optimization wrapper has no distinct
+work and is removed as well.
 
-I think that's the cleaner fix.
+This is intended to be the fifth smaller step toward the broader HVO
+generalization. The remaining HVO naming and enablement consolidation is
+left for follow-up series.
 
-Konrad
+[1] https://lore.kernel.org/all/20260513130542.35604-1-songmuchun@bytedance.com/
+
+Muchun Song (4):
+  mm/sparse-vmemmap: map shared vmemmap tail pages as read-only
+  powerpc/mm: map shared vmemmap tail pages as read-only
+  mm/hugetlb_vmemmap: remove vmemmap_wrprotect_hvo()
+  mm/hugetlb_vmemmap: remove hugetlb_vmemmap_optimize_bootmem_folios()
+
+ Documentation/mm/vmemmap_dedup.rst       |  3 +-
+ arch/powerpc/mm/book3s64/radix_pgtable.c |  3 ++
+ include/linux/mm.h                       |  2 --
+ mm/hugetlb.c                             |  2 +-
+ mm/hugetlb_vmemmap.c                     | 45 +++++-------------------
+ mm/hugetlb_vmemmap.h                     |  6 ----
+ mm/sparse-vmemmap.c                      | 26 ++------------
+ 7 files changed, 17 insertions(+), 70 deletions(-)
+
+
+base-commit: 2887e63d2e8e0cf55402612d8996ce955a2c3e55
+-- 
+2.54.0
+
