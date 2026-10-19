@@ -1,81 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792446849;
-	b=ahfj6HDAwlq/AOkcGwtwezvGt2Yyc5yHCFDm7nhQ+ByX5USjQIkxfgSth8XYNsWwcfi2
-	 p0g1kkQK8Nl57giiIrLT2C58YuOXNK5qKOlAtGKDJx0zw80YdQKV39F9ynbL8fHHe89a7
-	 f7ySIblME2QwmqYFzQyQNmeVsM+0jMMaXRMFC47Lokd61gYl4yFr7N71qpXuKrpe3ZlLe
-	 fWoVFz1h8FjETj5Avjjy2PBKNOUrpiHVO6ozXHsbt8+jYhMcXtMiiGszteAYe8USu9dJv
-	 8me+01yrO5M1NG1Ujn7oU769UuVvpY8XwSQ1YtQvGAHR4Yfosfs5gJLFXks2PbNxw7w==
+	t=1792446916;
+	b=qA9T81X5vMUiJFfP77F4Nx2r/KBTlpnbL8EF9LysP3Lyr3IY6y3sU6a32uxveoGZN7Ph
+	 Lw09bXUsmEJwFMrbhymzUUywsyvaIAh9a0i71O2iXgR1z6T45Yb1H5buVZpCJskTGplfb
+	 5HgsAsC5x0CC9+EwyTwdIdUY2L5OvP4J5vigZolLWSAgpA8Em+GoIGXO1YbCHaGV5UrS9
+	 Om1Vluliw2IwpDUn20zw4LqgjdvTCgKjLCsgWn253sU4xvQBDWOIsw49CcWHKZ9L8zlGu
+	 zwc0SSfRJuNSNmQnVVM85l40qjkhmhIVx6rWylBVeIrMMSRy1mKMmnHe6ae49CLgAPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792446849;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=REW/9j+OlAseSVUPZSaGZcgsaYuUzx8Jih/oiiyk91c=;
-	b=caxF8sy51/nW52CjiXe7kh6PDLORowtwYhi+Rfi1jw+MoBl1wkRBB7emNT1jg71UxocD
-	 E8G4p5p9ZCUgDT4aVeBPVkBxg1cDqmq8S/TVFjFhkXCUSKyT2cDpS/RqxjsBe7CYfFzBi
-	 gdi+C1nMRkgiFQ5BQxj/hNHgpHRahlZMKPoNU1sN984+1QVkekE5TYzZlUVLi2QXPWA5o
-	 KS3eQKu5blRXTCX+gtqrm8Ubm0PFZNDRozt4Zr4zK25GW0sSOu67/XkBK+uNcSF1gcVFa
-	 Ot/ZLh5JI6J0IX9FMFF83V0GU+o7gMzgrAmMUnlHDWs9kUyaU8gMwEK+0+qOvLE+xeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792446916;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=goZ/Zp6Q82TM5Za7gWzi39XZKqw0sAGT29tMh2jymvM=;
+	b=favFk0VwubFwBSHO2zWZiv3D6XD4YodV2i7eyMfeDNIIin4XjJj44qZtAigfV4zpLtY5
+	 wALEZLBh9TzSW+ine9zQXS9dMlUyf0c62b2riSzP7sD9uEnLRzywc5U1a368cXtI0c6lr
+	 WAgQXPdtBqmKdrcYPgKDtb09C0a6jljF0dtNHWEcSi3qljCx8QHczSQqhbNMcHfPQA0Ew
+	 mJAP2awy0jAo7rLkJ2XQSXjWnZhJMa+0N2EM5qfCjH5/52VjjiPsj9HTfMo3QE5jJr9CP
+	 Hjy2JGIJnZ8zV/jDvuC+8h/APIKaqzJAKCiVLgGmSxLAekbh63r0mdj6gu8boYJfpxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=H7ONmosJ;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=izJT5KbY;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQQfCNXo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2E1606A319;
-	Mon, 19 Oct 2026 21:54:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB2E1606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3354606A319;
+	Mon, 19 Oct 2026 21:55:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=H7ONmosJ;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=izJT5KbY
-Date: Mon, 19 Oct 2026 23:54:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792446846;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=REW/9j+OlAseSVUPZSaGZcgsaYuUzx8Jih/oiiyk91c=;
-	b=H7ONmosJ6zh6o9SpTnoFSdKuZJWBx2Yxqc+G+jHtUPhx7c7ud9ydR+LVE3+lN0RMh8C4KS
-	8G3nCCbis88zqCsmMSaVdNcHGhP7wLEwCFalK2lFBg1ZBu+HqXebx/QtKf3a3g+YLfc4Lh
-	jV/cE6BoOXG4Zs8W/cV3V90pkjzr0oqjs2acZbgyqKr9Yz069Kg7dPlLvmJSy4csDxNyun
-	uL1+4pZlCS6DGRgIgrEel5QLllBEvfuCQjsxDEcEeoIJ/0A8NKgtNHFW+KBt0Vrpnrkz/B
-	9VY8PfjKWnH4lBmJvus7ioEmA7P2iPj9Nf/IAhhUDL0kxyz2WT29JUYWkryHxw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792446846;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=REW/9j+OlAseSVUPZSaGZcgsaYuUzx8Jih/oiiyk91c=;
-	b=izJT5KbYwxJdCKsI4l1Onn0ZAkS1NLhodI8dZ38boqdNTaLmtDi5UQr/YUzocMRSNfjxjt
-	UeZZ20yI2vUpysCw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Daniel Zahka <daniel.zahka@gmail.com>
-Cc: Alexander Duyck <alexanderduyck@fb.com>,
-	Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH net-next v2 1/4] eth: mpnic: count packets, bytes, and
- drops per ring
-Message-ID: <20261019215405.OCzrrKYw@linutronix.de>
-References: <20261012-mpnic-counters3-v2-0-8afba81c2d5a@gmail.com>
- <20261012-mpnic-counters3-v2-1-8afba81c2d5a@gmail.com>
- <20261016220930.i32JEcqe@linutronix.de>
- <DM8U47F4MNK3.2V54CCQ9YTNBY@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQQfCNXo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DEC41F000C4;
+	Mon, 19 Oct 2026 21:55:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792446915;
+	bh=goZ/Zp6Q82TM5Za7gWzi39XZKqw0sAGT29tMh2jymvM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=QQQfCNXoeY8Li1kLMKrrJ2BB2+mTC11mr0tV/Gu8+XZcC5JyRmtjcLvY8EliI0CTa
+	 2gh9BuU94QDKboaFromd6FJgkHBEZV5Yqh/GhUV0R/U57YBqKo/GawAoWGClPhT0Gh
+	 UVRs0muBq4aMp2I8y2ZRQwwCCpYqIBIgaaTX83/V+aPGwR29q76HfMx7q2h4Yp8OrZ
+	 VG0Wg+rV6UDOTyqF937xG6Np5EGEbCddkdi118KfpJCDlaAy5MenMBLt8VIeoUrGWS
+	 SH8DZTcW1gq4h9iV3z5NRwRaPs8dG4WEqzPuvk3aYheYttUqqaLSj1zmlxXUs7LXAn
+	 gl0DFd9gGHPuQ==
+Date: Mon, 19 Oct 2026 16:55:14 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Sumit Kumar <sumit.kumar@oss.qualcomm.com>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] pci: designware: Set DMA_BYPASS bit in outbound IATU
+ CTRL2 register
+Message-ID: <20261019215514.GA2267032@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,47 +60,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DM8U47F4MNK3.2V54CCQ9YTNBY@gmail.com>
+In-Reply-To: <atBkh5nZEL88Gr6c@debian>
 
-On 2026-10-19 09:04:38 [-0400], Daniel Zahka wrote:
-> >> An RCU approach is used because ndo_get_stats64 is not called with the
-> >> instance lock.
-> >
-> > Why do you have the two mpnic_base_stats and fold the stats into into
-> > it? My guess would be that on stop the counters are reset and you want
-> > to preserve the stats.
-> >
+On Thu, Oct 15, 2026 at 11:10:49AM +0530, Manivannan Sadhasivam wrote:
+> On Wed, Oct 14, 2026 at 02:20:49PM -0500, Bjorn Helgaas wrote:
+> > On Tue, Sep 08, 2026 at 11:48:22AM +0530, Sumit Kumar wrote:
+> > > An outbound iATU region matches any local (AXI/application-side)
+> > > address that falls within its Base/Limit window and rewrites it to
+> > > the PCIe-side address programmed in that region's Target Address
+> > > Registers before the transaction goes out on the link. This matching
+> > > does not distinguish CPU-initiated transactions from ones issued by
+> > > the internal DMA engine (eDMA/HDMA).
+> > > 
+> > > Example: outbound region 0 is programmed with Base/Limit covering
+> > > local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
+> > > CPU-initiated accesses. The DMA engine is later given a descriptor
+> > > whose destination is the host address 0x8000_0080, which happens to
+> > > fall inside region 0's Base/Limit range. The iATU matches the DMA
+> > > transaction against region 0 too and rewrites it to 0x1_0000_0080
+> > > instead of passing 0x8000_0080 through unchanged. The transaction
+> > > then lands on the wrong host address, causing data corruption or an
+> > > IOMMU fault when the rewritten address has no valid mapping.
+> > > 
+> > > Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
+> > > programming outbound iATU regions so only CPU/AXI-initiated
+> > > transactions are matched against the region; DMA engine transactions
+> > > bypass the translation and go out on the PCIe link with their
+> > > original address.
+> > > 
+> > > Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
+> > 
+> > Thanks for the fix.  A data corruption is pretty disastrous.
+> > 
+> > Is there a Fixes: tag we can add here?
+> > 
+> > Probably also a stable tag?
 > 
-> Not sure I understand. I think you are asking about two things:
-> 
-> 1. Why have two mpnic_base_stats?
-> 
-> To avoid a separate heap allocation that can fail. Handling an
-> allocation failure in the ndo_stop path when doing the aggregation into
-> the base stats is tricky.
+> Just to clarify, there is no reported data corruption due to kernel.
+> Our internal teams saw corruption in the bootloader with overlapped
+> mapping between iATU and eDMA and fixed it with this BYPASS flag. So
+> Sumit wanted to do the same thing in kenrel to avoid hitting such
+> scenarios. That's why there is no fixes or stable tag.
 
-Right. But looking at hinic3_get_stats64() for instance (I just grabbed
-a random one) it simply does query the stats for each queue, add up,
-return. It probably does not drop the queues on down, just reallocates
-them while changing the number of queues (and maybe MTU).
+This doesn't sound very comforting to me.  Unless there's some reason
+similar corruption can't happen in the kernel, I think this deserves
+Fixes: and a stable tag.
 
-> 2. Why split stats into base stats and per queue stats, and why reset
-> the per queue counts when the device transitions down?
-> 
-> This is the way the stats in netdev.yaml are exposed depending on the
-> 'scope' request attribute. My reading of the relevant kernel docs is
-> that the per queue counters are counting events for the current live
-> queue, so it makes sense to reset them and fold those counts into the
-> base stats when the interface is transitioned down.
-
-Is there any other driver doing this?
-There is ::get_sset_count() and so on for the per-queue stats.
-If the interface goes down and frees all its queues, then the stats are
-gone, true. But preserving them at the price of two (down+up) forced RCU
-grace period, I don't know. It looks like a bit too much.
-
-> >> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
-
-Sebastian
+The fact that nobody's reported it doesn't mean it's not happening or
+won't happen.
