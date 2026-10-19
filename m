@@ -1,116 +1,161 @@
-Received: from mta0.migadu.com (out-244.mta0.migadu.com [91.218.175.244])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2EC246783
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:46:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.244
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5342222CC;
+	Mon, 19 Oct 2026 12:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413965; cv=none; b=BmbrVeS//FGgJoa/cdgSJJlMFktIpFYdD8+tyAx/EJZmWaYzlE4XuzN3GiiAG0UZGFQyO+OZol2sq1jU10QijSk6jpMNKduGTh/BlmGmL+3zFxHXkvOtz6RTxqQ3k7ND0pIEDtKRdXfxQhgi3ygicM02PDfzThMz67jvV1yOoM0=
+	t=1792413967; cv=none; b=ZQeIHNdj7MtwHWOf7e5P/fmvy4YuxIVcUunYlhFnubnZtwy8soIjUUgZz7wEFMX5MdO8qELNYAYYsKEZXlnBWx6Vao1KktUomMZXIPQwvp+Nc7p4p52zmixa7zqmUyuxhcnslM5YEzfyJE4WNe7WJPSh2OlkGoLilY2JAqT9ZRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413965; c=relaxed/simple;
-	bh=Qxp6b0ax9oueHkME8135NN7XH5RwaIVlp3JI/E88/tc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IvitQIlckzwO7wSMsYrdsNFTlFOsuZKzs/66m/BhiRNHN3TzKDkee4eoo/2822hbiBvNBaWDh4hoKIUaupyxnaWfUg6Y9yVxKq3AUJu3BRTBvEZY81dcA/L1WAg71l3dF1IK3psi86TjZvDfBTVYdYtiHNFPO6bT6dYAPYVq8XA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lBztxkKo; arc=none smtp.client-ip=91.218.175.244
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792413967; c=relaxed/simple;
+	bh=MO3bBllVtiPwKBNpdwjPHy15QCtLLvmZIeGXkZxxvfM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bZA+JGWmYV5vEqcWcLkakZcnQ2CDxDZuho17mkCXMW7zMfO+0iSkjSlxuGdsNO0Ctcy1QWnpEqfXGaAJI0uush/wa2anCCtYn3GsP7oLzLlpmhyxL30J1dTbweU4aDLmSVR/8DsDaT1DDFYa/rs/GzIlpi9Nh4WvglcUEq6xEw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=A6AGPmlQ; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lBztxkKo"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Qxp6b0ax9oueHkME8135NN7XH5RwaIVlp3JI/E88/tc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792413962; v=1; x=1793018762;
- b=lBztxkKopqGcsqDZ9VUC8cFUbmDvDvMelm7O/vQ7KpwLBiH6ykpzch+npuDLk279sUiCTLDH
- Vfyayzr9znhhnOJYzOGj+/OkrUQn1rDBu4mYrOm9Rt4bwiAxQ4zzMDEaJgvn4a3wDQQM52pQXP9
- bXiAa6kR5gCT4opcQu8zaXhE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a8fe107f7a95894e;
-	Mon, 19 Oct 2026 12:46:02 +0000
-X-Mizu-Trace-ID: a8fe107f7a95894e
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so9702e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:45:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzmWTIFyXOIGHKQX8tByVAJZKyO4NcooDtPUs9V+8Ywa0s19He7+a1Yl9p7jOTuCSXsmrcYIZn+0YZDFWI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjvTCM7lwi7s9sTb2SLtUTEgcM9hEJe4qBU1OCpAPJTgcacgxQ
-	Ejcz8yd1sSIqzmoC9sa400aneDt7oJJKKzosUJv1Xhj3Ins2zfFvl4R1ESWNDkMgKwHnEJAbMdv
-	YWYEUJF+if4V+2mkR8jmbMtp96/5BKfjz7qd621Ct
-X-Received: by 2002:a05:6512:4026:b0:5be:5605:3606 with SMTP id
- 2adb3069b0e04-5be560540ecmr122144e87.8.1792413957034; Mon, 19 Oct 2026
- 05:45:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="A6AGPmlQ"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 3F889C653EB;
+	Mon, 19 Oct 2026 12:47:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E0D160582;
+	Mon, 19 Oct 2026 12:46:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BE1C210328D37;
+	Mon, 19 Oct 2026 14:45:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792413961; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=3YskPz3UgoOKTWEGXwGt1ZoVBPz2ApBuqNly6OfeUwQ=;
+	b=A6AGPmlQ2pS8tcFcQUrgHqEwl4LUiBVobe6lTIuxtL5cqe51qGRV204HJo/wZ0CtTnQJAJ
+	sMgJ9Ji2q64nU9G43WhNtXHFxrU+NW5vobIX79/tYj90LhxQJEd+/OSZejH/FNF0m8iaGS
+	loLry2MaPTkQ+Fcnn+w0pJ5K2qSFgt7sTM2dAzVR7dT16YvzngpBk08uu5kjqwNOkfZK6g
+	I6Tv+WGDSh4cWH7kYaBkqM8s1dMqKGCa6+boLgm4LiRjz/fJxDZwoUeiXy6nherKEYQdpF
+	aJq1S6r8szb9KTJeZTzPUfgyl4BroXpABDt7ZwkkrPwhcm3Y98JG8utmmke/HA==
+Message-ID: <76248dfd-a193-4a75-9fb3-771cad207cb4@bootlin.com>
+Date: Mon, 19 Oct 2026 14:45:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261014125510.2928306-1-fuad.tabba@linux.dev>
- <20261014125510.2928306-3-fuad.tabba@linux.dev> <atXqLxU5bBtJ8U9W@google.com>
- <20261019114357.3528498-1-fuad.tabba@linux.dev> <atYPZeJuw2grFDlz@google.com> <atYQKaLo4VJDoNJn@google.com>
-In-Reply-To: <atYQKaLo4VJDoNJn@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 19 Oct 2026 13:45:20 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTxU_dAPcm7C77SkWffJRtAzkTG3NJ6ix3Qk1hC-09wRBQ@mail.gmail.com>
-X-Gm-Features: AclHuK88biJmUkYYPe6V74w0Egs3dpNZ2AJ9BmPKg1toG3idbbnqb7l-xriaAuI
-Message-ID: <CA+EHjTxU_dAPcm7C77SkWffJRtAzkTG3NJ6ix3Qk1hC-09wRBQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] KVM: arm64: Ensure TLBs and I-cache are private to
- each vCPU in pKVM
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Quentin Perret <qperret@google.com>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net 07/10] net: pse-pd: pd692x0: release the manager power
+ budget through devres
+To: Carlo Szelinsky <github@szelinsky.de>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Piotr Kubik <piotr.kubik@adtran.com>,
+ Sai Krishna <saikrishnag@marvell.com>, Simon Horman <horms@kernel.org>,
+ Kyle Swenson <kyle.swenson@est.tech>, netdev-bot+sashiko@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261018082314.48950-1-github@szelinsky.de>
+ <20261018082314.48950-8-github@szelinsky.de>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261018082314.48950-8-github@szelinsky.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 19 Oct 2026 at 13:42, Vincent Donnefort <vdonnefort@google.com> wrote:
->
-> On Mon, Oct 19, 2026 at 01:39:01PM +0100, Vincent Donnefort wrote:
-> > On Mon, Oct 19, 2026 at 12:43:57PM +0100, Fuad Tabba wrote:
-> > > Hi Vincent,
-> > >
-> > > On Mon, 19 Oct 2026 11:00:15 +0100, Vincent Donnefort <vdonnefort@google.com> wrote:
-> > > [...]
-> > > > > diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-> > > [...]
-> > > > > @@ -54,6 +54,9 @@ struct pkvm_hyp_vm {
-> > > > >          unsigned short refcount;
-> > > > >          hyp_spinlock_t lock;
-> > > > >
-> > > > > +        /* Per physical CPU, the vcpu_idx of the last vCPU of this VM loaded there. */
-> > > > > +        int *last_vcpu_ran;
-> > > >
-> > > > Unlikely to be a problem in pratice, but vcpu_idx is "unsigned int". I wonder if
-> > > > this shouldn't be unsigned int here too and initialised to UINT_MAX?
-> > >
-> > > I'd copied int and -1 from the host's mmu->last_vcpu_ran, but the
-> > > vcpu_idx it's comparing against here is unsigned int, so I'll switch to
-> > > unsigned int and UINT_MAX in v2.
-> > >
-> > > Thanks,
-> > > /fuad
-> >
-> > Also,
-> >
-> > as it is always allocated when pkvm_hyp_vm is, Would it make sense to add this
-> > to pkvm_get_hyp_vm_size() instead of allocating separately?
-> >
-> > --
-> > Vincent
->
-> Ha, I just saw your answer to Marc and you will switch to a per-cpu approach
-> anyway it seems?
 
-Yes. Now v2 (coming soon) doesn't allocate it at all. As you noticed,
-after Marc's comment on patch 1 [1], I'm dropping that patch and made
-this a static per-CPU array indexed by the VM's table entry.
 
-Cheers,
-/fuad
+On 10/18/26 10:23, Carlo Szelinsky wrote:
+> pd692x0 reserves a power budget on each manager's supply in
+> setup_pi_matrix(), but gives it back only on that function's own errors
+> and in remove(). If probe fails later, or the request fails for one
+> manager after others succeeded, the budget stays reserved on vmain. Each
+> probe retry, e.g. after -EPROBE_DEFER, reserves it again until nothing
+> is left.
+> 
+> Release the budget from a devm action instead, and drop the explicit
+> release calls.
 
-[1] https://lore.kernel.org/all/86y0buyo5s.wl-maz@kernel.org/
+Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
 
->
-> --
-> Vincent
+Thank you!
+
+> Fixes: 1c67f9c54cdc ("net: pse-pd: pd692x0: Fix power budget leak in manager setup error path")
+> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
+> ---
+>   drivers/net/pse-pd/pd692x0.c | 22 +++++++++++++++-------
+>   1 file changed, 15 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/net/pse-pd/pd692x0.c b/drivers/net/pse-pd/pd692x0.c
+> index 209de9cec849..34f0dfbccd06 100644
+> --- a/drivers/net/pse-pd/pd692x0.c
+> +++ b/drivers/net/pse-pd/pd692x0.c
+> @@ -1224,8 +1224,9 @@ static void pd692x0_of_put_managers(struct pd692x0_priv *priv,
+>   	}
+>   }
+>   
+> -static void pd692x0_managers_free_pw_budget(struct pd692x0_priv *priv)
+> +static void pd692x0_managers_free_pw_budget(void *data)
+>   {
+> +	struct pd692x0_priv *priv = data;
+>   	int i;
+>   
+>   	for (i = 0; i < PD692X0_MAX_MANAGERS; i++) {
+> @@ -1279,31 +1280,39 @@ static int pd692x0_setup_pi_matrix(struct pse_controller_dev *pcdev)
+>   	if (ret)
+>   		goto err_of_managers;
+>   
+> +	/* Frees whatever pd692x0_req_managers_pw_budget() manages to
+> +	 * request, on any later probe failure and on unbind. Added after
+> +	 * the manager regulators so that it runs before devres unregisters
+> +	 * them and their supply goes away.
+> +	 */
+> +	ret = devm_add_action_or_reset(&priv->client->dev,
+> +				       pd692x0_managers_free_pw_budget, priv);
+> +	if (ret)
+> +		goto err_of_managers;
+> +
+>   	ret = pd692x0_req_managers_pw_budget(priv);
+>   	if (ret)
+>   		goto err_of_managers;
+>   
+>   	ret = pd692x0_set_ports_matrix(priv, manager);
+>   	if (ret)
+> -		goto err_managers_req_pw;
+> +		goto err_of_managers;
+>   
+>   	/* Do not init the conf if it is already saved */
+>   	if (!priv->cfg_saved) {
+>   		ret = pd692x0_hw_conf_init(priv);
+>   		if (ret)
+> -			goto err_managers_req_pw;
+> +			goto err_of_managers;
+>   
+>   		ret = pd692x0_save_user_byte(priv);
+>   		if (ret)
+> -			goto err_managers_req_pw;
+> +			goto err_of_managers;
+>   	}
+>   
+>   	pd692x0_of_put_managers(priv, manager);
+>   	kfree(manager);
+>   	return 0;
+>   
+> -err_managers_req_pw:
+> -	pd692x0_managers_free_pw_budget(priv);
+>   err_of_managers:
+>   	pd692x0_of_put_managers(priv, manager);
+>   err_free_manager:
+> @@ -1855,7 +1864,6 @@ static void pd692x0_i2c_remove(struct i2c_client *client)
+>   {
+>   	struct pd692x0_priv *priv = i2c_get_clientdata(client);
+>   
+> -	pd692x0_managers_free_pw_budget(priv);
+>   	firmware_upload_unregister(priv->fwl);
+>   }
+>   
+
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
+
