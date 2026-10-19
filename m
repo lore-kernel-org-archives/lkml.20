@@ -1,146 +1,152 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CA14D3BEF
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:48:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421295; cv=pass; b=gSuAYXMh3kHpxJ2TCSl/wdVSecZa7X2/EQWdaRyYgs8CoeSBHwQK6wY6PujdShn7Pn16Ik2kb0w22luacisFXz29vGQgny60zfgiP2xY13LXbxA6wAzQKZ920Kz9CUUUr/raIH56RGu69PJGHHzMy/NWgrJFi3tEBeogmmleps8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421295; c=relaxed/simple;
-	bh=sr81G1l6hEDb1xGFNozvyAB92DmKQlAoBI/KVoCDSoI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ENxwVlKQ9CNKdx64pBiR5EeMnzdsll0Tn9U5bWJbFOWu7+FHxYsPLonvOTZfqhLLJ2bCSLXCaEZKQy+gstQsdwMfixHGG4kTmBj1FOaD96Gt9x2il+2PlMZ/xZdQ3EM2n1fXnFbJtKVN70vXjmszdV6Dly+Aev+6B1MU6oTONvw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XSHkxma6; arc=pass smtp.client-ip=209.85.219.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1280349CFD
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792421305; cv=none; b=QAlrfPDI900JpUqgF46l0RRX6NbP+Ua/bB+nEo6ET+qzXegZLJ2OkbdrGE8iBtusVGaRXbwirzsFql6QzH1BmcjlrLw7AMzEOqEi+SCRdu8n/1btuDpfSAQIcymQeclVs3lw+sDcER8y2BcYE5/kH/nrXz9Z1V+IqPVTYTybObI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792421305; c=relaxed/simple;
+	bh=y7hhy0jMwIBWPpKFihLcA9zDPb8SzNujCS4xLyCrVPc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=G07Erv330Jg5JyU0bfmrq3Acmryg6MmJxCDDwuww4+9JT0P80JG9UJNGodBEL+gGknUkk0fJc3S5/HXx3VE/0Rt3fZYc36BZCe+xY2Ci5R81bhV4KH7ble56p8bYOld/13knewAIz+0WJC55X+17kwI2PMFlY2CSM2wEZBMelbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sUvBvNeE; arc=none smtp.client-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jpiecuch.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XSHkxma6"
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-917a707f37eso23082756d6.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:48:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792421293; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RO1DatYxvqZzWQN26T/CgohRyA4skjfi/2tiHFJ38/7QGnefC/NvT7AR69jnOsy/B8
-         FFVHrE9WSLYBgpCGUq+/Kq7oHufPSlut8sFdH9kr79yYx+sKLvDAeu0iO6K6aKx/JwyY
-         xW/9bXYWHXMO3h0Xof3cDkMHgyWF1pnlfBiSuW795TmDy3FXqvD1fevp9MSRZk29qqu6
-         38D9U+jlfO+RAlI6REETs3FKUNiN1P4NM5MDrcM1/ZCpkjWoNMsIJENV1LzweFMZufkc
-         EYxZM0VAUn4VeTHZq0G5j23YKCsV+KJ6Nzx3juWWY4XX/WoIBifKiI/pEDhADLdHDZPR
-         O4cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=sr81G1l6hEDb1xGFNozvyAB92DmKQlAoBI/KVoCDSoI=;
-        fh=zh6nNzS2hEkX7s1ku4YFPkWnB38wBaJsWk7dGOpFPsk=;
-        b=nFfPvBlmXR3DNayaxYrQctGojpUv3sezSyAthM8ZpoSyWNsWeUcw4tHzljcw+FdSb7
-         Zpi6rO5ouG6/Yx62SYvzqT24xGHV4Ir8sN4y3/mh1FIGPZ7mDeEv5yjj8FGruie7XQdr
-         DFf1BrhHwiTpLJDLuDcp5gXjuslU13Q1F6jjPMDitFdXp/aJX9dTJsBwMr5Gz1714b/r
-         /tBi0+lMtfyxYu5raWMAcXJALgEul57YkMSueK/OKkPcInTlzN5copqAVNnXdOt7jE+m
-         JmYeH02kK/EC90B+J9hxg0kPS8++rsm4VLlzJzVzGez9nTbtGBA1ZGXQwy0aUy6Euipd
-         Zk3w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sUvBvNeE"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1895ffc83so16244255e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:48:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792421293; x=1793026093; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792421302; x=1793026102; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sr81G1l6hEDb1xGFNozvyAB92DmKQlAoBI/KVoCDSoI=;
-        b=XSHkxma6BTDnT13+x5AWBYnD/5668BqCyFUIwVqRS4d9l+lRr6vivni/uVTf6PPL1r
-         a6jcrh56+CsT38D2X0SICw0g6El+S324MzWVsKi6Q3HvBIQI1jh3T2zhImma4tYPM6ZD
-         PoHq3iZzekh1g9bmJyfEDhfK8DiNlYCglrF5ZFxIjBoqiEFFNrT5Sex4IgtLiQUmLolG
-         3ArS/SFwSq4bGZ8BISUvbyGkH7f+ZIc1ljtug6LIUGHfEGI1Xaw3kdYz4r9j4vhU7SIA
-         GwSBhXj5YCIhJ6Ir/BvceLkecUuhF/K+vMw1DH/fDFSkxfhpcqtp9bAbCIRlkXiDvAmN
-         AnIQ==
+        bh=bF3manf6h/sdWmju/9t0IgXnvtLovSvm8SwVL7k7d50=;
+        b=sUvBvNeEkXK1QlcOhSqJPvKlYpI/knTEvGBnon5X6FFNlektSEYWdCKyUwzF6cJ07j
+         9wjQdu/anPLE5IG8L12cSkaOeFIMp2kFdHLzsw4GuSCbZmfHEz6HHOWghyhlpFSzGxRB
+         IRBrODzXPKmkhkPojdsK+1INBghAm4D136rY7U03X64U3K3C9AWCcPScheNuWthS4BcK
+         uS/K+x/eVOPAeBQxE/A8Hmukmv3EyBJXzXvDwsj5qujCfRREcv8/zbEaObi1dtB5v92B
+         BOBNMfId9xTzkDANAk1pYKmb5BtpHyDqskOBilObAh8U9CSATLGvYMOtiJbslLVxLuK0
+         L3JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792421293; x=1793026093;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sr81G1l6hEDb1xGFNozvyAB92DmKQlAoBI/KVoCDSoI=;
-        b=dSH4ZPtkkdcTxjXrOIB5gyG5UpdBxKibMxPqdMcxJiTTmANcFwY02EsMbUuWnuHmNt
-         Hb/7nONhH6mDKPLZFcLs4vKW3p82fKKF3hNhXkivQCDRb0koEPHrl/BsmS69qsKPNfzv
-         oJYP0BRd/pOpxCnIYj5s4CRQX8Wi5oZiXPUZJsYv3OBjUIXG+7Fson/QvrvBoJt6l1hS
-         QRvmJkDh3DYaHv7ggouZ4IhBTYpFD5uf4R8hji9a2EjR09fCTjbZUwVDqNsnS9TUwq6F
-         rBiBGQbBhZHLu1lCexb3CcneRreip4cgH7Lypazl3bMNy0dtO9OljZFVPY8zv+CD8daJ
-         Eeyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwX5h/qXvSEPN3lK986hF0WdE/BenTjMyv28SJ+nuPP043cu33vuvO2tQf5JYz1el77GAHP1o7LCX+K9HY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJydU76fIublA6PVM4lCQUFpYckD9zhyP0Yh8ucJJuQ40BevBoB
-	Gfe1TdqsJQvH3Vp0ejfT1K8yJ2XdSoB9VcySD38m3zUZTA+mDTwsaOhwrhJTwV6TVgzXE+ByQRt
-	0jsBNnxByKTRwQLSXxb68ca9N7mii/sk=
-X-Gm-Gg: AYBFou2w2vqLEjja0tM3OO3aTKaMHzp0AAicGS957w/X7zZ84/h/1uPsobtNw+Trj5l
-	1p+oztIborl2NtleF5IuKdsTsSLuMOHGDmuj9mR8X7FOUykMospiEJLyVjL58cBGv9ZvHzJ9/iU
-	JmBWkRM//0FoqhitIRqyyG5GclPfpf2PIXRGL73o/aPrfSrqEEllVmk5++uZNHhTfa7sEvsRhHa
-	O1jg9jlhPXB6Wbp+IWHGnj0QqVUlK6kg8WiQJA0qEXNQVhPwKjlSadCVWmgK7+Beg3Qw6kPu3Hu
-	yLGqtoxmTSCbdQhuDablivrLSlqQUUef0Xp8VBBJW5oD3jKH+2GrFWQh
-X-Received: by 2002:a05:6214:20a1:b0:917:8ea8:cf48 with SMTP id
- 6a1803df08f44-91bdefcebc3mr137859616d6.11.1792421292969; Mon, 19 Oct 2026
- 07:48:12 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792421302; x=1793026102;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bF3manf6h/sdWmju/9t0IgXnvtLovSvm8SwVL7k7d50=;
+        b=LcOOoq6dyfhn5fs6rO3O3Vi1Yqk+mAb0F6UE9xCt6/5gIWmRqUifuRTDXwZfR0+jUh
+         i0r0jD8r2f5Lh5Tk/dbZrqM8s3KCjCEPrfyQRxL1mD+/IBh0H5gzIkReZKEGzG3FzUTB
+         //+eoQHuvta4APV1ILRyxwcQiIdds41mt3+ueVAKnqgPWgo2u3FG1DgP4Ws3JO4Ur6iU
+         Bo4L4mS8lKZrRajPzGNDkg4EMMz9BMGMAiw4LCTb091bzCBBiSlTDXEV+woZs6j2SmiZ
+         xZ4wKH0F/DaNuuz8BiSRt+xhJbcnF+7rRZh9vLCUvYVDRRuw0zDbJzTTKHG75Sxym0HA
+         F+VA==
+X-Forwarded-Encrypted: i=1; AKwUvBzuu8ndCDqBs+cvJeizvtprmIDb65bLwqvhNnIMbBY5Li+ZWM/3gpr9+u6OSr+zSx2dcuSqH8/yqBFxkN0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbnro84aXB8/Zk50SMa5hwq+Giwv0CVKniyW/fDFZRqIvxMAs4
+	aIe/T5tARqEq5YCg0v6jfhQiPlsMiYz9IYoYT3xkvilpBLPdgrcX7W0S8mwGyy8cBCrZNswVIx9
+	13gn91Bhy+Ikqsg==
+X-Received: from wmej10.prod.google.com ([2002:a05:600c:42ca:b0:4a1:e58a:b550])
+ (user=jpiecuch job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:6218:b0:4a1:ddaa:571e with SMTP id 5b1f17b1804b1-4a1ddaa5803mr151862875e9.15.1792421300447;
+ Mon, 19 Oct 2026 07:48:20 -0700 (PDT)
+Date: Mon, 19 Oct 2026 14:48:05 +0000
+In-Reply-To: <cover.1792248922.git.jpiecuch@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261017-zenbook-duo-keys-v1-1-45f72d3db5ed@gmail.com>
- <1a35e100-010d-4327-afe5-1d2496ad7e24@linux.dev> <CAKspSoNJxEcEH1AwXHyNY5cWVvCQ3LN0fcZ8d9ajAoShdBMRKg@mail.gmail.com>
- <ddf53c75-80bb-43f6-9e48-629b49a6339b@linux.dev>
-In-Reply-To: <ddf53c75-80bb-43f6-9e48-629b49a6339b@linux.dev>
-From: Victor <victor.gillholm@gmail.com>
-Date: Mon, 19 Oct 2026 16:48:01 +0200
-X-Gm-Features: AclHuK81zGARuTkywifK9g6jYxkCdd38peFdUhidq_nESAH0fApy0cojRf-755k
-Message-ID: <CAKspSoMNC_V40bDXzB8noHJG9F2FT8L0eUmh0-Ks1fOngRG62A@mail.gmail.com>
-Subject: Re: [PATCH] platform/x86: asus-nb-wmi: map ScreenPad and Task Swap keys
-To: denis.benato@linux.dev
-Cc: corentin.chary@gmail.com, luke@ljones.dev, hansg@kernel.org, 
-	ilpo.jarvinen@linux.intel.com, platform-driver-x86@vger.kernel.org, 
+Mime-Version: 1.0
+References: <cover.1792248922.git.jpiecuch@google.com>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+Message-ID: <20261019144807.1207781-1-jpiecuch@google.com>
+Subject: Re: [RFC PATCH sched_ext/for-7.4 0/5] sched_ext: Make
+ ops.cpu_acquire/release() reliable
+From: Kuba Piecuch <jpiecuch@google.com>
+To: Tejun Heo <tj@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+Cc: Kuba Piecuch <jpiecuch@google.com>, David Vernet <void@manifault.com>, 
+	Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On 10/18/26 22:05, Denis Benato wrote:
-> Alright, I see what's going on. Then yeah I agree with this decision.
+On Sun, Oct 18, 2026 at 12:14:44PM +0000, Kuba Piecuch wrote:
+> - ops.cpu_acquire() moves from before ops.dispatch() to the point where
+>   the CPU actually switches to an SCX task or idle, so ops.dispatch()
+>   may now run on a released CPU. A speculative acquire before dispatch
+>   can't be made reliable without hooks in every class.
 
-Thanks!
+I'd like to reconsider this part of the approach, for two reasons.
 
-> My remaining question is if that screenpad-as-touchpad is fully
-> software emulation (like dialpad on newer models) or is actually
-> something different that can be made in driver... I think I can see
-> some code using hidraw to send special commands to screenpad
-> and I really want that inside the kernel...
->
-> If it can be made in a driver that would be preferable. Guess I will
-> need to take a look at asus_screenpad... Can you point me at the
-> correct repo?
+First, it changes the semantics of ops.cpu_acquire() relative to the
+original implementation. Schedulers could so far assume that the CPU
+is acquired whenever ops.dispatch() runs. With this patchset they can't.
 
-It is fully software emulation. I have made a ScreenPad plugin for
-Omarchy (Arch Linux with Hyprland), and the touchpad mode is part of it:
-a small helper grabs the ScreenPad touchscreen (ELAN9009) through evdev
-and re-emits the touches as a virtual touchpad through uinput, so
-libinput treats it as an ordinary touchpad. Nothing is sent to the panel
-and there is no hidraw involved, so the hidraw code you saw must be from
-another project. As far as I know, ASUS ScreenXpert does the same in
-software on Windows.
+Second, it loses a case ops.cpu_release() should cover. Say an RT task
+blocks, ops.dispatch() inserts T into the local DSQ, the rq lock gets
+dropped, another RT task wakes up on the CPU, the SCX pick returns
+RETRY_TASK and the RT task wins. That's an RT -> RT switch, so the CPU
+never becomes available, no ops.cpu_release() is invoked and T sits on
+the local DSQ until the CPU picks from SCX again.
 
-The repo is https://www.google.com/url?q=https://github.com/gillmania/zenbook-duo-screenpad&source=gmail&ust=1792507315199000&sa=E
-(the helper is service/src/bin/zenbook-duo-screenpad-touchpad.rs).
+The standard answer to that would be SCX_ENQ_IMMED, but IMMED isn't
+bulletproof either. It relies on rq->next_class being raised through
+wakeup_preempt() whenever a higher-class task is about to take the CPU,
+and there are several ways around that:
 
-> Before doing anything please be absolutely sure you are running a kernel
-> with that patch series included or you will see the same "inverted" issue
-> after inverting the bit only to chase a ghost issue wasting a lot of your time.
+- sched_setscheduler() or a PI boost promoting a queued task to RT/DL:
+  sched_change_end() doesn't call wakeup_preempt() for non-running
+  tasks, switched_to_rt() only does resched_curr() and switched_to_dl()
+  calls wakeup_preempt_dl() directly.
 
-7.2.5 still has the old update_screenpad_bl_status() with
-"if (bd->props.power)", so what I saw was the regression your series
-fixes.
+- DL replenishment (dl_task_timer()), CFS bandwidth unthrottling
+  (partial mode) and RT group unthrottling enqueue and resched_curr()
+  without going through wakeup_preempt().
 
-I applied the series on top of 7.2.5 (all four patches apply cleanly)
-and tested the rebuilt asus-wmi on the UX482EG:
+- When the ext dl_server picks an SCX task, next_class becomes ext
+  although RT tasks are queued, so rq_is_open() accepts IMMED inserts.
+  Once the server runs out of budget, RT takes over without any wakeup.
 
-- the panel stays on when the module loads
-- writing 4 to bl_power switches the panel off and its DRM connector
-reports disconnected
-- writing 0 switches it back on and the connector reports connected
+- With core scheduling, a forced idle pick resets next_class to idle
+  while tasks remain on the local DSQ, so a later RT wakeup goes to
+  wakeup_preempt_idle() rather than wakeup_preempt_scx().
 
-I repeated the off/on cycle twice with the same result, so the UX482EG
-does not need a quirk once your series is in.
+In all of these, IMMED tasks end up stranded on the local DSQ behind
+the higher-class task.
 
-Best regards,
-Victor (with a lot of help from Opus 5.5)
+Making next_class exact would mean touching rt, dl, fair and core, and
+still wouldn't cover the dl_server and forced idle cases. What I think
+would fix it is a single SCX hook in __schedule(), right after the pick:
+
+	next = pick_next_task(rq, &rf);
+	rq->next_class = next->sched_class;
+	scx_settle_pick(rq, next);
+
+gated on scx_enabled() and next's class being above ext. At that point
+the pick is final, the hook runs on the CPU that's going to run next
+(core-sched siblings settle in their own __schedule()), and a preempted
+prev as well as anything ops.dispatch() inserted are already on the
+local DSQ. If rq->scx.nr_immed is non-zero, the hook schedules a
+re-enqueue of the IMMED tasks, whatever made the higher-class task
+runnable.
+
+The same hook also allows fixing ops.cpu_acquire/release() while
+preserving the original semantics. ops.cpu_acquire() stays in
+dispatch_one(), before ops.dispatch(), and the hook releases the CPU
+if it's still acquired when the pick lands above ext, with the task
+actually picked in args->task. That correctly handles every abandoned
+pick (RETRY_TASK, the ext dl_server returning NULL, core-sched
+restarts), and in the example with an RT task above ops.cpu_release()
+gets to re-enqueue T. The release calls v1 adds to put_prev_task_scx()
+and put_prev_task_idle() go away. The rest of v1 (class changes,
+hotplug, enable/disable) stays.
+
+Tejun, Peter, would a hook like this be acceptable? The core.c
+footprint is one line, it's a static branch when SCX isn't enabled, and
+the out-of-line call only happens when the pick goes to a class above
+SCX. If you're OK with it, I'd send the IMMED fix first, separately
+(Fixes: 98d709cba319 ("sched_ext: Implement SCX_ENQ_IMMED")), and
+rebase v2 of this series on top of it.
+
+Thanks,
+Kuba
