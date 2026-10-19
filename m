@@ -1,55 +1,102 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792423041;
-	b=cnqZmizg0gyaiMnc3zzA8Z9V8ZsCFdBGy+ahXAi/LeA7+ml/L2SBdquUqp4HZAYJLlfs
-	 eslcd0l2XxdJMIPcsqtal05G4aXtBS1/+ISv474LajnSnNfNeTGIGSrj8HJg+SKqXKfO2
-	 3WcdO85XfN1Afj+YIDhpVHrx0hWQ1r8vRSbThxZt4vqXPvai2pnezKiIF2BI6C2GqNmvO
-	 ZKbaw89cYdrqG+7d90WV5fcVoSdEmyVtKov+r8k5jep9up5urqvs0m3TWwmHeh4o5R7C0
-	 cQpoiSBGBP04MqhBeul2Z6DrbhjBH3zdWNh350Kig6AK7vNnTPa9YOc60PdDWeEs4ig==
+	t=1792423440;
+	b=prGcGsp7T3fvHkNt4Ozv4etnHCxJ35G7tZLv741Vq9YAwRUkcKMVGMYc3hzPTN/lV2e8
+	 Dw07IE910MOGPPL7yMSvU5E+rgUHqeVBBYrfROoUpygvrzksgO+TyqWRvpwCitq0GFaiI
+	 8DfcSAIJbBjrW65jGK4THWfWeTEq6e03rv31py7DLU4o+qRDdzSC1agangJN0kJwlC6EC
+	 pRLgveR0x/6tcHA9+HzemIarhAwnnd0L/HkXgfOLtlSzn+O6VMC3gNtfIRYb9zJ4MTTrK
+	 6YM0P0fcCqRhEWh9FUi2HnZmVFrlOPMRa6w5hy8MyNpzuaWoQTvfVPGx3wyYXkIwBUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423041;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xy4l8wG3rG513QI4qabh/2kPl1xY6iKJl/GLujmE8Wk=;
-	b=k8GTtLEsFalHLKpZJSdexWfVntLxvXLXZrvlgd7ba0ZfnxL2GQ4tYGvguyt9xOtbnbhB
-	 2nymzCvY7HP8c0H4aWCO5z2+7Z6tBfn8Wp1dl+e5yuwzZrSc5axUS3NJH/r5u/Q3e3/a4
-	 UqWXe6z/8jNFYkKwqNMHX7/EdTW39ZRAfNM94DD5mbuA4AY5HWAno5+iu+NWg+1GzDB8W
-	 vjB9XoMMv2DaEOTtZ2G7+tAJ9AT9MKwWgOjyY08M0aUS6U6qrDSidDEFbO6L1pWj4DaKE
-	 AqVt3AwRK7W4Xk9KUnn+9wOPRdPh83XI7Uic7mprhSzW5u0wv4fSHaCk5N3I+EinS7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792423440;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=4eLFyGKiPJMtTIXftX4CvV1KoAV13HYov222ZjSdPFg=;
+	b=2P/zjaxnFduFP1HHquUdvpA1LU6lSydxPmYUErK+Ybm/4TOqafd65EA9lPOvLu+0Q9sM
+	 An7Lw/OPufA0LOjxjQPc5iNqdN8EHxZBflEnfb/tJ1vutKeEBN9ohxnX6iJK5uym+pfqj
+	 ZHTftNOycQf4VVqe0nBE3IBWe0MQ3CVWWM7T8r6VWB1vVevkxbUlpUnwiml5kdEcu03hl
+	 kYHz8YIzEMit3HEgG9HbBDCuyHg+sf5gkfctVKVsQs25ytkxAhF+XLwR0Q9foIwHxIPU8
+	 VIFx/H1i2Ai+dk1vINFLdUJQJBMhUSMZ2bQFZa/0D9ii+keMabQqECV7Kr3jIxwbzVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czZpKznS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L9ewDfpJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 307A360A2600;
-	Mon, 19 Oct 2026 15:17:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF1460AE2C6;
+	Mon, 19 Oct 2026 15:23:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czZpKznS
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 42F3C1F000C4;
-	Mon, 19 Oct 2026 15:17:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L9ewDfpJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17421F000C6;
+	Mon, 19 Oct 2026 15:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792423040;
-	bh=xy4l8wG3rG513QI4qabh/2kPl1xY6iKJl/GLujmE8Wk=;
+	s=k20260515; t=1792423439;
+	bh=4eLFyGKiPJMtTIXftX4CvV1KoAV13HYov222ZjSdPFg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=czZpKznSwxC4JDW4LuOEXxP3atqG0WXomfog1EIFOe6ohBndM72v8oBEI3kCwCKWQ
-	 ohbwyNEq67JmhvMH0EfV/lR71Ejb3dG/O+1bA9WGy5v8G89BWDaSnSRFJUb+OYHtVY
-	 abTxH+lRFVa215Zczz4sVzZPTGx8oyJrbi9x/ZxjOHLcHNzIDz7rZ+qqpy70OlJeFV
-	 UkEiS7o4GtsmkR6JTacv8jB1Yq/q3ZyAhOglB6Mye8d0fjqWP4oBu+7JprqmOX6hP5
-	 DESY0hGR6L6fdwXjStQjG5hUYPT4TNJBQgg5K3o1DD7xPFvXY6udMnMsrX68VKrhiq
-	 aeHCLHrm8U/CA==
-Date: Mon, 19 Oct 2026 18:17:17 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
-	serge@hallyn.com, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Subject: Re: [PATCH v2] keys: Protect the read method check against type
- removal
-Message-ID: <atY0fRZ_s5UQk8Fk@kernel.org>
-References: <pm-key-management-objects-candidate-0010-v7-fc85721ff5cfb9e33ac6@gmail.com>
+	b=L9ewDfpJ/rXX/VusF6ChIIgdlRr4Mu2B6zySEt7rPafwX9G0O1uxQ4Y7TcXRPaTGY
+	 qAtRiYvkDNpm/yMGv6i5xw9izYikkFlhNQU3tGt8I/2wDBhb84fsSwDG3SV8Gbjlcp
+	 M83ca4OfJiG5/3t9bVjwIVtxCet/Yq7UVeU4nqcycgt2lkhFla8FZvmeqbKKnUsJpS
+	 EtJOZzlpu1KLBa67Lc5FnOwWLTj294uTR34Mjzrg9JlIWo9AHGt9Z/vpzIy964euEc
+	 5WmBSvKgAd8sg4N8gXBfWwWEugVP1hChxUFQE+AHA3RLsa6Ek38Y/nDkyvVWWrzdT9
+	 XOe2DsKSyrOqQ==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 02B55F4006C;
+	Mon, 19 Oct 2026 11:23:58 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Mon, 19 Oct 2026 11:23:58 -0400
+X-ME-Sender: <xms:DTbWartuLlGuZo2dtWjtN0OHMsF-bdCWW_0uZCCOmE9QTUHQcbpTlQ>
+    <xme:DTbWalSXuN05qoS5nOPgUua_UGSpxuW9s6jCRCfnOdKsDgMbrs0YtV0EAOQVAH71y
+    jxKC1mSMzBc3ihS2wUX5iXmKtJ_STKgwPuVYI0BJxKqc4t2JKJoSw>
+X-ME-Received: <xmr:DTbWaluh0poHqK9Mt4s6gO5yxWobYkbm-RLre7kC32cz7Slt8Po_b5YC9usQOM5k9y3bMYH64pZuxBDXd79nwCehhRAEbGh6>
+X-ME-Proxy-Cause: dmFkZTFxUJdm5wwDentUf4q7O59iYNdwqKMnixhSgaLkk1fmocLKobKbM+RyRhTm3kqbdq
+    GZz1WNVgJ4bDjAKGKvmLqSew2Px0JG93axkc4pJiL2hDyhQLeVD0oK976RrFzwNrD8BGUB
+    k9eETPX0MopLAArJxEBE50QEp1+eOrzpGrqCPlJrnOzmFKtzUP5P/pmVNrzV9PFhWnZcjT
+    JRsPBHli9gBJ/NPuYbhLRHsFOoiYmLsy/TZpVX7tp5vj25GVMyy6B9k1tw5KNWEmZRjkiM
+    GAnqDGAkEW/7RQMK7IMUucuyTUFH13h1YK10BRSQQeHASU32MqLno9keSqAb8xdY5ob/k4
+    GKm6jVCUbKizvaFI7aUs9IoKa8fpHdYlKaXmWDV5mSp/cGIpAs3hVBsPeJn+/CBGmgUXqP
+    /54AXE1q8ATTSpcar2rHW43nQG2IFOs7btol4I1wWJCrTvH/YYlfb5jlZ2lzQVQogUQCKB
+    CAHgA4nSiFb6MNJWQUZh+LU0qgoriSl3Gt5YQLIlFxeKzFS4pczKyPN4bSZPAm7kxNY4fr
+    bCHNg70cJtniqHnw+YwZJivITsCpII5auLOaebI3DZRmoPhey1PCIn7EGSQ5gCLcIQOn9W
+    qXEKvMf2zDkkVfX2XiJX9p+tfOalan7a9dTWceqHB+jXf0KMBbTXlgdHLZuw
+X-ME-Proxy: <xmx:DTbWajyr_ZzqWGmZfzfijrnq4uME813kGVFi8SNBW8MS2cdLbt00yA>
+    <xmx:DTbWak3I9_9gBqgsLk-Peu6j2xslkVV-qtNDo__0nYpB9nXUTqNO6w>
+    <xmx:DTbWaoxZ_uQiYZdXGu-aaRx7Mwg2UsmwrFVJPBgm1m4ebsPEnr89ew>
+    <xmx:DTbWasMpMflFqTSh23j0pmDFu4ozJUjwi-LV9Fr_6e7_kIryrfCNKA>
+    <xmx:DTbWal4YOe-vTzbp5n4oqfMxwvBIjsx9tWMyVBFzH8AUUCBKo62CBUO7>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 11:23:57 -0400 (EDT)
+Date: Mon, 19 Oct 2026 08:23:55 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Leon Hwang <leon.hwang@linux.dev>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
+	Will Deacon <will@kernel.org>, Waiman Long <longman@redhat.com>,
+	Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>, bpf@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexei Starovoitov <ast@kernel.org>
+Subject: Re: [PATCH v3] selftests/bpf: Use the new NMI_BITS definition
+Message-ID: <atY2C77fARQNgWp3@tardis.local>
+References: <20261002102923.45846-1-boqun@kernel.org>
+ <da2773b2-1ed2-40ef-aefa-0e754cdb2f9d@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,101 +108,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <pm-key-management-objects-candidate-0010-v7-fc85721ff5cfb9e33ac6@gmail.com>
+In-Reply-To: <da2773b2-1ed2-40ef-aefa-0e754cdb2f9d@linux.dev>
 
-On Mon, Oct 19, 2026 at 10:57:21PM +0800, Cen Zhang wrote:
-> keyctl_read_key() checks key->type->read without holding key->sem.
-> A reference keeps the key alive, but does not pin the module containing
-> its type. A surviving RxRPC key can therefore be read while AF_RXRPC
-> is being unloaded:
+On Fri, Oct 02, 2026 at 09:50:02PM +0800, Leon Hwang wrote:
+> On 2026/10/2 18:29, Boqun Feng wrote:
+> > The definition of NMI_BITS was out of sync after the introduction of
+> > HAS_SEPARATE_PREEMPT_RESCHED_BITS, hence adjust it.
+> > 
+> > Reported-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> > Fixes: 3b0e2a22d408 ("preempt: Introduce HAS_SEPARATE_PREEMPT_RESCHED_BITS")
+> > Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> > Cc: Leon Hwang <leon.hwang@linux.dev>
+> > Cc: Alexei Starovoitov <ast@kernel.org>
+> > Signed-off-by: Boqun Feng <boqun@kernel.org>
 > 
->   KEYCTL_READ task                    Module unload and key GC
->   ----------------                   ------------------------
->   lookup_user_key()
->   permission / possession checks
->   load key->type
->                                      af_rxrpc_exit()
->                                        unregister_key_type()
->                                          GC: down_write(key->sem)
->                                          GC: retype to key_type_dead
->                                          GC: up_write(key->sem)
->                                        unregister_key_type() returns
->                                      free_module()
->   read saved type's read member
+> lgtm,
 > 
-> The final access can read freed module storage. The read invocation in
-> __keyctl_read_key() is already protected by key->sem, but the earlier
-> method check is outside that critical section.
+> Acked-by: Leon Hwang <leon.hwang@linux.dev>
 > 
-> Move the method check into __keyctl_read_key(), after key_validate() and
-> under its existing read hold on key->sem. The check and invocation then
-> use the same protected type for length queries and every read retry.
-> The GC cannot retype the key until the semaphore is released, and type
-> unregistration waits for that GC pass before the module can be freed.
+> One nit below.
 > 
-> Return -EOPNOTSUPP when validation succeeds and the type has no read
-> method. A temporary buffer may now be allocated before this result;
-> allocation and copying to userspace remain outside the semaphore.
+> > ---
+> > v2: https://lore.kernel.org/lkml/20261001082519.16195-4-boqun@kernel.org/
+> > v2 -> v3:
+> > 
+> > * Add Fixes tag.
+> > * Add CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS weak symbol because
+> >   CONFIG_* is not available in bpf programs.
+> > 
+> > 
+> >  tools/testing/selftests/bpf/bpf_experimental.h | 7 ++++++-
+> >  1 file changed, 6 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/tools/testing/selftests/bpf/bpf_experimental.h b/tools/testing/selftests/bpf/bpf_experimental.h
+> > index 2893bf06ff25..a09448347966 100644
+> > --- a/tools/testing/selftests/bpf/bpf_experimental.h
+> > +++ b/tools/testing/selftests/bpf/bpf_experimental.h
+> > @@ -367,11 +367,16 @@ extern int bpf_cgroup_read_xattr(struct cgroup *cgroup, const char *name__str,
+> >  extern int bpf_sock_read_xattr(struct socket *sock, const char *name__str,
+> >  			       struct bpf_dynptr *value_p) __weak __ksym;
+> >  
+> > +extern bool CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS __kconfig __weak;
+> > +
+> > +/* A trivial macro to make NMI_BITS exactly the same as in <linux/preempt.h> */
+> > +#define IS_ENABLED(cfg)	(cfg)
 > 
-> Suggested-by: Jarkko Sakkinen <jarkko@kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> NIT: change this to ((cfg) ? 1 : 0) to match IS_ENABLED() semantics.
+> 
 
-I literally described the fix to the reported bug instead of reviewing a
-bug fix. That means by practical means that you only reported a bug.
-This cannot happen again and if it does, next time I'll just do the
-right fix myself and commit to the Git because that matches the reality
-the best.
+Seems reasonable.
 
+Regards,
+Boqun
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-
+> Thanks,
+> Leon
 > 
-> ---
-> Changes in v2:
-> - Move the method check into __keyctl_read_key() under its existing read
->   hold on key->sem and remove the outer check.
-> - Perform key validation before checking and invoking the read method.
+> > +
+> >  #define PREEMPT_BITS	8
+> >  #define SOFTIRQ_BITS	8
+> >  #define HARDIRQ_DISABLE_BITS	8
+> >  #define HARDIRQ_BITS	4
+> > -#define NMI_BITS	1
+> > +#define NMI_BITS	(1 + 3*IS_ENABLED(CONFIG_HAS_SEPARATE_PREEMPT_RESCHED_BITS))
+> >  
+> >  #define PREEMPT_SHIFT	0
+> >  #define SOFTIRQ_SHIFT	(PREEMPT_SHIFT + PREEMPT_BITS)
 > 
-> Link to v1: https://lore.kernel.org/r/pm-key-management-objects-candidate-0010-v5-c6b7ca2813c6913e500a@gmail.com
-> 
->  security/keys/keyctl.c | 13 ++++++-------
->  1 file changed, 6 insertions(+), 7 deletions(-)
-> 
-> diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-> index 5a5efa26ed0e..36ffba0ebba6 100644
-> --- a/security/keys/keyctl.c
-> +++ b/security/keys/keyctl.c
-> @@ -808,8 +808,12 @@ static long __keyctl_read_key(struct key *key, char *buffer, size_t buflen)
->  
->  	down_read(&key->sem);
->  	ret = key_validate(key);
-> -	if (ret == 0)
-> -		ret = key->type->read(key, buffer, buflen);
-> +	if (ret == 0) {
-> +		if (key->type->read)
-> +			ret = key->type->read(key, buffer, buflen);
-> +		else
-> +			ret = -EOPNOTSUPP;
-> +	}
->  	up_read(&key->sem);
->  	return ret;
->  }
-> @@ -863,11 +867,6 @@ long keyctl_read_key(key_serial_t keyid, char __user *buffer, size_t buflen)
->  
->  	/* the key is probably readable - now try to read it */
->  can_read_key:
-> -	if (!key->type->read) {
-> -		ret = -EOPNOTSUPP;
-> -		goto key_put_out;
-> -	}
-> -
->  	if (!buffer || !buflen) {
->  		/* Get the key length from the read method */
->  		ret = __keyctl_read_key(key, NULL, 0);
-> 
-> base-commit: 89f5f41d296889f3b896c3ca67fcdf7d42bbdf10
-> -- 
-> 2.43.0
-
-Br, Jarkko
