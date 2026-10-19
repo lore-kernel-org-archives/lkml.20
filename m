@@ -1,99 +1,123 @@
-Received: from mta0.migadu.com (out-54.mta0.migadu.com [91.218.175.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1509649B456
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:50:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040AE49B456;
+	Mon, 19 Oct 2026 08:51:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399839; cv=none; b=cRIiKk0htuvLby3ViniIzek53xLLkQD/tO4XsbbOPpKxurR1aVLhwPeU/BbnmGlHrk+2FXy0r73ZPP+Uxd3UFcnN9R8ENEsT7gUydDeGWUx+XtXJ1Ud3f3eVpzO5IXMoHbSsZTMM93ZpgHCakOvZhZ4yHhVSBIIB1XOREs9+mKk=
+	t=1792399873; cv=none; b=OT3t81gqkg3whVPZnbmwnmnMeXvPMbR4pbYElBELkfHQOyrEUBXrwSBzxanjdTK6td7JevZKFSHIk26UQzWfSOrpxKrFFSoLRiOGS7/Org+pLrC24ITXZ3l/rgxsqTSylS9ux1Pyr1TN0sYXxcSiODAxWSnaEMZYzsxkGdxd4zI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399839; c=relaxed/simple;
-	bh=smuPfukUTEhnLlad9GsBi0MdMFhYsr8EsSBrkOpeT54=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lZhFvHcA2oBxtpdt7u9/HnAgsKq5R3SMvDpLIHXIV+N4Yl0Or6zd8isqLiqSBfeFSOG8opzD+5lYHXFpc17vcAQ3GL2JYjOzCa1pS181Zcu8OI1yk1qYalr51jeTRWAXNPeta6e0Zlw83Is8R3/MVc/xyt5T2MnRuv9fy1Kcvas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CnVNoI7W; arc=none smtp.client-ip=91.218.175.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792399873; c=relaxed/simple;
+	bh=Fi01WHNqoV/1h5bUGA4B6J1XVsUJVKVGizvKyil5C+w=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oNVMYGiAGllM8Z/on3mz1FaIc+mhfYvp2ueGXqHFiFY+chiRXhNzUL+k0MlqiFGDGvXvEpCqDtugI2l/fjXi67a+sBxB9CTVicikW7yIzhqiO7cHaIb043/JI0bkq2e+icH7pmAzkPNfJCY48YtZvKFUphcbBayg8KlfNjRISPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Km5g/Lz0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CnVNoI7W"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=smuPfukUTEhnLlad9GsBi0MdMFhYsr8EsSBrkOpeT54=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792399836; v=1; x=1793004636;
- b=CnVNoI7WKYqX4ZhlD7DL/KlSqj6WOfzOfBqX0ZJbLEfD82y0q/siPiANqTTgnkRWCMj5yKn9
- fGpgXDlLAauSv5gCB+8S+NQizRl5VX/6f7+XMc12kiOUaSlK8e0b8W8iQ8zhmiZaQG6CH83Rh9p
- Bu3dqT9n87cJv/lkSMGAwH9c=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 09bc3943cbadfe4b;
-	Mon, 19 Oct 2026 08:50:34 +0000
-X-Mizu-Trace-ID: 09bc3943cbadfe4b
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5be58ad9600so3752e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:50:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx+BQbm7SHe0DgjQU26jaoENybr9PV77RTh7C2rWauy5Xb5f8UsVN1d3nzkSeSDd7GYK5bNTgK/7/R7jwQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlrVmW4hLM2FMFhys2HXyt492TaAOAc7vvyvnvOTbmiv23ZgVM
-	oTmPCIbXH4GEGPaFKqXpSL0a9nd2Q8UoUTRztBmv+RInHaVUH25IvI2GdE0v19mpf643UIsX8Fs
-	GY/LqtwsszQqKmY7LN01VLYGC49f8yFIa8gYzNEBo
-X-Received: by 2002:a05:6512:ace:b0:5ba:3602:4343 with SMTP id
- 2adb3069b0e04-5be51d51c40mr121150e87.16.1792399829578; Mon, 19 Oct 2026
- 01:50:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Km5g/Lz0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28BF41F000C4;
+	Mon, 19 Oct 2026 08:51:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792399871;
+	bh=JjDsyiSq61fxlzHtdfeDMyg6sTFpEeaG4+KOHuzM24E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Km5g/Lz0GHRamXVV0yMHiHgCM8vbroh/qtDsp87nAiKAq13xliPYFkKNc6gXU4ysm
+	 5HRaAMZiiz0HKN3E1qKlHRZSY64TGUqRwYTCow7i1ClRMvRnehAeDWc7TW1p+6FYeM
+	 P5OwsvgQiHfiZCBpquRJ3HpfcXRivHvOu9n7kO2Qyni4eKLnhcWr589gb9QeY6dSW8
+	 Ja6tevLaCs3vF+aVaC9kMlFLBCW0IZ7MA1OpEFUB/FY79rQRlvgJQkAAJCCrRjcaZi
+	 GElHVDewtSnbeQR6QYNZC7R2+h0buVAUHKe0hb6lKTvPfSnPv6ojR+x2Vf0rIqNjFT
+	 j3tuFiuTLI40A==
+Subject: Re: [PATCH net 02/10] net: pse-pd: fix module refcount leak in
+ pse_control_get_internal()
+From: netdev-bot+sashiko@kernel.org
+To: github@szelinsky.de
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ piotr.kubik@adtran.com, saikrishnag@marvell.com, horms@kernel.org,
+ kyle.swenson@est.tech, netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 19 Oct 2026 08:51:10 +0000
+Message-ID: <179239987068.3135.2768821007598612150@kernel.org>
+In-Reply-To: <20261018082314.48950-3-github@szelinsky.de>
+References: <20261018082314.48950-3-github@szelinsky.de>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261018080921.3942517-1-fuad.tabba@linux.dev>
- <8633u229lq.wl-maz@kernel.org> <CA+EHjTwHP7h_=e1s-iCDekMNvHGAQA3K1zv5v_4=PXQw9ueiFg@mail.gmail.com>
- <861p9m1709.wl-maz@kernel.org>
-In-Reply-To: <861p9m1709.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 19 Oct 2026 09:49:53 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTyDJ87A3e7tr6Q2UEvi9BRuuu5HQ90A_3VWaOFKnRmZkw@mail.gmail.com>
-X-Gm-Features: AclHuK_GC1ojwYomVv0QIMlxdcqQYksqozcLWRejxdRqCJ0NJlVWgmqtZaSv6zY
-Message-ID: <CA+EHjTyDJ87A3e7tr6Q2UEvi9BRuuu5HQ90A_3VWaOFKnRmZkw@mail.gmail.com>
-Subject: Re: [PATCH v2] KVM: arm64: Only enable S1PIE and S1POE with the
- features they imply
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Mark Brown <broonie@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Marc,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-On Mon, 19 Oct 2026 08:31:18 +0100, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> > I'll send your patch as v3, rebased on -rc3 with you as the author,
->
-> Please at least add yourself as a co-author.
+Low priority / nit picks for your consideration:
 
-Will do, thanks.
+- [Low] The commit message names two leaking error paths in
+  pse_control_get_internal() (drivers/net/pse-pd/pse_core.c): a…
 
-> > once I've tested it. I'm dropping v2's trap table changes, since
-> > they're redundant once the ID registers are sanitised. I made two
-> > changes to your patch. The sanitisation now runs before
-> > kvm_init_nv_sysregs(), so the nested RESx masks are computed from the
-> > sanitised values.
->
-> Isn't that already the case? At least with kvmarm-7.4,
-> kvm_vm_finalize_sys_regs() is called before kvm_init_nv_sysregs().
+--
 
-It is. -rc3 doesn't have Mark's split of kvm_finalize_sys_regs(), so
-kvm_init_nv_sysregs() still runs there first. I'll rebase v3 on
-kvmarm-7.4 and keep the call where you had it.
+net: pse-pd: fix module refcount leak in pse_control_get_internal()
 
-> > I dropped the res1 half, which isn't set by anything.
->
-> I'd like to keep this, as it will eventually get used, just like the
-> recompute loop is a bit useless for now, but will become useful in the
-> future as dependencies get recomputed.
+This patch changes two error paths in pse_control_get_internal() to jump
+to put_module instead of free_psec. Without it, the module reference
+taken by try_module_get() is not dropped. One path is a controller
+without pi_get_admin_state(). The other is a failing
+pse_pi_is_hw_enabled().
 
-Ack.
+> pse_control_get_internal() takes a module reference and then has two
+> error paths that skip module_put(): a controller without
+> pi_get_admin_state(), and a failing pse_pi_is_hw_enabled(). The second
+> one happens on any I2C or UART error. Each time, one more reference
+> leaks, and the PSE driver can no longer be unloaded.
 
-Cheers,
-/fuad
+[Severity: Low]
+The code change looks correct. Is the first path in this description
+actually reachable, though?
+
+pse_controller_register() rejects a controller that has no
+pi_get_admin_state(), and it does so before the controller is added to
+pse_controller_list:
+
+drivers/net/pse-pd/pse_core.c:pse_controller_register() {
+    ...
+	if (!pcdev->ops->pi_get_admin_state ||
+	    !pcdev->ops->pi_get_pw_status) {
+		dev_err(pcdev->dev,
+			"Mandatory status report callbacks are missing");
+		return -EINVAL;
+	}
+    ...
+	mutex_lock(&pse_list_mutex);
+	list_add(&pcdev->list, &pse_controller_list);
+	mutex_unlock(&pse_list_mutex);
+    ...
+}
+
+The only caller of pse_control_get_internal() is of_pse_control_get().
+It takes pcdev from that list:
+
+	list_for_each_entry(r, &pse_controller_list, list) {
+
+So every pcdev that reaches pse_control_get_internal() has
+pi_get_admin_state set. That means this check cannot fire:
+
+	if (!pcdev->ops->pi_get_admin_state) {
+		ret = -EOPNOTSUPP;
+		goto put_module;
+	}
+
+Changing its goto keeps the unwind consistent, but it does not fix a
+leak that can be hit. The leak that can be hit is the
+pse_pi_is_hw_enabled() failure path. It returns the driver's
+pi_get_admin_state() error, for example an I2C or UART failure.
+
+Could the commit message say that the first branch is a defensive check
+and cannot be reached today? Then anyone judging the fix for stable
+would see that only the pse_pi_is_hw_enabled() path really leaks.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261018082314.48950-1-github%40szelinsky.de
