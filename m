@@ -1,161 +1,116 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from c.mail.sonic.net (c.mail.sonic.net [64.142.111.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF9328373
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792377879; cv=pass; b=a0frYYzgALfO3tLA0mZHcX89TwrRt1doKHgh3XAv03FDI1kmL9ad7ClP7L0XVF6l8Sqd3fps3GeAB0JEgzoeVYaP+grWOQZS909ekfVhymN3XImO4EM3pvpJTudmePIbisveC+Q7sxs3DWJ4TmS9daUMDrsSl4MuGqf+ZJZxP98=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792377879; c=relaxed/simple;
-	bh=H8gBL+Tbkuh5ikiT/QxIWPCRO5HignGSZr/FBWXq8ew=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LL1NluqBEj3poEHuMijngInhNKzUW8M4LI4bLoFUxM6EHPHxiNe0Rpkll/Lm5UP9XbTxRZiThBWu/dXdRWheuYfLS5hHJ/grl2Yz7CwgsvlP7l7KVjigXJ9PdVjWqOJSz5reofjCtIRuIEPIKhkNwUCpq1lOCNhJrDMU+7rOP08=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WtiXZ+l/; arc=pass smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WtiXZ+l/"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2a4e013a44so186727366b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:44:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792377876; cv=none;
-        d=google.com; s=arc-20260327;
-        b=J6wnvATDQFvktScp8Q6sUEqEnV6G/o33cb6z4S4PLi7rTO865s7kMa0Fax0GgY7vN3
-         eYMSlvAc0QvEaNmGCeTmqzcmf7+uUIfIfCl9b2626/c60baFVpuaJyodF75Tvtix/rqs
-         pYS4Xhp81ufnkEUNcIsPiF+VkF2NuEWzTKy23138XRK9C9GGzYAJY3OoNkquEFHFBWQO
-         4ZdYndj9uhXN8GHpXH05zqcuqnKyxf9mg9V63e9LkI5wEn9y0O9ievRhhQVq7mMZOtx3
-         lf3HtpEelpz/mN650nKzXQBcbdEnMBK+H7FD1buop8gn8N3B8nevzTY98gOEfyu6iQvY
-         10zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=H8gBL+Tbkuh5ikiT/QxIWPCRO5HignGSZr/FBWXq8ew=;
-        fh=Frb9ASNLKYzUNpR9+mqWlBLKA2kkF+EyOZnqENKbMD8=;
-        b=MJ7wnv/Y+YTvPVp6NYvRvf0+z8XKvRAf60aGUsra/ysiYy5gfjzo4cOZwnywTWKxm5
-         mWyYNQloWr+5rU/dlG5+QOOkS9I3C/1SjuLbeTP/WCUDLUTS7b485NUqvrHSJfQYFAB8
-         GjEqZ8zLYf2ZH9YYgshRXV5L7aaq0MGJBwhRAgGPxHxKRI+RyTI2oHRSr8uy08xG5fpP
-         dm1Sf58ZkGcYRWdwXcgkB97inmo92KhiaSJUs4ApPxesX2fR+ke65UxdI9vi7QPx+Clq
-         Y8fmdTrJiBca1BLIcbUEu9LBc0GF9R1mnZpOXsNfGeGwiQGwwtKyB8v95EudEsW+KOhG
-         0oYA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792377876; x=1792982676; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H8gBL+Tbkuh5ikiT/QxIWPCRO5HignGSZr/FBWXq8ew=;
-        b=WtiXZ+l/Nf66nKHzqyovBo8zxcMaqmMLuuff89h2r4oQSCHcgdRERZuncEEFyRGuAm
-         Dj+Qat4VNUeqV5n7swfSgHhp1nocnOkMJGePTYxP4w78WBAuMKfW1YhT97M8vayXP5LL
-         3rn3hlFFZlhfS6Q3u4l8vr/4RerFW1uMEyumrPd7VIp2j51rmCtRt98gBWVa41TeOgq5
-         3PnJZbbr6hLcdrHbAfAikbiErUuY36y2ftWqKQNrowtv9QLrY3pvXn0P9oAfPh7WfDXA
-         Z8HfPDPPzCSfweJu2gixB8TIwj++39TxrKZVY/X1+kgsF9HONQOrzXvYVqXHN1rVwMM9
-         NXkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792377876; x=1792982676;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=H8gBL+Tbkuh5ikiT/QxIWPCRO5HignGSZr/FBWXq8ew=;
-        b=YqkuqL70bGVLqBZ8O48wcNcdkTnm08o6xLk/yufCDLhG2zdsU5Ga41FwY0fgRhZayZ
-         cxv2+q+DwnUxeSewU8OfHDhn4y89p4lb4vY7T79Il/n1F1Ueht59CGHwCnq0DNIUixWV
-         fyKo5SeweIEWVJp0yhV3Ka4zpUQNGeA78fWQX0PwrVWaFoaEH52pveThZwNdN5ymdXJB
-         2mUmcGSAYlYKIJF3kxmkKUclO7Z8vyRw7/mru5qMIOt/EeDIXH1O091g/8VIUoDXH4y+
-         Ho5pu6FCyxWuK2COHUbi3OtPVtHhQhFDQlbh/0wfmPmSOVj7jNz8sWgkCXqGEB74HqFQ
-         uzAw==
-X-Forwarded-Encrypted: i=1; AKwUvBx80GSlJZUJqGMTRYapMWydJ0f9xbA4kcs7CeYBPB2SbrL2rqbWyi6obJA1ztb7EhjkMS2vz5VlSy26ksQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJ3Sn0/t0jDpdTYhxSgaXymGVAlUwQw8vyaT2FhrUEfBVTG2y4
-	+0ePE87MDKDTewxr6/lGUAomyWEcDZro9UhojlG9oDSQ4GfL7ox6SnKGgXn4YnoYsRqy94aIAcI
-	LTdMPTuleDEOxz/cadW8sm3HJ0QslOXc=
-X-Gm-Gg: AYBFou1qHk8tIE2KBGGxJH0cR22pYaKcXVNaY6SHqrUT2vMbg0y8adpeHfsHNgVbJdZ
-	R7R2FwMCwDq7x1dISgY0mCGnOdsvFNSNkIfUGR09vmamLuUsWLZRUBgasEuO2hUOKcg3XxBHu39
-	T1yxpjxcAYlm8pAbvQfm45RFAdBd48Nj0gDbtsflvxVmeHcjuGmxDkuEpNYbD/6VnIS9tzDGYGH
-	AJKm0UGVK7KS4XNzrJcWZ1C54cBJ4UJZC2ZiEnuVUN8jP7yNBqmTcNlpTqqurzsqq4HxbuNEGa7
-	rUJb7p8owrpA/mYcpSrbc9rRDX79B8uzSshxUPlEgw1kxyYY2wo8SGlaUmTpHM09BNv+3575nIU
-	qnpUSaf4ZTZc=
-X-Received: by 2002:a17:906:ba88:b0:c29:3c97:c994 with SMTP id
- a640c23a62f3a-c41a06e6f22mr428888166b.35.1792377875551; Sun, 18 Oct 2026
- 19:44:35 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDAC35E1AC;
+	Mon, 19 Oct 2026 02:44:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.142.111.80
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792377889; cv=none; b=hLzRgRzOCf7jUYr9Fb7XRJmUtJOYm9N+u4vbm+wePPScHdWd2vX4IAKys1ljHZI0VKm15QhLB4Ltgu+Z1Y5EydGb2v5o9hQtwno3W8XRsw7pIJArE5WZKoQGIFdJhRmOuGKajr5H4Pw28Aa14HJv40ShWCPLCTdkej3ULkEDMS8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792377889; c=relaxed/simple;
+	bh=PZCWgfU3xBSDm6h/grCHW6Y5UnDHaHXsQgaFCJEkrpE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DIeLGDEHZeTl7xNJtAIxsXxtJovaz9/oalfcRR2OYPCSM57Rnxs8wDkWgQ1VrYLlSfiQzdJ/cEivuXst3PpOCCMeyLCckXBZEtJLHZs1VnVKbgeX7JwtuOoDLOnkoimzlJtv1/NXGWmEs2AXxLdtLBNQlG39q54tz5WAzfMg9lQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=murgatroid.com; spf=pass smtp.mailfrom=murgatroid.com; arc=none smtp.client-ip=64.142.111.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=murgatroid.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murgatroid.com
+Received: from fred.murgatroid.com ([70.134.61.105])
+	(authenticated bits=0)
+	by c.mail.sonic.net (8.16.1/8.16.1) with ESMTPSA id 69J2YKQs005969
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Sun, 18 Oct 2026 19:34:21 -0700
+Received: from murgatroid.com (unknown [10.0.1.185])
+	by fred.murgatroid.com (Postfix) with SMTP id 949E82A603B0;
+	Sun, 18 Oct 2026 19:34:20 -0700 (PDT)
+Received: (nullmailer pid 84004 invoked by uid 1000);
+	Mon, 19 Oct 2026 02:34:20 -0000
+From: Christopher Hoover <ch@murgatroid.com>
+To: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+        Benjamin Tissoires <bentiss@kernel.org>,
+        Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: Lixu Zhang <lixu.zhang@intel.com>,
+        Joshua Crofts <joshua.crofts1@gmail.com>,
+        David Lechner <dlechner@baylibre.com>,
+        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+        Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+        linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Christopher Hoover <ch@murgatroid.com>, stable@vger.kernel.org
+Subject: [PATCH v3 3/3] iio: humidity: hid-sensor-humidity: Use per-instance callbacks
+Date: Sun, 18 Oct 2026 19:34:20 -0700
+Message-ID: <20261019023420.83976-4-ch@murgatroid.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019023420.83976-1-ch@murgatroid.com>
+References: <20261019023420.83976-1-ch@murgatroid.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04.ref@yahoo.com> <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
-In-Reply-To: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
-From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Date: Sun, 18 Oct 2026 23:44:21 -0300
-X-Gm-Features: AclHuK932M6q_zkFu_mbN1a4J9J0hT7LZ-thPB6vZAsfRFyFX0Tnvfr-Pqnzhzw
-Message-ID: <CAJq09z4kKcQ+idfP+19pogi-H5s07SgKO-CGg7AWX8An-9p4Fw@mail.gmail.com>
-Subject: Re: [PATCH net-next v6 0/9] net: dsa: realtek: rtl8365mb: add support
- for RTL8367S-VB
-To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org, 
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, 
-	linux@armlinux.org.uk, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Sonic-CAuth: UmFuZG9tSVadRcsoGuumIkYqrsyWTybaCxtMVyE6E4q3EjYNf1GGEN+AH0rQ/FCa1udsRnEUgwSLyOnXxhAMuJyb38DyTca4FgQ3WhpLvAo=
+X-Sonic-ID: C;3LnMlmXL8RGa6uXouUKo1g== M;MOz1lmXL8RGa6uXouUKo1g==
+X-Spam-Flag: Unknown
+X-Sonic-Spam-Details: not scanned (too big) by cerberusd
 
-> This series adds support for the RTL8367S-VB (chip ID 0x6642) to the
-> rtl8365mb driver. The chip belongs to a new "family D" that differs from
-> the existing family C in its VLAN table layout, speed/RGMII configuration
-> and SerDes (SDS13) handling.
->
-> Patch 1 documents the chip in the devicetree binding.
-> Patch 2 adds the chip family infrastructure (no functional change).
-> Patches 3-4 add port speed and RGMII mode configuration for family D.
-> Patches 5-6 add VLAN 4k table access and raw-VID PVID handling.
-> Patches 7-8 add SDS13 PCS support and re-latching of the SerDes.
-> Patch 9 adds the RTL8367S-VB chip table entry. It comes last, so that
-> no intermediate commit exposes a family D chip with incomplete
-> handling and the series stays bisectable.
->
-> Family C's functional behaviour is unchanged. Changes in a shared path
-> include a mutex serializing SerDes register access, as well as
-> .pcs_disable in pcs_ops and .conduit_state_change in dsa_switch_ops
-> (both bail out immediately on family C). The port count is capped at 8
-> for family D only (patch 9).
->
-> Tested on a TP-Link Archer AX55 v1 (RTL8367S-VB, CPU port over HSGMII
-> to an IPQ5018) with bridge VLAN filtering and per-port PVIDs. SGMII has
-> also been seen working, but I no longer have the exact link partner and
-> speed it was tested with, so treat it as lightly tested. RGMII mode has
-> not yet been tested.
->
-> Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+hid-sensor-humidity keeps a single static struct
+hid_sensor_hub_callbacks for all instances and overwrites its pdev in
+every probe, so with two humidity sensors, input reports for one are
+delivered with the other's platform device, and a NULL dereference
+follows once that device is removed.  The same bug was found in
+hid-sensor-temperature, which shares this code.
 
-Thanks, Mieczyslaw, for working on this series.
+Keep the callbacks in struct hid_humidity_state, as the other HID
+sensor drivers (accel, gyro, als, ...) do.
 
-Support for Family D is very welcome and increasingly necessary, as Family C
-ASICs are no longer being used in new designs. However, the current support
-still feels incomplete in critical areas.
+Fixes: d7ed89d5aadf ("iio: hid: Add humidity sensor support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christopher Hoover <ch@murgatroid.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+ drivers/iio/humidity/hid-sensor-humidity.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-When porting a new switch family to rtl8365mb, each feature and hardware table
-shared with Family C needs to be verified against the new family's register
-layout. In particular, this series leaves rtl8365mb_l2.c untouched, but the L2
-table layout in Family D differs from Family C (from memory, the table entry
-format is 1 byte shorter and the bitfields are organized differently).
+diff --git a/drivers/iio/humidity/hid-sensor-humidity.c b/drivers/iio/humidity/hid-sensor-humidity.c
+index 7cec81ff5685..644c82719447 100644
+--- a/drivers/iio/humidity/hid-sensor-humidity.c
++++ b/drivers/iio/humidity/hid-sensor-humidity.c
+@@ -14,6 +14,7 @@
+ 
+ struct hid_humidity_state {
+ 	struct hid_sensor_common common_attributes;
++	struct hid_sensor_hub_callbacks callbacks;
+ 	struct hid_sensor_hub_attribute_info humidity_attr;
+ 	struct {
+ 		s32 humidity_data;
+@@ -184,11 +185,6 @@ static int humidity_parse_report(struct platform_device *pdev,
+ 	return ret;
+ }
+ 
+-static struct hid_sensor_hub_callbacks humidity_callbacks = {
+-	.send_event = &humidity_proc_event,
+-	.capture_sample = &humidity_capture_sample,
+-};
+-
+ /* Function to initialize the processing for usage id */
+ static int hid_humidity_probe(struct platform_device *pdev)
+ {
+@@ -240,9 +236,13 @@ static int hid_humidity_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, indio_dev);
+ 
+-	humidity_callbacks.pdev = pdev;
++	humid_st->callbacks = (struct hid_sensor_hub_callbacks) {
++		.send_event = humidity_proc_event,
++		.capture_sample = humidity_capture_sample,
++		.pdev = pdev,
++	};
+ 	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_HUMIDITY,
+-					   &humidity_callbacks);
++					   &humid_st->callbacks);
+ 	if (ret)
+ 		goto error_remove_trigger;
+ 
+-- 
+2.53.0
 
-Passing basic traffic in a default router setup can easily give a false sense
-of stability because the switch starts forwarding with factory defaults.
-However, as soon as DSA attempts to configure FDB entries, dump the L2 table,
-or manage multicast groups via bridge operations, the driver will interact with
-the L2 table using the wrong layout, causing silent data corruption.
-
-To make Family D truly upstream-ready, we should adapt these shared components
-(especially L2/FDB handling) or, at the very least, explicitly return
--EOPNOTSUPP
-for unsupported operations so the driver fails gracefully instead of corrupting
-hardware state.
-
-In the cover letter, you mentioned the test device. Do you have the Archer AX55
-on your own bench now, or were these tests run remotely by users?
-Exercising full
-DSA functionality (FDB add/del/dump, VLAN filtering, STP, flooding controls)
-usually requires a dedicated local test setup where you can generate, sniff,
-and inspect traffic directly.
-
-Best regards,
-
-Luiz
