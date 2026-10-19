@@ -1,81 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792425326;
-	b=I4abzy6UV+fMMY7ukw6pr8nAevepPUY5j5b3bMnGmFOTvJNP7s7085jZ2WSCSkOxBIeY
-	 qMyCSwDpBE7nTS3IQmzAzNimBhfryrskhO3FM0SbhjXhU3M7rPrgeV0BfY1EFbvcf3KQP
-	 tpEYZ4/Kn9mHxVQoTEfEzitVZN54K/yzruKCohJm+R/793Eh++opgUt1K9xc/7bbLzM44
-	 21u3WcKlKvLGhR9w61tm28TpfNNysgs05a3wv/L/oE68NWHQ3Z93/vm07oX6kDXiC4pDA
-	 3HhIbdM+F3uE9sZr/Oihvm/Ba2cC+IJ/BwTvapv8yAV0G540yyTbf+/fH3Min0IYcww==
+	t=1792425343;
+	b=tIUsy6oFBcrj3vYEbYIvcUpWRigbxB2WmpafRAonEoMwXyQ7LR8g73sKK6RmgVbnGQ6P
+	 CBMCZHNTf/1Vn+22+G2j+1Q3X5cExl3fmIQPxGN66q/40WQFI/gIXjsEAQirlC6yL0koJ
+	 DisFk8+DVPMB2oQNYuNDKXrIg116xUTQ0ljEbof5RprnRQoPJG4MPE71retBMUMTjL4Ur
+	 9CF39u/WpW+Df6qGFX4e3rjWC8xKKsrk3NsQTlgMVilpmTNrwlHSn5yd16QPiduaq3M5V
+	 ggZaaesC5rS8PEHe/RrYzL5wPvaKub0KxdCSMR/nWzZ2myBU89HT5qC/Jp9nQKiGqKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425326;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
-	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:Date:
-	 Message-ID:X-Scanned-By;
-	bh=rutENMajq1V1U3rINnISmb9MHW7iJ6RCHaeAN3MwYeY=;
-	b=4zhlviNG8hSyXaz4SqH5OHZr5efK6XLpDLBpkK2NRqqB2QQqVKEHQh/eOsThSWm2ZJsM
-	 Na5S9pZQ/y6cN//+rmB29bGnSHjaVKeMnrKH3F98KN8UoV9QaUUIYNqfqaFg1PdoaRxja
-	 CKLSyA/MrWqQJxQdykfjB2XkELKCaNQdrZjJWr7ZGuKkmrN+uISuwXzxOkSAWzPyPJw1c
-	 z/f/CH9xOMjWbjPHQ0dbYIoL0OS46ALrtfS9u7i53PFOG/cElzURtK+bO8STaJBOEhiul
-	 PyS2suOgLlrJmeOF6LAi+kSZUH8YtfURMWNWciZ2RnHb9q/3UiCCkt1z6FGdWdVx5bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792425343;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	b=BA9zoqXOo/u1x2NpKUaBSGpkeU42OJi0fUHglu0fhGGFcqv5igRFimf01C7plC6/EkM7
+	 971SueuE0+hI+pBPQYI8ZwPkA3p+w1IxUVxbGN19dQe7rloGDNOjwmajlqEY1HIUab0K/
+	 nF6OJjlMvKDY/KyxqdjWtmUpDT+xaBreZ2FMeyDRzY3MbMxYJS6fbRp2Cxm2IhZDJOscB
+	 RvAe3tPAs4pgttFrAi3ItdnbUPVaP9Ph3cB4vXhCblLDWcws6lHoHQ/7ygNzbLptbn0Z5
+	 EIIL7I4wPPLlrax6gwp5GSu+6rXOppZ9px7JlhL7Ynm7EHjqjgSUJaKV3F8NRMC7jHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EN+DUKfw;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PT3bTU1L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D20B606A328
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:55:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D20B606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A078606C158;
+	Mon, 19 Oct 2026 15:55:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EN+DUKfw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792425324;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rutENMajq1V1U3rINnISmb9MHW7iJ6RCHaeAN3MwYeY=;
-	b=EN+DUKfwiFNTiqGpmgLDP7RYbZSjT6xG4VmqEc3GL7P/gn8m7YwpceYRt5t1nUNClhkO1u
-	8KlnndqBNrYeKnbEQ9aGPAyg/VQFqU3afhtvE1J5kX3VZUc4pzbTOnQr5K4z1SHaGyObvK
-	nc49ZvI4D0EciubT2b+O0aPY0ffA44o=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-386-896bG0iVMQ2wFWwxFeUxFQ-1; Mon,
- 19 Oct 2026 15:55:20 +0000
-X-MC-Unique: 896bG0iVMQ2wFWwxFeUxFQ-1
-X-Mimecast-MFC-AGG-ID: 896bG0iVMQ2wFWwxFeUxFQ_1792425319
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E7AF81956049;
-	Mon, 19 Oct 2026 15:55:18 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.48.11])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D45E518005BE;
-	Mon, 19 Oct 2026 15:55:14 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20261019142516.300040-9-jarkko@kernel.org>
-References: <20261019142516.300040-9-jarkko@kernel.org> <20261019142516.300040-1-jarkko@kernel.org>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: dhowells@redhat.com, keyrings@vger.kernel.org,
-    Eric Biggers <ebiggers@kernel.org>, stable@vger.kernel.org,
-    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-    "Serge E. Hallyn" <serge@hallyn.com>,
-    linux-security-module@vger.kernel.org (open
-                         list:SECURITY
- SUBSYSTEM),
-    linux-kernel@vger.kernel.org (open list)
-Subject: Re: [RFC PATCH 8/8] KEYS: Verify the key identity in __keyctl_unlink
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PT3bTU1L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0288D1F000C4;
+	Mon, 19 Oct 2026 15:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792425342;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PT3bTU1LF3kvkeZfpU/17oVGDFJU+mvPHPE8xSHnWvvlJMv8PRmawiPhYpEv2xah2
+	 zzmhh+rkAVFlyZ4D6Q/0rJeph7myDtuaUDA6PPUvKmZPolmARRluIgbJaEN7qNFe+2
+	 J0TT50RslHVfmGsWJ3FJzYy7HSUAnWvDrucbdERHYOUYNzinMWOiqC9DRw9zgmvlxI
+	 LRblNkTdnP9qI037SRTKOhR/K2/OJcQb0GP4yfREQAjhzmS6+E+wBR37OF2uACdZoB
+	 wiUiV3UlX5DyQ5AoFi1DQ0hz2snyXgPV/GaDUWk6zsZwxUET/HBhUrxx2AdhflnOAN
+	 C99T4hmaWBPfg==
+From: netdev-bot+sinfo@kernel.org
+To: Qihang <q.h.hack.winter@gmail.com>
+Cc: netdev@vger.kernel.org, steffen.klassert@secunet.com, chopps@labn.net,
+ herbert@gondor.apana.org.au, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
+ idosch@nvidia.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v5 0/3] xfrm: fix vti tunnel device use-after-free
+ across async crypto resumption
+Date: Mon, 19 Oct 2026 15:55:41 +0000
+Message-ID: <179242534145.3290.3021737362277964895@kernel.org>
+In-Reply-To: <20261019153247.89957-1-q.h.hack.winter@gmail.com>
+References: <20261019153247.89957-1-q.h.hack.winter@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,26 +64,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <2610586.1792425313.1@warthog.procyon.org.uk>
-Date: Mon, 19 Oct 2026 16:55:13 +0100
-Message-ID: <2610587.1792425313@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-This will show it:
+Hi!
 
-	keyctl newring ring_a @s
-	keyctl newring ring_b @s
-	A=`keyctl add user A ss %:ring_a`
-	B=`keyctl add user A qq %:ring_b`
-	keyctl newring R @s
-	keyctl show
-	keyctl link $A %:R
-	keyctl show
-	keyctl link $B %:R
-	keyctl show
-	keyctl unlink $A %:R
-	keyctl show  # R is now incorrectly empty
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Reviewed-by: David Howells <dhowells@redhat.com>
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
