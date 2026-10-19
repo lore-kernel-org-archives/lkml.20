@@ -1,100 +1,130 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BAD493D26
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFEE4973AD;
+	Mon, 19 Oct 2026 08:43:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399418; cv=none; b=W/XWo/af8dZdoWridIzmDEyWzNaAth0mZlznaZtu70kKkgz9GRzGWPiXehWDMEp1KmKCaw9xENQGMdvfklajYu2dsmxHG+WmMjPMXyTs7EEQ5wqXRhVNlyonukLR0oY8Rdw1fdc1qbnCLZ2azq/2xdPsnZDByZ4olNvlAQNi8zs=
+	t=1792399418; cv=none; b=bUQ05lECqg9KZtBhIv9kcLmxZ0oVd25sVJUab1lOoncmgdlNp6//UhUbjgmvjKpEMUV1wiA2TrzLQPm08bkCoP1V6vTOjurK/1QtruhVc9Cv3GW6XnvuQRwOKqSeegvQ/1SiW4780SMojL+0ZN90R+pxsFj0k3/jmh2BnUPG02I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792399418; c=relaxed/simple;
-	bh=wXweUhgcBOLBorS8EuIE1GKRjd1xEwrZr0imlei1aiQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kytELMiwnDmD3XsR/lyQlArTkov1RW4yq7FnXQKXUc8Mn16gXvyy72Dn5kpczE4d0++1DuMAqGnsa/bFjawatl5usTaVzmbz+WJlOOQdB9AHPkHs7LocKoBj0pvxcLL5CnONQwxqBtAvpyJtPwd5LrnWjaG0cQVWgcoRDJLcVhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AzdtfAe5; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	bh=H5ZWuwayqodw1nPRTY9Po9FThDsWz8kXR5qiLb5ZKtw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rAnf00E9SoxD1ogVxeAmhrt1s56rZ8zLKRjXiBoxVXN9Nh8MggkkHECYZp3njv/fgBTHyCaGGPnoPHk28zQPCIUqiCzCl8Hxt9sOxnRjeXQ3rBozf71kxjhifNDU0XUnLHRQONLmcszY43JpkyozUiXjSRppWU+ujFtbAb64ZEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RXX90TQq; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=y+udgynp; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RXX90TQq; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=y+udgynp; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AzdtfAe5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ig
-	E/kEh0g7gFKv5PAwWV/CKHlROUnBFZYW4mh6vr2N4=; b=AzdtfAe5zCDyzRWfoy
-	A8T89jA2HQr8wbyEZdpPqe/doMfmtb9xr4UUbuMykAvVfcCXOEvfuLObr+ILhobp
-	Zk9lujS6CP6KKg9YJeEC9+/DkFLfwCNo35LZ4C+rU2LMSgHi93QP73mb3EnU+Q0I
-	PChWPOT8P+Ax5fzR8RSis8rNA=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnt9ng19VqcQOlAw--.9091S2;
-	Mon, 19 Oct 2026 16:42:10 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dave Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Huang Rui <ray.huang@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Zack Rusin <zack.rusin@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ben Skeggs <bskeggs@redhat.com>,
-	David Rheinsberg <david@readahead.eu>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	nouveau@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	amd-gfx@lists.freedesktop.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 0/6] drm: reject empty TTM range manager sizes
-Date: Mon, 19 Oct 2026 16:41:32 +0800
-Message-Id: <20261019084138.1821477-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RXX90TQq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="y+udgynp";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RXX90TQq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="y+udgynp"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8011D1F441;
+	Mon, 19 Oct 2026 08:43:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792399412; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=00Al9gwLs75LPZT6oAqqKPOVoVVeqy2BP4AdpRGvjnA=;
+	b=RXX90TQqy4iOgJRpilMgE4rqsFr2H1/xzb2zBaTMPnFlTid+Sl2eoMuBI8pEVtuZzZBtCw
+	rGLZ/wY+9chbJG2H+G295MRBWXUdcNYe4873anspJ5aU+O/Vik68k9GijvAVawP4lV2Ep6
+	I2duzstTNSSh0+fEjBDC7sZU6SZmjRQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792399412;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=00Al9gwLs75LPZT6oAqqKPOVoVVeqy2BP4AdpRGvjnA=;
+	b=y+udgynpiDomubsesu2abgzo1wFqiHUFZC1cI254GTy57wZN/0bFiDQzG5c7Xy9YkGq4uW
+	5o/oEjF8kZ3hV0CQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792399412; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=00Al9gwLs75LPZT6oAqqKPOVoVVeqy2BP4AdpRGvjnA=;
+	b=RXX90TQqy4iOgJRpilMgE4rqsFr2H1/xzb2zBaTMPnFlTid+Sl2eoMuBI8pEVtuZzZBtCw
+	rGLZ/wY+9chbJG2H+G295MRBWXUdcNYe4873anspJ5aU+O/Vik68k9GijvAVawP4lV2Ep6
+	I2duzstTNSSh0+fEjBDC7sZU6SZmjRQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792399412;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=00Al9gwLs75LPZT6oAqqKPOVoVVeqy2BP4AdpRGvjnA=;
+	b=y+udgynpiDomubsesu2abgzo1wFqiHUFZC1cI254GTy57wZN/0bFiDQzG5c7Xy9YkGq4uW
+	5o/oEjF8kZ3hV0CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A456136CC;
+	Mon, 19 Oct 2026 08:43:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id lLDENTPY1WpUcQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 08:43:32 +0000
+Date: Mon, 19 Oct 2026 10:43:31 +0200
+Message-ID: <87fqy2axn0.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,
+	=?ISO-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,	Cen
+ Zhang <zzzccc427@gmail.com>,	Will Porter <mrwillporter@gmail.com>,	Takashi
+ Iwai <tiwai@suse.de>,	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ALSA: usb-audio: Simplify usb_audio_make_shortname()
+In-Reply-To: <20261018124155.2081-3-blum@kernel.org>
+References: <20261018124155.2081-3-blum@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnt9ng19VqcQOlAw--.9091S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GrWkAFWUGFW8GFyfAw4rGrg_yoWkArb_u3
-	40vas7Wr1UGrnxXF4Iyr47Ar12ka1UuayDZwnFv3y3Ary3Xr1UX348Gr93Ww18C3Z8KFn0
-	krnYqw1YyrnIkjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRt9a97UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wM+eGrV1+M2UQAA3G
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,gmail.com,suse.de,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-drm_mm_init() rejects a zero-length allocation range with a BUG check.
-Several DRM TTM users can derive a zero page count from device-provided
-VRAM metadata and pass it to the range manager.
+On Sun, 18 Oct 2026 14:41:54 +0200,
+Thorsten Blum wrote:
+> 
+> Copy the preset and quirk product names directly and remove the local
+> char s pointer. Return after trimming the device product name and use
+> the USB device ID as a fallback.
+> 
+> No functional change.
+> 
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
 
-This series rejects empty ranges at the affected callers and adds a
-defensive check in the common range manager. Patches 1 through 4 and
-6 validate the individual driver inputs. Patch 5 protects the shared
-range-manager API against any remaining zero-page caller.
+Applied both patches now.  Thanks.
 
-The series was checked with scripts/checkpatch.pl for every code patch.
 
-Jiale Yao (6):
-  drm/vram-helper: reject empty VRAM ranges
-  drm/nouveau: reject empty VRAM ranges
-  drm/qxl: reject empty TTM memory ranges
-  drm/radeon: reject empty VRAM ranges
-  drm/ttm: reject empty range manager sizes
-  drm/vmwgfx: reject empty VRAM ranges
-
- drivers/gpu/drm/drm_gem_vram_helper.c   | 3 +++
- drivers/gpu/drm/nouveau/nouveau_ttm.c   | 3 +++
- drivers/gpu/drm/qxl/qxl_ttm.c           | 3 +++
- drivers/gpu/drm/radeon/radeon_ttm.c     | 3 +++
- drivers/gpu/drm/ttm/ttm_range_manager.c | 3 +++
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c     | 4 ++++
- 6 files changed, 19 insertions(+)
-
--- 
-2.34.1
-
+Takashi
