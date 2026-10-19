@@ -1,127 +1,209 @@
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF233CF210
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:04:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF3A47988D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:04:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792389876; cv=none; b=VYrGC4+ySRiIu/7KugkTqZdxUxXo+S9X/CBnecTw+tFTkqy8DXcMl8nJ9N/qp9QYWxkPHNu7o0O8SY2kVaGdGHWVMDCa1X2utPOc68EZp9FE59hRZKUoD3J4vlhqUatn/cPL1vkSNbz4LnkJ3kb4CDtjJ3pVtpgPOtBzOjvRb7s=
+	t=1792389891; cv=none; b=M0XtSitNI6lfULhL+yI4iEDFcfAswtXQhX4pAXrwJvp5xmyWOqpKv6JHWr2WXbYHs1/D2r8VQlYLkN7Ys+HK9tPw/cGkgpdkFBhwPWFB3vG6Z+8qsjzQVPVh2wGjlptG8sGGKU0Qt3VBe3Xxk0VwNQ0xzVZEh4cz26gJr6nhono=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792389876; c=relaxed/simple;
-	bh=UpAbfxihf6NJ8F5ckaOty9uycZ4I7rj2LCsVKLG/4r0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gEjvzJtvtsNeiM75pDUVBtlDxvfweVOlXH2enZNwijDZb7yvh4AxAoHT6/E4jyNviw5c0+c+ynu10Wy/rU7b8GoB44g3DHMgs1IHXdaQ1cWkuzgn/PceGsAO3C10JGq7TBsKsBPo+fNxoz6h3PMCYCgYZ+gfEjI4mv6gZgzYJT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev; spf=pass smtp.mailfrom=seanlyon.dev; dkim=pass (2048-bit key) header.d=seanlyon.dev header.i=@seanlyon.dev header.b=jhoDv9hm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dQoHNPnb; arc=none smtp.client-ip=103.168.172.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
+	s=arc-20240116; t=1792389891; c=relaxed/simple;
+	bh=ZoKS4HP8jTfUqvKjHQCOygjufJp7O7UXxSy9Xj+WYgY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tbEBGcS5LxKH6kzoeVUY7E2/t4SlOV5/XwWTAMQtw75KkIzli2TcUda59+ePF2BHzKnL9TzApxQi6TApo8Y2a0F0NWpHUGpAySQvPd5GWqbpoovtsg1NrEKKIRsRIEigfigTdhwK6JsGlNnp8TiQGjiQomWM+M/FBe4g8iDQPtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gOkIrzOx; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=seanlyon.dev header.i=@seanlyon.dev header.b="jhoDv9hm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dQoHNPnb"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id D1DC31400062
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:04:32 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Mon, 19 Oct 2026 02:04:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
-	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1792389872; x=1792476272; bh=m7HxTsbSYO
-	NKQfBmB6CvSOTMoyZG0SvkXRsK0VQtehY=; b=jhoDv9hm9WdY6PoF7qaYSEBv4R
-	pxHg3nYoAZujLphTy4jXw4xgPneMGCB+FqtAgL5syl06BjWhkI+6Ysez5slyrUWK
-	Za4lIjfr7hz+tl1BIVYDWbz2+5OG4kKn826mzEQGTGrO01sxAjat8olc71kEOP19
-	U+Xqc9yUE1EOax2YIE++EPP4E1wqMZfzM2CWjLgT7OrLR98VyUm1onmTlxESJ/VK
-	fZ91Tfdqg7Ju+9aIoht/q/n0J6xrniivaQxAMzqp2zVdfBXehMXmVyaK+Zk0e9dQ
-	L/KGqR9lsYdrEDsdL5DCKhdZHBfzLnnZTPRtgfymTIrxnijoxXogrPHox8QA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792389872; x=1792476272; bh=m7HxTsbSYONKQfBmB6CvSOTMoyZG0SvkXRs
-	K0VQtehY=; b=dQoHNPnbqzcAiVjCRP5REVcCK93kXQYawnRXBKR5yAAjMjgRhnB
-	ll3RDVvnqojYL1wHgm+DJhUYkxr7+eltfCU+Zlsp/VqP/nK4apG0J/mPcTgNommz
-	2jBBhp3x1zvRoWoD+dO0EoEX05E3gIGz/62sW4YyF8UcBXc6V6jUcGjmFUCFq2oV
-	eoAsH4It9pJ6C9xmcx8DC/dZhSRs3aGlI1Fc2tyYVsYWx0fp6f2qXzOvJEMoXk+N
-	4Hrf2IXuIVYNvFCYAWpQryJSRzAX0Lcjuz2+RPHD2kRTzKfZVnqWBhaXZXYafvO3
-	BqqK24hb2w3txDcHk3HWrGcKSHEgMnsw1dw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=seanlyon.dev a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792389872; d=seanlyon.dev;
-	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:AuKsK2jshElc+oiHeqS0n70PyigTMcdpJjBpp0doMianyyJ
-	++yN8/NIcSg5JbBmjtUao8tGRMVikk1vzzqdMM3eUARS5mthr32wluJ1yGcBgvvz
-	fRBn+IJt8qKRhRNQy2K1K1vL8GIbB6R+aASHv0Rvzs+oxO2oh8ip907CO8JE68Cw
-	JHHfVUjkC7QqQkdissE25wEKNon6rTVuvVitmI7T/Gm0z7kpWDg3k8KbtsDG8kRO
-	iKhLbRBhATva+gUjVODAJSRl0+4vpYxaodWsZ/DWaDDAivU94fLscJNgDkU4h6o4
-	C+lVHibeLSmTjryOHOpb5vEXQtka66C5bXhzRAA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Sh6CgQv2lVWYGjpmv4KDiE1snbVoBF0J5If67UmDqac=:UpAbfxihf6NJ8F5ckaOty9uycZ4I7rj2LCsVKLG/4r0=;
-X-ME-Sender: <xms:8LLVarksXwYdKgqUn72rtBdhf55W784kxdSSuKGdhFqOV2t8I2jOSg>
-    <xme:8LLVaquPQ73m3vDC8FmnT21G_BOv6nnEEUz1ZHEb3GW9n-htUsX1Sh23-dj-dnWky
-    G4QCwgAxePGztmASOLaMD0PZV2lB21K9g5CBi2LTkOTp15RkSl2drAp>
-X-ME-Received: <xmr:8LLVatK0jw3YGwjilJWNZKx5Bh0Te8ooyifyegDw-C7epcB10CsPPl-2pqNsO87e4eLSU6uLr--jZp7uWmAUXXoSiQ0>
-X-ME-Proxy-Cause: dmFkZTE+hzeJAZQnGrgLhmSW9gh/tQXt9DaFejGM570UW0kAlfkbKUO/i4O0N5sEnRhUhq
-    6/YaxA5ux0CJfN5JfG3K0/FCNnt3PuSbFKfF62ypE+ZI4Vw0iL7W8Gl4s0awi35f/5rhmQ
-    tA6DJ53sxwc9wDhkCoXVtR5SY84HXgmRKi3r0lMtCLHGbpiDtF9BEn66ulkg8komwp+QuK
-    p9E0a+6botTksQxdE9E230skmR3By5GWLKYHAMMfTvIciY9IdGkiSfGWDnWNS32hE13qvn
-    yExIF4LQxpmlqUM2w/QiMpY06JA63uTXp1XmC7xz+lH1p5sRf01m2uU0m1b/1hQvaFNJHs
-    okWxalxq5oW3kCQVXVM41D3ahyaAH0JIcjKmzkYEq7LW/9Tn8FgxylazxqbIcPZqpHzs/c
-    83oIBzigYJNZKURMqSA5y1gUIa1xlVMinYaXSr3Tq0vMwNFaRbRjuovatRFGd7f8l/gw1n
-    ydDysFDyksF47U+q3MLQ6HxJ+0Tit/U/XBjg0p0yHgtx5qEIPq3ZkW5FZ+jTNCJBhS/0my
-    stMBQYMHay2RsAtFaysDC8YCSpPY6H/TYcGvSrTBrS0/aYoxGdwgREZVCXqyWRfQsAHQFE
-    +jWhrdcb2drQkUSAZS1h0kC6nR+PMiB1t+7nQ1sM0+oz+KapgTkKuYMuEzOg
-X-ME-Proxy: <xmx:8LLVaniTrwOMnY2br2lAA44HCyVZIdWfWwHIzu8f1pxnsxj8XzWDow>
-    <xmx:8LLVahtTS86Ty8etF4BaO_rMUZ6pC5PeFJNGDCm2zrAq2mSj_YvRmg>
-    <xmx:8LLVahg7_ElxYOIWJI885n963vZKf2_jr3RlFQOHXBwml_rnf9FQXQ>
-    <xmx:8LLVasfaZnF1fnOandJzrLyrL7rpV27Wdi6IvM000Qu4BfVmhr-wzQ>
-    <xmx:8LLVaj6XJLjQZHNSilRn4Q8vtkENakwqO-i5MnPqq9cmZM44_LfvpwU5>
-Feedback-ID: i07c64b5b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 02:04:31 -0400 (EDT)
-Date: Mon, 19 Oct 2026 02:04:31 -0400
-From: Sean Lyon <sean@seanlyon.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 00/52] 6.18.58-rc1 review
-Message-ID: <atWy75eclKHeeE6N@ncase>
-References: <20261017155104.830766652@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gOkIrzOx"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e0d885929so1118615f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:04:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792389888; x=1792994688; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CQrs1A/lHyQmEHN3tDaDTbTCRAYkGfogMiGTVBwsan4=;
+        b=gOkIrzOxoN4M/K3anAqO10bMOK5rqVz/YMCphbDCbp2MpmtXiJUdkrMajXml/tvRID
+         6H/ZhDx2/OLneevo5f3fB5Cl3WkxU7BxArQO6wtGfXVSTuDyg59qXQYZGqjGJP//egdi
+         0ldSCcB3aeF5k0qLoc9WWpMrY+p7wqEZBcOMtcXUMa8OQYHD1i1qZR0XedXiCAuvVAsM
+         wf6oJfW4Kcs28YPp/roB4xxgwgYXD4YmFKe5W7m8rR9BpiJrvIOMnYKNYm3tKch3TtNe
+         v9s179e0oWn2IQ0hroTtC3QvAGKHbUKG9PlbhomrcnIjLVYcQ7ijn03iqi8EGfkt0+8Y
+         aiBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792389888; x=1792994688;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CQrs1A/lHyQmEHN3tDaDTbTCRAYkGfogMiGTVBwsan4=;
+        b=THVHBNeEA9+mSOcW6ArcbHlobDKBM9xt6ncK1tQexPEwlTj8r9udAizkMl/NXg2FJE
+         ayxzpSVKMWplkWJnMHKVpDo8QP+FiS9SupcGfYAKC3CYtj88yHNDz5fM2rEAsPmj4XmH
+         8dE5ZCS0ZlUBR16LFqdSSRRwkECytn+qBpFPyvCPgr6efuH6bwGU5KmWEJk75pL4NL8N
+         xnQCqNO5CDc4Uxayo0YSani7jMe2TeO9p5LhveXP3mXjLGJTMUmM/hSwDemlzMZ+BEkW
+         Z+64YrDatscuHIe7fxbMUNeVo9fb36ioF16qPaRsY1zwbfVrYw0ksL3Hoj5PcbyCBNj6
+         3MfA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/FaBDOhc0PzF9le6cGY3Dwyd3WMjoLjZVllQRxhPU/BHfdqXOLUTf57ai/UjTQUv07XrsZUpkCJRPN3M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJst0ybcALr9DoCBLBAD+fcCHshHsXt4rhtsW5nyhiFFoIj2bR3
+	WiAv3zXp+kEFRySibg30URhFAc+8Wn10RdWGzkKHYY4/ITG0NxZu45pD
+X-Gm-Gg: AYBFou0hkxk9Y5SgT1AWPSgdhU8J8CSZciZtJfFgSzOnYRVsoDMm6Z0jnwqUfcPwB3a
+	dvp+Wn7jzep8OpzmiYhszu12m2m7ooawa8cZUy1W6uank9VOU5GOrUNTDFn77aI6voWevYlII8v
+	iYl6Tax37QJ8Xd5QPFE7q9nTK9YNzdHt3NnTinpAVj+ggwzY47LReXPkVfZc+bjERUCmnSIJnTi
+	8CjLSaC8WfENitrSmAtrJrg1mjn9eu3Cm0haAUS7rRPosQJSJmwvawKwKjvlmIyUB438a+Id5aP
+	hxKX9JVq/J4eB6lmP5MMX8hkPRN1QDiL667b8Zb7Q/uWmFFJPC/kE1e9ORV2PXSNgANZ0b/5Q4u
+	Ro8u8YVtYRkj7IuTiWU9XHHzJ1p43cSDtQG5oO+1twB0huyKmjnRPt0dUZdbsSFKrpx6teoGHpi
+	VXrTSX2l41+ivbDhRRqCFZZKJkcatKj2pRd4UWKeCUiCx9jOdley8qPPhc4+cr/x5+0SizvrTva
+	/BmCIO1V7lyKgOjbKuXQY8G141Ho91QFm6i30ra6JtSVKEcWci7hPG3WSYGpa1gokB7sym1vNYO
+	LiYG/+HWPEkGhsYWRm1BkDvKLvT2SLFNlEzo8YY78bBm3ICUoak0pXzUATeXjfZXMAbKL+uJa/r
+	Y
+X-Received: by 2002:a05:6000:ac4:b0:48d:c29e:40c3 with SMTP id ffacd0b85a97d-48e07f9e4b5mr10301709f8f.33.1792389888187;
+        Sun, 18 Oct 2026 23:04:48 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a4e0-4601-c43a-536a-04a3-af7d.310.pool.telefonica.de. [2a02:3100:a4e0:4601:c43a:536a:4a3:af7d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfe4d2321sm24820878f8f.19.2026.10.18.23.04.43
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 18 Oct 2026 23:04:47 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Keerthy <j-keerthy@ti.com>,
+	Kevin Hao <haokexin@gmail.com>,
+	Alexander Sverdlin <alex@sverdlin.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: cpsw: fix netdev cleanup on probe failure
+Date: Mon, 19 Oct 2026 08:04:30 +0200
+Message-Id: <20261019060430.33254-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261017155104.830766652@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 17, 2026 at 05:54:01PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.58 release.
-> There are 52 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+The legacy CPSW driver registers its netdevs before requesting IRQs. If
+a later IRQ request fails in dual-EMAC mode, the probe error path
+unregisters only the primary netdev. Devres then calls free_netdev() on
+the still-registered secondary netdev, triggering the reg_state BUG_ON.
 
-Built, booted, and tested on hardware for x86_64:
+Once registered, either interface can queue rx_mode_work through
+dev_set_rx_mode(). The error path does not drain the work before devres
+releases the netdev and its private data, allowing the worker to access
+freed memory.
 
-- AMD Ryzen 9 5900X + Nvidia RTX 3080 (nouveau)
-- Intel N100
+Use the same per-port cleanup for probe failure and remove. Unregister
+each netdev whose reg_state is NETREG_REGISTERED, then drain its
+rx_mode_work. The state check is needed because cpsw_probe_dual_emac()
+stores the secondary pointer before register_netdev() succeeds.
 
-No regressions found.
+The workqueue lifetime issue was found during an LLM-assisted review of
+the 6.12.112-rc1 stable series. Inspecting the same path then exposed
+the dual-EMAC cleanup bug.
 
-Tested-by: Sean Lyon <sean@seanlyon.dev>
+An instrumented KASAN ARM kernel and a QEMU CPSW probe stub reproduced
+both failures by forcing the TX IRQ request to return -EBUSY. Not tested
+on real hardware.
 
-Thanks!
-Sean
+Fixes: 070f9c658a59 ("net: ethernet: ti: cpsw: Push the request_irq function to the end of probe")
+Fixes: 0b8c878d1173 ("net: cpsw: Execute ndo_set_rx_mode callback in a work queue")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+v2:
+  - fold the two fixes into one patch (Jakub)
+  - share registered-port cleanup between probe unwind and remove (Jakub)
+  - check NETREG_REGISTERED instead of adding a local flag (Jakub)
+  - add the requested discovery context (netdev bot)
+  - rebase on net
+
+v1: https://lore.kernel.org/netdev/cover.1791035789.git.kmehltretter@gmail.com/
+
+Tested:
+  - ARM W=1 cpsw.o builds with TI_CPSW=y and TI_CPSW=m
+  - KASAN ARM runs with a QEMU CPSW probe stub. A test hook held
+    rx_mode_work pending while the TX IRQ request failed with -EBUSY.
+    Both failures reproduced without the combined fix; v2 completed
+    single- and dual-EMAC cleanup without KASAN or BUG reports in two
+    runs per mode.
+
+ drivers/net/ethernet/ti/cpsw.c | 33 ++++++++++++++++++++-------------
+ 1 file changed, 20 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/net/ethernet/ti/cpsw.c b/drivers/net/ethernet/ti/cpsw.c
+index aa3531e844e87..01296c0582bf0 100644
+--- a/drivers/net/ethernet/ti/cpsw.c
++++ b/drivers/net/ethernet/ti/cpsw.c
+@@ -1524,6 +1524,23 @@ static int cpsw_probe_dual_emac(struct cpsw_priv *priv)
+ 	return ret;
+ }
+ 
++static void cpsw_unregister_ports(struct cpsw_common *cpsw)
++{
++	struct net_device *ndev;
++	struct cpsw_priv *priv;
++	int i;
++
++	for (i = 0; i < cpsw->data.slaves; i++) {
++		ndev = cpsw->slaves[i].ndev;
++		if (!ndev || ndev->reg_state != NETREG_REGISTERED)
++			continue;
++
++		priv = netdev_priv(ndev);
++		unregister_netdev(ndev);
++		disable_work_sync(&priv->rx_mode_work);
++	}
++}
++
+ static const struct of_device_id cpsw_of_mtable[] = {
+ 	{ .compatible = "ti,cpsw"},
+ 	{ .compatible = "ti,am335x-cpsw"},
+@@ -1764,7 +1781,7 @@ static int cpsw_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ clean_unregister_netdev_ret:
+-	unregister_netdev(ndev);
++	cpsw_unregister_ports(cpsw);
+ clean_cpts:
+ 	cpts_release(cpsw->cpts);
+ 	cpdma_ctlr_destroy(cpsw->dma);
+@@ -1779,9 +1796,7 @@ static int cpsw_probe(struct platform_device *pdev)
+ static void cpsw_remove(struct platform_device *pdev)
+ {
+ 	struct cpsw_common *cpsw = platform_get_drvdata(pdev);
+-	struct net_device *ndev;
+-	struct cpsw_priv *priv;
+-	int i, ret;
++	int ret;
+ 
+ 	ret = pm_runtime_resume_and_get(&pdev->dev);
+ 	if (ret < 0) {
+@@ -1793,15 +1808,7 @@ static void cpsw_remove(struct platform_device *pdev)
+ 		return;
+ 	}
+ 
+-	for (i = 0; i < cpsw->data.slaves; i++) {
+-		ndev = cpsw->slaves[i].ndev;
+-		if (!ndev)
+-			continue;
+-
+-		priv = netdev_priv(ndev);
+-		unregister_netdev(ndev);
+-		disable_work_sync(&priv->rx_mode_work);
+-	}
++	cpsw_unregister_ports(cpsw);
+ 
+ 	cpts_release(cpsw->cpts);
+ 	cpdma_ctlr_destroy(cpsw->dma);
+
+base-commit: 7ec48f396a1d89532c0537bc38b408b8c31ee37f
+-- 
+2.39.5 (Apple Git-154)
+
