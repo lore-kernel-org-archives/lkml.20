@@ -1,138 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCD03F8712;
-	Mon, 19 Oct 2026 05:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792389214; cv=none; b=JDGICDNhfwxcYJ5KFeXRNLvWVWUgL9QfC35XsVzxp/FUXdEV77fe2OoXOcySwiAw8dZMdD6JVvSz3q/9zo0AtUMuoYF2FfX3/SL5I3BeteYqJc3PEZuTZmGiFqJ91eMpDPqmQVKvQm58cv8/q1qdcpiGj/bWas8RQZo6pQ80BhI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792389214; c=relaxed/simple;
-	bh=UL4Z/hxV31NMtqFRd4xUUuqEJlb4VaFqF6vQnKsO4bU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MB9PjetsgSUBy5uqU9nKukYarcOHaSH+tkfOO3fWgK4z3UVYuiQBWtlWVjwdKevIjV2zCzzpCYq6Gy2XLsWJbfSjR5SA+9O2IWgpOgbZ0NM2Q220HmuUqP1e3+Lwr9P/UqSX2gZk2dGqRiQ4M27NI7k0g41f1HnBhOlnx1Q/hsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MkGM/izE; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B3947F78F;
+	Mon, 19 Oct 2026 05:51:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792389215; cv=pass; b=okKXjTvgc6QM2y1yp69l3kD2GmyjKfm5bcMC4s+RY9e1/qn6K/2s8fyoHXtjniUCs4nma4LReLpOc5BaAd2MNwa9hdIz0Nza/AmSLkmjuiq9niV5jL/h6Rw9a+EgFZ6MTfyYPJZM9lxrvC2tJ86t4OfimPsR9MmjGdckHcYiLJM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792389215; c=relaxed/simple;
+	bh=PEVAiiwxbn64bCGwrkzWZXhGh+bZwgJonf474xj6Sz4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cMb5zGMr2qpASr985mjSPIjck9hBdyxJHkwAxRQOPvRsjL6zuNk+1OFZWwv9hZ+mSsiQKMW+EwgRJnvTOjqy80sy0Q5oPLDW8Jq1WlXaySuqC5LC9DE/+kbxGJe2BKcRgC6iyDB4JZTFF1Vld7FNePXf8YJcWzD6Qrl75ejrHdA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=V47h9XI7; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MkGM/izE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FB6C1F000CB;
-	Mon, 19 Oct 2026 05:52:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792389135;
-	bh=YhnBb+3XDTEAdov2rwlEXGMFNh/VYkxTntTKwyZ/RVE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MkGM/izEbJ6Fogju4SVgHNEQoiKmahT2uHma8DsoKKN/ZVnzaDOvYwXtKFT23U28k
-	 0Xkr3XmqiLDBT52nNMiNod0nIsGuyIqXdn9zcS9z3BV1hkGdHLJn4/n/zdxHmh7tse
-	 BtA7qx24rnEE5zap3L3c2DcfwvfKGk4axJuDavHGVEfS9UjaPDUk3AE9E4kkHA+mIw
-	 qcFQANfMGePFYNBzWLfwdZqcgZ3o51LtMjuY8LgaTWkA49eOvYAKBreu+uIpgxudEg
-	 1i+i7H+k4XqAcH9LmzJpNA5TRrwNvHpO0eVOwcArJzOSx39eD1Y+hsNcQSTythGq1I
-	 v7xKq7OQPfi5g==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>
-Cc: Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org
-Subject: [PATCH v2 2/5] perf test: Make sure maps to have a machine
-Date: Sun, 18 Oct 2026 22:52:04 -0700
-Message-ID: <20261019055207.39325-3-namhyung@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019055207.39325-1-namhyung@kernel.org>
-References: <20261019055207.39325-1-namhyung@kernel.org>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="V47h9XI7"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3CD23200758;
+	Mon, 19 Oct 2026 07:51:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792389095;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1KxzChtRN5f+75q8xgEai93ccVRDGMJi1KmFSQaORlA=;
+	b=V47h9XI7Ca8JO+prlGQKBjjqJgnk5xA1iUzkQf8P8DL9g4u6i7yhOur3AamQFlWXSU/iBM
+	MDVi3dwepyfIPWvpVgtfszFBwJdz4igh8nX9m4JOT1Lmw/XKnNjIUThv4kpIScRfOQdK48
+	ISmh4DvytVARKtbFGAc5vLnEveylZ5uQ/De0h7RV/tMXkcxinbCJztfUuC/bXoMfvmruya
+	Cm3ixIH10QlS+ZnVPltdMNFFINgowdrx26CMpipots98XMkN/8KG34HjtuKxM+J6xkNeJL
+	b7so8IyqD/jBoPu4sFCf4LenUYHN+MvSjuk1PU6YJRvtGYb0TLaj8aY1sgzniw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792389095; a=rsa-sha256;
+	cv=none;
+	b=U1EBufISv2NUiC/2CHGTxlTGpmL3hI+dYlix2XyJZ9tE9vkiEFue4wcadzNI+TmKAdgffg
+	YpxWMeLuEHdfOWxHzZUHz/kODxJvRhE+DN5lc92OiBhDfSA6AUrXrrTMEO1ZTbGK1jlaAj
+	GNRHm4hUXbd4WxYElqVmaS6dl/yXRaIGsYN3061DK3le9TTw+mXtXFM0jW0rVrxYtmGDKF
+	ypXZKyfcvbrKMU2A3tv6AEnWDCast21ubMhYUR7czNS0KYoHW/kKh6XJpY9oUAZCqaQPPE
+	hOAtzXjE5n+ZIamNPOx+mA+kpcAuVNfj45GVNmGSnvvMROdLRiRJwIp6l6SZow==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792389095;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1KxzChtRN5f+75q8xgEai93ccVRDGMJi1KmFSQaORlA=;
+	b=IA7utFdsytBOUcFQ93xmEicmER7WfpsAaIdfxzX/Y8pvTIIZlkAAONBzykdlDW8H6F1v0W
+	st9nFcEHgc7ybcuUA4bf5Is/XbwpW0IOidr39zsOMVAgEh62yCpQNHdrz0p8eOhFVx5aWe
+	XsqNFVxisiCuFm1D2OY2/HG5eyphLn3IbgKvEoJ0MXqAb/wX+39H8XjLXqiSKe1KkgTczI
+	JoUkHuhaGt8Tf8y3kuYzjQIwRfh2mxjGAtAZPvghgU8WW92MV/Cp0Hl23VUipbhGrQiqni
+	yplM7Cf8XDgCE7b+rO1ETvvn2cmpPHnx338UXVrmb2ipxZsuaDkPcuLpm4WH0A==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xIgHX-000BBP-0V;
+	Mon, 19 Oct 2026 07:51:35 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xIgHX-00000000vQS-0BBq;
+	Mon, 19 Oct 2026 07:51:35 +0200
+Date: Mon, 19 Oct 2026 07:51:35 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Sander Vanheule <sander@svanheule.net>
+Cc: Jonas Jelonek <jelonek.jonas@gmail.com>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 2/2] net: pse-pd: realtek-pse-mcu: add gen1 I2C
+ transport
+Message-ID: <atWv5zeLO0puqrQW@pengutronix.de>
+References: <20261018161248.376205-1-sander@svanheule.net>
+ <20261018161248.376205-3-sander@svanheule.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261018161248.376205-3-sander@svanheule.net>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-It's be easier if we could guarantee that maps always have a machine.
-IIUC this is true for all real use cases, but only the test code has
-an exception.  Let's get rid of it and make sure they have machines.
+On Sun, Oct 18, 2026 at 06:12:48PM +0200, Sander Vanheule wrote:
+> Provide the required data for the gen1 raw I2C binding, which like for
+> gen2 is simply the gen1 protocol data with the native_i2c flag set.
+> 
+> Signed-off-by: Sander Vanheule <sander@svanheule.net>
 
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
----
- tools/perf/tests/maps.c | 30 +++++++++++++++++++++++++-----
- 1 file changed, 25 insertions(+), 5 deletions(-)
+Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-diff --git a/tools/perf/tests/maps.c b/tools/perf/tests/maps.c
-index 2c05d62f40dcdf72..ff6d25f9c043034b 100644
---- a/tools/perf/tests/maps.c
-+++ b/tools/perf/tests/maps.c
-@@ -1,12 +1,14 @@
- // SPDX-License-Identifier: GPL-2.0
- #include <inttypes.h>
-+#include <unistd.h>
- #include <linux/compiler.h>
- #include <linux/kernel.h>
--#include "tests.h"
-+#include "debug.h"
-+#include "dso.h"
-+#include "env.h"
- #include "map.h"
- #include "maps.h"
--#include "dso.h"
--#include "debug.h"
-+#include "tests.h"
- 
- struct map_def {
- 	const char *name;
-@@ -100,8 +102,15 @@ static int test__maps__merge_in(struct test_suite *t __maybe_unused, int subtest
- 	};
- 	struct map *map_kcore1, *map_kcore2, *map_kcore3;
- 	int ret;
--	struct maps *maps = maps__new(NULL);
-+	struct perf_env host_env;
-+	struct machine *machine;
-+	struct maps *maps;
- 
-+	perf_env__init(&host_env);
-+	machine = machine__new_live(&host_env, /*kernel_maps=*/false, getpid());
-+	maps = maps__new(machine);
-+
-+	TEST_ASSERT_VAL("failed to create machine", machine);
- 	TEST_ASSERT_VAL("failed to create maps", maps);
- 
- 	for (i = 0; i < ARRAY_SIZE(bpf_progs); i++) {
-@@ -159,6 +168,8 @@ static int test__maps__merge_in(struct test_suite *t __maybe_unused, int subtest
- 	map__zput(map_kcore1);
- 	map__zput(map_kcore2);
- 	map__zput(map_kcore3);
-+	machine__delete(machine);
-+	perf_env__exit(&host_env);
- 	return TEST_OK;
- }
- 
-@@ -189,8 +200,15 @@ static int test__maps__fixup_overlap_and_insert(struct test_suite *t __maybe_unu
- 	struct map *map_split, *map_eclipse;
- 	int ret;
- 	unsigned int i;
--	struct maps *maps = maps__new(NULL);
-+	struct perf_env host_env;
-+	struct machine *machine;
-+	struct maps *maps;
-+
-+	perf_env__init(&host_env);
-+	machine = machine__new_live(&host_env, /*kernel_maps=*/false, getpid());
-+	maps = maps__new(machine);
- 
-+	TEST_ASSERT_VAL("failed to create machine", machine);
- 	TEST_ASSERT_VAL("failed to create maps", maps);
- 
- 	for (i = 0; i < ARRAY_SIZE(initial_maps); i++) {
-@@ -230,6 +248,8 @@ static int test__maps__fixup_overlap_and_insert(struct test_suite *t __maybe_unu
- 	TEST_ASSERT_VAL("eclipse check failed", !ret);
- 
- 	maps__zput(maps);
-+	machine__delete(machine);
-+	perf_env__exit(&host_env);
- 	return TEST_OK;
- }
- 
+Thank you!
 -- 
-2.56.0
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
