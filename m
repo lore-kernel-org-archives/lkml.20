@@ -1,168 +1,191 @@
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012E94A689A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F09334EF0D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:05:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407852; cv=pass; b=BbCt4/iPakx+C3p5fpYONBOLXsNR9ccy9s2h4iLjz6UPtY8m+tvipcQR99kqoSwdOT+C9QEhNZHhTet0FfWtUrtk8G3bC2lDoqiXS+6b8Xld2jnJhFSb0OPTj3NSduDT1dk0J9bmI2hQlY9IaeeAq0Q8FC/JXHnuKtZZz/SUKXI=
+	t=1792407918; cv=pass; b=ueGMbRYNMvEjp5g0fsO8QnaZMdw3UKVdt269OvFKnvib2bkVucbKNcpzRz+dbA12wYPF3VLIPFj+/zLa3oDUy+SEHW1xYJV699SH8ArmC4HMns2jlFZAe7sov8z72wpJt1H0xYqag/0ztDzO4QVyVOTxPQAuEOou/aFFrsGWESw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407852; c=relaxed/simple;
-	bh=bfHt9VJUjw2jpaKsvRmu5N8bb4qZt+FbJS5wdGnbVME=;
+	s=arc-20240116; t=1792407918; c=relaxed/simple;
+	bh=jUY85gSFYv44ajD0M92QfBXDWEtyEd1ElmdqhoNdS8c=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dGrATr82rgzrYDnxrUdc2Fp0Le2TaCgoWwySe/MPPkvGEEsf1d5Psd+jndWfTDESQu6m2lC66Sfg7w/1GWlMYUQSnCcQl+sPJxIEajbn69C2vhVx1L9uBgMIw/pgmETbxSNeKC/AJMdEIJKtScLE5p07XNBwB0o3hDvK4UwMJh8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hkE25WF3; arc=pass smtp.client-ip=209.85.210.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=OQcXrn1qnURFct5p7++AXrDEZpDPuS1Ow9wClP+dU+/jHL5URg8EK0vcj64pIRMz3YRHc5zEP3BNT+34I3SlUQ9q2CdaZDKva5tif1PuOyDisiA4HWG65wR78bksR/0IkRFCk7kzFwiGTAGjhxZreU4KQYqK8N38RK7flDhKaAM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FNjPQxbO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=geRI3HiD; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hkE25WF3"
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-843b6f8e2c7so1648166a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:04:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792407850; cv=none;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FNjPQxbO";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="geRI3HiD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792407916;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jUY85gSFYv44ajD0M92QfBXDWEtyEd1ElmdqhoNdS8c=;
+	b=FNjPQxbObIEiNNgDb7Fvpowbq5FC7pHoy/zaOCYee0MZle3Gd5/ZK/9qqz4Rt0EK3icg5v
+	QcHKeGNnQd2uF2yXFHOiCTuH+y3SSVq+5aCR/OUW0GrR4YgD1cpwSN42UTJgVIaeO18DaR
+	3fifRQ/GPrxiTEI4MlpeBvXWhUFOwbA=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-438-UZtPHrZNPSud10s8vu2MKA-1; Mon, 19 Oct 2026 11:05:14 +0000
+X-MC-Unique: UZtPHrZNPSud10s8vu2MKA-1
+X-Mimecast-MFC-AGG-ID: UZtPHrZNPSud10s8vu2MKA_1792407914
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c2942fa0995so201649766b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:05:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792407913; cv=none;
         d=google.com; s=arc-20260327;
-        b=KcHIPjQYDsbi8K+nmYgaBvSLSFTU/x2pOopKYhzYaIAnz3UNhOGCsk3hKo+ayIHg9I
-         E1EhJ/jQmDGr1PEU74LcQV57EgzRnM6WGNR6+Y9hhk83C2UXytYkWFYwetKF7c2o0w1m
-         UUg/icNQB3ARCfEkKFe9zEz+LN0o5Ypg2tVkqteBVe7Gt0Jjl3IeL/9npOpHY3/WA8jI
-         H4vPYvFvzsnlr64YaLs8vMpANKNFtj4nIR9nndSPyraD5XziOBWyEMzsHWAOIzi8EaJa
-         Lw94+KFUB93PfPYyYoET1DlpmHl0tmc46SzPl67YKN84nYGR88hF8UBAmxnxDTY0WD4S
-         LdzA==
+        b=sPythCqJHrwQU7MCLabNIPCitmt2DxtlpNakv9oAIv2PHOp79yJY1U0f6DNVL6PtLz
+         WdWNcYxQIB1SX5OvFqgy75G9er7SuP/W66o1w3gvlHmOIO4bPeRMZf5y95ZEBDvZbDLu
+         8ibly+GulLr3U/o4n3p8hx9p57gg1iWUx1VgeWMuZKgqC5nABY9Mkcp/ENVd0vhRPdYZ
+         gV/wpUTU9XOm6qiiTldaN3Jk36/Lg7uwPAsbv4upTBHVLryFsIH/bW6xASq6chjPns4b
+         PnQvw4pD0u/k0lAmzfO/rQyOupCznjgBqpAXOoRJknNw6gjAztFSrdnFiuVY0hRnIUhO
+         jf+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=2RjmAJkJaRfKW8CM604T3xdOE/8FYHsXLHXgCKfQYGM=;
-        fh=SUaacRKGUBNFqLKpSkQ0ii4J98zYGwBl+QCUSqmScpM=;
-        b=aYD89fCkrWzWZ1FaNoDXNLTeDwH3B/g5lm/7QpEG6+Io5elzKeLBFeRMZ0oNFihaT3
-         9ZsE2O3/b0Z8lOZakH5jQ0r7vB7TeVwBWIRAcP5C6W4uQTgRhN9C4/V/6uwj29h8XBFI
-         KgSjrLD7NBSThcgXW5rIA38O2pqsyHY+TC3PDNm7RV4qp9SSVDErOCj9nbOiHeOReZSe
-         qFWA2uF98DdQZoTImrG456SSoKyv8jTEn55N1ItHZshvCdV8Ek9g5rJPykAPWW3i6Vme
-         PyMRR10M1592RoL3azEk+Fvu4NVYtzDak+gf/wR7g37bJnuBcydIxNCtmdGvtffoUvNT
-         3P2A==;
+        bh=jUY85gSFYv44ajD0M92QfBXDWEtyEd1ElmdqhoNdS8c=;
+        fh=ppQqlwkeQpuO/HzxpSGYZyFJQWc6DQYr6fgCMvGWYaQ=;
+        b=NUzmu6+a4+RDmXHX3yMX4606LFuDx+9D8NSM6ATIzdvNPccq1ypc2hSwynsiuuZxCN
+         Civ7DyQtz5kapJbMMWM6oDP1ywwblXyO7ulHPn+X4ILeEKmbi13zg/i10GymMOAvYf/R
+         4rXBFQgyyq+gDbSrQjKHUtun3sVsRILktmK726S7Iiu1ts+L/LjKfEblRIUWx0clSol9
+         iySO+Qx16DsIvyHG8u00iWS3QqDuOKwToyvyrHj2PDO1TbQVQ3Tw3dD7ocQza19TuZpN
+         6xr7x0exDKj5pIjf3sx9MFrr4Pguw9fgqC6DEsONaDb6tr+MvJCqJXhhfDYtQ3LXi/qw
+         Fjnw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792407850; x=1793012650; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1792407913; x=1793012713; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2RjmAJkJaRfKW8CM604T3xdOE/8FYHsXLHXgCKfQYGM=;
-        b=hkE25WF3TS5GmwX5rJIjm82r6l8ivurb5IXDVfJwUrMsU5PL2R2qw0QLzZY3D9tmIJ
-         K3flmfB5VEVE1d/YIXwoibHUETJeJtOd43MmhTGeG+g8NKFgYrqRnttLtB722NsOu2m5
-         dLbEM8JhoOUn3lpLAvd8PAl8Exn5J2ioRqnDfiM5UMmpoxgyuC1/xyjtDnk1suZbGUQx
-         zfjYQZzMN2A3LhfSmySpIvtusTR8Ej4jkGZ5pdcKoWnND0YkcLrPFZ2lbQKxHfDFa8J1
-         5zTNyMPiPKbY9f+DcepKc8q6UdSfAOBvj49wYV5DUKgP53niPT4gSGzGApQfsZImqIf4
-         Y9TA==
+        bh=jUY85gSFYv44ajD0M92QfBXDWEtyEd1ElmdqhoNdS8c=;
+        b=geRI3HiDu8eTv4KC5DstoODWBQ49w+VMd4t/i3oQgixi/IYesvGY3BPCMw7N2NeLYL
+         RILSQvce52d5fvzD560ObcbnvARiW4O4UOvUpTos+ya2NwxcnIOGh061WypWWMDHKFbC
+         s02mpac0xvPaIIL6FMFAe2KLYEcvfGKUHIUER1JnxTyxG0iX52pkFku+weTLH3xBBe2m
+         tGRaNIjmfMpklxofrvAKXx92VuJRDRx7DkpDgaFiYF20t2Py0cIOQmwZLqfhKEKZQNgs
+         CVMYgBew3kpig1MBBDNXAlI9VIgDo5AXgM+wszv5t17nnLFWD60FfpU++ZeJezw8+3Y0
+         sJZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792407850; x=1793012650;
+        d=1e100.net; s=20260707; t=1792407913; x=1793012713;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2RjmAJkJaRfKW8CM604T3xdOE/8FYHsXLHXgCKfQYGM=;
-        b=2oDE95nyBLWaWDdIdb02dRXZrT5WJSaxzh7dT+vw4JAZY3GZ65aSr7i1SdOmAq8pVg
-         QdmwSXp8vd4ymyxLyl6kx9PYnVjcWrt6SSLykPp2WztWf7zHQ63Cg1Va4WdEATsdcMlP
-         JF07JeUm2QMo4WTaIsATtYSRJrOFLJJDxgpc+Akn0IMiWN/e5GdSy00TkbDUhCtKFpxx
-         fBjPgaa/CS+2gGZOkvgQFJJ/Jv2t8tZT/INYc5sQwPhKb5qOVv3IaBZXbRBagfweBixZ
-         dsrUpyas+QmI6jranLwFyINxRm3HG7TAUHvlFPeGPzXXtHleVZwDP6snVd72pvwTOhAl
-         CAGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwEaWVOvdVTCofnQ6fEiSghSw6vCamoT1nEz/esr3BQ+ifpljl0IucIQeTdUkLCzROlVk8QaAxTxwacN/U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQkQdQbs+zQ5TjClSITJ8Ri2hgvoovcq2jNK0SXRANwktcO9bm
-	6GZLEMLvHL0tiQoLR8sQTkwxdmLabrVFX3bQbSwoUgWfMP8VbXOCWJbu7GDtnjUk3BxhCIcsxHS
-	bqG8WTBN9NWR+jbM6JRc/+iC50fvAEmc=
-X-Gm-Gg: AYBFou1W/fLWbcUW3erhdqlEmXXGUmq8a9brti6lmwRcq/dGejrKjLSs1GiR72SEXF7
-	MXneiznXoLgta1ruUmBk9e0hOATSFL1pXhdsjiNuFHVtNGgVTJgWbVwrufmGCqaW1t/bOZvkVAl
-	nHPiTx3eKymzg2zd3srL7i1rkPMqgq2I96/GVLRa2abhfHny94DPwpCP2HD+zKq1DHv4GqJX8fe
-	trQxj6B0o32GRA+4jo8ctneXFXl1BXBQY2sBzHYG0kd/kKSizzCdI8BzZirqe9m84Qagdaqaxok
-	iP1p8oo+5DWprynGJ5bWu4fZ5PWhfQXSWAORl/riuqggg6ZcKln4r7/b8H+CKgsu3kusTMP1CB4
-	oKpXI5n2jo93zdIR/Tfjy+czGDJqayL5RphUqKdR2
-X-Received: by 2002:a05:6808:3509:b0:53a:6769:c35b with SMTP id
- 5614622812f47-53ccaf1f442mr5332468b6e.12.1792407849778; Mon, 19 Oct 2026
- 04:04:09 -0700 (PDT)
+        bh=jUY85gSFYv44ajD0M92QfBXDWEtyEd1ElmdqhoNdS8c=;
+        b=UnZbitntd+MOfOZpYG5gNqbI40DNOHjTHK87ozkDxsficn7JnhhgNLFRq6f3sp859Q
+         uHYjbZgO8HZcjHSiXJAH2P/aIsLzqrAkO6aaNcZ41rjHqrG9uAaCUeVok64wgvtDtz9j
+         1droU5TlvVP8jWg+GpuGbfEFTdHAj/sAJEyJJITD1yZOqY46kKvZBkZViAlgVrEwe3SY
+         latOzyXPQZLnP0MPJYnn/kcqyUe4kfQyI4eYo0KdcaBdMghWyITpkJLn415MzDRdwJZp
+         Bxdy6f8jw/BKcTtlObRsoFN5HazinIjpskr4iDBah7235pNZOnPnj0TzYz9iJogalgu5
+         6qZw==
+X-Forwarded-Encrypted: i=1; AKwUvBwe5zsyASRbHFLEy1faDMBqUgrZyfOuMxGHmPd/OJcsg4EbPkwzT1CssA1ReDEjKIv5J9MrSPO5wz6H0cU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIx1y2psiI4JUuaQWtr2DTxbSSqN5vJyTdzBmfZnEKX0Glsriw5
+	FZ5IfmaIekihzEz/eEugUdXIp5eVyx3TN87X3S4Ttbh5y4IcZOsAR/cjAnBxC8OVPyltqgvBVIw
+	G4gWZSYdChncVzkNraMovakOi8m/Rwj9awbefiPAl/h0b8zy3uXFgpQs03UwlLEgJ78BPH8i5v+
+	zb9ftFo9nkoK7BNxES23oasLMw3CKbgNKBbqyPOAtF
+X-Gm-Gg: AYBFou08icj/IsJzyoC6yigZsnhBH0wZGjrafndX5DHf3g48Fk0dIRuem61mbMJ04Ks
+	fevHSAXYRI8fNOjqvTpv5ndYZj0r9W0DiHNE8mk+EqLVySb8OKq4wc1BT4sImq+uRM1Unq/ZOyQ
+	j6dRWGvq08DPW1tmG92RMiM5sEnp6dDXGCM3xzfoe536jTQqBZiiG3HjtQAxzCZ0qAMoay+dLNK
+	6NlyQMnMW2oqIg=
+X-Received: by 2002:a17:906:9f86:b0:c19:45e3:2f57 with SMTP id a640c23a62f3a-c419d83af46mr514031266b.9.1792407913530;
+        Mon, 19 Oct 2026 04:05:13 -0700 (PDT)
+X-Received: by 2002:a17:906:9f86:b0:c19:45e3:2f57 with SMTP id
+ a640c23a62f3a-c419d83af46mr514028266b.9.1792407913081; Mon, 19 Oct 2026
+ 04:05:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com> <atXp2NSPKZUPj8sq@ashevche-desk.local>
-In-Reply-To: <atXp2NSPKZUPj8sq@ashevche-desk.local>
-From: Michael Anderson <mwwa919@gmail.com>
-Date: Mon, 19 Oct 2026 07:03:57 -0400
-X-Gm-Features: AclHuK8biEMfZ_1GVer949iI38PfSha8JvD86j9Plx2_choI2YB3QRBY5aZp0yo
-Message-ID: <CAL-Wm=O-Gr3CuvCn8iSQceQMhu=LGFz0SPhmWeFL=RiVnoprdw@mail.gmail.com>
-Subject: Re: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV MIPI sequences
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	intel-gfx@lists.freedesktop.org, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Hans de Goede <hansg@kernel.org>, 
-	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261001152042.124445-1-gmonaco@redhat.com> <20261001152042.124445-11-gmonaco@redhat.com>
+ <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com> <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
+ <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com> <878q3xtptq.fsf@jogness.linutronix.de>
+ <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com> <87bj8s8ih9.fsf@jogness.linutronix.de>
+ <DM78SVMBI2XW.2XHVC67VON48A@gmail.com> <87v770uuyr.fsf@jogness.linutronix.de>
+ <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com> <87ik2zryzo.fsf@jogness.linutronix.de>
+ <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
+ <CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com> <8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
+In-Reply-To: <8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
+From: Tomas Glozar <tglozar@redhat.com>
+Date: Mon, 19 Oct 2026 13:05:01 +0200
+X-Gm-Features: AclHuK-0PstQ9qMVKUz4cfYOyqNQzLRuAx_unL8aytY_f_PVK-zyS2FFzXAzARk
+Message-ID: <CAP4=nvTc297yQHz8aumZFAQ3+JK=5Z_=416WdosT0S6nHEeNfQ@mail.gmail.com>
+Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
+To: Gabriele Monaco <gmonaco@redhat.com>
+Cc: John Ogness <john.ogness@linutronix.de>, 
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	Steven Rostedt <rostedt@goodmis.org>, Nam Cao <namcao@linutronix.de>, 
+	Wen Yang <wen.yang@linux.dev>, Tobias Schaffner <tobias.schaffner@siemens.com>, 
+	Viktor Malik <vmalik@redhat.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Thanks for looking at this. I'd like to make sure I understand before
-doing a v2.
-
-Here both users of pin 10 are i915 itself: intel_dsi_vbt_gpio_init()
-takes it as the "backlight" enable GPIO (soc_panel_gpio_table,
-PPS_BLC_SOC), and the VBT MIPI sequences on this tablet then toggle the
-same pin as the panel reset (low in ASSERT_RESET, high-low-high in
-DEASSERT_RESET). Do you mean describing pin 10 with a software-node
-"reset-gpios" reference and having both paths go through
-reset_control_*(), or something else?
-
-One concern: the VBT drives explicit pulses on the pin, and shared reset
-controls are refcounted, so a pulse from one path wouldn't reach the line
-while the other holds it deasserted. Would an exclusive reset obtained
-once by i915 and used by both paths work instead, or am I missing how
-reset-gpio handles this?
-
-Thanks,
-Mike
-
-
-On Mon, Oct 19, 2026 at 5:58=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
+On Mon, Oct 19, 2026 at 12:43=E2=80=AFPM Gabriele Monaco <gmonaco@redhat.co=
+m> wrote:
 >
-> On Sun, Oct 18, 2026 at 04:12:40PM -0400, Mike Anderson via B4 Relay wrot=
-e:
+> > One disadvantage of using bpf_trace_printk() for RV violation
+> > reporting is that the event will be caught by every instance that
+> > enables bpf_trace_printk() and does not explicitly filter rv out.
 >
-> > On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
-> > backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
-> > itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
-> > GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
-> > sequences also request their pin through gpiolib, so when a sequence
-> > toggles one of these two pins the request fails and the toggle is
-> > dropped:
-> >
-> >   i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY=
-)
-> >
-> > Before that commit the pad registers were written directly, so the
-> > sequences could still drive the pins i915 owned.
-> >
-> > The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
-> > panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
-> > MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
-> > failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
-> > during takeover and stays black, even though the backlight PWM and both
-> > enable GPIOs read back as on. The tablet only has a usable display
-> > with nomodeset.
-> >
-> > When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
-> > corresponding descriptor, set it through that descriptor instead of
-> > requesting the pin a second time.
->
-> Ah, nice, this should be solved via using reset-gpio, which is exactly fi=
-xed
-> for the reset shared lines case.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
+> Yes, that should somewhat be mitigated by the glob filter, though events =
+are
+> still generated.
 >
 
+Do I understand it correctly that the idea is to modify existing
+tracefs instances when enabling an RV monitor to filter our RV-related
+bpf_trace_printk events?
 
---=20
-Michael Anderson
+> > I can imagine an RV-specific trace event for that, however, it would
+> > require a separate kfunc to generate it, and ideally also distinct
+> > labeling of a BPF program eligible to call that kfunc. The "rv"
+> > userspace tool could then iterate over these labels so the user knows
+> > which violation events can be expected to occur on the system.
+>
+> That'd work too. It's what I initially envisioned but I'm not sure a kfun=
+c
+> producing a tracepoint is something BPF folks would really like (and tech=
+nically
+> any other unrelated BPF program could call that, unless there's some acce=
+ss
+> control mechanism I'm not aware of).
+>
+> Not sure how much it matters in practice against the glob filter, it prob=
+ably
+> really depends on the other bpf_printk users (and a mildly better usabili=
+ty).
+>
+
+bpf_trace_printk is already a BPF helper producing a tracepoint, this
+would be equivalent. Of course, that does not mean we want it, but it
+is something we already have in at least one instance. I know of at
+least one quirk: you can have a BPF program attached to a tracepoint
+that will call bpf_trace_printk(), and a tracefs instance tracing both
+bpf_trace_printk() and the original tracepoint. That leads to a new
+tracepoint triggering while another tracepoint is already in progress.
+I don't know how it is currently handled; from what I recall when
+testing RTLA's BPF actions, the bpf_trace_printk() event might get
+dropped by the tracefs instance, so I had to use a different way to
+signal to userspace in BPF actions test.
+
+As I said, to prevent unrelated BPF programs from calling the new
+tracepoint, you'd need to recognize and track RV BPF programs as a
+special type of program, similarly to what your original RFC did. I'm
+not sure if that's what we want, but I see some advantages. In
+addition to better filtering of reactor events, you could separate
+reactors from the monitors entirely: you could trigger the tracepoint
+unconditionally, and attach reactors as tracepoint triggers to the new
+tracepoint.
+
+All of that adds complexity, though, and requires separate discussion,
+so it's probably not something relevant for the initial
+implementation. I just wanted to mention it so that it doesn't get
+lost.
+
+Tomas
+
