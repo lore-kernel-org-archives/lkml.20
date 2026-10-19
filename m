@@ -1,201 +1,110 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EAD497B85
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFF9490BE1;
+	Mon, 19 Oct 2026 08:29:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398520; cv=none; b=SEihbDuilF94103mSNuUcPOFBuD8pL3Gxqs3QvA1RvP9gfl2fnKPBIDHYYrDh0FJB9/2jBF1Zb3YkudGFC946ANMXET4O6ttAQM0anNIU8cswvExFF9BKAAa4YckqEDI2bHtgJurOQ1MsUFmEtHftl6qI6DjWMPrgKw+1rL5inY=
+	t=1792398570; cv=none; b=o+CL41W4DR1N1GM3MvREZGVBU954LI+t6fgAaNYJfnaHDzupYbiuUwGorN0mnakyIH68n8eYQkm4fRF3BcIPPdJOrzLxmyJMKEhcHiFyU2EjXjPp7s2js1KoUDZ3Rq9Vo0PaNSyhVnSa4+n7WPhdA9C/k3EvC04BRqnCDrAV7do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398520; c=relaxed/simple;
-	bh=7DGY4PHn22mBzSP+68tHwAmdJNJRgkdOyySSFzFXVIM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZQFOXUl9xoBCRiiRyvZ+pyUUt6aVwrbn7mOl9c/70aR1eYB+NWSAwfe6Me/waOCGu2a0WjOtCVwa2frtYSHK0H2tAe8D/PZXwyLKP7maeRk0Vzh7x/SdyUQppIKmkZJMIFtHzrkiXXc/0vHUhCrsATVvU3pG/1raUO7yy4tRK48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=X4ChioHE; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1792398570; c=relaxed/simple;
+	bh=2T8yUg3USoZLSWCKE3Q81aYqDVt5CaQawi8GcUD57qY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pXHwTCNyQlMXv2y/N//U+BsjyJtl8WmOECTogTeAYynFC5dgiBq6y40HjpjTePJ74WRhTRONz4Ti2978/fWUBtrqXZHZw7UXUnE4KzX6iTfIm9R/MZtXCv25GqjEcVuGiKF93cHXTWchdwDYaL5yyj+IDBzOT4GUBMIGe5SMSnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EfW07gMC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="X4ChioHE"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e8623790f8so67995ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:28:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792398518; x=1793003318; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QNi/4g2rcbVBYZWdEY3YYi0+ZnogZXZN5660dVgk0m4=;
-        b=X4ChioHEkuFWiRKCzceJoKnXlXtSRBMVJgbXapzum+Q7tMu50hO3ObhMyNZlLFqdgy
-         6r3CwXpGWOhNTkwxk45nZUpiW1Z/a8PMbTgYad8Lv0K1AnlC/p2s3EcQ2JFkbsD1cbZ9
-         ONJXhyPa1VegjNyT7XWcAYWV4K89V1kDha8nOYQwo3KnrkLvmqY5jCztjGD2PPIjkKg5
-         jsQ4TXZTjuOV2SemTR2V+M19wPt2Flz/2ZRlgcL2FXgPQYpuQVxkPiO7RUCRPrpzLYhl
-         U4hpk4SPfm97oEf8iktn23g12w9nDJlUeU60A8c72+0oeVu7ROE+1+PaYbOpoDjL6QMp
-         nAKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792398518; x=1793003318;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QNi/4g2rcbVBYZWdEY3YYi0+ZnogZXZN5660dVgk0m4=;
-        b=QrzPcJA8eVGsGWjnapA07Ccu4ijlNSk3KsgQ5g8OlSZNNX0noiuI3dxFWR5Oa1ClSa
-         +aon1i/U4xUg4zZSuOgN/dFWi8ENc9YH4dmqaNlJwIJfEE8ABBtFFB65KMB6iM2OAvD6
-         EPINg8glW4rXPDgjxgONTn6gvlmZTD6r4R1KcJoAlkPQ8K2ySwKHy6x31Ro1ZErNcj7l
-         MMSBnIHTTuPD7yXyrmph2j+jrRqe9ziITEz1dbpLGR6I2YKHhcVsievQrpGnBn3ekzBh
-         SIJTYrDuh42DFBxBTSQ0RQN7NPMw3pLdOLcxAhMXYH7vWMa/hVAJrERx/AvpLRrdTk8B
-         5r0A==
-X-Forwarded-Encrypted: i=1; AKwUvBxWB9p3IxoFk9V4CTXSv64tANZ7NBz/xkQQK1u+o/CEWI92kRN2JqqtA8rIOIWORlYwbTvqOT1CO9Xd+UI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIt0par7fgTPE0QIQJeIsrWvJcr7/QQnZZLR2vLdI2z/Gc2EkEn
-	PP7WuHGcMOn2vtKKhifT2h3+8Oh8QCS8iXyK9cB5K+TVdu2BpC4quTX148OV3M7MRvjCrGXQMjy
-	/pkJvSUEL
-X-Gm-Gg: AYBFou0UfADPv0y5dwxUym8XYGpcECoSFCl5ZNp+e2v9qo0DKN3e3K5JnrNPfCJQm0I
-	5X8eezxakj3US0RUdeiBCsuQAqQ7J+9HKTSe5a8XJDNqaYYBmc7eYseren9oqNJGf/FMjd71Dle
-	UxKxLNl/gGoX0KKrONn54pV39ZZVvsmSxDicyBc8EVXGAgyRlQxzkz5IBbBJ2VBJE737v6BGHva
-	dz3BOqqHK6ufZGn8+FfjBAgMjIq7ZvDFX/KgOAN3cYFkuO8Guj2AZoOwZI4160N1HafDFhOKNS3
-	TGnpGBjYTEFKgvAEvQCgkgZ5wum24YWYbjydw6Dn8yt81klXjk6mqebTMCT92CYOsNWPV/PbthT
-	/aDh/ZJK0qp8IUiGciRrqpdQ/vw062wdjpx7TFXrbJwY2esjJLedNB6wHA3mTXA70D3mBTpt90O
-	5CztjaGkUX/MSxEahbkEU+Sts0bD2N0+f7WCsskS/f1JQ0KWV/dn19iu90iDX0dXB6b/who37V4
-	MVt6/yewPTD9O7fa/mHlcP9cqDd56jekHrl
-X-Received: by 2002:a17:903:1a10:b0:2df:8e89:3bff with SMTP id d9443c01a7336-2e9b334381emr6523115ad.17.1792398517740;
-        Mon, 19 Oct 2026 01:28:37 -0700 (PDT)
-Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4872861sm16015390a91.7.2026.10.19.01.28.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 01:28:37 -0700 (PDT)
-Date: Mon, 19 Oct 2026 08:28:29 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Will Deacon <will@kernel.org>, iommu@lists.linux.dev,
-	Joerg Roedel <joro@8bytes.org>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Mostafa Saleh <smostafa@google.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Daniel Mentz <danielmentz@google.com>,
-	Ashish Mhetre <amhetre@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rafael@kernel.org,
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev
-Subject: Re: [PATCH v11 11/16] iommu/arm-smmu-v3: Add CMDQ_PROD_STOP_FLAG to
- gate CMDQ submissions
-Message-ID: <atXUrdEeHHAnKhBk@google.com>
-References: <20260929034510.2023173-1-praan@google.com>
- <20260929034510.2023173-12-praan@google.com>
- <asZSQRSYBjbUaaH0@willie-the-truck>
- <370a947c-601b-434c-befd-4896ed523ced@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EfW07gMC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D301F000C4;
+	Mon, 19 Oct 2026 08:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792398568;
+	bh=2T8yUg3USoZLSWCKE3Q81aYqDVt5CaQawi8GcUD57qY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EfW07gMC/pe9SkRG7otllFhewm0SjDFvYPPzcAzmA6riGP4A80dodt7DiIq2o+YM6
+	 +WmaE7jNBBdjnXzJJyDH3RgBJYJCeJgMGikeBnE6uKbPsa+6Ku5ZT+ykzrD4jd2f9G
+	 mPLC2px0MrtIKFcisnv47swUrgSpRdO4iaK7CvDNe5U7SOEYLfccR01o5RV4i5HDEx
+	 pLUl0XVOr3VgSb6ZUeYcoVTDlcUw3Yif14Wi0ETIjs1IuHgpwp1ZcFuXdgc7hObcc+
+	 71TRWguCvYOdV9+SbwfTb99pxwOevLB7fCPHjP0XzKLMs5lQMPNgSUTcjQPNYZF2yK
+	 iN+B05AX5iMnw==
+Message-ID: <bf402074-d666-4988-8426-d8faa9625551@kernel.org>
+Date: Mon, 19 Oct 2026 09:29:23 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <370a947c-601b-434c-befd-4896ed523ced@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
+ schema
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, vkoul@kernel.org,
+ kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ neil.armstrong@linaro.org, mani@kernel.org
+Cc: gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
+ vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
+ <qLjQvei0fouaxpwPTn80Nhf-aITowIXFteQ3i4M6uq3PVYim2WLaeukVq1MgNcwOeagmzK7HP1tzQbTTlhNXOA==@protonmail.internalid>
+ <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 13, 2026 at 12:35:40PM +0100, Robin Murphy wrote:
-> On 07/10/2026 3:08 pm, Will Deacon wrote:
-> > On Tue, Sep 29, 2026 at 03:45:05AM +0000, Pranjal Shrivastava wrote:
-> > > Introduce a new bit flag, CMDQ_PROD_STOP_FLAG (bit 30), in the command
-> > > queue's producer index to safely gate command submissions during device
-> > > suspension.
-> > > 
-> > > The flag embeds the suspend state directly into the existing global state
-> > > The flag is checked in the cmpxchg loop in arm_smmu_cmdq_issue_cmdlist(),
-> > > which acts as a Point of Commitment, ensuring that no indices are
-> > > reserved or committed once the SMMU begins suspending.
-> > 
-> > I'm not familiar with the term "Point of Commitment". Is that something
-> > you came up with? Without a general definition, I think I'd prefer to
-> > avoid using it, especially as it sounds like something to do with the
-> > Arm memory system (where we already have architectural terms such as
-> > "Point of Coherency".
-> > > This prevents a situation of "abandoned batches" where indices are
-> > > incremented but commands are never written, which would otherwise
-> > > lead to timeout during the drain poll.
-> > > 
-> > > Update queue_inc_prod_n() to preserve this flag during index
-> > > calculations, ensuring that any in-flight commands that successfully
-> > > passed the point of commitment can proceed to completion while the
-> > > flag remains set.
-> > > 
-> > > Suggested-by: Daniel Mentz <danielmentz@google.com>
-> > > Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-> > > Signed-off-by: Pranjal Shrivastava <praan@google.com>
-> > > ---
-> > >   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 35 +++++++++++++++++++--
-> > >   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h |  5 +++
-> > >   2 files changed, 38 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> > > index a123810fac57..7f89e2306942 100644
-> > > --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> > > +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> > > @@ -218,7 +218,8 @@ static int queue_sync_prod_in(struct arm_smmu_queue *q)
-> > >   static u32 queue_inc_prod_n(struct arm_smmu_ll_queue *q, int n)
-> > >   {
-> > >   	u32 prod = Q_POS(q, q->prod) + n;
-> > > -	return Q_OVF(q->prod) | Q_POS(q, prod);
-> > > +
-> > > +	return Q_OVF(q->prod) | Q_STOP(q->prod) | Q_POS(q, prod);
-> > >   }
-> > >   static void queue_poll_init(struct arm_smmu_device *smmu,
-> > > @@ -726,13 +727,42 @@ int __arm_smmu_cmdq_issue_cmdlist(struct arm_smmu_device *smmu,
-> > >   	do {
-> > >   		u64 old;
-> > > +		/*
-> > > +		 * If the SMMU is suspended/suspending, any new CMDs are elided.
-> > > +		 * This loop is the Point of Commitment. If we haven't cmpxchg'd
-> > > +		 * our new indices yet, we can safely bail. Once the indices are
-> > > +		 * committed, we MUST write valid commands to those slots to
-> > > +		 * avoid indefinite polling in the drain function.
-> > > +		 */
-> > > +		if (Q_STOP(llq.prod)) {
-> > > +			local_irq_restore(flags);
-> > > +			return 0;
-> > > +		}
-> > > +
-> > >   		while (!queue_has_space(&llq, n + sync)) {
-> > >   			local_irq_restore(flags);
-> > > +
-> > > +			/* Avoid waiting for space if the SMMU is suspending */
-> > > +			if (Q_STOP(READ_ONCE(cmdq->q.llq.prod)))
-> > > +				return 0;
-> > > +
-> > >   			if (arm_smmu_cmdq_poll_until_not_full(smmu, cmdq, &llq))
-> > >   				dev_err_ratelimited(smmu->dev, "CMDQ timeout\n");
-> > 
-> > It's a bit grotty to have the extra READ_ONCE() here. Why not make
-> > arm_smmu_cmdq_poll_until_not_full() return if the stop bit is set?
-> > 
-> > > diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> > > index deefb17e31eb..794b258550dd 100644
-> > > --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> > > +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> > > @@ -394,6 +394,11 @@ static inline unsigned int arm_smmu_cdtab_l2_idx(unsigned int ssid)
-> > >   #define CMDQ_ERR_CERROR_ATC_INV_IDX	3
-> > >   #define CMDQ_PROD_OWNED_FLAG		Q_OVERFLOW_FLAG
-> > > +#define CMDQ_PROD_STOP_FLAG		(1U << 30)
-> > 
-> > I'm unsure about this. Bit 30 of the cmdq prod register is RES0, so it's
-> > plausible that the architecture allocates that bit for something in future.
-> > For example, if the index field was extended, then I think that would
-> > cause problems for the driver.
-> > 
-> > Do we have to put the stop flag in the producer value, or can it just be
-> > a flag elsewhere in memory?
-> 
-> Logically, it feels like this should happen earlier in the process anyway -
-> if we're entering a state where we don't want to accept _any_ new command
-> submissions, then surely arm_smmu_get_cmdq() should just start saying "No,
-> there is no valid queue to submit this command." to everything?
-> 
+On 17/10/2026 00:54, Anusha Arun Nandi wrote:
+> Add a device-tree binding for the Qualcomm SA8775P MIPI CSI2
+> PHY, modelled as a standalone generic-PHY provider like the existing
+> qcom,x1e80100-csi2-phy, so CAMSS can consume the CSIPHY through the
+> common PHY framework instead of driving it in-line.
 
-We can do that as well, but it can only be an early-out.. the STOP_FLAG
-may not be set when arm_smmu_get_cmdq() looks at it, but get set right
-after, before we reserve our slots in arm_smmu_cmdq_issue_cmdlist(). So
-we'd still need the check at the point where we actually commit, i.e.
-the cmpxchg on llq.prod.
+Do you really need a whole new separate file for this though ?
 
-Thanks,
-Praan
+---
+bod
