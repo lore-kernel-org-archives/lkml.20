@@ -1,132 +1,146 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DEE4ADD97;
-	Mon, 19 Oct 2026 10:14:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722AB4AE103
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:15:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404894; cv=none; b=IIwM7/KPp3bISq8QnKR7OicdV/gYeB4JfqlbTeQpCnpuSk/MYN3P1TiIjWivpYbdTU3UxXpC+EPaw8O1Oj3DnKVYUQfWum9ZLNNzdN1aKAsrMYVLiysERjrjyG7XluuYZf5A/n6i4LNjAho3iupxjrDcDOwHjH0Hg8/lWiy3pv4=
+	t=1792404921; cv=none; b=ut/YMCbZwCgZR7uMvQ9ebidcNRG7kEnOYHLkykDq2UhcVxFgumXnbBx7n8dcRUKbO2y9jvmi67LVVWYzsKwjH2Qa1y3t4ASldsC7RsbB1QecG/UxzCsBzSruEmB63mSkVogr93ey9QPpGLrDeCIPL1U88NJo4+lyIDj6ahXuDQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404894; c=relaxed/simple;
-	bh=1eXwY7/I+iJ2v8Ki3peXvImDVovue3VG5PXtS+K3VoE=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=C44JlSBWnN+d6Jt5+a6JzgdJ1XrpGTPmPLPHD5Y73ahGqV35/0zsqOACwb9/+DP8vUEtiDp1cAJtkNYuXQz/K9Gn4kvom6H2HJDYnmCFveY95BnfzC4P+ElH+P3yo7NaU4DwKB6nFyPi5Kj4A+XkOkZmxvne5NDflee1ySWIL+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Su6Yj7Xr; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1792404921; c=relaxed/simple;
+	bh=C283mnBuZO15/DNBtEg5d2hlO5HOSoKCwW2jB4d6lWY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=tNCTTHz2FmA078QiN/I+gnM61I0WOWXS0upsRX8m40sk9BadrdA9K6Qji007x92z4hDJlXDB9LkJsvoBFlwezqBIqo95aST8hqTtn9YEP2CKZU3Sj0uTt9s51BNQM0FRmFhOG9ZEXmQPWjGBe5LEpY90mg/9dtY2HOv+uxpKRjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OB89yFKi; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Su6Yj7Xr"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A99F1A1584;
-	Mon, 19 Oct 2026 12:14:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792404890; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=yNIklo0e+FghYVj5vJdXCDS67112tcNKmBhcCw427F0=;
-	b=Su6Yj7XrYuYxCFORqB+isOvVO8pfCPgScsa+8/PfWhF0XJt7WYXH+uMKedWEbUVv5V0fe3
-	901ssD5kVOyBowwec5wPWkYapceyuUrUky3JNig98hQMrAoj+XzeZ/gsydIek9eeXqcKEa
-	HnEVI7FJ4bsbdzWZUrSl2x+5Kw9BTpJC3fOMQEPbicpqKLH071J63e0fbt6vJJ3jpadnwg
-	qKbcA0pN2XKV7LJTSZkUcWGcSUXQID8VhYbMn7i33JGAJ6nTOaiZwnmNxrpIZh7iZHTZRn
-	AwdBFaV+5oBtXVplflpn8Cf4EWt5jzzabjN2CiimzB+wt7kTa3tOReUTdEVNuw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OB89yFKi"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd60d155070so788267a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:15:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792404917; x=1793009717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=daxkRKPrfQ14arV5FJlxBgklthHAHPn8HqW4o1xkfkA=;
+        b=OB89yFKixYHf0SyzrHm8NNQYwZOUky4y8fuupkW5Z/sHNcLYGcWo8rBKqeG/eeG0CD
+         y7Im9aFi+Nvcose92vflQaVYEqmB35RQQREv1SINC8q0Ah+WtaRSHsw7BOzfdkvQRPak
+         MNtm+pTX+7bAmHclggTTEaIVezaJoqijcMQPPD5ChNOORFRfzBWOdWePM1a/rn6UXRLn
+         wAqi0gJfdYsGJVTTKlgM1rTAeKm3dh36pNPRNAuaeiUHghMSdB7MXhEtNCHbgIKSIKYC
+         uxS8v5qSMuQvveFzfKEoytT92G2xqIcRjUgEiWWPShyGAFcKKELXwdwwcekFdlz72+2Z
+         ivcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792404917; x=1793009717;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=daxkRKPrfQ14arV5FJlxBgklthHAHPn8HqW4o1xkfkA=;
+        b=Whm4zQhv8mQRALRbvKJJBBMgC64GvhlYXpjKMoLFjHtL9Xbd684sfn7GiWjYPX1X2j
+         QcuDpn1W+HKClUjJE5hcflgTLTizgHfXxeo1S4QAlup7wqjjP3b//fgDq2k5ze6TAjVk
+         x82dt7OgJrD50wqefZSnRDIFBRYRdTIQyjz/Lc3tNQDpSwruUtMSkjuVK5RvIDZw2Yn8
+         2T6oLjxDC3YJXcBUcw8aHT+KQs84WS9kqGnWQAI3JMFprMhPS4flZ6SzsBZErUW/RlaD
+         XDeaw5WLsPXYAsBBqQp06iQonGmixTZ6O9wewUJx+e8fQ7jNBm8McmN+Kf8vKq7hV/nM
+         uRBA==
+X-Forwarded-Encrypted: i=1; AKwUvBzRoSplrabsGMN/hRugctDrLehPWZ6rtss+aE290DEmQWyKHki8bDEFSCXz6Q0++IIUXCbOm8UuP5qzgxo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7goO9ua7URLIZ6q1PkEa9Ev+kBRNAhaoQ53RE0oRb3X53Bnlj
+	Bza/N3p2u+tpPthZferfnX2u8BLbzp3lSrsupti/FQgi73NwIAepKhyR
+X-Gm-Gg: AYBFou1JRNq7oEijGipoApt1aEfysQ6Cef3xYgv6NvgdEZDYUxgLZkslm56FRUT19ik
+	OwsJz3nylI5zT+qp8pV3Y9WZj5dm5meoYlKvHO8r9QkliUNhsuojw6xSfsimqgS80HRvxyqUi8J
+	lY2xAFZj0Xt+UMear2stnQ7+I73EbNKEGMzzOdCGOeSG9cSkAGJ2sYcyC0NyKlpa1jNTN9yC93f
+	wsuvVuYnusabQ1SJ/QpJIXr6hpe75E8JbapavO+s31DdiQkBXucG76s6Tt4mQ8d8PM3geCY4sIl
+	e1SroKgAC3rXsEVuCkbJzBsLAgEEhQkmCbN/dLnxHpYQZbDvWCE32tbVUETgJ6V4oXZO0ouc/gx
+	PkVWf2QI2O0b7CybciMld3a7UZ8Nre0qxnRCnYIHMFTIdiN8NXs6WuAbz+EyoLmxlouNer85Ft0
+	5Ea2RQYxM5w/sOTVlDWoAC0iRB3E3jIgYkRA3ZVg32yyWLS9BsyyvYX66lyOm6WXkY19Vw+bxLh
+	CMn
+X-Received: by 2002:a17:90b:4c4c:b0:3ac:a491:3cf8 with SMTP id 98e67ed59e1d1-3acef52ae1emr6319764a91.43.1792404917291;
+        Mon, 19 Oct 2026 03:15:17 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc46ee274sm14723482a91.4.2026.10.19.03.15.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 03:15:16 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ALSA: opl3: Stop delayed note-offs before freeing the channel set
+Date: Mon, 19 Oct 2026 18:15:12 +0800
+Message-Id: <pm-pmb-4552c4e605507d8d9b16-v4-213af356c0046331c8ff@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 19 Oct 2026 12:14:49 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Chris Babroski <cbabroski@nvidia.com>
-Cc: bryan.whitehead@microchip.com, UNGLinuxDriver@microchip.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, richardcochran@gmail.com,
- linux@armlinux.org.uk, maxime.chevallier@bootlin.com,
- Raju.Lakkaraju@microchip.com, davthompson@nvidia.com
-Subject: Re: [PATCH net-next v1 5/5] net: lan743x: add byte queue limits
- support
-In-Reply-To: <1e42bb2a36f305d8b3ba805e85d18c3dcda14887.1792008404.git.cbabroski@nvidia.com>
-References: <cover.1792008404.git.cbabroski@nvidia.com>
- <1e42bb2a36f305d8b3ba805e85d18c3dcda14887.1792008404.git.cbabroski@nvidia.com>
-Message-ID: <37cc7e1bcc81c71ef9bf2009e1eb68a8@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 15.10.2026 17:00, Chris Babroski wrote:
-> Report the bytes queued to and completed by each TX ring to BQL.
-> 
-> Besides limiting how much data sits in the TX ring, this lets the stack
-> stop a queue once the bytes in flight exceed the BQL limit. Without it,
-> a queue is only stopped when its 128 entry ring is full, and the TX
-> watchdog only looks at stopped queues. With light traffic it can take
-> tens of seconds after a TX hang to fill the ring, before the watchdog
-> timeout even starts counting.
-> 
-> lan743x_tx_close() frees pending descriptors without completing them,
-> so reset the BQL state there.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Chris Babroski <cbabroski@nvidia.com>
-> ---
->  drivers/net/ethernet/microchip/lan743x_main.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/microchip/lan743x_main.c 
-> b/drivers/net/ethernet/microchip/lan743x_main.c
-> index 2545a846478d..7739fa49fc44 100644
-> --- a/drivers/net/ethernet/microchip/lan743x_main.c
-> +++ b/drivers/net/ethernet/microchip/lan743x_main.c
-> @@ -1708,10 +1708,23 @@ static int lan743x_tx_next_index(struct 
-> lan743x_tx *tx, int index)
-> 
->  static void lan743x_tx_release_completed_descriptors(struct lan743x_tx 
-> *tx)
->  {
-> +	struct lan743x_tx_buffer_info *buffer_info;
-> +	unsigned int bytes = 0;
-> +	unsigned int pkts = 0;
-> +
->  	while (le32_to_cpu(*tx->head_cpu_ptr) != (tx->last_head)) {
-> +		buffer_info = &tx->buffer_info[tx->last_head];
-> +		if (buffer_info->skb) {
-> +			bytes += buffer_info->skb->len;
-> +			pkts++;
-> +		}
->  		lan743x_tx_release_desc(tx, tx->last_head, false);
->  		tx->last_head = lan743x_tx_next_index(tx, tx->last_head);
->  	}
-> +
-> +	netdev_tx_completed_queue(netdev_get_tx_queue(tx->adapter->netdev,
-> +						      tx->channel_number),
-> +				  pkts, bytes);
->  }
-> 
->  static void lan743x_tx_release_all_descriptors(struct lan743x_tx *tx)
-> @@ -2003,6 +2016,10 @@ static void lan743x_tx_frame_end(struct 
-> lan743x_tx *tx,
->  	if (ignore_sync)
->  		buffer_info->flags |= TX_BUFFER_INFO_FLAG_IGNORE_SYNC;
-> 
-> +	netdev_tx_sent_queue(netdev_get_tx_queue(adapter->netdev,
-> +						 tx->channel_number),
-> +			     skb->len);
-> +
->  	tx_descriptor = &tx->ring_cpu_ptr[tx->frame_tail];
->  	tx_descriptor->data0 = cpu_to_le32(tx->frame_data0);
->  	tx->frame_tail = lan743x_tx_next_index(tx, tx->frame_tail);
-> @@ -2276,6 +2293,8 @@ static void lan743x_tx_close(struct lan743x_tx 
-> *tx)
->  				 0, 1000, 20000, 100);
-> 
->  	lan743x_tx_release_all_descriptors(tx);
-> +	netdev_tx_reset_queue(netdev_get_tx_queue(adapter->netdev,
-> +						  tx->channel_number));
-> 
->  	tx->rqd_descriptors = 0;
+An in-tree OPL3 device accepts FM instruments through its hwdep write
+interface. Loading a bank-127 instrument with nonzero fix_dur and sending
+a direct NOTEON without a subscription leaves the device in its initial
+SYNTH mode. snd_opl3_note_on() sets the note_off deadline, starts tlist
+at the next jiffy and stores the channel pointer in a voice.
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Unbinding the OPL3 sequencer device can then free the port's channel set
+while the card-owned OPL3 object and its timer remain alive. Port removal
+drains event_input users, but the timer is independent. Without a
+subscription, no unuse callback runs to perform its timer cleanup:
 
-Thanks,
-Nicolai
+  NOTEON / sequencer-device unbind      Delayed-note timer
+  -------------------------------      ------------------
+  snd_opl3_note_on()
+    lock(voice_lock)
+    set voice->note_off deadline
+    snd_opl3_start_timer()
+      mod_timer(tlist, jiffies + 1)
+    voice->note_off_check = 1
+    voice->chan = channel
+    unlock(voice_lock)
+  NOTEON returns
+  sysfs driver unbind
+    snd_opl3_seq_remove()
+      snd_seq_delete_kernel_client()
+        port_free(): drain input
+          snd_opl3_synth_free_port()
+            free opl3->chset
+                                       snd_opl3_timer_func()
+                                         lock(voice_lock)
+                                         note_off == jiffies
+                                         snd_opl3_note_off_unsafe()
+                                           read voice->chan->number
+
+The timer can thus read a channel from the freed set. Shut it down
+synchronously before freeing chset, outside voice_lock and
+sys_timer_lock, which the callback needs. Shutdown also prevents a
+callback from rearming the timer during teardown. Clear the delayed-note
+flags under voice_lock so the timer reinitialization on rebind cannot
+revive old channel accesses.
+
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
+---
+
+diff --git a/sound/drivers/opl3/opl3_seq.c b/sound/drivers/opl3/opl3_seq.c
+index b77d8e8f12fb9f90ac72b9209f4f59373eadf6f4..86bf2680a3b5e2ffee73b59a9056f93fb2bec891 100644
+--- a/sound/drivers/opl3/opl3_seq.c
++++ b/sound/drivers/opl3/opl3_seq.c
+@@ -151,7 +151,14 @@ static int snd_opl3_synth_event_input(struct snd_seq_event * ev, int direct,
+ static void snd_opl3_synth_free_port(void *private_data)
+ {
+ 	struct snd_opl3 *opl3 = private_data;
++	int i;
+ 
++	timer_shutdown_sync(&opl3->tlist);
++	/* Discard delayed notes before reusing the timer on rebind. */
++	scoped_guard(spinlock_irqsave, &opl3->voice_lock) {
++		for (i = 0; i < MAX_OPL3_VOICES; i++)
++			opl3->voices[i].note_off_check = 0;
++	}
+ 	snd_midi_channel_free_set(opl3->chset);
+ }
+ 
