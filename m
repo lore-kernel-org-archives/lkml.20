@@ -1,52 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792460285;
-	b=QPWcboIUCwsWuo77p1DvKL9S4dpqZYjK3sib3tj1/XzXC6mRS6ydjESwWBo3PFQM0Nx8
-	 p4MwuH5AqafoH5/x5ia6KvF3MFWswft5UDV82c/Y7ZPfn9FxPkvNGlabOWQsfiGniEP6U
-	 LpgqUnU4BWCDHJTR78DA4mBDZboQSGHw353qN9KrJGXlOUGK+/Kz2SfL4FJ6jiBdx9VIw
-	 DTONNUkR9c4EF8wfs0blP8Ybd5z3gPgvf8asboAO/LwI2TiloKMwnZAfCPHZqK7DYi4PW
-	 O6GCcQtZwNsDu0PXwA7Pia0OCXSh8RTvJgwikLJLDV+rHmfTEA+KgIUiUCvR1aTm6qQ==
+	t=1792460292;
+	b=0IkQNeXfKtLiOsPYyeUkhNfbue8wdgSGJjs/VoXrUCSA2E0u0VPwwpyyFPZBNhEDX1nq
+	 8G+5IjCOnh1ii3UfxVMglDS9X9ebnajbAd6rJt5cUKJhy/9mN1tMaKcTgfVgPJ84EGAsM
+	 oEyd5BmBCovxvWkCLqFAR0en2BG0AfQEVV9eP0GTqx4iDz2CmtdUwG+NSBqryzJrG/6O/
+	 1tNuGG+J+YQDZPcL2SGJh43s7IB3zBDMG4UetvDvw50CCxFA3kzhhCn8lM2T7kSnsv/+J
+	 lKK+CMXdzTOLkuWm79FflpuQHqi1DP9s3kgkNodO8mgHDwkB/t6PnpAxdRCkx0dMwLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792460285;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792460292;
 	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=PbjFjYksln6X5VCuok/GYUEp4Jt2bFAm9SetP90rGcM=;
-	b=3yM1FUTxHf2jQ8exWJqIo0VVpiLZ02N3lYNzcxiNISTnwOKnJmUlP/STN/1h3zYttreO
-	 6uhGJXLjWeRwBxjylaT1NCx9i8Ex8MnTBiySKZAQGXI/ySJplgowKYKnn5oQ1tuBqiq0B
-	 QZ1II9lhRV7KhMJGk/amJ5avb0V6Ut0blK7dRBCJWOJ9mAwortDwFZCUQZ40/JR5WwoLQ
-	 dZQzyW29VtC+nIWsqA6KdW7cL8DkNh4qc2X/t2+UNTTg3oMvT1SvC+rOcoP/P7efcnBGJ
-	 QrFLPti5vaKCDfZcOzt7tW7RGs1AGq/xbICAHHT8QYUoKK90e130GrWEjiPPBeGm4jw==
+	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
+	bh=2uUBJF342k/4gPby2H7U6z2OOmR9jw+AkFYz58yDUYY=;
+	b=grTzPAflnFdDsjlC7iHRwqkZwe/YZyGPBNcy/YXxZ3+fsgpk6rXcFspImTacMCA2Dbz7
+	 xe++Arizcu3NidKauINn4idLWV6BVo+LtPQdAsqRxm3jpRa6IWk30tL+M4DqKLF2M+a4m
+	 aim36dLRlOaKRsyZlNrq0J3FxqtJvLPQmm4V6N1NnAafdpJdwug3Oa3Owrz3d65la3x2D
+	 udTQKYaT02pwcna0HB9n3sO15e7S7/kW1bzP+ZJkFB+FC3jLuSOP8blIH2pPHllnOjBnY
+	 Ef2RXBRQ9z7u+RV5bbkecNUiCKcZDPFznuZGPImnAVyC1Vd/VwFstRMlC00tQSG8e6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=gkhjrsVg;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECFF606A319;
-	Tue, 20 Oct 2026 01:38:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ECFF606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=gkhjrsVg
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E71FA108825;
-	Tue, 20 Oct 2026 03:37:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792460281;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=PbjFjYksln6X5VCuok/GYUEp4Jt2bFAm9SetP90rGcM=;
-	b=gkhjrsVg8YdzKJiWw+oBJJoGOWMSaX2plJh2ECGP6pobGez/hDtH0UV4Rc2GlxMKP/fXbF
-	mFRHOvJDQ5/kcprfkbErcvoAO2cidfW1VgzDUdVmsiwoKZq51M2pIyMSiB9+mFd5e2Y+XE
-	zIrWXd21uoO8qiwXwxlMoS1cEEkqb5V7RipLdtD1smpxlx42HVcI2xhjn7frxAydftEr9K
-	BRNUqGr0Hyai2/OODFby0KhwLg52WWQJ0Ndu4cZfDaERlK07618LcHO8wB2hrcFgrUvMa/
-	vQkCTJEDpb9ssDuGPZeYe/7oi7OrMmtFkutPvii2Ku6bc20iYPHtQno+K7cwGw==
-Message-ID: <fe920b05-6d89-4dc1-83d3-0664fbc2e00c@nabladev.com>
-Date: Mon, 19 Oct 2026 18:10:18 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3420606A339;
+	Tue, 20 Oct 2026 01:38:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3420606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j7w676s8vz8vLc;
+	Tue, 20 Oct 2026 03:38:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792460288;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2uUBJF342k/4gPby2H7U6z2OOmR9jw+AkFYz58yDUYY=;
+	b=uFsvpaBfLS9PPBl/Vm7AkkYu8bfV2LF1Nz/xRR8cGTV3zHAFBkLj31WdtTdQAXtRJkwenc
+	gz6JHHEPuJMbgjjFtdUaz8iTh4urWQnO1Ol6zs8maMvjl9po5XzL7GW4PufzVcSoI5OigJ
+	uxg6cmdGv7Fedzo4KovEIjxf72kMgjk1LzXJo6QGj6klCFL21DfXHLZBY6DJYRZtIHY450
+	OkNAcXj7syT1OZouI+KFAMNKeFMMpL+SbZdLeym2XoBAFb3CnVxRM513G7j4WTzF+cK98A
+	oYVznWhJt4eDK414fjyJxErEDvWzqJWGcb3I0UvaBuzfGOnkW1rCPKLwb6fvpg==
+Message-ID: <0fece6ed-e91a-4d35-99ab-ce3f4fd789a9@mailbox.org>
+Date: Mon, 19 Oct 2026 22:18:57 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,85 +60,85 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [net-next,PATCH 2/2] enetc: Make eMDIO MDC rate configurable from
- DT
-To: Wei Fang <wei.fang@nxp.com>, "Frank Li (OSS)" <frank.li@oss.nxp.com>
-Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Clark Wang <xiaoning.wang@nxp.com>,
- Claudiu Manoil <claudiu.manoil@nxp.com>, Conor Dooley <conor+dt@kernel.org>,
- Eric Dumazet <edumazet@kernel.org>, Frank Li <frank.li@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- "UNGLinuxDriver@microchip.com" <UNGLinuxDriver@microchip.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-References: <20261016193344.115518-1-marex@nabladev.com>
- <20261016193344.115518-2-marex@nabladev.com> <atKDNdxl0w65s8yQ@SMW015318>
- <DB9PR04MB933217F7ADCB6223A44DACA7889A2@DB9PR04MB9332.eurprd04.prod.outlook.com>
- <661412ff-3942-4d1c-be6f-1ef6c54620fd@nabladev.com>
- <AS4PR04MB933821150913BDCF35C4827F88982@AS4PR04MB9338.eurprd04.prod.outlook.com>
+Subject: Re: [PATCH v4 09/18] PCI: rcar-gen4: Add Root Port reset support
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015033103.3076869-1-den@valinux.co.jp>
+ <20261015033103.3076869-10-den@valinux.co.jp>
+ <072cccd1-8fd4-41e5-a64c-3cc4dc0dee07@mailbox.org>
+ <57zypillvon2jsw6ayckcuyhkhmv5kehh7rpxox33dzg2lfkqt@4zqkgpwxob7b>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <AS4PR04MB933821150913BDCF35C4827F88982@AS4PR04MB9338.eurprd04.prod.outlook.com>
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <57zypillvon2jsw6ayckcuyhkhmv5kehh7rpxox33dzg2lfkqt@4zqkgpwxob7b>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MBO-RS-ID: b058a89cf9cff052a67
+X-MBO-RS-META: pjb3j94z77kpgpi34dphjsbh5tdgszsp
 
-On 10/19/26 4:59 AM, Wei Fang wrote:
+On 10/19/26 5:01 AM, Koichiro Den wrote:
 
-Hello Wei,
+[...]
 
->>>>> +int enetc_mdio_update_mdc_div(struct mii_bus *bus) {
->>>>> +	struct enetc_mdio_priv *mdio_priv = bus->priv;
->>>>> +	struct device *dev = bus->parent;
->>>>> +	struct clk *enet_clk;
->>>>> +	u32 div, mdc_freq;
->>>>> +
->>>>> +	if (device_property_read_u32(dev, "clock-frequency", &mdc_freq))
->>>>> +		return 0;
->>>>> +
->>>>> +	enet_clk = devm_clk_get(dev, NULL);
->>>>> +	if (IS_ERR(enet_clk))
->>>>> +		return dev_err_probe(dev, PTR_ERR(enet_clk),
->>>>> +				     "Input clock unknown, not changing MDC
->>>> frequency\n");
->>>>
->>>> binding said clock is optional. If return failure here, it will block
->>>> existing dts, which have not clock property.
->>>>
->>>
->>> For EMDIO device, the clocks property is not added to
->>> fsl,enetc-mdio.yaml, I suppose this property should be added to the
->>> dt-binding doc if the clock is really needed here.
+>>> @@ -563,9 +604,11 @@ static int rcar_gen4_pcie_host_msi_init(struct dw_pcie_rp *pp)
+>>>    	writel(0, rcar->base + AXIINTCCONT);
+>>>    	/* Deconfigure MSI interrupt signal */
+>>> +	raw_spin_lock_irqsave(&rcar->app_lock, flags);
 >>
->> Isn't this what 1/2 in this series does ? (maybe I misunderstood this
->> paragraph)
+>> This is only a small nitpick. I wonder if you could use the same
+>> scoped_guard() {} call here instead of the raw_spin_lock_irqsave() and
+>> raw_spin_unlock_irqrestore() pair?
+>>
+>> scoped_guard(raw_spinlock_irqsave, &rcar->app_lock) {
+>>
+>>>    	val = readl(rcar->base + PCIEINTSTS0EN);
+>>>    	val &= ~MSI_CTRL_INT;
+>>>    	writel(val, rcar->base + PCIEINTSTS0EN);
+>>
+>> }
 > 
-> Sorry, my email filtered out the 1/2 patch, so I missed it.
-
-No worries.
-
->>> For ENETC device, we already have a 'ref' clock in the enetc node, so
->>> devm_clk_get(dev, NULL) may get the 'ref' clock rather than the system
->>> clock of NETC.
->> Shouldn't the clock be described in the MDIO DT node ?
+> Yeah, actually I've been always wondering whether to ask you and the other
+> maintainers about the guard/scoped_guard policy in this driver, or PCI
+> contreoller drivers more broadly. I'm not aware of any documented PCI-specific
+> policy, while netdev as an example, has some guidance on this.
 > 
-> The enetc_mdio_read_* and enetc_mdio_write_* interfaces are not only
-> used by EMDIO devices, the ENETCs and NETC switches also use them.
-> NETC switches and ENETCs can access external PHYs or internal PCS/Serdes
-> through their own port MDIO registers, instead of through EMDIO devices.
-> 
-> Your first patch only modified the EMDIO binding-doc, not the ENETC and
-> switch binding-doc.
-So I need to patch also 
-Documentation/devicetree/bindings/net/dsa/mscc,ocelot.yaml ? Any other 
-binding document ?
+> In v2, Sashiko flagged the mix of goto-based cleanup and guard():
+> https://lore.kernel.org/r/20260928170317.B0B331F000FF@smtp.kernel.org/
+> so I switched that part to explicit locking in v3/v4.
 
+Mixing guard and goto makes the code difficult to read, which would most 
+likely lead to bugs, right. I think scoped_guard() and goto is OKish, as 
+long as there is no goto inside the scoped guard (that would be horror).
+
+> Would you consider an explicit scoped_guard() block (instead of guard()) at the
+> end of the function OK, even though the function still uses goto? Or, maybe I
+> should have just ignored the feedback from Sashiko, and guard() would have been
+> fine here too?
+> 
+> Since I need to respin anyway:
+> https://lore.kernel.org/r/bi3rvyqpdu4iq6pfyrqvx7eplyim6gmg2ijal67mpateobmtlq@gec7zewfm76r/
+> I'm thinking of replacing the lock/unlock pair with scoped_guard() as you suggest.
+
+Please see above, as long as there is no "goto out" inside the 
+scoped_guard, I think it is fine to have scoped_guard in function with goto.
+
+> Thanks for the review!
 Thank you for your help !
+
+[...]
+
+-- 
+Best regards,
+Marek Vasut
