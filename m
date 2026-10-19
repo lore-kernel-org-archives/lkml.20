@@ -1,44 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545665B67B7;
-	Mon, 19 Oct 2026 14:00:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CC55BA3AF;
+	Mon, 19 Oct 2026 14:00:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418449; cv=none; b=pK1JLWdB+XGvYg1zzpKIYv06JiaMYGSTmV8ktSs8mrGW9nPyinlwVsTELEWVJHJIOUQ2tkfAO2oNJrMieFVvv6GVaNNsA/CwqzSM4uTtHVAkCoQDUc41eVGFyKmQ1Ph4rzYo00itkEAVPzeCjar6RCU39Qa9gy6QmYv9D6vOS+U=
+	t=1792418454; cv=none; b=lzembIa0bsrIqoHPfw6a+BWsIDqf3tbyqkorImTis2P3VjTC+oF+o/CACn7Z6EwVziL4msoAy4X3ffvzmgzsXfx7SvBvLSN76sOBslYQMOft3IcCaWHLnzyhXRRcKGnEBmgBRDi+8PrPl5eTJEn9ghwI+ZQ1xI343nLlyO1lda8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418449; c=relaxed/simple;
-	bh=v6xrb8KAi+mydGBs7GMqwtqRhlfvL8jo+1ptqve4nFk=;
+	s=arc-20240116; t=1792418454; c=relaxed/simple;
+	bh=5no7e+H7WYHDdz+1w0HDK0z71uH03BSsEBrRvk1I8AE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DclSzKLALmOtw/xSC4qTmQSnK3OhyRATFKkMc3ZrpBYfSgbJoWoXBxK3nWNaYKq8WlMqewL6Gkx0zjxTFctmwFMCkVwh7mZDK+tLhagKhKhu+z9jgA/+gEZGpLy+ePUDMILz5A1Ajnwezu5cFGpCOqLY/oAhlSkk72273DkcHP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHvchVMY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VYqIOMjvHdDp5JLqxVntBRc5H3D2lLZtUHIKe18EPh/Q3F4NLmjGyRDqwb1UBaD3476Uv7+p42Nt61q+WhPnLOwdmVAqdgadi32La9TIZKz9E5C3FRnRyjqrEuFf15F6NqYttoB6ghOkK/hqT0GPpv+VzDqama1RudHYLwlBj6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5W85yyf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHvchVMY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D86C1F000C7;
-	Mon, 19 Oct 2026 14:00:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5W85yyf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45CD01F000C7;
+	Mon, 19 Oct 2026 14:00:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418447;
-	bh=GmGXMd06ZWeR4fnuAUg89Ig7BzTtpBt4l+XJGswfwUg=;
+	s=k20260515; t=1792418451;
+	bh=SJFwWmYUbL4dju6SdY/KrJstjd8qjA4jgvDPm2aNnm8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lHvchVMYhPK/RErCLImOS6OshfOAeckB5v7Qc6GVJMIGWCfK1aIdshr1E738fH+Fr
-	 8cSz/RCAlSR8Mm181HRWcNqLfvTzuCATNmqG0hSgc3D/i1HjlEaN0wg0c/SJU7hRAE
-	 JTMLEhqGK8W60VzmL+LRirNApbC80a/ay9GxZKlBuwAT+kXdpnf/4RYE8+Hx4V2FDH
-	 dnIz3zrawW6Iscl/LLsXlAS65zEFrKuj6mnwuiUtii8T/7/bf/t6ffXEP6amZERHf4
-	 wWZDH4U244lWbdhH99T/hOS6gU+EX+2xtdkeV59KxbEgUsw/BUjS9UBRx5r5kAIbbe
-	 4kkEwVcfutyBg==
+	b=R5W85yyfyXZE1M73pqOgM+2vlmi93yNA87LHD4FJCxkzTYdR1aTF6RUlSk7D0DSYe
+	 8x65Pz//Yf6FiLS9BJmyURpOPAHH+7ocdGYPQjNdi15WWrYAbcIYv+/bn1twPhHuAp
+	 QJJ2GOdv9OFJobnXXqCQFQdX03UtIrS6fdE7wadaItrr9Z+ZdIH0lYb9wsYQpvHp81
+	 MPrw72skq+8Ht/Y/iPH2IC5/gkGMuJAaJxQYbNFwkhQXJ7p5h8OdctXTyuGomlUwUJ
+	 DLe68ClmaROMgRGTb0wHmUEIAiRV0O9tKgXg6RoOxyWJ0HQvJnMDIZ1mQLsluEZ+Si
+	 8JYIn73l2VinA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Will Porter <mrwillporter@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Sharath Srinivasan <sharath.srinivasan@oracle.com>,
+	Gerd Rausch <gerd.rausch@oracle.com>,
+	Allison Henderson <achender@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] ALSA: usb-audio: Add iD14 MkI to monitor-mix volume quirk
-Date: Mon, 19 Oct 2026 09:49:06 -0400
-Message-ID: <20261019135441.1420968-255-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] net/rds: fix rds_message leak in the rds_send_xmit() drop path
+Date: Mon, 19 Oct 2026 09:49:09 -0400
+Message-ID: <20261019135441.1420968-258-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,392 +59,349 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Will Porter <mrwillporter@gmail.com>
+From: Sharath Srinivasan <sharath.srinivasan@oracle.com>
 
-[ Upstream commit 17056a36d276a740f09dca723de1bc6aa3eb4ef9 ]
+[ Upstream commit eb8a59a17f4a8b6f2afb4a8063e99dd96cc3fab0 ]
 
-Add the iD14 MkI USB ID to the existing audient_id14_map. This
-names feature unit 12 Monitor Mix Playback Volume.
+When rds_send_xmit() picks the next message off cp_send_queue it takes
+its own reference with rds_message_addref().  If the message then hits
+the never-retransmit check (RDS_MSG_FLUSH, or an RDMA op that was
+already retransmitted), it is moved to the local to_be_dropped list and
+that reference is dropped after the batch.
 
-Live meter A/B testing on MkI USB ID 2708:0002 reproduced the same
-asymmetric attenuation seen on MkII. At ALSA value 104, the right
-channel was 23.07 dB below the left. At 127, both channels were equal.
+However, if RDS_MSG_ON_CONN has already been cleared, the message is
+not added to to_be_dropped and the reference taken above is never
+dropped: cp_xmit_rm has not been set at this point, so the loop simply
+abandons rm and the rds_message (and everything it pins: pages, MRs,
+notifiers) leaks after an RDMA error.
 
-The misleading Speaker Playback Volume name causes PipeWire to adopt
-FU12 as the stream master. Reuse the existing map to keep the control
-available while preventing that selection.
+The only other places that clear RDS_MSG_ON_CONN are
+rds_send_path_drop_acked() and rds_send_drop_to(), and both can run
+while rds_send_xmit() has dropped cp_lock between moving the message
+to cp_retrans and re-taking the lock in the never-retransmit check:
+rds_send_path_drop_acked() can ack away a message that already sat on
+cp_retrans - the RDS_MSG_RETRANSMITTED case above - and
+rds_send_drop_to() runs on socket close.  Both unlink the message
+under cp_lock and put their own reference, leaving the xmit-path
+reference stranded.
 
-Hardware-tested on Bazzite 7.2.0-ogc4.1.fc44.x86_64 with this change
-backported. ALSA exposed Monitor Mix Playback Volume after module load
-and USB reconnect. PipeWire volume changes from 100% to 35% and back
-left all four FU12 values at 127. Channel-isolated left/right playback
-remained balanced after reconnect.
+Drop the reference directly in that case.
 
-Build-tested with CONFIG_SND_USB_AUDIO=m using the focused sound/usb
-target.
+This mirrors Oracle UEK commit "net/rds: fix rds_message memleak in
+rds_send_xmit".
 
-Assisted-by: Codex:gpt-5
-Signed-off-by: Will Porter <mrwillporter@gmail.com>
-Link: https://patch.msgid.link/20260823015353.686080-1-mrwillporter@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Gerd Rausch <gerd.rausch@oracle.com>
+Signed-off-by: Sharath Srinivasan <sharath.srinivasan@oracle.com>
+[achender: port to net-next; update commit message, checkpatch nits]
+Signed-off-by: Allison Henderson <achender@kernel.org>
+Link: https://patch.msgid.link/20260730041629.3512480-4-achender@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have the local-tree, prerequisite, and mailing-list evidence. Writing
-the full nine-phase analysis next.
+This is a real, long-standing `rds_message` leak in `rds_send_xmit()`
+that exists in this 5.10.270 tree. The fix is small, matches the local
+code, and does not need the rest of its series.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-
-Record: **[ALSA / usb-audio] [Add] Add iD14 MkI USB ID to the existing
-monitor-mix volume name map**
-
-- Subsystem: `ALSA: usb-audio`
-- Action verb: **Add** (USB ID / quirk-table entry, not a new API)
-- Intent: extend `audient_id14_map` so MkI feature unit 12 is named
-  “Monitor Mix Playback Volume” instead of “Speaker Playback Volume”
+Record: **[net/rds] [fix] [rds_message leak in rds_send_xmit() drop
+path]**
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 
-Record:
-- **Fixes:** none (expected for this review pipeline)
-- **Reported-by:** none
-- **Tested-by:** none as a tag; body describes first-party hardware test
-- **Reviewed-by:** none
-- **Acked-by:** none
-- **Link:** `https://patch.msgid.link/20260823015353.686080-1-
-  mrwillporter@gmail.com`
-- **Cc: stable:** none (expected; not a negative signal)
-- **Assisted-by:** Codex:gpt-5
-- **Signed-off-by:** Will Porter `<mrwillporter@gmail.com>`
-- **Signed-off-by:** Takashi Iwai `<tiwai@suse.de>` (ALSA maintainer;
-  ignore any Sasha Levin SOB)
-- **Upstream commit** markers: ignore per instructions
+From the candidate message:
+- `Signed-off-by: Gerd Rausch <gerd.rausch@oracle.com>` (original
+  author)
+- `Signed-off-by: Sharath Srinivasan <sharath.srinivasan@oracle.com>`
+  (UEK/port author)
+- `[achender: port to net-next; update commit message, checkpatch nits]`
+- `Signed-off-by: Allison Henderson <achender@kernel.org>` (RDS
+  maintainer-side porter)
+- `Link:
+  https://patch.msgid.link/20260730041629.3512480-4-achender@kernel.org`
+- `Signed-off-by: Jakub Kicinski <kuba@kernel.org>` (netdev merge)
 
-Notable: no syzbot, no multi-user Reported-by. Strength comes from
-hardware measurement and maintainer apply.
+No `Reported-by`, `Tested-by`, `Reviewed-by`, or `Acked-by` in the
+candidate text. Absence of `Fixes:` / `Cc: stable` is expected here.
+
+Mailing-list v4 (same msgid) **did** carry:
+- `Fixes: 2ad8099b58f2 ("RDS: rds_send_xmit() locking/irq fixes")`
+
+Oracle UEK source (`94549e4732d8`) carried:
+- `Fixes: fbbe0610d057 ("RDS: add support for atomic messages over the
+  wire")` — that SHA is **not** in this tree
+- `Reviewed-by: William Kucharski <william.kucharski@oracle.com>`
+- `Orabug: 38923495` (internal production bug)
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-
 Record:
-- **Bug:** FU 12 is walked through to the Speaker output terminal, so
-  ALSA exports it as “Speaker Playback Volume”. PipeWire then uses that
-  control as the stream hardware master.
-- **Symptom:** asymmetric attenuation. On MkI `2708:0002`, ALSA value
-  104 → right channel **23.07 dB** below left; at 127 both channels
-  match.
-- **Root cause:** misleading default name, not a kernel crash path. Same
-  class of bug already described for MkII.
-- **Fix:** reuse `audient_id14_map` so the control is “Monitor Mix
-  Playback Volume” and is no longer chosen as stream master, while
-  remaining reachable.
-- **Version info:** tested as a backport on Bazzite
-  `7.2.0-ogc4.1.fc44.x86_64`; build-tested with
-  `CONFIG_SND_USB_AUDIO=m`.
-- **Hidden vs explicit:** this is an explicit hardware-quirk / name-map
-  fix, not cleanup disguised as a fix.
+- **Bug:** `rds_send_xmit()` takes an extra `rds_message_addref()` when
+  dequeuing. On the never-retransmit path (`RDS_MSG_FLUSH` or already-
+  retransmitted RDMA), that ref is only dropped if the message is moved
+  onto `to_be_dropped`. If `RDS_MSG_ON_CONN` was already cleared, the
+  extra ref is abandoned.
+- **Symptom:** leak of `rds_message` plus pinned pages, MRs, and
+  notifiers after an RDMA error / reconnect / socket close.
+- **Root cause:** `rds_send_path_drop_acked()` (ACK of a message already
+  on `cp_retrans`) and `rds_send_drop_to()` (socket close) can clear
+  `RDS_MSG_ON_CONN` and put **their** refs in the window where xmit has
+  dropped `cp_lock`. They do not put the xmit-path extra ref.
+  `cp_xmit_rm` is not set yet, so the success-path put never runs.
+- **Version info:** bug traces to 2010 locking change; present in this
+  5.10 tree.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-
-Record: **Not a hidden fix.** The message states the imbalance, the
-userspace trigger, and the map reuse. It is a USB mixer name-map quirk.
+Record: **Not hidden.** Subject and body are an explicit leak/refcount
+fix.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: INVENTORY THE CHANGES**
-
 Record:
-- **File:** `sound/usb/mixer_maps.c` only
-- **Scope:** +13 / −8 (comment rewrite + one `usbmix_ctl_maps[]` entry)
-- **Functions / objects:** `audient_id14_map[]` comment;
-  `usbmix_ctl_maps[]` (adds `USB_ID(0x2708, 0x0002)`)
-- **Classification:** single-file surgical USB-ID / quirk addition
+- File: `net/rds/send.c` only (~+12/−3 in `rds_send_xmit()`)
+- Scope: **single-file surgical fix**
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-
 Record:
-- **Before (mainline, MkII-only):** `audient_id14_map` remaps unit 12 →
-  `"Monitor Mix Playback"` for `0x2708:0x0008` only. MkI `0x2708:0x0002`
-  still gets the default “Speaker Playback Volume” name.
-- **After:** same map is also bound to `0x2708:0x0002`.
-  `snd_usb_create_mixer()` walks `usbmix_ctl_maps[]`, matches
-  `chip->usb_id`, and `check_mapped_name()` supplies the mapped name.
-  Because `mapped_name` is set, mixer.c does **not** append `"
-  Playback"`; it still appends `" Volume"` → `"Monitor Mix Playback
-  Volume"`.
-- **Path:** mixer probe / control-creation only. Not a hot path, error
-  path, or locking change.
+- **Before:** `test_and_clear_bit(RDS_MSG_ON_CONN)` → if set,
+  `list_move` to `to_be_dropped`; always unlock; `continue`. If the bit
+  was already clear, no put.
+- **After:** same if the bit is set; **else** unlock then
+  `rds_message_put(rm)` for the extra xmit ref.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-
-Record:
-- **Category:** **(h) Hardware workaround** + **(g) logic/correctness of
-  exported control name**
-- **Mechanism:** default terminal-derived name makes PipeWire treat a
-  monitor-mix FU as master volume. That FU does not apply equally to all
-  channels (MkI: imbalance inside the stereo pair; MkII: 4 of 6
-  channels). Remapping the name stops that selection without dropping
-  the control (dropping it would strand a persisted attenuated FU12).
+Record: **Reference-counting / resource leak.** Extra
+`rds_message_addref()` at dequeue (local tree `net/rds/send.c:265`) is
+not balanced when `RDS_MSG_ON_CONN` is already clear. Verified in this
+tree: only `rds_send_path_drop_acked()` (`clear_bit` at line 707) and
+`rds_send_drop_to()` (`test_and_clear_bit` at line 774) plus this drop
+path itself clear that bit. `rds_send_path_reset()` does **not** (v4
+commit message correction vs v1–v3).
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-
 Record:
-- **Quality:** obviously correct and matches an established
-  `usbmix_name_map` pattern already used throughout this file.
-- **Regression risk:** very low. The new entry is keyed by USB ID
-  `0x2708:0x0002` only. Other devices are untouched. The control remains
-  present under a different name.
-- **Red flags:** none for APIs, locking, or size. Dependency: the commit
-  **assumes** `audient_id14_map` and the MkII `0x2708:0x0008` entry
-  already exist.
+- **Obviously correct.** Queueing takes a conn-list ref
+  (`rds_send_queue_rm` addref + `RDS_MSG_ON_CONN`). Xmit takes a second
+  ref. Concurrent drop/ack puts the conn-list ref. Xmit must put its
+  own.
+- `rds_send_remove_from_sock()` documents that it puts the list-position
+  ref; drop_acked uses that. Xmit’s extra ref is separate.
+- After `continue`, the next loop iteration does `rm = cp->cp_xmit_rm`
+  (still NULL), so the local pointer is not used after put.
+- Put happens after `spin_unlock_irqrestore`, same as the existing
+  success-path put at line 423. The “irqs on here, so we can put()”
+  comment is about not putting **under** `cp_lock`.
+- **Regression risk: low.** Does not change locking order or APIs.
+  Follow-up `reinitialize to_be_dropped on restart` is documented
+  hardening with **no known user-visible bug**; this else-path does not
+  even enqueue on `to_be_dropped`.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: BLAME THE CHANGED LINES**
-
 Record:
-- In **this** 6.12 tree, `audient_id14_map` and the `0x2708:0x0008` ctl-
-  map entry **do not exist**.
-- The buggy *behavior* is the long-standing default in
-  `__build_feature_ctl()` (`sound/usb/mixer.c`): if there is no map,
-  volume is named from the output terminal (“Speaker”) + `" Playback"` +
-  `" Volume"`. That logic is in this tree (verified at
-  mixer.c:1740–1786).
-- MkI already has a **different** quirk here since 2021: `df0380b9539b0`
-  (“ALSA: usb-audio: Add quirk for Audient iD14”) adds
-  `DEVICE_FLG(0x2708, 0x0002, QUIRK_FLAG_IGNORE_CTL_ERROR)` in
-  `sound/usb/quirks.c:2374`. That is control-message error ignoring, not
-  this name-map.
+- Drop-path structure from `5c11559046c4b3` (“RDS: send.c”, 2009).
+- Leak introduced by `2ad8099b58f27` (“RDS: rds_send_xmit() locking/irq
+  fixes”, 2010): that commit **removed** an unconditional
+  `rds_message_put(rm)` on this path and only put messages that made it
+  onto `to_be_dropped`.
+- FLUSH clause: `905dd4184e0732` (2016). Multipath `cp_` conversion:
+  `1f9ecd7eacfd9e` (2016).
+- Buggy pattern has been in-tree for ~16 years; first appeared long
+  before 5.10.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
+Record:
+- Mailing-list `Fixes: 2ad8099b58f2` — **is an ancestor of this HEAD**
+  (`git merge-base --is-ancestor` exit 0).
+- `git show 2ad8099b58f27` confirms the put was moved to the batch-end
+  `to_be_dropped` walk only.
+- UEK `Fixes: fbbe0610d057` is **not** in this tree (exit 128); that tag
+  is a red herring for 5.10. The real introducer here is `2ad8099b58f2`.
 
-Record: **No Fixes: tag.** Not applicable.
-
-The functional prerequisite is the MkII map, submitted 2026-08-13 by
-Neil Andrews: “ALSA: usb-audio: Rename the Audient iD14 monitor mix
-volume control” (adds `audient_id14_map` + `USB_ID(0x2708, 0x0008)`).
-Takashi applied that to for-next on 2026-08-14. That commit is **not**
-in this 6.12 checkout.
-
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-
-Record (this tree, `sound/usb/mixer_maps.c`):
-- Recent entries are the same class of quirk: Corsair Virtuoso later
-  revision, Razer Barracuda dB map, Corsair HS80, Gigabyte B450, MSI
-  boards, etc.
-- This candidate is **standalone relative to a series** (not “N/M”), but
-  it **depends** on the Aug 13 MkII map commit.
-- Same-class commits **already backported into this 6.12 tree**:
-  - `0d928648172c3` Corsair Virtuoso later revision — adds USB IDs to an
-    existing mixer map
-  - `c74de4e57685d` Corsair HS80 — new mixer map so PulseAudio/PipeWire
-    do not grab the wrong volume
+**Step 3.3: CHECK FILE HISTORY**
+Record: Recent `net/rds/send.c` work in this tree is locking/xmit
+serialization (`acquire_in_xmit`, shutdown races), not this drop path.
+No prior fix for this leak (`rg` for “already off the conn list” is
+empty). **Standalone**, not a refactor prerequisite.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-
-Record:
-- Will Porter has **no** other usb-audio commits in this tree.
-- Neil Andrews has none here either.
-- Takashi Iwai is the ALSA/usb-audio maintainer and applied both the
-  MkII and MkI patches immediately (“Applied now. Thanks.” / “Applied to
-  for-next branch.”).
+Record: Gerd Rausch / Sharath Srinivasan / Allison Henderson are
+established RDS contributors. Henderson has many RDS stable backports in
+this tree. This is a UEK→upstream port of a production Orabug.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-
-Record:
-- **Prerequisite:** MkII `audient_id14_map` (Neil Andrews, 2026-08-13).
-  Missing from HEAD, from `master` in this repo (tip ~7.2-rc7,
-  2026-08-08), and from `linux-rolling-stable` / `linux-rolling-lts`
-  mixer_maps.c.
-- **Can this SHA apply standalone here?** No. Context hunks (the map
-  comment and the `0x2708:0x0008` entry) are absent.
-- **Can a backport stand alone?** Yes. `usbmix_name_map` /
-  `usbmix_ctl_maps` / `find_map()` / `check_mapped_name()` already
-  exist. A 6.12 backport is: add the 4-line map plus the MkI (and
-  optionally MkII) USB ID. That is the same shape as HS80/Virtuoso maps
-  already in this tree.
+Record: v4 series is four **independent** bugs (sleep-in-atomic unpin,
+MR socket UAF, **this leak**, IB MR pin leak). This hunk only needs
+existing `rds_message_put()` / `RDS_MSG_ON_CONN` / `to_be_dropped`, all
+present. **Applies standalone.**
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
 Record:
-- `b4 dig -c <sha>`: candidate SHA is **not in this repo** (applied
-  after current `master` tip). Used msgid instead.
-- `b4 mbox` msgid `20260823015353.686080-1-mrwillporter@gmail.com`:
-  **2-message thread**.
-- Lore/LKML: https://lkml.iu.edu/2608.2/12083.html
-- **Revisions:** single version (v1). `base-commit:
-  7e77c09e23dae1ff8bd8598c3c96f9db6862eddd` (object exists here but is
-  **not** an ancestor of this 6.12 HEAD).
-- **Reviewer feedback:** Takashi Iwai, 2026-08-23: “Applied now.
-  Thanks.” No NAK, no requested changes, no stable nomination in-thread.
-- MkII prerequisite thread: https://lists.openwall.net/linux-
-  kernel/2026/08/13/2036 — Takashi: “Applied to for-next branch.
-  Thanks.”
+- `b4 dig -c` on the candidate SHA was not possible (commit is not in
+  this checkout). `b4 dig -c 5c11559046c4b3` only found the 2009
+  original.
+- lore.kernel.org fetches returned **403**. Used openwall mirrors.
+- Thread: https://lists.openwall.net/netdev/2026/07/30/65 (v4 3/4),
+  cover https://lists.openwall.net/netdev/2026/07/30/62
+- Revisions: v1 (2026-07-11) → v3 → v4 (2026-07-30). **Code of this
+  patch unchanged after v3**; v4 only corrected the commit message to
+  name `drop_acked`/`drop_to` instead of `rds_send_path_reset()`.
+- Merged by Jakub Kicinski. No NAK found.
+- v1–v3 incorrectly named `rds_send_path_reset()` as a clearer of
+  `RDS_MSG_ON_CONN`; verified **false** in this tree
+  (`rds_send_path_reset` only sets `RDS_MSG_RETRANSMITTED` and splices
+  queues).
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-
-Record: To/Cc on the MkI mail includes the ALSA path; Takashi (subsystem
-maintainer) applied it the next morning. No other review comments.
+Record: Sent to netdev, linux-rdma, Kicinski, Dumazet, Abeni, Horms. RDS
+lists historically include `rds-devel@oss.oracle.com`. No extra
+`Reviewed-by` on the upstream version; UEK had William Kucharski.
+Maintainer-side porter is Allison Henderson.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-
-Record:
-- No bugzilla/syzbot link.
-- Evidence is the author’s live-meter A/B test on MkI `2708:0002`,
-  reproducing the MkII imbalance (Neil Andrews measured 20.00 dB on MkII
-  via digital loopback).
-- **Users affected:** owners of Audient iD14 MkI (USB `2708:0002`) using
-  PipeWire (default on modern desktops). MkI has been quirked in-tree
-  since 2021, so this population exists on 6.12.
+Record: Oracle UEK Orabug 38923495; no public syzbot/bugzilla report
+found. Production bug inside Oracle RDS, not theoretical.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-
-Record: Not a numbered series. Follow-up to the MkII rename (different
-author, 10 days later). For this tree, a useful backport is **map + MkI
-ID** (MkII ID optional).
+Record: Independent of series 1/4, 2/4, 4/4. Later “reinitialize
+`to_be_dropped` on restart” is **hardening only** (“no user-visible bug
+is known”).
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-
-Record: lore.kernel.org/stable returned 403; WebSearch on
-`site:lore.kernel.org/stable` for this subject found **no** iD14
-monitor-mix discussion. No recorded reason to exclude it. The 2021
-IGNORE_CTL_ERROR quirk **was** sent to stable (`[PATCH 5.15 12/12]`).
+Record: lore.kernel.org/stable search **403**; web search found **no**
+stable-list discussion of this leak. UNVERIFIED whether anyone already
+requested/rejected it for 5.10.y.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: KEY FUNCTIONS IN THE DIFF**
+semcode MCP is **not** available; used read/grep.
 
-Record: no function bodies changed. Data only: `audient_id14_map`,
-`usbmix_ctl_maps[]`.
+**Step 5.1: KEY FUNCTIONS**
+Record: `rds_send_xmit()` only.
 
 **Step 5.2: TRACE CALLERS**
-
-Record:
-- `snd_usb_create_mixer()` (`mixer.c:3272`) walks `usbmix_ctl_maps[]`
-  and sets `state.map` on USB ID match.
-- `find_map()` / `check_mapped_name()` / `__build_feature_ctl()` consume
-  that map when creating feature-unit kcontrols.
-- Context: USB audio probe / mixer build. Not IRQ, not a syscall hot
-  path.
+Record (this tree):
+- `rds_sendmsg()` → `rds_send_xmit()` (`send.c:1385`) — syscall
+- `rds_send_worker()` (`threads.c:200`) — `rds_wq` work
+- `rds_ib_tasklet_fn_send()` (`ib_cm.c:334`) — IB send tasklet
 
 **Step 5.3: TRACE CALLEES**
-
-Record: map is data. Naming uses `check_mapped_name()` → `strscpy()`,
-then `append_ctl_name(..., " Volume")`. No alloc/lock/I/O in the new
-code.
+Record: `rds_message_addref` / `rds_message_put` (`message.c`); last put
+runs `rds_message_purge()` (pages, `rds_rdma_free_op`, MR krefs).
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record: userspace-reachable: plug in iD14 MkI → `snd-usb-audio` probe →
-mixer controls appear → PipeWire enumerates “Speaker Playback Volume” as
-hardware master. **Yes, reachable from normal desktop use.**
-Unprivileged users can trigger it by moving the session volume.
+Record: **Userspace-reachable** via RDS `sendmsg`. Also on IB completion
+and reconnect. Race: xmit drops `cp_lock` after moving to `cp_retrans`;
+recv/ACK path (`rds_send_path_drop_acked`) or
+`close`/`RDS_CANCEL_SENT_TO` (`rds_send_drop_to`) can run then.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-
-Record: this file is full of the same pattern (Corsair, Gigabyte, MSI,
-Bose, …). This 6.12 tree already backported sibling “wrong mixer name →
-userspace grabs the wrong volume” quirks.
+Record: Same file already balances other refs carefully (`drop_to` skips
+if `ON_CONN` already clear). This path is the missing counterpart. No
+duplicate of this exact leak elsewhere in `net/rds/`.
 
 ---
 
 ## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record: **Yes.** `pending-5.10`, `make kernelversion` = **5.10.270**,
+`git describe` = `p-5.10-1-gce56b7a73b64b`.
 
-Record:
-- **Tree:** `git describe HEAD` = `p-6.12-3-gc504cf0baa3d8`; `make
-  kernelversion` = **6.12.111**.
-- **Buggy default naming:** yes, `sound/usb/mixer.c`
-  `__build_feature_ctl()`.
-- **MkI device:** yes, `QUIRK_FLAG_IGNORE_CTL_ERROR` for
-  `0x2708:0x0002`.
-- **`audient_id14_map` / MkII ID `0x2708:0x0008`:** **no**.
-- Bug is **not** “introduced after 6.12 branched”. The hardware +
-  default namer have been here for years. The *fix table* is what is new
-  (2026).
+```287:294:net/rds/send.c
+                        if (test_bit(RDS_MSG_FLUSH, &rm->m_flags) ||
+                            (rm->rdma.op_active &&
+                            test_bit(RDS_MSG_RETRANSMITTED,
+&rm->m_flags))) {
+                                spin_lock_irqsave(&cp->cp_lock, flags);
+                                if (test_and_clear_bit(RDS_MSG_ON_CONN,
+&rm->m_flags))
+                                        list_move(&rm->m_conn_item,
+&to_be_dropped);
+                                spin_unlock_irqrestore(&cp->cp_lock,
+flags);
+                                continue;
+                        }
+```
+
+Introduced in 2010 (`2ad8099b58f2`); present for the entire 5.10
+lifetime.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-
-Record: **needs a small backport, not a clean `git am`.** Insertion
-point still exists (`MAYA44 USB+` then `KEF X300A` at
-mixer_maps.c:586–595). Add `audient_id14_map` after
-`gigabyte_b450_connector_map` and a `usbmix_ctl_maps[]` entry for
-`0x2708:0x0002`. Line numbers differ slightly from mainline; no
-structural conflict.
+Record: **Clean apply** (trivial fuzz at most). Local drop-path text
+matches the hunk exactly. Nearby comment still has the old “We cold
+possibly” typo; that line is context only.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-
-Record: no monitor-mix / `audient_id14` name map. The 2021
-IGNORE_CTL_ERROR quirk is unrelated and does not fix imbalance.
+Record: Fix **not** present. No other send.c commit in this tree plugs
+this hole.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
 **Step 7.1: SUBSYSTEM AND CRITICALITY**
-
-Record: **ALSA USB-audio mixer maps** (`sound/usb/mixer_maps.c`).
-Criticality: **PERIPHERAL / device-specific**, but the driver is common
-(`CONFIG_SND_USB_AUDIO`). Same class as USB/codec quirks that stable
-accepts routinely.
+Record: **net/rds** — Reliable Datagram Sockets (Oracle RAC / InfiniBand
+and TCP). MAINTAINERS: Supported (Santosh Shilimkar / Oracle).
+**IMPORTANT** (not core mm/VFS; not staging). `CONFIG_RDS` depends on
+`INET`; RDMA ops need `CONFIG_RDS_RDMA`.
 
 **Step 7.2: SUBSYSTEM ACTIVITY**
-
-Record: actively maintained; this 6.12 tree continues to take mixer-map
-USB ID and naming quirks (Virtuoso, HS80, etc.).
+Record: Actively maintained in this 5.10 tree (recent shutdown/xmit
+locking, TCP corruption, NULL-deref fixes). Mature send path; this leak
+is old, not a new-feature bug.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 **Step 8.1: WHO IS AFFECTED**
-
-Record: **driver-specific / USB-ID-specific** — Audient iD14 MkI
-(`2708:0002`). MkII (`2708:0008`) is not even listed in this tree; this
-commit’s MkI ID is the one that matters here.
+Record: **Config/driver-specific** — `CONFIG_RDS` users, especially
+RDMA/IB reconnect and TCP peer-generation flush (`RDS_MSG_FLUSH` in
+`recv.c`). Enterprise RDS/RAC deployments.
 
 **Step 8.2: TRIGGER CONDITIONS**
-
 Record:
-- Trigger: PipeWire (or similar) adopts “Speaker Playback Volume” as
-  stream master and the user sets volume below 0 dB / 100%.
-- **How common:** every volume change below unity on a typical desktop,
-  once the device is plugged in.
-- **Unprivileged:** yes (session volume). Not a privilege-escalation
-  issue; it is broken stereo.
+1. Xmit dequeues a message (addref, move to `cp_retrans`, drop
+   `cp_lock`).
+2. Never-retransmit: `RDS_MSG_FLUSH` (peer gen change) or RDMA +
+   `RDS_MSG_RETRANSMITTED` (after `rds_send_path_reset`).
+3. Concurrent ACK (`drop_acked`) or socket close (`drop_to`) already
+   cleared `ON_CONN`.
+
+Not every packet; **error/reconnect/close**. Unprivileged RDS sockets
+can drive send/close; RDMA/reconnect is the realistic production case
+(Orabug).
 
 **Step 8.3: FAILURE MODE SEVERITY**
-
-Record:
-- **Failure:** large L/R imbalance (measured **23.07 dB** at ALSA 104).
-  Audio is effectively wrong; not a panic/UAF.
-- **Severity: HIGH for affected hardware** (serious functional/hardware
-  bug), **not CRITICAL** (no crash/corruption/security).
+Record: **Memory/resource leak** of message, pages, MRs, notifiers. Not
+a panic. Repeated reconnects accumulate pinned memory → **HIGH** for RDS
+users, not a universal crash.
 
 **Step 8.4: RISK-BENEFIT RATIO**
-
 Record:
-- **Benefit:** high for MkI owners on 6.12 (device already quirked here
-  since 2021; PipeWire is the usual stack).
-- **Risk:** very low (ID-keyed name map; ~10-line backport).
-- **Ratio:** strongly favors backporting, matching Virtuoso/HS80
-  precedent **in this same tree**.
+- **Benefit:** high for RDS/RDMA users; stops leaking pinned pages/MRs
+  after errors that already happen in production.
+- **Risk:** very low (~12 lines, one else-put, same pattern as existing
+  puts).
+- **Ratio:** favor backport.
 
 ---
 
@@ -448,175 +410,120 @@ Record:
 **Step 9.1: COMPILE THE EVIDENCE**
 
 **FOR:**
-- Real, measured 23 dB channel imbalance on MkI; same class as the MkII
-  bug.
-- Hardware-tested, including a backport; maintainer applied v1
-  immediately.
-- Classic USB mixer name-map / hardware quirk (stable exception).
-- This 6.12 tree already ships the same kind of mixer_maps USB-ID
-  quirks.
-- MkI is already a supported ID here; the namer bug is present.
-- Tiny, ID-scoped, no new API, no locking.
+- Real refcount leak; objects pin pages/MRs/notifiers
+- Present in this 5.10 tree since 2010 (`2ad8099b58f2`)
+- Small, obviously correct, one function
+- Clean apply; no prerequisites
+- RDS maintainer port; netdev merge; Oracle production Orabug
+- Userspace-reachable via RDS send + close/reconnect
 
 **AGAINST:**
-- `audient_id14_map` is not in this tree; the patch does not apply as-
-  is.
-- Depends on the Aug 2026 MkII map commit (18 lines).
-- Not a crash/security/corruption bug.
-- Affects one USB audio interface.
+- RDS is not universal
+- Error-path race, not every send
+- Not a crash/CVE
+- No public syzbot report
 
 **UNRESOLVED:**
-- Exact mainline SHA is not in this clone (`master` stops at
-  ~2026-08-08). Thread + msgid confirm apply.
-- Stable list search could not be fetched (403); no positive or negative
-  stable-list signal.
+- Stable-list history (lore 403)
+- Whether last-ref `rds_message_put()` from IB **tasklet** can sleep via
+  `unpin_user_pages_dirty_lock()` — **already true** for the success-
+  path and `to_be_dropped` puts in this tree; this patch does not create
+  that class of bug (series 1/4 is a separate sleep-in-atomic fix)
 
 **Step 9.2: STABLE RULES CHECKLIST**
-
-1. Obviously correct and tested? **PASS** — map reuse; hardware + build
-   tested; maintainer applied.
-2. Fixes a real bug that affects users? **PASS** — 23 dB imbalance under
-   PipeWire.
-3. Important issue? **PASS** under the hardware-quirk exception (severe
-   broken output on a supported device). Not a kernel crash.
-4. Small and contained? **PASS** — one file; backport is a small map +
-   ID.
-5. No new features or APIs? **PASS** — rename existing control via
-   existing map machinery.
-6. Can apply to the local tree? **PASS with backport** — not a clean
-   apply; fold in `audient_id14_map` (and optionally the MkII ID).
-   Infrastructure is already here.
+1. Obviously correct and tested? **PASS** — refcount math checks out;
+   UEK + netdev merge
+2. Real bug affecting users? **PASS** — Orabug 38923495; leak is in this
+   tree
+3. Important (crash/security/corruption/deadlock)? **PASS** — leak of
+   pinned pages/MRs after RDMA error/reconnect; severity HIGH for RDS
+4. Small and contained? **PASS** — ~12 lines, one file
+5. No new features/APIs? **PASS**
+6. Can apply to this tree? **PASS**
 
 **Step 9.3: EXCEPTION CATEGORIES**
-
-Record: **Hardware quirk / USB ID addition** to the existing usb-audio
-mixer map tables. Same exception as USB quirks and HDA `SND_PCI_QUIRK`
-entries.
+Record: None (not an ID/quirk/DT/build/docs exception). Qualifies as a
+normal leak/refcount fix.
 
 **Step 9.4: DECISION**
+Backport to **this** 5.10.270 tree. The buggy code is here, the fix is
+surgical, and there is no missing prerequisite.
 
-This is a device-specific name-map quirk for hardware this 6.12 tree
-already supports. The missing MkII map is a packaging dependency, not a
-missing subsystem: a few lines of `usbmix_name_map` plus `USB_ID(0x2708,
-0x0002)` are enough. That is exactly the class of mixer_maps change this
-tree already takes (HS80, Virtuoso). Benefit for MkI + PipeWire users is
-large; regression risk is confined to that USB ID.
-
----
-
-### What the commit solves (for this tree)
-
-On Audient iD14 MkI, feature unit 12 is exported as “Speaker Playback
-Volume”. PipeWire treats that as hardware master and, below 0 dB,
-attenuates channels unequally (23 dB L/R error in the author’s test).
-Remapping unit 12 to “Monitor Mix Playback Volume” stops that selection
-and keeps the monitor gain usable.
-
-### Risk vs benefit
-
-Benefit is restoring correct stereo for an interface already quirked in
-6.12 since 2021. Risk is a few ID-keyed lines in `mixer_maps.c`. The
-only extra work is including `audient_id14_map` because the Aug 2026
-MkII commit is not here.
-
-### Concerns
-
-- Do not `git am` the mainline diff as-is; add the map (and the MkI ID)
-  by hand.
-- MkII `0x2708:0x0008` is optional on 6.12 (that ID is not present
-  here).
+What it fixes for 5.10 users: after RDMA QP error / reconnect
+(`RDS_MSG_RETRANSMITTED`) or peer generation flush (`RDS_MSG_FLUSH`),
+racing ACK or socket close can clear `RDS_MSG_ON_CONN` in the xmit lock
+gap. The extra `rds_message_addref()` is then never dropped, leaking the
+message and everything it pins. Adding `rds_message_put(rm)` in that
+else branch restores the balance `2ad8099b58f2` broke.
 
 ---
 
-### Verification
+## Verification
 
-- **[Phase 1]** Parsed subject/tags/body from the provided commit and
-  the b4 mbox. Tags: Link msgid, Assisted-by Codex, SOB Will Porter +
-  Takashi Iwai. No Fixes/Reported-by/Cc:stable.
-- **[Phase 2]** Diff is comment rewrite + one `usbmix_ctl_maps[]` entry
-  for `0x2708:0x0002` in `sound/usb/mixer_maps.c`.
-- **[Phase 2]** Verified naming in this tree: `mixer.c:1740–1786` —
-  mapped name suppresses `" Playback"`, still appends `" Volume"`.
-- **[Phase 2]** Verified map attach: `mixer.c:3272–3278` matches
-  `usbmix_ctl_maps[].id` to `chip->usb_id`.
-- **[Phase 3]** `git describe HEAD` / `make kernelversion`: **6.12.111**
-  (`p-6.12-3-gc504cf0baa3d8`).
-- **[Phase 3]** `git grep` on `sound/usb`: no `audient_id14`, no
-  `Monitor Mix`; only `DEVICE_FLG(0x2708, 0x0002)` in `quirks.c:2374`.
-- **[Phase 3]** `git show df0380b9539b0`: 2021 IGNORE_CTL_ERROR quirk;
-  `git merge-base --is-ancestor` → present. Different bug.
-- **[Phase 3]** `git log --grep=iD14 -- sound/usb/`: only that 2021
-  quirk plus an unrelated subject match. No monitor-mix map.
-- **[Phase 3]** Similar 6.12 backports: `0d928648172c3` (Virtuoso USB
-  IDs), `c74de4e57685d` (HS80 mixer map, `cc: stable`).
-- **[Phase 3]** `git merge-base --is-ancestor 7e77c09e23dae1... HEAD` →
-  **not** an ancestor; object type is `commit`.
-- **[Phase 3]** `master` / `linux-rolling-stable` / `linux-rolling-lts`:
-  still no `audient_id14_map` (master tip ~2026-08-08, before both
-  patches).
-- **[Phase 4]** `b4 mbox` MkI thread (2 msgs): submission + Takashi
-  “Applied now.”
-- **[Phase 4]** `b4 mbox` MkII thread (2 msgs): Neil Andrews map +
-  Takashi “Applied to for-next.”
-- **[Phase 4]** WebFetch LKML/openwall confirmed both diffs.
-  lore.kernel.org 403; stable-list search found nothing relevant.
-- **[Phase 5]** Call chain: probe → `snd_usb_create_mixer` →
-  `__build_feature_ctl` → PipeWire. Userspace-reachable.
-- **[Phase 6]** Insertion neighbors `MAYA44` / `KEF X300A` exist at
-  mixer_maps.c:586–595; map array itself missing.
-- **[Phase 8]** Failure mode verified from commit text + MkII loopback
-  measurements in the prerequisite mail (20 dB MkII / 23 dB MkI).
-- **UNVERIFIED:** mainline SHA of the applied MkI commit (not in this
-  clone). Not used as a reason to reject; thread + maintainer apply are
-  verified.
-
-The missing MkII map is a few lines to include in the backport, not a
-missing subsystem. This is a hardware quirk this tree already accepts.
+- **[Phase 1]** Tags: SOBs Rausch/Srinivasan/Henderson/Kicinski; Link
+  msgid `3512480-4`; ML `Fixes: 2ad8099b58f2`; UEK Orabug 38923495
+- **[Phase 2]** Diff: else-branch `rds_message_put(rm)` in
+  `rds_send_xmit()` never-retransmit path
+- **[Phase 2]** Confirmed `rds_send_remove_from_sock()` puts the conn-
+  list ref; xmit extra ref is separate (`send.c:605-674`)
+- **[Phase 2]** Confirmed only drop_acked (707) and drop_to (774) plus
+  this path clear `RDS_MSG_ON_CONN`
+- **[Phase 3]** `git blame`: leak from `2ad8099b58f27` (2010), which
+  removed unconditional put
+- **[Phase 3]** `git merge-base --is-ancestor 2ad8099b58f2 HEAD` → yes;
+  `fbbe0610d057` → no
+- **[Phase 3]** `git show 2ad8099b58f27`: put moved to `to_be_dropped`
+  only
+- **[Phase 4]** openwall v4 0/4 and 3/4; v4 commit-message correction;
+  Kicinski merge
+- **[Phase 4]** Follow-up `to_be_dropped` reinit is hardening only, not
+  required
+- **[Phase 4]** UNVERIFIED: lore.kernel.org 403; `b4 dig` could not
+  target the 2026 SHA (not in this tree)
+- **[Phase 5]** Callers: sendmsg, `rds_send_worker`,
+  `rds_ib_tasklet_fn_send`
+- **[Phase 5]** No semcode MCP
+- **[Phase 6]** `git describe HEAD` = `p-5.10-1-gce56b7a73b64b`; `make
+  kernelversion` = 5.10.270
+- **[Phase 6]** Buggy hunk present at `send.c:287-294`; fix text absent
+- **[Phase 8]** Failure mode: leak of message + pages + MRs; HIGH for
+  RDS, not a panic
+- **UNVERIFIED:** stable@ discussion of this specific backport
 
 **YES**
 
- sound/usb/mixer_maps.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ net/rds/send.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 8046d5987d5b1..ace4ccad8f51c 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -505,13 +505,13 @@ static const struct usbmix_connector_map gigabyte_b450_connector_map[] = {
- 	{}
- };
+diff --git a/net/rds/send.c b/net/rds/send.c
+index 5d09c7654f136..0a541cfc90185 100644
+--- a/net/rds/send.c
++++ b/net/rds/send.c
+@@ -288,9 +288,21 @@ int rds_send_xmit(struct rds_conn_path *cp)
+ 			    (rm->rdma.op_active &&
+ 			    test_bit(RDS_MSG_RETRANSMITTED, &rm->m_flags))) {
+ 				spin_lock_irqsave(&cp->cp_lock, flags);
+-				if (test_and_clear_bit(RDS_MSG_ON_CONN, &rm->m_flags))
+-					list_move(&rm->m_conn_item, &to_be_dropped);
+-				spin_unlock_irqrestore(&cp->cp_lock, flags);
++				if (test_and_clear_bit(RDS_MSG_ON_CONN,
++						       &rm->m_flags)) {
++					/* our ref is put after the batch */
++					list_move(&rm->m_conn_item,
++						  &to_be_dropped);
++					spin_unlock_irqrestore(&cp->cp_lock,
++							       flags);
++				} else {
++					/* already off the conn list; drop
++					 * the ref taken above ourselves
++					 */
++					spin_unlock_irqrestore(&cp->cp_lock,
++							       flags);
++					rds_message_put(rm);
++				}
+ 				continue;
+ 			}
  
--/* Audient iD14: FU 12 advertises Volume on only 4 of its 6 logical channels
-- * and sits on the monitor mixer branch, but it is traced through to the
-- * Speaker output terminal and gets named "Speaker Playback Volume".  Userspace
-- * then adopts it as the stream's hardware volume, and any setting below 0 dB
-- * attenuates some channels but not others (20 dB imbalance at 80%).  Give it a
-- * non-standard name so that it is no longer taken for the stream's master
-- * volume, while remaining reachable for anyone who wants the monitor gain.
-+/* Audient iD14 MkI and MkII: FU 12 sits on the monitor mixer branch but is
-+ * traced through to the Speaker output terminal, so it is named "Speaker
-+ * Playback Volume".  On MkII it controls only 4 of 6 playback channels.  MkI
-+ * testing found asymmetric attenuation within the main stereo pair.  Userspace
-+ * adopts this control as the stream's hardware volume, causing imbalance below
-+ * 0 dB.  Give it a non-standard name so that userspace no longer treats it as
-+ * the stream master, while keeping the monitor gain reachable.
-  */
- static const struct usbmix_name_map audient_id14_map[] = {
- 	{ 12, "Monitor Mix Playback" },	/* FU, partial coverage */
-@@ -602,7 +602,12 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
- 		.map = maya44_map,
- 	},
- 	{
--		/* Audient iD14 */
-+		/* Audient iD14 MkI */
-+		.id = USB_ID(0x2708, 0x0002),
-+		.map = audient_id14_map,
-+	},
-+	{
-+		/* Audient iD14 MkII */
- 		.id = USB_ID(0x2708, 0x0008),
- 		.map = audient_id14_map,
- 	},
 -- 
 2.53.0
 
