@@ -1,176 +1,139 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+Received: from mta0.migadu.com (out-16.mta0.migadu.com [91.218.175.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D153B42DC
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:19:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A463C4565
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792383579; cv=none; b=geGP3BLQ/Qf0GRIEvSpYmZsx1xRczAKR93E6HWnJfYiDSr1Ll/u+Y3Fe/PpntajE10fenWLK51zT5AEhL5s+8mmovoB3QoUH2lTYOEwDwfDuKBSYEWwl5nOPFGV61ijD2Iq7fFVG1diSb41GZxhdIY8jPzOg3GuXsVSLAOP29g4=
+	t=1792383821; cv=none; b=uEbJRgevHCES/OrkZpr2QANVrRxeVLreGY/DBlejb80hZmo6AIdmkVXG1m+xXZsWoFpiQaHWLHzEahgrWIFXwiT0m/WN9OViA7Ja5wfPwbMswYkW7salIIQZW/04Sg2Y1E1dquMzueoESZdLDrxxLcobJJcsA3M3iSx0wJy4wA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792383579; c=relaxed/simple;
-	bh=rRVr7SqY4aYBU8eWtubbZiH7FbDsY/A2wV5s15LEf30=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=pa0dM/pq7CcJB4m95zOA3dBzaBRrb5Ttb2aSO93WK7yveKOxI3mxLYesYk1JjXLZyalmnelibF3givMww7coHi0doVj2dluRU/7QKBk0HWzdCUDe0Ghdex7olIenoSLZG3W0O7D5b7UTR8GYuV8lA1syQckoHBqDO/Wui8M9iuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6f8edf0c859so3448493eaf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:19:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792383575; x=1792988375;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gKlBBKRXtPxCd4xX1MhFyP3fgh/Oxz3wsitSIBI6Yw8=;
-        b=U0tzY82LPyDmfsKovs9gfcOAXW6OyHuMMXyN6R+qWNQ3B6dRW7TJIMR3YeTMeh14rd
-         YHUKvo8+grj5UQWklTfjsG3sfMTA4RaSwryW5S982Dd46M97osT+D4y2HcPW/oR9OXd4
-         MRRyGRnmdrL8YGK/rqSxpEMojPLYu/2kaK5tFa7SCbUVHbVjsosEItJbGWN6zzMA1Hnd
-         DA9xYzIKr7uIUpP+TdloxYvWLN8ysp0zruHxibubWXQ6gVkdWLXF+xfsyZU27zwbLSV7
-         iCqVKlcaZpD8BX8V2eDykPSi2uQgjMK7kSz11X8UvxcS86QH4q6AMPDCezmNUpqrKYm8
-         Ugmg==
-X-Forwarded-Encrypted: i=1; AKwUvBy4NeN1OYpOhrR1wq3GUY6GGradE1dFZbk2pl6IwMKNROmTesxqpH6VH2r6M2xaRjMwCO1GD74ePQtejk8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/93/AGj9mPAvUTBU61evXoKfY4YAPxF6U/NLNKgxY9jbDN9aB
-	A48f2tChxWanl+gs1LU1DvR0OUIlKjEIT/DZV24/RvgZFWbACzZ/eJWOvE2tWsrGEEPfGfsS3gQ
-	i1xJozXqOGtlDUUSZmi0kslToUSWAi21oQbDl84RD1NeMR2EYWxReInyuh5I=
+	s=arc-20240116; t=1792383821; c=relaxed/simple;
+	bh=7Fh4oWhpxYf6gDp8+ypvgmOJyH6o3AMY/5a5fCOp5W8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=g6yHrtdGNG67Nu5WzO5hYtJwAMnNIIMsoTrMonhYS8AmSfF0DXB3XzgxiEI2UqwMj9hR2Qr9cJaPZwaeloPOvovbx77e5iC7qDICtfGINoi5VstRXGNXwNEliFBWM/QG/iX0hEY2z3xG6Aa0oWkzu8UVXhhebGIaorv3uc2dr3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=a6QHE08R; arc=none smtp.client-ip=91.218.175.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="a6QHE08R"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7Fh4oWhpxYf6gDp8+ypvgmOJyH6o3AMY/5a5fCOp5W8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792383815; v=1; x=1792988615;
+ b=a6QHE08RlA/FtFPBT9ahJq3lrRxqw1ajmYxiPQZdm5Y0ZhOnyeRqTSfIoQqq5uu1BpV+DUyx
+ u+93ERYyHTFIW+bUgaNqtSyFycobXbJzgY8yIDVP+QUv3NLyHqKEDU+gxNKUZ77Yhz9YyPbmIYs
+ BHAQmcJMn5RNoDuevMX3srbE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a50a931287826443;
+	Mon, 19 Oct 2026 04:23:35 +0000
+X-Mizu-Trace-ID: a50a931287826443
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Dave Chinner <david@fromorbit.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH v4 6/9] mm/vmscan: pass scan_control to mm_vmscan_reclaim_pages
+Date: Mon, 19 Oct 2026 12:23:05 +0800
+Message-Id: <20261019042308.2372396-1-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261019034426.2354049-1-ridong.chen@linux.dev>
+References: <20261019034426.2354049-1-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1517:b0:6d3:abd1:9b98 with SMTP id
- 006d021491bc7-70117627040mr6008277eaf.62.1792383574902; Sun, 18 Oct 2026
- 21:19:34 -0700 (PDT)
-Date: Sun, 18 Oct 2026 21:19:34 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad59a56.6814cce4.34c49f.0150.GAE@google.com>
-Subject: [syzbot] [fs?] BUG: unable to handle kernel paging request in read_seqbegin
-From: syzbot <syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com>
-To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Ridong Chen <chenridong@xiaomi.com>
 
-syzbot found the following issue on:
+reclaim_folio_list() passes sc.nr_scanned to mm_vmscan_reclaim_pages as
+a bare argument. Pass the enclosing struct scan_control instead and read
+nr_scanned out in TP_fast_assign, consistent with the other reclaim
+tracepoints. nr_reclaimed stays a separate argument: it is the return
+value of shrink_folio_list(), which does not update sc->nr_reclaimed.
 
-HEAD commit:    7a19f0cc94ad Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=16514121580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=26d6221a572842ac
-dashboard link: https://syzkaller.appspot.com/bug?extid=975ace299d6ba2eb1cea
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16003da9580000
+No functional change. The tracefs event format (TP_STRUCT__entry and
+TP_printk) is unchanged, so tracefs-based consumers are unaffected.
+BPF programs attached via raw_tp/tp_btf see the new TP_PROTO and need
+to be adjusted; tracepoints are not a stable ABI (see
+Documentation/bpf/bpf_design_QA.rst).
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
-
-Unable to handle kernel paging request at virtual address dfff800000000002
-KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-Mem abort info:
-  ESR = 0x0000000096000005
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x05: level 1 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0
-[dfff800000000002] address between user and kernel address ranges
-Internal error: Oops: 0000000096000005 [#1]  SMP
-Modules linked in:
-CPU: 1 UID: 0 PID: 5047 Comm: syz-executor213 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-pstate: 834000c5 (Nzcv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : kasan_byte_accessible+0xc/0x1c mm/kasan/generic.c:210
-lr : __kasan_check_byte+0x20/0x54 mm/kasan/common.c:584
-sp : ffff80009b3a6c20
-x29: ffff80009b3a6c20 x28: ffff80008979a000 x27: ffff0000d7079d80
-x26: a4ec800080d875c8 x25: 0000000000000000 x24: 0000000000000001
-x23: 0000000000000002 x22: 0000000000000010 x21: 0000000000000010
-x20: 0000000000000000 x19: ffff800080d875c8 x18: ffff80011b89c000
-x17: ffff0001a4ff9e07 x16: ffff0000d7079d94 x15: ffff800080302e5c
-x14: 0000000000494166 x13: 0000000000000009 x12: 0000000000000009
-x11: ffff800080155740 x10: 0000000000000003 x9 : dfff800000000000
-x8 : 0000000000000002 x7 : 0000000000000000 x6 : ffff800080d86228
-x5 : 0000000000000000 x4 : 0000000000000001 x3 : 0000000000000002
-x2 : 0000000000000000 x1 : ffff800080d875c8 x0 : 0000000000000010
-Call trace:
- kasan_mem_to_shadow include/linux/kasan.h:65 [inline] (P)
- kasan_byte_accessible+0xc/0x1c mm/kasan/generic.c:210 (P)
- kasan_check_byte include/linux/kasan.h:402 [inline]
- lock_acquire+0xa4/0x320 kernel/locking/lockdep.c:5916
- seqcount_lockdep_reader_access include/linux/seqlock.h:73 [inline]
- read_seqbegin+0x6c/0x144 include/linux/seqlock.h:838
- get_fs_root_rcu fs/d_path.c:244 [inline]
- d_path+0x224/0x4dc fs/d_path.c:287
- audit_log_d_path+0xdc/0x19c kernel/audit.c:2221
- audit_log_lsm_data+0xe0/0x12d0 security/lsm_audit.c:199
- dump_common_audit_data security/lsm_audit.c:421 [inline]
- common_lsm_audit+0x1d0/0x290 security/lsm_audit.c:451
- smack_log+0x1f4/0x264 security/smack/smack_access.c:400
- smk_tskacc+0x210/0x2ac security/smack/smack_access.c:255
- smack_file_open+0x1d0/0x230 security/smack/smack_lsm.c:2078
- security_file_open+0xec/0x258 security/security.c:2739
- do_dentry_open+0x2a8/0xfbc fs/open.c:973
- vfs_open+0x44/0x2dc fs/open.c:1101
- dentry_open+0x74/0xc0 fs/open.c:1124
- ima_calc_file_hash+0x120/0x5cc security/integrity/ima/ima_crypto.c:269
- ima_collect_measurement+0x420/0x874 security/integrity/ima/ima_api.c:300
- ima_update_xattr+0x160/0x230 security/integrity/ima/ima_appraise.c:617
- ima_check_last_writer security/integrity/ima/ima_main.c:227 [inline]
- ima_file_free+0x40c/0x528 security/integrity/ima/ima_main.c:251
- security_file_release+0x84/0x148 security/security.c:2424
- __fput+0x2c4/0x74c fs/file_table.c:506
- ____fput+0x20/0x30 fs/file_table.c:541
- task_work_run+0x1cc/0x25c kernel/task_work.c:233
- exit_task_work include/linux/task_work.h:40 [inline]
- do_exit+0x58c/0x1a74 kernel/exit.c:986
- do_group_exit+0x198/0x238 kernel/exit.c:1129
- __do_sys_exit_group kernel/exit.c:1140 [inline]
- __se_sys_exit_group kernel/exit.c:1138 [inline]
- pid_child_should_wake+0x0/0x104 kernel/exit.c:1138
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0x19c/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
-Code: 17ffffec d343fc08 d2d00009 f2fbffe9 (38696908) 
----[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess):
-   0:	17ffffec 	b	0xffffffffffffffb0
-   4:	d343fc08 	lsr	x8, x0, #3
-   8:	d2d00009 	mov	x9, #0x800000000000        	// #140737488355328
-   c:	f2fbffe9 	movk	x9, #0xdfff, lsl #48
-* 10:	38696908 	ldrb	w8, [x8, x9] <-- trapping instruction
-
-
+Assisted-by: LLM
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ mm/trace_vmscan.h | 10 +++++-----
+ mm/vmscan.c       |  2 +-
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
+index b1b329039e14..54168ad45f6e 100644
+--- a/mm/trace_vmscan.h
++++ b/mm/trace_vmscan.h
+@@ -418,11 +418,11 @@ TRACE_EVENT(mm_vmscan_write_folio,
+ 
+ TRACE_EVENT(mm_vmscan_reclaim_pages,
+ 
+-	TP_PROTO(int nid,
+-		unsigned long nr_scanned, unsigned long nr_reclaimed,
+-		struct reclaim_stat *stat),
++	TP_PROTO(int nid, struct scan_control *sc,
++		 unsigned long nr_reclaimed,
++		 struct reclaim_stat *stat),
+ 
+-	TP_ARGS(nid, nr_scanned, nr_reclaimed, stat),
++	TP_ARGS(nid, sc, nr_reclaimed, stat),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(int, nid)
+@@ -440,7 +440,7 @@ TRACE_EVENT(mm_vmscan_reclaim_pages,
+ 
+ 	TP_fast_assign(
+ 		__entry->nid = nid;
+-		__entry->nr_scanned = nr_scanned;
++		__entry->nr_scanned = sc->nr_scanned;
+ 		__entry->nr_reclaimed = nr_reclaimed;
+ 		__entry->nr_dirty = stat->nr_dirty;
+ 		__entry->nr_writeback = stat->nr_writeback;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 5d5eee757c61..4bb00371a67f 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -2178,7 +2178,7 @@ static unsigned int reclaim_folio_list(struct list_head *folio_list,
+ 		list_del(&folio->lru);
+ 		folio_putback_lru(folio);
+ 	}
+-	trace_mm_vmscan_reclaim_pages(pgdat->node_id, sc.nr_scanned, nr_reclaimed, &stat);
++	trace_mm_vmscan_reclaim_pages(pgdat->node_id, &sc, nr_reclaimed, &stat);
+ 
+ 	return nr_reclaimed;
+ }
+-- 
+2.34.1
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
