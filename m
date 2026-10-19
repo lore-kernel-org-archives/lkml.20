@@ -1,79 +1,48 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64616484250
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17AE3484250;
+	Mon, 19 Oct 2026 06:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392638; cv=none; b=tfVSI8Xc7SbNcHehfaxN0RjlC/KJx6yp1K9oD9kDLcJx3KK/5ZIYgFqK86Ov8DHuBxmffgj0zUpHXOeEtlr60nL/VLBNttOfjVJg7ImbdbRD5ILgP8Sij97DPBQSxuKNnHTwVE6UoQIhr3eGvDMYekfbs5l65EFbSvaBngB6XnI=
+	t=1792392686; cv=none; b=CZtbo4xXUZUvcRMKZbKublkdvWns5+lar2yRzfL4+WHZXgowlyCwYak0GlzhL9uXYW+sleiNF5daahfVCPkMFLDOQfqYbV1hiyPWM7VAWLGtVuGhxzmo/0r/qK3Iq+fWzPSAjvr1R6+e5/UynT0VbLGk1fMNOFcLRxtB87n51YM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392638; c=relaxed/simple;
-	bh=xSwl1h8Mp7wGf7H3F4SROm9i1vxc19txpJ5T1qdCORA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ko/B942DGsiFKnr79z5wTEgVeJTwL9+v6H8plMx38WEY4vbjKestp2PF9JpUvf3hmlMpO0EURdAHRzZ+ONlcm7DEO0G0DUjaXjLk9+MSo22mMNj/9pA4HoXtZjIIkX2Z5gJEPgK4ZCwuG7xBJyfJK/pR/wojvgUENZhwualB3Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=tUYlrR0r; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	s=arc-20240116; t=1792392686; c=relaxed/simple;
+	bh=SKCpijYdf40bdB7TjZgsPQt1cOqmj+Rx6EDrKlUQHcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cYyu3dEdWlST19x8dhUqJe3wNan+tc/jile/ZZ6r1z1nMnk8yVuU6g1Pqs9NOIDlHKp0NvV7eBCoQFmX4Qf5wlGsaxmSad/UUkO3yhHT5vcoTLH+XykN++wGviqpwJ+uA44YsCXw1zqv9A5uRqAw2Ebi6/P0gQUP4YeApnoAvkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n2PeLf+F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="tUYlrR0r"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso423344a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:50:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792392636; x=1792997436; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Rb0QTBYByMcASXRlRy3m0adfxviH4p2FnEIUqbImivk=;
-        b=tUYlrR0rEwVg33y/Nu430WHslgG2sAClQ4G5NHT9YXOIMm6xg7PiAK5Vi93YgvZ+mQ
-         QUyIdCC7djM0JaLgqCF8hi/jYvV7+u87nAPNBreh9r07LoEmu++mKkIbPja+WF0YfmLs
-         dMkR/GEqxWKvWAu3HcqYO5awvP7nu3QZQUcIxbigpO56Eoap+NnTDZ/MaEQPsRInexLF
-         tzjaLsIIZdT+WQG1bP2Mo7gqES3XU5vf9TFBllDkzN18Bv+c1KMsk2L5UKL2CX5p46NB
-         RPrT4HRC7RYtmEIZnoPf/4EUK8PCM2Js0NsWMRL2O1Fh94LDKvR1zlMpwZG7tJdWm9Hr
-         O0pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792392636; x=1792997436;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rb0QTBYByMcASXRlRy3m0adfxviH4p2FnEIUqbImivk=;
-        b=Hvg/STUha1bepMj3ZIVq8QP8zKLRxz+ycg/w42rqS4yajZNlwWj+0gF0MrowsiyCLd
-         FdJoFsfyiG2Gv+nmiASPNoQKzJryP6fEfloB+/uwRpbJ59LDrsB1hCOehcSTA7gxYnPs
-         yIHhET8FZtXTyCZ30Vhsl8TAPK9glPq7AJUTc1oBpz5VhJLkklVyJ2YrzAXPHk+tbX3C
-         hrAqVapU8OIfC6l89bMUbh6rEqRoQOQ9TyOG2AQDwalEIV91hBJa8BpRz994XJANOtj4
-         sCbFlItdSWP4WZfnCkxEn6qlD3a2GHEmhEYMgCPDXuCa5qKiwnV1mjmRU/Pte2HldXMN
-         kIGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwwQxzzqjrpWJSvYKVrlVngg0sBBU1lM6MFMtkLh3yPZNOfu6FQkNhXia6ZyeqITJVuYYlDXOtZL3aSoJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvFqSCvjqZErRsfn4700TrHKI7sFZrxtDr/Qpa4NOuYg3u48hE
-	pRiY3XzjpIyZ/oiYBhEoNb+PZ6grEKPoMPDjy3GUB2q3W4OaTxMcKJslLt84O2tDqrw=
-X-Gm-Gg: AYBFou3gpWfKpd6rlvhq+/DGbIc9qyCCY5Bg9I6G86WTsXM/j4IeE71SG08Zlwzh+FO
-	BuXb0TybjX9QiUXtwAg8Y99S+Llz2VNZo2eVzFvfP06VkniAUYJAcFxzQp0Uih0/bx/gCiFui4W
-	cbZ+bg1ErdbLOLRN/Z9XCUplMpOzM+XLGXfbvmcNdBzXagYmCrunCTHrxaehPsEb4gAGJ0RJqHm
-	/Ax58sWdgY1Jv5iQMp0+hr+Qw54P8rIZozJD5IkfN1txQU/CmoXIif/7y0WFVi13KNSFwKlDVPi
-	LB/Mmd839ZdG7KZVZhkH6Hk3i6KCLGm3dG6nU0zk+AT3vh3lbvFkGT7O2d4jH6i2oZpkcXED4L+
-	VfVRotfeeizsQR9dXUCmcFkgtcsjxGlaGGYnAtYy6i8IOwWE6YkZeMUs6jRDtk7zbH6kXLbvQ5Y
-	WUhlhf0bITbPIOyx9VGvvUeOxLuLTrfM2nUNUl5Z/7pY/vewEOZ5D9U89QyMfDOLohxa5ygqZqv
-	Ya7ow==
-X-Received: by 2002:a17:90b:44:b0:39e:3713:c2e4 with SMTP id 98e67ed59e1d1-3aceefc61f5mr5910732a91.14.1792392635675;
-        Sun, 18 Oct 2026 23:50:35 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd3f3ce5asm5870887a91.3.2026.10.18.23.50.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 23:50:35 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: njavali@marvell.com,
-	mrangankar@marvell.com,
-	mkp@kernel.org,
-	James.Bottomley@HansenPartnership.com
-Cc: GR-QLogic-Storage-Upstream@marvell.com,
-	linux-scsi@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n2PeLf+F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C210B1F000C4;
+	Mon, 19 Oct 2026 06:51:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792392684;
+	bh=j8oA05heiJ+N4wmFr3ACIe5gpscRTFotRO2J7gCfkEA=;
+	h=From:To:Cc:Subject:Date;
+	b=n2PeLf+F0crZIjsT3pnOI1BhYjefSUw7Ncz+YHki9etBGikp11A/aV8fgMbFuM+BV
+	 WSb6yO9QWpGRzw48nBTi3j94NHhxsKMEUkrj0ANTVd8+22ySy8bjK4oPOlwQaCZ98Z
+	 jBQZGr4kh80CszEwjmRf8Jeo7UjY40CwdseDH3Y/2zuDHMOwBGkMKUv3UcLbFRW0ur
+	 QnBj/c2ZHqqRK6lgtywfLLoftQX9WWuUmYTmZ5fFDcfUyzUUtjgZ2Opy5x03gfVEen
+	 vAvcsV7o2cRrSWS1KL54XAVVbnSg2afWLzrnH7ZW8SyoqD86J/cHhDtRX3KMDi9rhU
+	 7Q9cV7HeEBGPA==
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+To: lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	p.zabel@pengutronix.de,
+	geert+renesas@glider.be,
+	magnus.damm@gmail.com
+Cc: claudiu.beznea@tuxon.dev,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] scsi: qedi: bound the data segment length of an unsolicited PDU
-Date: Mon, 19 Oct 2026 15:50:18 +0900
-Message-ID: <20261019065019.537183-2-yhlee@isslab.korea.ac.kr>
+	linux-renesas-soc@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: [PATCH v7 00/14] PCI: rzg3s-host: Add PCIe hotplug support
+Date: Mon, 19 Oct 2026 09:50:11 +0300
+Message-ID: <20261019065025.2146539-1-claudiu.beznea@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019065019.537183-1-yhlee@isslab.korea.ac.kr>
-References: <20261019065019.537183-1-yhlee@isslab.korea.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,285 +51,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-qedi_process_nopin_mesg(), qedi_process_async_mesg() and
-qedi_process_reject_mesg() read the data segment length out of the CQE the
-firmware wrote and hand it to qedi_unsol_pdu_adjust_bdq(), which passes it
-on to qedi_get_rq_bdq_buf() as a memcpy() length:
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-	pdu_len = cqe_nop_in->hdr_second_dword &
-		  ISCSI_NOP_IN_HDR_DATA_SEG_LEN_MASK;
-	...
-	memcpy(ptr, (void *)qedi->bdq[idx].buf_addr, len);
+Hi,
 
-That mask is 0xFFFFFF.  The buffer the copy reads from is a single
-QEDI_BDQ_BUF_SIZE coherent DMA allocation, and in the nop-in and async
-handlers the destination is an on-stack bdq_data[QEDI_BDQ_BUF_SIZE], so a
-data segment larger than 256 bytes runs off the end of both.  The same
-length then reaches __iscsi_complete_pdu(), which reads it back out of that
-buffer.  Only the BDQ index is checked, not the length.
+Series adds hotplug support for the rzg3s-host driver. This is a
+continuation of the series John posted initially at [1]. Along with it,
+prerequisites fixes and cleanup patches were added.
 
-A segment that does not fit in one buffer is not a firmware malfunction.
-The handlers divide the reported length by QEDI_BDQ_BUF_SIZE to work out
-how many buffers were consumed so that qedi_put_rq_bdq_buf() can hand them
-all back, and ISCSI_CQE_UNSOLICITED_FIRST, _MIDDLE and _LAST exist for that
-same case, so the reported length is the total across several buffers while
-only the first of them is ever copied here.  qedi_iscsi.c also gives the
-firmware conn->max_recv_dlength as max_recv_pdu_length, which libiscsi
-defaults to ISCSI_DEF_MAX_RECV_SEG_LEN, so this is a length a target picks
-by sending a nop-in or an async message with a payload larger than one
-buffer.
+Series was tested on RZ/G3S and RZ/G3E boards by generating consecutive
+link down/up events. The RZ/G3S has an I2C device which, depending on
+the way it is programmed, it controls the state of the PCIe link. The
+board has 3 PCIe interface: PCIE_SLOT, M.2 Key E, M.2 Key B. The
+following script was executed for ~9 hours:
 
-Cap the copy at one buffer in qedi_get_rq_bdq_buf(), return how much it
-made available and report that rather than the announced length.  The cases
-where nothing is copied at all are then covered too, because a rejected BDQ
-index, the middle and last parts of a segment and a solicited PDU all used
-to hand __iscsi_complete_pdu() a firmware-chosen length over a buffer that
-had never been written.  num_bdqs stays derived from the announced length,
-since it counts the buffers that were consumed and all of them still have
-to go back to the ring.
+#!/bin/sh
 
-Driving qedi_get_rq_bdq_buf() with a length one byte past QEDI_BDQ_BUF_SIZE
-shows the copy running off the destination.  The harness is a KUnit test
-that is not part of this patch; it calls the real helper and only swaps the
-two coherent DMA buffers for kmalloc() of the same size, because coherent
-allocations are page granular and KASAN does not track them.  In production
-the destination is on the stack rather than in the slab.  The report names
-the test function because the unpatched helper tail-jumps into
-__asan_memcpy(), so the instrumentation records its caller's return
-address:
+echo performance > /sys/module/pcie_aspm/parameters/policy
 
-  BUG: KASAN: slab-out-of-bounds in qedi_bdq_oob_dst_write_257+0x16a/0x2d0
-  Write of size 257 at addr 0000000062866e00 by task kunit_try_catch/24
-  
-  CPU: 0 UID: 0 PID: 24 Comm: kunit_try_catch Tainted: G                 N  7.3.0-rc7-g58161ead29e5-dirty #4 VOLUNTARY
-  Tainted: [N]=TEST
-  Stack:
-   612daf8d 00000000 00000000 00000000
-   ffffff00 612daf8d 612e27f1 62866e00
-   61371680 600ad4cf 62863ca0 6004301e
-  Call Trace:
-   [<600ad4cf>] ? dump_stack_lvl+0x5e/0x7a
-   [<6004301e>] ? _printk+0x0/0xd7
-   [<6004fc1a>] ? print_report+0x14b/0x517
-   [<603c9c85>] ? __kasan_kmalloc+0xb5/0xc0
-   [<6004301e>] ? _printk+0x0/0xd7
-   [<608d2bfa>] ? qedi_bdq_oob_dst_write_257+0x16a/0x2d0
-   [<603cad0b>] ? kasan_report+0x11b/0x160
-   [<608d2bfa>] ? qedi_bdq_oob_dst_write_257+0x16a/0x2d0
-   [<603cbcc0>] ? kasan_check_range+0x0/0x1c0
-   [<603cbe0e>] ? kasan_check_range+0x14e/0x1c0
-   [<603cc8a8>] ? __asan_memcpy+0x48/0x80
-   [<608d2bfa>] ? qedi_bdq_oob_dst_write_257+0x16a/0x2d0
-   [<608d2a90>] ? qedi_bdq_oob_dst_write_257+0x0/0x2d0
-   [<601652be>] ? _task_rq_lock+0x5e/0x210
-   [<6016cf70>] ? migrate_disable_switch.constprop.0+0x0/0x280
-   [<600b46a4>] ? timer_read+0x14/0x30
-   [<6022f42e>] ? ktime_get_ts64+0x8e/0x2c0
-   [<6022f3a0>] ? ktime_get_ts64+0x0/0x2c0
-   [<607082ac>] ? kunit_try_run_case+0x1bc/0x310
-   [<607080f0>] ? kunit_try_run_case+0x0/0x310
-   [<601c3b30>] ? sched_setscheduler_nocheck+0x180/0x220
-   [<600cae70>] ? um_set_signals+0x0/0x60
-   [<600cae70>] ? um_set_signals+0x0/0x60
-   [<6014a21d>] ? __kthread_parkme+0xdd/0x1c0
-   [<607080f0>] ? kunit_try_run_case+0x0/0x310
-   [<6070e370>] ? kunit_generic_run_threadfn_adapter+0x0/0x100
-   [<6070e3ec>] ? kunit_generic_run_threadfn_adapter+0x7c/0x100
-   [<6015049e>] ? kthread+0x36e/0x560
-   [<60150130>] ? kthread+0x0/0x560
-   [<600b20de>] ? new_thread_handler+0xce/0x130
-  
-  The buggy address belongs to the object at 0000000062866e00
-   which belongs to the cache kmalloc-256 of size 256
-  The buggy address is located 0 bytes inside of
-   allocated 256-byte region [0000000062866e00, 0000000062866f00)
-  
-  The buggy address belongs to the physical page:
-  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2866
-  flags: 0x0(zone=0)
-  page_type: f5(slab)
-  raw: 0000000000000000 0000000061801b40 0000000000000122 0000000000000000
-  raw: 0000000000000000 0000000000080008 00000000f5000000
-  page dumped because: kasan: bad access detected
-  
-  Memory state around the buggy address:
-   0000000062866e00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-   0000000062866e80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  >0000000062866f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-                     ^
-   0000000062866f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-   0000000062867000: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-  ==================================================================
+while :; do
+        i2cset -y 1 0x18 0xf4 0x8 # Link down
+        i2cset -y 1 0x18 0xf4 0xc # Link up: PCIE_SLOT (NVMe Micron)
+        i2cset -y 1 0x18 0xf4 0x8 # Link down
+        i2cset -y 1 0x18 0xf4 0xd # Link up: M.2 Key B (NVMe Transcend)
+        i2cset -y 1 0x18 0xf4 0x8 # Link down
+        i2cset -y 1 0x18 0xf4 0xb # Link up: M.2 Key E (WiFi AX200)
+done
 
-The over-read off the source reports the same way once the source is the
-one left at its production size.  With the length capped both reports go
-away, a 4096-byte request copies 256 bytes, and a data segment that fits in
-one buffer is still copied in full.
+Thank you,
+Claudiu
 
-Fixes: ace7f46ba5fd ("scsi: qedi: Add QLogic FastLinQ offload iSCSI driver framework.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-diff --git a/drivers/scsi/qedi/qedi_fw.c b/drivers/scsi/qedi/qedi_fw.c
-index 854efa4f61d87..f21d16c034990 100644
---- a/drivers/scsi/qedi/qedi_fw.c
-+++ b/drivers/scsi/qedi/qedi_fw.c
-@@ -316,9 +316,10 @@ static void qedi_process_login_resp(struct qedi_ctx *qedi,
- 	cmd->state = RESPONSE_RECEIVED;
- }
- 
--static void qedi_get_rq_bdq_buf(struct qedi_ctx *qedi,
--				struct iscsi_cqe_unsolicited *cqe,
--				char *ptr, int len)
-+/* Cap the announced length at one BDQ buffer and return what was copied. */
-+static u32 qedi_get_rq_bdq_buf(struct qedi_ctx *qedi,
-+			       struct iscsi_cqe_unsolicited *cqe,
-+			       char *ptr, u32 len)
- {
- 	u16 idx = 0;
- 
-@@ -333,7 +334,7 @@ static void qedi_get_rq_bdq_buf(struct qedi_ctx *qedi,
- 		QEDI_INFO(&qedi->dbg_ctx, QEDI_LOG_CONN,
- 			  "wrong idx %d returned by FW, dropping the unsolicited pkt\n",
- 			  idx);
--		return;
-+		return 0;
- 	}
- 
- 	QEDI_INFO(&qedi->dbg_ctx, QEDI_LOG_CONN,
-@@ -344,15 +345,18 @@ static void qedi_get_rq_bdq_buf(struct qedi_ctx *qedi,
- 	switch (cqe->unsol_cqe_type) {
- 	case ISCSI_CQE_UNSOLICITED_SINGLE:
- 	case ISCSI_CQE_UNSOLICITED_FIRST:
-+		len = min_t(u32, len, QEDI_BDQ_BUF_SIZE);
- 		if (len)
- 			memcpy(ptr, (void *)qedi->bdq[idx].buf_addr, len);
--		break;
-+		return len;
- 	case ISCSI_CQE_UNSOLICITED_MIDDLE:
- 	case ISCSI_CQE_UNSOLICITED_LAST:
- 		break;
- 	default:
- 		break;
- 	}
-+
-+	return 0;
- }
- 
- static void qedi_put_rq_bdq_buf(struct qedi_ctx *qedi,
-@@ -393,16 +397,20 @@ static void qedi_put_rq_bdq_buf(struct qedi_ctx *qedi,
- 	readw(qedi->bdq_secondary_prod);
- }
- 
--static void qedi_unsol_pdu_adjust_bdq(struct qedi_ctx *qedi,
--				      struct iscsi_cqe_unsolicited *cqe,
--				      u32 pdu_len, u32 num_bdqs,
--				      char *bdq_data)
-+static u32 qedi_unsol_pdu_adjust_bdq(struct qedi_ctx *qedi,
-+				     struct iscsi_cqe_unsolicited *cqe,
-+				     u32 pdu_len, u32 num_bdqs,
-+				     char *bdq_data)
- {
-+	u32 data_len;
-+
- 	QEDI_INFO(&qedi->dbg_ctx, QEDI_LOG_CONN,
- 		  "num_bdqs [%d]\n", num_bdqs);
- 
--	qedi_get_rq_bdq_buf(qedi, cqe, bdq_data, pdu_len);
-+	data_len = qedi_get_rq_bdq_buf(qedi, cqe, bdq_data, pdu_len);
- 	qedi_put_rq_bdq_buf(qedi, cqe, (num_bdqs + 1));
-+
-+	return data_len;
- }
- 
- static int qedi_process_nopin_mesg(struct qedi_ctx *qedi,
-@@ -417,7 +425,7 @@ static int qedi_process_nopin_mesg(struct qedi_ctx *qedi,
- 	struct qedi_cmd *cmd;
- 	int tgt_async_nop = 0;
- 	u32 lun[2];
--	u32 pdu_len, num_bdqs;
-+	u32 pdu_len, data_len = 0, num_bdqs;
- 	char bdq_data[QEDI_BDQ_BUF_SIZE];
- 	unsigned long flags;
- 
-@@ -438,8 +446,9 @@ static int qedi_process_nopin_mesg(struct qedi_ctx *qedi,
- 
- 	if (cqe->cqe_common.cqe_type == ISCSI_CQE_TYPE_UNSOLICITED) {
- 		spin_lock_irqsave(&qedi->hba_lock, flags);
--		qedi_unsol_pdu_adjust_bdq(qedi, &cqe->cqe_unsolicited,
--					  pdu_len, num_bdqs, bdq_data);
-+		data_len = qedi_unsol_pdu_adjust_bdq(qedi, &cqe->cqe_unsolicited,
-+						     pdu_len, num_bdqs,
-+						     bdq_data);
- 		hdr->itt = RESERVED_ITT;
- 		tgt_async_nop = 1;
- 		spin_unlock_irqrestore(&qedi->hba_lock, flags);
-@@ -470,7 +479,7 @@ static int qedi_process_nopin_mesg(struct qedi_ctx *qedi,
- 	}
- 
- done:
--	__iscsi_complete_pdu(conn, (struct iscsi_hdr *)hdr, bdq_data, pdu_len);
-+	__iscsi_complete_pdu(conn, (struct iscsi_hdr *)hdr, bdq_data, data_len);
- 
- 	spin_unlock_bh(&session->back_lock);
- 	return tgt_async_nop;
-@@ -487,7 +496,7 @@ static void qedi_process_async_mesg(struct qedi_ctx *qedi,
- 	struct iscsi_async_msg_hdr *cqe_async_msg;
- 	struct iscsi_async *resp_hdr;
- 	u32 lun[2];
--	u32 pdu_len, num_bdqs;
-+	u32 pdu_len, data_len = 0, num_bdqs;
- 	char bdq_data[QEDI_BDQ_BUF_SIZE];
- 	unsigned long flags;
- 
-@@ -500,8 +509,9 @@ static void qedi_process_async_mesg(struct qedi_ctx *qedi,
- 
- 	if (cqe->cqe_common.cqe_type == ISCSI_CQE_TYPE_UNSOLICITED) {
- 		spin_lock_irqsave(&qedi->hba_lock, flags);
--		qedi_unsol_pdu_adjust_bdq(qedi, &cqe->cqe_unsolicited,
--					  pdu_len, num_bdqs, bdq_data);
-+		data_len = qedi_unsol_pdu_adjust_bdq(qedi, &cqe->cqe_unsolicited,
-+						     pdu_len, num_bdqs,
-+						     bdq_data);
- 		spin_unlock_irqrestore(&qedi->hba_lock, flags);
- 	}
- 
-@@ -525,7 +535,7 @@ static void qedi_process_async_mesg(struct qedi_ctx *qedi,
- 	resp_hdr->param3 = cpu_to_be16(cqe_async_msg->param3_rsrv);
- 
- 	__iscsi_complete_pdu(conn, (struct iscsi_hdr *)resp_hdr, bdq_data,
--			     pdu_len);
-+			     data_len);
- 
- 	spin_unlock_bh(&session->back_lock);
- }
-@@ -540,7 +550,7 @@ static void qedi_process_reject_mesg(struct qedi_ctx *qedi,
- 	struct iscsi_session *session = conn->session;
- 	struct iscsi_reject_hdr *cqe_reject;
- 	struct iscsi_reject *hdr;
--	u32 pld_len, num_bdqs;
-+	u32 pld_len, data_len = 0, num_bdqs;
- 	unsigned long flags;
- 
- 	spin_lock_bh(&session->back_lock);
-@@ -551,8 +561,9 @@ static void qedi_process_reject_mesg(struct qedi_ctx *qedi,
- 
- 	if (cqe->cqe_common.cqe_type == ISCSI_CQE_TYPE_UNSOLICITED) {
- 		spin_lock_irqsave(&qedi->hba_lock, flags);
--		qedi_unsol_pdu_adjust_bdq(qedi, &cqe->cqe_unsolicited,
--					  pld_len, num_bdqs, conn->data);
-+		data_len = qedi_unsol_pdu_adjust_bdq(qedi, &cqe->cqe_unsolicited,
-+						     pld_len, num_bdqs,
-+						     conn->data);
- 		spin_unlock_irqrestore(&qedi->hba_lock, flags);
- 	}
- 	hdr = (struct iscsi_reject *)&qedi_conn->gen_pdu.resp_hdr;
-@@ -568,7 +579,7 @@ static void qedi_process_reject_mesg(struct qedi_ctx *qedi,
- 	hdr->ffffffff = cpu_to_be32(0xffffffff);
- 
- 	__iscsi_complete_pdu(conn, (struct iscsi_hdr *)hdr,
--			     conn->data, pld_len);
-+			     conn->data, data_len);
- 	spin_unlock_bh(&session->back_lock);
- }
- 
+Changes in v7:
+- added the following fixes patches:
+-- PCI: rzg3s-host: Don't mix goto-based unwinding and cleanup helpers
+-- PCI: rzg3s-host: Create the INTx IRQ domain before setting the chained
+   handlers
+-- PCI: rzg3s-host: Initialize the IRQ domains after the IRQs are masked
+-- PCI: rzg3s-host: Drop read-modify-write approach for the R/W1C
+   registers
+-- PCI: rzg3s-host: Use cached MSI address in .irq_compose_msi_msg()
+
+- addressed sashiko comments:
+-- do not mix goto and __free() cleanup constructs
+-- addressed concurrency: b/w different paths calling .reset_root_port()
+   and b/w IRQ subsystems and .reset_root_port()
+
+Changes in v6:
+- addressed review comments as follows:
+- added patch 7/9 ("PCI: rzg3s-host: Add helper to wait for link up")
+- adopted the approach from pciehp and saved DSN of the connected
+  device and, based on it, take decision if the bus devices need to be
+  removed + rescanned
+- in case of link up and !list_empty(&bus->devices) remove first the
+  devices from the bus and re-scan (adopted the approach from pciehp)
+- with the new approach cleared the link IRQ (before enabling it) in
+  probe, and resume paths
+
+Changes in v5:
+- collected tags
+- added patch 3/9 ("PCI: rzg3s-host: Select PCI_HOST_COMMON")
+- addressed sashiko review comments (detailed in individual patches)
+
+Changes in v4:
+- simplified comments in patch 2/8
+- kept only DL_UpDown changes in patch 7/8
+- added patch 8/8 for the .reset_root_port() support
+
+Changes in v3:
+- added patches 1-6
+- re-worked patch 7 to use struct pci_host_bridge::reset_root_port() API
+
+[1] https://lore.kernel.org/all/20260630141720.3938514-1-john.madieu.xa@bp.renesas.com/
+
+
+Claudiu Beznea (13):
+  PCI: rzg3s-host: Follow hardware manual clock/reset initialization
+    order
+  PCI: rzg3s-host: Fix runtime PM handling in the NOIRQ suspend/resume
+    phase
+  PCI: rzg3s-host: Don't mix goto-based unwinding and cleanup helpers
+  PCI: rzg3s-host: Create the INTx IRQ domain before setting the chained
+    handlers
+  PCI: rzg3s-host: Initialize the IRQ domains after the IRQs are masked
+  PCI: rzg3s-host: Drop read-modify-write approach for the R/W1C
+    registers
+  PCI: rzg3s-host: Use cached MSI address in .irq_compose_msi_msg()
+  PCI: rzg3s-host: Drop nop instructions
+  PCI: rzg3s-host: Move host configuration code together
+  PCI: rzg3s-host: Move suspend/resume code into dedicated functions
+  PCI: rzg3s-host: Move IRQ domain setup code
+  PCI: rzg3s-host: Add helper to wait for link up
+  PCI: rzg3s-host: Add bridge::reset_root_port()
+
+John Madieu (1):
+  PCI: rzg3s-host: Re-enumerate the bus on PCIe link-state changes
+
+ drivers/pci/controller/Kconfig           |    1 +
+ drivers/pci/controller/pcie-rzg3s-host.c | 1260 +++++++++++++++-------
+ 2 files changed, 851 insertions(+), 410 deletions(-)
+
+-- 
+2.43.0
+
