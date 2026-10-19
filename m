@@ -1,141 +1,132 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADBC4B4058;
-	Mon, 19 Oct 2026 09:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2554973B7;
+	Mon, 19 Oct 2026 09:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403507; cv=none; b=fdUVUVmJhEHWiAonW3CNOX70J7E5GbHkl2qMZeQE6iGlufquxYk0oBwt9+0tIUreywwvPPuSCPNIf4ofyk0Lqi9y68RLF1vZaxB+H/EYatIPc7VWRAYGmRWFV52mtAoLaSF1skdmhmVTGVo6OfiEs50DD85L+MQ/QrmJiKA1E9g=
+	t=1792403580; cv=none; b=Scix0jNrysAFI79jNAIENkAJKRHGfG05xtbsD8sdjIkTVeH5TQFYmAjOc9zooIB8GbXyBM6aK61L2Qm8/8fEqMcZH8zS2xp7mcGi0riu/eZh3SMQ/g3YhkOM3i44+ct+r2vJ2jlmEDQfK7lwgmtfC96n0wuMficNrD8xHc12igg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403507; c=relaxed/simple;
-	bh=5oNAwwfQ69cR4mGdxdN7cguLnSFgztnFfpd9LWdweB4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K9Dz1V6LV8/cIFq64Poim7jXe6NZsmMHuilSjufHYxPVgyhZQ13saXNIkcpWb+jB/nUbko9Jr0R8zXb/1MS7JvOe3YnrW8Pmv3OXDA90UNxwCh2wi3XvdkXH++BwfJyYKWtowHURn2uRqcfpHGiwoj6LgWswL4LOyx7eaj+0F/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Izl0OhUp; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1792403580; c=relaxed/simple;
+	bh=VFYuJAXrjQsTzeG36wAA+0ZLuJ5TGfdekwusZYoOqW4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iZAMHhsWpt7lCZDUTt9hhN1gs4OEc9JLQdMYOk0PQO8tn9UUSXhs+tZO8EYvOx8tABJahK/nu95Tb0K0RnwrLJbjyirU7oQnnAF6MmBx9jY2JnIWMEYHCNtMGG5Ek39bcz9ptQDbFvtU7mLNrETUfsxj59FG7ZsmOshWv/lev7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=LJXi89jo; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Izl0OhUp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792403497;
-	bh=5oNAwwfQ69cR4mGdxdN7cguLnSFgztnFfpd9LWdweB4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Izl0OhUpiwWX70q+r2yy6nj/mQjXejNqbmpzWetZRnFRSCwdjzJcKbvNuLjDHgswb
-	 dp6C0fw8P/AMcsaZA+TIMW7kSdf6daGCd7Q0fVe8ubSCvtOhNidzl8KKB1sNIKqiY8
-	 fEUrsB9W0O44yhx/9siPXPbVduiCLyaQQ2N1/blIvGoLBGtiNbJWTOrsavPmHnSA2M
-	 B9eqhcQKtuBoBn9GVPVpRvyFeZgaoexV1iZA4VMOMFmVbXK3a+nuy25vPPw0qvrsqM
-	 mW7LS2D7VcahGvm+y4D9s2WIc83jF+HbwCRyPSacQhPptfhmVXXPnwKZeL1gMTCO/b
-	 6aPZUtywIGDqw==
-Received: from [100.64.0.157] (unknown [100.64.0.157])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: vignesh)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9C40117E089A;
-	Mon, 19 Oct 2026 11:51:35 +0200 (CEST)
-Message-ID: <bb98b4ef-559c-4a7e-a338-ea105810e54f@collabora.com>
-Date: Mon, 19 Oct 2026 15:21:33 +0530
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="LJXi89jo"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B36F3A02DC;
+	Mon, 19 Oct 2026 11:52:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792403576; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=Juyv/i4vb/Sxzh2/L0ghawLIYk7uQZQCgmAALNgCVVM=;
+	b=LJXi89jo8Y9B8AjP0LGeXGDRFCZY7Lko6hwsZO1lhRLxeAJ1Fww9zUrPmya29HCIElEJIQ
+	qkupQuezANCM3Um0iHJ6YL8ieqmYdaoSWGDk1WOjZGXXRv62608NlAADlKNohwsmPCY2j7
+	xRW9d7e4Fk9Ky+V2KjwcyDFMFIycv2zN2GghP2VbSRuDEddVwpFtzPx3nPUHwPxv9VELWZ
+	hGcSNQhSZmd0S8vDMbHQc347zs6YtLAf8H8c1v2VvoF3mLj6WtuF+zwzm0kOMjkxhJfl4z
+	g3jFIegZryzJjXy3fJRbj3laTU89XIoIgCrAc5AA+IsiHkP5QbghP3PgEbHDww==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Subject: [PATCH net v2 0/2] net: bcmgenet: fixes for a failed resume and
+ the ring rebuild
+Date: Mon, 19 Oct 2026 11:52:46 +0200
+Message-Id: <20261019-nb-genet-fini-dma-net-v2-0-b85f6b92654a@tipi-net.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/ci: add sc7180-trogdor-wormdingler-rev1-boe
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
- helen.fornazier@gmail.com, airlied@gmail.com, simona.vetter@ffwll.ch,
- lumag@kernel.org, robdclark@gmail.com, robin.clark@oss.qualcomm.com,
- valentine.burley@collabora.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260616115410.325837-1-vignesh.raman@collabora.com>
- <20260616115410.325837-3-vignesh.raman@collabora.com>
- <mxfi2t4qwxb5n3xebdfesq2rwwrimtpav5uwvkchtqfjksl2rt@gr4bjqqyt22y>
-Content-Language: en-US
-From: Vignesh Raman <vignesh.raman@collabora.com>
-In-Reply-To: <mxfi2t4qwxb5n3xebdfesq2rwwrimtpav5uwvkchtqfjksl2rt@gr4bjqqyt22y>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2jG0lFZd+R+GBY8BxsRC2ko0h
+ H+3Rbcu78y596zgyTF5uGQrOFrY82RjkIcM2rG2AyF3MYPMpRa5KNE2OJClgD1bxu5RYwpa1sW
+ ZSCjSJcTu7Kjn1757gwhA9T36Z3OnNqTFhI3sw+Teu30RO/wTmT+iRWCOypBpS9PrU6GugWdOr
+ 2NHUG3b9gEPLyoG0wAAAA==
+X-Change-ID: 20261015-nb-genet-fini-dma-net-62a39ee14e65
+To: Doug Berger <opendmb@gmail.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Florian Fainelli <f.fainelli@gmail.com>, 
+ Justin Chen <justin.chen@broadcom.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+This is v2 of my resume and ring fixes for genet. After some further
+testing and local LLM review rounds I squashed v1 patches 1 to 3.
 
-On 02/10/26 18:16, Dmitry Baryshkov wrote:
-> On Tue, Jun 16, 2026 at 05:24:05PM +0530, Vignesh Raman wrote:
->> Add job that executes the IGT test suite for
->> sc7180-trogdor-wormdingler-rev1-boe.
->>
->> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
->> ---
->>
->> diff --git a/drivers/gpu/drm/ci/build.sh b/drivers/gpu/drm/ci/build.sh
->> index fdaa26ad79d6..61ac2d043ce3 100644
->> --- a/drivers/gpu/drm/ci/build.sh
->> +++ b/drivers/gpu/drm/ci/build.sh
->> @@ -28,6 +28,7 @@ if [[ "$KERNEL_ARCH" = "arm64" ]]; then
->>       DEVICE_TREES+=" arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dtb"
->>       DEVICE_TREES+=" arch/arm64/boot/dts/qcom/sc7180-trogdor-kingoftown.dtb"
->>       DEVICE_TREES+=" arch/arm64/boot/dts/qcom/sm8350-hdk.dtb"
->> +    DEVICE_TREES+=" arch/arm64/boot/dts/qcom/sc7180-trogdor-wormdingler-rev1-boe.dtb"
-> 
-> Let's keep it at least minimally sorted, puting wormdingler between
-> kingoftown and sm8350
+Mostly findings sashiko raised during my recent review sessions.
 
-Ack
+Patch 1 is a resume that fails in bcmgenet_init_dma(), which leaves the
+interface up with no datapath and the next ifdown hanging in
+napi_disable() with RTNL held. It is one patch because nothing that
+resume leaves behind is reachable on its own, the second suspend never
+returns until the hang is fixed.
 
-> 
->>   elif [[ "$KERNEL_ARCH" = "arm" ]]; then
->>       GCC_ARCH="arm-linux-gnueabihf"
->>       DEBIAN_ARCH="armhf"
-> 
-> [..]
-> 
->> diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt
->> new file mode 100644
->> index 000000000000..4af93eeeaf99
->> --- /dev/null
->> +++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt
->> @@ -0,0 +1,23 @@
-> 
-> Most of the entries here are shared with kingoftown / limozeen, except
-> for:
-> 
->> +kms_invalid_mode@overflow-vrefresh,Fail
-> 
-> Do you know why it fails? Why does it not on previous devices?
+Patch 2 (was patch 4 in v1) is the Tx coalescing threshold going back
+to the driver default whenever the rings are rebuilt.
 
-Will check this again.
+Patch 1 fixes the rebuild path, not the root cause. bcmasp for example
+parks the PHY in its WoL suspend and has one deinit with a flag, which
+looks like the direction for genet too. But one step at a time :)
 
-> 
->> diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-skips.txt
->> new file mode 100644
->> index 000000000000..8d1768de90cc
->> --- /dev/null
->> +++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-skips.txt
-> 
-> This is mostly a copy of the existing lists, but kingoftown and limozeen
-> list .*suspend.* here. If we don't skip them for wormdingler, should we
-> unskip them for kingoftown too?
+Patch 1 is also prep for the next version of my MTU series [1], which
+drops the "hallmark of a bad design" flag in favour of the ring pointers
+it clears.
 
-I will unskip for kingoftown and test.
+[1] https://patch.msgid.link/20261013-nb-genet-mtu-nn-v2-v5-0-076b6fc240be@tipi-net.de
 
-> 
-> Also, I see that kingoftown lists several additional tests to be skipped
-> (kms_flip@2x-wf_vblank-ts-check, kms_cursor_crc@cursor-random-max-size,
-> kms_invalid_mode@overflow-vrefresh). Do you remember why?
+For backports: the WoL hunks in patch 1 need 254f3239dd07, on older trees
+they can be dropped. The rest applies on its own.
 
-These tests caused hang or timeout, so it was added to skip file.
+Patch 2 and the hang in patch 1 were tested on BCM2711 (Raspberry Pi CM4)
+with the resume allocation forced to fail. Everything on the WoL path is
+untested, the board has no wake source.
 
-> 
-> Overall, I _think_ I have commented beforehand, but I can't find that
-> comment (so it might be my delusion or false memory). Is there a way to
-> unify the configuration for sc7180 trogdor devices?
-> 
+Florian, Justin: If you have a setup to test this, I'd appreciate it!
 
-Let me check if we can use a unified configuration. I will regenerate 
-the expectation files.
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+Changes in v2:
+- Squashed v1 patches 1 to 3 into one, each was either a no-op or left a
+  broken tree on its own
+- Turn HFB off on the suspend early return, it stayed armed as a wake
+  source (sashiko)
+- Second Fixes tag for the WoL hunks
+- Let PHY_ERROR reach phy_stop() too (sashiko)
+- Link to v1: https://patch.msgid.link/20261017-nb-genet-fini-dma-net-v1-0-47e7c57f6834@tipi-net.de
 
-Regards,
-Vignesh
+To: Doug Berger <opendmb@gmail.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+To: Nicolai Buchwitz <nb@tipi-net.de>
+To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: Justin Chen <justin.chen@broadcom.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
+---
+Nicolai Buchwitz (2):
+      net: bcmgenet: recover from a failed resume
+      net: bcmgenet: restore the Tx coalescing setting when the rings are rebuilt
+
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 56 +++++++++++++++++++++-----
+ drivers/net/ethernet/broadcom/genet/bcmgenet.h |  1 +
+ 2 files changed, 46 insertions(+), 11 deletions(-)
+---
+base-commit: 8e2fbe0e75d38690d551456658194c632933cb57
+change-id: 20261015-nb-genet-fini-dma-net-62a39ee14e65
+
+Best regards,
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
 
