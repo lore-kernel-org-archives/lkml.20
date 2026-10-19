@@ -1,67 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792423475;
-	b=0f5EQHAyzHfhJ0u1L+pq3pypbcoTODmYKFWAQiW43hfnC6q6XsUmCAnNoltkjEJ6/jYO
-	 JbjkSdS4Hejtp6vOZUZY5FZudoyytY5TjVvR3cgAn4MakT73K7GN6nmK2nV1v9ydLjaJf
-	 ZtsH6N3AI4OW1Oo63ZscIYVqowYaloTBpdAEIBLMc0NzLkrIo9T1tKOpcaf38VMhCW0+P
-	 RqMg9Wy2OhkSc2LZRPubk+u8o8p7ZUP3xgETljzUuJ0k17Pc316wpkPlYAyEAvGrcnb7b
-	 8NV/5Mm60MqrnkCO+H8gKcy2hL7BPX3xzsktYQhVi/SOPZhZLPLmGU+nMLtcCP5JGyw==
+	t=1792422878;
+	b=fFt3Xeeb4FgJ4C3/K5NQd7tQ/I/txXzm0gqb3oTxzBoD1U73JWI5NWSPLipN0sdhuCDo
+	 Uo9g6ot4ESuDGH4oJOBKbIDJUWVmUR2ZRoZQudpgC1HdkTWH+H01KfCMUE0CAwraTbZcC
+	 cVpa6R04j7ZYSH0ecBObceoMI2ifb6YVDUxJbbgdj/YVaOZzWGYyB5UCo0X60dapUxG3y
+	 /6LbwEbo9pMEzhJGxtac6k468FIPV9AHd1+YKgIx/qnRvCe1DS0N0dVaRdQ1zJbK8EJX7
+	 2BgZycU36QCkVFCrKKk/ZHVGLcF6DXQhC+VKFhF2c39EEycL0gnJ6GFkmTeA2UAcTbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423475;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=IFwSeD1ovfD41NQTL9oOWjnQ3ijZeEdakcY9lvs54e4=;
-	b=d5IJpT1Y5P6+kH5rVpxqVblxCHthK847/HhABF2jzSnhPnMEuKSDiDJ5j6hxhPMM499z
-	 trN6L+QP7IfH6dqLCWk7n/ZRFrI2x/HMnDsLwMesEHR9Qpx6wjY+VYgAnii5jl93SyjVa
-	 miWbcNnEiDeW2+67ESX1Q9puE5aksvTFiVfSMRqv76fuE/bF7pxgq80dkLWan4bUYtfxf
-	 rYWAqZFEFgVvXKh4f1nmoyqirZVIEEiDRCt9Ap8woPXxuxXAm7LUdGVyONN9pKC3ZBSWd
-	 LXgQF2pSIS9XTWJwNQddvcVrjy/nRToxMD1BINPcHAfoWeTZUlKqloMU6KxWhWUmrLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422878;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5Rg8ro+nVC+0k89M1QmhZ1e0RzR/D2AdQ8L9fKW1vx4=;
+	b=Oi/NgL/RK42UrLQjY8ZmdONddBC9YOtJ8IQnlfNRMv756olksqXykvakGEZ0HpqhIatB
+	 zWW3Wy8y4XCWEpP6N5HqASusR3l0OUWQnrMU/oZCxH9SAXhCJC1m1ZW/7PTtolMIpEv8x
+	 PsCXLCkwhDUHUlTdRfizoWU/ymgZGQqzweLC7FdLYFm8axZ/E0K5dKGhVZMhxFqxJVpps
+	 d80uEOJ49OxgPRNI7TAERJzFBchkUrah5drfsM7Ulnk5E1s/uNeX3bpHONhuHRTo72+Aq
+	 GxkpsO4o3dDZZ8f6xCD/gGB6en2mgt+FmEQDnXUUjZk10SKYaiddorH3tFL5fn+KSNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PTxaK6II;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fcCGXFNm;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9F060AF787
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:24:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F9F060AF787
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505FA609CEDF;
+	Mon, 19 Oct 2026 15:14:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 505FA609CEDF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PTxaK6II
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792423473;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IFwSeD1ovfD41NQTL9oOWjnQ3ijZeEdakcY9lvs54e4=;
-	b=PTxaK6IIIsOZRqSj8FS6B64iSOhqq+TEJkRojgjBVTH8jvXkZp+PNqXW6yqVEUwPpy1znL
-	hAtLU7nGmY23modx9rzaJZEQ5lbmAOXkkNAjYuae2e2Stx2oPcyr+flKl/uWfF9xPMMJUA
-	6jqzOOXC2sNfng1saYbWcmHfG5y/1mg=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-621-3yll3N4DOfW4SbejawhYgw-1; Mon,
- 19 Oct 2026 15:24:30 +0000
-X-MC-Unique: 3yll3N4DOfW4SbejawhYgw-1
-X-Mimecast-MFC-AGG-ID: 3yll3N4DOfW4SbejawhYgw_1792423468
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B0FA51955DAE;
-	Mon, 19 Oct 2026 15:24:27 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 377C1180057F;
-	Mon, 19 Oct 2026 15:24:25 +0000 (UTC)
-Message-ID: <75fe5ee5-035e-486c-af00-ed4ba3bf0f25@redhat.com>
-Date: Mon, 19 Oct 2026 11:24:24 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fcCGXFNm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792422878; x=1823958878;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=1XahINlI+qtzt3WIrBdAjFdXjrmyMcpiOfQXjm/4WOY=;
+  b=fcCGXFNm/+4tvDAC36LEQQYj/Mk0wDjMwXaWB/V445pm0ltz3z1lTG/k
+   t7urc0htJ0sQsminiS9njcPS/VNGhDE8AEh0HtLVUbBvyN79vVDztIzcP
+   1jdYIiNZUMjDJsmogimO9gI+1MVk6tdhOdlVBWMujXlx25+bWLb5Axx7e
+   E9Bs4UfKrZo0uM4mFS3HaRIQSy1kStpmByS7R5aG8Nv/DdiIg7u0dvlCr
+   uEerl7UE/oyKi9oBjU2h/6cqUbk6uSI5FMJrXqmnEZe2OnkoWumj+J8u1
+   ULJ+jVYaZdRDI+tuQr6ibDhhySxXq+AekZI1MuQhmORQinT20+2dGOnFN
+   g==;
+X-CSE-ConnectionGUID: UzJr9t8fRG234Li6t5Crgg==
+X-CSE-MsgGUID: 8k/cbX9hSXiS/jq57ZMLOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="992130"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="992130"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:36 -0700
+X-CSE-ConnectionGUID: wG5r3/fiQl2BWTJBHQT9Jw==
+X-CSE-MsgGUID: X2Ddg/jvSledtfS/BnPcuA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2636142"
+Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
+  by fmviesa005.fm.intel.com with ESMTP; 19 Oct 2026 08:14:35 -0700
+From: Daniel Byrne <daniel1.byrne@intel.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>
+Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Ludovic Desroches <ludovic.desroches@microchip.com>,
+	dmaengine@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/3] dmaengine: idxd: generation-number transaction status
+Date: Mon, 19 Oct 2026 08:06:31 -0700
+Message-ID: <20261019150632.4026424-3-daniel1.byrne@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019150632.4026424-1-daniel1.byrne@intel.com>
+References: <20261019150632.4026424-1-daniel1.byrne@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,256 +88,325 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v3 3/9] cgroup/cpuset: Consider all the exclusive
- CPUs when doing housekeeping check
-To: Guopeng Zhang <guopeng.zhang@linux.dev>,
- Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>
-Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Hui Peng <benquike@gmail.com>
-References: <20261014140548.575122-1-longman@redhat.com>
- <20261014140548.575122-4-longman@redhat.com>
- <6bf0bfec-1726-41a4-b9ee-aac23da18d19@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <6bf0bfec-1726-41a4-b9ee-aac23da18d19@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On 10/15/26 10:18 PM, Guopeng Zhang wrote:
->
-> 在 2026/10/14 22:05, Waiman Long 写道:
->> When prstate_housekeeping_conflict() is called to perform housekeeping
->> check with cpumask changes, the cpumask changes are passed in via addmask
->> and delmask. With this arrangement, the exclusive CPUs owned by the child
->> partitions and not affected by the cpumask change, if any, are excluded
->> in the analysis. If the current cpuset is an isolated partition with
->> root partition children, it is possible the cpumask change will still
->> leave active housekeeping CPUs but then no housekeeping CPUs will be
->> left when the child partitions are disabled or invalidated.
->>
->> As a first step to protect against this possibility, all the exclusive
->> CPUs of the cpuset should be considered to be owned by the current cpuset
->> when doing housekeeping check. As a result, there is no need to pass in
->> separate add_mask and del_mask parameters. They are combined into a single
->> new_cpus parameter. The parent_prs parameter can be removed as well.
->>
->> With this change, the prstate_housekeeping_conflict() call in
->> update_parent_effective_cpumask() with partcmd_update and newmask
->> is now duplicative and can be removed. The housekeeping check in
->> remote_cpus_update(), however, will still be useful as this function can
->> be called directly from update_cpumasks_hier() without going through
->> partition_cpus_change(). The update_parent_effective_cpumask() call
->> from update_cpumasks_hier() is partcmd_update with no cpumask which
->> still have the housekeeping check and so is covered.
->>
->> Fixes: 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full don't leave any housekeeping")
->> Signed-off-by: Waiman Long <longman@redhat.com>
->> ---
->>   kernel/cgroup/cpuset.c | 77 ++++++++++++++++--------------------------
->>   1 file changed, 30 insertions(+), 47 deletions(-)
->>
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index 2b9aefc0edb8..b2684c98d8c0 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -1355,26 +1355,20 @@ static void partition_xcpus_del(int old_prs, struct cpuset *parent,
->>   /*
->>    * prstate_housekeeping_conflict - check for partition & housekeeping conflicts
->>    * @new_prs: new partition root state to be checked
->> - * @parent_prs: Parent partition root state
->> - * @add_cpus: additional CPUs to be added to current cpuset
->> - * @del_cpus: CPUs to be removed from current cpuset, can be NULL
->> + * @new_cpus: cpu mask to be checked
->>    * Return: true if there is conflict, false otherwise
->>    *
->>    * There are two different housekeeping conflicts to be checked:
->> - * 1) If new_prs is PRS_ROOT, none of the @add_cpus can be a boot-time isolated
->> - *    CPU. IOW, the whole @add_cpus must be a subset of HK_TYPE_DOMAIN_BOOT.
->> + * 1) If new_prs is PRS_ROOT, none of the @new_cpus can be a boot-time isolated
->> + *    CPU. IOW, the whole @new_cpus must be a subset of HK_TYPE_DOMAIN_BOOT.
->>    * 2) If nohz_full is enabled and we have isolated CPUs, their combination must
->> - *    still leave housekeeping CPUs. This check is only needed if new_prs
->> - *    differs from parent_prs and one of them is PRS_ISOLATED.
->> + *    still leave housekeeping CPUs.
->>    */
->> -static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
->> -					  struct cpumask *add_cpus,
->> -					  struct cpumask *del_cpus)
->> +static bool prstate_housekeeping_conflict(int new_prs, struct cpumask *new_cpus)
->>   {
->>   	cpumask_var_t full_hk_cpus;
->>   	int res;
->>   
->> -	WARN_ON_ONCE(parent_prs <= 0);
->>   	if (!new_prs)
->>   		return false;
->>   
->> @@ -1393,30 +1387,18 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
->>   		new_prs = -new_prs;
->>   
->>   	if (housekeeping_enabled(HK_TYPE_DOMAIN_BOOT) && (new_prs == PRS_ROOT) &&
->> -	    !cpumask_subset(add_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
->> +	    !cpumask_subset(new_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
->>   		return true;
->>   
->>   	/*
->>   	 * Exit 2nd check early and return false if
->>   	 * 1) there is no boot time isolated nohz_full CPU
->> -	 * 2) new_prs is PRS_ROOT, parent_prs is PRS_ISOLATED and no CPU will
->> -	 *    be returned back to the parent.
->> +	 * 2) @new_prs is not PRS_ISOLATED
->> +	 * 3) @new_cpus is a subset of isolated_cpus
->>   	 */
->>   	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE) ||
->> -	    (!del_cpus && (new_prs == PRS_ROOT) && (parent_prs == PRS_ISOLATED)))
->> -		return false;
->> -
->> -	/*
->> -	 * Now make sure that @add_cpus contains new CPUs to be isolated and
->> -	 * @del_cpus contains isolated CPUs to be un-isolated.
->> -	 * With the guards above, @add_cpus can't be NULL after the swap.
->> -	 */
->> -	if (parent_prs == PRS_ISOLATED)
->> -		swap(add_cpus, del_cpus);
->> -
->> -	if (del_cpus &&
->> -	   (cpumask_first_and_and(del_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
->> -				   cpu_active_mask) < nr_cpu_ids))
->> +	    (new_prs != PRS_ISOLATED) ||
->> +	    cpumask_subset(new_cpus, isolated_cpus))
->>   		return false;
->>   
->>   	if (!alloc_cpumask_var(&full_hk_cpus, GFP_KERNEL))
->> @@ -1426,7 +1408,7 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
->>   		    housekeeping_cpumask(HK_TYPE_DOMAIN));
->>   	cpumask_andnot(full_hk_cpus, full_hk_cpus, isolated_cpus);
->>   	cpumask_and(full_hk_cpus, full_hk_cpus, cpu_active_mask);
->> -	res = !cpumask_weight_andnot(full_hk_cpus, add_cpus);
->> +	res = !cpumask_weight_andnot(full_hk_cpus, new_cpus);
->>   
-> One of my test cases regressed in v3 compared to v2. CPUs 0-15 are online,
-> with nohz_full=2-15 and no isolcpus:
->
->      # cd /sys/fs/cgroup
->      # echo +cpuset > cgroup.subtree_control
->      # mkdir A
->      # echo 0 > A/cpuset.cpus
->      # echo isolated > A/cpuset.cpus.partition
->      # cat cpuset.cpus.isolated
->      0
->      # echo 1 > A/cpuset.cpus
->      # cat A/cpuset.cpus.partition
->      isolated invalid (partition config conflicts with housekeeping setup)
->
-> The last write should release CPU 0 for housekeeping, leaving A as a valid
-> isolated partition on CPU 1. It looks like the check uses the state before
-> the update, sees only CPU 1 available for housekeeping, and incorrectly
-> invalidates A.
->
-> thanks,
-> Guopeng
+Implement device_tx_status() by reading the addressed descriptor's
+completion record. The cookie encodes the descriptor id in its lower
+16 bits and a generation number in the 14 bits above, so a query
+against a recycled descriptor sees a stale cookie and reads
+DMA_COMPLETE. The generation wraps after 16383 submissions of the same
+slot; the contract is that a client polls a cookie to its terminal
+answer, or abandons it, before its slot has been reused 16383 times,
+which every in-tree polling client satisfies by construction.
 
-Yes, it is a known issue and will be fixed in the next version.
+Descriptors with a completion interrupt armed stay with the IRQ
+handler: a generic client such as dmatest may request an interrupt,
+and reading such a descriptor's completion record here would race with
+the handler recycling it. tx_status therefore reports DMA_IN_PROGRESS
+while such a cookie is live and the stale-cookie check answers once the
+handler has completed it. Whether a descriptor is interrupt-armed
+travels in the cookie, in the bit below the sign bit, since the
+descriptor's own flags are rewritten when the handler recycles it.
 
-Cheers,
-Longman
+A polled descriptor has two terminal answers. Its completion record
+gives the first; the query retires the descriptor and reports
+DMA_COMPLETE or DMA_ERROR from the status. The second is DMA_ERROR for
+a descriptor outstanding on a work queue or a device that is no longer
+enabled, since nothing will complete it; the slot is retired only when
+the device halted, which kills it for good. Descriptors carry the
+device's reset epoch from submit time for that, and the halt stores its
+state before it bumps the epoch, so a poll that read the old epoch and
+the halted state reads the epoch again and retires on a mismatch. The
+same epoch lets device_synchronize() treat a drain that a halt ended
+as complete, since the halt killed everything the drain covered.
 
->>   	free_cpumask_var(full_hk_cpus);
->>   	return res;
->> @@ -1613,7 +1595,7 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->>   		return PERR_INVCPUS;
->>   	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
->>   		return PERR_NOCPUS;
->> -	if (prstate_housekeeping_conflict(new_prs, PRS_ROOT, tmp->new_cpus, NULL))
->> +	if (prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
->>   		return PERR_HKEEPING;
->>   
->>   	spin_lock_irq(&callback_lock);
->> @@ -1715,8 +1697,7 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->>   		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
->>   			 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
->>   			WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
->> -		else if (prstate_housekeeping_conflict(prs, PRS_ROOT,
->> -						       tmp->addmask, tmp->delmask))
->> +		else if (prstate_housekeeping_conflict(prs, excpus))
->>   			WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
->>   		if (cs->prs_err)
->>   			goto invalidate;
->> @@ -1796,7 +1777,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>   	int old_prs, new_prs;
->>   	int part_error = PERR_NONE;	/* Partition error? */
->>   	struct cpumask *xcpus = user_xcpus(cs);
->> -	int parent_prs = parent->partition_root_state;
->>   	bool nocpu;
->>   
->>   	lockdep_assert_cpuset_lock_held();
->> @@ -1858,7 +1838,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>   		if (cpumask_empty(xcpus))
->>   			return PERR_INVCPUS;
->>   
->> -		if (prstate_housekeeping_conflict(new_prs, parent_prs, xcpus, NULL))
->> +		if (prstate_housekeeping_conflict(new_prs, xcpus))
->>   			return PERR_HKEEPING;
->>   
->>   		if (tasks_nocpu_error(parent, cs, xcpus))
->> @@ -1930,14 +1910,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>   					       parent->effective_xcpus);
->>   		}
->>   
->> -		/*
->> -		 * Check for housekeeping conflicts
->> -		 */
->> -		if (is_partition_valid(cs) &&
->> -		    prstate_housekeeping_conflict(old_prs, parent_prs,
->> -						  tmp->delmask, tmp->addmask))
->> -			part_error = PERR_HKEEPING;
->> -
->>   		/*
->>   		 * The new CPUs to be removed from parent's effective CPUs
->>   		 * must be present.
->> @@ -2430,6 +2402,21 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
->>   		return;
->>   
->>   	prs_err = validate_partition(cs, trialcs);
->> +	if (!prs_err && !cpumask_empty(trialcs->effective_xcpus)) {
->> +		int parent_prs = is_remote_partition(cs)
->> +			       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
->> +		/*
->> +		 * Check for housekeeping CPUs conflict assuming that all
->> +		 * the exclusive CPUs belong to the current cpuset. We rely
->> +		 * on the fact that effective_xcpus has been set up by
->> +		 * compute_trial_excpus() which is called previously in
->> +		 * update_cpumask() and update_exclusive_cpumask().
->> +		 */
->> +		if (parent_prs > 0 &&
->> +		    prstate_housekeeping_conflict(trialcs->partition_root_state,
->> +						  trialcs->effective_xcpus))
->> +			prs_err = PERR_HKEEPING;
->> +	}
->>   	if (prs_err) {
->>   		WRITE_ONCE(cs->prs_err, prs_err);
->>   		trialcs->prs_err = prs_err;
->> @@ -2922,15 +2909,11 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->>   			err = remote_partition_enable(cs, new_prs, &tmpmask);
->>   		}
->>   	} else if (old_prs && new_prs) {
->> -		int parent_prs = is_remote_partition(cs)
->> -				 ? PRS_ROOT : parent->partition_root_state;
->> -
->>   		/*
->>   		 * A change in load balance state only, no change in cpumasks.
->>   		 * Need to update isolated_cpus.
->>   		 */
->> -		if (prstate_housekeeping_conflict(new_prs, parent_prs,
->> -						  cs->effective_xcpus, NULL))
->> +		if (prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
->>   			err = PERR_HKEEPING;
->>   		else
->>   			isolcpus_updated = true;
+Switch the prep callbacks' descriptor allocation to IDXD_OP_NONBLOCK:
+prep callbacks may not sleep, and on an exhausted pool they return NULL
+so the caller falls back. Direct kernel clients such as iaa_crypto keep
+the blocking allocator path. This gives dmaengine_async_is_tx_complete()
+exact per-descriptor results for polling clients on a device whose work
+queues complete out of order across a group's engines.
+
+Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
+---
+ drivers/dma/idxd/device.c |   1 +
+ drivers/dma/idxd/dma.c    | 158 ++++++++++++++++++++++++++++++++++++--
+ drivers/dma/idxd/idxd.h   |   3 +
+ drivers/dma/idxd/irq.c    |   8 ++
+ 4 files changed, 165 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/dma/idxd/device.c b/drivers/dma/idxd/device.c
+index 5ccdc5ff8d53..68a7de74f9e6 100644
+--- a/drivers/dma/idxd/device.c
++++ b/drivers/dma/idxd/device.c
+@@ -155,6 +155,7 @@ int idxd_wq_alloc_resources(struct idxd_wq *wq)
+ 			desc->iax_completion = &wq->iax_compls[i];
+ 		desc->compl_dma = wq->compls_addr + idxd->data->compl_size * i;
+ 		desc->id = i;
++		desc->gen = 1;
+ 		desc->wq = wq;
+ 		desc->cpu = -1;
+ 	}
+diff --git a/drivers/dma/idxd/dma.c b/drivers/dma/idxd/dma.c
+index 0a7517cb51f2..dd5a9d9274ce 100644
+--- a/drivers/dma/idxd/dma.c
++++ b/drivers/dma/idxd/dma.c
+@@ -12,6 +12,20 @@
+ #include "registers.h"
+ #include "idxd.h"
+ 
++#define DMA_COOKIE_BITS (sizeof(dma_cookie_t) * 8)
++/*
++ * The descriptor id takes the lower 16 bits of the cookie.
++ */
++#define DESC_ID_BITS 16
++#define DESC_ID_MASK ((1 << DESC_ID_BITS) - 1)
++/*
++ * The generation takes the 14 bits above the id. Since dma_cookie_t is
++ * signed, the upper-most bit is left for the sign, and the bit below it
++ * records that the descriptor completes by interrupt.
++ */
++#define IDXD_COOKIE_RCI BIT(DMA_COOKIE_BITS - 2)
++#define DESC_GEN_MAX ((1 << (DMA_COOKIE_BITS - DESC_ID_BITS - 2)) - 1)
++
+ static inline struct idxd_wq *to_idxd_wq(struct dma_chan *c)
+ {
+ 	struct idxd_dma_chan *idxd_chan;
+@@ -93,7 +107,7 @@ idxd_dma_prep_interrupt(struct dma_chan *c, unsigned long flags)
+ 		return NULL;
+ 
+ 	op_flag_setup(flags, &desc_flags);
+-	desc = idxd_alloc_desc(wq, IDXD_OP_BLOCK);
++	desc = idxd_alloc_desc(wq, IDXD_OP_NONBLOCK);
+ 	if (IS_ERR(desc))
+ 		return NULL;
+ 
+@@ -120,7 +134,7 @@ idxd_dma_submit_memcpy(struct dma_chan *c, dma_addr_t dma_dest,
+ 		return NULL;
+ 
+ 	op_flag_setup(flags, &desc_flags);
+-	desc = idxd_alloc_desc(wq, IDXD_OP_BLOCK);
++	desc = idxd_alloc_desc(wq, IDXD_OP_NONBLOCK);
+ 	if (IS_ERR(desc))
+ 		return NULL;
+ 
+@@ -154,11 +168,128 @@ static void idxd_dma_free_chan_resources(struct dma_chan *chan)
+ 		idxd_wq_refcount(wq));
+ }
+ 
++/*
++ * A cookie has exactly one polling owner, the client that submitted the
++ * transaction. Observing a terminal completion record here retires and
++ * recycles the descriptor, since a polled descriptor has no interrupt
++ * and nobody else will. Two contexts polling the same live cookie
++ * would race that recycle, which every in-tree dmaengine polling
++ * client already avoids by construction.
++ */
+ static enum dma_status idxd_dma_tx_status(struct dma_chan *dma_chan,
+ 					  dma_cookie_t cookie,
+ 					  struct dma_tx_state *txstate)
+ {
+-	return DMA_OUT_OF_ORDER;
++	struct idxd_wq *wq;
++	struct idxd_desc *desc;
++	u32 idx;
++	u8 status;
++
++	if (txstate)
++		memset(txstate, 0, sizeof(*txstate));
++
++	if (dma_submit_error(cookie))
++		return DMA_ERROR;
++
++	wq = to_idxd_wq(dma_chan);
++
++	idx = cookie & DESC_ID_MASK;
++	if (idx >= wq->num_descs)
++		return DMA_ERROR;
++
++	desc = wq->descs[idx];
++
++	/*
++	 * Descriptors with a completion interrupt armed (RCI) are
++	 * completed and recycled by the IRQ handler. Reading their
++	 * completion record here would race with the handler, and so
++	 * would reading the recycled descriptor's flags, which is why
++	 * the property travels in the cookie the caller owns. The handler
++	 * invalidates the cookie on completion, so a matching cookie means
++	 * the command is still in progress.
++	 */
++	if (cookie & IDXD_COOKIE_RCI)
++		return READ_ONCE(desc->txd.cookie) == cookie ?
++			DMA_IN_PROGRESS : DMA_COMPLETE;
++
++	if (desc->txd.cookie != cookie) {
++		/*
++		 * The cookie belongs to an old transaction that has
++		 * already completed and been recycled.
++		 */
++		return DMA_COMPLETE;
++	}
++
++	status = desc->completion->status & DSA_COMP_STATUS_MASK;
++
++	if (status) {
++		/* Capture completion record fields before desc is freed below. */
++		u8 fault_info = desc->completion->fault_info;
++		u64 fault_addr = desc->completion->fault_addr;
++
++		/*
++		 * Check against the original status because ABORT is
++		 * software defined as 0xff, which DSA_COMP_STATUS_MASK
++		 * can mask out.
++		 */
++		if (unlikely(desc->completion->status == IDXD_COMP_DESC_ABORT))
++			idxd_dma_complete_txd(desc, IDXD_COMPLETE_ABORT, true, NULL, NULL);
++		else
++			idxd_dma_complete_txd(desc, IDXD_COMPLETE_NORMAL, true, NULL, NULL);
++
++		dev_dbg(&wq->idxd->pdev->dev,
++			"dsa completion: status=0x%02x fault_info=0x%02x fault_addr=0x%llx\n",
++			status, fault_info, fault_addr);
++
++		if (status == DSA_COMP_SUCCESS)
++			return DMA_COMPLETE;
++
++		return DMA_ERROR;
++	}
++
++	/*
++	 * The descriptor is genuinely outstanding. A polled descriptor
++	 * carries no interrupt, so nothing but this function will ever
++	 * retire it, and a work queue or device that is no longer enabled
++	 * will not complete it either. Report the failure instead of
++	 * leaving the caller polling forever.
++	 *
++	 * A descriptor submitted before a device halt is dead for good:
++	 * the halt ended the engines and the reset that follows starts
++	 * them empty, so its record will never be written even once the
++	 * device is enabled again. Only in that case can the descriptor
++	 * be retired here safely; otherwise the pool would shrink by one
++	 * for every descriptor caught by a halt.
++	 */
++	if (desc->epoch != READ_ONCE(wq->idxd->reset_epoch)) {
++		idxd_dma_complete_txd(desc, IDXD_COMPLETE_ABORT, true, NULL, NULL);
++		return DMA_ERROR;
++	}
++	/*
++	 * A device that is no longer enabled runs nothing it holds, so an
++	 * outstanding descriptor on it has failed. A halt stores its state
++	 * before it bumps the epoch, and this poll may have read the epoch
++	 * before the halt and the state after it, so the epoch is read
++	 * again: only the retire frees the slot of a descriptor the halt
++	 * caught. A halted device whose epoch still matches is between the
++	 * two stores, and the next poll retires the descriptor. The submit
++	 * reads the state after the stamp, so it refuses a descriptor
++	 * stamped with the bumped epoch.
++	 */
++	if (wq->idxd->state != IDXD_DEV_ENABLED) {
++		if (desc->epoch != READ_ONCE(wq->idxd->reset_epoch)) {
++			idxd_dma_complete_txd(desc, IDXD_COMPLETE_ABORT, true,
++					      NULL, NULL);
++			return DMA_ERROR;
++		}
++		if (wq->idxd->state == IDXD_DEV_HALTED)
++			return DMA_IN_PROGRESS;
++		return DMA_ERROR;
++	}
++	if (wq->state != IDXD_WQ_ENABLED)
++		return DMA_ERROR;
++
++	return DMA_IN_PROGRESS;
+ }
+ 
+ /*
+@@ -177,7 +308,17 @@ static dma_cookie_t idxd_dma_tx_submit(struct dma_async_tx_descriptor *tx)
+ 	int rc;
+ 	struct idxd_desc *desc = container_of(tx, struct idxd_desc, txd);
+ 
+-	cookie = dma_cookie_assign(tx);
++	cookie = (desc->gen << DESC_ID_BITS) | (desc->id & DESC_ID_MASK);
++	if (desc->hw->flags & IDXD_OP_FLAG_RCI)
++		cookie |= IDXD_COOKIE_RCI;
++
++	if (desc->gen == DESC_GEN_MAX)
++		desc->gen = 1;
++	else
++		desc->gen++;
++
++	tx->cookie = cookie;
++	desc->epoch = READ_ONCE(wq->idxd->reset_epoch);
+ 
+ 	rc = idxd_submit_desc(wq, desc);
+ 	if (rc < 0) {
+@@ -219,6 +360,7 @@ static void idxd_dma_synchronize(struct dma_chan *c)
+ {
+ 	struct idxd_wq *wq = to_idxd_wq(c);
+ 	LIST_HEAD(quarantined);
++	u32 epoch;
+ 
+ 	/*
+ 	 * dmaengine_synchronize() promises the client that its memory may
+@@ -240,7 +382,13 @@ static void idxd_dma_synchronize(struct dma_chan *c)
+ 	 * Only a device reset ends the exposure of the client's memory.
+ 	 */
+ 	idxd_wq_quarantine_take(wq, &quarantined);
+-	if (!idxd_wq_drain(wq)) {
++	/*
++	 * A halt during the drain kills every descriptor submitted before
++	 * it, which is all of them, and a reset that followed may have
++	 * ended the drain itself. Such a drain is as good as complete.
++	 */
++	epoch = READ_ONCE(wq->idxd->reset_epoch);
++	if (!idxd_wq_drain(wq) || READ_ONCE(wq->idxd->reset_epoch) != epoch) {
+ 		idxd_wq_quarantine_free(wq, &quarantined);
+ 		WRITE_ONCE(wq->stuck, false);
+ 		return;
+diff --git a/drivers/dma/idxd/idxd.h b/drivers/dma/idxd/idxd.h
+index b0cfd7101174..7fe5ec6c3bf3 100644
+--- a/drivers/dma/idxd/idxd.h
++++ b/drivers/dma/idxd/idxd.h
+@@ -349,6 +349,7 @@ struct idxd_device {
+ 	spinlock_t cmd_lock;	/* spinlock for device commands */
+ 	struct completion *cmd_done;
+ 	u32 cmd_seq;		/* bumps when a command starts running */
++	u32 reset_epoch;	/* bumps on every device halt */
+ 	struct idxd_group **groups;
+ 	struct idxd_wq **wqs;
+ 	struct idxd_engine **engines;
+@@ -447,9 +448,11 @@ struct idxd_desc {
+ 	struct list_head list;
+ 	int id;
+ 	int cpu;
++	u16 gen;
+ 	u16 terminate_gen;	/* the queue's terminate_gen at an
+ 				 * interrupt-armed submit
+ 				 */
++	u32 epoch;		/* the device reset_epoch at submit */
+ 	struct idxd_wq *wq;
+ };
+ 
+diff --git a/drivers/dma/idxd/irq.c b/drivers/dma/idxd/irq.c
+index 8217698056bb..5e34790359ee 100644
+--- a/drivers/dma/idxd/irq.c
++++ b/drivers/dma/idxd/irq.c
+@@ -508,6 +508,14 @@ static irqreturn_t idxd_halt(struct idxd_device *idxd)
+ 	gensts.bits = ioread32(idxd->reg_base + IDXD_GENSTATS_OFFSET);
+ 	if (gensts.state == IDXD_DEVICE_STATE_HALT) {
+ 		idxd->state = IDXD_DEV_HALTED;
++		/*
++		 * Every descriptor submitted before this point is dead: the
++		 * device will never write its completion record. Pollers
++		 * compare their descriptor's epoch against this to retire
++		 * such descriptors instead of waiting for a record that never
++		 * comes.
++		 */
++		WRITE_ONCE(idxd->reset_epoch, idxd->reset_epoch + 1);
+ 		if (gensts.reset_type == IDXD_DEVICE_RESET_SOFTWARE) {
+ 			/* The reinit below re-enables the queues, so revive them. */
+ 			idxd_wqs_halt_flush(idxd, true);
+-- 
+2.43.0
 
