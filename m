@@ -1,103 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E4E4DA9B4;
-	Mon, 19 Oct 2026 11:48:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053EC4DF4D5;
+	Mon, 19 Oct 2026 11:48:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792410512; cv=none; b=oc7ascoxBK8YyLmHl7zwmPm7sGwBPm6KTCVFA7AqARvfh7ZaZK4aSo/U1TAAlph3MXSHBVLjUog9IEjOlVKJbebpK1dz3J2pWcGtgRUsOI9OrrnACHTaR5fpPiUiu8L8yr1VXMxRXDDCGVmGBi0DZieFpcyHG+iSU0CQuWPwNLw=
+	t=1792410535; cv=none; b=ZbafpWAv1QsS7Ue6ofnO/Oa8E8bQ3DhillBNIq6Q5AeOSfHcQfLtj9FannQ7hMeMMcEenO+beKrIofJYYH8xL0qMS3hstezQUPcc/Q5TosHvsAY66S3AMh2dSLNEvVHWyrKbURauOv5LQeP6DFMAoq5n+yzixfyYv2mBVPF1uvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792410512; c=relaxed/simple;
-	bh=cavO+vB9WQqPaTpm76RGrFLQ0nYmnIVBpjnQrvt4MSo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vAertQNVRBfCdPDQ9QRJjcU1CvlvBcRz8pfD36Fsp9FD1FnAB3aebmOXPdkt26YUgNnk6ktdZZ06/bZfojsWlrWuHHoav/aZsUxqtkdmIQYHoSZcfhgsHh0dFtNQjxvogIyPDHbOpVOQLsFrvsv9qYqILiCenDU+/lrRkWT7Lq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ECDVeieu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792410535; c=relaxed/simple;
+	bh=pKSArXpk/5IJh+/fKSThGW+GIdbiteG9/vEycrk2pds=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GwXVIlbkh1XzpGDWVo73iIK21Uu1rHxYZbnFNEW+VGJ912/wsWc6UJ9HAT+xxyNJMdOwwXaSIk7UsXztOLovNtXtkF5K3jKsXlMm3xDL2Zww6zIPnCyNXgrMAkpJLykcLTNUXA3gLEczJ8lu9o/4Kjzu6b0BHWxivMBY47q8Dcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IXrfQasl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ECDVeieu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEDB61F000C4;
-	Mon, 19 Oct 2026 11:48:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IXrfQasl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37841F000C5;
+	Mon, 19 Oct 2026 11:48:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792410510;
-	bh=qqw66inKRUTRV7Z7B1eVJRip5F//bCyfpe2WMmXcebs=;
-	h=From:To:Cc:Subject:Date:Reply-To;
-	b=ECDVeieuAw36mJSmpXp6A720fvr1iq8ofNi5mt7BTouXFKgxvK27GqTGO33dneXUC
-	 GAPbyo8EwdceBgOW0LP6HFLxRSsYpG822b1LpoZtL+sqso16MAHI61SbM+h6smbEX0
-	 cqkwThYnNDLjQtrcSNTMpZ1KyDbIIeU9kjZwI+cGwe35xmqlSMkcSZnxdhcFSIqA88
-	 BU2Yq4nIq9CV4FoDR5m9gMXG8OEqqAX3gDIqhEOFeTcoCowdqGXZyVQtKmU9XKpphU
-	 USW/JkjbMmvGyTf13dmWe8VwE5Vi2x7Cdk+JDAUeBlroCIMkuRfWPOcVO6cKCC9BAc
-	 apkiywYOvw2lw==
-From: Gary Guo <gary@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: driver-core@lists.linux.dev,
-	rust-for-linux@vger.kernel.org,
+	s=k20260515; t=1792410533;
+	bh=5bVoZnEarRBs9Xk5wqya8DrG3A1bPmlIgxOyF2pbG3g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IXrfQaslscILGXoY7dMfLmeJ3rKloCn5sPs9jso2bKegmGYtIIOe7BgHYEPtIdYWL
+	 5g3jaVRY1Fdsmot/Xix5bb8Ly1rXPcn+7RX0W+DwPDRGFJ+BPIRLS+3ArjRa5dEfgD
+	 WdoImdUbHvqe+7wOoYLqTdEUixfOFJleozd+591RWzmRkpuMZOkgWSvKeIXh/jchC1
+	 175kH3lfxu08NTv3x178CilXX1fo7wScY04iY+pPyxYrG60KuMSaXeSkC6Czwkb0I8
+	 tfD5BY8dEIq58KmmPN/VWjY7S3REBjKxHMxcl0vvM8lz8yLm5kF1tay7R9l8JJgdOj
+	 c88/1pZSqSsew==
+Date: Mon, 19 Oct 2026 17:18:49 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+	linux-arm-msm@vger.kernel.org, op-tee@lists.trustedfirmware.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] rust: doc: mark `Io` as notable trait
-Date: Mon, 19 Oct 2026 12:48:10 +0100
-Message-ID: <20261019114811.1105192-1-gary@kernel.org>
-X-Mailer: git-send-email 2.54.0
-Reply-To: Gary Guo <gary@garyguo.net>
+Subject: Re: [PATCH] tee: optee: allocate a bitmap for all valid notification
+ keys
+Message-ID: <atYDodGDc3z6Qv4f@sumit-xelite>
+References: <20261009-fix-tee-max-keys-v1-1-1462d96bf438@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261009-fix-tee-max-keys-v1-1-1462d96bf438@oss.qualcomm.com>
 
-From: Gary Guo <gary@garyguo.net>
+On Fri, 09 Oct 2026 at 20:19:48 -0700, Amirreza Zarrabi wrote:
+>Notification keys are checked against an inclusive maximum, but
+>optee_notif_init() passes that maximum to bitmap_zalloc() as the number of
+>bits. The bitmap is therefore one bit short. When the maximum key is a
+>multiple of BITS_PER_LONG, accessing that key reads or writes beyond the
+>allocated bitmap. Word rounding masks the problem.
+>
+>Allocate max_key + 1 bits so that the highest valid key has storage.
+>
+>Fixes: 787c80cc7b22 ("optee: separate notification functions")
+>Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>---
+> drivers/tee/optee/notif.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
 
-`Io` trait is the primary way of interacting with a bunch of types, e.g.
-`Mmio` and `Coherent`. It is hidden in "blanket impl" section which is not
-very discoverable.
+Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-Use nightly feature to mark `Io` as a notable trait, so it is highlighted
-at the top of the rustdoc page.
+-Sumit
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
----
- rust/kernel/io.rs  | 1 +
- rust/kernel/lib.rs | 3 +++
- 2 files changed, 4 insertions(+)
-
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index a877df11a03e..377c95dda04b 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -486,6 +486,7 @@ pub trait IoBase<'a>: Copy {
- /// - Fallible (runtime checked) accessors for different data widths
- ///
- /// Which I/O methods are available depends on the associated [`IoBackend`] implementation.
-+#[doc(notable_trait)]
- pub trait Io<'a>: IoBase<'a> {
-     /// Returns the size of this I/O region.
-     #[inline]
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index 1ab41129d557..f7f720b9888a 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -29,6 +29,9 @@
- // To be determined.
- #![feature(used_with_arg)]
- //
-+// For documentation purpose only.
-+#![feature(doc_notable_trait)]
-+//
- // `feature(file_with_nul)` is stable since Rust 1.92.0. Before Rust 1.89.0, it did not exist, so
- // enable it conditionally.
- #![cfg_attr(CONFIG_RUSTC_HAS_FILE_WITH_NUL, feature(file_with_nul))]
-
-base-commit: d419d682257d813f6cb7a28e42b35d0edf4ad038
--- 
-2.54.0
-
+>
+>diff --git a/drivers/tee/optee/notif.c b/drivers/tee/optee/notif.c
+>index 68014222d7be..2bf5ce397233 100644
+>--- a/drivers/tee/optee/notif.c
+>+++ b/drivers/tee/optee/notif.c
+>@@ -114,7 +114,7 @@ int optee_notif_init(struct optee *optee, u_int max_key)
+> {
+> 	spin_lock_init(&optee->notif.lock);
+> 	INIT_LIST_HEAD(&optee->notif.db);
+>-	optee->notif.bitmap = bitmap_zalloc(max_key, GFP_KERNEL);
+>+	optee->notif.bitmap = bitmap_zalloc(max_key + 1, GFP_KERNEL);
+> 	if (!optee->notif.bitmap)
+> 		return -ENOMEM;
+>
+>
+>---
+>base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
+>change-id: 20261009-fix-tee-max-keys-50f2db87b4e5
+>
+>Best regards,
+>-- 
+>Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>
