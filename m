@@ -1,49 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792426691;
-	b=Ro2T2RvV4q4hqHQ2XM064+4VolrWkmmCXqbyzWDRpSfWRnagx5VFjxKG9oNxIMTlng80
-	 oNf10hQfeKhSb3kO9jCj3CnP485bKeDUaER8yh5OPdIgfUzqdy4AttmRCI90xxT78Zvqm
-	 OFgc+1t7tpkOKiWZFZwHtgCz4AfVHwAfn1hJXbIYYBUdgm8bdWdJpvYvVokiAdoF3saty
-	 n0mvVD+WLgFP2+5vDatrEvfkGAXEGk4UxM3A6WzEM342MYPk4D1hmtRkRAlncZl6453Lt
-	 1uhXqZ9TGLD1QqGaT0OdGcODVb43pJ3Z9v2lv5WTrRY5A4tBHQ3IvFPmA3m6UwiZuvQ==
+	t=1792426693;
+	b=CrOPfwl+LJwfxNEhbunpL9Qk/OPiGjxiwd9AVa3pGK1Dg7ockixARbujyPzhpFpFZcHS
+	 CrYap1uKPsMBimVvS2pRD+GuaEqkYE00PLTBsrFxq0YgH5VPW3R22oSZeSkPhCOwBhGuu
+	 hn64RMFdXqgBFZONgrbZcUwjW6UbgTz9xnKw4qnLwdSQfQhh8oM8zh3jGfs86Pnx2fVgR
+	 eZHswz4GyNE+um3CRU9gzs1YyV1DtTh76D5rCItHXPRuB8PwgcSxw1+3fRmdNo8lLJ22+
+	 IsJnx38Gt8tfhvH1quUDnmutAmULCIfPxZcRxq89RyMEewdXfHrO0f6ZzmcQaewTMmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792426691;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=NnDnWT8nfy0oU8oxY5YNCzl+YDj5L9kNPFLlGZgp4nU=;
-	b=2RKVok2CwELTABgBzDKu6QVh30Py41zpOSjutA8YigThVyVBCzJSeLWf8ug3QHpW4REY
-	 2wqHJIvkcq+Vy96tA199je1OyhlLi2EdwKBqApsh3vKWKDJBeH7xXQu7KvoM7aeD3Gcfc
-	 n3H3vPr6ix4p9PiaPQc5U36vT8DZmrEwdInUoYUWwFRSlJIeCKRgfe74wLZtFlyWmWupY
-	 UXEaj2z1yOh36f9j5My5/kjEYt2fvF+wkr8TZ0HaQMY7wA5LW/0y/2ZCgPHGM0D2YMfxc
-	 qCkhZMbIQ3c7SjvN89WISTd+AQ0GnVyKTiRbbbC8tjDd2XQe3VgmktbjiDRgqqAtVEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792426693;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cdJPCWnGkorpLO32ktzbPWjsu9IZRJbbXQIGeOMqDBs=;
+	b=oGQARmElQbT0lOP21+hKLD0/L5cA6IoR8P09ULaznaZ7udeHwiKyWIWUqw643FnpcYPP
+	 G54dSnInFxwQmWB1m1tAFjllu9pHUIqUtxSsnlKGCYG9bwsog36tPF6JxePky/yIfX4go
+	 LdFjjf+DZxj/MusOd2JkNPaKi4CnOSqaaaWUq2KMDp/qyxl1oBAfgEKPM39TQRIvMHs29
+	 lFwo0YoKjt/H2i875suaIi2qTsfPxhlg2jlwsK4h0Ysn1YUNm9dWp6OLIswCAg2lLlFxZ
+	 HQHVSG9G48jz58xU/OsZ1O+f3t6EH4MT6Tt3MzKFi6JMUCmKJk7fwcT/Xlxqj+BYFRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dIm66M1A;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 68DE7606A32D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:18:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68DE7606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NlghLLUF;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8A3606A32E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:18:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A8A3606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dIm66M1A
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 570D91682;
-	Mon, 19 Oct 2026 09:18:06 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C509B3F673;
-	Mon, 19 Oct 2026 09:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792426689; bh=PbsjFNsm7VGpra2Vi/6m7D2lXbbkOy07UDe6RsBa9ao=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dIm66M1AAK2DTm44/RC4CeugGbPKALRrtpOthiN3TkCk8HDpMEc4iEOa+cmjqwb5R
-	 ulegfB5hJ66aJK/3G88pPELm6ERKzjk9ZsN9+Oo4RKow07arEuVNIOr+WMewv0rCQl
-	 C6Wjj3gFBsBR2vQMIhwp5atOH3S9mjtqsScSHjD8=
-Message-ID: <4bf21ff8-7e4b-4afe-b3e9-9ee85fcd1c84@arm.com>
-Date: Mon, 19 Oct 2026 17:18:07 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NlghLLUF
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35c76e9614aso4427036eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:18:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792426692; x=1793031492; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cdJPCWnGkorpLO32ktzbPWjsu9IZRJbbXQIGeOMqDBs=;
+        b=NlghLLUF2FbNboWwLud4VJ9BQloVK1P5Z2CdqbcQVhDho2r5kJ6nuKmYD2aZL9lSgs
+         XUyzYjjjAJWcpCFbC2L7wWmGJ1bFk7fZtKpmansYVFVyVdjhcuxFTq6Crym1jiqGsQ9J
+         FQBjTcuqfrizyKhzORa8P4iWbh9/Y7y/7IVE5ay/ZGzQri8bQfODzav9KGpIwmSlWGLR
+         RyuVHwcQKGhVzV5SQ61QFz7pE8CfLm2JeaT8beVGh6vi6F2qSlanO2cXcbAOFYavlFT4
+         bz32NgQe6uyP+9PGDwiSYq0APKnYZsxSvyKkH0fE8hwEJg7LgbQD8CANBFqDMHZFpSgd
+         Mm3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792426692; x=1793031492;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cdJPCWnGkorpLO32ktzbPWjsu9IZRJbbXQIGeOMqDBs=;
+        b=x4rPBrJRXu/yzBgS7PzT5c6dCa/Ghx1Q0LnmRB57ZF2NJ4qQ48guT91KIkh61TwNpF
+         0aoh0iGKaJ6bx3IEiI1UaqXgX54rq+RcFfq694jPPACnyWA+amzcA5f9x3EBz//uUhvd
+         j/ObonuzCpaBo0BL7ipNvn/BskkzvGin0fn8X8hddkm1dWP1rSO0Q1WW31kGe+8LPa93
+         hgXt0LDxrl00wiGr0Rw1U5xBAQyZA5EhF6ORMeAg6fEuPT51lA0wZBU5pNeA0AKEmosi
+         1U2VHHp89MJRXzjj8QVeNmJR4GOCaWP2tfuhRlni2v/O7ikaeEvjSe6ymQFzPP5O88C4
+         ZO/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxbqvSBC7PGLBlq1EgH9ClWHkNUQJkoYEJUuEj/oKj+AOFweygCGRx4ei3ulSVZp+ednMrIYHkyl056/Mw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKK5d9IHMIrqzksoVw3vxGCsh/k9I/y1z0Kb9eKYI5nbwQ8JPKS
+	luvHZjBOw0SvcgcwE04uan+I1xn6s5+vQ1xA1Dm6ds53Dc27XBkCizyd
+X-Gm-Gg: AYBFou2jRxLfcW9Jk4NRkzhah4mqdOAK1lMZ7i1D6tqhzUWPj+Dgyuv6o22/SmDbCIP
+	s/HqNEuKzOk9oyc8k7HPCNAoHFfjcEaPmXgeKW8ibmy8bz3BnOwxc6YRNAkHiQDp37P9UVEmmNp
+	94A7xfEaLGVjR/eCqG85OBE0KC3yubu8EbPQXnsdajvO1vyNhaESI7+ueeh5dVn4g78QVc9W/Sk
+	uorXW6jt8/msW6G3ejDv84sX5tYATt0LTJqGr69WUBJ+ZL9SslhXIQ9Pa0vfOs1h1ki98IA3+Jp
+	jYNCzGgKbDR1EcTBqBbykq9lHf6pUPabVY78Zq4kKQr7syeK/jLV84HpUCFPr/lQnEq22JMX/vB
+	IUKCtkcysrivnwe0IQXBDKf1IJPLn9HVuwvgcduD0+sI8yUR8EV6UoSexjeIL8Qyz0Dm4nYj5VX
+	4vutUTF/IEbBD9YQUO5BJ9vKo0RWpSfQJAex8GHiNJzqdggpgqGWSTPEMj2syw8I8BAW8mZmzrn
+	sNq4ikRmcHMybZ3kh9XTw==
+X-Received: by 2002:a05:7301:4305:b0:35f:227b:f8bc with SMTP id 5a478bee46e88-361a1465355mr10294813eec.11.1792426692027;
+        Mon, 19 Oct 2026 09:18:12 -0700 (PDT)
+Received: from redducc.localdomain ([183.83.156.125])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082b8573dsm33412914eec.25.2026.10.19.09.18.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 09:18:11 -0700 (PDT)
+From: redducc <sushmit718@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: qcom: q6apm: Fix the wait for SHARED_MEM_UNMAP_REGIONS
+Date: Mon, 19 Oct 2026 16:18:05 +0000
+Message-ID: <20261019161805.2427-1-sushmit718@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,125 +101,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: Do not access MPAMF_ESR on MSCs that do not
- have it
-To: Ping Li <leeonion.muyu@gmail.com>, james.morse@arm.com
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- reinette.chatre@intel.com, fenghuay@nvidia.com
-References: <20261019124612.134035-1-leeonion.muyu@gmail.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261019124612.134035-1-leeonion.muyu@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Ping,
+The DSP acknowledges APM_CMD_SHARED_MEM_UNMAP_REGIONS with a
+GPR_BASIC_RSP_RESULT packet. apm_callback() stores the packet opcode,
+GPR_BASIC_RSP_RESULT, as the result opcode, but
+audioreach_send_cmd_sync() waits for the result opcode to match the
+command, APM_CMD_SHARED_MEM_UNMAP_REGIONS. The wait never completes,
+so every unmap blocks for the full 5 s timeout and logs
+"CMD timeout".
 
-On 19/10/2026 13:46, Ping Li wrote:
-> mpam_msc_clear_esr() and mpam_msc_read_esr() read MPAMF_ESR
-> unconditionally, but the MPAM architecture only provides this
-> register when MPAMF_IDR.HAS_ESR is set. 
+Store the opcode of the command being acknowledged, as the other
+GPR_BASIC_RSP_RESULT cases already do.
 
-This isn't always true. With MSC v1.0 then there may be MPAMF_ESR but there is no MPAMF_IDR.HAS_ESR bit.
+Fixes: 8ea6e25c8536 ("ASoC: qcom: q6apm: Add support for early buffer mapping on DSP")
+Assisted-by: LLM
+Signed-off-by: redducc <sushmit718@gmail.com>
+---
+ sound/soc/qcom/qdsp6/q6apm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On an implementation without
-> ESR these accesses reach unimplemented register space.
+diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
+index b6b1ef6833b3..379b15b7e503 100644
+--- a/sound/soc/qcom/qdsp6/q6apm.c
++++ b/sound/soc/qcom/qdsp6/q6apm.c
+@@ -960,7 +960,7 @@ static int apm_callback(const struct gpr_resp_pkt *data, void *priv, int op)
+ 			wake_up(&apm->wait);
+ 			break;
+ 		case APM_CMD_SHARED_MEM_UNMAP_REGIONS:
+-			apm->result.opcode = hdr->opcode;
++			apm->result.opcode = result->opcode;
+ 			apm->result.status = 0;
+ 			rsp = data->payload;
+ 
 
-Rather, they are either fully implemented or RAZ/WI.
-
-In version B.d of the MPAM spec section 7.3,
-RLNXX:
-If FEAT_MPAMv1p0 is implemented and it is not possible to detect error conditions, then MPAMF_ESR
-and MPAMF_ECR must be RAZ/WI.
-
-PNPQQ:
-If all of the following apply to an error condition, then an MPAM MSC implementation is required to
-detect and report that error:
-• At least one feature that can cause the error condition is supported.
-• The MSC is designed such that the error condition can occur.
-• Detection of the error condition is required. See Required error condition detection.
-
-
-These two rules together indicate that for MSC v1.0 that MPAMF_ESR should either be RAZ/WI or
-implemented.
-
-SJFMB:
-If all of the following apply, MPAMF_IDR.HAS_ESR is permitted to be 0:
- • FEAT_MPAMv0p1, or from FEAT_MPAMv1p1, is implemented.
- • No error conditions meet the criteria in PNPQQ.
-
-Together with the comment in 9.5.5 for HAS_ESR (quoted below), this indicates that for MSC v1.1 that
-MPAMF_ESR should be RAZ/WI or implemented.
-
-"
-If an MSC cannot encounter any of the error conditions listed in MPAM MSC Errors of Arm® Memory
-System Resource Partitioning and Monitoring (MPAM) System Component Specification (ARM IHI 0099),
-both the MPAMF_ESR and MPAMF_ECR must be RAZ/WI.
-"
-
-As such, reading and writing MPAMF_ESR should either behave as per the register definition or be
-benign but ineffectual. Have you got a platform that behaves differently?
-
-Thanks,
-
-Ben
-
-> 
-> Read HAS_ESR from the IDR during probe, make clear_esr() a no-op on
-> such MSCs, and have read_esr() return -ENODEV as the register
-> cannot be read.
-> 
-> Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
-> ---
->  drivers/resctrl/mpam_devices.c  | 7 +++++++
->  drivers/resctrl/mpam_internal.h | 1 +
->  2 files changed, 8 insertions(+)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 48adc49b833c..a473b2872183 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -388,6 +388,9 @@ static int mpam_msc_clear_esr(struct mpam_msc *msc)
->  	u32 esr_low;
->  	int ret;
->  
-> +	if (!msc->has_esr)
-> +		return 0;
-> +
->  	ret = __mpam_read_reg(msc, MPAMF_ESR, &esr_low);
->  	if (ret)
->  		return ret;
-> @@ -415,6 +418,9 @@ static int mpam_msc_read_esr(struct mpam_msc *msc, u64 *res)
->  	u32 esr_high, esr_low;
->  	int ret;
->  
-> +	if (!msc->has_esr)
-> +		return -ENODEV;
-> +
->  	ret = __mpam_read_reg(msc, MPAMF_ESR, &esr_low);
->  	if (ret)
->  		return ret;
-> @@ -1205,6 +1211,7 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
->  		pmg_max = FIELD_GET(MPAMF_IDR_PMG_MAX, idr);
->  		msc->partid_max = min(msc->partid_max, partid_max);
->  		msc->pmg_max = min(msc->pmg_max, pmg_max);
-> +		msc->has_esr = FIELD_GET(MPAMF_IDR_HAS_ESR, idr);
->  		msc->has_extd_esr = FIELD_GET(MPAMF_IDR_HAS_EXTD_ESR, idr);
->  
->  		scoped_guard(mutex, &mpam_list_lock) {
-> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-> index 1f86cc158100..b648c006e102 100644
-> --- a/drivers/resctrl/mpam_internal.h
-> +++ b/drivers/resctrl/mpam_internal.h
-> @@ -80,6 +80,7 @@ struct mpam_msc {
->  	int			fb_id;
->  	u32			nrdy_usec;
->  	cpumask_t		accessibility;
-> +	bool			has_esr;
->  	bool			has_extd_esr;
->  
->  	int				reenable_error_ppi;
-> 
-> base-commit: 8ea457f746d915d55f78b43d33b1cd618f3d93ad
+base-commit: 6a56f4f29711dd2da49f03a5b99ce53779e638d7
+prerequisite-patch-id: 154550924ab1d2c1bc95517c058aaee0bb242f92
+prerequisite-patch-id: 22bca48e48813fb55976db043f9c35c926c61e3d
+prerequisite-patch-id: cd21b1ff6a4fef14c706cea97fc906d7a0331b5c
+prerequisite-patch-id: ce4057205dd2c2a6650c3a36c60664bd2737e202
+-- 
+2.43.0
 
