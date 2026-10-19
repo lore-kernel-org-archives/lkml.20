@@ -1,43 +1,44 @@
 Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B5648AE1B;
-	Mon, 19 Oct 2026 08:06:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46B0487CD9;
+	Mon, 19 Oct 2026 08:06:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792397195; cv=none; b=P5hHTcXAiBxbmEc1JydS91YpD4ZFFP/58hd6cj0+A6JgPubFnhD48neuyXZR7LYMcb7P1EFm/XrnaVuutzEuEtXssvdR10E0AYl2K+77FHzWhTLolIGiIqyjItUWvmiGtKlt9P5JTmXdRBxKzBBBfgSoANn+I3BNZSE1+TOKwlQ=
+	t=1792397196; cv=none; b=SP58rxxIMzTSSLA9Ece5CXBPPUAL8y6f2Hfyw8Txgu4la/4iM8cpFAgqmCkhiooM3NGXvb7UmaR18YT6Gds+xh8cesOSEyLh66RCxBYcqADM5h74KP0OBY0nUNV9KELAK5eO2Ai4y3fzWw6Bh+bB0octR9zfc7s70nYb+gJAAFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792397195; c=relaxed/simple;
-	bh=Jm5BWjzQLiZtBYv9q4RGl8vgVNmgA0QWryy6hkVas6M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sCDtBgnUKhZ4f016NYsOKmYVQqNXygFndslRcEa2Ph/6Js5Y6pQ7RQJA6yZbCXNaw4lIIv7sfBemFe0ONonJBIxQ63p4BZ4OhFANZ+llysXJPiJ0bz9nFJ32Mw5Pcixee9FM0ASHJ7eiBAHzWWvfem2NfZ2WXJ5sxv9hqBKRk84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=hYrp29Rg; arc=none smtp.client-ip=188.40.3.216
+	s=arc-20240116; t=1792397196; c=relaxed/simple;
+	bh=zR2q8+XccLb8MJheZa/rwOJRz+Bzeh+2xbcLZikSgzA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RYONZolwvQlKGKHKurqzPDZwXhG5KHh5u11qHNCf3bYqLeM+svXzfzUjBX8WLhAwYegh60WvbQX12xt6HVVHCRzFwci6reTPLQ6DTvk7QX34B3+g3dAqlI8Y+6QCwDt0qOFEyPDSzqRpPAtxx9JH7ozorhR13GFxDNC7uhnyqNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=EJa6c1A/; arc=none smtp.client-ip=188.40.3.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="hYrp29Rg"
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="EJa6c1A/"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=rmIZzpNYw4iuaMtlBe0TWRnshpwI8xdwTKBVTxnKOrQ=; b=hYrp29RghoKuhGCxfDkVFMHQf2
-	2IYSHroCwxNy8BV8eZUbxK+OI7GqffjfwGQ7yERaFZISUbg7/A9RqHZpLa1Sf0hT/yPdNHdmCz3C1
-	gIan9rjepzzlQvwP3QUfiklD7zIOr4dDYkGg+nrd443SUYuANkPmhkpiQn61700KQwv6MU8QNR84E
-	gmddCUKN+X/pTOeKno5YA3O/FbmVKgCQR+XUcMPgpSqZhz4+wBWd/o7MP35bsUJDfCvze17kGJVpu
-	0qpkTZnLq4/xLp3qgN9xSFYnPCM+P3zSJWSujeyrwG7yEYw7xeertyDoJHYkswHB1FQd2O7vTqFYb
-	GnX8HziQ==;
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=lSzfousVUyR0QcxC05/FwldAp2bLkZ7kOB6zUGTvFmE=; b=EJa6c1A/Am/RiNjVExlN4xXIYI
+	yWKb4vObp0EUVZLtKrNhqxgSIIjGClPk4szi2kQBmy2Ai127/uh1LJOwPCOuc30ZfdrPRUqzdFRRd
+	4NjEREbjNSaWs+vei2Yh7mKyK2QlRVbeP8U1t+MHl4sNr0dl+BTFk0lEsz15W6UZKaBrAZQsQaqoa
+	bu+D2sscT5q9z+KeBgT5C600I5Q6LUFz/TBfGiPbtaijztCsb5HL6trcnpGIFHkoHhjY5CpTV822L
+	kKV6MCwCBxKoM1CkZ3dHupnA2gIpIqxwlSU7AkUgTR+4PeqM+PTqF2wvox+Bfe5Kw3USyFwj5zHfa
+	kkWgUgww==;
 Received: from sslproxy08.your-server.de ([78.47.166.52])
 	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96.2)
 	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xIiO1-000DG5-0t;
+	id 1xIiO1-000DG8-2S;
 	Mon, 19 Oct 2026 10:06:25 +0200
 Received: from localhost ([127.0.0.1])
 	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xIiO0-00046E-2i;
-	Mon, 19 Oct 2026 10:06:24 +0200
+	id 1xIiO1-00046E-13;
+	Mon, 19 Oct 2026 10:06:25 +0200
 From: Alexander Stein <alexander.stein@ew.tq-group.com>
 To: Frank Li <Frank.Li@nxp.com>,
 	Sascha Hauer <s.hauer@pengutronix.de>,
@@ -54,10 +55,12 @@ Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
 	linux-kernel@vger.kernel.org,
 	linux@ew.tq-group.com,
 	Liu Ying <victor.liu@nxp.com>
-Subject: [PATCH v3 0/5] LVDS support for TQMa8Xx
-Date: Mon, 19 Oct 2026 10:06:15 +0200
-Message-ID: <20261019080621.194103-1-alexander.stein@ew.tq-group.com>
+Subject: [PATCH v3 1/5] dt-bindings: firmware: fsl,scu: Add imx8qxp-pixel-link nodes
+Date: Mon, 19 Oct 2026 10:06:16 +0200
+Message-ID: <20261019080621.194103-2-alexander.stein@ew.tq-group.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261019080621.194103-1-alexander.stein@ew.tq-group.com>
+References: <20261019080621.194103-1-alexander.stein@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,56 +70,34 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Virus-Scanned: Clear (ClamAV 1.4.3/28158/Mon Oct 19 08:26:01 2026)
 
-Hi,
+System Controller Firmware(SCU) provides access to Display Pixel Link, so
+add the display controller links.
 
-this series adds the LVDS support for TQMa8Xx on MBa8Xx. It is based on
-next-20261016.
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+Changes in v3:
+* Use patternProperties instead of 4 discrete child nodes
 
-Patch 1 is based on v9 series from Liu Ying [1] but uses patternProperties
-instead.
+ Documentation/devicetree/bindings/firmware/fsl,scu.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-The patches 2 & 3 are from an earlier v9 series from Liu Ying [1], with a
-smallmodification in patch 3 (changes mentioned there).
-
-Patches 4 and 5 add the overlay for LVDS support.
-
-Thanks to Liu for providing the DT patches earlier on.
-
-Changes in v3 include fixes to Sashiko findings. The changelog is in
-the individual patches.
-
-Best regards,
-Alexander
-
-[1] https://lore.kernel.org/all/20250414035028.1561475-17-victor.liu@nxp.com
-
-Alexander Stein (3):
-  dt-bindings: firmware: fsl,scu: Add imx8qxp-pixel-link nodes
-  arm64: dts: freescale: Add LVDS overlays for TQMa8Xx
-  arm64: dts: freescale: Add dual-channel LVDS overlay for TQMa8Xx
-
-Liu Ying (2):
-  arm64: dts: imx8qxp: Add display controller subsystem
-  arm64: dts: imx8qxp: Add MIPI-LVDS combo subsystems
-
- .../devicetree/bindings/firmware/fsl,scu.yaml |   6 +
- arch/arm64/boot/dts/freescale/Makefile        |  14 +
- .../arm64/boot/dts/freescale/imx8-ss-dc0.dtsi | 412 +++++++++++++++
- .../boot/dts/freescale/imx8qxp-ss-dc.dtsi     | 254 ++++++++++
- .../dts/freescale/imx8qxp-ss-mipi-lvds.dtsi   | 467 ++++++++++++++++++
- arch/arm64/boot/dts/freescale/imx8qxp.dtsi    |   7 +-
- .../dts/freescale/mba8xx-lvds-g133han01.dtso  | 160 ++++++
- .../freescale/mba8xx-lvds0-tm070jvhg33.dtso   |  88 ++++
- .../freescale/mba8xx-lvds1-tm070jvhg33.dtso   |  88 ++++
- arch/arm64/boot/dts/freescale/mba8xx.dtsi     |  58 ++-
- 10 files changed, 1550 insertions(+), 4 deletions(-)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8-ss-dc0.dtsi
- create mode 100644 arch/arm64/boot/dts/freescale/imx8qxp-ss-dc.dtsi
- create mode 100644 arch/arm64/boot/dts/freescale/imx8qxp-ss-mipi-lvds.dtsi
- create mode 100644 arch/arm64/boot/dts/freescale/mba8xx-lvds-g133han01.dtso
- create mode 100644 arch/arm64/boot/dts/freescale/mba8xx-lvds0-tm070jvhg33.dtso
- create mode 100644 arch/arm64/boot/dts/freescale/mba8xx-lvds1-tm070jvhg33.dtso
-
+diff --git a/Documentation/devicetree/bindings/firmware/fsl,scu.yaml b/Documentation/devicetree/bindings/firmware/fsl,scu.yaml
+index 307f1c6278532..a00295ba965f6 100644
+--- a/Documentation/devicetree/bindings/firmware/fsl,scu.yaml
++++ b/Documentation/devicetree/bindings/firmware/fsl,scu.yaml
+@@ -155,6 +155,12 @@ properties:
+       Watchdog controller provided by the SCU
+     $ref: /schemas/watchdog/fsl,scu-wdt.yaml
+ 
++patternProperties:
++  "^dc[0-1]-pixel-link[0-1]$":
++    description:
++      Display pixel link in display controller subsystem controlled by the SCU
++    $ref: /schemas/display/bridge/fsl,imx8qxp-pixel-link.yaml
++
+ required:
+   - compatible
+   - mbox-names
 -- 
 2.55.0
 
