@@ -1,132 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E860535A39F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2198E44F54D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792389367; cv=none; b=eZpsqQ6sqXsru7ny1dj3jbPWDQc7GfYs8M3jsElA0C4QUXO1qKHPnetzrD+YwXGblr7wwZlu7yLRQz+c4re2tNQxz1iHmpswHZfRsdM2ENvZd7E5pYy4rQNW4XDBx0m/WIF5pjLzZu0NI4YMgNmEwikrVfpSd8cAoR+DUw1DuF4=
+	t=1792389391; cv=none; b=f1DGZtFV/lX3T+tPlIw0xj363lArvc5chrEJnTS619wtqp/rO5fnmmNF14J2NxXlHycGnrt8rf8lW1aC+QFUYziakkz7CLN5wspt4Z3ag8w/sGpwTpKDp/mp4jfgpoHFwxsFDi8IQBGJrG4Fa0I/AFJivNgi4Ktiw8jzzBzCskg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792389367; c=relaxed/simple;
-	bh=V1R/rxlJHtAIixzoKXTCBUmA5XYASXYQvG6Yh/D5vUc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KxIlKkLpSwULz3hgz1ZC0gIuuHyDnOl0ACRqtqtM0hK6fXt5Yy+Su8Aza8yLbxQcTnCNmTU6vFZJQdlPzt3v3KuxQknRnOxuPKV1Q9/9RxYdBluQhESFUYyYc0bAbDPGEmFo7Jb1wnZeimVr+AjGISPr7VHu1mzWfDhrlbZ+rDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WSlGexRR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792389391; c=relaxed/simple;
+	bh=HTGKwnfLYH9sQbmZR4jgm3rmqqSqjEKTTF/qUw6axck=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lotO4fL3wrsskpokEso1fA1+dz6Hyhh/JInxpCMGH3uZ2lcuQZzL/UtLHNLnKC800FROqlD5y/yKbjuFlcx5WvFDWo7v7NVOy3EnbP+Ku0v9oJJb0ZxPPL6fVXKBLhHbnezeP0O0y+Er/oekOnDvTtPUgEMOUs1otZf7vbreFaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev; spf=pass smtp.mailfrom=seanlyon.dev; dkim=pass (2048-bit key) header.d=seanlyon.dev header.i=@seanlyon.dev header.b=KqqoozzM; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=v2tiQJ02; arc=none smtp.client-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WSlGexRR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 822851F000C7
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:56:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792389365;
-	bh=V1R/rxlJHtAIixzoKXTCBUmA5XYASXYQvG6Yh/D5vUc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WSlGexRRcveL3gPe8o8sNXcYcFIiLceom6L9+HzV8kU9geaAB8mZedMyFP9pUtlwF
-	 V+vnhTt4gY5f+aR4Akmzo8RiAceKfB2Ollc/k4U7sBYt1tL8vaGTSmmSXevkX8uWJ5
-	 LgrUvQ3Ub8V8ox+Jl9H6+jFmPOUXv2vEPvm7yR31LYBbjZeKn6zdvhkH247B4uZ6V/
-	 igDLz79prmJHK5KBup7kAOLgTmu7LxbBiQwPQGYVfh2sfrZMibkZbwNaJbGMw8qS6S
-	 6tbO3/9022qDbPcKwxWW8qCbVVNdDI8RcrQJMUzXq+aH+yVIb3KHO8SU5FX7o2zMKm
-	 EkjjlJVpgnP0g==
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93e4c00d71aso171325385a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:56:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzSEvM9ptpCD5DHTCteV3yQui9n7mvuNibaT7EYenGD+xCLlb9xxW7FpMhkaOiYaKE1+S6NcPKoSZ4q1M4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJb6bnKcilLFQ6CnXzZxcWdoR2prLHvbLYRgeXHOtzcy8Eqk7UT
-	pvDnCPH0oUx2rtx5+FRz2On2liysFO5ueeMXtMqKMtc57uipYPRu0Ckfef1Xkr7xmz7sekup+vt
-	1+aG/gNW/CtsX1QNr4vm/Qq3DUNtkT+A=
-X-Received: by 2002:a05:620a:28c6:b0:93f:3565:813 with SMTP id
- af79cd13be357-93f3565089bmr678706685a.9.1792389364634; Sun, 18 Oct 2026
- 22:56:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=seanlyon.dev header.i=@seanlyon.dev header.b="KqqoozzM";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="v2tiQJ02"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 0F8901D00153
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:56:27 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Mon, 19 Oct 2026 01:56:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1792389386; x=1792475786; bh=LfsgXYX7S6
+	XEMaq5hg6L+X+ToacozK9CRcIiiRJcD64=; b=KqqoozzMTGKNaW0OnMrnv4wIK6
+	kwCRU5evq/7xPv67cXk3tNkKIIo5KfiNqfLZua8aHyv6/qSHnTSJA0Ls1nrTeRza
+	O/JLJoiKpMVt0EnfT0omQ97P4ld0r+tixgCyLLG2NSb1/Op41SYTmWXM5zcyhu1u
+	ndiE5ms/BofTe/yAViL/5ujQGIZ4GiPVIqL1H6EG4ZBBiHAdNwOJh7k+PFP70KvD
+	Y/q+sRDuGplwJ/o2K1o+6utVKQAFZUkYB65tk1akDU6r33J4RTsnNR+UqyE/fbjC
+	0eEBNE+tKLfrwMADwZUdHysMFqBy/GqwyTOgW0AEbcFQYqgx7wVRMMO6YkWw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792389386; x=1792475786; bh=LfsgXYX7S6XEMaq5hg6L+X+ToacozK9CRcI
+	iiRJcD64=; b=v2tiQJ02uJpUDtyt5lcDLSv4VGC7GlGhHLJdpkavUSfwGt28xWP
+	UsvQoMwQOdUR3uyQpwqxySqxsXDIWhSDiDKLywIud/Ny3huynwPhgMfFvnBv1U1H
+	Ad+Bc6dqN21+HYJOXgMzzwUI/GWOJlGRU7l4Sxmm26HLc7yLzHS7AA+vqnnoHVPg
+	2z/td4MdCmhfanTlM+Nm+qmaY5D9FCgXgj9hZ2drGYhZe1WWqSf1RN8Z43+N2c/1
+	Tu9EUEG5kNZYIls8VfJSDptmc4fZaWASHiQWCgrbpjQ5quHnDpgfM/4GMMTCiSBx
+	nZY79FltnkS0C14oJyXJZDpzvx6RCJCEFjA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=seanlyon.dev a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792389386; d=seanlyon.dev;
+	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:ANS3m0R8WkdQlduJwJ7YIiIKcL0RQU4oxg4URJATVTmpIjv
+	CpTHB5Wco7tgtZWEQjVNjM/EUn+vUMLBiKckoyrzv/4t7Wg+db+WqpmfhpNmJThe
+	Re57myAY9hefjOCP2ntXPh9Tt2xrct56SVV62e7FgIGTgmTF4vvhKInWXgCIK9x4
+	eElVtvZCY0HJocImRlv3NzZ2nxstLZlobup7rj87dfHpxfGBVEbuJ9EdE6GhcRod
+	mq2IheQKJdjhm1D48WExi/gyAp29U6QsUzhd4vfOwyAKn8DMXUFBaGXRvn+Krhn0
+	O3J5TJXDi5npqtLw6lBnKGUPDWyWvS+gv0Gp6XQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:U9ElxEG/jPgoJeWySPP9W/VOJMtTLCBIJwF3GEj7NwE=:HTGKwnfLYH9sQbmZR4jgm3rmqqSqjEKTTF/qUw6axck=;
+X-ME-Sender: <xms:CbHVal3UW1liSXpHEJPVYeF-SVkA1f-gOPYuuIpW1u9nYOJh2oeAUQ>
+    <xme:CbHVan9IpNSz14ivoAnk6l-c-iFQRhbZ6RBoMBPJnTEgf3Dbj-LJNxsJazj5HpFIH
+    1NsP-8waGFE9kJGzXEOAsxeUDLkIbws4LLE7qoFVvrMIdXjXqNh3Rl2ng>
+X-ME-Received: <xmr:CbHVahbfPCOC9wsjs8JcwyAFBqA3wF7V6e2yitJnPrwADXG-qgxzYwA29HY1urVtRJ288f5n6aCMCyfph7eO8fQ9kMc>
+X-ME-Proxy-Cause: dmFkZTEUaVLKYko0MyiWFKhfebKoDmpe4JifwL4IxiJucUPynfOcgcGHE471IhtrYKsx8Y
+    xFo0EEtgcdmULc8WTEiWNTnhhz6TGsnMxSdv6h47oK2K6KgR+DqbCD+RYp0V+PewkCbiq9
+    kUbuoNmxBXfvetzEFoTZmMuvU8rDfF+WvxuoZRfVjqTkyehkxKwo2tLYRl2m3HDpgqFnjP
+    aWb7hIllC/24/RNXDftGyu7FgaBPzoKvivEJQ/w1Jt23z01P3R+5RiTYo/Ved+pkoTl2X4
+    KU4MuFZr+Jtib5mriNztx5LNn8AppEqfBAK/7Hslruck4Ow6NtbYyuLEqUg+XxX1mEv+Lc
+    ZSZVrJoikyri6K4JugXE6Vlm6hL1GU8IB1FJ0Zn4IuzuP4ZNAiNSmh6w+8CvLT5RHz00Kn
+    gF3P7NG7CUrwb0JtAwmCCo1BKb7+YKqS4iKFYJRdDDyDwORz1x586x17dXOS5Z8dB0ckuc
+    Ff36kQ3NbGxCHv435iC5BF6sjTgic8lg0iK8QtVaixTwXBR5M6UqmdpZgaKPP193/3WE9S
+    NQV03Ekr24jULSgqhR4UkSy57tB6pICKh0H5uULtBiM5cShENZ/dMJFqZrj+1rP35WN0ZD
+    NXuX4XzzHKgc7+Zq9L2WvAFJJy1Z88BvtybV/rl0S/9m5stAVmSsREvhGOKw
+X-ME-Proxy: <xmx:CbHVamyqE8FGbBBBCDIdmFkqBEUaLkImXGZmM7iBlZFeYTfj5-Ezag>
+    <xmx:CbHVav9QeB_qEezRnAl1VqT-1RjvtxhrBRmZhZw0DUbRZbGPMlhw8Q>
+    <xmx:CbHVaiwtbww81xt_UFdQQ7YsKRJtGxyOTod9LTAtmVQsWzZasNAaKQ>
+    <xmx:CbHVakvlRQSH5Eb-8Cv7k4Qy7BAbJiil2rT4kfQtW0pbJ_l33vlB5g>
+    <xmx:CrHVaiLj63OJVIYiKZY92EO1gKB09CSRCaqib2pgNhEpePZlMhCq2pkr>
+Feedback-ID: i07c64b5b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 01:56:25 -0400 (EDT)
+Date: Mon, 19 Oct 2026 01:56:24 -0400
+From: Sean Lyon <sean@seanlyon.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/869] 6.12.114-rc1 review
+Message-ID: <atWxCC4cJhFjYmCS@ncase>
+References: <20261017160036.979869304@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261017004555.2890038-1-joannelkoong@gmail.com> <19d5b7cc-782f-44b1-8ec9-a1764484f10f@linux.dev>
-In-Reply-To: <19d5b7cc-782f-44b1-8ec9-a1764484f10f@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 19 Oct 2026 13:55:51 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yME1gdFCq4jXCK7tYiQKiV-CsRMLM7vz9L_69OkMaZ0w@mail.gmail.com>
-X-Gm-Features: AclHuK_JiHk60NrX7-Usm3115HOQ01kuH7Otr6mcrw2Y29QUJab0XSsc9l_Jpxk
-Message-ID: <CAGsJ_4yME1gdFCq4jXCK7tYiQKiV-CsRMLM7vz9L_69OkMaZ0w@mail.gmail.com>
-Subject: Re: [PATCH v2] mm: unqueue deferred split folios outside the lruvec lock
-To: Lance Yang <lance.yang@linux.dev>
-Cc: Joanne Koong <joannelkoong@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Usama Arif <usama.arif@linux.dev>, Hugh Dickins <hughd@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
 
-On Mon, Oct 19, 2026 at 1:38=E2=80=AFPM Lance Yang <lance.yang@linux.dev> w=
-rote:
->
->
->
-> On 2026/10/17 08:45, Joanne Koong wrote:
-> > move_folios_to_lru(), folio_batch_move_lru() and folios_put_refs() call
-> > folio_unqueue_deferred_split() on folios where the refcount has dropped
-> > to zero. In these paths, folio_unqueue_deferred_split() is called with
-> > the lruvec lock often held (move_folios_to_lru() always holds it and
-> > folio_batch_move_lru()/folios_put_refs() usually hold it for every foli=
-o
-> > in the batch except the first). However, it's not needed to hold the
-> > lruvec lock.
-> >
-> > The lruvec lock protects folio->lru and the reclaim LRU lists whereas
-> > the deferred split queue lives on folio->_deferred_list in
-> > deferred_split_lru. The deferred_split_lru is a list_lru with its own
-> > per-memcg per-node lock.
-> >
-> > There are already other existing callers that call
-> > folio_unqueue_deferred_split() without holding the lruvec lock (eg
-> > __folio_put(), shrink_folio_list(), __folio_migrate_mapping(), ...).
-> >
-> > Add folio_batch_unqueue_deferred_split() and use it in
-> > move_folios_to_lru(), folio_batch_move_lru(), and folios_put_refs() to
-> > unqueue each batch of zero-refcount folios from the deferred split list
-> > after the lruvec lock is released and before
-> > mem_cgroup_uncharge_folios(). This helps shorten the lruvec lock's
-> > critical sections, which run with IRQs disabled and are highly
-> > contended.
-> >
-> > Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-> > ---
-> > This patch came out of a discussion about splitting underused mTHP foli=
-os [1],
-> > where queueing small mTHP folios on the deferred split list was found t=
-o
-> > regress Barry's fault microbenchmark. The cost turned out to be the unq=
-ueue
-> > running under the lruvec lock rather than contention on the deferred sp=
-lit
-> > queue itself. Testing this patch on top of the series in [1] with the s=
-ame
-> > microbenchmark, queueing every 16k folio went from a 15% runtime cost t=
-o
-> > noise, with lruvec lock wait dropping from 491 seconds to 38 seconds (m=
-ost of
-> > that contention then moves to the deferred split list_lru lock, but run=
-time
-> > still drops back to the unqueued baseline).
->
-> Looks great :) Could you also keep the benchmark results above the '---'?
-> They'd be useful to have in the changelog, along with the test setup.
+On Sat, Oct 17, 2026 at 05:47:21PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.114 release.
+> There are 869 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-+1. I guess Joanne didn't include it in the changelog because the benchmark
-depends on her patchset, which hasn't been merged into mainline yet. But it
-should be fine to include the relevant details in the changelog since there
-is already a link to Joanne's patchset.
+Built, booted, and tested on hardware for x86_64:
 
-Joanne, could you also link your patchset and explain which patchset you
-used to collect the data?
+- Intel N100
 
->
-> With that, LGTM!
->
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+No regressions found.
+
+Tested-by: Sean Lyon <sean@seanlyon.dev>
+
+Thanks!
+Sean
