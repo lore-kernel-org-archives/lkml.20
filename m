@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AC864C41C;
-	Mon, 19 Oct 2026 14:06:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B2B54645C;
+	Mon, 19 Oct 2026 14:06:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418822; cv=none; b=UadLGS6/tth2nxUGCKdClShhMQYqPA4PosRooSricBRmtQM0KsgPoi3BrzamkB1sQH6th0HKA1ifhsSeY5P1ydWx1y5iKQzZDeb9KYes1OIu3yymFKK/ozf8uCMUVPQMB0cjnBNkcZtIobG1x1/VoHChq83dbwccg08Y1RM0QB4=
+	t=1792418824; cv=none; b=gi6tPC6QMJGvgIiZNEDYzWKI47Eh0UgyqbsG2RJOF+lxfjU19Yh4mRZV3Xwc7rFh/z90iRrte0TU+aZf0N19OwtPI6b54FR6W7J+lMzVOG/3gxkqdKRS47pUX2qvmrE9r49IZP8ruWtXbog5HLPGUiYWAefrZpJ6IFnuVocpd+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418822; c=relaxed/simple;
-	bh=JePvHHriR9Uz5hahUwNPgpcuWpfGjqwZBG6fLHqZiHc=;
+	s=arc-20240116; t=1792418824; c=relaxed/simple;
+	bh=oxdSTRluYO2IE/oTg/gORSQtPQDBuYNfMVkbEt1vNWU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oLeTmDhr1KUBZGaVbMEZko3PZ8fdrmcox+Wv7Neyo1v7nUNqHg6YjgcuoudiCe4YqGiF2/bImKZo2XS2ZTdlXjMMicXljuckOWOMGujcE33qWfLuQdTpls/oVj+3bkcLHqT7bezDXA6EZbTHk5/sA/RFtBg2o4WZFR55CfyJJcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VcXRMFJJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=EOPqdpLElVNfrQhwe/7wARl/hKYX8IMvqLX5SVTMtiTXBu/IHbGND7VziHXy3ZVetEI8p4mcudmC8pvFvWxrWa7VfOO779vW6PfEGkyRk7e4yREfIA7umPFv4654Rq1zgKbITNrp2/rWLwVSeyyTNKeNJIdsUkUy2UYWnHM3I6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g5lNz9W+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VcXRMFJJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA011F000C6;
-	Mon, 19 Oct 2026 14:06:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g5lNz9W+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41C281F000C9;
+	Mon, 19 Oct 2026 14:06:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418816;
-	bh=B5YYPIxfAI73hAgTN9wvGfVFwk19HyvqgMAuoF0zEaI=;
+	s=k20260515; t=1792418812;
+	bh=LZCg7XlqP+XFJwUJDmW26gdSPgM58euZsKhP6jYBkzg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VcXRMFJJYAi+pAkOQzRnssxP31bKxp+nMUW5e/8U9vG1BPRPaPqZExoEgP6tbB1qQ
-	 gIg1fSNfW7wtls9qVxkVcDInOIFsy9qezEFw79EArnO7JjprdxlsjD6NW2+NwyC3IS
-	 IkgwI6DS91QMvKiysgYC03HadY54S61KSTFERvbeiV7wViv8iU5nFkz9F/qdCx9FGl
-	 beDxUGk9KAd25cZ7nubfS2scUfJI8lBSxJAhYo4vwJAmLeOAQI4gJ3KJ2f+pbtYdj+
-	 nMEqLLNCQ/LIkCefemydoVAwsrx7d6O4oTpC0KzBYIZQJGuxUAkukiN1Bdp9tJkWKd
-	 fuEio8e/go5nA==
+	b=g5lNz9W+uXosFNBf12ZfaG4IuAXuO5H5d/G9RacnBZLH+3cYsCqDH+bGpcEYeEn8C
+	 +bSm/s6dwypwB3R6N1PPoJMhIf457jIPCS+vb/86W12izz95ekWXPh0EPkASjADb6k
+	 sNJqe6W1Uk0PkE4ytbsXvuXFoKPdCzutBeNPmrGUqqUNMI5F+orwITXrHGL/NJUtHI
+	 nDHOKoubIjXhGOiaLIuPYk1GWlSnkyGELihD109KT9KdLrrvJvNRi2VH6z7SyYASF9
+	 +IpEPcdBk6y1JJycpqvnHlECMNTAtYEYJdUuvje52s5HiqZqRE2vMYMdgzf/ywDjOB
+	 FN292QrYDPk9w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Can Peng <pengcan@kylinos.cn>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Paritosh Potukuchi <paritoshpotukuchi@gmail.com>,
+	Paritosh Potukuchi <paritosh.potukuchi@amd.com>,
+	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
+	shyam-sundar.s-k@amd.com,
+	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] wifi: brcmfmac: validate msgbuf flowring IDs before use
-Date: Mon, 19 Oct 2026 09:53:28 -0400
-Message-ID: <20261019135441.1420968-517-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] i2c: amd-asf: Validate firmware-reported length
+Date: Mon, 19 Oct 2026 09:53:25 -0400
+Message-ID: <20261019135441.1420968-514-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -55,514 +55,355 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Can Peng <pengcan@kylinos.cn>
+From: Paritosh Potukuchi <paritoshpotukuchi@gmail.com>
 
-[ Upstream commit 32856f39fefdc75bd253cab999f996750628648e ]
+[ Upstream commit b2f4816a378dc840b605a1235b80e57c5f85b46c ]
 
-Firmware messages carry flow_ring_id values which brcmfmac converts
-to an internal flowid by subtracting
-BRCMF_H2D_MSGRING_FLOWRING_IDSTART. The resulting value is used as
-a bit index in txstatus_done_map and as an array index into
-msgbuf->flowrings and the flowring state.
+The firmware may sometimes return a length greater than the
+allocated buffer size, which can lead to out-of-bounds access
+and a kernel panic.
 
-Validate the firmware supplied flow_ring_id before using it. This
-prevents flow_ring_id values below BRCMF_H2D_MSGRING_FLOWRING_IDSTART
-from underflowing and rejects values outside msgbuf->max_flowrings.
+Currently, the driver does not validate the length read from
+firmware.
 
-In the tx status path, complete the packet with an error after
-removing a valid packet id so the skb is not leaked when the flow
-ring id is invalid.
+Add a check to ensure the firmware-reported length stays within
+the bounds of the data buffer.
 
-Signed-off-by: Can Peng <pengcan@kylinos.cn>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260723055618.550834-1-pengcan@kylinos.cn
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Signed-off-by: Paritosh Potukuchi <paritosh.potukuchi@amd.com>
+Acked-by: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://lore.kernel.org/r/20260612101815.4124804-1-paritosh.potukuchi@amd.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a 5.15.221 tree (`pending-5.15`). The buggy firmware-ID indexing
-is present here, and the patch is a small bounds check that prevents
-out-of-bounds writes/crashes and an skb leak.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1 — Subject line**
+Record: **[i2c/amd-asf] [Validate] firmware-reported length used as a
+copy bound**
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: [subsystem: wifi: brcmfmac] [action verb: validate] [intent:
-reject firmware-supplied msgbuf flowring IDs before they are used as
-bitmap/array indexes]
-
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-Record: Tags in the candidate message:
-- Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com> (brcmfmac
+**Step 1.2 — Tags** (pipeline markers ignored: `[Upstream commit ...]`,
+`Signed-off-by: Sasha Levin`)
+Record:
+- Signed-off-by: Paritosh Potukuchi &lt;paritosh.potukuchi@amd.com&gt;
+  (author)
+- Acked-by: Shyam Sundar S K &lt;Shyam-sundar.S-k@amd.com&gt; (original
+  driver author)
+- Signed-off-by: Andi Shyti &lt;andi.shyti@kernel.org&gt; (I2C
   maintainer)
-- Link:
-  https://patch.msgid.link/20260723055618.550834-1-pengcan@kylinos.cn
-- Signed-off-by: Can Peng <pengcan@kylinos.cn> (author)
-- Signed-off-by: Johannes Berg <johannes.berg@intel.com> (wireless
-  maintainer who applied it)
+- Link: https://lore.kernel.org/r/20260612101815.4124804-1-
+  paritosh.potukuchi@amd.com
+- No Fixes:, Reported-by, Tested-by, Reviewed-by, or Cc: stable (absence
+  expected)
 
-No Reported-by, Tested-by, Fixes, or Cc: stable in the candidate text
-(absence expected). The original mailing-list submission (v1, same
-msgid) did include `Fixes: 9a1bb60250d2 ("brcmfmac: Adding msgbuf
-protocol.")` and `Cc: stable@vger.kernel.org`; those are author-
-submitted tags, not pipeline markers.
+**Step 1.3 — Body**
+Record: Firmware can return a length larger than the allocated buffer;
+that produces **out-of-bounds access and a kernel panic**. The driver
+never checked the length read from firmware. The fix is a bounds check
+against the data buffer. No stack trace, reproducer, or version range is
+given.
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
-Record:
-- Bug: firmware `flow_ring_id` is converted with `id -
-  BRCMF_H2D_MSGRING_FLOWRING_IDSTART` and then used as a bit index in
-  `txstatus_done_map` and an array index into `msgbuf->flowrings` /
-  flowring state, with no range check.
-- Failure mode: IDs below `BRCMF_H2D_MSGRING_FLOWRING_IDSTART` (2)
-  underflow a `u16`; IDs above `max_flowrings` index past allocated
-  arrays. On the TX-status path, a valid pktid can already have been
-  taken, so an early return would leak the skb.
-- Version info in the body: none. Original Fixes target is from 2014.
-- Root cause (author): missing validation of firmware-supplied ring IDs.
+**Step 1.4 — Hidden bug fix?**
+Record: **No.** This is an explicit OOB/panic fix, not cleanup disguised
+as a fix.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not a hidden fix. The subject/body describe a bounds check and
-an skb-leak close on the invalid-ID TX-status path.
+---
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## Phase 2: Diff analysis
 
-Step 2.1: INVENTORY THE CHANGES
-Record:
-- File: `drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c`
-  (single file)
-- Scope: ~40 insertions / 6 deletions (mailing-list v1: 46 lines net in
-  that file)
-- Functions: adds `brcmf_msgbuf_get_flowid()`; changes
-  `brcmf_msgbuf_process_txstatus()`,
-  `brcmf_msgbuf_process_flow_ring_create_response()`,
-  `brcmf_msgbuf_process_flow_ring_delete_response()`
-- Classification: single-file surgical fix
+**Step 2.1 — Inventory**
+Record: One file, `drivers/i2c/busses/i2c-amd-asf-plat.c`, **+4 / −0**.
+Function: `amd_asf_process_target()`. Surgical single-function change.
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Record:
-- Helper (new): convert firmware `flow_ring_id` to internal `flowid`
-  only if `id >= BRCMF_H2D_MSGRING_FLOWRING_IDSTART` and `(id - START) <
-  msgbuf->max_flowrings`. Uses `u32` so the subtract cannot wrap.
-- TX status (normal/error path): previously always subtracted then
-  `set_bit(flowid, txstatus_done_map)`, `msgbuf->flowrings[flowid]`,
-  `atomic_dec`, `brcmf_txfinalize(..., true)`. After: if ID invalid,
-  `brcmf_txfinalize(..., false)` and return (skb already taken from
-  pktid table).
-- Create/delete response: previously subtracted and used the index
-  unconditionally (`brcmf_msgbuf_remove_flowring`,
-  `brcmf_flowring_open`, `brcmf_flowring_delete`). After: invalid ID
-  returns without touching rings.
+**Step 2.2 — Code flow**
+Before (verified in `v6.18.53`):
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record:
-- Category: memory safety (out-of-bounds index / underflow) plus
-  resource leak on the TX-status error path.
-- Mechanism: firmware DMA completion messages supply
-  `compl_hdr.flow_ring_id`. `BRCMF_H2D_MSGRING_FLOWRING_IDSTART` is 2.
-  For ID 0 or 1, `u16 flowid -= 2` wraps to 65534/65535. `set_bit()`
-  then writes far past `txstatus_done_map` (sized to `max_flowrings`
-  bits). `msgbuf->flowrings[flowid]` is an OOB load and typically a
-  crash. Oversized IDs do the same without wrapping. The helper rejects
-  both. TX-status also finalizes the skb so `brcmf_msgbuf_get_pktid()`’s
-  take is not leaked.
+```92:94:drivers/i2c/busses/i2c-amd-asf-plat.c
+                len = inb_p(ASFDATARWPTR);
+                for (idx = 0; idx < len; idx++)
+                        data[idx] = inb_p(ASFINDEX);
+```
 
-Step 2.4: ASSESS THE FIX QUALITY
-Record:
-- Obviously correct: range check matches how the host builds IDs
-  (`flowid + BRCMF_H2D_MSGRING_FLOWRING_IDSTART` in create/delete
-  requests). Happy path is unchanged.
-- Minimal: one helper, three call sites, no API change.
-- Regression risk: low. Invalid create/delete IDs now skip ring
-  teardown; that is safer than OOB. A stuck ring on bogus firmware is
-  preferable to memory corruption. `brcmf_txfinalize()` already handles
-  a NULL `ifp` from a bad `ifidx` by freeing the skb.
-- Red flags: none. Double blank line after the helper is style-only (v2
-  tried to clean it; Johannes applied v1).
+`data` is `u8 data[ASF_BLOCK_MAX_BYTES]` (72). `len` is `u8`, so
+firmware can return 0–255. The loop writes past the stack buffer when
+`len > 72`. A later loop in the same function also indexes `data[idx]`
+with the same `len`.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+After: if `len > ASF_BLOCK_MAX_BYTES`, return before the copy.
 
-Step 3.1: BLAME THE CHANGED LINES
-Record:
-- Unvalidated `flowid = le16_to_cpu(...flow_ring_id)` dates to
-  9a1bb60250d2 (Hante Meuleman, 2014-07-30), “brcmfmac: Adding msgbuf
-  protocol.”
-- The subtract of `BRCMF_H2D_MSGRING_FLOWRING_IDSTART` was added in
-  be4b092cab84b (Franky Lin, 2016-11-23), “brcmfmac: add pcie host
-  dongle interface rev6 support” (replaced
-  `BRCMF_NROF_H2D_COMMON_MSGRINGS`, also 2).
-- Code has been in-tree for many years, including this 5.15 branch.
+**Step 2.3 — Bug mechanism**
+Record: **(d) Memory safety — buffer overflow / OOB.** Firmware-supplied
+I/O length used as loop bound with no clamp. Same pattern already exists
+on the host write path (`amd_asf_access()`: `if (len == 0 || len >
+ASF_BLOCK_MAX_BYTES)`).
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record:
-- Original mailing-list Fixes: 9a1bb60250d2. `git merge-base --is-
-  ancestor 9a1bb60250d2 HEAD` succeeds.
-- Slightly imprecise: large-ID OOB is from 2014; underflow of IDs 0/1 is
-  from the 2016 subtract. Both commits are in this tree.
-- No later in-tree fix of the same hole (`brcmf_msgbuf_get_flowid` is
-  absent; `git log --grep="invalid flowring"` / `--grep="flow_ring_id"`
-  on this path found nothing equivalent).
+**Step 2.4 — Fix quality**
+Record: Minimal and obviously correct for stopping the overflow.
+Comparison is `>` against a 72-byte array (index 0..71), so `len == 72`
+is valid. Regression risk is low on the success path. On the error path
+the early `return` skips bank-status clear and `ASFSETDATARDPTR` reset;
+that can leave hardware stuck after a firmware bug, but that path
+already panicked. No API, locking, or data-structure change.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record: Recent `msgbuf.c` commits here are unrelated (pktid DMA unmap,
-allocation-mode plumbing, memleak in attach). Not part of a functional
-series that must land first. v2 was whitespace-only prep + the same
-validation; Johannes applied v1 and declined the cleanup.
+---
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: `git log --author="Can Peng"` on
-`drivers/net/wireless/broadcom/brcm80211/` in this tree is empty
-(outside contributor). Weight comes from Arend van Spriel’s Acked-by and
-Johannes applying the patch.
+## Phase 3: Git history
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: No new helpers, structs, or APIs. Uses existing `bphy_err`,
-`brcmf_txfinalize`, `brcmf_get_ifp`, `msgbuf->max_flowrings`.
-Standalone. v2 patch 1/2 (blank-line cleanup) is not required.
+**Step 3.1 — Blame**
+Record: Buggy loop introduced in `9b25419ad3971` (“i2c: amd-asf: Add
+routine to handle the ASF slave process”, 2024-09-23). First in
+**v6.13-rc1**. Present in this 6.18.y tree.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 3.2 — Fixes: tag**
+Record: None. Introducer is `9b25419ad3971`, confirmed ancestor of
+`v6.18.53`.
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- `b4 mbox` on msgid `20260723055618.550834-1-pengcan@kylinos.cn`
-  retrieved the thread (lore WebFetch returned 403).
-- v1: standalone `[PATCH wireless]` with Fixes + Cc: stable.
-- Arend: one nit (double blank line), “To be applied to wireless tree,”
-  Acked-by. No NAK.
-- v2: 0/2 cover + whitespace cleanup + same validation rebase. Johannes:
-  too late, he already applied v1; not rebasing for whitespace.
-- Applied version matches the candidate (v1, double blank line kept). No
-  later functional revision.
+**Step 3.3 — File history**
+Record: Related commits already in `v6.18.53`:
+- `a5089cd23b10c` — initialize `len` (Fixes: 9b25419ad397)
+- `b719afaa1e5d8` — set `cmd` on error
+No extra prerequisite is required for this bounds check. Standalone.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record: To: Arend van Spriel. Cc: linux-wireless, brcm80211 lists,
-linux-kernel, stable@vger.kernel.org. Ack from the brcm80211 maintainer;
-applied by Johannes Berg.
+**Step 3.4 — Author**
+Record: First I2C commit from Paritosh Potukuchi. Acked by original AMD
+ASF author Shyam Sundar S K. Applied by I2C maintainer Andi Shyti.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot, bugzilla, or user crash in the message. Justification
-is code analysis of firmware-supplied indexes. Trigger is a bad
-`flow_ring_id` on D2H completion rings (firmware bug, DMA corruption, or
-hostile firmware), not a documented userspace repro.
+**Step 3.5 — Dependencies**
+Record: Uses existing `ASF_BLOCK_MAX_BYTES` and the existing loop. `git
+diff v6.18.53 d88d3b2633b03^ -- drivers/i2c/busses/i2c-amd-asf-plat.c`
+is empty; `git apply --check` against the 6.18.53 file succeeded.
+**Applies standalone and cleanly.**
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: v2 series is cleanup + this fix. Functional patch is self-
-contained. No other msgbuf ID-validation patches in the thread.
+---
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: Author Cc’d stable@vger.kernel.org on v1/v2. No separate stable-
-list rejection found. lore.kernel.org HTTP from WebFetch was 403;
-evidence is the b4-retrieved mbox.
+## Phase 4: Mailing list / external research
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 4.1 — Original discussion**
+Record: `b4 dig -c b2f4816a378dc840b605a1235b80e57c5f85b46c` matched
+https://patch.msgid.link/20260612093502.3805287-1-
+paritosh.potukuchi@amd.com
+Thread saved to mbox (lore HTTP 403 via WebFetch/curl).
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `brcmf_msgbuf_get_flowid` (new);
-`brcmf_msgbuf_process_txstatus`;
-`brcmf_msgbuf_process_flow_ring_create_response`;
-`brcmf_msgbuf_process_flow_ring_delete_response`.
+Revisions:
+- v1 (2026-06-12 09:35): same check, broken indentation
+- v2 (2026-06-12 10:18): indentation fixed (subject still `[PATCH]`, not
+  `[PATCH v2]`)
+- Applied version adds a blank line before the `if` (Andi added it on
+  apply)
 
-Step 5.2: TRACE CALLERS
-Record:
-- All three process_* functions are called only from
-  `brcmf_msgbuf_process_msgtype()` (`MSGBUF_TYPE_TX_STATUS`,
-  `MSGBUF_TYPE_FLOW_RING_CREATE_CMPLT`,
-  `MSGBUF_TYPE_FLOW_RING_DELETE_CMPLT`).
-- That is called from `brcmf_msgbuf_process_rx()` while draining D2H
-  rings.
-- `brcmf_proto_msgbuf_rx_trigger()` calls process_rx for RX/TX/control
-  complete rings.
-- Call site: `brcmf_pcie_isr_thread()` in `pcie.c` on
-  `BRCMF_PCIE_MB_INT_D2H_DB` (IRQ thread). Hot path for PCIe FullMAC
-  traffic.
+Andi asked how often this happens and whether it should be considered a
+fix. Shyam acked without quantifying frequency and without NAK. Andi
+merged to `i2c/i2c-for-7.2`. No reviewer asked for `Cc: stable`. No NAK.
 
-Step 5.3: TRACE CALLEES
-Record: `brcmf_msgbuf_get_pktid` (takes skb out of the TX pktid table;
-already bounds-checks pktid); `set_bit`; `msgbuf->flowrings[flowid]`;
-`atomic_dec(&commonring->outstanding_tx)`; `brcmf_txfinalize`;
-`brcmf_get_ifp`; `brcmf_msgbuf_remove_flowring` /
-`brcmf_flowring_delete` / `brcmf_flowring_open` (those use `flowid` as
-`flow->rings[flowid]` with no extra range check).
+**Step 4.2 — Recipients (`b4 dig -w`)**
+Record: Author, shyam-sundar.s-k@amd.com, andi.shyti@kernel.org,
+linux-i2c, linux-kernel. Right maintainers were on the patch.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace TX → flowring → firmware; firmware posts TX-status /
-create / delete completions into DMA rings; host IRQ processes them. Any
-PCIe brcmfmac user hits this path. Not a syscall fuzz target by itself;
-firmware-supplied fields in DMA completions are still a real input.
+**Step 4.3 — Bug report**
+Record: No syzbot/bugzilla link. Report is the patch itself from AMD,
+describing firmware returning too-large length and a panic.
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Other `flow_ring_id` uses: host-generated create/delete
-requests, and ring-status which only logs the ID. No sibling driver copy
-of this helper. `brcmf_flowring_delete`/`open` do not bounds-check
-`flowid`; they assume the caller already has a valid index.
+**Step 4.4 — Series**
+Record: Standalone single patch, not part of a multi-patch series.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 4.5 — Stable list**
+Record: lore.kernel.org/stable returned 403. Mbox has no “stable”
+mention. **UNVERIFIED** whether stable@ discussed it separately.
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: Yes. This checkout is 5.15.221 (`p-5.15-2-g6703e5d2f3a29`).
-Unvalidated subtract is in `msgbuf.c` at process_txstatus (~883–891),
-create_response (~1239–1245), delete_response (~1268–1274). Introduced
-2014/2016; present here. `brcmf_msgbuf_get_flowid` is not present.
+---
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Minor context conflict. 5.15 `brcmf_msgbuf_rxreorder` still has
-a `bool inirq` argument (687006e20c445); the candidate hunk context uses
-the later two-argument form. Insertion point after
-`brcmf_msgbuf_remove_flowring` and the three process_* hunks match.
-Expected: trivial context adjust, not a rework. `bphy_err`,
-`max_flowrings`, `brcmf_txfinalize` all exist.
+## Phase 5: Code semantic analysis
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: No equivalent validation. Unrelated msgbuf fixes (pktid unmap,
-attach memleak) do not close this hole.
+**Step 5.1 — Functions**
+Record: `amd_asf_process_target()` only.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 5.2 — Callers**
+Record: Not called directly. Registered as delayed-work callback in
+`amd_asf_probe()` via `devm_delayed_work_autocancel(...,
+amd_asf_process_target)`. Scheduled from `amd_asf_irq_handler()` when
+ASF target IRQ bit 6 is set (`schedule_delayed_work(&dev->work_buf,
+HZ)`). Workqueue context, not IRQ context.
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: [brcmfmac msgbuf / PCIe FullMAC Wi-Fi] [IMPORTANT]. Not core
-mm/vfs, but used on Raspberry Pi-class boards and many Broadcom PCIe
-WLAN cards. `CONFIG_BRCMFMAC_PCIE` selects `BRCMFMAC_PROTO_MSGBUF`.
-SDIO/USB FullMAC uses BCDC, not this path.
+**Step 5.3 — Callees**
+Record: `inb_p`/`outb_p` (port I/O), then (after this hunk)
+`i2c_slave_event()`. No alloc/lock in the changed path.
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Mature. msgbuf protocol from 2014; this file is not under heavy
-5.15 churn. Long-standing hole, not a brand-new subsystem.
+**Step 5.4 — Reachability**
+Record: Reached when AMD ASF slave/target interrupt fires
+(`CONFIG_I2C_AMD_ASF`, ACPI `AMDI001A`). Trigger is firmware/BMC ASF
+traffic, not a generic unprivileged syscall. Still a host kernel stack
+overflow if firmware reports `len > 72`.
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 5.5 — Similar patterns**
+Record: Host path already bounds-checks in `amd_asf_access()` (`len == 0
+|| len > ASF_BLOCK_MAX_BYTES`) and `amd_asf_xfer()` (`msgs->len >
+ASF_BLOCK_MAX_BYTES - 3`). Slave/target path was the missing check.
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Driver-specific / config-specific: `CONFIG_BRCMFMAC_PCIE`
-(msgbuf). Does not affect SDIO/USB brcmfmac. Population is still large
-for an LTS kernel.
+---
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Trigger is a firmware completion with `flow_ring_id` < 2 or `>=
-max_flowrings + 2`. Normal firmware should echo host IDs, so the common
-path is fine. Realistic triggers: buggy/mismatched firmware, DMA
-corruption, compromised firmware. Unprivileged userspace cannot poke the
-ID directly; it can generate TX completions by sending traffic.
+## Phase 6: Local tree (`v6.18.53` / 6.18.y)
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record:
-- `set_bit(underflowed_id, txstatus_done_map)`: out-of-bounds write
-  (memory corruption).
-- `msgbuf->flowrings[flowid]` / `flow->rings[flowid]`: OOB / NULL deref
-  → oops.
-- TX-status without finalize: skb leak (the patch closes this).
-- Severity: HIGH (crash / memory corruption on a common Wi-Fi driver).
-  Not a documented privilege-escalation writeup, but OOB write from
-  device DMA is security-relevant.
+**Step 6.1 — Does the buggy code exist?**
+Record: **Yes.** `git merge-base --is-ancestor d88d3b2633b03 v6.18.53`
+failed (fix not in 6.18.53). `git show
+v6.18.53:drivers/i2c/busses/i2c-amd-asf-plat.c` has the unbounded loop.
+Driver added in v6.13; bug since then.
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- Benefit: high for PCIe brcmfmac — prevents OOB write/crash and a leak.
-- Risk: low — ~40-line helper, no locking/API/data-structure change, no
-  happy-path behavior change.
-- Ratio: strongly favors backport.
+**Step 6.2 — Backport difficulty**
+Record: **Clean apply.** Parent of the candidate matches 6.18.53 file
+content; `git apply --check` succeeded.
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+**Step 6.3 — Related fixes already here?**
+Record: Uninit-`len` and error-`cmd` fixes are in 6.18.53. **No existing
+bounds check** on this firmware length.
 
-Step 9.1: COMPILE THE EVIDENCE
-FOR:
-- Real OOB index from firmware-supplied IDs (underflow and upper bound),
-  present in this 5.15 tree since 2014/2016.
-- TX-status path can leak an skb after `brcmf_msgbuf_get_pktid()` if the
-  ring ID is bad.
-- Small, obviously correct helper; happy path unchanged.
-- Maintainer Acked-by; wireless maintainer applied v1.
-- Applies with only a trivial rxreorder-context tweak.
+---
 
-AGAINST:
-- No public crash/syzbot report; trigger depends on bad firmware IDs.
-- Affects only PCIe msgbuf, not all brcmfmac buses.
+## Phase 7: Subsystem context
 
-UNRESOLVED:
-- Could not HTTP-fetch lore.kernel.org (403); thread was recovered via
-  `b4 mbox`.
-- No mainline SHA in this checkout to `merge-base --is-ancestor` the fix
-  itself (expected: it is not in 5.15 yet).
+**Step 7.1**
+Record: **drivers/i2c** (AMD ASF bus driver). Criticality:
+**PERIPHERAL** (AMD ASF/DASH, depends on `I2C_PIIX4`), but a host panic
+still matters for those systems.
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? PASS — range check matches host ID
-   encoding; Acked by subsystem maintainer.
-2. Fixes a real bug that affects users? PASS — unvalidated device-
-   supplied index used as bit/array index; skb leak on that path.
-3. Important issue? PASS — OOB write / crash / leak; HIGH.
-4. Small and contained? PASS — one file, ~40 lines, three call sites.
-5. No new features or APIs? PASS — internal helper only.
-6. Can apply to the local tree? PASS — buggy code is here; minor context
-   conflict only.
+**Step 7.2**
+Record: Small, mature-enough driver (landed v6.13, a few follow-up fixes
+through 6.15). Not staging.
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: Not a device-ID/quirk/DT/build/docs exception. It is a
-straightforward memory-safety fix.
+---
 
-Step 9.4: MAKE YOUR DECISION
-This should be backported to this 5.15 tree. The hole exists here, the
-fix is surgical, and the downside of skipping it is memory corruption or
-an oops if firmware supplies a bad flowring ID.
+## Phase 8: Impact and risk
 
-Verification:
-- [Phase 1] Parsed candidate tags: Acked-by Arend van Spriel, Link
-  msgid, SOBs Can Peng / Johannes Berg; no Fixes/Cc in candidate text.
-- [Phase 1] `b4 mbox` v1 body: `Fixes: 9a1bb60250d2` and `Cc:
-  stable@vger.kernel.org`.
-- [Phase 2] Diff: helper `brcmf_msgbuf_get_flowid`; TX-status finalizes
-  skb on invalid ID; create/delete return early.
-- [Phase 2] Confirmed `BRCMF_H2D_MSGRING_FLOWRING_IDSTART` is 2 in
-  `bus.h`; `flowid` is `u16` so subtract underflows.
-- [Phase 2] `txstatus_done_map` allocated as
-  `BITS_TO_LONGS(max_flowrings) * sizeof(unsigned long)` — overflowed
-  bit index is OOB.
-- [Phase 2] `brcmf_txfinalize()` NULL-`ifp` path frees the skb
-  (`core.c`).
-- [Phase 3] `git blame`: unvalidated use 9a1bb60250d2 (2014); subtract
-  be4b092cab84b (2016).
-- [Phase 3] `git merge-base --is-ancestor 9a1bb60250d2 HEAD`: yes.
-- [Phase 3] No `brcmf_msgbuf_get_flowid` in this tree; no prior “invalid
-  flowring” fix on this path.
-- [Phase 4] `b4 mbox -c`: 7 messages; v1 applied; v2 whitespace declined
-  by Johannes; Arend Acked-by, no NAK.
-- [Phase 4] WebFetch lore/msgid.link: 403; used b4 instead.
-- [Phase 5] Call chain: `brcmf_pcie_isr_thread` →
-  `brcmf_proto_msgbuf_rx_trigger` → `brcmf_msgbuf_process_rx` →
-  `process_msgtype` → the three functions.
-- [Phase 5] Host encodes IDs as `flowid +
-  BRCMF_H2D_MSGRING_FLOWRING_IDSTART` at msgbuf.c create/delete request
-  sites.
-- [Phase 6] `git describe HEAD`: p-5.15-2-g6703e5d2f3a29; `make
-  kernelversion`: 5.15.221.
-- [Phase 6] Local `process_txstatus` still does unvalidated `flowid -=
-  BRCMF_H2D_MSGRING_FLOWRING_IDSTART`.
-- [Phase 6] Nearby `brcmf_msgbuf_rxreorder(..., bool inirq)` differs
-  from candidate context → minor apply tweak.
-- [Phase 7] `Kconfig`: `BRCMFMAC_PCIE` selects `BRCMFMAC_PROTO_MSGBUF`.
-- [Phase 8] Failure mode: OOB `set_bit` / OOB `flowrings[]` dereference;
-  severity HIGH.
-- UNVERIFIED: live firmware that currently emits IDs < 2 (no user report
-  in the thread).
+**Step 8.1 — Who is affected**
+Record: **Driver-specific / config-specific:** `CONFIG_I2C_AMD_ASF` on
+AMD systems with ASF (`AMDI001A`).
+
+**Step 8.2 — Trigger**
+Record: ASF target interrupt + firmware length &gt; 72. Frequency not
+quantified on-list (Andi asked; Shyam only acked). Not a normal syscall
+path; firmware/BMC-driven. Unprivileged userspace generally cannot set
+that I/O length directly.
+
+**Step 8.3 — Failure mode**
+Record: Stack buffer overflow (up to 183 bytes past a 72-byte stack
+array), then OOB read in the second loop. Commit states **kernel
+panic**. Severity: **CRITICAL** (crash; stack smash).
+
+**Step 8.4 — Risk vs benefit**
+Record: Benefit **high** for ASF users (panic/OOB). Risk **very low** (4
+lines, success path unchanged, same check already used on the write
+path). Early-return skips HW cleanup only on the already-broken firmware
+path.
+
+---
+
+## Phase 9: Synthesis
+
+**For backporting**
+- Real stack OOB from unvalidated firmware length → panic
+- Tiny, obviously correct, matches existing driver checks
+- Driver and buggy loop are in this 6.18.53 tree (since v6.13)
+- Applies cleanly; no missing helpers
+- Acked by original driver author; applied by I2C maintainer
+
+**Against**
+- AMD-only driver, not a core path
+- Frequency of bad firmware length never quantified
+- Early return does not reset ASF bank/pointer (error-path
+  incompleteness, not a happy-path regression)
+- No Fixes:/Cc: stable (not a negative per rules)
+
+**Unresolved**
+- Stable mailing list search (lore 403)
+- Exact field reproduction rate (unverified beyond AMD’s “may
+  sometimes”)
+
+**Stable rules**
+1. Obviously correct and tested? **PASS** — 4-line bound check;
+   maintainer applied after ack
+2. Real bug affecting users? **PASS** — OOB/panic on ASF target RX
+3. Important (crash/security/corruption/deadlock)? **PASS** — stack
+   overflow → panic
+4. Small and contained? **PASS** — +4 lines, one function
+5. No new features/APIs? **PASS**
+6. Can apply to this tree? **PASS** — clean against 6.18.53
+
+Exception category: none needed; this is a normal crash/OOB fix.
+
+This 6.18.y tree has the unbounded copy and not the fix. Backporting
+prevents a kernel panic on AMD ASF hardware when firmware reports a
+length above 72.
+
+---
+
+## What the commit solves, and why it matters here
+
+`amd_asf_process_target()` copies firmware bytes into a 72-byte stack
+buffer using a length read from `ASFDATARWPTR` with no cap. `len` is
+`u8`, so a value 73–255 overruns the stack and can panic. This 6.18.53
+tree still has that loop. The patch adds the same bound already used on
+the write path. Cost is four lines; the normal path is unchanged.
+
+---
+
+## Verification
+
+- **[Phase 1]** Parsed message/tags from `git show d88d3b2633b03`; no
+  Fixes/Reported-by/Cc: stable; Acked-by Shyam; SOB Andi Shyti
+- **[Phase 2]** Diff is +4 in `amd_asf_process_target`;
+  `data[ASF_BLOCK_MAX_BYTES]` (72); `len` is `u8`; write path already
+  checks `len > ASF_BLOCK_MAX_BYTES` at line 176
+- **[Phase 3]** `git blame` on v6.18.53: loop from `9b25419ad3971`; `git
+  describe --contains` → v6.13-rc1; `git merge-base --is-ancestor
+  9b25419ad3971 v6.18.53` true
+- **[Phase 3]** `git merge-base --is-ancestor d88d3b2633b03 v6.18.53`
+  false (fix not in 6.18.53)
+- **[Phase 3]** `a5089cd23b10c` and `b719afaa1e5d8` are ancestors of
+  v6.18.53
+- **[Phase 3]** `git diff v6.18.53 d88d3b2633b03^ --
+  drivers/i2c/busses/i2c-amd-asf-plat.c` empty
+- **[Phase 4]** `b4 dig -c b2f4816a378dc840b605a1235b80e57c5f85b46c` /
+  `-a` / `-w` / `-m`; thread: v1 indent bug, v2 indent fix, Andi process
+  nits + “how often?”, Shyam Ack, merged i2c-for-7.2; no NAK
+- **[Phase 4]** lore WebFetch/curl 403; discussion taken from saved mbox
+- **[Phase 4]** git.kernel.org commit
+  `b2f4816a378dc840b605a1235b80e57c5f85b46c` exists; no Fixes/Cc: stable
+  in that commit
+- **[Phase 5]** `git grep amd_asf_process_target`: only definition +
+  `devm_delayed_work_autocancel`; scheduled from `amd_asf_irq_handler`
+- **[Phase 6]** `git describe HEAD` → `v6.18.53-5049-g0f0bdc2b0dffb`;
+  `make kernelversion` → 6.18.53; buggy loop present in `v6.18.53:` file
+- **[Phase 6]** `git apply --check` of this patch onto the v6.18.53
+  file: rc 0
+- **[Phase 7]** `CONFIG_I2C_AMD_ASF` in v6.18.53 Kconfig, depends on
+  `I2C_PIIX4`, ACPI id `AMDI001A`
+- **[Phase 8]** Failure mode: stack OOB → panic (from commit + code);
+  trigger is firmware length, not a generic syscall
+- **UNVERIFIED:** stable@ list discussion (lore 403); how often firmware
+  returns len &gt; 72 (not answered on-list)
 
 **YES**
 
- .../broadcom/brcm80211/brcmfmac/msgbuf.c      | 46 ++++++++++++++++---
- 1 file changed, 40 insertions(+), 6 deletions(-)
+ drivers/i2c/busses/i2c-amd-asf-plat.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
-index de47d6b7e02b2..f850e64108c41 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/msgbuf.c
-@@ -561,6 +561,28 @@ brcmf_msgbuf_remove_flowring(struct brcmf_msgbuf *msgbuf, u16 flowid)
- 	brcmf_flowring_delete(msgbuf->flow, flowid);
- }
- 
-+static bool brcmf_msgbuf_get_flowid(struct brcmf_msgbuf *msgbuf,
-+				    u16 flow_ring_id, u16 *flowid)
-+{
-+	u32 id = flow_ring_id;
+diff --git a/drivers/i2c/busses/i2c-amd-asf-plat.c b/drivers/i2c/busses/i2c-amd-asf-plat.c
+index ca45f0f233210..f5b73c8340495 100644
+--- a/drivers/i2c/busses/i2c-amd-asf-plat.c
++++ b/drivers/i2c/busses/i2c-amd-asf-plat.c
+@@ -90,6 +90,10 @@ static void amd_asf_process_target(struct work_struct *work)
+ 		outb_p(reg, ASFDATABNKSEL);
+ 		cmd = inb_p(ASFINDEX);
+ 		len = inb_p(ASFDATARWPTR);
 +
-+	if (id < BRCMF_H2D_MSGRING_FLOWRING_IDSTART) {
-+		bphy_err(msgbuf->drvr, "invalid flowring id %u\n",
-+			 flow_ring_id);
-+		return false;
-+	}
++		if (len > ASF_BLOCK_MAX_BYTES)
++			return;
 +
-+	id -= BRCMF_H2D_MSGRING_FLOWRING_IDSTART;
-+	if (id >= msgbuf->max_flowrings) {
-+		bphy_err(msgbuf->drvr, "invalid flowring id %u\n",
-+			 flow_ring_id);
-+		return false;
-+	}
-+
-+	*flowid = id;
-+	return true;
-+}
-+
+ 		for (idx = 0; idx < len; idx++)
+ 			data[idx] = inb_p(ASFINDEX);
  
- static struct brcmf_msgbuf_work_item *
- brcmf_msgbuf_dequeue_work(struct brcmf_msgbuf *msgbuf)
-@@ -881,17 +903,23 @@ brcmf_msgbuf_process_txstatus(struct brcmf_msgbuf *msgbuf, void *buf)
- 	struct msgbuf_tx_status *tx_status;
- 	u32 idx;
- 	struct sk_buff *skb;
-+	u16 flow_ring_id;
- 	u16 flowid;
- 
- 	tx_status = (struct msgbuf_tx_status *)buf;
- 	idx = le32_to_cpu(tx_status->msg.request_id) - 1;
--	flowid = le16_to_cpu(tx_status->compl_hdr.flow_ring_id);
--	flowid -= BRCMF_H2D_MSGRING_FLOWRING_IDSTART;
-+	flow_ring_id = le16_to_cpu(tx_status->compl_hdr.flow_ring_id);
- 	skb = brcmf_msgbuf_get_pktid(msgbuf->drvr->bus_if->dev,
- 				     msgbuf->tx_pktids, idx);
- 	if (!skb)
- 		return;
- 
-+	if (!brcmf_msgbuf_get_flowid(msgbuf, flow_ring_id, &flowid)) {
-+		brcmf_txfinalize(brcmf_get_ifp(msgbuf->drvr, tx_status->msg.ifidx),
-+				 skb, false);
-+		return;
-+	}
-+
- 	set_bit(flowid, msgbuf->txstatus_done_map);
- 	commonring = msgbuf->flowrings[flowid];
- 	atomic_dec(&commonring->outstanding_tx);
-@@ -1238,13 +1266,16 @@ brcmf_msgbuf_process_flow_ring_create_response(struct brcmf_msgbuf *msgbuf,
- 	struct msgbuf_flowring_create_resp *flowring_create_resp;
- 	u16 status;
- 	u16 flowid;
-+	u16 flow_ring_id;
- 
- 	flowring_create_resp = (struct msgbuf_flowring_create_resp *)buf;
- 
--	flowid = le16_to_cpu(flowring_create_resp->compl_hdr.flow_ring_id);
--	flowid -= BRCMF_H2D_MSGRING_FLOWRING_IDSTART;
-+	flow_ring_id = le16_to_cpu(flowring_create_resp->compl_hdr.flow_ring_id);
- 	status =  le16_to_cpu(flowring_create_resp->compl_hdr.status);
- 
-+	if (!brcmf_msgbuf_get_flowid(msgbuf, flow_ring_id, &flowid))
-+		return;
-+
- 	if (status) {
- 		bphy_err(drvr, "Flowring creation failed, code %d\n", status);
- 		brcmf_msgbuf_remove_flowring(msgbuf, flowid);
-@@ -1267,13 +1298,16 @@ brcmf_msgbuf_process_flow_ring_delete_response(struct brcmf_msgbuf *msgbuf,
- 	struct msgbuf_flowring_delete_resp *flowring_delete_resp;
- 	u16 status;
- 	u16 flowid;
-+	u16 flow_ring_id;
- 
- 	flowring_delete_resp = (struct msgbuf_flowring_delete_resp *)buf;
- 
--	flowid = le16_to_cpu(flowring_delete_resp->compl_hdr.flow_ring_id);
--	flowid -= BRCMF_H2D_MSGRING_FLOWRING_IDSTART;
-+	flow_ring_id = le16_to_cpu(flowring_delete_resp->compl_hdr.flow_ring_id);
- 	status =  le16_to_cpu(flowring_delete_resp->compl_hdr.status);
- 
-+	if (!brcmf_msgbuf_get_flowid(msgbuf, flow_ring_id, &flowid))
-+		return;
-+
- 	if (status) {
- 		bphy_err(drvr, "Flowring deletion failed, code %d\n", status);
- 		brcmf_flowring_delete(msgbuf->flow, flowid);
 -- 
 2.53.0
 
