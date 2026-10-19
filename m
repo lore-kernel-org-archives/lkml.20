@@ -1,191 +1,282 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4AB306779;
-	Mon, 19 Oct 2026 01:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC16831282F
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792372503; cv=none; b=CtOglvu9BrcnqI/KcQoLq8cVk8IXltnknPqs51Oar3pDSzk6AKuB7gRsiuazxwD/viprKgM+Yy6P0nyLTwitIYuONAs0v4dBpXbcHZERWwb/fS96H0bRwERhA+A0rhipULqamc4W0lFULk2vxexzE8IV8umeXYrc4Pohq0Xe4EI=
+	t=1792372501; cv=none; b=prBI0mOiOEkiV9ydp8OZwPvx9AwRP+Jwr3YEkkM1lkbVGgNTHyjG68O9bN6DjpIC98wMX1SLBolbcdixYeR80HcKWgX5GVC+53ziQYJZroTHPibuTKHY0zopsbfRVvRXnan/yn1pDjPYBVbhyXl/PGpWQ9m6qO07RsxM5b4FyBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792372503; c=relaxed/simple;
-	bh=UztUbO2By+ISyXZ2injbZLT1l45VetfgYZZXX8Cmr+4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FslfSzMF89CXm69OdI2fqzmqScKkgMqs+kJsTcpRKlFH3GbCeLxbB90khS1+9/RtipdEJ7kmhADWMEhOcaf8/jPZsBCnPnlwHeJdqAhU96qQKzDRQS5x9c5BrLbDE0IsMeGIZIr0F1HwtT5JNy3D+dfC3RdQhMIrI+Dyrhe1EVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PvxQRLpw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792372501; c=relaxed/simple;
+	bh=b/d6EMWrCn0T5QVqLEzN9+sowVmf1Ha6Ji1SgmKaaz4=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Gm/KPVhBuf+o5veHfdyrYCz3zPiW/ntr2jB9P5jbrBnPZalqKvYgcqNgz7Mrv1K9tXhikwlHUsQnv8m5gqsL6tVD6NBRzm0qDvu5WrCSn/y1F80hxXaO9NimJH7yoISt3GopUsOttzLSO522oyOAj19VwKpTKMQmRmr2H3nFng4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=QCpAC4kX; arc=none smtp.client-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PvxQRLpw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ADD61F01805;
-	Mon, 19 Oct 2026 01:15:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792372501;
-	bh=VMrPYgQOnHoRCsJRMybAjl9VgrvC68NCuecjpo4tI/0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=PvxQRLpwPW2b59Oixz3o4O2lwA1yYliuXII7Qn6XItBLKGwNSI57q0qrAtTi4lSvN
-	 XWYgk8Yg+HHVfHn/uVwqc2Ez0TfE6WxktzuuhkBYMu65M0Cr1VNLlASYSFNa3RO15L
-	 biBFTjc+KvcTbDFic/glOvduaELxGiX+wxErmo5a98DvdzVEB+zbT4N0Ecyzv7RsJF
-	 lGhfvQRytV9XCWtw36Ka78sH5lcePm+DEy74eCzeW206cAfgaLUYwbGV9USbrXgvfc
-	 6F/mkMeYBXhCS9GQ7sd+LRRViKkxMRjynmKxjl4kFkCDuZScrPOtoy5PXU4CWP93mp
-	 efAgwobsvR09Q==
-Subject: Re: [PATCH net-next] net: octeon: Fix dma_unmap_single() size
-From: netdev-bot+sashiko@kernel.org
-To: fourier.thomas@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, kory.maincent@bootlin.com,
- vadim.fedorenko@linux.dev, ddaney@caviumnetworks.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 19 Oct 2026 01:15:00 +0000
-Message-ID: <179237250044.3135.9983843486106038084@kernel.org>
-In-Reply-To: <20261015131336.34801-1-fourier.thomas@gmail.com>
-References: <20261015131336.34801-1-fourier.thomas@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="QCpAC4kX"
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5e930a11148so1115100e0c.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:14:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=soleen.com; s=google; t=1792372498; x=1792977298; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AG4iCQmCtWMmOqYT8IYP5jpAChTLSZorOObJHVgwpSM=;
+        b=QCpAC4kX6onPlv8oJEKXQihNV0//1YQmxuEVtIP7VNFmUVCZIzxXmlHn2IHiTCJYOr
+         2UEp0G4C1HZSKpS5pZJlWsSp28lWCTxHliLZf+aYlM4toewhjWAEnnylsZ4iWwyyfnWM
+         RANRWmZPp1sYU5Cr8Q9vRswPqnfpt5rrdX2GFeR0HA/tO1SiJAMC0Mc94o+5YNM5bVBT
+         UqkjaWP3+X61hoynwuNtd3fyx2tBza8L3JSjNCpcCswwTmtIM4Bhn4zy0f1gVoWlNFfF
+         Fjk5dHMb+No3mG7rBr0BExkQFA3W6OLXB3WumpSHkbiA6IkX+i1yGxn1/BnuYtmhGG17
+         YTuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792372498; x=1792977298;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=AG4iCQmCtWMmOqYT8IYP5jpAChTLSZorOObJHVgwpSM=;
+        b=ClNk4ZDiCUB3jU5vU1huEQ5MnOeFp+dVSXxZXOqlHKWe5sm24dT5QmMAi2yRQDseCd
+         824Vhau3TcY7sYoUPV0pPL2DI8dP+u7/sTB4YQaqJTmkAkhZCSbGDVRoLfjmJwQq+le5
+         GeHxx5d9Ll1SD4avJeQOqbpLTIyhS7i/wJZ+9XiCqeZJmAgK8m9+bu7YR1/YWq/UDhnz
+         WJ3csknyQV6EKAoC1dAcvTS097+bxI2ZQqg5b91t9+b7K2sQ4wjbvcVP4z6jtKvH8D4J
+         gr4vGXCsHHEpO//8JdbU6NghO6RlvTjmDrf8KIlE3J/X2vpweynxwNOSYlNPtHkOc7tR
+         sQBw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ2LZ59GGpdxPERQyA++zmBT+wBELSIJQ/iJy3fbAB/nq8cDX1eMfyRcXtA0moM1QKbiPxIiQH8+aRGbc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrPA17uHyce6+rFFOodY1mraN6APbqgqpy/E2rUMVYFQifuuyW
+	C8XODZX3l7xKg7wpmEtGO6cKktrwiBW9k9VN6jCInUxbz/TtjIJ5ZVylL8DBmEmTplk=
+X-Gm-Gg: AYBFou0dD8xNOR4OvV3iK0zvKgIcxiApZKAZVbQHXWKOwYNi3e+I+N2HARnlg+lNw4O
+	9qcs2OcEA/Y6rCmEP2e2itt1b6f+VKXOIKI0QMGwvnDnONV/Edj6od3fFH2qGnLhPxacokMCoDM
+	QQFdM9P6SXeQiMR6mW67MXdyV08PFeSHPBn7lFlHWaXUVtrIow45yDveOhdmxyvNSolll5S9d1G
+	VzZZtf+/vUO9IJV9u68Nr4n/REsF1oElTRR2ZHk0L23Y33dEbgQQgv3+lqNRSEurfOWWStE/UMo
+	9uS62qtH25qRTfnowncy7L9dZ9dkWrsVoV4Ji5+8lIWL9Nzj79JmahTQj54HSdt8vTgSr+p79/Z
+	U+W9E2F+URV8rukbPN4f5Gyi1B2DD5s/0crC4L+VHA6Y0XE7QiztcP+v5Okm2q0G3sJ4xJSh/IK
+	WAVKHuAl6JckbAnJtFoaGZozb2WuROj0AbRb0s/RoHwvigLDhmZ9DMXMFbRt/EvkVNjMRqs20Ni
+	IIKxH7qxFf9ePGC1rEj23ZsBYsPdegt6zX0fyoFjM/fk0rhuLo49IyFOUFxuR0gkxA8G3ujKFmn
+	G7fZRyU3AfYu37nfe8s=
+X-Received: by 2002:a05:6122:d19:b0:5ea:c90d:d1b2 with SMTP id 71dfb90a1353d-5eac90dd9bfmr454444e0c.13.1792372497778;
+        Sun, 18 Oct 2026 18:14:57 -0700 (PDT)
+Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ea9b474b2asm8039142e0c.4.2026.10.18.18.14.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 18:14:56 -0700 (PDT)
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+To: kees@kernel.org,
+	rppt@kernel.org,
+	juri.lelli@redhat.com,
+	nik.borisov@suse.com,
+	tglx@kernel.org,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	vincent.guittot@linaro.org,
+	bp@alien8.de,
+	jpoimboe@kernel.org,
+	cgroups@vger.kernel.org,
+	tony.luck@intel.com,
+	david@kernel.org,
+	mingo@redhat.com,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org,
+	seanjc@google.com,
+	ljs@kernel.org,
+	zhangguopeng@kylinos.cn,
+	dietmar.eggemann@arm.com,
+	mhocko@suse.com,
+	vinicius.gomes@intel.com,
+	vbabka@kernel.org,
+	linux-kernel@vger.kernel.org,
+	peterz@infradead.org,
+	surenb@google.com,
+	hpa@zytor.com,
+	x86@kernel.org,
+	pasha.tatashin@soleen.com,
+	dmatlack@google.com,
+	tim.c.chen@linux.intel.com,
+	kexec@lists.infradead.org,
+	pratyush@kernel.org,
+	dave.hansen@linux.intel.com,
+	rostedt@goodmis.org,
+	gmonaco@redhat.com,
+	jgross@suse.com,
+	mgorman@suse.de,
+	graf@amazon.com,
+	linux-edac@vger.kernel.org,
+	liam@infradead.org,
+	ridong.chen@linux.dev,
+	blum@kernel.org,
+	longman@redhat.com,
+	bsegall@google.com
+Subject: [PATCH v2 3/8] x86/mce/intel: Bound cmci_rediscover() to a single topology peer
+Date: Sun, 18 Oct 2026 21:14:41 -0400
+Message-ID: <20261019011446.834487-4-pasha.tatashin@soleen.com>
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+In-Reply-To: <20261019011446.834487-1-pasha.tatashin@soleen.com>
+References: <20261019011446.834487-1-pasha.tatashin@soleen.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+When a CPU goes offline, cmci_clear() disables CMCI on any MCA banks
+owned by that CPU, and mce_cpu_dead() calls cmci_rediscover(). Currently
+cmci_rediscover() invokes on_each_cpu(cmci_rediscover_work_func, NULL, 1),
+sending a synchronous broadcast IPI to every online CPU in the system,
+all of which contend on the global cmci_discover_lock while reading up
+to 32 MSR_IA32_MCx_CTL2 MSRs.
 
-Critical: 0 · High: 1 · Medium: 0 (2) · Low: 0
+Any bank disabled by cmci_clear() is either thread-private, core-scoped
+(shared between SMT threads of the same physical core), L2-cluster-scoped,
+die-scoped, or package-scoped:
+1. Any bank index that is already owned by the target peer in its own
+   mce_banks_owned bitmap is private to a narrower scope than the shared
+   level and will be skipped by cmci_skip_bank() on the target anyway.
+2. Core- or cluster-shared MCA banks can only be claimed by an online
+   SMT sibling or L2 cluster peer.
+3. Shared die-scoped or package-scoped uncore banks can be claimed in a
+   single pass by one online peer on the same die or package.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Record the bitmap of banks disabled by __cmci_disable_bank() in
+cmci_orphaned_banks, select a single online topology peer
+cmci_orphaned_target (SMT sibling, L2 cluster peer, die peer, or package
+peer) in cmci_clear(), and mask out any bank indices already owned by
+that target peer. In cmci_rediscover(), return immediately when
+cmci_orphaned_banks is empty; otherwise probe only cmci_orphaned_target
+via a single smp_call_function_single() call.
 
-- [High] The patch does not fix the size mismatch it claims to fix.
+2-socket, 480-CPU Intel Xeon 6985P-C (N=479, mean of 10 runs):
+  Offline:  11.42 s ->  9.63 s (-15.7%)
+  Online:   11.08 s -> 11.11 s
+  Total:    22.50 s -> 20.74 s (-7.8%)
+  cmci_rediscover() (cpu479 offline):
+    7,720.6 us -> 0.6 us (-99.99%)
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  octeon_mgmt_stop()…
-- [Medium] This problem wasn't introduced by this patch, but the RX
-  descriptor `len` field is only 14 bits (max 16383), while the MTU can…
+Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+---
+ arch/x86/kernel/cpu/mce/intel.c | 57 +++++++++++++++++++++++++++++++--
+ 1 file changed, 55 insertions(+), 2 deletions(-)
 
---
-
-net: octeon: Fix dma_unmap_single() size
-
-The commit changes the RX buffer unmap size in
-octeon_mgmt_dequeue_rx_buffer() from ETH_FRAME_LEN +
-OCTEON_MGMT_RX_HEADROOM to re.s.len. The goal is to match the size used
-when the buffer was mapped in octeon_mgmt_rx_fill_ring().
-
-> diff --git a/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c b/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c
-> index 2cf3365b96364..1bb1316f4b919 100644
-> --- a/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c
-> +++ b/drivers/net/ethernet/cavium/octeon/octeon_mgmt.c
-> @@ -380,9 +380,7 @@ static u64 octeon_mgmt_dequeue_rx_buffer(struct octeon_mgmt *p,
->  	p->rx_current_fill--;
->  	*pskb = __skb_dequeue(&p->rx_list);
->  
-> -	dma_unmap_single(p->dev, re.s.addr,
-> -			 ETH_FRAME_LEN + OCTEON_MGMT_RX_HEADROOM,
-> -			 DMA_FROM_DEVICE);
-> +	dma_unmap_single(p->dev, re.s.addr, re.s.len, DMA_FROM_DEVICE);
-
-[Severity: High]
-Does re.s.len still hold the mapped size here?
-
-re.d64 is read from p->rx_ring[] after the MIX engine has written back
-the completed descriptor. The caller treats len as the number of bytes
-received:
-
-octeon_mgmt_receive_one() {
-    re.d64 = octeon_mgmt_dequeue_rx_buffer(p, &skb);
-    if (likely(re.s.code == RING_ENTRY_CODE_DONE)) {
-        /* A good packet, send it up. */
-        skb_put(skb, re.s.len);
-    ...
-}
-
-The RING_ENTRY_CODE_MORE path does the same with re2.s.len. The code
-field also changes from 0 (written by the driver) to DONE, MORE or an
-error value. That suggests the hardware rewrote the whole 64-bit entry.
-
-The buffer was mapped in octeon_mgmt_rx_fill_ring() with:
-
-    size = netdev->mtu + OCTEON_MGMT_RX_HEADROOM + 8 + NET_IP_ALIGN;
-    ...
-    re.s.len = size;
-    re.s.addr = dma_map_single(p->dev, skb->data,
-                               size,
-                               DMA_FROM_DEVICE);
-
-At MTU 1500 the mapping is 1532 bytes. For a minimum-size frame, this
-would unmap only about 60 bytes of it. On error entries the size is
-whatever the hardware reported.
-
-With CONFIG_DMA_API_DEBUG, would check_unmap() report a size mismatch on
-almost every received packet? And with swiotlb=force, would only len
-bytes be bounced back?
-
-The TX side's dma_unmap_single(..., re.s.len, DMA_TO_DEVICE) works
-because TX entries keep the length the driver wrote. RX entries don't.
-
-Recomputing the size from netdev->mtu at dequeue time wouldn't work
-either. The RING_ENTRY_CODE_MORE comment says buffers sized for an older
-MTU can stay in the ring after an MTU change.
-
-The len field is also only 14 bits wide, so even the fill-time value is
-truncated for MTUs of 16352 and above.
-
-Could the mapped length be recorded per ring slot instead? For example,
-octeon_mgmt_rx_fill_ring() could store it in a shadow array indexed by
-ring position.
-
->  
->  	return re.d64;
->  }
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but octeon_mgmt_stop() frees
-the remaining RX and TX buffers without unmapping them:
-
-drivers/net/ethernet/cavium/octeon/octeon_mgmt.c:octeon_mgmt_stop() {
-    ...
-	/* dma_unmap is a nop on Octeon, so just free everything.  */
-	skb_queue_purge(&p->tx_list);
-	skb_queue_purge(&p->rx_list);
-    ...
-}
-
-Are the DMA_FROM_DEVICE mappings from octeon_mgmt_rx_fill_ring() and
-the DMA_TO_DEVICE mappings from octeon_mgmt_xmit() leaked on every
-ifdown? The RX ring is normally kept full, so posted buffers are always
-there at that point.
-
-With the coherent dma-direct setup on Octeon, unmap is close to a no-op.
-However, CONFIG_DMA_API_DEBUG would report the leaked mappings, and
-swiotlb=force would leak bounce slots over repeated ifup/ifdown cycles.
-
-[Severity: Medium]
-This is also a pre-existing issue, not introduced by this patch. Can
-size overflow the 14-bit len field in octeon_mgmt_rx_fill_ring()?
-
-octeon_mgmt_probe() sets:
-
-	netdev->max_mtu = 16383 - OCTEON_MGMT_RX_HEADROOM - VLAN_HLEN;
-
-which is 16383 - 22 - 4 = 16357.
-
-octeon_mgmt_rx_fill_ring() then computes:
-
-	size = netdev->mtu + OCTEON_MGMT_RX_HEADROOM + 8 + NET_IP_ALIGN;
-
-which is mtu + 32, or 16389 at max_mtu.
-
-For MTUs from 16352 to 16357, re.s.len = size wraps modulo 16384 (to 5
-at max_mtu). dma_map_single() still maps the full size.
-
-Wouldn't the hardware then be told the buffer is only a few bytes long?
-Large frames could be split across many MORE entries or dropped as
-errors. The exact effect depends on how the MIX hardware uses the
-length it is given.
-
+diff --git a/arch/x86/kernel/cpu/mce/intel.c b/arch/x86/kernel/cpu/mce/intel.c
+index 4655223ba560..f57718b097d9 100644
+--- a/arch/x86/kernel/cpu/mce/intel.c
++++ b/arch/x86/kernel/cpu/mce/intel.c
+@@ -11,6 +11,7 @@
+ #include <linux/percpu.h>
+ #include <linux/sched.h>
+ #include <linux/cpumask.h>
++#include <linux/topology.h>
+ #include <asm/apic.h>
+ #include <asm/cpufeature.h>
+ #include <asm/cpu_device_id.h>
+@@ -40,6 +41,8 @@
+  * owned by the offlined cpu.
+  */
+ static DEFINE_PER_CPU(mce_banks_t, mce_banks_owned);
++static mce_banks_t cmci_orphaned_banks;
++static unsigned int cmci_orphaned_target;
+ 
+ /*
+  * cmci_discover_lock protects against parallel discovery attempts
+@@ -244,6 +247,7 @@ static void cmci_claim_bank(int bank, u64 val, int bios_zero_thresh, int *bios_w
+ 
+ 	/* This CPU successfully set the enable bit. */
+ 	set_bit(bank, (void *)this_cpu_ptr(&mce_banks_owned));
++	__clear_bit(bank, cmci_orphaned_banks);
+ 
+ 	if ((val & MCI_CTL2_CMCI_THRESHOLD_MASK) == CMCI_STORM_THRESHOLD) {
+ 		pr_notice("CPU%d BANK%d CMCI inherited storm\n", smp_processor_id(), bank);
+@@ -328,6 +332,7 @@ static void __cmci_disable_bank(int bank)
+ 	val &= ~MCI_CTL2_CMCI_EN;
+ 	wrmsrq(MSR_IA32_MCx_CTL2(bank), val);
+ 	__clear_bit(bank, this_cpu_ptr(mce_banks_owned));
++	__set_bit(bank, cmci_orphaned_banks);
+ 
+ 	if ((val & MCI_CTL2_CMCI_THRESHOLD_MASK) == CMCI_STORM_THRESHOLD)
+ 		cmci_storm_end(bank);
+@@ -339,6 +344,8 @@ static void __cmci_disable_bank(int bank)
+  */
+ void cmci_clear(void)
+ {
++	unsigned int cpu = smp_processor_id();
++	unsigned int target;
+ 	unsigned long flags;
+ 	int i;
+ 	int banks;
+@@ -346,8 +353,31 @@ void cmci_clear(void)
+ 	if (!cmci_supported(&banks))
+ 		return;
+ 	raw_spin_lock_irqsave(&cmci_discover_lock, flags);
++	bitmap_zero(cmci_orphaned_banks, MAX_NR_BANKS);
++	/*
++	 * A bank is shared by the CPUs of one SMT core, L2 cluster, die or
++	 * package, and these scopes nest. The first online peer found from
++	 * the innermost scope outwards is therefore part of every sharing
++	 * scope that still has an online CPU, so it alone can claim every
++	 * orphaned bank that is still claimable. If it already owns an index,
++	 * the instance released here is not shared with it, hence not with
++	 * any online CPU, and that index can be dropped from the rediscovery.
++	 */
++	target = cpumask_any_but(topology_sibling_cpumask(cpu), cpu);
++	if (target >= nr_cpu_ids)
++		target = cpumask_any_but(topology_cluster_cpumask(cpu), cpu);
++	if (target >= nr_cpu_ids)
++		target = cpumask_any_but(topology_die_cpumask(cpu), cpu);
++	if (target >= nr_cpu_ids)
++		target = cpumask_any_but(topology_core_cpumask(cpu), cpu);
++	cmci_orphaned_target = target;
+ 	for (i = 0; i < banks; i++)
+ 		__cmci_disable_bank(i);
++	if (target < nr_cpu_ids)
++		bitmap_andnot(cmci_orphaned_banks, cmci_orphaned_banks,
++			      per_cpu(mce_banks_owned, target), MAX_NR_BANKS);
++	else
++		bitmap_zero(cmci_orphaned_banks, MAX_NR_BANKS);
+ 	raw_spin_unlock_irqrestore(&cmci_discover_lock, flags);
+ }
+ 
+@@ -360,15 +390,38 @@ static void cmci_rediscover_work_func(void *arg)
+ 		cmci_discover(banks);
+ }
+ 
+-/* After a CPU went down cycle through all the others and rediscover */
++/*
++ * After a CPU went down, rediscover orphaned shared banks on a single
++ * topology peer (SMT sibling, L2 cluster peer, die peer, or package peer)
++ * selected in cmci_clear(). Core-private banks whose core is now completely
++ * offline cannot be claimed by any other core, so probing more than one
++ * peer is redundant.
++ */
+ void cmci_rediscover(void)
+ {
++	unsigned int target;
++	unsigned long flags;
++	bool orphaned;
+ 	int banks;
+ 
+ 	if (!cmci_supported(&banks))
+ 		return;
+ 
+-	on_each_cpu(cmci_rediscover_work_func, NULL, 1);
++	raw_spin_lock_irqsave(&cmci_discover_lock, flags);
++	orphaned = !bitmap_empty(cmci_orphaned_banks, MAX_NR_BANKS);
++	target = cmci_orphaned_target;
++	raw_spin_unlock_irqrestore(&cmci_discover_lock, flags);
++
++	if (!orphaned)
++		return;
++
++	if (target < nr_cpu_ids && cpu_online(target))
++		smp_call_function_single(target, cmci_rediscover_work_func,
++					 NULL, 1);
++
++	raw_spin_lock_irqsave(&cmci_discover_lock, flags);
++	bitmap_zero(cmci_orphaned_banks, MAX_NR_BANKS);
++	raw_spin_unlock_irqrestore(&cmci_discover_lock, flags);
+ }
+ 
+ /*
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015131336.34801-1-fourier.thomas%40gmail.com
+2.56.0.176.g3575e65682-goog
+
