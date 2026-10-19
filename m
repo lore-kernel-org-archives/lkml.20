@@ -1,131 +1,174 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2758149364C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD2C4E3EEF
 	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413748; cv=none; b=HXVMpNFuho1DXCGnoNSgMuWwwKPdn8f11xdrxUuVu3WzTHoMA4ZzcG018TPRI0BDEN0bt4wEcCL65OW6gvWerKVHLthoz1Pgv980c9rKcu83/jEY6V46ZvI5D2IcPwpJhCm/s1ZcFKP6rjDayyzWKvZm+J8cFaAzZvr6TnLkvVI=
+	t=1792413751; cv=none; b=Fo9NiUg25Kc67k5Uwgw2xiIZ6bNg5NHBg+v5jFB9vqljbFqa0w1HYebLDWKJXZkVb1N6fnHiUL5lJnKwtj96/CBHoVXExx4Dj6G6CAMYXnNS3KI4XZE0/4Ja13ZjO/yibZda9M+gknsUPJ2Ero/2MPoROUr955hB1XnyOmPVgVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413748; c=relaxed/simple;
-	bh=7iJWaNZjgRSi040bMTpFn/A5Npb6/NW/Z7ByvR+hrS8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cdbXv1EAV71j1n5ttNsoYSRFj19U5ZBFsA8+6JukfkuNC57Kr0pp157v789BxNFpawgBC0dP08lNv6RJ8G2WpwaOKpCipySBjXzjgaxjwbmnR58yh+lEvkNuDOYwEpLNlMC0ob/h36tLCJpicSgFal/8mEqXCrFGWhjXVGwmBf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Wkz+rQCe; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1792413751; c=relaxed/simple;
+	bh=+wlHdfukRbnd2GIoqCVFptGJlpaCQLbrorB2XQBh5+g=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=txjyCU9TBD3Ks15GUnGaEC+wgBT+Oa6o6gfl+oBuqDuvVxzxSJ0x27Q+U7rMBgg5qeen0AEJyWR0Syo2xXAUTdqQKY5cLy2NS+da5Og230ogNbpTgjntWUbmgDd5MLApq4ACdIYaLs10knoVHFCkJTCQvDsQZNBze4Ez+tHigwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=JWZwbcm3; arc=none smtp.client-ip=46.14.118.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wkz+rQCe"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48df4f540ebso1099188f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:42:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792413742; x=1793018542; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Y7EoCo9+cczE65jwKsEPVDD2E1w/i2GesRReq0VwToI=;
-        b=Wkz+rQCeHFgxlm4t08sNEW1k3tSHmpapg/qctvoMT3js2aKN6f53mdWbar7fBL+/tg
-         fvDTFGHy8YROADXyJi0yo+4Q7ySw1okqNh0blxRwPFd8ogChwtBtsQdyObhTY9SRkncJ
-         fHD3ekIooxi7HTn3K8wvC7OG8MoNRs4Yl4VgpPnKl0UTTvtDa8HaJyxhn4shO32BZAd4
-         fl3fxZkUO++UARZc0/XYJSRPsAi9zxK1ZdYHL1U7Mq0zMuDsUhTKnt+IhnPOVbrJoHKH
-         J4HhjCRrwDkQ1STW/GaNCu0f+jJzw/H74103JN4ig2sndaoXBPivqxcrSbeQl9cjmNTw
-         RXPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792413742; x=1793018542;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y7EoCo9+cczE65jwKsEPVDD2E1w/i2GesRReq0VwToI=;
-        b=hRSy6k3qhkSq0swd4PMPv/ZmAvYthgpL7I8WrdlA2QPHa5vrbT8Kk5ayMdyhFROf/I
-         Tnqlvio2RY9iCOoDAC6/cEe3UX4jVW40T3/SvuxuqDrdvVAivoqSfX3CcGjCw2Zr9JoC
-         rp8u44v/ZsFOb2k1OxMP8vWlhdX/AH1NfKTdOytS3PawGNPI73bRHSGriaaW4ATnV+/l
-         Q8EZZCR06U3mFhRTlmgpHtw1raaugz6GLOu90NNxoSY8cFQuPnIlY0BF/6/5ZmXNea5W
-         i7zzo9rixPxOSAH0/cuI8rsmpuxKb45EZ+w6YFgTosVv0glIf1AabagufvChLlimRaAr
-         c/Cg==
-X-Forwarded-Encrypted: i=1; AKwUvByjIJMS0HhK19L9zw8lzJNh3T8i+IATrwvlD67o5xk2CNYsSDlQXh7fVDacFZm1p8nZIrlNQYnk5LQV1ik=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLF1tQ4+5WsrEF05sn7pCuGo7bTNxDZXje8nVcJASIGu86lkBzn
-	zQuJx0nH8s59Ev8znwl06R9ee+OZBV8BwFX/JvMNblOG5igu7ZZ+bcMjUydLOCWqUQ==
-X-Gm-Gg: AYBFou2jHgM2+2LZZYWGH1PubU55k4Q6ib/drDB5X89f0KZUqKyseBI2k9ViPLk1rC4
-	r1VtbUeT67ZC9GpyjMkFROMDF+YhSy/OmDzCW9hpe/RazRU7kU7391KhgJdIRTyrnqnt4kkCktL
-	W+Gfr5yTE6oLK1OwXSkvSOsUK1zHenXjzS8chXWTSdPN2LHaIuUJw8TAWm/MWi4Mzke/GAogKk3
-	qo2NUG6+8FcDe2f/q6yVsexNq584xPb5CKvGpjF/iSFtTvfeM3/0zFxhzLH55xyAuo2WZTrviS8
-	6mMSSySi5L9SY6yjRWeIa3ueu7uYkprtJil/16pCljD84UVSrLfEMHsrG0lYzexUFfq84FHdspg
-	5UcRkHP+EiHFy6TkElHbfmTUAN8A9vqmk3g9PA2ueavSdcvFQWOA+LbE2YlRMmfvIqhAfxOQ4yo
-	RWJwZLaioGSNw43Fewm7//XfZLbYaBWwSp/Pg/XkYwgmd9wgUrbxImrv2wSxXSu6NAZXCsBRjaJ
-	bGTCjWoFAH9U794eEGTs5jDxK6fhj+QkJG0BxX5JD0=
-X-Received: by 2002:a5d:4904:0:b0:488:7787:469d with SMTP id ffacd0b85a97d-48e07fbbf4emr11756626f8f.25.1792413741500;
-        Mon, 19 Oct 2026 05:42:21 -0700 (PDT)
-Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503a0dsm23717496f8f.47.2026.10.19.05.42.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 05:42:20 -0700 (PDT)
-Date: Mon, 19 Oct 2026 13:42:17 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] KVM: arm64: Ensure TLBs and I-cache are private to
- each vCPU in pKVM
-Message-ID: <atYQKaLo4VJDoNJn@google.com>
-References: <20261014125510.2928306-1-fuad.tabba@linux.dev>
- <20261014125510.2928306-3-fuad.tabba@linux.dev>
- <atXqLxU5bBtJ8U9W@google.com>
- <20261019114357.3528498-1-fuad.tabba@linux.dev>
- <atYPZeJuw2grFDlz@google.com>
+	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="JWZwbcm3"
+Received: from [192.168.16.44] (port=13801 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1xImgL-000000007R8-0XdL;
+	Mon, 19 Oct 2026 14:41:37 +0200
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1792413697; h=from:subject:to:date:message-id;
+	bh=+wlHdfukRbnd2GIoqCVFptGJlpaCQLbrorB2XQBh5+g=;
+	b=JWZwbcm3T9CefaNMbMhasWzp/ku4cGVpg+YNbVoGmKSrnzz7bQoZMyPwUOeJmpvxzdWj/ar88sw
+	HN+fbf01JL0wTdQU7jtSKr7S+jXyH2Ukuo5Czd1MNNZDFbIbivw8mkxW3Ua7VdpZSca5xgZa7UbzT
+	Q/BTeS48EBxR7PMaNLE=
+Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Mon, 19 Oct 2026 14:41:36 +0200
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: <linux-bluetooth@vger.kernel.org>
+CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
+	<linux-kernel@vger.kernel.org>, Valentin Kindschi
+	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
+Subject: [PATCH v7 1/2] Bluetooth: hci_sync: re-enable legacy advertising on resume
+Date: Mon, 19 Oct 2026 14:41:27 +0200
+Message-ID: <20261019124128.48159-1-valentin.kindschi@fiveco.ch>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atYPZeJuw2grFDlz@google.com>
+X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
+ FIVECO-MX01.fiveco.local (192.168.16.44)
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.10.19.115719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 8%
+X-SASI-Hits: BODY_SIZE_3000_3999 0.000000, BODY_SIZE_5000_LESS 0.000000,
+ BODY_SIZE_7000_LESS 0.000000, CTE_8BIT 0.000000, DKIM_ALIGNS 0.000000,
+ DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000, HTML_00_10 0.050000,
+ MULTIPLE_RCPTS 0.100000, NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000,
+ NO_URI_HTTPS 0.000000, OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000,
+ SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000,
+ WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000,
+ __BODY_VOICEMAIL 0.000000, __BULK_NEGATE 0.000000, __CC_NAME 0.000000,
+ __CC_NAME_DIFF_FROM_ACC 0.000000, __CC_REAL_NAMES 0.000000, __CT 0.000000,
+ __CTE 0.000000, __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000,
+ __DKIM_ALIGNS_2 0.000000, __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000,
+ __DQ_NEG_IP 0.000000, __FUR_RDNS_SOPHOS 0.000000, __HAS_CC_HDR 0.000000,
+ __HAS_FROM 0.000000, __HAS_MSGID 0.000000, __HAS_XOIP 0.000000,
+ __HAS_X_MAILER 0.000000, __INVOICE_MULTILINGUAL 0.000000,
+ __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000, __MIME_TEXT_P1 0.000000,
+ __MIME_VERSION 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
+ __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
+ __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
+ __RCVD_CTE 0.000000, __RCVD_EXIM_4_96_AES_128 0.000000,
+ __RCVD_FROM_HOMEUSER 0.000000, __SANE_MSGID 0.000000, __SL_HEAVY 0.000000,
+ __SL_LIGHT 0.000000, __SUBJ_ALPHA_END 0.000000,
+ __SUBJ_STARTS_S_BRACKETS 0.000000, __TO_MALFORMED_2 0.000000,
+ __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000, __URI_NO_WWW 0.000000,
+ __URI_NS 0.000000
 
-On Mon, Oct 19, 2026 at 01:39:01PM +0100, Vincent Donnefort wrote:
-> On Mon, Oct 19, 2026 at 12:43:57PM +0100, Fuad Tabba wrote:
-> > Hi Vincent,
-> > 
-> > On Mon, 19 Oct 2026 11:00:15 +0100, Vincent Donnefort <vdonnefort@google.com> wrote:
-> > [...]
-> > > > diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-> > [...]
-> > > > @@ -54,6 +54,9 @@ struct pkvm_hyp_vm {
-> > > >          unsigned short refcount;
-> > > >          hyp_spinlock_t lock;
-> > > >  
-> > > > +        /* Per physical CPU, the vcpu_idx of the last vCPU of this VM loaded there. */
-> > > > +        int *last_vcpu_ran;
-> > > 
-> > > Unlikely to be a problem in pratice, but vcpu_idx is "unsigned int". I wonder if
-> > > this shouldn't be unsigned int here too and initialised to UINT_MAX?
-> > 
-> > I'd copied int and -1 from the host's mmu->last_vcpu_ran, but the
-> > vcpu_idx it's comparing against here is unsigned int, so I'll switch to
-> > unsigned int and UINT_MAX in v2.
-> > 
-> > Thanks,
-> > /fuad
-> 
-> Also,
-> 
-> as it is always allocated when pkvm_hyp_vm is, Would it make sense to add this
-> to pkvm_get_hyp_vm_size() instead of allocating separately?
-> 
-> -- 
-> Vincent
+hci_resume_advertising_sync() never re-enables advertising on a
+controller without extended advertising.
 
-Ha, I just saw your answer to Marc and you will switch to a per-cpu approach
-anyway it seems?
+It restores HCI_ADVERTISING from advertising_old_state, then calls
+hci_schedule_adv_instance_sync(), which starts with:
 
+  if (hci_dev_test_flag(hdev, HCI_ADVERTISING) && !ext_adv_capable(hdev))
+          return -EPERM;
+
+The flag it tests was set a few lines earlier by the resume itself, so
+the call returns -EPERM without sending anything. The return value is
+discarded by every caller, so the failure is silent: advertising_paused
+is cleared, HCI_ADVERTISING is set, and the controller is not
+advertising.
+
+Observed on a BCM43455 (no extended advertising) after an active scan:
+btmon shows the pause disabling advertising and no re-enable in the ten
+seconds that follow, the device does not appear in another controller's
+scan, and btmgmt info still reports "advertising" in current settings.
+
+Enable instance 0x00 directly in that case, the way reenable_adv_sync()
+already does for the same situation. Instances continue to go through
+hci_schedule_adv_instance_sync() so the software rotation loop is
+rearmed.
+
+This affects every caller of hci_resume_advertising_sync(), not only the
+scan path: address resolution changes, accept list updates, discovery
+stop, suspend/resume and the end of an LE connection attempt all leave
+advertising disabled on such a controller today.
+
+err is initialised because the extended branch leaves it unset when
+adv_instances is empty and HCI_LE_ADV_0 is clear.
+
+Fixes: ad383c2c65a5 ("Bluetooth: hci_sync: Enable advertising when LL privacy is enabled")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5.5 btmon
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+---
+Changes in v7:
+- Enable instance 0x00 only when HCI_ADVERTISING was restored from the
+  state before the pause. Without that check, removing the numbered
+  instance that was advertising while paused reset cur_adv_instance to
+  0x00 and the resume started advertising that was not running before.
+  Reported by Sashiko.
+
+Changes in v6:
+- No change; resent as part of the series.
+
+Changes in v5:
+- New patch. v4 of the scan fix resumed advertising through
+  hci_schedule_adv_instance_sync(), which refuses HCI_ADVERTISING on a
+  controller without extended advertising, so the resume never sent
+  anything. Patch 2 depends on this.
+
+ net/bluetooth/hci_sync.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index 7ac26daba..d215432db 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -2733,7 +2733,7 @@ static int hci_pause_advertising_sync(struct hci_dev *hdev)
+ static int hci_resume_advertising_sync(struct hci_dev *hdev)
+ {
+ 	struct adv_info *adv, *tmp;
+-	int err;
++	int err = 0;
+ 
+ 	/* If advertising has not been paused there is nothing  to do. */
+ 	if (!hdev->advertising_paused)
+@@ -2766,13 +2766,18 @@ static int hci_resume_advertising_sync(struct hci_dev *hdev)
+ 		 */
+ 		if (hci_dev_test_and_clear_flag(hdev, HCI_LE_ADV_0))
+ 			err = hci_enable_ext_advertising_sync(hdev, 0x00);
+-	} else {
++	} else if (hdev->cur_adv_instance) {
+ 		/* Schedule for most recent instance to be restarted and begin
+ 		 * the software rotation loop
+ 		 */
+ 		err = hci_schedule_adv_instance_sync(hdev,
+ 						     hdev->cur_adv_instance,
+ 						     true);
++	} else if (hci_dev_test_flag(hdev, HCI_ADVERTISING)) {
++		/* hci_schedule_adv_instance_sync() rejects instance 0x00 while
++		 * HCI_ADVERTISING is set, so enable it directly.
++		 */
++		err = hci_start_adv_sync(hdev, 0x00);
+ 	}
+ 
+ 	hdev->advertising_paused = false;
 -- 
-Vincent
+2.34.1
+
