@@ -1,182 +1,84 @@
-Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9192E266C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.213
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E0978F3A;
+	Mon, 19 Oct 2026 02:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792378099; cv=none; b=BzzcrmAgfy+97STWc/lTN0Ob5BY8b3bck/gsNjr/5GBo2QlyUsaQZF0B1TWKX3sY+bwSTqsmGHyJ7fRUvhviELLoJSAped23Y/PO4dJiA5j6egPUXEnf7GA2/Zy9VaxQNB6t58A179QaSW5JuWBCLiCYxi+LE74YW+83hoeeiSE=
+	t=1792378247; cv=none; b=JOXSehbwbd8VVCbl3kIQHFxaQyko+HkgrfMs9E+KCn9BI2AEmO2OGvjP9eMb1ZPAX0RGM2siqQxHFpDgF36DUDhl9tmoB8Xua70NqbH8I34JJ46LLo0Vkr0xpNXP96NYkbU4EIpyhR1YJU63EVd91dNEVE6s4A1P0xsavDFpzFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792378099; c=relaxed/simple;
-	bh=uJd85rqKa3hx2YcUCQnwN6zrGg8MtC8mCup4hf7dmx0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GwyOVAMCh7r2dNHlDb93ex4GEH07/VKt8XUKNr9JjU2XZ8lwoa6YH06oXTk+Lh07GiBZDmKxlMNRGs0icvsk5jItR3AbU+dQJ87fRTaPDTHDGbNJv4bMytqK4IU8+zwayOkLcS+hQyhVcTMtbHXlkqKndVOes8QLf5czFDmpkhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DpsqdlHq; arc=none smtp.client-ip=95.215.58.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792378247; c=relaxed/simple;
+	bh=vV5DEKAJfTzByXdTR/uF4Q8YsdbYRiGqWa73jllZPjU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MQd/xp8ErFJm8uNlHanxE4v9gi3szQV3oE+EqoVldgBEsJuTD44jqn1VyaQrGbTpXg9l2wGlxm/lPS4sAe5e36R5HKwZQo9z0ER/cezdiOYdLD6fbhYIx4An7IHOgnxqq8ap+m3KMtJuo4GL/8VkSZZ8cOLzHwNblNXgdGY23SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=glhqhAj1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DpsqdlHq"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uJd85rqKa3hx2YcUCQnwN6zrGg8MtC8mCup4hf7dmx0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792378094; v=1; x=1792982894;
- b=DpsqdlHqh57TOQVudIzSXAdrXDkcT/txgvanrBVID2zfgCU4OWXnyxk1y3aNrelR/Wrvmsrt
- YXipXfJW1yjA6HnuJrTeFY2F7ODIBeX51BsDaXpt3frFu7HM+oF+FZzA6AN6MubNUJSCjtHNVXG
- hSnaGDRs5SLRcBpOu+0R2tH0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b000c8b95270aa37;
-	Mon, 19 Oct 2026 02:48:13 +0000
-X-Mizu-Trace-ID: b000c8b95270aa37
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ff8c13d1-371d-4da6-95fc-9fd13adddb56@linux.dev>
-Date: Mon, 19 Oct 2026 10:48:05 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="glhqhAj1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715D81F000C4;
+	Mon, 19 Oct 2026 02:50:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792378246;
+	bh=mJVlURAJ8Itn9aOLbLk8JcD/b7z4beNkUp5JTrYX+Q4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=glhqhAj19YV4m4VdlazwEv1fP+zibvsTVLXEMIMju0CiRJtgUK+h9nvfqlDVtUim2
+	 AKFjo4ztxBelXbfFKIqmkuW4IK/bZeHQN03ayaM8STi3U/H1ehnW7Lqh3Sqaap4zba
+	 PTWXgeogz/wQ13euk+sLlO4EzsG5KiOfbeaLbJbIkgF5lWdwnn96E0pQZs+2ovUf5P
+	 GrenVMF0+EaALVz0q8SRVhltmFKDFb5rYowOz/A4I7Yev6q2IwxG2zU7OBm6rh2O4F
+	 4ySzdoE0dXC896HkJEwMY2jxkhV/t2Zt/MZ1bt9QcVinfCmlDEjsV9f0C0Ifc8twKC
+	 qEjoSNsFPPIEw==
+Date: Mon, 19 Oct 2026 02:50:43 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Scott Collyer <scollyer@google.com>
+Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] platform/chrome: cros_ec: trigger kernel_restart on
+ EC_HOST_EVENT_PANIC
+Message-ID: <atWFg7gm_jLBOwxu@google.com>
+References: <20261008172208.1139281-1-scollyer@google.com>
+ <as8slqeTjJYWOlaa@google.com>
+ <CALUcz=3WE+SUx2j8LKFQQK-fMVXdk69rZJ9nKgBMQ_UwnWRPSA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 2/7] mm/vmscan: move vmscan tracepoints to a local
- header
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
- <david@fromorbit.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>,
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <linux-mm@kvack.org>,
- "open list:BPF [MISC] :Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20261013131309.2790253-1-ridong.chen@linux.dev>
- <20261013131309.2790253-3-ridong.chen@linux.dev>
- <20261014124914.21c21559@gandalf.local.home>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261014124914.21c21559@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CALUcz=3WE+SUx2j8LKFQQK-fMVXdk69rZJ9nKgBMQ_UwnWRPSA@mail.gmail.com>
 
+On Wed, Oct 14, 2026 at 01:57:22PM -0700, Scott Collyer wrote:
+> Yes, if the EC crashed, the the AP will be reset. There is a slight benefit
+> for the EC case in that a controlled shutdown gets triggered. But, the
+> primary motivation for this change is to trigger an AP reset if the ISH
+> panics. If the ISH panics, there isn't any trigger currently to reboot the
+> AP and this leads to the sensor stack being out of sync.
 
+Please don't top-posting [1].
 
-On 10/15/2026 12:49 AM, Steven Rostedt wrote:
-> On Tue, 13 Oct 2026 21:13:04 +0800
-> Ridong Chen <ridong.chen@linux.dev> wrote:
-> 
->> From: Ridong Chen <chenridong@xiaomi.com>
->>
->> Move include/trace/events/vmscan.h to mm/trace_vmscan.h so that the
->> tracepoints can be extended to reference vmscan-internal structures such
->> as struct scan_control, which is not visible outside mm/.  This mirrors
->> what several other subsystems already do with their trace headers (e.g.
->> arch/x86/kvm/trace.h, drivers/gpu/drm/drm_trace.h, net/xfrm/trace_iptfs.h).
->> As they do, use a relative TRACE_INCLUDE_PATH so that no Makefile change
->> is needed.
->>
->> No functional change.
->>
->> Assisted-by: LLM
->> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
->> ---
->>   MAINTAINERS                                        | 2 ++
->>   mm/shrinker.c                                      | 2 +-
->>   include/trace/events/vmscan.h => mm/trace_vmscan.h | 4 ++++
->>   mm/vmscan.c                                        | 2 +-
->>   4 files changed, 8 insertions(+), 2 deletions(-)
->>   rename include/trace/events/vmscan.h => mm/trace_vmscan.h (99%)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index c5519d67b6f4..80d2a9dd0525 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -17575,6 +17575,7 @@ F:	Documentation/admin-guide/mm/multigen_lru.rst
->>   F:	Documentation/mm/multigen_lru.rst
->>   F:	include/linux/mm_inline.h
->>   F:	include/linux/mmzone.h
->> +F:	mm/trace_vmscan.h
->>   F:	mm/vmscan.c
->>   F:	mm/workingset.c
->>   
->> @@ -17722,6 +17723,7 @@ R:	Shakeel Butt <shakeel.butt@linux.dev>
->>   R:	Lorenzo Stoakes <ljs@kernel.org>
->>   L:	linux-mm@kvack.org
->>   S:	Maintained
->> +F:	mm/trace_vmscan.h
->>   F:	mm/vmscan.c
->>   F:	mm/workingset.c
->>   
->> diff --git a/mm/shrinker.c b/mm/shrinker.c
->> index 7ec2a9704f6f..3c3e87c4b61c 100644
->> --- a/mm/shrinker.c
->> +++ b/mm/shrinker.c
->> @@ -3,7 +3,7 @@
->>   #include <linux/rwsem.h>
->>   #include <linux/shrinker.h>
->>   #include <linux/rculist.h>
->> -#include <trace/events/vmscan.h>
->> +#include "trace_vmscan.h"
->>   
->>   #include "internal.h"
->>   
->> diff --git a/include/trace/events/vmscan.h b/mm/trace_vmscan.h
->> similarity index 99%
->> rename from include/trace/events/vmscan.h
->> rename to mm/trace_vmscan.h
->> index 8a872990b4be..c5d824fef554 100644
->> --- a/include/trace/events/vmscan.h
->> +++ b/mm/trace_vmscan.h
->> @@ -648,4 +648,8 @@ TRACE_EVENT(mm_vmscan_kswapd_clear_hopeless,
->>   #endif /* _TRACE_VMSCAN_H */
->>   
->>   /* This part must be outside protection */
->> +#undef TRACE_INCLUDE_FILE
->> +#undef TRACE_INCLUDE_PATH
->> +#define TRACE_INCLUDE_PATH ../../mm
-> 
-> The proper way to do this is to have:
-> 
-> #define TRACE_INCLUDE_PATH .
-> 
-> And update the Makefile with:
-> 
-> CFLAGS_vmscan.o := -I$(src)
-> 
-> -- Steve
-> 
+I don't think this is the right approach, given that:
+- cros_ec_handle_event() is a generic event dispatcher for all EC
+  instances, not a place for device-specific event handling.
+- The ISH driver or sensor stack should re-establish the state after an
+  ISH panic rather than rebooting the AP.
 
-Thank you. Will update.
+[1] https://www.kernel.org/doc/html/latest/process/submitting-patches.html#use-trimmed-interleaved-replies-in-email-discussions
 
 > 
+> On Wed, Oct 14, 2026 at 12:17 AM Tzung-Bi Shih <tzungbi@kernel.org> wrote:
 > 
->> +#define TRACE_INCLUDE_FILE trace_vmscan
->>   #include <trace/define_trace.h>
->> diff --git a/mm/vmscan.c b/mm/vmscan.c
->> index 29b31446fc11..6207dad9e644 100644
->> --- a/mm/vmscan.c
->> +++ b/mm/vmscan.c
->> @@ -71,7 +71,7 @@
->>   #include "swap.h"
->>   
->>   #define CREATE_TRACE_POINTS
->> -#include <trace/events/vmscan.h>
->> +#include "trace_vmscan.h"
->>   
->>   struct scan_control {
->>   	/* How many pages shrink_list() should reclaim */
-> 
-
--- 
-Best regards
-Ridong
-
+> > On Thu, Oct 08, 2026 at 10:22:08AM -0700, Scott Collyer wrote:
+> > > When an attached EC or ISH device reports an EC_HOST_EVENT_PANIC host
+> > > event, the EC/ISH subsystem has encountered a fatal exception.
+> > >
+> > > Handle the EC_HOST_EVENT_PANIC event by:
+> > > 1. Logging an emergency message (dev_emerg) with the device name.
+> > > 2. Calling the panic notifier chain (panic_notifier).
+> > > 3. Emitting a uevent (ERROR=PANIC) to userspace.
+> > > 4. Triggering kernel_restart("CrOS EC Panic") to cleanly restart the AP
+> > >    so that panic logs are preserved and collected by crash reporting
+> > >    services across reboot.
+> >
+> > If the EC crashed, wouldn't the AP be reset anyway?
+> >
