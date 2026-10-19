@@ -1,141 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792452560;
-	b=ivzlXiNXFKqzYJ1QVdaRBWaINk8PRTrsXnGaO4wdpghJ8EzCq8GYqEBp+ayQ1xcoFc3D
-	 xV5nYMjYaDSzrsTE5vJdX7ob3sFtmdoVQNHvQVCPTgXVmTSwIHcXwF0Ma7hKRhP05HKNT
-	 PNs2DiITBf26JSIdsfq/hkxRt/IpmYS1JRHJ17DbZZVK9FTA862ILfZTubBE2YksBEA69
-	 cw+vXICT6qN/l3QeZ8QvD7frbdATeIAPNZTkqOaaBe6Ia+e2IGlJ7ZetB6zE+O1mEzzpt
-	 BLNjK2jWKpOUsoOjOscFCnOswr53pSdFwLyvOFlMarcTg4b1zOp8lSqZhmjkq1AU/9g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792452560;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=4TirjOQRZRPCBDDxEN9G0F42E5yvl5uRZgUb6F1K8zs=;
-	b=mx6MkHWeSqhWpvffPTHB5M6fPKjgVgAb6/HXnHdBbXe2WKNcXHJg5BZsJZiCzTGSxwrH
-	 drDo5b9xvhe94SLe7EATpTxe5DoUhkMKsyVax7uMgg37UVyyP/Fdv+dGTVNl1pDx5jVgp
-	 DKkaHFGYlVmpLHrzbMysRv2pM5LbmAZYUegFsYCQcMqDRmUtRBysD+JxRsxIatSkn7jjy
-	 BcVz3sF2mP/YAtYRwH3rz437+Qyq5jjwovfo++FaP/hkKfqKl2GVwW47c2vHuOQoUXn9v
-	 qBRGakn5UDdMbBzAaygqqrAYXzz4uiAnZpKbx+QQDW9k9BY4Y0NZG+TasNgyJRfFvVg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dubeyko.com;
-	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Aagl7Qxp;
-	arc=none smtp.remote-ip=74.125.224.50
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.1
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792452675;
+	b=esRLpNzeKW5knM0eLFoyAY8pBfWJBzRe0Go0fvHe6Zb6CoFJsNtbH8UoqIdR5ZdLZcc4
+	 h5nkrdSuVtkyfI/OUfGAmcNoiCFaeH1y3gOmvax6CZgzfAnPdAzmGh34fsTLseNReq1uU
+	 /obmKMkP+ODXe+DUtGn4wdYHfgdZsF9zgrZ2v5Ei0n9NZQ6crdJg3EACyzeLcLgW8QLvw
+	 H2TrW2oBFmjlWPLKnC4T6QcNL635aWlusazK3G8IzK+T0C1FOsJq32GIQAX/2IHPrD2JE
+	 z+yurpAheyl+/GQJu3MW67Lelr3tgFCuFOGAjnIXrlCZQhmpxLOHOrzIHzPSzkHvKhQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792452675;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sPcz3Cd0fEAnxGXGD00/IHYBSS+7FIbuI0zdvcPMghw=;
+	b=3WhLPJLxB92z3OSrPIS0OJVMpmkrhk6dmYs7d+GY0MDH6I6YyNEAFBXSlHaPBJwA4FVs
+	 x+4KC3wp4D/tCn4rh6DmhR4uVkE2GwChhDSb0QRtrqfbLK+Os+f5GfJtqmPte7b6L54um
+	 N9iOvmdkLEVzvAQtbcbyg8aRKAJQAwV2E6XRqNTb/jwEJeuCS2SvS9CDuFWbTt/c/J9YO
+	 aKgflybztQQIuvzp3gFTvsJIoYv3op4qkCcWryZsEo7zpmX8U+VYy6K4cGVKW8QR02syO
+	 foCi9YPxF6odCdPc/2FJSvS8ZlsrJrg8TH6NxKnm85YKYinNra+5KWWbbS7sXTZ6bRg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gCP59ENz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.1
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011001.outbound.protection.outlook.com [52.101.62.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCB7606A31C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:29:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBCB7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 512FC606A31A;
+	Mon, 19 Oct 2026 23:31:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 512FC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Aagl7Qxp
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-679a2297c55so1952209d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:29:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792452559; x=1793057359; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4TirjOQRZRPCBDDxEN9G0F42E5yvl5uRZgUb6F1K8zs=;
-        b=Aagl7QxpNverpNeg9pGNLXE8RuBbwstWy7eM6gTw1jZczKGbcnYCrZ5r9/nBKl7TXs
-         f9dxhBpwNhgIYZi7mQhfc1QmmtYBbZ/v7/gptWMxlJXIc3Qy5h9exzJvoLUmZ4iN0/vu
-         y5fd8r7L0FTbQYUcT5F8fBaBVhFJNvbbOZNLJSudblxsqIBdoeOm0lDSdxAXGSiXMqjm
-         tedi49TB9zumWq1i/5eI/rijUJ54BHIaoB7N/zIFTr6MS9/HXpI8AWgDQrUVihSWoFST
-         +8wkHaxgopddkvBUd40nfSZmdwtqm1bEoNArRa0O0GwGxJHvojsx2XhyaIkZrzcV3Cmg
-         IHpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792452559; x=1793057359;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4TirjOQRZRPCBDDxEN9G0F42E5yvl5uRZgUb6F1K8zs=;
-        b=ZWiD71mPWSAA6LIT6zNclWuZdNq3Zr+yWdN3pLEU+bH8voRsFTqOPwzZXm6jwaPAZo
-         hPc4T+a2MuY5YEtnOszJp07oNwR8LiUUUP7UjY8Och9WUSy/sXO86Jk5lTW/VvQWUDgH
-         HnVUir6LDiRLigoU2m55rNJBVfoJSKaYD6fewhHUpRJKLBsElj2jqigL8w4UN5RJldRk
-         74szTFNpQX0RR55q67fV9ZF2elqE9mOVvcgwgJQ7A3LdpyKJo/PYgDpM1dHpBpy11ECf
-         tovM44xgh0JWU2RcuHGlaRdQWPqKfdcTBHsMf2zRf666DqSELiw7WHDzYuK6+Mb9KCgY
-         8zqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxf+eFL2g+dJ/6z2olulSGpuWnvrwub5vJh0ib6mMy7BFXKQOBEXXA245TKC3NU0if7RgnxiqaOWO/56rk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6a2KcmP9MyV2aQANMWirfeKSUAXfVVtThNfu27UmWXQdH2zmW
-	l2eg+6vjBcovoJU9Q8zjEFKZ3BvvNNhO19vEntjBxPU4XCttgVZ5pobolGinOv7lU9A=
-X-Gm-Gg: AYBFou3bPuEpKF0wmTZGkpjNMnT+bJ+P6svP+uocBhBFFpBQNEflXtTXPJRlP3z78Qy
-	T+R0hGbUC2tW7mzwYUgXqtggfl+I66sea8uovWLmTIL965TpKFWFK9CQqRjZYaUkVZBjblggHrc
-	zsrefNaQlaIAJ+FTKUX3KJACz6mJdkGPHm9yvSuJeUHk+oiev11UsjSLvWTUL6efXrbMTGqybMA
-	dcE6HTHuETADSEr7jVwTNXv9t0Yiuo66B1cLQ+gcWA6ejQ1BnYKRKB59i+Iya7DXqSbrlcki3va
-	3F4H22mc/mQEkvlJlCxi2P8XT0Ig+RnhWnDslGwMd2HrCbGdAqtSw+bHmjaEUzJEEddJH2/9T6e
-	jMcV58VoVDzPKgbVn3E+SZW/qF4uJNJB2EiMbcd+nxANQYgxqnU5+jex7uxLIuijnstjsUOhkxy
-	XrNGbFl1LC8oxxm53ymxVFcikRxT6zMMnOqijn1T4JhTrO42S4rDxlCJo4qZQRFasOzzEvigip/
-	xCkRquD0w69HYrH9wKMqastHZG/hjelk8kTOUhz4qPcSQci/wmQ9+5suTfkfYCgGPbOPYEqdtfQ
-	lp/R1dsfp67r5C+phC1YBA9lTOg0ypFUlslx7bVq8KIBbVvpWfUYFcbYhMxzcg==
-X-Received: by 2002:a05:690e:168c:b0:679:9793:5fbd with SMTP id 956f58d0204a3-679ca78f629mr3772919d50.42.1792452558870;
-        Mon, 19 Oct 2026 16:29:18 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:9597:5848:ae16:6bc? ([2600:1700:6476:1430:9597:5848:ae16:6bc])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679b1e79bcesm4462270d50.12.2026.10.19.16.29.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 16:29:18 -0700 (PDT)
-Message-ID: <b6f1cb66778d09015ad5862ff273edc37c44ef28.camel@dubeyko.com>
-Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Mon, 19 Oct 2026 16:29:16 -0700
-In-Reply-To: <20261015110114.1649059-1-hengyul@cs.unc.edu>
-References: <20261015110114.1649059-1-hengyul@cs.unc.edu>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gCP59ENz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mNoH4VQr231NMbfUlxlrP8j2/qKEReWeMq7fVjXERtE/I1qktYeRsI08+swxQTxXdUZMCWb117YnaOae8wFC5cmAkYLvDF8cxPM6hXrl64m19Nculgzb/YffoR+P8OmmN9lCZQH+OW02aob2I1K1F5TvGv/YbHqIasFDd649k8nZOojPlmKa5GwnQs4XP10QcvpYCKpa8UawMWM0JliNGMsIaWj1oaKDbP1Z4ksVOFUI5hD3djLmxkgBhkbQVwu8uT9YB7a3pgHQrsWIoTvQ1rtVjXoHF4/3GOgjES7m+iSkfEfogt2V+TT8UNlWB3s3paylpw/rzQVXVwYzbTHxKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sPcz3Cd0fEAnxGXGD00/IHYBSS+7FIbuI0zdvcPMghw=;
+ b=vhRzskK+wmNf3wMg7rz1T9i8eC9eDuVsbyt1bED5CIiI0Vrzz071QxQ9yLM8lOSaJlUxk/GrxQb1KRwhjFicYsygIo/TteL5aYIjob0OljZIHU5oJxAVnpPDSFUsrL2dLp8UmDW73eD5ecqR+nO+Vlo5OGiV/8M8AsWzFyCZ8rsA4nSjzfu43YBh0dCDvf64RLlUGJJsEbyu6eFdn0nJHkohhJpbpaiAWxElUOOSYtwrhbT78ZmNpEgOsDGfQ/CZSCxRlmZJw9tVFfW9SRRqKduyMEpDS4AVbVKmj1K7uqISDojaUt5PLlDps4q3QNl4acIu59eZ1PBfHau1BH8rmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sPcz3Cd0fEAnxGXGD00/IHYBSS+7FIbuI0zdvcPMghw=;
+ b=gCP59ENzxIRfRL6bVmUgMyiKB5W9IOtBkOqdyKckQNcTVFU7UHGZB2+U50MIzTWUCN4YkNBdPq34tOO1X0nNQ2QeP8HFgR8TlRuDNz2rzz0LgJF378Vl5b10ej45dgbZ75qXrPPiGOlRqZL1eHVZLqMDbh88zlEtzPsxXXldVfHy5XMwcriQxfCKO/2yUMi96RTxTevPQCKnqciQGzdEiX5ePgHeP74Ga3xmOwRl1/KL5YOhbz/JnGxAQorY6PbxewD0BW834lFjuESA0+czGsUgkDsV8AU/6kfC+hat7iHub9JA4AUuEB6HCsYeNvn/mfn0b1oonrE34l8+4CVqPA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by SN7PR12MB8789.namprd12.prod.outlook.com
+ (2603:10b6:806:34b::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Mon, 19 Oct
+ 2026 23:29:49 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 23:29:49 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH RFC 02/20] ctlv: Add the UAPI wire format and family
+ API
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, 
+ linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com, 
+ lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com, 
+ cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+ James.Bottomley@HansenPartnership.com, aik@amd.com, jpiotrowski@nvidia.com, 
+ qinkun@google.com, pgonda@google.com, jic23@kernel.org, 
+ alistair.francis@wdc.com, ankita@nvidia.com, suzuki.poulose@arm.com, 
+ kas@kernel.org, rick.p.edgecombe@intel.com, elena.reshetova@intel.com, 
+ dave.hansen@linux.intel.com, sathyanarayanan.kuppuswamy@linux.intel.com, 
+ peter.fang@intel.com
+In-Reply-To: <20261015145053.3664509-3-jiri@resnulli.us>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-3-jiri@resnulli.us>
+Date: Mon, 19 Oct 2026 20:29:45 -0300
+Message-Id: <179245258504.58760.15790996354033644110.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-ClientProxiedBy: BN0PR04CA0031.namprd04.prod.outlook.com
+ (2603:10b6:408:e8::6) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -145,264 +107,208 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|SN7PR12MB8789:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06751bff-ff36-4636-9785-08df2e38dd9a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|18002099003|22082099003|10067099003|3023799007|4143699003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	yl5wLznsRU3MgUkJBDe+Ube34vJZYFO9N92hVlxS4fK7YYFbCY8+UPlu9vCsTmVRoKFL/h5AF6dilUoZDw61hrDS8KnxGj7uyEtpF/B+PPjqk6Ugjq0onUgE2djWklwUPR6y5U3xfDtv3h+I66DtyNy4D96Hbr23TmYP3uYakwlWDQSVR4gOR3bZRBJK+IrhIiRACHrYATOaOto8ULCeS5dsFyubh1b/mx3Q1xMzyJa2Xuu63cpPewWUK1fLCHkllNKBVaR7XtELw5UqsK693E9IKOcRILQoQ/pMiQMmpzDc/xUjeylnP5VNHYweA6zkyoOZi9DMacs9L+ILSb32S2vHKpm6d/UPO9eouYuLS2uBq+Ii3g3b4i+zo4onGYzMSFEUsvC9vpgIrMlq3cdM5Qa47ptREAVP+v1pkBIojVPiZ+zyB02zcW5bsMLpxY4eSqpaV0wPa2rdCjBAkUZtE72dkjB0E+T4UHO6gSgHzWiQ79t0irpm3KaCtzLxI0PzSMRU+mKlJNfGe707uZoL4n3W63knbduWLtmWm/d8ZPLds8bM4xJTQoI7ek2WXuGdNZDsvUu1WSGHy7PaK1x5P+2cvegYzh6dOFR/XGa5BYJUAIY+usKI/D+S/OmB8xLBBfAe3FEF84IyitvPE9+rcGpqQj4AQ0ZIk7tw+sfUF5M=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(10067099003)(3023799007)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dlIvb2lHbHduemcxK2tHVjhaSG1BdEdxam85YkxDWXh5M1dzRDFpQVFNZDh2?=
+ =?utf-8?B?VjM1MTZCNW14T2E2dDZpQVI4MFM0MVZtMDJOMmcrT1ptZE5Rb3pQa205dmd4?=
+ =?utf-8?B?bE43VVdGZ0tSbXBkRGcxT3VmaWtCdmNqanNLUlVWdXVURE93d1Q0L0FNRExl?=
+ =?utf-8?B?VmxnVmIrV2c3ZFp3Zk5ybzFJcGZTRzI1V1g1OFFYdmJpZUhrdGY0clh0bWhU?=
+ =?utf-8?B?NEJXR3o4NkVodldNOHdkTm5mdU9lcVRpTkFvckt1c3ZkVldMN1ZJUDlnQVQx?=
+ =?utf-8?B?NHJVU2pnOEVPMWZBTGIycmhPc2pnczVSL3VOOTVCUGVGT2NqRFI0dEpxYTZv?=
+ =?utf-8?B?TVBLSVFBdW9RSXcxMzE4YlRVVHdXSGJaVi9MZjNoUlorU0wzQjlTQmRFUTNh?=
+ =?utf-8?B?WjdWcy85MFpnSWtVT0k0VGx2dlNoWmI4Z3luS0RoUFZSYkZ4MW5mbWwzeEFm?=
+ =?utf-8?B?UTdHYnRnVzhqaE9FUjNxQmZtVUl3QVFWaS9PaTZaOGZpaEFYTDN3S0dPbzhP?=
+ =?utf-8?B?eEFUUzhuVU1IeFI0S1c5S2RDMDRZcFdNdGhreXRWZmEzemVxRkh1TlJvSnVJ?=
+ =?utf-8?B?ZzhSTUE5RkRIK0lCcEFYZVl0ZE1rWGJPODY2cU9OcldIaU5BN0RhMi9mTVp0?=
+ =?utf-8?B?dElvY1duZVhZc1RGUnQ2R1R1NGdtYXdtVVZ3bkM1M0hBZkJrMnl3WEV0U2lZ?=
+ =?utf-8?B?TS95VXozelBKYzBFSlZLQS9rWU82ZXM1MkJQRCtXa1I4R3JqbUY3bXI0Ym9l?=
+ =?utf-8?B?QThwRndTMUMwQVVHRG1GeVZoRnNRc1dwa1NRT1U3T1V4dGk2aDJBLzN3anlB?=
+ =?utf-8?B?WUNWdUtNTWtPQ3pFZXB2L2Zways0aEZCVXJoLzc5cDYyY1JVTXJlTlRQSG9D?=
+ =?utf-8?B?YmFYeGVNREF4Q0xDaDJkdFBKK0tVZWdkZ0ZDUDl1Q3lsV0FwZFVsZ3pUZlVD?=
+ =?utf-8?B?VllTeGxBc1IzbFlUZXIwaExOYS96Rk42NHlnalhTZHBFeWhTTVdlNW9yTDM1?=
+ =?utf-8?B?YTNmc0NmdEVNMDNhK3k3b2hKTUQvRnhtOXY1bTNQYWxTQksrWENWZUtpaUVO?=
+ =?utf-8?B?T1FUWkZnTkZ1bkR6Vk5EZEhGRHFVYkl4NUN1eklhQzRQYnI2aXd4anBaYjZa?=
+ =?utf-8?B?cDZLSUJtbEJuN3ZxemI3Um5QR0YzR0s1UUsxY3ZaaEZhcm9JYnlkcGlqbFBh?=
+ =?utf-8?B?dEtqdHVIRXYrMTN3VDQzejVRaUtETHpldXNnNFoyMzBxaDN0cUkzWDl1S3Fn?=
+ =?utf-8?B?alFJSDk1RitPbllJbjlsRkhBYVZ2Q3RDNFZtSnp3d3ZPSkMwVVJUaElHdHVF?=
+ =?utf-8?B?NDM2RkpQMEhVMnNjZkFOV2lvcjV1dFQrblNtSVhub0hYQWxzM1ZnbVBMYUpk?=
+ =?utf-8?B?bUNsNWUwQXFuVi9UVUhmdVptNmV3QmFnMUhLcWVwUW5IQ210RUpKczZIVG9Z?=
+ =?utf-8?B?Y3dMcTVMdU9reTlYVWIyaHBocnduaCs1Nkx3eEEwa2c4cCtDTStOTVdiMXcw?=
+ =?utf-8?B?d3M0eEgwNDlCK1liT3ptd01KeTVGUjZDb1FvQkNWS3FJWS9uQi8xTzhwenpR?=
+ =?utf-8?B?dEFqdFlteVpOVjYrSGE1bktiSGhPeWh1bW1RaTdKUU1WYlZqKzRJWGsyL3hU?=
+ =?utf-8?B?dnllRjNFaDJQZ2tkdjlFa1FCQVBGeE9TbFFpQnJ0d3UyYXMwNk1KZmFUNCts?=
+ =?utf-8?B?MFBzVVVPUEc1Q2tkdnU5b3VaTjArTTRJa3d5Y3dhVnRFTWVTMnRpYU02RkF6?=
+ =?utf-8?B?QlNheDdKalZEWlhJaW9WUjM1eThCeHU5ZEtoeStHK2RlUXZDN3J6VWJtQlB3?=
+ =?utf-8?B?clMrWjd5ZlQ5d3NmUWlUQVRhOGdHVU1tNmFBTWZ3Mm1zc2RWNjlnNzZpSGlV?=
+ =?utf-8?B?NHlqdzF1QUdzMVBJWkFXYzZtVkgvT3FYQzBVWXNHby80czF2THpZQkZ1bXd5?=
+ =?utf-8?B?Q1NqK2duSnJCeDVBNjIvYXFDLzREMEpqVm44QmdWVHRsWlJoaXJrNktaS3NY?=
+ =?utf-8?B?ZTlZWFNMVFFVNUd3ZDlDb1JjR3hIeUplTmZ4VFhvVkJRVy9sM09pK1dmSGlQ?=
+ =?utf-8?B?cFYxM01BTGNFYUlQUXArVEM4Y3FacVdQV2dCaWpKV1dKT28zcG5rTlE5eERu?=
+ =?utf-8?B?cmpYQW8ySzB3VzdtQlNKRDRPYkR1TkJ2MXh1L3hYTG9BNkp6YzRUNXBWcEh4?=
+ =?utf-8?B?V09lYW9MNUNFcW9QQXcydW1lYjhmUXdyWWVmcjY4ZEw1c3lSY01iekJDcTN3?=
+ =?utf-8?B?SnNTa0QyNm1uRjB3YmNCMForcVhCWXY4QTFQaUNMVmQ4NTF0Yi9EUnBBOWNa?=
+ =?utf-8?Q?vnfiJkhH4VOuDOiW6E?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06751bff-ff36-4636-9785-08df2e38dd9a
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 23:29:48.2115
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y5TN5RuWEeRG8yrr4zbg6ltMOr+p+Y9Jg4/jnyMu4NFlwtYZfNVwgTedU8KcjAdK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8789
 
-On Thu, 2026-10-15 at 07:01 -0400, Hengyu Liang wrote:
-> Commit a06ec283e125 ("hfs: add logic of correcting a next unused
-> CNID")
-> made hfs_correct_next_unused_CNID() use the CNID of the last file or
-> directory record in catalog key order to lower next_id after
-> deletion.
->=20
-> However, catalog keys are sorted by parent directory ID and name,
-> not by the record's own CNID. The resulting next_id can still be in
-> use, so hfs_cat_create() finds an existing thread and returns EEXIST.
-> Commit 6592287869bf ("hfs: fix incorrect inode ID assignment in
-> hfs_new_inode()") exposed this issue by correcting the inode ID.
-
-Frankly speaking, I don't see how your modification can fix anything.
-From my point of view, the current logic is correct. Probably, the call
-of this method is not in the proper place.
-
->=20
-> On a freshly formatted and mounted HFS volume, run:
->=20
-> =C2=A0=C2=A0=C2=A0 mkdir z
-> =C2=A0=C2=A0=C2=A0 : > a
-> =C2=A0=C2=A0=C2=A0 : > b
-> =C2=A0=C2=A0=C2=A0 rm b
-> =C2=A0=C2=A0=C2=A0 : > c
->=20
-> Without this fix, creating c fails with EEXIST, although c does not
-> exist. With the fix, it succeeds on the first attempt.
->=20
-> First look up the preceding CNID: if it exists, it must be the
-> largest
-> remaining ID. Otherwise, scan all file and directory records for the
-> maximum, including files without optional thread records. Follow the
-> leaf links regardless of node numbers, bound the walk by the total
-> node count, and acquire a reference on every visit so malformed
-> cycles
-> cannot loop indefinitely or reuse a released node.
->=20
-> Fixes: a06ec283e125 ("hfs: add logic of correcting a next unused
-> CNID")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-> ---
-> The fallback follows leaf sibling links independently of node
-> numbers.
-> Bound its iterations by the tree's total node count and acquire a
-> fresh
-> node reference on every visit, including when a cycle returns to the
-> tail.
-> The budget check runs before acquisition; exhaustion returns EIO
-> without
-> using the partial maximum to update next_id.
->=20
-> Tested on v7.3-rc6 with GCC 10.5 and the unchanged KASAN
-> configuration:
-> 14 normal-volume cases passed, including predecessor lookup, ID
-> holes,
-> missing file threads, concurrency and reordered leaf node numbers.
-> Three malformed prev chains (tail self-loop, a loop returning to the
-> tail,
-> and a loop excluding the tail) each returned EIO after exactly
-> node_count
-> visits. The on-disk next CNID was unchanged; no KASAN or BUG was
-> observed.
->=20
-> =C2=A0fs/hfs/catalog.c | 80 +++++++++++++++++++++++++++++----------------=
--
-> --
-> =C2=A01 file changed, 48 insertions(+), 32 deletions(-)
->=20
-> diff --git a/fs/hfs/catalog.c b/fs/hfs/catalog.c
-> index 490c5e130da3..2d90f1857781 100644
-> --- a/fs/hfs/catalog.c
-> +++ b/fs/hfs/catalog.c
-> @@ -269,48 +269,54 @@ void hfs_set_next_unused_CNID(struct
-> super_block *sb,
-> =C2=A0 * Correct the next unused CNID of Catalog Tree.
-> =C2=A0 */
-> =C2=A0static
-> -int hfs_correct_next_unused_CNID(struct super_block *sb, u32 cnid)
-> +int hfs_correct_next_unused_CNID(struct super_block *sb,
-> +				 struct hfs_find_data *fd, u32 cnid)
-> =C2=A0{
-> =C2=A0	struct hfs_btree *cat_tree;
-> =C2=A0	struct hfs_bnode *node;
-> +	u32 max_cnid =3D 0;
-> +	u32 remaining;
-> =C2=A0	s64 leaf_head;
-> =C2=A0	s64 leaf_tail;
-> =C2=A0	s64 node_id;
-> +	int res;
-> =C2=A0
-> =C2=A0	hfs_dbg("cnid %u, next_id %lld\n",
-> =C2=A0		cnid, atomic64_read(&HFS_SB(sb)->next_id));
-> =C2=A0
-> -	if ((cnid + 1) < atomic64_read(&HFS_SB(sb)->next_id)) {
-> +	if ((cnid + 1) !=3D atomic64_read(&HFS_SB(sb)->next_id)) {
-
-I don't quite follow why do we need to change this check? If cnid + 1
-is smaller than the maximum one, then cnid + 1 is in use yet. We don't
-need to execute any additional logic. What am I missing here?
-
-> =C2=A0		/* next ID should be unchanged */
-> =C2=A0		return 0;
-> =C2=A0	}
-> =C2=A0
-> +	/* If the previous CNID is still in use, it must be the
-> maximum. */
-> +	res =3D hfs_cat_find_brec(sb, cnid - 1, fd);
-
-Why do we need to check something for previous one? If the bigger cnid
-is in use, then we don't need to do anything here.
-
-This patch doesn't make sense to me. I don't see how it can fix
-anything. Could you please explain more clearly the problem and the
-fix?
-
-Thanks,
-Slava.
-
-> +	if (!res) {
-> +		hfs_set_next_unused_CNID(sb, cnid, cnid - 1);
-> +		return 0;
-> +	}
-> +	if (res !=3D -ENOENT)
-> +		return res;
+> [ ... 159 lines skipped ... ]
+> +#define CTLV_NODE_SCHEMA_UNLIMITED 0
 > +
-> =C2=A0	cat_tree =3D HFS_SB(sb)->cat_tree;
-> =C2=A0	leaf_head =3D cat_tree->leaf_head;
-> =C2=A0	leaf_tail =3D cat_tree->leaf_tail;
-> -
-> -	if (leaf_head > leaf_tail) {
-> -		pr_err("node is corrupted: leaf_head %lld, leaf_tail
-> %lld\n",
-> -			leaf_head, leaf_tail);
-> -		return -ERANGE;
-> -	}
-> -
-> -	node =3D hfs_bnode_find(cat_tree, leaf_tail);
-> -	if (IS_ERR(node)) {
-> -		pr_err("fail to find leaf node: node ID %lld\n",
-> -			leaf_tail);
-> -		return -ENOENT;
-> -	}
-> -
-> +	remaining =3D cat_tree->node_count;
-> =C2=A0	node_id =3D leaf_tail;
-> =C2=A0
-> =C2=A0	do {
-> =C2=A0		int i;
-> =C2=A0
-> -		if (node_id !=3D leaf_tail) {
-> -			node =3D hfs_bnode_find(cat_tree, node_id);
-> -			if (IS_ERR(node))
-> -				return -ENOENT;
-> +		/* A valid leaf chain cannot visit more nodes than
-> the tree. */
-> +		if (!remaining)
-> +			return -EIO;
-> +		remaining--;
+> +#define __CTLV_NODE_SCHEMA(_attr, _kind, _occurrences, ...)	\
+> +	{ .attr_id = (_attr), .kind = (_kind),			\
+> +	  .max_occurrences = (_occurrences), __VA_ARGS__ }
+
+This reads alot better without the extra macro layer. The point of
+this is to allow the codegen output to be concise it is worth being a
+bit more verbose here so the exact form is easier to see.
+
 > +
-> +		node =3D hfs_bnode_find(cat_tree, node_id);
-> +		if (IS_ERR(node)) {
-> +			pr_err("fail to find leaf node: node ID
-> %lld\n",
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 node_id);
-> +			return PTR_ERR(node);
-> =C2=A0		}
-> =C2=A0
-> =C2=A0		hfs_dbg("node %lld, leaf_tail %lld, leaf_head
-> %lld\n",
-> @@ -331,42 +337,52 @@ int hfs_correct_next_unused_CNID(struct
-> super_block *sb, u32 cnid)
-> =C2=A0				pr_err("fail to get the keylen: "
-> =C2=A0					"node_id %lld, record index
-> %d\n",
-> =C2=A0					node_id, i);
-> -				return -EINVAL;
-> +				res =3D -EINVAL;
-> +				goto out;
-> =C2=A0			}
-> =C2=A0
-> =C2=A0			entryoffset =3D off + keylen;
-> =C2=A0			entrylength =3D len - keylen;
-> =C2=A0
-> -			if (entrylength > sizeof(rec)) {
-> +			if (entrylength <=3D 0 || entrylength >
-> sizeof(rec)) {
-> =C2=A0				pr_err("unexpected record length: "
-> =C2=A0					"entrylength %d\n",
-> =C2=A0					entrylength);
-> -				return -EINVAL;
-> +				res =3D -EINVAL;
-> +				goto out;
-> =C2=A0			}
-> =C2=A0
-> =C2=A0			hfs_bnode_read(node, &rec, entryoffset,
-> entrylength);
-> =C2=A0
-> =C2=A0			if (rec.type =3D=3D HFS_CDR_DIR) {
-> +				if (entrylength !=3D sizeof(struct
-> hfs_cat_dir)) {
-> +					res =3D -EIO;
-> +					goto out;
-> +				}
-> =C2=A0				found_cnid =3D
-> be32_to_cpu(rec.dir.DirID);
-> =C2=A0				hfs_dbg("found_cnid %u\n",
-> found_cnid);
-> -				hfs_set_next_unused_CNID(sb, cnid,
-> found_cnid);
-> -				hfs_bnode_put(node);
-> -				return 0;
-> +				max_cnid =3D max(max_cnid,
-> found_cnid);
-> =C2=A0			} else if (rec.type =3D=3D HFS_CDR_FIL) {
-> +				if (entrylength !=3D sizeof(struct
-> hfs_cat_file)) {
-> +					res =3D -EIO;
-> +					goto out;
-> +				}
-> =C2=A0				found_cnid =3D
-> be32_to_cpu(rec.file.FlNum);
-> =C2=A0				hfs_dbg("found_cnid %u\n",
-> found_cnid);
-> -				hfs_set_next_unused_CNID(sb, cnid,
-> found_cnid);
-> -				hfs_bnode_put(node);
-> -				return 0;
-> +				max_cnid =3D max(max_cnid,
-> found_cnid);
-> =C2=A0			}
-> =C2=A0		}
-> =C2=A0
-> =C2=A0		node_id =3D node->prev;
-> =C2=A0		hfs_bnode_put(node);
-> =C2=A0
-> -	} while (node_id >=3D leaf_head);
-> +	} while (node_id);
-> =C2=A0
-> -	return -ENOENT;
-> +	hfs_set_next_unused_CNID(sb, cnid, max_cnid);
-> +	return 0;
-> +out:
-> +	hfs_bnode_put(node);
-> +	return res;
-> =C2=A0}
-> =C2=A0
-> =C2=A0/*
-> @@ -420,7 +436,7 @@ int hfs_cat_delete(u32 cnid, struct inode *dir,
-> const struct qstr *str)
-> =C2=A0	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
-> =C2=A0	mark_inode_dirty(dir);
-> =C2=A0
-> -	res =3D hfs_correct_next_unused_CNID(sb, cnid);
-> +	res =3D hfs_correct_next_unused_CNID(sb, &fd, cnid);
-> =C2=A0	if (res)
-> =C2=A0		goto out;
-> =C2=A0
+> +#define __CTLV_NODE_SCHEMA_CHILDREN(_first, _count, _required)	\
+> +	.first_child = (_first), .children_count = (_count),	\
+> +	.required_children_count = (_required)
+> +
+> +#define CTLV_NODE_SCHEMA_ROOT(_first, _count, _required)	\
+> +	__CTLV_NODE_SCHEMA(CTLV_ATTR_ROOT, CTLV_SCHEMA_NEST, 1,	\
+> +			   __CTLV_NODE_SCHEMA_CHILDREN(_first, _count, _required))
+
+For instance this is much more directly readable:
+
+#define CTLV_NODE_SCHEMA_ROOT(_first, _count, _required) \
+	((struct ctlv_node_schema){                      \
+		.attr_id = CTLV_ATTR_ROOT,               \
+		.kind = CTLV_SCHEMA_NEST,                \
+		.max_occurrences = 1,                    \
+		.first_child = _first,                   \
+		.children_count = _count,                \
+		.required_children_count = _required,    \
+	})
+
+Even if it is longer, and and clangd can now jump to the struct members
+
+I also think each of these should have a one line comment explaining
+when it is used.
+
+> [ ... 61 lines skipped ... ]
+> +#define __CTLV_STUB_SCHEMA(_family, _set, _node, _optional)	\
+> +	{ .family_id = (_family), .set_id = (_set),		\
+> +	  .node = (_node), .optional = (_optional) }
+
+Same here
+
+> +
+> +#define CTLV_STUB_SCHEMA(_family, _set, _node)			\
+> +	__CTLV_STUB_SCHEMA(_family, _set, _node, false)
+> +
+> +#define CTLV_STUB_SCHEMA_OPTIONAL(_family, _set, _node)		\
+> +	__CTLV_STUB_SCHEMA(_family, _set, _node, true)
+> +
+> +struct ctlv_schema_tree {
+> +	const struct ctlv_node_schema *node_schemas;
+> +	u32 node_schemas_count;
+> +	const struct ctlv_stub_schema *stub_schemas;
+> +	u32 stub_schemas_count;
+> +};
+
+I've been ponding for a while what 'stub' means in this context.
+
+AI suggested "extension_points would be a clearer name here." I guess
+because ctlv.rst calls it "Inheritance and extension points" ?
+
+> +
+> +#define CTLV_SCHEMA_TREE(_name) {				\
+> +	.node_schemas = _name##_node_schemas,			\
+> +	.node_schemas_count = ARRAY_SIZE(_name##_node_schemas),	\
+> +}
+
+It is helpful to put the struct on these macros ((struct X){})
+
+#define CTLV_SCHEMA_TREE(_name)                                         \
+	((struct ctlv_schema_tree){                                     \
+		.node_schemas = _name##_node_schemas,                   \
+		.node_schemas_count = ARRAY_SIZE(_name##_node_schemas), \
+	})
+
+> [ ... 127 lines skipped ... ]
+> +typedef size_t (*ctlv_family_priv_size_fn)(void);
+> +typedef const void *(*ctlv_family_pre_init_fn)(const void *init_info);
+> +typedef int (*ctlv_family_init_fn)(struct ctlv_device *ctlvdev,
+> +				   const void *init_info, void *priv);
+> +typedef int (*ctlv_family_post_init_fn)(struct ctlv_device *ctlvdev,
+> +					void *priv);
+> +typedef void (*ctlv_family_pre_fini_fn)(struct ctlv_device *ctlvdev,
+> +					void *priv);
+> +typedef void (*ctlv_family_fini_fn)(struct ctlv_device *ctlvdev, void *priv);
+> +
+> +typedef int (*ctlv_stub_fill_fn)(void *priv, struct ctlv_op_ctx *ctx,
+> +				 const struct ctlv_cursor *request,
+> +				 struct ctlv_cursor *nest);
+> +
+> +struct ctlv_stub_ops {
+> +	u16 family_id;
+> +	u32 set_id;
+> +	ctlv_stub_fill_fn fill;
+> +};
+> +
+> +#define CTLV_STUB_OPS(_family, _set, _name) {			\
+> +	.family_id = (_family),					\
+> +	.set_id = (_set),					\
+> +	.fill = _name##_fill,					\
+> +}
+> +
+> +struct ctlv_family {
+> +	const struct ctlv_family_schema *schema;
+> +	const struct ctlv_family *parent;
+> +	const struct ctlv_op *ops;
+> +	u32 ops_count;
+> +	ctlv_op_pre_fn pre;
+> +	ctlv_op_post_fn post;
+> +	ctlv_family_priv_size_fn priv_size;
+> +	ctlv_family_pre_init_fn pre_init;
+> +	ctlv_family_init_fn init;
+> +	ctlv_family_post_init_fn post_init;
+> +	ctlv_family_pre_fini_fn pre_fini;
+> +	ctlv_family_fini_fn fini;
+> +	const struct ctlv_stub_ops *stub_ops;
+> +	u32 stub_ops_count;
+
+Having the function ops in a struct use typedefs instead of just
+coding the signature is unkernelly, I couldn't figure out what this
+was done, it seems there is no user of the typedef
+
+> [ ... 182 lines skipped ... ]
+> +/* Implementation limits, not wire-field maxima: raising them is compatible. */
+> +
+> +/* Request roots, action replies, query reply fragments and event roots. */
+> +#define CTLV_MAX_INLINE_MESSAGE_LEN	0x100000	/* 1 MiB */
+> +/* Includes the error information root. */
+> +#define CTLV_MAX_ERROR_LEN		0x4000		/* 16 KiB */
+> +/* The root attr is at depth zero. */
+> +#define CTLV_MAX_NEST_DEPTH		32
+> +#define CTLV_DEFAULT_QUERY_REPLY_LEN	0x10000		/* 64 KiB */
+> +#define CTLV_MAX_EVENT_QUEUE_LEN	0x1000000	/* 16 MiB */
+
+If they are just random kernel limits I'm not sure they should be in
+this uapi header?
+
+-- 
+Jason
