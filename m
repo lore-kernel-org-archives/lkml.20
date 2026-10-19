@@ -1,104 +1,100 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-94.mta1.migadu.com [95.215.58.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C6E4B9201;
-	Mon, 19 Oct 2026 09:49:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3EE4424D57
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:50:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403398; cv=none; b=rykb2tftwi/5SIvrj9hPvo4xyxVVPE21zc4fMfDpJ8nJb845lUGC/cC3GLfD5/H345LhNqqJr7ae92DIFFRl0Qo21q9UFQYKBBzSICZTvkrid/eAXHlRHP8SI4JFapc0/NwzDbrf+qsEkgIoav/Q0HhaXyrCjYo5LUcxe14pfvQ=
+	t=1792403450; cv=none; b=XXlZ55QdUI4lKlmRoFyR+arUzPKWxmn80JjAGEjp9NtkcxeUJSuw/TIedkwChMXHhr/h+BkQzRtLeUAnv24sYUJWP0SzLiOdB0tdS8yGMMSDWFxxAuwB1lQsQS2dJ+t/cPnGf+3VzQjFr0p9DSZq78oJBC9GgFmSNhQp7HcKaus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403398; c=relaxed/simple;
-	bh=4T8X+mnirwDXrJzYavy3/QN/Xx0CmFgmoKtciO5afpM=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o0hjtLzv8Ot9UVc+VXTKWP3TnLmeNjFDcRrQEdnNVP+leWXpn7efNQDngcjpnkUxsMEkWBgy05PDIEkTG4EwxO+2ENeBgirogJArbIMC8ChMX3nY5Sx3YExkPVIIoJgnP8N+PD9s60iZddq+auprYxOe/BYksQvJxdpsyzpCkrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=CZSYLcy+; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1792403450; c=relaxed/simple;
+	bh=5dg8NSvB9hFjoy54PLoUpMKB7gitIbpPU2h83kRMT2s=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=nWNTiqUTVV8eqLvwg71UpQRDfSeTgjEQjOgifzzh2DXaay/Si8cqlIfw8n5Zz/Va4umkIGyTZ3eGe6mO+Wc6CvgL8mW/JcKl02DnFvA8v8FIuCelNimYkCTuSJ4yQfEnAnimF0MofK3bcbuCt5aUayNJ7bdX9h9YBNbh3X9Jb7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Sovzfxe0; arc=none smtp.client-ip=95.215.58.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="CZSYLcy+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1792403393; x=1823939393;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4T8X+mnirwDXrJzYavy3/QN/Xx0CmFgmoKtciO5afpM=;
-  b=CZSYLcy+3EuUOv2tLBbOLxm1msliAcgCc0iv/GAnTl3zM7CZjkfC2Zcr
-   ietVLs2DD+L77l+Xv5v4XeNJQXBfxij7STOFTGYd9qqOFzwhux77Hy81/
-   ywpyFSzoZtWEMzjnlE4ztS7z2Pqk4tnJjGdCa+eunHFKLgu1BiE0tzf3n
-   D4DTxBiorDAK+qDSFblndna5+uFeWUiLvH/PyqavcBOwqLP9WYbZP5St4
-   vMVI9bi++PZCljpWA2JR7OJwE5vwZ98xqBicGdhJhurHdqI6COmATrbWi
-   aFFzLckWhK2u/VH9rmTR124DW69kHlY8jbkRslkIKf75pbVtRC3sAf2fo
-   g==;
-X-CSE-ConnectionGUID: Bjc3CSJCRReGvAr2uSyZ1w==
-X-CSE-MsgGUID: tO8BcGNTTvWkJw7Wrzmxgg==
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="75656201"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:49:52 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Mon, 19 Oct 2026 02:49:52 -0700
-Received: from DEN-DL-M70577 (10.10.85.11) by chn-vm-ex04.mchp-main.com
- (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Mon, 19 Oct 2026 02:49:49 -0700
-Date: Mon, 19 Oct 2026 11:49:48 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Rosen Penev <rosenp@gmail.com>
-CC: <netdev@vger.kernel.org>, Chris Snook <chris.snook@gmail.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Oleksij Rempel <o.rempel@pengutronix.de>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net v2] net: ag71xx: re-enable TX interrupts on RX OOM
-Message-ID: <20261019094948.q7kis563ir7zxb4s@DEN-DL-M70577>
-References: <20261019020147.213746-1-rosenp@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Sovzfxe0"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5dg8NSvB9hFjoy54PLoUpMKB7gitIbpPU2h83kRMT2s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792403446; v=1; x=1793008246;
+ b=Sovzfxe0zRfZXnJh2soMp8JNM+dkRvWsul3dh56BXn+bh1RMfHKiV7Lahy/mx9+lLjABlgMF
+ drMjuPXJxB1EGsqMN3K+GdWu7k028eZRP46HppLCB/YeVzaFZnOiOlVc6Ajd3yWOuZDHg0uYtMv
+ /M28WOWew/a2FNCW2e9z40/s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 535a794b7b48e7a4;
+	Mon, 19 Oct 2026 09:50:46 +0000
+X-Mizu-Trace-ID: 535a794b7b48e7a4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2352b824-7e36-453e-b3e9-151761a352c3@linux.dev>
+Date: Mon, 19 Oct 2026 17:50:36 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261019020147.213746-1-rosenp@gmail.com>
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
+ cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
+ eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
+ linux-kselftest@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>,
+ ameryhung@gmail.com, alexei.starovoitov@gmail.com
+Subject: Re: [RFC PATCH v10 4/4] docs: cgroup-v2: document the iocost BPF cost
+ model attachment
+To: Tejun Heo <tj@kernel.org>
+References: <20261003124045.1289305-1-cui.tao@linux.dev>
+ <20261003124045.1289305-5-cui.tao@linux.dev>
+ <eae39daec12cf6f121cc5010574a6c03@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <eae39daec12cf6f121cc5010574a6c03@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> When the RX ring runs out of buffers the OOM path calls
-> napi_complete() but does not re-enable interrupts.  Because
-> INT_POLL masks both RX and TX events, TX completions are
-> blocked until the OOM timer fires (~100 ms), which can cause
-> TX ring exhaustion and dropped packets.
+Hello Tejun,
 
-Is that not exactly what the OOM timer is for? It schedules napi and tx buffers
-will eventually be freed. I mean, it seems like it was designed to work like
-this.
+在 2026/10/17 01:49, Tejun Heo 写道:
+> Hello, Tao.
+> 
+> On Sat, 03 Oct 2026 20:40:45 +0800, Tao Cui wrote:
+>>  	  model		The cost model in use - "linear"
+>> +			or "bpf" while the BPF model
+>> +			is in use
+> 
+> "linear" or "bpf" is enough here.
+> 
+Shortened to "linear" or "bpf".
 
+>> +	When CONFIG_BLK_CGROUP_IOCOST_BPF is enabled, a BPF cost model
+>> +	can be bound to a device by attaching an "iocost_model_ops"
+>> +	struct_ops carrying the whole disk's major:minor in its "dev"
+>> +	member (a partition's major:minor is rejected).  Attaching
+>> +	creates the controller if needed, like an io.cost.model write
+>> +	does, and
+>> +	switches the device's pricing to the model; enabling and
 > 
-> Restore TX interrupt delivery so the engine can drain completed
-> descriptors while NAPI waits for RX buffer memory.
+> Attaching now also populates the device's line, so the existing sentence
+> saying the line is populated on the first write to "io.cost.qos" or
+> "io.cost.model" needs updating. The paragraph also runs 21 lines with a
+> leftover break after "does, and". Can it be split into three, attaching,
+> model= selection and detaching, and removal and ctrl?
 > 
-> Fixes: d51b6ce441d3 ("net: ethernet: add ag71xx driver")
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  v2: add Fixes: . 
->  drivers/net/ethernet/atheros/ag71xx.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/net/ethernet/atheros/ag71xx.c b/drivers/net/ethernet/atheros/ag71xx.c
-> index d93fd91ff884..5a33759be3cf 100644
-> --- a/drivers/net/ethernet/atheros/ag71xx.c
-> +++ b/drivers/net/ethernet/atheros/ag71xx.c
-> @@ -1746,6 +1746,7 @@ static int ag71xx_poll(struct napi_struct *napi, int limit)
->  
->  	mod_timer(&ag->oom_timer, jiffies + AG71XX_OOM_REFILL);
->  	napi_complete(napi);
-> +	ag71xx_int_enable(ag, AG71XX_INT_TX);
->  	return 0;
->  }
->  
-> -- 
-> 2.56.0
+Updated and split. The documentation now says the device's line
+appears on the first io.cost.qos or io.cost.model write, or when a
+model is attached. The same wording change also went into the
+io.cost.qos section.
+
+The paragraph is now split into three parts: attaching, model=
+selection, and detaching/removal with ctrl. The stray line break after
+"does, and" is gone too.
+
+Thanks,
+Tao
+
+> Thanks.
 > 
 
-/Daniel
