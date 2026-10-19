@@ -1,157 +1,137 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDAF14E8E16
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792412749; cv=pass; b=FYJfaYoJriqCwmOR6aIn9jCkRmLzJkSzjBv1mtruCJw4C2XCyqfxVyLvYTz/xNaFDDvUjLQeDvEsnRpyLZfGMzc5sUocnTw38iJc70Z1jylNB23fxIziTn4RUs6WJJTLdURBGwBVJYGdauBIKFs9jFPWgfuBSEfs9dBWjd7xvSk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792412749; c=relaxed/simple;
-	bh=izRbEgIyPWWKRcko0zVkagJHIxL5p1T5W1BrUUvaYlY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PO5uAgKYtWPYcM0K6nx2NjY+uWjsI2v8/BojhhByBCUn6rK/Ei/QLdIKftK9pkkeU29Xc6Stq2A4hUORVg0TXT8NII55CuNN59Jx/UPHuTzjVQYM7GYiP1W3VEYcHTS61XmsIfjVo7xk/4De8HWgGBXEmGC2HSBzK2tGd/5M8fM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DopmaYFM; arc=pass smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DC34E56F7
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792412769; cv=none; b=HCBl5oQuAUZmwksst8clqx01HLhIcEJsVv5jpm/Zuu7IlLgqvpP/7/3GMdyuLIgyM2rNSLjUCngapV5xpyKiIK7MhDBxFYUFeT2kd5E7F6+U2VuKvQYsD+yD8DartdAkKssEsvHbhxMZezT+kb8yn6QnbZfnw4tHEP0sc/87Pxw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792412769; c=relaxed/simple;
+	bh=zeLjrccV/Jb1VNCLNtzInCeWJ3yYsx7wmfkaw80F+ik=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IEdifETGRVRlmEmebr2EW9SJzaVvgr1mFg6KteSg1qPSh94JK6wt5+gGODVyvuThtB6ZNp5azjUTOu9Z5yHD4Sj0vT+2VOoX4KbqsxEGSl3TQfYN1iTcKMIPZNB1PcWkbN8DMRzvspfonV8dXV0fiDS4/YUFsoOrS6+YcwAFSA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=FUyfNUaz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=nFH3dorV; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DopmaYFM"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c4649b35bso1667403f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:25:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792412741; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hLyfldr93vkTbW2yi0cUoIrkRipWiqLcNb299yFXzJYRJ5xOeVdxdmwMImhArpu/jA
-         IZOpxVFmVvhpCzO2EVCT0E4bwm0aVJsXBZeSqzjiweJUDoo0YguVs11zD4yt/We8YT2X
-         7lpEgiWCnQvWFEcVAECaMXI8ei0SSUYjGZZBlj2gtArkVN+fUWsnS14BnsPcjy3mAzPW
-         XApXSAcew7hr0mqJj+Vp8rFVFSZjAvciaZtXbGY5vM4uNiyr6M4MVB23uzV4TLSqdS8B
-         67I8YSGzpLJi6cocceugog1nguwBTgOz6P0C6HhqjMkKhx4X1376czTcQGkvW7F9xIHe
-         9Zug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=izRbEgIyPWWKRcko0zVkagJHIxL5p1T5W1BrUUvaYlY=;
-        fh=VpsRlMbNT4o0+KEVGlirARM0aoj1T095+UTNc7X/5lg=;
-        b=fYtckFInWCV0FU3GzwyzZUo2kHJ6BBzXxfEF9YUlRrv39Iha5iuRIXU+xP5vLKNjDn
-         gYbbvFBR/uHZQAhG5y7qvYqxTANFNSd1ww0pYailR72S3ecm/sRlaRIfe4+1Qa/kF/ME
-         vfxHg0XQRgZlpcHLr3DwMBNRE5eroOup72pUkGci1x6MEhED8zBMCg/LP89U8KM4kyDX
-         EIqPnteUZGucLqLGIzkTsBeZ4aoLMSLoF1cPtbXUU2j90JjHMAN0LQmbfg438tDxYQZ4
-         3v0OGaFhpaClEh4hwPvNEta89Q6aWaZ1MTkcF4FfMdabGY2AKNn9o8Q5Djcv4bKP2xBu
-         bMWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792412741; x=1793017541; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=izRbEgIyPWWKRcko0zVkagJHIxL5p1T5W1BrUUvaYlY=;
-        b=DopmaYFMd5ce2bvtaJi9Dlbo0PwRzksmWZKlm+WryJH7VlF4CyyW/aYa33hu2heW2J
-         ccjO9pFIDojHoOcJVwJuY80QdPnC15n6zZIPkFghCv81QYmtUprVYFb7DApk38TUroJW
-         3Rm1HBm1RF51IArHmn90ZhtLVVlAVUS8GfCd4XJJ16q0n1T0zK9S4n7ArGIpqhRJM1vJ
-         p860YJb3Pa1UNz/jpKn6SmRaxpBU/2RRkv4iuAOX0fODqIGvnvATH7unVKV4zAYqrHQC
-         NkbhM36ZZMl65x6rIxEeSuB4tlfRh9BUp9bJ3YDhn6wzxA3OSjwudHWT6e8aZkpuYwCJ
-         n4/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792412741; x=1793017541;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=izRbEgIyPWWKRcko0zVkagJHIxL5p1T5W1BrUUvaYlY=;
-        b=Dk9rOf5HDgE2GD9+pIwRRNbKGk/d33OJ0fTT3KhgOHVVg6phn76CJJRUjOo+P+tpdd
-         KYeIaqasWGoWhEfgFcIfm380aSxftHEo97xCTvkNU7owdENp6j4MNTwkw6ya1jWXSOFW
-         m/JZHpDux4WarRitYHrcjGZkaT3Izrjb4LZOUm/1bl7R0N/Xl8tPDrDyLjCjHG3lExhz
-         yWoq6QS4Gjl8KImZ3EQSXIcSSc+uijBEcjbhH3XOpeqZmGMw9IYzT+yiLlCjz5uWEuMy
-         Tvn+hRoVGJXpF/oMei6BsS54Ez4+lxjisJ1BY/7dC6YDs2tTTaiguUqYR8RDQJrpnw+a
-         deDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxKY4DaquyYHmNF5iRuLBeIeThJoqg6wKiCDjdsKQsc1vI7wsjbbEp2DbXuuS/zYpAJJbCu7CC9SwFI3/c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrCyeVY8I02I3SldVbvokz+b6kzOf8fkV7bBmGaQCrNPqUmXlc
-	DeVoDFz5ZzSoZIE+9D5FkhMQ3dZwDYZ9NqLsPf6LLJZY/pK0CH0Ye+7DonELnH0/c/nRasJxZEO
-	1bGpWmOztPOQHGnynrBRwpO7O9IT2E5wATT6T0AU=
-X-Gm-Gg: AYBFou0iIvbc0kBIGOyX/whOwZdzTsdU9nVmQUj3sBmFTvq86GecZBP4TBXPIfBoP77
-	5KrPiA0y+bz0P8mlLAtDSdI/tdXoOTLvB3MaWHi1Gg5PZKshqNdddIy3oeRb387xlcB5hsmDiBg
-	hHC/Dw4Ku2GpxIt+iFb8jHmKeBpmetF+TpfM+eWJ+jTX+raVALmWBff0mkttcC0WFWKPsCrWOnT
-	/WQU8tc6UVZ6RAIVvfrRrh52moWMuLh5tGndcd87NVA5yFDP+bOw1yeaUZ5wvJ9rNxfikKQb4fx
-	NHrrr1FUCRG3FNmGyMPgJbOy6HndMf9Ql09l4/MiuMPCi/bikPhFz4k=
-X-Received: by 2002:a05:6000:4006:b0:48e:314:f9f2 with SMTP id
- ffacd0b85a97d-48e0797597bmr14581593f8f.8.1792412740313; Mon, 19 Oct 2026
- 05:25:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="FUyfNUaz";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="nFH3dorV"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id B22801D0006E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:26:01 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Mon, 19 Oct 2026 08:26:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1792412761; x=
+	1792499161; bh=y37IPqYp35cQYDyGdgEXOkGlXipadfKsVjSX44qfXXQ=; b=F
+	UyfNUaz58Ets0FXhPKY9p7O81x0ajCAOhARKD4+zCAHKM49WQKOKRmXWyTQBbvQH
+	Ix/r0uCba3CVu5p5c555v7TunZKselwQ6Ue8tz2HGi6Bh7pN9FzUgRJi0dlgMUX3
+	t0KxSggCK9mLlStvikHXgxaL6h7iP0POUklciFnEgmsiPneBf8MB1lfaN3vx3Esf
+	bhBRxS4+MTSiKo3T5ZlbK9EscPn2/IS9f/WpEpgMPgrgZGtKNsHB5u8jasG+Wt23
+	rBTiCtXcxhPRwfpIHaVsitiUubhYnxy2mszACsVkB0eaHIY0Wp+X+avc0nxMJHRg
+	lWKxRO24Otfa9kXYo0n7g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1792412761; x=1792499161; bh=y
+	37IPqYp35cQYDyGdgEXOkGlXipadfKsVjSX44qfXXQ=; b=nFH3dorVn+Kr86x1o
+	Lb37sI7ASuoAH+Orj/vAYULLLDgvstQrN+EotsaUAE3AE7tqfsObNNqmVzyRTEJ6
+	Zs18NpzfjfqTGwnjPZG2B0ZrmBP2/skHlBg9v1AhukH+jaRjXxsCL4jePh+AsQIA
+	WHnbUV8AkbTMh6PtRvu2cSdfTL+t7aFMmuMql+BnMO5VUtvOW7doF2FgmQUMQiVz
+	Um6siLyXVDEZMA4k4/8+TheV4Hrv7SeRzQxkjKgTBVtrAxTO1f3nEgQ6a7FrYo3R
+	ybu5GQoY9qNJNVV8dvAT7BfI3A98Mwk1P65yzIzvxYgr9uUvouwbUUTDNbP4k1Wq
+	FPiEg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792412761; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:wbzrlPUrWwk3DMF0OWFTSZhGoFtlI134vIEUKEv5SbkOoX/
+	tKna48vdAGEDoycXZKQ6vMUxno4n88j39n15Uk8709A/uljFuq/0ZgNbqnTujDY4
+	U5uiOA8wIVhYnT+qq7m6x12X7Sq3f4QNBg2qBkmPeaZ8mIRHhV1LmkLeoDQS26Gp
+	nfnEWLcPzQFa1ehofE+8iSO+ff9p0bp+RscT361XhVbO5jzlTq/kBPItxtIdxwJ4
+	aFu+cmsw42uSisCmeOSaBKXWQSuwTxoLyie1oLdSlD/zksqNVFuVoYD9pkAtr9eX
+	baN7wD1mQb7nEy9YLFbxGuK/7kMiG0vGO7UkU5g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:8l4W7xXAUu3cVJokru0QGocOgTOi4N55OMZPZb73neg=:zeLjrccV/Jb1VNCLNtzInCeWJ3yYsx7wmfkaw80F+ik=;
+X-ME-Sender: <xms:WQzWakeBp54alC-C-hHjASj58231mQvapUCG0dyP32-p6gh8v_z9cA>
+    <xme:WQzWakIexvLb4Gaa4GmYcwj3a39fMA0KL8X6rm4oHle9jeN75Xn5Jjndr-lNSuwzE
+    bGVCIbO2IDIIqf2s224xsAy7dbyM6WQADC6xthVxCRake5y99Vaca5H>
+X-ME-Received: <xmr:WQzWatGrKGgZUt35gm508od25Uyll9BSlBPOwV0XwCa6yE3fP-fHZIMEt8kuunsAOSac5QAklSwO4QnoNnarNLaXGso2jelRlx2Q5lvbmMUqkg>
+X-ME-Proxy-Cause: dmFkZTGIaJYW7c8nkscE/6yoBCDqt4FtIo2vXofxlF45kbLCxLiMGgj0y/rJqt5sNqNXkU
+    diK3CiUA6CmEmaayux2SpOkdXTymB6cHtdVhrSShiYlWrPK4/igUSya3MkZXdeeKKtom1U
+    0H1+CZinAW2WKXOMgK1GBMkZcCfSjfbZPbHaIFESGj8RkBzU5IEta7lcedm6RTXtXYwQWc
+    5kiqEDbIj9wRiQkE4UtEVpP76V2vrLITNcFRUTe1bFiIAxAB72SVZLHKoeL4VngynAS23u
+    VBTsasNhwHU5sDJ3Cgyd4jtMsnQeC2fxpSr7yGw2i1/NA5LSJ/duYKoDqfOdTQ+hWc4Rpe
+    Ad4vlBeEo7u6UGcql8jgrULgMcdisCHCclZF3apZ3KTjlXmuoIbPhL4Joi4+mdXTRUsDGo
+    ME40bVtbMiGJHHh+TbmzohE/5kHLL2domdstFT/mDzSdf08Xng2mr950JA2CPKly1NTQk+
+    A6CqELCay4kXp6IxafTIM2nQ1+Iswpyi5xugOdH8CmAwgKtnX6CrEmmUlexlp/l2m+5s4k
+    +yWpBH1ACzY+6Prm6wCoyLz2OPsG1Q5ZppbgxzMJ/eHGuZpBAk/+EIPXC+qp6aMEyZFeIp
+    WrLM7uE1ui17r3lGODdHVzPLTgMNjxApJHWgTLLT/tmZqOVMS+nMScsjObNA
+X-ME-Proxy: <xmx:WQzWamrZ8iOhKZJWQU6zALBawyH5GRDUEtYWjowhQmRlyZUcT_uajg>
+    <xmx:WQzWauSACLPJrc6k3tF-vidtvgIjH6ZOY5MU4o-9a2xS9_CofPKXAQ>
+    <xmx:WQzWarOwbRo5Ogqadvgppy9phsppfGonVt0lWtrl1RXFthMUufhrcA>
+    <xmx:WQzWapMW9yDvcVbYrJ2D4MCo6BD17ipB6SWaS42vOToSagEToHWxdg>
+    <xmx:WQzWalzHwFSM7XWy9RZBLaG8e81oFFdKHx2pRLkOfbJuD8H_luLn_WKE>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 08:26:00 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] firewire: core: adjust context_unsafe() usage for lockdep checks
+Date: Mon, 19 Oct 2026 21:25:54 +0900
+Message-ID: <20261019122555.328060-2-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019122555.328060-1-o-takashi@sakamocchi.jp>
+References: <20261019122555.328060-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919130925.1899994-1-kaixuanli0131@gmail.com> <9efd2ca3-ae57-428c-97c7-bc2300ba9a42@kernel.org>
-In-Reply-To: <9efd2ca3-ae57-428c-97c7-bc2300ba9a42@kernel.org>
-From: Kaixuan Li <kaixuanli0131@gmail.com>
-Date: Mon, 19 Oct 2026 20:25:29 +0800
-X-Gm-Features: AclHuK-9jqQcebO3EVLU5aDDPix8kSEJVlaRit2v8EyHo0TC60WVCoivxD53614
-Message-ID: <CAGVefVXTsrxW7BeGvvg2-VUUsP57LSmamZJxffKdrg--_yPfyQ@mail.gmail.com>
-Subject: Re: [PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
-To: Chao Yu <chao@kernel.org>
-Cc: Jaegeuk Kim <jaegeuk@kernel.org>, linux-f2fs-devel@lists.sourceforge.net, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On 10/14/26 14:14, Chao Yu wrote:
-> It looks the overflow issue exists since the beginning, w/o c77ec61ca0a4,
-> {sit,nat}_ver_bitmap_bytesize was not checked at all, c77ec61ca0a4 just
-> added partial check, so how about:
->
-> Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure"=
-)
-> Cc: stable@kernel.org
+schedule_error_callback() requires a lock to be held by the caller.
+However, __fw_send_request() calls the function without holding any lock
+when retrieving the transaction label fails, as no lock is needed in
+this case. context_safe() is used to suppress the precondition check in
+compiler-based context analysis, but it does not affect lockdep checks.
+As a result, lockdep reports a violation of the precondition.
 
-Agreed, nothing bounded them against the allocation before c77ec61ca0a4
-either. I'll send v2 with the Fixes tag changed, Cc stable, and your
-Reviewed-by. Thanks for the review.
+Acquire the lock before calling the function instead of using
+context_unsafe().
 
-Kaixuan
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ drivers/firewire/core-transaction.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
+index e24fb6b97770..0ebe70a4d440 100644
+--- a/drivers/firewire/core-transaction.c
++++ b/drivers/firewire/core-transaction.c
+@@ -438,7 +438,8 @@ __must_not_hold(&card->transactions.lock)
+ 		tstamp = cycle_time_to_ohci_tstamp(curr_cycle_time);
+ 
+ 		t->packet.timestamp = tstamp;
+-		context_unsafe(schedule_error_callback(card, t, RCODE_SEND_ERROR, tstamp));
++		scoped_guard(spinlock_irqsave, &card->transactions.lock)
++			schedule_error_callback(card, t, RCODE_SEND_ERROR, tstamp);
+ 
+ 		return;
+ 	}
+-- 
+2.53.0
 
-On Wed, Oct 14, 2026 at 2:14=E2=80=AFPM Chao Yu <chao@kernel.org> wrote:
->
-> On 9/19/26 21:09, Kaixuan Li wrote:
-> > sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
-> > lengths into and out of sbi->ckpt, which is sized from cp_payload alone=
-,
-> > and nothing compares either length against that allocation.
-> >
-> > sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, wh=
-ich
-> > added them after a crafted image overran build_sit_info(). That check t=
-ies
-> > each length to a segment count; it never compares either against the
-> > allocation, which is the half this adds.
-> >
-> > Mounting over-reads in build_sit_info() and build_node_manager(), and t=
-he
-> > first checkpoint writes the same lengths back through the same pointers=
-,
-> > so the over-read's contents reach the on-disk checkpoint. An unmount is
-> > enough; the filesystem does not have to be used.
-> >
-> > Bound both ends the way __bitmap_ptr() lays them out. The three branche=
-s
-> > differ, so a single sum of the two lengths would still admit a small
-> > overflow when cp_payload is non-zero.
-> >
-> > Fixes: c77ec61ca0a4 ("f2fs: fix to do sanity check with {sit,nat}_ver_b=
-itmap_bytesize")
->
-> It looks the overflow issue exists since the beginning, w/o c77ec61ca0a4,
-> {sit,nat}_ver_bitmap_bytesize was not checked at all, c77ec61ca0a4 just
-> added partial check, so how about:
->
-> Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure"=
-)
-> Cc: stable@kernel.org
->
-> > Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
-> Otherwise, it looks good to me.
->
-> Reviewed-by: Chao Yu <chao@kernel.org>
->
->
