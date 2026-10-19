@@ -1,100 +1,95 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DC34E56F7
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:26:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30994F0536
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:26:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792412769; cv=none; b=HCBl5oQuAUZmwksst8clqx01HLhIcEJsVv5jpm/Zuu7IlLgqvpP/7/3GMdyuLIgyM2rNSLjUCngapV5xpyKiIK7MhDBxFYUFeT2kd5E7F6+U2VuKvQYsD+yD8DartdAkKssEsvHbhxMZezT+kb8yn6QnbZfnw4tHEP0sc/87Pxw=
+	t=1792412772; cv=none; b=b0GJf3kwIFHTDXMHnqWZ1f9TO/WdTczbXkxCX9BBmdcadVAiJmit0hAoU/nycxaNz4n8gpZYuQjSjxJaETU22GAR2XKf7AQKWBXKkinzui/yGtd1ZyTjb2PiSiKB7ppg5HLQBIdjHfn6xc2EdduYmN9VgEnqiE1+ELWDyapC8gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792412769; c=relaxed/simple;
-	bh=zeLjrccV/Jb1VNCLNtzInCeWJ3yYsx7wmfkaw80F+ik=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IEdifETGRVRlmEmebr2EW9SJzaVvgr1mFg6KteSg1qPSh94JK6wt5+gGODVyvuThtB6ZNp5azjUTOu9Z5yHD4Sj0vT+2VOoX4KbqsxEGSl3TQfYN1iTcKMIPZNB1PcWkbN8DMRzvspfonV8dXV0fiDS4/YUFsoOrS6+YcwAFSA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=FUyfNUaz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=nFH3dorV; arc=none smtp.client-ip=202.12.124.148
+	s=arc-20240116; t=1792412772; c=relaxed/simple;
+	bh=coX7CxmJbXEjUMce/FGotua0x8wQqtZM7CV8gpGvvEI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oVFKz/gOmRhn8kmgBKseuPe6jEDTWQUFHBw1xrFMFgP6mlhhNwk4RIip+zbviXH+hZT46fdH2fmw6yKt7ZHHohLHVmY5/Uhkb9/Bxuz9fwHP6qCNd96YiJWY2VFnS+dUcK2VTXWajydutRr49j7zeuDfxI3noB5QUaq9Wk9WgQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=oxKXAntM; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DG+N8HCx; arc=none smtp.client-ip=202.12.124.157
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="FUyfNUaz";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="nFH3dorV"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id B22801D0006E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:26:01 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="oxKXAntM";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DG+N8HCx"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 07B247A00A1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:26:00 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Mon, 19 Oct 2026 08:26:01 -0400
+  by phl-compute-04.internal (MEProxy); Mon, 19 Oct 2026 08:26:00 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1792412761; x=
-	1792499161; bh=y37IPqYp35cQYDyGdgEXOkGlXipadfKsVjSX44qfXXQ=; b=F
-	UyfNUaz58Ets0FXhPKY9p7O81x0ajCAOhARKD4+zCAHKM49WQKOKRmXWyTQBbvQH
-	Ix/r0uCba3CVu5p5c555v7TunZKselwQ6Ue8tz2HGi6Bh7pN9FzUgRJi0dlgMUX3
-	t0KxSggCK9mLlStvikHXgxaL6h7iP0POUklciFnEgmsiPneBf8MB1lfaN3vx3Esf
-	bhBRxS4+MTSiKo3T5ZlbK9EscPn2/IS9f/WpEpgMPgrgZGtKNsHB5u8jasG+Wt23
-	rBTiCtXcxhPRwfpIHaVsitiUubhYnxy2mszACsVkB0eaHIY0Wp+X+avc0nxMJHRg
-	lWKxRO24Otfa9kXYo0n7g==
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1792412759; x=1792499159; bh=MdASMDGpFK
+	RkKxdgjA/oaPeU6OleHGRGoHF0xQ6IVUk=; b=oxKXAntMaXXJcRjyErNNnCR01v
+	Ai6EqFeBWeyI0/NTHSXabnVEFre1FiqR7g6/9fm5zPI8h3JIXQbt7+rLTELaKbAA
+	8usd9SmMXsrlC087/1tyOLv27KxbPQvQAo6vle+/kVS9wdVmL+jGj12B+wDZrL3s
+	02SoosKqsp58fbPP7myk6/Zc9IMdosn+u2vhilpkZgBunEXdYeGqnOBRSkoAPcd/
+	5JVsIW3BsVJl+ujyB7GWNXkAK0Tvoz3Lf5hqzyOS5SIEVkQe+Rewdc8zT11Q33xl
+	EbnPUVH46nIUN9EdNAvTM5BtPS6IwcKfjbTnY0+/Uk+lbD0A4qVvdin1Lw8w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1792412761; x=1792499161; bh=y
-	37IPqYp35cQYDyGdgEXOkGlXipadfKsVjSX44qfXXQ=; b=nFH3dorVn+Kr86x1o
-	Lb37sI7ASuoAH+Orj/vAYULLLDgvstQrN+EotsaUAE3AE7tqfsObNNqmVzyRTEJ6
-	Zs18NpzfjfqTGwnjPZG2B0ZrmBP2/skHlBg9v1AhukH+jaRjXxsCL4jePh+AsQIA
-	WHnbUV8AkbTMh6PtRvu2cSdfTL+t7aFMmuMql+BnMO5VUtvOW7doF2FgmQUMQiVz
-	Um6siLyXVDEZMA4k4/8+TheV4Hrv7SeRzQxkjKgTBVtrAxTO1f3nEgQ6a7FrYo3R
-	ybu5GQoY9qNJNVV8dvAT7BfI3A98Mwk1P65yzIzvxYgr9uUvouwbUUTDNbP4k1Wq
-	FPiEg==
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792412759; x=1792499159; bh=MdASMDGpFKRkKxdgjA/oaPeU6OleHGRGoHF
+	0xQ6IVUk=; b=DG+N8HCx6y5ggHgFXQy8nCTX2jGYC+Bh3zD5QsKT7dJBh9v10Vu
+	myH5g0EnbIkE+tqLKK8f+Z6BfsP2C3w8lctN+vmF7TpJGXg33jfTgieLPBdpn3WL
+	FoBexJ1N/W4oTxT4qjtTBS1dnRRfMkmDMovPQNuKtKYkc0leSGWrdUcf8bdvXjx4
+	iiENEsGyA82Zps10upPqNyX7tc567S8oOmeDWWeeYR3YI1Q7Td6osIsdiqBf99e4
+	ohO9C9ldMa7c4OsfaC+L2omYK83ho583LmSDIkYYTMDcBuBmsGtbNtJ4nOfhob/F
+	ch9loeevxkirJMbIGIub9F5olc6iTJI6Yyw==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
 	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792412761; d=sakamocchi.jp;
+DKIM2-Signature: i=1; m=1; t=1792412759; d=sakamocchi.jp;
 	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:wbzrlPUrWwk3DMF0OWFTSZhGoFtlI134vIEUKEv5SbkOoX/
-	tKna48vdAGEDoycXZKQ6vMUxno4n88j39n15Uk8709A/uljFuq/0ZgNbqnTujDY4
-	U5uiOA8wIVhYnT+qq7m6x12X7Sq3f4QNBg2qBkmPeaZ8mIRHhV1LmkLeoDQS26Gp
-	nfnEWLcPzQFa1ehofE+8iSO+ff9p0bp+RscT361XhVbO5jzlTq/kBPItxtIdxwJ4
-	aFu+cmsw42uSisCmeOSaBKXWQSuwTxoLyie1oLdSlD/zksqNVFuVoYD9pkAtr9eX
-	baN7wD1mQb7nEy9YLFbxGuK/7kMiG0vGO7UkU5g==;
+	s=fm2:rsa-sha256:O6Ct5c0dzjV3JSVElMocy9T3ONDdIbTmXo9jiCEjX8h/l0D
+	+u+zx1Wl6+ezWWOT7PjAUKtqHdtqouwDThC9MAzh7wgBTaqiXf2RvFkalPL/G1ae
+	6ahmcTu2k+O5Fc1OCFOD5QiFu5EvBV749S7HunUTbx2OXPRGZDO9IqHTwdEIhi6s
+	LRJ/rget61eEpOM+DLPv0HlRc/E1RMZuU5+TrZOFM7OtcnN5cBKTkxcrKccJFF1O
+	R3F2GX6+HeO37UO8EFbZSHk1ownMOEy3SSzMYMEisLWs8KdQFR8ONYAJQeGR/D4V
+	dXQyGmRBVm8HRriNB+Op1nYEL/BqmrlWv7h2kFg==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=11;
+	action=mi-m=1; hc=9;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:8l4W7xXAUu3cVJokru0QGocOgTOi4N55OMZPZb73neg=:zeLjrccV/Jb1VNCLNtzInCeWJ3yYsx7wmfkaw80F+ik=;
-X-ME-Sender: <xms:WQzWakeBp54alC-C-hHjASj58231mQvapUCG0dyP32-p6gh8v_z9cA>
-    <xme:WQzWakIexvLb4Gaa4GmYcwj3a39fMA0KL8X6rm4oHle9jeN75Xn5Jjndr-lNSuwzE
-    bGVCIbO2IDIIqf2s224xsAy7dbyM6WQADC6xthVxCRake5y99Vaca5H>
-X-ME-Received: <xmr:WQzWatGrKGgZUt35gm508od25Uyll9BSlBPOwV0XwCa6yE3fP-fHZIMEt8kuunsAOSac5QAklSwO4QnoNnarNLaXGso2jelRlx2Q5lvbmMUqkg>
-X-ME-Proxy-Cause: dmFkZTGIaJYW7c8nkscE/6yoBCDqt4FtIo2vXofxlF45kbLCxLiMGgj0y/rJqt5sNqNXkU
-    diK3CiUA6CmEmaayux2SpOkdXTymB6cHtdVhrSShiYlWrPK4/igUSya3MkZXdeeKKtom1U
-    0H1+CZinAW2WKXOMgK1GBMkZcCfSjfbZPbHaIFESGj8RkBzU5IEta7lcedm6RTXtXYwQWc
-    5kiqEDbIj9wRiQkE4UtEVpP76V2vrLITNcFRUTe1bFiIAxAB72SVZLHKoeL4VngynAS23u
-    VBTsasNhwHU5sDJ3Cgyd4jtMsnQeC2fxpSr7yGw2i1/NA5LSJ/duYKoDqfOdTQ+hWc4Rpe
-    Ad4vlBeEo7u6UGcql8jgrULgMcdisCHCclZF3apZ3KTjlXmuoIbPhL4Joi4+mdXTRUsDGo
-    ME40bVtbMiGJHHh+TbmzohE/5kHLL2domdstFT/mDzSdf08Xng2mr950JA2CPKly1NTQk+
-    A6CqELCay4kXp6IxafTIM2nQ1+Iswpyi5xugOdH8CmAwgKtnX6CrEmmUlexlp/l2m+5s4k
-    +yWpBH1ACzY+6Prm6wCoyLz2OPsG1Q5ZppbgxzMJ/eHGuZpBAk/+EIPXC+qp6aMEyZFeIp
-    WrLM7uE1ui17r3lGODdHVzPLTgMNjxApJHWgTLLT/tmZqOVMS+nMScsjObNA
-X-ME-Proxy: <xmx:WQzWamrZ8iOhKZJWQU6zALBawyH5GRDUEtYWjowhQmRlyZUcT_uajg>
-    <xmx:WQzWauSACLPJrc6k3tF-vidtvgIjH6ZOY5MU4o-9a2xS9_CofPKXAQ>
-    <xmx:WQzWarOwbRo5Ogqadvgppy9phsppfGonVt0lWtrl1RXFthMUufhrcA>
-    <xmx:WQzWapMW9yDvcVbYrJ2D4MCo6BD17ipB6SWaS42vOToSagEToHWxdg>
-    <xmx:WQzWalzHwFSM7XWy9RZBLaG8e81oFFdKHx2pRLkOfbJuD8H_luLn_WKE>
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:bJsMI8yrhNtVXenQzI1cm6IbAmWAZPQqKgOwWal81kw=:coX7CxmJbXEjUMce/FGotua0x8wQqtZM7CV8gpGvvEI=;
+X-ME-Sender: <xms:VwzWarDrmdRv4C6-mc3WK518Sj9FyVbakF-o-2Z48iMhjnyA3zyhiA>
+    <xme:VwzWavfCY91ZJ2WEjLmbEa6omoCKJ-R3XM75mry_hEqrCevOSTKd7khUkzhwxk3fd
+    aVVcyooZ2K__RY1SYRzAFGqYmiIiOEGzVasLig5rlaoGlLJVIGU0c9Q>
+X-ME-Received: <xmr:VwzWauJqHrwF21ol5UdMrSdcJybCtFbJEOS5BLOmJ9HCM6ZmWF5J4xVT7FhaiZkGB72kAFlNpuN1atDjKQjY_fXdJHMuuF5VHfw0OGlqU97kVA>
+X-ME-Proxy-Cause: dmFkZTGPdMTuNm45W1NXZhI/Orrynkr7q86g5qpCxcwCt2R+fGrkSvCjzUzlhqx+p22AdN
+    MvP7YIha50EFQ5oEGhSaoPFAFMDLd36P7QZ29ib2ANlKvKAYjdr8qOvRDC0k8vbff5d8hR
+    5+CdXwqbgjMNtfl8TPR04ZiBQKrvkJ7FOl16fQQ3arTIQy1ejT8VpeppkPjqthjyBAl6yI
+    ub5FA7jkjnVcFfYZi94WJFGCi6MDFz1SnaiyPOXcKnSF8Wy4cKT/SEGVfRYMVNIvVQuQQL
+    c+NGI1GUayGOl4bQF1P6B9X9SQ1W6stPNIfzrf9Gpmvr7wsW6s3zQVZrReEywPvwpGDPWW
+    oy21sCD2G1aexeTb9G+iMJae5uUGWV1gMYO8NSq98OxTcVEbQsk9Dkmbm+e/YvuljEv2em
+    MosN0SJynQSMjYInOYDaAbP+BzejgCI6m63DoPvp6o1x0GbQEYg9ist5F2J4k4+wpq1+DV
+    FXYYvCsv1B5RV2awG7gADGEX1a2CBRod47ofVEJW/FyWOmqSh/XoQv8RS2l8+cSNHI/hmW
+    8teHOwcCwqNXQejgfybeDC/eLhsibCnFOcWl+FQF/4wlEJnPHgphoLlqhb19KC1z0UGjQw
+    SgyY+p1Qv/I5HHAcJyCcqfLXvd4ObC/R2pjxDwdBDcpn2UJkfutAV6WZqfHg
+X-ME-Proxy: <xmx:VwzWaqd56o5Mkpx1CTL8coHYCZGw3B3kA-LrRcCOCw_fJ9J3IoNjLA>
+    <xmx:VwzWat2IqlaVb8dMf6k0m63WlIWcMcOMh80T2tZ6Nn0ytqVw7x17Gw>
+    <xmx:VwzWarjLIKF5IpvuNXPHjtHapQIGrojolxjcK82im3KHYeemA7DZmA>
+    <xmx:VwzWarQVHKSxug-a4d2TsTXFVzPF8fdHN1kKnNQx6EIRM5r3NGeHoA>
+    <xmx:VwzWas1lr_tLfWc_YBBWLGcDoJKsVjFCPImLOXERgTcENBoUrw_8eKv8>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 08:26:00 -0400 (EDT)
+ 19 Oct 2026 08:25:58 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] firewire: core: adjust context_unsafe() usage for lockdep checks
-Date: Mon, 19 Oct 2026 21:25:54 +0900
-Message-ID: <20261019122555.328060-2-o-takashi@sakamocchi.jp>
+Subject: [PATCH 0/2] firewire: core: misc fixes
+Date: Mon, 19 Oct 2026 21:25:53 +0900
+Message-ID: <20261019122555.328060-1-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019122555.328060-1-o-takashi@sakamocchi.jp>
-References: <20261019122555.328060-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,35 +98,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-schedule_error_callback() requires a lock to be held by the caller.
-However, __fw_send_request() calls the function without holding any lock
-when retrieving the transaction label fails, as no lock is needed in
-this case. context_safe() is used to suppress the precondition check in
-compiler-based context analysis, but it does not affect lockdep checks.
-As a result, lockdep reports a violation of the precondition.
+Hi,
 
-Acquire the lock before calling the function instead of using
-context_unsafe().
+This series fixes a few bugs introduced by recent changes.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
+Takashi Sakamoto (2):
+  firewire: core: adjust context_unsafe() usage for lockdep checks
+  firewire: core: replace drain_workqueue() with flush_workqueue()
+
+ drivers/firewire/core-card.c        | 4 ++--
  drivers/firewire/core-transaction.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
-index e24fb6b97770..0ebe70a4d440 100644
---- a/drivers/firewire/core-transaction.c
-+++ b/drivers/firewire/core-transaction.c
-@@ -438,7 +438,8 @@ __must_not_hold(&card->transactions.lock)
- 		tstamp = cycle_time_to_ohci_tstamp(curr_cycle_time);
- 
- 		t->packet.timestamp = tstamp;
--		context_unsafe(schedule_error_callback(card, t, RCODE_SEND_ERROR, tstamp));
-+		scoped_guard(spinlock_irqsave, &card->transactions.lock)
-+			schedule_error_callback(card, t, RCODE_SEND_ERROR, tstamp);
- 
- 		return;
- 	}
+
+base-commit: 9a513d9f68461294a6a615986becf619b9549f37
 -- 
 2.53.0
 
