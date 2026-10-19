@@ -1,44 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D0C60C138;
-	Mon, 19 Oct 2026 14:03:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6839060CDA6;
+	Mon, 19 Oct 2026 14:03:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418615; cv=none; b=j7co9hAhO4OyNuIT0wf0eNhQnO3SYBG/RhyUd7N45QSgumcVs55vI3rZPY1s3xn+j+ZyMvldryb5bDyZftyeqz/VuTh7W65S1hamPeDXKm74bX9n+2lz9JhAG/KuMg5kpmpT+/47Ef44vS8zvE+40DUzU5L67Uo9NC84Ku8tA/4=
+	t=1792418618; cv=none; b=KI/1IdUl9BdKG7wVXuybfrjpNRoxIJw/39ZFN2qK7Fl00EIMyBwSsTBulcjiCChueQLaajedbaCYfnU4A1zgzOEJf1YSnShfDeVxAYE6vbPqNgj8nf6yNORUUqVUFfcsbGDNmwFtd/B+vr+LKzTjzmPwcD2SYqBVB3kB7BVxZyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418615; c=relaxed/simple;
-	bh=+f7AxBQ/GFqMQOqpSVOnMUjhTseUYo1rSUcfmMZiITw=;
+	s=arc-20240116; t=1792418618; c=relaxed/simple;
+	bh=j92dllQBszqrU3b0FCCyQxDoMdsNFcjzZhBXLHCT0go=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=p6HCz6Lp26M4tuYrtOfplkgMMJPO9TWAnDyrGw1UlGCPHqc/Hj3NVdCuCCSATc2kdvZ1Tl7ACyk62lwTbmnusyY4N1RBAmVyWh0RfqK5BRSFxdm646nMLBuWVp63/J3Gs/ot2d0Inu8xg8Q2TFDFBN+rxfm6pHbbbbyoqwLaQnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dDa1qS3A; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=k1wObC95HiY1sH7a5TUPhMofGjekYrNlWCwdbfk4M05UBzdDLKOOW40RvWkrYB/2jjbTjdjMmwevq6+l9ClcQixiTnUGLeQ8LllIhfBe2DmN9Xj2e6KEeNf7caPDJ5LOPuSgarhM1PNM6nJot4wI06HAQJaTnrZhGd5jVZ3x03M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S8u2ZiDv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dDa1qS3A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70181F000C9;
-	Mon, 19 Oct 2026 14:03:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S8u2ZiDv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0CD41F000C4;
+	Mon, 19 Oct 2026 14:03:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418611;
-	bh=O/7nKuZZTTXKrqGgjsu53ErwkFI4GPu3p0+a9Gj7TDs=;
+	s=k20260515; t=1792418615;
+	bh=27UIU0XeKm7CxyMBtKFouhIEmrD/4xb0FnUHUBFn2Vc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dDa1qS3AnqKoCwvSpaP+OPTgda4UVC5CZEWUKKSlKjnF+YNQC40UwQVSU8lOISzlL
-	 lWl4kyqj8h0/HlIpmSheUR+fDuXQhqVCNJVOpyQx0qxP5m0IGdq89f1D5WAFejubBA
-	 sMAwcLCqY2/lmXF4MkjtvURmlYicnm34Io7nS8TN5f8AXwrJk3/1voGbxuL+/7amLT
-	 fKS0+Fqjldzi4vtgYOuh/o0RWB/8HnGcUUARARwVGvPEZQMf7gWb17IC1d+UZb/1et
-	 wBf6gHzlzBFMdoi3zh32NALmBhtwqut43ulBGlbtDa+rFvTzpV7+Lk9N+RAITQ0GAl
-	 8qX6IKE8FG1BQ==
+	b=S8u2ZiDvHWFJTwUobkWUIG3qDwHM1j8xWr7kSgcEFDwkiutU7MTm5i9rj8GyWv3y5
+	 1myLHIww7iarowmTyrTbofy29UnXM7jJUCBN0SUwQD9Tgr+b3LZASxFDYmAOuZEFwX
+	 pm2GdQ58SLyjWteVxQ9YfRDlLnfMwHGqphPz1z+AAasVcf8TlIEkFlzC/mP9P9Grva
+	 0o3LFkaFszO/zVeVHAKQ0kyy61xz4JtfRGJINiPYoMnCho3ETQXnmRiPPqISZVE8Rv
+	 22YWJnPaHtCH4CtAlr7tUFNzfAe0ciHPUNWGrVNwiPAej15FQ+iFIErW9NPhRN34Wd
+	 zqRTajc91BcxA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	awalls@md.metrocast.net,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
+	david.rhodes@cirrus.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] media: cx18: stop VBI start-code scan before short tail
-Date: Mon, 19 Oct 2026 09:51:03 -0400
-Message-ID: <20261019135441.1420968-372-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] ASoC: cs35l56: Add support for CS35L62 for SoundWire
+Date: Mon, 19 Oct 2026 09:51:05 -0400
+Message-ID: <20261019135441.1420968-374-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,448 +58,401 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: Stefan Binding <sbinding@opensource.cirrus.com>
 
-[ Upstream commit bf533acaaa7dee21d49bcaabf8e813ea36bddcd8 ]
+[ Upstream commit 3330b5f6d8dea66df51c07362f01a39ad9845aad ]
 
-compress_sliced_buf() scans one byte at a time while testing a four-byte
-VBI start code.  The final iterations can read beyond the remaining
-buffer tail.
+CS35L62 uses the same control and regmap interface as CS35L63 so
+support for it can be added into the CS35L56 driver.
 
-Stop the scan once fewer than four bytes remain.
-
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Link: https://patch.msgid.link/20260715120135.939280-2-rf@opensource.cirrus.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **v7.3-rc4** (mainline `7.3.0-rc4`). The candidate is
-`bf533acaaa7de` (“media: cx18: stop VBI start-code scan before short
-tail”). It is a one-line bounds fix for a four-byte VBI start-code scan
-that can read past `bytesused`.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1 — Subject**
+- Record: `[ASoC/cs35l56] [add] [enable CS35L62 on SoundWire by reusing
+  CS35L63 paths]`
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: **[media/cx18] [stop] [stop VBI start-code scan before a short
-4-byte tail]**
-- Subsystem: `media: cx18`
-- Verb: **stop** (prevent incorrect continuation) — a bug-fix verb even
-  without “fix”
-- Intent: do not scan a 4-byte EAV/start code when fewer than 4 bytes
-  remain
+**Step 1.2 — Tags**
+- Record:
+  - `Fixes:` none (expected)
+  - `Reported-by:` none
+  - `Tested-by:` none
+  - `Reviewed-by:` none on the commit
+  - `Acked-by:` none
+  - `Link: https://patch.msgid.link/20260715120135.939280-2-
+    rf@opensource.cirrus.com`
+  - `Cc: stable@vger.kernel.org` none (expected)
+  - `Signed-off-by: Stefan Binding` (author)
+  - `Signed-off-by: Richard Fitzgerald` (Cirrus; submitted the series)
+  - `Signed-off-by: Mark Brown` (ASoC maintainer)
+  - Ignore any Sasha Levin SOB if present — pipeline noise
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-Record:
-- **Signed-off-by:** Pengpeng Hou &lt;pengpeng@iscas.ac.cn&gt; (author)
-- **Signed-off-by:** Hans Verkuil &lt;hverkuil+cisco@kernel.org&gt;
-  (media maintainer; applied the patch)
-- **No Fixes:**
-- **No Reported-by / Tested-by / Reviewed-by / Acked-by / Link / Cc:
-  stable**
-- Absence of Fixes/Cc:stable is expected for this pipeline and is not a
-  negative signal
-- Ignored: any Sasha Levin SOB / “[Upstream commit …]” (none in the real
-  commit)
+**Step 1.3 — Body**
+- Record: No bug, crash, leak, or regression is described. Claimed
+  intent is hardware enablement: CS35L62 shares CS35L63’s control/regmap
+  interface, so it can live in the existing cs35l56 driver. Symptom
+  without the patch: a CS35L62 SoundWire amp is not matched (`-ENODEV` /
+  unknown DEVID). Root cause: missing part ID and type cases. No version
+  range is given. Mark Brown applied it to `for-7.3` as merge-window
+  material, not as a bugfix.
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
-Record:
-- **Bug:** `compress_sliced_buf()` walks one byte at a time and tests
-  `buf[0]..buf[3]`. The last iterations can read past the remaining
-  tail.
-- **Symptom:** out-of-bounds **read** of 1–3 bytes past `size` (the
-  caller’s `buf->bytesused`).
-- **Failure mode:** memory-safety defect (possible slab/page over-read
-  if `bytesused` equals the allocation; otherwise a logical over-read of
-  DMA payload).
-- **Version info:** none in the message. History shows the loop since
-  2008/2009.
-- **Root cause (author):** loop condition `i < size` does not leave four
-  readable bytes.
+**Step 1.4 — Hidden bug fix?**
+- Record: No. Wording is “Add support”, not cleanup/locking/error-path
+  repair. This is new silicon enablement, not a disguised UAF/leak/race
+  fix.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: **Not disguised.** It is an explicit bounds fix. Not
-cleanup/refactor.
+## Phase 2: Diff analysis
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+**Step 2.1 — Inventory**
+- Record: 3 files, **+7 / −0**, single-driver surgical change.
+  - `sound/soc/codecs/cs35l56-sdw.c` (+2): `cs35l56_sdw_probe()`,
+    `cs35l56_sdw_id[]`
+  - `sound/soc/codecs/cs35l56-shared.c` (+4): `cs35l56_set_patch()`,
+    `cs35l56_set_fw_reg_table()`, `cs35l56_system_reset()`,
+    `cs35l56_hw_init()`
+  - `sound/soc/codecs/cs35l56.c` (+1): `_cs35l56_component_probe()`
+- Scope: device-ID addition to an existing codec driver.
 
-Step 2.1: INVENTORY THE CHANGES
-Record:
-- **File:** `drivers/media/pci/cx18/cx18-vbi.c` — **1 insertion, 1
-  deletion** (`2 +-`)
-- **Function:** `compress_sliced_buf()`
-- **Scope:** single-file, single-line surgical fix
+**Step 2.2 — Flow**
+- Before: SoundWire ID `0x01FA:0x3562` is unmatched; type `0x62` / DEVID
+  `0x35A620` fall through to `-ENODEV` or skip CS35L63
+  firmware/reset/controls.
+- After: ID binds; all CS35L63-specific switches also accept CS35L62 and
+  reuse `cs35l63_regmap_sdw`, `cs35l63_patch_fw`, `cs35l63_fw_reg`,
+  `cs35l63_system_reset_seq`, `cs35l63_calibration_controls`,
+  `cs35l63_controls`.
+- Path: probe/init only for the new part. Existing 0x54/56/57/63 paths
+  are unchanged.
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Record:
-- **Before:** `for (i = hdr_size, buf += hdr_size; i < size; i++,
-  buf++)` then `buf[0]..buf[3]`. When `i` is `size-3`, `size-2`, or
-  `size-1`, `buf[3]` is at `size`, `size+1`, or `size+2` — past the
-  valid tail.
-- **After:** `i + 3 < size` so the last readable index is `i+3 <=
-  size-1`.
-- **Path:** sliced-VBI start-code search (not probe init). Only the “no
-  start code until EOF” path actually hits the tail; a successful match
-  `break`s earlier.
+**Step 2.3 — Bug mechanism**
+- Record: `[Hardware enablement / SoundWire device ID]` not a memory-
+  safety or locking bug. Mechanism: add `SDW_SLAVE_ENTRY(0x01FA, 0x3562,
+  0x3562)` and sibling `case` labels so CS35L62 is treated as CS35L63.
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record:
-- **Category:** **(d) memory safety** — buffer over-read / out-of-bounds
-- **Mechanism:** 4-byte peek with a 1-byte stride and an exclusive
-  `size` bound.
-- **Fix:** require four remaining bytes (`i + 3 < size`), the same
-  pattern as the sibling ivtv change.
+**Step 2.4 — Fix quality**
+- Record: Obviously correct given the stated aliasing. Minimal. No
+  public API, no new driver. Regression risk for existing chips is very
+  low (new cases only). Completeness: other `type` switches in this
+  driver already use `default:` for CS35L63-class silicon, so they pick
+  up 0x62 without extra cases. I2C/SPI tables are intentionally
+  untouched (series is SoundWire-only). KUnit still special-cases only
+  0x63 in one test; that is test-only.
 
-If no start code is found:
-- Old: `i == size`, then `size -= (i - hdr_size)` → remaining `hdr_size`
-  (12)
-- New: `i == size - 3` (when `size` is large enough), remaining
-  `hdr_size + 3` (15)
-Both are still `< line_size` (272/284), so the function still returns 0.
-A 4-byte code cannot sit in the last 3 bytes, so no false negative.
+## Phase 3: Git history
 
-Step 2.4: ASSESS THE FIX QUALITY
-Record:
-- **Obviously correct.** Classic `need N bytes remaining` bound.
-- **Minimal.** One condition, no API/locking/structure change.
-- **Regression risk: very low.** False match in the old over-read tail
-  still left remaining size ≪ `line_size`. `i` starts at `hdr_size` (12)
-  and only increments; `i + 3 < size` with `u32 size` is safe for
-  realistic DMA sizes.
-- **Red flags:** none.
+**Step 3.1 — Blame**
+- Record: CS35L63 cases/IDs came from `978858791ceda` (“Add initial
+  support for CS35L63…”, 2025-04-07). That commit is an ancestor of HEAD
+  and is in v6.16. cs35l56 itself dates to `e496112529006` (2023-03-20).
+  The CS35L62 lines are this commit (`3330b5f6d8dea`).
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 3.2 — Fixes: tag**
+- Record: None. There is no “buggy commit”; support was simply never
+  added. N/A.
 
-Step 3.1: BLAME THE CHANGED LINES
-Record:
-- Loop introduced in **`1c1e45d17b663d`** (Hans Verkuil, 2008-04-28) —
-  original cx18 driver, `for (i = 0; i < size; i++, buf++)`.
-- Current form (`i = hdr_size, buf += hdr_size; i < size`) from
-  **`4ab9b256b5908a`** (Andy Walls, 2009-03-14) — “Optimize processing
-  of VBI buffers”.
-- Bug present ~17 years. Bound fixed in **`bf533acaaa7de`** (Pengpeng
-  Hou, 2026-06-30; Hans Verkuil commit).
+**Step 3.3 — File history / series**
+- Record: Patch **1/2**. Companion `0306d21155819` (“ASoC: sdw_utils:
+  Add codec info for CS35L62”) adds the SOF/generic machine-driver table
+  entry. Cover letter: chip IDs in the codec driver **and** sdw_utils.
+  Follow-up `998b8a6c8aff2` sorted the SDW ID table (addresses Pierre-
+  Louis Bossart’s nit). Later cs35l56 changes are independent (IRQ,
+  probe deadlock, pm_runtime).
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: **No Fixes: tag.** N/A. Introducer is `4ab9b256b5908a` /
-original `1c1e45d17b663d`, both ancestors of this tree.
+**Step 3.4 — Author**
+- Record: Stefan Binding is a regular Cirrus cs35l56/cs35l41 contributor
+  (including the original CS35L63 support). Submitted via Richard
+  Fitzgerald; applied by Mark Brown. High confidence in the ID mapping.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- Recent cx18-vbi.c: this fix, email/SPDX/typo/whitespace. No refactor
-  of the scan.
-- **Sibling (same author, same day, same maintainer):** `f373cf17fb8e7`
-  `media: ivtv: stop VBI start-code scan before short tail` — same one-
-  line change in `drivers/media/pci/ivtv/ivtv-vbi.c`.
-- **Standalone.** Not “patch X/Y”. ivtv is a parallel clone, not a
-  prerequisite.
+**Step 3.5 — Prerequisites**
+- Record: Needs CS35L63 symbols (`cs35l63_regmap_sdw`,
+  patch/fw/reset/calibration/controls). Those exist in this checkout.
+  Standalone for the codec driver; SOF auto-wiring wants patch 2/2 as
+  well.
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record:
-- Pengpeng Hou: several small media correctness patches (ivtv twin, cec,
-  v4l2-ctrls, stm32 resume errors). Not the cx18 maintainer.
-- **Andy Walls** is listed maintainer for CX18; **Hans Verkuil** applied
-  this (media co-maintainer). That is a strong apply-path signal.
+## Phase 4: Mailing list / external
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: **None.** Touches only the for-condition. Parent still has
-`compress_sliced_buf()`, `sliced_vbi_eav_rp[]`, and `i < size`. Applies
-standalone.
+**Step 4.1 — b4 dig**
+- Record: Lore/thread: `https://patch.msgid.link/20260715120135.939280-
+  2-rf@opensource.cirrus.com`
+- Series: **v1 only** (no v2/v3). Applied as submitted.
+- Review: Pierre-Louis Bossart (SoundWire) only nitted sort order (62
+  after 63). No NAK, no stable nomination, no functional concern.
+- Mark Brown: applied to `for-7.3`, with the standard note that merge-
+  window patches go in the next window “or sooner **if it is a bug
+  fix**” — i.e. this was **not** treated as a bugfix.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 4.2 — Recipients (`b4 dig -w`)**
+- Record: `broonie@kernel.org`, `linux-sound@vger.kernel.org`, `linux-
+  kernel@vger.kernel.org`, `patches@opensource.cirrus.com`. Maintainer
+  applied it.
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- **b4 dig -c bf533acaaa7de:** match
-  https://patch.msgid.link/2026063007035519.3-ccfa108-0014-media-
-  cx18-stop-VBI-start-c-pengpeng@iscas.ac.cn
-- **b4 dig -a:** **v1 only** (2026-06-30). Applied version is that v1.
-- **b4 dig -m:** mbox is the original submission only — commit body +
-  1-line diff. **No replies, NAK, or on-list review.**
-- lore.kernel.org HTTP: Anubis 403. Discussion beyond the mbox is
-  **UNVERIFIED** via WebFetch.
-- Hans Verkuil’s SOB is the review/apply signal.
+**Step 4.3 — Bug report**
+- Record: None. No syzbot, bugzilla, or user crash report.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (**b4 dig -w**):
-- To: Andy Walls (CX18 maintainer), Mauro Carvalho Chehab
-- Cc: linux-media, linux-kernel
-- Applied by Hans Verkuil. Right lists/maintainers were CCd.
+**Step 4.4 — Related patches**
+- Record: `[PATCH 0/2]` + `[PATCH 2/2]` sdw_utils codec_info. Both
+  applied together (`3330b5f6d8dea`, `0306d21155819`).
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: **No Reported-by, no syzbot, no bugzilla Link.** Looks like
-static/code inspection, not a user crash. Twin ivtv patch supports that.
+**Step 4.5 — stable@**
+- Record: lore.kernel.org/stable WebFetch returned 403. **UNVERIFIED**
+  whether stable@ discussed it. Unlikely: 7.3 is still rc4 and this was
+  merge-window work.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Independent `[PATCH]` plus independent ivtv twin (`…-0015-media-
-ivtv-…`). No hidden series dependency. This commit is self-contained.
+## Phase 5: Semantic / call graph
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: **UNVERIFIED** (lore/stable search blocked). Local history has
-no stable-discussion commit for this subject. No evidence it was
-rejected for stable.
+**Step 5.1 — Functions**
+- Record: `cs35l56_sdw_probe`, `cs35l56_sdw_id[]`, `cs35l56_set_patch`,
+  `cs35l56_set_fw_reg_table`, `cs35l56_system_reset`, `cs35l56_hw_init`,
+  `_cs35l56_component_probe`.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 5.2 — Callers**
+- Record: `cs35l56_sdw_probe` is the `sdw_driver.probe` (SoundWire
+  enumeration). `cs35l56_common_probe()` is called from SDW/I2C/SPI
+  probe. `cs35l56_hw_init` / `cs35l56_set_patch` are called from the
+  codec init path in `cs35l56.c`. `_cs35l56_component_probe` is the ALSA
+  component probe. Not a syscall hot path; probe/runtime of this amp.
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: **`compress_sliced_buf()`** only.
+**Step 5.3 — Callees**
+- Record: `devm_regmap_init_sdw`, `cs35l56_common_probe`,
+  `regmap_register_patch`, `regmap_multi_reg_write_bypassed`,
+  `snd_soc_add_component_controls`. No new helpers.
 
-Step 5.2: TRACE CALLERS
-Record (grep, not semcode — semcode MCP not available):
-- `compress_sliced_buf()` ← `_cx18_process_vbi_data()` when **not** raw
-  VBI
-- `_cx18_process_vbi_data()` ← `cx18_process_vbi_data()` per buffer on a
-  VBI MDL
-- `cx18_process_vbi_data()` ← `cx18_fileops.c` on userspace read of VBI,
-  or internal VBI while reading MPEG (`CX18_F_S_INTERNAL_USE`)
-- **Context:** process context, V4L2 read/DQBUF — not IRQ. User-
-  reachable with sliced VBI capture on cx18.
+**Step 5.4 — Reachability**
+- Record: Reachable when a CS35L62 SoundWire slave enumerates
+  (laptops/SOF). Unprivileged userspace cannot trigger a crash path
+  here; without the ID the device simply does not bind.
 
-Step 5.3: TRACE CALLEES
-Record: start-code compare; later `v4l2_subdev_call(...,
-decode_vbi_line)` and `memcpy` of 42 bytes. The changed loop only
-searches; it does not decode until a full line is found.
+**Step 5.5 — Similar patterns**
+- Record: Same pattern as CS35L63 (`978858791ceda`) and CS35L57 IDs.
+  Remaining `case 0x57` blocks use `default:` for CS35L63-class parts,
+  so CS35L62 is covered there.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record:
-`VIDIOC_QBUF/read` → `cx18_dequeue` → `cx18_process_vbi_data` →
-`_cx18_process_vbi_data` → `compress_sliced_buf`
-- **Userspace-reachable:** yes, with this card and sliced VBI.
-- Unprivileged: only with access to the V4L device node (typical video
-  group / capture app).
+## Phase 6: This tree
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Same bug in **ivtv** `compress_sliced_buf()`; already fixed with
-`i + 3 < size`. No other `i + 3 < size` hits under `drivers/media`.
-Systematic cloned-driver bug, both fixed.
+**Step 6.1 — Local tree and whether the code exists**
+- Record: `git describe HEAD` = **v7.3-rc4-27-gf0100363d8c37**; `make
+  kernelversion` = **7.3.0-rc4**. This is mainline 7.3-rc, not an LTS
+  branch.
+- Driver, CS35L63 paths, and the new IDs all exist here. `git merge-base
+  --is-ancestor 978858791ceda HEAD` succeeds. `git merge-base --is-
+  ancestor 3330b5f6d8dea HEAD` succeeds. CS35L62 first appears in
+  **v7.3-rc1**, not v7.2.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 6.2 — Backport difficulty**
+- Record: Context here already includes later IRQ/ID-sort changes, but
+  the hunks are trivial case/ID inserts. Expected apply: clean or
+  trivial reorder. **Low difficulty.**
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record:
-- **Tree:** `git describe HEAD` = **v7.3-rc4-27-gf0100363d8c37**; `make
-  kernelversion` = **7.3.0-rc4**
-- Driver and function exist: `drivers/media/pci/cx18/cx18-vbi.c`
-- **This commit is already an ancestor of HEAD** (`git merge-base --is-
-  ancestor bf533acaaa7de HEAD` succeeded)
-- First mainline tag containing it: **`v7.3-rc1`** (`git describe
-  --contains --match 'v*'`)
-- **Buggy bound `i < size` is in the parent** `bf533acaaa7de^`; it is
-  not a post-7.3 invention
-- Introduced **2008/2009**, so every current stable series that still
-  has cx18 has the bug unless this commit was backported
-- Already-in-HEAD on **mainline 7.3-rc4** is expected; it is not
-  “already selected for stable”
+**Step 6.3 — Related fixes already here**
+- Record: No alternate CS35L62 fix. Support is this series. ID table
+  sort came after.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **Clean apply.** Surrounding function is stable since 2009 aside
-from macros/email/SPDX. Stable trees with `i < size` get a 1-line
-conflict-free change.
+## Phase 7: Subsystem
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: This is the fix. No earlier alternate bound check. ivtv twin is
-a different driver.
+**Step 7.1**
+- Record: `[ASoC codec driver, Cirrus CS35L56 family] [IMPORTANT —
+  common laptop speaker amps, not core mm/fs; not staging]`
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 7.2**
+- Record: Actively maintained (many 2026 probe/IRQ/pm fixes). CS35L56 is
+  mature; CS35L62 is a small ID alias on top of CS35L63.
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record:
-- **Subsystem:** media / PCI V4L2 — Conexant CX23418 (Hauppauge HVR-1600
-  and similar)
-- **Criticality: PERIPHERAL** — old PCI capture card, not mm/net/VFS
-- `CONFIG_VIDEO_CX18`; maintainer Andy Walls; list linux-media
+## Phase 8: Impact and risk
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: **Mature/quiet.** Recent cx18 commits are treewide/API; this is
-one of the few real local bugfixes. Long-lived bug, not churn from a
-rewrite.
+**Step 8.1 — Who is affected**
+- Record: Driver-specific / config-specific
+  (`CONFIG_SND_SOC_CS35L56_SDW`). Only CS35L62 SoundWire hardware.
+  Existing CS35L54/56/57/63 behavior unchanged.
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 8.2 — Trigger**
+- Record: Device enumeration of part `0x3562`. Not a race. Not
+  unprivileged exploit surface.
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: **Driver-specific / config-specific:** `CONFIG_VIDEO_CX18`,
-sliced VBI (not raw). Population is small (HVR-1600-class cards) but
-real.
+**Step 8.3 — Failure mode without the patch**
+- Record: Device does not probe; no speaker amp. Severity **LOW** as a
+  kernel bug (no oops/corruption), **HIGH** as hardware enablement for
+  those machines.
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record:
-- Trigger: sliced VBI processing when the 4-byte EAV (`0xff 00 00
-  {0xb0,0xf0}`) is not found before the tail — then the loop runs to EOF
-  and over-reads
-- How common: every sliced-VBI buffer that lacks a match in-range; with
-  valid hardware the match is usually early
-- Unprivileged: only via the V4L node, not a generic syscall primitive
-- Not a race
+**Step 8.4 — Benefit vs risk**
+- Record: Benefit: CS35L62 SoundWire amps work on this kernel. Risk:
+  very low (7 lines, additive cases). Ratio: favorable **if** treating
+  this as a device-ID exception; poor **if** requiring a crash/security
+  bug.
 
-Default buffer sizing (verified):
-- `stream_buf_size[VBI] = VBI_ACTIVE_SAMPLES * 36` = **1444 × 36 =
-  51984**
-- Sliced MDL: NTSC **9792**, PAL **12496**; `bufs_per_mdl = 1`
-- `buf->buf = kmalloc(s->buf_size)` (51984); DMA/`bytesused` ≈ mdl_size
-  (~10–12K)
-- Default: 1–3 bytes past `bytesused` are **still inside the kmalloc
-  object** (not a KASAN slab redzone hit)
-- If `bytesused == buf_size` (full buffer), it **would** be a true
-  allocation over-read
+## Phase 9: Synthesis
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record:
-- **Failure mode:** 1–3 byte read past valid DMA `bytesused` while
-  matching start codes (result not copied to userspace)
-- Default config: no crash, no leak to userspace, no functional change
-  (tail false-match still leaves size ≪ line_size)
-- Edge: true slab/page OOB / oops if used size equals allocation
-- **Severity: MEDIUM** as memory-safety/correctness; **not CRITICAL**
-  (no demonstrated panic/corruption). Still a real OOB class bug.
+**Step 9.1 — Evidence**
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- **Benefit:** closes a long-standing OOB read on a live capture path;
-  low user count
-- **Risk: very low** (1 line, loop bound only)
-- **Ratio:** favorable — tiny risk, real bounds bug, same pattern
-  already used on ivtv
+For:
+- Matches the documented **new device ID** exception (SoundWire ID +
+  cases routing to existing CS35L63 code).
+- Small (7 lines), obviously correct, maintainer-applied.
+- Driver and CS35L63 prerequisites exist in this 7.3 tree.
+- No change to existing IDs’ control flow.
+- Author is the Cirrus driver owner.
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+Against:
+- Subject/body are **new feature**, not a bugfix. No crash, leak, UAF,
+  deadlock, or CVE.
+- Mark Brown applied it to **for-7.3 merge window**, not as a stable
+  bugfix.
+- Patch 1/2; SOF machine auto-config also wants `0306d21155819`.
+- No `Reported-by` / no in-field bug.
+- Stable rules 2 and 3 fail unless the ID exception is used.
 
-Step 9.1: COMPILE THE EVIDENCE
-**FOR backporting:**
-- Real 4-byte peek past `size`; classic OOB-read class used in stable
-- One line, obviously correct, no API/feature
-- Code has been in-tree since 2008/2009; no missing prereqs
-- Userspace-reachable sliced VBI on cx18
-- Applied by Hans Verkuil; CX18 maintainer CCd
-- Twin ivtv fix confirms the pattern
-- Regression risk essentially zero
+Unresolved:
+- stable@ lore search could not be fetched (403).
 
-**AGAINST:**
-- No syzbot/user/crash report
-- Peripheral 2008 PCI encoder, small population
-- Default kmalloc (52K) ≫ typical `bytesused` (~10K), so default may not
-  oops
-- No Fixes/Cc:stable (not a veto here)
-- Not core mm/fs/net
+**Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** — aliasing is local and
+   reviewed; applied by broonie. Only review comment was sort order.
+2. Fixes a real bug that affects users? **FAIL** as a defect; **PASS**
+   only under the device-ID exception (unsupported CS35L62).
+3. Important issue (crash/security/corruption/deadlock)? **FAIL**
+4. Small and contained? **PASS** (7 lines, one driver)
+5. No new features or APIs? **FAIL** as a feature; **PASS** under
+   device-ID exception (no new driver/API, only an ID)
+6. Can apply to the local tree? **PASS** — CS35L63 paths present on
+   7.3-rc4
 
-**UNRESOLVED:**
-- lore/stable threads beyond b4 mbox (Anubis)
-- No sanitizer report found
+**Step 9.3 — Exception**
+- Record: **NEW DEVICE IDs** on an existing driver. Same class as adding
+  a PCI/USB ID. Not a new driver, not a new uAPI.
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — bound is locally checkable;
-   accepted by media maintainer (no extra Tested-by)
-2. Fixes a real bug that affects users? **PASS** — over-read of the VBI
-   payload bound on a real capture path
-3. Important issue? **PASS** (medium) — memory-safety OOB; crash only if
-   used size equals allocation; still the OOB class stable takes as
-   small driver fixes
-4. Small and contained? **PASS** — 1 line, 1 function
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — already in this 7.3-rc4 tree;
-   parent form applies cleanly wherever `i < size` remains
+**Step 9.4 — Decision**
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: **None** (not ID/quirk/DT/build/doc). Qualifies as a normal
-small bugfix.
+This tree is **7.3.0-rc4**. The cs35l56 driver and CS35L63 handling are
+present, so the patch is applicable here. It does not fix a stability
+bug, but it is the standard “add ID to existing driver” pattern the
+stable rules explicitly allow: one SoundWire ID and a handful of `case`
+labels so CS35L62 reuses CS35L63. Risk to current users is negligible.
+Companion sdw_utils entry is separate and not required for the codec to
+bind.
 
-Step 9.4: MAKE YOUR DECISION
-This tree is mainline **7.3-rc4**, which already contains the fix
-(landed in **v7.3-rc1**). The evaluation is technical merit for stable,
-not “re-apply on 7.3”.
+### What it solves for users of this tree
+Without the ID, a CS35L62 SoundWire amp never matches the driver. With
+it, the existing CS35L63 path runs. That is hardware enablement, not a
+crash fix.
 
-The bug is a one-byte-stride scan of a four-byte start code with `i <
-size`, present since 2008/2009. The patch is the standard remaining-
-bytes fix. It does not add features, does not need other commits, and
-will not regress the later line parser.
+### Rules / risk
+Meets “small, obviously correct, no new API”. Importance is hardware
+support, covered by the device-ID exception. Backport/apply risk is very
+low.
 
-Default cx18 VBI buffers make a crash unlikely, but it is still a real
-bounds bug on a user-triggerable path, with ~zero backport risk. That is
-enough for YES on this tree’s stable-candidate criteria.
-
-------------------------------------------------
-What the commit solves for stable users
-`compress_sliced_buf()` must see `buf[0]..buf[3]`. With `i < size`, the
-last three iterations read past `bytesused`. Stopping at `i + 3 < size`
-prevents that. Users with Hauppauge HVR-1600-class cx18 cards doing
-sliced VBI (or MPEG with inserted VBI) no longer walk off the valid DMA
-tail.
-
-Stable rules / risk
-Meets the rules: obvious, small, no new API, real OOB. Benefit is modest
-(niche driver, default alloc has slack); risk is negligible. Prefer
-taking a 1-line memory-safety fix over leaving a 17-year over-read.
-
-Concerns
-None for apply/prereqs. Not a sanitizer/CVE-backed crash. ivtv twin is
-separate. This 7.3-rc4 checkout already has the commit; older stables
-still on `i < size` are the backport targets.
+---
 
 Verification:
-- [Phase 1] Subject/tags: media/cx18 “stop”; SOBs Hou + Verkuil; no
-  Fixes/Reported-by/Link/Cc:stable
-- [Phase 2] Diff: `drivers/media/pci/cx18/cx18-vbi.c`
-  `compress_sliced_buf()` `i < size` → `i + 3 < size` (1/1)
-- [Phase 2] Confirmed `buf[0]..buf[3]` vs exclusive `size`; post-loop
-  `size < line_size` still holds if no match
-- [Phase 3] `git blame`: loop from `1c1e45d17b663d` (2008) /
-  `4ab9b256b5908a` (2009); fix `bf533acaaa7de`
-- [Phase 3] `git show bf533acaaa7de^`: parent still has `i < size`
-- [Phase 3] Sibling `f373cf17fb8e7` ivtv same change; author log shows
-  both
-- [Phase 4] `b4 dig -c`: lore msgid `2026063007035519.3-ccfa108-0014-…`;
-  v1 only; mbox = patch, no replies
-- [Phase 4] `b4 dig -w`: Walls, Chehab, linux-media, linux-kernel
-- [Phase 4] WebFetch/WebSearch lore: **UNVERIFIED** (Anubis 403)
-- [Phase 5] Callers: `_cx18_process_vbi_data` ← `cx18_process_vbi_data`
-  ← `cx18-fileops.c` VBI/MPEG read
-- [Phase 5] `i + 3 < size` only in cx18-vbi.c and ivtv-vbi.c
-- [Phase 6] `git describe HEAD` v7.3-rc4-27; kernel 7.3.0-rc4; `merge-
-  base --is-ancestor bf533acaaa7de HEAD` true; `--contains` v7.3-rc1
-- [Phase 6] File present; apply would be clean on `i < size`
-- [Phase 7] CONFIG_VIDEO_CX18; MAINTAINERS Andy Walls; mature driver
-- [Phase 8] buf_size 1444*36=51984; sliced mdl_size 9792/12496;
-  kmalloc(buf_size) so default over-read stays in-object
-- [Phase 8] Failure: OOB read, severity MEDIUM; risk very low
-- UNVERIFIED: on-list review beyond Hans’s SOB; stable@ discussion;
-  KASAN/syzbot report
+- [Phase 1] Parsed tags: SOB Binding/Fitzgerald/Brown; Link to patch
+  1/2; no Fixes/Reported-by/stable Cc
+- [Phase 2] Diff: +7 lines, ID `0x3562` + cases `0x62`/`0x35A620`
+  reusing CS35L63
+- [Phase 3] `git blame`: CS35L63 from `978858791ceda` (v6.16); CS35L62
+  from `3330b5f6d8dea`
+- [Phase 3] `git merge-base --is-ancestor 978858791ceda HEAD`: CS35L63
+  in this tree
+- [Phase 3] `git merge-base --is-ancestor 3330b5f6d8dea v7.3-rc1`: first
+  in 7.3-rc1; not in v7.2
+- [Phase 3] Series: 1/2 codec IDs, 2/2 `0306d21155819` sdw_utils
+- [Phase 4] `b4 dig -c 3330b5f6d8dea`: v1 only; URL
+  patch.msgid.link/20260715120135.939280-2-…
+- [Phase 4] `b4 dig -a`: no later revision
+- [Phase 4] `b4 dig -w`: broonie + linux-sound
+- [Phase 4] mbox: Bossart sort-order nit only; Brown applied to for-7.3
+- [Phase 4] WebFetch lore.kernel.org: 403; used b4 mbox + openwall
+  instead
+- [Phase 5] grep callers: SDW probe → `cs35l56_common_probe`;
+  hw_init/set_patch from codec init
+- [Phase 5] Other `case 0x63` sites updated; remaining type switches use
+  `default:` for L63-class
+- [Phase 6] `git describe HEAD` / `make kernelversion`: v7.3-rc4 /
+  7.3.0-rc4; files present
+- [Phase 8] Failure mode: no bind for CS35L62, not an oops; existing IDs
+  unchanged
+- UNVERIFIED: stable@ mailing list (lore 403)
 
 **YES**
 
- drivers/media/pci/cx18/cx18-vbi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/cs35l56-sdw.c    | 2 ++
+ sound/soc/codecs/cs35l56-shared.c | 4 ++++
+ sound/soc/codecs/cs35l56.c        | 1 +
+ 3 files changed, 7 insertions(+)
 
-diff --git a/drivers/media/pci/cx18/cx18-vbi.c b/drivers/media/pci/cx18/cx18-vbi.c
-index 8dc4ce3259353..3a8430f3259eb 100644
---- a/drivers/media/pci/cx18/cx18-vbi.c
-+++ b/drivers/media/pci/cx18/cx18-vbi.c
-@@ -135,7 +135,7 @@ static u32 compress_sliced_buf(struct cx18 *cx, u8 *buf, u32 size,
- 				    : VBI_HBLANK_SAMPLES_50HZ;
- 
- 	/* find the first valid line */
--	for (i = hdr_size, buf += hdr_size; i < size; i++, buf++) {
-+	for (i = hdr_size, buf += hdr_size; i + 3 < size; i++, buf++) {
- 		if (buf[0] == 0xff && !buf[1] && !buf[2] &&
- 		    (buf[3] == sliced_vbi_eav_rp[0] ||
- 		     buf[3] == sliced_vbi_eav_rp[1]))
+diff --git a/sound/soc/codecs/cs35l56-sdw.c b/sound/soc/codecs/cs35l56-sdw.c
+index a513a15d7e5a7..a7b4e2a923205 100644
+--- a/sound/soc/codecs/cs35l56-sdw.c
++++ b/sound/soc/codecs/cs35l56-sdw.c
+@@ -529,6 +529,7 @@ static int cs35l56_sdw_probe(struct sdw_slave *peripheral, const struct sdw_devi
+ 		regmap_config = &cs35l56_regmap_sdw;
+ 		break;
+ 	case 0x3563:
++	case 0x3562:
+ 		regmap_config = &cs35l63_regmap_sdw;
+ 		break;
+ 	default:
+@@ -582,6 +583,7 @@ static const struct sdw_device_id cs35l56_sdw_id[] = {
+ 	SDW_SLAVE_ENTRY(0x01FA, 0x3556, 0x3556),
+ 	SDW_SLAVE_ENTRY(0x01FA, 0x3557, 0x3557),
+ 	SDW_SLAVE_ENTRY(0x01FA, 0x3563, 0x3563),
++	SDW_SLAVE_ENTRY(0x01FA, 0x3562, 0x3562),
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(sdw, cs35l56_sdw_id);
+diff --git a/sound/soc/codecs/cs35l56-shared.c b/sound/soc/codecs/cs35l56-shared.c
+index 646bb4fbca025..3001ec45a72de 100644
+--- a/sound/soc/codecs/cs35l56-shared.c
++++ b/sound/soc/codecs/cs35l56-shared.c
+@@ -86,6 +86,7 @@ int cs35l56_set_patch(struct cs35l56_base *cs35l56_base)
+ 					    ARRAY_SIZE(cs35l56_patch_fw));
+ 		break;
+ 	case 0x63:
++	case 0x62:
+ 		ret = regmap_register_patch(cs35l56_base->regmap, cs35l63_patch_fw,
+ 					    ARRAY_SIZE(cs35l63_patch_fw));
+ 		break;
+@@ -370,6 +371,7 @@ static void cs35l56_set_fw_reg_table(struct cs35l56_base *cs35l56_base)
+ 		}
+ 		break;
+ 	case 0x63:
++	case 0x62:
+ 		cs35l56_base->fw_reg = &cs35l63_fw_reg;
+ 		break;
+ 	}
+@@ -576,6 +578,7 @@ void cs35l56_system_reset(struct cs35l56_base *cs35l56_base, bool is_soundwire)
+ 		}
+ 		break;
+ 	case 0x63:
++	case 0x62:
+ 		regmap_multi_reg_write_bypassed(cs35l56_base->regmap,
+ 						cs35l63_system_reset_seq,
+ 						ARRAY_SIZE(cs35l63_system_reset_seq));
+@@ -1080,6 +1083,7 @@ int cs35l56_hw_init(struct cs35l56_base *cs35l56_base)
+ 		cs35l56_base->calibration_controls = &cs35l56_calibration_controls;
+ 		break;
+ 	case 0x35A630:
++	case 0x35A620:
+ 		cs35l56_base->calibration_controls = &cs35l63_calibration_controls;
+ 		devid = devid >> 4;
+ 		break;
+diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
+index e3334b2d84532..69976761ffa50 100644
+--- a/sound/soc/codecs/cs35l56.c
++++ b/sound/soc/codecs/cs35l56.c
+@@ -968,6 +968,7 @@ static int cs35l56_component_probe(struct snd_soc_component *component)
+ 						     ARRAY_SIZE(cs35l56_controls));
+ 		break;
+ 	case 0x63:
++	case 0x62:
+ 		ret = snd_soc_add_component_controls(component, cs35l63_controls,
+ 						     ARRAY_SIZE(cs35l63_controls));
+ 		break;
 -- 
 2.53.0
 
