@@ -1,74 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.68.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434443;
-	b=MHQFFU36dUFwu//wZLjXKKZKMT/IZuXtaSeMluxbVM+Uzlx3WvHvnAQvTtVI/gTuDoi0
-	 K4XQT66WfxLu4DLiYtRcFT1U/aAnOuzemeTdxXs6ZN/PX60cJIbxjIBPkLpmDfhg/TPkW
-	 8hXoQ7EQTenJDVtZozyR0DA0iDdwZ7cdEzuRLcLzkztMN+2Kc5TWRODCoDrVAbnUMiCzo
-	 tupSczMC0yYzIn9iOQIgz6Z2GHXX2xfxtBXhTwb1HNrLXhP9iJBKds1FDmhVKF6BjBVKx
-	 PscxoT1WP0jqS334mz4mYV6dFH2a5jYMDfRwtS6g3SfKGxGnyFLVZSzO3VwVFcwljow==
+	t=1792434441;
+	b=Fs2H1XuqKyCYQUz3P9VUkVf0vx8TVOfqUQrqiUvdwfNrSTf1sS9C3D1faXIpEvGwPTpx
+	 /BMOibwXZlecnoq6GpVzzRomwaMHEUNlveBJ1S/jV4H7VNmxTCHujP/rkvc1bWpJ4eSPn
+	 mtnMa/RMQA+q/onKLzH8p51glFxRFFYCVFJFGbGuRsKyi+Qx97QzfsdmjmaBli3PqZtGx
+	 qzc2kqu6GygvfngukCstlzoYFkOPbtiP9GvAWUjzF7Rq8eXeCIRoNBsEkktE0QOAW8FpC
+	 9l4ef7K5yC2CcII+lwKpMoV3NNrVctmU1H5eMZiIp81kU+LgG7B0E1z6rfqbxoWpv1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434443;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=W9kXttG4rClrDnvywgIgW0SroYJcWm63UforQOlfVCA=;
-	b=zBsRxETq6I1EjnZsIqcUUqqyDMLptN/DJZtCY78Z0KNtRNSA03h7j2ibOXZnjmahj0ma
-	 e7CAtrw897sSCq7Jp05CmjNmAsN1/mZu9VAFjtYRNy6hhH0wkZBy7nWGzSTUALWFa32kk
-	 FHmjwLPbjPiY2RTdKh4MtGkFVBLeuBNMHG/J5cfAhdeQxDMfyj7ZFt1nmEhSxjAvxF5my
-	 1zCD+FLEtNehCTOCeQS9ZFCBYZMcaVEia8hAOKN0Vdtzw/KTOoRh6cbKpJ0OIfgZEEVSU
-	 tlgm4m/hvZsN3iggLqPhEf2w7COtKAegVMpCN2nbsbesNdIA4UZTAeyaCmXy5tVSGzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434441;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=o7FjhCPmXbZMctj//JJUrqZDv3+6C4QkSctbr92ltS4=;
+	b=0i+K15gAEYl85N3NEws9BGgyZ9d5XC2JtIYDOewSK2xSeW7tbwkZ5x+ZKCdynW/+FbfO
+	 YRRF0eWDCOYaH9BOHCrPoMmfaWJ2c6bxiwQb/qjJjJ4vvwp9niWraiJDtsRuJaUrRkOql
+	 LZfKI3RT3o2T2wclNNRO0Abh7sD58XcKJc+5Ldt5hH0CS44BQoIapjTWsIa2Ucc4v+XHf
+	 RqETZrGehI3gzamtvKmH+4knhUmKhLu+4mkaCb6Muwrfv7jrt8KJgBqVtUztYOt7H//ef
+	 8fe8aR8DbVggymMWwxDGzXJZyQx5SniJYBXdPHbtrKFI5HUsIg5ycaUm8fLz0llFa8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=SPTx5fhM;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=oH3p538Z;
+	arc=none smtp.remote-ip=44.246.68.102
+Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D24C60A5BC3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6030A60A3813;
 	Mon, 19 Oct 2026 18:27:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D24C60A5BC3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6030A60A3813
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=SPTx5fhM
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 66ED540E02A0;
-	Mon, 19 Oct 2026 18:27:19 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id RkNoaNnqF-b2; Mon, 19 Oct 2026 18:27:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1792434435; bh=W9kXttG4rClrDnvywgIgW0SroYJcWm63UforQOlfVCA=;
-	h=Date:From:To:Cc:Subject:From;
-	b=SPTx5fhMhLPz3DbODFE6FTTJxiJe8ZLyXwtE0QAIzzgKLgyxuurVAvsnHc5gWfYHN
-	 p8RbtHY1zvVAYQrdrvLMuVLMPHaTCu6XCTyAt8f/if+Zl18d1xvV7Z+L5MI89qA3Z8
-	 5Fe6ot/mHTpOo5Y19o34czuwqgISnxrvm4SgfNch91hXfnHEcwZtVx0eW9p5tQxZsx
-	 RAqWd/q4NAU1CE8lokkPDTI9bRroEbf3NiWlsE8z1sqO9Q8kV4nyri6KhTRJA+GHO2
-	 CdeZux/zKE1t5bpjbHJtF4CZH0WCPZsxWqoxeu+3mP3WWfXIoW9DRT5/jw+6VY9bb9
-	 8i0N4dfJmbWYPpWu9M9DN+r/Sw562B+zigKMQkr++oquCcmCoMjcrCLBOC5DljCXCX
-	 4zO8Ylf7n9sb56BScBLBf0AEHwwJ6jf2hzr8UmI4FOzcpkpBxDyPSlc/QOKzouhPeL
-	 h7DUOMDjm7mhf3nE1CLT+nlyGxlImRNr/qnG1yeOS7YAc7iIhI1on9xWndrWoBMIPj
-	 2OTXlsXiwr0sQBnMq6YJ96NOoZiFG81un+GRtBZo5LoawOFTvx5N7FsLMJeR/c15x0
-	 GdbELqIczilPpVIEl6mUFW1Mn6ysVlxic/IcPlM4JRn0H5T6H5Lj8Rwe1rYR+33n14
-	 93fskVqfI552t07BFZcxgLYE=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9BF6A40E021A;
-	Mon, 19 Oct 2026 18:27:11 +0000 (UTC)
-Date: Mon, 19 Oct 2026 11:27:08 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-edac <linux-edac@vger.kernel.org>,
-	lkml <linux-kernel@vger.kernel.org>
-Subject: [GIT PULL] EDAC updates for v7.4-rc1
-Message-ID: <20261019182708.GAatZg_AcjQ76Ubjvt@fat_crate.local>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=oH3p538Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1792434441; x=1823970441;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=o7FjhCPmXbZMctj//JJUrqZDv3+6C4QkSctbr92ltS4=;
+  b=oH3p538ZTD5/l7e77CmFIHq0F9dxPTTW4f9HVFOoch++Cq07C6vWAvj+
+   St0rns20FgCGYE/DW3B6TQnY1Pwd3O/75oHZFWhPlfnaRTjxK74wvwhMB
+   1LS9CUGHyeHo1dCEE6WspjoSp0l8BEVdqhnyGbQOtzNcFZrtnV9fCxF3h
+   FWfVe0T7rzRXNDJESOxQ/Us+Rq2qY4359+RK4ganH4Yvo3qQmIHFg+dZ1
+   6WGZioofTGbp3ATKANujTU+O6/dWStSx8nqWf8iR4Xbg6xbTSspupKH5D
+   1qb52nab9Qm9wExMdj6PLYj6oDVIYz71ua/dVSEy/hJ6Er8cFTx6e1kNY
+   A==;
+X-CSE-ConnectionGUID: gSdzwmxRTyquCVYkuPh3sA==
+X-CSE-MsgGUID: Jy32Wv5ETNCvryrbhGyOag==
+X-IronPort-AV: E=Sophos;i="6.27,167,1787011200"; 
+   d="scan'208";a="31587261"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 18:27:17 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:15353]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.51.105:2525] with esmtp (Farcaster)
+ id 2998b543-fa1d-4238-a539-40ba3ca3ede5; Mon, 19 Oct 2026 18:27:17 +0000 (UTC)
+X-Farcaster-Flow-ID: 2998b543-fa1d-4238-a539-40ba3ca3ede5
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 19 Oct 2026 18:27:17 +0000
+Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53;
+ Mon, 19 Oct 2026 18:27:16 +0000
+From: Surendran Kanagaraj <surenkj@amazon.com>
+To: <jarkko@kernel.org>
+CC: <peterhuewe@gmx.de>, <jgg@ziepe.ca>, <linux-integrity@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <leitao@debian.org>,
+	<nh-open-source@amazon.com>, <graf@amazon.de>, <gunnarku@amazon.com>,
+	<joshlev@amazon.com>
+Subject: Re: [PATCH v2 2/2] tpm_crb: Raise durations for Amazon NitroTPM
+Date: Mon, 19 Oct 2026 18:27:13 +0000
+Message-ID: <20261019182713.57308-1-surenkj@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <atLD-d1v1B8ARv7x@kernel.org>
+References: <atLD-d1v1B8ARv7x@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,112 +86,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi Linus,
+On Sat, Oct 17, 2026 at 03:40:25AM +0300, Jarkko Sakkinen wrote:
+> On Sat, Oct 17, 2026 at 03:31:32AM +0300, Jarkko Sakkinen wrote:
+> > Yeah so this needs a bit more redesign and while it is a possible
+> > way to address all these issues I don't believe it is best possible
+> > way imaginable to do something that lasts long-term.
+> >
+> > I don't want to go into concrete proposals because then I would have
+> > to really engineer the whole change while at it because I would
+> > likely try a number of approaches out. I.e. just a bit more effort
+> > and innovation please.
+>
+> I can give this:
+>
+> 1. Map the whole flow how we fluctuate values of durations.
+> 2. Think that if you were starting from zero how would you design a
+>    unified and coherent flow. This includes all the callbacks and both TPM
+>    1.x and TPM 2.0.
+> 3. Redo the flow based on that premise.
+>
+> I.e., break more things with consideration and if it goes over the
+> top then we attenuate the changes where needed.
 
-please pull the EDAC updates for v7.4-rc1.
+Thanks for the pointers Jarkko. Will work out a design and send a
+proposal.
 
-Thx.
-
----
-
-The following changes since commit df2908090cda368b01ff43709f51890076c56157:
-
-  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
-
-are available in the Git repository at:
-
-  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/ras/ras.git tags/edac_updates_for_v7.4_rc1
-
-for you to fetch changes up to 5dbc181a22ae397b53adb26bc083f206b9631c83:
-
-  Merge remote-tracking branches 'ras/edac-drivers' and 'ras/edac-misc' into edac-updates (2026-10-18 12:01:02 -0700)
-
-----------------------------------------------------------------
-- Orphan several EDAC drivers: i82975x, x38, xgene, i3200. Those have been
-  receiving just drive-by updates and no one really uses them. At least there
-  are no traces of usage on the mailing lists. So, with the advent of
-  AI-generated fixes frenzy, and because no one can really test fixes on
-  those, it is time to sunset them and point them towards the eternal happy
-  hunting-grounds
-
-- Add a dummy EDAC driver with which the EDAC core glue can be exercised in
-  a VM for the cases where one does not necessarily have access to the
-  hardware. This glue should be extended with all the necessary functionality
-  that needs and can be tested this way
-
-- Add an EDAC driver to reset bitfix filters in Intel hardware. Bitfix
-  filters are a hw mechanism for tracking stuck bits in memory and CPU arrays
-  due to, e.g., silicon aging. Those filters can become clogged by transient
-  errors accumulating over a long system uptime so this intel-bff (LOL :))
-  driver glue resets those filters on overflow. Work by Qiuxu Zhuo and Tony
-  Luck
-
-- Export get_cpu_cacheinfo_id() for use by the new intel-bff driver
-
-- i10nm: Handle the case where hw disables memory controllers which leads to
-  reporting the wrong memory controller when reporting an error
-
-- The now-usual AI-powered fixes and other misc cleanups and updates all over
-  the place
-
-----------------------------------------------------------------
-Borislav Petkov (AMD) (6):
-      EDAC/dummy: Add a dummy EDAC driver
-      MAINTAINERS: Orphan drivers/edac/i82975x_edac.c
-      MAINTAINERS: Orphan drivers/edac/x38_edac.c
-      MAINTAINERS: Orphan drivers/edac/xgene_edac.c
-      MAINTAINERS: Orphan drivers/edac/i3200_edac.c
-      Merge remote-tracking branches 'ras/edac-drivers' and 'ras/edac-misc' into edac-updates
-
-Bryan Chan (1):
-      EDAC/skx_base: Fix ambiguous bitwise and logical operator style
-
-Myeonghun Pak (1):
-      EDAC/ie31200: Disable PCI device when probing fails
-
-Pawel Zalewski (1):
-      EDAC/{bluefield,loongson}: Use named initializers for acpi_device_id
-
-Qiuxu Zhuo (3):
-      EDAC/i10nm: Fix Granite Rapids ADXL MC mapping
-      cacheinfo: Export get_cpu_cacheinfo_id() for loadable modules
-      MAINTAINERS: Update Qiuxu Zhuo's email address
-
-Tony Luck (6):
-      x86/mce: Add enumeration for Intel bitfix filter reset
-      EDAC/intel-bff: Add stub Intel bitfix filter driver
-      EDAC/intel-bff: Add Diamond Rapids support
-      EDAC/intel-bff: Reset bitfix filter when it overflows
-      EDAC/intel-bff: Compute unique ID for overflowed filter
-      EDAC/intel-bff: Report frequent filter overflows
-
-Wentao Liang (1):
-      EDAC/i10nm: Fix mdev reference leak in i10nm_get_ddr_munits()
-
- MAINTAINERS                      |  26 +++-
- arch/x86/include/asm/mce.h       |   5 +
- arch/x86/include/asm/msr-index.h |   2 +
- drivers/base/cacheinfo.c         |  17 +++
- drivers/edac/Kconfig             |  22 +++
- drivers/edac/Makefile            |   5 +-
- drivers/edac/bluefield_edac.c    |   4 +-
- drivers/edac/dummy_edac.c        | 191 +++++++++++++++++++++++++
- drivers/edac/i10nm_base.c        |   2 +
- drivers/edac/ie31200_edac.c      |   4 +-
- drivers/edac/intel-bff.c         | 295 +++++++++++++++++++++++++++++++++++++++
- drivers/edac/loongson_edac.c     |   4 +-
- drivers/edac/skx_base.c          |   2 +-
- include/linux/cacheinfo.h        |  12 +-
- 14 files changed, 567 insertions(+), 24 deletions(-)
- create mode 100644 drivers/edac/dummy_edac.c
- create mode 100644 drivers/edac/intel-bff.c
-
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Surendran
