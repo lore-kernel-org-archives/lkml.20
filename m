@@ -1,48 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F48B500340;
-	Mon, 19 Oct 2026 13:57:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7762256CE04;
+	Mon, 19 Oct 2026 13:57:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418278; cv=none; b=tVsuS0AOM1DAsfHz6Etr4Ju9bfIAMUr1UGbVqoJ2r69vTMNvIEte+sQxTSkTK9keW4/VLEkuElCDaSUZzXW3G//P8yCm4n6idGBFChUiPVCvAtb93+hMRp+GEo97kKxeTGLwIhSSTvA0JNujPqMwSAawsd4M/CUfRaBD7e1y7g4=
+	t=1792418280; cv=none; b=ArLc2kVp079IDvSycHytREHYfX+ut9vjN3H69uNrqN6RPxmlWWrAgfgwtQdXYzchRH4r4SnWWch3JrKj/HKuyjLxgRQOSI6Ozpbfx15Kal0H00kjPoi2dirvNHtitQuD3cnwYVhzYCxjkGzPlhqf93/EXWgajViJ/TtfRs12sBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418278; c=relaxed/simple;
-	bh=DWHFGp2b1w5r4l1p6O96Ep1ei4zM/7jlwKsd30Af+Ng=;
+	s=arc-20240116; t=1792418280; c=relaxed/simple;
+	bh=p7XwU1Cmktg71iLWiSqZGVHzdkqB53V+abIuVga9KAA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qBn24hMACXyIrdMg+YzzPm4sS3G4EraClWsaQt7try4pxym0Ad8q33G4nk9OPdDeu5BaHy/Rwkm5+D5tjmFsSQFQqUle4k4QF+BnAMohH8bvFV1J8xJi16VaDGDwaYzPW8ZWg7yL/irNZ+GyuDlrs6/NAxuGEGEjux+OYkDWMgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XFX+EPfY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=j/zFei94h7iKJ8L6f//N06c4Iaq1r02L1f6yLvpd3DyjhKFgRBW7y7UZjj0kOArjtMoaaFHQu9gSmfTIQL87FjkGWMiTcAYlumN2bGnikfdpPgmQZxdp34sBpTBNHKjIUpjbvWIGBMVbHI3llbzydjvs4U7T5gG3V83Wc39b0qU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QzBbMgz6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XFX+EPfY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860421F000C7;
-	Mon, 19 Oct 2026 13:57:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QzBbMgz6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BA751F000C6;
+	Mon, 19 Oct 2026 13:57:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418275;
-	bh=Ua7FOrvtap76X3pWHhtDl5tS54N9KAgGE6T8hmgUSAg=;
+	s=k20260515; t=1792418278;
+	bh=ZePzfD06LTtY9SuocAapOamZxhL1BzMjFtw4kmvDVuI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XFX+EPfYtLIW13hk3VxO2Lau/4hfffMQ4eGWpmPGm7UMC/hqCsOskZfKFRRRK9D2i
-	 wDbWKq5jht1XsLwoVSDulFSmySmLl6ORV2lat4//tumEJUqu5uWIWIPqPiYL+RCS9p
-	 7W6xKQvI1kMZQH5jlHc8NKw3rKz5Fx9Banc7ZS2Km8rVrcimCOjjj0hLrqWADhJi7C
-	 lZfc89attVBpauIwaG4M1uNVVldBxs8qed1DlQrpNgMALf3aaPHQXlEdRAAe6ZMKv9
-	 PC1cDq1jEKW4eXMUtpLQJNaogfGlLXBTNM2EiaMRXiXQDdvHuDbmooJ48TqM2dZ9BI
-	 lcd+dM6KRKn+w==
+	b=QzBbMgz6ZQkbYTQQDL3XPiDvofPaOy93nh7jRztpHNWgb2M0AWhoXFMOdAr1TXHJC
+	 RxD2+LOeOO7JR3UMiKqXFN6HysV2yUJ5fZSXcnzZawMJ5VQZxWs8qESK12tQNC2IBk
+	 BXUXaWz0DgCKLwnAQDdtNzzFlYFa/qaPBmlv3PSQPxHNMCR9InCmrtifWs+axdizmi
+	 E1e1CepSIxyu5tFRdQ9GWlxaXtz+4ObuB0v9kN92xfmwvXIo8dyJSoCg5+H+3t3ei6
+	 YBpXVoqZiOjQBpaujZsl6DBRC2c1z5pNqB/lM2zRqspktlioNkpgJhanrSGwkqbXpH
+	 ugkwOBw6+ZMPA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yang Wang <kevinyang.wang@amd.com>,
-	Hawking Zhang <Hawking.Zhang@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	kenneth.feng@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+	yung-chuan.liao@linux.intel.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/amd/pm: Use uploaded size for legacy custom PPTable
-Date: Mon, 19 Oct 2026 09:47:03 -0400
-Message-ID: <20261019135441.1420968-132-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] soundwire: dmi-quirks: Disable ghost Realtek on Asus Expertbook
+Date: Mon, 19 Oct 2026 09:47:05 -0400
+Message-ID: <20261019135441.1420968-134-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -58,410 +53,374 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yang Wang <kevinyang.wang@amd.com>
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-[ Upstream commit 055a40c32f3a2dcd4d1a6f85ff4c231cf35f1b53 ]
+[ Upstream commit 90af3209742db61a7f9d7d054a16165818cfc6d8 ]
 
-The legacy powerplay path used to allocate hardcode_pp_table from
-the original VBIOS PPTable size, copy only the uploaded bytes into it,
-and keep soft_pp_table_size unchanged. If a custom PPTable is shorter
-than the original table, later code can still treat the stale tail as
-valid table data.
+The Asus Expertbook B9406CAA also has a Realtek device in the ACPI that
+doesn't exist in the physical hardware. This confuses the machine driver
+into attempting to create DAI links for the device. Add a quirk to
+remove this device.
 
-Treat the uploaded buffer as the complete custom PPTable: duplicate the
-uploaded buffer directly, replace hardcode_pp_table atomically, and set
-soft_pp_table_size to the uploaded size.
-
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Closes: https://github.com/thesofproject/linux/issues/5828
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://patch.msgid.link/20260630081132.3294488-1-ckeepax@opensource.cirrus.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+I have enough to decide: this is a DMI hardware quirk for a user-
+confirmed “no sound” failure, and the `ghost_realtek` machinery already
+exists in this 7.3 tree.
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[drm/amd/pm] [Use] Use uploaded size for legacy custom PPTable`
-Subsystem: AMDGPU PowerPlay (legacy hwmgr path). Verb “Use” describes
-the corrected size source; the body is a correctness fix for stale table
-tails.
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+Step 1.1: PARSE THE SUBJECT LINE
+Record: [soundwire: dmi-quirks] [Disable] [DMI quirk to hide a ghost
+Realtek SoundWire device on Asus Expertbook B9406CAA]
+
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- `Signed-off-by: Yang Wang <kevinyang.wang@amd.com>` (author)
-- `Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>` (AMD)
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
-  maintainer)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Link:`, or `Cc: stable` on
-  the upstream commit (absence expected)
-- Pipeline-only markers ignored: `[Upstream commit 055a40c32f3a2…]`,
-  `Signed-off-by: Sasha Levin`
+- Closes: https://github.com/thesofproject/linux/issues/5828 (user-filed
+  SOF audio bug)
+- Signed-off-by: Charles Keepax (author)
+- Link: https://patch.msgid.link/20260630081132.3294488-1-
+  ckeepax@opensource.cirrus.com
+- Signed-off-by: Vinod Koul (SoundWire maintainer)
+- No Fixes: tag (expected)
+- No Cc: stable (expected)
+- No Reported-by / Tested-by / Reviewed-by / Acked-by in the committed
+  message
+- Ignore pipeline SOBs: none present (no Sasha Levin marker)
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- **Bug:** `pp_dpm_set_pp_table()` allocated `hardcode_pp_table` at the
-  original VBIOS PPTable size, `memcpy`’d only the uploaded bytes, and
-  left `soft_pp_table_size` unchanged.
-- **Symptom:** A shorter custom table leaves a stale VBIOS tail; later
-  parsing still treats that tail as valid table data.
-  `pp_dpm_get_pp_table()` also reports the old size.
-- **Root cause:** Upload size is not treated as the complete custom
-  table.
-- **Fix:** `kmemdup(buf, size)`, atomically replace `hardcode_pp_table`,
-  set `soft_pp_table_size = size`.
-- No stack traces, syzbot, or version range in the message.
+- Bug: ACPI lists a Realtek SoundWire device that is not physically
+  present on Asus Expertbook B9406CAA.
+- Symptom: the machine driver tries to create DAI links for that ghost
+  device; audio probe fails (dummy output / no card).
+- Version info in the GitHub issue (not the commit body): worked on 7.0,
+  broken since 7.1 after function-topology matching.
+- Root cause: firmware/ACPI advertises RT722 on link 3; function
+  topology builds the card from ACPI, so the ghost device breaks card
+  creation.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a disguised cleanup. It is an explicit correctness/memory-
-safety fix for mixed VBIOS+custom table contents. Also aligns the legacy
-path with SWSMU’s `smu_sys_set_pp_table()`.
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not a disguised cleanup. It is an explicit hardware quirk. The
+“add a table entry” form is the standard stable-acceptable quirk
+pattern.
 
-## PHASE 2: DIFF ANALYSIS
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-**Step 2.1: INVENTORY THE CHANGES**
+Step 2.1: INVENTORY THE CHANGES
 Record:
-- File: `drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c` (+8 / −13)
-- Function: `pp_dpm_set_pp_table()` only
-- Scope: single-file surgical fix
+- File: `drivers/soundwire/dmi-quirks.c` (+7 / −0)
+- Function/data: `adr_remap_quirk_table[]` only (no new functions)
+- Scope: single-file surgical DMI match addition
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record: **Before** (this tree at `v6.18.53` / parent of the candidate):
-```
-if (!hwmgr || !hwmgr->pm_en) return -EINVAL;
-if (size > hwmgr->soft_pp_table_size) return -EINVAL;
-if (!hardcode_pp_table)
-    hardcode_pp_table = kmemdup(soft_pp_table, soft_pp_table_size, ...);
-memcpy(hardcode_pp_table, buf, size);
-soft_pp_table = hardcode_pp_table;
-// soft_pp_table_size unchanged
-amd_powerplay_reset();
-```
-**After:**
-```
-if (!hwmgr || !hwmgr->pm_en || !buf || !size || size > U32_MAX) return
--EINVAL;
-hardcode_pp_table = kmemdup(buf, size, GFP_KERNEL);
-kfree(old); assign new;
-soft_pp_table = hardcode_pp_table;
-soft_pp_table_size = size;
-amd_powerplay_reset();
-```
-Path: privileged sysfs store to `pp_table`, then DPM re-init. Not boot-
-default.
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **Logic/correctness + memory-safety (stale buffer / wrong
-length).**
-Broken: partial overwrite of a VBIOS-sized copy; parsers and
-`pp_table_has_space()` / `*_pp_table_has_space()` use
-`soft_pp_table_size` as the valid span.
-Fix: the uploaded buffer *is* the table; size matches allocation.
-Removes the overflow `memcpy` by allocating exactly `size` (supersedes
-the in-tree `size > soft_pp_table_size` cap). Adds `!buf`, `!size`,
-`size > U32_MAX` (`soft_pp_table_size` is `uint32_t`).
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record: Minimal and matches SWSMU. `kfree` + replace is serialized by
-`adev->pm.mutex` in `amdgpu_dpm_set_pp_table()`. `kfree(NULL)` is safe
-on first upload. Destroy path already `kfree`s `hardcode_pp_table`.
-Regression risk: low on the common (no custom table) path. Larger-than-
-VBIOS uploads are now allowed up to sysfs `PAGE_SIZE`; parsers that
-trust header offsets still need the later bounds patches.
-Truncated/malformed headers could already OOB in `v6.18.53` without
-those checks.
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: BLAME THE CHANGED LINES**
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 Record:
-- Function added `f3898ea12fc1f` (2016-02, “add some sysfs interfaces
-  for powerplay”)
-- Upload/reset/memcpy: `4dcf9e6f2e33fe` (2016-07, “add uploading pptable
-  and resetting powerplay support”)
-- `kmemdup` of VBIOS-sized original: `efdf7a93195a71` (2016-09)
-- Overflow cap: `3334985f8b4c7` / upstream `f193e71fa9fab` (“bound
-  pp_dpm_set_pp_table() memcpy”) — **already in `v6.18.53`**
-Bug is long-standing; this tree still has the stale-tail behavior.
+- Before: B9406CAA did not match `adr_remap_quirk_table`, so ACPI `_ADR`
+  0x000330025d072201 (RT722 on link 3) stayed visible.
+- After: DMI match `ASUS` + board `B9406CAA` uses existing
+  `ghost_realtek[]`, remapping that `_ADR` to 0.
+- Path: SoundWire ACPI slave discovery (`find_slave()`), not a hot path
+  or a new API.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. Introduced with PowerPlay sysfs upload in 2016.
-Present in this 6.18.y tree.
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record: [Hardware workaround / DMI quirk]
+Mechanism: `ghost_realtek[]` remaps `0x000330025d072201` → `0`.
+`find_slave()` does `if (!addr) return false;`, so the ghost device is
+not registered and sof_sdw does not build DAI links for it.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Related in this tree:
-- `3334985f8b4c7` — overflow bound (in `v6.18.53`)
-- `3149b1bee4fa1` — series 1/5, SWSMU header check (not in `v6.18.53`;
-  different file)
-- Later descendants: `f29e53bc54611`, `10510a4c2c397`, `c80131588ca2f`
-  (series 3–5 bounds; **not** in `v6.18.53`)
-- `8c685df5c3b26` — get-path UAF, different files
-This patch is **2/5** of Yang Wang’s June 2026 series. It is standalone
-(legacy `amd_powerplay.c` only). 3–5 use `soft_pp_table_size` as the
-bound, so they want this size to match custom uploads.
+Step 2.4: ASSESS THE FIX QUALITY
+Record: Obviously correct and minimal. Same pattern as UX5406AA / Lenovo
+83QK / 83SF. Regression risk is very low: only that DMI pair is
+affected; other machines are unchanged.
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Yang Wang is an AMD pm contributor with several PPTable
-bounds/UAF fixes. Hawking Zhang reviewed; Alex Deucher signed off.
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: No missing helpers: `kmemdup`, `U32_MAX`, `hardcode_pp_table`,
-`amd_powerplay_reset()` all exist in `v6.18.53`. Does **not** depend on
-1/5. Parent blob already has the overflow `if (size >
-soft_pp_table_size)` that this diff removes — clean apply on this tree.
+Step 3.1: BLAME THE CHANGED LINES
+Record: The new B9406CAA block is this commit (`90af3209742db`,
+2026-06-30). `ghost_realtek[]` and the PTL comment come from
+`4dab2b904414f` (“Disable ghost Realtek devices”, 2026-05-20, in v7.2).
+`dmi-quirks.c` itself dates to `f6594cdfec4cd` (v5.13).
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. The user-visible regression was function topology
+in 7.1 (`e0fb794d67f86` / `45cf24da0a10` pair, present in v7.1). This
+commit does not revert those; it adds a device-specific ACPI workaround.
+`git merge-base --is-ancestor e0fb794d67f86 v7.1` is true.
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record: Same-file siblings: `4dab2b904414f` (base table), then B9406CAA,
+then UX8407AA / GX651AR / GX651AX. Standalone: one extra DMI row.
+Prerequisite is only `ghost_realtek[]`, which is in this tree.
+
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Charles Keepax has 30 SoundWire commits here; he introduced
+`ghost_realtek`. Vinod Koul (maintainer) applied it. Pierre-Louis
+Bossart (reviewer in MAINTAINERS) was CCed.
+
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: Depends on `ghost_realtek[]` (`4dab2b904414f`, in v7.2 and in
+this 7.3 tree) and on remap-to-zero skip in `find_slave()` (`if (!addr)
+return false;` in `drivers/soundwire/slave.c`). Both exist here. Applies
+standalone on this tree.
+
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
 Record:
-- `b4 dig -c 055a40c32f3a2dcd4d1a6f85ff4c231cf35f1b53` → https://patch.m
-  sgid.link/20260623034151.263746-2-kevinyang.wang@amd.com
-- Series v1 only (no v2/v3)
-- `[PATCH 2/5] drm/amd/pm: Use uploaded size for legacy custom PPTable`
-- **1/5** SWSMU header + atomic `kmemdup`
-- **2/5** this commit
-- **3/5** Tonga state-array bounds
-- **4/5** Vega hwmgr bounds
-- **5/5** legacy `processpptables.c` offset bounds
-  (`pp_table_has_space`)
-- lore.kernel.org HTTP 403; discussion taken from `b4 dig -m` mbox
-  (verified)
+- b4 dig: https://patch.msgid.link/20260630081132.3294488-1-
+  ckeepax@opensource.cirrus.com
+- Series: v1 only (no v2/v3)
+- Cover note: follow-up quirk after a previous one proved unnecessary
+- Vinod Koul: “Applied, thanks!” → `90af3209742db`
+- No NAK, no review concerns, no Cc: stable in the thread
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To/Cc `amd-gfx@lists.freedesktop.org`, Alex
-Deucher, Hawking Zhang, Kenneth Feng. Hawking: “Series is Reviewed-by:
-Hawking Zhang”. No NAKs in the saved thread.
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record (b4 dig -w): To Vinod Koul; Cc Pierre-Louis Bossart, Bard Liao,
+linux-sound, linux-kernel, Cirrus patches. Maintainer applied it. No
+extra Reviewed-by on this follow-up (the base table had Reviewed-by:
+Pierre-Louis Bossart).
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No `Reported-by` / bugzilla / syzbot. Bug is described from code
-review.
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: GitHub thesofproject/linux#5828, closed.
+- Reporter q66: no sound on ExpertBook B9406CAA since 7.1 (dummy output;
+  `snd_soc_register_card failed -517`, later duplicate sysfs).
+- Charles identified ACPI ghost: `link 3 mfg_id 0x025d part_id 0x0722`.
+- Reporter confirmed DMI `ASUS` / `B9406CAA` and that this exact quirk
+  restored sound (downstream Chimera Linux kernel).
+- Charles: “Yeah that is the correct fix.”
+- Separate later UCM/mute-LED discussion is unrelated to this quirk.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: 2/5 does not need 1/5. 3–5 are follow-on parser hardening that
-treat `soft_pp_table_size` as the valid span; they are stronger with 2/5
-but VBIOS parsing still works without it.
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: Standalone 1/1. Same family as `4dab2b904414f` and later laptop
+rows. No other patches required for this DMI entry.
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: **UNVERIFIED** — `lore.kernel.org/stable/` returned HTTP 403. No
-stable discussion in the amd-gfx mbox.
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: lore.kernel.org/stable WebFetch returned 403. UNVERIFIED whether
+it was discussed on stable@. On the GitHub issue, Charles said the
+original ghost-Realtek table should be forwarded to stable because 7.1
+already had the topology switch. That is context, not a substitute for
+this patch’s own merit.
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: `pp_dpm_set_pp_table()`; uses `amd_powerplay_reset()`.
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: No function body changes. Data only: `adr_remap_quirk_table[]`
+using existing `ghost_realtek[]`. Consumer: `sdw_dmi_override_adr()`.
 
-**Step 5.2: TRACE CALLERS**
+Step 5.2: TRACE CALLERS
 Record:
-- `pp_dpm_funcs.set_pp_table` → `amdgpu_dpm_set_pp_table()`
-  (`mutex_lock(&adev->pm.mutex)`) → `amdgpu_set_pp_table()` sysfs store
-- Attribute: `AMDGPU_DEVICE_ATTR_RW(pp_table, …)` → `S_IRUGO | S_IWUSR`
-  (root write)
-- HW: legacy PowerPlay (SI/CI/VI/Polaris/Vega via hwmgr), not Navi+
-  SWSMU (`smu_sys_set_pp_table`)
+- `sdw_dmi_override_adr()` is `bus->ops->override_adr` for Intel
+  (`drivers/soundwire/intel_auxdevice.c`).
+- Called from `find_slave()` in `drivers/soundwire/slave.c` during ACPI
+  enumeration.
+- Context: device probe / SoundWire bus init, not IRQ.
 
-**Step 5.3: TRACE CALLEES**
-Record: `kmemdup`, `kfree`, `amd_powerplay_reset()` → `hwmgr_hw_fini` /
-`hwmgr_hw_init` / `hwmgr_handle_task(AMD_PP_TASK_COMPLETE_INIT)`,
-optional `avfs_control(false)`.
+Step 5.3: TRACE CALLEES
+Record: `dmi_first_match()`, then table walk. If ADR matches, replace
+with remapped value (0 for ghost Realtek).
 
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace `write()` to `/sys/class/drm/card*/device/pp_table`
-(root). Then full PM re-init from the new table. Reachable, privileged,
-documented.
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: Boot/probe of Intel SOF SoundWire (Panther Lake Expertbook).
+Userspace cannot trigger it except by using the laptop. Reachable on
+that hardware every boot. Confirmed by dmesg in the issue.
 
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: SWSMU already `kmemdup(buf, size)` and sets
-`power_play_table_size = size` (series 1/5 / current
-`smu_sys_set_pp_table()`). This is the legacy equivalent.
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: Same `ghost_realtek` DMI rows for UX5406AA, 83QK, 83SF, later
+UX8407AA / GX651AR / GX651AX. Systematic ACPI ghost-device problem, not
+a one-off.
 
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: **Yes.** `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`;
-`Makefile` 6.18.53.
-`v6.18.53:drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c` still has
-VBIOS-sized `kmemdup` + partial `memcpy` + unchanged
-`soft_pp_table_size` (and the overflow cap). Introduced ~2016.
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record: Yes. Local tree is v7.3-rc4 (`7.3.0-rc4`). `ghost_realtek[]` and
+remap-to-zero skip are present. Function topology on PTL
+(`snd_soc_acpi_intel_no_function_topology` in `soc-acpi-intel-ptl-
+match.c`) is present — that is what made the ghost ACPI entry fatal from
+7.1. The B9406CAA row is already in this checkout at lines 189–195 of
+`dmi-quirks.c` (`git merge-base --is-ancestor 90af3209742db HEAD`
+succeeded). The bug class exists here; this tree already contains the
+fix because it is 7.3 mainline.
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: **Clean apply.** Candidate diff is against the exact `v6.18.53`
-function (including `if (size > hwmgr->soft_pp_table_size)`).
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: Clean apply on this tree. Same table layout as the patch. No
+rework needed. (Would need `ghost_realtek[]` on a tree older than v7.2.)
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: Overflow cap is in `v6.18.53`; it does **not** fix the short-
-table tail. No other in-tree substitute for updating
-`soft_pp_table_size` on upload.
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: Base table `4dab2b904414f` is here. No alternate B9406CAA fix
+besides this row. Later extra laptops are independent.
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `drivers/gpu/drm/amd/pm/powerplay` — **IMPORTANT** (amdgpu DPM
-on pre-Navi ASICs). Not core mm/vfs, but production GPU power/clocks.
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: [SoundWire DMI quirks / Intel SOF audio] [IMPORTANT for affected
+laptops, PERIPHERAL globally]. Not core mm/net, but complete audio loss
+on a shipping Panther Lake laptop.
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Actively maintained (Alex Deucher). Legacy PowerPlay is mature;
-this is hardening of a 2016 sysfs API, not new feature work.
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Active: multiple 2026 ghost-Realtek DMI additions. Maintainer-
+applied. Mature quirk file since v5.13.
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Driver-specific: root users uploading custom PPTables on legacy
-PowerPlay AMD GPUs (Polaris/Vega/etc.). Not universal; the sysfs node is
-a documented interface.
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: Driver/platform-specific: Asus Expertbook B9406CAA (DMI board
+name). CONFIG_SOUNDWIRE_INTEL + SOF PTL machine driver.
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Write a custom table **shorter** than the VBIOS table. Common
-for truncated files or smaller community/AMD PPT blobs. Not boot.
-**Not** unprivileged (`S_IWUSR`).
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record: Every boot on that laptop once function topology is used (7.1+).
+Not a race. Not unprivileged-attack surface. Reporter reproduced on
+7.1.1.
 
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: Mixed custom prefix + stale VBIOS tail parsed as one table →
-wrong clocks/voltages/DPM (hangs, instability, possible overvoltage).
-`get_pp_table` returns too much mixed data. Defeats size-based parser
-bounds that key off `soft_pp_table_size`.
-**Severity: HIGH** on that path (wrong PM programming / confused
-bounds), **MEDIUM** globally (privileged, non-default).
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: [No audio / card probe failure] [HIGH for that hardware]. Not a
+panic. User-visible: dummy output, deferred probe `-517`, or failed
+DAI/sysfs setup. Confirmed in issue 5828.
 
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- **Benefit:** Completes the overflow fix already in 6.18.53; custom
-  tables are actually the bytes uploaded; readback size is right; later
-  bounds checks can trust the size.
-- **Risk:** Low — ~8 insertions, one function, mutex-held, same pattern
-  as SWSMU. Idle GPUs that never write `pp_table` are unchanged.
-- **Ratio:** Favorable.
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record: Benefit high for those users (restores sound). Risk very low:
+7-line DMI entry, existing remap table, DMI-gated. Ratio strongly favors
+applying it on trees that already have `ghost_realtek`.
 
-## PHASE 9: FINAL SYNTHESIS
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
 
-**Step 9.1: COMPILE THE EVIDENCE**
+Step 9.1: COMPILE THE EVIDENCE
+FOR:
+- Hardware quirk / DMI workaround — listed as a stable exception.
+- Real user bug: complete audio failure; reporter tested this exact
+  match.
+- Maintainer applied; SOF issue closed with this approach.
+- 7 lines, existing `ghost_realtek[]`, no new API.
+- `ghost_realtek` and remap-to-0 skip exist in this 7.3 tree.
+- Same pattern as other accepted laptop rows.
 
-**FOR:**
-- Real bug: stale VBIOS tail treated as valid PPTable after a short
-  custom upload
-- Can misprogram GPU power/clocks and break size-based parsing
-- Small, obviously correct, matches SWSMU
-- Overflow half already in this tree; this is the remaining hole
-- AMD review (Hawking) + maintainer SOB (Deucher)
-- Applies cleanly; no missing helpers
-- Privileged but supported sysfs API
+AGAINST:
+- Not a crash/UAF/security bug (audio probe failure).
+- Affects one laptop model.
+- No Fixes:/Cc: stable (expected for this review pipeline).
+- This 7.3-rc4 checkout already contains the commit (mainline source,
+  not a reason to reject on merit).
 
-**AGAINST:**
-- Not a default-boot crash; root-only
-- No syzbot/CVE/user report in the message
-- Part of a 5-patch series (2/5 still stands alone)
-- Allows uploads larger than the original VBIOS size (capped in practice
-  by sysfs `PAGE_SIZE`)
+UNRESOLVED:
+- lore.kernel.org WebFetch 403; stable@ discussion not independently
+  confirmed beyond GitHub.
 
-**UNRESOLVED:** Stable-list discussion (lore 403). No evidence this was
-rejected for stable.
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? PASS — same remap table; user confirmed
+   on B9406CAA; maintainer applied.
+2. Fixes a real bug that affects users? PASS — no sound since 7.1 on
+   that Expertbook.
+3. Important issue? PASS — HIGH: total audio loss, not a panic; still a
+   serious hardware enablement/regression for that machine.
+4. Small and contained? PASS — +7 lines, one file, one DMI entry.
+5. No new features or APIs? PASS — table row only.
+6. Can apply to the local tree? PASS — `ghost_realtek` and
+   `sdw_dmi_override_adr` exist; patch matches current table form.
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — SWSMU-equivalent; reviewed
-   by AMD; in mainline
-2. Fixes a real bug that affects users? **PASS** — documented `pp_table`
-   upload
-3. Important issue? **PASS** — wrong DPM table contents / bounds (HIGH
-   on that path)
-4. Small and contained? **PASS** — one function, net −5 lines
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — clean vs `v6.18.53`
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: Hardware quirk / DMI workaround for broken ACPI. Automatically
+qualifies.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: None (not a device ID/quirk/DT/build/docs exception). Qualifies
-as a normal small bugfix.
+Step 9.4: MAKE YOUR DECISION
+This tree (v7.3-rc4) has the buggy ACPI path, function topology, and
+`ghost_realtek`. The change is a one-row DMI quirk that restores audio
+on a shipping laptop. That is exactly the stable-acceptable quirk class.
 
-**Step 9.4: DECISION**
-This belongs on 6.18.y: the buggy upload path is here, the overflow cap
-is already here, and this is the matching fix so a custom PPTable is
-exactly the uploaded bytes and length.
+What it solves: ACPI advertises a non-existent RT722; sof_sdw then fails
+to build the card. The quirk remaps that `_ADR` to 0 so discovery skips
+it.
 
-### What the commit solves for this tree
-On 6.18.53, `pp_dpm_set_pp_table()` still clones the VBIOS table, copies
-only the write, and keeps `soft_pp_table_size`. A shorter custom table
-leaves a stale tail that init/sysfs still treat as valid, so DPM can run
-on a hybrid table. The patch makes the upload the whole table, which is
-what the sysfs ABI documents.
+Risk vs benefit: benefit is restoring sound; risk is a DMI-gated no-op
+on every other machine.
 
-### Risk vs benefit
-Benefit is real for anyone using `pp_table` on legacy PowerPlay. Risk is
-a small, mutex-protected change with no effect unless that sysfs node is
-written.
-
----
+No missing prerequisites on this tree.
 
 Verification:
-- [Phase 1] Tags: author Yang Wang; Reviewed-by Hawking Zhang; SOB Alex
-  Deucher; no Fixes/Reported-by/Cc: stable on upstream `055a40c32f3a2`
-- [Phase 2] Diff: `pp_dpm_set_pp_table()` only; drop VBIOS-sized clone +
-  partial memcpy; `kmemdup(buf,size)`; set `soft_pp_table_size`; extra
-  `!buf/!size/U32_MAX` checks
-- [Phase 3] Blame: memcpy upload `4dcf9e6f2e33fe` (2016); overflow cap
-  `3334985f8b4c7` is in `v6.18.53`; this candidate is not
-- [Phase 3] `git merge-base --is-ancestor 055a40c32f3a2 HEAD` → not in
-  this history as that SHA (expected for a stable cherry-pick
-  evaluation)
-- [Phase 3] `v6.18.53` file contents confirmed: bound-check +
-  kmemdup(original) + memcpy(size) + no size update
-- [Phase 4] `b4 dig -c 055a40c32f3a2` → patch 2/5, msgid
-  `20260623034151.263746-2`; v1 only; Hawking reviewed the series
-- [Phase 4] WebFetch lore/msgid 403; mbox via `b4 dig -m` used instead
-- [Phase 4] Stable-list search 403 — UNVERIFIED
-- [Phase 5] Callers: `amdgpu_dpm_set_pp_table` under `adev->pm.mutex`
-  from sysfs `pp_table` (`S_IWUSR`)
-- [Phase 5] SWSMU `smu_sys_set_pp_table()` already uses the same kmemdup
-  + size update
-- [Phase 6] `git describe HEAD` = `v6.18.53-5049-g0f0bdc2b0dffb`; `make
-  kernelversion` 6.18.53; buggy code in this tree
-- [Phase 6] Series 3–5 not in `v6.18.53`; this commit does not require
-  them to apply
-- [Phase 8] Failure mode: mixed PPTable → wrong GPU PM; trigger = root
-  write of a shorter custom table
-- UNVERIFIED: Whether anyone requested this on stable@ (lore 403)
+- [Phase 1] Tags: Closes GitHub 5828; SOB Charles Keepax + Vinod Koul;
+  lore msgid link; no Fixes/Cc: stable
+- [Phase 2] Diff: +7 lines in `adr_remap_quirk_table` matching
+  ASUS/B9406CAA → `ghost_realtek`
+- [Phase 2] `ghost_realtek` remaps 0x000330025d072201 → 0;
+  `find_slave()` skips `!addr`
+- [Phase 3] `git describe HEAD` → v7.3-rc4-27-gf0100363d8c37; `make
+  kernelversion` → 7.3.0-rc4
+- [Phase 3] `git merge-base --is-ancestor 90af3209742db HEAD` → already
+  in this tree (7.3-rc1+)
+- [Phase 3] `4dab2b904414f` (`ghost_realtek`) is ancestor of v7.2 and of
+  HEAD; not in v7.1
+- [Phase 3] `90af3209742db` is in v7.3-rc1, not in v7.2 / v7.2.7
+- [Phase 3] Topology commits `e0fb794d67f86` / `45cf24da0a10` are in
+  v7.1 (issue’s regression window)
+- [Phase 3] blame: B9406CAA block is 90af3209742db; table intro
+  4dab2b904414f
+- [Phase 4] b4 dig: lore patch-id match, v1 only, Vinod “Applied,
+  thanks!”
+- [Phase 4] b4 dig -w: Vinod, Pierre-Louis Bossart, Bard Liao, linux-
+  sound
+- [Phase 4] GitHub 5828: reporter confirmed quirk; Charles: correct fix;
+  dmesg shows ghost 0x025d:0x0722 on link 3
+- [Phase 4] lore.kernel.org WebFetch 403 — stable@ search UNVERIFIED
+- [Phase 5] callers: `intel_auxdevice` `.override_adr` → `find_slave()`
+  ACPI enum
+- [Phase 6] local `dmi-quirks.c` already has B9406CAA and
+  `ghost_realtek`
+- [Phase 7] SOUNDWIRE maintainers Vinod Koul / Bard Liao; reviewer
+  Pierre-Louis Bossart
+- [Phase 8] Failure: no audio on one Asus PTL laptop; severity HIGH;
+  risk very low
+- UNVERIFIED: stable@ mailing list archive contents (HTTP 403)
+
+This is a hardware quirk for a real, user-confirmed audio failure. It is
+small, already the established `ghost_realtek` pattern, and the
+supporting code is in this tree.
 
 **YES**
 
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 21 +++++++------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ drivers/soundwire/dmi-quirks.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 5e197c463ed96..05c5e7d19ca1c 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -663,25 +663,20 @@ static int amd_powerplay_reset(void *handle)
- static int pp_dpm_set_pp_table(void *handle, const char *buf, size_t size)
- {
- 	struct pp_hwmgr *hwmgr = handle;
-+	void *hardcode_pp_table;
- 	int ret = -ENOMEM;
- 
--	if (!hwmgr || !hwmgr->pm_en)
--		return -EINVAL;
--
--	if (size > hwmgr->soft_pp_table_size)
-+	if (!hwmgr || !hwmgr->pm_en || !buf || !size || size > U32_MAX)
- 		return -EINVAL;
- 
--	if (!hwmgr->hardcode_pp_table) {
--		hwmgr->hardcode_pp_table = kmemdup(hwmgr->soft_pp_table,
--						   hwmgr->soft_pp_table_size,
--						   GFP_KERNEL);
--		if (!hwmgr->hardcode_pp_table)
--			return ret;
--	}
--
--	memcpy(hwmgr->hardcode_pp_table, buf, size);
-+	hardcode_pp_table = kmemdup(buf, size, GFP_KERNEL);
-+	if (!hardcode_pp_table)
-+		return ret;
- 
-+	kfree(hwmgr->hardcode_pp_table);
-+	hwmgr->hardcode_pp_table = hardcode_pp_table;
- 	hwmgr->soft_pp_table = hwmgr->hardcode_pp_table;
-+	hwmgr->soft_pp_table_size = size;
- 
- 	ret = amd_powerplay_reset(handle);
- 	if (ret)
+diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.c
+index 32a46a2d90f7c..2a98fc8c104d6 100644
+--- a/drivers/soundwire/dmi-quirks.c
++++ b/drivers/soundwire/dmi-quirks.c
+@@ -178,6 +178,13 @@ static const struct dmi_system_id adr_remap_quirk_table[] = {
+ 		.driver_data = (void *)hp_omen_16,
+ 	},
+ 	/* PTL devices */
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
++			DMI_MATCH(DMI_BOARD_NAME, "B9406CAA"),
++		},
++		.driver_data = (void *)ghost_realtek,
++	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
 -- 
 2.53.0
 
