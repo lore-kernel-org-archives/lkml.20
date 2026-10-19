@@ -1,158 +1,168 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9803415B6A;
-	Mon, 19 Oct 2026 10:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792406539; cv=pass; b=rq/w7rDqHbGYwuvrdZem8oSAdlWI7HvPeiUo8VVjU/efWgSzSAo8NRyy2Bb5WOndpHOO92bVQOcZKrFhJQ9N/QGtyNsZj5reErI+hR1pZJD9c5Ez8VdOg6MbstWlvElFfCQXe31vSzGMk2NU5vTRIESl13ssCA8EUT0fPeHN5sc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792406539; c=relaxed/simple;
-	bh=r2txO8LwL6B4kIrW/JjS2jabOqNO3iK88Vhg01OQoR0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HiVpWPa/7/zeOSYiV5fvXf/4W1vejOpyTntEgx9LKI8mPWZ5b9ovc91+7Bl7dzUtA7MMN4HaVeWW7gLkQEL0X0jk3VdG8DoayMzQNkYzNrRcBHE6ZTYl22hGOLBx3jYIAmWxGQVCIq7ekpB8VcqeV+Fwi1nY0eoXB/ehvzFev68=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=hJj0Vwk7; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1541D4A5EB2
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:43:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792406592; cv=none; b=cBZahKbCQtJ7hLcf/naYPGjDOG3KhiWU4PXTYAHTZ6ZUbK1EwkP3neIXxihPiYikeAkKGAhy6EXMYf2LRik9wZpSsEub8XG49uYJPHEL0zJ7QBlPQufcZtQC9s4M7ommtCeagxznXPeLDY3OCDScREPPgRqj5L1ONbliCEBzuWE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792406592; c=relaxed/simple;
+	bh=uYkeqd5tBLFGk1jwj1eJ0IFGnUKsublCpH2CcRrIi/E=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DzbsZJL4Nu3NEsX5qqE7tvsOCc2PbOme/7fQPZY7bBjZcVuYmXGFhgSloQZ0qAo/Y0p2WRNjN48+CfQxW1fd2ASa+LYTxALQS1loavK9RClfKXhmiAsgE8gM9QEvTvz7mN3jh7mvjNBRAJS80k7UYLMRtlDY9okiTb5qxSLleQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ONSDgCRI; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=RA/CVi3U; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="hJj0Vwk7"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BCB97201F3E;
-	Mon, 19 Oct 2026 12:42:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792406534;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ONSDgCRI";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="RA/CVi3U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792406590;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fjFBzs55SxEI4PMHLNNqH1UBL55RCKxE/w+9WxhyCrw=;
-	b=hJj0Vwk7MitnVdosvO2sXXagBkU91W3h5V0zRQ79SwPhJcKPi2qStwAaUef7uBDUdbeFWR
-	tlwZUDaCu18O0GSZuoA6mLGCy6gs2xq0aK1hFe/rS4mHgBJSnuoHAAReq8tuRkswqLR5K3
-	8sQsCSjbqGUyFoJmG9Sac9V92fYtSqFFHIxKH33XYQFWdqukb3PZKf4rDVRoCTFw2Y1xQX
-	NxYGgI/xAClFDsfQGLSi6LO4VlVlZ7noJxnq9kzp02CGWHKa0nsnLt/yTrs2fCffPCYxbq
-	+r5DoTBWzUCjfg5+P8akv09uIFdJ9WkGugyNuD02vEAiMQn4HHjRsQNJon5wTg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792406534; a=rsa-sha256;
-	cv=none;
-	b=KD/bJClXPAqhkN/lQoRZpIqV+MveAwnEWopB2jy4OJlP55CCKLUYvHgOU+AU5bhGwM2RJz
-	CeZMvPz1q5mjWKUcR6lvViuA67d/3oMuK7gMSqppwKqA/G7OwPvbT/MlAp9x+2ccAsdliw
-	9yJtMpkLyxxROCrCo6EutVtF+0lMwsxZXjq0QQ7Bt2wC8U2NnnASdnWtxjWcgLOGfl28Cq
-	dM2fw8AJAd9knxweYHDnec00OvXm2OBYvw3FQ2BntvLb8/Jt7iwRbj72pjAGXxzNEsruDy
-	MT2xmFroLmLimDWWuZtxdrSp+lC0G1cv1nh3CIYFvqv5R8jL8w8Iv6wNOTcPlA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792406534;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fjFBzs55SxEI4PMHLNNqH1UBL55RCKxE/w+9WxhyCrw=;
-	b=YqQ41J4+S1ndOb/LpTRF2GG80JHMIlF0MI3OzSLAm5WH5UFmLqe8UNrIQWwJ5XI/dkxQVN
-	7tUqFoenlTP73dZhz+iaLesu6Fd2flJ9OwDt/UytCWN8GuSp9yDayh5JOj3+sowFnsnXCd
-	GSxZtGgSjmpuaGv3nintRyQaLdaIeG0GOkHUiBUM3XjRKgEe7zkMku7am7JEZTU3Xmvd0W
-	EuBYRetMfoDYG0ifGyAq+AJknE+dkfQf30QnrosOxQDlqhgbGdibTw0cENE33Qgs4AplBk
-	7UrLPNDouNdOssYQIi4cHZPF7ZCwZOc7QCCUHPF+pdxWqfztD3UW2ZCtX/YwvQ==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xIkoo-000D8b-24;
-	Mon, 19 Oct 2026 12:42:14 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 51A785C8F04;
-	Mon, 19 Oct 2026 10:42:14 +0000 (UTC)
-Date: Mon, 19 Oct 2026 12:42:14 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: claudiu beznea <claudiu.beznea@tuxon.dev>
-Cc: mailhol@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com, 
-	biju.das.jz@bp.renesas.com, fabrizio.castro.jz@renesas.com, linux-can@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
- sourced from fck
-Message-ID: <20261019-precise-auburn-bison-8b0d0a-mkl@pengutronix.de>
-References: <20260902141544.565763-1-claudiu.beznea+renesas@tuxon.dev>
- <20260902141544.565763-4-claudiu.beznea+renesas@tuxon.dev>
- <20261016-durable-meticulous-owl-7a9eed-mkl@pengutronix.de>
- <69826962-0c21-4616-9cd8-6eb0478a422b@tuxon.dev>
- <20261017-weightless-poetic-mayfly-bbdf75-mkl@pengutronix.de>
- <4a9e32a8-8a2e-4b70-8057-2d51e6d38b98@tuxon.dev>
- <69f0c77d-8c23-4949-bbb3-0a07da506b7a@tuxon.dev>
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=uYkeqd5tBLFGk1jwj1eJ0IFGnUKsublCpH2CcRrIi/E=;
+	b=ONSDgCRITMUKkWN6BaAnwgWTgXGEVJcVNmjvL5vOGG1llXfUL1xtxpoprEL2Gs+v4rb/Rt
+	jL5QUQy9bXGE2W0YHKPLjN7Zc++Vgm9cTDjn1UK8QxES5Zyvm4+pqmIFMLlBxGM/S7gu2a
+	epVQxmHVa2HkdJmsoBd0t6Gqc39EcXc=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-221-na8Nd4yPMx6jbfELBlT4Cw-1; Mon, 19 Oct 2026 10:43:08 +0000
+X-MC-Unique: na8Nd4yPMx6jbfELBlT4Cw-1
+X-Mimecast-MFC-AGG-ID: na8Nd4yPMx6jbfELBlT4Cw_1792406588
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1d15e7bfaso14267785e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:43:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792406587; x=1793011387; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uYkeqd5tBLFGk1jwj1eJ0IFGnUKsublCpH2CcRrIi/E=;
+        b=RA/CVi3U9th1pmTLdAubdzps64o+PFqXMPTY+QorHr1gjF/ETFUk5XRq0iMe0o6Muq
+         /69ErfYQPEqfhhaP+2oZX+yqBglwUrjhavddtnY5bITFE6A9M1fc7s3JBRH6erTD10Oi
+         oj0O0+Tn7dgRI66RWO/K56wmyhBLcwSBDzi2GxIlv1qzqzD9Gha0+T1urodZq3irnUDy
+         R7/EHe5zLcl0RxNbYCjPHb2p1TD3uI/gw1wxjWvzgIpcmidA+iTZdgLjqnh/wqUZaD6h
+         f3ckqdLY3stLXY1mmEQ0YcxgMsDlyalo0egWiRC10D/1WdbxD9CroAMHd0gx3U0XSH6C
+         2xmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792406587; x=1793011387;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uYkeqd5tBLFGk1jwj1eJ0IFGnUKsublCpH2CcRrIi/E=;
+        b=hPIeET3OLwHE1JaWJ2ntBKhLhoG6HHvOjTK1ZK6O/57GoEjEqURjvUbeNC7uVt5kap
+         EQgbtxSb3zHtmZOkMBgA+bRkivYtpI064gu01sjCc5D0AvgUSJzRLyCsrNugrFKGsxEb
+         CylUp0oJdbo+13SFz0/H5L8GHuZ7qtMOCJMe5WnP7jcSW8O4UzYGZjYwK6tvjUlKIZQn
+         WEmHy+WIMVDkVTHmneP65KZrSSZMPf+mw/RD5UqIKcX078LtJlx7SN3jNrSgxCS8a7/A
+         j98ixwxiTiChud+DXN/hWCpESMNdDCrhGdDtQ+AUd1HPS8xDKWr0EAx6ud9yy5VAsNPY
+         fFqw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQkAeAz4eReI6b23B9HWPPxRTK/1ELEJsR0lVub9lC8qUS6uuDZu0DQwBFYSSLzHOclFybMtvBbupEJng=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKihKSLpQ/U//fM86JF3JgSMqP3tUU5kA458v+heKn2Ojd+jvwi
+	FA5ym+QyISNyaNUntxouUVqJpn+IcluRkeTXlceelJAYHrhxzdyv2AupIeF7UdX8a8MQ0y9afXn
+	L0la0dJ0djTbJsTzNkJg7s4/v+SbABoNTEa3LcoxhbdvDVz94GDqvNkaXhxwCXD8b6g==
+X-Gm-Gg: AYBFou2E8dwYQWpC+H5OwgQxp+sdr7OzDIPkv+JBwObDly7yrm8fPMoTIiN3l3Ds6j2
+	8w9/C01xeRypmTPyIyqDsyQD3K4oe4SK+6D5UawM4RP+p52CqMDsOl8dYwFQJDB3VD67tyKj0CC
+	xJuf/188gtZhofuASD9riiIWCA8v95QdYbrpZFM7iLaC6zvAvkmSZyE1niOHtI0wZsM3IEtRRc1
+	+tEnIWprfm2zOwtuFi9Qn/E15gX9TFVLKRnrrot6yEeGEWgkio1Bzj8bxU7f/BEbvg4TsgoZck+
+	MhQoqOHk0Ob/SS2JXvvD0dngJpXjcrAi2Vqo+q+tUHECupFS7KJO4pcqomGVhi5cZNIeTS2Gebl
+	oTTP60/iAKsJHvtdhmlihwklTtg==
+X-Received: by 2002:a05:600c:8b25:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a1d75f987dmr194763785e9.12.1792406587562;
+        Mon, 19 Oct 2026 03:43:07 -0700 (PDT)
+X-Received: by 2002:a05:600c:8b25:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a1d75f987dmr194763415e9.12.1792406587234;
+        Mon, 19 Oct 2026 03:43:07 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.134.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd91c55bsm314719595e9.0.2026.10.19.03.43.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 03:43:06 -0700 (PDT)
+Message-ID: <8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
+Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Tomas Glozar <tglozar@redhat.com>
+Cc: John Ogness <john.ogness@linutronix.de>, Alexei Starovoitov
+	 <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Steven Rostedt
+	 <rostedt@goodmis.org>, Nam Cao <namcao@linutronix.de>, Wen Yang
+	 <wen.yang@linux.dev>, Tobias Schaffner <tobias.schaffner@siemens.com>, 
+ Viktor Malik <vmalik@redhat.com>
+Date: Mon, 19 Oct 2026 12:43:05 +0200
+In-Reply-To: <CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+	 <20261001152042.124445-11-gmonaco@redhat.com>
+	 <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
+	 <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
+	 <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
+	 <878q3xtptq.fsf@jogness.linutronix.de>
+	 <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
+	 <87bj8s8ih9.fsf@jogness.linutronix.de>
+	 <DM78SVMBI2XW.2XHVC67VON48A@gmail.com>
+	 <87v770uuyr.fsf@jogness.linutronix.de>
+	 <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com>
+	 <87ik2zryzo.fsf@jogness.linutronix.de>
+	 <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
+	 <CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zxuy43c4eewdhgv5"
-Content-Disposition: inline
-In-Reply-To: <69f0c77d-8c23-4949-bbb3-0a07da506b7a@tuxon.dev>
 
+> Since commit ac5a72ea5c89 ("bpf: Use dedicated bpf_trace_printk event
+> instead of trace_printk()"), bpf_trace_printk() does not use
+> trace_printk(). Rather, it is recorded as a separate ftrace event that
+> has to be enabled, in
+> /sys/kernel/tracing/events/bpf_trace/bpf_trace_printk, for each
+> instance that wants to trace it, and using it does not print any
+> warnings into dmesg.
+>=20
+> The BPF documentation says otherwise [1]:
 
---zxuy43c4eewdhgv5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 3/7] can: rcar_canfd: Allow the CAN FD clock to be
- sourced from fck
-MIME-Version: 1.0
+Thanks Tomas! I noticed the banner was not displayed and I was puzzled. You
+saved me an LLM iteration that would have probably be puzzled by the commen=
+t
+too..
 
-On 19.10.2026 13:36:49, claudiu beznea wrote:
-> > Based on the comment on this code "If not available fallback to CANFD c=
-lock"
-> > I think the intention with IS_ERR() is to allow probing go forward,
-> > falling back to CANFD clock, in case of any error of devm_clk_get().
-> >
-> > The device trees that I've checked sets the can_clk to a fixed clock
-> > with rate =3D 0 or have the clock provided directly by the SoC clock
-> > provider. I think the intention with IS_ERR() was not only for -ENOENT
-> > but for any other kind of errors. We can return in case of
-> > -EPROBE_DEFER, to ensure the expected clock is used, when it's available
-> > and sane.
-> >
-> > I'll switch to something like:
-> >
-> >  =C2=A0gpriv->can_clk =3D devm_clk_get(&pdev->dev, "can_clk");
-> > +if (ERR_PTR(gpriv->can_clk) =3D=3D -EPROBE_DEFER)
-> > +=C2=A0=C2=A0=C2=A0 return dev_err_ptr(dev, ...);
->
-> On the other hand, returning -EPROBE_DEFER here means the driver may never
-> probe if the can_clk provider fails to probe, even though the fallback cl=
-ock
-> is available. That would go against what I understand to be the intent of
-> the IS_ERR() check: letting the probe continue when can_clk can't be
-> obtained.
->
-> Please let me know how you would like me to proceed.
+> One disadvantage of using bpf_trace_printk() for RV violation
+> reporting is that the event will be caught by every instance that
+> enables bpf_trace_printk() and does not explicitly filter rv out.
 
-If the clock continuously fails with the error -EPROBE_DEFER, your
-=2Econfig/DT/system is broken. I don't think it's a good idea to ignore
-these errors.
+Yes, that should somewhat be mitigated by the glob filter, though events ar=
+e
+still generated.
 
-regards,
-Marc
+> I can imagine an RV-specific trace event for that, however, it would
+> require a separate kfunc to generate it, and ideally also distinct
+> labeling of a BPF program eligible to call that kfunc. The "rv"
+> userspace tool could then iterate over these labels so the user knows
+> which violation events can be expected to occur on the system.
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+That'd work too. It's what I initially envisioned but=C2=A0I'm not sure a k=
+func
+producing a tracepoint is something BPF folks would really like (and techni=
+cally
+any other unrelated BPF program could call that, unless there's some access
+control mechanism I'm not aware of).
 
---zxuy43c4eewdhgv5
-Content-Type: application/pgp-signature; name="signature.asc"
+Not sure how much it matters in practice against the glob filter, it probab=
+ly
+really depends on the other bpf_printk users (and a mildly better usability=
+).
 
------BEGIN PGP SIGNATURE-----
+Gabriele
 
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCatX0AgAKCRDMOmT6rpmt
-0gJ9AP41dKtMW7cUCCiHJonGpGvq7Jc8qJ/nsOySLUTxctUFbwD/ZirMVU+4uAVI
-jeVcdjNv83Tw0I65tcTz/VUU9aLUqQs=
-=y0Zq
------END PGP SIGNATURE-----
-
---zxuy43c4eewdhgv5--
