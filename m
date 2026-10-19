@@ -1,238 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m118211.qiye.163.com (mail-m118211.qiye.163.com [115.236.118.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C776339395;
-	Mon, 19 Oct 2026 09:34:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861034B2049;
+	Mon, 19 Oct 2026 09:34:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792402472; cv=none; b=bq6sxn8RfTF/+gQk/twM9Vii0rV5Vtx5ePMczo4TLR2huqJxSr8FQ0inVdMG4bhZ5hFSEOiZPcl/syr7vYZc/g75vKFfErx9tCpe72nNYCSMczCRjAsq73cJobr1EDTgitpQe6GkefQpMSvDdzN7Jo5uSyxI8JVlxbkFNUzrZoU=
+	t=1792402493; cv=none; b=L0Z+gwcz4JJEwz37TR3dWuN/3ghJ4KVV9kT2MVO+yHx2bH+2j+xhcmlvvremhM7+aIvywdK7K0siDdhqAhrb23MSAgO1KwSabAadLVYTw20RCrop3rnjEbQMwxoUuMaQOAGVkZjTn7Mxin9NYCJrgw/UTQJJrapmipwb/BIvYaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792402472; c=relaxed/simple;
-	bh=caRvRuMjeYeaeP+YT0oYWxMb1Ng0HxxgmWww1n0oODg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LbASGaDkHD9St+ZuTjABNs4Mi8f5SU4FmUZdEIjDP7spSwudyXXX6CU5B2qigez9q3UYMPmWl1KLO3XaHi5tZm+SJ2eWsFS292/Cz2P6gTg+iGQIfSOaqUAFjonZ+C4zuYFf6hUsJNyn5oZOUTHqDsEUjRysAJjuzj1NiqfQAXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bISCu+iK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792402493; c=relaxed/simple;
+	bh=Lp6RlazYar263GmKsacGFL1gNOb5VRLSFFsnuTAEOmM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UQaPj2Cfy2XtdAN98lUZAzIkSlyfhWcW8lpOsozpMRck5UnD8vLBBKrHNxMd94pqIb1AY7clRkHfAit9dRWbcIUwTFEgxg+8/jqvWUB3QaUmklPWaHj6f7DqCJZElDQ2DP9gYTqj+Nyo1MP6VJHvMmy/VvDU1JvlJLuQ8zRYl+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=YsfDjbb+; arc=none smtp.client-ip=115.236.118.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bISCu+iK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269631F000C4;
-	Mon, 19 Oct 2026 09:34:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792402471;
-	bh=fkCwsdlTkBZOLaKd75UQZ2GtICeTmC2dWIiAJMvcgbc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bISCu+iKCbvgUr0pZhqIeKfrqVZ+RT8Vqw4SmbhUpJhtRLCtDftRht0nvSrFEgqmv
-	 j/JQKWYY3RKgveBKPwGSWtweeqVVUTbgqma8F2kX0hkCykUNkkizrQvUMPpGoaanA/
-	 OFtMYHaT1BkQHzuYaR1iAlLyV2Mh+C6ldioK0PcACIdCK6g+gdwckL5HQqLbQnx5LZ
-	 wgT7GYuNJ/wCg4zoWVVOswSQqVjfIG7oYi7OWOZX5TyGbJ4bC9YJuDPFioDE2eI+/B
-	 dG0Y1l2rP4/a2VUpXDoccwQdAotW0GNDispbT14sjwwlLfhho0wZZOSxl9Pe9YGTx7
-	 +WUMYd5dL/KYg==
-Subject: Re: [PATCH net] net/mlx5: Fix lock dependency cycle on uplink unbind
- in switchdev mode
-From: netdev-bot+sashiko@kernel.org
-To: tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- agoldberger@nvidia.com, gal@nvidia.com, leon@kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, mbloch@nvidia.com,
- saeedm@nvidia.com, shayd@nvidia.com, horms@kernel.org
-Date: Mon, 19 Oct 2026 09:34:29 +0000
-Message-ID: <179240246962.3135.13700501362385534607@kernel.org>
-In-Reply-To: <20261015093419.1150837-1-tariqt@nvidia.com>
-References: <20261015093419.1150837-1-tariqt@nvidia.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="YsfDjbb+"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5189b8616;
+	Mon, 19 Oct 2026 16:59:12 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v4 10/14] drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin detection
+Date: Mon, 19 Oct 2026 16:58:32 +0800
+Message-Id: <20261019085836.3065008-11-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261019085836.3065008-1-damon.ding@rock-chips.com>
+References: <20261019085836.3065008-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa15362e62e03a8kunm6ee755052eac58
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT09JVkxJTkofSx0ZQh5IGFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=YsfDjbb+HKBUER3A+xp0g2EB5tn+QWGXNROKcDiTfZswwvhnv1We+ZFf3o11z7zHn41938/7B34fLadBNcTUuHtiwafhxjQs88CbgbKEE3g+kq89iQfXQOSYyghQRnVqwltWVtMav4RZ7cSOQUI58jz06/iqVtoM28aU0jypBbM=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=+5MlEIEZVG92Lo+4M47TC7gQ3SSNa5CfdWfNhXsiZa4=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Rockchip platforms, the Analogix DP native HPD pin IRQ requires the
+DP controller to remain powered and clocked to generate plug/unplug
+interrupts. Without a runtime PM reference, the controller suspends
+when the display pipeline is inactive, disabling HPD detection.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+Acquire a runtime PM reference in analogix_dp_bind() and release it in
+analogix_dp_unbind() for native HPD pin mode. This keeps the controller
+alive throughout the device lifecycle for continuous hotplug detection.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Persistent power is only necessary for native HPD pin mode. It is not
+required for force-HPD or GPIO HPD modes, where hotplug detection does
+not depend on the DP controller's internal interrupt logic. Add helper
+analogix_dp_require_pm_for_hpd_irq() to identify Rockchip native HPD
+pin configurations (non-GPIO, non-force-HPD).
 
-- [High] mlx5_eswitch_safe_aux_devs_remove() now sets
-  esw->eswitch_operation_in_progress = true, drops mode_lock, removes…
-- [Medium] The patch replaces the read trylock (mlx5_esw_hold(),
-  down_read_trylock) with a write trylock in esw_try_lock_ignore_users()…
+Tested-by: Heiko Stuebner <heiko@sntech.de>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
---
+---
 
-net/mlx5: Fix lock dependency cycle on uplink unbind in switchdev mode
+Changes in v2:
+- Split IRQ enable/disable logic, handle native HPD pin and
+  GPIO/force-HPD modes separately to avoid unbalanced enable_irq()
+  calls.(Sashiko)
 
-This patch stops mlx5_eswitch_safe_aux_devs_remove() from holding
-esw->mode_lock for read while it removes the REP aux devices. It now takes
-mode_lock for write through a new esw_try_lock_ignore_users() helper, sets
-eswitch_operation_in_progress, drops mode_lock, removes the REPs, and then
-retakes mode_lock to clear the flag.
+Changes in v3:
+- Modify the commit msg according to the previous commit for moving IRQ
+  enabling/disabling.
 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
-> index eb74b6260168..f934cb2b26b0 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
-> @@ -4438,15 +4438,36 @@ static bool mlx5_devlink_switchdev_active_mode_change(struct mlx5_eswitch *esw,
->  #define MLX5_ESW_HOLD_TIMEOUT_MS 7000
->  #define MLX5_ESW_HOLD_RETRY_DELAY_MS 500
->  
-> +/* Unlike mlx5_esw_try_lock(), don't refuse the lock over eswitch users.
-> + * Teardown must run even with TC flows still offloaded, as those are only
-> + * flushed once the REPs are removed.
-> + */
-> +static bool esw_try_lock_ignore_users(struct mlx5_eswitch *esw)
-> +{
-> +	if (!down_write_trylock(&esw->mode_lock))
-> +		return false;
-> +
-> +	if (esw->eswitch_operation_in_progress) {
-> +		up_write(&esw->mode_lock);
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
->  void mlx5_eswitch_safe_aux_devs_remove(struct mlx5_core_dev *dev)
->  {
-> +	struct mlx5_eswitch *esw = dev->priv.eswitch;
->  	unsigned long timeout;
->  	bool hold_esw = true;
->  
-> +	if (!mlx5_esw_allowed(esw))
-> +		return;
-> +
->  	/* Wait for any concurrent eswitch mode transition to complete. */
-> -	if (!mlx5_esw_hold(dev)) {
-> +	if (!esw_try_lock_ignore_users(esw)) {
->  		timeout = jiffies + msecs_to_jiffies(MLX5_ESW_HOLD_TIMEOUT_MS);
-> -		while (!mlx5_esw_hold(dev)) {
-> +		while (!esw_try_lock_ignore_users(esw)) {
->  			if (!time_before(jiffies, timeout)) {
->  				hold_esw = false;
->  				break;
+Changes in v4:
+- Add Tested-by tag.
+---
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c   | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-[Severity: Medium]
-Can concurrent TC flow insertion now make this loop time out?
-
-The old mlx5_esw_hold() used down_read_trylock(), and other readers never
-block that. esw_try_lock_ignore_users() uses down_write_trylock(), which
-fails whenever any reader holds mode_lock.
-
-mlx5e_configure_flower() holds mode_lock for read during the whole flow
-insert, FW commands included:
-
-drivers/net/ethernet/mellanox/mlx5/core/en_tc.c:mlx5e_configure_flower() {
-    ...
-	if (!mlx5_esw_hold(priv->mdev))
-		return -EBUSY;
-    ...
-}
-
-TC offload on the REPs doesn't take rtnl, so several of these can run at
-the same time. If flow inserts keep overlapping (for example under heavy
-OVS offload), every 500 ms poll could find a reader. After
-MLX5_ESW_HOLD_TIMEOUT_MS the loop sets hold_esw = false.
-
-In that case the IB and ETH REP aux devices are never removed, and nothing
-is logged. _mlx5e_remove() then goes on to tear down the uplink:
-
-_mlx5e_remove()
-    mlx5_eswitch_safe_aux_devs_remove(mdev);   <- REPs left bound
-    mlx5_core_uplink_netdev_set(mdev, NULL);
-    ...
-    unregister_netdev() / mlx5e_destroy_netdev()
-
-The uplink REP and the IB REP still reference that netdev. Could this bring
-back the unregister_netdevice hang, or a later use of the freed netdev, that
-commit 2ae8c7edea87 fixed?
-
-> @@ -4455,9 +4476,19 @@ void mlx5_eswitch_safe_aux_devs_remove(struct mlx5_core_dev *dev)
->  		}
->  	}
->  	if (hold_esw) {
-> +		/* Keep mode_lock and reps_lock unnested. The operation flag
-> +		 * excludes mode users while mode_lock is dropped before the
-> +		 * REPs removal takes reps_lock.
-> +		 */
-> +		esw->eswitch_operation_in_progress = true;
-> +		mlx5_esw_unlock(esw);
-> +
->  		if (mlx5_eswitch_mode(dev) == MLX5_ESWITCH_OFFLOADS)
->  			mlx5_core_reps_aux_devs_remove(dev);
-> -		mlx5_esw_release(dev);
-> +
-> +		down_write(&esw->mode_lock);
-> +		esw->eswitch_operation_in_progress = false;
-> +		mlx5_esw_unlock(esw);
-
-[Severity: High]
-Does this flag really keep other writers out while mode_lock is dropped?
-
-The commit message says "The flag keeps excluding concurrent mode
-transitions and mode users while mode_lock is not held". However, several
-devlink paths take mode_lock with a plain down_write(). They set and later
-clear the flag without checking it first:
-
-mlx5_devlink_eswitch_encap_mode_set() {
-	down_write(&esw->mode_lock);
-	...
-	esw->eswitch_operation_in_progress = true;
-	up_write(&esw->mode_lock);
-
-	esw_destroy_offloads_fdb_tables(esw);
-	...
-	err = esw_create_offloads_fdb_tables(esw);
-	...
-	down_write(&esw->mode_lock);
-	esw->eswitch_operation_in_progress = false;
-    ...
-}
-
-mlx5_devlink_eswitch_inline_mode_set() does the same around
-mlx5_esw_vports_inline_set(). mlx5_devlink_switchdev_active_mode_change()
-does it around mlx5_esw_fdb_inactive() and mlx5_esw_fdb_active().
-mlx5_devlink_eswitch_mode_set() calls that function before it calls
-mlx5_esw_try_lock().
-
-Before this patch, the read lock held across REP removal blocked all of
-these in down_write(). The other flag setters run under devl_lock. The
-unbind path (unbind_store->mlx5e_remove->_mlx5e_remove) doesn't take
-devl_lock, so this setter can overlap them.
-
-One possible interleaving:
-
-CPU0 (unbind)                        CPU1 (devlink encap-mode set)
-flag = true, up_write()
-mlx5_core_reps_aux_devs_remove()
-                                     down_write() succeeds
-                                     flag = true, up_write()
-                                     esw_destroy_offloads_fdb_tables()
-down_write()
-flag = false, up_write()
-                                     esw_create_offloads_fdb_tables()
-
-Once CPU0 clears the flag, mlx5e_configure_flower()->mlx5_esw_hold() can
-succeed while CPU1 is still rebuilding the FDB tables.
-
-The reverse order is possible too. If CPU1 finishes first, it clears the
-flag while CPU0 is still removing REPs. A later
-mlx5_devlink_eswitch_mode_set() can then pass mlx5_esw_try_lock() (when
-user_count is 0) and start a mode transition in the middle of REP removal.
-
-CPU0 checked mlx5_eswitch_mode() without holding mode_lock. When it
-finishes, it also clears the flag that mode_set just raised.
-
-This looks like a flag being used as a lock: set on entry and cleared on
-exit. Should the other writers check the flag before setting it, or should
-the bool be replaced with a real lock or a counter?
-
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index addd319719de..38857508d939 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -39,6 +39,12 @@
+ 
+ static const bool verify_fast_training;
+ 
++static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *dp)
++{
++	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod &&
++	       !dp->force_hpd;
++}
++
+ static void analogix_dp_init_dp(struct analogix_dp_device *dp)
+ {
+ 	analogix_dp_reset(dp);
+@@ -1571,6 +1577,12 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
+ 		goto err_unregister_aux;
+ 	}
+ 
++	if (analogix_dp_require_pm_for_hpd_irq(dp)) {
++		ret = pm_runtime_resume_and_get(dp->dev);
++		if (ret)
++			goto err_unregister_aux;
++	}
++
+ 	enable_irq(dp->irq);
+ 
+ 	return 0;
+@@ -1585,6 +1597,10 @@ EXPORT_SYMBOL_GPL(analogix_dp_bind);
+ void analogix_dp_unbind(struct analogix_dp_device *dp)
+ {
+ 	disable_irq(dp->irq);
++
++	if (analogix_dp_require_pm_for_hpd_irq(dp))
++		pm_runtime_put_sync(dp->dev);
++
+ 	drm_dp_aux_unregister(&dp->aux);
+ }
+ EXPORT_SYMBOL_GPL(analogix_dp_unbind);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015093419.1150837-1-tariqt%40nvidia.com
+2.34.1
+
