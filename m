@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443066;
-	b=p9LuAXO97ImbO+zCB9XaonLhAgbGq0DnqG+XLCN3kkdPAlYeN1VwUakq8R9BLNPtrMji
-	 kuGqZfs2nrDHKCS5zGEvDOyf8kF1PEci17qkLg4MXE7sWDqNeByHgwRNqD7FIn1nIeYU5
-	 A6YUkvCxvSAXFusjxDljHXjk4XHfdK3sWl54DjP6FlM86DcF1VhpvHW+X06TBY31Lo3Rz
-	 akE3xKeRGpEKXVrfFIwPZcxNmC5bS5u7OONKzj9nLS4fX+BjioNWCGP2rIJa0s6pSq2SA
-	 x3l5WhC7elAuV9u5bnQJeyONHNN2tOeyRxMuXo/d8Nctm8XTyHTm2Dkcuz0qPmMKzPg==
+	t=1792443062;
+	b=cOXmKKzGRjj4pxg4MLzDG3bYHBTuAJ2kELzQKz1g9vs7aAibkMktFyOprlhE7cujVx3h
+	 Fb/g+1niwSd68+dAYSt9+fsJc0kl27o2BQY6327K541PFhX1KitXEmmlApfubkJn+J0kT
+	 2hbqB+Fil+/nT0L0YGTkrxqglT0xojVQqDJEYHFmny0cYqut7fgotJ7U2PuIVqWy8SCUe
+	 4+epbQ8V3hkUTz+gbSUoW2KrqaM79BB7Mo3zxqRU7t+HVjmp18LY8kxKexCWiJNETcLe+
+	 FldBh3jOTZp7yFgKeHDTHwMr0UgIaeMvP0lbGgSQcapX0Twmu6WypOoEoYX1r+kaDRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443066;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443062;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=CaWuUKCLnDkY1goQ4qPQ732xwjLW6llx4MJoHFMDOCc=;
-	b=TXJH4sPhC/f3xcU0KXLR6Wu/TAhBbm529BXinLzw4dwB61mGJngz+dEvkIf7HM27qjbj
-	 xNUlcmC/8nXGDURYVH7gnoTABn60elzOwdBSXZRpp7mBwW89VS0sgah53VWwoWofadHjv
-	 6PvCvhtlBiTDPc+yJqdPK2ipBGlz5aO5k0KJIp+5sFlggMQO2YxzH645mDPVKXLcKUilb
-	 suvOqERUg5/QSk5MZwBgFFRECIetmGzxUEAeobhoRaHGLGsrICj9vwtGmp6b4A+/zzm9g
-	 wFGRCjMpkw5/JgufHNYkkUj2YP4wljNgC+iOuYkglrlSEheaZPcRle86/yZ61JT7Tlg==
+	bh=q2EMgSjpPBPO62ZV1j2Wk1ycPQMdhNoW/sg/0kL7Xf4=;
+	b=wZ5e2DM4cIah+ULFIc32DTBJPpFp8HdpQ6B/LZ25U767Xur/EVJFmHkfiP1vEWJLUUn1
+	 ttzpNbwmTjluzJ8/XxormuEEZB5wiEPkP6pAcV6Mg8hD4wjHh10oCUvcZoUmpRON+xnXh
+	 KiXQyJ3wAUf+tSfUKqm5NyqJrLv6FmmfSkLg7G54xtHkuCaV3drRNP9SXHUmwML/6HRHO
+	 yhJvqH/y7YMheGGuScPX7KVnWDKYCYMi5IlZfBwq0914rv/M7KLttniAfB/o4GBjIx/FF
+	 d6jgzFKeF0Nq9b0aaCVo1jC73aSgZgcBFX0Ok4MjVh0oSNUOLPiMAifnwoEuKaRtt3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aZIb4Odo;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=azAn4nE4;
 	arc=none smtp.remote-ip=198.175.65.16
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A08A606A328
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:50:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A08A606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4538560A260F
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:50:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4538560A260F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aZIb4Odo
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=azAn4nE4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792443053; x=1823979053;
+  t=1792443058; x=1823979058;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=E1DGaniKkHlUROpMqW4y0ZxxqRsXPH56KuSd/JrAwLk=;
-  b=aZIb4OdoWDLjs1AOW5haz5JYtlyuoy7Exnjbf5OgGvCm+ze5X12NuMzG
-   ttLSfJS1LzCS5Aby16l8ybB+h8FCxuHYfh71JlDGdJp3rudc84cdHS+KH
-   NEqKeFwzMyNrlb+/Utc0Uuz1TLpOeaFBHSL1fNrOT9I+WKNIj2b5W8v44
-   u0AyfDPYvR3zVtTRU4a+BslBkPjDtrJiWKHhMEX2Yi4MB0WcPKnZVPjC2
-   y9inuegK6/1qbj5pHZQTCIkURjNtuWmS3rNGcc+8EPlr602GG5eTV9wPs
-   9NOyTJA41CM7J8oCLxX3DEbZzcqdHcGu9ZzuMGXopu0LYq3it377vruuz
+  bh=pUOIp7znB1XND2Y7RoTTlqpgm8CZT1KyJ4ww0J3mmq8=;
+  b=azAn4nE4wHc/g35grxPRneQrDfkaagL0RztrofFlpMTLdqs3BvG/s18/
+   mB63HyAKA3wwLu2uBlFcycuMq5WEOFWjV90yU5BSgQXKb4r8aXrJ7a9Vj
+   lp/RFIK+Wkqd/Qvup7vpiZHdwgjEx7NjcCESWihdtxMuo8Y4lND/ghg0p
+   j2NEiXHF5YnuGvRXIGmmOlUGwUcr3u2Mt9zWrR87Op3KggISACTO1iBo1
+   kOEvmPoCZTQqDw22ht52eP5z3IQZSiujA1y0sQnc6W3EFztpkBk/8D81T
+   nPSAF2prbp5juXoNBmt2GavQBBlO9T3WqN9qEB64r2QFYqOWJZMT0i5Mu
    A==;
-X-CSE-ConnectionGUID: Bs/kCs3qRkezXk+WPOL6ag==
-X-CSE-MsgGUID: JZCJ1dgCSICS4HuNKmpHZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1131150"
+X-CSE-ConnectionGUID: aB+RbQ95Qd2mX7+jm/SKTQ==
+X-CSE-MsgGUID: RDU1DeNIQbqGCVxqkcXNrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1131211"
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1131150"
+   d="scan'208";a="1131211"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:48 -0700
-X-CSE-ConnectionGUID: ZQnfnfJPS1qbKytlPJ/Y3g==
-X-CSE-MsgGUID: hDn7FUBjRtqL+csoS3zdlQ==
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:50 -0700
+X-CSE-ConnectionGUID: uS0+jwY2R1qDkRp27kWx7g==
+X-CSE-MsgGUID: lxsbvjIWTy+EDkY3XW67Xw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3008632"
+   d="scan'208";a="3008657"
 Received: from spandruv-mobl5.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.220.87])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:49 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:50 -0700
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -76,11 +76,10 @@ To: Fenghua Yu <fenghuay@nvidia.com>,
 Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
-	Tony Luck <tony.luck@intel.com>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>
-Subject: [PATCH v14 05/24] x86/resctrl: Delete resctrl_cpu_detect()
-Date: Mon, 19 Oct 2026 13:50:12 -0700
-Message-ID: <20261019205031.16977-6-tony.luck@intel.com>
+	Tony Luck <tony.luck@intel.com>
+Subject: [PATCH v14 12/24] arm,x86,fs/resctrl: Allocate maximum needed rmid_ptrs[]
+Date: Mon, 19 Oct 2026 13:50:19 -0700
+Message-ID: <20261019205031.16977-13-tony.luck@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019205031.16977-1-tony.luck@intel.com>
 References: <20261019205031.16977-1-tony.luck@intel.com>
@@ -95,189 +94,222 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-resctrl now enumerates its monitoring properties itself, leaving the resctrl
-fields in cpuinfo_x86 without any consumers. These resctrl specific fields
-are populated from the vendor CPU identification paths.
+resctrl keeps per-RMID state in rmid_ptrs[]. It is allocated on first
+mount, sized for the number of RMIDs available at that time, and reused by
+every subsequent mount. The number of RMIDs available is the smallest
+number supported across all monitoring resources.
 
-This unnecessarily placing resctrl details in generic x86 CPU setup.
+Application Energy Telemetry (AET) requires the pmt_telemetry driver
+to be built in. Allowing it to be a module means AET may contribute to
+that smallest number on one mount and not on the next, so a later mount
+may need more entries than the first mount allocated. Reallocating per
+mount is not possible because the limbo handler continues to access
+rmid_ptrs[] after resctrl is unmounted.
 
-Delete the unused fields together with the code that populates them, removing
-resctrl from early CPU identification.
+Size rmid_ptrs[] for the maximum number of RMIDs the system can ever need,
+as reported by a new architecture hook. On x86 this is the number of RMIDs
+supported by L3 monitoring if present, since that bounds the number
+available on every mount, and otherwise the number of RMIDs that
+MSR_IA32_PQR_ASSOC.RMID can hold.
+
+Rebuild the free list on every mount from the RMIDs available for that
+mount. Leave out RMIDs still dirty from an earlier mount, because the
+limbo handler returns them to the free list once they are clean.
 
 Signed-off-by: Tony Luck <tony.luck@intel.com>
-Acked-by: Borislav Petkov (AMD) <bp@alien8.de>
 ---
 v14:
-	Split first paragraph into two: context and problem.
-	Don't list all the fields as a regex.
+	New commit message.
 ---
- arch/x86/include/asm/processor.h   |  4 ---
- arch/x86/include/asm/resctrl.h     |  3 ---
- arch/x86/kernel/cpu/amd.c          |  3 ---
- arch/x86/kernel/cpu/hygon.c        |  3 ---
- arch/x86/kernel/cpu/intel.c        |  7 -----
- arch/x86/kernel/cpu/resctrl/core.c | 42 ------------------------------
- 6 files changed, 62 deletions(-)
+ include/linux/resctrl.h            |  1 +
+ arch/x86/kernel/cpu/resctrl/core.c | 27 +++++++++++++
+ drivers/resctrl/mpam_resctrl.c     |  9 +++++
+ fs/resctrl/monitor.c               | 64 ++++++++++++++++++++----------
+ 4 files changed, 79 insertions(+), 22 deletions(-)
 
-diff --git a/arch/x86/include/asm/processor.h b/arch/x86/include/asm/processor.h
-index ec9db0dfa0df..4deb88c61c94 100644
---- a/arch/x86/include/asm/processor.h
-+++ b/arch/x86/include/asm/processor.h
-@@ -185,10 +185,6 @@ struct cpuinfo_x86 {
- 	/* in KB - valid for CPUS which support this call: */
- 	unsigned int		x86_cache_size;
- 	int			x86_cache_alignment;	/* In bytes */
--	/* Cache QoS architectural values, valid only on the BSP: */
--	int			x86_cache_max_rmid;	/* max index */
--	int			x86_cache_occ_scale;	/* scale to bytes */
--	int			x86_cache_mbm_width_offset;
- 	int			x86_power;
- 	unsigned long		loops_per_jiffy;
- 	/* protected processor identification number */
-diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-index c9f9db96f792..2031b30ff25b 100644
---- a/arch/x86/include/asm/resctrl.h
-+++ b/arch/x86/include/asm/resctrl.h
-@@ -193,12 +193,9 @@ static inline void resctrl_arch_mon_ctx_free(struct rdt_resource *r,
- 					     enum resctrl_event_id evtid,
- 					     void *ctx) { }
+diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+index 764c45be2d59..7afeb3bd55d9 100644
+--- a/include/linux/resctrl.h
++++ b/include/linux/resctrl.h
+@@ -447,6 +447,7 @@ static inline u32 resctrl_get_default_ctrl(struct rdt_resource *r)
+ /* The number of closid supported by this resource regardless of CDP */
+ u32 resctrl_arch_get_num_closid(struct rdt_resource *r);
+ u32 resctrl_arch_system_num_rmid_idx(void);
++u32 resctrl_arch_system_max_rmid_idx(void);
+ int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid);
  
--void resctrl_cpu_detect(struct cpuinfo_x86 *c);
--
- #else
- 
- static inline void resctrl_arch_sched_in(struct task_struct *tsk) {}
--static inline void resctrl_cpu_detect(struct cpuinfo_x86 *c) {}
- 
- #endif /* CONFIG_X86_CPU_RESCTRL */
- 
-diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index 54e14ed276b5..dd82a11084f4 100644
---- a/arch/x86/kernel/cpu/amd.c
-+++ b/arch/x86/kernel/cpu/amd.c
-@@ -23,7 +23,6 @@
- #include <asm/pci-direct.h>
- #include <asm/delay.h>
- #include <asm/debugreg.h>
--#include <asm/resctrl.h>
- #include <asm/msr.h>
- #include <asm/sev.h>
- 
-@@ -475,8 +474,6 @@ static void bsp_init_amd(struct cpuinfo_x86 *c)
- 		}
- 	}
- 
--	resctrl_cpu_detect(c);
--
- 	/* Figure out Zen generations: */
- 	switch (c->x86) {
- 	case 0x17:
-diff --git a/arch/x86/kernel/cpu/hygon.c b/arch/x86/kernel/cpu/hygon.c
-index ec51c2b9a257..0f226335dd9a 100644
---- a/arch/x86/kernel/cpu/hygon.c
-+++ b/arch/x86/kernel/cpu/hygon.c
-@@ -17,7 +17,6 @@
- #include <asm/spec-ctrl.h>
- #include <asm/delay.h>
- #include <asm/msr.h>
--#include <asm/resctrl.h>
- 
- #include "cpu.h"
- 
-@@ -119,8 +118,6 @@ static void bsp_init_hygon(struct cpuinfo_x86 *c)
- 			x86_amd_ls_cfg_ssbd_mask = 1ULL << 10;
- 		}
- 	}
--
--	resctrl_cpu_detect(c);
- }
- 
- static void early_init_hygon(struct cpuinfo_x86 *c)
-diff --git a/arch/x86/kernel/cpu/intel.c b/arch/x86/kernel/cpu/intel.c
-index 4297ceb2cb24..2f09710e863c 100644
---- a/arch/x86/kernel/cpu/intel.c
-+++ b/arch/x86/kernel/cpu/intel.c
-@@ -22,7 +22,6 @@
- #include <asm/microcode.h>
- #include <asm/msr.h>
- #include <asm/numa.h>
--#include <asm/resctrl.h>
- #include <asm/thermal.h>
- #include <asm/uaccess.h>
- 
-@@ -371,11 +370,6 @@ static void early_init_intel(struct cpuinfo_x86 *c)
- 		detect_tme_early(c);
- }
- 
--static void bsp_init_intel(struct cpuinfo_x86 *c)
--{
--	resctrl_cpu_detect(c);
--}
--
- #ifdef CONFIG_X86_32
- /*
-  *	Early probe support logic for ppro memory erratum #50
-@@ -804,7 +798,6 @@ static const struct cpu_dev intel_cpu_dev = {
- #endif
- 	.c_detect_tlb	= intel_detect_tlb,
- 	.c_early_init   = early_init_intel,
--	.c_bsp_init	= bsp_init_intel,
- 	.c_init		= init_intel,
- 	.c_x86_vendor	= X86_VENDOR_INTEL,
- };
+ /**
 diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 82b27a0157ae..f0cfb37482d3 100644
+index 2e3b9c16cbda..8702a6da2374 100644
 --- a/arch/x86/kernel/cpu/resctrl/core.c
 +++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -1083,48 +1083,6 @@ static __init void rdt_init_res_defs(void)
+@@ -45,6 +45,9 @@ static DEFINE_MUTEX(domain_list_lock);
+  */
+ DEFINE_PER_CPU(struct resctrl_pqr_state, pqr_state);
  
- static enum cpuhp_state rdt_online;
++/* Number of unique RMID values that can be written to MSR_IA32_PQR_ASSOC.RMID */
++static u32 pqr_assoc_num_rmid;
++
+ static void mba_wrmsr_intel(struct msr_param *m);
+ static void cat_wrmsr(struct msr_param *m);
+ static void mba_wrmsr_amd(struct msr_param *m);
+@@ -124,6 +127,28 @@ u32 resctrl_arch_system_num_rmid_idx(void)
+ 	return num_rmids == U32_MAX ? 0 : num_rmids;
+ }
  
--/* Runs once on the BSP during boot. */
--void resctrl_cpu_detect(struct cpuinfo_x86 *c)
--{
--	if (!cpu_has(c, X86_FEATURE_CQM_LLC) && !cpu_has(c, X86_FEATURE_ABMC)) {
--		c->x86_cache_max_rmid  = -1;
--		c->x86_cache_occ_scale = -1;
--		c->x86_cache_mbm_width_offset = -1;
--		return;
--	}
--
--	/* will be overridden if occupancy monitoring exists */
--	c->x86_cache_max_rmid = cpuid_ebx(0xf);
--
--	if (cpu_has(c, X86_FEATURE_CQM_OCCUP_LLC) ||
--	    cpu_has(c, X86_FEATURE_CQM_MBM_TOTAL) ||
--	    cpu_has(c, X86_FEATURE_CQM_MBM_LOCAL) ||
--	    cpu_has(c, X86_FEATURE_ABMC)) {
--		u32 eax, ebx, ecx, edx;
--
--		/* QoS sub-leaf, EAX=0Fh, ECX=1 */
--		cpuid_count(0xf, 1, &eax, &ebx, &ecx, &edx);
--
--		c->x86_cache_max_rmid  = ecx;
--		c->x86_cache_occ_scale = ebx;
--		c->x86_cache_mbm_width_offset = eax & 0xff;
--
--		if (!c->x86_cache_mbm_width_offset) {
--			switch (c->x86_vendor) {
--			case X86_VENDOR_AMD:
--				c->x86_cache_mbm_width_offset = MBM_CNTR_WIDTH_OFFSET_AMD;
--				break;
--			case X86_VENDOR_HYGON:
--				c->x86_cache_mbm_width_offset = MBM_CNTR_WIDTH_OFFSET_HYGON;
--				break;
--			default:
--				/* Leave c->x86_cache_mbm_width_offset as 0 */
--				break;
--			}
--		}
--	}
--}
--
- static int __init resctrl_arch_late_init(void)
++/**
++ * resctrl_arch_system_max_rmid_idx - Largest possible RMID index
++ *
++ * Return: Largest possible RMID index used for boot time allocations.
++ */
++u32 resctrl_arch_system_max_rmid_idx(void)
++{
++	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
++	u32 num_rmid = pqr_assoc_num_rmid;
++
++	/*
++	 * If the system is capable of L3 monitoring the maximum RMID value may
++	 * be lower than the system maximum. Either because the L3 monitoring
++	 * feature supports fewer RMIDs, or because SNC (Sub-NUMA Cluster)
++	 * is enabled and divides RMIDs per cluster.
++	 */
++	if (r->mon_capable)
++		num_rmid = r->mon.num_rmid;
++
++	return num_rmid;
++}
++
+ struct rdt_resource *resctrl_arch_get_resource(enum resctrl_res_level l)
  {
- 	struct rdt_resource *r;
+ 	if (l >= RDT_NUM_RESOURCES)
+@@ -967,6 +992,8 @@ static __init bool get_rdt_mon_resources(void)
+ 	if (!cpu_feature_enabled(X86_FEATURE_CQM))
+ 		return false;
+ 
++	pqr_assoc_num_rmid = cpuid_ebx(0xf) + 1;
++
+ 	/* Any of the L3 monitoring features? */
+ 	if (!cpu_feature_enabled(X86_FEATURE_CQM_LLC))
+ 		return false;
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 7ddee8f5162f..52726f7fd03f 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -257,6 +257,15 @@ u32 resctrl_arch_system_num_rmid_idx(void)
+ 	return (mpam_pmg_max + 1) * (mpam_partid_max + 1);
+ }
+ 
++/*
++ * File system calls this for one-time allocation of structures.
++ * Return the largest possible value.
++ */
++u32 resctrl_arch_system_max_rmid_idx(void)
++{
++	return resctrl_arch_system_num_rmid_idx();
++}
++
+ u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid)
+ {
+ 	return closid * (mpam_pmg_max + 1) + rmid;
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index fbbb31e9618b..647dad02fffd 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -75,6 +75,11 @@ static unsigned int rmid_limbo_count;
+  */
+ static struct rmid_entry	*rmid_ptrs;
+ 
++/*
++ * @num_rmid_ptrs - The number of elements in rmid_ptrs[].
++ */
++static u32 num_rmid_ptrs;
++
+ /*
+  * This is the threshold cache occupancy in bytes at which we will consider an
+  * RMID available for re-allocation.
+@@ -961,45 +966,60 @@ void mbm_setup_overflow_handler(struct rdt_l3_mon_domain *dom, unsigned long del
+ 
+ int setup_rmid_lru_list(void)
+ {
+-	struct rmid_entry *entry = NULL;
+-	u32 idx_limit;
+-	u32 idx;
++	struct rmid_entry *entry;
++	u32 cur_idx_limit;
++	u32 rsvd_idx;
+ 	int i;
+ 
+ 	if (!resctrl_mon_capable())
+ 		return 0;
+ 
+ 	/*
+-	 * Called on every mount, but the number of RMIDs cannot change
+-	 * after the first mount, so keep using the same set of rmid_ptrs[]
+-	 * until resctrl_exit(). Note that the limbo handler continues to
+-	 * access rmid_ptrs[] after resctrl is unmounted.
++	 * Allocate the largest number of RMIDs that this system will ever
++	 * need. These cannot be freed until resctrl_exit() because the limbo
++	 * handler continues to access rmid_ptrs[] after resctrl is unmounted.
+ 	 */
+-	if (rmid_ptrs)
+-		return 0;
++	if (!rmid_ptrs) {
++		num_rmid_ptrs = resctrl_arch_system_max_rmid_idx();
++		rmid_ptrs = kzalloc_objs(struct rmid_entry, num_rmid_ptrs);
++		if (!rmid_ptrs) {
++			num_rmid_ptrs = 0;
++			return -ENOMEM;
++		}
+ 
+-	idx_limit = resctrl_arch_system_num_rmid_idx();
+-	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
+-	if (!rmid_ptrs)
+-		return -ENOMEM;
++		for (i = 0; i < num_rmid_ptrs; i++) {
++			entry = &rmid_ptrs[i];
++			INIT_LIST_HEAD(&entry->list);
+ 
+-	for (i = 0; i < idx_limit; i++) {
+-		entry = &rmid_ptrs[i];
+-		INIT_LIST_HEAD(&entry->list);
++			resctrl_arch_rmid_idx_decode(i, &entry->closid, &entry->rmid);
++		}
++	}
+ 
+-		resctrl_arch_rmid_idx_decode(i, &entry->closid, &entry->rmid);
+-		list_add_tail(&entry->list, &rmid_free_lru);
++	/* Find how many RMIDs are available for this mount */
++	cur_idx_limit = resctrl_arch_system_num_rmid_idx();
++	if (cur_idx_limit > num_rmid_ptrs) {
++		pr_warn_once("RMID count %u exceeds allocation. Limit to %u\n",
++			     cur_idx_limit, num_rmid_ptrs);
++		cur_idx_limit = num_rmid_ptrs;
+ 	}
+ 
++	INIT_LIST_HEAD(&rmid_free_lru);
++
+ 	/*
+ 	 * RESCTRL_RESERVED_CLOSID and RESCTRL_RESERVED_RMID are special and
+ 	 * are always allocated. These are used for the rdtgroup_default
+ 	 * control group, which was setup earlier in rdtgroup_setup_default().
+ 	 */
+-	idx = resctrl_arch_rmid_idx_encode(RESCTRL_RESERVED_CLOSID,
+-					   RESCTRL_RESERVED_RMID);
+-	entry = __rmid_entry(idx);
+-	list_del(&entry->list);
++	rsvd_idx = resctrl_arch_rmid_idx_encode(RESCTRL_RESERVED_CLOSID,
++						RESCTRL_RESERVED_RMID);
++
++	for (i = 0; i < cur_idx_limit; i++) {
++		entry = &rmid_ptrs[i];
++		/* Don't add reserved or busy entries to free list */
++		if (i == rsvd_idx || entry->busy)
++			continue;
++		list_add_tail(&entry->list, &rmid_free_lru);
++	}
+ 
+ 	return 0;
+ }
 -- 
 2.56.0
 
