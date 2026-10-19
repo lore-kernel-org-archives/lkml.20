@@ -1,138 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mail-m12766.qiye.163.com (mail-m12766.qiye.163.com [115.236.127.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D63E48382F;
-	Mon, 19 Oct 2026 11:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DBC4D597F;
+	Mon, 19 Oct 2026 11:21:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408860; cv=none; b=F+IaowkXbXz2uOGCfq2U8WjKDyx55RdfmX2tmc4ARW/TddSK7vIjLp0ZsoD5l135B1OQ9/ZNvVas+YM6EB5+WgilRTsXV5+OSEPoc9c4Y5+wh0JDNMFUt8Nz5GnbuaBH9cxiefoMcDJ2lEHe+bHiHjjnjIZ+CXt4dSqrfKSsGi8=
+	t=1792408909; cv=none; b=dnggJNIXAYY7yv+ZXLrZAb/+4+QK1VtMxff6E4Qvx3Es98nbfi5dwAppXcj18tMmESxku7u2zFkq/rl0efPaAiK9YLVVu70BIslJTZeTzTToHNSgvI1YB2ydVlgRf3/fllqMMnNQeTkNTIt8isxwBMzAxUybPrHijMlBTfJ+J58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408860; c=relaxed/simple;
-	bh=OjjfwwLZbDqlnlqqnl+VhPdVOwG66obu/ngPBAEEJ60=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TN7m3y1YGlK644vwn/gcGS6F+YpmF8B6OlazNN6rpCj/wv1tE8ZzCk/qOYgvofwjmx1Mrr+6wb6x8NZL8Sxe8m+XQBjM/9cLdjOd79vKrCG3GOTSk2zUvnfeCev6POjOSIjE6PKVkwK7NJ69lE1iN9L/5afkzbSzPFNnWoSnDm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Viat4dnx; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792408909; c=relaxed/simple;
+	bh=YzthQwTxZZZyGKXGe++Gkz+e5dtd76g7WaBpRqyOAsE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=GH48bHGAOZqV71zkD1RygCZzycWbz1OfWnKvVA10qNHo6XhZXbM3fGfjrxLyXZdOWBPK9vqZ9ZWOvSXV9Z5NRA565msAuTnsHkTsrbIic6G2ZiqLoOlcU1uIFNFTtazcoJ6myUmQkEd+Bc0hgMuxFZAf3SwUnu8j5BJ4PAIh+Y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=XAPLvrI9; arc=none smtp.client-ip=115.236.127.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Viat4dnx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792408857; x=1823944857;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=OjjfwwLZbDqlnlqqnl+VhPdVOwG66obu/ngPBAEEJ60=;
-  b=Viat4dnxGRZ2G8UEiYOPPdjVHunkgp0Uka8wAOZORJ1wjH6oC/RQ07sZ
-   XE3WrTAP4429RmJNNyURLD852ajaG40KQAdCwwwjMSjfhUATCoStvPBb/
-   2Ur96GE8XSDhweRpOulgHw8b9d8oAU5tP4rXCygExaxF68en9VWCq03nK
-   KMFHwbuymcMU0DXoAYTAhEJrhkowj3FKrUxHcD3fnPQnrN37oB4Z3HqTa
-   lJFAGyA3fLwQpepjBly2Ps02TUJwHH8etZPcKPM1TKV5/KE9GdabKATN0
-   UkkeQZuD0yft44WAmbCqzSHln3E8WGV/wixgP3X+0mLmX9leV+zh6W42o
-   w==;
-X-CSE-ConnectionGUID: X1UZNggIQdKqkVX6a96ZHQ==
-X-CSE-MsgGUID: XdyIYFN6SgmSooMf94zmxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="993082"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="993082"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 04:18:56 -0700
-X-CSE-ConnectionGUID: 2EQXLQQ7Q3Wkw2XbewmDww==
-X-CSE-MsgGUID: 34XvGfjIT8a4JiB7DgQHWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2570954"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 04:18:53 -0700
-Date: Mon, 19 Oct 2026 14:18:50 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Michael Anderson <mwwa919@gmail.com>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	intel-gfx@lists.freedesktop.org,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Hans de Goede <hansg@kernel.org>, intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV
- MIPI sequences
-Message-ID: <atX8mpg19_WkIa27@ashevche-desk.local>
-References: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
- <atXp2NSPKZUPj8sq@ashevche-desk.local>
- <CAL-Wm=O-Gr3CuvCn8iSQceQMhu=LGFz0SPhmWeFL=RiVnoprdw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="XAPLvrI9"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5189b8614;
+	Mon, 19 Oct 2026 16:59:11 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v4 09/14] drm/bridge: analogix_dp: Move IRQ enable/disable to bind/unbind
+Date: Mon, 19 Oct 2026 16:58:31 +0800
+Message-Id: <20261019085836.3065008-10-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261019085836.3065008-1-damon.ding@rock-chips.com>
+References: <20261019085836.3065008-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAL-Wm=O-Gr3CuvCn8iSQceQMhu=LGFz0SPhmWeFL=RiVnoprdw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-HM-Tid: 0aa15362e16603a8kunm6ee755052eac52
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTh9JVhoZHk9MH0xMGkpLS1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=XAPLvrI9xGz4CDuDdPqj2XN6U+5rU5nXMfI1I3XZQQTWw1reduvAlKa1xGMHSfHbOCWZimvvp7WJb6+CXzH5FZsJ26gvrQrRWotyZQN3XT3LPszJVvJQ+AO4ixpxesnkIb5oBU1rSiGNVgpZzhhLcb/Fit34DaqRbVzNNWmtl9s=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=NyN2pPC4Hh7ZjgeCYVaIxeVTEwGK+1q8bxHsqrEerMs=;
+	h=date:mime-version:subject:message-id:from;
 
-+Cc: Bart (as GPIOLIB maintainer and author of the reset-gpio rework).
+Move enable_irq()/disable_irq() from bridge enable/disable handlers
+into analogix_dp_bind()/analogix_dp_unbind(). This keeps the IRQ
+active throughout the device lifecycle rather than only during display
+activity, which is a prerequisite for supporting HPD detection while
+the display pipeline is inactive.
 
-On Mon, Oct 19, 2026 at 07:03:57AM -0400, Michael Anderson wrote:
-> Thanks for looking at this. I'd like to make sure I understand before
-> doing a v2.
-> 
-> Here both users of pin 10 are i915 itself: intel_dsi_vbt_gpio_init()
-> takes it as the "backlight" enable GPIO (soc_panel_gpio_table,
-> PPS_BLC_SOC), and the VBT MIPI sequences on this tablet then toggle the
-> same pin as the panel reset (low in ASSERT_RESET, high-low-high in
-> DEASSERT_RESET). Do you mean describing pin 10 with a software-node
-> "reset-gpios" reference and having both paths go through
-> reset_control_*(), or something else?
-> 
-> One concern: the VBT drives explicit pulses on the pin, and shared reset
-> controls are refcounted, so a pulse from one path wouldn't reach the line
-> while the other holds it deasserted. Would an exclusive reset obtained
-> once by i915 and used by both paths work instead, or am I missing how
-> reset-gpio handles this?
+This is safe because the HPD interrupt sources are now managed
+explicitly:
+- Native HPD interrupt generation depends on the controller's power
+  domain and clock. When runtime PM has suspended the device, the
+  controller cannot produce interrupts, so the hardirq is never
+  entered on an unpowered device.
+- For GPIO HPD mode, the native HPD interrupts are muted in
+  analogix_dp_config_interrupt(), and the hardirq reads only the GPIO
+  line via gpiod_get_value(), which is safe while the controller is
+  suspended.
 
-But then it sounds like the request-by-demand?
-Bart, any ideas how to address this case?
+Tested-by: Heiko Stuebner <heiko@sntech.de>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-> On Mon, Oct 19, 2026 at 5:58 AM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> >
-> > On Sun, Oct 18, 2026 at 04:12:40PM -0400, Mike Anderson via B4 Relay wrote:
-> >
-> > > On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
-> > > backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
-> > > itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
-> > > GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
-> > > sequences also request their pin through gpiolib, so when a sequence
-> > > toggles one of these two pins the request fails and the toggle is
-> > > dropped:
-> > >
-> > >   i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY)
-> > >
-> > > Before that commit the pad registers were written directly, so the
-> > > sequences could still drive the pins i915 owned.
-> > >
-> > > The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
-> > > panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
-> > > MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
-> > > failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
-> > > during takeover and stays black, even though the backlight PWM and both
-> > > enable GPIOs read back as on. The tablet only has a usable display
-> > > with nomodeset.
-> > >
-> > > When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
-> > > corresponding descriptor, set it through that descriptor instead of
-> > > requesting the pin a second time.
-> >
-> > Ah, nice, this should be solved via using reset-gpio, which is exactly fixed
-> > for the reset shared lines case.
+---
 
+Changes in v3:
+- Move this patch after mute/unmute related modification and detail the
+  commit msg.
+
+Changes in v4:
+- Add Tested-by tag.
+---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index b92d28546192..addd319719de 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1018,7 +1018,6 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
+ 		goto out_dp_init;
+ 	}
+ 
+-	enable_irq(dp->irq);
+ 	return 0;
+ 
+ out_dp_init:
+@@ -1160,8 +1159,6 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
+ 	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
+ 		return;
+ 
+-	disable_irq(dp->irq);
+-
+ 	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
+ 
+ 	pm_runtime_put_sync(dp->dev);
+@@ -1574,6 +1571,8 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
+ 		goto err_unregister_aux;
+ 	}
+ 
++	enable_irq(dp->irq);
++
+ 	return 0;
+ 
+ err_unregister_aux:
+@@ -1585,6 +1584,7 @@ EXPORT_SYMBOL_GPL(analogix_dp_bind);
+ 
+ void analogix_dp_unbind(struct analogix_dp_device *dp)
+ {
++	disable_irq(dp->irq);
+ 	drm_dp_aux_unregister(&dp->aux);
+ }
+ EXPORT_SYMBOL_GPL(analogix_dp_unbind);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
