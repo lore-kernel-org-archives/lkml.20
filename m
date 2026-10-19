@@ -1,88 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792431369;
-	b=uQZyWeGtkgyCNuxhvN5pFVinxmr/aZ/ujc9QTZ99Ug7usOtfyhjREfKjXMBOW9O8QRtB
-	 Gvv3DdMK4N5crUVzbqGK4TEozW60cjIfywCm9DXg6RhK1EaGRihmtcmi/IhKydHcM3+km
-	 kqznHgH34uD1woLNXi3QC1HA45VsBpEtYdVh44uFthj2PnCHSLa5ZBsuWBM/jMYtIxTTS
-	 AiQa6RnfF42k3w/wv5UF7DSQVHexKiQ/U91suiVYu9iMjXKmUQc3MuybFmUkTupgKpfyF
-	 dGSRHtLHqYX7dodM9tU1y0YH0zMQ4Z//c9+f2XEMjca0x141JPvElgU3ZtQ/j+Jv/Fg==
+	t=1792431434;
+	b=q7Eme3+OdWHfy/6takmWlq3utx+mkB8FxMB8jPcSSuKEm404joEJMlUAc3Tgn1mXFt6R
+	 CAb2H0Szh2hf2lx2YqwW12yyxy3lPt7s/nVesTNV2OBQG/3iq4vmuU378mfmfvi7KqY/X
+	 yb0srq/UHQVEPhZ6MyuGezKY+GskPH5fomln3IZJRbrIIhlzO29m8VITxi4eZlHFUlXnx
+	 D7j2micbVY0fyPRhsmnTRqUEb4ySoGvU3MehKRQBkVuRC9WY+D4MtQR0f9srdxaovFCHZ
+	 YTAepXaKcrL6+PSVVezckdeau1f2vtDz1r2MZhhhTnZR0/HADPek7gW+QxdXDhh5d/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792431369;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792431434;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HOWMPxhd4f93QJar5jGD1zCLcJhCkyttJ4OvEo5q/4Y=;
-	b=Ip+H8YJYzAoRjAdhhVGxqkq5O+EqV+8pRG9skCA05hQwYshTYnXdtRtgylkEW7d49Pvj
-	 mHvcFc8mHFhLZJMMJqzeMMPChrLTHGZumXNlfPPpE8BAAWUwUKbMcUnd365CadBSXIjOz
-	 MyWkpNLcRDgUPKP4s9PYhRjOT7B5oSHN+vC51VQmJsPb3KGWJeeDI1Yucehe78NQo1y4d
-	 TuhXu4RtO6FLSCu4QQ4SGpkzGfN5M1jPDbBjLVCROGywGcYZyrSrXBACvgev27OPXfMX9
-	 /Byf6ono0FtU+UiC6vVg/lNlvA/EdfhSfOhaRiHIwlyHbpiGOYL9AudlyLwGoW6+7mA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=X7SfKpkZEyou8apB+p/B2J6UWfJlZHexvBzvKG5arNU=;
+	b=PbunNzD1RmS8xndrWtOjvIgorg+njsuBz3ZeRdXnSgFn7BXj5QkiwMvDO3MeR5U34ooJ
+	 +XETbjJpktWpHc7YG7dfJQqKZ/+8ZPufcpuf0dGpCS2sr8NIhP0B9UDVc8XFE90wvBqfs
+	 +A2fGAxqs19cYIRSUXILdHsqpomrvg9CyrernHdG0hJds5g0+4/DPOqVZCNGm/5u661Wb
+	 Xce2IlXp1Xi9KwvdWvQJJjJXU4xC5LBUNYSonYodGcVr5RvgJzU03CC8KHBao18bu6qdo
+	 wvs2bcCnSmn/EtMqrPfV7Xv9MFPtHBFfQiHH1KIGGCm9Cc1EpERDX7QY25UOztcE7Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=okonski.org;
-	spf=none smtp.mailfrom=okonski.org;
-	dkim=pass header.d=okonski-org.20251104.gappssmtp.com header.i=@okonski-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=lHNCFgLO;
-	arc=none smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W3e+jzOX;
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29A1606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:36:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F29A1606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=okonski.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=okonski.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FB9606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:37:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55FB9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=okonski-org.20251104.gappssmtp.com header.i=@okonski-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=lHNCFgLO
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1d8944cb0so3359330a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:36:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W3e+jzOX
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c20ce3c118aso438570466b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:37:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=okonski-org.20251104.gappssmtp.com; s=20251104; t=1792431362; x=1793036162; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HOWMPxhd4f93QJar5jGD1zCLcJhCkyttJ4OvEo5q/4Y=;
-        b=lHNCFgLOhZw1suFu2q2t9UrH6IdJbQiG14s4vxAgBzqtqbmzJ9VbJDLpB6i0DMhhFt
-         F61s2N/0s4aAsvbR64ZwciQoc95mi3clQm4uafNxUwZF9XRoc7KN5qbNILoYWpoCJnM4
-         eqnVAINPlQFn+JlKUc7u9Yw3mlt+Mgsvhh/cHP1zLbjJVXXxvqtvhhRmO5P7DeLfAnai
-         wd9llXdSdN/vg7MfGZg9otSYjql+sCIyy6takZ7bibn12yyDb+ahOygsC14TJiy1ysai
-         wWyC51g4B1w5h9smBnIS+s7ROkqTPWiH4ax0seFl+mK1reCRn6WOr9iDX/UeUyUlppYk
-         duJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792431362; x=1793036162;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792431433; x=1793036233; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HOWMPxhd4f93QJar5jGD1zCLcJhCkyttJ4OvEo5q/4Y=;
-        b=mN3m3GUJ3biwmjqGXkbde5+IZ4FyuNgNUSe8oW4jcKO0vNuUY7FF278vDc5Y7XNg33
-         0kGO3XcXgM7ogfpohWysH0x5xOAwxltuCEGJsDvYgUxEEy6o60MtGEev33xA6frs5/zz
-         d2InNwRCxkTtd4xqRyUYKFZnKrT9dJ47bJ6WZpdI2Q6FgUYPv39BuompKrPU7ctcM0Ox
-         GW6dLXf0gosezQhwKhrtHbCCW5yWfLySRvovzYzuEooHGZh8fAEd/OYPcEYta54V5r/x
-         5hjZqYpEpH8xpmf9hSTQGAljcQ3GlYO2+0Iiju942p94H38ag7Z3NP6IPOotsAkQPeSL
-         rYmw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ7vv114r6KK7m/e0iXWrL8B0lczJEWXTahFWzbEK6n+DKItOi6oHFbyXa8v4D8u7iQ9Anfe2b32Xl43Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKz/HLqRxyrVmvklZQ3CV5UeCxnsdMapX5y2j3K5g5q3XTj24PW
-	MzKYEB/286WNVxvnikP+odURJWFta/55Kg7tui8qBG8F4DB3zrhce7ri6stBa40S80M=
-X-Gm-Gg: AYBFou3A3QnC0yVYl4g1TWa8LPI4VuolmxBaXs9Zg7g5H9cjil0rW2/CHNldknfY5MY
-	TTmIyKnQiEP+eUZwCrmVf8fZd/1N/0FWKE7vRBqTs9GrRiP0uI1N2ZCUmPwFPUHHTpX8p7c9v1J
-	bDPzm3WaM6Uu2VZHch0dSFGIGHByX88nAU3SPUQ/FJq9ZxnpumUO0hmvqMgRstH9oSB6BevB7iw
-	yIGX4vC0PeLKo7gJL5oeuBRX6/UBii6fdAhRDXW1aRavf+/55oTqLOfc3fFKqdlt0F1+O4hSSQ/
-	l00Ib0OG0meoTNsjH9BXvzMqoXwAHMEoo/KeTj2hrVomUpq+yovTJWl5SRly3UyYBlhBG/G4Ncm
-	doaiAxBG4f7HBWOsA05odSr2QqnJ8S4mgRP3DtFyy0noKjr7swEss3aQXfHNZ4uknAxIzoQbi+O
-	AgwPGhMhgWHgbNf8Rn4ufQkVPcVIvKMbS0VQIGUqUk4fC+hL8kIOYUn2GdBsJTqJkh0n46waCGw
-	iNPVEvd1QBdGpTeOneo4NUF67oslNaJvg4pPDhUxSw54F90Mrq8co7Ub9Nf1SnBRU6nIJ02m9P0
-	aS6FfX5jkm71ZUQ78TiUrTOg+aIeFS5HkG4xUmg0xus=
-X-Received: by 2002:a05:6402:1d54:b0:6b3:a1ad:ef80 with SMTP id 4fb4d7f45d1cf-6b3a8186202mr5025787a12.27.1792431361999;
-        Mon, 19 Oct 2026 10:36:01 -0700 (PDT)
-Received: from ?IPV6:2a02:21a0:10:748:1::2? ([2a02:21a0:10:748:1::2])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1e9da2sm4455871a12.31.2026.10.19.10.35.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 10:36:00 -0700 (PDT)
-Message-ID: <f1d0fc39-6939-4fb3-a422-273cd5c347c4@okonski.org>
-Date: Mon, 19 Oct 2026 19:35:58 +0200
+        bh=X7SfKpkZEyou8apB+p/B2J6UWfJlZHexvBzvKG5arNU=;
+        b=W3e+jzOXCY7H2t+R8eQRvZ6ycEKAxC/TG3tmAYpTO1zl3QcoJV9GXMq/+dgDTS0cCu
+         0p9osOW/GqfTTSebAtPhou3iHW2o1P8Qur/06Aau/yawerGMKkTij5/gxlXD9Z0oxHe2
+         JNDwh327ZjHw7DCVvQXBMEYOkaAsuzRX4FMUA4J9kL0T45i4/K1F/Ke1ROoSE4hruE5x
+         TkCuOb5/VXUD5R872BPBdYlabV5+MJr6q/2n8EmqwcJPejJNUiEyFPeiRNc6A6wT0rOD
+         Yo4dPBqsj3uLT70FGfih5zO8DJCZ4QAOu74Dkok5FXb8iw8DHcwTVa3sLbHhoQt2MEPj
+         tr8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792431433; x=1793036233;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X7SfKpkZEyou8apB+p/B2J6UWfJlZHexvBzvKG5arNU=;
+        b=Wn8023NVzyQtMScL9q0Xtx3UnvEQI+U3+385l6UN24boDMROqco418GKm2cVTCZOsE
+         BQTnUzmY5HGBSOK+ms1lOPpHa5iNu4lKMjTF8wvtU2af56fm/Hbg5Zgf/ONnYmeUxauv
+         Ifw/0pFW5cOGsCgu/LkzifMvGRi1TeStPwJEjnG2dfsm8vkLimGoP9jDLpHXeHjRaZih
+         aht0b6f291hEeDbHuLT2Pwkfsst+LjWW+kb/HcyhsZxX870xCHTD7WXuSFpqpIWW46iD
+         ZBTlYiNzVD64vCmVsHkv9leqmTzyL9k6TaedT2w4/JChMBPI1IvOOuhNvee9ifS1VSVc
+         nanw==
+X-Forwarded-Encrypted: i=1; AKwUvBwL0FpA1qEKUbnuh7hBzgMEJ7XPZD1jYM//opTEAi7RpXnSWNiE6x+E6Vdu8AoynXmh7BnoVnb71S6Yygo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKc4WADRvp4SGXxpd7q57Smjf34mVVqXTTBfb/V1a9FV+HpAZ4D
+	fXZeB+Yzj20XpsUDWatSvxtOcMJYa9KTNvfV5QbGcMRkNpLVVxxVJlpl
+X-Gm-Gg: AYBFou1HJ4Itx5AKB1oLvdLOAKPppGAkkMdlaPG+g7VR2MBcsIKIZUydLABf/2osbrQ
+	4PcxtbRNAP+HOZRea8xWkkoQy1yXIbc+5jaGYu2AnxBRMBHYH+Ek/r9d7ALRg8Qh9COs5bmSCKv
+	TiKcMDDaGW9M+7OUkePbUkDaLmd4eI2gdUToMwT1W5iCqNRgxBel0aEBfAr626n4H5gdBmW3twR
+	AcCZoopRPeqnpvtw0csDmFKhmcAE5qT7PQ5SYzrUF4LnCfeJ6SeWlEgS8SeVou+YUVU/Xi8LAHI
+	Dk5ZsopRAuBxtY0FGAaXmRfcAXugASJHeEn0ABpe5eT48vtuTc4fH+ZRKm7si2tHEQPwpGPxqaT
+	MlNN3vywrK/t0pI6SlE/6LQIdzmYnMHVxFMDEUYFMDN4ncvyxpDYo7VcDGkMGlGOHcDcYnDPoU9
+	Wk5h5mxxZSQzAXanSc/z0EMv0k9TiaqqfIDlczui1GZ4hktBhyoyAmRQRQ/aP9kRfmp/ByWrR6b
+	rqQtgGcW07hAiZsTAayZAQ7ChqotWxJB7mXg++R6dXmIMoteprtpaFnpcXxoGKc9HbOeDu/Ii4i
+	E3E=
+X-Received: by 2002:a17:907:a317:b0:c3f:2:6faa with SMTP id a640c23a62f3a-c401e136d98mr974748666b.1.1792431432318;
+        Mon, 19 Oct 2026 10:37:12 -0700 (PDT)
+Received: from CCM-PC (94-255-221-162.cust.bredband2.com. [94.255.221.162])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1dacb6sm4299381a12.28.2026.10.19.10.37.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 10:37:11 -0700 (PDT)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	linux-kernel@vger.kernel.org,
+	Ziyang Huang <hzyitc@outlook.com>
+Subject: Re: [PATCH net v5] net: dsa: qca8k: preserve port state across MTU changes
+Date: Mon, 19 Oct 2026 19:37:06 +0200
+Message-ID: <20261019173706.198461-1-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <179240775070.3135.2434822808609533404@kernel.org>
+References: <20261015104550.43169-1-yongzhao.derek@gmail.com> <179240775070.3135.2434822808609533404@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,39 +108,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] sched/eevdf: Move to a single runqueue
-To: Vincent Guittot <vincent.guittot@linaro.org>,
- Mike Galbraith <efault@gmx.de>
-Cc: Peter Zijlstra <peterz@infradead.org>, mingo@kernel.org,
- longman@redhat.com, chenridong@huaweicloud.com, juri.lelli@redhat.com,
- dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- jstultz@google.com, kprateek.nayak@amd.com, qyousef@layalina.io
-References: <20260605105513.354837583@infradead.org>
- <20260605124052.227463677@infradead.org>
- <58dc8e8a-7260-43ce-aebb-8d9c29a6afc9@okonski.org>
- <b1002150c3e4f877d04790cd8e85d2149d17722f.camel@gmx.de>
- <atZM6uF0CqCNh__I@vingu-cube>
-Content-Language: en-US
-From: =?UTF-8?Q?Jakub_Oko=C5=84ski?= <jakub@okonski.org>
-In-Reply-To: <atZM6uF0CqCNh__I@vingu-cube>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Vincent,
+On Mon, 19 Oct 2026 11:02:30 +0000 netdev-bot+sashiko@kernel.org wrote:
+> That path only reverts the conduit MTU. Does the switch-global
+> MAX_FRAME_SIZE register then keep the new value, while DSA and the
+> conduit keep the old MTU? Nothing seems to write the old frame size
+> back.
 
-Your patch fixes my cpu.idle test case.
+Yes. With v5, a failed restore after a successful frame-size write
+leaves the new frame size in the switch while DSA keeps the old MTU.
+On a fixed-link CPU port the same failure can keep the MAC off until
+a link flap or reboot.
 
-On 10/19/26 19:01, Vincent Guittot wrote:
->  /*
-> - * Preempt the current task with a newly woken task if needed:
-> + * Preempt an idle entity in favor of a non-idle entity (and don't preempt
-> + * in the inverse case).
-> + */
-> +static bool wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
+> Two options: keep returning success once MAX_FRAME_SIZE has been
+> written, or roll MAX_FRAME_SIZE back on failure. Either way, should a
+> failed restore stop being treated as the saved state on later calls?
 
-This should return enum preempt_wakeup_action. But with that change, on
-top of 7.3.0, it still regresses from 7.2.9 if you test with a nice 19
-spinner in the same cgroup. I think it's incomplete.
+v6 takes the first option: it returns the result of the frame-size
+write, and a later restore failure no longer replaces it. A failed
+PORT_STATUS write now keeps its target and is retried every second
+from delayed work, so a fixed-link port does not depend on another
+mac_link_up(). Newer port decisions replace the pending bits. The
+next MTU change first recovers pending writes on ports 0 and 6 and
+returns an error if that fails, so a failed restore is not taken as
+the saved state.
+
+A userspace harness that compiles the driver functions and
+dsa_user_change_mtu() now covers both cases, and v5 fails it. v6 has
+not been tested on hardware. I will send it separately.
+
+Thanks,
+Yongzhao Chen
+
+pw-bot: cr
