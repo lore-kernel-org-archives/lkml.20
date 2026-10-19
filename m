@@ -1,161 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C84495539
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:48:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604134848AC;
+	Mon, 19 Oct 2026 09:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403282; cv=none; b=iiU/ejdS56MMzxwKfEmpxIeFHgm2scfCHFmd0MfQGGryOCH3PAozQgFd5KGkqvz2pqS76dJf08A9YjyL0hvMhcvUwh+YBsKv1BaYmB3i135Id8P4XtWhlEkcmjX4qdEhU67rd7Bs+bz/ogfo0s7xWuNGh7CGDLrIuKnvWMLnMq0=
+	t=1792403324; cv=none; b=BLLInjKfwVOXzQdPP4BuX/4ik7ui+CTV5FWm8FjzfdbLuxg+DfC0qJNphk8C0rhemvk3mLePimHDcFbtawT2REkIoxrFJEOOBPFsxz4iHHl9hK9clmu6QrkdCxhULXmPtykY9o0Km51WCGtTWLOBOrh2iFtPc1C2h/Nh4V2SSmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403282; c=relaxed/simple;
-	bh=/G1UAEnFK4MlLGs+aNQVo/T6zfPVnBWeth+ol/F/i08=;
+	s=arc-20240116; t=1792403324; c=relaxed/simple;
+	bh=y38c6Wh+JrRWNLBK/e115pdKqMSFQP0EX+kdXPPe+yk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MOx4bzODNOLNgTffGAiMgQqLhjTRQoH2mt2mcTkmj/AuwRP27oq6DRGCUzntCHjFvET+WV3X/KWXiylZKUqSO/3HCHyjjmCk/YBMKwIxOpXCXpisuqtT+guGpg52hFUgQeycKJNhoVFUm8BKvdRjqX91PCxJx0a7hRZLh1sfaFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QZdUSOzR; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=c0oAIzdYwIREFI9QCKmTXAGlHrbyB0hY7DvPdFUI/QndrCmpvM/OohhYfhKOH433b+EnOy013ejowU9Xj63uoENF5cW0G7KMnuw3a2CPnpx7ApcO0aGRjxc4dVvHv/u5YtEN/pLi+hJWRwGbVrlGOQ0rdU7OE9Yce4cINam0D5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUVqNXuh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QZdUSOzR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792403281; x=1823939281;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=/G1UAEnFK4MlLGs+aNQVo/T6zfPVnBWeth+ol/F/i08=;
-  b=QZdUSOzR9Q8PLsc0Zlwg5r+T2wkQsVPbn0A9STQ82AcriqVRBMZyTFGq
-   FvFLAIs96QId19fqE/fgBw5IU9G3DzRgDIHW7JsbHPl96Tt+rjXjQEN/+
-   2UOicCLgbdV2+9ydG3NdUc79fMClcUCadr6sKVEIAvM+YbbdHgrpIfceH
-   XnvMMvtyCm2YYAOZjM6ACixtqtvSIDkJR47fjivVMF7goMQTa2t2zi8HD
-   r+AynuyKkidU5SP1BZ3J8xBQYFcT4a1bVePgABqCU7ozJ8qcSz7EDMOoe
-   FFZUQm86Xh+xEsTjd/JS3563CwyBn9+F1a9c5qXLo5MnCElJ/ejpHP+tV
-   w==;
-X-CSE-ConnectionGUID: VvHswMF2Th2mKcxW4Jj63g==
-X-CSE-MsgGUID: DkehX3zLRGyvk3uQ3xxalw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="951476"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="951476"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:48:00 -0700
-X-CSE-ConnectionGUID: DcAcaTrVTIad6ooC1ISnuQ==
-X-CSE-MsgGUID: l0WOJ4UzSTKfFTfq/WwKVw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2558322"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:47:57 -0700
-Date: Mon, 19 Oct 2026 12:47:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Sam Agazaryan <samagazaryan@google.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-i3c@lists.infradead.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
-	Vitor Soares <vitor.soares@toradex.com>,
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
-Message-ID: <atXnS1ZKGVfHDNEK@ashevche-desk.local>
-References: <20260921230603.2518652-1-samagazaryan@google.com>
- <arY6DfVf_9tZ_TCu@black.igk.intel.com>
- <arZTphXbVF5wagy2@shikoro>
- <CAHreonFzhYk6fDswn7OVZfL3ybUHU15G3_q9+1sDhe8h670r3A@mail.gmail.com>
- <as487H8-0Gc77mXI@ashevche-desk.local>
- <CAHreonHiesGbR4VB+3sRxoLDmNHXFFEB=6_o6TNedm-N6VksEQ@mail.gmail.com>
- <atXmovzepBLP8Mqo@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUVqNXuh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD83F1F000C4;
+	Mon, 19 Oct 2026 09:48:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792403323;
+	bh=kxYpOKeNE1GtVJhZEKyHa5DQN9VTfVaw7R5GeyyShr8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kUVqNXuhw67wpa517IY0Ef+gOzCTXJ9z1qfR4Gv4/xhOdzusCmOvJA82ZVuskQbq6
+	 a8z2NHGfBT2msPVz1fYsqVrThrWLS2M+za1Au2Rn0bVNv4bXdoshiw2oB+2LTq1dYd
+	 bsU55W/HjQdKjERA/34g/zOUFrvZsN8NRKs0w0dtkuGtOLEKcB7ozGIHz8abA2YIMg
+	 /g/bsloLYWA9WdusRAOlKTL3GKa1JknAnfkp7THoN16OAGbgOpJg4NlM27baLp3Czc
+	 fydllsmnjtJqd6p3Sq4geid0d7rpA0T/IUhbpQiA5uYJ+Aoe/5K466zpyDt4qGZYTt
+	 mxT7ECqLVpkpQ==
+Date: Mon, 19 Oct 2026 11:48:39 +0200
+From: Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>, 
+	linux-kernel@vger.kernel.org, soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH] platform: cznic: turris-omnia-mcu: stop button emulation
+ producers
+Message-ID: <atXYWrNAI5pmyMHD@solitude>
+References: <20261016013918.3492835-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <atXmovzepBLP8Mqo@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261016013918.3492835-1-mhun512@gmail.com>
 
-On Mon, Oct 19, 2026 at 12:45:11PM +0300, Andy Shevchenko wrote:
-> On Sun, Oct 18, 2026 at 01:28:44PM -0700, Sam Agazaryan wrote:
-> > > Yes and more as this bus (i3c) is still non-discoverable (am I mistaken?).
-> > 
-> > I3C is a dynamically discoverable bus. During DAA each I3C target reports a
-> > Provisioned ID (PID), Bus Characteristic Register (BCR), and Device
-> > Characteristic Register (DCR), and is assigned a dynamic address by the
-> > controller.
-> 
-> Did I miss this in the initial explanation? If not, please add it next time.
-> 
-> > > This makes even less usefulness in my eyes. Immediate Q: if 4 already have the
-> > > proper driver in the kernel, what's wrong to make it for the fifth one?
-> > 
-> > 1. The original use case was hardware bring-up, silicon validation, and debug
-> > (i3ctransfer): Just like spidev, engineers need a debug interface
-> > to issue ad-hoc SDR/HDR transfers during bring-up or hardware validation before
-> > a driver exists.
-> 
-> Totally debug feature to me. Once you expose something in /dev (imply IOCTL),
-> it will become an ABI. And I'm fully against this.
-> 
-> > 2. Userspace firmware recovery / update tools (OCP Secure Firmware
-> > Recovery, Caliptra RoT):
-> > The recovery protocol is purely a polled request/response transport
-> > (no IBIs allowed per spec) used by userspace update tooling (fwupd / BMC
-> > recovery daemons) to parse signed firmware manifests, stream recovery image
-> > chunks to INDIRECT_FIFO_DATA, and poll RECOVERY_STATUSâ€”similar to how
-> > userspace firmware updaters operate over spidev, hidraw, or USB/NVMe ioctls
-> > rather than putting firmware image parsing and update policy inside the
-> > kernel. In my response to Wolfram above I discussed this some more.
-> 
-> Do we have such use cases IRL? Do we have tooling support (at least pending)
-> somewhere? Why does it require user space interaction in _this_ way (meaning
-> IOCTL and /dev node)?
-> 
-> > > What if the device needs more? Or if this is a multi-functional device that
-> > > may have driver for only one part?
-> > 
-> > If a device needs more than basic transfers (such as IBIs,
-> > hot-join handling, or integration with a subsystem like hwmon/iio/mctp),
-> > it should use a dedicated kernel driver.
-> > 
-> > For multi-function devices, if the functions are exposed as MIPI I3C
-> > Targets (e.g. a device exposing both an mctp-i3c interface and
-> > an OCP recovery interface), each virtual target is assigned its own
-> > dynamic address and DCR during ENTDAA and is enumerated as a distinct
-> > i3c_device instance on the bus. Conversely, if multiple functions share
-> > a single I3C target address and register map, i3cdev intentionally does
-> > not allow userspace to access a target while a kernel driver is bound
-> > to it (avoiding the I2C_SLAVE_FORCE problem where userspace can race
-> > with a bound driver), so that case should be handled by an in-kernel
-> > MFD driver - but that is not the use case being targeted here with OCP
-> > recovery.
-> 
-> So, imagine that someone submits a kernel driver for a simple device, while
-> another person already uses the driver for multi-functional device where the
-> former one is driving only part of it. Strictly speaking the kernel driver
-> submission becomes a user space regression. Which effectively means that whenever
-> you open i3cdev, no other kernel drivers may appear. Yes, I understand that
-> a poor victim of such an unlikely course of events may recompile the kernel,
-> disable driver, et cetera, but this still raises the same question, why do
-> we do that to the mere users?
-> 
-> > > What to do with the i2c devices connected to i3c bus in the compatible mode?
-> > 
-> > I3C master controllers register an i2c adapter for i2c devices running on an
-> > i3c mixed mode bus - they are identified as i2c_bus_type, not i3c.
+Acked-by: Marek Behún <kabel@kernel.org>
 
-Forgot to ask, but do they interfere?
+This makes sense.
 
-> P.S> Still not convinced, that this has to be an ABI. For debugfs and something
-> like this, no objections, but ABI.
+But I wonder whether the devm_delayed_work_drop() from devm-helpers.h
+should not be changed to use disable_delayed_work_sync() instead of
+cancel_delayed_work_sync().
 
--- 
-With Best Regards,
-Andy Shevchenko
+In this case the initialization function in devm-helpers should be called
+devm_delayed_work_autodisable() instead of devm_delayed_work_autocancel(),
+though.
 
-
+On Thu, Oct 15, 2026 at 09:39:18PM -0400, Myeonghun Pak wrote:
+> The legacy MCU IRQ thread can requeue button-release emulation work
+> after its managed cleanup has canceled it. Since the IRQ is still active
+> at that point, the newly queued work can outlive device teardown and
+> access freed MCU state.
+> 
+> Use disable_delayed_work_sync() to prevent further queueing and drain
+> the worker before the IRQ action is released. Keep the parent IRQ active
+> while the worker completes. devm_add_action_or_reset() also drains the
+> work if action registration fails.
+> 
+> This issue was identified as part of our ongoing research while
+> reviewing kernel code.
+> 
+> Fixes: dfa556e45ae9 ("platform: cznic: turris-omnia-mcu: Add support for MCU connected GPIOs")
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>  .../platform/cznic/turris-omnia-mcu-gpio.c    | 31 +++++++++----------
+>  1 file changed, 15 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/platform/cznic/turris-omnia-mcu-gpio.c b/drivers/platform/cznic/turris-omnia-mcu-gpio.c
+> index 4e430d6c3fc4..8f43bfa92373 100644
+> --- a/drivers/platform/cznic/turris-omnia-mcu-gpio.c
+> +++ b/drivers/platform/cznic/turris-omnia-mcu-gpio.c
+> @@ -11,7 +11,6 @@
+>  #include <linux/bug.h>
+>  #include <linux/cleanup.h>
+>  #include <linux/device.h>
+> -#include <linux/devm-helpers.h>
+>  #include <linux/errno.h>
+>  #include <linux/gpio/consumer.h>
+>  #include <linux/gpio/driver.h>
+> @@ -841,6 +840,18 @@ static void button_release_emul_fn(struct work_struct *work)
+>  	generic_handle_irq_safe(mcu->client->irq);
+>  }
+>  
+> +static void omnia_disable_button_release_work(void *data)
+> +{
+> +	struct delayed_work *work = data;
+> +
+> +	/*
+> +	 * The IRQ thread may requeue this work while the IRQ remains active.
+> +	 * Disable and drain it before releasing the IRQ action and the MCU
+> +	 * state used by the worker.
+> +	 */
+> +	disable_delayed_work_sync(work);
+> +}
+> +
+>  static void
+>  fill_int_from_sts(unsigned long *rising, unsigned long *falling,
+>  		  unsigned long rising_sts, unsigned long falling_sts,
+> @@ -1082,21 +1093,9 @@ int omnia_mcu_register_gpiochip(struct omnia_mcu *mcu)
+>  		return dev_err_probe(dev, err, "Cannot request IRQ\n");
+>  
+>  	if (!new_api) {
+> -		/*
+> -		 * The button_release_emul_work has to be initialized before the
+> -		 * thread is requested, and on driver remove it needs to be
+> -		 * canceled before the thread is freed. Therefore we can't use
+> -		 * devm_delayed_work_autocancel() directly, because the order
+> -		 *   devm_delayed_work_autocancel();
+> -		 *   devm_request_threaded_irq();
+> -		 * would cause improper release order:
+> -		 *   free_irq();
+> -		 *   cancel_delayed_work_sync();
+> -		 * Instead we first initialize the work above, and only now
+> -		 * after IRQ is requested we add the work devm action.
+> -		 */
+> -		err = devm_add_action(dev, devm_delayed_work_drop,
+> -				      &mcu->button_release_emul_work);
+> +		err = devm_add_action_or_reset(dev,
+> +					       omnia_disable_button_release_work,
+> +					       &mcu->button_release_emul_work);
+>  		if (err)
+>  			return err;
+>  	}
