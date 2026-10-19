@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424920;
-	b=hLVslgEr12MR9no4jx5DjDAKxrsC1PtiBu+/6h+Z1d4LRtEcO6mg3RBs1bSJtF+f4//Q
-	 TCjd9wqOjLW7jqY1f+xcRPRE+w7n10V4oI1Tuz8AgK0z/SBsOmwSa8lSqwC+hVYXzz/Ns
-	 yanwVfEYNlg9SB4uWJs6nIw8fJGf3PxZ61P0Z1Bn2dIgfXAd2Qsymvjzf7u7nMAhoMfSm
-	 8GXw4ySEZbxvIEaSxoaW4rkRwhfsE5pBXJdB//RHYas+uyMltqOQ+o8eymAB40T1Oi1Y8
-	 whkOQj3tbX/Mqj+dC9wH+IPgzc3csXCZTxYbE4hZ4zGLeK2h6b3Qjh/8e3uPr/J5Z/Q==
+	t=1792424925;
+	b=i3YT+WvE5mPNCjwuJqeXFH3RXJDhwVcUz7vv4JpEhxEVkRyUtV6GKnkImZ36ID5PzfTj
+	 vkDsk15TRHxe269myxvXzvaIK+9f4IeoyJabZu4WXgHVKi3002jFxAe4gMC47I9cQsdlF
+	 VmVWPIhJfyjdoX5rPe3qDZdacJibTwbl8FjK2huFEdmx9+JqsLnOP7ODEwuxEcQpX8XwI
+	 JBodZk+Iil7qkUnV9wpp3kHbfJAA21WZzJrGs0fF6WcWGIlVbG14J5ViZoYvADICQ9km0
+	 J9+Z6jNA1YlSpOAfFnOOrzuHwYSzY5hVclULahBlKYgBVzvbpwSySCGUZr16xusgxjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424920;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424925;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=D8+K0yhFOMML8+Q3O7sLPxhD4rnWfCrAJQplUYe0Ock=;
-	b=hmCJtJyqnDdIPaVr7CGSnF1iMLGVf+E1mWPbLrrJ+pX52I1dP5goacA2v+MwR2pwj6IS
-	 g9TSYEDNDJkcPbg67SMkdWh5SxfJO438wWE1hw2EbMS05WKjMPmZQLSw5O36CLebtSfNN
-	 Vg9S3ru2wFSVXGadh1G99wo4daIGKyOHQLm0lookmo9PTm4VgriSMFu/Nidu4aovgMpuA
-	 JgubjMccHXBv/8KPlBXWL6qnl9deW2yo1hXUAGUaZZCe6jl6xcvHk68+2t+11jfxrWzAe
-	 gg6cU7/s/YUmdoFI4ZlLCZ3sHVdvv5rmPBWQUympuNOtBXuzG3E+YnJRazHPGz2ZLcQ==
+	bh=q1Ii+kS6GcqCuy8FpwraDGcd1HAWUkHGu9ihz0l8o30=;
+	b=LlgZiZ0/GMO5kRbAvDoZtwnh7lYOHhrssMnp6OLl7jPVBHQIAyQkgIAacBgI5tzIh7Ut
+	 tc8hrFoWzul/wFznx/r0oWFdjWE9c52hATh/NZnNHAwiXyzuzgzUJxGsvPw1xvUO0HW6O
+	 nRaW6wfW5GZSl3u8btaODut3cDio/tqvlpTR9XSiu35sssjpkKwO0G/KAt+cZvTJmuSug
+	 d2xSMI9ZZINkssoU84lCAAon4zvVx9EVDTxNz2ChyZBJAKMouCpbPo8harnOLx3/ds0pv
+	 6w/CwhKjgk+heYIKygaPE9uCC+3AVFdhUxTT4jxXOyLT6chBqZx+1HquB/hF2tg3ibA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="mofkbr/B";
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Kjhs/VzU";
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D576080AA2
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:48:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7D576080AA2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23AB2608606E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:48:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23AB2608606E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mofkbr/B
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso1074130a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:48:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Kjhs/VzU
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc758830601so1560993a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:48:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792424919; x=1793029719; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792424924; x=1793029724; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=D8+K0yhFOMML8+Q3O7sLPxhD4rnWfCrAJQplUYe0Ock=;
-        b=mofkbr/BxXsPG/9MGUh6UlF95pFjH2gNSmjUtY00Tw3cfmkl3qt8h/gBKTobKKoTJt
-         H/YS0roQzAxl/H3H4GRpExZPQZRYVk6JR/ZM/M9N889kx9V8AFjnAOMkwzt9mrrNZHjD
-         gYzerXgTfVnUxlYoXSDt2s9u9ey5g8zVqtYHYPvN5wohp7g/5F7jZjJVcc83wqg7KJXs
-         h4PEDv29KqdWGIywV8WnUaLPLLo4I5KOvJmQRYKYpEHzpD8DnE9Sfb+SG6qNsbg22bJM
-         XB3rWsEll9FSP50IJMhOzF3IZ5qeN5kgQ1z9AgrmCow1FBd1WpiO/DAuQndvEPlNunzU
-         HYow==
+        bh=q1Ii+kS6GcqCuy8FpwraDGcd1HAWUkHGu9ihz0l8o30=;
+        b=Kjhs/VzUR627vKipidBRlS/ACkXpqKqZtjqNN2+lRBjMJgRETIX6R3sZ+qtcbvXM3B
+         y7NZsCqG0Etj5tdkoRtN0NdEAUiKU2qjOfDiPp5Co1hHRxHeJFUszwfpoC/l/9wyXy+K
+         3kbv0UmdjztI/JjUVHc4XlEa3qMeEYrnu26XR56w0DiEQx84kcfvydPYP9NlrkMJ9Gpl
+         aQvHXSugoavJ5qGqX9qK3av8Th23KdwYWKOTjTSO7QvWKbUIzDKGiz/QShGwQiQlS3zO
+         4Nn7VYqvS9SupMwGNlawpdi+jD/hoVQepkLcIyaBzY3qxGXg9jvQSyLdsNIA3W7mZ53A
+         lsFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792424919; x=1793029719;
+        d=1e100.net; s=20260707; t=1792424924; x=1793029724;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D8+K0yhFOMML8+Q3O7sLPxhD4rnWfCrAJQplUYe0Ock=;
-        b=bqvMd0e0O+5PG/HwuSGqYiV1Eg/PIemjN0VxtZfXovDXS+jVwsi/pbcX+2AwKCsYAI
-         LGptvRVEjuVbL5Phy8ZDBbWhfCUeS1RbsJLIUJSzzEtF/KyQpttGqKiGtKCofvTwLWAQ
-         +AwSy0UNitot1VAbez9+ourhob+EQ+VBaHFvUCJr/xEZnCaNRncopl9px/nBQYWLQQyi
-         H3NSdfHNCY1fcRzzl++njdUAo44BFdk0gtHP+vAzYWa8MVTOKDZ+DNfiAX/a9KmCKvF8
-         tSsHL0Bae3uz25K9EheyBITA7JBsQNxAeyc7dNgAiqIrxStucvz6MoEvj7i4BCn63lwK
-         ziDA==
-X-Forwarded-Encrypted: i=1; AKwUvByCUfAnMd3A7VEtxobjZl3Kx+Yt+gGB8JBvJTqQHBoVLbOdZvsfq+Kj+76jdtT7NAEHWG+T11SEqGULfrE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOBRrqvrERrI6CnzgXtfyj4M0hOC8j774XiJEidp48VEdjkNJb
-	If/tEhmzbQh9LH1LcLs98iz3+HNmii0MH+Ej1H1qRrJJxfMreeL2g7WM
-X-Gm-Gg: AYBFou1I3ClMAVE+lmppm+V1Pd7Uk8E/+4Chr0GwzQLHvAewykwoGvAmOCQlxg89sKa
-	0AqXQQ8+MVVvaLbxCoMZx64OVMyebz3SYivobKjr+mlIVsCiDj746gYSAmh1XEya3oYvJYz9T9v
-	uEVxQk1mzDeEK4dvVTinuMx80TaLtBG7LR7FkLMkV9JYyOdloF8NwJU9l8eWmYQRFnr+Ivg5DOL
-	0r4sMNVek3uxAN9eEj6t/5mjikpv/T43zlVzn2BEWdcsdeVDJGx010PNsumVqxNEyzLSP3LqQL5
-	ZNsgPetD/ohwvaoZbpcmdXQMWMyRKUYRcHq3O0h9GYXxotY/j4dBeA0Ndyxc4sjDw9SPIBVxvhg
-	1DF5Oy+1C1xfzfwXSXO8Z5NN7Goq9VGl4c2S1Kqm2f707Dfbb7mJbzEWvlv5VzHH/W0yB3GPaZ2
-	uzW9TnW0zYd5O+WW+FS3AcDNfOAq6nG5CxvoxqmNzp0e+rPhiuvdwoFmPJlD3hKVQrJfxuKOsVr
-	DPDOLlrYE3m2wikKNf7O/wWdl7KVQnfzgQ6if1wSFm4HxgEnA==
-X-Received: by 2002:a17:90a:2d0:b0:3ad:43c1:7d41 with SMTP id 98e67ed59e1d1-3ad43c17f6cmr1295554a91.33.1792424918943;
-        Mon, 19 Oct 2026 08:48:38 -0700 (PDT)
+        bh=q1Ii+kS6GcqCuy8FpwraDGcd1HAWUkHGu9ihz0l8o30=;
+        b=cZcaMvkVwRJqIUsZKFzGvxYSj4/raaAU2jciH3H4PnkHtjl4eNwA20dz946S/P67RL
+         xZNX4KuryWWoDWaBUyq3qOoWIfleeMBBdGaMR2LRcDeE5YY6r4i9O8dDhX/qOPkdEoBo
+         Gh3/DJ27RlUTyE3Ji7MpDYC+jyd9p5t3ITjjIbnvI+jb0G7J5qu6AS7HtZbgEThbaxvH
+         kHCI3txtO2tNygf6/HcTBw0Zwtg7AdgH8bLC3NpIRVlt0j4yUvkw/XWRxqNhpJDIgtm/
+         f7Ca7elQSWg0yowKGxu/RFAPRbGNYiT0IaD5ondKqL9BqlYE4RWHD7EKuzB8Kbu4KthW
+         DSmg==
+X-Forwarded-Encrypted: i=1; AKwUvByHoRfxTj8x8i3DX168zo+/lyHl1TCJkylj4fB3nL2F7HjGNS7g0x6lTn0TZ2tgN4W3lw7MYuMhB1IAEMk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLs3vBwiHExosTfzm+NsYML01poi/Mtcy3SjEl/kYrgUo+XEdzL
+	aD/YNwQHBWkF+wY3YuQYpYTeP6K8iJM4p6hMGj3Y9Uso7Zap3qepjHY4
+X-Gm-Gg: AYBFou0fXSklqCgTVyYbMkv4DnKRwiaArrOk9FHOJA+f5sESx+gAxXDIURALOGAXYN1
+	NLE9iaslwhbfFdsgiUOeazkVRX2ApEXh9FmkyIbJXGUnes7ed2RFEDINJACCewYK9hZgbgGbZor
+	xLzbdlrt5KJpHZMAB3RmthpVyVc5fBk/+DxCBdDbHzqgCNEqPHivJ2jAvVe3lHCf+cQ2azHQukQ
+	NnCfk9NLd5LWarCUvzbOTCqvYHw5eoNjmQGx+zH2zxVvo06KgbAWOehXZd4ci60a8tdr/qv/dc7
+	V+sDSngNkCo2mjIithlkmp0mTjngXSqZVt6E+8roti5iUbczNaekaJEZ7vNBloM4zIKWHBVrX44
+	PbhtC285OK1Ny8jn07lGp9Oq/9nBOYWE7D0JxMqXRxKAaS6ARtb4dEL9a+ZoX+xf3j1ePNLVKUM
+	brDjOdPFycCnU3Kf1O6Srbqo61hBRa/EnVMFztwA+Mtfgk0RyA81ZfXjkPuHaYpOL6Kx0v3P5a0
+	iEZOV13PX7AV5QO8spUXD5zBqekhH1AEwcZabVPsBScLAlYyks=
+X-Received: by 2002:a17:90a:6082:b0:3ac:ffb8:183b with SMTP id 98e67ed59e1d1-3acffb826b6mr3428244a91.51.1792424924349;
+        Mon, 19 Oct 2026 08:48:44 -0700 (PDT)
 Received: from hostname.tail4fb79.ts.net ([2401:7400:c804:b668:a144:150d:733a:5ba2])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3ad5cc13658sm63271a91.4.2026.10.19.08.48.35
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3ad5cc13658sm63271a91.4.2026.10.19.08.48.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 08:48:38 -0700 (PDT)
+        Mon, 19 Oct 2026 08:48:43 -0700 (PDT)
 From: Ho Jie Feng <hjf3108@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Ho Jie Feng <hjf3108@gmail.com>,
@@ -86,9 +86,9 @@ Cc: Ho Jie Feng <hjf3108@gmail.com>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/4] drm/format-helper: Add XRGB8888 to UYVY conversion
-Date: Mon, 19 Oct 2026 23:48:05 +0800
-Message-ID: <20261019154820.68659-2-hjf3108@gmail.com>
+Subject: [PATCH v1 2/4] drm/ms91xx: Add register access and connector support
+Date: Mon, 19 Oct 2026 23:48:06 +0800
+Message-ID: <20261019154820.68659-3-hjf3108@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261019154820.68659-1-hjf3108@gmail.com>
 References: <20261019154820.68659-1-hjf3108@gmail.com>
@@ -103,126 +103,684 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a helper for devices that use packed UYVY but accept XRGB8888
-framebuffers.
+Implement for the ms91xx driver:
+- USB control requests for register and flash access
+- display power
+- mode programming
+- custom timings stored in device flash
+- connector detection
+- EDID mode
+- fallback modes
 
 Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 ---
- drivers/gpu/drm/drm_format_helper.c   | 52 +++++++++++++++++++++++++++
- drivers/gpu/drm/drm_format_internal.h | 19 ++++++++++
- include/drm/drm_format_helper.h       |  4 +++
- 3 files changed, 75 insertions(+)
+ drivers/gpu/drm/ms91xx/ms91xx_connector.c | 263 +++++++++++++++
+ drivers/gpu/drm/ms91xx/ms91xx_registers.c | 386 ++++++++++++++++++++++
+ 2 files changed, 649 insertions(+)
+ create mode 100644 drivers/gpu/drm/ms91xx/ms91xx_connector.c
+ create mode 100644 drivers/gpu/drm/ms91xx/ms91xx_registers.c
 
-diff --git a/drivers/gpu/drm/drm_format_helper.c b/drivers/gpu/drm/drm_format_helper.c
-index 6cddf05c493bd..3cdfb4c68bfbf 100644
---- a/drivers/gpu/drm/drm_format_helper.c
-+++ b/drivers/gpu/drm/drm_format_helper.c
-@@ -11,6 +11,7 @@
- #include <linux/export.h>
- #include <linux/io.h>
- #include <linux/iosys-map.h>
-+#include <linux/math.h>
- #include <linux/module.h>
- #include <linux/slab.h>
- 
-@@ -1379,3 +1380,54 @@ void drm_fb_xrgb8888_to_gray2(struct iosys_map *dst, const unsigned int *dst_pit
- }
- EXPORT_SYMBOL(drm_fb_xrgb8888_to_gray2);
- 
-+static void drm_fb_xrgb8888_to_uyvy_line(void *dbuf, const void *sbuf, unsigned int pixels)
+diff --git a/drivers/gpu/drm/ms91xx/ms91xx_connector.c b/drivers/gpu/drm/ms91xx/ms91xx_connector.c
+new file mode 100644
+index 0000000000000..d04f818fa09f2
+--- /dev/null
++++ b/drivers/gpu/drm/ms91xx/ms91xx_connector.c
+@@ -0,0 +1,263 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <linux/array_size.h>
++#include <linux/types.h>
++
++#include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_crtc.h>
++#include <drm/drm_device.h>
++#include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
++#include <drm/drm_mode_config.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_modeset_helper_vtables.h>
++#include <drm/drm_probe_helper.h>
++#include <drm/drm_print.h>
++
++#include "ms91xx.h"
++
++static int ms91xx_get_connector_type(struct ms91xx_device *ms91xx)
 +{
-+	__le32 *dbuf32 = dbuf;
-+	const __le32 *sbuf32 = sbuf;
-+	const __le32 *send32 = sbuf32 + round_down(pixels, 2);
++	int port_type;
 +
-+	while (sbuf32 < send32) {
-+		u32 pix1 = le32_to_cpup(sbuf32);
-+		u32 pix2 = le32_to_cpup(sbuf32 + 1);
-+		u32 val32 = drm_pixel_xrgb8888_to_uyvy_bt601(pix1, pix2);
++	port_type = ms91xx_read_byte(ms91xx, MS91XX_REG_VIDEO_PORT);
++	if (port_type < 0) {
++		drm_warn(&ms91xx->drm,
++			 "failed to read video port type: %d\n", port_type);
++		ms91xx->port_type = MS91XX_VIDEO_PORT_UNKNOWN;
++		return DRM_MODE_CONNECTOR_Unknown;
++	}
 +
-+		*dbuf32++ = cpu_to_le32(val32);
-+		sbuf32 += 2;
++	ms91xx->port_type = port_type;
++
++	switch (ms91xx->port_type) {
++	case MS91XX_VIDEO_PORT_CVBS:
++		return DRM_MODE_CONNECTOR_Composite;
++	case MS91XX_VIDEO_PORT_VGA:
++		return DRM_MODE_CONNECTOR_VGA;
++	case MS91XX_VIDEO_PORT_YPBPR:
++		return DRM_MODE_CONNECTOR_Component;
++	/*
++	 * Combo VGA+HDMI device seems to report this as connector type
++	 * Since there doesn't seem to be any S-Video devices out there,
++	 * set this to HDMI instead.
++	 */
++	case MS91XX_VIDEO_PORT_SVIDEO:
++	case MS91XX_VIDEO_PORT_HDMI:
++		return DRM_MODE_CONNECTOR_HDMIA;
++	case MS91XX_VIDEO_PORT_DIGITAL:
++		return DRM_MODE_CONNECTOR_DPI;
++	case MS91XX_VIDEO_PORT_CVBS_SVIDEO:
++		return DRM_MODE_CONNECTOR_9PinDIN;
++	default:
++		drm_warn(&ms91xx->drm,
++			 "unknown video port type: %d\n", port_type);
++		ms91xx->port_type = MS91XX_VIDEO_PORT_UNKNOWN;
++		return DRM_MODE_CONNECTOR_Unknown;
 +	}
 +}
 +
-+/**
-+ * drm_fb_xrgb8888_to_uyvy - Convert XRGB8888 to UYVY clip buffer
-+ * @dst: Array of UYVY destination buffers
-+ * @dst_pitch: Array of numbers of bytes between the start of two consecutive scanlines
-+ *             within @dst; can be NULL if scanlines are stored next to each other.
-+ * @src: Array of XRGB8888 source buffers
-+ * @fb: DRM framebuffer
-+ * @clip: Clip rectangle area to copy; x1 and x2 must be even
-+ * @state: Transform and conversion state
-+ *
-+ * This function copies parts of a framebuffer to display memory and converts the
-+ * color format during the process. The parameters @dst, @dst_pitch and @src refer
-+ * to arrays. Each array must have at least as many entries as there are planes in
-+ * @fb's format. Each entry stores the value for the format's respective color plane
-+ * at the same index.
-+ *
-+ * This function does not apply clipping on @dst (i.e. the destination is at the
-+ * top-left corner).
-+ *
-+ * Drivers can use this function for UYVY devices that don't support XRGB8888
-+ * natively. ITU BT.601 is being used for the RGB -> YUV conversion.
-+ */
-+void drm_fb_xrgb8888_to_uyvy(struct iosys_map *dst, const unsigned int *dst_pitch,
-+			     const struct iosys_map *src, const struct drm_framebuffer *fb,
-+			     const struct drm_rect *clip, struct drm_format_conv_state *state)
++static int
++ms91xx_get_encoder_type(enum ms91xx_video_port port_type)
 +{
-+	static const u8 dst_pixsize[DRM_FORMAT_MAX_PLANES] = {
-+		2,
++	switch (port_type) {
++	case MS91XX_VIDEO_PORT_VGA:
++		return DRM_MODE_ENCODER_DAC;
++	case MS91XX_VIDEO_PORT_CVBS:
++	case MS91XX_VIDEO_PORT_YPBPR:
++	case MS91XX_VIDEO_PORT_CVBS_SVIDEO:
++		return DRM_MODE_ENCODER_TVDAC;
++	/* See above comment */
++	case MS91XX_VIDEO_PORT_SVIDEO:
++	case MS91XX_VIDEO_PORT_HDMI:
++		return DRM_MODE_ENCODER_TMDS;
++	case MS91XX_VIDEO_PORT_DIGITAL:
++		return DRM_MODE_ENCODER_DPI;
++	case MS91XX_VIDEO_PORT_UNKNOWN:
++	default:
++		return DRM_MODE_ENCODER_NONE;
++	}
++}
++
++static int ms91xx_read_edid(void *data, u8 *buf, unsigned int block, size_t len)
++{
++	struct ms91xx_device *ms91xx = data;
++	int offset = block * EDID_LENGTH;
++	unsigned int i;
++	int ret;
++
++	for (i = 0; i < len; i++) {
++		u16 address = MS91XX_REG_EDID_BASE + offset + i;
++
++		ret = ms91xx_read_byte(ms91xx, address);
++		if (ret < 0)
++			return ret;
++		buf[i] = ret;
++	}
++	return 0;
++}
++
++static int ms91xx_add_cea_modes(struct drm_connector *connector,
++				const u8 *vics, size_t num_vics)
++{
++	struct drm_display_mode *mode;
++	unsigned int i;
++	int count = 0;
++
++	drm_edid_connector_update(connector, NULL);
++
++	for (i = 0; i < num_vics; i++) {
++		mode = drm_display_mode_from_cea_vic(connector->dev, vics[i]);
++		if (!mode)
++			continue;
++
++		if (!count)
++			mode->type |= DRM_MODE_TYPE_PREFERRED;
++		drm_mode_probed_add(connector, mode);
++		count++;
++	}
++
++	return count;
++}
++
++static int ms91xx_add_cvbs_svideo_modes(struct drm_connector *connector)
++{
++	static const u8 vics[] = {
++		2,  /* 720x480p60 */
++		17, /* 720x576p50 */
 +	};
 +
-+	drm_fb_xfrm(dst, dst_pitch, dst_pixsize, src, fb, clip, false, state,
-+		    drm_fb_xrgb8888_to_uyvy_line);
++	return ms91xx_add_cea_modes(connector, vics, ARRAY_SIZE(vics));
 +}
-+EXPORT_SYMBOL(drm_fb_xrgb8888_to_uyvy);
 +
-diff --git a/drivers/gpu/drm/drm_format_internal.h b/drivers/gpu/drm/drm_format_internal.h
-index ce29dd05bcc55..41875656e59e4 100644
---- a/drivers/gpu/drm/drm_format_internal.h
-+++ b/drivers/gpu/drm/drm_format_internal.h
-@@ -159,6 +159,25 @@ static inline u32 drm_pixel_xrgb8888_to_abgr2101010(u32 pix)
- 	       drm_pixel_xrgb8888_to_xbgr2101010(pix);
- }
- 
-+static inline u32 drm_pixel_xrgb8888_to_uyvy_bt601(u32 pix1, u32 pix2)
++static int ms91xx_add_ypbpr_modes(struct drm_connector *connector)
 +{
-+	u32 r1 = (pix1 & 0x00ff0000) >> 16;
-+	u32 g1 = (pix1 & 0x0000ff00) >> 8;
-+	u32 b1 =  pix1 & 0x000000ff;
-+	u32 r2 = (pix2 & 0x00ff0000) >> 16;
-+	u32 g2 = (pix2 & 0x0000ff00) >> 8;
-+	u32 b2 =  pix2 & 0x000000ff;
-+	u32 r = r1 + r2;
-+	u32 g = g1 + g2;
-+	u32 b = b1 + b2;
-+	u32 y1 = ((16U << 16) + 16829 * r1 + 33039 * g1 + 6416 * b1 + 32768) >> 16;
-+	u32 y2 = ((16U << 16) + 16829 * r2 + 33039 * g2 + 6416 * b2 + 32768) >> 16;
-+	u32 u = ((128U << 17) - 9714 * r - 19071 * g + 28784 * b + 65536) >> 17;
-+	u32 v = ((128U << 17) + 28784 * r - 24103 * g - 4681 * b + 65536) >> 17;
++	static const u8 vics[] = {
++		4,  /* 1280x720p60 */
++		16, /* 1920x1080p60 */
++		2,  /* 720x480p60 */
++		17, /* 720x576p50 */
++	};
 +
-+	return u | (y1 << 8) | (v << 16) | (y2 << 24);
++	return ms91xx_add_cea_modes(connector, vics, ARRAY_SIZE(vics));
 +}
 +
- /*
-  * Conversion from ARGB8888
-  */
-diff --git a/include/drm/drm_format_helper.h b/include/drm/drm_format_helper.h
-index 2b5c1aef80b0e..e50f96e07484c 100644
---- a/include/drm/drm_format_helper.h
-+++ b/include/drm/drm_format_helper.h
-@@ -136,4 +136,8 @@ void drm_fb_xrgb8888_to_gray2(struct iosys_map *dst, const unsigned int *dst_pit
- 			      const struct iosys_map *src, const struct drm_framebuffer *fb,
- 			      const struct drm_rect *clip, struct drm_format_conv_state *state);
- 
-+void drm_fb_xrgb8888_to_uyvy(struct iosys_map *dst, const unsigned int *dst_pitch,
-+			     const struct iosys_map *src, const struct drm_framebuffer *fb,
-+			     const struct drm_rect *clip, struct drm_format_conv_state *state);
++static int
++ms91xx_add_default_hdmi_vga_modes(struct drm_connector *connector)
++{
++	struct drm_mode_config *mode_config = &connector->dev->mode_config;
++	int count;
 +
- #endif /* __LINUX_DRM_FORMAT_HELPER_H */
++	drm_edid_connector_update(connector, NULL);
++	count = drm_add_modes_noedid(connector, mode_config->max_width,
++				     mode_config->max_height);
++	if (count)
++		drm_set_preferred_mode(connector, 1024, 768);
++
++	return count;
++}
++
++static int ms91xx_add_custom_mode(struct drm_connector *connector)
++{
++	struct ms91xx_device *ms91xx = to_ms91xx(connector->dev);
++	struct drm_display_mode *mode;
++	unsigned int i;
++	int count = 0;
++
++	for (i = 0; i < ms91xx->num_custom_modes; i++) {
++		mode = drm_mode_duplicate(
++			connector->dev,
++			&ms91xx->custom_modes[i].display_mode);
++		if (!mode)
++			continue;
++
++		drm_mode_probed_add(connector, mode);
++		count++;
++	}
++
++	return count;
++}
++
++static int ms91xx_connector_get_modes(struct drm_connector *connector)
++{
++	struct ms91xx_device *ms91xx = to_ms91xx(connector->dev);
++	const struct drm_edid *edid;
++	int ret = ms91xx_add_custom_mode(connector);
++
++	if (ms91xx->port_type == MS91XX_VIDEO_PORT_CVBS ||
++	    ms91xx->port_type == MS91XX_VIDEO_PORT_CVBS_SVIDEO ||
++	    ms91xx->port_type == MS91XX_VIDEO_PORT_UNKNOWN)
++		return ret + ms91xx_add_cvbs_svideo_modes(connector);
++
++	if (ms91xx->port_type == MS91XX_VIDEO_PORT_YPBPR)
++		return ret + ms91xx_add_ypbpr_modes(connector);
++
++	edid = drm_edid_read_custom(connector, ms91xx_read_edid, ms91xx);
++	if (!edid)
++		return ret + ms91xx_add_default_hdmi_vga_modes(connector);
++
++	if (drm_edid_connector_update(connector, edid) >= 0)
++		ret += drm_edid_connector_add_modes(connector);
++	drm_edid_free(edid);
++	return ret;
++}
++
++static enum drm_connector_status ms91xx_detect(struct drm_connector *connector,
++					       bool force)
++{
++	struct ms91xx_device *ms91xx = to_ms91xx(connector->dev);
++	int status = ms91xx_read_byte(ms91xx, MS91XX_REG_DISPLAY_STATUS);
++
++	if (status < 0)
++		return connector_status_unknown;
++
++	return status == 1 ? connector_status_connected :
++			     connector_status_disconnected;
++}
++
++static const struct drm_encoder_funcs ms91xx_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
++static const struct drm_connector_helper_funcs ms91xx_connector_helper_funcs = {
++	.get_modes = ms91xx_connector_get_modes,
++};
++
++static const struct drm_connector_funcs ms91xx_connector_funcs = {
++	.fill_modes = drm_helper_probe_single_connector_modes,
++	.destroy = drm_connector_cleanup,
++	.detect = ms91xx_detect,
++	.reset = drm_atomic_helper_connector_reset,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++};
++
++int ms91xx_connector_init(struct ms91xx_device *ms91xx)
++{
++	int ret;
++	int connector_type;
++	int encoder_type;
++
++	connector_type = ms91xx_get_connector_type(ms91xx);
++	encoder_type = ms91xx_get_encoder_type(ms91xx->port_type);
++
++	ret = drm_encoder_init(&ms91xx->drm, &ms91xx->encoder,
++			       &ms91xx_encoder_funcs, encoder_type, NULL);
++	if (ret)
++		return ret;
++	ms91xx->encoder.possible_crtcs = drm_crtc_mask(&ms91xx->crtc);
++
++	drm_connector_helper_add(&ms91xx->connector,
++				 &ms91xx_connector_helper_funcs);
++	ret = drm_connector_init(&ms91xx->drm, &ms91xx->connector,
++				 &ms91xx_connector_funcs, connector_type);
++	if (ret)
++		return ret;
++
++	ms91xx->connector.polled =
++		DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
++
++	return drm_connector_attach_encoder(&ms91xx->connector,
++					    &ms91xx->encoder);
++}
+diff --git a/drivers/gpu/drm/ms91xx/ms91xx_registers.c b/drivers/gpu/drm/ms91xx/ms91xx_registers.c
+new file mode 100644
+index 0000000000000..84cbdc78002b1
+--- /dev/null
++++ b/drivers/gpu/drm/ms91xx/ms91xx_registers.c
+@@ -0,0 +1,386 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <asm/byteorder.h>
++#include <linux/errno.h>
++#include <linux/gfp.h>
++#include <linux/hid.h>
++#include <linux/math.h>
++#include <linux/minmax.h>
++#include <linux/mutex.h>
++#include <linux/string.h>
++#include <linux/types.h>
++#include <linux/usb.h>
++
++#include <drm/drm_drv.h>
++#include <drm/drm_modes.h>
++
++#include "ms91xx.h"
++
++int ms91xx_read_byte(struct ms91xx_device *ms91xx, u16 address)
++{
++	struct ms91xx_request request;
++	struct usb_device *usb_dev;
++	int idx, ret;
++
++	if (!drm_dev_enter(&ms91xx->drm, &idx))
++		return -ENODEV;
++
++	mutex_lock(&ms91xx->ctrl_lock);
++
++	usb_dev = interface_to_usbdev(ms91xx->intf);
++	memset(&request, 0, sizeof(request));
++	request.type = MS91XX_REQ_TYPE_READ_BYTE;
++	request.addr = cpu_to_be16(address);
++
++	ret = usb_control_msg_send(usb_dev, 0, HID_REQ_SET_REPORT,
++				   USB_DIR_OUT | USB_TYPE_CLASS |
++					   USB_RECIP_INTERFACE,
++				   0x0300, 0, &request, sizeof(request),
++				   USB_CTRL_SET_TIMEOUT, GFP_KERNEL);
++	if (ret)
++		goto ctrl_unlock;
++
++	ret = usb_control_msg_recv(usb_dev, 0, HID_REQ_GET_REPORT,
++				   USB_DIR_IN | USB_TYPE_CLASS |
++					   USB_RECIP_INTERFACE,
++				   0x0300, 0, &request, sizeof(request),
++				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
++	if (!ret)
++		ret = request.data[0];
++
++ctrl_unlock:
++	mutex_unlock(&ms91xx->ctrl_lock);
++	drm_dev_exit(idx);
++	return ret;
++}
++
++static int ms91xx_read_flash(struct ms91xx_device *ms91xx, u32 address,
++			     void *data, size_t len)
++{
++	struct ms91xx_flash_read_request request;
++	struct usb_device *usb_dev;
++	size_t offset = 0;
++	u8 *dst = data;
++	int idx, ret = 0;
++
++	if (address > 0xffffff || len > 0x1000000 - address)
++		return -ERANGE;
++
++	if (!drm_dev_enter(&ms91xx->drm, &idx))
++		return -ENODEV;
++
++	mutex_lock(&ms91xx->ctrl_lock);
++	usb_dev = interface_to_usbdev(ms91xx->intf);
++
++	while (offset < len) {
++		size_t chunk = min_t(size_t, len - offset, sizeof(request));
++		u32 current_address = address + offset;
++
++		memset(&request, 0, sizeof(request));
++		request.type = MS91XX_REQ_TYPE_READ_FLASH;
++		request.addr[0] = current_address >> 16;
++		request.addr[1] = current_address >> 8;
++		request.addr[2] = current_address;
++
++		ret = usb_control_msg_send(usb_dev, 0, HID_REQ_SET_REPORT,
++					   USB_DIR_OUT | USB_TYPE_CLASS |
++						   USB_RECIP_INTERFACE,
++					   0x0300, 0, &request,
++					   sizeof(request),
++					   USB_CTRL_SET_TIMEOUT, GFP_KERNEL);
++		if (ret)
++			goto ctrl_unlock;
++
++		ret = usb_control_msg_recv(usb_dev, 0, HID_REQ_GET_REPORT,
++					   USB_DIR_IN | USB_TYPE_CLASS |
++						   USB_RECIP_INTERFACE,
++					   0x0300, 0, &request,
++					   sizeof(request),
++					   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
++		if (ret)
++			goto ctrl_unlock;
++
++		memcpy(dst + offset, &request, chunk);
++		offset += chunk;
++	}
++
++ctrl_unlock:
++	mutex_unlock(&ms91xx->ctrl_lock);
++	drm_dev_exit(idx);
++	return ret;
++}
++
++static int ms91xx_custom_timing_base(struct ms91xx_device *ms91xx)
++{
++	u8 signature[3];
++	int ret;
++
++	/* Read chip signature */
++	ret = ms91xx_read_byte(ms91xx, MS913X_REG_CHIP_ID);
++	if (ret < 0)
++		return ret;
++	signature[0] = ret;
++
++	ret = ms91xx_read_byte(ms91xx, MS913X_REG_CHIP_ID + 1);
++	if (ret < 0)
++		return ret;
++	signature[1] = ret;
++
++	ret = ms91xx_read_byte(ms91xx, MS913X_REG_CHIP_ID + 2);
++	if (ret < 0)
++		return ret;
++	signature[2] = ret;
++
++	if (signature[1] == MS913X_CHIP_ID_SIGNATURE_MSB &&
++	    signature[2] == MS91XX_CHIP_ID_SIGNATURE_LSB)
++		return MS913X_CUSTOM_TIMING_BASE;
++
++	ret = ms91xx_read_byte(ms91xx, MS912X_REG_CHIP_ID);
++	if (ret < 0)
++		return ret;
++	signature[0] = ret;
++
++	ret = ms91xx_read_byte(ms91xx, MS912X_REG_CHIP_ID + 1);
++	if (ret < 0)
++		return ret;
++	signature[1] = ret;
++
++	ret = ms91xx_read_byte(ms91xx, MS912X_REG_CHIP_ID + 2);
++	if (ret < 0)
++		return ret;
++	signature[2] = ret;
++
++	if (signature[1] == MS912X_CHIP_ID_SIGNATURE_MSB &&
++	    signature[2] == MS91XX_CHIP_ID_SIGNATURE_LSB)
++		return MS912X_CUSTOM_TIMING_BASE;
++
++	return -ENODEV;
++}
++
++static int
++ms91xx_decode_custom_timing(struct ms91xx_custom_mode *custom_mode,
++			    const struct ms91xx_custom_timing_record *record)
++{
++	struct drm_display_mode *display_mode = &custom_mode->display_mode;
++	u16 hsyncwidth = le16_to_cpu(record->hsyncwidth);
++	u16 vsyncwidth = le16_to_cpu(record->vsyncwidth);
++	u16 hoffset = le16_to_cpu(record->hoffset);
++	u16 voffset = le16_to_cpu(record->voffset);
++	u16 hactive = le16_to_cpu(record->hactive);
++	u16 vactive = le16_to_cpu(record->vactive);
++	u16 htotal = le16_to_cpu(record->htotal);
++	u16 vtotal = le16_to_cpu(record->vtotal);
++	u16 pixclk = le16_to_cpu(record->pixclk);
++	u16 vfreq = le16_to_cpu(record->vfreq);
++	unsigned int hblank, vblank;
++	int refresh;
++
++	if (!hactive || hactive > MS91XX_MAX_WIDTH ||
++	    !vactive || vactive > MS91XX_MAX_HEIGHT ||
++	    htotal <= hactive || vtotal <= vactive || !pixclk || !vfreq)
++		return -EINVAL;
++
++	hblank = htotal - hactive;
++	vblank = vtotal - vactive;
++	if (!hsyncwidth || hsyncwidth > hoffset || hoffset > hblank ||
++	    !vsyncwidth || vsyncwidth > voffset || voffset > vblank)
++		return -EINVAL;
++
++	memset(display_mode, 0, sizeof(*display_mode));
++	display_mode->clock = pixclk * 10;
++	display_mode->hdisplay = hactive;
++	display_mode->hsync_start = htotal - hoffset;
++	display_mode->hsync_end = display_mode->hsync_start + hsyncwidth;
++	display_mode->htotal = htotal;
++	display_mode->vdisplay = vactive;
++	display_mode->vsync_start = vtotal - voffset;
++	display_mode->vsync_end = display_mode->vsync_start + vsyncwidth;
++	display_mode->vtotal = vtotal;
++	display_mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
++	display_mode->flags =
++		record->polarity & MS91XX_TIMING_POSITIVE_HSYNC ?
++			DRM_MODE_FLAG_PHSYNC : DRM_MODE_FLAG_NHSYNC;
++	display_mode->flags |=
++		record->polarity & MS91XX_TIMING_POSITIVE_VSYNC ?
++			DRM_MODE_FLAG_PVSYNC : DRM_MODE_FLAG_NVSYNC;
++	if (!(record->polarity & MS91XX_TIMING_PROGRESSIVE))
++		display_mode->flags |= DRM_MODE_FLAG_INTERLACE;
++
++	refresh = DIV_ROUND_CLOSEST(vfreq, 100);
++	if (!refresh || drm_mode_vrefresh(display_mode) != refresh)
++		return -EINVAL;
++
++	drm_mode_set_name(display_mode);
++	custom_mode->mode.width = hactive;
++	custom_mode->mode.height = vactive;
++	custom_mode->mode.hz = refresh;
++	custom_mode->mode.mode = record->vic;
++
++	return 0;
++}
++
++int ms91xx_read_custom_timing(struct ms91xx_device *ms91xx)
++{
++	struct ms91xx_custom_timing_record record;
++	unsigned int num_records, i;
++	int error = 0;
++	u8 marker[7];
++	int base, ret;
++
++	ms91xx->num_custom_modes = 0;
++
++	base = ms91xx_custom_timing_base(ms91xx);
++	if (base < 0)
++		return base;
++
++	ret = ms91xx_read_flash(ms91xx, base, marker, sizeof(marker));
++	if (ret)
++		return ret;
++
++	if (!memcmp(marker, "modify1", sizeof(marker)))
++		num_records = 1;
++	else if (!memcmp(marker, "modify2", sizeof(marker)))
++		num_records = 2;
++	else
++		return 0;
++
++	for (i = 0; i < num_records; i++) {
++		ret = ms91xx_read_flash(ms91xx,
++					base + MS91XX_CUSTOM_TIMING_OFFSET +
++						i * MS91XX_CUSTOM_TIMING_STRIDE,
++					&record, sizeof(record));
++		if (ret) {
++			error = ret;
++			continue;
++		}
++
++		ret = ms91xx_decode_custom_timing(
++			&ms91xx->custom_modes[ms91xx->num_custom_modes],
++			&record);
++		if (ret) {
++			error = ret;
++			continue;
++		}
++
++		ms91xx->num_custom_modes++;
++	}
++
++	return ms91xx->num_custom_modes ? ms91xx->num_custom_modes : error;
++}
++
++static int ms91xx_write_6_bytes(struct ms91xx_device *ms91xx,
++				u8 address, const void *data)
++{
++	struct ms91xx_write_request request;
++	struct usb_device *usb_dev;
++	int idx, ret;
++
++	if (!drm_dev_enter(&ms91xx->drm, &idx))
++		return -ENODEV;
++
++	mutex_lock(&ms91xx->ctrl_lock);
++
++	usb_dev = interface_to_usbdev(ms91xx->intf);
++	request.type = MS91XX_REQ_TYPE_WRITE_6_BYTES;
++	request.addr = address;
++	memcpy(request.data, data, sizeof(request.data));
++
++	ret = usb_control_msg_send(usb_dev, 0, HID_REQ_SET_REPORT,
++				   USB_DIR_OUT | USB_TYPE_CLASS |
++					   USB_RECIP_INTERFACE,
++				   0x0300, 0, &request, sizeof(request),
++				   USB_CTRL_SET_TIMEOUT, GFP_KERNEL);
++	mutex_unlock(&ms91xx->ctrl_lock);
++	drm_dev_exit(idx);
++
++	return ret;
++}
++
++int ms91xx_power_on(struct ms91xx_device *ms91xx)
++{
++	u8 data[6];
++
++	memset(data, 0, sizeof(data));
++	data[0] = 0x01;
++	data[1] = 0x02;
++
++	return ms91xx_write_6_bytes(ms91xx, MS91XX_CMD_POWER, data);
++}
++
++int ms91xx_power_off(struct ms91xx_device *ms91xx)
++{
++	u8 data[6];
++
++	memset(data, 0, sizeof(data));
++
++	return ms91xx_write_6_bytes(ms91xx, MS91XX_CMD_POWER, data);
++}
++
++int ms91xx_set_resolution(struct ms91xx_device *ms91xx,
++			  const struct ms91xx_mode *mode)
++{
++	int ret;
++	u8 data[6];
++	struct ms91xx_resolution_request resolution_request;
++	struct ms91xx_mode_request mode_request;
++
++	int width = mode->width;
++	int height = mode->height;
++	int mode_num = mode->mode;
++
++	/* Sequence obtained from Windows USB captures */
++	memset(data, 0, sizeof(data));
++	data[0] = 0;
++	ret = ms91xx_write_6_bytes(ms91xx, MS91XX_CMD_UNKNOWN2, data);
++	if (ret < 0)
++		return ret;
++
++	ret = ms91xx_read_byte(ms91xx, MS91XX_REG_MODE_SEQUENCE_0);
++	if (ret < 0)
++		return ret;
++	ret = ms91xx_read_byte(ms91xx, MS91XX_REG_MODE_SEQUENCE_1);
++	if (ret < 0)
++		return ret;
++	ret = ms91xx_read_byte(ms91xx, MS91XX_REG_MODE_SEQUENCE_2);
++	if (ret < 0)
++		return ret;
++
++	memset(data, 0, sizeof(data));
++	data[0] = 0x03;
++	ret = ms91xx_write_6_bytes(ms91xx, MS91XX_CMD_UNKNOWN1, data);
++	if (ret < 0)
++		return ret;
++
++	/* Write resolution */
++	resolution_request.width = cpu_to_be16(width);
++	resolution_request.height = cpu_to_be16(height);
++	resolution_request.pixel_format = MS91XX_PIXFMT_UYVY;
++	resolution_request.byte_select = MS91XX_BYTE_SELECT_UYVY;
++	ret = ms91xx_write_6_bytes(ms91xx, MS91XX_CMD_RESOLUTION,
++				   &resolution_request);
++	if (ret < 0)
++		return ret;
++
++	/* Write mode */
++	mode_request.mode = mode_num;
++	mode_request.pixel_format = 0x01;
++	mode_request.width = cpu_to_be16(width);
++	mode_request.height = cpu_to_be16(height);
++	ret = ms91xx_write_6_bytes(ms91xx, MS91XX_CMD_MODE, &mode_request);
++	if (ret < 0)
++		return ret;
++
++	memset(data, 0, sizeof(data));
++	data[0] = 1;
++	ret = ms91xx_write_6_bytes(ms91xx, MS91XX_CMD_UNKNOWN2, data);
++	if (ret < 0)
++		return ret;
++
++	memset(data, 0, sizeof(data));
++	data[0] = 1;
++	ret = ms91xx_write_6_bytes(ms91xx, MS91XX_CMD_OUTPUT_ENABLE, data);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
 -- 
 2.55.0
 
