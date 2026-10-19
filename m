@@ -1,98 +1,93 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC92C4CDDF4;
-	Mon, 19 Oct 2026 10:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86A54DA535;
+	Mon, 19 Oct 2026 10:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407491; cv=none; b=n4h0znGQH8PsGDSmbm72xX34b8hYoT9BrbRmpZoiQxKnO7NrFoOr86yngs0UyNPPJ/vbSH4E9HzNBGBn89Lx+Ll/XsJg3ymxZ/BX3+HJfXchYHwqgKlvu6ePcyDN4V4Ac/agwssS/HkVvyhzRGOiGbDSIqf/W+VpkwL+Z2jpFiU=
+	t=1792407494; cv=none; b=APOR1ooE9EYJja84T2tv7GZLlM8rl460PIWqifPS3lG2qnlklY5DhdUxK9BY0CBO7fJBCRmd5DWl3AYgD3UMY6tsjdAsoGCgAS96og/s23c1pr8Sseycq6p7iTj8naZnoEXhyeekINV2NtGvZFKehlb3Hhz0Dfv0GcCLmdgS2ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407491; c=relaxed/simple;
-	bh=ewQ2L/U+T777donZgm1mtkM3BgJTCrtDf8wlLKmxRzY=;
+	s=arc-20240116; t=1792407494; c=relaxed/simple;
+	bh=zxCw7LM35gSBCwkwViMSJmmfnBJ863fFFLzm1ixlyBo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kaBdSNwwx/LLhSkYL4elZsiczAiEn7hW6+EXSBDV/QBTEPQsH2uDZKYzUPO/0ffT5a+EMAYDFZv2fbz0whakh7beUduj0jmNHH5d2pN3fcjmQap1rkghQ3a72wSrTXQ/l8/DK07DRIrqfNwjeH84QsQUK5i+o8cuNtMAbeeQgnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dAUaYDvP; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MpPdZ/LR; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=jRQgtEnAlSTUJZDigxSOAhF6AwOMOqPAjtct+zx4rJzIelF/GFrYcvWTI8mIRw1YrycopVxqM7JJYkp2w1U1hpb63tp4TtJU9m62e+sY9viDAqnRZUF6qUN7zuwWho9Oa8rg/p+OvnrdOLn5Jm70AWe8mvKKtgzd95jkPJdIUeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nnzFnmXy; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dAUaYDvP";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MpPdZ/LR"
-Date: Mon, 19 Oct 2026 12:58:06 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792407487;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DwKbQZe0ssbC2v1gH5o7qPfZg2R/nJOsGqE8xTOvxCs=;
-	b=dAUaYDvPPAZ4i5wUYKPK4fmChdu3Mb1k72b+Mc7s3P/lbzO+U2bEOanXObDKCNSVwXFFUn
-	19eJIvai59IG7Zl5Z9F7+P2d8YjLJR3wKRGd8TzfjxgA3HXSywuNySV65PeWSegZeRP9Q7
-	ci3HK1s3g48GFNnJ37RN3trmsgmRaD8ofVJ0oKxK0osfO1yrTQnYi4rH2ejfObijPRODs9
-	j7HEIj5bLxgMRvRws24tGd1uXJI+TrWxYStFLK2Kd83hIltJJPxIdzOFWDty0mXaSxOgJh
-	gFkQEYsgW7v8ymarCH//fCd5YFK4edXUFsHfp9Om/ansHBfrSf4+h9zUKA84Yg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792407487;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DwKbQZe0ssbC2v1gH5o7qPfZg2R/nJOsGqE8xTOvxCs=;
-	b=MpPdZ/LR8ZBoHgwqyyr4Sb7LvQoTq8J+ppzFIga9CGIBhyw1wTJd9oI3SbaUnT7aCeoh/f
-	whJg6yMCyOHg1RAA==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpio: sim: constify struct configfs_attribute
-Message-ID: <20261019125659-aed31326-8dc6-427f-b8c2-f4a55b622cd2@linutronix.de>
-References: <20261019-gpio-sim-const-configfs-attrs-v1-1-e9f919b32f08@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nnzFnmXy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792407493; x=1823943493;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zxCw7LM35gSBCwkwViMSJmmfnBJ863fFFLzm1ixlyBo=;
+  b=nnzFnmXyFGwyT+vzb+/Ydo15HoZ1L9DOVk0gKHuyldgUle7xxMKki81A
+   LS1DCGb0QFcFTAsb2QVQZKNbAWxUg4d0Rjyek9swNpkoPlrmaVyjOB2/z
+   I1e5mbKzsT+pWqwa6QoYv5PjOVeEMtz3bZNefTh0CH+xgqHGART8Agi5r
+   2i4ughxaMkrLbpyLfsc1HyTaqiribr++WC9dDn51/Y9XOqllCE0QTlIta
+   atQgt+VoVaSjN+GX0diSqDPRV837hmpHUqfmX+/CDyXWf4dqRgK9+SIl+
+   jKA8lf61RUFttidGDxR9vTTw4XgpLA++q8Yuz+TctpyYRoJ9warTEsr60
+   Q==;
+X-CSE-ConnectionGUID: TkdngWUJTwW8U/IfDI6wEA==
+X-CSE-MsgGUID: PkBmw6AGTU+tizRGpij4SA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1096236"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1096236"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:58:12 -0700
+X-CSE-ConnectionGUID: YqohVtC6Qt6aYquL0muSJg==
+X-CSE-MsgGUID: eS3B/quwTqqx05hLssKdhg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2392023"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:58:09 -0700
+Date: Mon, 19 Oct 2026 13:58:06 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Christopher Hoover <ch@murgatroid.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] iio: humidity: hid-sensor-humidity: Use
+ per-instance callbacks
+Message-ID: <atX3vi_iQ--p1Pha@ashevche-desk.local>
+References: <20261019023420.83976-1-ch@murgatroid.com>
+ <20261019023420.83976-4-ch@murgatroid.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261019-gpio-sim-const-configfs-attrs-v1-1-e9f919b32f08@oss.qualcomm.com>
+In-Reply-To: <20261019023420.83976-4-ch@murgatroid.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 19, 2026 at 12:49:50PM +0200, Bartosz Golaszewski wrote:
-> In preparation for the constification of configfs attributes, make the
-> existing instances of struct configfs_attribute in gpio-sim const and
-> use the new st_attrs_const field of struct config_item_type.
+On Sun, Oct 18, 2026 at 07:34:20PM -0700, Christopher Hoover wrote:
+> hid-sensor-humidity keeps a single static struct
+> hid_sensor_hub_callbacks for all instances and overwrites its pdev in
+> every probe, so with two humidity sensors, input reports for one are
+> delivered with the other's platform device, and a NULL dereference
+> follows once that device is removed.  The same bug was found in
+> hid-sensor-temperature, which shares this code.
 > 
-> Suggested-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
-> Closes: https://lore.kernel.org/all/20261016105712-707634de-c955-4c66-957a-2bdb84bca3e4@linutronix.de/
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  drivers/gpio/gpio-sim.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpio/gpio-sim.c b/drivers/gpio/gpio-sim.c
-> index 0c73bec042670fc5706b4a93700e652cbaf3605e..acfe56af515dfd494f1f08bef5806524a6ef7f01 100644
-> --- a/drivers/gpio/gpio-sim.c
-> +++ b/drivers/gpio/gpio-sim.c
-> @@ -1037,7 +1037,7 @@ gpio_sim_device_config_live_store(struct config_item *item,
->  
->  CONFIGFS_ATTR(gpio_sim_device_config_, live);
->  
-> -static struct configfs_attribute *gpio_sim_device_config_attrs[] = {
-> +static const struct configfs_attribute *gpio_sim_device_config_attrs[] = {
+> Keep the callbacks in struct hid_humidity_state, as the other HID
+> sensor drivers (accel, gyro, als, ...) do.
 
-Here should be a second 'const' after the '*':
+Same comment as per previous patch.
 
-static const struct configfs_attribute *const gpio_sim_device_config_attrs[] ...
-
-(Same for the others)
-
-With these:
-
-Reviewed-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
->  	&gpio_sim_device_config_attr_dev_name,
->  	&gpio_sim_device_config_attr_live,
->  	NULL
-
-(...)
