@@ -1,108 +1,121 @@
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC96468C26
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 375344534B7;
+	Mon, 19 Oct 2026 06:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392975; cv=none; b=reYA2UWvnCZj6nYv29Tz7q29q4LwVWsXTZ62rOx6CsIrulBdIBKELqcr7dIArITnPDeuVcpm7BOfx9Q2tyjOVdvSOtFoEXTK8OY+Y40bKjQxnCBPph4ROtjQxXnmOiFQssnTj6Ny5UmV7j80QrSgcU+ppULoJ7ISQlj8ZsIFktk=
+	t=1792392998; cv=none; b=QDFT7R9E7D7dcv9cnaC/Kj+BfJp4C9P/V8MylIxuK/0W2eSGHQxXxHQfmQbeUmlc2JLthQfKm2XsU1/p+Lxgb7ej7M/7rF5qFThFjo4/QdfCqUYVvFAP/iKXqAi7vHHwb/yUM3jsFHVIvwQSN9aTH3rlrFK3ZgvLbFkphpCNsZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392975; c=relaxed/simple;
-	bh=M1tBQqzBGiCpQaTKxk2z3UZV5Za8hjx2LmCMzlbWuaE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Us4J9CzlwOIgOR2FLreKrNkw27a86RUBd09N4BUsoE9tmQbAN5ChAgyl+euojntVfWAGG6T3MCYbdVsupqYWpQUDD0W2LrIslzZDyXj9IUrm9oUCllNP9Tetg8IoXG/Oq8dx4eKbZu2bF9RwfPJ135WXjyEP0dxeVPWgV7SaDek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-78fb1fb9508so222925137.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:56:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792392973; x=1792997773;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=e1sVMAfuH6WXhZbotLQobiSRzr1r+7aDu2aCsNTstok=;
-        b=mVbTO5xVe9x3G4goEB3f6O0AuTkRqQtOlrBjDftnuz4OXG6gx9JukDK3lTHv4xpL+k
-         E/JN/FZw5SuSmyGNrfLddcDNphqvXkfpy0cKzoOgaZqbagHrODYA2Ryqi6eRka+VNmt6
-         P87DewDD1d/Y9Fov45WL6FQVOTNmW330fdbw07bfREbiLr7JsPkJZjTx52CqOE0UsNQ7
-         mlNKqNK99+dMcAQjAaafqQnAEe36FkoezbuURm6Fab+iZf182FOnVT/+XGAofU7bPwuW
-         XhqxXLo/SKUE9nnftUF4e//7WrDLTs0wu7cFxYwYU7/rULzWX8j1NWKOtXy82acxZ+Hz
-         Ht4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxfMG2KxU0Qw7XjHCaS8a/KfK25WElnIcddLruwKGVKWKtzGTd4rKz/bjvcHJ2Q3PJAnDXEDtMGl+HjI2o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIaa5GtLJ19QXsLnzcFFcBDqVpkk0nWy2q/TPB994fO6Bp5TdwW
-	dUnXNUZ43cAPOXMXLGOxDGi8IsJUtqHtBkMepEdlmLbH9PFAtnCT/1DMmw8pG/GD
-X-Gm-Gg: AYBFou23Yj3ID6QQcwQmzfi10qzprUfrRkTknINFZZ8u+JsfavYoSrE/v8PrtYbLtd8
-	WGine3P+MrQ89RWAMgyBneqVeUp6CS/n9i9xtyBZMW2eO1v3nopFL+s6pOLyjKQ3X4w3HQ6esPk
-	diTWkO43ZUHLgCYp+QzixmwM7GxIZ6zmebqYY4KeA3Wk65a94XfeHPzv6qPdc1bvhyYP69oWW7w
-	jfmE2Z7AhzNkkrxwWPPrOmvOrLN310Apus4tkpCVnbe/8Lnhta2U4V1NtshrROwIUVzYANOcK2E
-	gG5o3/DTyDB92xBOD27naasVcssvtPoUrh6YqoIB7P5fxODiQRQ1oTt7rztO3ZdMAM44snNMVsC
-	mrwAf/0ZhMx3OYAJnGOriEqbnl065JUu15w0/SF+wOmcFLX1bcMl+9sZPgS/6LNzwrUz1XdtObR
-	VuP1eSUjiTR5Sst8tNj4AIMYxxSaq/FMPdvH0vd996z86eQY5u2wq2upt43tvVdGTHccLfLgSPw
-	lpLTS2iAGULozqw8NpS7fPRCVETZ3/WKRA9
-X-Received: by 2002:a05:6102:50a1:b0:7c2:799c:9018 with SMTP id ada2fe7eead31-7cc3644943cmr1698034137.0.1792392972709;
-        Sun, 18 Oct 2026 23:56:12 -0700 (PDT)
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com. [209.85.222.42])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc197e9288sm8892138137.5.2026.10.18.23.56.12
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 23:56:12 -0700 (PDT)
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9906a5410f5so2776064241.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:56:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwq7fZ9oBxKNWwySRVTQLPYNrS4jLOj4LGoCZSmv7bFxpaKWLfxqyexa4qKgR8IHBX/qkmpMFj/ZlyQuJ0=@vger.kernel.org
-X-Received: by 2002:a05:6102:312e:b0:7aa:d0a9:c5aa with SMTP id
- ada2fe7eead31-7cc18121fa2mr2108461137.18.1792392972220; Sun, 18 Oct 2026
- 23:56:12 -0700 (PDT)
+	s=arc-20240116; t=1792392998; c=relaxed/simple;
+	bh=hsvwtCSKB+JctpL+L0TNRt3C/hGiQHXGwKtsDRo3E3s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iZPcNyJ6ybM3EobfdjEtYsY5Xh6ZvpqASKnNtNZiGB2vqD6Llicg3+lnRefpC9VADW5FGeKtAsCdLIX3xZuzRC6BMZr9T6VLurbRR963udODGFCsw11CxIDmMxJCK3/dP1QmWJCV7AQ/cmY64E0ASgBiFSvQsOM0hsib6h1McKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de; spf=pass smtp.mailfrom=jonasjelonek.de; dkim=pass (2048-bit key) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.b=A3iAiLpq; arc=none smtp.client-ip=212.227.17.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.b="A3iAiLpq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
+	s=s1-ionos; t=1792392987; x=1792997787; i=jonas@jonasjelonek.de;
+	bh=hsvwtCSKB+JctpL+L0TNRt3C/hGiQHXGwKtsDRo3E3s=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=A3iAiLpqHi7cyLXG3PG9yJy706tPOf6At0qxv0m7qgM1S9jE8A1SpDxmdgQnug8K
+	 ruZuW5Ubjz9kg9JblweSfbuoTHHVIh0vevOTpRj3R5Srf1wuGE5TILHhRAyoUsRrD
+	 /RkGwfZ2500EoFHx6y5RJBTfAJYIe6vgRyrHGIQtD3j9WUzJXe3rHb+Vy1MR0EufR
+	 znzckgnOfbj1U4O6DqFWOkug2kD6E0CyB0JybE14fzU2BUjFIBt1xPeKxZlHhlagq
+	 koBFqr+3Hc6Galt0yPnpS+yfCEj+lQ8pGm44DIE1y4Kfm1fg36E9V5XeeqMPRTs4E
+	 GtgSM29YMvGU3XbGog==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue107
+ [213.165.67.113]) with ESMTPSA (Nemesis) id 1MEF87-1xQ59z3ZNV-0064lT; Mon, 19
+ Oct 2026 08:56:27 +0200
+Message-ID: <2e3a8f8c-d415-497b-ae37-d736a77ad2e9@jonasjelonek.de>
+Date: Mon, 19 Oct 2026 08:56:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261018161042.3298045-1-sahaj123.sc@gmail.com>
-In-Reply-To: <20261018161042.3298045-1-sahaj123.sc@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 19 Oct 2026 08:56:01 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXdB+1zib0AtA5zoJ0UeZR4TYeUSiP2w1DEHZ=1yKGYBA@mail.gmail.com>
-X-Gm-Features: AclHuK9VSv0QigMKGBrmgQqHURXBQJfLZxnvzcmSGSBGel5gQdO-OSfdEC31cxs
-Message-ID: <CAMuHMdXdB+1zib0AtA5zoJ0UeZR4TYeUSiP2w1DEHZ=1yKGYBA@mail.gmail.com>
-Subject: Re: [PATCH] gpio: pca953x: Preserve wakeup accounting on parent IRQ failure
-To: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Ulf Hansson <ulfh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 2/2] net: pse-pd: realtek-pse-mcu: add gen1 I2C
+ transport
+Content-Language: en-US
+To: Sander Vanheule <sander@svanheule.net>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261018161248.376205-1-sander@svanheule.net>
+ <20261018161248.376205-3-sander@svanheule.net>
+From: Jonas Jelonek <jonas@jonasjelonek.de>
+In-Reply-To: <20261018161248.376205-3-sander@svanheule.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:U67j7Q4+Mqgy/EcIWchk2ozDOBWljjfv8EhqhvjKV0QzI++5wF1
+ iVSRsWqKtLJObDr6DzUiCUU5LWzP/qOyhqGugA4sXsWWGfpj+a9Kl2Wiz6xnCIHZbIQmS8G
+ Hz+a6xWg3HOtID/c5O6IMtK+mQADSwo8a4LnhaVSRSyuI+sFBbiamx0UND8w80mg7sNL/i6
+ JzPW0GRmj1ntU82cCm9vA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:P0DXO2GqazI=;NqocGcpg8hXldB0ub+dAPfxb6Ra
+ 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
 
-On Sun, 18 Oct 2026 at 18:10, Sahaj Chaudhari <sahaj123.sc@gmail.com> wrote:
-> pca953x_irq_set_wake() updates wakeup_path before asking the parent
-> IRQ controller to change its wake state. If irq_set_irq_wake() fails,
-> the IRQ core rolls back its wake state but the driver's counter remains
-> changed.
+
+On 18.10.26 18:12, Sander Vanheule wrote:
+> Provide the required data for the gen1 raw I2C binding, which like for
+> gen2 is simply the gen1 protocol data with the native_i2c flag set.
 >
-> A failed enable can therefore leave the expander marked as part of the
-> wakeup path when no child IRQ has successfully enabled wakeup. A failed
-> disable can make the driver stop retaining power even though wakeup is
-> still enabled. The suspend and resume paths use this counter to decide
-> whether to disable or enable the regulator.
+> Signed-off-by: Sander Vanheule <sander@svanheule.net>
 >
-> Update wakeup_path only after the parent operation succeeds, leaving it
-> unchanged on error.
->
-> Fixes: f70fbc15bae2 ("gpio: pca953x: Configure wake-up path when wake-up is enabled")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
 
-My bad...
-Fixes: f70fbc15bae2c89f ("gpio: pca953x: Configure wake-up path when
-wake-up is enabled")
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Acked-by: Jonas Jelonek <jonas@jonasjelonek.de>
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Best,
+Jonas
