@@ -1,194 +1,177 @@
-Received: from mta1.migadu.com (out-48.mta1.migadu.com [95.215.58.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7800148F84A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43490492E35;
+	Mon, 19 Oct 2026 07:51:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792396270; cv=none; b=MrYKu5dvhsxw1eEKPqgjCdl9iEmsWUgm+KMAB1NOEjZLKsQINDVi1Gr/vvT7vQae9fN/t8n8LaANkuo1rLQfntQ+4WOClAyzojDB0Xwj1gNvgJh/4gXNUbbJy3CciHAIbtBSyeJ5S1ql+YCOlJgdI+rR5gOtTH2x2pvL6qUJll0=
+	t=1792396307; cv=none; b=e0ojkkW2rVFJtSyMFKLz3yASA+PC8EAGq7hXX7vCgo9QmpuiZRlaHKclRVUgeTKV1FAtQoVtTtxMGz+2N8Jm9MXrhN2MqVkGMAicZ1KSpmTGzSWO0I4EcZ+cNY9+K3J9jtzbHfWuOxh9qRDJr/np0/yBQo060IPFx2WobHpqhx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792396270; c=relaxed/simple;
-	bh=hjF8tZ7rA6iLI0wdX17D/6yLew+0TeKbdr1X0twuh94=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=eTqvIVSFU+yvvn37L+32nzik2PzX7Lvs2LrFrFdpsY7K5ozYj+cbDef7lccXM5hEWsfWTrNQ25U8SsPRwqGqQrIyraDqgv+z8m4quUSuF2IWYa2JNiKHBzaxPjITnj4D2D4G9KenQQNAliDNss4VX53gC9ZCjVpcJmXnGTxxxcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=lIGxj7Mi; arc=none smtp.client-ip=95.215.58.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792396307; c=relaxed/simple;
+	bh=nyzG3DSCIgMnSVvjCn/cHONmNHOrIuy+WPOmWmahXmo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eBmskWXygrlnQGaFLTW6lFGqPjbLWyfput++c8c6TS8qfQYrWDoCx25YQ0CYFzZHwMcsC8j1pvrm3Zlh3DO5eARbnVx1cVmD3iLrbpkf2Kc8hR9DiKBeJS1aoye2ad3JWK0nBRDIyDJww9pbNv4Tjv48IpUFrgGmn3xpXEqeW9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RyzRQbgY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="lIGxj7Mi"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hjF8tZ7rA6iLI0wdX17D/6yLew+0TeKbdr1X0twuh94=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792396263; v=1; x=1793001063;
- b=lIGxj7Mij5RFMLv6ysso3EZicJKMD0fiibM4JQVtcJXN3SXgCzkD1zzdKQr57NrBMRRT0ftQ
- HQqeCrKzBgMZPyVPMc3fTj7rjlHV6n7ty8DSrT5QCdl5Lv7iCRdIhIOqMGMEASSlF6XVH3vI5As
- 2qwqiQi8GAECFL1Sx2zl0MJE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id e63287af24581460;
-	Mon, 19 Oct 2026 07:51:02 +0000
-X-Mizu-Trace-ID: e63287af24581460
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RyzRQbgY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C981F000C4;
+	Mon, 19 Oct 2026 07:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792396303;
+	bh=eYnMRGF8TuI5STDGB+wlCsyAe+nkAlu3mdXDyuFpuk4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RyzRQbgYNt0moEuymsAbJQ74FSKfldDdUjns+Wtac+ec3B8VLiq5/icDLsA2bZS6B
+	 8tqhcG+LoGeGS2V/kjXXp/5Fgl9ZszmxfrgpNVnxO2XJmXBnBK+YGhLkwfBS9P9d6R
+	 Hmd9ZEPCstZ02dQprTELvhT5GNn4ZPKFBqFbxh7GinLTR4bkJXyL9XcY/nCwQ3EJtw
+	 mea2Yh3SKRfaKd5Xe3KQrIbunUJqFTVn7QNbwgylML9M+KtuqEBjvCThV67Nqy4r36
+	 NUXvyQLELTeSxVXiMQ0ZJXR/kMklcJMLHO35tO7Ums5Pw+PuKglS7f6qaYEcrd1sCj
+	 6cslZRM6GO2Qw==
+Date: Mon, 19 Oct 2026 09:51:37 +0200
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Greg KH <greg@kroah.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Shihuang Liu <shlomojune6@gmail.com>, linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Marcus Folkesson <marcus.folkesson@gmail.com>, Ville Syrjala <syrjala@sci.fi>, 
+	Henk Vergonet <Henk.Vergonet@gmail.com>, Henrik Rydberg <rydberg@bitmath.org>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] Input: joystick - replace strlcat() with strscpy()
+Message-ID: <atXLrTZYBazVZVHr@debian>
+References: <20261016170411.51025-1-shlomojune6@gmail.com>
+ <20261016170411.51025-2-shlomojune6@gmail.com>
+ <30bc6e07072076b0591fd416f50f4fc3@gmail.com>
+ <2026101727-ebay-five-72f8@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 0/5] mm: hugetlb: add CMA support for PMD-sized page
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <4a7ad39d-fee6-4390-beff-d40ecf49cbdc@bytedance.com>
-Date: Mon, 19 Oct 2026 15:50:48 +0800
-Cc: Qi Zheng <qi.zheng@linux.dev>,
- osalvador@suse.de,
- david@kernel.org,
- akpm@linux-foundation.org,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="x3pamjgcf2saoemn"
+Content-Disposition: inline
+In-Reply-To: <2026101727-ebay-five-72f8@gregkh>
+
+
+--x3pamjgcf2saoemn
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <BEADD50D-94AA-4B05-B9AD-136E37247FDD@linux.dev>
-References: <cover.1792136742.git.zhengqi.arch@bytedance.com>
- <FA455F0C-0A46-4B5B-AB50-E9968001D2C9@linux.dev>
- <4a7ad39d-fee6-4390-beff-d40ecf49cbdc@bytedance.com>
-To: Qi Zheng <zhengqi.arch@bytedance.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Greg KH <greg@kroah.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Shihuang Liu <shlomojune6@gmail.com>, linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Marcus Folkesson <marcus.folkesson@gmail.com>, Ville Syrjala <syrjala@sci.fi>, 
+	Henk Vergonet <Henk.Vergonet@gmail.com>, Henrik Rydberg <rydberg@bitmath.org>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] Input: joystick - replace strlcat() with strscpy()
+Message-ID: <atXLrTZYBazVZVHr@debian>
+References: <20261016170411.51025-1-shlomojune6@gmail.com>
+ <20261016170411.51025-2-shlomojune6@gmail.com>
+ <30bc6e07072076b0591fd416f50f4fc3@gmail.com>
+ <2026101727-ebay-five-72f8@gregkh>
+MIME-Version: 1.0
+In-Reply-To: <2026101727-ebay-five-72f8@gregkh>
 
+Hi Greg,
 
-
-> On Oct 19, 2026, at 15:37, Qi Zheng <zhengqi.arch@bytedance.com> =
-wrote:
+> Date: 2026-10-17 10:19:59+0200
+> From: Greg KH <greg@kroah.com>
+>
+> On Fri, Oct 16, 2026 at 12:17:05PM -0700, Dmitry Torokhov wrote:
+> > Hi Shihuang,
+> >=20
+> > On Sat, Oct 17, 2026 at 01:04:07AM +0800, Shihuang Liu wrote:
+> > > The pxrc and xpad drivers build the physical path by appending a
+> > > constant "/input0" suffix with strlcat() after usb_make_path().
+> > >
+> > > In preparation for removing the deprecated strlcat() API[1],
+> > > replace it with strnlen() followed by strscpy() into the remainder
+> > > of the buffer, as commit 34b228b739f5 ("HID: usbhid: replace
+> > > strlcat with better alternatives") did for the usbhid drivers.
+> > ...
+> > >  	usb_make_path(udev, pxrc->phys, sizeof(pxrc->phys));
+> > > -	strlcat(pxrc->phys, "/input0", sizeof(pxrc->phys));
+> > > +	len =3D strnlen(pxrc->phys, sizeof(pxrc->phys));
+> > > +	strscpy(pxrc->phys + len, "/input0", sizeof(pxrc->phys) - len);
+> >=20
+> > I really dislike this conversion pattern, and I do not want to see it
+> > open-coded across 18 drivers in this series.
+> >=20
+> > usb_make_path() is just a trivial wrapper around snprintf() that already
+> > returns the length of the formatted string. Calling usb_make_path(),
+> > ignoring its return value, rescanning the buffer with strnlen(), and
+> > then open-coding pointer and size arithmetic for strscpy() (along with
+> > an extra local variable in every probe function) makes the code much
+> > uglier and harder to read than what we had before.
+> >=20
+> > All of these USB input drivers already include <linux/usb/input.h>, and
+> > drivers across other subsystems (drivers/hid/usbhid/, drivers/media/rc/,
+> > drivers/media/usb/, sound/usb/caiaq/, drivers/usb/storage/onetouch.c)
+> > all use the exact same usb_make_path() + suffix pattern ("/input0",
+> > "/input%d", "/ir0", "/button", etc.).
+> >=20
+> > If we want to get rid of strlcat() here, please introduce a generic
+> > helper in include/linux/usb.h (or a USB input helper in
+> > include/linux/usb/input.h) that formats the USB path together with the
+> > subpath in a single pass, for example:
+> >=20
+> > __printf(4, 5)
+> > int usb_make_subpath(struct usb_device *dev, char *buf, size_t size,
+> > 		     const char *fmt, ...);
+> >=20
+> > (or a simple const char *suffix variant if formatting is not needed).
+> > Then each driver can do:
+> >=20
+> > 	usb_make_subpath(udev, pxrc->phys, sizeof(pxrc->phys), "input0");
+> >=20
+> > and even drivers/hid/usbhid/hid-core.c can simply do:
+> >=20
+> > 	usb_make_subpath(dev, hid->phys, sizeof(hid->phys),
+> > 			 "input%d", intf->altsetting[0].desc.bInterfaceNumber);
+> >=20
+> > instead of repeating this strnlen() + strscpy() boilerplate everywhere.
 >=20
-> Hi Muchun,
->=20
-> On 10/19/26 2:50 PM, Muchun Song wrote:
->>=20
->>=20
->>> On Oct 16, 2026, at 18:07, Qi Zheng <qi.zheng@linux.dev> wrote:
->>>=20
->>> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>>=20
->>> Hi all,
->>>=20
->>> Allocating PMD-sized HugeTLB pages at runtime can become slow or =
-fail
->>> as physical memory becomes fragmented. Reserving HugeTLB pages at =
-boot
->>> avoids this problem, but keeps unused pages unavailable to ordinary
->>> allocations.
->>>=20
->>> Live upgrades are one example: they need additional HugeTLB pages =
-only
->>> during the upgrade. HugeTLB already supports CMA for gigantic pages,
->>> but reserving a CMA pool for 1 GiB pages can fail when physical =
-KASLR
->>> and other early reservations leave too few suitable 1 GiB-aligned
->>> ranges. At runtime, 1 GiB allocations can also fail when pages =
-cannot
->>> be migrated out of a suitable contiguous range.
->>=20
->> Yes, that's our use case at ByteDance. Allocating a 1GB HugeTLB page =
-from
->> the CMA pool is more prone to failure than allocating a 2MB one. To =
-improve
->> the probability of successful allocation, we typically configure the =
-CMA
->> size to be larger than our actual requirement, keeping a certain =
-margin to
->> handle cases where temporary kernel operations (such as DMA) prevent =
-successful
->> migration. For 1G HugeTLB pages, since the margin must be an integer =
-multiple
->> of 1G, the extra memory configured as headroom is also relatively =
-large,
->> making it less flexible than 2M pages.
->>=20
->>>=20
->>> Extend CMA support to PMD-sized pages so their backing memory can be
->>> reserved at boot while remaining usable for movable allocations =
-until
->>> needed. This relaxes the reservation alignment requirement and =
-reduces
->>> the contiguous range required per allocation.
->>>=20
->>> The series adds an optional @<page-size> suffix to hugetlb_cma and a
->>> separate PMD-sized pool. For example, on x86-64:
->>>=20
->>> hugetlb_cma=3D4G hugetlb_cma=3D1G@2M
->>=20
->> Different sizes of gigantic pages already share a single HugeTLB CMA =
-pool.
->> Given that, why not let 2M pages also reuse this same pool? Would =
-that make
->> the overall code implementation simpler? And if it does make things =
-simpler,
->> should we go ahead and do it first?
->=20
-> Sharing the pool would simplify the implementation. My concern is that
-> small PMD allocations could fragment the default pool and prevent =
-later
-> gigantic allocations.
+> I'm all for that too, and putting it in the USB core for everyone to use
+> would be great.
 
-Yes. However, the premise is that there has to be a mixed-use scenario.
-I'm not sure if this kind of mixed usage is a common scenario.
+You might be interested in <https://lore.kernel.org/linux-hardening/cover.1=
+751747518.git.alx@kernel.org/>.
+I was working on something like that, but actually much simpler.
+It is meant to replace strscpy()/snprintf() by versions more similar to
+Plan9's strecpy(2)/seprint(2), but without some important flaw that the
+Plan9 APIs have (about handling NULL).
 
-Of course, we don't have much experience to draw on, because on most
-architectures there is generally only one kind of gigantic page, and
-prior to this, mixed-use scenarios could not arise.
 
-Therefore, I think that before the need arises, a simpler design is
-easier to maintain.
-
-Thanks,
-Muchun
+Have a lovely day!
+Alex
 
 >=20
-> 32M allocations can already cause this, but 2M allocations can block
-> the same number of 1G-aligned ranges with much less allocated memory.
+> thanks,
 >=20
-> Thanks,
-> Qi
+> greg k-h
 >=20
->>=20
->> Thanks,
->> Muchun
->>=20
->>>=20
->>> This reserves 4G for the existing gigantic-page pool and 1G for the
->>> PMD-sized pool. Existing unsuffixed parameters and gigantic-page =
-pool
->>> sharing are preserved. The new size follows the architecture's PMD
->>> size rather than being fixed at 2M.
->>>=20
->>> The preparatory patches introduce per-pool state and prevent =
-recursive
->>> CMA allocation during migration before enabling PMD-sized =
-allocation.
->>>=20
->>> Thanks,
->>> Qi
->>>=20
->>> Qi Zheng (5):
->>>  mm: hugetlb: add explicit page size to hugetlb_cma
->>>  mm: hugetlb: group CMA pool and reservation state
->>>  mm: hugetlb: track CMA reservations by page order
->>>  mm: hugetlb: avoid recursive CMA allocation during migration
->>>  mm: hugetlb: enable CMA allocation for PMD-sized pages
->>>=20
->>> .../admin-guide/kernel-parameters.txt         |  39 ++-
->>> include/linux/hugetlb.h                       |   4 +-
->>> mm/hugetlb.c                                  |  80 +++--
->>> mm/hugetlb_cma.c                              | 328 =
-++++++++++++------
->>> mm/hugetlb_cma.h                              |  11 +-
->>> mm/mempolicy.c                                |   2 +-
->>> mm/migrate.c                                  |   3 +-
->>> 7 files changed, 306 insertions(+), 161 deletions(-)
->>>=20
->>>=20
->>> base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
->>> --=20
->>> 2.54.0
 
+--=20
+<https://www.alejandro-colomar.es>
 
+--x3pamjgcf2saoemn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrVzAkACgkQ64mZXMKQ
+wqm76g/8DRaE82CIGwL1o1hZWQio54x8XDvjkp0kODsmO4NU+4UkW7s3el/ob0GC
+7ypBNH2/cRqg9avVT6/meR8k+IeYJlPUYG7m3ptS4kRHh0s2h4/l33RbaSvDTWRy
+4v4BoCLlh7l1XH4FVOvEGE/C7OsbY9SzvrIrt2A2VijFpOpmVrGYn/fc8O5SS6yj
+GSOCZaMPLe3Ix9aNvxz+JoOvMqdlsUR+Z5jXHfgeCoXZBw3DhjYZNEmzGyQF/y1o
+TkbANzmBjw4ioP0qRF9zKsL4z57ekYrB50fPsx9XhswDORFofKj5kmv+9MaOWuC2
+fPPQtOaWtQiKQvdm+M036wSA4nixjdiBeafgwQM52Eu1rKpmwQqi53fxg8QtvbBv
+097Xv5luCjzPB0qVTQgqTWbccvepaC0ve2p0QVpg8KKXGCjwXQckZw6e75xfPGKg
++wbrtjl+N4GIieHuavsb7EV8VE8qk0MmM0C6tD6V+ZrBW/ut3VeXsbb6k6+q69jG
+DoBhcvsjBL7us6Xa//5HbKv/nckUNGp2Yi+SYfca4Xu/e4jZFwy7aJDkHJtGY+BE
++4iqQJm9Voo5kiDBdAj3ZlDGiTPFbZsCFQ1eFNTyMqASk4TyRa8ljXygVzH0T22m
+UeTRyyoHkccrrZ3zlJfHtdW8uCG/dUYLkLnvF9CU4B8voUV7O14=
+=ex7/
+-----END PGP SIGNATURE-----
+
+--x3pamjgcf2saoemn--
