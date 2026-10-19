@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9964C1502;
-	Mon, 19 Oct 2026 10:23:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2B44DA535;
+	Mon, 19 Oct 2026 10:23:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405438; cv=none; b=dzOLjfEqKYehf+jve2NmtNZYgHnUsyjgB5oI0ms/Hs/M17D6DCQXV0IifHb/LmmNHhbLXaGLe7kB+9gkJJoHDC167demcOJYVyH6kdfcNE4v72D9ij0dnkJF/ML5kiPfnh2SyyIMsiUPfnAw6wIRPd8OMzwEv2eQ7WJh9J5/HKE=
+	t=1792405440; cv=none; b=TGHnsREmUCfF6upXOjNRoR1wzVTjgmWI74GzfljZT4TnGnPL54C7I5egZc2VEog88E2iPgje8rf47gfG/J9n0/RkPZ3Hx76UkEKpvk8exwAOrDeeGXA5TyKtbpdkkpwhqt2xMgRE3JrYgQA2LTWdTR4UbYVFMgCPDMHYW6alQlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405438; c=relaxed/simple;
-	bh=EQ/IbfNS9nKNdAEu6jhHR5zYzZlCmz/vHhGduVDUTHY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Oi34mF5yr8irS9nOagQTpA2AenEuJGM6THxGtiBP1ielRPikbpcNV94DEAA1QpuW32OJoPptpDSxeZMKFqkZ6p4ytUBuroF5aQPniNTaSS2osLUEgCHbLDuHpij2+hcYaQtSQM2/ofcn9tWAoJY5URuuQzjs3DwRwKWWwL9lwT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hD+z2glt; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792405440; c=relaxed/simple;
+	bh=8qymSggEgnpMRDFSvVRvp0rr2EkbrYT7HH8SBIpkDXo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Z5Czzeo12mx7z8W/pJgUPKY7tJGwSvJAsmmyY3qDPtepyJ9o+EoIIrB4TuMK/WdSEMw3Qi34WuWcd3rPZ+fSzpNTpA+hwXCAirAVCKPKHwKH7nWW3J/XzDu3S9CcqMliTjEhHwjSpxuY4TUIqyc99/6aqjziOw6UTamAYtwEN98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p/S0hHF1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hD+z2glt"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 62758C2BCFC;
-	Mon, 19 Oct 2026 10:23:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p/S0hHF1"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AF2EEC2BCFC;
+	Mon, 19 Oct 2026 10:23:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792405438;
-	bh=EQ/IbfNS9nKNdAEu6jhHR5zYzZlCmz/vHhGduVDUTHY=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=hD+z2gltoW/k4FmSkPQdNNc4KTvEhagNVFWQlB/K8EL3YhFWDDajT7SE4R35jU1go
-	 u7Rfj27VMEJVsB8fR+dp9xj6J9b8FDgENdXOOGWSJRkG5rnqVZzHAtoqH9C8DJ4RKR
-	 eRa6ukXZrZYh0iatAhhFFvFFBr7ihNF1Y9SshEyJG/otyjtozsi23Mhs/7f9NwzWdp
-	 x1w+cy/wCKd+1lSv21jn/hJx0PJHDwDsGT97l/ucjYcitpmD0Bl1xnJv5L2QFVZ0o9
-	 v+YhSW45ULjOYKiFnqUXAp2w3RUsQ8JF0NuSSCYB/8vqUv2elRYB8jQcBVBf0fUspw
-	 ZL2sULFcnsLXw==
+	s=k20201202; t=1792405439;
+	bh=8qymSggEgnpMRDFSvVRvp0rr2EkbrYT7HH8SBIpkDXo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=p/S0hHF1aR+hCrWAsqjI+FjaCMqkEjX5tHLC8Fd+6i9Nqm/2YF9h4Sdh4tdJLhIl5
+	 lsKTXMjKu9+z0BKi/J6IEYviEW8Mqq65LLRImuy+Dv92gwsPOstmWSIP6W4G+tpak1
+	 05nO/XC+db3nXcnC0fQN6vL7akku/eEltXIfQ9AC+c2YpbUcVEbXWyy3+MqzwmvZTS
+	 dMPElAVZCUoX/LIiL9ESO62pfhgVwLOzAIdqiKC2xkG057RvcctbHE/9wcXsLd6fcq
+	 Q6SzZ6F/mQpUnLH6bGEG9OnUfMLas1P78KRILJCfHNOcrtSxLiUVivi98L5K1uL22O
+	 DPOoYOtZidMwA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EF7ABCCF2D3;
-	Mon, 19 Oct 2026 10:23:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8728FCCF2D6;
+	Mon, 19 Oct 2026 10:23:59 +0000 (UTC)
 From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Subject: [PATCH v2 0/5] arm64: dts: exynos: add initial support for Samsung
+Date: Mon, 19 Oct 2026 11:23:51 +0100
+Subject: [PATCH v2 5/5] arm64: dts: exynos: Add initial support for Samsung
  Galaxy Watch FE
-Date: Mon, 19 Oct 2026 11:23:46 +0100
-Message-Id: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,11 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALLv1WoC/2WNQQ6CMBBFr2K6dkhbRdSV9zAsGJiBqlAzBQIh3
- F3AuHL5kvffn1QgcRTUdTcpod4F55sF7H6n8iprSgJXLKystid9NjGwF2hoaOHV5c8xAYqRD5d
- YY4GkltVbiN2wFe/pl0OHD8rbNbMalQutl3G77M3q/erJX703oOFomdFiYjCzt5pqJIk4cOSlV
- Ok8zx/wV4ZVxQAAAA==
-X-Change-ID: 20260815-for-next-lucky7-e5bf3950bdbe
+Message-Id: <20261019-for-next-lucky7-v2-5-c4ecab4b1c4c@member.fsf.org>
+References: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
+In-Reply-To: <20261019-for-next-lucky7-v2-0-c4ecab4b1c4c@member.fsf.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Peter Griffin <peter.griffin@linaro.org>, 
@@ -54,21 +52,21 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3551;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4867;
  i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=EQ/IbfNS9nKNdAEu6jhHR5zYzZlCmz/vHhGduVDUTHY=;
- b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq1e+6YjzaaPOzeBdhgf8S+2tZ8ccJTr788n1nN
- SbeCkHVQR2JAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCatXvuhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+v+1hAAyy3DLescGXWNJZh8B+AdAfWdBRZxlE3
- 38Dt+0/UzbzWuN7RVY5UHqJHK6iHb9AaZ0JKv8lO4SPKmhjQ/dmwwezLjnKaHaqZhF3qHk7r7od
- vjtif9aUFVWoKGlON94ARrFvfb0AnLEfvj0aWRkOmIYmsjx+gBiXarh4aewaBRvniN5lF7S1XyN
- lHWkE04UzYTcpJgQfuyTp2b8BpD3Zynv1Q0YnQI8xpap7q/hq3sC96W5h047GU0nuUVELxH1iG0
- sq5Yve+dEHP2MXe0+3yFg1prfzae/2tZTOp01Cm2sjCkiSdR8N0vZZE5HYQvf2lqgdaa56GAfxy
- V9QsKySOyn0OrMoUdEf0JGhqmEgnvqYr8JHXU3Cf9ScJylqr4Awv813Y7FO1F99WDuuAJ81ltI3
- LWITfKehVjKTzhGuRWvCGYZGH17XUgX8BNR86tVTWNsZBLKH5x7/1fDG/J0xFx6HfVFIvJq3eut
- G7eRz90KDKxoJm8/14TPq/Odmnq1K3xpLJVsU2/R6i7AV5A1Q7aul7TeW7zHI0ycX9+aGjGGpTr
- BgLgJnm0vViKvGF1SYK4ACjIGefSgB//rBZV7KucW5ALRybBo0RLNnWpkUBcKoyl7Nuk6ffAgPd
- Huj7PemM6FIyiSyDIQcbQhq2N5CymzQWZJj/AWytUNZ8EBq+Iftk=
+ bh=FOKCeXOXBxhw0Q8L/8D3S7rg87yAZxUJT9zak2Y0VUI=;
+ b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq1e+7venDewHub2uoRbxOQPvrSOP1qhsGLMtvn
+ k8jPetjdDOJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCatXvuxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+s4MBAAuEPsnJz8ZPZPjqlOdT+gXkSzxCk54Dr
+ luMfazMmirxc6C3I85mGCEXBwDuUVzfbXjIi0jXzuhD3BuiqjL4GFlu8vcTv0vD1fNgejR0OHKd
+ q7aCxSFRQ3I/zf0ydTsW6zrWZ+MfcF2fTtLsO8/2HU5MoVjNZrD0Cl6nSTnjwcny4yoy8KVWjht
+ u4bVKeNDiBqjIvI1sFZ+KMgfzsXkelyL1ZrX7jxFXOcOQE8ZUkIvHIQbyd3GW6JpNWYaAZmcvbO
+ 3/JxioetiCJF9MGVafO2XPcykHFUGeSLXQ5NmBvvthTxU5bk0iTr2g/Kc4rqbKtNqAo3/cufNry
+ gwS244MGVecK0g+rvKlB9A4pBeTwchYMX91sEJD2eRDy/WKzKf6v1z29SDiMwO74vpYNprsp1zX
+ 1EsgqV3D89t8ud9len6t7JlHALPV+6LZyyTATIPjMlN91hRkV5g1pAp3GAJx/Mzef8gjvsq9b42
+ 4qXWhs6JtKFK/he9Kw57tXGSijx2izo20mQpwCLNq6y/Hdhk8M7vI/MVd+5DTYIkCT/1LUXI0xC
+ FTWgdWtAVrs+R99gWY6tCWeC0WJyqyBUyXkpgIn9WlPQcoA5GhUxpGWacztblrP3xquus7iz0N8
+ sLV/3pk0zGs203GtjCyOscBmQn/uZf8V8sfq3SaHzj7cN370VMi0=
 X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
  fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
 X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
@@ -76,93 +74,248 @@ X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
 X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
 Reply-To: aidenisik@member.fsf.org
 
-Hi there,
+From: Aiden Isik <aidenisik@member.fsf.org>
 
-This patchset adds initial support for the Exynos5515 SoC, along with
-support for the Samsung Galaxy Watch FE (codenamed lucky7), which uses
-this SoC.
+The Samsung Galaxy Watch FE (SM-R861/SM-R866), codenamed lucky7, is a
+smartwatch developed by Samsung and released in 2024. It has 1.5GiB RAM,
+16GiB of eMMC storage, an Exynos5515 (W920) SoC, and a 396x396 display.
 
-Support for the following is added:
+Support for the following is added by this device tree:
 - Bootloader framebuffer
-- Both CPU cores
 - Memory
-- Generic timer
-- Watchdog timer
-- CMU_TOP, CMU_FSYS, CMU_PERI clock management units
-- ChipID
-
-Currently, these device trees support booting the device to an initramfs.
-
-There are quite a few regions of reserved memory, where usage of them
-can crash the system and/or cause unexpected behaviour. Currently, most
-of them are named "misc-rmem@addr". They will be given names as their
-accompanying device drivers are added and their purpose becomes apparent.
-If you would like them named feel differently, feel free to let me know.
-
-The VGIC maintenance interrupt seems to be unavailable on this SoC.
-I cannot find any reference to it, nor usage of it, anywhere.
-It *could* very well still exist, but it is a mystery for now (and also
-not a *huge* deal on a low-power SoC designed for smartwatches).
-
-I am getting checkpatch warnings on this patchset advising to check
-MAINTAINERS as new files were added, but I am ignoring them as the
-entirety of arch/arm64/boot/dts/exynos is covered already.
-
-This patchset depends on [1] for drivers and device tree bindings.
-Note: This dependency was merged into the linux-watchdog tree.
-
-[1] https://lore.kernel.org/all/20260821-for-next-lucky7-watchdog-v4-0-d070cee5009f@member.fsf.org/
-
-Kind regards,
-- Aiden Isik
 
 Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
 ---
-Changes in v2:
-- Fix patchset title
-- Fix DCO email
-- Fix style issues reported by dt-check-style in strict mode
-- Added patches which were accidentally dropped in v1
-- Fix reserved memory and make all memory accessible in the memory node
-- Remove redundant PSCI 1.0 cpu_* function IDs
-- Extend GIC registers to correct size
-- Correct GIC unit address
-- Correct CPU unit address
-- Document unavailable VGIC maintenance interrupt
-- Remove references to dependencies which have since been merged to this tree
-- Link to v1: https://patch.msgid.link/20260817-for-next-lucky7-v1-0-42ffb2b71ba2@member.fsf.org
+ arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts | 219 +++++++++++++++++++++++
+ 1 file changed, 219 insertions(+)
 
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>
-To: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts b/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts
+new file mode 100644
+index 000000000000..e80a0f0948cb
+--- /dev/null
++++ b/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts
+@@ -0,0 +1,219 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Samsung Galaxy Watch FE (lucky7/SM-R861/SM-R866) device tree source
++ *
++ * Copyright (c) 2026 Aiden Isik <aidenisik+git@member.fsf.org>
++ */
++
++/dts-v1/;
++#include "exynos5515.dtsi"
++
++/ {
++	compatible = "samsung,lucky7", "samsung,exynos5515";
++	chassis-type = "watch";
++	model = "Samsung Galaxy Watch FE (SM-R861/SM-R866)";
++
++	chosen {
++		ranges;
++		#address-cells = <2>;
++		#size-cells = <1>;
++
++		framebuffer@9e0cf000 {
++			compatible = "simple-framebuffer";
++			reg = <0x0 0x9e0cf000 (396 * 396 * 4)>;
++			format = "a8r8g8b8";
++			height = <396>;
++			stride = <(396 * 4)>;
++			width = <396>;
++		};
++	};
++
++	memory@80000000 {
++		device_type = "memory";
++		reg = <0x0 0x80000000 0x3ea00000>,
++		      <0x0 0xc0000000 0x20000000>;
++	};
++
++	reserved-memory {
++		ranges;
++		#address-cells = <2>;
++		#size-cells = <1>;
++
++		/*
++		 * Some of these misc-rmem regions belong to memory-mapped
++		 * devices, and will be assigned to drivers as support
++		 * is added.
++		 *
++		 * Other regions belong to the TrustZone firmware and should
++		 * never be touched.
++		 */
++		misc-rmem@87000000 {
++			reg = <0x0 0x87000000 0x200000>;
++			no-map;
++		};
++
++		misc-rmem@87fff000 {
++			reg = <0x0 0x87fff000 0x1000>;
++			no-map;
++		};
++
++		misc-rmem@8a000000 {
++			reg = <0x0 0x8a000000 0x31000>;
++			no-map;
++		};
++
++		misc-rmem@8d800000 {
++			reg = <0x0 0x8d800000 0x180000>;
++			no-map;
++		};
++
++		misc-rmem@8ffff000 {
++			reg = <0x0 0x8ffff000 0x33000>;
++			no-map;
++		};
++
++		misc-rmem@90100000 {
++			reg = <0x0 0x90100000 0x200000>;
++			no-map;
++		};
++
++		misc-rmem@98a00000 {
++			reg = <0x0 0x98a00000 0x600000>;
++			no-map;
++		};
++
++		misc-rmem@9a000000 {
++			reg = <0x0 0x9a000000 0xc00000>;
++			no-map;
++		};
++
++		misc-rmem@9b000000 {
++			reg = <0x0 0x9b000000 0x400000>;
++			no-map;
++		};
++
++		misc-rmem@9bd00000 {
++			reg = <0x0 0x9bd00000 0x208000>;
++			no-map;
++		};
++
++		misc-rmem@9c000000 {
++			reg = <0x0 0x9c000000 0x20000>;
++			no-map;
++		};
++
++		framebuffer@9e0cf000 {
++			/*
++			 * Reserve up to the end of the final page of the
++			 * framebuffer region, to prevent memory aliasing.
++			 *
++			 * size: align((396 * 396 * 4), 0x1000)
++			 */
++			reg = <0x0 0x9e0cf000 0x9a000>;
++			no-map;
++		};
++
++		misc-rmem@a0000000 {
++			reg = <0x0 0xa0000000 0x10000>;
++			no-map;
++		};
++
++		misc-rmem@a0010000 {
++			reg = <0x0 0xa0010000 0x400000>;
++			no-map;
++		};
++
++		misc-rmem@a0510000 {
++			reg = <0x0 0xa0510000 0x1000>;
++			no-map;
++		};
++
++		misc-rmem@a0900000 {
++			reg = <0x0 0xa0900000 0x2000>;
++			no-map;
++		};
++
++		misc-rmem@a0902000 {
++			reg = <0x0 0xa0902000 0x1000>;
++			no-map;
++		};
++
++		misc-rmem@a0910000 {
++			reg = <0x0 0xa0910000 0x3c000>;
++			no-map;
++		};
++
++		misc-rmem@b0000000 {
++			reg = <0x0 0xb0000000 0x200000>;
++			no-map;
++		};
++
++		misc-rmem@b1000000 {
++			reg = <0x0 0xb1000000 0x200000>;
++			no-map;
++		};
++
++		misc-rmem@bbfff000 {
++			reg = <0x0 0xbbfff000 0x1000000>;
++			no-map;
++		};
++
++		misc-rmem@bcfff000 {
++			reg = <0x0 0xbcfff000 0x1000>;
++			no-map;
++		};
++
++		misc-rmem@bd430000 {
++			reg = <0x0 0xbd430000 0x1250000>;
++			no-map;
++		};
++
++		misc-rmem@d0000000 {
++			reg = <0x0 0xd0000000 0x5d00000>;
++			no-map;
++		};
++
++		misc-rmem@dc444000 {
++			reg = <0x0 0xdc444000 0x2bbc000>;
++			no-map;
++		};
++
++		misc-rmem@df005000 {
++			reg = <0x0 0xdf005000 0x1000>;
++			no-map;
++		};
++
++		misc-rmem@df008000 {
++			reg = <0x0 0xdf008000 0x1000>;
++			no-map;
++		};
++
++		misc-rmem@df009000 {
++			reg = <0x0 0xdf009000 0x12000>;
++			no-map;
++		};
++
++		misc-rmem@df01b000 {
++			reg = <0x0 0xdf01b000 0x21000>;
++			no-map;
++		};
++
++		misc-rmem@df03c000 {
++			reg = <0x0 0xdf03c000 0x1000>;
++			no-map;
++		};
++
++		misc-rmem@df03d000 {
++			reg = <0x0 0xdf03d000 0xfc3000>;
++			no-map;
++		};
++	};
++};
++
++&oscclk {
++	clock-frequency = <26000000>;
++};
++
++&watchdog {
++	status = "okay";
++};
 
----
-Aiden Isik (5):
-      dt-bindings: soc: samsung: exynos-sysreg: Add compatibles for Exynos5515
-      dt-bindings: soc: samsung: exynos-pmu: Add Exynos5515 compatible
-      dt-bindings: arm: samsung: Add lucky7 board binding
-      arm64: dts: exynos: Add initial support for Exynos5515 SoC
-      arm64: dts: exynos: Add initial support for Samsung Galaxy Watch FE
-
- .../bindings/arm/samsung/samsung-boards.yaml       |   6 +
- .../bindings/soc/samsung/exynos-pmu.yaml           |   1 +
- .../soc/samsung/samsung,exynos-sysreg.yaml         |   3 +
- arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts   | 219 +++++++++++++++++++++
- arch/arm64/boot/dts/exynos/exynos5515.dtsi         | 189 ++++++++++++++++++
- 5 files changed, 418 insertions(+)
----
-base-commit: 993e1bec85faedf90c5d27480793084e54357c09
-change-id: 20260815-for-next-lucky7-e5bf3950bdbe
-
-Best regards,
---  
-Aiden Isik <aidenisik@member.fsf.org>
+-- 
+2.54.0
 
 
