@@ -1,80 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE214E4C58;
-	Mon, 19 Oct 2026 12:14:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0544E73B4
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792412049; cv=none; b=JoSIdGX6aiyqUkk5ZfOIf4JP3yukaoOnw4rM3WfkCD9Ubzl04xPxGPcBVyNgNbmDM5LocutgJ/zivnW07ZZ/7mRkVzsWE2ZmfdhOU/KhbdoP9a+diZYYCKYqB3V8pqtBPHnRHnAt3NgbQ3RggkzSXW4W9f4UPiFlFxPvOB7rXfQ=
+	t=1792412076; cv=none; b=iaI0MICEWipn/w3j4etxsKyi5g37k0ljyWulGzXMVkG+TMpMEQ4qIPat05Y/r/pnVIPLNi/JHWDL4KP+bi+MV8qfKDbZUL9bHwhOFtjKiYB418gLvSbmJYcyFntPtGnmAKw/t0y8gKqIrAXAJSOmN5gabOoQ9Hfk/p0KWBLk8RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792412049; c=relaxed/simple;
-	bh=z6VYVYtJ7DGTpANzgqME6wb3UEs7bYt6qRjgOT5mwaQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lUhD38RpLRRJvDePOgCSmRcFETO6wfhKTVJV2IvSW7gRdTZieyffApzWkvkNXPk78po795aYuV5Tbm1K0oILeCkH9oD9319gOCg7yHfgJ1SWKeAfgeCkXIlgrtpTSU4Fuh5VoNwIdgUspyZbZLsPUAYxyzPaot7qK3yJrrBesAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MgQekndF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792412076; c=relaxed/simple;
+	bh=3dfOERGYJvWRqzMemmEHyGaDXFSamk8J/3vp1Ec2y44=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ncS07ynVcyIvwLBn2fWESE4TEqXxQsZ2ioP4H3H0a1iRwtLV9O6MPxMAHK2UHYK31B5gYHKUa/UDOTBuPp8jNH2hS3pOkqVTS9oweR0i+ItsGhxw0kfmI2sh3ebBA9oMs/Lp+xabGffQ1qUfkWFWBDLGM5yDtPahvFmKWL9v81w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ybWxPwld; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pwstxUIa; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MgQekndF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18851F000C4;
-	Mon, 19 Oct 2026 12:14:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792412048;
-	bh=D/lxAYFuniFyO2Ez9Lx7i4SBkY/wpX3Pwioyqfb4gZA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MgQekndFi5DaBJHWrBQs7EJ/oVA8/BrRMZLddZ5/Y1SkbjCFCYz9KWazCTM1BXJ69
-	 3Q6tTv63GJs9HWP5LLaDS1RvmSphFiIWzw8MEp3YtSA9t0gspLuK1OORKyBzGZuoGz
-	 Z31NtxaOVRH3nrSIwrf811mku53TN+hmnmgnCqsO21+1EucrknU9MzFhZ3N86AecT5
-	 McgKCWNo+k6o5OqODKgoZ/ZqXP3WIaqYGulnee4YyNg0ajDOgxfOmjkKIpHIWVL+Ym
-	 4pBXyOTI83zxRL8GRcg1e7sgZWKlukLMeSwGZZJa4fnFh7OaDqaa1UrncR8LRq/2M/
-	 REo8p7OG8K58g==
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-To: mkl@pengutronix.de,
-	mailhol@kernel.org,
-	geert+renesas@glider.be,
-	magnus.damm@gmail.com,
-	biju.das.jz@bp.renesas.com
-Cc: claudiu.beznea@tuxon.dev,
-	linux-can@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: [PATCH 2/2] can: rcar_canfd: Use DT clock names in the probe message
-Date: Mon, 19 Oct 2026 15:13:56 +0300
-Message-ID: <20261019121356.2421761-3-claudiu.beznea@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019121356.2421761-1-claudiu.beznea@kernel.org>
-References: <20261019121356.2421761-1-claudiu.beznea@kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ybWxPwld";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pwstxUIa"
+Date: Mon, 19 Oct 2026 14:14:31 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792412072;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sZXSlnzWa8HAfmGNxZoTYyLM6ViEtWa72yt+CJXKbao=;
+	b=ybWxPwldImO6MVytv+RbCa0r7d4rICC1YVuMPCIzjxOSRwgUFOZ+Tn/mPfkaqppPXF0YXb
+	MroGvbpWMhikGYQwPQOGtO6G/EiSFgYsgBMGHYpBklFAYn5rgqlEdlLzm4UPENrBA8bTxc
+	zoBr1HSvfs1ReryDR6Fu7ORd0f4wreDlagCS6OW0Q3eqp2FCwiC9RD4lA6AZOe3IdOKz6x
+	3CbrnEQ+aRKuY2kOi1Cd2cTCINkanApdzoq3qevYj/KB9/54nfWeM0tW3gZkE79H/gWpc+
+	McY4uFj86cd1nuDEoKkENU94xxUf9CW9CmJrhH4isrTWzwUYv5dA60UTeHFtVw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792412072;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sZXSlnzWa8HAfmGNxZoTYyLM6ViEtWa72yt+CJXKbao=;
+	b=pwstxUIaxnJNCjMTikD0UMVKe1eqs89wcQUWdlZQXrsUNBchY84EDiD6N91aeP3MN2wQq4
+	YRRAzP/OWFUJUgBw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+	Kees Cook <kees@kernel.org>, Petr Mladek <pmladek@suse.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tycho Andersen <tycho@tycho.pizza>,
+	Namhyung Kim <namhyung@kernel.org>
+Subject: Re: [PATCH v4 2/2] kallsyms: Don't leak pointers for unresolved
+ symbols
+Message-ID: <20261019121431.nrxar7EO@linutronix.de>
+References: <20261019-vsprintf_kallsym-v4-0-ffd3c012d00c@linutronix.de>
+ <20261019-vsprintf_kallsym-v4-2-ffd3c012d00c@linutronix.de>
+ <atXyO26fEVPx2qDP@ashevche-desk.local>
+ <20261019105025.igQtXzuZ@linutronix.de>
+ <atX5kxXueI5tjoYa@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <atX5kxXueI5tjoYa@ashevche-desk.local>
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+On 2026-10-19 14:05:55 [+0300], Andy Shevchenko wrote:
+> On Mon, Oct 19, 2026 at 12:50:25PM +0200, Sebastian Andrzej Siewior wrote:
+> > On 2026-10-19 13:34:35 [+0300], Andy Shevchenko wrote:
+> > > > +int snprintf_default_pointer(char *buf, unsigned int len, const void *ptr)
+> > > > +{
+> > > > +	struct printf_spec spec = {
+> > > > +		.base = 10,
+> > > > +		.precision = -1,
+> > > > +		.field_width = -1,
+> > > > +	};
+> > > 
+> > > Isn't it the same as default_dec_spec?
+> 
+> > Except for .field_width, yes.
+> 
+> You can update it there. I think in all other cases (I briefly checked, but
+> haven't run any smoke test with KUnit) it should be an equivalent.
 
-Print the DT binding clock names when reporting the selected clock at the
-end of probe. These names are part of the DT ABI, so they are stable and
-match what users see in the device tree.
+Okay. So lets give it a try.
 
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
----
- drivers/net/can/rcar/rcar_canfd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > +	unsigned int w;
+> > > > +	char *endp;
+> > > > +
+> > > > +	endp = default_pointer(buf, buf + len, ptr, spec);
+> > > > +	w = min_t(unsigned int, len - 1, endp - buf);
+> 
+> This also won't properly work for len = 0, I assume? So one can't make
+> something like kasprintf() on top of this.
+> 
+> > > May we avoid min_t()?
+> > 
+> > min() complains about signedness (len unsigned and ptr diff signed).
+> > endp is >= buf so it will be unsigned.
+> > An alternative would be manual comparison if the buffer size has been
+> > exceeded or not and act upon it but this looks simpler.
+> 
+> It looks simpler, it looks wrong :-)
 
-diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
-index bb2d03b75142..4f5cdfa8211d 100644
---- a/drivers/net/can/rcar/rcar_canfd.c
-+++ b/drivers/net/can/rcar/rcar_canfd.c
-@@ -2312,7 +2312,7 @@ static int rcar_canfd_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, gpriv);
- 	dev_info(dev, "global operational state (%s clk, %s mode)\n",
--		 gpriv->extclk ? "ext" : "canfd",
-+		 gpriv->extclk ? "can_clk" : (info->fcan_pclk ? "fck" : "canfd"),
- 		 gpriv->fdmode ? (gpriv->fd_only_mode ? "fd-only" : "fd") : "classical");
- 	return 0;
- 
--- 
-2.43.0
+Could we then exclude len == 0 and keep the remaining bits as-is?
 
+> > > > +	buf[w] = '\0';
+> > > > +	return endp - buf;
+> > > > +}
+
+Sebastian
