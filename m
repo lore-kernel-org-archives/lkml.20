@@ -1,103 +1,104 @@
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-sndfb-w02.mail.nifty.com (mta-sndfb-w02.mail.nifty.com [106.153.227.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B2B3F0749
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F4355CE8B;
+	Mon, 19 Oct 2026 14:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=106.153.227.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419355; cv=none; b=A7dZCpUkdUMn53LA3/oVIYkqGmNySK5PMbYe1x1i13obGpjQuoPWL0MY1zGAEye61yiDd6O45o5sWYQVqXEmt7vwDqnwF+kPclxhKR9kAB35+gaMM8onqnX43eqHkTMITOpRwc2L/WqKycFfgPMoFWjoryVuoJeTuQVrXElalQ8=
+	t=1792419359; cv=none; b=Bqas8tGPwoTGnpmZ1JL9aOvDC81TwQoKxMCEjNzOajL0tCUqd3Ju/XyMegNMV6BKayx2T8Ttze0TD6mj2nLDR01Q2QBNoJuYj2YPfOv1WTACKu9ljzx5ZvK66f23FtkLhkzCzHJm3AXPaCgu+d1cv9UdbuiJEpVl62s7uD3cSDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419355; c=relaxed/simple;
-	bh=Bw5159SWZK0MfXRnp1tl8h36EKMSwk4lSrReIomW8O8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dMudVKrOSBo97CORZWaIPjn7+sMW3NgkquxtqMtafU9of99/QAzpFXAA2+3EWeiMDwDs7AVcXMd50G0wvuo3E0JxbbVDWuj8vv/RxtXHS0TSELTNM52TmlGAwYIHZ/rX6xYdAUyAboGGTQBiNk4l5oQ0JZzjupj8iM/tdUQjbL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7c33cc572e6so2090939137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:15:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792419353; x=1793024153;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gTsMBv+BX/aLxxsbc3oBL3K2Qt4xiXtXHE4nz5I9X0E=;
-        b=ZcNqVnKndE24LNEwJ2zfLLxvoKjkjYIDA0baJLZIWZNdRIz5LLJtlBrxZfm/ssgVYM
-         Li95JxmiSsCkBJRXYHGzIxHG/i0XInwVjKeUrj2pE0mm4y+MW8lDVPaPxXRkvU6B/lly
-         MJgAgZAkm+RSOUH6k/rAaM56Q1hy1IKVxgOJr2fS/KEiJccd3OMKPYbcD5PzUXYC0JET
-         AfQI376iCpV4UZSUa6R+Sa8FaXcn0y1qd4X+OviRj7VLjadb6wUHR7XPmIDmcy9QSaJy
-         ZMFAFRyqWLwym4aN/S6ma5x0R2Sw1ImZb3LxCwZpR9pjUeN7rqBuc49uVBfPaJJYYkKx
-         zqHg==
-X-Forwarded-Encrypted: i=1; AKwUvBzK23jmkbZOSVomFKeZEiP54ppgojUVi6nVu5hbg+huTr8htXP2C30mxsD2zgyT1iiFW7/cfmdiTebKnY4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+tNFgEsd9ef4fQqq6bhTfmkIspvIEVP6fErYbqIYSCwStwg/7
-	YEa7Z11cZzv5+k8cSZClo8yPQU85915gjuS+Q4niIxYMK9C85VYu5rw2S//RdvOl37I=
-X-Gm-Gg: AYBFou0+d5uem/NgjjvJnDg3DB7GY+xBkH1cfyUk0ipsI32Xw881hNypHtWYXdioF2n
-	Er//UoGDJ+5nQYoDGLYrXYTc95YgDpZMh2grzjLUpnwKWKq8tIk+7Mqe33BlhjCxpw+1thY1gB8
-	2wqHGQxZdp76Yner2DysarxoIvcQtm1d1ccVzkm5f0TzUUto4yfrL3VXj2K6PWu1EJTFcoArmAK
-	wd8b9Dxta1gDYzUTjnZuOJgiHZ4SCTxcqcG9tWLxVSCVjan9b1ZJo/hmOtDCeeBgFJBa9HRC+b7
-	7oSsPLnMNY7T5E6uJmb2jVRtRNRPLYPQ7JL5YwE4RTQ1caTB8YCqihZ0z5ArRZap+f0z5745lba
-	nhVBDacZXrj2CwGNmQAZ3FZtxh8OZnvqYnKJ9qMynVvwffdlbcTFJgC6PJzf4jgrEqvvJYLQSZf
-	I7/w7d/g5ycLVsMxLvEzuvduwWZKYxYG9sqpkOON/Gpp2C/9ggzE0o/Mf9q40IXaxC3qNRtmUL6
-	pHgSc53q8CKLB4qegYf9KlRAVIEBkg1BDIeULVYseCnaM0=
-X-Received: by 2002:a05:6102:292b:b0:7bd:ce85:b00f with SMTP id ada2fe7eead31-7cc18271943mr2533415137.40.1792419353144;
-        Mon, 19 Oct 2026 07:15:53 -0700 (PDT)
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb334183sm261105241.5.2026.10.19.07.15.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 07:15:49 -0700 (PDT)
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-9908346255fso1635610241.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:15:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxUKX8HDAFcWA7Ua2tr7Xin09z0lfLFM8oa5hd5rbsn7xDlNsvYy7u4cN0fI8uf+CJHkuu7wIgG0f/uvbk=@vger.kernel.org
-X-Received: by 2002:a05:6102:75a:b0:7ba:7a64:5946 with SMTP id
- ada2fe7eead31-7cc1823be8bmr2159864137.35.1792419347856; Mon, 19 Oct 2026
- 07:15:47 -0700 (PDT)
+	s=arc-20240116; t=1792419359; c=relaxed/simple;
+	bh=hMmZNe8RzyTfEzTCQsPcmhGBU5InORCEXO0uFVWInZ0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=upzy9Qunvl7dyO+H2gaRBrzVuRH0Xm781hKnS24I6SMgxgLqxIum/3Ya7BkMGdgEOM/H1b+lbtIWI837Tn6FF7FlgKrFSGvvicgFnBBiNqNIeY5kncoYaZBnAJWOg4JP8hDMoHdCWEm5ysJ2B169FyBpZKD5XK23LG/2UroivmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nifty.com; spf=pass smtp.mailfrom=nifty.com; dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com header.b=gKEMjdwI; arc=none smtp.client-ip=106.153.227.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nifty.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nifty.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com header.b="gKEMjdwI"
+Received: from sakura.ysato.name by mta-snd-w07.mail.nifty.com with ESMTP
+          id <20261019140751810.DRGH.18412.sakura.ysato.name@nifty.com>;
+          Mon, 19 Oct 2026 23:07:51 +0900
+Received: from SIOS1075.ysato.ml (ZM005235.ppp.dion.ne.jp [222.8.5.235])
+	by sakura.ysato.name (Postfix) with ESMTPSA id 2EDD11C0162;
+	Mon, 19 Oct 2026 23:07:51 +0900 (JST)
+Date: Mon, 19 Oct 2026 23:07:50 +0900
+Message-ID: <87qzhlss09.wl-yoshinori.sato@nifty.com>
+From: yoshinori.sato@nifty.com
+To: Daniel Palmer <daniel@0x0f.com>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	dalias@libc.org,
+	dlemoal@kernel.org,
+	cassel@kernel.org,
+	linux-sh@vger.kernel.org,
+	linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	fuchsfl@gmail.com
+Subject: Re: [PATCH 0/2] sh: Fix IDE on landisk
+In-Reply-To: <CAFr9PXn4henL=rQ3n73H7Mjwd7v6XX6Jt63h=Sywu-boOPggKw@mail.gmail.com>
+References: <20261017041419.311921-1-daniel@0x0f.com>
+	<4cdb2939264e0b7d767f44289fddffd40fddf504.camel@physik.fu-berlin.de>
+	<CAMuHMdXmZash+8PmfSVrT=Wwob-mkq0x4umyRgX2-yikV9kaVA@mail.gmail.com>
+	<CAFr9PXn4henL=rQ3n73H7Mjwd7v6XX6Jt63h=Sywu-boOPggKw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/30.1 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261001082225.125956-1-herve.codina@bootlin.com> <20261001082225.125956-4-herve.codina@bootlin.com>
-In-Reply-To: <20261001082225.125956-4-herve.codina@bootlin.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 19 Oct 2026 16:15:36 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUXbeTU9ROjHQKje_+-hUCgtBOXEUpvnpRMh_dyJTo+Ew@mail.gmail.com>
-X-Gm-Features: AclHuK91kcP9qOZ_DEuR872u-j2nw4CzwPaKsUs5BANpggKtpgKKO3z0eBpg8xs
-Message-ID: <CAMuHMdUXbeTU9ROjHQKje_+-hUCgtBOXEUpvnpRMh_dyJTo+Ew@mail.gmail.com>
-Subject: Re: [PATCH v7 3/4] ARM: dts: r9a06g032: Add support for timers
-To: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	Pascal Eberhard <pascal.eberhard@se.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com; s=default-1th84yt82rvi; t=1792418871;
+ bh=ZWP0POxKL7WL6Fwv13eX+VxN5lFxqWs+Vq0GdC6vMtI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=gKEMjdwItn26U6iUKBgRzEbfsE6Y87nLj+LVlP75McMlAn9s6dy98hftazfUEsmNAoM1MiAU
+ KSZGEgeBO6baUtXxlbBZB/LP1AqvXPxSipmlQt2meCsq2UURf/yy814YSmTJ/46Zb8iodub2tp
+ 6vhlZt+6RrjH6GpgccjMVGj0jmqe4sPysSTO1nRjnklrT5sRsxunM2ILB2B0CFqaZLSaaWlsB9
+ mSznJmSH73zoGQMjIGni/iv9aX0gOnxu7Dw/KZV4DOdxiX1BQ4ZCR1uCcm2rUva5Lj/Lb9DQ6p
+ sksRZV8iOr1lEakb4hWsQbG+74ayKe1j2ukDG5liAuRS6hrA==
 
-On Thu, 1 Oct 2026 at 10:22, Herve Codina (Schneider Electric)
-<herve.codina@bootlin.com> wrote:
-> In the Renesas RZ/N1 SoCs family, two timers block are available. Each
-> block contains 8 timers composed of 6 16-bits timers and 2 32-bits
-> timers. Each timer has its own interrupt line.
->
-> Describe those timers blocks.
->
-> Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+On Mon, 19 Oct 2026 08:04:46 +0900,
+Daniel Palmer wrote:
+> 
+> Hi Geert,
+> 
+> On Sun, 18 Oct 2026 at 23:48, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+> > > I hope Geert can test and review your patches and I'll pick them up
+> > > with his Reviewed-by and Tested-by signatures.
+> >
+> > Sorry, I must have different hardware, as mine doesn't have an
+> > ATP865 PCI device:
+> >
+> >     # lspci
+> >     00:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd.
+> > RTL-8139/8139C/8139C+ (rev 20)
+> >     00:02.0 USB Controller: NEC Corporation USB (rev 43)
+> >     00:02.1 USB Controller: NEC Corporation USB (rev 43)
+> >     00:02.2 USB Controller: NEC Corporation USB 2.0 (rev 04)
+> >
+> > My CF rootfs uses pata_platform, which is enabled in my working .config.
+> > landisk_defconfig lacks CONFIG_PATA_PLATFORM=y, so it hangs during
+> > boot. After enabling that, the boot gets further, but it still hangs:
+> 
+> I guess you have something like the USL-5P that uses the SH's onboard
+> CF interface.
+> Since Florian has confirmed their hardware has the PCI IDE controller
+> like mine and reviewed the change I think we're good.
+> 
+> Daniel
 
-Thanks, will queue in renesas-devel for v7.5.
+Yes.
+LANDISK and USL-5P have almost the same hardware configuration,
+but the only difference is the IDE part.
+This issue needs to be confirmed with LANDISK hardware.
 
-Gr{oetje,eeting}s,
-
-                        Geert
+The LANDISK that I have cannot be used immediately, but here is qemu
+that can emulate LANDISK hardware.
+https://gitlab.com/yoshinori.sato/qemu/-/tree/landisk?ref_type=heads
+This will allow you to check if it is not broken.
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Yosinori Sato
