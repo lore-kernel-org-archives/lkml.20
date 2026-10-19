@@ -1,388 +1,272 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010034.outbound.protection.outlook.com [52.101.61.34])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE5046984E;
-	Mon, 19 Oct 2026 04:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792384240; cv=fail; b=U6TPZ50s3JNERsZky5A2gNw2pcrJZ9Dtod2yl1gTJTbHEnwF8iNn8qM2UdAa4r53EGZMVTCJemMgRW4idd0nuYYia6M5yEO5t8st7XPKr5W3XZA5tisHCwIh90sTPcy0Srpu4SBv+bJQv2xMnzJOz8ogYkLtF7b87cnLK0Gm7XY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792384240; c=relaxed/simple;
-	bh=8C29Uu01YVJhCDccRXLcPyfoQUH/G+7ZyJbnsgOX60U=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=g56KgYmd0ht2cbBlLoEgzi88H0Q8rBvyNEt8Onzz6jvqB+oz4ukSt/hDTos4t5UxPGDv3nODiWIG7oGZ32Bp4DKba/XP8vV16XWsrt2ECsJSgIzYZTUjG25lIm1a+Yj+RoiMuTX2KNWejLwPS/FXyJMTTgP/C6YLA9Mgg7GK/rU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MfSHOdkH; arc=fail smtp.client-ip=52.101.61.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116A23A8756;
+	Mon, 19 Oct 2026 04:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792384356; cv=none; b=fiTr1hjlE3ps8H+ulnpP4fAXP+ylI+ukCABlO6ktB1IMmWFU6DvihnYd4I4/ldZ2tWuVF4PWznu3AzTYIl+jPd/VuhpRvh8r/xg+1zcTSzDS23vcGTQX8cFOTz0riQKxT5IymF4DTJu09+hhfW/smhWNVztnfy/iKBdZWWvYflY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792384356; c=relaxed/simple;
+	bh=tCbT8qZv3KnB9a27lq/xJligLMw7fgL2mpBzU7PgkrU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z/NAyv0szHiRdPwqfv1o2a8QhBRIsrpSGctUeAfuYBqbfQKMMi2xQDF4dubiDkOGBx0/8pwD212ZDs3/z13apAxJxNvutMcNetTeolKK69NviU34L0PfeRoPFnwm+sFkx0BM87z12vjit3C/8A+Whb42O28KR+/JVR5NYSQByhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=o+bRu9DI; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MfSHOdkH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=upsZ45PzX9+0zuXLduDPcnJM31mtqKmoJ7ZFgwhL4pZYSdZrdpkCzCy25Trh/WbwY+Fz/FdyD3bD/+LwQH7apJZZ3T18eYjoi9iEmF208WehtNCucwnD5JHy/9bkZTC1OoOSNkLbPdjQ+AjkwAU/8PQ0kxZ3QAK5JV1Q1ejGTZhvNlcsShiha1P92M8Wjgem09AY/cNW/I4+35IC8mS6h0dVx1wQ0Vj9g2JMxK8iOBUysD5CfsHKe84Jy2NFWYpVXAtxEwky0tvWlr3VHYOBVmVqNqw4HOeaDE1+mI/99GZQcp5tMf5LXwkjBqs1ZhbS7GX6opUaHU2pAxLJWMFMPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ULbxjlnqc32NPPeINw3s3eOievDUW68GpVVsoapWQHA=;
- b=wArt21dLBF9YUeai6yqHdKerGcJQPwCLLnUDc1EJGTp4BkCV3zJcQM1gC68DFEakFEO1aeirz3bysM5ctKK8fzL6LTQ0OaWpKHDaDTt0KyToeZU/ICS+7OYTbhhnTzYK11ZXLSBT739PBlyrrnF2YOSt+yF3+ccsdXF1o1o+uklC7B0q7+VfcjPEwMj+VmUsfgl44JRTvwO4gLr7uQsqQWypXlaW8cmj+o5r1SMWoHnGObCFpRvNFCMg5iVkvv8ti2UduE0kUrWiv5JpRNKqlbMNTxXws59EuTeNmejAoR3k/Dq6VJyckbEg/F4ExDnqU5+smwYYt9uDfXiAdwFPkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ULbxjlnqc32NPPeINw3s3eOievDUW68GpVVsoapWQHA=;
- b=MfSHOdkHnNSoBwSHliW1W8pS4U+grvYBMEy/5NOJu1GdCnKNHjC2kM/6BbTwZ0V5m8f0fGC02hXlFcDTsYGEHpJMzjGJdHJmNCJqmy2lp6ffbRWIskfEd5sOyZyLyEA71+0qqAYHfi7sHOli7R0uZMbbSbgQ9k+JyA3V066HCzUazdDD37EncE4ywiRVaMnmpgu890nH5sZXcEr+08RL3sUw/H+ErR5JdkdBtDWfs60MaDuCCK+NfwBmkLazDqKQDp7I3ujcifZYmYK2gmQfrqKDk9WzBI/l8CGCf69DxWzemc760BveE0Ji4zPyy878ZNkGfvbQO8VAuTvUCkJIGg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- PH7PR12MB7794.namprd12.prod.outlook.com (2603:10b6:510:276::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 04:29:44 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 04:29:44 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Mon, 19 Oct 2026 13:29:28 +0900
-Subject: [PATCH v10 3/3] gpu: nova-core: add ChannelIdPool
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-chid-v10-3-67de9180b4ed@nvidia.com>
-References: <20261019-chid-v10-0-67de9180b4ed@nvidia.com>
-In-Reply-To: <20261019-chid-v10-0-67de9180b4ed@nvidia.com>
-To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
- Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Eliot Courtney <ecourtney@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4P301CA0116.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37e::19) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="o+bRu9DI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=5o
+	h545sb/eMSgu56KNqxAk9hRVcUgeao4mc8tHKFbhw=; b=o+bRu9DIJK5SQCIBml
+	DXbwF2qVNo9xgFzNTWiGnFxfHBP8aGkJdYcBoaSf3Jha+JgbzJFCULhvI+faWXI3
+	JCWH5l0guFeBFM4FhYtMFopEaBv8bqbqMcW9CgW4243FYq/6r1qIOhIRSmMbPldX
+	2gXwVhhx6i+to886I8BomFODs=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3H19HndVqZpt1BA--.1993S2;
+	Mon, 19 Oct 2026 12:32:07 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: zyjzyj2000@gmail.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Binbin Deng <18983559317@163.com>
+Subject: [PATCH v3] RDMA/rxe: Fix use-after-free of the per-net tunnel socket
+Date: Mon, 19 Oct 2026 12:32:04 +0800
+Message-ID: <20261019043205.466134-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB7794:EE_
-X-MS-Office365-Filtering-Correlation-Id: e39eac65-a0ca-4d72-fcb9-08df2d999a06
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|7416014|376014|1800799024|23010399003|366016|18002099003|10067099003|22082099003|921020|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Ew4LpC0ET/OaPtpb8dCZhBfvrdrNOB00HaVYTx9qlrzGSA5RZjqvYgHWO8jhvmqsAnwZO4Jo959OBPDP4Bzf/HsLI84QTwg8uiYlgjVV6jOnCKKueGhlIAJTsl7Pk/POBtBiuN078f6auzw5yikjolQMPOLZ8rrDLo6mqy69WA/kVYiLskQgxW3khfjTJFvqv6l9vZt0fCURmu4jBWYcdYTrBZbis3C6HgSvFR0WXiVJnUfYpe6FI1LbCGVYV5bEW39tD4zQ9KJNsbOOQEZ98UNpgjmCCYIynTCJvxacYjah5g3Mldw4hy1az1v/5fsaddGC4v8mc1FZ/PRO3hetwOQi9M9c++1xriKjeZewJF1aZVGwsaj+NbyhP0nTruvlIktTIk2oEoaIKsr+aoP8L6nyq9K8/VBA7Fllx8SsfGBFu3bRlA9hlIfWvOqLW+G6Ntt9ybSbFwJjvv38cSsR/2X5JAgjSVmDFf189wWbheVEUVFlIbt8o+NpwGhbENLsKUL6Mxn/9JtS8/7XEgTyx0NGO5d+DFvwAvWYY3rFqDNTV51N5lnSi9NQykFxVhiEbuNJQW9upfYud4f2cJpPOcUHrupgL051q6XkzDGwT1gboEtINtW245P37NnMe8rASfWJM7vWUnAyHG6AEyYeS97yvFCiFrJOBdhNFmDIv+NR1eue9n7xBEf7RYRn8ddhdHpvv4HAOQTo7/cMnWyUuQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(23010399003)(366016)(18002099003)(10067099003)(22082099003)(921020)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MmlITDhKdmM1WThFUjY3ZXcweUU5OHFwSmlVdG14RHZMT0kxdmdlOExGTnJi?=
- =?utf-8?B?L21xK2drWi9zV3NsQ0xLanZMVHB5T09keGZDWkwzWlhzOHdUSzVNQjloMXdq?=
- =?utf-8?B?UHRMYnYwcGRQSlVvU2NjTGNlbzdIalJELzQ0YS8wcVgzME1IRUt0UFBoNXdI?=
- =?utf-8?B?MUJjaVZYaUM2WmNhc29nTzFCd0o2NXFOTW5ZTEhoSlErcGtyODk2bzZFZEF0?=
- =?utf-8?B?VUUxWW1zQlNycjVkVUplZitiSzAwVnlTRGpBeWVES2lBeUhzN3owTUlhK0F5?=
- =?utf-8?B?ZURDdGdjY3BEemo4QnVOQ0Y4NFVaN0YzR1VXT0c1Z3dzRlFvZU4xZFk1SEY0?=
- =?utf-8?B?RW5xL2tGUGhNN3VONWs1OFdlNDQzSTZQODY4ZDNkYzA0dDhHVXpXNElOYmZz?=
- =?utf-8?B?ejRlQ00yYVYyQnFLQk9ERzlCWS9ldnpOUWJjNU8wSmhjUWtnMlI0bkZyT25T?=
- =?utf-8?B?dnBXamdGWXRKUWdNMGc3RVFLZU0rUTV0TUM3ZVRQcVROVDZlOUxSSUdrY1hu?=
- =?utf-8?B?cFkzTm1EbG9zaEYrY2Z2STdFYUVYbFFQV0RpNmZmYmtaandWQi91TmZVTDVo?=
- =?utf-8?B?amYrR0hwUnBzV2IxMlRtcmcwTk0rVVU0TDlsNkVHdElPZE53ZFJBd1hnSzR1?=
- =?utf-8?B?QnFlM3piYmlVY0JpcEUxUWNVeEk2MWNXZGZSU0IwaGJSME1lL3ErbUhDYU04?=
- =?utf-8?B?VDY4SmE4OVV3MHdUVW1zMy9YQVhvTDdTSG5rek5kSHRLZEh3eXhVbWhuQmhv?=
- =?utf-8?B?ZUsza1pjQ0dpZGo5WklzVVhtWDV2OGluMXhrcmZGRUdlMXRYb2hvM0cwVW54?=
- =?utf-8?B?QURsa3ppSngxeDFBNTZzZlNVeWhjd0M5REIxWVZkYThVUHp3alA0ZUE2M0lZ?=
- =?utf-8?B?RGZzZ3RSZ0drY1dkODRocXRJY00weU83QStWZEY2bjR1M2paSFo4Y2pBYTc3?=
- =?utf-8?B?a1RNTlB5TFozdlRrZitBTC9RbmE3OGhPb2xTSzkxdG81amVnbS9pNlQ1N0pr?=
- =?utf-8?B?cjdKM1RCTzA3dzJwa0RMVEZTN096cTZwZVBqZ1BKUnZMRm5vZHM5SmRVbGo1?=
- =?utf-8?B?Q3Bwajh6Znh3QXdyYUZqMUV2QkRNQjI1QldRTVF2cUJkUjRkeXZmZ08yT3BV?=
- =?utf-8?B?ZVhiVGFxZ2w4d1dudkVHZGoyc2M1Qm5OWExMOVFSQW04azlXdEVNT3JWSTFn?=
- =?utf-8?B?cCt2c0JqTitjb3J4ZXFJRUFsemZGdEQyQ0pIWmxnRDlTRmFxTTFPQVRQVXRI?=
- =?utf-8?B?Rmk1K0JJNGIydXgrRG03TUN0ZmgrM25IbFQrek41LzNNZTlMUFJ1a1ppaHNm?=
- =?utf-8?B?ait0WWNCZVpFalJDWmprdUIwK2p6V0ppNFNDbkhsZWFDMndBUm9Ya0hLRS9J?=
- =?utf-8?B?UytvcU1UenhKRjF1aHppSC8vaSs1QXJ1ZWU2QUlMOVd6QW1JU2RSN2VBM3p2?=
- =?utf-8?B?QWV4RXk5Z2VxNkdWZndLT1o1cnMzNi96bGhhTjFzdTVaSnB2UmtoN3pDV2Nx?=
- =?utf-8?B?Ujk4T2lPekFucDdwYk9kN3RHYXFCeXhUVUl4Nzcyc0Vlc3gwblFrVE1Fb1Rm?=
- =?utf-8?B?Sk90cXBsN2hpbmtYL1RzNjJCVWlkZTNFNUY2WnBqTTU3WmExN201N21tMCtW?=
- =?utf-8?B?RFdodUdaWlBEQXNVVU9MRG9lK3IwYVp1VFpyUjFldDE4K2xITmdoRHNLbHRi?=
- =?utf-8?B?WFRYclB5WEZBb3hjZnFvYTJmV3RMRHJoa0pYT3F5ODNkTTE3cjYwM1JFRzdU?=
- =?utf-8?B?UnQxeGhxV1lxRzJ5cDJ5YzlNS2UwUUhjSGRnYStWWXNBd1FqU2JZeFc0cUVX?=
- =?utf-8?B?SXcyQk1xbGdlcTZQcnUxQW91UkdrYzlSdUxOMUV3cGtFVjR2REpHeCtjN2lD?=
- =?utf-8?B?b1oyTjgyenc4ejZXaDRuQkhsYUQ1SGRxVGpMcHVnUXBza2dSaFpMZHpRVGF5?=
- =?utf-8?B?YUFicjNqZnVmWUcwam5CdUppY0twamw4SmFXdVBvQ0NMWXZ6T2JIejVBcWtO?=
- =?utf-8?B?MG40UEQ1QmFsREFDdkxMcUhmOFZWYzF3NDBwUEFZQVNWdFJGTVFpQk95alBo?=
- =?utf-8?B?RkVpblRxT0dRb3VLSFJpbFliZ05KdWd4b3FPVnJPRVBEODBweWw2S0RuMm5s?=
- =?utf-8?B?d2w3Q3Vacmc2bStkc1BvbEYwODJrTEFnR1VmM2c5akRtQjF0TFpET1VDVG5v?=
- =?utf-8?B?YUEvR2lOZlk1d0Q5N2dnUkdLVFB2ajhkSWs5d0NYbzhjRzZlUnBjUFlyYTR6?=
- =?utf-8?B?QXlJdzlCTFFodWhzdGpBNnN3NFZ1TnVzNVAxdHF5OXp0TnF6aXJRZ2lSbUtN?=
- =?utf-8?B?TG1DcWpUbVdFQUUwRHZObUlTeWRmK2diQTJMTzF1ZmliTzRjK2xMUzl2SUcr?=
- =?utf-8?Q?7bM0pJEUCAEg5Gmy1tgYT0WQvghnQjYGvFtbK3ytozYUB?=
-X-MS-Exchange-AntiSpam-MessageData-1: W8MRcSoaxP4EuQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e39eac65-a0ca-4d72-fcb9-08df2d999a06
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 04:29:44.8387
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +H3rP4mBcLIc0+V/Mbim8sTXEDS5+slCKHg51qbnkDXXaeDdb8J/2dktoyZUHxwh/GYPAQLtzkD8KH0eZJuG0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7794
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H19HndVqZpt1BA--.1993S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Jw1xJF13CF1DZrWDKF1xXwb_yoW3Zr47pr
+	WrKayYyrsrJr42vr43AF4jvr1Fv3Z3tFy3Gas7Kwnavan8uw43Xa47tryj9Fn5CrW8CF4U
+	XF1kJF1vkw4rZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UwVysUUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC+weIbGrVnUcUywAA3i
 
-Add `ChannelIdPool` which adds automatic tracking and releasing of
-channel IDs on top of `IdPool`. This is necessary for apportioning
-ranges of channel IDs to be used in e.g. vGPU.
+KASAN reported a slab-use-after-free in ip6_route_output_flags()
+reached from rxe_find_route(): a user with CAP_NET_ADMIN can remove
+an RXE device with "rdma link del rxe0" while RoCE v2 over IPv6
+traffic keeps using the per-net tunnel socket for route lookups.
 
-Channel IDs are allocated as a contiguous sequence with a specific
-length and sometimes a specific alignment [1] for vGPU. The ID space is
-small (limited to 2048) and allocation is not on a hot path, so a
-bitmap-backed `IdPool` is a better fit than IDA/xarray (which allocate a
-single ID within a range, not a contiguous sequence) or a maple tree
-(where aligned allocation needs an alloc_range()+erase() retry loop that
-essentially reimplements bitmap_find_next_zero_area()) [2]. It is
-also faster than maple tree [3].
+BUG: KASAN: slab-use-after-free in ip6_route_output_flags+0x300/0x360
+Read of size 4 at addr ffff888115ddd794 by task kworker/u32:6/309
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x53/0x70
+ print_report+0xd0/0x630
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? ip6_route_output_flags+0x300/0x360
+ kasan_report+0xce/0x100
+ ? ip6_route_output_flags+0x300/0x360
+ ip6_route_output_flags+0x300/0x360
+ ip6_dst_lookup_tail.constprop.0+0x76c/0xcc0
+ ? ct_nmi_exit+0xc3/0xf0
+ ip6_dst_lookup_flow+0xf5/0x1e0
+ ? __pfx_ip6_dst_lookup_flow+0x10/0x10
+ rxe_find_route+0x426/0xa30
+ ? __kasan_slab_alloc+0x6e/0x70
+ ? __pfx_rxe_find_route+0x10/0x10
+ ? kmem_cache_alloc_node_noprof+0x141/0x370
+ ? kmalloc_reserve+0x103/0x2b0
+ ? rxe_icrc_generate+0x229/0x330
+ ? __pfx___alloc_skb+0x10/0x10
+ rxe_prepare+0x9e8/0x18b0
+ ? rxe_init_packet+0x3c7/0x4f0
+ rxe_requester+0x1a0f/0x51f0
+ ? rxe_completer+0x1de9/0x38c0
+ ? __pfx_rxe_completer+0x10/0x10
+ ? __queue_work+0x43e/0x11f0
+ ? __pfx_rxe_requester+0x10/0x10
+ ? irqentry_exit+0xd2/0x640
+ ? _raw_spin_lock_irqsave+0x85/0xe0
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? __pfx_rxe_sender+0x10/0x10
+ rxe_sender+0xe/0x30
+ do_work+0x144/0x470
+ process_one_work+0x633/0x1030
+ ? assign_work+0x11d/0x370
+ worker_thread+0x45b/0xd10
+ ? __pfx_worker_thread+0x10/0x10
+ kthread+0x2c6/0x3b0
+ ? recalc_sigpending+0x15c/0x1e0
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x36e/0x5a0
+ ? __pfx_ret_from_fork+0x10/0x10
+ ? __switch_to+0x572/0xdd0
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
 
-Link: https://lore.kernel.org/all/84bc8bd2-e292-4b84-9580-a1b5df4c5bdc@nvidia.com/ # [1]
-Link: https://lore.kernel.org/all/20260710-chid-maple-v1-1-4ee869055268@nvidia.com/ # [2]
-Link: https://lore.kernel.org/all/20260717053241.916441-1-ynorov@nvidia.com/ # [3]
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+Allocated by task 146020:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x14/0x30
+ __kasan_slab_alloc+0x6e/0x70
+ kmem_cache_alloc_noprof+0x130/0x360
+ sk_prot_alloc+0x56/0x210
+
+rxe_net_del() releases the tunnel socket before the device is torn
+down: nldev_dellink() calls .dellink before unregistering the
+device, and the NETDEV_UNREGISTER notifier calls rxe_net_del() right
+after queueing the unregistration, so the rxe_sender() workqueue can
+still perform route lookups while the socket is released.
+
+Two gaps in the tunnel socket lifetime allow the use-after-free:
+
+1. rxe_sock_put() released the socket with rxe_release_udp_tunnel()
+   before the per-net pointer was cleared, so route lookups could
+   fetch a socket that was already freed.
+
+2. rxe_ns_pernet_sk4/6() return the raw socket pointer after
+   rcu_read_unlock(), without taking a reference.  Readers like
+   rxe_find_route6() dereference the pointer outside the RCU
+   read-side critical section, so the synchronize_rcu() in
+   rxe_ns_pernet_set_sk4/6() cannot protect a reader that already
+   fetched the pointer, and ip6_route_output_flags() or
+   xfrm_lookup_with_ifid() can still be using the socket while it
+   is freed.
+
+Fix both gaps:
+
+- rxe_sock_put() clears the per-net pointer before it releases the
+  socket, so no new lookup can fetch a socket that is being
+  released;
+
+- rxe_ns_pernet_sk4/6() take a reference on the socket with
+  refcount_inc_not_zero() under rcu_read_lock(), and the callers
+  sock_put() it after use.  The reference that rxe_net_ipv4/6_init()
+  keeps now comes from the getter instead of an open-coded
+  sock_hold() on the raw pointer, and rxe_sock_put() drops the
+  getter's reference after the tunnel is released.  Since the
+  reference is taken inside the RCU read-side critical section, the
+  synchronize_rcu() after the pointer is cleared guarantees that
+  every reader has finished taking its reference before the last
+  reference is dropped, so the count never reaches zero while a
+  reader still holds the pointer.
+
+The remaining races on the tunnel socket lifetime (serialization of
+rxe_net_init() against rxe_net_del(), a second rxe_net_del() of one
+device from the NETDEV_UNREGISTER notifier, and the per-device
+reference accounting of shared sockets) already exist in the code
+this fixes and are left for a follow-up series.
+
+Fixes: f1327abd6abe ("RDMA/rxe: Support RDMA link creation and destruction per net namespace")
+Signed-off-by: Binbin Deng <18983559317@163.com>
 ---
- drivers/gpu/nova-core/gpu.rs         |   2 +
- drivers/gpu/nova-core/gpu/channel.rs | 198 +++++++++++++++++++++++++++++++++++
- 2 files changed, 200 insertions(+)
+ drivers/infiniband/sw/rxe/rxe_net.c | 29 ++++++++++++++++++++---------
+ drivers/infiniband/sw/rxe/rxe_ns.c  | 10 ++++++++++
+ 2 files changed, 30 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 9a91cff01e78..c8ffb427e2d8 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -53,6 +53,8 @@
-     vgpu::VgpuManager, //
+diff --git a/drivers/infiniband/sw/rxe/rxe_net.c b/drivers/infiniband/sw/rxe/rxe_net.c
+index 53daaf4c1eb2..ec98133a6005 100644
+--- a/drivers/infiniband/sw/rxe/rxe_net.c
++++ b/drivers/infiniband/sw/rxe/rxe_net.c
+@@ -135,13 +135,20 @@ static struct dst_entry *rxe_find_route6(struct rxe_qp *qp,
+ {
+ 	struct dst_entry *ndst;
+ 	struct flowi6 fl6 = {};
++	struct sock *sk;
+ 
+ 	fl6.flowi6_oif = ndev->ifindex;
+ 	memcpy(&fl6.saddr, saddr, sizeof(*saddr));
+ 	memcpy(&fl6.daddr, daddr, sizeof(*daddr));
+ 	fl6.flowi6_proto = IPPROTO_UDP;
+ 
+-	ndst = ip6_dst_lookup_flow(net, rxe_ns_pernet_sk6(net), &fl6, NULL);
++	/* keep the socket pinned while it is passed to the IPv6 routing
++	 * code which dereferences it outside of rcu_read_lock()
++	 */
++	sk = rxe_ns_pernet_sk6(net);
++	ndst = ip6_dst_lookup_flow(net, sk, &fl6, NULL);
++	if (sk)
++		sock_put(sk);
+ 	if (IS_ERR(ndst)) {
+ 		rxe_dbg_qp(qp, "no route to %pI6\n", daddr);
+ 		return NULL;
+@@ -638,9 +645,15 @@ static void rxe_sock_put(struct sock *sk,
+ 	if (refcount_read(&sk->sk_refcnt) > SK_REF_FOR_TUNNEL) {
+ 		__sock_put(sk);
+ 	} else {
++		/*
++		 * Clear the per-net pointer before the socket is released:
++		 * rxe_ns_pernet_sk4/6() take a reference on the socket, but
++		 * new lookups must not find it once it is being released.
++		 */
++		set_sk(net, NULL);
+ 		rxe_release_udp_tunnel(sk);
+-		sk = NULL;
+-		set_sk(net, sk);
++		/* drop the reference from rxe_ns_pernet_sk4/6() */
++		sock_put(sk);
+ 	}
+ }
+ 
+@@ -758,11 +771,10 @@ static int rxe_net_ipv4_init(struct net *net)
+ 	struct sock *sk;
+ 	struct socket *sock;
+ 
++	/* returns with a reference held for this device */
+ 	sk = rxe_ns_pernet_sk4(net);
+-	if (sk) {
+-		sock_hold(sk);
++	if (sk)
+ 		return 0;
+-	}
+ 
+ 	sock = rxe_setup_udp_tunnel(net, htons(ROCE_V2_UDP_DPORT), false);
+ 	if (IS_ERR(sock)) {
+@@ -780,11 +792,10 @@ static int rxe_net_ipv6_init(struct net *net)
+ 	struct sock *sk;
+ 	struct socket *sock;
+ 
++	/* returns with a reference held for this device */
+ 	sk = rxe_ns_pernet_sk6(net);
+-	if (sk) {
+-		sock_hold(sk);
++	if (sk)
+ 		return 0;
+-	}
+ 
+ 	sock = rxe_setup_udp_tunnel(net, htons(ROCE_V2_UDP_DPORT), true);
+ 	if (PTR_ERR(sock) == -EAFNOSUPPORT) {
+diff --git a/drivers/infiniband/sw/rxe/rxe_ns.c b/drivers/infiniband/sw/rxe/rxe_ns.c
+index 64621c89f8bf..0a7d409c0f98 100644
+--- a/drivers/infiniband/sw/rxe/rxe_ns.c
++++ b/drivers/infiniband/sw/rxe/rxe_ns.c
+@@ -71,6 +71,12 @@ static struct pernet_operations rxe_net_ops = {
+ 	.size = sizeof(struct rxe_ns_sock),
  };
  
-+#[cfg_attr(not(CONFIG_KUNIT = "y"), expect(dead_code))]
-+mod channel;
- mod hal;
- mod regs;
++/*
++ * Return the per-net tunnel socket with a reference taken, or NULL if
++ * the namespace has no tunnel socket.  The reference is taken under
++ * rcu_read_lock() so the socket cannot be freed while the pointer is
++ * still published; the caller must sock_put() it.
++ */
+ struct sock *rxe_ns_pernet_sk4(struct net *net)
+ {
+ 	struct rxe_ns_sock *ns_sk = net_generic(net, rxe_pernet_id);
+@@ -78,6 +84,8 @@ struct sock *rxe_ns_pernet_sk4(struct net *net)
  
-diff --git a/drivers/gpu/nova-core/gpu/channel.rs b/drivers/gpu/nova-core/gpu/channel.rs
-new file mode 100644
-index 000000000000..485efaba059d
---- /dev/null
-+++ b/drivers/gpu/nova-core/gpu/channel.rs
-@@ -0,0 +1,198 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! Channel ID allocation.
-+
-+use core::{
-+    num::NonZero,
-+    ops::{
-+        Deref,
-+        Range, //
-+    }, //
-+};
-+
-+use kernel::{
-+    id_pool::IdPool,
-+    prelude::*,
-+    ptr::Alignment,
-+    sync::{
-+        new_mutex,
-+        Mutex, //
-+    }, //
-+};
-+
-+/// Pool for tracking reservations of channel IDs.
-+#[pin_data]
-+pub(crate) struct ChannelIdPool {
-+    #[pin]
-+    inner: Mutex<IdPool>,
-+}
-+
-+impl ChannelIdPool {
-+    /// Creates a pool managing `num_chids` channel IDs.
-+    pub(crate) fn new(num_chids: NonZero<usize>) -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self {
-+            inner <- new_mutex!(IdPool::with_capacity(num_chids.get(), GFP_KERNEL)?),
-+        })
-+    }
-+
-+    /// Reserves a contiguous area of `count` channel IDs starting at a multiple of `align`,
-+    /// returning a guard that releases the area on drop.
-+    pub(crate) fn reserve_ids(
-+        &self,
-+        count: NonZero<usize>,
-+        align: Alignment,
-+    ) -> Result<ChannelIdReservation<'_>> {
-+        let mut ids = self.inner.lock();
-+        let range = ids.reserve_ids(0, count, align).ok_or(ENOSPC)?;
-+        Ok(ChannelIdReservation { pool: self, range })
-+    }
-+}
-+
-+/// A reserved contiguous area of channel IDs.
-+///
-+/// Releases the whole area back to its [`ChannelIdPool`] when dropped. Releasing locks a
-+/// sleeping [`Mutex`], so the area must be dropped in a context that is allowed to sleep.
-+#[must_use = "the channel ID reservation is released immediately when unused"]
-+pub(crate) struct ChannelIdReservation<'a> {
-+    pool: &'a ChannelIdPool,
-+    range: Range<usize>,
-+}
-+
-+impl Drop for ChannelIdReservation<'_> {
-+    fn drop(&mut self) {
-+        self.pool.inner.lock().release_ids(&self.range);
-+    }
-+}
-+
-+impl Deref for ChannelIdReservation<'_> {
-+    type Target = Range<usize>;
-+
-+    fn deref(&self) -> &Self::Target {
-+        &self.range
-+    }
-+}
-+
-+#[kunit_tests(nova_core_channel)]
-+mod tests {
-+    use super::*;
-+    use kernel::sizes::SizeConstants;
-+
-+    #[test]
-+    fn chid_reservation() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(cv!(2048)), GFP_KERNEL)?;
-+
-+        let first = pool.reserve_ids(cv!(48), Alignment::SZ_1)?;
-+        assert_eq!(0, first.start);
-+        assert_eq!(48, first.len());
-+        assert_eq!(48, first.end);
-+
-+        let second = pool.reserve_ids(cv!(48), Alignment::SZ_1)?;
-+        assert!(first.end <= second.start || second.end <= first.start);
-+
-+        let first_start = first.start;
-+        drop(first);
-+        assert_eq!(
-+            first_start,
-+            pool.reserve_ids(cv!(48), Alignment::SZ_1)?.start
-+        );
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn chid_reservation_drop() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(cv!(8)), GFP_KERNEL)?;
-+
-+        let a = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
-+        let b = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
-+        let c = pool.reserve_ids(cv!(2), Alignment::SZ_1)?;
-+        assert_eq!(0, a.start);
-+        assert_eq!(3, b.start);
-+        assert_eq!(6, c.start);
-+
-+        drop(b);
-+
-+        // Only have space for 3 IDs right now.
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.reserve_ids(cv!(4), Alignment::SZ_1).map(|_| ())
-+        );
-+        let b = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
-+        assert_eq!(3, b.start);
-+
-+        drop(a);
-+        drop(c);
-+        drop(b);
-+
-+        // Everything was dropped so the pool should be empty.
-+        assert_eq!(0, pool.reserve_ids(cv!(8), Alignment::SZ_1)?.start);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn chid_bounded_by_num_chids() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(cv!(4)), GFP_KERNEL)?;
-+
-+        {
-+            let a = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+            let b = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+            let c = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+            let d = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+            assert_eq!(0, a.start);
-+            assert_eq!(1, b.start);
-+            assert_eq!(2, c.start);
-+            assert_eq!(3, d.start);
-+            assert_eq!(
-+                Err(ENOSPC),
-+                pool.reserve_ids(cv!(1), Alignment::SZ_1).map(|_| ())
-+            );
-+        }
-+
-+        assert_eq!(0, pool.reserve_ids(cv!(4), Alignment::SZ_1)?.start);
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.reserve_ids(cv!(5), Alignment::SZ_1).map(|_| ())
-+        );
-+
-+        let head = pool.reserve_ids(cv!(3), Alignment::SZ_1)?;
-+        assert_eq!(0, head.start);
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.reserve_ids(cv!(2), Alignment::SZ_1).map(|_| ())
-+        );
-+        assert_eq!(3, pool.reserve_ids(cv!(1), Alignment::SZ_1)?.start);
-+        Ok(())
-+    }
-+
-+    #[test]
-+    fn chid_reservation_aligned() -> Result {
-+        let pool = KBox::pin_init(ChannelIdPool::new(cv!(16)), GFP_KERNEL)?;
-+
-+        // Alloc 0 so the first fit for the next area is unaligned.
-+        let pad = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+        assert_eq!(0, pad.start);
-+
-+        let a = pool.reserve_ids(cv!(4), Alignment::SZ_4)?;
-+        assert_eq!(4, a.start);
-+
-+        // The area skipped over by the aligned allocation should still be available.
-+        let b = pool.reserve_ids(cv!(1), Alignment::SZ_1)?;
-+        assert_eq!(1, b.start);
-+
-+        let c = pool.reserve_ids(cv!(8), Alignment::SZ_8)?;
-+        assert_eq!(8, c.start);
-+
-+        // Only 2 IDs left.
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.reserve_ids(cv!(4), Alignment::SZ_4).map(|_| ())
-+        );
-+        assert_eq!(
-+            Err(ENOSPC),
-+            pool.reserve_ids(cv!(1), Alignment::SZ_32).map(|_| ())
-+        );
-+
-+        assert_eq!(2, pool.reserve_ids(cv!(2), Alignment::SZ_1)?.start);
-+        Ok(())
-+    }
-+}
-
--- 
-2.56.0
+ 	rcu_read_lock();
+ 	sk = rcu_dereference(ns_sk->rxe_sk4);
++	if (sk && !refcount_inc_not_zero(&sk->sk_refcnt))
++		sk = NULL;
+ 	rcu_read_unlock();
+ 
+ 	return sk;
+@@ -99,6 +107,8 @@ struct sock *rxe_ns_pernet_sk6(struct net *net)
+ 
+ 	rcu_read_lock();
+ 	sk = rcu_dereference(ns_sk->rxe_sk6);
++	if (sk && !refcount_inc_not_zero(&sk->sk_refcnt))
++		sk = NULL;
+ 	rcu_read_unlock();
+ 
+ 	return sk;
 
