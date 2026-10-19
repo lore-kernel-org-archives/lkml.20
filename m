@@ -1,79 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792449750;
-	b=VhwkfMZJev2ZuFDgkMH4vPdW5FBOLgWpK0yQ92Mlxwznji0XdpJrrWU5bTY0u3x+ljGc
-	 yDp7C+sYecslnQ0W9SP0slz3DrYQKnyxiBlhWl1qMmtZ1B6bIoxcKCGpvjdSyjaXrtrQV
-	 eq4iKWd7AhOx+GgifY0kjBqyMfqREfxgi892cWt9l+DwIb67QgE9MhAAgG5HhJIBnYKXg
-	 6RR6ud3sWwjfceXiqJMW6fqkvrVBTVW38j4eMp3ftv4nj9htOJNrmpOfl+PYNeP3YycDM
-	 wnrYGnWp9L+E8JIH3Eq3m/07TDcXLwJjCHJfua1CZoXBqqFrVMHhGQ89umkv3kMITjg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792449750;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=l7qRcTsO/2UXtwmKxP41sC0aqXAF/l/R34AJf/PVsKA=;
-	b=Imi/pIRL8mDf/mgkqVNwu4ISPM+rU0Fme+ftmmE6M8YDrmC9HtZPNQjf1v/a6XWqg8kn
-	 FuuOP0R9oEc7B5R0MgK5u8mSJ2qOzGsxIfHP5NqEvq0V3dJnLCbzaF+ToWdNiZNt0E3hk
-	 j8oMNKz0QWJcNgifm77XfpUKYHsHsnbr0DtXonfIQgyUcXCJTcJqs1PfE550aosH69zZl
-	 P9u9zeX7s8nCCSzX2rfK/k8qjbIxZo/93O0pYjfT2xzU23NzqMqboedkflyDCictD/1Xo
-	 aXeLjqBm/o3Ke8WMlrUnVjss4XZhAuR9T29ZZ46o6WqTWAmYrjHbeGAGVsDS7ELzdyg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b05ZTDVm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792449766;
+	b=th4Q9s24/+bt6MtPj6vXWU2o6qtLMv2y+enJGf94dnrxGpPWh92dFDjR8oERl54Yvfnc
+	 oM77bjUxNFYB620B6wQwX/8r311RauTkSHDa++pfDov3mH5ecZVwzbFbnFlsA/0pQrFLn
+	 Hq31DjakvUv+vqdHvgFXOdgRfOFxM1Hr49BhD09wMO+/iL4aV5nq3o1XOhZXCIqFxhSr3
+	 +qCJ5EwStaa/4DI3MDzWmjVCkeDV8XAGfRfZbESCupbqTrUn4njxSVGvdjRbafT2GjtgU
+	 gnLXwVrhmjx26TG1Yl7ThuFAUsSA8MZY4n5OW8f57H16eXWSFhlsp+nX15QB5mgueiw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792449766;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=tXbwnR2RlCJZXvS7RGs12P+e1RnZcsA+7Uc/5Gfouos=;
+	b=M5Jr6TTIB3LQRKAkobptGf9D7dXZ1n/oBUtKpdXLvD3WCx8QzV/MUzY5kuZuPlNSzR3E
+	 t1MfMUtW0DfNMXOVOxeNDiufnUXin6t0EWAPKz9TYWB7pfAK75wDh/pOawcOtDJ/KVIeG
+	 nBQJPDLdnFeadK13jeDfCMfxKTpLOj1q/1yf0mpNlX8pBbYn52vHRUORChxm+YcqWaM/N
+	 FEnDxPqTcRi1EhHPwL2ZXapX8AUAsXJqOoFo8kX19SrblPFo4a78h39T02pW426W5V0os
+	 UvnQLN5lm+90Ar08alCJ3Hw2mxrFalX8J3S6SLA1Zt4FvsAP2uCVIvTMU2tfW1fdv5g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqTGEjK2;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65AE3606A31A;
-	Mon, 19 Oct 2026 22:42:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8642606A31B;
+	Mon, 19 Oct 2026 22:42:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b05ZTDVm
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792449750;
-	b=FWU6ZjEjcg2e0Sigb4byzC5sv76zcqozl4E4OasIKV0IfEo51NToXuTIrZM1QfWEVbWH
-	 8KP3zv+LdQWMPqkAwARQF99Zm2eVeF4X9oP3g6yRURfWrvY2GXIsyxAcmJn45x5JIU8HM
-	 Cp5vakT0JEKoN2ZxZw0FYet7OpQ3L4SKYfLOVeehaCA2IG2Mjx1r4uUYrClBdlpL5VMnm
-	 KI2ySMq8w45lg/ANVNCY6MIxcfo93QMKWFLYFgzHopxqvWlrkZ3LKFXliDaKSF/PzgTPj
-	 tWrpSTIBx0DGEPS7O6MYy1zAHTnXhnAVtCjeNahTJ50JSPGUJnHs0MvqQMpNz3/z6oQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792449750;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=l7qRcTsO/2UXtwmKxP41sC0aqXAF/l/R34AJf/PVsKA=;
-	b=ZuTezcheYMe9XPg8QLqcyvVKGWgOoTjoTfNN6e0/rW2RI+DRiLhiwnssbNn7/TDsTFST
-	 yAdL96TTVPe0pzZZVu/8rt2CwrAtXmg3ngkIgok8YRjOFkAv/eVkijrJYjQXWzi9JKpIC
-	 pPtCqw5CjcEN6Ce/RN8u0Hizo2JwlJxWqdnZ5Un30izfVMVSDGS+HEHFAoeKJPkX8PQaw
-	 QUrhQOe/Tht8o+S4qAsyv7vCxzFr4XW22s5bCI9u2PC+LipiijrYJSFawIkuzv8IVHffA
-	 WCm4TiVaFFt9r2HRfRZQf7IXu331Ds515TdiB+TpZP3MwO8F6JKgrmGrqEONcqh6OKA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EA1CC1F000C4;
-	Mon, 19 Oct 2026 22:42:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqTGEjK2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36ECF1F000C5;
+	Mon, 19 Oct 2026 22:42:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792449749;
-	bh=l7qRcTsO/2UXtwmKxP41sC0aqXAF/l/R34AJf/PVsKA=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=b05ZTDVm6WgW3CmmzYbXuJgRL+yY6C+/0kZm0di8ZCYAkheR8B5XE8qfbSw9C5/6v
-	 UboVnMYHc/VfaxFb1CmMjYapOzMOw8sRoauzYxxTLph6vZOBUZwRekPXVOA/wu3ud2
-	 kcO2YdcZ7c8dMqHAjp3P7+GNSYCw3OTxOofK1dcgXmUk7FDKhHO07aLkTVIXKVNBCu
-	 PIPowXp0K67DyDxV72SMYvS9X4mgFIEn2SpH4Lc6O2SKcqqCu+5aFiSy2hxza3nboN
-	 sPq4RzFjjmLYxIu8Torwg8AKk3xh88chFCB55VAm3jBR2PL5aRx71Uheqz2WHqjjW+
-	 f796rKBMjOnIQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 49CC040644;
-	Mon, 19 Oct 2026 22:42:28 +0000 (UTC)
-From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
-Subject: [PATCH v3 0/2] Add Samsung Galaxy Tab S9 Wi-Fi (SM-X710) support
-Date: Tue, 20 Oct 2026 00:42:08 +0200
-Message-Id: <20261020-gts9wifi-dts-v3-0-afd06fb2d9f9@dxdmail.cc>
+	s=k20260515; t=1792449765;
+	bh=tXbwnR2RlCJZXvS7RGs12P+e1RnZcsA+7Uc/5Gfouos=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fqTGEjK2k/qk2/XNPXLr8ukixfoWwjB4gtEYaQfxQWiO7jazvPdblIhmtcV/ubSe/
+	 XAunHnFhLU8uK2kDBgJt5hDKF98EqfQwe+3OhEr8+UV7/rEePiER9pTy7dYJzx25es
+	 a72Xz382QF6geDuUejhjjhH4ezOmf4Es8L2uItUwzMWX5sOKdLue0feow2ju6bw1LK
+	 4Aq2XSSp95TOrCEj9YS15xBlA+FlKrLzy4UJOI0I+78tXNTGBiPYI0VfxlROWCvuOs
+	 GPzftPlxo16nmUBCFg/mfcOFhDdhx9+wklYbJyaS4LcpR13bXqgg9z87zjAikyFjjr
+	 LPCUllYYuBfnw==
+Date: Mon, 19 Oct 2026 22:42:43 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	rientjes@google.com, willy@infradead.org, senozhatsky@chromium.org
+Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
+Message-ID: <atacyPeRJeDiUs1X@google.com>
+References: <20261008182814.27450-1-kanchanapsridhar2026@gmail.com>
+ <CAO9r8zOHtaeo5jhHkHB8Vtb9+KZXO+DH74v+7Y84W0v=tatRqg@mail.gmail.com>
+ <CACpmpofN-JfCgJtW9D0wNu0_pL1pRWGfNphUQnE9Bse-P5tHpQ@mail.gmail.com>
+ <CAO9r8zO+0h3LLuaFGi6RF02sBYrG71Zf9qMei73UPvRi2onGxg@mail.gmail.com>
+ <CACpmpoe+krnso-b1h_g_Q=HzV5x8xpu=Ke9==+4PfWF0ZcAUgQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,74 +63,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XMQQ6CMBCF4auQrq1pSxHrynsYF6UzhUkUTEsqh
- nB3Cys1cfle8v0zixgIIzsVMwuYKNLQ51HuCuY627fICfJmSqiDFELzdozmSZ44jJGD0rXCo6l
- UqVkmj4Cepi13uebdURyH8NrqSa7vn1CSXHDpBdQAukZtzzDB3dJt7xxbS0l96upHq6xdaZ1ph
- DcOmy+9LMsb1kUwv+cAAAA=
-X-Change-ID: 20261004-gts9wifi-dts-d2472e895234
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Nizat Mikayilli <nacht@dxdmail.cc>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792449747; l=1748;
- i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
- bh=LGWx48KWENRO2ONxIsS6866CNjCiod9zDcwxdMYqT1g=;
- b=x5/x8Bl8ozC1qRbpYRfgIq9PgiUGgPrc28MfNFtOoth2MYcZNWScSAHdpqiITwRFl1lXiIDne
- Ehg3poKbYBdAYHlBp7jVOATXuS8m6RanF7iesyQLajNBj5rdbz7eMk6
-X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
- pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
-X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
- auth_id=1111
-X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
-Reply-To: nacht@dxdmail.cc
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACpmpoe+krnso-b1h_g_Q=HzV5x8xpu=Ke9==+4PfWF0ZcAUgQ@mail.gmail.com>
 
-Add devicetree support for the Samsung Galaxy Tab S9 Wi-Fi (SM-X710),
-an SM8550 tablet. Two patches: the qcom.yaml board entry and the board
-DTS describing UFS, microSD, USB 2.0 peripheral via eUSB2 with an NXP
-PTN3222 repeater, keys, GPU, video decoder, ADSP, the CS35L45/VA-macro
-audio path and WCN6855 Wi-Fi/Bluetooth.
+On Fri, Oct 16, 2026 at 08:53:26PM -0700, Kanchana P. Sridhar wrote:
+> On Fri, Oct 16, 2026 at 2:48 PM Yosry Ahmed <yosry@kernel.org> wrote:
+> >
+> > On Fri, Oct 16, 2026 at 12:05 PM Kanchana P. Sridhar
+> > <kanchanapsridhar2026@gmail.com> wrote:
+> > >
+> > > On Fri, Oct 16, 2026 at 9:14 AM Yosry Ahmed <yosry@kernel.org> wrote:
+> > > >
+> > > > On Thu, Oct 8, 2026 at 11:28 AM Kanchana P. Sridhar
+> > > > <kanchanapsridhar2026@gmail.com> wrote:
+> > > > >
+> > > > > v1: Batched zswap_store() with compression batching
+> > > > > ===================================================
+> > > > >
+> > > > > This series is a spin-off of "v14: zswap compression batching with optimized
+> > > > > iaa_crypto driver" [1], and focuses on the generic crypto_acomp and zswap
+> > > > > compression batching enablers. Resuming work on this series following a gap
+> > > > > since v14 (January 2026). Please note that my email address and affiliation have
+> > > > > changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@gmail.com. I
+> > > > > have retained the original Intel sign-offs on prior patches for historical
+> > > > > attribution while signing off v1 of this series with my current address.
+> > > > >
+> > > > > To summarize the main contribution of this patch series: Batching is introduced
+> > > > > in zswap_store() of large folios: we carve out a large folio into batches of
+> > > > > ZSWAP_MAX_BATCH_SIZE (8 pages) for software compressors, and store each
+> > > > > batch. Moving the fundamental operations that need to be happen to store a page
+> > > > > to now work at the granularity of a batch offers opportunities to optimize them
+> > > > > from these perspectives:
+> > > > >
+> > > > > 1) Utilize existing kernel API that minimize obtaining locks for bulk
+> > > > >    operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
+> > > > >
+> > > > > 2) We keep the working set for each of the core store functionalities (alloc
+> > > > >    entries, compress pages, store pages in zsmalloc) to be focused on a
+> > > > >    batch, thereby minimizing cache evictions and benefiting from cache
+> > > > >    locality.
+> > > > >
+> > > > > 3) Along the lines of (1), the main zswap_compress() batching routine obtains
+> > > > >    the acomp_ctx mutex lock once per batch, and releases it after it has
+> > > > >    processed all pages in that batch.
+> > > > >
+> > > > > 4) Any zswap store functionality that works on a batch can potentially be
+> > > > >    parallelized as a next step, to further improve performance.
+> > > > >
+> > > > > Performance data: usemem with 60% over-commit:
+> > > > > ==============================================
+> > > > > Validation was done with mm-unstable as of 10-3-2026 (Baseline) and with this
+> > > > > patch series.
+> > > > >
+> > > > > Testing was done on a Chromebook with a QEMU "vng" VM running in Crostini.
+> > > > >
+> > > > > Chromebook Diagnostics reports:
+> > > > >   Intel(R) Core(TM) Ultra 5 115U (10 CPUs, 4.200GHz)
+> > > > >   RAM: 16GB
+> > > > >
+> > > > > vng setup:
+> > > > >          Memory: 7G
+> > > > >            Swap: 3G
+> > > > >     Pinned CPUs: 4 (E-Cores: 4,5,6,7)
+> > > > >
+> > > > > zswap compressor:
+> > > > >   ZSTD
+> > > > >
+> > > > > mTHP enabled:
+> > > > >   64kB
+> > > > >
+> > > > > vm-scalability/usemem setup:
+> > > > >
+> > > > >   cgroup memory.high: 3G
+> > > > >   4 usemem processes, each allocates 1200M anonymous memory, reads the
+> > > > >   Silesia dataset [2] from a pre-fork-allocated buffer into the 1200M,
+> > > > >   writes to each unsigned long in the 1200M, sleeps for 10 sec, then
+> > > > >   frees the memory and exits.
+> > > > >
+> > > > >     usemem --read-silesia -w -O -b 1 -s 10 -n 4 1200M
+> > > >
+> > > > What is --read-silesia? Is this a local change you made to usemem?
+> > >
+> > > Yes, this is a local change I made because I wanted to get compressed
+> > > lengths besides 565, which is the only compressed length of data
+> > > swapped out from the original usemem.
+> > >
+> > > To replicate my setup:
+> >
+> > Thanks for sharing the details. I am having trouble reproducing the
+> > results, mainly because the standard deviation seems to be too high to
+> > make conclusions. What is the standard deviation in your runs?
+> 
+> Sure thing! Let me know if it would be useful to upstream the
+> --read-silesia option to the vm-scalability tree.
+> 
+> Yes, standard deviation is considerable, which is why I run usemem
+> consecutively for 10 iterations and report the mean Average
+> throughput. I could also report the median going forward if that
+> helps. The cover letter vmstats are after 10 iterations. The last set
+> of data I reported in this thread after applying patch 8 [batched
+> version of zswap_compress()], had a mean of 20,946 KB/s, standard
+> deviation of 5,391 KB/s and median of 22,477 KB/s. For reference, the
+> stddev for the baseline mm-unstable was 5,397 KB/s.
+> 
+> I have found this methodology to be reliable in drawing conclusions
+> because as zswap_store() performance improves, the outliers are fewer
+> and the data is more clustered near the mean.
 
-Tested on hardware on top of linux-next next-20261002 (boots to a shell
-through U-Boot): storage, microSD, USB gadget, framebuffer console, keys
-including the book-cover switch, CPU frequency scaling, GPU firmware and
-render node, video decoder node, speaker playback, DMIC capture, Wi-Fi
-scanning and Bluetooth firmware loading.
+I think the stddev is too high to make any conclusions tbh, I will
+respond to the other thread with Herbert.
 
----
-Changes in v3:
-- Add Wi-Fi and Bluetooth (Konrad)
-- Test microSD and audio, update the commit message (Konrad)
-- Add a blank line before status properties (Konrad)
-- Expand the GPIO36..39 and USB comments (Konrad)
-- Add Krzysztof's Acked-by
-- Link to v2: https://lore.kernel.org/r/20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc
-
-Changes in v2:
-- Use my name for author and Signed-off-by (Conor)
-- Link to v1: https://lore.kernel.org/r/20261004-gts9wifi-dts-v1-0-1f0d7dd47e4a@dxdmail.cc
-
----
-Nizat Mikayilli (2):
-      dt-bindings: arm: qcom: Add Samsung Galaxy Tab S9 Wi-Fi
-      arm64: dts: qcom: sm8550: Add support for Samsung Galaxy Tab S9 Wi-Fi
-
- Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../boot/dts/qcom/sm8550-samsung-gts9wifi.dts      | 888 +++++++++++++++++++++
- 3 files changed, 890 insertions(+)
----
-base-commit: f0406245cb9855e6318335a8a223551354291a46
-change-id: 20261004-gts9wifi-dts-d2472e895234
-
-Best regards,
--- 
-Nizat Mikayilli <nacht@dxdmail.cc>
-
-
+> 
+> >
+> > Also, I tried measuring the latency of zswap_store() itself through
+> > bpftrace, and it doesn't seem to change much throughout the series.
+> 
+> I ran bpftrace today to gather zswap_compress() latency per-page,
+> before and after patch 8. It shows a clear performance improvement
+> with compress batching for the reasons mentioned before:
+> 
+> Sequential_zswap_compress  nr_samples     p25     p50      p75
+> p95       p99
+> =================================================================================
+> zswap_compress_ns_per_page  1,722,489  43,947  57,791   88,489
+> 130,165   323,961
+> 
+> Batched_zswap_compress     nr_samples     p25     p50      p75
+> p95       p99
+> =================================================================================
+> zswap_compress_ns_per_page    339,088  42,081  52,633   63,185
+> 118,461   191,710
+> =================================================================================
+>  Latency saving (ns)                   -1,866  -5,159  -25,305
+> -11,704  -132,251
+> =================================================================================
+> 
+> Hope this helps. Thanks!
