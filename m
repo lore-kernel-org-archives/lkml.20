@@ -1,47 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422386;
-	b=Q7ubD+pw9jnDbygkls6nhQRXHPie2mrqhmZ/9qPa7fd5OCNIUyneQMJUHiJp1E55Q11g
-	 KEexAAOQ7Cu7RTjDs9ycaQHK+Y2ZJTMV4MkOt58C02HHcgERyevkiW8voUeiDIiH3MNVE
-	 izaWC9MCSFBcnmvKsGjILnmQ7MfmtTx/1d9ZwHUF4+ofo+w/IF7+4aRPEt7atQk5Dp+61
-	 C/EmORpPgcr5JFUw53StUgg2nYeyPNPIfqwC9TRSwU4yEPh5DaT+vMwEgmAA0xu+OKPek
-	 qX9vsMY7m5DD6cKD6U5iVwZTOq8XKqyCCma0BCkjXQBONF+guWDxE+xLxd161aOKP0A==
+	t=1792422181;
+	b=Vw74TcW2yYvtFNvce3yv+nvs7ZEZ1rmnkZn3Ax+w2L9R0E52uM7E3YFrYLsKI3HKsBMN
+	 AZ9YS0QblXjlT0C23U/T7+9JhUNO8pJfQ8RVrncerwCnf3o+p7zxyP6zmH5e7Ccg2sZ/I
+	 jJ34ADAVu2Ptc0GOIPGs3+IMriqvNTL/1eFJrGswsIny50nOV3auVgphCz/tbhYhAGhOg
+	 n8Xf8CtZzv+ApJHKVYVg5sXi6lDwqqnJ65yl6nr008E7/i3DNXw0hPbkNd8hdC8PWY1f3
+	 vphBVSxxjN/oxbc3az3JFMDNeQmAlS4F/E0WdXd/r9BRZKMKMLJ/shU5ksUCHhqwXsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422386;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=YO8KqmgxaCD3TmIbX4cYdGIuCEfbIhOaI+JczxaaXSo=;
-	b=mT+rO7R7a+HvxcHbFOX6Hi4lWQJbjxHLvjIrtCXMJIZw2Dk1bFBHD6Ua037OzBlWnSfd
-	 AEA4iwmMGdAV8hYONUpehoqu9QN2jSaZaSkkpKz9mg+XmoFHFUBPhSZxUDfu+Q3l+1/op
-	 JVAOY0Ij1hjtjBnjpa/klo2+28y6GI/AJxC3O+5PO9ucZq0kHRDQ/AXgeJcHuRzl+Gb5N
-	 sMxINg0+lR5SN0A5kXh69DCiu1ub5HDixYwuWTr9TWyub1hNm0A56kgAnLw7pMs/qJRhI
-	 U0YX9Jd817eSryWSLkL2M6wxNACN3QZziBCcEJplOV9AR1XT/eo8NG1iTW8zVoIEFww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422181;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
+	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:Date:Message-ID:X-Scanned-By;
+	bh=ePfx8hCB21CUPflsrVIbtqMdLOLqMseprJFxmf9l//o=;
+	b=nWOcbb3nvfrBloEynpn0Mp4LGVhKIvhjPiaZfRtU7Uof6rnmDvCxAhbTwJgkCHi4yTgQ
+	 LpCMu08o5/Mg+OV/CzBWNj4W7s2E+qcpJIfTizEnwRth+nEBKZ2Qp+33aCOcoQR/PGJAf
+	 YGSr66Vfj87gADZcA8EfGKWWrXXdT3lanGTijVqvEoGK8OVvYinnVwXaXAML8WK6VVGiZ
+	 N+ZTx2YNdL4G4beYDtuwwh6V2ICzB/NBk/YJljos5AoufEG7xLPFGjxOYmnjP/YDo2W6K
+	 AOWTif+OHSK5ACazWhzznrgpXcHnNya/xp6A87u783UrK6nrl22/bsmQz2Qr3JuW9lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVPiojde;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=A+MExHAF;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A30960820DD;
-	Mon, 19 Oct 2026 15:06:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD85D607D341
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:03:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD85D607D341
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVPiojde
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648721F000C4;
-	Mon, 19 Oct 2026 15:06:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792422385;
-	bh=YO8KqmgxaCD3TmIbX4cYdGIuCEfbIhOaI+JczxaaXSo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=oVPiojdeHtcoC7V623YdPgcc12tJyiBtIi3r/06tYcoItdwfVrZ/7HEYZPNq5HMbc
-	 Y01CnzRrIMMXaTUgGQGlfBTGFZL+m9ntyWDf3wKSo9lM/ykCKtE9vXVo6u0L0B0EJf
-	 XhuzySPzglxiLDCIxSkmzgyHgL7CcoV4c/ODvNRykdtE05oXVV6R3MYxU3WGAEH89R
-	 XFXMS0Q1kyfPShub4mPlEVmMAu0W+NNngrvwAX35VvNpnXzJWItKxW6eXPvgGWvhfU
-	 F4GHqQPjbEdVfCEjxrSUv2plbCkEeUpbuxKO6CrKF5o6loVt8ELf1UQKmbmqJju8/k
-	 UQai2DEDoxm0g==
-Message-ID: <d019393d-9c24-4bc5-af4d-10bbb5d9fe90@kernel.org>
-Date: Mon, 19 Oct 2026 17:06:21 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=A+MExHAF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792422179;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ePfx8hCB21CUPflsrVIbtqMdLOLqMseprJFxmf9l//o=;
+	b=A+MExHAFEGA6kXDyIYivayMKpc3ldQ+5C9WBka6rEgIjFdWhUJBbe6d2Tja+L2GjbOQQGK
+	OJ37C4UepEeEITzgboKZ9PCAUDvbJd3fEaPah7w4V/CHOiAzlMVirzQnw0dKa3SkCBKgT1
+	pEua46iObJwjqeYPsVXQxja7oIMoXQ8=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-607-zTfVQHItOKawKXPO1Yy_uA-1; Mon,
+ 19 Oct 2026 15:02:54 +0000
+X-MC-Unique: zTfVQHItOKawKXPO1Yy_uA-1
+X-Mimecast-MFC-AGG-ID: zTfVQHItOKawKXPO1Yy_uA_1792422172
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 41CE01954AD3;
+	Mon, 19 Oct 2026 15:02:52 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.48.11])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 653A030001A2;
+	Mon, 19 Oct 2026 15:02:49 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <20261016215326.4110064-6-jarkko@kernel.org>
+References: <20261016215326.4110064-6-jarkko@kernel.org> <20261016215326.4110064-1-jarkko@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com, keyrings@vger.kernel.org,
+    Linus Torvalds <torvalds@linux-foundation.org>,
+    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+    "Serge E. Hallyn" <serge@hallyn.com>,
+    linux-kernel@vger.kernel.org (open list),
+    linux-security-module@vger.kernel.org (open
+                         list:SECURITY SUBSYSTEM)
+Subject: Re: [RFC PATCH 5/6] KEYS: Replace assoc_array with struct keyring_index
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,93 +85,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] [v3] serial: 8250: remove obsolete and broken PORT_RSA
- support
-To: Arnd Bergmann <arnd@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org
-References: <20261019090017.430425-1-arnd@kernel.org>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20261019090017.430425-1-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <2608629.1792422168.1@warthog.procyon.org.uk>
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 16:02:48 +0100
+Message-ID: <2608630.1792422168@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On 19. 10. 26, 10:56, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> For all I can tell, the RSA support in the 8250 driver is not functional
-> and has not been for a long time.
-> 
-> The RSA-DV II/S ISA card[1] was sold by IODATA in the 1990s as a faster
-> alternative to regular ISA serial ports, and it was discontinued in
-> 2002. Linux support was added by Kiyokazu SUTO in 2000.
-> 
-> The driver defines an I/O port base address of -8 (negative eight),
-> which should always get refused by request_region on all architectures
-> for being outside of the valid resource range.
-> 
-> Further, it seems that a patch to setserial would be required in order
-> to set PORT_RSA when not using autoconfiguration.
-> 
-> This patch removes all code related to the RSA support, with the exception
-> of the user-visible PORT_RSA definition.
-> 
-> Link: http://translate.google.com/translate?hl=en&sl=ja&u=http://www.iodata.jp/products/network/rsadv2s.htm
-> Link: https://lore.kernel.org/all/1309211120-2803-6-git-send-email-arnd@arndb.de/
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Jarkko Sakkinen <jarkko@kernel.org> wrote:
 
-Acked-by: Jiri Slaby <jirislaby@kernel.org>
+> Maintain two linked lists in the index:
+> =
 
+> - all: enumerate committed links without retrying hash table walks when
+>   the table resizes.
+> - keyrings: visit nested keyrings during recursive search without scanni=
+ng
+>   links to other key types.
 
--- 
-js
-suse labs
+Do you actually need two lists?  Can you just "sort" the list to put all t=
+he
+keyrings first?
+
+> +			struct keyring_index __rcu *links;
+
+Does that actually need an __rcu mark?  Is it going to get replaced once
+allocated?
+
+> +struct keyring_link;
+> +
+
+Somewhere near the top of internal.h, please, not sandwiched in the middle=
+ of
+some func declarations.
+
+> --- a/security/keys/keyring.c
+> +++ b/security/keys/keyring.c
+> @@ -14,12 +14,12 @@
+>  #include <linux/err.h>
+>  #include <linux/user_namespace.h>
+>  #include <linux/nsproxy.h>
+> +#include <keys/keyring-type.h>
+> +#include <keys/user-type.h>
+
+Why #include user-type.h here?
+
+> +struct keyring_index {
+> +	struct rhashtable	ht;
+> +	struct list_head	all;
+> +	struct list_head	keyrings;
+> +	unsigned long		nr;		/* Number of committed links */
+
+Given key->serial is 1-INT_MAX, nr probably doesn't need to be unsigned lo=
+ng -
+otoh, it's not likely to leave a hole, I guess.
+
+> +struct keyring_link {
+
+I wonder if keyring_entry would be a better name, but the docs do mention
+making and removing links.
+
+> +	unsigned long		hash;
+> ...
+> +	struct rcu_head		rcu;
+
+Can they be in a union?  And I would put rcu first as I think there are (o=
+r
+maybe used to be) some things that required it to be first.
+
+> +	struct list_head	keyrings_link;	/* in keyring_index::keyrings */
+
+This may be unnecessary if you can put keyrings at the front of the list.
+
+> +	struct keyring_link	*replaces;	/* Link this one replaces, or NULL */
+
+Please don't put this in keyring_link.  It's only needed by __key_link() a=
+nd
+friends and could be passed around in a context struct as the edit script =
+is
+done now:
+
+	struct keyring_link_context {
+		struct keyring_link *spare;	/* Spare link block */
+		struct keyring_link *replace;	/* Link being replaced */
+	};
+
+then:
+
+	 int __key_link_begin(struct key *keyring,
+			     const struct keyring_index_key *index_key,
+	-		     struct assoc_array_edit **_edit)
+	+		     struct keyring_link_context **_edit)
+
+> +/*
+> + * Remove every link from a keyring.  The caller holds keyring->sem
+> + * write-locked.  A concurrent RCU reader can see some of the links gon=
+e and
+> + * others not yet.
+> + */
+> +static void keyring_remove_all_links(struct key *keyring)
+> +{
+> +	struct keyring_index *links =3D keyring_index_locked(keyring);
+> +	struct keyring_link *link, *tmp;
+> +
+> +	if (!links)
+> +		return;
+> +	list_for_each_entry_safe(link, tmp, &links->all, all_link)
+> +		keyring_remove_link(links, link);
+>  }
+> ...
+>  int keyring_clear(struct key *keyring)
+>  {
+> ...
+> +	keyring_remove_all_links(keyring);
+
+This can be made atomic by replacing the key->links pointer value with NUL=
+L
+(since key->links is marked __rcu), then destroying the content afterwards=
+.
+
+David
+
