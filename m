@@ -1,64 +1,64 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956463803D9
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA8FA3546CF
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:01:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792378899; cv=none; b=b6ByBBFRuGKILC7rWsBGrTK1Zl81siYsNE27OARZJvtTL83pjsHRe0827hiUTYGB3yl59c+MEBE74lh9mSU1NwfZLW5V4iBuCQP1Q4inOEpRuHLmOa98bw/Ji4mnOT7Bz9ATTx1tOmOn+M227bPgTlez8mYm7py4fA6FUayZ89U=
+	t=1792378901; cv=none; b=CZXvyE1N5aNx8dXXaGjT+eE1d46/ONsPtH1rsoyaQ8xbx9mrTv58CkqI+ohosqwWrooA9q8QIax0V14WadJcnq77F8G2gogvgvRTx5YOBUnOFiG2qE/hfw42TKmIw4ZLkZZ15y0zVKU1L8TyEvKEgwciUWfuiFq5fZOvnAxncUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792378899; c=relaxed/simple;
-	bh=gsMbfD7Oz7AXyUBm/3hHxEyeYa4XS0HrtVmKM0TiRuI=;
+	s=arc-20240116; t=1792378901; c=relaxed/simple;
+	bh=2nsse8R9GATfUlGxxMEeK2++aC0508/mNT9onyhFOYQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D8lsFFszztTpMBHrFJrQboA9/zRQ7dl/pDJAPINZmHifWVwJrJ0qzNmO8OiebFlv74Sh6ATBIYdUh+1/4oqfvqc9vPnuA65XvHOC2kixUXqVNJLvrVS/N3tpvXgJISrlTolh9OUyP4Cz2F8UUDjYfngMM8K0hg5HIyXBiDMnkXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=FeLnDBGL; arc=none smtp.client-ip=209.85.222.173
+	 MIME-Version; b=Q1hukKxAzAOtir4xzk8jw3aBRb/ttcoR2DzdS5AccP8uiH30okXtvMnPKZFuqkyZGI5E54NXZx0fesKZFlDUOJM38RhTM2m6wcsoC25btltk8IcYyYdConIAnpZYU0RN5034UjB+/HOgujgqm6Bpl9E+HtiQEFOnAKCgnVFNDeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=eGOeleRj; arc=none smtp.client-ip=209.85.222.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="FeLnDBGL"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f1e5d7450so171232785a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:01:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="eGOeleRj"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93f20b304c0so159999485a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:01:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792378895; x=1792983695; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792378899; x=1792983699; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZXMPOwO5URaUWXudb6WIYNl+wUSYFfStSEDQV6YfRwU=;
-        b=FeLnDBGLOz+G3ZR6iW/2ypFEZnF01Q/zRV1u8Dhb807xhGUcv+/OUnd1cqH0dOsLEJ
-         aEWbhnnWO7JlWnwxtFbM+pHlXYjmxPMcQWCpIU12/1vufKQG2DIC17EOGB+5EaMEJcyy
-         f0REb5l+3ihethjjx7MDvvcDzesUTuNyW5EOfesfvM5jEcNvWkRrcR1tQrhoiIGAmrpj
-         3tMyUOCarkEqAEC/OqOAziKe0Dn2aWKbUWScpZmSRjF/7VT32UNMHo0vob2JyKcIKNxM
-         RPtp0OFLP/8zU6kg8mjOA0Bsi4CkwNttMp6QHfIu/LiUEklFavIyl6yDToPpPghxj5yM
-         nLdQ==
+        bh=9D78vrkEaiw/Is5KlQ/iLJagt3SGFDs7ZK10PGJQZuE=;
+        b=eGOeleRj8E4KZdoAm371SUKpddekP/Q+3C3qrowDDy6rUx4Qtyl2nlQEnBq7RdWdR+
+         VvlJd7Rbs0+tC6kz87kafWRuwxqMtGA66247VGvVYmpXO2RiQB5W+6r3DVn/1L3JhBDK
+         3CMAMVvh9GF9b3EdG/O4VGD8xSnjPwB8FwuESIvTPG/5hiCRq2i1dnlkIRKWK7oAVlGc
+         cYCmMxRFVnIfLRMBBklJoVS+xLTSs/DIfl/DImtH02FfibM6TYjfHU+bk3/KpGI3ZFY8
+         n3NmrG1NngUJgafv7LlL/9GZzHyTk5hDqTQGqseGnTwc1Ceu88r63fE18kr+r2wcCk/4
+         bzCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792378895; x=1792983695;
+        d=1e100.net; s=20260707; t=1792378899; x=1792983699;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZXMPOwO5URaUWXudb6WIYNl+wUSYFfStSEDQV6YfRwU=;
-        b=YXj6szN5H5C9dd+NSzgVkYDATA+H0RuJIENw6qd1swKxl6Z/fjUeYtsFg5pkUMkvXY
-         /3kV+bJnGAMSj5v6estpmkmZNudfOxpZW5DyvNlPpMQdj+nYXSIPj3nEYiEUh+0N1IMJ
-         25SR3L0U3D81+OdLdeQVfC+eAtud4dffXuN/rFw/tx7wSs23VwHwWufrzB627iqJwKN0
-         gNT873IKCwz7amsEI2KHoKnNhjAwQMXO7YtQKX4UmGyRLjnYHk2l1T6ArM2GNN7VsY8D
-         bdOKbmoGK7y+5EUFGybUsv/N6ZtmKn7uM39qNOr2IQsAi+G8D4/8lzxz+2c3YvmiFkDZ
-         CEow==
-X-Forwarded-Encrypted: i=1; AKwUvBzzHuPnCmrmHHCTS83QivkYR1K81ePNv5t0x0XCXS31WkbQCXMozaN0t0UTJp2HoOO6ll9umwnfA44qCk0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLATMkeR0He1/dtPkmVew63cYkrKs0xwxL4EKwQ0D7EJtt/14PX
-	fJQyuAA/meyy5bY4vyRinBegzsBWMBmKRIz7YSuJnPnNWUmV/WAEUs7swMbQ4r2caxo=
-X-Gm-Gg: AYBFou3xB2BHHHt9mwnTKsxEYe/OP9/ajIOMan/KRLQ69YxBWgZmTiZw8rDLpJ4Ncue
-	sYA3iCIqqsNTSkyHdCxm1ZE+vhJbrr3/B6IfN+5iJHc5d6TkyoSToxV/QNwOms8xLTg5JwIYc+I
-	LFPOWC5FNGES25g1hFirndXQWB/rVtcVilh2jCew75eEIot2cw0PuP2dnzjzCgT/dyb4l4h55zE
-	jHZUc484gsWmYIip3uLR0FF24QfXI9fhwp5p+LlfYQxpjcrYl5KO6J8uAGoCNX7yWQ79MtvXmm7
-	hu/qo4a5R7kOdvK1tHvMP1ZSHfrPBDw2g7MGd0Gcp3SkOitnOVnBIB0jPHUcetensOFvq+ELbS6
-	+jrVzqwrDDEDPn2AydhwHd8/C4qGZo7odhC7deHD9KevPFLHPRQZxZ8iubMa2qZsTdXQOm9SiBY
-	siZammPRqw6N15EpSXtsIOr2d5PAKCfBb3aJ/WD56lqnLeclxxlA8gT/TcpeJd5vaz+UeBlMbTC
-	wk=
-X-Received: by 2002:a05:620a:27d0:b0:93f:1936:b229 with SMTP id af79cd13be357-93f29dbec24mr972782385a.77.1792378895343;
-        Sun, 18 Oct 2026 20:01:35 -0700 (PDT)
+        bh=9D78vrkEaiw/Is5KlQ/iLJagt3SGFDs7ZK10PGJQZuE=;
+        b=MadGVnlAH9kmXuWOx58ZuAytg4ZJOBWzWuw/QjKQ3dbTY8IeOeEPFORnavemJ0+rff
+         Wrp1BfIwE6EJrlmsv/0zKJWlxJLJeMqZey2V7RpM5k1DcTtOW8GhJYvmd94YB+qSVL05
+         YN4FuPHjQAkazcVousOKYIo3U45WEw9NrT8qeLJyf0oBSAyU+GDWGiKQoL7/g6+n/Ctu
+         bv7ZKj87wiO33nLK0wBZN7U+Vf+2BCpPeaLb4igDAKP1j4V7fPU+jQeYEN8ul88Vhg8w
+         6hNWYQGJ6xPwMAtx4v0OHdoZV270SSXgjZR+Sferf3z3g96g2DR8RfKzGFR0ZrapuMF1
+         5wxA==
+X-Forwarded-Encrypted: i=1; AKwUvByvJ7jv8BTenbDFuk6EJJwlNJRIG7egxYFBUydAQGA7zzmTv3y1TBIITqAXXBNM5LI3Qnw1aeOTCuhNbwc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIR9+mjk9zvICOo54iHCoM/1dzz15ZVgBcCsutL7+IHII/0WHZ9
+	FDPLh42QNaddgONK/SsK1Ca//lVd1Zz0/ldRu6KslnUCeQEb7vgzRJ0LCHlMllMATok=
+X-Gm-Gg: AYBFou3S7M3luXqpnCf1nWAJw8xFP1ipt2TagSuqETCmX9f9MEqXIjdQWPUA/ccgUB8
+	2wJWDsmOmbgIeSt4dxoBz+zmYi0lXvEY8fOA3pfq09i5iZI/cQH5YjjFDjbMabzH54PdSVZyjKU
+	3BT4Ct3Veh5kwlzoJPJd8ALpbItoYJv8TWTiUqkHysn0EsxRR9zZLSxEWAtevATWWgo1hU5xICb
+	uUnf6zlHXn7NrP0HNSGXKtXek22qeJluO4OujjlS+kgRU8s/dg5j7ICPu+q96PTicHgfm9zfVBi
+	xRCBEWEZQDE0e4tziMdBQMqgSk9wEdHNskROqg+Of0Z7kME18ZSnkXdaWdVY0C27smnoxOg+gTZ
+	woziArHMls0vat9DK8IIbSk+Hva5kQPjrVOqhp7nntrserl6MfNGf8YpIEdBmH1cBl5xEEuhuJ2
+	tPgHqRZx1m/I4b3johZvEdPFlLc65xqyiieh/dAVhNpzmAA6RderUloeOwWRXm7UDU3iAZm2R6z
+	Iw=
+X-Received: by 2002:a05:620a:28c1:b0:93e:7939:acd0 with SMTP id af79cd13be357-93f29d10508mr1118565485a.37.1792378898919;
+        Sun, 18 Oct 2026 20:01:38 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f3c61c440sm216840185a.10.2026.10.18.20.01.33
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f3c61c440sm216840185a.10.2026.10.18.20.01.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 20:01:34 -0700 (PDT)
+        Sun, 18 Oct 2026 20:01:38 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: maxime.chevallier@bootlin.com,
 	andrew+netdev@lunn.ch,
@@ -69,7 +69,8 @@ To: maxime.chevallier@bootlin.com,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org
-Cc: mcoquelin.stm32@gmail.com,
+Cc: Daniel Thompson <daniel@riscstar.com>,
+	mcoquelin.stm32@gmail.com,
 	alexandre.torgue@foss.st.com,
 	hkallweit1@gmail.com,
 	linux@armlinux.org.uk,
@@ -79,15 +80,14 @@ Cc: mcoquelin.stm32@gmail.com,
 	joabreu@synopsys.com,
 	mohd.anwar@oss.qualcomm.com,
 	lorenzo.bianconi@oss.qualcomm.com,
-	daniel@riscstar.com,
 	netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 1/5] dt-bindings: net: add support for Toshiba TC9564
-Date: Sun, 18 Oct 2026 22:01:24 -0500
-Message-ID: <20261019030129.1470307-2-elder@riscstar.com>
+Subject: [PATCH net-next 3/5] net: stmmac: dwxgmac2: Add XGMAC 3.01a support
+Date: Sun, 18 Oct 2026 22:01:26 -0500
+Message-ID: <20261019030129.1470307-4-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019030129.1470307-1-elder@riscstar.com>
 References: <20261019030129.1470307-1-elder@riscstar.com>
@@ -99,426 +99,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Toshiba TC9564 is an SoC that exposes two XGMAC 10 Gbps Ethernet
-interfaces, each of which is attached to an embedded PCIe function.
+From: Daniel Thompson <daniel@riscstar.com>
 
-These XGMAC interfaces have three resets, for the MAC, PMA, and XPCS
-layers.  These resets differ from the standard two resets defined
-in "snps,dwmac.yaml".
+XGMAC 2.x and 3.x are architecturally very similar.  That means that
+for everything except one erratum we can simply use the XGMAC 2.x
+callback functions in the stmmac_dma_ops structure.
 
-To permit these other resets to be used, modify the way resets are
-defined in "snps,dwmac.yaml" to be similar to the way interrupts and
-their names are defined earlier in the file.  That is, rather than
-adding descriptions with the resets property values, just specify the
-maximum number of items.  Then, in the reset-names property, provide
-a list of description/constant value pairs, indicating which renames
-may be used among the (three) reset items specified.
+Only the set_rx_ring_len callback is specific to XGMAC 3.01.  It
+limits the number of outstanding write requests that can be serviced
+per DMA.
 
+The other erratum addressed in this patch is simply a comment to
+ensure that a feature that stmmac doesn't currently use is not enabled
+without contemplating the errata.
+
+Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+Co-developed-by: Alex Elder <elder@riscstar.com>
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
- .../devicetree/bindings/net/snps,dwmac.yaml   |  26 +-
- .../bindings/net/toshiba,tc9564-xgmac.yaml    | 327 ++++++++++++++++++
- MAINTAINERS                                   |   7 +
- 3 files changed, 351 insertions(+), 9 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.yaml
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  3 ++
+ .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 52 +++++++++++++++++++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 2218a492817fd..ace827ee4eb6c 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -120,6 +120,7 @@ properties:
-         - starfive,jh7110-dwmac
-         - tesla,fsd-ethqos
-         - thead,th1520-gmac
-+        - toshiba,tc9564-xgmac
-         - ultrarisc,dp1000-gmac
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+index f8ab347f7b5b9..0fe86e9942334 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+@@ -374,6 +374,8 @@
+ #define XGMAC_DMA_CH_RxDESC_TAIL_LPTR(x)	(0x0000312c + (0x80 * (x)))
+ #define XGMAC_DMA_CH_TxDESC_RING_LEN(x)		(0x00003130 + (0x80 * (x)))
+ #define XGMAC_DMA_CH_RxDESC_RING_LEN(x)		(0x00003134 + (0x80 * (x)))
++#define XGMAC_OWRQ			GENMASK(25, 24)
++#define XGMAC_RDRL			GENMASK(15, 0)
+ #define XGMAC_DMA_CH_INT_EN(x)		(0x00003138 + (0x80 * (x)))
+ #define XGMAC_NIE			BIT(15)
+ #define XGMAC_AIE			BIT(14)
+@@ -465,6 +467,7 @@
+ extern const struct stmmac_ops dwxgmac210_ops;
+ extern const struct stmmac_ops dwxlgmac2_ops;
+ extern const struct stmmac_dma_ops dwxgmac210_dma_ops;
++extern const struct stmmac_dma_ops dwxgmac301_dma_ops;
+ extern const struct stmmac_desc_ops dwxgmac210_desc_ops;
  
-   reg:
-@@ -174,17 +175,24 @@ properties:
+ #endif /* __STMMAC_DWXGMAC2_H__ */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+index ff83858ebc1f3..f9a77d641eb65 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+@@ -36,6 +36,13 @@ static void dwxgmac2_dma_init(void __iomem *ioaddr,
+ 	 * Route DMA interrupts to per-channel lines when multi-MSI enabled.
+ 	 */
+ 	if (dma_cfg->multi_msi_en) {
++		/*
++		 * A friendly warning to future adventurers. If Descriptor Posted
++		 * Write support, which is off by default, is ever enabled then be sure
++		 * to make it optional. This is required by errata for at least XGMAC
++		 * 3.01A... and the XGMAC 2.x and 3.x are architecturally similar so we
++		 * use dwxgmac2 support for the 3.x family as well.
++		 */
+ 		value = readl(ioaddr + XGMAC_DMA_MODE);
+ 		value = u32_replace_bits(value, XGMAC_INTM_MODE1,
+ 					 XGMAC_INTM_MASK);
+@@ -492,6 +499,20 @@ static void dwxgmac2_set_rx_ring_len(struct stmmac_priv *priv,
+ 	writel(len, ioaddr + XGMAC_DMA_CH_RxDESC_RING_LEN(chan));
+ }
  
-   resets:
-     minItems: 1
--    items:
--      - description: GMAC stmmaceth reset
--      - description: AHB or OCP reset
-+    maxItems: 3
- 
-   reset-names:
--    oneOf:
--      - items:
--          - enum: [stmmaceth, ahb]
--      - items:
--          - const: stmmaceth
--          - enum: [ahb, stmmaceth-ocp]
-+    maxItems: 3
-+    items:
-+      - oneOf:
-+          - description: GMAC stmmaceth reset
-+            const: stmmaceth
-+          - description: AHB reset
-+            const: ahb
-+          - description: MAC reset
-+            const: mac-reset
-+          - description: PMA (Physical Medium Attachment) reset
-+            const: pma-reset
-+          - description: XPCS reset
-+            const: xpcs-reset
-+          - description: OCP reset (deprecated)
-+            const: stmmaceth-ocp
- 
-   power-domains:
-     maxItems: 1
-diff --git a/Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.yaml b/Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.yaml
-new file mode 100644
-index 0000000000000..9c494d216c3a2
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/toshiba,tc9564-xgmac.yaml
-@@ -0,0 +1,327 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/toshiba,tc9564-xgmac.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++static void dwxgmac301_set_rx_ring_len(struct stmmac_priv *priv,
++				       void __iomem *ioaddr, u32 len, u32 chan)
++{
++	u32 val = FIELD_PREP(XGMAC_RDRL, len);
 +
-+title: Toshiba TC9564 XGMAC Ethernet Controller
++	/*
++	 * Reduce the number of outstanding write requests to 3 (from default
++	 * of 4). This is an errata workaround for XGMAC 3.01a.
++	 */
++	val |= FIELD_PREP(XGMAC_OWRQ, 3);
 +
-+maintainers:
-+  - Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-+  - Alex Elder <elder@riscstar.com>
-+  - Daniel Thompson <daniel@riscstar.com>
++	writel(val, ioaddr + XGMAC_DMA_CH_RxDESC_RING_LEN(chan));
++}
 +
-+description:
-+  This binding describes the Toshiba TC9564 SoC implementation of the
-+  Synopsys XGMAC Ethernet controller.
+ static void dwxgmac2_set_tx_ring_len(struct stmmac_priv *priv,
+ 				     void __iomem *ioaddr, u32 len, u32 chan)
+ {
+@@ -621,3 +642,34 @@ const struct stmmac_dma_ops dwxgmac210_dma_ops = {
+ 	.enable_sph = dwxgmac2_enable_sph,
+ 	.enable_tbs = dwxgmac2_enable_tbs,
+ };
 +
-+  The Toshiba TC9564 incorporates a PCIe gen 3 switch with one upstream
-+  and three downstream ports.  The first two downstream ports are exposed
-+  externally, while the third is used by an internal PCIe endpoint.  The
-+  PCIe endpoint implements two PCIe functions, and attached to each of
-+  these is a 10 Gbps capable Synopsys XGMAC Ethernet controller.  Access
-+  to management registers for each controller is via BAR 4 of its
-+  respective PCI function.
-+
-+allOf:
-+  - $ref: snps,dwmac.yaml#
-+
-+select:
-+  properties:
-+    compatible:
-+      contains:
-+        const: toshiba,tc9564-xgmac
-+  required:
-+    - compatible
-+
-+properties:
-+  compatible:
-+    const: toshiba,tc9564-xgmac
-+
-+  reg:
-+    maxItems: 1
-+
-+  toshiba,config-syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    description:
-+      The phandle and offset for a syscon that provides access to a
-+      register containing a bit that indicates that PMA initialization
-+      is done.
-+    maxItems: 1
-+
-+  clocks:
-+    minItems: 5
-+    items:
-+      - description: MAC main clock (125 MHz)
-+      - description: PTP reference clock (250 MHz)
-+      - description: MAC TX clock
-+      - description: MAC RX clock
-+      - description: MAC all clock gate
-+      - description: MAC RMII clock (function 1 only)
-+
-+  clock-names:
-+    minItems: 5
-+    items:
-+      - const: stmmaceth
-+      - const: ptp_ref
-+      - const: mac-tx-clock
-+      - const: mac-rx-clock
-+      - const: mac-all-clock
-+      - const: mac-rmii-clock
-+
-+  resets:
-+    items:
-+      - description: MAC reset
-+      - description: PMA (Physical Medium Attachment) reset
-+      - description: XPCS reset
-+
-+  reset-names:
-+    items:
-+      - const: mac-reset
-+      - const: pma-reset
-+      - const: xpcs-reset
-+
-+  interrupts:
-+    minItems: 17
-+    maxItems: 17
-+
-+  interrupt-names:
-+    minItems: 17
-+    maxItems: 17
-+
-+  snps,tso:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    description:
-+      Enable TCP segmentation offload.
-+
-+  snps,pbl:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Set the programmable burst length.
-+
-+  snps,force_sf_dma_mode:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    description:
-+      Force store-and-forward mode for both TX and RX DMA.
-+
-+  snps,perfect-filter-entries:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Set the number of perfect filter entries supported.
-+
-+  snps,mtl-rx-config:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to a rx-queues-config node that describes the RX queues
-+      managed by the stmmac memory transfer layer.
-+
-+  snps,mtl-tx-config:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to a tx-queues-config node that describes the TX queues
-+      managed by the stmmac memory transfer layer.
-+
-+  rx-fifo-depth:
-+    $ref: /schemas/net/ethernet-controller.yaml#/properties/rx-fifo-depth
-+    maximum: 47104
-+    description:
-+      RX FIFO size in bytes.  This must be set explicitly because
-+      the size (46KB) differs from the power-of-2 indicated by the
-+      HW_FEATURE0 register, so the size is not accurately detected.
-+
-+  tx-fifo-depth:
-+    $ref: /schemas/net/ethernet-controller.yaml#/properties/tx-fifo-depth
-+    maximum: 47104
-+    description:
-+      TX FIFO size in bytes.  This must be set explicitly because
-+      the size (46KB) differs from the power-of-2 indicated by the
-+      HW_FEATURE0 register, so the size is not accurately detected.
-+
-+  snps,axi-config:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to a node describing AXI burst configuration.
-+
-+  iommus:
-+    maxItems: 1
-+
-+  phy-mode:
-+    const: sgmii
-+
-+  phy-handle: true
-+
-+  tx-queues-config:
-+    $ref: /schemas/net/snps,dwmac.yaml#/properties/tx-queues-config
-+
-+  rx-queues-config:
-+    $ref: /schemas/net/snps,dwmac.yaml#/properties/rx-queues-config
-+
-+  stmmac-axi-config:
-+    $ref: /schemas/net/snps,dwmac-common.yaml#/properties/stmmac-axi-config
-+
-+  mdio:
-+    $ref: /schemas/net/snps,dwmac.yaml#/properties/mdio
-+
-+required:
-+  - toshiba,config-syscon
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - rx-fifo-depth
-+  - tx-fifo-depth
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    ethernet@48000 {
-+        compatible = "toshiba,tc9564-xgmac";
-+        reg = <0x48000 0x8000>;
-+        toshiba,config-syscon = <&tc9564_config_syscon0 0x1074>;
-+
-+        clocks = <&tc9564_ref_125mhz_clk>,
-+                 <&tc9564_ref_250mhz_clk>,
-+                 <&tc9564_clock0 13>,
-+                 <&tc9564_clock0 14>,
-+                 <&tc9564_clock0 18>,
-+                 <&tc9564_clock0 15>;
-+        clock-names = "stmmaceth",
-+                      "ptp_ref",
-+                      "mac-tx-clock",
-+                      "mac-rx-clock",
-+                      "mac-all-clock",
-+                      "mac-rmii-clock";
-+
-+        resets = <&tc9564_reset0 8>,
-+                 <&tc9564_reset0 9>,
-+                 <&tc9564_reset0 10>;
-+        reset-names = "mac-reset",
-+                      "pma-reset",
-+                      "xpcs-reset";
-+
-+        interrupts-extended = <&tc9564_msigen1 2>,
-+                              <&tc9564_msigen1 3>,
-+                              <&tc9564_msigen1 4>,
-+                              <&tc9564_msigen1 5>,
-+                              <&tc9564_msigen1 6>,
-+                              <&tc9564_msigen1 7>,
-+                              <&tc9564_msigen1 8>,
-+                              <&tc9564_msigen1 9>,
-+                              <&tc9564_msigen1 10>,
-+                              <&tc9564_msigen1 11>,
-+                              <&tc9564_msigen1 12>,
-+                              <&tc9564_msigen1 13>,
-+                              <&tc9564_msigen1 14>,
-+                              <&tc9564_msigen1 15>,
-+                              <&tc9564_msigen1 16>,
-+                              <&tc9564_msigen1 17>,
-+                              <&tc9564_msigen1 18>;
-+        interrupt-names = "macirq",
-+                          "tx-queue-0",
-+                          "tx-queue-1",
-+                          "tx-queue-2",
-+                          "tx-queue-3",
-+                          "tx-queue-4",
-+                          "tx-queue-5",
-+                          "tx-queue-6",
-+                          "tx-queue-7",
-+                          "rx-queue-0",
-+                          "rx-queue-1",
-+                          "rx-queue-2",
-+                          "rx-queue-3",
-+                          "rx-queue-4",
-+                          "rx-queue-5",
-+                          "rx-queue-6",
-+                          "rx-queue-7";
-+
-+        snps,tso;
-+        snps,pbl = <32>;
-+        snps,force_sf_dma_mode;
-+        snps,perfect-filter-entries = <32>;
-+
-+        snps,mtl-rx-config = <&tc9564_mtl_rx_emac1_setup>;
-+        snps,mtl-tx-config = <&tc9564_mtl_tx_emac1_setup>;
-+        rx-fifo-depth = <32768>;
-+        tx-fifo-depth = <32768>;
-+
-+        snps,axi-config = <&tc9564_axi_emac1_setup>;
-+
-+        /* SID comes from the iommu-map for &pcie1 */
-+        iommus = <&apps_smmu 0x1c90 0x0>;
-+
-+        phy-mode = "sgmii";
-+        phy-handle = <&tc9564_emac1_phy>;
-+
-+        tc9564_mtl_rx_emac1_setup: rx-queues-config {
-+            snps,rx-queues-to-use = <4>;
-+            snps,rx-sched-sp;
-+            queue0 {
-+                snps,dcb-algorithm;
-+                snps,map-to-dma-channel = <0x0>;
-+            };
-+            queue1 {
-+                snps,dcb-algorithm;
-+                snps,map-to-dma-channel = <0x1>;
-+            };
-+            queue2 {
-+                snps,dcb-algorithm;
-+                snps,map-to-dma-channel = <0x2>;
-+            };
-+            queue3 {
-+                snps,dcb-algorithm;
-+                snps,map-to-dma-channel = <0x3>;
-+            };
-+        };
-+
-+        tc9564_mtl_tx_emac1_setup: tx-queues-config {
-+            snps,tx-queues-to-use = <4>;
-+            snps,tx-sched-wrr;
-+            queue0 {
-+                snps,weight = <0x0c>;
-+                snps,dcb-algorithm;
-+            };
-+            queue1 {
-+                snps,weight = <0x0c>;
-+                snps,dcb-algorithm;
-+            };
-+            queue2 {
-+                snps,weight = <0x0c>;
-+                snps,dcb-algorithm;
-+            };
-+            queue3 {
-+                snps,weight = <0x0c>;
-+                snps,dcb-algorithm;
-+            };
-+        };
-+
-+        tc9564_axi_emac1_setup: stmmac-axi-config {
-+            snps,lpi_en;
-+            snps,wr_osr_lmt = <31>;
-+            snps,rd_osr_lmt = <31>;
-+            snps,blen = <256 128 64 32 16 8 4>;
-+        };
-+
-+        mdio {
-+            compatible = "snps,dwmac-mdio";
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            tc9564_emac1_phy: ethernet-phy@1c {
-+                compatible = "ethernet-phy-id004d.d101";
-+                reg = <0x1c>;
-+
-+                reset-assert-us = <11000>;
-+                reset-deassert-us = <70000>;
-+
-+                vdd18-supply = <&qep_1p8>;
-+
-+                pinctrl-names = "default";
-+                pinctrl-0 = <&qep_irq_pin>;
-+                interrupts-extended = <&tlmm 101 IRQ_TYPE_LEVEL_LOW>;
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 149bc44003bda..55ead3d1007a8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28305,6 +28305,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
- F:	drivers/misc/tc9564-pci.c
- 
-+TOSHIBA TC9564 DWMAC ETHERNET DRIVER
-+M:	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-+M:	Alex Elder <elder@kernel.org>
-+M:	Daniel Thompson <danielt@kernel.org>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
-+
- TOSHIBA WMI HOTKEYS DRIVER
- M:	Azael Avalos <coproscefalo@gmail.com>
- L:	platform-driver-x86@vger.kernel.org
++/* All but one field are the same as dwxgmac210_dma_ops */
++const struct stmmac_dma_ops dwxgmac301_dma_ops = {
++	.reset = dwxgmac2_dma_reset,
++	.init = dwxgmac2_dma_init,
++	.init_chan = dwxgmac2_dma_init_chan,
++	.init_rx_chan = dwxgmac2_dma_init_rx_chan,
++	.init_tx_chan = dwxgmac2_dma_init_tx_chan,
++	.axi = dwxgmac2_dma_axi,
++	.dump_regs = dwxgmac2_dma_dump_regs,
++	.dma_rx_mode = dwxgmac2_dma_rx_mode,
++	.dma_tx_mode = dwxgmac2_dma_tx_mode,
++	.enable_dma_irq = dwxgmac2_enable_dma_irq,
++	.disable_dma_irq = dwxgmac2_disable_dma_irq,
++	.start_tx = dwxgmac2_dma_start_tx,
++	.stop_tx = dwxgmac2_dma_stop_tx,
++	.start_rx = dwxgmac2_dma_start_rx,
++	.stop_rx = dwxgmac2_dma_stop_rx,
++	.dma_interrupt = dwxgmac2_dma_interrupt,
++	.get_hw_feature = dwxgmac2_get_hw_feature,
++	.rx_watchdog = dwxgmac2_rx_watchdog,
++	.set_rx_ring_len = dwxgmac301_set_rx_ring_len,	/* Only 3.01 */
++	.set_tx_ring_len = dwxgmac2_set_tx_ring_len,
++	.set_rx_tail_ptr = dwxgmac2_set_rx_tail_ptr,
++	.set_tx_tail_ptr = dwxgmac2_set_tx_tail_ptr,
++	.enable_tso = dwxgmac2_enable_tso,
++	.qmode = dwxgmac2_qmode,
++	.set_bfsize = dwxgmac2_set_bfsize,
++	.enable_sph = dwxgmac2_enable_sph,
++	.enable_tbs = dwxgmac2_enable_tbs,
++};
 -- 
 2.53.0
 
