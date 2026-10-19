@@ -1,111 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792438969;
-	b=dVQpEGgAjKppgVO2Dnq102y8/ZnT4NdIlT/JrPPjqlxtfauXUFxZkp2UpdxrDa+vSQSp
-	 vTKISCp8xmdXl+ElhtFpwdQYj1998V5CIk6/3r2A2tkMPZXA1iURJbmlC8BYk25rpuzM8
-	 wm/FLnxb1JEs8sXgXCPlx+xqNvyKxOEwONmrAvXvxrVOBhXTslp1n12KAObAt/ZDVm7cy
-	 ELsjpykm+bXafYMAKsqLqDGwCxeTwKHJK5NWYAOOb9rey3GmWM+UXiql7jXyskI/ULZhT
-	 +z7QzAVHnfga8a9dYJDZjjlrJGl3eMZSU/+GHdPlx8Xh/1idJAHDiOXn2iyMpbpxqVg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792438969;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8dYGK21sRrzBvhf89J2cAMbSRFJaLP0jDonotOhdflw=;
-	b=tm2E+muvJy4ziMnsJzC6z8VgzEJdA9up03Cslgux8v8hvueJha8J/Ci7XEX5SlerxP3U
-	 cuL2uKlPICKoI3nGUE0PwwLhYIHf22chdykMeaJXKpdk4EuqAk00isW/zR4ccf3IlF3CY
-	 2YUovnnv4j8+tRZoym/mxxkm+Hg+dtd27f2jJ5dNvFM2e/dA4tuzo0sAmOpmyehJN93FF
-	 MlzVHKFWDjUYnEalecV8K3X8q3g9cMAsy6JPX/IabVkDp4PqNSFhbocSXjT6hm7wQpWwK
-	 Z7XbOwZrB7mc6D0DbhNYzsmEFnLDg4/htmqMPObY5pjWb4ZkB2twVwov4rUGVpVHNpw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=VV6lrCak;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.51
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010051.outbound.protection.outlook.com [52.101.69.51])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792439294;
+	b=JmfQzrN4/+/50vk931uxQO1Dhp0q8tca0UbXiX7FDrz2X+AAVzvEaid3hfjUCK0fppQh
+	 ELHA/pBZZlvvk8OalKyHYG4Lb2IcnpXow8w77R+p853YF00Hwl9QOmWokPt3vMhQoI/Tr
+	 BlC4NNZqI3H/nmNi7+GkQKxkxmUiTxUwsIJxlA0Fnq8YEVyAU/lG6gtzvxTuafuzf2JkO
+	 3346wrEAEqJRNqgZ2WoHWmUU1x/+fPopHv4C7yX//1xQ7cEbmJdIuBXvSE5E70UTri/kH
+	 BDtmfPhZMyU6EoIo8SgrU2/Wqc+z0Z7l4J1yHhYz7jTSiybHbozFeA0k9BYTpQtXKeA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792439294;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tmwGNNCW2d+wdPNQw8vyggjKJN0vflWnyQoTqa3ZJcU=;
+	b=I3Qu9OFEasje1LzOn8BT4ilyJVqNex6IhRpWBL+/4T7ntBjLUCIouj9mKzdYXExceWsk
+	 V1H6OsK+QJUzjOaktToXUtGxeQcVcSG45ECEc5cqhM4dcmAakOSubdRhg2JpMq5pH6zRD
+	 0Jc/58HGj/ige8DB2lyLVqfPxDDCDY4BXx/dFVQ3vwfpQZxuAZqYRnl4ZpI8CJrb4tSv9
+	 RmcwOV1sQ8qvv6JyzDA0VFdf/7pDhjvXhxiqaze/Xb+KgCbY/lbOFFhye9j85GLavdXWF
+	 eS05GdKnZ5CP5ncWFzYfSvmQPMzTnCo5jlPQ4fyUrK4loynbWzlWZ+bdXp2IM3g8gPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=LRxPkYeV;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D547A606A31D;
-	Mon, 19 Oct 2026 19:42:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D547A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0625A606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:48:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0625A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=VV6lrCak
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=teeCYqEPBLIelqiL6qy+65iSeRXvDtKulTh81IRDrq9MsMrRzb/fz6gKsQy+j+aDr/7S1F7UiYQs9osje8rOV7zybGeRWajDp4wha6DxutXSAI1Yb9OIjHPTOs8sfgaMu8Ripwiqeowg3dRPC4UuEI0E4gYMMFG5Ju/aAk8HpCbK5LLMyEFQd1lP4FIYcQ7xIMM7mHh7Ke7/fRCsqXjZZodblLtpGdbK5yhEaBNOShfXak4qC+u+KKvadfeXl35UbbaW5kNZZpxsn7Gf9KLl1dGHwc9IwtMOl/lHYuTodHtXBdTkIt2wQmxYfKWkCylConpcia433BtN82vb5HrVjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8dYGK21sRrzBvhf89J2cAMbSRFJaLP0jDonotOhdflw=;
- b=ElrwKrrmZZXU+x2DfQVIU0rCI3jTktIXuq2OP5hZyxS2leUZCsyjpOkSAdIYqkcDecVSif2n6OraiaXG0FpFomGeDN99mczdiOzDJSMSgmehEKcVu5stIQc0hdjLzD6CtAoNxfj0fyNsKtN13nhkn7L+eG4PDmD6Z/urSYQl5l3CvSV537rFlyrP51XSU0WHe6UriY2j6vgZ09f79qUdwDqlY4ZY/ViYZ+8bafF01Y5ybKYWBIyn7UYZR4QQ1AzO2V/3hhSyoXOGJkzK7ohwywVjJ16U4zQKaQqKaUEjiBVcFaHmE+57dtQRB904Rk39az7EnY5Nmgh7LDiNBfBUKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8dYGK21sRrzBvhf89J2cAMbSRFJaLP0jDonotOhdflw=;
- b=VV6lrCak6aN9wQ5pg8aYF5sUNwti7fnoKMHzGzHDMD8vGNWbCeew+r5tohAgUH4D5ilePdxg2vjYUYJJnR4CPD6DK/aYonXR0HzKpEO5Z01QqMX+eO0xhw6D/Bsq8eDuGRRBm3K8QryEm/0phP3icJFXZgnetJIJY7aQPNTQMYAR6ZkHHaynZaVzIWLKYQ5knQtbaTtxrBwgpeyGqftm6mPEDpmGbSCZUOtLEiWdSW6N8RSIwMxr2idho6gBn69qJWj8S49dAQ/1VHwFeQM+xB880rPTXe8emW2NlWUr6+0EQlYNI+BWBEYNjtiL89+4JLmG6RAerv/lIWfHhXqDTA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by WA4PR04MB588810.eurprd04.prod.outlook.com (2603:10a6:1d0:108::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 19:42:44 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 19:42:44 +0000
-Date: Mon, 19 Oct 2026 14:42:31 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: bridge: simple: Add
- data-enable-active to dumb-vga-dac
-Message-ID: <atZyp2wYXNW52NYu@SMW015318>
-References: <20261019-v2-apalis-imx6-enable-vga-v2-0-ef6a3a780472@toradex.com>
- <20261019-v2-apalis-imx6-enable-vga-v2-1-ef6a3a780472@toradex.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-v2-apalis-imx6-enable-vga-v2-1-ef6a3a780472@toradex.com>
-X-ClientProxiedBy: DS1PR05CA0001.namprd05.prod.outlook.com
- (2603:10b6:8:457::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=LRxPkYeV
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c418e215671so314907766b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:48:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792439292; x=1793044092; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tmwGNNCW2d+wdPNQw8vyggjKJN0vflWnyQoTqa3ZJcU=;
+        b=LRxPkYeVQXwj8Is3NMIxabraRGvfPC6UniSRcKbhJ5Xn87Y052xZmgTw3sHZfHSZPZ
+         dl7uaeySqJG7amyHSVucXwFgX+EbSF4tkG/vQWlh2CtMTzK+LhVumCHalg2NhCpM8XyA
+         xd0KhiewgU69UE9DlbCHYS07qph0yu4cUdBS4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792439292; x=1793044092;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tmwGNNCW2d+wdPNQw8vyggjKJN0vflWnyQoTqa3ZJcU=;
+        b=mUamWagG/fTdKx8OMi4hoIL+t5Ni6tDLAP9sBLq/r/CSUnfCsggOu0fifufYKUzsiJ
+         kjU+dA5n/y6rPwZc8Xt/Dk/JCV/CApQKo9fMI+WOnIHBHhSlF763sdxjCs/+PbcPdhp0
+         MQCAxsfSOM2nZ2AZ8sXN/OrDMqFyTIIeZVftK7QQJNxQR4t4exiMSTwbOV4jGopVTFi4
+         oOMZxsC9GtBd5hGCWhPANKg7kjybkhptPL91/gVCAiwAhpEn8SIUFUD9xy2LJ6/quGld
+         iLM3GvtXYxsFHzpTJrIDn5zSaT2myESn/ula7Wtk6C06GWrAYC/XwOYMa1chDWzst5QF
+         ldZg==
+X-Forwarded-Encrypted: i=1; AKwUvBxbuYitJs21qQJ94GitPLS5g31VbKoGQWFtkb5zg5Nkga66RPz8fXm7yUKybYurujRryzYQD5v7TQaLcZY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJuBD5YS4GC9SoeYMbdeQAfY90Ej1nuSsXcYl3y6DeDxfSfSp/z
+	+ZMWf0jJXy7VhBdqHqI/22On1VwaV/oE14VZELkTE95qEWQg+K+lJXAPYm4rjxi0Il9ixeLp9lo
+	ZM2F3eg==
+X-Gm-Gg: AYBFou0y3ltwYDdBrwg+DRqvVkklZqV18PROVwhfPN7teE5wR1H9soame7EbN7NNkYM
+	U9B9fUVdg9kEvyFm3HT58/+/BOSviUm65gka8z9igZjY/07JGBeKVwnDV8+f/1Vq3K/qUrw0Bwk
+	BPHI8++iSFpI9nFTOYHdrEULJXzUZ8UyluK7wzvLKQ7c9n+9taPVVaxhT5/avuAwP/PsJJX7CMh
+	ZFUHZ2/9IO4XRWuKGc9tHPSxNbotwp+hrZrkzEX7rzyg1y4Hryq8cae7Sxtb0jo196wNGQooswN
+	10qxc4eF7yNOeaPDGyxBvrzKKi4hfSOayMlocbUDiwDbpnuuiiOOlSHC8GMgPmuI7x6xgbrrZb4
+	zuqsqgPPOuova7R/FvWl9qUNQLTkJdaO21syg01A2MFPonuGaFy2M1lkmHU9qsAtFc2ClZpJJ9j
+	1uEueru63TUG3YGGcPD5VIhojHaT27Hg76Vp+pypnk70aZTWKUab8a6/iXiM6W9W+Ecuny7/r6T
+	Fz0cclAjUANxnfGqsuL22YKKsR/qEoEMC0G2g==
+X-Received: by 2002:a17:907:94ca:b0:c45:c030:732a with SMTP id a640c23a62f3a-c45c0309ca1mr74256266b.35.1792439291863;
+        Mon, 19 Oct 2026 12:48:11 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com. [209.85.221.50])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4090dd1130sm400832966b.25.2026.10.19.12.48.09
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 12:48:11 -0700 (PDT)
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so2075328f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:48:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy1G2LiDeMdfxkcy/qiP5QgBBHMMkvUIlIhye5av9k3KWVgSc5DZH3ixb9ojLf/LzEwSNYTCddOUhzfgTk=@vger.kernel.org
+X-Received: by 2002:a05:6000:2f86:b0:48d:fd0e:a117 with SMTP id
+ ffacd0b85a97d-48e079759c0mr21203426f8f.5.1792439288293; Mon, 19 Oct 2026
+ 12:48:08 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,135 +93,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|WA4PR04MB588810:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85d5bf57-334f-43a5-afaa-08df2e1924e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|19092799006|1800799024|23010399003|56012099006|4143699003|11063799006|261009223027099003|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	tadK19oeqvnD/8nKjEJshDKq8u4Gx7YtXWInEaW892foD2RVwnYLHRxv5LmuxshZ1zxgk6e5oY/3+zTLGtk4D6/jlmglkFMGt8S/KA33npKTo8t6JDqgE+I9PIazVN5+mf2F/jL//PeCMBMHZPYV0fj94B5rby0F34HtLEyQuIEBXDBEozFA0k6PIsplrSM2dGqx1ir3QDgDSP4E0PuX26x6jCI7Lq07BlkPkMgGkC5moXWLsD4eJ+Gtvn0/HdhAyT/L4taBMGWSPar2UgUjSD/C5I9qCAv/HuxID7Ru1kwAWRWjF2epRDJr/dtCDNIQ7HQj2+mHZ0HgcGFGgNDB8Q+0KNIEwLmzZhMHy6VAzF5OVuMW2ybjJ3Uycn08EAIu6fJhIs/4Nq+iQjuQtU3IP07gJF4ijeCSHBXoakMPrVyx3pn3RHPzX52w8BH0bHkFyXmlL3Ef3ykr6x7dPfqjiAZM/7RRmIWoFWN1aLsUfRxp1gMTE1joBSvzENcf+bSzxwcurW4TQoihPgJAWVHxzV6Z92cYELUh3oMWu+aN4PTKAMHiR4/d3xAp4pUK6pSYmr8IuRKNwnGAHbtoDfg5v15l3ubSsqQMlyLKIQXJXSUYApdYrNl5inY+ItLjeJYgVcCImBURgEb9tl+J/wdle08Pcu/TSMhshQ/FIvnX5KE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(23010399003)(56012099006)(4143699003)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NcFfi6SBwEug0KGul295nQxl83/re4oLabrw3kkJbErWyJqYrmzP+QlUhbSe?=
- =?us-ascii?Q?WvEBGRZbK0rJQbeymJQtnBQ2KFdzFFKS/kIBMZtEsWCzZ1uWcDwy1qoUo1zQ?=
- =?us-ascii?Q?KqxRn+H/mP0PWzHhKtdHTtOYZMCIIvDNb9VzTu3Wv2XleX75t0Fikjwq5yMa?=
- =?us-ascii?Q?jmhJxt4Qd6IZoSgGCdI66j6CRve7wgvChHb0vnw+v3ysEsVmbbmfeJl+OUdy?=
- =?us-ascii?Q?yWsjTVHfXPLER3sJAyZyWnPTrJtMujgXKjmUR7dI6xD6bBSnBMQKyhEmT83j?=
- =?us-ascii?Q?WXwrq/1qbbonOOxvTBEwhiyRJjE187673o2FT++cv2JbUtStSj9+X4GS1zjS?=
- =?us-ascii?Q?ZIrz4bOrG61ltPJaJCRwe8CVwW/4+eYtV0dgpQyLWDXUgj2KwiisDRKd8Hk5?=
- =?us-ascii?Q?iww+/J4FOufViFf89MLSQGuBQQpnMHab0/HJDHMO75peyrZ2gJzWV6hshsMe?=
- =?us-ascii?Q?Ik9BpB+Rz0v2csoSO67Bm7uQiRtGeDCUWYEF9+BBJ48TEVJU5FfMcanywC1S?=
- =?us-ascii?Q?Mf+2yi6poGk9bHH8oyN7qPvZmjWAMS4orylUl9WJfdNSNGTcEy0TemdAt1cM?=
- =?us-ascii?Q?4yxoh/kyonOTfkqSq8S2w9orRYQndpPLXs/zCba6DeU3MMLlmkchjPbZlWxn?=
- =?us-ascii?Q?+jIrXzbgoXxLeA5OWN9zKXX3qoocPDQnzS3WQ0NmZNMOO3vKfOJpvqtbGRQK?=
- =?us-ascii?Q?OeDflZ8ZwIAIdUtPjTFxw7V0v4Bsxc3Tg9p9fR9LWIaPkUfxXEy9er/s9a2C?=
- =?us-ascii?Q?4DWa63W81by5PGva9AXp/IpgGFXEdOugewdY7bBHmBUV1Frc58VQ7HiS5Mz9?=
- =?us-ascii?Q?XayELeSeHhNgI7GjVlf80TTmc9ep6yRGykaC5X8N8L+SQbT0fBpyURZXq9MD?=
- =?us-ascii?Q?8cd6Q+Hx2JFR048m/y9CBHueXDnvHWEQ0cLPWv6/Q/jKvYjxHmKH1d/SoK64?=
- =?us-ascii?Q?dhalHUOdTpOCLxpbY315+r06+eOMme229jybyd1wzbneXG3tvBYkBgjWUwiX?=
- =?us-ascii?Q?oZl04x3Ghk2WXT4f6AC8qQT23ao9QJCFSUYwndJdmijNunQn+o+b40l+3etb?=
- =?us-ascii?Q?sDuKetH2yDaEyN9IN4aICC4/VxbT5xjkDdsWXPOh77aKhTGW483WXy3IKmsO?=
- =?us-ascii?Q?DYHOZQ5zDsZ7Q+ldGorjgDIV+EuleMp9pU8sppQgHK6Cjq4UypFHQLfOUFAc?=
- =?us-ascii?Q?HNvetvuh1NkPkoJ9ZcCXQJNenB3NF9tkThmN17/omkOVQ/6jFBIKPKih75f+?=
- =?us-ascii?Q?esxAGylSA8G+nV8ukDR4yyV3MyV124gmIEro+Q6ywKaRnan+bC1ebw2SpWST?=
- =?us-ascii?Q?2K5vE8pcGrRXUhrKEJUtvTpHl50f2ctLzNK4nJkogk66ixcwNQ68Jy4srFQa?=
- =?us-ascii?Q?yprisoac+eUqoz5Ga2+5n0dizwnRxGdz/EwI2nV72sjm8l03Y1P8ZlEy3TXJ?=
- =?us-ascii?Q?LP5dEUooWHuE+bqidXmuEOMaAH/VYrApMsTkok+1BmNCC0sTPVEJ6WTt/uwR?=
- =?us-ascii?Q?H/gPqFp3G4gBipH5/Xu3A+fN6QqrQ2IsNs+ea56bJbgZPGGl+nzHxt3xEtx4?=
- =?us-ascii?Q?33wan+Bro5Ksx8eEOtYmxJd69Bu7GYZRcBKjjldQ8Mjb/jiyUcBFTu8X5Xry?=
- =?us-ascii?Q?2if4kodilOg97IJJj4v8SsgDgQRphRTrRZEtJKk8SvhMBK/I30IdG3+fm62S?=
- =?us-ascii?Q?lQbRyuygNcApk0xfUlT4YEmbuXvqeDUpSoh1KpN9nfZKzxHfsklxv446miI9?=
- =?us-ascii?Q?A0nLaxsrBXG4wFJtsbNprbGhDcnlYoGz92R+C2xN1hlZae07pgB6?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85d5bf57-334f-43a5-afaa-08df2e1924e2
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 19:42:43.9712
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7gthoVnU3Qc8yPptcXdZc9v8KzBIXB/kfAuhObpKLYRpvMHU1Yat5/Zh8DVfrv6VippNSFIFVutLOyLRF/sy6Q6zJ+sG1nEvxSNwVlCXjoyGwAhKPoLrcTYU7ELOfd5/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: WA4PR04MB588810
+References: <20261019185857.2381360-1-luke@phorex.org>
+In-Reply-To: <20261019185857.2381360-1-luke@phorex.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 19 Oct 2026 12:47:56 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X51pmUxQd=rFQ333DiympCUh6ChsgkFcjz7hX3LyeRJQ@mail.gmail.com>
+X-Gm-Features: AclHuK9rQvtNMpUIS09Hn_DNkYREgrHvZlpXBPUSvrKp_n9lGM985rbebpJYrHw
+Message-ID: <CAD=FV=X51pmUxQd=rFQ333DiympCUh6ChsgkFcjz7hX3LyeRJQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/panel-edp: Add BOE NE140WUM-N41 (0x0d9b) panel
+To: Luke Macken <luke@phorex.org>
+Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+	airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 19, 2026 at 07:17:14AM -0300, Leonardo Costa wrote:
-> From: Leonardo Costa <leonardo.costa@toradex.com>
+Hi,
+
+On Mon, Oct 19, 2026 at 11:59=E2=80=AFAM Luke Macken <luke@phorex.org> wrot=
+e:
 >
-> Some simple VGA DACs may include a data-enable input that must be driven
-> at a specific polarity. Add the data-enable-active property from
-> video-interfaces to the input endpoint to describe that polarity.
+> The Lenovo ThinkPad T14s Gen 7 (Snapdragon X2 Elite) uses this 14"
+> 1920x1200 panel. Without an entry panel-edp warns at every boot ("Unknown
+> panel BOE 0x0d9b, using conservative timings").
 >
-> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> The panel's timing requirements are not published, so use the same delays
+> as the other BOE NE140WUM entries (delay_200_500_e80). With them the pane=
+l
+> trains and lights up reliably on this machine.
+>
+> edid-decode (hex):
+>
+> 00 ff ff ff ff ff ff 00 09 e5 9b 0d 00 00 00 00
+> 0c 23 01 04 a5 1e 13 78 03 ce 51 9a 5f 58 8d 26
+> 16 4f 53 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 33 3f 80 dc 70 b0 3c 40 30 20
+> 36 00 2e bc 10 00 00 1a 00 00 00 fd 00 28 3c 4c
+> 4c 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 42
+> 4f 45 20 4e 4a 0a 20 20 20 20 20 20 00 00 00 fc
+> 00 4e 45 31 34 30 57 55 4d 2d 4e 34 31 0a 01 ca
+>
+> 70 20 79 02 00 81 00 15 74 1a 00 00 03 01 28 3c
+> 00 00 60 42 60 42 3c 00 00 00 00 8d 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 cc 90
+>
+> Assisted-by: LLM
+> Signed-off-by: Luke Macken <luke@phorex.org>
 > ---
->  .../bindings/display/bridge/simple-bridge.yaml     | 28 +++++++++++++++++++++-
->  1 file changed, 27 insertions(+), 1 deletion(-)
+> Changes in v2:
+> - Include the panel's EDID in the commit message (Doug Anderson)
 >
-> diff --git a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
-> index 7636c24906ba..b1b23d41245d 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
-> @@ -43,9 +43,18 @@ properties:
->
->      properties:
->        port@0:
-> -        $ref: /schemas/graph.yaml#/properties/port
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
->          description: The bridge input
->
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-enable-active: true
-> +
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-suppose needn't it because unevaluatedProperties: false, which allow all
-property in video-interfaces.yaml.
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-If you only want to enable one property, should be
-additionalProperties: false
+Pushed to drm-misc-next:
 
-but I think unevaluatedProperties: false make sense and needn't below if
-branch.
-
-Frank
-
->        port@1:
->          $ref: /schemas/graph.yaml#/properties/port
->          description: The bridge output
-> @@ -65,6 +74,23 @@ required:
->    - compatible
->    - ports
->
-> +allOf:
-> +  - if:
-> +      not:
-> +        properties:
-> +          compatible:
-> +            contains:
-> +              const: dumb-vga-dac
-> +    then:
-> +      properties:
-> +        ports:
-> +          properties:
-> +            port@0:
-> +              properties:
-> +                endpoint:
-> +                  properties:
-> +                    data-enable-active: false
-> +
->  additionalProperties: false
->
->  examples:
->
-> --
-> 2.43.0
->
->
+[1/1] drm/panel-edp: Add BOE NE140WUM-N41 (0x0d9b) panel
+      commit: 748ca393b93885e255d3da3897a2a540441fb0fc
