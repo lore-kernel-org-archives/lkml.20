@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792447685;
-	b=BkAaDmaLEnwWyXURHSi2LK2UquUSWyhMPWDfIlClCGZrDDBLMsI8S2hK4kBbFOPzztjG
-	 bWxCoF7bSr/9l7QowadG7OOqAG4OXVu8aBMu/joUX+FH8F6sUpX19teYkHvRMhie9JNn6
-	 KyoyCctm0DydMZPFq+G6VFd1VCREPHojXI5RdluxK1z4oVC1Zw9WMubsrmjC4vox8Z/zf
-	 KDD00/UrkzyFDx/UsJm7BC9WL/HzmaAkbovhTdJ2gkozfnZlWkLpLJ2gpLht2u9sMEvFo
-	 2X8DeCDF1ot+GFUs0v/5FPqt1t8x8gMyx1LvDTlug1vRDC5u5TuAf12JhLzVugGiZMg==
+	b=LlaF6wpreA+A85gDgJ8V5+BgJw6tC53B3iCCXfa6c00b5HrGjuEEwXFOLT6VJJJqvr0T
+	 hVYHd2d81SsYu8SUdAp5FabZVtEMOaWUj+0jnbFicbLYzDq6ZxNtwvKZVLj0/ghzwF6is
+	 XdsAHHo0t4NgEmLsSUzrWCI1bbCrfh0k0Vvt+1MTsNrgIwEU8my+gHW5hILmhFU7YM2QV
+	 xJXFchSPbVd9uaMcpuzl9for1k+2SQUpJPdNb7F2w4QzNe61T/Fys5D2uQNdZ99CzQAuP
+	 tKEszsrR0j1oAkXCLHu+fEQ/+GIfahR1nNvEE0443uWFbPdfvMbV0kq/ddTbzRyo6gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792447685;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,52 +13,52 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=7KRFoez2MHK6RdePaMAxh33RzW/2GI6fZB4kUeE4dvY=;
-	b=Gq80vtczUzLUi9zWQMEiI9DfsE/UvmAFWGnhBMKU5yyidVw8QP7CL9y6l22wgGoU4hrP
-	 QmJ4VrqWCmqsiceQVnhWFi9o3SwoQlSXHGKVHi91DMYXcUymuBTH3/QBvzxDUZjDc/Pip
-	 RZwPLOgrtOmlHoW9LyHvZuTsuRNBnFFEVoYVATBNz2TF7r2ygPN0ojeSijIwppq/izvrL
-	 FrKSUofpxPYdnqwBqbGCAs/5lPiy7NbGxPL7Nb8Ikc0Q0N+R9SnaSB59ZUlmpY2e+La8M
-	 t+O9Gg7PWDHfpHJNYgpdiPP2D/rvCwsY1Kp8EO6j6cCIcurw+vFPsMP9rBpO4M3OQIQ==
+	bh=/FPJ2/D1pxAq4Poeoujsv1hkt1afRQIoxiL4Q5tPTKs=;
+	b=LU8+QM5FwHMEj4gSUjrVgR6SH7hJImuY2TPfgTuyO1i4P4UqRXBbSE635b/wngCXa2o8
+	 ZpuGdOpTItNQH9BdPXBtpQ5FSFRHKyb3kaYb2Mi2bWmOnszI9ZUWUEW0ScN3pRvusvJCZ
+	 fGYFaym/rLFtMlUNowUvILF+rKq61gyp+rH8eTM7fWHmRsWmpbx+GPPbxBDvPuefJxP5M
+	 /V+7QlxnK8cgUwqmkbXWVAfx8M7LH6FLMrqlLCqPJC4xP2I3OOBnzuufiWdx9Spxq8LGp
+	 GAKh/3uUbiADivQLiHsq71wGuSOQkNEWzckwyhpJ8zIAGw/VHGeMLabBZf+2OU0dIjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iUvNmK0F;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LqTbp15M;
 	arc=none smtp.remote-ip=192.198.163.17
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7998A60A260F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:08:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7998A60A260F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8778C60A261B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8778C60A261B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iUvNmK0F
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LqTbp15M
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792447683; x=1823983683;
+  t=1792447684; x=1823983684;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=KSmmFCGJg8FWLkt7bylQR8X3wY+9QEqWerUrD4M3uL4=;
-  b=iUvNmK0FJdPKCym43KJ1Io29Be1248h2hAjP4m+RwPCVJZidCKcfLqF2
-   zLAw6VQQQLFzd1HIgzJPEj3mdFAqEg6/1Paiww/wQpawNMvw1aO0pjo/W
-   1fLsK7aObGNamPbr71aBJlJcq7fBPy62Cg4Pdvz3/9r/h6SH32GP5Eaui
-   UtaNv8vfcslLsMorPukY4ULAW592fuw9+D1HfGQ+RKNbCOJIvgHlwlD/j
-   yRuCfrwoI2mVriviACCDrWDfoilRkjoNd5OO2blrvsK5C0vd6axFnbDLh
-   E2n+juw8kv/EmoW4ul0QMnGYxQLCW0ngPaUzJtsdvUsyHBigQ+EJeSRT/
-   Q==;
-X-CSE-ConnectionGUID: cxFTn0tlSO+VL5gXLV7OLw==
-X-CSE-MsgGUID: P790XQ8yQh28JdTOsP2ioA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1144225"
+  bh=KvuwGj3mCzkgntkJ/PO10vy/kUzqNCehZSltuxALbMQ=;
+  b=LqTbp15MHpEOURPIclEyjYvAsUsabI2r0y/xsUcmLLXUdOabsSMg1bwf
+   AJr6deVUBTRsBO6Ur7aMQCF9Col0lU9CMJfkr5KTtR/tmIQl4pTJ9jghG
+   TOfH+98jvpZkEs3vuohtwDSzMzO6GdC5/6823DEq5vkiwrKY+0sEbcgYc
+   FGLiALUimlYz+8Ab/9mBY4LJshcWnMjhL+Ow5lIoRJTVAveZer68lDwpo
+   244fxkojIux4csXhv2KUEV/Dw0ge3p3BaOWaZ/Jb1uJG8X6bHA9R3eCwh
+   c3UftxRl/S4wsYYGGKvwYBsl3Sm9aBsd6QYHWF+BQcrV8lp70xaqfFwA9
+   w==;
+X-CSE-ConnectionGUID: 20MKcOKoQGGbVXHBdxZYSA==
+X-CSE-MsgGUID: uGrykT6KRkSz9JhgJYr87Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1144232"
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1144225"
+   d="scan'208";a="1144232"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
   by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 15:08:00 -0700
-X-CSE-ConnectionGUID: u8smdNEJRP+wDnO1uhFLgQ==
-X-CSE-MsgGUID: AAzRo9G0TPq8G3hxomZ2sQ==
+X-CSE-ConnectionGUID: 2HgFPwesQ3mnqgPk7B8PGg==
+X-CSE-MsgGUID: 0pmN44VhS1WMVZx5J3l3qQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2708349"
+   d="scan'208";a="2708352"
 Received: from rchatre-desk1.jf.intel.com ([10.165.154.99])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 15:07:59 -0700
 From: Reinette Chatre <reinette.chatre@intel.com>
@@ -74,9 +74,9 @@ Cc: tony.luck@intel.com,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	reinette.chatre@intel.com
-Subject: [RFC PATCH v2 08/10] arm_mpam: resctrl: Require a component for each monitoring event
-Date: Mon, 19 Oct 2026 15:07:42 -0700
-Message-ID: <3384e5bedb29e3a0bd7fa383939db8ca70c4a733.1792443633.git.reinette.chatre@intel.com>
+Subject: [RFC PATCH v2 09/10] arm_mpam: resctrl: Require monitoring components to cover the same CPUs
+Date: Mon, 19 Oct 2026 15:07:43 -0700
+Message-ID: <a5509d45ef186a273dfc07fdcaae82998a5a4ce6.1792443633.git.reinette.chatre@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1792443633.git.reinette.chatre@intel.com>
 References: <cover.1792443633.git.reinette.chatre@intel.com>
@@ -91,49 +91,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Setting up a monitoring domain looks up, for each monitoring event, the
-component of the event's class that contains the CPU and records it in
-the domain. Reading and resetting the event's counters in the domain
-then use the recorded component.
+A monitoring domain records the component that backs each of its
+monitoring events and takes its ID from one of these components. The
+domain represents the CPUs of one L3 cache, while each event's counters
+are read from the event's own component.
 
-If an event's class has no component for the CPU, the domain is still
-set up as long as another event's class has one, and the event is left
-without a component. Reading or resetting the event's counters in that
-domain then dereferences a NULL component. This is not expected to
-happen since only classes that cover all possible CPUs are picked for
-monitoring.
+If the components of a monitoring domain covered different CPUs, the
+counts of an event would not belong to the CPUs that the domain
+represents. This is not expected to happen: every class picked for
+monitoring covers all CPUs and has components that correspond to the
+L3 caches.
 
-Fail setting up the monitoring domain, with a warning, if an event's
-class has no component for the CPU, so that every event of a monitoring
-domain has a component.
-
-Keep the check that at least one component was found. It now only fails
-if no event has a class, and so captures that a resource that supports
-monitoring has at least one monitoring event with a class.
+Fail setting up the monitoring domain, with a warning, if the components
+backing its events do not all cover the same CPUs. Compare each
+component with the one found before it, instead of naming the events,
+so that the check applies to any monitoring event.
 
 Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 ---
- drivers/resctrl/mpam_resctrl.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/resctrl/mpam_resctrl.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-index 63c5bf45856d..36a924734484 100644
+index 36a924734484..c3ea61a40bb2 100644
 --- a/drivers/resctrl/mpam_resctrl.c
 +++ b/drivers/resctrl/mpam_resctrl.c
-@@ -1661,9 +1661,11 @@ static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
- 			continue;       // dummy resource
+@@ -1664,6 +1664,12 @@ static int mpam_resctrl_setup_mon_domain(unsigned int cpu,
+ 		if (WARN_ON_ONCE(!mon_comp))
+ 			return -EFAULT;
  
- 		mon_comp = find_component(mon->class, cpu);
-+		if (WARN_ON_ONCE(!mon_comp))
++		/* All components of a monitoring domain cover the same CPUs */
++		if (WARN_ON_ONCE(any_mon_comp &&
++				 !cpumask_equal(&any_mon_comp->affinity,
++						&mon_comp->affinity)))
 +			return -EFAULT;
 +
  		dom->mon_comp[eventid] = mon_comp;
--		if (mon_comp)
--			any_mon_comp = mon_comp;
-+		any_mon_comp = mon_comp;
+ 		any_mon_comp = mon_comp;
  	}
- 	if (WARN_ON_ONCE(!any_mon_comp))
- 		return -EFAULT;
 -- 
 2.55.0
 
