@@ -1,1058 +1,406 @@
-Received: from mta1.migadu.com (out-133.mta1.migadu.com [95.215.58.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E58A4908A2
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959D548FF81
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395580; cv=none; b=lEKLSqkVbZuQe9tQyM8JF6Oy5veYsvZ4Q9o4l3oXONa/Y+CpHiwe3jnUZX0L4dTqIDVTznywtgP+zzN2aCx9mcOtuDHXa2ZHp5fPLmf0WUgrhIqE9nHZV+dbf5cglOz80HlkZu3Gbfv4GDWgZw4xfmfbgJk/VKsuT4Dml7eU/A8=
+	t=1792395591; cv=none; b=IzD76sEC80lHPZtlXqdPk3HFwRlEnMSnWik9MjjYqRiHkI2PMIWWI/wkrqOQcnZt0DyT/M6uIBX3tveFib1J1O98rxcLhf0NohCpwV6UAjN+Lbnt5MnhHsyTAwMZov0vZB9w2fB5eQxZnr9fAFZQCSkoOVbcXUMOmh5GDusOypE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395580; c=relaxed/simple;
-	bh=d3cKeLYAmxAjHd4aRGd3GFKac+xN+xPQ/z9Y7icRQgg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oojtHIfGT3jWgLRrawnEBGQRhwmaPTdTCY3fQDiVv3kfC6PmKlhLEOscRtFp81kDRjuHjr9Fp7eVpQ64512uWs60EPjKtoixXb2ujEnfgq5wAPopJZAsA2y1dTI2Tfnlw2+gZiGCVeywFTIOaeTI8j6FJy8bbLpCSJVfEwjcTiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jk1zl/XX; arc=none smtp.client-ip=95.215.58.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1792395591; c=relaxed/simple;
+	bh=p07iEb35ew4rhOEg7En2KdbSWe0jhUN4Q6HAAyHT/Fs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dmcieRbPCD1ZFsgaP1nG2MrdyMaC2qqTT9TtRCqz1YX7NvlACjCUcvF7GaqVuepYiAr7eGQ933j2qdS8aN5e8UVFxE6FSxtxXc/7E+vjuP9hJ8/sX7JYlKziD/LKiZs4JG8JC/wG+kOIyh/mM4YyrPll3jTcYlibACo7q7pVgnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i60YYQ6o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NxI1aZNC; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jk1zl/XX"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=d3cKeLYAmxAjHd4aRGd3GFKac+xN+xPQ/z9Y7icRQgg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792395573; v=1; x=1793000373;
- b=jk1zl/XX+mP2ocmMhmx07HnAp1DPXOR7e5FaDwb+tBXjGQmRSqWy+aHi+yClIcXJ1ResViG4
- G3phRX4CRDDNnY9ozRFW7vuz/AxJMqUMFlSUnE/wB5Jv7+s6JlAQ+V6M2ySH5vBqzwxA6OpVL4M
- MydN327pfDsskPGIB8IpCJCg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id c45aa43e38a73bca;
-	Mon, 19 Oct 2026 07:39:33 +0000
-X-Mizu-Trace-ID: c45aa43e38a73bca
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 19 Oct 2026 15:39:27 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] selftests/net: test network sysctl extremes
-Message-ID: <atXJLy6iTh5vbe9D@fedora>
-References: <20261014041446.2821085-1-sahaj123.sc@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i60YYQ6o";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NxI1aZNC"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J4iw091552878
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:39:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=+heyUUDe3z2
+	ElJaSEfijE4i66Qx9XUHm2pk2TCmmnhc=; b=i60YYQ6opTE+P2AaIX7k6+kAEPi
+	hEGbxsKldg20TQ6BLoMWv7jlgm7FZE4+SkA9makEDbuIZsgvhtCQasGRGWc/RMuL
+	LEs+gYArnQITbEX50uLCBFOl/vBTaHN8oDl8FYFyvHqYDCDYg8GpwG22noBMWOy6
+	ojp+286D+VIK+caEirxd/otCh2usPKV+isVqGoL+tMXxUnwthnDw20jSvPnMFP7r
+	IMUC+nLWpAVVfUz8s1yA+m7pSqAUUtre9bLmU14P8r+TWu1Yj2kZiL1/no1G4wnp
+	avcDWG0zG2aBohX24twb+MFC0cr+NumKAhWyiBnx9hnqVsxMktWk36A1U6A==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5ur1m40-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:39:46 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93e92aad34aso382877285a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:39:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792395586; x=1793000386; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+heyUUDe3z2ElJaSEfijE4i66Qx9XUHm2pk2TCmmnhc=;
+        b=NxI1aZNCc36JfnOxjfPB6ALuR/s2ZNC7IO9N8Jkw/ibeHUXTC9gGJ9Tp28CsaGgRNI
+         PsnPhPkwgUAMggGm1tXn1SLJ15jynyOtgTspaX0nCBgxDcJKdli6SdPa/6zdx746TehF
+         alHMsJCAh3BPykqvBOBCUEpaWUAc03udjm/Abyz9eY7NkH1aA5Yqkl6BJ+gI8R0lSnBn
+         NNjet043o7BjhdlRu1nUGz1XpRCtmnsvEun4UibnZqlVqrZVaoEsSgMrPb9h6bDI7DgL
+         F+reXigfzFoSxYDWmFNr6Bkop0Ht7LUjmXPbCXEhpJOvYBsxIcHyd1tx/qu885ZXLa20
+         b8xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792395586; x=1793000386;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+heyUUDe3z2ElJaSEfijE4i66Qx9XUHm2pk2TCmmnhc=;
+        b=0nzpiK0o1qklu6Bw4zbNaNd3g+w2cDB9nE2JEgoPskRvcuO5tHqHstv1PQb/WLW9jC
+         VhEFhP/K/aps3Q2Zykrkb3t/+birfgqdf1dAC94JpQM0ZQ5Gcx1VtHHyDefxSE62ARnI
+         CjeY2EELA911MsJesO7eFsnp5SPnDY/nbrbXNCz6acl730oWYXygvBaYWLms5pvN7RS/
+         +nabGhKzQbnnyRMvpEm9tolp4OtiicVcTsLlmaSy1JQKwMX3RWvsmMtUpa4suGBsHzCb
+         JS95NfDqBNlVAXoxZYbBj319QJzqGbnVx5vmMFQ2xLM/X3r2BpqnI3VJl52DYYcwUB6w
+         e5dg==
+X-Forwarded-Encrypted: i=1; AKwUvBxghKfHs+TZ3ffCbkrQofs+5hnE5Zr+oxPp3ZBGk7G3RvHIYFT1jdI4zketWhwk8LSse1llPv9BQ142FDc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyaQUD62uYKt52Vu9b5O9gh5eNqR/LfONNXMzeBmMp/HlAs7ok
+	QPAB8sRPpXZxgh76EAaLTw+hzhIJd/oigkwWt+3gJkUdpPGW2GCi8NcIFsnSnM8hj85nbYhrpVO
+	8yyggRmaBCCR92vw+bz0+OQ+D24scWzj9n9M1IB5gHVx43oZmvSaCUtOD/DBjhXSDq64=
+X-Gm-Gg: AYBFou21YKpaXUGbUWqaamFxAbdQV24uaOzE/WhxybUBnRcOqXT8lZxQbGI4syLUJVM
+	cw1fN1Xs1g1wrkE7mfP5G2eRabr6Cp4ZZ22byTeT8+Pm6E7WOjBWUww8b/z8V56vaNbAbG+30MV
+	8j8+3cGo3BHYPjUAiBq6URRGRW5GOED7eDhgoyPd2+WRQXyBk2AyHB6EqUEYGCGCJSagluKI4LA
+	PTuFTRSDDZbcoG2hvHHcOo3vRDyeiKU8Ujjz5a7sNr0ZEUE+0DS8rSaIOLgFKTit+Yg7mIMQdBv
+	Ly1dwmqj3p6ZbeCZn5oLADYRV2Fi30eMpwaBqkxZ0e+jS+//JwJ6930zEl+PBbVWfH6k+2xvEm1
+	vwQbruNEhESaRu8mHPlJygBV1esg=
+X-Received: by 2002:a05:620a:454a:b0:93b:c58c:d3be with SMTP id af79cd13be357-93f29d42f1emr1211042685a.37.1792395585476;
+        Mon, 19 Oct 2026 00:39:45 -0700 (PDT)
+X-Received: by 2002:a05:620a:454a:b0:93b:c58c:d3be with SMTP id af79cd13be357-93f29d42f1emr1211039285a.37.1792395584963;
+        Mon, 19 Oct 2026 00:39:44 -0700 (PDT)
+Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:d01d:2002:4b7d:4c30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce325107sm212812955e9.3.2026.10.19.00.39.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 00:39:44 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: rafael@kernel.org
+Cc: Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>,
+        Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Maximilian Luz <luzmaximilian@gmail.com>,
+        Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+        Mark Pearson <mpearson-lenovo@squebb.ca>,
+        "Derek J. Clark" <derekjohn.clark@gmail.com>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Armin Wolf <W_Armin@gmx.de>, Jai Luthra <jai.luthra@ideasonboard.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Mario Limonciello (AMD)" <superm1@kernel.org>,
+        Jack Wu <jackbb_wu@compal.com>,
+        Mario Limonciello <mario.limonciello@amd.com>,
+        Zhang DM <jixianqiang1540@gmail.com>, linux-acpi@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Subject: [PATCH v2 1/5] platform profile: Separate handler locking from sysfs lifetime
+Date: Mon, 19 Oct 2026 09:39:04 +0200
+Message-ID: <20261019073930.2352283-2-daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019073930.2352283-1-daniel.lezcano@oss.qualcomm.com>
+References: <20261019073930.2352283-1-daniel.lezcano@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014041446.2821085-1-sahaj123.sc@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAzMCBTYWx0ZWRfX+aTnP+6/gL4I
+ 7u9GWN5s6Ec4bS+583jCpjXS1i8yzrWwUKufEa3Of6hZRtleBtxM9LDyynsBpnMA8OFodDUloc7
+ vwaazHPQF06SioethFDW2nG1i/FQJXA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAzMCBTYWx0ZWRfX31H+Kk5duV/I
+ hxJFvyJny25L2EWA+3N5Eb/hqXixIA8IJoocA4OXa7gXh2A6vrltwWorHiFIfn5Z1pduWMb+rG+
+ hdYPdWoUxxZkdb7qQHS54F0DSB0vcijKPHg4KiqtmiQkuOjVectfLwVqCgrzNjmaToyUhUIKJum
+ lBNOHXfX3Va/Gd8xAtvNaPc+zz2NWIf/eAkJEo8JahZdRND3iNpZ8g9XhfPF+YKmE/Lp0DrYpZ4
+ 23cULutFcpqNTSl2Qfu6iRTyaYG1yC+AVcp16Z0G7MlViJjTiM9UaiIVtYSMdHVt5EiGZR3/P4l
+ wOMeMUp9xVQ6qeFY/7CKZjV/cxpqJ/p7b3YvDY8Jj8umJir6oc81EuACi7D+5o3vOhQF55x3RHX
+ vQLIxC/Ehpr7Z0BYMUFN4zvURn2B5WAk2AQlOOlU15wIgpkKBu1OZ/QvkwntzVfRIrRjYBOUtmX
+ bg33TntgvjB+iqM4eeg==
+X-Proofpoint-ORIG-GUID: 4lloL7YHT5CcwHLeVKyKzQUm84n1qag-
+X-Proofpoint-GUID: 4lloL7YHT5CcwHLeVKyKzQUm84n1qag-
+X-Authority-Analysis: v=2.4 cv=CP6/zhrD c=1 sm=1 tr=0 ts=6ad5c942 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=-LHEi2PMdtMAXt8Lty8A:9
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_02,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190030
 
-Hi Sahaj,
+Registration and removal currently hold profile_lock across
+device_unregister() and sysfs_update_group(). These operations can remove
+sysfs attributes and wait for their active callbacks to finish. The
+profile read and write callbacks acquire profile_lock themselves, so a
+concurrent access can deadlock:
 
-On Wed, Oct 14, 2026 at 09:44:46AM +0530, Sahaj Chaudhari wrote:
-> Probe accepted bounds for writable network sysctls and exercise
-> TCP and UDP loopback traffic at each bound. Test representative
-> per-network-namespace TCP/UDP settings, with an option to select
-> from the set.
+  Removal/update path             Active sysfs callback
+  -------------------             ---------------------
+  acquire profile_lock            hold kernfs active reference
+  remove a sysfs attribute         wait for profile_lock
+  wait for its active references
 
-Is there any reason that you choose write this test with C? I feel
-a shell script should be more concise and clear.
+The removal path cannot finish until the callback returns, and the
+callback cannot return until the removal path releases profile_lock.
+This applies both to per-provider device teardown and to updates of the
+legacy aggregate attribute group.
 
-Thanks
-Hangbin
+Commit 041142d7d252 ("ACPI: platform-profile: Fix possible deadlock in
+platform_profile_remove()") previously fixed this lock ordering by moving
+sysfs_remove_group() outside profile_lock. Commit 55b1e68134bf ("ACPI:
+platform_profile: Use guard(mutex) for register/unregister") reintroduced
+the issue by extending the mutex guard over sysfs_remove_group(). Later,
+commit 77be5cacb2c2 ("ACPI: platform_profile: Create class for ACPI
+platform profile") replaced that teardown with device_unregister() and
+sysfs_update_group(), still under the same mutex, extending the problem
+to class-device teardown and aggregate attribute updates.
 
-> 
-> Tested: Focused selftest build and CLI checks. QEMU on Linux
-> 7.3.0-rc7 passed (4 sysctls/8 values, TCP 16/16, UDP 16/16), also
-> while userspace wrote WARNING:/BUG: lines to /dev/kmsg. On an AArch64
-> Linux 6.12.57 board, 4 sysctls/8 values met aggregate criteria (TCP
-> 15/16, UDP 16/16), with one TCP timeout at tcp_rmem[1]=1. No kernel
-> splats were found.
-> 
-> Link: https://lore.kernel.org/r/20261007054508.1059927-1-sahaj123.sc@gmail.com
-> Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-> ---
-> Changes in v2:
-> - Remove --all and the full /proc/sys/net scan. It could enable
->   nf_hooks_lwtunnel, a global static key that cannot be disabled again,
->   so restoring the original value failed. The remaining sysctls are per
->   network namespace and restored by writing the original value back.
->   Document this constraint above the sysctl list. (Sashiko)
-> - The rounding issue in find_bound() applied to ms/jiffies sysctls that
->   only --all reached; the remaining four do not round. (Sashiko)
-> - Ignore /dev/kmsg records whose facility is not LOG_KERN. (Sashiko)
-> - Rebase on current master.
-> 
-> v1: https://lore.kernel.org/r/20261012155339.3799130-1-sahaj123.sc@gmail.com
-> 
-> Eric, v1 was narrower than the generic network-sysctl coverage you
-> suggested. Is this reduced scope acceptable, or should it be folded into
-> an existing selftest?
->  tools/testing/selftests/net/.gitignore        |   1 +
->  tools/testing/selftests/net/Makefile          |   1 +
->  tools/testing/selftests/net/sysctl_net_test.c | 925 ++++++++++++++++++
->  3 files changed, 927 insertions(+)
->  create mode 100644 tools/testing/selftests/net/sysctl_net_test.c
-> 
-> diff --git a/tools/testing/selftests/net/.gitignore b/tools/testing/selftests/net/.gitignore
-> index dacd36ed8455..842cb359bbf6 100644
-> --- a/tools/testing/selftests/net/.gitignore
-> +++ b/tools/testing/selftests/net/.gitignore
-> @@ -43,6 +43,7 @@ so_incoming_cpu
->  so_netns_cookie
->  so_rcv_listener
->  stress_reuseport_listen
-> +sysctl_net_test
->  tap
->  tcp_fastopen_backup_key
->  tcp_inq
-> diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
-> index 590b33e16d9f..8926fcfef6e9 100644
-> --- a/tools/testing/selftests/net/Makefile
-> +++ b/tools/testing/selftests/net/Makefile
-> @@ -196,6 +196,7 @@ TEST_GEN_PROGS := \
->  	sk_connect_zero_addr \
->  	sk_so_peek_off \
->  	so_incoming_cpu \
-> +	sysctl_net_test \
->  	tap \
->  	tcp_port_share \
->  	tls \
-> diff --git a/tools/testing/selftests/net/sysctl_net_test.c b/tools/testing/selftests/net/sysctl_net_test.c
-> new file mode 100644
-> index 000000000000..6360616132c4
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/sysctl_net_test.c
-> @@ -0,0 +1,925 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +#define _GNU_SOURCE
-> +#include <arpa/inet.h>
-> +#include <ctype.h>
-> +#include <errno.h>
-> +#include <fcntl.h>
-> +#include <getopt.h>
-> +#include <limits.h>
-> +#include <net/if.h>
-> +#include <netinet/in.h>
-> +#include <poll.h>
-> +#include <sched.h>
-> +#include <stdarg.h>
-> +#include <stdbool.h>
-> +#include <stdint.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <string.h>
-> +#include <sys/ioctl.h>
-> +#include <sys/socket.h>
-> +#include <sys/stat.h>
-> +#include <sys/time.h>
-> +#include <unistd.h>
-> +
-> +#include "kselftest.h"
-> +
-> +#define SYSCTL_ROOT		"/proc/sys/net"
-> +#define SYSCTL_TEXT_SIZE	4096
-> +#define SYSCTL_MAX_VALUES	256
-> +#define KMSG_TEXT_SIZE		4096
-> +#define FIRST_TEST_PORT		20000
-> +#define LAST_TEST_PORT		59998
-> +
-> +struct sysctl_number {
-> +	uint64_t magnitude;
-> +	bool negative;
-> +};
-> +
-> +struct sysctl_values {
-> +	struct sysctl_number value[SYSCTL_MAX_VALUES];
-> +	size_t count;
-> +};
-> +
-> +static int kmsg_fd = -1;
-> +static unsigned int next_tcp_port = FIRST_TEST_PORT;
-> +static unsigned int next_udp_port = FIRST_TEST_PORT;
-> +static size_t tested_files;
-> +static size_t skipped_files;
-> +static size_t tested_values;
-> +static size_t tcp_attempts;
-> +static size_t tcp_successes;
-> +static size_t udp_attempts;
-> +static size_t udp_successes;
-> +static char failure[256];
-> +static char tcp_delivery_failure[256];
-> +static char udp_delivery_failure[256];
-> +
-> +/*
-> + * Only add sysctls that are per network namespace and are restored by
-> + * writing their original value back. Some sysctls change global state that
-> + * the private namespace does not isolate and that cannot be undone.
-> + */
-> +static const char * const representative_sysctls[] = {
-> +	"ipv4/tcp_rmem",
-> +	"ipv4/tcp_wmem",
-> +	"ipv4/udp_rmem_min",
-> +	"ipv4/udp_wmem_min",
-> +};
-> +
-> +static bool selected_sysctls[ARRAY_SIZE(representative_sysctls)];
-> +
-> +static void set_failure(const char *fmt, ...)
-> +{
-> +	va_list args;
-> +
-> +	if (failure[0])
-> +		return;
-> +
-> +	va_start(args, fmt);
-> +	vsnprintf(failure, sizeof(failure), fmt, args);
-> +	va_end(args);
-> +}
-> +
-> +static struct sysctl_number number_from_signed(int64_t value)
-> +{
-> +	struct sysctl_number number = {};
-> +
-> +	if (value < 0) {
-> +		number.negative = true;
-> +		number.magnitude = (uint64_t)(-(value + 1)) + 1;
-> +	} else {
-> +		number.magnitude = value;
-> +	}
-> +	return number;
-> +}
-> +
-> +static struct sysctl_number number_from_unsigned(uint64_t value)
-> +{
-> +	struct sysctl_number number = {
-> +		.magnitude = value,
-> +	};
-> +
-> +	return number;
-> +}
-> +
-> +static int64_t number_to_signed(struct sysctl_number number)
-> +{
-> +	if (!number.negative)
-> +		return (int64_t)number.magnitude;
-> +	if (number.magnitude == (UINT64_C(1) << 63))
-> +		return INT64_MIN;
-> +	return -(int64_t)number.magnitude;
-> +}
-> +
-> +static bool numbers_equal(struct sysctl_number a, struct sysctl_number b)
-> +{
-> +	return a.magnitude == b.magnitude &&
-> +	       (a.magnitude == 0 || a.negative == b.negative);
-> +}
-> +
-> +static bool format_number(struct sysctl_number number, char *text,
-> +			  size_t text_size)
-> +{
-> +	int n = snprintf(text, text_size, number.negative ? "-%llu" : "%llu",
-> +			 (unsigned long long)number.magnitude);
-> +
-> +	return n >= 0 && (size_t)n < text_size;
-> +}
-> +
-> +static bool parse_values(char *text, struct sysctl_values *values)
-> +{
-> +	char *pos = text;
-> +
-> +	values->count = 0;
-> +	while (*pos) {
-> +		char *end;
-> +		struct sysctl_number value;
-> +
-> +		while (isspace((unsigned char)*pos))
-> +			pos++;
-> +		if (!*pos)
-> +			break;
-> +		if (values->count == SYSCTL_MAX_VALUES)
-> +			return false;
-> +
-> +		errno = 0;
-> +		if (*pos == '-') {
-> +			long long signed_value = strtoll(pos, &end, 10);
-> +
-> +			if (end == pos || errno == ERANGE)
-> +				return false;
-> +			value = number_from_signed(signed_value);
-> +		} else {
-> +			unsigned long long unsigned_value = strtoull(pos, &end, 10);
-> +
-> +			if (end == pos || errno == ERANGE)
-> +				return false;
-> +			value = number_from_unsigned(unsigned_value);
-> +		}
-> +		if (*end && !isspace((unsigned char)*end))
-> +			return false;
-> +
-> +		values->value[values->count++] = value;
-> +		pos = end;
-> +	}
-> +
-> +	return values->count > 0;
-> +}
-> +
-> +static bool read_values(const char *path, struct sysctl_values *values)
-> +{
-> +	char text[SYSCTL_TEXT_SIZE];
-> +	size_t len = 0;
-> +	int fd;
-> +	bool ok = false;
-> +
-> +	fd = open(path, O_RDONLY | O_CLOEXEC);
-> +	if (fd < 0)
-> +		return false;
-> +
-> +	while (len < sizeof(text) - 1) {
-> +		ssize_t n = read(fd, text + len, sizeof(text) - 1 - len);
-> +
-> +		if (n < 0 && errno == EINTR)
-> +			continue;
-> +		if (n < 0)
-> +			goto out;
-> +		if (!n)
-> +			break;
-> +		len += n;
-> +	}
-> +	if (len == sizeof(text) - 1)
-> +		goto out;
-> +
-> +	text[len] = '\0';
-> +	ok = parse_values(text, values);
-> +out:
-> +	close(fd);
-> +	return ok;
-> +}
-> +
-> +static bool values_equal(const struct sysctl_values *a,
-> +			 const struct sysctl_values *b)
-> +{
-> +	size_t i;
-> +
-> +	if (a->count != b->count)
-> +		return false;
-> +	for (i = 0; i < a->count; i++) {
-> +		if (!numbers_equal(a->value[i], b->value[i]))
-> +			return false;
-> +	}
-> +	return true;
-> +}
-> +
-> +static bool format_values(const struct sysctl_values *values, char *text,
-> +			  size_t text_size)
-> +{
-> +	size_t i, len = 0;
-> +
-> +	for (i = 0; i < values->count; i++) {
-> +		char number[32];
-> +		int n;
-> +
-> +		if (!format_number(values->value[i], number, sizeof(number)))
-> +			return false;
-> +		n = snprintf(text + len, text_size - len, "%s%c", number,
-> +			     i + 1 == values->count ? '\n' : ' ');
-> +		if (n < 0 || (size_t)n >= text_size - len)
-> +			return false;
-> +		len += n;
-> +	}
-> +	return len > 0;
-> +}
-> +
-> +static bool write_values(const char *path,
-> +			 const struct sysctl_values *values)
-> +{
-> +	char text[SYSCTL_TEXT_SIZE];
-> +	size_t len;
-> +	ssize_t n;
-> +	int fd;
-> +	bool ok;
-> +
-> +	if (!format_values(values, text, sizeof(text)))
-> +		return false;
-> +	len = strlen(text);
-> +
-> +	fd = open(path, O_WRONLY | O_CLOEXEC);
-> +	if (fd < 0)
-> +		return false;
-> +	do {
-> +		n = write(fd, text, len);
-> +	} while (n < 0 && errno == EINTR);
-> +	ok = n == (ssize_t)len;
-> +	if (close(fd) < 0)
-> +		ok = false;
-> +	return ok;
-> +}
-> +
-> +static bool restore_values(const char *path,
-> +			   const struct sysctl_values *original)
-> +{
-> +	struct sysctl_values current;
-> +
-> +	if (read_values(path, &current) && values_equal(original, &current))
-> +		return true;
-> +	return write_values(path, original) &&
-> +	       read_values(path, &current) &&
-> +	       values_equal(original, &current);
-> +}
-> +
-> +static bool check_kernel_log(void)
-> +{
-> +	static const char * const splats[] = {
-> +		"WARNING:",
-> +		"BUG:",
-> +		"Oops:",
-> +		"divide error",
-> +		"general protection fault",
-> +		"invalid opcode",
-> +		"kernel BUG at",
-> +		"Kernel panic",
-> +		"KASAN:",
-> +		"UBSAN:",
-> +		"soft lockup",
-> +		"hard LOCKUP",
-> +		"blocked for more than",
-> +		"possible circular locking dependency",
-> +	};
-> +	char record[KMSG_TEXT_SIZE + 1];
-> +
-> +	for (;;) {
-> +		ssize_t n = read(kmsg_fd, record, sizeof(record) - 1);
-> +		unsigned long prefix;
-> +		char *message;
-> +		size_t i;
-> +
-> +		if (n < 0 && errno == EINTR)
-> +			continue;
-> +		if (n < 0 && (errno == EAGAIN || errno == EWOULDBLOCK))
-> +			return true;
-> +		if (n < 0) {
-> +			set_failure("cannot read /dev/kmsg: %s", strerror(errno));
-> +			return false;
-> +		}
-> +		if (!n)
-> +			return true;
-> +
-> +		record[n] = '\0';
-> +		message = strchr(record, ';');
-> +		if (!message)
-> +			continue;
-> +		/* Ignore messages that userspace wrote to /dev/kmsg. */
-> +		prefix = strtoul(record, NULL, 10);
-> +		if (prefix >> 3 != 0)
-> +			continue;
-> +		message++;
-> +		for (i = 0; i < ARRAY_SIZE(splats); i++) {
-> +			if (!strstr(message, splats[i]))
-> +				continue;
-> +			set_failure("kernel splat detected: %.180s", message);
-> +			return false;
-> +		}
-> +	}
-> +}
-> +
-> +static uint64_t ordered_value(int64_t value)
-> +{
-> +	/* Map signed integers to unsigned keys in numeric order. */
-> +	return (uint64_t)value ^ (UINT64_C(1) << 63);
-> +}
-> +
-> +static int64_t unordered_value(uint64_t key)
-> +{
-> +	uint64_t raw = key ^ (UINT64_C(1) << 63);
-> +
-> +	if (raw <= INT64_MAX)
-> +		return (int64_t)raw;
-> +	return -1 - (int64_t)(UINT64_MAX - raw);
-> +}
-> +
-> +static int probe_value(const char *path, const struct sysctl_values *original,
-> +		       size_t index, struct sysctl_number candidate,
-> +		       bool *accepted)
-> +{
-> +	struct sysctl_values expected = *original;
-> +	struct sysctl_values current;
-> +	char text[32];
-> +
-> +	expected.value[index] = candidate;
-> +	*accepted = false;
-> +
-> +	if (write_values(path, &expected) &&
-> +	    read_values(path, &current) &&
-> +	    values_equal(&expected, &current))
-> +		*accepted = true;
-> +
-> +	if (!restore_values(path, original)) {
-> +		format_number(candidate, text, sizeof(text));
-> +		set_failure("failed to restore %s after probing %s", path, text);
-> +		return -1;
-> +	}
-> +	if (!check_kernel_log())
-> +		return -1;
-> +	return 0;
-> +}
-> +
-> +static uint64_t next_step(uint64_t step)
-> +{
-> +	if (step > UINT64_MAX / 2)
-> +		return UINT64_MAX;
-> +	return step * 2;
-> +}
-> +
-> +static int find_bound(const char *path,
-> +		      const struct sysctl_values *original, size_t index,
-> +		      bool lower, bool unsigned_domain,
-> +		      struct sysctl_number *bound)
-> +{
-> +	struct sysctl_number start = original->value[index];
-> +	uint64_t valid = unsigned_domain ? start.magnitude :
-> +			 ordered_value(number_to_signed(start));
-> +	uint64_t step = 1;
-> +
-> +	for (;;) {
-> +		uint64_t candidate, invalid;
-> +		bool accepted;
-> +
-> +		if (lower) {
-> +			if (!valid)
-> +				break;
-> +			candidate = valid > step ? valid - step : 0;
-> +		} else {
-> +			if (valid == UINT64_MAX)
-> +				break;
-> +			candidate = UINT64_MAX - valid < step ?
-> +				    UINT64_MAX : valid + step;
-> +		}
-> +		if (candidate == valid)
-> +			break;
-> +
-> +		if (probe_value(path, original, index,
-> +				unsigned_domain ? number_from_unsigned(candidate) :
-> +				number_from_signed(unordered_value(candidate)),
-> +				&accepted))
-> +			return -1;
-> +		if (accepted) {
-> +			valid = candidate;
-> +			step = next_step(step);
-> +			continue;
-> +		}
-> +
-> +		invalid = candidate;
-> +		while (lower ? valid - invalid > 1 : invalid - valid > 1) {
-> +			uint64_t middle = lower ?
-> +					  invalid + (valid - invalid) / 2 :
-> +					  valid + (invalid - valid) / 2;
-> +
-> +			if (probe_value(path, original, index,
-> +					unsigned_domain ?
-> +					number_from_unsigned(middle) :
-> +					number_from_signed(unordered_value(middle)),
-> +					&accepted))
-> +				return -1;
-> +			if (accepted)
-> +				valid = middle;
-> +			else
-> +				invalid = middle;
-> +		}
-> +		break;
-> +	}
-> +
-> +	*bound = unsigned_domain ? number_from_unsigned(valid) :
-> +		 number_from_signed(unordered_value(valid));
-> +	return 0;
-> +}
-> +
-> +static int find_lower_bound(const char *path,
-> +			    const struct sysctl_values *original,
-> +			    size_t index, struct sysctl_number *bound)
-> +{
-> +	struct sysctl_number start = original->value[index];
-> +	bool unsigned_domain = !start.negative && start.magnitude > INT64_MAX;
-> +
-> +	return find_bound(path, original, index, true, unsigned_domain, bound);
-> +}
-> +
-> +static int find_upper_bound(const char *path,
-> +			    const struct sysctl_values *original,
-> +			    size_t index, struct sysctl_number *bound)
-> +{
-> +	bool unsigned_domain = !original->value[index].negative;
-> +
-> +	return find_bound(path, original, index, false, unsigned_domain, bound);
-> +}
-> +
-> +static int get_port_pair(bool tcp, uint16_t *server, uint16_t *client)
-> +{
-> +	unsigned int *next = tcp ? &next_tcp_port : &next_udp_port;
-> +
-> +	if (*next > LAST_TEST_PORT) {
-> +		errno = EADDRNOTAVAIL;
-> +		return -1;
-> +	}
-> +	*server = *next;
-> +	*client = *next + 1;
-> +	*next += 2;
-> +	return 0;
-> +}
-> +
-> +static int bind_loopback(int fd, uint16_t port)
-> +{
-> +	struct sockaddr_in addr = {
-> +		.sin_family = AF_INET,
-> +		.sin_port = htons(port),
-> +		.sin_addr.s_addr = htonl(INADDR_LOOPBACK),
-> +	};
-> +
-> +	return bind(fd, (struct sockaddr *)&addr, sizeof(addr));
-> +}
-> +
-> +static int wait_readable(int fd)
-> +{
-> +	struct pollfd pfd = {
-> +		.fd = fd,
-> +		.events = POLLIN,
-> +	};
-> +	int ret;
-> +
-> +	ret = poll(&pfd, 1, 1000);
-> +	if (ret < 0)
-> +		return -1;
-> +	if (!ret) {
-> +		errno = ETIMEDOUT;
-> +		return -1;
-> +	}
-> +	if (!(pfd.revents & POLLIN)) {
-> +		errno = EIO;
-> +		return -1;
-> +	}
-> +	return 0;
-> +}
-> +
-> +static int tcp_loopback(void)
-> +{
-> +	struct timeval timeout = { .tv_sec = 1 };
-> +	uint16_t server_port, client_port;
-> +	char data[64] = { 1 };
-> +	char received[sizeof(data)];
-> +	int listener = -1, client = -1, server = -1;
-> +	int ret = -1;
-> +	ssize_t n;
-> +
-> +	if (get_port_pair(true, &server_port, &client_port))
-> +		return -1;
-> +	listener = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
-> +	client = socket(AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
-> +	if (listener < 0 || client < 0 ||
-> +	    setsockopt(client, SOL_SOCKET, SO_SNDTIMEO, &timeout,
-> +		       sizeof(timeout)) ||
-> +	    bind_loopback(listener, server_port) ||
-> +	    listen(listener, 1) || bind_loopback(client, client_port))
-> +		goto out;
-> +
-> +	{
-> +		struct sockaddr_in addr = {
-> +			.sin_family = AF_INET,
-> +			.sin_port = htons(server_port),
-> +			.sin_addr.s_addr = htonl(INADDR_LOOPBACK),
-> +		};
-> +
-> +		if (connect(client, (struct sockaddr *)&addr, sizeof(addr)))
-> +			goto out;
-> +	}
-> +
-> +	if (wait_readable(listener))
-> +		goto out;
-> +	server = accept4(listener, NULL, NULL, SOCK_CLOEXEC);
-> +	if (server < 0)
-> +		goto out;
-> +	n = send(client, data, sizeof(data), MSG_NOSIGNAL);
-> +	if (n <= 0) {
-> +		if (!n)
-> +			errno = EPIPE;
-> +		goto out;
-> +	}
-> +	if (wait_readable(server))
-> +		goto out;
-> +
-> +	n = recv(server, received, sizeof(received), 0);
-> +	if (n <= 0) {
-> +		if (!n)
-> +			errno = ECONNRESET;
-> +		goto out;
-> +	}
-> +	ret = 0;
-> +out:
-> +	if (server >= 0)
-> +		close(server);
-> +	if (client >= 0)
-> +		close(client);
-> +	if (listener >= 0)
-> +		close(listener);
-> +	return ret;
-> +}
-> +
-> +static int udp_loopback(void)
-> +{
-> +	uint16_t server_port, client_port;
-> +	struct sockaddr_in addr = {
-> +		.sin_family = AF_INET,
-> +		.sin_addr.s_addr = htonl(INADDR_LOOPBACK),
-> +	};
-> +	char data = 1, received;
-> +	int server = -1, client = -1;
-> +	int ret = -1;
-> +	ssize_t n;
-> +
-> +	if (get_port_pair(false, &server_port, &client_port))
-> +		return -1;
-> +	server = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-> +	client = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-> +	if (server < 0 || client < 0 || bind_loopback(server, server_port) ||
-> +	    bind_loopback(client, client_port))
-> +		goto out;
-> +
-> +	addr.sin_port = htons(server_port);
-> +	n = sendto(client, &data, sizeof(data), 0, (struct sockaddr *)&addr,
-> +		   sizeof(addr));
-> +	if (n != sizeof(data)) {
-> +		if (n >= 0)
-> +			errno = EIO;
-> +		goto out;
-> +	}
-> +	if (wait_readable(server))
-> +		goto out;
-> +
-> +	n = recv(server, &received, sizeof(received), 0);
-> +	if (n != sizeof(received)) {
-> +		if (n >= 0)
-> +			errno = EIO;
-> +		goto out;
-> +	}
-> +	ret = 0;
-> +out:
-> +	if (client >= 0)
-> +		close(client);
-> +	if (server >= 0)
-> +		close(server);
-> +	return ret;
-> +}
-> +
-> +static void run_loopback_traffic(const char *path, size_t index,
-> +				 const char *value)
-> +{
-> +	int err;
-> +
-> +	tcp_attempts++;
-> +	if (!tcp_loopback()) {
-> +		tcp_successes++;
-> +	} else {
-> +		err = errno;
-> +		if (!tcp_delivery_failure[0])
-> +			snprintf(tcp_delivery_failure,
-> +				 sizeof(tcp_delivery_failure),
-> +				 "%s[%zu]=%s: %s", path, index, value,
-> +				 strerror(err));
-> +	}
-> +
-> +	udp_attempts++;
-> +	if (!udp_loopback()) {
-> +		udp_successes++;
-> +	} else {
-> +		err = errno;
-> +		if (!udp_delivery_failure[0])
-> +			snprintf(udp_delivery_failure,
-> +				 sizeof(udp_delivery_failure),
-> +				 "%s[%zu]=%s: %s", path, index, value,
-> +				 strerror(err));
-> +	}
-> +}
-> +
-> +static int exercise_value(const char *path,
-> +			  const struct sysctl_values *original,
-> +			  size_t index, struct sysctl_number value)
-> +{
-> +	struct sysctl_values expected = *original;
-> +	char text[32];
-> +	bool restore = !numbers_equal(value, original->value[index]);
-> +	bool applied = false;
-> +
-> +	if (!format_number(value, text, sizeof(text))) {
-> +		set_failure("cannot format boundary for %s", path);
-> +		return -1;
-> +	}
-> +	if (restore) {
-> +		struct sysctl_values current;
-> +
-> +		expected.value[index] = value;
-> +		applied = write_values(path, &expected) &&
-> +			  read_values(path, &current) &&
-> +			  values_equal(&expected, &current);
-> +		if (!applied) {
-> +			if (!restore_values(path, original)) {
-> +				set_failure("failed to restore %s after setting %s",
-> +					    path, text);
-> +				return -1;
-> +			}
-> +			set_failure("%s no longer accepts boundary %s", path, text);
-> +			return -1;
-> +		}
-> +	}
-> +
-> +	check_kernel_log();
-> +	if (!failure[0])
-> +		run_loopback_traffic(path, index, text);
-> +
-> +	if (restore && !restore_values(path, original)) {
-> +		format_number(value, text, sizeof(text));
-> +		set_failure("failed to restore %s after traffic at %s", path,
-> +			    text);
-> +	}
-> +	check_kernel_log();
-> +	return failure[0] ? -1 : 0;
-> +}
-> +
-> +static bool prepare_sysctl(const char *path,
-> +			   const struct sysctl_values *original)
-> +{
-> +	struct sysctl_values current;
-> +	bool writable;
-> +
-> +	writable = write_values(path, original) &&
-> +		   read_values(path, &current) &&
-> +		   values_equal(original, &current);
-> +	if (!writable && !restore_values(path, original)) {
-> +		set_failure("failed to restore %s after initial write", path);
-> +		return false;
-> +	}
-> +	if (!check_kernel_log())
-> +		return false;
-> +	return writable;
-> +}
-> +
-> +static int test_sysctl(const char *path, const struct sysctl_values *original)
-> +{
-> +	size_t i;
-> +
-> +	if (!prepare_sysctl(path, original)) {
-> +		if (!failure[0]) {
-> +			skipped_files++;
-> +			printf("# SKIP %s: sysctl is not writable\n", path);
-> +		}
-> +		return failure[0] ? -1 : 0;
-> +	}
-> +
-> +	tested_files++;
-> +	for (i = 0; i < original->count; i++) {
-> +		struct sysctl_number lower, upper;
-> +
-> +		if (find_lower_bound(path, original, i, &lower) ||
-> +		    find_upper_bound(path, original, i, &upper))
-> +			return -1;
-> +		if (exercise_value(path, original, i, lower) ||
-> +		    (!numbers_equal(upper, lower) &&
-> +		     exercise_value(path, original, i, upper)))
-> +			return -1;
-> +		tested_values++;
-> +	}
-> +	return 0;
-> +}
-> +
-> +static void print_usage(FILE *stream, const char *program)
-> +{
-> +	size_t i;
-> +
-> +	fprintf(stream, "Usage: %s [-s SYSCTL ...]\n", program);
-> +	fprintf(stream, "  -s, --sysctl SYSCTL  Test a representative sysctl (repeatable)\n");
-> +	fprintf(stream, "  -h, --help           Show this help\n");
-> +	fprintf(stream, "Default sysctls:\n");
-> +	for (i = 0; i < ARRAY_SIZE(representative_sysctls); i++)
-> +		fprintf(stream, "  %s\n", representative_sysctls[i]);
-> +}
-> +
-> +static int parse_options(int argc, char **argv)
-> +{
-> +	static const struct option options[] = {
-> +		{ "help", no_argument, NULL, 'h' },
-> +		{ "sysctl", required_argument, NULL, 's' },
-> +		{}
-> +	};
-> +	bool selection_given = false;
-> +	int option;
-> +
-> +	while ((option = getopt_long(argc, argv, "hs:", options, NULL)) != -1) {
-> +		switch (option) {
-> +		case 's': {
-> +			size_t i;
-> +
-> +			selection_given = true;
-> +			for (i = 0; i < ARRAY_SIZE(representative_sysctls); i++) {
-> +				if (strcmp(optarg, representative_sysctls[i]))
-> +					continue;
-> +				selected_sysctls[i] = true;
-> +				break;
-> +			}
-> +			if (i == ARRAY_SIZE(representative_sysctls)) {
-> +				fprintf(stderr, "Unknown sysctl: %s\n", optarg);
-> +				goto invalid_options;
-> +			}
-> +			break;
-> +		}
-> +		case 'h':
-> +			print_usage(stdout, argv[0]);
-> +			return 1;
-> +		default:
-> +			goto invalid_options;
-> +		}
-> +	}
-> +	if (optind != argc)
-> +		goto invalid_options;
-> +
-> +	if (!selection_given) {
-> +		size_t i;
-> +
-> +		for (i = 0; i < ARRAY_SIZE(representative_sysctls); i++)
-> +			selected_sysctls[i] = true;
-> +	}
-> +	return 0;
-> +
-> +invalid_options:
-> +	print_usage(stderr, argv[0]);
-> +	return -1;
-> +}
-> +
-> +static int test_selected_sysctl(const char *name)
-> +{
-> +	char path[PATH_MAX];
-> +	struct sysctl_values values;
-> +	int n;
-> +
-> +	n = snprintf(path, sizeof(path), "%s/%s", SYSCTL_ROOT, name);
-> +	if (n < 0 || (size_t)n >= sizeof(path)) {
-> +		set_failure("sysctl path is too long: %s", name);
-> +		return -1;
-> +	}
-> +
-> +	if (access(path, F_OK)) {
-> +		if (errno == ENOENT || errno == ENOTDIR) {
-> +			skipped_files++;
-> +			printf("# SKIP %s: not available\n", name);
-> +			return 0;
-> +		}
-> +		set_failure("cannot inspect %s: %s", path, strerror(errno));
-> +		return -1;
-> +	}
-> +	if (access(path, R_OK)) {
-> +		int err = errno;
-> +
-> +		skipped_files++;
-> +		printf("# SKIP %s: not readable (%s)\n", name, strerror(err));
-> +		return 0;
-> +	}
-> +	if (!read_values(path, &values)) {
-> +		set_failure("%s is not a readable numeric sysctl", path);
-> +		return -1;
-> +	}
-> +	if (access(path, W_OK)) {
-> +		int err = errno;
-> +
-> +		skipped_files++;
-> +		printf("# SKIP %s: not writable (%s)\n", name, strerror(err));
-> +		return 0;
-> +	}
-> +
-> +	printf("# Testing %s\n", name);
-> +	return test_sysctl(path, &values);
-> +}
-> +
-> +static int set_loopback_up(void)
-> +{
-> +	struct ifreq ifr = {};
-> +	int fd, ret = -1;
-> +
-> +	fd = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
-> +	if (fd < 0)
-> +		return -1;
-> +	strncpy(ifr.ifr_name, "lo", IFNAMSIZ - 1);
-> +	if (ioctl(fd, SIOCGIFFLAGS, &ifr))
-> +		goto out;
-> +	ifr.ifr_flags |= IFF_UP;
-> +	ret = ioctl(fd, SIOCSIFFLAGS, &ifr);
-> +out:
-> +	close(fd);
-> +	return ret;
-> +}
-> +
-> +int main(int argc, char **argv)
-> +{
-> +	int option_status;
-> +	size_t i;
-> +
-> +	option_status = parse_options(argc, argv);
-> +	if (option_status > 0)
-> +		return KSFT_PASS;
-> +	if (option_status < 0)
-> +		return KSFT_FAIL;
-> +
-> +	ksft_print_header();
-> +	ksft_set_plan(1);
-> +
-> +	if (unshare(CLONE_NEWNET))
-> +		ksft_exit_skip("cannot create network namespace: %s\n",
-> +			       strerror(errno));
-> +
-> +	kmsg_fd = open("/dev/kmsg", O_RDONLY | O_NONBLOCK | O_CLOEXEC);
-> +	if (kmsg_fd < 0)
-> +		ksft_exit_skip("cannot read /dev/kmsg: %s\n", strerror(errno));
-> +	if (lseek(kmsg_fd, 0, SEEK_END) < 0)
-> +		ksft_exit_skip("cannot seek /dev/kmsg: %s\n", strerror(errno));
-> +	if (set_loopback_up())
-> +		ksft_exit_skip("cannot bring loopback up: %s\n", strerror(errno));
-> +	if (!check_kernel_log())
-> +		goto fail;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(representative_sysctls); i++) {
-> +		if (!selected_sysctls[i])
-> +			continue;
-> +		if (test_selected_sysctl(representative_sysctls[i]))
-> +			break;
-> +	}
-> +	if (!failure[0] && !tested_files)
-> +		ksft_exit_skip("no selected writable numeric network sysctls found\n");
-> +	if (!failure[0] && (!tcp_successes || !udp_successes))
-> +		set_failure("loopback delivery incomplete: TCP %zu/%zu, UDP %zu/%zu",
-> +			    tcp_successes, tcp_attempts,
-> +			    udp_successes, udp_attempts);
-> +	if (!failure[0] && !check_kernel_log())
-> +		goto fail;
-> +	if (tcp_delivery_failure[0])
-> +		printf("# first TCP delivery failure: %s\n",
-> +		       tcp_delivery_failure);
-> +	if (udp_delivery_failure[0])
-> +		printf("# first UDP delivery failure: %s\n",
-> +		       udp_delivery_failure);
-> +	if (failure[0])
-> +		goto fail;
-> +
-> +	printf("# tested %zu sysctls, %zu values; skipped %zu\n",
-> +	       tested_files, tested_values, skipped_files);
-> +	ksft_test_result_pass("TCP %zu/%zu, UDP %zu/%zu deliveries succeeded\n",
-> +			      tcp_successes, tcp_attempts,
-> +			      udp_successes, udp_attempts);
-> +	ksft_finished();
-> +	close(kmsg_fd);
-> +	return KSFT_PASS;
-> +
-> +fail:
-> +	ksft_test_result_fail("%s\n", failure);
-> +	ksft_finished();
-> +	close(kmsg_fd);
-> +	return KSFT_FAIL;
-> +}
-> -- 
-> 2.43.0
-> 
+Simply dropping profile_lock around these operations is insufficient.
+Aggregate operations currently discover providers through the class
+device list. A provider being unregistered could therefore still be
+selected for an aggregate read, write or cycle while its sysfs files are
+being torn down. Concurrent registrations and removals would also race
+when updating aggregate attribute visibility.
+
+Introduce profile_registration_lock to serialize registration, removal
+and aggregate sysfs updates. Sysfs callbacks never acquire this mutex.
+Retain profile_lock for profile operations and use it to protect an
+explicit list of handlers participating in the aggregate interface.
+
+Add a handler to that list only after device_register() succeeds. On
+removal, unlink it under profile_lock before calling device_unregister().
+Acquiring profile_lock first waits for any aggregate operation already
+using the handler to complete; unlinking prevents later aggregate
+operations from finding it. Release profile_lock before draining sysfs
+callbacks, allowing active per-provider callbacks to complete before the
+device is released. Apply the same unlink-before-unregister ordering to
+registration error cleanup.
+
+Walk this list for aggregate reads, writes and profile cycling, and use
+its emptiness to determine aggregate attribute visibility. The class
+devices remain the per-provider userspace interface.
+
+There can now be an interval between removing the last handler from the
+list and removing the aggregate attributes. Explicitly reject choices
+reads and writes during that interval: the intersection bitmap starts
+with every bit set, so an empty traversal must not advertise all profiles
+or report a successful write without updating a provider.
+
+This separates aggregate membership from class device teardown while
+preserving the existing class and ACPI sysfs interfaces.
+
+Fixes: 55b1e68134bf ("ACPI: platform_profile: Use guard(mutex) for register/unregister")
+Assisted-by: OpenCode:gpt-6.1-sol
+Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+---
+ drivers/acpi/platform_profile.c | 75 ++++++++++++++++++---------------
+ 1 file changed, 42 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/acpi/platform_profile.c b/drivers/acpi/platform_profile.c
+index 79d2e92e5c28..f98ce4cda02c 100644
+--- a/drivers/acpi/platform_profile.c
++++ b/drivers/acpi/platform_profile.c
+@@ -8,6 +8,7 @@
+ #include <linux/bits.h>
+ #include <linux/cleanup.h>
+ #include <linux/init.h>
++#include <linux/list.h>
+ #include <linux/mutex.h>
+ #include <linux/platform_profile.h>
+ #include <linux/sysfs.h>
+@@ -15,8 +16,12 @@
+ #define to_pprof_handler(d)	(container_of(d, struct platform_profile_handler, dev))
+ 
+ static DEFINE_MUTEX(profile_lock);
++/* Serialize registration and sysfs updates without blocking sysfs callbacks. */
++static DEFINE_MUTEX(profile_registration_lock);
++static LIST_HEAD(profile_handlers);
+ 
+ struct platform_profile_handler {
++	struct list_head node;
+ 	const char *name;
+ 	struct device dev;
+ 	int minor;
+@@ -44,6 +49,22 @@ static_assert(ARRAY_SIZE(profile_names) == PLATFORM_PROFILE_LAST);
+ 
+ static DEFINE_IDA(platform_profile_ida);
+ 
++static int profile_walk_handlers(void *data,
++				 int (*fn)(struct device *dev, void *data))
++{
++	struct platform_profile_handler *handler;
++	int ret;
++
++	lockdep_assert_held(&profile_lock);
++	list_for_each_entry(handler, &profile_handlers, node) {
++		ret = fn(&handler->dev, data);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ /**
+  * _commmon_choices_show - Show the available profile choices
+  * @choices: The available profile choices
+@@ -306,20 +327,18 @@ static ssize_t platform_profile_choices_show(struct kobject *kobj,
+ 	int err;
+ 
+ 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
+-		err = class_for_each_device(&platform_profile_class, NULL,
+-					    &data, _aggregate_choices);
++		err = profile_walk_handlers(&data, _aggregate_choices);
+ 		if (err)
+ 			return err;
+ 		if (data.count == 1) {
+-			err = class_for_each_device(&platform_profile_class, NULL,
+-						    &data, _remove_hidden_choices);
++			err = profile_walk_handlers(&data, _remove_hidden_choices);
+ 			if (err)
+ 				return err;
+ 		}
+ 	}
+ 
+ 	/* no profile handler registered any more */
+-	if (bitmap_empty(data.aggregate, PLATFORM_PROFILE_LAST))
++	if (!data.count || bitmap_empty(data.aggregate, PLATFORM_PROFILE_LAST))
+ 		return -EINVAL;
+ 
+ 	return _commmon_choices_show(data.aggregate, buf);
+@@ -384,8 +403,7 @@ static ssize_t platform_profile_show(struct kobject *kobj,
+ 	int err;
+ 
+ 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
+-		err = class_for_each_device(&platform_profile_class, NULL,
+-					    &profile, _aggregate_profiles);
++		err = profile_walk_handlers(&profile, _aggregate_profiles);
+ 		if (err)
+ 			return err;
+ 	}
+@@ -423,15 +441,13 @@ static ssize_t platform_profile_store(struct kobject *kobj,
+ 		return -EINVAL;
+ 
+ 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
+-		ret = class_for_each_device(&platform_profile_class, NULL,
+-					    &data, _aggregate_choices);
++		ret = profile_walk_handlers(&data, _aggregate_choices);
+ 		if (ret)
+ 			return ret;
+-		if (!test_bit(i, data.aggregate))
++		if (!data.count || !test_bit(i, data.aggregate))
+ 			return -EOPNOTSUPP;
+ 
+-		ret = class_for_each_device(&platform_profile_class, NULL, &i,
+-					    _store_and_notify);
++		ret = profile_walk_handlers(&i, _store_and_notify);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -450,22 +466,11 @@ static struct attribute *platform_profile_attrs[] = {
+ 	NULL
+ };
+ 
+-static int profile_class_registered(struct device *dev, const void *data)
+-{
+-	return 1;
+-}
+-
+ static umode_t profile_class_is_visible(struct kobject *kobj, struct attribute *attr, int idx)
+ {
+-	struct device *dev;
+-
+-	dev = class_find_device(&platform_profile_class, NULL, NULL, profile_class_registered);
+-	if (!dev)
+-		return 0;
+-
+-	put_device(dev);
++	guard(mutex)(&profile_lock);
+ 
+-	return attr->mode;
++	return list_empty(&profile_handlers) ? 0 : attr->mode;
+ }
+ 
+ static const struct attribute_group platform_profile_group = {
+@@ -502,8 +507,7 @@ int platform_profile_cycle(void)
+ 	int err;
+ 
+ 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
+-		err = class_for_each_device(&platform_profile_class, NULL,
+-					    &profile, _aggregate_profiles);
++		err = profile_walk_handlers(&profile, _aggregate_profiles);
+ 		if (err)
+ 			return err;
+ 
+@@ -512,8 +516,7 @@ int platform_profile_cycle(void)
+ 		    profile == PLATFORM_PROFILE_LAST)
+ 			return -EINVAL;
+ 
+-		err = class_for_each_device(&platform_profile_class, NULL,
+-					    &data, _aggregate_choices);
++		err = profile_walk_handlers(&data, _aggregate_choices);
+ 		if (err)
+ 			return err;
+ 
+@@ -525,8 +528,7 @@ int platform_profile_cycle(void)
+ 					  PLATFORM_PROFILE_LAST,
+ 					  profile + 1);
+ 
+-		err = class_for_each_device(&platform_profile_class, NULL, &next,
+-					    _store_and_notify);
++		err = profile_walk_handlers(&next, _store_and_notify);
+ 
+ 		if (err)
+ 			return err;
+@@ -583,7 +585,7 @@ struct device *platform_profile_register(struct device *dev, const char *name,
+ 		}
+ 	}
+ 
+-	guard(mutex)(&profile_lock);
++	guard(mutex)(&profile_registration_lock);
+ 
+ 	/* create class interface for individual handler */
+ 	minor = ida_alloc(&platform_profile_ida, GFP_KERNEL);
+@@ -604,6 +606,8 @@ struct device *platform_profile_register(struct device *dev, const char *name,
+ 		put_device(ppdev);
+ 		goto cleanup_ida;
+ 	}
++	scoped_guard(mutex, &profile_lock)
++		list_add_tail(&to_pprof_handler(ppdev)->node, &profile_handlers);
+ 
+ 	sysfs_notify(acpi_kobj, NULL, "platform_profile");
+ 
+@@ -614,6 +618,8 @@ struct device *platform_profile_register(struct device *dev, const char *name,
+ 	return ppdev;
+ 
+ cleanup_cur:
++	scoped_guard(mutex, &profile_lock)
++		list_del(&to_pprof_handler(ppdev)->node);
+ 	device_unregister(ppdev);
+ 
+ cleanup_ida:
+@@ -636,7 +642,10 @@ void platform_profile_remove(struct device *dev)
+ 
+ 	pprof = to_pprof_handler(dev);
+ 
+-	guard(mutex)(&profile_lock);
++	guard(mutex)(&profile_registration_lock);
++
++	scoped_guard(mutex, &profile_lock)
++		list_del(&pprof->node);
+ 
+ 	ida_free(&platform_profile_ida, pprof->minor);
+ 	device_unregister(&pprof->dev);
+-- 
+2.43.0
+
