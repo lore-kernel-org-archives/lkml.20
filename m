@@ -1,151 +1,98 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4663E1236
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:54:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565B125392A;
+	Mon, 19 Oct 2026 06:55:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392897; cv=none; b=VpDOgzslE+gVTaFmSeSJGou5ZyvL1tZGmo7Hd0/tCZaUyV0ef6/LZojtQSxuG31tRQHbwacrXA0kkZzrY1PO5dx4Tazr5uhmINbrm7ccH3TgDwKsEhl0OKWQI3AkzI7551kzqeFfMFrlZpBQ9UZKt2fJ0yQUS70UA4FFGn1Zee4=
+	t=1792392948; cv=none; b=ZErdc6AAQ6LtmXtwveAkTtZHDrsMbAcgLaUMUwZsPMzEsWK4w7f0sQ2AyxiISsFELCEVaxKE77IdapSHua24GmZha50Vvp//ez5MDG+Oy3QXv9REs7Xu8uQm7+IotNucGPMjVF3WHQH91IDTfUgEL4O/Olh1BBDzdcYsYMJIfJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392897; c=relaxed/simple;
-	bh=QReKZ8e5KNyKhGiZ/LM63xfIDlObB0PMTVvDcDsqJXA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=HgxHBMiEG+RmNb1iJ8LaRROvsH+fOQADhIoqmI6nt0+SKab9pNHqeAB2YfecZjgx/Jm8tay8/aciUwR/D8krlaLULHFVNO2R2/rjZUoqQefSshljrjhclPRXHDJWKFS3TAYl66Mty4s0+wRtWKuaPsQFXFnCW2woMA16gP++siM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=NxXciU8u; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1792392948; c=relaxed/simple;
+	bh=nVPR/wVfw88sj38qQgKSyYoONX1twjU6nqbBIWBVGTs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BtlkqgEr4lGx2aDgvLC7cL3ahbvUJpbE/vLME2x45Q/x7gr4ZKX2m2fH6C1z0aNAGK+c7uGgp+Dc5LUVC6NOkPfsuF0FGrDBWV8y7GyIgU5y+jbAk72nLICDaO7q/b0UpL2kN0fGPQ6KNySqGNhoPGBS3cDi3AO65B5WfJn0SNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YgB1giYD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="NxXciU8u"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261019065445euoutp01d893035bb89f4f450139f19780238b47~f29VBfxh_1303013030euoutp01y
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:54:45 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261019065445euoutp01d893035bb89f4f450139f19780238b47~f29VBfxh_1303013030euoutp01y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792392885;
-	bh=FhpaG9Vx59Vq4T4QWx8bk+E01NrR9IE2FS4HpRDXhFk=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=NxXciU8uMADYAkpk7fv9mlHGv1mat9rU7RS78vM7+D5byr4P8/q5tRy3kToduMe41
-	 efnb4AZ9zHYOBPaPXgeX2ss+hYcpYB2htCVqx9k8HpzoQdPj0rsig5dMj4Q4V+0wcb
-	 nb4Sgsy/qnvMsPeKzhS02TwmIuywAr7e07Rsw8+g=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261019065445eucas1p14ee963364b89f77ba3178fae382a1014~f29Uws2Vt2730627306eucas1p1e;
-	Mon, 19 Oct 2026 06:54:45 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261019065444eusmtip2ea7efda198c5f5be5a45eb7aeeea48fe~f29UXNOG81585015850eusmtip2B;
-	Mon, 19 Oct 2026 06:54:44 +0000 (GMT)
-Message-ID: <6c07141b-e2d7-49b2-8493-394d727c3a15@samsung.com>
-Date: Mon, 19 Oct 2026 08:54:44 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YgB1giYD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADCB1F000C4;
+	Mon, 19 Oct 2026 06:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792392947;
+	bh=1K8qIit/bBE/r3ctFbU5AiNYL7DN74LzCmsZIKix1go=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YgB1giYDu4H1Vw5Mu7creBaShHjfY4tCXT2ctTHX++UE04vpMdu1+UEfiKIc86AUq
+	 xtcFTFmLzEZ0bVBW9dmA30qXXdw5csN09ke4DjGleSaSfls0SBIL9mEWABecjsjzQM
+	 OPNCrVW5GFmWRzEkBRt1VPEP83Tt+V4N96u9WXKk6K4bayL5r+dC12xj1Y7HPNhj16
+	 bfA/PsKba+aY0cgRNDEG9RzZin+c6sohNox19L7ZBvBXiH+8DIMhOOEFUN/HlP+y6N
+	 1J9Q0gbOmx6+FHVX2/A7QMN9Dr8s0d8CVZKXTMDqlGbDCPII3LNIqQzoinuLtmtdV+
+	 /zY+NPbNihyhg==
+Date: Mon, 19 Oct 2026 08:55:44 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Til Kaiser <mail@tk154.de>
+Cc: netdev@vger.kernel.org, jie.luo@oss.qualcomm.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
+	pabeni@redhat.com, linux-kernel@vger.kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, quic_leiwei@quicinc.com, 
+	quic_suruchia@quicinc.com, quic_pavir@quicinc.com, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net 2/2] dt-bindings: net: qcom,ipq9574-ppe: Apply PPE
+ constraints to all switch ports
+Message-ID: <20261019-pristine-brainy-guppy-eb2af2@quoll>
+References: <20261016150140.929729-1-mail@tk154.de>
+ <20261016150140.929729-3-mail@tk154.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] media: s5p_cec: release IRQ before deleting the adapter
-To: Myeonghun Pak <mhun512@gmail.com>, Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-samsung-soc@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <179229547105.3971562.9800339494753406560.s5p-cec@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261019065445eucas1p14ee963364b89f77ba3178fae382a1014
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261018035132eucas1p2ccd8f0233fd196fd8801506c1c213b39
-X-EPHeader: CA
-X-CMS-RootMailID: 20261018035132eucas1p2ccd8f0233fd196fd8801506c1c213b39
-References: <CGME20261018035132eucas1p2ccd8f0233fd196fd8801506c1c213b39@eucas1p2.samsung.com>
-	<179229547105.3971562.9800339494753406560.s5p-cec@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261016150140.929729-3-mail@tk154.de>
 
-On 18.10.2026 05:51, Myeonghun Pak wrote:
-> The threaded IRQ handler reports transmit and receive events through
-> cec->adap. Adapter unregistration masks the hardware interrupts but does
-> not wait for this handler. With no open device-node references, it can
-> free the adapter while an already queued IRQ thread still uses it.
-> Devres also unmaps the registers before releasing the IRQ, since the
-> mapping was acquired after the IRQ.
->
-> Free the managed IRQ before unregistering the adapter and disabling
-> runtime PM. Request it only after the register mapping and adapter have
-> been initialized, and free it on adapter registration failure before
-> deleting the adapter. This also makes IRQ release precede MMIO release
-> on probe unwind.
->
-> This issue was identified as part of our ongoing research while
-> reviewing kernel code.
->
-> Fixes: 1bcbf6f4b6b0 ("[media] cec: s5p-cec: Add s5p-cec driver")
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
->
+On Fri, Oct 16, 2026 at 05:01:40PM +0200, Til Kaiser wrote:
+> The generic ethernet-switch schema accepts both ports and ethernet-ports
+> containers and both port and ethernet-port child nodes. The PPE binding
+> only applies its port constraints to ethernet-port nodes with addresses
+> matching [1-6]+ inside ethernet-ports.
+> 
+> As a result, ethernet-port@7 with reg = <7> is accepted without the PPE
+> port ID limit. The alternative container and child naming forms also
+> bypass the required PPE clocks and resets.
+> 
+> Match the same container and child node patterns as ethernet-switch.yaml
+> so that every accepted switch port receives the PPE constraints. Keep
+> the valid port IDs constrained by reg.
+> 
+> Fixes: 1898fc572118 ("dt-bindings: net: Add PPE for Qualcomm IPQ9574 SoC")
+
+Nothing to be fixed here, really, drop.
+
+> Signed-off-by: Til Kaiser <mail@tk154.de>
 > ---
-> Compile-tested with Clang, W=1. No hardware runtime testing.
->
-> Based on mainline 0fcb05b72344f40806cbe810de8872f1698bf053.
->
-> diff --git a/drivers/media/cec/platform/s5p/s5p_cec.c b/drivers/media/cec/platform/s5p/s5p_cec.c
-> index 4a92d32..e83705f 100644
-> --- a/drivers/media/cec/platform/s5p/s5p_cec.c
-> +++ b/drivers/media/cec/platform/s5p/s5p_cec.c
-> @@ -199,11 +199,6 @@ static int s5p_cec_probe(struct platform_device *pdev)
->  	if (cec->irq < 0)
->  		return cec->irq;
+>  Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> index 6d0b21a10732..a5e8aab500ed 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> @@ -173,9 +173,10 @@ properties:
+>        - interrupts
+>        - interrupt-names
 >  
-> -	ret = devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_handler,
-> -		s5p_cec_irq_handler_thread, 0, pdev->name, cec);
-> -	if (ret)
-> -		return ret;
-> -
->  	cec->clk = devm_clk_get(dev, "hdmicec");
->  	if (IS_ERR(cec->clk))
->  		return PTR_ERR(cec->clk);
-> @@ -231,16 +226,24 @@ static int s5p_cec_probe(struct platform_device *pdev)
->  		goto err_delete_adapter;
->  	}
->  
-> -	ret = cec_register_adapter(cec->adap, &pdev->dev);
-> +	ret = devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_handler,
-> +					s5p_cec_irq_handler_thread, 0, pdev->name, cec);
->  	if (ret)
->  		goto err_notifier;
->  
-> +	ret = cec_register_adapter(cec->adap, &pdev->dev);
-> +	if (ret)
-> +		goto err_free_irq;
-> +
->  	platform_set_drvdata(pdev, cec);
->  	pm_runtime_enable(dev);
->  
->  	dev_dbg(dev, "successfully probed\n");
->  	return 0;
->  
-> +err_free_irq:
-> +	devm_free_irq(dev, cec->irq, cec);
-There is no point in using devm_* API if one needs to manually free the
-resource for whatever reason.
+> -  ethernet-ports:
+> +patternProperties:
+> +  "^(ethernet-)?ports$":
 
+Why are you reverting the review? The name is ethernet-ports.
 
-> +
->  err_notifier:
->  	cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
->  
-> @@ -253,6 +256,7 @@ static void s5p_cec_remove(struct platform_device *pdev)
->  {
->  	struct s5p_cec_dev *cec = platform_get_drvdata(pdev);
->  
-> +	devm_free_irq(&pdev->dev, cec->irq, cec);
->  	cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
->  	cec_unregister_adapter(cec->adap);
->  	pm_runtime_disable(&pdev->dev);
->
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+>      patternProperties:
+> -      "^ethernet-port@[1-6]+$":
+> +      "^(ethernet-)?port@[0-9a-f]+$":
+
+Same here.
+
+Best regards,
+Krzysztof
 
