@@ -1,48 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7E262767B;
-	Mon, 19 Oct 2026 14:04:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3CF628617;
+	Mon, 19 Oct 2026 14:05:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418701; cv=none; b=nNLOqUZVxAJOACwlcs49AfwcRflGcZ2HOFSZ+mOdwhVZtdqlSEuYqb5KSDg8UM0DxcJXQ9gzW/3BoZNqYzWgKRZfbqnhs/l9eJGOnz65g2FIcFx3LYjpSWfKeGcweMTFF1J0l0om88rywYMEFqILLxt998FXAxQ4obqdRxV6qpo=
+	t=1792418703; cv=none; b=IgstNaxQhsc1dBckxA3ZMF9pDN0Do0hFnUtZOoU2IKR6YiCtPpkS44NtHRBrl6ymDh+RfNbEBtiDS8Du3rIfRnkXCKJ3BdU8jksg2InmpXaB0qxoLSqGkV8oMfu3f5W9cYT4Ol5W2p4dZdHbaF9+PINTH87tvVqyVqmKQjT7D7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418701; c=relaxed/simple;
-	bh=NF2ixWHRmZkuYK6TcV0TEf5jlgSxou9HK0WmZvoYRo0=;
+	s=arc-20240116; t=1792418703; c=relaxed/simple;
+	bh=fsNJEv92VqApu4MDiXNnLuv16Emx+3YEMvYHfZNcigI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jnQ5VcVr0TjNNDzEJ2DYm8GODygfxlT/ocaMJ+T9edzO+BumLR26bBAKh1G9h15WRenXsghxT7CZB3Ygkcz9xWR1YOlo+obwFNvHoYl8QwL3plV7CmzOi4eJhvK/N8YCzxxiwE1l4mlu8tq2sNUFPV20rPjDuMpRp1pV/yRh/UM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bQ3gz7Nh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=vAsksoN2qF4IfZIAaKS9ZUCz4YVahv49mc45FTH6H2zrRkW+ZuOMl7qMqKmCakPKcLT4JdynbGmmWfhNKWXoqezH5jHePbRncc1Y6RhJ2KjJ+pSt+XVOy1gVMGOSf/q4rv1XsBJiDWyUc0a58P+C/M725Pl34TbGUNHAvC0WBxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOdz1It6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bQ3gz7Nh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5334F1F000C5;
-	Mon, 19 Oct 2026 14:04:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOdz1It6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F80B1F000C7;
+	Mon, 19 Oct 2026 14:04:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418697;
-	bh=lpE7in3SaLd94HfkNfamLWAv+AjYDt8XbPu4TGYZbaw=;
+	s=k20260515; t=1792418700;
+	bh=uAAs1xRU044mRxttfqo0JbA6ZXpm2L7A9MFCtgdteys=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bQ3gz7NhsK+HjrzMu7EU4fJwsveEp3sbc25iExZCvs/YbzWxRgO/rg/Tg/rBFpeoj
-	 AWDDb+HOmLicEh+KwurBuQCBzjB3pK7fMOWBh8avCHJZpEd2EnBvuwWcSLltx0d9RN
-	 JPb4oneCjI43Yb7vbnTHSnLksJI7CHBGWmfOnATzK+GhNeNsip1mH2+MzislA7Re5r
-	 rCOhDiKfRE052exboIvaO7eaA8O/FO1aiV3rUjSV8EvQxk6b4NU7AdGHeaux+ebG6Q
-	 DDELjbvI3Z6DpPOU9Fe+TDu0Jjna/cr27NAe15BEXqc/xggkmmB5dnzKBbqsIC6d1P
-	 /rrL8hohm/O6Q==
+	b=LOdz1It6o+LOIsKL/OAu0yUA+iKE7u/051aWZrFRUGoxAYLmAqlaeR3p8+9hvVdgh
+	 OzPnH0V2Okq1hZKV/SskmBG2af6H6f7jZUb0LPBJyEh0Takr03G2Ic0XL8BshXjbbr
+	 4kkEogjv774YIYhAPWEUGC5SAcRnBXnVOdQ8SZ30Po/uLTLSlX9XO5/GUTZPbROrwh
+	 qEj2bIM5WbaWsEpqU0iwo/3gbZy/u2oprWpLC/KokONuYDhpi5HmysuyYZuvx7U8Xx
+	 e6Zzge87snJmV7J8kWU5+hEB3mfwJhV0WGeRN3JHyH0w6rFwt/CLXjHTQMs7sOY5i5
+	 IUlc0vBRuktiQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>,
-	Allison Henderson <achender@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Frank Li <Frank.Li@nxp.com>,
+	Brian Masney <bmasney@redhat.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
+	abelvesa@kernel.org,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	linux-clk@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] net/rds: hold the socket while an rds_mr references it
-Date: Mon, 19 Oct 2026 09:52:03 -0400
-Message-ID: <20261019135441.1420968-432-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] clk: imx: imx8qxp-lpcg: add missing MODULE_DEVICE_TABLE()
+Date: Mon, 19 Oct 2026 09:52:05 -0400
+Message-ID: <20261019135441.1420968-434-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -52,507 +55,371 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.57
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Håkon Bugge <haakon.bugge@oracle.com>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit 9079adef042c1e7a6141dcdfd3041acd30607297 ]
+[ Upstream commit e89485455ac49925565061733c0d73d568333fc0 ]
 
-Each rds_mr stores a bare back pointer to the socket that created it
-(mr->r_sock) but takes no reference on it.  When the mr is destroyed it
-references the rs. Hence, provisions must be made to avoid the rs
-being destroyed before all mrs referencing it have been destroyed.
+The driver has a match table for the of bus wired into its driver
+structure, but the table is not exported with MODULE_DEVICE_TABLE().
 
-The MR itself is refcounted, and in-flight messages legitimately hold
-MR krefs that can outlive the socket: rds_release() drops the rb-tree
-references via rds_rdma_drop_keys(), but a send completion arriving
-afterwards drops the final message reference from the CQ handler and
-ends up in
+Add the missing MODULE_DEVICE_TABLE() entry so module alias information
+is generated for automatic module loading.
 
-  rds_message_purge()
-    __rds_put_mr_final()
-      rds_destroy_mr()   -> takes rs->rs_rdma_lock
+This is a source-level fix.  It does not claim dynamic hardware
+reproduction; the evidence is the driver-owned match table, its use by
+the driver registration structure, and the missing module alias
+publication.
 
-dereferencing a socket that may already have been freed.
-
-Oracle UEK fixed the same use-after-free ("rds: Add proper refcnt when
-an RDS MR references an RDS Socket") after seeing crashes of the form:
-
-  PF: supervisor write access in kernel mode
-  _raw_spin_lock_irqsave+0x4a/0x6a
-  __rds_put_mr_final+0x2c/0xe0 [rds]
-  rds_message_purge+0x13c/0x150 [rds]
-  rds_message_put+0x39/0x54 [rds]
-  rds_ib_send_cqe_handler+0x147/0x3dd [rds_rdma]
-
-To fix this, take a socket reference when an MR is created and drop it
-when the final MR kref goes away.  The reference cycle is broken by
-rds_release(), which always runs rds_rdma_drop_keys() on close.  So the
-socket reference held by an MR never prevents release, it only delays
-sk_free() until the last MR user is done.
-
-The hold sits next to kref_init() at both allocation sites -
-__rds_rdma_map() and the on-demand-paging path in
-rds_cmsg_rdma_args() - so every MR owns exactly one socket reference
-from the moment it becomes kref-managed.  For that to work on the ODP
-path, its get_mr() error handling is converted from a bare kfree() to
-kref_put(..., __rds_put_mr_final), with r_trans_private cleared first
-since it holds an ERR_PTR there; both sites then tear down through
-the same path and a future error-path change cannot silently leak or
-double-drop the reference.
-
-Signed-off-by: Håkon Bugge <haakon.bugge@oracle.com>
-[achender: port to net-next (sock_hold/sock_put in place of the UEK
- rds_sock_addref/rds_sock_put helpers); also balance the reference on
- the rds_cmsg_rdma_args() ODP path and unify its error path with
- __rds_put_mr_final(); update commit message]
-Signed-off-by: Allison Henderson <achender@kernel.org>
-Link: https://patch.msgid.link/20260730041629.3512480-3-achender@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Brian Masney <bmasney@redhat.com>
+Reviewed-by: Peng Fan <peng.fan@nxp.com>
+Link: https://patch.msgid.link/20260704150344.59563-1-pengpeng@iscas.ac.cn
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a use-after-free in RDS MR teardown. The buggy path is in this
-5.10 tree, the fix is small, and it should be backported.
+## Local tree
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+This checkout is **v7.3-rc4-27-gf0100363d8c37** (`VERSION=7 PATCHLEVEL=3
+SUBLEVEL=0 EXTRAVERSION=-rc4`). The candidate is `e89485455ac49` (`clk:
+imx: imx8qxp-lpcg: add missing MODULE_DEVICE_TABLE()`). The file and
+match table exist here; the one-line fix applies as written.
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: **[net/rds] [hold] hold the socket while an rds_mr references
-it**
-- Subsystem: `net/rds`
-- Action verb: “hold” (keep a missing reference so the socket outlives
-  the MR)
-- Claimed intent: an `rds_mr` keeps a counted socket reference for its
-  lifetime
+---
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-Record (from the candidate / merged `9079adef042c`):
-- **Fixes:** absent in the git commit. The v4 mailing-list post had
-  `Fixes: eff5f53bef75 ("RDS: RDMA support")`. Absence in git is
-  expected here and is not a negative.
-- **Reported-by:** none. The body cites an Oracle UEK production crash.
-- **Tested-by:** none
-- **Reviewed-by / Acked-by:** none on the commit
-- **Link:** `https://patch.msgid.link/20260730041629.3512480-3-
-  achender@kernel.org`
-- **Cc: stable:** absent (expected)
-- **Signed-off-by:** Håkon Bugge (Oracle, original); Allison Henderson
-  (RDS, port); Jakub Kicinski (net maintainer, merge)
-- Notable: Allison’s trailer says this is a UEK port
-  (`sock_hold`/`sock_put` instead of UEK
-  `rds_sock_addref`/`rds_sock_put`). This tree already has those helpers
-  as thin wrappers around `sock_hold`/`sock_put`.
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
-Record:
-- **Bug:** `mr->r_sock` is a bare back-pointer. `rds_destroy_mr()` takes
-  `rs->rs_rdma_lock` after the socket may already be freed.
-- **Symptom:** kernel oops: `PF: supervisor write access` in
-  `_raw_spin_lock_irqsave` from `__rds_put_mr_final` ←
-  `rds_message_purge` ← `rds_message_put` ← `rds_ib_send_cqe_handler`.
-- **Root cause:** `rds_release()` drops rb-tree MR refs via
-  `rds_rdma_drop_keys()`, but in-flight send completions still hold MR
-  krefs. The CQ/tasklet path then destroys the MR against a freed
-  socket.
-- **Version info:** none beyond “Oracle UEK saw this.” The mechanism is
-  as old as RDS RDMA (2009).
-- **Fix:** `sock_hold()` at both MR alloc sites next to `kref_init()`;
-  `sock_put()` in `__rds_put_mr_final()`. Cycle is broken because
-  `rds_release()` always runs `rds_rdma_drop_keys()`, so the MR ref only
-  delays `sk_free()`, it does not block `release`.
+**Step 1.1 — Subject**
+- Record: `[clk: imx: imx8qxp-lpcg] [add] [export OF match table via
+  MODULE_DEVICE_TABLE so module aliases are generated]`
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not disguised. Explicit UAF fix with a crash stack. The ODP
-`kfree` → `kref_put` change is part of making the hold/put pairing
-correct on the error path.
+**Step 1.2 — Tags**
+- Record:
+  - `Reviewed-by: Frank Li <Frank.Li@nxp.com>` (i.MX)
+  - `Reviewed-by: Brian Masney <bmasney@redhat.com>` (Red Hat / clk)
+  - `Reviewed-by: Peng Fan <peng.fan@nxp.com>` (i.MX clk)
+  - `Link: https://patch.msgid.link/20260704150344.59563-1-
+    pengpeng@iscas.ac.cn`
+  - `Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>` (author)
+  - `Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>` (clk-imx
+    maintainer, applied it)
+  - No `Fixes:`, no `Reported-by:`, no `Cc: stable` (absence expected)
+  - Ignore any Sasha Levin SOB if present (none on the real commit)
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+**Step 1.3 — Body**
+- Record: The OF match table is wired into `platform_driver` but not
+  published with `MODULE_DEVICE_TABLE()`. Without that, modpost does not
+  emit `of:` aliases, so kmod/udev cannot autoload the module from DT
+  compatible strings.
+- Symptom: `CONFIG_CLK_IMX8QXP=m` → LPCG clock module does not load from
+  DT; consumers never get those clocks unless the module is loaded by
+  hand.
+- Version info: none in the message.
+- Root cause: missing alias publication, not a runtime logic bug. Author
+  states it is a source-level finding, not a live hardware repro.
 
-Step 2.1: INVENTORY THE CHANGES
-Record:
-- `net/rds/rdma.c`: +13 / −1 (functional)
-- `net/rds/rds.h`: +4 / −1 (comment on `r_sock`)
-- **Functions:** `__rds_put_mr_final()`, `__rds_rdma_map()`,
-  `rds_cmsg_rdma_args()`
-- **Scope:** single-subsystem, surgical (~17 lines)
+**Step 1.4 — Hidden bug fix?**
+- Record: Not disguised. It is a real autoload/modalias bug stated
+  plainly. The “source-level” wording means it was found by inspection,
+  not that it is theoretical: the table is used and not exported.
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Record:
-- **`__rds_put_mr_final`:** after `rds_destroy_mr(mr)`, add
-  `sock_put(rds_rs_to_sk(mr->r_sock))` before `kfree(mr)`.
-- **`__rds_rdma_map`:** after `mr->r_sock = rs`, add `sock_hold()`. This
-  tree already `kref_put`s `mr` on every `out:` path (success and
-  error), so the hold is paired.
-- **ODP path in `rds_cmsg_rdma_args`:** `sock_hold()` next to
-  `kref_init()`. On `get_mr()` failure, clear `r_trans_private` (it is
-  an `ERR_PTR`) and `kref_put(..., __rds_put_mr_final)` instead of a
-  bare `kfree`, so `free_mr()` is not called with an error pointer and
-  the socket ref is dropped.
+---
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record:
-- **Category:** use-after-free / missing reference count
-- **Mechanism:** MR outlives socket; destructor uses `rs->rs_rdma_lock`.
-  Fix is one `sock_hold` per kref-managed MR, one `sock_put` on final
-  kref.
+## PHASE 2: DIFF ANALYSIS
 
-Step 2.4: ASSESS THE FIX QUALITY
-Record:
-- Obviously correct: classic missing get/put; both alloc sites covered
-  (only two `kref_init` of `rds_mr` in `net/rds/`).
-- `__rds_rdma_map` already uses `kref_put` on `out:`; ODP error path is
-  converted to the same destructor.
-- Regression risk is low. `sock_put` from the send tasklet is already
-  done in `rds_message_purge()` for `rm->m_rs`. `rds_sock_destruct()` is
-  only a `WARN_ON` on an empty list.
-- No API or data-structure layout change beyond a comment.
+**Step 2.1 — Inventory**
+- Record: `drivers/clk/imx/clk-imx8qxp-lpcg.c` — **+1 / −0**. One line
+  after `imx8qxp_lpcg_match[]`. Surgical, single-file.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 2.2 — Flow**
+- Record: Before: `imx8qxp_lpcg_match` is only `of_match_table` (used
+  after the module is already loaded). After: same table is also a
+  `MODULE_DEVICE_TABLE(of, …)` so file2alias/modpost emits aliases at
+  build time. No probe/runtime path change.
 
-Step 3.1: BLAME THE CHANGED LINES
-Record:
-- `mr->r_sock = rs` and `rds_destroy_mr()` using that pointer:
-  `eff5f53bef75` (“RDS: RDMA support”), 2009-02-26. Present in 5.10.
-- `__rds_put_mr_final` / `kref_init`: `e228a5d05e9ee` (2020-04-09), in
-  this tree.
-- ODP alloc in `rds_cmsg_rdma_args`: `2eafa1746f178` (2020-01-18), in
-  this tree.
+**Step 2.3 — Bug mechanism**
+- Record: **Hardware/module autoload (OF alias publication)**. Match
+  table exists (`fsl,imx8qxp-lpcg-adma/conn/lsio` and `fsl,imx8qxp-
+  lpcg`) but is not exported. Same class as adding device IDs: userspace
+  cannot match hardware to the module.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No `Fixes:` on the git commit. Mailing-list tag `eff5f53bef75`
-**is** an ancestor of HEAD (`git merge-base --is-ancestor` exit 0).
-Merged mainline SHA `9079adef042c` is **not** an ancestor of this tree
-(exit 1). No later sock-hold-on-MR commit exists in this tree.
+**Step 2.4 — Fix quality**
+- Record: Obviously correct; matches every other i.MX clk driver that
+  already has `MODULE_DEVICE_TABLE(of, …)` (`clk-imx8qxp.c`, `clk-
+  imx8mm.c`, etc.). No API, locking, or structural change. Regression
+  risk is negligible: `=y` ignores aliases; `=m` only adds autoload.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- `91a44b406bc1f` (“net: rds: fix MR cleanup on copy error”) is already
-  here; it only stops double-free of pages/sg on `put_user` failure. It
-  does not hold the socket.
-- `2fabef4f65b46` (“Fix MR reference counting problem”) is about
-  `rds_free_mr()` bypassing kref, not socket lifetime.
-- This patch is standalone vs those.
+---
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Håkon Bugge has multiple RDS commits in this history. Allison
-Henderson is the RDS maintainer and ported the UEK fix. The original
-crash was seen in Oracle production.
+## PHASE 3: GIT HISTORY
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: Submitted as **v4 2/4**. Siblings:
-1. `d100966325f7` — don’t `unpin_user_pages_dirty_lock()` from atomic
-   context
-3. message leak in `rds_send_xmit()` drop path
-4. unpin MR pages with `unpin_user_pages_dirty_lock()`
-Those are separate bugs. This diff only needs `sock_hold`/`sock_put`,
-`kref_put`, and `__rds_put_mr_final`, all present here. **Can apply
-standalone.**
+**Step 3.1 — Blame**
+- Record: Match table from `1e3121bfe51a3` (“clk: imx: add imx8qxp lpcg
+  driver”, 2018, in **v5.0-rc1**). Module metadata from `e0d0d4d86c766`
+  (“Support building i.MX8QXP clock driver as module”, **v5.10-rc1**).
+  `builtin_platform_driver` → `module_platform_driver` in
+  `eee377b8f44e7` (2021, Fixes: that module-support commit). The hole
+  has been there for the whole modular lifetime of the driver.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 3.2 — Fixes: tag**
+- Record: None. Buggy omission is the module-support work
+  (`e0d0d4d86c766` / `eee377b8f44e7`). Both are in this tree.
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- `b4 dig -c 9079adef042c`: v4 2/4,
-  https://patch.msgid.link/20260730041629.3512480-3-achender@kernel.org
-- Revisions: v1 (2026-07-10), v2, v3 (ODP hold after successful
-  `get_mr`), v4 (hold next to `kref_init`, error path via
-  `__rds_put_mr_final`) — applied version is v4.
-- Cover letter: explicit UAF of the RDS socket through long-lived MR
-  refs; UEK port https://github.com/oracle/linux-uek/commit/94549e4732d8
-- No NAK found on this patch. Jakub applied the series to net-next on
-  2026-08-04 (`9079adef042c`).
-- v4 changelog: ODP ref moved next to `kref_init` so both alloc sites
-  share one ownership rule.
+**Step 3.3 — File history**
+- Record: Recent file commits are unrelated (pm_runtime, ioremap).
+  Sibling `cd21fdcbef3fb` does the same for `clk-imx8qxp.c`. Standalone;
+  not “patch X/Y”.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`): netdev, linux-rdma, Paolo Abeni, Eric Dumazet,
-Jakub Kicinski, Simon Horman, John Hubbard, Leon Romanovsky. Applied by
-the net maintainer. No NAK located.
+**Step 3.4 — Author**
+- Record: Pengpeng Hou also added the same fix for `clk-imx8qxp.c` and
+  MediaTek mt6735 clocks. Not the clk-imx maintainer; Abel Vesa applied
+  it with three subsystem/vendor reviews.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot/bugzilla link. Evidence is the UEK oops in the commit
-message, matching this tree’s call chain (`rds_ib_tasklet_fn_send` →
-`rds_ib_send_cqe_handler` → `rds_message_put` → `rds_message_purge` →
-`__rds_put_mr_final`).
+**Step 3.5 — Dependencies**
+- Record: Needs `imx8qxp_lpcg_match`, `module_platform_driver`, and
+  `<linux/module.h>`. All present here. Applies as a single line.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: 4 independent RDS bug-fix ports. This one does not need 1/3/4.
+---
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: **UNVERIFIED** — `lore.kernel.org/stable` fetch returned 403. No
-local evidence this was rejected for 5.10.
+## PHASE 4: MAILING LIST / EXTERNAL
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 4.1 — Original thread**
+- Record: `b4 dig -c e89485455ac49` →
+  https://patch.msgid.link/20260704150344.59563-1-pengpeng@iscas.ac.cn
+- `b4 dig -a`: **v1 only**, 2026-07-04.
+- Review: Peng Fan, Brian Masney, Frank Li: Reviewed-by only. Abel Vesa:
+  “Applied, thanks!” No NAK, no stable tag, no risk discussion.
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `__rds_put_mr_final`, `__rds_rdma_map`, `rds_cmsg_rdma_args`
-(plus `rds_destroy_mr` as callee).
+**Step 4.2 — Recipients (`b4 dig -w`)**
+- Record: Abel Vesa, Peng Fan, Michael Turquette, Stephen Boyd, Frank
+  Li, Sascha Hauer, Fabio Estevam; `linux-clk`, `imx@lists.linux.dev`,
+  `linux-arm-kernel`, `linux-kernel`. Right maintainers and lists.
 
-Step 5.2: TRACE CALLERS
-Record:
-- `__rds_put_mr_final`: `kref_put` from `rds_rdma_drop_keys`,
-  `rds_free_mr`, `rds_rdma_unuse`, `rds_rdma_free_op` (ODP),
-  `rds_message_purge` (`op_rdma_mr` / atomic MR), and `__rds_rdma_map`
-  `out:`.
-- `__rds_rdma_map`: `rds_get_mr`, `rds_get_mr_for_dest`,
-  `rds_cmsg_rdma_map` (sendmsg cmsg). Userspace RDMA registration.
-- `rds_cmsg_rdma_args`: `rds_sendmsg` path for `RDS_CMSG_RDMA_ARGS`.
+**Step 4.3 — Bug report**
+- Record: No Reported-by / bugzilla / syzbot. Inspection-only, as the
+  commit says.
 
-Step 5.3: TRACE CALLEES
-Record: `rds_destroy_mr` → `spin_lock_irqsave(&rs->rs_rdma_lock)` (the
-UAF); `free_mr()`; `sock_hold`/`sock_put`.
+**Step 4.4 — Series**
+- Record: Standalone 1/1. Related but independent sibling on `clk-
+  imx8qxp.c`.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace maps an MR or sends RDMA, then closes the socket while
-a send is in flight. Completions run in `rds_ib_tasklet_fn_send`
-(softirq). Reachable from AF_RDS sockets with `CONFIG_RDS` +
-`CONFIG_RDS_RDMA` (InfiniBand). Typical Oracle RAC / IB RDS workload.
+**Step 4.5 — Stable list**
+- Record: Thread has no stable nomination. Direct lore.kernel.org
+  fetches returned **403**; no separate stable-list discussion verified.
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Only two `kref_init` sites for `struct rds_mr`. Both patched.
-`rds_cmsg_rdma_dest` only `kref_get`s an existing tree MR.
+---
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+## PHASE 5: CODE SEMANTICS
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: **Yes.**
-- Tree: `pending-5.10`, `5.10.270` (`p-5.10-1-gce56b7a73b64b`)
-- `net/rds/rdma.c`: `mr->r_sock = rs` with no `sock_hold` (lines 243–246
-  and 735–738)
-- `__rds_put_mr_final` has no `sock_put` (115–121)
-- `rds_release()` still does `rds_rdma_drop_keys()` then `sock_put(sk)`
-  (`af_rds.c`)
-- Introduced 2009; ODP path 2020. Both in 5.10.
+**Step 5.1 — Functions**
+- Record: No C function changed. Macro `MODULE_DEVICE_TABLE(of,
+  imx8qxp_lpcg_match)` next to the existing `of_device_id` table. Driver
+  still uses `module_platform_driver(imx8qxp_lpcg_clk_driver)`.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **Minor context only.** Mainline uses `kzalloc_obj` /
-`kzalloc_objs`; this tree uses `kzalloc` / `kcalloc`. The hold/put lines
-sit on identical `kref_init` / `mr->r_sock` / ODP `get_mr` error code.
-Local ODP error uses `ret = IS_ERR(...)` then overwrites with
-`-EOPNOTSUPP`; the patch uses `PTR_ERR` then the same overwrite.
-Semantic apply is straightforward.
+**Step 5.2 — “Callers”**
+- Record: Build-time: `scripts/mod/file2alias.c` looks up
+  `__mod_device_table__` and emits `of:` aliases. Runtime: kmod/udev on
+  DT `compatible`. Probe path unchanged. Makefile: `clk-imx-lpcg-
+  scu-$(CONFIG_CLK_IMX8QXP)` → aliases belong to `clk-imx-lpcg-scu.ko`.
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: No socket-hold-on-MR fix. `91a44b406bc1f` is a different MR
-cleanup bug.
+**Step 5.3 — Callees**
+- Record: None at runtime. Macro only creates an aliased copy of the
+  table for modpost.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 5.4 — Reachability**
+- Record: Yes, from userspace/DT: i.MX8QXP/8QM DTS uses `fsl,imx8qxp-
+  lpcg` (e.g. `arch/arm64/boot/dts/freescale/imx8qm-ss-*.dtsi`). With
+  `=m`, udev should load the module from that compatible. `arm64
+  defconfig` has `CONFIG_CLK_IMX8QXP=y`, so the default distro/defconfig
+  path is unaffected; custom/distro `=m` is the affected path.
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: **net/rds** — IMPORTANT, not core. RDS over IB is production for
-Oracle RAC and similar clusters. UAF is still a kernel oops for those
-users.
+**Step 5.5 — Similar patterns**
+- Record: Same missing-table pattern fixed in `clk-imx8qxp.c` and
+  several other `drivers/clk/imx/*` files already have
+  `MODULE_DEVICE_TABLE`. This was the LPCG outlier.
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Mature (2009). Occasional stable fixes in this tree
-(`91a44b406bc1f` in 2026). Not a new subsystem.
+---
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+## PHASE 6: THIS TREE
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: **config/driver-specific:** `CONFIG_RDS` + RDMA
-(`CONFIG_RDS_RDMA`). Not all 5.10 boxes, but all RDS/IB RDMA users who
-close a socket with in-flight MRs.
+**Step 6.1 — Buggy code here?**
+- Record: Yes. Pre-commit parent still has the table without
+  `MODULE_DEVICE_TABLE`. Module support is in this tree. Bug dates to
+  v5.10 module support (autoload hole after v5.16
+  `module_platform_driver`).
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Map MR or send RDMA, close socket before CQ completion. Timing-
-dependent but realistic (UEK crash). Needs an RDS socket; typical RDS
-users are cluster services.
+**Step 6.2 — Backport difficulty**
+- Record: **Clean apply**. Context around the match table matches the
+  hunk.
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: **Use-after-free → oops on spinlock of freed `rds_sock`.**
-Severity **CRITICAL/HIGH**. Same class as KASAN UAF; crash stack is
-real.
+**Step 6.3 — Already fixed another way?**
+- Record: No other autoload fix on this file. This commit *is* the fix
+  (already upstream in 7.3-rc). No substitute.
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- **Benefit:** high for RDS/IB — prevents a known UAF oops.
-- **Risk:** low — ~17 lines, standard `sock_hold`/`sock_put`, both alloc
-  sites, error path unified.
-- **Ratio:** strongly favors backport.
+---
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+## PHASE 7: SUBSYSTEM CONTEXT
 
-Step 9.1: COMPILE THE EVIDENCE
-**FOR:**
-- Real UAF with production oops (Oracle UEK).
-- Same call path exists in this 5.10 tree.
-- Bug dates to 2009 RDMA support; ODP path also here.
-- Small, obviously correct refcount fix; v4 review then net-maintainer
-  merge.
-- Standalone vs the rest of the series.
-- `__rds_rdma_map` already drops the MR via `kref_put` on all exits, so
-  the new hold is balanced.
+**Step 7.1**
+- Record: `[drivers/clk/imx — i.MX8QXP LPCG] [IMPORTANT for
+  i.MX8QXP/8QM; PERIPHERAL vs core kernel]`. Clock provider: if the
+  module never loads, LPCG-gated peripherals fail probe.
 
-**AGAINST:**
-- RDS/IB is not universal.
-- Patch was 2/4 of a series (siblings are independent).
-- Minor `kzalloc_obj` vs `kzalloc` context when applying.
+**Step 7.2**
+- Record: clk-imx is active (7.3 pulls). This driver itself is mature
+  (2018).
 
-**UNRESOLVED:**
-- Stable-list discussion (lore 403).
-- No public syzbot repro (crash is still documented).
+---
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — hold at `kref_init`, put in
-   finalizer; merged to net-next; UEK precedent.
-2. Fixes a real bug that affects users? **PASS** — production oops.
-3. Important issue? **PASS** — UAF / kernel oops, HIGH/CRITICAL.
-4. Small and contained? **PASS** — 2 files, ~17 lines.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — buggy code present; minor
-   context only.
+## PHASE 8: IMPACT AND RISK
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary memory-
-safety fix.
+**Step 8.1 — Who**
+- Record: Config- and platform-specific: `CONFIG_CLK_IMX8QXP=m` on
+  i.MX8QXP/8QM/8DXL SCU clocks. Not universal. Defconfig `=y` does not
+  need aliases.
 
-Step 9.4: MAKE YOUR DECISION
-This 5.10 tree has the bare `r_sock` pointer, the CQ/tasklet free path,
-and no socket hold on MRs. The fix is the missing refcount. It should be
-backported.
+**Step 8.2 — Trigger**
+- Record: Boot/enumeration with LPCG DT nodes and the driver as a
+  module. Unprivileged users cannot trigger it; it is bring-up/udev.
+  Common on modular distro kernels, uncommon on typical vendor `=y`
+  images.
 
-===============================================================
-What this solves for stable users
-===============================================================
-Closing an RDS socket while an RDMA MR is still referenced by an in-
-flight send can free `rds_sock` before `__rds_put_mr_final` →
-`rds_destroy_mr` takes `rs->rs_rdma_lock`. That is an oops. Holding the
-socket until the last MR kref drops keeps the lock valid;
-`rds_rdma_drop_keys()` in `rds_release()` still breaks the tree↔socket
-cycle.
+**Step 8.3 — Failure mode**
+- Record: Module not autoloaded → LPCG clocks missing → dependent
+  devices fail probe (UART/DMA/etc. depending on board). Not an
+  oops/UAF. Severity **MEDIUM** (functional miss for `=m`), **HIGH** on
+  those boards if clocks are modular.
 
-Risk vs benefit: high benefit for RDS/IB, low regression risk.
-`sock_put` from this tasklet is already used for `rm->m_rs`. Backport
-may need trivial context adjustment (`kzalloc` vs `kzalloc_obj`); no
-missing helpers or types.
+**Step 8.4 — Risk vs benefit**
+- Record: Benefit: modular i.MX8QXP clocks actually bind. Risk: **very
+  low** (one line of metadata). Ratio favors taking it; same rationale
+  as the “add a device ID” stable exception.
 
-Verification:
-- [Phase 1] Tags: Link msgid `20260730041629.3512480-3`; SOB Bugge /
-  Henderson / Kicinski; no Fixes in git; ML had `Fixes: eff5f53bef75`
-- [Phase 2] Diff: `sock_put` in `__rds_put_mr_final`; `sock_hold` in
-  `__rds_rdma_map` and ODP alloc; ODP error `kfree` → `kref_put` after
-  NULL-out of `ERR_PTR`
-- [Phase 2] Local `__rds_rdma_map` `out:` already `kref_put`s if `mr`
-  non-NULL (`rdma.c` 348–351)
-- [Phase 3] `git blame`: `r_sock` / `rds_destroy_mr` from `eff5f53bef75`
-  (2009); kref from `e228a5d05e9ee` (2020)
-- [Phase 3] `git merge-base --is-ancestor eff5f53bef75c0 HEAD` → 0;
-  `2eafa1746f178` → 0; `9079adef042c` → 1 (not in this tree)
-- [Phase 3] `git describe HEAD` / `make kernelversion`: pending-5.10,
-  5.10.270
-- [Phase 3] Only two `kref_init(&...r_kref)` sites in `net/rds/`
-- [Phase 4] `b4 dig -c 9079adef042c`: v4 2/4; recipients
-  netdev/rdma/Kicinski/Dumazet/Abeni/Horman
-- [Phase 4] `b4 dig -a`: v1→v4; v4 unifies ODP error path
-- [Phase 4] Cover letter: UEK UAF port; applied as `9079adef042c`
-- [Phase 4] UNVERIFIED: stable@ thread (403)
-- [Phase 5] Call chain confirmed: `rds_ib_tasklet_fn_send` →
-  `rds_ib_send_cqe_handler` → `rds_message_put` → `rds_message_purge` →
-  `__rds_put_mr_final`
-- [Phase 5] `rds_release` calls `rds_rdma_drop_keys` then `sock_put`
-  (`af_rds.c` 78, 89)
-- [Phase 6] Local `rdma.c` has no `sock_hold`/`sock_put`; comment still
-  says “back pointer”
-- [Phase 8] Failure mode: UAF oops on `rs_rdma_lock`, HIGH/CRITICAL
-- UNVERIFIED: whether an unprivileged process can open AF_RDS on a given
-  distro; crash still confirmed for RDS/IB users
+---
+
+## PHASE 9: SYNTHESIS
+
+**Step 9.1 — Evidence**
+
+For:
+- Real autoload bug: match table used, aliases not published.
+- One line, obviously correct, reviewed by NXP i.MX and Red Hat.
+- DT hardware uses these compatibles.
+- Driver is tristate (`CLK_IMX8QXP`); `module_platform_driver` is
+  intentional.
+- Same pattern as device-ID publication, which stable explicitly allows.
+- Applies cleanly; no new API; no runtime behavior change for `=y`.
+
+Against:
+- No user/syzbot report; source-level only.
+- Not crash/corruption/security.
+- `arm64 defconfig` is `=y`.
+- No `Cc: stable` (not a negative by itself).
+
+Unresolved:
+- Could not search lore.kernel.org/stable (HTTP 403). Original thread
+  had no stable discussion.
+
+**Step 9.2 — Stable rules**
+1. Obviously correct and tested? **PASS** — one-line, three reviews,
+   maintainer applied.
+2. Real bug that affects users? **PASS** — `=m` does not autoload; DTS
+   uses the IDs.
+3. Important? **PASS** (as device-ID/autoload class; not a panic).
+   Missing clocks on modular i.MX8 is user-visible, not trivia.
+4. Small and contained? **PASS** — +1 line, one file.
+5. No new features/APIs? **PASS** — metadata only.
+6. Can apply to this tree? **PASS** —
+   file/table/`module_platform_driver` all present.
+
+**Step 9.3 — Exceptions**
+- Record: Device-ID / module-alias publication for an existing driver
+  (stable exception #1 in spirit).
+
+**Step 9.4 — Decision**
+This is a one-line, reviewed autoload fix for a long-standing modular
+i.MX8QXP LPCG driver. It matches what stable already takes for device
+IDs: hardware described in DT can bind without a manual `modprobe`. Risk
+is negligible on this tree.
+
+---
+
+## What the commit solves for this tree
+
+Without `MODULE_DEVICE_TABLE()`, `clk-imx-lpcg-scu.ko` has no
+`of:N*T*Cfsl,imx8qxp-lpcg*` aliases. kmod will not load it from DT. LPCG
+is a clock provider, so that shows up as missing clocks and failed
+consumer probe, not as a crash. The fix only publishes the table the
+driver already uses.
+
+It meets the stable bar: obviously correct, tiny, no new API, real
+modular-load bug, applies here.
+
+Risk vs benefit: benefit is correct autoload for `CONFIG_CLK_IMX8QXP=m`;
+risk is essentially zero.
+
+Concerns: no live repro, default `=y`. That does not outweigh a one-line
+alias export that other i.MX clk drivers already have.
+
+---
+
+## Verification
+- [Phase 1] `git log -1 e89485455ac49`: tags as above; no
+  Fixes/Reported-by/Cc:stable.
+- [Phase 2] `git show e89485455ac49`: +1 `MODULE_DEVICE_TABLE(of,
+  imx8qxp_lpcg_match)`.
+- [Phase 2] Read `clk-imx8qxp-lpcg.c`: table used as `.of_match_table`;
+  `module_platform_driver`.
+- [Phase 2] `include/linux/module.h`: macro creates `__mod_device_table`
+  alias for modpost.
+- [Phase 3] `git blame` 350–370: table `1e3121bfe51a3` (v5.0); line
+  `e89485455ac49`.
+- [Phase 3] `e0d0d4d86c766` in v5.10-rc1 (tristate); `eee377b8f44e7`
+  switches to `module_platform_driver`.
+- [Phase 3] `git merge-base --is-ancestor e89485455ac49 HEAD` succeeded.
+- [Phase 3] Parent file confirmed missing `MODULE_DEVICE_TABLE`.
+- [Phase 4] `b4 dig -c/-a/-w` and `b4 dig -m`: v1 thread, three R-b,
+  Abel applied; To/Cc = clk + i.MX lists.
+- [Phase 4] lore HTTP 403; stable-list search **UNVERIFIED**.
+- [Phase 5] `Kconfig`: `CLK_IMX8QXP` tristate; Makefile builds `clk-imx-
+  lpcg-scu`.
+- [Phase 5] DTS: `fsl,imx8qxp-lpcg` in imx8qm-ss-*.dtsi.
+- [Phase 5] defconfig: `CONFIG_CLK_IMX8QXP=y`.
+- [Phase 6] `git describe HEAD` / `make kernelversion`: 7.3.0-rc4; buggy
+  table present; clean apply.
+- [Phase 6] Sibling `cd21fdcbef3fb` is a different file; not required
+  for this hunk.
+- [Phase 8] Failure mode: no autoload when `=m` — verified from code and
+  MODULE_DEVICE_TABLE semantics, not from a hardware log.
+- UNVERIFIED: live `=m` boot on i.MX8QXP; lore.kernel.org/stable
+  contents.
 
 **YES**
 
- net/rds/rdma.c | 14 +++++++++++++-
- net/rds/rds.h  |  5 ++++-
- 2 files changed, 17 insertions(+), 2 deletions(-)
+ drivers/clk/imx/clk-imx8qxp-lpcg.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/rds/rdma.c b/net/rds/rdma.c
-index 37695056756be..062c12d9318e9 100644
---- a/net/rds/rdma.c
-+++ b/net/rds/rdma.c
-@@ -117,6 +117,7 @@ void __rds_put_mr_final(struct kref *kref)
- 	struct rds_mr *mr = container_of(kref, struct rds_mr, r_kref);
- 
- 	rds_destroy_mr(mr);
-+	sock_put(rds_rs_to_sk(mr->r_sock));
- 	kfree(mr);
- }
- 
-@@ -243,7 +244,11 @@ static int __rds_rdma_map(struct rds_sock *rs, struct rds_get_mr_args *args,
- 	kref_init(&mr->r_kref);
- 	RB_CLEAR_NODE(&mr->r_rb_node);
- 	mr->r_trans = rs->rs_transport;
-+	/* The MR can outlive its socket: a socket reference is held
-+	 * until the final kref is dropped in __rds_put_mr_final().
-+	 */
- 	mr->r_sock = rs;
-+	sock_hold(rds_rs_to_sk(rs));
- 
- 	if (args->flags & RDS_RDMA_USE_ONCE)
- 		mr->r_use_once = 1;
-@@ -762,7 +767,12 @@ int rds_cmsg_rdma_args(struct rds_sock *rs, struct rds_message *rm,
- 			RB_CLEAR_NODE(&local_odp_mr->r_rb_node);
- 			kref_init(&local_odp_mr->r_kref);
- 			local_odp_mr->r_trans = rs->rs_transport;
-+			/* The MR can outlive its socket: a socket
-+			 * reference is held until the final kref is
-+			 * dropped in __rds_put_mr_final().
-+			 */
- 			local_odp_mr->r_sock = rs;
-+			sock_hold(rds_rs_to_sk(rs));
- 			local_odp_mr->r_trans_private =
- 				rs->rs_transport->get_mr(
- 					NULL, 0, rs, &local_odp_mr->r_key, NULL,
-@@ -771,7 +781,9 @@ int rds_cmsg_rdma_args(struct rds_sock *rs, struct rds_message *rm,
- 				ret = PTR_ERR(local_odp_mr->r_trans_private);
- 				rdsdebug("get_mr ret %d %p\"", ret,
- 					 local_odp_mr->r_trans_private);
--				kfree(local_odp_mr);
-+				local_odp_mr->r_trans_private = NULL;
-+				kref_put(&local_odp_mr->r_kref,
-+					 __rds_put_mr_final);
- 				ret = -EOPNOTSUPP;
- 				goto out_pages;
- 			}
-diff --git a/net/rds/rds.h b/net/rds/rds.h
-index a4816da162930..dcbc4610735d5 100644
---- a/net/rds/rds.h
-+++ b/net/rds/rds.h
-@@ -299,7 +299,10 @@ struct rds_mr {
- 	unsigned int		r_invalidate:1;
- 	unsigned int		r_write:1;
- 
--	struct rds_sock		*r_sock; /* back pointer to the socket that owns us */
-+	struct rds_sock		*r_sock; /* socket that owns us; counted
-+					  * reference, dropped by
-+					  * __rds_put_mr_final()
-+					  */
- 	struct rds_transport	*r_trans;
- 	void			*r_trans_private;
+diff --git a/drivers/clk/imx/clk-imx8qxp-lpcg.c b/drivers/clk/imx/clk-imx8qxp-lpcg.c
+index 1dae3410ee99a..f0cf6cf918992 100644
+--- a/drivers/clk/imx/clk-imx8qxp-lpcg.c
++++ b/drivers/clk/imx/clk-imx8qxp-lpcg.c
+@@ -354,6 +354,7 @@ static const struct of_device_id imx8qxp_lpcg_match[] = {
+ 	{ .compatible = "fsl,imx8qxp-lpcg", NULL },
+ 	{ /* sentinel */ }
  };
++MODULE_DEVICE_TABLE(of, imx8qxp_lpcg_match);
+ 
+ static struct platform_driver imx8qxp_lpcg_clk_driver = {
+ 	.driver = {
 -- 
 2.53.0
 
