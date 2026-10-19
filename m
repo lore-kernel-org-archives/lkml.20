@@ -1,126 +1,216 @@
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D38488213
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395271; cv=none; b=BIKBCdcXp/gerooYWvWF6u39YWfpJv31MjJaHbbK0Ksz0o+iNVyPC9BpSalKYLzzgNzjg4gCvPB9XJaYv3zQdq2Ev1/yLLOjyq0PZRSAYhsJAYzcHoc6MZunfqvJmHlthSDDj9AKVFaJzClTsPBLkZ4dEORuHQr0t2m0hs7Oqzw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395271; c=relaxed/simple;
-	bh=ydBll4oLJUNAaOQvHaPZ8sj7d9+L2AF/M5Oz7mjPrrc=;
-	h=Subject:From:Cc:Date:Message-Id:References:Content-Type:To:
-	 Mime-Version:In-Reply-To; b=Dn3ry+7Xds0i6vtpyG5gc5zZ4wuDlhWuXBaldtH28lt5c0LRyXBfTTSK6IiV7uvtCnqGGMbGd+NE4gbjV+fRrx7t9AY77aOpZaRL/k1ONhzuwDnYuusN2PJUK1gRUrXnrAVzwKvJryXdzBxEUz1LWn6k3zrEztlibsR6rIeguG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=auGD+Dyd; arc=none smtp.client-ip=209.127.230.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5139A488231
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792395284; cv=pass; b=VkF1hBqckNugZzgN9R9trWNFhzAYXgPuyS4+3rIi1tjJiiwFnM7r8WKNGEiPo5Dc1CCh2zlRY+XMXbrD21ajPNz1Eo+q0TV1l0usvhSCQ8boQdJ5K9jKzlDYxFWlq9wq+OJPQHlHo1VGLzF36C3XJAusjI9UPiFyyohPIhFnl/k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792395284; c=relaxed/simple;
+	bh=zzSBJEbQ3D9kyu8uohCICPb5V7tAUfamh/FCwHx6Zig=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B11xiTP0uG6HRvfxJLv+RYgXKIUg5iw7JAVq8k16njo8g9FcnWJryLuV8lV/PP7foMgwgDDn/ctMNUpMeERn6zMvmFcmPyQs64K+5yvhuoZRZHesHkquMLer34ZgziHK0ugBQDN2NlNEDPavTHJSfGBAJiYTtKI/mGWMkBBDX3M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=melexis.com; spf=pass smtp.mailfrom=melexis.com; dkim=pass (2048-bit key) header.d=melexis.com header.i=@melexis.com header.b=XwUSu697; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=melexis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=melexis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="auGD+Dyd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792395150; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=a9E2/1RrbNu8/zRm5DyQP/PhhVl988xi9MIrrC75Wnc=;
- b=auGD+DydcHIOVO+QmYt0Smo9Fzkyv/WmdWjWy+UYFq3SS198lL+UTzbDeHAhA806wzz1PM
- t0SaQuSq2St9bw2m/2yJcASJ3jFmHAujSzmoSpuo3C6bmp+OZOYfwIKSfOJvD2EmLrtGq4
- HRBUnSCc3mL2v+ac9hxauYNLaWXeUHnR08zFClU8nUfE8HL6XZcCupTu5OlsvhGaHs3uJ0
- ZEtRVE0iimOSM9Kc+LbkH9GdP7rIbScgyZnyxfGWFPsVU9EQWkCvcHbtPqhpZxIGP0CK9o
- 89pkETIUWOiRBkUdmqSeZWG4MokhVRIWCVLXqd+Ig9v1CwodIUQTaDyUNJv2Dw==
-Subject: Re: [PATCH 5/5] mm: hugetlb: enable CMA allocation for PMD-sized pages
-User-Agent: Mozilla Thunderbird
-From: "Qi Zheng" <zhengqi.arch@bytedance.com>
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
-Date: Mon, 19 Oct 2026 15:32:13 +0800
-Message-Id: <b8d87b71-c5ca-43d8-8050-72fc14802ae1@bytedance.com>
-References: <cover.1792136742.git.zhengqi.arch@bytedance.com> <df6eee954b62f41d65c4d087d17a7a7cf60da791.1792136742.git.zhengqi.arch@bytedance.com> <ddb1e84f-2cfc-4a99-85c4-9a8c6415dbb1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-X-Lms-Return-Path: <lba+26ad5c78c+bdfb97+vger.kernel.org+zhengqi.arch@bytedance.com>
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
-	"Qi Zheng" <qi.zheng@linux.dev>, <muchun.song@linux.dev>, 
-	<osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=melexis.com header.i=@melexis.com header.b="XwUSu697"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c263415982eso195191166b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:34:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792395280; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TgCPuUGr/AHRl2Er2v3aP9upIs5zThMN7bgCsYNSmW/h5VfVpX/2Wme97NiiLWl3uA
+         jlIc4Olw9JqFzOlZrG00xyPdRB0cpUBoFwzmwqeH0ABN49TivsAiLLQCuB+OV3wH4JwG
+         78M2QGFyhVgqVfxE1OlmV8VK141Fn38FzpfXc8Ijmx1KxL0oaZ+Yo2ELx+P1ozJxwhMA
+         rHr1lchmGebrOrkYiBzOGlChTEH5etyCoBNFLaUKWmOoE1k8baF3POGgqYujvuth8fp1
+         fFNFTULAscBk62Oyj116MX8GSO3Oc1aJlPNb4A8AR67QST1ZvHZevUef4zu1ymkScmMz
+         fpKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=QuLQGTBq/GHWEdWfb6Pl6kV6ni5j9Kr3GuQHGNwnH7k=;
+        fh=HMOySx8KiBSLdQNzmRJvqrR2QCbWhkxbrf946l3EQsU=;
+        b=bXeTbuvrqA9VMLbeKGetza8MTgyt+GFGWmHgL3I174S7GqJ1AiFEp/3dda3cKmmUOy
+         sUIFvCe92H/PpHLHfgAZLhrg72fhwceF+MwdwnOLlNzthPCMhdhrd76n3fUPi06PPNpx
+         oiP1Zmc448TLojvfYBKckRZodOIaBX3KXd/Hl48f0EVPuMgfZI5n2qAHbwJADE/22/2A
+         3DvbQaJNhcOAKvTWHzyQ2rKg/CgL+2Ztw0wLB4Zx0tUQPANAAUUVGGTON4giV37v4qPR
+         43W91OSnDwefvk7F6ligXgdp79HZYQUWwvSoh8sM1uuzEZQf0HABFouXwPy4U/h4nzKT
+         qF5A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=melexis.com; s=google; t=1792395280; x=1793000080; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QuLQGTBq/GHWEdWfb6Pl6kV6ni5j9Kr3GuQHGNwnH7k=;
+        b=XwUSu697Lv9ee6OEmMvJgkz2ewk8k1NOLtAhirHxyYwO8wHogzkd7KkKXDGq2f0XxA
+         xNTbesQmT5UCzFFtErfsO6q+XU/ZJO/QztLo45yuVEkcV7SjS0eff1YFa4B4QRNJSPl8
+         Ky1UM6QccI2zF+OXG6k+cDRHxhmzrc6QzjXX6dly5DEor2hLLQsLoYAHBc4s3sSpC33F
+         dxO/hqNSLhci7kD42ZLQuZc114RnVSHm2A2pUDJrvOWsGSdKY2zwe+OyP0gNJKR0sDbw
+         hvc7lNeflrzCEvDQMyrFkiDvvir9TcpNJ3r6PY2B2+3x1FNQbQgjTmNYq/e83a0g3P0l
+         9vBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792395280; x=1793000080;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QuLQGTBq/GHWEdWfb6Pl6kV6ni5j9Kr3GuQHGNwnH7k=;
+        b=pgMrOdTV2fgnLXfKWxqM3MuXMUHOM5AeCAkjU+fyJL7N/qKx1F2yK/QOAX1IWcVb0t
+         Y7q1RcZzni4qZ+5qDzJXhLLIoWBGq2t+62dR1MqBoCei6zApt9pJqEI9r1p/UPwvdlS5
+         e08EaJBOgYrU2nDG2V4ghfFUVsRZ8rwYKUe/+irTSsxkruylOGH4ViqXLr1dr2ffAeQF
+         Upc21uszV7VP7+2z+SmmtzDQNPBvIB38URh8zQSrD/GJExhwySJPr9uflKMzrJx52xNM
+         KnpbT7b1lNOmIlU5L+1alIyCasJ2mcbd1yN8rNK/d+6j7hvNZA8vE0f0wa7YGD+gS4kP
+         7NaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzf6U+Pv/QELqCx5fZ/+dBeeVayOXNRI68kB1P04OG1NpUrnmYwx5lv7Z/DvfzaXCvFVbcT8m5looKYBH8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbX07mqKwb8igL+Aehth3lXM2LI7gG2NRNKfUSKS4bO3WwS8Gb
+	aqRellRzeRBHm7hBzNk9uoJq8xkYc5sCXc1h0U/Ge5ebWsAy67J6TwERKFu5Tgw8TD1BRIDZ28w
+	oY/ZkzHKsLgFg8aTIadcbwc1uiKuHIkINydg9EeQ8
+X-Gm-Gg: AYBFou1xOiS+eYNh9RbjcvMGCzFiC8MGWwk0FvIp8K0y3uXJ6jGycrSMN03ox+yAxoX
+	c9YzNHa01PTRq64Ee3HeV9QK89JxX8uPyEuB9h6rQr1Afjhr1j7lDyp2TB/GE+Q+gPcMfDrB17I
+	cYiUyYMFzznWmdjNC/QYWQzSoaBX+quqtciCH2MnJVUIkqHevMANZYSx0q898/xCrSoG0UUuuzi
+	FMa9m3sjZLDUGYUNBvbFtOGtgKuREuQcD3PKy590AWTObAW18CatPB9o3BY9tXFEeew+UxpG43P
+	4vURJs40EayCm28w/gXXpaFVwy+HWegm7Rf5cLNCRk7dHL+GnmS5
+X-Received: by 2002:a17:907:96ab:b0:c40:38b5:d784 with SMTP id
+ a640c23a62f3a-c419e23dccdmr466129766b.22.1792395280534; Mon, 19 Oct 2026
+ 00:34:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Qi Zheng <zhengqi.arch@bytedance.com>
-Content-Transfer-Encoding: 7bit
-In-Reply-To: <ddb1e84f-2cfc-4a99-85c4-9a8c6415dbb1@gmail.com>
+MIME-Version: 1.0
+References: <20260917110121.631587-1-salah.triki@gmail.com>
+ <CAKv63utdoBrCFiw8vkGsMhY9PrWX0DWdxqP5szvTGpdmfSQh5A@mail.gmail.com>
+ <aqvoH9ohxkJ6iPei@pc> <20261019040135.1da889ec@jic23-hlaptop>
+In-Reply-To: <20261019040135.1da889ec@jic23-hlaptop>
+From: Crt Mori <cmo@melexis.com>
+Date: Mon, 19 Oct 2026 09:34:04 +0200
+X-Gm-Features: AclHuK8Qhha2TFYgLBfys_ZMbGLsTyM3cX7mEN5gt3EskW5QE0v2YufftZFcLiY
+Message-ID: <CAKv63usdo_QdcRyFrUvym_=_203CXLK55irpiPyVeipRNw1nEg@mail.gmail.com>
+Subject: Re: [PATCH] iio: temperature: mlx90614: Fix dual channel probe
+ condition check
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Salah Triki <salah.triki@gmail.com>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/18/26 3:07 AM, Jose A. Perez de Azpillaga wrote:
-> On 10/16/26 12:07 PM, Qi Zheng wrote:
->> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>
->> Allow hugetlb_cma=<capacity>@<page-size> to select the architecture's PMD
->> size in addition to its existing CMA size. PMD pages are 2M on x86-64 and
->> 2M, 32M or 512M on arm64 with 4K, 16K or 64K base pages.
->>
->> Give PMD pages their own pool without changing the original pool's sharing
->> among other gigantic sizes. On arm64 with 4K base pages, 32M and 1G pages
->> continue to use the default 1G-aligned pool. Unsuffixed arguments and an
->> explicit default size still configure that same pool.
->>
->> PMD requests use only the PMD pool, even when their order is gigantic.
->> Other gigantic requests use only the original pool. Apply this mapping
->> consistently to allocation, CMA-only policy and boot-time accounting.
->>
->> Move CMA allocation into the common fresh HugeTLB allocation path so
->> non-gigantic pages can use CMA. Align reservations to both the selected
->> page size and CMA's minimum alignment, and use a bitmap granularity no
->> larger than the selected order. Keep the original CMA area names and give
->> PMD areas distinct names. Document the syntax and pool selection.
->>
->> Assisted-by: LLM
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> [snip]
-> 
->> +	folio = hugetlb_cma_alloc_frozen_folio(order, gfp_mask, nid, nmask);
->> +	if (!folio) {
-> 
-> boot-time hugepages= goes through here too, so hugepages=128 with
-> hugetlb_cma=512M@2M already uses half of the pool at boot. would buddy
-> first and cma as fallback make more sense for PMD?
+Hi,
+No objections, but I wanted to test it and can't find the time for
+this sorry. I don't think I have seen a single channel MLX90614 when I
+wrote a driver, so maybe that is something that came with 90615
+patches or later.
 
-That makes sense.
+Best regards,
+Crt
 
-Buddy-first can reduce CMA migration and leave more CMA capacity
-for later allocations.
-
-I'll use buddy first and CMA as a fallback for non-gigantic PMD pages,
-while keeping hugetlb_cma_only=1 restricted to CMA and preserving the
-existing gigantic allocation path.
-
-> 
-> [snip]
-> 
->> +	if (order != PMD_SHIFT - PAGE_SHIFT && order_is_gigantic(order))
->>   		order = hugetlb_cma_default_order;
-> 
-> doesn't this take gigantic PMD-order pages out of the default pool even
-> when no PMD pool is set? would trying the exact order first and then
-> falling back to the default pool work?
-
-Good point. Perhaps we should use the following selector with the two
-fixed pools:
-
-static struct hugetlb_cma_pool *hugetlb_cma_pool(unsigned int order)
-{
-	struct hugetlb_cma_pool *pmd_pool = &hugetlb_cma[HUGETLB_CMA_PMD];
-
-	if (order == PMD_SHIFT - PAGE_SHIFT && pmd_pool->size)
-		return pmd_pool;
-
-	if (order_is_gigantic(order))
-		return &hugetlb_cma[HUGETLB_CMA_DEFAULT];
-
-	return NULL;
-}
-
-> 
-> I tested it on qemu and saw no issues, but I'm hesitant about the points
-> above. I can give a Tested-by tag on the next version :)
-
-Thanks! I'll send out a v2 as soon as possible.
-
+On Mon, 19 Oct 2026 at 05:01, Jonathan Cameron <jic23@kernel.org> wrote:
+>
+> On Thu, 17 Sep 2026 14:16:15 +0100
+> Salah Triki <salah.triki@gmail.com> wrote:
+>
+> > Hi Crt,
+> >
+> > Thanks for your feedback.
+> >
+> > Actually, the patch primarily fixes the behavior for the MLX90614.
+> >
+> > In the current codebase, MLX90614 has `chip_info->dual_channel = true`.
+> > Because `mlx90614_probe_num_ir_sensors()` checks
+> > `if (chip_info->dual_channel)`, it returns 0 immediately for MLX90614
+> > without reading the EEPROM CONFIG1 register. As a result, dual-channel
+> > MLX90614 sensors are incorrectly registered as single-channel devices.
+> >
+> > For MLX90615 (`dual_channel = false`), the condition was bypassed, causing
+> > an unnecessary SMBus read to EEPROM CONFIG1, even though MLX90615 only
+> > supports a single object channel.
+> >
+> > By changing the check to `if (!chip_info->dual_channel)`, we fix both
+> > issues:
+> > 1. MLX90614 correctly reads EEPROM CONFIG1 to detect whether it operates
+> > in single or dual channel mode.
+> > 2. MLX90615 skips the EEPROM read entirely.
+> >
+> > I don't have physical hardware to test this on; this bug was spotted via
+> > code inspection.
+>
+> Explanation makes sense to me and as Crt hasn't come back with
+> a reply, I'll assuming Crt has no objections (shout if not!)
+>
+> Applied and marked stable
+>
+> Thanks,
+>
+> Jonathan
+>
+> >
+> > Best regards,
+> > Salah
+> >
+> > On Thu, Sep 17, 2026 at 01:27:48PM +0200, Crt Mori wrote:
+> > > So this fix is for the MLX90615, which is registered as single channel
+> > > operation? Did you test on 90614 as well?
+> > >
+> > > Best regards,
+> > > Crt
+> > >
+> > > Crt Mori
+> > >
+> > > Melexis Technologies NV
+> > > Transportstraat 1
+> > > 3980 Tessenderlo
+> > >
+> > > Mobile: +32 492 46 22 15
+> > > E-mail: cmo@melexis.com
+> > > Website: www.melexis.com
+> > >
+> > > ----------------------------------------------------------
+> > > The contents of this e-mail are CONFIDENTIAL AND PROPRIETARY. Please
+> > > read our disclaimer at http://www.melexis.com/mailpolicy
+> > >
+> > >
+> > > On Thu, 17 Sept 2026 at 13:01, Salah Triki <salah.triki@gmail.com> wrote:
+> > > >
+> > > > In mlx90614_probe_num_ir_sensors(), the check on chip_info->dual_channel
+> > > > is inverted.
+> > > >
+> > > > Currently, if dual_channel is true (MLX90614), the function returns 0
+> > > > immediately without checking op_eeprom_config1. This forces all MLX90614
+> > > > devices to be registered as single sensor (num_channels = 2), making the
+> > > > second object temperature channel inaccessible.
+> > > >
+> > > > Conversely, if dual_channel is false (MLX90615), the function skips the
+> > > > early return and performs an unnecessary SMBus read on EEPROM CONFIG1 even
+> > > > though MLX90615 does not support dual channel operation.
+> > > >
+> > > > Fix this by negating the condition so that single-channel chips return
+> > > > early with 0, while dual-channel capable chips (MLX90614) proceed to read
+> > > > the EEPROM configuration register to detect whether 1 or 2 object channels
+> > > > are present.
+> > > >
+> > > > Fixes: 3d5ead238bc8 ("iio: mlx90614: Factor our register IO and constants into model specific descriptor")
+> > > > Assisted-by: LLM
+> > > > Signed-off-by: Salah Triki <salah.triki@gmail.com>
+> > > > ---
+> > > >  drivers/iio/temperature/mlx90614.c | 2 +-
+> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/drivers/iio/temperature/mlx90614.c b/drivers/iio/temperature/mlx90614.c
+> > > > index 27d6ab5f5d7a..4f79da1f905e 100644
+> > > > --- a/drivers/iio/temperature/mlx90614.c
+> > > > +++ b/drivers/iio/temperature/mlx90614.c
+> > > > @@ -565,7 +565,7 @@ static int mlx90614_probe_num_ir_sensors(struct i2c_client *client)
+> > > >         const struct mlx_chip_info *chip_info = data->chip_info;
+> > > >         s32 ret;
+> > > >
+> > > > -       if (chip_info->dual_channel)
+> > > > +       if (!chip_info->dual_channel)
+> > > >                 return 0;
+> > > >
+> > > >         ret = i2c_smbus_read_word_data(client, chip_info->op_eeprom_config1);
+> > > > --
+> > > > 2.43.0
+> > > >
+>
