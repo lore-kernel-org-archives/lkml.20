@@ -1,45 +1,71 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B672C1586;
-	Mon, 19 Oct 2026 01:39:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1E3299920
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792373949; cv=none; b=ja6AGk1oPwjl+u0n19k95yR7LcPgEFIs7KP7dkzpk8gMn7E8Gnd1vBA7hEoFFcp4V4psKMQLiouganK9zRusamA7Jvqp/wVLuiK0YMhbV6xCcB5qdHnh5S/fiGqLxKZRPOei3whA7ht8jGihs96xrRnBfYtL5fsV3LjtzTsGhBI=
+	t=1792373962; cv=none; b=kUCxSAf/jnIOoA7Nl7c0l9dfVrf2kN54JbjJwviN8YJMRtqcsoLsUz2RcDA4+E7+DTEfBLndyYuEXlrdm/bE+nLsBro1E0B5ipFHl/UbNLouSqxd4uv8IcVldfxwMVoum1QQTCkpDDANjOx9lRqIO9U9Bg5gt5Owdnj6B+F33L8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792373949; c=relaxed/simple;
-	bh=5rui/C8/wJsLi6T1Jt5Sswc9tCqTkSgTqc6tGhcDcjM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JTFEUvmhvqwtuW/Nr/UGLbefVbbOH8E21Zbsg/AZQHcpvtXS4joTohQ2nUmQSlVrsWPRsmk/QIsDCd+gtrXmf2ufCrG7SMnGugSqeQVaksA03aWKEhPwPphjv/meDYFzEbI8B0uDklGGCcIzkghfhu5o6r88eGpJalVBxIs157Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=i1W4sx8g; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792373962; c=relaxed/simple;
+	bh=HDe/sJAEmYOylIZNpRHLAmB90wcCrlY+qlF1S0YnkWc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p81YzgkTB2vHEfX+UR7km6+AwXXk2LJngghBjgZMJ3kWTdFz8StZIb9NN3T6Y95rb1rXA2nkefgb5QU9KPwZLBj+aD1LTaBlG7wSn9Y7ELa/k4/s9Mq9T9F+CtJ3jFb3xvoTsHQyzWxh9CAtwAdlU6sVy/VoFOfTU1nI+7IWOjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=sL8NwdK3; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="i1W4sx8g"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=aC
-	RFGGAvs4nIFnJc3XZnuc0+RIrIHT9UJji+bLTGziI=; b=i1W4sx8gKYQTDJzgoB
-	wDUdgKQBS4fUDsaxfJ2K1xK00ehpMoX2Bgx/9Bl9f52z6aRXtqGRSEEiRtUF2poB
-	VVQLN7nmpkCzsoD4JeNBErMY8FvA+L9HgeFqH59CCnFRcfXprCclG/ujAcNYiBe9
-	N3tY2jH+tQuuzi73ikkBGh2r4=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3Hw12dNVqOC6qBA--.31638S2;
-	Mon, 19 Oct 2026 09:37:59 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: sam@mendozajonas.com,
-	fercerpav@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	gwshan@linux.vnet.ibm.com,
-	joel@jms.id.au
-Cc: netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="sL8NwdK3"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so1386153a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:39:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792373958; x=1792978758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y7FGjbZkzoe6sSfHIZ7/1NewrsALE0UfgLMmOjZ+FHk=;
+        b=sL8NwdK34shQcJNNM6irTQQa69JpLqegC1/k+AqvDkoqnG/MOaBsSJPE7fwsIOzkdy
+         9GiO9a4L1JqdinJ/wF9JA0JPEmK8FDCeXDEOWY9JkK0NlK38q0pMtDOaRavP/uQKPTYn
+         VugfXiCCDD+j7VDx7Eb47W5hd1AzcurDX6gd/AwRqSBu1tl/yISPJt+m3F1Mwmgh0LsZ
+         iOgw4PnE8Om+se8Uc++w+I585QQl1PdCR9A0xoS70J/CnITsR78MIonk/RuCixcBlyce
+         5sjh+iZLdvSiW/+N3YC+rcRWTlYZ5ZCFy1BcSF5UhaXiwYstsLVz52a8w9dy2HKM4SKG
+         u20g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792373958; x=1792978758;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y7FGjbZkzoe6sSfHIZ7/1NewrsALE0UfgLMmOjZ+FHk=;
+        b=yfvlvvvxDiJXCnaDyuPTBjdqAotAYr20dOx47KUCmwg2k+3Tbm9OvH1of7u1eoYkjb
+         bB7IoN4j/B7hyBeTe/QRl/sPhS2ZvWhAjDOu83/2db8JD6sFsMxhF+m0A3cdfX1dmvj/
+         5AmPw3ANgsAGCDA/cKZUaYsVw5JLfyyvuxcZfbOhDiLkK36nAgBxRwmmql44jElMuTRw
+         hzRGN14msOvEpiXV+JAZCcBvT+04zWLBdWR/bATuSUGefrUvNZX4xHBT3Bn68tNXO0z7
+         +B+6h/cNqJLjW7yXvdnlZFXMlZFXdoy0xXJ+Qhdm+qHB2J+u3QoU3tnyDJjnZ1mCI3qJ
+         K+7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxfv6V9QCGBU4IC6ehTmTz52RtxG0MABjzxgqErtyzWLwSmBt6mzJfqTGf0PwT18DY8MPBqkBO7XBjiO5Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKF2YY09Sp8VUFB5wy2tM7nLN9jw+U8q5bAkML360wrXW9cFli5
+	W6UMIn/fDRI12/dAc9ajtdijES7BsygW1syPr8R/H7g9TWWNdIqJqtuq3StZFM9XUGA=
+X-Gm-Gg: AYBFou1t0NFmpWw1WT6hNnCM5fM3TTL3fHi48yOdm6eeKRV4NTfwCE2kpi4913zoTnB
+	MLtfBvFchUkQhQ0YnIo/6wc9giNJq5p34NLuVTKnTxsN+C6l6GgLGMehqT/ExpOE0r4gL60CkoU
+	E+tMK8kyQJabBSUbSZ/FLbL5ou5t+9Ol+FEnMjP/86hkZYciX0DdWmLADF0ynHqxYcFemDPMHx6
+	LgFM/iATnHAsh5tFiz3XBPiiE+WssXvBkAilSM4S8oHS/r0Q2JNIcJpuj9Wr9dQl6yVl4Tyu2Xf
+	DgN+gKJNeUaEAOjAQKkPXTlIzY9yPoYyBhgyMxvpZ7Y6aDHQbRSMEguv42oEz83EUwM665dNmid
+	n3lD4baBQshQsSNuofOk+gknmyq3UA3sDIXxK8Mtwwd//H95cq7Oi7R4kw5IJHtnked76Tb5TgK
+	6vm5vetWnJe5JDzF2wYFL73TvdxXhmup5oN7fATHMuO9t6jUV0zR5CYgigal5X1g72DPWi43HSq
+	Ed3CQ==
+X-Received: by 2002:a17:90b:4c85:b0:3ab:188b:c5bf with SMTP id 98e67ed59e1d1-3aceec79ae9mr5212268a91.18.1792373958258;
+        Sun, 18 Oct 2026 18:39:18 -0700 (PDT)
+Received: from yhlee-960QFG.. ([125.131.91.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4972fe6sm13789915a91.15.2026.10.18.18.39.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 18:39:17 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH net v3] net/ncsi: fix use-after-free of ncsi_channel in ncsi_remove_channel()
-Date: Mon, 19 Oct 2026 09:37:57 +0800
-Message-ID: <20261019013757.450036-1-18983559317@163.com>
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: pmcraid: bound the HCAM data length reported to user space
+Date: Mon, 19 Oct 2026 10:39:12 +0900
+Message-ID: <20261019013912.3729383-1-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -48,444 +74,130 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3Hw12dNVqOC6qBA--.31638S2
-X-Coremail-Antispam: 1Uf129KBjvAXoWfJr4UJF48XF4rGFykWF17Jrb_yoW8GF1fXo
-	WfXrW3Xr1kGr1UWayYq3ZaqFW7Za48Gr98Aan09w4kCFsxXrW5A343AanxWa4xZF4SkFWD
-	ZFnrXw4vqay8tr4kn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvj4RRfOzDUUUU
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC3xdKLmrVdHcxBQAA3k
 
-ncsi_remove_channel() frees the channel filter arrays and the channel
-itself immediately after list_del_rcu():
+pmcraid_notify_ccn() and pmcraid_notify_ldn() take data_len out of the
+HCAM header the IOA wrote into the coherent DMA buffer and pass it on to
+pmcraid_notify_aen(), which uses it as the netlink attribute length:
 
-    kfree(nc->mac_filter.addrs);
-    kfree(nc->vlan_filter.vids);
-    ...
-    list_del_rcu(&nc->node);
-    ...
-    kfree(nc);
+      data_size = le32_to_cpu(pinstance->ccn.hcam->data_len) +
+                  sizeof(struct pmcraid_hcam_hdr);
+      ...
+      nla_put(skb, PMCRAID_AEN_ATTR_EVENT, data_size, aen_msg);
 
-The generic netlink package info walkers iterate np->channels with the
-list_for_each_entry_rcu() based NCSI_FOR_EACH_CHANNEL() and
-dereference deep into the channel: ncsi_write_channel_info() reads
-nc->version.fw_name with nla_put_string() (strlen) and iterates
-nc->vlan_filter.vids[].  No NCSI genl handler enters an RCU read-side
-critical section -- genl doit and dumpit callbacks run under
-genl_mutex and cb_mutex -- so a walk that overlaps the teardown reads
-freed memory.  NCSI_CMD_PKG_INFO has no GENL_ADMIN_PERM, so an
-unprivileged user can race it against rmmod of the driver:
+data_len is never checked against the buffer it came from.  The CCN
+buffer is 4048 bytes, so an IOA reporting more than 4008 makes nla_put()
+read past the end of it, and what it reads is multicast to whoever is
+bound to the event group.  The LDN buffer is 4112 bytes and has the same
+problem above 4072.
 
-  writer: rmmod ftgmac100
-            -> ftgmac100_remove() -> ncsi_unregister_dev()
-            -> ncsi_remove_package() -> ncsi_remove_channel()
-  reader: sendmsg(NETLINK_GENERIC, NCSI_CMD_PKG_INFO)
-            -> ncsi_pkg_info_nl() -> ncsi_write_package_info()
+Driving pmcraid_notify_ccn() with data_len one byte past the limit, with
+the HCAM buffer allocated by kmalloc() at the production size because
+dma_alloc_coherent() memory is page granular and not tracked by KASAN:
 
-KASAN reports (arm multi_v7, QEMU ast2600-evb, KASAN + SLUB + PREEMPT,
-four threads looping PKG_INFO doit/dump while cycling insmod/rmmod):
+  BUG: KASAN: slab-out-of-bounds in nla_put+0xc7/0x160
+  Read of size 4049 at addr 00000000622c2000 by task kunit_try_catch/19
 
-  BUG: KASAN: slab-use-after-free in ncsi_write_package_info+0xa5c/0xf84
-  Read of size 1 at addr c69019e0 by task poc_dump/68
-  The buggy address belongs to the object at c6901800
-   which belongs to the cache kmalloc-1k of size 1024
-  The buggy address is located 480 bytes inside of
-   freed 1024-byte region [c6901800, c6901c00)
+  CPU: 0 UID: 0 PID: 19 Comm: kunit_try_catch Tainted: G        W        N  7.3.0-rc7-g58161ead29e5-dirty #5 VOLUNTARY
+  Tainted: [W]=WARN, [N]=TEST
+  Call Trace:
+   [<6008af12>] ? dump_stack_lvl+0x5e/0x7a
+   [<6003e621>] ? _printk+0x0/0xd7
+   [<6004b21d>] ? print_report+0x14b/0x517
+   [<6003e621>] ? _printk+0x0/0xd7
+   [<606ffcb7>] ? nla_put+0xc7/0x160
+   [<603aeebb>] ? kasan_report+0x11b/0x160
+   [<60950e4d>] ? __alloc_skb+0x1bd/0x9c0
+   [<606ffcb7>] ? nla_put+0xc7/0x160
+   [<603afe70>] ? kasan_check_range+0x0/0x1c0
+   [<603affbe>] ? kasan_check_range+0x14e/0x1c0
+   [<603b0a41>] ? __asan_memcpy+0x31/0x80
+   [<606ffcb7>] ? nla_put+0xc7/0x160
+   [<608801af>] ? pmcraid_notify_aen+0x19f/0x440
+   [<60882ba7>] ? pmcraid_aen_ccn_oob_one+0x1a7/0x380
+   [<60213550>] ? ktime_get_ts64+0x0/0x2c0
+   [<606ea77c>] ? kunit_try_run_case+0x1bc/0x310
+   [<606ea5c0>] ? kunit_try_run_case+0x0/0x310
+   [<603b08f0>] ? __kasan_check_read+0x0/0x20
+   [<600af020>] ? um_set_signals+0x0/0x60
+   [<600af020>] ? um_set_signals+0x0/0x60
+   [<6012e3cd>] ? __kthread_parkme+0xdd/0x1c0
+   [<606ea5c0>] ? kunit_try_run_case+0x0/0x310
+   [<606f0840>] ? kunit_generic_run_threadfn_adapter+0x0/0x100
+   [<606f08bc>] ? kunit_generic_run_threadfn_adapter+0x7c/0x100
+   [<6013464e>] ? kthread+0x36e/0x560
+   [<601342e0>] ? kthread+0x0/0x560
+   [<6008f0de>] ? new_thread_handler+0xce/0x130
 
-The 480-byte offset is nc->version.fw_name, read by the strlen() of
-the nla_put_string() in ncsi_write_channel_info() inlined into the
-walker; kmalloc-1k is the size class of struct ncsi_channel.  The
-dump variant of the same reader is caught reading the freed filter
-array instead:
-
-  BUG: KASAN: slab-use-after-free in ncsi_write_package_info+0xb6c/0xf84
-  Read of size 2 at addr c6b03600 by task poc_dump/72
-  The buggy address belongs to the object at c6b03600
-   which belongs to the cache kmalloc-64 of size 64
+  The buggy address belongs to the object at 00000000622c2000
+   which belongs to the cache kmalloc-4k of size 4096
   The buggy address is located 0 bytes inside of
-   freed 64-byte region [c6b03600, c6b03640)
+   allocated 4048-byte region [00000000622c2000, 00000000622c2fd0)
 
-which is the u16 vlan_filter.vids[] walk of the same handler.
+W is a UML virtio warning and N marks the KUnit harness that drove the
+call; neither comes from this path.
 
-Fix both halves of the contract for the channel:
+Clamp data_len to what the buffer can hold before it is used as a length.
+A working IOA never reports more than that, so this does not change what
+user space sees from one.
 
-  * The free of the channel and of the filter arrays, which are only
-    reachable through the channel, moves into an RCU callback.
+Found by inspection.  Not tested on a MaxRAID adapter.
 
-  * All seven genl handlers now resolve the device and walk the lists
-    inside an RCU read-side critical section.  The critical sections
-    are non-sleeping: the reply skb of the PKG_INFO doit is allocated
-    before the lock is taken (genlmsg_new(GFP_KERNEL) must not run
-    under rcu_read_lock()) and its unicast reply is sent after the
-    walk; NCSI_CMD_SEND_CMD runs ncsi_xmit_cmd() under the lock (it
-    only uses GFP_ATOMIC command skbs, spinlocks and
-    dev_queue_xmit()) and defers its error notification, which uses
-    the net_device captured inside the critical section.
-
-  * The handlers used get_net(sock_net(skb->sk)), which takes a
-    reference on init_net that is never dropped anywhere in
-    net/ncsi/; plain sock_net() is enough as the socket pins the
-    netns.
-
-The channel configuration worker is not covered by the RCU callback
-on purpose: it is quiesced by the companion series "net/ncsi: fix
-use-after-free of ncsi_dev_priv in ncsi_unregister_dev()", which runs
-disable_work_sync() before any object is released and stops every
-channel monitor before the removal loop, so nothing re-arms them.
-The packages and the device itself are deferred by that series and
-by "net/ncsi: fix use-after-free of ncsi_package in
-ncsi_remove_package()"; the race is closed by the three series
-together.
-
-Found by a Coccinelle rule matching kfree() immediately after
-list_del_rcu(); the code inspection and the fix were LLM-assisted,
-and the race was confirmed at runtime with KASAN as above.
-
-Fixes: 2d283bdd079c ("net/ncsi: Resource management")
-Fixes: 955dc68cb9b2 ("net/ncsi: Add generic netlink family")
-Signed-off-by: Binbin Deng <18983559317@163.com>
+Fixes: 89a3681041507 ("[SCSI] pmcraid: PMC-Sierra MaxRAID driver to support 6Gb/s SAS RAID controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- net/ncsi/internal.h     |  1 +
- net/ncsi/ncsi-manage.c  | 20 ++++++---
- net/ncsi/ncsi-netlink.c | 97 +++++++++++++++++++++++++++++++----------
- 3 files changed, 90 insertions(+), 28 deletions(-)
-
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index 3630ee4..a077e90 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -239,6 +239,7 @@ struct ncsi_channel {
- 	} monitor;
- 	struct list_head            node;
- 	struct list_head            link;
-+	struct rcu_head             rcu;
- };
- 
- struct ncsi_package {
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 70cb31e..dc7f333 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -242,17 +242,21 @@ struct ncsi_channel *ncsi_add_channel(struct ncsi_package *np, unsigned char id)
- 	return nc;
+diff --git a/drivers/scsi/pmcraid.c b/drivers/scsi/pmcraid.c
+index 942a993932049..f59d5a775aebb 100644
+--- a/drivers/scsi/pmcraid.c
++++ b/drivers/scsi/pmcraid.c
+@@ -1451,6 +1451,17 @@ static int pmcraid_notify_aen(
+ 	return result;
  }
  
-+static void ncsi_channel_release(struct rcu_head *rcu)
++/* The IOA picks data_len, so cap it at what the HCAM buffer holds before it
++ * becomes a copy length.  Returns the size to report, header included.
++ */
++static u32 pmcraid_hcam_data_size(__le32 data_len, size_t hcam_size)
 +{
-+	struct ncsi_channel *nc = container_of(rcu, struct ncsi_channel, rcu);
++	size_t hdr_size = sizeof(struct pmcraid_hcam_hdr);
 +
-+	kfree(nc->mac_filter.addrs);
-+	kfree(nc->vlan_filter.vids);
-+	kfree(nc);
++	return min_t(u32, le32_to_cpu(data_len), hcam_size - hdr_size) +
++	       hdr_size;
 +}
 +
- static void ncsi_remove_channel(struct ncsi_channel *nc)
+ /**
+  * pmcraid_notify_ccn - notifies about CCN event msg to user space
+  * @pinstance: pointer adapter instance structure
+@@ -1460,10 +1471,10 @@ static int pmcraid_notify_aen(
+  */
+ static int pmcraid_notify_ccn(struct pmcraid_instance *pinstance)
  {
- 	struct ncsi_package *np = nc->package;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&nc->lock, flags);
--
--	/* Release filters */
--	kfree(nc->mac_filter.addrs);
--	kfree(nc->vlan_filter.vids);
--
- 	nc->state = NCSI_CHANNEL_INACTIVE;
- 	spin_unlock_irqrestore(&nc->lock, flags);
- 	ncsi_stop_channel_monitor(nc);
-@@ -263,7 +267,11 @@ static void ncsi_remove_channel(struct ncsi_channel *nc)
- 	np->channel_num--;
- 	spin_unlock_irqrestore(&np->lock, flags);
- 
--	kfree(nc);
-+	/* Netlink walkers may still hold the channel or its filter
-+	 * arrays; the arrays are only reachable through @nc and share
-+	 * its grace period.
-+	 */
-+	call_rcu(&nc->rcu, ncsi_channel_release);
- }
- 
- struct ncsi_package *ncsi_find_package(struct ncsi_dev_priv *ndp,
-diff --git a/net/ncsi/ncsi-netlink.c b/net/ncsi/ncsi-netlink.c
-index 8cc5383..7e4c77e 100644
---- a/net/ncsi/ncsi-netlink.c
-+++ b/net/ncsi/ncsi-netlink.c
-@@ -169,11 +169,6 @@ static int ncsi_pkg_info_nl(struct sk_buff *msg, struct genl_info *info)
- 	if (!info->attrs[NCSI_ATTR_PACKAGE_ID])
- 		return -EINVAL;
- 
--	ndp = ndp_from_ifindex(genl_info_net(info),
--			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
--	if (!ndp)
--		return -ENODEV;
--
- 	skb = genlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
- 	if (!skb)
- 		return -ENOMEM;
-@@ -192,7 +187,24 @@ static int ncsi_pkg_info_nl(struct sk_buff *msg, struct genl_info *info)
- 		kfree_skb(skb);
- 		return -EMSGSIZE;
- 	}
+-	return pmcraid_notify_aen(pinstance,
+-				pinstance->ccn.msg,
+-				le32_to_cpu(pinstance->ccn.hcam->data_len) +
+-				sizeof(struct pmcraid_hcam_hdr));
++	u32 data_size = pmcraid_hcam_data_size(pinstance->ccn.hcam->data_len,
++					       sizeof(struct pmcraid_hcam_ccn_ext));
 +
-+	/* Resolve the device and walk its lists inside an RCU read-side
-+	 * critical section.  The channel and its filter arrays are freed
-+	 * from an RCU callback in this series; the packages and the
-+	 * device itself get their grace periods from the companion fixes
-+	 * for ncsi_remove_package() and ncsi_unregister_dev().
-+	 */
-+	rcu_read_lock();
-+	ndp = ndp_from_ifindex(genl_info_net(info),
-+			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
-+	if (!ndp) {
-+		rcu_read_unlock();
-+		kfree_skb(skb);
-+		return -ENODEV;
-+	}
-+
- 	rc = ncsi_write_package_info(skb, ndp, package_id);
-+	rcu_read_unlock();
- 
- 	if (rc) {
- 		nla_nest_cancel(skb, attr);
-@@ -228,20 +240,25 @@ static int ncsi_pkg_info_all_nl(struct sk_buff *skb,
- 	if (!attrs[NCSI_ATTR_IFINDEX])
- 		return -EINVAL;
- 
--	ndp = ndp_from_ifindex(get_net(sock_net(skb->sk)),
--			       nla_get_u32(attrs[NCSI_ATTR_IFINDEX]));
-+	package_id = cb->args[0];
- 
--	if (!ndp)
-+	rcu_read_lock();
-+	ndp = ndp_from_ifindex(sock_net(skb->sk),
-+			       nla_get_u32(attrs[NCSI_ATTR_IFINDEX]));
-+	if (!ndp) {
-+		rcu_read_unlock();
- 		return -ENODEV;
-+	}
- 
--	package_id = cb->args[0];
- 	package = NULL;
- 	NCSI_FOR_EACH_PACKAGE(ndp, np)
- 		if (np->id == package_id)
- 			package = np;
- 
--	if (!package)
-+	if (!package) {
-+		rcu_read_unlock();
- 		return 0; /* done */
-+	}
- 
- 	hdr = genlmsg_put(skb, NETLINK_CB(cb->skb).portid, cb->nlh->nlmsg_seq,
- 			  &ncsi_genl_family, NLM_F_MULTI,  NCSI_CMD_PKG_INFO);
-@@ -266,8 +283,10 @@ static int ncsi_pkg_info_all_nl(struct sk_buff *skb,
- 
- 	cb->args[0] = package_id + 1;
- 
-+	rcu_read_unlock();
- 	return skb->len;
- err:
-+	rcu_read_unlock();
- 	genlmsg_cancel(skb, hdr);
- 	return rc;
- }
-@@ -289,10 +308,13 @@ static int ncsi_set_interface_nl(struct sk_buff *msg, struct genl_info *info)
- 	if (!info->attrs[NCSI_ATTR_PACKAGE_ID])
- 		return -EINVAL;
- 
--	ndp = ndp_from_ifindex(get_net(sock_net(msg->sk)),
-+	rcu_read_lock();
-+	ndp = ndp_from_ifindex(sock_net(msg->sk),
- 			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
--	if (!ndp)
-+	if (!ndp) {
-+		rcu_read_unlock();
- 		return -ENODEV;
-+	}
- 
- 	package_id = nla_get_u32(info->attrs[NCSI_ATTR_PACKAGE_ID]);
- 	package = NULL;
-@@ -302,6 +324,7 @@ static int ncsi_set_interface_nl(struct sk_buff *msg, struct genl_info *info)
- 			package = np;
- 	if (!package) {
- 		/* The user has set a package that does not exist */
-+		rcu_read_unlock();
- 		return -ERANGE;
- 	}
- 
-@@ -317,6 +340,7 @@ static int ncsi_set_interface_nl(struct sk_buff *msg, struct genl_info *info)
- 			netdev_info(ndp->ndev.dev,
- 				    "NCSI: Channel %u does not exist!\n",
- 				    channel_id);
-+			rcu_read_unlock();
- 			return -ERANGE;
- 		}
- 	}
-@@ -350,6 +374,7 @@ static int ncsi_set_interface_nl(struct sk_buff *msg, struct genl_info *info)
- 	if (!(ndp->flags & NCSI_DEV_RESET))
- 		ncsi_reset_dev(&ndp->ndev);
- 
-+	rcu_read_unlock();
- 	return 0;
++	return pmcraid_notify_aen(pinstance, pinstance->ccn.msg, data_size);
  }
  
-@@ -365,10 +390,13 @@ static int ncsi_clear_interface_nl(struct sk_buff *msg, struct genl_info *info)
- 	if (!info->attrs[NCSI_ATTR_IFINDEX])
- 		return -EINVAL;
- 
--	ndp = ndp_from_ifindex(get_net(sock_net(msg->sk)),
-+	rcu_read_lock();
-+	ndp = ndp_from_ifindex(sock_net(msg->sk),
- 			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
--	if (!ndp)
-+	if (!ndp) {
-+		rcu_read_unlock();
- 		return -ENODEV;
-+	}
- 
- 	/* Reset any whitelists and disable multi mode */
- 	spin_lock_irqsave(&ndp->lock, flags);
-@@ -389,12 +417,14 @@ static int ncsi_clear_interface_nl(struct sk_buff *msg, struct genl_info *info)
- 	if (!(ndp->flags & NCSI_DEV_RESET))
- 		ncsi_reset_dev(&ndp->ndev);
- 
-+	rcu_read_unlock();
- 	return 0;
- }
- 
- static int ncsi_send_cmd_nl(struct sk_buff *msg, struct genl_info *info)
+ /**
+@@ -1475,10 +1486,10 @@ static int pmcraid_notify_ccn(struct pmcraid_instance *pinstance)
+  */
+ static int pmcraid_notify_ldn(struct pmcraid_instance *pinstance)
  {
- 	struct ncsi_dev_priv *ndp;
-+	struct net_device *dev;
- 	struct ncsi_pkt_hdr *hdr;
- 	struct ncsi_cmd_arg nca;
- 	unsigned char *data;
-@@ -427,17 +457,21 @@ static int ncsi_send_cmd_nl(struct sk_buff *msg, struct genl_info *info)
- 		goto out;
- 	}
- 
--	ndp = ndp_from_ifindex(get_net(sock_net(msg->sk)),
-+	rcu_read_lock();
-+	ndp = ndp_from_ifindex(sock_net(msg->sk),
- 			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
- 	if (!ndp) {
-+		rcu_read_unlock();
- 		ret = -ENODEV;
- 		goto out;
- 	}
-+	dev = ndp->ndev.dev;
- 
- 	package_id = nla_get_u32(info->attrs[NCSI_ATTR_PACKAGE_ID]);
- 	channel_id = nla_get_u32(info->attrs[NCSI_ATTR_CHANNEL_ID]);
- 
- 	if (package_id >= NCSI_MAX_PACKAGE || channel_id >= NCSI_MAX_CHANNEL) {
-+		rcu_read_unlock();
- 		ret = -ERANGE;
- 		goto out_netlink;
- 	}
-@@ -446,6 +480,7 @@ static int ncsi_send_cmd_nl(struct sk_buff *msg, struct genl_info *info)
- 	if (len < sizeof(struct ncsi_pkt_hdr)) {
- 		netdev_info(ndp->ndev.dev, "NCSI: no command to send %u\n",
- 			    package_id);
-+		rcu_read_unlock();
- 		ret = -EINVAL;
- 		goto out_netlink;
- 	} else {
-@@ -462,18 +497,25 @@ static int ncsi_send_cmd_nl(struct sk_buff *msg, struct genl_info *info)
- 	nca.info = info;
- 	nca.payload = ntohs(hdr->length);
- 	if (nca.payload > len - sizeof(*hdr)) {
-+		rcu_read_unlock();
- 		ret = -EINVAL;
- 		goto out_netlink;
- 	}
- 	nca.data = data + sizeof(*hdr);
- 
-+	/* ncsi_xmit_cmd() is safe to run under the RCU read-side
-+	 * critical section: it only uses GFP_ATOMIC command skbs,
-+	 * spinlocks and dev_queue_xmit().
-+	 */
- 	ret = ncsi_xmit_cmd(&nca);
-+	rcu_read_unlock();
+-	return pmcraid_notify_aen(pinstance,
+-				pinstance->ldn.msg,
+-				le32_to_cpu(pinstance->ldn.hcam->data_len) +
+-				sizeof(struct pmcraid_hcam_hdr));
++	u32 data_size = pmcraid_hcam_data_size(pinstance->ldn.hcam->data_len,
++					       sizeof(struct pmcraid_hcam_ldn));
 +
- out_netlink:
- 	if (ret != 0) {
--		netdev_err(ndp->ndev.dev,
-+		netdev_err(dev,
- 			   "NCSI: Error %d sending command\n",
- 			   ret);
--		ncsi_send_netlink_err(ndp->ndev.dev,
-+		ncsi_send_netlink_err(dev,
- 				      info->snd_seq,
- 				      info->snd_portid,
- 				      info->nlhdr,
-@@ -608,10 +650,13 @@ static int ncsi_set_package_mask_nl(struct sk_buff *msg,
- 	if (!info->attrs[NCSI_ATTR_PACKAGE_MASK])
- 		return -EINVAL;
- 
--	ndp = ndp_from_ifindex(get_net(sock_net(msg->sk)),
-+	rcu_read_lock();
-+	ndp = ndp_from_ifindex(sock_net(msg->sk),
- 			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
--	if (!ndp)
-+	if (!ndp) {
-+		rcu_read_unlock();
- 		return -ENODEV;
-+	}
- 
- 	spin_lock_irqsave(&ndp->lock, flags);
- 	if (nla_get_flag(info->attrs[NCSI_ATTR_MULTI_FLAG])) {
-@@ -639,6 +684,7 @@ static int ncsi_set_package_mask_nl(struct sk_buff *msg,
- 			ncsi_reset_dev(&ndp->ndev);
- 	}
- 
-+	rcu_read_unlock();
- 	return rc;
++	return pmcraid_notify_aen(pinstance, pinstance->ldn.msg, data_size);
  }
  
-@@ -663,10 +709,13 @@ static int ncsi_set_channel_mask_nl(struct sk_buff *msg,
- 	if (!info->attrs[NCSI_ATTR_CHANNEL_MASK])
- 		return -EINVAL;
- 
--	ndp = ndp_from_ifindex(get_net(sock_net(msg->sk)),
-+	rcu_read_lock();
-+	ndp = ndp_from_ifindex(sock_net(msg->sk),
- 			       nla_get_u32(info->attrs[NCSI_ATTR_IFINDEX]));
--	if (!ndp)
-+	if (!ndp) {
-+		rcu_read_unlock();
- 		return -ENODEV;
-+	}
- 
- 	package_id = nla_get_u32(info->attrs[NCSI_ATTR_PACKAGE_ID]);
- 	package = NULL;
-@@ -675,8 +724,10 @@ static int ncsi_set_channel_mask_nl(struct sk_buff *msg,
- 			package = np;
- 			break;
- 		}
--	if (!package)
-+	if (!package) {
-+		rcu_read_unlock();
- 		return -ERANGE;
-+	}
- 
- 	spin_lock_irqsave(&package->lock, flags);
- 
-@@ -690,6 +741,7 @@ static int ncsi_set_channel_mask_nl(struct sk_buff *msg,
- 			}
- 		if (!channel) {
- 			spin_unlock_irqrestore(&package->lock, flags);
-+			rcu_read_unlock();
- 			return -ERANGE;
- 		}
- 		netdev_dbg(ndp->ndev.dev,
-@@ -721,6 +773,7 @@ static int ncsi_set_channel_mask_nl(struct sk_buff *msg,
- 	if (!(ndp->flags & NCSI_DEV_RESET))
- 		ncsi_reset_dev(&ndp->ndev);
- 
-+	rcu_read_unlock();
- 	return 0;
- }
- 
+ /**
 -- 
 2.43.0
 
