@@ -1,216 +1,261 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2117.outbound.protection.partner.outlook.cn [139.219.146.117])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D88F4CF473;
-	Mon, 19 Oct 2026 11:40:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.117
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792410034; cv=fail; b=CztH8RNFWXKVCXSZp1GIQLOhtLHBHEirO8kaA9j0WYw6bI28007QqLA8B8XDAO6TwEzZQEvT7kEclPw1jOpVNGZBG/wgFF8CoABq65nBqvM5+YtEEElgLkOFpW9J37Nba3Vro+aq0UPiVWD9Ac4dugpbXvVj440z95FZFueNrdo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792410034; c=relaxed/simple;
-	bh=OmgMQo1CZxuG6sD5lt5LhCPhQ5rdzOtN8tyswjc4PXk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QtInnVdeB1NkasTtOhWrO/FjGdxp+/i7GKDimV2il4BVBK/hIAg8KSFtjezbU7O5ZcRx+Gm2ZqUwYlihKY/XRrnaFb9IfMJ4XWn0GNM68wG78LwGyinH1ZsCbHSF2yJ7M3NuM+BJdJS6GVXY58olNlEKJho3LfasFdaRDk+1Wqs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UMzKqhc+Qqnu/4oK8V8AS+EKOVcXnpVnZ8/MlMn+/TfCHLcsiOXpadHPCd5tC/tRiXr16Gzf5UES8enUVMPWrsypNzk2JNXR4tibAXcU3n3d+4kNutbKTGfV3GJY0ngkzDSZCA5jxxHkzosm3dHkMdjSA2z4oPGGZ8t3FaF+FJq0bJBcfj9cjdTg0828lIqAB1LARmVJZc0wUf31DtwfFGDHORALhL1EUXg8vQfU6rYP4utHlcd2Dpa1XKXwqseFc9M/J0Iajfw8qDtYs/vcFdhCQrwwsvTLS0QsymwlVrt0/dDkrCXHNAI1hUXgdF7y3DZuZOCrfQuCVwKek+21CQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=15hUMvN0PPzdUn/IJzzq8MDlV86NiVKJxdczp5axw50=;
- b=D/tjaPyz/BfaYrJqYYaGbH/qlUkQUGej72woBppudnab6ZlycMtJgssAOBJFcbg9A9VRi5TYl15LGs35AsVx0G1VRCUTv1AFV6A8mzoWCbBYIiD+J+5vCGljrTsfi83DmivB6ROfLJ5KpFNX42+hVF6uHdDZZSSQMt0og4EX2xwlQkAFGFhvfEFZWrmB6PGnrmMV22pTkb7UvO3lhceDjPNjef2mVjvqSlSNFNCf5HEXrtVN01K6ouzdDOL0D2vgdd8gzJTbPWwMxOUOX2AuUh4YwlT0Zh0NIr/ek5iTzc4HAvEZzvUSW6XmO/5hvx8OvYIvzNEkPvj5WgT/8kuqEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1204.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 10:07:03 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0522.017; Mon, 19 Oct 2026 10:07:03 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
-	Oskar Senft <osk@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Vitaly Lubart <lubvital@gmail.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Breno Leitao <leitao@debian.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	James Morse <james.morse@arm.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	Dave Penkler <dpenkler@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Mukesh Rathor <mrathor@linux.microsoft.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Alexandra Winter <wintera@linux.ibm.com>,
-	Julian Braha <julianbraha@gmail.com>,
-	Karthikeyan KS <karthiproffesional@gmail.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org
-Subject: [PATCH v4 3/4] dt-bindings: soc: starfive: Add StarFive JHB100 UART routing
-Date: Mon, 19 Oct 2026 03:06:42 -0700
-Message-Id: <20261019100643.49099-4-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261019100643.49099-1-changhuang.liang@starfivetech.com>
-References: <20261019100643.49099-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0011.CHNPR01.prod.partner.outlook.cn (10.2.10.20)
- To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn (10.2.3.102)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246ED4BD0F2
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:41:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792410083; cv=none; b=S7GT/7Rmlmf1GIAdtheZq61TSNwQ/aa3nG+iyk8SpOXNg5savD8UMChvnY2hcMkmcEdK9HozC033/2jU+lZksFhhyC3t5KPxkQczq6egR94qSiBfcUKGJfe51kWHnUM2EBWvAxTkiKuoVIzBOYHrO7FGm8DtdM1PBq2f2eJK8ks=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792410083; c=relaxed/simple;
+	bh=zEJVgjcBGbrqH08I+qznBHmXlJCeMYko7gMge74Am9E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XHIt9qrH6+V0IxUeEv6vcRj/cCjUVMVscggWPY8/F7fO5rxUeSJNEL7XZqt8Z8K6gH4JLgVpcEYFJwLI4mfTegqvvWecHiQV8aWuiMUewNNvPbxv04cleNdYQygMyKCveXkjvPkIGMGO79WK5DYqqas2gOdKbAXE6YvaldVqOL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=U6XYO5E7; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="U6XYO5E7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792410079;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8DxTawxVsBVMU+eNgJ4WRFaRIuf1HoW5qX8Tt2MpppQ=;
+	b=U6XYO5E7niZYc71N4CXCcUQuhZsWku9DAegLVNvGYuHUadH5iOtrYpRxkBe708YJ9EmTXw
+	nmx2YoJzAbOybW7kSwS6ruuW5g3bqItnbpFFEYHPu6uyVKZyHkABBCoThPh98rzE4pyVXg
+	xqHeLc4pTf5DhRLT01o2EjFHPhhv38Q=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-207-2s4ju_6yNseowZAkziHcPg-1; Mon,
+ 19 Oct 2026 11:41:15 +0000
+X-MC-Unique: 2s4ju_6yNseowZAkziHcPg-1
+X-Mimecast-MFC-AGG-ID: 2s4ju_6yNseowZAkziHcPg_1792410073
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E5B051955F45;
+	Mon, 19 Oct 2026 11:41:12 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 5089B18002B1;
+	Mon, 19 Oct 2026 11:41:06 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Mon, 19 Oct 2026 13:41:12 +0200 (CEST)
+Date: Mon, 19 Oct 2026 13:41:05 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: kernel test robot <yi1.lai@intel.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	Joel Granados <joel.granados@kernel.org>,
+	linux-m68k@lists.linux-m68k.org, linux-s390@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, netdev@vger.kernel.org,
+	wireguard@lists.zx2c4.com, achender@kernel.org
+Subject: Re: [linus:master] [sysctl]  8d75c338f0:
+ BUG:KASAN:slab-use-after-free_in_touch_wq_lockdep_map
+Message-ID: <atYB0bm9eEXp8A2g@redhat.com>
+References: <202610190310.9737b2e3-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1204:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5fad4be-8837-49da-931c-08df2dc8b953
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|52116014|18002099003|22082099003|3023799007|10067099003|261009223027099003|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	KJs/p4/WYcehR6w9dENBaKh4NPikvRIpEI7XKUmdd0E52jQVNFXekW+NHvLk9F0VzwRNORVba65RXAtTLDPnl2vU4U8cJZh3Vmr6d6raI6e6V9bU5VAJPgnse7qwPuFernhG2UdOCVbMiAFJfariqkPnjN80wyhXtMgQBM20MEOaOVjZXuFUoMA3Hbqu1RKiOuTVvQo2LT86BwbpfzgjVmOoMGF30HdjNn9/+/HO051Q+aHcR+JEIyZyyVTuCuyLA6oE/l5xiebjtGyUvfYPdO89VpD3HXxWqzo74YyGhJV1V3IN3dpXZXeFVQaF7QIz0OK1eNWggmFD+wESWG2aR+ZGRzuyCArMwAy8r1nyjaxIUXoBxoRJCJfeBdyrjLKcdusE/3dY8g9afvzJ8H7nRghCpG2AOSkmRZgelArp6dIaG6wVCaSaFK6rI5ePE72y6+9p8diQ+6IbmN/smzbjxFOGF7UHfrnhUDmo2xfnuB5yQacsT1zVMI+c/Cx2Ba0Fgmza5mkFea0i+t71uXng4HiYP8XhVKbS+eHQT1UW6DUib/o3GBsWXlg1KPjVkibS
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(52116014)(18002099003)(22082099003)(3023799007)(10067099003)(261009223027099003)(56012099006)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Q9ktnBLEEjSWHmS03DQJazSoPHtkstvI//g3gYU8F29Y05bnC10g01BDB4Xx?=
- =?us-ascii?Q?UoLMym602rZ63W82wRNRuixGTEGGRqvAy2ZXlHiFnqqV0ZGlLezxRRCdaCFE?=
- =?us-ascii?Q?6Uv7fFZ9iGB5+a40SMLdca43BIe7Hs/ou4J8Bx4us9w/U93hMk0971kv0EP4?=
- =?us-ascii?Q?yohMWNUq0uB/8RIPeJ3fjKZLkLmpYY5ZJaoOquB1BSQCfJmikBbWaCUc4eLa?=
- =?us-ascii?Q?5Y6O2Km8Xwf663iO1q2OIVLRW95Bipdd9Racd7KleOP0Out8vUMDjlu7nHiP?=
- =?us-ascii?Q?9Fpx7T5D9SHF7VFj1slcJmqT7w66p1k8CylY1uAS7WYY5PI0yE5vY/UOoJMV?=
- =?us-ascii?Q?4NLlPvGihP26UHNFNXIR7w4kg51WqSGwG964p39QwhK+VcUj3/1W/v11zLrH?=
- =?us-ascii?Q?uIg3Aw1J1A4/b4ykdQUV5i8+u2ZLExgtio9na6PvsHlSQlGGHQ4iUJyZVKOC?=
- =?us-ascii?Q?Nc1qa8FgP+O4mUBWm/cBw+ZDoed/fuBjhOlxLFMw7SZNdUrds7tUwaA5H7wS?=
- =?us-ascii?Q?BqrlICyqA2LefxWKYPl609o0izCt5yfYUJxBRsoFvofbkU6Xl5tnZCLHbuDm?=
- =?us-ascii?Q?aLKwqrtgfTIuQufN22PxcoQ6TQg9DADQ5Qh9SMuKRowlkcXQMNqHS/ZIu4NR?=
- =?us-ascii?Q?2RAYu+GAHzT+xfjx2Likl3YGBvylinXIhzc2cA6r6g2aUhKWm37kSHnwMMB4?=
- =?us-ascii?Q?t5sQsbMyGisOo1BT5TQlLH1Lf2Sx0v8vX5iUNgQvSnLLxRO1/pDsuSW9EuvG?=
- =?us-ascii?Q?D/Tp/eeOw1+vAUwcWCYaXOt2rx8IBuPbcvZmaRSCqeyoIXcI0yXDB/X7FRse?=
- =?us-ascii?Q?KJiXM5ADeT2WTlVkS3LBw6OPxrCUP5GCyED9HtsAOM7YRSSKSOEOouh75pIA?=
- =?us-ascii?Q?DN1CxNgly9I3lwS6JQaVZGFzp0gTg/0w+7oD8dwNQVJm099olZFACUBE9b10?=
- =?us-ascii?Q?ONQ3gvQwfpwSYmQex6NBn8nYu8vqK8xEKIGl1UI9vBrf2S5JjZ1Z4FkI/vTj?=
- =?us-ascii?Q?MAFO+dedEAtgFgocV6jHA047ida8woV9m/6Em4XB9ydwErELdR0av3w57gl7?=
- =?us-ascii?Q?5VJz68M0Cx/95wh/1xnnGHVmGUzUENOtv8iBFXlHg6SMCHCSdwLWMEGoyJZs?=
- =?us-ascii?Q?Qh763G2MnYYzmOStrbt/Dky+Lft7qPdXSM9uQteI8x2Mw8Fhgaq4cz5PVFZJ?=
- =?us-ascii?Q?0NEC77eZy5vP7XVf+GM76khTJxRJy8mveytMSmhkH7XlSSABqpEc35sToAmV?=
- =?us-ascii?Q?FPHYWJb8ax5ESl3kAnJ6fMmXgnsEbqC0IpVwBBP8LWBo04HCuPnKRnWrtSw/?=
- =?us-ascii?Q?tI0O3eV6i8W67KWUdKoK0QM6r/IJj2UvHobKge3zelS4DCvgF430xo81havo?=
- =?us-ascii?Q?JfQzHA0znPdi3vW7H4Dot2cFL6HZvY5n/U2DQBgxVBuOW2Ip0/UgniLewu/M?=
- =?us-ascii?Q?p9Qs/vNHJdcAeNJW/3VGQtbJx9JCLwSX2aYijhrIf3wHmFdkrAGaTzrItlQ4?=
- =?us-ascii?Q?Mcdx+t8J87NIhL1agQVuN4rbJE17EhI7S+ITWPCnSph/IqXsavVCVUxHD2/x?=
- =?us-ascii?Q?HkKiZ7lYcMM69vO09uxosWCk2572kt/jMz7wMEnY3pAn8eiqNRp7DHdiF+Sr?=
- =?us-ascii?Q?k6ruRUoNAGWxfA3mV+DymD3c2AEH+u//B6SA2VX141po9692P+69Wfk8PqQA?=
- =?us-ascii?Q?H1POF6hJkLwZdp6Pm7QsJTv8E4G7JOZQhGu55PLhnVlQbF5jjvyCQwOH6frn?=
- =?us-ascii?Q?PifiN0yhFwT/vOafp6gDId8hbfw1fAnVn2JP3OSdUCaMti6PJHh2?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5fad4be-8837-49da-931c-08df2dc8b953
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 10:07:03.7437
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n/+XcDsnacamgFVMk8cprd97whYURy5I1VIpQaCRYkCX1TepMctlwvWxt6EgnhavPPpn8M3vMJeArsAhNlJW+7Ws59OoD+3EeuMZy9SZT8Lx9/629aDn25ZwEdPBwzgL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1204
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202610190310.9737b2e3-lkp@intel.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Add device tree binding for the StarFive JHB100 UART routing controller.
-This controller allows dynamic routing of inputs between built-in UARTs
-and physical serial I/O ports, enabling use cases such as Host <-> BMC
-communication via UARTs.
+On 10/19, kernel test robot wrote:
+>
+>
+> Hello,
+>
+> kernel test robot noticed "BUG:KASAN:slab-use-after-free_in_touch_wq_lockdep_map" on:
+>
+> commit: 8d75c338f0bcecaa6c9af67f86c176b67b6acf3e ("sysctl: remove CONFIG_PROC_SYSCTL, it just mirrors CONFIG_SYSCTL") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
 
-The clocks property exists in the hardware, but the driver does not use
-it.
+I don't think that commit could cause such a problem. Please re-check.
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../soc/starfive/starfive,uart-routing.yaml   | 46 +++++++++++++++++++
- 1 file changed, 46 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
+Oleg.
 
-diff --git a/Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml b/Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
-new file mode 100644
-index 000000000000..5de809ab3a99
---- /dev/null
-+++ b/Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
-@@ -0,0 +1,46 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/soc/starfive/starfive,uart-routing.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: StarFive JHB100 UART Routing Controller
-+
-+maintainers:
-+  - Changhuang Liang <changhuang.liang@starfivetech.com>
-+
-+description: |
-+  The StarFive JHB100 UART routing controller allows dynamic routing of the
-+  inputs for the built-in UARTs and the physical serial I/O ports.
-+
-+  This allows, for example, connecting the output of one UART to another
-+  UART, which can be used to enable Host <-> BMC communication over UARTs,
-+  e.g. to give the BMC access to the Host's serial console.
-+
-+properties:
-+  compatible:
-+    const: starfive,jhb100-uart-routing
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    uart-routing@11a42a00 {
-+        compatible = "starfive,jhb100-uart-routing";
-+        reg = <0x11a42a00 0x100>;
-+        resets = <&per0crg 74>;
-+    };
--- 
-2.25.1
+> [test failed on linux-next/master b810335a0699d1810683796b0e3ffe8827ddfe6c]
+>
+> in testcase: boot
+>
+> config: x86_64-randconfig-2300-20261014
+> compiler: gcc-14
+> test machine: qemu-system-x86_64 -enable-kvm -cpu Haswell-noTSX,enforce -smp 4 -m 16G
+>
+> (please refer to attached dmesg/kmsg for entire log/backtrace)
+>
+>
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <yi1.lai@intel.com>
+> | Closes: https://lore.kernel.org/oe-lkp/202610190310.9737b2e3-lkp@intel.com
+>
+>
+> [   35.688893][    T1] BUG: KASAN: slab-use-after-free in touch_wq_lockdep_map (workqueue.c:4031 (discriminator 1))
+> [   35.688893][    T1] Read of size 8 at addr ffff8881259a2968 by task swapper/0/1
+> [   35.688893][    T1]
+> [   35.688893][    T1] CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.2.0-rc2-00010-g8d75c338f0bc #1 PREEMPT
+> [   35.688893][    T1] Call Trace:
+> [   35.688893][    T1]  <TASK>
+> [   35.688893][    T1]  dump_stack_lvl (dump_stack.c:94 dump_stack.c:120)
+> [   35.688893][    T1]  ? touch_wq_lockdep_map (workqueue.c:4031 (discriminator 1))
+> [   35.688893][    T1]  print_address_description+0x51/0x300
+> [   35.688893][    T1]  ? rcu_is_watching (rcu/tree.c:753 (discriminator 3))
+> [   35.688893][    T1]  ? touch_wq_lockdep_map (workqueue.c:4031 (discriminator 1))
+> [   35.688893][    T1]  print_report (kasan/report.c:482)
+> [   35.688893][    T1]  ? kmem_cache_debug_flags (slab.h:503)
+> [   35.688893][    T1]  ? fixup_red_left (slub.c:250)
+> [   35.688893][    T1]  ? touch_wq_lockdep_map (workqueue.c:4031 (discriminator 1))
+> [   35.688893][    T1]  kasan_report (kasan/report.c:595)
+> [   35.688893][    T1]  ? touch_wq_lockdep_map (workqueue.c:4031 (discriminator 1))
+> [   35.688893][    T1]  touch_wq_lockdep_map (workqueue.c:4031 (discriminator 1))
+> [   35.688893][    T1]  __flush_workqueue (workqueue.c:4079)
+> [   35.688893][    T1]  ? xa_load (xarray.c:1621)
+> [   35.688893][    T1]  ? tracer_preempt_on (trace/trace_irqsoff.c:686 (discriminator 1))
+> [   35.688893][    T1]  ? preempt_count_sub (sched/core.c:6019)
+> [   35.688893][    T1]  ? rcu_is_watching (rcu/tree.c:753 (discriminator 3))
+> [   35.688893][    T1]  ? preempt_count_sub (sched/core.c:6019)
+> [   35.688893][    T1]  ? touch_wq_lockdep_map (workqueue.c:4043)
+> [   35.688893][    T1]  ? __up_write (locking/rwsem.c:1422 (discriminator 4))
+> [   35.688893][    T1]  rds_ib_init (rds/ib.c:618)
+> [   35.688893][    T1]  rds_rdma_init (rds/rdma_transport.c:300)
+> [   35.688893][    T1]  ? rds_init (af_rds.c:?)
+> [   35.688893][    T1]  ? __raw_spin_unlock_irqrestore (linux/spinlock_api_smp.h:179 (discriminator 4))
+> [   35.688893][    T1]  ? add_device_randomness (linux/spinlock.h:408 char/random.c:936)
+> [   35.688893][    T1]  ? random_get_entropy (x86/include/asm/timex.h:11)
+> [   35.688893][    T1]  ? sctp_diag_init (diag.c:?)
+> [   35.688893][    T1]  ? rds_init (rds/af_rds.c:977)
+> [   35.688893][    T1]  ? rcu_is_watching (rcu/tree.c:753 (discriminator 3))
+> [   35.688893][    T1]  ? rds_init (af_rds.c:?)
+> [   35.688893][    T1]  do_one_initcall (main.c:1347)
+> [   35.688893][    T1]  ? trace_initcall_finish_cb (main.c:1289 (discriminator 1))
+> [   35.688893][    T1]  ? __kmalloc_noprof (slub.c:5363 slub.c:5387)
+> [   35.688893][    T1]  ? do_initcalls (linux/slab.h:973 linux/slab.h:1290 main.c:1418)
+> [   35.688893][    T1]  do_initcalls (main.c:1409 (discriminator 1) main.c:1425 (discriminator 1))
+> [   35.688893][    T1]  kernel_init_freeable (main.c:1445 main.c:1658)
+> [   35.688893][    T1]  ? rest_init (main.c:717)
+> [   35.688893][    T1]  kernel_init (main.c:1548)
+> [   35.688893][    T1]  ? rest_init (main.c:717)
+> [   35.688893][    T1]  ret_from_fork (x86/kernel/process.c:158)
+> [   35.688893][    T1]  ? exit_thread (x86/kernel/process.c:138)
+> [   35.688893][    T1]  ? __switch_to (x86/kernel/process_64.c:674)
+> [   35.688893][    T1]  ? rest_init (main.c:717)
+> [   35.688893][    T1]  ret_from_fork_asm (x86/entry/entry_64.S:245)
+> [   35.688893][    T1]  </TASK>
+> [   35.688893][    T1]
+> [   35.688893][    T1] Allocated by task 1 on cpu 1 at 35.661878s:
+> [   35.688893][    T1]  stack_trace_save (stacktrace.c:122 (discriminator 1))
+> [   35.688893][    T1]  kasan_save_stack (kasan/common.c:57)
+> [   35.688893][    T1]  kasan_save_track (kasan/common.c:78)
+> [   35.688893][    T1]  __kasan_kmalloc (kasan/common.c:415)
+> [   35.688893][    T1]  __kmalloc_noprof (linux/kasan.h:263 slub.c:5362 slub.c:5387)
+> [   35.688893][    T1]  __alloc_workqueue (workqueue.c:5827)
+> [   35.688893][    T1]  alloc_workqueue_va (workqueue.c:5946)
+> [   35.688893][    T1]  alloc_workqueue_noprof (workqueue.c:5962)
+> [   35.688893][    T1]  rds_threads_init (rds/threads.c:259 (discriminator 2))
+> [   35.688893][    T1]  rds_init (rds/af_rds.c:961)
+> [   35.688893][    T1]  do_one_initcall (main.c:1347)
+> [   35.688893][    T1]  do_initcalls (main.c:1409 (discriminator 1) main.c:1425 (discriminator 1))
+> [   35.688893][    T1]  kernel_init_freeable (main.c:1445 main.c:1658)
+> [   35.688893][    T1]  kernel_init (main.c:1548)
+> [   35.688893][    T1]  ret_from_fork (x86/kernel/process.c:158)
+> [   35.688893][    T1]  ret_from_fork_asm (x86/entry/entry_64.S:245)
+> [   35.688893][    T1]
+> [   35.688893][    T1] Freed by task 0 on cpu 3 at 35.674112s:
+> [   35.688893][    T1]  stack_trace_save (stacktrace.c:122 (discriminator 1))
+> [   35.688893][    T1]  kasan_save_stack (kasan/common.c:57)
+> [   35.688893][    T1]  kasan_save_track (kasan/common.c:78)
+> [   35.688893][    T1]  kasan_save_free_info (kasan/generic.c:584)
+> [   35.688893][    T1]  __kasan_slab_free (kasan/common.c:285)
+> [   35.688893][    T1]  kfree (linux/kasan.h:235 slub.c:2705 slub.c:6405 slub.c:6720)
+> [   35.688893][    T1]  rcu_do_batch (rcu/tree.c:2645)
+> [   35.688893][    T1]  rcu_core (rcu/tree.c:2897)
+> [   35.688893][    T1]  handle_softirqs (softirq.c:622)
+> [   35.688893][    T1]  __irq_exit_rcu (softirq.c:496 softirq.c:735)
+> [   35.688893][    T1]  irq_exit_rcu (softirq.c:752)
+> [   35.688893][    T1]  sysvec_apic_timer_interrupt (x86/kernel/apic/apic.c:1062 (discriminator 35) x86/kernel/apic/apic.c:1062 (discriminator 35))
+> [   35.688893][    T1]  asm_sysvec_apic_timer_interrupt (x86/include/asm/idtentry.h:546)
+> [   35.688893][    T1]
+> [   35.688893][    T1] Last potentially related work creation:
+> [   35.688893][    T1]  stack_trace_save (stacktrace.c:122 (discriminator 1))
+> [   35.688893][    T1]  kasan_save_stack (kasan/common.c:57)
+> [   35.688893][    T1]  kasan_record_aux_stack (kasan/generic.c:556)
+> [   35.688893][    T1]  __call_rcu_common+0xe6/0x480
+> [   35.688893][    T1]  kthread_worker_fn (kthread.c:1025)
+> [   35.688893][    T1]  kthread (kthread.c:436)
+> [   35.688893][    T1]  ret_from_fork (x86/kernel/process.c:158)
+> [   35.688893][    T1]  ret_from_fork_asm (x86/entry/entry_64.S:245)
+> [   35.688893][    T1]
+> [   35.688893][    T1] The buggy address belongs to the object at ffff8881259a2800
+> [   35.688893][    T1]  which belongs to the cache kmalloc-1k of size 1024
+> [   35.688893][    T1] The buggy address belongs to the object at ffff8881259a2800
+> [   35.688893][    T1]  which belongs to the cache kmalloc-1k of size 1024
+> [   35.688893][    T1] The buggy address belongs to the object at ffff8881259a2800
+> [   35.688893][    T1]  which belongs to the cache kmalloc-1k of size 1024
+> [   35.688893][    T1] The buggy address is located 360 bytes inside of
+> [   35.688893][    T1]  freed 1024-byte region [ffff8881259a2800, ffff8881259a2c00)
+> [   35.688893][    T1] The buggy address is located 360 bytes inside of
+> [   35.688893][    T1]  freed 1024-byte region [ffff8881259a2800, ffff8881259a2c00)
+> [   35.688893][    T1] The buggy address is located 360 bytes inside of
+> [   35.688893][    T1]  freed 1024-byte region [ffff8881259a2800, ffff8881259a2c00)
+> [   35.688893][    T1]
+> [   35.688893][    T1] The buggy address belongs to the physical page:
+> [   35.688893][    T1] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x1259a0
+> [   35.688893][    T1] head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+> [   35.688893][    T1] flags: 0x4000000000000040(head|zone=2)
+> [   35.688893][    T1] page_type: f5(slab)
+> [   35.688893][    T1] raw: 4000000000000040 ffff888100042dc0 dead000000000100 dead000000000122
+> [   35.688893][    T1] raw: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
+> [   35.688893][    T1] head: 4000000000000040 ffff888100042dc0 dead000000000100 dead000000000122
+> [   35.688893][    T1] head: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
+> [   35.688893][    T1] head: 4000000000000003 ffffea0004966801 00000000ffffffff 00000000ffffffff
+> [   35.688893][    T1] head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+> [   35.688893][    T1] page dumped because: kasan: bad access detected
+> [   35.688893][    T1]
+> [   35.688893][    T1] Memory state around the buggy address:
+> [   35.688893][    T1]  ffff8881259a2800: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> [   35.688893][    T1]  ffff8881259a2880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> [   35.688893][    T1] >ffff8881259a2900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> [   35.688893][    T1]                                                           ^
+> [   35.688893][    T1]  ffff8881259a2980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> [   35.688893][    T1]  ffff8881259a2a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> [   35.688893][    T1] ==================================================================
+> [   35.984299][    T1] Disabling lock debugging due to kernel taint
+> [   35.987548][    T1] Oops: general protection fault, probably for non-canonical address 0xe0a07c0ec0000008: 0000 [#1] SMP KASAN
+> [   35.988482][    T1] KASAN: maybe wild-memory-access in range [0x0504007600000040-0x0504007600000047]
+> [   35.988482][    T1] CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Tainted: G    B               7.2.0-rc2-00010-g8d75c338f0bc #1 PREEMPT
+> [   35.988482][    T1] Tainted: [B]=BAD_PAGE
+> [   35.988482][    T1] RIP: 0010:do_raw_spin_lock (locking/spinlock_debug.c:86 (discriminator 2) locking/spinlock_debug.c:115 (discriminator 2))
+> [   35.988482][    T1] Code: 3b 58 81 49 8d 14 04 c7 02 f1 f1 f1 f1 c7 42 04 04 f3 f3 f3 65 48 8b 15 f0 53 f7 08 48 89 54 24 60 31 d2 48 89 fa 48 c1 ea 03 <8a> 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 09 84 d2 74 05 e8 39
+> All code
+> ========
+>    0:	3b 58 81             	cmp    -0x7f(%rax),%ebx
+>    3:	49 8d 14 04          	lea    (%r12,%rax,1),%rdx
+>    7:	c7 02 f1 f1 f1 f1    	movl   $0xf1f1f1f1,(%rdx)
+>    d:	c7 42 04 04 f3 f3 f3 	movl   $0xf3f3f304,0x4(%rdx)
+>   14:	65 48 8b 15 f0 53 f7 	mov    %gs:0x8f753f0(%rip),%rdx        # 0x8f7540c
+>   1b:	08
+>   1c:	48 89 54 24 60       	mov    %rdx,0x60(%rsp)
+>   21:	31 d2                	xor    %edx,%edx
+>   23:	48 89 fa             	mov    %rdi,%rdx
+>   26:	48 c1 ea 03          	shr    $0x3,%rdx
+>   2a:*	8a 14 02             	mov    (%rdx,%rax,1),%dl		<-- trapping instruction
+>   2d:	48 89 f8             	mov    %rdi,%rax
+>   30:	83 e0 07             	and    $0x7,%eax
+>
+>
+> The kernel config and materials to reproduce are available at:
+> https://download.01.org/0day-ci/archive/20261019/202610190310.9737b2e3-lkp@intel.com
+>
+>
+>
+> --
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
+>
+>
 
