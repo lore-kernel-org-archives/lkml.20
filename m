@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792447995;
-	b=zpr+00k5VSDDxNaFxsFX0tPOS7p9G7bqZaMmsBc+SteC+2D+uVsYTIIAR5JxhEVY2MTa
-	 2N+FYzNoRdFxAr+fyWolCQg9+PECGwsm7B6QIX4184vHJ80zegWEAJRWj/h2yrGYfD3ZK
-	 JC92GdzeO79EYEj1lgBDhaQPbWZaepzpGlBmTpYsQIYjv86CiltawrKWjK6LWIbaUAkZS
-	 8bg0xWlGZ5gYTGS6QHj207KeISII42rVqWaC9iX1y5UdL9VHV3wFbtr8OMc244k9oThxl
-	 o0KoukDXlV/euEycYemw5rB54g3vwFcEAjuWZK4KnQ8sxo9dnpl3SdJGYvLGYQY70wg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792447995;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vgI24pfivW/KSR6p/LzKr7Y9Wp61Dy6+zsomkmDVnCk=;
-	b=EsqRVIF0I9bJ8cGDg3DMgaM75gRs5rykNXBXcr9eOhwwK6FHTnmhsXxcPbjl25SUknJ1
-	 Q5dVBcasbRtAOeo6gdOIEaJiVbM+kqBkMr2LMqX2kFFtdP7bt0PGOhQ2ZdiDTeZ9EdiVh
-	 JlEb3yPcvhyIxyX5ndpeHNwqSKEOEpCbylKoT1jAYGFfmUbF6qUzYcQtOaRxSO7el6cTA
-	 Nx03vriBukoxI6OA78r9S9RmxSgdBXiAySJMjd34hEQOupF2HJqHmP674Ez601gYbRLX0
-	 TrgeVbNwl2k787Dpb/Kl8yODkOax5pN1CidncMJbFvxLElgaG2rT2v3dS+5DNOjnvEA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=LPms+qOT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792448030;
+	b=TB86lu6qmGtUr2OBWsd8Y7q6GAAWr4XimUkyc97Py/7C0EPjJMncKG8d1RQ6HIYRiLA+
+	 B42i8vmAa68GqhmBfxf7Ny+LdbS7m2gWv4NiZ/9iBuzd/tJmfjMxc3VBvaVcL6Ai6uT9u
+	 H73MaI/mVt4mlgP1/0bHhPGJCztXn0XYqkd9Sj5nq5Tq1sLtfsci1ZmRZs7UMnT4mS9hA
+	 omyFf6ShfS0aQDTExD4W+3JGF7PhNZuhybqaFWdi1EV0z8HGe+BmB83nxwVziSkyWGsL9
+	 x77DzdDPZRMCOUVJQjRNLkSvr+wlbxzhWM+uwRm4gSDuVijdj8qxBhtxZRmEuQlQJXg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792448030;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=b19ke5R8dsS/XvA79kQkYa638+7V0D45xqSFirGki10=;
+	b=z8R3/i068ikH4iUaCTZ4q1oJ21VZdByiU4QClm9pTdrE0uPM82xPSXMW0BzO5Oquu5Xf
+	 d5TF+j+atWLy3NY56VteBCdDhKre+IYTEDnW6ExyD3inK9Q58vC5SifZCLkvLXow2w2H7
+	 J6TGb2XMk9dB+F8/7ZzriGkWeYVd70xFkKLOHfnYZtOcvFPVSP7cAUM0Q39h0D2w/Ys8r
+	 MxM+9FarrwtXH/NWKPU2UqeDune2rDvuaq4neaWBDr+clP4+sJuIt8zxtRfW9J71ZMyr+
+	 vPHthCgbL00+/Vg6A3Ihqoj6AzCygTRyN/nqo/pV4DbSKdBeudrYGz372yCrpKsO3GQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=YfSPKpsy;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Q0s3ifmE;
+	arc=none smtp.remote-ip=103.168.172.149
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2F3606A32F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:13:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E2F3606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D645606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 22:13:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D645606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=LPms+qOT
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-535f598d126so53641cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:13:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792447994; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n0vddBxcCsTNtIFez+vkeXcMNlCx5GoGyaLxx65xb9yDk6UvAlHEKpgfe2fDqgxScp
-         rG8KI82L5bBglbI/+AExTAUl42GF7/Y1pUYp5D/BF4i6XfT+N+fIPTzfA674cPaLcN57
-         yqakEtw+PMZxS/ixjMdsBiB+lm4wLs2PYziLu8Zt5A9nBkvsBz2TeUBBRwhJcX7BodDh
-         AQImfN4sTDKDTcdHWjy0qUKMtF/rk+u2vhXhb/6blXh+50hSSrye/n2tzoOY7K9y6SnL
-         dLhxMXpF0K+W3riuKq1MfoEn3A557T9dbb7YM2RigkVgFB2cJS2OAw8yCC1iZEajk3rb
-         rfBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vgI24pfivW/KSR6p/LzKr7Y9Wp61Dy6+zsomkmDVnCk=;
-        fh=qHIMn4tPYlnQXzuOR3BPI7sI4DXvNFV5+eKILizhx8U=;
-        b=kASTIYsPvSY/mJ+qtmQnDfrWlYufzT06OhkSxIncKHY0uDv1JJOcoxXmEG56/A/S5V
-         UhPi1f94+/FnunVIclKS2gPqp4rpogrZ5jadrVdqyiR9jrD62CklgGsPBHtCIleytcvi
-         yjQG2BDmOCpos38Bv616KKl9OwN1yhPdQG2e0fywaRbeGXvcMRzS2TvFe9WeUiZvXJwP
-         uAZ9JFAqkHKzq9ZqEhzmarx4lao6AbE6MXv341ZMwzJqNV+JydgOkKmoTl9+xeeGAm7Z
-         JG22EzN0e6EiWPjgtCAQfQyfkKrJT98CddoQflAyupArh3VygtGktQsiQ8ybGkmC28G6
-         t79Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792447994; x=1793052794; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vgI24pfivW/KSR6p/LzKr7Y9Wp61Dy6+zsomkmDVnCk=;
-        b=LPms+qOTDksv/O7NxkhtGvvtgSotQ7bkEnxvR2buV43eAXsVuN8wWxpe/HVzsECw62
-         6oDCClwYxvV4Me/JhZGe+R8N6wAuF2WW+VSqJckY0iitFEvkKE11i8i7yCjUuLNe95MI
-         4Tnl99rGyHu5WHZrUgyujpsNzx1zMnDAaRssGtpL02LV9ytPYQTH3EHiUHO2bjkpPRMN
-         aQL9eSUJtgAffUfAvpbwMOFGB452/7AJ0L/ztxFinJcY/t8XmjlP7ds9fr21QE91Eunf
-         jvDwPdWWRg0fhjkggxy+NIF5an9aTXHZTVzJd2n9IqHRLelVA6JVo+lpo6aBsryukF4C
-         x53A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792447994; x=1793052794;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vgI24pfivW/KSR6p/LzKr7Y9Wp61Dy6+zsomkmDVnCk=;
-        b=J5r8RE4Iz/K83YS6uWw3MaIvfpgZJV5ClLrbHtfl262NYAFkfFJn1pBjMNffeWNvCX
-         An2Kz+8echUb6TjvxZ7Z59rl46QGw9oPY+aQtSfuJnLJejIl4rw2IZ4l7VLOaqsCvoHl
-         wAbgtX9sdcNoyJFPCUfVnOOrrtmdBn5afol0VUiHAccx/7rLozA1ASVr7glc157xPZfa
-         s/XpFS+qSOCOKPTeSvoCUh7dxsSnPiPUNQUAmLqpxdl5Rs4SRuUY/yh4eLlMD+Zt30++
-         2WKy8llpBeU9bTEUJsFPRePXqTK+FZNMpBsXl9CSM89PC6+GG4hfpbnGNlJfd74dzhvv
-         Fm0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByxHJ+FSYi/eVAA7zwwVtqRkqzcG3MKPTD43TKfnxRlbaq9KVoX97zwYOcmUsjRldeU37GHVpG1uhgpdU4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVjaZ/NaOIXsjBLk6yZ8VRX5ECRQbsJNki9u3Ymf+7BJlr+SgS
-	fvUE1PMICUzZp8xNFOc7wz8raAIBDjl0UEZaXmodQZjzgD4GiBNVzfa0oLrAX53JF2lyp+40rZk
-	cbv7KWDn7b+0NTmcafttD5kZklYWFlxaE1+pzJpeB
-X-Gm-Gg: AYBFou3zS7iBwaNxAwvCJIJBQaEjnBMJ0VjMIDNhiYUOAle1NaC92/AACakjRMZ9qmn
-	5AW8JLhYjxC0Q5rzwKDtQBi+OhKGm1gF2cO9pDrpth9d29QxJvp/2hknja7JOyXThPI8xULKaCo
-	r6VhJCNyZeWNyfEVjxHYkY6pS6zudgW4edk/NC6EHZeWnrBMQC2+Ul2DBLOSZcGw30+sp2AkjwK
-	DzOAYZgzYtyGUAPQxnwY4iWbZpVsKPpqrUP69WhHmiIGKDQPYORsTBL0CteyUzTv/s0lCuke701
-	hLYYZxy5UJin0yxHLnuKYS/4qKPyPZJtpaKz4biJBoHR7AakvamVy6hqPBTrkEMd3vw7+ISHE6G
-	n2Ok0qsa9OQ==
-X-Received: by 2002:a05:622a:1820:b0:530:e00f:7768 with SMTP id
- d75a77b69052e-53688244eb4mr2593771cf.0.1792447993494; Mon, 19 Oct 2026
- 15:13:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=YfSPKpsy;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Q0s3ifmE
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 46EA6EC011A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:13:49 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 18:13:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792448023;
+	 x=1792534423; bh=b19ke5R8dsS/XvA79kQkYa638+7V0D45xqSFirGki10=; b=
+	YfSPKpsy28wG3TFLg+0euDTx35bpoCFlYmDe1f+qkBnAzEfRgCd3XIXkxcJbUxBC
+	2cUGSEH2YVr+X5z8XhWS8EvfWJPX88VJYz+44BnkpsZLYfGMyPWvoEPa5D4XVmIl
+	hFgkWNFdW4HzpkYLj3YrmE0JhpsOPUJw8DAgQN6StDwbPWt3Rgwkko83onEVchcB
+	6VnXxoxrLxmebaDFwWbiKbX9OHEV4OV8Lw7dzf3OMs89kUB31JCIuW+RFc+l2xLQ
+	FlPRd/WPF0SW1R7Qnn7LKZG/I2+W1nhIbG4lblGRU7T5o/7GZKB7e5m/HXhU0M1P
+	5nCOkCR4XhGWfy5DI3zyNQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792448023; x=
+	1792534423; bh=b19ke5R8dsS/XvA79kQkYa638+7V0D45xqSFirGki10=; b=Q
+	0s3ifmE/oHQaPCqKxOocoD1RsfWMsP7ugR1iP+6jABBpIIRFUL2Plvx/CVLue+iz
+	sL3TAkJrlcP9uAuoHcE/DYKdzqQCIbEmq9+mrP7CETZXrgriY6VNY2tFEbbtVEW7
+	dVh9thar0fQtD2rIz72CLitf6QxH3znNPM5Z+hH6epRrTcPUPGaAmgUeQsTwgAfA
+	VOpOBOJzh5qFXb82IT1BEEvSNS0LuMjzCu1Ge+QNabLdR7cWZggYeQ8C/w+Qw/Mw
+	9lBaigTeDeyRTSjf0lB5iuRaKLTa/1KTuFgdgXfG+nEQsCff1Q9lWI9FdouX/0Fn
+	avrA0W8rcDshRUD/PXM0A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792448023; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:R9A6wa8XrZLRpnTOee1FPdBPfKJ0qzde1k05bIxRm/PyOLP
+	AQztYBYQeM1IcHXFX/jmHklwCP1AM97cCTNcrD8Kuv+yAX+JuMtFRMSRUD8g4gk6
+	IvDwm2jPfOh/iGiZufSsOT/fRiOjIaCT/mgZa+TEgsBgVBEV7Z/V1v4qGE8rT9fb
+	TWbqUNZ9TY160dzKOiUgvq/UW6mi67cKYgiDjQG4xNrdUXjDVZvmefaPAbm/jZWh
+	igLo8yPTH6iEj20o7X5sK2VgCGOoAE+a1UxcIgP8MOQk8oStzzaNqh0XtODVU2dN
+	cyXOSceu1OUV0BO2/67WqVwIXiT4wqfr23xtJ9w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:PMbO2eFK/HngZyDJy5oViV6VfKYFsxy7XE6yeZaEFog=:xrd6C177KUzqVuW8T74lgPOXnZyd81HS2CteGq44Y2w=;
+X-ME-Sender: <xms:EpbWavz21F8CPXkV9s1zVBW5cctnPSTHwVquOeXHgQYx2HPc9xU-Ow>
+    <xme:EpbWaiFlcjdTdTUORFb6JweVGllk4uKi1JmxD7qiQ7gzgBDP9mkXQJMTOPaorXpbb
+    TrokS-B5G1dlIe3HY2SXT3eaiFMJP02rssP6JSMy7h83rcQMzNHclo>
+X-ME-Proxy-Cause: dmFkZTFqEN6muZMP935NXiz6bee41DbPaDd3QKT7ALIBuCjhUqNg6fjgGeljhBZXjYGp8J
+    J3MqyqGWNLoJaIvhncl8GHxQDbt7zaEwqLtI1LllcSEZ/6WS9gLFbrveIe+jvsEeH4oOxG
+    eSzuZDyopzds7gyUF3K7ozIa/9o4Yb6M7SouyW/tR5X39yUj+kSFZEvBhT/hZWAmTvhA8J
+    bp7pUhzNma+oDlvkSAUSxoC14+8TtrpvwpcaYTDNZ0CbxZGtjKQFwmhtp7vRELtKGLYdlh
+    +fq0Wh2JzLhiVuR6BtAh/SrSPS//ZopfKmXaV+Pa5sfOf8KILTU4E2sH+MQTi+6zRf9UX6
+    fmxZfNCMdDhe7xPGhjH/TdHnWg1xdqXFYOMbxAQPhc213Wpfb934S/po9g7FL0qCUUM9Zj
+    VVJ31SxqMY9cVAFqBJ12CEL6RFvOjAqsrOuuVAvVm4fwVWcJeopiJQ/z4XxTiJSG9Er9Dz
+    Tc9Mcxartx9TD2qs4Hbro/EK9AaSqKKOoKObOLPsbizjQjt10M4aRhQ59gaO13LSUNiJQG
+    MfrUwvSlb7n8DYHb7BuvOiIXl15ugTDiEjfbfc+RX83RyuZbjI0OHodm73zMAQH6bnscJ5
+    D5fEfFtAZMkwywpvwDeo7mYGryOY/Jg4jvQqJLympfdZd4ObYkhzZ9kYGNkg
+X-ME-Proxy: <xmx:FJbWap5k8bN2SMBFs8IdvVOmrBhxJwVOkCHk8r38rkqGehsJY6SSbg>
+    <xmx:FJbWan1JDoBolQinX_DgW37FZjMPS6eTarhhjuM34GOs9pccLEL2xw>
+    <xmx:FJbWagyeBGA1OoGG-Oec87-zJpvl3W04nbVrvQ0pBqF2H2mU4p489w>
+    <xmx:FJbWagndh9BgCbQ0J_iDF8Z_11WZj1UJw0sns5uRTX6BX6-0FyRRhw>
+    <xmx:F5bWaptmWhiXVi-ZrWLqf8jmrWtrODkpFDkK9Y1HlXrb1hii7Pw1E5dx>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 0ECF532A008F; Mon, 19 Oct 2026 18:13:38 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,61 +115,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261008172208.1139281-1-scollyer@google.com> <as8slqeTjJYWOlaa@google.com>
- <CALUcz=3WE+SUx2j8LKFQQK-fMVXdk69rZJ9nKgBMQ_UwnWRPSA@mail.gmail.com> <atWFg7gm_jLBOwxu@google.com>
-In-Reply-To: <atWFg7gm_jLBOwxu@google.com>
-From: Scott Collyer <scollyer@google.com>
-Date: Mon, 19 Oct 2026 15:12:37 -0700
-X-Gm-Features: AclHuK_wVZXFfIgAVV23G-YS1NEjeLj8kfINMrQnYb_ex_aJ_zR4mTrr4fQbMKY
-Message-ID: <CALUcz=0TtozoU+EP97Pu5pPYc=_G97xM=yR3cZ9WH_kLgrxQoQ@mail.gmail.com>
-Subject: Re: [PATCH] platform/chrome: cros_ec: trigger kernel_restart on EC_HOST_EVENT_PANIC
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: ATLhSvAouVZo
+Date: Tue, 20 Oct 2026 00:12:57 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Ian Rogers" <irogers@google.com>, "Thomas Gleixner" <tglx@kernel.org>,
+ "Andy Lutomirski" <luto@kernel.org>,
+ "Vincenzo Frascino" <vincenzo.frascino@arm.com>,
+ "Stefan Kerkmann" <s.kerkmann@pengutronix.de>,
+ "Marc Kleine-Budde" <mkl@pengutronix.de>,
+ "Christophe Leroy" <chleroy@kernel.org>
+Cc: "David Laight" <david.laight.linux@gmail.com>,
+ "Arnaldo Carvalho de Melo" <acme@kernel.org>,
+ "Namhyung Kim" <namhyung@kernel.org>, "Eric Biggers" <ebiggers@google.com>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Jason A . Donenfeld" <Jason@zx2c4.com>,
+ linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <31fe09f6-0a14-40fc-8ad8-c03998fb1f5c@app.fastmail.com>
+In-Reply-To: <20261019201257.3805356-1-irogers@google.com>
+References: <20261019201257.3805356-1-irogers@google.com>
+Subject: Re: [PATCH v1 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option for ARMv5
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 18, 2026 at 7:50=E2=80=AFPM Tzung-Bi Shih <tzungbi@kernel.org> =
-wrote:
-    > Please don't top-posting [1].
-    >
-    > [1] https://www.kernel.org/doc/html/latest/process/submitting-patches=
-.html#use-trimmed-interleaved-replies-in-
-  email-discussions
+On Mon, Oct 19, 2026, at 22:12, Ian Rogers wrote:
+> +
+> +config VDSO_UNALIGNED_PACKED
+> +	bool
+> +	default CPU_32v5
+> +	help
+> +	  Use packed structs rather than memcpy() in include/vdso/unaligned.h
+> +	  for unaligned memory accesses. Enabled on ARMv5 where GCC may emit
+> +	  out-of-line memcpy() calls instead of inlining byte accesses.
 
-    Understood, apologies for the top-posting.
+As explained, I think this misrepresents the problem as Arm specific and
+isn't the correct method for -munaligned-access targets on Arm, which
+include CPU_32v3, CPU_32v4 and CPU_32v4T along with CPU_32v5.
 
-    > I don't think this is the right approach, given that:
-    > - cros_ec_handle_event() is a generic event dispatcher for all EC
-    >   instances, not a place for device-specific event handling.
-    > - The ISH driver or sensor stack should re-establish the state after =
-an
-    >   ISH panic rather than rebooting the AP.
+I still hope we can use a version that just produces the intended code
+on both -munaligned-access and -mno-unaligned-access targets like the
+old version did.
 
-    That makes sense=E2=80=94the kernel should not dictate system reboot
-policy for a peripheral,
-    and cros_ec_handle_event() should remain a generic event dispatcher.
-
-    We would like to drop kernel_restart() entirely and instead focus only =
-on
-    surfacing the EC_HOST_EVENT_PANIC event so that userspace crash reporti=
-ng
-    daemons can collect the panic dump and handle recovery policy.
-
-    Specifically, for non-ACPI/LPC transports (e.g. MKBP host events
-over ISHTP/SPI),
-    we would:
-    1. Register a subscriber on ec_dev->event_notifier (e.g., in cros_ec_de=
-v) to
-       listen for EC_HOST_EVENT_PANIC.
-    2. Trigger the existing ec_dev->panic_notifier chain so debugfs flushes=
- any
-       pending console logs.
-    3. Emit a kobject_uevent (e.g. ERROR=3DPANIC) on the cros_ec device kob=
-ject to
-       notify userspace crash collectors.
-
-    Does this separation of mechanism and policy align with what you'd like=
- to
-    see upstream? If so, would you prefer the event notifier subscriber in
-    cros_ec_dev, or is there another location you'd recommend?
+     Arnd
