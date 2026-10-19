@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792429309;
-	b=iCzR0nBjZTtJ8g34GQmFYtvJkEuHPGnlSA0B7+xZqRTxa73qQzgdBG7iJ0IDb+dMxNBA
-	 yNesLDCCyYblvorzFyQuSWplIKt3qvQ42uCHPck27U+jTsC3jt3hx5XTw6IeSL6lOG/l2
-	 Tl9/7Sys3EIiM4u65HPL88SZFsY7piRyN2XMxtaps8wbQszt0ALStYBnBtmewM5MsJNrw
-	 IExYITm+VWlC/2UiUC7py9dHAyVO25TGB9IMqjlrJFdufhcgUZtjSRvcBvFjzHhRRV779
-	 GLmwbwaTj3R2/qrDOqGdpf1ATFdI1BnM8d3dp0ueEOa1umUY2oyDKKvBsMBgK6YgJxQ==
+	t=1792429306;
+	b=g+ezLsBk4tshC1vw8FjZNpRVN0AEVKjfLy4Z1lXQfrYHp6eSpyv5SX/HUQfSsBtnmsJE
+	 xqS0l79pG5/qrd+B3z6+RfgWPbR1SeO7csbWQ2UFXYLFORgn/geJow/VLZm4+YvMFVGCP
+	 u70e+aHfKfUH30bRqL4ON1n61FaNzhsFX+m30UQmEBCxKOYPwTHfSAq84f7MKXwDYSdKu
+	 RIFHLLLikIHA+8MTZV7zaTFdIGV9lK9rB3sc1O+7DoJLbRyRMsl3lOReO4GgMNZMgw5og
+	 ZIVmZ1yfeRwUh005+UwJ14XSRBKd2PpWoVbg56cWqOQC1dsimj3iFOJLgd72r9MP8/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429309;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429306;
 	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
 	 MIME-Version:Content-Type:Content-Disposition;
-	bh=S3i+jHVVPDNWyNDsleSOJM+lF7eDVzfmCU9l597q6rU=;
-	b=2rDe3e3JGTx49mIQF9IcwLMlOacmHdfKOfmTS1NXDHArGh1qXAzDoY2asIvwq2d4GC2R
-	 N3KWQk8liCtvimfk6GV6Vv4x91v2atK3onmPQjaZPi0WZIotse37sfbSy2/xQnMEc48gM
-	 Ht+1KNkU66r4XQSBfznoYkD5baQshJ8Efk6eiGFQ0TM28Fh54YO7aK/W2QAIth96s8z60
-	 CgQahKzos9ZYZiAnULoCgcj9JATfyIHsZsgfg6xYb71ADrWZK9/J8QYaEBbdnv53Yx1Os
-	 ifkpKA04qQDzMts1ZWR9ewp5OJDmHj+up8UglcL6zRUgm4+wu04lfw599R6/ZVKjYow==
+	bh=d3tuAwqgxm78om08dBoibwah49ttD0KiH8DxtWjz9Tk=;
+	b=EIY9tnyxfao+9eUmokzEpZb4glp3EglquhbOCgBO8qO1lwqBKt7r0WtLc+okp0T6CCyJ
+	 CydzanpgRKoIzXmpECGurVR8MyQ95r2aw05w34C+IT9VSgIYDkkz4HbojYCthOqHr1uvN
+	 w916/+KvJo5SKoZkQ9/XAz9X92l9oq0CmLKZqux0LAaxCB56n/bpS98cfWEGHtRyDHdaH
+	 2PA5GRa39CC0bvcWW2GvtYm9jTavdxnlPpL3CJ20NCqoIUs/wqdU/3JHIWO+t2hNcNJ5s
+	 FPQXwT301Iu4PI/eTsNz1B189PqkSwQjh/bVlX8sWZsEVGUs8ed9Nfh1K2voe6MTj2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X437GM04;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SfEngfUu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A31606A33D;
-	Mon, 19 Oct 2026 17:01:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F72E606A31C;
+	Mon, 19 Oct 2026 17:01:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X437GM04
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 625211F000C6;
-	Mon, 19 Oct 2026 17:01:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SfEngfUu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD3E1F000C4;
+	Mon, 19 Oct 2026 17:01:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792429308;
-	bh=S3i+jHVVPDNWyNDsleSOJM+lF7eDVzfmCU9l597q6rU=;
+	s=k20260515; t=1792429304;
+	bh=d3tuAwqgxm78om08dBoibwah49ttD0KiH8DxtWjz9Tk=;
 	h=Date:From:To:Cc:Subject;
-	b=X437GM047dYthGut0z2XvzHGiNex0TlYLSMxN0RRRlS3igbz56zqE1wispSl0H1er
-	 hyOJYcfgnPHofBHXp/MNK5/lh6xavzqGZjAg5ejdB+nCMHCthUG0JHVT94hshR3h03
-	 m5Fz01a+S13yztuEtURK7DUNgQL0PDc+7nM2jfB6goeEQnkrX9zdn+KVhbNTy9iiaX
-	 +VdQHDi1J5UFOVi5Q3SeBZ+L5Pd4txYLquTrRN7XLmaIRrE9QjUugMB+xWM2l+ttER
-	 b3wjMLHGahbzNRAhbD/fdh3VXXBA4+QlML1C9b2Cg6taNgnUe/3S0L58PFy0mCcS9d
-	 xH7ht+7XAyMkA==
+	b=SfEngfUuHmlHsqe5pHfHVS5g/qqmPdNQOpmm5Q+9NgPGj5sTOcLqPC9nFozRAv2LI
+	 dW322VoJzz/qX+vsgAZrACPd42t0oKhFIfca3+PJLrdJASraG8AHgfBWUyRhZPc6ri
+	 hjI616/D1HayEAECfrk8vCvHBvXQedxrTpnsKoqtqcvZrNykG0nsJ3PigsUXTdFi3W
+	 ODjHSNyCt7Jbz4zvMrDywZMHMAeb5UcQlfPrzrjPebSZ9M7y98r0J7S4HpdtIMdZUQ
+	 iksjKzWFGRBZg9U7aFKVT1K6y9YohKz3bB+w4eOH28rdLsxRHeZIzCMX7a57svefEP
+	 lIKpyicFEwzMA==
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 753F31AC57D0; Mon, 19 Oct 2026 18:01:46 +0100 (BST)
-Date: Mon, 19 Oct 2026 18:01:46 +0100
+	id 8221B1AC57D0; Mon, 19 Oct 2026 18:01:42 +0100 (BST)
+Date: Mon, 19 Oct 2026 18:01:42 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Tejun Heo <tj@kernel.org>
-Cc: Andrea Righi <arighi@nvidia.com>, Kuba Piecuch <jpiecuch@google.com>,
+Cc: Kuba Piecuch <jpiecuch@google.com>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Usama Arif <usama.arif@linux.dev>
 Subject: linux-next: manual merge of the sched-ext tree with the origin tree
-Message-ID: <atZM-tXvYuR1bE3z@sirena.co.uk>
+Message-ID: <atZM9nFiaMvuX9kP@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,11 +60,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="AAd/J4A5l7u5t+Tx"
+	protocol="application/pgp-signature"; boundary="reON6mJP71M0PGJo"
 Content-Disposition: inline
 
 
---AAd/J4A5l7u5t+Tx
+--reON6mJP71M0PGJo
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -72,16 +73,16 @@ Hi all,
 
 Today's linux-next merge of the sched-ext tree got a conflict in:
 
-  kernel/sched/ext/sub.c
+  kernel/sched/ext/ext.c
 
 between commit:
 
-  18f5c699d1d0a ("sched_ext: Rename scx_reenq_wait_dispatching() to scx_wai=
-t_dispatching()")
+  2935062be7711 ("sched_ext: Wait for SCX_OPSS_DISPATCHING before moving ta=
+sks off DSQs")
 
 =66rom the origin tree and commit:
 
-  cea8b60e4aee0 ("sched_ext: Move reject DSQ draining into core")
+  efa7bc7d71955 ("sched_ext: Avoid relocking DSQ during remote consumption")
 
 =66rom the sched-ext tree.
 
@@ -164,15 +165,15 @@ ask_rq(p))) {
  =20
   		list_add_tail(&p->scx.dsq_list.node, &tasks);
 
---AAd/J4A5l7u5t+Tx
+--reON6mJP71M0PGJo
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatZM+gAKCRAv73Ows9A4
-ieYXAP9fxp35nFCEEtdqbZzTg6aGmsvu3ETaEx2JH3J6twEsnwD/WFX0OlxW+JYW
-Ib25LSN5g9TckB263UYu3HqHHg3Z1gU=
-=j5I/
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatZM9gAKCRAv73Ows9A4
+idGMAP9XsDqEnoN6Dji1IqXlETCpznENaH1bsaWrcSW+j70m4AD+NjgrttKoqX0q
+qs0m+l2rYoqnUtMGYxAeMAD5ZkCf0AQ=
+=ljde
 -----END PGP SIGNATURE-----
 
---AAd/J4A5l7u5t+Tx--
+--reON6mJP71M0PGJo--
