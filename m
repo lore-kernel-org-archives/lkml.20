@@ -1,285 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448E14C461B;
-	Mon, 19 Oct 2026 14:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569614C461B;
+	Mon, 19 Oct 2026 14:41:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792420894; cv=none; b=ldxUL3gn/jsX1nh5P/i3Ipg+ONHucJRJLeZp8t1pP/qM6JBUkgpXyU4GkDJ9GOwr/LxsNsXI7A3EuVM1Er4N7AabHj3BO/zi427e6cXwca8p9TgAq7AjwqCl7uT3kJAozQFZETadGFcQ2ekiRf/dqe93/qSQ9Wwa4/S2wCtM5iQ=
+	t=1792420916; cv=none; b=Sf5fVKbmVAZMJOaxSyPEhHQN+pA04kSFL3wcF2TyxqnOm5TR/iLKeOhKD0nLGnLq5v+5pKLCApTARm22V3Wf7nwK3i6Y8f0MOisMHZWcquBQrQVSu//cUvZGp+4AbA9LEtbZLQWuZnMlDHAQR1/eJpAgJxf8iHMn43MzIJiUi9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792420894; c=relaxed/simple;
-	bh=bSF+f50E4nY4Alku5btYK77EE5FSJvRAuqq0hgb1M9s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mrKcbC1tvHrw7YTaf+3oCqHvW3hF0cAto0xPPEXspJNUGeM4jtz6kSTDyVNRjPSiGFvO3lRLN23SQXjX3XO89VolqkAYBcE9Y77vJ4Kexyg8ZRcDZ17gSwrczbcK9L4HtMd2auzH8LUFmTYICDuW90M7mykV6lOsxX8O91EU3BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HhA2lwOQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792420916; c=relaxed/simple;
+	bh=abLucj3DA0lI2567MF6574OvpdC0Wl4RoRQGHmLME0E=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WqGsyFDD9XGMxLa+6sp+rNFWYIS85gXHMhyvvEKaFa9ybNuYJyGdmXBOS3aD26y5mfv3E5xEz50JnwJi9Av705eD0H9HTLdyynCm5h67P0dSJPiAd1zLQw3qgRwp1c8btxxtS23l8zJMNRObMIKITVlDqhGR/1h+0Onqu5zLu6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PfVYSCjx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=AiIoj/hv; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=PfVYSCjx; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=AiIoj/hv; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HhA2lwOQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 14E4FC32781;
-	Mon, 19 Oct 2026 14:41:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792420894;
-	bh=bSF+f50E4nY4Alku5btYK77EE5FSJvRAuqq0hgb1M9s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=HhA2lwOQDokkGaaAQa/OANlLYpQs7b9Nur5QTkXu1GRXywbyoE1ALmHjcv8UPkKnL
-	 mnokr14VlBzB+WcVdcMbG3kzPFsCGkyPuDzsVO6WIwZfCWtP8E2cLH5wHQPZC32E3O
-	 aRwyekwmXn/nJe+qj+A/1Cb8hNwIB/o8seRWILF/4krF59uhI6ePtFVUQTQyCylJC7
-	 LqFYLBcWItvXz0gNxjrhnMrY9JLHPkbCce3WnxaGg/8CG61f9gwhDMv8bbqlb+Jwka
-	 HHnPte7SGFZ48Q5OnGxEWp7SDgeIz+mdP/MsWJs13CdTuqBtm63yFpdh8SEqzkLRZV
-	 OSW6gLSUmpKEA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03F8DCCF2EA;
-	Mon, 19 Oct 2026 14:41:34 +0000 (UTC)
-From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Date: Mon, 19 Oct 2026 15:41:32 +0100
-Subject: [PATCH 3/3] pinctrl: samsung: Add Exynos5515 pinctrl configuration
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PfVYSCjx";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AiIoj/hv";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PfVYSCjx";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AiIoj/hv"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1211021C3B;
+	Mon, 19 Oct 2026 14:41:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792420913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jeFZbr16NPzFSVR0K2kQTzpH1Abye0Ktbi4B7E6q67o=;
+	b=PfVYSCjxIWkJFGxcrPxGp0RLsR3CkdXssTGBCP2M+etwk09TCJl/Wh7YzZ0KQEPq6DG6Ub
+	4VW+MW5xZGVTmuJOQnvUXDBUJ+RvfLzJ/A9yqtdwBj+CDMrEi4xG6bscnqyZKsAmN7b+fI
+	kpi1AjACQoybAmAdxO1py/LrNbGbdTo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792420913;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jeFZbr16NPzFSVR0K2kQTzpH1Abye0Ktbi4B7E6q67o=;
+	b=AiIoj/hvxs/CCEaJRlm26movAjYT9FtRDBoF241MWt6umsuYQwMtXdnjGnjTxaBZ3fBFmc
+	uSPiVJz0O/XWmTCA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=PfVYSCjx;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="AiIoj/hv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792420913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jeFZbr16NPzFSVR0K2kQTzpH1Abye0Ktbi4B7E6q67o=;
+	b=PfVYSCjxIWkJFGxcrPxGp0RLsR3CkdXssTGBCP2M+etwk09TCJl/Wh7YzZ0KQEPq6DG6Ub
+	4VW+MW5xZGVTmuJOQnvUXDBUJ+RvfLzJ/A9yqtdwBj+CDMrEi4xG6bscnqyZKsAmN7b+fI
+	kpi1AjACQoybAmAdxO1py/LrNbGbdTo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792420913;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jeFZbr16NPzFSVR0K2kQTzpH1Abye0Ktbi4B7E6q67o=;
+	b=AiIoj/hvxs/CCEaJRlm26movAjYT9FtRDBoF241MWt6umsuYQwMtXdnjGnjTxaBZ3fBFmc
+	uSPiVJz0O/XWmTCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B7612136CC;
+	Mon, 19 Oct 2026 14:41:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id BYGkIzAs1mpvdwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 14:41:52 +0000
+Date: Mon, 19 Oct 2026 16:41:52 +0200
+Message-ID: <871p9lah1r.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH] ALSA: pcm: Protect channel-map reads against runtime detach
+In-Reply-To: <pm-pmb-0b5d6bc7124d0b921f2c-v4-b9738bdeab8823999181@gmail.com>
+References: <pm-pmb-0b5d6bc7124d0b921f2c-v4-b9738bdeab8823999181@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-for-next-lucky7-pinctrl-v1-3-0f77e94c70bc@member.fsf.org>
-References: <20261019-for-next-lucky7-pinctrl-v1-0-0f77e94c70bc@member.fsf.org>
-In-Reply-To: <20261019-for-next-lucky7-pinctrl-v1-0-0f77e94c70bc@member.fsf.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Sylwester Nawrocki <s.nawrocki@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Tomasz Figa <tomasz.figa@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aiden Isik <aidenisik@member.fsf.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9012;
- i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=D1xJUn5lIvp7AukvM7hmxAM0yTaBCuU1TBPVbsKT/c4=;
- b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq1iwbbObWNDHwdAh/vWbNAfMQZDo+cqA63nDSY
- Imo9tO63umJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCatYsGxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+tRIw//Qsiyn+F3Il2bi0PygEbxhbh28fOjJEL
- rQO9J1zCfdbfkTL5g2PBM0vbkOYu7obD9wmtVsO8b/YNAwR/Fv5vEa3GAxHiJ72/G+ySDmQOIEu
- 6U1rg/dYdl9o8OcsLB8otV6pgImG9ybb8FIFzSFoV/O19+U1bZcdg5yPte0KXVANctvDY9tw5zx
- jwtBF+yirbDlgbCVbFO9WG042440q823WqJ6oWSKbGWDvusDsYncr9A61mLkzPaQaKlHY7CuX3E
- 5o4Oo2wnj7bChkwNQ2/rt4jg4tlpSlLuePIm4mw1QDc21oGCfNe+nqz13dXBcxwFhc2sDH5KIAn
- heMoq1R+bdJabOeqsKBK1938nEsE3MYaMOYCcmBZnpljE60F4bwUisoAorXo0awnjMK+yC4W4DB
- oQhoXZIOW+9BQfWbFq4KYGWBrvxbT6PZi2KgWno4yPr5VZDgIzKh1A2gFlOgrrDZ4z3b0qU/Rq2
- iGc7LQIWngVT14Wvm3qpFfVb9hDKRl0IbwLb7GSINe7jsCVz1en+OhOE3I3dm9eo68ihelq8N9Y
- lgAlWiA5xWuZxxxRm3ne2j7bdTEWJri/I9BUTUDnWhjkfrQ6L2lE+IEBOTg6oq1ix0m16gjTzjZ
- HhK4gP8lRgHYU/m9Edh+3MxnB5vm/r1gn7v0DisO+Ovwv18ee4Jk=
-X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
- fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
-X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
- auth_id=956
-X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
-Reply-To: aidenisik@member.fsf.org
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 1211021C3B
+X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,vger.kernel.org,gmail.com];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
 
-From: Aiden Isik <aidenisik@member.fsf.org>
+On Mon, 19 Oct 2026 12:29:33 +0200,
+Cen Zhang wrote:
+> 
+> Channel-map controls remain accessible between PCM opens. In-tree HDA
+> code publishes the generic controls through add_std_chmaps(), so a
+> SNDRV_CTL_IOCTL_ELEM_READ can overlap the final close of the same PCM
+> substream.
+> 
+> pcm_chmap_ctl_get() checks substream->runtime and later reads its channel
+> count. Final close clears and frees that runtime under pcm->open_mutex,
+> while the control callback holds only controls_rwsem:
+> 
+>   Control GET                         Final PCM close
+>   -----------                         ---------------
+>   snd_ctl_elem_read()
+>     down_read(controls_rwsem)
+>     pcm_chmap_ctl_get()
+>       check substream->runtime
+>                                       lock(pcm->open_mutex)
+>                                       snd_pcm_release_substream()
+>                                         snd_pcm_detach_substream()
+>                                           substream->runtime = NULL
+>                                           kfree(runtime)
+>                                       unlock(pcm->open_mutex)
+>       substream->runtime->channels
+>         NULL or freed-pointer access
+>     up_read(controls_rwsem)
+> 
+> Reloading the cleared field can fault through NULL, while retaining the
+> old pointer can access freed storage. controls_rwsem keeps the control
+> alive, but does not serialize the matching PCM close.
+> 
+> Copy the channel count under open_mutex and use that scalar for the map
+> lookup. Use trylock with -EBUSY because snd_pcm_dev_disconnect() takes
+> open_mutex before removing controls under controls_rwsem; blocking in
+> the reverse order from GET could deadlock.
+> 
+> Fixes: 2d3391ec0ecc ("ALSA: PCM: channel mapping API implementation")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> 
+> ---
+> 
+> diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+> index 4d665b4148d7059402a55abb62fb24da8ff73f69..1ec7db324196f60d8c72a879c62ddae0a90ac0ff 100644
+> --- a/sound/core/pcm_lib.c
+> +++ b/sound/core/pcm_lib.c
+> @@ -2496,6 +2496,7 @@ static int pcm_chmap_ctl_get(struct snd_kcontrol *kcontrol,
+>  	unsigned int idx = snd_ctl_get_ioffidx(kcontrol, &ucontrol->id);
+>  	struct snd_pcm_substream *substream;
+>  	const struct snd_pcm_chmap_elem *map;
+> +	unsigned int channels;
+>  
+>  	if (!info->chmap)
+>  		return -EINVAL;
+> @@ -2504,11 +2505,20 @@ static int pcm_chmap_ctl_get(struct snd_kcontrol *kcontrol,
+>  		return -ENODEV;
+>  	memset(ucontrol->value.integer.value, 0,
+>  	       sizeof(long) * info->max_channels);
+> -	if (!substream->runtime)
+> -		return 0; /* no channels set */
+> +	/*
+> +	 * PCM disconnect takes open_mutex before removing controls.
+> +	 * Use trylock to avoid a deadlock with controls_rwsem.
+> +	 */
+> +	scoped_cond_guard(mutex_try, return -EBUSY,
+> +			  &info->pcm->open_mutex) {
+> +		if (!substream->runtime)
+> +			return 0; /* no channels set */
+> +		channels = substream->runtime->channels;
+> +	}
+>  	for (map = info->chmap; map->channels; map++) {
+>  		int i;
+> -		if (map->channels == substream->runtime->channels &&
+> +
+> +		if (map->channels == channels &&
+>  		    valid_chmap_channels(info, map->channels)) {
+>  			for (i = 0; i < map->channels; i++)
+>  				ucontrol->value.integer.value[i] = map->map[i];
 
-Add the pinctrl configuration for the Exynos5515 SoC. Reuse the pinctrl
-macros from Exynos850 and GS101, and add a few Exynos5515-specific macros.
-
-Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
----
- drivers/pinctrl/samsung/pinctrl-exynos-arm64.c | 123 +++++++++++++++++++++++++
- drivers/pinctrl/samsung/pinctrl-exynos.h       |  20 ++++
- drivers/pinctrl/samsung/pinctrl-samsung.c      |   2 +
- drivers/pinctrl/samsung/pinctrl-samsung.h      |   1 +
- 4 files changed, 146 insertions(+)
-
-diff --git a/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c b/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
-index 1aa977d2a1f8..def84f7f029e 100644
---- a/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
-+++ b/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
-@@ -488,6 +488,129 @@ const struct samsung_pinctrl_of_match_data exynos5433_of_data __initconst = {
- 	.num_ctrl	= ARRAY_SIZE(exynos5433_pin_ctrl),
- };
- 
-+/* pin banks of exynos5515 pin-controller 0 (ALIVE) */
-+static const struct samsung_pin_bank_data exynos5515_pin_banks0[] __initconst = {
-+	GS101_PIN_BANK_EINTW(8, 0x000, "gpa0", 0x00, 0x00),
-+	GS101_PIN_BANK_EINTW(7, 0x020, "gpa1", 0x04, 0x08),
-+	EXYNOS850_PIN_BANK_EINTN(6, 0x040, "gpq0"),
-+	EXYNOS850_PIN_BANK_EINTN(6, 0x060, "etc0"),
-+};
-+
-+/* pin banks of exynos5515 pin-controller 1 (CMGP) */
-+static const struct samsung_pin_bank_data exynos5515_pin_banks1[] __initconst = {
-+	GS101_PIN_BANK_EINTW(1, 0x000, "gpm0", 0x00, 0x00),
-+	GS101_PIN_BANK_EINTW(1, 0x020, "gpm1", 0x04, 0x04),
-+	GS101_PIN_BANK_EINTW(1, 0x040, "gpm2", 0x08, 0x08),
-+	GS101_PIN_BANK_EINTW(1, 0x060, "gpm3", 0x0c, 0x0c),
-+	GS101_PIN_BANK_EINTW(1, 0x080, "gpm4", 0x10, 0x10),
-+	GS101_PIN_BANK_EINTW(1, 0x0a0, "gpm5", 0x14, 0x14),
-+	GS101_PIN_BANK_EINTW(1, 0x0c0, "gpm6", 0x18, 0x18),
-+	GS101_PIN_BANK_EINTW(1, 0x0e0, "gpm7", 0x1c, 0x1c),
-+	GS101_PIN_BANK_EINTW(1, 0x100, "gpm8", 0x20, 0x20),
-+	GS101_PIN_BANK_EINTW(1, 0x120, "gpm9", 0x24, 0x24),
-+	GS101_PIN_BANK_EINTW(1, 0x140, "gpm10", 0x28, 0x28),
-+	GS101_PIN_BANK_EINTW(1, 0x160, "gpm11", 0x2c, 0x2c),
-+	GS101_PIN_BANK_EINTW(1, 0x180, "gpm12", 0x30, 0x30),
-+	GS101_PIN_BANK_EINTW(1, 0x1a0, "gpm13", 0x34, 0x34),
-+	GS101_PIN_BANK_EINTW(1, 0x1c0, "gpm14", 0x38, 0x38),
-+	GS101_PIN_BANK_EINTW(1, 0x1e0, "gpm15", 0x3c, 0x3c),
-+	GS101_PIN_BANK_EINTW(1, 0x200, "gpm16", 0x40, 0x40),
-+	GS101_PIN_BANK_EINTW(1, 0x220, "gpm17", 0x44, 0x44),
-+	GS101_PIN_BANK_EINTW(1, 0x240, "gpm18", 0x48, 0x48),
-+	GS101_PIN_BANK_EINTW(1, 0x260, "gpm19", 0x4c, 0x4c),
-+	EXYNOS5515_PIN_BANK_EINTG(1, 0x280, "gpm20", 0x50, 0x50),
-+	EXYNOS5515_PIN_BANK_EINTG(1, 0x2a0, "gpm21", 0x54, 0x54),
-+	GS101_PIN_BANK_EINTW(1, 0x2c0, "gpm22", 0x58, 0x58),
-+	GS101_PIN_BANK_EINTW(1, 0x2e0, "gpm23", 0x5c, 0x5c),
-+	GS101_PIN_BANK_EINTW(1, 0x300, "gpm24", 0x60, 0x60),
-+	GS101_PIN_BANK_EINTW(1, 0x320, "gpm25", 0x64, 0x64),
-+	GS101_PIN_BANK_EINTW(1, 0x340, "gpm26", 0x68, 0x68),
-+};
-+
-+/* pin banks of exynos5515 pin-controller 2 (DISP) */
-+static const struct samsung_pin_bank_data exynos5515_pin_banks2[] __initconst = {
-+	EXYNOS5515_PIN_BANK_EINTN(5, 0x000, "gpb0"),
-+	EXYNOS5515_PIN_BANK_EINTN(4, 0x020, "gpb1"),
-+};
-+
-+/* pin banks of exynos5515 pin-controller 3 (FSYS) */
-+static const struct samsung_pin_bank_data exynos5515_pin_banks3[] __initconst = {
-+	EXYNOS5515_PIN_BANK_EINTN(4, 0x000, "gpf0"),
-+	EXYNOS5515_PIN_BANK_EINTN(8, 0x020, "gpf1"),
-+	EXYNOS5515_PIN_BANK_EINTN(6, 0x040, "gpf2"),
-+};
-+
-+/* pin banks of exynos5515 pin-controller 4 (PERI) */
-+static const struct samsung_pin_bank_data exynos5515_pin_banks4[] __initconst = {
-+	GS101_PIN_BANK_EINTG(2, 0x000, "gpp0", 0x00, 0x00),
-+	GS101_PIN_BANK_EINTG(2, 0x020, "gpp1", 0x04, 0x04),
-+	GS101_PIN_BANK_EINTG(2, 0x040, "gpp2", 0x08, 0x08),
-+	GS101_PIN_BANK_EINTG(3, 0x060, "gpp3", 0x0c, 0x0c),
-+	GS101_PIN_BANK_EINTG(4, 0x080, "gpp4", 0x10, 0x10),
-+	GS101_PIN_BANK_EINTG(4, 0x0A0, "gpc0", 0x14, 0x14),
-+	GS101_PIN_BANK_EINTG(2, 0x0C0, "gpc1", 0x18, 0x18),
-+	GS101_PIN_BANK_EINTG(2, 0x0E0, "gpg0", 0x1c, 0x1c),
-+	GS101_PIN_BANK_EINTG(2, 0x100, "gpg1", 0x20, 0x20),
-+	GS101_PIN_BANK_EINTG(2, 0x120, "gpg2", 0x24, 0x24),
-+	GS101_PIN_BANK_EINTG(2, 0x140, "gpg3", 0x28, 0x28),
-+	GS101_PIN_BANK_EINTG(2, 0x160, "gpg4", 0x2c, 0x2c),
-+	GS101_PIN_BANK_EINTG(2, 0x180, "gpg5", 0x30, 0x30),
-+	GS101_PIN_BANK_EINTG(2, 0x1A0, "gpg6", 0x34, 0x34),
-+	GS101_PIN_BANK_EINTG(2, 0x1C0, "gpg7", 0x38, 0x38),
-+};
-+
-+/* pin banks of exynos5515 pin-controller 5 (VTS) */
-+static const struct samsung_pin_bank_data exynos5515_pin_banks5[] __initconst = {
-+	EXYNOS5515_PIN_BANK_EINTN(2, 0x000, "gpv0"),
-+};
-+
-+static const struct samsung_pin_ctrl exynos5515_pin_ctrl[] __initconst = {
-+	{
-+		/* pin-controller instance 0 ALIVE data */
-+		.pin_banks	= exynos5515_pin_banks0,
-+		.nr_banks	= ARRAY_SIZE(exynos5515_pin_banks0),
-+		.eint_gpio_init	= exynos_eint_gpio_init,
-+		.eint_wkup_init	= exynos_eint_wkup_init,
-+		.suspend	= gs101_pinctrl_suspend,
-+		.resume		= gs101_pinctrl_resume,
-+	}, {
-+		/* pin-controller instance 1 CMGP data */
-+		.pin_banks	= exynos5515_pin_banks1,
-+		.nr_banks	= ARRAY_SIZE(exynos5515_pin_banks1),
-+		.eint_gpio_init	= exynos_eint_gpio_init,
-+		.eint_wkup_init	= exynos_eint_wkup_init,
-+		.suspend	= gs101_pinctrl_suspend,
-+		.resume		= gs101_pinctrl_resume,
-+	}, {
-+		/* pin-controller instance 2 DISP data */
-+		.pin_banks	= exynos5515_pin_banks2,
-+		.nr_banks	= ARRAY_SIZE(exynos5515_pin_banks2),
-+	}, {
-+		/* pin-controller instance 3 FSYS data */
-+		.pin_banks	= exynos5515_pin_banks3,
-+		.nr_banks	= ARRAY_SIZE(exynos5515_pin_banks3),
-+		.eint_gpio_init	= exynos_eint_gpio_init,
-+		.suspend	= gs101_pinctrl_suspend,
-+		.resume		= gs101_pinctrl_resume,
-+	}, {
-+		/* pin-controller instance 4 PERI data */
-+		.pin_banks	= exynos5515_pin_banks4,
-+		.nr_banks	= ARRAY_SIZE(exynos5515_pin_banks4),
-+		.eint_gpio_init	= exynos_eint_gpio_init,
-+		.suspend	= gs101_pinctrl_suspend,
-+		.resume		= gs101_pinctrl_resume,
-+	}, {
-+		/* pin-controller instance 5 VTS data */
-+		.pin_banks	= exynos5515_pin_banks5,
-+		.nr_banks	= ARRAY_SIZE(exynos5515_pin_banks5),
-+	},
-+};
-+
-+const struct samsung_pinctrl_of_match_data exynos5515_of_data __initconst = {
-+	.ctrl		= exynos5515_pin_ctrl,
-+	.num_ctrl	= ARRAY_SIZE(exynos5515_pin_ctrl),
-+};
-+
- /* pin banks of exynos7 pin-controller - ALIVE */
- static const struct samsung_pin_bank_data exynos7_pin_banks0[] __initconst = {
- 	/* Must start with EINTG banks, ordered by EINT group number. */
-diff --git a/drivers/pinctrl/samsung/pinctrl-exynos.h b/drivers/pinctrl/samsung/pinctrl-exynos.h
-index c9c38f8988dd..92bf8f0f1eb0 100644
---- a/drivers/pinctrl/samsung/pinctrl-exynos.h
-+++ b/drivers/pinctrl/samsung/pinctrl-exynos.h
-@@ -132,6 +132,26 @@
- 		.pctl_res_idx   = pctl_idx,			\
- 	}							\
- 
-+#define EXYNOS5515_PIN_BANK_EINTN(pins, reg, id)		\
-+	{							\
-+		.type		= &exynos850_bank_type_off,	\
-+		.pctl_offset	= reg,				\
-+		.nr_pins	= pins,				\
-+		.eint_type	= EINT_TYPE_NONE,		\
-+		.name		= id				\
-+	}
-+
-+#define EXYNOS5515_PIN_BANK_EINTG(pins, reg, id, offs, fltcon_offs)	\
-+	{								\
-+		.type			= &exynos850_bank_type_alive,	\
-+		.pctl_offset		= reg,				\
-+		.nr_pins		= pins,				\
-+		.eint_type		= EINT_TYPE_GPIO,		\
-+		.eint_offset		= offs,				\
-+		.eint_fltcon_offset	= fltcon_offs,			\
-+		.name			= id				\
-+	}
-+
- #define EXYNOS7870_PIN_BANK_EINTN(pins, reg, id)		\
- 	{							\
- 		.type		= &exynos7870_bank_type_alive,	\
-diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.c b/drivers/pinctrl/samsung/pinctrl-samsung.c
-index 5ecc9ed4c44d..f6b392a84cee 100644
---- a/drivers/pinctrl/samsung/pinctrl-samsung.c
-+++ b/drivers/pinctrl/samsung/pinctrl-samsung.c
-@@ -1492,6 +1492,8 @@ static const struct of_device_id samsung_pinctrl_dt_match[] = {
- 		.data = &exynos2200_of_data },
- 	{ .compatible = "samsung,exynos5433-pinctrl",
- 		.data = &exynos5433_of_data },
-+	{ .compatible = "samsung,exynos5515-pinctrl",
-+		.data = &exynos5515_of_data},
- 	{ .compatible = "samsung,exynos7-pinctrl",
- 		.data = &exynos7_of_data },
- 	{ .compatible = "samsung,exynos7870-pinctrl",
-diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.h b/drivers/pinctrl/samsung/pinctrl-samsung.h
-index bb02fb49b2af..7c60375d5924 100644
---- a/drivers/pinctrl/samsung/pinctrl-samsung.h
-+++ b/drivers/pinctrl/samsung/pinctrl-samsung.h
-@@ -392,6 +392,7 @@ extern const struct samsung_pinctrl_of_match_data exynos5260_of_data;
- extern const struct samsung_pinctrl_of_match_data exynos5410_of_data;
- extern const struct samsung_pinctrl_of_match_data exynos5420_of_data;
- extern const struct samsung_pinctrl_of_match_data exynos5433_of_data;
-+extern const struct samsung_pinctrl_of_match_data exynos5515_of_data;
- extern const struct samsung_pinctrl_of_match_data exynos7_of_data;
- extern const struct samsung_pinctrl_of_match_data exynos7870_of_data;
- extern const struct samsung_pinctrl_of_match_data exynos7885_of_data;
-
--- 
-2.54.0
+Taking a mutex from the kcontrol here sounds a bit scary, and
+moreover, we need a saner and safer way to get the runtime reference
+in general.  OTOH, for a workaround of this issue, this code change
+looks  simple enough, so I took as is now.
 
 
+thanks,
+
+Takashi
