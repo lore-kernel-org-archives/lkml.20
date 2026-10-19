@@ -1,79 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailrelay-egress5.pub.mailoutpod3-cph3.one.com (mailrelay-egress5.pub.mailoutpod3-cph3.one.com [46.30.211.244])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85F947F2D1;
-	Mon, 19 Oct 2026 06:46:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5F647FB03
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:46:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.30.211.244
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392378; cv=none; b=lYlZUhrUpYzvMGD3zK70OT1JtyfT4SBXdqXOdl3JRR9CprX69r6OSjzohmV9tvvsDJ0dco7JBgcFo4JRmOTMNg2jH3jkIXWcwm5L6XA/Yk2cOU6SeeLIyZVUENzx4qpIz5nb96u+ViEXTovtvN/ZEReGmKcvawIvkiOUxo/m+HQ=
+	t=1792392375; cv=none; b=ddFx0ozPkq1DOzZxTtDdsLDWImaOMebu0f5eRYZTewvK2PQydK0oF3foi/sF0+uwTJwm2DNCKTT5y+YLkjlDLX75rPHercLNNDyTihEyubou0d5Aa4X08gWaNOv4eOJob/bPKolcbqvKZ8hk6wv9Zu9vt+jV/u1KRBkHEeqWxPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392378; c=relaxed/simple;
-	bh=YQ8lTf8izlpocVzFGJ3tCmF9xA0j178kX/fbHROKyeg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ebXvygT+BWGmwGDn15RJAwfCa0BSS0LD1+PnCT79CkvJ8F+HS9Us2VPlddxCuxv3zPMQ5hGt9gI3ZZGvWi8bU0uUMo+Xh0hKLWPuxVfTbJZwgH4Y28aMCw3WUW9imBmnEAjuzWZ3alUciqzm3HqxzQss8d8ilmNwbhIZ4H2uNoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KQ/zhJaf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792392375; c=relaxed/simple;
+	bh=ZIc5wdBzF7Eo3TwtmXp7N5ocviEXanEWtYba1s8mAqA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=KW5Jk4D81l27QzA0u+EYz/RTIolWJO3mtx9cgKEJgxbWS1Y9UGR8afdTBOyxeVBmdIZK0ABhlcFN1XsdjI2ChbXgsFYFD9m2mZPSZbHPLNWj+r+UouYIQwEA/wtN1+iU1hdfvxBKmwjcKN4ZwxDFV4JkAz2SoYk8m0vwWNB+VIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=konsulko.se; spf=none smtp.mailfrom=konsulko.se; dkim=pass (2048-bit key) header.d=konsulko.se header.i=@konsulko.se header.b=zWPyn5VV; dkim=permerror (0-bit key) header.d=konsulko.se header.i=@konsulko.se header.b=u1wLz4gp; arc=none smtp.client-ip=46.30.211.244
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=konsulko.se
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=konsulko.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KQ/zhJaf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8280A1F000C4;
-	Mon, 19 Oct 2026 06:46:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792392376;
-	bh=UibeRcsOWMwjU2MgWXLgP4E0ubSKnMg/pKDOUT5jzAo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KQ/zhJafUctp/xenhL6xzsSzTcWU+zX5TcuMZq2ApWU1+W3bzWaHwtzMlUZJvlRSt
-	 gHLbjjmmeBHkUJ7vTcjor3sgmga8lDa2kuhe996IekmInvmZWZBNBxli1XTBLJsI6/
-	 KwIhyvcyMeRueM+4fDHM6uC1rgnr5INoBhGxpBCs=
-Date: Mon, 19 Oct 2026 08:46:06 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
-Cc: stern@rowland.harvard.edu, linux-usb@vger.kernel.org,
-	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] usb: ohci-omap: implement overcurrent handling for
- GPIO-based power control
-Message-ID: <2026101934-ferris-seldom-69d2@gregkh>
-References: <20261018223312.120913-1-ampr.mhd@gmail.com>
+	dkim=pass (2048-bit key) header.d=konsulko.se header.i=@konsulko.se header.b="zWPyn5VV";
+	dkim=permerror (0-bit key) header.d=konsulko.se header.i=@konsulko.se header.b="u1wLz4gp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792392367; x=1792997167;
+	d=konsulko.se; s=rsa2;
+	h=to:references:message-id:content-transfer-encoding:cc:date:in-reply-to:from:
+	 subject:mime-version:content-type:from;
+	bh=ZIc5wdBzF7Eo3TwtmXp7N5ocviEXanEWtYba1s8mAqA=;
+	b=zWPyn5VVjxNThWaLK3VxKa7MX87RgJsHeauOB2NOJH4XAfhq9lv3QPM5Bm2nAinxdLmxBmFJUHcAw
+	 vtk38mk9Bfx9a1RR1WDTSxWYewtbh4MmDUn5BUKq5vTg0vIId9boD9lnWW/1XFueXGKR/Mp2GB6qch
+	 hdPJDdtSrvwaDd8MOzUsgebYw3zkqCRWdxKYZDtTnqiQM7CfO+TL5RZzcPGDKgpjcGTMeRXFl/rBMv
+	 pvcLUa4PZQlKWuc/xq/RrnyUNwlztSQjfSgdvjY27cb7r3JmysniqrET/TluBU6rSHH4IDFugYpKyp
+	 vIw+b37B0VtFGktR5E7YhL1+mPHFFlg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792392367; x=1792997167;
+	d=konsulko.se; s=ed2;
+	h=to:references:message-id:content-transfer-encoding:cc:date:in-reply-to:from:
+	 subject:mime-version:content-type:from;
+	bh=ZIc5wdBzF7Eo3TwtmXp7N5ocviEXanEWtYba1s8mAqA=;
+	b=u1wLz4gpXoUAuJpMAj+IXFrZCLOqwGRpq8AgLAk8C0dgc/x3tuGTB7PUcQTTs92W7dTnVy8FSTPOh
+	 emqdoNdDQ==
+X-HalOne-ID: c17ea4dc-cb88-11f1-8312-1db1c303b0c0
+Received: from smtpclient.apple (h-158-174-93-34.na.cust.bahnhof.se [158.174.93.34])
+	by mailrelay3.pub.mailoutpod3-cph3.one.com (Halon) with ESMTPSA
+	id c17ea4dc-cb88-11f1-8312-1db1c303b0c0;
+	Mon, 19 Oct 2026 06:46:06 +0000 (UTC)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261018223312.120913-1-ampr.mhd@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.200.121\))
+Subject: Re: [PATCH v1] mempool: fix min_nr exceeding the elements array after
+ concurrent resizes
+From: Vitaly Wool <vitaly.wool@konsulko.se>
+In-Reply-To: <atTv1tg9q9n92kZv@thinkstation>
+Date: Mon, 19 Oct 2026 08:45:55 +0200
+Cc: akpm@linux-foundation.org,
+ cl@gentwo.org,
+ hao.li@linux.dev,
+ hch@lst.de,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ nickolai@csail.mit.edu,
+ rientjes@google.com,
+ roman.gushchin@linux.dev,
+ vbabka@kernel.org,
+ vitaly.vul@partner.samsung.com
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <F846CE95-6D2A-4D53-9C09-5C8630E2C8A7@konsulko.se>
+References: <atTh-yyVIPQ-zNWJ@thinkstation>
+ <20261018160315.1465504-1-vitaly.wool@konsulko.se>
+ <atTv1tg9q9n92kZv@thinkstation>
+To: Harry Yoo <harry@kernel.org>
+X-Mailer: Apple Mail (2.3826.200.121)
 
-On Mon, Oct 19, 2026 at 02:03:12AM +0330, Muhammad Mahdi Amirpour wrote:
-> The OMAP OHCI driver has had optional GPIO lines for VBUS power control
-> and overcurrent detection since the gpiolib conversion, but the
-> overcurrent line was never wired up — it was marked with a TODO comment.
-> 
-> On boards like the OMAP1 OSK, the VBUS power switch (TPS2045) is
-> controlled via a TPS65010 GPIO, and overcurrent is reported on a
-> separate GPIO. Without this patch, an overcurrent condition is not
-> detected by software and VBUS power is not cut, relying solely on the
-> hardware current limiter.
-> 
-> This patch implements the missing overcurrent handling:
-> - Requests a threaded IRQ on the overcurrent GPIO (both edges)
-> - Cuts VBUS power via the power GPIO when overcurrent is detected
-> - Reports overcurrent status and change through the root hub port
->   status callbacks so the USB hub core can react
-> - Handles SetPortFeature/ClearPortFeature(POWER) to drive the VBUS
->   GPIO alongside the OHCI hardware register
-> - Turns off VBUS on driver removal and probe failure
-> 
-> Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
-> ---
-> v4:
->   - Remove spinlock entirely; use READ_ONCE/WRITE_ONCE for the
->     overcurrent flags (Greg KH).  This also fixes the bug where
->     gpiod_set_value_cansleep() was called under spin_lock_irqsave(),
->     which sleeps on the I2C-attached TPS65010 (Sashiko).
 
-Are you sure this is correct?  You never responded to my previous review
-comments here, just submitted a new version which is a bit odd...
 
-thanks,
+> On Oct 18, 2026, at 6:15=E2=80=AFPM, Harry Yoo <harry@kernel.org> =
+wrote:
+>=20
+> On Sun, Oct 18, 2026 at 06:03:15PM +0200, Vitaly Wool wrote:
+>>>> How about we take my patch [1] instead since
+>>>> it isn't prone to this bug and is a nice optimization to the =
+existing
+>>>> mempool_resize() at the same time?
+>>>=20
+>>> It is not a good idea to squeeze a bug fix and an optimization
+>>> into one patch.
+>>=20
+>> Generally speaking, yes. But that patch had been submitted before the =
+fix
+>> popped up, so there was no sqeezing per se.
+>=20
+> I mean the patch you've submitted does two things (wihch is not good).
+>=20
+> It should be split into two patches that 1) fixes the bug and 2)
+> optimizes it.
 
-greg k-h
+I don=E2=80=99t think this is a fair statement. I would say that the =
+patch I=E2=80=99ve submitted improves mempool_resize() to be rid of =
+unnecessary reallocations and data copying, and that (improved) =
+implementation is *not* prone to the race found in the previous version =
+of this function.
+=20
+~Vitaly=
