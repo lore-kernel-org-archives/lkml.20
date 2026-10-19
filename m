@@ -1,157 +1,198 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AA8343D9D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053D9353A72
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792375148; cv=none; b=kFX5UjsCdyWmQC1brzx2MMhqUab0m5dJKarkl+R7KTsplbZ9uo1eLc3UNy0pC7wZxZvStBpEYMk8IdFfW+v1neALLeOvTVCdaKKXQy4QMfAveZQF15l50NOyipOu12+nl0N3z2FVzDXjecmoVeZ5dienif8O+DBdzEqtBzYLTBU=
+	t=1792375150; cv=none; b=uoBkYSVb9c19kDPmWc1+gCCJ/GLpKh93h/J5Z2HawB2qmj4Dg4tGioLzMzZgi/c6PHZUlf9sQuUPMgsBQd5NGaZSz9XLplqaRDM6Gl+HbOIuq2he84emWnp1YRP/jFw2ATvwmJLcVMRZg5l9kTiN0jFrP5zGNIFs1rSkNyTvj3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792375148; c=relaxed/simple;
-	bh=vQ7Rq9dIEUKGE4TLNxaJn+WTiiQI1Xpb5z7OLgBgEiM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=texv3OoKw0rM8p09zD6zqOumwLhYPXgcmnmDoRocE77VRKCh7jCuppqvxhWTHjJMiuUfB7rfxKuUWezCWt/EfbBfvDx2cEOWbHPtJx1QLQmWpSZsMwmm6ps+JojKHuut7r8ZsxJeM54+q0MdERZ8O5xYMOD5yGWChKPq1IIaETQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pMzTuZbN; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792375150; c=relaxed/simple;
+	bh=Si3qx/laftTYJ+RacUVnTVoPA350XVCs5qAtOZjp2HY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jyzgKMcfCEghuhVzb+83jpGe5bFBPZjHmcreprLfxZ35Lk2tz2ml69GpzokAnDCuCliQm2hK5xwiIGCe3r7S0zH2RPcFA8LDDi7Lww3IlUm5fCBdzA7HgVKIlZHmkMuKPlL3wUV1Mn8ej1oBLTGa2R6+WBXZVty2C0EYcBvishU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net; spf=pass smtp.mailfrom=themaw.net; dkim=pass (2048-bit key) header.d=themaw.net header.i=@themaw.net header.b=imZrchW3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KST25SaB; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pMzTuZbN"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso709581eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:59:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792375146; x=1792979946; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CGuNTdEG2B3jP21wBHfoCXg9dp+LdJHVpN39Arwz/Dk=;
-        b=pMzTuZbNktb2BzY1Zh5+rwVjifYf+B+oAxAsydxRW+evwIUFjl26rqnSPrXFHlNZLa
-         VSP915UH9nooxViUPjsgcWwsdozrujyobhq4GdI1G3vsWZUSaVauKKcj7Yrv6nbBO8YZ
-         bqjR7r9ynfEdxj25Guobo3zkMIlxxh35PR/QSsZ7dBRz5WUZg4PhsBQswvOQY/XcGIdn
-         vfvft6lKzQxZT1tLV4o9J1NWgUtBCgE66ByzNePLCvtgVgqMwa20aUKllq4ZTKDxBNSn
-         Q25xg7u8818eQrP+iZKYIqCk9Xr+nMqGUA9gTdmNxvbVYo9Z42KU9Q5RXD6gRk1MLEtY
-         zYNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792375146; x=1792979946;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=CGuNTdEG2B3jP21wBHfoCXg9dp+LdJHVpN39Arwz/Dk=;
-        b=Y1IuDQY5akG5mHk269oxoB7YulUnX4QkG2em6n7nyoDBc/9lHqXDutKLzUvk0PA3Ki
-         lAUZCOlka0z1oUziPNyb9DW7/tEcveVvmlwk6w8vZr0vHc/6UiqWPEzP/axMmBycAm1Q
-         iybBmAxVzxl9zccr5sfTQfrVzkPnT88mF7mJrkIDzLprQDFnoh47vjs0ugSMQHWYqctK
-         fsm9jmVS9kaMk+wjdCrggEIC0fuXqUTe19VyFjWKkBD1b3C2EIoOO18V6itZLGs+4bIY
-         xQPyD65wnN4e76anM9JVlxFczorm3cX8vUVSMcY6EXvhgPdi+VuVG7c2Ov5VJj9Gvqn7
-         jthQ==
-X-Gm-Message-State: AFq9FYIFznH3JYFORrfSGdik//DrPe0w/U9rfyWGjf7wcQSR/h5w6sRU
-	FaZ/vRrQ2rvt0lNyUwDPd1s8KvDfRuUPfz9onCcpVDKJyX/RVM7L1Q47
-X-Gm-Gg: AYBFou1y24n3Djwj6kcL4dI+AQFq4lYDrXKrXmrFaStL/NEF78+U289xDnBfsa/Fyp6
-	29++3b4H+9qZ8p5zBf84fQffPxjbCs4BNjTKsje3hriU+e7DGsNPfRSkZiKHPnc+RoRB1npoQBa
-	7/jPk54qMCh9844HsZOGx65uXSygJ+vcZ2VAxAzOvfVlZzZ0uWpFBMgEa3uDOSncXX8XevZQzgS
-	0X5vU9gAcCdSf1s+jz4PrxY/GDgrjpdSGO6z9uNnjlaIIoox5OiJT9wtZMp03XzhwBz6NInUDro
-	//ALqpxkbPWWOheYyW52Kd8S4/zCYNIz7wSzsOyg1nRAT62/DMGdTgtyHLWVpgrTeJD9jG/etqT
-	tV3XW5JevN3I0pqJjOUHX61dPykOzRgP18wJFazPDQNOMsfRSAeLyqlCh3VVLgctmumjLdp3KUN
-	kNlazAnrUkkBsH/vsuSrXKWKZZfw+lhl20nQAsZVLf+vSD7NYWGmsR74/pzxnPGz6t8g==
-X-Received: by 2002:a05:701a:c951:b0:156:3684:96db with SMTP id a92af1059eb24-18515e402d1mr10796118c88.45.1792375145676;
-        Sun, 18 Oct 2026 18:59:05 -0700 (PDT)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fc14sm30505313c88.6.2026.10.18.18.59.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 18:59:05 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
+	dkim=pass (2048-bit key) header.d=themaw.net header.i=@themaw.net header.b="imZrchW3";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KST25SaB"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id 560DA1D00165
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:59:08 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Sun, 18 Oct 2026 21:59:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792375147;
+	 x=1792461547; bh=Si3qx/laftTYJ+RacUVnTVoPA350XVCs5qAtOZjp2HY=; b=
+	imZrchW3anuR4ZvAYbqx4v339+BNQMmtlXOGQP+qSlK7jOWuv3NhmmN2cB596FAT
+	HNL8wioamGNmPVP7RlY/XsO0jZEO1LhRqpUJeNHNIS3l6ilZs/2gX5BYwPzLhHbh
+	4xjPqnFlVtsa/JG0SVZXyV0GNNttrCRQ6ipcllG6HO0HtKoANw+62iaLkOTiKoYW
+	x4y1zfozMmd83DAB9+rCKilUEYAvgYPoeS7iUvdSJM2ieqoXhsDmxXTnAthANFNY
+	gNW7JutB7740t1pS90KaoiCJr69ebFbbwKReAmWRxBJKgbig1eMlpfpFjRal6y6w
+	qbbrwE72UsZ1iyUhLxTL3A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792375147; x=
+	1792461547; bh=Si3qx/laftTYJ+RacUVnTVoPA350XVCs5qAtOZjp2HY=; b=K
+	ST25SaBNBp58EzWmtUnoNF39hHKBANS47D3GBVdCE4WzABKJD557tCJ9hywn+gep
+	3VFTtvo7sSAo8hrp8eUTCUG+3uqbf4UUVIt1vGvpBYdOrZkd58pnQXyVSVz/U8S0
+	ciSnMyt8yJQepICn+wrd8f2xyWR0Rq7/CcRiMeo7/hylLFe0iVLyYsbsj0Yjcyk4
+	L5dplvYIF00UXtCHjQR/ljCLGY+afJV03OIWY6BBo2weHIUeNGSCoE7i9osyUr6l
+	ua8OvCCKO0Xs1b8o7mAqnr6B36EHk9iYv4vQjryH4gZINpwJkLOm8PH2+wno8DUt
+	evD7Z6K1zwHveLnuvev9Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=themaw.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792375147; d=themaw.net;
+	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:EIUpWK4WmBYqP5StyOnOaKouPneYOyc8Fw8fNmiCC7nKiHZ
+	VmhpWJCtvBQmCuTdSScf4vlfIIdE4LsVusb6xPuTBcZfbCVEVEwqmPb7Y1eAX2AY
+	ljLoY9kdTBaZO00YKe6OkksT092MoDn+BsvH9s+NzeT9agdp3tHfOaS8XZoL/dYr
+	onqUmXuoLCC2StZVnFlVH6HQJCJIumA/TSKG15oxAW25AAC/2CGcyec03DRzmzmS
+	mhADqxyx0e3vMim7aOxkCZNsWxxPiz6bxGEuoARPvj/si/KKadqkGjAytEhAROFX
+	Iyp0KrG/ZCu4qoYtf7EcWJGJ8dY1dMF6XX8PgLA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to,
+	user-agent;
+Message-Instance: m=1; h=sha256:IXGdCl/HQgICm++E3ct2bHAOlGPo8AK4fy6wnykcFBA=:Si3qx/laftTYJ+RacUVnTVoPA350XVCs5qAtOZjp2HY=;
+X-ME-Sender: <xms:annVavVNcoi7HMMETp7Wq40siNLDceQUIRU7XrNayAR2OxnlazJBJw>
+    <xme:annVaqIvRVEDTUdvI91lj-obb95Jd3Z1TnfYw0Ns-IQR_59QI9nzD8HV-xZiM4RHv
+    EQhQO2OWXZeTPQ-UE3eDRyc5JJ92W9y3LOJsAs98kNVysm2>
+X-ME-Received: <xmr:annVavCotq82FIMpq7rxyxN0t1Bj1wQQ5Vz41CjcK6aJkwLe_AdzOMoJq3qK01DBCHqNWurNRMX5vynaCqp9NWB1VK6C6b1_CXI-FA2jOFrcZ6BuX9IhT-JcmEE>
+X-ME-Proxy-Cause: dmFkZTEmBgOaIB2cYNDY3XWg3ZtDTpZLOd7qiHniQRmI/Z8IfwAqPOpFoD5Wz/pHShf/W2
+    8q4AOomLKaRb8j4ZYgLzbV8yo+1CPOPiQ+GnmD3XADZLywC7Z+BazyuqadiVkvwSVifYzc
+    xrWiqmQ2bowbH1U2Hai/9SHPJe42a+FIt7RlblresvWsPPRjrazoKiG6Ap3V9yYJI850hR
+    NMofRyUuarbfM/VZx4j4Blj9FKzb+U54hA2Uqyp+REllKWT4+Dr0Yy8luHUOIX/TSwUbzX
+    b2zaTvAbevSkd9dcTMmqaeOyaMFAjdNLdYTrD4oVVW7RiOWPUw2R1g6wdwC8ecKdedz4eF
+    +t3aaUrfd0T4W8p4NP6YjJs++xqR+HCOWLaVMmknfCSWqfF43iwbeOZowGg50Q4ot6Jmzo
+    jXHWx9sJyrqM49OyH2EdeR5hwyQaobeYJzEtQBIR9En6bhiqYE+Goy1TjdPK3iRdCORaBm
+    kBaS3RKbcZUPaMUSHOKj9aEupPxtamOSTa/ojFJH4Glj/7tz5UofBWr2NMBRHLeaINqmCr
+    ferqx4xWSNeceHdcy/XH0NdmuDNtfcv7U3cqr6JMWsOnLee3kOi2GVCPMekrRUnPz4LQfY
+    xrIhEunFXfD4IMcGuP52eNAFwrHJpoNPBvDu+QH+73LVFV8Rs9v/Pij17Z3A
+X-ME-Proxy: <xmx:annVaqdDWteFgxKw7cYyGGqIrZwXrVPfcPiNswCCUGvDs6YSmH6TeA>
+    <xmx:annVau0Hq3sxYT5AV0IE-XBz1FyjVnAr1r8tVJzZJ1zrAKsuB3xzTQ>
+    <xmx:annVahgEDze5mMgbAbCplFpLEwgsLMzrbwLKos3jgCBYthlOdhB66A>
+    <xmx:annVanlKOU4V8XgkY9okJsgdZVdlL15l3gQK9KwdONOYnuCQBj8jtg>
+    <xmx:a3nVaspT51FPDtHBtCpQs9dlvRrQ121XNvByf-44kVM-Na_D3eOSCAPh>
+Feedback-ID: i31e841b0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 18 Oct 2026 21:59:03 -0400 (EDT)
+Message-ID: <f1c42d0bd125c6b1c39f1ebaee41340b5f6f03f6.camel@themaw.net>
+Subject: Re: [PATCH v4 0/5] Fix easy bits of the negative dentry problem
+From: Ian Kent <raven@themaw.net>
+To: NeilBrown <neil@brown.name>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner	 <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Amir
+ Goldstein <amir73il@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, Jake Edge
+	 <jake@lwn.net>
 Date: Mon, 19 Oct 2026 09:59:01 +0800
-Subject: [PATCH v2] string: copy byte by byte in sized_strscpy() under
- KASAN
+In-Reply-To: <20261019000810.1837917-1-neilb@ownmail.net>
+References: <20261019000810.1837917-1-neilb@ownmail.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-bug-string-strscpy-kasan-first-byte-v2-1-c93073250e6b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAGR51WoC/42NQQ6CMBBFr0K6dgxtLTauvIdhUcoAE7WQTiUSw
- t2tJO5d/by/eG8VjJGQxaVYRcSZmMaQQR0K4QcXegRqMwtVqkqWsoLm1QOnSGEf9tMCd8cuQEe
- REzRLQtDaGGs8qlK3IpumiB2998qtzjwQpzEue3SW3/fnt3/5ZwkS9Nk45U9Va2137Z+OHkc/P
- kW9bdsH32lrENYAAAA=
-To: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Peter Collingbourne <peter@pcc.me.uk>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
- Alexander Potapenko <glider@google.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
- kasan-dev@googlegroups.com, Qiliang Yuan <odys.yuan@gmail.com>
-X-Mailer: b4 0.13.0
 
-sized_strscpy() copies a word at a time. The loads go through
-read_word_at_a_time(), which checks the first byte of each word with
-KASAN, or through load_unaligned_zeropad() on architectures with
-CONFIG_DCACHE_WORD_ACCESS. Under KMSAN it copies byte by byte instead.
+On Mon, 2026-10-19 at 11:00 +1100, NeilBrown wrote:
+> For this v4 I decided to focus on just fsnotify, as that is where
+> I've
+> received the most useful review, and that is where problem reports
+> seem
+> to focus.
+>=20
+> Other places that walk the ->d_children list (and don't already use
+> cond_resched()) are specific to just one file-system-type.=C2=A0 fsnotify
+> can
+> affect (almost) any file-system.=C2=A0 So it is reasonable that it gets
+> priority.
+>=20
+> So here we just fix the refcount overflow, and the ->d_children walk
+> for
+> fsnotify.
+>=20
+> If/when this lands, I can suggest patches to various file-system
+> maintainers.
+>=20
+> Thanks,
+> NeilBrown
+>=20
+>=20
+> Original intro - revised:
+>=20
+> =C2=A0I was reading about the negative dentry problem in
+> =C2=A0https://lwn.net/Articles/1079407/=C2=A0and thought I would have a g=
+o at
+> the
+> =C2=A0easy bits.=C2=A0 Given how involved some of that was I'm glad I did=
+n't
+> try
+> =C2=A0the tricky bits!
+>=20
+> =C2=A0So I didn't try to reduce the number of negative dentries or handle
+> =C2=A0them differently to positive dentries.=C2=A0 I just tried to addres=
+s
+> =C2=A0specific symptoms.
+>=20
+> =C2=A0This series addresses two reported symptoms.
+> =C2=A0 1/ refcounts on parents can potentially overflow if there are
+> billions
+> =C2=A0=C2=A0=C2=A0=C2=A0 of (negative) children.=C2=A0 This was the easie=
+st easy bit.=C2=A0 The
+> first
+> =C2=A0=C2=A0=C2=A0=C2=A0 patch is all that is needed.
+>=20
+> =C2=A0 2/ Walking the ->d_children list can take arbitrarily long and can
+> =C2=A0=C2=A0=C2=A0=C2=A0 trigger soft lockups.=C2=A0 I haven't addresses =
+the "arbitrarily
+> long"
+> =C2=A0=C2=A0=C2=A0=C2=A0 part, but the "soft lockups" is relatively easy.
+> =C2=A0=C2=A0=C2=A0=C2=A0 With this in place I would feel more confident a=
+ddressing
+> =C2=A0=C2=A0=C2=A0=C2=A0 the "arbitrarily long" part if that seemed worth=
+ while.
+>=20
+> =C2=A0The core idea is to use a common helper for all walking of
+> =C2=A0->d_children, and teach it to drop the lock and schedule when
+> needed,
+> =C2=A0inserting a cursor to keep its place.=C2=A0 This simple idea requir=
+es
+> that
+> =C2=A0nothing should be holding any other lock while walking ->d_children
 
-load_unaligned_zeropad() is inline assembly that the compiler does not
-instrument. Since sized_strscpy() switched to it, generic and software
-tag-based KASAN no longer report strscpy() reading from a freed or
-out-of-bounds source on x86_64, arm64 and the other architectures that
-select CONFIG_DCACHE_WORD_ACCESS. On x86_64 the kasan_strings KUnit
-case, which expects a report when the first source byte is out of
-bounds, fails as a result:
+As is so often the case you've come up with an interesting and useful
+proposal, ;)
 
-  KASAN and string KUnit suites      failures
-  on x86_64, generic KASAN        before    after
-  CONFIG_FORTIFY_SOURCE=n              1        0
-  CONFIG_FORTIFY_SOURCE=y              1        0
+Nothing stood to me out as problematic given the scope of the series.
 
-Copy byte by byte under generic and software tag-based KASAN too, as
-under KMSAN, so that every byte strscpy() reads is checked. Hardware
-tag-based KASAN keeps the word loop that load_unaligned_zeropad() was
-brought in for.
+>=20
+>=20
+> =C2=A0[PATCH v4 1/5] VFS: don't count references through ->d_parent
+> =C2=A0[PATCH v4 2/5] fsnotify: update children flags only when adding mas=
+k
+> =C2=A0[PATCH v4 3/5] fsnotify: don't hold i_lock while walking d_children
+> =C2=A0[PATCH v4 4/5] Add d_for_each_positive_child family of iterators
+> =C2=A0[PATCH v4 5/5] Use d_for_each_positive_child() in fsnotify.
 
-Fixes: d94c12bd97d5 ("string: Add load_unaligned_zeropad() code path to sized_strscpy()")
-Suggested-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
-V1 -> V2:
-- Copy byte by byte under generic and software tag-based KASAN instead
-  of checking the first byte of each word (Andrew Morton)
-- Rebase onto v7.3
+Did you have any thoughts on how to contain the number of negative
+dentries, (perhaps) including directory entry counts, in an intelligent
+way (meaning "as you go" rather than "brute force" when needed)?
 
-v1: https://lore.kernel.org/r/20261018-bug-string-strscpy-kasan-first-byte-v1-1-375a2c46d88f@gmail.com
+A significant problem, particularly on systems that count their memory
+in TBs rather than GBs.
 
-The other callers of load_unaligned_zeropad() are covered by a separate
-series (Peter Collingbourne):
-https://lore.kernel.org/r/20261019-bug-word-at-a-time-zeropad-kasan-v1-0-f21a3ed6a477@gmail.com
----
- lib/string.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/lib/string.c b/lib/string.c
-index a3778d5aab4af..d14e42ae3903b 100644
---- a/lib/string.c
-+++ b/lib/string.c
-@@ -124,8 +124,14 @@ ssize_t sized_strscpy(char *dest, const char *src, size_t count)
- 	 * uninitialized bytes after the trailing zero and use them in
- 	 * comparisons. Disable this optimization under KMSAN to prevent
- 	 * false positive reports.
-+	 *
-+	 * KASAN does not see load_unaligned_zeropad() at all, and
-+	 * read_word_at_a_time() only checks the first byte of each word.
-+	 * Disable it under software KASAN as well, so that every byte read
-+	 * is checked.
- 	 */
--	if (IS_ENABLED(CONFIG_KMSAN))
-+	if (IS_ENABLED(CONFIG_KMSAN) || IS_ENABLED(CONFIG_KASAN_GENERIC) ||
-+	    IS_ENABLED(CONFIG_KASAN_SW_TAGS))
- 		max = 0;
- 
- 	while (max >= sizeof(unsigned long)) {
-
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261016-bug-string-strscpy-kasan-first-byte-335585ce203d
-
-Best regards,
--- 
-Qiliang Yuan <odys.yuan@gmail.com>
-
+Ian
