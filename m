@@ -1,211 +1,149 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31974052B7;
-	Mon, 19 Oct 2026 09:04:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400701; cv=fail; b=IxNoHcDYqqRDOSuAQm/ZpAnb5pjyG3Ht6cXP5m3plCNOQUEIRbEcAymfbwDx/A+VoMp3oIyLstjGLlzpG9E4VTFtn0OM7L8wr4FDNbtGgib0snFV7ZYNtIpzrgIk2E9lng7wtwxQmn/XkoUD5LAGhjYsLesrZ0RFd8RiNi/dbqA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400701; c=relaxed/simple;
-	bh=OjpJgk6gO++1v6OXV35wGWWFjR9aWXEVp+yvwDMw9z0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=io/ZSMAIgn5lTtvOyDWwFDyO46AtcmE2SyDZ32zSbD6QM5Ay16tjdo4t+XDDkUVtU8u5B7+yH/8xMjjOS7gb7K3sa8knyYztqDUIZ16+1+rZxJ0HXJeKrzsSi8hZ5T03bSMP8TyEALlDMbz0VY4Fc8TMs99B0apW2vkCMEa0btM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=jKlY6nN2; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=eXLIFplq; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449DA49B1ED
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:05:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792400718; cv=none; b=KX/+F0nYTAV+16crbCpMcS3yYw2lu0n9tz808YBzPWi/52A/OtDPTgAVx4YIFitViYdsSsGnD8DtCkE6ZbDT0rASMpE/04gO2hm0NoN5BkiUt6lknKKjjSF26bOZzXPSbG9ADL42PfoqLvTbrQC7Y3yAzgJlyLKOWb4+uTqdX5Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792400718; c=relaxed/simple;
+	bh=gmnf5efQ2mINrLxGQXSf6UEgcGI1XJTCl1/2d7HLilM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QWL+59vm5rX8Bf/A+Igsq/SK5UvDflbg7oumVPxicL6SntMTr3qPGM/Q5ANCDzcDJ4nMBhiuuYDhWRNvqA7ioM0cMhhEF6CHHc33Na7Hq8hYuWYUMqviavx7TIznJCD2+EWXnj/sFWWOk3RsYjQL6R2wRHVbPiAxknIS6sqYePg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ftwC1tnE; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=nKuifPyC; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="jKlY6nN2";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="eXLIFplq"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8uYdN3513983;
-	Mon, 19 Oct 2026 04:04:43 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=FgjJwYKAnk1gQn1+Pm
-	NhmqWmcbWDnD9IkBZwuAdYRJU=; b=jKlY6nN2mWDHfytCQl3yM8u1CjeTHitOkU
-	yA7joBbe6GP3etW+rCf0ovEuSWDq7sEWdYTrsjCDL6LVlh7pwbWR27xVtJsB9/nk
-	rmwzev6Fv2a4ngcjyVN4Tmp9KgpsP7NlLmT+XsxuB69H+wLWtD+Aj3gTgBFWSpkc
-	scZme8XK8ZTp+bktLCWGGLx1ugc6mA80abTw6KpCEKOgofrjW8EoRM63dMCPvLku
-	gA+4DIUczO9Xf+kV7PZ6IJfsBewKWaba6JmsNupAzpwqAXsNwl0pokclawal9dbK
-	h9WRp7gZ066OsgQuHEciVL8CcpHiscaVDB0m6SdGiax27zOyWNEA==
-Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11020132.outbound.protection.outlook.com [52.101.85.132])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4hcpts133u-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 19 Oct 2026 04:03:25 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Md2vEuYGqWpT+Q42rNPW84+AkfKHH5Aby3cg6Kics5eHtd8NwnQny6DBkuBWx3sVV9VydGyZCFJH/FHUOYsfBFVQl15LcIVh/Kf6Y12ceJtqEfO8BafgBfCl2TuVz15aZYb7vXuZyZzdgg87+SRmIDD/TIA09N2T8H4lxCMZEGejiFX1m4/lUMChUXbI+jl9QeS2+kzBBrDSOvwLbSrKv3ImUenjJb9rkKzWv69v6z5QWF7g6OzPPKtwcua93d/uyE8DfCp9Hkg4Y8PrIFfbPKcN+ImtbS2sdC5JbzYJaleBFzUZFblJJAQhZLAHoGbP62BlNdDmhevqZ9NtS0LfCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FgjJwYKAnk1gQn1+PmNhmqWmcbWDnD9IkBZwuAdYRJU=;
- b=yROo3imQj++opmz+aO1x+VHqXAifNP00lO6+YIV8QjnsmO4/UdEAcm8uFBcxaIvg73F1uZFzEY2wa9lg5sxzNyYbv9OUkZd10vr440zJ2PPHytXK6KZRkM4JXq2ryQ/9/L4gGlcvyKw9HPnsAq0oe7Hb8GVdd8fEGWS/QJnsKU7F0b5DZkF+FYDRFwOiHz+hrZnC7jmNRmRV9xYFdN4mwj/KqEuGPijIYbov3b7KcdB3uxIJ81R6JtWNKve5Tps1kSzeo5Eyxvme4PpV+aZJdVy95P5J9FyEAfEcyYfdbq2SzEqmJH3ZdF9Uajz3Bi7z0rT3DtYmkZV5r7/Bn/slcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ftwC1tnE";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="nKuifPyC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792400716;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=9io6NcVa485axIU0tMIo8oUR5zvQmfTZbiDmw/REe/0=;
+	b=ftwC1tnEmaTflvLhcBBuQ/dB83a9H4exv9xxtyi/dCWCLHjpk0IUL46CsqXQpsJriFLnZr
+	AEvxr60UYqEDp47Hy5cd9kMkOAPN/CLiuMWUEERboM0HM8JTMXMTyw3PhSbfIg05JhV6nt
+	6kS4YYSPL2QROzAwm/hLkKf1gWgdkyQ=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-321-LY1ZnB2NNhetQPfzLjC-Iw-1; Mon, 19 Oct 2026 09:05:15 +0000
+X-MC-Unique: LY1ZnB2NNhetQPfzLjC-Iw-1
+X-Mimecast-MFC-AGG-ID: LY1ZnB2NNhetQPfzLjC-Iw_1792400714
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e00f3929bso1416692f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:05:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FgjJwYKAnk1gQn1+PmNhmqWmcbWDnD9IkBZwuAdYRJU=;
- b=eXLIFplqSY6N4BeqJa6DKLBpe/fNQSt7PM13euIVA+I0yIPCqZj4kBKxxPrfbCqOcAZH2wQ8HJozqVA4Dzi3E5t7MLK0LrLCaL7MPX4lOrz5LtSLVkziBagrVpM8uYdHSQFs1bmISw0Tsj+Ogi2cGJYzUy+1TqdQa2p2OQJLgo8=
-Received: from PH8PR07CA0001.namprd07.prod.outlook.com (2603:10b6:510:2cd::26)
- by DS0PR19MB7671.namprd19.prod.outlook.com (2603:10b6:8:de::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.19; Mon, 19 Oct 2026 09:02:15 +0000
-Received: from PH4PEPF0000B60B.namprd21.prod.outlook.com
- (2603:10b6:510:2cd:cafe::a2) by PH8PR07CA0001.outlook.office365.com
- (2603:10b6:510:2cd::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
- 19 Oct 2026 09:02:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- PH4PEPF0000B60B.mail.protection.outlook.com (10.167.243.86) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.0
- via Frontend Transport; Mon, 19 Oct 2026 09:02:14 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 32E7D406541;
-	Mon, 19 Oct 2026 09:02:13 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 07606822567;
-	Mon, 19 Oct 2026 09:02:13 +0000 (UTC)
-Date: Mon, 19 Oct 2026 10:02:11 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
-        Maciej Strozek <mstrozek@opensource.cirrus.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
-        linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] ASoC: SDCA: class_function: clear sconfig.bps on PDM
- data-port terminals
-Message-ID: <atXck2Ef4OllKrAA@opensource.cirrus.com>
-References: <20261018192359.287987-1-srinivas.kandagatla@oss.qualcomm.com>
- <20261018192359.287987-5-srinivas.kandagatla@oss.qualcomm.com>
+        d=redhat.com; s=google; t=1792400714; x=1793005514; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9io6NcVa485axIU0tMIo8oUR5zvQmfTZbiDmw/REe/0=;
+        b=nKuifPyCwRR760ffFYIZmOet8G7WIOqxHEt+kSQgvTbPxTIO3ATUof7g94lFOY3Yis
+         wmmGdWtqEyASdacHCP96OKcDoZqcs7M7EJiPNRFSvuhzD3Rvu3EKl4Pkx47UMb0CwY55
+         rP55r/kbAz5djlujD2igUxINJ5h4bSXzYTa2JhGPD41wO7QH4IfucIeHeqWdwwasAeCS
+         3cvci2tSJne+lYMhqeRbjIDy4H0hW2Hq3hdr3V1U4DwlzJo43bz5FZu9zxRR8RGsYUZs
+         MjTMFTjPBPnR3BODMFkwMMOXuNSvXCjNDevsOcSu0N2OHPLvui7LYAI3OEVACXYSE8RK
+         6luA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792400714; x=1793005514;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9io6NcVa485axIU0tMIo8oUR5zvQmfTZbiDmw/REe/0=;
+        b=QD4QqUOZVtNzx6lIn6jsT6jazTVnUx7eIyUM2Bt9ZPERUPIMwcU89qTUJ1iqz/dMMo
+         BBbZIVHWvpj/5DYe8VxXB5UU0s6e0C0S7cO7c1wGGKcWwShSrLYT6csUy7bGd6+vLBdW
+         uQGepLfMqzedEqUEuWGtnl80dEhN8soFnvL4+m0KS5GWN3M/UCx75W1xof7YaGR+Ize0
+         125q0I56bNeuB3H+bQ2D6Qpm3VDZ3zjKROmUTRjC0tfZjmZ6x4oVi4QVKKnA0CzOf4Gl
+         VUmAftg41m7OhlH941lVYG61SuK/bR9A8kUOs4gWT7UdZCA2+TSyq3KNfqFGBYSIj2sP
+         LMFw==
+X-Forwarded-Encrypted: i=1; AKwUvByoR63pLlQf+tfdpa+/+TitXCF7Zxgq/5KoQKgsYQICHvK+HVtBpj5IWh+2eTKik/Be0ny2nEWIBOzQLdw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdRtgeEJb3JFCJWGYYnArZkNFkOjCsKLcYtlUi14I9GMR05cbm
+	ISUL2UTyGhV8GEC3NPnWYmYGncTL4uuvXH0t0gl7n1EeKCKcsRySB/5VUb0Xz321JoPDrmgwwOz
+	GWSKyzISCmDMRop28Hsro1GXBkp4Gi6I/UwaHKC3OjIcCfMuRdD6mr9ZZfvcMtO0CNg==
+X-Gm-Gg: AYBFou09iRbCgPLyK60dWVJP4MCrlnKi6VAOXwDdUpelWqORMcT2D0KqKSUce11pEax
+	nVWasxuz46njV8QYJCeFSR8qI/1rRf7NQV7neSNMoY9jU3qDx9TCkzdu4vIez1sYsmkHFfv6WHR
+	BI7ZuioqlRbqjlxXeCAIUUVtNSyDkHqbYItnX228zvG2LE+cngxOyP+1/ni9Nw7i0Az8jbedSfG
+	aTB27W71D9sJ5wy2bLA+7xWqqcC6YGaDHsgjz0dfx8cBD+wwAYXQKbus/t32tbqac8GmL78x4qL
+	8byhAMnAzrQ9MUGyT/zYGMe/xAfvGmLwzFKCYgPSpijOdfUHjeWYSuOqSzgYJ2rX/aUz+FnAAMk
+	t0A5EsNDnNfmKjEh5v6kAnMXkbA==
+X-Received: by 2002:adf:ec91:0:b0:48c:54ec:ea3 with SMTP id ffacd0b85a97d-48dfae65b2dmr19629107f8f.13.1792400713425;
+        Mon, 19 Oct 2026 02:05:13 -0700 (PDT)
+X-Received: by 2002:adf:ec91:0:b0:48c:54ec:ea3 with SMTP id ffacd0b85a97d-48dfae65b2dmr19629060f8f.13.1792400712928;
+        Mon, 19 Oct 2026 02:05:12 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.134.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f576asm23527360f8f.32.2026.10.19.02.05.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 02:05:12 -0700 (PDT)
+Message-ID: <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
+Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: John Ogness <john.ogness@linutronix.de>, Alexei Starovoitov
+	 <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Steven Rostedt
+	 <rostedt@goodmis.org>
+Cc: Nam Cao <namcao@linutronix.de>, Wen Yang <wen.yang@linux.dev>, Tobias
+ Schaffner <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
+Date: Mon, 19 Oct 2026 11:05:10 +0200
+In-Reply-To: <87ik2zryzo.fsf@jogness.linutronix.de>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+	 <20261001152042.124445-11-gmonaco@redhat.com>
+	 <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
+	 <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
+	 <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
+	 <878q3xtptq.fsf@jogness.linutronix.de>
+	 <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
+	 <87bj8s8ih9.fsf@jogness.linutronix.de>
+	 <DM78SVMBI2XW.2XHVC67VON48A@gmail.com>
+	 <87v770uuyr.fsf@jogness.linutronix.de>
+	 <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com>
+	 <87ik2zryzo.fsf@jogness.linutronix.de>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018192359.287987-5-srinivas.kandagatla@oss.qualcomm.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH4PEPF0000B60B:EE_|DS0PR19MB7671:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2166d7ae-0e93-4be6-90b2-08df2dbfab6a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|61400799027|82310400026|376014|36860700016|11063799006|4143699003|56012099006|261009223027099003|10067099003|22082099003|16102099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	GhXHqFM7ndO5ODNawHJzXT1AsFFgsASgcAXrXeHNlj/sVn3kt3tAP9RMImgsmDevQvU8StNm1+yD0QWwpshLsVd/29kT6ubnq0iBsKaiXHGn9EmZwEIEQtgSOau6mojWuKXCG6bVx65VY8hfSOmKIq/TWBuRSOZjWKA5sFleqAB6Gpdj4NGbz4T0wAR3va7A2+8LWoNPVlrV9ryHWZc1ESJ5jSLgMRNJpg+Jmi1RyuDJ8H3bA0UHuNppMykbDUK6GeFOlnPCluGEuGz7RR1nDprsn7cOx1G4XcSxSmFaP5AVwmwc71nxu2YFAb3DHdYjtakOpoRikLX3fJ+wCpovG1nKja2ed+FINqXc7YBouuC3OSU0g0AE9b1UNxJc2M1OfegVvf2dZWf3USiYBlCZJgrUkLPRzvLn8UIocOyhq6YmB4MmAMLIgTng7TDKNjVPHshwvgZVngGoDJszgbrMizVvajm2A68vFCGNTb9G3/TKagaIKQd0I7+WXhrDgfOO+LY8pcH5TyRJesoMSz+48tw9q7sVAhKtiV+XScYBBoTMGyz+MrYyCIU+bufYX/eo/4XulHDM3vowSFHqBpkpyltbDb0K2fz5rsAfiYGW20EV6iXlZUr3JBP1FuuhEYo94dZPUaBA3f46INsRrNyvfTsE43cYqOp+3r8EJHRdt6c5e4wBsbAFhKJe1HV10U462ZdhMLY9/ZuEmqImHk96AA==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(61400799027)(82310400026)(376014)(36860700016)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(22082099003)(16102099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RZ26xMybV2wEvI8iXeanzL7HO+L86K9GrAdeJJfLxzyG3QDiEWUtLxxwGsgfbZnLCLOFBDBSZz2iXHLQh9taPv2Vgjo9QgfNp+iLQy4YV5WEB+15LoIcSD+MiM1Iq20n10XEBzaiGBJvBCbvQjC6sJp1tRfrAmwj9vmQ41rDUJ4ECqmX2Q7IAvTweOhXrtEpCmslkbSxLQUwTJ3UvaqP46edj+rIpi9GF5gVXD6BZVDrsnbsrc1YUB8LDZQTMNg/8/prymzxitifRb2xdfNB8YNlcT2/w+qb+BGAy2b0N4M2MF1VStWObxgxMRgUJ+5ellm0GAhX8QXYQ2er1eip6hG7IxeyPIPL7ITHJNTRkf+DyH9l/6MnJa+0ngn/FZVpWPSBs9uL59D5AY4hoAYZP7WBKv5Zj2D+U6Xu8OLYJ9UcsIFD3ie2wjjVqNixrEu0
-X-Exchange-RoutingPolicyChecked:
-	zgjEoKalJnKApACxsEYyPu8Q/n1pCzZDZh5iif3a/DXRSYMJYGAnGwpya0Yawe4datBmWXCtPLv6wZGMGMDbx13pweNwfJEv6gQhS60A5ru87pIbgZfyPwdvHcYKY4HcJXgIxdEghAMzuyOeNpcThLdJpwlVWc7jJONmf1zvqXetE5xVEeywmnoE2ydvhFRFqfOp74LiESTwFuQMR3DRbv5Uo3tiNJnQqJ3CNjkPO+MbMg2fckGsVvpO1UDiNHnKPiS16MQYeISccHdGxeDrrabk02Vr/ygVnuYtKba454p4aBMB9ICJNUPyMP5kpx7Uu75LKPAYRHN9z00ViDbrbw==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 09:02:14.4744
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2166d7ae-0e93-4be6-90b2-08df2dbfab6a
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-PH4PEPF0000B60B.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR19MB7671
-X-Authority-Analysis: v=2.4 cv=QM391QLL c=1 sm=1 tr=0 ts=6ad5dcdd cx=c_pps
- a=49z8yXsbOF0P8jZAR4etzQ==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=EUspDBNiAAAA:8 a=hSbs_pWNpfqTcWyVFBAA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: aQsblfu9Vu3QGplc4aDtkFlljYyF6oDW
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAzNSBTYWx0ZWRfX0c3myKdjXYe+
- leF1i0R+9mWbX2Ot+Q6UkAkLMRWNEzOlnarcY9vOPv52XzdArq5cPNHKOaznpe4IKr2XLmS+g5m
- 2/tGt8CkKqsVasRADZdqQPz6nJ94mkA=
-X-Proofpoint-GUID: aQsblfu9Vu3QGplc4aDtkFlljYyF6oDW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAzNSBTYWx0ZWRfX1bpOSAL4n6Vp
- MP06Hm3gTxFn6sq7LQa1E40xjvNvU8c35fF06teg9YuOz3D7+4efmgSacM2dVT7FpOMjsN2md73
- 8yy2eGAa+RXeGgC6niRFuwtmH5XVcRIXi8/A/y5i9dWzq5RPsTo+xKQsdyuCcz0PjLimCADQuZT
- yTFBsomZsDWcItsYHVBUHUdCqTBbv0g097Y5KUIWHECFfFMN1rJEhiiSLRlFQK4E4z07FruvCKh
- tm2He1CERczhbKY0Q+0eskV9aXDKA784PBS1R5IdF0Qy2G8qhk9thClCKVXbzC8bC0HvMXLkoko
- 8yxR1ODzATKKs+eTyZEEpsk5oJSgmRAPuABhWjAS3nTvxS5g7S5TIofu5CojU36d6nswrFlYRDl
- zxMXwnKEgjmI1p03dC8nbWOZKmWAsn8bnwCXIemajm2VjKSAE9csTVYTt/TdPRjXoZBPgRmElQw
- RyB5hyUKewhXiiqRSAA==
-X-Proofpoint-Spam-Reason: safe
 
-On Sun, Oct 18, 2026 at 08:23:59PM +0100, Srinivas Kandagatla wrote:
-> snd_sdw_params_to_config() derives sconfig.bps from the PCM container
-> width, which is not meaningful on PDM data-port terminals and clashes
-> with masters that declare their own view of the wire word length (e.g.
-> the Qualcomm SoundWire master hardcodes sconfig.bps = 1 for PDM).
-> 
-> Clear sconfig.bps when the DAI's SDCA terminal is PDM so compute_params()
-> or the slave silicon drives the per-port wire word length.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> ---
->  sound/soc/sdca/sdca_class_function.c | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/sound/soc/sdca/sdca_class_function.c b/sound/soc/sdca/sdca_class_function.c
-> index 13b70f0f0dbf..acaadd12432a 100644
-> --- a/sound/soc/sdca/sdca_class_function.c
-> +++ b/sound/soc/sdca/sdca_class_function.c
-> @@ -126,6 +126,17 @@ static int class_function_startup(struct snd_pcm_substream *substream,
->  					 substream, dai);
->  }
->  
-> +static bool class_function_terminal_is_pdm(enum sdca_terminal_type t)
-> +{
-> +	switch (t) {
-> +	case SDCA_TERM_TYPE_RAW_PDM_MIC:
-> +	case SDCA_TERM_TYPE_PDM_RENDER_STREAM:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
+On Sun, 2026-10-18 at 14:16 +0206, John Ogness wrote:
+> My issue with the /dev/kmsg design is bogus timestamps. But let's just
+> drop my suggestion to allow eBPF programs to call printk(). Since the RV
+> move to eBPF will require new user workflows anyway, the users will need
+> to learn these new packages, tools, and output sources. The important
+> thing (for me) is RV violations can still be used effectively with
+> ftrace/perf, which they can (using globs in bpf_trace:bpf_trace_printk
+> filters).
 
-I think this would make sense as a generic helper in sdca_asoc.c
-probably taking the function and the DAI as arguments.
+Alright, I'll focus on trace_printk for now. As I said, it's rather trivial=
+ to
+add another reactor later.
 
->  static int class_function_sdw_add_peripheral(struct snd_pcm_substream *substream,
->  					     struct snd_pcm_hw_params *params,
->  					     struct snd_soc_dai *dai)
-> @@ -133,6 +144,7 @@ static int class_function_sdw_add_peripheral(struct snd_pcm_substream *substream
->  	struct class_function_drv *drv = snd_soc_component_get_drvdata(dai->component);
->  	struct sdw_stream_runtime *sdw_stream = snd_soc_dai_get_dma_data(dai, substream);
->  	struct sdw_slave *sdw = dev_to_sdw_dev(drv->dev->parent);
-> +	struct sdca_entity *entity = &drv->function->entities[dai->id];
->  	struct sdw_stream_config sconfig = {0};
->  	struct sdw_port_config pconfig = {0};
->  	int ret;
-> @@ -152,6 +164,9 @@ static int class_function_sdw_add_peripheral(struct snd_pcm_substream *substream
->  
->  	pconfig.num = ret;
->  
-> +	if (class_function_terminal_is_pdm(entity->iot.type))
-> +		sconfig.bps = 0;
+> @gmonaco: There should be clean glob-friendly RV bpf_trace_printk
+> strings so that filters can be easily and reliably set up.
 
-I think this is fine, as you say bps makes no sense for a PDM
-stream but I might need to spend a little more time working out
-how this all propagates through the core. I guess my concern is
-if other drivers don't handle PDM in the same way.
+If I leave the LTL header unmodified, you'd get something like:
 
-Thanks,
-Charles
+  rv: sleep: <comm>[<pid>] violation detected
+
+It should be glob-friendly enough, but I'll try it out.
+
+I wonder if string matching brings additional overhead (trace_printk itself
+does, if I recall correctly), but that's probably rather minor.
+
+Gabriele
+
