@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF87D539763;
-	Mon, 19 Oct 2026 13:55:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7411554707A;
+	Mon, 19 Oct 2026 13:55:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418123; cv=none; b=gctkBiqUyk2AgTkrZ2hfVnMSpT6XmoKwXfYfxcved8akziB9CxGIM+ef46dMP2/xwtgwUR3lcSw6g/xiQxm8knaU//2HbvsDeDLYHb8qPS797kXbC22txFlhdfpYNFwi5zwIqSENf6ZzBIlOYNJPFR5kemHVZbgt+gTAn/6THgg=
+	t=1792418124; cv=none; b=DN59ESt2+fVQzq1NNStHVLdYUThQQUXObcO8l96cA4XneFg38CiC6a00654CXGlWM42R6KBD+GYIIhrLe4wxVlldql0UHz1dERtD6Pzm1+xg7sR8Ys27vH02EkwM3+JTIPANMG858iwvy+uu2DONIakpAcahPwJN4V0hjupzVMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418123; c=relaxed/simple;
-	bh=p/DhF42raQ7LtZU+gbIb+kAcSbQNnWCPCFScLiNA36s=;
+	s=arc-20240116; t=1792418124; c=relaxed/simple;
+	bh=ag1r3dO+hTmf5iGAASIFWIPuBw6QvX/U5lxznXVSzdI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NicyaA3KZ2XASRXkPU43565TFbmKSUX1WiIQ664DI0d77V7RTaU1/0i5IQQ8tWX2//phheBAobw5KicTNaygSrL2u9z8uyjwNbkV7rFgo+ELq8do+gLSsGz596hv1lYMTY8qtef7hUgEeaBI7wggWk42s2oCmF5xa4tekJX144g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eNbksOTk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=SzzuM3WOnKQxb84RSLps+abQWYdwfV/a8JFqKA9XAc4nt/ulRFEPBM6I0yRKqOk+nhgH+cU+zk4J62K/d7Sxa+z2y0dADxs8mEshYJOhMwXWCJCBjv2QrCjf3SmcVPz88g3SSubUyZHIt6Lj91XpSJffDjqTyjpA376pduYtDlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HdwaVseF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eNbksOTk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBDD11F000CA;
-	Mon, 19 Oct 2026 13:55:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HdwaVseF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 958F21F000C5;
+	Mon, 19 Oct 2026 13:55:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418119;
-	bh=GNAwXZxGzpjCpCLLS6riFOILsXe4BJz2ZdZ68y974jo=;
+	s=k20260515; t=1792418122;
+	bh=Ch4WjkUqaDLEjPrlB74vPqJSfYLdXmGZs6MkatSbaW8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eNbksOTk0H4NLiU+E7mgpnuaBDfwmQvaTj+XeUtKrtBcGe3rRhnNfhdQId81XLwsT
-	 ZJAVosnq/VJ6kfvW6Wveprnl1yNzqPDXuxw6Za24Iy7XEsniWQemYc5VBEngrAxPgd
-	 FXGkyhbmIVB2fw/nUxnwH6ENOfrozXB1/C2MpofcL8sK04V9qmXhat1rV5yzfn1ybx
-	 baFXf35QISVkxBfXHh88peDXwPaeR+ao7cd2NOuy1jo3BZCd6cDfOaPWXqAH1SDMyA
-	 yIKLA+6JNwgUs3LLVv2d0qgi5JnoXvmwvLZsuiET8An/ob1lPAPRgNnepZswJ+SMQW
-	 Y6a+YuvEh/Kww==
+	b=HdwaVseF4GJYMOj1mXNnoi5ucdJ/fwlsYE8t5XJtUcTvpPrVodLqkBg6rfa0+HfJh
+	 iwHqIay7e+4kOI+bjUEwEXc9vc0/U7G+O9z0nGXiOQGWxxofIBj++0vVTy45Htb3Yj
+	 Tkj74imQHOYKPiUm6vC0K+3/AajvNWE6VtJds5lXPftx639CLF6Gz1Q65x6SamFh+s
+	 CawB/FmXlFK5hRaGHHsQDFByVabQw4P9j4KC9ckBPvk7aWra55tj0czbmwNBVu4akf
+	 5Sl2dSotuQ5wrdkVEkJoF725QdDWOaYkHYlLI81UWlMfhaot2GQ8GRGCuLKIbu6SZS
+	 ByiS65MUr2FjQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: David Laight <david.laight.linux@gmail.com>,
+Cc: Yousef Alhouseen <alhouseenyousef@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-usb@vger.kernel.org,
+	haver@linux.ibm.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] usb_string_copy: Use kzalloc() to avoid leaking old data
-Date: Mon, 19 Oct 2026 09:45:16 -0400
-Message-ID: <20261019135441.1420968-25-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] misc: genwqe: handle a first DMA address of zero
+Date: Mon, 19 Oct 2026 09:45:18 -0400
+Message-ID: <20261019135441.1420968-27-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -52,507 +52,412 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: David Laight <david.laight.linux@gmail.com>
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-[ Upstream commit 057df423bf4747091cf942af57307627e941e1fb ]
+[ Upstream commit d401772a9e18e837631450844f835229354528a4 ]
 
-If the string is read while being updated (which is why the copy is done
-in place) and the new string is longer than the old one, then the reader
-can read memory that isnt part of either string.
+genwqe_setup_sgl() uses zero as the initial previous DMA address. DMA
+address zero is valid, so a first entry at that address enters the
+merge path before last_s has been assigned and dereferences NULL.
 
-Use memcpy() to copy the known length string instead of strcpy.
+Only merge adjacent mappings after an SGL data entry has been created.
 
-Signed-off-by: David Laight <david.laight.linux@gmail.com>
-Link: https://patch.msgid.link/20260608095523.2606-37-david.laight.linux@gmail.com
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Link: https://patch.msgid.link/20260630104923.53827-1-alhouseenyousef@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable backport analysis: `usb_string_copy: Use kzalloc() to avoid
-leaking old data`
+Confirmed `GENWQE_EXECUTE_DDCB` is unprivileged on a 0666 device node.
+Compiling the nine-phase analysis from the code, history, and review
+trail.
 
-Local tree: **v7.3-rc4** (`7.3.0-rc4`, HEAD `f0100363d8c37`). The commit
-under review is `057df423bf474`. The buggy `kmalloc` + in-place `strcpy`
-path has been in this lineage since **v5.12** (`98f153a10da403`).
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
----
+Step 1.1: PARSE THE SUBJECT LINE
+Record: [misc: genwqe] [handle] [avoid NULL deref when the first SGL DMA
+address is zero]
+Subsystem prefix `misc: genwqe:`. Verb “handle” is a fix-style verb.
+Claimed intent: stop treating DMA address 0 as “no previous mapping.”
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-**Step 1.1: PARSE THE SUBJECT LINE**
-- Subsystem: USB gadget configfs (`usb_string_copy` in
-  `drivers/usb/gadget/configfs.c`)
-- Action verb: **Use** (kzalloc) / implied **avoid leaking**
-- Claimed intent: stop readers from observing memory that is not part of
-  either the old or new string when an in-place update lengthens the
-  buffer
-
-Record: `[usb/gadget/configfs] [use/avoid] [zero the string buffer and
-copy a known length to prevent leaking heap bytes during in-place
-updates]`
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-- `Signed-off-by: David Laight <david.laight.linux@gmail.com>` (author)
-- `Link: https://patch.msgid.link/20260608095523.2606-37-
-  david.laight.linux@gmail.com`
-- `Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>` (USB
-  maintainer applied it)
-- No `Fixes:`, no `Reported-by:`, no `Tested-by:`, no `Reviewed-by:`, no
-  `Acked-by:`, no `Cc: stable` (absence is expected)
-- Message-Id `2606-37` = patch 37 of a large series
-
-Record: Author SOB + Greg SOB + lore Link. No reporters. Hardening/USB
-lists were the original audience (confirmed in Phase 4).
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-The body describes a concurrent-read hole in the in-place update path:
-if a reader walks the buffer while a longer string is being copied, it
-can pass the old NUL and consume bytes that belong to neither string. It
-also switches `strcpy` to `memcpy` of the already-computed length.
-
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- Bug: kernel heap contents can be observed by a concurrent reader of a
-  gadget string during an in-place lengthening update
-- Symptom: leaked uninitialized `kmalloc` bytes (via configfs show or
-  USB string descriptors)
-- Version info: none in the message
-- Root cause: first allocation used `kmalloc` (unzeroed tail); in-place
-  `strcpy` of a longer string temporarily removes the old NUL before the
-  new one is written
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-This is not disguised cleanup. The subject states the leak. It *is* one
-patch in a treewide `strcpy` sweep, and `memcpy` is that sweep;
-`kzalloc` is the actual leak fix.
-
-Record: `[Not hidden. Real infoleak fix, bundled with strcpy-
-elimination.]`
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-**Step 2.1: INVENTORY THE CHANGES**
-- File: `drivers/usb/gadget/configfs.c` (+2 / −2)
-- Function: `usb_string_copy()`
-- Scope: single-file, two-line surgical change
-
-Record: `[configfs.c +2/-2] [usb_string_copy] [single-file surgical]`
-
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Before:
-- First call: `kmalloc(USB_MAX_STRING_WITH_NULL_LEN)` then `strcpy`
-- Later calls: reuse the same buffer (`str = copy`) and `strcpy` over it
-  (the 2021 UAF workaround)
-
-After:
-- First call: `kzalloc` so the unused tail is zeros
-- Copy: `memcpy(str, s, ret + 1)` (`ret` is `strlen(s)`, so this
-  includes the NUL)
-
-Affected path: configfs store of
-manufacturer/product/serial/configuration strings (`GS_STRINGS_W`).
-
-Record: `[kmalloc+strcpy -> kzalloc+memcpy of known length; first-alloc
-and in-place update paths]`
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Category: **uninitialized data / kernel infoleak** (with a concurrent-
-read window created by in-place update).
-
-Mechanism, verified in this tree:
-1. `98f153a10da403` (v5.12) stopped `kfree`+`kstrdup` and copies in
-   place so USB host pointers stay valid.
-2. First fill still used `kmalloc`, so bytes after the first NUL are
-   heap residue.
-3. Bind aliases those buffers into USB string tables:
-   - `stringtab[...].s = language->manufacturer/product/serialnumber`
-     (`configfs_attach_gadget_strings`)
-   - `cn->strings.s = cn->configuration` (`configfs_composite_bind`)
-4. `usb_gadget_get_string()` does `strlen(s->s)` then converts to
-   UTF-16.
-5. Configfs show is `sprintf(page, "%s\n", gs->__name ?: "")`.
-6. `GS_STRINGS_W` calls `usb_string_copy()` with **no** `gi->lock`. Host
-   `GET_DESCRIPTOR` is not serialized against that store.
-7. If a reader is in `strlen`/`sprintf` while `strcpy` lengthens the
-   string, the old NUL is overwritten first; the walk continues into the
-   unzeroed tail.
-
-`kzalloc` makes that tail zeros, so a torn read stops instead of leaking
-heap. `memcpy` is equivalent to `strcpy` here (`ret` already came from
-`strlen`).
-
-Record: `[uninitialized kmalloc tail leaked across a designed
-concurrent-read window] [kzalloc zeros the tail; memcpy is strcpy
-replacement]`
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-Obviously correct. `USB_MAX_STRING_LEN` is 126, so max `ret+1` is 127,
-matching `USB_MAX_STRING_WITH_NULL_LEN`. `kzalloc` is strictly safer
-than `kmalloc`. `memcpy` of `strlen+1` matches `strcpy` for a C string.
-
-Regression risk: very low. Remaining torn-string reads of *previous
-string contents* are the pre-existing in-place design, not introduced
-here.
-
-Record: `[minimal, correct] [regression risk very low]`
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: BLAME THE CHANGED LINES**
-- Function added: `88af8bbe4ef781` (2012, “the start of the configfs
-  interface”) — originally `kstrdup` + `kfree(old)`
-- In-place `kmalloc` + `strcpy`: `98f153a10da403` (2021-03-17, in v5.12)
-  — **this is the buggy code**
-- Empty-string guard: `6d3c721e686ea` (2024, `Cc: stable`)
-- This fix: `057df423bf474` (2026-06-08)
-
-Record: `[98f153a10da403, v5.12] [bug present for years in this
-lineage]`
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-No `Fixes:` tag. The semantic Fixes target is `98f153a10da403`, which
-**is** in this tree (`git merge-base --is-ancestor` succeeded). That
-commit was itself `Cc: stable` and exists because USB host string reads
-race with configfs stores.
-
-Record: `[No Fixes tag] [real introducer 98f153a is in this tree since
-v5.12]`
-
-**Step 3.3: CHECK FILE HISTORY**
-Recent related commits on this file: OOB empty-string fixes
-(`6d3c721e686ea`, `3014168731b79`), later `f63edb54d8f73` (qw_sign,
-unrelated). No prerequisite refactor is required for these two lines.
-`kmalloc_obj` treewide conversion did **not** change this `kmalloc`
-call; the pre-image is still `kmalloc(...)`.
-
-Record: `[standalone vs file history] [no blocking prerequisites in this
-tree]`
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-David Laight is not the USB gadget maintainer. Around this commit he
-posted ~100 compile-tested `strcpy` replacements to linux-hardening /
-subsystem lists. Greg applied this one. Sibling leak-style changes exist
-(e.g. TIPC pad bytes).
-
-Record: `[regular contributor, hardening series] [Greg applied; not a
-maintainer-authored USB patch]`
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Needs the in-place buffer (`98f153a`) to be meaningful; that is in this
-tree. Does not need `6d3c721e` (empty-string check) for correctness;
-that only appears as nearby context. Applies standalone.
-
-Record: `[standalone on any tree that has the 2021 in-place copy] [can
-apply standalone here]`
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-`b4 dig -c 057df423bf474` matched:
-https://patch.msgid.link/20260608095523.2606-37-
-david.laight.linux@gmail.com
-
-`b4 dig -a`: only **v1**, dated 2026-06-08, subject `[PATCH next]`.
-Saved mbox: patch only, **no replies**. Trailer notes:
-- one of a group removing unbounded `strcpy()`
-- **“all the changes are only compile tested”**
-- ~100 patches sent individually
-- “Apologies for the terse commit messages”
-
-WebFetch to lore.kernel.org returned **403**. Discussion content was
-recovered via `b4 dig -m`.
-
-Record: `[lore msgid 20260608095523.2606-37] [v1 only, no review
-comments in thread] [no reviewer Cc: stable] [compile-tested series]`
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-`b4 dig -w` original recipients: Kees Cook, linux-hardening, linux-
-kernel, linux-usb, Arnd Bergmann, Greg Kroah-Hartman. Greg’s merge SOB
-is the only review signal in git. No `Reviewed-by`/`Acked-by` on the
-commit.
-
-Record: `[USB + hardening lists and Greg CC’d; Greg applied; no written
-review in the thread]`
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-No `Reported-by`, no syzbot, no bugzilla. The race is inferred from code
-and from `98f153a`’s real KASAN UAF on the same overlapping access.
-
-Record: `[no external bug report] [concurrent access is documented by
-the 2021 UAF fix, not by a new user report]`
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Patch 37 of a ~100-patch `strcpy` series aimed at linux-next. This
-instance is one of the few that also changes allocation to `kzalloc` and
-describes a leak. No other series member is required for this function.
-
-Record: `[strcpy series; this patch is self-contained]`
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-lore.kernel.org/stable search via WebFetch and curl returned **403**.
-Cannot confirm a stable-list nomination or rejection.
-
-Record: `[UNVERIFIED: stable@ discussion]`
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-semcode MCP is not available. Used grep + file reads.
-
-**Step 5.1: KEY FUNCTIONS**
-Record: `[usb_string_copy]`
-
-**Step 5.2: CALLERS**
-Direct calls only through `GS_STRINGS_W` in
-`include/linux/usb/gadget_configfs.h`, instantiated in `configfs.c` as:
-- `gadget_language_{manufacturer,product,serialnumber}_store`
-- `gadget_config_name_configuration_store`
-
-Those are configfs attribute stores (privileged gadget setup). Host-side
-readers are `usb_gadget_get_string()` → `strlen` on the aliased buffers
-after bind.
-
-Record: `[configfs stores write; USB GET_STRING and configfs show read
-the same buffers]`
-
-**Step 5.3: CALLEES**
-`strlen`, `kzalloc`/`kmalloc`, `memcpy`/`strcpy`. No locks, no I/O.
-
-Record: `[string copy + slab alloc only]`
-
-**Step 5.4: CALL CHAIN / REACHABILITY**
-Userspace with configfs gadget access: `write(2)` →
-`configfs_write_file` → `GS_STRINGS_W` → `usb_string_copy`.
-USB host: `GET_DESCRIPTOR` / string request → `composite_setup` →
-`usb_gadget_get_string` → `strlen(s->s)`.
-
-Reachable. Typical writers are root (Android/embedded gadgetd). The
-**host** is a different trust domain.
-
-Record: `[reachable from configfs writes and from USB host string reads]
-[host path is the security-relevant reader]`
-
-**Step 5.5: SIMILAR PATTERNS**
-Same file already has other string-safety fixes (`6d3c721e`,
-`3014168731b79`). Author’s series has other “don’t leak leftover bytes”
-patches. No second copy of this exact helper.
-
-Record: `[isolated helper; same file has prior stable-bound string
-bugs]`
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Yes. Pre-image at `057df423bf474^` still has `kmalloc` + `strcpy`.
-Introduced v5.12, present through this 7.3-rc4 lineage until this
-commit.
-
-Record: `[yes, usb_string_copy in drivers/usb/gadget/configfs.c] [since
-v5.12 / 98f153a]`
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Hunk is two lines inside a long-stable helper. Would apply cleanly here
-(and would apply to older trees that still have `kmalloc`+`strcpy`;
-empty-string check is only nearby context).
-
-Record: `[clean apply]`
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-`6d3c721e` is a different bug (OOB on zero-length write). No other
-kzalloc leak fix for this helper.
-
-Record: `[no substitute fix already present before 057df423]`
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1: SUBSYSTEM AND CRITICALITY**
-USB gadget configfs (`CONFIG_USB_CONFIGFS`). Used to compose gadgets
-from userspace (Android gadgets, gadgetfs-style gadgets, UDC testing).
-Not core mm/VFS, but a common embedded/Android path.
-
-Record: `[USB gadget configfs] [IMPORTANT for gadget/Android; PERIPHERAL
-for desktops without UDC]`
-
-**Step 7.2: SUBSYSTEM ACTIVITY**
-File still receives security-relevant string fixes in 2024–2026. Mature
-interface, not staging.
-
-Record: `[mature, still getting bounded-string fixes]`
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: WHO IS AFFECTED**
-Gadget systems that set manufacturer/product/serial/configuration via
-configfs and have the gadget bound so a host can read string
-descriptors. Config-specific: `CONFIG_USB_CONFIGFS`.
-
-Record: `[driver/config-specific: USB gadget configfs users]`
-
-**Step 8.2: TRIGGER CONDITIONS**
-Concurrent in-place store of a **longer** string while
-`strlen`/`sprintf` is walking the buffer. Window is a 127-byte copy —
-short, but the overlap is intentional (`98f153a` exists because host
-reads and configfs writes do overlap in practice). Unprivileged local
-users generally cannot write these attributes; a USB host can read the
-leaked bytes.
-
-Record: `[short race during string lengthening while gadget is live]
-[USB host can observe the leak]`
-
-**Step 8.3: FAILURE MODE SEVERITY**
-Kernel heap infoleak (uninitialized `kmalloc` bytes), not a crash. Can
-cross to a USB host via string descriptors. That is a security issue,
-not a panic.
-
-Record: `[kernel heap infoleak to USB host / configfs reader] [HIGH for
-security, not CRITICAL crash]`
-
-**Step 8.4: RISK-BENEFIT RATIO**
-- Benefit: closes a real infoleak on a path already known to race; 2
-  lines; `kzalloc` is the usual stable-grade fix
-- Risk: negligible (`kzalloc`/`memcpy` behavior-preserving for this
-  helper)
-
-Record: `[benefit high for gadget infoleak] [risk very low] [favorable]`
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-FOR:
-- Real uninitialized-kmalloc leak, not style-only
-- Concurrent reader is why in-place copy exists (`98f153a`, KASAN UAF,
-  `Cc: stable`)
-- Host `strlen` on aliased pointers is a verified path
-- Two-line, obviously correct change
-- No new API/feature
-- Bug present since v5.12 in this tree’s history
-- Applied by Greg KH
+- Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com> (author)
+- Link: https://patch.msgid.link/20260630104923.53827-1-
+  alhouseenyousef@gmail.com
+- Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org> (char-
+  misc maintainer; applied)
+- No Fixes: tag (expected for this review pipeline)
+- No Reported-by, Tested-by, Reviewed-by, Acked-by
+- No Cc: stable@vger.kernel.org (expected; not a negative)
+- Ignoring any Sasha Levin SOB (none on this commit)
+
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
+Record:
+- Bug: `genwqe_setup_sgl()` initializes `prev_daddr = 0`. DMA address 0
+  is valid. If the first mapping is at 0, `prev_daddr == daddr` is true
+  while `last_s` is still NULL.
+- Symptom/failure mode: NULL pointer dereference of `last_s->len`
+  (kernel oops).
+- Version information: none in the message. History shows the pattern
+  dates to the original GenWQE driver (v3.14).
+- Root cause: 0 used as a sentinel for “no previous DMA address,” which
+  collides with a valid IOVA/physical DMA address.
+
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not a disguised cleanup. It is an explicit NULL-deref fix. The
+wording “handle” / “only merge after an SGL data entry has been created”
+matches the one-line guard.
+
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
+
+Step 2.1: INVENTORY THE CHANGES
+Record:
+- File: `drivers/misc/genwqe/card_utils.c` (+1 / -1)
+- Function: `genwqe_setup_sgl()`
+- Scope: single-file, single-line surgical fix
+
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record:
+Before: on every mapping, `if (prev_daddr == daddr)` merges into
+`last_s`. `prev_daddr` starts at 0, `last_s` starts NULL. First mapping
+at DMA 0 takes the merge path and dereferences NULL.
+After: `if (last_s && prev_daddr == daddr)` — merge only after a data
+entry exists (`last_s` assigned at “start new entry”). First mapping
+always creates an entry.
+
+Verified in the current function:
+
+```379:439:drivers/misc/genwqe/card_utils.c
+        dma_addr_t prev_daddr = 0;
+        struct sg_entry *s, *last_s = NULL;
+        ...
+                        if (last_s && prev_daddr == daddr) {
+                                u32 prev_len = be32_to_cpu(last_s->len);
+                                ...
+                        }
+                        /* start new entry */
+                        s[j].target_addr = cpu_to_be64(daddr);
+                        ...
+                        last_s = &s[j];
+```
+
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record: [NULL pointer dereference] [sentinel 0 vs valid DMA address 0].
+`last_s` is only assigned when a new SG_DATA entry is created. Guarding
+the merge with `last_s` skips merge until there is a real previous
+entry.
+
+Step 2.4: ASSESS THE FIX QUALITY
+Record: Obviously correct. `last_s == NULL` means there is nothing to
+merge; skipping merge is the right first-entry behavior. One-line, no
+API/locking/structure changes. Regression risk is very low: the only new
+path is “first daddr==0 creates an entry instead of oopsing.” Later
+adjacent merges still work once `last_s` is set.
+
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
+
+Step 3.1: BLAME THE CHANGED LINES
+Record: Buggy `prev_daddr = 0`, `last_s = NULL`, and `if (prev_daddr ==
+daddr)` come from 67f4addbb8fe68 (“GenWQE Utility functions”, Frank
+Haverkamp, 2013-12-09). `git describe --contains` →
+`v3.14-rc1~152^2~29`. Present for ~12 years. The fix line is
+d401772a9e18e8 (this commit).
+
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. Original buggy commit is 67f4addbb8fe68,
+confirmed ancestor of HEAD. No intermediate fix of this sentinel bug in
+`drivers/misc/genwqe/`.
+
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record: Recent `card_utils.c` history is mostly treewide
+MAX_ORDER/docs/DMA API churn. This commit is the only functional SGL-
+merge change. Standalone; not patch X/Y.
+
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Yousef Alhouseen has this single genwqe commit. Not the listed
+maintainer (Frank Haverkamp). Greg KH applied it through char-misc. No
+related follow-up series from the same author in this tree.
+
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: None. The change uses existing locals `last_s` and `prev_daddr`.
+Applies standalone on any tree that still has the 2013
+`genwqe_setup_sgl()` merge loop.
+
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Record:
+- `b4 dig -c d401772a9e18e837631450844f835229354528a4` → https://patch.m
+  sgid.link/20260630104923.53827-1-alhouseenyousef@gmail.com
+- `b4 dig -a`: v1 only, 2026-06-30; no v2/v3
+- lore.kernel.org fetches returned 403; discussion recovered from
+  https://lkml.iu.edu/hypermail/linux/kernel/2606.3/11318.html and
+  https://lists.openwall.net/linux-kernel/2026/06/30/1334
+- Message matches the committed diff. No NAK found in those archives.
+  Greg applied it 2026-07-17 (char-misc), merged to Linus via `char-
+  misc-7.3-rc1` (93e4b3076b5f, 2026-08-25).
+- No reviewer “Cc: stable” in the archives that were reachable.
+- UNVERIFIED: full lore reply chain (403). No public replies found on
+  IU/openwall for this Message-ID.
+
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record (`b4 dig -w`): To/Cc Frank Haverkamp (GENWQE maintainer), Arnd
+Bergmann, Greg Kroah-Hartman, linux-kernel@. Applied by Greg (SOB). No
+Reviewed-by/Acked-by on the commit.
+
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No Reported-by, syzbot, or bugzilla. Bug is from code inspection
+of the sentinel/NULL pattern, not a published crash report.
+
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: Standalone v1 patch, not a series. `git log --grep` on
+`drivers/misc/genwqe/` found no companion “DMA address zero” follow-up.
+
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: lore.kernel.org/stable search returned 403. UNVERIFIED whether
+stable@ already discussed this specific commit. No local evidence it was
+rejected for stable.
+
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
+
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: `genwqe_setup_sgl()` only. semcode MCP not available; identified
+from the hunk header.
+
+Step 5.2: TRACE CALLERS
+Record: Single caller, `ddcb_cmd_fixups()` in
+`drivers/misc/genwqe/card_dev.c` (ATS_TYPE_SGL_RD / ATS_TYPE_SGL_RDWR),
+which is called from `genwqe_execute_ddcb()` → `do_execute_ddcb()` →
+ioctl `GENWQE_EXECUTE_DDCB`.
+
+Verified: `GENWQE_EXECUTE_DDCB` does **not** check
+`capable(CAP_SYS_ADMIN)` (only `GENWQE_EXECUTE_RAW_DDCB` does).
+`genwqe_devnode()` sets the char device mode to 0666. With CONFIG_GENWQE
+and hardware present, an unprivileged process that can open
+`/dev/genwqe*` can reach this path.
+
+Step 5.3: TRACE CALLEES
+Record: Builds hardware SG entries from `dma_list[]` (from
+`dma_map_page()` in `genwqe_map_pages()`) or from `sgl->fpage_dma_addr`
+/ `sgl->lpage_dma_addr` (`dma_alloc_coherent()`). first-page buffer:
+`daddr = sgl->fpage_dma_addr + map_offs`. `dma_mapping_error()` treats
+`~0` as error, not 0, so DMA address 0 is accepted as valid.
+
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: userspace ioctl → `ddcb_cmd_fixups` → `genwqe_setup_sgl`.
+Reachable from userspace when the IBM GenWQE card is present. Trigger
+is: first SGL data mapping has DMA address 0 (IOMMU IOVA 0, or coherent
+alloc at 0). Not every I/O; depends on the DMA API returning 0. Failure
+is an oops, not a WARN.
+
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: Same file’s `genwqe_unmap_pages()` also treats `dma_list[i] ==
+0` as end-of-list. That is a separate sentinel bug and is **not** fixed
+here. It does not make this `last_s` guard wrong: `fpage_dma_addr` does
+not go through `dma_list`, so a coherent mapping at 0 still hits the
+NULL deref. No sibling functions needed the same one-line change.
+
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record:
+- `git describe HEAD` → `v7.3-rc4-27-gf0100363d8c37`
+- `make kernelversion` → `7.3.0-rc4` (Linus mainline, not a -stable
+  series)
+- Driver and `genwqe_setup_sgl()` exist. Bug introduced in v3.14
+  (67f4addbb8fe68), ancestor of HEAD.
+- Candidate d401772a9e18 **is already an ancestor of HEAD** (expected:
+  candidates are taken from this mainline history). The pre-fix
+  condition is the historical `if (prev_daddr == daddr)` in this
+  lineage.
+
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: Surrounding function is essentially unchanged since 2014
+(`718f762efc4547` adjusted mapping sources). Expected apply: clean (1
+line). No conflicting refactor in this file’s recent history.
+
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: This commit is the fix. No earlier alternative for the same NULL
+deref. No later revert.
+
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: [drivers/misc/genwqe — IBM GenWQE PCIe accelerator]
+[PERIPHERAL]. CONFIG_GENWQE, depends on PCI && 64BIT. MAINTAINERS:
+“Supported,” Frank Haverkamp.
+
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Low churn; mostly treewide and small misc fixes. Mature driver,
+bug long-standing rather than a new-feature regression.
+
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: driver-specific / config-specific: users with IBM GenWQE
+hardware and CONFIG_GENWQE. Not universal. Device node default 0666
+widens who can issue the ioctl on those systems.
+
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record: Trigger: SGL DDCB ioctl whose first mapped DMA address is 0.
+Uncommon without an IOMMU that issues IOVA 0; possible with
+`dma_alloc_coherent`/`dma_map_page`. Not every boot. Unprivileged users
+can issue `GENWQE_EXECUTE_DDCB` if they can open the device.
+
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: [NULL deref → kernel oops] [CRITICAL for affected systems]. No
+data-corruption path identified beyond the crash itself.
+
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record:
+- Benefit: prevents oops on a valid DMA address; long-lived bug; ioctl-
+  reachable. Benefit is high for GenWQE users, limited population.
+- Risk: one-line pointer NULL check; very low.
+- Ratio: favorable. Stable rules accept important crashes in drivers,
+  not only core kernel.
+
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
+
+Step 9.1: COMPILE THE EVIDENCE
+FOR backporting:
+- Real NULL deref, not style.
+- DMA 0 is valid per the DMA API; using 0 as “no previous address” is
+  wrong.
+- One-line, obviously correct, no new API.
+- Bug in code since v3.14; driver present in this tree.
+- Userspace-reachable via `GENWQE_EXECUTE_DDCB` on a 0666 node without
+  CAP_SYS_ADMIN.
+- Applied by Greg KH; no NAK found.
+- Applies cleanly; no prerequisites.
 
 AGAINST:
-- Tiny race window; no syzbot/CVE/user report
-- Series was compile-tested only, labeled `[PATCH next]`
-- No mailing-list review comments
-- Not a universal core-kernel path
-- `memcpy` half is strcpy-hardening, not the leak fix
+- Peripheral IBM accelerator; few machines.
+- No Reported-by/syzbot/crash log; trigger needs DMA address 0.
+- Author is not the listed maintainer; no Reviewed-by.
+- Separate `dma_list[i]==0` unmap sentinel remains (not a reason to skip
+  this fix).
 
 UNRESOLVED:
-- Whether stable@ ever discussed this (lore 403)
+- Full lore thread (403).
+- Whether stable@ already queued/rejected it (403).
+- How often GenWQE + IOVA 0 occurs in production (unverified frequency;
+  mechanism is verified).
 
-**Step 9.2: STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — correctness is local and
-   obvious; series is compile-tested only, but the change cannot
-   reasonably be wrong
-2. Fixes a real bug that affects users? **PASS** — heap bytes can be
-   read on a live gadget string update
-3. Important issue? **PASS** — kernel infoleak (security), not a
-   crash/deadlock
-4. Small and contained? **PASS** — 2 lines, one function
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — pre-image matches; no missing
-   helpers
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? PASS — logic is local and correct;
+   landed in char-misc/mainline. No extra Tested-by.
+2. Fixes a real bug that affects users? PASS — NULL deref on a valid
+   first DMA address 0.
+3. Important issue? PASS — kernel oops (CRITICAL on that path).
+4. Small and contained? PASS — 1 line, one function.
+5. No new features or APIs? PASS.
+6. Can apply to the local tree? PASS — same `genwqe_setup_sgl()`; no
+   missing helpers. (This checkout already contains the commit because
+   it is 7.3-rc4 mainline; that does not change merit for stable.)
 
-**Step 9.3: EXCEPTION CATEGORIES**
-Not a device-ID/quirk/DT/build/docs exception. It is a small
-security/correctness fix.
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary memory-
+safety bug fix.
 
-**Step 9.4: DECISION**
-This is a contained infoleak fix on a helper whose in-place update
-exists specifically so USB hosts can read strings while configfs writes
-them. `kzalloc` is the right, low-risk close of that hole. It meets
-stable rules for this tree.
+Step 9.4: MAKE YOUR DECISION
+This is a one-line NULL-deref fix in a driver that exists in this
+lineage since v3.14. The bug is real: `prev_daddr` is initialized to 0
+while `last_s` is NULL, so a first mapping at DMA address 0 takes the
+merge path and crashes. That path is ioctl-reachable. The patch is
+minimal and does not need prerequisites. Peripheral hardware limits the
+user set, but stable regularly takes crash fixes in supported drivers.
+Benefit (oops avoided) outweighs risk (trivial guard).
 
----
+What the commit solves for stable users: a kernel oops in
+`genwqe_setup_sgl()` when the first SGL fragment is at DMA address 0.
 
-## What the commit solves for stable users
+Meets stable rules: obviously correct, real crash, small, no new API,
+applies to this driver’s long-standing code.
 
-After the 2021 UAF fix, gadget strings live in a reused `kmalloc`
-buffer. A host (or configfs reader) can walk that buffer while a longer
-string is copied in place, skip the old NUL, and return leftover heap
-data in a USB string descriptor. Zeroing on first allocation stops that
-leak. `memcpy` is a safe `strcpy` substitute given the existing
-`strlen`.
+Risk vs benefit: very low risk, meaningful crash fix for GenWQE systems.
 
-Risk vs benefit: two lines, no API change, no lock surgery, benefit is
-closing a kernel-memory leak on Android/embedded gadget configs.
+Concerns: uncommon trigger; no user report. Those do not override a
+verified oops with a one-line fix. This 7.3-rc4 tree already contains
+the commit as mainline history; the evaluation is technical fitness for
+stable trees that still have the unguarded `prev_daddr == daddr` test.
+The surrounding function matches that old code, so a backport does not
+need extra commits.
 
----
-
-## Verification
-- [Phase 1] Parsed tags: author SOB, Greg SOB, lore Link; no
+Verification:
+- [Phase 1] Parsed tags: author SOB, Greg KH SOB, msgid Link; no
   Fixes/Reported-by/Cc: stable
-- [Phase 2] Diff: `kmalloc`→`kzalloc`, `strcpy`→`memcpy(str,s,ret+1)` in
-  `usb_string_copy`
-- [Phase 2] Confirmed `USB_MAX_STRING_LEN` 126 and buffer size 127;
-  `ret+1` cannot overflow
-- [Phase 3] `git blame`: in-place `kmalloc` from `98f153a10da403`
-  (v5.12); function from `88af8bbe4ef781` (2012)
-- [Phase 3] `git merge-base --is-ancestor 98f153a10da403 HEAD` —
-  introducer is in this tree
-- [Phase 3] `git merge-base --is-ancestor 057df423bf474 HEAD` — this
-  commit is already in HEAD (ignored as “already selected”)
-- [Phase 3] `git describe HEAD` / Makefile: local tree is **v7.3-rc4 /
-  7.3.0-rc4**
-- [Phase 3] Pre-commit file still has `kmalloc`+`strcpy`
-- [Phase 4] `b4 dig -c 057df423bf474`: msgid `20260608095523.2606-37`,
-  `[PATCH next]`, v1 only
-- [Phase 4] `b4 dig -w`: linux-usb, linux-hardening, Kees, Greg, Arnd
-- [Phase 4] `b4 dig -m`: no replies; author said compile-tested only;
-  ~100 strcpy patches
-- [Phase 4] WebFetch lore.kernel.org: 403; used b4 instead
-- [Phase 5] Callers: `GS_STRINGS_W` →
-  manufacturer/product/serial/configuration stores
-- [Phase 5] Host path: `stringtab[].s` and `cn->strings.s` alias the
-  same buffers; `usb_gadget_get_string` uses `strlen`
-- [Phase 5] `GS_STRINGS_W` does not take `gi->lock`
-- [Phase 6] No other leak fix for this helper; `6d3c721e` is a different
-  OOB bug
-- [Phase 6] Backport difficulty: clean 2-line apply
-- [Phase 8] Failure mode: uninitialized heap infoleak, severity HIGH
-  (security), not a crash
-- UNVERIFIED: stable@ mailing-list discussion (lore 403)
-- UNVERIFIED: no runtime reproduction performed here; race is from code
-  + the 2021 UAF report, not a new reproducer
+- [Phase 1] Body: first DMA 0 enters merge before `last_s` assigned →
+  NULL deref
+- [Phase 2] Diff: 1 line in `genwqe_setup_sgl()`: `if (prev_daddr ==
+  daddr)` → `if (last_s && prev_daddr == daddr)`
+- [Phase 2] Read `card_utils.c`: `prev_daddr = 0`, `last_s = NULL`,
+  `last_s` set only on new SG_DATA entry
+- [Phase 3] `git blame`: buggy code from 67f4addbb8fe68 (v3.14-rc1); fix
+  is d401772a9e18
+- [Phase 3] `git merge-base --is-ancestor 67f4addbb8fe68 HEAD`: yes;
+  `d401772a9e18` also ancestor of HEAD
+- [Phase 3] `git log --oneline -20 -- drivers/misc/genwqe/card_utils.c`:
+  no prerequisite series
+- [Phase 3] Author log: only this genwqe commit
+- [Phase 4] `b4 dig -c d401772a9e18`: lore msgid 20260630104923.53827-1;
+  v1 only
+- [Phase 4] `b4 dig -w`: Haverkamp, Arnd, Greg KH, linux-kernel@
+- [Phase 4] IU/openwall: patch text matches commit; no NAK found
+- [Phase 4] lore/stable WebFetch: 403 — UNVERIFIED full review thread
+  and stable@ discussion
+- [Phase 5] grep: only caller `ddcb_cmd_fixups` → `GENWQE_EXECUTE_DDCB`
+- [Phase 5] `GENWQE_EXECUTE_DDCB` has no CAP_SYS_ADMIN; `genwqe_devnode`
+  sets 0666
+- [Phase 5] `dma_map_page`/`dma_alloc_coherent` + `dma_mapping_error` do
+  not reject address 0
+- [Phase 6] `git describe HEAD`: v7.3-rc4-27; kernelversion 7.3.0-rc4;
+  driver present
+- [Phase 6] Apply difficulty: clean 1-line change vs 2013/2014 function
+- [Phase 7] MAINTAINERS: GENWQE Supported, Frank Haverkamp
+- [Phase 8] Failure mode: NULL deref oops, severity CRITICAL on that
+  path
+- UNVERIFIED: production frequency of DMA address 0 on GenWQE; full lore
+  replies
 
 **YES**
 
- drivers/usb/gadget/configfs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/misc/genwqe/card_utils.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index aa0a25efb6aa0..b6237a2e02003 100644
---- a/drivers/usb/gadget/configfs.c
-+++ b/drivers/usb/gadget/configfs.c
-@@ -125,11 +125,11 @@ static int usb_string_copy(const char *s, char **s_copy)
- 	if (copy) {
- 		str = copy;
- 	} else {
--		str = kmalloc(USB_MAX_STRING_WITH_NULL_LEN, GFP_KERNEL);
-+		str = kzalloc(USB_MAX_STRING_WITH_NULL_LEN, GFP_KERNEL);
- 		if (!str)
- 			return -ENOMEM;
- 	}
--	strcpy(str, s);
-+	memcpy(str, s, ret + 1);
- 	if (str[ret - 1] == '\n')
- 		str[ret - 1] = '\0';
- 	*s_copy = str;
+diff --git a/drivers/misc/genwqe/card_utils.c b/drivers/misc/genwqe/card_utils.c
+index a2c4a9b4f871c..e3b5fb337182e 100644
+--- a/drivers/misc/genwqe/card_utils.c
++++ b/drivers/misc/genwqe/card_utils.c
+@@ -413,7 +413,7 @@ int genwqe_setup_sgl(struct genwqe_dev *cd, struct genwqe_sgl *sgl,
+ 			size -= size_to_map;
+ 			map_offs = 0;
+ 
+-			if (prev_daddr == daddr) {
++			if (last_s && prev_daddr == daddr) {
+ 				u32 prev_len = be32_to_cpu(last_s->len);
+ 
+ 				/* pr_info("daddr combining: "
 -- 
 2.53.0
 
