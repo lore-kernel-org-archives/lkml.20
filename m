@@ -1,154 +1,145 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2889A4B8284
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404114; cv=none; b=bIK2R9aU2RPQxfsZEFQa9AiKf4HSYkTmk6UhCQ+PftJuaddeLmNGRujlGm9ayouLNZU7tfgwRzj0P/M+GUegBPdwE5hF2MVljUWneEOM1ccwHKf09ZNSXCdpIrOISdt8ppftKM4uPU9j13o8qeU/FcmVOsDKVMIt4LF0Xq68Ytw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404114; c=relaxed/simple;
-	bh=PQN8fq7DDGv5/6wf3znNyQeVm8vhBsKez4YYRTcWMcA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=X7+PjHh8z/ukqJLRFbk0LntL2JCk8tt2j9txJMPrH6M7D+6NE3pt7aZaeQVnrQE/p+r6ModJlIrxESuKJ+M1HLL3mU7Ghcn1ddPbtXgst5oyjONMGLQ2xfyb0j6/Ny0UmfMM20woIWGhm3B1147yghYeqh3XGBIKsp0xOmVjHjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQDpNDIb; arc=none smtp.client-ip=209.85.215.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F040F4C9DEC
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:02:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792404130; cv=pass; b=IRq7HHLvzOMy9MkUpqI844jgKk+2rxgQC1bbneg9q+qEoyTzk7Dn8fjLSv888eM7BswtIghRa0cqZUlOt5jtCtJ8dgmlMC195nWnlariJB+Qwz2f1kgubrrjZn/4D/cRJT66FrEqz4W59TnZX3cuVEmMeBf9oK1hgE49ATOaquI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792404130; c=relaxed/simple;
+	bh=vpWpmb3YDa75S+dGCCi7peYWMhttJoCHOLpxALx7pic=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uo17gcjhzTxBgRPVKLTdra0TmHAuF9OEcY02W3eqw/lAXKIoLClwzRnim78qNYfx/gF90ICt/Oe0exGmvg1F0NbOHJX3RkkMErdvXP/TeSHU8p3+FKTbdIMLrSfyt9yAtpfeuLnF456ferUAapGlSVWiDWyZJeD3tdq6Hw9zEt4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PE8h4Syn; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=U2hfNfew; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQDpNDIb"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso539747a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:01:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PE8h4Syn";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="U2hfNfew"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792404128;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vpWpmb3YDa75S+dGCCi7peYWMhttJoCHOLpxALx7pic=;
+	b=PE8h4Syn7fcVff4360KKeGmn9N3z463/JATIHJjViNxj6YmKhKje8QXX/zwu5p72FWCwPl
+	19XNdLYoIZj+BhJS4xNJTu1k+0wSqVs3pdOu+q94VbjoJO7S66MiEp3irwd97DZo7Ty/t6
+	mJH7FeWbAepp6GiRn7AQnlZej/hhkJI=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-554-Mdk8wnRuPXuly9LzBg2g-w-1; Mon, 19 Oct 2026 10:02:06 +0000
+X-MC-Unique: Mdk8wnRuPXuly9LzBg2g-w-1
+X-Mimecast-MFC-AGG-ID: Mdk8wnRuPXuly9LzBg2g-w_1792404125
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c210c66672eso227954166b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:02:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792404125; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cAspQftqjfgG/avcsuABtc1Vu9RJnGiyEBcCi1G5HsZ1b4zHD0pJ7gs+qGQPK5QKn3
+         FSPH5SCmRRA0RgImO/NZcNat8ZtzBiWw3NzwHpR3OvZ9vdvTseUHz8GS7p1XTvFj54jm
+         pjLF+WsU3pbGmae83J80OXasln9e36Nq6awOfIjY9ORIGRKX2lcRBo7Y43vo+A9yP6j4
+         rPU0TmTJ5/HWhqj8d7uh8+RSD5L0rsPFQnnoe95Ck8ebVleRj7Lc42hGyqu2eSgJid+a
+         ndIvUGmR6DXQcXXEG9vB7O0F3aR62oOjxpPwA+1HDcGMJOK7EYqhUMlMJseYCmCmR/Qr
+         WQDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vpWpmb3YDa75S+dGCCi7peYWMhttJoCHOLpxALx7pic=;
+        fh=gtKYzILaB0LR1L2rfXIb8R4O9Sdhnmovu39j1QGiIJg=;
+        b=HWJUMVT7Nxoi2xD9iqhBiFS7EPaa+X60d5u/jsZEjYdkd1VxKzULCUllLFVVKhlPcZ
+         DLXFLtD3O5elEo3axsE9ft6Yl/t2ivQtuUl2XeHes9QpIqQCXcu/K+OacV79cqYcACAi
+         JX+XBf3UyntfyZMfLo6q8Nyv0VbT43ujM21x4vSIFKJLXSOIxfmQDqJE5AAOym+wuwuy
+         Hna0ydlVsrUBxZrrHrKo4CApwgHo2tHuC+DpL3VCkVO6ZxghQz9EI1V7OrTuZPPGgU+9
+         Ur8m7qQlZ/i61/pt64QU/KXr+o+JT5XExtvpSVa6ejpduZim3l8k7BkchMnkaXLjn18l
+         Nv8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792404112; x=1793008912; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O/d0F+kS8lSmSGUKzwGZH1bspW/vpIAyRZ3tyTuBu4U=;
-        b=eQDpNDIblHFOFJMVFsSSvnMSZTB2PxgXqj/qF+ia7zgiDDJ2HgPqd7Heq8bgUmkCAk
-         +w1x1MNk4Ltvmaw+A7m29mKReOxyUwtNuNoZDsTSV5eU7U3FjN0jkVOjE7TPkv5lHRpJ
-         BH+rO/U6/KY4fmItCxR5MmIDsqlHK5bXLUbulF9SHNYakac/n/PWohFhguyy/SxtudCV
-         7iSodzLaYmYQ56g3TjB3AY5CbNaRo92SQyvppG23DrVC8t4aLI93E3DeQ846OjhYhBUc
-         q9q/KoCmp/zllbDzfLu3S8dT0qrURUulaK1P/nJwKf/ES6VimE1tx8wcpLOIEl3q14s1
-         YRgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792404112; x=1793008912;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=redhat.com; s=google; t=1792404125; x=1793008925; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=O/d0F+kS8lSmSGUKzwGZH1bspW/vpIAyRZ3tyTuBu4U=;
-        b=ijao53p98gX4WSTecvIvBkPKqT4cnkiCAMhpM49PC5CsdBTDX7p+zLYzAmrVhJgRIh
-         POcoAcTT5bPI0t9K4Nm8pWjIfVd8cQBFJx388QIzVYNIJdF+Xle7iMPc9pt7IBb3mkZd
-         4d9SkS9/UjaRvuavIcJpx7x/FjfuB0CJ4/5/LVAg92GZ67z28+LkB4l7G/07qbtxkIQH
-         ki9s2AS1YsFlh5UTBXVadCRj6jExNDZHUU/3bmwTEiJKRJALoNkJLH7hlBQEqJ6Nhy/h
-         iFSEOsrN0G9sfDgCySJbBgzEV6kBi/P4JHZFoId6Gxl3pWxq9+YuzI9HaqS3N6mPcFuH
-         K3kg==
-X-Forwarded-Encrypted: i=1; AKwUvBxNMz9vSG5caWsv65l/xeDlmFzvmsesJIocJrr0GQd3pz6csjfwUEdmLH1KRjhm57jaRAOGEzKFvxoVCjE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItfQhqPa2sXXFlmEyQIRJ47pnVGnHfydDQ06TP1HtQ7nUpkDfR
-	X3DNTrZlxj/O5ulKUWOHYVCI/skhpBzOCwP6hHpuORTNnLWaAIPzBCe7
-X-Gm-Gg: AYBFou1GBjwHNZw4OcPgt4/eplkbWQqdJkIg1dfMmVtDEPswVOGupQTk6ysIaNdhucK
-	QUWX4L23RsQnDTyHEOeChffhGiNBe9grcHYAb4VQstyI7mmKfr/v+JV6+1gKKUZEuz+z6nQE1MG
-	dtgSOk+9XJvAniWH2GbeI20HP64uLMhXYuDZMWc/EQrnJCFQXHakntZFw3/JhO663rFdMKpGIMt
-	j3WIiUrMTr4BGMC4q0HaJqFuB52wg49b8JfGlPQ59OyzKOY/6d+NtumTv4GZSpcKdVbQ3N8IWfy
-	NO/LsfpJUakK7P9ohcX1sBVrV4O+wkYhpb9Si2+NpEnmWFCzZGKLzrv1Koe5KQn/JSt3MR74OUt
-	NwKbL86CPGUvyDKa0bwjpB+aB7fwUryFYqi7Ddt84uN6Ur0SG8MaxWeBkDKbrb4yVDsvgX8l3dO
-	m4aJMtJAvEAaMw6mTKkSlYe98aMCiojE++ULDup7PdoV6la6dVWqN0M1V+mF4RUvkaNA==
-X-Received: by 2002:a17:90b:4d0d:b0:3aa:fdad:7d6c with SMTP id 98e67ed59e1d1-3acef5b08bamr5967293a91.58.1792404112061;
-        Mon, 19 Oct 2026 03:01:52 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e87836bsm37464495ad.47.2026.10.19.03.01.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:01:51 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ALSA: pcm: Remove channel-map controls before freeing substreams
-Date: Mon, 19 Oct 2026 18:01:46 +0800
-Message-Id: <pm-pmb-4a207d9ef3a3597a74a4-v4-80b0113669b1a62fbbe9@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        bh=vpWpmb3YDa75S+dGCCi7peYWMhttJoCHOLpxALx7pic=;
+        b=U2hfNfewy1hD8UOmqJUmLOdTyhkIfqYpBwI2KYmpBzMC2tCUzM7WFlfR0glfsjUb2v
+         K3iy0790fb2N8k6qlJWHMYi2bIoWVh1jF2G5Pj54lXN9devsmZfHmTZlLdNJlCBAkY0c
+         j26wZRlT+ZWhOrR1oGeKtw3cDOpEVBP0CfVPq1gqopLLo18hmNBWmaLvNbVg+hPus6ye
+         9pXKqabYTgWrrEEOupUDzrMIgFq9P/P20niiJ0YsWkxIrce/3CVg2tExyVtGk6yAP59D
+         mXYRgNjHxUFZPMi+d4WPV96idnixAN6HxT6QJzj+7rOaPTlcKlkBOiCHrJc3z3nHQKxO
+         /dXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792404125; x=1793008925;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vpWpmb3YDa75S+dGCCi7peYWMhttJoCHOLpxALx7pic=;
+        b=AAUy+l+3zGewiL7fi9NVid1gxZtuf5hftoZGNzr05+l9ljh9wcsyhIxyyxNAXW3EIi
+         v1hlRVDzzZB9qlTGOeJ2LLwBojYqnt8shXVUuYGuGzIUvSgE/ABhE95guX+oNTT3Sk3k
+         Mppjtz4qtdPsbbavaBrzcd76liMeA31HfWJIjdithW1dFQbIzP7TtgIlPZxyl6Mb3i2O
+         Dm+e8LxZSb7Z9UOV27kDVVl9lO/FevXwmBvy0oWNjMXXgniYrxl6/Zfe3PuyeLXaWSR+
+         zPY31ytelZql957/79gT2lEFUQyM6DLjMC054F3EpcMHIoijH4mOpcbmgr8LR5himYIE
+         myxA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3PzTTucm3jkmJ9M/SXcVu/fnkMM2sryYD92k4rgxSRjsTo1Xgq+U5LGGuB4QaEEXc6kTUbetShIW/ZVo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfk3/5MO5PQcULCW8gRasmWUMp4L0owmFnsBbTRBznrM6FhgTD
+	O9JvxyBQoLV1STeY2tiiPPvjA1bT/puYjn/gvDVZUWp1z/yyqtaZKJoi4+AizysrA5OwIV4jT/h
+	1+YOT2sHKtBO7l6gwiXf91ax4L9Q9LSN3gI1Mts9pnPbFJRyEnSJKVRzxviq2VdDMw6vcUSClVo
+	YwWcz4dQy6Nf2GLBFy4Ckmzftf/YGVsd8lJ2cuhebC
+X-Gm-Gg: AYBFou1RlEWuOAaxVMfXqMGoG7nYctPIk/OqpI0LP2RdmaeETQEsP1F6fiNllrQzt+4
+	0fK0kEoRDMprHmX963FJM5Y2F0zUnlPBAZqzQ9gBsZhG0Tm1UJU7JsAAz5EfiPIleZVp9vhAbZ7
+	KQHer8poGx4Yg15oOu5jEi0WQV/oKXEy6ynhXAfk2G6WXCR4OCii9GwEnO/zsr631seUZHSqq64
+	OLmHit0wylGkw4=
+X-Received: by 2002:a17:907:a2cd:b0:c2e:7e0a:572f with SMTP id a640c23a62f3a-c419de3d0f6mr427564066b.21.1792404125340;
+        Mon, 19 Oct 2026 03:02:05 -0700 (PDT)
+X-Received: by 2002:a17:907:a2cd:b0:c2e:7e0a:572f with SMTP id
+ a640c23a62f3a-c419de3d0f6mr427557966b.21.1792404124608; Mon, 19 Oct 2026
+ 03:02:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261001152042.124445-1-gmonaco@redhat.com> <20261001152042.124445-11-gmonaco@redhat.com>
+ <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com> <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
+ <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com> <878q3xtptq.fsf@jogness.linutronix.de>
+ <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com> <87bj8s8ih9.fsf@jogness.linutronix.de>
+ <DM78SVMBI2XW.2XHVC67VON48A@gmail.com> <87v770uuyr.fsf@jogness.linutronix.de>
+ <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com> <87ik2zryzo.fsf@jogness.linutronix.de> <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
+In-Reply-To: <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
+From: Tomas Glozar <tglozar@redhat.com>
+Date: Mon, 19 Oct 2026 12:01:52 +0200
+X-Gm-Features: AclHuK-g9NcQuSX2oEVaSkoEXxNQmoV5Ee9U7uVHOzoGFLemx-m8yG7uigcHu_s
+Message-ID: <CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com>
+Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
+To: Gabriele Monaco <gmonaco@redhat.com>
+Cc: John Ogness <john.ogness@linutronix.de>, 
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	Steven Rostedt <rostedt@goodmis.org>, Nam Cao <namcao@linutronix.de>, 
+	Wen Yang <wen.yang@linux.dev>, Tobias Schaffner <tobias.schaffner@siemens.com>, 
+	Viktor Malik <vmalik@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A late HDA codec bind on an already registered card builds new PCMs
-before registering them. add_std_chmaps() publishes generic channel-map
-controls during this BUILD stage. If an earlier chmap succeeds and a
-later allocation fails, probe cleanup frees the BUILD PCM while the
-card's control device remains accessible.
+On Mon, Oct 19, 2026 at 11:05=E2=80=AFAM Gabriele Monaco <gmonaco@redhat.co=
+m> wrote:
+>
+> Alright, I'll focus on trace_printk for now. As I said, it's rather trivi=
+al to
+> add another reactor later.
+>
 
-These generic controls are added directly by snd_pcm_add_chmap_ctls();
-snd_hda_ctls_clear() only removes codec-tracked mixer controls. BUILD
-devices also skip dev_disconnect. snd_pcm_free_stream() then frees the
-substreams before free_chmap() withdraws their generic control:
+One disadvantage of using bpf_trace_printk() for RV violation
+reporting is that the event will be caught by every instance that
+enables bpf_trace_printk() and does not explicitly filter rv out.
 
-  Late HDA codec bind / rollback        Control GET on the live card
-  ------------------------------       ----------------------------
-  hda_codec_driver_probe()
-    snd_hda_codec_build_pcms()
-      PCM is BUILD
-    snd_hda_codec_build_controls()
-      add_std_chmaps()
-        publish an earlier chmap
-        later allocation: -ENOMEM
-    snd_hda_codec_cleanup_for_unbind()
-      snd_hda_ctls_clear()
-        generic chmap remains
-      codec_release_pcms()
-        snd_device_free()
-          BUILD: skip dev_disconnect
-          snd_pcm_free_stream()
-            kfree(substream)
-                                       snd_ctl_elem_read()
-                                         down_read(controls_rwsem)
-                                         pcm_chmap_ctl_get()
-                                           walk freed substream
-            free_chmap()
-              snd_ctl_remove()
-                wait for GET
-                                         up_read(controls_rwsem)
+I can imagine an RV-specific trace event for that, however, it would
+require a separate kfunc to generate it, and ideally also distinct
+labeling of a BPF program eligible to call that kfunc. The "rv"
+userspace tool could then iterate over these labels so the user knows
+which violation events can be expected to occur on the system.
 
-The control read lock cannot protect a substream already freed before
-control removal starts. The failure above occurs before
-snd_card_register(), so the PCM has not transitioned out of BUILD.
+Tomas
 
-Move free_chmap() before the substream free loop. Its snd_ctl_remove()
-withdraws the control and drains readers under controls_rwsem before any
-substream is released. Normal registered-device disconnect already
-removes the control, so the later call remains harmless on that path.
-
-Fixes: 2d3391ec0ecc ("ALSA: PCM: channel mapping API implementation")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-
----
-
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
-index 41c2cab7a52c412b7c68374059cd305a6b3fe3d7..36c3b7cc742abeff889a96b452a88d267763caa4 100644
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -819,6 +819,9 @@ static void snd_pcm_free_stream(struct snd_pcm_str * pstr)
- 	/* free all proc files under the stream */
- 	snd_pcm_stream_proc_done(pstr);
- 
-+	/* Drain channel-map callbacks before freeing the substreams. */
-+	free_chmap(pstr);
-+
- 	substream = pstr->substream;
- 	while (substream) {
- 		substream_next = substream->next;
-@@ -833,7 +836,6 @@ static void snd_pcm_free_stream(struct snd_pcm_str * pstr)
- 		kfree(setup);
- 	}
- #endif
--	free_chmap(pstr);
- 	if (pstr->substream_count)
- 		put_device(pstr->dev);
- }
