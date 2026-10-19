@@ -1,105 +1,122 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5FE4E433F;
-	Mon, 19 Oct 2026 12:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E742A4E4308;
+	Mon, 19 Oct 2026 12:51:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414246; cv=none; b=T+2jxhjmSmJwLDFwH813TyX7YLeLvxrpfUxB+C0fyXwV2X4tRn0QBO1nd6Ge7dmGQIXVYfLMn1SFzWS9slrm8D+0b4oNjw8zETxj+jS8F2jPbSpG46dNo0EckhckRmtnlT2GUqBero7lApYzXF2yo+e0bA3e5AF5YdxLT5b3jHk=
+	t=1792414273; cv=none; b=JR+7SroF6eIFjymePu42OozNbagjE80VXUOEemsIYt7dlMMznq4cn2Lhkn7s6MDSm8Ae9t5yJdcgO6fvcP/UOX/36Zu+niY6xouBh49B2C9p2pUiCuQveTBs3t+sNLgudEuiHH50pJLiDkdTZKJEfTAoXl//x+n4bm6P9NP8jLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414246; c=relaxed/simple;
-	bh=zCsy6e9Bt2dq/Px6jDSSK5zcyrJRZAo8Uo76I5mQw3s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q9je5cl/FByfTKcAVrZbeTP/lZabnCArMSR7kCsRREYkfJvtORw8tpGvE6tx+zD4AuD+fV2eHqUsGy2i+78+QgqWTCntZJqdcsxY6fz0KS5qzegmgnTvta0Rjll+n6zO/9Kfv/h+AdTQOJP4yJk+viBHPvfmKlJf00ZZAM4t4UA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=bmkxdmwg; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792414273; c=relaxed/simple;
+	bh=khHh5ooayH62/hPBTZatboWOrzHcGIJYlFHcKZT+VeU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LE51UjPMTdpRsUuS0tZxWnU1bOPRFWm468tF7l3rI8OGUsrmOT3otQODGnAtIC3/nyg7MDL1kQb2mMgY58UZbXU07kF1wXTSuBY1Fkw1mKPAfzfCA5psA5YsunfLgaXmBVesQTsLZInYVgS+uTR5OHJ+bIR3DhZP9eaQ0s2kU0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C1po9/Cv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="bmkxdmwg"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6809E4E411CB;
-	Mon, 19 Oct 2026 12:50:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3BCD960582;
-	Mon, 19 Oct 2026 12:50:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3526C10328D37;
-	Mon, 19 Oct 2026 14:50:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792414237; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=k8eO+sIYmJYfoiM/+c7wKwg3jchnyvQXxOnYb69grB8=;
-	b=bmkxdmwg3KaQNaN6vE02shBqu1L0emWE7NYvIKnIPY3/Am+RowXdoAetmQS8B374afKzOl
-	aNNn9C6MyDpdMVf6dFmeAv47BAp0kfW7qoCyWpZv25zIWfP4kg1FQkpF2u9l4GRRruBZ8S
-	dnS53dnWa9czjWRuFib3WK691ecdHp9XR0UxZo0vPsOQ2C7xAF6JQrzZHdR7Woz6ux2Krl
-	HZHo7oNU9931vm/H0Ci6WDzsUwST2kPYHB823e8jFBDrFXmq7EuauN3pUe7vjqb7S8czne
-	Xh/XTi+IG2e/gJtviiIagByRPio1lfkGJHdcz3NaztjDQ78wfTl36GFXIARgMg==
-Message-ID: <d9233496-7549-4c53-b240-344bb7a8d9a5@bootlin.com>
-Date: Mon, 19 Oct 2026 14:50:32 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C1po9/Cv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC33D1F000C4;
+	Mon, 19 Oct 2026 12:51:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792414267;
+	bh=kObkMdnvGeSnlUyvgNw6GOVIWwiykyT9/ZgXhMuzqVA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C1po9/CvrYHTR59+0FsEfo39j/pq+MxqegpMIj9BwdXMOth35ydrs+x0VEXcrjc7R
+	 S2br5PVLvRLdzYo2YSIfeA/rJ5WS+glDw3DUiI3SxvYrwIlOlOQ/OpnEJJeHvLx70n
+	 poGzH/IT1i60uo36yVelT6jk/pgt/ng0u5cmwuAl8pVplYv5ZdmrOh0jyfun8ajOVi
+	 1BEjCPBKake4CN2aCZqJmyOfFjSA1KJWffluspSD4vEFHeOg20j/g6YXPqxCUaK2hV
+	 UVnWESbbhHE5lWAULgBRqzv6Mp587FI35/0vk4rxgMbBRjl6WGxBoK0UglnHVl3iEu
+	 nM+8uZehMFWUw==
+Date: Mon, 19 Oct 2026 14:50:58 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, 
+	Kefeng Wang <wangkefeng.wang@huawei.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Re: linux-next: manual merge of the fs-next tree with the mm tree
+Message-ID: <atYR5sFaEEvBYCdC@nidhogg.toxiclabs.cc>
+References: <arUS5b85ed6L01qc@sirena.org.uk>
+ <arZn0IB-L3hnNniw@cronus.toxiclabs.cc>
+ <f9ddfd24-ee1b-47d9-a906-299421247b1d@sirena.org.uk>
+ <araNBVKW6MXR97P1@cronus.toxiclabs.cc>
+ <20260925141448.57220a7d3f76b92d8f1cb130@linux-foundation.org>
+ <99ec7529-0733-4d04-a30c-d9a2b299182f@huawei.com>
+ <f7d2fe6f-558a-4bf6-bf17-00f3842b923a@sirena.org.uk>
+ <20261019114806.1298980-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH net 09/10] net: pse-pd: si3474: fix use-after-free in
- ancillary client error path
-To: Carlo Szelinsky <github@szelinsky.de>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: Piotr Kubik <piotr.kubik@adtran.com>,
- Sai Krishna <saikrishnag@marvell.com>, Simon Horman <horms@kernel.org>,
- Kyle Swenson <kyle.swenson@est.tech>, netdev-bot+sashiko@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261018082314.48950-1-github@szelinsky.de>
- <20261018082314.48950-10-github@szelinsky.de>
-From: Kory Maincent <kory.maincent@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261018082314.48950-10-github@szelinsky.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019114806.1298980-1-sashal@kernel.org>
 
-
-
-On 10/18/26 10:23, Carlo Szelinsky wrote:
-> If devm_add_action_or_reset() fails, it has already unregistered the
-> ancillary I2C client, and the error message then reads that client's
-> device. It can only fail with -ENOMEM, which is already reported, so
-> drop the message.
-
-That's not really a fix but well:
-Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
-
-Thank you!
-
-> Fixes: a2317231df4b ("net: pse-pd: Add Si3474 PSE controller driver")
-> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
-> ---
->   drivers/net/pse-pd/si3474.c | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
+On Mon, Oct 19, 2026 at 07:48:05AM -0400, Sasha Levin wrote:
+> On Mon, Sep 28, 2026 at 01:48:14PM +0100, Mark Brown wrote:
+> > There is a fixup in -next already which is hopefully OK, I don't recall
+> > it being especially bad so probably Linus would be OK with resolving it.
 > 
-> diff --git a/drivers/net/pse-pd/si3474.c b/drivers/net/pse-pd/si3474.c
-> index 1845b9c51cf7..2f4f241a48af 100644
-> --- a/drivers/net/pse-pd/si3474.c
-> +++ b/drivers/net/pse-pd/si3474.c
-> @@ -516,10 +516,8 @@ static int si3474_i2c_probe(struct i2c_client *client)
->   		return PTR_ERR(priv->client[1]);
->   
->   	ret = devm_add_action_or_reset(dev, si3474_ancillary_i2c_remove, priv->client[1]);
-> -	if (ret < 0) {
-> -		dev_err(&priv->client[1]->dev, "Cannot register remove callback\n");
-> +	if (ret)
->   		return ret;
-> -	}
->   
->   	ret = i2c_smbus_read_byte_data(priv->client[1], VENDOR_IC_ID_REG);
->   	if (ret < 0) {
+> Hi Mark,
+> 
+> The fixup in -next takes the mm side of xfs_btree_split_worker()
+> verbatim, which puts xfs_trans_set_context()/xfs_trans_clear_context()
+> back and drops
+> 
+> 23f91a51425e ("xfs: fix NOFS state corruption in btree split worker")
+> 
+> next-20261016 still has it this way.
+> 
+> The two changes are independent:
+> 
+> 2e6a6ca06fec ("xfs: remove dead kswapd flag inheritance from btree split worker")
+> 
+> removes the pflags handling, and the xfs fix replaces the transaction
+> context calls with a local memalloc_nofs_save()/memalloc_nofs_restore().
+> The resolution should keep both. The delta against next-20261016 is
+> below.
+> 
+> Neither tree conflicts with v7.3 here on its own, so whichever of the mm
+> and xfs pull requests goes second will hit this. Andrew, Carlos, could
+> that pull request point Linus at this resolution rather than the one
+> earlier in this thread?
 
--- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
+Yeah, I heard about this conflict problem on linux-next and how the NOFS
+state fix just suddenly got dropped by the conflict resolution.
 
+It's on my TODO list to mention that to Linus on my Pull-Request for the
+merge window tomorrow or most late on Wednesday.
+
+> 
+> This is the resolution llminus generates:
+> 
+> diff --git a/fs/xfs/libxfs/xfs_btree.c b/fs/xfs/libxfs/xfs_btree.c
+> index 6738d9d1511bc..2434c54a35708 100644
+> --- a/fs/xfs/libxfs/xfs_btree.c
+> +++ b/fs/xfs/libxfs/xfs_btree.c
+> @@ -3007,12 +3007,18 @@ xfs_btree_split_worker(
+>  {
+>  	struct xfs_btree_split_args	*args = container_of(work,
+>  						struct xfs_btree_split_args, work);
+> -	xfs_trans_set_context(args->cur->bc_tp);
+> +	unsigned int		nofs_flags;
+> +
+> +	/*
+> +	 * Don't use xfs_trans_set_context() here: it would overwrite the
+> +	 * caller's saved NOFS state in tp->t_pflags. Use a local scope.
+> +	 */
+> +	nofs_flags = memalloc_nofs_save();
+>  
+>  	args->result = __xfs_btree_split(args->cur, args->level, args->ptrp,
+>  					 args->key, args->curp, args->stat);
+>  
+> -	xfs_trans_clear_context(args->cur->bc_tp);
+> +	memalloc_nofs_restore(nofs_flags);
+>  
+>  	/*
+>  	 * Do not access args after complete() has run here. We don't own args
+> 
+> -- 
+> Thanks,
+> Sasha
