@@ -1,116 +1,124 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402E84E36DC;
-	Mon, 19 Oct 2026 10:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC890415B6A;
+	Mon, 19 Oct 2026 10:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792406826; cv=none; b=MsX0FvVwbJiOC1Z4Z2VdTxoM1HTXluNwlilZz2VOMe0BGX+BWPJef2ebitrka/6ZNKPSN3PIw8qsTZoOBOFbceMmRkzXYcgr4DqfvViTRJssLgrV/mkETAtfbC2tVSndR/jVETSxsMmuzGfmKMkOsYwvLMU2gY1KZWw+i/XALNI=
+	t=1792406867; cv=none; b=M0ruv1ww9S9Ta441eB5AvupTdds3DH5NV++TVVTSLKCctxz8ZeqT6CIESNCwlREJtgagcpoKuauv8uXqfz2j032jlYDx/Gy+ibxrFzASjqjE/4mbj8dVZ4uO/TCxT4rE/p48dhY8CAoiJp2d5wg7C0pTSeEOxX8oLMGxMIRTbdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792406826; c=relaxed/simple;
-	bh=OyP5qKjojQU55MZ5aIPOxkm7Sd3rGJnPSxEwuWYCsCk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=UUVYX4CivilUuUcsUmVx5swBOGPa06H5Jbt4ZkksG/ahMTMr6GqaCIW8Xm3KYqCXMZ5KbrQRIrFKDsjl+BCEoeA6UmjbOa5C1b8CXipXPVDnlhzWJued7ZHDABmdYwDlBm/dJJtlm621+mDMMFcTHfGYa/5XaH8vhn9dI9tZgGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=RJrgegDS; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=L3yq5gli; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1792406867; c=relaxed/simple;
+	bh=gf1ptB8tveW2jkk+8XlGwprCN3LnmBizJ2++NERBZGU=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pviVFaYZH3ZMDhfq5mC7sbQgy5NG3Pt5iYQI96sAl/mAmUl80EcG6L9Rqnc7d3l5ezqUNLItg0JIlACAuI+3nuxxudpYjmVXYiHI+mLxgoalixXuHp1gNH/RlKI1iwOyVEiHRL9MjSVJJ5eHbKfDpY2QG+Mz4tt5BU/dG5BG4Zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=r6nTo0pZ; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RJrgegDS";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="L3yq5gli"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792406821;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O+H3ORQrwht0RhH+jV/nG3TxmFwVK7hnaHuDKuALH5U=;
-	b=RJrgegDSh31nSEeRaJ40tX9/wCik01AUj23iNKFod8Vpe5ofRKiuMhcPTZ57MmiKpzCWTr
-	XU4gMrQtGXzOXRjA88LaB+n2r4ogDkXj5oj63WGWgGObA+eFOxrV0KiZeRsdMsTOoiqkxP
-	BELJw07TMmdrlW3wiMH3Qddl7ylj1edkuLs2gXy5SwdmiikCP2Z+uUaorINQKT3ar5rdvC
-	WYNGsHTgatQw2BiLOzvd1r/2NIffMdC79bzZ/an4CjVR8p0heUzhn/ksRwNoAbC2KJDoaJ
-	VpNQeXKcaejCw3h6CKqU4g6oJWZ2U0XmV0lsBFakoeL89CdlplLKVBb1Z3cGtQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792406821;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O+H3ORQrwht0RhH+jV/nG3TxmFwVK7hnaHuDKuALH5U=;
-	b=L3yq5glitizDFhda1Bh5+tTcD0rO1VcMiIZrlrRUvxqJJWdj3FfRuqPmo0KDmfK9TVGTwE
-	I7vKDiEiUZZXqeDw==
-To: Zack Rusin <zack.rusin@broadcom.com>, sashiko-reviews@lists.linux.dev
-Cc: Petr Mladek <pmladek@suse.com>, Baoquan He <baoquan.he@linux.dev>, Mike
- Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Kees Cook <kees@kernel.org>,
- linux-doc@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>, "H.
- Peter Anvin" <hpa@zytor.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- linux-kernel@vger.kernel.org, Ian Forbes <ian.forbes@broadcom.com>,
- Borislav Petkov <bp@alien8.de>, Joel Granados <joel.granados@kernel.org>,
- Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Ajay Kaher <ajay.kaher@broadcom.com>, Bo Gan
- <bo.gan@broadcom.com>, virtualization@lists.linux.dev, Sergey Senozhatsky
- <senozhatsky@chromium.org>, Ingo Molnar <mingo@redhat.com>,
- x86@kernel.org, "Michael S. Tsirkin" <mst@redhat.com>, Maaz Mombasawala
- <maaz.mombasawala@broadcom.com>, Alexey Makhalov
- <alexey.makhalov@broadcom.com>, Thomas Gleixner <tglx@kernel.org>, Stephen
- Brennan <stephen.s.brennan@oracle.com>, Steven Rostedt
- <rostedt@goodmis.org>, Jonathan Corbet <corbet@lwn.net>, Randy Dunlap
- <rdunlap@infradead.org>, Michael Kelley <mhklinux@outlook.com>, Eugenio
- Perez <eperezma@redhat.com>, kexec@lists.infradead.org,
- bcm-kernel-feedback-list@broadcom.com
-Subject: Re: [PATCH v2 2/6] crash: Notify pre-kdump callbacks before
- switching kernels
-In-Reply-To: <CABQX2QNHSjP+FFppUR1ohthwvCjWNA2ozOuZtnwwdNu7WGaV0g@mail.gmail.com>
-References: <cover.1790014793.git.zack.rusin@broadcom.com>
- <9ef573cdbbf5e659eea16fa23afeaf2488049198.1790014793.git.zack.rusin@broadcom.com>
- <20260928180829.3A3461F000FF@smtp.kernel.org>
- <CABQX2QNHSjP+FFppUR1ohthwvCjWNA2ozOuZtnwwdNu7WGaV0g@mail.gmail.com>
-Date: Mon, 19 Oct 2026 12:53:00 +0206
-Message-ID: <87v76yotln.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="r6nTo0pZ"
+X-UUID: 77723ee6cbaa11f18dc8c9802ae25ab1-20261019
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=gf1ptB8tveW2jkk+8XlGwprCN3LnmBizJ2++NERBZGU=;
+	b=r6nTo0pZExVI41HpVV3+EyJY0S3HP5B+7rJkuPF7/el+M/UW/KwdEK2pdgMJnzHbFDfA78U23mGPmwuYaQIt/euMTN2qcBzQ67BFmHwMD3fTjDwC8rHrag/qgzUjqAZ6aIKIl5i/etmFW6A0HzlTfcWENr2pCkhEskykqmk1CoI=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:e06a19b7-fc10-485e-b159-8a2e7514e52b,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:291e20b,CLOUDID:d634d7de-9ead-4216-888d-582ad3e48a93,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
+	0|15|50|99,EDM:-3,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL
+	:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 77723ee6cbaa11f18dc8c9802ae25ab1-20261019
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw02.mediatek.com
+	(envelope-from <peter.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 622037216; Mon, 19 Oct 2026 18:47:23 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Mon, 19 Oct 2026 18:47:22 +0800
+Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Mon, 19 Oct 2026 18:47:22 +0800
+Message-ID: <6e1a9434c3242d03dffc917596bdc67c0545d6ac.camel@mediatek.com>
+Subject: Re: [PATCH v2 0/4] scsi: ufs: core: Factor hba->outstanding_reqs
+ helper and fix double completion
+From: Peter Wang <peter.wang@mediatek.com>
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+	<mkp@kernel.org>, <linux-scsi@vger.kernel.org>
+CC: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, "Bart
+ Van Assche" <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, Bean
+ Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Date: Mon, 19 Oct 2026 18:47:22 +0800
+In-Reply-To: <20261017084403.875420-1-stanleyjhu@google.com>
+References: <20261017084403.875420-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MTK: N
 
-On 2026-09-28, Zack Rusin <zack.rusin@broadcom.com> wrote:
->> > @@ -139,6 +140,7 @@ void __noclone __crash_kexec(struct pt_regs *regs)
->> >                       struct pt_regs fixed_regs;
->> >
->> >                       crash_setup_regs(&fixed_regs, regs);
->> > +                     panic_notify_pre_kdump(NULL);
->>
->> [Severity: Medium]
->> Will this cause pre-kdump notifiers to receive a NULL message pointer instead
->> of the expected panic message?
->>
->> If a system panic occurs and kexec is configured with the default setting of
->> crash_kexec_post_notifiers=0, vpanic() triggers __crash_kexec(NULL) before
->> reaching its own explicit panic_notify_pre_kdump(buf):
->>
->> kernel/panic.c:vpanic() {
->>     ...
->>     if (!_crash_kexec_post_notifiers)
->>         __crash_kexec(NULL);
->>     ...
->>     panic_notify_pre_kdump(buf);
->> }
->>
->> When this happens, __crash_kexec() will invoke panic_notify_pre_kdump() with
->> a NULL message pointer. This permanently consumes the once-per-boot guard,
->> and any callback relying on the documented msg parameter will experience
->> data loss or potential NULL dereferences, violating the API contract that
->> promises the panic message during a panic.
->
-> afaict Sashiko gets tripped up here by the doc from the previous
-> email. Nothing in this series dereferences the msg. The only callback
-> is the VMware logger in patch 4, which ignores the argument. It reads
-> the printk buffer, where vpanic() has already written the panic line.
+On Sat, 2026-10-17 at 16:43 +0800, Stanley Jhu wrote:
+> In Single Doorbell (SDB) mode, ufshcd_clear_lu_cmds() clears a
+> transfer
+> request slot in the controller and completes the request without
+> claiming its bit in hba->outstanding_reqs. A subsequent ufshcd_poll()
+> call sees the stale bit with its doorbell bit cleared and completes
+> the
+> request a second time, causing a double DMA unmap.
+>=20
+> Patch 1 adds __ufshcd_clear_outstanding_reqs() and
+> ufshcd_clear_outstanding_reqs() to share the bit-claim logic across
+> ufshcd_poll() and ufshcd_abort() with no functional change. Patch 2
+> uses
+> the new helper in ufshcd_clear_lu_cmds() to fix the SDB double
+> completion. Patch 3 uses the new helper in ufshcd_eh_timed_out(). It
+> is
+> a follow-on cleanup and is not needed for the fix. Patch 4 removes a
+> WARN_ONCE() whose condition is always false.
+>=20
+> This series is based on mkp/for-next (db8b4d2bf2d3).
+>=20
+> Tested on QEMU ARM64 UFS in SDB and MCQ modes across LU reset, polled
+> and interrupt I/O, and task abort without double completion or DMA
+> unmap warnings.
+>=20
+> Changes since v1:
+> - Add a helper for clearing hba->outstanding_reqs and use it in
+> =C2=A0 ufshcd_poll(), ufshcd_abort(), and ufshcd_clear_lu_cmds()
+> =C2=A0 (Bart Van Assche).
+> - Convert ufshcd_eh_timed_out() to use the new helper in patch 3.
+> - Remove an always-false WARN_ONCE() in patch 4.
+> - Link to v1:
+> https://lore.kernel.org/r/20261016085403.1711740-1-stanleyjhu@google.com
+> =C2=A0
+>=20
+> Stanley Jhu (4):
+> =C2=A0 scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
+> =C2=A0 scsi: ufs: core: Fix double completion in ufshcd_clear_lu_cmds()
+> =C2=A0 scsi: ufs: core: Use ufshcd_clear_outstanding_reqs() in
+> =C2=A0=C2=A0=C2=A0 ufshcd_eh_timed_out()
+> =C2=A0 scsi: ufs: core: Remove an always-false WARN_ONCE()
+>=20
+> =C2=A0drivers/ufs/core/ufshcd.c | 55 +++++++++++++++++++++++++-----------=
+-
+> --
+> =C2=A01 file changed, 35 insertions(+), 20 deletions(-)
+>=20
+>=20
+> base-commit: db8b4d2bf2d3e02b4ff78bbf69d00e11795840de
 
-If you are not using the argument, why are you providing it in your new
-API? Just drop the argument. If any future pre_kdump panic notifiers
-need additional information, they can adjust the API appropriately.
+For the series:
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
 
-John Ogness
+
