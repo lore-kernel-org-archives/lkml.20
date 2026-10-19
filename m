@@ -1,62 +1,64 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D69496D40
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:08:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD0544C667
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:08:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400922; cv=none; b=GnrkCRXXPu8Zecml3WEsi8b05DVr0B1GDw1f64TUUnRiVuAuJSruBdz49ZiGvM4sBZ+BtuGy9AAOYlourtPAzHlup4ffkVzvX3rCSZbu02r0stPlLfK2gpJ4n8qoQvrcPTPwDNU6gI2t6CG7wlWOwfnNyfZJgB5yyYfJM6RMIe4=
+	t=1792400928; cv=none; b=nBfyUWSvlueWhoc99omwY7zQSyO+eRj0XX/FRkZYW4VWfmjLY/PlgmT3nv9JlLtDY0/EkcevHitxw92tJwBIu+wY3c172cmEftUYp0rbWHU3kvdfbhnKTkHgj5K8vYOX2MzoLiclm0/LEOloY5jH9YoNCI99n5S9SwCJA8FUYRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400922; c=relaxed/simple;
-	bh=8JXyz/iLrnOMQ+H+8M5mCSfykQy89HEytqAbfOPDnOw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XgOSeSsOVuy152qgDo/XLmquFtDfLj7/VG29L0XFopU5sKNAz51j0JlaVb7PQnSqQ5ohWjitjVcSB4VfEHv9V6S1N8lAcTA9N4AA7ghLWUxSQg8oeVe/KOWk+DfwwJ7pZwCPSliTVUZLObi8ioQ2ixE4fgA27huBfpatVZdcvcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=broUX/XB; arc=none smtp.client-ip=209.85.214.169
+	s=arc-20240116; t=1792400928; c=relaxed/simple;
+	bh=41wT4h32lvO/7+w+W+VuZiLHLaB5gMjzc8OiYsaMqFo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dNWWieZNuEJ0qaaK6bDA/WbuMAL3eXGd9uDOWYMcAwOwKrs7y8REi4+qPtWdst6IZ+aXULTuDvRftFwsHTYUZ52NZJZEgbLC2OzSQPAUzoJHKNwV79z7HBXUehBet5MrDhZLn4EcZfGpV/DHhU8FHIsuevJVWMTSQM0N2fZW1hY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=a/KVuTj2; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="broUX/XB"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e8ad5b31c7so9502905ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:08:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="a/KVuTj2"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e60f9af6e6so14435745ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:08:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1792400920; x=1793005720; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/pB41CYmMwKsKbqW1foc/PLT2lTdajoPoPYMHSrvZcM=;
-        b=broUX/XBQZ9o1k7g3rLTvfTRC2wSEAoJzO6dvu9MBhJlFWDJZebatgYkjD5z/tlQ0d
-         0cJ1YWP8yTelAOkFsM0kPn5ubHhkXims0SQ2W7hLUE2htDroQVrtNw1PXm+qgZzAgKUt
-         UUAKI6IMfrZKB5rnk1EJfUOdFAHVp+tS7m9IcWvsR4XYdNOsuJa9wm74hbXbe2KEFuaJ
-         z/IoUXWWhIEAozhG66UF/0fl8w0qL6TlSU4vArb3k/pK2Ztd8CR18HI3hLxUK5Nz1VsQ
-         o8JCj7xxAZUXhzgCNLGtr/tleRoVNDJt4BacP0PGhmRw0H7/HJkUrOZJs4XC1cS/AaY6
-         hhdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792400920; x=1793005720;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=bytedance.com; s=google; t=1792400926; x=1793005726; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/pB41CYmMwKsKbqW1foc/PLT2lTdajoPoPYMHSrvZcM=;
-        b=JRvXtNFNKxtgU+T3tISKX/LPR7SC5VnrC04c92HT+hLCxECTTRVzQLrFjr3B7y20ll
-         dV+VbxjDBouze2S9W7bY/ixRi3FAtd6C0GxWw7rpCqkpoCbSxapZsy8vRV3dtlLzFVME
-         py2RvZMFV2MC9PdUHNoYhHmwZBXEkmzCt3btY70tJr9d53+CXSV6lTGqBVdr1HHrDUJq
-         Y6FX909OTB4NIwkU2DyhqjzRxocSz83BbVGt9n7HkIehZ6xREjjRkv5jSbp7EloGlpIk
-         ePPOdtb+Fcz0sf/MBoBIC3JEaOFUngFWCXM/xn42wJwhhjVgjtvkTEkI3sdRpKyPtJR3
-         UNgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3cFHmBLqtT5fNAkX3BhGh8sktFKTWbplrwe1uVm1S1yyANanjK/I/XcnQ/0tW4X+LJQJ4TJjbpuyUqRM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIh+cPC1HVwXVjBarrzjc0hpVYQvH76N0wRTAAAQsui+RhSG3UE
-	ZSAqYISsiRVvNN1TrFqzf0YCeD67/NhgN40b86buyDr9R2AzSx0vyslGx714TvZP3lQ=
-X-Gm-Gg: AYBFou3DQuUcdl6FniQ6TVdy2/sBqHo5CR8ewa/MB8vWqMspDBR4+wuI3fIW1QMsXvP
-	r3VMRePH+M9TXDQv6fNYONuXONk1oc9VTuQMCPf99uJ3iS/UYomwMbYgLcy1UpL/3kHbjoKHwS1
-	UGcDG3Y24WkUf0IdaphEhi25BHSADgcrwJk0qNloIM0O35NO02z5AVvXhStAu4WaewEuiWIdCUd
-	CL/Dongacj03Xg+RKlViHYIZ7b/Ilx2MCOCiFceq/HTVyZbBgFMHBMlvfduGCR6cq6pypNssWwi
-	CuncSHWt3aK9BNLEY1GJm30sqhqJ4dd87trVPiR0we5ev2dO2FiQHlIQioeIA+mf8yeFQRfKe4r
-	6hrjB9PnyuLyqxgiTlTSeYWeQCdvtbOwVINu5XslsHWX7jeFG7/yU36857ZGPEvyR5SFcWhZEUD
-	6HHAvxv5mzbr441RZ67pzMVcIBMeRmJGerHFzegschvKLSPxyGNQV2gpeHIKwyVBXTyfZv6iJZu
-	0NpCUy9toP4uFDYf+2I
-X-Received: by 2002:a17:902:dacf:b0:2e9:9f14:c44 with SMTP id d9443c01a7336-2e9a6d38bbamr62890025ad.49.1792400919921;
-        Mon, 19 Oct 2026 02:08:39 -0700 (PDT)
+        bh=wKvHy7y34UnvBEvhC3G16rSuhlzefUt6PxJ3Dpiy+6U=;
+        b=a/KVuTj21zWVvW68ElcWMhfkL7WISBaPAlkTFS15GH1nADS2m7zKzQuh70jj0bzdCa
+         MFFri8cL6QZ6Pqwc7NPzbA5LjbbzxumR3+q820Pe331XhdxUgzsDtl6wizEx0LO6JbO5
+         uUzrhiO0XrU4AddBWJ0VoOBmj6V3v3m/6cXOTmSdoGR5f4b9+wxWtkw+vYCD8dkn250f
+         vUeTP0haWEbmYNoPZqHc+xoTSK+P59mVvqFLyW15YjaiZWBRJZOY1LQC1kLK3q7M8vgI
+         DbB9QuTEtF2b7B/geHqyxGJFOW+PMTxHEjBNVxcOQcrNVXENdgMAhCOQCOuZNyfK84U0
+         nmUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792400926; x=1793005726;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wKvHy7y34UnvBEvhC3G16rSuhlzefUt6PxJ3Dpiy+6U=;
+        b=cUGein63QjT+qEO4vYGdUigWlWsas5dddLU8wnYX/XWlGcQdxN8f6H4TcADmjzZCQe
+         RZX5efzARqloc5euGFGseGK7vVI5jjSCE5QYMipSMC94RS0J5H9ibR0798y+caIO4JsY
+         rs/EsbFqbREM5orIBWMSWwC4zzJp6fz5vrvi2JEWymUV0Rk2oQn/4iS1emWj8RNdxFzF
+         wna3+bx8Ksyd5WjQzhv176fMXp48vg2oQEPFNWNlFVags7sN9tIq52wtMZXjJLzirIVz
+         s1V4GjlpotPtjhwm5kbrUAanFawkTrBXUdQ6gObXeufYMQN8IhjXc1JHEtlp+rHg7f7B
+         Vdag==
+X-Forwarded-Encrypted: i=1; AKwUvBzjqSYDHpqSBorGI3jYvdNenYv4plYEuBFwjR30F9sR/Q7TjPx5P0ZgVH54zTlpeDX/O+LA2w3qyoMF6UA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDKcZja+FVry23x/O1B6rdtoOhD+lIl0Ey6UDzdygqLIcPuq6A
+	Fe2HqKUYg1jGvBX16L1IRfNZnFOaVdvzwd0+/7aG4dljprLT+gcTRFvRYjVPa1YuCXc=
+X-Gm-Gg: AYBFou2Gyz229L1tKjzPGtcW9y2kF6iQV6k1NzvjhSP5gPr/Vw3Sj4NpDprOpCuaieA
+	7DBqRtYBPtLJXcJ5HE9ktKs9tePDaUultidGkhS9/ktzL3BsLugH7VAOShj173A+J2QUlSFFxQO
+	BBO9iFx/t98pWasyefilmZueEw1vFrgt9dedYEqJG/7V4ktIe7DR4ufC4IGK0J1LRkluVMedMmT
+	nyM2Y3NLhNaBJlNVNcJjfs7cQ4+JfUYmFZQ4Whqkq0q2vOpWl28aOX0RGbuvba6ORt/mIok2Nbn
+	luM3KUPeGo+TUoSNnCkrZAk79TjDT4S4qcsbVSMlXL2s58SlqnF7+QfoPNvOLt4GsAPsfAY7fGf
+	TBB0kwcZVXqtuj2t2Du+aX3zXVDOZ4odfLao9BnAQfwdiywEpNSJKIRQkDDTOuaGSkjvkTPmBLb
+	EdMOrLQtbDW0GMu3Ev41LUHpXqs6yuVX2BiNQ87qGcbyj9jXCsujnBdDqUO7K/lbnPhrABpVZY7
+	4Z13bK/bPaLPNdys30=
+X-Received: by 2002:a17:903:2c47:b0:2d9:383a:30f1 with SMTP id d9443c01a7336-2e9a6842eb5mr63237055ad.4.1792400926399;
+        Mon, 19 Oct 2026 02:08:46 -0700 (PDT)
 Received: from n232-176-004.byted.org ([36.110.163.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e305f1dsm36707595ad.0.2026.10.19.02.08.33
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e305f1dsm36707595ad.0.2026.10.19.02.08.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:08:38 -0700 (PDT)
+        Mon, 19 Oct 2026 02:08:45 -0700 (PDT)
 From: Muchun Song <songmuchun@bytedance.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>,
@@ -84,10 +86,12 @@ Cc: Muchun Song <muchun.song@linux.dev>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH 0/4] mm: Enforce read-only shared vmemmap tail mappings
-Date: Mon, 19 Oct 2026 17:08:26 +0800
-Message-ID: <20261019090830.1917657-1-songmuchun@bytedance.com>
+Subject: [PATCH 1/4] mm/sparse-vmemmap: map shared vmemmap tail pages as read-only
+Date: Mon, 19 Oct 2026 17:08:27 +0800
+Message-ID: <20261019090830.1917657-2-songmuchun@bytedance.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261019090830.1917657-1-songmuchun@bytedance.com>
+References: <20261019090830.1917657-1-songmuchun@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -96,47 +100,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series is split out from the earlier, larger series "mm: Generalize
-HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
-vmemmap optimization across HugeTLB and device DAX, this subset addresses
-a single, self-contained step: mapping shared vmemmap tail pages read-only
-at population time.
+Both early HugeTLB HVO and device DAX use the common vmemmap population
+path for shared tail mappings. Map these pages read-only so that illegal
+writes fault instead of corrupting metadata shared by multiple tail
+pages.
 
-After the previous HugeTLB and device DAX conversions, both can install
-optimized shared-tail mappings during vmemmap population. These mappings
-should be read-only because each shared tail vmemmap page backs metadata
-for many tail pages. HugeTLB applies this protection in a later,
-subsystem-specific pass, but device DAX currently lacks it.
+For early HugeTLB, this moves existing write protection into initial
+population without changing the final mapping. Device DAX gains the same
+protection.
 
-This series moves the protection into the generic sparse-vmemmap and
-powerpc radix population paths. This protects device DAX mappings and
-makes the HugeTLB-specific vmemmap_wrprotect_hvo() pass redundant. With
-that pass gone, the bootmem-only optimization wrapper has no distinct
-work and is removed as well.
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+---
+ Documentation/mm/vmemmap_dedup.rst | 3 +--
+ mm/sparse-vmemmap.c                | 3 +++
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-This is intended to be the fifth smaller step toward the broader HVO
-generalization. The remaining HVO naming and enablement consolidation is
-left for follow-up series.
-
-[1] https://lore.kernel.org/all/20260513130542.35604-1-songmuchun@bytedance.com/
-
-Muchun Song (4):
-  mm/sparse-vmemmap: map shared vmemmap tail pages as read-only
-  powerpc/mm: map shared vmemmap tail pages as read-only
-  mm/hugetlb_vmemmap: remove vmemmap_wrprotect_hvo()
-  mm/hugetlb_vmemmap: remove hugetlb_vmemmap_optimize_bootmem_folios()
-
- Documentation/mm/vmemmap_dedup.rst       |  3 +-
- arch/powerpc/mm/book3s64/radix_pgtable.c |  3 ++
- include/linux/mm.h                       |  2 --
- mm/hugetlb.c                             |  2 +-
- mm/hugetlb_vmemmap.c                     | 45 +++++-------------------
- mm/hugetlb_vmemmap.h                     |  6 ----
- mm/sparse-vmemmap.c                      | 26 ++------------
- 7 files changed, 17 insertions(+), 70 deletions(-)
-
-
-base-commit: 2887e63d2e8e0cf55402612d8996ce955a2c3e55
+diff --git a/Documentation/mm/vmemmap_dedup.rst b/Documentation/mm/vmemmap_dedup.rst
+index 8c287ae3f86c..76f903975a40 100644
+--- a/Documentation/mm/vmemmap_dedup.rst
++++ b/Documentation/mm/vmemmap_dedup.rst
+@@ -193,5 +193,4 @@ There's no remapping of vmemmap given that device-dax memory is not part of
+ System RAM ranges initialized at boot. Thus the tail page deduplication
+ happens at a later stage when we populate the sections.
+ 
+-Deduplicated tail pages are not mapped read-only. The mapping layout is the same
+-as HugeTLB.
++The mapping layout is the same as HugeTLB.
+diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+index 40eba70c0048..ba0496daf4de 100644
+--- a/mm/sparse-vmemmap.c
++++ b/mm/sparse-vmemmap.c
+@@ -295,6 +295,9 @@ static pte_t * __meminit vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
+ 			return NULL;
+ 
+ 		entry = pfn_pte(PHYS_PFN(__pa(p)), PAGE_KERNEL);
++		/* Map the shared tail page as read-only to catch illegal writes. */
++		if (vmemmap_optimizable_pfn(pfn))
++			entry = pte_wrprotect(entry);
+ 		set_pte_at(&init_mm, addr, pte, entry);
+ 	} else if (WARN_ON_ONCE(vmemmap_optimizable_pfn(pfn)))
+ 		return NULL;
 -- 
 2.54.0
 
