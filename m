@@ -1,203 +1,201 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3237535AC1E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24053164C7
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394497; cv=none; b=OTKel4jagsIC18HWYoH0+9fIkkv+8iioKSSVPLCa/m22zffdVomJNnlOZJKfqmFG7dD0eaPL7c7AKJON/f3o340xhYJofPidkG2tcQ5OnwORPNZKa8Wn1fZcygKghELa4HL6orA5npWjFTxLFE503P4/1rgspMel6LUb3fvLCuA=
+	t=1792394518; cv=none; b=jA0irfsLSDMvEvAXiiCNPqzp5EFCGcUtwgiPh8oNoDFPrD7YYssFI2/Z7IPM92HgcHqrP285YWtCr8mks6OBvGpnMT6f+sdqp/mKjozHgJI6wGNXbinozjPRsb5aRWrhfBelphgevpYmNRT1vkVvD3X9u2hSZgxvOmr2wyHthbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394497; c=relaxed/simple;
-	bh=J+ikDTDCmbtUQIwi+DKBRKFitBPkzJpEYsEkGbSinC0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ScVWNXvqxec0HaHxZSmOxJlpjmoTSI+puryH7unpa3N0t7b8htcCI6m3trmZS1ffmVA9fh1PxswUkl/Scgh6rbznJcpeAbDGzTlSn6X6b5jkQM5bUpyFl9VX6ejEtRJp1CYZfqA5q+zt9EB5CSuxWyu+GIlJp1kjBaBvB1JaZu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c734afb8deso2895948b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:21:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792394495; x=1792999295;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	s=arc-20240116; t=1792394518; c=relaxed/simple;
+	bh=SBY8z7gC6UVEgwMXUaxuVvdl1jO4c/aNNzHV+sEReMw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YB8qcHQ5R05xaqEmtHLoZjLlh/QxoWTDtLJrSLC9NUVra4m6dU1igQmeUB3Xy5hyW3ouNuP+JU6jHwyNHGooTNu1HF94GIiMMStp8yJvcfqFoZUfX2kGA82rd5oEXmFTtv5kn8xZJYL+yeDT1PYRCYL3HmTRLQoAiYMlJnoF6f8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HoGjtrxn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K2Hu8iiZ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HoGjtrxn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K2Hu8iiZ"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J4jNqH2179667
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:21:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	RW04UJAChk1zLpmtFuvB+VwxtXHR+RDaCh3ieWKs66o=; b=HoGjtrxnPrkHoHgz
+	Y7Hz0FVLU0lVIHg5+7tYaPGEM8xZcVuVdv9K7zWOLO2Ki4AEWgFEyYEImDYFfwu5
+	WGzIcPwu5bOXFlzvggYKxxGQpQJxkKwD74iy0b+RT6wnyQY5Xwjfscznubqt4CEw
+	0RcuOpT70kDVB83QbkB4NdhMlNtXQaaQMjb2PYwRMAl8VA+BK/SsQmPAB29Ki2jb
+	GiJx8wKdAz/kSwy7RKxpy3DDQPVZPwGP7gIffUJN6NgslHReBasW9yQTqdYNPF/2
+	Qs1+i69qv23SL/D4erXrY/VgerHSfO3rvscKu71nuUDm94qQNiM1vB7dDNqMhIP5
+	MFhCtw==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5u1hh5u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:21:55 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c0d568830so3947558eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:21:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792394515; x=1792999315; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OJ7gNhisstK80w1yLXNMpjgzLEQFy1c/FvTLYsrhiV4=;
-        b=YWM7S5xJrMiFWzYK4yuZZq0siDdKwJskpmyoBsunxdfhce5YmffjUTygxSYEnc5J0V
-         eguKU3nTL0vwW89IgZTFqdX/ly6GA92vcAXq7lBv4EHNlX7+4HmkxI9VM6dYnStDjhdi
-         IWr1AF9G/p6uOa+Zln/ZTZqkn1pQ2SN2KX3Air0D6QSRcdagMUHbwAiBtf4HFnOeI7mE
-         g9bH43k946kZ3uzQNW16AwL2SKhedPVjAlWJw9A2c6oW4dh4eqkGSwpgC0tnAG8q16Ml
-         xxjh/L8goyxRmqOHiJiOraqHVAgmvw1PBHon/E4LCVltY+a6MpSO36iVVfkz6NAqb1LK
-         gzTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZWG4SpCHVj1LUJLerwOwp5rupKlMP6btwMBCt3bXg3l7hq2YoOq9XMMvibBH3KV9aXcK++ypDrjU0ZBk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIs8PuSzAtADxa6lsUOP1PTcPGHU/d6vbTNZQ+5X04rgF7Z6AW7
-	Lb0ii4M7gNbT0gVubIrSJKNjzr+t0aDS8GG04zzKTuSADFStRJ+xtfa4hw6BPQg5nPIU3r3mE6g
-	HYwwZln6tVhv2oUX2QL9qa9jVp8T1J+d9IbuOHet/jHAQbjGVkglishOE2Tw=
+        bh=RW04UJAChk1zLpmtFuvB+VwxtXHR+RDaCh3ieWKs66o=;
+        b=K2Hu8iiZ/hzWrpRWjxqgyP9fsNY2FNuOeiX1lWCB3R7j7psQn1RRCROc0UX+ilcdL5
+         G+TWi3wSeApYr433daSTN/FKwAnfIMYTW3SiC8h6pvSGcX7kz5rtxy3AYR4bJErm71Jr
+         or8FJG5Ssne2UW+f+t5e0MN2Wpptz3F+W3mgjU5hYSQpwTzMOIvzYSVKgdoJ3fewMS5y
+         aU4uf+G0xq+X/msT+6JT9TtSBDNTtGM7A/q/n11G6uHNNJRWNFrj3CcO6qJdBPbXYPXA
+         sUOjpRxZgeIsbTBz0L8sP5UnNObnCyOiqcf7wJ21NkMhd/e007lGfC3GFO2QxgSUCB4R
+         2VVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792394515; x=1792999315;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RW04UJAChk1zLpmtFuvB+VwxtXHR+RDaCh3ieWKs66o=;
+        b=bumtWtHpiEtiBbPYEJ8CkdiHtV6AATcxcrXMybUg2Wgfk1AksLZ4PFE/Ae+BEhyW/H
+         qbRPxX2BOjG/k/JSIhNjAr1TUgQg6bW/TRaiK/EVeC7PPq83hI5VikFTZNucVlqogK1L
+         +WAIBTHNVvAwTRBw5V5jwcy0qjn4mhFafJFox8sf/XYW5AjFWzj//QsbHxy82bAQTOFe
+         VaZFn/iCeJDiAVoenOOv/6wkH71AF0R2dlZaApB/fcLkHkd9y9gMlGIGd1sy4nnSX066
+         1HrAc68g+WOhUrxLXMeRuTHJDCrjjpWOYixgmdbLrTL3wU12SSJHoN3dTnr/5eCtx09d
+         c4Tw==
+X-Forwarded-Encrypted: i=1; AKwUvBya7ElzL2/Oi1gb22W+JaPKVFsGCSJ2ZrPWAiJcogjdbh+7f4BLzESSKemWJCx8Xi+P2ERx2XZocDZ/5as=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHnOBJG85EMEoZ4GDz/VHclkc00Z7Sg4PPkFOYGw8RwG98U0s2
+	gRrSflt3PaxpyCAxcu5bi3pYUWB9mjzUicPy/O/3d9NrR+u3Mg6CiwqM6sQMx2H2Gu+5lbwTY+C
+	c3P8DADhlmUOZ+cbksSYFPPangv2/iAjGeqXiqj9f2kjlkhL2pnzDI3UwQQ9o7RaD+1kLUG92yG
+	w=
+X-Gm-Gg: AYBFou3VjlGWxugxTim7pcqOy5ARzoirGIcankBrki6ardDI5ofQvd2YqedM2g9UwSv
+	4rDEBC9h4BX2w67ggBd4aYGxRD6MigO70HOFY7OzR8A+QdG/mpGBz/iKyw3e+M0MSW/fZsAUDRk
+	++hCMv7QHiSPWsyFx/OoarktT0AknkZwIt5wolwNHasyjhMoeR5gyGcctiKaCrzvsalzAqU0Hx5
+	+P+hIyn2A7suf3qoqkjQSVQJD/VyNb4oalZedSx3Zs54/1Ptaq0wL6V6r62njT6fJzygR5Uyskt
+	GXb+PcY2sZ0EQssYXRb1tT2OSDfRJgMHFy0tEP80rsooST88cGz+LgbweY/SFUQBUP9cOhDA8vM
+	1xj5+jYQ8TKVyPUoiY2cj6gSH
+X-Received: by 2002:a05:7300:ae22:b0:356:9345:a07c with SMTP id 5a478bee46e88-361a1b52d40mr10457796eec.22.1792394514787;
+        Mon, 19 Oct 2026 00:21:54 -0700 (PDT)
+X-Received: by 2002:a05:7300:ae22:b0:356:9345:a07c with SMTP id 5a478bee46e88-361a1b52d40mr10457763eec.22.1792394514172;
+        Mon, 19 Oct 2026 00:21:54 -0700 (PDT)
+Received: from [192.168.1.7] ([101.0.62.42])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608308a87csm49639768eec.28.2026.10.19.00.21.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 00:21:53 -0700 (PDT)
+Message-ID: <2e1f73f2-5ac5-42f0-abfd-93d428528e40@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 12:51:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fde:b0:4d5:295c:a82e with SMTP id
- 5614622812f47-53cd88053b6mr5513312b6e.59.1792394495177; Mon, 19 Oct 2026
- 00:21:35 -0700 (PDT)
-Date: Mon, 19 Oct 2026 00:21:35 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad5c4ff.a6d1a155.34a93f.0112.GAE@google.com>
-Subject: [syzbot] [mm?] INFO: rcu detected stall in chrdev_open (7)
-From: syzbot <syzbot+899fe9063fef5929bd90@syzkaller.appspotmail.com>
-To: davem@davemloft.net, david@ixit.cz, edumazet@kernel.org, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/3] misc: fastrpc: initialise channel refcount before
+ exposing the misc device
+To: Jianping Li <jianping.li@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Thierry Escande <thierry.escande@linaro.org>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, quic_chennak@quicinc.com
+References: <20261007084447.922-1-jianping.li@oss.qualcomm.com>
+ <20261007084447.922-2-jianping.li@oss.qualcomm.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20261007084447.922-2-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: BKfMqH7UIFU2beY9eEWCQ_nEZwC2osFD
+X-Authority-Analysis: v=2.4 cv=NItAaE6g c=1 sm=1 tr=0 ts=6ad5c513 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=sC8K8RXUWm68HHFV/PXcoQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rhkbLGPNnmkQcCxMrrAA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAyOSBTYWx0ZWRfXz7G2uM0AUNxp
+ R3cYGxFMp5e+v+5bbIja2y8OPFejUbSiARunES4m8IHb81q9wR0OmLE9egNAg7nymyeYmY1A0nA
+ ZmnQeJZ6wBnDQq8Z46cM9SfeKvuH0fA=
+X-Proofpoint-GUID: BKfMqH7UIFU2beY9eEWCQ_nEZwC2osFD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAyOSBTYWx0ZWRfXzAbTtgQ8pFQf
+ gzxtQ3eRywqZDPcGzRo7oU6jPfgTYWXab7vxbnmXQ3qe2O2Od/WT+Z6w1iq0tPmCPJZm0IifIWy
+ btUNvyZPGWQ8mjRjPmY7f4r67MSFlJ2waMq0QjM5PPhl8jhhkrmAsYdfKYM6pUAOGXQcBqqMmuG
+ 2IPRGd4RlqulTq3mA4XYZV7dWdRacfGFz5OYFPswPU5QCrnaBX8HP0DL4lA5oWKpgfGDMn2MB1C
+ mqzBi5NjQHzsuXeHRm1Q6AgGscji/DUZrQ63zvlnb48/jmnf4BoL3DDdWuo+fwxeLRPIsRIUvTQ
+ E0QP5yLGm20ADaua+1zgSRDH58k7UJ3aZ5ISAo9vu42PZCnUx8p2Ybd4AZKyqU2/nxmrMHsffL4
+ f1YVi0gAwZTMZiQipY2bPehvkXuCmn0/bXGzm7XLY9EznIdoJIwqeiffxcbPCbs/kRKU27ARrlk
+ iRdF3ZgyW038k/nY/0g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_02,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 bulkscore=0 malwarescore=0 impostorscore=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190029
 
-Hello,
+On 07-10-2026 14:14, Jianping Li wrote:
+> fastrpc_device_register() calls misc_register(), which immediately makes
+> /dev/fastrpc-<domain> visible to userspace. However, kref_init() on the
+> channel context refcount only runs after the whole domain switch()
+> completes, several statements later.
+> 
+> Any process that opens the device in that window reaches
+> fastrpc_device_open() -> fastrpc_channel_ctx_get() -> kref_get() on a
+> refcount that has never been initialised and is still zero, which
+> refcount_t correctly reports as a use-after-free:
+> 
+>   refcount_t: addition on 0; use-after-free.
+>   WARNING: CPU: 0 PID: 760 at lib/refcount.c:25 refcount_warn_saturate+0x120/0x144
+>   CPU: 0 UID: 0 PID: 760 Comm: adsprpcd
+>   Call trace:
+>     refcount_warn_saturate
+>     fastrpc_device_open [fastrpc]
+>     misc_open
+>     chrdev_open
+>     do_dentry_open
+>     vfs_open
+>     path_openat
+>     do_filp_open
+>     do_sys_openat2
+>     __arm64_sys_openat
+> 
+> This is easy to hit after a subsystem restart, when the DSP daemon
+> reopens the device as soon as it observes the PD coming back up, racing
+> with fastrpc_rpmsg_probe() on the rebind path.
+> 
+> Move kref_init() ahead of the device registration so the refcount is
+> always valid by the time the node is reachable from userspace.
+> 
+> Fixes: f6f9279f2bf0 ("misc: fastrpc: Add Qualcomm fastrpc basic driver model")
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> ---
+>  drivers/misc/fastrpc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index af18ff1992ee..05b2e7e4ad3b 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -2599,6 +2599,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  	data->poll_mode_supported = soc_data->poll_mode_supported ||
+>  		of_machine_get_match(fastrpc_poll_supported_machines);
+>  
+> +	kref_init(&data->refcount);
+Need to move all initialization before fastrpc_device_register(), this
+is already being handled by this patch[1].
 
-syzbot found the following issue on:
+[1]
+https://lore.kernel.org/all/20261001-fastrpc-probe-fixes-v1-2-1376d93b8b3e@oss.qualcomm.com/>
+ 	switch (domain_id) {
+>  	case ADSP_DOMAIN_ID:
+>  	case MDSP_DOMAIN_ID:
+> @@ -2626,7 +2627,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  		goto err_free_data;
+>  	}
+>  
+> -	kref_init(&data->refcount);
+>  	atomic_set(&data->ctx_seq, 0);
+>  
+>  	rdev->dma_mask = &data->dma_mask;
 
-HEAD commit:    24a19b953e2a Linux 7.3-rc7
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16656f15580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=129d675874dbf896
-dashboard link: https://syzkaller.appspot.com/bug?extid=899fe9063fef5929bd90
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/c36b6926be3e/disk-24a19b95.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/413d898eaf27/vmlinux-24a19b95.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ada3e66b70fc/bzImage-24a19b95.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+899fe9063fef5929bd90@syzkaller.appspotmail.com
-
-rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-rcu: 	Tasks blocked on level-0 rcu_node (CPUs 0-1): P12985/1:b..l
-rcu: 	(detected by 1, t=10502 jiffies, g=76689, q=368 ncpus=2)
-task:syz.0.1823      state:R  running task     stack:27232 pid:12985 tgid:12984 ppid:5600   task_flags:0x400040 flags:0x00080000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x1259/0x6920 kernel/sched/core.c:7284
- preempt_schedule_irq+0x4e/0x90 kernel/sched/core.c:7606
- irqentry_exit_to_kernel_mode_preempt include/linux/irq-entry-common.h:468 [inline]
- irqentry_exit_to_kernel_mode include/linux/irq-entry-common.h:539 [inline]
- irqentry_exit+0x205/0xa10 kernel/entry/common.c:167
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:unwind_next_frame+0x17a/0x2090 arch/x86/kernel/unwind_orc.c:510
-Code: ea 03 0f b6 04 02 4c 89 f2 83 e2 07 38 d0 7f 08 84 c0 0f 85 24 0a 00 00 48 89 e9 41 0f b6 45 35 48 ba 00 00 00 00 00 fc ff df <48> c1 e9 03 80 3c 11 00 0f 85 01 18 00 00 4d 8b 7d 48 3c 01 49 83
-RSP: 0018:ffffc9000679f268 EFLAGS: 00000246
-RAX: 0000000000000000 RBX: 0000000000000001 RCX: ffffc9000679f320
-RDX: dffffc0000000000 RSI: ffffffff8c625500 RDI: ffffffff8e6af928
-RBP: ffffc9000679f320 R08: 00000000c7ee03ff R09: 0000000000000007
-R10: 0000000000000200 R11: 0000000000000001 R12: ffffc9000679f328
-R13: ffffc9000679f2d8 R14: ffffc9000679f30d R15: ffff88803569cb00
- arch_stack_walk+0x94/0xf0 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6509 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6802
- apply_wqattrs_cleanup kernel/workqueue.c:5592 [inline]
- apply_workqueue_attrs_locked+0x96/0xe0 kernel/workqueue.c:5590
- alloc_and_link_pwqs kernel/workqueue.c:5731 [inline]
- __alloc_workqueue+0x9a7/0x1950 kernel/workqueue.c:5984
- alloc_workqueue_va kernel/workqueue.c:6033 [inline]
- alloc_workqueue_noprof+0xc7/0x130 kernel/workqueue.c:6049
- nci_register_device+0x394/0xb80 net/nfc/nci/core.c:1269
- virtual_ncidev_open+0x141/0x220 drivers/nfc/virtual_ncidev.c:153
- misc_open+0x26d/0x450 drivers/char/misc.c:163
- chrdev_open+0x234/0x6a0 fs/char_dev.c:411
- do_dentry_open+0x6ab/0x14d0 fs/open.c:996
- vfs_open+0x82/0x3f0 fs/open.c:1101
- do_open fs/namei.c:4866 [inline]
- path_openat+0x19fa/0x2440 fs/namei.c:5029
- do_file_open+0x20e/0x430 fs/namei.c:5058
- do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x12d/0x210 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f697c79e1d9
-RSP: 002b:00007f697d6ac028 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
-RAX: ffffffffffffffda RBX: 00007f697ca25fa0 RCX: 00007f697c79e1d9
-RDX: 0000000000000002 RSI: 0000200000000080 RDI: ffffffffffffff9c
-RBP: 00007f697c835888 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f697ca26038 R14: 00007f697ca25fa0 R15: 00007ffc729ea0a8
- </TASK>
-rcu: rcu_preempt kthread starved for 10502 jiffies! g76689 f0x0 RCU_GP_WAIT_FQS(5) ->state=R ->cpu=1
-rcu: 	Unless rcu_preempt kthread gets sufficient CPU time, OOM is now expected behavior.
-rcu: RCU grace-period kthread stack dump:
-task:rcu_preempt     state:R  running task     stack:27560 pid:17    tgid:17    ppid:2      task_flags:0x208040 flags:0x00080000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x1259/0x6920 kernel/sched/core.c:7284
- __schedule_loop kernel/sched/core.c:7361 [inline]
- schedule+0xdd/0x2c0 kernel/sched/core.c:7376
- schedule_timeout+0x127/0x280 kernel/time/sleep_timeout.c:99
- rcu_gp_fqs_loop+0x1a9/0x8f0 kernel/rcu/tree.c:2122
- rcu_gp_kthread+0x17a/0x220 kernel/rcu/tree.c:2330
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-rcu: Stack dump where RCU GP kthread last ran:
-CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-RIP: 0010:pv_native_safe_halt+0xf/0x20 arch/x86/kernel/paravirt.c:64
-Code: a7 96 02 e9 53 50 03 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d 93 48 17 00 fb f4 <c3> cc cc cc cc 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
-RSP: 0018:ffffc900001a7e00 EFLAGS: 00000242
-RAX: 0000000001ea4ae3 RBX: ffff888020684b00 RCX: ffffffff8bd47235
-RDX: 0000000000000001 RSI: ffffffff8e3e3486 RDI: ffffffff8c625580
-RBP: ffffed10040d0960 R08: 0000000000000001 R09: ffffed10170667bd
-R10: ffff8880b8333deb R11: 0000000000000001 R12: 0000000000000000
-R13: 0000000000000000 R14: 1ffff92000034fc4 R15: dffffc0000000000
-FS:  0000000000000000(0000) GS:ffff888122a46000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f38c4787800 CR3: 0000000036854000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- arch_safe_halt arch/x86/include/asm/paravirt.h:62 [inline]
- default_idle+0x9/0x10 arch/x86/kernel/process.c:768
- default_idle_call+0x6c/0xb0 kernel/sched/idle.c:122
- cpuidle_idle_call kernel/sched/idle.c:199 [inline]
- do_idle+0x3ae/0x5b0 kernel/sched/idle.c:355
- cpu_startup_entry+0x4f/0x60 kernel/sched/idle.c:454
- start_secondary+0x21d/0x2d0 arch/x86/kernel/smpboot.c:312
- common_startup_64+0x13e/0x158
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
