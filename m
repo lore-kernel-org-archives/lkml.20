@@ -1,59 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443416;
-	b=qyDkbA+jMqUwjxcBWrj5kX8V1PAZB9V+0Ee1AMUdnt1CUhH/wISSIXnmgue4uy8HQZvX
-	 iC4yd1jCXPCnI2pVyJgrdM2o7k4H4hGGLG7Cp3gTnXlKDy4br/LCQZkI0dFzlVhIneflX
-	 kpkEWO4TohFkWOmP5HRUStF9aETaisl8245IeDico8Aofjqxosa61eE8o5ytXP+RBCeMi
-	 2pCmBCCD2N+k7XTaHSZe/f1pjfd1vFjV5znDfpI0RDlkQCtgNjHNkTNN4I2iuVjiMRbLw
-	 ihJeOu84HYZ+QRCEOiCpuf0FsqcfbQcUVXinkAL7C01jvGA8dwe/xVZKUUE9aawWrPQ==
+	t=1792443438;
+	b=NXqsRpP2j/+qmDDFWXvEsLDmgEl4CZx2/0BkfdVKSt9P5l+bZPS/Giwdmuh0O/GgRvrw
+	 bmxNwVFgvQBxQ3L8kKPtMDMpS2R/HPKwX/OkCe0/ocPj+NHIWNQqMK9CpUPxpX6zpDfo5
+	 o3I4kNreoiVadoisWHzuNcuRZEYc3NbWKoqmsNBRquEReqOIDFo5riVnTEhCuKTcivkmj
+	 qfKq9StmkePsoJY4prz4I9wotPxhak7Y1e66LnBeA/VTx6TI8nnbt1TpG6sy0VK3MyOBs
+	 qeShn9Re5sT4pf7jgPNI253w+fg41VC2O/xocS7ibyiJ/6Cm2T69F5rXqCJvecWsKLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443416;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=AN05D8Yt+mlMjUBN9ChH3pDuXIogzb18Y01sfQRIakQ=;
-	b=sX9LJH5ZsM96khS9l2sEehqHpqTETsQk1yyuikIKpNhgSsT+bjIUAts3U9b37quH85K0
-	 W7jS/B+/saI9OoSd8Gg9LUgCcLZ9TNoTz0hHtTrAbVDRoS6+/qTtlGynfx5Z+9k38BB1k
-	 5eS7ZgRxNzF2NjpG64tYpdsuLv+VLIV2vtwYKHQbTMqDGpuqDwss0F4H1/2L67npKH+Vq
-	 oOIfe1UKL84aTZeFcNoAtYOoyViMRQptm2xqiTmDZ1Re6YdHB6GZ1r2n4j8aabhiyPGbs
-	 7t3KbEcODfUP4004+jIWUqSADjASe42nG1/jICgkUCr/O1pt/FVfz+bSOoTLLoaxnGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443438;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=iUxDgCC6thNE6bahIcLevwQy6B6nWx+XvwiMIDf3yFM=;
+	b=ZfUUvPxh13UGmBjPhCs6AtgjDlH7AdZm7DOI5qfv4aEKlHQKsQp8vaZylWd9fuxAt0dE
+	 N1eDd7LRCP9eSm8gut93R6ugIdiIkYTxXZKAliD30Dr+H4uQkBSS5bY4sjkI5dFJyn2V3
+	 JXq0IzRka/lXejqUm4NTXQojrOVgkd0j7fPAiasMiyDeqGcflq8KlbrgK5HQdjMjpISMQ
+	 IIU/jnJH55SveRJKdUuUuWQ3BBzObHzZnkSHmWfnC6I/wHbisoarU7HkgahwcyYaOTz2Z
+	 TMJz8y9klPyDYwE6889yoaqJNEhpCYxxe7Pms9VK+czHnlyPII4myl84CIgU+OYyEjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRrYToiX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BC4FPXUY;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C63A5606A31A;
-	Mon, 19 Oct 2026 20:56:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06A4606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B06A4606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRrYToiX
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EA52E1F000C4;
-	Mon, 19 Oct 2026 20:56:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792443415;
-	bh=AN05D8Yt+mlMjUBN9ChH3pDuXIogzb18Y01sfQRIakQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IRrYToiXyL7ShWFuQq7DqdYv0fCjQkJIqSRfrfFNDPiKs/S5n8phDXci2iyV1aovm
-	 7RNO+E4cYj1uFAX9DHd7cRwbTRAQlc8UQPa0nRE8I8Pkh2t2P7U+7JTURTY7B0cvzn
-	 Stvb42FRwkRQ82ndoJfo/dqn6jL2Ig0rTstaqC9jmpTe4JBat7nzMmCxlP+pwEi4Hf
-	 JzQROI29FONXYOj19HPdtbPIJqt6IEhjIVKf8y7akKFU/WxQdBkqJWjRQ+yf1E+8TZ
-	 5AkHoFbuirHJZzES6m/FX0pPoI09pqwyh4Sj5yHLkaW1VwcYkQuOwkGkRSE1zP6HDW
-	 ezmNGvsq0ocyA==
-Date: Mon, 19 Oct 2026 23:56:51 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, Andrew Morton <akpm@osdl.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 4/6] KEYS: Prevent overflow of quota in key_alloc()
-Message-ID: <ataEE0zcWy8ILlms@kernel.org>
-References: <20261019181732.449591-1-jarkko@kernel.org>
- <20261019181732.449591-5-jarkko@kernel.org>
- <20261019192545.GD65095@quark>
- <ataDs4TMkbRjxc_G@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BC4FPXUY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792443436;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iUxDgCC6thNE6bahIcLevwQy6B6nWx+XvwiMIDf3yFM=;
+	b=BC4FPXUYwGlAwRy2Bcm46Pxrdui4G35dVRmhcqGFR5ApV70K0wq6py2NmYcmcd/5+PWt0w
+	zcokoxeayEe2auwK6mI7rFbnVzl0vsD+fvJoCOQ7LtdqmKoXOhRgCMe/bNnhMEJ3OGdfxC
+	EFbMM5sJmtJz/eOfqhP8BSQPgF9EJOs=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-180-VXEkOMxNPdyM2fxjJV-9zg-1; Mon,
+ 19 Oct 2026 20:57:14 +0000
+X-MC-Unique: VXEkOMxNPdyM2fxjJV-9zg-1
+X-Mimecast-MFC-AGG-ID: VXEkOMxNPdyM2fxjJV-9zg_1792443432
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B67881800654;
+	Mon, 19 Oct 2026 20:57:11 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 43CBE410;
+	Mon, 19 Oct 2026 20:57:08 +0000 (UTC)
+Message-ID: <3531bfe0-d5a3-4a38-af5b-68ce5406c591@redhat.com>
+Date: Mon, 19 Oct 2026 16:57:07 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,39 +71,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ataDs4TMkbRjxc_G@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v4 0/9] cgroup/cpuset: Fix various housekeeping check
+ problems
+To: Tejun Heo <tj@kernel.org>
+Cc: Ridong Chen <ridong.chen@linux.dev>, Johannes Weiner
+ <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Randy Dunlap <rdunlap@infradead.org>, cgroups@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>,
+ Guopeng Zhang <guopeng.zhang@linux.dev>
+References: <20261019181020.1069325-1-longman@redhat.com>
+ <ataCxJxYwg_uhS-j@slm.duckdns.org>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <ataCxJxYwg_uhS-j@slm.duckdns.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Mon, Oct 19, 2026 at 11:55:19PM +0300, Jarkko Sakkinen wrote:
-> On Mon, Oct 19, 2026 at 12:25:45PM -0700, Eric Biggers wrote:
-> > On Mon, Oct 19, 2026 at 09:17:24PM +0300, Jarkko Sakkinen wrote:
-> > > Check that the calculated quota length does not go over INT_MAX.
-> > > 
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: LLM
-> > > Fixes: 7e047ef5fe2d ("[PATCH] keys: sort out key quota system")
-> > > Reviewed-by: David Howells <dhowells@redhat.com>
-> > > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > 
-> > Seems this should be merged into patch 3?
-> > 
-> > Also is this reachable?  I.e. do any of the key types actually specify
-> > def_datalen > INT_MAX - KEY_MAX_DESC_SIZE + 1?
-> 
-> This is very good question and my *guess* is that no there is not.
-> 
-> That said, when not treated as a bug fix this patch is a great
-> safe-guard e.g., to block corraterall effects of some other
-> bugs.
-> 
-> So yeah, that's I would propose here. Let's not call it a bug fix
-> but still merge.
 
-Or actually: no let's not do this. I'm making my life only more
-difficult.
+On 10/19/26 4:51 PM, Tejun Heo wrote:
+> On Mon, Oct 19, 2026 at 02:10:11PM -0400, Waiman Long wrote:
+>>   v4:
+>>    - Adjust a number of patches to fix issues reported by Sashiko and
+>>      Guopeng Zhang.
+>>    - Add more test cases to test_cpuset_prs.sh to improve test coverage.
+>>
+>>   v3:
+>>    - https://lore.kernel.org/lkml/20261014140548.575122-1-longman@redhat.com
+>>    - Further revise the code based on feedback from sashiko and
+>>      reviewers.
+>>    - Add a new fix patch which fixes a bug found during the testing process.
+>>    - Add a patch to impose a new restriction that creating a child root
+>>      partition under an isolated parent partition is not allowed.
+>>
+>>   v2:
+>>    - Update patches 2 and 3 to address bugs reported by sashiko.
+>>    - Add a new test_cpuset_prs.sh patch to skip the test if some of the
+>>      required CPUs are offline.
+> Can you ping me after -rc1 drops?
 
-I think it is totally sane to squash this to patch 3 and it
-is reasonable for that fix have this additional safe-guard.
+Yes, I will.
 
-Br, Jarkko
+Cheers,
+Longman
+
+>
+> Thanks.
+>
+
