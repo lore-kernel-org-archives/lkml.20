@@ -1,161 +1,122 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5342222CC;
-	Mon, 19 Oct 2026 12:46:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F82A44C64B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413967; cv=none; b=ZQeIHNdj7MtwHWOf7e5P/fmvy4YuxIVcUunYlhFnubnZtwy8soIjUUgZz7wEFMX5MdO8qELNYAYYsKEZXlnBWx6Vao1KktUomMZXIPQwvp+Nc7p4p52zmixa7zqmUyuxhcnslM5YEzfyJE4WNe7WJPSh2OlkGoLilY2JAqT9ZRE=
+	t=1792413976; cv=none; b=Jq2tP+e5dRNgy6/UFBVYJ3DdOs3lXHpF6uJXV+fp9c0/kOWWqraDAlgB1ThBAorMPmhshfZj6ohbOwQw8dLsKcsit8K2qbyMeVNFjfFHMsqTEokGCpVmSn5W49bDDFpQMjBJwptuIDaPNvvDYO0BMav9V5ZEyksDGz2+PiOJO6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413967; c=relaxed/simple;
-	bh=MO3bBllVtiPwKBNpdwjPHy15QCtLLvmZIeGXkZxxvfM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bZA+JGWmYV5vEqcWcLkakZcnQ2CDxDZuho17mkCXMW7zMfO+0iSkjSlxuGdsNO0Ctcy1QWnpEqfXGaAJI0uush/wa2anCCtYn3GsP7oLzLlpmhyxL30J1dTbweU4aDLmSVR/8DsDaT1DDFYa/rs/GzIlpi9Nh4WvglcUEq6xEw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=A6AGPmlQ; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792413976; c=relaxed/simple;
+	bh=xp+A0hKQQq1H22UYXD4AcfOE21QDOyZZTRzwG+3a2Ug=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RgsQ1mmOZLmMti9HK81rf7nc5USuqq/NjxfEEhO1WLrWwuCljIPTKy6xXpRRPRDSpyqwP5GspMmAtn4yCelHoSVHpINCEsk65cQ/nEdLuChNfH/AFZD7UIb5d3Dqgu8hZuOj6R/RHBYyXV36el7Rw/YQJHWNn/vExszVfGKQJ8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CVQV2mMC; arc=none smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="A6AGPmlQ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 3F889C653EB;
-	Mon, 19 Oct 2026 12:47:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1E0D160582;
-	Mon, 19 Oct 2026 12:46:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BE1C210328D37;
-	Mon, 19 Oct 2026 14:45:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792413961; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=3YskPz3UgoOKTWEGXwGt1ZoVBPz2ApBuqNly6OfeUwQ=;
-	b=A6AGPmlQ2pS8tcFcQUrgHqEwl4LUiBVobe6lTIuxtL5cqe51qGRV204HJo/wZ0CtTnQJAJ
-	sMgJ9Ji2q64nU9G43WhNtXHFxrU+NW5vobIX79/tYj90LhxQJEd+/OSZejH/FNF0m8iaGS
-	loLry2MaPTkQ+Fcnn+w0pJ5K2qSFgt7sTM2dAzVR7dT16YvzngpBk08uu5kjqwNOkfZK6g
-	I6Tv+WGDSh4cWH7kYaBkqM8s1dMqKGCa6+boLgm4LiRjz/fJxDZwoUeiXy6nherKEYQdpF
-	aJq1S6r8szb9KTJeZTzPUfgyl4BroXpABDt7ZwkkrPwhcm3Y98JG8utmmke/HA==
-Message-ID: <76248dfd-a193-4a75-9fb3-771cad207cb4@bootlin.com>
-Date: Mon, 19 Oct 2026 14:45:49 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CVQV2mMC"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15354aa70e8so1067489c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:46:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792413974; x=1793018774; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ucqImzYK4TndSlhXSWzG/Thctz6staWsP5DajBsvrOg=;
+        b=CVQV2mMCXKl92EJaX/fW4ZHE6QUrVtOXkhA/GHdGi2IWovUF0190v8M9d0KGdeZGHB
+         eekmpm8AEuRdDw6xqp/uSU+phHXCpoENQZErq68hm3nzFbEqRe4VM1bvxRFmyVy1+zUu
+         1FRX1pQ5BNj9uD84giznYCgaXMkC1p4KSqRxGpV7D1GnJJlmDca9G6OW6OoMKHoBHI7d
+         nOhYxSaF79ZghbIU8dhpPXV9C7winPJYX51s1SRJcixd14K5n6PyqZgxB0rAT00WIedi
+         ZSOFvs2W3B3jf0DCKK+E59W/divgwKks6Gbleg02+nq9AzC3MwfZeau1nLndORls+eu0
+         QQXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792413974; x=1793018774;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ucqImzYK4TndSlhXSWzG/Thctz6staWsP5DajBsvrOg=;
+        b=HZN+6j3xK95glVfeLAWVVimtvJ2zMePYWEAr8jSNXPdsd5ZRNKbx0HT7TjgCpxtfQa
+         AZfii+MQ6opEdJAO264KbNR1gUgMByekgWgjPDb5reOlnt+NH6Wi1V+QJR203SBX2JDM
+         ssE8W1tQ1NSVQdHWPCDsALW3xwHY8APMY2x7HzKrICWvAj8gVCDuYcqquBlYRh6mrkiq
+         myK5wi9JUnOFgmg9ORn2W5HynImNgn8keoPjVstEzWwtr/gWg5wdqY3ilCMiBWq7CeG3
+         xOB7abLz/mL+uclT6dK2N09SRu9nl591Cem5Q2UuwDdmLUXtORRB9BtDPk0jXhgg6p5U
+         dYwQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTZKP93yym2me1j4AW8+Zv+JGGTnGI6YIT31TJwZjendZHfCqt3EzJvJRFpVEDWQR48W+PGdVkkhl81VQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOlY4z0DDxnVg35TGcmo9dbe/rxKdlNHbRZ2yb0Gep/FlJv8HQ
+	sUdmZ+yZGwAQkcxsDrGsPcYKHured7rvIDZNj0PvqL9zX3XIb2tJHrTu
+X-Gm-Gg: AYBFou3oVW0GT2LUimrJe/ZnMq4fycxrb1hP0SntbCJhgDowVEvdPJS9V1iZl06VggY
+	Q2f+MAkjGEeFWGdNLFLDWZtQiug/4jxSE9DWnMPpCm/IKsTShjaCzAqgDQL9U9WGNcKyKSnjbJ0
+	wdTVFADnnWqdtuGIOI+Tg8mmlGMdp/LoX3gIM/IvYWY+Z+ANs/7zgFbDy2Xt1NbUIW8n0fFgtzz
+	pDlT+VqYeJ1GCL+5pJF0ywrV0+PVaW2xZM2B0QWgPqWkPKKw8xaRW1NQRRTxN7kQP/jL9OoDI1l
+	uVekmhfom6dlQrUoj1+Q30ve5UmQ6FVoJKIXir2ebfFuZIx7YVDyL4au8EWDSQ4RksWEspax9pd
+	94tMXMu5Sss6/T4jvtiA87t2fJox4IOYk4MajDQKq1ir3XCkG8YeYOboHkrZ6ERNh4q4QEHsOt4
+	JqprOI7UULIiHrvmYM3C9FOW4c4MnR5nGw2u2XhMJq4H3Pv7iP16q5ifF2hbtUom74+3l2c1kGF
+	ZEriBaorlhI
+X-Received: by 2002:a05:701b:2906:b0:141:4a06:ad6f with SMTP id a92af1059eb24-1851238b5f2mr11785078c88.8.1792413974419;
+        Mon, 19 Oct 2026 05:46:14 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-183190aa3ebsm25845295c88.8.2026.10.19.05.46.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 05:46:13 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 19 Oct 2026 05:46:12 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Ximing Zhang <xzhangjr@gmail.com>
+Cc: Marcelo Tosatti <mtosatti@redhat.com>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (coretemp) Fix handling of isolated SMT siblings
+Message-ID: <cfcbef9e-82bd-4685-85cb-25d17f2483e4@roeck-us.net>
+References: <20261016-codex-coretemp-housekeeping-v1-1-96618c5676b2@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH net 07/10] net: pse-pd: pd692x0: release the manager power
- budget through devres
-To: Carlo Szelinsky <github@szelinsky.de>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: Piotr Kubik <piotr.kubik@adtran.com>,
- Sai Krishna <saikrishnag@marvell.com>, Simon Horman <horms@kernel.org>,
- Kyle Swenson <kyle.swenson@est.tech>, netdev-bot+sashiko@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261018082314.48950-1-github@szelinsky.de>
- <20261018082314.48950-8-github@szelinsky.de>
-From: Kory Maincent <kory.maincent@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261018082314.48950-8-github@szelinsky.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <20261016-codex-coretemp-housekeeping-v1-1-96618c5676b2@gmail.com>
 
-
-
-On 10/18/26 10:23, Carlo Szelinsky wrote:
-> pd692x0 reserves a power budget on each manager's supply in
-> setup_pi_matrix(), but gives it back only on that function's own errors
-> and in remove(). If probe fails later, or the request fails for one
-> manager after others succeeded, the budget stays reserved on vmain. Each
-> probe retry, e.g. after -EPROBE_DEFER, reserves it again until nothing
-> is left.
+On Fri, Oct 16, 2026 at 12:36:37PM +0400, Ximing Zhang wrote:
+> From: Ximing Zhang <xzhangjr@gmail.com>
 > 
-> Release the budget from a devm action instead, and drop the explicit
-> release calls.
-
-Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
-
-Thank you!
-
-> Fixes: 1c67f9c54cdc ("net: pse-pd: pd692x0: Fix power budget leak in manager setup error path")
-> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
-> ---
->   drivers/net/pse-pd/pd692x0.c | 22 +++++++++++++++-------
->   1 file changed, 15 insertions(+), 7 deletions(-)
+> Commit 0f8b916bc5b5 ("hwmon: (coretemp) avoid RDMSR interrupts to
+> isolated CPUs") prevents create_core_data() from creating temperature
+> data for an isolated CPU. coretemp_cpu_online(), however, still adds
+> that CPU to pdata->cpumask.
 > 
-> diff --git a/drivers/net/pse-pd/pd692x0.c b/drivers/net/pse-pd/pd692x0.c
-> index 209de9cec849..34f0dfbccd06 100644
-> --- a/drivers/net/pse-pd/pd692x0.c
-> +++ b/drivers/net/pse-pd/pd692x0.c
-> @@ -1224,8 +1224,9 @@ static void pd692x0_of_put_managers(struct pd692x0_priv *priv,
->   	}
->   }
->   
-> -static void pd692x0_managers_free_pw_budget(struct pd692x0_priv *priv)
-> +static void pd692x0_managers_free_pw_budget(void *data)
->   {
-> +	struct pd692x0_priv *priv = data;
->   	int i;
->   
->   	for (i = 0; i < PD692X0_MAX_MANAGERS; i++) {
-> @@ -1279,31 +1280,39 @@ static int pd692x0_setup_pi_matrix(struct pse_controller_dev *pcdev)
->   	if (ret)
->   		goto err_of_managers;
->   
-> +	/* Frees whatever pd692x0_req_managers_pw_budget() manages to
-> +	 * request, on any later probe failure and on unbind. Added after
-> +	 * the manager regulators so that it runs before devres unregisters
-> +	 * them and their supply goes away.
-> +	 */
-> +	ret = devm_add_action_or_reset(&priv->client->dev,
-> +				       pd692x0_managers_free_pw_budget, priv);
-> +	if (ret)
-> +		goto err_of_managers;
-> +
->   	ret = pd692x0_req_managers_pw_budget(priv);
->   	if (ret)
->   		goto err_of_managers;
->   
->   	ret = pd692x0_set_ports_matrix(priv, manager);
->   	if (ret)
-> -		goto err_managers_req_pw;
-> +		goto err_of_managers;
->   
->   	/* Do not init the conf if it is already saved */
->   	if (!priv->cfg_saved) {
->   		ret = pd692x0_hw_conf_init(priv);
->   		if (ret)
-> -			goto err_managers_req_pw;
-> +			goto err_of_managers;
->   
->   		ret = pd692x0_save_user_byte(priv);
->   		if (ret)
-> -			goto err_managers_req_pw;
-> +			goto err_of_managers;
->   	}
->   
->   	pd692x0_of_put_managers(priv, manager);
->   	kfree(manager);
->   	return 0;
->   
-> -err_managers_req_pw:
-> -	pd692x0_managers_free_pw_budget(priv);
->   err_of_managers:
->   	pd692x0_of_put_managers(priv, manager);
->   err_free_manager:
-> @@ -1855,7 +1864,6 @@ static void pd692x0_i2c_remove(struct i2c_client *client)
->   {
->   	struct pd692x0_priv *priv = i2c_get_clientdata(client);
->   
-> -	pd692x0_managers_free_pw_budget(priv);
->   	firmware_upload_unregister(priv->fwl);
->   }
->   
+> When an isolated SMT thread is processed before a housekeeping sibling,
+> the mask makes coretemp_cpu_online() believe that the core is already
+> represented. The housekeeping sibling then gets no temperature
+> attributes. Package attributes are similarly not retried when the first
+> CPU processed in a die is isolated.
+> 
+> The mask is also used to select a replacement CPU when a sensor target
+> goes offline. Including isolated CPUs permits the driver to retarget a
+> sensor to one, causing subsequent sysfs reads to send an RDMSR IPI to an
+> isolated CPU.
+> 
+> Keep isolated CPUs out of pdata->cpumask by moving the housekeeping check
+> to coretemp_cpu_online(). Sensor creation is then deferred to an eligible
+> CPU, and hotplug replacement targets remain on housekeeping CPUs.
+> 
+> Tested on an Intel Core i7-10510U running 6.18.50-3-cachyos-lts, with
+> nohz_full=1 on CPU 1 and its housekeeping SMT sibling on CPU 5. The stock
+> driver omitted Core 1 after module load and retained its readable sensor
+> after CPU 5 was offlined. The patched driver exposed Core 1, removed it
+> when CPU 5 went offline, and restored it when CPU 5 returned.
+> 
+> Fixes: 0f8b916bc5b5 ("hwmon: (coretemp) avoid RDMSR interrupts to isolated CPUs")
+> Cc: stable@vger.kernel.org
+> Cc: Marcelo Tosatti <mtosatti@redhat.com>
+> Signed-off-by: Ximing Zhang <xzhangjr@gmail.com>
+> Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
 
--- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
+Applied.
 
+Thanks,
+Guenter
