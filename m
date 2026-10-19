@@ -1,103 +1,81 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9719D372B45;
-	Mon, 19 Oct 2026 03:14:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1818F379C5D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792379699; cv=none; b=Uo1IuKBE8zjWPqyERG6BSxsr0vs0O5d9uPeS9WwGxdSWXJ0ep7r5qRzRhBPM9oqTVn/QhUnb8D2TZguxKgY3JO1zNt9RNwb/4ZfEMqMVSxyKwmgi7LcPMCeATVlS/T+VAQscXIGOZ50lkxGNq55X7D/ItY7xLnPGcKMlzNl8Hq8=
+	t=1792379741; cv=none; b=SVDbm5x+cdje4M4tDBhq4OM9RHtCvlo20o8p6WAYMOG+HeVOhxkrW7f5WWLXs2LAd/uaQNhbp7y5YbAB8tYPhLqG5fa8lfLYCdqiPzCxDLXu69c1VP4xN0esIiLzQ5STZeJ0+r+wDL3aefwByXCr20u2omxPdITpa8/EFgSj+yE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792379699; c=relaxed/simple;
-	bh=lx5no8xRSUwjQ9mXkI+e7sRArirdLD1Ab0RRIlqZ3ZA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ir34MDOh2GBnf4uKnJlF5kT4T52JQIDhi60vDY3QwIujZkr8XLeDqPD5yzK2XctNWctqesZabT+dFpBtJCAmF0k+IP0yBcGREqKoYxlLEJ/WLSq4sTI5Lx5aHiaq9M5qM4w3xMgsgI5xAy12XZA7CbJtc+AOVZo2jvIKvQOmUFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.109])
-	by gateway (Coremail) with SMTP id _____8Bx69Eri9VqzCkXAA--.1576S3;
-	Mon, 19 Oct 2026 11:14:51 +0800 (CST)
-Received: from kernelserver (unknown [223.64.68.109])
-	by front1 (Coremail) with SMTP id qMiowJDxBc0li9VqQ94tAA--.2975S2;
-	Mon, 19 Oct 2026 11:14:48 +0800 (CST)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: Arnd Bergmann <arnd@arndb.de>,
-	Huacai Chen <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev,
-	Xuefeng Li <lixuefeng@loongson.cn>,
-	Guo Ren <guoren@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	linux-kernel@vger.kernel.org,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	stable@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH] soc: loongson: Make Loongson-2 drivers depend on MACH_LOONGSON64
-Date: Mon, 19 Oct 2026 11:14:36 +0800
-Message-ID: <20261019031436.3523632-1-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.52.0
+	s=arc-20240116; t=1792379741; c=relaxed/simple;
+	bh=bdGfcucAiWw7jol+tlMNMZDMPnuOhYfQNvMnFv2+Z68=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=m6wSbGPEbne3AkcnRyyYAEAyPntgXGWYadzLTTVZaqs21mwl95BYgF0e4pd3YRsXNRsWBZmPNiMDHY6FrVqpPL+x2h+vD9PHIDufgRdC3kllvg0vgtHdXyDf9TAEv08kldWoTO0lRnmPN7b8JmcIAh03rWtEL0ZV7GngBIJtNsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1p9YLpeT; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1p9YLpeT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121F71F000C4;
+	Mon, 19 Oct 2026 03:15:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792379739;
+	bh=kHRfflK+JeBKoM8boglU8kC3zJbIN9N75Z6QiHDkTXc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=1p9YLpeTOebim74GzqQgO/JSYfD0qidsx549ARU1z3ZbUSWPp5tvwfqKiGJnIDrul
+	 TzjrGDlGgmF9XVSIGdws19OVOpIvUYX3AM6z0MJzKf/NExsGf+n2LgCJnkBhoSmrgp
+	 P+lheZzrelM0gZBfu14xN7Td5QGNFkzRv/PZTr+s=
+Date: Sun, 18 Oct 2026 20:15:38 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+Cc: Sean Christopherson <seanjc@google.com>, Borislav Petkov <bp@alien8.de>,
+ David Laight <david.laight.linux@gmail.com>, Rik van Riel
+ <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, david@kernel.org, Mike Rapoport
+ <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, Pedro Falcato
+ <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>, luizcap@redhat.com,
+ pbonzini@redhat.com, Tal Zussman <tz2294@columbia.edu>, Matt Fleming
+ <matt@readmodwrite.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-Id: <20261018201538.d0957878f378a9821852836f@linux-foundation.org>
+In-Reply-To: <atT5TYyLapHO5ZoX@pcnci.linuxbox.cz>
+References: <aseMsMGpGPT/G548@pcnci.linuxbox.cz>
+	<20261008182356.GBasffvDuTemTu1VUY@fat_crate.local>
+	<20261009090042.39ba9c06@pumpkin>
+	<aszH4vpXFAOQP1WG@pcnci.linuxbox.cz>
+	<20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
+	<20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
+	<20261016031242.GDatGWKo98YSOhEOOn@fat_crate.local>
+	<20261015211832.45d87fab15bb3e0bbc2f47cb@linux-foundation.org>
+	<20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
+	<atI_yuCc4BiweBQP@google.com>
+	<atT5TYyLapHO5ZoX@pcnci.linuxbox.cz>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxBc0li9VqQ94tAA--.2975S2
-X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Aw4rGFyUuw4xXF4UuryfAFc_yoW8WF4kpa
-	n3Z3yxCF4UtF4Yyw45JryxCFy5Z393GF9ruanrJw1Uur9rAa48Zry7AFWSvF47ArWUXFy2
-	vr95uayUG3ZxGFbCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUB0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
-	twAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
-	8JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
-	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
-	0xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4
-	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AK
-	xVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUcpBTUUUUU
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Loongson-2 is 64bit CPU series, their SoC drviers are not supposed to be
-used with 32bit. So make Loongson-2 drivers depend on MACH_LOONGSON64 to
-avoid build warnings:
+On Sun, 18 Oct 2026 18:52:29 +0200 Nikola Ciprich <nikola.ciprich@linuxbox.cz> wrote:
 
-   drivers/soc/loongson/loongson2_pm.c: In function 'loongson2_pm_probe':
->> drivers/soc/loongson/loongson2_pm.c:178:49: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-     178 |                 loongson_sysconf.suspend_addr = (u64)phys_to_virt(suspend_addr);
-         |
+> 
+> Hello Sean (and others),
+> 
+> I think I've finally found the (at least) one missing piece needed to reproduce
+> this. At first I wasn't paying much attention to nested virtualization, because
+>  we don't use it much (or so I thought), but I was still wondering why
+>  why all of this seems to be tied to Windows guests. So I dug into advanced
+> Windows security features and found out that newer Windows versions use
+> something called Virtualization-Based Security (VBS), which relies on
+> exactly that: SVM/VMX, i.e. nested virtualization. (I'm not a Windows guy,
+> so excuse my ignorance here.)
 
-Cc: stable@vger.kernel.org
-Fixes: 3d9aba6618d1 ("LoongArch: Adjust build infrastructure for 32BIT/64BIT")
-Closes: https://lore.kernel.org/oe-kbuild-all/202610190549.WM2PO3vO-lkp@intel.com/
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
----
- drivers/soc/loongson/Kconfig | 2 ++
- 1 file changed, 2 insertions(+)
+Well we initially thought that nested virtualization was not involved.
 
-diff --git a/drivers/soc/loongson/Kconfig b/drivers/soc/loongson/Kconfig
-index 368344943a93..84fac84909c4 100644
---- a/drivers/soc/loongson/Kconfig
-+++ b/drivers/soc/loongson/Kconfig
-@@ -6,6 +6,7 @@
- config LOONGSON2_GUTS
- 	tristate "Loongson-2 SoC Global UtiliTieS (GUTS) register block"
- 	depends on LOONGARCH || COMPILE_TEST
-+	depends on MACH_LOONGSON64
- 	select SOC_BUS
- 	help
- 	 The global utilities block controls PCIE device enabling, alternate
-@@ -20,6 +21,7 @@ config LOONGSON2_GUTS
- config LOONGSON2_PM
- 	bool "Loongson-2 SoC Power Management Controller Driver"
- 	depends on LOONGARCH && OF
-+	depends on MACH_LOONGSON64
- 	depends on INPUT=y
- 	help
- 	  The Loongson-2's power management controller was ACPI, supports ACPI
--- 
-2.52.0
+It it indeed is in the picture then it might have been 55780d8a1dcc
+which unknowingly fixed this.
+
+Are you able to test that commit on the 6.18 kernel?
 
