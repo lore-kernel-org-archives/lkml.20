@@ -1,106 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434387;
-	b=eKvTpoQ6SKwS1WQw0ft1VN8eZeW74U8UIm6fkkqcazIh7dkSqgsYlRrvT6tsJD4TPGkb
-	 R5Mc4Jyl8Kx8Kin82nFidLz7JA2O0bR+oy9f1N7zawzKjymK30JVVX5tdJCcM3ptqcdca
-	 aay3aHx6MKlwhcflv2Rs4X0fArl9jLaC3Pg27qsyglhxpD3EnDM4KvSWT/jRu5RtbhltI
-	 167wGpKVTAWjOZiy4LTZxFMbYING1RIK7P58WFpQKPbzWYJqzNcKEc8kL10FzRk4wm55m
-	 IaMnaMBn9iUGkh3mJaVBK0BMkJWsvHSfXhH9rt5CEFDlLHfYHo9xlPiJVxhc92+AyOA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434387;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Nopl7OC6OC3jjxrSDWB4dphBmpfr7ikO8pphH6u9omA=;
-	b=N5cehpqkgirtIwcNAlBSy/8uhJfUa+iMoQb4dhnCWgApNtwWPxsBwSmY202WHXpuYTRi
-	 8bfaab0V0nx1Q0KCGHF8TZnyd/n0d6/btxk30Uio/rdbKE6hMf28N59ClsPYJHzdoQ1cn
-	 BWJDS/cHudkay+jQCKqXP3Ape5T/7yaYyp2OKddQsscbglp8+ZqtKNMM3a7Yho9ECoLaT
-	 nv9c/x1Vos36JUyfyykVxARroFgKxARyEW1ryKnttJ11y9JEGzgIecDYfD8fLi1ZdfIPN
-	 pgVf1s7WoLkgSbab6ENGOXBeqC3p3YTR0J/VDXNmoPS1mFkp47z159g2ZOjms/hAKwQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RBEUfkXM;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.36
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792434395;
+	b=4dNOXZmmtelDFZrqJfJwUM+Yi/v0dIn2RRXGja+QyEOXMzqQ7KUFmYM6wi5RAYQd2Tr4
+	 YK01SmdxixbtVKT/kn5ZiNI+Hnq1CFmE6pd+pWZ0mZkdW1CcTl3/2HXR1uucKig0gJKQ6
+	 kWlfD1btBkEBZjRlnfaDiZ1+OSL7IhfzKfwsOB8PVmEiZrC3DHRahCXk42I0Oc6Fpvmym
+	 FKZzB+9uHnr8OcFzlamxlFdneCZKNby2DPHkCCJe1RABQhAXYshLkCAS+KkSYAVRG8bMq
+	 vCBP3bIBZ0fo+zWWNJokpRo7yLAadzhcjNi79HLzI1a6NG7wg8XHWtk8HUteysWKraw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434395;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=dZHRycthpCuEBv0Q4Jbyr2GkW+a96GEvpqPXcVrEfRs=;
+	b=0pAmMblMFosmrqTn7hYJ49zUzxX5i18xO9SGMdF5YmcR2U1pu9DvwwKF4XmplnBG5IMS
+	 qkEhFFy1xKsjdMu+bQDTBcowXVClA2EUJ3sEG8lLyQo8zzs/ec/9SW2u5uzZ4ryvFMNbN
+	 z7mMf29kW8UQ+ynxHR/xZwlFBGa3LKBWNILR1XFwmYYcnZUI63bpodugHB965G9QHbjmQ
+	 Zw1lBnLCARDYokwFPXQ+vU5465hs70uutVuSgOCeYajgrbCRwkE5GuSOjUSV5aNMDDbSb
+	 IaqPPih8m4VYtrXbSJLYXaZyMX0BkQkBNQnQwd2bzgbxNpTq1mBeSql4yY5W4x+JpXg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Uvp+a6O3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.36
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011036.outbound.protection.outlook.com [52.101.65.36])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51856606A325
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:26:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51856606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F17606A335;
+	Mon, 19 Oct 2026 18:26:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0F17606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RBEUfkXM
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso1479427f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:26:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792434385; x=1793039185; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Nopl7OC6OC3jjxrSDWB4dphBmpfr7ikO8pphH6u9omA=;
-        b=RBEUfkXMCf4KYG/C82dHXL2TE5UAK+0pssxrCTGern0nBSQitNdTpuEI+b9P7taZW2
-         uOFrqu5zlk/wgz9gsipwy5ekQKJ9ScMJO0winpKflAIQu8XkBP6fsH3OAMlOCgsADDhI
-         PPj9otpx1fJRXAJe9lPrdbEgL2HLMjUCVS4YAf8PpWReePVnTqW9FwufRW4rnOMfR3gS
-         zH95X3DNHEq9Fb6P0NhPGhajQ+K60B25k4usQSZtO/aExwY+bWTxYaouAfw2QkPpnb4U
-         AlsbpU7TxnR9L/iOQVZ+Bt7hqhHCW17KHehUQ8x95fxrq/E2YBVVKt1M5GC5TrueIODX
-         DxYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792434385; x=1793039185;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Nopl7OC6OC3jjxrSDWB4dphBmpfr7ikO8pphH6u9omA=;
-        b=aZYueWBWaKVGNY2of6faJHPcSA1Ygy3FHijjNEjokrGhKxIR+Kn9mGBqypRpndKVwg
-         Tm9HzpyF/KFrz+bGxPUXoEWjdUNO83ta4HtmGUsU0NzANVM3ZN5DzMPnqmxyU7mO3B5k
-         wsZb1XPRHcu8iMnt6m/7dXM6EAz+k43dHlzjqK8AyfZ7tD59CfjShwdQqdtDdCAuV0Xr
-         7nlgoZ3cNWED63zOV1I5Uly0fZNNNzjle+Xbsg9HWF3pF5eivQh5h1qxp0MGoitRCbwN
-         gr558h9ZLqTVdIx4BaReIKEz6JqeqfQY2IufB6dT0n1+vd8E1yn66UuNBfiQlj+sXEii
-         SYbA==
-X-Forwarded-Encrypted: i=1; AKwUvBwqmXmhzeCOpi726wcBKhIhN7pziqsESiBQSr0Coy5JIe5wegMiozg65rLGnG56QpwuRL5yF+56yAzv1+4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKn0nBizzHA3S2/9NuI9y1kcPUl00aldC30bfp6xRcn5hnI+hFl
-	9vVKsNjFJWxZGdzbnWYn6JV3jWuCDIWkHrJckh/sJhrZKOZzcVgFyI2fPjXroQ0TY8o=
-X-Gm-Gg: AYBFou3rLTvZRLZZRRlWSqoT32LFrvYPpeyGfiqxKV8i0ZGTTzwIsINynsypGLPkqcx
-	1m7z6hnfimYaJ9b1SSCrglGbcTNuEmaoGMCTri4YCKBKSNSR4a/6rW7paBkPBf93vbFuH5R1Btr
-	wWOtAf0h28uAkfNE/HcLfGdLCgZkSbtcEHQ7r4G7OHC2mBT5z2fFRMNwPnJ4VlVeFUqS1o4e76q
-	gH//rjla9QSqPTMJKgLxuFlP/3UA7p0KYf+2KfkZIMhTSHGhvpdWeLKBGTQF8+EDeG6mXEmEObG
-	rV2ppOiUS7QIG3AJZdbx+6bBN5ZrKIWr6PDBaR48iTzt/4cow1ghs+uQQYg8TdXnYyGKdgUntPU
-	9Bl3Fael2o8cXvDxUWuIT8Mokfy+4ezb7TvaqPKfTG1VE0z/8WOAp7krZsx66nTm/7WWGN12CWE
-	V+QxVhlOjZdhbW/F/iEltdvTt2uIRza4SnghEI/6IQxdnUUrd0CYVeqssNDxNGMRTTgMTA+ww8R
-	ndfag23cjmKWRY=
-X-Received: by 2002:adf:f881:0:b0:48c:5cf9:88d6 with SMTP id ffacd0b85a97d-48e07bbe2f6mr12777929f8f.2.1792434385541;
-        Mon, 19 Oct 2026 11:26:25 -0700 (PDT)
-Received: from vingu-cube.home ([2a01:e0a:11f4:3020:aea:8007:d7bd:c2c7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d830e91sm520008f8f.54.2026.10.19.11.26.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 11:26:24 -0700 (PDT)
-From: Vincent Guittot <vincent.guittot@linaro.org>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	jakub@okonski.org
-Cc: longman@redhat.com,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	cgroups@vger.kernel.org,
-	jstultz@google.com,
-	qyousef@layalina.io,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: [PATCH v2] sched/eevdf: Fix sched idle task group preemption
-Date: Mon, 19 Oct 2026 20:26:22 +0200
-Message-ID: <20261019182622.1584454-1-vincent.guittot@linaro.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Uvp+a6O3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BsXu9c55tvcB4f/FQDTBQ5dwY5XsbFSi3dXv106ZvfYx6R5AKwpS5v6lEhPtDV/3xhcafl2jMa9kKN14iqalKR+JkCg3ISjGCqZI+mhWXWQ6G0K6wkhzPaDI/O/PfpnxbakOr574k2VF8SPy8LgIuF9+HZTNPKyhbPVuiAWUANbZDMiGPnoeS7nKIzWTl/s10Z0LZ1tLskVrlWL3fFZuMPO+SZccUIU0VGTJP9J17tO0TlVBnOdgMJGZaPZcWByWFxfwGxedQ7W94aOIwsCxNNkY3VCMNjplJ6L8rphMQ6zEERt+Nx8KFw99y5xSlOepj5GcZ9ScnGL0xNLpuMo/QA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dZHRycthpCuEBv0Q4Jbyr2GkW+a96GEvpqPXcVrEfRs=;
+ b=xxzX1QlRo4NAeoI6H3vDVfxcAYZ6/+CcC5XfvGaFkZLvVWJbNWQprVpsK/A9szggGyPEhU6J6A107CXKas4Z8JlZwPhTmIc/GZENhId2Iyu+gnXIpdXK9Kco/wOc8OSUm738WNy3llhkxY3skCd7Mykyh3P/ROOJ7gIALOj/IOrT1a3ZFhitNXjF1WmXcQ5Fq9H29T+AMM+0mc0gc/tgNPXqCiysW4fUxpy4N/VkXt91JNh1VUVW3InDUMd7Gk3/VfYEPfExI68+8shwHtuEam4ePNofHwUA/q3PObsID8Zuc/uCX5xqDsPesVx+6w0qV8Ce9fhj9A1cxtL7BzZthA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dZHRycthpCuEBv0Q4Jbyr2GkW+a96GEvpqPXcVrEfRs=;
+ b=Uvp+a6O33taIGIQCW/xN5xQx63WepRP3LAWdoGVnYYrbMkpT6AgSVOgv10DZ2gih/QIwTLv9dHT51GmL91tERjwnCys2fz4jSr+W8z52+kDDEBqC/zB9CWsR1P0W43U9Bbm6Bttc1nOY7qc6OqQRS+Aie2ndFYSmAWPTbXe6qZwteIfpKEsu033sN27ZtZ8+tSPbOGZqVf8H8Ezhe34en65xkgbBiEedWTDRXUeBjKwVTgfXSo3L99WWWERPiHSQY1e2H7ImTWBu8Utnlvp9gzrpu7J0gc+5OrC0kgeCDMOnn2kdJVzjbMcjilqixrgHhF9BEUzwDoZVVZyplMOn9w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DB9PR04MB11557.eurprd04.prod.outlook.com (2603:10a6:10:607::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Mon, 19 Oct
+ 2026 18:26:32 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 18:26:32 +0000
+From: Frank.Li@oss.nxp.com
+Date: Mon, 19 Oct 2026 14:26:17 -0400
+Subject: [PATCH v2 02/13] ARM: dts: imx50-amazon-yoshi: remove undocument
+ property min-frequency
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-arm_dts_cleanup2-v2-2-dcdcbe6389c1@nxp.com>
+References: <20261019-arm_dts_cleanup2-v2-0-dcdcbe6389c1@nxp.com>
+In-Reply-To: <20261019-arm_dts_cleanup2-v2-0-dcdcbe6389c1@nxp.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792434379; l=1002;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=hJFdYvlX7yurHz62NsUgayGclSwE0M0gQjysmZkUXE0=;
+ b=mGNii7ZPJzodmg1mrYeM+bsUaLt625VQxxeZwNdvJlm7ytRYkCE9AJlgs3agVQ6H+oe3QVuQI
+ aaVD+xmZWAIBhXKFXRTumySiBg3CK54wHpBw5k71w+ILNAYsjYypxwy
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: DM6PR03CA0094.namprd03.prod.outlook.com
+ (2603:10b6:5:333::27) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,150 +109,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB11557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65119423-f00e-43ce-48d0-08df2e0e8047
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|376014|1800799024|7416014|23010399003|18002099003|22082099003|3023799007|11063799006|10067099003|261009223027099003|261009221227099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	0L3nUW2kLISEsHkyDxYlZ+k9Dj9NFoUcR74HrhOdQFw9kYaxy8BYiOGWQecnrbfAt1U0YXem8Yw7Hnpnvp/vlJNy0XjRp/U09AEknO9apkZSSg9khT5KNazuoPQ2KkJBhGmbjn70wxGDrEpvdx0zotUt+Q/lJDYsOJXjyR/VZNGJxXF4b64THNstq4CZIsFQ3eYeyHFMSA9L5mUTgAns2cWU4OYhGLVFqLDpHpxk8VUtbKOlzOFS65ncTD3w/r3PZ2g80HES1setxp/vmtEsg6x8XdjNm/42XnhL8LZ9sYmcEIZ9PN8pNwcwdmt5rBOPXNpo40r9HfJCIw67bAjYCsBMaVFqwprxrIJ9mN1SKObjmbIGYBHYZCg27UR4Z2HyvTCiSwKkwqNLo7ibhqdkQZnuVEj0MaRIKNw19J0Czd9b1ViLGTSmiigxgRsEjNUYg5S/0244BwkBrQOkUpBNwpsl/RfGnushBjmgFMwYKaBi1ftGl7IuWAHnQGH7oj96x2qh6Nh5y3j2soUTRgoVyLLHiY4B6HU9Sg43la1iQxcTGcbJGmxLvW+lw0iflGns+NhRvH8Fmt02DkV+r572/JPYL6luRu8qrlog+bp60VI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(1800799024)(7416014)(23010399003)(18002099003)(22082099003)(3023799007)(11063799006)(10067099003)(261009223027099003)(261009221227099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?c0hhZVF2V3V3WVJMa0VPTVZVTGxyN3hRTzFubis5amR3R3Ywd2QxVExRcGcv?=
+ =?utf-8?B?ZmkzNnRreVN6bElhd1d0UmdNQmlyNUk1UjZDNlB3bFVGMi9sV1NNck5pZFNG?=
+ =?utf-8?B?NUZQaEtrVXZTbEpFU2ZtbnJPTk1CdTQ5RnJKTGkzOWM0TEJQN0g4eXpXSTgr?=
+ =?utf-8?B?OHpzTmNBWklkU1FWZ2xUeUVhbHgyNXMzT29rSVNPcDliaTBQYnVtZHFRUG5k?=
+ =?utf-8?B?QmZoWVo0TDl5L1k5OXd2eW9KUXhUTkUzeERWcFczUjVFc25OWHRqZ3M1UmxS?=
+ =?utf-8?B?YTBXZXJKTEJzdXpaa2JJeG9NSUU1Y0piWlYvWFJuT1ZWNnVHdWpmQ0FaQmlG?=
+ =?utf-8?B?VkQ3SlBIZFNGK0JYWnh5Q3ZRNlFTMDNnZ1hjdEwvZGhZLzFWeVlUVmluSmJV?=
+ =?utf-8?B?RnVqcHBwSERndUlodXk2VVV2VWZuOVV5M3ZOSnF5N1UzcndrTnF6NEdlSVY2?=
+ =?utf-8?B?a21zVkR6K0d4NGtFeU5RTXRuZFhPY1lRaDZpYi9OdVFuWmZvMHNRS0dKSFIy?=
+ =?utf-8?B?TWVJUmVDU1o2VStEYWJNQnpsdUR0aFdhdThDdFVCZzlXUi8vRXo1SjdjQW03?=
+ =?utf-8?B?Q1graEZXT2N2bnVUbjNNWE15R2ltR0QyM09nYk5jU2luMUQ1Uzd3dWZFS2pw?=
+ =?utf-8?B?Wi8xRUJLbE9Zb29BRzYvSXV0Zi9oQWNkUDdRV3RiSXB5N0s4NkJSNWRkSWFI?=
+ =?utf-8?B?WGRTNnNoZnNLV2JBZ1FQVjFLcjJRTVBpNmE0VVkwdVZmSURidGFGMCtUQlFa?=
+ =?utf-8?B?SXFFNzhodWY5TTErTjhzbHFxMlZLSWpuSnFPZktkV1BBN2lrWVVGZnBqTGxh?=
+ =?utf-8?B?WXJhblFTK2UzNE1qQkhTa3BnclhFNWg1aG0zNGFCcGtPZ2dzVDFHV1dmekYw?=
+ =?utf-8?B?UVhNbndlR1pNRFdBWjBDZEhEVUNyTVFtd2hyNlRGYUs3QWVVaE9Lc1RLeXFW?=
+ =?utf-8?B?YVpDM1ZHZ1dqaTUwUTNNdlVQbkV2NzRxU3RZdXBlYVdsUHdoNnFERU5wYXRI?=
+ =?utf-8?B?d3k0Y3lqT0JoeEszK3JOTGI4c2R3c3J6N1pOYmpqV3VidVJmaWNNaVVzNjQw?=
+ =?utf-8?B?N0J3OEc2UjVQTFdhRDBJbFN6ZngzUitaazI4R1R0dkRkaWdOZ2hlRFRtVEJw?=
+ =?utf-8?B?Q2lMeUtKckt0VFNUOFV4ekJnWVZ4L242Zit5Q0grZDFFSU8rbkF6N1BZbHg1?=
+ =?utf-8?B?bHhXTTV3azZnMytVYkgxQnVGSEp4TEhVYkEvcmgrbHc4eGZ0emhkbGdWVkVK?=
+ =?utf-8?B?bWQ4eEs5cDZGNjVIU3NwRHg5ekg1TnJ3N3VTNEZrNjFyU2FDdllqY1N0WWlW?=
+ =?utf-8?B?bHVudFkyTW8zeGhJNGNHU2F2d1c3Z3AxaUc0RllnRGRQajdUaVlOd0lnRWJL?=
+ =?utf-8?B?SFo1TE9mb3RyYnFzL3QyYnJJUkJBN2Fadk9nc1pNT0dZU204ZCtwZjM2L1RZ?=
+ =?utf-8?B?dE5YY05QSmJxMHVXcTNyNXZ0SDhMcm9MTUowL2ZiaXNOcGdlbzhTTnJyTzda?=
+ =?utf-8?B?THJURWQ2Tk9WenZDT2FTSmU3bHM2SndKTy9aWGtSaWF2VUNCNzBKaW8xQVFZ?=
+ =?utf-8?B?a1dscmdVMjBoVng2L214MVFmYUNVSlpMeWZmRWFhVGZuSDVJRFduQTJWOEhQ?=
+ =?utf-8?B?dTVhTnpWdFVBMEJkSVFqV2RkOU1iUkFZeEJINXd3M0RoUFVodUZVc21DVUxB?=
+ =?utf-8?B?clJCUnNhTDFKckJ5NGtjVHFXV0F5R0pvTm15MzVIY3JqZlpZWFFiQVVBZkNi?=
+ =?utf-8?B?MDdkRzZIcmN1TjJCNkdGNm5aYWI3MEQ1RkwwUHZOWTV6OExUOWxQQU5DNDBY?=
+ =?utf-8?B?QjVoa012TzdEdHpFNWZnRTVOMXFrTmJhKzJzTHBRSlQxb3BqRklEOW1QU1BX?=
+ =?utf-8?B?Z1Brd3R6WWVsZWxTeDdudEhQc3ZMWFJqUVROUjVsK2RmZFNyaGtzUmZXOEVB?=
+ =?utf-8?B?RkRiaVZCWkVEam5rVnAvV2VWMEpOai90K0cwbjhxdjhYV2FoeFg2Nk5KM1dk?=
+ =?utf-8?B?dVg2YllxSVh3ZmdEb0N2OU11ak1VZnU0dGN6UGFpb3RZcGJSdnhFOFVSRVE4?=
+ =?utf-8?B?ZWpsWnRyVGk0eGJtVDFjNmkwWk9qL1VvUnJmbllSVVhHRjFaOExMRWk4LzBv?=
+ =?utf-8?B?cDZKQzBMWWJJcGd6eUNOS3h1KzV2cDgwc1RuN3Yva0lrUnRhQTZUY0RsRTQ3?=
+ =?utf-8?B?L3pGRTlDZnRLVzFKbDMzMURWcmU4RTkzbnVuZFJ0Z1E5d1F6RkVyUnVZeXJD?=
+ =?utf-8?B?ZUQ1cExxWjB4d1lMSUo1RkNXUWZtQ05pMmZ0eEpvL2gvRGZlc1U5OElOckRh?=
+ =?utf-8?B?REEzYVh6QXZKdHozUWRIRndndTh5N0FyVXVBZWJ2TG1vWDZmbi85b0RUN1lM?=
+ =?utf-8?Q?14jfcqj2B4sP2ezK8fj5hR/qh8Cq2+EbP+qnc?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65119423-f00e-43ce-48d0-08df2e0e8047
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 18:26:32.7085
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AJG4HizMkuU+3vpgr/q8ON0kkimmN4CHfjxNdgzDSGSh5rarR7GKSCJ1tP8xdZKcEskbLsGv2qsOaRvcbookCbzykzV7V3MRs+kDK7Sw3BUX+hUzm85wYNGZFHXJAqdx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB11557
 
-Even with flat hierarchy which puts all runnable tasks in the same cfs rq,
-we need to parse the hierarchy to check for sched_idle task group.
+From: Frank Li <Frank.Li@nxp.com>
 
-Reported-by: Jakub Okoński <jakub@okonski.org>
-Link: https://lore.kernel.org/all/58dc8e8a-7260-43ce-aebb-8d9c29a6afc9@okonski.org/
-Fixes: 85570f10a4c6 ("sched/eevdf: Move to a single runqueue")
-Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+Remove undocumented and unused property min-frequency, which also not used
+by known other user, such as uboot.
+
+Fix below CHECK_DTBS warnings:
+  arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dtb: mmc@50020000 (fsl,imx50-esdhc): Unevaluated properties are not allowed ('min-frequency' was unexpected)
+        from schema $id: http://devicetree.org/schemas/mmc/fsl-imx-esdhc.yaml
+
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
 ---
+ arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts | 1 -
+ 1 file changed, 1 deletion(-)
 
-Changes since v1:
-- fix prototype and cleanup unsued variable
+diff --git a/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts b/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
+index 417972ad6bb3e..0b6d0ba65f957 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
++++ b/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
+@@ -21,7 +21,6 @@ &esdhc3 {
+ 	pinctrl-0 = <&pinctrl_sd3>;
+ 	bus-width = <8>;
+ 	non-removable;
+-	min-frequency = <400000>;
+ 	max-frequency = <40000000>;
+ 	disable-wp;
+ 	status = "okay";
 
- kernel/sched/fair.c | 82 ++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 69 insertions(+), 13 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 0f2364479f9d..27ce3eb467a0 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -433,6 +433,38 @@ static inline struct sched_entity *parent_entity(const struct sched_entity *se)
- 	return se->parent;
- }
- 
-+static void
-+find_matching_se(struct sched_entity **se, struct sched_entity **pse)
-+{
-+	int se_depth, pse_depth;
-+
-+	/*
-+	 * preemption test can be made between sibling entities who are in the
-+	 * same cfs_rq i.e who have a common parent. Walk up the hierarchy of
-+	 * both tasks until we find their ancestors who are siblings of common
-+	 * parent.
-+	 */
-+
-+	/* First walk up until both entities are at same depth */
-+	se_depth = (*se)->depth;
-+	pse_depth = (*pse)->depth;
-+
-+	while (se_depth > pse_depth) {
-+		se_depth--;
-+		*se = parent_entity(*se);
-+	}
-+
-+	while (pse_depth > se_depth) {
-+		pse_depth--;
-+		*pse = parent_entity(*pse);
-+	}
-+
-+	while (!is_same_group(*se, *pse)) {
-+		*se = parent_entity(*se);
-+		*pse = parent_entity(*pse);
-+	}
-+}
-+
- static int tg_is_idle(struct task_group *tg)
- {
- 	return tg->idle > 0;
-@@ -476,6 +508,11 @@ static inline struct sched_entity *parent_entity(struct sched_entity *se)
- 	return NULL;
- }
- 
-+static inline void
-+find_matching_se(struct sched_entity **se, struct sched_entity **pse)
-+{
-+}
-+
- static inline int tg_is_idle(struct task_group *tg)
- {
- 	return 0;
-@@ -10129,7 +10166,35 @@ preempt_sync(struct rq *rq, int wake_flags,
- }
- 
- /*
-- * Preempt the current task with a newly woken task if needed:
-+ * Preempt an idle entity in favor of a non-idle entity (and don't preempt
-+ * in the inverse case).
-+ */
-+static inline enum preempt_wakeup_action
-+wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
-+{
-+	int cse_is_idle, pse_is_idle;
-+
-+	find_matching_se(&cse, &pse);
-+	WARN_ON_ONCE(!pse);
-+
-+	cse_is_idle = se_is_idle(cse);
-+	pse_is_idle = se_is_idle(pse);
-+
-+	/*
-+	 * Preempt an idle entity in favor of a non-idle entity (and don't preempt
-+	 * in the inverse case).
-+	 */
-+	if (cse_is_idle && !pse_is_idle)
-+		return PREEMPT_WAKEUP_RESCHED;
-+
-+	if (cse_is_idle != pse_is_idle)
-+		return PREEMPT_WAKEUP_NONE;
-+
-+	return PREEMPT_WAKEUP_PICK;
-+}
-+
-+/*
-+ * Preempt the current task with a newly woken task if needed.
-  */
- static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_flags)
- {
-@@ -10137,7 +10202,6 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
- 	struct task_struct *donor = rq->donor;
- 	struct sched_entity *nse, *se = &donor->se, *pse = &p->se;
- 	struct cfs_rq *cfs_rq = &rq->cfs;
--	int cse_is_idle, pse_is_idle;
- 
- 	/*
- 	 * XXX Getting preempted by higher class, try and find idle CPU?
-@@ -10174,22 +10238,14 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
- 	if (!sched_feat(WAKEUP_PREEMPTION))
- 		return;
- 
--	WARN_ON_ONCE(!pse);
--
--	cse_is_idle = se_is_idle(se);
--	pse_is_idle = se_is_idle(pse);
-+	preempt_action = wakeup_preempt_sched_idle(se, pse);
- 
--	nse = se;
--	/*
--	 * Preempt an idle entity in favor of a non-idle entity (and don't preempt
--	 * in the inverse case).
--	 */
--	if (cse_is_idle && !pse_is_idle)
-+	if (preempt_action == PREEMPT_WAKEUP_RESCHED)
- 		goto preempt;
- 
- 	update_curr_fair(rq);
- 
--	if (cse_is_idle != pse_is_idle)
-+	if (preempt_action == PREEMPT_WAKEUP_NONE)
- 		goto update;
- 
- 	/*
 -- 
-2.53.0
+2.43.0
 
