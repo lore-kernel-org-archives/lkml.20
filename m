@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792431979;
-	b=sm0KhTw/hjAPRc1jsKvsw6HSfsKmsvmxJHOK/S70VHcHY8sufrpoSpGY4y0en/Amugtr
-	 1XuijcD7FG0hE1isCd9N39piA/QHpGOs1WB2yY3IxF/FxzuAAfjeMtLkYj9QeG27MkFG3
-	 Cs30NZMT2eEb+6+1Dzms43mrSrNf+u1d+IpGmhpu2J3emcNbRdcV09QkQK5FXCJ9iwUTf
-	 cdFc/J4AuB5pFBtj/fBUwC+ryO9Dc+tDrWV7+3MCkrCdrw1i5s+aodhgaqPwJ2u3VcFc2
-	 YnN+S1IWB2Xk40sEWtZrPmHj2sFyo9Y74FVmKZzaEbEHPH0kAtcNxs5EC8IUvQYUxFg==
+	t=1792431985;
+	b=mcZulIDA/pwXzZdP3RGxbsOgmivNt8ww3WAdygPUV86vsuDmKzAdiBrbBnHlg937mw1B
+	 VSvQuXI4pZgUEjKG5Z3z1vHUW9BnEOlrZ4lIJs/r7w6xscb1FaAM8GuwC7tiBrGM38Z0E
+	 0acE4SI4Ze6GPw2LCQgQxiZftWVB9mCAwaGhR296ORbTi/d8WCEdH3ZjQGpMapZabzJa4
+	 49bL5QNZEnvzXwA1reMvqAqas8hAgc0mMKg9PPbBoZmtqwRmgf3EOdPjTceXQyaqgx61l
+	 iUe4tEJMs0KC8zXFPmHbwSUysW9TsDNZEBli4xJjRwkxgWP00i3H9kOwLN2R4GiFA2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792431979;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792431985;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZyzzjPnCfSTy9NfEOfW3QSpVqstDfZxiu//B8rjJ33k=;
-	b=GvVwkxfHRWT6mITM6QLpTkxl9OZuSuX6I7wPlR38XKvUdOrU05Cnc86kKgQliqVBVVs3
-	 N2BE40m9J72GY/URYlsBFlDi4hHTj6yBG6JxBpnKaZm3cz/dvrka4nlA7fwiusiTvVlzA
-	 6n2j2n9/mK0XZtXDuJ9osUh6vPpIit2OeY4nx8Rq9f3OfsnT71mOohPNW60609gSlJLwL
-	 47MYw//Q0+6pfOS3YLei5zA00yCSefATW7QktgbM3C6EuJoWkoWtKhMLfhOp760Fw3oHp
-	 manzZKMm/ESimq4IJ7AutQA9M4rVTFQb/QIwypvtB36sTIq0+xDv/TSJSs/fAnLedGg==
+	bh=TJbxrlIxGFbTqxo7ja0zKyGEZWI2mxh8uSPXQLCwGk4=;
+	b=xKBnCveG6y63R5lOp8AINzCml3SNGdPayUIxeVNfEfs67KbNSP1a/INqUFnUzttK0RwH
+	 mj579g3cX6uQ8So31URxygww5vv+4tFarysK4VQ8xP5tE+HZk7RABbINTG1csBykLmRnA
+	 lapG0N8ZbEc6ERdUs9HZzeXnKSa0JUzuOkgozzf7rIP+8X8jvmiec43b3WpLdLbXF+0d9
+	 zFK2Vw+dMu5IDs619Trx1ZrQu4onh8d7CBCdky+THe+B0fzGsst2ZPjr1/8O+IC34ngJx
+	 /cm8ieANPAa4+GaU5IojtDx0nIffxouhXhkyAc9IFwaXkF9CAXS+NfXyX6iHm55Rdhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="QT8H/033";
-	arc=none smtp.remote-ip=209.85.217.54
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KNXCiS4j;
+	arc=none smtp.remote-ip=209.85.221.170
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23572606A32E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:46:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23572606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA4760A2612
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:46:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA4760A2612
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QT8H/033
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7cc0e865dd1so742265137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:46:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KNXCiS4j
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5e9528732b4so1967778e0c.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:46:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792431977; x=1793036777; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792431982; x=1793036782; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZyzzjPnCfSTy9NfEOfW3QSpVqstDfZxiu//B8rjJ33k=;
-        b=QT8H/033LSAUSAxibjqgFAusMg403IsvvlKUwAOyLQ2/0OP96jxYoSfwPTFmxSgEts
-         vZYNVJOp7MgA3hfB15WmD1t+dNUqmjXWeDMmzeelqbrU7yB3y3UWstCPf9xA70C7DbBc
-         VT1NMOT/Obk4lfSJs9AbZkRF2gtQIR2URxJdM/I3JFt9+Yen0tN8HKKpux9Gv6bwSaJv
-         D7qf5KYuYW8n2Z0xxAUxMPgkUdYT/vofanS1uVgUI3SHY0NLNsjVp/dNUpDr+e7plNwM
-         wxwxfulpz+0Fm4eSps0joPqnaGOUhz1M/eVncZ4Y17KPzOt+s2rA0v1n5AKh2G+p3aKu
-         0EAw==
+        bh=TJbxrlIxGFbTqxo7ja0zKyGEZWI2mxh8uSPXQLCwGk4=;
+        b=KNXCiS4jR7GFgrb6MqrW6jIWl2Y5R8o5EzVPkK6wKTTMMRDpTehrA/tR2drA6Buq8z
+         sPUjmNRV7naT7ZwJ+crbkgBn7wExzWwugLTNNp7ydoJKU00ClZB52X01y/V5uH2NAaZR
+         Uw/e2iteSiqu8sxXqcan0n7YpLT4XRfX+0NiskQLCB1MUY9cvYnCjVuZ5/ONnzcnIrHs
+         N/eXJ4lTRdS3BQCx+NS7wDx3XjWmwgO0hpz1K2piy/3iSKdOtPJl+AMdYRgO/AcyInGW
+         iY2+kND34rFDOaMCLsoavfyG11SF2DFz33sF3klnvXe0arTeAagOEdKX/0Pcm2h0VObi
+         DxSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792431977; x=1793036777;
+        d=1e100.net; s=20260707; t=1792431982; x=1793036782;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZyzzjPnCfSTy9NfEOfW3QSpVqstDfZxiu//B8rjJ33k=;
-        b=ZqlHRtiY1ai+5QB4NxM76O4O/xsRQxYD7vrZ+HuIBVmzfZGhiF1ZJi28ezdu1nyXNT
-         kbekDTGhIj9j3yK1PO5pJQOqgcPtzkqaPZClEpzl7NrAFIPmrch1tfQ1nunjopaK0ikv
-         aOVaiBVYg1YIJlBG71zHD9iImL1MOIRJy2NFZgbxgPKT8gErW335XiNfDfWNqFEoO758
-         qGqECqz9qyiLcVbwrCl3VAWlo8X1TUP0hZ7TK7jdi+NXmN2ulb2Vj28KA2s2vlkA7PR/
-         m/7U1w9aocwKKthRwAixrHwZS9QfXHGZ31DmJU48PD5JzspgW7iaxtl5xUhQxTeGmzuH
-         891w==
-X-Forwarded-Encrypted: i=1; AKwUvBx+oMhhJgt3pxxIHinqaU6olLGo1ZM9Swyd4ODWbFGoHBx0iokhKf7/so4qepIoRANXa4W/pcFLUqHfIIg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIq8NHpZsZP7VXB2gCjV0lsuMwwmh3r0XfBqjbkfAEzBkxV6hzX
-	sJZ59ZPIJ8twSMBiAOuiK3yFjYzdQDb4QYZBHUbW8uxOkmAzUGhjETS1
-X-Gm-Gg: AYBFou3+5mMAST19ZKjv8bA+1zpWAo+U3M4N9U0D/bkWIRheJpm3iNbcV8nDd0MLQq6
-	1knbehDQ8aoSz+cuoiOVU///3wtKNDKiMZJGmtqrryz7iNqhD1EPoG7b1N61J9fygw+/qxIsJz3
-	8V+j76OpBalP/y5HHIHG8IBb5AdifD8ruw5oZDIr4M2Fur1vyV0jUMxCSGdqIHc6krlXIsumjzs
-	1JdtaAJhkGugQY+LAVFxtEnA4smxM5bCzbCh743KE7QC5eUz97BKkpX/9EDZvYF1buevSDsu+my
-	bpKMmd+bQjl2ef5nJ0yOJ1EPjTqSOSFixxpRZF4LXckrJPNySU7c5kDY+R2xOVVsgEGvdB2OiXS
-	wpZLXBxRWOFjVwupOTne6phulTLwRvr7TyI6gE5ikKgiIBJP1yDrK9xqs/bxaB/hacXF5VonCM5
-	ZktWT9bjKb9HE4UXeEUpKTN/id16ruhwGcdAHky5KAQPJqXtaF8fuCfeNntfzNeZVUYoGyoDgYc
-	dZqIa0sslJiePsZrum3AaLZ9jStn8bNqlO8jJyrXhTMOf1WPyF8hdmYmka0yFpGS+RE/L6K5XWv
-	HlWW4D7KaARijADk+pLSP4K02xW/caA=
-X-Received: by 2002:a05:6102:80a5:b0:7c2:799c:9031 with SMTP id ada2fe7eead31-7cc36a743a4mr1957214137.30.1792431976701;
-        Mon, 19 Oct 2026 10:46:16 -0700 (PDT)
+        bh=TJbxrlIxGFbTqxo7ja0zKyGEZWI2mxh8uSPXQLCwGk4=;
+        b=0e6IQoiUjZE3ZVvJf2YpBzWnrD2P2gJC6aMkk2IqIh91UtiMQpS4KiTU6bhJWIaTts
+         92iOxAjaqgDI0M0zzN4qZ0QAQ5E5cBEc+x66Fa9tTRSX5tFIOqOHbIHm2iN/pgZqqXks
+         NXLkIhcoo+MTSHDxNZNoY0sIDEG6kxPVON9tvTvhEyOn27uMSup7pjvp4UnUJb/+AZjy
+         bjL0p6l3sHtMrLPmgic1MAlKO4st8AfxLv/A30A9uTwbcbYDZyakqK6jYWA+Mn9UGzc2
+         BU0chD6hvGLv4r0K12oOwrhjQUITukPNeP/29L3bB3P7nTW483vG1BUiX/v4+7E7Grxt
+         AZ0A==
+X-Forwarded-Encrypted: i=1; AKwUvBws6t/WnfMbUrzVGMeJxQ6Kg/3hSi9KVhJsjwwNiMq7Oo1OAVpE+oivehU8O0eShv5fRKFiiDu/6Sz2aCw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0dNqylRQZrP3VAXbtRPCPJzEJR9fGGr/jGbZs5/o9rBRBq/CS
+	YPu2V/y3BhNzbbUCE8BlvphatyfHjtnb7r8Vx2QWUDUd5wMtdyOO2PNI
+X-Gm-Gg: AYBFou23ejQht80t7miHUxeDUY7ToLW9JSpsGqCMdm9TNKVz4iI1ndtll49kw1LazmN
+	dAamdFOMFpjgozfawQlHiZc+t5KsLtJY/Fgw1ZCIEnDZUgNw23nLXTtWN8sLtkajCEI+LpxorHy
+	yjZ9ULx3uAElocfo0tY7GVoeaBq/EGYtLgKRE5eJBCq0iCEy8EA0KaqnRlAOuj3nCsNvutIOMvF
+	C8w93lJB6A0r2B/hqVz4MVG8LGq57OD1I3Ht2dbR9jtL/9GxJ44sxuONpuk5fPf5KA2jS2eMMSf
+	NG0cQLw9wKXaWfUf5jnlzPfvXd1GnGbLFX5tQSXjktU/TCc4jYG4lQuLS/C9Xy6mYQ85z1BIBvQ
+	hgOt82vj4m/ktCo5rC1bcZSjcQ3MLVX4AtMPf6L64dlQPGLtv5ju0SZQAXv7CnbSNt1Gls2Ig7d
+	ofDsEawEiFRn43j8fNX6JbBppycmxNwpQtU4MFhOVD14SI9sJR55t+PWyGqWdeOf4YN+2lEjKsG
+	aylDpyymX1PbXu5kbwUDX+EWRrZkK06O+i7tV0jNOPTgMMtcoAGeQAtoskY0hvTBd+IeOlrG0+5
+	o9QUII+4fqvNpuHY0h2SqYcSVEtn80HN
+X-Received: by 2002:a05:6102:5346:b0:7c2:7a0:ae28 with SMTP id ada2fe7eead31-7cc36ae3f00mr2580379137.30.1792431982096;
+        Mon, 19 Oct 2026 10:46:22 -0700 (PDT)
 Received: from alsa-dev.int.suenodeluz.com.do ([74.244.193.177])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb3adfd0sm790707241.12.2026.10.19.10.46.15
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb3adfd0sm790707241.12.2026.10.19.10.46.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:46:16 -0700 (PDT)
+        Mon, 19 Oct 2026 10:46:21 -0700 (PDT)
 From: Frank van de Pol <fvdpol@gmail.com>
 To: tiwai@suse.de,
 	perex@perex.cz
@@ -87,9 +87,9 @@ Cc: corbet@lwn.net,
 	fvdpol@gmail.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 03/13] ALSA: jockey3: Add PCM playback
-Date: Mon, 19 Oct 2026 13:44:35 -0400
-Message-ID: <20261019174445.1931263-4-fvdpol@gmail.com>
+Subject: [PATCH v5 05/13] ALSA: jockey3: Add KUnit tests for the Ploytec codec
+Date: Mon, 19 Oct 2026 13:44:37 -0400
+Message-ID: <20261019174445.1931263-6-fvdpol@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261019174445.1931263-1-fvdpol@gmail.com>
 References: <20261019174445.1931263-1-fvdpol@gmail.com>
@@ -104,863 +104,1776 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a PCM device with a 4-channel, 24-bit playback stream at 44.1 kHz,
-and the encoder that turns S24_3LE frames into the Ploytec wire format.
+Add KUnit tests to confirm that the bit-plane encoder and decoder are
+correct.
 
-The wire format is bit-plane interleaved rather than sample-interleaved:
-every byte on the wire holds one bit of each channel. The comment at the
-top of ploytec_codec.c explains where that layout comes from. This patch
-adds the portable implementation, which is written to be read as a
-definition of the format. Optimized variants follow once tests exist.
+The codec is a bit permutation between ALSA's S24_3LE frames and the
+Ploytec wire format, and it has to give the same result on every
+architecture. That becomes especially important with the optimized
+implementations in the next patch. They work on whole words rather than
+single bits, so they are not obviously correct by reading, and their
+result must not depend on the byte order or the word size of the
+machine. The tests use fixed vectors and a seeded generator, so every
+architecture, big-endian or little-endian, runs identical data.
 
-The URBs keep running as before. The PCM callbacks only decide whether
-the playback completion handler fills a packet from the ALSA buffer or
-with silence:
+The tests land before the optimized implementations, so that those are
+added against a suite that already passes on the readable reference
+implementation.
 
- - .trigger and .pointer run with the stream lock held and must not
-   sleep, so they only take the stream's own spinlock.
- - The completion handler drops that spinlock before it calls
-   snd_pcm_period_elapsed(), which takes the stream lock.
- - .sync_stop waits for completion handlers that may still touch the
-   substream or its buffer before the core frees either.
+The tests check the codec against a declarative bit map of the wire
+format, not against a second copy of the conversion loops. A bit
+permutation is linear over GF(2). The tests establish that linearity
+holds and measure the result for every basis vector, which together
+determine the output for every possible input. Golden vectors from an
+independent Python model of the format guard against the codec and the
+bit map agreeing on a wrong layout.
 
-The channel map marks the master pair as FL/FR and leaves the headphone
-pair unpositioned, because it is a second stereo output and not a pair
-of rear speakers.
+Further cases cover batching, buffer overruns, unaligned buffers and
+the wire bytes and bits the device does not use.
+
+The codec functions are not exported, so the test object is linked into
+the driver module. Nothing in the codec is changed to make it testable.
+
+ploytec_codec_test_vectors.h is generated; its header comment says how.
 
 Assisted-by: LLM
 Signed-off-by: Frank van de Pol <fvdpol@gmail.com>
 ---
- sound/usb/jockey3/Kconfig         |   1 +
- sound/usb/jockey3/Makefile        |   2 +-
- sound/usb/jockey3/jockey3.c       | 455 +++++++++++++++++++++++++++++-
- sound/usb/jockey3/ploytec_codec.c | 101 +++++++
- sound/usb/jockey3/ploytec_codec.h |  26 ++
- 5 files changed, 571 insertions(+), 14 deletions(-)
- create mode 100644 sound/usb/jockey3/ploytec_codec.c
- create mode 100644 sound/usb/jockey3/ploytec_codec.h
+ sound/usb/jockey3/.kunitconfig                |  12 +
+ sound/usb/jockey3/Kconfig                     |  26 +
+ sound/usb/jockey3/Makefile                    |   4 +
+ sound/usb/jockey3/ploytec_codec_kunit.c       | 855 ++++++++++++++++++
+ .../usb/jockey3/ploytec_codec_test_vectors.h  | 793 ++++++++++++++++
+ 5 files changed, 1690 insertions(+)
+ create mode 100644 sound/usb/jockey3/.kunitconfig
+ create mode 100644 sound/usb/jockey3/ploytec_codec_kunit.c
+ create mode 100644 sound/usb/jockey3/ploytec_codec_test_vectors.h
 
+diff --git a/sound/usb/jockey3/.kunitconfig b/sound/usb/jockey3/.kunitconfig
+new file mode 100644
+index 0000000000000..a562106b37b8f
+--- /dev/null
++++ b/sound/usb/jockey3/.kunitconfig
+@@ -0,0 +1,12 @@
++CONFIG_KUNIT=y
++
++CONFIG_SOUND=y
++CONFIG_SND=y
++CONFIG_SND_PCM=y
++
++CONFIG_USB_SUPPORT=y
++CONFIG_USB=y
++CONFIG_SND_USB=y
++
++CONFIG_SND_USB_JOCKEY3=y
++CONFIG_SND_USB_JOCKEY3_CODEC_KUNIT_TEST=y
 diff --git a/sound/usb/jockey3/Kconfig b/sound/usb/jockey3/Kconfig
-index 5714f46c57de3..83135d65b3ffd 100644
+index 83135d65b3ffd..09939ec9691e8 100644
 --- a/sound/usb/jockey3/Kconfig
 +++ b/sound/usb/jockey3/Kconfig
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- config SND_USB_JOCKEY3
- 	tristate "Reloop Jockey 3 support"
-+	select SND_PCM
- 	help
- 	  Say Y here to include support for the Reloop Jockey 3 DJ controllers.
- 	  These devices utilize a non-standard, proprietary Ploytec USB
+@@ -14,3 +14,29 @@ config SND_USB_JOCKEY3
+ 
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called snd-reloop-jockey3.
++
++config SND_USB_JOCKEY3_CODEC_KUNIT_TEST
++	bool "KUnit tests for the Ploytec codec" if !KUNIT_ALL_TESTS
++	depends on SND_USB_JOCKEY3
++	depends on KUNIT
++	depends on KUNIT=y || SND_USB_JOCKEY3=m
++	default KUNIT_ALL_TESTS
++	help
++	  Enable KUnit tests for the Ploytec bit-plane encoder and decoder.
++	  The tests validate the codec against a declarative description
++	  of the wire format, and prove the mapping is a complete bit
++	  permutation.
++
++	  Because the codec functions are internal to the driver, the tests
++	  are linked into the snd-reloop-jockey3 module itself rather than
++	  built separately.
++
++	  KUnit tests run during boot and output the results to the debug
++	  log in TAP format (https://testanything.org/). Only useful for
++	  kernel devs running KUnit test harness and are not for inclusion
++	  into a production build.
++
++	  For more information on KUnit and unit tests in general, refer
++	  to the KUnit documentation in Documentation/dev-tools/kunit/.
++
++	  If unsure, say N.
 diff --git a/sound/usb/jockey3/Makefile b/sound/usb/jockey3/Makefile
-index 4a3d02b7176e0..0e81aea50f9ac 100644
+index 0e81aea50f9ac..381f006134930 100644
 --- a/sound/usb/jockey3/Makefile
 +++ b/sound/usb/jockey3/Makefile
-@@ -1,3 +1,3 @@
+@@ -1,3 +1,7 @@
  # SPDX-License-Identifier: GPL-2.0
  obj-$(CONFIG_SND_USB_JOCKEY3) += snd-reloop-jockey3.o
--snd-reloop-jockey3-y := jockey3.o ploytec_proto.o
-+snd-reloop-jockey3-y := jockey3.o ploytec_proto.o ploytec_codec.o
-diff --git a/sound/usb/jockey3/jockey3.c b/sound/usb/jockey3/jockey3.c
-index 351612b1fbe33..3863ed12cf566 100644
---- a/sound/usb/jockey3/jockey3.c
-+++ b/sound/usb/jockey3/jockey3.c
-@@ -11,12 +11,16 @@
- #include <linux/usb.h>
- #include <linux/slab.h>
- #include <linux/delay.h>
-+#include <linux/jiffies.h>
- #include <linux/bitops.h>
- #include <linux/mutex.h>
-+#include <linux/wait.h>
- #include <linux/cleanup.h>
- #include <sound/core.h>
- #include <sound/initval.h>
-+#include <sound/pcm.h>
- #include "ploytec_proto.h"
-+#include "ploytec_codec.h"
- 
- #define RELOOP_VENDOR_ID         0x200c
- #define RELOOP_JOCKEY3_ME_PID    0x1019
-@@ -72,9 +76,14 @@ MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
-  * - EP 0x86 IN:  PCM capture
-  * - EP 0x83 IN:  MIDI input
-  *
-+ * Audio is not sample-interleaved but bit-plane interleaved; see
-+ * ploytec_codec.c for the wire format and the encode implementation.
-+ *
-  * URBs run free for the lifetime of the device rather than being started and
-  * stopped around PCM use: the playback stream must keep flowing because it
-- * carries MIDI OUT, and the device expects a continuous packet stream.
-+ * carries MIDI OUT, and the device expects a continuous packet stream. The PCM
-+ * callbacks therefore only toggle whether a URB's payload is filled from (or
-+ * copied to) an ALSA buffer.
-  */
- 
- /**
-@@ -85,9 +94,9 @@ MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
-  * card would instead be freed from the devres unwind inside
-  * usb_unbind_interface(), where snd_card_free() blocks until userspace has
-  * closed every file descriptor on the card -- on an unplug that unwind runs on
-- * the USB hub work queue, so a single process holding the card open would
-- * stall hotplug for the whole hub. Every other USB sound driver in the tree
-- * avoids that the same way.
-+ * the USB hub work queue, so a single process sitting on a PCM fd would stall
-+ * hotplug for the whole hub. Every other USB sound driver in the tree avoids
-+ * that the same way.
-  *
-  * That splits teardown in two, and the split is the thing to keep straight:
-  *
-@@ -103,7 +112,9 @@ MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
-  *   returns; see jockey3_free_resources().
-  *
-  * struct jockey3_chip lives in card->private_data, so it is freed with the
-- * card and outlives the USB binding.
-+ * card and outlives the USB binding -- which is what makes it safe for an ALSA
-+ * callback that is still in flight during an unplug to keep dereferencing it.
-+ * Such a callback finds JOCKEY3_FLAG_DISCONNECTED set and returns -ENODEV.
-  *
-  * probe's error path performs the disconnect half by hand and ends the same
-  * way, with snd_card_free_when_closed(): a failing snd_card_register() may
-@@ -117,6 +128,17 @@ MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
-  * There are three locks, all IRQ-safe leaf spinlocks: playback.lock,
-  * capture.lock and midi_lock. They are never nested inside one another;
-  * anything that needs more than one takes them in sequence, not nested.
-+ *
-+ * Against the ALSA core the order is::
-+ *
-+ *     snd_pcm_stream_lock  ->  playback.lock / capture.lock
-+ *
-+ * which is why the URB completion handlers drop their stream spinlock before
-+ * calling snd_pcm_period_elapsed() or snd_pcm_stop_xrun(); both take the
-+ * stream lock, and taking it while holding ours would invert the order.
-+ *
-+ * .trigger and .pointer are called by the core with the stream lock held and
-+ * interrupts disabled, so neither may sleep.
-  */
- 
- #define JOCKEY3_N_URBS 8
-@@ -126,11 +148,21 @@ MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
- 
- /**
-  * struct jockey3_pcm_urb_stream - per-direction PCM streaming state
-+ * @substream: the open ALSA substream, or NULL; @lock
-  * @anchor: anchor holding the submitted URBs, for stop/kill
-  * @urbs: the URB ring
-  * @bufs: transfer buffer for each URB
-  * @urbs_in_flight: number of submitted URBs; diagnostic, must reach 0 after a stop
-  * @lock: protects the fields marked "@lock" below; IRQ-safe leaf
-+ * @dma_off: byte offset into runtime->dma_area, i.e. the hardware pointer; @lock
-+ * @period_off: bytes accumulated towards the current period; @lock
-+ * @running: stream is triggered and its payload should be filled; @lock
-+ * @callbacks_active: number of URB completions currently inside the "safe zone"
-+ *	where they may still touch @substream or runtime->dma_area; @lock. The
-+ *	last one out wakes @drain_wait. A count rather than a flag because there
-+ *	are JOCKEY3_N_URBS URBs per direction and their completions can overlap
-+ *	on SMP.
-+ * @drain_wait: waited on by jockey3_pcm_sync_stop() until @callbacks_active is 0
-  * @stopping: set by jockey3_stop_urbs() before the anchor is killed, cleared by
-  *	jockey3_start_urbs(); @lock. Tested by the completion handler inside the
-  *	same critical section that anchors and resubmits, so a callback can never
-@@ -139,11 +171,17 @@ MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
-  *	successful completion and by jockey3_start_urbs().
-  */
- struct jockey3_pcm_urb_stream {
-+	struct snd_pcm_substream *substream;
- 	struct usb_anchor anchor;
- 	struct urb *urbs[JOCKEY3_N_URBS];
- 	unsigned char *bufs[JOCKEY3_N_URBS];
- 	atomic_t urbs_in_flight;
- 	spinlock_t lock;	/* protects this stream's state; IRQ-safe leaf */
-+	unsigned int dma_off;
-+	unsigned int period_off;
-+	bool running;
-+	unsigned int callbacks_active;
-+	wait_queue_head_t drain_wait;
- 	bool stopping;
- 	unsigned int consec_errors;
- };
-@@ -153,10 +191,11 @@ struct jockey3_pcm_urb_stream {
-  * @card: the ALSA card; read-only after probe
-  * @dev: the USB device; read-only after probe. Referenced for the chip's
-  *	lifetime, as @intf0 and @intf1 are, because the card can outlive the
-- *	unbind and usb_disconnect() would otherwise free them before
-- *	jockey3_free_resources() runs, which releases them.
-+ *	unbind and usb_disconnect() would otherwise free them underneath an ALSA
-+ *	entry point. Released by jockey3_free_resources().
-  * @intf0: interface 0, which the driver is bound to; read-only after probe
-  * @intf1: interface 1, claimed explicitly because it owns EP 0x86
-+ * @pcm: the PCM device; read-only after probe
-  * @xfer_buf: bounce buffer for EP0 control transfers, USB_XFER_BUF_SIZE bytes.
-  * @flags: JOCKEY3_FLAG_* bits, atomic bitops
-  * @dev_idx: card slot held in jockey3_devices_used
-@@ -173,6 +212,7 @@ struct jockey3_chip {
- 	struct usb_device *dev;
- 	struct usb_interface *intf0;
- 	struct usb_interface *intf1;
-+	struct snd_pcm *pcm;
- 	unsigned char *xfer_buf;
- 	unsigned long flags;
- 	unsigned int dev_idx;
-@@ -239,6 +279,69 @@ static inline bool jockey3_is_disconnected(const struct jockey3_chip *chip)
- 	return test_bit(JOCKEY3_FLAG_DISCONNECTED, &chip->flags);
- }
- 
-+static inline struct jockey3_pcm_urb_stream *jockey3_get_pcm_urb_stream(struct jockey3_chip *chip,
-+									const int direction)
-+{
-+	if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-+		return &chip->playback;
-+	else
-+		return &chip->capture;
-+}
+ snd-reloop-jockey3-y := jockey3.o ploytec_proto.o ploytec_codec.o
 +
-+static bool jockey3_process_out_packet(struct jockey3_chip *chip, u8 *urb_buf)
-+{
-+	struct snd_pcm_substream *substream = chip->playback.substream;
-+	struct jockey3_pcm_urb_stream *urb_stream = &chip->playback;
-+	struct snd_pcm_runtime *runtime;
-+	unsigned int pcm_buffer_size;
-+	unsigned int alsa_frame_size;
-+	unsigned int frames_in_batch;
-+	unsigned int bytes_avail;
-+	int f = 0;
-+
-+	if (unlikely(!substream || !substream->runtime))
-+		return false;
-+
-+	runtime = substream->runtime;
-+	if (unlikely(!runtime->dma_area))
-+		return false;
-+
-+	pcm_buffer_size = snd_pcm_lib_buffer_bytes(substream);
-+	alsa_frame_size = runtime->channels * 3;  // 4 * 3 = 12 bytes
-+
-+	while (f < PLOYTEC_PLAYBACK_FRAMES) {
-+		/* calculate how many samples we can process in one batch */
-+		frames_in_batch = PLOYTEC_PLAYBACK_FRAMES - f;
-+		bytes_avail = pcm_buffer_size - urb_stream->dma_off;
-+
-+		/* Respect circular buffer wrap-around */
-+		if (bytes_avail < frames_in_batch * alsa_frame_size)
-+			frames_in_batch = bytes_avail / alsa_frame_size;
-+
-+		if (frames_in_batch == 0)
-+			break;
-+
-+		ploytec_encode_batch(urb_buf + f * PLOYTEC_PLAYBACK_FRAME_SIZE,
-+				     runtime->dma_area + urb_stream->dma_off,
-+				     frames_in_batch);
-+
-+		urb_stream->dma_off += frames_in_batch * alsa_frame_size;
-+		if (urb_stream->dma_off >= pcm_buffer_size)
-+			urb_stream->dma_off -= pcm_buffer_size;
-+
-+		urb_stream->period_off += frames_in_batch * alsa_frame_size;
-+
-+		f += frames_in_batch;
-+	}
-+
-+	if (urb_stream->period_off >= runtime->period_size * alsa_frame_size) {
-+		urb_stream->period_off %= runtime->period_size * alsa_frame_size;
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
- enum jockey3_urb_state {
- 	JOCKEY3_URB_OK,		/* completed normally */
- 	JOCKEY3_URB_STOPPED,	/* teardown in progress; return without resubmitting */
-@@ -292,6 +395,43 @@ static void jockey3_warn_unexpected_stop(struct jockey3_chip *chip, bool stoppin
- 			     type, status);
- }
- 
-+/**
-+ * jockey3_report_xrun() - tell userspace this direction lost its data
-+ * @urb_stream: the affected direction
-+ *
-+ * Reports an xrun on the open substream, if there is one. Nothing else in the
-+ * driver can do this safely by hand: snd_pcm_stop_xrun() takes the stream lock,
-+ * and the documented order is snd_pcm_stream_lock -> urb_stream->lock, so the
-+ * call has to be made with our spinlock dropped. Between dropping it and taking
-+ * it again the substream could be freed underneath us, which is what the
-+ * callbacks_active "safe zone" prevents -- jockey3_pcm_sync_stop() waits for
-+ * that count to reach zero before the ALSA core releases the buffer.
-+ *
-+ * Callers must hold neither @urb_stream->lock nor any driver mutex.
-+ */
-+static void jockey3_report_xrun(struct jockey3_pcm_urb_stream *urb_stream)
-+{
-+	struct snd_pcm_substream *substream = NULL;
-+
-+	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
-+		if (urb_stream->running && urb_stream->substream) {
-+			/* Join the safe zone so the substream cannot be freed below */
-+			urb_stream->callbacks_active++;
-+			substream = urb_stream->substream;
-+		}
-+	}
-+
-+	if (!substream)
-+		return;
-+
-+	snd_pcm_stop_xrun(substream);
-+
-+	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
-+		if (!--urb_stream->callbacks_active)
-+			wake_up(&urb_stream->drain_wait);
-+	}
-+}
-+
- /**
-  * jockey3_err_device_gone() - did the device simply leave?
-  * @err: a transfer's return value
-@@ -375,6 +515,8 @@ static bool jockey3_urb_error_give_up(struct jockey3_chip *chip,
- 		"%s stopped after %u consecutive URB errors; deferring recovery\n",
- 		type, errors);
- 
-+	jockey3_report_xrun(urb_stream);
-+
- 	return true;
- }
- 
-@@ -432,6 +574,19 @@ static void jockey3_capture_callback(struct urb *urb)
- 		jockey3_resubmit_failed(chip, ret, "capture");
- }
- 
-+/*
-+ * Fill the sample area of a playback packet with silence, for when there is
-+ * no PCM data to send.
-+ *
-+ * Only the sample area is touched: everything from PLOYTEC_MIDI_OUT_OFFSET
-+ * onwards -- the MIDI slot, the sync byte and the trailing gap -- is rewritten
-+ * unconditionally by jockey3_playback_callback() immediately afterwards.
-+ */
-+static void jockey3_silence_out_packet(u8 *buf)
-+{
-+	memset(buf, 0, PLOYTEC_MIDI_OUT_OFFSET);
-+}
-+
- /*
-  * Prime a freshly allocated playback buffer so the first URB, which is
-  * submitted before any completion handler has run, carries a valid idle
-@@ -449,7 +604,10 @@ static void jockey3_playback_callback(struct urb *urb)
- 	struct jockey3_chip *chip = urb->context;
- 	struct jockey3_pcm_urb_stream *urb_stream = &chip->playback;
- 	unsigned char *buf = (unsigned char *)urb->transfer_buffer;
-+	struct snd_pcm_substream *substream = NULL;
-+	bool period_elapsed = false;
- 	bool data_valid = true;
-+	bool active = false;
- 	bool stopping;
- 	int i, ret;
- 
-@@ -473,6 +631,23 @@ static void jockey3_playback_callback(struct urb *urb)
- 	if (unlikely(jockey3_is_disconnected(chip)))
- 		return;
- 
-+	/* Step 1: Safely fetch the pointer and join the safe zone */
-+	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
-+		if (data_valid)
-+			urb_stream->consec_errors = 0;
-+
-+		if (data_valid && !urb_stream->stopping &&
-+		    urb_stream->running && urb_stream->substream) {
-+			urb_stream->callbacks_active++;
-+			active = true;
-+			substream = urb_stream->substream;
-+
-+			period_elapsed = jockey3_process_out_packet(chip, buf);
-+		} else {
-+			jockey3_silence_out_packet(buf);
-+		}
-+	}
-+
- 	/*
- 	 * Every packet reserves one slot for a MIDI OUT byte. Nothing feeds it
- 	 * yet, so it carries the idle byte.
-@@ -484,10 +659,21 @@ static void jockey3_playback_callback(struct urb *urb)
- 	for (i = PLOYTEC_SYNC_BYTE_OFFSET + 1; i < PLOYTEC_PKT_SIZE; i++)
- 		buf[i] = 0x00;
- 
-+	/*
-+	 * Step 2: Safe Zone. ALSA core can't free 'substream' because
-+	 * jockey3_pcm_sync_stop() waits for 'callbacks_active' to drain before
-+	 * the core releases the buffer. Our lock is released here to avoid an
-+	 * ABBA deadlock with ALSA's internal locking: snd_pcm_period_elapsed()
-+	 * takes the stream lock, and the order is stream lock -> urb_stream->lock.
-+	 */
-+	if (period_elapsed && substream)
-+		snd_pcm_period_elapsed(substream);
-+
- 	ret = 0;
- 	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
--		if (data_valid)
--			urb_stream->consec_errors = 0;
-+		/* Leave the safe zone; last one out wakes any waiter */
-+		if (active && !--urb_stream->callbacks_active)
-+			wake_up(&urb_stream->drain_wait);
- 
- 		/*
- 		 * Keep resubmitting the URB while the interface is alive. The
-@@ -591,7 +777,8 @@ static void jockey3_stop_urbs(struct jockey3_chip *chip)
- 	/*
- 	 * usb_kill_urb()/usb_kill_anchored_urbs() do not return until the
- 	 * completion handler of each URB has finished, so no callback can still
--	 * be running once these return.
-+	 * be in its safe zone once these return -- no separate drain is needed
-+	 * here (jockey3_pcm_sync_stop() covers the ALSA buffer-teardown path).
- 	 *
- 	 * Worth spelling out for the anchored form, which keeps getting read as
- 	 * a use-after-free: __usb_hcd_giveback_urb() does unanchor before
-@@ -797,6 +984,190 @@ static int jockey3_set_rate(struct jockey3_chip *chip, unsigned int rate, bool c
- 	return 0;
- }
- 
-+/*
-+ * SNDRV_PCM_INFO_BATCH: the hardware pointer only advances once per completed
-+ * bulk URB (a whole Ploytec frame group), never per sample, so userspace must
-+ * not assume a sample-accurate position.
-+ */
-+#define JOCKEY3_PCM_INFO	(SNDRV_PCM_INFO_MMAP |		\
-+				 SNDRV_PCM_INFO_INTERLEAVED |	\
-+				 SNDRV_PCM_INFO_BLOCK_TRANSFER |\
-+				 SNDRV_PCM_INFO_BATCH |		\
-+				 SNDRV_PCM_INFO_MMAP_VALID)
-+
-+#define JOCKEY3_PCM_RATES	SNDRV_PCM_RATE_44100
-+
-+static const struct snd_pcm_hardware jockey3_pcm_hw_playback = {
-+	.info			= JOCKEY3_PCM_INFO,
-+	.formats		= SNDRV_PCM_FMTBIT_S24_3LE,
-+	.rates			= JOCKEY3_PCM_RATES,
-+	.rate_min		= 44100,
-+	.rate_max		= 44100,
-+	.channels_min		= 4,
-+	.channels_max		= 4,
-+	.buffer_bytes_max	= 1024 * 1024,
-+	/*
-+	 * One playback URB carries one packet of 10 frames * 4 channels * 3
-+	 * bytes = 120 bytes. A URB reports at most one elapsed period, so the
-+	 * minimum must cover at least one packet, or a period boundary inside a
-+	 * URB could be missed entirely.
-+	 */
-+	.period_bytes_min	= PLOYTEC_PLAYBACK_FRAMES * 4 * 3,
-+	.period_bytes_max	= 512 * 1024,
-+	.periods_min		= 2,
-+	.periods_max		= 1024,
-+};
-+
-+static int jockey3_pcm_open(struct snd_pcm_substream *substream)
-+{
-+	struct jockey3_chip *chip = snd_pcm_substream_chip(substream);
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct jockey3_pcm_urb_stream *urb_stream =
-+		jockey3_get_pcm_urb_stream(chip, substream->stream);
-+	int ret;
-+
-+	dev_dbg(&chip->intf0->dev, "PCM open stream %d\n", substream->stream);
-+
-+	if (jockey3_is_disconnected(chip))
-+		return -ENODEV;
-+
-+	runtime->hw = jockey3_pcm_hw_playback;
-+
-+	/* The period accounting assumes a whole number of periods per buffer */
-+	ret = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Substream registration under spinlock to ensure memory consistency to the ISR*/
-+	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
-+		urb_stream->substream = substream;
-+	}
-+
-+	return 0;
-+}
-+
-+static int jockey3_pcm_close(struct snd_pcm_substream *substream)
-+{
-+	struct jockey3_chip *chip = snd_pcm_substream_chip(substream);
-+	struct jockey3_pcm_urb_stream *urb_stream =
-+		jockey3_get_pcm_urb_stream(chip, substream->stream);
-+
-+	dev_dbg(&chip->intf0->dev, "PCM close stream %d\n", substream->stream);
-+
-+	/*
-+	 * No drain is needed here: the ALSA core has already run .sync_stop via
-+	 * snd_pcm_release_substream() -> snd_pcm_drop() -> do_hw_free(), which is
-+	 * also where runtime->dma_area is released.
-+	 */
-+	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
-+		urb_stream->substream = NULL;
-+		urb_stream->running = false;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * jockey3_pcm_sync_stop() - wait for in-flight URB callbacks to drain
-+ * @substream: the substream being stopped
-+ *
-+ * Waits for every URB completion that could still touch this stream's substream
-+ * or runtime->dma_area to leave its safe zone.
-+ *
-+ * The ALSA core calls this from snd_pcm_do_prepare() and from do_hw_free()
-+ * *before* snd_pcm_lib_free_pages() releases the buffer, and only when the
-+ * stream actually ran (runtime->stop_operating). It runs in process context
-+ * with no stream lock held, so sleeping here is safe: a callback in its safe
-+ * zone has dropped urb_stream->lock and may freely take the stream lock, so the
-+ * stream lock -> urb_stream->lock order is never inverted.
-+ *
-+ * Return: 0 always; a timeout is logged but cannot usefully be reported.
-+ */
-+static int jockey3_pcm_sync_stop(struct snd_pcm_substream *substream)
-+{
-+	struct jockey3_chip *chip = snd_pcm_substream_chip(substream);
-+	struct jockey3_pcm_urb_stream *urb_stream =
-+		jockey3_get_pcm_urb_stream(chip, substream->stream);
-+	long remaining;
-+
-+	spin_lock_irq(&urb_stream->lock);
-+	remaining = wait_event_lock_irq_timeout(urb_stream->drain_wait,
-+						urb_stream->callbacks_active == 0,
-+						urb_stream->lock,
-+						msecs_to_jiffies(1000));
-+	spin_unlock_irq(&urb_stream->lock);
-+
-+	if (!remaining)
-+		dev_err(&chip->intf0->dev,
-+			"Timeout draining %s URB callbacks\n",
-+			substream->stream == SNDRV_PCM_STREAM_PLAYBACK ? "playback" : "capture");
-+
-+	return 0;
-+}
-+
-+static int jockey3_pcm_prepare(struct snd_pcm_substream *substream)
-+{
-+	struct jockey3_chip *chip = snd_pcm_substream_chip(substream);
-+	struct jockey3_pcm_urb_stream *urb_stream =
-+		jockey3_get_pcm_urb_stream(chip, substream->stream);
-+
-+	dev_dbg(&chip->intf0->dev, "PCM prepare stream %d\n", substream->stream);
-+	if (jockey3_is_disconnected(chip))
-+		return -ENODEV;
-+
-+	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
-+		urb_stream->dma_off = 0;
-+		urb_stream->period_off = 0;
-+	}
-+	return 0;
-+}
-+
-+/*
-+ * Called by the ALSA core with the substream stream lock held and interrupts
-+ * disabled, so this callback must never sleep.
-+ *
-+ * Lock order here is snd_pcm_stream_lock -> urb_stream->lock, which is why the
-+ * URB callbacks drop urb_stream->lock before calling snd_pcm_period_elapsed().
-+ */
-+static int jockey3_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
-+{
-+	struct jockey3_chip *chip = snd_pcm_substream_chip(substream);
-+	struct jockey3_pcm_urb_stream *urb_stream =
-+		jockey3_get_pcm_urb_stream(chip, substream->stream);
-+
-+	dev_dbg(&chip->intf0->dev, "PCM trigger stream %d, cmd %d\n", substream->stream, cmd);
-+
-+	if (jockey3_is_disconnected(chip))
-+		return -ENODEV;
-+
-+	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
-+		switch (cmd) {
-+		case SNDRV_PCM_TRIGGER_START:
-+			urb_stream->running = true;
-+			break;
-+		case SNDRV_PCM_TRIGGER_STOP:
-+			urb_stream->running = false;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+	}
-+	return 0;
-+}
-+
-+static snd_pcm_uframes_t jockey3_pcm_pointer(struct snd_pcm_substream *substream)
-+{
-+	struct jockey3_chip *chip = snd_pcm_substream_chip(substream);
-+	struct jockey3_pcm_urb_stream *urb_stream =
-+		jockey3_get_pcm_urb_stream(chip, substream->stream);
-+	unsigned int dma_off;
-+
-+	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
-+		dma_off = urb_stream->dma_off;
-+	}
-+	return bytes_to_frames(substream->runtime, dma_off);
-+}
-+
- static int jockey3_initialize_ploytec(struct jockey3_chip *chip, u32 *fw_version)
- {
- 	int ret;
-@@ -820,6 +1191,15 @@ static int jockey3_initialize_ploytec(struct jockey3_chip *chip, u32 *fw_version
- 	return 0;
- }
- 
-+static const struct snd_pcm_ops jockey3_pcm_ops = {
-+	.open = jockey3_pcm_open,
-+	.close = jockey3_pcm_close,
-+	.prepare = jockey3_pcm_prepare,
-+	.trigger = jockey3_pcm_trigger,
-+	.sync_stop = jockey3_pcm_sync_stop,
-+	.pointer = jockey3_pcm_pointer,
-+};
-+
- static int jockey3_initialize(struct jockey3_chip *chip, int model)
- {
- 	int ret;
-@@ -1051,6 +1431,44 @@ static int jockey3_validate_endpoints(struct usb_interface *intf0, struct usb_in
- 	return 0;
- }
- 
-+/*
-+ * Channel maps.
-+ *
-+ * This device exposes several independent stereo pairs, which is a different
-+ * thing from a multichannel speaker arrangement -- and speaker positions are
-+ * all the chmap enum can express. Claiming, say, RL/RR for the headphone pair
-+ * would invite an audio server to treat a cue output as rear speakers, so the
-+ * discrete pairs are reported as SNDRV_CHMAP_UNKNOWN.
-+ *
-+ * The one exception is the playback Master pair, which is marked FL/FR so that
-+ * userspace (PipeWire and friends) can identify the device's primary output.
-+ *
-+ * Physical layout:
-+ *   Playback: 1-2 Master Out L/R, 3-4 Headphone L/R
-+ */
-+static const struct snd_pcm_chmap_elem jockey3_playback_chmap[] = {
-+	{ .channels = 4,
-+	  .map = { SNDRV_CHMAP_FL, SNDRV_CHMAP_FR,
-+		   SNDRV_CHMAP_UNKNOWN, SNDRV_CHMAP_UNKNOWN } },
-+	{ }
-+};
-+
-+static int jockey3_init_pcm(struct jockey3_chip *chip)
-+{
-+	int ret = snd_pcm_new(chip->card, CARD_NAME " Audio", 0, 1, 0, &chip->pcm);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	strscpy(chip->pcm->name, CARD_NAME " Audio", sizeof(chip->pcm->name));
-+	chip->pcm->private_data = chip;
-+	snd_pcm_set_ops(chip->pcm, SNDRV_PCM_STREAM_PLAYBACK, &jockey3_pcm_ops);
-+	snd_pcm_set_managed_buffer_all(chip->pcm, SNDRV_DMA_TYPE_VMALLOC, NULL, 0, 0);
-+
-+	return snd_pcm_add_chmap_ctls(chip->pcm, SNDRV_PCM_STREAM_PLAYBACK,
-+				      jockey3_playback_chmap, 4, 0, NULL);
-+}
-+
- static void jockey3_setup_card_names(struct jockey3_chip *chip, int driver_info)
- {
- 	/*
-@@ -1097,7 +1515,7 @@ static int jockey3_probe(struct usb_interface *intf, const struct usb_device_id
- 	 * devres unwind inside usb_unbind_interface(), where snd_card_free()
- 	 * blocks until userspace closes every file descriptor on the card. On an
- 	 * unplug that unwind runs on the USB hub work queue, so one process
--	 * holding the card open would stall hotplug for the whole hub. The card is
-+	 * sitting on a PCM fd would stall hotplug for the whole hub. The card is
- 	 * released from jockey3_disconnect() with snd_card_free_when_closed()
- 	 * instead, which is what every other USB sound driver does; the
- 	 * resources that outlive it go in card->private_free below.
-@@ -1132,6 +1550,8 @@ static int jockey3_probe(struct usb_interface *intf, const struct usb_device_id
- 
- 	init_usb_anchor(&chip->playback.anchor);
- 	init_usb_anchor(&chip->capture.anchor);
-+	init_waitqueue_head(&chip->playback.drain_wait);
-+	init_waitqueue_head(&chip->capture.drain_wait);
- 
- 	/*
- 	 * From here on every failure goes to err_free_card, and the card slot is
-@@ -1168,6 +1588,10 @@ static int jockey3_probe(struct usb_interface *intf, const struct usb_device_id
- 	if (ret < 0)
- 		goto err_free_card;
- 
-+	ret = jockey3_init_pcm(chip);
-+	if (ret < 0)
-+		goto err_free_card;
-+
- 	jockey3_setup_card_names(chip, usb_id->driver_info);
- 
- 	if (card->id[0] == '\0')
-@@ -1220,7 +1644,8 @@ static void jockey3_disconnect(struct usb_interface *intf)
- 	struct jockey3_chip *chip = usb_get_intfdata(intf);
- 
- 	/*
--	 * Latch DISCONNECTED first, and for EITHER interface.
-+	 * Latch DISCONNECTED first, and for EITHER interface. Every ALSA entry
-+	 * point tests it on the way in.
- 	 *
- 	 * Doing it for interface 1 as well is what covers the unbind order. The
- 	 * driver is bound to both interfaces and the USB core takes them down
-@@ -1260,7 +1685,10 @@ static void jockey3_disconnect(struct usb_interface *intf)
- 		 * snd_card_free_when_closed() disconnects the card now and frees
- 		 * it once userspace has closed it -- it never blocks, which is
- 		 * the whole point of not using a managed card (see the comment in
--		 * jockey3_probe()). @chip lives in card->private_data and may be gone
-+		 * jockey3_probe()). It runs snd_pcm_stop(DISCONNECTED) under the
-+		 * stream lock on the way, which drives our .trigger and clears
-+		 * 'running' with the proper locking, so there is nothing to clear
-+		 * here by hand. @chip lives in card->private_data and may be gone
- 		 * the moment this returns, so nothing below may touch it.
- 		 */
- 		snd_card_free_when_closed(chip->card);
-@@ -1302,3 +1730,4 @@ module_usb_driver(jockey3_driver);
- MODULE_AUTHOR("Frank van de Pol <fvdpol@gmail.com>");
- MODULE_DESCRIPTION(CARD_NAME " ALSA Driver");
- MODULE_LICENSE("GPL");
-+MODULE_SOFTDEP("pre: snd-pcm");
-diff --git a/sound/usb/jockey3/ploytec_codec.c b/sound/usb/jockey3/ploytec_codec.c
++# The codec functions are not exported, so the KUnit tests are
++# linked into the driver module rather than built as a separate test module.
++snd-reloop-jockey3-$(CONFIG_SND_USB_JOCKEY3_CODEC_KUNIT_TEST) += ploytec_codec_kunit.o
+\ No newline at end of file
+diff --git a/sound/usb/jockey3/ploytec_codec_kunit.c b/sound/usb/jockey3/ploytec_codec_kunit.c
 new file mode 100644
-index 0000000000000..2c431853b8434
+index 0000000000000..2b7eeb3a1b11b
 --- /dev/null
-+++ b/sound/usb/jockey3/ploytec_codec.c
-@@ -0,0 +1,101 @@
++++ b/sound/usb/jockey3/ploytec_codec_kunit.c
+@@ -0,0 +1,855 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + *   ALSA driver for Reloop Jockey 3 devices
-+ *   Ploytec PCM encoding functions for the S24_3LE format (3 bytes per sample)
++ *   KUnit tests for the Ploytec bit-plane codec
 + *
 + *   Copyright (c) 2026 by Frank van de Pol <fvdpol@gmail.com>
 + */
 +
++/**
++ * DOC: Proving the Ploytec codec correct
++ *
++ * ploytec_codec.c implements a bit-scatter/gather algorithm: the conversion
++ * between ALSA's S24_3LE frames and the Ploytec bit-plane wire format.
++ *
++ * These tests validate it through the public ploytec_encode_batch() /
++ * ploytec_decode_batch() entry points. No symbols are exported and the codec
++ * is not modified to be testable; the test object is simply linked into the
++ * same module.
++ *
++ * The strategy is stronger than sampling random inputs:
++ *
++ * 1. The oracle is a *declarative bit map* (ploytec_encode_map[] and
++ *    ploytec_decode_map[] below), not a second copy of the driver's loops.
++ *    Because it states the format as data rather than as control flow, a
++ *    transcription error cannot propagate symmetrically into both.
++ *
++ * 2. The codec is a pure bit permutation, so as a function over GF(2) it is
++ *    linear. ploytec_test_*_is_linear() establishes that linearity holds, and
++ *    ploytec_test_*_permutation_complete() measures the map's action on every
++ *    single basis vector. A linear map is *fully determined* by its action on
++ *    the basis, so together those two cases pin down the result for all 2^96
++ *    (encode) and 2^512 (decode) possible inputs.
++ *
++ *    The residual risk is a non-linearity that the sampled pairs happen to
++ *    miss; the tests are not a formal proof, but they are far more than spot
++ *    checks.
++ *
++ * 3. Golden vectors generated by an independent Python model of the format
++ *    (tests/codec/ploytec_model.py) guard against the codec and the oracle
++ *    drifting away from the wire format together.
++ *
++ * Randomized cases use a small seeded xorshift generator rather than the
++ * kernel RNG, so every architecture exercises identical data and any failure
++ * reproduces exactly.
++ */
++
++#include <kunit/test.h>
 +#include <linux/string.h>
 +#include "ploytec_codec.h"
++#include "ploytec_codec_test_vectors.h"
 +
-+/**
-+ * DOC: Why the wire format looks like this
-+ *
-+ * The "bit-plane" layout implemented below is not an arbitrary scramble; it is
-+ * a direct image of how the hardware moves audio. On the Jockey 3 the USB
-+ * device controller (NXP ISP1583) runs in split-bus mode, and the serial
-+ * data lines of the capture ADCs are wired straight onto the low bits of its
-+ * 16-bit DMA bus - one converter per bus bit. The controller samples the whole
-+ * bus once per bit clock and streams the result to the host, so every byte on
-+ * the wire is a snapshot of all the channel data lines at one instant.
-+ *
-+ * Decoding a frame is therefore a transpose:
-+ *
-+ * - The byte index is one bit-clock tick, most significant bit first: wire
-+ *   byte 0 carries bit 23 of the current sample, wire byte 23 carries bit 0.
-+ * - The bit position within each byte is one physical converter line, that is
-+ *   one channel (bit 0, bit 1, bit 2, ... for successive converters).
-+ * - The frame is two 24-byte halves, the left and right sub-frames of the
-+ *   underlying I2S frame. On capture an 8-byte gap sits between and after the
-+ *   halves: it is the unused tail of each 32-bit I2S slot (64-byte frame).
-+ *   Playback is generated on the byte-wide microprocessor bus instead, so its
-+ *   slots are packed to 24 bits with no gap (48-byte frame).
-+ *
-+ * Because the geometry follows from the I2S timing and the DMA bus width, it
-+ * is fixed regardless of how many converters are populated. That is why the
-+ * codec always works in 8-channel-wide slices and simply ignores the bit
-+ * positions that carry no converter (the Jockey 3 populates three capture
-+ * lines and two playback lines).
-+ *
-+ * This is a model inferred from the board schematic and the observed stream
-+ * rather than from vendor documentation, but it accounts for every bit of the
-+ * format the functions below implement.
-+ */
++/* Largest batch either direction is ever asked for, from jockey3.c */
++#define PLOYTEC_TEST_MAX_ENCODE_FRAMES	PLOYTEC_PLAYBACK_FRAMES
++#define PLOYTEC_TEST_MAX_DECODE_FRAMES	PLOYTEC_CAPTURE_FRAMES
++
++/* How many random frames the sampling-based cases run through */
++#define PLOYTEC_TEST_RANDOM_FRAMES	4096
++#define PLOYTEC_TEST_LINEARITY_PAIRS	2048
++
++/* Guard region used to catch writes outside the destination buffer */
++#define PLOYTEC_TEST_GUARD		64
++#define PLOYTEC_TEST_GUARD_BYTE		0xA5
++
++/* Wire bytes the capture decoder must never read */
++#define PLOYTEC_TEST_UNUSED0_START	0x18
++#define PLOYTEC_TEST_UNUSED0_END	0x20
++#define PLOYTEC_TEST_UNUSED1_START	0x38
++#define PLOYTEC_TEST_UNUSED1_END	0x40
 +
 +/*
-+ * This implementation of the Ploytec codec performs a bit gather/scatter
-+ * operation with minimal optimization. It mainly serves as a readable
-+ * definition of the wire format.
-+ */
-+
-+/**
-+ * ploytec_encode_s24_3le() - Encode 4-channel S24_3LE to 48-byte Ploytec frame
-+ * @dest: 48-byte destination buffer
-+ * @src: 12-byte source buffer (4 channels * 3 bytes)
++ * The format, stated as data.
 + *
-+ * Ploytec Bit-Plane Interleaving (Playback):
-+ * The firmware uses a non-standard "bit-plane" format where bits from different
-+ * channels are interleaved into the same byte.
-+ * - Each 48-byte frame carries one PCM frame: a single sample for each of
-+ *   the 4 channels, spread one bit per wire byte.
-+ * - Bytes 0-23: ALSA Channels 1 & 3
-+ * - Bytes 24-47: ALSA Channels 2 & 4
-+ * - Within each 24-byte block, bits are grouped by significance:
-+ *   - [0-7]: Most significant bits
-+ *   - [8-15]: Middle bits
-+ *   - [16-23]: Least significant bits
-+ * - bit 0 of each byte corresponds to the first channel in the pair.
-+ * - bit 1 of each byte corresponds to the second channel in the pair.
++ * Playback packs 4 channels into 48 wire bytes as two pairs: (ch0, ch2) in
++ * bytes 0..23 and (ch1, ch3) in bytes 24..47. Each 24-byte block holds three
++ * 8-byte planes ordered most-significant sample byte first. Within a plane,
++ * wire byte i carries bit (7 - i) of the sample byte, and a channel's index
++ * within its pair picks the bit of the wire byte it lands in.
 + */
-+static inline void ploytec_encode_s24_3le(u8 *dest, const u8 *src)
++struct ploytec_encode_map_entry {
++	u8 src_idx;	// byte of the 12-byte PCM frame
++	u8 dst_base;	// first wire byte of the plane it scatters into
++	u8 dst_bit;	// bit of each wire byte it occupies
++};
++
++static const struct ploytec_encode_map_entry ploytec_encode_map[] = {
++	{  2,  0, 0 }, {  8,  0, 1 },	/* ch0 / ch2, most significant byte */
++	{  1,  8, 0 }, {  7,  8, 1 },	/* ch0 / ch2, middle byte */
++	{  0, 16, 0 }, {  6, 16, 1 },	/* ch0 / ch2, least significant byte */
++	{  5, 24, 0 }, { 11, 24, 1 },	/* ch1 / ch3, most significant byte */
++	{  4, 32, 0 }, { 10, 32, 1 },	/* ch1 / ch3, middle byte */
++	{  3, 40, 0 }, {  9, 40, 1 },	/* ch1 / ch3, least significant byte */
++};
++
++/*
++ * Capture unpacks 6 channels from 48 of the 64 wire bytes, as two groups of
++ * three: group 0 at 0x00..0x17 holds ch0, ch2, ch4 and group 1 at
++ * 0x20..0x37 holds ch1, ch3, ch5. Plane ordering matches playback, and a
++ * channel's index within its group picks the bit of the wire byte it was
++ * packed into. Wire bytes 0x18..0x1f and 0x38..0x3f carry nothing.
++ */
++struct ploytec_decode_map_entry {
++	u8 dst_idx;	// byte of the 18-byte PCM frame
++	u8 src_base;	// first wire byte of the plane it gathers from
++	u8 src_bit;	// bit of each wire byte it was packed into
++};
++
++static const struct ploytec_decode_map_entry ploytec_decode_map[] = {
++	{ 0x00, 0x10, 0 }, { 0x01, 0x08, 0 }, { 0x02, 0x00, 0 },	/* ch0 */
++	{ 0x03, 0x30, 0 }, { 0x04, 0x28, 0 }, { 0x05, 0x20, 0 },	/* ch1 */
++	{ 0x06, 0x10, 1 }, { 0x07, 0x08, 1 }, { 0x08, 0x00, 1 },	/* ch2 */
++	{ 0x09, 0x30, 1 }, { 0x0A, 0x28, 1 }, { 0x0B, 0x20, 1 },	/* ch3 */
++	{ 0x0C, 0x10, 2 }, { 0x0D, 0x08, 2 }, { 0x0E, 0x00, 2 },	/* ch4 */
++	{ 0x0F, 0x30, 2 }, { 0x10, 0x28, 2 }, { 0x11, 0x20, 2 },	/* ch5 */
++};
++
++/**
++ * ploytec_oracle_encode() - Encode one frame straight from the bit map
++ * @dest: 48-byte destination buffer
++ * @src: 12-byte source buffer
++ */
++static void ploytec_oracle_encode(u8 *dest, const u8 *src)
 +{
-+	int i;
++	memset(dest, 0, PLOYTEC_PLAYBACK_FRAME_SIZE);
 +
-+	for (i = 0; i < 8; i++) {
-+		/* First 24 bytes: odd channels (ALSA Ch 1 & 3) */
-+		dest[i]      = (((src[2] >> (7 - i)) & 1) << 0) | (((src[8] >> (7 - i)) & 1) << 1);
-+		dest[8 + i]  = (((src[1] >> (7 - i)) & 1) << 0) | (((src[7] >> (7 - i)) & 1) << 1);
-+		dest[16 + i] = (((src[0] >> (7 - i)) & 1) << 0) | (((src[6] >> (7 - i)) & 1) << 1);
++	for (size_t e = 0; e < ARRAY_SIZE(ploytec_encode_map); e++) {
++		const struct ploytec_encode_map_entry *m = &ploytec_encode_map[e];
 +
-+		/* Second 24 bytes: even channels (ALSA Ch 2 & 4) */
-+		dest[24 + i] = (((src[5] >> (7 - i)) & 1) << 0) | (((src[11] >> (7 - i)) & 1) << 1);
-+		dest[32 + i] = (((src[4] >> (7 - i)) & 1) << 0) | (((src[10] >> (7 - i)) & 1) << 1);
-+		dest[40 + i] = (((src[3] >> (7 - i)) & 1) << 0) | (((src[9]  >> (7 - i)) & 1) << 1);
++		for (int i = 0; i < 8; i++)
++			dest[m->dst_base + i] |=
++				((src[m->src_idx] >> (7 - i)) & 1) << m->dst_bit;
 +	}
 +}
 +
 +/**
-+ * ploytec_encode_batch() - Encode a number of 4-channel S24_3LE to 48-byte Ploytec frames
-+ * @dest: n_frames * 48-byte destination buffer (Ploytec playback frame)
-+ * @src: n_frames * 12-byte source buffer (4 channels * 3 bytes)
-+ * @n_frames: number of frames to process in this batch
++ * ploytec_oracle_decode() - Decode one frame straight from the bit map
++ * @dest: 18-byte destination buffer
++ * @src: 64-byte source buffer
 + */
-+void ploytec_encode_batch(u8 *dest, const u8 *src, const int n_frames)
++static void ploytec_oracle_decode(u8 *dest, const u8 *src)
 +{
-+	for (int f = 0; f < n_frames; f++) {
-+		ploytec_encode_s24_3le(dest, src);
-+		dest += PLOYTEC_PLAYBACK_FRAME_SIZE;
-+		src += PLOYTEC_PLAYBACK_PCM_FRAME_SIZE;
++	memset(dest, 0, PLOYTEC_CAPTURE_PCM_FRAME_SIZE);
++
++	for (size_t e = 0; e < ARRAY_SIZE(ploytec_decode_map); e++) {
++		const struct ploytec_decode_map_entry *m = &ploytec_decode_map[e];
++
++		for (int i = 0; i < 8; i++)
++			dest[m->dst_idx] |=
++				((src[m->src_base + i] >> m->src_bit) & 1) << (7 - i);
 +	}
 +}
-diff --git a/sound/usb/jockey3/ploytec_codec.h b/sound/usb/jockey3/ploytec_codec.h
++
++/* xorshift64*, seeded per test; see the determinism note at the top of this file. */
++struct ploytec_test_rng {
++	u64 state;
++};
++
++static void ploytec_rng_init(struct ploytec_test_rng *rng, u64 seed)
++{
++	rng->state = seed ? seed : 1;
++}
++
++static u64 ploytec_rng_next(struct ploytec_test_rng *rng)
++{
++	u64 x = rng->state;
++
++	x ^= x >> 12;
++	x ^= x << 25;
++	x ^= x >> 27;
++	rng->state = x;
++
++	return x * 0x2545F4914F6CDD1DULL;
++}
++
++static void ploytec_rng_fill(struct ploytec_test_rng *rng, u8 *buf, size_t len)
++{
++	size_t off = 0;
++
++	while (off < len) {
++		u64 v = ploytec_rng_next(rng);
++
++		for (int i = 0; i < 8 && off < len; i++, off++)
++			buf[off] = (v >> (i * 8)) & 0xFF;
++	}
++}
++
++/* Is this wire byte one the capture decoder is allowed to read? */
++static bool ploytec_capture_byte_used(int idx)
++{
++	if (idx >= PLOYTEC_TEST_UNUSED0_START && idx < PLOYTEC_TEST_UNUSED0_END)
++		return false;
++	if (idx >= PLOYTEC_TEST_UNUSED1_START && idx < PLOYTEC_TEST_UNUSED1_END)
++		return false;
++
++	return true;
++}
++
++/* Count set bits in a buffer, recording the position of the last one seen. */
++static int ploytec_count_set_bits(const u8 *buf, size_t len, int *last_pos)
++{
++	int count = 0;
++
++	for (size_t i = 0; i < len; i++) {
++		for (int b = 0; b < 8; b++) {
++			if (buf[i] & (1 << b)) {
++				count++;
++				if (last_pos)
++					*last_pos = i * 8 + b;
++			}
++		}
++	}
++
++	return count;
++}
++
++/* --- Golden vectors from the independent Python model --------------------- */
++
++static void ploytec_encode_vector_desc(const struct ploytec_encode_vector *v,
++				       char *desc)
++{
++	strscpy(desc, v->name, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(ploytec_encode_vector, ploytec_encode_vectors,
++		  ploytec_encode_vector_desc);
++
++static void ploytec_decode_vector_desc(const struct ploytec_decode_vector *v,
++				       char *desc)
++{
++	strscpy(desc, v->name, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(ploytec_decode_vector, ploytec_decode_vectors,
++		  ploytec_decode_vector_desc);
++
++static void ploytec_test_encode_known_vectors(struct kunit *test)
++{
++	const struct ploytec_encode_vector *v = test->param_value;
++	u8 dest[PLOYTEC_PLAYBACK_FRAME_SIZE];
++
++	memset(dest, 0xFF, sizeof(dest));
++	ploytec_encode_batch(dest, v->src, 1);
++
++	KUNIT_EXPECT_MEMEQ_MSG(test, dest, v->expect, sizeof(dest),
++			       "encode of vector '%s' does not match the model",
++			       v->name);
++}
++
++static void ploytec_test_decode_known_vectors(struct kunit *test)
++{
++	const struct ploytec_decode_vector *v = test->param_value;
++	u8 dest[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++
++	memset(dest, 0xFF, sizeof(dest));
++	ploytec_decode_batch(dest, v->src, 1);
++
++	KUNIT_EXPECT_MEMEQ_MSG(test, dest, v->expect, sizeof(dest),
++			       "decode of vector '%s' does not match the model",
++			       v->name);
++}
++
++/* --- Agreement with the declarative bit map ------------------------------- */
++
++static void ploytec_test_encode_matches_oracle(struct kunit *test)
++{
++	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
++	u8 got[PLOYTEC_PLAYBACK_FRAME_SIZE];
++	u8 want[PLOYTEC_PLAYBACK_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++
++	ploytec_rng_init(&rng, 0x0123456789ABCDEFULL);
++
++	for (int t = 0; t < PLOYTEC_TEST_RANDOM_FRAMES; t++) {
++		ploytec_rng_fill(&rng, src, sizeof(src));
++
++		/* Prefill with noise so a short write is visible. */
++		memset(got, 0x5A, sizeof(got));
++		ploytec_encode_batch(got, src, 1);
++		ploytec_oracle_encode(want, src);
++
++		KUNIT_ASSERT_MEMEQ_MSG(test, got, want, sizeof(got),
++				       "encode disagrees with the bit map at iteration %d",
++				       t);
++	}
++}
++
++static void ploytec_test_decode_matches_oracle(struct kunit *test)
++{
++	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE];
++	u8 got[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++	u8 want[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++
++	ploytec_rng_init(&rng, 0x0123456789ABCDEFULL);
++
++	for (int t = 0; t < PLOYTEC_TEST_RANDOM_FRAMES; t++) {
++		ploytec_rng_fill(&rng, src, sizeof(src));
++
++		memset(got, 0x5A, sizeof(got));
++		ploytec_decode_batch(got, src, 1);
++		ploytec_oracle_decode(want, src);
++
++		KUNIT_ASSERT_MEMEQ_MSG(test, got, want, sizeof(got),
++				       "decode disagrees with the bit map at iteration %d",
++				       t);
++	}
++}
++
++/* --- The map is a complete, injective bit permutation --------------------- */
++
++/*
++ * Encode: feed a one-hot input for each of the 96 input bits. Each must land
++ * on exactly one output bit, at the position the map predicts, and no two
++ * inputs may collide. That determines the map's action on every basis vector.
++ */
++static void ploytec_test_encode_permutation_complete(struct kunit *test)
++{
++	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
++	u8 dest[PLOYTEC_PLAYBACK_FRAME_SIZE];
++	DECLARE_BITMAP(seen, PLOYTEC_PLAYBACK_FRAME_SIZE * 8);
++	int covered = 0;
++
++	bitmap_zero(seen, PLOYTEC_PLAYBACK_FRAME_SIZE * 8);
++
++	for (int byte = 0; byte < PLOYTEC_PLAYBACK_PCM_FRAME_SIZE; byte++) {
++		for (int bit = 0; bit < 8; bit++) {
++			int pos = -1, count, want_pos = -1;
++
++			memset(src, 0, sizeof(src));
++			src[byte] = 1 << bit;
++
++			memset(dest, 0, sizeof(dest));
++			ploytec_encode_batch(dest, src, 1);
++
++			count = ploytec_count_set_bits(dest, sizeof(dest), &pos);
++			KUNIT_ASSERT_EQ_MSG(test, count, 1,
++					    "src[%d] bit %d set %d output bits, expected 1",
++					    byte, bit, count);
++
++			/* Where the bit map says it should have landed. */
++			for (size_t e = 0; e < ARRAY_SIZE(ploytec_encode_map); e++) {
++				const struct ploytec_encode_map_entry *m =
++					&ploytec_encode_map[e];
++
++				if (m->src_idx == byte)
++					want_pos = (m->dst_base + (7 - bit)) * 8 +
++						   m->dst_bit;
++			}
++
++			KUNIT_ASSERT_EQ_MSG(test, pos, want_pos,
++					    "src[%d] bit %d landed at output bit %d, map says %d",
++					    byte, bit, pos, want_pos);
++			KUNIT_ASSERT_FALSE_MSG(test, test_bit(pos, seen),
++					       "output bit %d is written by two different input bits",
++					       pos);
++			__set_bit(pos, seen);
++			covered++;
++		}
++	}
++
++	KUNIT_EXPECT_EQ(test, covered, PLOYTEC_PLAYBACK_PCM_FRAME_SIZE * 8);
++}
++
++/*
++ * Decode: sweep all 512 input bits. The 144 meaningful ones must each land on
++ * a distinct output bit; every other input bit must be ignored entirely, which
++ * checks the unused byte ranges and unused bits in the same pass.
++ */
++static void ploytec_test_decode_permutation_complete(struct kunit *test)
++{
++	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE];
++	u8 dest[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++	DECLARE_BITMAP(seen, PLOYTEC_CAPTURE_PCM_FRAME_SIZE * 8);
++	int covered = 0;
++
++	bitmap_zero(seen, PLOYTEC_CAPTURE_PCM_FRAME_SIZE * 8);
++
++	for (int byte = 0; byte < PLOYTEC_CAPTURE_FRAME_SIZE; byte++) {
++		for (int bit = 0; bit < 8; bit++) {
++			bool meaningful = ploytec_capture_byte_used(byte) && bit < 3;
++			int pos = -1, count, want_pos = -1;
++
++			memset(src, 0, sizeof(src));
++			src[byte] = 1 << bit;
++
++			memset(dest, 0, sizeof(dest));
++			ploytec_decode_batch(dest, src, 1);
++
++			count = ploytec_count_set_bits(dest, sizeof(dest), &pos);
++
++			if (!meaningful) {
++				KUNIT_ASSERT_EQ_MSG(test, count, 0,
++						    "wire byte %#04x bit %d is unused but changed the output",
++						    byte, bit);
++				continue;
++			}
++
++			KUNIT_ASSERT_EQ_MSG(test, count, 1,
++					    "wire byte %#04x bit %d set %d output bits, expected 1",
++					    byte, bit, count);
++
++			for (size_t e = 0; e < ARRAY_SIZE(ploytec_decode_map); e++) {
++				const struct ploytec_decode_map_entry *m =
++					&ploytec_decode_map[e];
++
++				if (m->src_bit == bit && byte >= m->src_base &&
++				    byte < m->src_base + 8)
++					want_pos = m->dst_idx * 8 +
++						   (7 - (byte - m->src_base));
++			}
++
++			KUNIT_ASSERT_EQ_MSG(test, pos, want_pos,
++					    "wire byte %#04x bit %d landed at output bit %d, map says %d",
++					    byte, bit, pos, want_pos);
++			KUNIT_ASSERT_FALSE_MSG(test, test_bit(pos, seen),
++					       "output bit %d is written by two different wire bits",
++					       pos);
++			__set_bit(pos, seen);
++			covered++;
++		}
++	}
++
++	KUNIT_EXPECT_EQ(test, covered, PLOYTEC_CAPTURE_PCM_FRAME_SIZE * 8);
++}
++
++/* --- Linearity over GF(2) ------------------------------------------------- */
++
++static void ploytec_test_encode_is_linear(struct kunit *test)
++{
++	u8 a[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE], b[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
++	u8 ab[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
++	u8 ea[PLOYTEC_PLAYBACK_FRAME_SIZE], eb[PLOYTEC_PLAYBACK_FRAME_SIZE];
++	u8 eab[PLOYTEC_PLAYBACK_FRAME_SIZE], want[PLOYTEC_PLAYBACK_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++
++	ploytec_rng_init(&rng, 0xFEEDFACECAFEBEEFULL);
++
++	for (int t = 0; t < PLOYTEC_TEST_LINEARITY_PAIRS; t++) {
++		ploytec_rng_fill(&rng, a, sizeof(a));
++		ploytec_rng_fill(&rng, b, sizeof(b));
++
++		for (size_t i = 0; i < sizeof(ab); i++)
++			ab[i] = a[i] ^ b[i];
++
++		ploytec_encode_batch(ea, a, 1);
++		ploytec_encode_batch(eb, b, 1);
++		ploytec_encode_batch(eab, ab, 1);
++
++		for (size_t i = 0; i < sizeof(want); i++)
++			want[i] = ea[i] ^ eb[i];
++
++		KUNIT_ASSERT_MEMEQ_MSG(test, eab, want, sizeof(want),
++				       "encode(a^b) != encode(a)^encode(b) at iteration %d",
++				       t);
++	}
++}
++
++static void ploytec_test_decode_is_linear(struct kunit *test)
++{
++	u8 a[PLOYTEC_CAPTURE_FRAME_SIZE], b[PLOYTEC_CAPTURE_FRAME_SIZE];
++	u8 ab[PLOYTEC_CAPTURE_FRAME_SIZE];
++	u8 da[PLOYTEC_CAPTURE_PCM_FRAME_SIZE], db[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++	u8 dab[PLOYTEC_CAPTURE_PCM_FRAME_SIZE], want[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++
++	ploytec_rng_init(&rng, 0xFEEDFACECAFEBEEFULL);
++
++	for (int t = 0; t < PLOYTEC_TEST_LINEARITY_PAIRS; t++) {
++		ploytec_rng_fill(&rng, a, sizeof(a));
++		ploytec_rng_fill(&rng, b, sizeof(b));
++
++		for (size_t i = 0; i < sizeof(ab); i++)
++			ab[i] = a[i] ^ b[i];
++
++		ploytec_decode_batch(da, a, 1);
++		ploytec_decode_batch(db, b, 1);
++		ploytec_decode_batch(dab, ab, 1);
++
++		for (size_t i = 0; i < sizeof(want); i++)
++			want[i] = da[i] ^ db[i];
++
++		KUNIT_ASSERT_MEMEQ_MSG(test, dab, want, sizeof(want),
++				       "decode(a^b) != decode(a)^decode(b) at iteration %d",
++				       t);
++	}
++}
++
++/* --- Batching ------------------------------------------------------------- */
++
++static void ploytec_test_encode_batch_equals_single(struct kunit *test)
++{
++	const size_t src_len = PLOYTEC_TEST_MAX_ENCODE_FRAMES *
++				PLOYTEC_PLAYBACK_PCM_FRAME_SIZE;
++	const size_t out_len = PLOYTEC_TEST_MAX_ENCODE_FRAMES *
++				PLOYTEC_PLAYBACK_FRAME_SIZE;
++	struct ploytec_test_rng rng;
++	u8 *src, *batched, *single;
++
++	/*
++	 * Heap-allocated: on the stack, src + batched + single alone exceed
++	 * the 32-bit CONFIG_FRAME_WARN limit (reported by kernel test robot,
++	 * see alsa-jockey3#53).
++	 */
++	src = kunit_kzalloc(test, src_len, GFP_KERNEL);
++	batched = kunit_kzalloc(test, out_len, GFP_KERNEL);
++	single = kunit_kzalloc(test, out_len, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, src);
++	KUNIT_ASSERT_NOT_NULL(test, batched);
++	KUNIT_ASSERT_NOT_NULL(test, single);
++
++	ploytec_rng_init(&rng, 0xD1CE0FF1CE0FF1CEULL);
++	ploytec_rng_fill(&rng, src, src_len);
++
++	for (int n = 1; n <= PLOYTEC_TEST_MAX_ENCODE_FRAMES; n++) {
++		memset(batched, 0, out_len);
++		memset(single, 0, out_len);
++
++		ploytec_encode_batch(batched, src, n);
++
++		for (int f = 0; f < n; f++)
++			ploytec_encode_batch(single + f * PLOYTEC_PLAYBACK_FRAME_SIZE,
++					     src + f * PLOYTEC_PLAYBACK_PCM_FRAME_SIZE,
++					     1);
++
++		KUNIT_EXPECT_MEMEQ_MSG(test, batched, single,
++				       n * PLOYTEC_PLAYBACK_FRAME_SIZE,
++				       "batch of %d differs from %d single-frame calls",
++				       n, n);
++	}
++}
++
++static void ploytec_test_decode_batch_equals_single(struct kunit *test)
++{
++	const size_t src_len = PLOYTEC_TEST_MAX_DECODE_FRAMES *
++				PLOYTEC_CAPTURE_FRAME_SIZE;
++	const size_t out_len = PLOYTEC_TEST_MAX_DECODE_FRAMES *
++				PLOYTEC_CAPTURE_PCM_FRAME_SIZE;
++	struct ploytec_test_rng rng;
++	u8 *src, *batched, *single;
++
++	src = kunit_kzalloc(test, src_len, GFP_KERNEL);
++	batched = kunit_kzalloc(test, out_len, GFP_KERNEL);
++	single = kunit_kzalloc(test, out_len, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, src);
++	KUNIT_ASSERT_NOT_NULL(test, batched);
++	KUNIT_ASSERT_NOT_NULL(test, single);
++
++	ploytec_rng_init(&rng, 0xD1CE0FF1CE0FF1CEULL);
++	ploytec_rng_fill(&rng, src, src_len);
++
++	for (int n = 1; n <= PLOYTEC_TEST_MAX_DECODE_FRAMES; n++) {
++		memset(batched, 0, out_len);
++		memset(single, 0, out_len);
++
++		ploytec_decode_batch(batched, src, n);
++
++		for (int f = 0; f < n; f++)
++			ploytec_decode_batch(single + f * PLOYTEC_CAPTURE_PCM_FRAME_SIZE,
++					     src + f * PLOYTEC_CAPTURE_FRAME_SIZE,
++					     1);
++
++		KUNIT_EXPECT_MEMEQ_MSG(test, batched, single,
++				       n * PLOYTEC_CAPTURE_PCM_FRAME_SIZE,
++				       "batch of %d differs from %d single-frame calls",
++				       n, n);
++	}
++}
++
++/*
++ * jockey3.c computes the batch size from the ALSA ring-buffer wrap and can in
++ * principle arrive at zero, so the codec must treat that as a no-op rather
++ * than walking off the buffer.
++ */
++static void ploytec_test_encode_batch_zero_frames(struct kunit *test)
++{
++	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE] = { 0 };
++	u8 dest[PLOYTEC_PLAYBACK_FRAME_SIZE];
++
++	memset(dest, PLOYTEC_TEST_GUARD_BYTE, sizeof(dest));
++	ploytec_encode_batch(dest, src, 0);
++
++	for (size_t i = 0; i < sizeof(dest); i++)
++		KUNIT_EXPECT_EQ_MSG(test, dest[i], PLOYTEC_TEST_GUARD_BYTE,
++				    "encode of 0 frames wrote to dest[%zu]", i);
++}
++
++static void ploytec_test_decode_batch_zero_frames(struct kunit *test)
++{
++	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE] = { 0 };
++	u8 dest[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++
++	memset(dest, PLOYTEC_TEST_GUARD_BYTE, sizeof(dest));
++	ploytec_decode_batch(dest, src, 0);
++
++	for (size_t i = 0; i < sizeof(dest); i++)
++		KUNIT_EXPECT_EQ_MSG(test, dest[i], PLOYTEC_TEST_GUARD_BYTE,
++				    "decode of 0 frames wrote to dest[%zu]", i);
++}
++
++static void ploytec_test_encode_batch_no_overrun(struct kunit *test)
++{
++	const size_t payload = PLOYTEC_TEST_MAX_ENCODE_FRAMES *
++			       PLOYTEC_PLAYBACK_FRAME_SIZE;
++	u8 src[PLOYTEC_TEST_MAX_ENCODE_FRAMES * PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++	u8 *buf;
++
++	buf = kunit_kzalloc(test, payload + 2 * PLOYTEC_TEST_GUARD, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, buf);
++
++	ploytec_rng_init(&rng, 0xBEEFCAFEBEEFCAFEULL);
++	ploytec_rng_fill(&rng, src, sizeof(src));
++
++	memset(buf, PLOYTEC_TEST_GUARD_BYTE, payload + 2 * PLOYTEC_TEST_GUARD);
++	ploytec_encode_batch(buf + PLOYTEC_TEST_GUARD, src,
++			     PLOYTEC_TEST_MAX_ENCODE_FRAMES);
++
++	for (int i = 0; i < PLOYTEC_TEST_GUARD; i++) {
++		KUNIT_EXPECT_EQ_MSG(test, buf[i], PLOYTEC_TEST_GUARD_BYTE,
++				    "encode wrote %d bytes before the destination",
++				    PLOYTEC_TEST_GUARD - i);
++		KUNIT_EXPECT_EQ_MSG(test, buf[PLOYTEC_TEST_GUARD + payload + i],
++				    PLOYTEC_TEST_GUARD_BYTE,
++				    "encode wrote %d bytes past the destination",
++				    i + 1);
++	}
++}
++
++static void ploytec_test_decode_batch_no_overrun(struct kunit *test)
++{
++	const size_t payload = PLOYTEC_TEST_MAX_DECODE_FRAMES *
++			       PLOYTEC_CAPTURE_PCM_FRAME_SIZE;
++	u8 src[PLOYTEC_TEST_MAX_DECODE_FRAMES * PLOYTEC_CAPTURE_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++	u8 *buf;
++
++	buf = kunit_kzalloc(test, payload + 2 * PLOYTEC_TEST_GUARD, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, buf);
++
++	ploytec_rng_init(&rng, 0xBEEFCAFEBEEFCAFEULL);
++	ploytec_rng_fill(&rng, src, sizeof(src));
++
++	memset(buf, PLOYTEC_TEST_GUARD_BYTE, payload + 2 * PLOYTEC_TEST_GUARD);
++	ploytec_decode_batch(buf + PLOYTEC_TEST_GUARD, src,
++			     PLOYTEC_TEST_MAX_DECODE_FRAMES);
++
++	for (int i = 0; i < PLOYTEC_TEST_GUARD; i++) {
++		KUNIT_EXPECT_EQ_MSG(test, buf[i], PLOYTEC_TEST_GUARD_BYTE,
++				    "decode wrote %d bytes before the destination",
++				    PLOYTEC_TEST_GUARD - i);
++		KUNIT_EXPECT_EQ_MSG(test, buf[PLOYTEC_TEST_GUARD + payload + i],
++				    PLOYTEC_TEST_GUARD_BYTE,
++				    "decode wrote %d bytes past the destination",
++				    i + 1);
++	}
++}
++
++/* --- Alignment ------------------------------------------------------------ */
++
++/*
++ * In the driver the wire buffer happens to be 8-byte aligned, so a codec that
++ * assumed alignment would go unnoticed on x86 and only surface as a fault on
++ * a strict-alignment architecture. Run every byte offset explicitly.
++ */
++static void ploytec_test_encode_unaligned_buffers(struct kunit *test)
++{
++	u8 reference[PLOYTEC_PLAYBACK_FRAME_SIZE];
++	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++	u8 *src_buf, *dst_buf;
++
++	src_buf = kunit_kzalloc(test, PLOYTEC_PLAYBACK_PCM_FRAME_SIZE + 8, GFP_KERNEL);
++	dst_buf = kunit_kzalloc(test, PLOYTEC_PLAYBACK_FRAME_SIZE + 8, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, src_buf);
++	KUNIT_ASSERT_NOT_NULL(test, dst_buf);
++
++	ploytec_rng_init(&rng, 0x1234ABCD5678EF90ULL);
++	ploytec_rng_fill(&rng, src, sizeof(src));
++	ploytec_oracle_encode(reference, src);
++
++	for (int src_off = 0; src_off < 8; src_off++) {
++		for (int dst_off = 0; dst_off < 8; dst_off++) {
++			memcpy(src_buf + src_off, src, sizeof(src));
++			memset(dst_buf, 0, PLOYTEC_PLAYBACK_FRAME_SIZE + 8);
++
++			ploytec_encode_batch(dst_buf + dst_off, src_buf + src_off, 1);
++
++			KUNIT_ASSERT_MEMEQ_MSG(test, dst_buf + dst_off, reference,
++					       PLOYTEC_PLAYBACK_FRAME_SIZE,
++					       "encode differs at src offset %d, dst offset %d",
++					       src_off, dst_off);
++		}
++	}
++}
++
++static void ploytec_test_decode_unaligned_buffers(struct kunit *test)
++{
++	u8 reference[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++	u8 *src_buf, *dst_buf;
++
++	src_buf = kunit_kzalloc(test, PLOYTEC_CAPTURE_FRAME_SIZE + 8, GFP_KERNEL);
++	dst_buf = kunit_kzalloc(test, PLOYTEC_CAPTURE_PCM_FRAME_SIZE + 8, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, src_buf);
++	KUNIT_ASSERT_NOT_NULL(test, dst_buf);
++
++	ploytec_rng_init(&rng, 0x1234ABCD5678EF90ULL);
++	ploytec_rng_fill(&rng, src, sizeof(src));
++	ploytec_oracle_decode(reference, src);
++
++	for (int src_off = 0; src_off < 8; src_off++) {
++		for (int dst_off = 0; dst_off < 8; dst_off++) {
++			memcpy(src_buf + src_off, src, sizeof(src));
++			memset(dst_buf, 0, PLOYTEC_CAPTURE_PCM_FRAME_SIZE + 8);
++
++			ploytec_decode_batch(dst_buf + dst_off, src_buf + src_off, 1);
++
++			KUNIT_ASSERT_MEMEQ_MSG(test, dst_buf + dst_off, reference,
++					       PLOYTEC_CAPTURE_PCM_FRAME_SIZE,
++					       "decode differs at src offset %d, dst offset %d",
++					       src_off, dst_off);
++		}
++	}
++}
++
++/* --- Format invariants ---------------------------------------------------- */
++
++static void ploytec_test_encode_zero_input(struct kunit *test)
++{
++	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE] = { 0 };
++	u8 dest[PLOYTEC_PLAYBACK_FRAME_SIZE];
++	u8 want[PLOYTEC_PLAYBACK_FRAME_SIZE] = { 0 };
++
++	memset(dest, 0xFF, sizeof(dest));
++	ploytec_encode_batch(dest, src, 1);
++
++	KUNIT_EXPECT_MEMEQ_MSG(test, dest, want, sizeof(dest),
++			       "silence did not encode to an all-zero wire frame");
++}
++
++/*
++ * Playback packs only two channels into each wire byte, so bits 2..7 carry
++ * nothing. jockey3.c relies on this: it writes the MIDI and sync bytes into
++ * the same 512-byte packet and would be corrupted by a codec that spilled
++ * into the upper bits.
++ */
++static void ploytec_test_encode_reserved_bits_clear(struct kunit *test)
++{
++	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
++	u8 dest[PLOYTEC_PLAYBACK_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++
++	ploytec_rng_init(&rng, 0x0F0F0F0FF0F0F0F0ULL);
++
++	/* All ones is the worst case, then sample the space. */
++	memset(src, 0xFF, sizeof(src));
++
++	for (int t = 0; t < 256; t++) {
++		memset(dest, 0, sizeof(dest));
++		ploytec_encode_batch(dest, src, 1);
++
++		for (size_t i = 0; i < sizeof(dest); i++)
++			KUNIT_ASSERT_EQ_MSG(test, dest[i] & 0xFC, 0,
++					    "wire byte %zu has reserved bits set (%#04x)",
++					    i, dest[i]);
++
++		ploytec_rng_fill(&rng, src, sizeof(src));
++	}
++}
++
++static void ploytec_test_decode_ignores_unused_bytes(struct kunit *test)
++{
++	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE];
++	u8 probe[PLOYTEC_CAPTURE_FRAME_SIZE];
++	u8 want[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++	u8 got[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++
++	ploytec_rng_init(&rng, 0xABCDEF0123456789ULL);
++	ploytec_rng_fill(&rng, src, sizeof(src));
++	ploytec_decode_batch(want, src, 1);
++
++	for (int t = 0; t < 256; t++) {
++		memcpy(probe, src, sizeof(probe));
++
++		/* Scribble over everything the decoder should not be reading. */
++		for (size_t i = 0; i < sizeof(probe); i++) {
++			if (!ploytec_capture_byte_used(i))
++				probe[i] = ploytec_rng_next(&rng) & 0xFF;
++		}
++
++		ploytec_decode_batch(got, probe, 1);
++		KUNIT_ASSERT_MEMEQ_MSG(test, got, want, sizeof(want),
++				       "decode result changed when unused wire bytes changed");
++	}
++}
++
++static void ploytec_test_decode_ignores_unused_bits(struct kunit *test)
++{
++	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE];
++	u8 probe[PLOYTEC_CAPTURE_FRAME_SIZE];
++	u8 want[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++	u8 got[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
++	struct ploytec_test_rng rng;
++
++	ploytec_rng_init(&rng, 0x9988776655443322ULL);
++	ploytec_rng_fill(&rng, src, sizeof(src));
++	ploytec_decode_batch(want, src, 1);
++
++	for (int t = 0; t < 256; t++) {
++		/* Only bits 0..2 of each wire byte carry channel data. */
++		for (size_t i = 0; i < sizeof(probe); i++)
++			probe[i] = (src[i] & 0x07) |
++				   (ploytec_rng_next(&rng) & 0xF8);
++
++		ploytec_decode_batch(got, probe, 1);
++		KUNIT_ASSERT_MEMEQ_MSG(test, got, want, sizeof(want),
++				       "decode result changed when unused wire bits changed");
++	}
++}
++
++/* --- Suite ---------------------------------------------------------------- */
++
++static struct kunit_case ploytec_codec_test_cases[] = {
++	KUNIT_CASE_PARAM(ploytec_test_encode_known_vectors,
++			 ploytec_encode_vector_gen_params),
++	KUNIT_CASE_PARAM(ploytec_test_decode_known_vectors,
++			 ploytec_decode_vector_gen_params),
++	KUNIT_CASE(ploytec_test_encode_matches_oracle),
++	KUNIT_CASE(ploytec_test_decode_matches_oracle),
++	KUNIT_CASE(ploytec_test_encode_permutation_complete),
++	KUNIT_CASE(ploytec_test_decode_permutation_complete),
++	KUNIT_CASE(ploytec_test_encode_is_linear),
++	KUNIT_CASE(ploytec_test_decode_is_linear),
++	KUNIT_CASE(ploytec_test_encode_batch_equals_single),
++	KUNIT_CASE(ploytec_test_decode_batch_equals_single),
++	KUNIT_CASE(ploytec_test_encode_batch_zero_frames),
++	KUNIT_CASE(ploytec_test_decode_batch_zero_frames),
++	KUNIT_CASE(ploytec_test_encode_batch_no_overrun),
++	KUNIT_CASE(ploytec_test_decode_batch_no_overrun),
++	KUNIT_CASE(ploytec_test_encode_unaligned_buffers),
++	KUNIT_CASE(ploytec_test_decode_unaligned_buffers),
++	KUNIT_CASE(ploytec_test_encode_zero_input),
++	KUNIT_CASE(ploytec_test_encode_reserved_bits_clear),
++	KUNIT_CASE(ploytec_test_decode_ignores_unused_bytes),
++	KUNIT_CASE(ploytec_test_decode_ignores_unused_bits),
++	{},
++};
++
++static struct kunit_suite ploytec_codec_suite = {
++	.name = "ploytec-codec",
++	.test_cases = ploytec_codec_test_cases,
++};
++
++kunit_test_suite(ploytec_codec_suite);
+diff --git a/sound/usb/jockey3/ploytec_codec_test_vectors.h b/sound/usb/jockey3/ploytec_codec_test_vectors.h
 new file mode 100644
-index 0000000000000..32660f1b4350a
+index 0000000000000..894d5f830d7f2
 --- /dev/null
-+++ b/sound/usb/jockey3/ploytec_codec.h
-@@ -0,0 +1,26 @@
++++ b/sound/usb/jockey3/ploytec_codec_test_vectors.h
+@@ -0,0 +1,793 @@
 +/* SPDX-License-Identifier: GPL-2.0-or-later */
 +/*
-+ *   ALSA driver for Reloop Jockey 3 devices
-+ *   Ploytec PCM encoding functions for the S24_3LE format (3 bytes per sample)
++ * Golden test vectors for the Ploytec bit-plane codec.
 + *
-+ *   Copyright (c) 2026 by Frank van de Pol <fvdpol@gmail.com>
++ * GENERATED FILE - DO NOT EDIT.
++ *
++ * Produced by genvectors.py from ploytec_model.py, an independent model
++ * that derives the wire format structurally rather than from this driver's
++ * code, so the two cannot agree on a wrong answer. The same vectors drive a
++ * user-space bench, which is why they live in a header of their own.
++ *
++ * Both generator and model belong to the driver's test tooling and are not
++ * part of the kernel tree. They live under tests/codec at
++ * https://github.com/fvdpol/alsa-jockey3, where ./genvectors.py regenerates
++ * this file.
++ *
++ * ploytec_model.py sha256: 09fdf2831f9de572ee3a0e06b20807ee6235fc67ac79481469d616e965e8f0f3
++ *
++ * Copyright (c) 2026 by Frank van de Pol <fvdpol@gmail.com>
 + */
 +
-+#ifndef __SOUND_USB_JOCKEY3_PLOYTEC_CODEC_H
-+#define __SOUND_USB_JOCKEY3_PLOYTEC_CODEC_H
++#ifndef PLOYTEC_CODEC_TEST_VECTORS_H
++#define PLOYTEC_CODEC_TEST_VECTORS_H
 +
-+#include <linux/types.h>
++struct ploytec_encode_vector {
++	const char *name;
++	u8 src[12];
++	u8 expect[48];
++};
 +
-+/*
-+ * Playback: 4 channels of S24_3LE (3 bytes/sample).
-+ * The *_FRAME_SIZE values are the Ploytec wire format; the *_PCM_FRAME_SIZE
-+ * values are the corresponding ALSA-side frame.
-+ */
-+#define PLOYTEC_PLAYBACK_FRAMES		10	// number of samples per frame
-+#define PLOYTEC_PLAYBACK_FRAME_SIZE	48
-+#define PLOYTEC_PLAYBACK_PCM_FRAME_SIZE	12	// 4 channels * 3 bytes
++struct ploytec_decode_vector {
++	const char *name;
++	u8 src[64];
++	u8 expect[18];
++};
 +
-+/* batching of the sample processing */
-+void ploytec_encode_batch(u8 *dest, const u8 *src, const int n_frames);
++static const struct ploytec_encode_vector ploytec_encode_vectors[] = {
++	{
++		.name = "zeros",
++		.src = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "ones",
++		.src = {
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++		},
++		.expect = {
++			0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
++			0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
++			0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
++			0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
++		},
++	},
++	{
++		.name = "alternating_55",
++		.src = {
++			0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55,
++		},
++		.expect = {
++			0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03,
++			0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03,
++			0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03,
++			0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03,
++		},
++	},
++	{
++		.name = "alternating_aa",
++		.src = {
++			0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa,
++		},
++		.expect = {
++			0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00,
++			0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00,
++			0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00,
++			0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00,
++		},
++	},
++	{
++		.name = "ramp",
++		.src = {
++			0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x02, 0x02, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x02, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x02, 0x01, 0x02, 0x03, 0x00, 0x00, 0x00, 0x00,
++			0x02, 0x01, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x01, 0x03,
++		},
++	},
++	{
++		.name = "channel0_full",
++		.src = {
++			0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++		.expect = {
++			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "channel1_full",
++		.src = {
++			0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++		},
++	},
++	{
++		.name = "channel2_full",
++		.src = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00,
++		},
++		.expect = {
++			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
++			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "channel3_full",
++		.src = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
++			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
++		},
++	},
++	{
++		.name = "channel0_sign",
++		.src = {
++			0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++		.expect = {
++			0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "channel1_sign",
++		.src = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "channel2_sign",
++		.src = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00,
++		},
++		.expect = {
++			0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "channel3_sign",
++		.src = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "distinct",
++		.src = {
++			0x56, 0x34, 0x12, 0xbc, 0x9a, 0x78, 0x12, 0xf0, 0xde, 0x78, 0x56, 0x34,
++		},
++		.expect = {
++			0x02, 0x02, 0x00, 0x03, 0x02, 0x02, 0x03, 0x00, 0x02, 0x02, 0x03, 0x03,
++			0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x03, 0x00, 0x01, 0x03, 0x00,
++			0x00, 0x01, 0x03, 0x03, 0x01, 0x02, 0x00, 0x00, 0x01, 0x02, 0x00, 0x03,
++			0x01, 0x02, 0x03, 0x00, 0x01, 0x02, 0x03, 0x03, 0x03, 0x01, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "random00",
++		.src = {
++			0xc5, 0x21, 0x5c, 0x0d, 0x13, 0xea, 0x2d, 0xa6, 0x6b, 0x90, 0x77, 0x77,
++		},
++		.expect = {
++			0x00, 0x03, 0x02, 0x01, 0x03, 0x01, 0x02, 0x02, 0x02, 0x00, 0x03, 0x00,
++			0x00, 0x02, 0x02, 0x01, 0x01, 0x01, 0x02, 0x00, 0x02, 0x03, 0x00, 0x03,
++			0x01, 0x03, 0x03, 0x02, 0x01, 0x02, 0x03, 0x02, 0x00, 0x02, 0x02, 0x03,
++			0x00, 0x02, 0x03, 0x03, 0x02, 0x00, 0x00, 0x02, 0x01, 0x01, 0x00, 0x01,
++		},
++	},
++	{
++		.name = "random01",
++		.src = {
++			0xd2, 0x2b, 0xc8, 0xf8, 0x5d, 0x0f, 0xc4, 0x8b, 0xf0, 0x91, 0xa2, 0x96,
++		},
++		.expect = {
++			0x03, 0x03, 0x02, 0x02, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x01, 0x00,
++			0x03, 0x00, 0x03, 0x03, 0x03, 0x03, 0x00, 0x01, 0x00, 0x02, 0x01, 0x00,
++			0x02, 0x00, 0x00, 0x02, 0x01, 0x03, 0x03, 0x01, 0x02, 0x01, 0x02, 0x01,
++			0x01, 0x01, 0x02, 0x01, 0x03, 0x01, 0x01, 0x03, 0x01, 0x00, 0x00, 0x02,
++		},
++	},
++	{
++		.name = "random02",
++		.src = {
++			0xc2, 0xc6, 0xd5, 0xf1, 0xf7, 0x91, 0xbb, 0xd9, 0xdb, 0x54, 0x93, 0x29,
++		},
++		.expect = {
++			0x03, 0x03, 0x00, 0x03, 0x02, 0x01, 0x02, 0x03, 0x03, 0x03, 0x00, 0x02,
++			0x02, 0x01, 0x01, 0x02, 0x03, 0x01, 0x02, 0x02, 0x02, 0x00, 0x03, 0x02,
++			0x01, 0x00, 0x02, 0x01, 0x02, 0x00, 0x00, 0x03, 0x03, 0x01, 0x01, 0x03,
++			0x00, 0x01, 0x03, 0x03, 0x01, 0x03, 0x01, 0x03, 0x00, 0x02, 0x00, 0x01,
++		},
++	},
++	{
++		.name = "random03",
++		.src = {
++			0x4f, 0xb4, 0xf2, 0x70, 0x17, 0x6f, 0xe3, 0x64, 0xc0, 0xcd, 0x51, 0xa4,
++		},
++		.expect = {
++			0x03, 0x03, 0x01, 0x01, 0x00, 0x00, 0x01, 0x00, 0x01, 0x02, 0x03, 0x01,
++			0x00, 0x03, 0x00, 0x00, 0x02, 0x03, 0x02, 0x00, 0x01, 0x01, 0x03, 0x03,
++			0x02, 0x01, 0x03, 0x00, 0x01, 0x03, 0x01, 0x01, 0x00, 0x02, 0x00, 0x03,
++			0x00, 0x01, 0x01, 0x03, 0x02, 0x03, 0x01, 0x01, 0x02, 0x02, 0x00, 0x02,
++		},
++	},
++	{
++		.name = "random04",
++		.src = {
++			0x5d, 0xf8, 0xb4, 0xe8, 0x5a, 0x5b, 0xe5, 0x10, 0x69, 0xd0, 0x02, 0xa9,
++		},
++		.expect = {
++			0x01, 0x02, 0x03, 0x01, 0x02, 0x01, 0x00, 0x02, 0x01, 0x01, 0x01, 0x03,
++			0x01, 0x00, 0x00, 0x00, 0x02, 0x03, 0x02, 0x01, 0x01, 0x03, 0x00, 0x03,
++			0x02, 0x01, 0x02, 0x01, 0x03, 0x00, 0x01, 0x03, 0x00, 0x01, 0x00, 0x01,
++			0x01, 0x00, 0x03, 0x00, 0x03, 0x03, 0x01, 0x02, 0x01, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "random05",
++		.src = {
++			0x67, 0x49, 0x0c, 0x85, 0xfd, 0x37, 0xc7, 0xf9, 0xd8, 0xcb, 0x7d, 0x90,
++		},
++		.expect = {
++			0x02, 0x02, 0x00, 0x02, 0x03, 0x01, 0x00, 0x00, 0x02, 0x03, 0x02, 0x02,
++			0x03, 0x00, 0x00, 0x03, 0x02, 0x03, 0x01, 0x00, 0x00, 0x03, 0x03, 0x03,
++			0x02, 0x00, 0x01, 0x03, 0x00, 0x01, 0x01, 0x01, 0x01, 0x03, 0x03, 0x03,
++			0x03, 0x03, 0x00, 0x03, 0x03, 0x02, 0x00, 0x00, 0x02, 0x01, 0x02, 0x03,
++		},
++	},
++	{
++		.name = "random06",
++		.src = {
++			0x49, 0x2c, 0x4f, 0x41, 0x86, 0x56, 0xf0, 0x2f, 0xa1, 0x33, 0x30, 0xb9,
++		},
++		.expect = {
++			0x02, 0x01, 0x02, 0x00, 0x01, 0x01, 0x01, 0x03, 0x00, 0x00, 0x03, 0x00,
++			0x03, 0x03, 0x02, 0x02, 0x02, 0x03, 0x02, 0x02, 0x01, 0x00, 0x00, 0x01,
++			0x02, 0x01, 0x02, 0x03, 0x02, 0x01, 0x01, 0x02, 0x01, 0x00, 0x02, 0x02,
++			0x00, 0x01, 0x01, 0x00, 0x00, 0x01, 0x02, 0x02, 0x00, 0x00, 0x02, 0x03,
++		},
++	},
++	{
++		.name = "random07",
++		.src = {
++			0x4e, 0x19, 0xe5, 0x1a, 0xcd, 0x69, 0xf2, 0x66, 0x4c, 0xe6, 0x5c, 0x61,
++		},
++		.expect = {
++			0x01, 0x03, 0x01, 0x00, 0x02, 0x03, 0x00, 0x01, 0x00, 0x02, 0x02, 0x01,
++			0x01, 0x02, 0x02, 0x01, 0x02, 0x03, 0x02, 0x02, 0x01, 0x01, 0x03, 0x00,
++			0x00, 0x03, 0x03, 0x00, 0x01, 0x00, 0x00, 0x03, 0x01, 0x03, 0x00, 0x02,
++			0x03, 0x03, 0x00, 0x01, 0x02, 0x02, 0x02, 0x01, 0x01, 0x02, 0x03, 0x00,
++		},
++	},
++	{
++		.name = "random08",
++		.src = {
++			0x22, 0x2a, 0xe7, 0xf8, 0xfb, 0x9c, 0x1e, 0xb4, 0x2a, 0x71, 0xcd, 0x54,
++		},
++		.expect = {
++			0x01, 0x01, 0x03, 0x00, 0x02, 0x01, 0x03, 0x01, 0x02, 0x00, 0x03, 0x02,
++			0x01, 0x02, 0x01, 0x00, 0x00, 0x00, 0x01, 0x02, 0x02, 0x02, 0x03, 0x00,
++			0x01, 0x02, 0x00, 0x03, 0x01, 0x03, 0x00, 0x00, 0x03, 0x03, 0x01, 0x01,
++			0x03, 0x02, 0x01, 0x03, 0x01, 0x03, 0x03, 0x03, 0x01, 0x00, 0x00, 0x02,
++		},
++	},
++	{
++		.name = "random09",
++		.src = {
++			0x1d, 0xf3, 0x3e, 0x4c, 0x48, 0x1a, 0xc5, 0x59, 0x5a, 0xfc, 0xf5, 0x5a,
++		},
++		.expect = {
++			0x00, 0x02, 0x01, 0x03, 0x03, 0x01, 0x03, 0x00, 0x01, 0x03, 0x01, 0x03,
++			0x02, 0x00, 0x01, 0x03, 0x02, 0x02, 0x00, 0x01, 0x01, 0x03, 0x00, 0x03,
++			0x00, 0x02, 0x00, 0x03, 0x03, 0x00, 0x03, 0x00, 0x02, 0x03, 0x02, 0x02,
++			0x01, 0x02, 0x00, 0x02, 0x02, 0x03, 0x02, 0x02, 0x03, 0x03, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "random10",
++		.src = {
++			0x92, 0x19, 0xf2, 0x2e, 0xb9, 0xb6, 0xf6, 0x71, 0xa3, 0x48, 0xd9, 0x10,
++		},
++		.expect = {
++			0x03, 0x01, 0x03, 0x01, 0x00, 0x00, 0x03, 0x02, 0x00, 0x02, 0x02, 0x03,
++			0x01, 0x00, 0x00, 0x03, 0x03, 0x02, 0x02, 0x03, 0x00, 0x02, 0x03, 0x00,
++			0x01, 0x00, 0x01, 0x03, 0x00, 0x01, 0x01, 0x00, 0x03, 0x02, 0x01, 0x03,
++			0x03, 0x00, 0x00, 0x03, 0x00, 0x02, 0x01, 0x00, 0x03, 0x01, 0x01, 0x00,
++		},
++	},
++	{
++		.name = "random11",
++		.src = {
++			0x84, 0xea, 0x64, 0x8c, 0xce, 0x29, 0xff, 0x18, 0xb5, 0xaa, 0xd9, 0xc2,
++		},
++		.expect = {
++			0x02, 0x01, 0x03, 0x02, 0x00, 0x03, 0x00, 0x02, 0x01, 0x01, 0x01, 0x02,
++			0x03, 0x00, 0x01, 0x00, 0x03, 0x02, 0x02, 0x02, 0x02, 0x03, 0x02, 0x02,
++			0x02, 0x02, 0x01, 0x00, 0x01, 0x00, 0x02, 0x01, 0x03, 0x03, 0x00, 0x02,
++			0x03, 0x01, 0x01, 0x02, 0x03, 0x00, 0x02, 0x00, 0x03, 0x01, 0x02, 0x00,
++		},
++	},
++	{
++		.name = "random12",
++		.src = {
++			0xcd, 0x3f, 0x4e, 0x27, 0xbb, 0x31, 0x06, 0x7a, 0xba, 0x97, 0xd3, 0xd4,
++		},
++		.expect = {
++			0x02, 0x01, 0x02, 0x02, 0x03, 0x01, 0x03, 0x00, 0x00, 0x02, 0x03, 0x03,
++			0x03, 0x01, 0x03, 0x01, 0x01, 0x01, 0x00, 0x00, 0x01, 0x03, 0x02, 0x01,
++			0x02, 0x02, 0x01, 0x03, 0x00, 0x02, 0x00, 0x01, 0x03, 0x02, 0x01, 0x03,
++			0x01, 0x00, 0x03, 0x03, 0x02, 0x00, 0x01, 0x02, 0x00, 0x03, 0x03, 0x03,
++		},
++	},
++	{
++		.name = "random13",
++		.src = {
++			0x3b, 0x64, 0x49, 0xd4, 0x40, 0x3f, 0xab, 0xf0, 0x0f, 0x87, 0x9a, 0xde,
++		},
++		.expect = {
++			0x00, 0x01, 0x00, 0x00, 0x03, 0x02, 0x02, 0x03, 0x02, 0x03, 0x03, 0x02,
++			0x00, 0x01, 0x00, 0x00, 0x02, 0x00, 0x03, 0x01, 0x03, 0x00, 0x03, 0x03,
++			0x02, 0x02, 0x01, 0x03, 0x03, 0x03, 0x03, 0x01, 0x02, 0x01, 0x00, 0x02,
++			0x02, 0x00, 0x02, 0x00, 0x03, 0x01, 0x00, 0x01, 0x00, 0x03, 0x02, 0x02,
++		},
++	},
++	{
++		.name = "random14",
++		.src = {
++			0x03, 0x13, 0x49, 0x5c, 0x3b, 0xc2, 0x1f, 0xb2, 0x71, 0x9a, 0x11, 0x17,
++		},
++		.expect = {
++			0x00, 0x03, 0x02, 0x02, 0x01, 0x00, 0x00, 0x03, 0x02, 0x00, 0x02, 0x03,
++			0x00, 0x00, 0x03, 0x01, 0x00, 0x00, 0x00, 0x02, 0x02, 0x02, 0x03, 0x03,
++			0x01, 0x01, 0x00, 0x02, 0x00, 0x02, 0x03, 0x02, 0x00, 0x00, 0x01, 0x03,
++			0x01, 0x00, 0x01, 0x03, 0x02, 0x01, 0x00, 0x03, 0x03, 0x01, 0x02, 0x00,
++		},
++	},
++	{
++		.name = "random15",
++		.src = {
++			0x53, 0x46, 0x16, 0xdb, 0xce, 0x68, 0x55, 0x35, 0x6d, 0x11, 0xe3, 0x4a,
++		},
++		.expect = {
++			0x00, 0x02, 0x02, 0x01, 0x02, 0x03, 0x01, 0x02, 0x00, 0x01, 0x02, 0x02,
++			0x00, 0x03, 0x01, 0x02, 0x00, 0x03, 0x00, 0x03, 0x00, 0x02, 0x01, 0x03,
++			0x00, 0x03, 0x01, 0x00, 0x03, 0x00, 0x02, 0x00, 0x03, 0x03, 0x02, 0x00,
++			0x01, 0x01, 0x03, 0x02, 0x01, 0x01, 0x00, 0x03, 0x01, 0x00, 0x01, 0x03,
++		},
++	},
++};
 +
-+#endif /* __SOUND_USB_JOCKEY3_PLOYTEC_CODEC_H */
++static const struct ploytec_decode_vector ploytec_decode_vectors[] = {
++	{
++		.name = "zeros",
++		.src = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "ones",
++		.src = {
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++			0xff, 0xff, 0xff, 0xff,
++		},
++		.expect = {
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++		},
++	},
++	{
++		.name = "ramp",
++		.src = {
++			0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
++			0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
++			0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f, 0x20, 0x21, 0x22, 0x23,
++			0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
++			0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b,
++			0x3c, 0x3d, 0x3e, 0x3f,
++		},
++		.expect = {
++			0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33,
++			0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f,
++		},
++	},
++	{
++		.name = "bitplane0_only",
++		.src = {
++			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
++			0x01, 0x01, 0x01, 0x01,
++		},
++		.expect = {
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "bitplane1_only",
++		.src = {
++			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
++			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
++			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
++			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
++			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
++			0x02, 0x02, 0x02, 0x02,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "bitplane2_only",
++		.src = {
++			0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
++			0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
++			0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
++			0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
++			0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
++			0x04, 0x04, 0x04, 0x04,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++		},
++	},
++	{
++		.name = "group0_only",
++		.src = {
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00,
++		},
++		.expect = {
++			0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00,
++			0xff, 0xff, 0xff, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "group1_only",
++		.src = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff,
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff,
++			0x00, 0x00, 0x00, 0xff, 0xff, 0xff,
++		},
++	},
++	{
++		.name = "unused_bytes_only",
++		.src = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff,
++			0xff, 0xff, 0xff, 0xff,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "unused_bits_only",
++		.src = {
++			0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
++			0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
++			0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
++			0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
++			0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
++			0xf8, 0xf8, 0xf8, 0xf8,
++		},
++		.expect = {
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++			0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++		},
++	},
++	{
++		.name = "random00",
++		.src = {
++			0xc6, 0xd8, 0x5e, 0x8e, 0xac, 0x3a, 0xa9, 0x38, 0x25, 0x20, 0xcb, 0x47,
++			0x26, 0xd0, 0x86, 0xb5, 0xf4, 0xfd, 0x71, 0x3c, 0xb2, 0xed, 0x50, 0x06,
++			0xa5, 0x48, 0x62, 0xc1, 0xa5, 0x7f, 0xc7, 0xc5, 0xcd, 0x91, 0x98, 0xa8,
++			0x8b, 0x35, 0x5a, 0x0c, 0x3e, 0xdc, 0x33, 0xf7, 0x3d, 0x8a, 0x15, 0xf6,
++			0x5e, 0xac, 0x64, 0x96, 0x33, 0x8c, 0x4b, 0xf4, 0x83, 0xa5, 0x41, 0x86,
++			0xfd, 0x51, 0xe5, 0x15,
++		},
++		.expect = {
++			0x64, 0xb1, 0x02, 0x0a, 0x3a, 0xcc, 0x09, 0x3a, 0xb4, 0x9a, 0xb5, 0x0a,
++			0xd5, 0x9b, 0xb8, 0xf5, 0xdb, 0x85,
++		},
++	},
++	{
++		.name = "random01",
++		.src = {
++			0xcd, 0xae, 0xb2, 0x51, 0xf0, 0x30, 0xf7, 0xf1, 0xda, 0x22, 0x94, 0x5d,
++			0xd4, 0x48, 0x69, 0xa6, 0x37, 0x76, 0xd1, 0x4e, 0x58, 0xb0, 0xdf, 0x86,
++			0x19, 0xa5, 0x1d, 0x27, 0x62, 0x3a, 0x41, 0x4a, 0x1d, 0xa6, 0xe1, 0x9a,
++			0x44, 0xe0, 0x6a, 0x40, 0xf5, 0xc2, 0x2f, 0x9b, 0xf4, 0x8e, 0xcb, 0x7c,
++			0x9c, 0xfd, 0x51, 0x89, 0x40, 0x75, 0x99, 0x2d, 0x4b, 0xda, 0x29, 0x14,
++			0xfc, 0xd2, 0x9b, 0x13,
++		},
++		.expect = {
++			0xa2, 0x12, 0x93, 0x77, 0xb2, 0xa0, 0xd3, 0xc1, 0x62, 0x00, 0x76, 0x52,
++			0xd3, 0x39, 0xc2, 0xc5, 0xad, 0xc8,
++		},
++	},
++	{
++		.name = "random02",
++		.src = {
++			0x8e, 0xae, 0x5e, 0x59, 0x19, 0x93, 0xfd, 0x3b, 0x27, 0x0a, 0x8e, 0x06,
++			0xfe, 0x31, 0xb2, 0xab, 0x7e, 0xc0, 0xaa, 0xe8, 0x13, 0x52, 0x24, 0x71,
++			0x4b, 0x2f, 0x0d, 0x71, 0xf6, 0x9c, 0xc5, 0x3f, 0x12, 0x07, 0x45, 0xb1,
++			0xff, 0x89, 0xe3, 0x86, 0x60, 0x41, 0xd4, 0x82, 0xc2, 0xbe, 0x01, 0x48,
++			0x17, 0x7c, 0x8c, 0x42, 0x4f, 0xba, 0xc1, 0xed, 0xb9, 0xf3, 0xb4, 0xfc,
++			0xa8, 0xb9, 0x1e, 0xc0,
++		},
++		.expect = {
++			0x09, 0x85, 0x1f, 0x8b, 0x42, 0x7e, 0xac, 0xfb, 0xe5, 0x9c, 0x1c, 0xcb,
++			0x82, 0xb8, 0xe2, 0xe9, 0x24, 0x69,
++		},
++	},
++	{
++		.name = "random03",
++		.src = {
++			0xb4, 0xbd, 0x6e, 0x34, 0xa0, 0x24, 0x1f, 0x6f, 0x5d, 0x79, 0x0e, 0xa6,
++			0x86, 0x6e, 0xfd, 0x0d, 0x27, 0xa3, 0x08, 0x71, 0x06, 0xc2, 0xd9, 0x68,
++			0xc4, 0xbc, 0x4e, 0xd6, 0x36, 0x0c, 0x5a, 0xaa, 0x7c, 0xf0, 0xbb, 0x88,
++			0xc4, 0x96, 0xb2, 0x49, 0x76, 0x66, 0xee, 0xae, 0x3e, 0x2b, 0xaa, 0x14,
++			0x6d, 0x6f, 0xcd, 0x58, 0x3e, 0x59, 0x50, 0x2b, 0xf7, 0x92, 0x3b, 0xf0,
++			0x80, 0x8d, 0xd4, 0x16,
++		},
++		.expect = {
++			0xd2, 0xc3, 0x43, 0xe5, 0x04, 0x21, 0xcc, 0x3c, 0x23, 0x49, 0xfe, 0x26,
++			0x88, 0xbf, 0xf7, 0xe8, 0xf9, 0x8c,
++		},
++	},
++	{
++		.name = "random04",
++		.src = {
++			0xef, 0x44, 0xa5, 0x78, 0x0f, 0x7d, 0xfe, 0x17, 0xa4, 0xd2, 0x30, 0x98,
++			0xbf, 0xc5, 0xb6, 0xda, 0x4f, 0x6b, 0xde, 0x5f, 0x1d, 0x3c, 0xe7, 0xe6,
++			0x46, 0x7f, 0x70, 0x00, 0xa4, 0x5d, 0xa3, 0xef, 0x7b, 0x9f, 0x64, 0x0e,
++			0xc4, 0x09, 0x25, 0xfa, 0x85, 0x83, 0x13, 0x18, 0x06, 0x26, 0x87, 0x6b,
++			0x94, 0x56, 0x89, 0xc6, 0x12, 0x38, 0xd1, 0xd5, 0xd1, 0x76, 0xf4, 0x00,
++			0x1d, 0xe9, 0xa4, 0xd8,
++		},
++		.expect = {
++			0xda, 0x0c, 0xad, 0x23, 0xe3, 0xc6, 0xf3, 0x4b, 0x8b, 0x58, 0x6f, 0xd1,
++			0xbf, 0x8e, 0xef, 0xd1, 0x8e, 0x7a,
++		},
++	},
++	{
++		.name = "random05",
++		.src = {
++			0x3d, 0x21, 0xf0, 0x7d, 0x1b, 0xd9, 0xf9, 0x41, 0xad, 0x31, 0xe2, 0xea,
++			0x59, 0x26, 0x84, 0xbb, 0x9a, 0xf8, 0x6c, 0xaa, 0x7f, 0x9a, 0x5a, 0x9a,
++			0xb7, 0x58, 0x2d, 0x47, 0xc8, 0xd9, 0x26, 0x94, 0x16, 0xac, 0xc8, 0x30,
++			0x03, 0xd0, 0x65, 0x2b, 0x36, 0xba, 0x6f, 0xf8, 0xdb, 0x56, 0xbf, 0x58,
++			0x2d, 0xb9, 0x98, 0x21, 0xe8, 0x60, 0x2f, 0xe8, 0x08, 0xad, 0xb8, 0x29,
++			0xe0, 0xe1, 0x30, 0xb4,
++		},
++		.expect = {
++			0x08, 0xc9, 0xdf, 0xd2, 0x2a, 0x0b, 0x9f, 0x35, 0x08, 0x02, 0xee, 0x89,
++			0x28, 0x86, 0x90, 0x82, 0xa6, 0xc2,
++		},
++	},
++	{
++		.name = "random06",
++		.src = {
++			0xee, 0x50, 0x9e, 0xc6, 0x2f, 0x39, 0xbe, 0xdc, 0xdf, 0x36, 0x4a, 0xea,
++			0x87, 0x86, 0x56, 0x36, 0xe2, 0xd8, 0x5e, 0x9c, 0x30, 0xb7, 0x21, 0x54,
++			0x3d, 0x11, 0x84, 0x67, 0x00, 0xb9, 0x0c, 0x21, 0x7a, 0x27, 0x27, 0xd5,
++			0x78, 0xc0, 0xf2, 0x12, 0xcb, 0x75, 0xb6, 0x4a, 0x6e, 0x0e, 0xc6, 0x4f,
++			0x19, 0xe5, 0x27, 0xcb, 0xef, 0x20, 0xa9, 0x7e, 0x8f, 0x71, 0xcc, 0x67,
++			0x01, 0x24, 0x65, 0x42,
++		},
++		.expect = {
++			0x06, 0x88, 0x0c, 0xfa, 0xc1, 0x70, 0xa4, 0xff, 0xba, 0x39, 0xbf, 0xe3,
++			0x35, 0xcf, 0xbb, 0x69, 0x6f, 0x70,
++		},
++	},
++	{
++		.name = "random07",
++		.src = {
++			0xe5, 0xe6, 0xd4, 0x3d, 0x9c, 0x02, 0xbe, 0xd4, 0x8e, 0x97, 0x53, 0x62,
++			0x8c, 0xad, 0x44, 0x9f, 0x92, 0x01, 0xf2, 0x87, 0xcc, 0xd6, 0x89, 0xd6,
++			0x2a, 0xa3, 0xe1, 0xa8, 0xc6, 0xde, 0x45, 0x14, 0x35, 0x48, 0xec, 0x8e,
++			0xa3, 0x67, 0x56, 0x9b, 0x7e, 0x39, 0x88, 0xc5, 0x1a, 0x8e, 0xc9, 0x9f,
++			0x15, 0xbe, 0x04, 0x2a, 0xb4, 0xaa, 0x51, 0xa4, 0xe4, 0x64, 0x9c, 0x0f,
++			0x6d, 0xe9, 0x01, 0x87,
++		},
++		.expect = {
++			0x52, 0x65, 0x90, 0x82, 0x53, 0x8d, 0xb5, 0xf1, 0x46, 0x54, 0x8d, 0x1f,
++			0x1d, 0xcf, 0xfb, 0xe9, 0x95, 0xb6,
++		},
++	},
++	{
++		.name = "random08",
++		.src = {
++			0xe6, 0x2a, 0xbf, 0xe4, 0x65, 0x8e, 0xe8, 0x56, 0xcc, 0xf7, 0x9c, 0xce,
++			0xcc, 0x26, 0xbf, 0x43, 0xde, 0xac, 0x2f, 0x15, 0x21, 0xd6, 0x96, 0x2a,
++			0x41, 0xe3, 0x77, 0x00, 0x97, 0xe8, 0xde, 0x17, 0xcc, 0x3f, 0xe4, 0x68,
++			0x81, 0x04, 0xae, 0x8e, 0x5c, 0xec, 0x4b, 0x75, 0x91, 0x3f, 0xe6, 0x4c,
++			0xa4, 0xbb, 0xdd, 0xf0, 0x78, 0xee, 0xf1, 0x61, 0xee, 0x9b, 0xff, 0xed,
++			0xd4, 0x1d, 0x08, 0x4d,
++		},
++		.expect = {
++			0x38, 0x43, 0x28, 0x63, 0x3c, 0x48, 0xa7, 0x57, 0xe5, 0x44, 0x26, 0x43,
++			0xf6, 0xfe, 0xbd, 0xa4, 0xd7, 0xe7,
++		},
++	},
++	{
++		.name = "random09",
++		.src = {
++			0x79, 0xce, 0xe6, 0x42, 0xf3, 0xe2, 0x01, 0xc7, 0x00, 0x7c, 0x86, 0xab,
++			0x74, 0x1c, 0x27, 0x73, 0xe4, 0x11, 0x64, 0x17, 0xe3, 0x04, 0x8c, 0x6d,
++			0xac, 0xc7, 0xb4, 0x76, 0x0f, 0xda, 0x0e, 0x8e, 0x56, 0x3d, 0x2d, 0x21,
++			0x1b, 0xee, 0xf3, 0x57, 0x94, 0xf1, 0xed, 0x35, 0x3b, 0x68, 0x4d, 0x96,
++			0x62, 0x84, 0xaa, 0xe3, 0xb1, 0x68, 0xdf, 0x21, 0x0b, 0xc5, 0xe2, 0x36,
++			0x7d, 0x34, 0xb7, 0xab,
++		},
++		.expect = {
++			0x59, 0x13, 0x8b, 0x1b, 0x7a, 0x7b, 0x18, 0x33, 0x7d, 0xb2, 0x09, 0x8f,
++			0xb7, 0x6e, 0x61, 0x42, 0xb3, 0xe5,
++		},
++	},
++	{
++		.name = "random10",
++		.src = {
++			0x15, 0x04, 0xd5, 0x8f, 0x8a, 0xd6, 0x4a, 0x71, 0xed, 0x8e, 0xdc, 0xb1,
++			0x95, 0x6a, 0xec, 0x57, 0xf2, 0x4e, 0x55, 0xbc, 0x7e, 0x1b, 0xb4, 0x21,
++			0x7d, 0xbe, 0x5f, 0xf7, 0x04, 0x0f, 0x47, 0x7d, 0x02, 0xce, 0x92, 0x6c,
++			0xce, 0xd7, 0x1d, 0x7d, 0x93, 0xb6, 0x79, 0x7a, 0x75, 0x10, 0xb9, 0x96,
++			0x68, 0x14, 0xae, 0x41, 0xe1, 0x3b, 0x3a, 0x6e, 0xa3, 0x47, 0x26, 0x8f,
++			0x26, 0xe7, 0x7c, 0x79,
++		},
++		.expect = {
++			0x25, 0x99, 0xb1, 0x1c, 0xaa, 0x07, 0xcc, 0x45, 0x1e, 0x27, 0xd1, 0xec,
++			0x7a, 0xeb, 0xf4, 0x61, 0x49, 0x5f,
++		},
++	},
++	{
++		.name = "random11",
++		.src = {
++			0x6c, 0x13, 0x40, 0xe8, 0x4e, 0x10, 0x1c, 0x98, 0xee, 0x6d, 0xa3, 0x78,
++			0x32, 0x8b, 0x6a, 0x99, 0x70, 0x92, 0x40, 0xe3, 0x69, 0x54, 0x3b, 0x3b,
++			0x4e, 0xc1, 0x42, 0xdf, 0xb3, 0xe5, 0x65, 0x1b, 0x54, 0x27, 0xf5, 0x3f,
++			0xba, 0xb0, 0x6c, 0x27, 0x0a, 0x05, 0xde, 0x53, 0xb7, 0x7c, 0xf3, 0x50,
++			0xc3, 0xa5, 0xdf, 0xef, 0x83, 0xbf, 0x4f, 0x10, 0xfd, 0xd9, 0x75, 0xea,
++			0x57, 0x43, 0xf8, 0xf0,
++		},
++		.expect = {
++			0x1b, 0x65, 0x40, 0xfe, 0x5a, 0x71, 0x53, 0xae, 0x48, 0xbe, 0xba, 0x59,
++			0x04, 0xc0, 0x8a, 0x76, 0x6c, 0xf3,
++		},
++	},
++	{
++		.name = "random12",
++		.src = {
++			0xd8, 0x7b, 0xd5, 0x75, 0x28, 0xb5, 0x18, 0x63, 0x15, 0xbc, 0xf2, 0xac,
++			0xcd, 0x26, 0x4f, 0xbe, 0xdf, 0x80, 0x99, 0xa0, 0x33, 0x2e, 0x99, 0xe7,
++			0xd0, 0x8a, 0x60, 0x0b, 0x6a, 0xd6, 0x17, 0xed, 0x0e, 0xd3, 0x84, 0xa6,
++			0x12, 0xe5, 0x88, 0xaa, 0x66, 0xac, 0x45, 0x64, 0x7e, 0x9d, 0xf3, 0x9c,
++			0xae, 0xa3, 0x18, 0x10, 0x64, 0x0f, 0xdd, 0xd8, 0x8a, 0xaa, 0xd6, 0xde,
++			0x63, 0x16, 0xc0, 0x12,
++		},
++		.expect = {
++			0xab, 0x8a, 0x75, 0x46, 0x26, 0x44, 0x8d, 0x27, 0x41, 0xc4, 0x8a, 0xd9,
++			0x85, 0xdf, 0x34, 0x8e, 0xfd, 0xb4,
++		},
++	},
++	{
++		.name = "random13",
++		.src = {
++			0x9a, 0x97, 0x1c, 0x40, 0x5b, 0xdf, 0x25, 0xd2, 0xc3, 0x5b, 0xa8, 0xfe,
++			0xf0, 0x61, 0x70, 0x8a, 0xbe, 0x66, 0x51, 0x59, 0xc0, 0x69, 0x4c, 0xc3,
++			0xf7, 0x2f, 0xb5, 0x48, 0xd2, 0x7a, 0xff, 0x5a, 0x15, 0xd2, 0xa6, 0x5e,
++			0xa6, 0x0c, 0xad, 0xdf, 0xce, 0xf6, 0x19, 0x27, 0x28, 0x85, 0x13, 0xd5,
++			0xbd, 0x68, 0xd5, 0x5f, 0x39, 0x8b, 0x34, 0xd0, 0x95, 0x9c, 0x48, 0x29,
++			0xd7, 0x89, 0x14, 0xc0,
++		},
++		.expect = {
++			0x35, 0xc4, 0x4e, 0xbc, 0x37, 0x83, 0xc1, 0xd1, 0xcd, 0x14, 0xd2, 0x79,
++			0xc2, 0x10, 0x66, 0xb2, 0xd5, 0xbf,
++		},
++	},
++	{
++		.name = "random14",
++		.src = {
++			0xbf, 0x78, 0x65, 0x38, 0xf3, 0x58, 0x09, 0x9f, 0x34, 0x5c, 0x40, 0x2d,
++			0xb6, 0xd3, 0x47, 0x04, 0xdb, 0x5f, 0x69, 0x4b, 0x4f, 0xc3, 0xbd, 0xd9,
++			0x5f, 0xf5, 0xcd, 0x94, 0x3b, 0x0c, 0x59, 0xe3, 0x13, 0xc4, 0xd3, 0x34,
++			0x07, 0x47, 0xa5, 0x1a, 0xc3, 0xb8, 0xe3, 0x45, 0xc8, 0x0b, 0x11, 0x9d,
++			0xb3, 0x9a, 0x87, 0x4a, 0x61, 0xb2, 0x99, 0x65, 0xcb, 0xc8, 0x69, 0xb4,
++			0xa3, 0x98, 0x72, 0xd4,
++		},
++		.expect = {
++			0xff, 0x16, 0xab, 0xab, 0xb7, 0xae, 0xdc, 0x0e, 0x89, 0xf4, 0xa4, 0xad,
++			0x4a, 0xdb, 0xa1, 0x21, 0x11, 0x5e,
++		},
++	},
++	{
++		.name = "random15",
++		.src = {
++			0x55, 0xab, 0x93, 0x08, 0xcd, 0x6a, 0x50, 0x3b, 0x0e, 0xc6, 0x2b, 0x52,
++			0x3c, 0x10, 0xc8, 0x4f, 0x37, 0xfc, 0x1c, 0xde, 0x49, 0x6f, 0x08, 0x0a,
++			0x4a, 0x39, 0xa9, 0x99, 0x14, 0xb6, 0x91, 0xf2, 0x4d, 0x09, 0x00, 0x3f,
++			0xf2, 0x8c, 0x48, 0xdf, 0x3f, 0x05, 0xfb, 0xb1, 0xec, 0xb3, 0xee, 0x42,
++			0xb7, 0x8d, 0xce, 0xc9, 0x3e, 0x81, 0xcc, 0x94, 0x0b, 0x63, 0x8d, 0xbf,
++			0xa3, 0xc9, 0xa8, 0x24,
++		},
++		.expect = {
++			0x8c, 0x21, 0xe9, 0xd4, 0xf4, 0xd1, 0x95, 0xf1, 0x65, 0xa8, 0xa7, 0x19,
++			0xf4, 0xc9, 0x88, 0xeb, 0xca, 0x95,
++		},
++	},
++};
++
++#endif /* PLOYTEC_CODEC_TEST_VECTORS_H */
 -- 
 2.47.3
 
