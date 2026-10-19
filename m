@@ -1,245 +1,173 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA9D47085F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:50:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19AC5AB91E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792421434; cv=none; b=Ao2N02bvesLZK5YbG+YH4VrOlnuAhz6XS8o7ToYm2/LNVSpk+6rBq+y5KoZxFl44ZjwI1Wpj5Mt3KPV7NMEo0KOMWQRSKDZGyxpIgRwnWJkfaeZeoWSJbcQsMZWgTw7l6KB0mqKtlj0CyyyXFLL4ewU+XR4qCG3pe8kP+aX0CTQ=
+	t=1792421460; cv=none; b=et8mRgY493y93RlGAyK+Qd+LwBiVCN++xxd0U+KTsfmoQeoOThhX3mN97T2Jc1h2tWPxEmz7BxuBelaRJw/wvpcvX0FPMEYfejoQOLEBR1Dd8FM7OVJQM1PcHVJR9cIvw70rIEI2rDKSgDbjacRnF1DR51AOjxq0SW1jvMjMzHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792421434; c=relaxed/simple;
-	bh=wtX4z4+vi/+J0AIUhcbUmcocOJ34GtjGcn2/Xz4ENm0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dIE5gxUqi7AeK6E8imUT29F0+ZTjKpeeQRCqYbqh1ZzKAw6hxLcTJq+AlW8NqCYBe/T2C/BlyCa+FYm7wZHj6BOI+k1SMrtFr0yd/tIm/SBGVZjTcsUn9kuvDezgNTrc90sbi+sf/Ycjw01DT0vRzC+9NWHCJnKN+3onx8S4AFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HNrMrmPq; arc=none smtp.client-ip=74.125.82.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792421460; c=relaxed/simple;
+	bh=b1+JvOKFur6JYDex/9XHOzlFZjLyOieoNE0wIik5Vag=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HvtGoGEWz16mwRcp60COnm9n/Iugr/jylBdMmybUEkXfdPRMl7EL/ZmQPb4PNDarjeNhsmyIdw8KnH5iVfLyLd3WgKiPKeasnswAY0YFTlNfm+d7mzWu4spTQRK9ccZTpJDkWt6/1s1+yXezKiWfRgDD9dcfpdaEOGDuQFiBRcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RHPR9BiV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LDl+2orT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HNrMrmPq"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-355724d032fso253678eec.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:50:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RHPR9BiV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LDl+2orT"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JE09P83485662
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:50:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=GXN0spHEq1C0VgRVmQrse2LW
+	1BQTtrwLR6Yclzmletg=; b=RHPR9BiV+Pp46tCGRgWnCm6kVOm7I/lyfYhFO8HP
+	1PQjpgQwl4BH0mRWqlrqXh9L7o4SpPrBpsvGK4Ebhm9It1tdihoVzl9LigmzXNT0
+	Q0jMYOLXCnMcK2397V19FF532TP+pZk8FXPRp+GSkHDo6jFsM8b/wTSBqIpBJnsv
+	8fdDfS/EsC7SHqnIZ5t2hR42GMlOO9mBZu+XCBHZ7ySVwmXgqY3FuIc5cevHYlg0
+	2svh8F2wZFAMcwIcRsOCDl/UsQ3XzuCSjonJABKlBOLOpU08IEw7fK7MyO7OHOeE
+	Y6b5CaZOeux7LlW5/XanjzUrrcX6+FbIecl85RCOE9VWJQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf48hq17-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:50:57 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93caf6c528aso373351985a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:50:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792421432; x=1793026232; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1792421457; x=1793026257; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=LovpYfxn/g97ME2UuZhbRE4X+t8nS3wo/zMXi49f1I8=;
-        b=HNrMrmPqW4eVVcWrvK3yQNbSjwZ4FTzq8EnEe5KHdEHmwLEZ2hnKozgeK2cQFF4KVr
-         oeud8EC+g5NIMDlSKrQBX6vCllV49WwNWoNmRJ6YNSUCCEIXKPEPN5NeXqJcaVtB/wYK
-         HU+y+s8AHErpYNDxVqV2nJ3QbS4VyJ0bEozyuc6KY3xUcuWa/WRYlYx7TEeuIs0TBVdq
-         y01mIdFB8pHMi5d/yh8cYlPjnAcq0gLPSed2P7qjz3sQr+5V/sCHrh5ABku23R44rP3R
-         jZUCexaKPUgQY1f7gTEMUG6s6dJKS42YCoP1IqLcY/kYxmneHdKk/cQIe1CjedzoDJyU
-         QqOw==
+        bh=GXN0spHEq1C0VgRVmQrse2LW1BQTtrwLR6Yclzmletg=;
+        b=LDl+2orTrwB2oHE3cOUURKPzVMW1ry6iRZf6URlLwCB5fsJhiPSBYtB31JxQ5WQ8Ca
+         z4000GpZJHGAtrpIjDFUqtHDLkesrhAcZ4vR6s42mua9YCUsCZqpt8xr+TJdhgGgSEAo
+         MRJPYq6b4B45MZAREXD4Kdsp9edTkbiDdKQzO2NTvrPXtdrzpFpcnfRFeq0kfaQTFD6k
+         LD34a44pGeWLm3hCSfUyomFcAw7sYrnQySZGerwMMsk8XgKnHdNP5RqgwCUWrf4B7qLW
+         1qzHpCmehvvoo0PKFONnXsdJEMiWcxcw1QuY4/R78ZraIxY+QQrdeAGxaH6I4m2kvrvb
+         Nygw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792421432; x=1793026232;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792421457; x=1793026257;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LovpYfxn/g97ME2UuZhbRE4X+t8nS3wo/zMXi49f1I8=;
-        b=aLpoa+B2IRKccd7t/Jcgzy50nWsm0nYagOFUktEbKxEleREuYq2VXiGsxzxBd7z0F7
-         79QRvYt58vHzXRjt+nMc0EJPE4qsinfwoOOVG6F9Y6X1gwLv7JQ429fkh37h2Ky7Ec0a
-         mkYgu07a/7hmCThXE1PZ03KNfSJOGw96ISpIOPraUqr7YO5HV7q4Hq/Zyc8k0vyP11x+
-         h/2GwgM/gQ9n0cZiVry7PgYObg77HB74LEzY+0fWCvSVx3bJYT2KOnOD6qgHM4x3cIcp
-         CD3x2Q5uXtTyBpjbQiSaceo6uD+OLkhaHE7fsulXO1BVAoabuQo2V2z14l87HGjvnQqu
-         x2Cg==
-X-Forwarded-Encrypted: i=1; AKwUvBzOn+nfl06sXxGRVqgVTKelC90xJxsZMwMU4xe2Keg1xK5hBjAbuodRerccjts0UsdLTx/tjYNK71CsFrE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRClBN5qpPbB+2B3qhiF5NkgDMz8b0lhwCjnn3wed106oj+S+t
-	m4oCB3yQ1r1Lm8BEEWNR7B/TywtufaM/dVuukdkq1zd5UsmjiQcvOqYG
-X-Gm-Gg: AYBFou33ejZdEV1eQCh4YdYtGjLOVWOhYnaq0cD4SnyaVnicuELbqSUhHPmhZbKxDk7
-	Kj3+cLojvLywrmR05v5WH4bm3IeGxB6jRfAebdY6G2xoefwtCohHCmG96cF2/Z0RWlsJdZ+MFy1
-	KoBAI6mpsl4wZXkVc1zckJQc/ipI80GpfHZWIKRH6vixZoOtwdVHEP2A9L/HMb2JwdQiMDZOMaZ
-	d7pw+u02S+2wKqVw7gNasvrMFlPk8t54Aks+UY9Gy6jPT1su2O07aiYz36TfwKCfMdLeATK+mMn
-	hKFKmL+fhGEJH3/KvS3w5qeEs+EVSKCCkTBm4pGjaN5oNEQ36hTPE8iUztexW2mdqpqhfQCGk8e
-	47f/dW389Dkul4lmFuXHrfNpHAILoYVw4gEeigkEjA8R1mikyOnQXBo8y3EGpqbvOrHhl6CB6lr
-	+WysvnzuFsNt4OPAofHyqD14D7yprAiWFuQy0RSKl+hr/JK3t3qFFrbvAO5/dnpEH/USske/fST
-	XJybmT6QHUyyJBwrEzRANUnn5o0SzAoKeg8
-X-Received: by 2002:a05:693c:20d2:10b0:35f:8c5d:5938 with SMTP id 5a478bee46e88-3619ffc5b52mr19048848eec.1.1792421431765;
-        Mon, 19 Oct 2026 07:50:31 -0700 (PDT)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b684dsm32864621eec.10.2026.10.19.07.50.21
+        bh=GXN0spHEq1C0VgRVmQrse2LW1BQTtrwLR6Yclzmletg=;
+        b=KX2TWPox4lt/lTWdlNwP5HUkkBqSbOrCMPFdtiBHiCBZjRy3WDKnFLVod5bbyU9MuN
+         c184RHTtrK4Fvfv7VxWkcLUVqHBxvHP/D2eqQSBaL8BherQl2BRhvQiitHON3kyNETef
+         X2i8BFfUnIwZBfpG1bkfNuqRFx357PlHlPc+4e+hSTl8dPedzaaNCh5bIiv9t4kxOo+H
+         hiPCQBoU5REiGiLsCqxcHBNTnKzD14HQWGj0oka2pUFXQm0pSBYYzu/QrQe0gSTbjYCg
+         eWzcUYX2dA+5XZxTB5uqOY2hkryxcjUQ8tVvQW09Apd6n4QRa/hTvYXY/XUO4VrZGRbL
+         KD0w==
+X-Forwarded-Encrypted: i=1; AKwUvBy/cVE0D4HMZs2So6FrhydOBKqBS93JINlqVXR730vh8c1spzKmLYxIXs5EGteoAuoxo9Cehvob0caMy0s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLijyQVaxmO7Tuna2V6pZMhgf6cC1ziaqWhkWiFqjgPlG53vql
+	RzdHKBinASCpS5ztS60gFlPFHXxgjiEdgKO7qCzYkZGd1SJaroqdB7Ugt8gqI2KsrBjTXYpjGum
+	EXlF+liAthCWQDEDylqZioNX3yEI4kwUIQwTa+crkWVMFQXUAfLzOmGpqhcXVBlUqW0o=
+X-Gm-Gg: AYBFou3Pm4Zt524P4N1NaMqCkOvZ030n4WPsi3n66QZV++NmUMJQkpfVUC0b1w5lVll
+	rBy1u0fnhfw8ZH4SNP5vjxu6JN35kX6ooQNhB8eiIlgB8CPaVQnH99DFqrgSpqfyKa9BFaxcBQi
+	D8e+eFmRPRaqmlRy+7Ae80fTwfKwKJ+KjZbxle95lSwCHVoOZAtzkaOyWBRsQEF2QOHaEeRt3H9
+	4UV/29+EwfEUoi9U2AO0rRybTHPQ99+KiS8OQiYW8lWyrPNSv1fwFCNGMTEpZmxLKvFh/jTduVs
+	IwvvfkrUYH1rxCbemDodtrD/FFWIWhniohIpy4QSup891Bi38ohcDOP1+f3vlaVEQ8oI3bt1rPg
+	ugWvCpIDpnVKG93yAla/oIAQvMtv9aiG9iGT0KiaX8I2RGDoTUi78ZsI6eKgvbNCg9W4IsJl1Kl
+	Iv21BXALGM33T0
+X-Received: by 2002:a05:620a:3715:b0:93e:c12c:9dd3 with SMTP id af79cd13be357-93f29e0afd2mr1290427885a.83.1792421456850;
+        Mon, 19 Oct 2026 07:50:56 -0700 (PDT)
+X-Received: by 2002:a05:620a:3715:b0:93e:c12c:9dd3 with SMTP id af79cd13be357-93f29e0afd2mr1290423885a.83.1792421456391;
+        Mon, 19 Oct 2026 07:50:56 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a434ea1sm2164210e87.41.2026.10.19.07.50.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 07:50:30 -0700 (PDT)
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: dev.jain@arm.com,
-	zhangbo56@xiaomi.com
-Cc: akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	david@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	zhaonanzhe@xiaomi.com,
-	lipengfei28@xiaomi.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	zhangbo0325@gmail.com,
-	Xueyuan Chen <xueyuan.chen21@gmail.com>
-Subject: Re: [RFC PATCH v2 2/4] mm: compaction: target mTHP order for proactive compaction
-Date: Mon, 19 Oct 2026 22:50:17 +0800
-Message-ID: <20261019145017.3900448-1-xueyuan.chen21@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <8e54025a-03da-4cba-bae8-1604463c7622@arm.com>
-References: <8e54025a-03da-4cba-bae8-1604463c7622@arm.com>
+        Mon, 19 Oct 2026 07:50:53 -0700 (PDT)
+Date: Mon, 19 Oct 2026 17:50:51 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Jonathan Marek <jonathan@marek.ca>, Bryan O'Donoghue <bod@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8250: add camcc interconnect
+ cells
+Message-ID: <usade5zkrncpry4ufbdtaahoa2zyd5hx7tjgfvzfte2aqbkgs7@t3mej4maj6za>
+References: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com>
+ <20261016170701.1504338-4-atanas.filipov@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016170701.1504338-4-atanas.filipov@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1OSBTYWx0ZWRfX8GeCADrYTUFy
+ 4H0u+S11pk5rfxVoemhIozsfoa4Fvx/O3O1kDlX+8ltDmxJQHp86g0jqi4KDnaGUkRnn+Iq3vxX
+ v+l6z+SRjDjly5y0uOHY7gUzrQItrmtQ1TEMe+cDin/LHqnrjkjmDx0R3ns3y6sTicHva2RGkqV
+ 6hPfHrnFzRwjCddEHa/wxC8nqKpjmcxY9tpIW9XzquJ9zB0ia6tto40GYQ0b+HvmocChPs2NAaA
+ FtkmC1264hXEOOrOOLDceJMoQoxAZ6sQ4QMpiIialmDFKy8DGRm0KVazxZY+F5TRJp2ZN/XlP+9
+ mGO12WEu2p6V5LXn6U3hKjYSBiBdoxwT3E+Tu3ln4cpUV1dOSVe59pa60loJ1inmfrWkjag65MW
+ C/7HRIRRsfArgeJ5YAnA3QepEC+WqHV89vB6FNECMM+CxLVe491MaIeDLEuDG8OnaSe4g1IM1lV
+ Vnc68aYb8dCA1hS9SQw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1OSBTYWx0ZWRfX8Uh8bHoZcGH1
+ JBg6L33KnY9pYW6Q/qprGlD2q30oEyLLJG9HcuzzuxOiFP4eov8j/3YFAssPKimyi/weiQOfkxb
+ RTwHUYAIjA2BtRur7wyZ4yXjlpkMkyM=
+X-Proofpoint-ORIG-GUID: ctC1K9m80MEP_u2X_U2756hQ2uxWMzaM
+X-Authority-Analysis: v=2.4 cv=Qr/LTlyd c=1 sm=1 tr=0 ts=6ad62e51 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=k6MwsNlTf8-CDefABFAA:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: ctC1K9m80MEP_u2X_U2756hQ2uxWMzaM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_04,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190059
 
+On Fri, Oct 16, 2026 at 08:07:01PM +0300, Atanas Filipov wrote:
+> Add #interconnect-cells to the camera clock controller so camera
+> consumers can request camera NoC AXI bandwidth through the
+> interconnect framework.
 
-On Mon, Oct 19, 2026 at 01:42:55PM +0530, Dev Jain wrote:
->
->
->On 01/10/26 5:44 am, Bo Zhang wrote:
->> Proactive compaction triggers against COMPACTION_HPAGE_ORDER (order-9),
->> which is too heavyweight and misdirected for mTHP systems where the
->> pressure is on smaller orders like order-2.
->> 
->> Add compact_hpage_order() to return the highest always-enabled anonymous
->> mTHP order, and use it as the proactive compaction target in
->> should_proactive_compact_node(), __compact_finished() and kcompactd().
->> 
->> Fragmentation scores are not comparable across orders, a small order
->> scores much lower for the same state, so scale the proactive watermarks
->> down in proportion to the target order, otherwise order-2 would rarely
->> reach the order-9 threshold.
->> 
->> Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
->> ---
->>  mm/compaction.c | 40 ++++++++++++++++++++++++++++++++--------
->>  1 file changed, 32 insertions(+), 8 deletions(-)
->> 
->> diff --git a/mm/compaction.c b/mm/compaction.c
->> index ecd3e6cf54fc..3928a5483efc 100644
->> --- a/mm/compaction.c
->> +++ b/mm/compaction.c
->> @@ -24,6 +24,7 @@
->>  #include <linux/page_owner.h>
->>  #include <linux/psi.h>
->>  #include <linux/cpuset.h>
->> +#include <linux/huge_mm.h>
->>  #include "page_alloc.h"
->>  #include "internal.h"
->>  
->> @@ -81,6 +82,17 @@ static inline bool is_via_compact_memory(int order) { return false; }
->>  #define COMPACTION_HPAGE_ORDER	(PMD_SHIFT - PAGE_SHIFT)
->>  #endif
->>  
->> +static inline int compact_hpage_order(void)
->> +{
->> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
->> +	unsigned long orders = READ_ONCE(huge_anon_orders_always);
->> +
->> +	if (orders)
->> +		return __fls(orders);
->> +#endif
->> +	return COMPACTION_HPAGE_ORDER;
->> +}
->> +
->>  static struct page *mark_allocated_noprof(struct page *page, unsigned int order, gfp_t gfp_flags)
->>  {
->>  	post_alloc_hook(page, order, __GFP_MOVABLE, ALLOC_DEFAULT);
->> @@ -2257,24 +2269,36 @@ static unsigned int fragmentation_score_node(pg_data_t *pgdat, unsigned int orde
->>  	return score;
->>  }
->>  
->> -static unsigned int fragmentation_score_wmark(bool low)
->> +/*
->> + * Fragmentation scores are not comparable across orders: a lower order
->> + * scores much lower than a higher order for the same fragmentation state.
->> + * Scale the watermark proportionally to the target order so a small order
->> + * can still trigger proactive compaction; COMPACTION_HPAGE_ORDER keeps the
->> + * original threshold.
->> + */
->> +static unsigned int fragmentation_score_wmark(bool low, unsigned int order)
->>  {
->> -	unsigned int wmark_low, leeway;
->> +	unsigned int wmark_low, leeway, wmark;
->>  
->>  	wmark_low = 100U - sysctl_compaction_proactiveness;
->>  	leeway = min(10U, wmark_low / 2);
->> -	return low ? wmark_low : min(wmark_low + leeway, 100U);
->> +	wmark = low ? wmark_low : min(wmark_low + leeway, 100U);
->> +
->> +	if (order < COMPACTION_HPAGE_ORDER)
->> +		wmark = wmark * order / COMPACTION_HPAGE_ORDER;
->> +
->> +	return wmark;
->>  }
->
->I wonder if this function should be left alone?
->
->compaction_proactiveness, as I understand is given as a sysfs knob to
->ensure that the user can control how much power they want to invest into
->compacting. So suppose the value is 20, and the highest mTHP order is
->only 2.
->
->This gives wmark = 90 * 2 / 9 = 20. So, even if 80% of the memory can
->serve order-2 allocations, we will still perform compaction for order-2.
->This seems "extremely proactive" :)
+I guess currently we have only one consumer, camss. Could you please
+include patches converting it to the bus voting? Be sure to retain
+compatibility with older DTs, which don't have ICC provided by the camcc
+node.
 
-My understanding is that compaction for lower orders is cheaper, so lower
-thresholds could help reduce mTHP allocation fallbacks at an acceptable
-cost. Is that the idea?
+> 
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8250.dtsi | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> index f975c2183269a..e923c74dc1435 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> @@ -4675,6 +4675,7 @@ camcc: clock-controller@ad00000 {
+>  			#clock-cells = <1>;
+>  			#reset-cells = <1>;
+>  			#power-domain-cells = <1>;
+> +			#interconnect-cells = <1>;
+>  		};
+>  
+>  		mdss: display-subsystem@ae00000 {
+> -- 
+> 2.34.1
+> 
 
->
->>  
->>  static bool should_proactive_compact_node(pg_data_t *pgdat)
->>  {
->>  	int wmark_high;
->> -	unsigned int order = COMPACTION_HPAGE_ORDER;
->> +	unsigned int order = compact_hpage_order();
->>  
->>  	if (!sysctl_compaction_proactiveness || kswapd_is_running(pgdat))
->>  		return false;
->>  
->> -	wmark_high = fragmentation_score_wmark(false);
->> +	wmark_high = fragmentation_score_wmark(false, order);
->>  	return fragmentation_score_node(pgdat, order) > wmark_high;
->>  }
->>  
->> @@ -2306,7 +2330,7 @@ static enum compact_result __compact_finished(struct compact_control *cc)
->>  
->>  	if (cc->proactive_compaction) {
->>  		int score, wmark_low;
->> -		unsigned int order = COMPACTION_HPAGE_ORDER;
->> +		unsigned int order = compact_hpage_order();
->>  		pg_data_t *pgdat;
->>  
->>  		pgdat = cc->zone->zone_pgdat;
->> @@ -2314,7 +2338,7 @@ static enum compact_result __compact_finished(struct compact_control *cc)
->>  			return COMPACT_PARTIAL_SKIPPED;
->>  
->>  		score = fragmentation_score_zone(cc->zone, order);
->> -		wmark_low = fragmentation_score_wmark(true);
->> +		wmark_low = fragmentation_score_wmark(true, order);
->>  
->>  		if (score > wmark_low)
->>  			ret = COMPACT_CONTINUE;
->> @@ -3239,7 +3263,7 @@ static int kcompactd(void *p)
->>  		timeout = default_timeout;
->>  		if (should_proactive_compact_node(pgdat)) {
->>  			unsigned int prev_score, score;
->> -			unsigned int order = COMPACTION_HPAGE_ORDER;
->> +			unsigned int order = compact_hpage_order();
->>  
->>  			prev_score = fragmentation_score_node(pgdat, order);
->>  			compact_node(pgdat, true);
->
->
+-- 
+With best wishes
+Dmitry
