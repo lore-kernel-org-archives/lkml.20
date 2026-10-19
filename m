@@ -1,33 +1,81 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA608486E43
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:36:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B68648D874;
+	Mon, 19 Oct 2026 07:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395364; cv=none; b=oDin3LCHp96wDEDGbndeo+vabWCi1n+xhSCv+AXW7GvVjtFpcYFBUooBpSzHeC3mGI8PlPx4KwD4T7CtJVhqONu4CFT0ZPu9qf8tk9hMsEExbQAUpN+aMPPeUNznCEKcz5jY88RWu58AD+WTAOc88OOCzXmO8B76LQRROSesG0I=
+	t=1792395376; cv=none; b=sNB44X5jSlsxSkq9W7wN4W8jA+SZ+JwAw64NE6xW7pmqFz5vaVQgGtQordHSA8TBo72bR5tL9/TkOkuLHFH9J58bnQRSqAAur/Pz6Y7kDQbfyEehqWnw6ANws2fVPb2s6rZgmGrgoIrEUhlG8ikGeBiJW9HNHkPdNAdjmBcwuAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395364; c=relaxed/simple;
-	bh=xTNIiTNCBzWV2fgCQi0H5EufqJmfK9ng0leUBk2cXEE=;
+	s=arc-20240116; t=1792395376; c=relaxed/simple;
+	bh=4XfcpeDqELvt1DkF3dbMuEEccglxwIYHWZ58GO1+JxE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ubXHcLDCB4ivAdQFaDGYs+TSwaocGJ9HAI4iNSficC8moCf/wZh2rsa6rY/66lx/h1yUzwMq6bkpeKfGfsGckV7RX9+bpbgNHlS7GxcK9wNF/h8YvHMZBeo6ZQinqeT4fRof/UCOiW9D3FB/LlSVrmoEeFLtakR/ug9K+k3NAxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GEmUTuFS; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=FZC27zb83oITmIte2ygOR6Y9bPS7qGtts5CGkupoGi0skfqst1o76b76rJvjiDYj1k1HGyY63Il1lYLLJU7YVAHokP+66QfV3B3ZHUH9rOg8prosDZ4dtQtWS3/uy89l2ShNLqo3sGSdjh2RDyQo9bbRzFZBfOUEslUMxiVohkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=k9jY//tn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rkQsG9ms; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=k9jY//tn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rkQsG9ms; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GEmUTuFS"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B3B101477;
-	Mon, 19 Oct 2026 00:35:56 -0700 (PDT)
-Received: from [10.0.128.106] (unknown [10.0.128.106])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E78933F7D8;
-	Mon, 19 Oct 2026 00:35:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792395360; bh=xTNIiTNCBzWV2fgCQi0H5EufqJmfK9ng0leUBk2cXEE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GEmUTuFS+m955QCsvimqAR+MinQbGx7uTvF3WFnmzAxNMP1tHno8aimPwHSWJ6+3g
-	 2naap6R9fo+sLa0Nzw3P4lJ0G8aUrCuTPW6oEqnWqp14aQKH7Ixk9alE5ABH1lPJO0
-	 eQOUY8K6C5f1yGu7mLMoWp56Rikq4CcKL8fgg1zI=
-Message-ID: <da0b23f4-78f5-4dea-b588-af19f1c77fcb@arm.com>
-Date: Mon, 19 Oct 2026 08:35:54 +0100
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="k9jY//tn";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rkQsG9ms";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="k9jY//tn";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rkQsG9ms"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 11EC821E2D;
+	Mon, 19 Oct 2026 07:36:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792395373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
+	b=k9jY//tnFJOaiF1B2azDwhv244Q9WuB1EseGtNaBO0wKHsjrzHi0ehT6l9Co/c+x6oO2TG
+	1VNPAEq/p8ioYWkfJGEjOCa2BaY8teplu6qLAtfgmsryCbMihFMON7EHxFwdAJ562sg3EF
+	otm1I6F/7X7KaGi76tNVErv0ZTnCidU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792395373;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
+	b=rkQsG9ms9IacDQzBS4ihfUIE5DXdZQE6DKwjAEgyq6W+R8lEJsXsp9jashArTNqqHA70bZ
+	OJoXluJ18bQCTHBg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="k9jY//tn";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=rkQsG9ms
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792395373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
+	b=k9jY//tnFJOaiF1B2azDwhv244Q9WuB1EseGtNaBO0wKHsjrzHi0ehT6l9Co/c+x6oO2TG
+	1VNPAEq/p8ioYWkfJGEjOCa2BaY8teplu6qLAtfgmsryCbMihFMON7EHxFwdAJ562sg3EF
+	otm1I6F/7X7KaGi76tNVErv0ZTnCidU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792395373;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
+	b=rkQsG9ms9IacDQzBS4ihfUIE5DXdZQE6DKwjAEgyq6W+R8lEJsXsp9jashArTNqqHA70bZ
+	OJoXluJ18bQCTHBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8CEBB134B3;
+	Mon, 19 Oct 2026 07:36:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 4tfuGGzI1Wo7KwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Mon, 19 Oct 2026 07:36:12 +0000
+Message-ID: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
+Date: Mon, 19 Oct 2026 09:36:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,175 +83,217 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] sched/rt,dl: Remove unreachable migration-disabled
- push checks
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
- Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Shubhang Kaushik <shubhang@os.amperecomputing.com>,
- "Christoph Lameter (Ampere)" <cl@gentwo.org>
-Cc: linux-kernel@vger.kernel.org
-References: <20261014-sched-rt-dead-md-push-v2-1-9f57f1a530dc@gentwo.org>
+Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
+To: Lanfeng Wei <xlfylawarthur@gmail.com>, Dexuan Cui <decui@microsoft.com>,
+ Long Li <longli@microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-hyperv@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev, stable@vger.kernel.org
+References: <20261017153524.8870-1-xlfylawarthur@gmail.com>
 Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261014-sched-rt-dead-md-push-v2-1-9f57f1a530dc@gentwo.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261017153524.8870-1-xlfylawarthur@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spam-Score: -4.50
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.50 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FREEMAIL_TO(0.00)[gmail.com,microsoft.com,linux.microsoft.com];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org,lists.linux.dev];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url,suse.de:dkim]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 11EC821E2D
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On 10/14/26 23:32, Shubhang Kaushik (Ampere) wrote:
-> push_rt_task() and push_dl_task() select their candidates with
-> pick_next_pushable_task() and pick_next_pushable_dl_task(),
-> respectively. Both helpers skip migration-disabled tasks.
-> 
-> The source rq lock is held after candidate selection. The selected task
-> is queued, not executing, and cannot enter a migration-disabled region
-> while that lock is held.
-> 
-> find_lock_lowest_rq() and find_lock_later_rq() can drop the source rq
-> lock. If that happens, they recheck is_migration_disabled() after
-> reacquiring the locks and reject a task that changed state. Their
-> callers then either exit or retry with a task selected by the same
-> helper, which again excludes migration-disabled tasks.
-> 
-> The migration-disabled fallback in push_rt_task() and the corresponding
-> check in push_dl_task() are therefore unreachable. Remove them. The RT
-> fallback is the only user of the @pull argument, so remove that
-> argument too.
-> 
-> This does not change the migration-disabled handling in pull_rt_task()
-> or pull_dl_task(), which use different candidate selectors and retain
-> their existing donor-push recovery.
-> 
-> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
-> ---
-> Tested on 80-core SMP, non-SMT Ampere Altra system:
-> 
->   - Built and booted with CONFIG_IRQ_WORK=y.
->   - Ran repeated SCHED_FIFO affinity changes among CPUs 78 and 79 with
->     RT_PUSH_IPI enabled and disabled; both runs completed and cleaned
->     up all worker tasks.
->   - With RT_PUSH_IPI enabled, function tracing confirmed repeated
->     execution of rto_push_irq_work_func() via irq_work_single().
-> 
-> Changes in v2:
->   - Also remove the unreachable migration-disabled check in push_dl_task().
->   - Clarify that both push paths exclude migration-disabled tasks.
-> 
-> Link to v1: https://lore.kernel.org/r/20261014-sched-rt-dead-md-push-v1-1-5f9757be3c80@gentwo.org
-> ---
->  kernel/sched/deadline.c |  3 ---
->  kernel/sched/rt.c       | 48 +++---------------------------------------------
->  2 files changed, 3 insertions(+), 48 deletions(-)
-> 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 0663c00c41c04213fda2ebaf16a0bdf34e0849a8..e9d952853f14aaf48cdca6f89135090adee5f6ba 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -3158,9 +3158,6 @@ static int push_dl_task(struct rq *rq)
->  		return 0;
->  	}
->  
-> -	if (is_migration_disabled(next_task))
-> -		return 0;
-> -
->  	if (WARN_ON(next_task == rq->curr))
->  		return 0;
->  
-> diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-> index 85303add726df4c2da846c427aab2d627fca9589..f85edc6f896c72d2251b5eb59ee7ffd0e23934f5 100644
-> --- a/kernel/sched/rt.c
-> +++ b/kernel/sched/rt.c
-> @@ -1957,7 +1957,7 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
->   * running task can migrate over to a CPU that is running a task
->   * of lesser priority.
->   */
-> -static int push_rt_task(struct rq *rq, bool pull)
-> +static int push_rt_task(struct rq *rq)
->  {
->  	struct task_struct *next_task;
->  	struct rq *lowest_rq;
-> @@ -1981,48 +1981,6 @@ static int push_rt_task(struct rq *rq, bool pull)
->  		return 0;
->  	}
->  
-> -	if (is_migration_disabled(next_task)) {
-> -		struct task_struct *push_task = NULL;
-> -		int cpu;
-> -
-> -		if (!pull || rq->push_busy)
-> -			return 0;
-> -
-> -		/*
-> -		 * Invoking find_lowest_rq() on anything but an RT task doesn't
-> -		 * make sense. Per the above priority check, curr has to
-> -		 * be of higher priority than next_task, so no need to
-> -		 * reschedule when bailing out.
-> -		 *
-> -		 * Note that the stoppers are masqueraded as SCHED_FIFO
-> -		 * (cf. sched_set_stop_task()), so we can't rely on rt_task().
-> -		 */
-> -		if (rq->donor->sched_class != &rt_sched_class)
-> -			return 0;
-> -
-> -		cpu = find_lowest_rq(rq->curr);
-> -		if (cpu == -1 || cpu == rq->cpu)
-> -			return 0;
-> -
-> -		/*
-> -		 * Given we found a CPU with lower priority than @next_task,
-> -		 * therefore it should be running. However we cannot migrate it
-> -		 * to this other CPU, instead attempt to push the current
-> -		 * running task on this CPU away.
-> -		 */
-> -		push_task = get_push_task(rq);
-> -		if (push_task) {
-> -			preempt_disable();
-> -			raw_spin_rq_unlock(rq);
-> -			stop_one_cpu_nowait(rq->cpu, push_cpu_stop,
-> -					    push_task, &rq->push_work);
-> -			preempt_enable();
-> -			raw_spin_rq_lock(rq);
-> -		}
-> -
-> -		return 0;
-> -	}
-> -
->  	if (WARN_ON(next_task == rq->curr))
->  		return 0;
->  
-> @@ -2078,7 +2036,7 @@ static int push_rt_task(struct rq *rq, bool pull)
->  static void push_rt_tasks(struct rq *rq)
->  {
->  	/* push_rt_task will return true if it moved an RT */
-> -	while (push_rt_task(rq, false))
-> +	while (push_rt_task(rq))
->  		;
->  }
->  
-> @@ -2236,7 +2194,7 @@ void rto_push_irq_work_func(struct irq_work *work)
->  	 */
->  	if (has_pushable_tasks(rq)) {
->  		raw_spin_rq_lock(rq);
-> -		while (push_rt_task(rq, true))
-> +		while (push_rt_task(rq))
->  			;
->  		raw_spin_rq_unlock(rq);
->  	}
-> 
-> ---
-> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-> change-id: 20261014-sched-rt-dead-md-push-c88b47c3e2f0
-> 
-> Best regards,
+Hi
 
-FWIW I also cannot reproduce the code path
-Tested-by: Christian Loehle <christian.loehle@arm.com>
+Am 17.10.26 um 17:34 schrieb Lanfeng Wei:
+> A performance regression has been observed on Hyper-V causing serious
+> frame rate drops since commit 52e6b1988334 ("drm/hypervdrm: Use vblank
+> timer").
+>
+> The regression occurs when using Xorg with a software rendered cursor.
+> The offending commit uses the DRM vblank hrtimer to pace atomic update
+> completion events, making each event wait for the next simulated vblank.
+> However, cursor damage invoked by mouse movement is unconstrained by
+> screen refresh rate, and therefore consumes most of Xorg's update
+> opportunities, starving normal graphical updates, resulting in
+> plummeting frame rate.
+>
+> Hyper-V virtual display framebuffer is able to accept multiple writes in
+> one update window, so the commit broke this expected behavior.
+>
+> The regression is also reported by other users:
+>
+> Link: https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/msg6302857.html
+>
+> Add a read-only module parameter hyperv_drm.vblank_timer, which is
+> enabled by default. Disabling it prevents the timer's enable callback
+> from starting the timer. The vblank framework and the existing atomic
+> callbacks remain registered. When disabled, the first
+> drm_crtc_vblank_get() fails through the callback, so the existing helper
+> sends the atomic event immediately and skips the vblank wait, matching
+> the behavior before the timer was introduced.
 
-Sorry, let me try and convince myself it is actually true
-too, or try and find out why this code was introduced in the first
-place...
+Yeah, what's the cause of it? Switching off features does not fix any 
+bugs or improve the status quo.
+
+
+We had another fix for a problem with vblank timers:
+
+https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
+
+Did you validate that this fix is unrelated?
+
+Best regards
+Thomas
+
+
+>
+> This provides an opt-out for affected virtual display users.
+>
+> Benchmark results:
+>
+> Workload: Inject mouse movement at 125 Hz against a flashing
+> animation running at 60 Hz, matching the screen refresh rate, for 4
+> seconds.
+>
+> Tested versions: 6.18 (the last major version before the offending
+> commit), version 6.19 (the first major version containing that commit),
+> version 7.1.8 (on which the patch is based), and its patched version.
+>
+> Version  Anim. Hz            Mouse Hz         Max client-request gap
+> ====================================================================
+> 6.18     59.66-60.00        122.00-123.33     17.0 ms
+> 6.19     0-0.162            59.73-59.86       7.53 s
+> 7.1.8    0.133-0.162        59.83-59.86       6.16 s
+> Patched  59.75-60.00        122.75-124.50     14.0 ms
+>
+> The patch restores both animation and mouse update rates, and reduces
+> the maximum client-request gap from seconds to milliseconds.
+>
+> Fixes: 52e6b1988334 ("drm/hypervdrm: Use vblank timer")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lanfeng Wei <xlfylawarthur@gmail.com>
+> ---
+> The parameter defaults to enabled to preserve the current kernel
+> behavior. I do not know the full set of users who rely on the vblank
+> timer, so changing the default could introduce a different regression.
+> Affected users can set hyperv_drm.vblank_timer=0.
+>
+> If the maintainers prefer the parameter to default to disabled, or if
+> there is a better way to detect the affected configuration
+> automatically, I'm happy to send a v2.
+>   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 23 ++++++++++++++++++++-
+>   1 file changed, 22 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> index d48ca6c23..527385748 100644
+> --- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> @@ -4,6 +4,7 @@
+>    */
+>   
+>   #include <linux/hyperv.h>
+> +#include <linux/moduleparam.h>
+>   
+>   #include <drm/drm_atomic.h>
+>   #include <drm/drm_crtc_helper.h>
+> @@ -25,6 +26,19 @@
+>   
+>   #include "hyperv_drm.h"
+>   
+> +static bool vblank_timer = true;
+> +module_param(vblank_timer, bool, 0444);
+> +MODULE_PARM_DESC(vblank_timer,
+> +		 "Enable the Hyper-V DRM vblank timer (default: true)");
+> +
+> +static int hyperv_crtc_enable_vblank(struct drm_crtc *crtc)
+> +{
+> +	if (!vblank_timer)
+> +		return -EOPNOTSUPP;
+> +
+> +	return drm_crtc_vblank_helper_enable_vblank_timer(crtc);
+> +}
+> +
+>   static int hyperv_blit_to_vram_rect(struct drm_framebuffer *fb,
+>   				    const struct iosys_map *vmap,
+>   				    struct drm_rect *rect)
+> @@ -132,7 +146,14 @@ static const struct drm_crtc_funcs hyperv_crtc_funcs = {
+>   	.page_flip = drm_atomic_helper_page_flip,
+>   	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
+>   	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
+> -	DRM_CRTC_VBLANK_TIMER_FUNCS,
+> +	/*
+> +	 * expanded DRM_CRTC_VBLANK_TIMER_FUNCS to override
+> +	 * enable_vblank with hyperv_crtc_enable_vblank
+> +	 */
+> +	.enable_vblank = hyperv_crtc_enable_vblank,
+> +	.disable_vblank = drm_crtc_vblank_helper_disable_vblank_timer,
+> +	.get_vblank_timestamp =
+> +		drm_crtc_vblank_helper_get_vblank_timestamp_from_timer,
+>   };
+>   
+>   static int hyperv_plane_atomic_check(struct drm_plane *plane,
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
