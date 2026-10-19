@@ -1,55 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792431460;
-	b=C9JQJrYf4ZYQjncOxrB312QaYOy/qS1QQgW9VFPbWS+FjY2pbZVSdNrMT3tl4uhBDvUB
-	 Sp284UxbcmJUN7fFoWxNbH207fgzK1Rk/0C6QyFk1dsUhsH4K0/Vsvtw5JUybTg1LJmwi
-	 wzOIwsX1Oi7loMvU0W16+KDkLTMuxxftFKUKY7DK0tAv6jSKPa5jIOtgGumgsEMb1PyR/
-	 dUc+JhMtB0irr5zcSbQ3NXFCt/lDm1nnZ5Hu1Ab73yh5SpJnkOPiZofQmGSnJkHQBu87g
-	 urobMyq5pHyn61zfI3DemmF1+axy6qQ8gPk5r4sdKgzYg2bWQTl9guqcbjLkip9SOrQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792431460;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3jsS+FNvhPFXRiNcpF56A9Osarqkn7xZmkyJiCqJ+Y8=;
-	b=UWGAvG7Mz1RQ2S584bTTA7xzDYBlyGllu/0YIWFU+yIucG6bmCcGwbc23M/ZFnuOLBr5
-	 QDHm0H6M9xIMgH4Dk+NNg+aawnblCB01JGqFhUCOgx6+0O8An07gIQ3hZ2YhMUHxfQjC+
-	 hVmCY5y/jGUjyHsP2cGK5LHPRTxRyTAuDqMDF/p4SBdDrdnHslilg3uJxVFV1b/3HzMbi
-	 k1DPSCtb6oPB0jyNikePCC9IGKmxD5EZ4BW39HNTShLR33m/G4tOJS3VQFS1tLN4LRXEE
-	 4Na3wuE4OfsODFYX42NaZ1gVu+e85G4iZkAQmdsKaCxZmyuqdukbXAqlpAGPrhXUDBw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVtcrFVI;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792431502;
+	b=JctsVjrlywqPU+KTEPKXu9hBFl1BZyIo+Y1AiShWn3Dv7NdnnsF9Klg+Kd6fn8glq867
+	 XtGUb6q+IrAY/KOE7BpwjNOE5JRYYvp5Hfg0FickD+Xa1oaq56SJaNB8kBBnjPF3u1MJY
+	 BM628LoO91gTdKmLEjouZ0yUd/PpR0xKLQKprIIo+mKqi72qg/vgXblLxyY80UtoL/SEF
+	 gK/ch6hEEwri9l1Kcch0iToJk9AjdcIj/icqKA77bdv0YUnidJyFrhLOnplwzSokWtgJu
+	 0iv0v0xEZuOwlObZKaVPhLMCDybREbF/LLZDAPhc0Gk+KSl8RCgZwNoTmrtglFbV8Ew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792431502;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DnMksxBeVgGBLISVAmVNMYiivsdCkOY1OzObG07U/BQ=;
+	b=Quzto20dh0YsK9FlAw2dZGbwC5BOp5+1Tonq4jCW4R9BPb42q/PcJwtImMj24kTQZs4A
+	 yggRbLnYtf1d7XvlqUzFHvEH46/1R0Ge9lcGIS2w2A1j/Qhg4ckrv/G0Z8d3yHzqjB6vq
+	 qYufcpybUxudkf3qMbeLb1S3TVJNFlXdbEFEtRnLvryqWn+kRiM3jDQZEovvGRoJtl5Bo
+	 1nWapYXI+V06VUpypsy1c3nqtixU9wqW8kHankkEA5bqm9wFpTClHyyLIePY2maOrgNWw
+	 uhYsER1yK6QmTccsZTazLh8ihizqqPNVL3tFYTIxeACGEyGuLFufRdSakniWzPY2I2w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhe+6Z2q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E87606A31F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:37:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3EE606A31D;
+	Mon, 19 Oct 2026 17:38:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVtcrFVI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4491F000CC
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:37:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhe+6Z2q
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792431501;
+	b=ZkBhE66yOM2NGCjQ0+6OnHSDF3lhRpjaBb4ARxBX30NtbVTdUIbi91qgIwzifvTfHcCj
+	 2pRKUB3crIs/lataXtXihOxlqLquZwUgU3jRJ5JaOUveLAJknVjE9xoO3OOmsGXM6IsDD
+	 MhWCjAm+hxZ+I/LOYLREJaBfzlz/6sXrBHQQlkvYORlVr1vT5XzXXNuLCWT737OB0cK03
+	 LZAn8Ugq9wzWTq5T8B/3MLri2uWQZZJcZGYNNLaC/FJ5iKzT2Q6ZsFAZStT4kthazisGy
+	 pK1P0BIVkZ9iew9uRmpfVH+6ucQSPfAuWO6CuEqekULBmWg20SOnPQEUrDpuRjL978g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792431501;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DnMksxBeVgGBLISVAmVNMYiivsdCkOY1OzObG07U/BQ=;
+	b=Df1+vpJh0LPkn/kBPBVIs3o27qkcWbqsPO6920CabUobQ71M3nqIXbprcuYFy71VeYWU
+	 QEyomrqcB/K0RJ7nOi9SFbVRp02iC9JnbSlVJbJ3kXSj4E7EgLNqOP9nrsOQMBIydQmke
+	 ULjpizcUnHzuuxqtat4IQ+gfTaFGMBGjIYgeD7WthfajFkyqPZ7Gs3ZBWWQIszNtzG7j2
+	 5CfK1WLRp2CYNxrz5JVL5am4dMaJNq5IUxbD/9gJkLTwW8PHYV4RK2Gub2YcVjPlY6Qow
+	 sT13AIxu09S4KWMo+6/P0O5Z5E7UtbZY+Wyt0yeteR15V+2wuth3FZwLk2K76UinPaw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id F2B961F000C4;
+	Mon, 19 Oct 2026 17:38:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792431459;
-	bh=3jsS+FNvhPFXRiNcpF56A9Osarqkn7xZmkyJiCqJ+Y8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GVtcrFVImLGYgjXGyo4tFVbzGCn7jhOhpHmYHiAqItt+oOq4mQcQCGCJtYqrzui7r
-	 x6ejFbKXf4Jz/emcs8KEpYgujPqft8G3Vomg/n5qrQjduZOdNqLv5+6yEGRvgY8BaT
-	 ETCb2b7UH+eYgNoFg8OgH3Z3F/Ym4LFaEQQvttnu82h2ZGxcs0kGF8/mRJiw7/UhDO
-	 RBCLdS9PB1ez4LRBN9ayEJryr/EQkuexa8bSlS07Z4585Fd8dQigCexiQokya+RT7W
-	 1G4QM6EYEgaqaAIf7ppI41wH2nxIngagxVISYa9rpOLY7ridgqQ75eXp0NXM8bxQs5
-	 eUoOBvY+VyUgQ==
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6d290b10a35so1010482eaf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:37:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByfRJdoPRByUqX0O601Vsm/oCw39z9tQGMHJyoYPr4Gf2Jh5fXgah19Mrao8ORxoY3EhH/dok+6vyTZnlg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCmmWqUtWTm/WXmDuwGZWQ57+0pnD6+Igr96rzVT3H0rarVTxT
-	bb535YQeqYw0aS0/pXeMOQt5pQhkf0vgHMwRetRWtHpJ9J/sWoQfuJcg6zNVovN6YfLBa7j1wLi
-	4Ue6Ic5oK3TW8FAWouOvpQoFndkb4qMg=
-X-Received: by 2002:a05:6820:8cc:b0:6dc:99b3:2efc with SMTP id
- 006d021491bc7-70356392c96mr5105426eaf.43.1792431458807; Mon, 19 Oct 2026
- 10:37:38 -0700 (PDT)
+	s=k20260515; t=1792431501;
+	bh=DnMksxBeVgGBLISVAmVNMYiivsdCkOY1OzObG07U/BQ=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=lhe+6Z2qBF7EhuvKVl0Pq1oFenam5uSDpbvjbrmUoUSHYvJ6FdeArwSVgCs91cE1h
+	 ZySVNNoD5j67mHskjs2tA4q3kTTZRYanYiQgt68gjpGtShlOKeNx46JD30Jfrb7B79
+	 jExNGI3NKkKWLz1AQF2XKEJHxd6E8YrXST4S/OpeWIJVQ4EfTwTLhqYM2P0BDR/Y/V
+	 1pe21A3c3IQ5VeBWrWVkZy8Ng4XVALZGmc1UDCljkNjVxENbnsGYuy6kaFeMp3CIMa
+	 /g6baFC2Uw3Qwe/XWjlqOkNMtg/xn4KoYyR86JpdBwnR70qEJukf1QEVckw7d+VP1d
+	 VsA7MRxQVIOeg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 53641400AB;
+	Mon, 19 Oct 2026 17:38:20 +0000 (UTC)
+From: Nicholas Velten via B4 Relay <devnull+nicholasfvelten.gmail.com@kernel.org>
+Date: Mon, 19 Oct 2026 14:38:20 -0300
+Subject: [PATCH bpf-next v2] bpf: Annotate data races on bpf_lru_node type
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,56 +82,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019170225.729789-1-vlad.wing@gmail.com> <20261019170225.729789-3-vlad.wing@gmail.com>
-In-Reply-To: <20261019170225.729789-3-vlad.wing@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Mon, 19 Oct 2026 19:37:26 +0200
-X-Gmail-Original-Message-ID: <CAL4WiioUPnMxAkoGWxpAT7AHa8-_Ep+Kvhugxib-ZznqCzTvRw@mail.gmail.com>
-X-Gm-Features: AclHuK_6szSoVVhZVQEh44AAfITVZxXWoYCC47ElAK_YE8jC0b-RxlR2q8JjGZk
-Message-ID: <CAL4WiioUPnMxAkoGWxpAT7AHa8-_Ep+Kvhugxib-ZznqCzTvRw@mail.gmail.com>
-Subject: Re: [PATCH net-next 2/2] net/sched: Don't wait for RCU when
- unregistering the qdisc lockdep key
-To: Vlad Poenaru <vlad.wing@gmail.com>
-Cc: netdev@vger.kernel.org, Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Davide Caratti <dcaratti@redhat.com>, 
-	Breno Leitao <leitao@debian.org>, Nilay Shroff <nilay@linux.ibm.com>, linux-kernel@vger.kernel.org, 
-	Eric Dumazet <edumazet@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261019-fix-lru-node-type-kcsan-v2-1-c10a410b3565@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAItV1moC/4WOQQ6DIBREr2L+ur8R1Np01Xs0LgA/SqtgQI3Ge
+ PeiPUCXk5k3MxsE8oYCPJINPM0mGGej4JcEVCtsQ2jqqIGn/MZSlqE2C3Z+QutqwnEdCD8qCIs
+ 5zwqV3gtZSgGRHjzF6Nn8AjlotLSMUP2cMMk3qfEoPrKtCaPz63liZifxd29myDCVZZ7pQmius
+ 2fTC9Ndleuh2vf9C54yZjLaAAAA
+X-Change-ID: 20261013-fix-lru-node-type-kcsan-4235c085b7ba
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+1ea4f564bf6f1f3d1dc4@syzkaller.appspotmail.com, 
+ Nicholas Velten <nicholasfvelten@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792431499; l=4464;
+ i=nicholasfvelten@gmail.com; s=20261014; h=from:subject:message-id;
+ bh=vlUE37PtQTyOLq5PXbvONu4Xi4bntjAirjuFev9xeZY=;
+ b=JZxRDHgecZKvX7el63L+yAF4pfGpixN4R034psx0LcMfaL23UJrM4JhFNTmIoIeIF5DZ/pcRr
+ RfDrhWOWENtDM/LNh0/BhEjQCrZIogg3RW0HBM7bSLKxo4vOgBIIyF1
+X-Developer-Key: i=nicholasfvelten@gmail.com; a=ed25519;
+ pk=WVTZgm6yXQ+XrhULAObg4lwcHPhhxAXrAY+YY6svXzg=
+X-Endpoint-Received: by B4 Relay for nicholasfvelten@gmail.com/20261014
+ with auth_id=1173
+X-Original-From: Nicholas Velten <nicholasfvelten@gmail.com>
+Reply-To: nicholasfvelten@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Le lun. 19 oct. 2026 =C3=A0 19:02, Vlad Poenaru <vlad.wing@gmail.com> a =C3=
-=A9crit :
->
-> Since commit af0cb3fa3f9e ("net/sched: fix false lockdep warning on
-> qdisc root lock") every qdisc except ingress, clsact and noqueue
-> registers a dynamic lockdep key, and destroying it calls
-> lockdep_unregister_key(), which waits for an expedited RCU grace period.
-> Replacing an mq root destroys one qdisc per TX queue under RTNL, so a
-> single "tc qdisc replace dev eth0 root mq" waits for that many grace
-> periods, each of which IPIs every CPU that is not idle.
->
-> The wait is not needed here: __qdisc_destroy() and qdisc_create() free
-> the qdisc with qdisc_free_rcu() after unregistering, which already
-> keeps the key's memory valid for a grace period. Use
-> lockdep_unregister_key_nosync(), and free with kfree_rcu() in the one
-> qdisc_alloc() error path that used kfree().
->
-> On an x86_64 KASAN + PROVE_LOCKING kernel (64 vCPU KVM guest, 64-queue
-> netdevsim device, 214K lock chains) this removes 5.3 ms of grace-period
-> wait from each of the 65 qdisc destroys in "tc qdisc replace dev eth0
-> root handle 1: mq".
->
-> Suggested-by: Eric Dumazet <edumazet@google.com>
-> Link: https://lore.kernel.org/all/CANn89iLvu_ijSV+FnrZ6qei_Ty2c9V-RjwLMk2=
-4+oOS91bNjaQ@mail.gmail.com/
-> Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
+From: Nicholas Velten <nicholasfvelten@gmail.com>
 
-Note the cover letter has 'From: Vlad Poenaru <thevlad@meta.com>', so
-this SoB is a bit confusing.
+KCSAN reports a data race on bpf_lru_node::type between the LRU list
+rotation and the free path of the common LRU:
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+  BUG: KCSAN: data-race in __bpf_lru_list_rotate / bpf_lru_push_free
 
-Thanks.
+  write to 0xffff88811b758022 of 1 bytes by task 4756 on cpu 1:
+   __bpf_lru_node_move
+   __bpf_lru_list_rotate_active
+   __bpf_lru_list_rotate
+   bpf_lru_list_pop_free_to_local
+   bpf_common_lru_pop_free
+   bpf_lru_pop_free
+   htab_lru_map_update_elem
+
+  read to 0xffff88811b758022 of 1 bytes by task 4752 on cpu 0:
+   bpf_lru_list_push_free
+   bpf_common_lru_push_free
+   bpf_lru_push_free
+   htab_lru_push_free
+   htab_lru_map_update_elem
+
+  value changed: 0x00 -> 0x01
+
+bpf_lru_list_push_free() reads node->type for a WARN_ON_ONCE() sanity
+check before taking l->lock. __bpf_lru_node_move(), called right after
+under l->lock, does the same check, so drop the unlocked one.
+
+bpf_common_lru_push_free() re-checks node->type under loc_l->lock after
+the lockless READ_ONCE() at function entry. By then the node has been
+removed from the htab, so only flush and rotate can change its type,
+through __bpf_lru_node_move_in() and __bpf_lru_node_move() under
+l->lock. Mark that re-check with READ_ONCE() and those two writers with
+WRITE_ONCE(), following commit 6df8fb83301d ("bpf_lru_list: Read
+double-checked variable once without lock"). The remaining writers
+operate on a node with a single owner that nobody else reads and are
+left alone.
+
+Tested on bpf-next with CONFIG_KCSAN=y in a 4-vCPU virtme-ng guest,
+using a reproducer that runs 8 threads issuing BPF_MAP_UPDATE_BATCH
+on a 64-entry BPF_MAP_TYPE_LRU_HASH with overlapping keys.
+
+Reported-by: syzbot+1ea4f564bf6f1f3d1dc4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1ea4f564bf6f1f3d1dc4
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Nicholas Velten <nicholasfvelten@gmail.com>
+---
+The reproducer used for testing is a small userspace program (8 threads
+issuing BPF_MAP_UPDATE_BATCH on a 64-entry BPF_MAP_TYPE_LRU_HASH with
+overlapping keys). I can post it, or turn it into a selftest, if that
+would be useful.
+
+Not tested: architectures other than x86_64, sparse, and the full
+test_maps / test_progs suites (only test_lru_map was run).
+---
+Changes in v2:
+- Drop the Fixes: tag (Alexei)
+- Remove the unlocked WARN_ON_ONCE() in bpf_lru_list_push_free() instead
+  of annotating it; __bpf_lru_node_move() does the same check under
+  l->lock (Alexei)
+- Keep WRITE_ONCE() only in __bpf_lru_node_move_in() and
+  __bpf_lru_node_move(), the only writers that can race with the
+  re-check in bpf_common_lru_push_free() (Alexei)
+- Link to v1: https://patch.msgid.link/20261013-fix-lru-node-type-kcsan-v1-1-0b743f5af2f3@gmail.com
+---
+ kernel/bpf/bpf_lru_list.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/bpf/bpf_lru_list.c b/kernel/bpf/bpf_lru_list.c
+index 5ed7cb4b9..3858886b0 100644
+--- a/kernel/bpf/bpf_lru_list.c
++++ b/kernel/bpf/bpf_lru_list.c
+@@ -71,7 +71,7 @@ static void __bpf_lru_node_move_in(struct bpf_lru_list *l,
+ 		return;
+ 
+ 	bpf_lru_list_count_inc(l, tgt_type);
+-	node->type = tgt_type;
++	WRITE_ONCE(node->type, tgt_type);
+ 	bpf_lru_node_clear_ref(node);
+ 	/* Reset pending_free only when moving to the free list */
+ 	if (tgt_type == BPF_LRU_LIST_T_FREE)
+@@ -94,7 +94,7 @@ static void __bpf_lru_node_move(struct bpf_lru_list *l,
+ 	if (node->type != tgt_type) {
+ 		bpf_lru_list_count_dec(l, node->type);
+ 		bpf_lru_list_count_inc(l, tgt_type);
+-		node->type = tgt_type;
++		WRITE_ONCE(node->type, tgt_type);
+ 	}
+ 	bpf_lru_node_clear_ref(node);
+ 
+@@ -298,9 +298,6 @@ static void bpf_lru_list_push_free(struct bpf_lru_list *l,
+ {
+ 	unsigned long flags;
+ 
+-	if (WARN_ON_ONCE(IS_LOCAL_LIST_TYPE(node->type)))
+-		return;
+-
+ 	if (raw_res_spin_lock_irqsave(&l->lock, flags)) {
+ 		WRITE_ONCE(node->pending_free, 1);
+ 		return;
+@@ -542,7 +539,7 @@ static void bpf_common_lru_push_free(struct bpf_lru *lru,
+ 			return;
+ 		}
+ 
+-		if (unlikely(node->type != BPF_LRU_LOCAL_LIST_T_PENDING)) {
++		if (unlikely(READ_ONCE(node->type) != BPF_LRU_LOCAL_LIST_T_PENDING)) {
+ 			raw_res_spin_unlock_irqrestore(&loc_l->lock,
+ 						       flags);
+ 			goto check_lru_list;
+
+---
+base-commit: 763187dbbf83764a57d5811168ef9de7b9a60e2d
+change-id: 20261013-fix-lru-node-type-kcsan-4235c085b7ba
+
+Best regards,
+--  
+Nicholas Velten <nicholasfvelten@gmail.com>
+
+
