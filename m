@@ -1,92 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792441015;
-	b=pL6ETDYXPJYdsxyUzaoJb1FQe5TdcPNLEzKneXeWWOhiQwwH4Ykd1gsfKwbcbU+D2Fce
-	 batpZta6WAMLXTjyIqHv5TXu4GpNe3cucTb4adYZCVqR+/eTB2X7jk6CPpf0IVXQZxbgQ
-	 5+1Jwzey5vl110BRbg99n7SYYm1aVFLF7mtkxjazUoshT5nOqN60W8ixy6CTfugsWOcKg
-	 YoYaj7Zd9bRIgpyFVu97uKBBLVM5CYdDyh4Pb219VB4Pnts+ic99yvsRQoynCSG4mXHkw
-	 J5UeW7uw7KwHPCCA0beyXSLXDJUvbRJwkSM331VwreexhqV1Z9CNhHSyxvPuZMsWcMg==
+	t=1792441010;
+	b=EpdbwmaJOQ61Kyz1plRrZjjoBFqfkCF63CDH2YmrHlx5+6t18ep3TMHUd2eXwcPPhPPf
+	 95kVW2e035P2wQAVX2WwDiqaS3GF6y5KJNdZ/gLYU1erYyaPOIahOcNgW429mBMKKuri4
+	 FUEtw9Nl+Zlj8bm51Q5ZqK/qfxo1DE4VZUvEiLmT+IjnIzrOXrVAG2pCXaXGApbabj/+x
+	 2nK1riBB+NXl3zDNt8fSVN7EsZ/wYbuWoUhMf0GY5uXoNaPgD/5mS/fs89yRilXkHYabR
+	 Ui+kz1ge8SwNIf2Jt+jee+XREfQsBOAmT0QUcfy0iJyt1bAadH+eoN0TC434v4viUNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792441015;
-	h=DMARC-Filter:DKIM-Signature:X-MC-Rep:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:MIME-Version:X-Mimecast-MFC-PROC-ID:
-	 X-Mimecast-Originator:Content-Type:Content-Disposition;
-	bh=T8NDS9TBcsxfGLpdye5MNhtdRD4fWL/RdION8FfvRn8=;
-	b=J6f4Cm/EMpu9XCeb7UOn4/5vNxUgtysnuDSqiPrdCiwpVJBfDn1776xHGg0n12Mqp1Jk
-	 GxHapcwIU6SOaENTsxR0gXjB1dRe+/FqKhKWUHPTR0dfFV3HlDMWIyu1Sw19AgHySoyFe
-	 5yQADU09bltERHExjblbhQ0EE1wOjQM/7o9FNbm8GAnDxVVkex7/Ru6quzxPZXsS/IWRj
-	 qlQgimSPg6Dr/NLXCuTjWYn2ReDI40nAiq3+R9U3OBu+EHMePMXrvR+/YACuQs5UdG2a+
-	 xqBRfSfngnEIOVLOTbJdYV1v8Mj+IfVYEaXrsPDNLbeiIHNu6XTL4nXyz9oTdahHN2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792441010;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=cRFDv/zqlCdXHbrIMKFJTczyEyv3i5WFE2Tuk2/B3PI=;
+	b=gFwqKGROO457YDgUyb21iI3wjynlWY7Pnyoo8EEPFCbAXmNH8mZcmhpzILuyYDcz4FT+
+	 Mw6AvCC5yZxxzS3Woxw9/cvkEiyskemn/ZWYw0wQuwc6UBwYqFuPzRUpxPeOoYYITEQiT
+	 IXFCh8bYARZ7DJHSzh+AExsZE7GwdjRPiDZN/UjrF7ImCUkjAJV490o0abSAbCYZqY02M
+	 OGie8hYTqwPsIsFqmQ2+xeuQAkwaa8UfRx/coYwhiRHatT2P0OyeknARIwZYsAZf7yT5N
+	 C6qkC0qdy1m+6bPYt0nRi278Km87s9mLD0qzYnc11XZ3g4yRbfymz0yMS1UyMbWGvnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=COTdvS81;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cmpxchg.org;
+	spf=pass smtp.mailfrom=cmpxchg.org;
+	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=Ev5bcVVK;
+	arc=none smtp.remote-ip=74.125.224.50
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527F2606A324
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:16:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 527F2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0051606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:16:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0051606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=COTdvS81
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792441013;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=T8NDS9TBcsxfGLpdye5MNhtdRD4fWL/RdION8FfvRn8=;
-	b=COTdvS81OX7XvlT5CjxDOoDtactMK6R8tu4OqxxYA/KJQXhxehwbfEOU4GD3lQScCJoc4q
-	zU8MsfLyekHazC7ODC5CWG0CG33lX1O8WTbeP0DDBZSbM9HgxSRzphiOKau7euFIF8hZCz
-	h2ogwe9IHvVlFhEZsM72VsoVwwmuYUI=
-X-MC-Rep: binary re single
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-1-OzxXD9FbP76TFuEZSZfsQQ-1; Mon, 19 Oct 2026 16:16:51 -0400
-X-MC-Unique: OzxXD9FbP76TFuEZSZfsQQ-1
-X-Mimecast-MFC-AGG-ID: OzxXD9FbP76TFuEZSZfsQQ_1792441011
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8b0d9789e84so30907897b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:16:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=Ev5bcVVK
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-6798eb0d13fso1926901d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:16:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1792441008; x=1793045808; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cRFDv/zqlCdXHbrIMKFJTczyEyv3i5WFE2Tuk2/B3PI=;
+        b=Ev5bcVVKrf1S47seLR0CL8au2df/RJpNHkTdS+2x6MOFdjl905Be7j+4zV9L6cBn52
+         J1eSPwkkC70EPkeJdQqcsn6vNCooV7/yXAtf6IplqMopCr6LAQ8hVF0JLE2a5pg/wANu
+         o1zcZWetZcygLxqUqiNCwVePNhSfrfFSH5NneFwSMagy42gr/pHL+VJ9fSrXmem+TcuW
+         MTRX+0AWh8gTXWUCb27wyb2ygRzSU/cGehzfLikXMyNdHNJ2FmqF/325mnRHGC6MQVM7
+         NO0w8xO32wKpSOtIbvq6Hw47QZ3uxskN2GnwiI1wYsJoOX5tCd+jetc3MgpeAQj8pf1A
+         7RDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792441011; x=1793045811;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T8NDS9TBcsxfGLpdye5MNhtdRD4fWL/RdION8FfvRn8=;
-        b=hwNzUOKdFAbgR0xwmi0EYGLqKejGZ69xu+sUXjmHthWVFbpdDaF7ipUbTET0Bxccja
-         LNS6UOwIousbBe2qe3oa5S5i64Ac3dCvMkCw9W6Jds099OZDfBgXvM6RJvAf6N4JmJsd
-         f3gT7Sts3D6CgrIa0esXZEXB55+ytUhd0skKfIL/rRcTHHn/V4AW5oa0HqXlYZAV1E9r
-         HFy5TaxHaFY5HngmCgqIEzn8QqiFAo5gmXAEYEHlwEXI1N3I2AJ/23Twz20cnyhcfOKc
-         MKpLw+ooRpHAbkXKwTPhUJy9M/WT6OdoXUBqwnacTzHRRPVLL1BTyPbM4U4lgMGSWa8j
-         +AGQ==
-X-Gm-Message-State: AFq9FYKW2Y1fJlssnywN6gqyPvjPmDw1/uEPlgAWKRrWo77stqi2TL9t
-	Zq/xc2RXU+GTllI53gxL5ckG4EMD/EI0j28CMd++5mwnlhsYck9J9x88HjhXaZa5Zkb323VazNO
-	jQXMGkO6bPygMXW2fzmMsoYKqD8BSr6HHcgwpKDqq8o2JATnx1nPR1ypuZItaP40I0w==
-X-Gm-Gg: AYBFou0tl28ZwX0+6Gao+Y2FQocSAXaYd5m+ko2erW4RhVLjKy1aeWBehgoncXjZO0d
-	dPfifUCf+5Xuro0LhGnmbepID6U3eSBeYv3kzbVztnz6qgZB0j710lQZ8mhjLP8ULuergDSBPnj
-	r7cp63ykHlkfBQRwCAIGFfrN9TB+r+7kYeiWSOwCnZCdvdpino1HEJMRL6ZmVZxM1lADwz3U2js
-	eS3Q7Br3oW+BeshJxoBFuaK4IbUgEap/ecvAjeaigOGe+Ymq4xnmX/322YePxNMXvgNt9ZWrHlG
-	ca1mY0hZvEM3gKFayLGgG5f8+lVNIcMCZJAaPQXfwFZc9PpISvLzImA+SOoVWoRD5bsDpfZMcib
-	rf4EAGB/td+tJm/N8GoopFw==
-X-Received: by 2002:a05:690c:6509:b0:8ab:a473:fde8 with SMTP id 00721157ae682-8b0f21c879amr30941857b3.54.1792441010788;
-        Mon, 19 Oct 2026 13:16:50 -0700 (PDT)
-X-Received: by 2002:a05:690c:6509:b0:8ab:a473:fde8 with SMTP id 00721157ae682-8b0f21c879amr30941787b3.54.1792441010100;
-        Mon, 19 Oct 2026 13:16:50 -0700 (PDT)
-Received: from localhost ([2600:1701:430:16b0:65aa:a2f5:8fab:cae6])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b11b3f49d5sm4874647b3.0.2026.10.19.13.16.49
+        d=1e100.net; s=20260707; t=1792441008; x=1793045808;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cRFDv/zqlCdXHbrIMKFJTczyEyv3i5WFE2Tuk2/B3PI=;
+        b=G9wiHbJn7Fl+Sm7gynTLq2b2qS/aGaU4AryvU3VlLOXOgIxMIXa9xD0WFNo8SC1Cfm
+         /eO+16D/SiaAO+iICIl+GdRzA7B0FJumOWliwaJ9G08/8sFzwsJe0+VqhBf0HJxuU5Jr
+         QLgoC+tA62XNxs4aeZTiE/NS8Aao5Wh/9c2KwwX1pY1BoG9M0znr9Zue5jQ4q7swYI4F
+         9nyHt2FopW1mbSW88EVwtJZH0BugQ2q170j3uDNVBoBF/LH7gNzqpZQO2B4WYDgSudZQ
+         VuaVn4Xmbu7A2yV0aV1VW9w0SjLtBFUKrzXEGqxxErVc2adxVVpzCfY45JOTMAahntlG
+         GxUA==
+X-Forwarded-Encrypted: i=1; AKwUvBzLkthNsdJD6Tb5bQ987DsKFFkJ0zpODt8madFJCbcutbvGogDKquj+FuxKnT8BNE2WJOGnuo3hr9hkD08=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIV6SA1ZpffLPfvDzT75aVl0Wzr9195SID4bsmgRnDURmPZpFNn
+	DMQuWwaS04iRmo7XKh7Vtc10tsFgMUlAnYh1Eu3V6ADOs9fRNfr0JZVeowGQEL2E8aQ=
+X-Gm-Gg: AYBFou3j/G4rD+LglJ4RB7i8Xn4JFcA+FAsP+QzHFgG1RCS33x68p6HQbnGo0bAjc0M
+	OSqFEDLResRyli3rf0ReZUXyroeRS2Yu+dTAPnSbartkpssWasP+HCN72IuZUtBZvnIdwdMhaip
+	js7AVapFew2ysjlsTJFNABvjtOx1UQM+xthnq/Tb/5Sg1O6/O+jMxO8/a9Gy4Uaok+cc7QyQJ3V
+	XZ94zPaABqGWeH1Zutwy8oRNLqURmU103ULTu3Uzju+4Wv8+fB4k8EOBLzaU34ch+H2bmNnx+1m
+	Up8J2MLByoDAAFXnoKawYlfhKR6WDRgDaFmJ5dsqigz2/TcmmzfIv7SS4aKINxU48JesAUHsVKd
+	iTUmnxIKcAMtmTncvcP0umhud+p/OlZAomUyFQGNkc1lO5mXZXRJgDC9BJOeXR0NEN7e0agXFfn
+	Jgb+8q0KEqzdwulb3lS3LPNDa/Z/1CXWtEqnoK5gZbcDbhSF5qi/EnHAwhewOS0f4D/DZPYQ==
+X-Received: by 2002:a05:690e:1381:b0:679:9b34:a2d0 with SMTP id 956f58d0204a3-679ca54fef6mr2000528d50.18.1792441008370;
+        Mon, 19 Oct 2026 13:16:48 -0700 (PDT)
+Received: from localhost ([2605:8600:200:1d58:2ffc:79a5:7374:fa95])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679b19c3933sm4507704d50.0.2026.10.19.13.16.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 13:16:49 -0700 (PDT)
-Date: Mon, 19 Oct 2026 15:16:48 -0500
-From: David Teigland <teigland@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, gfs2@lists.linux.dev
-Subject: [GIT PULL] dlm updates for 7.4
-Message-ID: <atZ6sKjlr3SxThCU@redhat.com>
+        Mon, 19 Oct 2026 13:16:47 -0700 (PDT)
+Date: Mon, 19 Oct 2026 22:16:45 +0200
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev,
+	shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
+	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com, david@kernel.org, mhocko@kernel.org,
+	ljs@kernel.org, dave@stgolabs.net, roman.gushchin@linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive
+ reclaim
+Message-ID: <20261019201645.GK371161@cmpxchg.org>
+References: <20261019185002.3428594-1-gourry@gourry.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,66 +100,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Mimecast-MFC-PROC-ID: 1nKqP3ccqLjcOLbM04_Qz7Ip8aHjOzpTE8hKVS1NNCM_1792441011
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261019185002.3428594-1-gourry@gourry.net>
 
-Hi Linus,
+On Mon, Oct 19, 2026 at 02:50:02PM -0400, Gregory Price (Meta) wrote:
+> user_proactive_reclaim() limits per-node reclaim to
+> gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
+> allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
+> folio, so writing to /sys/devices/system/node/nodeN/reclaim never
+> reclaims a node's movable memory. A movable-only node, such as dax/kmem
+> or hotplugged memory onlined movable, reclaims nothing and fails with
+> -EAGAIN.
+> 
+> To reproduce, fill a movable-only node with clean page cache and write
+> 200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
+> cache stays. The same write to a ZONE_NORMAL node frees 200MB.
+> 
+> Scan every zone, as memory.reclaim does.
+> 
+> Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Please pull dlm updates from tag:
-
-git://git.kernel.org/pub/scm/linux/kernel/git/teigland/linux-dlm.git dlm-7.4
-
-This set contains several fixes for bugs found by static analysis,
-fuzzing and code review. They mostly involve invalid input, e.g. from
-userspace, configfs or remote nodes, and are unlikely to be seen in
-normal usage.
-
-Thanks,
-Dave
-
-
-Alexander Aring (1):
-      dlm: fix variable key length lookup
-
-Dan Carpenter (1):
-      dlm: clean up a type in waiters_read()
-
-Danila Chernetsov (2):
-      dlm: validate lock modes in recovery messages
-      dlm: fix NULL pointer dereference in dlm_dump_rsb_name()
-
-Haofeng Li (2):
-      dlm: gate dlm_plock device on CAP_SYS_ADMIN
-      dlm: require CAP_SYS_ADMIN for dlm-monitor device
-
-Hemanth Selam (1):
-      dlm: fix typos in comments
-
-Joseph Qi (1):
-      dlm: fix buffer overflow from negative len in dlm_search_rsb_tree
-
-Qing Ming (1):
-      dlm: validate node weights before building member array
-
-Samuel Moelius (1):
-      dlm: validate userspace lock resource name length
-
-Zqiang (1):
-      dlm: wait for outstanding SRCU callbacks to complete in exit paths
-
-
- fs/dlm/ast.c          |  2 +-
- fs/dlm/config.c       | 39 ++++++++++++++++++++++++++++++++++++---
- fs/dlm/debug_fs.c     |  3 ++-
- fs/dlm/dlm_internal.h |  5 +++++
- fs/dlm/lock.c         | 20 ++++++++++++++------
- fs/dlm/lock.h         |  4 ++--
- fs/dlm/lowcomms.c     |  1 +
- fs/dlm/member.c       | 17 +++++++++++------
- fs/dlm/midcomms.c     |  1 +
- fs/dlm/plock.c        | 14 +++++++++++++-
- fs/dlm/user.c         | 23 +++++++++++++++++++++++
- 11 files changed, 109 insertions(+), 20 deletions(-)
-
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
