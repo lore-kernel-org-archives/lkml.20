@@ -1,91 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC10383305;
-	Mon, 19 Oct 2026 07:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD1D534F479;
+	Mon, 19 Oct 2026 07:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394284; cv=none; b=Ae9o2l8l91G7Vg4KP7HoQWefg3WQeIBf/hw+5y4p+BkMLKC03ZOt7JehQnUERW9PbK0aAhbousfVgCB7Npupez62dLhdf+1+OCyBnOAfMpyLsq7nEGn5mXIuaWUx10ivhqyv7luu0xMJoCt9OD14MjVxoMeAFmwZgVtBfYObqLc=
+	t=1792394313; cv=none; b=A2Oj/xm6IDJNeKvzawrU7VthELVk6evhaRkjVrQ4k33nl4Q7f2Q6EbqlS5fDQrdhs1Nncd1lWNSqe9QRLSNfFmDDYt3fFTlVislZ8FeGVk84S2ZRfmz4tbCzGe6yHEw1Ddzi/vP+Ghl2uO3KMuGqqjj8PnGa8VSLBPReu8q5Tog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394284; c=relaxed/simple;
-	bh=RM0wYNPhaPyvhsBQF+hx0+Z4KgqMLjUu+6FbJmYW+eU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WdNcK3sSCptXQCM0psezb+LAhCzO2CYy0N81S+3ynNRxaHQFE+5Ku7T0WezYGoEUES/auoz3o4FXUoIdSevbGnPUuaFKOgWgpBecQABVXTNGdtIPRgMxtUmRDJlwl6IOmpBrTpcgPJKsDp32veAjc2I4hMMO2pAj0uMDgr43gYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEyJrVcr; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEyJrVcr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6E11F000C4;
-	Mon, 19 Oct 2026 07:18:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792394282;
-	bh=NxFKX9qR62f7+24KU1GagtYceb+WTVmOUQ7AhgvqXq8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WEyJrVcrvrJL6aj4TLhxqS4V5cbcodSLdIsARdvnb71QFy1n1yYkmmphqVib/xrbJ
-	 6N4NItERWufbphQlyw/kPc3AJjfrRGsbZ7bqHYybIdphMpsskjvhKnMv38LiMqNzZu
-	 HI6if3Ts6QuD5VSebrBx1Zml+sMQCn+idRvgY+b6mkuIIST/DC3b3jg+KGv65jtZ9f
-	 BHc2i2ZO4JD6q/XrFNMVyqcZksaEwsVFOSEEXQqL8H28D2L5dNv3ACiXrS23oI4VkK
-	 4ZG9+4w2UhaXKcLFO8k3EaqnSzW3JCBlKAFkjpM2bkA/7RWM54e2+CzPx93nwsTSeR
-	 6Lpe6Jyx4iRYw==
-Date: Mon, 19 Oct 2026 09:18:00 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-Cc: bod@kernel.org, vkoul@kernel.org, kishon@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, mani@kernel.org, 
-	gjorgji.rosikopulos@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com, 
-	jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com, vladimir.zapolskiy@linaro.org, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/7] dt-bindings: phy: qcom: Add qcs8300 to the CSI2 PHY
- schema
-Message-ID: <20261019-majestic-gorgeous-sheep-a9eae0@quoll>
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
- <20261016235502.2274268-4-anusha.nandi@oss.qualcomm.com>
+	s=arc-20240116; t=1792394313; c=relaxed/simple;
+	bh=9yKawQQoA//h0KHEdlu1uZglSjBRUM72WxHod0luenw=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=RgAS7eOS3L/btHM0wjyHnV0ymsfVYSHsIyg0MaRI6BOSl+8hAclXCnjjx2GuNI4xtgEl47yu4OpJN2+OBVbqp+qosbZ65zfHAaoOtLOQSmLbjn3SrD2DXuIOWRPMagFTwiL7H4uu1+dq5Y5LCbjDZ3RauxW1feUAPvFxI2i4X24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8Ax39JFxNVqHzUXAA--.1364S3;
+	Mon, 19 Oct 2026 15:18:29 +0800 (CST)
+Received: from [127.0.0.1] (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJCxtMxDxNVqp+wtAA--.4251S2;
+	Mon, 19 Oct 2026 15:18:29 +0800 (CST)
+Subject: Re: [PATCH bpf-next v2] selftests/bpf: Use snake_case for subtest
+ descriptions in jit_insns_arena.c
+To: Daniel Borkmann <daniel@iogearbox.net>,
+ Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261019040106.27309-1-yangtiezhu@loongson.cn>
+ <d13c66a3-0519-48c1-88fe-55bc755b79a2@iogearbox.net>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <84434f7a-1c38-03ea-3062-8e8cf364fd4e@loongson.cn>
+Date: Mon, 19 Oct 2026 15:18:27 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261016235502.2274268-4-anusha.nandi@oss.qualcomm.com>
+In-Reply-To: <d13c66a3-0519-48c1-88fe-55bc755b79a2@iogearbox.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxtMxDxNVqp+wtAA--.4251S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7trW8XFWUGw4DCrWkurWDZFc_yoW8WF4fpa
+	yDWrWaqrZ7A3WS9w4kZw18Ga40kFZ5J3WDKryrXr15Gry5G3WYg34UKrn0kFWvgFWxZryI
+	kw42vF9FgFy7CFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE
+	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
+	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtw
+	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
+	67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8I3
+	8UUUUUU==
 
-On Fri, Oct 16, 2026 at 04:54:58PM -0700, Anusha Arun Nandi wrote:
-> QCS8300 uses the same MIPI CSI2 CSIPHY as SA8775P --
-> identical D-PHY register layout, common-control offset and clock set.
-> Add "qcom,qcs8300-csi2-phy" as a second enum value in the existing
-> schema rather than duplicating it, and generalise the title/description
-> to cover both SoCs.
-
-Just squash the patch.
-
+On 2026/10/19 下午2:47, Daniel Borkmann wrote:
+> On 10/19/26 6:01 AM, Tiezhu Yang wrote:
+>> Normalize two inline assembly test descriptions in jit_insns_arena.c
+>> from space-separated strings to snake_case.
+>>
+>> It is done for consistency with other neighboring subtests registered
+>> in test_jit_insns() (such as alu_imm, alu_reg, etc.). This also makes
+>> it convenient to execute these subtests directly from the command line
+>> without being forced to use shell quoting.
+>>
+>> Otherwise, unquoted shell word-splitting causes test_progs to reject
+>> the extra arguments before the filter code runs:
+>>
+>> $ sudo ./test_progs -t jit_insns/arena access with zero offset
+>> Usage: test_progs [OPTION...]
+>> Try `test_progs --help' or `test_progs --usage' for more information.
+>>
+>> $ sudo ./test_progs -t jit_insns/cast to a user address
+>> Usage: test_progs [OPTION...]
+>> Try `test_progs --help' or `test_progs --usage' for more information.
+>>
+>> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+> Do these not work already?
 > 
-> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/phy/qcom,sa8775p-csi2-phy.yaml   | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,sa8775p-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sa8775p-csi2-phy.yaml
-> index b66ec2f14189..8e60ef0714bc 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,sa8775p-csi2-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,sa8775p-csi2-phy.yaml
-> @@ -5,18 +5,21 @@
->  $id: http://devicetree.org/schemas/phy/qcom,sa8775p-csi2-phy.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
-> -title: Qualcomm SA8775P CSI2 PHY
-> +title: Qualcomm SA8775P / QCS8300 CSI2 PHY
->  
->  maintainers:
->    - Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
->  
->  description:
->    Qualcomm MIPI CSI2 D-PHY. Connects MIPI CSI2 sensors to Qualcomm's Camera
-> -  CSI Decoder on the SA8775P (lemans) SoC.
+>    ./test_progs -t jit_insns/arena_zero_off
+>    ./test_progs -t jit_insns/cast_to_user
 
-You just added this line. Changing something you added means previous
-patch is not correct.
+Yes, they work.
 
-Best regards,
-Krzysztof
+I misunderstood that the name is "cast to a user address" in the output
+rather than "cast_to_user" before, there is difference between the
+description and the name.
+
+Something like this:
+
+$ sudo ./test_progs -t jit_insns/cast_to_user
+#191/2   jit_insns/cast to a user address:OK
+#191     jit_insns:OK
+#192     jit_insns_blinded:OK
+Summary: 2/1 PASSED, 0 SKIPPED, 0/0 FAILED
+
+Anyway, if this patch is not necessary, please ignore it.
+
+Thanks,
+Tiezhu
+
 
