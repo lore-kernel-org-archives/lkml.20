@@ -1,30 +1,30 @@
 Received: from mail.noirlang.tr (mail.noirlang.tr [217.18.210.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D689A493D24
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:58:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBFE49A3AB;
+	Mon, 19 Oct 2026 08:59:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.18.210.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400333; cv=none; b=Tg8TcHwUec3G5nbCOAdFMtOs73uSLrtC3owbJBg2z7vt1Y7gJAB5NUvw7QUGRUQC0cIqeAXVbd4C/d6nKKV/VxF59mZcYmJBLSz3V03F0Ez5IGYGP1mWHhpW1P2wDiXLcO+MruPBDHAQdcy+VkS6b2SWUWyVRiOC0vrsQlWG8m8=
+	t=1792400351; cv=none; b=fiyQD1BNshrBTF8P7Uhe3a0+6lnhDOBvArkLtN/ZTQyAqqgC4Ka3JWwzsyauADu0SbpMRpEsXDEi1DHKC3rAYJgTPPAsuKOPObAuHlGFi6jfWQ3SnuRrI8yu8V+CElJ0DXZS9smDptRbcF72t6DXiMziCZAK/LyH/CsctnGnlY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400333; c=relaxed/simple;
-	bh=vy/QfJwvOl5NZkN6GRHZUnAWaidHniVzTUyIxztUz5A=;
+	s=arc-20240116; t=1792400351; c=relaxed/simple;
+	bh=f+80lnP4b0mPEaTT/y2g2gU8UpfSkMla0bea1z22I5w=;
 	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID; b=M46LoAHssczL9OhOmFgd89dhNO1IRQ+IjQ3fEcUX3UmfCEbI5T46dQGPeBugS26Y2ixCz4R1YGquYVbQTAUqbR9GvPMQEbOv2skrY3V65LXQ6Mh3v/fwjnNPhnkpzTEo8lodvqp0LrdDKOY8oLI+zrotGrBliiVZM/xg2g5GBmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=noirlang.tr; spf=pass smtp.mailfrom=noirlang.tr; dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b=rWwqLpRQ; arc=none smtp.client-ip=217.18.210.29
+	 References:Date:Message-ID; b=BSabGGWjVNeitqgNedU1RBHNACyuW9nMOWQeDE6Qo5l7Masam86Lf22S02pUqtEJ5Zv4ul9wG2ATyRa00FsnSZplGGmNoT8o2W1j1+gs8j3SgOfImJjLlUHuQ2vmqKOwul+18O04WrvC53GuLHpVJ1BTv5fWXYwCdLkwMMQhX8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=noirlang.tr; spf=pass smtp.mailfrom=noirlang.tr; dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b=ZhSm4tGk; arc=none smtp.client-ip=217.18.210.29
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=noirlang.tr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=noirlang.tr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b="rWwqLpRQ"
+	dkim=pass (2048-bit key) header.d=noirlang.tr header.i=@noirlang.tr header.b="ZhSm4tGk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=noirlang.tr; s=mail;
-	t=1792400329; bh=vy/QfJwvOl5NZkN6GRHZUnAWaidHniVzTUyIxztUz5A=;
+	t=1792400347; bh=f+80lnP4b0mPEaTT/y2g2gU8UpfSkMla0bea1z22I5w=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=rWwqLpRQNbqu1C6KCGrBhcGyE42MBBklQIH10/nPIR45sOm9V/TEohudTUIWHBnaQ
-	 H9QRhNjEViIsbj9nxumsdjkOO8Eli/w8cPHplN0KppING18R5o1M4EEEJMV/UmUW4i
-	 p2MhkJ1yP8bV144CSx0l1c2XbgCTQDQFDJ7f+HBgpFe2m1ts3f/D03O2ejrGUfg2oc
-	 kWbvzgGx5cwx6zlMR+uErBTvQzlvYnYeeH/2kuLfaxbW3SIYkfjATEobq/lQn62z1d
-	 meI56C+1v8IUYzAj6ZyN4jUszLCU3zTItVkr+d3FRlMVYAG0WjUaGX+OwQ93qddDNT
-	 fRHFDSOiewYbQ==
+	b=ZhSm4tGk8ZjmUvO98+sv9wvHQS/UqwN50/HfLONyNyxf1NqSAtnjK/vqOrx/D/Dzk
+	 nZwjUMLX0Mx9dtUabwsk5j0s5Y63uwcYtQ+jIbH/sybO8UPtBMKjUxeJY/8Vdy/kvB
+	 51C3V8JVbPPtZGMGxmSzMkvVmf1XR71k6dZfcAWACO/3utaAOpX0xh+UuQ84tZxSKI
+	 APB/EmgXRjjLfvvxh/pGV8e5D/YFBIX03gUi6M3K4DLRKHLly/jLWhy7gbYxDozqyl
+	 ymIesSc3hnu0+OTW+7tQmxsyXaychMGoEtZrLDh3yWhtCK17p08ay++VEj0bJV360M
+	 coMZk5vDDCghw==
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -34,13 +34,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 From: Melih Emik <melihemik@noirlang.tr>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, gurchetansingh@chromium.org, olvaffe@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch, dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/virtio: inline drm_simple_encoder_init()
-In-Reply-To: <f91ca908-689f-4732-bfb3-0e254c22361d@suse.de>
-References: <20261018112844.360262-1-melihemik@noirlang.tr> <f91ca908-689f-4732-bfb3-0e254c22361d@suse.de>
-Date: Mon, 19 Oct 2026 11:58:44 +0300
-Message-ID: <179240032411.5720.11612713342126517911@noirlang.tr>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nuno Sa <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, linux@analog.com
+Subject: Re: [PATCH] staging: iio: frequency: ad9832: use guard(mutex)
+In-Reply-To: <20261018175558.71739ebc@systembl0wer>
+References: <20261018102604.73380-1-melihemik@noirlang.tr> <20261018175558.71739ebc@systembl0wer>
+Date: Mon, 19 Oct 2026 11:59:01 +0300
+Message-ID: <179240034171.6365.14876819635016240793@noirlang.tr>
 
-SGkgVGhvbWFzLAoKVGhhbmtzIGZvciB0aGUgcG9pbnRlciEgSSB3aWxsIGJhc2UgZnV0dXJlIERS
-TSB3b3JrIG9uIGRybS1taXNjL2RybS10aXAuCgpCZXN0IHJlZ2FyZHMsCk1lbGloCg==
+SGkgSm9zaHVhLAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LiBJIHNlbnQgYSB2MiBlYXJsaWVyIHdp
+dGggdGhlIHRlc3Qgbm90ZXMgcGxhY2VkIGJlbG93CnRoZSAiLS0tIiBsaW5lLgoKQmVzdCByZWdh
+cmRzLApNZWxpaAo=
