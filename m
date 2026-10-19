@@ -1,94 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792446427;
-	b=GarpJCsiuLfptV0WCiZlYuFNl1VUVml9QXvEcJUskGchn3hHDvQ35Y9vuaeO0aWG/fwG
-	 a66nwajDciBQk1YnOXAVXOvD1EAp9ICq+W1ZEZIyce6YZgV6Wq0UXTunO7WCUebFpizmA
-	 4Em2aD24PjXaj0fyMvwTRw9MNHiibZ59Rhp3LAcFcGEo/HNLjVg++O7M6bc37EyORKUo2
-	 NSM//7hPOz0axXItkKTd7xVHnsZvki8H02Q8nA3+Ns0929lp8+Z2HjT4KXhkgotM7ACGO
-	 moZPONMxz8icQGkU8Hma0h/A+jtyfo7O0iLeqLSwyVfzSf4L5JjWmW0+okN1DjMddoA==
+	t=1792446459;
+	b=ASFmKIxhWV89p6iwASGYLF9v4qk6v/jTQzfBRlX8k+YwgqM0cwkLc19gVFKR3duG0G08
+	 DNKJdaMFrNEgo4s7WcEKbS8x67gx/0Q/t8AVp9FUlXGdWqOAvq1edD+76yrx1XMDlVnEI
+	 Pws+6vRcZJVxOCGfpyyFXxOhxjLDKWith2N2cP+Ot4RqqetvADuZnoTK0ibzwZk3nlzm4
+	 tsoqscciwAka8JHW1NLkQTM9z2W4NS+1MtEciazG4x3Y1FY4zoN8N6WmcIKW9HXyiPtl8
+	 DZDS1oLK7GwaqUviftry5d1TovkD/tzo4xIgwUGOBrR7tQG+tmaBg3dNNYxpjCJznfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792446427;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
-	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:Date:
-	 Message-ID:X-Scanned-By;
-	bh=nCuZlJhYpzEDE8MZyIKHldrb9zK6HERF/NakAdQi+bo=;
-	b=pPfc2KCeh2Mv45BDUEaQDZMezg9kbYDIuEwTY/xjESBqTDFRdtXX+ZHAhFk2UHGYg8zL
-	 3wniYuBz1E9WGHw9sK/a6bJbmnoeYXLE4zCfmid2WUwzECIj+pjKD1hbVUH0cI8VQlv/w
-	 TW5evKIUQ81Cy9MCxatFfE+DmhiOjcRiCxvYTRCNsjYdmfbln/0iVIdEfbPpzkx0kBUPG
-	 ssV1idUFPim8E+XGORy+9rIu/+Jsjbrc80jNWkjv4kv8Sd4YQ9AA2Q3+RBqeMgKS4+21D
-	 KinwqcRTFXIUYfPjIqhzIz2Tu4YWz7GyjUinlaq48B8180QwRN+xFLJB/LqBUl6AVPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792446459;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Y01ZFxKnej6mlURbS/x8BLwV+C7jNkm78zIZtDfVDp0=;
+	b=fe5AaL0U6j3dQjplEPakbNrLIWUVH5v7W4w6MYbSltjEtbjwT6EJPFk+/iFXpqevNcfm
+	 WFKR7mCaZBXLlc8+uTUMgt+XvUL+swcxV5wQZ74cW1s50R+3hzMi16/PsdoqSUjFIMp2C
+	 HG29v7W61jg1PF+PB68Xrs47W0ic7bKMdI0JyCvMy3Pz/SFfQteDr1XgUg3lt/KsE8syz
+	 Zdvw+uqBHPl3RyJDCEmSzJ79NJZGCKQxvWD+ALZQxfWLaixbbhbCTLWGcgPUyAnYdJ3Pu
+	 FFWwLd0AJeodubGrKWuxTwfUmbf08QfzRLGEx2Sm6WD3SWor6NGHTKEunJfMpn/Rm1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=feo3VPL0;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lQZgqdUp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620BE606A323
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:47:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 620BE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C02606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:47:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=feo3VPL0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792446420;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nCuZlJhYpzEDE8MZyIKHldrb9zK6HERF/NakAdQi+bo=;
-	b=feo3VPL0HdRJom+S35JN6t3d7U9stRR1zTeFImFFZgcnm2qHxwzfDsYHGEF0STj0nOEYZv
-	p5D2kRBg8uVMxOHTrWW5ZSzwOL8JzzapkBKMEJYHsMiJRDGF6KxxnxfDHEvOYSRBYy1imv
-	kg0hjX3zj5xkdMj3qz0hUg6lgyxvJJ8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-664-xWjmjAB1O92E7IPUm-h4dA-1; Mon,
- 19 Oct 2026 21:46:54 +0000
-X-MC-Unique: xWjmjAB1O92E7IPUm-h4dA-1
-X-Mimecast-MFC-AGG-ID: xWjmjAB1O92E7IPUm-h4dA_1792446411
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D19AC18011E9;
-	Mon, 19 Oct 2026 21:46:50 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.48.11])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 712CE1800257;
-	Mon, 19 Oct 2026 21:46:43 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20261016215326.4110064-7-jarkko@kernel.org>
-References: <20261016215326.4110064-7-jarkko@kernel.org> <20261016215326.4110064-1-jarkko@kernel.org>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: dhowells@redhat.com, keyrings@vger.kernel.org,
-    Linus Torvalds <torvalds@linux-foundation.org>,
-    Jonathan Corbet <corbet@lwn.net>,
-    Shuah Khan <skhan@linuxfoundation.org>,
-    Randy Dunlap <rdunlap@infradead.org>, Alex Shi <alexs@kernel.org>,
-    Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>,
-    Andrew Morton <akpm@linux-foundation.org>,
-    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-    "Serge E. Hallyn" <serge@hallyn.com>,
-    Bagas Sanjaya <bagasdotme@gmail.com>,
-    Pasha Tatashin <pasha.tatashin@soleen.com>,
-    Jani Nikula <jani.nikula@intel.com>,
-    "Mike
- Rapoport (Microsoft)" <rppt@kernel.org>,
-    Pratyush Yadav <pratyush@kernel.org>,
-    Frederic Weisbecker <frederic@kernel.org>,
-    linux-doc@vger.kernel.org (open
-                         list:DOCUMENTATION),
-    linux-kernel@vger.kernel.org (open list),
-    linux-security-module@vger.kernel.org (open
-                         list:SECURITY SUBSYSTEM)
-Subject: Re: [RFC PATCH 6/6] lib: Remove unused assoc_array
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lQZgqdUp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0EC91F000CD
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:47:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792446458;
+	bh=Y01ZFxKnej6mlURbS/x8BLwV+C7jNkm78zIZtDfVDp0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lQZgqdUp0zhIV+HXrQx5g7nOPWsoMxtLqnTsHtXZlQCwNWMUSIOC7WxV680SQyNMX
+	 sTdeatBIAD4itaMEkXk7aWS7vdcUtIKLVTIiA4qBID8nKENcCHY6qNgM5jI9vR2Czq
+	 HFTVWnGcBeWQxlzclhq3lp67FAWDRV8FhAJxsU/kECVxxVnIFLMEi6WIyoQI4QGnE1
+	 cIimnS27lGSjRknOtwBK9V1MFJxiauAA6JE8G8YwLzTl89jtgJczRe7bza/Q1fKAMa
+	 xvMiSWUK3NiuwFH8k3m1jMV6LKMNACiaQg5MZp5RhQOCb7divTCTqibkDlFSnl5Mvr
+	 II97sRUECqtDw==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso370510266b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:47:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByXBB6Dmxrg4z1oyKhiWHvdXOuuGgt4DYQYXPfLhi84C99N3SbtFumzrrYAW+otwK+wr6JL8zkmmqUR/vc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYCalfK4dnulz1+OB6FDVDnFj6Iuo4bEXHQWV95YrypsatzrXq
+	aU6ZevuUlUrd4MNggyqZly7tOHiyVuX29s5ypqv01jYCRcjw7AcSJIK36Ro788uqTzt6p9UtrWr
+	2ONI1x8sWczN5gUGmw1qkWNNU55RwSnU=
+X-Received: by 2002:a17:907:d385:b0:c41:5a0e:3356 with SMTP id
+ a640c23a62f3a-c419ff0269amr587261666b.41.1792446457458; Mon, 19 Oct 2026
+ 14:47:37 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,17 +59,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <2630214.1792446401.1@warthog.procyon.org.uk>
-Date: Mon, 19 Oct 2026 22:46:41 +0100
-Message-ID: <2630215.1792446401@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+References: <20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
+ <atI_yuCc4BiweBQP@google.com> <atT5TYyLapHO5ZoX@pcnci.linuxbox.cz>
+ <20261018201538.d0957878f378a9821852836f@linux-foundation.org>
+ <atXXma5NXxoSWJO0@pcnci.linuxbox.cz> <atY1vWRBRUwpISKb@pcnci.linuxbox.cz>
+ <20261019083529.a81910ac0976c1a5687d4c6a@linux-foundation.org>
+ <CAO9r8zO41EromgLGhKv8H0aKXjrffH+t4CFGU6cLo59JJ3CEuA@mail.gmail.com>
+ <20261019105844.02d4623b7063fec25ebd34ad@linux-foundation.org>
+ <CAO9r8zN1dTJmULsKCwNrNr_vKyrV+vMfD7wifQ05uAti7E-yDw@mail.gmail.com>
+ <20261019181510.GAatZeLtUmU3Zy9VZt@fat_crate.local> <CAO9r8zMdLN+wms164bs_c5BfnrYZoNAPz6b6hcODt1JnUMniVQ@mail.gmail.com>
+In-Reply-To: <CAO9r8zMdLN+wms164bs_c5BfnrYZoNAPz6b6hcODt1JnUMniVQ@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Mon, 19 Oct 2026 14:47:25 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOq16mMpRsg_83wfYX8HQQziJLFtjVGuUu_j0doCBVgZQ@mail.gmail.com>
+X-Gm-Features: AclHuK_Usd8FmnB_Y9RQuzU--fW4ljIz5k0wB473gNs2RDhEXbyVkZbgYbBQPGY
+Message-ID: <CAO9r8zOq16mMpRsg_83wfYX8HQQziJLFtjVGuUu_j0doCBVgZQ@mail.gmail.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+To: Borislav Petkov <bp@alien8.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Nikola Ciprich <nikola.ciprich@linuxbox.cz>, 
+	Sean Christopherson <seanjc@google.com>, David Laight <david.laight.linux@gmail.com>, 
+	Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, david@kernel.org, 
+	Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>, luizcap@redhat.com, 
+	pbonzini@redhat.com, Tal Zussman <tz2294@columbia.edu>, 
+	Matt Fleming <matt@readmodwrite.com>, gregkh@linuxfoundation.org, sashal@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jarkko Sakkinen <jarkko@kernel.org> wrote:
+On Mon, Oct 19, 2026 at 12:53=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wro=
+te:
+>
+> On Mon, Oct 19, 2026 at 11:15=E2=80=AFAM Borislav Petkov <bp@alien8.de> w=
+rote:
+> >
+> > On Mon, Oct 19, 2026 at 11:00:00AM -0700, Yosry Ahmed wrote:
+> > > Right, but this is for new patches that get merged into Linus's tree,
+> > > what about existing patches? Any way to retrigger that workflow?
+> >
+> > You take your patch, apply it to the stable trees here:
+> >
+> > https://www.kernel.org/category/releases.html
+> >
+> > and send the applied and tested version it to <stable@kernel.org>.
+> >
+> > I.e., you backport it yourself. :)
+>
+> Will do, I have done manual backports before but only for conflicts. I
+> was more asking if I need to send the patch to all branches or if it
+> will be automatically backported to the others if there are no
+> conflicts.
 
-> Drop the obsolete leaf-count reference from a dm-verity test comment.
-
-This might need reworking as a commit message...
-
-David
-
+Actually, it doesn't matter. I think only v6.18 is affected. I think
+the problem was introduced in 5a1a726e68ff ("KVM: x86: Use
+KVM_REQ_RECALC_INTERCEPTS to react to CPUID updates"). This commit
+deferred the initial intercepts calculation to the first KVM_RUN,
+making it possible to calculate the intercepts while L2/vmcb02 is
+active without calculating the intercepts in L1. Before that, I
+believe the bug was indeed benign in practice (I think a VMM can still
+trigger it by going from an Intel CPUID to an AMD CPUID after
+restoring into L2 but before KVM_RUN).
