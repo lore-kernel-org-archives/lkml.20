@@ -1,600 +1,143 @@
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6415E48BD29
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B160919CCF5
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395991; cv=none; b=JuHAdKYPRuNuwW/VJgdoGAUJmTYjItUTqkOekMlf+drdZOR8gKFGqFUh/4smJ/7w0nqHGRxB0WnU/2sysH6Sq+zwgZ2aL0YpoOfU8AzrjE4K4BwDS5fZpMiFlJzusZM12OjjmV+WRo4UgmuAlggfHEA7ey8yXNxZq47pZPUxyXA=
+	t=1792396074; cv=none; b=qe28Ytg6Yl7R96lKh9SZ+jeEQtnag3bq1Z7n3ZPbvVtJ/s9azkhtNpFNxd3u0H4+hNyDRq+oIsy1UCrumANWg1LClYVeu0NAVCaVXWGBP8IZmGnachsA05BrX5gwBgWzwvvAUND8+E69zxOnkgIiEDiNRG0Xhja4J9AhhUcoCJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395991; c=relaxed/simple;
-	bh=eay8gnYxylfBonE7S8gH48nN9Px0Hua3lAMMYc+YQBU=;
-	h=Message-ID:From:To:Subject:Date:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Vrt2YnbuR+vAbjlJR4s4oowqKTC9wB5nPWz50MkGRJB0uZTPf9MHUWF/jrkibZEgpqQAlRxGVYPTirSXX+abuYJQ+MCuTcPuDPsT18XMfXToTD1pD9a/cMIQmM33zXsewTJ+U3EmmPGMcj6T81JLpWKnZzXaXcVVHl/NeFLsjIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=yzQojXLb; arc=none smtp.client-ip=162.62.57.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1792396074; c=relaxed/simple;
+	bh=Ni84wmzEwyjfCyRdEXQhLz0l6VkKLxYT9iXvNFgKTiw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ue43eFFQ5TrZ+jvu9LqYt+ID5XESp/QZIB2twtCOHlvxs1tDExRrAnC7q3u7ALNVtw8z7ES3yWMddxZ3ktuc+TGEdH1a4Ij8SAXbI1peKy6X74w7+igwHqNkS1nD2J5/k9tSWMrCo9ZCC91KQx5UdKHNEzbT0DDf+4r/tQl/rxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kE+sZ/cc; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="yzQojXLb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792395984; bh=AJgkqBw1wQEDjp9glnT1bYlBKBn3lD5ftfv8JSncj94=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=yzQojXLbn2ZIGuwaCEfb61VdGosqUbi2ye32CdqCLulV0G/S2k/Fs6sC9ikabUtkx
-	 uXnKeE0f2wioYf/ANErDO3+TQn94uwhZVHidQoTXt8tUPbdN9sBYSKRSSEtXPa/ZjY
-	 0NfeszHalkAu9fUHgIH0g/+Y63CbmGokOmIaqKFI=
-Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id B90B5685; Mon, 19 Oct 2026 15:46:16 +0800
-X-QQ-mid: xmsmtpt1792395980t7shakoq5
-Message-ID: <tencent_EA9D15E9B49E0967C4C3DB3A29BB19D5E307@qq.com>
-X-QQ-XMAILINFO: OYTBn1rNHH7tWa23yUbdU2QDuJIypRREzVP6XZ4NCH7os2dKhAcBsZyGQIwPN6
-	 KT+dD4Hfevum5NOtz380zeUa1FZW3RWg83Y8uHhuH9D9feL9A39d8Xsm9rkwcVuu3Hq5vt6Tjasu
-	 OXq/512Gq9dv/Haav8J5A22cqHEFSwPjqgon/qhtTPaK1Mv5W0BmhvbJ9YnAei22aeenFNzbns0B
-	 424flkDS6ycRKYG9FKumRKfNDI3u3WzTMvGLmQA//k3kXu3ahAPhoxSpOB7ByR3TuZG2SM9dT3BU
-	 OnUDW6HpQ1LDVkdLO30h+8NBlYfe707G8dWOxr38wCmCPkmPlFcseshxBT+AIvx5WfLMZMXAEUsa
-	 NEdQFk4uutYP6SYh4UYgnIO/94k9cys4W6Us6aTXkdjBjqlbKgNqqoJC1mM4R/oEiPq515kiagUh
-	 RaquArjk0+YhETX9hW0ewkrJQG+uSfw4Dtd4hihjKRbgOHY3kSXSy5rcBs+Vb7/bB013mdslBbTN
-	 qN5CBNqvCPhnfmqCCPok0F2/P3eOoy/dfGtGSCSu14cD9M7YBml5LnZhoJ7XnT0Gu42Tzwvpr+D/
-	 xpgqNdGADVKuadxfI6GRTUWezFgH5Ui0aCMKx2sPM1KfUSSMYxyYqq3jqBpJGOANXn5FMz6h/NrE
-	 O6+OUel8+J+tvXsdI6flBJq3nzf44/AX0KqGbYE2LXHU6ggqs+BVew08+l+l9V1JEDgC/BhxAS9s
-	 Z4gHIOZFsXKyJK5lYHjeGBD0jPqtA/ZV9o5CleZ/PbgJKQKxkgYuk5UCPWregoLsj5fg8VdKsU6y
-	 RKS1zDlPDkl6Gwzwwl9ceR/++SZ/eFO+EbeC8UfSSoMpgLTH8APEte2UlJ/Nle0eQKEa8P0bfce/
-	 XWWrzrkB7OtnmL20v+yWg/TF5CpaX6Dl3DThckHVmYrsgv+b2wykk5FD959i22grBn9rQzc9ip8k
-	 8GJ49WQ0tTlwrE5tIYYUCHrUXHOJcSxpL/4ZDiJcOdeIQPzhY26w4gQjG8Jl4Rq56ZvznABL1fab
-	 vy7HAdXxFUvePC4ly2Lr75gctjgHY+eYS5PmBGClm35ExjLeQlzWDgHWmLdh0AeUD14Xn6jf5tka
-	 5RNDjIdZ9jWI4sKo2Rrr/cCfLccMt0qcPp7+lx
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Jinjie Ruan <2118537295@qq.com>
-To: babu.moger@amd.com,
-	ben.horgan@arm.com,
-	bp@alien8.de,
-	catalin.marinas@arm.com,
-	dave.hansen@linux.intel.com,
-	Dave.Martin@arm.com,
-	fenghuay@nvidia.com,
-	gshan@redhat.com,
-	hpa@zytor.com,
-	james.morse@arm.com,
-	jic23@kernel.org,
-	mingo@redhat.com,
-	reinette.chatre@intel.com,
-	ruanjinjie@huawei.com,
-	tan.shaopeng@fujitsu.com,
-	tglx@kernel.org,
-	tony.luck@intel.com,
-	zengheng4@huawei.com,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 15/15] arm_mpam: resctrl: Add kunit tests for narrow PARTID helpers
-Date: Mon, 19 Oct 2026 15:46:08 +0800
-X-OQ-MSGID: <20261019074609.2144405-3-2118537295@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019074609.2144405-1-2118537295@qq.com>
-References: <20261019074609.2144405-1-2118537295@qq.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kE+sZ/cc"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CCA9F1477;
+	Mon, 19 Oct 2026 00:47:48 -0700 (PDT)
+Received: from [10.0.128.106] (e127648.arm.com [10.0.128.106])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E4AA03F7D8;
+	Mon, 19 Oct 2026 00:47:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792396072; bh=Ni84wmzEwyjfCyRdEXQhLz0l6VkKLxYT9iXvNFgKTiw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=kE+sZ/ccr+FrFAZ4NHxLy9qSUNmpKA7qeRKkROZ4X5bWWDMoVigr/Niy0e4E4yp4N
+	 YaWhP/cqU9sZAw76UwbA/XfmvcqjAB5+1konA1exuBnlN4JP6PSRtwdiBaQXuU+2Di
+	 EplqBqQkMLTHT99BzHd+lX2QW2bf+9Wv/Z22esOw=
+Message-ID: <a6c27dc2-ea8b-4c33-8c16-088d7501f9ac@arm.com>
+Date: Mon, 19 Oct 2026 08:47:46 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] sched/core: Use the scheduling context for remote ticks
+To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
+ Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Connor O'Brien
+ <connoro@google.com>, John Stultz <jstultz@google.com>,
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>,
+ "Christoph Lameter (Ampere)" <cl@gentwo.org>
+Cc: linux-kernel@vger.kernel.org
+References: <20261016-remote-tick-proxy-v1-1-272757a50a07@gentwo.org>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261016-remote-tick-proxy-v1-1-272757a50a07@gentwo.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-From: Jinjie Ruan <ruanjinjie@huawei.com>
+On 10/16/26 22:13, Shubhang Kaushik (Ampere) wrote:
+> sched_tick_remote() invokes task_tick() for rq->curr. With proxy
+> execution, rq->curr is the mutex-owner execution context while
+> rq->donor is the blocked task that supplies the scheduling context.
+> 
+> A mutex-blocked task remains queued for proxy execution. If that task
+> is SCHED_FIFO, or the only SCHED_RR task, sched_can_stop_tick() permits
+> the full-nohz tick to stop. find_proxy_task() can then select its mutex
+> owner as rq->curr while retaining the blocked task as rq->donor.
+> 
+> sched_tick() and hrtick() already invoke task_tick() for rq->donor.
+> Make sched_tick_remote() do the same. Keep rq->curr for the execution
+> time sanity check.
+> 
+> Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_proxy_task()")
+> 
+> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 
-Cover the RMID to request PARTID/PMG encoding, the request PARTID to
-intPARTID modulo mapping, CLOSID membership checks across legacy, CDP,
-narrowing and CDP+narrowing modes, and the (CLOSID, RMID) translation
-helper.
 
-The tests poke the partid map through mpam_partid_map_init() so they
-do not depend on resctrl having been set up.
+NIT: no empty newline between the above two
 
-Enabled with CONFIG_MPAM_KUNIT_TEST; run with:
-  kunit.py run --arch=arm64 --kunitconfig=drivers/resctrl
+> ---
+> Testing was performed on an Ampere Altra system with
+> CONFIG_SCHED_PROXY_EXEC=y and CONFIG_NO_HZ_FULL=y, booted with:
+> 
+>   sched_proxy_exec=1 nohz_full=78
+> 
+> On the unpatched baseline: 70dd4ee72eb2 (7.3.0-rc7), mutex locktorture
+> with four writers pinned to CPU 78 and RT boosting triggered:
+> 
+>   WARNING: kernel/sched/core.c:5895 at sched_tick_remote...
+>   Workqueue: events_unbound sched_tick_remote
+> 
+> This warning is WARN_ON_ONCE(rq->curr != rq->donor), demonstrating that
+> a full-nohz remote tick can run while the executing task and scheduling
+> context differ.
+> 
+> The patched kernel completed the same 10-minute workload without
+> scheduler warnings or locktorture failures.
+> ---
+>  kernel/sched/core.c | 13 ++++++-------
+>  1 file changed, 6 insertions(+), 7 deletions(-)
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 1fe40de6ebe3cb9a8cfa2e6104a2a4cd4515f739..14aab4cde12b4dc9cccf45087ca956ecec2aa379 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -5885,14 +5885,9 @@ static void sched_tick_remote(struct work_struct *work)
+>  	if (tick_nohz_tick_stopped_cpu(cpu)) {
+>  		guard(rq_lock_irq)(rq);
+>  		struct task_struct *curr = rq->curr;
+> +		struct task_struct *donor = rq->donor;
+>  
+>  		if (cpu_online(cpu)) {
+> -			/*
+> -			 * Since this is a remote tick for full dynticks mode,
+> -			 * we are always sure that there is no proxy (only a
+> -			 * single task is running).
+> -			 */
+> -			WARN_ON_ONCE(rq->curr != rq->donor);
+>  			update_rq_clock(rq);
+>  
+>  			if (!is_idle_task(curr)) {
+> @@ -5903,7 +5898,11 @@ static void sched_tick_remote(struct work_struct *work)
+>  				u64 delta = rq_clock_task(rq) - curr->se.exec_start;
+>  				WARN_ON_ONCE(delta > (u64)NSEC_PER_SEC * 30);
+>  			}
+> -			curr->sched_class->task_tick(rq, curr, 0);
+> +			/*
+> +			 * Proxy execution runs the mutex owner in @curr on behalf of the
+> +			 * blocked task in @donor. The scheduler tick applies to @donor.
+> +			 */
+> +			donor->sched_class->task_tick(rq, donor, 0);
+>  
+>  			calc_load_nohz_remote(rq);
+>  		}
+> 
+> ---
+> base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+> change-id: 20261016-remote-tick-proxy-237fc1da63c8
+> 
+> Best regards,
 
-Assisted-by: GLM:5.3
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- drivers/resctrl/.kunitconfig        |   4 +
- drivers/resctrl/test_mpam_resctrl.c | 466 ++++++++++++++++++++++++++++
- 2 files changed, 470 insertions(+)
- create mode 100644 drivers/resctrl/.kunitconfig
-
-diff --git a/drivers/resctrl/.kunitconfig b/drivers/resctrl/.kunitconfig
-new file mode 100644
-index 000000000000..0cc78c0f7474
---- /dev/null
-+++ b/drivers/resctrl/.kunitconfig
-@@ -0,0 +1,4 @@
-+CONFIG_KUNIT=y
-+CONFIG_ARM64_MPAM=y
-+CONFIG_RESCTRL_FS=y
-+CONFIG_MPAM_KUNIT_TEST=y
-diff --git a/drivers/resctrl/test_mpam_resctrl.c b/drivers/resctrl/test_mpam_resctrl.c
-index b93d6ad87e43..f6620ea6f873 100644
---- a/drivers/resctrl/test_mpam_resctrl.c
-+++ b/drivers/resctrl/test_mpam_resctrl.c
-@@ -296,6 +296,462 @@ static void test_percent_to_max_rounding(struct kunit *test)
- 	KUNIT_EXPECT_LE(test, 4 * num_rounded_up, 3 * total);
- }
- 
-+/*
-+ * Test cases for CDP and PARTID narrowing compatibility
-+ */
-+
-+struct cdp_narrowing_test_case {
-+	bool cdp_enabled;
-+	bool narrowing_enabled;
-+	u32 closid;
-+	u32 rmid;
-+	u8 pmg_max;
-+	u32 expected_partid_d;
-+	u32 expected_partid_i;
-+	u8 expected_pmg_d;
-+	u8 expected_pmg_i;
-+	const char *desc;
-+};
-+
-+static const struct cdp_narrowing_test_case cdp_narrowing_cases[] = {
-+	{
-+		.cdp_enabled = false,
-+		.narrowing_enabled = false,
-+		.closid = 5,
-+		.rmid = 3,
-+		.pmg_max = 127,
-+		.expected_partid_d = 5,
-+		.expected_partid_i = 5,
-+		.expected_pmg_d = 3,
-+		.expected_pmg_i = 3,
-+		.desc = "CDP=0, narrow=0: basic mapping"
-+	},
-+	{
-+		.cdp_enabled = false,
-+		.narrowing_enabled = true,
-+		.closid = 5,
-+		.rmid = 258,
-+		.pmg_max = 127,
-+		.expected_partid_d = 2,
-+		.expected_partid_i = 2,
-+		.expected_pmg_d = 2,
-+		.expected_pmg_i = 2,
-+		.desc = "CDP=0, narrow=1: extract reqPARTID from rmid"
-+	},
-+	{
-+		.cdp_enabled = true,
-+		.narrowing_enabled = false,
-+		.closid = 5,
-+		.rmid = 3,
-+		.pmg_max = 127,
-+		.expected_partid_d = 10,
-+		.expected_partid_i = 11,
-+		.expected_pmg_d = 3,
-+		.expected_pmg_i = 3,
-+		.desc = "CDP=1, narrow=0: CDP DATA/CODE split"
-+	},
-+	{
-+		.cdp_enabled = true,
-+		.narrowing_enabled = true,
-+		.closid = 5,
-+		.rmid = 258,
-+		.pmg_max = 127,
-+		.expected_partid_d = 4,
-+		.expected_partid_i = 5,
-+		.expected_pmg_d = 2,
-+		.expected_pmg_i = 2,
-+		.desc = "CDP=1, narrow=1: both features combined"
-+	},
-+	{
-+		.cdp_enabled = false,
-+		.narrowing_enabled = false,
-+		.closid = 65535,
-+		.rmid = 0,
-+		.pmg_max = 127,
-+		.expected_partid_d = 65535,
-+		.expected_partid_i = 65535,
-+		.expected_pmg_d = 0,
-+		.expected_pmg_i = 0,
-+		.desc = "Boundary: max closid"
-+	},
-+	{
-+		.cdp_enabled = false,
-+		.narrowing_enabled = false,
-+		.closid = 0,
-+		.rmid = 127,
-+		.pmg_max = 127,
-+		.expected_partid_d = 0,
-+		.expected_partid_i = 0,
-+		.expected_pmg_d = 127,
-+		.expected_pmg_i = 127,
-+		.desc = "Boundary: max pmg"
-+	},
-+	{
-+		.cdp_enabled = false,
-+		.narrowing_enabled = true,
-+		.closid = 0,
-+		.rmid = 639,
-+		.pmg_max = 159,
-+		.expected_partid_d = 3,
-+		.expected_partid_i = 3,
-+		.expected_pmg_d = 159,
-+		.expected_pmg_i = 159,
-+		.desc = "Narrowing with pmg_max=159"
-+	},
-+	{
-+		.cdp_enabled = true,
-+		.narrowing_enabled = true,
-+		.closid = 10,
-+		.rmid = 1280,
-+		.pmg_max = 127,
-+		.expected_partid_d = 20,
-+		.expected_partid_i = 21,
-+		.expected_pmg_d = 0,
-+		.expected_pmg_i = 0,
-+		.desc = "CDP + narrowing with reqPARTID=10"
-+	},
-+};
-+
-+static void cdp_narrowing_test_desc(const struct cdp_narrowing_test_case *param,
-+				    char *desc)
-+{
-+	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s", param->desc);
-+}
-+
-+KUNIT_ARRAY_PARAM(cdp_narrowing, cdp_narrowing_cases, cdp_narrowing_test_desc);
-+
-+static void test_cdp_narrowing_mapping(struct kunit *test)
-+{
-+	const struct cdp_narrowing_test_case *param = test->param_value;
-+	bool saved_cdp, saved_narrowing;
-+	u32 partid_d, partid_i;
-+	u8 saved_pmg_max;
-+	u8 pmg_d, pmg_i;
-+
-+	saved_pmg_max = mpam_pmg_max;
-+	saved_cdp = cdp_enabled;
-+	saved_narrowing = resctrl_using_extra_partids;
-+
-+	mpam_pmg_max = param->pmg_max;
-+	cdp_enabled = param->cdp_enabled;
-+	resctrl_using_extra_partids = param->narrowing_enabled;
-+
-+	resctrl_closid_rmid_to_partid_pmg(param->closid, param->rmid,
-+					  &partid_d, &partid_i,
-+					  &pmg_d, &pmg_i);
-+
-+	KUNIT_EXPECT_EQ(test, partid_d, param->expected_partid_d);
-+	KUNIT_EXPECT_EQ(test, partid_i, param->expected_partid_i);
-+	KUNIT_EXPECT_EQ(test, pmg_d, param->expected_pmg_d);
-+	KUNIT_EXPECT_EQ(test, pmg_i, param->expected_pmg_i);
-+
-+	mpam_pmg_max = saved_pmg_max;
-+	cdp_enabled = saved_cdp;
-+	resctrl_using_extra_partids = saved_narrowing;
-+}
-+
-+static void test_cdp_narrowing_consistency(struct kunit *test)
-+{
-+	u32 partid_d1, partid_i1, partid_d2, partid_i2;
-+	u8 pmg_d1, pmg_i1, pmg_d2, pmg_i2;
-+	bool saved_cdp, saved_narrowing;
-+	u8 saved_pmg_max;
-+
-+	saved_pmg_max = mpam_pmg_max;
-+	saved_cdp = cdp_enabled;
-+	saved_narrowing = resctrl_using_extra_partids;
-+
-+	mpam_pmg_max = 127;
-+
-+	cdp_enabled = true;
-+	resctrl_using_extra_partids = false;
-+	resctrl_closid_rmid_to_partid_pmg(10, 5, &partid_d1, &partid_i1,
-+					  &pmg_d1, &pmg_i1);
-+
-+	cdp_enabled = true;
-+	resctrl_using_extra_partids = false;
-+	resctrl_closid_rmid_to_partid_pmg(10, 7, &partid_d2, &partid_i2,
-+					  &pmg_d2, &pmg_i2);
-+
-+	KUNIT_EXPECT_EQ(test, partid_d1, partid_d2);
-+	KUNIT_EXPECT_EQ(test, partid_i1, partid_i2);
-+	KUNIT_EXPECT_EQ(test, partid_i1, partid_d1 + 1);
-+
-+	mpam_pmg_max = saved_pmg_max;
-+	cdp_enabled = saved_cdp;
-+	resctrl_using_extra_partids = saved_narrowing;
-+}
-+
-+static void test_narrowing_rmid_encode_decode(struct kunit *test)
-+{
-+	bool saved_narrowing;
-+	u8 pmg, decoded_pmg;
-+	u8 saved_pmg_max;
-+	u16 partid;
-+	u32 rmid;
-+
-+	saved_pmg_max = mpam_pmg_max;
-+	saved_narrowing = resctrl_using_extra_partids;
-+
-+	mpam_pmg_max = 127;
-+	resctrl_using_extra_partids = true;
-+
-+	for (partid = 0; partid < 100; partid++) {
-+		for (pmg = 0; pmg <= mpam_pmg_max; pmg += 10) {
-+			rmid = partid * (mpam_pmg_max + 1) + pmg;
-+
-+			KUNIT_EXPECT_EQ(test, resctrl_rmid_to_partid(rmid), partid);
-+			decoded_pmg = resctrl_rmid_to_pmg(rmid);
-+			KUNIT_EXPECT_EQ(test, decoded_pmg, pmg);
-+		}
-+	}
-+
-+	mpam_pmg_max = saved_pmg_max;
-+	resctrl_using_extra_partids = saved_narrowing;
-+}
-+
-+static void test_narrowing_rmid_idx_encode(struct kunit *test)
-+{
-+	u32 closid, rmid, idx;
-+	bool saved_narrowing;
-+	u8 saved_pmg_max;
-+
-+	saved_pmg_max = mpam_pmg_max;
-+	saved_narrowing = resctrl_using_extra_partids;
-+
-+	mpam_pmg_max = 127;
-+
-+	resctrl_using_extra_partids = false;
-+	for (closid = 0; closid < 10; closid++) {
-+		for (rmid = 0; rmid < 10; rmid++) {
-+			idx = resctrl_arch_rmid_idx_encode(closid, rmid);
-+			KUNIT_EXPECT_EQ(test, idx, closid * 128 + rmid);
-+		}
-+	}
-+
-+	resctrl_using_extra_partids = true;
-+	for (closid = 0; closid < 10; closid++) {
-+		for (rmid = 0; rmid < 1000; rmid += 100) {
-+			idx = resctrl_arch_rmid_idx_encode(closid, rmid);
-+			KUNIT_EXPECT_EQ(test, idx, rmid);
-+		}
-+	}
-+
-+	mpam_pmg_max = saved_pmg_max;
-+	resctrl_using_extra_partids = saved_narrowing;
-+}
-+
-+static void test_narrowing_rmid_idx_decode(struct kunit *test)
-+{
-+	u32 decoded_closid, decoded_rmid;
-+	u32 idx, closid, rmid;
-+	bool saved_narrowing;
-+	u8 saved_pmg_max;
-+
-+	saved_pmg_max = mpam_pmg_max;
-+	saved_narrowing = resctrl_using_extra_partids;
-+
-+	mpam_pmg_max = 127;
-+
-+	resctrl_using_extra_partids = false;
-+	for (closid = 0; closid < 10; closid++) {
-+		for (rmid = 0; rmid < 10; rmid++) {
-+			idx = closid * 128 + rmid;
-+			resctrl_arch_rmid_idx_decode(idx, &decoded_closid, &decoded_rmid);
-+			KUNIT_EXPECT_EQ(test, decoded_closid, closid);
-+			KUNIT_EXPECT_EQ(test, decoded_rmid, rmid);
-+		}
-+	}
-+
-+	resctrl_using_extra_partids = true;
-+	mpam_partid_map_init(64, 32);
-+	for (idx = 0; idx < 5000; idx += 500) {
-+		u16 partid = resctrl_rmid_to_partid(idx);
-+		u16 intpartid = mpam_partid_to_intpartid(partid);
-+
-+		resctrl_arch_rmid_idx_decode(idx, &decoded_closid, &decoded_rmid);
-+		KUNIT_EXPECT_EQ(test, decoded_closid, intpartid);
-+		KUNIT_EXPECT_EQ(test, decoded_rmid, idx);
-+	}
-+	mpam_partid_map_init(0, 0);
-+
-+	mpam_pmg_max = saved_pmg_max;
-+	resctrl_using_extra_partids = saved_narrowing;
-+}
-+
-+struct partid_mapping_case {
-+	u16 partid;
-+	u16 num_partid;
-+	u16 num_closid;
-+	u16 expected_intpartid;
-+	const char *desc;
-+};
-+
-+static const struct partid_mapping_case partid_mapping_cases[] = {
-+	{ 0, 128, 32, 0, "First PARTID maps to first intPARTID" },
-+	{ 31, 128, 32, 31, "Last intPARTID maps 1:1" },
-+	{ 32, 128, 32, 0, "First extra PARTID wraps to intPARTID 0" },
-+	{ 33, 128, 32, 1, "Second extra PARTID wraps to intPARTID 1" },
-+	{ 63, 128, 32, 31, "PARTID 63 wraps to intPARTID 31" },
-+	{ 64, 128, 32, 0, "PARTID 64 wraps to intPARTID 0" },
-+	{ 127, 128, 32, 31, "Max PARTID wraps to intPARTID 31" },
-+	{ 15, 64, 16, 15, "Small config: PARTID 15 → intPARTID 15" },
-+	{ 16, 64, 16, 0, "Small config: PARTID 16 wraps to 0" },
-+	{ 63, 64, 16, 15, "Small config: max PARTID wraps to 15" },
-+};
-+
-+static void partid_mapping_desc(const struct partid_mapping_case *param,
-+				char *desc)
-+{
-+	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s", param->desc);
-+}
-+
-+KUNIT_ARRAY_PARAM(partid_mapping, partid_mapping_cases, partid_mapping_desc);
-+
-+static void test_narrowing_partid_mapping(struct kunit *test)
-+{
-+	const struct partid_mapping_case *param = test->param_value;
-+	u16 result;
-+
-+	mpam_partid_map_init(param->num_partid, param->num_closid);
-+
-+	result = mpam_partid_to_intpartid(param->partid);
-+	KUNIT_EXPECT_EQ(test, result, param->expected_intpartid);
-+
-+	mpam_partid_map_init(0, 0);
-+}
-+
-+struct partid_in_closid_case {
-+	u16 partid;
-+	u32 closid;
-+	bool cdp_enabled;
-+	bool narrowing_enabled;
-+	u16 num_closid;
-+	bool expected;
-+	const char *desc;
-+};
-+
-+static const struct partid_in_closid_case partid_in_closid_cases[] = {
-+	{ 10, 10, false, false, 32, true, "Legacy: exact match" },
-+	{ 10, 11, false, false, 32, false, "Legacy: no match" },
-+	{ 20, 10, true, false, 32, true, "CDP: even PARTID for closid 10" },
-+	{ 21, 10, true, false, 32, true, "CDP: odd PARTID for closid 10" },
-+	{ 22, 10, true, false, 32, false, "CDP: PARTID 22 not in closid 10" },
-+	{ 10, 10, false, true, 32, true, "Narrowing: PARTID 10 -> intPARTID 10" },
-+	{ 42, 10, false, true, 32, true, "Narrowing: PARTID 42 wraps to intPARTID 10" },
-+	{ 74, 10, false, true, 32, true, "Narrowing: PARTID 74 wraps to intPARTID 10" },
-+	{ 43, 10, false, true, 32, false, "Narrowing: PARTID 43 -> intPARTID 11" },
-+	{ 20, 10, true, true, 32, true, "CDP+narrow: even PARTID 20 -> intPARTID 10" },
-+	{ 21, 10, true, true, 32, true, "CDP+narrow: odd PARTID 21 -> intPARTID 10" },
-+	{ 84, 10, true, true, 32, true, "CDP+narrow: PARTID 84 wraps to intPARTID 10" },
-+	{ 86, 10, true, true, 32, false, "CDP+narrow: PARTID 86 -> intPARTID 11" },
-+};
-+
-+static void partid_in_closid_desc(const struct partid_in_closid_case *param,
-+				  char *desc)
-+{
-+	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s", param->desc);
-+}
-+
-+KUNIT_ARRAY_PARAM(partid_in_closid, partid_in_closid_cases,
-+		  partid_in_closid_desc);
-+
-+static void test_narrowing_partid_in_closid(struct kunit *test)
-+{
-+	const struct partid_in_closid_case *param = test->param_value;
-+	bool saved_cdp, saved_narrowing;
-+	bool result;
-+
-+	saved_cdp = cdp_enabled;
-+	saved_narrowing = resctrl_using_extra_partids;
-+
-+	cdp_enabled = param->cdp_enabled;
-+	resctrl_using_extra_partids = param->narrowing_enabled;
-+	mpam_partid_map_init(128, param->num_closid);
-+
-+	result = resctrl_partid_in_closid(param->partid, param->closid);
-+	KUNIT_EXPECT_EQ(test, result, param->expected);
-+
-+	mpam_partid_map_init(0, 0);
-+	cdp_enabled = saved_cdp;
-+	resctrl_using_extra_partids = saved_narrowing;
-+}
-+
-+static void test_narrowing_boundary_conditions(struct kunit *test)
-+{
-+	bool saved_narrowing;
-+	u8 saved_pmg_max;
-+	u32 rmid, idx;
-+	u16 partid;
-+	u8 pmg;
-+
-+	saved_pmg_max = mpam_pmg_max;
-+	saved_narrowing = resctrl_using_extra_partids;
-+
-+	resctrl_using_extra_partids = true;
-+
-+	mpam_pmg_max = 255;
-+	rmid = 255 * 256 + 255;
-+	partid = resctrl_rmid_to_partid(rmid);
-+	pmg = resctrl_rmid_to_pmg(rmid);
-+	KUNIT_EXPECT_EQ(test, partid, 255);
-+	KUNIT_EXPECT_EQ(test, pmg, 255);
-+
-+	mpam_pmg_max = 127;
-+	rmid = 100 * 128 + 127;
-+	partid = resctrl_rmid_to_partid(rmid);
-+	pmg = resctrl_rmid_to_pmg(rmid);
-+	KUNIT_EXPECT_EQ(test, partid, 100);
-+	KUNIT_EXPECT_EQ(test, pmg, 127);
-+
-+	mpam_pmg_max = 0;
-+	rmid = 50;
-+	partid = resctrl_rmid_to_partid(rmid);
-+	pmg = resctrl_rmid_to_pmg(rmid);
-+	KUNIT_EXPECT_EQ(test, partid, 50);
-+	KUNIT_EXPECT_EQ(test, pmg, 0);
-+
-+	mpam_pmg_max = 15;
-+	idx = resctrl_arch_rmid_idx_encode(0, 1000);
-+	KUNIT_EXPECT_EQ(test, idx, 1000);
-+
-+	mpam_pmg_max = saved_pmg_max;
-+	resctrl_using_extra_partids = saved_narrowing;
-+}
-+
-+static void test_narrowing_full_range_mapping(struct kunit *test)
-+{
-+	u16 partid, intpartid;
-+	bool saved_narrowing;
-+	u8 saved_pmg_max;
-+	int count = 0;
-+	u32 rmid;
-+
-+	saved_pmg_max = mpam_pmg_max;
-+	saved_narrowing = resctrl_using_extra_partids;
-+
-+	mpam_pmg_max = 31;
-+	resctrl_using_extra_partids = true;
-+	mpam_partid_map_init(64, 16);
-+
-+	for (rmid = 0; rmid < 2048; rmid += 32) {
-+		partid = resctrl_rmid_to_partid(rmid);
-+		intpartid = mpam_partid_to_intpartid(partid);
-+
-+		KUNIT_EXPECT_LT(test, partid, 64);
-+		KUNIT_EXPECT_LT(test, intpartid, 16);
-+		KUNIT_EXPECT_EQ(test, intpartid, partid % 16);
-+
-+		count++;
-+	}
-+
-+	KUNIT_EXPECT_GT(test, count, 0);
-+
-+	mpam_partid_map_init(0, 0);
-+	mpam_pmg_max = saved_pmg_max;
-+	resctrl_using_extra_partids = saved_narrowing;
-+}
-+
- static struct kunit_case mpam_resctrl_test_cases[] = {
- 	KUNIT_CASE(test_get_mba_granularity),
- 	KUNIT_CASE_PARAM(test_mbw_max_to_percent, test_percent_value_gen_params),
-@@ -304,6 +760,16 @@ static struct kunit_case mpam_resctrl_test_cases[] = {
- 	KUNIT_CASE(test_percent_to_max_rounding),
- 	KUNIT_CASE_PARAM(test_percent_max_roundtrip_stability,
- 			 test_all_bwa_wd_gen_params),
-+	KUNIT_CASE_PARAM(test_cdp_narrowing_mapping, cdp_narrowing_gen_params),
-+	KUNIT_CASE(test_cdp_narrowing_consistency),
-+	KUNIT_CASE(test_narrowing_rmid_encode_decode),
-+	KUNIT_CASE(test_narrowing_rmid_idx_encode),
-+	KUNIT_CASE(test_narrowing_rmid_idx_decode),
-+	KUNIT_CASE_PARAM(test_narrowing_partid_mapping, partid_mapping_gen_params),
-+	KUNIT_CASE_PARAM(test_narrowing_partid_in_closid,
-+			 partid_in_closid_gen_params),
-+	KUNIT_CASE(test_narrowing_boundary_conditions),
-+	KUNIT_CASE(test_narrowing_full_range_mapping),
- 	{}
- };
- 
--- 
-2.43.0
+The sashiko review looks legitimate, mind picking that up, too?
+https://sashiko.dev/#/patchset/20261016-remote-tick-proxy-v1-1-272757a50a07%40gentwo.org
 
