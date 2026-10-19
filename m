@@ -1,212 +1,109 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF9A49A3AB;
-	Mon, 19 Oct 2026 09:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAE33F4122
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:02:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400520; cv=none; b=lrbaflQuOjikRYmnouNbfQ5o6hlKv4TL2mzk/IF6zupRW6V52yT16J921czhMdunvX3Q/Es4ua9+bzgltt5Fq+9IHT0GOOuUiTCa0WNAW0XuznAU6GvqMyfwHKIkPXj3IrpjuhJGruTOADUDcIf1EUb9JgFtw8mFwEDYePzjaOQ=
+	t=1792400538; cv=none; b=a7j5+lZeFZdlyVdK61qgWA96vdWGacHG5hEx5YZ/JoaMme1l9v7ULxgKJLBXZIavsMKoMrK7bNJy0Yluok55s+w9feUIFn/+Qox3P7rjI+lqYctOxe/WXs6m+i3Tg7jg1G37QvMn1uLCHNk8VZRysrXdbU8s7pGmNavKJ64inOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400520; c=relaxed/simple;
-	bh=9YWx8WAm34xanNpLhpaS8oLDCPXamViXVVUfEYDnJg0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eO8kbEIZcemv5k8Z2hgOtQyFKx5ebI0ZuXu09oXFbZysGpuxiTbKtr7a2LI8SefLC/zYjbEc6bRIq/xXtRlZW2O32yBNZYZKApajBKoV2PoQ/puHUHHVwzQyx0xbAQBpnyN9LEh+ztvv+j6ECcD1RJwqZp1nRO+Jc8dbyxN31dM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TaXJcFkG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CJMfatPT; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=TaXJcFkG; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CJMfatPT; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1792400538; c=relaxed/simple;
+	bh=KEnNJh3rrhYtKOHUDjrU7apH2ucmijBgYQbutGWTkVQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GUVvfYeXX+IYkgcRqYBbStxBNR6V00vBF+2UcKpiugWBZOR7MDehZQY6wYqTgxKjd7QRrQOrAgNeSsF0UJHUU8pfB7YkXj5GRdUxfS+pBRYvo4kn1eokO6ujK5X3XCAYQ5QyTVDQWKEo0R2PI+ucIEkumx3e1O/cJ3P9PBYcKSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A1ILgQUo; arc=none smtp.client-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TaXJcFkG";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CJMfatPT";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="TaXJcFkG";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CJMfatPT"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A995321BFC;
-	Mon, 19 Oct 2026 09:01:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792400516; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rNnRDA0okT2U1jOeZ0ajx9DmL7Ea6AXQTcY6hG5C1uY=;
-	b=TaXJcFkGDZ0EXREic6WoGSbFVHAEWbnzq3aanYZa87tbaKEl63euyfpdosy417TMOk4I4N
-	zwi0p5xH0rDGjKf6GegBqyWcF16QG4MIESqw3e3cFdU6tfNdNqo3MLhUAmau4CWe2zbOHv
-	EurflAFdGYV3iScwvHqPI6/qzWqLcIY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792400516;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rNnRDA0okT2U1jOeZ0ajx9DmL7Ea6AXQTcY6hG5C1uY=;
-	b=CJMfatPTMzus+53MyicnGmxneKM91UGC8BPS7bR6wPyRe+czFqKiA5IS5AuljRBlWOpQE1
-	0Ku/DYD0ePTpxWAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792400516; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rNnRDA0okT2U1jOeZ0ajx9DmL7Ea6AXQTcY6hG5C1uY=;
-	b=TaXJcFkGDZ0EXREic6WoGSbFVHAEWbnzq3aanYZa87tbaKEl63euyfpdosy417TMOk4I4N
-	zwi0p5xH0rDGjKf6GegBqyWcF16QG4MIESqw3e3cFdU6tfNdNqo3MLhUAmau4CWe2zbOHv
-	EurflAFdGYV3iScwvHqPI6/qzWqLcIY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792400516;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rNnRDA0okT2U1jOeZ0ajx9DmL7Ea6AXQTcY6hG5C1uY=;
-	b=CJMfatPTMzus+53MyicnGmxneKM91UGC8BPS7bR6wPyRe+czFqKiA5IS5AuljRBlWOpQE1
-	0Ku/DYD0ePTpxWAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3B8401373D;
-	Mon, 19 Oct 2026 09:01:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id swPSAITc1Wo5BgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 09:01:56 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 9B42AA1418; Mon, 19 Oct 2026 11:01:47 +0200 (CEST)
-Date: Mon, 19 Oct 2026 11:01:47 +0200
-From: Jan Kara <jack@suse.cz>
-To: Jiaming Zhang <r772577952@gmail.com>
-Cc: linux-ext4@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
-	jack@suse.cz, libaokun@linux.alibaba.com, linux-kernel@vger.kernel.org, 
-	ojaswin@linux.ibm.com, ritesh.list@gmail.com, syzkaller@googlegroups.com, 
-	yi.zhang@huawei.com, stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: clear in-inode xattr space before adding the first
- xattr
-Message-ID: <rmorrps3y6t366v4kfno7bcitpic5saoqomt2muaipcif67lzr@jum5r5zposvr>
-References: <CANypQFZzxTAH=4QRRDoqH6VAw1daAq88NDWiQKoM7QTOnP40sg@mail.gmail.com>
- <20260916084723.877552-1-r772577952@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A1ILgQUo"
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-34cbc588a31so1057759eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:02:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792400536; x=1793005336; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RAvRyHlIfiRgj3s2BsPRbneZn58NB0+Nwn0y6jlCCk8=;
+        b=A1ILgQUo79fTyddEUPvBZ8P6M1Y17gl1pEEMDxoJiIJxj9/SISPtfbH4sp4RLN9YOL
+         X3IdRj0v1ijtytxlhQ3/OyX0UoNH4VZWZfMj/Tl9IywUvUCI61vYl9Sh0E8XWVFWAfE0
+         vA8lq1C3ZZeAeW6vQx2s0leqNVMSW+VpR+9ckYi35O69xIGDk4I/AOLt1sGS461Gysrr
+         T15Js5axuk8jfRiqIiYSbvQlnGcZQzstHXvct9Tv7GFwpmEoiHfKulEV9lLSdV+XvVLB
+         bwJXxc/eUW4OIprp/paH3ivlLayGSmRjHG7eQ84Ja35uSvzImEhwyNV8GFY1w6Ar42jF
+         10KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792400536; x=1793005336;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RAvRyHlIfiRgj3s2BsPRbneZn58NB0+Nwn0y6jlCCk8=;
+        b=FCdgdbkSwbKR0j/MzgTlA2N+DEJYtspSbPl0Js6AUZdlCdqhmQj04sTIe2M9GpZW+Y
+         Zyz6KbY2dNs1g4n8rdQEfngEk01ybwc9zvm3y/9oMT7W+1wQXPuKu5xKGzJH6WvnyiSJ
+         slW7v+VQPhoglgusMNh3wW8Rx01TfKWsQzddaWoyCRaLnCctC87X2zJkFiDQKgWwo9VH
+         OgIWv2D+iGfK86MyoUnkiZBG9x4iDOkFizMgLD1CsoLiyCdrLpgdzCCDLIl5OImaynbS
+         wt+l4a1Ef80qs3UmHOXWfyJZNS2OWWrl7pXxCJx8tCG+hLKs9OkNvxaxw6lQJzxbeosy
+         Q6gA==
+X-Forwarded-Encrypted: i=1; AKwUvByjsZheoj10ilsExomSqurK67DJ0N9dvyrVJ4pH/B+DTr2NKXdH4s2pnwbUtfpCXkyYazSQF7JU+cxha4U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxECVa6xPT8mJoT+Hhj2Lxi9DvB+5DzQ2+dijVrFiPz4t5vh8F
+	CGYYKAurjOJg0PBhs5yJuARxZDYndC8kz8Wpb/HC9wAIBEiG1RDAn3FX
+X-Gm-Gg: AYBFou3UAhvV6YgO6Ukod35FouNspMV+E6KNawq2YIyklbyf+oAtZYR/U2zE6wSlVh5
+	qHY2EeLE9EI4WwznQbEQXTvAnzqjEeT5lcekCtwPt27udUwBh9bSWucyyahYzR/oysgiW0NyFZB
+	/5G54ilgTAP2H9tNfh27zcNP3ZVVjIeYvctPNhGCSkzk8fivM/naK030aQg92U08WFujm7lA3W9
+	RVzhPC7ob3WrKnQNF+AEdLLGDeKkXSbaCYfUH3ym44HJv7e9gWvzDN/PbTSee9uQ7XBFj/upq4Y
+	gby5w+51rrvDx9nWmwj42nrmNvy+RaKcZGsrizoSB6ZFd70Lrn/LDl013+v2AgZjUvYD8sSATyA
+	sFaguJ5QA5Nra4GfTmR7TTBLFQqctdt4dojMOp9V7whK+x2/vdxfOZN2hSO7eq+2bJLNPoCjNjM
+	PoFcKNNvlhtNSRC0VT/P2m3ECAsbtYm6V7WW0N1g1EYhUw3NTWwNo3ZYAUv9ZoU1AuNMMRzenOD
+	xkjO7UcRwA14rY0Ns6BT7LZYMQ8bg3lKgM=
+X-Received: by 2002:a05:701a:c951:b0:14c:637d:682d with SMTP id a92af1059eb24-18514b00b40mr12311278c88.43.1792400536345;
+        Mon, 19 Oct 2026 02:02:16 -0700 (PDT)
+Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831ba424a6sm27085064c88.17.2026.10.19.02.02.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 02:02:15 -0700 (PDT)
+From: Yao Yiqi <yyaqia@gmail.com>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yaoyiqi3@huawei.com,
+	Yao Yiqi <yyaqia@gmail.com>
+Subject: [PATCH v4 0/3] fbcon: fix rotated font buffer handling on font change
+Date: Mon, 19 Oct 2026 17:02:03 +0800
+Message-ID: <20261019090206.1094958-1-yyaqia@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916084723.877552-1-r772577952@gmail.com>
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,mit.edu,dilger.ca,suse.cz,linux.alibaba.com,linux.ibm.com,gmail.com,googlegroups.com,huawei.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
 
-On Wed 16-09-26 16:47:23, Jiaming Zhang wrote:
-> An inode can hold extended attributes in the space that follows its extra
-> fields, whose size is given by i_extra_isize.  When ext4 loads an inode,
-> ext4_iget_extra_inode() validates that space only if it starts with the
-> xattr magic, and only then sets EXT4_STATE_XATTR.  Without the magic, the
-> space is treated as empty and is not checked.
-> 
-> ext4_xattr_ibody_set() passes the space to ext4_xattr_set_entry() whether
-> or not EXT4_STATE_XATTR is set.  ext4_xattr_set_entry() walks the entries
-> there to find min_offs, the lowest value offset.  That offset decides
-> whether the new value fits and where the value is copied:
-> 
-> 	free = min_offs - ((void *)last - s->base) - sizeof(__u32);
-> 	...
-> 	void *val = s->base + min_offs - new_size;
-> 
-> A crafted image can leave non-zero bytes in that space without the magic
-> where ext4 looks for it, for example by shrinking i_extra_isize.  Those
-> bytes are parsed as entries, and an entry that claims an in-inode value at
-> offset 0 sets min_offs to 0.  Because free is a size_t, the subtraction
-> then wraps around to a huge value, and the free space check passes although
-> the value does not fit.  The value is copied new_size bytes before the
-> start of the space, over the inode's own fields and, for a large value, the
-> memory in front of the inode.
-> 
-> On a kernel without KASAN, the copy corrupts memory: it overwrites the
-> inode's own fields and, for a large value, also the memory in front of the
-> inode.  The bytes and their length are decided by the setxattr() caller.
-> Nothing is freed and reused here, so the use-after-free in the report only
-> reflects where the write happened to land.
-> 
-> Triggering this issue requires mounting a crafted image, which needs
-> CAP_SYS_ADMIN or automounting of removable media; after that, any
-> setxattr() on the file reaches this path.  The issue was found by fuzzing
-> and has not been seen in production; a reproducer is available in the
-> linked report.
-> 
-> Clear the space in ext4_xattr_ibody_set() before calling
-> ext4_xattr_set_entry() when EXT4_STATE_XATTR is not set, so that the walk
-> starts from the empty entry list.
-> 
-> Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
-> Closes: https://lore.kernel.org/lkml/CANypQFZzxTAH=4QRRDoqH6VAw1daAq88NDWiQKoM7QTOnP40sg@mail.gmail.com/
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude Code:claude-opus-5
-> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+Fix out-of-bounds reads of the rotated font buffer when the console
+font changes on a rotated console (fbcon=rotate:N). KDFONTOP installs
+the new geometry and vc_resize() redraws before par->rotated.buf is
+updated, so the old buffer is indexed with the new cell size.
 
-Thanks for the fix! One nit below:
+Patch 1 keys the rotated font cache on the font geometry. Patch 2
+rebuilds it on font changes, restoring the old buffer if the change
+fails. Patch 3 retries a failed allocation.
 
-> diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
-> index 5c310747b965..2e5f39b710bd 100644
-> --- a/fs/ext4/xattr.c
-> +++ b/fs/ext4/xattr.c
-> @@ -2274,6 +2274,10 @@ int ext4_xattr_ibody_set(handle_t *handle, struct inode *inode,
->  		if (IS_ERR(ea_inode))
->  			return PTR_ERR(ea_inode);
->  	}
-> +
-> +	if (!ext4_test_inode_state(inode, EXT4_STATE_XATTR))
-> +		memset(s->first, 0, s->end - (void *)s->first);
-> +
+Changes since v3: roll back via the saved buffer instead of re-running
+rotate_font(), abort the font change on rebuild failure, and guard the
+rotated state with CONFIG_FRAMEBUFFER_CONSOLE_ROTATION.
 
-So this looks correct but AFAICS it should be enough to zero just the first
-u32 of the xattr space? I.e.:
-		*(__u32 *)s->first = 0;
+v1: https://lore.kernel.org/all/20261014085102.497789-1-yaoyiqi3@huawei.com/
 
-That way IS_LAST_ENTRY() returns true for s->first and the whole space is
-treated as empty. For larger inodes memsetting the whole space could be
-unnecessarily expensive and inode without EXT4_STATE_XATTR is actually a
-common thing (inode without any extented attributes will be such as well).
-Also please add a comment before the check like:
+Yao Yiqi (3):
+  fbcon: Include font geometry in the rotated font cache
+  fbcon: Rebuild rotated font buffer on font change
+  fbcon: Retry rotated font allocation after failure
 
-	/*
-	 * Make sure xattr space is properly initialized so that
-	 * IS_LAST_ENTRY() returns true for it's first entry
-	 */
+ drivers/video/fbdev/core/fbcon.c        | 50 +++++++++++++++++++++++++++++++++
+ drivers/video/fbdev/core/fbcon.h        |  9 ++++---
+ drivers/video/fbdev/core/fbcon_rotate.c | 10 +++++++-
+ 3 files changed, 65 insertions(+), 4 deletions(-)
 
-Thanks.
-
-								Honza
-
->  	error = ext4_xattr_set_entry(i, s, handle, inode, ea_inode,
->  				     false /* is_block */);
->  	if (error) {
-> -- 
-> 2.43.0
-> 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.56.0
+
+
