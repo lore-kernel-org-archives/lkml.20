@@ -1,645 +1,220 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DF6346AED;
-	Mon, 19 Oct 2026 09:00:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5752D4A4828;
+	Mon, 19 Oct 2026 09:00:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792400430; cv=none; b=HrJD7bbsSEFwU01nXAxf7KYfK/jZ0lp8gVadyQ+hc0oUv0sgE6YipMMnRHj7ipV0h2eTj5LdE0BVAObJzp4IPP/ecZ7L5/di4num4K5y+KlXpo7JcFQka99vO68MeKbuY6tXbmHp7PXd1Nj3NYDFpFbJH/SnSLGJ7Xjzh4p6tkE=
+	t=1792400434; cv=none; b=jVn4YnG4qx52MybJVQ4eCUFX7UOFfqOaHxhcu095jX2spcf1z3fSUpGvQLpDPcN7XQQKxyr89ozAiKYfJOL8uet7a/10GMSMvzXWR4C/yTdIn8yyBP3iopbolnbAAOXMXH1r8BjgyqC3mZMAZchq3vonMn81ZGC18MBl4ItVDRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792400430; c=relaxed/simple;
-	bh=Cl4qIFk5ZdhC61eFLi3+fCvdSXbpuScYPEtB5HaXORU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BcmTxt3gFJ/5lr0VJf4Uim8QI0hngE+PBfblAXP1FHnP4XQXyHSWYwmxk+xWWv1LZX2nTnmL/W5O9D7nRhUs4LSUQSZA37vXJSQzQ9WLQnwEBtFHTwzewlvqS/sxcs686HvYsodl7ltUxAqxcLHhWxNHI04Mf8sziNl5BcXU4kM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LXMXgH+s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792400434; c=relaxed/simple;
+	bh=BAwzcRi7vSkEAOcUWAZNU6P64l/jjXjj5WuPW4v82Mw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IZibU26ApsyCgkfIwGRl73nYw+/FCcGmKGJCUia5yQ2QtruT1so5tH5BaD7Qx6Bh2alnNwL2SV8BCf76ZAF4QJcCDiq46N4RAPa8Pzk3FxIJsd0QUpkMSgG4l6yAwUgqdh3T6zTqrFcCvA8rdcOmQFbyLjWhLYOmblmZj5L8+oM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XbF2sNAd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LXMXgH+s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A35851F000C4;
-	Mon, 19 Oct 2026 09:00:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XbF2sNAd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190DE1F000C4;
+	Mon, 19 Oct 2026 09:00:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792400428;
-	bh=wmCP/G+1SdqTYqgWwkVYDmr4J5LTx5qx21m/SdrHYHI=;
-	h=From:To:Cc:Subject:Date;
-	b=LXMXgH+sVCGYF1a03SpoUhJNiXMm2g5tMFdVF3gPNVridg6+8I9xroyK0gFr4WHSZ
-	 A51T8Fic6qbmX+ck3tF9Q55Vk6kzoOICjpvfiX/oUXOU8eDn3GLKtXCgMZa+raitld
-	 /+joRsZIwHVnqQXjF3XWM4M8v7/fKI5b39xKuPxRlVkGREK0uRDBCCBwLxE0a+8HcA
-	 OaemBVDDsB2T2g+JL1JGUtOUTtHWrklDKYpgJh0CENc2jcDU7RJoxLCBYm3lCf9ZR/
-	 rkr1kJ0hyk6nOGW5UxV1JgD9RuO8/lbEMTvxmVejImWtEtpoDeSkQn5c/oJbLO/Vu2
-	 hgxrtHZtxyN4Q==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: [PATCH] [v3] serial: 8250: remove obsolete and broken PORT_RSA support
-Date: Mon, 19 Oct 2026 10:56:55 +0200
-Message-ID: <20261019090017.430425-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1792400432;
+	bh=3hSYYZxfXUj4tub1+H+H+fSNPGf3qpxBoVbL6tLJEdA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XbF2sNAdqr+c1OO5LrHqGA/JGS94z54W5+wyvYxuEfitleJKGbEzhIXg7w3cHW9yJ
+	 8+vBXnwzz2OBn8h0Cl69pJ0PkMHfU7miZ6TkZP+1UzP/8+71jA4mEFafwFSdnQE+/0
+	 3kTIekOGem/vZ9GsmwmQeS3yCY6fbEnGK7bsvq8znJnP0MYgD2nmxvrQ2C9t51PWDk
+	 PJcJh9A5sIg+1okdfxjdnCD38va0sbny13hzT3dgmdI5BMOsMUDwTkUYjBjyRs6ZmG
+	 M7izDwiyFpuC5Z9c0bDkhlfAPzdKf18nZgBJnursvCDCXqbzww1pP9D79rxJiMF+0v
+	 Dwfc2EL7jsnaQ==
+Subject: Re: [PATCH net] net/mlx5e: rep, Fix races between devcom PAIR event
+ and uplink close
+From: netdev-bot+sashiko@kernel.org
+To: tariqt@nvidia.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, gal@nvidia.com,
+ leon@kernel.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ mbloch@nvidia.com, moshe@nvidia.com, roid@nvidia.com, saeedm@nvidia.com,
+ shayd@nvidia.com
+Date: Mon, 19 Oct 2026 09:00:31 +0000
+Message-ID: <179240043161.3135.7551017781405209816@kernel.org>
+In-Reply-To: <20261015085744.1109107-1-tariqt@nvidia.com>
+References: <20261015085744.1109107-1-tariqt@nvidia.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Arnd Bergmann <arnd@arndb.de>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-For all I can tell, the RSA support in the 8250 driver is not functional
-and has not been for a long time.
+Critical: 0 · High: 2 · Medium: 0 · Low: 0
 
-The RSA-DV II/S ISA card[1] was sold by IODATA in the 1990s as a faster
-alternative to regular ISA serial ports, and it was discontinued in
-2002. Linux support was added by Kiyokazu SUTO in 2000.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The driver defines an I/O port base address of -8 (negative eight),
-which should always get refused by request_region on all architectures
-for being outside of the valid resource range.
+- [High] The fix is incomplete.
+- [High] The patch adds a lockless load and dereference of esw->devcom to
+  every rep channel deactivation.
 
-Further, it seems that a patch to setserial would be required in order
-to set PORT_RSA when not using autoconfiguration.
+--
 
-This patch removes all code related to the RSA support, with the exception
-of the user-visible PORT_RSA definition.
+net/mlx5e: rep, Fix races between devcom PAIR event and uplink close
 
-Link: http://translate.google.com/translate?hl=en&sl=ja&u=http://www.iodata.jp/products/network/rsadv2s.htm
-Link: https://lore.kernel.org/all/1309211120-2803-6-git-send-email-arnd@arndb.de/
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
-v2: rebased my own patch after 15 years
-v3: fix up Makefile and sunsu.c file
----
- drivers/tty/serial/8250/8250.h          |  17 --
- drivers/tty/serial/8250/8250_core.c     |   6 -
- drivers/tty/serial/8250/8250_platform.c |   4 -
- drivers/tty/serial/8250/8250_port.c     |   8 -
- drivers/tty/serial/8250/8250_rsa.c      | 209 ------------------------
- drivers/tty/serial/8250/Kconfig         |  11 --
- drivers/tty/serial/8250/Makefile        |   1 -
- drivers/tty/serial/sunsu.c              |  92 -----------
- include/uapi/linux/serial_reg.h         |  51 ------
- 9 files changed, 399 deletions(-)
- delete mode 100644 drivers/tty/serial/8250/8250_rsa.c
+This commit wraps mlx5e_sqs2vport_stop() in mlx5e_remove_sqs_fwd_rules()
+with mlx5_devcom_for_each_peer_begin()/end(). The goal is to serialize
+rep_sq and sq_peer teardown against the devcom ESW_OFFLOADS PAIR/UNPAIR
+event handler, which follows the pattern already used on the add side.
 
-diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-index 75afeb8c0cef..6225027ed7b4 100644
---- a/drivers/tty/serial/8250/8250.h
-+++ b/drivers/tty/serial/8250/8250.h
-@@ -126,9 +126,6 @@ void serial8250_isa_init_ports(void);
- 
- extern struct platform_device *serial8250_isa_devs;
- 
--extern const struct uart_ops *univ8250_port_base_ops;
--extern struct uart_ops univ8250_port_ops;
--
- static inline int serial_in(struct uart_8250_port *up, int offset)
- {
- 	return up->port.serial_in(&up->port, offset);
-@@ -323,20 +320,6 @@ static inline int serial8250_pnp_init(void) { return 0; }
- static inline void serial8250_pnp_exit(void) { }
- #endif
- 
--#ifdef CONFIG_SERIAL_8250_RSA
--void univ8250_rsa_support(struct uart_ops *ops, const struct uart_ops *core_ops);
--void rsa_enable(struct uart_8250_port *up);
--void rsa_disable(struct uart_8250_port *up);
--void rsa_autoconfig(struct uart_8250_port *up);
--void rsa_reset(struct uart_8250_port *up);
--#else
--static inline void univ8250_rsa_support(struct uart_ops *ops, const struct uart_ops *core_ops) { }
--static inline void rsa_enable(struct uart_8250_port *up) {}
--static inline void rsa_disable(struct uart_8250_port *up) {}
--static inline void rsa_autoconfig(struct uart_8250_port *up) {}
--static inline void rsa_reset(struct uart_8250_port *up) {}
--#endif
--
- #ifdef CONFIG_SERIAL_8250_FINTEK
- int fintek_8250_probe(struct uart_8250_port *uart);
- #else
-diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
-index 96c99f0ae683..b9ce22948389 100644
---- a/drivers/tty/serial/8250/8250_core.c
-+++ b/drivers/tty/serial/8250/8250_core.c
-@@ -307,9 +307,6 @@ static void univ8250_release_irq(struct uart_8250_port *up)
- 		serial_unlink_irq_chain(up);
- }
- 
--const struct uart_ops *univ8250_port_base_ops;
--struct uart_ops univ8250_port_ops;
--
- static const struct uart_8250_ops univ8250_driver_ops = {
- 	.setup_irq	= univ8250_setup_irq,
- 	.release_irq	= univ8250_release_irq,
-@@ -352,9 +349,6 @@ struct uart_8250_port *serial8250_setup_port(int index)
- 	up->port.port_id = index;
- 
- 	serial8250_init_port(up);
--	if (!univ8250_port_base_ops)
--		univ8250_port_base_ops = up->port.ops;
--	up->port.ops = &univ8250_port_ops;
- 
- 	timer_setup(&up->timer, serial8250_timeout, 0);
- 
-diff --git a/drivers/tty/serial/8250/8250_platform.c b/drivers/tty/serial/8250/8250_platform.c
-index 8aa769085bfa..1a41a4ac25f8 100644
---- a/drivers/tty/serial/8250/8250_platform.c
-+++ b/drivers/tty/serial/8250/8250_platform.c
-@@ -73,10 +73,6 @@ static void __init __serial8250_isa_init_ports(void)
- 	for (i = 0; i < nr_uarts; i++)
- 		serial8250_setup_port(i);
- 
--	/* chain base port ops to support Remote Supervisor Adapter */
--	univ8250_port_ops = *univ8250_port_base_ops;
--	univ8250_rsa_support(&univ8250_port_ops, univ8250_port_base_ops);
--
- 	for (i = 0; i < ARRAY_SIZE(old_serial_port) && i < nr_uarts; i++) {
- 		struct uart_8250_port *up = serial8250_get_port(i);
- 		struct uart_port *port = &up->port;
-diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-index 3593e7209879..462441237a90 100644
---- a/drivers/tty/serial/8250/8250_port.c
-+++ b/drivers/tty/serial/8250/8250_port.c
-@@ -1186,8 +1186,6 @@ static void autoconfig(struct uart_8250_port *up)
- 		break;
- 	}
- 
--	rsa_autoconfig(up);
--
- 	serial_out(up, UART_LCR, save_lcr);
- 
- 	port->fifosize = uart_config[up->port.type].fifo_size;
-@@ -1199,7 +1197,6 @@ static void autoconfig(struct uart_8250_port *up)
- 		/*
- 		 * Reset the UART.
- 		 */
--		rsa_reset(up);
- 		serial8250_out_MCR(up, save_mcr);
- 		serial8250_clear_fifos(up);
- 		serial_in(up, UART_RX);
-@@ -2156,9 +2153,6 @@ static void serial8250_startup_special(struct uart_port *port)
- 				UART_DA830_PWREMU_MGMT_URRST |
- 				UART_DA830_PWREMU_MGMT_FREE);
- 		break;
--	case PORT_RSA:
--		rsa_enable(up);
--		break;
- 	}
- }
- 
-@@ -2450,8 +2444,6 @@ void serial8250_do_shutdown(struct uart_port *port)
- 
- 	serial8250_clear_fifos(up);
- 
--	rsa_disable(up);
--
- 	/*
- 	 * Read data port to reset things, and then unlink from
- 	 * the IRQ chain.
-diff --git a/drivers/tty/serial/8250/8250_rsa.c b/drivers/tty/serial/8250/8250_rsa.c
-deleted file mode 100644
-index da971437e89c..000000000000
---- a/drivers/tty/serial/8250/8250_rsa.c
-+++ /dev/null
-@@ -1,209 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0+
--
--#include <linux/errno.h>
--#include <linux/ioport.h>
--#include <linux/module.h>
--#include <linux/moduleparam.h>
--
--#include <linux/serial.h>
--#include <linux/serial_8250.h>
--
--#include "8250.h"
--
--#define PORT_RSA_MAX 4
--static unsigned long probe_rsa[PORT_RSA_MAX];
--static unsigned int probe_rsa_count;
--
--static const struct uart_ops *core_port_base_ops;
--
--static int rsa8250_request_resource(struct uart_8250_port *up)
--{
--	struct uart_port *port = &up->port;
--	unsigned long start;
--	unsigned int size;
--
--	if (!uart_iotype_io(port->iotype))
--		return -EINVAL;
--
--	start = UART_RSA_BASE << port->regshift;
--	start += port->iobase;
--	size = 8 << port->regshift;
--
--	if (!request_region(start, size, "serial-rsa"))
--		return -EBUSY;
--	return 0;
--}
--
--static void rsa8250_release_resource(struct uart_8250_port *up)
--{
--	struct uart_port *port = &up->port;
--	unsigned long offset;
--	unsigned int size;
--
--	if (!uart_iotype_io(port->iotype))
--		return;
--
--	offset = UART_RSA_BASE << port->regshift;
--	size = 8 << port->regshift;
--	release_region(port->iobase + offset, size);
--}
--
--static void univ8250_config_port(struct uart_port *port, int flags)
--{
--	struct uart_8250_port *up = up_to_u8250p(port);
--	unsigned int i;
--
--	up->probe &= ~UART_PROBE_RSA;
--	if (port->type == PORT_RSA) {
--		if (rsa8250_request_resource(up) == 0)
--			up->probe |= UART_PROBE_RSA;
--	} else if (flags & UART_CONFIG_TYPE) {
--		for (i = 0; i < probe_rsa_count; i++) {
--			if (probe_rsa[i] == up->port.iobase) {
--				if (rsa8250_request_resource(up) == 0)
--					up->probe |= UART_PROBE_RSA;
--				break;
--			}
--		}
--	}
--
--	core_port_base_ops->config_port(port, flags);
--
--	if (port->type != PORT_RSA && up->probe & UART_PROBE_RSA)
--		rsa8250_release_resource(up);
--}
--
--static int univ8250_request_port(struct uart_port *port)
--{
--	struct uart_8250_port *up = up_to_u8250p(port);
--	int ret;
--
--	ret = core_port_base_ops->request_port(port);
--	if (ret == 0 && port->type == PORT_RSA) {
--		ret = rsa8250_request_resource(up);
--		if (ret < 0)
--			core_port_base_ops->release_port(port);
--	}
--
--	return ret;
--}
--
--static void univ8250_release_port(struct uart_port *port)
--{
--	struct uart_8250_port *up = up_to_u8250p(port);
--
--	if (port->type == PORT_RSA)
--		rsa8250_release_resource(up);
--	core_port_base_ops->release_port(port);
--}
--
--/*
-- * It is not allowed to directly reference any symbols from 8250.ko here as
-- * that would result in a dependency loop between the 8250.ko and
-- * 8250_base.ko modules. This function is called from 8250.ko and is used to
-- * break the symbolic dependency cycle. Anything that is needed from 8250.ko
-- * has to be passed as pointers to this function which then can adjust those
-- * variables on 8250.ko side or store them locally as needed.
-- */
--void univ8250_rsa_support(struct uart_ops *ops, const struct uart_ops *core_ops)
--{
--	core_port_base_ops = core_ops;
--	ops->config_port  = univ8250_config_port;
--	ops->request_port = univ8250_request_port;
--	ops->release_port = univ8250_release_port;
--}
--EXPORT_SYMBOL_FOR_MODULES(univ8250_rsa_support, "8250");
--
--module_param_hw_array(probe_rsa, ulong, ioport, &probe_rsa_count, 0444);
--MODULE_PARM_DESC(probe_rsa, "Probe I/O ports for RSA");
--
--/*
-- * Attempts to turn on the RSA FIFO.  Returns zero on failure.
-- * We set the port uart clock rate if we succeed.
-- */
--static int __rsa_enable(struct uart_8250_port *up)
--{
--	unsigned char mode;
--	int result;
--
--	mode = serial_in(up, UART_RSA_MSR);
--	result = mode & UART_RSA_MSR_FIFO;
--
--	if (!result) {
--		serial_out(up, UART_RSA_MSR, mode | UART_RSA_MSR_FIFO);
--		mode = serial_in(up, UART_RSA_MSR);
--		result = mode & UART_RSA_MSR_FIFO;
--	}
--
--	if (result)
--		up->port.uartclk = SERIAL_RSA_BAUD_BASE * 16;
--
--	return result;
--}
--
--/*
-- * If this is an RSA port, see if we can kick it up to the higher speed clock.
-- */
--void rsa_enable(struct uart_8250_port *up)
--{
--	if (up->port.type != PORT_RSA)
--		return;
--
--	if (up->port.uartclk != SERIAL_RSA_BAUD_BASE * 16) {
--		guard(uart_port_lock_irq)(&up->port);
--		__rsa_enable(up);
--	}
--	if (up->port.uartclk == SERIAL_RSA_BAUD_BASE * 16)
--		serial_out(up, UART_RSA_FRR, 0);
--}
--
--/*
-- * Attempts to turn off the RSA FIFO and resets the RSA board back to 115kbps compat mode. It is
-- * unknown why interrupts were disabled in here. However, the caller is expected to preserve this
-- * behaviour by grabbing the spinlock before calling this function.
-- */
--void rsa_disable(struct uart_8250_port *up)
--{
--	unsigned char mode;
--	int result;
--
--	if (up->port.type != PORT_RSA)
--		return;
--
--	if (up->port.uartclk != SERIAL_RSA_BAUD_BASE * 16)
--		return;
--
--	guard(uart_port_lock_irq)(&up->port);
--
--	mode = serial_in(up, UART_RSA_MSR);
--	result = !(mode & UART_RSA_MSR_FIFO);
--
--	if (!result) {
--		serial_out(up, UART_RSA_MSR, mode & ~UART_RSA_MSR_FIFO);
--		mode = serial_in(up, UART_RSA_MSR);
--		result = !(mode & UART_RSA_MSR_FIFO);
--	}
--
--	if (result)
--		up->port.uartclk = SERIAL_RSA_BAUD_BASE_LO * 16;
--}
--
--void rsa_autoconfig(struct uart_8250_port *up)
--{
--	/* Only probe for RSA ports if we got the region. */
--	if (up->port.type != PORT_16550A)
--		return;
--	if (!(up->probe & UART_PROBE_RSA))
--		return;
--
--	if (__rsa_enable(up))
--		up->port.type = PORT_RSA;
--}
--
--void rsa_reset(struct uart_8250_port *up)
--{
--	if (up->port.type != PORT_RSA)
--		return;
--
--	serial_out(up, UART_RSA_FRR, 0);
--}
-diff --git a/drivers/tty/serial/8250/Kconfig b/drivers/tty/serial/8250/Kconfig
-index 9917b7e1bb26..908fc86852b6 100644
---- a/drivers/tty/serial/8250/Kconfig
-+++ b/drivers/tty/serial/8250/Kconfig
-@@ -236,17 +236,6 @@ config SERIAL_8250_DETECT_IRQ
- 
- 	  If unsure, say N.
- 
--config SERIAL_8250_RSA
--	bool "Support RSA serial ports"
--	depends on SERIAL_8250_EXTENDED
--	help
--	  Say Y here if you have a IODATA RSA-DV II/S ISA card and
--	  would like to use its >115kbps speeds.
--	  You will need to provide module parameter "probe_rsa", or boot-time
--	  parameter 8250.probe_rsa with I/O addresses of this card then.
--
--	  If you don't have such card, or if unsure, say N.
--
- config SERIAL_8250_MANY_PORTS
- 	bool "Support more than 4 legacy serial ports"
- 	depends on SERIAL_8250_EXTENDED
-diff --git a/drivers/tty/serial/8250/Makefile b/drivers/tty/serial/8250/Makefile
-index d241ce486953..a6ee25eee9fe 100644
---- a/drivers/tty/serial/8250/Makefile
-+++ b/drivers/tty/serial/8250/Makefile
-@@ -14,7 +14,6 @@ obj-$(CONFIG_SERIAL_8250)		+= 8250_base.o
- 8250_base-$(CONFIG_SERIAL_8250_DWLIB)	+= 8250_dwlib.o
- 8250_base-$(CONFIG_SERIAL_8250_FINTEK)	+= 8250_fintek.o
- 8250_base-$(CONFIG_SERIAL_8250_PCILIB)	+= 8250_pcilib.o
--8250_base-$(CONFIG_SERIAL_8250_RSA)	+= 8250_rsa.o
- 
- obj-$(CONFIG_SERIAL_8250_CONSOLE)	+= 8250_early.o
- 
-diff --git a/drivers/tty/serial/sunsu.c b/drivers/tty/serial/sunsu.c
-index f43b802add12..33e2b11f9d69 100644
---- a/drivers/tty/serial/sunsu.c
-+++ b/drivers/tty/serial/sunsu.c
-@@ -150,75 +150,6 @@ static void serial_icr_write(struct uart_sunsu_port *up, int offset, int value)
- 	serial_out(up, UART_ICR, value);
- }
- 
--#ifdef CONFIG_SERIAL_8250_RSA
--/*
-- * Attempts to turn on the RSA FIFO.  Returns zero on failure.
-- * We set the port uart clock rate if we succeed.
-- */
--static int __enable_rsa(struct uart_sunsu_port *up)
--{
--	unsigned char mode;
--	int result;
--
--	mode = serial_in(up, UART_RSA_MSR);
--	result = mode & UART_RSA_MSR_FIFO;
--
--	if (!result) {
--		serial_out(up, UART_RSA_MSR, mode | UART_RSA_MSR_FIFO);
--		mode = serial_in(up, UART_RSA_MSR);
--		result = mode & UART_RSA_MSR_FIFO;
--	}
--
--	if (result)
--		up->port.uartclk = SERIAL_RSA_BAUD_BASE * 16;
--
--	return result;
--}
--
--static void enable_rsa(struct uart_sunsu_port *up)
--{
--	if (up->port.type == PORT_RSA) {
--		if (up->port.uartclk != SERIAL_RSA_BAUD_BASE * 16) {
--			uart_port_lock_irq(&up->port);
--			__enable_rsa(up);
--			uart_port_unlock_irq(&up->port);
--		}
--		if (up->port.uartclk == SERIAL_RSA_BAUD_BASE * 16)
--			serial_out(up, UART_RSA_FRR, 0);
--	}
--}
--
--/*
-- * Attempts to turn off the RSA FIFO.  Returns zero on failure.
-- * It is unknown why interrupts were disabled in here.  However,
-- * the caller is expected to preserve this behaviour by grabbing
-- * the spinlock before calling this function.
-- */
--static void disable_rsa(struct uart_sunsu_port *up)
--{
--	unsigned char mode;
--	int result;
--
--	if (up->port.type == PORT_RSA &&
--	    up->port.uartclk == SERIAL_RSA_BAUD_BASE * 16) {
--		uart_port_lock_irq(&up->port);
--
--		mode = serial_in(up, UART_RSA_MSR);
--		result = !(mode & UART_RSA_MSR_FIFO);
--
--		if (!result) {
--			serial_out(up, UART_RSA_MSR, mode & ~UART_RSA_MSR_FIFO);
--			mode = serial_in(up, UART_RSA_MSR);
--			result = !(mode & UART_RSA_MSR_FIFO);
--		}
--
--		if (result)
--			up->port.uartclk = SERIAL_RSA_BAUD_BASE_LO * 16;
--		uart_port_unlock_irq(&up->port);
--	}
--}
--#endif /* CONFIG_SERIAL_8250_RSA */
--
- static inline void __stop_tx(struct uart_sunsu_port *p)
- {
- 	if (p->ier & UART_IER_THRI) {
-@@ -596,14 +527,6 @@ static int sunsu_startup(struct uart_port *port)
- 		serial_out(up, UART_LCR, 0);
- 	}
- 
--#ifdef CONFIG_SERIAL_8250_RSA
--	/*
--	 * If this is an RSA port, see if we can kick it up to the
--	 * higher speed clock.
--	 */
--	enable_rsa(up);
--#endif
--
- 	/*
- 	 * Clear the FIFO buffers and disable them.
- 	 * (they will be reenabled in set_termios())
-@@ -719,13 +642,6 @@ static void sunsu_shutdown(struct uart_port *port)
- 				  UART_FCR_CLEAR_XMIT);
- 	serial_out(up, UART_FCR, 0);
- 
--#ifdef CONFIG_SERIAL_8250_RSA
--	/*
--	 * Reset the RSA board back to 115kbps compat mode.
--	 */
--	disable_rsa(up);
--#endif
--
- 	/*
- 	 * Read data port to reset things.
- 	 */
-@@ -780,10 +696,6 @@ sunsu_change_speed(struct uart_port *port, unsigned int cflag,
- 	if (uart_config[up->port.type].flags & UART_USE_FIFO) {
- 		if ((up->port.uartclk / quot) < (2400 * 16))
- 			fcr = UART_FCR_ENABLE_FIFO | UART_FCR_TRIGGER_1;
--#ifdef CONFIG_SERIAL_8250_RSA
--		else if (up->port.type == PORT_RSA)
--			fcr = UART_FCR_ENABLE_FIFO | UART_FCR_TRIGGER_14;
--#endif
- 		else
- 			fcr = UART_FCR_ENABLE_FIFO | UART_FCR_TRIGGER_8;
- 	}
-@@ -1128,10 +1040,6 @@ static void sunsu_autoconfig(struct uart_sunsu_port *up)
- 	/*
- 	 * Reset the UART.
- 	 */
--#ifdef CONFIG_SERIAL_8250_RSA
--	if (up->port.type == PORT_RSA)
--		serial_out(up, UART_RSA_FRR, 0);
--#endif
- 	serial_out(up, UART_MCR, save_mcr);
- 	serial_out(up, UART_FCR, (UART_FCR_ENABLE_FIFO |
- 				     UART_FCR_CLEAR_RCVR |
-diff --git a/include/uapi/linux/serial_reg.h b/include/uapi/linux/serial_reg.h
-index 9c987b04e2d0..e4f288b557ca 100644
---- a/include/uapi/linux/serial_reg.h
-+++ b/include/uapi/linux/serial_reg.h
-@@ -285,57 +285,6 @@
- #define UART_ACR_ICRRD	0x40	/* ICR Read enable */
- #define UART_ACR_ASREN	0x80	/* Additional status enable */
- 
--
--
--/*
-- * These definitions are for the RSA-DV II/S card, from
-- *
-- * Kiyokazu SUTO <suto@ks-and-ks.ne.jp>
-- */
--
--#define UART_RSA_BASE (-8)
--
--#define UART_RSA_MSR ((UART_RSA_BASE) + 0) /* I/O: Mode Select Register */
--
--#define UART_RSA_MSR_SWAP (1 << 0) /* Swap low/high 8 bytes in I/O port addr */
--#define UART_RSA_MSR_FIFO (1 << 2) /* Enable the external FIFO */
--#define UART_RSA_MSR_FLOW (1 << 3) /* Enable the auto RTS/CTS flow control */
--#define UART_RSA_MSR_ITYP (1 << 4) /* Level (1) / Edge triger (0) */
--
--#define UART_RSA_IER ((UART_RSA_BASE) + 1) /* I/O: Interrupt Enable Register */
--
--#define UART_RSA_IER_Rx_FIFO_H (1 << 0) /* Enable Rx FIFO half full int. */
--#define UART_RSA_IER_Tx_FIFO_H (1 << 1) /* Enable Tx FIFO half full int. */
--#define UART_RSA_IER_Tx_FIFO_E (1 << 2) /* Enable Tx FIFO empty int. */
--#define UART_RSA_IER_Rx_TOUT (1 << 3) /* Enable char receive timeout int */
--#define UART_RSA_IER_TIMER (1 << 4) /* Enable timer interrupt */
--
--#define UART_RSA_SRR ((UART_RSA_BASE) + 2) /* IN: Status Read Register */
--
--#define UART_RSA_SRR_Tx_FIFO_NEMP (1 << 0) /* Tx FIFO is not empty (1) */
--#define UART_RSA_SRR_Tx_FIFO_NHFL (1 << 1) /* Tx FIFO is not half full (1) */
--#define UART_RSA_SRR_Tx_FIFO_NFUL (1 << 2) /* Tx FIFO is not full (1) */
--#define UART_RSA_SRR_Rx_FIFO_NEMP (1 << 3) /* Rx FIFO is not empty (1) */
--#define UART_RSA_SRR_Rx_FIFO_NHFL (1 << 4) /* Rx FIFO is not half full (1) */
--#define UART_RSA_SRR_Rx_FIFO_NFUL (1 << 5) /* Rx FIFO is not full (1) */
--#define UART_RSA_SRR_Rx_TOUT (1 << 6) /* Character reception timeout occurred (1) */
--#define UART_RSA_SRR_TIMER (1 << 7) /* Timer interrupt occurred */
--
--#define UART_RSA_FRR ((UART_RSA_BASE) + 2) /* OUT: FIFO Reset Register */
--
--#define UART_RSA_TIVSR ((UART_RSA_BASE) + 3) /* I/O: Timer Interval Value Set Register */
--
--#define UART_RSA_TCR ((UART_RSA_BASE) + 4) /* OUT: Timer Control Register */
--
--#define UART_RSA_TCR_SWITCH (1 << 0) /* Timer on */
--
--/*
-- * The RSA DSV/II board has two fixed clock frequencies.  One is the
-- * standard rate, and the other is 8 times faster.
-- */
--#define SERIAL_RSA_BAUD_BASE (921600)
--#define SERIAL_RSA_BAUD_BASE_LO (SERIAL_RSA_BAUD_BASE / 8)
--
- /* Extra registers for TI DA8xx/66AK2x */
- #define UART_DA830_PWREMU_MGMT	12
- 
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
+> index 88a170e40bd9..7211faaffd8d 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rep.c
+> @@ -629,8 +629,12 @@ mlx5e_remove_sqs_fwd_rules(struct mlx5e_priv *priv)
+>  	struct mlx5_eswitch *esw = priv->mdev->priv.eswitch;
+>  	struct mlx5e_rep_priv *rpriv = priv->ppriv;
+>  	struct mlx5_eswitch_rep *rep = rpriv->rep;
+> +	bool devcom_locked;
+>  
+> +	devcom_locked = mlx5_devcom_for_each_peer_begin(esw->devcom);
+
+[Severity: High]
+Before this patch, the stop path never touched esw->devcom. Now every rep
+channel deactivation loads and dereferences it with no lock held, and does
+so before the esw->mode check in mlx5e_sqs2vport_stop(). Can esw->devcom
+be freed while this runs?
+
+esw_offloads_disable() cleans up devcom before it unloads the reps:
+
+	mlx5_esw_offloads_devcom_cleanup(esw);
+	mlx5_eswitch_disable_pf_vf_vports(esw);
+	mlx5_esw_offloads_rep_unload(esw, MLX5_VPORT_UPLINK);
+
+mlx5_esw_offloads_devcom_cleanup() frees the devcom before it clears the
+pointer:
+
+	mlx5_devcom_unregister_component(esw->devcom);
+	xa_destroy(&esw->paired);
+	xa_destroy(&esw->fdb_table.offloads.peer_miss_rules);
+	esw->devcom = NULL;
+
+The free happens in mlx5_devcom_unregister_component()->
+devcom_free_comp_dev(), which does kfree(devcom) and then
+kref_put(&comp->ref, mlx5_devcom_comp_release). That also frees comp if
+this was the last member.
+
+One possible interleaving:
+
+CPU0 (ip link set <rep> down)
+mlx5e_rep_deactivate_channels()->mlx5e_remove_sqs_fwd_rules()
+  mlx5_devcom_for_each_peer_begin(esw->devcom)   /* loads P */
+
+CPU1 (devlink eswitch mode set legacy)
+mlx5_devlink_eswitch_mode_set()->mlx5_eswitch_disable_locked()
+  ->esw_offloads_disable()->mlx5_esw_offloads_devcom_cleanup()
+    kfree(P), possibly frees P->comp as well
+
+CPU0
+  comp = devcom->comp;
+  down_read(&comp->sem);
+
+The ndo_stop path holds rtnl, the netdev lock and priv->state_lock. The
+devlink mode set path holds the devlink lock and reps_lock. Nothing
+appears to serialize the two.
+
+Could this become a use-after-free on the comp_dev and on comp->sem? The
+start path already has a similar unsynchronized use of esw->devcom, but
+this patch adds a new one on the close path.
+
+>  	mlx5e_sqs2vport_stop(esw, rep);
+> +	if (devcom_locked)
+> +		mlx5_devcom_for_each_peer_end(esw->devcom);
+>  }
+
+[Severity: High]
+Does this fully close the race with the PAIR event?
+mlx5_devcom_for_each_peer_begin() drops the semaphore and returns false
+when the component is not ready:
+
+lib/devcom.c:mlx5_devcom_for_each_peer_begin() {
+	...
+	down_read(&comp->sem);
+	if (!READ_ONCE(comp->ready)) {
+		up_read(&comp->sem);
+		return false;
+	}
+	...
+}
+
+In that case mlx5e_sqs2vport_stop() still runs, with no devcom exclusion.
+It calls list_del() and kfree() on each rep_sq, kfree() on each sq_peer,
+and xa_destroy(&rep_sq->sq_peer).
+
+The PAIR handler, though, does all of its rep work while ready is still
+false. mlx5_esw_offloads_devcom_event() sets ready only at the end:
+
+	err = mlx5_esw_offloads_pair(esw, peer_esw);
+	...
+	err = mlx5_esw_offloads_pair(peer_esw, esw);
+	...
+	mlx5_devcom_comp_set_ready(esw->devcom, true);
+
+UNPAIR sets ready back to false once the last peer is gone. With two
+ports, every first PAIR and every re-pair therefore runs with ready set
+to false.
+
+One possible interleaving:
+
+CPU0 (ip link set <rep> down on eswitch A)
+mlx5e_rep_close()->mlx5e_close_locked()->mlx5e_deactivate_priv_channels()
+  ->mlx5e_rep_deactivate_channels()->mlx5e_remove_sqs_fwd_rules()
+    mlx5_devcom_for_each_peer_begin() returns false
+    mlx5e_sqs2vport_stop()
+      list_del(&rep_sq->list);
+      kfree(rep_sq);
+
+CPU1 (peer eswitch B entering switchdev)
+mlx5_devcom_send_event(PAIR), which takes comp->sem for write
+  ->mlx5_esw_offloads_devcom_event()->mlx5_esw_offloads_pair()
+    ->mlx5e_vport_rep_event_pair()
+      list_for_each_entry(rep_sq, &rpriv->vport_sqs_list, list) {
+          sq_peer = xa_load(&rep_sq->sq_peer, i);
+          ...
+          err = xa_insert(&rep_sq->sq_peer, i, sq_peer, GFP_KERNEL);
+
+Can CPU1 then walk a freed rep_sq, or call xa_insert() on an xarray that
+has already been destroyed?
+
+If the insert lands between the xa_for_each() and the xa_destroy() in
+mlx5e_sqs2vport_stop(), the sq_peer and its peer FDB send-to-vport rule
+look like they would be leaked.
+
+The commit message says:
+
+  "The add side (mlx5e_sqs2vport_start) already guards the peer-rule work
+  with mlx5_devcom_for_each_peer_begin(), i.e. the devcom read semaphore,
+  which excludes the write-side event."
+
+mlx5e_sqs2vport_start() uses the same ready-gated check:
+
+	if (mlx5_devcom_comp_is_ready(esw->devcom) &&
+	    mlx5_devcom_for_each_peer_begin(esw->devcom))
+		devcom_locked = true;
+
+As a result, its list_add() into rpriv->vport_sqs_list can also run while
+a first-time PAIR is walking the list.
+
+Would both the start and stop paths need exclusion that does not depend
+on comp->ready? One option is to hold comp->sem for read whenever
+esw->devcom is non-NULL, which would need a new devcom helper. Another is
+a lock that the event handler also takes.
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015085744.1109107-1-tariqt%40nvidia.com
