@@ -1,209 +1,127 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C674E36EF
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:11:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D821C496D46
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:12:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792415499; cv=none; b=YlZw8pfIqvr3yFkf9A0cfUEh2QtjZN10xnvGItkSIxj7lRhrXj4zAzP1JPbk4QIX8/bDE95afhWvtPcKwQCTu2hSoQYhQulYB8ODRcW5sE/gTQee2xdpsXmCRYmIpM2p68dSj+kPGZtAvICY6mdgK/qZcuLcM7uqWusJKaZ9XYw=
+	t=1792415537; cv=none; b=n/gOpe/VORM5M+OC7IrykHfHcIksPVDwbpWiQb+HyneA5DOuq6OHQeKS2/A/f03Y2Eq8CLcDiJYUj3GcZ2wFVXruMWTJGjCu6XzYgHr6RFDiESd2a7QD9lK4+qN8gZMLPVMPNevj7G1Uhnw9hHAcUXsbKHurj7zx1na6GaWaCnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792415499; c=relaxed/simple;
-	bh=WKHIA/XCISOWTirYB6IJyHF9xGI+WuPgFfDBArGIfPY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ctGCgldPk+siixyVY5xnAioiDKqK0ey0kvr+tLQTj/br08r0RSOMaMe4Xw0A68SMjOK0jwSV336Z8fDbOPTVqDRP2CFgaevpofOy8FEWoeAXZcI5KIUx2+Qd56nyW60II63xfXDZs35GWIhXlTsDXtZ2kk/vWQZlHkDjrzNybM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=w9UxCCeW; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792415537; c=relaxed/simple;
+	bh=AylRuBno5Pn8TsJf9Ogcc7yJ2eqTf3rwdkgyP0EaziM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rOl4wwWSAm09NSSx1PM7MfQYCQTvWfBA4aUBO7bEXwE4gEe4nZefgqQmaYf95pgPPsLTyUagkQwUPuxWp0tOqHMePuGXK/pYrwRgTot9FckTyk7HH5AXvkOVbQC4/16Wg/087vgqJ1h8lpSvQPMjyjNqKN70gZ818JtxogKX8iI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EbyhOs0t; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="w9UxCCeW"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id A7F0C4E4120B;
-	Mon, 19 Oct 2026 13:11:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7A9DC60582;
-	Mon, 19 Oct 2026 13:11:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3DBD210328D3A;
-	Mon, 19 Oct 2026 15:11:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792415489; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=nU7hZ97OV3S/atwzNuXyqQdF0cUqofPApdIkAym7Ebw=;
-	b=w9UxCCeW3G6PvUJmseDVj+OLhTgVNrSauiag5KAVD8oJdT1IM1yvZiMD17gGd77XycxD+N
-	HBnRrF9hul6gVPnBc8DKnk0q5yzTIIE0aSJ30mmx+h3FLCtUjuVDOwqrvJU4RV2RVTqTxB
-	mFErQkU8VDokTwQowXHxA2ywAMPSCXlFA0xV71ab6XEOyrhXCuHX1BK7EKCP7XH88i2Ena
-	01wwKa6aw+0yncuvXSCPYwOc/8Nlz2AE/pkb9Ni/Zn4kQOXqhRCxLo+a7+K2Dk5q55vVXR
-	RcrBQuAyh9IEuOTFthjgFIDP6XOkBS5FhiTZQz6L9PFYeV9MuVhcptbHVQtgTA==
-Date: Mon, 19 Oct 2026 15:11:21 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-Message-ID: <20261019151121.26d99f30@bootlin.com>
-In-Reply-To: <atGzdxETQZ9ovJFh@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-16-herve.codina@bootlin.com>
-	<arDMhoNNXcPi81sR@gractus.seuss>
-	<20260925152157.511dc65c@bootlin.com>
-	<as3ZWBr3wRonkxXF@gractus.seuss>
-	<20261013190347.4f1d9b9d@bootlin.com>
-	<atGzdxETQZ9ovJFh@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EbyhOs0t"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e5fb79ce82so10545145ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:12:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792415535; x=1793020335; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gT7565n3cY+YDTERB3uQ8khKJFfspA8uXPmSUyaFk3g=;
+        b=EbyhOs0tFneOfR9xE/+BSI3DP45VZFZje1WhNWGgycmEF1wEOUqUQSyZLzSpVZkx2L
+         qZZCXHei2N7+ZmdiivPDUThwJtK28eHmjXAhEN7JSPScUu47dR+snYIN8ctRyT9miEf9
+         4K3B9YLN3F7/Qns7iug3EFqfgfVhpb5QYdaTYQ6VhY4XlSQbtDX0f23P+BlWqEfd9XR3
+         fdYKY1sWeqfmfLkmLn/zRUp4ieXl1NhbF+7hunG25u8vATtj0uSdRAIRftPxX+tBZA29
+         SmAYo/lfeXIdMtV+LaybytDBLSogqQ7ABVEnu7YWu+W/4InGc3ojwdguobJRbigGGPgq
+         mwnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792415535; x=1793020335;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gT7565n3cY+YDTERB3uQ8khKJFfspA8uXPmSUyaFk3g=;
+        b=v8YhApWxlFErDSgFHY4hiasCk48CT9s0fNpa5aiJkoR4dtL2ArMP8Lm+3Rl9zwbtwY
+         ipj5ui2nnnY+9ItwVCvcCLwulfPDNm21pQkkFgbqzjcOpbXMUwgg5VV8NWT9OnoLqi4M
+         swO6kXACJVcKKiWlP9il2s85Y7bFcxewUVyypG3dMdr7xAACIbQ3BozgA1YYRd+9GPPR
+         VEifQJ1rwW2Bw7waSGrJhMOm3LpIbZjrfa/WRkkpL0BfdQeFb1DtHo8JUPBsCLRQ0ftq
+         jCMEcnNhMdSh+bT5c+MpTnr06+cXqyMEeDKQdbK6V9/pisblAqlfCjcGsLro/W7vkHg6
+         EwNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy8V6wQTSP/5VAd8IJKJLoPuJ2cPCFT6R3X+xAOTuj2raAx3QUu6bowjymfgjuHCNBBSevSVZvk2veHimc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzRR69pfCKN/1cUvcyGBG0kTGvB87jiGU41jkAMxakiF+TVSMU
+	IyW2yB+QF2TQWK6/Rw6AMPz356U9AHaGQia0SbW1MUhFWFmFPmYvdd7+3BBKIg==
+X-Gm-Gg: AYBFou1uscs2FFdwUMCs3zKq7FjcgJ7VkXJPn/AwUnrbAVfpHMP5AV/Q7cti2svxH7N
+	Lc095jtYhrr0CvLLIS7/TPVuFgxpCLUyYkeyg2BShRJcPR1MEAZCsSVqxUUdSk391jx5k0bzTss
+	lL32BE7qSCIJJpiQ8JewBMuSO5ZYk4qJWDrX5Kb+xst2FTaUbylwjCLXVna94+LPz09wevzTk8O
+	RAXTRL+lnbZVw2NLsyuZKvwnJ6aGvaVi5nsrvhrJrZQGdCG+ECToAfX94eB9HcVUxFHx6vG8HMm
+	NBatFwW63oTTozQdPg5NupJDfbuE8LWNAzsLSwPvk/bSiU+Y1Qu4FsBANrmRi6dCzWpggkLFoQE
+	Wz6pB0WuKm/zlml1g3gd3O9MC8FMsFfeBQZiCxI21RTMlrochRWawylTHagRLFW0dGnqLzKXojo
+	3nHseNpIrO7uoJNcU7E9AF/Jz1ffQ9tKqDDUWOq3rJVGs6b03Mhl9TRiJgwh03i55/omPuUS17s
+	4ihUrgCCIqyJujTc1ZQ/Rn2mf0mwzybgZkb/f+6Tl0/EdY5rynRf8D/riPjjCBfFW0A9aaHuCP6
+	+eE5AghD
+X-Received: by 2002:a17:902:e84c:b0:2e9:6b5b:3db6 with SMTP id d9443c01a7336-2e9a69e93d4mr70486035ad.30.1792415535050;
+        Mon, 19 Oct 2026 06:12:15 -0700 (PDT)
+Received: from [192.168.1.164] (h69-130-12-20.bendor.broadband.dynamic.tds.net. [69.130.12.20])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea1517e895sm430215ad.57.2026.10.19.06.12.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 06:12:12 -0700 (PDT)
+Message-ID: <61207966-c403-441d-9019-583702833a7f@gmail.com>
+Date: Mon, 19 Oct 2026 06:12:11 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next 3/3] wifi: ath10k: bring down a station vdev that
+ never came up
+To: shunsuke@nagashi.ma, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+ Fabricio Akio <fabricioakio@gmail.com>
+References: <20261016-ath10k-series-v1-send-v1-0-c847697b3558@nagashi.ma>
+ <20261016-ath10k-series-v1-send-v1-3-c847697b3558@nagashi.ma>
+Content-Language: en-US
+From: James Prestwood <prestwoj@gmail.com>
+In-Reply-To: <20261016-ath10k-series-v1-send-v1-3-c847697b3558@nagashi.ma>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi David,
+Hi Shunsuke,
 
-On Fri, 16 Oct 2026 16:18:03 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+On 10/15/26 5:17 PM, Shunsuke Nagashima via B4 Relay wrote:
+> From: Shunsuke Nagashima <shunsuke@nagashi.ma>
+>
+> When a connection attempt fails before the station vdev is brought up
+> (authentication timeout, SAE failure, association rejected, or an Auth
+> burst the AP never acknowledged), mac80211 removes the AP station and
+> unassigns the channel context. ath10k deletes the peer and sends
+> WMI_VDEV_STOP, but no WMI_VDEV_DOWN: for a station vdev that never came
+> up, the down would only come from ath10k_bss_disassoc(), which a failed
+> connection attempt never reaches.
+>
+> On WCN3990 firmware WLAN.HL.2.0.c10-00459 and c10-00236, the Auth frames
+> of the next attempt on the same vdev are then not transmitted
+> (management tx completion status "discard") until about 20 s after the
+> first Auth frame of the failed attempt. In sniffer captures, 241 such
+> holds ended 19.94-20.03 s after that frame. Some lasted longer (in one
+> overnight run, 29 of 226 had not ended when the cycle ended), for
+> example when user space gave up on the attempt during the hold. Probe
+> requests still go out. The state belongs to the vdev: an attempt to
+> another network (another BSS on the same AP) on the same vdev was held
+> too (2 of 2), and re-creating the vdev cleared it (2 of 2). This happens
+> on WPA2 networks as well as WPA3. An older firmware build,
+> WLAN.HL.2.0-01387, did not hold the frames (0 of 7 reconnects after
+> status 30).
 
-> On Tue, Oct 13, 2026 at 07:03:47PM +0200, Herve Codina wrote:
-> > Hi David, Rob,
-> > 
-> > On Tue, 13 Oct 2026 18:10:39 +1100
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> >   
-> > > On Fri, Sep 25, 2026 at 03:21:57PM +0200, Herve Codina wrote:  
-> > > > Hi David,
-> > > > 
-> > > > On Mon, 21 Sep 2026 16:20:02 +1000
-> > > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > > >     
-> > > > > On Wed, Aug 26, 2026 at 10:31:46AM +0200, Herve Codina wrote:    
-> > > > > > This v18 version will add support for
-> > > > > >   - Structured tags.
-> > > > > >     Those tags value definition will allow "old" libfdt, dtc and other
-> > > > > >     tools to skip unknown tags if encountered in future dtb version.
-> > > > > > 
-> > > > > >     libfdt, dtc and other tools implementing version v18 will be able to
-> > > > > >     skip unknown tags available in dtbd generated with later version of
-> > > > > >     dtc.
-> > > > > > 
-> > > > > >   - dt_flags header field.
-> > > > > >     For now this flag field is set to 0. It is a placeholder for future
-> > > > > >     dtb version and could be used to store some dtb related information
-> > > > > >     such as the kind of dtb. For instance, the future addons format will
-> > > > > >     use this field to clearly identify that the dtb is an addon dtb.
-> > > > > > 
-> > > > > >   - last_comp_version_w header field.
-> > > > > >     This field is similar to last_comp_version but for writing.
-> > > > > >     It contains the lowest version of the devicetree data structure with
-> > > > > >     which the version used can safely perform modifications (taking into
-> > > > > >     account following rules related to unknown tags).
-> > > > > >     If this lowest version is greater than the last known supported
-> > > > > >     version, modification are simply forbidden and lead to a
-> > > > > >     FDT_ERR_BADVERSION error.
-> > > > > > 
-> > > > > > For modification, when an unknown tag that can be skipped is involved
-> > > > > > and last_comp_version_w allows modifications, the following rules
-> > > > > > apply:      
-> > > > > 
-> > > > > "last_comp_version_w allows modifications" is a bit hard to
-> > > > > understand.  What exactly is the version number against which we're
-> > > > > comparing that value?    
-> > > > 
-> > > > We had one last_comp_version.
-> > > > 
-> > > > Now we have two last_comp_version, one for reading and one for writing.
-> > > > We compare again the dtb version supported by our libfdt version.
-> > > > 
-> > > > This comes from the discussion [1]
-> > > > 
-> > > > [1] https://lore.kernel.org/all/CAL_JsqLRrbZje_gGZPBDni6StFa+6rdiECtk49on8VfkP7CDvw@mail.gmail.com/    
-> > > 
-> > > Ok, I now see that the logic is you simply fail to proceed with writes
-> > > if the library's latest understood version is < last_comp_version_w.
-> > > 
-> > > As I said elsewhere, this approach doesn't particularly make sense to
-> > > me.  If lib_version >= last_comp_version you *can* write, even if it
-> > > means stripping everything that's not understood at lib_version.
-> > > 
-> > > So the real question here is how do we know, for any given structured
-> > > tag, what write operations require the version to be downgraded (which
-> > > might in turn require this and/or other structured tags to be stripped
-> > > entirely).  
-> > 
-> > The rules is well known.  
-> 
-> I really don't think they are.  You've proposed one set of rules (as
-> code) - although I don't think they quite make sense.  I've proposed
-> another.  Other variants are possible.
-> 
-> > An old libfdt version will strip the tag and
-> > downgrade the version. If, when we define a new tags this rules cannot be
-> > follow by olf libfdt version, last_comp_version_w will be set to protect
-> > against modification.
-> > 
-> > Maybe the problem is just downgrading the version.
-> > 
-> > Instead of downgrading it could be better if we mark the dtb "one or more
-> > 'unknown' tags have been removed due to a write by an old libfdt version" ?
-> > 
-> > We have a dt_flags header field. We can dedicate one bit for this marker.
-> > 
-> > Could it make sense ?  
-> 
-> I really dislike this idea.  It means we effectively have at least two
-> variants of every version which strikes me as pretty confusing.
-> 
-> > > This is related to (though not the same as) the question of whether
-> > > introducing a new structured tags requires a bump to the dtb version
-> > > (though not to last_comp_version, of course).
-> > > 
-> > > Here's the simplest model I can think of.  It's what I'd suggest,
-> > > unless one of it's limitations is a showstopper for what you have in mind:
-> > > 
-> > >  - version and last_comp_version retain their meanings.  No new header
-> > >    version.
-> > >  - New structured tags *do* require a new version.  If a dtb wants to
-> > >    include a specific tag, it must label itself with a version that
-> > >    defines that tag.  To enforce that:
-> > >     - For read operations, if we encounter a (known) tag that
-> > >       doesn't belong in the header version, we throw an error (either
-> > >       BADSTRUCTURE, or a new error for the purpose).
-> > >        - If version <= FDT_LAST_SUPPORTED_VERSION and we encounter an
-> > >          unknown tag that also trips the error (since if it was
-> > > 	 defined in this version, we should know about it).
-> > >     - For write operations (including in-place), we always error if
-> > >       version > FDT_LAST_SUPPORTED_VERSION (done in fdt_rw_probe_()).
-> > >     - fdt_open_into() _is_ permitted if version > FDT_LAST_SUPPORTED_VERSION.
-> > >       It will strip all unknown structured tags from the entire tree
-> > >       and downgrade the version to FDT_LAST_SUPPORTED_VERSION.
-> > > 
+This seems similar to an issue we see on the QCA6174's. I don't see a 20 
+second delay, but sometimes after an auth/assoc timeout we get a spam of 
+failed connections with NL80211_TIMEOUT_UNSPECIFIED. I've mentioned this 
+quite some time ago [1]. Do you think it has any relation to whats being 
+fixed here?
 
-Ok, my proposal seems to be a no-go and so I will follow your proposal given
-above.
+Thanks,
 
-Just to clarify, correct me if I am wrong.
+James
 
-When read if we encountered a skippable unknown tag (this is possible if
-version > FDT_LAST_SUPPORTED_VERSION), we just skip the tag without any
-error.
+[1] 
+https://lore.kernel.org/linux-wireless/441e9883-1efc-498b-ba33-6a4f12443f3b@gmail.com/
 
-For write, "we always error if version > FDT_LAST_SUPPORTED_VERSION".
-If fdt_open_into() has been called before the write operation, this will
-not happen. Indeed, we have downgraded the version to FDT_LAST_SUPPORTED_VERSION
-and removed all unknown skippable tags.
-
-Also, during this downgrade process (downgrade version + remove skippable
-unknown tags), if a unknown tag that cannot be skipped is found, the downgrade
-process fails an return an error.
-
-Best regards,
-Hervé
