@@ -1,108 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792438356;
-	b=2Ep12ZDXZ8T9BQdn//sQPvfZF725dxA6zzj9k964GR+Xv/LoUIKrRzSE7Wd8CWUZcONT
-	 SShQNYyYQsvEjThJGC8X4h5gZWi27AzxOgBznwfq10oEwpw8EW1D872jh1l7gT5fI/ZAg
-	 5R2MMysDx51u2mewWplJXNCxkrfshh8ZiyFdIUxS1k0WGbpN20xgF9TIDbD7uCuhzZvwy
-	 sWP5/TTxkMul1Lm/dk1zXPfyhWjNh884ufthvw2fsTurEU2bwc4piu4FDg9L9DlqIYoYq
-	 jMg4oPrt+nDJaG0Fb9XbRTCnucmEmovUoHIwkqdyKBjOv/UpainNmGhg2K4V06lCi1w==
+	t=1792438427;
+	b=1xHb0+jawEnTemDm2jIV8e//nBb0lnwYTqu1ke7YJEgW67E/YP+/VnqU8JLGyVuEWW6H
+	 KPMwedXad8Wh7nElbLzLufsRVaiZnFuVtDvEDPJo6GgfFI++SBJQa59L+UCYCjM1dc32n
+	 N8tYf6trn5M2wznQATWA7DdceIWWVZsl5/QuOJfD6w63AHTMIceIUXxHhZz7qs584BdUw
+	 OPTcHqnmzKRDkMfpsf8vUv3rLNlgQYNOQNJUmj7dkVYGWdJyFZjOC5w/yzdKuvQl6D0Fr
+	 hgmk+5+L9khQ2W++aB1noBVOZVn7Fo0hmYLOk6ZEb1F18dxqfBKsl62GQbDdI5q//SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792438356;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
-	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
-	bh=2p/b3dKU4yaXi2AGlwZNf0VKw+YL38Gm/OTwUzr2FI4=;
-	b=4ceEv83RkCl/eeefzxAItXVOkoefx8pTB3ak8oYrPgJcf6FKSne9jv/MXHrMWhFy3Je/
-	 Cp0B7syhA1d3tVBba5HyKlx5smLUj5mYvTA+BjKEUV/E3EdVQ7EJLoXy3uS8m6rVq03CV
-	 aKwuBRbbgoBvTf12+dDv4Tc7s4kvnd4va79JDr2DGjfuKZgcTliKRBae19OimPPBVwt6Z
-	 3ml1wcIAgwmz7Qj0LnNewY+qqqRvKOMifZbLxiWfFCV9sB7jqEj5FsZvYp5HIjb8DOW6P
-	 dx0hnMnfeo024xen5m1qSzxaSphIUqkXZxGXrrF5UtTnfoMtGbR3jtdQiRtVmrrj6wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792438427;
+	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
+	 Cc:Subject:References:MIME-Version:Content-Type;
+	bh=NlVrJdJXjBpJ84o3fdZyAZZM5A3lU+0Jcv8qJ5BZH6g=;
+	b=r/R+7Usv6jUDTBfZLTmkTcBgRKgUphaTsRPO1oy94YASgSl8NSEanC1SKQIHJ/OHKPJr
+	 CKqYr31PGWMiLSKEC4pwJiiI8ZJrFsXPdTOca3Rj9bqUCy3hKHZw6ccF5uaSHg4zvDIbz
+	 4DmYRchfW8J/TJUmjkYDWRlRkwKoGCXZ3W4pvFwUMvL2EJkOZ5P4qSlVhBkSbfk8BvmpI
+	 oDtRZZ142oi92ujjxQdD1Vk6svwFrG3fS9Stng+mo2LB7NSbXiCAx14yY3tzY3OrNxPak
+	 WeZWKhJSFx2uzR3GSxcVE0aKzwzhP6gfig5Gfs3lpWSga1pS7PzJBz1GaEuAgDty50w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K6MjF+RW;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HZd/HfUA";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB4B606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:32:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACB4B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F020606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:33:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K6MjF+RW
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ea138a3497so3307385ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:32:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792438355; x=1793043155; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2p/b3dKU4yaXi2AGlwZNf0VKw+YL38Gm/OTwUzr2FI4=;
-        b=K6MjF+RWPcaa1IuhgGzw0sG86A6QKN4jmNjfG6QqrnNuzBifkGcISdfauMh33Ulkt+
-         yYec/scqdE7vQS5kwQ/3O2v0LOQ4nlB5tKmjdNwLSZp0DqKlBgoVBzj4OOgOFdp9D08s
-         teCGBpIPXDqeqa1Axp5qtShJNSex0kfX1FqoF92nJLV/sMMwq3uQjnitJ6LMEQPj7KP6
-         gTWQtxdZ1emayUJWwuhtWCHPFwt4cb7R2KcdSFCPMTiW4kc2EsKKdZpCUmvjQ/5xuQUz
-         awj3PIbXOBLjekBBbWSjr6jztl7DBDzqSyyV7lBeL2cV4H4rgxTRY7mkW7QrnZ5seWS6
-         6WHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792438355; x=1793043155;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2p/b3dKU4yaXi2AGlwZNf0VKw+YL38Gm/OTwUzr2FI4=;
-        b=MmtJeE/MD3pu4hCRvjp3jjD66EEZxeCsfk5gthg2U+tj0PH3mKSHhVt28UP3h6VhjB
-         BOVtOhKJ6lxcPnuIvG6OW01xmft6UKhqFLzE1E2wDF6lerQW0JAysQ1ickclYD2Ib8qK
-         RdhbK7X68I/ItyRmHrOKWJLGatphqPzdc2KBh3ZD5nF+nhhYJHbbGgDZ6ZfgBoPWHLE2
-         qtL15U65Qup3Ki1/nnkAQjBk5o4p8qvPoz6IetBzktrgDbIXpOe6iDHfvexldQC9qLru
-         b+EahhM69hx+y0UZvh7/q/SkS3LUqVhhwIw36mgYsbtOiwpYI6VAPhAa654K3C8WAcCB
-         j3HQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzcM0pkhSnF5CScfMpQYJ+cVMKnGaI5K3d6EJ5Q+ud3tpQ06jfBrmP3le06B/eWiszY0pK4Cq0mY1BOvhU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLycRU4b9szHapC/x9bsC7HpBdEpxt3ZBzQIMbfGROPW4hq3YE
-	D9hWP8sKkDQEqcG76GCse8bUOO5fvAYWOvWW+2JdJ5S/HZlg26v5Gc7Z
-X-Gm-Gg: AYBFou0nomY0zhNXNjeWMFkibIAPG1aNSqxb555WAmXPIfdCcBwzO7tzmelI3nCzOT0
-	8xg4LXwnZQyUUC0QYuUJ8ip/f7oeil/AOSvyi1MM2hr/iyLoKDf0Q+SwYMP4Dthl+0uJdpCyVRi
-	k8CM1G1Bh55HdQQD//wFJQR903GQQoEfD/rSpcL/MESJeylfDohO2mhZUT2UVQ9goz7ZFN4ylV7
-	aaYeYP8EnP8c3rL6Dsxek9AHkhILND346taqBgQI6sA/onJSABUO5QjL+hSMqaJyZBn9qujZzbX
-	nLBHOPvHBRYY/PLA1Zq7iu8//p1h67mm6+JbX8y9+Zhc8TGOQfjI/ui8TXNp8FWj+neP31TRO+J
-	gSyJSb/fY5e9+PgAgcQaPjnq6S2ZaC35Ml455mpzsatPl3+S+K2fdRmffZAuCqEQMeeUgWAOnR8
-	CiW20oAnNg64IAT64jQ7TzYJiuPNB4rU0co4a0/nqD1Ct+WBmA/tnBGuKMKkMUagTlXEjFYiKtJ
-	zpjEhOMqGQSft1+u94tgaOpqJ6hHsM5X/qX8JG9ZMu2zyFnAeKwIVaf3ao7LyA/AYAgOMCLv95F
-	v5+ff9oc+zfP0WsyN3QosEK/J6vZgcqAMV+inzDs4X5Kb3tyWMpkIOfEwnhs6Ho4NGa5Z77zULV
-	ksNOPCQk=
-X-Received: by 2002:a17:902:ce83:b0:2e9:6352:6c61 with SMTP id d9443c01a7336-2e9a69f7224mr76901015ad.19.1792438354918;
-        Mon, 19 Oct 2026 12:32:34 -0700 (PDT)
-Received: from localhost ([153.61.198.247])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea151a2a06sm4758725ad.73.2026.10.19.12.32.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 12:32:34 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 19:32:33 +0000
-Message-Id: <DM92D7YEU0AE.2XRZH7RV2US4@gmail.com>
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Andrea Righi" <arighi@nvidia.com>
-Cc: "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
- <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "John Fastabend" <john.fastabend@gmail.com>,
- "Josh Don" <joshdon@google.com>, "Vineeth Pillai" <vineethrp@google.com>,
- "Balbir Singh" <balbirs@nvidia.com>, "Shameer Kolothum"
- <skolothumtho@nvidia.com>, "Himadri Chhaya-Shailesh"
- <himadrics@protonmail.com>, "NchangRoy" <royfru44@gmail.com>,
- <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf-next 0/5] bpf: Expose pinned arenas as sized bpffs
- files
-In-Reply-To: <atXYdpDukXObjE69@gpd4>
-References: <20261010224902.1232178-1-arighi@nvidia.com> <DM6HVNSP3USV.AJSWS289Z3I9@gmail.com> <atXYdpDukXObjE69@gpd4>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HZd/HfUA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B441F000C6;
+	Mon, 19 Oct 2026 19:33:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792438426;
+	bh=NlVrJdJXjBpJ84o3fdZyAZZM5A3lU+0Jcv8qJ5BZH6g=;
+	h=Date:From:To:Cc:Subject:References;
+	b=HZd/HfUAC+hrdXu+CFdxCYZswNqTIoPoDOnsptIQxxma/rTRYzl5SQYgDEt4q+tb7
+	 curgS3Yy2Zo2nHaY71TIlAdDfkyuGreNlgqUuZthyfaLRORBjeMgZICvzHUFB60ly5
+	 Qey37o6eogTHCYtaqUlfbwPTstZM+wllin9kp0oCL/+e5JQZn2g57IwgeDefOX9HYK
+	 QLmtSXjlOWD3RGRsY/gV6pYv5YhQ9UiZqD2G6OzDlfzicbIGcnYzUpkdTR81gvFqBm
+	 B7UMocdZNx+EDNczMpKAmdrL+dbLxvH16A8JANtT+clnONIZVCbhh31+BeuQbNfzN3
+	 WLzCyp3TX0xUA==
+Received: from rostedt by gandalf with local (Exim 4.100.1)
+	(envelope-from <rostedt@kernel.org>)
+	id 1xIt7B-00000001efg-2uns;
+	Mon, 19 Oct 2026 15:33:45 -0400
+Message-ID: <20261019193345.501684622@kernel.org>
+User-Agent: quilt/0.69
+Date: Mon, 19 Oct 2026 15:33:33 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Vincent Donnefort <vdonnefort@google.com>
+Subject: [for-next][PATCH 3/5] ring-buffer: Clean up resize_disabled checks
+References: <20261019193330.365764549@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,16 +64,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 
-On Mon, Oct 19, 2026 at 01:44 AM Andrea Righi <arighi@nvidia.com> wrote:
-> That's fine for a single long-running guest, but with VMs coming and
-> going the host arena would only grow (this was also Josh's concern about
-> the high watermark). Would it be ok with an explicit release of an
-> imported range (clear the ptes, flush, set rt_own back, unpin the
-> folios)? A BPF prog touching a released range would then hit the usual
-> arena fault handling, like any unallocated page.
+From: Vincent Donnefort <vdonnefort@google.com>
 
-make sense to me.
-In my prototype arena_free_pages() sees the imported range in rt_own.
-Instead of returning early it can do the above and
-give the range back to rt.
+ring_buffer_subbuf_order_set() checks for resize_disabled twice under
+the same buffer->mutex hold. Moreover, this check duplicates the logic
+in ring_buffer_resize(). Create a common helper rb_resize_disabled() to
+factor out this code.
+
+Link: https://patch.msgid.link/20260916152813.105082-2-vdonnefort@google.com
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ kernel/trace/ring_buffer.c | 63 +++++++++++++++++---------------------
+ 1 file changed, 28 insertions(+), 35 deletions(-)
+
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 1b148cd891c8..15e3b9938e0f 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -3282,6 +3282,21 @@ static void update_pages_handler(struct work_struct *work)
+ 	complete(&cpu_buffer->update_done);
+ }
+ 
++static bool rb_resize_disabled(struct trace_buffer *buffer, int cpu)
++{
++	lockdep_assert_held(&buffer->mutex);
++
++	if (cpu != RING_BUFFER_ALL_CPUS)
++		return atomic_read(&buffer->buffers[cpu]->resize_disabled);
++
++	for_each_buffer_cpu(buffer, cpu) {
++		if (atomic_read(&buffer->buffers[cpu]->resize_disabled))
++			return true;
++	}
++
++	return false;
++}
++
+ /**
+  * ring_buffer_resize - resize the ring buffer
+  * @buffer: the buffer to resize.
+@@ -3322,20 +3337,17 @@ int ring_buffer_resize(struct trace_buffer *buffer, unsigned long size,
+ 
+ 	nr_pages = rb_calculate_nr_pages(buffer, size);
+ 
+-	if (cpu_id == RING_BUFFER_ALL_CPUS) {
+-		/*
+-		 * Don't succeed if resizing is disabled, as a reader might be
+-		 * manipulating the ring buffer and is expecting a sane state while
+-		 * this is true.
+-		 */
+-		for_each_buffer_cpu(buffer, cpu) {
+-			cpu_buffer = buffer->buffers[cpu];
+-			if (atomic_read(&cpu_buffer->resize_disabled)) {
+-				err = -EBUSY;
+-				goto out_err_unlock;
+-			}
+-		}
++	/*
++	 * Don't succeed if resizing is disabled, as a reader might be
++	 * manipulating the ring buffer and is expecting a sane state while
++	 * this is true.
++	 */
++	if (rb_resize_disabled(buffer, cpu_id)) {
++		err = -EBUSY;
++		goto out_err_unlock;
++	}
+ 
++	if (cpu_id == RING_BUFFER_ALL_CPUS) {
+ 		/* calculate the pages to update */
+ 		for_each_buffer_cpu(buffer, cpu) {
+ 			cpu_buffer = buffer->buffers[cpu];
+@@ -3407,16 +3419,6 @@ int ring_buffer_resize(struct trace_buffer *buffer, unsigned long size,
+ 		if (nr_pages == cpu_buffer->nr_pages)
+ 			goto out;
+ 
+-		/*
+-		 * Don't succeed if resizing is disabled, as a reader might be
+-		 * manipulating the ring buffer and is expecting a sane state while
+-		 * this is true.
+-		 */
+-		if (atomic_read(&cpu_buffer->resize_disabled)) {
+-			err = -EBUSY;
+-			goto out_err_unlock;
+-		}
+-
+ 		cpu_buffer->nr_pages_to_update = nr_pages -
+ 						cpu_buffer->nr_pages;
+ 
+@@ -7471,13 +7473,9 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 
+ 	old_capacity = rb_subbuf_capacity(buffer);
+ 
+-	/* The mmap fast path reads subbuf_order without buffer->mutex. */
+-	for_each_buffer_cpu(buffer, cpu) {
+-		if (!cpumask_test_cpu(cpu, buffer->cpumask))
+-			continue;
+-		if (atomic_read(&buffer->buffers[cpu]->resize_disabled))
+-			return -EBUSY;
+-	}
++	/* Check it is resizable before we touch subbuf_order */
++	if (rb_resize_disabled(buffer, RING_BUFFER_ALL_CPUS))
++		return -EBUSY;
+ 
+ 	atomic_inc(&buffer->record_disabled);
+ 
+@@ -7494,11 +7492,6 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 
+ 		cpu_buffer = buffer->buffers[cpu];
+ 
+-		if (atomic_read(&cpu_buffer->resize_disabled)) {
+-			err = -EBUSY;
+-			goto error;
+-		}
+-
+ 		/* Update the number of pages to match the new size */
+ 		nr_pages = rb_calculate_nr_pages(buffer,
+ 						 old_capacity * buffer->buffers[cpu]->nr_pages);
+-- 
+2.53.0
