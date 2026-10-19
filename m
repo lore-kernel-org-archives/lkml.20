@@ -1,48 +1,70 @@
-Received: from r3-23.sinamail.sina.com.cn (r3-23.sinamail.sina.com.cn [202.108.3.23])
+Received: from bee.birch.relay.mailchannels.net (bee.birch.relay.mailchannels.net [23.83.209.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9921351C11
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:51:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B53DEECB
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.209.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792374718; cv=none; b=Wp60P8A3CSyjAi0glCjN+ywhwg51qIH4NuBbRoQwPbGpMTqGPKBlkHx+gCxKeulMqvZfrfMX0U0aPDli8VZBw30ScZgVgYYTl9w+1QZketgCVw1gPHc03tYukbav4jcIcV+ZCJR91RjyQ8TEDdr8qI3N9JTnbJMQPGi1p1PR3uo=
+	t=1792374791; cv=none; b=evfgEJEA5tZqaIfMU0RxIXI0yuyJMVIRjkKNH2zP1ec3BFlRQKIMAYhbr6ozKww9cczxzW9tjHVb6nAJBejukIDmlFygmrFOluiRmH3amzvmrqDKgcPj0bIy2Zu+RqtIEELJllXoY3Rt0P9lUR2TczThAvKwPMWZR1nvh064aho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792374718; c=relaxed/simple;
-	bh=MucjX2DcjLbLvqlL44FgAp7DRiOfZY5eN/jAuVAEh1A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HXiCf0XFRK7pdE180jPpnzUy1sj38C3SAlDX/GBbKKGsu9qwKvi42Moq1fEBY+++rZWhX/a1MJarOtR3jG+19kRdKkNE5/8BPwNR0sMr5lEwQ1wF4doGVqCNK8qYXFU1mu7MsNzwkQ1Qxeg4G8OxSKhONtgbl/ly+zIYlu7L7y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=w+jr3iQ2; arc=none smtp.client-ip=202.108.3.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1792374791; c=relaxed/simple;
+	bh=J1xRBo8oWJWQh/bE8A9/RXL9xSzWaVfZb5GiXxnIUXo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dmPJRY2IU5pD5dkGMNBu5lurisw4NU3Qu5aHNIb/p4FrE6lsWj49y19cor3fe1ZL9V52gLYsR6otmLcl1Ce0ZVWXt/zupUgGUzFQC2yC6hcpuxztKIpbR34tufLO4bayFA48WeCfFcCe17WRBVuLDoJlM0SkKmPR0JN6eHYxIj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=p8rGh+pu; arc=none smtp.client-ip=23.83.209.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="w+jr3iQ2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792374714;
-	bh=FALiitUgb2nKvUH1tR15Q5+aEgUtd6wsrOWaEs5DNHA=;
-	h=From:Subject:Date:Message-ID;
-	b=w+jr3iQ2nhL2+nIrYjMMyS84EgkjcTxkG3PDOErg1nBZV+0bJjyslXB3kscYW691C
-	 UHz2T0mautDx4q+KKbBj2Hh9856IOzXe/xYcOPrMroI6RXEevmNZRVjQGrkpstbnUL
-	 WQIGnn+EerY4gxSwpq54ocXkOXZXH45nRnNV3pWc=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.254.0.170])
-	by sina.com (10.54.253.31) with ESMTP
-	id 6AD577B3000038B2; Mon, 19 Oct 2026 09:51:50 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 5048276815932
-X-SMAIL-UIID: 1CA32C8385104A238281AA00CC121B2E-20261019-095150-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [rdma?] possible deadlock in rds_trans_get_preferred
-Date: Mon, 19 Oct 2026 09:51:38 +0800
-Message-ID: <20261019015139.806-1-hdanton@sina.com>
-In-Reply-To: <6ad51a9c.a6d1a155.34a93f.00bb.GAE@google.com>
-References: 
+	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="p8rGh+pu"
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 92563461F9B;
+	Mon, 19 Oct 2026 01:35:06 +0000 (UTC)
+Received: from pdx1-sub0-mail-a217.dreamhost.com (100-96-7-166.trex-nlb.outbound.svc.cluster.local [100.96.7.166])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 2BFA2461E98;
+	Mon, 19 Oct 2026 01:35:02 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Exultant-Well-Made: 527d0515463621f7_1792373706455_3594791401
+X-MC-Loop-Signature: 1792373706455:4251318137
+X-MC-Ingress-Time: 1792373706455
+Received: from pdx1-sub0-mail-a217.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.96.7.166 (trex/8.0.2);
+	Mon, 19 Oct 2026 01:35:06 +0000
+Received: from offworld.tailf5af7a.ts.net (unknown [76.167.199.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a217.dreamhost.com (Postfix) with ESMTPSA id 4j7J513j12zPK;
+	Sun, 18 Oct 2026 18:35:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1792373702;
+	bh=1yFSlPhXf+ABAGiQCmcQHVBU3wg4SKS/vtsXYTbxkJE=;
+	h=From:To:Cc:Subject:Date:Content-Transfer-Encoding;
+	b=p8rGh+puOj8/luOGdZJjR++9KIJadf4MK26ALO0jhZOEwt0zzqrzHJIBfKzO95jEM
+	 YY7gco2uGnQWvR2j2NKebHdjhFim4jherr9SHPoCGlBe8DnrndQVnI8td8uUmxjb+/
+	 zDNHOI8QH37XhQcB16VP/+ZhJUM8ZN/alt1KdV4RA4OATM285mqrUhVTEV+iJMjGOH
+	 hMzhOt0jPQM+Y8VP/cooBS0LjsrgYnmv14hOHR6d5WNJjigqEzHSzMSTjwRrsEkE27
+	 LVtCIN48O1H/O7aC7SSwlbKUz7hKgguDFYGY8wnlQ9eIdHJ5QVNhYJRgCye5LJ5bFT
+	 oT4xLZMDlmI+w==
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	parri.andrea@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	dave@stgolabs.net
+Subject: [PATCH] riscv: Avoid smp_mb__after_spinlock() fences on non-SMP
+Date: Sun, 18 Oct 2026 18:34:56 -0700
+Message-Id: <20261019013456.1898839-1-dave@stgolabs.net>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,79 +73,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Date: Sun, 18 Oct 2026 12:14:36 -0700	[thread overview]
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    70dd4ee72eb2 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1271a69c580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=44ac479246d4559b
-> dashboard link: https://syzkaller.appspot.com/bug?extid=ccdb5058c3df2d94811c
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> userspace arch: i386
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15b9618e580000
+smp_mb__after_spinlock() is defined in asm/barrier.h, which
+linux/spinlock.h includes unconditionally, so non-SMP kernels get
+RISCV_FENCE(iorw, iorw) as well and emit a full fence.
 
-#syz test
+The other architectures that override it, arm64, csky, powerpc and
+xtensa, define it in asm/spinlock.h, which linux/spinlock.h only
+includes for CONFIG_SMP, so their non-SMP builds get the generic
+kcsan_mb() fallback. Move the riscv definition, the SMP fence is
+unchanged.
 
---- x/include/rdma/rdma_cm.h
-+++ y/include/rdma/rdma_cm.h
-@@ -167,6 +167,7 @@ struct rdma_cm_id *rdma_create_user_id(r
-   * asynchronous operations associated with the id.
-   */
- void rdma_destroy_id(struct rdma_cm_id *id);
-+void rdma_destroy_id_wq(struct rdma_cm_id *id);
+Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
+---
+ arch/riscv/include/asm/barrier.h  | 27 ---------------------------
+ arch/riscv/include/asm/spinlock.h | 27 +++++++++++++++++++++++++++
+ 2 files changed, 27 insertions(+), 27 deletions(-)
+
+diff --git a/arch/riscv/include/asm/barrier.h b/arch/riscv/include/asm/barrier.h
+index 700ba3f922cb..2284473844d8 100644
+--- a/arch/riscv/include/asm/barrier.h
++++ b/arch/riscv/include/asm/barrier.h
+@@ -24,33 +24,6 @@
+ #define __smp_rmb()	RISCV_FENCE(r, r)
+ #define __smp_wmb()	RISCV_FENCE(w, w)
  
- /**
-  * rdma_restrict_node_type - Restrict an RDMA identifier to specific
---- x/net/rds/ib.c
-+++ y/net/rds/ib.c
-@@ -486,7 +486,7 @@ static int rds_ib_laddr_check_cm(struct
- 		 cm_id->device ? cm_id->device->node_type : -1);
+-/*
+- * This is a very specific barrier: it's currently only used in two places in
+- * the kernel, both in the scheduler.  See include/linux/spinlock.h for the two
+- * orderings it guarantees, but the "critical section is RCsc" guarantee
+- * mandates a barrier on RISC-V.  The sequence looks like:
+- *
+- *    lr.aq lock
+- *    sc    lock <= LOCKED
+- *    smp_mb__after_spinlock()
+- *    // critical section
+- *    lr    lock
+- *    sc.rl lock <= UNLOCKED
+- *
+- * The AQ/RL pair provides a RCpc critical section, but there's not really any
+- * way we can take advantage of that here because the ordering is only enforced
+- * on that one lock.  Thus, we're just doing a full fence.
+- *
+- * Since we allow writeX to be called from preemptive regions we need at least
+- * an "o" in the predecessor set to ensure device writes are visible before the
+- * task is marked as available for scheduling on a new hart.  While I don't see
+- * any concrete reason we need a full IO fence, it seems safer to just upgrade
+- * this in order to avoid any IO crossing a scheduling boundary.  In both
+- * instances the scheduler pairs this with an mb(), so nothing is necessary on
+- * the new hart.
+- */
+-#define smp_mb__after_spinlock()	RISCV_FENCE(iorw, iorw)
+-
+ #define __smp_store_release(p, v)					\
+ do {									\
+ 	compiletime_assert_atomic_type(*p);				\
+diff --git a/arch/riscv/include/asm/spinlock.h b/arch/riscv/include/asm/spinlock.h
+index 52f11bfd0079..54bd8db8eb4f 100644
+--- a/arch/riscv/include/asm/spinlock.h
++++ b/arch/riscv/include/asm/spinlock.h
+@@ -3,6 +3,33 @@
+ #ifndef __ASM_RISCV_SPINLOCK_H
+ #define __ASM_RISCV_SPINLOCK_H
  
- out:
--	rdma_destroy_id(cm_id);
-+	rdma_destroy_id_wq(cm_id);
- 
- 	return ret;
- }
---- x/drivers/infiniband/core/cma_priv.h
-+++ y/drivers/infiniband/core/cma_priv.h
-@@ -110,6 +110,7 @@ struct rdma_id_private {
- 	 */
- 	struct rdma_restrack_entry     res;
- 	struct rdma_ucm_ece ece;
-+	struct work_struct destroy_work;
- };
- 
- #if IS_ENABLED(CONFIG_INFINIBAND_ADDR_TRANS_CONFIGFS)
---- x/drivers/infiniband/core/cma.c
-+++ y/drivers/infiniband/core/cma.c
-@@ -2126,6 +2126,25 @@ void rdma_destroy_id(struct rdma_cm_id *
- }
- EXPORT_SYMBOL(rdma_destroy_id);
- 
-+static void destroy_id_work(struct work_struct *work)
-+{
-+	struct rdma_id_private *id_priv =
-+		container_of(work, struct rdma_id_private, destroy_work);
++#include <asm/fence.h>
 +
-+	mutex_lock(&id_priv->handler_mutex);
-+	destroy_id_handler_unlock(id_priv);
-+}
++/*
++ * This is a very specific barrier.  See include/linux/spinlock.h for the two
++ * orderings it guarantees, but the "critical section is RCsc" guarantee
++ * mandates a barrier on RISC-V.  The sequence looks like:
++ *
++ *    lr.aq lock
++ *    sc    lock <= LOCKED
++ *    smp_mb__after_spinlock()
++ *    // critical section
++ *    lr    lock
++ *    sc.rl lock <= UNLOCKED
++ *
++ * The AQ/RL pair provides a RCpc critical section, but there's not really any
++ * way we can take advantage of that here because the ordering is only enforced
++ * on that one lock.  Thus, we're just doing a full fence.
++ *
++ * Since we allow writeX to be called from preemptive regions we need at least
++ * an "o" in the predecessor set to ensure device writes are visible before the
++ * task is marked as available for scheduling on a new hart.  While I don't see
++ * any concrete reason we need a full IO fence, it seems safer to just upgrade
++ * this in order to avoid any IO crossing a scheduling boundary.  The
++ * scheduler pairs this with an mb(), so nothing is necessary on the new hart.
++ */
++#define smp_mb__after_spinlock()	RISCV_FENCE(iorw, iorw)
 +
-+void rdma_destroy_id_wq(struct rdma_cm_id *id)
-+{
-+	struct rdma_id_private *id_priv =
-+		container_of(id, struct rdma_id_private, id);
-+
-+	INIT_WORK(&id_priv->destroy_work, destroy_id_work);
-+	queue_work(cma_wq, &id_priv->destroy_work);
-+}
-+EXPORT_SYMBOL(rdma_destroy_id_wq);
-+
- static int cma_rep_recv(struct rdma_id_private *id_priv)
- {
- 	int ret;
---
+ #ifdef CONFIG_QUEUED_SPINLOCKS
+ #define _Q_PENDING_LOOPS	(1 << 9)
+ #endif
+-- 
+2.39.5
+
