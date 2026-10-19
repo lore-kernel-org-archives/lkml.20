@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443053;
-	b=pyRYHH12h9e+7esTQyAZYLyKh+ZGE8JAafWIkCYt7kGPSWgZZSrb5iqGtnVsg1F8u+S9
-	 /neuXlkAAo8oTpurBFvKnxF60JFV0EHS4/bfFb5pFd3majAzAWbXJa0Qko3GtDVR4DzE0
-	 Rq3VOdHorb/DXElN7kl4HJLQnbhp1HUOiuGQVs3DBDcSAE5kkn1tTiOYOIx8hkww/wk1/
-	 0RpSO9FOenrizgFRdW24DJZOQPTLBbyFdpDsXGvXSELUNWXPTvFZVWbyqR3XXB7ttT60g
-	 F030lLKwiiwDnl6lW8DyoMZ/55IGUDDhpa8v076ZasGI6DG2jTS6PsPFus2586SnIPA==
+	t=1792443054;
+	b=lL49eD1otgM1nHHza9NLkc0NV9tGknO+/8WrUO4wCXSMankMQAruv3eUUALtqDleKmzI
+	 CG6kMKxNRZz5+bPuOTYs8ygZhRtw/Jaa0Y2Se9DTEuxwcVQ3SDBy4PhS+DKpiQmj7eT0K
+	 JWVnWlnMjLdE8+kqTa2rE85a4P7gkDHUJjxdHVQE4sogTdYfIAkO+dYFAHJD0STLcvnaF
+	 Scv9i42YbVbdsJM0nF/jn3rYkiPMfI2xoNweoxrBlcTExJENzC5ADynEu2D3F+hpC7Vwq
+	 gapCtrcT5OCSG+p4VMkwye7GQqp1lnj2RWsbuq5q2sgFReJ1ZYFV5MnSxbvtNDNKP8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443053;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443054;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=hxdTMbA8LElIuPJVsQvOST89gibjO3Mqlv7/+bxExC4=;
-	b=FBls5cOYiPLnMA7UGcKzcj8hZtlrtZdXrsokkCL9HnfsB/aH6cHh+p0rGTFoHt/lVJNF
-	 GpAfcV3ZiPw/vulJPtBs5UdhFm+UfsYdu6CqGH0ygmfPsqNhX0mJCIeA/TdR5HiyJzE0+
-	 BTBxuqlp6DjDrVDAbjQiEMaIsUpD/Z/Qrt4e9q59PtSzZ2FsSBiky4Ju5ztqBQJolrSL/
-	 4OC4P5qNODKzAAzkiLgu4bfBmzAcmJAwzGtojeqFN9cmQjXe6yq06HO/5/DOneQBg8+5x
-	 Z4ezatgQXBP2cy5XOOBj6amOLyQwJen7Jlxo5Y6w6n8jrs9tW1c51VhGOvioWrJ8Geg==
+	bh=2xibkmjnwtqh/VnVH8jztve42630lVoW9zqGDONC4jk=;
+	b=2fNtPqZOaP5mFFAdA8Lv2mf292ytGEy35LN6A0aDzRFlC3+kSFNWvAjXq8TbculR64dS
+	 9oyITQz9VRFyYQ0z3wyrYI40l8TdNZ9hNICQ71fEPmispLn1CnLAG9ape80oPSKX29TFE
+	 /i/fCUZ7rVuiQLsfbkhL8pfD9ARUJDaRL7667ZMt/12C1rISR4cm6r0K5LRNb1XKyAVpD
+	 +8eiPC5mLnV14eImguQKyESYKfc69Ea8cYm8xwJP1426Fc6I+dh41lhCZ8RrEBOlw+f7T
+	 NSg3y+oyyCdBJoNtO1NCFoyI5il9ULDjM3sFMZvSjP04VAJLRfU4hVzBSHKCSXtB1/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XqR7l+Vc;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Kx18gGX2;
 	arc=none smtp.remote-ip=198.175.65.16
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E69606A325
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:50:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0E69606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149CF606A335
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 149CF606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XqR7l+Vc
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Kx18gGX2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792443051; x=1823979051;
+  t=1792443054; x=1823979054;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=CG7Lll4s+ThtivUH6SVnYWTUIN/0rn8cWo9ieKUsPK4=;
-  b=XqR7l+Vc6xvyDjo1z1LrLOivHqdW4vQwcIAre/28dR7RAyfrmNbOAsmC
-   B7X9nyxuAMpcOB9FsytggMPVBpV9mde3q2lt18zWTfx8ln5uMwLTJ0Ore
-   FYLH4ytXevfPKbpGchgq4NiroJCFOi+ttRty2Aq/HmreSlKyFo0lkxKm3
-   x90r+FQxbp9DO/qEHIf3WF4DpCk+Rvj1TLqe3oc4uNIsT9SSwEpcntbhl
-   n27BjYTqzpvSvtdTfhGWfdSpRNCs86Fnlx3Ta4rfGc7SNUYL4uBzPl+id
-   5ZIIpDEBRD8odcuoVEIdQyYxyC61JZyz52SQYv8rB9iB9p6rTi6dGWZla
+  bh=2ZVI/LHv+rFsSt+bEhFO/KBrUTQ5SCxV+L+I4nxa8Tw=;
+  b=Kx18gGX2eHwH76IJ6XDVqLAK1IXRyCykPZ8zx2wE5ONJiImFELUI6ACI
+   BCWZio84YBANV8/PdT1Cyhb4cpvRQDA86XNctuCpyJ2wZ71hJuwC2cdDi
+   6P+x7vpjBTjAbsXTwT+HnhY0K/2fFPVtJAWv5GHIqle8WcDv5U7VOyY7a
+   VCGltdL10tCUZaHS4MQ8IKwkHXAxF+jtt2u/oN/v4tyw75FUKjDzWaQ28
+   zFJ5sGqS76gA1/Gl6MoyTvS85vLJjuzm66FMuibSwrpiXQYLOprij4b1L
+   mdir4+fQmfHEVoW3kdngZeogFo8kJQsUi35/Cuwtn7RlpSzo3rGjRzFfR
    Q==;
-X-CSE-ConnectionGUID: aqqsaRH0SQacK4W1zZqnIg==
-X-CSE-MsgGUID: neI4vygmSp63+veXecQsyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1131132"
+X-CSE-ConnectionGUID: iqYQ4BK9RoS6UufE9J/gFw==
+X-CSE-MsgGUID: xsp/tPjySEG6ziOzWhlIgg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1131168"
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1131132"
+   d="scan'208";a="1131168"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:48 -0700
-X-CSE-ConnectionGUID: 2MsWXzZ1RtG/QDjxgdfpFQ==
-X-CSE-MsgGUID: nw1Lt+vyT/SssC6+yl2TZQ==
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:49 -0700
+X-CSE-ConnectionGUID: A79T1QYHSMWgsXyQDUUzXQ==
+X-CSE-MsgGUID: 0+TF96LkStqf1WXNZAAZYA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3008624"
+   d="scan'208";a="3008638"
 Received: from spandruv-mobl5.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.220.87])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:49 -0700
 From: Tony Luck <tony.luck@intel.com>
@@ -77,9 +77,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v14 03/24] x86/resctrl: Centralize monitoring feature enumeration
-Date: Mon, 19 Oct 2026 13:50:10 -0700
-Message-ID: <20261019205031.16977-4-tony.luck@intel.com>
+Subject: [PATCH v14 07/24] x86/resctrl: Update special case for Intel Haswell enumeration
+Date: Mon, 19 Oct 2026 13:50:14 -0700
+Message-ID: <20261019205031.16977-8-tony.luck@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019205031.16977-1-tony.luck@intel.com>
 References: <20261019205031.16977-1-tony.luck@intel.com>
@@ -94,112 +94,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The original "perf" implementation of Intel Cache QoS Monitoring (CQM)
-put parameters from CPUID into fields of the cpuinfo_x86 structure. The
-perf implementation was reverted and replaced by resctrl. The enumerated
-parameters remained in the boot_cpu_data structure.
+Certain Intel Haswell CPUs support L3 cache allocation but do not enumerate the
+feature. A quirk probes for support and provides hard-coded parameters. The
+quirk sets both the L3 resource and the global rdt_alloc_capable, but only
+the global is used to signal that normal enumeration can be skipped.
 
-resctrl is the only consumer of these values, yet it depends on generic
-x86 CPU setup to enumerate them.
+Setting the global in the quirk is redundant. The quirk runs before
+allocation enumeration and is the only code that can mark a resource as
+allocation capable that early, so finding any allocation capable resource
+at the start of enumeration already identifies the quirk case.
 
-Centralize all L3 monitoring enumeration within resctrl in preparation for
-removal of resctrl fields from struct cpuinfo_x86. The Intel MBM correction
-factor quirk remains the only reader of the cached values.
+Stop setting rdt_alloc_capable in the quirk and skip allocation enumeration
+when resctrl_alloc_capable() reports a resource is already allocation
+capable, in preparation for removing the global.
+
+No functional change intended.
 
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
 v14:
-	Structure commit in context, problem, solution.
-	Add note that there is still one user of boot_cpu_data.
+	Updated commit comment in context, problem, solution form.
 ---
- arch/x86/include/asm/resctrl.h        |  9 ++++----
- arch/x86/kernel/cpu/resctrl/monitor.c | 32 ++++++++++++++++++++++++---
- 2 files changed, 33 insertions(+), 8 deletions(-)
+ arch/x86/kernel/cpu/resctrl/core.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-index 8f6edcdcfd87..c9f9db96f792 100644
---- a/arch/x86/include/asm/resctrl.h
-+++ b/arch/x86/include/asm/resctrl.h
-@@ -44,6 +44,7 @@ DECLARE_PER_CPU(struct resctrl_pqr_state, pqr_state);
- 
- extern bool rdt_alloc_capable;
- extern bool rdt_mon_capable;
-+extern unsigned int rdt_l3_mon_scale;
- 
- DECLARE_STATIC_KEY_FALSE(rdt_enable_key);
- DECLARE_STATIC_KEY_FALSE(rdt_alloc_enable_key);
-@@ -132,11 +133,9 @@ static inline void __resctrl_sched_in(struct task_struct *tsk)
- 
- static inline unsigned int resctrl_arch_round_mon_val(unsigned int val)
- {
--	unsigned int scale = boot_cpu_data.x86_cache_occ_scale;
+diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+index f0cfb37482d3..f2bf160d01c1 100644
+--- a/arch/x86/kernel/cpu/resctrl/core.c
++++ b/arch/x86/kernel/cpu/resctrl/core.c
+@@ -177,8 +177,6 @@ static inline void cache_alloc_hsw_probe(void)
+ 	r->cache.min_cbm_bits = 2;
+ 	r->cache.arch_has_sparse_bitmasks = false;
+ 	r->alloc_capable = true;
 -
--	/* h/w works in units of "boot_cpu_data.x86_cache_occ_scale" */
--	val /= scale;
--	return val * scale;
-+	/* Round down to nearest h/w monitoring unit */
-+	val /= rdt_l3_mon_scale;
-+	return val * rdt_l3_mon_scale;
+-	rdt_alloc_capable = true;
  }
  
- static inline void resctrl_arch_set_cpu_default_closid_rmid(int cpu, u32 closid,
-diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
-index 3838e0a13d36..89b83cc7e800 100644
---- a/arch/x86/kernel/cpu/resctrl/monitor.c
-+++ b/arch/x86/kernel/cpu/resctrl/monitor.c
-@@ -32,6 +32,11 @@
-  */
- bool rdt_mon_capable;
+ /*
+@@ -930,7 +928,11 @@ static __init bool get_rdt_alloc_resources(void)
+ 	struct rdt_resource *r;
+ 	bool ret = false;
  
-+/*
-+ * Scale factor to convert L3 monitor events to bytes.
-+ */
-+unsigned int __ro_after_init rdt_l3_mon_scale;
-+
- #define CF(cf)	((unsigned long)(1048576 * (cf) + 0.5))
+-	if (rdt_alloc_capable)
++	/*
++	 * On Haswell systems cache_alloc_hsw_probe() already marked
++	 * RDT_RESOURCE_L3 as alloc_capable. No further enumeration is needed.
++	 */
++	if (resctrl_alloc_capable())
+ 		return true;
  
- static int snc_nodes_per_l3_cache = 1;
-@@ -418,16 +423,37 @@ static __init int snc_get_config(void)
- 
- int __init rdt_get_l3_mon_config(struct rdt_resource *r)
- {
--	unsigned int mbm_offset = boot_cpu_data.x86_cache_mbm_width_offset;
- 	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
-+	unsigned int mbm_offset;
- 	unsigned int threshold;
- 	u32 eax, ebx, ecx, edx;
-+	u32 num_rmid;
-+
-+	/* Resource monitoring leaf is 0xf. L3 monitoring details in subleaf 1 */
-+	cpuid_count(0xf, 1, &eax, &ebx, &ecx, &edx);
-+	mbm_offset = eax & GENMASK(7, 0);
-+	rdt_l3_mon_scale = ebx;
-+	num_rmid = ecx + 1;
-+
-+	if (!mbm_offset) {
-+		switch (boot_cpu_data.x86_vendor) {
-+		case X86_VENDOR_AMD:
-+			mbm_offset = MBM_CNTR_WIDTH_OFFSET_AMD;
-+			break;
-+		case X86_VENDOR_HYGON:
-+			mbm_offset = MBM_CNTR_WIDTH_OFFSET_HYGON;
-+			break;
-+		default:
-+			/* Leave mbm_offset as 0 */
-+			break;
-+		}
-+	}
- 
- 	snc_nodes_per_l3_cache = snc_get_config();
- 
- 	resctrl_rmid_realloc_limit = boot_cpu_data.x86_cache_size * 1024;
--	hw_res->mon_scale = boot_cpu_data.x86_cache_occ_scale / snc_nodes_per_l3_cache;
--	r->mon.num_rmid = (boot_cpu_data.x86_cache_max_rmid + 1) / snc_nodes_per_l3_cache;
-+	hw_res->mon_scale = rdt_l3_mon_scale / snc_nodes_per_l3_cache;
-+	r->mon.num_rmid = num_rmid / snc_nodes_per_l3_cache;
- 	hw_res->mbm_width = MBM_CNTR_WIDTH_BASE;
- 
- 	if (mbm_offset > 0 && mbm_offset <= MBM_CNTR_WIDTH_OFFSET_MAX)
+ 	if (!boot_cpu_has(X86_FEATURE_RDT_A))
 -- 
 2.56.0
 
