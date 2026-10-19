@@ -1,83 +1,82 @@
-Received: from mail-m15598.qiye.163.com (mail-m15598.qiye.163.com [101.71.155.98])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D849240B6F4;
-	Mon, 19 Oct 2026 10:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6544B8285;
+	Mon, 19 Oct 2026 10:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404675; cv=none; b=ch+7w+SRvmvPsL+eBG+7hAAMkzLloJ6Emqa93AmhDARZxhewB0wx9lTfbOES7SWCG6NPFu5FGIoboIGihCaEXpFfzm5gduny1j42XJMeYq+j9pm3Bh4vIJN6jfZ+U+bxoKVz3dmRoCHdlL+DotLEZTnaeIjP3WOlutp5wAE+Gm8=
+	t=1792404681; cv=none; b=QI2gNbeZg4ZKoKd+bL3/JwzSDakCWndtC2GwJB8VSY04jqbYPUjJx1alZ+dqAJPtNQEa9r4ohUX3E6tcCRIVpsC0YMQp4UUusgkqe56JLDeYqIqYWPGl5ucR/7bXWkI4nfJAeBYRgk2H/UELjfVb7tEXmlauf785RjoTFiz4dxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404675; c=relaxed/simple;
-	bh=P5ZOGYNyg8L4aWfSSNCbwWmwvGqHOzjsLvZxi1qWtsQ=;
-	h=Content-Type:Message-ID:To:Cc:Subject:MIME-Version:From:Date; b=MCrCA6x7wzUHNQ4Fha7ctnG/tSON0qTE9eVz8lmk2t3Ucpzq8sevVIuMRjjXUpOGpdQkBSWpkPpMXvAFUDC+2TP2y2kMWpV86N5tIvIxVHX9yEUyz/xBDUvDMVzKHgo4I/sDU/dU8KG+rYJgh19RuJDh/eyHDlGPncqWU52Qg4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn; spf=pass smtp.mailfrom=hdu.edu.cn; dkim=pass (1024-bit key) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.b=k0Qyk3oV; arc=none smtp.client-ip=101.71.155.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hdu.edu.cn
+	s=arc-20240116; t=1792404681; c=relaxed/simple;
+	bh=zVqAZWwdL91u+X2L2sSv4uMJqku/bL40qw6pKmkFwpA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=obQS3QJamhtrMLdBATX69WZCmpIGyDvLI6DetWL6XBKGGdgDbkw15HYxsgXymT4V6vg7Rh4AO5AhaS6UQ2MOy8JHEIT56HOVEIVKPmPzfrQ/hKxtJIUqFEzMdtaIBHjB1hCyqcau2nz8AZ9OxjVFYOgNsos1NJ1Ws+ds/XJIs4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HmM1/NcZ; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.b="k0Qyk3oV"
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <AEMA9QCuLOMl3el2RGWf44oE.1.1792404355168.Hmail.252270051@hdu.edu.cn>
-To: linux-serial@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Cc: jirislaby@kernel.org, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org
-Subject: =?UTF-8?B?dHR5OiBodmM6IHBvc3NpYmxlIHVzZS1hZnRlci1mcmVlIGluIHJlc2l6ZSB3b3JrIGR1cmluZyBodmNfcmVtb3ZlKCk=?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HmM1/NcZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=wu
+	IWijRtYYAq+6BiQ98mjJUGC3M/zZZs5wiFaBV7CKQ=; b=HmM1/NcZRdhsrpk1Mv
+	Fcv3FyCerOktb9bZmHZp527joX1ZoMtCfwslgUMxPRcJMQ50eryxc0p5ERYOcRsr
+	WdFr86uo3162damvcw81es03JFf0P5VGukwDL0z6mNfLcVG3W/qdmYvR8myUx4Xi
+	i/94gioD1HJIQq8rt5MwX5PiE=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3_8Wk7NVq1VPPBA--.45843S2;
+	Mon, 19 Oct 2026 18:10:45 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	MeiChia Chiu <meichia.chiu@mediatek.com>,
+	Bo Jiao <Bo.Jiao@mediatek.com>,
+	Howard Hsu <howard-yh.hsu@mediatek.com>,
+	Peter Chiu <chui-hao.chiu@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH 0/2] wifi: mt76: mt7996: clamp beamforming NSS
+Date: Mon, 19 Oct 2026 18:10:40 +0800
+Message-Id: <20261019101043.1922205-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Received: from 252270051@hdu.edu.cn( [183.157.177.89] ) by ajax-webmail ( [127.0.0.1] ) ; Mon, 19 Oct 2026 18:05:55 +0800 (GMT+08:00)
-From: LI xiao <lixiao0@hdu.edu.cn>
-Date: Mon, 19 Oct 2026 18:05:55 +0800 (GMT+08:00)
-X-HM-Tid: 0aa153977f1fd458kusy54270f56bd31
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGUseVk1DGUNKQ08fHk0ZH1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSk5MVUpMTFVDQllXWRYaDxIVHRRZQVlLVUtVS1
-	VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=k0Qyk3oVsTrpeNVuKRQr2fS4IJnAzD50uPkztkH0qmMGQP1VEmw6oY6yfNmzOUtxYS8IIOJVQM86Yzw0UFr4Y40vqi5HnhJoEpDwNhGU401hC8HUHFnaWZ0KgnLqAg59V7LGQZXoh5+vrcGdMxXQfiFQbBO0y55q2XXpee1S0NU=; s=default; c=relaxed/relaxed; d=hdu.edu.cn; v=1;
-	bh=P5ZOGYNyg8L4aWfSSNCbwWmwvGqHOzjsLvZxi1qWtsQ=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_8Wk7NVq1VPPBA--.45843S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWruF1fZr1rtr4DGrW7Ar1UJrb_yoW3AFg_C3
+	4vyr98JF48tFWrKa17Kwn7XryIvay0gr1kCw1jy395X34xArs5WrZ7Jr1UXwsrWay8XF15
+	Jrn3XFyxA34fZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUUtl13UUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wV0rmrV7KUf4gAA37
 
-SGksCgpJIGZvdW5kIGEgcG9zc2libGUgdXNlLWFmdGVyLWZyZWUgaW52b2x2aW5nIHRoZSBIVkMg
-cmVzaXplIHdvcmsuCgpBIHF1ZXVlZCBodmNfc2V0X3dpbnN6KCkgY2FuIGFjY2VzcyBocCBhZnRl
-ciBodmNfcmVtb3ZlKCkgZHJvcHMgdGhlIGZpbmFsIHR0eV9wb3J0IHJlZmVyZW5jZSBhbmQgaHZj
-X3BvcnRfZGVzdHJ1Y3QoKSBmcmVlcyB0aGUgY29udGFpbmluZyBodmNfc3RydWN0LgoKSSByZXBy
-b2R1Y2VkIHRoaXMgb24gTGludXggbWFpbmxpbmUgY29tbWl0IGMwM2MxYTE0NTA3ZGZhZjhiODU2
-YzI2MDhmOWFjMjE2MDIxZmMyMjIsIHVzaW5nIGEgS0FTQU4tZW5hYmxlZCB4ODZfNjQga2VybmVs
-IGluIGEgMi12Q1BVIFFFTVUgZ3Vlc3QuCgpUaGUgcmVwcm9kdWNlciBpcyBhbiBvdXQtb2YtdHJl
-ZSB0ZXN0IG1vZHVsZSB3aG9zZSByZW1vdmFsIHRocmVhZCBjYWxscyBodmNfcmVtb3ZlKCkgY29u
-Y3VycmVudGx5IHdpdGggYSBxdWV1ZWQgaHZjX3Jlc2l6ZSgpIG9wZXJhdGlvbi4gS0FTQU4gcmVw
-b3J0cyB0aGF0IHRoZSBxdWV1ZWQgaHZjX3NldF93aW5zeigpIHdvcmsgYWNjZXNzZXMgdGhlIGZy
-ZWVkIEhWQyBvYmplY3QuIFRoaXMgcmVwcm9kdWNlcyB0aGUgSFZDIEFQSS1sZXZlbCBsaWZldGlt
-ZSBpc3N1ZSwgYnV0IGRvZXMgbm90IHlldCBleGVyY2lzZSB0aGUgZnVsbCB2aXJ0aW8tY29uc29s
-ZSBob3QtdW5wbHVnIHBhdGguCgpSZWxldmFudCBLQVNBTiByZXBvcnQ6CgpCVUc6IEtBU0FOOiBz
-bGFiLXVzZS1hZnRlci1mcmVlIGluIHR0eV9wb3J0X3R0eV9nZXQrMHhhOC8weGIwClJlYWQgb2Yg
-c2l6ZSA4IGF0IGFkZHIgZmYxMTAwMDAwYTU1YTQ4OCBieSB0YXNrIGt3b3JrZXIvMDowLzkKV29y
-a3F1ZXVlOiBldmVudHMgaHZjX3NldF93aW5zegpDYWxsIFRyYWNlOgp0dHlfcG9ydF90dHlfZ2V0
-KzB4YTgvMHhiMApodmNfc2V0X3dpbnN6KzB4NmUvMHgxMTAKcHJvY2Vzc19vbmVfd29yaysweDY4
-Yy8weDExODAKd29ya2VyX3RocmVhZCsweDRiNy8weGIzMAoKQWxsb2NhdGVkIGJ5IHRhc2sgNjQ6
-Cl9fa21hbGxvY19ub3Byb2YrMHgxY2QvMHg0YTAKaHZjX2FsbG9jKzB4MmUxLzB4YTIwCmh2Y19s
-aWZldGltZV9yZXByb19pbml0KzB4NjAvMHhmZjAgW2h2Y19saWZldGltZV9yZXByb10KCkZyZWVk
-IGJ5IHRhc2sgNjY6CmtmcmVlKzB4MTI3LzB4M2IwCmh2Y19yZW1vdmUrMHhlYS8weDE1MApyZW1v
-dmVfaHZjX3BvcnQrMHgxYy8weDQwIFtodmNfbGlmZXRpbWVfcmVwcm9dCgpUaGUgcmVwcm9kdWNl
-ciBhbHNvIGNhcHR1cmVkIHRoZSBmb2xsb3dpbmcgd29yay1xdWV1ZWluZyBzdGFjazoKCl9fcXVl
-dWVfd29yaysweDcwZC8weDExZjAKcXVldWVfd29ya19vbisweDU5LzB4NjAKaHZjX2xpZmV0aW1l
-X3JlcHJvX2luaXQrMHgxMGQvMHhmZjAgW2h2Y19saWZldGltZV9yZXByb10KCktBU0FOIGFsc28g
-cmVwb3J0ZWQgYSB3cml0ZSB0byB0aGUgc2FtZSBmcmVlZCBvYmplY3Qgd2hpbGUgdGhlIGNhbGxi
-YWNrIHdhcyBleGVjdXRpbmc6CgpCVUc6IEtBU0FOOiBzbGFiLXVzZS1hZnRlci1mcmVlIGluCl9y
-YXdfc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSsweDY2LzB4ODAKV3JpdGUgb2Ygc2l6ZSAxIGF0IGFk
-ZHIgZmYxMTAwMDAwYTU1YTRhOCBieSB0YXNrIGt3b3JrZXIvMDowLzkKV29ya3F1ZXVlOiBldmVu
-dHMgaHZjX3NldF93aW5zegpDYWxsIFRyYWNlOgpfcmF3X3NwaW5fdW5sb2NrX2lycXJlc3RvcmUr
-MHg2Ni8weDgwCnR0eV9wb3J0X3R0eV9nZXQrMHg3Ny8weGIwCmh2Y19zZXRfd2luc3orMHg2ZS8w
-eDExMApwcm9jZXNzX29uZV93b3JrKzB4NjhjLzB4MTE4MAp3b3JrZXJfdGhyZWFkKzB4NGI3LzB4
-YjMwCgpUaGUgb2JqZWN0IHdhcyBhbGxvY2F0ZWQgZnJvbSBrbWFsbG9jLTUxMiwgYW5kIHRoZSBy
-ZXBvcnRlZCByZWFkIHdhcyAxMzYgYnl0ZXMgaW50byB0aGUgZnJlZWQgNTEyLWJ5dGUgcmVnaW9u
-LgoKVGhlIHJlcHJvZHVjZXIgcmVxdWlyZXMgcm9vdCBwcml2aWxlZ2VzIHRvIGxvYWQgaXRzIG91
-dC1vZi10cmVlIG1vZHVsZSwgd2hpY2ggdGFpbnRzIHRoZSBrZXJuZWwuCgpDb3VsZCB5b3UgY29u
-ZmlybSB3aGV0aGVyIHRoaXMgaXMgYSB2YWxpZCBidWc/CgpUaGFua3MsCkxJIFhpYW8=
+The mt7996 beamforming configuration converts a peer maximum NSS to a
+zero-based column count.  A peer may report no receive streams for a
+VHT, HE, or EHT MCS range.  Decrementing that zero value underflows and
+can send an invalid beamforming configuration to firmware.
+
+Patch 1 fixes the shared VHT and HE MCS-map conversion.  Patch 2 fixes
+the corresponding EHT conversions for 80, 160, and 320 MHz operation.
+
+The series was checked with scripts/checkpatch.pl, and each patch was
+checked for application against the common base.
+
+Jiale Yao (2):
+  wifi: mt76: mt7996: clamp VHT/HE beamforming NSS
+  wifi: mt76: mt7996: clamp EHT beamforming NSS
+
+ drivers/net/wireless/mediatek/mt76/mt7996/mcu.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+-- 
+2.34.1
+
