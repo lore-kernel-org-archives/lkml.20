@@ -1,59 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792444615;
-	b=5bex/JwYmb45VCnewVwbWIoIRLI3cWR6aBppivfaWdCxW4umRYwrrfBQBT/sgBombeMU
-	 zznioMfwWAM+2Kul5b9Dj+OtIXfKoDrDxtI8OiDOVwzqwAv2+/6sMtdxWK8WdG8ts5drM
-	 VhM1skeZFZSGxBjhpFyHW53Yy5tGARTkoV2Q5XY/wHZCgb+6KIwYU0F3SGeDaa16K+yn+
-	 fXFtjU/vGa55w7vfbYHJwgpF10FPi8wuXu1P91CyW35Vsps55sYxmR+FD2mIB6fCIa60Q
-	 prKC9maNUvHdeJzkia2Qeu4C70vgRv0DGim3mbPlo0lMMVxKMSe+mwqGlzUtlS9aozw==
+	t=1792444725;
+	b=rk2cpUTPn0Rwl25SlkLcNvFHTAgxbxEwXXvMjYq2BRr414Ade4Z/7M7WoW1vnLD/psKY
+	 RoAlfOS7A3nx5x6Sk7wPdIdiPSNaAkX5qtvFQjc2Gf5mrf3Xg7Kr52dAt5icC3uf8cfjs
+	 PqD1enohKSqpYl57Rr6H31FkOsxz2HDbjW4ys7HLUdQ1JTKKK/+Nu0yR6X0BR3DjzJO4K
+	 hvlty4bXS6otUYeF2geaf/1TtqeG67E0JP1M9QUtUh2IWc5nDJ45hlFgks0EonRUmA5rn
+	 XRFZIGPI3QFDmo/VgYe1/B4oOKME/jn+bAbfLV2kfgd1fW5YmmEcbWy90ryensGeWfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792444615;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KSvVZT5VL1jajWhdlJW0RYEn8BnmHvXSXJY9pj46ymU=;
-	b=U4wnw4nnKl4tkmerNmOKqL2Gzo+gWL0ftuo9WkDQJ5F+OHKPfM2YsOGUZM7Mo6bovChT
-	 lENRWZwmbJsRpxsW/fZHQcktAVM7HgJOlM8D6ov5Nvv5mtIQHXp4JXclj5sU0UALcywQq
-	 74UCkbeq68VnbqGmHH69sEsH44pG5jeA4r/its5IodggsDw439qP6425KmedCCnha7QhO
-	 iSz1n7p4qcODae2pTg/aTuhViTe9rP0ZlJ5tHPjt80Yw/e0v6vZH8oMY9m9s51G+ZRMKv
-	 I4bxfZdmC6aMiY4ECWRrt4N6+ynt47xLdvnCQ3imZ/npnORT7Aa8Xs4bSzrSJGXkQIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792444725;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=erR1br+KTUL8BSxH8eJPmM4IbOdvr3KiMa2SS5dLq1c=;
+	b=pNnlyZ9k83MGs3k4Q31OlIymjwbZYykVL8rtmJ5WKLHK0jIogrJREPZBqQk3nIvCfA4d
+	 V7x7tRLjvEo5Bxajgtg1BJidYZaUFNA7pJ8fAX9p0AAAsQzCdQsQqp0bnhZ/VKmTxETCO
+	 tJXTXcMRSm3MR7hyytJlhJIA2J04aBJcAw6Dgw9nMGGXuRuLBpLhI8J9076whL+89WRHu
+	 xcFoSnEZQnKCjWT1mhj9/Z48fE1aXb/BBwPPgDUAFGNXyjG56dBeepDYfS0vnPbZyrLG3
+	 WVseAy0Gbl38vEe8K66aOI5Lk4Zp2vDG6MTX6vtlDHvzsa8et6G1xIvp6nsZ248MxVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kKyapir4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="XLwhA5p/";
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 76773606A331;
-	Mon, 19 Oct 2026 21:16:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D838C606A31C;
+	Mon, 19 Oct 2026 21:18:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D838C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kKyapir4
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BFBF01F000C4;
-	Mon, 19 Oct 2026 21:16:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792444615;
-	bh=KSvVZT5VL1jajWhdlJW0RYEn8BnmHvXSXJY9pj46ymU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kKyapir4miVPKj4TmF0vBKOiEB39TZPZlYSw4O+Tg7HtDbojJ6MFoXdgm2dntQyTU
-	 5NPGPhH4wNV5iXWSJDhvkHQEws8LKWcrZM6YxpVi/74OlHWZBPjIygl0m359PQ0H2C
-	 5ghou0OozVI7vaO30WKd8N74TOSUQaOhzRqjQSYRkorSjY+hvTCVjUwAhPvBiJ5BT/
-	 PSINHqPnSA/rxQT59RxXnEX7P2Txxl2KQ1SHQyKjJHVDNNO37DNN/x0m6R7LFafGiy
-	 e3lhDpigUkipfCZQjp9wvHL0kZaWPmvguHr7TejRghJd1aRRssH/vN4xtxN47a1pnG
-	 7c6EEBWVB230g==
-Date: Tue, 20 Oct 2026 00:16:51 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 6/6] KEYS: Verify the key identity in __keyctl_unlink
-Message-ID: <ataIwzGfUyiY1rSB@kernel.org>
-References: <20261019181732.449591-1-jarkko@kernel.org>
- <20261019181732.449591-7-jarkko@kernel.org>
- <20261019193502.GF65095@quark>
- <ataGVmTZooWzJYMP@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=XLwhA5p/
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 4648F1A1246;
+	Mon, 19 Oct 2026 21:18:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1425260582;
+	Mon, 19 Oct 2026 21:18:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 19A0610328C52;
+	Mon, 19 Oct 2026 23:18:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792444716; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=erR1br+KTUL8BSxH8eJPmM4IbOdvr3KiMa2SS5dLq1c=;
+	b=XLwhA5p/Jkt3HCDKhY2ThPPZeo9uNUOTiacUXXXrY1W0hD2XA/xNm7oVDhzM2r8NHHCu6u
+	XHANuuq5rgtt2zYHKMHhPvUG1qRGtmqYOiXcBYZP1enekmnZmHQdw5Mf1txaOXjJuoGeGk
+	hIixnXUMOQThn6ouddCC+VXhk/g6IC1HCrZJOuOAwVuwDY70xozYQOaZGStEBHuw2dFUPQ
+	1Wq5Ce6PomZWVzdNcbFWiq3biV2Ywmo99zs1+IRhaYX6jty2FmDr0PrtBhM3ETCriWePZO
+	jo9s34N9UiOMQafKyPxeweCWPu95VMfEP0IFttzNUKECZj/KcRoiDdKW9rK0wQ==
+From: alexandre.belloni@bootlin.com
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 01/19] rtc: introduce rtc_device.ops_lock guard()
+Date: Mon, 19 Oct 2026 23:18:02 +0200
+Message-ID: <20261019211827.126262-1-alexandre.belloni@bootlin.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,78 +66,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ataGVmTZooWzJYMP@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 20, 2026 at 12:06:30AM +0300, Jarkko Sakkinen wrote:
-> On Mon, Oct 19, 2026 at 12:35:02PM -0700, Eric Biggers wrote:
-> > On Mon, Oct 19, 2026 at 09:17:26PM +0300, Jarkko Sakkinen wrote:
-> > > [PATCH v2 6/6] KEYS: Verify the key identity in __keyctl_unlink
-> > 
-> > There is no __keyctl_unlink.  Seems you mean __key_unlink_begin.
-> 
-> This is definitely my typo :-) I was looking at the implementation
-> in other terminal while writing this and apparently lost focus.
-> 
-> > 
-> > > Let's define the following preconditions:
-> > > 
-> > > - Two keys: A and B.
-> > > - R is a keyring.
-> > > - Both have the same type/description/domain.
-> > > 
-> > > Then:
-> > > 
-> > > 1. KEYCTL_LINK(A, R) => {A}
-> > > 1. KEYCTL_LINK(B, R) => {B}
-> > > 2. KEYCTL_UNLINK(A, R) => {}
-> > 
-> > Should be 1, 2, and 3?
-> 
-> I tried to describe the scenarion but apparently was not so successful.
-> 
-> I.e. unlinking A removes B given the match in attributes while you would
-> expect getting -ENOENT and B retained. Or this is the idea.
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
-Here's a little bit tweaked version of David's example:
+Add guard class for rtc_device.ops_lock locks. This allows to simplify
+error handling in interrupt handlers.
 
-#!/bin/sh
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+---
+ include/linux/rtc.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-set -e
+diff --git a/include/linux/rtc.h b/include/linux/rtc.h
+index 0f43b5027235..169d93520dbd 100644
+--- a/include/linux/rtc.h
++++ b/include/linux/rtc.h
+@@ -168,6 +168,9 @@ struct rtc_device {
+ #define rtc_lock(d) mutex_lock(&d->ops_lock)
+ #define rtc_unlock(d) mutex_unlock(&d->ops_lock)
+ 
++DEFINE_GUARD(rtc_ops, struct rtc_device *, mutex_lock(&_T->ops_lock),
++	     mutex_unlock(&_T->ops_lock))
++
+ /* useful timestamps */
+ #define RTC_TIMESTAMP_BEGIN_0000	-62167219200ULL /* 0000-01-01 00:00:00 */
+ #define RTC_TIMESTAMP_BEGIN_1900	-2208988800LL /* 1900-01-01 00:00:00 */
+-- 
+2.56.0
 
-keyctl new_session >/dev/null
-keyctl newring ring_a @s
-keyctl newring ring_b @s
-A=`keyctl add user A ss %:ring_a`
-B=`keyctl add user A qq %:ring_b`
-keyctl newring R @s
-keyctl show
-keyctl link $A %:R
-keyctl link $B %:R
-keyctl unlink $A %:R
-keyctl show
-
-What I get is:
-
-77968717
-178740336
-781765689
-Session Keyring
- 952124334 --alswrv      0     0  keyring: _ses
-  77968717 --alswrv      0     0   \_ keyring: ring_a
-  32558793 --alswrv      0     0   |   \_ user: A
- 781765689 --alswrv      0     0   \_ keyring: R
- 178740336 --alswrv      0     0   \_ keyring: ring_b
- 907061159 --alswrv      0     0       \_ user: A
-Session Keyring
- 952124334 --alswrv      0     0  keyring: _ses
-  77968717 --alswrv      0     0   \_ keyring: ring_a
-  32558793 --alswrv      0     0   |   \_ user: A
- 781765689 --alswrv      0     0   \_ keyring: R
- 178740336 --alswrv      0     0   \_ keyring: ring_b
- 907061159 --alswrv      0     0       \_ user: A
-
-What I would expect is -ENOENT.
-
-Br, Jarkko
