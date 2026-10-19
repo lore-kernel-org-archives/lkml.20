@@ -1,124 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85B641835B;
-	Mon, 19 Oct 2026 07:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1866948594D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:06:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393599; cv=none; b=js14KnZM1Fo7OG3uuvVGxcEoBpPdDbHr+EMaXoUtJoinm+dfr6DclgM43fu7RGdAA2od1piY+KM+mQuA8P2Vz8MaIFFD5ofb8Aw7faqtI5bB0/6vEwewSSc07pCrYRTyBD9917LuGStC3aOxWOcx0nhrhJnzrdQvdeJr8WwLc1U=
+	t=1792393600; cv=none; b=iSWN04wMEt4eI3xHrXTEFAjWVgTd7i1RXKP9WuBRGBXKTOlmNjOa8vGx1diNL2n++Kmo0T1TOuvlgYKRlHhKxEiKimpk6gaK6uf1984A3YISoh6u/VxY8oGweOEL38tfPH+x7HBwMMlwHXXnMMMjKv4CHjaWdupPWP5sjz0C4ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393599; c=relaxed/simple;
-	bh=MuMKCIV47Q+d7gX6Zrh3i+Uw/cNBScHMVaTMYH22XO0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gm1JLmuI9deQnJUBiZIz6MxrQkjypsAp5N1asimbP/P3eN1Bk6u12EbuChPgyVJaOQgkoVaOsZre+48h4n2PFXPykk6J5IQ08I8yPM9hFl2Ox76fXZVgsdEM+ekfTbgjk+srCQ9lkZVB6MQJ9RhbaGtE5R+orzvHnrRbL6W5ZSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbEOhqpo; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbEOhqpo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072531F000C4;
-	Mon, 19 Oct 2026 07:06:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792393598;
-	bh=RBG5N+FfEFIehrCqR4e6P+vf/JRBTRr9M3vIsyWq9gA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PbEOhqpo3axFdDlnmaH2aTonn5RGDJRgHrjGwsbQLTYa+aASv0CA/MES1FVCtag5T
-	 DyPdpRa3TNuGmmUuWTvxijZkpkOCdwhozJUSAg8Fqu4XwJkvl8k6zckeIeuJ2QnWJ1
-	 JQiQko1Ykyi1fpHbPvREIvGSNF/JRmgeMVvjvXd30qjk3l5CkX0kEfAylhrqd5Op2d
-	 W/FQ9Gn9ljkyQ085N5hQqVhWWmK4kHDraXSvcMaPsB/yKw/LxT0hx41U+qb8EXZYgA
-	 vSUYDArtuPoZMpr2rjcfV43lz6ATWI6AbElUEa5nLNzrbt4v9gKlPfGkDxBY1FtfTe
-	 TtIYQhAiDhSWQ==
-Message-ID: <cd5bd24e-2dce-45da-a3cd-19d04f10167c@kernel.org>
-Date: Mon, 19 Oct 2026 09:06:27 +0200
+	s=arc-20240116; t=1792393600; c=relaxed/simple;
+	bh=P8xJGaUWRfCF8FqZhZvElxrMdxQK2gqfDHniHzz5j+U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uIeprSIh+bhiJaOvuPd3lZ1Ly8fpxdOAAhkxAW2OsuBFm2gAUzgvPZTI7Zjk+YiOYZMC3Nr3M8f2b0sIztAuq2HKQ4GkDg7w1yk3Cp0kHzCQWKGxlfYzmEmhusbaX8TdEr8s9NtPV/4cKEjMWCr1yGLFKgkOKbJ/sL/colqodqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-74ab6c88052so431188137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:06:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792393598; x=1792998398;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eu8vGumKNUEJq0ogznls0IACooxNZPVx2SWES3Vu4VA=;
+        b=YEm/ErfyJNP7kPg6FfjkvTifX/oXI5MlrsvwLtaRbq2jthfcm9qqrigc4ACeWD29oI
+         CqrVAHvCKPrsT2m5lEeWF35wRWIzUN+RwS30zIkCYIStSZKK0h2jyBzQkDyxIfILKggG
+         DTVo1l3FRxZRN5mtNHyqI3KGxxpuuIZJgnWebrAACS13I3WhpP2iK9hV1bQ7uf1pPoWs
+         QmoVzn5wnng8L92h5gpZmTDYNpx4ihHXmEFYYL65Wp+eH8La57Prasr+b33uSgC8vNMZ
+         yUPwsT2cpgibXZ7sJ54gNdFdnoAAjqDaMKUolkMVOa9mIX/YFUv4IPBwX3z2u5r4I/af
+         1E5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxZkG4zWkxlRU66T2eIotN2IE2P4B3L17y1Uo3FPAScH6reVVQCyOIcV8x2/ht9pXXIi5cPechghcAwBsE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKrXWdwLM/qoKNf7gH1oi3hzPmnSDcyQZFiR9PbFwNkKVuCHoy
+	xtyFM74hQtVZPUovA3jSPnlKDpjwS6MOpMyD7azY5ahPUuzgo/j/qveQzivJxAWX
+X-Gm-Gg: AYBFou2qOgKwumV5gvqHZWgd99KumeGHBj9OgevvDVSk2FSq2Lawq5J7sAmEmmRerAs
+	psIqnRqR9QPJgf1DcdMqU2qiBfU+R5e+m2X5bxrtpRfONWpJYJwNE19XBwh7UM1Ksk1VSCDXFqH
+	f6rRgYoTx9bHcdgNx2t154zJm8YubOv/BwMYbgfUuJMnYbbalfVAR8XWWq7MQysvnjMleR1ShMS
+	D3gL36pvKo2IYuDEszTcLNKdxwlzVHL9sEPTgjsKQRSlPqg2+IzgmQKfWjprh2ekjPSVl0f+LPB
+	4I8IgDz6ArdabSOXQlziOWNfsFH0r59hcoqPl0kCPJT3CtniH/Idj76/pTna6zlRlQaqb8o5lzc
+	djReZrqrB8/oGHjIB523LuXC58ziM09cf73RZIJInlLplooNCaB7qanz4YunWO+PHTrwVXAjFZo
+	i5YH7Zkf50/Zr07YduQQ51nyiRb5rpJckCNT1rryck1UsYe7U1UJEfj09c2+RpMhXRdLkWXhaJi
+	AEd/j5Vva1vwpt1+EhmxlPLe4xfMyrCewyLts2O
+X-Received: by 2002:a05:6102:3c92:b0:7c5:4da3:aefb with SMTP id ada2fe7eead31-7cc36afe9e1mr1646528137.34.1792393597762;
+        Mon, 19 Oct 2026 00:06:37 -0700 (PDT)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com. [209.85.221.181])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990833c2c2dsm7925699241.2.2026.10.19.00.06.37
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 00:06:37 -0700 (PDT)
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eac01ff101so284593e0c.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:06:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzk7fR0nxdZIfLwPkCh+pK4lEhysspvmVidOf8bJgiUUvnofyIN1U+02TXowy0p8sKbed5sr6jVllgnlys=@vger.kernel.org
+X-Received: by 2002:a05:6122:f1b:b0:5ca:fc48:5634 with SMTP id
+ 71dfb90a1353d-5eaaa419d47mr2207684e0c.11.1792393596973; Mon, 19 Oct 2026
+ 00:06:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] dt-bindings: mediatek: hdmi-phy: Add compatible for
- mt8167
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org,
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Chen-Yu Tsai <wenst@chromium.org>, Fabien Parent <fparent@baylibre.com>,
- CK Hu <ck.hu@mediatek.com>, chunhui dai <chunhui.dai@mediatek.com>,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20261010115539.9237-1-l.scorcia@gmail.com>
- <20261010115539.9237-2-l.scorcia@gmail.com>
- <20261012-quirky-emu-of-renovation-c217dc@quoll>
- <CAORyz2KgX-7=gfax06+Pb5SFq4dVTtcTY2pbH+FDCRNZ+AVXOA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAORyz2KgX-7=gfax06+Pb5SFq4dVTtcTY2pbH+FDCRNZ+AVXOA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261004011851.866833-1-marek.vasut+renesas@mailbox.org> <atMEOFH8isshAwN8@debian>
+In-Reply-To: <atMEOFH8isshAwN8@debian>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 19 Oct 2026 09:06:25 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUEUNBA8mDjSTi7MwsSMkKbfftu6OLXdbei8oUxibL_5A@mail.gmail.com>
+X-Gm-Features: AclHuK8T-_1RFv1uF7KAoei6UxD8kd-EB3eCG1Lls8ceu8LKgfvwrJWWOjqTf_U
+Message-ID: <CAMuHMdUEUNBA8mDjSTi7MwsSMkKbfftu6OLXdbei8oUxibL_5A@mail.gmail.com>
+Subject: Re: [PATCH v5] PCI: rcar-gen4: Add missing PM ops
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, linux-pci@vger.kernel.org, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Koichiro Den <den@valinux.co.jp>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 12/10/2026 19:43, Luca Leonardo Scorcia wrote:
->> Why do you have flexible clocks?
-> 
-> Hi, I'm sorry but I need a little help in understanding your comment.
-> If you meant "Why isn't there a constraint on the clocks' names", it
-> is already provided by the existing conditional block [1].
+Hi Mani,
 
-Ack
+On Sat, 17 Oct 2026 at 07:18, Manivannan Sadhasivam <mani@kernel.org> wrote:
+> On Sun, Oct 04, 2026 at 03:18:13AM +0200, Marek Vasut wrote:
+> > The R-Car Gen4 PCIe controller is part of a power domain. On R-Car S4
+> > and V4H, this is an always-on power domain which is not shut down in
+> > suspend. On R-Car V4M, this is a dedicated A2PCIPHY power domain,
+> > which is shut down during suspend, and the controller loses state,
+> > which prevents the PCIe from working after resume.
+> >
+> > Fix this by adding generic suspend/resume noirq ops for the controller,
+> > which tear the link down on suspend, and restart it on resume. Use the
+> > same PM ops on all of R-Car Gen4 to gracefully suspend and resume the
+> > PCIe link on V4H and S4 too.
+> >
+>
+> In the future, if any one of your Endpoint didn't allow the link to enter L2,
+> then you need to set the 'suspend_poweroff' flag for V4M or other SoCs which
+> pulls the plug during suspend:
+> https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/commit/?id=f845c1e2d2d4506802244ea2a378ae7b04e90bfe
+>
+> > Test case which demonstrates the problem on R-Car V4M:
+> > "
+> > $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/pre
+> > $ echo s2idle > /sys/power/mem_sleep
+> > $ echo platform > /sys/power/pm_test
+> > $ echo mem > /sys/power/state
+> > $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/post
+> > $ diff -Naru /tmp/pre /tmp/post
+> > ...
+> > -00000000  12 19 32 00 07 05 10 00  00 00 04 06 00 00 01 00
+> > +00000000  12 19 32 00 07 05 10 00  00 00 00 ff 00 00 80 00
+> >                                           ^^^^^
+> >                                     Class 0604->00ff
+> > "
+> >
+> > Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
+>
+> Note that I changed this fixes tag to below while applying:
+> Fixes: 0270dbe4f891 ("arm64: dts: renesas: r8a779h0: Add PCIe Host and Endpoint nodes")
+>
+> to reflect the fact that the V4M support is what caused the issue, not the
+> initial driver support.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I beg to disagree: the bug is in the driver, but it was exposed by
+the R-Car V4M DTS addition.
 
-Best regards,
-Krzysztof
+To make life easier for the backporting team, I think it is best to
+list both Fixes tags.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
