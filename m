@@ -1,70 +1,72 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C1B3FCB11
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31DE3F822F
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:49:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792381762; cv=none; b=fgVz26hlKM2nzF97ba1TY+t+3MpQHYbOkZ1WESux/fdmzTeiVib6i8w2zz3uXliWdJsZ7ZzQDjLEi9hJjBaYvpfJRFaHAH8Nk7v/YOun8yKdn7rLDg5UdQZu5YL1ODKKxbnGYxqlTc6p96EfUHal/BRF9J9iIPD7F7dUbCUGMVY=
+	t=1792381767; cv=none; b=BOdIsX3SFn3EF6eef2gDRDJAwBPXIc+8Ggbz54hu7VX+WKMpmqAZJdOBJkuJYFge6BGQbUqgR0Y4MmU8vCh5Gl5uixZtgSLJoeyRWcxvPHDfJH4z0I2ypKO2Lrq5dnixoS5ZpCPCTTOKoeyd8YMU4vL3OLHQFC58eM2PqlF6sdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792381762; c=relaxed/simple;
-	bh=ABJxKEaQtZ0QjZwBCK3+8g63pPMNurXD9XOETuliAjg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EU/raSGliPRB80+MgDgG7BxgIfOuHQOZOM/vaa5b5BVQeGee40Cnc52atUQTjdOhBd+WLc58IxRaQDMWwE+tAO5PgcJZiFGRLWcgIsVK3JfFdxkPqkFS03E12Z4d+Y/trqCzpBoi96+CM0uyr6bH6dWYbzaiteXVmmAXs4gQfvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dXNsa9Je; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1792381767; c=relaxed/simple;
+	bh=z5cI/vAVg9O4X0V9P2gYaa7D294MzEfCwVjRHm+y9gg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nL0xq+N5vcq9PgQ49kqsASYsI1wGI1xuvVNNfA9oR/vkWUghUz2jt6xNFlNxCxPx31aLfI3nwoz/FhGiDPOnk1lsNEhVhCNTZaVFMyELiBOLSydn7LQv3AcpAelhsgGGi79+eLViRrjU2sHUrcUpdUcJWbR4nbO6H0zksRgdSBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s/jpVtPS; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dXNsa9Je"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so20383395e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:49:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s/jpVtPS"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1e3098ee2so8265485e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:49:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792381759; x=1792986559; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792381764; x=1792986564; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fVEYd5MjejeQV04NBe4mWPXzx4IqO3UlJ5AzV2FYsCg=;
-        b=dXNsa9JeW9+l5uAhfkbZeJOInEKkjNA2Zn++6jGanWfmnhM964iQ3kafAj+AI8KLOK
-         glhPgQFkFwGyuCh/lU7t99Eafud6uy1Zd2lLb58e/jrJC/UmMVlEbhajheOJWbd+UknQ
-         KZ1yM4mtMK6EnR7shioxy5ZRInpmSJgo38Sd71wAWvZLzxyrN56eqy11lPnOpMyB/vJf
-         jxcVbWyYg7MUPdxoMKbjnXQzJrHz33AVzE0Z7+k4OsvAHA4Z8DNkUsMX5RjlHRnMzbMe
-         sEDbNTlDrhfFqaNsBUnmO4s9eRwXXVx/a9g5dqWq0rOTsXCRn3AbTTWgdk0Ya4Emtpis
-         tPWw==
+        bh=UqF9Bl8qiczwJSI3x4ppM91PPkTQtiTR6DplOeX8g3I=;
+        b=s/jpVtPSyus3Ioulu7I+DU+htNVuTnP+KxvIrtZZ1vZ4bHknN5+L9FHTwlIixQ3VwT
+         zFwlQc0bdiPZUyEcmn5/mze3PxNx0jwDuMIfX5dprF8m04jLCCDxnwvTS+115HzJgSQx
+         3LQwD/Znr5XRhHYeC514xgLs4ifXTBQmdt2hJ7ptGPeUByfdokK3nYljKY3Lz5gh21AW
+         kNG0RX/t01PQ6nliEDVsIjozMUTpafXBXBnqMsUSGrcvRyVlygc5TW1heJX1d4hYVD/P
+         oWQ10McFDBNzEMl++komx+04MKauwBMgBYt0Eht9CMQ8hWUZkz8m2BlrgL0Ba9dA+OQf
+         CB9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792381759; x=1792986559;
+        d=1e100.net; s=20260707; t=1792381764; x=1792986564;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fVEYd5MjejeQV04NBe4mWPXzx4IqO3UlJ5AzV2FYsCg=;
-        b=YRjRC8xWhLvi6jMXFfMUR3cGe2fcfdQojJMM7pPZB5YHtVrCziGKZaQQrM7joeYsr8
-         3ilipGRpcYnOHICjfeDkTrv5ciVPlOdVPK7zAKYoOvujvp+F2QoP2OiUaNRzWqcm1YCN
-         XUOfn8fZzD+3QnkxodiBFy3StNBXzyxQ47+FfQKKBQRFjoCjnkK1YpJ6nucWcUCuo4AZ
-         PwP/Sr8aMDsAqlyPiqPpk6YqDQlCnKDkvstFyaoOkJ4flRyLTWGyBe6ennL6QpWmI9tA
-         3kdGa/XmSEDbp28WWdrqo/E7YIhmRBg2lN6RlDOCLNuNB8oXZy2S3xr39VwxyZbj0hEK
-         wlEA==
-X-Forwarded-Encrypted: i=1; AKwUvByUDRPgNQ4+l1Mlw/lSalzX+W0i/X4jmVkjKGfZ+LHmk+l1Ses1LdblsCiD5UjSlkRoFU3+frRjknMe94Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKp0Q+Po8uCAX1IOd0ze83EIGQh9aXn+3agJylqvGmn5YU7NNMn
-	vOoRGsk1v3f2dsi0VT/j9aMQHP66jP3R0PGfrXuHCWeayYhXiGDheKyl
-X-Gm-Gg: AYBFou0zNSeDt9degRYBRFy5p8XLIclvccM+HSPRSdiidZgXIdY0mTJrAGcjSCVExp5
-	4emhtr/AveQlLqhPHNRIXLfl+ElkzyzZ/HTv7Hh1kior8ljGtQ1buJ0rsRkmkPp3UW5W16d6QfF
-	eKh3BT6xIeybJKAcLgAN+E+Jh/Eb98pED42aqREKmGBV+UPGnqem7HvwAgM47U3Xv0U+0pF33w6
-	rLRF4466nRQ5dtraG3XLFGocimxEh7IKW/zkY/qlnC6Im4f9ZpYGmNnCRjmZVXqfgAHNOV86mlC
-	jHnmM83nM1TE5ZCxQjr0pRULcHpQ3n5diljZlcpvBadUWu+j5DCy8YTcGiay5PFN6GLud9JaYq6
-	7sCAsQdT+iMIX9C/X0vKUYQVog3OnE8kzj4In7AmPnUgwNlk5bFAsq0HCcCVA9vnotTlegK9Fw6
-	2dig2MXtLJl5ZTGnBQ/ITtBCMygDHor0yeiPTDwr3wJ7IIuRDP/frb4hHWp15lZnYA0byq09CHJ
-	A5Edq3UgD5D6OClxAm2tHLfHjLQQuRlDJSSQtLs3dOuNYL4cZ9s9/pLB1PnUHYZYv8vSp8VF70r
-	JJ7F4Tj1vj4AQzIstg==
-X-Received: by 2002:a05:600c:a05:b0:4a1:813f:2a57 with SMTP id 5b1f17b1804b1-4a1d7608058mr139978165e9.13.1792381759297;
-        Sun, 18 Oct 2026 20:49:19 -0700 (PDT)
+        bh=UqF9Bl8qiczwJSI3x4ppM91PPkTQtiTR6DplOeX8g3I=;
+        b=QS1PUzUgQ3JApJSFC9ccRuQAJE0f1oefnMNkaF77bcj2Iounfe1J0fGILzD6dXhmho
+         /MJAufsLf7ShlV0tdjeDgW6MxoU11oiezCNKurc+tCXS1d+38XrSs0JbOYuCJMNZu5PW
+         iPsOBar9UrxWa7pNrMBB9LuzJ93G2M5KsXYuhqLyMEjxNoBf5tJ3vV2F48dQ5zuWYjFm
+         6JkwuOXnOK/Lbp2OOhsuCHWjkGOg+m4eAgdE1gPBamK1iI11QAZX8z+t2P3LN+Q9MT58
+         2GXYdfdPqj/ccfGd+WKDnJJ2bTugBqQGEqWTbAK+TSEzkLHQ2TpXRhitWvEBxkqulP2Q
+         pg8A==
+X-Forwarded-Encrypted: i=1; AKwUvByyQL1upurK1L8WtRZIzPVC5EKnvQ5mj+fsnCCigq03IjnRjDwco0NJxgSFFYEGUIO1v0Cj6OrPys4I2Z0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnQAcrDcMfZtppyXOAakCY78KWE07MNP7InzQ3qXmcHgA/8FWn
+	gTBePX1NW66Ok9XUjiVOhsftY4s5/CrLb5b3TTHRubskLoyc6dW53RTA
+X-Gm-Gg: AYBFou22Kqsu/EOq7UV0NP9Aww6lFGFbYcO44GvmG0SihRTmWIEDttku2TScrm/gU7K
+	MGSem7XqZqBuou8y7+45NKD71FI1AEtK3jvyRbyjHIuFqmb6Dn2hbD2OL5fLZSB1F6LRjLmEeRR
+	ZqYZ5ck5cjsCeZcxKH94NDJWljhMBVjVYd7IUvqstw0JHimjG3575x9BMK7gUOZ/ITMBdrBZ69e
+	jC7MbfQfLazNcqxO/Xm21vYTgpg68yaGPFD0E3Quv1MGBGKZnq6cK4KzMy9f1/MNfml1sgSC+ii
+	zeCDIuYoIXa5/f1ynq8RJFMzvyhWm9LHONrOHKON2SwTjNGiN03CZI9i22+WGMtUFJCrTHoUcGF
+	wWrDkUMxGb0T/KinwZ89oEONc26S07mB28ayJ1sMT+ZTcTOzM7ZH5k75IdW5Cz5JQ1et2MwNhkC
+	E//0NsnDXde9LF6sglVWoMRotwVqpXXlhNqjWlKfftnVng1AFWi9Ljdz/LbeKFIJNhJF4V3+q39
+	MDBaWruMrZ8nyh1ruzkHUnv82QKINR8aL4Ye2fieaJ+AuHd/S8ObuXZbPOdGwLazi9OH+KnJ/IT
+	zdyjnbq5Xr6Mqfz2
+X-Received: by 2002:a05:600c:b86:b0:4a1:d459:db4b with SMTP id 5b1f17b1804b1-4a1d7610722mr124043135e9.24.1792381763606;
+        Sun, 18 Oct 2026 20:49:23 -0700 (PDT)
 Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1bd9b8b5fsm371302795e9.9.2026.10.18.20.49.18
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cf04ffe9sm171762205e9.0.2026.10.18.20.49.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 20:49:18 -0700 (PDT)
+        Sun, 18 Oct 2026 20:49:23 -0700 (PDT)
 From: Orgad Shaneh <orgads@gmail.com>
-To: tsbogend@alpha.franken.de
-Cc: linux-mips@vger.kernel.org,
+To: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] MIPS: OCTEON: program L2C_CTL on CNF71XX too
-Date: Mon, 19 Oct 2026 03:49:18 +0000
-Message-ID: <20261019034918.3805764-1-orgads@gmail.com>
+Subject: [PATCH RESEND v2] mtd: cfi_cmdset_0002: also clamp the write buffer of an x16 part strapped to x8
+Date: Mon, 19 Oct 2026 03:49:22 +0000
+Message-ID: <20261019034922.3805782-1-orgads@gmail.com>
 X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,35 +76,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit bd978130307c ("MIPS: OCTEON: program L2C_CTL, not L2C_CFG,
-on OCTEON II"), cvmx_helper_initialize_packet_io_global() writes L2C_CTL
-instead of L2C_CFG, because L2C_CFG does not exist on OCTEON II and
-writing it hangs a CN6335. The test is OCTEON_CN6XXX, which leaves the
-CNF71XX - also an OCTEON II, as OCTEON_IS_OCTEON2() and the rest of this
-file treat it - writing the register that commit says is not there.
+Commit cfc5ebc9540e ("mtd: cfi_cmdset_0002: cap the write-buffer chunk
+at 256 bytes on an x8 device") limits a Write to Buffer to 256 bytes
+when cfi->device_type is CFI_DEVICETYPE_X8, because do_write_buffer()
+sends the word count as a single bus word and an 8-bit data lane
+truncates it.
 
-Use OCTEON_IS_OCTEON2(). OCTEON III (CN7XXX) still takes the L2C_CFG
-path, as before: I have no such part and do not know which register it
-wants.
+The M29EW that commit was written for is an x16 part strapped to x8.
+The probe reports it as
 
-Fixes: bd978130307c ("MIPS: OCTEON: program L2C_CTL, not L2C_CFG, on OCTEON II")
+  phys_mapped_flash: Found 1 x16 devices at 0x0 in 8-bit bank.
+  Manufacturer ID 0x000089 Chip ID 0x00007e
+
+so its device_type is CFI_DEVICETYPE_X16, the clamp does not apply, and
+every full 512-byte chunk still times out:
+
+  MTD do_write_buffer_wait(): software timeout, address:0x002203ff.
+
+What limits the count is the width of each device's data lane, not the
+part's type. Test that instead: map_bankwidth(map) / cfi_interleave(cfi)
+is 1 for an x8 part, for x8 parts interleaved on a wider bus, and for an
+x16 part in an 8-bit bank.
+
+On the board (Octeon CN6335, the same M29EW) writes of 1, 2, 32, 64 and
+256 bytes to an erased partition read back correctly and 512, 1024,
+2048 and 4096 failed with the timeout above; with this patch every size
+up to 64 KiB reads back correctly and the u-boot environment can be
+saved from Linux again.
+
+Fixes: cfc5ebc9540e ("mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256 bytes on an x8 device")
 Assisted-by: LLM
 Signed-off-by: Orgad Shaneh <orgads@gmail.com>
 ---
-Found by the Sashiko review bot on the original series. By inspection
-only: I have no CNF71XX board to test on. The Fixes: hash is the one in
-mips-next.
+RESEND: unchanged v2, which got no reply in a week; it still applies
+    to mtd/next (cfc5ebc9540e is its parent there).
+    v2: https://lore.kernel.org/all/20261013182327.549640-1-orgads@gmail.com/
+v2: rebased onto mtd/next (2f7fa8d90694); no other change. It applies
+    cleanly to that tip here, alone and together with the point()
+    series, so if it still fails for you please tell me which tree
+    you are applying it to.
+v1: https://lore.kernel.org/all/20261006052435.319751-1-orgads@gmail.com/
 
-diff --git a/arch/mips/cavium-octeon/executive/cvmx-helper.c b/arch/mips/cavium-octeon/executive/cvmx-helper.c
-index 107b1be..c02448b 100644
---- a/arch/mips/cavium-octeon/executive/cvmx-helper.c
-+++ b/arch/mips/cavium-octeon/executive/cvmx-helper.c
-@@ -1028,7 +1028,7 @@ int cvmx_helper_initialize_packet_io_global(void)
- 	 * to the cores. This avoids conditions where IO blocks might
- 	 * be starved under very high L2 loads.
- 	 */
--	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
-+	if (OCTEON_IS_OCTEON2()) {
- 		union cvmx_l2c_ctl l2c_ctl;
+diff --git a/drivers/mtd/chips/cfi_cmdset_0002.c b/drivers/mtd/chips/cfi_cmdset_0002.c
+--- a/drivers/mtd/chips/cfi_cmdset_0002.c
++++ b/drivers/mtd/chips/cfi_cmdset_0002.c
+@@ -286,13 +286,14 @@ static void fixup_use_write_buffers(struct mtd_info *mtd)
  
- 		l2c_ctl.u64 = cvmx_read_csr(CVMX_L2C_CTL);
+ 	/*
+ 	 * The word count of the Write to Buffer command is a single bus
+-	 * word per device, so an x8 device can be told to program at most
+-	 * 256 bytes however large a buffer it advertises - including when
+-	 * several of them are interleaved on a wider bus, where CMD()
+-	 * replicates the count into each device's lane and it is truncated
+-	 * there.
++	 * word per device, so a device on an 8-bit data lane can be told
++	 * to program at most 256 bytes however large a buffer it
++	 * advertises: an x8 part, x8 parts interleaved on a wider bus
++	 * (CMD() replicates the count into each device's lane and it is
++	 * truncated there), and an x16 part strapped to x8, which the
++	 * probe reports as an x16 device in an 8-bit bank.
+ 	 */
+-	if (cfi->device_type == CFI_DEVICETYPE_X8 &&
++	if (map_bankwidth(map) / cfi_interleave(cfi) == 1 &&
+ 	    cfi->cfiq->MaxBufWriteSize > 8) {
+ 		cfi->cfiq->MaxBufWriteSize = 8;
+ 		mtd->writebufsize = cfi_interleave(cfi) <<
+-- 
+2.47.0
