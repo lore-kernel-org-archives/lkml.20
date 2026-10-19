@@ -1,127 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792425085;
-	b=qVC5DSccWjOeWjleTpZ6n2ceGuKPEdDuf4b77wAp+eXS1kvvNoKfGWe+l/Q7eWS84ONp
-	 XqRwyiWEL3ctE8zPgSfyHdOvS4CNJZc5DpXP8hwCxwGTshod+r6/r7dit1E/ZYQaBTrgF
-	 gIV5OxV9FTfxm1aHytQvXB1WkOfGfLYYvshdetETi2OZ8Diba9oHlBCWlRPVUylKLP6Tg
-	 hFWRXvWC/cciJ4LBmhut8PH3e7v6mxv26rC1+qtxvHtScstdfBzGnA99uA9z/8VFNgDUk
-	 6R8W5aIeiKGBz03nyi05Cc8UvMA7mnmKx0+v/Eyx4+okASaAADyP+g8MJoeySTnleDw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425085;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=V7LU7B522G/Nt7R0FiWPQqjn9CdYZiUxBthyqwKOD9Q=;
-	b=P3Qr+XFSW0MgBicKrhGpmfE4oXjTV05D087GhH90l0HF9/PEZ8btZ6BGdjAxYgQUd0s1
-	 AaYhadlDv8MAGn6NbcgkxFaxcQ2sxhnVNY2DJZ6+mPtul5akMosb7Tj8bFkJ/PqLjTU2n
-	 JOkJpSUaiPXRnSf95+30zMfDBT1B/3BSCx30wV60LRI/uIZJy40spouX/ozNnbBKqlg9Z
-	 Vnlro+lNep4pKxqzwuzNLsVt5tQw1GTsNLun8zeRXSzG96w3DPx+kgPNivWKbuqCef87x
-	 FJBy4wqjvrPjgPTLM3NrvlmCOZUAYkrymkuKqqgrlxm1OQPadsvl4KKXDBBIFoYStFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LJXvjlOi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792425221;
+	b=FzApj5JkhPqNEP5cLIE2HNStl+o07nn/8tupSj5VTVPZiMGbG0nR6+L9SAotESymHhWG
+	 utK/ykbRiwmHHMPhKxa8HR7dVVCPpt4V1MpUBpRAHlW/A7Rxc/CMLGPKo32y4Jiao7I7k
+	 EKhxe5kHN1A4t9ClvSXVnzAPr0BYCxF9/hNonsnY5YV79dqhfOuvL0v81LLoSXRVj/qia
+	 a6+pDcGA9WbsiHLiDMOtbsG2VXkr7YQwIwqGIZx2gvLWe9QJI8cE+Ayl51gBLL3Y7Z4km
+	 BYDIqe1X/5gjwzR2WfeJS+I67uv0qby+Ak+Mlch9Hsj4SKFA/Gry8HJxhyaT0kZesnQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792425221;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=WkXGpXOWiBs24ppXgXlnDUbNGC4cGBni/AXZNpiz1hc=;
+	b=Mm9EWK61XrGlFZfKJML9BQv7+l9pS+eV/FwIUZZmbsrpiRiXLyJeQ0KqTJHtz546FX+c
+	 kekHvr/xHhu4AHUXxwWSSRxrThYDkdUb7H9sRCsk9iCUxJJBoAqUdSrLgUVxBn6mPQArD
+	 EWtuu5rlBXq/9FRwBrMgXTXZkgytq9xWdwr8iLd9+sV8ujbVgU99CFA7K+mWHY3vCHooF
+	 I5fVlr+LMWttwf60ky8WZqucQ97eOQoXVHq07Eiz7W/xRC8VpDJ9tgJzyysXnthgGmCHQ
+	 jxit0yjy0CkrC3qNuG43JaY4GE/UdD0IFj+9CrGDtVVUNmestKPEGhm1aKV7rALiieQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Rd412vdY;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Vpe7kSw1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76428606C904
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:51:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A422606AAD2
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:53:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A422606AAD2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LJXvjlOi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C066E1F000C9;
-	Mon, 19 Oct 2026 15:51:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792425085;
-	bh=V7LU7B522G/Nt7R0FiWPQqjn9CdYZiUxBthyqwKOD9Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LJXvjlOiGVIL/rET/7zf9cAWFEk8SSq0w7A8f3zdNlf+9l6L5vcKK0xaSe86HZn8r
-	 J8vpLTL6Mdy+TR6egVN44MM8sw9GoqrDV6ELxDd9D7Q+JHxxFfZgDYJJc+OEEzLkzU
-	 yHlvsgD55GZczfXBkfcGbfpZCT8FBlkQckYjMBJyCM/orIYzVk6+zT4HUXKr2IuDYy
-	 VhrP+5r1lXWYa+ST+zC5r1MtoPEYWft2LxmKdwxuD6CFgKyqf9J42g1Kw3DLg3j+4N
-	 C/lCCGeDgjbNYk6wE9rnxZT2yPHa1wsq/qJlA9SOqLZzpEFmThA7bumeDSEDGlo8jR
-	 U+IGRtQqgUPSg==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id A1B74198003A;
-	Mon, 19 Oct 2026 11:51:16 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 19 Oct 2026 11:51:20 -0400
-X-ME-Sender: <xms:dDzWau9M3FbVzylKyeuMuTbSvRi5IhIiOm5vggdDvmx2WLA7P_-HbQ>
-    <xme:dDzWaj-PHM48Ndlhrsp1ztoB7LRirKXS6TUWSubRL-nmTgJ5xnjPzKegBHPYb6Apa
-    lWzc8x9JYUVJwFZoc-_UAzZlg-D1yIhQhkrMadsKkA2-juVj8DIWp6B>
-X-ME-Received: <xmr:dDzWamrnOz-IYgpENDf9AHxZdMqOzb7vuLX2QCJm9BzNQsb3vG9t-cpq8-4>
-X-ME-Proxy-Cause: dmFkZTETM5HXVFLzPUxauAkBxER+Z+lTRQkwgIjXhOFN5THGlO0HVgKRB8Wd4BSXaHA5Bq
-    7Hki4AkN29JlsW7Oz4whntE9FU2sRh3n5MV6IVyinOcMZqrY6k/BF1c/BxQBvNlfSnbHPl
-    QW/SZQekiA5aLb3GJIUgrXyjACrHk/syVIVjTZfD7jaDpyMg1O/dYDf4I6wLOAEwx8xESw
-    vWlPZzevy9W/Bx8Vy1OTZuF/dkabbhGDCVd6eGxAa35wXpSJUVy0LPc7oPWN1fg8RR92+D
-    ECpc3fgxZvfIHD4VEls/NZQ+K0gffqxM1pWJS3eaXhIg/AZa9YCFosiagiRdAJgbrCIzoM
-    o7gldHTvIc7eDhtIlvlXL3C53Ed6FccoFxHkqxXLx6DesQwcRIq2OCKsz71WAjXT1lm5TM
-    Kg1S+IlqYIxSJe9HD2GKza9Xs/DT9IRo/iXi4/lAIHvx7zS5svU1pmtsJwFoiXOifXFOJS
-    c8+Oeh3NCwMTZdMLywvQlmAwW/Y7WDCES6B0jmV7pMkS4HcOooYUKfO5TR9lAZ5VoW9a8r
-    /Sd6cK2NtDUvPD7I9Une5gCLCi06S4ZQdRtRBV9yijBm9YZ31pf3G36MsRdGWua/hTa0oz
-    IXvg1wkV9fllJ5EjieDzrGee0JsCZ2XwYMKjT3W5rPPzBpPVPhNKsKgec/1w
-X-ME-Proxy: <xmx:dDzWamLg6cF_WAVSMmPrj6q7Spq9p4LSEZCHn9AirSi8MJz72J-B9g>
-    <xmx:dDzWaj0knTs9fAMwlRv2eWSSw3MmAJ-GD7Ro5x3412yILKFqsCQDGA>
-    <xmx:dDzWan5ODCRnQyiDwSCOgnm3bWqisXfjJ722uVIweErdBv-sNprqtg>
-    <xmx:dDzWapPZak97h7nUxuzK1D5s1DiIbQa1A6wNNRF5GxQLRsE0MFuLKQ>
-    <xmx:dDzWajL7V6ATZJcx30Qa3GWHT7z1tZ55WDYLNjnvd5l-RPejyxFAhMfr>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 11:51:15 -0400 (EDT)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Hugh Dickins <hughd@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Harry Yoo <harry@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	fuse-devel@lists.linux.dev,
-	kernel-team@meta.com
-Subject: [RFC PATCH 18/18] mm/filemap: add a debugfs switch for lockless page cache reads
-Date: Mon, 19 Oct 2026 16:49:11 +0100
-Message-ID: <20261019154913.1765974-19-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261019154913.1765974-1-kas@kernel.org>
-References: <20261019154913.1765974-1-kas@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Rd412vdY;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Vpe7kSw1
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JFP2kV036254
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:53:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=WkXGpXOWiBs24ppXgXlnDUbNGC4cGBni/AXZNpiz1hc=; b=Rd
+	412vdYZ6pr+FIF/LqCVeE65wVB2AaKvNCcSUOW3Ygrv2XQ1O8BxNWia0WShOYeFg
+	TH5bNmIi5IQe4w/0dWJoYBxI/cnkulrBv3h/HX+thbMY+N1VEEG5tiZ2FeQF1/Rg
+	6WJ8nvgBbbetfszsB9KU8lqRAw7RBWjt1ASWAsJGENN3xSqwLjTa5bb6buJA8Tgk
+	EmRY2GXxOsaAUjiQp/dFxxBIzcm/IdIxcPh8K7wnAbQCl9kOIXEeT9GA7ckii7i1
+	PFuHmlJi7x1qUOiGInfJQzoy0uRP5ovpfqJEpFor3F3LP8AHWXilAeTSowP0M8FW
+	FIlrgi2j/xaJ7bNJUT7Q==
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf47j1qj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:53:35 +0000 (GMT)
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-4574f1cac98so3671827fac.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:53:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792425214; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iRKm9P1ntNFqIKiFvnTeweeiexpk0ESuy23AAB3JdNsGGJLRCeZHkKidTOy2mGP1BL
+         XAcmzyAqrC1BGPtNYHXqtJ7W5y09C+Gn5eebpuFebzo4EMl/t7vb1C3FmjcVlgaPCd/p
+         AeA+0J4eJcM0ek50wDC052aqLCtIX9nEwF2f82CtcR3UtVXwg73E+XQPoDYbp50otHaV
+         T61znLbB/izLPIou/5aYaEMwN9gmDIslZG2/j7aLDoUC/WolAkNbsndXgs210pmr/z5n
+         CmZ0FMrQHCGeGXj4uH/exysbBo63nK5Bxgywxx5bFB027j3ZVfkMCxRKqj9MMhEQpF9Q
+         poaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=WkXGpXOWiBs24ppXgXlnDUbNGC4cGBni/AXZNpiz1hc=;
+        fh=kabZNoAIjh99649433BXwwK507dIozaUdQ3sc1ZlUuc=;
+        b=mV/mwoZqjw0GnQBueHjjmP6EhcvhOm0sm6pSOsFSQ5Nf7FJ3MDXTEnLwnx52SGoNhG
+         xWz+tbEhEtClRd6UCp43/Qn+LNV0MJb4VnxgzeenvgaMckWULuUNgYvNLEieyea8p5yl
+         EgD5032RJgXxQ/V9OHNXt+rZNBB/TAFyueFzelkQLrGKRfK4xTsOmLtcUCzmGQW3B3jO
+         ReeArj1vOkOLQlMAuLeyI4TZlUFJvJmYOWDAsUcDPwT2EBECrdLqBM+391eCGPoSU8nF
+         Q38Fc4KwYexyO7RtlaB80KpSNi7pap2CUYNvgPQWPeM++En8cW4/piU0vEbKjmItAQ/2
+         rdZg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792425214; x=1793030014; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WkXGpXOWiBs24ppXgXlnDUbNGC4cGBni/AXZNpiz1hc=;
+        b=Vpe7kSw1OEX4fUVbDnRcVWIabreoGHjVucRfYXQ1veLVXKPJF02qKA8AaoJw7m84yg
+         QftYy7bRxYzMhn9ae1lUdVZ4oHEfSSaQk9f1uw2kpFpB4azNIiThuWIw65cf4e9C+ZE5
+         SC/LLyh9tLPr62r9w1LDUS7Bi2ym7qWKgiDHewLGe17KX5QCWm2h2URTQAuzu7vkY3yu
+         zx/b3YaB6XYeblTNva3eq+K/ypDVQ0nGHZF2xoIV9kOxFs5MUg5D3p42gLzgfwHkHoQe
+         8X2A85SO0FqsAcUtzNOPD4AzWpuZTBe9DIb1TMG7CJvmCZrCLm6SSrSw4zL0FiC6HVnl
+         9Z/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792425214; x=1793030014;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WkXGpXOWiBs24ppXgXlnDUbNGC4cGBni/AXZNpiz1hc=;
+        b=fxZh/3Lg6F/TYjOCRVh8oOuG9cU/D1+dodLAlj4lsrOIFWhilXkdTNhW3UxvfJONaH
+         B391zJit+QwHoLk/Tco2oMllAuo7OkVFK9XJXvvO/oRHULb+nBs+B7drrO0i4vfTIEtb
+         2PsQkKR+TGQagkgCuU+mD3OhSJlGqXwxRN/WbQjn3gQNT002J+Ht01EKt6fXtTakpajD
+         L6ZFlvuAAg55glNuZRN/b/m/2tNAQsg4u6pUU0QcosYB7SWj23/GNrLZKjghP+RF8Ti5
+         m55BC6/QO0Egv01n5vrNpAKya5Ks7NBo8Epa4ke4cUvNIkPM+rCgT8C891H12vqmlfQO
+         DgNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwDqZajQD8DtjQMxidItBOMhvMAv/uX7+0RZQi3hLN0Jqc3FnIuddI06ZaXK5W+4qO0Kc429JW+VxTBtMs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFZLA/RVVLb4HO6AYyB7ssmGI96X4kIrnHU/vvhYlZYrkqPIAY
+	b9KkZX2++mburD4BYkimso0/ZhEeoO4Ph4qBHAfE95hElUh9MtAkHi9mlHjN58u/EBS2yBtifBI
+	ZGJEFfi49rTnS38O+rjOEJ4f8l8Xp1+7EzmwlvjHT2kdWErCUx0O5RK3PUyo2qJvIEgmH39iYXn
+	OPSdduDmWUgBEC37VszMmZYyeid8+ru1OkQhJUP73UWw==
+X-Gm-Gg: AYBFou2GknfDTBpHCSoe8MxZP7MaEFpmyiRtkdp+ilbPlSLEu0bMeLPFJtOB2Qc7DFT
+	xkW8ChiGeObziNd6Rs/k18PzCdfsnWKSjJ8/uNDfywpQnlKlgynBDhlmMqjHJ3LYK5I1/zJduhe
+	LQqiqaOXMX5nL0PzU6mz3ZCCCjcQ2V4cWRDI2bQwky53JYMKP1scv8uoug/Q==
+X-Received: by 2002:a05:6871:2ea5:b0:492:d8bd:949d with SMTP id 586e51a60fabf-4a7575b6d76mr5836598fac.2.1792425214097;
+        Mon, 19 Oct 2026 08:53:34 -0700 (PDT)
+X-Received: by 2002:a05:6871:2ea5:b0:492:d8bd:949d with SMTP id
+ 586e51a60fabf-4a7575b6d76mr5836575fac.2.1792425213472; Mon, 19 Oct 2026
+ 08:53:33 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,126 +127,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <ar_AuRr1eaZzOfw9@baldur> <179096320161.1973.2852858792260211089@gmail.com>
+ <c3c4d140-07ec-4402-a18b-389520df188e@leemhuis.info>
+In-Reply-To: <c3c4d140-07ec-4402-a18b-389520df188e@leemhuis.info>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 08:53:21 -0700
+X-Gm-Features: AclHuK8lwhBc9o-AjMwe7IooeXr_cgpIgGqUVsN4bF6VjxH_2L_fx0Hz7Wqdu8M
+Message-ID: <CACSVV00x091i7BKW+bj0RUnkd4rOrHXbhZ4zF6SuTU1NAqsFTA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/msm/a8xx: Enable CLX feature on Adreno X2-85
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Oleg Keri <okerixx@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        regressions@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: 32Zz9k2IQ2YlrshjD5CicYLEjNR7oHi5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA2MyBTYWx0ZWRfX1GaqHxjZzIsO
+ SyvktTLBnZlpnkL/V09CgkwNhkhiiEHdseNhjzAz/c4GhK1RKTSgFsWa/RLcNN1YFw+HXRzjVne
+ kAKT05jSDCBfIVe6AlFjGtXdJzqtkupB8DObxUyZiFjRgu8+QiJC+Np6vO+vG8JM6qgruyA6Lv7
+ Y24LtZWOs082bNhbMA38JQZy0CJwa0R5jo4aE1vmLwIA26b0frgmUaTcVdW5ga/3Q1J8285VYZh
+ xjGfNG828EFi369lrjwLQQ9MEpy6Do6H+tmctpXgyADhXDLv1tvIWes2dzdmGSH66O8KfOuBDhr
+ 3YdEF2DS/4s/QXRq/UbySwTVm+1g3yQcPFj/pY+4Df0q6E+WaJqAXBxeBtb24bfdZiEhw6ayYOw
+ 6Dvg8KvyD3oTzE+2898s8LYiZ3E+3b2Lkf6/Har7N0vvjc7SZSP7izG6Kh5Ul1eTj7yutCIMTMt
+ C32WLtFMA0485yhLTXA==
+X-Proofpoint-GUID: 32Zz9k2IQ2YlrshjD5CicYLEjNR7oHi5
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA2MyBTYWx0ZWRfX6mkPCxEpzMJw
+ JWn8V3NpkD6FEggQ09/qVlnnfMtVF2230f178HctwrxDML8/8h1HzRt1r8xxUC67AVOxdt5HYVJ
+ EvX1mGNetI0yGyByzXaXkLgmzHE4KUU=
+X-Authority-Analysis: v=2.4 cv=cLt1IVeN c=1 sm=1 tr=0 ts=6ad63cff cx=c_pps
+ a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=lAgNKBcoAAAA:8 a=7w3WoVYdraEV06504AMA:9
+ a=QEXdDO2ut3YA:10 a=1zu1i0D7hVQfj8NKfPKu:22 a=drE6d5tx1tjNRBs8zHOc:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_05,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 phishscore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610190063
 
-Reading hot folios without a reference defers the free of their memory
-by an RCU grace period.  A workload that loses on that trade, or a bug
-in the lockless read, has no way to turn it off: CONFIG_PAGE_RCU_FREE is
-on in every 64-bit kernel.
+On Mon, Oct 19, 2026 at 6:47=E2=80=AFAM Thorsten Leemhuis
+<regressions@leemhuis.info> wrote:
+>
+> On 10/2/26 19:47, Oleg Keri wrote:
+> >> This patch landed in next-20261001 and while it works on my Glymur CRD
+> >> (COB), on the Asus Zenbook A14 I see the following failure during boot=
+:
+> >
+> > Same on a Lenovo Yoga Slim 7x Gen 11 (Glymur) with next-20261001, GMU
+> > firmware v5.2.38:
+> >
+> > [    1.632277] platform 3d6c000.gmu: [drm:a6xx_hfi_wait_for_msg_interru=
+pt] *ERROR* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 11 timed out waiting for=
+ response
+> > [    1.642345] platform 3d6c000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Tim=
+eout waiting for GMU OOB set GPU_SET: 0x4
+> > [    1.642360] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu=
+] *ERROR* gpu hw init failed: -110
+> > [    8.053367] platform 3d6c000.gmu: [drm:a6xx_gmu_resume] *ERROR* GMU =
+firmware initialization timed out
+> > [    8.053584] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu=
+] *ERROR* Couldn't power up the GPU: -110
+> >
+> > Compositor fails on the first start and works on the second.
+> >
+> > Reverting this patch fixes it here as well.
+> What's the status here? Was this fixed meanwhile? Or is this regression
+> how heading towards mainline now that the merge window is open?
 
-Add lockless_page_cache_read to debugfs.  Writing 0 stops filemap_read()
-and shmem_file_read_iter() from setting PG_rcu_free and from copying
-without a reference.  A static key keeps the test off the read path.
-debugfs, not a sysctl: the switch is not ABI and can go once the reads
-have proven themselves.
+AFAIU this is still open.. but seems to be contained to a non-typical
+config (modules + fw built-in).  It seems to be caused by trying to
+initialize the GPU (and send the CLX tables to the GMU) before
+_something_ else is ready.  Tracking down what that _something_ is is
+still ongoing.
 
-Folios that have the flag keep it, and their free stays deferred: a read
-that tested the key before the switch may still be copying from them.
+OTOH not having CLX could lead to problems exceeding hw current
+limits, which itself is a problem.  And why I did not revert CLX.
 
-Assisted-by: LLM
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- mm/Kconfig   |  3 +++
- mm/filemap.c | 51 ++++++++++++++++++++++++++++++++++++++++++++++++---
- 2 files changed, 51 insertions(+), 3 deletions(-)
-
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 5af00db23f90..1ad1cb7969e7 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -730,6 +730,9 @@ config PAGE_RCU_FREE
- 	  64-bit only: it takes a page flag, and those are scarce on
- 	  32-bit.
- 
-+	  Writing 0 to lockless_page_cache_read in debugfs turns these
-+	  reads off.
-+
- config PHYS_ADDR_T_64BIT
- 	def_bool 64BIT
- 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index cde7bc68b32d..7021ed2ab6c9 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -48,6 +48,7 @@
- #include <linux/rcupdate_wait.h>
- #include <linux/sched/mm.h>
- #include <linux/sysctl.h>
-+#include <linux/debugfs.h>
- #include <linux/pgalloc.h>
- 
- #include <asm/tlbflush.h>
-@@ -2765,6 +2766,50 @@ static inline bool pos_same_folio(loff_t pos1, loff_t pos2, struct folio *folio)
- 	return (pos1 >> shift == pos2 >> shift);
- }
- 
-+#ifdef CONFIG_PAGE_RCU_FREE
-+/* Writing 0 to lockless_page_cache_read in debugfs turns the reads off */
-+static DEFINE_STATIC_KEY_TRUE(lockless_read_key);
-+
-+static bool lockless_read_enabled(void)
-+{
-+	return static_branch_likely(&lockless_read_key);
-+}
-+
-+#ifdef CONFIG_DEBUG_FS
-+static int lockless_read_get(void *data, u64 *val)
-+{
-+	*val = static_key_enabled(&lockless_read_key);
-+	return 0;
-+}
-+
-+static int lockless_read_set(void *data, u64 val)
-+{
-+	if (val > 1)
-+		return -EINVAL;
-+	if (val)
-+		static_branch_enable(&lockless_read_key);
-+	else
-+		static_branch_disable(&lockless_read_key);
-+	return 0;
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(lockless_read_fops, lockless_read_get,
-+			 lockless_read_set, "%llu\n");
-+
-+static int __init lockless_read_debugfs_init(void)
-+{
-+	debugfs_create_file_unsafe("lockless_page_cache_read", 0644, NULL, NULL,
-+				   &lockless_read_fops);
-+	return 0;
-+}
-+late_initcall(lockless_read_debugfs_init);
-+#endif
-+#else
-+static bool lockless_read_enabled(void)
-+{
-+	return false;
-+}
-+#endif
-+
- /*
-  * Reads keep coming back to @folio: free it only after an RCU grace period
-  * from now on.  Not if its next read needs a reference anyway.  Not if it
-@@ -2775,7 +2820,7 @@ static void filemap_mark_hot(struct folio *folio)
- {
- 	struct address_space *mapping;
- 
--	if (!IS_ENABLED(CONFIG_PAGE_RCU_FREE))
-+	if (!lockless_read_enabled())
- 		return;
- 	if (folio_test_rcu_free(folio) || !folio_test_uptodate(folio) ||
- 	    folio_test_dropbehind(folio) || folio_test_unevictable(folio))
-@@ -3025,8 +3070,8 @@ size_t filemap_read_rcu(struct kiocb *iocb, struct iov_iter *iter,
- 	pgoff_t last_index = (last_pos - 1) >> PAGE_SHIFT;
- 	size_t copied = 0;
- 
--	/* Not on an inode that never had a folio flagged */
--	if (!IS_ENABLED(CONFIG_PAGE_RCU_FREE) ||
-+	/* Not when switched off, or on an inode that never had a folio flagged */
-+	if (!lockless_read_enabled() ||
- 	    !mapping_rcu_read(iocb->ki_filp->f_mapping))
- 		return 0;
- 
--- 
-2.54.0
-
+BR,
+-R
