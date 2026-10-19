@@ -1,479 +1,345 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71CF364943;
-	Mon, 19 Oct 2026 02:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0DAE28373
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792377534; cv=none; b=DTFwQ8CNms5N1Up5uSYiuTRDCGDextPz7ez5ORz9oM3bCYBd6mI0KdmzrCTsoXkDP3tbTO4HKnmJbUgRhWMdo923fAvUbsrb89YlBfe0opVdVRpzJE01lu6xK44AcrcmUTw+42eUT5gJP6Bu490+M9LrA462gNJNEXolm+RW3PU=
+	t=1792377780; cv=none; b=FgzdZ/0a6BYj9Zt5pYBC0EpgVf/VSVleoRLQWywXCZzso4RUMg7UNpJwneoSXqxrOyMaQKiV+JDAFYPJoCcA50CDZwzF6j1VXCN4t28BAUSty5wzSjUprI3ere6c32iCb3T2xgxxUISkGNv5JwU7n41o2RNnCIcGgHQscQyvThk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792377534; c=relaxed/simple;
-	bh=jyT978WRZwYtdvjxnHBGIEagK3wQrhIZV6ZGqyVi8ew=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MlHN7Nzjix8mVSqFkF596nhU1f4m7ljISVyOYrKgoonExFTK92QX2oubhTEob8DXOxQhwsi0BxH0l/OyoLaQ90Cg1jO3YO5yTALWIi19OsgltwFomAgoE101IX6nIJ1s2pdrQw9pKsq7AWfTBQrZ6f4CPvfK2i5fZlWREPU2Daw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JeUbR/RO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792377780; c=relaxed/simple;
+	bh=odw4BQdOuCm+tCSRiqJDUIi1fwZ9LR+CAM5fTsxkt5A=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=qfIfVpkzrflqZJdTklgKpUoHWOLusbGYmSxSbumi8jwI0A8/FCvzkNvwjTQhvMlWBIf3Oq3lWr4JF9IBkX9eTgP27ls9WCOpvGYntaIOgNkP3ugTkOLo9hIbUp3WEtbAMI3haEyI+8DW0oXvnrEZjELkVCGLiJ8wpC2PctL78+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+TwDqta; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JeUbR/RO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715F31F000C5;
-	Mon, 19 Oct 2026 02:38:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792377532;
-	bh=JBoIp2kFOi/8Rb9HTrJXtAViU1KGcrdObT/hCxS0foo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JeUbR/ROhuTwyJohdwsr5PaiRRo7w0q3vxzf6i/LVRADOa/+lSB6JClStioxgQ3O8
-	 ymMTlRaGJkrR5gvwUtd4+xRYawEf04OySdHkVMZ5G1/dVcxAgKstEWN16hBfyeeCD0
-	 fAgselC1z+ddLMUFynFnrCVPmHCmjZ6j0QeT4ZeV6RXM45E2KYwOoKwWjusAA7Dnft
-	 xBhbHd2PY8uOgYjXfROQ7NV/h+uHL2uGCSPhk1apN6ySnICzfyPbuPqBIp+HG0frUv
-	 SqP9TdQhnxccp6FQ7ITcQSKngCCJ97wZA0O8em7zo5RlqD3s+f/cow/fTKKEyPhI2f
-	 RCrYWV8FL3/zQ==
-Subject: Re: [PATCH net-next v26 3/3] net: phy: Add driver for Motorcomm Quad
- 2.5GbE phy
-From: netdev-bot+sashiko@kernel.org
-To: kyle.switch@motor-comm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com
-Date: Mon, 19 Oct 2026 02:38:51 +0000
-Message-ID: <179237753101.3135.5143187427252185051@kernel.org>
-In-Reply-To: <20261018022151.2677056-4-kyle.switch@motor-comm.com>
-References: <20261018022151.2677056-4-kyle.switch@motor-comm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+TwDqta"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a0673d9bd2so351669b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:42:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792377778; x=1792982578; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iom84IfjPNhYdhvDKyAl2Pn6OICqSUUt1eSaXWwgyJM=;
+        b=G+TwDqtaVOwZkbW0yiTM+q3YMVpyh80cYzt8E2z0UNNerArEbLRRDlR3St4kVyo/9b
+         R24MfdRmR9RYHLcu/qhLCTXDV0tOpcLD1+NjZs6rU6fcSCd8hZHlk8vFPUW8+m5clHN3
+         3yw3xdYvqWQVoOiRdmdMXYdiWMgvxzMl99UyBpFrxvAv0WPUdvOIClq8TeuGCEdC3P1n
+         HpOmdoTtFX0SGh8zoMZr3KZSqPFKxzLTwRgKe7+NGzJpfkNZgyIQ5isQMQDQw8SgItar
+         ZYBdLVWhT9jp0+wRCNOsy18oxrhaENeJsLZ9AAuJ1oL90M6VK5IwAeXXwTctRWcNprPD
+         fXYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792377778; x=1792982578;
+        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iom84IfjPNhYdhvDKyAl2Pn6OICqSUUt1eSaXWwgyJM=;
+        b=qAvE9vE4C6Vb+TZQ3SCsjvAbxBdjcjUyA+vD9eZDzXkh33zbWA1P5G9tagxMRqnvRu
+         IDZNTjS3uRZhLb62pN6E3wcj3TV7rMH3/yA0HtzKPCJ9RaTu2PGcchkQSJG/RqujVVeu
+         t+zjIqAPr4hxULW16g34pjaBk2YwkuKx4wbK2p10u0Fka093tyg5O7HxK0Qjqoh4Fb1G
+         yCxOFE3Egqljdhij+qOT966LQv0opom3nr6KpNtCbl3gAelXQwmUmcYn8GomNdvIaXGR
+         wFGBdBx512YzwchP1PPIcoTnNi9E6eEzNDa+nG0eryZLvRuRQvEpv6d/FhV9LgAJ4dek
+         9jTw==
+X-Forwarded-Encrypted: i=1; AKwUvBwhLdY5QSkcCkXd6CrCrMZoUej2vkLpK7dkqKaE9c6gabUa9GgZFjZtVmypK8uxmY1prWbh9eQhja5rf3M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDMyq5tZjuu6eBnU+aa2zKoCI13RsSysFrOVZw4oP+vDPilDkV
+	HvoHvGKvgZgT2UrbaAedE752+sqFVlsjyDGV7+eBlpWAVKtBaNBMiQgd
+X-Gm-Gg: AYBFou3yXEKk7sw8lpe+CmILNkZu54yXWsVF2NrM2SpKjYQefqMc3B5+/5794My4McK
+	j4p47H1Qwlz2iiW/DK3aG75g+1rYrn/m38fKjuVJq1Wj3S6Q8l7Jct+XQe5BKjuXdIsDOU3G1F/
+	cuSm7kXPi+rdfCj556UJS7qzxPlQSTBSKIPO9eVK24NiXJFb1nK0M+GbztiuVTesXLR95uHjyUs
+	tJJP9jcPR8jqKSgYjHBmH/Dfhu1QqbE2KPDvfDnLN/7MnkdoonN+JJ7VkT+vnLCDVokTa7jXVfw
+	EwKXmLe7UjIYZT5JKC/2wZDa+aRN/N2HF+Io3GXLWIgLC0vBOLyeCkgV1O3ROiA1i5GIw3pQY5A
+	LGXplMqZRfy4zS6cZuMAN/FN57mUW5P/mR5tS46aO9gGM53uHvIp5GWYdB4LIQLSmyP+uIF1TOF
+	y2eW928hYawO+Q8Eg2V+ZXlkBpM97nLYfhtbrkb5dGN/yZI1/4EfwTf6uypczIBxBID9/F4zIZt
+	x1Zza06Av9s6SrwIeBuVLBT7nW6xcvQPPE=
+X-Received: by 2002:a05:6a20:438f:b0:3e2:59b5:a697 with SMTP id adf61e73a8af0-3e259b5c202mr341756637.20.1792377778041;
+        Sun, 18 Oct 2026 19:42:58 -0700 (PDT)
+Received: from [192.168.21.192] ([24.18.106.4])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd65497f8dfsm3264334a12.11.2026.10.18.19.42.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 19:42:57 -0700 (PDT)
+Message-ID: <54413888-3f62-40c9-92fa-beda41de0ff4@gmail.com>
+Date: Sun, 18 Oct 2026 19:42:56 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH] sparc: populate sysfs cache topology information on sun4v
+Content-Language: en-US
+From: Tony Rodriguez <unixpro1970@gmail.com>
+To: Jan Engelhardt <jengelh@inai.de>, davem@davemloft.net
+Cc: sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Stian Halseth <stian@itx.no>
+References: <20261018222723.43442-1-jengelh@inai.de>
+ <b69a7cd6-7f9d-4c8e-80b9-701a77a6805a@gmail.com>
+ <0593b88f-6151-4975-a840-ef21f3df06e8@gmail.com>
+ <c7d7a96c-feb9-4676-8cc2-73529e8324ef@gmail.com>
+In-Reply-To: <c7d7a96c-feb9-4676-8cc2-73529e8324ef@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Jan,
+
+On 10/18/26 7:29 PM, Tony Rodriguez wrote:
+>
+> Hi Jan,
+>
+>>>
+>>> On 10/18/26 3:27 PM, Jan Engelhardt wrote:
+>>>> The SPARC port does not publish any cache topology information. The
+>>>> lscpu utility therefore falls back to assuming the published cache
+>>>> sizes are for unshared caches, and as a result, reports way more
+>>>> cache than there really is present in the system. On a T5240 machine:
+>>>>
+>>>> ```
+>>>> $ lscpu
+>>>> Architecture:          sparc64
+>>>>    CPU op-mode(s):      32-bit, 64-bit
+>>>>    Byte Order:          Big Endian
+>>>> CPU(s):                128
+>>>>    On-line CPU(s) list: 0-127
+>>>> Model name:            UltraSparc T2 (Niagara2)
+>>>>    Thread(s) per core:  4
+>>>>    Core(s) per socket:  16
+>>>>    Socket(s):           2
+>>>>    Flags:               sun4v
+>>>> Caches (sum of all):
+>>>>    L1d:                 1 MiB (128 instances)
+>>>>    L1i:                 2 MiB (128 instances)
+>>>>    L2:                  512 MiB (128 instances)
+>>>> ```
+>>>>
+>>>> This patch implements population of the sysfs cacheinfo structures
+>>>> for sun4v (systems with mdesc). The proper amount is now reflected in
+>>>> lscpu's output:
+>>>>
+>>>> ```
+>>>> Caches (sum of all):
+>>>>    L1d:                 128 KiB (16 instances)
+>>>>    L1i:                 256 KiB (16 instances)
+>>>>    L2:                  8 MiB (2 instances)
+>>>> ```
+>>>>
+>>>> Signed-off-by: Jan Engelhardt <jengelh@inai.de>
+>>>> ---
+>>>>   arch/sparc/include/asm/cpudata_64.h |  8 +++-
+>>>>   arch/sparc/kernel/mdesc.c           | 61 
+>>>> +++++++++++++++++++++++++++++
+>>>>   2 files changed, 68 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/arch/sparc/include/asm/cpudata_64.h 
+>>>> b/arch/sparc/include/asm/cpudata_64.h
+>>>> index 056b3c0e7ef9..e28b841ffe23 100644
+>>>> --- a/arch/sparc/include/asm/cpudata_64.h
+>>>> +++ b/arch/sparc/include/asm/cpudata_64.h
+>>>> @@ -18,13 +18,19 @@ typedef struct {
+>>>>       unsigned int    irq0_irqs;
+>>>>       unsigned int    __pad2;
+>>>>   -    /* Dcache line 2, rarely used */
+>>>> +    /* Dcache line 2+3, rarely used */
+>>>>       unsigned int    dcache_size;
+>>>>       unsigned int    dcache_line_size;
+>>>> +    unsigned int    dcache_assoc;
+>>>> +    unsigned int    dcache_id;
+>>>>       unsigned int    icache_size;
+>>>>       unsigned int    icache_line_size;
+>>>> +    unsigned int    icache_assoc;
+>>>> +    unsigned int    icache_id;
+>>>>       unsigned int    ecache_size;
+>>>>       unsigned int    ecache_line_size;
+>>>> +    unsigned int    ecache_assoc;
+>>>> +    unsigned int    ecache_id;
+>>>>       unsigned short    sock_id;    /* physical package */
+>>>>       unsigned short    core_id;
+>>>>       unsigned short  max_cache_id;    /* groupings of highest 
+>>>> shared cache */
+>>>> diff --git a/arch/sparc/kernel/mdesc.c b/arch/sparc/kernel/mdesc.c
+>>>> index 23b51a32e96e..029d9d812074 100644
+>>>> --- a/arch/sparc/kernel/mdesc.c
+>>>> +++ b/arch/sparc/kernel/mdesc.c
+>>>> @@ -818,6 +818,7 @@ static void fill_in_one_cache(cpuinfo_sparc *c, 
+>>>> struct mdesc_handle *hp, u64 mp)
+>>>>       const u64 *level = mdesc_get_property(hp, mp, "level", NULL);
+>>>>       const u64 *size = mdesc_get_property(hp, mp, "size", NULL);
+>>>>       const u64 *line_size = mdesc_get_property(hp, mp, 
+>>>> "line-size", NULL);
+>>>> +    const u64 *assoc = mdesc_get_property(hp, mp, "associativity", 
+>>>> NULL);
+>>>>       const char *type;
+>>>>       int type_len;
+>>>>   @@ -828,15 +829,21 @@ static void fill_in_one_cache(cpuinfo_sparc 
+>>>> *c, struct mdesc_handle *hp, u64 mp)
+>>>>           if (of_find_in_proplist(type, "instn", type_len)) {
+>>>>               c->icache_size = *size;
+>>>>               c->icache_line_size = *line_size;
+>>>> +            c->icache_assoc = assoc ? *assoc : 0;
+>>>> +            c->icache_id = mp;
+>>>>           } else if (of_find_in_proplist(type, "data", type_len)) {
+>>>>               c->dcache_size = *size;
+>>>>               c->dcache_line_size = *line_size;
+>>>> +            c->dcache_assoc = assoc ? *assoc : 0;
+>>>> +            c->dcache_id = mp;
+>>>>           }
+>>>>           break;
+>>>>         case 2:
+>>>>           c->ecache_size = *size;
+>>>>           c->ecache_line_size = *line_size;
+>>>> +        c->ecache_assoc = assoc ? *assoc : 0;
+>>>> +        c->ecache_id = mp;
+>>>>           break;
+>>>>         default:
+>>>> @@ -1251,6 +1258,60 @@ void mdesc_fill_in_cpu_data(cpumask_t *mask)
+>>>>       smp_fill_in_sib_core_maps();
+>>>>   }
+>>>>   +int init_cache_level(unsigned int cpu)
+>>>> +{
+>>>> +    struct cpu_cacheinfo *i = get_cpu_cacheinfo(cpu);
+>>>> +    i->num_levels = 2;
+>>>> +    i->num_leaves = 3;
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>> +int populate_cache_leaves(unsigned int cpu)
+>>>> +{
+>>>> +    struct cacheinfo *leaf = get_cpu_cacheinfo(cpu)->info_list;
+>>>> +    cpuinfo_sparc *cs = &cpu_data(cpu);
+>>>> +
+>>>> +    leaf->id                    = cs->icache_id;
+>>>> +    leaf->attributes            = CACHE_ID;
+>>>> +    leaf->level                 = 1;
+>>>> +    leaf->type                  = CACHE_TYPE_INST;
+>>>> +    leaf->coherency_line_size   = cs->icache_line_size;
+>>>> +    leaf->ways_of_associativity = cs->icache_assoc;
+>>>> +    leaf->size                  = cs->icache_size;
+>>>> +    leaf->priv                  = cs;
+>>>> +    if (cs->icache_line_size > 0 && cs->icache_assoc > 0)
+>>>> +        leaf->number_of_sets = cs->icache_size / 
+>>>> cs->icache_line_size /
+>>>> +                               cs->icache_assoc;
+>>>> +    ++leaf;
+>>>> +
+>>>> +    leaf->id                    = cs->dcache_id;
+>>>> +    leaf->attributes            = CACHE_ID;
+>>>> +    leaf->level                 = 1;
+>>>> +    leaf->type                  = CACHE_TYPE_DATA;
+>>>> +    leaf->coherency_line_size   = cs->dcache_line_size;
+>>>> +    leaf->ways_of_associativity = cs->dcache_assoc;
+>>>> +    leaf->size                  = cs->dcache_size;
+>>>> +    leaf->priv                  = cs;
+>>>> +    if (cs->dcache_line_size > 0 && cs->dcache_assoc > 0)
+>>>> +        leaf->number_of_sets = cs->dcache_size / 
+>>>> cs->dcache_line_size /
+>>>> +                               cs->dcache_assoc;
+>>>> +    ++leaf;
+>>>> +
+>>>> +    leaf->id                    = cs->ecache_id;
+>>>> +    leaf->attributes            = CACHE_ID;
+>>>> +    leaf->level                 = 2;
+>>>> +    leaf->type                  = CACHE_TYPE_UNIFIED;
+>>>> +    leaf->coherency_line_size   = cs->ecache_line_size;
+>>>> +    leaf->ways_of_associativity = cs->ecache_assoc;
+>>>> +    leaf->size                  = cs->ecache_size;
+>>>> +    leaf->priv                  = cs;
+>>>> +    if (cs->ecache_line_size > 0 && cs->ecache_assoc > 0)
+>>>> +        leaf->number_of_sets = cs->ecache_size / 
+>>>> cs->ecache_line_size /
+>>>> +                               cs->ecache_assoc;
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>>   /* mdesc_open() - Grab a reference to mdesc_handle when 
+>>>> /dev/mdesc is
+>>>>    * opened. Hold this reference until /dev/mdesc is closed to ensure
+>>>>    * mdesc data structure is not released underneath us. Store the
+>>
+> I’ve applied the patch to a dual‑socket SPARC S7‑2 (16 cores total, 
+> 128 threads) and wanted to share the resulting lscpu output, since it 
+> clarifies what the patch fixes and what still needs work for 3‑level 
+> parts.
+>
+> Before the patch:
+>
+> L1d: 2 MiB (128 instances)
+> L1i: 2 MiB (128 instances)
+> L2:  32 MiB (128 instances)
+>
+> After the patch:
+>
+> L1d: 256 KiB (16 instances)
+> L1i: 256 KiB (16 instances)
+> L2:  2 MiB (8 instances)
+>
+> A) The L1 reporting is now correct. Each of the 16 cores has a private 
+> 16 KB L1I and 16 KB L1D, so 256 KiB in 16 instances is exactly right. 
+> The per‑thread inflation is gone for L1, and the sharing/instance 
+> counts are sensible. The generic leaf->id grouping is clearly doing 
+> its job.
+>
+> * B)  L2 is only half‑reported on S7:  This may be true for S7, T7, 
+> and T8 CPUs.
+>
+> For the L2 split (On S7):
+>
+>     L2D: 256 KB shared by every 2 cores -> 8 instances × 256 KB = 2 
+> MiB  (matches the output)
+>
+>     L2I: 256 KB shared by every 4 cores ->4 instances × 256 KB = 1 
+> MiB  (missing)
+>
+> So the total L2 on this box should  be 3 MiB across 12 instances , or 
+> shown as separate L2D/L2I lines. It looks like MDESC reports the L2I 
+> and L2D nodes separately, and the current case 2: overwrites one with 
+> the other in ecache_*. Supporting S7 properly would need either 
+> separate storage for L2I/L2D or a way to handle multiple level‑2 nodes.
+>
+> * C) Need "level 3" cache details for (useful for T4, T5, S7, T7, 
+> T8).  Perhaps in revised patch?
+>
+> As expected, the S7’s 16 MB per‑socket L3 (32 MiB total, 2 instances 
+> on this box) does not appear at all. init_cache_level() hardcodes 
+> num_levels = 2 / num_leaves = 3, and fill_in_one_cache() has no case 
+> 3:, so the MDESC level‑3 node is dropped in default.
+>
+> Adding an L3 leaf may need?
+>
+>     l3_* fields in cpuinfo_sparc,
+>
+>     a case 3: in fill_in_one_cache(),
+>
+>     num_levels = 3 / num_leaves = 4 in init_cache_level(),
+>
+>     a 4th leaf in populate_cache_leaves().
+>
+> For T7‑1/T8‑1 this would surface  their 64 MiB per‑socket L3; for S7‑2 
+> it would show 32 MiB in 2 instances (16 MiB per cpu). The T5240 result 
+> looks correct because that machine is 2‑level only, so the missing 
+> case 3: doesn’t show up there.
+>
+> Summary:
+>
+> The patch is an improvement but needs more work. It fixes the L1 (and 
+> L2D) inflation on S7‑2. To make it complete for the 3‑level SPARC 
+> parts, it needs L2I handling and an L3 leaf.  It would be great to 
+> have L3 cache details shown via lscpu as well.
+>
+>
+> Tested-By: Tony Rodriguez <unixpro1970@gmail.com>
+>
+>
+> Regards,
+>
+> Tony
+>
+
+Corrected typos in my summary and changed point C to be "Perhaps in a 
+revised patch?"
+
+Tony
 
-Thank you for your contribution! Sashiko AI review found 13 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 5 · Low: 7
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] net: phy: motorcomm: BMCR_PDOWN left set in
-  yt8824_config_utp_init_paged()
-- [Medium] In yt8824_config_init(), the package-wide SERDES tuning is
-  gated by priv->sds_initialized.
-- [Medium] Whenever the link is down, yt8824_read_status_paged() sets
-  phydev->speed = SPEED_UNKNOWN and phydev->duplex = DUPLEX_UNKNOWN,…
-- [Medium] yt8824_sds_isolate_and_softreset_paged() and
-  yt8824_extern_sds_softreset() call read_poll_timeout(__phy_read, ...,…
-- [Medium] yt8824_read_status_paged() only calls genphy_c45_read_lpa()
-  when autoneg is enabled and complete.
-- [Medium] yt8824_config_utp_init_paged() runs on every port's
-  config_init in both package modes, with no once-per-package gate.
-- [Low] yt8824_probe() consumes the one-shot phy_package_probe_once() bit
-  (test_and_set_bit, never cleared) before the DT parsing in…
-- [Low] In yt8824_config_utp_init_paged(), the err_restore path only
-  clears BMCR_PDOWN.
-- [Low] The commit message is three lines long for about 1900 lines of
-  new hardware support.
-- [Low] Leftover code: YT8824_PLL_VCO_SEL_CURRENT_B (line 431) is
-  defined, but yt8824_config_utp_init_paged() uses the bare literal…
-- [Low] The kernel-doc for yt8824_restore_working_status() says it is
-  'called to do store working status'.
-- [Low] The kernel-doc for yt8824_config_utp_init_paged() says 'config
-  external phy8824 utp init', but yt8824_config_init() calls it in both…
-- [Low] (Baseline: false positive.) The concern is that the comment in
-  yt8824_config_aneg() ('Only advertise 2.5G when autoneg is enabled, or…
-
---
-
-net: phy: Add driver for Motorcomm Quad 2.5GbE phy
-
-This adds support for the Motorcomm YT8824 quad-port 2.5G PHY to the
-motorcomm driver. It uses the phy_package helpers to access the shared top
-extended register space, and supports an internal and a 10G-QXGMII package
-mode.
-
-> Add support for Motorcomm YT8824 quad-port 2.5G PHY to the existing
-> motorcomm driver, using the phy_package helpers for the shared top
-> extended register space.
-
-[Severity: Low]
-This isn't a bug, but could the commit message say more about the design?
-It is three lines long for about 1900 lines of new code.
-
-It doesn't say why every soft reset, suspend and resume first puts the port
-into 10GBASE-T PMA template test mode 1. The only hint in the code is
-"NOTE: need WA like softreset", and the previous patch in the series
-describes these test modes as being used for PHY validation.
-
-It also doesn't mention the package-wide shared_lock that serializes all
-four ports. The two package modes and their separate init paths aren't
-described either.
-
-> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-> index 463e1ea3efc93..6628ebcca0819 100644
-> --- a/drivers/net/phy/motorcomm.c
-> +++ b/drivers/net/phy/motorcomm.c
-
-[ ... ]
-
-> @@ -397,6 +416,226 @@
-
-[ ... ]
-
-> +/* PHY8824 UTP init registers */
-> +#define YT8824_WRITE_PROTECT_CAL_REG		0x1
-> +#define YT8824_WRITE_PROTECT			BIT(0)
-> +#define YT8824_PLL_VCO_ATEMP_REG		0xa20e
-> +#define YT8824_PLL_VCO_SEL_CURRENT		GENMASK(7, 4)
-> +#define YT8824_PLL_VCO_SEL_CURRENT_B		0xb
-
-[Severity: Low]
-This isn't a bug, but YT8824_PLL_VCO_SEL_CURRENT_B is never used.
-yt8824_config_utp_init_paged() uses the literal value instead:
-
-	ctrl = FIELD_PREP(YT8824_PLL_VCO_SEL_CURRENT, 0xb);
-
-YT8824_FFE_SUM_THRES is also unused, and so is the new
-#include <linux/of_net.h>. yt8824_read_page() and yt8824_write_page() each
-end with a stray "};".
-
-[ ... ]
-
-> @@ -638,15 +949,1165 @@ static int ytphy_set_wol(struct phy_device *phydev, struct ethtool_wolinfo *wol)
-
-[ ... ]
-
-> +static int yt8824_sds_isolate_and_softreset_paged(struct phy_device *phydev)
-> +{
-> +	int old_page = YT8824_RSSR_UTP_SPACE;
-> +	int val = 0;
-> +	int ret = -1;
-> +
-> +	old_page = phy_select_page(phydev, YT8824_RSSR_SERDES_SPACE);
-> +	if (old_page < 0)
-> +		goto err_restore_page;
-> +
-> +	/* sds softreset and disable isolate */
-> +	ret = __phy_modify(phydev, MII_BMCR, BMCR_RESET | BMCR_ISOLATE,
-> +			   BMCR_RESET & ~BMCR_ISOLATE);
-> +	if (ret < 0)
-> +		goto err_restore_page;
-> +
-> +	/* poll while still holding the lock */
-> +	ret = read_poll_timeout(__phy_read, val,
-> +				(val < 0) || !(val & BMCR_RESET), 50000, 600000,
-> +				true, phydev, MII_BMCR);
-
-[Severity: Medium]
-Does this sleep for 50ms to 600ms while holding the bus-wide mdio_lock?
-
-phy_select_page() takes phydev->mdio.bus->mdio_lock, and the lock isn't
-released until phy_restore_page(). Because sleep_before_read is true,
-every call sleeps at least once for 50ms under that mutex.
-
-yt8824_extern_sds_softreset() has the same poll. In 10G-QXGMII mode a
-single port's phy_init_hw() goes through it at least three times:
-
-phy_init_hw()
-  yt8824_soft_reset()
-    yt8824_sds_isolate_and_softreset_paged()
-  yt8824_config_init()
-    yt8824_extern_sds_softreset()
-    yt8824_soft_reset()
-      yt8824_sds_isolate_and_softreset_paged()
-
-Suspend, resume and the yt8824_restore_working_status() error path go
-through it again.
-
-While it sleeps, every other MDIO access on the bus is blocked. That
-includes the sibling ports, other PHYs and any switch on the same bus.
-
-yt8824_utp_softreset_paged() uses phy_read_poll_timeout(), which drops
-the lock between reads. Could the SERDES polls avoid sleeping under
-mdio_lock in a similar way?
-
-[ ... ]
-
-> +/**
-> + * yt8824_restore_working_status() - called to do store working status
-> + * @phydev: a pointer to a &struct phy_device
-> + * @ret: operation's return code
-
-[Severity: Low]
-This isn't a bug, but the summary says "store" while the function
-restores state. It sets the test mode back to normal and, outside
-internal mode, clears SERDES isolate and soft-resets the SERDES.
-
-[ ... ]
-
-> +/**
-> + * yt8824_config_utp_init_paged() - config external phy8824 utp init
-> + * @phydev: target phy_device struct
-
-[Severity: Low]
-This isn't a bug, but yt8824_config_init() calls this function in both
-the internal and the 10G-QXGMII branches, so "external" doesn't look
-accurate.
-
-The _paged suffix is also a little misleading. Elsewhere in this file it
-marks helpers built on phy_select_page()/phy_restore_page(). This function
-uses phy8824_page_write_with_lock() instead and never restores the page.
-
-[ ... ]
-
-> +	ctrl = FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH0, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH1, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH2, 0);
-> +	ctrl |= FIELD_PREP(YT8824_U0_CSR_RESETB_TX_CH3, 0);
-> +	mask  = YT8824_U0_CSR_RESETB_TX_CH0 | YT8824_U0_CSR_RESETB_TX_CH1 |
-> +		YT8824_U0_CSR_RESETB_TX_CH2 | YT8824_U0_CSR_RESETB_TX_CH3;
-> +	ret = ytphy_modify_ext_with_lock(phydev, YT8824_U0_CSR_RESET_REG,
-> +					 mask, ctrl);
-> +	if (ret < 0)
-> +		goto err_restore;
-
-[Severity: Medium]
-Are the U0/U1 RESETB_TX registers, the P0/P1 DAC bias registers and
-P01_PLL_EN private to this port, or are they shared across the package?
-
-yt8824_config_init() runs this function for every port in both modes.
-Unlike the SERDES init, there is no once-per-package gate. Using the
-calling port's address, it pulses YT8824_PLL_DAC_RST, then clears and sets
-all eight U0/U1 RESETB_TX_CH0..3 bits.
-
-The U0/U1, P0/P1 and P01 names suggest these registers cover more than one
-UTP. If they are shared, would bringing up or resuming one port reset the
-TX channels or PLL DAC of a sibling port whose link is already up?
-
-The register overview in this patch lists a per-port UTP Top Extended
-space separately from Common Top Extended, so this may be fine. It just
-isn't clear from the code.
-
-[ ... ]
-
-> +err_restore:
-> +	r = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
-> +	if (ret >= 0 && r < 0)
-> +		ret = r;
-> +	return ret;
-
-[Severity: High]
-Does this leave the UTP port powered down when the init succeeds?
-
-The function sets BMCR_PDOWN at the start with phy_modify(). The later
-reset only touches BMCR_RESET | BMCR_ANENABLE, so phy_modify() writes
-BMCR_PDOWN back as it was. The success path then returns 0 just before
-the err_restore label. The phy_modify() that clears BMCR_PDOWN only
-runs on errors.
-
-The err_restore_normal path clears BMCR_PDOWN after the reset, which
-suggests the bit survives BMCR_RESET on this chip.
-
-The ret >= 0 check under err_restore can never be true, because every
-goto err_restore happens with ret < 0. That suggests the success path
-was meant to fall through to the label.
-
-yt8824_config_init() then calls yt8824_soft_reset(). Its call to
-yt8824_utp_softreset_paged() only sets BMCR_RESET, so nothing there
-powers the port back up either.
-
-On attach, phy_start() and mdio bus resume, phy_resume() runs after
-phy_init_hw(). yt8824_power_on() then clears BMCR_PDOWN, so the common
-case may hide this.
-
-phy_init_hw() is also called on its own, though. Examples are
-phy_mii_ioctl() when userspace writes BMCR_RESET,
-phy_abort_cable_test(), and MAC drivers that reinit the PHY during
-error recovery. In those paths the port would stay powered down and no
-error would be reported. The link would not come back until something
-calls the resume callback again, for example an ip link down/up.
-
-Was the port meant to be powered back up here, or is that deliberately
-left to the resume callback? If it is deliberate, could the dead check
-under err_restore be dropped and a comment added to explain it?
-
-[Severity: Low]
-Some steps above assert a reset in one write and release it in another. If
-the releasing write fails, for example the second YT8824_PLL_DAC_RST write
-or the U0/U1 RESETB_TX writes to 1, this path only clears BMCR_PDOWN.
-
-Would that power the UTP back up with the PLL DAC or TX channels still
-held in reset, the write-protect bit still set, and the analog trim only
-half applied?
-
-config_init does return the error, and the next config_init runs the whole
-sequence again, so this only matters when MDIO writes fail.
-
-[ ... ]
-
-> +static int yt8824_config_init(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-> +	int ret;
-> +
-> +	mutex_lock(&priv->shared_lock);
-> +	if (priv->package_mode == PHY_INTERFACE_MODE_INTERNAL) {
-> +		ret = yt8824_config_utp_init_paged(phydev);
-> +		if (ret < 0)
-> +			goto err;
-> +	} else {
-> +		if (!priv->sds_initialized) {
-> +			ret = yt8824_extern_config_sds_init_paged(phydev);
-> +			if (ret < 0)
-> +				goto err;
-> +			priv->sds_initialized = true;
-> +		}
-
-[Severity: Medium]
-Can sds_initialized go stale after the chip loses its register state?
-
-The flag is only set to false once, in yt8824_phy_package_probe_once().
-No remove, reset or resume path clears it.
-
-phylib calls config_init again in cases where the PHY may have been reset
-or powered off:
-
-mdio_bus_phy_resume()
-  phy_init_hw()
-    yt8824_soft_reset()
-    yt8824_config_init()
-      if (!priv->sds_initialized)   <- false, SERDES init skipped
-
-phy_detach_internal() also asserts the reset line with
-phy_device_reset(phydev, 1) while the driver stays bound.
-
-In that case the package-wide SERDES setup would not be redone. That setup
-covers the write-protect unlock, the reset bypasses, CDR mode, the PLL VCO
-trim, the efuse-derived values and the calibration restart.
-
-The SERDES shared by all four ports in 10G-QXGMII mode would then run on
-its power-on defaults, and no error would be reported.
-
-[ ... ]
-
-> @@ -3240,6 +4701,450 @@ static int yt8821_resume(struct phy_device *phydev)
-
-[ ... ]
-
-> +static int yt8824_read_status_paged(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +	int val;
-> +
-> +	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = genphy_read_status(phydev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete) {
-> +		ret = genphy_c45_read_lpa(phydev);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-
-[Severity: Medium]
-When autoneg is enabled but has not completed, can a stale
-2500baseT_Full bit stay in phydev->lp_advertising?
-
-In that case genphy_read_lpa() only clears the C22 link partner bits:
-
-	if (!phydev->autoneg_complete) {
-		mii_stat1000_mod_linkmode_lpa_t(phydev->lp_advertising, 0);
-		mii_lpa_mod_linkmode_lpa_t(phydev->lp_advertising, 0);
-		return 0;
-	}
-
-genphy_c45_read_lpa() is skipped here, so the 10GBT link partner bits
-learned from an earlier 2.5G partner are never cleared. ethtool would keep
-reporting them after the cable is unplugged or the partner changes.
-
-rtl822x_read_status() in realtek_main.c clears these bits unconditionally
-with mii_10gbt_stat_mod_linkmode_lpa_t(phydev->lp_advertising, 0) before
-reading them. Would something similar work here?
-
-> +
-> +	if (!phydev->link) {
-> +		phydev->speed = SPEED_UNKNOWN;
-> +		phydev->duplex = DUPLEX_UNKNOWN;
-> +		if (phydev->autoneg == AUTONEG_ENABLE)
-> +			phy_resolve_aneg_pause(phydev);
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-Should speed and duplex only be reset here when autoneg is enabled?
-
-With autoneg disabled, phydev->speed and phydev->duplex hold the forced
-configuration. genphy_read_status() has just read it back through
-genphy_read_status_fixed(). In the halted state, phy_state_machine() only
-clears these fields when autoneg is enabled.
-
-With a forced 100/full setting and no link, after ip link down/up:
-
-phy_start()
-  phy_state_machine()   /* PHY_UP */
-    _phy_start_aneg()
-      phy_sanitize_settings()
-        phy_caps_lookup(SPEED_UNKNOWN, ...)
-
-No capability matches, so the lookup falls back to the lowest supported
-mode, and the forced 100/full would quietly become 10 Mbps. Until then,
-ethtool also reports the speed as Unknown.
-
-[ ... ]
-
-> +static int yt8824_probe(struct phy_device *phydev)
-> +{
-> +	struct device *dev = &phydev->mdio.dev;
-> +	struct yt8824_shared_priv *shared_priv;
-> +	int ret;
-> +
-> +	ret = devm_of_phy_package_join(dev, phydev, sizeof(*shared_priv));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Ensure other PHY probes wait for shared mutex initialization. */
-> +	phy_package_lock(phydev);
-> +	if (phy_package_probe_once(phydev)) {
-> +		ret = yt8824_phy_package_probe_once(phydev);
-> +		if (ret) {
-> +			phy_package_unlock(phydev);
-> +			return ret;
-> +		}
-> +	}
-> +	phy_package_unlock(phydev);
-
-[Severity: Low]
-What happens to the sibling ports if yt8824_phy_package_probe_once() fails?
-
-phy_package_probe_once() uses test_and_set_bit(), and the bit is never
-cleared, so it records that an attempt was made rather than that it
-succeeded.
-
-Suppose two ports have already joined the package, and the first one fails
-because motorcomm,package-mode is missing or invalid. The shared storage
-survives, because the package refcount is still non-zero.
-
-The second port then sees phy_package_probe_once() return false, skips the
-validation, and probes successfully. Its package_mode is still the default
-that yt8824_phy_package_probe_once() stored before the check:
-
-	priv->package_mode = PHY_INTERFACE_MODE_INTERNAL;
-
-That would leave one port failed and its siblings running in internal
-mode, whatever the DT asked for. Hitting this needs concurrent probing and
-an invalid DT.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261018022151.2677056-1-kyle.switch%40motor-comm.com
