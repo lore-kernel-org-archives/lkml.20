@@ -1,567 +1,151 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2126.outbound.protection.partner.outlook.cn [139.219.146.126])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A14C4E780F;
-	Mon, 19 Oct 2026 11:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.126
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792410332; cv=fail; b=lAZrOzFIumtsjjyZJckDqNLjN8S+1+zt51s1oL1FWR0Cp5nTYU4c8dOScSh5pOXtLVAnAuhK2H2vRE5YsJrVNGAyrc4flJ9XujSFl50ey2jeljCUTPsTXE8vwVZzBPl+VZ9+zqnhVn9QH6x2PhL4bUS66IGkVibLgQr+6Fb+71s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792410332; c=relaxed/simple;
-	bh=PxK12Zqz3D2lDLjCeCekGLVsV6mLQ3QLAeNbgDuEk00=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bMHce0VThKhZ40Sk9OKaSydCyseEAgMPI/w7SNb2t+O0NgK32IutoG/Czr6X0kdx0C6vRDAmG9H0CbausW+CtGuqGk2xrmR+Cekicaj4/T1B2yb/hHVghOXO9bRyqYnAwa9W9xX1ez5F8wMINLJ8iek9tMYtI6uSwOzXQrvfXS4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gaY++rGzgUDSs1V+TvVtKHLfrHFzocJbzWAZJldUwe8/AIS2DkzZ0quT7s5aZW1+wYvaui0KbIq6xKgcuRvjawm1Ry7c4zqSe5UJQI4wm51fPr6moOJUzwhTUEw8wm4tzATP6veGAti2+xytK1n80+GSvpDgQvYxUH/9iAytWgFNyz3jgqXxee5Rn+lCf/6JGNR2anYPHtK0003i2xptydJreRCI8eESQH8xNjZnGHWl7pnEt2Cx6280MkAeVDxquEpUj+MxB/gJ7Ri4BZsByVeDWWfLZjq5DPoiWJxNaAS+gnJkEVuZkzHt9/xzvryDVdWsxz+DGpdmMkGKk04T3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L39XH9UwQUH/IhhDvUvGhfvDUgnIn5HwFVZV2HAwq8g=;
- b=gisdkA3oMjt7vQdXw9pDXSgbMt+/S49SzWg8cNHkmOaDVyvoNncm5v6ZDvkljh2s7GluIimKu9Dthqnx1F66Xx8g7wI5ryaiy+Kc81EgQtmFX9t1s6Hdi373rxFMER3r6+BVUFyrgbLzIwzmQ1V+zbfCSxfW6aCRY8tnYorfpyCdAwYXXri9/rpka9Ix5p8UhkFsDSZWBhRfsoi0mr1a5i5MrFTC2deVpSCSrcx0tGtmPDW/2vt2AQKUZXKOZwLa0tQDBWycQZ6qC9tUFN1yWeabRSAMviE/iI3UxeK1hlpwqfH8JjqIr2yC+9LA9AbLh5G5LL+T7td7Sg7y15tmnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1316.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 11:45:14 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0522.017; Mon, 19 Oct 2026 11:45:14 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Iwona Winiarska <iwona.winiarska@intel.com>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v4 2/6] peci: controller: Add StarFive JHB100 PECI driver
-Date: Mon, 19 Oct 2026 04:44:58 -0700
-Message-Id: <20261019114502.55307-3-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261019114502.55307-1-changhuang.liang@starfivetech.com>
-References: <20261019114502.55307-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZQ0PR01CA0010.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:5::17) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D254DAF89
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792410386; cv=none; b=dW9be3QfpN6gSNbFZiDyS8yC0B+Oy82VSwyTmQ16ICIBSmDRatdS3xKE24KunfP+rT52HPwDrhK7PK1cE7/malW0TJBMADFxnSWxUQgNrhstZMi03vXSV3oHmPCT1nYBfCNauhS6IjHnV3omajBL2MSyQaIPWU9N38qWX41bVBY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792410386; c=relaxed/simple;
+	bh=ewQoxyQLo/SIXE0r9ug8m4TnQqvVKS+4FgnH3/X1IRY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GsH8dH7rRoVejC2zPZpcPkUwiMWKMhkAGB/GemuYgS6nadeSGYQ8VEZSU7XJSwzXA60JfAgZLeuOtDHLenMG/sqyqWeTdTF+cSgT8wWY7mt5PVCshHO35rDQQVz+WkkziVCAwF78mU2+BWrGhN7fqLp/vmWm1JWQbIm1B5wyAio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TEaqUc/A; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i85v3/+h; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TEaqUc/A";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i85v3/+h"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8OrqD1665586
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:46:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=hG197sZx3XRJAemskE7V+hMh
+	trqkgeOsYb24Xht8LNk=; b=TEaqUc/AW2zv0dvvnpDGjbJ34/KQDGa49xWXOlC6
+	yz/a6Xp6aX5v3p3UgpV+s4NNziLQicA+imw6XHDL5sTpGfxlnvUIPDyXYxy7GADV
+	G7JscBXn6Mg6NOG3jb/vIszrSa4jEGMWEgItHiJU/ZlgycX/KT6j7cPKNqLwFO6I
+	mrMjWB4dAWZoYrpSRN7NSgZ7Kc6IL9SC3Gr6nyRCe2Xv9AQfof4YdWucsVpurvpi
+	/QvDTfMq5abkWg1dR4XwYEkJf8D5/jjMoMkvbeQ4qHhUXD5Fxy+kev39xWw6OTPP
+	8MAqZgjbQ1GcywD+xKQjFwCyK222Xlnw7uAsbnQgqF2TkQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf3n0w16-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:46:24 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934956beec8so435235885a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:46:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792410383; x=1793015183; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hG197sZx3XRJAemskE7V+hMhtrqkgeOsYb24Xht8LNk=;
+        b=i85v3/+hl5YPgvLGvk7GpL03Lxz+8U3PNwW348k9UR16r9t3nd+u7fy3Q3QbisIkbk
+         euCcB1JMFh4Ii+UkcMvrhcSI4ZNru4HwGZFlHhEdTqb9OgBuzutpTwi5+1thMNQQaFPg
+         rNLz+UP25dR8nObWvFpwyJfVzCQWdHYQ8M7LIvYWvaZ8QPO9EyS4lP2GQLeLkB1t6v31
+         oCiLneEy3vnlXAscCPcM6iMNCW4bkl0rHGfk8JphaQdHwFKla/OeMkpz2cW7CUPA12KI
+         GwLiHc14+1Aj5ZjpaRi0D3dF15UKR8dAdlB9p6caymwJ1DfCRsIzVynFEs1/s+5E11/9
+         /4Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792410383; x=1793015183;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hG197sZx3XRJAemskE7V+hMhtrqkgeOsYb24Xht8LNk=;
+        b=r1yKNUIkRXHjKWWqlwyICz926fJ++8a5WCdVGeuxS4TtQ3DUA32fxcYaPcj4cNTDML
+         qT0WVxkWh+8/1cwLsNpfWRrDNhepooq1+doylCyuSCnF0SH3t4XmIA8bn5u/X0Iwovuk
+         ZwH1epIvtab5GdGEtkwTAWm2REysQ8NBiRxvU/fFH/t2ZkeDZ2XJygzTaBMjo0yBun+U
+         +GJmqmujpYW5tgyBEMpFoJ78b5Lhe4tVtBrOOpz3DspYviFF7T5bkSdN+jiohcVSJZh7
+         FxfzwqQeNoGq4gbOt66vJyxIqRB29SYHchS8J8RFyuaezL34XIdlN+s/GehDm9+paHU2
+         rRcA==
+X-Forwarded-Encrypted: i=1; AKwUvBzntf648iMI8FYO69BBjY0lgWrU+yIHZZE0V3BjJnB1aoxZabsrPYDFl+v8n1L+9B3RMQX4RBgWmP5LZSA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHRnaSStCFIpT4BFVMVOXi5G+VSsvJt0U2Ks+gVSOnwPjwXkOM
+	W/D+pIcuap5hs0MZZGyt48lSoQCOLN7/uEHW/lJnlItH4PxC4zeWKMDUJ6cIuLGdgtRndhlBIG9
+	1Wy2KGbeO6RuI6SAhKjYwqk7JUsZhX1tAE1/LV3iKnCEQw46omJBDBpV66CHzaPolu88=
+X-Gm-Gg: AYBFou0JBUeHC/C1ia87kEwhCfAD09BwUHN1LcoDtaiB3Z3JpVkwKFFT05gVLs6A8My
+	XQ8M14QVEpHpLJAZWrnxl5M6lJdXiOzr2jmTnF5CJrXQnHM4pr/khD/t4DtddoEQTzgdPiVpadN
+	aJLfNlFa/1Uf1KzNM/YZMK+C6KH8BiNETqeUd+vLuT/0w2XucPbCQAmqz8/SXz/u769dryxWPce
+	Vpj5Ts1hVDaS80Fx+RugUgCZUwEwb2YxYG37X6DXaFe1IUqIabnbzeMfwg9nYpyv+2b8VP1QQEK
+	khqgsJyhgyhiRr2bwgtjkj+B7N8awIEAWQdSKFMqpRvpKKEaiBo1reOeVE3fjdCaGPK8ZfieTzC
+	yWT0cLISzG3JeI9Uq
+X-Received: by 2002:a05:620a:2601:b0:93f:115:7338 with SMTP id af79cd13be357-93f29d66830mr1237946085a.54.1792410383081;
+        Mon, 19 Oct 2026 04:46:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:2601:b0:93f:115:7338 with SMTP id af79cd13be357-93f29d66830mr1237940185a.54.1792410382478;
+        Mon, 19 Oct 2026 04:46:22 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e19ad17esm60581775e9.3.2026.10.19.04.46.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 04:46:21 -0700 (PDT)
+Date: Mon, 19 Oct 2026 14:46:18 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+        Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+        Kiran Gunda <quic_kgunda@quicinc.com>,
+        Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, mfd@lists.linux.dev,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 7/8] arm64: dts: qcom: sm8150-hdk: fix FSA4480 address
+Message-ID: <rpsezddufer654mndwogaguvriun4i2lhu4nnosedz2h34qnfk@s44v3tjrrnnv>
+References: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
+ <20261019-sm8150-display-card-v2-7-86c05068efc5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 923a480b-8962-4310-1289-08df2dd6705c
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|52116014|6133799003|18002099003|10067099003|22082099003|3023799007|38350700014|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	FurtRVtB+oEJyI2+2swGeweuccX2WLj96vhPaVdEbH6sXnzJ9BhkKK5xKOjkFA3L2qIECFPTab7S8u5lXCIIlFCcaR+T+rR6PkQVoq10AFYQGnD269L/sx4Ozq9kPQBw467eS8nQlxJ7weUMZIGAi0XIEl7VGVH/8o2a7Grcm5+hYw+NRxv7JGfG8+aEtyEB/7Xs6Vjtx+NKU8UNkUiPFZlpTq5uMJGRNyCw8F6drPeewy0RvHinuUKYUlhQ5zLRlM5KWcwU7ssb1dTp8NHkbHUz8V3coV2Q76hR1uGhIUOC1MSHtLXhVAF8EkN2xAtzg1gsNDvpf6fuIVqn/a+qDa/SXmJ3gUnxWBQb+VvB2e/VbK7rjYb5qUXq1HlsPCrrmOc2BYCCZyeIh4EMCXsVS0ZP9V9OQvhWxNbYf/DJOaafvm65Y+30K01BL7fFTu9aIgejIURfK0piv4zJTQyhArY3f8kDooiFT4CgURJ+ptJfMSuEAJuginVyV++pbSSyPHBqK76XSFztgWiLqFYZsPnWCbPXl9VpFV4myyt69bECyvXTSLggkxw899ZSPuSg
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(52116014)(6133799003)(18002099003)(10067099003)(22082099003)(3023799007)(38350700014)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Ft58IrfhYYq5z65RYoDsx2x6bqO3wfJZ9/bdG6TFwwrpJjDY1YHIB+Hnv5nk?=
- =?us-ascii?Q?yttqIDYGF38jovmcTZID3Jg1EtykCMldP+gAk6UUpZGzBAX8Fw3BY18TslGN?=
- =?us-ascii?Q?ZCWesrQ6gkVEtgWUdzMfy9sJJJHf97kckRnuSbaaYJR98TvVDYhslpOPZKvK?=
- =?us-ascii?Q?CxmIbyHaxE3ipJCVE3o9qVfngfZJcjGn3EfkBik9F2aIY7cVtyrCJM+lcX2U?=
- =?us-ascii?Q?qXeVpsxj1rPXTvyzzciKTGtjTvN54zb1rhYsxCaVXqQkdHxEFPhoJuXR3ds/?=
- =?us-ascii?Q?N6ShEmc4xdlOlK6I0zl1Rsl+gCg9kB3anTdB1uOdgfxG29307vlvHFpYkdyH?=
- =?us-ascii?Q?H6HF5b+RgeKhxSaHmR02VqT8rq4jijoAHkVbXEmZ5aOWduEVCaHexVPIHqIV?=
- =?us-ascii?Q?1ACCvSBepp6vOfiVW2v2w3c997s2NkQHdM/Xmz1sGLrwdwboEUGBbKwEUsRR?=
- =?us-ascii?Q?n4hWqZeD7M04Xp1/UEeh7/PfTaaVEcMWIg75HcoFLYbbUFPopZKDvlsmYV24?=
- =?us-ascii?Q?ODNHG1UQszPRZ7nL68hbtWYH5xflWV4gEpKp4DoVXxGH+muGDObyeC+W9YRO?=
- =?us-ascii?Q?WSWy/W18fQwBztacEnbEhYASHHKVOLgmVfndfmXVr4kTbCAGDbMAZQ6bupQA?=
- =?us-ascii?Q?q60KqHInbbJBwBerlcjYyqtwEFxMY3huH39LdGQHxK+l+6wr94YhZO37C77V?=
- =?us-ascii?Q?pXAeXPVQFYbPhWXX9+gqRozOx7N6U+vViDXeOgI/ERCLyDKZh2LqGzX8CFXX?=
- =?us-ascii?Q?c0IiN4m9Io5rsFkXAVAvI+S4RrqAvyhL5HhnLVW8Lm9HK4IpTVteNfpp1Fod?=
- =?us-ascii?Q?6z2PAYaq/9MGQLOrJxg7OpjvNe+oTDZMZ0/Xnv8tQTtNVWuEUZHE94NvxqSU?=
- =?us-ascii?Q?9gWRJ9PzrvZ14kKgzf+xNi1wYGpEoNH9+/1Zk4Dh8KBR/kj4kp8AAo9ZHyrZ?=
- =?us-ascii?Q?A7hLrcsg+APsY3iPE3BRcsQLwspGBGFKB1d2Z8AuUvF3B0KHIwV0Z+WC55Ua?=
- =?us-ascii?Q?ploFLs8pqbq0y8RXPH9e4GhtN8tgtQgduoIZFE1qHegokAqSDlF67vYj7GvP?=
- =?us-ascii?Q?7hGc6qL0XeLCfwAQVV+9scoczL+TWM2fw22r4cw3CsTSzOYs6QH3us1nzGAz?=
- =?us-ascii?Q?SRh+BKnEibV2wDH3VfwNi48BOm8R3VLXe1sDMc8wsDu+zdBYTKshNS+n7RSZ?=
- =?us-ascii?Q?6H23HxJu5iU9gBVM7kvpGmDLcEJ8Fn5jH380ukyn/r5mmoGsbJXvTMCdF6yy?=
- =?us-ascii?Q?XUeiMfym7LEfZFMiu5RLRb/emek9urjfTWrYyTznFGFNv5I6SEHmKUPwY5f4?=
- =?us-ascii?Q?HJoeEEf0Os3IICXboWBFbX2EMyZ8gQZCQfOXW3bex9AC73Y9fvM2E3sazhQo?=
- =?us-ascii?Q?dbk7Evk9G3pjXWUWEOyKe6QooqN1D2uPG9DbJtLt7OT+BPxfNHK2D+RSoW4g?=
- =?us-ascii?Q?L2uLk5BGVKloGxS1o09Q71J5uq2fywjsIYBpsf/YJGHrdmfCo/1ZIRrjx705?=
- =?us-ascii?Q?Gg1Uk5sZsScwbLuu7CWJ7dmljLHGu+9OyD85TdkHfkRimvkrOdJVdzIxF/wN?=
- =?us-ascii?Q?TlI2Rf7IEfvWDR7oHP+U3imtokKSG/GRAM7WRdTG5PMJz2KJrhmem5+440tN?=
- =?us-ascii?Q?2t8fWd4sFVFL9MA/tpf6Sd2KHSflqKbI08VOiAEH5jsiIoetqTeEKO/dchur?=
- =?us-ascii?Q?nLCG8BpyTm6pnsVl1FO2Ecw4NdPqLzQiOhK+k06nIAbH5iAMRbDhZG5r+pIV?=
- =?us-ascii?Q?DxnLZ2by5IoUdl9gJQ1GwCMRt8HW83j8kGSOE9AGkAW47JKeqrVv?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 923a480b-8962-4310-1289-08df2dd6705c
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 11:45:14.2679
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vmDMGB4cb/o8xspe7RjkCbQYWS01TUtVpd0zEdRuzo705yUZuFSjBo9KEI9iRRBueFVbZxnuQVEU7T87ukR4CypDotfpUv6btsvcrRlxp8uFbX6ywUhVj5vA1xDPpxVb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1316
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019-sm8150-display-card-v2-7-86c05068efc5@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NiBTYWx0ZWRfX4Xj4CrcbgIGZ
+ al5EI1mJ/rmbSPNHaXJz5OnH7sc9+YkuTUkxOjGJYG53zxL5uuD2mIMOePXcIlPbggKjqX00n4u
+ GVZvGfluoSVwAz8n11KEV5vkoYJw+S4=
+X-Proofpoint-ORIG-GUID: lC_GoK-YL_jQ7HsddGaSXSB8R3QEfdkI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NiBTYWx0ZWRfX0i5jXt5wcm3G
+ jjcRPNofuHScWXYpf6PRrFfV+vBoMqyXyiSxdEuc/gT4FoHqpcAX9G2kebVkt5PXqraq/khKyta
+ TPGP5J+NIjgSlv41eZGOL0EgyNSxLMzJXrVroiM1T/SF25cT8REthcpEDedL1T7UdG7zJkuTjOl
+ wVoBz1XnTSR39E1OMTjNu5XkjRtXEeV5oObq7Ri6wU4x3opDYS/16Fe0C3xBpRgoKToHj3wbPzO
+ vEGqBmwgDUWrm8lfddPF3IdWgnskWAmaMuNUYuHope7r2hl0UluK2x3tgcjPep4AsEe26Ljq2K2
+ xev66cfudIWfGOoAYwKF+rQXwndGS7m/9dcHXBD+Fc1rkTNGRhIlKwBOn59izgWbuFQtAfTK4fn
+ xyVFz72rLHNmkTrVSUONYf2/yXadtk9wyqdjxA5vyscF74o0hrkmtl6nNFSyJpMQTrXIRIpzamt
+ 0UcsE79nMXIRFqc1Dlw==
+X-Proofpoint-GUID: lC_GoK-YL_jQ7HsddGaSXSB8R3QEfdkI
+X-Authority-Analysis: v=2.4 cv=Zf2IpcVA c=1 sm=1 tr=0 ts=6ad60310 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=No1CG8Rj059PRq910ZoA:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ phishscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190046
 
-Add PECI controller driver for StarFive JHB100 SoC. The driver supports
-PECI protocol communication for CPU thermal management.
+On 26-10-19 14:25:43, Dmitry Baryshkov wrote:
+> The FSA4480 on the SM8150 HDK responds at 0x43 rather than 0x42. With
+> the wrong address the mux driver fails to probe, the Type-C controller
+> and the DisplayPort controller keep waiting for it and the display
+> subsystem never binds.
+> 
+> Fixes: ba712fd55c7b ("arm64: dts: qcom: sm8150-hdk: enable DisplayPort and USB-C altmode")
+> Assisted-by: LLM
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-For this controller, the special clock and reset operation sequence is:
-  probe: clk_prepare_enable() then reset_control_deassert()
-  remove: clk_disable_unprepare() then reset_control_assert()
-
-Co-developed-by: Mason Huo <mason.huo@starfivetech.com>
-Signed-off-by: Mason Huo <mason.huo@starfivetech.com>
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- MAINTAINERS                             |   8 +
- drivers/peci/controller/Kconfig         |  17 ++
- drivers/peci/controller/Makefile        |   1 +
- drivers/peci/controller/peci-starfive.c | 367 ++++++++++++++++++++++++
- 4 files changed, 393 insertions(+)
- create mode 100644 drivers/peci/controller/peci-starfive.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d3dc32c7a0f0..1fb3a3f03fce 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26653,6 +26653,14 @@ S:	Supported
- F:	Documentation/devicetree/bindings/interrupt-controller/starfive,jhb100-intc.yaml
- F:	drivers/irqchip/irq-starfive-jhb100-intc.c
- 
-+STARFIVE JHB100 PECI DRIVER
-+M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+M:	Mason Huo <mason.huo@starfivetech.com>
-+L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/peci/starfive,jhb100-peci.yaml
-+F:	drivers/peci/controller/peci-starfive.c
-+
- STARFIVE JHB100 PINCTRL DRIVERS
- M:	Changhuang Liang <changhuang.liang@starfivetech.com>
- M:	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-diff --git a/drivers/peci/controller/Kconfig b/drivers/peci/controller/Kconfig
-index 4f9c245ad042..c0c35bc179ef 100644
---- a/drivers/peci/controller/Kconfig
-+++ b/drivers/peci/controller/Kconfig
-@@ -32,3 +32,20 @@ config PECI_NPCM
- 
- 	  This support is also available as a module. If so, the module
- 	  will be called peci-npcm.
-+
-+config PECI_STARFIVE
-+	tristate "STARFIVE PECI support"
-+	depends on ARCH_STARFIVE || COMPILE_TEST
-+	depends on OF
-+	depends on HAS_IOMEM
-+	select REGMAP_MMIO
-+	help
-+	  This option enables PECI controller driver for StarFive JHB100
-+	  SoC. It allows BMC to discover devices connected to it, and
-+	  communicate with them using PECI protocol.
-+
-+	  Say Y here if your system runs on StarFive JHB100 SoC and you are
-+	  using it as BMC for Intel platform.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called peci-starfive.
-diff --git a/drivers/peci/controller/Makefile b/drivers/peci/controller/Makefile
-index e247449bb423..935e356b058c 100644
---- a/drivers/peci/controller/Makefile
-+++ b/drivers/peci/controller/Makefile
-@@ -2,3 +2,4 @@
- 
- obj-$(CONFIG_PECI_ASPEED)	+= peci-aspeed.o
- obj-$(CONFIG_PECI_NPCM)		+= peci-npcm.o
-+obj-$(CONFIG_PECI_STARFIVE)	+= peci-starfive.o
-diff --git a/drivers/peci/controller/peci-starfive.c b/drivers/peci/controller/peci-starfive.c
-new file mode 100644
-index 000000000000..9f59721b891d
---- /dev/null
-+++ b/drivers/peci/controller/peci-starfive.c
-@@ -0,0 +1,367 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2024 StarFive Technology Co., Ltd.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/interrupt.h>
-+#include <linux/jiffies.h>
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/peci.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
-+#include <linux/unaligned.h>
-+
-+/* Control register */
-+#define STARFIVE_PECI_CTRL			0x00
-+/* automatically clears after transfer started */
-+#define   STARFIVE_PECI_CTRL_START		BIT(0)
-+#define   STARFIVE_PECI_CTRL_FCS_MODE		BIT(2)
-+#define   STARFIVE_PECI_CTRL_AW_FCS_EN		BIT(3)
-+#define   STARFIVE_PECI_CTRL_RDY		BIT(4)
-+
-+/* Read/Write length register */
-+#define STARFIVE_PECI_HDR			0x04
-+#define   STARFIVE_PECI_HDR_RD_LEN_MASK		GENMASK(23, 16)
-+#define   STARFIVE_PECI_HDR_WR_LEN_MASK		GENMASK(15, 8)
-+#define   STARFIVE_PECI_HDR_TARGET_ADDR_MASK	GENMASK(7, 0)
-+
-+/* Feature control register */
-+#define STARFIVE_PECI_F_CTRL			0x0c
-+#define   STARFIVE_PECI_F_CTRL_EN		BIT(0)
-+
-+/* Interrupt enable register */
-+#define STARFIVE_PECI_INT_EN			0x10
-+#define   STARFIVE_PECI_INT_XFER_DONE		BIT(0)
-+#define   STARFIVE_PECI_INT_CFG_ERR		BIT(1)
-+#define   STARFIVE_PECI_INT_TBIT_ERR		BIT(2)
-+#define   STARFIVE_PECI_INT_BAD_WR_FCS		BIT(3)
-+#define   STARFIVE_PECI_INT_ABORT_WR_FCS	BIT(4)
-+#define   STARFIVE_PECI_INT_BAD_RD_FCS		BIT(5)
-+#define   STARFIVE_PECI_INT_BUS_CONTENTION	BIT(6)
-+#define   STARFIVE_PECI_INT_TBIT_OVER_LIMIT	BIT(7)
-+#define   STARFIVE_PECI_INT_ALL			GENMASK(7, 0)
-+
-+/* Interrupt status register */
-+#define STARFIVE_PECI_INT_STS			0x14
-+#define   STARFIVE_PECI_STS_XFER_DONE		BIT(0)
-+#define   STARFIVE_PECI_STS_CFG_ERR		BIT(1)
-+#define   STARFIVE_PECI_STS_TBIT_ERR		BIT(2)
-+#define   STARFIVE_PECI_STS_BAD_WR_FCS		BIT(3)
-+#define   STARFIVE_PECI_STS_ABORT_WR_FCS	BIT(4)
-+#define   STARFIVE_PECI_STS_BAD_RD_FCS		BIT(5)
-+#define   STARFIVE_PECI_STS_BUS_CONTENTION	BIT(6)
-+#define   STARFIVE_PECI_STS_TBIT_OVER_LIMIT	BIT(7)
-+#define   STARFIVE_PECI_STS_MASK		GENMASK(7, 0)
-+
-+/* Rx/Tx Data Buffer Registers */
-+#define STARFIVE_PECI_WR_DATA(n)		(0x70 + ((n) * 4))
-+#define STARFIVE_PECI_RD_DATA(n)		(0xB0 + ((n) * 4))
-+
-+/* Hardware TX/RX data FIFOs are 64 bytes, but PECI core caps requests lower */
-+#define STARFIVE_PECI_DATA_BUF_SIZE_MAX		min(64, PECI_REQUEST_MAX_BUF_SIZE)
-+#define STARFIVE_PECI_MAX_REG			0x100
-+
-+/* Timeout */
-+#define STARFIVE_PECI_IDLE_CHECK_TIMEOUT_US	(50 * USEC_PER_MSEC)
-+#define STARFIVE_PECI_IDLE_CHECK_INTERVAL_US	(10 * USEC_PER_MSEC)
-+#define STARFIVE_PECI_CMD_TIMEOUT_MS_DEFAULT	1000
-+#define STARFIVE_PECI_CMD_TIMEOUT_MS_MAX	1000
-+
-+struct starfive_peci {
-+	u32			cmd_timeout_ms;
-+	struct completion	xfer_complete;
-+	struct regmap		*regmap;
-+	u32			status;
-+	spinlock_t		lock;	/* sync completion status */
-+	struct peci_controller	*controller;
-+	struct device		*dev;
-+	struct clk		*clk;
-+	struct reset_control	*rst;
-+	int			irq;
-+};
-+
-+static int starfive_peci_xfer(struct peci_controller *controller,
-+			      u8 addr, struct peci_request *req)
-+{
-+	struct starfive_peci *priv = dev_get_drvdata(controller->dev.parent);
-+	unsigned long timeout = msecs_to_jiffies(priv->cmd_timeout_ms);
-+	u32 msg_rd;
-+	u32 cmd_sts;
-+	u32 peci_hdr;
-+	int i, ret, j;
-+
-+	if (req->tx.len > STARFIVE_PECI_DATA_BUF_SIZE_MAX ||
-+	    req->rx.len > STARFIVE_PECI_DATA_BUF_SIZE_MAX)
-+		return -EINVAL;
-+
-+	/* Check command sts and bus idle state */
-+	ret = regmap_read_poll_timeout(priv->regmap,
-+				       STARFIVE_PECI_CTRL, cmd_sts,
-+				       cmd_sts & STARFIVE_PECI_CTRL_RDY,
-+				       STARFIVE_PECI_IDLE_CHECK_INTERVAL_US,
-+				       STARFIVE_PECI_IDLE_CHECK_TIMEOUT_US);
-+	if (ret)
-+		return ret;
-+
-+	spin_lock_irq(&priv->lock);
-+	reinit_completion(&priv->xfer_complete);
-+
-+	peci_hdr = FIELD_PREP(STARFIVE_PECI_HDR_TARGET_ADDR_MASK, addr) |
-+		   FIELD_PREP(STARFIVE_PECI_HDR_WR_LEN_MASK, req->tx.len) |
-+		   FIELD_PREP(STARFIVE_PECI_HDR_RD_LEN_MASK, req->rx.len);
-+	regmap_write(priv->regmap, STARFIVE_PECI_HDR, peci_hdr);
-+
-+	/* Currently, we do not support write commands, force this bit to 0. */
-+	regmap_write_bits(priv->regmap, STARFIVE_PECI_CTRL,
-+			  STARFIVE_PECI_CTRL_AW_FCS_EN, 0);
-+
-+	for (i = 0; i < ALIGN(req->tx.len, 4) / 4; i++)
-+		regmap_write(priv->regmap, STARFIVE_PECI_WR_DATA(i),
-+			     get_unaligned_le32(&req->tx.buf[4 * i]));
-+
-+	dev_dbg(priv->dev, "addr : %#02x, tx.len : %#02x, rx.len : %#02x\n",
-+		addr, req->tx.len, req->rx.len);
-+	print_hex_dump_bytes("TX : ", DUMP_PREFIX_NONE, req->tx.buf,
-+			     req->tx.len);
-+
-+	/* Clear any interrupts before the transfer */
-+	regmap_write(priv->regmap, STARFIVE_PECI_INT_STS, STARFIVE_PECI_STS_MASK);
-+	priv->status = 0;
-+
-+	regmap_write_bits(priv->regmap, STARFIVE_PECI_CTRL,
-+			  STARFIVE_PECI_CTRL_START, STARFIVE_PECI_CTRL_START);
-+
-+	spin_unlock_irq(&priv->lock);
-+
-+	ret = wait_for_completion_interruptible_timeout(&priv->xfer_complete,
-+							timeout);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (ret == 0) {
-+		dev_dbg(priv->dev, "Timeout waiting for a response\n");
-+		return -ETIMEDOUT;
-+	}
-+
-+	spin_lock_irq(&priv->lock);
-+
-+	if (priv->status != STARFIVE_PECI_STS_XFER_DONE) {
-+		spin_unlock_irq(&priv->lock);
-+		dev_dbg(priv->dev, "No valid response, status: %#02x\n", priv->status);
-+		return -EIO;
-+	}
-+
-+	spin_unlock_irq(&priv->lock);
-+
-+	for (i = 0; i < ALIGN(req->rx.len, 4) / 4; i++) {
-+		regmap_read(priv->regmap, STARFIVE_PECI_RD_DATA(i), &msg_rd);
-+
-+		if (req->rx.len - 4 * (i + 1) >= 0) {
-+			put_unaligned_be32(msg_rd, &req->rx.buf[req->rx.len - 4 * (i + 1)]);
-+		} else {
-+			for (j = req->rx.len % 4 - 1; j >= 0; j--) {
-+				req->rx.buf[j] = (u8)msg_rd;
-+				msg_rd >>= 8;
-+			}
-+		}
-+	}
-+
-+	print_hex_dump_bytes("RX : ",
-+			     DUMP_PREFIX_NONE, req->rx.buf, req->rx.len);
-+
-+	return 0;
-+}
-+
-+static irqreturn_t starfive_peci_irq_handler(int irq, void *arg)
-+{
-+	struct starfive_peci *priv = arg;
-+	u32 status;
-+
-+	spin_lock(&priv->lock);
-+	regmap_read(priv->regmap, STARFIVE_PECI_INT_STS, &status);
-+	priv->status |= (status & STARFIVE_PECI_STS_MASK);
-+	regmap_write(priv->regmap, STARFIVE_PECI_INT_STS,
-+		     status & STARFIVE_PECI_STS_MASK);
-+
-+	/*
-+	 * All commands are terminated with the XFER_DONE bit set, even when
-+	 * an error condition is reported alongside it.
-+	 */
-+	if (status & STARFIVE_PECI_STS_XFER_DONE)
-+		complete(&priv->xfer_complete);
-+
-+	spin_unlock(&priv->lock);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void starfive_peci_clk_reset_release(void *data)
-+{
-+	struct starfive_peci *priv = data;
-+
-+	clk_disable_unprepare(priv->clk);
-+	reset_control_assert(priv->rst);
-+}
-+
-+static int starfive_peci_init_clk_rst(struct starfive_peci *priv)
-+{
-+	int ret;
-+
-+	priv->clk = devm_clk_get(priv->dev, NULL);
-+	if (IS_ERR(priv->clk))
-+		return dev_err_probe(priv->dev, PTR_ERR(priv->clk),
-+				     "Failed to get peci clock\n");
-+
-+	priv->rst = devm_reset_control_get_exclusive(priv->dev, NULL);
-+	if (IS_ERR(priv->rst))
-+		return dev_err_probe(priv->dev, PTR_ERR(priv->rst),
-+				     "Failed to get reset control\n");
-+
-+	ret = clk_prepare_enable(priv->clk);
-+	if (ret)
-+		return dev_err_probe(priv->dev, ret,
-+				     "Failed to enable peci clock\n");
-+
-+	ret = reset_control_deassert(priv->rst);
-+	if (ret) {
-+		clk_disable_unprepare(priv->clk);
-+		return dev_err_probe(priv->dev, ret,
-+				     "Failed to deassert reset control\n");
-+	}
-+
-+	return devm_add_action_or_reset(priv->dev, starfive_peci_clk_reset_release,
-+					priv);
-+}
-+
-+static int starfive_peci_init_ctrl(struct starfive_peci *priv)
-+{
-+	u32 cmd_sts;
-+	int ret;
-+
-+	ret = device_property_read_u32(priv->dev, "cmd-timeout-ms",
-+				       &priv->cmd_timeout_ms);
-+	if (ret) {
-+		priv->cmd_timeout_ms = STARFIVE_PECI_CMD_TIMEOUT_MS_DEFAULT;
-+	} else if (priv->cmd_timeout_ms > STARFIVE_PECI_CMD_TIMEOUT_MS_MAX ||
-+		   priv->cmd_timeout_ms == 0) {
-+		dev_warn(priv->dev,
-+			 "Invalid cmd-timeout-ms: %u, falling back to: %u\n",
-+			 priv->cmd_timeout_ms,
-+			 STARFIVE_PECI_CMD_TIMEOUT_MS_DEFAULT);
-+
-+		priv->cmd_timeout_ms = STARFIVE_PECI_CMD_TIMEOUT_MS_DEFAULT;
-+	}
-+
-+	regmap_write_bits(priv->regmap, STARFIVE_PECI_F_CTRL,
-+			  STARFIVE_PECI_F_CTRL_EN, STARFIVE_PECI_F_CTRL_EN);
-+	regmap_write_bits(priv->regmap, STARFIVE_PECI_CTRL,
-+			  STARFIVE_PECI_CTRL_FCS_MODE, STARFIVE_PECI_CTRL_FCS_MODE);
-+
-+	ret = regmap_read_poll_timeout(priv->regmap,
-+				       STARFIVE_PECI_CTRL, cmd_sts,
-+				       cmd_sts & STARFIVE_PECI_CTRL_RDY,
-+				       STARFIVE_PECI_IDLE_CHECK_INTERVAL_US,
-+				       STARFIVE_PECI_IDLE_CHECK_TIMEOUT_US);
-+	if (ret)
-+		return ret;
-+
-+	regmap_write(priv->regmap, STARFIVE_PECI_INT_STS, STARFIVE_PECI_STS_MASK);
-+
-+	/* PECI interrupt enable */
-+	regmap_write(priv->regmap, STARFIVE_PECI_INT_EN, STARFIVE_PECI_INT_ALL);
-+
-+	return 0;
-+}
-+
-+static const struct regmap_config starfive_peci_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.max_register = STARFIVE_PECI_MAX_REG,
-+	.fast_io = true,
-+};
-+
-+static const struct peci_controller_ops starfive_ops = {
-+	.xfer = starfive_peci_xfer,
-+};
-+
-+static int starfive_peci_probe(struct platform_device *pdev)
-+{
-+	struct peci_controller *controller;
-+	struct starfive_peci *priv;
-+	void __iomem *base;
-+	int ret;
-+
-+	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->dev = &pdev->dev;
-+	dev_set_drvdata(&pdev->dev, priv);
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	priv->regmap = devm_regmap_init_mmio(&pdev->dev, base,
-+					     &starfive_peci_regmap_config);
-+	if (IS_ERR(priv->regmap))
-+		return dev_err_probe(priv->dev, PTR_ERR(priv->regmap),
-+				     "Failed to initialize regmap\n");
-+
-+	priv->irq = platform_get_irq(pdev, 0);
-+	if (priv->irq < 0)
-+		return dev_err_probe(priv->dev, priv->irq, "Failed to get IRQ\n");
-+
-+	init_completion(&priv->xfer_complete);
-+	spin_lock_init(&priv->lock);
-+
-+	ret = starfive_peci_init_clk_rst(priv);
-+	if (ret)
-+		return dev_err_probe(priv->dev, ret, "Failed to initialize clock and reset\n");
-+
-+	ret = devm_request_irq(&pdev->dev,
-+			       priv->irq, starfive_peci_irq_handler,
-+			       0, "peci-starfive", priv);
-+	if (ret)
-+		return dev_err_probe(priv->dev, ret, "Failed to request IRQ\n");
-+
-+	ret = starfive_peci_init_ctrl(priv);
-+	if (ret)
-+		return dev_err_probe(priv->dev, ret, "Failed to initialize control\n");
-+
-+	controller = devm_peci_controller_add(priv->dev, &starfive_ops);
-+	if (IS_ERR(controller))
-+		return dev_err_probe(priv->dev, PTR_ERR(controller),
-+				     "Failed to add peci controller\n");
-+
-+	priv->controller = controller;
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id starfive_peci_of_table[] = {
-+	{ .compatible = "starfive,jhb100-peci", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, starfive_peci_of_table);
-+
-+static struct platform_driver starfive_peci_driver = {
-+	.probe	= starfive_peci_probe,
-+	.driver = {
-+		.name		= KBUILD_MODNAME,
-+		.of_match_table = starfive_peci_of_table,
-+	},
-+};
-+module_platform_driver(starfive_peci_driver);
-+
-+MODULE_AUTHOR("Changhuang Liang <changhuang.liang@starfivetech.com>");
-+MODULE_AUTHOR("Mason Huo <mason.huo@starfivetech.com>");
-+MODULE_DESCRIPTION("StarFive PECI driver");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PECI");
--- 
-2.25.1
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
