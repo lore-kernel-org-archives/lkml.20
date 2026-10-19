@@ -1,142 +1,118 @@
-Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E368B368D46;
-	Mon, 19 Oct 2026 11:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DC649BB65
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407963; cv=none; b=povg6ScOUdJ3nN/HvGLUYXPehtLzyKsH8x/S+L7AKtfjMSZPKIQ+APateoY211r4HTPHAULFoo+jiyp914VEcKU1V6v2u179jRFzDBvdBS/k6rB18LiePJ+i2+36EZHnUe0yI5Bq78JPpdV6btUXhdHr+vaChNd6qpUjzzKLLMA=
+	t=1792407962; cv=none; b=G1DCP/CEVgIAoPyCGhiXzlZPYKhdc1nYe5qdPCe7qJbNLMZ+88nbY/nFBrt1jhOauCvHNK8CgJmArg26QHE12pEozQsjNhXaUmdcnRpPUu9ONM5gOIED4mmh7Ka+AbpCzPJqsxq+/bDFYK5gTEgce7TEYk2Xj6SrQSABC41AsvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407963; c=relaxed/simple;
-	bh=q3Osp7XBCbkWA+wml9mrdby5PBCh+8inolHrTNddQes=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e5p/zAXLF6GrjKsonEUlwjrex7zZh5y44PK4NBuVvM4CS+0ziUa+gMSVSuExQ+sRS/b8K0+KsaGH5XQ8gIEm/NrallvIjs+I1ARd6ENKzerDXVkEHhFwl+S58G1FF3Ktxt65n0yMwykUYZBsQ9azGI9t47kh8GgnnjXHZ4BQiOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07492868|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0329262-0.00142328-0.96565;FP=16569057732586933428|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jkUvDGy_1792407943;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jkUvDGy_1792407943 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 19 Oct 2026 19:05:49 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mmyangfl@gmail.com,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: [PATCH net-next v15 0/5] net: dsa: motorcomm: add support yt922x driver
-Date: Mon, 19 Oct 2026 19:05:38 +0800
-Message-Id: <20261019110543.2999419-1-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1792407962; c=relaxed/simple;
+	bh=EK1L5/upnuIpVwUbkV1WZDXtKzkL6enxHVYpa/RxkyA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B8JBFAcnrH8AuMkrLJCJtnjnZNs7qGIj0N6Er97H0Qyav9pzz5aZztM0q2AsEiOydsdCTADy/QFaAJ6Ga1dvj8q26tfVRovURTjRBXnDmuNe1hVkg5PU7aNHlubqo6vmSCyuIDSF7x5X3DlqqHkaWk2KXBBEgg8J7TELjjHP6aI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f/l1URbb; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f/l1URbb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792407961; x=1823943961;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=EK1L5/upnuIpVwUbkV1WZDXtKzkL6enxHVYpa/RxkyA=;
+  b=f/l1URbbN+hBaVztDhSbUJ1aUn9wTl07fwhDvtiH77TvRiJ7AtMUMElM
+   x7iixU7LCgsJb4coWfGtLoRYd9zNjZs4PzVRKIgMuB/3ZqndrzYR58xHm
+   B8mxBMFG2PYVAbfVVe/AaafMzE2bwe8oZ27sihPSSdzo4k+kj5SGnjQOD
+   G7uye3Ex+g/cXYG0uBAcF3eccxBWy6CDrDCgU5UTPi8dxVGN+jnrzsREu
+   kwdPpmBRTrYTCYvV7nmHQohDd5mjuAI1DYtHV/JFNSoBF6utWR/NJFmST
+   xJAlFR3sOvLd32ral5/xDNirEVRVDzdCzitU9XThsqU4L8c+onfdbxNU+
+   w==;
+X-CSE-ConnectionGUID: Ru38/NfqT7CDi/OrfE5VKg==
+X-CSE-MsgGUID: 5K5kdU5GTaqSROsf16whdQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1111385"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1111385"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 04:06:01 -0700
+X-CSE-ConnectionGUID: bObFOTqeQA2EXCCutklAlw==
+X-CSE-MsgGUID: +agKhYjrToKrqBh54NgL4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2509816"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 04:05:58 -0700
+Date: Mon, 19 Oct 2026 14:05:55 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+	Kees Cook <kees@kernel.org>, Petr Mladek <pmladek@suse.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Tycho Andersen <tycho@tycho.pizza>,
+	Namhyung Kim <namhyung@kernel.org>
+Subject: Re: [PATCH v4 2/2] kallsyms: Don't leak pointers for unresolved
+ symbols
+Message-ID: <atX5kxXueI5tjoYa@ashevche-desk.local>
+References: <20261019-vsprintf_kallsym-v4-0-ffd3c012d00c@linutronix.de>
+ <20261019-vsprintf_kallsym-v4-2-ffd3c012d00c@linutronix.de>
+ <atXyO26fEVPx2qDP@ashevche-desk.local>
+ <20261019105025.igQtXzuZ@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019105025.igQtXzuZ@linutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-This patchset mainly adds support for the yt922x series to the dsa driver.
-Currently, only the yt9224 in the yt922x series is supported, and the
-corresponding tag handling for yt922x is added.
+On Mon, Oct 19, 2026 at 12:50:25PM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-10-19 13:34:35 [+0300], Andy Shevchenko wrote:
+> > > +int snprintf_default_pointer(char *buf, unsigned int len, const void *ptr)
+> > > +{
+> > > +	struct printf_spec spec = {
+> > > +		.base = 10,
+> > > +		.precision = -1,
+> > > +		.field_width = -1,
+> > > +	};
+> > 
+> > Isn't it the same as default_dec_spec?
 
-At the same time, it optimizes the max ports boundary check in the
-existing code, and initializes the dsa switch based on the chipid.
+> Except for .field_width, yes.
 
-changes in v15:
-1) Revert the use of GENMASK_U16() to replace GENMASK(), so as to
-   facilitate adaptation to scenarios with more ports in the future.
-2) Group functions with the same functionality together in mdio_bus.c.
-3) Remove meaningless code comments.
-4) Renaming parameters in yt922x_pcs_get_state().
-5) Add neg_mode and advertising handle.
+You can update it there. I think in all other cases (I briefly checked, but
+haven't run any smoke test with KUnit) it should be an equivalent.
 
-changes in v14:
-1) Replace the goto-based skip_extmode_check path with an early
-   conditional in yt921x_chip_detect().
+> > > +	unsigned int w;
+> > > +	char *endp;
+> > > +
+> > > +	endp = default_pointer(buf, buf + len, ptr, spec);
+> > > +	w = min_t(unsigned int, len - 1, endp - buf);
 
-changes in v13:
-1) Fix a compilation error in patch1 only.
-   The change is limited to the yt92xx_register_switch function:
-   - Replace yt921x_priv with dsa_to_yt921x_priv
-   - Replace to_device with yt921x_priv_to_device
+This also won't properly work for len = 0, I assume? So one can't make
+something like kasprintf() on top of this.
 
-changes in v12:
-1) Rebase the code.
-2) Delete origin patch4 and patch5 about MIB init and remove operation.
-3) Optimize error message logging.
-4) Add documents about yt922x tag.
+> > May we avoid min_t()?
+> 
+> min() complains about signedness (len unsigned and ptr diff signed).
+> endp is >= buf so it will be unsigned.
+> An alternative would be manual comparison if the buffer size has been
+> exceeded or not and act upon it but this looks simpler.
 
-changes in v11:
-1) Initialize ctrl variable inside yt922x_port_up().
-2) Update maitainer for new file.
+It looks simpler, it looks wrong :-)
 
-changes in v10:
-1) Rebase the code.
-
-changes in v9:
-patch 1: 1) Add a dev_err() when chipid mismatch.
-patch 3: 1) Using GENMASK_U* to replace GENMASK
-
-changes in v8:
-patch 1: 1) Add a lock operation to acquire the chip ID during the probe()
-         stage.
-         2) Remove meaningless changes.
-patch 3: Modify the changelog description.
-patch 6: 1) Remove sds_init() in this patch.
-         2) Code refactoring, including yt922x_sds_phyaddr_get() and
-            yt921x_needs_extmode_check()
-         3) In yt921x_intif_ext_write() and yt921x_intif_ext_read(),
-            add a boundary check for phyaddr. The reason is that the
-            phyaddr of the top ext register is 9, so max_ports should
-            be used for the check to include it.
-         4) In the yt922x driver, added initialization of yt921x_port
-            for exporting priv.
-
-changes in v7:
-patch 1: Fix the series_lookup() redundancy issue.
-         Fix the dsa->priv initialization and the code style issue.
-patch 6: Move psc definition to yt921x_port
-         Fix psc_get_state() and an_restart().
-         Use the existing yt921x driver interface for the duplicated
-         logic for chip_reset().
-         Move the yt922x_cpu_port_set() to chip_setup_dsa() to align
-         with yt921x function.
-
-Kyle Switch (5):
-  net: dsa: motorcomm: initialize dsa_switch based on chipid
-  net: dsa: motorcomm: use max_ports in series for port bounds checking
-  net: dsa: motorcomm: use fixed-width GENMASK_U*() helpers
-  net: dsa: tag_yt922x: add support for Motorcomm YT922x tags
-  net: dsa: motorcomm: Add support for Motorcomm YT922x
-
- MAINTAINERS                          |   2 +
- drivers/net/dsa/motorcomm/Kconfig    |   7 +-
- drivers/net/dsa/motorcomm/Makefile   |   1 +
- drivers/net/dsa/motorcomm/chip.c     | 574 ++++++++++++++++++++++++++-
- drivers/net/dsa/motorcomm/chip.h     | 101 +++++
- drivers/net/dsa/motorcomm/mdio_bus.c |  48 ++-
- drivers/net/dsa/motorcomm/mdio_bus.h |   4 +
- drivers/net/dsa/motorcomm/pcs-922x.c | 282 +++++++++++++
- drivers/net/dsa/motorcomm/pcs.h      |   1 +
- include/net/dsa.h                    |   2 +
- net/dsa/Kconfig                      |   6 +
- net/dsa/Makefile                     |   1 +
- net/dsa/tag_yt922x.c                 | 122 ++++++
- 13 files changed, 1134 insertions(+), 17 deletions(-)
- create mode 100644 drivers/net/dsa/motorcomm/pcs-922x.c
- create mode 100644 net/dsa/tag_yt922x.c
+> > > +	buf[w] = '\0';
+> > > +	return endp - buf;
+> > > +}
 
 -- 
-2.25.1
+With Best Regards,
+Andy Shevchenko
+
 
