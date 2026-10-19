@@ -1,124 +1,150 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013030.outbound.protection.outlook.com [40.107.201.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C884F55AD
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792415308; cv=fail; b=nqndHfwk/X+uBHuOFgZUObC/KjSOY9PcgHJigMAAtmhiHcI7dDxjvLxkMgWH5Zo2o6FvF4PQq5+s1iIRc4shdsnGq8M/HXbyVmzUBmcv+wC4BYOXWpZRZamIKqIvXh+CLwzM0wS5CRBFsA8ea6cXKUJebsaunp6C8lDNWAfW4k8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792415308; c=relaxed/simple;
-	bh=1Jrtcr0/CS+OVCJf0QRPaI6CdQbaZ+GDLpJslfXZeZo=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pi1Q6XxcKpSmOtz2MU21FT+hBhHkbwtwgxPGGIs//Oc56DdSIJ5bkgBOn+hU+2Z/7VXjY9UebC64jIJd8RUpwEqHGMI+zqLX6zxC2D2UNCIg/rY++8Zk3v1x0uqDdMCYbNx0UZPH5f6BD5xMJm4kNL7WtQJ7Bdb1fRqP2LlZye0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=v5q0vG3o; arc=fail smtp.client-ip=40.107.201.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DE74F390B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792415326; cv=none; b=Xi6ExL94TApiA1nfiBZ0whIV2PgpGtSM0vPpnd5QC1V18CjcMe7fyM6+NRjdUoL9HWsQRy5EoWyTr5khX77MJGERSCUEBOpUqhkKgnO47R9btbMy/Pq7rn8bZxhTez0SN6XuQQNN4ZXlr1/T8fONwX3RKnAy8I2/cgWhfJFpc7M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792415326; c=relaxed/simple;
+	bh=6n04UjmHWzHkRI2pU81sYk4TGUvABFkPV8ul8H4khJc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aNTP02jn8xlNIVY+etypttnehrWE6TOJSZu/RR0k4hjVgBIPUb1yt7hWtVECsS2g21rKhnmBpfSUAIi+FcDQcQeEkT0q5seLTk3nYYDEHNxcbcBkUMWeridrIGovWh6tdqoq4ScIRiGbhnlGVzebyq+IcHuddzcXBgiiKUXnnrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V5C0rCwh; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="v5q0vG3o"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JZOBU7YxZGB3RWBhVT7EKBUJIvV35eshDy8zjTkooReJgF/3HA0F61HJHBnpWdDI2CKzF/Whv09PK1PQrHp/1pMbUgL4xQRkxhTHUUlBcmQQVA7egosU9vfbbtrTkrjdaNR1+bHK1Inh2BcFmm+G1eA2HT/OYWUYeUW7Hq9nrhfG3rg7mDjgSqrbhjV1TYdmVkYqBSNOVpBx/Gr2NLk+1GiXIk9SdRiwd4w3zSkEV2z54NqSxoQ2AVnhf6+x3tTwIdbFvZg1RRnkVwJFonhG9vXejyyS/lA21r1+ObHK/BxwVn54sjQuduARsggRxS20Uazgw5Bq8Ttv+2EMlkG4SQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HIc3N7etWNw70yACoOjlSKAB8rRtNg0f3BDP9Jx2iHA=;
- b=QjgCjEY+cDhoLm03tZ7el7s9Hat6eWUB/iZggK9YjQuvlMoKTzJet11gwqg+QeIGNaB55F2K/GPr6qUhN6VlS2dz2RrcM1yfaEmlGjcKMnUBtLRMt+O9JUmlWpnySsAPpeh5nWvZeExd3dFuewfitumTD3gUATtoj9/PQKKDqgKqgBVXTSGGgOHkawT8ksm03X3xzvfRsDnXuX2foVINIWzIccJ3QZ1NLmjZlMi36ZVH9ZYxJ9ilv9mKr4ZeYG31XDbQr6/lyrB0RrHqlAZquz/r3Q+1//1kQ2yCEkAVsZeiLqtgSeDxj3A8QXHPtG3KsFaZ+rQMldccJEL48kPEFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HIc3N7etWNw70yACoOjlSKAB8rRtNg0f3BDP9Jx2iHA=;
- b=v5q0vG3ojA2qRYMd8MdtO60aV1rEyXKBZ9U9/ghTZp7Kvngue5jfer3sUaMyIo+Uzl03apEai3rIAIBFPi3PNmJIEnIjxyFNctyummQx4mUEuYfmm2I3XELOquOhwakI5u/GPCWR8re/vnqo27r0o089uPr3Y8RmwtsSh2orMok=
-Received: from BN9PR03CA0624.namprd03.prod.outlook.com (2603:10b6:408:106::29)
- by SJ5PPF75EAF8F39.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::999) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 13:08:23 +0000
-Received: from BN5PEPF00046987.namprd02.prod.outlook.com
- (2603:10b6:408:106:cafe::ac) by BN9PR03CA0624.outlook.office365.com
- (2603:10b6:408:106::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Mon,
- 19 Oct 2026 13:08:23 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN5PEPF00046987.mail.protection.outlook.com (10.167.245.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 13:08:23 +0000
-Received: from BLRANKISONI.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
- 2026 08:08:11 -0500
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: <iommu@lists.linux.dev>
-CC: <vasant.hegde@amd.com>, <suravee.suthikulpanit@amd.com>,
-	<joro@8bytes.org>, <will@kernel.org>, <robin.murphy@arm.com>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 0/2] iommu/amd: Honor IVINFO[PAsize] for paging domains
-Date: Mon, 19 Oct 2026 13:08:00 +0000
-Message-ID: <cover.1792156095.git.Ankit.Soni@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V5C0rCwh"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso22665605e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:08:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792415323; x=1793020123; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vTQAPwM+cnw+xqrbQuZPi16xVs48V+krw0MsL6q3+zM=;
+        b=V5C0rCwhAEbMYRgw5cI6JESIJDR7L8tJpfRch3GmnL5Lnhi+yF/y1oigkXx+ZgEQI7
+         SdIPuBNz6rrAsk/cQOYPEWD/jTgtZSlDbDJugVoU2hgf0Il36Q5JPKmqe3Z3w/gFyEB1
+         Hbex/mfa1Z7bywpIGRfaP7pLwCYe/QWuMyzAKXBmJFo7mZJoFfCWkCVDld+bRD4YQuym
+         l/LXI71wEwctd1YuWtOC5gUBVJRZ70VbUP/xx68iVsdGBTT+2QUDHhsJ6TuGHwrnZV7A
+         VEIC8EeahShy2EvhVtQz1moTW1YY4J5hnaDUr8uVH5D8K6SQOsIBM+FcwMhPvIi/TK0k
+         s2gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792415323; x=1793020123;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vTQAPwM+cnw+xqrbQuZPi16xVs48V+krw0MsL6q3+zM=;
+        b=PTqxeJ2HUWasvc8OxGL4zlh6HUKBE5B2NZfPXF+NYbc5ODFc+R00FZvMNZQmmX3taE
+         nKap4g3BWDfRNq/al9LzTYYt0AOvIvVlARnG7ym70tzKNibIPY93NlK+/nlrqdt4Eq1f
+         FhSmi2Em05l5ZHI0hPVQq639LyXSafKVGQ4SvkJYuD91b1jPhnfrDV53B1eW68BDSivZ
+         KziGSNBXDYlQqK4CozrznmIvGs6Fb2yHalpw1IRiiq8VEn0+GltmBOLBh9YXTYvR8xtN
+         kP2AdhhTf75GL2GKgiS9tnTUkhDCqLeucLc68c5Iqn+XPUtTqcjfN6idblHT8rD/xu7V
+         LjDA==
+X-Forwarded-Encrypted: i=1; AKwUvBz9hoAaN+nbjWLt6i2me7a2MDFDG8s03PtM0Te5QZ1bNQP0sE3KF4sZZwOyqaWjTpXjfsA8hlxJbE4mXkU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJO9E9PFyOzTeJLOd0RxEKq5hd/AviztfojER7mmiXwP9rd/zgm
+	3hg+umqO1DLpICsQ55mlBZUc9pOEwkRxYuRczW2Jf0V8iwJR5aqNGOOs3bTchUY=
+X-Gm-Gg: AYBFou2dPXoDJzhWPawpCbTBX/k+GoG5Zh9IssCX2Qm7CBVJAnoaxZFeiCttC/YExWw
+	HLJkeerr/viZ9tk9A8jc5IKW7ZiitkVHCmx+Q2+UzaAClOhOuvDrwSjUXYOFzBpKtdX++2RXzPt
+	O5DPb3uQ6v+WfG+8DQFqWFzfTD9SIN08VMIsRNw2ksvjLnJc+lBg3YMCKDD96EGaV7vtwT8E2d9
+	t9zcp72L4IRCzNHnuJyvYWw4s9eor25t3lINmr8Rno3hvGN+eKKJcEPiEoEUJQTpjta8QPKyOZz
+	sYh/D/lx4LbPSS4ffQyw0iPHQEDs22JjniZT+oGkUOs62GuOgex3TzLixL9HJmFk5dGw/SjIf3L
+	RUlPs7HS2McbMGMZCjJRSVnSEbA6cx0HKpJTWLwhHW1gHMGgrJg6ZyFt0x2Q64AbErTliQrfdDJ
+	5Dwhu7FUiDt7bYluID7mUHJd6pNiN8SbnMvSdHMg+SZrx+iLLGBeLAUh9dPOrvNcfWkPgT6osEY
+	hI95qqiFLTCZ1+vg6rUDgJ+JY3UfU9az5gTUEb1vpiTQVIQAkKWFgpBOI6tzw==
+X-Received: by 2002:a05:600c:8485:b0:4a1:d7c3:d3d with SMTP id 5b1f17b1804b1-4a1ef992f33mr17017955e9.10.1792415322800;
+        Mon, 19 Oct 2026 06:08:42 -0700 (PDT)
+Received: from lithos ([2a02:810d:4a94:b300:7ea2:632d:ad2b:6944])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8d12sm23659618f8f.36.2026.10.19.06.08.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 06:08:42 -0700 (PDT)
+Date: Mon, 19 Oct 2026 15:08:37 +0200
+From: Florian Fuchs <fuchsfl@gmail.com>
+To: Daniel Palmer <daniel@0x0f.com>
+Cc: ysato@users.sourceforge.jp, dalias@libc.org,
+	glaubitz@physik.fu-berlin.de, dlemoal@kernel.org, cassel@kernel.org,
+	linux-sh@vger.kernel.org, linux-ide@vger.kernel.org,
+	geert@linux-m68k.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ata: pata_artop: read the ATP865 mode register
+ through pci_iomap
+Message-ID: <atYWVQ8ymEgIcyZh@lithos>
+References: <20261017041419.311921-1-daniel@0x0f.com>
+ <20261017041419.311921-2-daniel@0x0f.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN5PEPF00046987:EE_|SJ5PPF75EAF8F39:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e12e663-3c6c-4711-b2e1-08df2de20e3e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|56012099006|11063799006|261009223027099003|10067099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	1NNv5IseDsrJHh47MRN2vRw2st8HDb4QhDGVDPCXq3kuNiEVhHs3FJgpIkbLJRkxAfF3N2yTSDYZhDUVkz7GmjkYsMYd8u4pdOQYWXB83vB/zCPRA718LwQjR+paAE8tMa9UbSsAgUgvq8dN4c0VXcPaYf/+iauzWAHPZiH/qDlxDgbjghqZ2ussYcLkaCanADJub1gyFp0voJfYb6RpMDrc3F66b+LzkpawdWtqiAEGgCk15ezoJNdWaMSe8s2e3C5ml5/ACpZNK/7Mn+7L05jKdSkd38Fo81pGZsT3UsNblf7CY6tVgvT3VXig1BWquEAVhma9yhrdv4I02hJJebT7MfVPN2bp7PuPVGgsocchhjfwpXphR4AVDaJ+JMnwvB/8kDv+OXhhEdwGThVFFQsBObjQ9YwGUBPwkMTY4gaY+snd8hFPWaYqCU7AuSQA5s/LrSoes8xGWQpStW461Sc4bsC+rFNq4jVBibDGEPp8ZNZSLW1TuvGB9zg8heHbUHsWmzdh47RQtf6JCFaTs9UBi1LFGwaPB8AfUl0wiuPqKuvZEXN7nBItkLkglcF/SrdL2Sw0k7LpJjxVf+cYDOC1LY4wFZAExD4BRDo6J4Hd5gGJdsoSIDqZ0tDGcFT5EChqASR8RN/qysWbQxtTTym79IRa2q+a1JsVDuZ3cu4KC9FdwJkUU5C8DziISdHr
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	GeEJCjW4oF45fMKibpp4Y4Waz3JC0co0I3iXgA8SLmUoGi7CKA5D5tZoaOFaX5pGyDj1jHVmuxuRA0CCDG9NeCzg3tbD2Ks7J+aIzwJh5AeIqr5yNx8k8KnG/+vrnW5KBUI5DYZhkP5BPq9HQtTqR27HF02asxlvUHOFLgLI7XvpqllhEZZO88fWBdqcJ9BIDcBykwi+jawnibdiKJpMhRP+8lpIdosqr9/yBmj7ZXTM3ulXoa3td2WqjdsUTDPPs0XvAL4Ebc5gDt4VxVg/IaOg+djWGVIB8VNMJS5025McpBPK7+OtLT4kNP5Ecmaw0L+XbvluViLR+SQ/RhUe8HUm0tKaMQ/pgShWpoASJnWXg1FXmbXZrRcvKK50VyTEIuthYkMqBqNmGhbBTmxsezcc6FG6aMlpX4C6izvMTOJ+BIgoIam9JuKxqJ6gYJ4u
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 13:08:23.4355
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e12e663-3c6c-4711-b2e1-08df2de20e3e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN5PEPF00046987.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF75EAF8F39
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017041419.311921-2-daniel@0x0f.com>
 
-The AMD IOMMU driver hardcodes a 52-bit output address size when it
-creates paging domains. This series honors the PAsize reported in ACPI
-IVRS IVinfo instead, so maps cannot exceed what firmware or a VM
-advertises. Patch 1 moves page-table setup into init_pgtable_params()
-after the IVHD walk, with no functional change intended. Patch 2 uses that
-helper for PAsize and applies it to paging domains.
+Hi Daniel,
 
-Ankit Soni (2):
-  iommu/amd: Move page-table setup into init_pgtable_params()
-  iommu/amd: Adhere to IVINFO[PAsize] for output address limits
+On 17 Oct 13:14, Daniel Palmer wrote:
+> artop_init_one() probes the 6280's "fast" bit with inb() on the raw
+> start address of BAR 4.  That address is a PCI I/O address, which is
+> only a usable port number on platforms whose I/O port base maps PCI I/O
+> space one to one.  On an SH7751 LANDISK (identity io_port_base, PCI I/O
+> window at 0xfe240000) the resource starts at 0x1400 and inb(0x1400)
+> dereferences that address:
+> 
+>   BUG: unable to handle kernel paging request at 00001400
+>   PC is at artop_init_one+0x10e/0x170
+> 
+> Map the BAR with pci_iomap() and use ioread8(), as libata-sff does for
+> the BMDMA registers later on.
+> 
+> Signed-off-by: Daniel Palmer <daniel@0x0f.com>
+> ---
+>  drivers/ata/pata_artop.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/ata/pata_artop.c b/drivers/ata/pata_artop.c
+> index 9f8d41639a62..351ff4c8e48e 100644
+> --- a/drivers/ata/pata_artop.c
+> +++ b/drivers/ata/pata_artop.c
+> @@ -405,13 +405,21 @@ static int artop_init_one (struct pci_dev *pdev, const struct pci_device_id *id)
+>  	case 1:		/* 6260 */
+>  		ppi[0] = &info_626x;
+>  		break;
+> -	case 2:		/* 6280 or 6280 + fast */
+> -		if (inb(pci_resource_start(pdev, 4)) & 0x10)
+> +	case 2: {	/* 6280 or 6280 + fast */
+> +		void __iomem *bmdma = pci_iomap(pdev, 4, 1);
+> +		u8 cfg;
+> +
+> +		if (!bmdma)
+> +			return -ENOMEM;
+> +		cfg = ioread8(bmdma);
+> +		pci_iounmap(pdev, bmdma);
+> +		if (cfg & 0x10)
+>  			ppi[0] = &info_628x_fast;
+>  		else
+>  			ppi[0] = &info_628x;
+>  		break;
+>  	}
+> +	}
+>  
+>  	BUG_ON(ppi[0] == NULL);
+>  
+> -- 
+> 2.55.0
+> 
 
- drivers/iommu/amd/amd_iommu.h       |  1 +
- drivers/iommu/amd/amd_iommu_types.h |  1 +
- drivers/iommu/amd/init.c            | 95 ++++++++++++++++-------------
- drivers/iommu/amd/iommu.c           |  4 +-
- 4 files changed, 58 insertions(+), 43 deletions(-)
+There is a small logic change, where -ENOMEM is returned, when BAR 4 is
+unassigned, where libata would fallback to PIO [0], so maybe it
+shouldn't fail when BAR 4 is unassigned?
 
+Tested-by: Florian Fuchs <fuchsfl@gmail.com> # on PX-EH40L (LANDISK HDL-U, ATP865 1191:0009 rev 10)
 
-base-commit: 90201351a862182bdabfc1ad1c97b1e1b6ed5931
--- 
-2.43.0
+I also tested forced PIO4 mode via libata.force=pio4, which also works
+on the device. (ata1.00: FORCE: xfer_mask set to pio4)
 
+[0] https://github.com/torvalds/linux/blob/master/drivers/ata/libata-sff.c#L3088
+
+Regards
+Florian
