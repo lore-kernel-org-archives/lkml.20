@@ -1,69 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422550;
-	b=EFsbos9j5AYP7RUufuJUywsQxAA9+XOAuzmIfbwMg5m2jAhEk+jr9TvBlytHL25mOEum
-	 5prGQ/tElKUzcdHlPNfE1V4OUnxwI/m1UfndXANeRsoKNRb9Nk7XsES8J7Rzap4LxZCbK
-	 ShEiCmD0lvBBJ6fOGb9syPwFJIt+teAH0qDuz4xphWaHs5jy0mBPUcxaQeMxmEAZ2X9CT
-	 oNbtxrNbR+xIk4lGL239cNI5bT8to4Kw40xcfHRBT7sKa+1NdYBCus7QQMGv6/ocwI2Tn
-	 GP1FUIn74YfZH3ejdvfC5edR2U1h+CGcSFTs7dj/C2OkUEyHLarLQ3OMFrfW+1hvr9w==
+	t=1792422754;
+	b=M+4IpuK3uXgNUgaUOe7LYTBdsGmDFx9S8NgAQo+NxV52iu3lBMDVQ9r4p6y6Za/o+RtO
+	 j3x+csv+fTYTSSJLyjMOpwo0wH22GFe6b86rdo78XmIz0jhgLY/wyrYRS/PwKAzLQretb
+	 v//+8mS3dfOSTxvdycZu3k/fKBdYHcWJGsVuvTX9ZLU+tcvDG7Bw3OWCqFxL+juYXD7GZ
+	 MgABuDwQ9byrXgwbwoyX1pfEEEsNwFqQlV0f+dj0s1caZhBnTv4jBXS4mCOm/lgtTxRA6
+	 +FQd3D3POJEyvrYnvvevGjFXNFQBFYphDNh1Ner41JhN2d4cXpjRJ4c7ai/3nler6ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422550;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=OpGtpRe3PDwE0TpF75JebLJBygVriDdxLs7RdURsK+4=;
-	b=JWqxQCKtD6jizafPWNpuvzes9Y9UCVXX7dAwTvIVZF0lh8k42kaUOpCjHbndOxpv3zWC
-	 3mXw7ksKDbvlLPd3BioaFSlS5XR06SseUN0lv14WzvaMmsw4B/vz4rn+yMQTuHNMH1ab8
-	 PAuQh/IhlHBC5M/9uGNJuPympltPLj8ijTK0Tmbmf/wfMazzHg5Y8B/hNbgZG1lET3Hum
-	 nV3FKI0I3AiaWXv7gGlyAooo7NoawWvX4xCoNKy3PcIqzV1E77UCMAyYbmFy1sKkr/9yp
-	 NAFt0hQnclby0GDnQCXLLAP/jChrlReT81oBBDHfOSocVgTVA0OWcR6ZK5YqLGKVIgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422754;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RqMiwNrNvXh5GTQNf5CbmkH7lo3XiBlAJIsepE6Yk1Y=;
+	b=q+ARuiylmJcT92FIsKflHVzyERFbntwpuOYjVg/NSMYFJ52viwlBGOdtf77RmH2gVQ9H
+	 rJrdaKNnoAr++HKLY832DJdZKiaPBmLhnjMpLkJVB56vygocdjweF0U1RDmcApDhmR5pt
+	 Nh13GHzhDe/MRUnp29+8cRPnoTe4Uv0UMsRNsFYfVm/UBdyzpUrb7v0uAnGEvZJ+td9yL
+	 EQGrIQmF76GB7mItT9JwAHbLGLyBJxmUJGZbih2udlHbVkdDPVtfnGlTb5mwRJJzJXw5v
+	 a6C8HzhrnErncT58+9NeqK9+2CbE9NvNHIcX40p8TSgXOKZfcDIPboHKRkO1bQ9zO0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Z+3njHN4;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=haUOTJMd;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=rp7lkRsF;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=YjxLj5UB;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E666086067
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:09:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1E666086067
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AD36098A0D;
+	Mon, 19 Oct 2026 15:12:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97AD36098A0D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Z+3njHN4;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=haUOTJMd
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792422540;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OpGtpRe3PDwE0TpF75JebLJBygVriDdxLs7RdURsK+4=;
-	b=Z+3njHN4+Wrivh+EZ+KE10BKGifjCgslIJ3pwMtIKSRK3KO6aewW+I9ILn5REcW+CbFtNP
-	2qtGbZuJbjSaKfpWu1EQIhVAUykcWon2XpHBJPPyo9u32icpSt6wY7rBFtsABP5IJWD/a1
-	BOZc7VDsAjGJQ5SaXoMtj9eab3flJYMyrNlFbRuh10lTfiRhQZkSMf8D5YdM+cNYC8bUIG
-	pk9Uls0vnj+IH9MhE71nZvW5Km4RBycG+ipS/8DN1nqrj8uVO6lnHkMvEpi1JW1AeT9a/H
-	/D5oYJvNtWiZHeKhe6xxx/akUklSvuILcfZgAAyq8n5MXRO+QMYZbJBOHf4n8A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792422540;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OpGtpRe3PDwE0TpF75JebLJBygVriDdxLs7RdURsK+4=;
-	b=haUOTJMd4U3S3cdhp6RPPO4SJusTcEWYj9U0wCFl2PY5TtUZOiYtb06Nyxs5FExkaDLhbc
-	HBuELag9u6FsOOAg==
-To: Wang Wensheng <wsw9603@163.com>, pmladek@suse.com, rostedt@goodmis.org,
- senozhatsky@chromium.org, d-tatianin@yandex-team.ru,
- linux-kernel@vger.kernel.org
-Cc: wsw9603@163.com
-Subject: Re: [PATCH] printk_ringbuffer: Fix space_used() when blk_lpos->next
- overflows
-In-Reply-To: <20261004075755.363989-1-wsw9603@163.com>
-References: <20261004075755.363989-1-wsw9603@163.com>
-Date: Mon, 19 Oct 2026 17:14:59 +0206
-Message-ID: <87h5ihpw1g.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=rp7lkRsF;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=YjxLj5UB
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792422751; bh=RqMiwNrNvXh5GTQNf5CbmkH
+	7lo3XiBlAJIsepE6Yk1Y=; b=rp7lkRsFVw84fXeEVT6DW+0FtZqF7z0IaBHDWwxOJ9mxkc+zG+
+	6J429ltznkrG79JiYuvVJOMkrMDF8B7KEiL2PJ/qx/ClddCvzXzWDvFy0H8yRU3LkJoYblvI7LF
+	aoDBUpgxbHwezGRTA8Bt8LkjgcHfyXCEsQlf1HwYOI9mm/ndzj3iSzKVHKHLiiarxKuROMAkjq8
+	dzpoxdlHqO5ik8nq1+ULO14MST6Tn2ASKd9qObD6fbep3py2WHicdRLfR7KZx13gqTGtkg3bqFM
+	TH7zxKkMSHvSjKrzOWyao6KgdBN1APLv5PwDQBxcTQs5jRYPIvO9Ck5HrZw6Pyl7FoQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1792422751; bh=RqMiwNrNvXh5GTQNf5CbmkH
+	7lo3XiBlAJIsepE6Yk1Y=; b=YjxLj5UB5NHsSwNRPzGbYpNe2BZB/uX2RWtNWtYIAAuny3xhuc
+	M0x9v5mWGNDPdtTUynqmoDj4YafgidjPHeDA==;
+Date: Mon, 19 Oct 2026 16:12:31 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: qiang.zhang@linux.dev
+CC: boqun@kernel.org, frederic@kernel.org, joelagnelf@nvidia.com,
+ linux-kernel@vger.kernel.org, neeraj.upadhyay@kernel.org, paulmck@kernel.org,
+ rcu@vger.kernel.org, urezki@gmail.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_doc=3A_Update_recent_RC?=
+ =?US-ASCII?Q?U/SRCU_API_additions_to_whatisRCU=2Erst?=
+In-Reply-To: <20261019122209.15604-2-qiang.zhang@linux.dev>
+Message-ID: <DD585FED-EB1E-4D71-B6DB-CFA4A15D4DCF@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,70 +65,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-04, Wang Wensheng <wsw9603@163.com> wrote:
-> Since commit 67e1b0052f6b ("printk_ringbuffer: don't needlessly wrap data
-> blocks around") blk_lpos is treated as not wrapped when blk_lpos->next
-> overflows to the start of data_ring. We use the indices of blk_lpos->next
-> and blk_lpos->start to calculate the size of the data_block. This computes
-> zero minus a small positive value, resulting in underflow and an
-> unexpectedly large value. Simply using the original lpos with wrap-counts
-> solves the problem.
+On 19 October 2026 13:22:09 BST, Zqiang <qiang.zhang@linux.dev> wrote:
+>The following commit introduces some new RCU/SRCU APIs:
 >
-> Fixes: 67e1b0052f6b ("printk_ringbuffer: don't needlessly wrap data blocks around")
-> Signed-off-by: Wang Wensheng <wsw9603@163.com>
+>Commit 'd3f52f53a562 ("srcu: Create an SRCU-fast-updown API")'
+>Commit 'dab06d6f9379 ("srcutree: Add an atomic Tree SRCU")'
+>Commit 'cacadb630375 ("srcu: Add guards for notrace variants of SRCU-fast
+>readers")'
+>Commit 'fa8a2d55139f ("srcu: Add lock guard for srcu_fast_updown flavor")'
+>Commit '954c0d741299 ("srcu: Add guards for SRCU-fast readers")'
+>
+>This commit therefore update thems and some missing RCU related APIs
+>to whatisRCU.rst.
+>
 
-Reviewed-by: John Ogness <john.ogness@linutronix.de>
+Since this relates to my patch, and it looks good:
 
-Yes, this is a real bug and this is the correct fix. Thank you.
+Acked-by: Bradley Morgan <brads@mainlining.org>
 
-Fortunately the bug does not cause any problems for the kernel because
-setup_log_buf() does not actually care if the "free space" has run
-out. And if the ringbuffer has filled, then the free space is 0 anyway,
-so even the reported "early log buf free" is correct.
 
-For that reason, I do not think it is strictly necessary to backport
-this to stable kernels. prb_record_text_space() is not exported.
+>Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+>---
+> Documentation/RCU/whatisRCU.rst | 24 +++++++++++++++++++++---
+> 1 file changed, 21 insertions(+), 3 deletions(-)
+>
+>diff --git a/Documentation/RCU/whatisRCU.rst b/Documentation/RCU/whatisRCU.rst
+>index e6767baff2d3..fe9dc3948690 100644
+>--- a/Documentation/RCU/whatisRCU.rst
+>+++ b/Documentation/RCU/whatisRCU.rst
+>@@ -1084,8 +1084,9 @@ RCU::
+> 	rcu_dereference			call_rcu
+> 	rcu_dereference_check		call_rcu_hurry
+> 	rcu_dereference_protected	kfree_rcu
+>-	rcu_read_lock_held		kvfree_rcu
+>-	rcu_read_lock_any_held		kfree_rcu_mightsleep
+>+	rcu_dereference_all		kvfree_rcu
+>+	rcu_read_lock_held		kfree_rcu_mightsleep
+>+	rcu_read_lock_any_held		kvfree_rcu_mightsleep
+> 	rcu_pointer_handoff		cond_synchronize_rcu
+> 	unrcu_pointer			cond_synchronize_rcu_full
+> 					cond_synchronize_rcu_expedited
+>@@ -1209,13 +1210,23 @@ SRCU::
+> 	srcu_read_lock_nmisafe		start_poll_synchronize_srcu
+> 	srcu_read_unlock_nmisafe	start_poll_synchronize_srcu_expedited
+> 	srcu_read_lock_notrace		poll_state_synchronize_srcu
+>-	srcu_read_unlock_notrace
+>+	srcu_read_unlock_notrace	synchronize_srcu_atomic
+> 	srcu_down_read
+> 	srcu_up_read
+> 	srcu_down_read_fast
+> 	srcu_up_read_fast
+>+	srcu_read_lock_fast_updown
+>+	srcu_read_unlock_fast_updown
+>+	srcu_read_lock_atomic
+>+	srcu_read_unlock_atomic
+> 	guard(srcu)()
+>+	guard(srcu_fast)()
+>+	guard(srcu_fast_notrace)()
+>+	guard(srcu_fast_updown)()
+> 	scoped_guard(srcu)
+>+	scoped_guard(srcu_fast)
+>+	scoped_guard(srcu_fast_notrace)
+>+	scoped_guard(srcu_fast_updown)
+> 	srcu_read_lock_held
+> 	srcu_dereference
+> 	srcu_dereference_check
+>@@ -1229,9 +1240,16 @@ SRCU: Initialization/cleanup/ordering::
+> 	DEFINE_STATIC_SRCU
+> 	DEFINE_SRCU_FAST        // for srcu_read_lock_fast() and friends
+> 	DEFINE_STATIC_SRCU_FAST // for srcu_read_lock_fast() and friends
+>+	DEFINE_SRCU_FAST_UPDOWN		// for srcu_read_lock_fast_updown() and friends
+>+	DEFINE_STATIC_SRCU_FAST_UPDOWN	// for srcu_read_lock_fast_updown() and friends
+>+	DEFINE_SRCU_ATOMIC		// for srcu_read_lock_atomic() and friends
+>+	DEFINE_STATIC_SRCU_ATOMIC	// for srcu_read_lock_atomic() and friends
+> 	init_srcu_struct
+> 	init_srcu_struct_fast
+>+	init_srcu_struct_fast_updown
+>+	init_srcu_struct_atomic
+> 	cleanup_srcu_struct
+>+	smp_mb__after_srcu_read_lock
+> 	smp_mb__after_srcu_read_unlock
+> 
+> All: lockdep-checked RCU utility APIs::
+>
 
-But still, this is a bug and needs to be fixed.
-
-The bug is easily visible using the kunit test by applying the following
-trivial patch.
-
-Before the fix I see max sizes of 4294959248. After the fix I see the
-correct max sizes of 280.
-
-diff --git a/kernel/printk/printk_ringbuffer_kunit_test.c b/kernel/printk/printk_ringbuffer_kunit_test.c
-index 2282348e869a6..d100e6bd79120 100644
---- a/kernel/printk/printk_ringbuffer_kunit_test.c
-+++ b/kernel/printk/printk_ringbuffer_kunit_test.c
-@@ -113,6 +113,7 @@ static int prbtest_writer(void *data)
- 	u32 record_size, text_size;
- 	unsigned long count = 0;
- 	struct printk_record r;
-+	unsigned long max = 0;
- 
- 	kunit_info(tr->test_data->test, "start thread %03lu (writer)\n", tr->num);
- 
-@@ -154,6 +155,9 @@ static int prbtest_writer(void *data)
- 			prb_commit(&e);
- 
- 			wake_up_interruptible(&tr->test_data->new_record_wait);
-+
-+			if (prb_record_text_space(&e) > max)
-+				max = prb_record_text_space(&e);
- 		}
- 
- 		if ((count++ & 0x3fff) == 0)
-@@ -163,7 +167,7 @@ static int prbtest_writer(void *data)
- 			break;
- 	}
- 
--	kunit_info(tr->test_data->test, "end thread %03lu: wrote=%lu\n", tr->num, count);
-+	kunit_info(tr->test_data->test, "end thread %03lu: wrote=%lu max=%lu\n", tr->num, count, max);
- 
- 	return 0;
- }
-
-John Ogness
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
