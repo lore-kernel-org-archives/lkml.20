@@ -1,125 +1,113 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Received: from esa2.hc1455-7.c3s2.iphmx.com (esa2.hc1455-7.c3s2.iphmx.com [207.54.90.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9EF4CEE7E;
-	Mon, 19 Oct 2026 12:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647444AB1A8;
+	Mon, 19 Oct 2026 12:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.90.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414485; cv=none; b=L0eQpLiozmm68vyX8nYPcISWDSBxKCtt45xX9vGBphwWgT+8bI4mCMOkRz8bLsXQ29dMgr2Pa9jYdKowmucJOy0TpF4lCvJRXVKgXFO5BPgElHg4SQvwiDkbZyACFJsjTzWPR1kb2ajr+OKYIBsTQ5P1HNp23wMPqzUpaQuxmL8=
+	t=1792414484; cv=none; b=MmgdnhrzW2nDkpKUOYDMtDaAFSM14cA2wn5k7kVUV1A9ew08SnhAki+dxpN7Udlegd7kGxzLI/Tz65pQL7LSTkKUVJ6Yn6ZC5f1LTRl0xK7d4JJ8vhIyX/hEjgeq5Pi8neeO9a/LKUYgcNFRlK33fb6Vcw0LS+vQbVU4WWA7a9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414485; c=relaxed/simple;
-	bh=f7+CSI21ULZAx2MnSdN/FH8vkpUscy4bdliXenRSZew=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lfszHrjbJtJxjsGTKY6yu2bS6/KXJbTdaucRcgkcANioVrh8SwM/W0xgtRf7WAg23ZWxRrNtPHDrqWZLDssB+CYuMldy7PN97DBPgPsPp89/IFsADiw2YT1BfYaFS2c2qoCF6S/PwBfcy6NZvpCV5Mqqg5J7f8oJR+jday9LARM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=e0a+KyrJ; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1792414484; c=relaxed/simple;
+	bh=lG8ba8f3XvMZ016RxZR1uTEgZGmbv/N4GGCyJVqPUXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sG0UuE4mkHGEpQqInnZAZ6IgKe8MwEAMRAqF1AyuTOG3NOxQN7oqTWTKi4kr43pNzvb9bdq8tgoK+7nH+g0uwUcp/uIRSIUgmwOzebntCNbSPtM9+iCa5b6fFKofV66PFsdN8BAplPHJYvCmx4QtlXhNv7QrLJvbrQjaKTqAhZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=Tw5QL/pZ; arc=none smtp.client-ip=207.54.90.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="e0a+KyrJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1792414475;
-	bh=f7+CSI21ULZAx2MnSdN/FH8vkpUscy4bdliXenRSZew=;
-	h=From:To:Cc:Subject:Date:From;
-	b=e0a+KyrJ7eX71otPcAkU9TVo1GQi+SSevky2jj0fPjJfNBB+EShanapr+CMjN1ScT
-	 DzTFKErZZ9fnS5KpvFLd4VBHdRkWNy2yTtVvNlhm29k8tnAmuTIQ/IIwkyrgk0aE5n
-	 KOtE7S+d0YIKUO9Za/fu7PxxBs3ureiCgRWz124d4ni6yV/9K5cCub3hHBhmgHKjK5
-	 wRRbQWOwylGXSaJhLZZQcGaCoUmCUlGeWsuyARzOIHu/vIhOfYHQpqsyTEaANJtrhd
-	 lGcpdPJgLxe3O+3YXJNk7EPWoTi+Mu/Yk6/dqLsW6/XLpIbpskCJdlQjEZ4zDjWKKG
-	 DmuxY82kaxFOQ==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id F413725CFA;
-	Mon, 19 Oct 2026 15:54:34 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="Tw5QL/pZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1792414488; x=1823950488;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lG8ba8f3XvMZ016RxZR1uTEgZGmbv/N4GGCyJVqPUXg=;
+  b=Tw5QL/pZ20tk9BQT1nNGhI6mrrTYb1vfZkMylF3Gv9Gwb9jrAdCDi45S
+   bAA6MwVwTV4F9FWbyBzz9sAgxk1g6x1mP/3OzO0OgEB/OxIBHVwJYUGlX
+   vcpvUeLxRQ8vaI4le/5n6qKUUx5eqQKO3dEIHUyWdBRuBfooeqGzdcNmw
+   VzSTHygkoZsa1wjEr8/3xaYIG7zRLIoV1NQh5zz50gjZ/tCpLDn5x5ENw
+   /L33dBfpxSIRM3yn35yr0Vg6LNqGZ5jVcAIxrzep8umSJZW9PNMnsY2EY
+   5UN/J+KimyGiJOw3PIrdLNapKGZ1qSrsIzDsdwkCoT6970Ggv2zMD7dO3
+   w==;
+X-CSE-ConnectionGUID: liAOrRF1RQ6AdicakOhZCw==
+X-CSE-MsgGUID: n67OlmF4SUmbLeE8K6aFIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="258703256"
+X-IronPort-AV: E=Sophos;i="6.27,167,1786978800"; 
+   d="scan'208";a="258703256"
+Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
+  by esa2.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 21:53:36 +0900
+Received: from az2nlsmgm4.fujitsu.com (unknown [10.150.26.204])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon, 19 Oct 2026 15:54:33 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.51.9])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4j7b953KqXzq2b;
-	Mon, 19 Oct 2026 15:54:33 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Luke Wang <ziniu.wang_1@nxp.com>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] mmc: core: Cancel SDIO IRQ work before freeing host
-Date: Mon, 19 Oct 2026 15:53:34 +0300
-Message-ID: <20261019125335.562-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 357C41C000D4;
+	Mon, 19 Oct 2026 12:53:30 +0000 (UTC)
+Received: from az2nlsmom4.fujitsu.com (unknown [10.150.26.201])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm4.fujitsu.com (Postfix) with ESMTPS id D86341000867;
+	Mon, 19 Oct 2026 12:53:29 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.8.51.148])
+	by az2nlsmom4.fujitsu.com (Postfix) with SMTP id 9EDCE2000233;
+	Mon, 19 Oct 2026 12:53:21 +0000 (UTC)
+Date: Mon, 19 Oct 2026 21:53:20 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: kernel test robot <lkp@intel.com>
+Cc: Tomohiro Misono <misono.tomohiro@fujitsu.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, llvm@lists.linux.dev, 
+	oe-kbuild-all@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	kvmarm@lists.linux.dev
+Subject: Re: [PATCH v2 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA
+ erratum E#030003
+Message-ID: <atYOKfirjR1VqBZ3@FCCLS0092175.localdomain>
+References: <20261016-monaka-fix-for-upstream-v2-4-fc7ede7f9f48@fujitsu.com>
+ <202610171939.VWCcPPra-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {diag_burst_silent}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206791 [Oct 19 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/19 08:59:00 #28702808
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <202610171939.VWCcPPra-lkp@intel.com>
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+On 10/17 19:48, kernel test robot wrote:
+> Hi Tomohiro,
+> 
+> kernel test robot noticed the following build errors:
+> 
+> [auto build test ERROR on 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907]
+> 
+> url:    https://github.com/intel-lab-lkp/linux/commits/Tomohiro-Misono/arm64-cputype-Add-FUJITSU-MONAKA-definition/20261016-190045
+> base:   24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> patch link:    https://lore.kernel.org/r/20261016-monaka-fix-for-upstream-v2-4-fc7ede7f9f48%40fujitsu.com
+> patch subject: [PATCH v2 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA erratum E#030003
+> config: arm-defconfig (https://download.01.org/0day-ci/archive/20261017/202610171939.VWCcPPra-lkp@intel.com/config)
+> compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 6719b9e31d6a93099612c474eec76d9f41d0275a)
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610171939.VWCcPPra-lkp@intel.com/reproduce)
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202610171939.VWCcPPra-lkp@intel.com/
+> 
+> All errors (new ones prefixed by >>):
+> 
+> >> drivers/irqchip/irq-gic-v3.c:1892:34: error: use of undeclared identifier 'ARM_CPU_IMP_FUJITSU'
+>     1892 |         if (read_cpuid_implementor() != ARM_CPU_IMP_FUJITSU ||
+>          |                                         ^~~~~~~~~~~~~~~~~~~
+> >> drivers/irqchip/irq-gic-v3.c:1893:34: error: use of undeclared identifier 'FUJITSU_CPU_PART_MONAKA'
+>     1893 |             read_cpuid_part_number() != FUJITSU_CPU_PART_MONAKA)
+>          |                                         ^~~~~~~~~~~~~~~~~~~~~~~
+>    2 errors generated.
 
-commit 6feadbecdae60a6324c967f3b1493741083793a3 upstream.
-
-A host controller that uses sdio_signal_irq() schedules host->sdio_irq_work
-from its interrupt handler.  That work is only cancelled on the suspend
-path (mmc_sdio_suspend()), not on the remove/free path, so a worker armed
-just before the controller freed its IRQ can run after
-mmc_host_classdev_release() has freed the host and dereference it through
-container_of().
-
-Cancel host->sdio_irq_work in mmc_free_host(), like the existing
-host->detect drain added by commit 1036f69e2513 ("mmc: core: Cancel
-delayed work before releasing host").
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 682696605c70 ("mmc: sdio: Add API to manage SDIO IRQs from a workqueue")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Signed-off-by: Ulf Hansson <ulfh@kernel.org>
-[ mdmitrichenko: sdio_irq_work is still a delayed_work here, it became
-  a plain work_struct only with commit 1dd611a9c55f ("mmc: core: Switch
-  to basic workqueue API for sdio_irq_work"), so use
-  cancel_delayed_work_sync() instead of cancel_work_sync(). ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-98213
- drivers/mmc/core/host.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
-index 5598f8490726..994bbc03be2e 100644
---- a/drivers/mmc/core/host.c
-+++ b/drivers/mmc/core/host.c
-@@ -612,6 +612,7 @@ EXPORT_SYMBOL(mmc_remove_host);
- void mmc_free_host(struct mmc_host *host)
- {
- 	cancel_delayed_work_sync(&host->detect);
-+	cancel_delayed_work_sync(&host->sdio_irq_work);
- 	mmc_pwrseq_free(host);
- 	put_device(&host->class_dev);
- }
--- 
-2.43.0
-
+Oops, I missed testing this with CONFIG_ARM=y. I will fix this in v3.
