@@ -1,248 +1,238 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B884E73B7;
-	Mon, 19 Oct 2026 11:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B3D4E8DF0
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792410196; cv=none; b=qFB2kMBAUpKk7mHQMNDti9tDe/rbZtjhvPWiBuTvu9bZqffApspFQaE/heMC2ckfbiwld6rhTssYmAVl9SD5F4mK3b53mlH4wPyW7HyMxt1IrmD8g2jefwO+3mjx0njbpmL7co80efnRbmegbptlpBfx1tKe6DCJY2TYD1l5jWM=
+	t=1792410203; cv=none; b=miSBttBtN6pwTYkVEfGq7TZ13pHSCa5WUib7TLm12vFaxJOaxMMRe6WJ1SOVFsR4W9vvRAbWjoiBnQCdpjLHuMD1k2KJMmyZ4FTIdnXi/Uaz0PFW1qHjbqNXBWCcLrWcEGiK4xeXoEo4/TKcBVgCbQcYvRTerBAKO7MPL9lifnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792410196; c=relaxed/simple;
-	bh=+3r96WgvaLZ51mkYfUtue7nreKIDjPHuZYIvt5AP5dQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hlQNNVNgu563/1QobuOvNfWUTZKn3RCD8OVvcUwei9J9mMLuoUBrpZbe0bX4K85/BrKaFvD+uHc4SrfyOodp7WCzBMooW9115BX5kHxnPiVHS9/Bl51xNby8skXVoqbq9+BSisDJVQ8fz6s8HDO0vCvO4ZcJdGMi3ScZZrKwHhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJADmtGT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792410203; c=relaxed/simple;
+	bh=0h+fMlcy0nHUgqx0ZgNb3jSrGz0nmItuE/FyNlwIrZ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qZ0Ui6wH0vRWpvfqI1onVL1/RrYPB1U/rvrv5PbTnv1O2/JBPKE15ZgWPVyDZL1e4OET1ewsEgx3CfQEVxT4AUGZu2odExOj/aFJgB40WDZwDQBnzP/JSo+PF24oUXUQR+Y1S1TWzr+SYx2Y/rKwzs7oDOEeA+PLn4y8rS5lj1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oCnoYDeR; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJADmtGT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DCEF1F000C8;
-	Mon, 19 Oct 2026 11:43:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792410192;
-	bh=meEGW/GS3/XRT3foeZLouvqwfWIt69ajcD2dNzgktWU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aJADmtGTCzDVNXW2PAtON20bThik6+ooDjIxlG69gMAO8Oe2N94jox5/vL+e02Ov1
-	 y/DzQV8ofCC841ZTXpafZTJzfTlvmqM2QQJyzssKdKU00ZUrZVbXuZGNXRnB91i05n
-	 MDVrj7KKyWR+RPZ3NrGZtNQ5kIbVn8PgkHlIT0Ozs9cVhijZ27bw0zgagbXrBB7uAf
-	 wBpWoIOmwFCZ45/iik4O3kdrVOvyIEbehNWR2f/V+CYYcDcli2rcTfCu4lNl/TQg75
-	 kZDoIpzjdH5SIchIstgA00odtazP6z5QIUSC+xPjwNgeI4BLZ3EsUiC1h3lWHWHVsp
-	 Z7KD1lAKQ/UCQ==
-Subject: Re: [PATCH v4 net 8/8] net: enetc: ensure enetc_xdp_xmit() calls
- enetc_update_tx_ring_tail()
-From: netdev-bot+sashiko@kernel.org
-To: vladimir.oltean@nxp.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, claudiu.manoil@nxp.com, wei.fang@nxp.com,
- xiaoning.wang@nxp.com, ioana.ciornei@nxp.com, zefir.kurtisi@westermo.com,
- zefir.kurtisi@gmail.com, david.laight.linux@gmail.com, netdev@vger.kernel.org,
- imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Date: Mon, 19 Oct 2026 11:43:10 +0000
-Message-ID: <179241019093.3135.3031150554563643199@kernel.org>
-In-Reply-To: <20261015105536.1692348-9-vladimir.oltean@nxp.com>
-References: <20261015105536.1692348-9-vladimir.oltean@nxp.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oCnoYDeR"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso21258915e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:43:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792410195; x=1793014995; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uPs8kNwzq2ixzAyx8BoNzSjliUbshG+1sbYaMKzI60Q=;
+        b=oCnoYDeRKqohdjoF8yr1PWKPgjlJR2mynK3Kjw0YrYFdWEIOUbtfjYoSGPcg1BAe2H
+         1DY4sGaClDUz5ITMycr6otyeVliHy73RZe1F2S0imQfR//X654PXu+KRRG+qJn+5Imqd
+         AI33Mk3uXVl96Den2MWa9znDNxqIwXe+AS+Vy+TIJmqWia89kcDUkJ+2E7cAHexwmvfU
+         dipwrGtY7YZIj2CluWUoxjLZlVxTJH2o++eXf28eNuPS7eV3ygGea33WzNOs2I2NTARY
+         JPQiuAp0NTayS9tg69d+UFM9ZMAiJawDf3LxW0Jw0iS9e8G4fsWaO6r3/l/MWZdn3ryM
+         Q4ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792410195; x=1793014995;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uPs8kNwzq2ixzAyx8BoNzSjliUbshG+1sbYaMKzI60Q=;
+        b=X22waNMeoClhTnAncciuiUfSsHUrJ/Aa2DkteDXNdnSkwte8zlmgVWR/tyDXMgmpX5
+         riWKXQtqfM5DSZhDPMMuG7UV71OetG40bsMYCLajAgsBNLDom0o9lroK4XX+PjDpYgA6
+         3dEML2/ajVlurV2EkQl7GQkYi+YUfsB1G0Qc9vkGX8+QevlOvGD3QsXgpqE28qUzIJfE
+         UKIG2nbJZZLvRDXedmOXJKS50yxs6BNQO/FHCx3rfR2Z3JE5WdMVDpEBDJ3WPvjWVlYG
+         SALwSjt0iBJQOn1izyyQuY2yeFpgDHO0aBIqamhtCx/EpE84NoiG3YxJVqrzdE59H0dE
+         Rjcw==
+X-Forwarded-Encrypted: i=1; AKwUvByR/k94X0dMbOe2piiAEeteFr3zYuFLTZIni/pAqvjBl9K0X393+H6sz0vrXHgBhPHr5BOrv3gFqpNjPkg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJd1oWKxZ8DlaC+oNv5Gi3WqO7uva2ECHNG7Rg3pWCcZyJDwITZ
+	+8BPP8wSCUjDEi5yRemd+6Gq85VbM38rNVjWCmOlDsuKANjt6VENIs8sQjyo9h0V6Q==
+X-Gm-Gg: AYBFou1KlLrjZG1NUzpyy1FL2aeNjxHe5d0DluGCJzRSfFF+hb7c9I4ug3HYOm0sZuJ
+	xX3c+v/t1Xk8NB6UAjxD0TPsvSDtCDKGm+OTCzdp12SLK9ukoQtrP/WJveQm83qXBTVkRHUe8Se
+	Ih47IlzGI+D8fuiIBiHJmWom5t/FGomzSAAyPh6eXRDbQVd6+C8DEkfKKJOTD9gjEbX75KoPBCR
+	xhB/Xi9bsm/Y1B9kbWrzghrbdf2GaokLbKbVPzgnfyrytwBlGUXVG4Mosx+wbV3LiGw/Hbq3Mqd
+	Oy+ctY1nfYmamSmIPxoaPw6KsTpEpn3z97P+HW+tLm9jVNWF+o+gy+nHvVPo2mvuSWsskvCqehP
+	NFmKa6cPVHKXk+PcpSNreSHXdXat6SveocGz0AtrerBYZ4hM2MQZk+XD3I6GnraLrLSJmiNn9+6
+	m/xTwlowQIOGMn/6hhNn2Un4aejDM3ErNrDLaylXyfFuE4m4QsOLZKU0Zk7G13n3O/FFnS4asX8
+	R/Xyb+O/DJUULzC3LNDz4CqfkPkapw=
+X-Received: by 2002:a05:600c:3508:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4a1d762251bmr165269695e9.32.1792410194117;
+        Mon, 19 Oct 2026 04:43:14 -0700 (PDT)
+Received: from google.com ([2a00:79e0:288a:8:d186:2d44:63ff:537f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e9423f20sm58112105e9.7.2026.10.19.04.43.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 04:43:13 -0700 (PDT)
+Date: Mon, 19 Oct 2026 13:43:04 +0200
+From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: Cai Xinchen <caixinchen1@huawei.com>, mic@digikod.net,
+	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
+	corbet@lwn.net, skhan@linuxfoundation.org, ast@kernel.org,
+	daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+	ihor.solodrai@linux.dev, rdunlap@infradead.org,
+	gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
+	johan@kernel.org, dlemoal@kernel.org, hch@lst.de, axboe@kernel.dk,
+	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz,
+	dhowells@redhat.com, code@tyhicks.com, linkinjeon@kernel.org,
+	sj1557.seo@samsung.com, yuezhang.mo@sony.com,
+	hirofumi@mail.parknet.co.jp, cel@kernel.org, jlayton@kernel.org,
+	neil@brown.name, okorniev@redhat.com, Dai.Ngo@oracle.com,
+	tom@talpey.com, hyc.lee@gmail.com, miklos@szeredi.hu,
+	amir73il@gmail.com, senozhatsky@chromium.org,
+	chenxiaosong@chenxiaosong.com, kpsingh@kernel.org,
+	matt@bobrowski.net, rostedt@goodmis.org, mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com, john.johansen@canonical.com,
+	georgia.garcia@canonical.com, zohar@linux.ibm.com,
+	roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com,
+	eric.snowberg@oracle.com, stephen.smalley.work@gmail.com,
+	omosnacek@gmail.com, casey@schaufler-ca.com, takedakn@nttdata.co.jp,
+	penguin-kernel@i-love.sakura.ne.jp, xiujianfeng@huawei.com,
+	nanx95726@gmail.com, djwong@kernel.org, lujialin4@huawei.com,
+	bpf@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
+	ecryptfs@vger.kernel.org, exfat@lists.linux.dev,
+	linux-nfs@vger.kernel.org, ntfs@lists.linux.dev,
+	linux-unionfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, apparmor@lists.ubuntu.com,
+	linux-integrity@vger.kernel.org, selinux@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2 -next 09/18] landlock: Add READ_METADATA and
+ WRITE_METADATA access rights
+Message-ID: <atYBVCIYE1zDb7do@google.com>
+References: <20261015125425.3246251-1-caixinchen1@huawei.com>
+ <20261015125425.3246251-10-caixinchen1@huawei.com>
+ <atI20Vs7Du9-g1Hz@zenbox>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <atI20Vs7Du9-g1Hz@zenbox>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hello!
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
+On Fri, Oct 16, 2026 at 10:44:16AM -0400, Justin Suess wrote:
+> On Thu, Oct 15, 2026 at 08:54:15PM +0800, Cai Xinchen wrote:
+> > Add two new filesystem access rights to control file metadata access:
+> > 
+> > - LANDLOCK_ACCESS_FS_READ_METADATA: Read file or directory metadata
+> >   (e.g. inode attributes, extended attributes and POSIX ACLs) through
+> >   stat(2), fstat(2), lstat(2), newfstatat(2), getxattr(2) and
+> >   friends, listxattr(2) and friends, and the POSIX ACL read
+> >   operations.
+> > - LANDLOCK_ACCESS_FS_WRITE_METADATA: Change file or directory
+> >   metadata through chmod(2) and friends, chown(2) and friends,
+> >   utimensat(2) and friends, setxattr(2) and friends, removexattr(2)
+> >   and friends, and the POSIX ACL set and remove operations.
+> > 
+> > This follows the coarse-grained grouping approach discussed in the
+> > mailing list [1], where file metadata operations are grouped by
+> > security relevance rather than by individual syscall.
+> > 
+> > Implement the two rights by hooking the inode_getattr,
+> > inode_file_getattr, inode_setattr, inode_file_setattr,
+> > inode_setxattr, inode_getxattr, inode_listxattr, inode_removexattr,
+> > inode_set_acl, inode_get_acl and inode_remove_acl LSM hooks, which
+> > now receive a struct path thanks to the preceding VFS and LSM
+> > refactoring.  The following system calls are now controlled:
+> > 
+> > - stat(2), fstat(2), lstat(2), newfstatat(2), getxattr(2) and
+> >   friends, listxattr(2) and friends, POSIX ACL reads, and the
+> >   chattr(1)/xfs_io style reads: ioctl(FS_IOC_GETFLAGS),
+> >   ioctl(FS_IOC_FSGETXATTR) and file_getattr(2) via inode_getattr,
+> >   inode_getxattr, inode_listxattr, inode_get_acl and
+> >   inode_file_getattr (READ_METADATA)
+> > - chmod(2), fchmod(2), fchmodat(2), fchmodat2(2), chown(2), fchown(2),
+> >   lchown(2), fchownat(2), chgrp(2), utimensat(2), futimens(2),
+> >   utime(2), setxattr(2) and friends, removexattr(2) and friends,
+> >   POSIX ACL set and remove, and the chattr(1)/xfs_io style writes:
+> >   ioctl(FS_IOC_SETFLAGS), ioctl(FS_IOC_FSSETXATTR) and
+> >   file_setattr(2) via inode_setattr, inode_file_setattr,
+> >   inode_setxattr, inode_removexattr, inode_set_acl and
+> >   inode_remove_acl (WRITE_METADATA)
+> > 
+> > Both new rights are added to ACCESS_FILE as they apply to both files
+> > and directories.
+> > 
+> > hook_inode_setattr only restricts explicit metadata changes, i.e. it
+> > checks WRITE_METADATA only when the ia_valid mask contains
+> > ATTR_MODE, ATTR_UID, ATTR_GID, ATTR_TIMES_SET or ATTR_TOUCH.
+> > Metadata changes that the kernel performs implicitly, such as
+> > timestamp updates on write(2) or size changes on truncate(2), are
+> > therefore not restricted, and neither are chmod(2)/chown(2) calls
+> > that do not change any attribute (e.g. chown(2) with -1/-1, which is
+> > a no-op that never reaches the hook), matching the behavior of the
+> > SELinux inode_setattr hook.
+> > 
+> > Stacking filesystems forward fileattr operations to underlying inodes
+> > without calling the LSM hooks again (see the preceding patch), so a
+> > fileattr operation on an overlayfs file is checked once on the
+> > user-facing merged path and is not spuriously denied because of the
+> > kernel-side creator credentials used for the forward.
+> > 
+> > Kernel-internal accesses performed with override_creds() (e.g.
+> > overlayfs and cachefiles) are not affected because Landlock domains
+> > are attached to credentials, and kernel threads without a Landlock
+> > domain (e.g. nfsd and ksmbd) are not restricted either.
+> > 
+> > Remove stat(2), chmod(2), chown(2), setxattr(2) and utime(2) from the
+> > list of file-related actions that cannot be restricted yet, and add
+> > the names of the new rights to _LANDLOCK_ACCESS_FS_NAMES in
+> > include/linux/landlock.h, which is shared by audit records and trace
+> > events, so that denied accesses can be reported with a human-readable
+> > name and the static assertion on fs_access_strings in
+> > security/landlock/audit.c stays valid.
+> > 
+> > Increment the Landlock ABI version from 12 to 13, and update the ABI
+> > version check in tools/testing/selftests/landlock/base_test.c
+> > accordingly.
+> >
+> LANDLOCK_ACCESS_FS_*_METADATA should be checked at open time and follow
+> the mechanic for the truncate right. Otherwise the access for already
+> opened file descriptors would be changed. See hook_file_open in
+> security/landlock/fs.c and this discussion here [1]
+> 
+> It should have clear documentation for this as well.
+> 
+> Justin
+> [1] https://lore.kernel.org/all/20260929.Ahgoo4yeetai@digikod.net/
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
 
-- [High] In enetc_xdp_xmit()
-  (drivers/net/ethernet/freescale/enetc/enetc.c), the doorbell condition…
+I agree with Justin here.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it comes from
-  the earlier commit in the same series, 'net: enetc: serialize access…
+Apart from what I said in [1], Justin and Mickaël pointed out this
+other aspect in which it is similar to *_TRUNCATE, in [2] and [3]:
+System calls like fstat(2) operate on an already-opened file
+descriptor, and the semantic that Landlock has so far been following
+for these is that the effective access rights for that file descriptor
+would be determined at the time of open(2) and stored in the opened
+struct file, just as it has been done for the *_TRUNCATE and
+*_IOCTL_DEV access rights in the hook_file_open() call which Justin
+points to above.
 
---
+That way, an already opened file acts as a handle for a "capability"
+(in the more general sense of the word), and the things you can do
+with that opened file don't change as the process enforces nested
+Landlock domains.
 
-net: enetc: ensure enetc_xdp_xmit() calls enetc_update_tx_ring_tail()
+Landlock's documentation describes this in
+https://docs.kernel.org/userspace-api/landlock.html#rights-associated-with-file-descriptors
 
-This commit changes the doorbell condition in enetc_xdp_xmit(). The TX ring
-tail is now updated only when at least one frame was sent and either
-XDP_XMIT_FLUSH was requested or the frames array could not be fully
-enqueued. The redundant xdp_tx_frm_cnt variable is removed in favour of k.
+It feels that this would be in order for the *_METADATA rights as
+well?  Does this seem reasonable to you?
 
-> diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c b/drivers/net/ethernet/freescale/enetc/enetc.c
-> index 218065b9a3777..3003a415418ba 100644
-> --- a/drivers/net/ethernet/freescale/enetc/enetc.c
-> +++ b/drivers/net/ethernet/freescale/enetc/enetc.c
+(If you have arguments against that, I'm also more than happy to
+discuss, but we should make a conscious decision. :-))
 
-[ ... ]
+—Günther
 
-> @@ -1928,22 +1928,20 @@ int enetc_xdp_xmit(struct net_device *ndev, int num_frames,
->  						    &xdp_redirect_arr[i]);
->  			break;
->  		}
-> -
-> -		xdp_tx_frm_cnt++;
->  	}
->  
-> -	if (unlikely((flags & XDP_XMIT_FLUSH) || k != xdp_tx_frm_cnt))
-> +	if (unlikely(k && ((flags & XDP_XMIT_FLUSH) || k < num_frames)))
->  		enetc_update_tx_ring_tail(tx_ring);
+[1] https://lore.kernel.org/all/arurOphe6QIx2Zr8@google.com/
+[2] https://lore.kernel.org/all/arvjb0HJYh1KyEBB@suesslenovo/
+[3] https://lore.kernel.org/all/20260929.Ahgoo4yeetai@digikod.net/
 
-[Severity: High]
-
-Does the new k && term skip the doorbell when an XDP_XMIT_FLUSH call
-enqueues zero frames?
-
-The old condition rang on every FLUSH call, because k != xdp_tx_frm_cnt was
-always false. XDP_XMIT_FLUSH asks the driver to publish everything queued so
-far. That includes frames from earlier ndo_xdp_xmit() calls made with
-flags == 0.
-
-devmap makes calls like that when the bulk queue fills up:
-
-kernel/bpf/devmap.c:bq_enqueue() {
-    ...
-	if (unlikely(bq->count == DEV_MAP_BULK_SIZE))
-		bq_xmit_all(bq, 0);
-    ...
-}
-
-Only the later __dev_flush() passes XDP_XMIT_FLUSH:
-
-kernel/bpf/devmap.c:__dev_flush() {
-    ...
-		bq_xmit_all(bq, XDP_XMIT_FLUSH);
-    ...
-}
-
-The flags == 0 call advances tx_ring->next_to_use without writing TPIR. If
-the first frame of the next FLUSH batch fails, k is 0 and
-enetc_update_tx_ring_tail() is never called.
-
-The first frame can fail in these cases:
-
-  - enetc_xdp_tx() finds too few free BDs. This is likely right after the
-    previous batch used up the ring.
-  - The head buffer is shorter than ENETC_MIN_BUFF_SIZE.
-  - The frame fails the ENETC_MAX_SKB_FRAGS check.
-  - DMA mapping fails.
-
-On a ring reserved for XDP, the only other TPIR writer is the XDP_TX tail
-update in enetc_clean_rx_ring_xdp(). It rings only when it has enqueued
-XDP_TX frames itself:
-
-	if (xdp_tx_frm_cnt) {
-		spin_lock(&tx_ring->xdp_lock);
-		enetc_update_tx_ring_tail(tx_ring);
-		spin_unlock(&tx_ring->xdp_lock);
-	}
-
-So the stranded BDs stay unpublished until a later call both succeeds and
-flushes. If traffic stops, they never go out.
-
-If they fill the ring, every later enqueue fails on its first frame. TX
-completion cannot reclaim BDs the hardware never saw. Can the XDP TX queue
-then stall permanently, with the xdp_frames and pages still pinned?
-
-Other drivers ring the tail on XDP_XMIT_FLUSH no matter how many frames
-that call sent. For example, i40e_xdp_xmit():
-
-	if (unlikely(flags & XDP_XMIT_FLUSH))
-		i40e_xdp_ring_update_tail(xdp_ring);
-
-Would something like this be closer to the intent?
-
-	if (unlikely((flags & XDP_XMIT_FLUSH) || (k && k < num_frames)))
-
-The commit message says:
-
-    The correct condition on which we should ring the doorbell is when at
-    least one frame was sent, and either the caller required us to flush, or
-    we couldn't enqueue the entire passed array.
-
-The subject says the patch ensures the tail update happens, and the patch
-has a Fixes: tag. Even so, FLUSH calls with k == 0 no longer ring the
-doorbell, and the commit message does not mention this change.
-
->  
->  	enetc_unlock_mdio();
->  
->  out:
-> -	tx_ring->stats.xdp_tx += xdp_tx_frm_cnt;
-> -	tx_ring->stats.xdp_tx_drops += num_frames - xdp_tx_frm_cnt;
-> +	tx_ring->stats.xdp_tx += k;
-> +	tx_ring->stats.xdp_tx_drops += num_frames - k;
->  
->  	spin_unlock(&tx_ring->xdp_lock);
-
-[Severity: High]
-
-This isn't a bug introduced by this patch. It comes from the earlier patch
-in this series, "net: enetc: serialize access to the same TX ring from NAPI
-XDP_TX and ndo_xdp_xmit()".
-
-Can tx_ring->xdp_lock and enetc_mdio_lock deadlock on PREEMPT_RT when the
-ERR050089 workaround (enetc_has_err050089) is enabled?
-
-enetc_xdp_xmit() takes xdp_lock first and then the MDIO read lock:
-
-	spin_lock(&tx_ring->xdp_lock);
-	...
-	enetc_lock_mdio();
-
-enetc_clean_rx_ring_xdp() drops xdp_lock at the out: label but keeps the
-MDIO read lock. It then takes xdp_lock again, so the order is reversed:
-
-out:
-	spin_unlock(&tx_ring->xdp_lock);
-	...
-	if (xdp_tx_frm_cnt) {
-		spin_lock(&tx_ring->xdp_lock);
-		enetc_update_tx_ring_tail(tx_ring);
-		spin_unlock(&tx_ring->xdp_lock);
-	}
-	...
-	enetc_unlock_mdio();
-
-On PREEMPT_RT, rwbase_write_lock() takes the rtmutex and removes
-READER_BIAS. New readers then block behind a pending writer. That would
-allow this cycle:
-
-T1 (RX NAPI, enetc_clean_rx_ring_xdp())
-  holds the MDIO read lock after out:
-
-T3 (_enetc_rd_mdio_reg_wa())
-  write_lock_irqsave(&enetc_mdio_lock, flags);
-  waits for T1 to drop the read lock
-
-T2 (enetc_xdp_xmit() on another CPU, targeting the same XDP TX ring,
-    e.g. after an IRQ affinity change)
-  spin_lock(&tx_ring->xdp_lock);
-  enetc_lock_mdio();          <- blocks behind T3
-
-T1
-  spin_lock(&tx_ring->xdp_lock);  <- blocks behind T2
-
-Non-RT testing would not catch this. On non-RT, qrwlock readers in
-interrupt context ignore a waiting writer, and lockdep treats this
-read_lock as recursive.
-
-Would it help to use one lock order in the RX tail update path? For
-example, the MDIO read lock could be dropped before re-taking xdp_lock and
-then taken again inside it.
-
->  
-> -	return err ?: xdp_tx_frm_cnt;
-> +	return err ?: k;
->  }
->  EXPORT_SYMBOL_GPL(enetc_xdp_xmit);
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015105536.1692348-1-vladimir.oltean%40nxp.com
