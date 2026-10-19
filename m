@@ -1,73 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792452890;
-	b=zPlzEBr3c5aZFSmDV/eTQWKEtBFG/AWMGxfe5iGm8hdmrk1AOe3ovLPE/9TU2gdJz4Uo
-	 r7nQpmAInCH25DeMYgGmVgZnPCD45LFqYaDf2rOrr9K+mHVxMBRTXyfQQQr+q2HAgPYFV
-	 SfGMm4Z//6XDFZ7GL2ZkRE1tgSFmxWRqQbAI8Z3I180vWMwOkvwMmO5cH5fh4QGnzltQN
-	 kJM+jqIrDAoi39ZMiTL6ak2ZiVSTTg1RgzUAOTv4V/g8+s8K6dWZPB4fdNSLwHoQ9qLmF
-	 Swx5gZ0aXD3SqzkN8+hSmluyC913F8kiwKdbRPtg62nKIzVAXMJh4I3QmuysdInChzQ==
+	t=1792452898;
+	b=rC6BGz+oe/MQTRNPh4kXRZPOPzGnaTx85xoSnravnOBUUP0MAUdfYiUXVtFCRUBz5ssZ
+	 WA2eY+jeUechxMCdMSEl4aezzRGMVaV0dfrUCSeCILcJV2NcOduYxXf16I4uZnyGqdHlz
+	 3lenBML+3liDP04OcpNb7+heft4jgaBlU0oktEGzjWFMJXIFgKdHQVtUBAz71obej1IsT
+	 vpE/3lt0V2nIPtx1hOVt2ptBTyLHlFY55XvvVhAK18zmQeZ0ZF10MyVdxrNBCunYVRMtb
+	 YmrT310dl5zRh1fnBfmFHgzjna1t1NNDWmlkzWRdYwefCA18tv1VVAHgaFWzYc4FORA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792452890;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792452898;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-B4-Tracking:X-Change-Id:X-Developer-Key:X-Developer-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
 	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=hXRBmypsfSbOoyyjwjH80x+T5tVVukih5UNKVVGaJDg=;
-	b=odmKXouFJU/EBE1ksaC6J3btchr47tlMEtwSonVVXRsjGzuibFQt+3+QcZWHgJ3eD6Am
-	 u3ZaRBIVdob5miTN+COpgN/oElPYEauAZEgj2auZspM5EDewQ1gAAUxXcowa2/CVsChAj
-	 aWJV2DFWoO2eoioUWwqNOCKX7KB9445ZebfyyosqOmGuYiRZ27m48mg/ApNR0FD01ylaP
-	 QEbmY/DjwyZkcUE9Dytd5NkoekWRutqbCEqP+TOMFUqheidCzcb0FYlY1UAiCQBdsYcfH
-	 punhMAB+jPGq0M40QQVYIUb89ljvQYMg7MS1+nuazgUstJmzP+ptsYXg9Gl9GMkGp7Q==
+	bh=jGwB2YpKzTsLsCyUbVgXall2WPAD+FiuQOyllj3FCWM=;
+	b=203yEf9b1hCfBmL3/WdIYUPToLJlYrD0rr1D3MGdnxdS3yz9fEB5KY/WEd0YCd1qwS+6
+	 K+CKgA9ZjdboWG7GYV7ZeqZAX1LWPUpyJmyj7jPN2NUI21mY3VAuSViD9fiJnW6bAf+6a
+	 lnBDEjgj3R2FDFaY4kyT+qI5AzfuGGhNO4c7+qxXQVUyFdSsUudTRjBloP4L/6EwmACH5
+	 jzX/a4upzrCbSMqVOre3P9tbH9FJzUPzj77VhzFbJIbWaOw6V0+zdT8DER81137KHRp3L
+	 LOh1v/HombuPcHJMGXbA6ZG0aY5wSdFYPCzjmU6/SzFq9fOmsoLleL+ausmkobZMojA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--samitolvanen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=I4xQTTO+;
-	arc=none smtp.remote-ip=74.125.82.70
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FHFRpOka;
+	arc=none smtp.remote-ip=74.125.82.72
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F1B606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:34:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8F1B606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD330606A32C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:34:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD330606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--samitolvanen.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=I4xQTTO+
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1665200f4c2so3747753c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:34:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=FHFRpOka
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-151ba226e1bso4327311c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:34:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792452889; x=1793057689; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hXRBmypsfSbOoyyjwjH80x+T5tVVukih5UNKVVGaJDg=;
-        b=I4xQTTO+ipoDQptdVEVI96EQ9yhDdfzpc/kVpUvIAGDe86tih6dugo+/28mjuKU1Fh
-         D2HZ6UJnKk+awUBrL5HsXrxjEdkL2e3LXWabFpJlf5xdcxsMU8l0IsqH+Jd0pvr3HK1Q
-         tRIwT0EV2+LZrjPznJwaP4PFaytfVf99S4ELf1zr1rjXmEzCP8zu5+OB82OKFwmg/iJy
-         Hp8ghWALQMrxcPkxrMhDGfb7O0cvjkIkDLxpmGCTEkxwaWAKJ+/TMB7wBMxdGl2bCuxX
-         GL1yt4Gr4sRi1r8QrrUs38vQmnniOME4KLgUsWHxiXhpAkU8kNEz5boFXKzW9Cbin08w
-         hi5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792452889; x=1793057689;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792452892; x=1793057692; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hXRBmypsfSbOoyyjwjH80x+T5tVVukih5UNKVVGaJDg=;
-        b=nEaizwZC0Dq3vFmFg1s4awBDytU6q0BO5nAX7BWEcczWhT+/6hOn+27wz02TUGtHWj
-         T0Jd5Q+AKEgEfoKQ+wQ6zejRIEjm+MRL/vmkDJKuWKV1zvB9ZAb1qy0uU8V4nv4M48OI
-         9RATs9JJWzTVvk8II6PC6ktM9rrL4xlASIxmDGhc2ErlXQmY8Vx3ZsowXzY6ftuzelfF
-         uc4v86zaFu2xifUFbrQangGqWdjh9WwBN5+hFX9Z9tSrhl1yMPHkRhO+TWIxp8lK1p1q
-         WcPKzGpjOVzbKx2Yd6K821qeM1LoI65A4rVtNillAMZivsAI0DNiRj2Bfln/rgWpyEKx
-         ZVxw==
-X-Forwarded-Encrypted: i=1; AKwUvBxbQA+LJrh96FkvOzbFNoAsOVQbvyRlCiPjFscYcxk1XmEXuhERD4vEvdzhtT5c3zONQcuMgKSBVQFol6s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwCeFFDjf60INMs8xHf+AQJpliuTReKwiToxHPjWGyvRJ0nC2l
-	XOyILLrJ/hjvw9MDRoHOHnqLWrfSN6K7/00c9toS/jR/n4j5LtsZEGQ7y1GHisg0+NnmhrXMESd
-	kntvnf/G1g+h/Bbi5rsY0SB+s1VPS5w==
-X-Received: from dlbur21-n2.prod.google.com ([2002:a05:7022:ea55:20b0:184:b43a:63ac])
+        bh=jGwB2YpKzTsLsCyUbVgXall2WPAD+FiuQOyllj3FCWM=;
+        b=FHFRpOkaIICGRNcFLtRzeNK5rhYzA6+DvfeSZOTUBL2Boxb4Z2M/YZFBgtoxP3+v6c
+         aSLh0ic4LtDI4r7zSVkDMH0KZOxrnLd+PZKk1Z20Lsa94z+STTaFR5H6PJBPR+W9hHzi
+         0P3wi1hXX/3qjlqvaoaNTv3TUfeM1NjcIrIT9rMr8u48R2EPto1DajKVJrkF80bt7VJl
+         e2pejN+r4YG3KsXeIkLIzn5F3Wu8igfOhZAxCvarxfu4fKzc0C4oMMPS0pguBY2bG39a
+         vwYM5ijphT3TbE6NFfXgs2zKs5R7qm4j0H0RK4QwFj8YH3b5ZPC66zjg7SSXttpGarLQ
+         0NvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792452892; x=1793057692;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jGwB2YpKzTsLsCyUbVgXall2WPAD+FiuQOyllj3FCWM=;
+        b=U900QMjfIfJiKEml5vNRowsfbirGYHfLEjltND54QHTpKYGWbFpQoRqLsBs2C1jY8a
+         pI7GB6JXxJ37Zh0wy0ARvo6989tzgG3o6gV2OS5f5m/Un27p1dX+NVutqJb9b/pobRZJ
+         qLvlbrKNjRByCI62ggS0Z6iYYH6Ib3xuEv5w65BuL27DHrnFgURgQ/gGe1G0OEUNBQDZ
+         Mptb+D+XLgV5R8y6inPKNhGMbR5VJP8JPHeCvEK7TwyG0d5pYYX54iGJtwTum6vmQrWH
+         I60RSRthzu5SKF3hsKNbUnsrRESh14spjLlKH8hIZpM6xEa3PwDaIUfW4/Ho4u+ot4La
+         +eWg==
+X-Forwarded-Encrypted: i=1; AKwUvByqTo1YNUAjUqfYBGHGBz+sjYvmSnz75e09eojCLVSzxF4Mg0+eJVK1LMtxhUTadpFK6Ux+5EHj7l/gvA8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIP38orkS88YzGiqn8aVTkqTihDhM7VcGYPktdgYVyLBTkUoLXU
+	sQQAS2uSEwTuqnDBBrPTdUwen8jHLwWw0cRu5DtaiWWsqLgqu0QRsrHHdLvyHqq7JqIF+Q2tKc+
+	qRxI/N70EDm1w2ZHrOTvPudGmYl/R3g==
+X-Received: from dloo9.prod.google.com ([2002:a05:7023:a49:b0:165:ba5:ba2b])
  (user=samitolvanen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:241b:b0:16d:dd5c:4261 with SMTP id a92af1059eb24-18514449a5emr10311455c88.46.1792452888497;
- Mon, 19 Oct 2026 16:34:48 -0700 (PDT)
-Date: Mon, 19 Oct 2026 23:34:36 +0000
+ 2002:a05:7022:4189:b0:181:5cac:8f27 with SMTP id a92af1059eb24-1876658f64amr14367338c88.35.1792452891323;
+ Mon, 19 Oct 2026 16:34:51 -0700 (PDT)
+Date: Mon, 19 Oct 2026 23:34:38 +0000
+In-Reply-To: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,18 +79,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAA2p1moC/x3LMQqAMAxA0atIZgOmglivIg5qU81SpVERSu9uc
- Xx8fgLlKKwwVAkiP6JyhAKqK1j3OWyM4orBNKajhizGWy9cvaCXlxUX19u+teQ8OSjTGfkP5Rm nnD9WpKuuYAAAAA==
-X-Change-Id: 20261019-rust-cfi-fixes-bd898391df1d
+References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
 X-Developer-Key: i=samitolvanen@google.com; a=openpgp; fpr=35CCFB63B283D6D3AEB783944CB5F6848BBC56EE
-X-Developer-Signature: v=1; a=openpgp-sha256; l=352; i=samitolvanen@google.com;
- h=from:subject:message-id; bh=hXRBmypsfSbOoyyjwjH80x+T5tVVukih5UNKVVGaJDg=;
- b=owGbwMvMwCUWxa662nLh8irG02pJDFnXVop2PJE5k9Su8bg1QKXcrvTT0qTrs5695d7DtDXpp
- 9qpAFb2jlIWBjEuBlkxRZaWr6u37v7ulPrqc5EEzBxWJpAhDFycAjARQUtGhtMdGSfnX824833a
- 6TMc/aHvprb5+IgybNz9dFXQy6tbMgMZfrMc/VxyLsN9rd1/i/K8vQrWs3uc1y0sF3A9pc7U9zL ChBcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2115; i=samitolvanen@google.com;
+ h=from:subject:message-id; bh=p5U1adkcwaI6ibDBmAfxywKhSDWSVuWmXkCqpHz9YZ8=;
+ b=owGbwMvMwCUWxa662nLh8irG02pJDFnXVoqtTc4Xnx1kdd/zrVinptqVnxlVkydJTO1Y59rBa
+ P6JyedNRykLgxgXg6yYIkvL19Vbd393Sn31uUgCZg4rE8gQBi5OAZjIpFOMDA9UV7cLd7ZeCZg4
+ 947UWbsd1R1/hHqTVfas7DnLZiSucIbhr+RTjbzXCSlWskZPvlzj7Wf/Hsu18+jczVN37z3y7r9 lGwcA
 X-Mailer: b4 0.14.3
-Message-ID: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
-Subject: [PATCH 0/3] rust: Fix CFI type mismatches
+Message-ID: <20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
+Subject: [PATCH 2/3] rust: hrtimer: declare cfi_encoding for hrtimer_restart
 From: Sami Tolvanen <samitolvanen@google.com>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
 	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
@@ -105,14 +105,58 @@ Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
 	driver-core@lists.linux.dev, Sami Tolvanen <samitolvanen@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-This series fixes a few CONFIG_CFI indirect call type mismatches that
-I've run into while working on Tyr. If we're going to run into a lot
-of these in future, perhaps we need a better solution than addressing
-them one at a time?
+The hrtimer callbacks return bindings::hrtimer_restart, which bindgen
+generates as c_uint. C calls them through hrtimer->function, which
+returns enum hrtimer_restart. kCFI encodes enum types by name even with
+integer normalization, so the type ids never match and every call fails
+the CFI check.
 
-Sami
+Generate hrtimer_restart as a newtype with a cfi_encoding, as is done
+for lru_status, and adapt HrTimerRestart to the newtype.
 
+Fixes: 8a8afe9349fb ("rust: hrtimer: introduce hrtimer support")
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 ---
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261019-rust-cfi-fixes-bd898391df1d
+ rust/bindgen_parameters     | 2 ++
+ rust/kernel/time/hrtimer.rs | 6 +++---
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
+index 5059cc74cb3c..6003d5127676 100644
+--- a/rust/bindgen_parameters
++++ b/rust/bindgen_parameters
+@@ -27,6 +27,8 @@
+ --opaque-type spinlock
+ 
+ # enums that appear in indirect function calls should specify a cfi type
++--newtype-enum hrtimer_restart
++--with-attribute-custom-enum=hrtimer_restart='#[cfi_encoding="15hrtimer_restart"]'
+ --newtype-enum irqreturn
+ --with-attribute-custom-enum=irqreturn='#[cfi_encoding="9irqreturn"]'
+ --newtype-enum lru_status
+diff --git a/rust/kernel/time/hrtimer.rs b/rust/kernel/time/hrtimer.rs
+index 2d7f1131a813..07344ed5fbd5 100644
+--- a/rust/kernel/time/hrtimer.rs
++++ b/rust/kernel/time/hrtimer.rs
+@@ -834,14 +834,14 @@ unsafe fn start(this: *const Self, expires: <Self::TimerMode as HrTimerMode>::Ex
+ #[repr(u32)]
+ pub enum HrTimerRestart {
+     /// Timer should not be restarted.
+-    NoRestart = bindings::hrtimer_restart_HRTIMER_NORESTART,
++    NoRestart = bindings::hrtimer_restart::HRTIMER_NORESTART.0,
+     /// Timer should be restarted.
+-    Restart = bindings::hrtimer_restart_HRTIMER_RESTART,
++    Restart = bindings::hrtimer_restart::HRTIMER_RESTART.0,
+ }
+ 
+ impl HrTimerRestart {
+     fn into_c(self) -> bindings::hrtimer_restart {
+-        self as bindings::hrtimer_restart
++        bindings::hrtimer_restart(self as c_uint)
+     }
+ }
+ 
+
+-- 
+2.56.0.212.g129ede20d9-goog
 
