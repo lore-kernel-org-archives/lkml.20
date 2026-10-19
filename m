@@ -1,208 +1,91 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2096.outbound.protection.partner.outlook.cn [139.219.146.96])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B2F4B1CF0;
-	Mon, 19 Oct 2026 10:39:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.96
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792406391; cv=fail; b=jvkViCXf2lc2ivzcjJ0pFfSsrba5L2UQgQwRjUkTks/TlmDf+pBlivCFPT2KPGjwUoTzqLMJnSBGtaZ12C8rT+Zxg2+Hc9Q8LpuNCTt2kf8cBztFfd82WiXw0qqnlFmt+2PHKCJ59wu7E+5/tX6mU03LJTaiPRpcuslvTvGmD5c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792406391; c=relaxed/simple;
-	bh=tYZedSI7JkDCzycxPMh+l+urCQZbGRQhQSu62v9WGUE=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=N0BczphTIj9CUCipyhIrdICAizZ+NvWBh71omzOYq4rZ9rH4YOH/d7/T4kKGke8mtEGFtPQSUSiUaqAClVHkeas3egLwcgKgWZlU6u8ADFpw4T9Doh0+EJdeYoADctcxNVLTR2AMdNdNXOjtLiWpWunkWre/gNWUbOzPVEL5YxA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lozkSConZnzztoW5t4DA2JpvfrL1iJlyInskcQqPzZyU53ETvDKbFkDYSsGsKVu4tBp1I8dTmerGp1j9NFb7J1TQLylJoj8K982TwjYJqyRzOn3WDsWEQzwIGG9Jf5jlJeaWkrzUvxu8yxGDRezvWsqr6a3j+8nOgUQfQ2VqNXEnmRoy/4q9GSMYhA36uONnJqNMuNSzswfwBhiOX+2kRCpemjiTGF6w44kThb3fKBuY1+cx6p+k3Xe2FQVH296uZozPH0xX7V9lkv5AHaz4tBlBY16IUKVu1DlUQ5DZqMCXWAH5WZqBEtqBeIXUlZ4WtCq70LbzfJmvRoXgKqQoxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EM1HS8KVy9IpOTpYM00zs5YciG03UPL9v4iVf6mweMI=;
- b=HJ4tpPir1KmDWsXMy6o8L1Br1rdARSij7E7U3e+D/LCEBguAKXFsucPUvrRyfR4SB9C/6xK1rMwtlbQljTnSI9ISqU6m05wjrJ0o455HT6HahzR+hlkrXnHZz4wmde8o0RD0fxmlBY/Fvips30IWz2puMKPvk/30Ze84u+Zb0TfX/yB1vj1W0zwYd62VD0X8mKWA+dQSOAgt+8m39Nc8GEX/VeaYu3wkxz8HCosjjRNaft5bEmPAMXkFoTjeARinXmezhZHIwGuiX5GFJ/9Pz58CIZAwEC7LJ0b2xVG9OeeaFYVDtv0yj79sDMe5hK4i4XhHEGxYanXPbRF4gsRp8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1204.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 10:06:56 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0522.017; Mon, 19 Oct 2026 10:06:56 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
-	Oskar Senft <osk@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Vitaly Lubart <lubvital@gmail.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Breno Leitao <leitao@debian.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	James Morse <james.morse@arm.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	Dave Penkler <dpenkler@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Mukesh Rathor <mrathor@linux.microsoft.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Alexandra Winter <wintera@linux.ibm.com>,
-	Julian Braha <julianbraha@gmail.com>,
-	Karthikeyan KS <karthiproffesional@gmail.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org
-Subject: [PATCH v4 0/4] Add support for StarFive JHB100 UART Routing
-Date: Mon, 19 Oct 2026 03:06:39 -0700
-Message-Id: <20261019100643.49099-1-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0011.CHNPR01.prod.partner.outlook.cn (10.2.10.20)
- To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn (10.2.3.102)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF0848F828
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792406445; cv=none; b=fjf0qJmuScBUqlYvHuaKH5BmRACr2WEccpFDtS1gzZRXvkGAk/iAxK62hdTwxAMZsHEP7DVHwhRuvjxz2YrHbb2hZ8yATSR4iOJ8u/9fHUnUdYwZTVHViLyy1TN+yHc5dCV22HVzFhTirlFedX9Cw1DBgFuM/+b4oDOv7W3tCe8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792406445; c=relaxed/simple;
+	bh=q6N5Aio8FeUee+E5prkHvtU2XRa+2nEtmXw5f1D/Naw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z2uoLU4ovjFdX/QQvejHqn6mlhFKtI8NoHTkidZnGFlUAZ+1L8hmTMR3NS5M7Mf7pzuwhNY4XHE7rXVfLI+YESJroxmiFEu6qOmCMsgradOJq/Y52GybJ6xzCXRvrU2QTKV4ZAuACOToZvDh4IZL1cBWg11YfcRSfcQDAjD4avM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=QcW07TuK; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="QcW07TuK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1792406442;
+	bh=q6N5Aio8FeUee+E5prkHvtU2XRa+2nEtmXw5f1D/Naw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=QcW07TuK1MwNhKhje1WJ+t3EqobvIzT4fFt8pAfQq1Ry+KN3bfWOxfxsjs65IfEmk
+	 ZrxC/F2ps+CsAzZctOfBCOPkmyBxqWcSkrmwQu0toqCT66A2BbUUpIQ1XipUslbcIp
+	 PxJVqnf72ATj0HUPRKkVC2ePYl5bufxR2sN6NZoRqtICeDZY651Yo6IvSasYq/e5M7
+	 ANGyJfDkRiGMApo9VfGg6OOyNfojbu06tMsB0q6B1cUJlWN8Ub2NKabuXPgRv2c3ga
+	 AYq8+JewqBnT9JkTAWaI0wvzZGwDqAf36KNNE0hgpthO/SN0uSfXGpsGx+X4zgYdWH
+	 JIXlJmD21RpoQ==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0DF6C17E0908;
+	Mon, 19 Oct 2026 12:40:42 +0200 (CEST)
+Message-ID: <1c2c222f-53fa-496c-a8ba-9717beb6dcf3@collabora.com>
+Date: Mon, 19 Oct 2026 13:40:41 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1204:EE_
-X-MS-Office365-Filtering-Correlation-Id: 549f7307-e67a-48ce-d83f-08df2dc8b4e5
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|52116014|18002099003|10067099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	drGg/3gb1qbWo1ix0UZ46lACAqDPI2JOvWTKpjyT7/JGOQhjQAdMtg7PWJfwWFWslt41p+inUSEQfvC+rgSxUYt/0/TE6qNgFj+QKbHI7Jb6gCbim9qk8eM7k8cztbgOyg7GXSudpjsp3q9m+ktgIUt02QUk9il7BG/VlvpkfQBsqsA0AOO6s4/zAozAOI5inIA6lO2dJEqr7pq/OmfKEP0Bp2UszpuCbw2oqYliYB8UTM73aKh0DLp1dJkvCqsIp0bg+RvVZVKTQHoBid6AE/AYIDy7VA4vtdqwfdTqD7HIQPE6jlD/pkcUPzqIVOWMaX30s1z9DJDxe2mO6mbTvVg1VgtErum97WKe+9xG9gzsw50v6wiQ4D0EftYmzg+I6coadgG93UJURP6tzk85LjBJv81HMxR1CzyFi6l0LspEOjwIF8zZg8JsiEXB232lAHSzJ46mVJpO91DG9FqCfIzBJpj/daRhrSVPvN5kVWQU/hnLTCZj9Xt7DwgWqrixy/PE7nXPnmopGdKZQ67bACt5jydVVCQLdR8haZJn64Yr5eQFIFBoZc6bjgNOgcgy
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(52116014)(18002099003)(10067099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(56012099006)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?g9Y28a4XNj+apUNTWo0xNddRZmUoYxFA0yZ2Dnz8i7R7jO4xKJn7XEoaLTBc?=
- =?us-ascii?Q?gxwmvR0k7x8bBiYrRB4TXiPbUuFE9aCR/TikUtgZ/P9TOrBh6Joc+LJOrFuk?=
- =?us-ascii?Q?tBaLlH9uMUnyva2/SDwmWnIE84sZ1Exj9kaYTUKVUxp8tXMQwuxSvHgyaBVv?=
- =?us-ascii?Q?FH+dQstTcNxgen3IkLsgvd11AdH7sYBeL83V5C6308bQ6L7voc8Sw1eF6m4n?=
- =?us-ascii?Q?FLJgzDTFP1Qa215Fos1o6cLygrPi+pA185vxymk29bUDdAQSo4nlkI4nolbn?=
- =?us-ascii?Q?Alg9LivWj5uFPoc9F/mmSgv87BN4QrZNt3mGgTYoZrwkdvwyuMkTdMhp6nA9?=
- =?us-ascii?Q?4sOyq1omsjN71ZDUYLdVjQUrOMfS96F+0sBdbqrG5Bdcsw1svmrk9qvfMteF?=
- =?us-ascii?Q?/b1HgFZSAIOPTzf+LtohkdyrCfeT+ZqdBEhZh67ND8rblYp0P3XtdlrVJIA3?=
- =?us-ascii?Q?zSV7UOE4rQAufAtSe23lH1iMxMk19Z9mt3DhaDievWRa9zB994KKgvmE5Ch6?=
- =?us-ascii?Q?aGxOHp42zZ/Sggw/4fsAYcJY4sv3dUhl63UlSlCdMP1UmCbMQQ58Q2LVtmAm?=
- =?us-ascii?Q?NdBlfGF24S6/nCnTpMLNCxvg9ZE9TG9zXV6n5L78j7XKl2RbPfLgcO2PdPTN?=
- =?us-ascii?Q?C1w7yXaytvYEPEa3fuQarzQcqZkhsuK8kmtBitfpIwEP4gU1FXCd82ETyGN4?=
- =?us-ascii?Q?mUsE5jFLcJxgdgP9z9JIfB7JMhZSO37Ag+uS4rjy71ygAa1IvffCYyPfy4V+?=
- =?us-ascii?Q?J4sN51SUetzWpEbq2eEJuqB1hv2qiTk6p3AKtrib3bEg+gXXu4o/6jUJ0pLr?=
- =?us-ascii?Q?VMY4AM18Nsp0hUoW5K5e+Sq27JlD8iA5GT8RyzcLHF7+2WJAZShGzLN4A+M3?=
- =?us-ascii?Q?UepN3lCrW/X5a2PGM31dRRd+ErNmeelMYuvOlVk69hEI4tif079WxM8oTlkW?=
- =?us-ascii?Q?OH/pTRq6wx6qs9wSxPbbs9e2+K2t93FCMMkKdoWcxwHGJ7+AYckqb5jj7QUQ?=
- =?us-ascii?Q?rKifh4SdJkDxFONPGcyU7K1E47qKzpo6xPUex7juAMau44CM1hqlRKRxn/ve?=
- =?us-ascii?Q?7ZX9gZg6aEACuiIXVSK4tiL6wIRUGwHapMdgV7+kdwdeMnKAIISkgBh36qUq?=
- =?us-ascii?Q?zD1VVPvQM9+Tfq8qT0z+fOad5OAWVeyCoMuGe7laxMlkheOweSR4mu7y9/Jq?=
- =?us-ascii?Q?a4hS5ouHi70FOo0UX5Qf7QWBFwYT+Pc8RbvxiTYq8iK4+fWzVOww39REZ+pK?=
- =?us-ascii?Q?q82mX8Wsm7zQVj5oNQS20Vb2DdeB+EssZdxPdEnO/tI6q5IdG9JC1V1WN1oI?=
- =?us-ascii?Q?S2QfNR0QjtsxSLEKaGg/2VvuwedkQQtOPYRAGU6RXOQKC70SxOK/FVIjSmnz?=
- =?us-ascii?Q?7tzlCZrnZNj2zco4gbWyuFj4R8oVJrOFicETr1Rel7cMWJELbhECKlKSnT6B?=
- =?us-ascii?Q?88bthDoC73MbuTdxM+gpSXQzIrZo4GXXK9cRocSON6n017fSvrv2RK1e8YGl?=
- =?us-ascii?Q?nvizve/7zP6e4vVdDCYZhkEyEq/v/uc6QgQi0+QX9ksQIts9WLNOT2/XECON?=
- =?us-ascii?Q?BeMnbDj+K4VVNWMmnrjBUxkGXr4IUtgS5J0vQRbY7+clZRtoP9jU+wIEXpXO?=
- =?us-ascii?Q?8lj8h4OzxENsrzJPeAqD67zDnx8/Dyz175b2XCZeV83XzlrGnyOYbQLT1wBh?=
- =?us-ascii?Q?GiFFnqEgywM+mdvG5lC+JBtNZYyYULuue4PJWJbU/iB4hJpSTiu+Ur3khzwM?=
- =?us-ascii?Q?RDJMRdXDwpf1h5YkNUvYRxfDekpY3M4+wGWfuJLlGOe5ald6PGkd?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 549f7307-e67a-48ce-d83f-08df2dc8b4e5
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 10:06:56.3548
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YZ7hDMsUbo96hthrEk6AhCQ3ni+U4zIMqJ/UY52NZT0MePYtx9lVks3glIZoqM+ZLD7P8Qu2ZYM3FXmV3eeyWJaCE2OOCD6vPqMXgqvQ+AFVDYEtnpPfrSl6J72ham4K
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1204
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/6] drm/rockchip: dw_hdmi_qp: Advertise BT.709 and
+ BT.2020 colorimetries
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ =?UTF-8?Q?Jan_Clau=C3=9Fen?= <jan.claussen10@web.de>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261018123037.19560-1-jan.claussen10@web.de>
+ <20261018123037.19560-7-jan.claussen10@web.de>
+ <039f91a1-7944-4092-9f9c-29b60e8fb17a@rock-chips.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <039f91a1-7944-4092-9f9c-29b60e8fb17a@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Currently, since Aspeed also has a similar driver, there is some code
-with identical structures on both sides, but a common framework is
-lacking. Therefore, this series introduces a generic UART routing
-framework. It also moves aspeed-uart-routing.c under this generic
-framework and makes it use the interfaces provided by the generic
-framework. At the same time, StarFive also registers its own driver
-based on this generic framework.
+On 10/19/26 6:19 AM, Chaoyi Chen wrote:
+> Hi Jan,
+> 
+> On 10/18/2026 8:30 PM, Jan Claußen wrote:
+>> Expose BT.2020 RGB and YCC colorimetry so userspace can enable HDR
+>> output. Also explicitly expose BT.709 YCC as it is listed in the
+>> Rockchip RK3588 TRM V1.0-Part2 20220309 data sheet.
+>>
+>> Tested on a Radxa Rock 5B (RK3588) with an LG OLED55B87LC in KDE
+>> Plasma 6.7.5: enabling HDR switches the colorspace to BT.2020, and
+>> disabling it restores the default.
+>>
+>> Signed-off-by: Jan Claußen <jan.claussen10@web.de>
+>> ---
+>>
+>> Not sure if BT.709 needs to be explicitly exposed here, but it is mentioned in the data sheet.
+>> Might be covered by DRM_MODE_COLORIMETRY_DEFAULT though.
+> 
+> Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> 
+> Hi Cristian, may be you would be interested in this series?
 
-StarFive JHB100 UART Routing allows dynamic routing of inputs between
-built-in UARTs and physical serial I/O ports, enabling use cases such
-as Host <-> BMC communication via UARTs.
+Hi Chaoyi, I already planned to check this out soon. Please note there's a newer
+revision of the series, so I think it's best to move further discussions there.
 
-This series has been tested on the EVB1 board.
-
-changes since v3:
-
-PATCH 1:
-- Use dev_get/set_drvdata() to obtain struct uart_routing * to avoid
-  null-ptr-deref issues.
-- Update uart-routing.rst: since dev_set_drvdata() is now used by the
-  framework, remind the SoC driver side not to use dev_set_drvdata().
-
-PATCH 3:
-- Add Rob's "Reviewed-by" tag.
-
-v3: https://lore.kernel.org/all/20260925050947.9900-1-changhuang.liang@starfivetech.com/
-v2: https://lore.kernel.org/all/20260905102901.126035-1-changhuang.liang@starfivetech.com/
-v1: https://lore.kernel.org/all/20260830065118.51551-1-changhuang.liang@starfivetech.com/
-
-Changhuang Liang (4):
-  uart-routing: Add common UART routing framework
-  soc: aspeed: Move UART routing driver to drivers/uart-routing
-  dt-bindings: soc: starfive: Add StarFive JHB100 UART routing
-  uart-routing: Add UART Routing driver for StarFive JHB100 SoC
-
- .../sysfs-driver-starfive-uart-routing        |  49 ++
- .../soc/starfive/starfive,uart-routing.yaml   |  46 ++
- Documentation/driver-api/index.rst            |   1 +
- Documentation/driver-api/uart-routing.rst     | 144 +++++
- MAINTAINERS                                   |  25 +
- drivers/Kconfig                               |   2 +
- drivers/Makefile                              |   1 +
- drivers/soc/aspeed/Kconfig                    |  10 -
- drivers/soc/aspeed/Makefile                   |   1 -
- drivers/soc/aspeed/aspeed-uart-routing.c      | 601 ------------------
- drivers/uart-routing/Kconfig                  |  45 ++
- drivers/uart-routing/Makefile                 |   5 +
- drivers/uart-routing/aspeed-uart-routing.c    | 415 ++++++++++++
- drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++
- drivers/uart-routing/uart-routing.c           | 183 ++++++
- drivers/uart-routing/uart-routing.h           |  84 +++
- 16 files changed, 1192 insertions(+), 612 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
- create mode 100644 Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
- create mode 100644 Documentation/driver-api/uart-routing.rst
- delete mode 100644 drivers/soc/aspeed/aspeed-uart-routing.c
- create mode 100644 drivers/uart-routing/Kconfig
- create mode 100644 drivers/uart-routing/Makefile
- create mode 100644 drivers/uart-routing/aspeed-uart-routing.c
- create mode 100644 drivers/uart-routing/starfive-uart-routing.c
- create mode 100644 drivers/uart-routing/uart-routing.c
- create mode 100644 drivers/uart-routing/uart-routing.h
-
---
-2.25.1
+Regards,
+Cristian
