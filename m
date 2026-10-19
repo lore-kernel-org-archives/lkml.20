@@ -1,70 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792446638;
-	b=c5srcP3HP/JspdgbQjbyFQqR80omoNAgCV9gu3okrKMOP8TLAkWefctMWKXYRyY0/9py
-	 UdH+lp6CoAHCkya3RBZhRb0spUmyBjN3NzME9ItVitGjqe9C+wgP6OLEa397+7AMBO3sf
-	 KEZp+o4y/KrOwZ8AHWzngUhz1tBDSvkisnLC8Kl3k4FAA2xWnshmH9GDFuV2X0gEFAS1c
-	 KvjaOCtFuh70dKg4RlF1YA8+5RNIUTYDyCJlz7alzeqMAlD7etYAFV9mtpEOm84F9ZHxJ
-	 mebZ09r2cPSXiyOfNAD6C/VBSik7hddw6Qib7HwSlP97fxZMSkils06kem0e/sI5dOg==
+	t=1792446716;
+	b=oJ6x3U/S/tEACXbSlOIBfMzLU87+dSS3mwzJTa+DL9HsGhdYnFZvkfI3cqSegiG5ANnP
+	 cLJ3D3DxXAzE6/tFS8F7VTD1d0/A1qC8wbehdXNIl9zutFt9A08AHOEZyhvNlE/HQEob0
+	 YKpxVzxNk+NsG42lUdQg0vIXxI++ZdUmyOg9577n3HLtSpPHDVvi1EYmkxxPthgrqaRMT
+	 URaCD4QedZczQdG7hrN9lyRZtrwxm0EJeKQEkwGn/pXd4QIHaxH1UI6gyCfR9y1ZiTFsh
+	 5HiJDBkCTzkKCRxj/OL5FTprpXY5qggwhgw8AhYySOmo77Ken9S+QgratMDj76/D+Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792446638;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9wRdjv0wMNosrnlf6MW1BRBfYfgIR3bLc7ooPSPmATg=;
-	b=qMpZAmSpZiU+Fk8y3eKZf7QJT6p0u06zC+GZAArkTFc18bPm0FjpKRiqFV3YUJraP0vY
-	 xC9D7C+DRSe2lQRlLMhK3wdZFrLCi+2iy5YATzQGqq0Zzn8hVCqSA1O5zgXZLeR+C0J0h
-	 KiH57ObcncClPyGM4N3qW7f45/clWBpzQBqt/mDwvDXpJuDsiCZfZRh5PpCWswOsAuZVA
-	 DnfQjwB46vJ9wxEFId+7Iv3Ts7eZdRQYxJCyFYmciIHFAtUroAlNff8fWUFz66L95/d+P
-	 W+PoBFJ4xHgewnSO+SuQv1Sd6+N77m5OxVolSKMuyFgeVnpPlTjdddsCld0VyFTJ2Ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792446716;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=LqjyEKLTkX6+1Aqf9iomjAog7kKxzRPzlu8iaZzTXog=;
+	b=KEcRsYlVR25xho8pjWuaotyTzNyDuVf8bqVATfAppTHjtcMQ/Yq2XjSUz+YRV2TV8q4B
+	 sw+nXT1IOYoDq3q98yAQvNwIc8b3hPd1DB0ol8PIEoZyZjTI2Jo+R8rSDLQ3xnvGV0Lns
+	 VvyAQmIgr/DUzI3igKiVM1D7L9cMvJS81LSa9fj7aYQMOpkgk4ibYpRPu+lnZorde95Bd
+	 1KHMOzGcbBDDm1rTC26RTLl9cqtt1Nz8c0idxc4jpV9QaXnD8sv+S8s8WrDwteMMjtPng
+	 hujVpaeNGxo8eJDBm5N995wDZz7+mxwG5fdW8JOSmrhxogy4twX7o0fb5RpGhKd9BZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lbd+6kjk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rUrh4AGz;
+	arc=none smtp.remote-ip=91.218.175.172
+Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id DA353606A319;
-	Mon, 19 Oct 2026 21:50:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2FA9606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:51:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2FA9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lbd+6kjk
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E77301F000C5;
-	Mon, 19 Oct 2026 21:50:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792446637;
-	bh=9wRdjv0wMNosrnlf6MW1BRBfYfgIR3bLc7ooPSPmATg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lbd+6kjk5noL/yNPdTnfxPBFTi1dI0e5vL0bOfPHwcx9/Yjt+ouzTg8zSFz1BbdN0
-	 wm/6mTcBLj2gDpuTP8PEoMEJdvrzQWuXkQfODIbY0YAxA1jIhFN9/r7/C3mr1Y+Mrc
-	 O3+LfiuY+dgmgiVlr7vw/MEUpB54buc6brWdqF7NAUYjMX1t10tdx11Psf6KdU/dIj
-	 rYdkainDbQHW5RAupyqzVXfdJcnp/G7BGe1FCDmxUgw6G1ddglgvoFzouRthNURPTg
-	 yuKQLi6dqslKrRB/Gj6VCzhqy34XxTJquK7NChKeSWf5uFmB3AdaaEKYQrdb1lS6bW
-	 BwM0gtQI+/qZw==
-Date: Tue, 20 Oct 2026 00:50:33 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Bagas Sanjaya <bagasdotme@gmail.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Jani Nikula <jani.nikula@intel.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [RFC PATCH 6/6] lib: Remove unused assoc_array
-Message-ID: <ataQqa4f9XAJQoYO@kernel.org>
-References: <20261016215326.4110064-7-jarkko@kernel.org>
- <20261016215326.4110064-1-jarkko@kernel.org>
- <2630215.1792446401@warthog.procyon.org.uk>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rUrh4AGz
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=iuINLRNPHC+Snxt6vGRFDY7i0T8cvdP6Sc9wX0VcqPU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792446712; v=1; x=1793051512;
+ b=rUrh4AGzuU2aDuc52tCobwUYVZaPw1cs1NFlVHQRZeX5Wr9K5SSXdHlPdXIYiKEim/ju584I
+ CA5WhsKmbIZLgDWveLgJjChxb10qtrSiQcYVQxaXweR7aQXG1al7y8U1UVRRqSiYpR4A6u+YUCd
+ vgxYdFnHAPtjPkrXPniP+twg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 78e351183aea031e;
+	Mon, 19 Oct 2026 21:51:52 +0000
+X-Mizu-Trace-ID: 78e351183aea031e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f71595e8-8553-4e18-89a8-cca93cd65f56@linux.dev>
+Date: Mon, 19 Oct 2026 23:51:51 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,21 +58,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2630215.1792446401@warthog.procyon.org.uk>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: asus-wmi: Clamp keyboard backlight level
+ from hotkeys
+To: Alex Bogusta <alex@bogusta.com>, Corentin Chary
+ <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Benjamin Tissoires <bentiss@kernel.org>,
+ Antheas Kapenekakis <lkml@antheas.dev>
+Cc: Denis Benato <benato.denis96@gmail.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261016015117.32174-1-alex@bogusta.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20261016015117.32174-1-alex@bogusta.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 10:46:41PM +0100, David Howells wrote:
-> Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> 
-> > Drop the obsolete leaf-count reference from a dm-verity test comment.
-> 
-> This might need reworking as a commit message...
 
-Agreed.
+On 10/16/26 03:51, Alex Bogusta wrote:
+> Pressing the keyboard backlight down key at level 0 drives the cached
+> level negative, so the backlight then needs one extra up press per
+> extra down press before it turns back on. brightness_hw_changed also
+> reports out-of-range values: 4 after pressing up at the maximum level,
+> and ENODATA or values like 4294967294 below 0.
+>
+> kbd_led_set_by_kbd() stores the new level without clamping it, and
+> kbd_led_update_all() skips do_kbd_led_set() for negative levels and
+> notifies userspace with the unclamped value. The level is computed in
+> enum led_brightness, which is unsigned, so the subtraction at level 0
+> wraps around.
+>
+> Compute the level as int and clamp it in kbd_led_set_by_kbd(), which
+> covers every hotkey path.
 
-> 
-> David
-> 
+Hi Alex,
 
-Br, Jarkko
+thanks for taking a look at this!
+
+
+> Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
+> Signed-off-by: Alex Bogusta <alex@bogusta.com>
+> ---
+>  drivers/platform/x86/asus-wmi.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+> index 9fb3fe4b161c..599a73862903 100644
+> --- a/drivers/platform/x86/asus-wmi.c
+> +++ b/drivers/platform/x86/asus-wmi.c
+> @@ -1949,10 +1949,10 @@ static int kbd_led_set(struct led_classdev *led_cdev, enum led_brightness value)
+>  	return 0;
+>  }
+>  
+> -static void kbd_led_set_by_kbd(struct asus_wmi *asus, enum led_brightness value)
+> +static void kbd_led_set_by_kbd(struct asus_wmi *asus, int value)
+
+Is the change of type really necessary? I think clamp_value does everything required already.
+
+>  {
+>  	scoped_guard(spinlock_irqsave, &asus_ref.lock) {
+> -		asus->kbd_led_wk = value;
+> +		asus->kbd_led_wk = clamp_val(value, 0, ASUS_EV_MAX_BRIGHTNESS);
+>  		asus->kbd_led_notify = true;
+>  	}
+>  	queue_work(asus->led_workqueue, &asus->kbd_led_work);
+> @@ -4668,9 +4668,9 @@ static int asus_wmi_get_event_code(union acpi_object *obj)
+>  
+>  static void asus_wmi_handle_event_code(int code, struct asus_wmi *asus)
+>  {
+> -	enum led_brightness led_value;
+>  	unsigned int key_value = 1;
+>  	bool autorelease = 1;
+> +	int led_value;
+>  
+
+Honestly I don't like the change of type... I would prefer something that prevents the
+bad thing from happening without changing the type.
+
+>  	if (asus->driver->key_filter) {
+>  		asus->driver->key_filter(asus->driver, &code, &key_value,
+>
+> base-commit: 98f039265e580291d5e76a11b2072541fbb1c393
+
+Best regards,
+Denis Benato
