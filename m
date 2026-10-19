@@ -1,268 +1,131 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B3E3DBD48
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C53A448BAF;
+	Mon, 19 Oct 2026 03:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792380761; cv=none; b=g+RByQDWNi4o1Ocq1V+izWrXHuIW1tlYGEP/3FlU/OqxaECqklsGUh9jJcvh/j+x4RNvYbuKmP0et5ZSCinkQLDHbptEdpcrVdXAkWMWJ2j8oCytcC8bM4biOOv2mLQ4cilkq+Ef81XH+G6DyHROIwTj+NG/h3Z6KuZtVBKpztE=
+	t=1792380781; cv=none; b=f66lftGISfsq26iOmGYyznNgdIpzRw/jothFPBwbzlOcEv6wozX8NyziHm8gfnEoTphWvzAJftYHrno5H20XbZiA6ms/ZDA4YRfXYjPOzD56Z9Efkcx0CRXYn5qTvdjkny4u09xFejnTaRahriGLK8M0f6Qp3SdnG4Fu4pdFC1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792380761; c=relaxed/simple;
-	bh=vtCPb9zV6L5uTrn3PIAIHPOGWAn1ooRRD+kV9nQCxTM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EHON2LiXznNnfvrDjD35eNMf1Z1hdY65M6miVQkTq2Th30Tfpw/4oIGVMl9QmoScPOqcSo4BEYsDXDqNdHSN2H8myVE0O1feFd/+6P+Bl6f6Zcho/3bdTmt51dih5veD9Y/15aKU4l1zhJ4ZCQj5cyZKgpW1xyYCzrGYdz9vGyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f4OX2zBk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Imb7yjou; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f4OX2zBk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Imb7yjou"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J1FY8B2379746
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:32:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=n+xQAV+h4O3H+drN3Sggr/
-	lxYZZZqiuYT8sgXuwudPk=; b=f4OX2zBkOHZC4vp1PrBUX98rySIaK6GX0MnQV/
-	VQQDmlT26sdRrdyFOUPQThJIzuwrVIzuS2L/Glymax1lax4KR5oVzt5874YxYi9h
-	ec5OWe+xfrG1GLr9D4YapDufJl/2c037nL7CbYU1+0a4nAsvp7l44r9BOi1AuRoB
-	NFbd/fqbf6o79EMoap7mprBuIEBU0cl/ohYigfPWlloxDw72B2ZvDo1ElgrhtOoz
-	Zh06lA1iHu9eeY6IkN7Hma3DG3coLRZuaq67J1+iZZEUZKH3SnzcHUo57y6YhICG
-	XsjK5Zm/mNzShFicwd9Rhuz2O5LQ6yD4lLVp4sg7hfqwiF1w==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbxqfvxqs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:32:39 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35a4d2e39acso3393945eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:32:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792380758; x=1792985558; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=n+xQAV+h4O3H+drN3Sggr/lxYZZZqiuYT8sgXuwudPk=;
-        b=Imb7yjouRPTbHsLDyn2+Ud0Cc7E/vijJmnaDlDYgSw5Qc75EFt0swhTpAXTUYfOkhp
-         va55SEY4IDRvEmztkxEk8AI8x1tmRw1nMFK2v3NzeRFNfE6bDWOIh/OVJSbciy6ARHUH
-         QCnhq19Qc7UcCncJRZsvBr8dgX+HaSlAu28HDdQqtPt6bq8Trugq1islWNGjQNgNFEMo
-         gS/x8Z9P/sUdNqEnNJSZW9+Sw8bW0BBgOxMHnmiprnUEgbm+ue4RNB1rh0EtJBaAjck4
-         GbyZNIluzxW1F951VVYITzfEZzdUJu5ngc+jYGCVL659GPsd4cFZAfFW+LkaIyYSDlSJ
-         aylA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792380758; x=1792985558;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=n+xQAV+h4O3H+drN3Sggr/lxYZZZqiuYT8sgXuwudPk=;
-        b=yo1jZ1H20oYLzh6tWvfGqG+v8v+BRw7RgWZzfY/wcReADuD0Htl014lqgKChZHZSpf
-         +cwrCfEl+3/xzV+xEE1zaUbUAyvim/jrN0wq6CzHkmuE03t1VacCSpQkOIhgS25tdVkD
-         RYiCXVwnX6sSkPU/aNnAa8PS37zsd0TCrCGO8JOmhvAxOlc4sqHngbS8pp4u1peHcBhr
-         hAni1Ye8sxikIUAzhU9zZq1SEu6PSCqs8rwiwhGN5U4mSMJ9RtbqCgWpmkx8oux/DhTZ
-         UQfM+xSd/xbOnfKg9H4V+T25YSNbeMEaHbKWPJbmAgFn7IpdBbWNOH+uImJsBTXQ3tWS
-         4ONA==
-X-Forwarded-Encrypted: i=1; AKwUvByHfc+FtYNa7QLx9vfKsg9+cApEAxhSMtbCQ6GU/n/sJaM1f8wBpOZuEJ+HZDgIKcT2jal3eC+bI/T1Olc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKw+t7aN10ClxuKNyKPhM639v3Nx7SgrK7kziPkG/PhzLnxYA3R
-	3nRsVx4RgHGgY1kHUm70bLh41KNPj3Hf+w8zvouqB9zuDlgcpQlewY5mzYxtzLr33TYc4cxGkq+
-	bdHGayYODCAM83XDEBYq7Z8zis9FkvyopqhRjx0DeOt4OdMKY8YeDIX7WKFjzYFBACvM=
-X-Gm-Gg: AYBFou0s9KYmk6jUpaJvo9eJ+wm0bT6/uzK9bFCIXS9l2Y4arGW8+ni7fU2M7C1OT6D
-	Q75E4IgkyL6X/g/lyj5VSDfnOeA032Zpt+i7J2g0VR53Lo+s8qs/Nkb9Qvs7DhS10erm9fsCztd
-	7xbwmcHu1uDnF2yXXUL6yCkUI+gKH5HDlC/JoI93HECltUufJI8jDJiVFHrN7r0fayg6cYqSuGp
-	keU9tITYcv6ZnJ9O+vd0GQ0lch/fk8v4Z02O45GCPqSBvPpLk0/nK2Fh/TKKcDSKFs7Yd7FsPpO
-	o6yv7DrHzAB/iIvw9d9AuQA3+229WulHQGf6eXD6Xbn39yUAFQvLuHepsvFq2dVjmi85+HUn/+R
-	bioJQ3Qs7RL5rwVljn6h7IofZHcEmYA2y
-X-Received: by 2002:a05:7301:2727:b0:343:fb75:a5f2 with SMTP id 5a478bee46e88-361a1865981mr9545973eec.9.1792380758371;
-        Sun, 18 Oct 2026 20:32:38 -0700 (PDT)
-X-Received: by 2002:a05:7301:2727:b0:343:fb75:a5f2 with SMTP id 5a478bee46e88-361a1865981mr9545946eec.9.1792380757689;
-        Sun, 18 Oct 2026 20:32:37 -0700 (PDT)
-Received: from hu-ptalari-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608258aa66sm34893765eec.20.2026.10.18.20.32.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 20:32:37 -0700 (PDT)
-From: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 09:02:24 +0530
-Subject: [PATCH] serial: qcom-geni: Add tracepoints for SE reg dump
+	s=arc-20240116; t=1792380781; c=relaxed/simple;
+	bh=myeZcrIK9N2UvgTiV88GF34NvItmy5XTQ1Uz3iGbQE0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=K4Kwxp7pzWgs64RhYllKN4UFeFuVv295FjhCwvFh4jOvM3snvQOS21Wp6V4Yelrid5fM7WC/Bpx3HV+2xBm0u0Ksby0bpGt5E4OitguYU+zbzOA0nODeHcXwZiOpQoT9H79IAD1D/NUnHtTAD710dJRvKEDzC5Ke/8GFsTaE03I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from yuanxiaofeng$eswincomputing.com ( [10.12.96.78] ) by
+ ajax-webmail-app2 (Coremail) ; Mon, 19 Oct 2026 11:32:33 +0800 (GMT+08:00)
+Date: Mon, 19 Oct 2026 11:32:33 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?6KKB5pmT5bOw?= <yuanxiaofeng@eswincomputing.com>
+To: "Masami Hiramatsu" <mhiramat@kernel.org>,
+	sashiko-reviews@lists.linux.dev
+Cc: linux-trace-kernel@vger.kernel.org, "Paul Walmsley" <pjw@kernel.org>,
+	"Palmer Dabbelt" <palmer@dabbelt.com>,
+	"Albert Ou" <aou@eecs.berkeley.edu>,
+	"Nam Cao" <namcao@linutronix.de>, "Alexandre Ghiti" <alex@ghiti.fr>,
+	"Naveen N Rao" <naveen@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH v6 1/2] riscv: kprobes: reject probes inside LR/SC
+ sequences
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <sashiko-outbox-174019@kernel.org>
+References: <20261016081706.1085-1-yuanxiaofeng@eswincomputing.com>
+ <20261016081706.1085-2-yuanxiaofeng@eswincomputing.com>
+ <sashiko-outbox-174019@kernel.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-add-tracepoints-for-se-reg-dump-uart-v1-1-1fb47b1605b9@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAEeP1WoC/yXNQQ7CIBBA0as0s3YShKYNXsW4QJjWMRHIAI1J0
- 7uLunyb/3coJEwFLsMOQhsXTrHjfBrAP1xcCTl0g1Z6UlbP6ELAKs5TThxrwSUJFkKhFUN7ZWx
- OKhoVrJmMHcfZQU9loYXfv8319ndp9yf5+m3DcXwAuL+qqIgAAAA=
-X-Change-ID: 20260927-add-tracepoints-for-se-reg-dump-uart-30d93639447a
-To: konrad.dybcio@oss.qualcomm.com,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jiri Slaby <jirislaby@kernel.org>
-Cc: chandana.chiluveru@oss.qualcomm.com, mukesh.savaliya@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-serial@vger.kernel.org,
-        Praveen Talari <praveen.talari@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792380754; l=5010;
- i=praveen.talari@oss.qualcomm.com; s=20251114; h=from:subject:message-id;
- bh=vtCPb9zV6L5uTrn3PIAIHPOGWAn1ooRRD+kV9nQCxTM=;
- b=KWzX3cPm/D5hzwnetUbKi2UB/XqWCv+3NJiKclDx1Sh9RSdlWmUGPlPZt/oe3ruDAR9KNIyfc
- tj4nG5mJ5CJB2cJsh5DN2juAiHFzu61nyQ2SSWnjDrsD3rbZfNeJ7nL
-X-Developer-Key: i=praveen.talari@oss.qualcomm.com; a=ed25519;
- pk=NGK/88fjyHXgfhIKwag7+uIytOmyOypvZ/hDFaYPEss=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAxMyBTYWx0ZWRfX68Nle3zoXE8p
- nUnRJRx2BN3iPozis8EaSZS1ECjp6+/z0lu9LYAW/7sHfDTlsbNdZYJYqEK5Z34fgTHg/ahmsWw
- Kr8RZ+CycN0hr3gRWInO+onuI0nPL4k=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAxMyBTYWx0ZWRfX5cSc7Sdhx/EA
- Ylg45Y/SMlGfpAHtMqL5ILFkyAxPbi+6eVNnxZplgIRLiv8WnJE1+VjMJlg3jJrxgROfQR/fc2r
- dvzvWD6RstjBOUlZlmwFhvaJrrRs+w5PfuMZ5DvE+ugzcXGkaMZ0SqLkbx70gak8MFk3FZ9gyZo
- LwLnertoGY07RfoR0lTIX3jyLTjJ5/3eVGL6nO73N7wm9tidtoUWoMaYeNU690cK1FZW9mZXbLo
- VWlg6SA3+EePZNH3fLZwVqILE2h5rOdt247ZZ31MXt3bDl+P9ExjQ42cBWZwi14B9+Jbwc6rWUd
- Gz6SD3LrPj0ysnEul1Us6MOwyPN3b0z6TuJA1LdmgAIDcgBhPdGTf15vbnHZClNQyrrttcxaiwq
- jxnOYy57brZni+jHSblKpKdOl3f0UKmlFx+TbEozv/ug6EhS379Zzg5PpzIbrKxxEprpxZAr2fv
- FZL9biqkP2XY/sJeMgA==
-X-Proofpoint-ORIG-GUID: c29sJwj39OUzIJ2j1yGEQaO2aKJb7BCS
-X-Proofpoint-GUID: c29sJwj39OUzIJ2j1yGEQaO2aKJb7BCS
-X-Authority-Analysis: v=2.4 cv=RYMFmFtv c=1 sm=1 tr=0 ts=6ad58f57 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=-I6NzRS75OSQgGjscJcA:9 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610190013
+Message-ID: <4cd4d42d.afc2.1a15237d7d2.Coremail.yuanxiaofeng@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgAnPqFRj9VqACOHAA--.14297W
+X-CM-SenderInfo: h1xd05xldrwv1qj6v25zlqu0xpsx3x1qjou0bp/1tbiAgEFE2rU9S
+	oWrAABsP
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWDJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-The GENI serial driver reports various transfer failures such as
-M_CMD abort/cancel timeouts, DMA TX/RX FSM reset timeouts, RX FIFO
-write errors, illegal command interrupts, and DMA parity errors.
-However, diagnosing the root cause of these failures is difficult as
-the hardware state is not captured when the error occurs.
-
-Add trace_geni_se_regs() calls at critical serial error handling paths
-to automatically capture GENI serial engine debug registers when
-failures are detected. This includes:
-
-- M_CMD abort/cancel timeout
-- DMA TX/RX FSM reset timeout
-- Unexpected zero-byte RX DMA completion
-- RX FIFO write error and illegal command interrupt status
-- RX DMA parity error
-
-Dumping the SE debug registers at the time of failure provides
-additional hardware context and significantly improves post-mortem
-analysis of serial transfer issues without affecting normal
-operation.
-
-Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
----
- drivers/tty/serial/qcom_geni_serial.c | 32 ++++++++++++++++++++++++--------
- 1 file changed, 24 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
-index bfdc155c128d..34ab80e8cdbb 100644
---- a/drivers/tty/serial/qcom_geni_serial.c
-+++ b/drivers/tty/serial/qcom_geni_serial.c
-@@ -7,6 +7,8 @@
- /* Disable MMIO tracing to prevent excessive logging of unwanted MMIO traces */
- #define __DISABLE_TRACE_MMIO__
- 
-+#include <trace/events/qcom_geni_se.h>
-+
- #define CREATE_TRACE_POINTS
- #include <trace/events/qcom_geni_serial.h>
- 
-@@ -811,8 +813,10 @@ static void qcom_geni_serial_stop_tx_dma(struct uart_port *uport)
- 	if (port->tx_dma_addr) {
- 		writel(1, uport->membase + SE_DMA_TX_FSM_RST);
- 		if (!qcom_geni_serial_poll_bit(uport, SE_DMA_TX_IRQ_STAT,
--					       TX_RESET_DONE, true))
-+					       TX_RESET_DONE, true)) {
- 			dev_err_ratelimited(uport->dev, "TX DMA reset failed");
-+			trace_geni_se_regs(&port->se);
-+		}
- 		writel(TX_RESET_DONE | TX_DMA_DONE,
- 		       uport->membase + SE_DMA_TX_IRQ_CLR);
- 
-@@ -923,8 +927,11 @@ static void __qcom_geni_serial_cancel_tx_cmd(struct uart_port *uport)
- 	if (!qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
- 						M_CMD_CANCEL_EN, true)) {
- 		geni_se_abort_m_cmd(&port->se);
--		qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
--						M_CMD_ABORT_EN, true);
-+		if (!qcom_geni_serial_poll_bit(uport, SE_GENI_M_IRQ_STATUS,
-+					       M_CMD_ABORT_EN, true)) {
-+			dev_err_ratelimited(uport->dev, "M_CMD_ABORT_EN not set");
-+			trace_geni_se_regs(&port->se);
-+		}
- 		writel(M_CMD_ABORT_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
- 	}
- 	writel(M_CMD_CANCEL_EN, uport->membase + SE_GENI_M_IRQ_CLEAR);
-@@ -1006,8 +1013,11 @@ static void qcom_geni_serial_stop_rx_dma(struct uart_port *uport)
- 		qcom_geni_serial_abort_rx(uport);
- 
- 		writel(1, uport->membase + SE_DMA_RX_FSM_RST);
--		qcom_geni_serial_poll_bit(uport, SE_DMA_RX_IRQ_STAT,
--				RX_RESET_DONE, true);
-+		if (!qcom_geni_serial_poll_bit(uport, SE_DMA_RX_IRQ_STAT,
-+					       RX_RESET_DONE, true)) {
-+			dev_err_ratelimited(uport->dev, "RX DMA reset failed");
-+			trace_geni_se_regs(&port->se);
-+		}
- 		writel(RX_RESET_DONE | RX_DMA_DONE,
- 				uport->membase + SE_DMA_RX_IRQ_CLR);
- 	}
-@@ -1048,9 +1058,10 @@ static void qcom_geni_serial_handle_rx_dma(struct uart_port *uport, bool drop)
- 				DMA_RX_BUF_SIZE, DMA_FROM_DEVICE);
- 
- 	rx_in = readl(uport->membase + SE_DMA_RX_LEN_IN);
--	if (!rx_in)
-+	if (!rx_in) {
- 		dev_warn_ratelimited(uport->dev, "serial engine reports 0 RX bytes in!\n");
--	else if (!drop) {
-+		trace_geni_se_regs(&port->se);
-+	} else if (!drop) {
- 		trace_geni_serial_rx_data(uport->dev, port->rx_buf, rx_in);
- 		handle_rx_uart(uport, rx_in);
- 	}
-@@ -1223,6 +1234,7 @@ static irqreturn_t qcom_geni_serial_isr(int isr, void *dev)
- 	if (s_irq_status & S_RX_FIFO_WR_ERR_EN) {
- 		uport->icount.overrun++;
- 		tty_insert_flip_char(tport, 0, TTY_OVERRUN);
-+		trace_geni_se_regs(&port->se);
- 	}
- 
- 	if (s_irq_status & (S_GP_IRQ_0_EN | S_GP_IRQ_1_EN)) {
-@@ -1246,8 +1258,11 @@ static irqreturn_t qcom_geni_serial_isr(int isr, void *dev)
- 	writel(m_irq_status, uport->membase + SE_GENI_M_IRQ_CLEAR);
- 	writel(dma_tx_status, uport->membase + SE_DMA_TX_IRQ_CLR);
- 
--	if (WARN_ON(m_irq_status & M_ILLEGAL_CMD_EN))
-+	if (m_irq_status & M_ILLEGAL_CMD_EN) {
-+		trace_geni_se_regs(&port->se);
-+		WARN_ON(1);
- 		goto handle_rx;
-+	}
- 
- 	if (dma) {
- 		if (dma_tx_status & TX_DMA_DONE) {
-@@ -1270,6 +1285,7 @@ static irqreturn_t qcom_geni_serial_isr(int isr, void *dev)
- 			if (dma_rx_status & RX_DMA_PARITY_ERR) {
- 				uport->icount.parity++;
- 				drop_rx = true;
-+				trace_geni_se_regs(&port->se);
- 			}
- 
- 			if (dma_rx_status & RX_DMA_BREAK)
-
----
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-change-id: 20260927-add-tracepoints-for-se-reg-dump-uart-30d93639447a
-
-Best regards,
---  
-Praveen Talari <praveen.talari@oss.qualcomm.com>
-
+SGkgTWFzYW1pLAoKCkkgbG9va2VkIGludG8gdGhlIGlzc3VlIFNhc2hpa28gcmVwb3J0ZWQgZm9y
+IHJpc2N2X3Byb2JlX2RlY29kZV9pbnNuKCkuClNoYXJpbmcgdGhlIGFuYWx5c2lzIGJlbG93OyB0
+aGUgc2hvcnQgdmVyc2lvbiBpcyB0aGF0IHRoaXMgcmVhZApwcmVkYXRlcyB0aGlzIHNlcmllcywg
+YW5kIEknbSBoYXBweSB0byBzZW5kIGEgc2VwYXJhdGUgcGF0Y2ggaWYgdGhlCm1haW50YWluZXJz
+IHRoaW5rIGl0IGlzIHdvcnRoIGZpeGluZy4KCgpGaXJzdCwgdGhlIGNvbnRleHQ6ICJwcm9iZV9v
+cGNvZGVfdCBpbnNuID0gKmFkZHI7IiBpcyBwcmUtZXhpc3RpbmcKY29kZS7CoCBUaGlzIHNlcmll
+cyBvbmx5IGFkZHMgdHdvIFJJU0NWX0lOU05fUkVKRUNURUQoKSBlbnRyaWVzLCB3aGljaApjb25z
+dW1lIHRoZSBhbHJlYWR5LWxvYWRlZCB2YWx1ZSBhbmQgZG8gbm90IGNoYW5nZSBob3cgbWVtb3J5
+IGlzCmFjY2Vzc2VkLgoKCk9uIHRoZSB1bmFsaWduZWQgcGFydDogd2l0aCBkZWZhdWx0IGNvbmZp
+Z3VyYXRpb25zLCBtaXNhbGlnbmVkCmFjY2Vzc2VzIGFyZSBlbXVsYXRlZCwgZWl0aGVyIGJ5IHRo
+ZSBmaXJtd2FyZSBvciBieSB0aGUga2VybmVsIGl0c2VsZgooUklTQ1ZfU0NBTEFSX01JU0FMSUdO
+RUQpLCBzbyBhbiBvb3BzIHdvdWxkIHJlcXVpcmUgYSBOT05QT1JUQUJMRQprZXJuZWwgYnVpbHQg
+d2l0aCBSSVNDVl9TTE9XL0VGRklDSUVOVF9VTkFMSUdORURfQUNDRVNTIHJ1bm5pbmcgb24KaGFy
+ZHdhcmUgdGhhdCBkb2VzIG5vdCBhY3R1YWxseSBzdXBwb3J0IHVuYWxpZ25lZCBhY2Nlc3Nlcy4K
+CgpPbiB0aGUgcGFnZS1jcm9zc2luZyBwYXJ0OiB0aGlzIG9uZSBpcyByZWFsIGluIHRoZW9yeSwg
+dGhvdWdoIHRoZQp3aW5kb3cgaXMgbmFycm93LsKgIEl0IGNhbm5vdCBoYXBwZW4gZm9yIGJ1aWx0
+LWluIGtlcm5lbCB0ZXh0ICh0aGUKbGluZWFyIG1hcHBpbmcgaXMgY29udGlndW91cykuwqAgRm9y
+IG1vZHVsZXMsIGl0IG5lZWRzIGEgY29tcHJlc3NlZAppbnN0cnVjdGlvbiBhdCB0aGUgbGFzdCB0
+d28gYnl0ZXMgb2YgYSBtb2R1bGUgdGV4dCBwYWdlIGZvbGxvd2VkIGJ5CnRoZSB2bWFsbG9jIGd1
+YXJkIHBhZ2UsIHBsdXMgYSBrcHJvYmUgcmVnaXN0ZXJlZCBleGFjdGx5IHRoZXJlLsKgIEEKMzIt
+Yml0IGluc3RydWN0aW9uIGNhbm5vdCBzaXQgYXQgdGhhdCBsb2NhdGlvbiBvbiBhIHdvcmtpbmcg
+bW9kdWxlCihpdHMgZW5jb2Rpbmcgd291bGQgY3Jvc3MgaW50byB0aGUgdW5tYXBwZWQgZ3VhcmQg
+cGFnZSwgc28gaXQgY291bGQKbmV2ZXIgYmUgZmV0Y2hlZCksIHdoaWNoIGlzIGFsc28gd2h5IHRo
+ZSB0d28tdTE2LXN0ZXAgY29weSBpbgphcmNoX3ByZXBhcmVfa3Byb2JlKCkgaXMgc2FmZS4KCgpJ
+ZiBpdCBpcyB3b3J0aCBmaXhpbmcsIHRoZSBjbGVhbmVzdCBhcHByb2FjaCBzZWVtcyB0byBiZSBw
+YXNzaW5nIHRoZQpvcGNvZGUgYnkgdmFsdWUgaW5zdGVhZCBvZiBhIHBvaW50ZXI6IGFyY2hfcHJl
+cGFyZV9rcHJvYmUoKSBhbHJlYWR5CmhvbGRzIGEgc2FmZWx5IGNvcGllZCBwLT5vcGNvZGUsIGFu
+ZCB0aGUgdXByb2JlcyBjYWxsZXIgcGFzc2VzIGEgc3RhY2sKdmFyaWFibGUsIHNvIGJvdGggY2Fs
+bCBzaXRlcyB3b3VsZCBiZSBjb3ZlcmVkLsKgIFRoZXJlIGlzIGEgdGhpcmQKc2ltaWxhciByYXcg
+cmVhZCBpbiB1cHJvYmVzLmMgKHRoZSBhdXByb2JlLT5pbnNuW10gZGVyZWZlcmVuY2UpIHRoYXQK
+Y291bGQgYmUgZm9sZGVkIGluIGFzIHdlbGwuCgoKRWl0aGVyIHdheSwgdGhpcyBkb2Vzbid0IG5l
+ZWQgdG8gYmUgaGFuZGxlZCBpbiB0aGUgc2VyaWVzOiB0aGUKdXBjb21pbmcgdjcgd2lsbCBvbmx5
+IGFkZHJlc3MgTmFtJ3MgcmV2aWV3IGNvbW1lbnRzLgoKClRoYW5rcywKWGlhb2ZlbmcKCgo+IC0t
+LS0t5Y6f5aeL6YKu5Lu2LS0tLS0KPiDlj5Hku7bkuro6IHNhc2hpa28tYm90QGtlcm5lbC5vcmcK
+PiDlj5HpgIHml7bpl7Q6MjAyNi0xMC0xNiAxNjoyOTo0MiAo5pif5pyf5LqUKQo+IOaUtuS7tuS6
+ujogIlhpYW9mZW5nIFl1YW4iIDx5dWFueGlhb2ZlbmdAZXN3aW5jb21wdXRpbmcuY29tPgo+IOaK
+hOmAgTogbGludXgtdHJhY2Uta2VybmVsQHZnZXIua2VybmVsLm9yZwo+IOS4u+mimDogUmU6IFtQ
+QVRDSCB2NiAxLzJdIHJpc2N2OiBrcHJvYmVzOiByZWplY3QgcHJvYmVzIGluc2lkZSBMUi9TQyBz
+ZXF1ZW5jZXMKPiAKPiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJ
+IHJldmlldyBmb3VuZCAxIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKPiAtIFtIaWdo
+XSByaXNjdjoga3Byb2JlczogdW5zYWZlIDMyLWJpdCByZWFkIGluIHJpc2N2X3Byb2JlX2RlY29k
+ZV9pbnNuIGNhbiBwYWdlIGZhdWx0Cj4gLS0KPiAKPiBjb21taXQgNmY5NDA1NzhkMmYwOTY5NzBl
+OWFiZDZjYzI4OTRkZTAwOGUyOWY2Zgo+IEF1dGhvcjogWGlhb2ZlbmcgWXVhbiA8eXVhbnhpYW9m
+ZW5nQGVzd2luY29tcHV0aW5nLmNvbT4KPiAKPiAgICAgcmlzY3Y6IGtwcm9iZXM6IHJlamVjdCBw
+cm9iZXMgaW5zaWRlIExSL1NDIHNlcXVlbmNlcwo+IAo+IFRoaXMgcGF0Y2ggcmVqZWN0cyBrcHJv
+YmVzIHBsYWNlZCBpbnNpZGUgTFIvU0Mgc2VxdWVuY2VzIG9yIG9uIHRoZSBMUi9TQwo+IGluc3Ry
+dWN0aW9ucyB0aGVtc2VsdmVzIHRvIGF2b2lkIGxpdmVsb2NrLiBJdCB1cGRhdGVzIHJpc2N2X3By
+b2JlX2RlY29kZV9pbnNuKCkKPiB0byByZWplY3QgdGhlIGluc3RydWN0aW9ucyBhbmQgYWRkcyBp
+bnN0cnVjdGlvbiB3YWxraW5nIGxvZ2ljIGluCj4gYXJjaF9jaGVja19rcHJvYmUoKSB0byByZWpl
+Y3QgYWRkcmVzc2VzIHdpdGhpbiBhIHNlcXVlbmNlLgo+IAo+IFsgLi4uIF0KPiAKPiA+IGRpZmYg
+LS1naXQgYS9hcmNoL3Jpc2N2L2tlcm5lbC9wcm9iZXMvZGVjb2RlLWluc24uYyBiL2FyY2gvcmlz
+Y3Yva2VybmVsL3Byb2Jlcy9kZWNvZGUtaW5zbi5jCj4gPiBpbmRleCA0MzNkOTAzNWI4ODgyLi5l
+NmE4ODk0Njc3YjEwIDEwMDY0NAo+ID4gLS0tIGEvYXJjaC9yaXNjdi9rZXJuZWwvcHJvYmVzL2Rl
+Y29kZS1pbnNuLmMKPiA+ICsrKyBiL2FyY2gvcmlzY3Yva2VybmVsL3Byb2Jlcy9kZWNvZGUtaW5z
+bi5jCj4gPiBAQCAtMjMsNiArMjMsOCBAQCByaXNjdl9wcm9iZV9kZWNvZGVfaW5zbihwcm9iZV9v
+cGNvZGVfdCAqYWRkciwgc3RydWN0IGFyY2hfcHJvYmVfaW5zbiAqYXBpKQo+ID4gIAkgKi8KPiA+
+ICAJUklTQ1ZfSU5TTl9SRUpFQ1RFRChzeXN0ZW0sCQlpbnNuKTsKPiA+ICAJUklTQ1ZfSU5TTl9S
+RUpFQ1RFRChmZW5jZSwJCWluc24pOwo+ID4gKwlSSVNDVl9JTlNOX1JFSkVDVEVEKGxyLAkJCWlu
+c24pOwo+ID4gKwlSSVNDVl9JTlNOX1JFSkVDVEVEKHNjLAkJCWluc24pOwo+IAo+IFtTZXZlcml0
+eTogSGlnaF0KPiBEb2VzIGV2YWx1YXRpbmcgdGhlc2UgbWFjcm9zIHJlbHkgb24gdGhlIGluc24g
+dmFyaWFibGUsIHdoaWNoIGlzIHJlYWQKPiB1bmNvbmRpdGlvbmFsbHkgYXMgYSBuYXRpdmUgMzIt
+Yml0IGludGVnZXIgZWFybGllciBpbiB0aGUgZnVuY3Rpb24/Cj4gCj4gYXJjaC9yaXNjdi9rZXJu
+ZWwvcHJvYmVzL2RlY29kZS1pbnNuLmM6cmlzY3ZfcHJvYmVfZGVjb2RlX2luc24oKSB7Cj4gCXBy
+b2JlX29wY29kZV90IGluc24gPSAqYWRkcjsKPiAJLi4uCj4gCj4gSWYgYWRkciBpcyAyLWJ5dGUg
+YWxpZ25lZCwgd2lsbCB0aGlzIG5hdGl2ZSAzMi1iaXQgZGVyZWZlcmVuY2UgcGVyZm9ybQo+IGFu
+IHVuYWxpZ25lZCBtZW1vcnkgYWNjZXNzLCBwb3RlbnRpYWxseSBvb3BzaW5nIG9uIFJJU0MtViBo
+YXJkd2FyZSB0aGF0Cj4gbGFja3Mga2VybmVsLW1vZGUgdW5hbGlnbmVkIGFjY2VzcyBzdXBwb3J0
+Pwo+IAo+IEZ1cnRoZXJtb3JlLCBpZiBhZGRyIHBvaW50cyB0byBhIDE2LWJpdCBjb21wcmVzc2Vk
+IGluc3RydWN0aW9uIGF0IHRoZQo+IGVuZCBvZiBhIG1hcHBlZCBwYWdlIGFuZCB0aGUgbmV4dCBw
+YWdlIGlzIGFuIHVubWFwcGVkIHZtYWxsb2MgZ3VhcmQKPiBwYWdlLCBjb3VsZCB0aGlzIDMyLWJp
+dCByZWFkIGNyb3NzIHRoZSBwYWdlIGJvdW5kYXJ5IGludG8gdW5tYXBwZWQKPiBtZW1vcnk/Cj4g
+Cj4gV291bGQgdGhpcyB0cmlnZ2VyIGEga2VybmVsIHBhZ2UgZmF1bHQgYW5kIHBhbmljIHdoZW4g
+dHJhY2luZyB0b29scwo+IHJlZ2lzdGVyIGEga3Byb2JlIGF0IHN1Y2ggYW4gYWRkcmVzcz8KPiAK
+PiAtLSAKPiBTYXNoaWtvIEFJIHJldmlldyDCtyBodHRwczovL3Nhc2hpa28uZGV2LyMvcGF0Y2hz
+ZXQvMjAyNjEwMTYwODE3MDYuMTA4NS0xLXl1YW54aWFvZmVuZ0Blc3dpbmNvbXB1dGluZy5jb20/
+cGFydD0xCg==
