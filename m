@@ -1,128 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-102.mta0.migadu.com [91.218.175.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261234CF490;
-	Mon, 19 Oct 2026 02:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FAD3195FE
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792375653; cv=none; b=PBUIqAPDStTXHc1CGp2jD3Jq5D8T50i/zcDyq9mj4fhInKcVU9+MuqTlNHmjsMhJDi1njO9VuKzlrHMVx7x+w9UKUBl67aUVieNJDzj4jU/YjChmwOL6etnALhCk/0S+blEak6FYemkOWRqrkpEmbjzqRgD+Bj8Fh13wYMyivDM=
+	t=1792375702; cv=none; b=MagVMtYfJFAeAhQXqsJkFAQy5U7MtwIW4QS50R/f4lGEGBjeZIXvqQREqCZD2xVtQJADDVKsyuMWSiSAQDoXxUWzFfcz/dljSftevBAD/q3KUBOTJc22Q74/kWAfXXti7BvfjvWVK2jgxT3r5WMn4VPThn5o/TPh9bFsg16pmlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792375653; c=relaxed/simple;
-	bh=A86l9dEsEPatM7NXqHEAD95dwG+3AkAV6PzK+X64M7w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sojx1cYGUtS0oI8w7RtYUSOhZiYcOsxCqltKdTY5AS7EfV4NI5TOHUl0GzsCSMJAauYdgqXZobIo4JacrfqRhuvQxaI7gvviL1wStj0/ncSKYIdXWNdLIIewcSkDcL6+Msp6HXX8Sm1yuNo800Ba506YEmdhFFvIEYysWz6UnAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLpv3oET; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792375702; c=relaxed/simple;
+	bh=TGx+L/6tf3P9BlQx79oc67eTtWqhL3dBGQ6vFXfCt04=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AKqgSG8rxY0P2qXTVTJBjLx7eU8rnHzYaxaZvEk5547Bq17OgyvFTa2VHnCdyYoSjPlOJ/lsh1hK5SE7fhaCHGxMPKzFGHZly/Y39LgOwCbj6VMEIzU/nQFULAyyiJN6M+zR979x8tQduPcXa7kyeA975+ckHMiofUavq8tpdPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pLDQIBFL; arc=none smtp.client-ip=91.218.175.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLpv3oET"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EA961F000C4;
-	Mon, 19 Oct 2026 02:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792375651;
-	bh=8ip6f8qGfEHT4Vcgxv8eqcl4CD3K4VIOqut2jNShi5o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FLpv3oETC5nlyi4gad6kHpR/KcWu4jo85cyE2PGVkuYS2vHs52yNtvyhmcnAYBX1b
-	 JRPdbJNLMaBrcz0VUnP1twH4zz9n7CwqE5XxWVTNV4AIiz6WOGaXTeOj3vLhWlETm6
-	 ijkw7wI33jIjGVaRm7py1abdxBRN0HwgNjvHFQCfh0Uyjyg7LlOOlhGM1HGtlJn23G
-	 qxgSKW1emTGqUcRK5br5jqTwV1Xh2rz0+zCCiXKTpnrXPelQP/ieXduohcEA0y+I5l
-	 biWOMTAL8/yogP/LfuwwOpAFVrVDoUQlqq2ifAITRXafj+kRV/+MgFMtSsOm8BOCo8
-	 RwhBTWfATsD2g==
-Date: Mon, 19 Oct 2026 03:07:25 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jared Wuerzburger <jwuerz@gmail.com>
-Cc: Lorenzo Bianconi <lorenzo@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Samuel Dionne-Riel <samuel@dionne-riel.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] iio: imu: st_lsm6dsx: Add ACPI ID SMOCF05 for
- LSM6DS3TR-C
-Message-ID: <20261019030725.72670a4f@jic23-hlaptop>
-In-Reply-To: <20260928210648.17166-3-jwuerz@gmail.com>
-References: <20260928210648.17166-1-jwuerz@gmail.com>
-	<20260928210648.17166-3-jwuerz@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pLDQIBFL"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=TGx+L/6tf3P9BlQx79oc67eTtWqhL3dBGQ6vFXfCt04=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792375696; v=1; x=1792980496;
+ b=pLDQIBFLOfInEnDPpokkie/UA47oQoauG108QTVlqIktQGJX/n0lLXVZDZOWuKXtaxIxI9+e
+ t7N7EyMYplvk2oLpYy6jiHX78FTPXwHt879aOOfRWf5MInsqfJa4L8qEadLpw+IAfh1psjwIs3y
+ O71dUGLPE50XIzWLy1W08gMM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0856886304343c3d;
+	Mon, 19 Oct 2026 02:08:16 +0000
+X-Mizu-Trace-ID: 0856886304343c3d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e2ea8e4f-152a-4695-bc25-1712e385d8a2@linux.dev>
+Date: Mon, 19 Oct 2026 10:07:55 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
+ page
+To: Samarth Narang <samarth.colleges@gmail.com>
+Cc: Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+References: <20261019010934.697895-1-samarth.colleges@gmail.com>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <20261019010934.697895-1-samarth.colleges@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon, 28 Sep 2026 16:06:48 -0500
-Jared Wuerzburger <jwuerz@gmail.com> wrote:
 
-> From: Samuel Dionne-Riel <samuel@dionne-riel.com>
+
+On 2026/10/19 09:09, Samarth Narang wrote:
+> replace_page() maps the KSM page with a PTE built from scratch, so the
+> soft-dirty and uffd bits of the PTE it replaces are lost. Due to this, a
+> write before the merge no longer shows as soft-dirty, the next write to
+> a uffd-wp page raises no write-protect fault, and because the page is
+> mapped with the VMA's normal permissions, on a uffd-rwp VMA the next
+> access raises no RWP fault.
 > 
-> The Minisforum V3 and V3 SE tablets declare their ST LSM6DS3TR-C IMU in
-> the DSDT with the hardware ID SMOCF05 instead of SMO8B30, so the driver
-> never binds and the accelerometer and gyroscope are missing. The
-> Windows driver (version 1.0.4.3) binds the LSM6DS3TR-C to both IDs.
+> Copy the soft-dirty and uffd bits from the original PTE to the new PTE,
+> and restore PAGE_NONE for RWP VMAs, as try_to_map_unused_to_zeropage()
+> does.
 > 
-> The device has two I2C resources for the same address; the I2C core
-> uses the first one.
-> 
-> The vendor-specific SLA0/SLG0 matrix methods in the DSDT are not parsed,
-> because SLA0 is not usable as a mount matrix as it is. Its X and Y signs
-> are right, but it also negates Z. It follows the Windows sensor
-> convention, which reports Z = -1g with the screen facing up, while
-> iio-sensor-proxy uses the same X and Y signs but expects Z = +1g in that
-> posture. Applied as a mount matrix, SLA0 gives correct screen rotation,
-> but iio-sensor-proxy reports the tilt inverted. The actual mounting is a
-> plain 180 degree rotation about Z (-1 0 0; 0 -1 0; 0 0 1), with which
-> orientation and tilt are both right. As for SMOCF00, the matrix is
-> therefore provided by the systemd hwdb instead.
-> 
-> Tested on:
->  - V3 SE (Ryzen 7 7735U, BIOS 1.03) with this change.
->  - V3 (Ryzen 7 8840U, BIOS 1.06), kernel 7.2.7, with this change and
->    the stock firmware tables. The driver binds to i2c-SMOCF05:00, the
->    WHO_AM_I check passes (0x6a), and both lsm6ds3tr-c_accel and
->    lsm6ds3tr-c_gyro are registered. Screen auto-rotation and tilt work
->    with iio-sensor-proxy and the matrix above (checked with the device
->    renamed to SMO8B30 via a DSDT override, i.e. the same
->    ST_LSM6DS3TRC_ID driver data).
-> 
-> Closes: https://github.com/mudkipme/awesome-minisforum-v3/issues/2
-> Signed-off-by: Samuel Dionne-Riel <samuel@dionne-riel.com>
-> [Jared Wuerzburger: rewrote the changelog with test results and the
->  mount matrix rationale, converted the entry to C99 initializers,
->  dropped the mount matrix patch]
+> Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
+> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+> Cc: stable@vger.kernel.org
+> Tested-by: Lance Yang <lance.yang@linux.dev>
 > Assisted-by: LLM
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Signed-off-by: Jared Wuerzburger <jwuerz@gmail.com>
+> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
 > ---
 > 
 > Notes:
->     Jonathan, the full DSDT excerpt is in the cover letter; a Link: to the
->     series (or b4 shazam -M) would keep it reachable from the commit.
+>      v1: https://lore.kernel.org/all/20261018122957.526467-1-samarth.colleges@gmail.com/
+>      
+>      Changes since v1 (thanks, Lance):
+>      - Fixes: point the uffd-wp and RWP tags at the commits that make the
+>        registration modes reachable (63b2d4174c4a, 2d427bb01639).
+>      - Shorten the comment; the uffd bit carries RWP state too.
+>      - Add Lance's Tested-by.
 
-Ah. I was working backwards in time today and applied a patch equivalent
-to your patch 1 from someone else.  So just this one applied on top
-of that.
+Generally, no need to rush the next version out, please. Let it soak for a
+few days so folks have time to review properly, instead of making everyone
+start over every time. Just saying :)
 
-Sorry about that!  I tend to work backwards when I'm way behind as
-a lot of older threads have already resolved themselves :)
-
-Thanks,
-
-Jonathan
-
-> 
->  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c
-> index c4097ce2bf..11e5ec3798 100644
-> --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c
-> +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c
-> @@ -145,6 +145,7 @@ MODULE_DEVICE_TABLE(of, st_lsm6dsx_i2c_of_match);
->  static const struct acpi_device_id st_lsm6dsx_i2c_acpi_match[] = {
->  	{ .id = "SMO8B30", .driver_data = ST_LSM6DS3TRC_ID },
->  	{ .id = "SMOCF00", .driver_data = ST_LSM6DSO_ID },
-> +	{ .id = "SMOCF05", .driver_data = ST_LSM6DS3TRC_ID },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(acpi, st_lsm6dsx_i2c_acpi_match);
-
+Cheers, Lance
