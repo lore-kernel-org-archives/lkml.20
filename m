@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E7D52CCCB;
-	Mon, 19 Oct 2026 13:59:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C68C55C1DE;
+	Mon, 19 Oct 2026 13:59:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418361; cv=none; b=S4b7lIevukSGzovJiPgZyiBrgGOnMREpPls5LIzJ2Tyee6zxORBr7moSe6RNooL9mmlfzn+hXftDtFDmZmRsN+NMfN+LgGal4gxek4yskWr3gbCkanarWvlN0ALcwsUtrGVLxug9BNcie97C7X80paJUevKubLJxjsH91Kfkuvs=
+	t=1792418363; cv=none; b=iHNnYA1Ag0dYgXm1HoBbl4zGJIGGvjJa4WiQF//UF/jewz6zqr5eeyykawX6S9Za7bEsLLsdLCe6tbOjZpXayWZ7pKr+UpDPmNE8lQKikBeLPF733V/SBrq03c8o1iTFsmlxxXaMPiWQG5QAhPmZX9jYlyNmovDk6WHq6iP3wvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418361; c=relaxed/simple;
-	bh=EKWuKuX0iCOyHfYPQ5DESSjbXZnnoeG9yYAC7X9LLp4=;
+	s=arc-20240116; t=1792418363; c=relaxed/simple;
+	bh=Mg6NU+MaXQEfMcdUj6yXhYilS1aau4GsN7oMZ6MVR/0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I7JAwPCzqvBwuG0CPBRMLOJtWA+xPVkLlr3dZAAIvU9xqz0NOWm18ohK2W1gvA/e6OzLTe+qOo1Qq+AGR6vv+r5R7MEppicVPzJPrijX03EF2DPW5/bG2FbDR1QzXHftb9zX7m1JPCMJSKfknUMsqmx5hBl6Otauehgof/hpKrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JIZhZDGG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=pHCY7Cr03J99yoe1z84Bjai4We4Y6U5PGjfg1UvUHR+so9KhGmTgPUW8L5RNDNKMzOg0bxKfiMFhheSZFU/l3D4EEI3sydivVN9cjJY0PNPiUAxLWcAFSnc5XYwroQLPmfblhxNZ8wm2PiUzGN377nOnKjCs/0HIZyrRZDXjMyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwvIaG1I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JIZhZDGG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EA2B1F000C9;
-	Mon, 19 Oct 2026 13:59:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwvIaG1I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7B81F000C4;
+	Mon, 19 Oct 2026 13:59:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418358;
-	bh=4TmTuNRLh5iEaT4jqCfrRa0q278JAVTbcj4SloXq1Fk=;
+	s=k20260515; t=1792418361;
+	bh=85wczQUNKJcp+vhMiXU5psXp0nDM7kIiat58I+8aCGc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JIZhZDGGFaB3xZDybFoO304e+Ne2hEdwjfCvk+nbyoHr5KXdFBKWW8iyghEPu8VvW
-	 BJYhGEfNXYvFbPorkenU4YZBAwdzAu74/iX901EILT3phx1vO3iB+nt5vQAP+wDo8k
-	 EP53zjJE5KboC08CTxzsHrp35cDfyIKlPIeP3v5YAaMZkz8asjceBURURU7iAxrqGM
-	 OTX4KSYo2EDUm4cj/+s7Bg97RnROMcF45ayTFSWTkVSWcE0C4zPjlD5jkaeZOPMuz9
-	 SZe3GaTCZUm1Xqus4NQeFGpVI2l86U0wJJrfH0hOBPq6eaUGyAKL2jewiyJxGeEPaT
-	 t0nB5D3eTMh4w==
+	b=VwvIaG1ISkMdrZwxH06yWAw9Mj7iPMaC8ecqQHGc9oJxnEBvH5PmAEG/4ODy5esu/
+	 +BYb1dm60xIEbyUT5owZ7jnOc6YSrtNS3H2fQPEv2bI8AZuaaXqrsZnmp2Q/Qr6wbi
+	 3u4sHejZzIuiGCf9gl8i5V4KLl+CZQhXN2aBiScvSL4F7pe8jf697INfVVUXX7FIRp
+	 3b7BbsnGUQ6kBWjnirFi0OrXn82prh++ibRKxeHOtrcEfyzWb4oAyooHdV577rhVBE
+	 d42326OzXjgxkHEOVIfUg8AE17U0ecgPnogo0Ik4W+M88/yY75bo11r/1K+7GwvQKV
+	 WgS14H3jz6LsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Farhan Ali <alifm@linux.ibm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
+Cc: Michail Tatas <michail.tatas@gmail.com>,
+	syzbot+56962eb32ba0136cd330@syzkaller.appspotmail.com,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>,
-	linux-pci@vger.kernel.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] PCI: Avoid saving config space state if inaccessible
-Date: Mon, 19 Oct 2026 09:48:02 -0400
-Message-ID: <20261019135441.1420968-191-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] USB: misc: uss720: Fix leak in get_1284_register
+Date: Mon, 19 Oct 2026 09:48:04 -0400
+Message-ID: <20261019135441.1420968-193-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -53,183 +53,128 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Farhan Ali <alifm@linux.ibm.com>
+From: Michail Tatas <michail.tatas@gmail.com>
 
-[ Upstream commit e18d1abc3bff0a24a5299f3c150ab9546e9439aa ]
+[ Upstream commit 15902712b9e2a46649cba2f22002d05faec2a990 ]
 
-The current reset process saves the device's config space state before
-reset and restores it afterward. However errors may occur unexpectedly and
-it may then be impossible to save config space because the device may be
-inaccessible (e.g. DPC). This results in saving invalid values that get
-written back to the device during state restoration.
+if wait_for_completion_timeout() times out in get_1284_register()
+then we do not destroy the reference acquired via kref_get() in
+submit_async_request. Add the missing kref_put in the timeout path.
 
-With a reset we want to recover/restore the device into a functional state.
-So avoid saving the state of the config space when the device config space
-is inaccessible.
+link: https://syzkaller.appspot.com/bug?extid=56962eb32ba0136cd330
 
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
-[bhelgaas: comment]
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
-Link: https://patch.msgid.link/20260805165518.794-4-alifm@linux.ibm.com
+Reported-by: syzbot+56962eb32ba0136cd330@syzkaller.appspotmail.com
+Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
+Link: https://patch.msgid.link/allaDTUua9n5DQ0a@michalis-linux
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **6.12.111**. The buggy reset-time save path is
-present here; this is a small, self-contained PCI error-recovery fix for
-that path.
+The local tree is **7.3-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
+candidate is a one-line kref leak fix in `drivers/usb/misc/uss720.c`.
+The affected driver and timeout path are present in this tree, and the
+bug dates to 2005.
 
 ===============================================================
 PHASE 1: COMMIT MESSAGE FORENSICS
 ===============================================================
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[PCI]** **[Avoid]** Avoid saving config space state if
-inaccessible. “Avoid” here is a bug-fix verb: skip a save that would
-capture invalid `~0` values.
+Record: **[USB: misc: uss720]** **[Fix]** **[missing kref_put on
+get_1284_register() timeout]**
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- Signed-off-by: Farhan Ali \<alifm@linux.ibm.com\> (author)
-- Signed-off-by: Bjorn Helgaas \<bhelgaas@google.com\> (PCI maintainer;
-  also `[bhelgaas: comment]`)
-- Reviewed-by: Niklas Schnelle \<schnelle@linux.ibm.com\>
-- Reviewed-by: Bjorn Helgaas \<bhelgaas@google.com\>
-- Link:
-  https://patch.msgid.link/20260805165518.794-4-alifm@linux.ibm.com
-- No Fixes:, Reported-by:, Tested-by:, or Cc: stable (absence expected
-  for this review)
-- Ignore pipeline markers (none in the provided message except the
-  evaluation context)
-
-Notable: PCI maintainer both reviewed and applied it. The msgid is **v23
-3/5** of “Error recovery for vfio-pci devices on s390x” (cover is `-1`,
-so `-4` is patch 3/5).
+- **Reported-by:**
+  `syzbot+56962eb32ba0136cd330@syzkaller.appspotmail.com` (fuzzer-found,
+  C repro)
+- **Link:**
+  `https://syzkaller.appspot.com/bug?extid=56962eb32ba0136cd330`
+- **Link:** `https://patch.msgid.link/allaDTUua9n5DQ0a@michalis-linux`
+- **Signed-off-by:** Michail Tatas (author)
+- **Signed-off-by:** Greg Kroah-Hartman (USB maintainer; merged)
+- **Fixes:** absent (expected)
+- **Cc: stable:** absent (expected)
+- Lowercase `link:` to syzbot (same report as Reported-by)
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- **Bug:** Reset saves config space, then restores it. If the device is
-  inaccessible (example given: DPC), reads return `~0`. Those invalid
-  values are saved and later written back.
-- **Symptom:** After reset/error recovery the device is programmed with
-  garbage (invalid BARs / Command register), so it does not come back
-  functional.
-- **Root cause:** Unconditional `pci_save_state()` in the reset path
-  while config space may already be gone.
-- **Fix:** Do not save (or disable via Command) when config space is
-  inaccessible.
-- **Versions:** None stated; DPC/AER reset is long-standing.
+- **Bug:** `wait_for_completion_timeout()` expiry in
+  `get_1284_register()` does not drop the `uss720_async_request` kref
+  taken by `submit_async_request()`.
+- **Symptom:** kmemleak of the request, URB, control buffer, and `priv`
+  (syzbot title: “memory leak in uss720_probe”).
+- **Root cause:** success/`!val` paths call `kref_put()`; the timeout
+  path only unlinks URBs and returns `-EIO`.
+- **Version info in message:** none. Introduced with the async path in
+  2005 (`0f36163d3abef`).
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not hidden. This is an explicit correctness fix for invalid
-save/restore during error recovery.
+Record: Not hidden. Explicit leak fix, plus syzbot/kmemleak evidence.
 
 ===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
+PHASE 2: DIFF ANALYSIS
 ===============================================================
 
 **Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/pci/pci.c` only (~+24 lines, 0 removed)
-- New helper: `pci_dev_config_accessible()`
-- Modified: `pci_dev_save_and_disable()`
-- Scope: single-file surgical fix
+- File: `drivers/usb/misc/uss720.c` — **+1 / -0**
+- Function: `get_1284_register()`
+- Scope: single-file, one-line, timeout/error path only
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 Record:
-- **Helper:** Read dword at `PCI_COMMAND` (Command + Status). If
-  `PCI_POSSIBLE_ERROR(val)` (`== ~0`), warn and return false. Uses
-  Command/Status rather than Vendor/Device ID because VFs can
-  legitimately read as `~0` there.
-- **`pci_dev_save_and_disable` before:** After
-  `pci_set_power_state(D0)`, always `pci_save_state()` then write
-  `PCI_COMMAND_INTX_DISABLE`.
-- **After:** If config is inaccessible, return without saving or writing
-  Command. `reset_prepare` and D0 wake still run.
-- Path: reset / error-recovery, not probe or normal PM suspend.
+- **Before:** timeout prints a warning,
+  `kill_all_async_requests_priv(priv)` (`usb_unlink_urb` only), `return
+  -EIO`. Caller kref leaked.
+- **After:** same unlink, then `kref_put(&rq->ref_count, destroy_async)`
+  matching the completion path.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **Logic / correctness** in error recovery.
-- Broken: inaccessible config → `pci_save_state()` fills
-  `saved_config_space[]` with `~0` and sets `state_saved`.
-  `pci_restore_state()` later writes that back (BARs `0xFFFFFFFF`,
-  Command `0xFFFF`).
-- Fix: skip that overwrite so restore uses the last good snapshot
-  (enumeration-time save in this tree, or a driver’s later
-  `pci_save_state()`).
+Record: **Reference-count / resource leak**
+- `submit_async_request()`: `kref_init` (caller) + `kref_get`
+  (URB/`async_complete`).
+- `async_complete()` puts the URB ref.
+- Timeout never puts the caller ref, so `destroy_async()` never runs:
+  URB, `rq`, `rq->dr`, and a `priv` kref leak.
+- Syzbot objects match: `uss720_probe` priv, `submit_async_request`
+  `rq`, `usb_alloc_urb`, `rq->dr`.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-Record:
-- Obviously correct: same `PCI_POSSIBLE_ERROR` heuristic already used
-  across PCI.
-- Minimal: one check, no API change.
-- Residual race is documented (device can disappear between check and
-  save); that is pre-existing, not introduced.
-- False positive (`Command|Status` actually `0xFFFFFFFF` on a live
-  device) is vanishingly unlikely; Status reserved bits typically read
-  0.
-- Skipping the Command disable when inaccessible is a no-op: that write
-  would not land anyway.
-- Regression risk: **low**. Healthy reset path is unchanged.
+Record: Obviously correct; same `kref_put` as the success and `!val`
+paths. Unlink does not drop the caller ref. Timeout means `complete()`
+has not run, so the extra put cannot free `rq` while the URB still holds
+a ref. No API/locking/structure changes. Regression risk: very low.
 
 ===============================================================
 PHASE 3: GIT HISTORY INVESTIGATION
 ===============================================================
 
 **Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- Unconditional `pci_save_state()` in `pci_dev_save_and_disable()` comes
-  from Alex Williamson, 2013 (`77cb985ad4acbe` / `a6cbaadea0af9`).
-- Function itself dates to Keith Busch 2014 / Christoph Hellwig 2017.
-- Bug is old; it became more important after enumeration-time save +
-  always-restore.
+Record: Timeout path from **`0f36163d3abef`** (2005-09-12, “usb: fix
+uss720 schedule with interrupts off”). Extra `kref_get` before
+`usb_submit_urb` from **`adaa3c6342b249`** (2011, “USB: uss720 fixup
+refcount position”). Bug is old, not 7.3-only.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. Related in-tree commit **`58130e7ce6cb6`**
-(`PCI/ERR: Ensure error recoverability at all times`, upstream
-`a2f1e22390ac`) is an ancestor of HEAD. It:
-- Calls `pci_save_state()` at device add (`drivers/pci/bus.c`)
-- Removes the `if (!dev->state_saved) return;` in `pci_restore_state()`
-
-Verified in this checkout: `pci_save_state(dev)` at
-`pci_bus_add_device()` (placement later adjusted by `f8f55a226aab4`).
-Restore no longer bails on `state_saved`. So a garbage reset-time save
-**will** be restored. This patch is what keeps that snapshot valid when
-DPC has already isolated the device.
+Record: No `Fixes:` tag. Buggy code is the 2005 timeout path; that
+commit is in this tree.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record:
-- Same series, already in this tree: **`1872805e97043`** `PCI/MSI:
-  Enable memory decoding before restoring MSI-X messages` (v23 5/5, `Cc:
-  stable`).
-- Not in this tree: v23 1/5 slot placeholder, 2/5 s390 per-function
-  slots, **this 3/5**, 4/5 “Fail FLR when config space inaccessible”.
-- Recent `pci.c` churn is unrelated (D3hot wait, ASPM, ACS, slot
-  locking).
-
-This patch is **standalone**. 1/5 and 2/5 are s390 slot work. 4/5 *uses*
-`pci_dev_config_accessible()` but is not required for the save-garbage
-fix. 5/5 already landed independently.
+Record: Nearby uss720 work is probe refcount/unregister
+(`45dba8011efac`, `b4ecbdc4f8830`), not this timeout put. Standalone,
+not `N/M`. After this commit on this file: none that revert or replace
+it.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Farhan Ali (IBM) works on s390 PCI / vfio. In this tree the
-related MSI-X restore fix is already present. Helgaas (subsystem
-maintainer) reviewed and applied.
+Record: Only this uss720 commit from Michail Tatas in `drivers/usb/`.
+Merged by Greg KH (USB maintainer).
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record:
-- Needs `PCI_POSSIBLE_ERROR` — present in `include/linux/pci.h`.
-- Needs `pci_find_dvsec_capability` only as an insertion landmark —
-  present at `drivers/pci/pci.c:762`.
-- Needs `pci_dev_save_and_disable` / `pci_save_state` — present.
-- `device_lock_assert` / `pci_warn(..., "resetting")` in the *upstream
-  context* are **not** in 6.12; they are context-only, not part of this
-  change. Insertion is after `pci_set_power_state(dev, PCI_D0)`, which
-  matches this tree.
-- Can apply standalone: **yes**.
+Record: None. Uses existing `kref_put` / `destroy_async`. Applies as a
+one-line add.
 
 ===============================================================
 PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
@@ -237,141 +182,137 @@ PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- `b4 dig -c 5e14afc4aa192` failed (that string is a **blob** hash from
-  the candidate diff, not a commit).
-- `b4 mbox` on msgid `20260805165518.794-4-alifm@linux.ibm.com`:
-  23-message thread saved.
-- Lore/cover: v23 0/5 “Error recovery for vfio-pci devices on s390x”;
-  this is **3/5**.
-- Earlier revisions (v9) tried to **never** save at reset (rely only on
-  enumeration save). Reviewers (Helgaas / Alex Williamson) rejected that
-  because normal resets must capture current driver-programmed state.
-  v22/v23 compromise: skip save **only** when config reads as `~0`.
-- Helgaas rewrote the comment on apply (`[bhelgaas: comment]`).
-  Functional code matches v23.
-- Sashiko: low `const char *msg` nit only. No NAK on this patch.
-- No reviewer asked for Cc: stable on **this** patch (unlike 2/5 and
-  5/5). That is not a negative for this evaluation.
+- `b4 dig -c 15902712b9e2a`:
+  https://patch.msgid.link/allaDTUua9n5DQ0a@michalis-linux
+- `b4 dig -a`: earlier “v1” by WenTao Liang (2026-06-11) same leak;
+  syzbot forwards of this patch and a competing `usb_kill_urb` patch
+  (Deepanshu Kartikey).
+- Direct lore HTTP was 403; thread recovered with `b4 dig -m`.
+- David Laight **questioned** the `usb_kill_urb` + unlock-while-
+  iterating alternative; that patch was not merged. This one-line
+  `kref_put` was.
+- Syzbot `#syz test` of this patch: **OK**.
+- No NAK on the merged patch. No reviewer `Cc: stable` in the saved mbox
+  (syzbot thread, not Greg’s apply mail).
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: linux-pci via Helgaas; Niklas Schnelle (s390 PCI). Right
-maintainers.
+Record (`b4 dig -w`): To/Cc included `gregkh@linuxfoundation.org`,
+`oneukum@suse.com`, `linux-usb@vger.kernel.org`. Merged by Greg KH.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No syzbot/bugzilla. Motivated by s390 vfio-pci DPC/error
-recovery (IBM). Mechanism is generic for any AER/DPC isolation, not
-s390-only.
+Record: https://syzkaller.appspot.com/bug?extid=56962eb32ba0136cd330
+- Title: memory leak in uss720_probe; **prio:high**; C and syz repros.
+- Path: `uss720_probe` → `get_1284_register` → `submit_async_request`.
+- Assessment: DoS via peripheral USB, not remote/unprivileged.
+- Later dashboard crashes (Aug 2026) are on **7.2-rc** SHAs that are
+  **not** ancestors of this fix (`d58772d8520c`, `0d8395707651`). They
+  do not show the fix failing on 7.3.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: v23 1–5 as above. 4/5 adds the same helper use in `pcie_flr()`;
-Helgaas was lukewarm on that racy FLR-only check but still merged this
-save-path patch. 5/5 already in 6.12.111.
+Record: Standalone. Competing `usb_kill_urb` rewrite not required and
+not in this tree (`kill_all_async_requests_priv` still uses
+`usb_unlink_urb`).
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
 Record: lore.kernel.org/stable WebFetch returned 403. **UNVERIFIED**
-whether stable@ discussed this exact subject. 5/5 from the same series
-*was* explicitly Cc: stable and is already here.
+whether stable@ discussed it. No local `git log --grep` hit except this
+commit itself.
 
 ===============================================================
 PHASE 5: CODE SEMANTIC ANALYSIS
 ===============================================================
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `pci_dev_config_accessible()` (new),
-`pci_dev_save_and_disable()` (modified).
+**Step 5.1: KEY FUNCTIONS**
+Record: `get_1284_register` (modified). Related: `submit_async_request`,
+`destroy_async`, `async_complete`, `kill_all_async_requests_priv`,
+`uss720_probe`.
 
 **Step 5.2: TRACE CALLERS**
-Record: `pci_dev_save_and_disable()` is static; callers in this tree:
-- `pci_reset_function()` — sysfs/`EXPORT` function reset
-- `pci_reset_function_locked()`
-- `pci_try_reset_function()`
-- `pci_bus_save_and_disable_locked()` ← `__pci_reset_bus()`
-- `pci_slot_save_and_disable_locked()` ← `__pci_reset_slot()`
-
-AER uses `pci_bus_error_reset()` → slot reset or bus reset, which
-save/disable then restore. Userspace can also hit this via
-`/sys/bus/pci/devices/.../reset`.
+Record: `get_1284_register()` from `change_mode()`, parport
+read/status/control/EPP/ECP helpers, and **`uss720_probe()`** (line 734,
+Belkin/incompatible-cable check). Probe is a USB enumeration path;
+syzbot reaches it with a matching fake device that does not complete the
+control URB in 1s (`HZ`).
 
 **Step 5.3: TRACE CALLEES**
-Record: `pci_read_config_dword`, `PCI_POSSIBLE_ERROR`, `pci_warn`; then
-existing `pci_save_state` / Command write.
+Record: `submit_async_request` (alloc + URB submit),
+`wait_for_completion_timeout`, `kill_all_async_requests_priv`,
+`kref_put` → `destroy_async` (`usb_free_urb`, `kfree(dr)`, list_del,
+`kfree(rq)`, `kref_put(priv)`).
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Record: User-reachable via sysfs reset and via AER/DPC error IRQs. DPC
-is the cited case: config reads `~0` while containment is active, then
-reset+restore. **Yes, reachable.**
+Record: USB device add → `uss720_probe` → `get_1284_register(..., &reg,
+GFP_KERNEL)` with non-NULL `val` (so it waits). Unprivileged USB
+gadget/dummy matching IDs in `uss720_table[]` can trigger it (syzbot).
+Real cables that NACK/timeout on that register read take the same path.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: `PCI_POSSIBLE_ERROR` already used in `pci.c` PM paths, DPC,
-probe, hotplug. 4/5 of this series reuses the new helper for FLR; not in
-this tree yet and not required for this verdict.
+Record: `set_1284_register()` fire-and-forget puts immediately (no
+wait). Only `get_1284_register()` waits and had an unbalanced timeout
+path. No sibling copy of this bug.
 
 ===============================================================
 PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 ===============================================================
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: **Yes.** `pci_dev_save_and_disable()` at
-`drivers/pci/pci.c:5047` still does unconditional `pci_save_state()`
-after D0. `pci_dev_config_accessible()` does **not** exist. `make
-kernelversion` / Makefile: **6.12.111**. Bug introduced with 2013 reset
-save/disable; still here.
+Record:
+- Tree: **Linux 7.3.0-rc4** (mainline-lineage checkout, detached HEAD).
+- Driver and `get_1284_register()` timeout path **exist**.
+- Bug introduced **2005**, before this branch. Not a post-7.3 bug.
+- Working copy already has the `kref_put` (commit `15902712b9e2a` is an
+  ancestor of HEAD; first contained in **v7.3-rc1**). That is the
+  original landing, not a reason to treat the leak as non-bugs.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: **Clean apply / trivial context.** Helper can sit after existing
-`pci_find_dvsec_capability()`. The three-line guard goes after
-`pci_set_power_state(dev, PCI_D0)` before `pci_save_state(dev)` —
-identical here. Upstream context lines (`device_lock_assert`,
-`"resetting"` warn) are later mainline-only and are not part of this
-patch.
+Record: Clean one-line add against the pre-fix function (parent blob
+matches the candidate diff). No refactor of this path in 7.3. **Clean
+apply.**
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: Enumeration save + always-restore (**`58130e7ce6cb6`**) is here;
-without this patch it can restore **poisoned** `~0` state after DPC.
-MSI-X Memory-enable restore (**`1872805e97043`**) is here. No substitute
-for this skip-save check.
+Record: This is the fix for that syzbot leak. No alternate timeout-path
+put. Probe unregister fixes are separate.
 
 ===============================================================
 PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 ===============================================================
 
 **Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **PCI core** (`drivers/pci/pci.c`). **IMPORTANT** (all PCI
-devices; error recovery and function reset). Not staging.
+Record: **USB misc / USS720 USB-to-parallel** (`CONFIG_USB_USS720`,
+depends on `PARPORT`). **PERIPHERAL** hardware, but probe is a standard
+USB path and is fuzzable.
 
 **Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Mature core with ongoing AER/DPC/reset work. This is a targeted
-recovery fix, not a refactor.
+Record: File is old and lightly touched; USB core is actively
+maintained. Greg KH merged the fix.
 
 ===============================================================
 PHASE 8: IMPACT AND RISK ASSESSMENT
 ===============================================================
 
 **Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: PCI error recovery (AER/DPC) and anyone resetting a device whose
-config is gone. Originally s390 vfio-pci passthrough; same path is
-generic. Config-specific: PCI + AER/DPC/reset users (common on servers).
+Record: **Driver-specific / config-specific** (`CONFIG_USB_USS720`).
+Anyone probing a matching USB ID (real USS720/Belkin-class cables, or a
+malicious/fuzzed USB device).
 
 **Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: DPC/containment or other inaccessible config during reset. Not
-every boot; when it hits, recovery is the path that should restore the
-device. Unprivileged users can trigger sysfs reset only with privilege;
-AER/DPC is hardware-driven.
+Record: Control URB for register 0 does not complete within 1 second
+during probe (or later parport ops that pass a non-NULL `val`). Syzbot
+has a **C repro**. Not a theoretical race. Unprivileged local USB attach
+can trigger it; not a remote syscall by itself.
 
 **Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: Restore of `~0` → invalid BARs, Command all-ones (I/O, MMIO, bus
-master, SERR). Device stays broken after “recovery”; possible further
-URs / bad DMA. **Severity: HIGH** (failed recovery, device unusable;
-bus-master with junk BARs is worse than a leak).
+Record: **Memory leak** of priv + async request + URB + setup packet on
+each failed/timed-out probe. Repeated plug or syzbot-style enumeration
+can grow leaks. **HIGH** (DoS / kmemleak), not an oops by itself.
+Syzbot: prio:high, DoS.
 
 **Step 8.4: CALCULATE RISK-BENEFIT RATIO**
 Record:
-- **Benefit: HIGH** — preserves last good config through DPC/reset;
-  completes recoverability that `58130e7ce6cb6` already shipped in this
-  tree.
-- **Risk: LOW** — ~24 lines, established heuristic, healthy devices
-  unchanged.
-- **Ratio:** strongly favors backport.
+- **Benefit:** high for this driver — stops a confirmed, reproducible
+  leak on probe timeout; one-line; syzbot-tested.
+- **Risk:** very low — one matching `kref_put`, error path only.
+- **Ratio:** strongly in favor of including the fix in this tree.
 
 ===============================================================
 PHASE 9: FINAL SYNTHESIS
@@ -380,139 +321,105 @@ PHASE 9: FINAL SYNTHESIS
 **Step 9.1: COMPILE THE EVIDENCE**
 
 FOR:
-- Real bug: save/restore of `~0` config during inaccessible reset (DPC).
-- Failure is failed PCI recovery and a device left misprogrammed.
-- Small, obviously correct, reviewed by Helgaas and Schnelle.
-- Buggy code and insertion points exist in 6.12.111.
-- Enumeration-time save already in this tree; this patch prevents
-  clobbering it.
-- Same series’ 5/5 already backported here.
-- Standalone vs s390 slot patches.
+- Real kmemleak with syzbot C repro and prio:high
+- Unbalanced kref on a path that already puts on success
+- One line, obviously correct, maintainer-merged, syzbot test OK
+- Bug present since 2005; driver exists in 7.3
+- No prerequisites, no new API
 
 AGAINST:
-- No Cc: stable / Fixes: on this commit (expected; not a veto).
-- Trigger is error recovery, not the hot path.
-- Check is racy (documented); Helgaas still merged it.
-- 4/5 (fail FLR) not included; incomplete vs full series, but this hunk
-  still fixes the save-poisoning bug on its own.
+- Peripheral USB-parport driver, not core MM/VFS
+- Timeout may be uncommon on healthy hardware
+- Competing `usb_kill_urb` change was not taken (not a dependency)
 
 UNRESOLVED:
-- Stable-list thread 403; could not confirm prior stable@ discussion.
+- Stable@ lore search HTTP 403
+- Full Greg apply-thread body not fetched (msgid.link 403); merge +
+  patch-id match via b4 is verified
 
 **Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — Helgaas+Schnelle Reviewed-
-   by; heuristic already in-tree.
-2. Fixes a real bug that affects users? **PASS** — DPC/error recovery
-   restores garbage config.
-3. Important issue? **PASS** — HIGH: recovery failure / device left with
-   invalid BARs and Command.
-4. Small and contained? **PASS** — one file, ~24 lines.
-5. No new features or APIs? **PASS** — static helper + guard.
-6. Can apply to the local tree? **PASS** — same functions and insertion
-   point in 6.12.111.
+1. Obviously correct and tested? **PASS** (matches other puts; syzbot
+   OK; Greg merged)
+2. Fixes a real bug that affects users? **PASS** (kmemleak, C repro,
+   probe of matching USB IDs)
+3. Important issue? **PASS** (HIGH leak/DoS on USB probe; sanitizer-
+   class resource leak)
+4. Small and contained? **PASS** (+1 line, one function)
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** (same file/function; clean one-
+   line)
 
 **Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Not an ID/quirk/DT/build/docs exception. Ordinary important bug
-fix.
+Record: Not an ID/quirk/DT/build/docs exception. Ordinary small bug fix.
 
-**Step 9.4: MAKE YOUR DECISION**
-Backport. It prevents writing invalid `~0` config back after reset when
-the device is already inaccessible, which is exactly the DPC/AER
-recovery case this 6.12 tree already tries to support via enumeration-
-time save.
+**Step 9.4: DECISION**
+This tree has the USS720 driver and the 2005 timeout path. Missing
+`kref_put` leaks the async request and keeps `priv` alive across a
+failed probe. The fix is the same put used on every other
+`get_1284_register()` exit. It meets stable rules for 7.3: real leak,
+tiny, no deps.
 
-------------------------------------------------
+===============================================================
 What the commit solves for this tree
-------------------------------------------------
-On 6.12.111, reset still always calls `pci_save_state()` in
-`pci_dev_save_and_disable()`. If config reads as `~0` (DPC), that
-poisons `saved_config_space`. `pci_restore_state()` no longer refuses
-restore (`58130e7ce6cb6`), so those values get programmed back. Skipping
-the save keeps the enumeration (or last good) snapshot.
+===============================================================
 
-Risk vs benefit: low risk, high benefit. No new API. Apply is clean
-aside from unrelated later context around `device_lock_assert`.
+`get_1284_register()` waits up to 1s for a USB control URB. On timeout
+it unlinked URBs but left the caller’s kref. `uss720_probe()` uses that
+helper to reject incompatible cables; a non-responsive matching device
+leaks `priv`, `uss720_async_request`, the URB, and the setup packet.
+That is exactly the syzbot kmemleak. Adding `kref_put(...,
+destroy_async)` closes the leak without changing success behavior.
 
-------------------------------------------------
+Risk is negligible relative to stopping a reproducible probe leak.
+
+===============================================================
 Verification
-------------------------------------------------
-- [Phase 1] Subject/tags parsed from the candidate message; Link msgid
-  is v23 3/5.
-- [Phase 2] Diff: helper + 3-line guard in `pci_dev_save_and_disable`;
-  `pci_save_state()` in this tree writes `saved_config_space[]` and sets
-  `state_saved` with no accessibility check.
-- [Phase 3] `git describe` / `make kernelversion`: p-6.12-3 /
-  **6.12.111**.
-- [Phase 3] `git blame -L 5047,5076 drivers/pci/pci.c`: unconditional
-  save from 2013 Williamson commits.
-- [Phase 3] `git merge-base --is-ancestor 58130e7ce6cb6 HEAD`: yes;
-  enumeration save + restore-always.
-- [Phase 3] `git merge-base --is-ancestor 1872805e97043 HEAD`: yes;
-  series 5/5 already here.
-- [Phase 3] `git log --grep='Avoid saving config'` on `drivers/pci/`:
-  this fix **not** present.
-- [Phase 4] `b4 mbox` msgid 20260805165518.794-4: 23 msgs; Helgaas
-  Reviewed-by; no NAK on 3/5.
-- [Phase 4] Cover letter: PCI slice of vfio-pci s390 error recovery; v9
-  “never save at reset” was rejected.
-- [Phase 4] lore.kernel.org/stable: **UNVERIFIED** (HTTP 403).
-- [Phase 5] Callers of `pci_dev_save_and_disable` traced in `pci.c`; AER
-  `pci_bus_error_reset` → slot/bus reset save/restore.
-- [Phase 6] `pci_find_dvsec_capability` at line 762;
-  `PCI_POSSIBLE_ERROR` in `include/linux/pci.h`; `PCI_COMMAND` is 0x04.
-- [Phase 6] `pcie_flr()` in this tree has no accessibility check (4/5
-  not required for this verdict).
-- UNVERIFIED: whether Command+Status can be legitimate `0xFFFFFFFF` on
-  some broken device (kernel-wide heuristic already accepts that risk).
+===============================================================
+- **[Phase 1]** Parsed subject/tags: syzbot Reported-by, two Links, Greg
+  KH SOB; no Fixes/Cc stable
+- **[Phase 2]** Diff: +1 line `kref_put` in `get_1284_register()`
+  timeout path; parent blob confirmed missing put
+- **[Phase 2]** kref model checked in current `uss720.c`: init + get in
+  `submit_async_request`, put in `async_complete` and all other
+  `get_1284_register` exits
+- **[Phase 3]** `git blame`: timeout path `0f36163d3abef` (2005); extra
+  get `adaa3c6342b249` (2011)
+- **[Phase 3]** No Fixes tag; `git log` on file shows standalone commit
+- **[Phase 3]** `git merge-base --is-ancestor 15902712b9e2a HEAD` → yes
+  (original commit in this 7.3-rc4 checkout; first in v7.3-rc1)
+- **[Phase 3]** Not in v7.1/v7.2 tags; post-fix syzbot crash SHAs are
+  7.2-rc and do not contain this commit
+- **[Phase 4]** `b4 dig -c/-w/-a/-m`: msgid allaDTUua9n5DQ0a; CC Greg KH
+  + linux-usb; competing usb_kill_urb patch questioned by David Laight
+- **[Phase 4]** WebFetch syzbot: prio:high, C repro, leak stacks through
+  probe/get_1284_register
+- **[Phase 4]** lore.kernel.org HTTP 403 — used b4 mbox instead; stable@
+  search UNVERIFIED
+- **[Phase 5]** Callers via grep: probe line 734 and parport ops;
+  `CONFIG_USB_USS720` in `drivers/usb/misc/Kconfig`
+- **[Phase 6]** `git describe HEAD` / Makefile: 7.3.0-rc4; driver
+  present; apply would be clean
+- **[Phase 8]** Failure mode: kmemleak/DoS on USB probe timeout,
+  severity HIGH
+- **UNVERIFIED:** stable@ mailing-list archive text (HTTP 403)
 
 **YES**
 
- drivers/pci/pci.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ drivers/usb/misc/uss720.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 264213aa7630b..16942779e6ebd 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -725,6 +725,28 @@ u16 pci_find_dvsec_capability(struct pci_dev *dev, u16 vendor, u16 dvsec)
+diff --git a/drivers/usb/misc/uss720.c b/drivers/usb/misc/uss720.c
+index 6ebcfaf525989..a405a36d8d42f 100644
+--- a/drivers/usb/misc/uss720.c
++++ b/drivers/usb/misc/uss720.c
+@@ -223,6 +223,7 @@ static int get_1284_register(struct parport *pp, unsigned char reg, unsigned cha
+ 	}
+ 	printk(KERN_WARNING "get_1284_register timeout\n");
+ 	kill_all_async_requests_priv(priv);
++	kref_put(&rq->ref_count, destroy_async);
+ 	return -EIO;
  }
- EXPORT_SYMBOL_GPL(pci_find_dvsec_capability);
  
-+static bool pci_dev_config_accessible(struct pci_dev *dev, char *msg)
-+{
-+	u32 val;
-+
-+	/*
-+	 * If a device's config space is inaccessible, reads typically
-+	 * return ~0.  Since Device and Vendor ID are always ~0 for VFs,
-+	 * check the Command and Status registers instead.
-+	 *
-+	 * N.B. This is racy because the device may become inaccessible
-+	 * before the next access.
-+	 */
-+	pci_read_config_dword(dev, PCI_COMMAND, &val);
-+	if (PCI_POSSIBLE_ERROR(val)) {
-+		pci_warn(dev, "Device config space inaccessible; unable to %s\n",
-+				msg);
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- /**
-  * pci_find_parent_resource - return resource region of parent bus of given
-  *			      region
-@@ -5009,6 +5031,9 @@ static void pci_dev_save_and_disable(struct pci_dev *dev)
- 	 */
- 	pci_set_power_state(dev, PCI_D0);
- 
-+	if (!pci_dev_config_accessible(dev, "save state"))
-+		return;
-+
- 	pci_save_state(dev);
- 	/*
- 	 * Disable the device by clearing the Command register, except for
 -- 
 2.53.0
 
