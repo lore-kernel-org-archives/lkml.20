@@ -1,108 +1,134 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B601E4A3F26;
-	Mon, 19 Oct 2026 09:58:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C5D4B1CE0
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403935; cv=none; b=HVzmSkfbx3KEnp5tUo/06HgdoHPi+NNBGxO8OFh+L1PbCBcYHZjkeo7E7zXmO/i9iIYkgkyju9XNK/PeDEIIceWRcM1Gah352gVFPTdPWJs6G/KfRoZz/EW1j9vYFL2tgYi7J88nHpvg929gCidSyzck/iLpdBBCXDiuXEKvBV8=
+	t=1792403985; cv=none; b=chwAy/8MP8bKeqSsJ2LB0eUgo94rGQ6K8KK3KHdpnsmLM21ZhhjQtTe2FX4tX035W4JZ4amki/Uq1726rjh/LSPi9azPZ6CkRN33l6caDguyK21GXDLwsjcwq+8w0PA4Q+028LXQ8ui71nHtLfPpPnJu+eScRLoGDguil+v3L1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403935; c=relaxed/simple;
-	bh=FCF+CStTLQKo129wcMJjO9zPQelHyhJZb6dyEUr5q7k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ElLhOWQFNUxXaVY7faBRKIz9jwJCzoOywnY26UiSAvYIk79tUww9jMX9v99ia8mstYB+3Hy9P39uftxgNSR+vcD0ZH1l14GYVJf2G32nM11hDhSMuo//Nzpa+ogfdWKETX08UU3LfoSddANDhZmOYNAQoZijiNCErvTE359rXnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e4nwNIKa; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1792403985; c=relaxed/simple;
+	bh=6bNcxzUVlmQvjet7ksUI2Ld7TTjqmjQ//XfC+z0s0z8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=j0eGP2glFD7UBw8nvVJzyDV/k8p4Rii2nvI7fEodQCnOUa2GvsBRTC05q0j0FAFzdShQNyzaER+xp9+5yPJuThOKjGrzF10jDAXhJbo7avaraV5A1f57HMDafXg1ATRnv7eSPU6VAfynDSH8klxNWWoq9s4HnoaKsAty1NZpZro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JcGG5T6D; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e4nwNIKa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792403934; x=1823939934;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=FCF+CStTLQKo129wcMJjO9zPQelHyhJZb6dyEUr5q7k=;
-  b=e4nwNIKaUVbDN50Wdgdp0BrJANLCNqBsGbFd1NAKEl9Xv51svADuVnCB
-   XQGDbPsZNsouM0xTMZOxJW+vK35MxaWif9KSH7vgbIw9RMqOJMM/sjeJF
-   9yYhR8Wwoe7a79aeDD3oXjQ1WRzuIVzKSF1lfxW6TqNkt0OqxRZep5wlF
-   SVHRiZY/uck9smPu5V3pRfkGhNFRr/vJ0GZsJMfO3d84LNsbXCdb/qP1I
-   9Lf6b1HeDV/Mjg/9g6nrWA5YhTU0SxzfWqQZRN4h1I79NC7BTu/zGQ52J
-   uQkOYO4U+bs5pl8Pj9LsP7FiZXtzf2JDEfyJyz2hHI4S1kWzHsNMVjQwM
-   w==;
-X-CSE-ConnectionGUID: BonMpdgZRhmG0kTYrwAXgw==
-X-CSE-MsgGUID: ICGuKOeAQLStyCo3zpo/4Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1103095"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1103095"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:58:54 -0700
-X-CSE-ConnectionGUID: 7uDefMOhT1e07ff2UgJhDQ==
-X-CSE-MsgGUID: oZGsXOw8Qty5qXALoo+IuA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="4277332"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:58:51 -0700
-Date: Mon, 19 Oct 2026 12:58:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: mwwa919@gmail.com
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	intel-gfx@lists.freedesktop.org,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Hans de Goede <hansg@kernel.org>, intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/dsi: Use owned panel/backlight GPIOs in VLV
- MIPI sequences
-Message-ID: <atXp2NSPKZUPj8sq@ashevche-desk.local>
-References: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JcGG5T6D"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2db80fcdf8bso10326755ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:59:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792403984; x=1793008784; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EGOLZT0g0vS6HQl4RNLoJTQMf+l+IbI+5Jp/8hOXDLs=;
+        b=JcGG5T6DMSW0yCslPPmZMiWSE30yIYwQnkBWvriZ/vZPzRWHTpW95a7uGT3nGZdrTT
+         TXbPmk+beKg6ulF4VDwjin0mmmR5QI86OBrTV0zXbSgzfUvzhP7OgMAUp/uLYnhjynIc
+         AsJBubu26kIubSjUGzN12qRRwxmWv0Pvof/MzmeHZbJRP7ZmxMZzri9zoqBcDIQ48oTu
+         nZVLgv7GZ3TjeMfU0R7od424vQ01oKbrEfpMre7u2nBCG5K/oygsVzUFJmztviLps00X
+         gOxI5vuo5jn7sGYdZh8WypjT07Np7rvfP8NsDlQWhFkbof768CNPR9JQSgD8b07VYInN
+         M/IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792403984; x=1793008784;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EGOLZT0g0vS6HQl4RNLoJTQMf+l+IbI+5Jp/8hOXDLs=;
+        b=LtmmoBXIenTCTaFal+rczYTKI1U6nK8Sfa3pAcK0EQKKP/Jfup00g691RdEPdEkjKZ
+         HtoUbD/AkcIKQ6KI69rhNhgCGrsGwUVR2vtvtYTK6rE1kGpvn87/x0+gmxmOBmWf0cGe
+         lexxWmH9BS07q0harYClMPYYZIAYGEsu8ZfcUFyy381Uc9Mi+/PywOVwzfqx4N7h4A/1
+         VBO5NzsSiMwpe9W6eK/yogWXxWIm/eCOGtBxH4F+xFo3LYfV7jKicbnSfVr0t5iN5Hhm
+         2cqu8CXoAzP0cK3rImQNMRM4P2l3ieD8KZptTQyrmel4KA9zmpia7G+ylMBoe0BkdZ25
+         yI6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzYzcCX9NJ2PCMlwxUD/WH6jP+gHvi8biJdp0PFcPRam1ufIL+auwGGNasa2f6jfv09BsqJDn9ccc9xtbE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtYIs/EznhXtt7qyKDpxkuyY5iNGPtwUiY+jG/fpO8Dn6gi+2s
+	4FVw2dG2ifG67d315Ug7Txh4Z3LKkW6HGqEGLmHApM3WeogL+L9FvntJ
+X-Gm-Gg: AYBFou2prAnAUROvJX6To2KDd1as8MswCdYviqbf5J5bKstt9At7USi8qh5hB80hKzH
+	jzP7filk03xVIzY9wz4bL2Yucp7hK8HvV09kk6+mu4il2Yo8o5S6bljvWaMeceW8LilIaeGppEm
+	2OnOziJYytIZssHlwERdECxuEg2Am9goFqbblFkcFT/yoGbtaS2FOAFD8jOUmleK7N55WXZo/NQ
+	2J3w+VqFuy9fmuL6iv7aaDa7oRWj6VD1Mgq6TXplfFPbaAy+/A8wkqtGszzaavPPsiiLpcQluC+
+	lM9bQv3nGpdWDyra9d4osgPvCZm4pw1cokE+kpb5YFoyZWl9tTZUbgPe5UiDNru8JXWoS4m23RB
+	PX7xduRa2KByYzw82tNXcxuOM0y1Y1nUANzaXRgCGTr10nkgwtvA2Cj1F3W2equSU5gwO5vw//3
+	odRun2Zf/UtBqCynbt2z/KxWga3S3pZ+gD2aLEd2758Dw7ugfSX6+DkjgS4qK+TMzSZVDi4irVn
+	qoHF/ulwBfGaa5P+7xoqBJ3T0PRwXI2PmNkpPGlOVpHjfrzohjsAmDeHpKkkMxZjshOXjYAGRjI
+	/p/3Yao=
+X-Received: by 2002:a17:902:f603:b0:2e5:70cd:b606 with SMTP id d9443c01a7336-2e9a705c7c9mr54901255ad.56.1792403983748;
+        Mon, 19 Oct 2026 02:59:43 -0700 (PDT)
+Received: from DESKTOP-G3E0OSP.localdomain ([58.224.60.243])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e834029sm36631725ad.31.2026.10.19.02.59.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 02:59:43 -0700 (PDT)
+From: Jinseob Kim <kimjinseob88@gmail.com>
+To: jic23@kernel.org
+Cc: linux-iio@vger.kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-kernel@vger.kernel.org,
+	lkp@intel.com,
+	oe-kbuild-all@lists.linux.dev,
+	llvm@lists.linux.dev
+Subject: [PATCH] iio: osf: avoid a large stack frame in osf_core_init
+Date: Mon, 19 Oct 2026 18:58:49 +0900
+Message-ID: <fc593496353a60a15fd5ef1a2786d41dd9bdff3a.1792403576.git.kimjinseob88@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <202610191514.fRYyu0HX-lkp@intel.com>
+References: <202610191514.fRYyu0HX-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018-vlv-dsi-owned-gpios-v1-1-3ca18bcda670@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 04:12:40PM -0400, Mike Anderson via B4 Relay wrote:
+Clang reports a 1344-byte stack frame in osf_core_init() for
+hexagon-allmodconfig, exceeding CONFIG_FRAME_WARN=1280.
 
-> On VLV with PPS_BLC_SOC, intel_dsi_vbt_gpio_init() requests the
-> backlight and panel enable GPIOs (INT33FC:01 pins 10 and 11) for i915
-> itself. Since commit 8241b55f1ded ("drm/i915/dsi: Replace poking of VLV
-> GPIOs behind the driver's back") the GPIO elements of the VBT MIPI
-> sequences also request their pin through gpiolib, so when a sequence
-> toggles one of these two pins the request fails and the toggle is
-> dropped:
-> 
->   i915 0000:00:02.0: [drm] *ERROR* GPIO index 10 request failed (-EBUSY)
-> 
-> Before that commit the pad registers were written directly, so the
-> sequences could still drive the pins i915 owned.
-> 
-> The Toshiba Encore 2 WT8-B (Bay Trail, DSI panel) uses pin 10 as the
-> panel reset line: MIPI_SEQ_ASSERT_RESET drives it low and
-> MIPI_SEQ_DEASSERT_RESET pulses it high-low-high. With every toggle
-> failing, the panel is never reset after i915 sends MIPI_SEQ_DISPLAY_OFF
-> during takeover and stays black, even though the backlight PWM and both
-> enable GPIOs read back as on. The tablet only has a usable display
-> with nomodeset.
-> 
-> When a VLV MIPI sequence targets pin 10 or 11 and i915 holds the
-> corresponding descriptor, set it through that descriptor instead of
-> requesting the pin a second time.
+The aggregate assignment materializes a temporary struct osf_device on
+the stack and copies it to the destination. With the mutex and caches
+added by the IIO support, this structure is 1328 bytes in the reported
+configuration.
 
-Ah, nice, this should be solved via using reset-gpio, which is exactly fixed
-for the reset shared lines case.
+Clear the destination directly, then set dev and initialize latest_lock
+as before. This preserves zero initialization of all other fields,
+including when the core is reinitialized for a new session, without the
+large temporary object.
 
+With the reported Clang 24.0.0git compiler and Hexagon configuration, the
+frame decreases from 1344 to 8 bytes and the warning disappears.
+
+Fixes: 7329986669f2 ("iio: osf: add IIO devices from capability reports")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610191514.fRYyu0HX-lkp@intel.com/
+Assisted-by: LLM
+Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+---
+ drivers/iio/sensorhubs/osf/osf_core.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/iio/sensorhubs/osf/osf_core.c b/drivers/iio/sensorhubs/osf/osf_core.c
+index 4f73ff5e9572..62b086f67e6f 100644
+--- a/drivers/iio/sensorhubs/osf/osf_core.c
++++ b/drivers/iio/sensorhubs/osf/osf_core.c
+@@ -16,9 +16,8 @@
+ 
+ void osf_core_init(struct osf_device *osf, struct device *dev)
+ {
+-	*osf = (struct osf_device) {
+-		.dev = dev,
+-	};
++	memset(osf, 0, sizeof(*osf));
++	osf->dev = dev;
+ 	mutex_init(&osf->latest_lock);
+ }
+ 
+
+base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
