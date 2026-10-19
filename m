@@ -1,113 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792444580;
-	b=Ki+9L9LPIGkzFqHnm5RplTNGtxDI7e54jYtHJWautWAkavLHYiMMCw9WDD2rd2O2e03+
-	 x3sTSDDXVuooq3tvD6+ntA6KZNN25MNTEaq2o1QmQ2ghNwsM/QiO1OCv7yk02DmGm793Y
-	 FFhDVplQYwQUKOHuSPDDfawa5r71XXTJQyk1xmiZOZSyV2PngzpO7zqhjgahGuWC17lPA
-	 ESWOcaib578IeTLg/zZe55OQzF0N+sVF6xRVXsOVB0faNPJZVve5jML4wzCb8fwfK4OcW
-	 uQVjcfODMkqAvZJ9ElRpe7AZHGKnz5pAJ7Qo1JW8mmL5bRE7cqzPfuaIxGVDb/Hm9OQ==
+	t=1792444581;
+	b=vPMoF+K8ungUnwXmnx04i/gih4Ew5rdj+8soGb2/xShavQbgNuNFjPG8tEUeXMJJ0RNb
+	 oPYeFGmvp61mamLD2f3gyHaAtPLtD8UAiDSYJY6n4oX/7JUnnhbrUp/exxPBt4yFop+w6
+	 tqxYRib3IfV3xyZjQgs4S/nmlJy7zGKnoFHMR/Ul4mhmoDDLVjKw3PXqluBfLOPkZUugc
+	 eCnX8RltwnjexjUYN88L7GKc7VMubSs1nErO9/d0NOfayG3twyybOkQHM5hgLTwPqzvj4
+	 UYVmk2n11dDT2dcxW9Ed3pQnoih8EISDMKchzFSjB2mLhTxatPbN4PWWEJEydtup4Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792444580;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792444581;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WA8GvtHzORUFT5IkuLm69jk+Yt+6Z5rfb9+0BPV+RRE=;
-	b=YlNrhFbYyHJN5NEelVtyx9Y+trTFILrWjUpCyfWvhojVhc2FNHQv5lxW9pebAnqwGUv/
-	 6ldte5p3jboQpsq5AP9Xy55EDQp6b7jrepx+dOG1SWS6Nzj6I53AHDubMlQalUgp8i+l/
-	 duT73AZr0PhaSbs4miTmPS5UEstJlviYGgg6s/ZlC/4LeQqCSgOjy4SIsmYWOx7Utg5GZ
-	 cdHajN10/qAdGk2t7ck//KfyVHxhALfUcr3/FIo50Brsx9/iYft5V+CuEGYDOk7z0YIBW
-	 MuvmZH1yFn9uKwHLqtHUGKK3aDG/0zsvscOGo56nkaB2r0iWVaatbpb4tNQEP0/1QcA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RC1E6umfLomH1nFhSyYZirvMQSee+RINmiGAzynWQbc=;
+	b=PTJ3Wa8CF5OSDgToP6Wtno10k65SOvnQpk6SP44dzlm1h2k/T31hFZKoAza1NGesWUNY
+	 zfgel8e7uyCESo+cQeuJhpuUROmU8flhbN0/qUNmn8mQ2WOAexek53BvvDZ1Uychq3dyJ
+	 C/i4u1it1xLaMfLXDGDRQHXzz1kJ0YmkN3o9LX7OVRbZONB9hweMXB5iimEaPVWUYDUyN
+	 Y7KE7veaGsBiG402kQqtSnBWDXKDCMJ8GkjuHUyaPY8FYZfCq2OCDk03wwhgMOTWJFQQs
+	 GbQsf/5dbgVAsXVJOuT6nxQQnaObL992l6waA8RoXYYfdwagcIed6Pxvx5TCBC1enVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=fluxnic.net;
 	spf=pass smtp.mailfrom=fluxnic.net;
-	dkim=pass header.d=fluxnic.net header.i=@fluxnic.net header.a=rsa-sha256 header.s=fm2 header.b=xBsuYQhT;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=uXBJMP+p;
-	arc=none smtp.remote-ip=202.12.124.146
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	dkim=pass header.d=fluxnic.net header.i=@fluxnic.net header.a=rsa-sha256 header.s=fm2 header.b=ClaarH+h;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=YvfMxoOG;
+	arc=none smtp.remote-ip=202.12.124.155
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580DD606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1A8606A320
 	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:16:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 580DD606A31C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D1A8606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fluxnic.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fluxnic.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fluxnic.net header.i=@fluxnic.net header.a=rsa-sha256 header.s=fm2 header.b=xBsuYQhT;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=uXBJMP+p
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 7A2711D001EA
+	dkim=pass (2048-bit key, unprotected) header.d=fluxnic.net header.i=@fluxnic.net header.a=rsa-sha256 header.s=fm2 header.b=ClaarH+h;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=YvfMxoOG
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 849807A01F2
 	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:16:19 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-01.internal (MEProxy); Mon, 19 Oct 2026 17:16:19 -0400
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-04.internal (MEProxy); Mon, 19 Oct 2026 17:16:19 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fluxnic.net; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1792444578; x=
-	1792530978; bh=WA8GvtHzORUFT5IkuLm69jk+Yt+6Z5rfb9+0BPV+RRE=; b=x
-	BsuYQhTaaGeb2qnKh1kFUmDWI8au6st7wyMbK8M15iSe5eOiLs33Q+gqfFqa8jJS
-	hylsXcUlMd+iA8opkFoPnOFbuDEkczBtF3eGYvBbxqt9z+CIAA7lBqzIyVfkZ9u9
-	+D65Y17Vv2aYZWu+2m5CXagEogKxhvcoWG8UsAInGiKZpytfzm6r4gAEOvka95DW
-	Vgj7VNQ/xA/dqQWk3HU7sJvyZnlovxDcILQOhgO6Q5SJ+gy1OIlwejBnc5P8c0U6
-	kkDmpuo7QmMtSVIG8ONy9SK42CsoQpHW2VzkoqVO0GU0+BFvgtUi+BHSO/AbnfHq
-	VDIA7wNFv4L+/FmUNKCCw==
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1792444578;
+	 x=1792530978; bh=RC1E6umfLomH1nFhSyYZirvMQSee+RINmiGAzynWQbc=; b=
+	ClaarH+hsRMOt1kf+l6V4BHjfVuKIS1eTU4CD2YDYMAzzgKZ7k5fzgFfvaNQRS0q
+	bNPR325PbgbjDzZ7d2FHVF/JB0Srysv2CEUmtvkWZHJlJE4t+YQMzIVsgYCwU3v/
+	7euXUWY2IO7UCkhYKkN1XxjdsGMYlRpYvBlIKUSxYdS5ipDppaX0p2ks8Td7M9YF
+	7YxA72phIg0xCQ4i8w5wbNwhQW1J2d6ZAIILA14OEQcfJ5Cq7n7sixz1Ymjoa38F
+	jjCZMajHIpkNHUZRLMMPuLMFvEzJGUvWvqkoVD8VZH8QsmCByNTAPAYkBbppN0uU
+	1evSchsUBs30uYM7KCcbNg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1792444578; x=1792530978; bh=W
-	A8GvtHzORUFT5IkuLm69jk+Yt+6Z5rfb9+0BPV+RRE=; b=uXBJMP+poB/xUtv6w
-	TksUdJLxCu8CQodmQAhFKEznHx73DgGmuBuFp+K/Y0/ZYWg6GY6lrPfcSG+dT2sL
-	hcdF2ZnaSM2SDCa0QRbpWvSSe0HwpHGRv5fjxBsYvGNbTMD9bKJ77Gb0GIY4GWdE
-	yaEZ7J8TRm/zzATtaYmjYVaAHr/i6/horDqQNMORQAPnzFZKNntHjGI6Kpl/vhzp
-	et+AouLlmhCAQzw7emHOCd9UaCQl9q162GIKNiKNB6tyrwlHUEF3H72s15aaboKK
-	SR9bylMuoscJufFmr7muTR1vbP9EbAbWcR/M3SvN2MjDNbnWsi4TwgeWkkWY9qM4
-	+1wOw==
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792444578; x=
+	1792530978; bh=RC1E6umfLomH1nFhSyYZirvMQSee+RINmiGAzynWQbc=; b=Y
+	vfMxoOG0b/pLuCVAfDs658N7t42vxyzgXzAPLhl466ZwJ09ScmyBA1qfu1tSve+J
+	aEUr10jFMoeGmYfBMineDjoKqJtqP01zrdusT+gR303KAd7URWi7jgn7/1FP04a0
+	FhD7HeqsmxgqOe+7th0/ul97YbW8YGdnsPp0e9VuISlbcRpN/y1BieAd9XvMKpac
+	ydhfExr5harYJb/LcWg5IIovUc+u4aOfv64k4dxrQGYcM7VezXlJUr27UU0lInC5
+	Tm0bMUFWDEMS/AHbyqQpx/nHxsw9+hw/whFc4x1f1uQidGgrwJEul1DMwA3JtLIF
+	lA9SFCZhaFsi1Zztxi0VA==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
 	action=sign d=fluxnic.net a=rsa-sha256;
 DKIM2-Signature: i=1; m=1; t=1792444578; d=fluxnic.net;
 	mf=PG5pY29AZmx1eG5pYy5uZXQ+;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:BKODxHmffAEYwCPs+C9HeBv3IUogwfIKmeC/ATxRAgPOoAk
-	czLfoulr6En+lcTQLWS7E+tMflT957qzpawA2uC/I/FKPEHts3RAxO//yYjL98Jj
-	622MnP7zrofTg/0oX02t9L4YwgjU8jWJukw2vcsbKkXbkW/EyJ4oylcc8e/qJo/c
-	MJUjz9oRWI/IA8j1vKVQABP3lDVdxOUm8VQFFjZU5sBkylNOEtykd0T7sRLLZ4IK
-	AX6BSaMJ9GOZqFZ/tmY0dJDEuCwcAyRGrVHDVKPoDZO9b4vQwjG8d12M/SfGeJte
-	pKXztTiNBY3IHU3pX6ScFuRYaYcHMpuLWj29kbw==;
+	s=fm2:rsa-sha256:m5BDWcjklWq6ARvhuKH9LprGP9ck+PZ6TeGjtrxhKjz3A9m
+	WC7/TLgeTx8xokv/mk7qgk0aYROHKeIO77bnuFJzfsXTFw5mZSyOyTRrEZGsp/c+
+	pusuiceldPNY6KcCYQSGmTp3mOZXwcmXb0oIbmVWS/6zIyXpxMorN8abvanDk953
+	hVX3o57FuXPW0WqCPikt3QsmsDGUDOfu+qmOcW8ot+D5fCy3N3uR95mJY4AUAjSD
+	2ruEvTDt6ivpVuXav5dDpwvO6oY14p9vji6mhf1VmaMcwfRzB2jDXvDK8Oqcap2g
+	ghq1MnW6rhlepbrKJfasrkKE+Rnx5qwAdKC92PQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Uhgio6rnd33JQdewNW94wOsAdhpJvObU3XvfZcsX92s=:aGnF/NMpPzlaVk5biWZGkJgzc3185yWJmeaTyqkTYFc=;
-X-ME-Sender: <xms:oojWajUOYCoeCVSGe8-F4dzF7skd1RyigMmqNmKjWMTCiflKtf4y3A>
-    <xme:oojWatHUJuzueexFRlYi9jNdjQNTLkJq2dIJykRS5XyaYdGe0oLXqTGm6IRTK-n2Z
-    m07Bw7raI3efpHHkOxjsDQc9O0MR3fwF2v5OxLe7Qi_haYgmLOM-SqU>
-X-ME-Received: <xmr:oojWavcffhMjYYcRky9RhFUPSSi9hyrkXLIS0OOuA7yYZNKYw3Ta6UHXqLfT8bdKlBh7hIsrQnvPzFAsybqUaoNSy0f12Enog1RzT6oiHOOFogU>
-X-ME-Proxy-Cause: dmFkZTF/vnGH0ScjvaxYxr+nv3rutIYng+eq1vxPiBPKiE3JZvmH65b3P8DmdCRPD7IBeK
-    ugrAkzbPG9SBPGIZZDEhXEU7X6KDMKyBnLklQSkB1UxyewQvB6HLrWMnvG34mk3U2/2Ceq
-    L779tVQ95/2tM/emuq54ysohR+3E+imrKQaInlUmEBa8mAQxiOo4HIqcAwsbbNTM5yXiuV
-    /covjUzx/4rs6/hTGjpWVRBDT59UFTYfH6YGC/8gtytJybgRnCtj6Rx8PG6DPhxg+tN+2E
-    gOb84bpauyj4Op6Vy1u5U1c6FIwS/0yons6lWFB7uL6EU0nvV63APo2Fi9pO9x4+KwyXi0
-    2c1TLscqcMiyRZUFzddNaX0dRDzjREMEvynQGJfhp6DdCVFMTIr/NVguOw9eSmqVyNxqsn
-    LRIV9CnepVsp7cInQv16NklAvX1i9kuP36bIH1Xj22PvhffQACTtkX33gSMme8a17A6kq+
-    dKxgZqGRBOe1rdILAfedvI28xS+4pDM3WAEnW8wRGmxEoeuwR6+dWeaHgGiNJcWDwTNupn
-    3u6K8XhrzRJqWpnZwk7aPOyYX8OFFNtWY2JPbzzd5KAg8LndkSQONNl1BeoTklffR4q0k3
-    /ACDPg3iyeRALDzZKevWV83roOsq1UHM22mH6O7i+M8TNLzWXAhvCSL1an7g
-X-ME-Proxy: <xmx:oojWauLfG0vnUyRzzj1QW4SjNZSE3lPkdstYY7UKydwvpOU19wVYwg>
-    <xmx:oojWakGnlLzaSxhYXlOJBTZLrIsDCcUAez-miY-YvoC_0ovJEHjXdQ>
-    <xmx:oojWahDe7F59pwnaoE-amq1Eigdz2n_j4lIhR-oroRWeKbI8Y4BHew>
-    <xmx:oojWan9H4Bk-Rzg5KUAlTkmD8wKPtQl5OuFSWn5GHEcyBanXoOGRWw>
-    <xmx:oojWah1Tp6J-6MP3VhWwcalqGE0NUe6wwvRuGmwSrQD43LMTtipUA4kK>
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:DNS4vv1ji9DLXiRwmLAszR7n+DwI86lmFoFU20xbYx0=:6RSsl65YE1GDJ8PM6p1TVx5h5Eyg9SbZGcLlydsg1Vs=;
+X-ME-Sender: <xms:oojWamr_7XsunPAnT2nV6VWG8ttI8VWYe-tPb6279ku1DohVlJP7PA>
+    <xme:oojWamImKH9cV1rzLk7f3WDVZAnxa6gF8iYiLfXSx39QFPA9BVcZqP5k3WUNd25p8
+    Wx8Ff2Bhv2n5Np0AmVsL1Wcepb35NuGlvIhRKRl5cyD5VcyDwkS6nuE>
+X-ME-Received: <xmr:oojWarQgAspF8us82ycqq6fGIz_O1tRd1kx848acRbRD7ME0bBH4VrjXD5IXJePPtnqQcN4-DwqJvSWFr7GCs0WkgxI94fj8k1OwEZgx4XIgUR8>
+X-ME-Proxy-Cause: dmFkZTEskaRpMmo5mA9eUzo2TboD98x/CxvN/POfGDE5/84InX+evMpVDYeBWnhQoI3j4+
+    KvaDgKTXizcB/NLv0U1SBZ5nATEEXyhgFd6IA5N/rwJ8U/A4sw2lcFAYXx1+N9Gl3US3Jy
+    sK6ZDquh1nUAg0XuJEUQRvbysbUpYqCqBKZQfeORo3ekbU9vTfiWIYs5/AdGWPr1PjFoMD
+    8XOz5RKmZ0GNl4NZ3u2BYVcvWOMV932TGnQSjhrud/DaNIg7p14s7x7cnBaSUsfi7fP9rd
+    TjR2nwirLkbLcb4lk94cx0kU2vxKMmmuHas4vcwbX7+uivWIW/7QBeBnPgQS0cXr9k1Wji
+    UZmRLmH6+3ViiyKvLHAmScBolpd778g0I/fQWosYFzFXCfbn3DPe6hP107uvCOz/NHgjd8
+    YgyOoud1Flrfm4sQwUiyWvA5N8HdEKUbSqdLNreT3SUlufssLpdFIDxGiH0ePtNHtK3eYJ
+    kf0rA69OTYx+qQBushR4qfr6TmpA4WK8qUn/3aXxxrmWcRwuMxgZXl7U1hanLYQTvWFeYH
+    EfqKCAaFmJMlvEkw9B3tqxnLbRitOXvfe7y8Qf1Ei1SaWWjAR2dvpz3AqrHisz3qORGSVv
+    e7aJqWBL2WHsTGuvDWF2wlLhIfhHT5cB2STGZqMkfyz7Y3ogEAs6oEkQWBTQ
+X-ME-Proxy: <xmx:oojWalv-NS78EBoHmWzpyKh8Hyay5kYORomNLF1pO4106lFGiJfziA>
+    <xmx:oojWasZWoOsr8PYOkjfC7Mm8IPJyBnTieEBy3G4Qs5JFZRshJWC7XA>
+    <xmx:oojWarEXNAvnhg9fMjrs4-dw775U69ZWaCOsSICeq011HzfkM-lMOg>
+    <xmx:oojWagx3ZjBY0NXBZcVAfSn4m9rjibH5Yf88Mj9rkjfE3Gj97I9e7Q>
+    <xmx:oojWamaF3Hjo4gFboa61zEX35c-I5Afe0uG4QuhOWnwGIA6lWS1qDIP0>
 Feedback-ID: i58514971:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
  19 Oct 2026 17:16:18 -0400 (EDT)
 Received: from xanadu.lan (_gateway [192.168.1.1])
-	by yoda.fluxnic.net (Postfix) with ESMTPSA id D5BEE23319;
+	by yoda.fluxnic.net (Postfix) with ESMTPSA id DA0BE2331A;
 	Mon, 19 Oct 2026 17:16:17 -0400 (EDT)
 From: Nicolas Pitre <nico@fluxnic.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -115,9 +116,9 @@ Cc: Jiri Slaby <jirislaby@kernel.org>,
 	linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Nicolas Pitre <npitre@baylibre.com>
-Subject: [PATCH 1/3] vt: don't make VS16 widening depend on earlier screen contents
-Date: Mon, 19 Oct 2026 17:16:15 -0400
-Message-ID: <b777616c7a63920f36dd34a1ab96e95073d0b013.1792443833.git.npitre@baylibre.com>
+Subject: [PATCH 2/3] vt: add DEC private mode 2027 to control VS16 widening
+Date: Mon, 19 Oct 2026 17:16:16 -0400
+Message-ID: <76b7fb6634652a8670a4f03aa397f21ea57aa367.1792443833.git.npitre@baylibre.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1792443833.git.npitre@baylibre.com>
 References: <cover.1792443833.git.npitre@baylibre.com>
@@ -130,50 +131,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Nicolas Pitre <npitre@baylibre.com>
 
-VS16 (U+FE0F) widens the preceding character only when that character
-can be found in the Unicode screen memory. But that memory is allocated
-on demand, when the first double-width character is displayed. Until
-then vc_uniscr_getc() returns 0 and the VS16 is ignored.
+VS16 (U+FE0F) after a single-width character currently turns it into a
+double-width one, giving emoji presentation sequences such as U+203C
+U+FE0F (‼️) a square aspect.
 
-The same sequence, e.g. U+203C U+FE0F, therefore takes one column on a
-console that hasn't displayed any double-width character yet, and two
-columns afterwards.
+There is no consensus on this among terminals. According to the
+ucs-detect survey [1], these widen such sequences to 2 cells, as the
+Linux console does:
 
-Allocate the Unicode screen memory when a VS16 shows up so the
-preceding character is always available. vc_uniscr_check() populates
-it from the current screen content, which includes that character.
+  kitty, foot, Ghostty, Contour, Konsole, iTerm2, Windows Terminal,
+  mintty, Rio, tmux (3.4)
 
-Fixes: 95b05de0a566 ("vt: properly support zero-width Unicode code points")
+while these keep them at 1 cell:
+
+  xterm, VTE based terminals (GNOME Terminal, XFCE Terminal, ...),
+  Alacritty, st, urxvt, Apple Terminal, GNU Screen, libvterm,
+  xterm.js (WezTerm only partially widens)
+
+On the application side, glibc's wcwidth() is per code point and
+returns 0 for VS16, and so do the tools relying on it. Even vim, which
+has its own emoji width table, counts U+203C U+FE0F as 1 column.
+
+Applications that track the cursor position themselves therefore get
+out of sync with a widening terminal. For example, mosh writes full
+width rows and moves with relative CR/LF. A row containing ‼️ is one
+column wider on the console than in mosh's model, so its last cell
+wraps to the next line and the whole screen ends up scrolled by one.
+Others are reconsidering widening by default too: tmux 3.6 added the
+"variation-selector-always-wide" option to turn it off, and xterm's
+emoji width handling is configurable.
+
+DEC private mode 2027, from the Contour terminal's Unicode core
+proposal [2], is meant to give applications this control. With it set,
+VS16 promotes a grapheme cluster to emoji presentation and a width of 2
+cells. With it reset, the behavior is left to the terminal. Contour,
+Ghostty, foot and WezTerm implement it.
+
+Make VS16 widening follow that mode. Applications, or the user before
+starting them, can opt out with CSI ? 2027 l, in which case VS16 is
+zero-width as wcwidth() says. Only the VS16 part of the proposal is
+implemented here.
+
+The initial and reset state of the mode comes from the new
+vt.default_vs16_wide parameter, similar to vt.default_utf8. It
+defaults to 1, preserving the existing behavior, and can be set to 0
+on systems where applications relying on wcwidth() are the norm.
+
+[1] https://ucs-detect.readthedocs.io/results.html
+[2] https://github.com/contour-terminal/terminal-unicode-core
+
 Assisted-by: LLM
 Signed-off-by: Nicolas Pitre <npitre@baylibre.com>
 ---
- drivers/tty/vt/vt.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ Documentation/admin-guide/kernel-parameters.txt | 10 ++++++++++
+ drivers/tty/vt/vt.c                             | 15 ++++++++++++++-
+ include/linux/console_struct.h                  |  1 +
+ 3 files changed, 25 insertions(+), 1 deletion(-)
 
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index e75344f4e0cd..983afb6c531e 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -8451,6 +8451,16 @@ Kernel parameters
+ 			Default is 1, i.e. UTF-8 mode is enabled for all
+ 			newly opened terminals.
+ 
++	vt.default_vs16_wide=
++			[VT]
++			Format=<0|1>
++			Set system-wide default for whether VS16 (U+FE0F)
++			turns the preceding single-width character into a
++			double-width one, as in emoji presentation sequences.
++			This is the initial and reset state of DEC private
++			mode 2027 on all tty's, which applications can also
++			change with CSI ? 2027 h/l. Default is 1.
++
+ 	vt.global_cursor_default=
+ 			[VT]
+ 			Format=<-1|0|1>
 diff --git a/drivers/tty/vt/vt.c b/drivers/tty/vt/vt.c
-index 49a140b49eff..335253aec549 100644
+index 335253aec549..4d5c9cabd058 100644
 --- a/drivers/tty/vt/vt.c
 +++ b/drivers/tty/vt/vt.c
-@@ -3128,6 +3128,15 @@ static int vc_process_ucs(struct vc_data *vc, int *c, int *tc)
- 	}
+@@ -166,6 +166,9 @@ EXPORT_SYMBOL(global_cursor_default);
+ static int cur_default = CUR_UNDERLINE;
+ module_param(cur_default, int, S_IRUGO | S_IWUSR);
  
- 	/* From here the preceding character, if any, must be single-width. */
++static bool default_vs16_wide = true;
++module_param(default_vs16_wide, bool, 0644);
 +
-+	/*
-+	 * The Unicode screen memory is allocated only when required. VS16
-+	 * needs it to find the character it applies to, so it can't depend
-+	 * on whether a double-width character was displayed earlier.
-+	 */
-+	if (curr_c == UCS_VS16)
-+		vc_uniscr_check(vc);
-+
+ /*
+  * ignore_poke: don't unblank the screen when things are typed.  This is
+  * mainly for the privacy of braille terminal users.
+@@ -1984,6 +1987,7 @@ enum {
+ 	CSI_DEC_hl_MOUSE_VT200	= 1000,
+ 	CSI_DEC_hl_ALT_SCREEN	= 1049,
+ 	CSI_DEC_hl_BRACKETED_PASTE = 2004,
++	CSI_DEC_hl_GRAPHEME_WIDTH = 2027,	/* VS16 widening */
+ };
+ 
+ /* console_lock is held */
+@@ -2039,6 +2043,9 @@ static void csi_DEC_hl(struct vc_data *vc, bool on_off)
+ 		case CSI_DEC_hl_BRACKETED_PASTE:
+ 			vc->vc_bracketed_paste = on_off;
+ 			break;
++		case CSI_DEC_hl_GRAPHEME_WIDTH:
++			vc->vc_vs16_wide = on_off;
++			break;
+ 		case CSI_DEC_hl_ALT_SCREEN:
+ 			if (on_off)
+ 				enter_alt_screen(vc);
+@@ -2284,6 +2291,7 @@ static void reset_terminal(struct vc_data *vc, int do_clear)
+ 	vc->vc_decawm		= 1;
+ 	vc->vc_deccm		= global_cursor_default;
+ 	vc->vc_decim		= 0;
++	vc->vc_vs16_wide	= default_vs16_wide;
+ 
+ 	if (vc->vc_saved_screen != NULL) {
+ 		kfree(vc->vc_saved_screen);
+@@ -3139,12 +3147,17 @@ static int vc_process_ucs(struct vc_data *vc, int *c, int *tc)
+ 
  	prev_c = vc_uniscr_getc(vc, -1);
  
- 	if (curr_c == UCS_VS16 && prev_c != 0) {
+-	if (curr_c == UCS_VS16 && prev_c != 0) {
++	if (curr_c == UCS_VS16 && prev_c != 0 && vc->vc_vs16_wide) {
+ 		/*
+ 		 * VS16 (U+FE0F) is special. It typically turns the preceding
+ 		 * single-width character into a double-width one. Let it
+ 		 * have a width of 1 effectively making the combination with
+ 		 * the preceding character double-width.
++		 *
++		 * This can be disabled with DEC private mode 2027 for
++		 * applications that compute widths per code point with
++		 * wcwidth(), where VS16 is always zero-width. Otherwise
++		 * they lose track of the cursor position.
+ 		 */
+ 		*tc = ' ';
+ 		return 1;
+diff --git a/include/linux/console_struct.h b/include/linux/console_struct.h
+index fe915afdece5..8a1031cd097e 100644
+--- a/include/linux/console_struct.h
++++ b/include/linux/console_struct.h
+@@ -167,6 +167,7 @@ struct vc_data {
+ 	unsigned int	vc_decawm	: 1;	/* Autowrap Mode */
+ 	unsigned int	vc_deccm	: 1;	/* Cursor Visible */
+ 	unsigned int	vc_decim	: 1;	/* Insert Mode */
++	unsigned int	vc_vs16_wide	: 1;	/* VS16 makes preceding char wide */
+ 	/* misc */
+ 	unsigned int	vc_priv		: 3;
+ 	unsigned int	vc_need_wrap	: 1;
 -- 
 2.55.0
 
