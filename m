@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B394E50D4;
-	Mon, 19 Oct 2026 11:34:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334E34E533B;
+	Mon, 19 Oct 2026 11:34:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792409655; cv=none; b=PvQlR7O8iwnT1wol5SUjrYfzsX0++BzdT/qQb6uxddS+MJygl7+J+9a8FW0RFKx3iSaVSwVABULxWtneiKtx8NapBzqig5hyc7gsilh15ppoQX/PIBF3xWH2naiCUSpLbgD6N1L8VEggB6m3Fr9DEj5bJlwGJZSqTMHPEYy7nug=
+	t=1792409655; cv=none; b=BsRIw+kmIEK/Q9n2xzkxhnVuDS505L2KKHtDvy87TuHjHRFFdxogDbbxTS59GlAkkBEmTCrUEI4F/O662bUYF4BNhFrF9W4RzVJ98BzwEyoSpZvihh7DrVypAC2IAQ0RQpnTN2L6aMO0FauUOAYnWF4tvCseDv/+zBD8UqPFVRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792409655; c=relaxed/simple;
-	bh=vVnTRYzCIxXjqhYevgdB5gW6MuvRqOmBdio78LPOP4k=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jFFIETA5cCvFgJNsht+jIs0vcH78fMETCaNYroRWRaZb02h3UTx9Dwf7LlAvOVKaqI6JpdfoqPa7zIwG3qMVQGvo7L+PV9zv9IYEzsQSaY6mWjqzuQy4MDSoI9Nc5p/HeKe7XZIbDV1IK5mIjtlUgECgG7loqt6Ci7kskRdQM4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hm0YrDHW; arc=none smtp.client-ip=10.30.226.201
+	bh=/4SCbq/zdtyk3n0Y6fBABlY63ZRO3tVyZfGklmriDnM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YCORvkf/hIZUG4R46a2cQmums9BIKfLrKLK0s3OiM25JJEjwFcONSArCAOGNT28j8uhsl/bs2yr49TaAxj4/SG31+aqIvfsd+kZ/t6Mm81RAl7Ud9+3tS8ELjwAhgRh4HncIG0hHkdUYJNdmhhNmslFYpzXvLZxo/pHfO2Yixsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eMGOt7uu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hm0YrDHW"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9D2B8C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eMGOt7uu"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CF5FFC2BCFC;
 	Mon, 19 Oct 2026 11:34:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792409654;
-	bh=vVnTRYzCIxXjqhYevgdB5gW6MuvRqOmBdio78LPOP4k=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=hm0YrDHW6y6PI1m7BnItIhrhJob9VoWNHQz2dZoCq53RAnLOc7rWpLjY8UBlApC0M
-	 opDZWIE/0hmalUJQYPdtemWuH0Z337bi2m0N0y1oDDiy7UabDFyby8UOMYfb1ItDSq
-	 5BE7I9F8oGKTXpz9gQEGoXWvsXHPlosnoOuOsIA5nNXwezCZR/4/60GYakqjLrsLWy
-	 VP58cS16zv5mNDwZASUrJgYLWKWDLF39Mh+lO7WiXgCzP7oKp0woIy6iaI2WPYehSO
-	 UP8/Ui9ROe72II+S1/83Jw7wkeBjIsX0KMznH1kHGtAzM2xg/ajFfjxgiRvBzoLXTg
-	 yWTTwFG7eeUrw==
+	bh=/4SCbq/zdtyk3n0Y6fBABlY63ZRO3tVyZfGklmriDnM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=eMGOt7uu0+wiP0QvJOVYIXKXzQNCW8aas1zKn7JtgcpezW3gcwbiwjaPwvC+bXHP+
+	 KcwHH2P3BveUhJ832X+GkPE3Y5RyI4dWtlmp1ZZz+gyvBG7e0vDlhxQqPo9PjbG3je
+	 F3M+HyccvExPFngP2nbaSx4B9fq0cSQBmIAv45r6+UnYM+/owMH8FbDtGsN60trDfG
+	 9x7aVdAAu2k8K1MnHz4yFnPtM5DXwlrh2HHZHPvLKtuhQQoh4MXbuBuuDYlEhtTaCe
+	 ylJqX3RiDBnTUFYpcxptXUVn4aT6Jf8S4uW3B8tSdTEPK43LargsCbqVzwZ+vVyTmq
+	 cosbx6Ph9r+dw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C6C5CCF2DB;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3E74CCF2E5;
 	Mon, 19 Oct 2026 11:34:14 +0000 (UTC)
 From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Subject: [PATCH v2 0/4] ceph: fix the buffered read size metric and make
- the subvolume metrics per CPU
-Date: Mon, 19 Oct 2026 13:33:26 +0200
-Message-Id: <20261019-ceph-metrics-percpu-v2-0-1fa5229b00b8@clyso.com>
+Date: Mon, 19 Oct 2026 13:33:29 +0200
+Subject: [PATCH v2 3/4] ceph: flush the OSD completions before destroying
+ the mds client
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,21 +41,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NSw6CQBAFr0J6bZuZkY9x5T0MC2gbaSPOZBqIh
- HB3AfcuK6lXbwblKKxwSWaIPIqKf6/gDglQW70fjHJfGZxxuTU2ReLQYsd9FFIMHCkMaKnOTFo
- 0hc0MrMsQuZHPXr2VP9ahfjL1W2ozWtHex2m/He3m/X8YLRo8nSmrXNow5Xyl16T+SL6DclmWL
- 1q2Tx3IAAAA
-X-Change-ID: 20261014-ceph-metrics-percpu-1cb5047f7150
+Message-Id: <20261019-ceph-metrics-percpu-v2-3-1fa5229b00b8@clyso.com>
+References: <20261019-ceph-metrics-percpu-v2-0-1fa5229b00b8@clyso.com>
+In-Reply-To: <20261019-ceph-metrics-percpu-v2-0-1fa5229b00b8@clyso.com>
 To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
  Xiubo Li <xiubo.li@clyso.com>, Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dan van der Ster <dan.vanderster@clyso.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792409634; l=3625;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792409634; l=2730;
  i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=vVnTRYzCIxXjqhYevgdB5gW6MuvRqOmBdio78LPOP4k=;
- b=jbqguYpXcDsTHT4x/xvUqUYpY9T36RaZdbs7ZEjNVRoSGkeduh4xh+RoGsNLPKW1Ap8ybnSUJ
- Ff0bhnealKdDHiZIVKhk3EIh0/adOQgEBpRo+2Sy992nAGvOFczAYmd
+ bh=AMNZbzcI99MT7gaoeLTpmc778lbbAGtoVQURA0nX2pU=;
+ b=LXrgnAu0LS/CG2KhY8OO16MQQXFRUUdNmxFexOLKFGSBF62BLQXSFNMOBGnOPuPvBNZaUCUYM
+ Y7QVku/x1r1Cr9JR/LDjK+k6I6wdWyReGWG3zwtNiyZ3gRpj5juIL4N
 X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
  pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
 X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
@@ -63,83 +60,77 @@ X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
 X-Original-From: Xiubo Li <xiubo.li@clyso.com>
 Reply-To: xiubo.li@clyso.com
 
-Two problems in the client I/O metrics, reported by Dan van der Ster
-while looking at IO500 runs on 144-core Grace clients.
+From: Xiubo Li <xiubo.li@clyso.com>
 
-Patch 1: metrics/size has reported 0 bytes for every page cache read
-since buffered reads moved to CEPH_OSD_DATA_TYPE_ITER, because
-finish_netfs_read() still reads osd_data->length, which only the page
-vector type sets.
+The callbacks of OSD requests that complete with an error, or that are
+aborted, are run from osdc->completion_wq instead of the messenger.
+Like the ones run from the messenger, the read and write ones update the
+client metrics in mdsc->metric and mdsc->subvol_metrics.
 
-Patches 2-4: every OSD read and write completion updates the subvolume
-metrics through state shared by the whole mount.  Even with subvolume
-metrics disabled it bumped an atomic64 counter that nothing reads;
-with them enabled it took a mount-wide spinlock and searched an rbtree.
-Patch 2 drops the unused counters.  Patch 3 flushes the OSD completion
-workqueue before the mds client and its metrics are freed.  Patch 4
-accumulates the counters in a per-CPU slot and only folds them into the
-tree when the slot changes subvolume or when the metrics are sent or
-dumped.
+ceph_mdsc_destroy() only flushes the messenger before it frees those and
+mdsc itself, while completion_wq keeps running until ceph_osdc_stop()
+destroys it from ceph_destroy_client(), long after.  A callback still
+queued there then updates freed memory.
 
-Tested on a 12-vCPU x86_64 VM against a main MDS with SUBVOLUME_METRICS,
-with KASAN, lockdep and kmemleak enabled:
+Add ceph_osdc_flush_completions() to libceph and call it right after
+ceph_msgr_flush() in ceph_mdsc_destroy().
 
-- 12 fio jobs doing 4k direct I/O in one subvolume: the op and byte
-  totals the MDS received over all metrics sends match what fio issued.
-  Alternating between two subvolumes on every I/O, the MDS sees the
-  same totals as with the unpatched client.
-- The same with failslab failing half of the subvolume entry
-  allocations: in one subvolume v1 lost about 9% of the ops and this
-  version loses none; alternating between two subvolumes it drops 64
-  of 240k I/Os, those whose direct insert failed as well.
-- lock_stat over 20s of 12-job random reads in one subvolume:
-  tracker->lock goes from 90k acquisitions and 78 contentions to 316
-  and none; the per-CPU slot locks see no contention.
-- umount -f with the OSDs paused and I/O in flight, and MDS failover
-  and kill -9 under I/O: no KASAN, lockdep or kmemleak reports.  The
-  race patch 3 closes was not hit there: all 3840 aborted requests
-  completed before ceph_mdsc_destroy().
-
-Throughput on that VM is unchanged within noise: at 12 vCPUs the
-tracker lock is not a bottleneck, so the gain is only expected on
-large clients like the ones in the report.
-
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
 ---
-Changes in v2:
-- Fold a per-CPU slot into the tree under the tracker lock and clear it
-  only once its entry is in the tree, so its counters are kept when the
-  entry allocation fails (Alex Markuze)
-- New patch 3: flush osdc->completion_wq in ceph_mdsc_destroy() before
-  the metrics are freed (Alex Markuze)
-- Link to v1: https://patch.msgid.link/20261014-ceph-metrics-percpu-v1-0-38c5a24fec6e@clyso.com
+ fs/ceph/mds_client.c            |  2 ++
+ include/linux/ceph/osd_client.h |  1 +
+ net/ceph/osd_client.c           | 11 +++++++++++
+ 3 files changed, 14 insertions(+)
 
-To: Ilya Dryomov <idryomov@gmail.com>
-To: Alex Markuze <amarkuze@redhat.com>
-To: Xiubo Li <xiubo.li@clyso.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index d4ef8a355a48..b62291f0e351 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -7046,6 +7046,8 @@ void ceph_mdsc_destroy(struct ceph_fs_client *fsc)
+ 
+ 	/* flush out any connection work with references to us */
+ 	ceph_msgr_flush();
++	/* and the OSD request callbacks that update our metrics */
++	ceph_osdc_flush_completions(&fsc->client->osdc);
+ 
+ 	/*
+ 	 * Mark reset as failed and wake any blocked waiters before
+diff --git a/include/linux/ceph/osd_client.h b/include/linux/ceph/osd_client.h
+index 52eb76e9d62a..6028754efe6a 100644
+--- a/include/linux/ceph/osd_client.h
++++ b/include/linux/ceph/osd_client.h
+@@ -585,6 +585,7 @@ extern int ceph_osdc_wait_request(struct ceph_osd_client *osdc,
+ extern void ceph_osdc_sync(struct ceph_osd_client *osdc);
+ 
+ extern void ceph_osdc_flush_notifies(struct ceph_osd_client *osdc);
++extern void ceph_osdc_flush_completions(struct ceph_osd_client *osdc);
+ void ceph_osdc_maybe_request_map(struct ceph_osd_client *osdc);
+ 
+ int ceph_osdc_call(struct ceph_osd_client *osdc,
+diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
+index 5f2c561ff4e2..ec5e8870ec6f 100644
+--- a/net/ceph/osd_client.c
++++ b/net/ceph/osd_client.c
+@@ -5164,6 +5164,17 @@ void ceph_osdc_flush_notifies(struct ceph_osd_client *osdc)
+ }
+ EXPORT_SYMBOL(ceph_osdc_flush_notifies);
+ 
++/*
++ * Wait for the request callbacks queued on completion_wq to finish - for
++ * use before freeing what those callbacks touch
++ */
++void ceph_osdc_flush_completions(struct ceph_osd_client *osdc)
++{
++	dout("%s osdc %p\n", __func__, osdc);
++	flush_workqueue(osdc->completion_wq);
++}
++EXPORT_SYMBOL(ceph_osdc_flush_completions);
++
+ void ceph_osdc_maybe_request_map(struct ceph_osd_client *osdc)
+ {
+ 	down_read(&osdc->lock);
 
----
-Xiubo Li (4):
-      ceph: report the requested length in the netfs read metrics
-      ceph: drop the unused subvolume metrics debug counters
-      ceph: flush the OSD completions before destroying the mds client
-      ceph: accumulate subvolume metrics per CPU
-
- fs/ceph/addr.c                  |   2 +-
- fs/ceph/mds_client.c            |   8 +-
- fs/ceph/subvolume_metrics.c     | 275 ++++++++++++++++++++++++++++------------
- fs/ceph/subvolume_metrics.h     |  26 +---
- include/linux/ceph/osd_client.h |   1 +
- net/ceph/osd_client.c           |  11 ++
- 6 files changed, 217 insertions(+), 106 deletions(-)
----
-base-commit: ed0502cb11f84fff29f374238e526ae94d9bdfde
-change-id: 20261014-ceph-metrics-percpu-1cb5047f7150
-
-Best regards,
---  
-Xiubo Li <xiubo.li@clyso.com>
+-- 
+2.53.0
 
 
