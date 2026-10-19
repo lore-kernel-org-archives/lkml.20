@@ -1,207 +1,163 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904654F85D4
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:09:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418946; cv=none; b=tQ04VJdLJ1SdJvnfuXIAQ9byHeiQZ0ComI9eVza2oV760v/mpJp+iQtzQXZwxnaVVPa6cfJKzzgYX/QAhVGc2g8EFKCG8Wsg1yA6i5QGP4FQO+HyAWAuwzdeBhqardq8OxQrjedSbLy2XqIbZ+lliSwC4E4sSVFMgtNov5Bx6Q8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418946; c=relaxed/simple;
-	bh=Bb1oQJJb8bBWJ50lmw1B7ERzmHGFObf98zGv2XjADM4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LUqPbUyYRtuIWF2WTMhkYEXCMLCJTodwPN5tvqGBPmMlYXDqFNDFVmHfzMVD9iT2L7J2QDEF43liRu8+CGmTYGURuzXu/fyVEsn+WI5bsRjy1NqCc5ym/+QJHq0h5M8ZIE6K6c2Ap85/c8CH0Wi058y+TU1r2DTuqq7xyrPjBN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IhFi+PUL; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=U880YE9c; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C4050E592
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792418982; cv=pass; b=IghNJUZL9U6ZuDoNQupHRypGYOU05JaSUkzV/W1aR+vhqSrdCEZh3saFuJ8WewtdSZm4wlp9ZMuSnog9U3cysoz/aY66ER55+jyI2Wt8pVbTszjrj39AHCfgTwBKQlC8IEkcTUNzqz10aKNi2J8CrSiO+9DlCsLElIUnQRK99wc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792418982; c=relaxed/simple;
+	bh=69YmwAWS3dZ9In6kSWSUcs0wnTKNpoRN15/7jRzhzV4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZpEqaSbTG5+AKgMfm234eVm7FbtbbyP6ug58W5jho2KhMNfUqiGcUpoaKy18KzNZFCg6u2dCpm52pPvhjZDFDuRi8ZLWbf5eorO82crhtLVxjWvMMbzBwkASIduFXMw1ryEMouRRDT5F4m2BRjIa00z/bS1wm+KfJm+bYp8f2uo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=fm6varGy; arc=pass smtp.client-ip=209.85.167.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IhFi+PUL";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="U880YE9c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792418943;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZRK1BzG8yA6E0e6lr2UnuvkDmeyhqnlz73tj/pxCJpU=;
-	b=IhFi+PULJEdTn/o2Wq4aTY+1VsaO+f8pPU+7Bg0FerKtsK+Fyff+YAQwCq0vLWaRuYmhLc
-	90OO15G8wS8Yel7J6pEOUNcpDuOokXWLvu6+4tgX6x0odqsHiP6LmrDWgSnXUjfKhNttzL
-	NXmXLu2FGwErePOtgjzeuuXaCJJ1klg=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-595-raBokWLsNo2lnmg0N0n1Mg-1; Mon, 19 Oct 2026 14:09:02 +0000
-X-MC-Unique: raBokWLsNo2lnmg0N0n1Mg-1
-X-Mimecast-MFC-AGG-ID: raBokWLsNo2lnmg0N0n1Mg_1792418941
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1de9dac94so13079265e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:09:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="fm6varGy"
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4af81963f35so1200080b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:09:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792418978; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZrBxk5C2I8d8MrvxZLl7bR3reBCdgJ98VDNEwuoBXwdC5WvA8zE97oQZXrMQqkAA07
+         AbNZY6EAwiFVIN3xOzUmvKMAjJNTa+B/qZAwM6riBZGGm2cv2FlQUe1AnNd9CBCmEIUi
+         IncCNPihyYjfi7wbcVV43mgtuO5Yppwv/LyLluJN3ybPqZj2LrROi9bMm3nB7SvYQjKs
+         qrr7vpCPmadeGUY86JesPXDkbGXwGLMti/6vd+QafM3eOKX++Mj37blDjyCp9IYSv6EE
+         4f2jYXOu+XPzIvxeOn6tZHdUGp4AyfuInvaO2/i4v9hbjXi2XevWatSXLz64/WwpmAo6
+         Usvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=uzPbkn9TvysYoTYtHl26oKGkVeNYy29t/Y60wQicXoI=;
+        fh=iNnq63sdVPnTRjK5VF65u6l6sVj0elCjxyj2az3tzIQ=;
+        b=OndQDSrQ912xu/ISdc38jhX41s/Dg7oBzdDjvU3qm74N6erY+YNDUPCSI20yINphfT
+         hCOrYW9MMhdSp35l983xwuO0AzRpdfZLGlkISf8xtwwDDFVD2nfT8Tq2ge5Q3GmGDIDf
+         /5rib2djwDDf6ajV+Dvg1cAx1MjYXqJ87cr6a63727zOA/xLohSqtJquRiCuUHcYph4M
+         s7v0UBM/R+0dVqJ+DsEWu21mdBeYgkChEPyHK12H2ceYFFcFiysjOVdv5SCOiDyOkHIe
+         3acSAEhBhYs58Pa7BZG7TcqixCFvs9pI0ur/oNa2/KD5y0TTYKUr9LA3ZSExfJkpU1WY
+         xvwQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792418941; x=1793023741; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=raspberrypi.com; s=google; t=1792418978; x=1793023778; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZRK1BzG8yA6E0e6lr2UnuvkDmeyhqnlz73tj/pxCJpU=;
-        b=U880YE9cNEgLsv1io2MgYfbdDp01nkckTeHKw7tYZ+fQOGodlAnJFYEY4xu82k2+BT
-         mqEn5wyvMnS2jK77hMsZFKy7dI0jQbj7hJECK3rSV3oI5srXkxBUOENAPSmh60bF2J5X
-         2/JuHoJk8pKH0HLWRAc5cSBmT8O0TQZK0OzqA5yxHrJMOB7VqZYQysXiLm6Ivplr3Iae
-         0b7UUfKwadTwyErOaSvP2u3+eddIEg63Jv3Xql3+gsceK/iux0Hpntey1DXqhn70rTeD
-         DACKcMyG/YuBI5UeFIskD/nTVzqiE3M06hUIsnEjm4YX5lnyrVpVZAtrJn5GDcDwrl4F
-         kqdA==
+        bh=uzPbkn9TvysYoTYtHl26oKGkVeNYy29t/Y60wQicXoI=;
+        b=fm6varGyA+zT2gRAnnPW8nBLqEM9mlQESjmGewpD1Fh8C+PmkoilhpLwgfvz6a0/qL
+         G8GopvG6J2QNaIcW4EFzCrLMKoaxMyslz9N9VlhDieKBuvcbt73Sku2JGle2tzi0JXmY
+         cJJkLtUaUJTxxhfFORFkqleuo8JiqmbRo5hWkBelupeXOllbjb0azOCi283bEQWjXgMP
+         jShb/ScA5HUnThFuQi5fv5mGGwHhmY13rhRTu/NgYIV3CPz8NVI/PpFYEpG2NuR0b5Nb
+         oNjq+clLx6E/MSlFo4LpeemHWjlx0BT3VGhqAVGLWes/ICLfDFWaqYw16amMy6mMZwBH
+         ymSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792418941; x=1793023741;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZRK1BzG8yA6E0e6lr2UnuvkDmeyhqnlz73tj/pxCJpU=;
-        b=pjKcuXUoTWC9q4/07xhJ3VLruR+lpuRCsINB8VoMVTHLJoklDQi8ZlmWQttmAbZUb4
-         uCyiSyqgUKVDIQOV7L4If/MFJbSIS0910bw4yMnzTsslkIUaSoR+ykP0GzitYYFUcP63
-         UWL34FAFJbOt48fzs+c1AW8rTehd4s8he9WZLUc8eApptIs38woYAACiSvv/VSXJdaUP
-         cEROoozAn4XSegJShqWC1fQOaqLEnE3ewyt2bedJJDkGUeMkMTQDatNNOwhSDP+BL6jQ
-         BFsmfXa48gReReij23p3fh1/ZOYLXauXo7lsBM7nsGPbnTSONZAyrUwRdOK1eYlFxL3S
-         cU5A==
-X-Forwarded-Encrypted: i=1; AKwUvByJbIw392MYWJf9POxPHdHmpvhswOM5RqSSjIeFy/HYjAduSmX+l6QC88Gv2mARSAUrorOn5EWHRMHv1bA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIq+M+3JtqpU5vEMwC4RvmO107tZOwx+l4mtmM2JtmChAP7TkMR
-	BWcmn5u4krbO2vDiKoErNy/q87mW9ozGYzoOgQrLOuy8CPdhL8J4b8PLgBVf8Pk2+VF6JDZGPpK
-	IbZWeueTuVSsOVgmDPujR+fMFV2WQkZzE6p0ID0hYMrcEDmhsbAnnwr7I35kU1ls0Gg==
-X-Gm-Gg: AYBFou3KKO/AOBF+2mx4aWwVd4HxNeHdqh4+d66VxS9mphzzQ9V2jv58Bzh+IRk72UM
-	Z0bM4jcQ3OcNzFPrg4SM+tvSMX9e0upj0zI++xmY2Yt53+U3clWegUhWKhoPTGwvIDhn5W4AL/X
-	hlFGEFoDNXo2aT21CPX6y52O0s20PEAudNJcWlLL7ylA+IdyIJczQzOFR2DTd0Dc4ojPMM7FhAe
-	9tNEXjBmk/bzOzJtTwFMlsVftTOPDAmkZ7no3imKnE4PsnGJmUO43s91bJ/gvIhWTZ6cULtCn6B
-	dC6N752XxDpx0kRQ+vcOHkWEyqiRxtrQPy0Lhu+vZmUYEpct3v3xP/SdjEfKYBFnPmjEMgzHYnv
-	rNHHzoClP4TOptWzfmxXF2JAUs29XlxYkyFvTtY8H0znJVzhVuLQ4fTPMEtqpkQee//zQA5Sd7Q
-	==
-X-Received: by 2002:a05:600c:314f:b0:4a1:e6c5:e44c with SMTP id 5b1f17b1804b1-4a1e6c5e47amr69109485e9.10.1792418940812;
-        Mon, 19 Oct 2026 07:09:00 -0700 (PDT)
-X-Received: by 2002:a05:600c:314f:b0:4a1:e6c5:e44c with SMTP id 5b1f17b1804b1-4a1e6c5e47amr69108755e9.10.1792418940267;
-        Mon, 19 Oct 2026 07:09:00 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1df164777sm193091345e9.5.2026.10.19.07.08.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 07:08:59 -0700 (PDT)
-Message-ID: <8696d555-0428-49f3-ab03-e052a7d51213@redhat.com>
-Date: Mon, 19 Oct 2026 16:08:57 +0200
+        d=1e100.net; s=20260707; t=1792418978; x=1793023778;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uzPbkn9TvysYoTYtHl26oKGkVeNYy29t/Y60wQicXoI=;
+        b=fOb8IXOeSzTStXJQNi01wfYsJ4Hap9CB69aN/zbjIq0iunJ7Lrtezn53lNt67AkN9h
+         dJqj5tliVpFtizwDHjXEh1lVKuV71S/gby+fZ4+ecOBrwKfMcjkL9Gi9y3KwmyRvaRWI
+         Jp7WL9ugBzVaHVYi3YhSeG9qSqbaP5ilOPRHlyrylE0pi5KdWrUoM4lw5Wr7QKAauNV9
+         1/mFL47prQDgP7KoOwPIXINvjXTBvrkhiNb708VOmthGiCz5mb+yFKSPyq8BI6ZtMKtN
+         vkMjX4lvyr9kBxV6+8WkZ236kcccqakpdEj1cMyEe0jgB65AohEEccmHQchubx3QGEgF
+         yZew==
+X-Forwarded-Encrypted: i=1; AKwUvBxHMu3y9HedP5kRSCalWbQqLArTy4gGZTLFdE20sJr2yHhTF/UxiqaH55nZ0Qs2DFz3qHyMozoa5CJN25E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfBLBCXsVv8SOqmZCupv/7tO/SaUIXiM1q0M5C6T/mFhmAtzNW
+	hCa56WFCihFvMBuEA1HqHmW3r7jYVj6N4lmrq7kfyDEmRE/lqaKDcC7uhhLU3a8n8QOSr74qpc4
+	TdivwgKVFYVIC8S+OX1jO0v0IfWFdd07yI7CN4Vjg8w==
+X-Gm-Gg: AYBFou0gdOeLL4psKYukXsZuSYP2MnLFjJO5ujUKaAjcc0WTtz4p9BjakbeQTmeO7vY
+	PHur6Q2TYQEKe3yanWN1XYVAnpntC9Z0MvQE8gO1DX4usleb7Utqc/ZRqV4Z6KxGizafmoG1ILB
+	XS/tQ1oYFRuLSm6QvRb4vFv/x8ZTyuhib7UiSkS1S8Pn9FZiZYjbyicq+yBSYVNXAp/1DOvFgTh
+	hq1xtHA8/4pSUbTlcs288AAzs5tpbYXAldaUQsuAXxs6BDSBWibWwNDcxM121F7bKTmcGY5eit+
+	ouf4lPro1jZhPmV709YAc/FmooN8oWZogM+yLi3iTY0wvNbOxrbKh64Etr//OkfBttf2nKgPvyZ
+	RoblV/pQyk5qczJZU7eYgqfTJE6W7QtOxlUmw8LNLKFCkjIYd1bg3xzRJE4cax+UBuWF4L4yVBK
+	b3b4QxemQ=
+X-Received: by 2002:a05:6808:4897:10b0:549:572c:fd42 with SMTP id
+ 5614622812f47-549572cff69mr961942b6e.47.1792418977994; Mon, 19 Oct 2026
+ 07:09:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] ip_tunnel: reserve headroom for the encap header
- before pushing it
-To: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>
-Cc: Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, Christian Ehrig <cehrig@cloudflare.com>,
- Alexei Starovoitov <ast@kernel.org>, Tom Herbert <tom@herbertland.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261010223601.1193655-1-theodorlarionov@gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261010223601.1193655-1-theodorlarionov@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261018-fix-imx415-vblank-exposure-sync-20261018-v1-1-920383f39185@gmail.com>
+In-Reply-To: <20261018-fix-imx415-vblank-exposure-sync-20261018-v1-1-920383f39185@gmail.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Mon, 19 Oct 2026 15:09:21 +0100
+X-Gm-Features: AclHuK-AIGbRFr9yg6IaZgg6GA0B3HqMS5PH9s9AyZ2TVN_nbGVs-YRnZhIMIdg
+Message-ID: <CAPY8ntCz3nhefn8EwF_Ezh=vKmTWWVLYOnuAFoW2aBq6Wjidiw@mail.gmail.com>
+Subject: Re: [PATCH] media: i2c: imx415: Use target vblank to calculate vmax
+ in s_ctrl
+To: berringtoni36@gmail.com
+Cc: Michael Riesch <michael.riesch@collabora.com>, linux-kernel@vger.kernel.org, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/11/26 00:36, Theodor Arsenij Larionov Trichkine wrote:
-> ip_tunnel_xmit() and ip_md_tunnel_xmit() push the FOU/GUE header in
-> ip_tunnel_encap() before skb_cow_head() reserves headroom and unshares
-> the header. A packet redirected into the tunnel by tc mirred or an nft
-> netdev fwd only has the headroom of the device it came from, and
-> fou_build_udp() hits skb_under_panic(). With a mirred mirror, the push
-> overwrites the Ethernet header of the original packet instead.
-> 
-> Reproducer, run in an unprivileged user and network namespace:
-> 
->    ip link add dummy0 type dummy
->    ip addr add 10.2.2.1/24 dev dummy0
->    ip link set dummy0 up
->    ip link add ipip0 type ipip local 10.1.1.1 remote 10.1.1.2 \
->            encap gue encap-sport auto encap-dport 5555 encap-remcsum
->    ip link set ipip0 up
->    tc qdisc add dev dummy0 clsact
->    tc filter add dev dummy0 egress matchall \
->            action mirred egress redirect dev ipip0
->    # send a UDP packet to 10.2.2.2
-> 
-> skbuff: skb_under_panic: text:ffffffffad28b5cf len:49 put:8 head:ffff888010217740 data:ffff88801021773c tail:0x2d end:0x180 dev:ipip0
-> kernel BUG at net/core/skbuff.c:214!
-> Call Trace:
->   <TASK>
->   skb_push+0xcc/0xf0
->   fou_build_udp+0x2f/0x380
->   gue_build_header+0xfa/0x150
->   ip_tunnel_xmit+0x87f/0x21c0
->   ipip_tunnel_xmit+0x472/0x4f0
->   dev_hard_start_xmit+0x139/0x680
->   __dev_queue_xmit+0x11e4/0x3520
->   sch_frag_xmit_hook+0x10a/0x190
->   tcf_dev_queue_xmit+0x44/0x60
->   tcf_mirred_to_dev+0xbf8/0x1060
->   tcf_mirred_act+0x612/0x11b0
->   tcf_action_exec+0x1d9/0x8b0
->   mall_classify+0x16d/0x1e0
->   __tcf_classify.constprop.0+0x121/0x710
->   tcf_classify+0x8d/0xc0
->   tc_run+0x342/0x590
->   __dev_queue_xmit+0x9a7/0x3520
->   neigh_resolve_output+0x44c/0x780
->   ip_finish_output2+0x6e8/0x16f0
->   __ip_finish_output.part.0+0x1bb/0x350
->   ip_output+0x2ad/0x4a0
->   ip_send_skb+0x195/0x1f0
->   udp_send_skb+0x758/0xcc0
->   udp_sendmsg+0x1634/0x2050
->   </TASK>
-> 
-> Call skb_cow_head() for the encap length at the start of both
-> functions. ip_tunnel_xmit() reads tunnel->encap once, so a concurrent
-> changelink cannot change the length between the reservation and the
-> push. The GRE callers and ip6_tunnel already reserve this headroom.
-> 
-> Fixes: 56328486539d ("net: Changes to ip_tunnel to support foo-over-udp encapsulation")
-> Fixes: ac931d4cdec3 ("ipip,ip_tunnel,sit: Add FOU support for externally controlled ipip devices")
-> Signed-off-by: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
+On Sun, 18 Oct 2026 at 13:54, Wenqiang Zhao via B4 Relay
+<devnull+berringtoni36.gmail.com@kernel.org> wrote:
+>
+> From: Wenqiang Zhao <berringtoni36@gmail.com>
+>
+> When setting V4L2_CID_VBLANK, imx415_s_ctrl() writes the new frame length
+> (format->height + ctrl->val) to the IMX415_VMAX register, and then falls
+> through to case V4L2_CID_EXPOSURE to update the electronic shutter register
+> (IMX415_SHR0 = vmax - exposure) so that exposure is preserved across frame
+> rate changes.
+>
+> However, in case V4L2_CID_EXPOSURE, vmax is calculated as:
+>     vmax = format->height + sensor->vblank->cur.val;
+>
+> Within the V4L2 control framework, sensor->vblank->cur.val holds the
+> committed old vertical blanking value, which is not updated to the new
+> value until s_ctrl() returns 0. Consequently, when VBLANK changes, vmax
+> is calculated from the stale vblank value:
+> - If VBLANK increases, SHR0 is computed using the smaller old VMAX, causing
+>   the actual hardware exposure (VMAX - SHR0) to jump by the blanking delta.
+> - If VBLANK decreases, SHR0 is computed using the larger old VMAX, causing
+>   the actual hardware exposure to drop by the blanking delta.
+> - Additionally, ctrl->val is clamped against the stale vmax limit.
+>
+> Fix this by using sensor->vblank->val instead of sensor->vblank->cur.val,
+> which holds the target vertical blanking value currently being applied.
+> When setting V4L2_CID_EXPOSURE directly, sensor->vblank->val equals the
+> current vblank, keeping behavior unchanged.
+>
+> Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
+
+Thanks for the patch.
+
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+
 > ---
-> Found with a syzkaller-based fuzzer.
-> 
-> syzbot has an older report with the same title, fixed by c88f8d5cd95f
-> ("sit: update dev->needed_headroom in ipip6_tunnel_bind_dev()"). This
-> is a different path: redirected packets do not get needed_headroom.
-> 
-> Tested on net af32da41b032: the reproducer above and an nft netdev
-> egress fwd variant no longer crash, and a GUE ipip tunnel between two
-> namespaces still passes traffic.
-> 
->   net/ipv4/ip_tunnel.c | 23 +++++++++++++++++++++--
->   1 file changed, 21 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
-> index e6bcf01411d0..38ab3c3bf5c9 100644
-> --- a/net/ipv4/ip_tunnel.c
-> +++ b/net/ipv4/ip_tunnel.c
-> @@ -579,6 +579,7 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
->   	struct rtable *rt = NULL;
->   	struct flowi4 fl4;
->   	__be16 df = 0;
-> +	int encap_hlen;
->   	u8 tos, ttl;
->   	bool use_cache;
->   
-> @@ -587,6 +588,11 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
->   		     ip_tunnel_info_af(tun_info) != AF_INET))
->   		goto tx_error;
->   	key = &tun_info->key;
-> +	encap_hlen = ip_encap_hlen(&tun_info->encap);
-> +	if (encap_hlen < 0)
-> +		goto tx_error;
-> +	if (skb_cow_head(skb, encap_hlen))
-> +		goto tx_dropped;
-
-This looks like the wrong solution?!? I suggest instead adding the needed
-skb_cow_head() in {fou,gue}_build_header().
-
-/P
-
+>  drivers/media/i2c/imx415.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
+> index c3b22b238..e5aa741fc 100644
+> --- a/drivers/media/i2c/imx415.c
+> +++ b/drivers/media/i2c/imx415.c
+> @@ -729,7 +729,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
+>                 fallthrough;
+>         case V4L2_CID_EXPOSURE:
+>                 /* clamp the exposure value to VMAX. */
+> -               vmax = format->height + sensor->vblank->cur.val;
+> +               vmax = format->height + sensor->vblank->val;
+>                 ctrl->val = min_t(int, ctrl->val, vmax);
+>                 ret = cci_write(sensor->regmap, IMX415_SHR0,
+>                                 vmax - ctrl->val, NULL);
+>
+> ---
+> base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+> change-id: 20261018-fix-imx415-vblank-exposure-sync-20261018-967b008cf3fb
+>
+> Best regards,
+> --
+> Wenqiang Zhao <berringtoni36@gmail.com>
+>
+>
