@@ -1,82 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666CC3F44C5;
-	Mon, 19 Oct 2026 07:04:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58601486639
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393454; cv=none; b=YZsQCZJZNAUkCpk3k7SnWOelSkqSSD5w2ouJ8hlZbs6BbVURvfDN7tLsM3CCktjFAnHz+F5dfRRlMEeZDV6iAO/iCA9eDW6L3e3hxTo9Ova8TTBGzkplPtVyKRRsg4Dq+VW+jCDehHD/94Z0lbUzCCXqQsrhCKA7KWvXndM0km8=
+	t=1792393532; cv=none; b=N1leVRObUzvPFzFrIRTZuR1P0qcJUiRAjHPAJwbWRkQHUIzjV6gzxXSxERWMj9NyqaNZklOfWvGnNasNGfwhY5a5Krl3Gz1nSafTiUK7Rq3Rqdig9u0mAraipJzSiwbNnWoTA3zZfltgNbjzmDQU9YtINBCV1vWKqz5UaU0Kj6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393454; c=relaxed/simple;
-	bh=Gm24qQENP0PZ90VmImVBXghLMdZhVZzPnvI/gELcOdk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZI2FkpF8dwXv0N5SGxN34QUxByYBQ/p70daCNvbEMHoipuF4jA2zznSq0zju+SbR5zlpg7smqtt/yNWJD0cmclm8N9vLJdPlhFF4JhzlHGmsENOKXpctlijoPacdMtSHwX8H2ykqkzxjK9i5fzad2PV4flnUXBj4IN2yLTsdy4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCtU02DA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792393532; c=relaxed/simple;
+	bh=6ogOn43xB8QEwAvUWQg0xVPQaDZ6JnXonLhaZHN86jQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TrIgIMMqxVpmH3TmjhIIQXQKpcGtyDCAlAM9vIWz9Iur+sV30tacgnBxUD8lcmzhqoDAtQa0GNNU48kXQikdhucxYZChRIkkS3AW6eiQz35QGv3qxCwp7gWFxNekb+W5cmNz0fhibX8qkEpew5U+DPsWX4fyAbbc/qXjBzRnNwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/dkocMZ; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCtU02DA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F85B1F000C5;
-	Mon, 19 Oct 2026 07:04:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792393453;
-	bh=FO84yZZTAadnzRkVXXU8zL0DjWJGnhbCVAk0Bn0id5g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YCtU02DAiOEiVqzNYDGNlgKxAqEetKRqua/aQg2tRSA1tLPJd9clDYSjkQXdCm1qe
-	 i1kDK6uZZT0hV+oiXQn7l9J/u3lk784AkgTQvxCVpVBbK7JK7rmxHefC/9gAtpksQx
-	 ZXqEqMRCo8CoYSkDsrhOwSXLtnsJ7temI2ISExBwzMYQ9bTJu82JC4SubOkNCMu4Mg
-	 cP5uv1+7MUY6dvzpd37vZbxTbfnTuYsYsCm1YkMWKR7QuJ0clhMJ4GJJhrczbuD5Up
-	 TSzoDOItjqbXYm5Ev0E6bSTp7vaIoyeYuoQvHC2VWHwpdSeoP3CKH6NEiL+djsM4RD
-	 AhC53HJ5A0uMA==
-Date: Mon, 19 Oct 2026 09:04:10 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Frank.Li@oss.nxp.com
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	"open list:DRM PANEL DRIVERS" <dri-devel@lists.freedesktop.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev, 
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 1/1] dt-bindings: display: sgd,gktw70sdae4se: use
- unevaluatedProperties
-Message-ID: <20261019-vigilant-international-gorilla-cb0eb6@quoll>
-References: <20261016190447.752297-1-Frank.Li@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/dkocMZ"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so1866125a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:05:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792393528; x=1792998328; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pExZzNoAihKMpA7rpnKJk+qrxFW572fEhtbrS1SyvK4=;
+        b=E/dkocMZRqnuTtHSEQwne23qnuss54S2SzHDPm/2au2NIf0lZygeOdzCKtAg/Q1pVf
+         WtOoUzbOZk3ssqLxlZCB0svpDtTwgWNDJdO0F7gyw4S59/iijqGPWEe51FZLbLXsv1BQ
+         bfRJwEAgk4WIuhE6AZIa50YUTwrwuy0/+Dva1uMtSsVUhMqVrwnc9qJ5X+KIozCQjCje
+         GfkXz8geEgtzc5XVVTjT8FQO7gryjZ68iEkfQZaUOtAbPZfOcnP9j4qx6u+jxztsDruq
+         vUcp9HUQPko6E5EDST6r9uURGHk3sqCYpnBPZ28C20BO8B9Dt9e5mpjWn+lQcVMnj+dU
+         Birw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792393528; x=1792998328;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pExZzNoAihKMpA7rpnKJk+qrxFW572fEhtbrS1SyvK4=;
+        b=XwGvq9EsqP0zjKiInPwDMlf1bgeXoWOjCG/mDLkdmrDt4BXIm+jGLA7zv5kd6FAlAE
+         aPSgicZEgom93j6LetfpUEMklbTKOFCIWCfU3nn3qbZCiBdrhDcezFQNyEESP/UMntrp
+         XvrxiMNHnuNbvGhZN3SUJiwOlzsxJotEXgb4EkQ6pwAXW0zrs8eDrcpwAL/fXDMwPkPo
+         AwxSl/Xe/J3OVJsX2NBpEJGRM4sWpF4JbVfKkNGDHsbBjDwzuKu8g+5DfQWjN8UW+Yvz
+         L8by8LDhdV9zFjngfbSDttfKZac00xWrsecmkOG6poZwZyG50gRhFOjxYjRJKmgV8xZw
+         xiMA==
+X-Forwarded-Encrypted: i=1; AKwUvBxoxIKob12RHMi+Tu7i7Z79Zt9tfbiXIilAMLK2d1ZJ7jwHr3pPTLG2FJQtqBCD8KafURxHBiL/ov6Y/jc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxzXWlLC9sFKBwQWktPPPc3fBXOjYQAcivR97/lTKkSrAi1NBG
+	ko1VqTx6IwLyDPJ6pqABB9HHaOiTNWt+wYetxUC3Bzu5nl3ka2wg4rOK
+X-Gm-Gg: AYBFou0PVzd1eXQVLyVfQvfHNor9F7tV0jFS/rM2GIJE01ASe7wxnv6j1F0EElI7Aw5
+	rXfs+IiCW39S4X2FaEIfqkKxDa618Q6++f7qpPHmHeT3KaExYsNWxHShYCbr2SAArQ4R9f/409u
+	MgCtFnJNFbOMOh26PXsbXnXHiPj8SJvP/cQjCKerArziJabEs5eBudoMcbzUjKH0vCh6dS6Td43
+	HK8HFVUxn796/twCfjm2Aam16+ykhtQKgWfdZOmbwLqal0DBQk6r4lr5FWGbny+Js3QLFpZ23FH
+	r00/x892wI3z1OzOrORvujLG204SPjLZcc5S6VL/Ol8DuqHtyqVUbtAtH131GZu0ukMo2dO5aR4
+	d7RsnkiH99M+mat29LD3JdCm3dbml3/TU+PGYJmrxy7y6yXyEssp6fEu9V+5irsX2+YGQ3XsV9L
+	CtGXkUMp8+P7kmZOl8iw8dWwhHlmta7E2imQmHccpl5oP6nDPfEcWXEn/OVw8BfSc8/cepeDujD
+	/e7CQsQROE=
+X-Received: by 2002:a17:90b:50c4:b0:3ac:9ad9:6afe with SMTP id 98e67ed59e1d1-3acef59e230mr4320583a91.39.1792393527520;
+        Mon, 19 Oct 2026 00:05:27 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc48f19d9sm14384249a91.11.2026.10.19.00.05.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 00:05:26 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>
+Cc: Naman Jain <namjain@linux.microsoft.com>,
+	Saurabh Sengar <ssengar@linux.microsoft.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] mshv_vtl: reject poll files with multiple waitqueues
+Date: Mon, 19 Oct 2026 16:04:38 +0900
+Message-ID: <20261019070438.3732624-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <b88b0341-a732-41e1-87df-4f0503df39cc@linux.microsoft.com>
+References: <b88b0341-a732-41e1-87df-4f0503df39cc@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261016190447.752297-1-Frank.Li@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 03:04:47PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Use unevaluatedProperties replace additionalProperties because it ref
-> other yaml file to allow backlight and label property.
-> 
-> Fix below CHECK_DTBS warning:
->   arch/arm/boot/dts/nxp/imx/imx6q-var-dt6customboard.dtb: lvds-panel (sgd,gktw70sdae4se): 'backlight', 'label' do not match any of the regexes: '^pinctrl-[0-9]+$'
->         from schema $id: http://devicetree.org/schemas/display/panel/sgd,gktw70sdae4se.yaml
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  .../devicetree/bindings/display/panel/sgd,gktw70sdae4se.yaml    | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/sgd,gktw70sdae4se.yaml b/Documentation/devicetree/bindings/display/panel/sgd,gktw70sdae4se.yaml
-> index 1beb4ba92248b..4c70576fe8a8f 100644
-> --- a/Documentation/devicetree/bindings/display/panel/sgd,gktw70sdae4se.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/sgd,gktw70sdae4se.yaml
-> @@ -49,7 +49,7 @@ required:
->    - height-mm
->    - panel-timing
+MSHV_SET_POLL_FILE invokes a file descriptor poll callback with a poll
+table backed by a single embedded wait entry. A poll callback may,
+however, register the table with more than one waitqueue. pipe_poll()
+does this naturally for an O_RDWR FIFO.
 
-Then drop the duplicated properties copied from panel-common.
+The second registration currently warns but then inserts the same list
+node into another list. The new insertion overwrites the entry links while
+the first waitqueue still points at it, corrupting the first waitqueue and
+causing an invalid callback traversal when that queue wakes.
 
-Best regards,
-Krzysztof
+Reject a second distinct waitqueue, remove the first registration, and
+return -EINVAL from the ioctl. Repeated registration of the same waitqueue
+is treated as a no-op. A rejected replacement leaves the CPU slot
+unregistered, consistent with the existing remove-before-register ordering.
+Single-waitqueue users such as the OpenHCL io_uring poll file keep their
+existing behavior.
+
+An LLM-assisted source audit was used to find the issue and develop and
+test this fix.
+
+Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+---
+Changes in v2:
+- Replace the no-longer-supported Assisted-by trailer with changelog prose.
+- No code changes.
+- Link to v1: https://lore.kernel.org/r/20261016061114.1686153-1-4ncienth@gmail.com
+
+ drivers/hv/mshv_vtl_main.c | 24 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hv/mshv_vtl_main.c b/drivers/hv/mshv_vtl_main.c
+index 6e3c11c681717..158409b67a046 100644
+--- a/drivers/hv/mshv_vtl_main.c
++++ b/drivers/hv/mshv_vtl_main.c
+@@ -72,6 +72,7 @@ struct mshv_vtl_poll_file {
+ 	wait_queue_entry_t wait;
+ 	wait_queue_head_t *wqh;
+ 	poll_table pt;
++	int error;
+ 	int cpu;
+ };
+ 
+@@ -458,7 +459,19 @@ static void mshv_vtl_ptable_queue_proc(struct file *file, wait_queue_head_t *wqh
+ {
+ 	struct mshv_vtl_poll_file *poll_file = container_of(pt, struct mshv_vtl_poll_file, pt);
+ 
+-	WARN_ON(poll_file->wqh);
++	if (poll_file->error)
++		return;
++
++	if (poll_file->wqh) {
++		if (poll_file->wqh == wqh)
++			return;
++
++		remove_wait_queue(poll_file->wqh, &poll_file->wait);
++		poll_file->wqh = NULL;
++		poll_file->error = -EINVAL;
++		return;
++	}
++
+ 	poll_file->wqh = wqh;
+ 	add_wait_queue(wqh, &poll_file->wait);
+ }
+@@ -468,6 +481,7 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
+ 	struct file *file, *old_file;
+ 	struct mshv_vtl_poll_file *poll_file;
+ 	struct mshv_vtl_set_poll_file input;
++	int ret;
+ 
+ 	if (copy_from_user(&input, user_input, sizeof(input)))
+ 		return -EFAULT;
+@@ -496,6 +510,7 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
+ 
+ 	old_file = poll_file->file;
+ 	poll_file->file = file;
++	poll_file->error = 0;
+ 	poll_file->cpu = input.cpu;
+ 
+ 	if (file) {
+@@ -503,13 +518,18 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
+ 		init_poll_funcptr(&poll_file->pt, mshv_vtl_ptable_queue_proc);
+ 		vfs_poll(file, &poll_file->pt);
+ 	}
++	ret = poll_file->error;
++	if (ret)
++		poll_file->file = NULL;
+ 
+ 	mutex_unlock(&mshv_vtl_poll_file_lock);
+ 
+ 	if (old_file)
+ 		fput(old_file);
++	if (ret)
++		fput(file);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ /* Static table mapping register names to their corresponding actions */
+-- 
+2.55.0
 
