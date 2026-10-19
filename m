@@ -1,66 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434632;
-	b=H1drZwdFQgIoAak9biweuz2fmoFeSQRUm363W+72qA9P8ofXla/iYxLbUdH3KRJRI9AM
-	 cGWTtqm79vhOsM+t9+C3iaZUZ5gPoFdtJ2LN9xdl88HVXGliCJtwy7yU75jM/uoQmO6jo
-	 O6UvWZKpek9D18wf3DWMju51UN+XWfsNjWCkPxMDY8VcFXj7lBjFrFn+Scik5dxgkiIyC
-	 TYR37+ip4tKMLORmZZ+NOWLgVhgSW+znRvCj+EDj+tWNBvJNs5QnuC0GbP9qbof0X/bVn
-	 hlcLgZIBqG4/uZSZtMXo78FZdwTDrgJLJw29Fz6cf8H2bOYSp1HNVb4t2ncusUKZleg==
+	t=1792434710;
+	b=BOudDe/TnJZCb+EslJuhlT+hBUvBL+mrvc/oQ9Y6u3zpHnvvGYOfh+plCW8sL2p9zHKg
+	 5Od+F9xDcizv5Pu8VoOV0NLPwpRIW25EommqizmkIFAE7K433RP43x/+6XkdLllfhU4LY
+	 cNlKtiXpkU/kj+3u7QP7nYIplpVxY2ruyu1lt/hVGMO8ezzgyA1ovAEQr6QmAyK9B56+p
+	 oixEkVMi32UIIZmaXID5ey9bCbiAHciAHBuyhHn+kY3MPuKF/vKmoHBzrShuDZlITYdnM
+	 oIt/GT1sndeTDUcrHkRjDzjKCOxBcMhZSOKVvhYtEdIGCuXD6eBMiCF8UIPjCEO5HKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434632;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-MBO-RS-META:X-MBO-RS-ID;
-	bh=Na9U614K5kAqqWol3hdls+dLu5EveJRX4U163tTPODE=;
-	b=nVxst8JQuaDnwFonf6M4gKfFcl8Ipwx7nxV6S9Zx57PbWl0TuWcYBeiNKYeoAMaq/hjX
-	 yw09TYONjamKbdjx96CZyyFLNAI6/LcTn3Vc1jo+nYBStGyGyY3jaQ5ZxijJ3qb6F+dJQ
-	 uS10N7fESc7lQg8EeX++HxkwUtDpLZQHf8HtowI7AduPO7CzLhKLKIcezgNWvohQ1eBQO
-	 LbrpbXXnfIbAOr3dQ7UZfCoD8SNaQW3CDdJyAXr4rqKOeYsy3oyLiRXzjX6YzYPsx46/1
-	 dGceS7Mq59Gc3j8IoRhZIvQukjDbT3UPozNM0K3ZpMAFNbkyQi6ghM8ecdbgU3nk2fA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434710;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4rAOC3LWU4D+fpQNfeaCciHvlznoy08mvb2nzwLCzJo=;
+	b=MKdfx0wvs5f4WjCEf6x97Y2ONgABVff4kr9EwmlXZ8pJCvcWpY0g7lXUltvvEgFMUGo+
+	 RR3PQWRbi0uxjpRVOKPU/UWXoeUUt3RCxjRkGn5us0CSNBQaCGNvvPnTr850zct6ldc+9
+	 EOgja+pWYNr2C248PhAeRRsbhSy3jOFm+s7kfR+B/JERtxAmFPn7cpz7XYucANSQ70X1G
+	 DPe/aO8OT6ht9PNSbHrcy7sJXgMIfnQvyAKAHib6rlKsCDwtdxNH6mPNBl46Ad0s4Pu54
+	 zInNGKpKhtH15Xb+KyL5+jfsOuass4n6YQ2O/PX3Vpf3DslaX26cxPgEh081f7i35Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=W6V4Q9Qk;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwmrRe58;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67A4606A31B;
-	Mon, 19 Oct 2026 18:30:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C67A4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47595606A31B;
+	Mon, 19 Oct 2026 18:31:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=W6V4Q9Qk
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j7kcX5D3kzMlhh;
-	Mon, 19 Oct 2026 20:30:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792434620;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Na9U614K5kAqqWol3hdls+dLu5EveJRX4U163tTPODE=;
-	b=W6V4Q9QkzPK56vshK26YS1d/gtM+Q/WfDM/wAgexH/j84GbX8ek7040504SWcP3mUr6r2B
-	E28aSxdIfS2C0uYtneNM69TZzt2XxZokaZ2p6HGs7qdU3PTC5PT6GMuQMLsuiEU3SBE2Ad
-	5Sy1ULFeZxYtKdHiOgaT31vmS5XDIVzzaUrvOrDuGckFrN+16rwRzZQPGfQLuAMA0LEylB
-	/90Lcs/BLOK9mEvzraXla98H249+lXngybVWBj96IA3O6wKrqb5e1t7kLh5mCzjh6lYQ2+
-	j4EN8ciaje8GaBwd7r1Nfl1VpSNShIeDDfMmPlY8MXoIYoWgZZHCPmn62V38Mw==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-pm@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwmrRe58
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4155E1F000C4;
+	Mon, 19 Oct 2026 18:31:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792434709;
+	bh=4rAOC3LWU4D+fpQNfeaCciHvlznoy08mvb2nzwLCzJo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MwmrRe58qW5gCgNkDhEpNQo/Yx+4ojBXVll0Hyk2CndarxFJqPFTFeGH4qZb1TsXS
+	 KhKMozcdUezt4bP7B+WmMFDFOLZZ55yLKEQ3PjuuPtc9s8PbxHzUsfIPa8JFkpkRHq
+	 /DXTtrLoXtJiudJ4JtiJ1iP7LJNmLfMvnWCfUoJ+GofFK3fPnWO7sP8Na6qA0G1AQ1
+	 10S+4R1PMie5upWKasbG1GMCiYlveGNywqtt+ARhDDvDvJWX/gdNeih5Wh5zMY1VLl
+	 TFfzJlWteWb8hGT130uyLs6yvR7LcFEVY8GNc84iaio3CQmwMiGDjrbCB/1ZpLndiQ
+	 CmtpcX0zrz88Q==
+Date: Mon, 19 Oct 2026 21:31:46 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Ankit Agrawal <ankita@nvidia.com>
+Cc: Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] cpufreq: longrun: fix kernel-doc warning
-Date: Mon, 19 Oct 2026 20:29:43 +0200
-Message-ID: <20261019182946.1450406-2-manuelebnerli@mailbox.org>
-X-Mailer: git-send-email 2.55.0
+Subject: Re: [PATCH] dma-buf: Restore the scatterlist entry count before
+ freeing
+Message-ID: <20261019183146.GH64621@unreal>
+References: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,35 +62,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: ojt5uo47hq9nws6x9518udxijpxbaxmb
-X-MBO-RS-ID: 90600588a01126a9710
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
 
-Replace kernel-doc comment with normal multi-line comment thereby fixing:
+On Tue, Oct 13, 2026 at 02:46:24PM +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> dma_buf_phys_vec_to_sgt() clears orig_nents to mark the returned table
+> as DMA-only. Since sg_free_table() uses orig_nents to walk and free the
+> scatterlist, dma_buf_free_sgt() leaks the allocation on every successful
+> map/unmap cycle.
+> 
+> Restore orig_nents from nents before freeing the table. The helper
+> allocates the DMA list directly, so nents retains the allocation count,
+> including for chained scatterlists.
+> 
+> 
+> The reported kmemleak output was:
+> 
+> KMEMLEAK LEAK: 2 driver-related leak(s)
+> KMEMLEAK LEAK: unreferenced object 0xff11000125ceff00 (size 32):
+> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295031027
+> KMEMLEAK LEAK:   hex dump (first 32 bytes):
+> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+> KMEMLEAK LEAK:     00 00 01 00 28 38 00 00 00 10 00 00 00 00 00 00  ....(8..........
+> KMEMLEAK LEAK:   backtrace (crc 4e8077f2):
+> KMEMLEAK LEAK:     __kmalloc_noprof+0x451/0x8b0
+> KMEMLEAK LEAK:     __sg_alloc_table+0x2a0/0x4d0
+> KMEMLEAK LEAK:     sg_alloc_table+0x24/0x170
+> KMEMLEAK LEAK:     dma_buf_phys_vec_to_sgt+0x84f/0xed0
+> KMEMLEAK LEAK:     0xffffffffa1ad21a8
+> KMEMLEAK LEAK:     dma_buf_map_attachment+0x138/0x690
+> KMEMLEAK LEAK:     ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
+> KMEMLEAK LEAK:     0xffffffffa138f8d2
+> KMEMLEAK LEAK:     0xffffffffa1396abe
+> KMEMLEAK LEAK:     0xffffffffa1331a5f
+> KMEMLEAK LEAK:     0xffffffffa13320dd
+> KMEMLEAK LEAK:     0xffffffffa1ad696d
+> KMEMLEAK LEAK:     0xffffffffa1acecc7
+> KMEMLEAK LEAK:     0xffffffffa1acfd17
+> KMEMLEAK LEAK:     __x64_sys_ioctl+0x72c/0x11f0
+> KMEMLEAK LEAK:     do_syscall_64+0xa1/0x4f0
+> KMEMLEAK LEAK: unreferenced object 0xff1100016dbf3a80 (size 32):
+> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295034705
+> KMEMLEAK LEAK:   hex dump (first 32 bytes):
+> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+> KMEMLEAK LEAK:     00 20 10 00 28 38 00 00 00 10 00 00 00 00 00 00  . ..(8..........
+> 
+> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> ---
+>  drivers/dma-buf/dma-buf-mapping.c | 2 ++
+>  1 file changed, 2 insertions(+)
 
-  $ ./scripts/kernel-doc -none drivers/cpufreq/longrun.c
-  Warning: drivers/cpufreq/longrun.c:21 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
-   * longrun_{low,high}_freq is needed for the conversion of cpufreq kHz
-
-Suggested by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
- drivers/cpufreq/longrun.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/cpufreq/longrun.c b/drivers/cpufreq/longrun.c
-index 7d4146d6c..c1df9014a 100644
---- a/drivers/cpufreq/longrun.c
-+++ b/drivers/cpufreq/longrun.c
-@@ -18,7 +18,7 @@
- 
- static struct cpufreq_driver	longrun_driver;
- 
--/**
-+/*
-  * longrun_{low,high}_freq is needed for the conversion of cpufreq kHz
-  * values into per cent values. In TMTA microcode, the following is valid:
-  * performance_pctg = (current_freq - low_freq)/(high_freq - low_freq)
--- 
-2.55.0
-
+Reminder, thanks
