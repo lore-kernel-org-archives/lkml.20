@@ -1,53 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443247;
-	b=KqUhoejEsEiCBuHK7Ho9fSZrUc/FdZ/A/jgpAKY1qAp8I0YQqoO6N39ku71VtmmAS0IT
-	 pMr8AaINu2tLI0rVPq9BEFASI/TQHNG3P3Ky5QWMgApxkg5p+8p2nT7hwdwsEuUhJgA94
-	 bFoTYKS9P+LmJCgK3jviaxJR8jNiF2GzryBSh+pDAM+P3OCSf1BPXH93753XoKREH/dtL
-	 ELqMiNGhB7nQdgpHMl1J/m1aRYSXk8pjeUUvb5h6fR6Xkq1iAIvqw6O60lGFMiXNvy6uv
-	 2dkwuJxgPHvgQryiSyHHuHT1ckjWZIRESuJjd+JLnit8sufKdoP3z8h7RRWhY9qCAFA==
+	t=1792443319;
+	b=QyqeZcrX4grhpJb+tg3AiUQx3xvy6iFX3SFgq8FI0rtqKFv/j40O0ckSpl3X9+3BmLfU
+	 EqiGjSNDywlaMktcG716aw3ghEeWxmWEAkAj0CK6e3JLQrQEbRKkxqdiCNvQrrLcrYNFh
+	 /vLYSfByfMjKIHS1InNU/JTY0q2PHj2N+l97HDvXKvo8I1jg6YJJZZOaf894Mtk/2Ex+r
+	 p0WRYW7vk46Wlgd13zKcDQVLJF5ijxF9XLUkLXOvvWbBcl1aUy/f4edck8X6ZztSaSCzF
+	 10jDZHY7JyHP/Q18ANDqwkthS97XI2MnUintzyl6UoPUFc5i0BuAbNubDly0ZGQCpyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443247;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=9a7ei6yh+xi2h1KYEniGfz31q9lcfn1of7Yrfu33gao=;
-	b=AW7maD7UoAh5O4LySCaP4OihtfZLCGYua7JxQQGtvCcgkEZpSLkaWQU4zwcaJ++9jqPR
-	 TUD5wVY30wfV7s5WAvAauKAEN3MtM/HT3dlc6YDukagmBj6NrVflYxB9gmYtGXCrnsY0w
-	 w9bvVEEkhveIlLkdhbk8c1SIYMs4lJDO85aNO2h/tm58YPmk1Dcj+LhiiWOA86nuPTxkB
-	 vHwxaDBrXOg1Wd4CRy47JQjCbUnNnqiVaENvPlxuUSXi0NwS9XA89Mfi791IUK20bLdhR
-	 cq+9vVaQk8hW9AuzN9S0PfBusJlpvCg7nGpolKB0tHw8X2y9s1g6WWuPmfwmSi28gGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443319;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=g0aYEteT0WSPpmjNie8DOc6kUaUC0ZmccLDoL+rDhXY=;
+	b=mvwAHx99/MGa3d5ORBvSm/ivUcY52dX1HHkOGsuP/pbe0VAKOmnKxeitleTxpG9uXq9/
+	 /vlloEXWo8HxzXkpsGMGmDzCiT/0A5rNFhdLkWU2z1w8SkKQDJC7fW8YG10MCHpDt1aNa
+	 fbXoiUoUyc9nOpfD42NOwO/mhk7cLQdPexz8w0xU7FLey7HshxZhezsHBHcFOJMdrUsvd
+	 nMB7Q09XpNMcYVaBm/dQ1ucX9NAUX4ukYbXpzov+8hAV0XNr6wF2c5bl3co5JgMkxEl9v
+	 uM13isSx7+Z/TZXhVIC2qnigdsQmjfyV6pnQACN87g3FLrT9d/4c2YeXtWTOnaiyQrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0n15xp4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59605606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:54:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59605606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b597558c4cso4662323b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:54:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792443246; x=1793048046;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9a7ei6yh+xi2h1KYEniGfz31q9lcfn1of7Yrfu33gao=;
-        b=WlerLsDkxkQxfLGo9imKdG2y6k13pIT7wiaXSEtmd0ULXnFuZ9sZf+1QISvslWv5hg
-         oVsQq7wXtw5ZltVpGOpztofwfCeBvkqPEBqLVWZbJ2co4NyguXk6vUcZAKdZzhqAQQmI
-         EvhUysQrJWgJ0Mn60IQ8oIqUftKRUfMziXDSutQQH2W8CrkzcPNwVdxQuciKGxGuq+sD
-         GgtienNe41SjoVgZMP/19nG/FUDYXYYeYziw9xs7kFGnjRtOKFRSPdj26+v6bPPHeXaa
-         R4QpcUx2djGLV1+qjP5TeKMMirCiTtKD85I5DiHWT+WKq6hLkMayog7DW+fG11aWVtYn
-         WRJg==
-X-Gm-Message-State: AFq9FYJepI59PU8QxO4w0bvDVk+QTWaYYCR8CkouoBmBNOsZzZ7qoaEM
-	VsJ2cNeePRBzBPuMU3QW49vJvelRMwqSLlAryp0cggyioGq/ZsADxD70xoKRM/GiIovNF0E0oaE
-	9A2km6vt3/lSBGkcmIXqm/+6HxH416YofmUsdkkNZuqDcm0A7TBqU7zEv7MU=
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 8368B606A319;
+	Mon, 19 Oct 2026 20:55:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0n15xp4
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 8DAF31F000C4;
+	Mon, 19 Oct 2026 20:55:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792443319;
+	bh=g0aYEteT0WSPpmjNie8DOc6kUaUC0ZmccLDoL+rDhXY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H0n15xp4paFaFgCvAAh0+3kCDPPMQntyRHtAMJKo2fTiBc4M2ejR5UX5t1tsxriXE
+	 e3DB65FPjtnu5pY6iR4lqM2UxqrtUTk2QU9wNV5oPCbLHZKJffo6cE1wg76cixIx/Z
+	 thKcbd7z4I8AxdlK2QZK+kgQO7Fep+tKeiPJsU9TPAH9lzs5YR/rCupf7bNvkGCJGH
+	 5mLxhSeOTIBTOIbKmiqrkMKguLCAKEjQKxA0mSW6qqZk8NvWnwtJaIGrVjQPCvt2Pi
+	 +Hn4s1TeLJNcpdmOssLsATW638CNfadzgdt51otTj2NwCFcVW0AmPYiBh8G4n9ZTQe
+	 RwCcJ7HEY4esA==
+Date: Mon, 19 Oct 2026 23:55:15 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, Andrew Morton <akpm@osdl.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 4/6] KEYS: Prevent overflow of quota in key_alloc()
+Message-ID: <ataDs4TMkbRjxc_G@kernel.org>
+References: <20261019181732.449591-1-jarkko@kernel.org>
+ <20261019181732.449591-5-jarkko@kernel.org>
+ <20261019192545.GD65095@quark>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,36 +62,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3501:b0:4cb:f21c:a794 with SMTP id
- 5614622812f47-53cd0565b15mr7594349b6e.28.1792443246406; Mon, 19 Oct 2026
- 13:54:06 -0700 (PDT)
-Date: Mon, 19 Oct 2026 13:54:06 -0700
-In-Reply-To: <CAFJkwZxMKhF+EfqYrrVuA+Zu5apvaZUN45M9LVQYmxgqnd0tdA@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad6836e.2431563d.3b88b.0027.GAE@google.com>
-Subject: Re: [syzbot] [fs?] BUG: unable to handle kernel paging request in read_seqbegin
-From: syzbot <syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, neganhat@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019192545.GD65095@quark>
 
-Hello,
+On Mon, Oct 19, 2026 at 12:25:45PM -0700, Eric Biggers wrote:
+> On Mon, Oct 19, 2026 at 09:17:24PM +0300, Jarkko Sakkinen wrote:
+> > Check that the calculated quota length does not go over INT_MAX.
+> > 
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Fixes: 7e047ef5fe2d ("[PATCH] keys: sort out key quota system")
+> > Reviewed-by: David Howells <dhowells@redhat.com>
+> > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> 
+> Seems this should be merged into patch 3?
+> 
+> Also is this reachable?  I.e. do any of the key types actually specify
+> def_datalen > INT_MAX - KEY_MAX_DESC_SIZE + 1?
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+This is very good question and my *guess* is that no there is not.
 
-Reported-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
-Tested-by: syzbot+975ace299d6ba2eb1cea@syzkaller.appspotmail.com
+That said, when not treated as a bug fix this patch is a great
+safe-guard e.g., to block corraterall effects of some other
+bugs.
 
-Tested on:
+So yeah, that's I would propose here. Let's not call it a bug fix
+but still merge.
 
-commit:         7a19f0cc Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1267ec95580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=26d6221a572842ac
-dashboard link: https://syzkaller.appspot.com/bug?extid=975ace299d6ba2eb1cea
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1210d495580000
+> 
+> - Eric
 
-Note: testing is done by a robot and is best-effort only.
+Br, Jarkko
