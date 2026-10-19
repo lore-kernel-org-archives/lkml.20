@@ -1,124 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E811535B125
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20D8348C63
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:00:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792375155; cv=none; b=oMxjs7KzGqZyR0zifQrMetc2ePmisjYZ1WpkRPkZhxlkq2AwLGTXHz2YXJpBMyCnY1uJI/lKty8+wl55//QQxjH2FtD6oKw18vDxe4ZOR1h8//z3gNgwaXcn7+u7IJ080wJv62htexOMbMcXZuEvLzMzrjmM8bwIkwYzFZ4v29Q=
+	t=1792375227; cv=none; b=hco/ZL/tkgsYmsUXWmnYWoQTebcSXVo/OR0Mdi1j/CfN3GCBVlWEIqEkVkqLJsraojdUCbaKLTs8ijh27Zv0HiJPNTM4S8a4j/WcKN0bviFEs3W1Bm6sE8ID1mSmB1WjGoEq6eLuaO8Bl+srOLsDwxk1g74zVXgGKQc9tqXIEoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792375155; c=relaxed/simple;
-	bh=7fnx3dXsI2wRJdwIsrpwQJW0BoY5IQYr8pQyudxvv9Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=brSot9PxLdP4LCPHss+dbEACxkiC7e3b7zb9aG1BKuDelPtZIBYRmGEMggNzYnMfW1hfYQt3Wm5SRNsnxcGEC8yFnTvgLn+7rqfx+NRTFYvH30kro7q9RVJynlYJc6AjPqW4jjzA46oGnqvL5EByokadSbTrzv8kW2rRqL4kpNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EoSTO2+R; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792375227; c=relaxed/simple;
+	bh=DVXQyIhY8nkQwuh62aEFyosJMFXKwj2WMhrrf3agrn0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mlpPtjdM+FhyRz+Rs520KgZFzwFo7vcq7vXLIxQa9K7FlZs0QP5ShB09wOKtnagpBs8eCS3I/7x81l/fC3yYzAUcnYgo3Bi7/ztpKCDoZX9ZqSRP+LCGlZCp8O6S0NZxcKePNeBMlSPTuvf04OynqmKdndWZwcYZf9Nc2uG3avM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egR9e4g3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EoSTO2+R"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792375152; x=1823911152;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=7fnx3dXsI2wRJdwIsrpwQJW0BoY5IQYr8pQyudxvv9Y=;
-  b=EoSTO2+RxBzHDNb29PJ+qdNAIuFFwDCpnV0SOAt9ilOaa83QxIWibjnH
-   HVlnyFb69JxjaRELshlNjvIorlTVO7yFjyoCGlskHf+x/a8Ntugf/nNco
-   Hys3tl95X+IIkSi08ZDUQylEQWgf+Xigxl9NmQlKMx+08O3UywHfknIfK
-   NlWfzF31AhBVBK/FyPLO592+gHbPzcgymBwIn654/PP5KocpeaTiZO6IH
-   3xYGaWaqnl4/xP2bR80IRiaTqQNlCJdRNXYVHPGwigdIKlc1PcCSYBrmx
-   EdMfJ3d0ZxbxL1kv2QzqMZ969XZlnxb7Ivb8kB3b2s3WxxMMmW4iu3fSJ
-   g==;
-X-CSE-ConnectionGUID: s2y2VsQwThWUOByxsD5xEQ==
-X-CSE-MsgGUID: vjnIdHEJThGKbIrGSkvrfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="924652"
-X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
-   d="scan'208";a="924652"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 18:59:11 -0700
-X-CSE-ConnectionGUID: peGbbfOhSn2jwTT84XRp+A==
-X-CSE-MsgGUID: rwe68dC6Tkma6YgMmPfUFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
-   d="scan'208";a="2839779"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 18:59:06 -0700
-Date: Mon, 19 Oct 2026 09:59:01 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Kefeng Wang <wangkefeng.wang@huawei.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	linux-mm@kvack.org, yi1.lai@intel.com
-Subject: [linus:master] [mm]  7625cb5673:  stress-ng.mincore.ops_per_sec
- 28.1% improvement
-Message-ID: <202610190930.7aeab52b-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egR9e4g3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7558E1F000C8
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:00:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792375224;
+	bh=KD7UwzXfOm4PXY6mh45NaHYnJinOcf0JwpEqw8Sab1c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=egR9e4g36blwGaj9ytpdJLm/LCvacoX+WXrb+uOgziAFEkSaKWKjgrA/+hD3Qs7CI
+	 D/gkcqO/oK5YDBAptSDINhLyJqdCtcWRQD38/T5UiVcdoEEXMKDG8+NYR1jzCdB7iA
+	 72AHuHQvhEKMaqUpqXu4zJyOoP/MBTnh30/HY7G4iok7izu3NiB/S4f15snVNvz6u8
+	 j2xvDixmsqPuWIX6RY4VPhtPTsSQhXFy9H52ZsCxGJ0pBKv+H7jM4lIA9c1RX/gsvs
+	 mIJHtNHXXa9DuoePyWIDx6LhzcC/2eFeC26A/QsPK4wsXJ7Rf2xVswrWR+gjzPT+AK
+	 M3B6+UJflK1xA==
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c423b145922so115051466b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:00:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwHqkXsJ0NaOU4BTFKUArpYX/Laph57R1B0PWgndeM4uffoMY7fD+F9ezqW8vtlD+U3spaDRSlWiBns8zs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKw0Kj+zSsJzHqmtW2wfIQ8YeiYq+rzp2W7l7xkCpcc0KA+E0zU
+	u6zR494mH0zl81iVNc4MZsKRYzzHNK7MYO1W1AULZKhBF2Qtfv/0URee9/8jVRCz0JUDi8/1Wpr
+	kxkZIQKSpR5QN4YVSFTnjiIDvCLpqv5I=
+X-Received: by 2002:a17:907:9494:b0:c3f:7270:10ab with SMTP id
+ a640c23a62f3a-c419d34f17fmr473204766b.14.1792375223084; Sun, 18 Oct 2026
+ 19:00:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <cover.1792345559.git.jan.koester@gmx.net> <1861a1d193fc19a37cac28c3d3312046d69bf5bf.1792345559.git.jan.koester@gmx.net>
+In-Reply-To: <1861a1d193fc19a37cac28c3d3312046d69bf5bf.1792345559.git.jan.koester@gmx.net>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 19 Oct 2026 11:00:10 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_PWD5+7P3H5mMpyhL+8fugriQxGLq3UjvdV2UZk0Oc7g@mail.gmail.com>
+X-Gm-Features: AclHuK8A9hAbhSOIn70RmzLFuGS7zFENLkUdwmMvGTbHx6yjDB1UEMSEQxsLbQY
+Message-ID: <CAKYAXd_PWD5+7P3H5mMpyhL+8fugriQxGLq3UjvdV2UZk0Oc7g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ksmbd: put the workgroup into the NTLMSSP target
+ info's domain names
+To: Jan Koester <jan.koester@gmx.net>
+Cc: Steve French <smfrench@gmail.com>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Tom Talpey <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>, 
+	linux-cifs@vger.kernel.org, samba-technical@lists.samba.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+---
+ fs/smb/server/auth.c    | 41 ++++++++++++++++++++++++++++++++++-------
+ fs/smb/server/smb2pdu.c | 21 +++++++++++++++++++--
+ 2 files changed, 53 insertions(+), 9 deletions(-)
 
+diff --git a/fs/smb/server/auth.c b/fs/smb/server/auth.c
+index 9a2a3c6a37..8639997080 100644
+--- a/fs/smb/server/auth.c
++++ b/fs/smb/server/auth.c
+@@ -376,10 +376,10 @@ ksmbd_build_ntlmssp_challenge_blob(struct challenge_m=
+essage *chgblob,
+ =09=09=09=09   struct ksmbd_conn *conn)
+ {
+ =09struct target_info *tinfo;
+-=09wchar_t *name;
++=09wchar_t *name, *domain;
+ =09__u8 *target_name;
+ =09unsigned int flags, blob_off, blob_len, type, target_info_len =3D 0;
+-=09int len, uni_len, conv_len;
++=09int len, uni_len, dom_len, conv_len;
+ =09int cflags =3D conn->ntlmssp.client_flags;
+=20
+ =09memcpy(chgblob->Signature, NTLMSSP_SIGNATURE, 8);
+@@ -426,6 +426,23 @@ ksmbd_build_ntlmssp_challenge_blob(struct challenge_me=
+ssage *chgblob,
+=20
+ =09uni_len =3D UNICODE_LEN(conv_len);
+=20
++=09len =3D strlen(ksmbd_work_group());
++=09domain =3D kmalloc(2 + UNICODE_LEN(len), KSMBD_DEFAULT_GFP);
++=09if (!domain) {
++=09=09kfree(name);
++=09=09return -ENOMEM;
++=09}
 
-Hello,
-
-kernel test robot noticed a 28.1% improvement of stress-ng.mincore.ops_per_sec on:
-
-
-commit: 7625cb56733bfd470e9fae69a1b8b78aa8b1d3eb ("mm: mincore: replace __get_free_page() with kmalloc()") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-
-testcase: stress-ng
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 256 threads 4 sockets INTEL(R) XEON(R) PLATINUM 8592+ (Emerald Rapids) with 256G memory
-parameters:
-
-	nr_threads: 100%
-	testtime: 60s
-	test: mincore
-	cpufreq_governor: performance
-
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261019/202610190930.7aeab52b-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
-  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-emr-2sp1/mincore/stress-ng/60s
-
-commit: 
-  006943a9b4 ("mm: mincore: remove special handling for VM_PFNMAP")
-  7625cb5673 ("mm: mincore: replace __get_free_page() with kmalloc()")
-
-006943a9b437b2d4 7625cb56733bfd470e9fae69a1b
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-    547.22           -25.4%     408.24        stress-ng.mincore.nanosecs_per_mincore_call
-  27632999           +28.1%   35386493        stress-ng.mincore.ops
-    460725           +28.1%     590032        stress-ng.mincore.ops_per_sec
-      1729            +7.1%       1852        stress-ng.time.user_time
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
-
+The patch is quoted-printable encoded. Could you send it as plain text
+when you submit the next version?
