@@ -1,122 +1,126 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5174EF128
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485F04F0545;
+	Mon, 19 Oct 2026 12:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792412667; cv=none; b=GmS72M2Yjg+vbDPHrF3SiSYOxpmchJgWqCl7hFkY1MSUSNpiJ7alsolpQ7JSRifJc6RxdbB4YAXFGK6lqDpjRjkLlmfc1R89gWXooGO4l3RlpkL+BvykpgPobjoGb2zLwYQYlAON9YQCHBZl3JwSwOJzG82qvu368Fqg8re2Ftk=
+	t=1792412682; cv=none; b=cS9QKMBz9l/LxSqYKtk+rJN4CwW+VicLatk6fPMZMJW7pHbeXZ4a7dSwj7LrCCaWE/LLc0QyIrbL/jLwgbZ6Awe8mWHHT3ZbRtRBKIzo/rctavakMEwsyaveU7paCDhDXzim5E9jXOJy2Vgql5c4li7bYYKivNrR5c21SSsiESg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792412667; c=relaxed/simple;
-	bh=wd28aU++NdtOMWUJjRpk6EgNkx6fD22f8iP3kR6CsIA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OPxTZe5BxQcG2E51gQBoHHaWgOGPGO5hSAxCDDtN0D0AJ0AJMvGzO7s9QrU6wT0lfdDBEFBcQsb7J0USvypzb73/rC79VY2Ba3+AFteRG3WYQTGQLZcwDgtt3xC1uE0b1RYqtfkdMDiiV6cD1k7w6jnvaS3RyPJFk/gYBrginBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=JUXP5CJy; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1792412682; c=relaxed/simple;
+	bh=depGBNWTJOth+tixF+gTVLE6p+N/VC4raERj007M5c4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R93s+nI0CSI/Nbs8Q1Kdqni09f2Oit24X05rjQt3Fu22rMVoZ0f8Wm9PPq02EfU0+stNAwWbOXwy97PAh8HvlX6aBCZcC13AyrXYtPxnl485pkrDhCpmvrTFF2eIIuRI/zU+KMUiLFntsP+KyQ/BsTZFJzGqp66J8ES4mSDDuIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UIclckRe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="JUXP5CJy"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso19435385e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:24:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792412662; x=1793017462; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nCKEluHSWIFV51AHkRVTAd1QNSpPxxkrgvIjhQ5PXZk=;
-        b=JUXP5CJyrMMjFmxa6xvURwQ3HJqNbCgVeoE9kApk/C3I8HLhyl6yflZvAtMPXTbAbq
-         PZmVdIkjgqkqPo4RBL3iXj4+Gv2vfkhp8mEoTc33nuYx/hC6QXCdrRdFdxYQiAp6RAU7
-         litVm9pJum2csacPR5Zeg6plHlt+ugelXA5+PbJRS63T3gFZ6csA36ec4bpqXebWJwBd
-         /g8y/2cG9NKDw2mWEwo+Ctcx7a2skfoul49FHdgE2SthiXa/M1Rozb9lLYr8z9tqOtHB
-         77rDdIM6UWUgYOc2WCdMXwRd4LIffiEiFux2eOgCF167Foas27W9/Py+bOht9IgfvYL7
-         +EIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792412662; x=1793017462;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nCKEluHSWIFV51AHkRVTAd1QNSpPxxkrgvIjhQ5PXZk=;
-        b=adj9lmnqsHJsmD1HmkszhLY+fsZ2W1yy34VlBHSgFXaMmDf87qfweWBcKLKtLF3idS
-         bGljatLSraRS0r+6XBA3uj1DaiBKVkBriZvs/kH847Q5W2/yjKJH+m8IezK8hovK+hvk
-         T1/OdLjBdjRQGVaVg8H7OJIOmRqnXrb6pGb6d+yYQR58f6kx65jN35vrtc0bUTOOXp7Q
-         NRxzZeMpyPeTuP1HkuWMhbL6VushUkZ/cVxOMjO6nJsEmJL8VbnOIQXhk2QB+DNE4uHW
-         UsH8DlPYACFVtnAGrgTTBfjnuyDmFkHeKL4OR/tpeLPO8XzAeS9KFgtMxigWDbQhezk0
-         a5Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBxQObtKmvwP+e9OnLa8c96wLXiudjEhjxcdLk/MJtzMOFEI2XOIR1I5JYEx245yeFGetz6fN13btM86RTY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInlsXfXE/dUebnRgAqf8rAhMUakxCoHTowALaE0uueV0Aucghs
-	dF8gi/QoE1xUI8bNIhF/sler+kkATPDw2IW13rMYVuCeklfNc//mzxjz3wFVr0ahyR0=
-X-Gm-Gg: AYBFou2NicFm30Lg6PrWz7n1uYAjE2bUpiET/Y5t9MieNJ7w+BIt3t1DZQoIMfhXIF/
-	P6qrpRjDPLkwnvJyXH0qfnZruJvNhGHRUY3tKHHpn1+W/J+pkXvRe1iR/hI1sCpe7/+JzbvDYYK
-	DqZfyEUIMWT9Dx0c42cADamtErK2Zu/zHTKx5tGLrGX/wfheIZCwD9JcB5J5Dn7d0uwuaLTKLVB
-	wWJqmuOy74AFXQC282uAe8i53vbLy71pxh0qZQSr6nMVsBgqB2RQXW98IRR5Y0QkVeW8uy1NLqU
-	BFfDwuCtsf17iUpwBp10wQ0OtHZ/PglD/UDiBhPm0sQ8bYxMSs2ZXgTCY9/0F2wUR5ZdTX4wGCD
-	PJsKPqvxg/Ix0jojZZuAJnNHHsEO2SHiSKrNzNj+knVBuc6NqwaLrkbLHpndR5LdO3/q8/2jHbe
-	fk8y/LliIXw9aTqXGmDFcEZ/ObO7QkC4C/2Ly35Jyu1/LFJM6FLxPgoSVcQgcogGXokk1Uz3JhN
-	o1fXGOb7lnIxCDzsPRDoFD4p1Gre8/3Y9a8Z5IfSqSwMl6dvLJig+Np8sBdQBnerwHSWQiFizca
-	WlDf0xGKdXnZQaRtDcZaBc1Ok6jgxghyjf5fyAN53+XQDATs2wq/5XGB/7I=
-X-Received: by 2002:a05:600c:3484:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a1d7605e04mr161218185e9.14.1792412661854;
-        Mon, 19 Oct 2026 05:24:21 -0700 (PDT)
-Received: from aspen.lan (aztw-33-b2-v4wan-169864-cust3247.vm26.cable.virginm.net. [92.239.204.176])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1dc8ee409sm284385915e9.13.2026.10.19.05.24.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 05:24:20 -0700 (PDT)
-Date: Mon, 19 Oct 2026 13:24:18 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: Luka Panio <lukapanio@gmail.com>
-Cc: lee@kernel.org, danielt@kernel.org, jingoohan1@gmail.com,
-	pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, deller@gmx.de, krzk@kernel.org,
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, junjie.cao@linux.dev,
-	mitltlatltl@gmail.com
-Subject: Re: [PATCH 0/2] backlight: Add Awinic AW99703 driver
-Message-ID: <atYL8jLQmljt3ypQ@aspen.lan>
-References: <20261016162912.64581-1-lukapanio@gmail.com>
- <CACi=Ov6Jg5eUxskBbmtWOS03jta90RK0nByhWf4EQs1PNhvuKQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UIclckRe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A4C1F000C4;
+	Mon, 19 Oct 2026 12:24:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792412677;
+	bh=PjLOjJ0vU6EmifRuz9YgBL8J8WMfaEKUpeJsLHfNMeQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UIclckReVDUKs6IGU4//3urRXgq0S9ghCmLXaRsJrj6BW+j2Qwg23bgIo9fckLFqr
+	 hxuOfaIEh9VV5IZp4JGashPMUqJqF6QAgoPBJ1EJAsjR3VamkhfW0sESBzVMbvWb3S
+	 RgHzND38ypHVJ9C1DzZdfk6bTZIAZVEvLlch1vekluuGbTgyy5kPSAwE+UdWeaeCy9
+	 UrSFJ6pTe0eq3qTnfyUdFeA/fH7+D3eufcrORD7ftW3SFiI+WUsCFhqBpl7g9fUdR9
+	 LQDyWJwFx5X58g8cxo3R9fkIjGZkw/A4ikJtvSBVlFqS0Z5sCnPoRSqXmvzwz32plP
+	 R9bW7waE21/tA==
+Message-ID: <3fcce5c1-076f-44e2-b162-9adcea52f157@kernel.org>
+Date: Mon, 19 Oct 2026 14:24:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CACi=Ov6Jg5eUxskBbmtWOS03jta90RK0nByhWf4EQs1PNhvuKQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/10] mm/mremap: fix calling fixup_hugetlb_reservations()
+ on the wrong VMA
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org,
+ vbabka@kernel.org, jannh@google.com, pfalcato@suse.de,
+ muchun.song@linux.dev, osalvador@suse.de, linmiaohe@huawei.com,
+ nao.horiguchi@gmail.com, agl@us.ibm.com, mel@csn.ul.ie, riel@surriel.com,
+ peterx@redhat.com, kas@kernel.org, rppt@kernel.org, josef@toxicpanda.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261015-urgent_fixes-v1-10-42796911043b@kernel.org>
+ <20261018083431.15699-1-lance.yang@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261018083431.15699-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 01:26:21PM +0200, Luka Panio wrote:
-> Hi Daniel, Krzysztof,
->
-> Thanks for the reviews. Before reworking this for v2 I'd like to agree
-> on the approach.
->
-> Following Daniel's suggestion I'll add AW99703 support to the aw99706
-> driver using per-chip data instead of adding a new driver. The register
-> maps differ almost entirely, so most of the DT properties stay
-> per-chip (dim-mode/UVLO/ramp-ctl on AW99706, OVP/OCP/inductor on
-> AW99703).
->
-> Following Krzysztof's review, the AW99703 binding will drop the
-> ramp/transition timing and mapping properties and use the standard
-> led-sources and led-max-microamp properties.
->
-> That leaves the one common property, the maximum LED current,
-> spelled differently in a single driver: awinic,iled-max-microamp for
-> AW99706 and led-max-microamp for AW99703. To avoid that I'd like to:
->
->   - add led-max-microamp to awinic,aw99706.yaml and mark
->     awinic,iled-max-microamp as deprecated
->   - have the driver read led-max-microamp for both chips, falling back
->     to awinic,iled-max-microamp on AW99706 so existing DTs keep working
->
-> Does that sound acceptable?
+On 10/18/26 10:34, Lance Yang wrote:
+> 
+> On Thu, Oct 15, 2026 at 06:07:16PM +0200, David Hildenbrand (Arm) wrote:
+>> In case we fail to move the page tables, for example, because we fail
+>> to allocate a page table, we actually keep the old VMA.
+>>
+>> Calling fixup_hugetlb_reservations() on the old VMA is wrong. Fix it
+>> by just calling it on the VMA that will be removed.
+>>
+>> The user-visible impact is that the VMA loses its reservations, meaning
+>> that the existing reservations get stranded (leaked) and new hugetlb folios
+>> that are getting allocated in the VMA cannot make use of the
+>> reservations, failing these allocations.
+>>
+>> Fixes: b714ccb02a76 ("mm/mremap: complete refactor of move_vma()")
+>> Cc: stable@vger.kernel.org
+>> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+> 
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
 
-IIUC you plan to improve the binding for AW99706 before adding AW99703
-support, and you will keep the old DT property working to that
-existing DTBs continue to work?
+Thanks for all the review, Lance!
 
-Both sound good to me.
+-- 
+Cheers,
 
-
-Daniel.
+David
