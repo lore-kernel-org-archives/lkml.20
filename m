@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB6E528E9E;
-	Mon, 19 Oct 2026 14:02:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE14528DD9;
+	Mon, 19 Oct 2026 14:03:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418581; cv=none; b=XTS/C61cSR6d9obMzxfy0rGi4PtpdIb/RUio1VK8eL/AxW3TncNynBJ6VP5YVha7kuRzuMgCO/0euJSujFRVH5ZEGD5QmoRAjvLQsbSG1ndYoApPwM0LCQ54ZxpRi/BeSBYYfrdlNHikJJ/dKEtWuXWK7d70FiYCNPlP8agXS8U=
+	t=1792418585; cv=none; b=ROXDJMHKeF8Mhm8pIQTHNwulcm16JGcyz+YZ6nqsHEyiGKrqYVbjxFTw4ceIRoAN4/at7RuYmgs8SlkudfwBThJVv2LaFHbYQ6llam6FsSRXV8nuVLEVUpyODJ9/k8tjTqY1wogT9+tzSTaUZjd+Nk9vSzwDPgJE1R+pa7MxmF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418581; c=relaxed/simple;
-	bh=nj+wWcul/WCvXb375pnTWTBUjTJDJxKvaVIaUkqBVrc=;
+	s=arc-20240116; t=1792418585; c=relaxed/simple;
+	bh=mQITwMWKBiKAgP34t0D6onZiPL8vWkWKKsJkcSCc/Jc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kaWdy4F2Uzko327L6dvFV2eTeO7T4A7K+jcLnTli9/6DbBbB20MIu0e00SADSEcA2R3MHRbIphe5HGAav9dXamJhJc97efUAIbt2CUSv45Ojd0yqhd8kbkH2d2h19l0/2Vv6r9YbKNfWw2gLtzDaplOwjrDz72FOY02MUC+vye0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m8NZ0RX6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Tv//EsuAoXnl7Gkflky7ueFrsY1Ay5F7nwapHVMmj7aXyDuHhefTTXxUBtvZdqy49O68hOdmO1pi5R1dXJHLIy9P8Oa+ApraGoEKptyzDmC2OuK7wBHpipJ1eWIAouPgcm+Z85NFHuMJN3lEkYVd+4vhdmBHiVNkm0euxZ4k0vA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U2asbGwr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m8NZ0RX6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D24451F000C6;
-	Mon, 19 Oct 2026 14:02:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U2asbGwr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682191F000C6;
+	Mon, 19 Oct 2026 14:03:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418577;
-	bh=dnWm2W/fIwCHyOXqzjBdj4X+pTbiNGoc0GD3vQaJuCE=;
+	s=k20260515; t=1792418582;
+	bh=wLdPCGvUXNvRoYDMbpd0S/lpiMhlBoSYMlhEUM3aMd0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m8NZ0RX6LwWB/c5hgcs7UqkIKmyD5cAg0ZSV2CDqdBTEfB5mLXZ0Q/uHfsqX4NAIG
-	 Gj1Uavu4IIIOk9xco1pKCxkX+HYpyDjKBicuxuOe+2aDthxZgHJl2G2KlfcxdiDzA7
-	 XryKcD41q+kvp9Pxb9ssikqKAJFeN2YPrsZcWGDTpmEREEk6VYPjEP0cA/mRQ9/btf
-	 MgTGmdYVIP6tF5d2yBDfnw5ksGjgqoIMh6meKwNPrtPdJYI+au+5iQzH9zYv8AL0Cj
-	 7Y7pAzscNB3hKuj3TzKh92pmK7wI0GPAqzZ1tad4Z0ld2uJH5E6n6fV0MnGXY7Ixlt
-	 IHhesgkD17Qew==
+	b=U2asbGwrkyzRN3s7Ybz0IN1CdeHSfHxC21kzSqHXZphIJ0M2ZplxyFQfecGBbpDgP
+	 nWiVdvykX+5lqAYYNN6/rkOqxIrbfdn5KjozwpjtP25f8OBKhZmyyt5N36H90t54WF
+	 VGddnr9TjVUDgABoPO1WXg6u6eYVntfF6tjKDKS57DWvjkJ2oi0EII0KLNjRXcg55O
+	 1KjNaBXIEoimdbd4Ce4w2nVyXx+scPF7DGN0LrAmRpMYATVl07+1JLHOFt0lLbRVgi
+	 z310bmIjPrA3bNcreBN2dehaB0W9n3vSjnpuMMpaTKMhxRssExqT3HkoktyslaOyIL
+	 s+EsrKpLhHdiA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Daniel Ortiz <letargopausado@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Nizar Al-Kabbani <nizar.m.kabbani@gmail.com>,
+	Denis Benato <denis.benato@linux.dev>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	Vijendar.Mukunda@amd.com,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	corentin.chary@gmail.com,
+	luke@ljones.dev,
+	hansg@kernel.org,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] ASoC: amd: yc: Add DMI quirk for Lenovo V15 G6 ARP
-Date: Mon, 19 Oct 2026 09:50:38 -0400
-Message-ID: <20261019135441.1420968-347-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] platform/x86: asus-nb-wmi: map ProArt key (0x8b) to KEY_PROG3
+Date: Mon, 19 Oct 2026 09:50:41 -0400
+Message-ID: <20261019135441.1420968-350-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -50,429 +50,357 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.57
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Daniel Ortiz <letargopausado@gmail.com>
+From: Nizar Al-Kabbani <nizar.m.kabbani@gmail.com>
 
-[ Upstream commit d395e1b62d9694f2e4add9122f8d473eacd374aa ]
+[ Upstream commit 6303451189a6d8f304221065c44ccd597e0acbe5 ]
 
-The Lenovo V15 G6 ARP (product name 83UU) uses the ACP6x PDM interface
-for its internal digital microphone array. Its firmware exposes neither
-the AcpDmicConnected _DSD property nor the _WOV method, so acp6x_probe()
-falls through to the DMI check and returns -ENODEV, leaving
-acp_yc_mach.0 unbound and no capture device registered.
+The dedicated "ProArt" key on the ASUS ProArt PX13 (HN7306) emits ASUS
+WMI event code 0x8b. This code is absent from the asus-nb-wmi sparse
+keymap, so pressing the key only produces a "Unknown key code 0x8b"
+message and does nothing in userspace.
 
-Add a DMI quirk entry for this model. With it, the machine driver binds
-and the DMIC capture device is created:
+On this model the key is exposed solely through the WMI interface and has
+no HID scancode, so it can only be handled inside asus-nb-wmi. Map 0x8b
+to KEY_PROG3 so the key emits a bindable event, consistent with the
+existing KEY_PROG3 mapping used for the ASUS programmable/Armoury key.
 
-  acp_yc_mach acp_yc_mach.0: Enabling ACP DMIC support via DMI
-  card 2: acp6x [acp6x], device 0: DMIC capture dmic-hifi-0
-
-Capture was verified working with arecord and PipeWire.
-
-Signed-off-by: Daniel Ortiz <letargopausado@gmail.com>
-Link: https://patch.msgid.link/20260920011920.2482786-1-letargopausado@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Nizar Al-Kabbani <nizar.m.kabbani@gmail.com>
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
+Link: https://patch.msgid.link/20260719090843.66777-1-nizar.m.kabbani@gmail.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Local tree is **6.18.y** (`v6.18.57-155-gcdf239ca885b2`, `VERSION=6
-PATCHLEVEL=18 SUBLEVEL=57`). Verdict is for this tree only.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1 — Subject**
+Record: **[platform/x86: asus-nb-wmi:] [map] dedicated ProArt WMI event
+0x8b to KEY_PROG3**
+Subsystem: `platform/x86` (`asus-nb-wmi`). Verb: **map** — hardware-key
+enablement, not a refactor.
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[ASoC/amd/yc] [Add] [DMI quirk so Lenovo V15 G6 ARP (83UU)
-binds the existing ACP6x DMIC machine driver]**
+**Step 1.2 — Tags** (ignoring pipeline `Signed-off-by: Sasha Levin` /
+`[Upstream commit …]` as instructed)
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-Record:
-- `Fixes:`: none (expected)
-- `Reported-by:`: none
-- `Tested-by:`: none as a tag; body says capture was verified with
-  arecord and PipeWire
-- `Reviewed-by:`: none
-- `Acked-by:`: none
-- `Link:`: https://patch.msgid.link/20260920011920.2482786-1-
-  letargopausado@gmail.com
-- `Cc: stable@vger.kernel.org`: absent (expected; not a negative)
-- `Signed-off-by: Daniel Ortiz <letargopausado@gmail.com>` (author)
-- `Signed-off-by: Mark Brown <broonie@kernel.org>` (ASoC maintainer)
-- Pipeline tags (`[Upstream commit ...]`, `Signed-off-by: Sasha Levin`)
-  ignored per instructions
+- **Fixes:** none (expected)
+- **Reported-by:** none
+- **Tested-by:** none in the commit; the lore `From` host is `proart-
+  px13.tail9ecfc0.ts.net`, so the author submitted from the affected
+  machine
+- **Reviewed-by:** Denis Benato `<denis.benato@linux.dev>`; Ilpo
+  Järvinen `<ilpo.jarvinen@linux.intel.com>` (platform/x86 maintainer)
+- **Acked-by:** none
+- **Link:** `https://patch.msgid.link/20260719090843.66777-1-
+  nizar.m.kabbani@gmail.com`
+- **Cc: stable:** none (expected)
+- **Signed-off-by:** Nizar Al-Kabbani (author); Ilpo Järvinen
+  (maintainer application)
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Record:
-- **Bug:** Lenovo V15 G6 ARP firmware exposes neither `AcpDmicConnected`
-  `_DSD` nor `_WOV`. `acp6x_probe()` therefore misses ACPI enablement,
-  the DMI table does not match, and probe returns `-ENODEV`.
-- **Symptom:** `acp_yc_mach.0` stays unbound; no capture PCM is
-  registered (internal mic missing).
-- **Root cause:** incomplete ACPI on this model; the driver already has
-  a DMI fallback table for that class of firmware.
-- **Fix:** add `LENOVO` / `83UU` to `yc_acp_quirk_table`. After that,
-  dmesg shows `Enabling ACP DMIC support via DMI` and `DMIC capture
-  dmic-hifi-0`.
-- **Version info:** none in the message. Maintainer applied it to
-  `for-7.3`.
-- **Author explanation:** firmware gap → DMI check → `-ENODEV`; quirk
-  makes the existing machine driver bind.
+Record: Maintainer + ASUS-WMI reviewer sign-off. No syzbot, no crash
+report.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a disguised cleanup. It is an explicit hardware-quirk
-addition. That is a documented stable exception (quirks/workarounds for
-broken firmware), not a new driver or API.
+**Step 1.3 — Body**
+Record: **Bug:** ASUS ProArt PX13 (HN7306) ProArt key emits WMI 0x8b,
+which is missing from `asus_nb_wmi_keymap[]`.
+**Symptom:** `pr_info("Unknown key code 0x8b")` and no EV_KEY in
+userspace.
+**Root cause:** key is WMI-only on this model (no HID scancode), so only
+this driver can report it.
+**Fix:** map 0x8b → `KEY_PROG3`, matching Armoury/programmable-key
+practice.
+**Version info:** none in the message.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+**Step 1.4 — Hidden bug fix?**
+Record: **No disguise.** This is an explicit missing-keymap fix /
+hardware enablement, not cleanup dressed as a fix.
 
-**Step 2.1: INVENTORY THE CHANGES**
-Record:
-- File: `sound/soc/amd/yc/acp6x-mach.c` — **+7 / -0**
-- Function/object: `yc_acp_quirk_table[]` only
-- Scope: **single-file surgical quirk** (one `dmi_system_id` entry)
+---
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- **Before:** DMI match on this model fails; if ACPI
-  `_WOV`/`AcpDmicConnected` also fail, `platform_get_drvdata()` is NULL
-  and `acp6x_probe()` returns `-ENODEV`.
-- **After:** `dmi_first_match()` hits `LENOVO`+`83UU`, sets drvdata to
-  `&acp6x_card`, and the existing DMIC card is registered.
-- Path affected: **probe/init** for this DMI identity only. Other
-  machines unchanged.
+## Phase 2: Diff analysis
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **[Hardware workaround / DMI quirk]** Incomplete ACPI means the
-existing DMI table is the only enable path. Missing table entry → probe
-failure → no capture device. Same pattern as the many Lenovo/HP/ASUS
-entries already in this file.
+**Step 2.1 — Inventory**
+Record: **1 file**, `drivers/platform/x86/asus-nb-wmi.c`, **+1 / −0**.
+Function/object: static table `asus_nb_wmi_keymap[]`. **Single-file
+surgical table insertion.**
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record:
-- Obviously correct: copies the established `{ .driver_data =
-  &acp6x_card, DMI_BOARD_VENDOR "LENOVO", DMI_PRODUCT_NAME "<sku>" }`
-  pattern used by `83N6`/`83Q2`/`83Q3`.
-- Minimal: 7 lines, no logic, locking, or API change.
-- Regression risk: **very low**. Match is vendor+product SKU `83UU`.
-  Wrong enablement would only hit that SKU; author confirmed capture
-  works on the real machine.
-- Red flags: none.
+**Step 2.2 — Flow**
+Record: **Before:** WMI notify → `sparse_keymap_report_event()` misses
+0x8b → log + drop.
+**After:** same path reports `KEY_PROG3` (code 202) as a bindable key.
+Path: firmware WMI event on key press (normal input path, not
+error/init).
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 2.3 — Bug mechanism**
+Record: **Hardware workaround / keymap gap** (same family as device-ID /
+input quirk table rows). Not UAF, leak, race, or crash. Unmapped sparse-
+keymap code is ignored.
 
-**Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- Insertion sits after Lenovo `83Q3` (from `b9a8ea185f3f8` “ASoC: acp:
-  Support microphone from Lenovo Go S”, in this tree since
-  **v6.14-rc1**).
-- Driver file and table originated in `fa991481b8b22` (“ASoC: amd: add
-  YC machine driver using dmic”, **v5.16-rc3**).
-- DMI override in probe: `e521f087780d07` (2022-04-11).
-- `_WOV` failure → `goto check_dmi_entry`: `984795e76def5c` (“ASoC: amd:
-  yc: Fix the wrong return value”, **v6.13-rc3**).
-- Bug for this laptop is **absence of a DMI row**, not a recent logic
-  regression. The probe fallback this quirk uses is in 6.18.y.
+**Step 2.4 — Fix quality**
+Record: **Obviously correct** for a static `key_entry`. Minimal. No API,
+lock, or alloc change.
+**Regression risk:** low. Theoretical: some other ASUS model could emit
+WMI 0x8b for a different function. 0x8b sat in a hole between 0x8A
+(2012) and 0x8C (2012) with no mapping for ~14 years, so that is
+unlikely.
+**Note (not a blocker):** `hid-asus.c` maps HID usage 0x8b to
+`KEY_PROG1` (“ProArt Creator Hub”). This commit uses `KEY_PROG3` and
+states PX13 has no HID scancode, so this model should not double-report.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. Not applicable. The “broken” thing is this
-model’s firmware plus a missing quirk row.
+---
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: This file is a long list of the same DMI additions (HP, Lenovo,
-ASUS, MSI, Acer, …). Recent examples already in this tree: ThinkPad E16
-Gen 2 (`21JN`), Acer Aspire Go 15, HyperX OMEN 16-ap1xxx, HP Victus
-16-e1xxx. Standalone; not patch X/Y. No prerequisites beyond the
-existing table and `acp6x_probe()` DMI fallback, both present.
+## Phase 3: Git history
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: `git log --author='Daniel Ortiz' -- sound/soc/amd/` shows only
-this commit. Author is a hardware reporter, not the subsystem
-maintainer. Weight comes from Mark Brown applying it and from the
-standard quirk pattern, not from maintainer authorship.
+**Step 3.1 — Blame**
+Record: Neighbor entries 0x8A / 0x8C from **a935eaecef2b20 /
+24c8a4c4ba6cfe (2012)**. Driver table since **b229ece9911cc (2011)**.
+The 0x8b row is **6303451189a6d** (this commit, 2026-07-19).
+`KEY_PROG3` for Armoury: **f56e676a7f1ca** (`v5.19-rc7~…`).
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Diff only needs `yc_acp_quirk_table`, `acp6x_card`, and
-`dmi_first_match()` in `acp6x_probe()`. All exist in this checkout.
-Applies standalone. Parent of the candidate already has `83Q3`
-immediately before the insertion point.
+**Step 3.2 — Fixes: tag**
+Record: **N/A** — no `Fixes:`. This fills a table gap for hardware, not
+a regression from a prior commit.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 3.3 — File history**
+Record: Recent related work: DMI quirks, display-toggle keymap
+(`e521dc1687834`), ExpertBook keys (`3c75dc44ad11c`). Pattern of one-
+line keymap rows is established. **Standalone**, not `N/M`.
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- `b4 dig -c d395e1b62d9694f2e4add9122f8d473eacd374aa` → https://patch.m
-  sgid.link/20260920011920.2482786-1-letargopausado@gmail.com
-- `b4 dig -a`: **v1 only** (2026-09-19). No later revision.
-- lore.kernel.org fetch returned **403**; thread recovered from
-  Openwall/Patchew mirrors.
-- Mark Brown applied it to
-  `git://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
-  for-7.3` on 2026-09-21. No NAK, no requested respin, no reviewer
-  concern in the apply mail.
-- No reviewer `Cc: stable` in the thread (not a negative).
+**Step 3.4 — Author**
+Record: Nizar Al-Kabbani’s only hit under `drivers/platform/x86/` here
+is this commit (hardware owner, not maintainer). Weight comes from
+**Denis Benato** and **Ilpo Järvinen**.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To/Cc included Vijendar Mukunda (AMD ACP), Mark
-Brown (ASoC), Liam Girdwood, Venkata Prasad Potturu, Jaroslav Kysela,
-Takashi Iwai, linux-sound, linux-kernel. Maintainer applied it. No
-Acked-by/Reviewed-by on the commit itself.
+**Step 3.5 — Dependencies**
+Record: **None.** Needs existing `asus_nb_wmi_keymap[]`, `KEY_PROG3`,
+and `sparse_keymap_setup()`. All present. **Applies standalone.**
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No bugzilla/syzbot link. Evidence of user impact is the author
-reproducing missing capture, then verifying arecord/PipeWire after the
-quirk. Web search confirms the same patch text; no independent multi-
-user report found. **UNVERIFIED:** how many other 83UU owners hit this
-(likely all of them given ACPI gap, but not counted).
+Commit **6303451189a6d** is an ancestor of HEAD (`git merge-base --is-
+ancestor` succeeded). First contained in **v7.3-rc1**
+(`v7.3-rc1~63^2~75`). **Not in v7.2.** Merged via `platform-
+drivers-x86-v7.3-1`.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Standalone 1/1 patch. Not part of a multi-patch series.
+---
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable search returned 403 / no useful hits for
-this subject. **UNVERIFIED:** no prior stable-list NAK or explicit
-nomination found. Same class of ACP6x DMI quirks has historically been
-AUTOSEL’d (e.g. MSI Bravo 15 C7UCX).
+## Phase 4: Mailing list / external
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 4.1 — b4 dig**
+Record: Lore: `https://patch.msgid.link/20260719090843.66777-1-
+nizar.m.kabbani@gmail.com`
+**v1 only** (single `[PATCH]`, applied as submitted).
+Denis: `Reviewed-by` only, no NAK.
+Ilpo: applied to `review-ilpo-next`; noted for-next routing (not a same-
+cycle regression). **No Cc: stable in review.**
 
-semcode MCP is not available; used file reads and `git grep`.
+**Step 4.2 — Recipients (`b4 dig -w`)**
+Record: Corentin Chary, Luke D. Jones, Denis Benato, Hans de Goede, Ilpo
+Järvinen, `platform-driver-x86@`, `linux-kernel@`. Right maintainers.
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: No function body changed. Data only: `yc_acp_quirk_table[]`.
-Consumer: `acp6x_probe()`.
+**Step 4.3 — Bug report**
+Record: No bugzilla/syzbot. Author describes the unknown-key log from
+the PX13. WebFetch of lore URLs returned **403**; thread recovered via
+`b4 dig -m`.
 
-**Step 5.2: TRACE CALLERS**
-Record:
-- `acp6x_mach_driver.probe = acp6x_probe` (`module_platform_driver`).
-- Platform device `"acp_yc_mach"` registered from `sound/soc/amd/yc/pci-
-  acp6x.c` when ACP is in `ACP6x_PDM_MODE`.
-- Context: PCI probe / boot on ACP6x Yellow Carp systems with
-  `CONFIG_SND_SOC_AMD_YC_MACH`. Not a hot path, IRQ, or syscall.
+**Step 4.4 — Series**
+Record: **Standalone v1.** No companion patches.
 
-**Step 5.3: TRACE CALLEES**
-Record: `acp6x_probe()` uses
-`acpi_dev_get_property("AcpDmicConnected")`,
-`acpi_evaluate_integer("_WOV")`, `dmi_first_match(yc_acp_quirk_table)`,
-`devm_snd_soc_register_card()`. The quirk only changes whether
-`dmi_first_match()` returns an entry.
+**Step 4.5 — stable@**
+Record: No stable-list discussion found for this subject.
 
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Boot → ACP PCI driver → register `acp_yc_mach` → `acp6x_probe()`
-→ ACPI miss → DMI table → with this entry, card registers. Userspace
-then sees the capture PCM (arecord/PipeWire). Reachable on this laptop
-without special config beyond the existing ASoC ACP6x machine driver.
+---
 
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: 108 `DMI_MATCH(DMI_BOARD_VENDOR` rows in this file. `83UU`
-appears only once (this entry). Nearby Lenovo SKUs `83N6`/`83Q2`/`83Q3`
-are Go S quirks from `b9a8ea185f3f8`, not this model.
+## Phase 5: Semantic / call graph
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 5.1 — Functions**
+Record: Table `asus_nb_wmi_keymap[]` only (not a function body).
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: **Yes.** `sound/soc/amd/yc/acp6x-mach.c` is present.
-`acp6x_probe()` still returns `-ENODEV` when ACPI and DMI both miss
-(lines 845–853). Parent of the candidate has no `83UU`. Without this
-row, Lenovo V15 G6 ARP has no capture device on **this** 6.18.y tree.
-Driver dates to v5.16; DMI fallback is long-standing.
+**Step 5.2 — Callers**
+Record: `.keymap = asus_nb_wmi_keymap` on `asus_nb_wmi_driver`.
+`asus_wmi_input_init()` → `sparse_keymap_setup(..., keymap)`.
+`asus_wmi_notify()` → `sparse_keymap_report_event()`; miss → `"Unknown
+key code 0x%x"`.
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: **Clean apply.** Parent context is `83Q3` then Nitro ANV15-41;
-the hunk is a pure insertion. No refactor of the table or probe vs this
-tree.
+**Step 5.3 — Callees**
+Record: `sparse_keymap_report_event` / `sparse_keymap_setup` only. No
+alloc/lock/I/O in the new row.
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: Many other DMI quirks are already in this tree. None match
-`83UU`. No alternate fix for this SKU.
+**Step 5.4 — Reachability**
+Record: Firmware WMI interrupt/notify on physical ProArt key. Userspace
+sees an evdev event after the fix. Not a syscall bug. Unprivileged user
+with the laptop can press the key.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 5.5 — Similar patterns**
+Record: Same driver: 0x86 `KEY_PROG1` (MyASUS), 0x38 /
+`ASUS_WMI_KEY_ARMOURY` `KEY_PROG3`, many other `KE_KEY` rows. hid-asus
+HID 0x8b → `KEY_PROG1` for PX Creator Hub (different transport).
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **[ASoC AMD Yellow Carp DMIC machine driver] [PERIPHERAL /
-driver-specific]** — important for owners of that laptop, not core
-mm/fs. Config: `CONFIG_SND_SOC_AMD_YC_MACH` (`depends on
-SND_SOC_AMD_ACP6x && ACPI`, `depends on X86 && PCI` for ACP6x).
+---
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Actively maintained quirk table (many DMI additions through
-2025–2026). Mechanism is mature; this commit does not change it.
+## Phase 6: This checkout
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 6.1 — Local tree**
+Record: `git describe HEAD` = **v7.3-rc4-27-gf0100363d8c37**. `make
+kernelversion` = **7.3.0-rc4**. Makefile `VERSION=7 PATCHLEVEL=3
+SUBLEVEL=0 EXTRAVERSION=-rc4`.
+Driver and keymap **exist**. Line 635 already has `{ KE_KEY, 0x8B, {
+KEY_PROG3 } }`. The pre-fix gap (0x8A then 0x8C) exists in **v7.2**;
+this 7.3-rc tree already includes the row because the commit landed in
+**v7.3-rc1**. That is mainline history, not a “already selected for
+stable” marker.
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: **Driver/platform-specific** — Lenovo V15 G6 ARP (DMI product
-name `83UU`) with ACP6x PDM DMIC. No effect on other DMI IDs.
+**Step 6.2 — Backport difficulty**
+Record: **Clean apply** on a tree with this keymap (context around
+0x8A/0x8C is the same as v7.2). One-line insert.
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Every boot/probe on that model. Not a race. Unprivileged users
-do not trigger a crash; they simply have **no microphone**. Common for
-anyone using this SKU on 6.18.y.
+**Step 6.3 — Related fixes here**
+Record: No alternate fix. This is the mapping. No other 0x8b WMI
+handling in `asus-nb-wmi.c`.
 
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: **Missing audio capture device** (internal mic dead). Not
-panic/UAF/corruption. Severity **MEDIUM** for that hardware, but this is
-the documented **hardware quirk** exception: without the row, the
-existing driver cannot bind.
+---
 
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- **Benefit:** High for 83UU users (mic actually works); zero for
-  everyone else.
-- **Risk:** Very low (7-line table add, unique SKU, author-tested).
-- **Ratio:** Strongly favors backport.
+## Phase 7: Subsystem
 
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+**Step 7.1**
+Record: **platform/x86 laptop hotkeys**. **PERIPHERAL / vendor-driver**,
+but `CONFIG_ASUS_NB_WMI` is common on ASUS x86 notebooks.
 
-**Step 9.1: COMPILE THE EVIDENCE**
+**Step 7.2**
+Record: **Active** (recent DMI quirks and keymap rows through 2026).
+Table format itself is mature (2011).
 
-FOR:
-- Real user-visible bug: no DMIC capture on Lenovo V15 G6 ARP because
-  firmware omits ACPI DMIC methods.
-- Existing driver and DMI fallback are in 6.18.y; only the SKU row is
-  missing.
-- Textbook stable exception: hardware quirk / DMI table entry on an
-  existing driver.
-- 7 lines, copy of established pattern, ASoC maintainer applied v1
-  unchanged.
-- Author verified arecord and PipeWire.
-- Same class of ACP6x DMI quirks is already common in this tree.
+---
 
-AGAINST:
-- Not a crash/security/corruption fix.
-- Single-model, one reporter; no `Cc: stable` / `Fixes:` (expected).
-- No independent second user report found.
+## Phase 8: Impact and risk
 
-UNRESOLVED:
-- lore.kernel.org itself 403’d; discussion taken from b4 +
-  Openwall/Patchew.
-- No stable-list thread found.
-- Population of 83UU users not counted.
+**Step 8.1 — Who**
+Record: **Driver-specific / hardware-specific:** ASUS notebooks that
+emit WMI 0x8b (documented: ProArt PX13 HN7306). Harmless no-op elsewhere
+(code never generated).
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — identical table pattern;
-   author tested capture.
-2. Fixes a real bug that affects users? **PASS** — mic never appears
-   without the quirk.
-3. Important issue? **PASS** under the hardware-quirk exception (broken
-   firmware / missing device), not a kernel crash.
-4. Small and contained? **PASS** — +7 lines, one file.
-5. No new features or APIs? **PASS** — no new driver, Kconfig, or
-   userspace API; enables existing DMIC machine driver for one SKU.
-6. Can apply to the local tree? **PASS** — table and probe path present;
-   applies cleanly.
+**Step 8.2 — Trigger**
+Record: Press the ProArt key. Common for owners of that model; **not** a
+race. Physical access only.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: **Hardware quirk/workaround** (DMI match for firmware that does
-not describe the DMIC). Closely analogous to device-ID additions.
+**Step 8.3 — Failure mode**
+Record: **Dead key + `pr_info`**. No oops, hang, corruption, or UAF.
+**Severity: LOW** as a crash class; **real functional hardware miss**
+for that laptop.
 
-**Step 9.4: MAKE YOUR DECISION**
-This tree already has `acp6x_probe()`’s DMI fallback and a large
-`yc_acp_quirk_table`. Adding `LENOVO`/`83UU` is the standard, low-risk
-way to make the internal microphone work on the Lenovo V15 G6 ARP. It
-should be backported to this 6.18.y tree.
+**Step 8.4 — Ratio**
+Record: **Benefit: moderate for those users** (key becomes bindable;
+only kernel path that can do it). **Risk: very low** (1 line, static
+table). **Ratio: favorable**, same as device-ID / keymap rows stable
+already takes.
 
-------------------------------------------------
-What the commit solves
-The laptop’s ACPI does not advertise DMIC (`AcpDmicConnected` / `_WOV`).
-Probe then depends on DMI, finds no match, returns `-ENODEV`, and users
-get no capture device. One quirk row binds `acp_yc_mach` and registers
-the existing ACP6x DMIC PCM.
+---
 
-Why it meets stable rules
-It is a 7-line, obviously correct DMI quirk on a driver that already
-exists in 6.18.y, tested on the hardware, with no API or behavioral
-change except for that SKU.
+## Phase 9: Synthesis
 
-Risk vs benefit
-Benefit is a working microphone on this model; risk is confined to
-`LENOVO`+`83UU`. That is the usual stable trade-off for ID/quirk
-patches.
+**For backporting**
+- One-line keymap row; reviewed by pdx86 maintainer and ASUS-WMI
+  reviewer; v1 applied unchanged
+- Real user-visible miss: unknown WMI code, key does nothing; WMI-only
+  on this model
+- Same shape as device IDs / input quirks / historical `asus-nb-wmi`
+  keymap additions (`33e21e56243eb` MyASUS, `e521dc1687834` display
+  toggle, `f56e676a7f1ca` Armoury `KEY_PROG3`)
+- `Documentation/process/stable-kernel-rules.rst`: hardware quirk / “oh,
+  that’s not good”, and device-ID-class table additions
+- No new API (`KEY_PROG3` already in uapi); no series dependency
+- Surrounding driver/keymap exist in this tree; patch applies cleanly
 
-Concerns
-None that block backport: no missing prerequisites, no apply conflicts,
-no series dependency. Severity is “device missing,” not a panic, which
-is still accepted for quirks.
+**Against**
+- Not a crash, security hole, deadlock, or data corruption
+- Enablement for one model, not a regression
+- Ilpo took it via for-next, not as an urgent regression
+- hid-asus uses `KEY_PROG1` for HID 0x8b ProArt Creator Hub (userspace
+  binding may differ across models; reviewers accepted `KEY_PROG3`)
 
-Verification:
-- [Phase 1] Subject/tags: ASoC amd yc DMI quirk; SOB Daniel Ortiz + Mark
-  Brown; Link msgid 20260920011920.2482786-1; no Fixes/Reported-
-  by/Cc:stable
-- [Phase 1] Body: ACPI miss → DMI → -ENODEV; arecord/PipeWire
-  verification quoted
-- [Phase 2] `git show`: +7 lines in `yc_acp_quirk_table` only
-  (`LENOVO`/`83UU` → `&acp6x_card`)
-- [Phase 2] Read `acp6x_probe()` at 807–865: ACPI then
-  `dmi_first_match`; NULL card → `-ENODEV`
-- [Phase 3] `git describe HEAD` / Makefile: **6.18.57**
-- [Phase 3] `git blame`: 83UU row is this commit; neighbors 83Q3 from
-  `b9a8ea185f3f8` (v6.14-rc1)
-- [Phase 3] File added `fa991481b8b22` (v5.16-rc3); DMI fallback
-  `e521f087780d07`; `_WOV` goto `984795e76def5c` (v6.13-rc3)
-- [Phase 3] `git grep 83UU` on parent: absent; on HEAD: only this entry
-- [Phase 3] Author log on `sound/soc/amd/`: only this commit
-- [Phase 4] `b4 dig -c d395e1b62d96`: lore msgid match; `-a` v1 only;
-  `-w` AMD ACP + ASoC maintainers
-- [Phase 4] Openwall 2026/09/20/35: original patch; 2026/09/21/1579:
-  Mark Brown applied to for-7.3
-- [Phase 4] lore.kernel.org WebFetch 403; stable search: no relevant
-  hits
-- [Phase 5] `git grep acp_yc_mach`: defined in acp6x-mach.c; registered
-  in pci-acp6x.c:238
-- [Phase 5] Kconfig `SND_SOC_AMD_YC_MACH` depends on `SND_SOC_AMD_ACP6x
-  && ACPI`
-- [Phase 6] Probe/DMI table present in this tree; insertion context 83Q3
-  → ANV15-41 matches parent
-- [Phase 8] Failure: no capture device on 83UU; not a crash
-- UNVERIFIED: exact number of affected users; full lore.kernel.org HTML
+**Unresolved**
+- Lore HTML 403; mbox contents were used instead
+- Cannot prove no other ASUS SKU uses WMI 0x8b for something else (long-
+  standing hole makes that unlikely)
+- No stable@ thread
+
+**Stable rules checklist**
+1. Obviously correct and tested? **PASS** — one table row; maintainer
+   review; author on PX13
+2. Real bug that affects users? **PASS** — dedicated key dead without
+   the mapping
+3. Important (crash/security/corruption/deadlock)? **PASS as hardware
+   quirk / device-ID-class**, not as a panic
+4. Small and contained? **PASS** — +1 line, one file
+5. No new features/APIs? **PASS** — existing `KEY_PROG3`; no new
+   syscall/sysfs
+6. Can apply to this tree? **PASS** — keymap context matches; no extra
+   commits needed
+
+**Exception:** hardware keymap / input quirk table entry (device-ID
+analogue).
+
+This tree is **7.3-rc4**, which already contains the row via v7.3-rc1.
+That does not change technical merit: the driver is here, the change is
+a one-line hardware table fix, and it is the kind of addition stable
+accepts. It is not a new driver, not an API, and not a refactor.
+
+### What it solves for stable users
+ProArt PX13 owners on a stable kernel with `asus-nb-wmi` get a working,
+bindable ProArt key instead of a dmesg-only unknown code. Risk is a
+single unused WMI code gaining `KEY_PROG3` globally in this driver.
+
+### Verification
+- **[Phase 1]** Parsed commit `6303451189a6d`; tags as above; no
+  Fixes/stable/syzbot
+- **[Phase 2]** `git show`: +1 line in `asus_nb_wmi_keymap[]`
+- **[Phase 3]** blame 0x8A/0x8C = 2012; `git merge-base --is-ancestor
+  6303451189a6d HEAD` = yes; `git describe --contains` =
+  `v7.3-rc1~63^2~75`; not in v7.2
+- **[Phase 3]** `git log --oneline --author='Nizar Al-Kabbani' --
+  drivers/platform/x86/` = this commit only
+- **[Phase 4]** `b4 dig -c/-a/-w/-m`: v1, lore msgid above, recipients
+  listed, mbox has Denis Rb and Ilpo apply mail
+- **[Phase 4]** WebFetch lore = 403; stable search = no thread for this
+  patch
+- **[Phase 5]** keymap used in `asus_nb_wmi_driver`; report path
+  `asus_wmi_notify` @ `asus-wmi.c:4692`; unknown log @ 4694
+- **[Phase 5]** hid-asus `case 0x8b` → `KEY_PROG1` (Amit Chaudhari,
+  `831f70a5b93bd`)
+- **[Phase 6]** `git describe HEAD` = v7.3-rc4-27-gf0100363d8c37; line
+  635 already has the mapping; v7.2 file has 0x8A then 0x8C, no 0x8B
+- **[Phase 7]** `CONFIG_ASUS_NB_WMI` in `drivers/platform/x86/Kconfig`
+- **[Phase 8]** Failure = unknown key log + no evdev; severity LOW as
+  crash, real as hardware enablement
+- **UNVERIFIED:** whether any other ASUS model emits WMI 0x8b; lore HTML
   (403)
+
+The change meets stable rules as a small, reviewed hardware
+keymap/quirk, not as a crash fix.
 
 **YES**
 
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/platform/x86/asus-nb-wmi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 507c07efc069b..209ac43f9e31e 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -374,6 +374,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "83Q3"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83UU"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
+diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
+index 8dad7bdb8f612..a840d16e063e0 100644
+--- a/drivers/platform/x86/asus-nb-wmi.c
++++ b/drivers/platform/x86/asus-nb-wmi.c
+@@ -622,6 +622,7 @@ static const struct key_entry asus_nb_wmi_keymap[] = {
+ 	{ KE_KEY, 0x86, { KEY_PROG1 } }, /* MyASUS Key */
+ 	{ KE_KEY, 0x88, { KEY_RFKILL  } }, /* Radio Toggle Key */
+ 	{ KE_KEY, 0x8A, { KEY_PROG1 } }, /* Color enhancement mode */
++	{ KE_KEY, 0x8B, { KEY_PROG3 } }, /* ProArt key (PX13/HN7306) */
+ 	{ KE_KEY, 0x8C, { KEY_SWITCHVIDEOMODE } }, /* SDSP DVI only */
+ 	{ KE_KEY, 0x8D, { KEY_SWITCHVIDEOMODE } }, /* SDSP LCD + DVI */
+ 	{ KE_KEY, 0x8E, { KEY_SWITCHVIDEOMODE } }, /* SDSP CRT + DVI */
 -- 
 2.53.0
 
