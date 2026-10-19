@@ -1,68 +1,36 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mta1.migadu.com (out-138.mta1.migadu.com [95.215.58.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1CA4A3D55
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:27:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D053EDAB8
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792402072; cv=none; b=enwWUw3CRPAFVmaGKPChVbst+lMRAsvsbNXJf2WUM1+d2LPJhEJ9oFT33UQnISFzpnmfxtoLSVqhLM802gRRLoULDMSk9htvz5Eav/m6nkA9fxPTKvLHOkxCljfMs+XmnYQNGN8Ia8/P3R/5CRBUQETv8yOBJXJbkBU1Fm7wKnU=
+	t=1792402072; cv=none; b=Ykcbi37szulj2/u0c3TtyhCBXVyv2d7M6aZDEO1e3v7asRc+apDoIw7p6KFEyMp6u5zo2shVozzMjozkyQxxZHeJzxD1pk0CTk9KQGvq5gRw+zPzIsExH1F2QAtm/hkfLVQ2urPdl1IDmg0efHVPdEaZGqepRDEhnUO6MPNtYeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792402072; c=relaxed/simple;
-	bh=luibakbmz1LG8fvOlXXumwXQ0o1zXo+G2jWoH1UwJqU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KFIc4BC4izWSDDrcW8eKEvT7wIPD5UIvSXVHAx99WE4PeWtSM4oJnwMBw6lYgAakBwyfe1SOAtUUe0sSsrYQK87Pahr77Dk4NaphRWnk9O/NKzRFs8aDkqxFtqPQmlKD5/X/NAmhhXgmIEIsLi6bqXO203h9RgkQvjAS+EzFrKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=j1cwu2jr; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	bh=f/nDQXbrNnEKOQiHibkqMq1fQgW6Pkq07/eBQN8jDkk=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=G7i9j4E98bASrxB6ewvaWZyxNE6IjNTnSAZnzicmLGkQ0PwrUPGnJcl/e5IzRgo8bYNcd27agxvtW8QXn8ZBl9EhcdgXn4XjYBxKvUujjCJY2dQTr+t4T2BmYrE4Y415+0IZVcTmo+gYtUURuZI/bCzRLg0K0dwduUDUF6iYWk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=trD2hv1x; arc=none smtp.client-ip=95.215.58.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="j1cwu2jr"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1d484b4a9so25347645e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:27:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792402069; x=1793006869; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vxfJ3O0iUQzgj7wjnC72GNZjbJ8Awx2pxmwrd9Dvb1I=;
-        b=j1cwu2jr+Rzaaas8BvooMezrxIws9tE52OUAKn79wxcrAR8XV/qOhMylgwejI9oibs
-         3c12oA1rA4GhbhNE4L7xMC6vfZOUOArZDWldig4Lpb+v/2BkgCQARe8zv3GVRyiOIExY
-         Uno2qAs/yzfuB/Sdw67E9YlvXJ8j+mFD1DBv8QQ8XKGFhe7MqkMh6iWwN2KqaaDY8Np0
-         q078/NqQKKXZr1OGLEqThehphibX1jkzjiZncLi//z/EXxkb3d/+4peGwTco02nIq4Di
-         0aSzfZhlw5JSzDTb9dTniLCQYk3iWM/AebhxlxBYvAtHGkifroQGhIqt3YaKRTtHMoiJ
-         P6cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792402069; x=1793006869;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vxfJ3O0iUQzgj7wjnC72GNZjbJ8Awx2pxmwrd9Dvb1I=;
-        b=rFMBHh2obHvoOQcchY1GH6J/2QuRxZQh9IzFgGMRmM9DAPvfM+FVhYTPCSJWcJpUYp
-         zEouagi5xUTEeYcJJAUNWMIUgEhl7btSivRma3k1076vPYZqpLHHr0NtjGDhFROxdU/u
-         Uv3AQejFWFa/NKus+24OSyyb8SZN30i3fQ3oXeT+vvOm70GliJmyBnF14cUstJ0bFJFf
-         Gz39XdHIwbj9BJXM5Labc483MTr8EKOk4xN/hL1LvfSAGNPkiIDG0YMf+KpnSyZau5Pk
-         kyktqt/N3F0KWwpWehPzQx6n8xfKQCk97aknxcHBgqVUxPOwCWLAjHqzDLHnX7d0T4ss
-         X8Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBxYxsglJOxCPFRbDP4yX+gaFcWiXR3O3kiScLBrelJnUT7Ehh+ookkKWGWWvHU7QGET35s4A876ulbpY0Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMZchTH1AvijJAiOI6z5twaLmMDyDaatQTMdIubxDRigJ52fbh
-	Ha/8zUOHT173ijkBmlHH74LY8VEMFnmCl9dKj4clr8IV3JggFf7yn+uvNrkteU+rH48=
-X-Gm-Gg: AYBFou0xAgCnhNUcmWWKD7qulCNRecXdIIRpgOnR/WfqeqtmbxzzdWRWCUrlxsrEsXl
-	ArQ8R6p6p1R7hYBsHjsXiIL8p45Fl6g9ppZ/maQfidgaqUJxfyJfjEEVZ4s0gYhxmmL4TFtw/rz
-	ff8F3Ze981vqHfCZS+81x6t8W5slO2iwICu3c3k343twWDovkxZUXluos1eF4V9ggoYt3bZvwMI
-	336N3MeLAfMRdC9IQi1s7vVneyRFPzniUTaSIDuQtbJW3FoOsjE9u5/OjeCghlqvBpu7UYPdOSI
-	6U9/UAIxCeItIBrZyCRQSIsK7V/q9Kf+bYxNMian0EUHEnPwCL/Eg7XMLUUPPNcxD+TLMNND2Bm
-	weCggikVK3R2gWuiJTtpCQ0mKSxDj7M4qTOCOBdK1Kenbikl2UvFJ0y/aPr0aG9srn4xMcqciGb
-	edIQ9nBa+86rqee0K9+23ElWJ05q7nfUJnBdKMiUv4u0UJbOS8I7YZRCBvwLPapdkhq+wJ2Ym+f
-	mc=
-X-Received: by 2002:a05:600c:4455:b0:4a1:e225:b122 with SMTP id 5b1f17b1804b1-4a1e225b8d7mr85661165e9.14.1792402069375;
-        Mon, 19 Oct 2026 02:27:49 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1cca26dc8sm188133145e9.3.2026.10.19.02.27.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 02:27:48 -0700 (PDT)
-Message-ID: <5ce85fe5-f1ab-40ff-af26-7c315a0d47a3@linaro.org>
-Date: Mon, 19 Oct 2026 10:27:47 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="trD2hv1x"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=f/nDQXbrNnEKOQiHibkqMq1fQgW6Pkq07/eBQN8jDkk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792402068; v=1; x=1793006868;
+ b=trD2hv1xOLUH9u2ley3KNwBPvki0+lXRK2uZOwzhrySHYOIo80TIwBWL25iuBpifGQFxzTzt
+ K6F9qTBogtLx8RnV1LJsagsonADk6J8HWX0bez9AhlhoEM7RS236tR2fjMavhgS1yM9Oq1y5XfQ
+ 0CjwHNPszsdMoNjiaSzsKyLw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 09fa13367a78f015;
+	Mon, 19 Oct 2026 09:27:48 +0000
+X-Mizu-Trace-ID: 09fa13367a78f015
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <24699b2b-4637-4872-8706-4f92193fa3ac@linux.dev>
+Date: Mon, 19 Oct 2026 17:27:40 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,80 +38,365 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/25] coresight: perf: Validate context before resuming
- trace
-To: Leo Yan <leo.yan@arm.com>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
- <20260915-arm_cs_support_aux_sample-v1-8-35cf6f297d20@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-8-35cf6f297d20@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
+ cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
+ eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
+ linux-kselftest@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>,
+ ameryhung@gmail.com, alexei.starovoitov@gmail.com
+Subject: Re: [RFC PATCH v10 1/4] blk-iocost: add BPF struct_ops cost model
+ support
+To: Tejun Heo <tj@kernel.org>
+References: <20261003124045.1289305-1-cui.tao@linux.dev>
+ <20261003124045.1289305-2-cui.tao@linux.dev>
+ <d6fb17fccb2338485821141c2ddc3d58@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <d6fb17fccb2338485821141c2ddc3d58@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hello Tejun,
 
+在 2026/10/17 01:49, Tejun Heo 写道:
+> Hello, Tao.
+> 
+> On Sat, 03 Oct 2026 20:40:42 +0800, Tao Cui wrote:
+>> +config BLK_CGROUP_IOCOST_BPF
+>> +	bool "Enable BPF pluggable cost model support for the cost IO controller"
+>> +	depends on BLK_CGROUP_IOCOST && BPF_SYSCALL && BPF_JIT && DEBUG_INFO_BTF
+> 
+> Does this need to be a separate config option? It doesn't add much code.
+> Maybe just enable it when all the dependencies are available?
+> bpf_tcp_ca.o, for example, is built whenever CONFIG_BPF_SYSCALL is set.
+> 
+Agreed, one less option is better. It's now a hidden def_bool with the
+dependency list and no prompt, so it's enabled automatically whenever
+the dependencies are available.
 
-On 15/09/2026 16:48, Leo Yan wrote:
-> An AUX pause ends the current AUX output before trying to begin a new
-> one. That new beginning can fail, leaving the CoreSight path published
-> after the perf handle has become inactive. AUX resume may also overlap
-> a normal stop which clears the per-CPU context.
+>> +	 to.  The struct_ops is attached per device, following the
+>> +	 hid_bpf_ops model.
 > 
-> Pass the per-CPU ETM context to etm_event_resume() and centralize both
-> lifetime checks there. Use perf_get_aux() to confirm that the AUX output
-> handle is active and path to confirm that the context is still live.
-> Resume the source only when both checks succeed.
+> Can you drop the hid_bpf_ops references here, in the comments and in the
+> selftest?
 > 
-> Assisted-by: Codex:gpt-6
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   drivers/hwtracing/coresight/coresight-etm-perf.c | 11 ++++++++---
->   1 file changed, 8 insertions(+), 3 deletions(-)
+Dropped from the Kconfig (which is gone with the hidden option), from
+the file comment and from the selftest.
+
+>> +bool blk_get_queue_rcu(struct request_queue *q)
+>> +{
+>> +	return refcount_inc_not_zero(&q->refs);
+>> +}
 > 
-> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
-> index c7454da5c881c4a8eea5cc77902c9113c297096e..e3c9d3cf84c502f357a430bc3bfa854a776618f1 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm-perf.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
-> @@ -517,11 +517,17 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
->   	goto out;
->   }
->   
-> -static int etm_event_resume(struct coresight_path *path)
-> +static int etm_event_resume(struct etm_ctxt *ctxt)
->   {
-> +	struct perf_output_handle *handle = &ctxt->handle;
->   	struct coresight_device *source;
-> +	struct coresight_path *path;
->   	int ret;
->   
-> +	if (!perf_get_aux(handle))
-> +		return 0;
-> +
-> +	path = etm_event_get_ctxt_path(ctxt);
->   	if (!path)
->   		return 0;
->   
-> @@ -547,8 +553,7 @@ static void etm_event_start(struct perf_event *event, int flags)
->   	u64 hw_id;
->   
->   	if (flags & PERF_EF_RESUME) {
-> -		path = etm_event_get_ctxt_path(ctxt);
-> -		if (etm_event_resume(path) < 0)
-> +		if (etm_event_resume(ctxt) < 0)
->   			goto fail;
->   		return;
->   	}
+> I don't like the name. blk_get_queue() fails on a dying queue like
+> css_tryget_online(), while this only fails once the refcount reaches zero
+> like css_tryget(). Maybe blk_tryget_queue() or blk_queue_tryget()? I'd
+> also put it in a separate patch, but it may not be needed at all, see
+> below.
+> 
+It's gone entirely with the rework below; the map reference covers the
+queue lifetime now, so the naming question resolves itself.
+
+>> +static int bpf_iocost_validate(void *kdata)
+>> +{
+>> +	struct iocost_model_ops *ops = kdata;
+>> +
+>> +	return ops->calc_cost ? 0 : -EINVAL;
+>> +}
+> 
+> read_vtime_per_page and write_vtime_per_page aren't checked. With zero,
+> size_nsec in ioc_rqos_done() is zero for every READ and WRITE, and the
+> whole on-queue time is judged against the latency targets. Maybe reject
+> zero or fall back to the builtin coefficients?
+> 
+You're right. The zero case would silently change the done path. v11
+rejects zero: a model must provide both coefficients explicitly.
+Falling back to the builtin silently seemed worse than failing the
+load.
+
+>> +#include <linux/blk-iocost.h>
+> 
+> The header's name doesn't match its content, which is only the BPF model
+> interface. Only block/blk-iocost.c and block/blk-iocost-bpf.c include it,
+> so it doesn't need to be in include/linux either. Its
+> !CONFIG_BLK_CGROUP_IOCOST_BPF stubs for ioc_bpf_attach() and
+> ioc_bpf_detach() are never used, as their only caller is built under the
+> same option.
+> 
+Agreed on all three counts. blk-iocost.h moved to block/ as a private
+header holding the common definitions, the ops struct lives there now,
+and the unused stubs are gone.
+
+>> +static const struct iocost_model_ops *ioc_model_in_use(struct ioc *ioc)
+> ...
+>> +static const struct iocost_model_ops *ioc_attached_or_null(struct ioc *ioc)
+> ...
+>> +ioc_model_in_use_locked(struct ioc *ioc)
+> 
+> Aren't ioc_attached_or_null() and ioc_model_in_use_locked() misnomers?
+> ioc_model_in_use() returns NULL while the builtin model is in use, and
+> "_or_null" doesn't add anything.
+> 
+You're right, the names described the call sites rather than what the
+functions return. ioc_attached_or_null() is now
+ioc_attached_model_locked() and ioc_model_in_use() is
+ioc_bpf_model_locked(); the hot-path dispatch moved into the
+ioc_model_calc_cost()/ioc_model_size_cost() helpers, which take and
+release rcu_read_lock() themselves.
+
+>> +	rcu_read_lock();
+>> +	model = ioc_model_in_use(iocg->ioc);
+>> +	if (model) {
+>> +		cost = model->calc_cost(bio,
+>> +				is_merge ? IOCOST_COST_F_MERGE : 0);
+> 
+> Can the model cost calculation be wrapped in an inline helper in the
+> header so that it compiles out completely when disabled?
+> 
+Done; it's an inline helper in the private header next to the ops
+struct, and with the BPF support compiled out it degenerates to the
+builtin dispatch and the whole path compiles away.
+
+>> +	if (model && (req_op(rq) == REQ_OP_READ ||
+>> +		      req_op(rq) == REQ_OP_WRITE)) {
+>> +		unsigned int pages =
+>> +			blk_rq_stats_sectors(rq) >> IOC_SECT_TO_PAGE_SHIFT;
+> 
+> The model-specific calculation probably belongs on the BPF model side
+> instead of being open-coded here. Also, ioc_rqos_done(), the only caller,
+> returns early for anything but READ and WRITE, so the op test isn't
+> needed.
+> 
+Moved t
+
+>> +static void ioc_bpf_eject(struct ioc *ioc)
+> 
+> The source file split doesn't make sense as is. ioc_bpf_eject() and
+> ioc_bpf_walk_iocgs() are BPF-only but sit in blk-iocost.c because they
+> need struct ioc and helpers which are private to it. If the BPF parts are
+> to live in a separate file, can a prep patch move the common definitions
+> into a private header so that everything can go where it belongs?
+> 
+Yes, the split grew organically and ended up misplaced. The series now
+starts with a prep patch which moves the enums, struct ioc/ioc_gq and
+the accessors into block/blk-iocost.h, and the whole BPF side lives in
+blk-iocost-bpf.c now: attach, detach, the ejection and the callback
+delivery.
+
+>> +	ops = (struct iocost_model_ops *)rcu_dereference_protected(
+>> +			ioc->attached, lockdep_is_held(&ioc->lock));
+> 
+> The const cast is still here.
+> 
+Sorry, missed that one. Gone with the rework; the recorded owner is a
+plain pointer.
+
+>> +	/*
+>> +	 * ioc->attached and ioc->model are left set: the ioc is freed
+>> +	 * right below, so clearing them buys nothing, and any
+>> +	 * ioc_pd_free() which still runs finds the attachment and
+>> +	 * delivers its iocg_free() through the struct_ops image grace
+>> +	 * period instead of silently losing it.
+>> +	 */
+> 
+> blkcg_deactivate_policy() has already freed and cleared the pd of every
+> blkg on q->blkg_list, and nothing keeps the map alive once ops->q is
+> cleared, so there is no such grace period.
+> 
+You're right, and thank you for the correction: that comment was just
+wrong, there is no grace period there. The v11 removal path clears the
+ioc pointers and drops the map reference, and the comment describes
+that.
+
+>> +	smp_store_release(&ops->q, NULL);
+> 
+> What's the smp_store_release() for? More on this below.
+> 
+>> +	rcu_read_lock();
+>> +	model = ioc_attached_or_null(ioc);
+>> +	if (model && model->iocg_init) {
+>> +		model->iocg_init(blkg->blkcg, ioc->rqos.disk->queue);
+>> +		iocg->bpf_iocg_inited = true;
+>> +	}
+>> +	rcu_read_unlock();
+> 
+> ioc_pd_init() isn't a hot path, and both of its callers hold queue_lock,
+> which attach and detach also hold while changing ioc->attached. Can the
+> synchronization be simplified?
+> 
+Simplified as you suggest. The callbacks now read ioc->attached
+directly. ioc_pd_init() runs under queue_lock, the free path under
+blkcg_mutex, and attach/detach update the pointer while holding the
+corresponding lock.
+
+>> +		if (iocg->bpf_iocg_inited) {
+>> +			rcu_read_lock();
+>> +			model = ioc_attached_or_null(ioc);
+> 
+> Ditto. This runs under blkcg_mutex, which attach and detach also hold. Is
+> the lockless dance necessary?
+> 
+> The pairing also has holes. blkg_create() calls pd_init before
+> radix_tree_insert(), and a blkg whose insert fails never reaches
+> q->blkg_list. If model A is detached and model B attached before that blkg
+> is freed, neither walk sees it and ioc_pd_free() delivers B's iocg_free()
+> for a cgroup which only got A's iocg_init(). The attach walk also delivers
+> iocg_init() to blkgs which blkg_destroy() already took offline but which
+> stay on q->blkg_list until blkg_free_workfn().
+> 
+> blkg_create() calls pd_online_fn only after a successful insert and
+> list_add(), blkg_destroy() and blkcg_policy_teardown_pds() call
+> pd_offline_fn, and pd->online tracks the state, all under queue_lock.
+> Would delivering iocg_init() from a new ioc_pd_online() and iocg_free()
+> from ioc_pd_offline(), with the walks skipping blkgs whose pd->online is
+> clear, work? That would pair the callbacks exactly without bpf_iocg_inited
+> or the radix_tree_insert() exception.
+> 
+> The catch is that iocg_free() then runs at blkg destruction, and bios
+> still holding the blkg can be priced afterwards, e.g. the ones
+> throtl_pd_offline() flushes. Moving only iocg_init() to pd_online and
+> keeping the flag for iocg_free() avoids that.
+> 
+You're right about the hole, and v11 follows that approach:
+iocg_init() is delivered from a new ioc_pd_online(), which
+blkg_create() calls only after the successful radix_tree_insert() and
+list_add(), the walks skip blkgs whose pd->online is clear, and
+iocg_free() keeps the delivered flag so it is not delivered while bios
+can still be priced against the blkg.
+
+>> +static void ioc_bpf_walk_iocgs(struct ioc *ioc,
+>> +			       const struct iocost_model_ops *ops, bool init)
+> 
+> The name is a misnomer, this delivers the cgroup callbacks.
+> 
+Renamed to ioc_bpf_deliver_iocg_callbacks().
+
+>> +	 * blkg_create() holds blkcg_mutex across ioc_pd_init() and the
+>> +	 * list_add(), and blkg_free_workfn() holds blkcg_mutex across
+> 
+> On the bio path, blkg_create() runs from blkg_tryget_closest() under
+> queue_lock only. The walk is correct because it also holds queue_lock, but
+> this comment, the description and the cover letter still give the v8
+> reasoning.
+> 
+Updated; the comment and the description now say the walk is correct
+because it holds queue_lock, which is what the bio path uses.
+
+>> +	 * the freeze is taken before rq_qos_mutex; taking the mutex
+>> +	 * around the freeze instead cycles against the io.cost.qos
+>> +	 * write path, which freezes with the mutex held.  Holding
+> 
+> ioc_qos_write() drops rq_qos_mutex before freezing. It's io.cost.model
+> writes which freeze with the mutex held, so the cover letter's "under the
+> same freeze and quiesce those writes go through" doesn't hold for the
+> order either.
+> 
+That's right, the comment was wrong. It now says the attach and detach
+order matches ioc_qos_write()'s, which is what the code does, and the
+cover letter no longer claims the io.cost.model write ordering.
+
+>> +	if (smp_load_acquire(&ops->q)) {
+>> +		mutex_unlock(&q->rq_qos_mutex);
+>> +		blk_mq_unfreeze_queue(q, memflags);
+>> +		ret = -EBUSY;
+>> +		goto put;
+>> +	}
+> 
+> What's going on with the smp_load_acquire() here and the
+> smp_store_release() above? The comment doesn't make clear what they're
+> ordering against. Is this necessary?
+> 
+> They order the ops->link updates across different devices, which share no
+> lock. However, ops->dev is set by init_member() while the map is still
+> being initialized, so it can't change once .reg runs, and every attach of
+> a map resolves the same dev_t. That should allow dropping bdev, q and link
+> from the ops:
+> 
+> 1. Attach looks up ops->dev and checks disk_live() under rq_qos_mutex as
+>    now, records the owning link in the ioc next to ioc->attached, takes a
+>    map reference with bpf_struct_ops_get(), and puts the bdev before
+>    returning.
+> 
+> 2. .unreg looks up ops->dev the same way and detaches only if
+>    ioc->attached and the recorded link match. If the lookup fails, there
+>    is nothing to do, as removal ejects the model on its own.
+> 
+> 3. Removal clears the ioc pointers and puts the map reference without
+>    touching the ops.
+> 
+> The map reference keeps ioc->attached valid when .unreg can't find a
+> device which del_gendisk() has unhashed but not yet torn down. This would
+> remove blk_get_queue_rcu(), the const cast and the acquire/release
+> pairing.
+> 
+Thank you for spelling this out; it's a much cleaner shape. Reworked
+accordingly: attach looks up ops->dev and checks disk_live() under
+rq_qos_mutex, records the owning link next to ioc->attached and takes
+a reference on the map with bpf_struct_ops_get(), putting the bdev
+before returning; .unreg looks the device up the same way and
+detaches only when ioc->attached and the recorded link both match,
+treating a failed lookup as nothing to do; the removal path clears
+the ioc pointers and drops the map reference without touching the
+ops. bdev, q and link are gone from the ops along with the
+acquire/release pairing.
+
+> Also, the error paths repeat the unlock sequences. Can this use guard()?
+> 
+Switched to guard() for the mutex.
+
+>> +void ioc_bpf_detach(struct iocost_model_ops *ops, struct bpf_link *link,
+>> +		   struct request_queue *q)
+> ...
+>> +	memflags = blk_mq_freeze_queue(q);
+>> +	blk_mq_quiesce_queue(q);
+>> +
+>> +	mutex_lock(&q->rq_qos_mutex);
+>> +
+>> +	ioc = q_to_ioc(q);
+> 
+> .unreg holds only a queue reference here, which doesn't keep the tag set
+> around. If the device is removed after blk_get_queue_rcu(), e.g.
+> virtblk_remove() running del_gendisk() and blk_mq_free_tag_set() and then
+> freeing vblk, blk_mq_quiesce_queue() reads the freed q->tag_set in
+> blk_mq_wait_quiesce_done(). This hasn't been reproduced.
+> 
+> Can the ioc and the owning link be checked under rq_qos_mutex before
+> quiescing? Removal ejects the model under rq_qos_mutex before the driver
+> frees the tag set, so a matching attachment under the mutex means the tag
+> set is still there.
+> 
+Good catch. v11 now performs an initial check under
+rq_qos_mutex before freezing, then re-checks after freezing before
+quiescing, so a successful second check guarantees that the tag set
+is still alive.
+
+>> +				/* staged and committed below, so a parse
+>> +				 * error later in the same write leaves
+>> +				 * the model selection untouched
+>> +				 */
+> 
+> This and the comment in bpf_iocost_unreg() put text on the /* or */ line.
+> Also, let's not use double spaces after periods. I know there are some in
+> these files already, but let's not spread them further. Lines are also
+> broken prematurely in many places, e.g. the calc_cost() call above fits in
+> 79 columns and the ioc_cost_model_prfill() hunk rewraps existing lines
+> which fit, although I'm not sure what the block tree's policy is here.
+> 
+The two comment openings are fixed in v11 already; the double spaces
+and the premature line breaks are cleaned up throughout, and the
+ioc_cost_model_prfill() hunk no longer rewraps lines that fit.
+
+> Overall, this still looks sloppy. Can you go through the code and make
+> sure that each part is necessary and sits in the right place?
+> 
+Fair. I went through the whole series again rather than just fixing
+the individual comments. A number of comments and helpers had drifted
+during the v8-v10 rework, so I cleaned those up as well. Hopefully
+v11 is a better reflection of the code now.
+
+Thanks again for the review.
+
+Tao
+
+> Thanks.
 > 
 
-Reviewed-by: James Clark <james.clark@linaro.org>
