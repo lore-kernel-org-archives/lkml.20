@@ -1,102 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424539;
-	b=scGveMHGYY4Tw+gv9eW5gcRDW/B8DITVlQGl2HATBAnwjxkTj9MesW+z7RWhKWXMCj+Y
-	 Yl/1oWCBysbrvu+o9TQIv/vYuya5iYqE8tUJTbITBcA6EFa5Q8cqmN+iZzhkHw2MdPDI9
-	 99OJa/RfNsEKdI6WBh6SFkqMdiGl5k8t1Wa+fFAuVduTWeNhQPWHnpjJZ7gUxauGY3QNd
-	 H+ywOm4vJFg+u0QGduR6h2kDmMFHaxAnizxNAUrPNr41N4UxVxBxWJyY9cmy9mBCRuX6l
-	 8Evk0omP0nzI8assh0ZnWoogsJPEf6HW9PPolEIcRbxSs3tET8KwCE+7Emryu12rK0g==
+	t=1792424618;
+	b=X3+7PXw6qky75RH175WGVIRDXrvrR37gSb0WsRV9dSAr1w2rIuGBTAhXko+zNeTwWmOz
+	 Kq0RI5v7jzFCW07ZYYnbHLGzbSgtqSB3Yts277tnHS5yTQ6XpduCOlnAb8TkApYyL/bvw
+	 KaHBRzhtyPQQzBOMZm5J9TuP7ADlWySi0Lj/Te01UOfHXP++nxsM8A8t1zLR3fvJkWNjv
+	 P+gm5TSM43UUAbfznOywLY+5ajHYgDLwkUoEslJMcYJ1d3uBwJDFw0XjA44seFPvYxwF+
+	 SAfy+nZBaobpbiYRZPHSTX8Unt5MF1DxlEL2Idl/AUDNLhePt9lJdwvheAfUlIVklvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424539;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iMgrhjGDM6hEQh8Aw9yzZbHzALMwxiGfaVEBL4NiDa0=;
-	b=DKGUBdeVoMWoUyMmNy7w2UAKBP2KMDba875A6jh5mSbBrgsRW+jr4vMwiO0DdaIHpQ7A
-	 hlUSlBC3Edt+lhmCBu/wx7/BN60Ndg3b+Hll7KSdGGhiyM2rVcQSIQHCM8GfYB4jhGI+R
-	 Eio2y2eHN0EcjGZUib7HvaNVkhB302NZaHDIXKNu9K3RlFs/cWgFtw2TwXKirIowdCejY
-	 9/Y4XGBuFjYDu7Y4DdmaRHQP1FLP1s7iA4z2h2Iaw+ehHohmHA0abdAwuTew6MSVIYa6p
-	 9u8ZptG53dOGQv0QO2aTQjqFGETwWu+U+NxlAB3qi2we1gny+9KRoSU/vN+LbIJ9P8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424618;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Organization:From:In-Reply-To:
+	 References:To:Cc:Subject:MIME-Version:Content-Type:Content-ID:Date:
+	 Message-ID:X-Scanned-By;
+	bh=aWENVPvxx0/Tm7EYgjz9wevRNyQ6ebrJIgBkAgK1W1s=;
+	b=Z7R+CeftVSyoRsuwd/wrKh94Heq2u9nLolqFYZa1RiwEn8YA8GPq71P4ax/IsXJetvVV
+	 ziQhFAjnPuhOhsPxuUmMyKYJz+4LcF/PJZFVuK3OXmXU2puZ0Lq0oQKa1p/MIzbHbSKaK
+	 hGCLf+K4uW0qA0gGX+cr+bhWp2JBddI3epqHQmwlCiSvb2v3ai1t00mOovti7lOnjnY6e
+	 /LlusYFwr3YQqyHY8Ip2w5bh1HUxON2p9acvPHyFQwAXBsaArzAMU1bTlm2+Wc91z8qQt
+	 /6HAMrfW1WdW5JKy7osnt9a5k2c9hY8o235w5IDBLdhDxHg96zmCJvPYPRmurmUz9pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mtrAjbZ7;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LLigXAmQ;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564B7607408E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:42:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 564B7607408E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF59606AAD8
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:43:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DF59606AAD8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mtrAjbZ7
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso1517827a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:42:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792424539; x=1793029339; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iMgrhjGDM6hEQh8Aw9yzZbHzALMwxiGfaVEBL4NiDa0=;
-        b=mtrAjbZ7SAOmcOlZpgZxkhF3asxHxfJiQO3A09sNBNjc7sZcnqZ8/tI8OPhNsV76aL
-         icwHtvXRU8zBKnGPZBb8g8/atROCdBAspRO3AOnTaGDloW5UL1AOKpaCJgfFA0w61vUt
-         Wb6OWovFSxtr/1+hN3+q3+/ImDqABvueQrSaunej4SdbfvoDodpzUp3Osj1Qw9PdvBY3
-         Fd1GKV2p+YYThzzjPGaZ+cjSiaCCN9iUM+Yz95vkA71FreJNIZ1JM+VsZ1kT44ehlZy2
-         hgfjd37pjAxY6+EaGK0TzqFpaiZIvSdFGjXfbDIrCMGIkDkngyQji0Dmd7OkpBImGojh
-         pUwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792424539; x=1793029339;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iMgrhjGDM6hEQh8Aw9yzZbHzALMwxiGfaVEBL4NiDa0=;
-        b=gOlCT/qpZeHoDGBNqkICZrTBFxYwjVdyfnhorUBlZgPjRApZ2s549e1hfTVJlbBmry
-         BfuSKSvt1NtL8gido0GSU9Obcfc7+HB6tr/O+mWJSFcRpI7hhNqY3GZef4+lTjF1GYjS
-         dm76g0WQD5AoOyANGG3q3MdKz+SefHNlYzlRJ+libtEULHTqryEd+M8KIgeZ+9aURSFr
-         RZAQJ7fLwU7KA6bv2FgGvMl9/6MetprlU4Xsw8W+bSW1K6TiSbk1Vhfmgsa/8ZIvoX1U
-         sn4CabUB8OGb0sQ4ga25JFFWe9XQhqCalZ9wm9vvuRbkJqtkAmpP6XbUuj+he9YABpw0
-         bbtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwtBLvxTqZAGO3RCLBlCp54plzp0pdYV5SczgUiRIMLNtVC3aVI/SFeAUtkvkksJ+V1DCP+BN9xQbO8v84=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJnsFh1aBRhwXlrglSjl0vJyNDQewjgsVbPgoY8vKpPYIR8ZraZ
-	o6PZSzWeny51glK/sVNurYP5dJ/yGrvf3VqWdDMb9SqG8YtTZGTHSAQV
-X-Gm-Gg: AYBFou0KhrgeaHcUAmhZ+vDzl4lFbYKiIYfGyFu/as4vHm6v98lMlSAAXDvVh0xLclZ
-	h1DUiYp78Q1PPoBIsm00Y3IiQrLpZI6UPtg3MT8gi51xOVsaztcUI062cwA1pwL+C3EapMBYYa/
-	2PbR26ym3oHvTtuvsoZT6Hu5/5Ah/Zz7u3IKftAxqE/MhzEw437/Z0Q9s/1ykMts8tUATZMtN+Z
-	9p/6+sawsXnCSTrH2baT4QQJx6/a060HbKt12NP0eH33xnQ5XazsaesWcDdJOXRu6zMRxa7YppM
-	69SQxRLlItMWS1RSgzcnA7WqF5nQe1TF0+5M7BCCwA9DwOqnSRVg609sH316AwU/XP/TFBIlqpk
-	fGAMvYfMv3TRMkFR6JhHzIsjaCjZ9kpyH/jomvuJa6JzG2As9OqRereWQYQv2qjNxaP2xPy0tC2
-	HECEXHbkPl3udPVx0pZ2HpLRYYQ1LAQYd8cCan8pco46aNmVjGjcSd/tDlJp6ddU/V8d12
-X-Received: by 2002:a17:90b:3d4e:b0:3ab:2c2b:1026 with SMTP id 98e67ed59e1d1-3acef0c8911mr6398917a91.34.1792424538542;
-        Mon, 19 Oct 2026 08:42:18 -0700 (PDT)
-Received: from hachimi ([101.5.170.156])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549ee946sm3926364a12.20.2026.10.19.08.42.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 08:42:18 -0700 (PDT)
-From: Lanfeng Wei <xlfylawarthur@gmail.com>
-To: tzimmermann@suse.de
-Cc: airlied@gmail.com,
-	decui@microsoft.com,
-	dri-devel@lists.freedesktop.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	longli@microsoft.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	regressions@lists.linux.dev,
-	simona@ffwll.ch,
-	ssengar@linux.microsoft.com,
-	stable@vger.kernel.org,
-	xlfylawarthur@gmail.com
-Subject: Re: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
-Date: Mon, 19 Oct 2026 23:40:43 +0800
-Message-ID: <20261019154121.6257-1-xlfylawarthur@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
-References: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LLigXAmQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792424617;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aWENVPvxx0/Tm7EYgjz9wevRNyQ6ebrJIgBkAgK1W1s=;
+	b=LLigXAmQ/bK7mF9no+IesegCAiHhdvrB8O/vi4hrwpQTI3rwSvzBznGmhxNm2dHCmv3t/w
+	djAA9LXd20CeE8pWU20y0apYZk8OF3+2fwsijYmq8TtqNetOpemVcu9g4UMIBB+nsOsYEZ
+	n44Ulu+cpSpIQLOGmIjBdxI8FcfuJtg=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-357-ASZMWjEQPqmWTLXlVQ0IaQ-1; Mon,
+ 19 Oct 2026 15:43:33 +0000
+X-MC-Unique: ASZMWjEQPqmWTLXlVQ0IaQ-1
+X-Mimecast-MFC-AGG-ID: ASZMWjEQPqmWTLXlVQ0IaQ_1792424611
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 980321800671;
+	Mon, 19 Oct 2026 15:43:31 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.48.11])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 004B91956095;
+	Mon, 19 Oct 2026 15:43:28 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <20261019142516.300040-8-jarkko@kernel.org>
+References: <20261019142516.300040-8-jarkko@kernel.org> <20261019142516.300040-1-jarkko@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com, keyrings@vger.kernel.org,
+    Eric Biggers <ebiggers@kernel.org>, stable@vger.kernel.org,
+    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+    "Serge E. Hallyn" <serge@hallyn.com>,
+    linux-security-module@vger.kernel.org (open
+                         list:SECURITY
+ SUBSYSTEM),
+    linux-kernel@vger.kernel.org (open list)
+Subject: Re: [RFC PATCH 7/8] KEYS: Reject @datalen values over INT_MAX
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,55 +85,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <2610185.1792424607.1@warthog.procyon.org.uk>
+Date: Mon, 19 Oct 2026 16:43:27 +0100
+Message-ID: <2610186.1792424607@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Hi Thomas, 
+Jarkko Sakkinen <jarkko@kernel.org> wrote:
 
-> Yeah, what's the cause of it? Switching off features does not fix any
-> bugs or improve the status quo.
+> -	int delta = (int)datalen - key->datalen;
+> +	int delta;
+>  	int ret = 0;
+>  
+>  	key_check(key);
+>  
+> +	if (datalen > INT_MAX)
+> +		return -EINVAL;
+> +
+> +	delta = (int)datalen - key->datalen;
+> +
 
-You are right that the module parameter is only a workaround for users
-affected; it does not fix the underlying scheduling problem.
+You don't actually need to move the subtraction.
 
-The cause is that the synthetic vblank timer is used to pace completion
-of atomic updates triggered by dirtyfb, in addition to providing
-synthetic vblank events. In Xorg's software-cursor path, pointer motion
-damages the primary framebuffer and the damage is instantly submitted
-via DRM_IOCTL_MODE_DIRTYFB. The Hyper-V dirtyfb path performs a
-synchronous atomic commit, and with the vblank timer enabled that commit
-can wait for the next simulated vblank. Under continuous pointer motion,
-these commits dominate the update path and delay normal client updates,
-resulting in sever frame-rate drops. 
+But apart from that:
 
-This particular regression results from the combination of the blocking
-dirtyfb path, synthetic vblank pacing, and the absence of a Linux DRM
-cursor plane in Hyper-V. While the Hyper-V video protocol does have a
-hardware-cursor command path, the upstream hyperv_drm driver currently
-exposes only a primary plane. Cursor plane support was deferred during
-the initial upstreaming [1]. Without a cursor plane, Xorg has to fall
-back to software cursor-rendering path and it competes with periodic
-graphical updates on the primary plane.
+Signed-off-by: David Howells <dhowells@redhat.com>
 
-So the proper long-term fix could be adding cursor plane support in the
-Hyper-V DRM driver, which may take some time. Providing that the stated
-purpose of the offending commit is to rate-limit display updates, while
-its current implementation regresses the existing software-cursor path,
-I think adding a switch or reverting the commit until the requested
-features in the driver is ready, is a reasonable short-term fix. 
-
-> We had another fix for a problem with vblank timers:
->
-> https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
->
-> Did you validate that this fix is unrelated?
-
-Yes I tested that fix and confirmed that it is irrelevant. It solves
-issues with excessively long frame durations, however this problem is
-found in normal frame updates (in my case 60Hz / 16.7 ms per frame, way
-below INT_MAX).
-
-Best regards,
-
-Lanfeng Wei
-
-[1] https://lore.kernel.org/dri-devel/20200622110623.113546-1-drawat.floss@gmail.com/ 
