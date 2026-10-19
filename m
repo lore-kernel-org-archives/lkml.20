@@ -1,45 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B2F596E98;
-	Mon, 19 Oct 2026 13:59:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B779F4FDA60;
+	Mon, 19 Oct 2026 13:59:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418354; cv=none; b=Lnc0eBEIJgYQnNpcr5vovPOe1Qwy39lBEKcevmPqng2flxqjmqNCg533BDNIuHHgyoYkKc/F1HEFwf1ob2+o5W/fzzOB41tb17RXw6p4BNE6gC1GKvmnBb2z9ljAtDMW01n1DF3CvGKxSWIp4uNC3bHLx2Ga6Qi1IoewhPoOJnQ=
+	t=1792418357; cv=none; b=L1uPRlTrbbSQIxwAmFNcd5JgKDvggj4ETh+PiHWgNTfBewCIx40VIf/KhcvM4B8gzh5Ua7aTF6S9EDNcnAIuI++tGkVWLiwt4cqyVuBOl2MS/e7FeJagsa86ouO9MLevUXakneKTQ28XKjINYTfEWAlUj1hDuGNzU6Wc2qlZfGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418354; c=relaxed/simple;
-	bh=o605FMvXndwHEREVMBPg3HwAA0lcourAG5txsOaZZJk=;
+	s=arc-20240116; t=1792418357; c=relaxed/simple;
+	bh=XL+i2kXPboZpyJglz5lKPnUnV1uUdkteTksLLLT07SY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uSdNaDcVadTSPIghQJFQEL0gl+nHIS1XawMzsi+zUHVRP7Lu7XQsKfHhq2OyPBFRACl8dez8Kf0NVoeAkhiYXz9MAHfOmrEHhEhbEj3BL/CPAPfVtfIOvxvKdYbLoZfJSoBU0+5nNWbwLcp24OiBdefhf6BndUZdOwzWUbRD8h0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eCRsKisO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qfrZsbwOK77cNpIXpUVxvrWG2Q1WlEQXDl+7XfVVRBF9G0vsO823m4Mi62wFYsjBkFdqpnQDQL1873ofTgX8gaN2eN6YAvybnNebZfoG5pk7+qbGJJr3+wdRORb2gulAm1lv+IWkiqBM05S+mW2Qxh7CAkljDYipv8WqfAyoX+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/Vjolir; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eCRsKisO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C922E1F000C7;
-	Mon, 19 Oct 2026 13:59:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/Vjolir"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562321F000CA;
+	Mon, 19 Oct 2026 13:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418351;
-	bh=sUW48Z87ALzhTOhiTFMjpUbWtbdV6iudAstjZ6av5P0=;
+	s=k20260515; t=1792418354;
+	bh=i2Q7aAjTJ/e0eAWK93juXRdlPT8LvAMuRr0Mso6+cQ0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eCRsKisOhVYu+D8OyBmJsqGLmuvFjraHn7mUmxpoYgWpQ+z4cLXmJjMMHLZmzghnw
-	 BPeOPuCTLyualK1AZ28zxY+3tad1URzJ4IXOmd+Gfbz7gew3Iu+BndMm1edWDIFeEX
-	 fdgeT0+J06hFHIAPE8mVIAFbDQtktfKUUGXBZQhqAash7Ygyvma93BusImca7FtQGF
-	 yvjiUUZqCG9QJzWnOnuC0/6co3kxpvEcxLBu8LIjMzhPy4AANgSHQf9IZ+uWpC4vqF
-	 EMnFAFl9Lo3B3kLSdhbyTlp0Ar6vKrQeQ3IoQFpsC55Ymq50VFhlILsWuAfCyxQqcG
-	 hatyTEGyjgpGA==
+	b=g/VjolirWdupi0rrC1teXUWGKnr7gs/hhyxbLvNmbCPI9Unw/g/I2qrmmwM94vKE6
+	 TblB6qIcjRYjUgnH+DeI1SJHHJlV3coEMtpghG3qlUaO2DQHG9AXz+ZizQX0/jnKRl
+	 h4TalmmfnfvcyBpWDpWAzJ0tNQGQQIcNc/gI93/ZZn9SZyQzsF6jdTFamUOwhoWL2j
+	 aMpoeB0dXC9wXmF5giLD8PesFbzwqWdPExPZuU6vdvuzkdgTBx5tfSPIlL3Nq95N0v
+	 YOk+YXKIIo/5vyHTDZxVOkJ1krJ/5PDA+cryV123SlRgLxcrUeWQAPEy68XmSymujE
+	 6tLCfpW6gk80g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: David Bauer <mail@david-bauer.net>,
+	Felix Fietkau <nbd@nbd.name>,
 	Sasha Levin <sashal@kernel.org>,
-	basavaraj.natikar@amd.com,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] HID: amd_sfh: Serialize access to the shared emp2 pointer
-Date: Mon, 19 Oct 2026 09:47:57 -0400
-Message-ID: <20261019135441.1420968-186-sashal@kernel.org>
+	lorenzo@kernel.org,
+	ryder.lee@mediatek.com,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH AUTOSEL 6.18-6.1] wifi: mt76: mt7915: configure noise floor reporting on reset
+Date: Mon, 19 Oct 2026 09:47:59 -0400
+Message-ID: <20261019135441.1420968-188-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -55,427 +58,424 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+From: David Bauer <mail@david-bauer.net>
 
-[ Upstream commit c57016bcf6d0b57cda5579e5d6856bd9bbe52a77 ]
+[ Upstream commit a92cd5dd792a63a5d8a72142835382d4edbe9933 ]
 
-The SFH accessors reach the device through a file-global emp2 pointer
-that is published at probe and cleared on remove. amd_get_sfh_info() is
-exported and called from other modules on unrelated threads, so a reader
-can observe a non-NULL emp2 and then race a concurrent unbind that clears
-it and frees the device.
+When performing a full system recovery of the MCU on a dual-phy
+platform, band 0 (usually 2.4GHz) stops reading correct noise floor
+data.
 
-Serialize the emp2 publish/clear and all readers under a mutex, so a
-reader either sees a live device for the whole access or sees NULL.
+This is due to noise floor reporting only being configured correctly
+for the second device PHY.
 
-Signed-off-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Configure the respective registers correctly after restarting the MCU
+firmware to fix reported noise-floor values.
+
+Signed-off-by: David Bauer <mail@david-bauer.net>
+Link: https://patch.msgid.link/20260516144944.2574053-1-mail@david-bauer.net
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **6.12.111**. The buggy global `emp2` pointer and
-exported `amd_get_sfh_info()` are in this checkout; the 6-line mutex fix
-applies here.
+The local tree is **6.6.157** (`pending-6.6`). The buggy dual-PHY
+restart path is present here, and this commit should be backported.
 
 ===============================================================
 PHASE 1: COMMIT MESSAGE FORENSICS
 ===============================================================
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: **[HID: amd_sfh]** **[Serialize]** Serialize access to the
-shared `emp2` pointer used by exported SFH accessors.
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: **[wifi: mt76: mt7915]** **[configure]** configure noise floor
+reporting after MCU reset on dual-PHY platforms. “Configure” here is
+restoring register state that recovery currently skips, not a new
+feature.
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- Signed-off-by: Basavaraj Natikar (author; AMD SFH maintainer)
-- Signed-off-by: Jiri Kosina (HID maintainer; applied the patch)
-- No Fixes, Reported-by, Tested-by, Reviewed-by, Acked-by, Link, or Cc:
-  stable on the committed message (absence of Fixes/Cc:stable is
-  expected for this review)
+- Signed-off-by: David Bauer &lt;mail@david-bauer.net&gt; (author)
+- Link: https://patch.msgid.link/20260516144944.2574053-1-mail@david-
+  bauer.net
+- Signed-off-by: Felix Fietkau &lt;nbd@nbd.name&gt; (mt76 maintainer)
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
+  stable (absence is expected)
+- Ignored: any pipeline “Upstream commit” / Sasha Levin SOB markers
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- **Bug:** File-global `emp2` is published at probe
-  (`sfh_interface_init`) and cleared on remove (`sfh_deinit_emp2`).
-  `amd_get_sfh_info()` is `EXPORT_SYMBOL_GPL` and is called from other
-  modules on other threads.
-- **Symptom/failure mode:** A reader can see a non-NULL `emp2`, then a
-  concurrent unbind NULLs it and frees the device → use-after-free /
-  MMIO against freed `amd_mp2_dev`.
-- **Version info:** None in the message. Introduced with HPD export in
-  v6.8 (`b5b0774d53bb81`). Present in this 6.12 tree.
-- **Root cause (author):** Missing serialization between publish/clear
-  and all readers.
+- **Bug:** After full MCU recovery on a dual-PHY (DBDC) device, band 0
+  (usually 2.4 GHz) stops reporting correct noise floor.
+- **Symptom:** Wrong NF / survey noise on the primary PHY; the second
+  PHY is configured correctly.
+- **Root cause (author):** NF enable is only applied for the second PHY
+  after firmware restart.
+- **Version info:** none in the message. The restart path has been in
+  this tree since before v6.6.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not disguised. It is an explicit race/UAF fix. Cover letter for
-the v3 series also calls patches 1–2 “preparation” for SW_TABLET_MODE,
-but the mutex independently closes an existing unbind-vs-reader UAF. It
-is not a pure refactor with no standalone value.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not disguised cleanup. It is an explicit hardware-init fix. The
+mechanism (clear `MT76_STATE_RUNNING` before `mt7915_run()`) also re-
+runs the primary PHY’s PM/MAC init that the same `if (!running)` guard
+skips, not only NF.
 
 ===============================================================
 PHASE 2: DIFF ANALYSIS - LINE BY LINE
 ===============================================================
 
-Step 2.1: INVENTORY THE CHANGES
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c` (+6 / −0)
-- Functions: file-scope `emp2_lock`; `sfh_deinit_emp2`;
-  `sfh_interface_init`; `amd_get_sfh_info`
-- Scope: single-file surgical fix
+- File: `drivers/net/wireless/mediatek/mt76/mt7915/mac.c` only
+- Scope: ~+6/−2 in `mt7915_mac_restart()` (surgical, single function)
+- Adds `bool run_main, run_ext`
+- Replaces `test_bit(MT76_STATE_RUNNING)` with `test_and_clear_bit`,
+  then uses those saved flags to decide whether to call `mt7915_run()`
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 Record:
-- Before: `emp2 = mp2` / `emp2 = NULL` with no lock.
-  `amd_get_sfh_info()` checks `emp2` then dereferences `emp2->mmio` /
-  `emp2->vsbase` unlocked.
-- After: `DEFINE_MUTEX(emp2_lock)`; `guard(mutex)(&emp2_lock)` around
-  publish, clear, and the whole reader. A reader either keeps a live
-  device for the full access or sees NULL.
-- Paths: probe/init, remove/error-deinit, and the exported reader
-  (normal path from AMD PMF work).
+- **Before:** After firmware reload, `mt7915_run()` is called while both
+  PHYs still have `MT76_STATE_RUNNING`. `mt7915_dev_running()` is
+  therefore true.
+- In this tree, `mt7915_run()` only programs primary-PHY PM/MAC/NF when
+  `!running`:
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record: **Race / UAF (check-then-use on a global device pointer).**
-Writers and the exported reader were unsynchronized. Mutex makes
-publish/clear and MMIO mutually exclusive. Helpers `amd_sfh_hpd_info` /
-`amd_sfh_als_info` stay unlocked internally but are static and only
-called from `amd_get_sfh_info()` while that lock is held.
+```32:58:drivers/net/wireless/mediatek/mt76/mt7915/main.c
+        if (!running) {
+                ret = mt76_connac_mcu_set_pm(&dev->mt76,
+                                             dev->phy.mt76->band_idx,
+0);
+                ...
+                mt7915_mac_enable_nf(dev, dev->phy.mt76->band_idx);
+        }
 
-Step 2.4: ASSESS THE FIX QUALITY
-Record:
-- Obviously correct for this TOCTOU.
-- Minimal; no API or structure change.
-- Regression risk low: mutex is not nested; readers run in PMF delayed
-  work (sleepable); remove already sleeps (`flush_work`). Holding the
-  lock across `readl`/`memcpy_fromio` can delay unbind slightly; that is
-  the intended tradeoff vs UAF.
-- `linux/cleanup.h` + `guard(mutex)` exist in 6.12; `mutex.h` is already
-  pulled in via `amd_sfh_common.h`.
+        if (phy != &dev->phy) {
+                ...
+                mt7915_mac_enable_nf(dev, phy->mt76->band_idx);
+        }
+```
+
+- Primary `mt7915_run()` therefore skips band-0 NF. Ext `mt7915_run()`
+  still hits `phy != &dev->phy` and enables band-1 NF. That matches the
+  commit message.
+- `ieee80211_restart_hw()` after full reset does not repair this:
+  starting the main PHY while the ext PHY still has `MT76_STATE_RUNNING`
+  keeps `running == true`, so band 0 is skipped again; starting the ext
+  PHY then enables only the ext PHY’s NF.
+- **After:** bits are cleared first, so the first `mt7915_run()` sees
+  `running == false` and programs band 0. Saved flags still prevent
+  starting a PHY that was never up.
+
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Record: **Logic / hardware-init.** After MCU reload, IPI/NF registers
+(`mt7915_mac_enable_nf`: `MT_WF_PHY_RXTD12_*` and
+`MT_WF_PHY_RX_CTRL1_IPI_EN`) are not programmed for band 0.
+`mt7915_mac_init_band()` does not enable NF; only `mt7915_run()` does.
+
+**Step 2.4: ASSESS THE FIX QUALITY**
+Record: Obviously correct. Same approach the mt76 maintainer asked for
+on-list. Minimal. Mutex is already held in `mt7915_mac_full_reset()`;
+`MT76_RESET` is already set. Risk is low: if `mt7915_run()` fails, the
+RUNNING bits stay clear, but full reset retries and then calls
+`ieee80211_restart_hw()`, which stop/start and restores them.
 
 ===============================================================
 PHASE 3: GIT HISTORY INVESTIGATION
 ===============================================================
 
-Step 3.1: BLAME THE CHANGED LINES
-Record: `emp2`, `sfh_deinit_emp2`, `amd_get_sfh_info`, and
-`EXPORT_SYMBOL_GPL` come from **b5b0774d53bb81** (“HID: amd_sfh: Add a
-new interface for exporting HPD data”, 2023-12-20). ALS reader added in
-**584f35a3647d42**. Both are in v6.8 and in this tree. The race is old
-relative to 6.12, not new mainline-only code.
+**Step 3.1: BLAME THE CHANGED LINES**
+Record: The `test_bit` + `mt7915_run()` sequence was introduced in
+`8a55712d124fd8` (“wifi: mt76: mt7915: enable full system reset
+support”, Bo Jiao / Ryder Lee, 2022). `git describe --contains` →
+`v6.2-rc1~...`. Present in this 6.6 tree (`git merge-base --is-ancestor
+8a55712d124fd8 HEAD` succeeded).
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No Fixes tag. Buggy pattern is the unlocked global from
-b5b0774d53bb81, which **is** an ancestor of HEAD.
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No Fixes: tag. Not applicable. The introducing commit is in this
+tree.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record: Recent 6.12 history on this file is register-access helpers
-(`7902ec988a9a6`, `6296562f30b1c`), not locking. Origin/master later
-added MT_SRA / tablet-mode around this commit; those features are
-**not** in this tree. No existing emp2 lock here.
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Record: Related reset work already in this tree:
+- `c71d2db21f153` improve hardware restart reliability
+- `1e474cbe5db60` fix omac index assignment after hardware reset
+- `72eabd4c1986b` firmware restart on devices with a second PCIe link
+This patch is standalone; it does not depend on those.
+`test_and_clear_bit(MT76_STATE_RUNNING)` is **not** in this tree (`git
+grep` found no matches).
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Basavaraj Natikar is listed in MAINTAINERS for AMD SENSOR FUSION
-HUB. Same author added the export and later SFH1.1 work. Series v3 was
-applied by Jiri Kosina.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: David Bauer is an OpenWrt/wireless contributor; in this tree he
+already has `b6c39aaa85c4e` (mt7915 MCU re-init). Felix Fietkau (mt76
+maintainer) signed off and designed the committed approach.
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: Committed as **[PATCH v3 2/5]** in “Add SW_TABLET_MODE support”.
-- 1/5 “Track MP2 version explicitly” (`1a73a4e7673f57`) is **not** in
-  HEAD and is **not** required for this mutex (different files/fields).
-- 3–5 add operating-mode accessor, aux device, and a new input driver —
-  features, not needed for this fix.
-- This patch is self-contained. `git apply --check` of c57016bcf6d0b on
-  this tree **succeeds** (hunk 3 offset −35: no
-  `amd_sfh_mode_info`/`MT_SRA` in 6.12).
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: No functional prerequisites. Surrounding `mt7915_init_txpower()`
+signature and `napi_enable` placement differ from later mainline; those
+are context only. The `run_main`/`run_ext` change applies with a small
+context tweak.
 
 ===============================================================
 PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 ===============================================================
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- Lore/msgid: https://patch.msgid.link/20260803175230.3839752-3-
-  Basavaraj.Natikar@amd.com
-- Series: v1 (operating-mode only) → v2 0/5 → **v3 2/5** (applied).
-- Cover letter (v3 0/5): patches 1–2 are preparation; v2 notes from
-  Sashiko review: serialize emp2 so concurrent unbind cannot free the
-  device while a reader dereferences it.
-- Jiri Kosina queued the series in hid.git#for-7.3/amd-sfh. No NAK. No
-  Cc: stable in review.
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+Record: `b4 dig -c` was not usable (commit SHA not in this checkout’s
+master). `b4 mbox` on msgid `20260516144944.2574053-1-mail@david-
+bauer.net` saved a 4-message thread.
+- v1 (16 May 2026): 4-line change in `mt7915_run()`: `if (!running ||
+  (reset && phy == &dev->phy))`
+- Felix (27 May): asked to clear `MT76_STATE_RUNNING` in
+  `mt7915_mac_restart` instead
+- David: explained the per-PHY RUNNING guard (don’t start a PHY that was
+  never up)
+- Felix (1 Jun): proposed exactly the committed `test_and_clear_bit`
+  pattern
+No NAK. No reviewer `Cc: stable`. Committed diff is the maintainer
+rewrite, still linked to the v1 msgid.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record: To/Cc: jikos@kernel.org, bentiss@kernel.org,
-dmitry.torokhov@gmail.com, linux-input@. HID maintainers were on the
-series. Dmitry Acked-by is on 5/5 (input driver), not this patch.
-Applied by Jiri Kosina.
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record: Recipients included Felix Fietkau, Lorenzo Bianconi, Ryder Lee,
+Shayne Chen, Sean Wang, linux-wireless, linux-mediatek. Felix both
+reviewed and applied.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot/bugzilla. Race found in review of the tablet-mode
-series, not a user crash report. The existing PMF caller was already
-racy.
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: No syzbot/bugzilla. Author describes a real dual-PHY MCU
+recovery failure. That is a field observation, not a theoretical report.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: 2/5 is the UAF serialization. 3/5 also adds `sfh_set_emp2()` and
-uses `emp2_lock`; that is extra feature plumbing, not required to lock
-the 6.12 HPD/ALS paths.
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: Single patch, not N/M. v1 vs committed is a maintainer rewrite
+of the same fix, not a multi-patch series.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable search returned HTTP 403. UNVERIFIED
-whether stable@ discussed this. No evidence in the input thread of a
-stable nomination or a rejection.
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: No useful stable-list hit for this subject. No recorded reason
+to keep it out of stable.
 
 ===============================================================
 PHASE 5: CODE SEMANTIC ANALYSIS
 ===============================================================
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `sfh_deinit_emp2`, `sfh_interface_init`, `amd_get_sfh_info`; new
-`emp2_lock`.
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+Record: Modified: `mt7915_mac_restart()`. Behavior depends on
+`mt7915_run()`, `mt7915_dev_running()`, `mt7915_mac_enable_nf()`.
 
-Step 5.2: TRACE CALLERS
+**Step 5.2: TRACE CALLERS**
 Record:
-- `sfh_interface_init`: `amd_sfh_set_ops()` ← `amd_sfh1_1_init()`
-  (SFH1.1 probe work).
-- `sfh_deinit_emp2`: `amd_mp2_pci_remove` (unbind) and error paths in
-  `amd_sfh1_1_init` after publish.
-- `amd_get_sfh_info`: `amd_pmf_get_sensor_info()` in
-  `drivers/platform/x86/amd/pmf/spc.c` (MT_ALS, MT_HPD) ←
-  `amd_pmf_populate_ta_inputs` ← `amd_pmf_invoke_cmd_enact` ← delayed
-  work `amd_pmf_invoke_cmd` every `pb_actions_ms` (default **1000 ms**).
+- `mt7915_mac_restart()` ← `mt7915_mac_full_reset()` (only caller in
+  this tree)
+- `mt7915_mac_full_reset()` ← `mt7915_mac_reset_work()` when
+  `dev->recovery.restart`
+- `recovery.restart` set in `mt7915_reset()` on WA/WM watchdog
+  (`MT_MCU_CMD_WDT_MASK`), which logs “firmware crash, attempting
+  recovery”
+- `mt7915_run()` also from `mt7915_start()` (normal iface start); this
+  patch does not change that path
 
-Step 5.3: TRACE CALLEES
-Record: Readers do `readl` / `memcpy_fromio` on `emp2->mmio` /
-`emp2->vsbase`. Remove then `amd_sfh_hid_client_deinit`, `stop_all`, PCI
-intx/intr clear. `mp2` is `devm_kzalloc`; mapping is `pcim_iomap` —
-freed after PCI remove.
+**Step 5.3: TRACE CALLEES**
+Record: After firmware load: `mt7915_mcu_init_firmware`,
+`mt7915_mcu_set_eeprom`, `mt7915_mac_init`, txpower/txbf, then
+`mt7915_run()` (PM, `mt7915_mcu_set_mac`, `mt7915_mac_enable_nf`,
+thermal, RTS, SKU, RX path).
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Reachable without the new tablet driver: AMD PMF policy work
-(typical on AMD laptops with PMF) vs SFH1.1 unbind (`amd_sfh_remove` →
-`mp2_ops->remove`). Not a syscall hot path; unbind is admin/module/PCI.
-Still a real concurrent path: 1 Hz reader vs remove.
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Triggered by firmware watchdog recovery on `CONFIG_MT7915E`
+dual-PHY (mt7915/mt7916/mt798x DBDC), common on APs/routers. Not a
+generic syscall crash path. Userspace sees bad survey noise
+(`mt76_get_survey` → `SURVEY_INFO_NOISE_DBM`) and ACS can use it.
+Debugfs can also force full reset (`b662b71`).
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Only this file holds `emp2`. No sibling unlocked copy in 6.12.
-Later mainline adds more readers (MT_OP_MODE at 200 ms); those are not
-in this tree.
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: No `test_and_clear_bit(MT76_STATE_RUNNING)` in this tree’s mt76.
+Sibling chips (mt7615/mt7996) have similar NF helpers; this fix is
+mt7915-restart-specific.
 
 ===============================================================
 PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 ===============================================================
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: Yes. `drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c`:
-unlocked `static struct amd_mp2_dev *emp2`, `sfh_deinit_emp2` sets NULL,
-`amd_get_sfh_info` is exported. Introduced v6.8; this tree is 6.12.111.
-`git merge-base --is-ancestor c57016bcf6d0b HEAD` → **not present**.
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record: Yes. `mt7915_mac_restart()` at
+`drivers/net/wireless/mediatek/mt76/mt7915/mac.c:1397-1407` still uses
+`test_bit` without clearing. Introduced v6.2-era (`8a55712d124fd8`),
+present since this 6.6 branch.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **Clean apply** (`git apply --check` succeeded; one hunk
-offset). 6.12 lacks `amd_sfh_mode_info`/`MT_SRA`; that is context only.
-`guard(mutex)` and `DEFINE_MUTEX` are available.
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: **Minor context.** Mainline hunk context uses
+`mt7915_init_txpower(&dev->phy)` / `mt7915_init_txpower(phy2)`; this
+tree still has `mt7915_init_txpower(dev, &dev->mphy.sband_* )`.
+`napi_enable` vs `local_bh_disable` order in the `out:` path also
+differs. The RUNNING-bit change itself matches this tree. Easy manual
+backport; not a rewrite.
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: `edeae8be4d263` syncs SFH work functions — different bug. No
-emp2 mutex. d1c444b47100d / 01601fdd40ecf not in HEAD (and not
-required).
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: Reset reliability/omac-after-reset fixes are here. This NF re-
+init after MCU recovery is not.
 
 ===============================================================
 PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 ===============================================================
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: HID / AMD SFH (`drivers/hid/amd-sfh-hid/`), plus AMD PMF
-consumer. **IMPORTANT** for AMD Ryzen laptops with SFH1.1 (HPD/ALS) and
-PMF; not core mm/VFS. Config: `CONFIG_AMD_SFH_HID`.
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: **wifi / mt76 mt7915**
+(`drivers/net/wireless/mediatek/mt76/mt7915/`). **IMPORTANT** for users
+of these radios (filogic/mt7915 DBDC APs), not core mm/net. Not staging.
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Mature driver (since ~5.11), still receiving fixes. Export of
-`emp2` is from 6.8; the unlocked design lasted until the 7.3 tablet-mode
-series.
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Mature driver, still getting reset-path fixes in this 6.6 tree.
+Not a newly added subsystem.
 
 ===============================================================
 PHASE 8: IMPACT AND RISK ASSESSMENT
 ===============================================================
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Driver-specific: AMD SFH1.1 (PCI ID MP2 1.1) **and** AMD PMF
-loaded. Typical modern AMD notebooks, not all machines.
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: Driver-specific, dual-PHY `CONFIG_MT7915E` after full MCU
+recovery. Widely used on embedded/AP hardware.
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Concurrent `amd_get_sfh_info` (PMF delayed work, default 1 s)
-with `sfh_deinit_emp2` (unbind, rmmod, or probe error after publish).
-Unprivileged users cannot normally unbind. Window is small but standard
-check-then-use. New 200 ms tablet poll is **not** in this tree, so
-trigger rate here is lower than mainline after 7.3.
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Firmware WA/WM watchdog → full recovery. Unprivileged users
+cannot trigger it directly. Timing is the recovery path, not a race.
+Debugfs reset can also hit it.
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: Use-after-free of `amd_mp2_dev` / MMIO after `devm` teardown →
-oops/panic, possibly memory corruption. **HIGH**. Not a guaranteed panic
-on every boot.
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: Wrong band-0 noise floor / survey after recovery; ACS can pick a
+worse channel. Not an oops, deadlock, or corruption. Connectivity was
+not reported broken; `mac_init` still runs, so MAC datapath likely
+survives. **Severity: MEDIUM.**
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
 Record:
-- Benefit: closes a real UAF on a supported unbind path for SFH1.1+PMF
-  systems.
-- Risk: 6 lines, existing mutex helpers, no ABI change; apply is clean.
-- Ratio: favorable. Preparation-for-feature context does not make the
-  existing race fictional.
+- **Benefit:** Medium. Restores intended PHY register state on a
+  recovery path this tree already treats as backport-worthy.
+- **Risk:** Low. ~8 lines, one function, maintainer-specified, under
+  existing reset mutex.
+- **Ratio:** Favorable.
 
 ===============================================================
 PHASE 9: FINAL SYNTHESIS
 ===============================================================
 
-Step 9.1: COMPILE THE EVIDENCE
+**Step 9.1: COMPILE THE EVIDENCE**
+
 FOR:
-- Real UAF race on a global pointer vs exported cross-module reader
-  (verified call path: PMF work → `amd_get_sfh_info` vs
-  `amd_mp2_pci_remove`).
-- Buggy code in this 6.12 tree since v6.8.
-- 6-line, obviously correct mutex; maintainer-authored; HID maintainer
-  applied.
-- Applies cleanly here.
-- `guard(mutex)` already used elsewhere in 6.12.
+- Real dual-PHY bug after MCU full recovery; primary PHY NF registers
+  never reprogrammed
+- Code and introducing commit are in 6.6.157
+- Small, obviously correct, maintainer-directed
+- Same `!running` skip also omits band-0 `set_pm`/`set_mac` on that path
+- This tree already backported other mt7915 reset corrections
+- Dual-PHY mt7915/mt798x is common production AP hardware
 
 AGAINST:
-- Sent as 2/5 “preparation” for SW_TABLET_MODE, not as a standalone
-  stable fix.
-- No user/syzbot report; narrow unbind window; no Cc: stable (not a
-  negative per rules).
-- Later series patches must **not** come along (new feature).
+- Not a crash, UAF, deadlock, or security issue
+- Trigger is firmware watchdog recovery, not a hot path
+- User-visible effect is mainly survey/ACS noise, not a reported outage
+- Apply needs a trivial context adjustment
 
 UNRESOLVED:
-- Stable list discussion (lore/stable 403).
+- Upstream SHA is not on this checkout’s `master`, so `b4 dig -c <sha>`
+  was not run (thread retrieved via msgid instead)
+- No independent confirmation that band-0 MAC/PM skip causes traffic
+  loss (author only reported NF)
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — mutex around the only
-   publisher/clearer and the only exported reader; merged to hid.git
-   after review.
-2. Fixes a real bug that affects users? **PASS** — UAF if SFH1.1 unbinds
-   while PMF polls.
-3. Important issue? **PASS** — UAF / crash / possible memory corruption
-   (HIGH).
-4. Small and contained? **PASS** — +6 lines, one file.
-5. No new features or APIs? **PASS** — locking only. (3–5 of the series
-   would FAIL this; they are out of scope.)
-6. Can apply to the local tree? **PASS** — `git apply --check`
-   succeeded.
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — logic matches
+   `mt7915_run()`; maintainer specified this form
+2. Fixes a real bug that affects users? **PASS** — wrong NF after
+   recovery on dual-PHY
+3. Important issue? **PASS** (medium) — recovery leaves hardware
+   misconfigured; not a panic, but it is a real functional failure of
+   SER
+4. Small and contained? **PASS** — one function, few lines
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — buggy code present; minor
+   context only
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: None (not a device ID / quirk / DT / build / doc exception).
-Qualifies as a normal race/UAF bugfix.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: Not a new device ID/API. Closest class is hardware re-init after
+reset (quirk-like). Qualifies on technical merit, not only via an
+exception.
 
-Step 9.4: MAKE YOUR DECISION
-This tree has the unlocked `emp2` export and the PMF reader. The patch
-does not need MP2 version tracking or tablet-mode. It should be
-backported here.
-
-------------------------------------------------
-What problem it solves for stable users
-------------------------------------------------
-On 6.12, AMD PMF’s delayed work calls `amd_get_sfh_info()` about once a
-second. That function tests the file-global `emp2` and then uses
-`emp2->mmio` / `emp2->vsbase`. Remove (`amd_sfh_remove` →
-`amd_mp2_pci_remove`) sets `emp2 = NULL` and then tears down a
-`devm_kzalloc`’d `amd_mp2_dev`. Without a lock, a reader can keep using
-a pointer to already-freed device/MMIO. The mutex makes that impossible.
-
-Why it meets stable rules
-Small, correct, no new API, applies here, fixes a real UAF. Being patch
-2/5 of a feature series is not a dependency: 1/5 and 3–5 are unrelated
-or features.
-
-Risk vs benefit
-Low risk, meaningful benefit on AMD SFH1.1 + PMF systems. Do not pull
-the rest of the tablet-mode series.
-
-Concerns
-Backport only this commit. Context offset on `amd_get_sfh_info` (no
-MT_SRA) is already handled by a clean apply.
+**Step 9.4: MAKE YOUR DECISION**
+Backport. The 6.6 tree has the bug, the fix is surgical, and leaving MCU
+recovery with band 0 NF unprogrammed is a real driver bug on hardware
+this series already ships.
 
 Verification:
-- [Phase 1] Parsed tags: only two SOBs (Natikar, Kosina); no
-  Fixes/Reported-by/Cc:stable
-- [Phase 1] Cover letter (mbox): “Patches 1 and 2 are preparation”; v2
-  changelog describes the unbind UAF
-- [Phase 2] Diff: +6 lines, mutex + three `guard(mutex)` sites in one
-  file
-- [Phase 3] git describe HEAD / Makefile: **p-6.12-3-gc504cf0baa3d8**,
-  version **6.12.111**
-- [Phase 3] git blame: emp2/export from b5b0774d53bb81; `git merge-base
-  --is-ancestor b5b0774d53bb81 HEAD` → yes; in v6.8
-- [Phase 3] git merge-base --is-ancestor c57016bcf6d0b HEAD → **no**
-  (candidate not in this tree)
-- [Phase 3] Parent 1a73a4e7673f57 “Track MP2 version” not in HEAD; not
-  required by this diff
-- [Phase 4] b4 dig -c c57016bcf6d0b: https://patch.msgid.link/2026080317
-  5230.3839752-3-Basavaraj.Natikar@amd.com
-- [Phase 4] b4 dig -a: v1 → v2 0/5 → v3 2/5 applied
-- [Phase 4] b4 dig -w: linux-input, jikos, bentiss, dmitry.torokhov
-- [Phase 4] mbox: Jiri queued for-7.3/amd-sfh; no NAK; no stable
-  nomination
-- [Phase 4] lore.kernel.org WebFetch: 403; stable@ search UNVERIFIED
-- [Phase 5] Callers: amd_pmf_get_sensor_info → delayed work default 1000
-  ms; deinit from amd_mp2_pci_remove and probe error paths
-- [Phase 6] Current file still has unlocked emp2; apply --check of
-  c57016bcf6d0b succeeded (hunk 3 offset −35)
-- [Phase 6] include/linux/cleanup.h and DEFINE_GUARD(mutex) in
-  include/linux/mutex.h present; mutex.h included via amd_sfh_common.h
-- [Phase 8] Failure mode: UAF of amd_mp2_dev/MMIO on unbind vs PMF
-  reader; severity HIGH
-- UNVERIFIED: whether anyone asked for this on stable@ (HTTP 403)
+- [Phase 1] Parsed tags: author David Bauer, Link to msgid, SOB Felix
+  Fietkau; no Fixes/Cc stable/Reported-by
+- [Phase 1] Body: dual-PHY MCU recovery → band 0 NF wrong because only
+  PHY1 is configured
+- [Phase 2] Diff: `mt7915_mac_restart()` saves/clears RUNNING then calls
+  `mt7915_run()`
+- [Phase 2] Local `mt7915_run()`: primary NF only if
+  `!mt7915_dev_running()`; ext NF if `phy != &dev->phy`
+- [Phase 2] `mt7915_mac_init_band()` does not set IPI/NF; only
+  `mt7915_mac_enable_nf()` does
+- [Phase 3] `git blame` `mac.c:1397-1407` → `8a55712d124fd8` (v6.2-rc1);
+  ancestor of HEAD
+- [Phase 3] `git grep test_and_clear_bit(MT76_STATE_RUNNING)` → no hits
+  in this tree
+- [Phase 3] Related reset fixes already here (`c71d2db21f153`,
+  `1e474cbe5db60`); this NF fix is not
+- [Phase 4] `b4 mbox` msgid → 4-message thread; Felix requested the
+  committed approach; no NAK
+- [Phase 4] lore.kernel.org WebFetch returned 403; used b4 mbox +
+  openwall/ratatoskr instead
+- [Phase 4] No meaningful stable-list discussion found
+- [Phase 5] Call chain: WDT → `mt7915_reset()` → dump_work →
+  `mt7915_mac_reset_work()` → `mt7915_mac_full_reset()` →
+  `mt7915_mac_restart()`
+- [Phase 5] Survey path: `mt7915_update_channel()` → `state->noise` →
+  `mt76_get_survey()`
+- [Phase 6] `git describe HEAD` / `make kernelversion` → p-6.6-3 /
+  **6.6.157**
+- [Phase 6] Local `mt7915_init_txpower()` signature differs from patch
+  context; RUNNING change still maps 1:1
+- [Phase 8] Failure mode: incorrect band-0 noise after firmware crash
+  recovery; severity MEDIUM
+- UNVERIFIED: exact upstream SHA (not on this `master`); whether band-0
+  `set_mac` skip also breaks traffic (not claimed by author)
+
+The patch is a small, maintainer-reviewed correction of MCU recovery on
+dual-PHY mt7915, and the buggy code is in this 6.6 tree.
 
 **YES**
 
- drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/net/wireless/mediatek/mt76/mt7915/mac.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
-index 837d59e7a6610..dd2720bae65c3 100644
---- a/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
-+++ b/drivers/hid/amd-sfh-hid/sfh1_1/amd_sfh_interface.c
-@@ -8,12 +8,14 @@
-  * Author: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
-  */
- #include <linux/amd-pmf-io.h>
-+#include <linux/cleanup.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/iopoll.h>
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/mac.c b/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
+index dda4e7d179536..55d2553addb13 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
+@@ -1292,6 +1292,7 @@ mt7915_mac_restart(struct mt7915_dev *dev)
+ 	struct mt7915_phy *phy2;
+ 	struct mt76_phy *ext_phy;
+ 	struct mt76_dev *mdev = &dev->mt76;
++	bool run_main, run_ext;
+ 	int i, ret;
  
- #include "amd_sfh_interface.h"
+ 	ext_phy = dev->mt76.phys[MT_BAND1];
+@@ -1387,13 +1388,17 @@ mt7915_mac_restart(struct mt7915_dev *dev)
+ 	mt7915_init_txpower(phy2);
+ 	ret = mt7915_txbf_init(dev);
  
- static struct amd_mp2_dev *emp2;
-+static DEFINE_MUTEX(emp2_lock);
- 
- static int amd_sfh_wait_response(struct amd_mp2_dev *mp2, u8 sid, u32 cmd_id)
- {
-@@ -78,12 +80,14 @@ static struct amd_mp2_ops amd_sfh_ops = {
- 
- void sfh_deinit_emp2(void)
- {
-+	guard(mutex)(&emp2_lock);
- 	emp2 = NULL;
- }
- 
- void sfh_interface_init(struct amd_mp2_dev *mp2)
- {
- 	mp2->mp2_ops = &amd_sfh_ops;
-+	guard(mutex)(&emp2_lock);
- 	emp2 = mp2;
- }
- 
-@@ -160,6 +164,8 @@ static int amd_sfh_als_info(u32 *ambient_light)
- 
- int amd_get_sfh_info(struct amd_sfh_info *sfh_info, enum sfh_message_type op)
- {
-+	guard(mutex)(&emp2_lock);
+-	if (test_bit(MT76_STATE_RUNNING, &dev->mphy.state)) {
++	run_main = test_and_clear_bit(MT76_STATE_RUNNING, &dev->mphy.state);
++	run_ext = ext_phy &&
++		  test_and_clear_bit(MT76_STATE_RUNNING, &ext_phy->state);
 +
- 	if (sfh_info) {
- 		switch (op) {
- 		case MT_HPD:
++	if (run_main) {
+ 		ret = mt7915_run(dev->mphy.hw);
+ 		if (ret)
+ 			goto out;
+ 	}
+ 
+-	if (ext_phy && test_bit(MT76_STATE_RUNNING, &ext_phy->state)) {
++	if (run_ext) {
+ 		ret = mt7915_run(ext_phy->hw);
+ 		if (ret)
+ 			goto out;
 -- 
 2.53.0
 
