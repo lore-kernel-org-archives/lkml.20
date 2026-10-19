@@ -1,144 +1,114 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CFE4B4058;
-	Mon, 19 Oct 2026 10:13:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074B440B6F4;
+	Mon, 19 Oct 2026 10:14:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404824; cv=none; b=gQ14W4glhW5bIMgMCceVlAygGE6XgW/gZe0cvT7RbgpZqf0mqH3/6HmgOyzTxhtZ+/2mjZ/fFSPDhapVR7SxO9x7yzyMBmRLlDxWeq4j3mtygD25QCoqt8Y640wy0WSF0cVCS/pDpgnqpiFUaaT+7WjaR5QuUcsnAImDOPCjFuc=
+	t=1792404849; cv=none; b=PBfB7i8OF0CAomUOx2/XvJwCqPHIOsIZ0F0lLLuxuBSfW70OC66rzRKXtKUDG3AAGUrjeJYPa2gmHULAzOXDJ+JbPvlJIf14g+Vr/gvdWZJRTKCFMwV0NWDMBNEYcpB0lPEM+NjfXxKrUovIJS9AbogupbbcYuoPuRo1S29mfSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404824; c=relaxed/simple;
-	bh=mDoBT6T71xtkQXn3Ye430SHeLWgm6rwvNptl6fiqXmo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IM82zvjpdIdQZoCaDYwH1wAe9ahp5Twd4V7nh2rA2mwIme1gjZThUiCmEmkdLMcmXsxfgTOAeMWmqto/v0ftP0JgDk8kPxLgp1edDRYIQnxEKwSqerpCuWRG+FVaYPyiCK2gH5xuNWG1pcn0Nsz0QKF2N0OuGC5jXlqdVtj8iGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Nl0L76Sr; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792404849; c=relaxed/simple;
+	bh=BFt+qJi4377eMLyOGENL4gyLd6HdQF0i5o/onvNS+4M=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=E3uIPlujyF9M7dCVpKvOWHa6bZm8vJ+WdR1rMtB2Ye7/2nM/kMvBivKmf/B5ysodvHQm4tsVMs0SpsTATDijIv5g/hZksOeC5UjJi/e2/VE+tryj3qblI1aRbiWL/neBwiZLIMUfmoinwl+RUHB+47kcInVL9yRcejXeJTnxfBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=WEXXVbJF; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Nl0L76Sr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792404823; x=1823940823;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=mDoBT6T71xtkQXn3Ye430SHeLWgm6rwvNptl6fiqXmo=;
-  b=Nl0L76Srm/qtgje327l9l76Ag9YwTh/T9oO1lzJfNA4RxAtGZfoBbH6T
-   NIS4PEZ8PElgz+jCQ/cCzvWk5pbpRBpAGK41E2n72y6p3C0EcwZ+SN2X9
-   hY5yT4BbVMIvHlxxcm7iEqAmDuZcDciVBlwXbyAsgYDxCKebw1CtiggJA
-   p2+cSUVT0Cy3zANxWj9VrMvPjdlQzIHFnVPfEADMB379GRNam3/BDE9+K
-   0rOWd7rDTjdESWl/8ghQEaLihSjHA1MzFlz7KThmS1q6L4oKwKf2Y8n6D
-   m7NgR9hZ7Q4axNQGEKzJ4n3udxUX2yc44RXrz8x3/hYavsv+lwYIsmPI3
-   A==;
-X-CSE-ConnectionGUID: 0e5dPLfPQ5mTnico9BNY1w==
-X-CSE-MsgGUID: QKqVTt7PTC69A0fzAwU7vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1098768"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1098768"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:13:42 -0700
-X-CSE-ConnectionGUID: F0rC+WWbTGSRP2JaWNZjrw==
-X-CSE-MsgGUID: wWfgrnM0RTmRS/pADxOrLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2919063"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:13:39 -0700
-Date: Mon, 19 Oct 2026 13:13:37 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: berringtoni36@gmail.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 RESEND] iio: accel: adxl345: update period cache after
- successful write
-Message-ID: <atXtUSkBM0dBG80A@ashevche-desk.local>
-References: <20261018-adxl345-period-cache-v2-resend-1@gmail.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="WEXXVbJF"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B5D1FA1579;
+	Mon, 19 Oct 2026 12:14:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792404845; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=InL61VLUuzPlGWQofu2zxUA1ILOLKdLMcGn7+Lgz2Ys=;
+	b=WEXXVbJF6M9yn4ihy20FLHEgWB27Q6iFhTyeQuJUNad7ojxjXNP4p1hNCijDw3P9khp1uM
+	TUzRNlfTUZcK/b8hNAyWDy2v2KR1blejFtCWYx+OouguCNeIsZHw326AJKPwPv3K/60zS/
+	qLUMJeVKkRbYAfTpCSbsEBX/FJPKoNNUolSDQXHjkd0rBWDfUL9cELxLoQz0Hm2w46+Lbt
+	jCURMgpxtTPPNjls1PWin/hmUblW/y3IHilFtg6q1YkH6uHKmCCCNDeipTugFv6awPYgp5
+	CeUy64nNhCM7zP54wEnM3iKkhtmjZC3Y505n6ZcJrSVFNUgDZJcWdK5Sg39u7g==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018-adxl345-period-cache-v2-resend-1@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Date: Mon, 19 Oct 2026 12:14:05 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Chris Babroski <cbabroski@nvidia.com>
+Cc: bryan.whitehead@microchip.com, UNGLinuxDriver@microchip.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, richardcochran@gmail.com,
+ linux@armlinux.org.uk, maxime.chevallier@bootlin.com,
+ Raju.Lakkaraju@microchip.com, davthompson@nvidia.com
+Subject: Re: [PATCH net-next v1 3/5] net: lan743x: quiesce TX before freeing
+ the rings
+In-Reply-To: <9e3d980f9853cd73ce4e845f9c3e5b5cb93fd2f5.1792008404.git.cbabroski@nvidia.com>
+References: <cover.1792008404.git.cbabroski@nvidia.com>
+ <9e3d980f9853cd73ce4e845f9c3e5b5cb93fd2f5.1792008404.git.cbabroski@nvidia.com>
+Message-ID: <875bb04f66e19cee8b786f4403c006e6@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Oct 18, 2026 at 09:42:00PM +0800, Wenqiang Zhao via B4 Relay wrote:
+On 15.10.2026 17:00, Chris Babroski wrote:
+> lan743x_pcidev_shutdown(), which suspend also uses, calls
+> netif_device_detach() and then lan743x_netdev_close() with the qdisc
+> still attached. Detaching only sets the queue stop bits. It does not 
+> wait
+> for an ndo_start_xmit() that is already running, and the TX NAPI poll
+> still wakes a stopped queue as soon as it has reclaimed descriptors. 
+> The
+> TX NAPI of a channel that has not been closed yet can therefore restart
+> its queue, and the stack then transmits on a ring that
+> lan743x_tx_close() is freeing.
 > 
-> The ADXL345 event-period read path returns st->inact_time_ms. The setters
-> for inactivity, free-fall and the ODR-derived default currently update
-> this cache before writing TIME_INACT or TIME_FF. If the regmap write
-> fails, the sysfs write reports an error but a subsequent read returns
-> the requested period even though it was not programmed.
+> Only wake a queue from TX NAPI while the device is present. In
+> lan743x_netdev_close(), wait for any NAPI poll that may have missed the
+> detach with synchronize_net(), then stop all queues with
+> netif_tx_disable(), which also waits for transmits in progress, before
+> closing the channels. For ndo_stop the qdisc is already deactivated, so
+> this only adds a grace period there.
 > 
-> Update the cached period only after the corresponding regmap write
-> succeeds.
-
-...
-
->  	/* Inactivity time in s */
-> -	return regmap_write(st->regmap, ADXL345_REG_TIME_INACT, val);
-> +	ret = regmap_write(st->regmap, ADXL345_REG_TIME_INACT, val);
-> +	if (ret)
-> +		return ret;
+> Fixes: 23f0703c125b ("lan743x: Add main source files for new lan743x 
+> driver")
+> Assisted-by: LLM
+> Signed-off-by: Chris Babroski <cbabroski@nvidia.com>
+> ---
+>  drivers/net/ethernet/microchip/lan743x_main.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/microchip/lan743x_main.c 
+> b/drivers/net/ethernet/microchip/lan743x_main.c
+> index 583f631df701..8d256a80dac6 100644
+> --- a/drivers/net/ethernet/microchip/lan743x_main.c
+> +++ b/drivers/net/ethernet/microchip/lan743x_main.c
+> @@ -2125,7 +2125,8 @@ static int lan743x_tx_napi_poll(struct 
+> napi_struct *napi, int weight)
+>  	/* clean up tx ring */
+>  	lan743x_tx_release_completed_descriptors(tx);
+>  	txq = netdev_get_tx_queue(adapter->netdev, tx->channel_number);
+> -	if (netif_tx_queue_stopped(txq)) {
+> +	if (netif_tx_queue_stopped(txq) &&
+> +	    netif_device_present(adapter->netdev)) {
+>  		if (tx->rqd_descriptors) {
+>  			if (tx->rqd_descriptors <=
+>  			    lan743x_tx_get_avail_desc(tx)) {
+> @@ -3336,6 +3337,9 @@ static int lan743x_netdev_close(struct net_device 
+> *netdev)
+> 
+>  	lan743x_phylink_disconnect(adapter);
+> 
+> +	synchronize_net();
+> +	netif_tx_disable(netdev);
 > +
-> +	st->inact_time_ms = MILLI * val;
+>  	for (index = 0; index < adapter->used_tx_channels; index++)
+>  		lan743x_tx_close(&adapter->tx[index]);
 
-While at it, replace MILLI with MSEC_PER_SEC (from time.h).
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-> +	return 0;
-
-...
-
->  static int adxl345_set_inactivity_time(struct adxl345_state *st, u32 val_int)
->  {
-> +	int ret;
-> +
-> +	ret = regmap_write(st->regmap, ADXL345_REG_TIME_INACT, val_int);
-> +	if (ret)
-> +		return ret;
-> +
->  	st->inact_time_ms = MILLI * val_int;
-
-Ditto.
-
-> -	return regmap_write(st->regmap, ADXL345_REG_TIME_INACT, val_int);
-> +	return 0;
->  }
-
-...
-
->  static int adxl345_set_freefall_time(struct adxl345_state *st, u32 val_fract)
->  {
-> +	int ret;
-> +
->  	/*
->  	 * Datasheet max. value is 255 * 5000 us = 1.275000 seconds.
->  	 *
->  	 * Recommended values between 100ms and 350ms (0x14 to 0x46)
->  	 */
-> +	ret = regmap_write(st->regmap, ADXL345_REG_TIME_FF,
-> +			   DIV_ROUND_CLOSEST(val_fract, 5));
-> +	if (ret)
-> +		return ret;
-> +
->  	st->inact_time_ms = DIV_ROUND_UP(val_fract, MILLI);
-
-Hmm... Okay, since it's three instances and only one you actually touched
-perhaps a separate patch.
-
-> -	return regmap_write(st->regmap, ADXL345_REG_TIME_FF,
-> -			    DIV_ROUND_CLOSEST(val_fract, 5));
-> +	return 0;
->  }
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Nicolai
