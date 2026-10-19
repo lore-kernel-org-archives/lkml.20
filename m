@@ -1,233 +1,332 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021110.outbound.protection.outlook.com [52.101.125.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D3F22F388;
-	Mon, 19 Oct 2026 02:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.110
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792377102; cv=fail; b=lme63s658H6wHbE2E3IHbq7bMP/A0MFsprUwY2eLInmHxvfGdLaSw/qqRf8I25i1ur1YL/Qf42HFzcJuvZebwXkbKdzx8Cfb2Ad3OxiDd3aAXQ5tJ2RCSxyA9ioDaRH8AEGG49xj4zuayrSSFXwuPUgdx1Xbzk0+ibhPkGr1cbc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792377102; c=relaxed/simple;
-	bh=cgur2Qjh7ziQcueXb3rNiATUlj9UVX3Ly1T+Qt2/VLw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Qyk5y9Z7C/kZSVeNMmJTIaEdI30g6tY7vVnDH3lEdkUZoGVthoi5ra7WjpD0JO/xBH7UMOUr9iWjmx8CVc7S12tTE0bxSXMsA2a8GheqI7SGqQspJpGt1sMMcRovbjBVcv6gGgPjFwrt2z7qEH26lAgpmZLsieG7Pae7QD72WJE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=WZbYAl3C; arc=fail smtp.client-ip=52.101.125.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8586E4CF490
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792377172; cv=none; b=HQtLrIyO7CPzjncRiLvspTGtR4442Zq2v/huPaS9d4oJIs8GU6QV/pO3TG2IxQtOovOQecZiIhPlM6s8u/z677ag0JvmFcbfuNHerDH8XRFADL+F7QL89/ItfAyZhG2mteZErlh3wuKBLbC7/esGyEpBvrexcttY3h6jc0aK/c0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792377172; c=relaxed/simple;
+	bh=s3uBS4ihuKTQWe8m1RLKJGQnEg56WWqg5oBiUkfw+ow=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=RuvpM0tLXIgoZUkDvOpgCVx/j3M47G1jo9XxpZ4TkdYYnsQuZKGN3P9XnOTdxvXHevj+mQ9KmV1KPf6qLbj61GukaXoxuoeXcvfFxzfENk3Scds3h7sh7x7jnesb3otuuGQ2GZIQe1XW9iSgQLGhQU5GmT7zb+6r3iqyYTOwSdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H4goCOBV; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="WZbYAl3C"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K3Y1WXbkTesnb+V81i6mojC37MTMppZnlM8D9fHCqxsox1MJJnZe0d2DzPa86g5nMXBY6hog/WwOoY1wjQMqLsh5OMEv2/j3TDM7bHFY8EpCh8kc4S1UxcqbnChhAuebADJj2S84rUqy3NVfOEKiLKrqv5wbLoXd3ne+iqAOCi6W3E4IIBpam3aIued+7n0mWEUpW4rGX5CeGQkQ+v3nI7Vsgq0SoEyyN7z81yM0IKz/nWib1uFq+L7282kGMaYE/HDQtqqyONGxNE7arRbC5HICFVr2GBWKZuh7JIOidZlfkf/knUMeZG7kYBaesEuskGRnNdV9YcjPOWxjXbOKlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o6Q6elPJ9cl1SUvPvSzkLgwcWYaz/23aJLD+Wno7zMU=;
- b=Ldi3RgHaCl5lLk0/L3rx8KvaaDmeNt/aFd/noULONdwaNCz8c9lPW+I4Q7MSEQ6t4baYbuA3ulk5CLyFEFhkbc2iehSMG/DZutMWeuB1QkfEoBIIlJ4pucsZ21bMTNxfNyev2WZIHs9l9E95xL9VwHHIbfwWRGJX/5S/TQCLoQGT+T/ky0U0P+6PadIMxz2N6R6iE/pFnRLMkz5TUCVuv2y6S8kf7f0bzzGRiMW71lHfcGaYKm6rVxhs3THGlhXbBzLprzcFb8vuJ49SNZBpVWJBF54YPYE1ft4+a3XaxF8SK9CYqNkAg5PvJ0QfpJO0PRuYZ54v0evIQNhykn4Lvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o6Q6elPJ9cl1SUvPvSzkLgwcWYaz/23aJLD+Wno7zMU=;
- b=WZbYAl3CZoWBXYY0vU1T11BrLM7YqUvCow2cO+/MDVzfUacH4EE3MulK6qf1R9JurakvSQWDEGXtS8gNe4UGjm+f3RL9m5X3YFgFjsMEfv4udBq+ZMDkh1feaT8svbDMU/EUJjT/x6RllLqfV9nbajqmWMo6oI98A9Ir6Zko6TY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by OS3P286MB2583.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:1f3::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 02:31:34 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 02:31:33 +0000
-Date: Mon, 19 Oct 2026 11:31:31 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
-	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 04/18] dt-bindings: PCI: rcar-gen4: Add optional "aer"
- interrupt for R-Car Gen4 SoCs
-Message-ID: <j6ayfdb4evnc45urk4n5ewtnn22f2gwgqyjkhpxr4c7outy5va@5dhrlhgqp2ms>
-References: <20261015033103.3076869-1-den@valinux.co.jp>
- <20261015033103.3076869-5-den@valinux.co.jp>
- <814043dc-d194-4afd-8317-03b55cc9e913@mailbox.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <814043dc-d194-4afd-8317-03b55cc9e913@mailbox.org>
-X-ClientProxiedBy: TYCPR01CA0172.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::9) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H4goCOBV"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e985106c0cso10485745ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:32:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792377170; x=1792981970; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=52O/O9Vce8b6cN3TTkvORp7Ll1G8WlmxbJgfpaiFrzU=;
+        b=H4goCOBVTJbArAe9jUUclfeNl0DQCD6mMrpBiPlCZl+PnhdHeZ5HBWQc2rdrs5cNmd
+         LNZ2tt3X0hGSUNROaSsZFvRTrERqJMQIjo6UqschQGzdY8d9MR17LD3F2hXU0QnbL1SW
+         8KxirBT/ZGpcsK2vuWB1zX2MTbRYFA/6DbJN+mRW337FhFYqbx4mgr8HZzDXmgrMfjtk
+         HR2rRiRoYA/c6XmM4nXTabNzO/sm/iY68TRW8iQoag/ziExplNB8sKvstnOVN5de0zGr
+         xOEcKpAUuk74vJnP8VM3kTeUcLwGqoaUcZ8dBT260sDio/M9xKU16ho1XvMp9Lr/9LVz
+         WHhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792377170; x=1792981970;
+        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=52O/O9Vce8b6cN3TTkvORp7Ll1G8WlmxbJgfpaiFrzU=;
+        b=uhZNq3TGEzw/Gbx2PgtbgFlLZ0XhUrxbBOUnioO4lSiGAGf1MZKjzeNvt75jOZ68jR
+         8bF/hnTHpmXKzPgD7+Uqy+bkoiGl0OT3H4/BWZ9ZyIYwZhv1AIw47pfq4oFvjOCDKN5W
+         X0qq1AKhfT3EMD/MJwxrE7THqyer7GMQO6Y7SaRIfernQmeJKLmZ4Ek9ujEZPxhoMFTO
+         i6xBZY+61G9bQtc4ii6W9Zg4U63JqkyMcNOpEs/3pjJNRJE+ElQNxY2qujduMl7wRpb4
+         mQs+TFyPxJWvEikymJgyanWy5gHOkEHtLty7PAlHGm4M/oNsjdIq8m3Gzi4HQYpu645p
+         Vi6A==
+X-Forwarded-Encrypted: i=1; AKwUvBypKNyOK8na+HkdvrWL7ooYKsxc0d2dQpTyHwDFxtsefsHpdnJ0Q1FSRdSPa37/2eFYgU0+aX0d37ZPkww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmRCIsVB6tFCqRBLtFXtFRBDv4iGf9FRbQXTOpMcOoDQdDAxO2
+	7SUg191XFA/s7GUl1hNlZYY8xinlC5bVHfprP73wkSiR0SMM9ynLGNbLij/Ry1qN
+X-Gm-Gg: AYBFou2SxsfjkHqCHQniL63AtVYeBo3gabz+8et715HTfVLFWMIwIJGVP4dM0FFa+6e
+	RxxMYW4Mug7CyqQi3M5EvicKsqfsMhyvcm+BYeKdJhFYo3h27vpReuHwnLy+rGZDDlkzUgwcvit
+	1fabs5H5VgnF09mFbAlzc3K82/8Yei007kSJqO5Jb+cYu6dmXQyLlecXnFkXVk3u0o3kTlkVXq4
+	Z2r2of8sX7OyIp+UzstolO94mNK04FA5CrQPdbgR8wOoCoBwmGa7b0ycw/kQuZJIx4JYIoyKkKF
+	ky0BORKc88K62g3pqnQvK74FTcjXBliKn1tmbcviExen1y8BfwRp5Af1UHuUY0+7TS9xA0zH1jD
+	cqgbDu9cVI5NiMcwP+4jGHu6wO2PyDtH0nMWCWxDRRWlYe4Y5NQFlu6kqR61HZkXJ6LJdEpAcCk
+	WEMfvaw406ymXqs/ePiYZuCz9Fcle2mOCk5g71sMtiIQ2c4aoMfeaiEl2d1GrCQ3AL+RrGjAgGf
+	iJEWsex57kYbXOBWfT5MsknHhZQC6OFGbQ=
+X-Received: by 2002:a17:903:98c:b0:2dd:c100:a5df with SMTP id d9443c01a7336-2e9a7255681mr54071555ad.51.1792377169818;
+        Sun, 18 Oct 2026 19:32:49 -0700 (PDT)
+Received: from [192.168.21.192] ([24.18.106.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8b2001sm33038105ad.71.2026.10.18.19.32.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 19:32:49 -0700 (PDT)
+Message-ID: <a2a30450-bca0-42ba-a895-7534d771892e@gmail.com>
+Date: Sun, 18 Oct 2026 19:32:48 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS3P286MB2583:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbfa7cfc-1235-473b-9b96-08df2d8916f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|10070799003|7416014|1800799024|23010399003|366016|22082099003|18002099003|10067099003|3023799007|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	v54cabeH4lJqytw+rHjW1pZYNU8Nv0ER3jUMg/wGKJLfNQcfvz5cL4W5+fLDZClAz1oI21iKQa46VRMoD6C4QPYT+tyqbK5jLlcttZF9EvtJs35kvl2oPgu2BEDXPmh5UwRqN4wYlGFx4p3sgcSlyALS91MCfNd7PTa40tCyXf12Jxl+hHpQJPN/ZUxqoeBmVv6/9eAzSkxb/nBsjCcAmX+yh3BHA1QUhwLCwKVfJsndGJjbkispjFfWPRdVLWnMREpmbbOtOTwocLRur7ghrsaAtkDWuuEljh5EDIllSOzsSS0st6MPM/MW8jWD8fxQEj/lk/iFxgo2T4kof8zjkC1LgGKEdNIi3+stPmDIz1fyumoF1k/18uYDQov4HZYbsA8XJCYm6PyVUXsbJsNEalodjkaDy0GOSzrg67YBWxenDv73ryNZ5sFPlJVmXKCG49dK0Y7sibb5Q/m8Q3zAMdK9PMuMANYezr5Ph9CHjtj2TFA9wiTDocsOjRxUrltx/K+Eda5hlM+kjOdVKOAkJJwZ2shlRZkBJZ+13kwKVomse4lET+p8V/zVAkr3QDv5MBuD51YCx4h1tu5aUOQuL3Z6dbzY821cW7viNJZJusRzNIMSgj+7omqr0DWx7psJ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(7416014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(10067099003)(3023799007)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?pr/YKan+wTQckIJeLScv2jJm14kkCqgZWpTTdj03n3vxVL9xtirbP+WsMOVt?=
- =?us-ascii?Q?/cIqcRsmw++d6JXYpVSnI8dJz55VkeqI0LLBuXSeigAOOiX0L/DN7pekspM+?=
- =?us-ascii?Q?iVZm5gpCCoYzKwRB13rr+rsOS++wZkZNqlDo3nTMHAWVN6SfTJoS/FIRdJ4e?=
- =?us-ascii?Q?RYEyPSp7Zysw+lGjrg3CYFqkm5/VvmA1CTDoqgSf46kCT5glJNe6p/zwupTP?=
- =?us-ascii?Q?XR+OoYKzxhCtFgMiljQl1yGYkg1GT/pY1RATJyt3rnMi028g2Wfk6gu8tC1u?=
- =?us-ascii?Q?ULCU17x0Jji7ExlqU3+5lM3ePrK31NIT8asiQtoKrS5xD9QHsKOzmU34BvAh?=
- =?us-ascii?Q?Qv1Z55sc7dUwwv01tGRCxr73FJLIw6H0X0OI1Egc0uFJ08WUy/SyGkyeY5sa?=
- =?us-ascii?Q?R2wA9NGq2rTnmjTpl7MEDDrQtypLtkBL0eYjxfms40CC9DylE5D0k1/H3FVk?=
- =?us-ascii?Q?RglT25nKze1H14TzCTbCiH3+s+MNyysgknPOWCIbG4FViFhQ/S8lSbWsAxzR?=
- =?us-ascii?Q?Bdvbur+IwL3kM1bZyOIqLThtdWSPLwTaTHA91z/KEe8my4LHpeTPUj3KGZ7I?=
- =?us-ascii?Q?UwfYr2cF4aDOHKaFcS00jkF6O1xNBLmFHIlS16zH43vr23b00nw5sa1UEFYR?=
- =?us-ascii?Q?nBN74TGF9N1CztbU9rsniXgS4lEPMcMJZzIQzs6bBeHaL9oH/c5AfCFbLcX4?=
- =?us-ascii?Q?tYpTmZzBZ3vDPy9ZOjgYsom/p9JasaPUzVAyPwx602ZRnphyw6Wjg7OOf6Y0?=
- =?us-ascii?Q?KP0Td4DV9IQdtKpIkVqKymN+Wc5d8GHZsMCxv5J5To/tmgEaH5fSdNeXhSUJ?=
- =?us-ascii?Q?o/olCpS4Td7QfSPRzuzjxHTjTrm3yQ8S6S7YFZqhOt4XwNH80w6+30vRKCEF?=
- =?us-ascii?Q?HV/fng4TSnr27IMg5epTZ1/KNiprIzC7heCJbJ4+e46Ieup2i1sCoLIfxRA6?=
- =?us-ascii?Q?RxwTWinlixpiLO40+1jrtKyiDine2H9xaj2FG4lYWc5NESa1Q86SSsyrFf3p?=
- =?us-ascii?Q?Rozpb5bs44wDLjLnKK3Q3t3f547FFmMDnynwSKEU61QYuYyFvYj6eJ2KyG8o?=
- =?us-ascii?Q?M6ucA4eaTtRGGg17vy5Y2rpCT9Z8335EC6uwuAcXnW8rjYtvsSl0+ufV9dj4?=
- =?us-ascii?Q?0ccSCBiKWIJP2YCcDH5Mv4WYBdvRahMaOzw6iNH+2ssuZdVIdQuQf2VsQ93r?=
- =?us-ascii?Q?jlgFq1a5JtJqxFda30v1BgFWpFWL++I0gsKBQ6g6H6IY8zjUlVmCAIZM0+Rk?=
- =?us-ascii?Q?mdhZvBoCtef1gYv2+1OpByzMFQC0AIlE0xoe1NbvNgLA70zicqm8h2cSVmlx?=
- =?us-ascii?Q?MsST9IGKZQvUfo6jpoIo43PH5caReclyV6Gtg4dBBajXXsSOlfLzuo0c+Gk4?=
- =?us-ascii?Q?lgffGxEwUcFRPmlzMNNB5sIa/gBYYJ/gsuGIbqZjF6/l7GcTkIzw3hYhOe/D?=
- =?us-ascii?Q?NvFmXgG7G0jow7mbCwG4GFMiO1RF6YuzGgtxo8LCv8/AwSbwnBf+//3n4Lpp?=
- =?us-ascii?Q?li8nZP6JpnoRj1lSzUZxUS/RN3YZa8wy2AJ9ERtKVuy6Ot/rYgvWSiUk4v/c?=
- =?us-ascii?Q?UUawmazIUHmc/FjCPDgmf6tDu7WHfqJrPPTKPOHmXjjAkOcvwqYIF8OYsDO4?=
- =?us-ascii?Q?3LBEm182+ayqc4iTSL7dhMmH+TUd/fcuHtbPoNvYlQRpnkt/DsakNwbPTPLt?=
- =?us-ascii?Q?3IbDuZQCiKb4wEYY2haSbPAvmCFz/JpJ7suyTxhdj5BmgvOWWr/5MqHrHqOl?=
- =?us-ascii?Q?CGYPouiVDEo4AZsTFfP55SFlTnuJkQh75t4sWGPeDcNtAuV2K8Zh?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbfa7cfc-1235-473b-9b96-08df2d8916f1
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 02:31:33.1549
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ETY0L1XkE0PstWe3u4IhRTlaOiYhuhj19S7Inm2jK12MqHcQTbOdyZbsg3CUS7bmpnldAK3NKtnBgirb7oRa/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3P286MB2583
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH] sparc: populate sysfs cache topology information on sun4v
+Content-Language: en-US
+From: Tony Rodriguez <unixpro1970@gmail.com>
+To: Jan Engelhardt <jengelh@inai.de>, davem@davemloft.net
+Cc: sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Stian Halseth <stian@itx.no>
+References: <20261018222723.43442-1-jengelh@inai.de>
+ <b69a7cd6-7f9d-4c8e-80b9-701a77a6805a@gmail.com>
+ <0593b88f-6151-4975-a840-ef21f3df06e8@gmail.com>
+In-Reply-To: <0593b88f-6151-4975-a840-ef21f3df06e8@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 17, 2026 at 02:17:38PM +0200, Marek Vasut wrote:
-> On 10/15/26 5:30 AM, Koichiro Den wrote:
-> > The intreq_pcim_lperr interrupt carries Root Port AER notifications,
-> > separately from the integrated MSI receiver interrupt. Describe it with
-> > the "aer" name so the controller driver can use it for Root Port error
-> > reporting.
-> > 
-> > Keep the fifth interrupt optional on R-Car Gen4 SoCs so existing device
-> > trees remain valid. Extend the example accordingly.
-> > 
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> > ---
-> > Changes since v3:
-> >    - Rebase on Marek's Gen5 AER binding fix:
-> >      https://lore.kernel.org/r/20261003215710.792518-1-marek.vasut+renesas@mailbox.org/
-> >      This requires "aer" for the Gen5 SoC PCIe4 controller from the
-> >      beginning. Update the subject to clarify that it is optional only
-> >      on Gen4 SoCs, for compatibility with existing DTs.
-> >    - Drop R-b tags due to the changes.
-> > 
-> > v3: https://lore.kernel.org/r/20261006084638.3821710-5-den@valinux.co.jp/
-> > 
-> >   .../devicetree/bindings/pci/rcar-gen4-pci-host.yaml | 13 ++++++++++---
-> >   1 file changed, 10 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> > index 083b77d4de8f..a86c06701fa9 100644
-> > --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> > +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> > @@ -26,7 +26,8 @@ properties:
-> >             - const: renesas,rcar-gen5-pcie4 # R-Car Gen5 PCIe4
-> >     interrupts:
-> > -    maxItems: 4
-> > +    minItems: 4
-> > +    maxItems: 5
-> 
-> Wouldn't it be easier/cleaner keep only maxItems: 4 here and set ...
-> 
-> >     clocks:
-> >       maxItems: 2
-> > @@ -93,11 +94,13 @@ allOf:
-> >               - const: config
-> >           interrupt-names:
-> > +          minItems: 4
-> 
-> ... minItems/maxItems here ^ for R-Car Gen4 (because Gen4 is the only SoC
-> family which has optional non-mandatorily-described AER interrupt) ...
-> 
-> >             items:
-> >               - const: msi
-> >               - const: dma
-> >               - const: sft_ce
-> >               - const: app
-> > +            - const: aer
-> >     - if:
-> >         properties:
-> >           compatible:
-> > @@ -117,6 +120,9 @@ allOf:
-> >               - const: app
-> >               - const: config
-> > +        interrupts:
-> > +          maxItems: 4
-> 
-> ... and drop this interrupts: hunk here entirely (because Gen5 always has
-> mandatorily described AER interrupt) ?
-> 
-> >           interrupt-names:
-> >             items:
-> >               - const: msi
-> > @@ -146,8 +152,9 @@ examples:
-> >               interrupts = <GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>,
-> >                            <GIC_SPI 417 IRQ_TYPE_LEVEL_HIGH>,
-> >                            <GIC_SPI 418 IRQ_TYPE_LEVEL_HIGH>,
-> > -                         <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>;
-> > -            interrupt-names = "msi", "dma", "sft_ce", "app";
-> > +                         <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>,
-> > +                         <GIC_SPI 421 IRQ_TYPE_LEVEL_HIGH>;
-> > +            interrupt-names = "msi", "dma", "sft_ce", "app", "aer";
-> >               clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
-> >               clock-names = "core", "ref";
-> >               power-domains = <&sysc R8A779F0_PD_ALWAYS_ON>;
-> 
-> What do you think ?
+Hi Jan,
 
-Seems that wouldn't work as-is. With your proposed layout and a Gen4 DT that
-includes "aer":
+>>
+>> On 10/18/26 3:27 PM, Jan Engelhardt wrote:
+>>> The SPARC port does not publish any cache topology information. The
+>>> lscpu utility therefore falls back to assuming the published cache
+>>> sizes are for unshared caches, and as a result, reports way more
+>>> cache than there really is present in the system. On a T5240 machine:
+>>>
+>>> ```
+>>> $ lscpu
+>>> Architecture:          sparc64
+>>>    CPU op-mode(s):      32-bit, 64-bit
+>>>    Byte Order:          Big Endian
+>>> CPU(s):                128
+>>>    On-line CPU(s) list: 0-127
+>>> Model name:            UltraSparc T2 (Niagara2)
+>>>    Thread(s) per core:  4
+>>>    Core(s) per socket:  16
+>>>    Socket(s):           2
+>>>    Flags:               sun4v
+>>> Caches (sum of all):
+>>>    L1d:                 1 MiB (128 instances)
+>>>    L1i:                 2 MiB (128 instances)
+>>>    L2:                  512 MiB (128 instances)
+>>> ```
+>>>
+>>> This patch implements population of the sysfs cacheinfo structures
+>>> for sun4v (systems with mdesc). The proper amount is now reflected in
+>>> lscpu's output:
+>>>
+>>> ```
+>>> Caches (sum of all):
+>>>    L1d:                 128 KiB (16 instances)
+>>>    L1i:                 256 KiB (16 instances)
+>>>    L2:                  8 MiB (2 instances)
+>>> ```
+>>>
+>>> Signed-off-by: Jan Engelhardt <jengelh@inai.de>
+>>> ---
+>>>   arch/sparc/include/asm/cpudata_64.h |  8 +++-
+>>>   arch/sparc/kernel/mdesc.c           | 61 
+>>> +++++++++++++++++++++++++++++
+>>>   2 files changed, 68 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/arch/sparc/include/asm/cpudata_64.h 
+>>> b/arch/sparc/include/asm/cpudata_64.h
+>>> index 056b3c0e7ef9..e28b841ffe23 100644
+>>> --- a/arch/sparc/include/asm/cpudata_64.h
+>>> +++ b/arch/sparc/include/asm/cpudata_64.h
+>>> @@ -18,13 +18,19 @@ typedef struct {
+>>>       unsigned int    irq0_irqs;
+>>>       unsigned int    __pad2;
+>>>   -    /* Dcache line 2, rarely used */
+>>> +    /* Dcache line 2+3, rarely used */
+>>>       unsigned int    dcache_size;
+>>>       unsigned int    dcache_line_size;
+>>> +    unsigned int    dcache_assoc;
+>>> +    unsigned int    dcache_id;
+>>>       unsigned int    icache_size;
+>>>       unsigned int    icache_line_size;
+>>> +    unsigned int    icache_assoc;
+>>> +    unsigned int    icache_id;
+>>>       unsigned int    ecache_size;
+>>>       unsigned int    ecache_line_size;
+>>> +    unsigned int    ecache_assoc;
+>>> +    unsigned int    ecache_id;
+>>>       unsigned short    sock_id;    /* physical package */
+>>>       unsigned short    core_id;
+>>>       unsigned short  max_cache_id;    /* groupings of highest 
+>>> shared cache */
+>>> diff --git a/arch/sparc/kernel/mdesc.c b/arch/sparc/kernel/mdesc.c
+>>> index 23b51a32e96e..029d9d812074 100644
+>>> --- a/arch/sparc/kernel/mdesc.c
+>>> +++ b/arch/sparc/kernel/mdesc.c
+>>> @@ -818,6 +818,7 @@ static void fill_in_one_cache(cpuinfo_sparc *c, 
+>>> struct mdesc_handle *hp, u64 mp)
+>>>       const u64 *level = mdesc_get_property(hp, mp, "level", NULL);
+>>>       const u64 *size = mdesc_get_property(hp, mp, "size", NULL);
+>>>       const u64 *line_size = mdesc_get_property(hp, mp, "line-size", 
+>>> NULL);
+>>> +    const u64 *assoc = mdesc_get_property(hp, mp, "associativity", 
+>>> NULL);
+>>>       const char *type;
+>>>       int type_len;
+>>>   @@ -828,15 +829,21 @@ static void fill_in_one_cache(cpuinfo_sparc 
+>>> *c, struct mdesc_handle *hp, u64 mp)
+>>>           if (of_find_in_proplist(type, "instn", type_len)) {
+>>>               c->icache_size = *size;
+>>>               c->icache_line_size = *line_size;
+>>> +            c->icache_assoc = assoc ? *assoc : 0;
+>>> +            c->icache_id = mp;
+>>>           } else if (of_find_in_proplist(type, "data", type_len)) {
+>>>               c->dcache_size = *size;
+>>>               c->dcache_line_size = *line_size;
+>>> +            c->dcache_assoc = assoc ? *assoc : 0;
+>>> +            c->dcache_id = mp;
+>>>           }
+>>>           break;
+>>>         case 2:
+>>>           c->ecache_size = *size;
+>>>           c->ecache_line_size = *line_size;
+>>> +        c->ecache_assoc = assoc ? *assoc : 0;
+>>> +        c->ecache_id = mp;
+>>>           break;
+>>>         default:
+>>> @@ -1251,6 +1258,60 @@ void mdesc_fill_in_cpu_data(cpumask_t *mask)
+>>>       smp_fill_in_sib_core_maps();
+>>>   }
+>>>   +int init_cache_level(unsigned int cpu)
+>>> +{
+>>> +    struct cpu_cacheinfo *i = get_cpu_cacheinfo(cpu);
+>>> +    i->num_levels = 2;
+>>> +    i->num_leaves = 3;
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +int populate_cache_leaves(unsigned int cpu)
+>>> +{
+>>> +    struct cacheinfo *leaf = get_cpu_cacheinfo(cpu)->info_list;
+>>> +    cpuinfo_sparc *cs = &cpu_data(cpu);
+>>> +
+>>> +    leaf->id                    = cs->icache_id;
+>>> +    leaf->attributes            = CACHE_ID;
+>>> +    leaf->level                 = 1;
+>>> +    leaf->type                  = CACHE_TYPE_INST;
+>>> +    leaf->coherency_line_size   = cs->icache_line_size;
+>>> +    leaf->ways_of_associativity = cs->icache_assoc;
+>>> +    leaf->size                  = cs->icache_size;
+>>> +    leaf->priv                  = cs;
+>>> +    if (cs->icache_line_size > 0 && cs->icache_assoc > 0)
+>>> +        leaf->number_of_sets = cs->icache_size / 
+>>> cs->icache_line_size /
+>>> +                               cs->icache_assoc;
+>>> +    ++leaf;
+>>> +
+>>> +    leaf->id                    = cs->dcache_id;
+>>> +    leaf->attributes            = CACHE_ID;
+>>> +    leaf->level                 = 1;
+>>> +    leaf->type                  = CACHE_TYPE_DATA;
+>>> +    leaf->coherency_line_size   = cs->dcache_line_size;
+>>> +    leaf->ways_of_associativity = cs->dcache_assoc;
+>>> +    leaf->size                  = cs->dcache_size;
+>>> +    leaf->priv                  = cs;
+>>> +    if (cs->dcache_line_size > 0 && cs->dcache_assoc > 0)
+>>> +        leaf->number_of_sets = cs->dcache_size / 
+>>> cs->dcache_line_size /
+>>> +                               cs->dcache_assoc;
+>>> +    ++leaf;
+>>> +
+>>> +    leaf->id                    = cs->ecache_id;
+>>> +    leaf->attributes            = CACHE_ID;
+>>> +    leaf->level                 = 2;
+>>> +    leaf->type                  = CACHE_TYPE_UNIFIED;
+>>> +    leaf->coherency_line_size   = cs->ecache_line_size;
+>>> +    leaf->ways_of_associativity = cs->ecache_assoc;
+>>> +    leaf->size                  = cs->ecache_size;
+>>> +    leaf->priv                  = cs;
+>>> +    if (cs->ecache_line_size > 0 && cs->ecache_assoc > 0)
+>>> +        leaf->number_of_sets = cs->ecache_size / 
+>>> cs->ecache_line_size /
+>>> +                               cs->ecache_assoc;
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>>   /* mdesc_open() - Grab a reference to mdesc_handle when /dev/mdesc is
+>>>    * opened. Hold this reference until /dev/mdesc is closed to ensure
+>>>    * mdesc data structure is not released underneath us. Store the
+>
+I’ve applied the patch to a dual‑socket SPARC S7‑2 (16 cores total, 128 
+threads) and wanted to share the resulting lscpu output, since it 
+clarifies what the patch fixes and what still needs work for 3‑level parts.
 
-  $ dt-validate -V
-  2026.9
-  $ dt-validate -s <schema-dir> -l rcar-gen4-pci-host <gen4.dtb>
-    interrupts: [[0, 416, 4], [0, 417, 4], [0, 418, 4], [0, 422, 4], [0, 421, 4]] is too long
-      from schema $id: http://devicetree.org/schemas/pci/rcar-gen4-pci-host.yaml
+Before the patch:
 
-The top-level maxItems:4 would still apply to Gen4.
-We could instead drop the top-level interrupts limits and set them separately in
-the Gen4 and Gen5 'then' blocks, if that would be more readable.
+L1d: 2 MiB (128 instances)
+L1i: 2 MiB (128 instances)
+L2:  32 MiB (128 instances)
 
-But TBH, I don't see much benefit over the current (v4) layout, so I'd prefer to
-keep v4 as it is. I'd appreciate your thoughts on it.
+After the patch:
 
-Thanks for the review!
+L1d: 256 KiB (16 instances)
+L1i: 256 KiB (16 instances)
+L2:  2 MiB (8 instances)
 
-Best regards,
-Koichiro Den
+A) The L1 reporting is now correct. Each of the 16 cores has a private 
+16 KB L1I and 16 KB L1D, so 256 KiB in 16 instances is exactly right. 
+The per‑thread inflation is gone for L1, and the sharing/instance counts 
+are sensible. The generic leaf->id grouping is clearly doing its job.
+
+* B)  L2 is only half‑reported on S7:  This may be true for S7, T7, and 
+T8 CPUs.
+
+For the L2 split (On S7):
+
+     L2D: 256 KB shared by every 2 cores -> 8 instances × 256 KB = 2 
+MiB  (matches the output)
+
+     L2I: 256 KB shared by every 4 cores ->4 instances × 256 KB = 1 MiB  
+(missing)
+
+So the total L2 on this box should  be 3 MiB across 12 instances , or 
+shown as separate L2D/L2I lines. It looks like MDESC reports the L2I and 
+L2D nodes separately, and the current case 2: overwrites one with the 
+other in ecache_*. Supporting S7 properly would need either separate 
+storage for L2I/L2D or a way to handle multiple level‑2 nodes.
+
+* C) Need "level 3" cache details for (useful for T4, T5, S7, T7, T8).
+
+As expected, the S7’s 16 MB per‑socket L3 (32 MiB total, 2 instances on 
+this box) does not appear at all. init_cache_level() hardcodes 
+num_levels = 2 / num_leaves = 3, and fill_in_one_cache() has no case 3:, 
+so the MDESC level‑3 node is dropped in default.
+
+Adding an L3 leaf may need?
+
+     l3_* fields in cpuinfo_sparc,
+
+     a case 3: in fill_in_one_cache(),
+
+     num_levels = 3 / num_leaves = 4 in init_cache_level(),
+
+     a 4th leaf in populate_cache_leaves().
+
+For T7‑1/T8‑1 this would surface  their 64 MiB per‑socket L3; for S7‑2 
+it would show 32 MiB in 2 instances (16 MiB per cpu). The T5240 result 
+looks correct because that machine is 2‑level only, so the missing case 
+3: doesn’t show up there.
+
+Summary:
+
+The patch is an improvement but needs more work.  It fixes the L1 (and 
+L2D) inflation on S7‑2. To make it complete for the 3‑level SPARC parts, 
+it needs improved L2I/L2D handling and an L3 leaf. It would be great to 
+have L3 cache details shown via lscpu as well.
+
+
+Tested-By: Tony Rodriguez <unixpro1970@gmail.com>
+
+
+Regards,
+
+Tony
+
+
+
