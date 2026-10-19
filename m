@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAB85CFA37;
-	Mon, 19 Oct 2026 14:01:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033EC4FECCB;
+	Mon, 19 Oct 2026 14:01:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418484; cv=none; b=kLYAjqo5784R8ubfc/m6BSFN40u214WmTO+tGpJBei9/13La6tp5ZMIctQwNPPYqi3Z2swfuEaWSVKazXvWtmmJBXR+tJPFPbs6hpA3m436oqqtXoG2KDXGmNazAOvDtQZhEZBVphUkyNyGUN7j5Vy13bkIaluzeODFv4etBwtA=
+	t=1792418486; cv=none; b=BMCuz1jjJJgX9TRs2DOyx1gd8g/jhAIWAmklCbmC1/cv0h/EQLx0l01WszNm7cFgy00R6XnuPwTDpEKwM6WQmG0hP23ht73WL/7WL8FXed080OICqxgD8mJ2v3FbwBjU2XQ8KppToskV5JJA9pvNJr4Gmd2C3jx6hrxlup0svI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418484; c=relaxed/simple;
-	bh=HToFgVlhuGaEadTfI7X7GKcr0QHuQ8RmEuqX3C3o0wU=;
+	s=arc-20240116; t=1792418486; c=relaxed/simple;
+	bh=T+SJQKkQNkV1odb+u0fSYiUhhiFBgAgqiN5Ku20W6zE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CWcCDwHl4CZ5KbdyU8FJmUsMo7Zdbd/WN8aNjbsMhPLLwG1jXX4+1o2fD8hJOLaUsZUrbqeVmYYivC4cus1m3F7Y3WFdj3CCjoQJpDTOrRAMQJRYOrtT5V2PyaSQImnD+FuJOz3Qzs6Qs5qumjioEj6fzz2RZ3B7+WL9aMDoVPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OIEf7OWB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=obD8l0V0jLntfRg6iq1eSDueaxjdE0p+x4LyvnRq04aPA/VxV/RnlxvTDvRfSa0eU2Xk4jX46jX16XZR0X3sXqLL608QCKtcEVljPLlwEmxfnV42dsX+ttSJEYpISzQgooK2HrqoSoDB9XofgUUl+luJHTNwohO3kT8/OGcSttI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ij+aj8iS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OIEf7OWB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E2991F000C7;
-	Mon, 19 Oct 2026 14:01:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ij+aj8iS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36781F000C4;
+	Mon, 19 Oct 2026 14:01:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418481;
-	bh=gBlviaq2Bd1jxA4rhzos6vfoZby6wGFF0L4p6Ivg+2I=;
+	s=k20260515; t=1792418483;
+	bh=dSAE443ekBLb4DzBFWNQVF7AV2ZjnexmVnurg1YZebY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OIEf7OWBonhlFXBGqPTKSHJJN7/2RtkRSruw26RcyUNvIFj8eG1829evIbJ2RETxi
-	 eKlRsBclVAEWb31SoglLyvWUxMApgjXpZu8PY9C4l4uLOoyqPDQa0uvfCRYG8dd7Dr
-	 qMTe8ksrYEaUGMCEnxuDeOY7ntf5adHgReJESW4oL8/wh8Ser+U6goqYzhItfY4RIW
-	 3KF+eEwGD4NgaWvqGuO26pu7TV0s2j9OTEkJVNWvdmf/0nvyEr/UCqQ91khOK9ia5F
-	 b+JxEbFto6KQLkjQ7nPi7jZ0njM88Bg/Kvelmy8E6YT62+qFkq5uvvj8hHR0t5lWTX
-	 cBTPNpuhIQ2Jg==
+	b=ij+aj8iS74TSoGkRUTIW3mKTmSs/b0sT95ovZx+DDXcmUjJmUMfO4aRdUl5XajKUl
+	 K8cU7Amdcnhz9qQmHEAwBSniRXt+ow5FJfCkIRgjICzCnb7hx+EhW0ePXCwGcGYGSK
+	 BY6x0yociDvpuGaHaAVdQrnRTmVYZM06PfcJXfwX+LFkMzx5AejqiZQId2AHddeFPo
+	 OnEbjXPpTLbNit/yTGnNlmUG7WCPGLcwDKmold6Hfl83WFdLz/qooSKlyQF/sc8R7w
+	 IQJ1z+oHn4Z9lP5jOb/253zl1NAcjyY65KSZek0yJgZi5g0Yy7vam/PDcnjImyC5IN
+	 Q3kucUqmmBgsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Rui Qi <qirui.001@bytedance.com>,
-	Nam Cao <namcao@linutronix.de>,
-	Paul Walmsley <pjw@kernel.org>,
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	linux-riscv@lists.infradead.org,
+	yung-chuan.liao@linux.intel.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.6] riscv: kprobes: Prevent probes in breakpoint handlers
-Date: Mon, 19 Oct 2026 09:49:30 -0400
-Message-ID: <20261019135441.1420968-279-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.1] soundwire: dmi-quirks: Disable ghost Realtek on Asus Zenbook Duo
+Date: Mon, 19 Oct 2026 09:49:32 -0400
+Message-ID: <20261019135441.1420968-281-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -55,435 +54,389 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Rui Qi <qirui.001@bytedance.com>
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-[ Upstream commit e7d8ea6c6d1bc685a8943ffad2d3679be92d164f ]
+[ Upstream commit ca02ffd4975ca5249abf0cfb750a495d23b453ee ]
 
-The ftrace selftest multiple_kprobes.tc registers kprobe events on
-the first 256 text symbols from /proc/kallsyms. If handle_break() is
-selected as a probe target on RISC-V, the breakpoint exception path
-can trap again before it reaches the kprobe breakpoint handler. That
-recursively enters do_trap_break() and can make the system
-unresponsive.
+The Asus Zenbook Duo also has a Realtek device in the ACPI that
+doesn't exist in the physical hardware. This confuses the machine
+driver into attempting to create DAI links for the device. Add a
+quirk to remove this device.
 
-Mark handle_break() and its local probe dispatch helpers as nokprobe
-symbols so they are added to the kprobe blacklist, matching other
-low-level breakpoint exception paths.
-
-Signed-off-by: Rui Qi <qirui.001@bytedance.com>
-Reviewed-by: Nam Cao <namcao@linutronix.de>
-Link: https://patch.msgid.link/20260806043807.2583001-1-qirui.001@bytedance.com
-Signed-off-by: Paul Walmsley <pjw@kernel.org>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Link: https://patch.msgid.link/20260720095741.3592825-1-ckeepax@opensource.cirrus.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a 3-line RISC-V kprobe blacklist restore that prevents recursive
-breakpoint traps from hanging the machine. The local tree is
-**6.12.111** (`pending-6.12`); the buggy `handle_break()` path is
-present and the patch applies cleanly.
+This is a DMI hardware quirk for this 6.12 tree. The `ghost_realtek`
+remap table is already here; the commit only adds board `UX8407AA`.
 
 ===============================================================
 PHASE 1: COMMIT MESSAGE FORENSICS
 ===============================================================
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: [riscv: kprobes] [Prevent] [Stop kprobes on RISC-V breakpoint
-exception handlers so a probe on that path cannot recurse]
+Step 1.1: PARSE THE SUBJECT LINE
+Record: **[soundwire / dmi-quirks] [Disable] Disable ghost Realtek on
+Asus Zenbook Duo.** “Disable” is a bug-fix verb: stop enumerating a non-
+existent ACPI codec.
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- Signed-off-by: Rui Qi \<qirui.001@bytedance.com\> (author)
-- Reviewed-by: Nam Cao \<namcao@linutronix.de\>
-- Link: https://patch.msgid.link/20260806043807.2583001-1-
-  qirui.001@bytedance.com
-- Signed-off-by: Paul Walmsley \<pjw@kernel.org\> (RISC-V maintainer)
-- No Fixes: tag (expected)
-- No Reported-by / Tested-by / Cc: stable
-- No syzbot
+- Signed-off-by: Charles Keepax (author)
+- Reviewed-by: Pierre-Louis Bossart (SoundWire/Intel audio)
+- Link: https://patch.msgid.link/20260720095741.3592825-1-
+  ckeepax@opensource.cirrus.com
+- Signed-off-by: Vinod Koul (SoundWire maintainer; applied as
+  `ca02ffd4975c`)
+- No Fixes:, Reported-by:, Tested-by:, Cc: stable (absence expected)
+- Ignore pipeline SOBs/Upstream markers
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- Bug: `multiple_kprobes.tc` plants kprobes on the first 256
-  `/proc/kallsyms` text symbols. If `handle_break()` is one of them, the
-  breakpoint exception path hits another ebreak before
-  `kprobe_breakpoint_handler()` runs.
-- Symptom: recursive `do_trap_break()` → system unresponsive (hang).
-- Root cause: those C helpers are not on the kprobe blacklist.
-- Fix: `NOKPROBE_SYMBOL()` on `handle_break()`,
-  `probe_breakpoint_handler()`, and `probe_single_step_handler()`.
-- Version info: none in the message. The hang is RISC-V + kprobes, not a
-  new-kernel-only issue.
+- Bug: Asus Zenbook Duo ACPI lists a Realtek SoundWire device that is
+  not on the board.
+- Symptom: machine driver tries to create DAI links for that ghost codec
+  → wrong/broken sound card.
+- Root cause: firmware _ADR for a phantom RT722 (same class as UX5406AA
+  / Lenovo entries already in this tree).
+- No stack trace; hardware/firmware description.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not hidden. The subject says “Prevent” and the body describes a
-hang. This is an explicit bug fix.
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not a disguised cleanup. It is an explicit hardware quirk.
 
 ===============================================================
 PHASE 2: DIFF ANALYSIS - LINE BY LINE
 ===============================================================
 
-**Step 2.1: INVENTORY THE CHANGES**
+Step 2.1: INVENTORY THE CHANGES
 Record:
-- File: `arch/riscv/kernel/traps.c` only (+3 / −0)
-- Functions: `probe_single_step_handler`, `probe_breakpoint_handler`,
-  `handle_break`
-- Scope: single-file surgical fix
+- File: `drivers/soundwire/dmi-quirks.c` (+7 / −0)
+- Function/data: `adr_remap_quirk_table[]` only
+- Scope: single-file surgical DMI entry
+- New match: `DMI_SYS_VENDOR "ASUS"` + `DMI_BOARD_NAME "UX8407AA"` →
+  existing `ghost_realtek`
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- Before: all three are normal `.text` symbols. `handle_break()` is
-  global, so it is always in kallsyms. A kprobe on it patches ebreak at
-  the function entry.
-- Path: ebreak → `do_trap_break()` (noinstr) → `handle_break()` → ebreak
-  again → nested `do_trap_break()` → hang/stack blow-up.
-  `kprobe_breakpoint_handler()` is never reached because the trap
-  happens at the start of `handle_break()`.
-- After: the three symbols go in `_kprobe_blacklist`.
-  `register_kprobe()` rejects them via `within_kprobe_blacklist()`
-  (`kernel/kprobes.c`).
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record: Before, UX8407AA was not in the table, so ACPI _ADR
+`0x000330025d072201` (RT722 on link3) was used as-is. After, that _ADR
+is remapped to `0`, so `find_slave()` skips the device.
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: [Logic / kprobe blacklist gap] [Breakpoint exception helpers
-were probeable; probing them recurses into the same handler.] Category
-is closest to a hang/deadlock-class failure, not UAF.
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record: **Hardware workaround (DMI quirk).** Same `ghost_realtek` map
+already in tree:
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record:
-- Obviously correct: `NOKPROBE_SYMBOL()` is the standard way to
-  blacklist. x86 does the same with `NOKPROBE_SYMBOL(do_int3)`. RISC-V
-  already uses `__kprobes` on `kprobe_breakpoint_handler()` itself.
-- Minimal: three annotation lines, no control-flow change.
-- Regression risk: very low. Blacklisting only refuses probes on those
-  symbols; normal breakpoint/BUG/kgdb handling is unchanged.
-- `linux/kprobes.h` is already included in `traps.c`. With
-  `CONFIG_KPROBES=n`, `NOKPROBE_SYMBOL` is a no-op.
+```97:104:drivers/soundwire/dmi-quirks.c
+static const struct adr_remap ghost_realtek[] = {
+        /* rt722 on link3 */
+        {
+                0x000330025d072201ull,
+                0x0000000000000000ull
+        },
+        {}
+};
+```
+
+`sdw_dmi_override_adr()` applies that map. `find_slave()` then drops a
+zero address:
+
+```109:113:drivers/soundwire/slave.c
+        if (bus->ops->override_adr)
+                addr = bus->ops->override_adr(bus, addr);
+
+        if (!addr)
+                return false;
+```
+
+Intel ops already wire this (`override_adr = sdw_dmi_override_adr` in
+`intel_auxdevice.c`). `intel_init.c` builds `ctx->ids` from registered
+slaves, so SOF machine select in `hda_sdw_machine_select()` never sees
+the ghost.
+
+Step 2.4: ASSESS THE FIX QUALITY
+Record: Copy of existing ASUS/Lenovo rows; DMI-gated; no
+API/locking/hot-path change. Regression risk is limited to mis-matched
+board strings on UX8407AA only.
 
 ===============================================================
 PHASE 3: GIT HISTORY INVESTIGATION
 ===============================================================
 
-**Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- `handle_break()` created by `f0bddf50586da` (“riscv: entry: Convert to
-  generic entry”, in v6.4-rc1). That commit **removed**
-  `NOKPROBE_SYMBOL(do_trap_break)` when splitting `do_trap_break()` into
-  a noinstr wrapper plus a C `handle_break()`.
-- Wrappers `probe_*_handler()` added by `9f564b92cf6d0` (“riscv: Only
-  consider swbp/ss handlers for correct privileged mode”, in v6.6-rc6).
-- Both are ancestors of this 6.12 tree.
+Step 3.1: BLAME THE CHANGED LINES
+Record: PTL `ghost_realtek` rows come from `30e7fb61a64ba` (“Disable
+ghost Realtek devices”), backport of upstream `4dab2b904414` (Charles
+Keepax, 2026-05-20). Already in this tree. UX8407AA is not.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. The dropped blacklist is from `f0bddf50586da`.
-Earlier, `2349a3b26e29b` (“riscv: add do_page_fault and do_trap_break
-into the kprobes blacklist”, 2021) added
-`NOKPROBE_SYMBOL(do_trap_break)` with **Cc: stable** and Fixes:
-`c22b0bcb1dd02` (“riscv: Add kprobes supported”). This patch restores
-that protection after the generic-entry split.
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. Introduced bug is firmware, not a kernel commit.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Recent `traps.c` churn (irq enable in exception handling,
-misaligned traps) does not retarget these three functions. Not part of a
-multi-patch series (standalone v1→v2 style-only). No extra prerequisite
-beyond code already in 6.12.
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record: Recent `dmi-quirks.c` history is quirk additions. Sibling IDs
+already here: UX5406AA, Lenovo 83QK, 83SF. Upstream context also has
+B9406CAA; that ID is **not** in this tree and is **not** required for
+UX8407AA.
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Rui Qi is not the RISC-V maintainer. One other RISC-V commit in
-this tree (`8b76013038478`, stacktrace). Reviewer Nam Cao has
-substantial RISC-V kprobes work. Maintainer Paul Walmsley queued the
-patch.
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: Charles Keepax is a regular SoundWire/ASoC contributor (Cirrus).
+Same author added the original `ghost_realtek` table. Reviewed by
+Pierre-Louis Bossart; applied by Vinod Koul.
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: None. Uses existing `NOKPROBE_SYMBOL`. Standalone. `git apply
---check` of the three-line hunk on this tree succeeded (exit 0).
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: Needs `ghost_realtek` + `sdw_dmi_override_adr` + Intel
+`override_adr`. All present (`30e7fb61a64ba`). Standalone; not patch
+x/y. Original May 2026 series (ptl-match Chrome matches, then
+ghost_realtek) is independent of this July follow-up.
 
 ===============================================================
 PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 ===============================================================
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
 Record:
-- `b4 dig -c <msgid>` failed: commit is not in this checkout (`Cannot
-  find a commit matching …`).
-- lore.kernel.org fetches returned HTTP 403.
-- Recovered from LKML/patchew/openwall:
-  - v1: 2026-08-04, msgid
-    `20260804064343.1865283-1-qirui.001@bytedance.com`
-  - v2: 2026-08-06, msgid
-    `20260806043807.2583001-1-qirui.001@bytedance.com` (applied version)
-- v2 changelog: drop blank line before `NOKPROBE_SYMBOL()`; add Nam Cao
-  Reviewed-by. No technical redesign.
-- Paul Walmsley: “Thanks, queued for v7.3.” No NAK.
+- `b4 dig -c ca02ffd4975c` → https://patch.msgid.link/20260720095741.359
+  2825-1-ckeepax@opensource.cirrus.com
+- `b4 dig -a`: single v1, no later revision
+- Pierre-Louis Bossart: Reviewed-by; noted this will keep happening as
+  more BIOS bugs ship; not a NAK
+- Vinod Koul: Applied, thanks
+- No NAKs, no Cc: stable in review (not a negative)
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: v1 CC included Paul Walmsley, Palmer Dabbelt, Alexandre Ghiti,
-Thomas Gleixner, Nam Cao, linux-riscv, linux-kernel. Nam Cao Reviewed-by
-on v2. RISC-V maintainer applied it.
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record: To Vinod Koul; Cc Yung-Chuan Liao, Pierre-Louis Bossart, linux-
+sound, linux-kernel, Cirrus patches. Appropriate maintainers.
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No bugzilla/syzbot link. Concrete trigger is in-tree:
-`tools/testing/selftests/ftrace/test.d/kprobe/multiple_kprobes.tc`
-(first 256 kallsyms text symbols). Author describes a hang; that matches
-the code path.
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No syzbot/bugzilla. Author report of shipping ACPI. Same
+firmware class as quirks already in 6.12. Related AUTOSEL for 6.12:
+`platform/x86: asus-nb-wmi: add DMI quirk for ASUS Zenbook Duo UX8407AA`
+— this SKU is already treated as 6.12-relevant.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Single patch, not 2/N. No follow-up required from the v2
-discussion.
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: Standalone 1/1. Follow-up to `4dab2b904414` / `30e7fb61a64ba`,
+already here.
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable search returned 403. No evidence this was
-rejected for stable. The 2021 predecessor (`2349a3b26e29b`) was
-explicitly Cc: stable.
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: **UNVERIFIED** — lore.kernel.org/stable returned 403. No
+evidence this was rejected for stable.
 
 ===============================================================
 PHASE 5: CODE SEMANTIC ANALYSIS
 ===============================================================
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `probe_single_step_handler`, `probe_breakpoint_handler`,
-`handle_break`. Callers of `handle_break()` are only the two branches of
-`do_trap_break()`.
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: No function body change. Data: `adr_remap_quirk_table`.
+Consumer: `sdw_dmi_override_adr()`.
 
-**Step 5.2: TRACE CALLERS**
+Step 5.2: TRACE CALLERS
 Record:
-- Exception vector in `arch/riscv/kernel/entry.S` (`RISCV_PTR
-  do_trap_break`)
-- `do_trap_break()` (noinstr / `__trap_section`) already blacklisted via
-  `__noinstr_text_*` in `populate_kprobe_blacklist()`
-- `do_trap_break()` → `handle_break()` (not noinstr, not blacklisted
-  today)
-- `handle_break()` → probe helpers → `kprobe_*_handler()` (`__kprobes`,
-  already blacklisted) or SIGTRAP/BUG/kgdb
+- `sdw_dmi_override_adr` ← Intel `sdw_intel_ops.override_adr`
+- `find_slave()` during ACPI slave walk
+- Boot/probe only, Intel SoundWire platforms with matching DMI
 
-Context: breakpoint exception, including kernel ebreak from kprobes.
+Step 5.3: TRACE CALLEES
+Record: `dmi_first_match()`, remap loop, `dev_dbg()`. No alloc/locks.
 
-**Step 5.3: TRACE CALLEES**
-Record: `user_mode()`, `uprobe_*` / `kprobe_*` handlers,
-`force_sig_fault`, `notify_die`, `report_bug`, `handle_cfi_failure`,
-`die()`. No allocations or new locks in the patch (annotations only).
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: Reachable at SoundWire probe on UX8407AA. Not a syscall UAF;
+broken audio on that laptop. `hda_sdw_machine_select()` uses
+`hdev->sdw->ids` from registered slaves, so skipping the ghost changes
+machine matching and DAI-link construction.
 
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Reachable from userspace tracing when `CONFIG_KPROBES` is on:
-write to `kprobe_events` or equivalent (typically CAP_SYS_ADMIN /
-CAP_PERFMON). Also reachable from the ftrace kprobe selftest. Not a
-default-defconfig path (`CONFIG_KPROBES` is optional, RISC-V defconfig
-does not set it), but distro/debug kernels enable it.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Same pattern on x86 (`NOKPROBE_SYMBOL(do_int3)`), s390, powerpc,
-loongarch kprobe handlers. RISC-V `kprobe_breakpoint_handler` already
-uses `__kprobes`. The missing piece is the C trampoline
-`handle_break()`, which is what generic-entry introduced.
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: Same pattern already used for UX5406AA and two Lenovo SKUs. This
+extends that list.
 
 ===============================================================
 PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 ===============================================================
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes. `arch/riscv/kernel/traps.c` lines 269–305 define the three
-functions with no `NOKPROBE_SYMBOL`. `HAVE_KPROBES` is selected for
-RISC-V when `!XIP_KERNEL`. Bug introduced when
-`NOKPROBE_SYMBOL(do_trap_break)` was dropped in v6.4 (`f0bddf50586da`);
-wrappers present since v6.6. Present throughout 6.12.y.
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record:
+- Tree: **pending-6.12**, `make kernelversion` = **6.12.111**
+  (`p-6.12-2-gd38d58a4e0359`)
+- `drivers/soundwire/dmi-quirks.c` present; `ghost_realtek` present;
+  UX8407AA **absent**
+- PTL SOF support present (`pci-ptl.c`, `soc-acpi-intel-ptl-match.c`
+  with RT722 link0/link3)
+- Mechanism that makes a zero _ADR drop the slave is present
+- Candidate `ca02ffd4975c` is **not** an ancestor of HEAD (expected)
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply. Local `do_trap_break()` has extra
-`local_irq_enable/disable` from `32b14e757404c`, below the insertion
-points, so it does not conflict. `git apply --check` succeeded.
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: Lore hunk (insert before first LENOVO `ghost_realtek` row)
+**`git apply --check` clean**. Full upstream context mentioning B9406CAA
+is not required. Difficulty: **clean apply**.
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: No `NOKPROBE_SYMBOL` in `traps.c` now. `do_trap_break` is still
-noinstr-blacklisted, which is not enough because it calls out to
-`handle_break()`.
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: Generic ghost-Realtek table yes; this board ID no. No substitute
+UX8407AA SoundWire quirk.
 
 ===============================================================
 PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 ===============================================================
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: [arch/riscv kprobes/traps] [IMPORTANT for RISC-V tracing;
-PERIPHERAL relative to all architectures]. Not core mm/scheduler, but a
-hang in the arch breakpoint path.
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: **soundwire DMI quirks** (Intel laptop audio). **IMPORTANT** for
+those machines; DMI-gated so not CORE-wide.
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: RISC-V traps/kprobes are mature in 6.12 (kprobes since 5.13).
-This is a long-standing hole, not a brand-new feature bug.
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Mature quirk table (since ~2021) with ongoing DMI additions.
+This is the usual enablement pattern, not a new subsystem.
 
 ===============================================================
 PHASE 8: IMPACT AND RISK ASSESSMENT
 ===============================================================
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: RISC-V kernels with `CONFIG_KPROBES` (and not XIP). Tracing
-users, ftrace kprobe selftests, distro kernels that enable kprobes. Not
-every 6.12 user.
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: **Driver/platform-specific**: ASUS board UX8407AA (Zenbook Duo).
+Everyone else unchanged.
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Plant a kprobe on `handle_break` (or the static helpers if they
-have kallsyms entries), then any kernel/user breakpoint that enters
-`handle_break()`. The selftest can do that if `handle_break` is among
-the first 256 text symbols (address-order, so platform-dependent).
-Explicit `perf probe` / `kprobe_events` on that symbol is a reliable
-trigger. Needs tracing privilege, not an unprivileged local DoS on
-typical configs.
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record: Every boot/probe on that DMI. No race. Unprivileged users get
+broken audio; they cannot trigger it on other machines.
 
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: [Recursive breakpoint exception → hang / unresponsive system]
-[CRITICAL for those who hit it]. Not data corruption. Not an
-unprivileged security bug on typical kprobe policy.
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: Wrong DAI links / wrong SOF machine (e.g. matching
+`ptl_rt722_l3` on a ghost RT722) or probe of a codec that is not there.
+**HIGH** for that SKU (no/wrong audio), not a panic.
 
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
 Record:
-- Benefit: HIGH for RISC-V kprobe users (prevents hang; restores
-  blacklist that stable already shipped once).
-- Risk: VERY LOW (3 annotation lines, no runtime logic change).
-- Ratio: strongly favors backport.
+- Benefit: audio enumeration correct on a shipping PTL laptop; same
+  class as quirks already in 6.12
+- Risk: very low (7 lines, DMI-gated, existing table)
+- Ratio: strongly favors backport
 
 ===============================================================
 PHASE 9: FINAL SYNTHESIS
 ===============================================================
 
-**Step 9.1: COMPILE THE EVIDENCE**
+Step 9.1: COMPILE THE EVIDENCE
 
 FOR:
-- Real hang: recursive ebreak in the breakpoint path.
-- In-tree selftest is a plausible trigger; any probe on `handle_break`
-  is a hard trigger.
-- Restores protection that `2349a3b26e29b` put on `do_trap_break` (Cc:
-  stable) and that `f0bddf50586da` dropped.
-- Matches other architectures’ nokprobe on low-level BP handlers.
-- 3 lines, obviously correct, reviewed by Nam Cao, queued by Paul
-  Walmsley.
-- Buggy code is in this 6.12 tree; patch applies cleanly.
+- Hardware quirk / DMI ID on an existing driver — stable exception
+- Real firmware bug: ghost Realtek in ACPI
+- User-visible: machine driver builds DAI links for hardware that does
+  not exist
+- +7 lines, copy of existing entries
+- `ghost_realtek` + Intel override path already in 6.12.111
+- Applies cleanly
+- Reviewed by Bossart, applied by Koul
+- Same author/table as UX5406AA already in this tree
+- PTL SoundWire/SOF present
+- Zero blast radius off that DMI match
 
 AGAINST:
-- Not on by default in RISC-V defconfig (`CONFIG_KPROBES` optional).
-- Needs privileged tracing to trigger.
-- No Fixes:/Cc: stable on this commit (not a negative per the review
-  rules).
-- Arch-specific, so only RISC-V 6.12 users benefit.
+- One laptop SKU
+- No Reported-by/syzbot (normal for DMI quirks)
+- PTL match table in 6.12 is still mostly RT711/RT722 (function-topology
+  DAI building is stronger on later/ARL paths); the skip still prevents
+  ghost-slave probe and false `ptl_rt722_l3` match
+- lore.kernel.org/stable search 403
 
 UNRESOLVED:
-- Exact Nam Cao review email body (lore 403). v2 only changed whitespace
-  and added Reviewed-by.
-- Whether `handle_break` is in the first 256 kallsyms on a typical 6.12
-  RISC-V vmlinux (unverified; hang if probed is verified from code
-  regardless).
-- `b4 dig` could not run against a SHA not in this checkout.
+- Exact UX8407AA DMI strings not independently dumped
+- Stable-list discussion not fetched (HTTP 403)
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — standard `NOKPROBE_SYMBOL`;
-   maintainer queued; reviewer Ack.
-2. Fixes a real bug that affects users? **PASS** — hang when kprobes
-   lands on `handle_break`.
-3. Important issue (crash, security, corruption, deadlock)? **PASS** —
-   system hang / unresponsive.
-4. Small and contained? **PASS** — +3 lines, one file.
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — `git apply --check` clean on
-   6.12.111.
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — identical to existing rows;
+   maintainer Reviewed-by/applied
+2. Fixes a real bug that affects users? **PASS** — ghost ACPI codec
+   breaks card/DAI setup
+3. Important issue? **PASS** — broken audio on a shipping laptop (HIGH
+   for that SKU)
+4. Small and contained? **PASS** — 7 lines, one table
+5. No new features or APIs? **PASS** — DMI quirk only
+6. Can apply to the local tree? **PASS** — lore hunk applies;
+   prerequisites present
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Not a device-ID/quirk/DT/build/docs exception. It is a normal
-hang fix.
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: **Hardware quirk / DMI workaround** on an existing SoundWire
+quirk table.
 
-**Step 9.4: MAKE YOUR DECISION**
-This belongs on 6.12.y. It restores a kprobe blacklist that this tree
-lost in the generic-entry split, with essentially no behavioral change
-except refusing probes that can wedge the machine.
+Step 9.4: MAKE YOUR DECISION
+This belongs on 6.12.y. The bug exists here, the fix is the established
+DMI pattern, and it does not depend on B9406CAA or later function-
+topology work.
 
-Detailed explanation:
-The problem is that RISC-V kprobes implement software breakpoints with
-ebreak. `do_trap_break()` is noinstr (already blacklisted), but it
-immediately calls `handle_break()`, which is ordinary C text. If a
-kprobe is installed on `handle_break()`, the first instruction is
-ebreak, so the exception path traps again before
-`kprobe_breakpoint_handler()` can run. That recurses until the system
-stops responding. Marking the three symbols `NOKPROBE_SYMBOL` puts them
-on the same blacklist `register_kprobe()` already consults. Stable users
-who enable kprobes (tracing, selftests, distro debug kernels) are the
-ones who hit this; the cost of the backport is three annotations.
+------------------------------------------------
+What problem it solves for this tree
+------------------------------------------------
+Asus Zenbook Duo UX8407AA ships ACPI for a Realtek RT722 on SoundWire
+link3 that is not physically present. Without the quirk, Intel SoundWire
+registers that slave, SOF machine select can treat it as real, and
+`sof_sdw` can create DAI links for it. Remapping that _ADR to 0 drops
+the ghost device. The remap table and call path are already in 6.12.111;
+this only names the board.
+
+Risk vs benefit
+------------------------------------------------
+Benefit is working (or at least not mis-probed) audio on that SKU. Risk
+is a DMI-only table row. No new APIs, no locking, no cross-subsystem
+change.
+
+Concerns
+------------------------------------------------
+None that block backport. B9406CAA in some upstream context is a
+different board and is not a prerequisite. Apply is clean with the lore
+hunk.
 
 Verification:
-- [Phase 1] Parsed tags: Reviewed-by Nam Cao; Link msgid
-  20260806043807.2583001-1; Paul Walmsley SOB; no Fixes/syzbot
-- [Phase 2] Diff: +3 `NOKPROBE_SYMBOL` lines in
-  `arch/riscv/kernel/traps.c`; no control-flow change
-- [Phase 2] Confirmed `traps.c` already `#include <linux/kprobes.h>`
-- [Phase 2] Confirmed `register_kprobe()` rejects
-  `within_kprobe_blacklist()` addresses (`kernel/kprobes.c` ~1593)
-- [Phase 2] Confirmed `NOKPROBE_SYMBOL` writes `_kprobe_blacklist`
-  (`include/asm-generic/kprobes.h`)
-- [Phase 3] `git describe HEAD` / `make kernelversion`:
-  p-6.12-3-gc504cf0baa3d8, 6.12.111
-- [Phase 3] blame: `handle_break` from `f0bddf50586da` (v6.4-rc1);
-  wrappers from `9f564b92cf6d0` (v6.6-rc6)
-- [Phase 3] `git show f0bddf50586da`: removed
-  `NOKPROBE_SYMBOL(do_trap_break)` while splitting the function
-- [Phase 3] `2349a3b26e29b` originally blacklisted `do_trap_break` with
-  Cc: stable
-- [Phase 3] `git merge-base --is-ancestor` both introducing commits are
-  in HEAD
-- [Phase 4] b4 dig: no matching commit in this tree (UNVERIFIED via b4)
-- [Phase 4] v1/v2 recovered from lkml.iu.edu / openwall / patchew; v2 is
-  style-only + Reviewed-by
-- [Phase 4] Paul Walmsley: queued for v7.3 (patchew)
-- [Phase 4] lore.kernel.org and stable@ search: HTTP 403 (UNVERIFIED via
-  lore)
-- [Phase 4] Nam Cao review body: UNVERIFIED (openwall msg id collision);
-  Reviewed-by on v2 is verified
-- [Phase 5] Callers: `entry.S` → `do_trap_break` → `handle_break`;
-  `do_trap_break` is `__trap_section`/`noinstr`
-- [Phase 5] `kprobe_breakpoint_handler` already `__kprobes` in
-  `arch/riscv/kernel/probes/kprobes.c`
-- [Phase 5] Selftest `multiple_kprobes.tc` confirmed to take first 256
-  kallsyms text symbols
-- [Phase 5] x86 comparison: `NOKPROBE_SYMBOL(do_int3)` in
-  `arch/x86/kernel/traps.c:826`
-- [Phase 6] Current `traps.c` has no `NOKPROBE_SYMBOL`; buggy helpers
-  present at lines 269–305
-- [Phase 6] `git apply --check` of the three-line hunk: exit 0
-- [Phase 7] `arch/riscv/Kconfig`: `select HAVE_KPROBES if !XIP_KERNEL`
-- [Phase 8] RISC-V defconfig does not set `CONFIG_KPROBES` (trigger is
-  config-specific)
-- UNVERIFIED: whether `handle_break` is in the first 256 kallsyms on a
-  typical 6.12 RISC-V build (does not change the hang if that symbol is
-  probed)
+- [Phase 1] Parsed subject/tags from the provided message; no
+  Fixes/syzbot; Reviewed-by Bossart; Link msgid 20260720095741.3592825-1
+- [Phase 2] Diff is +7 lines in `adr_remap_quirk_table`; `ghost_realtek`
+  maps RT722 link3 `_ADR` to 0
+- [Phase 2] Confirmed `find_slave()` returns false on `!addr`; Intel ops
+  set `override_adr`
+- [Phase 3] `git blame` PTL block → `30e7fb61a64ba` (backport of
+  `4dab2b904414`); UX8407AA not present
+- [Phase 3] `git merge-base --is-ancestor 30e7fb61a64ba HEAD` → yes;
+  `ca02ffd4975c` → no
+- [Phase 3] Author history in `drivers/soundwire/` includes the original
+  ghost-Realtek quirk
+- [Phase 4] `b4 dig -c ca02ffd4975c` → lore msgid; `-a` v1 only; `-w`
+  Vinod/Bossart/linux-sound
+- [Phase 4] Patchew/openwall: Bossart Reviewed-by; Vinod applied
+  `ca02ffd4975c`
+- [Phase 4] WebSearch: related 6.12 AUTOSEL asus-nb-wmi quirk for
+  UX8407AA
+- [Phase 5] Callers: `sdw_dmi_override_adr` ← `find_slave` ← Intel
+  probe; `ctx->ids` from registered slaves
+- [Phase 6] `git describe HEAD` p-6.12-2; `make kernelversion` 6.12.111;
+  PTL SOF files present
+- [Phase 6] `git apply --check` of lore hunk: clean
+- [Phase 8] Failure mode: wrong DAI links / ghost codec probe; DMI-gated
+- UNVERIFIED: lore.kernel.org/stable search (403); live DMI dump of
+  UX8407AA
+
+The patch is a small, existing-pattern DMI quirk; prerequisites are in
+this tree and it applies cleanly.
 
 **YES**
 
- arch/riscv/kernel/traps.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/soundwire/dmi-quirks.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/arch/riscv/kernel/traps.c b/arch/riscv/kernel/traps.c
-index 47afea4ff1a8d..e7e45cbb08999 100644
---- a/arch/riscv/kernel/traps.c
-+++ b/arch/riscv/kernel/traps.c
-@@ -272,6 +272,7 @@ static bool probe_single_step_handler(struct pt_regs *regs)
- 
- 	return user ? uprobe_single_step_handler(regs) : kprobe_single_step_handler(regs);
- }
-+NOKPROBE_SYMBOL(probe_single_step_handler);
- 
- static bool probe_breakpoint_handler(struct pt_regs *regs)
- {
-@@ -279,6 +280,7 @@ static bool probe_breakpoint_handler(struct pt_regs *regs)
- 
- 	return user ? uprobe_breakpoint_handler(regs) : kprobe_breakpoint_handler(regs);
- }
-+NOKPROBE_SYMBOL(probe_breakpoint_handler);
- 
- void handle_break(struct pt_regs *regs)
- {
-@@ -303,6 +305,7 @@ void handle_break(struct pt_regs *regs)
- 	else
- 		die(regs, "Kernel BUG");
- }
-+NOKPROBE_SYMBOL(handle_break);
- 
- asmlinkage __visible __trap_section void do_trap_break(struct pt_regs *regs)
- {
+diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.c
+index 62cee6e2179da..f738e547a1f30 100644
+--- a/drivers/soundwire/dmi-quirks.c
++++ b/drivers/soundwire/dmi-quirks.c
+@@ -200,6 +200,13 @@ static const struct dmi_system_id adr_remap_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)ghost_realtek,
+ 	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
++			DMI_MATCH(DMI_BOARD_NAME, "UX8407AA"),
++		},
++		.driver_data = (void *)ghost_realtek,
++	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
 -- 
 2.53.0
 
