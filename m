@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424414;
-	b=Ceae+wXrETrGc2IqaD4p94KmILMhRZIyUls6TYXWViCxrdQtCPDWnOtVLJ7Z0MfOBvAX
-	 O3yFXTk0F0biOktRBbqPyX9OSUoD2Obod69dXWoH1VBGT9yC2p3ToeYWsppIN/e2a3Eoc
-	 NZVR4pAO6660DEDcbUSVejeICGKZq6tmkSojfJleVEMNKHVPkmX3hWmTD/zL77hjXXzIS
-	 5JS6BZI+M4c/pybHwtUO2pQoq7sx5bPEJcvroKVQcu1DaKw2dONSwbF9y0LVhSN2OBGTL
-	 mT9lxUFiBdlP8A55F9kW5tp7iwEiplaaGpyJfd8UPPuB/4OMbBu5xOjsDtl+CZeTlFQ==
+	t=1792424410;
+	b=ACi6Wbx4xUSzdoN5e31eHMvAAEQonZKkgmd/xgWCk6o/JRZPj9UlcpEDG1//lGDBl8yM
+	 YXn/Xqd2jqaoI/QoizOdrzF1/tPJ9RgB2DQ25zSKiTEXXFwR/3EUP2VCBgArXdrE537DR
+	 KMX9Y8E5VWwTLj4AG56phmmF+7XcnRDxSDLp0fCptHvskj0WMgWyDKbYZY8tt2azZn9A1
+	 y2MKUyY0ZZjvscNVFH/SVGP49iXgSX7I1U448u8IoZX7ZWyXK2z4VU9DwLPYuSZNh7g7H
+	 Uo9/bJ0fkFYIU3zRpStCvHn66+Z1mccQG14jYG2NRLMy6iMY+zQ/bpqDWNwgGel+T/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424410;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=G+V77N/C1hhL9FyqAqomXKSSOjqKQTkqb31ANrBdi4k=;
-	b=Me8fukumnhERKN8tjLHFtq9Q+PG6wEMOm3iFMCIwf7MKH4IYW+NzTsPpclAPxPaIFncr
-	 P0LlzRVIMosUDnzhg21MLkAblzLn5CMnKO+DqhfCjd3d0e4m4zLz6myRCe2aPvIamxl39
-	 7KWNUO9/PCJusFhI5X5Xz2gesYrBljIQPU9Mr+/iiTsjZUig9wO2k/hxXTZiJF0xmk876
-	 h/Ajf3NWIefivg0rGrr858FNRDR0E2nO4Dj7PaSlSv+HF3lDqnK0hyw5VQZbOG1EZ4MYd
-	 awXd7ClkDWQEqgWb0rYgNUJOQ3HKrKqmAkQvvM5vJ51BfrSuSaoS49/uxbfa3G0iw8Q==
+	bh=qwGM5xmeEPX+GaVpTSduBVTgYgRIBuVMbExrrgClW+Y=;
+	b=CVnNNskRHkAFYORf6jG+sm+cY7UZBYwreEvf6wG0YAgqrkkTTTH0Na56CpsT1r46M8hL
+	 k0GOpAHixwOJf0fjAvx/teUostUDsC4rNhyN2mDOF8O+4QgOgQpY83h9v2rOMM5FzxEa6
+	 r2ZJXcJykLUz/lVNzWZ46M4SWoT776a0E8LlUwMAM78AF4NxgOQUrwR41D+8LByGa3lgQ
+	 aJuZzJwpqmjCxFwlGT6WcdMIOKhjmG/hZVIT0DNfhu8ZF7PfpxaSuc2O0VnqfjNjXmQq+
+	 HrrxIoFZohn7bEShQv/voET/qmRWe3g7wOah/P/iEaKSu4S1R7XosUOUT49PbuUYXdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T9li19/3";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="crLbjQ2/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE4E607DC4D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:40:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D612260774E8
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:40:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9li19/3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A96F1F000C4;
-	Mon, 19 Oct 2026 15:40:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=crLbjQ2/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800BD1F000C4;
+	Mon, 19 Oct 2026 15:40:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792424414;
-	bh=G+V77N/C1hhL9FyqAqomXKSSOjqKQTkqb31ANrBdi4k=;
+	s=k20260515; t=1792424409;
+	bh=qwGM5xmeEPX+GaVpTSduBVTgYgRIBuVMbExrrgClW+Y=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=T9li19/3fZy52ILjRKJqVsjGWYfINbXA8858L5XmVyCnH7WghntxOSPg6VboSID57
-	 CjsneiJm3CNeusbrI3ClAU7R7JbbIYjkrEQ6DelqbYXedZii0zFrCIKD5L3Qx7v6AK
-	 2MsR6XEbqt1kbqWkaDe/jjOpHVvIVlA6vX2kQYdFGnr2KfQfcy8FtpWZoWnZkD6xCw
-	 VA3KMWAN16k008CRM7yvZYQ3BVbxivcFGRMsx3LezV2Tqxx+XxNrb7P1a3oCYTERiV
-	 v58FZPjwNfT6tTQbwd3jSCvRSeXdYMqbboMQ5/KGviGFsYvuyJhMv0zabeFUiC6KkV
-	 5OrzODbwt8O6Q==
+	b=crLbjQ2/0i1E5J+f61nXdnmUhYI8V+mKmbI5ryzsA2PSbcoe+DE5+maPSO6oIdxZo
+	 0ZtO+0eub6zceTLEA23QkoGnB4Slk9+YAwkieK3vhRn0Ur6AmZE2vLGy6TgJoFgX59
+	 J73Rur9/1ohJaEsTuvkAmWSgpJNY0m2IDfyMChloo6mM/KpzsRM7umMNAwI5t4JMhW
+	 adFYTv6l6g1pcxSPNoJRKYSvM7iiA1eDvu3vbAL/wtOfER6Hn1FjcjifmtAivX9o4T
+	 70UzRrureUYhoERZCLNmzpPPVFl2arRRyThOTEsSF7G1CbCBIxCNso13EqpbNAhewX
+	 hSjxdRn9a5r1w==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F151E3811A71;
-	Mon, 19 Oct 2026 15:40:13 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773963811A71;
+	Mon, 19 Oct 2026 15:40:09 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,37 +54,41 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH] f2fs: fix submit accounting for IPU writeback
+Subject: Re: [f2fs-dev] [PATCH 1/2] f2fs: flush SIT journal during filesystem
+ resize
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <179242441252.2714099.14576361716575033852.git-patchwork-notify@kernel.org>
-Date: Mon, 19 Oct 2026 15:40:12 +0000
-References: <20261014112629.59861-1-jsjlee1020@gmail.com>
-In-Reply-To: <20261014112629.59861-1-jsjlee1020@gmail.com>
-To: Seongjae Jeong <jsjlee1020@gmail.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net
+ <179242440802.2714099.4838078075531499701.git-patchwork-notify@kernel.org>
+Date: Mon, 19 Oct 2026 15:40:08 +0000
+References: <20260828141240.2391915-1-qiwenjie@xiaomi.com>
+In-Reply-To: <20260828141240.2391915-1-qiwenjie@xiaomi.com>
+To: Wenjie Qi <qwjhust@gmail.com>
+Cc: jaegeuk@kernel.org, chao@kernel.org, daehojeong@google.com,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ qiwenjie@xiaomi.com, sunqiuyang@huawei.com
 
 Hello:
 
-This patch was applied to jaegeuk/f2fs.git (dev)
+This series was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Wed, 14 Oct 2026 11:26:29 +0000 you wrote:
-> f2fs_write_cache_pages() uses the submitted count, which is set to
-> fio.submitted in f2fs_write_single_data_page(), to update nwritten
-> and decrement wbc->nr_to_write.
+On Fri, 28 Aug 2026 22:12:39 +0800 you wrote:
+> During a filesystem resize, SBI_IS_RESIZEFS prevents new SIT entries
+> from being added to the journal and forces existing entries to the SIT
+> area. However, f2fs_flush_sit_entries() returns early when there are no
+> new dirty sentries, leaving existing journal entries behind.
 > 
-> In the OPU path, f2fs_submit_page_write() sets fio->submitted to 1.
-> However, in the IPU path, fio->submitted is never set and remains zero.
-> As a result, successful IPU writes are not accounted for.
-> This can cause asynchronous writeback to continue beyond its budget.
+> After the main area shrinks, a later checkpoint can access a journal
+> entry whose segment number is outside the new geometry and trigger
+> f2fs_bug_on().
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev] f2fs: fix submit accounting for IPU writeback
-    https://git.kernel.org/jaegeuk/f2fs/c/6d1f622b9c06
+  - [f2fs-dev,1/2] f2fs: flush SIT journal during filesystem resize
+    https://git.kernel.org/jaegeuk/f2fs/c/a6ede4054551
+  - [f2fs-dev,2/2] f2fs: refresh pinned allocation boundary after resize
+    (no matching commit)
 
 You are awesome, thank you!
 -- 
