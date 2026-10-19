@@ -1,108 +1,94 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8356C448BA1;
-	Mon, 19 Oct 2026 03:31:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F991FBC8C;
+	Mon, 19 Oct 2026 03:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.220.120.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792380695; cv=none; b=mxHiiRSynUibr4fd5TrHHOGgJwkrxlYO/KwByvNTVfUOg80+MKEegLFeWe6xL4ptyNi3apXX4/Q6ZVmUse8wpBq/075916R3d7xeMyeatpcsraOzUz4bzewkLOk9PiGQktbzDVj4RzxTNv5lB8L0WaydDEqdd8/44GbaUPUddGA=
+	t=1792380727; cv=none; b=UxVe8luogbvr3/vi5B1pUNDbWtiMKRu209vAMfKbvZB+VuEuQ3jj0Zbh/ZtHGSt63lipJuTyuAmBXvZoaZHyU+N5hbH7J/+rBhxkGatHpu4xNtSTviz/RGtOASrMeOzobQQhRJGdi+YTYo5lfQSr/AD2hTzcuU2XQu0H6H9PfHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792380695; c=relaxed/simple;
-	bh=1jwCY/BOEG5fw56Nev1xRYapDYkK8yu1BgF9QO/jqSs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=F+dm0yiEwyG92v70ziPWd0jANEa9ZmllKSyMo3OeU0c/PUxTkp1v8KGkOqyOuqcF0e3DrLh0xpamJv7oQGM9UdFIq5Zb6VTQuSJClCC+V1+H9l/fR1HS8Nrzr6My7kuddRtcfQjw+JM9ENXKv9tlPPlZ9TlvvQ+xPe3V2n7uiRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=jMtF8Tte; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1792380727; c=relaxed/simple;
+	bh=2LchfmMXqEkp53a3MK8snehWYjHNIdRHlq5NnjKSkDw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ezfnMU+lMyGYvZg7np7d90eJLdQodE8ejifY4KaVVPA3u9a3sC1RiIw/YsD6FTZewqWqWOt4wgc+GncjqIJxbgPT+KpLO9n/YQtlGrCuUfYfe2JmZE4BraBCVLQMkr0N4FfLnzd0SkfeYYMocyUfP0jCQRAVIehWZZ3BnHIKLlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org; spf=pass smtp.mailfrom=grapheneos.org; dkim=pass (2048-bit key) header.d=grapheneos.org header.i=@grapheneos.org header.b=OM9n8N97; arc=none smtp.client-ip=206.220.120.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="jMtF8Tte"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69J3VNCN01532693, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1792380683; bh=gV59eG4XuETrLrV9Yg1I0w9LBhbnXmU8IoxmI1gJeg4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=jMtF8TteACLqfM7yXKYXH392K1bRCKF0eLL5T458/9PdJASQg08qfilV+/M5Elols
-	 95imnSGxyajye244bZXYcSuqA4vDTF84vmLfYycYjWPo3UFzS9PSUcy82VJ4O56JeG
-	 ZM0DJ0kO2Z7zNxGBFby+wKmun/iPOKPO3afm/Qa7ULAyzMKFMFWsE01xzLxk9vnW7k
-	 uEnHy9zm02aGIce/blNF1AFVmXdN4WlcxJoKFS+M7NvApKeSCm5mfjle1DKqntPM71
-	 ZO3DEM3fd5tMHJD5GYH/vlwIsM3PIaUI5G2osn+fNUrw6jZA2MpZQj3vecPlBfTQi8
-	 c55HmL8Jrr1Dw==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69J3VNCN01532693
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 19 Oct 2026 11:31:23 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 11:31:24 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 11:31:24 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Mon, 19 Oct 2026 11:31:24 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Mehmet Fide <mehmet.fide@gmail.com>
-CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"mehmet.fide@screeningeagle.com" <mehmet.fide@screeningeagle.com>
-Subject: RE: [PATCH rtw-next v6 2/2] wifi: rtw88: support channel switch in AP
- mode
-Thread-Topic: [PATCH rtw-next v6 2/2] wifi: rtw88: support channel switch in
- AP mode
-Thread-Index: AQHdWuS02ghpGGHw90yaRSTFSDbFibcEOBOw
-Date: Mon, 19 Oct 2026 03:31:23 +0000
-Message-ID: <b9bdebf6dac043ce9b3e285e0d12209b@realtek.com>
-References: <20261013073010.358756-1-mehmet.fide@gmail.com>
- <20261013073010.358756-3-mehmet.fide@gmail.com>
-In-Reply-To: <20261013073010.358756-3-mehmet.fide@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=grapheneos.org header.i=@grapheneos.org header.b="OM9n8N97"
+Received: by mail.grapheneos.org (Postfix) id D756C3C08EF31;
+	Mon, 19 Oct 2026 03:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
+	s=default; t=1792380278;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oSaKTkm2VoVYXs44XIPo5O2omjJiGGPW5XaCPiUwhFw=;
+	b=OM9n8N97E+b0n763nYK3x+/X4wBrkvBi3Qs4ng4fS0hzOQKlSzEnomIh8f+eoNoQhnoN/n
+	32t9YnWb1NhymfmLKlIi0qnsM+YpV8i/eQNrCRsQoWiqbyoznOwxVeMP4vrMdihVZA3Jli
+	MY/ilg/T72pnexTIHUNMdo/jKR4TgaZPa9exW59MaMPIFBJHUUAvPxy8V8fXdPWAh+fwO2
+	jT46kV3WTTFZfSHCa9icavxMRP5MnhSKOCk1t+WIy82cZNXX9bfBfNIVcbrh2EiwDtDpqz
+	JwRehjK1p+iwkVgTPGmh22adIcIbh1ug+3tsGnJqF3Q6sQ9WPyTHD7oAI6IL2g==
+From: liamsmith827 <liamsmith827@grapheneos.org>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liamsmith827 <liamsmith827@proton.me>
+Subject: [RFC net-next 0/2] ipv4: Honor prohibit when oif specified
+Date: Mon, 19 Oct 2026 03:24:04 +0000
+Message-ID: <20261019032406.88874-1-liamsmith827@grapheneos.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Mehmet Fide <mehmet.fide@gmail.com> wrote:
+From: liamsmith827 <liamsmith827@proton.me>
 
-[...]
+This RFC proposes honoring prohibit rules and routes when an output
+interface is specified.
 
->     - the downloads are paced from the first one with an absolute due tim=
-e:
->       queued after each download, the countdown drifted by about 10 ms pe=
-r
->       beacon interval on the ordered mac80211 workqueue, and a station
->       switched ahead of the AP on a count of 50
+When flowi4_oif is set (SO_BINDTODEVICE, IP_PKTINFO, IP_UNICAST_IF,
+etc), prohibit rules and routes cause fib_lookup() to return -EACCES,
+but still allow the packet (and any necessary ARP) to be transmitted.
+This is documented as the expected behavior in the tests, but is
+confusing for route and rule maintainers.
 
-If you download beacon to firmware twice within a period of beacon_int,
-a countdown in the air will not present, no? Like this
+Android uses prohibit rules as the basis for its VPN "kill switch", with
+the expectation that any packet encountering such a rule will not be
+allowed out. Due to this interface binding exemption, apps can trivially
+bypass the kill switch. This is most serious on cellular networks, where
+a connection to an arbitrary IPv4 address can be established without
+requiring ARP resolution.
 
-t (TU)                       0            100             200           300
-download beacon            5                   4      3               2
-firmware TX beacon           x            x               x             x
-air                          5            5               3             2
+The first patch preserves -EACCES from fib_lookup() instead of
+constructing an on-link route when an output interface is specified.
+This honors prohibit rules and routes while retaining the existing
+fallback for other lookup errors.
 
-The 4 is missing.
+The second patch enables the existing test that expects an
+interface-bound ping to fail.
 
-> +/* paced from the first download: a late one does not delay the next */
-> +static void rtw_fw_csa_queue(struct rtw_dev *rtwdev, struct ieee80211_vi=
-f *vif)
-> +{
-> +       u32 interval =3D ieee80211_tu_to_usec(vif->bss_conf.beacon_int);
-> +       s64 delay;
-> +
-> +       rtwdev->csa_due =3D ktime_add_us(rtwdev->csa_due, interval);
-> +       delay =3D ktime_us_delta(rtwdev->csa_due, ktime_get());
-> +       ieee80211_queue_delayed_work(rtwdev->hw, &rtwdev->csa_beacon_work=
-,
-> +                                    usecs_to_jiffies(max(delay, 0)));
-> +}
+I would appreciate feedback on compatibility implications and whether
+this change is acceptable given the longstanding behavior.
 
-Otherwise, looks good to me.=20
+liamsmith827 (2):
+  ipv4: Honor prohibit when oif specified
+  selftests: net: Test prohibit when oif specified
+
+ net/ipv4/route.c                          | 11 ++++++-----
+ tools/testing/selftests/net/fcnal-test.sh |  7 +++----
+ 2 files changed, 9 insertions(+), 9 deletions(-)
+
+-- 
+2.47.3
 
