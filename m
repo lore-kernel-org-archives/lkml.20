@@ -1,145 +1,144 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17959496D2A;
-	Mon, 19 Oct 2026 08:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C469248FF93
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398064; cv=none; b=XxyDQ/pW4YbAT9x8wlx0DzHBFsrhJ81/mmXfkSYUWlQHq6ecmNVIdb5GOcLry3qu3mhs47r8seZTBhJgV8sx5EBJZDmzeCyk63HQY+9XmkNpseTkU5H4waC/3G5WzLC3dHLHeBTH+F5SdZmXzBQXO/nG92iO+PgmAaLW79U+oQk=
+	t=1792398078; cv=none; b=Ii611GwdW3BaVKsoLO+z37K+H7ThcDoUkVtxwz/5Win5uvX7Ja13HIYCoIPlKsfArza0ViaSRUUCgB7yWSeQ9cUtdCeOkGm9ADCtSiAep+k5PSXIEKrnx4P5159xdA3jqmcPPyfDIZfIvPxQ7pB0TkB6kCC2jRq7R/uKwPGtVyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398064; c=relaxed/simple;
-	bh=grbWc/Xq0UDqEoQdMx3LeLDNwkPyi4KWuwybOVP6X5k=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jN9YxL+y763PO16MtaSMwti8oYKx7nlF93YcgYtV6DCZMWDhrZibQF0zoTMV3b42wwawJy17xaIUb2TxzeOz/qWg2Z+MfbaheKDQt+Q6YxfdRNp6YLK3PupfUMcelhIstUQH8QIP2B30UqbXj65k1MTwHp38ob1ea8pb8JxRrFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Tz4vKI1k; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792398078; c=relaxed/simple;
+	bh=EalQDU4IYycXB8IzvH7mx5DaPfn6lSTeFNCMbg9uHYI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qqpiqMbAJNWiS/p1s36ZsDqedMG1oOEZJmrJkLVxXF5ztYlDdVWH3V0TVvDfHaVXHSVKDI0z1SHR1UTBjG5Gib9hJ3FWenJrMjZsrLO37vdUomEVzvprnz+jrmZmbfT63i0Rj6kgJFABffDKu+6h5INT6m83x4sxsKrW0fTovoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JLq4iiCl; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Tz4vKI1k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=yk
-	NP8sB9hlsybwqm4giY0mWr2e2OgNPC6r12iM9BcoM=; b=Tz4vKI1kFC+p+BThmo
-	etwhsPD1nNKLl2/3BHgu9xoUBsaGW8kO433MeM0kC8WkgQpRX4BAmt4WLrcFNyk9
-	gizI+JisFbOiv8lUMQakuRl0Mi5Sd0XlTN8rmz3XbJPw1cOK5qC+2hCp9XKJYGr8
-	FAa81JUvHx2AdTAZbtKLdBC9Q=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3v2DL0tVqxMGKAw--.34321S6;
-	Mon, 19 Oct 2026 16:20:38 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>,
-	Jackson Lee <jackson.lee@chipsnmedia.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Sebastian Fricke <sebastian.fricke@collabora.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH v2 4/4] media: wave5: handle runtime resume failure when closing
-Date: Mon, 19 Oct 2026 16:20:26 +0800
-Message-Id: <20261019082026.1798945-5-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019082026.1798945-1-yaojiale02@163.com>
-References: <20261019082026.1798945-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JLq4iiCl"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c411e139259so168654966b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792398075; x=1793002875; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DqARml2eRxc6et7vGQaWdyqklu54c3RuOpXb7dukqxo=;
+        b=JLq4iiClFxw5QZJVJzY2rMdCVHqNJo2T7MOp70cXN4+OENfT3UD3JCATXwARujZYZP
+         1DcvSkXVNKVhvEvw8WrGyGqxPpXeRk0TIZM1Ff+Nk5A9u8wJWPIGfmD5Z0ve0CkMxR5M
+         359ukSLBWExlFxLtNPhvyegoSwF6rwFCyco9J9Gv1HK6yjl0o2gfiX0A2ThYLvNGDFvi
+         ugOEtYpBL3bQpTEbQ3r10LVU98oF3/Xuc9DQLbRF1M2/okqqvlXbF7fmz2jqmEdjdV2O
+         0SnnZ3rOEbc8qutOm0LqbcKC1A9WVJ5XKYarnldMqT+prWzUvDOpXaNqE4g1kvwP2bNX
+         qFfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792398075; x=1793002875;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DqARml2eRxc6et7vGQaWdyqklu54c3RuOpXb7dukqxo=;
+        b=r548ahDUQHEB0hMou6F3fpNYjacUcARCsevp/4ynaEQb+9/oEFSA+zQm84kLGpxX59
+         61ooLdo1x5vVWFMPcOQCnALDffscSSWGVJ3R9uCXAoVeSJkKR1yjkbxGyMiBOeMljEaP
+         0JrAeDyZW/Zvyrq8ShlbL/pgF3/+B1rlrCevZjQxmuKvnjOTO+VJ18OvY84cEmbBZ8TT
+         oS/mAEXvb56KWOdolanOWfiYgDB+3Y6NdCOYJn3pxDmmfroVcJrH+YlOqPOqr46mdm9C
+         83aWo5IFBuIDuINmEDN4e/r2mYg5xnwPfQIpnHNTyyry5Si2svi0AQfInXBdeADSamFI
+         ZSXw==
+X-Gm-Message-State: AFq9FYJNSMAYYopVon2KcAvXKo243NnL+Sa1S5Z52KN+gR5TNwuVWN/y
+	kUFsTyLDeS0ndMGeOBjMzMybKemu4G1JaPATXfjRed4DsOs8MZXmSjZY
+X-Gm-Gg: AYBFou2ASVq3YcArgLg/4K+UztkJVtRMoLakqbK9XSn1hy38/9Ok97EKCNCohbcf1yf
+	km4uN0g0NujyX5qS9GemOjOkWQ0c7mz2DpVmT3phlEPK+TpoZlMe5cg+R/rgl+VBN73WEjE8l1/
+	CX8Av5V9ospc/cv+wlerzCs179LuXEpV6fEodYYxbtdz93bOzmWg5Y1mXpTIKwa72BbgBVfke77
+	IdYtkhWtZghh6wR50/Yz6pArp5UWl/g/tTFcS0tgYtEN79/7GG4vpeWFcqmJXb5gUSr42C06jYR
+	P4nRv8totwOklgaoLq+b/udN7RqykST/tgeWCbHyCqPLvNRiRSOgibeuCs7LdulMUj0QbohNSvM
+	jI198ORrqkzeGeh9rXOtQew5BMXSLViu/jguTVzZe2CnBnCqHDfzlunkGWbofrudkSGLIM5yY6Q
+	VbfiDkB3dMZ0np1LRhXjvLxUXGQOcQ+mkdyu6VrK8T9GKWAw6Ut0GMIjv5KIhsJVk+Luwx3IuV/
+	9ankWnLhCDa9v0bbKQOGBsErAGgISRDSl3CVbQMzWO4EmNFbv2izYDQPpDmMnCsTAGSKagW7hE7
+	ZUTQInGKb/QoJdUzUpPfN6pF1HV7oGLJOHjoWeMD+/zBjmtOirmzmIAtnwfWUV7CJUvlCNvsY7G
+	vgkJcYQMEgelgtiwyTPKi3KwIag6bIuPYqw==
+X-Received: by 2002:a17:907:c819:b0:c33:923b:ad50 with SMTP id a640c23a62f3a-c419e03af5amr426962066b.19.1792398074683;
+        Mon, 19 Oct 2026 01:21:14 -0700 (PDT)
+Received: from [192.168.100.100] (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40913c6153sm332041566b.40.2026.10.19.01.21.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 01:21:14 -0700 (PDT)
+Message-ID: <c820357a-a7cf-4f4b-ab23-91530a12218b@gmail.com>
+Date: Mon, 19 Oct 2026 10:21:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v2DL0tVqxMGKAw--.34321S6
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCryDCFy3Jw4DCF47Zr1rCrg_yoW5ZFWkpr
-	yrWF1DCrW8Jw1xKrn7tw4xZasY93yku3yUuas7AFy7A3s5Zr1Fvr4DtFyYyF18JrWvya9x
-	XrsFq3y5CF47JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEHUDLUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xf5NGrV0te1bgAA3U
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] fat: make rename recovery safe after metadata write
+ errors
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
+References: <6aa82300.a211d2ce.1a5198.0295.GAE@google.com>
+ <20260929090029.742579-1-krystianmkaniewski@gmail.com>
+ <87ld8j4161.fsf@mail.parknet.co.jp>
+ <1f18819d20c92960b8b2d6ccc8bc4506d346150e.1790779353.git.krystianmkaniewski@gmail.com>
+ <87bj90m6dq.fsf@mail.parknet.co.jp>
+ <20261014082315.190262-1-krystianmkaniewski@gmail.com>
+ <87qzhqvloo.fsf@mail.parknet.co.jp>
+ <55a1f016-a7a2-469f-b481-37223d695f29@gmail.com>
+ <87cxt921rc.fsf@mail.parknet.co.jp>
+ <f9b27432-4104-4323-8cd7-e2cda73db2f9@gmail.com>
+ <875wz11xfg.fsf@mail.parknet.co.jp>
+Content-Language: en-US
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+In-Reply-To: <875wz11xfg.fsf@mail.parknet.co.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The decoder and encoder close paths ignore runtime resume failures and
-proceed to firmware commands. If enabling the VPU clocks failed, those
-commands access unavailable registers, and the paths later drop a
-runtime PM reference that was not acquired.
+On 10/16/26 17:23, OGAWA Hirofumi wrote:
+> Krystian Kaniewski <krystianmkaniewski@gmail.com> writes:
+> 
+>> On 10/16/26 15:50, OGAWA Hirofumi wrote:
+>>> Krystian Kaniewski <krystianmkaniewski@gmail.com> writes:
+>>>
+>>>> On 10/15/26 20:54, OGAWA Hirofumi wrote:
+>>>>
+>>>>>> +	} else if (!rollback_err) {
+>>>>>> +		/* Read the entry block again if a failed write invalidated it. */
+>>>>>> +		rollback_err = bh_read(sinfo.bh, 0);
+>>>>>
+>>>>> Why do this read the bh from on disk?
+>>>>>
+>>>>
+>>>> The bh_read(sinfo.bh, 0) is needed because a failed inode-position write clears BH_Uptodate. fat_remove_entries() modifies and dirties that retained buffer directly, which otherwise triggers the warning. Reading it first refreshes the whole block. If the read fails, the buffer is left untouched.
+>>>>
+>>>> The same reasoning applies to both the VFAT and MS-DOS paths.
+>>>
+>>> If sinfo.bh is required to read because of failure of I/O error, I guess
+>>> the bh will fail to write again. I think we should give up to rollback
+>>> in that case.
+>>>
+>>> Thanks.
+>>
+>> Thanks. I was trying to handle transient errors here. The old entry still exists at this point, so if the read and removal succeed, the rename can be fully rolled back.
+>>
+>> In my tests with a single injected write error, giving up left the new entry pointing at the root directory, and fsck.fat wanted to remove it. Retrying the cleanup left the filesystem clean. If either the read or the cleanup write fails, we stop and report corruption anyway.
+>>
+>> Do you still think we should give up here? If you prefer not to retry the new-entry block after its failed write, should we also avoid rereading and rewriting dotdot_bh after a failed .. update?
+> 
+> Basically that path is not the failure of sinfo.bh, true? If so, we will
+> not need to re-read sinfo.bh here, just removing the added entries would
+> be ok. 
+> 
+> If we have to read sinfo.bh, the sinfo.bh may be failed the write and
+> cleared the uptodate. If so, I wonder why succeed by retry?
+> 
+> The above is my understand.
+> 
+> Thanks.
+Thanks. error_inode can also be reached when a different metadata buffer fails. In that case, sinfo.bh is still uptodate and bh_read() returns 1 without doing any I/O, so the removal proceeds directly.
 
-Returning the resume error directly also prevents release_device() from
-calling wave5_cleanup_instance(). The instance has already been removed
-from the device list and its mem2mem context released, so its host-side
-resources leak.
+The test I mentioned did fail the write of sinfo.bh itself. The trace shows __sync_dirty_buffer() called from fat_sync_inode_metadata() failing on the new-entry block. The retry succeeded because fault injection was configured with times=1, so only that single write failed. bh_read() then reloaded the block and the cleanup write succeeded.
 
-On a resume failure, skip the firmware command and hardware lock, free
-the close-path resources, and return -EIO. This lets release_device()
-continue with its common instance cleanup without issuing an unmatched
-runtime PM put.
+That is why I kept the read. It is a no-op when sinfo.bh is still uptodate, and it allows a complete rollback after a transient write error. Would you still prefer to give up when the failed write cleared BH_Uptodate?
 
-Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/resume")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- .../platform/chips-media/wave5/wave5-vpuapi.c  | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-index 4c1842f02c..806901e62d 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-@@ -220,7 +220,11 @@ int wave5_vpu_dec_close(struct vpu_instance *inst, u32 *fail_res)
- 	if (!inst->codec_info)
- 		return -EINVAL;
- 
--	pm_runtime_resume_and_get(inst->dev->dev);
-+	ret = pm_runtime_resume_and_get(inst->dev->dev);
-+	if (ret < 0) {
-+		ret = -EIO;
-+		goto free_resources;
-+	}
- 
- 	ret_mutex = mutex_lock_interruptible(&vpu_dev->hw_lock);
- 	if (ret_mutex) {
-@@ -259,6 +263,7 @@ int wave5_vpu_dec_close(struct vpu_instance *inst, u32 *fail_res)
- 
- 	dev_dbg(inst->dev->dev, "%s: dec_finish_seq complete\n", __func__);
- 
-+free_resources:
- 	wave5_vdi_free_dma_memory(vpu_dev, &p_dec_info->vb_work);
- 
- 	for (i = 0 ; i < MAX_REG_FRAME; i++) {
-@@ -272,6 +277,8 @@ int wave5_vpu_dec_close(struct vpu_instance *inst, u32 *fail_res)
- 	wave5_vdi_free_dma_memory(vpu_dev, &p_dec_info->vb_task);
- 
- 	mutex_destroy(&inst->feed_lock);
-+	if (ret == -EIO)
-+		return ret;
- 
- unlock_and_return:
- 	mutex_unlock(&vpu_dev->hw_lock);
-@@ -750,7 +757,11 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
- 	if (!inst->codec_info)
- 		return -EINVAL;
- 
--	pm_runtime_resume_and_get(inst->dev->dev);
-+	ret = pm_runtime_resume_and_get(inst->dev->dev);
-+	if (ret < 0) {
-+		ret = -EIO;
-+		goto free_resources;
-+	}
- 
- 	ret = mutex_lock_interruptible(&vpu_dev->hw_lock);
- 	if (ret) {
-@@ -774,6 +785,7 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
- 
- 	dev_dbg(inst->dev->dev, "%s: enc_finish_seq complete\n", __func__);
- 
-+free_resources:
- 	wave5_vdi_free_dma_memory(vpu_dev, &p_enc_info->vb_work);
- 
- 	if (inst->std == W_HEVC_ENC || inst->std == W_AVC_ENC) {
-@@ -784,6 +796,8 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
- 	}
- 
- 	wave5_vdi_free_dma_memory(vpu_dev, &p_enc_info->vb_task);
-+	if (ret == -EIO)
-+		return ret;
- 
- unlock_and_return:
- 	mutex_unlock(&vpu_dev->hw_lock);
 -- 
-2.34.1
-
+Krystian Kaniewski
