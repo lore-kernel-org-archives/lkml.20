@@ -1,150 +1,160 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC84499F31
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE1F44E05B;
+	Mon, 19 Oct 2026 12:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411291; cv=none; b=JF2lmXAsJzXsEtYyXvx6DjwlOTrD6bHRlE/AeFW2Mpvx84W9949ueQSIKbV7tQHvMs3/x+aJShSjMqzRM3Uv8ZAQpUOY6kqbifUw2S63fENQcD3Z6EcCbgqJ/chEO/rfEz6uO7kzqNzEvYNpROfAJDrLm5++xI2KBAkH/d1JPlc=
+	t=1792411311; cv=none; b=eEHsU/c8d30oS2N+YoaBcAL6hkeNegVXiafzHkx8JYF5veJKwkBzjHGEVRdVW891pOvjZeqPPelb5ZHUbbUL4+/Y9XLy/tbvrrLsWx6dka7VZZ0pGuMAzrup4EHC/aWFsyVb5jyNzrGYtK7fifA7OfALnTCzTqcPxSg7POUgg54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411291; c=relaxed/simple;
-	bh=a+JFhcktEUT/otUAjLtO1S11cPdVYmE+Lbqz7XLfBh4=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=dWVagIca5q/iT8nMxKXmZ/xXWwb2ZHvVf4g5hQTgChD5T4sbN8Oi4m5sPU8WFlBf5kKuimXaleRoHxshkWX5S5JREa8OAN5sne9SuVB7B9ECROzGptuhZ5Ucg/kN3Q++iPi7PYTRZodgwwe6u9d5lGbaboZeygwhAcj5GvHBWhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=E2juYitc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=B+5CrO4G; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=lyYoJ6Ji; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=X/4CYOJS; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="E2juYitc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B+5CrO4G";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="lyYoJ6Ji";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="X/4CYOJS"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A551D21CAB;
-	Mon, 19 Oct 2026 12:01:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792411283; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eizw4Kp0fIdeSJH2kfJJvLAORXAdc5N5Ckf4TmLSqPo=;
-	b=E2juYitcp/qobVMtOz9jE853ph6Gq1X9Zo7mt01mrGjaRRJ1xLxgTl1BhBqot+Bb0EXJhF
-	wHn8lacXnqkwMZoQFugyAwQkd/w46D7jjX1gf0tsP+y/ibEsyWI9GPYqVX90gVTdWxOHuR
-	YQvX2BIqeZ9DWvSpPdMWEtrQn3jMGq0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792411283;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eizw4Kp0fIdeSJH2kfJJvLAORXAdc5N5Ckf4TmLSqPo=;
-	b=B+5CrO4GXcb2bzjj+cekLWGvGil3GioODo37qAn17GSktk2LJyn5tjeFP1VHYPct/LRGpS
-	NIxhKw8Tg8jQINBg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=lyYoJ6Ji;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="X/4CYOJS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792411278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eizw4Kp0fIdeSJH2kfJJvLAORXAdc5N5Ckf4TmLSqPo=;
-	b=lyYoJ6JiarDMyrCxZqTcc2OA2F/+J9aCig+Xsp/07GwWWGsxWURhEPzv5R2Y+UKk1TnX8A
-	H92jL14TrFLys/5abUjf1LVLI7IHaVFqxen7naykFdnvem93qzYgCg/b/7t+pCEvEaMtw6
-	i8JodyS5aFqLyP87p6dLUAx598h3kMM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792411278;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eizw4Kp0fIdeSJH2kfJJvLAORXAdc5N5Ckf4TmLSqPo=;
-	b=X/4CYOJShcC0aCzxwrpzZpEi37m9AOys9POzAd2xR6sIx6Muy37Rl0pc7PYp+avCrU8OKW
-	0B2hexYJjVF4eXAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6B996136CC;
-	Mon, 19 Oct 2026 12:01:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Vi1wFI4G1mojTAAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Mon, 19 Oct 2026 12:01:18 +0000
+	s=arc-20240116; t=1792411311; c=relaxed/simple;
+	bh=JZLWL4f9y/6jv7F0Z8/fJe97Y7HOZcxGPE2Fl3kg3mA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a/FH576dXCu+6Tltc3yOmqgXglPZzhDrnbgWs+f3vYMDAE37lA0NnUgHYFw60PTK8rlqfmrQatDNMdTQKHK5UXq8bTS0rKJQU3OVqPRkSWe5ulTvGtxXvx0UlfysIZnzZiSvQDxlGncx24wFrql/PSF4SK9dh88BsMUa7+XRHdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; arc=none smtp.client-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 25FCB200011;
+	Mon, 19 Oct 2026 14:01:42 +0200 (CEST)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 0C5AD200007;
+	Mon, 19 Oct 2026 14:01:42 +0200 (CEST)
+Received: from lsv051416.swis.nl-cdc01.nxp.com (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
+	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id B4878202B7;
+	Mon, 19 Oct 2026 14:01:41 +0200 (CEST)
+Date: Mon, 19 Oct 2026 14:01:41 +0200
+From: Jan Petrous <jan.petrous@oss.nxp.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
+	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Clark Wang <xiaoning.wang@nxp.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Chester Lin <chester62515@gmail.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	imx@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Subject: Re: [PATCH RFC v3 03/12] dt-bindings: PCI: nxp,s32g-pcie: Fix SerDes
+ PHY phandle in example
+Message-ID: <atYGpZpI1ecM10kI@lsv051416.swis.nl-cdc01.nxp.com>
+References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+ <20260919-s32g_serdes-v3-3-9d68868c1e89@oss.nxp.com>
+ <as0qORxP0Roh9ktO@SMW015318>
+ <as5CIYxKJTra4hqM@lsv051416.swis.nl-cdc01.nxp.com>
+ <as-MdloKd-7oJsUU@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 02/18] nvmet/debugfs: Export controller CIU and CIRN
- via debugfs
-From: Daniel Wagner <dwagner@suse.de>
-To: Mohamed Khalfella <mkhalfella@purestorage.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
- Justin Tee <justin.tee@broadcom.com>, 
- Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
- Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
- Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
- Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260920182936.2317916-3-mkhalfella@purestorage.com>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-3-mkhalfella@purestorage.com>
-Date: Mon, 19 Oct 2026 14:01:13 +0200
-Message-Id: <179241127352.3544975.2554197788837860779.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: A551D21CAB
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org,suse.de];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as-MdloKd-7oJsUU@SMW015318>
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On 2026-09-20 11:28 -0700, Mohamed Khalfella wrote:
-> Export ctrl->ciu and ctrl->cirn as debugfs files under controller
-> debugfs directory.
-
-Could you add the 'why' part to the commit message?
-
+On Wed, Oct 14, 2026 at 09:06:46AM -0500, Frank Li wrote:
+> On Tue, Oct 13, 2026 at 04:37:21PM +0200, Jan Petrous wrote:
+> > On Mon, Oct 12, 2026 at 01:43:05PM -0500, Frank Li wrote:
+> > > On Sat, Sep 19, 2026 at 08:54:31AM +0200, Jan Petrous via B4 Relay wrote:
+> > > > [You don't often get email from devnull+jan.petrous.oss.nxp.com@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> > > >
+> > > > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+> > > >
+> > > > The example references the SerDes PHY as
+> > > >
+> > > >   phys = <&serdes0 PHY_TYPE_PCIE 0 0>;
+> > > >
+> > > > i.e. the SerDes node itself with three PHY cells. That does not match
+> > > > the SerDes binding: the per-lane child node is the generic PHY
+> > > > provider and carries '#phy-cells = <0>', while the SerDes node itself
+> > > > has no '#phy-cells' at all.
+> > > >
+> > > > Point the example at the PCIe lane child instead, which is also what
+> > > > the S32G3 board device trees use. The dt-bindings/phy/phy.h include is
+> > > > dropped along with the now-unused PHY_TYPE_PCIE constant.
+> > > >
+> > > > The schema itself is unchanged; 'phys: maxItems: 1' already describes
+> > > > the corrected form.
+> > > >
+> > > > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> > > > ---
+> > > >  Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml | 3 +--
+> > > >  1 file changed, 1 insertion(+), 2 deletions(-)
+> > > >
+> > > > diff --git a/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml b/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
+> > > > index 66a050028278..29323e50bd8b 100644
+> > > > --- a/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
+> > > > +++ b/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
+> > > > @@ -82,7 +82,6 @@ unevaluatedProperties: false
+> > > >  examples:
+> > > >    - |
+> > > >      #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > > > -    #include <dt-bindings/phy/phy.h>
+> > > >
+> > > >      bus {
+> > > >          #address-cells = <2>;
+> > > > @@ -124,7 +123,7 @@ examples:
+> > > >                  ranges;
+> > > >
+> > > >                  device_type = "pci";
+> > > > -                phys = <&serdes0 PHY_TYPE_PCIE 0 0>;
+> > > > +                phys = <&serdes0_pcie0>;
+> > >
+> > > I don't think it fix somethings. The "serdes0" just a label, point to
+> > > provider, which is not neccsary that "#phy-cells" is 0.
+> > >
+> > > Examples just show need how many phys and don't care about phy provider's
+> > > arguments
+> > >
+> >
+> > The example validates either way, agreed. The three cells are the
+> > '#phy-cells = <3>' of the downstream nxp,s32cc-serdes binding, which
+> > was never posted upstream; patch 1 is the only SerDes binding for S32G
+> > and has no three-cell provider. I would rather have the example match
+> > it.
+> >
+> > The form depends on the outcome of your patch 1 comment, so I will
+> > keep this patch in sync with that. If you prefer the phys line
+> > untouched, I can drop it and keep only the ranges fix v4 adds here.
 > 
-> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-> Reviewed-by: Hannes Reinecke <hare@suse.de>
-> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+> This patch is not important. suggest drop it.
+>
 
-Besides the missing 'why', it looks good.
+Dropped. The PCIe nodes in the DTS patch carry the 64-bit ranges on
+their own, so nothing else depends on it.
 
-Reviewed-by: Daniel Wagner <dwagner@suse.de>
+BR.
+/Jan
 
