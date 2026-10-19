@@ -1,68 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792442097;
-	b=1Rh0rFtV5oI126vGKmbvOQX9TU8qtsESBvEFFNq0f5pOaiHKLhy6c/OPhzAxw7ruWoZv
-	 KsE/Y5N3aOEGugvYpQKpLlQdh4oXSCaQGH6+Mb+TtPwzhsMRjwEaAuoUf9hKjGLfEXlFO
-	 UN71HvVvI4tZ5tIBLJOK9E6QT+ktKoGxv7A67t5zjX/zwcPRu+zGGfCN11MxJSpXDd6+x
-	 oNJdiWqQEYX5TrWzE8QyqsNbvejO2ST5m/S6hZLWv+VoMcIWfNLApnkznrBObR+ZXGvyd
-	 quJlugKJnwNhDux5Khv5+7a1XnRZy3l+/dKFEvc1clFJy532oqn4F8LeV5Z7UB4u8+g==
+	t=1792442100;
+	b=4l2myom1KcBwQIG/cKZerVf13ttQkQedNgMKvMdLgROombe7AufabJnNrw1fW58xZ4ge
+	 Ps/xev6Rvu3l4HGUgJB0kvGt70FmhIl5qJm90j0tiuJY21GZF1TzISrFcIo/BHmQ5eNWQ
+	 N9NWknWFjCu7pQOseX7C39WULvfbnAxb86nA4Ve4gnA+4PM5ST5ZW71GngeefCxI60vqX
+	 84I6Au5JvChKwk0zYp6hd3yBrI1bXyLAnTUNG0vshJ0Rx5/MbHi8BOx7MKzKUSHKky1es
+	 sgCKwh5IVdPKVsg6TLknEmTsOHs5PMtMzWJzCJMVYp1mtp7aYlfI4t5Ucx7f340c4iA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792442097;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=aolHtKyHViu0zwbE45UYogroG29+h0ZC1Ve4vIwtrPI=;
-	b=ie5i5qKhkUeMjP7KfDqlSyOB9bM/bSvhUqyEWyIPSi7hJmLqI/sFAXQi/pHH77N9lsrd
-	 tds7i7gK/S9FUGEIOlYpD4x1a8/idzmlkEealCKUo456nAxlrsZto/a/2uo3bfajaaImh
-	 Gk2Ujy4hsJu80oFgx+nERz2rTZOc85iUXEo7r9EoYmY4AGc+6z4uN4K1iwtPdYe9zgvWl
-	 Ve/m+SXONRoLCqos0+fcmqZcDdsnL0ojkjVdd+FOsng4BQgHwOT+T1QDSDQwFC3mOgJ9L
-	 Dp+2deoxEvqu7r7huQ3RpUGrU546fmP6MrKAHZrNHCuBzqvNF9E8zzmyumD2jOavfFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792442100;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=fxpI/j7tSygFqEOcpnrDp2XkhyVuL60i0HFuGyDuJN0=;
+	b=WgCSlHRK/SQ/HVmNI2wMit/CARPhpn0wYThUaegIGGkXfaFgNCVv4yNpRAh9nH68IPKL
+	 t417w3p1n+YAMS3bMhJ22xRHnQ2YqJNYfr6ImN3zbsv0N8Mun9rdYOrvOB1B5w/apbSQk
+	 Ap9DG2ErOA3DItxlh4Y77WQkWqbSTGEjuRveSMLNYcnX4V+3KpVsW/EkxaE+MsDoUX8bk
+	 RYMDlhkiCw+mRxpFTGd3r6SQK3bIKsNVDCBW9ry6OPq4hR/2wCf8IC/fDpOl+cTzadCOA
+	 Bto0iUQW1i5bVR178w8kM7dv3vTADD6AwEYM2IZ3Krp1dyTfxGWzAn0D2X09Oqf4pRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GOuzsqdm;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a48FjdXZ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bMrzkhMb;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25E7606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:34:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E25E7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417F3606A338
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:35:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 417F3606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GOuzsqdm
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 1D21DC5CD5C;
-	Mon, 19 Oct 2026 20:35:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CDC0B60582;
-	Mon, 19 Oct 2026 20:34:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5F34C10328C22;
-	Mon, 19 Oct 2026 22:34:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792442093; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=aolHtKyHViu0zwbE45UYogroG29+h0ZC1Ve4vIwtrPI=;
-	b=GOuzsqdmMYeYWjsBZJqgR6mZVUlRjbeM13GG9uTKJBi2GgxJdvbvqhmhSemI8IbzyoLpCw
-	feBkfQeic/lh/DngNATUaHLv2N+GwvG4wKCL7JLQ12hCezG/z0l1SeLs2oNDnUtv5G3ezF
-	hMgMYmfNbdSs6QSYQ8zpm22/z4tpbw8o6LOWFH7VDbCFkUjBRne8wSvr2tUoIln3gDtB4s
-	yB4v+MJxLFPqKdDAngQJD6PfoJUcoFLe0hHwmxho87uSD3YNrAQ4TKRlprn6sTtRc90MfJ
-	rbFt9gp97cZczPRMaz8eJLHY4MCKEQZU9+cBIzjhNAuwvN6GqwjIGQGKWAvDOQ==
-Date: Mon, 19 Oct 2026 22:34:49 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Fredrik M Olsson <fredriol@axis.com>
-Cc: Fredrik M Olsson <fredrik.m.olsson@axis.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
-	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel@axis.com
-Subject: Re: [PATCH v3] rtc: ds1307: Add driver for Epson RX8901CE
-Message-ID: <202610192034497aeb0da5@mail.local>
-References: <20260629-ds1307-rx8901-add-v3-1-302dc3cbb71e@axis.com>
- <f3fd611b-920f-4539-8edb-ecb173f715b0@axis.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a48FjdXZ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bMrzkhMb
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JJKAvr2157922
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:34:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fxpI/j7tSygFqEOcpnrDp2XkhyVuL60i0HFuGyDuJN0=; b=a48FjdXZqNLtjTFD
+	iyc/k0OfwXT3cpSVDLRUGRko5vq6AuZVieFgGNU2Yv7ocQQ9ARRhlC16fynBejck
+	NAkck9VFRxTb8BtGNbgKiy6lfCF/OIg3W4i3UbSbOislRk2FK4XaVAJvrrE1BS1l
+	MCEc8dDHCfv4BDykfD/qinKWyFygbfoO1SEpZde9j4nCRECqW1qLjOvsFDFa7bwm
+	n01RV4pK02kAnbEcnD84ZQA16lVDqu9rNl1/2R5UqWYoZOiEheVeFZDjXx1PTEE/
+	1hnhrh1a+TjCOd6+zVwpHnzA2EB0RUwUx4Dx1Qe7HbRCKPPkace9fz9NkVrKls1b
+	rfFPyg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf65k5xr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:34:59 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30c0d568830so5424669eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:34:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792442099; x=1793046899; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=fxpI/j7tSygFqEOcpnrDp2XkhyVuL60i0HFuGyDuJN0=;
+        b=bMrzkhMbYN0Jau2w4HqkH2XXtRi5Q0LnaaAs3po182YjBnfwMgx2JDfcuDC/excmmI
+         tGDnJtMaVc7gJp2WmCXc1v3E3zljZpz1KtYt3dArusGzfTonFU528h+LokoqEFvJ4yfT
+         29w7oX6TAcsBGBhIqvVYN2PcxzR1Azr25Vmy1MecD+7yZCEc5ArHT9t25AYuD0j5w/u1
+         i5hzkjdGgQDj1PUmhyGBafea6sILD2Tfdzl0p3IDJ8hzTOm1LktG/vb0GFx41Okfwiov
+         Gqy4Fu1TZkA5Y/ipE9opZ9z0wbQFU9GZJK7B9TfV2bBMysRQSaeeyTWwF5iyEuzoaXfI
+         a1Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792442099; x=1793046899;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fxpI/j7tSygFqEOcpnrDp2XkhyVuL60i0HFuGyDuJN0=;
+        b=Xz+eFsZaj7N+pQtRWLyA+zemiwQBidiyoJ2omgpiAuQsrXPH7LFqP2bbtH66tDB/se
+         kZYal47/y7GY6ANjsqINIMy1QQrmS4EwisULMjT2mKg+uUgRoK2vahGIR7HipmkLMV+H
+         26jSNtZhUoRi9SCPRlx7meoGZ+aZZ72xtGSklaMQBUxK8gCAI8kiitEsVEnsAMw+54DA
+         deRkCZFwSwh4x64CVLs3SL4X4/wKSehXpx57jUusdgo6X2lRDd+fuf32PzSdHi4qaO1w
+         Zp1RpeOAgESQcnAQjKoaM8jPOQCh+AJ7gc81cXwF/s7tUcEOb4Te+8xuZmeKs9jtuQNa
+         rbQg==
+X-Gm-Message-State: AFq9FYKlfmWqAJ3l4umTmg0KkGHt7CrlEjzjBV66kRvTWY6uH8N+8OAi
+	T4gPfHciEwWTsuwWzSe/QzhtH7bkpA6ddRdJksOJ2vcfukTyUHNR8O5uFjuw+FEB77wVt8aaY+W
+	oHv8LAc19nqxRZLNwVFo+LQPvXwd5wCrcU1kA1vpdGLu9bN/aeIK4o4ru1yK/ts+bYho=
+X-Gm-Gg: AYBFou3oVrEqqopEaD+dB0SmBbUr6hb32pbIP+eFWtuY+lV4dZEOiRXAmeGa3Eg8BOn
+	wrnhwsbOGKPTf5+c9eKz0tQMHNuTqhKzVUz3KWRFTDIimsQZYpXYg6W3nusnNsYch5rCYkdzrRH
+	JlyPsPRRm6LRvKsOqU2ZU49cOLmJHxEgrT3R5LueQesBanIX4paA48kATLY2+CtlkQDLosQNBw1
+	d/vkn0/PiRrppR60dBCk64TyDylcayNlPMJoEMGl/QSZ28ru09VLPtNIp2S+tzxh9Laygaf1mMp
+	ZhmLjIvh3OcR4OTd5q9OXfKHKV7hLv7UznrvxwI0bsP1DYFxTXyf89xhg/HptEHai3cg3yeGiUi
+	8fODLibomKhvcpYSONxpwrDa3TJRhRCX0H9sAmgs78iU=
+X-Received: by 2002:a05:7301:6447:b0:359:2729:1797 with SMTP id 5a478bee46e88-361a224d1a7mr15667636eec.30.1792442098709;
+        Mon, 19 Oct 2026 13:34:58 -0700 (PDT)
+X-Received: by 2002:a05:7301:6447:b0:359:2729:1797 with SMTP id 5a478bee46e88-361a224d1a7mr15667603eec.30.1792442098201;
+        Mon, 19 Oct 2026 13:34:58 -0700 (PDT)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360820a79c7sm34045005eec.18.2026.10.19.13.34.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 13:34:57 -0700 (PDT)
+Date: Mon, 19 Oct 2026 13:34:36 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+        sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+        f.fainelli@gmail.com, vincent.guittot@linaro.org,
+        etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+        d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
+        philip.radford@arm.com, david@kernel.org, souvik.chakravarty@arm.com,
+        leitao@kernel.org, kas@kernel.org, puranjay@kernel.org,
+        usama.arif@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v14 01/32] firmware: arm_scmi: Add new SCMIv4.0 error
+ codes definitions
+Message-ID: <20261019133436.000035ae@oss.qualcomm.com>
+In-Reply-To: <20261016185553.2794459-2-cristian.marussi@arm.com>
+References: <20261016185553.2794459-1-cristian.marussi@arm.com>
+	<20261016185553.2794459-2-cristian.marussi@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,61 +130,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f3fd611b-920f-4539-8edb-ecb173f715b0@axis.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA4MiBTYWx0ZWRfXzDqObTGkgmJN
+ 9+F16BFH6auqCJMjxh4qbYQKTcJcQ7kvODA+6kqq0+EOfRzImdtRiqeHZ+EoZrfVyhYFvo9PL1C
+ NvKKjAbxDePNWkeWChBMuZCji226hLs=
+X-Proofpoint-ORIG-GUID: 26jXOrDNBtLYcgAWg9AH1PcIs3fpQZEb
+X-Authority-Analysis: v=2.4 cv=Y5ptIReN c=1 sm=1 tr=0 ts=6ad67ef3 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=g_d9z9Baj32627wmS2EA:9
+ a=CjuIK1q_8ugA:10 a=scEy_gLbYbu1JhEsrz4S:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA4MiBTYWx0ZWRfX9HRShiXhezT1
+ iNLBfMMqON1DMsZ2eK4WPRDIu7uG8yFljkdzPVJtbpuu7JqCM8hMs/9PG+ylv4Ebmawm5tFY2pl
+ PTpAx5iVCzv9AGaDO4i1Bth0EWMtc2mRixL8AM66fq3x/vLbbzxJjThPfTP7FbpWoo1lGJ5/AgI
+ FhiMftPtImX86wzJ57v3PmNi7vmfTqNecHYEHrPVOFFld0REdpA2VRBywvHyJsF9o3enE+naxOv
+ EXmxkcbgs0UnD69K5ZJWdC1HpvOfnd3mb+W7gHCR83gERV8GRciq81gmWVVLWeQ6kuiJsKmnhU7
+ XSXH1KrZlZBfd5qn4KXka+qM73j1XQMCtpCw+8qdVNTLTVrD3omETEF5Ra3fMeHqUY4sbMS6b83
+ 0qZQEuvcKCIKXDVI7eFyqkBUjwSRvEyM0DkC54hBFweN6RNjhxo4lb+xaB7p3fOpgBVP3SI/5m9
+ bw0KyfsmC1k2sVjds0Q==
+X-Proofpoint-GUID: 26jXOrDNBtLYcgAWg9AH1PcIs3fpQZEb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_05,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ phishscore=0 bulkscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190082
 
-Hello,
+On Fri, 16 Oct 2026 19:55:22 +0100
+Cristian Marussi <cristian.marussi@arm.com> wrote:
 
-On 16/10/2026 09:41:14+0200, Fredrik M Olsson wrote:
-> On 6/29/26 17:13, Fredrik M Olsson wrote:
-> > Adds support for:
-> > - Reading and writing time to/from the RTC.
-> > - Changing Backup Switch Mode (BSM) to DISABLED/DIRECT/LEVEL using the
-> >    RTC_PARAM_SET ioctl.
-> > - Optionally enabling battery charging.
-> > - Reading the battery voltage low status using the RTC_VL_READ ioctl
-> >    (only supported in LEVEL BSM), which also reports invalid time
-> >    information if the VLF flag is set.
-> > 
-> > Signed-off-by: Fredrik M Olsson<fredrik.m.olsson@axis.com>
-> > ---
-> > Add basic support for the Epson RX8901CE RTC.
-> > Datasheet:https://download.epsondevice.com/td/pdf/app/RX8901CE_en.pdf
-> > 
-> > Also includes a bug fix for an issue with reading the weekday from the
-> > RTC which affects both the existing rx8130 and this rx8901 driver.
-> > ---
-> > Changes in v3:
-> > - Clear CHGEN when trickle battery charging is disabled.
-> > - Link to v2:https://lore.kernel.org/r/20260520-ds1307-rx8901-add-v2-0-
-> > e069ea32e1db@axis.com
-> > 
-> > Changes in v2:
-> > - Squashed the Voltage Low status patch into the driver patch
-> > - Switch from dev_err to dev_dbg
-> > - Implement Backup Switch Mode (BSM) ioctl instead of hard coding
-> >    switching mode.
-> > - Change the prototype for the do_trickle_setup function pointer in
-> >    order to make it possible to propagate error codes from the added
-> >    PWSW_CFG register read operation. This read operation is added so not
-> >    to override previously set register fields.
-> > - Link to v1:https://lore.kernel.org/r/20251219-ds1307-rx8901-add-v1-0-
-> > b13f346ebe93@axis.com
+> SCMIv4.0 introduces a couple of new possible protocol error codes: add the
+> needed definitions and mappings to Linux error values.
 > 
-> [...]
+> Note that SCMI_PARTIAL_ERROR has to be handled specially, so it needs to be
+> distinguishable.
 > 
-> Friendly ping.
+> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
 
-This was dropped from the queue because kbuild reported warnings and
-smatch issues on the patch.
+> ---
+> v12 --> v13
+>  - use EBADMSG to map SCMI_PARTIAL_ERROR
+That's a stretch given definition but I looked back at: 
 
-Also, I feel like this should actually be a separate driver instead of
-growing ds1307 larger than it already is.
+https://lore.kernel.org/all/arK7kLlrg491EsMf@pluto/
+and appreciate the problem of running out of error codes..
 
+Guess it is the best we can do,
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+If you do a v15, maybe capture some reasoning in the change
+log or the patch description itself.
+
+Jonathan
