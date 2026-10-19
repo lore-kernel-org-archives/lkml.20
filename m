@@ -1,56 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792453600;
-	b=0Cq/l6/KredEYSESMubNQxnjg9ZxkYnitMs3OSnaCzKKvYdab/I54RLM2WHWIFi+yAIy
-	 /a5HFWgQWLRldNNYWJS9OBUSptbxiks4PCDoh740CZPjtlk1jOmWjouN57IPnzNKCeVI+
-	 p3ca1tPD5dpHy2lWBYFFTAEeYzyRrV8xms4n0Q14ZJC6ZSREWir5c/AxPXhkTUPFjOKLo
-	 5/tb/OzPlYpkzq25hOs1pwXAzp6/URNDFEGNk0uANYRKYda0bIiYorOfh8rb2M6Jt0bma
-	 gSR/yHihGmkmLaY01Ta3zLQ7BO4N3T7thLGopCwoLKy8XDU3u//zxUcVDC8VvT96Eeg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792453600;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lnbJ/fWoD11/g9szFmuzDGasP/1e2AgpJzFnEjFUq1Y=;
-	b=W+skSF1UiWmnJM53UwWSS7wQ0Dt2BRjaoFtuvri0KvYQiAHHsjCe2qo79G5Yb0ICK6eE
-	 SLQXL6ec428jTZCVqr+YZ5hSY5Y6ovh8hWzVSgu3y1NbhHyHUq4BgUU58QLybswk3BtoF
-	 gSitRVl3mDmTp7P7Y1aj/u10WVSRC4SUKGdHjLgu/w8ShxNh8WwwFNZ5QEpjmIQ/AlnoE
-	 6LoqI04IOPCO7e/zXByR7wTUmjmnfcqFNMSX2Huxkc6sYjG2K7K9UdsqLjXqz/rf8aqVG
-	 7c8smfrztI5f3LrQcFdWOesdGf4/bZkmfzeMXI8/8Ox1rok2SnRhQzcPz/Y4GK0fz3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Xz2PyeQW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792453624;
+	b=BYPmmDrbEYkf1uEV0xAWleqB5aQtgyVFanisvT7nHMJG1hHuKH37rMwblptvAYCsudqd
+	 TAzJ3+QdpGLYiHNxqLwZ7Ca4ccjFIiPYVlm5u4cCf6qhtPP1WvxeSS9m0WDOlDSFEVLvK
+	 murHbolfsqxmH6gRxKKvIh+exBc3GyKm6xBsVJUPR74/7wiY2P5DADtGXTUyPro6Sfaj8
+	 w7xF8tDHw2fa8dl3gwpPafHVECtwk76f2WSIP0eeohIeyuJ4Z8Lm4EXaDSrMAJUk5hJ8B
+	 Ebml9qXhUTnQQpxxA8Il87c4hiheG5Zhe6nQ6kLG5CwpNnRsxoEL90aH3qhlfM59szQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792453624;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=ypCU1E5MKpp7DyfKc2E/egobrXvy2R64su9DcxdosVA=;
+	b=5VCjOgVSJ2QncDp8JH/17+Xb87enT7R6YlXshWG7RB5k7MrNzk36GhCgTgVrF7n3Ps+R
+	 a1T0EoQ6Hak1E7VOjop0DlxUQ2KSOFF0Qoj/lxQVH8+NhkLBley6U1M8ZUb9nq1D5gm5V
+	 n4Rvt9GRE3Pq6FwRvkeTNVdvsTxdqIK5xY4tWg38fUAJhGmhEGDFeQ2IBhhiRP7YYoKK9
+	 ZoRwZrU7S2xFXqDhtcFcHqa0O7qtvMEduRcYkOed53ERkfyThZPSJ6eQhjMfJL9vHL/9h
+	 Reqkf3Sy89thI/tkNMaaw3ZAnQ4IBPikFGPO2rVpWnF3p6ieP+yU3GhT3bZ59Hs5JxA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lgkpddl2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.175
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3028C606A319;
-	Mon, 19 Oct 2026 23:46:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DC0606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:47:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11DC0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Xz2PyeQW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EED61F000C4;
-	Mon, 19 Oct 2026 23:46:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lgkpddl2
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d4so11942921fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:47:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792453622; cv=none;
+        d=google.com; s=arc-20260327;
+        b=f7qxECH5/doHMYZaXZPw2TCnqLNeRzX8Z9TFkPTM+V5+90La5c+RTi09MqOzCSv5VA
+         bUe0PTzOJW6cMNjrNQ0KQJB7aqQI1ppkrUP7+enqZSfI0Ov7VmE1rUUgBZJRrovBT82H
+         F60KbT9WTBnDprg/8OXUZFbYeBjWppx3kcsg+HkumURm4dzndBeWT3rp6SuaOUncRPfF
+         ktatyhBZfk5RW7OtpHDiCCLhpPZUWR0/XOJzQkv57MF760cutaCwcdqbZWmcsA8ubX3H
+         fqk7gD3bMAkCONbOnam7FXPhVRA1rCs0UzIPN5e5evrmiCe9eth3FyLtS/PW15HMlpF6
+         0/aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ypCU1E5MKpp7DyfKc2E/egobrXvy2R64su9DcxdosVA=;
+        fh=uMr4FRYRDwNX+CzodSugqMgZOSj1k61n62voPCaJd+Q=;
+        b=TMFtHQmcZNJq8lps7dn1jG6/b8NhlHKnH5uqn3mfxeGcUM1kuGUhygcA74xNvv1g75
+         7ssyxj423lccHitggR+RMA6kdHH4NoonYSQkvaKEMT55dsPZpnn23YuwFPpoGyuxViI6
+         LtmrnK8zGHgX9YtKVkPqucd6wNRdycij135HJy8NZA8/dDKQLJWEuNRFKrgS199xO/T1
+         4lGImK+qzQZBaIgNSaIGOLuUooOjrV5i8QdiLCV5Fnd8hZpZF/URRBeWWEDlOT0HEJx1
+         z9db/ClYRUdlnXRdV/Z/YGdP9M4IiJ/VX6AM7XYP32aTSxezWLVZCElRZtPZ5sCsWxOL
+         C5AQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792453599;
-	bh=lnbJ/fWoD11/g9szFmuzDGasP/1e2AgpJzFnEjFUq1Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Xz2PyeQWC71Jdv+LVHPfpQH3SZFM38V7OqQRR6Rn+L0Or9GHlKTA9epcwDawRBhIW
-	 o6Xjx+ug/q8y2FztLjpwhbc6LgdWxI5Xjwh7kTUZxVKLQRo3/YAl9XTCM+8srtVkkj
-	 lzuNM0WK2JrER1UjAq1N6orohUxovMraATbR+YcY=
-Date: Mon, 19 Oct 2026 16:46:38 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: syzbot <syzbot+54f6a8926b40a171f2c8@syzkaller.appspotmail.com>
-Cc: david@kernel.org, gourry@gourry.net, joshua.hahnjy@gmail.com,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, rakie.kim@sk.com,
- syzkaller-bugs@googlegroups.com, ying.huang@linux.alibaba.com,
- ziy@nvidia.com, linux-ext4@vger.kernel.org, Vlastimil Babka
- <vbabka@suse.cz>, Barry Song <baohua@kernel.org>, Theodore Ts'o
- <tytso@mit.edu>
-Subject: Re: [syzbot] [mm?] WARNING in shrink_one
-Message-Id: <20261019164638.c33e70eaefbee802eefb4716@linux-foundation.org>
-In-Reply-To: <6ad67231.a20cb897.960b0.0042.GAE@google.com>
-References: <6ad67231.a20cb897.960b0.0042.GAE@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1792453622; x=1793058422; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ypCU1E5MKpp7DyfKc2E/egobrXvy2R64su9DcxdosVA=;
+        b=Lgkpddl2TvvCEoP9iVOQkoChp1KC29S+ddjoSUXUlTzd1BTVP6lz/tJ1HwEGS/F/A8
+         /OSHUEs5EcXL83QlbmGhryu9bdgy0Pnu8QxPCvd4c+Unk4Y3rI3UyTm0qqeBASX/5Uou
+         w6tENwv1hm6FZy44zEVf17LfBo25esknPgdZ7gs2Wq3phxLdFCr9aUNhPXe0OyzygCxJ
+         6v1OtRUjnSerusS0ldpWeaxMKtogm9r0GVelfeA+y9tJdqm0MBXTcPQjJtPkagnT2zUZ
+         grHA621VmUi+mG0NhI0VVKH4QKYQVpz9ADfebjH5jT6A864uxZTTn0Q4fUm4Dx2AHXg/
+         CJuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792453622; x=1793058422;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ypCU1E5MKpp7DyfKc2E/egobrXvy2R64su9DcxdosVA=;
+        b=UYowaG9EaDmLsf1+Z/NMFPXMTvT/iqWBKVqCU2h2XAv9dWhV2pW41AQdp3RdEU5v96
+         U2+oXxghysg4VOi+t/ynOuNbBPc7BP6maV8IFpJTRbeSoxhgsHt7Ycmr3ScXStV1LXE4
+         dsMukfOTWhHn4WXB5kgKQ1x8JHDdDSlu6Rw8XcbVsP+IJELDQXmr8EbI0d3fvoAKOWCQ
+         fKLzxvusuQFz5A9ZVK/eV91wtutBYeCAM7eY/bPDD0RYY3WDMrqKN0TDQAbpBDjt4G35
+         EtbirDEwl5HIa3gcwHFuLs7BsOrZMcEzxSMcTYQjN2d8jGorHCzBYNrfqmrKQhjqY/PP
+         Xw6g==
+X-Forwarded-Encrypted: i=1; AKwUvBxwn0HDqTrk64uwWRiPBnZ94ZIjB3R9f/JzlhhDIPIu7kbaMjZLd5AUwa9eFFTlOlGW0PCjTp6SIpWkER0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnC7XsePIQTmCJXcgA26TNyNVq9ORolb6dNYrn4GhY37ludGaV
+	db6U0z5tecMVtmt16RMLOP86djNliNi1qDHo0DXVyR/sB4Cx+XaS628HLGArFtMHmsWhkU5TSqW
+	izpYTt63goTO6daFHZA7VBfQO5lkXVTU=
+X-Gm-Gg: AYBFou3h5avf5hULhUJb1pRhC1CEoy/v0JR6SwDGQpemU8ovwNOwH/zupZY9OfQrdop
+	ZEtVLHp08/+zNhP3n4LnI1J1B4E1DgjJT8pAphxKrH4dk8x5LHOmCG+m+56e60MRQwJXJAe7lGs
+	e6i9nM0EF20jh+YxKhEc5Gm4EhNRzsJxK+PVhG3dIgRXAbIcXIQqAb4cM0L/P4SKBCD7c8EAPdl
+	Yy4rsF3+xWWeP2HQpWv2cgZAK+gW346eM0z/JkL0JPOaqdOMCqGIujf2xWhtuAT5TIiigDIUb1H
+	QbcXNg1mwRutQATZo2DzZQipqRCQH2GCJqPURXy4dWNaEbcR2FzxHw==
+X-Received: by 2002:a05:651c:510:b0:3ab:2d74:71e with SMTP id
+ 38308e7fff4ca-3ab2d742b84mr17797071fa.10.1792453621900; Mon, 19 Oct 2026
+ 16:47:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,99 +101,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+References: <20261016023521.747447-1-oss.patchbox@gmail.com> <25a35fa8-9540-4892-8375-1788e6795dfb@kernel.org>
+In-Reply-To: <25a35fa8-9540-4892-8375-1788e6795dfb@kernel.org>
+From: Yuho Choi <oss.patchbox@gmail.com>
+Date: Mon, 19 Oct 2026 19:46:50 -0400
+X-Gm-Features: AclHuK-d2lDGIbO0nMDnG4pSmt2gfW-rFmLHGdUc2vgLpFp-z405iCYiTrPxDos
+Message-ID: <CAGG=RgDUFpDqtbws4YO4T8A3pS4Dr9twVqP9hSD3J_zP5Dc_mQ@mail.gmail.com>
+Subject: Re: [PATCH v1] virtio-mem: only mark the device ready in kdump mode
+ with vmcore support
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+	=?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, virtualization@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 19 Oct 2026 12:40:33 -0700 syzbot <syzbot+54f6a8926b40a171f2c8@syzkaller.appspotmail.com> wrote:
+On Mon, 19 Oct 2026 at 09:05, David Hildenbrand (Arm) <david@kernel.org> wrote:
+>
+> Which kdump kernel exists that does not enable CONFIG_PROC_VMCORE?
+>
+> IOW, why should this be stable material?
 
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    a0ff06b3a7bd Merge tag 'firewire-fixes-7.3-final' of git:/..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=12cdb20d580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=44ac479246d4559b
-> dashboard link: https://syzkaller.appspot.com/bug?extid=54f6a8926b40a171f2c8
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> userspace arch: i386
-> 
-> Unfortunately, I don't have any reproducer for this issue yet.
-> 
-> Downloadable assets:
-> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-a0ff06b3.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/3f4bcbceb92e/vmlinux-a0ff06b3.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/bf4df8252e54/bzImage-a0ff06b3.xz
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+54f6a8926b40a171f2c8@syzkaller.appspotmail.com
-> 
-> ------------[ cut here ]------------
-> current->flags & PF_MEMALLOC
-> WARNING: mm/page_alloc.c:4816 at __alloc_pages_slowpath mm/page_alloc.c:4816 [inline], CPU#3: syz-executor/5706
-> WARNING: mm/page_alloc.c:4816 at __alloc_frozen_pages_noprof+0x1eac/0x3300 mm/page_alloc.c:5449, CPU#3: syz-executor/5706
+I tagged it because a9403425b3cf has been in releases since v6.14 and
+PROC_VMCORE can still be turned off with CRASH_DUMP enabled, so the
+-EBUSY path is reachable in a valid configuration. But as no practical
+kdump kernel disables it, I'll drop the Cc: stable in v2.
 
-Thanks.  The stack trace is missing important bits for some reason, but
-it appears to be ext4 disagreeing with page reclaim.
+> LGTM, but I am pretty sure it does not make any difference in practice?
 
-__alloc_pages_slowpath():
-	if (unlikely(nofail)) {
-		/*
-		 * We don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
-		 * otherwise, we may result in lockup.
-		 */
-		WARN_ON_ONCE(!can_direct_reclaim);
-		/*
-		 * PF_MEMALLOC request from this context is rather bizarre
-		 * because we cannot reclaim anything and only can loop waiting
-		 * for somebody to do a work for us.
-		 */
--->>		WARN_ON_ONCE(current->flags & PF_MEMALLOC);
-	}
-
-The electrical think machine said:
-
-
-filemap_fault()
-  -> direct reclaim
-     -> shrink_slab()
-        -> super_cache_scan()
-           -> prune_icache_sb()
-              -> evict()
-                 -> ext4_evict_inode()
-                    -> ext4_clear_inode()
-                       -> ext4_discard_preallocations()
-                          -> ext4_mb_load_buddy_gfp(
-                               GFP_NOFS | __GFP_NOFAIL)
-                             -> __filemap_get_folio()
-                                -> page allocator
-                                   -> WARN_ON(PF_MEMALLOC)
-
-
-The task enters direct reclaim after a filemap allocation failure. 
-Reclaim calls shrink_slab(), which evicts an ext4 inode via
-super_cache_scan() and prune_icache_sb().  The eviction path eventually
-calls ext4_discard_preallocations(), which explicitly does:
-
-    err = ext4_mb_load_buddy_gfp(sb, group, &e4b,
-                                 GFP_NOFS | __GFP_NOFAIL);
-
-If the buddy-cache folio isn't resident, ext4_mb_load_buddy_gfp()
-allocates one through __filemap_get_folio().  This reaches
-__alloc_pages_slowpath() with __GFP_NOFAIL while PF_MEMALLOC is set,
-triggering the warning.
-
-Simply removing __GFP_NOFAIL doesn't look safe.  The preallocations
-have already been detached from the inode's tree, and failure to load
-the buddy information can prevent their space from being released
-correctly.
-
-It seems that ext4 needs a way to complete this mandatory cleanup
-without performing a NOFAIL allocation from the slab-shrinker context. 
-Perhaps the preallocation cleanup could be restructured so that it
-doesn't require allocating buddy-cache folios during reclaim?
-
-The syzbot report is at:
-https://syzkaller.appspot.com/bug?extid=54f6a8926b40a171f2c8
-
+Right, nothing is queued on that path, so the device has nothing to
+access.
