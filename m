@@ -1,131 +1,178 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C53A448BAF;
-	Mon, 19 Oct 2026 03:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B7E3F86E1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792380781; cv=none; b=f66lftGISfsq26iOmGYyznNgdIpzRw/jothFPBwbzlOcEv6wozX8NyziHm8gfnEoTphWvzAJftYHrno5H20XbZiA6ms/ZDA4YRfXYjPOzD56Z9Efkcx0CRXYn5qTvdjkny4u09xFejnTaRahriGLK8M0f6Qp3SdnG4Fu4pdFC1Y=
+	t=1792380862; cv=none; b=sEcKgioYpvJDS4NTr23G82zCeMOIWlWijVQ7C9eXGpw85ICXHBf0mCOVb2Tx8AnLjtAjTF5MGiucLvACtc/L8GvVsTWCREqYycTCWazK3zpqqnDLKLTRSOsKBH9I6s/bEgbIFYY7b97LmpY50nZ76bOawWReW1bLeN+ICkFoQ5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792380781; c=relaxed/simple;
-	bh=myeZcrIK9N2UvgTiV88GF34NvItmy5XTQ1Uz3iGbQE0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=K4Kwxp7pzWgs64RhYllKN4UFeFuVv295FjhCwvFh4jOvM3snvQOS21Wp6V4Yelrid5fM7WC/Bpx3HV+2xBm0u0Ksby0bpGt5E4OitguYU+zbzOA0nODeHcXwZiOpQoT9H79IAD1D/NUnHtTAD710dJRvKEDzC5Ke/8GFsTaE03I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from yuanxiaofeng$eswincomputing.com ( [10.12.96.78] ) by
- ajax-webmail-app2 (Coremail) ; Mon, 19 Oct 2026 11:32:33 +0800 (GMT+08:00)
-Date: Mon, 19 Oct 2026 11:32:33 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?6KKB5pmT5bOw?= <yuanxiaofeng@eswincomputing.com>
-To: "Masami Hiramatsu" <mhiramat@kernel.org>,
-	sashiko-reviews@lists.linux.dev
-Cc: linux-trace-kernel@vger.kernel.org, "Paul Walmsley" <pjw@kernel.org>,
-	"Palmer Dabbelt" <palmer@dabbelt.com>,
-	"Albert Ou" <aou@eecs.berkeley.edu>,
-	"Nam Cao" <namcao@linutronix.de>, "Alexandre Ghiti" <alex@ghiti.fr>,
-	"Naveen N Rao" <naveen@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH v6 1/2] riscv: kprobes: reject probes inside LR/SC
- sequences
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <sashiko-outbox-174019@kernel.org>
-References: <20261016081706.1085-1-yuanxiaofeng@eswincomputing.com>
- <20261016081706.1085-2-yuanxiaofeng@eswincomputing.com>
- <sashiko-outbox-174019@kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1792380862; c=relaxed/simple;
+	bh=y/cWCG+bVwAtEoZnfRzuUb5PSJqI7ZqfYayWjoAeWsA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l+tkkxqybaAs4qrchaLXtn+56kWVfDzKDSKkeHGdWpb7aox4igML5IfPGdREO7nNrF6yJ7560HyYFdvKGC1MfLWPYNka1UPSH6eH4jCNE2/W1bJaButoJvUUsBFtlWRH54nxrMNXsrojl4JhrPSmEVObq2yvnSK74Eq4d2zVM+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cPfAAp0A; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cPfAAp0A"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3acc96a256dso1076622a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 20:34:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792380860; x=1792985660; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+gpICvUOk5Bsu25IUENRujBQeDUSaz7AmQ+tkKJdfcs=;
+        b=cPfAAp0AZWirMEI0VdPMlabRgt0dl0opuxmNIW0S06cCZYxExeN18namaL5PoE3xIR
+         hEZMJqka2MymTFUi/nmtT+cdt1AMr1I1CjiwEF84JNNp8tapM/3eeCao+gghEnLlxE+j
+         H/2kObyn7VHo0xUlJFBmJIWGPbxuhBcJUHDQ0EUlX1nFCANi7Vd4lU99vBOua9DE/m5g
+         /lg0RKg6Ffgen479ziDY5K5Fa5hVwKz4vYdyvBcH9+B8kSiipXP7Wd2biQa5kMD8iR7p
+         p1NeRfEa824EOsB8zlt3cs15o/ljnbO/fn6af2xlxZSGv52tLfQN99hAYMsf6Q+KvnXE
+         FtFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792380860; x=1792985660;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+gpICvUOk5Bsu25IUENRujBQeDUSaz7AmQ+tkKJdfcs=;
+        b=L9azMmLouNTZGFCRtASEPY8MAKOBdL3PNYOHm2dLrxtBuvdoOheTKLAefSak53w2jE
+         JJWzT+Ahh3c1Z7DgkwMESKQ/cqfQY7esU2rVx28A94u9NF2wT/NARTu5G2ENV7FJFudZ
+         eUNPOllwOcUNFzJu+oDj8GeK5sprX/Wg2nc2PXb6z523DmHzJaaIP5Im5Z+17MORegsu
+         qqrZdRqV20Nk4LvDe7yyhe7tT3XOUkchOjeVGRPMfKKymbtNC9YA+fVm1h+1UL0S79Fq
+         TLiENDlFwGIedSx798+ZjTZdt8wVOjXWFFStOFT+KZBy9Hl6uSmQ596P5rN5IFPLGvSP
+         OFfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxk2Tpyb3O9lSxbtcG1a+9uw2B9bVcNa1hAWP7rRxWZBwW8vmEY5BiSxRvjnOIUhoGx+w/8yBmhhk4eVT4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJr1olCwH2EC3Wgsu2XriPLdzcX/KfVjERPhhhrwYUMp9omMpxN
+	wGVT7olHCF5oVA9vwHJnoBF/YU5raH4xCV+2+sFqwkqGp5GuAHc9OUwEUOXCsBVz
+X-Gm-Gg: AYBFou38AJojATQEjHDS4BVcVzxMWDo3fOizBEj8+2pm6r/qEr60LJWP3/U3eeis8+9
+	qwCcKBkY3YJ1NBwIh7teIQlxz7kryVe/cWCduaR0yHwMEGTlCv3poI7KQnA0L4OJl+UtISqvLBR
+	4SEA7bxHJrREpA/nesFeyNCbQ/5b8gm78Cs2/T6AhPFXUCSEn0tdi3fxLhwfdf5T0cOhplb7jhd
+	F/bTi4hNCUIXp206OSCkzRf3xoDEfq6zI0Ybj/fCr55DL320HxT1YhwCaQTRZaW5WvR1/+6DhVQ
+	LevgyxrB6dbs7qgXBG2whzPapiz01yztjgZ7A116yDA6GZdOldFxUmCXyBUyw/WDbyZToJbzo/K
+	GOpQQv7yuW9BctcgunKHc5e8go3pag15fWnwZ7+xIF9+wMnPvJPfIs1EZJ4+6pneq3bzCACWYoo
+	ZunPd0YMEWvfFoEe0++6gdiBZuT/kT/SsktPlA+L2RGiwDLlOpEWB0Oq3mAWfxRQyu7vsnuYgjT
+	bPQibDP4Vp7ShqxrcFB1MHHkWyZzZe/9cDEsiGT+UZw/Pny53I7LjIgA56HJqfMlTWsel/9+QQS
+	g5K5HiLhvzRS3xxVubwbtWHwU7XheHFuQ2mplTZrHn02xUrD
+X-Received: by 2002:a17:90b:5111:b0:3a8:7096:9b48 with SMTP id 98e67ed59e1d1-3acee293889mr6105920a91.1.1792380860248;
+        Sun, 18 Oct 2026 20:34:20 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.249])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4872861sm15136144a91.7.2026.10.18.20.34.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 18 Oct 2026 20:34:19 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] usb: gadget: configfs: use-after-free of gadget strings during bind and under a bound gadget
+Date: Mon, 19 Oct 2026 13:34:15 +1000
+Message-ID: <20261019033415.73542-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <4cd4d42d.afc2.1a15237d7d2.Coremail.yuanxiaofeng@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgAnPqFRj9VqACOHAA--.14297W
-X-CM-SenderInfo: h1xd05xldrwv1qj6v25zlqu0xpsx3x1qjou0bp/1tbiAgEFE2rU9S
-	oWrAABsP
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWDJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Transfer-Encoding: 8bit
 
-SGkgTWFzYW1pLAoKCkkgbG9va2VkIGludG8gdGhlIGlzc3VlIFNhc2hpa28gcmVwb3J0ZWQgZm9y
-IHJpc2N2X3Byb2JlX2RlY29kZV9pbnNuKCkuClNoYXJpbmcgdGhlIGFuYWx5c2lzIGJlbG93OyB0
-aGUgc2hvcnQgdmVyc2lvbiBpcyB0aGF0IHRoaXMgcmVhZApwcmVkYXRlcyB0aGlzIHNlcmllcywg
-YW5kIEknbSBoYXBweSB0byBzZW5kIGEgc2VwYXJhdGUgcGF0Y2ggaWYgdGhlCm1haW50YWluZXJz
-IHRoaW5rIGl0IGlzIHdvcnRoIGZpeGluZy4KCgpGaXJzdCwgdGhlIGNvbnRleHQ6ICJwcm9iZV9v
-cGNvZGVfdCBpbnNuID0gKmFkZHI7IiBpcyBwcmUtZXhpc3RpbmcKY29kZS7CoCBUaGlzIHNlcmll
-cyBvbmx5IGFkZHMgdHdvIFJJU0NWX0lOU05fUkVKRUNURUQoKSBlbnRyaWVzLCB3aGljaApjb25z
-dW1lIHRoZSBhbHJlYWR5LWxvYWRlZCB2YWx1ZSBhbmQgZG8gbm90IGNoYW5nZSBob3cgbWVtb3J5
-IGlzCmFjY2Vzc2VkLgoKCk9uIHRoZSB1bmFsaWduZWQgcGFydDogd2l0aCBkZWZhdWx0IGNvbmZp
-Z3VyYXRpb25zLCBtaXNhbGlnbmVkCmFjY2Vzc2VzIGFyZSBlbXVsYXRlZCwgZWl0aGVyIGJ5IHRo
-ZSBmaXJtd2FyZSBvciBieSB0aGUga2VybmVsIGl0c2VsZgooUklTQ1ZfU0NBTEFSX01JU0FMSUdO
-RUQpLCBzbyBhbiBvb3BzIHdvdWxkIHJlcXVpcmUgYSBOT05QT1JUQUJMRQprZXJuZWwgYnVpbHQg
-d2l0aCBSSVNDVl9TTE9XL0VGRklDSUVOVF9VTkFMSUdORURfQUNDRVNTIHJ1bm5pbmcgb24KaGFy
-ZHdhcmUgdGhhdCBkb2VzIG5vdCBhY3R1YWxseSBzdXBwb3J0IHVuYWxpZ25lZCBhY2Nlc3Nlcy4K
-CgpPbiB0aGUgcGFnZS1jcm9zc2luZyBwYXJ0OiB0aGlzIG9uZSBpcyByZWFsIGluIHRoZW9yeSwg
-dGhvdWdoIHRoZQp3aW5kb3cgaXMgbmFycm93LsKgIEl0IGNhbm5vdCBoYXBwZW4gZm9yIGJ1aWx0
-LWluIGtlcm5lbCB0ZXh0ICh0aGUKbGluZWFyIG1hcHBpbmcgaXMgY29udGlndW91cykuwqAgRm9y
-IG1vZHVsZXMsIGl0IG5lZWRzIGEgY29tcHJlc3NlZAppbnN0cnVjdGlvbiBhdCB0aGUgbGFzdCB0
-d28gYnl0ZXMgb2YgYSBtb2R1bGUgdGV4dCBwYWdlIGZvbGxvd2VkIGJ5CnRoZSB2bWFsbG9jIGd1
-YXJkIHBhZ2UsIHBsdXMgYSBrcHJvYmUgcmVnaXN0ZXJlZCBleGFjdGx5IHRoZXJlLsKgIEEKMzIt
-Yml0IGluc3RydWN0aW9uIGNhbm5vdCBzaXQgYXQgdGhhdCBsb2NhdGlvbiBvbiBhIHdvcmtpbmcg
-bW9kdWxlCihpdHMgZW5jb2Rpbmcgd291bGQgY3Jvc3MgaW50byB0aGUgdW5tYXBwZWQgZ3VhcmQg
-cGFnZSwgc28gaXQgY291bGQKbmV2ZXIgYmUgZmV0Y2hlZCksIHdoaWNoIGlzIGFsc28gd2h5IHRo
-ZSB0d28tdTE2LXN0ZXAgY29weSBpbgphcmNoX3ByZXBhcmVfa3Byb2JlKCkgaXMgc2FmZS4KCgpJ
-ZiBpdCBpcyB3b3J0aCBmaXhpbmcsIHRoZSBjbGVhbmVzdCBhcHByb2FjaCBzZWVtcyB0byBiZSBw
-YXNzaW5nIHRoZQpvcGNvZGUgYnkgdmFsdWUgaW5zdGVhZCBvZiBhIHBvaW50ZXI6IGFyY2hfcHJl
-cGFyZV9rcHJvYmUoKSBhbHJlYWR5CmhvbGRzIGEgc2FmZWx5IGNvcGllZCBwLT5vcGNvZGUsIGFu
-ZCB0aGUgdXByb2JlcyBjYWxsZXIgcGFzc2VzIGEgc3RhY2sKdmFyaWFibGUsIHNvIGJvdGggY2Fs
-bCBzaXRlcyB3b3VsZCBiZSBjb3ZlcmVkLsKgIFRoZXJlIGlzIGEgdGhpcmQKc2ltaWxhciByYXcg
-cmVhZCBpbiB1cHJvYmVzLmMgKHRoZSBhdXByb2JlLT5pbnNuW10gZGVyZWZlcmVuY2UpIHRoYXQK
-Y291bGQgYmUgZm9sZGVkIGluIGFzIHdlbGwuCgoKRWl0aGVyIHdheSwgdGhpcyBkb2Vzbid0IG5l
-ZWQgdG8gYmUgaGFuZGxlZCBpbiB0aGUgc2VyaWVzOiB0aGUKdXBjb21pbmcgdjcgd2lsbCBvbmx5
-IGFkZHJlc3MgTmFtJ3MgcmV2aWV3IGNvbW1lbnRzLgoKClRoYW5rcywKWGlhb2ZlbmcKCgo+IC0t
-LS0t5Y6f5aeL6YKu5Lu2LS0tLS0KPiDlj5Hku7bkuro6IHNhc2hpa28tYm90QGtlcm5lbC5vcmcK
-PiDlj5HpgIHml7bpl7Q6MjAyNi0xMC0xNiAxNjoyOTo0MiAo5pif5pyf5LqUKQo+IOaUtuS7tuS6
-ujogIlhpYW9mZW5nIFl1YW4iIDx5dWFueGlhb2ZlbmdAZXN3aW5jb21wdXRpbmcuY29tPgo+IOaK
-hOmAgTogbGludXgtdHJhY2Uta2VybmVsQHZnZXIua2VybmVsLm9yZwo+IOS4u+mimDogUmU6IFtQ
-QVRDSCB2NiAxLzJdIHJpc2N2OiBrcHJvYmVzOiByZWplY3QgcHJvYmVzIGluc2lkZSBMUi9TQyBz
-ZXF1ZW5jZXMKPiAKPiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJ
-IHJldmlldyBmb3VuZCAxIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKPiAtIFtIaWdo
-XSByaXNjdjoga3Byb2JlczogdW5zYWZlIDMyLWJpdCByZWFkIGluIHJpc2N2X3Byb2JlX2RlY29k
-ZV9pbnNuIGNhbiBwYWdlIGZhdWx0Cj4gLS0KPiAKPiBjb21taXQgNmY5NDA1NzhkMmYwOTY5NzBl
-OWFiZDZjYzI4OTRkZTAwOGUyOWY2Zgo+IEF1dGhvcjogWGlhb2ZlbmcgWXVhbiA8eXVhbnhpYW9m
-ZW5nQGVzd2luY29tcHV0aW5nLmNvbT4KPiAKPiAgICAgcmlzY3Y6IGtwcm9iZXM6IHJlamVjdCBw
-cm9iZXMgaW5zaWRlIExSL1NDIHNlcXVlbmNlcwo+IAo+IFRoaXMgcGF0Y2ggcmVqZWN0cyBrcHJv
-YmVzIHBsYWNlZCBpbnNpZGUgTFIvU0Mgc2VxdWVuY2VzIG9yIG9uIHRoZSBMUi9TQwo+IGluc3Ry
-dWN0aW9ucyB0aGVtc2VsdmVzIHRvIGF2b2lkIGxpdmVsb2NrLiBJdCB1cGRhdGVzIHJpc2N2X3By
-b2JlX2RlY29kZV9pbnNuKCkKPiB0byByZWplY3QgdGhlIGluc3RydWN0aW9ucyBhbmQgYWRkcyBp
-bnN0cnVjdGlvbiB3YWxraW5nIGxvZ2ljIGluCj4gYXJjaF9jaGVja19rcHJvYmUoKSB0byByZWpl
-Y3QgYWRkcmVzc2VzIHdpdGhpbiBhIHNlcXVlbmNlLgo+IAo+IFsgLi4uIF0KPiAKPiA+IGRpZmYg
-LS1naXQgYS9hcmNoL3Jpc2N2L2tlcm5lbC9wcm9iZXMvZGVjb2RlLWluc24uYyBiL2FyY2gvcmlz
-Y3Yva2VybmVsL3Byb2Jlcy9kZWNvZGUtaW5zbi5jCj4gPiBpbmRleCA0MzNkOTAzNWI4ODgyLi5l
-NmE4ODk0Njc3YjEwIDEwMDY0NAo+ID4gLS0tIGEvYXJjaC9yaXNjdi9rZXJuZWwvcHJvYmVzL2Rl
-Y29kZS1pbnNuLmMKPiA+ICsrKyBiL2FyY2gvcmlzY3Yva2VybmVsL3Byb2Jlcy9kZWNvZGUtaW5z
-bi5jCj4gPiBAQCAtMjMsNiArMjMsOCBAQCByaXNjdl9wcm9iZV9kZWNvZGVfaW5zbihwcm9iZV9v
-cGNvZGVfdCAqYWRkciwgc3RydWN0IGFyY2hfcHJvYmVfaW5zbiAqYXBpKQo+ID4gIAkgKi8KPiA+
-ICAJUklTQ1ZfSU5TTl9SRUpFQ1RFRChzeXN0ZW0sCQlpbnNuKTsKPiA+ICAJUklTQ1ZfSU5TTl9S
-RUpFQ1RFRChmZW5jZSwJCWluc24pOwo+ID4gKwlSSVNDVl9JTlNOX1JFSkVDVEVEKGxyLAkJCWlu
-c24pOwo+ID4gKwlSSVNDVl9JTlNOX1JFSkVDVEVEKHNjLAkJCWluc24pOwo+IAo+IFtTZXZlcml0
-eTogSGlnaF0KPiBEb2VzIGV2YWx1YXRpbmcgdGhlc2UgbWFjcm9zIHJlbHkgb24gdGhlIGluc24g
-dmFyaWFibGUsIHdoaWNoIGlzIHJlYWQKPiB1bmNvbmRpdGlvbmFsbHkgYXMgYSBuYXRpdmUgMzIt
-Yml0IGludGVnZXIgZWFybGllciBpbiB0aGUgZnVuY3Rpb24/Cj4gCj4gYXJjaC9yaXNjdi9rZXJu
-ZWwvcHJvYmVzL2RlY29kZS1pbnNuLmM6cmlzY3ZfcHJvYmVfZGVjb2RlX2luc24oKSB7Cj4gCXBy
-b2JlX29wY29kZV90IGluc24gPSAqYWRkcjsKPiAJLi4uCj4gCj4gSWYgYWRkciBpcyAyLWJ5dGUg
-YWxpZ25lZCwgd2lsbCB0aGlzIG5hdGl2ZSAzMi1iaXQgZGVyZWZlcmVuY2UgcGVyZm9ybQo+IGFu
-IHVuYWxpZ25lZCBtZW1vcnkgYWNjZXNzLCBwb3RlbnRpYWxseSBvb3BzaW5nIG9uIFJJU0MtViBo
-YXJkd2FyZSB0aGF0Cj4gbGFja3Mga2VybmVsLW1vZGUgdW5hbGlnbmVkIGFjY2VzcyBzdXBwb3J0
-Pwo+IAo+IEZ1cnRoZXJtb3JlLCBpZiBhZGRyIHBvaW50cyB0byBhIDE2LWJpdCBjb21wcmVzc2Vk
-IGluc3RydWN0aW9uIGF0IHRoZQo+IGVuZCBvZiBhIG1hcHBlZCBwYWdlIGFuZCB0aGUgbmV4dCBw
-YWdlIGlzIGFuIHVubWFwcGVkIHZtYWxsb2MgZ3VhcmQKPiBwYWdlLCBjb3VsZCB0aGlzIDMyLWJp
-dCByZWFkIGNyb3NzIHRoZSBwYWdlIGJvdW5kYXJ5IGludG8gdW5tYXBwZWQKPiBtZW1vcnk/Cj4g
-Cj4gV291bGQgdGhpcyB0cmlnZ2VyIGEga2VybmVsIHBhZ2UgZmF1bHQgYW5kIHBhbmljIHdoZW4g
-dHJhY2luZyB0b29scwo+IHJlZ2lzdGVyIGEga3Byb2JlIGF0IHN1Y2ggYW4gYWRkcmVzcz8KPiAK
-PiAtLSAKPiBTYXNoaWtvIEFJIHJldmlldyDCtyBodHRwczovL3Nhc2hpa28uZGV2LyMvcGF0Y2hz
-ZXQvMjAyNjEwMTYwODE3MDYuMTA4NS0xLXl1YW54aWFvZmVuZ0Blc3dpbmNvbXB1dGluZy5jb20/
-cGFydD0xCg==
+Hi,
+
+The gadget-side string configfs objects (the strings/<langid> directories
+and the strings beneath them) are created, modified and destroyed with no
+serialization against, and no lifetime coupling to, a bound gadget. This
+gives two use-after-frees, both reproduced on an acm gadget over
+dummy_hcd with KASAN. Both are root/configfs triggered.
+
+== Background ==
+
+Writing the UDC attribute (gadget_dev_desc_UDC_store()) runs
+usb_gadget_register_driver() while holding gi->lock, and
+configfs_composite_bind() -> configfs_attach_gadget_strings() then walks
+gi->string_list and, per language, language->gadget_strings to build the
+usb_string tables (the "the gi->lock is hold by the caller" path).
+
+The configfs callbacks that build and tear those lists down do NOT take
+gi->lock:
+  - gadget_language_make() / gadget_language_attr_release() add/remove
+    languages on gi->string_list;
+  - gadget_language_string_make() / gadget_language_string_drop() add/
+    remove strings on language->gadget_strings and adjust nstrings.
+(Contrast function_make()/function_drop(), which take gi->lock around
+gi->available_func.)
+
+A store to the gadget's "UDC" attribute and a mkdir/rmdir of a child
+strings/<langid> directory are not serialized by the configfs core: they
+hold disjoint locks (the store holds the gadget-root fragment rwsem plus
+gi->lock; the rmdir holds su_mutex plus the langid's own fragment rwsem
+plus the strings/ i_rwsem), so they run concurrently on different CPUs.
+
+== UAF #1: gi->string_list walked during bind vs. concurrent rmdir ==
+
+configfs_attach_gadget_strings() dereferences a struct gadget_language
+that a concurrent "rmdir strings/<langid>" frees:
+
+  BUG: KASAN: slab-use-after-free in configfs_composite_bind+0x2ba/0xe70
+  Read of size 4 at addr ffff8880085db900 by task ...   (language->nstrings)
+   configfs_composite_bind+0x2ba/0xe70
+   gadget_bind_driver+0x170/0x5f0
+   really_probe+...
+   gadget_dev_desc_UDC_store+0x179/0x220
+   configfs_write_iter+0x1a7/0x250
+   vfs_write+0x5df/0x940
+  Allocated by task ...:
+   gadget_language_make+0x93/0x340
+   configfs_mkdir+...
+   vfs_mkdir+0x1ed/0x4d0
+   __x64_sys_mkdir+0x47/0x60
+  Freed by task ...:
+   kfree+...
+   config_item_put+0x89/0xa0
+   configfs_rmdir+0x42f/0x5b0
+   __x64_sys_rmdir+0x34/0x50
+
+== UAF #2: a bound gadget references strings that rmdir frees ==
+
+configfs_attach_gadget_strings() stores raw pointers to each
+language->manufacturer/product/serialnumber (and each string->string)
+into the cdev's string tables; usb_gstrings_attach() does not copy the
+string contents. Removing a language (or a string) with rmdir while the
+gadget is bound frees those buffers in gadget_language_attr_release() /
+gadget_string_release(), and the next host string request dereferences
+them:
+
+  BUG: KASAN: slab-use-after-free in strlen+0xe/0x40
+  Read of size 1 at addr ffff8880065f2000 by task swapper/2/0  (GET_DESCRIPTOR)
+   strlen+0xe/0x40
+   usb_gadget_get_string+0xbb/0x1b0
+   composite_setup+0x33fa/0x4690
+   configfs_composite_setup+0xbb/0xd0
+  Allocated by task ...:
+   usb_string_copy+0xed/0x110
+   gadget_language_product_store+0x22/0x60
+  Freed by task ...:
+   gadget_language_attr_release+0x36/0x60
+   config_item_put+...
+   configfs_rmdir+0x42f/0x5b0
+
+== Reproduction ==
+
+acm gadget on dummy_hcd (CONFIG_USB_DUMMY_HCD, CONFIG_USB_CONFIGFS,
+CONFIG_USB_CONFIGFS_ACM), KASAN:
+
+  mkdir g1; echo ... > g1/idVendor; echo ... > g1/idProduct
+  mkdir g1/strings/0x409
+  echo ... > g1/strings/0x409/{manufacturer,product,serialnumber}
+  mkdir g1/functions/acm.0
+  mkdir g1/configs/c.1
+  ln -s g1/functions/acm.0 g1/configs/c.1/
+  # race:
+  echo <udc> > g1/UDC        &      # bind: walks the string lists
+  rmdir g1/strings/0x409             # frees the language
+
+UAF #1 fires during the bind walk; UAF #2 fires on the next host string
+descriptor request after the language is freed under the bound gadget.
+(I widened the two windows with a debug mdelay to make them
+deterministic; without it they are narrow races.)
+
+UAF #1 is a narrow race (bind vs. rmdir); UAF #2 does not even need a
+race: removing a language under a bound gadget is enough, the next host
+string request then reads freed memory.
