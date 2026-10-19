@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792430968;
-	b=UyUEscbt4WHJAZMxEKq94upC9oWbpF2NccMoqVHUkExBprTQ3SvN5Li76lWUJfVBSeEG
-	 WZhz3gQy7Lw3SHQOHerIo9rQSG/DMTSkTcDHdC3o/5XXM4cMcePsvi8kGdZdMtpkgeRyQ
-	 iKKyX51zUuXs3WjoDxI+We16X25ZTCK0mtnBhXc5RKsWekaG9AXzX80oaZxjdERoeo7Eo
-	 GZtEgjVhiYKgEvdAskzQ1QWAV/OI3qAHo3vGoepoRJORRbhXcnQYDLPvVZhZ0SI7blN9c
-	 s/PXko4uCu5vu+sAxLjYcX3bIWMPmKVQaxeCzksE45pK3sy79U0NmK/ED5mnGS4xmVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792430968;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792431141;
+	b=LKrwYCgR6MuU/kDo18/OaNEXU0zp4eSnM6oeQ8nkuCc2JB19P+eIhZlRZRI0FS4bfysq
+	 rLHDtRqDXYIYwcdRv78Sf7jqfg48NcQYV6suZwDFLCOpx9sERrc9hWB+1J2GaiJAClT5Z
+	 uJ5kF5KUQwS9sAhRxykryWhDgPP2XfMQ1Ml0IvLyiitU0WYNf2yfrLqSwRV0h+aHfxMcp
+	 lcU94JarktEIxhtP2+o2qAN5jFvsCLX4fC5SxNdSVWrtxVeutAICB0qAsIJKYliHU9Y7Q
+	 m1uSZREm5mSods5XMmhj6cPDyn4fMqwya4gX93zb6D+3iTVfR3Vv5K67Bd/nwYKRI6w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792431141;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Np41dxbwmZn+Bkqvil7UYopNErqC82u/VqNlpFNRLtk=;
-	b=qz1VuhlRwa+pbVlNUanA2ourt2z35gxsZYNXAkL1axamh8/GzdgJDUOh3vXd+Vs3PumN
-	 r0Y5/p/EyfQfFW8JX/cAVEROIqtCzAjbqI7fQwQPhNCnmL8eRVQxDWdJG9h/wPQqQ15jd
-	 lfIaczWWeygktMhFiHOgvBGf6vIL2kfPr+tGjS+EzwxOE0/8FtBoD0I07C+QvNKOHOfD2
-	 MdX6sHyB/nfoo2P2jQLJFIya10376rorhvCgiL9Nke2aPnKGM81lX+JJsbEXf+aCpHyRI
-	 L5iuYHPjxTp/xlFJHILFLnYUVttfGCOibMatyBO5Og2znq/+HDaJbSK0Qhq1FJ2JSMw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fH71wL26lccrp6A48zhvdYj1x6+Gqq4exVWEJZ0+OwE=;
+	b=Su/tSdu0JethICD4T5Hu4GoWrilBtV4YH8teQZVcHMv8jPvQxwV/tS+1jNjTy8Caxae9
+	 vvwwHNcmR+AvsmUYrNUtE5SpNxeCmcbR4OYjRAZF6Wrzs/P5mgX2VQbKcNYaxK/DahwMt
+	 GxKoYre7LaPgyeYsJ6QeIW7VCu17aNQuiq1qQuBzfulwMxpIFmd5sdOnfPw3lMFoYWuAT
+	 xwSd3NZ+oovYOmAh6iEt2hTU0I/6xc2FJQClq5bV2qEeC6cLWCwMgL0TwqDt3rf60NuWy
+	 7ijJBSN/9/c8o5EWoAfhAVfvWuAcpXZVA+sbULexJwqyr/PD24Yv0oRhIiMLU/kAn4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fX+Gl0W7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.180
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GReyJMAu;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392F0606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:29:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 392F0606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A362A606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:32:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A362A606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fX+Gl0W7
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab35e31f6dso14194971fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:29:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792430965; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JSux4rOjB61AWE8HatFKu5UQd7CT0IVHwV8+TRMe+pNIQ8qVoiL1cVb7/308wOhyiO
-         kQGzYOawoOyR+Ewi+IY6pbapeVowaGJyiu1l2HrLObz9FJJmwfEi5a1W8CA4HZDlE7Xc
-         YcFFb3v3Brr1WCderWSRhtA3h1EYKkCXC6ZbxG9za1mJ303+hln4IjsT8k/Yy285MdMa
-         yVM5+VMy0fBShMknDlOpodksp/q9GOsjNb4ee78UJERpXNKiaqa9LQ1meyiKWBiu9zG6
-         EctKIJ8lpDKE0DzwCEXlfVgbxv1kuPoc+haZtS3Dj7Hn96LYA6xwVGKz199iC5SYSwSZ
-         l/mA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Np41dxbwmZn+Bkqvil7UYopNErqC82u/VqNlpFNRLtk=;
-        fh=EwV6cCnjHs8D3hh+mdMVgLb370OB/dfkkrpNpa463/A=;
-        b=LVYgPIaPfvoF+RN1V0npQLW1RFcXCYykkXRWCdIwfqULpdPEVIWuikOZJudodhAhwZ
-         dIhY+Q8mJEinCvjXFJ1qusSREcEjKg+iJmlGBR8GkcSsmI4Ky0z6to8uIsera5vq3z8q
-         ZMpZFmrCBNW+xvwI9jXVBE7egpIVPFb4k/2UTqsnFxcg7xdfSWA1C4j+ka2rEAG77vPY
-         5A54LXS2x2ukA/zH/OaLf1CrxfPLx6PsUORIY0I1XNVy/gjc486OeYruYw2gVoqEKnHS
-         +ZDgyDOTLeIYDyG5mBySkqWsjQ/dDtZQ1fm4ishNWP5AaPV3cg6QF8tzqwObtqiLjhK9
-         0p5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GReyJMAu
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3550c917fd3so2830619eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:32:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792430965; x=1793035765; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Np41dxbwmZn+Bkqvil7UYopNErqC82u/VqNlpFNRLtk=;
-        b=fX+Gl0W76Ub+1zWUQnlSEBDXLvC6MZJZ62Jua1HcNIT7N2rVI1gkW+dx7RVVwUl/DZ
-         MiyB5pJdAo+SZrSVIuaoBuFgJUwBh0eJ9GzFYPimn5DocFuxfzywVhiw9Gh2Iqk22WzO
-         mV7hXaFEfodmTSnyb7RoQkYED71RVo3Ms1slJJLXNMvPaIbl+2+ReKDfaOZalneFwJHn
-         egJkEcZ5IqK6hDzccfESLFP7eZYAYk6ih5UE55A1s63jWfpAlcIurfw4sEZsARvKKkvN
-         dN9rR0Waa2NHfwYYQmk1dT5Sc4AcnGEfN/tzbz4vI0o7mqEN1bZPk2shPZeJnpty19k5
-         jNiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792430965; x=1793035765;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792431140; x=1793035940; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Np41dxbwmZn+Bkqvil7UYopNErqC82u/VqNlpFNRLtk=;
-        b=Ld4y4ascC4VHFLGk+5v2834/BFcSudCphw3izX9T8M/IIT75daXKBJq+tCt1Rw5jJJ
-         EkEyLuehtvrE/Kb7h3/ChP2/a3ciPXdVdjjtCq0X49Ij5+7Bg1iQil+1TE39RZmOgXN0
-         F/G6/LqHYBrjHBdQf/OAIbO0hco4SuB8nVqf9figPuueHhC6//R3asZ7ETOIuXlACxO2
-         r/e+HjBfJC1qOmqwXxlWh49avq9EeY4Hg9BuGXJVsRq97DtOzw+OC7LxPwf3bqQorD0s
-         4A8lKgZZDPShTWk1d2IjuDd3f9oF+omb0+VDP06kkDyNFl+KVkH2iBcwlzYb5lyahiZi
-         5h7w==
-X-Forwarded-Encrypted: i=1; AKwUvBwCBxdIs5i0pSY5rWykgqlcewv1kFa45MP2VjODi0PVnbKfyRJLVXZ+XQi1PvJw/DeWCkvukDN3KSEY2Kg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzctWG5ge8KnUW+O/wu79n1VggrRgVJu5rps3RyLxfz6ht4TXv
-	Ht75bdqqmAFhEHBcAEaiuznm41Fb0gzrcZ7Ly+M8bSAoOE3IQllXSXg64i0xDEggLU3TcblsAPM
-	7kqwDvhqH3+4DnacbbaovTbbzK1VxaPA=
-X-Gm-Gg: AYBFou2q+gAhuZVkgHxwiA4J/cuz9FgRMNgnMbzX8l5yGNR4GYIf6yw9ltmr4pnAo41
-	yrMo1CKHQfPMBYXlvLBfGeWQVWr6S244hBLxfnrqOrItOxFyPAMaamifX+QhGq9jrXm9JyYSgZo
-	X63XMxULaAFkAtcbawHWgWD7GbDpO0MAUeCtB6YjS1bJF5ukWi/ovBtQKnyjpS71oD3uEaDS1jU
-	RyVBgzKbsBeRW7QNecIseauy99WSGPkHzXOxG9ZGbC5joWP33KAkAhHOiAgU0Ik4skfG+wWoCWJ
-	kY/JCHrWxUqjNM4AhvU6q6jcwoZImo4yz4htUDwItt9R1PD4OSKocefTDa028B2enyYtM5aF2Mg
-	6YJ6YivnGFkWgg9AR429/Y04ddrbAaxtJHMVybN0wJpw=
-X-Received: by 2002:a2e:bea4:0:b0:3ab:1729:e08c with SMTP id
- 38308e7fff4ca-3ab292917e9mr16875971fa.13.1792430964535; Mon, 19 Oct 2026
- 10:29:24 -0700 (PDT)
+        bh=fH71wL26lccrp6A48zhvdYj1x6+Gqq4exVWEJZ0+OwE=;
+        b=GReyJMAuaQIYpGxxKPfJ8T99/W2QeBXzsPHCCky+QMavnviPf5a4T4bfTSBcy3ksjJ
+         18w9PFibPqr2fyuub4EjXq8Sl3ku/pXf4ZWUCk/mH9D3kVF1le+BwJeKNgw0wXDLpQ0j
+         3/M2zScaHu0s1+WElpdiRjFtRA/+iCy7v5BmlXGRbxCmSzqUGSA460hDrls0cel9V3L/
+         5gD0qw59HwlawKRpXy9k5OBMJJmTNMV3AnYeuFd/lxSqk3aFNpdxTjny9J5npGomPAmX
+         qUccLIlFpWLykv2rcr9e2dnF3+AcXul1fzfbwhKs7RCn3CO4RaR46RRFCSYSnjZmDlk+
+         KrjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792431140; x=1793035940;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fH71wL26lccrp6A48zhvdYj1x6+Gqq4exVWEJZ0+OwE=;
+        b=Pw8oZZ+CS+iqpk3SNcfohRMJ9KZ/tdPWyYu1g+mXRsR0q/kgvdygy5sRWDeTAsC+d+
+         0YvZmU8ON1SgIQiLKJMQz0vh3MghpWPo0ZIdgIOQeOMrnyKDQDQQjNLn/mJREL5GXbRK
+         e3ofRTBxRz8/wzjnMlPOakp7Cq2zNhH/jpKhrInuOfwI+02vMOE/Sew+OviH6kl2Jsmn
+         kNthrgYgvtyH6CDXLuzAv7OTIJHDeBgOtULKfSjKkKWD2180fUX4tyoDqTShK5tFhsUS
+         GImsb4xDtzYmAOmg+CdywzlymTvwbTobc1WP8+M+s3d3pcKoH7Q8WfqQQTpK3ruLO+ZV
+         XWEg==
+X-Forwarded-Encrypted: i=1; AKwUvBwqH5FSEjm5c2y8YyfxDarBV95DKGH2+BXcJUbHvaKBWmeS0dVHJ3+qnHwz22VFFaz1vYHTCm0nJC/DlYA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKX4lq2J6bfzqOucA62XtvKpiFKSMx1X5VyXVYH2yuR76+TMgEV
+	VEvwHp+wuUfaN8wpAr352GtonAEmx8DHMcNvMyM59YZ0o17FqClFqUK0
+X-Gm-Gg: AYBFou2rNEH1DK7p0Hdm5l53soD8PRnSogAM0Vxc/wwz1aigr5Yo0K5TSRp8oH23fZ1
+	Apr1vPQ9S1rgt1GWK5+H1trJxOS9zrtpJtaKpa9KbekGPVk9L3rkrUabQWRoyskmmwXZpmz0S5Z
+	6OkPh5hH1KBU7uxRC6JULtf5ncGevVFNV2S4Y9WtlKqrVKlNMbqdhoB/okiQEY+BSRkSAd8ki6a
+	Fg89E65HhD+t19r1ECsFB6ZFLPWbixny0PR9ewmgJdARyjEcatmxvolzrxWaR7rZIITNZI+xfBV
+	JeXibrG4EBZxcLf0H4aVUX1GehqHxeSbOIgZJF0nIjjLYKbz/C1g84OLQcY8hYlqSgrFTt7hB/N
+	OfL+WaE5i4MuCHFuUC46jCwwomk5KigFqLba6ZK/b08oK8W8kctx/UAnmxp5d6FpVk1I0WOh6lm
+	6QaWEbdhRGkxjGMbUUycpWjIvHAvEHAc6SD8IByuttrahDTHFDtG1tVo7ZE/GaadN+6nhqrVP7U
+	2VDyMWzjEVeKpgph36uM4vLnppECXjvE78D4ipiISOs7q+MnGMz90VTGRZdkcU3e9xFgRqVx49Y
+	LLoMng==
+X-Received: by 2002:a05:7300:e9c9:20b0:35e:a225:3ba6 with SMTP id 5a478bee46e88-361c9c78086mr12197480eec.13.1792431139584;
+        Mon, 19 Oct 2026 10:32:19 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608308a87csm56584669eec.28.2026.10.19.10.32.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 10:32:16 -0700 (PDT)
+Message-ID: <c5bea60a-e2b2-4bdc-8b1c-9aa464c1c84f@gmail.com>
+Date: Mon, 19 Oct 2026 10:32:12 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,89 +92,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018-tegra-hda-hbr-v1-1-b8bb1f1d8d15@gmail.com> <87ecdmaxh1.wl-tiwai@suse.de>
-In-Reply-To: <87ecdmaxh1.wl-tiwai@suse.de>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Mon, 19 Oct 2026 12:29:12 -0500
-X-Gm-Features: AclHuK9pYgXL6PjRd-4EMhy8uGYeAfm8xiH3e07GVU1bNqM2yd8kKJKrKzkZa0A
-Message-ID: <CALHNRZ_oXkdOO=Q8khQTeAfH_1XQjLK4Vp1WQZ-J3oHoihAFQg@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: hda/hdmi: Enable HBR capability
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-sound@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 0000/1674] 6.6.160-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261017160431.119607952@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261017160431.119607952@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 3:47=E2=80=AFAM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Mon, 19 Oct 2026 04:16:31 +0200,
-> Aaron Kling via B4 Relay wrote:
-> >
-> > From: Aaron Kling <webgeek1234@gmail.com>
-> >
-> > Tegra HDA does not set the HBR capability bit, however every SoC since
-> > Tegra114 does support HBR. Override the hbr setup function for these
-> > SoCs to unconditionally enable the feature. Since Tegra30 does not
-> > support HBR, this function will report invalid on that SoC.
-> >
-> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > ---
-> > Before this, any attempt to open an hbr stream resulted in a rejection
-> > on Tegra hardware. Looking at the downstream support, that just bypasse=
-d
-> > the capbility check for all supported Tegra hardware in the common code=
-.
-> > This replicates that in a driver specific hook.
-> >
-> > This has been tested on a SHIELD TV 2019 Pro trying to bitstream an
-> > Atmos demo video. It attempts to play, but mostly just underruns the
-> > entire time, with a few spurts of correct noise. My expectation is that
-> > issue is userspace, since that is a WIP android audio hal. But even if
-> > there are more kernel problems, this should be correct as a standalone
-> > change.
-> > ---
-> >  sound/hda/codecs/hdmi/tegrahdmi.c | 37 +++++++++++++++++++++++++++++++=
-++++++
-> >  1 file changed, 37 insertions(+)
-> >
-> > diff --git a/sound/hda/codecs/hdmi/tegrahdmi.c b/sound/hda/codecs/hdmi/=
-tegrahdmi.c
-> > index ebb6410a48313..c4d8d8a570542 100644
-> > --- a/sound/hda/codecs/hdmi/tegrahdmi.c
-> > +++ b/sound/hda/codecs/hdmi/tegrahdmi.c
-> > @@ -227,6 +227,41 @@ static int nvhdmi_chmap_validate(struct hdac_chmap=
- *chmap,
-> >       return 0;
-> >  }
-> >
-> > +static int tegrahdmi_pin_hbr_setup(struct hda_codec *codec, hda_nid_t =
-pin_nid,
-> > +                                int dev_id, bool hbr)
-> > +{
-> > +     int pinctl, new_pinctl;
-> > +
-> > +     // Tegra 3 does not support HBR
-> > +     if (codec->core.vendor_id =3D=3D 0x10de0020)
-> > +             return -EINVAL;
->
-> I guess this will break the HDMI on old Tegra.
->
-> Better to enable pin_hbr_setup conditionally for newer chips below, so
-> that the older chip continues to work without HBR.
-
-Mmm. I was trying to replicate what the default version of this
-function does when hbr isn't supported, but it does look like I missed
-part of it. Blocking the override entirely is simpler, will do in a
-new revision.
-
-Aaron
-
->
-> > +     spec->ops.pin_hbr_setup =3D tegrahdmi_pin_hbr_setup;
->
->
+On 10/17/26 08:37, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.160 release.
+> There are 1674 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 19 Oct 2026 16:02:05 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.160-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+> 
 > thanks,
->
-> Takashi
+> 
+> greg k-h
+
+perf fails to build on ARM and ARM64 with:
+
+util/event.c: In function 'machine__resolve':
+util/event.c:755:32: warning: implicit declaration of function 
+'perf_env__get_cpu_topology'; did you mean 
+'perf_env__read_cpu_topology_map'? [-Wimplicit-function-declaration]
+   755 |                         topo = perf_env__get_cpu_topology(env, 
+(struct perf_cpu){ al->cpu });
+       |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~
+       |                                perf_env__read_cpu_topology_map
+util/event.c:755:30: warning: assignment to 'struct cpu_topology_map *' 
+from 'int' makes pointer from integer without a cast [-Wint-conversion]
+   755 |                         topo = perf_env__get_cpu_topology(env, 
+(struct perf_cpu){ al->cpu });
+       |                              ^
+
+
+/local/users/fainelli/buildroot/output/arm/host/bin/arm-linux-ld: 
+warning: 
+/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/arch/perf-in.o: 
+requires executable stack (because the .note.GNU-stack section is 
+executable)
+   LINK 
+/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/perf
+/local/stbopt_p/toolchains_303/stbgcc-12.4-2.0/bin/../lib/gcc/arm-unknown-linux-gnueabihf/12.4.0/../../../../arm-unknown-linux-gnueabihf/bin/ld: 
+/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/perf-in.o: 
+in function `machine__resolve':
+(.text+0xdfeec): undefined reference to `perf_env__get_cpu_topology'
+collect2: error: ld returned 1 exit status
+
+And as reported, on BMIPS, we have this build error:
+
+net/sunrpc/svc_xprt.c: In function 'svc_recv':
+net/sunrpc/svc_xprt.c:873:1: error: label at end of compound statement
+  out:
+  ^~~
+   AR      drivers/media/platform/renesas/rzg2l-cru/built-in.a
+host-make[5]: *** [scripts/Makefile.build:243: net/sunrpc/svc_xprt.o] 
+Error 1
+
+-- 
+Florian
