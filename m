@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C9457EDB0;
-	Mon, 19 Oct 2026 13:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D948B595CFC;
+	Mon, 19 Oct 2026 13:59:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418392; cv=none; b=T6q3NoJDGxg0AxwPAFZXLzQEXGIW+Ic0N4NFMGiJSu15w/EKAIyQ9JjwH1uswjbmP1ujo+G9BnCJ2mr55bjsJG6mOTrkVwd96QN/HVal/IGmQA0xRgs2uvN84dXDmkaLASxoYfKhyKeAN2+pXSjAWZgMTqwq9ulVRUgf+i86KWM=
+	t=1792418395; cv=none; b=uHX9q6KYSvrWDSVCbzzPcEr3zq2fwTasH1kJi97XweKboM2TCwUg12M+GjuagPaJIoT7WCLMuLTUIJndQtBXAvNVnNIHsB3z1rnDLwpOB4xMRLBQ4yvp337oK38wYbXpapcj8Zkk7QgqtcflMebWNwdx0V3uZTxYsykmo4XQqz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418392; c=relaxed/simple;
-	bh=znw0jCi4tK2DDnYP0wUk8j9JGWuISqEE8fnVi62qINs=;
+	s=arc-20240116; t=1792418395; c=relaxed/simple;
+	bh=P66v0MFcjpFBBQ7Yu6q/NYGEp+iqSRlLoM1XYJ5hoQA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HF+S1IIqRO+gL7neB6r+/Mf7IvGJiqU4Vk1shvu9Gy8RfCELpHpZa+kPqCSUX0VwPaKegX9GoYBFe/Cr0J4tDsweJrogEPFbGzbpU81YlMQG4Ge3jPCLVTyHTmR95vi3XAGRrkeAIwu+PGW70LxsV6b8RgyplgM+7tb2z45et0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c+QARUGY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VZELo//yjeIlVwMiBYwn7ZW3xpygnxWLFvjNOkGYQOAMv0yhSBvej+sD6kry5kcTtWUt0teTY8JnwOioO2BnW1JpCJz84C6aE7wsc0O/zQsBLuAhJ88mKvZdYwNHFy+Ad4LCXoS8LTaul82EJQ+9b+RJmtBCFXbJz2MdlIrdOXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JA+VWVGq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c+QARUGY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 132DB1F000C7;
-	Mon, 19 Oct 2026 13:59:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JA+VWVGq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFCF71F000CA;
+	Mon, 19 Oct 2026 13:59:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418390;
-	bh=0mTnB3q6qurKbbisj70Dl3zQHIdtoxqYsW4cUmLxyc4=;
+	s=k20260515; t=1792418392;
+	bh=0N0TwlDZhrT8hTl0UNPRaU0LL/t6pHOExRMNal93nAQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c+QARUGYOZHGORb6zT6nA2btLAmCjZiCCG0COl08XSJT9Tx0/7Y1B+3HLIBlYVwPS
-	 pL9+sTp1RwjEhZhG5l2I+bo03vRB5kaYBxWzCmJyo+NpLTdGhE2aY02aFlLaQWevAo
-	 Df0111gQFMOxm6ptDFcZXdAVjd8ZHYhEGiJjKJy/OtVsLjxq+vwc9BTYqhgVUCpHHY
-	 MPYYq7gqEa/AQ2AjJpcUVV+ma4eeMI0gkBO+0ytn0pq1O1UB1cSRLApy12Onsl+/zd
-	 TiX6ctG3rrcUDliciNF0QPSPcqVpgJ/IEc+H74JxTCz3M5zrKmiSLtDonEywAIEvZJ
-	 Cp9sHcmmO0qdg==
+	b=JA+VWVGqvWALDmn+cCRtTExaQ1D4Pdrj4WQevvLKODcARsUUP8SuZ2h+8v4ZTQsXW
+	 O0DbU6iZetkyYR3gA/SG2KRiv4dqOXTF4RcXZXD6QhTjr/xMf8jumwGEa0ebhPU+YU
+	 oHpMtTHoUqwNXq3tZNaKpsILtjSoinwbHNhK8n/zlvCI2KWSqrEYFYTF6WWh+OvR8p
+	 vQN7PostB4S7Lp63MZ320eqrmEFWpLA2FpjbkvJ0UdnrmCrELNNKv3t0YvQtX+qAlX
+	 jny54ZHTcS31G+ekQIIEYYA0+l1+p+kRHwaiQPkD8JY7uNbu6+1LA1+uVAk9mm9sid
+	 8UT5NSfzIHCWA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Pavel Zverev <playximik29@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Carl Quist <equalizerjr@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	linux-bluetooth@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] Bluetooth: btusb: Add support for 1357:c123 Realtek 8852BE device
-Date: Mon, 19 Oct 2026 09:48:26 -0400
-Message-ID: <20261019135441.1420968-215-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] ALSA: hda/realtek: Enable mute LED on HP Laptop 15-dy0xxx
+Date: Mon, 19 Oct 2026 09:48:28 -0400
+Message-ID: <20261019135441.1420968-217-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,352 +54,400 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pavel Zverev <playximik29@gmail.com>
+From: Carl Quist <equalizerjr@gmail.com>
 
-[ Upstream commit 335d7bd554a20f33acf762655cafe1089f7f5822 ]
+[ Upstream commit eb2b516900f2cff6c931a0d664a625ee93855779 ]
 
-Wiko Hi MateBook 14 Ryzen 200 laptops (DMI system-product-name
-"MNCA-XX", board "M1060") are equipped with an RTL8852BE Wi-Fi/BT
-combo chip (rtw89_8852be), whose Bluetooth radio enumerates as
-1357:c123 instead of one of the already-supported 1358:c123 / 0bda:c123
-identifiers, presumably due to OEM rebranding. Without a matching
-entry it only matches the generic USB Bluetooth class fallback, so the
-Realtek firmware/config (rtl8852btu_fw.bin / rtl8852btu_config.bin) is
-never loaded and the adapter cannot discover or connect to any device,
-even though hciconfig reports it as powered and scanning.
+The mute LED on the HP Laptop 15-dy0xxx (PCI SSID 103c:864f, Realtek
+ALC236) does not work, because the machine has no entry in the quirk
+table. No fixup is applied, so no mute LED classdev is registered and
+nothing ever drives the LED.
 
-Device descriptor:
-  idVendor           0x1357
-  idProduct          0xc123
-  bcdDevice            0.00
-  iManufacturer           1 Realtek
-  iProduct                2 Bluetooth Radio
-  bDeviceClass          224 Wireless
-  bDeviceSubClass         1 Radio Frequency
-  bDeviceProtocol         1 Bluetooth
+The LED is controlled by COEF index 0x07, bit 0. This was verified on
+the hardware with hda-verb: setting the bit lights the mute LED and
+clearing it turns the LED off.
 
-Adding the same BTUSB_REALTEK | BTUSB_WIDEBAND_SPEECH quirk already
-used for 1358:c123 and 0bda:c123 fixes firmware loading and normal
-operation.
+  hda-verb /dev/snd/hwC0D0 0x20 SET_COEF_INDEX 0x07
+  hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF 0x1     # LED on
+  hda-verb /dev/snd/hwC0D0 0x20 SET_PROC_COEF 0x200   # LED off
 
-Signed-off-by: Pavel Zverev <playximik29@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+That is exactly what ALC236_FIXUP_HP_MUTE_LED_COEFBIT2 configures, and
+the closely related HP Laptop 15-dw0xxx (103c:85f0) already uses it.
+Bit 9 (0x200) is set by default on this board and is preserved by the
+fixup's read-modify-write.
+
+Tested on an HP Laptop 15-dy0xxx (SKU 7FU54UA#ABA, board 864F,
+BIOS F.40).
+
+Signed-off-by: Carl Quist <equalizerjr@gmail.com>
+Link: https://lore.kernel.org/CAOtcGaxXndKxTK5MVSEcmF-LUy+V51K7fhE=qvLA+VvW5ZyCNA@mail.gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a two-line USB ID addition for an existing Realtek path in
-`btusb`. The 6.18.53 tree already has that path and the sibling IDs;
-this OEM VID is missing, so Bluetooth never loads firmware on the
-affected laptop.
+This is a one-line Realtek HDA mute-LED quirk for PCI SSID `103c:864f`.
+The local tree is **6.12.111** (`pending-6.12`). The helper it uses
+already exists here; only the table entry is missing.
 
-## Phase 1: Commit message forensics
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-**Step 1.1 — Subject**
-Record: `[Bluetooth/btusb] [Add] USB ID 1357:c123 for Realtek 8852BE
-(OEM rebrand of known c123 devices)`
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: `[ALSA: hda/realtek] [Enable] Enable mute LED on HP Laptop
+15-dy0xxx`
 
-**Step 1.2 — Tags**
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- Signed-off-by: Pavel Zverev \<playximik29@gmail.com\> (author)
-- Signed-off-by: Luiz Augusto von Dentz \<luiz.von.dentz@intel.com\>
-  (Bluetooth maintainer; applied the patch)
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Link:,
-  or Cc: stable (absence of Fixes/Cc:stable is expected for this review
-  queue)
+- `Signed-off-by: Carl Quist <equalizerjr@gmail.com>` (author)
+- `Link: https://lore.kernel.org/CAOtcGaxXndKxTK5MVSEcmF-
+  LUy+V51K7fhE=qvLA+VvW5ZyCNA@mail.gmail.com`
+- `Signed-off-by: Takashi Iwai <tiwai@suse.de>` (ALSA maintainer)
+- No `Fixes:` tag (expected)
+- No `Cc: stable` (expected)
+- No `Reported-by:` / `Tested-by:` / `Reviewed-by:` / `Acked-by:`
+- Hardware test is in the body (“Tested on an HP Laptop 15-dy0xxx…”)
 
-**Step 1.3 — Body**
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- Bug: Wiko Hi MateBook 14 Ryzen 200 (DMI `"MNCA-XX"` / board `"M1060"`)
-  has RTL8852BE (Wi-Fi `rtw89_8852be`). BT enumerates as **1357:c123**
-  instead of already-supported **1358:c123** / **0bda:c123**.
-- Symptom: generic USB Bluetooth class match only; `rtl8852btu_fw.bin` /
-  `rtl8852btu_config.bin` never load; adapter appears powered/scanning
-  but cannot discover or connect.
-- Root cause: missing `quirks_table` entry so `BTUSB_REALTEK` is never
-  applied.
-- Descriptor: vendor 0x1357, product 0xc123, class 224/1/1, manufacturer
-  “Realtek”.
-- Fix: same `BTUSB_REALTEK | BTUSB_WIDEBAND_SPEECH` flags as the sibling
-  IDs.
+- **Bug:** HP Laptop 15-dy0xxx (PCI SSID `103c:864f`, ALC236) has no
+  quirk-table entry, so no mute-LED classdev is registered and the LED
+  never lights.
+- **Symptom:** mute LED does not track mute state.
+- **Root cause:** missing `SND_PCI_QUIRK` for this SSID. LED is COEF
+  index `0x07` bit 0, verified with `hda-verb` on real hardware.
+- **Fix:** reuse existing `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` (same as
+  HP Laptop 15-dw0xxx `103c:85f0`).
+- **Version info:** none beyond the model; hardware SKU `7FU54UA#ABA`,
+  BIOS F.40.
 
-**Step 1.4 — Hidden bug fix?**
-Record: Not hidden. It is an explicit hardware-enablement / device-ID
-quirk. Bluetooth is non-functional without it.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not a disguised cleanup. It is an explicit hardware-quirk
+addition for a non-working mute LED.
 
-## Phase 2: Diff analysis
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-**Step 2.1 — Inventory**
-Record: `drivers/bluetooth/btusb.c` only; **+2 / -0** lines; table
-`quirks_table[]`; single-file surgical change.
-
-**Step 2.2 — Flow**
-Record: After `{ USB_DEVICE(0x0bda, 0xc123), ... }` insert `{
-USB_DEVICE(0x1357, 0xc123), .driver_info = BTUSB_REALTEK |
-BTUSB_WIDEBAND_SPEECH }`. Probe path only; no error-path or locking
-change.
-
-**Step 2.3 — Bug mechanism**
-Record: **Hardware workaround / device ID** (stable exception). Without
-the ID:
-1. Device matches generic `{ USB_DEVICE_INFO(0xe0, 0x01, 0x01) }` in
-   `btusb_table` with `driver_info == 0`.
-2. `btusb_probe()` then calls `usb_match_id(intf, quirks_table)`.
-3. No match → no `BTUSB_REALTEK` → `hdev->setup` is not
-   `btusb_setup_realtek` → no `btrtl_download_firmware()`.
-
-Firmware is chosen later by chip identity (`btrtl_match_ic()` on LMP/HCI
-rev), not by USB PID, so this ID only gates the Realtek setup path.
-
-**Step 2.4 — Fix quality**
-Record: Obviously correct copy of sibling entries. Scope is this VID:PID
-only. Regression risk is negligible (wrong non-Realtek device with
-1357:c123 is not plausible given the descriptor). No API/structure
-change.
-
-## Phase 3: Git history
-
-**Step 3.1 — Blame**
-Record: Neighbor IDs:
-- `1358:c123` — `f496297e76a69` (Julian Pidancet, 2020) “Add support for
-  1358:c123 Realtek 8822CE” (Huawei Matebook); contained in v5.11-rc1.
-- `0bda:c123` — `24d6a6d24f01f` (Cadel Watson, 2020) “Support 0bda:c123
-  Realtek 8822CE”; also v5.11-rc1.
-The missing ID is new OEM VID 0x1357 with the same PID. Buggy “no
-Realtek quirk” behavior has existed for this VID:PID for as long as the
-device has existed; the table itself has been there since ~5.11.
-
-**Step 3.2 — Fixes: tag**
-Record: None. Not a regression from a specific commit; it is a missing
-ID.
-
-**Step 3.3 — File history**
-Record: Recent `btusb.c` history in this tree includes many of the same
-pattern (`Add Realtek RTL8922AE VID/PID 0bda/d923`, Mercusys/ASUS/TP-
-Link IDs, several RTL8852BE IDs). Standalone; not “patch X/Y”.
-
-**Step 3.4 — Author**
-Record: Pavel Zverev has no other `drivers/bluetooth/` commits in this
-tree. Applied by Luiz Augusto von Dentz (Bluetooth USB maintainer). Same
-class of ID adds is routinely accepted.
-
-**Step 3.5 — Dependencies**
-Record: Needs existing `BTUSB_REALTEK` / `quirks_table` /
-`btrtl_setup_realtek()` / RTL8852 firmware table. All are in this tree
-(`1fb9943146968` RTL8852BT/8852BE-VT firmware matching is an ancestor of
-HEAD). Standalone +2 lines.
-
-## Phase 4: Mailing list
-
-**Step 4.1 — Original discussion**
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- SHA: `335d7bd554a20f33acf762655cafe1089f7f5822`
-- `b4 dig -c`:
-  https://patch.msgid.link/20260707221549.27269-1-playximik29@gmail.com
-- `b4 dig -a`: **v1 only**, 2026-07-08, no later revision
-- Thread: submission, BlueZ CI pass, patchwork-bot “applied to
-  bluetooth-next”
-- No NAK, no reviewer risk flags, no request for changes
-- Applied to bluetooth-next as `1386e748cfc0`; later on master as
-  `335d7bd554a20`
+- File in mainline: `sound/hda/codecs/realtek/alc269.c` (+1 / -0)
+- Function/table: `alc269_fixup_tbl[]`
+- Scope: single-file, one-line surgical quirk
+- Local equivalent file: `sound/pci/hda/patch_realtek.c` (HDA codecs
+  were not yet split in 6.12)
 
-**Step 4.2 — Recipients (`b4 dig -w`)**
-Record: To Marcel Holtmann, Luiz Dentz; Cc linux-bluetooth@. Correct
-lists/maintainers. Luiz applied it.
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+Record: Before, SSID `103c:864f` matches no entry, so
+`snd_hda_pick_fixup()` applies no ALC236 mute-LED fixup. After, that
+SSID maps to `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2`, which at
+`HDA_FIXUP_ACT_PRE_PROBE` registers a mute-LED classdev. Probe-time
+only; no other SSIDs change.
 
-**Step 4.3 — Bug report**
-Record: No bugzilla/syzbot link. Author reports a specific laptop (DMI +
-USB descriptor) and that adding the ID restored discovery/connect.
-Direct user impact, one platform.
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Record: **(h) Hardware workaround.** Missing `SND_PCI_QUIRK` for a
+laptop whose ALC236 mute LED is driven by COEF `0x07` bit 0.
 
-**Step 4.4 — Series**
-Record: Single standalone patch. CI: CheckPatch, build, sparse all PASS
-(Patchwork series 1123385).
+Verified against this tree’s helper:
 
-**Step 4.5 — Stable list**
-Record: lore.kernel.org HTTP 403 from WebFetch; WebSearch for stable
-discussion failed. No local `git log --grep=1357:c123` hits. UNVERIFIED:
-no evidence this was already discussed on stable@; that is not a
-negative.
+```4763:4776:sound/pci/hda/patch_realtek.c
+static void alc236_fixup_hp_mute_led_coefbit2(struct hda_codec *codec,
+                                          const struct hda_fixup *fix,
+int action)
+{
+        struct alc_spec *spec = codec->spec;
 
-## Phase 5: Code semantics
+        if (action == HDA_FIXUP_ACT_PRE_PROBE) {
+                spec->mute_led_polarity = 0;
+                spec->mute_led_coef.idx = 0x07;
+                spec->mute_led_coef.mask = 1;
+                spec->mute_led_coef.on = 1;
+                spec->mute_led_coef.off = 0;
+                snd_hda_gen_add_mute_led_cdev(codec, coef_mute_led_set);
+        }
+}
+```
 
-**Step 5.1 — Functions**
-Record: No function body change. Data: `quirks_table[]`. Consumers:
-`btusb_probe()` via `usb_match_id()`.
+`alc_update_coef_idx()` is RMW (`(val & ~mask) | bits_set`), so bit 9
+(`0x200`) is preserved as the commit claims.
 
-**Step 5.2 — Callers**
-Record: USB probe when a matching interface is enumerated. `btusb_table`
-generic class entry binds first; then quirks_table supplies
-`driver_info`. Not irq/syscall hot path; once per device bind.
+**Step 2.4: ASSESS THE FIX QUALITY**
+Record: Obviously correct: one existing fixup, one SSID, gated by PCI
+subsystem ID. Regression risk is limited to this exact machine. No API,
+locking, or hot-path change.
 
-**Step 5.3 — Callees**
-Record: With the new flags, probe sets `hdev->setup =
-btusb_setup_realtek` → `btrtl_setup_realtek()` → `btrtl_initialize()` /
-`btrtl_download_firmware()`. Also `HCI_QUIRK_WIDEBAND_SPEECH_SUPPORTED`.
-`CONFIG_BT_HCIBTUSB_RTL` defaults to y.
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
-**Step 5.4 — Reachability**
-Record: Yes, from plugging in / internal USB BT of that laptop.
-Unprivileged users then use BlueZ; the bug is “adapter never works,” not
-a crash.
+**Step 3.1: BLAME THE CHANGED LINES**
+Record: There is no “buggy line” — the bug is a **missing** table entry.
+The helper `alc236_fixup_hp_mute_led_coefbit2` was added in
+`0659400f18c0e` (2023-07-19, “Enable Mute LED on HP Laptop 15s-eq2xxx”)
+with `Cc: stable`. That helper is an ancestor of this HEAD.
 
-**Step 5.5 — Similar patterns**
-Record: Dozens of `BTUSB_REALTEK | BTUSB_WIDEBAND_SPEECH` IDs, including
-other 8852BE VIDs (`0bda:4853`, `13d3:3618`, `0489:e123`, …). Sibling
-`c123` IDs already present. Same fix applied many times.
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No `Fixes:` tag. Not applicable. The missing-SSID pattern is the
+same as many later quirk adds.
 
-## Phase 6: This tree (6.18.53)
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Record: This tree already contains the same class of patches, e.g.:
+- `dda834cc2048d` — HP 14s-dr1xxx mute LED (`0x86c8`, COEFBIT2), landed
+  2026-09-21
+- `dc60a7d2dc78b` — HP 15s-eq1xxx mute LED (`0x8706`, COEFBIT2)
+- `b685eba97a5ae` — HP 14s-dr5xxx mute LED
+Standalone; not patch X/Y.
 
-**Step 6.1 — Does the buggy code exist?**
-Record: Yes.
-- Tree: `pending-6.18`, `git describe HEAD` = `p-6.18-1-g03b85e06ca9bf`,
-  `make kernelversion` = **6.18.53**, merge-base with master = `Linux
-  6.18` (2025-11-30).
-- `git merge-base --is-ancestor 335d7bd554a20 HEAD` → **not in HEAD**.
-- `1358:c123` and `0bda:c123` are at lines 877–880 of
-  `drivers/bluetooth/btusb.c`; **1357:c123 is absent**.
-- Realtek setup and `rtl8852btu_*` firmware names exist in `btrtl.c`.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: `git log --author="Carl Quist" -- sound/pci/hda/` in this tree
+is empty. Author is an end-user reporter, not the subsystem maintainer.
+Takashi Iwai applied the patch the same day.
 
-The ID was added in mainline in Aug 2026, after 6.18; the **gap**
-(missing ID) is in this tree. That is the usual device-ID backport case,
-not “code not present.”
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: Only prerequisite is `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2`,
+present here. The commit mentions 15-dw0xxx (`103c:85f0`,
+`b28d3d0841a60`, 2026-07-03) as a related user of the same fixup; that
+SSID is **not** in this tree and is **not** required. Can apply
+standalone.
 
-**Step 6.2 — Backport difficulty**
-Record: `git show 335d7bd554a20 | git apply --check` succeeded (hunk at
-line 878, offset -16). Clean apply, trivial offset.
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
-**Step 6.3 — Related fixes already here?**
-Record: No 1357:c123 entry. Other 8852BE IDs and firmware support are
-already here; this does not duplicate them.
-
-## Phase 7: Subsystem context
-
-**Step 7.1**
-Record: `drivers/bluetooth/btusb.c` — USB Bluetooth. **IMPORTANT** (very
-common laptop combo chips), not core mm/vfs, not staging.
-
-**Step 7.2**
-Record: Actively maintained; this tree already backported many
-`Bluetooth: btusb: Add ...` ID patches (e.g. `b85ef6483d5b3` RTL8922AE
-0bda/d923). Mature table, ongoing OEM IDs.
-
-## Phase 8: Impact and risk
-
-**Step 8.1 — Who is affected**
-Record: Driver + VID/PID specific. Users of 1357:c123, documented as
-Wiko Hi MateBook 14 Ryzen 200. No effect on other devices.
-
-**Step 8.2 — Trigger**
-Record: Every boot / BT bring-up on that hardware. Not a race.
-Unprivileged use of BT is broken until firmware loads.
-
-**Step 8.3 — Failure mode**
-Record: Adapter enumerates and looks “up” but cannot discover or
-connect. Severity **HIGH** for that hardware (Bluetooth unusable), not a
-panic. Device-ID exception still applies.
-
-**Step 8.4 — Risk vs benefit**
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- Benefit: high for affected laptops; zero for everyone else.
-- Risk: very low (+2 lines, VID/PID gated, same flags as existing c123
-  entries).
-- Ratio: strongly in favor of backport.
+- `b4 dig -c eb2b516900f2c` →
+  https://patch.msgid.link/CAOtcGaxXndKxTK5MVSEcmF-
+  LUy+V51K7fhE=qvLA+VvW5ZyCNA@mail.gmail.com
+- `b4 dig -a`: single v1, 2026-08-05, Carl Quist. No later revision.
+- Thread: Takashi Iwai: “Applied now. But at the next time, please
+  submit to linux-sound@vger.kernel.org, instead.”
+- No NAK, no stable objection, no requested changes.
 
-## Phase 9: Synthesis
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record: `b4 dig -w` recipients: Carl Quist, `alsa-devel@alsa-
+project.org`, `tiwai@suse.de`. Subsystem maintainer received and applied
+it.
 
-**Evidence FOR**
-- Explicit stable exception: **new USB ID on an existing driver**.
-- Real user-visible bug: BT cannot pair/connect without Realtek
-  firmware.
-- +2 lines, identical to 1358:c123 / 0bda:c123 already in 6.18.53.
-- Applies cleanly; Realtek/8852 firmware path already present.
-- Maintainer-applied; CI passed; no NAKs.
-- This 6.18.y tree already takes the same class of ID adds.
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record: The submission is the bug report. Hardware-verified with `hda-
+verb` and a named SKU. Lore fetch of the search URL returned 403; the
+thread was obtained via `b4 dig -m` instead.
 
-**Evidence AGAINST**
-- Not a crash/UAF/security issue (not required for device IDs).
-- One OEM laptop family (still a real product).
-- Author is not a regular Bluetooth contributor (offset by Luiz applying
-  it).
-- Sibling IDs were labeled 8822CE in 2020; this commit says 8852BE.
-  Firmware is matched by chip ID after `BTUSB_REALTEK`, so a mis-named
-  chip in the subject would still load the correct image. Author cites
-  `rtl8852btu_*` from the working setup.
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: Standalone. Sibling 15-dw0xxx (`b28d3d0841a60`) was AUTOSEL’d
+for 6.18 — same pattern, different SSID. Not a dependency.
 
-**Unresolved**
-- Could not fetch lore/stable@ via HTTP (403). Thread recovered via `b4
-  dig -m`.
-- Did not independently attach the laptop; relied on author’s descriptor
-  and “works after this ID.”
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: Web search of lore.kernel.org/stable for this subject did not
+return a 15-dy0xxx discussion. No evidence it was rejected for stable.
+Closely analogous COEFBIT2 mute-LED quirks are already in this 6.12
+tree.
 
-**Stable rules**
-1. Obviously correct and tested? **PASS** (same flags as siblings;
-   author + CI + maintainer).
-2. Real bug affecting users? **PASS** (BT unusable on that hardware).
-3. Important? **PASS** under the device-ID exception (hardware does not
-   work).
-4. Small and contained? **PASS** (+2 lines, one table).
-5. No new features/APIs? **PASS** (existing quirk flags only).
-6. Applies to this tree? **PASS** (`git apply --check` clean).
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
-**Exception category:** NEW DEVICE ID on existing `btusb` / Realtek
-path.
+**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
+Record: Table `alc269_fixup_tbl[]` only. Runtime path uses existing
+`alc236_fixup_hp_mute_led_coefbit2()` →
+`snd_hda_gen_add_mute_led_cdev()` → `coef_mute_led_set()` →
+`alc_update_coef_led()`.
 
-This should be backported to this 6.18.53 tree. The driver, Realtek
-firmware loader, and sibling `c123` quirks are already here; only
-1357:c123 is missing, and that is enough to leave this laptop’s
-Bluetooth non-functional.
+**Step 5.2: TRACE CALLERS**
+Record: `alc269_fixup_tbl` is passed from the ALC269-family probe path:
+
+```12583:12584:sound/pci/hda/patch_realtek.c
+        snd_hda_pick_fixup(codec, alc269_fixup_models,
+                       alc269_fixup_tbl, alc269_fixups);
+```
+
+That is codec probe (device enumeration), not IRQ or a syscall hot path.
+
+**Step 5.3: TRACE CALLEES**
+Record: `alc_update_coef_idx()` → `__alc_update_coefex_idx()` does RMW
+on NID `0x20`. Matches the `hda-verb` sequence in the commit
+(`SET_COEF_INDEX 0x07` on `0x20`).
+
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Userspace mute → LED classdev brightness →
+`coef_mute_led_set()`. Reachable on this laptop whenever the user mutes.
+Not a crash path.
+
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: Many HP ALC236 laptops in this tree already use
+`ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` (`0x84ae`, `0x86c1`, `0x86c8`,
+`0x8706`, `0x87b7`, `0x87d3`, …). This is the same established pattern.
+
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record:
+- Tree: `p-6.12-2-gd38d58a4e0359`, `make kernelversion` = **6.12.111**,
+  branch `pending-6.12`
+- `git merge-base --is-ancestor eb2b516900f2c HEAD` → not an ancestor
+  (commit not in this tree)
+- `0x864f` is absent from `sound/pci/hda/patch_realtek.c`
+- Helper and enum `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` are present (since
+  v6.5-era `0659400f18c0e`)
+- Insertion neighbors exist: `0x861f` then `0x869d` at lines 10898–10899
+
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: Path remap only (`alc269.c` → `patch_realtek.c`). Context around
+`0x861f`/`0x869d` matches. Expected: **clean apply with path
+adjustment**, same as `dda834cc2048d` already on this branch.
+
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: No 15-dy0xxx / `0x864f` entry. Other COEFBIT2 HP mute-LED quirks
+are present; none covers this SSID.
+
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: `sound/pci/hda` Realtek codec quirks. **IMPORTANT** for laptop
+audio (very common driver), but this one line is **platform/device-
+specific**.
+
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Active: recent mute-LED quirk backports on this same file
+(`faee5b4612c26`, `dda834cc2048d`, …). Mature quirk table; this is a
+routine SSID add, not new infrastructure.
+
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: **Driver-specific / platform-specific:** HP Laptop 15-dy0xxx
+with PCI SSID `103c:864f` and `CONFIG_SND_HDA_CODEC_REALTEK`. No other
+machines match this SSID.
+
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Every mute toggle on that laptop. Unprivileged users can trigger
+the LED path, but the current bug is “LED never works,” not a crash.
+
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: Mute LED stuck/off. **MEDIUM** for that hardware (broken
+indicator, not oops/corruption). Still the documented stable **hardware-
+quirk exception**.
+
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+Record:
+- **Benefit:** restores mute LED on a shipping HP 15-dy0xxx; same fix
+  already used on many ALC236 HP models in this tree.
+- **Risk:** very low — 1 line, SSID-gated, existing helper.
+- **Ratio:** strongly favorable.
+
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
+
+**Step 9.1: COMPILE THE EVIDENCE**
+
+FOR:
+- Hardware codec quirk (`SND_PCI_QUIRK`) — explicit stable exception
+- Real, hardware-tested bug (named SKU, `hda-verb` proof)
+- One line; existing `ALC236_FIXUP_HP_MUTE_LED_COEFBIT2` already in 6.12
+- ALSA maintainer applied v1 with no objections
+- Same class of quirks already backported to this tree (14s-dr1xxx two
+  days ago)
+- Sibling 15-dw0xxx quirk was AUTOSEL’d for 6.18
+
+AGAINST:
+- Not a crash, security issue, or data-corruption fix (LED-only)
+- Mainline path differs (`alc269.c` vs `patch_realtek.c`) — trivial
+  remap
+- Author is not a regular ALSA contributor
+
+UNRESOLVED:
+- Direct lore.kernel.org HTTP fetch returned 403; thread recovered via
+  `b4 dig -m`
+- No dedicated stable-list thread found for this exact subject
+
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — 1-line SSID map; tested on
+   named hardware; maintainer applied
+2. Fixes a real bug that affects users? **PASS** — mute LED never driven
+   on this laptop
+3. Important issue? **PASS** under the hardware-quirk exception
+   (severity MEDIUM: LED, not crash)
+4. Small and contained? **PASS** — +1 line, one table
+5. No new features or APIs? **PASS** — wires an existing fixup
+6. Can apply to the local tree? **PASS** — helper present; insert
+   between `0x861f` and `0x869d` in `patch_realtek.c`
+
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: **Hardware quirk / audio codec quirk** (`SND_PCI_QUIRK` in
+Realtek HDA). Qualifies automatically.
+
+**Step 9.4: MAKE YOUR DECISION**
+The 6.12 tree already has the COEFBIT2 helper and many HP ALC236 mute-
+LED SSIDs. This commit only adds `103c:864f`. That is the standard, low-
+risk stable backport for Realtek laptop LED quirks.
+
+Detailed explanation:
+- **Problem:** Without a quirk, ALC236 on HP 15-dy0xxx never registers a
+  mute-LED classdev, so the LED stays dead.
+- **Why it matters here:** 6.12 users on that SKU still see a broken
+  LED; the driver and helper are already in this tree.
+- **Rules:** Matches the quirk exception; small, tested, no new API.
+- **Risk vs benefit:** Benefit is a working LED on one HP model; risk is
+  confined to that SSID.
+- **Backport note:** Change the path to `sound/pci/hda/patch_realtek.c`;
+  no other code changes needed.
 
 Verification:
-- [Phase 1] Parsed subject/tags from `git show 335d7bd554a20`; no
-  Fixes/Cc:stable; Luiz SOB present
-- [Phase 2] Diff is +2 lines in `quirks_table`; confirmed
-  `btusb_probe()` uses generic class match then `usb_match_id(...,
-  quirks_table)` when `driver_info == 0` (btusb.c ~4064–4069, 82–83,
-  4309–4312)
-- [Phase 2] Firmware selected by `btrtl_match_ic()` /
-  `btrtl_setup_realtek()`, not USB PID (`btrtl.c` 342–345, 1359–1368)
-- [Phase 3] Blame: 1358:c123 = f496297e76a69, 0bda:c123 = 24d6a6d24f01f,
-  both v5.11-rc1 and in this tree
-- [Phase 3] `git merge-base --is-ancestor 335d7bd554a20 HEAD` → not in
+- [Phase 1] Parsed tags: author SOB Carl Quist; Link to lore Message-ID;
+  maintainer SOB Takashi Iwai; no Fixes/Cc:stable/Reported-by
+- [Phase 2] Diff: +1 `SND_PCI_QUIRK(0x103c, 0x864f, …,
+  ALC236_FIXUP_HP_MUTE_LED_COEFBIT2)` in `alc269_fixup_tbl`
+- [Phase 2] Helper in this tree at `alc236_fixup_hp_mute_led_coefbit2()`
+  uses COEF 0x07 mask/on=1; `__alc_update_coefex_idx` is RMW
+- [Phase 3] `git log -S alc236_fixup_hp_mute_led_coefbit2 --
+  sound/pci/hda/patch_realtek.c` → `0659400f18c0e` (2023-07-19,
+  Cc:stable); `git merge-base --is-ancestor 0659400f18c0e HEAD` →
+  present
+- [Phase 3] `git merge-base --is-ancestor eb2b516900f2c HEAD` → not in
   this tree
-- [Phase 3] `git merge-base --is-ancestor 1fb9943146968 HEAD` →
-  8852BT/BE-VT firmware support is in this tree
-- [Phase 4] `b4 dig -c/-a/-w/-m`: v1, linux-bluetooth, Luiz applied, CI
-  PASS, no NAK
-- [Phase 4] lore WebFetch 403; stable@ search failed — UNVERIFIED beyond
-  b4 mbox
-- [Phase 5] `CONFIG_BT_HCIBTUSB_RTL` default y (Kconfig);
-  `BTUSB_WIDEBAND_SPEECH` → `HCI_QUIRK_WIDEBAND_SPEECH_SUPPORTED`
-  (btusb.c:4344)
-- [Phase 6] `git describe HEAD` p-6.18-1-g03b85e06ca9bf; kernel 6.18.53;
-  grep shows 1358/0bda:c123, not 1357:c123
-- [Phase 6] `git apply --check` succeeded with offset -16
-- [Phase 7/8] Same ID-add pattern already in this tree (e.g.
-  b85ef6483d5b3)
-- UNVERIFIED: physical confirmation of 8852BE vs 8822CE; does not change
-  the ID-add decision because firmware is chip-matched
+- [Phase 3] Related in-tree backports: `dda834cc2048d` (14s-dr1xxx),
+  `dc60a7d2dc78b` (15s-eq1xxx)
+- [Phase 4] `b4 dig -c eb2b516900f2c`: v1 only; Takashi “Applied now”;
+  CC’d alsa-devel + tiwai
+- [Phase 4] Sibling `b28d3d0841a60` (15-dw0xxx) AUTOSEL 6.18; not an
+  ancestor of this HEAD and not required
+- [Phase 5] Probe uses `snd_hda_pick_fixup(..., alc269_fixup_tbl, ...)`
+- [Phase 6] `git describe HEAD` = `p-6.12-2-gd38d58a4e0359`; `make
+  kernelversion` = 6.12.111; `0x864f` absent; insert point
+  `0x861f`/`0x869d` at lines 10898–10899
+- [Phase 8] Failure mode: mute LED not driven; severity MEDIUM; SSID-
+  gated
+- UNVERIFIED: lore.kernel.org HTTP 403 on search/direct Message-ID URLs
+  (thread obtained via b4 instead)
+- UNVERIFIED: no dedicated stable@ thread found for this exact commit
 
 **YES**
 
- drivers/bluetooth/btusb.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index 9257341b01399..3c9d5d0976936 100644
---- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -882,6 +882,8 @@ static const struct usb_device_id quirks_table[] = {
- 						     BTUSB_WIDEBAND_SPEECH },
- 	{ USB_DEVICE(0x0bda, 0xc123), .driver_info = BTUSB_REALTEK |
- 						     BTUSB_WIDEBAND_SPEECH },
-+	{ USB_DEVICE(0x1357, 0xc123), .driver_info = BTUSB_REALTEK |
-+						     BTUSB_WIDEBAND_SPEECH },
- 	{ USB_DEVICE(0x0cb5, 0xc547), .driver_info = BTUSB_REALTEK |
- 						     BTUSB_WIDEBAND_SPEECH },
- 
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 68d5e5aa7f62d..f2b0eb8501a78 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -6772,6 +6772,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x860c, "HP ZBook 17 G6", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x860f, "HP ZBook 15 G6", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x861f, "HP Elite Dragonfly G1", ALC285_FIXUP_HP_GPIO_AMP_INIT),
++	SND_PCI_QUIRK(0x103c, 0x864f, "HP Laptop 15-dy0xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+ 	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x86c1, "HP Laptop 15-da3001TU", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+ 	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPIO),
 -- 
 2.53.0
 
