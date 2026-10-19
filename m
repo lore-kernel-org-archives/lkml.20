@@ -1,49 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.116.240.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792425584;
-	b=nVb9wBtrHryuEsgobTPm1F23B3CxK/b2RPgfbaltWy3pl+os7lFWQqefS9/pUDZahZLT
-	 dTf3WoQhMfI3e9S6jmhfkU5aD3UOrL7qBqNww0d/Bv1QQDS6CfzAAjqgDv0Kh8fPeOPcs
-	 aM1jypUaPFkUf/PjZazsh/GKr5xTTRRLPDt12NMYyJsrMuMD0m9fu42rAtEAjx8aue42r
-	 dG1mSO3VZvfBmCqop281pe6S2x/tQ0KyJT/c617u25JPn3igdl2y/ngDBnc62XYeMmeR+
-	 JKGRJvj25tom3uINz7Vd0OezwEeTG1capbDb4tJjsK8bbqc/W4xCP3tzfrcfE5EWnFw==
+	t=1792425611;
+	b=g4nz/8RrStR5Ore3FEEGw2tCWPm1gXlekWGFKdNKX7wl7Pdt1JZlFmQcIC6M0+xo4xpm
+	 xGiw1B7Ek0IZUrRB9+k9YYU8WAknAfaZoPXY2aYP0Ziw++wkatN6lzaXUHpf663CL1vfp
+	 jO3tRGdDSKRQ0fO/g1T+jOPsDmbbEESAQ/r+GUPXtt/K8wA1rpM3X/Djg6ut4FO8PpGLZ
+	 3dDVlnWqHcd3Vn0u8ADOtg0gYVbJs+Dg3OHaoo1PUyam1CqgVKPxjD6IERC3JpCtlPNPh
+	 GU03BMgYCVTCHBkAxfc86apPxHSoOiVW/4jXxuMS0f6btk30ebCSxU4SCUyEXx/WOeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425584;
-	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:Cc:Subject:
-	 From:X-Mailer:References:In-Reply-To;
-	bh=ygs3X3ENxEn1kcHb0BESwsuMyteLFzl/Orq5Xkq/2Wo=;
-	b=OOAhwJNHBNuzQXMbPMBqeNQ//GBJrLBMT1WlJ9SUfzkXOficKTI7wWcvL2jIY7Zxmhzp
-	 4EggR/8EXuFXcWaEcrOrQoYvMQprmH4UFgragVz/sZ/BxAed8cfaPUlGImIae5JcYTgKd
-	 13tlzluP7CFlYCZ1s0aeNi7lxvzrV+4JO37TAAzGYfqyl6Bu9CyLGYRrqLOgvMZYu0rgd
-	 3B55UaWEcNcYdydEwv3JqyLsq2+Avxkup12ejQhJ0kebvO5jDIAvTwSuKA7nDGSCaj/Rg
-	 5lAOzQEUHHJM5jwG7kRl3DkdI1lbLmI4R+u1EdWiWiL1X8JTuxViFz9q5c9YVkXabqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792425611;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Rspamd-Action:X-Spam-Score:X-Spam-Flag:
+	 X-Spamd-Result:X-Spam-Level:X-Rspamd-Queue-Id:X-Rspamd-Server;
+	bh=Xh6PJJlV875LKrbewHDu4bmlG53O8CsIX2VAY6YWyNo=;
+	b=wReqqSs/hZJo+/tWfz7j6MfrZDcU2wRSX+b+WjU7jiADn7vdVcgysn7zGuux8xR+GC+K
+	 qjJ/kM4DfUtUvltSeK10F/N3VInnhpiqjonT8pWuBPCPD445rzxQUP8hrfbyDj2exPtk4
+	 hc2oS5RD87jp4q/yDCwwKB4TLqBTutD0UBuGoGQmj+V5QZBcEmAzUe2hk7EwKC71QgO7a
+	 IeZXe7T0fdcuvMAORF10I5LkZHpo0dguSUaXQHnPuBXO8oI066+OLa4GoHxHJ8lppdj3W
+	 sST7LAlSSYQRyFWo8Ree4RweOIv1Dy1IBVVtM3utsZcpvXYU+O16z8Vsj5nsKRiLC/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arkamax.eu;
-	spf=pass smtp.mailfrom=arkamax.eu;
-	dkim=pass header.d=arkamax.eu header.i=@arkamax.eu header.a=rsa-sha256 header.s=mail1 header.b=mc0Mg6ww;
-	arc=none smtp.remote-ip=128.116.240.228
-Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oV77sMda;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3Xapmkwr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oV77sMda;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3Xapmkwr;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC50606C14B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:59:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FC50606C14B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637D6606EFF2
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:00:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 637D6606EFF2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arkamax.eu header.i=@arkamax.eu header.a=rsa-sha256 header.s=mail1 header.b=mc0Mg6ww
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=ygs3X3ENxEn1kc
-	Hb0BESwsuMyteLFzl/Orq5Xkq/2Wo=; h=in-reply-to:references:from:subject:
-	cc:to:date; d=arkamax.eu; b=mc0Mg6wwR0HCL8oSvMRECfHUUb8XJQFOd7ibVmEC+L
-	AdK0KjeH/OpJZsLAEQNytt3zB+fwF5sQJLsWP+0tGzKJtJRo4Ku/bdh0kAas9hn11cyIE/
-	duV8IV/kkbzoYE8zuwKVAvpwKGgFiH3r/0TtnU7t4QNqmZD6/T4mriXLghYAQB+3vm3lKm
-	4NmAURrlIzGYMhaDrPGj4LSweOQh2Tr5jxeMwwvZZhD1W5XJa9r2eUoP93dsl9j9eO+1Sd
-	VOIjPsb9nFWbxKEYAsjJo3+nnF36Vn19G0E6rUtXUQ0WV3Go9grjA+FZWDy6gaKofZuzAy
-	iSdima2D25sTAZCeWPfg==
-Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
-	by arkamax.eu (OpenSMTPD) with ESMTPSA id 4533d2ab (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Mon, 19 Oct 2026 17:59:33 +0200 (CEST)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oV77sMda;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3Xapmkwr;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=oV77sMda;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3Xapmkwr
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8283E21CF9;
+	Mon, 19 Oct 2026 16:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792425609; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Xh6PJJlV875LKrbewHDu4bmlG53O8CsIX2VAY6YWyNo=;
+	b=oV77sMdaONFdoQfC+DNxIvq3EWEHRGfbQdCllc6m8gHKDSa1X7aHbhsNa4T62S7f8rpRTK
+	+i03UjZrPFEdLLZvVC4C+8mrZGREP5E1pkxEWfXtUdyKQ2weg5lv//Mok+z3NSc96NahqC
+	nvqwnLOM6VNuzvFkj50PGtgnAtl4e7E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792425609;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Xh6PJJlV875LKrbewHDu4bmlG53O8CsIX2VAY6YWyNo=;
+	b=3Xapmkwr4z9uH/PDkeyI1mFfbK6bIa9VeeUi++zNooUai8532BVHV3tW2QwNUA6KDDg3ft
+	tZvO7bu0iakAu9DQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=oV77sMda;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3Xapmkwr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792425609; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Xh6PJJlV875LKrbewHDu4bmlG53O8CsIX2VAY6YWyNo=;
+	b=oV77sMdaONFdoQfC+DNxIvq3EWEHRGfbQdCllc6m8gHKDSa1X7aHbhsNa4T62S7f8rpRTK
+	+i03UjZrPFEdLLZvVC4C+8mrZGREP5E1pkxEWfXtUdyKQ2weg5lv//Mok+z3NSc96NahqC
+	nvqwnLOM6VNuzvFkj50PGtgnAtl4e7E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792425609;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Xh6PJJlV875LKrbewHDu4bmlG53O8CsIX2VAY6YWyNo=;
+	b=3Xapmkwr4z9uH/PDkeyI1mFfbK6bIa9VeeUi++zNooUai8532BVHV3tW2QwNUA6KDDg3ft
+	tZvO7bu0iakAu9DQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 47F20134B3;
+	Mon, 19 Oct 2026 16:00:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id rdRvCYk+1moLSwAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Mon, 19 Oct 2026 16:00:09 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,57 +104,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 17:59:33 +0200
-Message-Id: <DM8XU4VWHK4E.351HYUQE39XLI@arkamax.eu>
-To: =?utf-8?q?Ram=C3=B3n_Jes=C3=BAs_Miranda_Hern=C3=A1ndez?=
- <ramonjesusmiranda@gmail.com>, <mlombard@arkamax.eu>
-Cc: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>,
- <sagi@grimberg.me>, <linux-nvme@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: nvme-pci: nvme.quirks= on the kernel command line hangs early
- boot when nvme-pci is built in
-From: "Maurizio Lombardi" <mlombard@arkamax.eu>
-X-Mailer: aerc 0.22.0
-References: <DM8QWISGYBCZ.FC52WMOJDZDF@arkamax.eu>
- <CAP08=V2Kqo8OFrKe7rEk3+J3W65rS8vKpA5a_PBC8qwxvQaKGg@mail.gmail.com>
-In-Reply-To: <CAP08=V2Kqo8OFrKe7rEk3+J3W65rS8vKpA5a_PBC8qwxvQaKGg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 03/18] nvmet: Implement CCR nvme command
+From: Daniel Wagner <dwagner@suse.de>
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Justin Tee <justin.tee@broadcom.com>, 
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
+ Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260920182936.2317916-4-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-4-mkhalfella@purestorage.com>
+Date: Mon, 19 Oct 2026 18:00:01 +0200
+Message-Id: <179242560183.3619480.12432335570480465347.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Rspamd-Action: no action
+X-Spam-Score: -4.01
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org,suse.de];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 8283E21CF9
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-On Mon Oct 19, 2026 at 5:48 PM CEST, Ram=C3=B3n Jes=C3=BAs Miranda Hern=C3=
-=A1ndez wrote:
-> Hi Maurizio,
->
-> Thanks for the quick look and the patch. I tested device_param_cb() on th=
-e
-> Surface Pro 11 (X1E80100) with CONFIG_BLK_DEV_NVME=3Dy: kernel 7.2.8 buil=
-t
-> from 616a9f22 plus your change, booted with the parameter on the command
-> line.
->
-> Result: with the patch the kernel boots with
-> nvme.quirks=3D0xffff:0xffff:bogus_nid
-> It reaches login with no hang, and the parameter is visible afterwards in
-> /sys/module/nvme/parameters/quirks. The nvme0 controller probes normally
-> (pci 0006:01:00.0, 64 MiB HMB, 12 queues).
->
-> Caveat: I used a placeholder VID:DID that matches no device, so this show=
-s
-> the parameter is parsed at boot without hanging. It does not show a real
-> quirk being applied to a matching controller. I can retry with the VID:DI=
-D
-> of the Surface's NVMe if that is useful for your review.
+> +void nvmet_execute_cross_ctrl_reset(struct nvmet_req *req)
+> +{
+> +	struct nvmet_ctrl *ictrl, *sctrl = req->sq->ctrl;
+> +	struct nvme_command *cmd = req->cmd;
+> +	struct nvmet_ccr *ccr, *new_ccr;
+> +	int ccr_active, ccr_total;
+> +	u16 cntlid, status = NVME_SC_SUCCESS;
+> +
+> +	if (!nvmet_check_transfer_len(req, 0))
+> +		return;
+> +
+> +	cntlid = le16_to_cpu(cmd->ccr.icid);
+> +	if (sctrl->cntlid == cntlid) {
+> +		req->error_loc =
+> +			offsetof(struct nvme_cross_ctrl_reset_cmd, icid);
+> +		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+> +		goto out;
+> +	}
+> +
+> +	/* Find and get impacted controller */
+> +	ictrl = nvmet_ctrl_find_get_ccr(sctrl->subsys, sctrl->hostnqn,
+> +					cmd->ccr.ciu, cntlid,
+> +					le64_to_cpu(cmd->ccr.cirn));
+> +	if (!ictrl) {
+> +		/* Immediate Reset Successful */
+> +		nvmet_set_result(req, 1);
+> +		status = NVME_SC_SUCCESS;
+> +		goto out;
+> +	}
+> +
+> +	ccr_total = ccr_active = 0;
+> +	mutex_lock(&sctrl->lock);
+> +	list_for_each_entry(ccr, &sctrl->ccr_list, entry) {
+> +		if (ccr->ctrl == ictrl) {
+> +			status = NVME_SC_CCR_IN_PROGRESS | NVME_STATUS_DNR;
+> +			goto out_unlock;
+> +		}
+> +
+> +		ccr_total++;
+> +		if (ccr->ctrl)
+> +			ccr_active++;
+> +	}
+> +
+> +	if (ccr_active >= NVMF_CCR_LIMIT) {
+> +		status = NVME_SC_CCR_LIMIT_EXCEEDED;
+> +		goto out_unlock;
+> +	}
+> +	if (ccr_total >= NVMF_CCR_PER_PAGE) {
+> +		status = NVME_SC_CCR_LOGPAGE_FULL;
+> +		goto out_unlock;
+> +	}
+> +
+> +	new_ccr = kmalloc_obj(*new_ccr, GFP_KERNEL);
+> +	if (!new_ccr) {
+> +		status = NVME_SC_INTERNAL;
+> +		goto out_unlock;
+> +	}
+> +
+> +	new_ccr->ciu = cmd->ccr.ciu;
+> +	new_ccr->icid = cntlid;
+> +	new_ccr->ctrl = ictrl;
+> +	list_add_tail(&new_ccr->entry, &sctrl->ccr_list);
+> +
+> +out_unlock:
+> +	mutex_unlock(&sctrl->lock);
+> +	if (status == NVME_SC_SUCCESS)
+> +		nvmet_ctrl_fatal_error(ictrl);
 
-Thanks for testing!
+nvmet_ctrl_fatal_error will log an error, is this desired?
 
-It's not necessary to test a real quirk, just be sure the callback gets
-called and doesn't hang the kernel.
+> +struct nvmet_ctrl *nvmet_ctrl_find_get_ccr(struct nvmet_subsys *subsys,
+> +					   const char *hostnqn, u8 ciu,
+> +					   u16 cntlid, u64 cirn)
+> +{
+> +	struct nvmet_ctrl *ctrl, *ictrl = NULL;
+> +	bool found = false;
+> +
+> +	mutex_lock(&subsys->lock);
+> +	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry) {
+> +		if (ctrl->cntlid != cntlid)
+> +			continue;
+> +		if (strncmp(ctrl->hostnqn, hostnqn, NVMF_NQN_SIZE))
+> +			continue;
+> +
+> +		/* Avoid racing with a controller that is becoming ready */
 
-A useful thing is to re-test if the quirks parameter still works
-as before when CONFIG_BLK_DEV_NVME=3DM, to be sure we are not introducing
-a regression.
+I think this comment could a bit more eleborate, it took me a while
+to figure out the impact of it. What about something like:
 
-Maurizio
+                /*
+                 * Enabling the controller (nvmet_start_ctrl()) regenerates
+                 * ciu and cirn under ctrl->lock. Hold the lock so that a
+                 * controller becoming ready concurrently is matched against
+                 * either the old or the new instance, never a mix of both.
+                 *
+                 * CSTS.RDY is not checked on purpose: a disabled controller
+                 * can still have commands in flight, so a matching instance
+                 * must go through the CCR path rather than being reported as
+                 * already reset.
+                 */
 
-
+-- 
+Daniel Wagner <wagi@kernel.org>
