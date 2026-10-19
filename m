@@ -1,152 +1,142 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2756D3DEFFC
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:46:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4424E4C36
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:46:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413998; cv=none; b=dNTj84jKg9j6mQZmxcjEchJGoMtHwgchH5t8GQEAyAunGNNfvwj3Or/MR+Ak8uVEOtAVcOwMP1Ht+GJ5q/ZyOLC+I9QRbW9NZE8OoQ1vbv3VW+h4GLuK2wnjltUhwXlKfm5dhVQk8bpRzOlX3gNxDxc2MQFtGv0QtgOfOETN9Ts=
+	t=1792414017; cv=none; b=Tpp34m8JBaXUmEfPhTCNRxBYReiN8Ixbaw1tu0e5OcBhMcvb6gj3drk25G3d5UNfoP34X6IjO8Imp59Dw8HM27nDZiEJrkUsjQlFGuagwfe6rHCUq99MVo311QX6hREvjV7Du9phTWEMIgBE3V+wGxSoXky56ZUYsNfTN1V3nG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413998; c=relaxed/simple;
-	bh=frC5S9v5QSZonWeKI4grV884xjjdJOy9f/1uWnDHZEg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iBkyMj26acNIQIMzWD1BC7YNSW9/kTde5pz95qt+kLR1BxJVO90mdzOZyIA9CEi6rQv/90PDl1fgP7O+LhouNc7n+HP82OTwkkrKfxDZ3qjg29HmsxNqa20SaWzdWc3RMbdvXtk07NwTPjXqI+vLMycdQsRAdfNEEYQFxrIuKUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ULCMXX5X; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1792414017; c=relaxed/simple;
+	bh=Jov0+Simi3I3FOHtjQcK34fUjAhjZvkzg9NeiGjSMJo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YrMsLvpjVhG/ezCmJZOj849S60yPo9rEKLqfVNhpUD3MXy+yypASceXwBjJ2955lQfM94TKmKxOEDMyWIKp/Y6MTbS+rKoROG7G1NKMyHoEw0C4vMAV4WAJ4KXVnNX+EDqg/WexPkesyAejqFBKlXJ7oGZ3KYgTW5Jhc/Fz+5Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=koKyZ6aQ; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ULCMXX5X"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c40e30c26a4so421500366b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:46:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="koKyZ6aQ"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so1711935a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:46:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792413995; x=1793018795; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/g8SN2WKb9PmJxIeGRbGVw4NTAI8lYKDRiQUVJJ/IV0=;
-        b=ULCMXX5XR/DnZS6ae++KGh2U0xzFEGoIuWQhPt2dJ7l/xdrH9V+95ULWI2rV7iVrNU
-         /cLWeOqDWSRJyrTGMt/JrMP+CdZPlQ7njSZvUqR20VgDDouCdwmg/kbZCYMDl95cToZZ
-         7ohRrvOmCmadR5/oMV3hl9Uh2paQ8SmejUHcCGuAwnX6U6QHWNrUogS8zuXlafW9aku7
-         N//ClaCLurH9IZbr2B88fz7YqPAZxiaXNqrGhEedc51VsFbPMSTky1X5ZhT0LfUB8baj
-         B7ZYqEHnTdoQPHvxm+i2nnPP5TpdxJjI6OGRwsPtNxysweOKmzpfh1YLWv3bhSm1Q1WB
-         cZzg==
+        d=gmail.com; s=20251104; t=1792414016; x=1793018816; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/T4dpTCgBomTD6eEwaA8Ybu6I7bQ2brZD+Mi2z7v1XE=;
+        b=koKyZ6aQWV5lYMb5emBBvcmJhGYW9Cms9bOchIlGLV1Gu5fLzbiZ42bLlsCAVNVhZu
+         5nqohDiRyf9ilDsHB2hQpsujAZi/ak7MdKzMp2Mep76ncfam6Iw0L+1tBTSsTORUMiuR
+         5Ew8Y8UvCIVAWa5YjUC3BdkteRdWHHZFscsPXwcvC85nSvKei5oudi/i1h2n7foJdl1v
+         HN5C25lh0VR5JuujeMyWmP49Bc3tHbgGIha89FU/uS8iSJsnRgQTblJugAk3eInJlWPq
+         S+HqkWE/3s7p57pUpfJ20Ow+cLiezSm6RUxctGwkXfoFlLfIGyu5/ZPDLmMjuvfQUvrL
+         5WgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792413995; x=1793018795;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792414016; x=1793018816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/g8SN2WKb9PmJxIeGRbGVw4NTAI8lYKDRiQUVJJ/IV0=;
-        b=WjkAtP+//soQsectdmF1j0UnWo1U2EcfeisQ68WxRiOytSr9SdTgiyPSvYRpApyVZo
-         N3NG8bc2g9nDCKcIGuRB6+yaD8nj6+WzXfDsaR+WfddziWkl9I6Ejok1S2NY7OM+dnjr
-         YuLP0aMYqeVak13vRuqH7PpN9vu3eqvw/xQK6gT2eGCeCBKJgh7yu/4bIJvSHwBqXwzb
-         pSIMZQeeGQMX+XfmygORqlm+qAh6kkP6sMZnI8zzg7rx/xRULy3lpQPeyw1G+nPtwm/B
-         UcD3tTyqG8fpnVsfGgueDl+PXnQRS8UQ+RKFpnzib9wp2k8nj86Vmx2v5Hkni+oiybz/
-         MZJg==
-X-Forwarded-Encrypted: i=1; AKwUvBwI3ojOiGQdiipXpLkkPLTMMJjlqQng+goI3zrYsPKeyoU1acfGbbhk66Gg5EYGpAuI84rtTcrFsLS69nA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI42f/MYjORyDiR24qZJhQPOyodQnGBeEU1hCo5cPHBqJUwuILu
-	KdY5+6im+arA+4QWrklbMNTCZ/f3aochh9jc8OQmhbHK9ZOwN9Vmq/nNXl1gqkphU7c=
-X-Gm-Gg: AYBFou1iMZdKl0LUYgdUcVvqwHvwjtgd3LdmWcmnPq8A/Npe+2weU0Fu2yDTJsEZXI9
-	gAPyUQc5bM7PO98R0oKUVfSMVKxVES80KaJSY7j9HQPqXtAlOEpqVqRZk2HwkI3DQsq93riJe7Y
-	xfAzEUI+JmBke25XCy+BwTRUcZY5e1qIAfpV0RwRWnCEavMcrtoZaJR3Q5jWKK6v06SLvuIhGgX
-	VJL2Q+Q3Tw69nJeHcznw7Q8WmwAp529dxIfNiwabG5mue/vmlYTU09MnynCb/pJd88fXSnH1SZH
-	Mym6CRsIoUtBRHziCIIylhJPeh370HMT9B9TRVqnXtIrVXSI0XkxqbO/0sZ9KksoWl1R7GMJd0y
-	Ik+03wexhFRN8/GRhvoiW3jkrEI5oUsYNbbIxviU7IGY5KGf9YjVaM5MaDKsim767El/DgCKXGm
-	+9p9mpfadAO7VuXgNZou5LKl24dP31PJTu5C8BBaebrgsSwHIs/tJoC5l0ihzvrNroGnq4ukvRd
-	Dw=
-X-Received: by 2002:a17:907:930c:b0:c2d:c060:160 with SMTP id a640c23a62f3a-c40223d9d7dmr819450866b.25.1792413995187;
-        Mon, 19 Oct 2026 05:46:35 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4091eae235sm373825266b.67.2026.10.19.05.46.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 05:46:34 -0700 (PDT)
-Message-ID: <95c31a70-81d9-4e77-9e77-0397c5252fa1@linaro.org>
-Date: Mon, 19 Oct 2026 13:46:33 +0100
+        bh=/T4dpTCgBomTD6eEwaA8Ybu6I7bQ2brZD+Mi2z7v1XE=;
+        b=UZg0Wxb3JC765H/UfMPkXswuNKh0T8xKBHIbQAyJ/4cisNKUzjeLtTzmnxEnI0ZtLl
+         koDBgJmpOqzXdP2AplHlqPBDO9AWPOUYyJoD97wI+yuhT+qKwVH1UpwiqQRPO71t+eTK
+         nmJefMxOqWj+pFCWlmn0EmiNDYEAAUgeWH4V+TPCXrR8AWBj7t/S+jp9UN8RZO2qoUyQ
+         pb+D3sAX5aRHar+QGUbfQ4pcGESaGJINjdsLOGAc7IfClNELlLODPCKNVzDg0cSrxuGL
+         UJ/QzrHG/L0NCWJvRUVWW0+0HyWIlWzPhoc8Ea0zN6MYrgYD00TMwpt7avdwboo/tuvm
+         RkdA==
+X-Gm-Message-State: AFq9FYLqepkUJFHzUm56/9x9ZrBmCJaaduiokfd3HTxMnHsJ8xYrTzb5
+	/kvivYOGTwB6mvFz9C1N/xCBIRvHwP9fV4Y9jnxC3iF+5+FBimb1CbhJ7/EpZQ==
+X-Gm-Gg: AYBFou2boi66Ho3tv7h27F/kJP0W6WTSVHln3Rx+GEXu7E/NpFym5QbrpH/+TMNUdR8
+	BhPhEPNpa78OYyHxtsBda07T6rPeIluVoK8AYuiSPJkNedUuo5xcKoiRa0fgUDX4cNWEmgxSSZj
+	siQTnQvXzfROeJOeAoz64q3SAfvohyBFU0h9ZB2N7iDY+i+FjMA5kAY2AeM6jdMnG8aLPIHXrmo
+	SsHiKA3Qc3RQG1dtfRaoqC0Nf30UqV6aMmaL/F2Lz8z1TrBdEXoGfH/xWWDm129btFn1newKtvX
+	0njFXcXr6nb81qnfmxUeG8yrE7Cho8SKApfTO5AUGyR0tONHioHuUwHbs3TkAPYrWp+6IW1BshV
+	ERqhZQqW+uO2XY8Z71w1yioCZ1BH0ZcuotNcUrIMgO7V3rDloA/7tLZgqELQAzr74/b6MxfPWIk
+	FhjOmTfE7CLNO7c4nadbsrBlc7Vv0MVk6vOixAhJ0cXAfzvPOykBOKPiCWAH7QoSE545f1rTTOo
+	Zg=
+X-Received: by 2002:a17:90b:5487:b0:3ac:9c37:9426 with SMTP id 98e67ed59e1d1-3acef0c8743mr7123863a91.31.1792414015871;
+        Mon, 19 Oct 2026 05:46:55 -0700 (PDT)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad48dc2f1bsm1729020a91.4.2026.10.19.05.46.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 05:46:55 -0700 (PDT)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: james.morse@arm.com,
+	ben.horgan@arm.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com,
+	Ping Li <leeonion.muyu@gmail.com>
+Subject: [PATCH] arm_mpam: Do not access MPAMF_ESR on MSCs that do not have it
+Date: Mon, 19 Oct 2026 20:46:12 +0800
+Message-Id: <20261019124612.134035-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/25] coresight: perf: Look up the trace path in
- etm_event_pause()
-To: Leo Yan <leo.yan@arm.com>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
- <20260915-arm_cs_support_aux_sample-v1-14-35cf6f297d20@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-14-35cf6f297d20@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+mpam_msc_clear_esr() and mpam_msc_read_esr() read MPAMF_ESR
+unconditionally, but the MPAM architecture only provides this
+register when MPAMF_IDR.HAS_ESR is set. On an implementation without
+ESR these accesses reach unimplemented register space.
 
+Read HAS_ESR from the IDR during probe, make clear_esr() a no-op on
+such MSCs, and have read_esr() return -ENODEV as the register
+cannot be read.
 
-On 15/09/2026 16:49, Leo Yan wrote:
-> Have etm_event_pause() retrieve the active path from the event context
-> instead of passing the path from etm_event_stop(). Move the stop path
-> lookup after the pause dispatch so each operation resolves its own path.
-> 
-> This prepares etm_event_stop() to coordinate hardware access before
-> looking up the active context.
-> 
-> Assisted-by: Codex:gpt-6
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
-> ---
->   drivers/hwtracing/coresight/coresight-etm-perf.c | 10 ++++++----
->   1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
-> index f66c99b26e1862ab04105704276c901b21728207..8f803914e9abfb18e080ff68371ad8b32042f180 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm-perf.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
-> @@ -694,10 +694,10 @@ static void etm_event_update_buffer(struct perf_event *event,
->   	perf_aux_output_end(handle, 0);
->   }
->   
-> -static void etm_event_pause(struct coresight_path *path,
-> -			    struct perf_event *event,
-> +static void etm_event_pause(struct perf_event *event,
->   			    struct etm_ctxt *ctxt)
->   {
-> +	struct coresight_path *path = etm_event_get_ctxt_path(ctxt);
->   	struct perf_output_handle *handle = &ctxt->handle;
->   	struct coresight_device *source, *sink;
->   	struct etm_event_data *event_data;
-> @@ -735,7 +735,7 @@ static void etm_event_stop(struct perf_event *event, int mode)
->   	struct coresight_device *source, *sink;
->   	struct etm_ctxt *ctxt = this_cpu_ptr(&etm_ctxt);
->   	struct perf_output_handle *handle = &ctxt->handle;
-> -	struct coresight_path *path = etm_event_get_ctxt_path(ctxt);
-> +	struct coresight_path *path;
->   	struct hw_perf_event *hwc = &event->hw;
->   	struct etm_event_data *event_data;
->   
-> @@ -744,7 +744,9 @@ static void etm_event_stop(struct perf_event *event, int mode)
->   		return;
->   
->   	if (mode & PERF_EF_PAUSE)
-> -		return etm_event_pause(path, event, ctxt);
-> +		return etm_event_pause(event, ctxt);
-> +
-> +	path = etm_event_get_ctxt_path(ctxt);
->   
->   	/*
->   	 * With no path enabled, there is no hardware to stop or trace data
-> 
+Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
+---
+ drivers/resctrl/mpam_devices.c  | 7 +++++++
+ drivers/resctrl/mpam_internal.h | 1 +
+ 2 files changed, 8 insertions(+)
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index 48adc49b833c..a473b2872183 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -388,6 +388,9 @@ static int mpam_msc_clear_esr(struct mpam_msc *msc)
+ 	u32 esr_low;
+ 	int ret;
+ 
++	if (!msc->has_esr)
++		return 0;
++
+ 	ret = __mpam_read_reg(msc, MPAMF_ESR, &esr_low);
+ 	if (ret)
+ 		return ret;
+@@ -415,6 +418,9 @@ static int mpam_msc_read_esr(struct mpam_msc *msc, u64 *res)
+ 	u32 esr_high, esr_low;
+ 	int ret;
+ 
++	if (!msc->has_esr)
++		return -ENODEV;
++
+ 	ret = __mpam_read_reg(msc, MPAMF_ESR, &esr_low);
+ 	if (ret)
+ 		return ret;
+@@ -1205,6 +1211,7 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+ 		pmg_max = FIELD_GET(MPAMF_IDR_PMG_MAX, idr);
+ 		msc->partid_max = min(msc->partid_max, partid_max);
+ 		msc->pmg_max = min(msc->pmg_max, pmg_max);
++		msc->has_esr = FIELD_GET(MPAMF_IDR_HAS_ESR, idr);
+ 		msc->has_extd_esr = FIELD_GET(MPAMF_IDR_HAS_EXTD_ESR, idr);
+ 
+ 		scoped_guard(mutex, &mpam_list_lock) {
+diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+index 1f86cc158100..b648c006e102 100644
+--- a/drivers/resctrl/mpam_internal.h
++++ b/drivers/resctrl/mpam_internal.h
+@@ -80,6 +80,7 @@ struct mpam_msc {
+ 	int			fb_id;
+ 	u32			nrdy_usec;
+ 	cpumask_t		accessibility;
++	bool			has_esr;
+ 	bool			has_extd_esr;
+ 
+ 	int				reenable_error_ppi;
 
+base-commit: 8ea457f746d915d55f78b43d33b1cd618f3d93ad
+-- 
+2.34.1
 
