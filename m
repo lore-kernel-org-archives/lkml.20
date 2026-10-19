@@ -1,86 +1,186 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09055363C6F;
-	Mon, 19 Oct 2026 05:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF323AA4E1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792386630; cv=none; b=PQI9ikIV/AlGnl/5tcCS/8+8Sk7AOLPSsebjzPgxzQfbPC9G1iFPpfCJzMY9XgB7hz+YSKzbTLgYdGncCkoO+RFAWj61CxW/yhZBVcBIms1JMutSTEblHAHnqCTCIDzyu7GbrGTW66RwZC27IchRnFIMYvsSoiOdDgCkUtISKSg=
+	t=1792386693; cv=none; b=tn9ocYTCimYZpz72W4+4P8tu6JbgaLKwMEy11H0cQolf/c2fHc3HKji8PSD7PRph9nJhgLw6zGcstBW8/HIno2tOXpr/Or0fwj09G/0/jfl4SdHJq8dKzwI61vhkWN6r9hXxsVu6Br65rFmMRys+OQ7M1I72nziiNqchijMeUQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792386630; c=relaxed/simple;
-	bh=ZdBqok8rrBt2JcUhblYWiBRfSj38rVwAnuD3J5yeSMI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R+RdAlUyqQSNtZav8/gh91qfgqAVJlMAttyRQm+ATscbUyYgZWBkmxOtHHlfu8AhQ5g/Pndxy4tb6Lf7Pf2ajx41NrD0ZH+eSGCogGFaEDdi3mL2xpIKjoxPoOzQeOs/QkBNL3Vo6X+0S4lDfnj7QnWmWb2xsJrTp9aOZm8kP5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=SUiSKX59; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="SUiSKX59"
-Received: from [10.95.64.89] (unknown [4.194.122.136])
-	by linux.microsoft.com (Postfix) with ESMTPSA id C50A120B7168;
-	Sun, 18 Oct 2026 22:10:07 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C50A120B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792386610;
-	bh=99zGf1UYeMzipFM7ppAzhWPhBXUh3NmiRWjzT7zkbPc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SUiSKX59v4tiWL1TL1YbR6clUagEM7Os6Z9nDT5mR4w0Wi81mX5NNq9+IAJoRRn82
-	 H5Ydazoc3uJqhwfpkb9Eu2MhOPsWeD8dDuZdradenAB3U7kCK/4gkiZKCGTirZ7svG
-	 6x2AE/9XwWzwptv3DtuHeQ89DhOJ35AG/oJmG+h0=
-Message-ID: <b88b0341-a732-41e1-87df-4f0503df39cc@linux.microsoft.com>
-Date: Mon, 19 Oct 2026 10:40:11 +0530
+	s=arc-20240116; t=1792386693; c=relaxed/simple;
+	bh=nVj/bgdC1Ohyocal4Il0FqAeW/5QWOV4GQ6Q+DQv2f0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=a0FUyLtjfb2LLyKrsqVdQ50VBK0fOb2jeUXX070t2k00vHm6jtgacG+e72dE4TDCKKQAlyOaTLQoH9ZBFDm7eMXSzaJZcJBXNSAalTobq4Dy5CGCr1NRbnPMc/JccDc/gNJrF0VihMa0pMionAkl14w6K9tGiNvxjeFlBSEPSqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab4f652f9bso1444267b6e.0
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:11:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792386687; x=1792991487;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0+8zT4mGy6dcRx9KTjqk/ppPsWRxCzDh9ncX9YEziZE=;
+        b=Rg2fWSGGIav4dfCvwX4ORe+rVpG7GMsI+BvgmcaxH/tYNJLNeqPhTQJnkY6qJ8K8ax
+         Ztw4mi5m4pnySi4Ie3bxhWI0huDDdntHAzLhWLl+rZ2xVItYkPnSZHJZAnBf5mklj7DU
+         hXfaStLZrtEiqqqKBJOeX89YKX82CJMvwndijXNRACFKDIMnK8zGfa2yism8AoMjKOkv
+         9QmQ66RUjGYzJs4C59e9Cc8eexYYpDi3fbYHguS32kDMyf2/KvG2Eb4s1+4ko3C9Sgeg
+         g9i/laLeJLmOetTBe8C8SUhepg4toWIwjcfF40vPhXD32nL1gG8Dlt55JvSvjyCf192g
+         FQDg==
+X-Gm-Message-State: AFq9FYL4kAgkxgb+zJeiWI5eqJc50Xf/OkyF++GZqDKSSUJ82AT3i5by
+	Jy9zHD1AKfHS9OVTztahFLB5LP5/4d7RJpPykYli3IyK18UhUm3QaZ7aUrwFrIcEkRXD0dV6fv9
+	7C0oCyjateTEydrLw0q4Jqj/cECTCLn1INq+0DFNNF7W1dV0aJHGiK0oGqKc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mshv_vtl: reject poll files with multiple waitqueues
-To: Daehyeon Ko <4ncienth@gmail.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>
-Cc: Saurabh Sengar <ssengar@linux.microsoft.com>,
- Michael Kelley <mhklinux@outlook.com>,
- Roman Kisel <romank@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261016061114.1686153-1-4ncienth@gmail.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20261016061114.1686153-1-4ncienth@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:4e82:b0:53f:4cb6:cdc1 with SMTP id
+ 5614622812f47-53f4cb6d286mr3228740b6e.34.1792386687530; Sun, 18 Oct 2026
+ 22:11:27 -0700 (PDT)
+Date: Sun, 18 Oct 2026 22:11:27 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad5a67f.6814cce4.34c49f.0162.GAE@google.com>
+Subject: [syzbot] [raid?] general protection fault in raid5_quiesce
+From: syzbot <syzbot+0b672810a475890d3636@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, song@kernel.org, 
+	syzkaller-bugs@googlegroups.com, yukuai@fnnas.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    f909e534f5e3 Merge tag 'scsi-fixes' of git://git.kernel.or..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1307b13e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b38d39c45202f4fa
+dashboard link: https://syzkaller.appspot.com/bug?extid=0b672810a475890d3636
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1707b13e580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+0b672810a475890d3636@syzkaller.appspotmail.com
+
+md/raid:md0: not enough operational devices (1/3 failed)
+md/raid:md0: failed to run raid set.
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+CPU: 0 UID: 0 PID: 5902 Comm: syz-executor169 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+RIP: 0010:kasan_byte_accessible+0x12/0x30 mm/kasan/generic.c:210
+Code: 79 ff ff ff 0f 1f 40 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 48 c1 ef 03 48 b8 00 00 00 00 00 fc ff df <0f> b6 04 07 3c 08 0f 92 c0 e9 90 e7 2a 09 cc 66 66 66 66 66 66 2e
+RSP: 0018:ffffc9000544f708 EFLAGS: 00010206
+RAX: dffffc0000000000 RBX: ffffffff8b5cf203 RCX: 8000000000000001
+RDX: 0000000000000000 RSI: ffffffff8b5cf203 RDI: 000000000000000c
+RBP: ffffc9000544f870 R08: 0000000000000001 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffffff87ff0a50 R12: 0000000000000060
+R13: 0000000000000000 R14: 0000000000000060 R15: 0000000000000001
+FS:  000055556c882400(0000) GS:ffff8881249b9000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055d585e02cd0 CR3: 0000000044162000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __kasan_check_byte+0x12/0x40 mm/kasan/common.c:584
+ kasan_check_byte include/linux/kasan.h:402 [inline]
+ lock_acquire+0x7d/0x350 kernel/locking/lockdep.c:5916
+ rt_spin_lock+0x83/0x400 kernel/locking/spinlock_rt.c:56
+ spin_lock_irq include/linux/spinlock_rt.h:96 [inline]
+ lock_all_device_hash_locks_irq drivers/md/raid5.c:107 [inline]
+ raid5_quiesce+0xc2/0x8a0 drivers/md/raid5.c:-1
+ __md_stop_writes+0xeb/0x4b0 drivers/md/md.c:7038
+ md_set_readonly+0x330/0x560 drivers/md/md.c:7138
+ array_state_store+0x584/0xe90 drivers/md/md.c:4720
+ md_attr_store+0x3b7/0x640 drivers/md/md.c:6158
+ kernfs_fop_write_iter+0x3a5/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x61e/0xbb0 fs/read_write.c:687
+ ksys_write+0x156/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fb4d4570f77
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffcae126a10 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 000055556c882400 RCX: 00007fb4d4570f77
+RDX: 0000000000000008 RSI: 00007fb4d45aa11f RDI: 0000000000000005
+RBP: 000055556c8823d8 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000006
+R13: ffffffffffffffff R14: 0000000000000005 R15: 00000000ffffffff
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:kasan_byte_accessible+0x12/0x30 mm/kasan/generic.c:210
+Code: 79 ff ff ff 0f 1f 40 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 48 c1 ef 03 48 b8 00 00 00 00 00 fc ff df <0f> b6 04 07 3c 08 0f 92 c0 e9 90 e7 2a 09 cc 66 66 66 66 66 66 2e
+RSP: 0018:ffffc9000544f708 EFLAGS: 00010206
+RAX: dffffc0000000000 RBX: ffffffff8b5cf203 RCX: 8000000000000001
+RDX: 0000000000000000 RSI: ffffffff8b5cf203 RDI: 000000000000000c
+RBP: ffffc9000544f870 R08: 0000000000000001 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffffff87ff0a50 R12: 0000000000000060
+R13: 0000000000000000 R14: 0000000000000060 R15: 0000000000000001
+FS:  000055556c882400(0000) GS:ffff8881249b9000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055d585e02cd0 CR3: 0000000044162000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess), 4 bytes skipped:
+   0:	0f 1f 40 00          	nopl   0x0(%rax)
+   4:	90                   	nop
+   5:	90                   	nop
+   6:	90                   	nop
+   7:	90                   	nop
+   8:	90                   	nop
+   9:	90                   	nop
+   a:	90                   	nop
+   b:	90                   	nop
+   c:	90                   	nop
+   d:	90                   	nop
+   e:	90                   	nop
+   f:	90                   	nop
+  10:	90                   	nop
+  11:	90                   	nop
+  12:	90                   	nop
+  13:	90                   	nop
+  14:	0f 1f 40 d6          	nopl   -0x2a(%rax)
+  18:	48 c1 ef 03          	shr    $0x3,%rdi
+  1c:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  23:	fc ff df
+* 26:	0f b6 04 07          	movzbl (%rdi,%rax,1),%eax <-- trapping instruction
+  2a:	3c 08                	cmp    $0x8,%al
+  2c:	0f 92 c0             	setb   %al
+  2f:	e9 90 e7 2a 09       	jmp    0x92ae7c4
+  34:	cc                   	int3
+  35:	66                   	data16
+  36:	66                   	data16
+  37:	66                   	data16
+  38:	66                   	data16
+  39:	66                   	data16
+  3a:	66                   	data16
+  3b:	2e                   	cs
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-On 10/16/2026 11:41 AM, Daehyeon Ko wrote:
-> MSHV_SET_POLL_FILE invokes a file descriptor poll callback with a poll
-> table backed by a single embedded wait entry. A poll callback may,
-> however, register the table with more than one waitqueue. pipe_poll()
-> does this naturally for an O_RDWR FIFO.
-> 
-> The second registration currently warns but then inserts the same list
-> node into another list. The new insertion overwrites the entry links while
-> the first waitqueue still points at it, corrupting the first waitqueue and
-> causing an invalid callback traversal when that queue wakes.
-> 
-> Reject a second distinct waitqueue, remove the first registration, and
-> return -EINVAL from the ioctl. Repeated registration of the same waitqueue
-> is treated as a no-op. A rejected replacement leaves the CPU slot
-> unregistered, consistent with the existing remove-before-register ordering.
-> Single-waitqueue users such as the OpenHCL io_uring poll file keep their
-> existing behavior.
-> 
-> Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-This tag is no longer valid on latest linux-next tip and gives 
-checkpatch error.
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Code changes LGTM.
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-> ---
->   drivers/hv/mshv_vtl_main.c | 24 ++++++++++++++++++++++--
->   1 file changed, 22 insertions(+), 2 deletions(-)
-> 
-Regards,
-Naman
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
