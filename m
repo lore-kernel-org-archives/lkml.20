@@ -1,86 +1,64 @@
-Received: from out-utut-a193.jellyfish.systems (out-utut-a193.jellyfish.systems [198.177.127.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-07.mail-europe.com (mail-07.mail-europe.com [37.187.220.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFC845349C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.177.127.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEBC481A82;
+	Mon, 19 Oct 2026 05:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.187.220.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792388589; cv=none; b=mA6U7Mc7fJie7SN/QYesxnOft8oKBTXYsEvs0avfLx7awer1P0CRt9GgaMPc1WuWYr32rDSVdoKuGbD9Xa9M6m5a9DAw/sGPGO9fxX0Z+xMzaXL3xv5EcTb5Rir5v/1Zp0iXEPweuVihLdij+Xjg4c365PYtsh3oHVmw0m+ioxQ=
+	t=1792388669; cv=none; b=Ek6jxJd9dD2PwvFrDb/0IucZ5Adty4L3PCEE/s+e4/D5jUDRD++DNk+/aY/xwL1cnazsVR671Ogl3H+wDi3FDs/dkhAowR3R06Ctg4Y3Sg07w8yR1STOkWQ0cSb4eVaW53sZDp07hnUAIueduJek4QSlK1tYG3J1Ojv+7LXvEtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792388589; c=relaxed/simple;
-	bh=Cw/SyL/GxVPUjHPLAFBCiooYHmtBZrKCFaAf2TcDMes=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lHyibo28sL1+sqt3DT9L9uvt+91xDX11IkLyxZ7Ldi1ZommgWp9r15jxXyeMO4w2FxOlBJWSpctL8vPYZaAAMS+qVxvRJ2/aCXqb/8rh/i8gL9/MNOyzitZk5sBM/qXmedvqP9F25WncL20RFlhyROIZjNQoZLPLB+jFHEYafl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca; spf=pass smtp.mailfrom=r-sc.ca; dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b=g0YYvvWG; arc=none smtp.client-ip=198.177.127.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=r-sc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=r-sc.ca
+	s=arc-20240116; t=1792388669; c=relaxed/simple;
+	bh=WdK4qd87+pWtXYg4vFCOJIncXeCGvz8kYAc/aD18wTU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e0AL6fECbMCKXxpE/JFRpourrI4a1/afjDh5aiavZHzMfgG3JEhOmIXZ65WsIhm9w5ajScZeM4IkN5J6UjY+vo/XhX8jLdVf0LpEoEfH+V4rkOHrkSajGIAQpqTQt344DU4972xW5+KPQ+RNXPvAdRwrk8be5tbAn5EGjbgcXkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=RvCQEqdg; arc=none smtp.client-ip=37.187.220.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=r-sc.ca header.i=@r-sc.ca header.b="g0YYvvWG"
-Received: from DESKTOP-290OH2S (d207-6-150-133.bchsia.telus.net [207.6.150.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4j7PZx4NmYz2x99;
-	Mon, 19 Oct 2026 05:42:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=r-sc.ca;
-	s=spacemail; t=1792388571;
-	bh=Cw/SyL/GxVPUjHPLAFBCiooYHmtBZrKCFaAf2TcDMes=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=g0YYvvWGzaPWP5QlMoGuiwCATRI9N77vYqL2fBcH4+zD5I2KT/ao0yXyjlMALKSPT
-	 NlioH/fBjZpk1li1v0Fhy1F4NoJB8j5bCmcqYOsdQc2MI2bsZdgbQjPUzF6nrGRRi+
-	 W6xd+pGsJQBP+0ogh0QM+JEgFNkKSGW8MH5Suqun+caH9dsbZTyHXMkiJJLyqaVeiH
-	 YyrlTDqyON+2ppA7cEVTNPfCEfc3O2hwbmSktcW6TYBdwUwAeGYPO+UQZ+9Y4W5bR2
-	 u+9F84CXsmDMi2gdwrJphKDb62bwqA1xLQFWZaHhaheXsYDn3/HhzbiZruAb6PId8P
-	 3LTmZL70ozJUw==
-From: Ross Cawston <ross@r-sc.ca>
-To: andrew@lunn.ch
-Cc: markus.stockhausen@gmx.de,
-	lee@kernel.org,
-	pavel@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	chris.packham@alliedtelesis.co.nz,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ross Cawston <ross@r-sc.ca>
-Subject: Re: [PATCH 0/3] leds: add Realtek RTL9300 port LEDs under software control
-Date: Sun, 18 Oct 2026 22:42:32 -0700
-Message-ID: <20261019054233.1884-1-ross@r-sc.ca>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <38ca5375-ecea-4361-ab26-c044f38ceadb@lunn.ch>
-References: <20261018194339.132-1-ross@r-sc.ca> <59f75e7d-9b56-441d-a4b5-58ad3862267e@lunn.ch> <20261018232015.527-1-ross@r-sc.ca> <38ca5375-ecea-4361-ab26-c044f38ceadb@lunn.ch>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="RvCQEqdg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792388616; x=1792647816;
+	bh=WdK4qd87+pWtXYg4vFCOJIncXeCGvz8kYAc/aD18wTU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=RvCQEqdgtR5+YXaYFtng0WBWfdL2NO+ks1Thhoi827g7j0DmMOhRmD/dRCM3ivCvV
+	 4n4F979KnL/9CLbN2vExuDo/Ehpl3uOCMAS6QWwaqTKgnvwL4k7I1YJdcshT07fiNf
+	 PWSuOAydANTL3jc63Gaob3zar7p3svvtwhnKDfC+rVxVHs8MASCXO1yA5huPjNSU/c
+	 5ZAHTsX5SHNlal5/uinindLEB1A/eb/lC6z25qRkqlH84SbgOiAIZE9HaUL3A64zdu
+	 bvq8BfYwm4MCeUIGkAy+ZqsaE3+Eu4W8zjp2oZBboa3yty7fLRqw7JN0dWlLzov9Lz
+	 lNju8h1+6akCA==
+Date: Mon, 19 Oct 2026 05:43:30 +0000
+To: George Neacsu <geocausa@gmail.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, Bryan O'Donoghue <bod@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] media: ov13858: device tree support for the Surface Pro 11 (Snapdragon)
+Message-ID: <20261019054322.3675-1-lsa.uz@pm.me>
+In-Reply-To: <20261018-ov13858-x1e-v2-0-cd35434cfcfe@gmail.com>
+References: <20261018-ov13858-x1e-v2-0-cd35434cfcfe@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 33be5735e34940ebe37640d856f61e542a9d0428
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: ross@r-sc.ca
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 19, 2026 at 12:02 AM UTC, Andrew Lunn wrote:
-> Markus Stockhausen <markus.stockhausen@gmx.de> did a lot of work on
-> the MDIO driver, based on what is in OpenWRT. Maybe he plans to work
-> on the switch driver?
+Hi George,
 
-Thanks, adding Markus.
+Retested v2 on the Intel model, on media next with the power-on v4.
+Loaded before the IPU driver, the sensor's probe defers ("parsing
+endpoint failed" in devices_deferred) and binds once ipu-bridge has
+built the endpoint. It then streams 4224x3136 at 29.95 fps, and
+v4l2-compliance passes 46 of 46 on the subdev. Through the media device
+the one failure is the colorspace, which your separate patch fixes, with
+my Tested-by from the same machine:
+https://lore.kernel.org/linux-media/20261016-ov13858-colorspace-v1-1-51f037=
+9ada0c@gmail.com/
+So the Tested-by stands for v2.
 
-Markus, are you planning to take the RTL930x switch driver upstream? If
-so, I'd be glad to help with the port LEDs there, in the port nodes as
-Andrew describes earlier in this thread, and to test on an RTL9303
-board:
+Sergey
 
-https://lore.kernel.org/all/20261018194339.132-1-ross@r-sc.ca/T/
-
-In OpenWrt, openwrt/openwrt#25341 adds software control of the RTL930x
-LEDs to the switch driver; I tested it with this board's PoE LEDs.
-
-Ross
