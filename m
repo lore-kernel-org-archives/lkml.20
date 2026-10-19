@@ -1,133 +1,110 @@
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B5F3264F5;
-	Mon, 19 Oct 2026 01:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A97D331EA4;
+	Mon, 19 Oct 2026 01:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792372514; cv=none; b=nDpH6Cnaqy8cZB0L745g/NnQ5rZ7nXDbKTBoJkSF48t9tXSLy3fCjQStFW2VY16DSiuid4FAN1O71KbVJS0ZpDn+D+w/iFWw6y28QUK6LdZkkGpMxLUzvdqF9eZq1+Dqq89Iaxc4j5sFjJRWgj4aAFbnhru4TNI/nUK3tY79D+U=
+	t=1792372549; cv=none; b=F5WXihcJnYHDGHeLnTM2w4xmZ1O/y7bYk4IkTu1ke8FGjuTkmYfKUy8gqRdMbfRUzae7e7QI1GV1YWAHjeuYrt4ya9Az/Wcb89KFPTEb5b7py7tmdm0T6wdDQULBI8EAHdi7XyVtSt09eo5/kdOaJzaVFSs8wW9nAuWSx9IC9FI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792372514; c=relaxed/simple;
-	bh=gFUH0hUEQAuvKc755yM2YuSpEPoTTMXzBkRPVTBcQts=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=GKVfeizYHWgB0Kovg3t7t469PoY4JcRUfBozGDF4923fm3XFkqFYDqb2IWZr42oYjH6lkcb9y2bS7HLQ/9rza2v8WBUiLB7ap9SSxiJlL071eoZgjpcNk43AZbz58CkSYD8T7mby2nqSvCguCsVOhuJkk1dujUpMppMqUYLszvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=d9BZw3EE; arc=none smtp.client-ip=113.46.200.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="d9BZw3EE"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=V7FqMxsUcKwN0UwLr5HSM14+Ny3a42v8ifOoh1UDt2k=;
-	b=d9BZw3EE8n8oabxVe7b56ypiueA58tefns0jCYfa4V4ONVtHBPbUCp6jaLVn2fWZpyV5PT6cG
-	Ok9nw2ORQpXgdc64+9RYYEKv6AUr5HD17Y1kAbAasRvi0PSW4kRbczdSOtVxltFH7ZGeVVy1UI6
-	Kmd8NHkzWEuT20eiyMFj1aE=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j7Hdr5gmdznTb2;
-	Mon, 19 Oct 2026 09:14:56 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 73A7040580;
-	Mon, 19 Oct 2026 09:14:56 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 19 Oct 2026 09:14:54 +0800
-Subject: Re: [PATCH] mtd: phram: fix name leak when phram_setup() fails
-To: Palla Raghunath <raghunathpalla.0209@gmail.com>, <joern@lazybastard.org>,
-	<miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>
-CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<shuah@kernel.org>, <me@brighamcampbell.com>,
-	<linux-kernel-mentees@lists.linux.dev>, <stable@vger.kernel.org>,
-	<syzbot+c9d8bc9f8ccc03799e1f@syzkaller.appspotmail.com>
-References: <20261017235733.14667-1-raghunathpalla.0209@gmail.com>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <577933c6-f1b5-0a45-1cf6-0c5607c6d382@huawei.com>
-Date: Mon, 19 Oct 2026 09:14:53 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	s=arc-20240116; t=1792372549; c=relaxed/simple;
+	bh=k/nXVQPDdQ1BqqcdJwAn/cqeQtKyU944P0fnHgTOn0c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AmzFZE2VDRNBvsNvrfr+LEn2xqWBjsXbzFFV4nxo9G0cHiNtd+ZhERXydC/xoUXF0EGGpdwwZD83FVvSDIwQpxu2wxU+ewFyLdXEqxKnNLoLkQmtNmeF4tmhKMQLO0c0ie+uoeBfg0Ue8Mp2HUnCPLZYxRw/bF6IrUa8cJv0rdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j7HdT5KvrzYQtwV;
+	Mon, 19 Oct 2026 09:14:37 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 8678D4056B;
+	Mon, 19 Oct 2026 09:15:38 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.85.155])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgBXkO85b9VqI9LoAw--.23742S10;
+	Mon, 19 Oct 2026 09:15:38 +0800 (CST)
+From: Zizhi Wo <wozizhi@huaweicloud.com>
+To: song@kernel.org,
+	yukuai@fygo.io,
+	magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	yangerkun@huawei.com,
+	chengzhihao1@huawei.com,
+	wozizhi@huawei.com
+Subject: [PATCH V2 6/6] md/raid0: round member size in raid0_size() with sector_div()
+Date: Mon, 19 Oct 2026 09:08:27 +0800
+Message-ID: <20261019010827.2922617-7-wozizhi@huaweicloud.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261019010827.2922617-1-wozizhi@huaweicloud.com>
+References: <20261019010827.2922617-1-wozizhi@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20261017235733.14667-1-raghunathpalla.0209@gmail.com>
-Content-Type: text/plain; charset="gbk"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemo200011.china.huawei.com (7.152.185.179)
+X-CM-TRANSID:gCh0CgBXkO85b9VqI9LoAw--.23742S10
+X-Coremail-Antispam: 1UD129KBjvJXoW7KF13Cw4rtrW8KF18Zr47Jwb_yoW8Gw4xpw
+	4jgFyfurWUCry5Ja98Ja4jgayFyF9xGrWDtF9rWayUurn3Wr92ka45t345Xa4UA34rAw1Y
+	y34DC3yDC3WDKrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
+	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
+	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267
+	AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7Cj
+	xVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F4
+	0Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC
+	6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2
+	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
+	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0x
+	vE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY
+	6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aV
+	CY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1wSdDUUUUU==
+X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
-ÔÚ 2026/10/18 7:57, Palla Raghunath Ð´µÀ:
-> parse_err() is a macro that prints the message and then does "return 1".
-> phram_setup() still uses it after parse_name() has allocated the device
-> name, with a "goto error" right after each call. That goto is never
-> reached, so the kfree(name) under the error label never runs and the
-> name leaks every time one of these checks fails.
-> 
-> syzbot hit this by writing "p0,0x8000000000000000,0" to
-> /sys/module/phram/parameters/phram. The zero length fails the
-> erasesize/len check and the "p0" string is leaked.
-> 
-> Use pr_err() for these five messages so we really jump to the error
-> label and free the name. This also means the real error code goes back
-> to the caller instead of 1, which sysfs returned to userspace as if one
-> byte had been written.
-> 
-> Fixes: 49c64df88057 ("mtd: phram: fix a double free issue in error path")
-> Cc: stable@vger.kernel.org
-> Reported-by: syzbot+c9d8bc9f8ccc03799e1f@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=c9d8bc9f8ccc03799e1f
-> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
-> ---
->   drivers/mtd/devices/phram.c | 10 +++++-----
->   1 file changed, 5 insertions(+), 5 deletions(-)
+From: Zizhi Wo <wozizhi@huawei.com>
 
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> 
-> diff --git a/drivers/mtd/devices/phram.c b/drivers/mtd/devices/phram.c
-> index b42cadcd76b1..7aed57b31967 100644
-> --- a/drivers/mtd/devices/phram.c
-> +++ b/drivers/mtd/devices/phram.c
-> @@ -289,34 +289,34 @@ static int phram_setup(const char *val)
->   
->   	ret = parse_num64(&start, token[1]);
->   	if (ret) {
-> -		parse_err("illegal start address\n");
-> +		pr_err("illegal start address\n");
->   		goto error;
->   	}
->   
->   	ret = parse_num64(&len, token[2]);
->   	if (ret) {
-> -		parse_err("illegal device length\n");
-> +		pr_err("illegal device length\n");
->   		goto error;
->   	}
->   
->   	if (token[3]) {
->   		ret = parse_num64(&erasesize, token[3]);
->   		if (ret) {
-> -			parse_err("illegal erasesize\n");
-> +			pr_err("illegal erasesize\n");
->   			goto error;
->   		}
->   	}
->   
->   	if (len == 0 || erasesize == 0 || erasesize > len
->   	    || erasesize > UINT_MAX) {
-> -		parse_err("illegal erasesize or len\n");
-> +		pr_err("illegal erasesize or len\n");
->   		ret = -EINVAL;
->   		goto error;
->   	}
->   
->   	div_u64_rem(len, (uint32_t)erasesize, &rem);
->   	if (rem) {
-> -		parse_err("len is not multiple of erasesize\n");
-> +		pr_err("len is not multiple of erasesize\n");
->   		ret = -EINVAL;
->   		goto error;
->   	}
-> 
+raid0_size() rounds each member device down to the chunk boundary by
+masking with 'chunk_sectors - 1':
+
+	rdev->sectors & ~(sector_t)(mddev->chunk_sectors - 1)
+
+This bit-masking only yields a correct round-down when chunk_sectors is a
+power of 2. However, raid0 also supports non-power-of-2 chunk sizes, as
+handled in raid0_make_request() and map_sector(), so the rounding is wrong
+in that case.
+
+Use raid0_member_sectors() instead, so that each member is rounded down
+with sector_div() for any chunk size, consistent with how
+create_strip_zones() already rounds the members when building the zones.
+
+Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
+---
+ drivers/md/raid0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+index 3ab1e5079cc5..88a7349a4e2a 100644
+--- a/drivers/md/raid0.c
++++ b/drivers/md/raid0.c
+@@ -367,12 +367,12 @@ static sector_t raid0_size(struct mddev *mddev, sector_t sectors, int raid_disks
+ 
+ 	WARN_ONCE(sectors || raid_disks,
+ 		  "%s does not support generic reshape\n", __func__);
+ 
+ 	rdev_for_each(rdev, mddev)
+-		array_sectors += (rdev->sectors &
+-				  ~(sector_t)(mddev->chunk_sectors-1));
++		array_sectors += raid0_member_sectors(rdev->sectors,
++						      mddev->chunk_sectors);
+ 
+ 	return array_sectors;
+ }
+ 
+ static void raid0_free(struct mddev *mddev, void *priv)
+-- 
+2.52.0
 
