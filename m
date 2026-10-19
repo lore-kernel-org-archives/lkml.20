@@ -1,79 +1,115 @@
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C33597F5D;
-	Mon, 19 Oct 2026 14:40:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD5C500AA6;
+	Mon, 19 Oct 2026 14:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792420808; cv=none; b=PmKYNkyybf4BgunQYWUbUTrdOxSD762yGT+DrcUPvsRbWVwqND8A3Z0/2ZdDKJ3vxOxWBmKUnSNckMmMK5OISXfUBMH8ZwM7dMy2bWtZcYpr8xhaw/NR0sI7xBzcz7z+P1m2YrY8hMW1YavqHULixQ07pnwfijPVxy+Xj4bAt7o=
+	t=1792420808; cv=none; b=I5khjkKSwU5ikfKakXkR0os3k5XbcSbeH0+Batl5ng9h3NE0zIk989OefGlvbHOfNEQRPGjwH3IAY5vZp3Wt3mii/2GhfCDW2z8VhGgTyazXmdHlrM2T5Jbb74T2Pw50Ma48uIL2Y4/F5kCJfkEVgDmTKFyGUq74aQyJrUD9N5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792420808; c=relaxed/simple;
-	bh=nIb72tWQZM/gVIvuxEnHHOxnOfLXr/hkpBhRlLRlsqY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iuiW2FgSm/fBKavaE6UwjFDz4NHrwDH3BGk3FiGPYKw1JC8o81btabrriAQbezPMZDoa+x77n9hi+mXaTWm94UgkS2XQjIdJu4XKrPudhk/98mThI+Atow7MPXzvSu7T6ulYQamUunBzTSEIwl6iaxF9rngUva6uL6auHiKv34g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=yKS71ieX; arc=none smtp.client-ip=216.40.44.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	bh=pwjAxSjLuWoCyYAVhTlWcCU3k6IV2ZHDLx7Jj3Of7nw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=oZdPJl20EQ3kUL5Y7t/lQkxCozV+RtkXcS817dID5J0WFQamrPvyHysIBAZfukkHvKkXh38SZFhjsXgcP9A4fq4Rz7r1k8c318niqxhXncXbWdqcEnh6IHD74f7zjLF4J/UeImYFyMPI7Jv2NUfmHTE8g29IoJY0VJL2FPGcBsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=imR3VF0H; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="yKS71ieX"
-Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id 06E88A071B;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="imR3VF0H"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 554EF4E4120B;
 	Mon, 19 Oct 2026 14:40:03 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id E89D92000E;
-	Mon, 19 Oct 2026 14:40:01 +0000 (UTC)
-Date: Mon, 19 Oct 2026 10:39:57 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-Cc: mhiramat@kernel.org, shuah@kernel.org, beaub@linux.microsoft.com,
- mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] tracing/user_events: Share state with existing
- threads
-Message-ID: <20261019103957.69759ee3@gandalf.local.home>
-In-Reply-To: <20261019142301.2084882-1-jeffbarnes@linux.microsoft.com>
-References: <20261006164720.3940272-1-jeffbarnes@linux.microsoft.com>
- <20261019142301.2084882-1-jeffbarnes@linux.microsoft.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 26AC460582;
+	Mon, 19 Oct 2026 14:40:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C0BB110328E21;
+	Mon, 19 Oct 2026 16:39:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792420797; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=2558d3oEif7BHNSpDFXjjEfEGVqxe4R6m3rNhXBFMy0=;
+	b=imR3VF0HPWrcZd2WKEwd1C78YgVYd0zoxoTXE522efmJm7XK0tnfdjOO3ZJMWFBqZgn2rO
+	XSkJ/DAJYLBxgbOrFryJ782qM0Y+YCZf/9LdJC0ahRouAEPv5NRaJFl/m7e1Pqu7tx53yr
+	2cg2OY25eGzx1PqbVOOAhm/Vaz9//z2I7b0zbe2kVirDp5P7DvvLfFAZV+UGhRfutMrQl8
+	PnNe7swRj8exnKxuJEfq/dpVFUNuozuBThvPGgVpe0Gx7IJXsDUeVf1yB4ldkbVAwOgxQc
+	CKYzfxJyW70r+kk+erxMGvQIdQwfhZCaLRKzl4TILtA2DSzrDoZJg7f4oCvg9w==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout07
-X-Rspamd-Queue-Id: E89D92000E
-X-Stat-Signature: 8tjo8czkkxtce98zqpygfg65hak6hnha
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18l97dNhDQNr/m/gbgR4Aa1qmemmMHzTcs=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=TgvEG1bdMe8lKkcr4Dz3rJBRTT/4j1TEWGKmyyDzNQU=; b=yKS71ieXeJYDjSUUSyVRtUr6bZTnRYt5oirI94eZCb9PaR4EQXpRum9Nj00UPZYDXkLvvp4oL8/nCXDtaY9WWBTz1W1y3jS4io7hXw6cANo1bhev6Ec5W7KNibHWuWbiJCmBhXxdntfuUZoAfPd5eVIemk3OMNmcxSYVegklPT8=
-X-HE-Tag: 1792420801-279918
-X-HE-Meta: U2FsdGVkX1+Zl43l3YKIvN4ejUDl4dQDf8EA41H1S605DoC5Oa3QVXOnRhq6kuAxSO23FdWbkFpPVLkfsXQzRTIZ/Z7nOISU20NRLquuczR8Dg4HvP8vm9YW2y4CFIcSsYnAEUvaf0IACRsOh4n1azXsMGoOHmfcHLzkcXe7v8OlZAVfnow4zlcXuyAjqBUHMgltp2As6e//CsZRkt2kwolItLB+5Dsshccd77UwOUpT56gbfg1wOU9H71ezrfHlwUu/h9dzsPr5E31Gp1ZETJxN7aXNsU4CQSCYseku9/gaAzBPuxfw7YU72gzg+j8TQJMnfhL2qYLtLN2S9FSWEjI/7J96EaIm
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 19 Oct 2026 16:39:50 +0200
+Message-Id: <DM8W53QHZGGW.H5DPDQW3OQT9@bootlin.com>
+Cc: "Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Geert
+ Uytterhoeven" <geert+renesas@glider.be>, "Magnus Damm"
+ <magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
+ <linux-renesas-soc@vger.kernel.org>, <linux-edac@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "Miquel Raynal"
+ <miquel.raynal@bootlin.com>, "Herve Codina" <herve.codina@bootlin.com>
+Subject: Re: [PATCH v6 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Geert Uytterhoeven" <geert@linux-m68k.org>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com>
+ <20261013-paul-v7-3-rc1-edac-v6-2-2f1d6f2f74db@bootlin.com>
+ <CAMuHMdUkhM3OtWnckc-ou69ZYFMfRT+DmU5AgUctJ0uY9w_GDw@mail.gmail.com>
+In-Reply-To: <CAMuHMdUkhM3OtWnckc-ou69ZYFMfRT+DmU5AgUctJ0uY9w_GDw@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 19 Oct 2026 10:23:01 -0400
-Jeff Barnes <jeffbarnes@linux.microsoft.com> wrote:
+Hello,
 
-> Gentle ping on this series.
-> 
-> Please let me know if there are any further comments or changes you'd like me to make.
+On Mon Oct 19, 2026 at 4:21 PM CEST, Geert Uytterhoeven wrote:
+> Hi Paul,
+>
+> On Tue, 13 Oct 2026 at 12:45, Paul Louvel <paul.louvel@bootlin.com> wrote=
+:
+>> Add the Cadence EDAC driver found on Renesas RZ/N1x SoC.
+>> The memory controller supports ECC, software scrubbing, and SECDED.
+>>
+>> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com=
+>
+>
+> Thanks for the update!
+>
+>> --- /dev/null
+>> +++ b/drivers/edac/cadence_edac.c
+>
+>> +static const struct of_device_id cdns_ddr_ctrl_of_match[] =3D { { .comp=
+atible =3D "cdns,ddr-edac" },
+>> +                                                             {} };
+>
+> Why this weird formatting?
 
-Hi Jeff,
+Clang-format shenanigans.. It will be fixed in the next iteration (coming
+today).
 
-FYI, always start a new thread when sending out a new series. Don't make it
-a reply to an old one. That makes it confusing to know which series to look
-at.
+>
+>> +MODULE_DEVICE_TABLE(of, cdns_ddr_ctrl_of_match);
+>
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
+>
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
 
-Also, I've was traveling between September 14th and October 10th and my
-backlog built up quite a bit.
-
-If Beau can review this series, that would be great. I'm currently putting
-together several branches for the merge window. Unfortunately, due to my
-backlog, there's patches that have been sent this month that will need to
-be postponed to the next window.
-
-As user_events are agnostic to other changes, there's still a chance your
-changes can get added this window.
-
--- Steve
+Best regards,
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
