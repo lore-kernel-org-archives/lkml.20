@@ -1,65 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792422241;
-	b=Ewj06rTB906I8pxFkiWO19i1tBHXYiei4CExdLFjKtl4m9ca5Tg7WAu+i5+uk8UN1PR+
-	 7pOwsyDGvIPkNDhnI9LO0iV+9G/2ywe6kyvYiD6BGatpOrHNp1Me4M/vo0BovxD2dT0/8
-	 gwOwW8gg2gboUuNUl1WXeLxPKJw0JBDKDG6iOeqgQcWKBUmiIeMDAXlpohrHN5ws9w9Te
-	 We1AIyOB7Z/6MacHQ5V9GwfjogeGn4MTz0liA/Yg6jf1TI+lFs8o2YyD92REHLl4MkSGa
-	 1PGomgwZjR5DCTprdjkATrSuVRTr/QOqGr3tDeQcJ25fAZeVfuI1hwx0YtsXOQNEGVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422241;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=Gcyo/x+7dSKQKoLvMY1mobH5f1e7zJvCCB0MCLbeP+w=;
-	b=Hpp+z+zRFg6ye4uKpdo+dYvwDQxocNp+vR6lkn4ZQWSguFwNJZGHLnUrs07vH09tee02
-	 5DprWaycZl9CJ6lCqW1cucaiYNmG1Zcm4u+CbJUuIZR3cFhDQsFPEphjlthAHdBWUSS2w
-	 qPG5G7+hOJ2ztYoRS9dso3IOjP+iG2b1z2sq9neV4wNeb6d5y1vHzkeTZA7ok5GOv6vRW
-	 wtq4WUuoXYAZKvmK2ZO2GlKgZD1sfymtBw4xR0GKpXwGi7twBRnIZyTG0/LvIgTqcwmIG
-	 a4QEAyAYyFG/khRXy1WenHICWyBqbTUkv7v+fsQEVui4eL2DkW/63ablORyJKEGR+Yw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=VoDhipSD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792422881;
+	b=bc4eHX5SCDiuMGjV84l7OMYzh2VcKnIGXRqSiyhPzpI3+Eedpim8pzX21iWfUx/F7Qcb
+	 RGloAz5OW5W6pRPbdaKcBYhRdBAEylRmuUoHbPdtZRA7Zh7xIcO9hfonsRNRxxPncvz4X
+	 kI5V2qdcK3F2IHU+BSmHXD392sK5gT1ZteWnvMRJW706JqFM6j+a7qA7K8gwVI+EQLvx/
+	 FptWG3zTdAvh/q7VEr3C6kbBIoKXIkdEjc9ur6UW965NY+RZKLJTzsPlpgMAkr4Vplksx
+	 KOEUuPFzX+5dKhHx2NLeeoGkwPtJycCYvHk1oqyW7HKON99OlXjFvWPD6Ox/J3VhpVg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422881;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-Ironport-Invalid-End-Of-Message:X-ExtLoop1:
+	 X-IronPort-AV:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=MQb8B/qhw+4yCI3Cj8R+lrtVqs8STV1i2INQuKnCvNw=;
+	b=0EhfHbKk18cIZDpB+Dnm54WrxFIaLmQf86sgRuGvaCjycoCs60yytX4KkhrUKhKQNAZ3
+	 +FD5ThRA7owWble/dk8+DtCXo0xeeWw5VxdJPEoIViL8mSyD8fmpnjgKLOyWzUMpYYCeJ
+	 Zq5s8KNQkRCgZHDoTRm6KsBkDyRlCz8PMQrn6R3LqcY9FfrIuob8DCXOapJHom4Vvn72d
+	 o/N8MmmRB+fE2rRlXemDDmYru3lAxQlyYBvuoGeNe1JdDkuwKO97LQ8rBOIsQiST+TBPF
+	 RGh6apuc+PAcEQgkVFLB4t7lTdeVnlFC0i9bAtXrJL2HHvaL+psB260T1CnNmN8c+hw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CC46qBE9;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518B9607DC77;
-	Mon, 19 Oct 2026 15:04:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 518B9607DC77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2458E609CEEA;
+	Mon, 19 Oct 2026 15:14:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2458E609CEEA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=i@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=VoDhipSD
-ARC-Seal: i=1; a=rsa-sha256; t=1792422193; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Bqu0yagmjCb0/3ixkEDVf4E3QdM9HCgwy8sJrW3IrvvmzL1oeQQFz39RN/osvRH8g3cXHWe/hmG4KDnRT2m0Atg5660Z1szww3iadT9eujJKHGdyzDkDqJfoOl8Lacs1VQTTL2ZWWXoy5++WyJQ+kJTyzykzJXxgIUuwy74Jwd8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792422193; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Gcyo/x+7dSKQKoLvMY1mobH5f1e7zJvCCB0MCLbeP+w=; 
-	b=GiLVAeDg58xjTM0a6Kz7cZImgWSuUOGE0fvGRtUUl9YXvZWRLAMDtBfABp/qXnDUWKv5kAVTBV8lvIAbIiSG5onUEiFSAfcWejQbytelIrWLuqv91bXasG5dFqXB01YvG3MtTmzLSx9E2hkX8OdVlyoyr0SUA6qfr1Ed47szwHM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792422193;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=Gcyo/x+7dSKQKoLvMY1mobH5f1e7zJvCCB0MCLbeP+w=;
-	b=VoDhipSDM5583y3C3rxGMbo06zhNXgyqlgLmzp5/9y2DgqixEE94WGAtXhIaaJYu
-	+3pLNiqZCCN/Uleo12OF0J1DXdlDJeV5mOcD1RAbEaFmbyFVZFYgYzm5on3zfb989Jb
-	BvvyG4ADKNC2sfgkBAtBDDML3LlIcjsIqO5pVitsBn8DSBoBqnoK5COJ8uY8KYJO1b7
-	tWIh9rZcgKGAbfueVenLnkvHkv0EOlImyJ/mghTQDASVoKDxzruzSB/d9MAsZuogSCK
-	gFjLpFTnZjA+JNVRXO3XQa7NeRqJTzJktq+84Jv4ft9mGhXGJ2I4cpdczfOWFvExMes
-	7OXytgqIaw==
-Received: by smtp.zohomail.com with SMTPS id 179242219054699.15617082516553;
-	Mon, 19 Oct 2026 08:03:10 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Mon, 19 Oct 2026 23:02:27 +0800
-Subject: [PATCH v5 05/12] platform/x86: lenovo-wmi-capdata: Defer mutex
- initialization
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CC46qBE9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792422882; x=1823958882;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=z0SkwW//ef7ZJBaFBPaI8edP8HDdXv5L0ptXLFoUlhA=;
+  b=CC46qBE90hvWXyDls/cD7sZtX1nDBEZzDiu1IfzRY2SDWrrI6HQvW46l
+   GznsHv2cXs5YUyTYVzNiSOjW5hkmweiIvQSg8fpDbbAE79otYhcppbJrq
+   V3HqfL+Q36wMJti9qrEOc6d+87FNjcorJEhY+VQoXKvkDXsvnxv7MH1In
+   +pZqkWPxkgvrcjJ1AWLnF8Tcex4SF8ko2UZFMSW1VI8KMUEyAqDZdG8Ah
+   ojKh0NRNJ4O90Ioe7oOlCHtK+BiwhLXdv9GhpAMxDiv9lyBzF2gBUxQjA
+   lq60KGjBzm/Y8GGr77dnc45Yt0nOgesx4M9+dUcjflZnpYu5LOCNu1o0/
+   g==;
+X-CSE-ConnectionGUID: jgmDl+l3SGq+yGwnXGQ8WQ==
+X-CSE-MsgGUID: JRqmPQ4DR0OLsLrOPgztqg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986942"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="986942"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:35 -0700
+X-CSE-ConnectionGUID: GGDSOwEDQZ61D8gwWWlfYQ==
+X-CSE-MsgGUID: qXaD5L4/QjeN7C8PwD3kgA==
+X-Ironport-Invalid-End-Of-Message: True
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2537007"
+Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
+  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:35 -0700
+From: Daniel Byrne <daniel1.byrne@intel.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>
+Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Kristen Accardi <kristen.c.accardi@intel.com>,
+	dmaengine@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 17/17] dmaengine: idxd: run the interrupt-handle revoke under the queue lock
+Date: Mon, 19 Oct 2026 08:06:30 -0700
+Message-ID: <20261019150630.4026341-18-daniel1.byrne@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,230 +91,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261019-lwmi-wmi-new-api-v5-5-71557d28d058@rong.moe>
-References: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
-In-Reply-To: <20261019-lwmi-wmi-new-api-v5-0-71557d28d058@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Armin Wolf <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>, 
- Navon John Lukose <navonjohnlukose@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-6be7c
-X-ZohoMailClient: External
 
-In the following changes, priv->list may be freed if the first call to
-lwmi_cd_cache() fails due to WMI/ACPI errors, so the list_mutex must be
-initialized after it in order not to break lockdep, as there is no
-devm_mutex_destroy(). Considering that the first call to lwmi_cd_cache()
-doesn't need serialization as there is no other reader or writer this
-early, the initialization of list_mutex can be deferred.
+The interrupt-handle revoke worker requests each new handle without
+wq_lock, so that a reset can end the request, and the queue may be
+unbound while it waits. It reads the queue's state without the lock,
+submits the drain after unlocking, and on a failed request quiesces the
+queue and completes the descriptors that carry the revoked handle
+outside the lock, so an unbind can unmap the portal under the drain, or
+free the descriptors, the allocator and the driver under the
+completions.
 
-Therefore, initialize list_mutex only after the first call to
-lwmi_cd_cache() succeeds, otherwise it remains uninitialized and can be
-devm_kfree()-ed.
+The unbind invalidates the handle in the same wq_lock hold that tears
+the queue down, so after the request the worker takes wq_lock and goes
+on only if the handle is still valid. The handle swap and the drain, or
+the quiesce and the completions after a failed request, then run in
+that hold. A queue a halt already killed and did not revive is left
+dead rather than revived behind the halt.
 
-Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
-Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Signed-off-by: Rong Zhang <i@rong.moe>
+Assisted-by: Claude:claude-opus-5
+Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
 ---
-Changes in v2:
-- Synchronize the initialization with release-acquire barriers (thanks
-  Ilpo Järvinen)
----
- drivers/platform/x86/lenovo/wmi-capdata.c | 86 +++++++++++++++++++++++--------
- 1 file changed, 65 insertions(+), 21 deletions(-)
+ drivers/dma/idxd/irq.c | 45 +++++++++++++++++++++++++++++++-----------
+ 1 file changed, 33 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/drivers/platform/x86/lenovo/wmi-capdata.c
-index 5748859f8101..3ef8879d8587 100644
---- a/drivers/platform/x86/lenovo/wmi-capdata.c
-+++ b/drivers/platform/x86/lenovo/wmi-capdata.c
-@@ -48,6 +48,8 @@
- #include <linux/types.h>
- #include <linux/wmi.h>
+diff --git a/drivers/dma/idxd/irq.c b/drivers/dma/idxd/irq.c
+index 4517a09fcf1b..8217698056bb 100644
+--- a/drivers/dma/idxd/irq.c
++++ b/drivers/dma/idxd/irq.c
+@@ -115,6 +115,11 @@ static void idxd_abort_invalid_int_handle_descs(struct idxd_irq_entry *ie)
+ 	struct idxd_desc *d, *t;
+ 	struct llist_node *head;
  
-+#include <asm/barrier.h>
++	/*
++	 * An unbind frees the descriptors and the allocator under
++	 * wq_lock, so they are completed under it as well.
++	 */
++	lockdep_assert_held(&ie_to_wq(ie)->wq_lock);
+ 	spin_lock(&ie->list_lock);
+ 	head = llist_del_all(&ie->pending_llist);
+ 	if (head) {
+@@ -142,6 +147,7 @@ static void idxd_int_handle_revoke(struct work_struct *work)
+ 	struct pci_dev *pdev = idxd->pdev;
+ 	struct device *dev = &pdev->dev;
+ 	int i, new_handle, rc;
++	bool killed;
+ 
+ 	if (!idxd->request_int_handles) {
+ 		kfree(revoke);
+@@ -166,15 +172,31 @@ static void idxd_int_handle_revoke(struct work_struct *work)
+ 			continue;
+ 
+ 		rc = idxd_device_request_int_handle(idxd, i, &new_handle, IDXD_IRQ_MSIX);
+-		if (rc < 0) {
++		if (rc < 0)
+ 			dev_warn(dev, "get int handle %d failed: %d\n", i, rc);
 +
- #include "wmi-capdata.h"
- #include "wmi-helpers.h"
- 
-@@ -91,6 +93,7 @@ struct lwmi_cd_priv {
- 	struct wmi_device *wdev;
- 	struct cd_list *list;
- 	struct dentry *debugfs_dir;
-+	bool initialized;
- 
- 	/*
- 	 * A capdata device may be a component master of another capdata device.
-@@ -586,14 +589,14 @@ static void lwmi_cd_debugfs_remove(struct lwmi_cd_priv *priv)
- /* ======== WMI interface ======== */
- 
- /**
-- * lwmi_cd_cache() - Cache all WMI data block information
-+ * __lwmi_cd_cache() - Cache all WMI data block information locklessly
-  * @priv: lenovo-wmi-capdata driver data.
-  *
-- * Loop through each WMI data block and cache the data.
-+ * Loop through each WMI data block and cache the data locklessly.
-  *
-  * Return: 0 on success, or an error.
-  */
--static int lwmi_cd_cache(struct lwmi_cd_priv *priv)
-+static int __lwmi_cd_cache(struct lwmi_cd_priv *priv)
- {
- 	size_t size;
- 	int idx;
-@@ -615,7 +618,6 @@ static int lwmi_cd_cache(struct lwmi_cd_priv *priv)
- 		return -EINVAL;
- 	}
- 
--	guard(mutex)(&priv->list->list_mutex);
- 	for (idx = 0; idx < priv->list->count; idx++, p += size) {
- 		union acpi_object *ret_obj __free(kfree) = NULL;
- 
-@@ -633,14 +635,38 @@ static int lwmi_cd_cache(struct lwmi_cd_priv *priv)
- 	return 0;
- }
- 
-+/**
-+ * lwmi_cd_cache() - Cache all WMI data block information
-+ * @priv: lenovo-wmi-capdata driver data.
-+ *
-+ * Loop through each WMI data block and cache the data.
-+ *
-+ * Return: 0 on success, or an error.
-+ */
-+static int lwmi_cd_cache(struct lwmi_cd_priv *priv)
-+{
-+	/* Synchronize mutex initialization. Paired with lwmi_cd_finalize(). */
-+	if (!smp_load_acquire(&priv->initialized))
-+		return __lwmi_cd_cache(priv);
++		/*
++		 * The request runs without wq_lock, so that a reset can end
++		 * it, and the queue may have been unbound meanwhile. An
++		 * unbind invalidates the handle in the same wq_lock hold
++		 * that unmaps the portal and frees the descriptors, so a
++		 * handle still valid under the lock means that the queue
++		 * still has its portal, its descriptors and its completion
++		 * handler. Everything below, the drain included, stays in
++		 * this hold.
++		 */
++		guard(mutex)(&wq->wq_lock);
++		if (ie->int_handle == INVALID_INT_HANDLE)
++			continue;
 +
-+	switch (priv->info->type) {
-+	case LENOVO_CAPABILITY_DATA_01:
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	guard(mutex)(&priv->list->list_mutex);
-+	return __lwmi_cd_cache(priv);
-+}
-+
- /**
-  * lwmi_cd_fan_list_alloc_cache() - Alloc and cache Fan Test Data list
-  * @priv: lenovo-wmi-capdata driver data.
-- * @listptr: Pointer to returned cd_list pointer.
-  *
-- * Return: count of fans found, or an error.
-+ * Return: 0 on success, or an error.
-  */
--static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv, struct cd_list **listptr)
-+static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv)
- {
- 	struct cd_list *list;
- 	size_t size;
-@@ -686,6 +712,9 @@ static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv, struct cd_lis
- 	if (!list)
- 		return -ENOMEM;
++		if (rc < 0) {
+ 			/*
+ 			 * Failed to acquire new interrupt handle. Kill the WQ
+ 			 * and release all the pending submitters. The submitters will
+ 			 * get error return code and handle appropriately.
+ 			 */
+ 			ie->int_handle = INVALID_INT_HANDLE;
+-			idxd_wq_quiesce(wq);
++			__idxd_wq_quiesce(wq);
+ 			idxd_abort_invalid_int_handle_descs(ie);
+ 			continue;
+ 		}
+@@ -193,21 +215,20 @@ static void idxd_int_handle_revoke(struct work_struct *work)
+ 			continue;
+ 		}
  
-+	list->count = count;
-+	priv->list = list;
-+
- 	for (idx = 0; idx < count; idx++) {
- 		/* Do not calculate array index using count, as it may be truncated. */
- 		list->cd_fan[idx] = (struct capdata_fan) {
-@@ -695,8 +724,7 @@ static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv, struct cd_lis
- 		};
- 	}
- 
--	*listptr = list;
--	return count;
-+	return 0;
- }
- 
- /**
-@@ -712,7 +740,7 @@ static int lwmi_cd_alloc(struct lwmi_cd_priv *priv)
- {
- 	struct cd_list *list;
- 	size_t list_size;
--	int count, ret;
-+	int count;
- 
- 	count = wmidev_instance_count(priv->wdev);
- 
-@@ -724,11 +752,7 @@ static int lwmi_cd_alloc(struct lwmi_cd_priv *priv)
- 		list_size = struct_size(list, cd01, count);
- 		break;
- 	case LENOVO_FAN_TEST_DATA:
--		count = lwmi_cd_fan_list_alloc_cache(priv, &list);
--		if (count < 0)
--			return count;
+-		mutex_lock(&wq->wq_lock);
+-		reinit_completion(&wq->wq_resurrect);
 -
--		goto got_list;
-+		return lwmi_cd_fan_list_alloc_cache(priv);
- 	default:
- 		return -EINVAL;
- 	}
-@@ -737,17 +761,33 @@ static int lwmi_cd_alloc(struct lwmi_cd_priv *priv)
- 	if (!list)
- 		return -ENOMEM;
- 
--got_list:
--	ret = devm_mutex_init(&priv->wdev->dev, &list->list_mutex);
--	if (ret)
--		return ret;
+-		/* Kill percpu_ref to pause additional descriptor submissions */
+-		percpu_ref_kill(&wq->wq_active);
 -
- 	list->count = count;
- 	priv->list = list;
+-		/* Wait for all submitters quiesce before we change interrupt handle */
+-		wait_for_completion(&wq->wq_dead);
++		/*
++		 * Kill percpu_ref to pause additional descriptor submissions
++		 * and wait for all submitters to quiesce before we change
++		 * the interrupt handle. A queue a halt already killed and did
++		 * not revive is left dead.
++		 */
++		killed = idxd_wq_kill(wq);
  
- 	return 0;
- }
+ 		ie->int_handle = new_handle;
  
-+/**
-+ * lwmi_cd_finalize() - Finalize the capability data initialization
-+ * @priv: lenovo-wmi-capdata driver data.
-+ *
-+ * Return: 0 on success, or an error code.
-+ */
-+static int lwmi_cd_finalize(struct lwmi_cd_priv *priv)
-+{
-+	int ret;
-+
-+	if (priv->list) {
-+		ret = devm_mutex_init(&priv->wdev->dev, &priv->list->list_mutex);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	/* Synchronize mutex initialization. Paired with lwmi_cd_cache(). */
-+	smp_store_release(&priv->initialized, 1);
-+	return 0;
-+}
-+
- /**
-  * lwmi_cd_setup() - Cache all WMI data block information
-  * @priv: lenovo-wmi-capdata driver data.
-@@ -766,7 +806,11 @@ static int lwmi_cd_setup(struct lwmi_cd_priv *priv)
- 	if (ret)
- 		return ret;
+ 		/* Revive percpu ref and wake up all the waiting submitters */
+-		percpu_ref_reinit(&wq->wq_active);
++		if (killed)
++			percpu_ref_reinit(&wq->wq_active);
+ 		complete_all(&wq->wq_resurrect);
+-		mutex_unlock(&wq->wq_lock);
  
--	return lwmi_cd_cache(priv);
-+	ret = lwmi_cd_cache(priv);
-+	if (ret)
-+		return ret;
-+
-+	return lwmi_cd_finalize(priv);
- }
- 
- /**
-
+ 		/*
+ 		 * The delay here is to wait for all possible MOVDIR64B that
 -- 
-2.55.0
+2.43.0
 
