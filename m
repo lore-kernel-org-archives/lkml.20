@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792450949;
-	b=Zfuo2+gn4R/2gh6SO86K/ELWqEN7S4YJCm0cjBcC5fdxy6ekEIsEUNuU0CcMHVur4k++
-	 RW8pUzB5VZwWNeuFTXe6mnebqe6j2Gzj0WML4fnc2D0RTCCRTTP0um50F43TtZW9Wm4vc
-	 bwnO8bXTg61WZv4TcGghX6ChHH8Ex8JwdbecsAtyCEV1NfmcO3PbPkUsmbjg0gaOvYYt0
-	 kFEXNOla8aygJl0KX41KWrNlxMgFkhOZk08IBD6ktwVMO8rzaCE6AFTilrNSCs6Zsdkb5
-	 n7TImt2HnAdfy1TRWxy1aNLD/YWIT4CeSq0X5EJ/dkh11qblCQdderx+88YasmY2j8g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792450949;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792450999;
+	b=Eun7a1CSdvAUjBDLomWB1UCrWsXFJWjxO0+R3Sh4kdsZersU2+G7aAP4e/sn8kkYWjmU
+	 Ce0LHNPyT9+Jp5sB7GskErIQoaWJCJwbLOPwDDRkqpPFOnoDSC4iu2OeCgekDkfJ0Twxl
+	 mYSAByFFAGpo6naxRq1tXNRNCrF4LGOxTv5YUFjry22/6pCwCv92eqK7rNana8ieqG8rH
+	 IxQlFBASa33Zv04CHxgam0IfAZRzyxy1fwzsfmGWaETD4GxEPgtJLxP/4O/oBFf+HdafP
+	 OqXvbntpZ/tvXfMIs+XCz2k5RBEEuNwYhIVlPmoFSo+LqWqQDr6mU6ScHpZyj7aN19A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792450999;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SxXk8dddMwy/ogUv/hn3+CQ1fsGwLG6Bsf0XfAWIAd0=;
-	b=HsTD95G71ChszTReiqBkXZL45H9z8zpGVh90voChKiQHepb7aNan9wSUVvDcEsebErbM
-	 R/NLGyCuB6ssDFm4BEHGsQqu73GZW59j2akfGMysUcFgB0c0Vur8h1+Zchq6gCHi07l8S
-	 amqPD8ATLi1NemL8LjDT9bFRFaTdbDnnTgRNT7nidMQYaPdw5l7asENafbkkwx1nF7T5Y
-	 eTb/vY75+vdaaqRhtjyrpig2A0PCH2Gz5Eagre8ZfW8bBXFJkkNBznp7Vx1q+FXJD0BLl
-	 nZtYnnwscmb/shU7ujc9/DMCSlfBQjS/r26zfj4W0VxRt0oH8NvePLpMQRIurN1Ue5g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=XDtlaSExnYWqsMEa8VGfF5QYBt400ktE3qpWjPuxFnM=;
+	b=uKPZcQKChKHf4KihGqkKq8dbz+Zri/R8/MS8Z46zr4j6049hVAKhlNcIXOBxypMY9wTS
+	 fHVZgealDdk1tU0VspPZ3bL5mFHQ2TxjPFqLmiQxiwXCQmicksoamsdstLCZ0maFqTwJX
+	 +ppBYG+8izO8nqfWYVFDFc5TpD3/hzj8G72+SdBHxW9658GkC6OinBLIyVjcrmIlDCN7i
+	 fuRJk9HiBIUTx7svtTbwaHBVWfxgR8TfuPm5F+/0mBYDc8OJez8XXeVdIeHFPYoEIr/rg
+	 jgAoqcoH2HUJCl6BG0Yl0efZQTU5iaryB8VIpOI3z8h3e/zetQdJr2bn4WOa8/+U5oQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=emiDRE4z;
-	arc=none smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XzzBROxD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD10606A32A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:02:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CD10606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58951606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:03:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58951606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=emiDRE4z
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-48e94879f02so829585fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:02:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XzzBROxD
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c315869241fso296453766b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:03:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792450998; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LCsMXSIAy36vRMHF0qEEWkb4UYRdKlFjX8LQwb4BNwv5cUXVR1eDqh+PsAgf/Jb2v8
+         vuy0hauZ0HGx/uQl2oQ8Na5/QXbZKQ9sh438fqC1RfKzR6AYZ4zyGePxhqkb4oBY6O7/
+         xau4zePtxW28gvCZtqywbDlGxiq+rwghrP1ZVrnTKVQGKMNFhv+YIXxJfgrQx4L56NFx
+         d7agabjBr5HjkomVi22dCYnh9hKCun7nEoqDqumJkXs3TRl4bO0lOhYLWf1+s7h8a81E
+         AurslmoIyzqMYlzefI8aLUq9TIaqA1ri8NHU4z6o+3YOKFLGOJGbne1TcBxoOgo+D9wp
+         otBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XDtlaSExnYWqsMEa8VGfF5QYBt400ktE3qpWjPuxFnM=;
+        fh=llU6eFrYsDWgrpYbi4uoR4oGz17RXPq31hI1iK0aKUA=;
+        b=E1Obw3VlW48vtGhMlZh13rDoviQ9Ksko6t0ihna75O7slzPwHmygN7do4NE6zmTsc+
+         eZHLZknyIpji0xsQ4p+caARAloyxFgUt1ebHVyW2dqXCz32AfKMRAX9CwcN5bNcd7OnJ
+         D5tU6K07ujl3ys74yprCGY8v8qXV8r8wgiZDKLjq5fW7nKSNZBbI8pSIHRGg4pJSlxx2
+         kWZiiTvxfh+1H9fe/5oeXWlM17WXD51sfpUOSKc3v2fXOsXTJELKVwR8bRBP4zzamwIF
+         iKu56BY/su4eWnIIIVntcyGwa5F89L4Ua908pgWd3NpThK4MhYrlULFxEbMhPxhYpbKO
+         cCEg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792450948; x=1793055748; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SxXk8dddMwy/ogUv/hn3+CQ1fsGwLG6Bsf0XfAWIAd0=;
-        b=emiDRE4zcj2JsBGQh06HE7dGvppqe0sb9TFgS7L2xP6c33OipiChuVT/v0s1WkecoJ
-         oX1ZBGi3nfgLE+X1TeOxSy3meWqYJT8WfUH4zw4cvFYelVBDnnxMC1H3zLJ58wbaLMkL
-         G66zkr16V98kQoKy/DuXmZJIfFHYlwQCdHGX8C+i56gFZehACCPe4iHktSFCeM/CwUrl
-         mtFNC074cQc1aA9s9LpAQ8o1oymL/ntHSR+BFyLdJhk4+3bia0YCDcUQ4RSOEPl8v3tU
-         BAjnGiQHtwhu7BS6YvQwuZpkD1Kc9fUQt6LG5Wx8jsNhK3ASiox/q7JRTGndRigpc1SV
-         8VFw==
+        d=gmail.com; s=20251104; t=1792450998; x=1793055798; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XDtlaSExnYWqsMEa8VGfF5QYBt400ktE3qpWjPuxFnM=;
+        b=XzzBROxD32IdPg7PQj7Aj7TxdQnBcaRSj9035mBKfquTQx0kSnzkZMS1VhWweBSMB0
+         Sfh2J+MBxVbQK73iQuJ+L1ZmHVS8+3aMnan493N9WGr8rLM8keCy5k68bvczfivpbs2E
+         d24bsKReA/QrVBny9x68brCZh2uT/pj05oiV1qHcg9yELvChGFq6wcndflpIJ/fO23WT
+         E0uVQPyCryvPMrfKPYXecICvOblfMvqSZ13fElkWkrqo/+azdNVCNASt6xEYaglEVCqL
+         MZMXj/0At/h/fbycqLgYfcyffnLxBgrjuJV8XpQGLweVC8IFVekAu+tDbBL0V1C36tvA
+         x0Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792450948; x=1793055748;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SxXk8dddMwy/ogUv/hn3+CQ1fsGwLG6Bsf0XfAWIAd0=;
-        b=01DJ4kHkI/9AQTeEU2xV3eqOH4/efzMIEH577f4f2DZad+0bHALS2R8y2MA9Bw8fhL
-         Wg4A6GO6QfAHyb3RPOOvrrJAVpuzJcsgsq1JwVPWoHgGVZU9JAlhMoQ+yrKHxgkpYX5G
-         Qvl2fjzWKAS66cnYsqp9TTnFj2Z9RAH1v61Onb2RevoDwSbcbI2BDR6K1I6yLoyTYdCB
-         lboCGFb6HeyfsCpH8etZKWlwAGV1cY2pnvQVYQIV6JUUSEnHC5nt721NiBlIXmtMiGWl
-         J2y9xnEQxBYKqe1QRLx1uckXmU7Qa2JO348aCnLIUDARoivlwHMZOp7WMINH5ctTRRCJ
-         JiWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZMgMhp1z12uwsPz7zCeJS+rwN4sWljHwIM9M9Dg57Hu/AWfOctqNBVEuEaPqaIyAEVTMf750/F7fZ8dQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISdOBWdHxKR+QY8WxQX74CO9TjlWEmokwQNNXpDvI6MJock3fE
-	gUxQLDdNoh8dzbo0CKKKWndGeiHnSdkOkVndSGlBT26PDQlw4ij3FIiU
-X-Gm-Gg: AYBFou3IcuVfh9wUF0mrL4IFMV9uSYyIT7dCf1TYlYya6s9dtCqPiBuw1qOCQAw4DXr
-	FQOOspuJ2z/h5Py9UNW6QZGamFQBbKEoFDzlrrMJd2fi/rudkOa9jyYnxJwihxQNDOuEmSYKJyo
-	rNFAFaGoVMTgUc+Abhm4ekeKSq389IV+37O5kIacv1q5jf0J/pZoFF3gu9nxA5BD7IER61mQWTp
-	St5A2hkOGRy8IYRTbSn3RvONxEvv9g+D7zOBPy4shhbv1HCsw8GoBr0ufIcWGZUtCR7ek4yXgcg
-	1ZTFldvU3gRPexW7o6o/XkakaZ0bAzAUKfyNHgJustFeCZ4c/5D9IiqlZ3xoDNhsUvpeR6Xv950
-	AF3kqYocMjPwr3sDKj30idHe6sKl6Tt8JYh/orsZq7ZTfLhBfu6917bMm0fJ0GIpLrXj8vYshSD
-	ZCdop7S8FtGlzRL1SQ+g2n68qjQAapIcTFWE+7lb9ULrxn89gQ0298U5zdoVk1XE7oHH0L2KHeu
-	uVUjOX6UsjN93f88Cbgw8JoVts=
-X-Received: by 2002:a05:6870:8112:b0:4a2:4d67:5977 with SMTP id 586e51a60fabf-4a7578ad1a5mr7023842fac.18.1792450948070;
-        Mon, 19 Oct 2026 16:02:28 -0700 (PDT)
-Received: from localhost.localdomain ([2600:1702:4ff0:baa0:5054:ff:fe3d:4ddb])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a73b6d7e0csm9327797fac.12.2026.10.19.16.02.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 16:02:25 -0700 (PDT)
-From: Will Porter <mrwillporter@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Neil Andrews <neil@androos.io>,
-	Christian Ruppert <arc@gmx.li>,
-	Will Porter <mrwillporter@gmail.com>
-Subject: [PATCH 5/5] ALSA: usb-audio: Replace the Audient iD14 MkI FU 12 control
-Date: Mon, 19 Oct 2026 18:01:59 -0500
-Message-ID: <20261019230159.834954-6-mrwillporter@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261019230159.834954-1-mrwillporter@gmail.com>
-References: <20261019230159.834954-1-mrwillporter@gmail.com>
+        d=1e100.net; s=20260707; t=1792450998; x=1793055798;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XDtlaSExnYWqsMEa8VGfF5QYBt400ktE3qpWjPuxFnM=;
+        b=bJOACXAQtGcjPzYDGOfoMLlereG6GIZLYbhBnOR7V/AggpU7+LNc2uPGvC8IdkA/K9
+         dnxAGr4ZRobsclLPVKxgGq/sjibx4JfuoKs71OJU2ZzNRwqY9kyMmKvgiEJ86mo7wAmq
+         jRL51cxPs5qtAibwKaXla9KX1+WyeYF8YGyI+llTg12iMCb+Wm//B/0a+PNbSLoXhCkD
+         /zKhjgK17waq1QDmY26cB/r+NRDr36QJCVif5R0KjJT2BKx06w+6Fjii0/3keDCJVfqj
+         NcuqYYsOclOuozTlnnrqT3Ybgb/fbEBFA7O3NnXsmkXwIFG/6a3YDkpy3wWqjwkwUcBf
+         ++pQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwsXvkw/yrxFqGOCLjkNRuAFFYlekDp/FKBiDTvdlPZzrmkS2sMP+DAvyJybLAF7dbmREwOsMKJkrYNdu4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXCAVY/Spwz713WlvOEHMkgQgu2iW8l5b+E9W8ujAvpWeLrSRz
+	YYUmwD+N7tq3g0BCMGnemkIeRP2II5+5XKa4A+gwEdWtMVZc7nZRsiG2xMLTa0OF+fdIaLTzHzG
+	tP9/cm0esFDMp0aeKJJb60mla2QxCPw==
+X-Gm-Gg: AYBFou0ZYFy0BPjlbr0das8Bl0zylpiFJnja87kmdGTYKE6TrbG/ytAyadZCsjukqRY
+	5i1sgrLoGt2hTpn4qEHi8OnDN8G/q3GkpL7K8Q8HGDYxbbUdJ1igLCQ33wsIOjFgw4+43nvl9GJ
+	eEhEa362f1nUgicmzP48sQkDHu35J69PM1ws04eRbpWx+2FCkhzjBljSlcQTp4ut3tLqxwpELaS
+	5x8KMXyoB0PSuYYtNGwZ6OVQkPSwDm46vNK9k18ZsCiSmxB/Ty20QqFm6wk/7UV2mQ+hZrFHcto
+	gxL0YxXm7Fr/X/jqbmcDVSrzeqDnlpVhtC1sF0E9eRTjgAhMymalM/bSisrwsITlBTtr6/8PSYJ
+	PNKZ2VE+ejJq1MyEts5bzTsE0cTARBKOGuWoHMRfmNw0h6vJLqLO8/db/ei8qMZzLiefB
+X-Received: by 2002:a17:907:2da9:b0:c45:b99:f282 with SMTP id
+ a640c23a62f3a-c450b99f2famr243449866b.7.1792450997629; Mon, 19 Oct 2026
+ 16:03:17 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,262 +104,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CGME20261018035132eucas1p2ccd8f0233fd196fd8801506c1c213b39@eucas1p2.samsung.com>
+ <179229547105.3971562.9800339494753406560.s5p-cec@gmail.com> <6c07141b-e2d7-49b2-8493-394d727c3a15@samsung.com>
+In-Reply-To: <6c07141b-e2d7-49b2-8493-394d727c3a15@samsung.com>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Mon, 19 Oct 2026 19:03:03 -0400
+X-Gm-Features: AclHuK-b8j1-fi2uZSAQdYkd1yB7zxeS2EFL02Kkr6JbCillyjdAs-mauMrGRkc
+Message-ID: <CAGEsz8G1k9O2CpA23vKmUFghfN-HTFhVUtx693A0whq-mSbxYA@mail.gmail.com>
+Subject: Re: [PATCH] media: s5p_cec: release IRQ before deleting the adapter
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-samsung-soc@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Feature unit 12 sets the level of the mixer outputs: channels 1-2 Main,
-3-4 Cue. Two firmware faults make the generic control wrong on the
-MkI:
+Hi Marek,
 
-- GET CUR does not return the FU 12 value. It returns a reply buffer
-  that the device shares with FU 10, MU 60 and XU 51. The buffer holds
-  the data of the last GET or SET to any of them. So the generic
-  sticky-GET check passes, because GET echoes the SET just sent. The
-  check then writes the stale value that it read first to channel 1.
-- Main L ignores its level, but Main R applies it. So any Main value
-  other than 0 dB unbalances the main outputs. audient_id14_map already
-  records this asymmetry. A loopback cable measured it: Main R at
-  -20 dB, -40 dB and mute changes its output by -20.0, -40.9 and
-  -56.6 dB. Main L at the same values changes nothing. Cue L and Cue R
-  both work.
+Agreed. I'll switch to request_threaded_irq() and free_irq() in v2.
 
-Replace the generic control with one of the same name, count and range.
-It is "Monitor Mix Playback Volume", with four values from 0 to 127 in
-1 dB steps. 127 is 0 dB. Value 0 is mute (0x8000), the floor that
-Audient's iD application writes, and the TLV says so. The four values
-keep the Main L/R, Cue L/R layout of existing saved ALSA states, but
-Main is now held at 0 dB.
+Thanks for the review.
 
-The control holds Main at 0 dB, as the iD application does. (The
-application has no Main fader and writes 0 dB at launch.) A put always
-sends 0 dB to channels 1-2 and returns that value to the caller. Get
-reports it too. For Cue the control shows the last value the device
-accepted. At probe the driver writes the iD application's launch values
-once per channel: Main 0 dB, Cue muted. A channel whose probe write
-fails reads as mute until a put succeeds.
+Best regards,
+Myeonghun
 
-The iD14 MkI profile in alsa-ucm-conf writes 127,127,127,127 to this
-control at boot and when its HiFi verb starts. The new control accepts
-that write: Main stays at 0 dB and Cue goes to 0 dB, the same result as
-with the generic control.
-
-Differences from the generic control:
-- Value 0 is now mute. It was -127 dB.
-- The control holds Main at 0 dB. A Main R attenuation stored with the
-  generic control (for example 107, -20 dB) now restores as 0 dB, which
-  raises Main R by 20 dB. Main L never applied that attenuation, so
-  Main R comes up to the level that Main L already had. FU 12 comes
-  before the monitor controller (XU 54) and the headphone level
-  (FU 10), so the volume knob still sets the listening level.
-- Cue starts muted at every probe. An output routed to the Cue Mix
-  keeps that routing across a module reload or a rebind. On mains
-  power it also keeps it across a replug. That output is then silent
-  until alsactl restore runs. On bus power the MkI returns to DAW Thru
-  when it enumerates, so no output is on the Cue Mix at probe.
-
-Test setup:
-- iD14 MkI, firmware 1.1.1
-- Bazzite 44, kernel 7.2.9-ogc3.1.fc44
-- snd-usb-audio built out of tree from the v7.2.9 sound/usb sources
-  and the complete driver (this commit and the later ones)
-
-Results:
-- the loopback measurements above
-- the Cue master, by ear
-- a put of 107,107,90,90 reads back 127,127,90,90
-- alsactl restore of the Cue level across a replug
-
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Will Porter <mrwillporter@gmail.com>
----
- sound/usb/mixer_audient_id.c | 147 +++++++++++++++++++++++++++++++++++
- sound/usb/mixer_maps.c       |   2 +-
- 2 files changed, 148 insertions(+), 1 deletion(-)
-
-diff --git a/sound/usb/mixer_audient_id.c b/sound/usb/mixer_audient_id.c
-index 47e16e572..b729ca0d7 100644
---- a/sound/usb/mixer_audient_id.c
-+++ b/sound/usb/mixer_audient_id.c
-@@ -45,6 +45,7 @@
- #define ID14_IT_DIGITAL		0x01	/* input terminal: optical and coaxial inputs */
- #define ID14_FU_OUT		0x0a	/* feature unit before the outputs */
- #define ID14_FU_IN		0x0b	/* feature unit on the inputs: CN 1-2 Mic, 3-10 Digi */
-+#define ID14_FU_MIX		0x0c	/* feature unit after the mixer: CN 1-2 Main, 3-4 Cue */
- #define ID14_ROUTE		0x33	/* routing XU: CN = destination */
- #define ID14_MON		0x36	/* monitor controller XU */
- #define ID14_MIXER		0x3c	/* mixer unit: 14 inputs x 4 outputs */
-@@ -506,6 +507,149 @@ static int id_add_ctl(struct usb_mixer_interface *mixer, const struct id_ctl *c)
- 	return snd_usb_mixer_add_list(&e->list, kctl, false, true);
- }
- 
-+/*
-+ * iD14 MkI FU 12, the mixer output level: CN 1-2 Main, 3-4 Cue. GET RANGE works
-+ * (-127 ... 0 dB, 1 dB steps), but GET CUR returns a reply buffer the
-+ * device shares with other units, not the FU 12 value. So the generic
-+ * control (hidden by the name map) shows stale data, and its sticky-GET
-+ * check passes and then writes that stale value to Main L.
-+ *
-+ * The firmware ignores Main L (CN 1) but applies Main R (CN 2), so any Main
-+ * level other than 0 dB unbalances the main outputs (measured with a
-+ * loopback; Cue L and Cue R both work). The iD application has no Main
-+ * fader and writes 0 dB to Main at launch. This control holds Main at 0 dB:
-+ * a put sends 0 dB to CN 1-2 whatever it asks for, and get reports it.
-+ *
-+ * It keeps the generic control's name and format: four values, 0 ... 127
-+ * in 1 dB steps, 127 = 0 dB. Value 0 is mute (0x8000), the floor the iD
-+ * application writes. It shows the last value the device accepted, and
-+ * every put sends all four channels.
-+ */
-+#define ID14_FU12_CHANNELS	4
-+#define ID14_FU12_MAIN_CHANNELS	2	/* CN 1-2, held at 0 dB */
-+#define ID14_FU12_MAX		127
-+#define ID14_FU12_MUTE		0
-+
-+static const DECLARE_TLV_DB_MINMAX_MUTE(id14_fu12_tlv, -12700, 0);
-+
-+struct id14_fu12 {
-+	struct usb_mixer_elem_list list;	/* first: snd_usb_mixer_elem_free */
-+	long val[ID14_FU12_CHANNELS];
-+	u8 valid;	/* bit per channel */
-+};
-+
-+static s16 id14_fu12_raw(long val)
-+{
-+	return val == ID14_FU12_MUTE ? ID_DB_MIN : ID_DB(val - ID14_FU12_MAX);
-+}
-+
-+static int id14_fu12_write(struct id14_fu12 *f, unsigned int ch, long val)
-+{
-+	u8 buf[2];
-+	int err;
-+
-+	put_unaligned_le16(id14_fu12_raw(val), buf);
-+	err = id_xfer(f->list.mixer, true, ID14_FU_MIX, UAC_FU_VOLUME, ch + 1, buf, sizeof(buf));
-+	if (err < 0)
-+		return err;
-+	f->val[ch] = val;
-+	f->valid |= BIT(ch);
-+	return 0;
-+}
-+
-+static int id14_fu12_info(struct snd_kcontrol *kctl, struct snd_ctl_elem_info *uinfo)
-+{
-+	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-+	uinfo->count = ID14_FU12_CHANNELS;
-+	uinfo->value.integer.min = 0;
-+	uinfo->value.integer.max = ID14_FU12_MAX;
-+	return 0;
-+}
-+
-+static int id14_fu12_get(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *v)
-+{
-+	struct id14_fu12 *f = snd_kcontrol_chip(kctl);
-+	unsigned int ch;
-+
-+	/* A channel that was never written reads as mute. */
-+	for (ch = 0; ch < ID14_FU12_CHANNELS; ch++)
-+		v->value.integer.value[ch] = f->valid & BIT(ch) ? f->val[ch] : ID14_FU12_MUTE;
-+	return 0;
-+}
-+
-+static int id14_fu12_put(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *v)
-+{
-+	struct id14_fu12 *f = snd_kcontrol_chip(kctl);
-+	unsigned int ch;
-+	long val;
-+	int err, changed = 0;
-+
-+	for (ch = 0; ch < ID14_FU12_CHANNELS; ch++)
-+		if (v->value.integer.value[ch] < 0 || v->value.integer.value[ch] > ID14_FU12_MAX)
-+			return -EINVAL;
-+
-+	CLASS(snd_usb_lock, pm)(f->list.mixer->chip);
-+	if (pm.err < 0)
-+		return pm.err;
-+
-+	/* Main is held at 0 dB: report that back to the caller. */
-+	for (ch = 0; ch < ID14_FU12_MAIN_CHANNELS; ch++)
-+		v->value.integer.value[ch] = ID14_FU12_MAX;
-+
-+	for (ch = 0; ch < ID14_FU12_CHANNELS; ch++) {
-+		val = v->value.integer.value[ch];
-+		if (!(f->valid & BIT(ch)) || f->val[ch] != val)
-+			changed = 1;
-+		err = id14_fu12_write(f, ch, val);
-+		if (err < 0)
-+			return err;
-+	}
-+	return changed;
-+}
-+
-+/*
-+ * At probe, write the iD application's launch values: Main at 0 dB (the
-+ * iD application has no Main fader) and Cue muted.
-+ */
-+static int id14_fu12_create(struct usb_mixer_interface *mixer)
-+{
-+	struct snd_kcontrol_new knew = {
-+		.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+		.name = "Monitor Mix Playback Volume",
-+		.access = SNDRV_CTL_ELEM_ACCESS_READWRITE | SNDRV_CTL_ELEM_ACCESS_TLV_READ,
-+		.info = id14_fu12_info,
-+		.get = id14_fu12_get,
-+		.put = id14_fu12_put,
-+		.tlv.p = id14_fu12_tlv,
-+	};
-+	struct snd_kcontrol *kctl;
-+	struct id14_fu12 *f;
-+	unsigned int ch;
-+	int err;
-+
-+	f = kzalloc_obj(*f);
-+	if (!f)
-+		return -ENOMEM;
-+	f->list.mixer = mixer;
-+	f->list.id = ID14_FU_MIX;
-+
-+	for (ch = 0; ch < ID14_FU12_CHANNELS; ch++) {
-+		err = id14_fu12_write(f, ch, ch < ID14_FU12_MAIN_CHANNELS ?
-+				      ID14_FU12_MAX : ID14_FU12_MUTE);
-+		if (err < 0)	/* the channel stays unknown and reads as mute */
-+			usb_audio_warn(mixer->chip, "iD14: cannot set FU 12 channel %u (%d)\n",
-+				       ch + 1, err);
-+	}
-+
-+	kctl = snd_ctl_new1(&knew, f);
-+	if (!kctl) {
-+		kfree(f);
-+		return -ENOMEM;
-+	}
-+	kctl->private_free = snd_usb_mixer_elem_free;
-+	return snd_usb_mixer_add_list(&f->list, kctl, false, true);
-+}
-+
- /*
-  * iD14 MkI mixer crosspoints: CS 1, CN = input * 4 + output, s16 in
-  * 1/256 dB. The control value is the raw s16, -128 dB (mute) ... +6 dB;
-@@ -632,6 +776,9 @@ int snd_audient_id14_mk1_controls_create(struct usb_mixer_interface *mixer)
- 		if (err < 0)
- 			return err;
- 	}
-+	err = id14_fu12_create(mixer);
-+	if (err < 0)
-+		return err;
- 	for (in = 0; in < ARRAY_SIZE(id14_mix_inputs); in++) {
- 		for (out = 0; out < ID14_MIX_OUTPUTS; out++) {
- 			err = id14_mix_add_ctl(mixer, in, out);
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 63a77f3eb..2228fd34f 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -529,7 +529,7 @@ static const struct usbmix_name_map audient_id14_map[] = {
- /* Audient iD14 MkI: model-specific control map. */
- static const struct usbmix_name_map audient_id14_mk1_map[] = {
- 	{ 11, NULL },			/* FU, see mixer_audient_id.c */
--	{ 12, "Monitor Mix Playback" },	/* FU, partial coverage */
-+	{ 12, NULL },			/* FU, see mixer_audient_id.c */
- 	{ 60, NULL },			/* MU, see mixer_audient_id.c */
- 	{}
- };
--- 
-2.47.3
-
+2026=EB=85=84 10=EC=9B=94 19=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 2:54, =
+Marek Szyprowski <m.szyprowski@samsung.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
+=84=B1:
+>
+> On 18.10.2026 05:51, Myeonghun Pak wrote:
+> > The threaded IRQ handler reports transmit and receive events through
+> > cec->adap. Adapter unregistration masks the hardware interrupts but doe=
+s
+> > not wait for this handler. With no open device-node references, it can
+> > free the adapter while an already queued IRQ thread still uses it.
+> > Devres also unmaps the registers before releasing the IRQ, since the
+> > mapping was acquired after the IRQ.
+> >
+> > Free the managed IRQ before unregistering the adapter and disabling
+> > runtime PM. Request it only after the register mapping and adapter have
+> > been initialized, and free it on adapter registration failure before
+> > deleting the adapter. This also makes IRQ release precede MMIO release
+> > on probe unwind.
+> >
+> > This issue was identified as part of our ongoing research while
+> > reviewing kernel code.
+> >
+> > Fixes: 1bcbf6f4b6b0 ("[media] cec: s5p-cec: Add s5p-cec driver")
+> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> >
+> > ---
+> > Compile-tested with Clang, W=3D1. No hardware runtime testing.
+> >
+> > Based on mainline 0fcb05b72344f40806cbe810de8872f1698bf053.
+> >
+> > diff --git a/drivers/media/cec/platform/s5p/s5p_cec.c b/drivers/media/c=
+ec/platform/s5p/s5p_cec.c
+> > index 4a92d32..e83705f 100644
+> > --- a/drivers/media/cec/platform/s5p/s5p_cec.c
+> > +++ b/drivers/media/cec/platform/s5p/s5p_cec.c
+> > @@ -199,11 +199,6 @@ static int s5p_cec_probe(struct platform_device *p=
+dev)
+> >       if (cec->irq < 0)
+> >               return cec->irq;
+> >
+> > -     ret =3D devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_hand=
+ler,
+> > -             s5p_cec_irq_handler_thread, 0, pdev->name, cec);
+> > -     if (ret)
+> > -             return ret;
+> > -
+> >       cec->clk =3D devm_clk_get(dev, "hdmicec");
+> >       if (IS_ERR(cec->clk))
+> >               return PTR_ERR(cec->clk);
+> > @@ -231,16 +226,24 @@ static int s5p_cec_probe(struct platform_device *=
+pdev)
+> >               goto err_delete_adapter;
+> >       }
+> >
+> > -     ret =3D cec_register_adapter(cec->adap, &pdev->dev);
+> > +     ret =3D devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_hand=
+ler,
+> > +                                     s5p_cec_irq_handler_thread, 0, pd=
+ev->name, cec);
+> >       if (ret)
+> >               goto err_notifier;
+> >
+> > +     ret =3D cec_register_adapter(cec->adap, &pdev->dev);
+> > +     if (ret)
+> > +             goto err_free_irq;
+> > +
+> >       platform_set_drvdata(pdev, cec);
+> >       pm_runtime_enable(dev);
+> >
+> >       dev_dbg(dev, "successfully probed\n");
+> >       return 0;
+> >
+> > +err_free_irq:
+> > +     devm_free_irq(dev, cec->irq, cec);
+> There is no point in using devm_* API if one needs to manually free the
+> resource for whatever reason.
+>
+>
+> > +
+> >  err_notifier:
+> >       cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
+> >
+> > @@ -253,6 +256,7 @@ static void s5p_cec_remove(struct platform_device *=
+pdev)
+> >  {
+> >       struct s5p_cec_dev *cec =3D platform_get_drvdata(pdev);
+> >
+> > +     devm_free_irq(&pdev->dev, cec->irq, cec);
+> >       cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
+> >       cec_unregister_adapter(cec->adap);
+> >       pm_runtime_disable(&pdev->dev);
+> >
+> Best regards
+> --
+> Marek Szyprowski, PhD
+> Samsung R&D Institute Poland
+>
