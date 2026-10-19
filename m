@@ -1,78 +1,78 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBC04E01EF
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:53:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAB54DC53E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407193; cv=none; b=RQTD1fHuxi7d8VRo5UNGj5XqKwzM69XNaGT1XnTqgRtA0TkiYvr/GG+lYEuZeO30e466LfuDHcnbmvLxbw5JkrVRUQpvdsl9bMnmp8b0biPuQC3FI1mi/kfC9Wmlua6A8DZMXpMGmlIy5BfqVNQRLBX166XGo1I6hq7CuPRmHg0=
+	t=1792407201; cv=none; b=W4f04PrrHe5KUMjSBW6C0z4AWXcYwihoUD01mFusDIqjtUoO+YN3Wr8lrO9xcRpE0o5ER7f01Y2BsuUtfUh093qqW098LY5m4OthBA9V+TkrHE9nWOPD+uZfaXc6K+cCoyA61x675HzPN3H1IS4psLTrOr/0FU617uulRwMlxeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407193; c=relaxed/simple;
-	bh=fhUwoTKLYGKGuq8P3S7f5SHePS+ZUOdqU5pfS0O0ebc=;
+	s=arc-20240116; t=1792407201; c=relaxed/simple;
+	bh=v3XAnC7a1Q89kbxj+7kktc5NUx9EHyzUV0eefrDbZ+g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MY8xwUAvFtXR3sPAR4rrzF+m0DIRVSl6LgB3dDdIBvKmCAoo7lp7YwX2xTTZAoIlmvfbcOOC22Fv9f73/gz/z8THlBAFcdAucI7mFPomePMTDF1b/T0EdqR4qtpNlz3QAT+UytnJyxf/n3exoC9mJ/MFvkprigLsRGnk4PQbCME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=el2GgpNj; arc=none smtp.client-ip=185.125.188.123
+	 MIME-Version; b=MS43hh6cPDg9xCMOIg9U6xcVUwFa9A3nICW/bztRANMefrxWY0GQKKk4bpgtI0t+rmLZ1f/Cz176k9zV4i7KdLKYM/x8hs9IadBFsGCdQ8C7zxrDLXg9R90cbKGnfisSTDOy3s+IQHPP+/WN5VrP2Cnf1E0I5USni/OgGbhGW5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=aHslBSdT; arc=none smtp.client-ip=185.125.188.122
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="el2GgpNj"
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="aHslBSdT"
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 0006B3F2D6
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:53:05 +0000 (UTC)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 1056F3F57D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:53:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1792407186;
-	bh=q8A8Zrm0+PIOnWjaNbzg+cn4gn/yB12bYA1j7GbTog8=;
+	s=20251003; t=1792407195;
+	bh=EuW6cWkx9xiT5Oe5IZ1pUwdt55ZzaLd8Up2l6rgVZqw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version;
-	b=el2GgpNjmEOnFypXt8dEGgP0/d+5kGdQdvvd/ab2XDv0SBdq700Q3xkqcFAPnd7FB
-	 j7tZ3uYXd/8dJIo2nKxoIe5oKFSSOXYlCSeDTBcV2RcgT4DxkIpWV0xoXF+bXvrE22
-	 Uv7pSTWik7W7FvpRG6A3sansPoWZW6GC0WlDQT0o2GGJbrkrZ6pXa3wHTXjxwY69gR
-	 3mh7uvzG/tjlsIKf4N6obqqHx7uDUudat/nlYfxWHwWkdV1w6Klj3cDti6HioVyshn
-	 FV1UtyhkvgyTFyDtG5Yf88JJgkdJVMx9AVomivgInviscaZaKBq+W7qTtvnyooSqUt
-	 MWMY3m7AvQxrNXLzMv+tvGKPHFwSdNx8UFU4fhLIslZ5phe6WmJlYGfg7VPFuEqIBU
-	 PG+O4/DHdzrouClr9QBEXcluCSiAKMzd52I3wP6rTvwVALYkhZzQzIghwbrkP8MVrT
-	 b9UkbiNr9vkty+ERYb3Y65SKgJlyuGPCLwMoAdELFcqUcB5Yredxc8/y5fv92+7zBF
-	 BMgfTQgB4K6ZtwnyZXfAzgsSCcSr6W3Ec5A6F0D4EqLXhWLfwIOkppvW6orSMXobOv
-	 +cxwE+xd0PdjKok+BvX4tAnZWUgr7MX3WlqwqNvAjOn1bU8Jt/bMZyCjztsAGU/PD7
-	 TR8PaY9xQc7je3/i/813j7Ig=
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48afcecb035so615573f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:53:05 -0700 (PDT)
+	b=aHslBSdTerWREJ4B37CG6hYURVxHWwa96MQAlMcgBAdgsij/kjnAH7t5JDzgcAAKw
+	 BzxDrXnubUCRGRYSbkNNlHKlJdGwhnttJZmTbDtj4svcXUMfPuctfF0BwkyT/lJbNS
+	 sEwZHX8Lxp8QiWF+9AriWEQF3/hAzVK1LweW3UHIDo5JKmqaP5jCvkqPV7hW+Giuuz
+	 W6Rj4LKEedY07bT63w74Yv0LVsw2S0UQUG6i4+yMsB6+5TXBWBrgSKNvc4MYaYrebm
+	 8QCnxyKj/fO17N/Ku7Lnhik3i5bS+oZ1M1D1RpH/RLGz1M7Fn+wceAW1w+eeoiD5wy
+	 bfkEDuhfafAxw0hBVCzTDJ03eGrV04SyXf4AcBgMmVsJDCns9ZgsCFhyMquOHsQwWo
+	 sb9cQZhvTNLNMi0E279sBzlbV5uv5DWkvBl/HAoKQUFBxjCONwhKLaN7gQzVmLaxmX
+	 st6endGchpjIFmRCOuHwg2N6aLzResCngcetew6e3WsCiH5aZeFVMTFJTLsxzSE9Dz
+	 B1HM62pFo3QRmxhjXtee3+sCzTDMOsklg8BgBkYE/D1fgPUi/i7JVnnyFqHHrgXt28
+	 2S9MtCeZ+tI/SL5EkbjtwDfkXRHpSZVV4faV+jX57pXQM05Du7LWNljZtvzrIAgizN
+	 pRNslhRhv/Pn+2ATOQHqGHUE=
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4994d67d0e3so14021215e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:53:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792407185; x=1793011985;
+        d=1e100.net; s=20260707; t=1792407194; x=1793011994;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q8A8Zrm0+PIOnWjaNbzg+cn4gn/yB12bYA1j7GbTog8=;
-        b=o8ndTgX3u+OQUvSCnTb2TFkaGgncKQS9rx0YnW5JXMs3nZsyOpS0N8GT+RQywqzDey
-         ofvJEyKo344zH1G2uhaUEqOJna6WU04gTlOaoyy8364Mrpv554wmiZh9+Ji6heVNjN5a
-         r4NQYUJpvJJACHj73PbgNO/rtJpt1ysBbVf+U58Z9sbnsyHq/AIeaITl201I69GWROao
-         /PC3VwnqHe4mC3zxkNjagfXYabwGBinClKDpPmbpKerNjgCrF1laQVo4bBMG6LR4eIQJ
-         RJ5j6oh2u1XB53F+oU6Ng6iMGSb51TQY5stmZ87MV39GQUaijhrCJWT0y35eIZJ39O3y
-         aw9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBypOf73VN0lQlhWy4ZGeotGXJvCyt2Wv2YNCSDlArKP1gR7XLwQMdMIMSeqYqI4kIUVYxk7S+kmkTGogQk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJubywAkMof13y52dkdewQBYQpV8LzUCmZ1ZiOVuobHSqm1TNMM
-	ZwZOkaT58gnnnbl8sebaBx8I3JsD5K5/SDC+tQ4B5HRxL/eWdKM9BtrPpWt7/7sVNwHX7yZpnpI
-	WwZguctwuPm5QM8rFnOOvRukhByQfRhYBA2uXOdv08N39pzF0cBNLwp9o/9yYpJ0tlY5EFkboDv
-	tGO96DxA==
-X-Gm-Gg: AYBFou3AG/LTVtFqvjj8evbYbqpgrZ89bVu80wpN2hq5z+3J3gHMLw5Kect9uKA+l8Q
-	BzhtNEDY4GpzYMmSQBauoYnbAYiKJ3es4nywL+6UvS6dRArK3FI/glkFbR3ok6nrz8uiHGFhcCH
-	+xWvnyAp7g6u2RaJc5jei9SQGld4WuP6cciTIeFMp/uChslA2LgMVStn1FjGk2oU/+ioG47KhHD
-	UoJ01Ft1/45vlSVQ2EFvOaVlMM78r+/MswwtZVCUywHpiZaSN+WehyONu6I7apIPKqTm+e/aFUm
-	QrUIZwlO3j6L81OzoqTYRRqXG7AoiOE2hajnSXxEqQszZUzhNa3FtE6mEZ7oLF5DEPSn34Krfit
-	5bgOJzU0eGr11Y4gTyrLp5UM/Rf/2/hWz/Y0GeJIQ7T2j/KibDEDR+GPdvXejQhZe2uI7bUDwKF
-	aqs9n768z+Xrlnfzdtv6H09XpAceMcZ0BoDGAv/hpSHtPm8b7jRiLEfiebQNqdBvgiMnqboD1i5
-	x0Vy3P97UvM8KGXKDTpxk1BJmhlvYMh8gZ3dao/
-X-Received: by 2002:a05:6000:298d:20b0:48d:f9dd:e3e0 with SMTP id ffacd0b85a97d-48e07bab931mr10390505f8f.4.1792407185505;
-        Mon, 19 Oct 2026 03:53:05 -0700 (PDT)
-X-Received: by 2002:a05:6000:298d:20b0:48d:f9dd:e3e0 with SMTP id ffacd0b85a97d-48e07bab931mr10390471f8f.4.1792407185140;
-        Mon, 19 Oct 2026 03:53:05 -0700 (PDT)
+        bh=EuW6cWkx9xiT5Oe5IZ1pUwdt55ZzaLd8Up2l6rgVZqw=;
+        b=ICMLc+FcXHbo4/F/DZrO+8DQEumXepo7aXfsSGlzEKpsQq2cPgMBzL5E31yTnngzbW
+         Muq/Veww0piI2I1090yUH42EWPgvFrDKQAzyqSBif6g+riR3Im9YaOho7NNNpHeS5T5N
+         c0imew71rNXvHRlIog9H+sx/C+i7HwYYOrP5em5TNsY4pRaGorbm78CQ7UE2nAIoSVHr
+         GlCjhs//1kDiMg3dB3WmSD3pfAcMuggl5jcBVAmuJJ2SEkMrwEC1IEomlabwJd+rzsBS
+         RYu+3FvAljCs7wx6gYHrn6lAhUoVEwNEGUy2AJU3RID7kycVExRzMCdbW6N+a6iTsKiJ
+         ejUw==
+X-Forwarded-Encrypted: i=1; AKwUvBzk/n9VxsWoGT/ayhT4iCvz5/VscGQf8GGc+x3SIJ/+fCHkZxqzZxGFXFRDTeapqSk/xc2H3qTLFxZqzp8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfvV5D5HZJ1SgI+neu904u645qGwIajGGUevjAQwckBzERznan
+	YIY6KLmPeYvcp+dMDSR6GK0Xtj82pz50RVmUb25r1llKFJ5+KQc1fh6eFvwNt2RKIxy5XkN7zBb
+	QBO7Jy3CgbgtSyIWXgzhonEmOGLmWk4r8V7xFPuTbwN2RCFE2j1RBqelpuhMoILd2w2Y5A+vyUP
+	2xZHTA6g==
+X-Gm-Gg: AYBFou05EUpOSvepz6jcJm9C/yAFlEOhc4ned3av99S1NJ1y9icNENQhVtqt5ypGKoQ
+	z+G+SWGQBAAetKktM/XuuZM5B/wDdao9IlF1v9dem6MZfBoJG3ySgV2jwik/vfr70X7gup5aQL0
+	ZA5zEIs2PyF/DoDwINE3MiD99Ij6/WDZ3q3/APKXkzN2ZyraF6ip/L1fjZGRMJZU/EMVj7cco2E
+	p3lhYZwD7D8OvijB2mxYhMe4DfF1htJyX3gSgclTdR6lldy4HfIRuptC9/ercrVOWssFi4dcRis
+	FQmgOFtBpoMGe6VUb2ZrzVKIoOC+CwgeFgKj069o52Fluyxrp6gx0ENl6qIy7MtKEUN6g2hHKus
+	5nxk3UXsgszxFNPkxYsQ1WTZJTdq1GF1BhPYdXxLmw8I07fuz2iG0rOEy2IZ07IKGu4Mnrfgp57
+	B1jBUB12Tm7A+iPQ/43Cm2hguaAApyGdDYbPlvzF/gKvKfw9oRNYPbRH42uuWigvksN1+CDu6eA
+	Q1bCIEqFG82PnqGiQYRzrIB1wCAqV+fWaoTHXPU
+X-Received: by 2002:a05:600c:5250:b0:4a0:1c0e:b136 with SMTP id 5b1f17b1804b1-4a1d7616bfdmr147461325e9.29.1792407194628;
+        Mon, 19 Oct 2026 03:53:14 -0700 (PDT)
+X-Received: by 2002:a05:600c:5250:b0:4a0:1c0e:b136 with SMTP id 5b1f17b1804b1-4a1d7616bfdmr147460255e9.29.1792407193245;
+        Mon, 19 Oct 2026 03:53:13 -0700 (PDT)
 Received: from u-ThinkPad-X1-Extreme-Gen-4i ([103.155.100.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd510201sm23238930f8f.55.2026.10.19.03.52.58
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd510201sm23238930f8f.55.2026.10.19.03.53.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:53:04 -0700 (PDT)
+        Mon, 19 Oct 2026 03:53:12 -0700 (PDT)
 From: Aaron Ma <aaron.ma@canonical.com>
 To: Tony Nguyen <anthony.l.nguyen@intel.com>,
 	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
@@ -89,9 +89,9 @@ Cc: Dan Nowlin <dan.nowlin@intel.com>,
 	Brett Creeley <brett.creeley@intel.com>,
 	Jacob Keller <jacob.e.keller@intel.com>,
 	intel-wired-lan@lists.osuosl.org (moderated list:INTEL ETHERNET DRIVERS)
-Subject: [PATCH 4/5] ice: clear DVM boost table before scanning package hints
-Date: Mon, 19 Oct 2026 18:51:54 +0800
-Message-ID: <20261019105155.3793063-5-aaron.ma@canonical.com>
+Subject: [PATCH 5/5] ice: quiesce PTP periodic work before system suspend
+Date: Mon, 19 Oct 2026 18:51:55 +0800
+Message-ID: <20261019105155.3793063-6-aaron.ma@canonical.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019105155.3793063-1-aaron.ma@canonical.com>
 References: <20261019105155.3793063-1-aaron.ma@canonical.com>
@@ -103,36 +103,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ice_init_pkg_hints() clears hw->tnl before enumerating package labels,
-but leaves hw->dvm_upd untouched. Every subsequent call to
-ice_init_pkg() during reset recovery appends duplicate DVM and SVM boost
-entries to hw->dvm_upd.tbl[] until hw->dvm_upd.count saturates at
-ICE_DVM_MAX_ENTRIES (48).
+ice_suspend() stops the main service task but leaves PTP work active.
+The PTP kworker is not freezable, so it can continue issuing MMIO
+accesses after the PCI function has entered D3hot. Both the periodic
+work updating the cached PHC time and the E822 offset calibration work,
+which reschedules itself while calibration is pending, are affected.
 
-During package download, ice_set_dvm_boost_entries() then issues a
-redundant Update Package Admin Queue command for every accumulated
-duplicate while holding the firmware Global Configuration Lock.
+Synchronously cancel both works when PTP is ready, after disabling the
+VSIs and before shutting down the control queues.
 
-Zero hw->dvm_upd alongside hw->tnl before enumerating package hints.
-
-Fixes: a1ffafb0b4a4 ("ice: Support configuring the device to Double VLAN Mode")
+Fixes: 77a781155a65 ("ice: enable receive hardware timestamping")
+Fixes: a69f1cb62aec ("ice: exit bypass mode once hardware finishes timestamp calibration")
 Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
 ---
- drivers/net/ethernet/intel/ice/ice_ddp.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/ethernet/intel/ice/ice_main.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_ddp.c b/drivers/net/ethernet/intel/ice/ice_ddp.c
-index b71f3fb791db7..a86ef097826d5 100644
---- a/drivers/net/ethernet/intel/ice/ice_ddp.c
-+++ b/drivers/net/ethernet/intel/ice/ice_ddp.c
-@@ -2101,6 +2101,7 @@ static void ice_init_pkg_hints(struct ice_hw *hw, struct ice_seg *ice_seg)
- 	int i;
+diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
+index ddebb28b2454f..3962910759067 100644
+--- a/drivers/net/ethernet/intel/ice/ice_main.c
++++ b/drivers/net/ethernet/intel/ice/ice_main.c
+@@ -5450,6 +5450,12 @@ static void ice_prepare_for_shutdown(struct ice_pf *pf)
+ 	/* disable the VSIs and their queues that are not already DOWN */
+ 	ice_pf_dis_all_vsi(pf, false);
  
- 	memset(&hw->tnl, 0, sizeof(hw->tnl));
-+	memset(&hw->dvm_upd, 0, sizeof(hw->dvm_upd));
- 	memset(&state, 0, sizeof(state));
- 
- 	if (!ice_seg)
++	if (test_bit(ICE_FLAG_PTP_SUPPORTED, pf->flags) &&
++	    pf->ptp.state == ICE_PTP_READY) {
++		kthread_cancel_delayed_work_sync(&pf->ptp.work);
++		kthread_cancel_delayed_work_sync(&pf->ptp.port.ov_work);
++	}
++
+ 	ice_for_each_vsi(pf, v)
+ 		if (pf->vsi[v])
+ 			pf->vsi[v]->vsi_num = 0;
 -- 
 2.53.0
 
