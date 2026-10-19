@@ -1,142 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54597491591;
-	Mon, 19 Oct 2026 14:37:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8F0582786;
+	Mon, 19 Oct 2026 14:37:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792420639; cv=none; b=f2zM0I1kER8Wa04zUUodCFb+TiSHXgA8OJfJfRbGdNCb+Tt6TYqJhyOSuMMEhB7I5AUfnonxZpPWBegAJe934vOOR9jQH1L/cN1JRauMcG0Ffi9YVllGrcupCRx23C7YtqebhxujM7sJ/vrozuwBXG/IJm3+F96iAy7oy8Hbsqk=
+	t=1792420642; cv=none; b=h0bf3c+43hSBC05sEyzfx5QZ7S5WBSvofa7pLSuwhYCavYdodOKVNLbrILalfCurMjZslDgmOz8EsE/EUpT0CCFl+TyUHyIGUZxj+g0XH6rki/lLT0CB3cXPPRGcWhixpfACoUy111wJi19GI4RLnNrktuXwwffEQhjTLRzwrFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792420639; c=relaxed/simple;
-	bh=faxRUhTxvTfkVZeM6s3QqNHE6m+DBAqDUARXNJ9nV6I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UUW1nIxa2cSvA2ztahD6uowsjvkKrgRPTRBubvB7q/DNxRuMey0/B/1/7Wr8uUqbtuwgyXTGlSaN4ZuR/w/BidAU9w6kRDJFqYmXSFuzsCSNSuBZcPIwLeYSeKvQ3xWwV2x0C+Japczn8a/0vgNY6czUkjhe0SsLOeJ4Rr6fjs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O3mE0wXx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792420642; c=relaxed/simple;
+	bh=JFmI1SBHRcxfApXkuvNRk973kers9bQhwnFxlSmQ/m8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hvBzpQx7IrREcFGivOuqIWHHUNOvBWZchV1tTsRMrl6FNxIdyF5dVeYb8sIh11HlWOYYH6K/yKNobfZP/aeSdxtnt2fUgTdEKCkXuz3pofnToZeiNG1IOMLylwBP2+EOt77TJredPiklxY2IgkrwNmgoZHTuJIUwhStRpzN/+gM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eCCFjJ4m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O3mE0wXx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E64651F000C4;
-	Mon, 19 Oct 2026 14:37:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eCCFjJ4m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9734B1F000C4;
+	Mon, 19 Oct 2026 14:37:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792420638;
-	bh=DmyE052xRXB1BSS4uThP3UUuu8BmwPmlB4p2QGb/65M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=O3mE0wXxb+oMwo7sMSi/oA2B8FO+f0jF8LCRpUKROlTOGSjyHOYM0+JXYEBdSf026
-	 kPGOp785nPltf9+jo9oIj8YLwWN+mo4A29I+1L06PTHI7duee57Vcc3b54SYQHsthH
-	 pWGvahqaAyUgFPcuca55ufnjiadxdXXXT6N1d3yN/ChHr5hEJ+tV4zKw9SyvoOOoEp
-	 4wVYVpCPoqqtO32khX77mG6XOKvCFBSX7alYGraJ46W/NesPRRpB1nS3fWbYnqoZLC
-	 /Hv+78/XZslXzABSxupdOfjVLSCyGYgSuaD6ZMNdN2h5iEpLzkPZuzPfDHuhaA9iGe
-	 KqLTj0I9IAG+g==
-Message-ID: <b48284b4-68d1-493c-a34b-20306c564cae@kernel.org>
-Date: Mon, 19 Oct 2026 16:37:14 +0200
+	s=k20260515; t=1792420640;
+	bh=TzeUsHBgfXPKsjgzoOJjZ/KqkTpciOqCZplZVywH5gw=;
+	h=From:To:Cc:Subject:Date;
+	b=eCCFjJ4myRysM70jqHB5+xC6TSc+ICnmeZSx22kHDNs7zQrWNfZNIOZzdLJbZEEkL
+	 CK/WsOIJ3oF8UUhX+JBSvcYiED/f8QsVo7/qfzBG3mIo27fL2NwSpQ//eVqCJTGmm7
+	 vkzGWzZO94a3uRDM8ofv4j2dElI2vPlhGFdYt6/70uC2YUFr6Muezo8/CDIeI9OpQI
+	 zqzQyr4ydLMTTuNOliHnz8+PDdutxtxb20jDTmcmTugK39k7sCROq/IJA4pT1A1IQs
+	 Z4lpEe1Y5vLb33MMnBAT2eG8nqZEggI3vPJOZX2X64kWHKtdTqGSJt8qDNNGAAKU/a
+	 JqKKnDBLlZhfQ==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH] mm/damon/core: remove unreachable damos charge_{target,addr}_from
+Date: Mon, 19 Oct 2026 07:37:11 -0700
+Message-ID: <20261019143713.98610-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] power: supply: max17042_battery: infer the status when no
- supplier is described
-To: Derek Ross <derekross@gmail.com>, Sebastian Reichel <sre@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>, kernel@puri.sm,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261019143307.2109629-1-derekross@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261019143307.2109629-1-derekross@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+damos_quota->charge_{target,addr}_from saves the target and region the
+scheme's quota limit is reached.  damos_skip_charged_region() skips the
+target and regions before the point.  The target that was assigned to
+charge_target_from could be dynamically removed from the context by the
+runtime parameters update (aka commit) feature.  In this case,
+damos_skip_charged_region() cannot find if the point is passed or not,
+so the scheme is effectively disabled.
 
-On 19-Oct-26 4:33 PM, Derek Ross wrote:
-> When no power supply is described as supplying the battery,
-> power_supply_am_i_supplied() returns -ENODEV and the driver reports
-> POWER_SUPPLY_STATUS_UNKNOWN, even though the gauge measures the battery
-> current itself.
-> 
-> That is the case on the Pixel 7 Pro, where the charger is left running
-> by the bootloader and no charger driver is bound yet. The battery read
-> "Unknown" while taking in 1.2 A, so the desktop showed no charging
-> indicator and upower treated the phone as discharging: at its critical
-> percentage it put a charging phone to sleep.
-> 
-> When no supplier is described and current sense is enabled, take the
-> status from the measured current: charging while current flows into the
-> battery, full when the gauge reports end of charge and no current flows,
-> discharging otherwise. A described supplier keeps the existing logic, and
-> without current sense the status stays unknown.
-> 
-> Signed-off-by: Derek Ross <derekross@gmail.com>
+Similarly, the user could also remove all the regions of the target
+using the runtime parameters update feature.  It would be uncommon to do
+that, but it is a supported feature.  Because the skip pointer detection
+logic (damos_skip_charged_region()) works for each region of targets,
+this result in the logic is entirely skipped and the scheme is
+effectively disabled again.
 
-Thanks, patch looks good to me:
+The user impact is that the DAMOS scheme could suddenly stop working
+under certain uses of the runtime parameters update feature.  It could
+surprise users. No crash or leak happens though.  Users could also
+simply work around by re-installing the scheme.
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Catch the corner cases in damos_adjust_quota() and reset the pointers.
 
-Regards,
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Cc: <stable@vger.kernel.org> # 5.19.x
+Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-Hans
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 479169dc9ac75..eb1fcdabc0075 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3383,6 +3383,26 @@ static void damos_trace_esz(struct damon_ctx *c, struct damos *s,
+ 	trace_damos_esz(cidx, sidx, quota->esz);
+ }
+ 
++static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
++		struct damos *s)
++{
++	struct damos_quota *quota;
++	struct damon_target *t;
++
++	quota = &s->quota;
++	if (!quota->charge_target_from)
++		return;
++	damon_for_each_target(t, c) {
++		if (t == quota->charge_target_from) {
++			if (damon_nr_regions(t) > 0)
++				return;
++			break;
++		}
++	}
++	quota->charge_target_from = NULL;
++	quota->charge_addr_from = 0;
++}
++
+ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ {
+ 	struct damos_quota *quota = &s->quota;
+@@ -3418,6 +3438,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 			damos_trace_esz(c, s, quota);
+ 	}
+ 
++	damos_fix_stale_charge_pointers(c, s);
++
+ 	if (damos_quota_is_full(quota, c->min_region_sz))
+ 		return;
+ 	if (!c->ops.get_scheme_score)
 
-
-
-> ---
->  drivers/power/supply/max17042_battery.c | 21 ++++++++++++++++-----
->  1 file changed, 16 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/power/supply/max17042_battery.c b/drivers/power/supply/max17042_battery.c
-> index 8138b52e05e1..c437d80700a6 100644
-> --- a/drivers/power/supply/max17042_battery.c
-> +++ b/drivers/power/supply/max17042_battery.c
-> @@ -148,18 +148,26 @@ static int max17042_get_status(struct max17042_chip *chip, int *status)
->  {
->  	int ret, charge_full, charge_now;
->  	int current_now;
-> +	bool supplied, full;
->  	u32 data;
->  
->  	ret = power_supply_am_i_supplied(chip->battery);
-> -	if (ret < 0) {
-> -		*status = POWER_SUPPLY_STATUS_UNKNOWN;
-> -		return 0;
-> -	}
->  	if (ret == 0) {
->  		*status = POWER_SUPPLY_STATUS_DISCHARGING;
->  		return 0;
->  	}
->  
-> +	/*
-> +	 * A negative value means no supplier is described, e.g. a charger the
-> +	 * bootloader left running that no driver owns. The gauge's own current
-> +	 * sense still tells which way charge flows, so use it when it's there.
-> +	 */
-> +	supplied = ret > 0;
-> +	if (!supplied && !chip->enable_current_sense) {
-> +		*status = POWER_SUPPLY_STATUS_UNKNOWN;
-> +		return 0;
-> +	}
-> +
->  	/*
->  	 * The MAX170xx has builtin end-of-charge detection and will update
->  	 * FullCAP to match RepCap when it detects end of charging.
-> @@ -178,7 +186,8 @@ static int max17042_get_status(struct max17042_chip *chip, int *status)
->  	if (ret < 0)
->  		return ret;
->  
-> -	if ((charge_full - charge_now) <= MAX17042_FULL_THRESHOLD) {
-> +	full = (charge_full - charge_now) <= MAX17042_FULL_THRESHOLD;
-> +	if (supplied && full) {
->  		*status = POWER_SUPPLY_STATUS_FULL;
->  		return 0;
->  	}
-> @@ -200,6 +209,8 @@ static int max17042_get_status(struct max17042_chip *chip, int *status)
->  
->  	if (current_now > 0)
->  		*status = POWER_SUPPLY_STATUS_CHARGING;
-> +	else if (full && current_now == 0)
-> +		*status = POWER_SUPPLY_STATUS_FULL;
->  	else
->  		*status = POWER_SUPPLY_STATUS_DISCHARGING;
->  
-
+base-commit: 46165457cd36362f10fb784de8ce4925d6dde119
+-- 
+2.47.3
