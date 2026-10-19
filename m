@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443067;
-	b=y6v2s5iDLlA7GyELeTmhEIOiw8M0L5fWYZoMbzKY/SUnTi2JbpUnGM+yBopL0toANhMe
-	 O0q9kurhnT4JodJfXVbwmUJweoUsMvHyIqDUsc0yrobb21PyzTs0HkFj0E1eYvffn+krG
-	 w0x8/Vn4EySBmXdvi88ktkefflnoccKcpxOZhZMi+iPB3ZkwKNHvQkqOarqq74JIy7y3N
-	 gXOHUl6ywHg7CHaRjXH8XTehSH+zh+x8KEU2tR96UOjikc4OFJqUcrrHaD8fLx4RsS9bH
-	 qPY3W773dzeama0KNcpucGlLJNUkhiWekH6H2MGZYn4PCClLa7W0OG5wJ/mLNFg6s5g==
+	t=1792443072;
+	b=fW4NLmdb4bFoxP4o9i6hVjamLbUwefn+7bnCaYgg1MNRtmbE1ffPojVrpGAVN0HkNZer
+	 iE8MBc28d8CoNIj+wncZl5YEXsJAYi4bdls+VlWETF2CLSNRhSaiH5CTHVw11zhvJqOa3
+	 ku/iWbJsWc8cwpKjNfdbfpu3K/sxNd3jNvZt7hHoDSwNrinPQld6BxgJx8u15QwBprMJB
+	 GxpLoa/tzU+EJOaVjr16lo2LPFtvw/gOt4u7Pb6lBBAp6b60M8xp8VPOo2fvZdUeg5IMx
+	 ypmnhH8hCgUdn4Z4rR1Tm+2siUHJHkVsJIcLk8Bdb/5B73TlTGF3LVesjINbpKJRVKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443072;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=k0i/N1b5yWNh2DrHfWtbHgv/fVPwrlaI2gnbJ6ty73w=;
-	b=pD2PpqnMCVo5utaNGXfdxY+aVlBzBGDuDQBdugTNWjxv/+NPdQszzS+f+dRoxiYi4tUA
-	 5VT9+p/rFASVeyYuW0N9FbKcis6Dl3sRBpOVNhpS68MTu/Y0b+8D1ymoZDPyp70c3Ul1F
-	 U4nH8OaKa3mrLLZh9tT/TPZJT1GZUMMenJEAILTDAC1j1n4XW/trADtdLIrtswxQXxtAA
-	 uZVMm16SVVjGZtBFyUUd399XBAlpRGzLokVWLG6tMiTbFV1ZJwjZej8r29qKJl/o7M1ZP
-	 PhsDI4O0wwzA4zR9KAPqr4qJxRlT0G+Qeec9HNoK1WRC1Zi08ivX9tnscsWqnl1pjrw==
+	bh=3AAjvZIRWiQW+gK3vnNy9D2avRnjF9IaCmrvGUbt8AE=;
+	b=qjWKWsfrkcD10RYvxVK2g/8OqyuxrgywjGpGC/iRxBBiEmcV9OpyGJQjG1W3oFXleLm/
+	 SRs03VyNeA8U4zZdqJErK7K0Hib2JIG+EC6p/BNOGzAh3ZihoUrck3BH9U+mbApyQVbw1
+	 4pvoKpEdHSShIOP4tUy1uFEAl99uDkXi5K2LLCGfbC7kuk6SFJxLwfFrVIia9tzD2g5TJ
+	 8scJoIRQ4kBSSYCzhwOWcQ+3jQnKNOA2EYhHSitkU3S9GKnERHWAowKcH0YVFx+mLO8mV
+	 sajVLmCYRxTwmodqnrz8xmUGAWcOjWBY6d3fCXCaldp4uFTWuWh5J8r7uKJ1L3SL2mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KhmjTbJi;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nt08xo+b;
 	arc=none smtp.remote-ip=198.175.65.16
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E39C606A332
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:51:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E39C606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2123E60A4ADD
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:51:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2123E60A4ADD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KhmjTbJi
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nt08xo+b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792443067; x=1823979067;
+  t=1792443072; x=1823979072;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=xsbwNdGGLJOC/4bW7nqSY811th/00q9A8AGx07zDNwk=;
-  b=KhmjTbJi10+P7m7viwUHj0SFCcENABVoA8GOfpeHUciKoKbtVjGrg5dQ
-   FF+bpyd1mQ8qh3Off8BqBT1CSXDnPX6p9LEbIZxTrqbcjUEEaW+r2hsG0
-   SRQknEn+TbXmEKoiGJo0PDVRnvAVtSGUu7Z2fM3fAOpMSwY9U4o9XmPJa
-   0Rp+SWf4JmujHeGKReMR+S7dqQJGVn9c0qx9iC+eDBoYQzldyMDZ9S/IO
-   RMKi8rwf8j1ZzYFMoKvAFPQjphEctmnzlrKzUzIX1Zq28TQWkXtxwYF8E
-   YP4KmoE+ICPbgZa6KSsFORPM2sifKo7P/hn0Qb21UNi8+FOhjm+r//qp6
+  bh=ioWPp4jOIpND+/d8HJaRuiW2367Lq4ZEumGCYHGbrqA=;
+  b=Nt08xo+bXfzElYnUqOJ80ptxJoYTeHFTVFWyTVjFLWs3ajqKuUWvZt1O
+   x7dUh7CMFDtMfVNs53kVgfI5VM5yS9UpDIfS/xqbLdbq7u3t7Ouo1JMvV
+   aTXjsEJc0F42kIEunvmE2GgL50P8sJtOhhybV2PRjwAy39q+fUZrHmChF
+   5xdb/IRUvwpZSee5EoDGQdgOIBzCW3fKeqythYzUGBkUMglNBrziPfG3J
+   JJYwTRuIadJZu0rI9K6jZm1/hLu8F2aPyW74cjhcScRraljX36OSMuo3d
+   wi/XOv4LzJW160tcKyph7nSHvnI6jQ7fJFKB+ZtqaVmIxpscz+FuQ5Rrd
    w==;
-X-CSE-ConnectionGUID: i57SsmZxTUCl5f16WWHtWw==
-X-CSE-MsgGUID: cfSreivsR1WDT6glPpSzqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1131256"
+X-CSE-ConnectionGUID: ejoLgFUTTw2WvDHqBAEUxA==
+X-CSE-MsgGUID: /OGewg7TRjyozf42ANKcmw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1131321"
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1131256"
+   d="scan'208";a="1131321"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:51 -0700
-X-CSE-ConnectionGUID: Js7ajy48RSW4+vvWNL3+WQ==
-X-CSE-MsgGUID: CkT+Jh2ARPG0Nemy2BI1kA==
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:52 -0700
+X-CSE-ConnectionGUID: GyssZcrpS2aWKlQBZaowWg==
+X-CSE-MsgGUID: wqJ0RreiQiCIsSffauJ1Bw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3008671"
+   d="scan'208";a="3008713"
 Received: from spandruv-mobl5.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.220.87])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:51 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 13:50:52 -0700
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -77,9 +77,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v14 16/24] platform/x86/intel/pmt: Register enumeration functions with resctrl
-Date: Mon, 19 Oct 2026 13:50:23 -0700
-Message-ID: <20261019205031.16977-17-tony.luck@intel.com>
+Subject: [PATCH v14 24/24] x86,fs/resctrl: Document telemetry mount timing caveat
+Date: Mon, 19 Oct 2026 13:50:31 -0700
+Message-ID: <20261019205031.16977-25-tony.luck@intel.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261019205031.16977-1-tony.luck@intel.com>
 References: <20261019205031.16977-1-tony.luck@intel.com>
@@ -94,67 +94,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-resctrl enumerates Application Energy Telemetry (AET) features by calling
-pmt_telemetry functions directly, which requires pmt_telemetry to be built
-in. resctrl now provides functions with which pmt_telemetry can register
-those enumeration functions instead.
+resctrl enumerates telemetry events each time it is mounted, using
+functions that the pmt_telemetry driver registers when it loads. The
+driver can be built as a module, which is typically loaded by udev during
+boot.
 
-Register the enumeration functions with resctrl when pmt_telemetry is
-loaded, in preparation for resctrl calling them through the registration
-and for pmt_telemetry being built as a module.
+An automatic mount of resctrl from /etc/fstab early in boot can run
+before pmt_telemetry has loaded. Telemetry events are then not enabled
+in that mount, with no indication why.
 
-Register only after the driver has probed all telemetry devices so that resctrl
-does not enumerate a partial set. Force synchronous probing to avoid issues
-if kernel command line or module parameter requests asynchronous operation.
+Document the race, how to avoid it by mounting resctrl after
+pmt_telemetry has loaded, and that unmounting and mounting resctrl again
+enables the telemetry events.
 
-Unregister the enumeration functions before tearing down the telemetry
-devices on unload, so that resctrl cannot start enumeration while they are
-being removed.
-
-Suggested-by: Christoph Hellwig <hch@infradead.org>
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
 v14:
-	New commit message.
+	Updated commit message. Include unmount/remount as solution
+	if early mount did not include AET.
 ---
- drivers/platform/x86/intel/pmt/telemetry.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ Documentation/filesystems/resctrl.rst | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/intel/pmt/telemetry.c b/drivers/platform/x86/intel/pmt/telemetry.c
-index 953f35b6daec..57eb2967a4d0 100644
---- a/drivers/platform/x86/intel/pmt/telemetry.c
-+++ b/drivers/platform/x86/intel/pmt/telemetry.c
-@@ -427,16 +427,29 @@ static struct auxiliary_driver pmt_telem_aux_driver = {
- 	.id_table	= pmt_telem_id_table,
- 	.remove		= pmt_telem_remove,
- 	.probe		= pmt_telem_probe,
-+	.driver		= {
-+		.probe_type = PROBE_FORCE_SYNCHRONOUS,
-+	},
- };
+diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+index b52795e03303..66ffb625aac0 100644
+--- a/Documentation/filesystems/resctrl.rst
++++ b/Documentation/filesystems/resctrl.rst
+@@ -629,7 +629,7 @@ When monitoring is enabled all MON groups will also contain:
+ 	each instance of an L3 cache. Each directory contains files for the enabled
+ 	L3 events (e.g. "llc_occupancy", "mbm_total_bytes", and "mbm_local_bytes").
  
- static int __init pmt_telem_init(void)
- {
--	return auxiliary_driver_register(&pmt_telem_aux_driver);
-+	int ret;
-+
-+	ret = auxiliary_driver_register(&pmt_telem_aux_driver);
-+	if (ret)
-+		return ret;
-+
-+	intel_aet_register_enumeration(THIS_MODULE, intel_pmt_get_regions_by_feature,
-+				       intel_pmt_put_feature_group);
-+
-+	return 0;
- }
- module_init(pmt_telem_init);
+-	If telemetry monitoring is enabled, there will be a "mon_PERF_PKG_YY"
++	If telemetry monitoring is enabled [#]_, there will be a "mon_PERF_PKG_YY"
+ 	directory for each physical processor package. Each directory contains
+ 	files for the enabled telemetry events (e.g. "core_energy". "activity",
+ 	"uops_retired", etc.)
+@@ -668,6 +668,12 @@ When monitoring is enabled all MON groups will also contain:
+ 	returned if the MBM event does not have an assigned counter in the
+ 	CTRL_MON group nor in any of its associated MON groups.
  
- static void __exit pmt_telem_exit(void)
- {
-+	intel_aet_unregister_enumeration();
- 	auxiliary_driver_unregister(&pmt_telem_aux_driver);
- 	xa_destroy(&telem_array);
- }
++.. [#] Telemetry features are enumerated asynchronously by the PMT driver, so
++   an automatic mount of resctrl from ``/etc/fstab`` at boot may not enable
++   them. To avoid this race, defer the mount until after the ``pmt_telemetry``
++   module has loaded. Unmounting and remounting the resctrl file system will
++   fix the issue.
++
+ "mon_hw_id":
+ 	Available only with debug option. The identifier used by hardware
+ 	for the monitor group. On x86 this is the RMID.
 -- 
 2.56.0
 
