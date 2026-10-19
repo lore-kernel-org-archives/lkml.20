@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBEA4FDE59
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:10:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702384FE2C3
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:10:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792415421; cv=none; b=houJiGY2jMB1eYAv2fVEb42Td21vVrmqTSokHFNySzSxTKCqx4ue+2qweBLe61ish38cdmetdvRgG5mdePw//gcrlfW+9vEkDrbOyYdJs27ENYVLoYOZ2tVUPNIvUfmYGzX3JLQqS/GOdOAIvfOkgYtQgGJZ/FwKRyd3i0H1GtY=
+	t=1792415424; cv=none; b=f2VWMOGdVKrXp7OoeWFaboXHyj9sJI+fbpJJboKes9KOljg60/pId33KYdqCChCrdw3eOO2DdW66WxrEs/tBcA//lMuHBSx39e7XvdVBG8RPjNPvCPCBfGMOwOmzSWBCTxAkfKWvtHjgm6aze+dtdxHktj2dKFUpJAs4I0oBFEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792415421; c=relaxed/simple;
-	bh=X6auEPM6Ev3rVCfKF+249AZ0OWslybPIyWntVmrkPbE=;
+	s=arc-20240116; t=1792415424; c=relaxed/simple;
+	bh=F3OOhn7NYU0iZmQVmnyMvRkiVtsnQfmlBICGNOtSyZk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c/cmrcd7y6zQGLqCurfe+rKYx0v9MT8UQ/12NqRwqxzUG5rti7pxg6oV3GSNpptdrqgVv0W90DYDMc7YWkIHlga+4h5+wCQ+zzobLqxe3pZxZrQn17NXtLjGrboPcVNm/IqBoDX7Np2WpFZC6dJmQHAp1ZS1pC0doiurp5l+mWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDTcYUlW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Q7UKo+td8HeVg1xA6YgF2MV41+U2DmyqcZHd+4JpHGpraGhom/dwq37OlO84moFwB2VHvGJaMbm79IZWHcxVVIkLN4shyMECrD3VfItPqzApwNW7SdaLtfCFV4SmeMFTtey4IeCumqW9bMKsfmZ6UbTr7ynLblucMkaW5SKZXnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=huBTchtv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDTcYUlW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0531F000C4;
-	Mon, 19 Oct 2026 13:10:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="huBTchtv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21FCB1F000C6;
+	Mon, 19 Oct 2026 13:10:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792415420;
-	bh=LQ414WyaK4YDWIYj77LPqz/+pjWEbp+HwP5P+Y3DZAg=;
+	s=k20260515; t=1792415423;
+	bh=+FC+thagwKj1TEPiVmc1OaHEPj4Ko6vShcCzv13/aPY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bDTcYUlWDG5cw9DIAMS5pqJEJK9H/EtWtM1o+j4kEZpOvUkB4TOMOnEgyNTYcBKp9
-	 r2JgFjgFfZX83Tr1bv8COq2o1CQDO+BlxseG3sBDX3n9XBp2aPRhu8V2n3GMWB35dl
-	 p7fnWHdhjOK/Ot45jgMIhwVJoVBaPpvH7Y/9Howmya6YmBXG7PCA99So8PF9noHHrR
-	 zirRLtJsxpN+KoW1PQjy91gI6nOHyeUil/AOSzfggytGaKYfFVUFiLI63aEW1MyiWz
-	 tBu81uCgbLWLY4zYDIGQ3ztuP7KDC+/Xet8gXsh4xolQikoNwLRQpBs2NlNo/w70Tz
-	 gGYb6b0CWnuqA==
+	b=huBTchtvFX2h6QFxjR7JOuhP9PAKtdxE3PBE6od8s8Ncai/rzicKrgmr/GZPBnceC
+	 v7kKNSrnLyJVbnwVHdlDT8ak6ECOf1L/rVNbAr36hQrsBkhu+SKg1xWYVkVU5yjkqL
+	 233fnkRL4ConhiZBATW2qzwkJkssanbkb3uZnCgBkDEBa6fYZhVNUKsYWqHkqOphOz
+	 K0ECMpHYy7NYHQhLZOWODXd2IySzuYROF3IHxLZ5YmPOlTVFdGWJcyPi3qkUvORLZX
+	 njjwKYtV/QBNPXCisyf3QRVRVUDLDZjkfx3U0WKUa1TBvYxmhyi7nJPfYH+3KrMTj9
+	 BUHyETDLDOnYQ==
 From: Frederic Weisbecker <frederic@kernel.org>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
 	Marco Crivellari <marco.crivellari@suse.com>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Phil Auld <pauld@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
 	Thomas Gleixner <tglx@kernel.org>,
-	Waiman Long <longman@redhat.com>
-Subject: [RFC PATCH 26/49] clocksource/drivers/jcore: Move CPUHP_AP_JCORE_TIMER_STARTING post stop_machine()
-Date: Mon, 19 Oct 2026 15:08:33 +0200
-Message-ID: <20261019130856.49711-27-frederic@kernel.org>
+	Waiman Long <longman@redhat.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: [RFC PATCH 27/49] ARM: smp_twd: Move CPUHP_AP_ARM_TWD_STARTING post stop_machine()
+Date: Mon, 19 Oct 2026 15:08:34 +0200
+Message-ID: <20261019130856.49711-28-frederic@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019130856.49711-1-frederic@kernel.org>
 References: <20261019130856.49711-1-frederic@kernel.org>
@@ -70,15 +71,15 @@ Signed-off-by: Frederic Weisbecker <frederic@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/cpu.c b/kernel/cpu.c
-index 7bc94829b68c..1b3942012f2d 100644
+index 1b3942012f2d..1a98d05c7f55 100644
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
 @@ -1275,7 +1275,7 @@ void clear_tasks_mm_cpumask(int cpu)
  static int take_cpu_down(void *_param)
  {
  	struct cpuhp_cpu_state *st = this_cpu_ptr(&cpuhp_state);
--	enum cpuhp_state target = max((int)st->target, CPUHP_AP_ARM_GLOBAL_TIMER_STARTING);
-+	enum cpuhp_state target = max((int)st->target, CPUHP_AP_JCORE_TIMER_STARTING);
+-	enum cpuhp_state target = max((int)st->target, CPUHP_AP_JCORE_TIMER_STARTING);
++	enum cpuhp_state target = max((int)st->target, CPUHP_AP_ARM_TWD_STARTING);
  	int err, cpu = smp_processor_id();
  
  	/* Ensure this CPU doesn't handle any more interrupts. */
@@ -86,8 +87,8 @@ index 7bc94829b68c..1b3942012f2d 100644
  	enum cpuhp_state target = max((int)st->target, CPUHP_AP_OFFLINE);
  	int cpu = smp_processor_id();
  
--	WARN_ON(st->state != CPUHP_AP_ARM_GLOBAL_TIMER_STARTING);
-+	WARN_ON(st->state != CPUHP_AP_JCORE_TIMER_STARTING);
+-	WARN_ON(st->state != CPUHP_AP_JCORE_TIMER_STARTING);
++	WARN_ON(st->state != CPUHP_AP_ARM_TWD_STARTING);
  	/*
  	 * Invoke the former CPU_DYING callbacks. DYING must not fail!
  	 */
