@@ -1,43 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB91353A77;
-	Mon, 19 Oct 2026 02:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0692CA59
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792376970; cv=none; b=nXVih7Zu+6UKwkv/i1QsKV2/agTH3A1mf0LvvLcYzJo687viDc5siUHh78LsA/f3/AoFztgw5MomIjPQhrILiaxQ36rMF8qfsEjTkqQiQovlo8ulBQGsGBy6ZCzkFF969i/OpQ6GzgClfmblKD6QtEj+sw/4v7uuhDlEGQIDPE8=
+	t=1792376988; cv=none; b=DaezTHeE3Bd/vX9ZLqXHtJ0SmNxqTCzDfE3hr8t3JztICa8Rm2C2o8SVHR0m8F+4sgTRjoZyoyveNCxehxqt7CzUvKpZ+SsleZQM1BWfzuaFtz4Y3K/wGc7L49QeQ5R5BVQVRun+Ct3KOyw+f2jlO7jGCTYXD138mL4XeY9JmXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792376970; c=relaxed/simple;
-	bh=Pe79u2WtD8qlGYL4vHyAC3UJ6mQinnZFoE9BPYg6Q9s=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Djgxtr9MXZAR335seRjH9Aq4cP+1qXvlWJstAEYAvV0bL8EdAYVZ0QTzc/gtOihtwRzeCDjx9ww2hZziOisynnM6lYDmMQyyAJyGnuXln0uzwJUFN8+IJCUwzSVZVr7Qx98PivM7UY4MZusyIeWusHBBIu84eb2552bGEkWYMw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oAYigqb8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792376988; c=relaxed/simple;
+	bh=va9ENKx1oVsladEdB2otdoH17clv6b07qauWxI18Tm0=;
+	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
+	 References:Date:Message-id; b=W+seSSQic1e51AtzcPLYU4Q/OknaX9drWGiHtmftOv46gMvEueD3ck57lfElTd4pPc2IuXJ78Bz7tOwtFjAgGYzLnxHAGekxGbr4LPIXWzwMcR160UDpT3UePNoxf7cLHQDAurkqeO56lzjr5ci3Yf6kk2lNotRhewFDBQmwxHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=fTsBLl21; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YH5b4hLe; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oAYigqb8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1EF21F000C4;
-	Mon, 19 Oct 2026 02:29:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792376967;
-	bh=VHXJVdhjsMCDbF8t6cCn/943Z7n4SphvPLRTxcyT55k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oAYigqb8KeTwupotPfR6RJHFQyPGiWPMzDsmkytqj8I8fzwaTceT2d+BiklN7zE4w
-	 HFIVb2BJVzqf/fLs3qMHGfXZM/2mLS3F2KhiiiG+SFXTr1a9skg9JOqIc3e9xdqM9F
-	 WMTcWQ3o+NNzCllSziU9IbHaf9Mhj6fWffb7G4JOM2iMMGPBojf82/fq36D/d6E2+Q
-	 7V4phhorSYzS417XUE7IRE2AKC+HV/PFvgDNJsJwk8+BWgCuPtDscFQ9cm/6xbZ/xu
-	 rn0ywb3yumq2NbqUWqsjhKV8FpCzYGnff8ZVHHhCHk8eAOncvAkHco2sj2EAVq3wiO
-	 Zv9Od6N7qfapA==
-Subject: Re: [PATCH net] net: hix5hd2: serialize timeout recovery with
- interface teardown
-From: netdev-bot+sashiko@kernel.org
-To: mhun512@gmail.com
-Cc: shenjian15@huawei.com, shaojijie@huawei.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, ae878000@gmail.com
-Date: Mon, 19 Oct 2026 02:29:26 +0000
-Message-ID: <179237696641.3135.6340119087907839708@kernel.org>
-In-Reply-To: <179203116093.2621539.3718842986255459438.G202@gmail.com>
-References: <179203116093.2621539.3718842986255459438.G202@gmail.com>
-X-sashiko-severity: High
+	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="fTsBLl21";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YH5b4hLe"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id 54A3D1D0015E
+	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 22:29:46 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Sun, 18 Oct 2026 22:29:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
+	1792376986; x=1792463386; bh=ZkF3szhHCAt0TzdT7e22/JYW3pBDbxg+jn9
+	d4SdOJww=; b=fTsBLl21CZFtyRi0yWcsE99FT+pzRzfYGyKDDSYrlRNEK6TftTr
+	o/l7gcetCeYBLvL1ihj3xcqc18gIjtnYf32h45f0Br6y314X7E3Lkvr6dC77dYey
+	6XKSg2R3/29YBQaZQJWpAqkHCneGgxCGnLzHpS6b2alcT1a9MbFrPSXY1yLmok5L
+	AtW9hilDWvKOGvML3ORj850Y9zF877gJMZ8OdyG/A5lbuHtrsYBfxY2wErLF7/9A
+	HYLhWhu/+twHKrB22MwiZhFsjwkQVPaQCR7RzvWOeUvS/AM71q5S2Bgd7stkN2vP
+	znZsgjv5MakJgq8qjg+fAWWsurFQAR/VgtA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792376986; x=
+	1792463386; bh=ZkF3szhHCAt0TzdT7e22/JYW3pBDbxg+jn9d4SdOJww=; b=Y
+	H5b4hLeINggXqxyzACY1Bu29q4jdeL9xL0ofI+zsuAtUNHmhjUy8CHMe9bJZeLzy
+	Yrge/6Y/Esj07virAgydZEveiouCmIOFwxygzi3K50eDYg1BFoSArF3xIxeJj4j9
+	IVC5sa9RoBBkN3J6ckwCLSe/yasXu/TC2EbD2lSEYm9uWmy1Cr4EjkpPNDqgwAOb
+	ceuEL1jORasRl6uIzXAsX+pCwsIUEGIGEeVzI6N/A5UF5dfWXyLjX7Wnr/NjRNxY
+	k7ByQkAti2hXy+xe4fItTmucJfFMtEM+jwnH04G8qob4idppk0svZ7TYj2hyywGX
+	k04mPkkCvrfx3bF+D5ZPQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792376986; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:GfkyLkEPAmKKoLC3nD+6bGKhZvXSWeO/zT0o+0Sfv5AXxo1
+	unvyrJ7YGRs2Fu3TlgO2Ryr2yGkd8yABI8i/uLMxE2YdhTQjZxtqRMtAqFvHiyVg
+	UBRVyOttwU/dg3RGMr6eIEilYxptkwrv547U8D1yl0MNwEVIjhTYWQSWFlFDUm9H
+	YFryIzCxwHfL8kWUZNE+fPi5MjgfwWaZwAQ8zyn13JxW2M8g5Y2qmXXuTOwEWxOo
+	fETVqW9cB4JnkeyU84SagDJ7BwDQ8bi0KXvU3J+CnVf7zIyj/Qv075qX4pJdM20x
+	R6XOx4bo4JcAjcemFFYNbU3CBFm8ARjXTK/Iwbg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,reply-to,
+	subject,to;
+Message-Instance: m=1; h=sha256:4QKW0J/oCyipiMo3hw7XWFJhiI5t1OpVJWn5x12DDz4=:va9ENKx1oVsladEdB2otdoH17clv6b07qauWxI18Tm0=;
+X-ME-Sender: <xms:mYDVakHkPejmIX6ApaYRRmwK70apBB6YzlADg1LS5O92yLsRnYR9HQ>
+    <xme:mYDVav51DHo3dUFUTTvPG20spS70dbIO4vkzjwtVm8vodNVuTSMhznfF48THy1539
+    AxZTjcJd6GV9wDz4YXGiMoA9zgoy_g906ZyEc3GdocGwUZIOA>
+X-ME-Received: <xmr:mYDVahxGlrps28UO9L3k2CF6BpbriKTjJ3XuSsZKIyzNoqaZPBZ1kQvZMpVLeBLsyaU8g83v8OcybS5oTnvhf4jQcaimVHA>
+X-ME-Proxy-Cause: dmFkZTGAclp6YbZlfEGHg/YBaCwlTcWCPI5hS0U7LkQtglxudkn3ondMJ5/kUGrR9GR4Vb
+    rJvGkXjUCEvjJMIesMpXo/aNbZ1UcV4fOUNn4xeJ15Yh9uXz/60YBctBK2DOoh0Bk5PWIW
+    2wTzIBEcSDa1cxlf9WE33S9Q49YEXy5C8IdPTxqG1LHzKOUTSpEDkN8l5GeaF+7G2p5xWS
+    ox8aHGWmR1K2UkT+q7QDnv8FabmrGRiP/AdXJhCcAsiZirKEyhVwvf/GI6rSV6BAX7X7G5
+    JXZHW32ctVxy2goOoOF+4x4GvRqcMO0QLLlnFG1Zh+h7MJ3oNdX2RV1LJmklF2XhyKq9ot
+    Qz5k1KlftOuxn1stp74Vi1/qnYbtfuHrhyz2Jc4mEUG8v2zECHOi+JjVnjrRw2QlPoWiTt
+    qQsQRPI9e0P+rXCMounrTDWavyyyx3+rlP85UD+D8xDV8WBXFV+MEwRyNLZVMW7Y9dI5RR
+    cQO+KeZ17SXXraIP6VYf2zw3ZueB290m0g5tFMVbkWCxviptTPHU9JHcmRaYOiJGGqBy0G
+    EYcL21txjY2H/+GaoaNzghhqKE/G6KmPTvadI8P7RjnVhw3n9JpbmcBofjWNvT6tDhJdFy
+    gDbLiVXfQ9FgpR0D40Tb+1JbowKUPWW7kHSyi0D1dyzyb9V2AsGodVskeiGA
+X-ME-Proxy: <xmx:mYDVamO3VWzbo4QuRn0kT6gwDNwxoYGMTxqXa0EN8hl7YPKZU_TDRA>
+    <xmx:mYDVavk2Bo4cOBNmPgcdqPdut0p3F4CZmHnV3az8x6Qfzikl3URl3Q>
+    <xmx:mYDVajTUNruRdG5qlBItM51u1xnFvAE-XTnJ1eOxaQtJZX7ZTaPVrg>
+    <xmx:mYDVamUO9nlkRvahb-D4m1NwNSCmfAoYtQ2EyrBFWhSDE0T6zrFDpA>
+    <xmx:moDVanuMerqw7nDgWwghr84es3S2YUcfMD4-Hu7k4oAkp_y-9KvyQK45>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 18 Oct 2026 22:29:42 -0400 (EDT)
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -46,236 +95,75 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+From: NeilBrown <neilb@ownmail.net>
+To: "Ian Kent" <raven@themaw.net>
+Cc: "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Christian Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>,
+ "Amir Goldstein" <amir73il@gmail.com>, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Jake Edge" <jake@lwn.net>
+Subject: Re: [PATCH v4 0/5] Fix easy bits of the negative dentry problem
+In-reply-to: <f1c42d0bd125c6b1c39f1ebaee41340b5f6f03f6.camel@themaw.net>
+References: <20261019000810.1837917-1-neilb@ownmail.net>
+  <f1c42d0bd125c6b1c39f1ebaee41340b5f6f03f6.camel@themaw.net>
+Date: Mon, 19 Oct 2026 13:29:38 +1100
+Message-id: <179237697885.1724252.11956785709205194840@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Mon, 19 Oct 2026, Ian Kent wrote:
 
-Critical: 0 · High: 1 (1) · Medium: 0 (2) · Low: 1
+> 
+> As is so often the case you've come up with an interesting and useful
+> proposal, ;)
+> 
+> Nothing stood to me out as problematic given the scope of the series.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thanks :-)
 
-- [High] In drivers/net/ethernet/hisilicon/hix5hd2_gmac.c,
-  hix5hd2_tx_timeout_task() (lines 895-900) used to call…
-- [Low] hix5hd2_tx_timeout_task() discards the return value of
-  dev_open(priv->netdev, NULL)…
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the sibling
-  driver drivers/net/ethernet/hisilicon/hip04_eth.c has the same defect…
-- [Medium] This problem wasn't introduced by this patch, but
-  hix5hd2_dev_probe() registers the interrupt with devm_request_irq(dev,…
-- [Medium] This problem wasn't introduced by this patch, but
-  hix5hd2_free_dma_desc_rings() unmaps each outstanding tx_skb[i] using…
+> 
+> > 
+> > 
+> >  [PATCH v4 1/5] VFS: don't count references through ->d_parent
+> >  [PATCH v4 2/5] fsnotify: update children flags only when adding mask
+> >  [PATCH v4 3/5] fsnotify: don't hold i_lock while walking d_children
+> >  [PATCH v4 4/5] Add d_for_each_positive_child family of iterators
+> >  [PATCH v4 5/5] Use d_for_each_positive_child() in fsnotify.
+> 
+> Did you have any thoughts on how to contain the number of negative
+> dentries, (perhaps) including directory entry counts, in an intelligent
+> way (meaning "as you go" rather than "brute force" when needed)?
+> 
+> A significant problem, particularly on systems that count their memory
+> in TBs rather than GBs.
 
---
+I would need to understand *why* this is a significant problem, which as
+yet I don't.
+Allocating things that don't get used much isn't intrinsically a
+problem.  We have a shrinker which will gradually removed them - or less
+gradually when memory is short.
 
-net: hix5hd2: serialize timeout recovery with interface teardown
+But maybe shrinker activity itself is a problem?  Is that it?
 
-This patch makes the hix5hd2 TX timeout worker take RTNL and skip recovery
-when the interface is not running. It also replaces the driver's own
-close/open calls with dev_close()/dev_open(). In hix5hd2_dev_remove(), it
-moves cancel_work_sync() so the worker is drained before the MDIO bus and
-descriptor queues are released.
+I think it could make sense to separate positive and negative dentries
+on the d_children list.  This is quite do-able, though there is a small
+cost when a dentry transitions from one to the other.
 
-> diff --git a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-> index 02282dc86faf..12a5657653f8 100644
-> --- a/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
-> +++ b/drivers/net/ethernet/hisilicon/hix5hd2_gmac.c
+The only other thing I remember from the lwn article and the various
+other articles and emails it referenced, was something about poor LRU
+performance.  Lots of largely useless negative dentries push more useful
+positive dentries to the end of the LRU and we lose them too soon.
+I think that can be addressed by having separate LRUs for positive and
+negative dentries, and giving them different weights.  I think the
+cost of this would be tiny, but I'm not confident of the benefit.
 
-[ ... ]
+Is there some other concrete symptom that I didn't notice (or have
+forgotten)?
 
-> @@ -890,8 +891,13 @@ static void hix5hd2_tx_timeout_task(struct work_struct *work)
->  	struct hix5hd2_priv *priv;
->  
->  	priv = container_of(work, struct hix5hd2_priv, tx_timeout_task);
-> -	hix5hd2_net_close(priv->netdev);
-> -	hix5hd2_net_open(priv->netdev);
-> +
-> +	rtnl_lock();
-> +	if (netif_running(priv->netdev)) {
-> +		dev_close(priv->netdev);
-> +		dev_open(priv->netdev, NULL);
+Thanks,
+NeilBrown
 
-[Severity: High]
-Does switching to dev_close()/dev_open() make every TX timeout a full
-administrative down/up of the interface?
 
-Before this patch, the worker only re-initialised the MAC, PHY and DMA
-through hix5hd2_net_close()/hix5hd2_net_open(). Now the path is:
+> 
+> Ian
+> 
 
-hix5hd2_tx_timeout_task()
-  dev_close()
-    netif_close()
-      netif_close_many()
-        rtmsg_ifinfo(RTM_NEWLINK, dev, IFF_UP | IFF_RUNNING, ...);
-        call_netdevice_notifiers(NETDEV_DOWN, dev);
-
-On NETDEV_DOWN, fib_netdev_event() does:
-
-	case NETDEV_DOWN:
-		fib_disable_ip(dev, event, false);
-
-That flushes IPv4 routes whose nexthops use this device, including static
-and DHCP-installed default routes.
-
-addrconf_notify() also calls addrconf_ifdown(dev, event != NETDEV_DOWN).
-Unless keep_addr_on_down is set, this removes every IPv6 address on the
-device, including manually configured permanent ones. Neighbour entries
-are flushed too, and bond/bridge/VLAN upper devices see the port go
-administratively down.
-
-The NETDEV_UP from dev_open() only restores what the kernel derives on its
-own: prefix and local routes for addresses that are still present, and
-auto-generated link-local addresses. Static routes and manually configured
-global IPv6 addresses are not restored.
-
-Could one transient TX stall then leave a statically configured host
-without its default route or its global IPv6 addresses?
-
-The commit message gives one reason for the switch, "so a failed reopen
-leaves the interface down". It doesn't mention this change in what the
-stack and user space see. With the Fixes: tag, the change is likely to go
-to stable.
-
-hbg_err_reset() in the hibmcge driver does use dev_close()/dev_open() for
-resets. In this driver, though, the previous recovery path left L3 state
-alone.
-
-Would it work to keep the RTNL lock and the netif_running() check, keep
-calling the driver-internal stop/start helpers, and handle a failed
-reopen inside the driver?
-
-[Severity: Low]
-The return value of dev_open() is discarded here, and extack is NULL.
-Since dev_close() has already cleared IFF_UP, a failed reopen leaves the
-interface down.
-
-Some failure paths in hix5hd2_net_open() don't log anything:
-
-	phy = of_phy_connect(dev, priv->phy_node,
-			     &hix5hd2_adjust_link, 0, priv->phy_mode);
-	if (!phy) {
-		clk_disable_unprepare(priv->mac_ifc_clk);
-		clk_disable_unprepare(priv->mac_core_clk);
-		return -ENODEV;
-	}
-
-of_phy_connect() can fail without a message. For example, phy_init_hw()
-can fail on MDIO timeouts, which is plausible while the hardware is
-stalled. Errors from NETDEV_PRE_UP and other netif_open() failures are
-also lost because extack is NULL.
-
-Would a netdev_err() on dev_open() failure help here? Then a TX timeout
-that leaves the interface down would at least log why.
-
-[Severity: Medium]
-This is a pre-existing issue, but this recovery path runs the close path
-while TX entries are still pending. Is hix5hd2_free_dma_desc_rings()
-unmapping the right addresses in that case?
-
-	desc = priv->tx_rq.desc + i;
-	addr = le32_to_cpu(desc->buff_addr);
-	dma_unmap_single(priv->dev, addr, skb->len, DMA_TO_DEVICE);
-
-hix5hd2_net_xmit() records the mapping in the submission ring instead:
-
-	desc = priv->tx_bq.desc + pos;
-	...
-	desc->buff_addr = cpu_to_le32(addr);
-
-tx_rq is the completion ring. For entries the hardware hasn't completed,
-tx_rq.desc[i] holds either zero or a stale address from an earlier packet
-that hix5hd2_xmit_reclaim() already unmapped. The real mapping is never
-unmapped.
-
-For SG skbs, buff_addr is the coherent sg_desc address:
-
-	addr = priv->tx_ring.phys_addr + pos * sizeof(struct sg_desc);
-
-So on close, neither the linear mapping nor the per-frag mappings created
-by hix5hd2_fill_sg_desc() are unmapped. hix5hd2_xmit_reclaim(), by
-contrast, handles these through hix5hd2_clean_sg_desc().
-
-With an IOMMU or swiotlb, could each close leak IOVAs or bounce slots,
-and release a stale one twice?
-
-> +	}
-> +	rtnl_unlock();
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the sibling driver
-drivers/net/ethernet/hisilicon/hip04_eth.c seems to have the same problem
-this patch fixes:
-
-static void hip04_tx_timeout_task(struct work_struct *work)
-{
-	struct hip04_priv *priv;
-
-	priv = container_of(work, struct hip04_priv, tx_timeout_task);
-	hip04_mac_stop(priv->ndev);
-	hip04_mac_open(priv->ndev);
-}
-
-The worker takes no RTNL and doesn't check netif_running(), and
-hip04_mac_stop() always calls napi_disable(&priv->napi).
-
-Suppose the interface is brought down after hip04_timeout() queues the
-work but before the work runs. Can the worker's second napi_disable() then
-wait forever? hip04_remove() would then hang in
-cancel_work_sync(&priv->tx_timeout_task).
-
-If the interface is brought back up instead, napi_enable() in ndo_open
-frees the stuck worker. It then runs hip04_mac_stop()/hip04_mac_open() on a
-running interface, at the same time as RTNL-protected operations.
-
-Does hip04_eth.c need a similar fix?
-
-> @@ -1283,6 +1289,7 @@ static void hix5hd2_dev_remove(struct platform_device *pdev)
->  	struct hix5hd2_priv *priv = netdev_priv(ndev);
->  
->  	unregister_netdev(ndev);
-> +	cancel_work_sync(&priv->tx_timeout_task);
->  	mdiobus_unregister(priv->bus);
->  	mdiobus_free(priv->bus);
->  
-> @@ -1290,7 +1297,6 @@ static void hix5hd2_dev_remove(struct platform_device *pdev)
->  		hix5hd2_destroy_sg_desc_queue(priv);
->  	hix5hd2_destroy_hw_desc_queue(priv);
->  	of_node_put(priv->phy_node);
-> -	cancel_work_sync(&priv->tx_timeout_task);
->  	free_netdev(ndev);
->  }
-
-[Severity: Medium]
-This is a pre-existing issue, but free_netdev() here runs before the
-managed IRQ is released, doesn't it?
-
-hix5hd2_dev_probe() requests the interrupt with ndev as dev_id:
-
-	ret = devm_request_irq(dev, ndev->irq, hix5hd2_interrupt,
-			       0, pdev->name, ndev);
-
-devres frees that IRQ only after hix5hd2_dev_remove() returns, but ndev
-is freed explicitly above. hix5hd2_interrupt() dereferences it straight
-away:
-
-	struct net_device *dev = (struct net_device *)dev_id;
-	struct hix5hd2_priv *priv = netdev_priv(dev);
-	int ints = readl_relaxed(priv->base + RAW_PMU_INT);
-
-If an interrupt arrives in that window, would the handler read
-priv->base and use priv->napi in freed memory? The probe error unwind has
-the same ordering once the IRQ has been requested.
-
-The IRQ isn't shared and ndo_stop masks interrupts, so hitting this needs
-a spurious or still in-flight interrupt. Moving cancel_work_sync() in this
-patch doesn't affect it. The separate remove-path change noted below the
-cut line (https://lkml.iu.edu/2610.0/05627.html) may be relevant here.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/179203116093.2621539.3718842986255459438.G202%40gmail.com
