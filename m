@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792429313;
-	b=l7bZzliOkzPxCcrwKp58eYfeTQmF6LLskbFYey/+uUDT+ZPK2+UlHdikYz3nn3zD/pqX
-	 pXbWSTaiwWG7px7azuxdUHaGtchomN3R8EkPNyIcSraiT+khUQ/Gbhvrh+6yjD9cveAt3
-	 mzZx6JAx/Ihig6TJIv7tyz9LuHzK6yvFGV/zyhnQpoIexz4QUbo+ID+MxBJENOuBDdVmI
-	 Delfmog+qr5571540fO7+K0x3fNt4GUAkkbV5Q16ari5/8LAR4ftKZ8C02GrmiYmTOdtX
-	 E3AxJkr3OHLKg8MUYX87jHG3Sjn/29pCIOB6FR3K0M8HENUOef6sznEn/L25m7UNWxw==
+	t=1792429309;
+	b=iCzR0nBjZTtJ8g34GQmFYtvJkEuHPGnlSA0B7+xZqRTxa73qQzgdBG7iJ0IDb+dMxNBA
+	 yNesLDCCyYblvorzFyQuSWplIKt3qvQ42uCHPck27U+jTsC3jt3hx5XTw6IeSL6lOG/l2
+	 Tl9/7Sys3EIiM4u65HPL88SZFsY7piRyN2XMxtaps8wbQszt0ALStYBnBtmewM5MsJNrw
+	 IExYITm+VWlC/2UiUC7py9dHAyVO25TGB9IMqjlrJFdufhcgUZtjSRvcBvFjzHhRRV779
+	 GLmwbwaTj3R2/qrDOqGdpf1ATFdI1BnM8d3dp0ueEOa1umUY2oyDKKvBsMBgK6YgJxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429313;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/Y1x++vnCQx8M1MrMrYzuhKRQBYLHw+2G0VMFlv/ouo=;
-	b=P0jWmwLgUyHXLpCqIwqQJL+3Uz7HqlN5iceag0ifpLNhMNm8jPqfYb4gmsht/7bxkXRO
-	 WS8dNa+bzo+W/oSLLc1Y3wTzbwBrmF2/IoOj35VD495ebWrr5owSSzg+rjtTTdR9fw9uE
-	 gSxVH9UIehMwmN5xm3N8JPcu4xYpOcjWLEKlpK4J+1022/PU21NkF8bwho/h8DFzmzgYF
-	 ZyjNcOcfR1aHsZj+/jhMNZ1ABMgP2gHud8Ii0pQLlWSvlKqjsReBO0Z1DeLCXijMBf3aI
-	 7EBsLtcowFOUKGg79c4M6s192EhQIuM8SMQy+irgkx4o+22qD5na/7aWruZ117Fj6XQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429309;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=S3i+jHVVPDNWyNDsleSOJM+lF7eDVzfmCU9l597q6rU=;
+	b=2rDe3e3JGTx49mIQF9IcwLMlOacmHdfKOfmTS1NXDHArGh1qXAzDoY2asIvwq2d4GC2R
+	 N3KWQk8liCtvimfk6GV6Vv4x91v2atK3onmPQjaZPi0WZIotse37sfbSy2/xQnMEc48gM
+	 Ht+1KNkU66r4XQSBfznoYkD5baQshJ8Efk6eiGFQ0TM28Fh54YO7aK/W2QAIth96s8z60
+	 CgQahKzos9ZYZiAnULoCgcj9JATfyIHsZsgfg6xYb71ADrWZK9/J8QYaEBbdnv53Yx1Os
+	 ifkpKA04qQDzMts1ZWR9ewp5OJDmHj+up8UglcL6zRUgm4+wu04lfw599R6/ZVKjYow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KFrQv4LF;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X437GM04;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7D760A380F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:01:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C7D760A380F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A31606A33D;
+	Mon, 19 Oct 2026 17:01:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KFrQv4LF
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2acc1e170cso335106666b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:01:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792429311; x=1793034111; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/Y1x++vnCQx8M1MrMrYzuhKRQBYLHw+2G0VMFlv/ouo=;
-        b=KFrQv4LFhCSJZrq85gLcTa5OLz5IhMYFH7n74va3Rub1pAVLCh2NDTvWoZ3HTe1ywZ
-         hD0ES5nXX4OHJCaUbIhw0jYHDR85MJGN4AVN+9HLg9a/sriV5PNYXszZ5SJYSmC+PmzT
-         xftPemQoB3H457tzQFnvjPorXiVO+tl9e7b0DZjtHM9D9sG1YkjHFvP4LWMASoayXEz6
-         lbKe2va38HTnQVfhVsxWBbh5hN+Z9Q64AxDmtQ/6XYQOzXF/N5qJTB3HIymCZBpip6ti
-         ebAcnVaMR7rbsAmWzZ2qOZgzBC9JjsS+VP7NbUxzt8Az1NgAnE8319cmbLeoz5CQZQ1s
-         zOqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792429311; x=1793034111;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/Y1x++vnCQx8M1MrMrYzuhKRQBYLHw+2G0VMFlv/ouo=;
-        b=X6LQVc/r/wtpDIhir16osXf4kdSbG3MO3+UKyMWMfJtVT3GbI4KwjOoNK9GUQhyibr
-         2MOR9mxxY3/BI/aATByOYgC9UH770tRP7v/ZYAcGnGngRf9EDbp8STWjEMFwmjaKtXdK
-         /fcvH4HqKlGkPTvKOSxL3raQKRQ/LYciPzGlPkAfxsCdNT5T7A943nOkiFw4RfjyULXU
-         9VxiPqAz0mDyvSIZQbPVD8bVdK/+w/IF+AWugduiEWK01NlJZmgq8udcQaB0/DXHKtOK
-         1WM1kj5g0h7TwTrDpKfHgsxYMSunke7ioO7GMYWrBcTo7EGxx/Tv+rJ1p7NjE1cig1F0
-         XrAw==
-X-Forwarded-Encrypted: i=1; AKwUvBxi9TamuhpBuLLOn5hGNUYoVXdIaSXR74eVpeVbqPg4OixIdyyKhbu/zQY2ymWNNZznTqL0jairBvHuHUY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0Tz3wxwSjM0cR1XXH7gI9MGUGBHWKm2seRxw/91xB3V+pyj+M
-	j8ATn84jTbESKQXOMBBFsf1BCh5kqMQZBtFMGPkq4UK4JABZ5rsmJtjHdaYUtQ==
-X-Gm-Gg: AYBFou2O6JN9f5htbCy6E8UKqoWp25g0/Rolpxu/THA+zKN3iOSDsGeh3TZ3h8U+UQD
-	oHyjM09q9eZdDLO0Obx1p/ByWHy0L2cerWUZIWppdVVpFPTp3+NxWkuykmRtZXmBd6MlQTqcRm0
-	smfzPTI0idO5D0jU3MbGjeDmR3EuwFnv7Q7SzFL3YARDPxUcxlQDqE0UET5u4G8ydViHYmxzHHp
-	x1XD+6Mf8jNJi9XSEa37isHLyGvH/cekoUlFPoS9plpLLLorW+0lKjy7nreFG2cENh+5Mn4HE/c
-	mnPnBqqB41HY6YVRo2dNzoobomOSUUGtJVoCI7I9JB2rQxVi854rcvxgey4DTahC5sSu1N5bz2w
-	2qVlgjLZRVsvsESFIz/I3Kq362dTa+v4Zmon6YmBJM/uprNKU6KnmOz4k7L15W5GSDdvzLRfidr
-	7Z6tWF868GnCM7lQv0jrquEPDCBlZwSuMFC2JmMXDhTKeWSGykCGWdTCa0tdX/XxDVe8GEFz5KP
-	05UahCqHlxGQfU3eTrZgPj6lSC3anmORwD9werGQh729rEsAu68Mx5u
-X-Received: by 2002:a17:907:97c8:b0:c25:4f7c:8ec5 with SMTP id a640c23a62f3a-c419e33b08amr627243766b.23.1792429311212;
-        Mon, 19 Oct 2026 10:01:51 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a702:d301:1439:c865:be43:6676])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d823b7esm101784f8f.40.2026.10.19.10.01.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:01:49 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Au Dang <au.dang.jx@renesas.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	Biju Das <biju.das.au@gmail.com>,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH 4/4] serial: sh-sci: Toggle TE when restoring SCSCR in console write on SCI
-Date: Mon, 19 Oct 2026 18:01:12 +0100
-Message-ID: <20261019170139.473808-5-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019170139.473808-1-biju.das.jz@bp.renesas.com>
-References: <20261019170139.473808-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X437GM04
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 625211F000C6;
+	Mon, 19 Oct 2026 17:01:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792429308;
+	bh=S3i+jHVVPDNWyNDsleSOJM+lF7eDVzfmCU9l597q6rU=;
+	h=Date:From:To:Cc:Subject;
+	b=X437GM047dYthGut0z2XvzHGiNex0TlYLSMxN0RRRlS3igbz56zqE1wispSl0H1er
+	 hyOJYcfgnPHofBHXp/MNK5/lh6xavzqGZjAg5ejdB+nCMHCthUG0JHVT94hshR3h03
+	 m5Fz01a+S13yztuEtURK7DUNgQL0PDc+7nM2jfB6goeEQnkrX9zdn+KVhbNTy9iiaX
+	 +VdQHDi1J5UFOVi5Q3SeBZ+L5Pd4txYLquTrRN7XLmaIRrE9QjUugMB+xWM2l+ttER
+	 b3wjMLHGahbzNRAhbD/fdh3VXXBA4+QlML1C9b2Cg6taNgnUe/3S0L58PFy0mCcS9d
+	 xH7ht+7XAyMkA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 753F31AC57D0; Mon, 19 Oct 2026 18:01:46 +0100 (BST)
+Date: Mon, 19 Oct 2026 18:01:46 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: Andrea Righi <arighi@nvidia.com>, Kuba Piecuch <jpiecuch@google.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the sched-ext tree with the origin tree
+Message-ID: <atZM-tXvYuR1bE3z@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,66 +58,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="AAd/J4A5l7u5t+Tx"
+Content-Disposition: inline
 
-From: Au Dang <au.dang.jx@renesas.com>
 
-When SCI0 (PORT_SCI) is the system console on RZ/G2UL, the board can
-hang at the serial console output stage during boot.
+--AAd/J4A5l7u5t+Tx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-ftrace shows the following sequence:
+Hi all,
 
-1. sci_transmit_chars() is draining the TX kfifo through TXI
-   interrupts with SCSCR=0xf0 (TE=1, TIE=1, RE=1, RIE=1).
+Today's linux-next merge of the sched-ext tree got a conflict in:
 
-2. serial_console_write() runs in the middle of that drain. It saves
-   SCSCR=0xf0, switches to polling by writing SCSCR=0x30 (TE=1, TIE=0)
-   and outputs the characters with sci_poll_put_char().
+  kernel/sched/ext/sub.c
 
-3. It then restores SCSCR=0xf0 in a single write. TE is 1 both before
-   and after, so there is no TE transition.
+between commit:
 
-4. sci_start_tx() is then called repeatedly with SCSCR unchanged, but
-   no TXI is ever raised again, so the drain never resumes and the
-   console hangs.
+  18f5c699d1d0a ("sched_ext: Rename scx_reenq_wait_dispatching() to scx_wai=
+t_dispatching()")
 
-The RZ/G2UL User's Manual (section 23.3.6, "SCI Initialization") notes
-that changing SCR.TE from 1 to 0 or from 0 to 1 while SCR.TIE is 1
-generates a TXI interrupt request. Without a TE transition, the TXI
-that would restart the drain is never generated.
+=66rom the origin tree and commit:
 
-For PORT_SCI, restore SCSCR in two steps: first with TE cleared, then
-with the full saved value. This forces the TE 1->0->1 transition while
-TIE is being re-enabled, so TXI fires and the interrupted drain
-resumes.
+  cea8b60e4aee0 ("sched_ext: Move reject DSQ draining into core")
 
-Signed-off-by: Au Dang <au.dang.jx@renesas.com>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
- drivers/tty/serial/sh-sci.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+=66rom the sched-ext tree.
 
-diff --git a/drivers/tty/serial/sh-sci.c b/drivers/tty/serial/sh-sci.c
-index e4c7a3e14688..94a34dccfe56 100644
---- a/drivers/tty/serial/sh-sci.c
-+++ b/drivers/tty/serial/sh-sci.c
-@@ -3445,10 +3445,14 @@ static void serial_console_write(struct console *co, const char *s,
- 		cpu_relax();
- 
- 	/* restore the SCSCR */
--	if (sci_port->ops->finish_console_write)
-+	if (sci_port->ops->finish_console_write) {
- 		sci_port->ops->finish_console_write(port, ctrl);
--	else
-+	} else {
-+		if (to_sci_port(port)->type == PORT_SCI)
-+			sci_port->ops->write_reg(port, regs->control, ctrl & ~SCSCR_TE);
-+
- 		sci_port->ops->write_reg(port, regs->control, ctrl);
-+	}
- 
- 	if (locked)
- 		uart_port_unlock_irqrestore(port, flags);
--- 
-2.43.0
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
 
+diff --cc kernel/sched/ext/ext.c
+index 2b6239763b230,9491e4332115f..0000000000000
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@@ -2421,11 -2597,8 +2601,11 @@@ void scx_move_local_task_to_local_dsq(s
+  	lockdep_assert_rq_held(dst_rq);
+ =20
+  	WARN_ON_ONCE(p->scx.holding_cpu >=3D 0);
+ +	scx_wait_dispatching(p);
+ +
+ +	dst_dsq =3D scx_resolve_local_dsq(sch, dst_rq, p, &enq_flags);
+ =20
+- 	if (enq_flags & (SCX_ENQ_HEAD | SCX_ENQ_PREEMPT))
++ 	if (enq_flags & (SCX_ENQ_HEAD | SCX_ENQ_PREEMPT | SCX_ENQ_PREEMPT_LAZY))
+  		dsq_insert_head(dst_dsq, p);
+  	else
+  		list_add_tail(&p->scx.dsq_list.node, &dst_dsq->list);
+@@@ -2604,7 -2847,13 +2854,14 @@@ static bool unlink_dsq_and_switch_rq_lo
+ =20
+  	/* task_rq couldn't have changed if we're still the holding cpu */
+  	if (likely(p->scx.holding_cpu =3D=3D cpu) && !WARN_ON_ONCE(src_rq !=3D t=
+ask_rq(p))) {
+ +		scx_wait_dispatching(p);
++ 		/*
++ 		 * Keep ->dsq set until we own @src_rq so that a racing dequeue
++ 		 * can find @dsq and clear holding_cpu. Once ownership is
++ 		 * confirmed, clear it under @src_rq so that deactivate_task()
++ 		 * takes the !dsq path instead of retaking @dsq->lock.
++ 		 */
++ 		p->scx.dsq =3D NULL;
+  		return true;
+  	}
+ =20
+@@@ -2651,10 -2913,21 +2921,23 @@@ static struct rq *move_task_between_dsq
+  	lockdep_assert_held(&src_dsq->lock);
+  	lockdep_assert_rq_held(src_rq);
+ =20
+ +	scx_wait_dispatching(p);
+ +
+  	if (dst_dsq->id =3D=3D SCX_DSQ_LOCAL) {
+  		dst_rq =3D container_of(dst_dsq, struct rq, scx.local_dsq);
++ 		/*
++ 		 * Unlike the rq-lock handoff paths, @src_rq has been locked
++ 		 * throughout this operation. Only active proxy state can race the
++ 		 * move here; let the enforcing check below diagnose an ordinary
++ 		 * migration-disabled task.
++ 		 */
++ 		if (src_rq !=3D dst_rq &&
++ 		    unlikely(task_proxy_running_or_donating(p))) {
++ 			dispatch_dequeue_locked(p, src_dsq);
++ 			raw_spin_unlock(&src_dsq->lock);
++ 			scx_proxy_reject_task(sch, src_rq, p, enq_flags);
++ 			return src_rq;
++ 		}
+  		if (src_rq !=3D dst_rq &&
+  		    unlikely(!task_can_run_on_remote_rq(sch, p, dst_rq, true))) {
+  			dst_dsq =3D find_global_dsq(sch, task_cpu(p));
+@@@ -4562,11 -4922,10 +4942,10 @@@ static u32 reenq_local(struct scx_sche
+  		if (!local_task_should_reenq(rq, p, &reenq_flags, &reason))
+  			continue;
+ =20
+ -		scx_reenq_wait_dispatching(p);
+ +		scx_wait_dispatching(p);
+  		scx_dispatch_dequeue(rq, p);
+ =20
+- 		if (WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK))
+- 			p->scx.flags &=3D ~SCX_TASK_REENQ_REASON_MASK;
++ 		WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK);
+  		p->scx.flags |=3D reason;
+ =20
+  		list_add_tail(&p->scx.dsq_list.node, &tasks);
+
+--AAd/J4A5l7u5t+Tx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatZM+gAKCRAv73Ows9A4
+ieYXAP9fxp35nFCEEtdqbZzTg6aGmsvu3ETaEx2JH3J6twEsnwD/WFX0OlxW+JYW
+Ib25LSN5g9TckB263UYu3HqHHg3Z1gU=
+=j5I/
+-----END PGP SIGNATURE-----
+
+--AAd/J4A5l7u5t+Tx--
