@@ -1,62 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792443366;
-	b=Q/N1UMxX3fORImyXcdSRI0328terT511oBYAls3/D14+kmuO6ckgnkDXNLU7UhM/CAbB
-	 OfjreCTiejjtQJPNFD0ruKwA/iXW6LLv+JCNdZEapoYD/70VFcAS0BRpsAUnCQjFo7d4a
-	 SJ40KAWmwg7US1gjiBiH/nk7oFjhJnR3VNWOiTiJSC/7JIzkwvZgbXEyW2Tp0jfEwTCLH
-	 GY39/siUMZatuanXt16vIgZIO+qbtc3EzLl00OUPRN7Cg0r+Ync+7W+m2kEGegPw7hLU4
-	 e6lw17FJauFqSynZGvUjBoxeQGUgN9/ULNXu9U+75fXCdPkkgz+lwuWGUneHUDv8jcw==
+	t=1792443416;
+	b=qyDkbA+jMqUwjxcBWrj5kX8V1PAZB9V+0Ee1AMUdnt1CUhH/wISSIXnmgue4uy8HQZvX
+	 iC4yd1jCXPCnI2pVyJgrdM2o7k4H4hGGLG7Cp3gTnXlKDy4br/LCQZkI0dFzlVhIneflX
+	 kpkEWO4TohFkWOmP5HRUStF9aETaisl8245IeDico8Aofjqxosa61eE8o5ytXP+RBCeMi
+	 2pCmBCCD2N+k7XTaHSZe/f1pjfd1vFjV5znDfpI0RDlkQCtgNjHNkTNN4I2iuVjiMRbLw
+	 ihJeOu84HYZ+QRCEOiCpuf0FsqcfbQcUVXinkAL7C01jvGA8dwe/xVZKUUE9aawWrPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792443366;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BjZVrzg3rsf7XbY7jaOkZkV6KS8iKu7zuHPhPhRa91E=;
-	b=NQzxsEE2f7JhR5SKQjvwsH96XQyHYqvSYbg6BpN4HLnF+Il/huiE1QNUgxBSX8A+Xj4r
-	 pbTQ0Ne8jhFh2EQfXpeNyPIPCMVKHXPC4AkaT+it+Cx8VO1PlnZMS/daGP/yaZRJbADpt
-	 /dPMOJiE2KVrzbGZcc5dlD8dS6+F9oxOTfKxm8hx2g1s+llIGK3uNIaQz1wnrJ2jNPZqW
-	 jNDlJeSQatksLij1uwBrpGecdE8lxro+V2JJumunL2G0TVZRXfSGfDGOKwu1VFf3KvqvA
-	 i0yEswoJ1iT3mDTc7jDL15Tr4hGn0v6Z9PercazZ4HqvosWBkwCl0VezaNckTRip+1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792443416;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AN05D8Yt+mlMjUBN9ChH3pDuXIogzb18Y01sfQRIakQ=;
+	b=sX9LJH5ZsM96khS9l2sEehqHpqTETsQk1yyuikIKpNhgSsT+bjIUAts3U9b37quH85K0
+	 W7jS/B+/saI9OoSd8Gg9LUgCcLZ9TNoTz0hHtTrAbVDRoS6+/qTtlGynfx5Z+9k38BB1k
+	 5eS7ZgRxNzF2NjpG64tYpdsuLv+VLIV2vtwYKHQbTMqDGpuqDwss0F4H1/2L67npKH+Vq
+	 oOIfe1UKL84aTZeFcNoAtYOoyViMRQptm2xqiTmDZ1Re6YdHB6GZ1r2n4j8aabhiyPGbs
+	 7t3KbEcODfUP4004+jIWUqSADjASe42nG1/jICgkUCr/O1pt/FVfz+bSOoTLLoaxnGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AaqOCt87;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRrYToiX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05437606A31A;
-	Mon, 19 Oct 2026 20:56:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C63A5606A31A;
+	Mon, 19 Oct 2026 20:56:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AaqOCt87
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B435A1F000C4;
-	Mon, 19 Oct 2026 20:56:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRrYToiX
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EA52E1F000C4;
+	Mon, 19 Oct 2026 20:56:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792443365;
-	bh=BjZVrzg3rsf7XbY7jaOkZkV6KS8iKu7zuHPhPhRa91E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AaqOCt87uid4jy9SNYadhhhufQD2OkEVYLeIo7wWintbkPMxDFt5hE094B0UN7vP4
-	 wtWaGcX5VWIhD2E9cKYa9k5DgB1K4t72apgufNGpoDikiPAAoosP3Fsbf0WhJcPlxy
-	 hX1WftopX9o+g1zUt7Qv1z0px45podZKK44kBo+r2YMJuxqJExsqHpZgHdTyLSdygs
-	 phh5+ftZaBVa1JwLYi4GUXNXoTaok9DvC52ALGtSmRhE4E5dFVKj27ux2V/2D/1mla
-	 O8Tu3RZ7yOXwFvYMkr/EusQCC5LivmSa62msVHKDIMf2hpVjEkSIy1Bfg2at/pI0Zh
-	 1aTrmPNfNCYmg==
-From: Sasha Levin <sashal@kernel.org>
-To: Daniel J Blueman <daniel@quora.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Manikanta Mylavarapu <quic_mmanikan@quicinc.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] i2c: qcom-geni: restore tSCL with 32MHz I2C fast-mode
-Date: Mon, 19 Oct 2026 16:55:40 -0400
-Message-ID: <2026-10-19-1-daily-reply-0015-i2c-qcom-geni-clk-policy-7-2-6-18@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com>
-References: <eaa6f116-7556-4791-857d-cd50c504528d@oss.qualcomm.com>
+	s=k20260515; t=1792443415;
+	bh=AN05D8Yt+mlMjUBN9ChH3pDuXIogzb18Y01sfQRIakQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IRrYToiXyL7ShWFuQq7DqdYv0fCjQkJIqSRfrfFNDPiKs/S5n8phDXci2iyV1aovm
+	 7RNO+E4cYj1uFAX9DHd7cRwbTRAQlc8UQPa0nRE8I8Pkh2t2P7U+7JTURTY7B0cvzn
+	 Stvb42FRwkRQ82ndoJfo/dqn6jL2Ig0rTstaqC9jmpTe4JBat7nzMmCxlP+pwEi4Hf
+	 JzQROI29FONXYOj19HPdtbPIJqt6IEhjIVKf8y7akKFU/WxQdBkqJWjRQ+yf1E+8TZ
+	 5AkHoFbuirHJZzES6m/FX0pPoI09pqwyh4Sj5yHLkaW1VwcYkQuOwkGkRSE1zP6HDW
+	 ezmNGvsq0ocyA==
+Date: Mon, 19 Oct 2026 23:56:51 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, Andrew Morton <akpm@osdl.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 4/6] KEYS: Prevent overflow of quota in key_alloc()
+Message-ID: <ataEE0zcWy8ILlms@kernel.org>
+References: <20261019181732.449591-1-jarkko@kernel.org>
+ <20261019181732.449591-5-jarkko@kernel.org>
+ <20261019192545.GD65095@quark>
+ <ataDs4TMkbRjxc_G@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,15 +63,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ataDs4TMkbRjxc_G@kernel.org>
 
-> On 9/30/2026 3:01 PM, Daniel J Blueman wrote:
-> > If you can get the final values into a patch for the next -rc instead
-> > of my fix here, that would be the minimal path for everyone.
+On Mon, Oct 19, 2026 at 11:55:19PM +0300, Jarkko Sakkinen wrote:
+> On Mon, Oct 19, 2026 at 12:25:45PM -0700, Eric Biggers wrote:
+> > On Mon, Oct 19, 2026 at 09:17:24PM +0300, Jarkko Sakkinen wrote:
+> > > Check that the calculated quota length does not go over INT_MAX.
+> > > 
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: LLM
+> > > Fixes: 7e047ef5fe2d ("[PATCH] keys: sort out key quota system")
+> > > Reviewed-by: David Howells <dhowells@redhat.com>
+> > > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> > 
+> > Seems this should be merged into patch 3?
+> > 
+> > Also is this reachable?  I.e. do any of the key types actually specify
+> > def_datalen > INT_MAX - KEY_MAX_DESC_SIZE + 1?
+> 
+> This is very good question and my *guess* is that no there is not.
+> 
+> That said, when not treated as a bug fix this patch is a great
+> safe-guard e.g., to block corraterall effects of some other
+> bugs.
+> 
+> So yeah, that's I would propose here. Let's not call it a bug fix
+> but still merge.
 
-Queued the mainline fix, "i2c: qcom-geni: Restore the source-clock
-selection policy", for 7.2 and 6.18, thanks.
+Or actually: no let's not do this. I'm making my life only more
+difficult.
 
--- 
-Thanks,
-Sasha
+I think it is totally sane to squash this to patch 3 and it
+is reasonable for that fix have this additional safe-guard.
+
+Br, Jarkko
