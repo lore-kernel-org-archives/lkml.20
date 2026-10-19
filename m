@@ -1,55 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792453646;
-	b=bf//2BfEgcLeMhWFQxNtu5269+eH/nBXHyai+ofc1/y1FlHj9jJMFFNl4u6aSWuyKBt/
-	 QSmFkWa9B/CS+++Ea2hU2kg0B2C3hVxiyl2A/RoD6MAX7LYhnlO9rk1eqA7aQg55saUVh
-	 PgUy7j42sisWRPgDQQ0M/q4tG53A/oT/t5nGd5Iq+PomCHH/NrCAKO1DVt7SGFfLYmxs1
-	 Eunq9Pm7WJdDhp8BA/8asfA3MUFqeOgPj7z3tfAEnJSgVLKgKAGtxnMNx/55EfkGC1LaC
-	 36nte+6xuVvsF+60+VzO7UEYhLY0VdBxt45h7WWqk2bGCQlCfQ6CT3Lu6y4IbqhsAtQ==
+	t=1792453655;
+	b=wzC9EODkqXzwqwxkSVb0mr+aacNrAcP4waMa4M/hC7zRMHVH4O93EagcTHjyI/89wmU9
+	 M4yGG1whgnz1MVbl0ROUXcyKvUubaTcXySuutilKBmbaTO4SVcVG5pwejzZsqPHWTEJVQ
+	 WR70NcN/WJ06o2d+hYekP3G/QgHKcwVF5tHL58em2Uab/qYOAkEZ2gMoLMh9Hl8BusKvD
+	 R6PSEG0d29NrhrtfSsHt0ndoA83IGyi+RN6sYw5cDu88nj74nhd6ylyjXzzlbqCEtZoSW
+	 tJtyP9cgeEAJ9deY/6MgDz52uremGFsBMmTKnMIch669JO8OJkTRQITuSWjGuHHvpJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792453646;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ayk/TP6+FwpClVfOv7ABNagIX/45Pt9+vmGRM76bB+k=;
-	b=MeojqG+vzz/fVzhaS0vAB5j2LUAhlVQQ4J41U/CP3ubeD6UZNgFofsmWmd1NrmkHvhaF
-	 94iLp3cjmoKPGGUt4mGkTqPY35io1NpI1F8MSlxUBUxaWAUPRRfjy7MuGfEofRMNvDLVT
-	 FcLCEDlkaLb1MIHAFtagj6h4qP5bJYuQos6Qu+UcWpwebuphbVMNvCiGH7Dtuk4YiG1XN
-	 VinzsfYRHgKquedRDjj+8Ge7r4umhjMd7qjygRKLdkWiK8KpcUm6++MSJPr8rNj18bm6v
-	 A8J+T1s2DQCLapvKTrsmeFpLNLEMAYaGP15+RBILyqnw3B1h3OIHkxOrTRBRCV588DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792453655;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=lLQd+nNRjjQK1gHuHRMSTNd9Ep3awT51rCIPEqdoOwU=;
+	b=u1lYBTPBaKoS/ctJclHBSBZob8/+v6bc6ormaQ/5pB+uJoetN52y/Z0OziDAxrWolo+p
+	 S+Msxpbgnj9qpCI5nlhOPunYeBXPW2adbsrailzN65mSGbWvFIVRRfJzS+mTYpaGMgbBX
+	 N+lcmel1y4D/Em6SUs+PJhz1WGeuUSzvRVvt8UMs84vxmFRwMnmcpLctQOpg6SvrMc2CE
+	 P0NSjlL2nMRneYwh2obGlrzgLfGJ763DpRAu7+xjQzynuz4hzUJYSHobkjk7S6OXfp4EK
+	 DTrKUtmuej+poiX/XK+kXF7dTDRiPyVGfeHSa/p3KfpfOeO1mLuu8De7DvZ7X6yvzEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lTNYa8Ti;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b="Y/jD3FPy";
+	arc=none smtp.remote-ip=209.85.160.41
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C63606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:47:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F674606A31A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:47:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F674606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lTNYa8Ti
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648BC1F000CA
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 23:47:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792453645;
-	bh=ayk/TP6+FwpClVfOv7ABNagIX/45Pt9+vmGRM76bB+k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lTNYa8TiqWqS7cc71qp6XI2toE+xwh6XRtmeGc/XOFByhJel0Ngi3EanqKHN1bjSR
-	 bBQP6qjbm06DU4CHWw4sBhXGvypa+zYhOTCdkiFLVK7pIvRjS4EKeuIT0MEQOplxiP
-	 78Z/nEGvXZ9dbjNXuexaiQyUcIxXCW/wsvSU9slB+DVylYnzROOBs/6vhIXwWtUDvK
-	 apCEqd55xnifpPUu3WxtFKxulZfrCtQyT9rx54o0uAURGCiHU9yHyTPbr0j8sNlPKw
-	 RwqE04AAc+1omlLeEstTXbtv3sSmPgvaXI9nUd9L87rbdwfQq08QzptxhFDD0SfzCl
-	 xQMta6EoXNnAQ==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2e8c710847so332860966b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:47:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxDYQRbqeX2DIYJ2FSel4zzeqXYMCDzt0b3jXRRs368OknnZYrGBIVffOL1iSAX1egcSZamafnRC+88BSs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdiW9p3AWgQWf3MVK7cZnLue1zLHHKie7i3IPMkjSd2FCsZxiA
-	87IHOgq03uSMdQfH45qRUE2HQsqZMxL/U+RoARV+TyZ1WH/zFwhoEeuy9a0GlbNOzn31zDooPmG
-	vacn4qwh+Vt7KEhkHIdiSXzCi7qDoxy8=
-X-Received: by 2002:a17:907:d006:b0:c31:8c7c:391b with SMTP id
- a640c23a62f3a-c419df3e670mr622856266b.13.1792453643953; Mon, 19 Oct 2026
- 16:47:23 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=Y/jD3FPy
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-48eee44b908so1418778fac.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:47:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1792453653; x=1793058453; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lLQd+nNRjjQK1gHuHRMSTNd9Ep3awT51rCIPEqdoOwU=;
+        b=Y/jD3FPylWjjHvpYVkAntC5BIW5CE/zvq0KO48i+MtJnE0jvRu3R3f8A4uY4GEcc1G
+         9T1sggxqOhZXHC+eivG8C0X3Dz3OEvTLRlCC5ZSuT0Ic2+hAOPex4akbpX/mQDVc8lI4
+         u7g/fbKZp0sxbkcP2bxtzMMhgV6TIqFuEGV9w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792453653; x=1793058453;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lLQd+nNRjjQK1gHuHRMSTNd9Ep3awT51rCIPEqdoOwU=;
+        b=UZmgwSeFRU9zaYhm/n5N2lPFIwPL5mi4zTaniBo9V5jMeZwYOgpabo9Fsiwli7J9nV
+         UtXvWbV227YO4d+VW/2bUdVyXgm9XVBDPhLsFaIVPRT2tzqCSI3V108URU/M7thZBMXV
+         1NXUI8F/DO4oJ1xBROMtv4yOolFNo56gtFSqnntKj2inZYny/GKhmcfNmJ/RLO5B88Tg
+         SIgrJKni/5M944upRQA+Ub86mFKLfsqPHQCu6bpqS6I57/CHMwwyiM0OhIetkmryFv+1
+         zvJBBBISzR0IAiZeSynBb9W2YAiF6XILMYh7pf4+oN73eX5+6O/9xk421wKrpDB0inZ7
+         WMBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxIyxmlFULCnMdsxErmGHSRSiZ0juqW1dub4nNt0Nzl8Ojcwc3Hmj/KvJxzbqZR9T9rDI8D8QhJO1m/+yU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmS1nEx+4RIrlPLPtLfg3Tiei8qwNWUCK7LclZp6Ym2dzYQ7cq
+	8wT516kKQ7hoSWdHS/5yEKuE/rdkCmwHy9xqPl1mqf2P8mY1oWzpNtvnPj4KlXfJT4I=
+X-Gm-Gg: AYBFou1BEamZiKPjRJWYD9piNRQv+HyMguVN/f1o5Tgl06SC6naVSevcurjw95Shlcq
+	IBp8hPhRnfDzjg2EwIbQ5bfKMoEZEx97ithCwS48Jp4TyU56eUGRa866N4ESdn38Ak4U4EuSpVI
+	uO3a70CvNdvrfX21FOitL0oLR73A3Mi9yxdg+bF+So2d3q2vXL+hUnPjEUCeF77SFm+Tn5zVHj/
+	LSXxuJwoVjaZA+dftE7J78oNf/plR5cjCofYQyA/OK00Tt90q+5Xy5k3l+x4lnOyqCXiosiCwwo
+	X8tY+oA6PF9IkQBlM3ffA9blFZAbhYlHneN9KoDMPfWvkvX6ptSfE2wewnVPDXl+AoszGDQFo1W
+	bvrEEWwxceSzdZtik4QVPX2/IRZt1XaYMsSAE1MQItzjsYUGZCfcASlCz6MwrPpm3I9sA/iZ57l
+	DpPrf9h39/N2qlu074NHH28mW3o1VHEcIJ4Uh+f5jIz9nF+3wqf2OGThIFm7G1HI9flswVaPtyW
+	8ws0iOVT9eMfNX07PfEWRJova3jELXxKefLLTMlYWXhEjKOdfhKayU5KgquuHLfM3mxwzDQ1zmC
+	KvI0l2Mn3pI=
+X-Received: by 2002:a05:6870:6b95:b0:4a2:4c6c:c9d5 with SMTP id 586e51a60fabf-4a7575d32dcmr6867719fac.7.1792453652907;
+        Mon, 19 Oct 2026 16:47:32 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a73b2dc57dsm9724967fac.1.2026.10.19.16.47.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 16:47:32 -0700 (PDT)
+Message-ID: <3f8954f1-7a06-4901-add5-fe81b3e0ae8f@linuxfoundation.org>
+Date: Mon, 19 Oct 2026 17:47:27 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,77 +89,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAKYAXd-Z_H2O3W=_KrUifR44yisJJhR=-bQQp1mML7vHgfcdDw@mail.gmail.com>
- <20261019191116.31291-1-mike.michalo@gmail.com>
-In-Reply-To: <20261019191116.31291-1-mike.michalo@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 20 Oct 2026 08:47:11 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_JBrVjn9QK3cGN77biwivVKjdTyFvok5stALZ+rgXKbw@mail.gmail.com>
-X-Gm-Features: AclHuK_j-ePbUAjPU9uHRRuq9fCSZmxHntO8HQwepZSmLVvhwnN11OB-xY_hF5M
-Message-ID: <CAKYAXd_JBrVjn9QK3cGN77biwivVKjdTyFvok5stALZ+rgXKbw@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: accept share config responses from ksmbd-tools
- before 3.5.3
-To: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Cc: farhad.alemi@berkeley.edu, smfrench@gmail.com, senozhatsky@chromium.org, 
-	tom@talpey.com, chenxiaosong@chenxiaosong.com, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 00/52] 6.18.58-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261017155104.830766652@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261017155104.830766652@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026 at 4:11=E2=80=AFAM Michail Andreas Michalopoulos
-<mike.michalo@gmail.com> wrote:
->
-> ksmbd-tools releases before 3.5.2 do not have the payload_sz field in
-> struct ksmbd_share_config_response; the field occupies the last word of
-> their reserved[] area, so the kernel always sees payload_sz =3D=3D 0 from
-> them.  ipc_validate_msg() and share_config_request() used to treat
-> payload_sz =3D=3D 0 as "legacy userspace" and skip the payload size check=
-s.
->
-> That case was removed by
-> commit f25e93768fcc ("ksmbd: prevent out-of-bounds reads in share config =
-responses").
-> With payload_sz =3D=3D 0:
->
->  - the IPC$ (pipe) response fails the final message size comparison:
->    these tools always send a one-byte payload, so msg_sz is
->    sizeof(*resp) + 1, but the expected size is now computed as
->    sizeof(*resp) + 0;
->  - every other share fails "payload_sz <=3D veto_list_sz".
->
-> In addition, ksmbd-tools before 3.5.3 copy a global "veto files" setting
-> into the IPC$ response, so with such a configuration IPC$ also fails the
-> now unconditional "veto_list_sz > payload_sz" check, even though pipe
-> shares never use a veto list.
->
-> ksmbd_ipc_share_config_request() then returns NULL and every tree
-> connect fails with STATUS_BAD_NETWORK_NAME, so ksmbd cannot serve any
-> share when used with these ksmbd-tools releases, for example the 3.5.1
-> package shipped by Ubuntu 24.04.  Login still works, which makes the
-> failure look like a configuration problem:
->
->   CIFS: VFS: BAD_NETWORK_NAME: \\127.0.0.1\IPC$
->   CIFS: VFS: \\127.0.0.1 failed to connect to IPC (rc=3D-2)
->
-> When payload_sz is zero, derive it from the size of the message actually
-> received and store it back in the response, so that the checks in
-> ipc_validate_msg() and the path and veto list parsing in
-> share_config_request() all use the same bound.  The response is the
-> kernel's own copy made by handle_response(), and msg_sz has already been
-> checked to be at least sizeof(*resp), so this cannot underflow.  All
-> checks added by that commit then apply unchanged, bounded by the bytes
-> that really arrived, and newer ksmbd-tools that fill in payload_sz are
-> unaffected.  Also skip the veto list size check for pipe shares:
-> share_config_request() reads neither the path nor the veto list for
-> them.
->
-> Tested in QEMU with ksmbd-tools 3.5.1 and 3.5.7 and the in-kernel SMB
-> client over loopback, with and without a global "veto files" setting.
->
-> Fixes: f25e93768fcc ("ksmbd: prevent out-of-bounds reads in share config =
-responses")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Applied it to #ksmbd-for-next.
-Thanks!
+On 10/17/26 09:54, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.58 release.
+> There are 52 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 19 Oct 2026 15:50:51 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.58-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
+
+Compiled and booted on my test system. No dmesg regressions.
+
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+
+thanks,
+-- Shuah
