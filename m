@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792432740;
-	b=zuhZ+j0hvMjFAuKexYwB7NvAtYbNXjtDtowE7befWNUL03SI7cZQULNj72tE5N/tEOpe
-	 uDZq3Zzzy5kgyIXaZcEFYuYKmzBNsbjOKMn09nwoBUyq+ckbo570wob0SOuNtfrYCsDXs
-	 ODZ30zxcWEmrdjfJLxYFmYM6iS6+8Setr9TT37RKgqRp1zWWYxF3q8DY4IRu0ct309BEb
-	 B+q9NlWtRFXGsIj0BOo9Z4bvYF5rk71rx/sd2TU2JueIMIAdQmid3LybacSTOAyMTcPdO
-	 RYRFUehqLNH46euDLBL2bEwbRKI74yq0G9HnNaE1qCRyw6q6ZssBULka6glIeXEOCww==
+	t=1792432814;
+	b=T/79kGhUUp5dgGvPkLheecIvi91/zLeOzIB1z1ZuKIKzvN46YPfuK/sdtquJJrtmLTwI
+	 lGE49uEHE0I4nXbnLf5Dz595282N+bEADNKC1Y5bka473a1M/NE5T5mlmSuhlWBZMioGI
+	 xuyKJow4VPCxluLqo+dFC0M98gx2sNWzTD19CwVaILjGVhfm98qI0xdftjL/ypEIetKUu
+	 MCRUgPj2U+igtbDfI91igNSgytp5WAjRrp++LWayS/0tcIaYEokjQofDzcV5HG8AQUAgF
+	 qv/7UieHG+9yM3k3idE+jZOYfVnNueCqZNBWAff3aPSRfOKy2M0uwBFSNa95tFmzjxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792432740;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4rQvWxO8sUv8v60hrbY7xIJCUxNFnYQYritlvtOH6uM=;
-	b=FgzqOG6Ma4+rAopJ4G9gCHGLsFCaFuAtMvxtNFt5OJ/pFYv0lDUQl+ch3vE5cYXQYm4J
-	 fJAetxtD9/kBcKd9FSJa/NZ+jPqw7q9M9WhiZcTHNVI9SrHoANZR25YxjGwiShKousqwA
-	 HtnLbrK+EExmhmPzBVXCvWMKKGIISN90oOp77gz32Yjc3W8Qj+LJEn8aK9FNypIGIg7PV
-	 cwBx0IvQRRsl1tRQYSYzAU9/bL+jDF0GwpvJcYmCJW1MQAhutr6pMUiXKoNYO4dIhUsZZ
-	 ca2s5vIyLwvGYS3U67ztGSdAYEUHTsJn5MzeglFX4esoAYFKNG4NB8bIyE0w0m/gD9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792432814;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4bJEDi3AXLshK4RTkURtSxS9+G3AZ/xwr8RL41kF5zE=;
+	b=AjD48F/9RIPWnhsB38YXspp2opoYHfmBcX7PqbLhdLYyhFgcg1bjwitrMJoUJY76NleR
+	 PqYkBMh9DN7Aig0J43FePjeCfIPhauWrCSMJQBI7tw9N9RR9hgJ95qhjjuQWuIkKMuoHS
+	 jbg0SodLUQDd8BPcC7WfDvMXDQObByzmNOGdHE0GzyWVbimN+vsJ3LRmUeujMliEWNTC8
+	 pgqdqVd2jYD1sFkU313cx2iPi7GlW6X880OnDJaKTS0q01P2Wcpu6jspEYHQV3UIM+P6O
+	 dDFJNQgBwXTk0UeJ72L4joT6RkrO2Tlrpnn8bbODyCmy4/gvl4QZCqFAWmCeEGVVLUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="rT0M/lDw";
-	arc=none smtp.remote-ip=95.215.58.148
-Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LI6AvmA2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A01606A329
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:58:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A01606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6297606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:00:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rT0M/lDw
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UeKznwyM71fqBXOT8gXoRPkRu7KXVkaDkJLEKFmQuCo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792432737; v=1; x=1793037537;
- b=rT0M/lDwB2tVUe2YytEBNEpAAuy9hebSkJ1CYCjeOT8ZlQM594pKEefgp1FD2gx3NP7qDCB/
- eew9mTQLK6yEn/UB8fpYQq6c4W5HsUETwSm5vt9OBh+i29Qj+wlxSZ5FLwt2cpiOu04SltXkXSr
- p02VXTkdJbubbUxSj5WcL3jo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eb6b52bbc5da3733;
-	Mon, 19 Oct 2026 17:58:56 +0000
-X-Mizu-Trace-ID: eb6b52bbc5da3733
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <530df0bf-b833-41dc-bae9-28aac1d005b3@linux.dev>
-Date: Mon, 19 Oct 2026 10:58:53 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LI6AvmA2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C1D31F000CF
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:00:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792432813;
+	bh=4bJEDi3AXLshK4RTkURtSxS9+G3AZ/xwr8RL41kF5zE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LI6AvmA2ClqE/va9oUVk3ADxFMiq9Q3iZF0bmDLF4k9dZEfrNRKHNOfsj7epqdZiW
+	 2hxjLa6X+ehUAd32EoCm1+4x1jYjJKCI64bcyC38t47bANuS4MZ7CDhxE2aXd18zVl
+	 eRdLvE6+Gs91p6E3S3TXCkcDf1BUpRYMgl22ldSuUrkV+WkW6JkoPfWLKbkQ4sobBS
+	 ayCpYUOCbNdfx5z7uVJeSL/XGjNgsims3nlx+FSxpOVejTvfWOFc7JoKBrqzzYSrrH
+	 kMqd1mWtIgEhJ6DVfop54r1cGIm/2aQwVK7CYxhKhR5HO3msKXR4BvLsdUHOf519qG
+	 x0vkOMw/JEvtw==
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso343265366b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:00:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxds+r2WOWB4RLd16/V8vjOcIiLSxubV2ts/gZB2dCOlhr9W/xmr6CSVg2oFeJ4z2TPXlivbjlz/PVxRH8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfAq/BPnBBq9lyNTMSBwhUxLhWvPNbUlgRrGY3tYl10hNUw9ug
+	kNNpBvD2aOeocgwYuwsXtUQy8jgRiLCSZjN6xQHe91z0xyclH20os7CQNIGWsBvnCuPAbM5wMyr
+	0wh/lGptitav+RwWWLdrT7XqJ1JGPQ6w=
+X-Received: by 2002:a17:906:1012:20b0:c41:b4e4:7958 with SMTP id
+ a640c23a62f3a-c41b4e47ad3mr368689266b.0.1792432812277; Mon, 19 Oct 2026
+ 11:00:12 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,54 +59,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] ASoC: tas2783-sdw: load the firmware synchronously
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, broonie@kernel.org
-Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Niranjan H Y <niranjan.hy@ti.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261018200009.1493438-1-matthew.schwartz@linux.dev>
- <20261018200009.1493438-3-matthew.schwartz@linux.dev>
- <f51a62bc-18f9-4a82-aafa-c315941eb4d7@linux.dev>
-Content-Language: en-US
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-In-Reply-To: <f51a62bc-18f9-4a82-aafa-c315941eb4d7@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <aszH4vpXFAOQP1WG@pcnci.linuxbox.cz> <20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
+ <20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
+ <20261016031242.GDatGWKo98YSOhEOOn@fat_crate.local> <20261015211832.45d87fab15bb3e0bbc2f47cb@linux-foundation.org>
+ <20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local> <atI_yuCc4BiweBQP@google.com>
+ <atT5TYyLapHO5ZoX@pcnci.linuxbox.cz> <20261018201538.d0957878f378a9821852836f@linux-foundation.org>
+ <atXXma5NXxoSWJO0@pcnci.linuxbox.cz> <atY1vWRBRUwpISKb@pcnci.linuxbox.cz>
+ <20261019083529.a81910ac0976c1a5687d4c6a@linux-foundation.org>
+ <CAO9r8zO41EromgLGhKv8H0aKXjrffH+t4CFGU6cLo59JJ3CEuA@mail.gmail.com> <20261019105844.02d4623b7063fec25ebd34ad@linux-foundation.org>
+In-Reply-To: <20261019105844.02d4623b7063fec25ebd34ad@linux-foundation.org>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Mon, 19 Oct 2026 11:00:00 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zN1dTJmULsKCwNrNr_vKyrV+vMfD7wifQ05uAti7E-yDw@mail.gmail.com>
+X-Gm-Features: AclHuK8kQ02N6lgb1bN98-Mh0znyAWQVD9WRag9FmdXyATJ4w1AyP1Rrsu2EOIQ
+Message-ID: <CAO9r8zN1dTJmULsKCwNrNr_vKyrV+vMfD7wifQ05uAti7E-yDw@mail.gmail.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nikola Ciprich <nikola.ciprich@linuxbox.cz>, Sean Christopherson <seanjc@google.com>, 
+	Borislav Petkov <bp@alien8.de>, David Laight <david.laight.linux@gmail.com>, 
+	Rik van Riel <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, david@kernel.org, 
+	Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>, luizcap@redhat.com, 
+	pbonzini@redhat.com, Tal Zussman <tz2294@columbia.edu>, 
+	Matt Fleming <matt@readmodwrite.com>, gregkh@linuxfoundation.org, sashal@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/19/26 9:04 AM, Pierre-Louis Bossart wrote:
-> On 10/18/26 22:00, Matthew Schwartz wrote:
->> tas_fw_load() requests the firmware asynchronously and gives up waiting
->> for the callback after three seconds. tas_io_init() then returns without
->> the SDCA function initialization writes, while the callback carries on
->> downloading, sets fw_dl_success and so allows playback on an amp that
->> never got them. Nothing cancels the callback when the driver is unbound
->> either, so it can run on freed driver data. The download takes about
->> 1.2 s per amp on the ASUS ROG Xbox Ally X20, so it fits there, but
->> nothing bounds it.
->>
->> Request the firmware with request_firmware_direct() and download it in
->> the caller, as rt1320 does from its io_init, which removes the wait, the
->> timeout and the callback. The download now returns its result, so a
->> missing or bad firmware file fails tas_io_init() before the init writes
->> instead of running them on an amp that refuses playback anyway.
-> 
-> The changes in this patch look ok, but this commit description doesn't
-> really say *why* or *how often* the firmware download fails.
-> Is this really a problem on actual devices?
-> Is this defensive programming?
+On Mon, Oct 19, 2026 at 10:58=E2=80=AFAM Andrew Morton
+<akpm@linux-foundation.org> wrote:
+>
+> On Mon, 19 Oct 2026 10:39:30 -0700 Yosry Ahmed <yosry@kernel.org> wrote:
+>
+> > I am glad the commit fixed your problem!
+> >
+> > >
+> > > Great, thanks.
+> > >
+> > > oops, we haven't been cc'ing Yosry.
+> > >
+> > > > Definitely a -stable candidate. Andrew, will you send it to Greg, o=
+r shall I?
+> > >
+> > > I volunteer Yosry or Sean ;)
+> > >
+> > > I think 55780d8a1dcc should be repackaged before sending over to the
+> > > -stable people.  Its changelog is very wrong: "The bug is benign
+> > > though".  Update the changelog to explain that the bug is in fact evi=
+l.
+> > > Otherwise -stable and further downstream won't understand why we sent
+> > > it to them and won't understand the impact.
+> >
+> > It was found through code inspection, there weren't any symptoms, and
+> > I think I know why my analysis was incomplete. It assumes that
+> > svm_recalc_instruction_intercepts() already ran at least once for L1
+> > (vmcb01) to configure its intercepts, which generally must be the case
+> > (L1 must start L2), except during migration :')
+> >
+> > About repackaging, yeah we can add a note about the new finding and
+> > the necessity of the backport. One question tho, is there a way to
+> > send a patch to "all" stable branch (the same effect as adding Cc:
+> > stable retroactively), or do I need to send separate backports to all
+> > open stable branches?
+>
+> As far as I understand, a cc:stable and a Fixes: will result in it
+> being backported into every tree which has the Fixes: target commit.
 
-This one is defensive, yeah. I haven't seen the timeout fire. On the
-X20 the download takes about 1.2 s per amp against the 3 s limit, and
-every TAS2783 file in linux-firmware is the same size. But if it does
-fire, tas_io_init() returns without the init writes while the callback
-can still go on to set fw_dl_success, so playback is allowed, and
-nothing cancels the callback on unbind. tas_fw_load() waits for the
-callback anyway, so the asynchronous request gains nothing. I'll
-clarify that in v2 and drop the Fixes tag, or I can drop the patch from
-this series if we'd rather wait to see if this actually causes issues in
-practice.
+Right, but this is for new patches that get merged into Linus's tree,
+what about existing patches? Any way to retrigger that workflow?
 
+>
+> > >
+> > > And that repackaging would be an opportunity to add
+> > > Reported-by:/Closes:/Tested-by: you, which is the least we can do to
+> > > thank you for all this diligent work!
+> >
+> > Will do.
+>
+> Thanks.
