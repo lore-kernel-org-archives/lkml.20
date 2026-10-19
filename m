@@ -1,386 +1,170 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F854C150B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:57:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB564AD7FA;
+	Mon, 19 Oct 2026 09:58:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403862; cv=none; b=Ko5cNpAx42S8bNTyo1+MBkOo1t1tVnGk6vgabw2553g/LZxXl7pMapbUlSPxl/QgvEri9QzERXH2ModBgs5VBTfO2L7YDshVCwgxOMrIKkxVPiUZq4nIyQK9e3LKmsibbyeczWXP8zByZjI54ZW4eUeznUMEpBGIbJ7YHMm2dME=
+	t=1792403902; cv=none; b=Ub8DBeiVqtF1Lh0dt5Q+k7F4j3DAjX27XqDrsqiy6TbOiuRT1rCeJQmbtgBjbZNIC4oQDv9XbmJinOV0oieTxvhxu1BC3eVorFv/JEiJEgY0lQC07SihyrgkeiLhuhq2OPnQ7HJXbyP7cTFubdf5NMuCNZ8qpOW3kSdylonR26E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403862; c=relaxed/simple;
-	bh=P9IOR/ggsKFBr8K7fAGanMomEQ1BN+Elz67wVqulLZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ILzrGFra5KhByDjZHbybsN0+GEknTy97jVPlPDRQBT/TjtQidSfO1mkC7Bu7xxjYxrsmlcQRfZChI9i5mrdEXXC1iMfrO7yYufSFp9KZahCHFEX9L5F53yAoX845rH3UDReUruKND9e41fU5dzRBwymlf0wA6946ekPE5aVLkWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lCR7KVHb; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792403902; c=relaxed/simple;
+	bh=ZMWYvtNBqX3sK4rMewAJOYsR6Edetbdl7u7iNcPOyoo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fpRJaDeve3kaWaiChKyy64G0QzfvCrhwAVC8QIA2VCnDFQgCCHJDxHoBjv68oo5d7P8+8RAgnTzPNU25N63fX4MwJaXIjkELxztHr7he54tCOYYBBJ/OYlWL25HHOqmybzWQFbl9K5ChtsF76vydiWwsJh2pkLQVWsQ54gGy2HQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=MfgXCsHQ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=glrSYx/F; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=MfgXCsHQ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=glrSYx/F; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lCR7KVHb"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so1375370f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:57:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792403858; x=1793008658; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KKrJUyf8jHE8ZLrqKcUACJ7Jgl2zFEKXFuvKG/Xk2Ms=;
-        b=lCR7KVHbKK+QCqMhy+huLDxdakekVRr30Y4kGbvA/3KPO9dhxXNY2WwuHK70kta+s5
-         /5kLxWP4j3l1A6C5n05HB6goDnKLPUXnPT4smP6lhFjTrRS7af6ev39KO3f1HzXif8p1
-         pEVg+G1voLGwgz1VcWuCfw1fxdNUQaAhZ2i1qY8wyFecZYlKqwc7JyTAI5/mtftpJEL5
-         B1R2KcoGAbhFJvOWuUZcV6ocA47GsJYl0FzAqknSXiwvDuJRrd0vj2Rh/uByKx6pzhUO
-         35TMY+QMdK60iDAPAW0jAEtG5e+oXYGQkNveOIM4iO/kWqtKYRef4HkwX63nzxytmTPh
-         vDiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792403858; x=1793008658;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KKrJUyf8jHE8ZLrqKcUACJ7Jgl2zFEKXFuvKG/Xk2Ms=;
-        b=l/rt110aIJfy5c63nchm6wrzKnZ5mniP2syQrREK5XrAYSA4wQIS7S3YxBMlOY/7ph
-         O2Y0falJwNkiSSE+JIZbEjx2chhKA1vTpXZPKOS0SgGx6FoRy7BpvfC+sxN4xhX5a3E1
-         Pmh430Y/JjztfE9Paj6ajlSLwB7s2Y/OsAQiSjjzcvp6C4fVjM+q4l6p6B4yDxla8KKi
-         3egZj6HXPDPXCZpRQT5Gdmey8PtHJExZJjVfD1p4pOPQYCEl8mnZcljIgVA/waxTOnuw
-         W4VH4XwLz7GuE+I0IIwnaNh5/XuWcnQ982Ex8PeJaWhO41r8x5qjVLVYmnY20LDEfT4D
-         Mtag==
-X-Forwarded-Encrypted: i=1; AKwUvBzJyBoMVKvawqcATmDo7ZQ1n5YWd/z+B394Ihqo5LZ63LJ1G0EyRB7yB6BnTHMesQgqzCFIV/Ap9KsyFu0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkNYpxOnCNLMNzQZvYRpSUwJuGQWofj/37+XtVcwm3Fxvl1sAi
-	Qrkbh/G9lFr5l4N+K58L+NksyBJtTBFlDFO1L655X/5IFoL88kioQvNu
-X-Gm-Gg: AYBFou0+eXrViMjQGM+1066EfWIjyU8EaQ2qRqIgAM6Eo/t5AU+JVefC3geEQNFicLb
-	159dVYnDErut9tG58w0+d4Om0fahwzWDd9ybrwmLqzHHH0KlxdccfWzGOXDQW57dvir5U1q5itQ
-	Qt66jiBvM3hunz+fHtCp8GrA6p+ofEZ9rPOQ131gHAls4cihjlX864I+0JamA1oMm9kCwNU/0Q9
-	qRsUi+bdgymYTXxk7tVR4WeBBR9aeRhhnOPbmnXPQG6wswwi/mh2DF8/7JjNng426viPzNeVvj0
-	+xkbkHOZXv8m3g9ScJB6JY4hbR7P/UUJytFkwVQVez6IoVzqsJ3fthYIte9Kwmksvr7mTlQGfmy
-	2zLK8xBF5xDa/zCTOW90U+iTBsbHyhzMluvLO1heSKz570Jr284OYKb5PvEQZVqOvT7fsEKbDt4
-	WuPciJUYtdPZLdo3TzkSnlzezhtb+YDWehk5OvrFTGyQlxAm3XMMasfLYN3iIeoKQ3zygeC4hZq
-	0OLJz9Ux2YJSBaLbAsVVvHarYrTF/8=
-X-Received: by 2002:a05:6000:46cd:b0:48c:69b3:6114 with SMTP id ffacd0b85a97d-48dfadf34cemr17357438f8f.3.1792403858100;
-        Mon, 19 Oct 2026 02:57:38 -0700 (PDT)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd500e75sm21740089f8f.42.2026.10.19.02.57.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 02:57:37 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: [PATCH v3 7/7] drm/panel: Add LG LH400WV3-SD04 MIPI DBI Type B panel driver
-Date: Mon, 19 Oct 2026 12:57:05 +0300
-Message-ID: <20261019095705.91062-8-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019095705.91062-1-clamor95@gmail.com>
-References: <20261019095705.91062-1-clamor95@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="MfgXCsHQ";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="glrSYx/F";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="MfgXCsHQ";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="glrSYx/F"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id F395F21BBF;
+	Mon, 19 Oct 2026 09:58:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792403898; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5yt5dSW0F7NM0MAAicExNOVH+ycgQuyjXq4u5nVYNKE=;
+	b=MfgXCsHQnDY5AvZn/ibiPn3cyADOxR4QCIfp7d0+2/bKOJMKHBv0vV5hOrczLUIeuzlokr
+	fzb+HVpmRr14w2/0pzNScto0MBHX+4l5c5dyDc1rL36gircsPxFWwujDJX6ATTBQwPaAT+
+	5/A5MrIQ3KPxZ0OU6KfOBH3ysPWMypU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792403898;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5yt5dSW0F7NM0MAAicExNOVH+ycgQuyjXq4u5nVYNKE=;
+	b=glrSYx/FLaEm46Gg4hoomrP3DVB8p/lOY7dARts4AuKDGaCs6DfjmWvDQtcW+vuvZGe4rQ
+	+mUQqqoNiQOi0CBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792403898; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5yt5dSW0F7NM0MAAicExNOVH+ycgQuyjXq4u5nVYNKE=;
+	b=MfgXCsHQnDY5AvZn/ibiPn3cyADOxR4QCIfp7d0+2/bKOJMKHBv0vV5hOrczLUIeuzlokr
+	fzb+HVpmRr14w2/0pzNScto0MBHX+4l5c5dyDc1rL36gircsPxFWwujDJX6ATTBQwPaAT+
+	5/A5MrIQ3KPxZ0OU6KfOBH3ysPWMypU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792403898;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5yt5dSW0F7NM0MAAicExNOVH+ycgQuyjXq4u5nVYNKE=;
+	b=glrSYx/FLaEm46Gg4hoomrP3DVB8p/lOY7dARts4AuKDGaCs6DfjmWvDQtcW+vuvZGe4rQ
+	+mUQqqoNiQOi0CBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C89761375D;
+	Mon, 19 Oct 2026 09:58:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id B1M3Krnp1WpoQAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 09:58:17 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 605BBA1413; Mon, 19 Oct 2026 11:58:17 +0200 (CEST)
+Date: Mon, 19 Oct 2026 11:58:17 +0200
+From: Jan Kara <jack@suse.cz>
+To: guolingxing <guolingxing@tju.edu.cn>
+Cc: Theodore Ts'o <tytso@mit.edu>, 
+	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
+	Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: report unwritten extent conversion failures as
+ writeback errors
+Message-ID: <sclc7h74z7nwfwnx2r62svytfaxquxws5chnopgryh2lpwqqd2@twxuiugbudw2>
+References: <20261015102943.74632-1-guolingxing@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015102943.74632-1-guolingxing@tju.edu.cn>
+X-Spam-Flag: NO
+X-Spam-Score: -2.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_RCPT(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	URIBL_BLOCKED(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email,tju.edu.cn:email];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.com:email,imap1.dmz-prg2.suse.org:helo]
 
-Add a driver for panel used in LG Optimus 2X P990. Panel is 4" WVGA MIPI
-DBI Type B linked to DRM encoder via RGB to DBI bridge.
+On Thu 15-10-26 10:29:43, guolingxing wrote:
+> When a data writeback bio completes successfully but the subsequent
+> unwritten extent conversion fails, ext4_end_io_end() does not record
+> the error in the inode's mapping writeback error state.
+> 
+> Bio failures are already recorded by ext4_end_bio(), but conversion
+> failures are not. When the conversion is processed asynchronously,
+> its return value is not propagated to userspace, so fsync() may
+> return success despite the failed conversion.
+> 
+> Record conversion errors with mapping_set_error() before
+> ext4_release_io_end() ends folio writeback and wakes waiters. This
+> allows fsync() to observe the failure.
+> 
+> Fixes: b82e384c7bb9 ("ext4: optimize locking for end_io extent conversion")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/gpu/drm/panel/Kconfig             |  13 ++
- drivers/gpu/drm/panel/Makefile            |   1 +
- drivers/gpu/drm/panel/panel-lg-lh400wv3.c | 236 ++++++++++++++++++++++
- 3 files changed, 250 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-lg-lh400wv3.c
+I don't think the Fixes tag is correct. Even before b82e384c7bb9 we seem to
+have been dropping the error on the floor. But otherwise feel free to add:
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 5f68b78526c3e..f29b63ad8ba0f 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -554,6 +554,19 @@ config DRM_PANEL_LG_LG4573
- 	  Say Y here if you want to enable support for LG4573 RGB panel.
- 	  To compile this driver as a module, choose M here.
- 
-+config DRM_PANEL_LG_LH400WV3
-+	tristate "LG LH400WV3 MIPI DBI Type B panel"
-+	depends on OF
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_MIPI_DBI
-+	select VIDEOMODE_HELPERS
-+	help
-+	  Say Y here if you want to enable support for the LG LH400WV3 MIPI
-+	  DBI Type B panel found in the LG Optimus 2X P990 smartphone.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called panel-lg-lh400wv3.
-+
- config DRM_PANEL_LG_SW43408
- 	tristate "LG SW43408 panel"
- 	depends on GPIOLIB
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 414267a49d922..842a2a973777f 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -54,6 +54,7 @@ obj-$(CONFIG_DRM_PANEL_LINCOLNTECH_LCD197) += panel-lincolntech-lcd197.o
- obj-$(CONFIG_DRM_PANEL_LG_LB035Q02) += panel-lg-lb035q02.o
- obj-$(CONFIG_DRM_PANEL_LG_LD070WX3) += panel-lg-ld070wx3.o
- obj-$(CONFIG_DRM_PANEL_LG_LG4573) += panel-lg-lg4573.o
-+obj-$(CONFIG_DRM_PANEL_LG_LH400WV3) += panel-lg-lh400wv3.o
- obj-$(CONFIG_DRM_PANEL_LG_SW43408) += panel-lg-sw43408.o
- obj-$(CONFIG_DRM_PANEL_LXD_M9189A) += panel-lxd-m9189a.o
- obj-$(CONFIG_DRM_PANEL_MAGNACHIP_D53E6EA8966) += panel-magnachip-d53e6ea8966.o
-diff --git a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-new file mode 100644
-index 0000000000000..cb2a09699fc6d
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-@@ -0,0 +1,236 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <linux/array_size.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/media-bus-format.h>
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_mipi_dbi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+static const struct regulator_bulk_data lg_lh400wv3_supplies[] = {
-+	{ .supply = "avci" }, { .supply = "iovcc" },
-+};
-+
-+struct lg_lh400wv3 {
-+	struct drm_panel panel;
-+	struct mipi_dbi *dbi;
-+
-+	struct regulator_bulk_data *supplies;
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static inline struct lg_lh400wv3 *to_lg_lh400wv3(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct lg_lh400wv3, panel);
-+}
-+
-+#define panel_dbi_command(priv, cmd, seq...) \
-+({ \
-+	const u8 d[] = { seq }; \
-+	struct drm_panel *panel = &(priv)->panel; \
-+	struct device *dev = panel->dev; \
-+	int ret; \
-+	ret = mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE(d)); \
-+	if (ret) \
-+		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret, cmd); \
-+	ret; \
-+})
-+
-+static int lg_lh400wv3_prepare(struct drm_panel *panel)
-+{
-+	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
-+	struct device *dev = panel->dev;
-+	int ret;
-+
-+	priv->dbi = dev_get_drvdata(dev->parent);
-+	if (!priv->dbi)
-+		return -ENODEV;
-+
-+	gpiod_set_value_cansleep(priv->reset_gpio, 1);
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(lg_lh400wv3_supplies), priv->supplies);
-+	if (ret) {
-+		dev_err(dev, "failed to enable power supplies: %d\n", ret);
-+		return ret;
-+	}
-+
-+	usleep_range(1000, 2000);
-+
-+	gpiod_set_value_cansleep(priv->reset_gpio, 0);
-+
-+	usleep_range(10000, 11000);
-+
-+	return 0;
-+};
-+
-+static int lg_lh400wv3_enable(struct drm_panel *panel)
-+{
-+	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
-+
-+	panel_dbi_command(priv, MIPI_DCS_EXIT_INVERT_MODE);
-+	panel_dbi_command(priv, MIPI_DCS_SET_TEAR_ON);
-+
-+	panel_dbi_command(priv, MIPI_DCS_SET_PIXEL_FORMAT, MIPI_DCS_PIXEL_FMT_24BIT |
-+			  MIPI_DCS_PIXEL_FMT_24BIT << 4);
-+
-+	panel_dbi_command(priv, 0xb2, 0x00, 0xc8);
-+	panel_dbi_command(priv, 0xb3, 0x00);
-+	panel_dbi_command(priv, 0xb4, 0x04);
-+	panel_dbi_command(priv, 0xb5, 0x42, 0x10, 0x10, 0x00, 0x20);
-+	panel_dbi_command(priv, 0xb6, 0x0b, 0x0f, 0x3c, 0x13, 0x13, 0xe8);
-+	panel_dbi_command(priv, 0xb7, 0x4c, 0x06, 0x0c, 0x00, 0x00);
-+
-+	panel_dbi_command(priv, 0xc0, 0x01, 0x11);
-+	panel_dbi_command(priv, 0xc3, 0x07, 0x03, 0x04, 0x04, 0x04);
-+	panel_dbi_command(priv, 0xc4, 0x12, 0x24, 0x18, 0x18, 0x02, 0x49);
-+	panel_dbi_command(priv, 0xc5, 0x65);
-+	panel_dbi_command(priv, 0xc6, 0x41, 0x63);
-+
-+	panel_dbi_command(priv, 0xd0, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03, 0x51, 0x15, 0x04);
-+	panel_dbi_command(priv, 0xd1, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03, 0x51, 0x15, 0x04);
-+	panel_dbi_command(priv, 0xd2, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03, 0x51, 0x15, 0x04);
-+	panel_dbi_command(priv, 0xd3, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03, 0x51, 0x15, 0x04);
-+	panel_dbi_command(priv, 0xd4, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03, 0x51, 0x15, 0x04);
-+	panel_dbi_command(priv, 0xd5, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03, 0x51, 0x15, 0x04);
-+
-+	panel_dbi_command(priv, MIPI_DCS_SET_COLUMN_ADDRESS, 0x00, 0x00, 0x01, 0xdf);
-+	panel_dbi_command(priv, MIPI_DCS_SET_PAGE_ADDRESS, 0x00, 0x00, 0x03, 0x1f);
-+
-+	panel_dbi_command(priv, MIPI_DCS_EXIT_SLEEP_MODE);
-+	msleep(120);
-+
-+	panel_dbi_command(priv, MIPI_DCS_WRITE_MEMORY_START);
-+	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_ON);
-+
-+	return 0;
-+}
-+
-+static int lg_lh400wv3_disable(struct drm_panel *panel)
-+{
-+	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
-+
-+	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_OFF);
-+	panel_dbi_command(priv, MIPI_DCS_ENTER_SLEEP_MODE);
-+	msleep(150);
-+
-+	panel_dbi_command(priv, 0xc1, 0x01);
-+	usleep_range(10000, 11000);
-+
-+	return 0;
-+};
-+
-+static int lg_lh400wv3_unprepare(struct drm_panel *panel)
-+{
-+	struct lg_lh400wv3 *priv = to_lg_lh400wv3(panel);
-+
-+	gpiod_set_value_cansleep(priv->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(lg_lh400wv3_supplies), priv->supplies);
-+
-+	msleep(50);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode lg_lh400wv3_mode = {
-+	.clock = (480 + 10 + 10 + 10) * (800 + 4 + 4 + 4) * 60 / 1000,
-+	.hdisplay = 480,
-+	.hsync_start = 480 + 10,
-+	.hsync_end = 480 + 10 + 10,
-+	.htotal = 480 + 10 + 10 + 10,
-+	.vdisplay = 800,
-+	.vsync_start = 800 + 4,
-+	.vsync_end = 800 + 4 + 4,
-+	.vtotal = 800 + 4 + 4 + 4,
-+	.width_mm = 86,
-+	.height_mm = 52,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static int lg_lh400wv3_get_modes(struct drm_panel *panel,
-+				 struct drm_connector *connector)
-+{
-+	u32 bus_format = MEDIA_BUS_FMT_RGB888_1X24;
-+
-+	drm_display_info_set_bus_formats(&connector->display_info,
-+					 &bus_format, 1);
-+
-+	connector->display_info.bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
-+					    DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE |
-+					    DRM_BUS_FLAG_DE_HIGH |
-+					    DRM_BUS_FLAG_DATA_LSB_TO_MSB;
-+
-+	return drm_connector_helper_get_modes_fixed(connector, &lg_lh400wv3_mode);
-+}
-+
-+static const struct drm_panel_funcs lg_lh400wv3_panel_funcs = {
-+	.prepare = lg_lh400wv3_prepare,
-+	.enable = lg_lh400wv3_enable,
-+	.disable = lg_lh400wv3_disable,
-+	.unprepare = lg_lh400wv3_unprepare,
-+	.get_modes = lg_lh400wv3_get_modes,
-+};
-+
-+static int lg_lh400wv3_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct lg_lh400wv3 *priv;
-+	int ret;
-+
-+	priv = devm_drm_panel_alloc(dev, struct lg_lh400wv3, panel,
-+				    &lg_lh400wv3_panel_funcs, DRM_MODE_CONNECTOR_DPI);
-+	if (IS_ERR(priv))
-+		return PTR_ERR(priv);
-+
-+	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(lg_lh400wv3_supplies),
-+					    lg_lh400wv3_supplies, &priv->supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get supplies\n");
-+
-+	priv->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(priv->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
-+				     "Failed to get reset gpio\n");
-+
-+	ret = drm_panel_of_backlight(&priv->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+
-+	ret = devm_drm_panel_add(dev, &priv->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add panel\n");
-+
-+	platform_set_drvdata(pdev, priv);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id lg_lh400wv3_of_match[] = {
-+	{ .compatible = "lg,lh400wv3-sd04" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, lg_lh400wv3_of_match);
-+
-+static struct platform_driver lg_lh400wv3_driver = {
-+	.driver = {
-+		.name = "panel-lg-lh400wv3",
-+		.of_match_table = lg_lh400wv3_of_match,
-+	},
-+	.probe = lg_lh400wv3_probe,
-+};
-+module_platform_driver(lg_lh400wv3_driver);
-+
-+MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-+MODULE_DESCRIPTION("LG LH400WV3-SD04 MIPI DBI Type B panel driver");
-+MODULE_LICENSE("GPL");
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+>  fs/ext4/page-io.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
+> index 0236b6b9785a..2afa4c096156 100644
+> --- a/fs/ext4/page-io.c
+> +++ b/fs/ext4/page-io.c
+> @@ -189,6 +189,8 @@ static int ext4_end_io_end(ext4_io_end_t *io_end)
+>  			jbd2_journal_abort(EXT4_SB(sb)->s_journal, ret);
+>  	} else {
+>  		ret = ext4_convert_unwritten_io_end_vec(handle, io_end);
+> +		if (ret < 0)
+> +			mapping_set_error(inode->i_mapping, ret);
+>  	}
+>  	if (ret < 0 && !ext4_emergency_state(sb) &&
+>  	    io_end->flag & EXT4_IO_END_UNWRITTEN) {
+> -- 
+> 2.34.1
+> 
 -- 
-2.53.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
