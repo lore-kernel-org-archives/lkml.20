@@ -1,44 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F29562603;
-	Mon, 19 Oct 2026 13:59:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923355A4659;
+	Mon, 19 Oct 2026 13:59:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418383; cv=none; b=apKpi5Q2aQ0kg2eFeupQ4BxgUNzr6zXKJnoOCmq3iDPpXaT+ExRVeMK3KZMB8dWn4QYhtEoQwjn/TNbjZBGlPcTGMuAWOKxg9lIGqcrmSjw2AG8laMqIIuLtDj9lAYDKQ4YQTbbfjqpfHIlddX2opyLre1pjnuCB03cMN8s0gZg=
+	t=1792418385; cv=none; b=GNC3Fx3dolh4hkxSJuHyem2syknV/CRZZU5UO0DTzHcL3nOv9F549toUFK11vV/qipDd6Odt3Rh+rAQEcXEjqFs2RIpsZG9/a3Zj5f0ZKuFax9bzioqC+RJU0u2JRFpwzf5RwGbd+LhEkTUzP03+qxUGYSKLqKcEtrtnoUkrJ08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418383; c=relaxed/simple;
-	bh=ZgQ6IG3/9L98G0Gm0xaMLLQ6yNfAtV+hIlmhy7XoHaw=;
+	s=arc-20240116; t=1792418385; c=relaxed/simple;
+	bh=CXnKF4+ZDrpWbpAZxBrFKka87tvf/mPvxrk92r7+buY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gkcsqntlpE9gq9MP5bk076BKWAGIz02yFtWTZFYe2LF3tPZWGdp8w4Aa+BXvQm4D+xyg8fDL99hhp9+be533MQ23rq8TbODv+o8HqT0+Nnoeen6yN6z3/BER0l3fBwSte8Lk5B1wXI5MEv1Yho7YylUs/gsYX7a3sATIztgSULg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjTjxpRZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cdrlAI4ORqpS1awKda7ZSWO7Ex4ZN+3ekPH0sCpWaeUss28Mi7QhR9SBO4B+ITodMdzCENEr8P0Uh+2sXrLMK6vMdn/dydmjD2V/fcffY9LoAE3NT1Z2yacc5Wt+sPZWvhSpTZWnDC0e464I5Yv5ShaFZOoEImA3lQn83tmlULY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GY2EEfgI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjTjxpRZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B643B1F000C9;
-	Mon, 19 Oct 2026 13:59:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GY2EEfgI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 724951F000C7;
+	Mon, 19 Oct 2026 13:59:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418379;
-	bh=rD2KxmotcfM8IGAGm9A/rw+ymS4q5qqa6HG40p80LfY=;
+	s=k20260515; t=1792418382;
+	bh=U9Vkwbm05lDdxzxOAYs6Jk3Nr9THOJjffnHBcf4GiHE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NjTjxpRZAKJYnNK3NxzDhK+2p9TBlF+7TxB4xqa8+7PQrTxXXnumLRQ8GIOz+Wjtm
-	 8ZSsGt2mt6nKi9W+PrnWBDx1hWC8dEmybttW3yODDtLmW7oQNer8CmRhYnngO3bERR
-	 EuMQHXB6cVFeoTw0P5ctGiakPjRXgeG0e82D35GshDa6SgiczSpTyG5t3qf0NYMXXM
-	 hWcDCFMkGtFEWsKu01+G3KXePBOo8sMa51QpQ6CpkBVtXwVRCgrDtHNanvqvgOj9LA
-	 CM5JR0HOiLKi9mq4HuGhla59iM6gwL3JuTmCWyQoxGAzk9YxDipA8a0uXrwtVPdQQB
-	 Oct7WEXQXj80w==
+	b=GY2EEfgIrn+JQr1y96dyZF9u1Yct5GyqIzR1eAw2qXf8dOszuMl4W8S9mvhEQa3Cu
+	 2tHHre59FvD6BMX5HnX2AmPBb4WUrZx/DnCNuios4+vyi2UJLQ003nHm04wKaWDJ3X
+	 Djf0hEMYwU/x8kBmuNp/vh1zQjmP31bYOoIyA4mpMOD3kjfiKZZPlHBxE/AyqFxMoX
+	 QCANvLXNiJ7FLwgOwnSbTJcj5yAjpE0of8XnfhAeRXgiyWZbBNsQzfSTKKnVHO+EIS
+	 qY2xoprPbblqr4YNx0DSNVIUZcaH8J7n1yFDJvbJ2c9qvOPpwcGorxyBSvudsRQHuW
+	 qer5vka9HhUNw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Berke Durak <berke.durak@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-input@vger.kernel.org,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] HID: elecom: Add support for ELECOM M-XT4DRBK (018E)
-Date: Mon, 19 Oct 2026 09:48:18 -0400
-Message-ID: <20261019135441.1420968-207-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.15] ksmbd: protect private extended attributes
+Date: Mon, 19 Oct 2026 09:48:20 -0400
+Message-ID: <20261019135441.1420968-209-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,463 +51,381 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Berke Durak <berke.durak@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit f3c2b266b8fd7cf816d36168d19f67e716f2c080 ]
+[ Upstream commit 4ea46ea602fc7055eee4b5b0e84f90f22da7f7e7 ]
 
-The 2025 revision of the left-handed EX-G wireless trackball
-(M-XT4DRBK-G) reports USB ID 056e:018e instead of 056e:00fd. Its report
-descriptor declares an 8-bit button field (Report Count 8) but only five
-usages (Usage Maximum 5), so the sixth (Fn) button ends up as a
-duplicate of button 5 and is unusable.
+SMB clients can currently create an EA named NTACL because SMB EAs are
+mapped into the user namespace while the ksmbd security descriptor is
+stored as security.NTACL. Allowing the reserved logical name makes the
+server-private ACL metadata appear writable through the SMB EA API.
 
-The report descriptor has the same layout as the M-XT3DRBK 018C
-(button usage maximum at offset 16, button report count at 22, button
-report size at 24, padding report size at 30), so reuse that fixup.
+Reject NTACL, DOSATTRIB, and DosStream-prefixed EA names without regard
+to case. Filter the same private names from EA query results so stale or
+externally-created user namespace attributes cannot be exposed.
 
-Rename the existing M_XT4DRBK define to M_XT4DRBK_00FD to match the
-convention used for the other EX-G revisions.
+This fixes smb2.ea.acl_xattr when acl_xattr_name is configured as
+NTACL.
 
-Tested on a Raspberry Pi 5 with the same fixup in an
-out-of-tree module on 6.12 (6.12.96+rpt-rpi-2712);
-all six buttons are reported after the fix, and they
-work (tested with xev as well).
-
-Report descriptor as sent by the device, pre-fix (056e:018e,
-215 bytes):
-
- 05 01 09 02 A1 01 09 01 A1 00 85 01 05 09 19 01
- 29 05 15 00 25 01 95 08 75 01 81 02 95 01 75 00
- 81 01 05 01 09 30 09 31 16 00 80 26 FF 7F 75 10
- 95 02 81 06 C0 A1 00 05 01 09 38 15 81 25 7F 75
- 08 95 01 81 06 C0 A1 00 05 0C 0A 38 02 95 01 75
- 08 15 81 25 7F 81 06 C0 C0 06 01 FF 09 00 A1 01
- 85 02 09 00 15 00 26 FF 00 75 08 95 07 81 02 C0
- 05 0C 09 01 A1 01 85 05 15 00 26 3C 02 19 00 2A
- 3C 02 75 10 95 01 81 00 C0 05 01 09 80 A1 01 85
- 03 19 81 29 83 15 00 25 01 95 03 75 01 81 02 95
- 01 75 05 81 01 C0 06 BC FF 09 88 A1 01 85 04 95
- 01 75 08 15 00 26 FF 00 19 00 2A FF 00 81 00 C0
- 06 02 FF 09 02 A1 01 85 06 09 02 15 00 26 FF 00
- 75 08 95 07 B1 02 C0
-
-Assisted-by: LLM
-Signed-off-by: Berke Durak <berke.durak@gmail.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **6.18.57** (`v6.18.57-155-gcdf239ca885b2`). The
-question is whether this HID/elecom USB-ID + report-descriptor fixup
-should be backported here. The driver, the existing
-`mouse_button_fixup()` helper, and the sibling 018C fixup are all
-already present in 6.18.57.
+## Phase 1: Commit message forensics
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+**Step 1.1 — Subject**
+- Record: `[ksmbd] [protect] keep server-private xattr names off the SMB
+  EA API`
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[HID / elecom] [Add support] [USB ID 056e:018e for the 2025
-M-XT4DRBK-G trackball, plus the existing button report-descriptor
-fixup]`
+**Step 1.2 — Tags**
+- Record: `Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>` (ksmbd
+  maintainer; author and committer).
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+  by:`, `Link:`, or `Cc: stable`. Absence of `Fixes:`/`Cc: stable` is
+  expected for this review and is not a negative signal.
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-Record:
-- No `Fixes:` tag (expected for this review)
-- No `Reported-by:` / `Tested-by:` / `Reviewed-by:` / `Acked-by:`
-- No `Link:`
-- No `Cc: stable@vger.kernel.org` (expected; not a negative)
-- `Assisted-by: LLM`
-- `Signed-off-by: Berke Durak <berke.durak@gmail.com>` (author)
-- `Signed-off-by: Jiri Kosina <jkosina@suse.com>` (HID maintainer)
-- Ignore pipeline `Signed-off-by: Sasha Levin` and `[Upstream commit
-  ...]`
+**Step 1.3 — Body**
+- Record: SMB EAs are stored as `user.*` xattrs. ksmbd keeps NT ACL
+  metadata in `security.NTACL`. Clients can still create an EA named
+  `NTACL`, so the reserved logical name looks writable over SMB
+  SET_INFO/QUERY_INFO EA. The patch rejects `NTACL`, `DOSATTRIB`, and
+  `DosStream.`-prefixed names case-insensitively on set, and filters the
+  same names from query results so leftover `user.*` copies are not
+  exposed. Failure mode: reserved metadata can be written or listed
+  through the EA API. Symptom: Samba smbtorture `smb2.ea.acl_xattr`
+  fails when `acl_xattr_name=NTACL`. Introduced with original ksmbd EA
+  mapping; not a new 7.x-only bug.
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Record:
-- Bug: 2025 left-handed EX-G wireless trackball (M-XT4DRBK-G) uses USB
-  ID `056e:018e` instead of the old `056e:00fd`.
-- Descriptor claims an 8-bit button field (`Report Count 8`) but only
-  five usages (`Usage Maximum 5`), so the sixth (Fn) button is a
-  duplicate of button 5 and is unusable.
-- Root cause: same broken descriptor layout as M-XT3DRBK 018C (offsets
-  16/22/24/30).
-- Symptom: extra button does not work; mouse otherwise enumerates.
-- Author tested on Raspberry Pi 5, 6.12 (`6.12.96+rpt-rpi-2712`), via an
-  out-of-tree module; all six buttons work (`xev`).
-- Full 215-byte pre-fix descriptor is included.
+**Step 1.4 — Hidden bug fix?**
+- Record: Yes. “Protect” is a security/integrity fix, not cleanup. SET
+  currently does not reject reserved names. GET already skipped
+  `DosStream.` / `DOSATTRIB` with case-sensitive `strncmp`, but not
+  `NTACL` and not case variants.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a disguised cleanup. It is a device-ID addition plus an
-existing HID report-descriptor quirk. The rename `M_XT4DRBK` →
-`M_XT4DRBK_00FD` is local naming only.
+## Phase 2: Diff analysis
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+**Step 2.1 — Inventory**
+- Record: `fs/smb/server/smb2pdu.c` only (`+22/-6`). Functions: new
+  `smb2_is_private_ea()`; `smb2_set_ea()`; `smb2_get_ea()`.
+  Classification: single-file surgical fix.
 
-**Step 2.1: INVENTORY THE CHANGES**
-Record:
-- `drivers/hid/hid-ids.h`: +1 ID (`0x018e`), rename existing `0x00fd`
-  define
-- `drivers/hid/hid-elecom.c`: +1 case in `elecom_report_fixup()`, +1
-  `elecom_devices[]` entry, rename 00FD references
-- `drivers/hid/hid-quirks.c`: +1 `hid_have_special_driver[]` entry,
-  rename 00FD
-- Scope: 8 insertions, 4 deletions across 3 files. Surgical, existing
-  driver only.
+**Step 2.2 — Flow**
+- Record:
+  - SET: after the EA name-length check, reserved names return `-EACCES`
+    instead of `ksmbd_vfs_setxattr`/`remove_xattr` on `user.<name>`.
+  - GET: STREAM and DOSATTRIB `strncmp` skips become one
+    `smb2_is_private_ea()` skip (adds `NTACL`, case-insensitive).
+    Specific-name QUERY still cannot return those names.
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- Before: `056e:018e` is not in hid-elecom, so hid-generic binds and the
-  stock descriptor is used (Usage Maximum 5 / Count 8). Old `056e:00fd`
-  still uses the 6-button fixup via `USB_DEVICE_ID_ELECOM_M_XT4DRBK`.
-- After: `018e` is claimed by hid-elecom and runs
-  `mouse_button_fixup(..., 22, 30, 24, 16, 6)` (same as 018C). Old 00FD
-  device still hits the same 6-button fixup through the renamed define.
-  `hid_have_special_driver` keeps hid-generic from binding 018E.
+**Step 2.3 — Bug mechanism**
+- Record: Logic/correctness plus a hardware/protocol reserved-name
+  filter (category g/h). Same-namespace collisions: `user.DOSATTRIB`
+  (DOS flags/create time) and `user.DosStream.*` (named streams).
+  `security.NTACL` is a different namespace, so SET of EA `NTACL`
+  creates `user.NTACL` rather than overwriting the SD; the patch still
+  blocks that reserved name and hides any leftover `user.NTACL`.
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: `[Hardware workaround / device ID + HID descriptor quirk]`
-- Broken HID report descriptor: Usage Maximum 5 vs Report Count 8.
-- Fix reuses the proven 018C path: set count and usage max to 6, padding
-  to 2.
+**Step 2.4 — Fix quality**
+- Record: Obviously correct. `strncasecmp` + exact length for
+  `NTACL`/`DOSATTRIB`, prefix match for streams. `-EACCES` maps to
+  `STATUS_ACCESS_DENIED` in both `smb2_set_info()` and CREATE error
+  mapping, matching smbtorture. Regression risk is low: only reserved
+  Samba/ksmbd names are rejected. Query of a private name still yields
+  `STATUS_NO_EAS_ON_FILE` rather than ACCESS_DENIED; that is pre-
+  existing GET skip behavior, not a new crash path.
 
-Verified against the included descriptor (first 32 bytes):
-```
-offset 16: 29 05  Usage Maximum (5)
-offset 22: 95 08  Report Count (8)
-offset 24: 75 01  Report Size (1)
-offset 30: 75 00  padding Report Size (0)
-```
-Those match `mouse_button_fixup(hdev, rdesc, *rsize, 22, 30, 24, 16,
-6)`. The helper then writes count=6, usage max=6, padding=2. The 018C
-commit in this tree used the identical dump.
+## Phase 3: Git history
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record:
-- Obviously correct: new ID, existing helper, offsets match the dump.
-- Minimal: no new APIs, no new helper, no behavior change for 00FD.
-- Rename is kernel-internal (`hid-ids.h`); grep shows no leftover
-  `USB_DEVICE_ID_ELECOM_M_XT4DRBK` users.
-- Regression risk is low: `mouse_button_fixup()` bails out unless the
-  expected HID items are at those offsets, so a mismatched 018E
-  descriptor would be left unchanged.
-- `hid-quirks.c` update is required so hid-generic does not steal the
-  device (`HID_QUIRK_HAVE_SPECIAL_DRIVER`).
+**Step 3.1 — Blame**
+- Record: Unfiltered SET and GET STREAM/DOSATTRIB skips come from
+  `e2f34481b24db` (“cifsd: add server-side procedures for SMB3”,
+  2021-03-16). Present since ksmbd entered the kernel (5.15 era). `git
+  merge-base --is-ancestor e2f34481b24db HEAD` succeeds.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 3.2 — Fixes tag**
+- Record: None. Buggy behavior is the original EA mapping, not a later
+  regression.
 
-**Step 3.1: BLAME THE CHANGED LINES**
-Record:
-- Original M-XT4DRBK 00FD support: `fbb77e88f08ce` (2018, Tomasz
-  Kramkowski), already in 6.18.57.
-- Parameterized `mouse_button_fixup()`: `68d09380a6278` (2020), already
-  in 6.18.57.
-- 018C sibling layout this patch reuses: `da1880c7b6b83` (Arnoud
-  Willemsen), already in 6.18.57 (`git merge-base --is-ancestor`
-  returned 0).
+**Step 3.3 — File history**
+- Record: Recent 6.12 ksmbd work is unrelated (buffer sizes, leases,
+  durable reconnect). No competing private-EA helper in this tree.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. Not a regression in previously working 018E
-support; 018E was never in this tree. The bug is the device’s
-descriptor, same class as 00FD/018C.
+**Step 3.4 — Author**
+- Record: Namjae Jeon is the ksmbd maintainer. Surrounding 7.3 ksmbd
+  commits are other protocol/security fixes; this commit is standalone
+  (`4ea46ea602fc`).
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Recent `hid-elecom.c` history is the same pattern of “new USB ID
-+ existing fixup”:
-- `cdcbb8e8d10f6` M-XT3URBK 018F (in 6.18.57)
-- `da1880c7b6b83` M-XT3DRBK 018C (in 6.18.57)
-- `a36e053b16804` HUGE Plus M-HT1MRBK (in 6.18.57)
-Standalone; not patch X/Y.
+**Step 3.5 — Dependencies**
+- Record: Needs `SD_PREFIX`, `DOS_ATTRIBUTE_PREFIX`, `STREAM_PREFIX`
+  from `fs/smb/server/xattr.h` (included via `vfs.h` in `smb2pdu.c`).
+  All exist here. `strncasecmp` is in `include/linux/string.h`. Applies
+  standalone.
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Berke Durak has only this hid-elecom commit here. Jiri Kosina
-(HID maintainer) signed off and applied it.
+## Phase 4: Mailing list / external
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Needs `mouse_button_fixup()` and the 018C case. Both exist at
-v6.18.57. No new functions. Can apply standalone. `patch --dry-run` of
-this diff onto the v6.18.57 copies of the three files succeeded.
+**Step 4.1**
+- Record: SHA `4ea46ea602fc7055eee4b5b0e84f90f22da7f7e7` (v7.3-rc1). `b4
+  dig -c 4ea46ea602fc` failed: lore.kernel.org returned errors (Anubis
+  bot challenge). WebFetch to lore also 403. UNVERIFIED: original thread
+  text, NAKs, reviewer Cc:stable.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 4.2**
+- Record: UNVERIFIED recipients. Commit is authored and committed by the
+  subsystem maintainer; Linus merged it in `ksmbd-for-7.3-rc1`
+  (`61a09cfc12147`), described as smbtorture-validated protocol fixes
+  and security hardening.
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- `b4 dig -c a6dbbf8a1601a`:
-  https://patch.msgid.link/20260907184719.25042-1-berke.durak@gmail.com
-- `b4 dig -a`: single revision (v1 only), 2026-09-07
-- lore.kernel.org fetches returned 403; discussion confirmed via patchew
-  and openwall mirrors
-- Jiri Kosina: “Applied, thanks.” No NAK, no requested respin, no
-  stable-risk comments
+**Step 4.3**
+- Record: Samba `source4/torture/smb2/ea.c` `torture_smb2_acl_xattr`
+  (`smb2.ea.acl_xattr`) requires `acl_xattr_name`, checks the name is
+  not listed, and expects SET to fail with `NT_STATUS_ACCESS_DENIED`.
+  Confirmed from samba-team/samba master.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To/Cc Jiri Kosina, Benjamin Tissoires, linux-
-input, linux-kernel. HID maintainer applied it.
+**Step 4.4**
+- Record: Standalone. No later revert or follow-up on
+  `smb2_is_private_ea` through v7.3-rc1 (`git grep` still shows the
+  helper at three sites).
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No bugzilla/syzbot link. The author is the reporter and tester,
-with a full descriptor dump and xev confirmation. Same failure mode as
-018C, which is already in this tree.
+**Step 4.5**
+- Record: UNVERIFIED on lore.kernel.org/stable (lore blocked). No in-
+  tree revert.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Standalone v1. Closely related 018C/018F/HUGE Plus ID+fixup
-patches are already in 6.18.57.
+## Phase 5: Code semantics
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: UNVERIFIED. `lore.kernel.org/stable/?q=M-XT4DRBK` returned 403.
-No evidence of a prior rejection. Does not change the technical verdict.
+**Step 5.1**
+- Record: `smb2_is_private_ea`, `smb2_set_ea`, `smb2_get_ea`.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 5.2**
+- Record: `smb2_set_ea` callers: CREATE EA context (`smb2_open` path
+  ~3322) and `FILE_FULL_EA_INFORMATION` in `smb2_set_info_file` (~6644).
+  `smb2_get_ea` caller: `smb2_get_info_file` (~5493). Reachable from
+  SMB2 CREATE / SET_INFO / QUERY_INFO.
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `elecom_report_fixup()` (switch cases / id table);
-`mouse_button_fixup()` called but not modified; ID tables in `hid-
-elecom.c` and `hid_have_special_driver[]`.
+**Step 5.3**
+- Record: SET uses `ksmbd_vfs_setxattr` / `ksmbd_vfs_remove_xattr` after
+  prefixing `XATTR_USER_PREFIX`. GET uses `ksmbd_vfs_listxattr` /
+  `ksmbd_vfs_getxattr`. Internal DOS/stream/SD writers
+  (`ksmbd_vfs_set_dos_attrib_xattr`, stream helpers,
+  `ksmbd_vfs_set_sd_xattr`) do not go through `smb2_set_ea`, so server-
+  internal writes remain allowed.
 
-**Step 5.2: TRACE CALLERS**
-Record:
-- `elecom_report_fixup` ← `elecom_driver.report_fixup` ← `hid-core.c`
-  `hid_open_report()` (`device->driver->report_fixup(...)` at line 1305)
-- `hid_have_special_driver` match ← `hid_gets_squirk()` sets
-  `HID_QUIRK_HAVE_SPECIAL_DRIVER` ← `hid_generic_match()` returns false
-  so hid-generic does not bind
+**Step 5.4**
+- Record: Yes, from userspace: authenticated SMB client with
+  `FILE_WRITE_EA` / `FILE_READ_EA`. Those rights are normally part of
+  generic write/read.
 
-**Step 5.3: TRACE CALLEES**
-Record: `mouse_button_fixup()` only mutates three descriptor bytes after
-pattern checks; `hid_info()` log. No allocation, locking, or I/O.
+**Step 5.5**
+- Record: GET already special-cased STREAM and DOSATTRIB; SET did not.
+  Same reserved names as Samba (`user.DOSATTRIB`, `user.DosStream.*`,
+  `security.NTACL`).
 
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Plug USB receiver → usbhid → hid parse → `report_fixup` → input
-events. Userspace-reachable on plug. Unprivileged users then use the
-extra button via evdev. Not a security bug; it is a functional hardware
-bug.
+## Phase 6: This tree (6.12.111)
 
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Same pattern already used for 018C, 018F, DT2, HUGE, etc. in
-this file. This is the left-handed 2025 wireless counterpart of 018C.
+**Step 6.1**
+- Record: Local tree is `pending-6.12`, `git describe`
+  `p-6.12-3-gc504cf0baa3d8`, `make kernelversion` **6.12.111**.
+  Candidate is **not** an ancestor of HEAD. Buggy SET/GET code is
+  present (`smb2_set_ea` at 2392, `smb2_get_ea` at 4758).
+  `smb2_is_private_ea` is absent.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 6.2**
+- Record: `git apply --check` of `4ea46ea602fc` succeeded (hunks at
+  2379, 2436, 4852; offsets only). Clean apply.
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes. v6.18.57 has hid-elecom, `mouse_button_fixup()`, and 018C’s
-layout, but **not** ID `0x018e`. Without this patch, 018E is a generic
-HID mouse with a broken sixth button. The 00FD model is already quirked.
+**Step 6.3**
+- Record: No alternate fix. GET still uses case-sensitive
+  STREAM/DOSATTRIB skips and does not filter NTACL.
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply onto v6.18.57 (`patch --dry-run` rc 0). Parent vs
-v6.18.57 differs only by an unrelated ITE keyboard ID later in `hid-
-ids.h`.
+## Phase 7: Subsystem
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: No 018E fix in v6.18.57. 018C/018F/HUGE Plus ID+fixup patches
-**are** already in 6.18.57, which is the same stable-accepted class of
-change.
+**Step 7.1**
+- Record: `fs/smb/server` (ksmbd). Criticality: IMPORTANT — network file
+  server, optional (`CONFIG_SMB_SERVER` default n), but a common stable
+  attack/integrity surface.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 7.2**
+- Record: Actively maintained. This bug is old (original EA code), not a
+  7.3-only feature.
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `[drivers/hid/hid-elecom.c] [PERIPHERAL / driver-specific]`,
-gated by `CONFIG_HID_ELECOM`. Important for owners of this trackball;
-not core MM/VFS.
+## Phase 8: Impact and risk
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Mature driver (2010–); recent work is additional ELECOM IDs and
-descriptor fixups, several of which already landed in 6.18.y.
+**Step 8.1**
+- Record: ksmbd users only (NAS, appliances, distro ksmbd). Not
+  universal.
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 8.2**
+- Record: Trigger: SMB2 SET_INFO FULL_EA or CREATE with EA context using
+  reserved names. Common for any client that can write EAs. Unprivileged
+  local processes cannot hit it unless they are SMB clients; an
+  authenticated SMB user can.
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Driver-specific / config-specific: users of ELECOM M-XT4DRBK-G
-2025 (`056e:018e`) with `CONFIG_HID_ELECOM`. 00FD users are unchanged.
+**Step 8.3**
+- Record: Failure mode: overwrite `user.DOSATTRIB` (hidden/system/create
+  time) and `user.DosStream.*` (stream data); expose or plant
+  `user.NTACL`. Severity: **HIGH** (metadata/stream integrity and
+  reserved-name ACL confusion). Not a kernel oops. Default ksmbd ACL
+  store is `security.NTACL`, so SET EA `NTACL` does not overwrite the
+  SD; DOSATTRIB/streams are the real same-namespace collisions.
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Every plug-in of that dongle. Not a race. Unprivileged users see
-a missing/duplicated Fn button.
+**Step 8.4**
+- Record: Benefit high for ksmbd hosts. Risk very low (~20-line filter,
+  no locking/API change). Ratio favors backport.
 
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: `[Broken extra mouse button on specific hardware] [MEDIUM
-functional / hardware-quirk]`. Not a crash, UAF, or corruption issue.
-This is the documented stable exception for USB IDs and hardware quirks.
+## Phase 9: Synthesis
 
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- Benefit: 2025 left-handed EX-G trackball gets a working sixth button
-  on 6.18.y, matching what 018C already got.
-- Risk: very low (8/4 line change, existing helper, pattern-gated,
-  maintainer-applied, tested).
-- Ratio: high benefit for affected hardware, negligible regression risk.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-**Step 9.1: COMPILE THE EVIDENCE**
+**Step 9.1 — Evidence**
 
 FOR:
-- USB ID + existing HID quirk on an existing driver (stable exceptions 1
-  and 2)
-- Real user-visible bug: sixth button unusable; author tested the fix
-- Descriptor offsets verified against the dump and against 018C already
-  in this tree
-- Small, obviously correct, no new APIs
-- HID maintainer applied v1 with no objections
-- Same class of patch (018C/018F/HUGE Plus) already in 6.18.57
-- Applies cleanly to this tree
+- Real reserved-name hole on a network server: SET can write
+  `user.DOSATTRIB` and `user.DosStream.*`.
+- GET can leak `user.NTACL` if that xattr exists.
+- Matches Samba’s long-standing hide/reject of those names; smbtorture
+  `smb2.ea.acl_xattr` expects ACCESS_DENIED.
+- Small, maintainer-authored, in v7.3-rc1 with no revert.
+- Applies cleanly to this 6.12 tree; macros and callers exist.
+- `-EACCES` already maps to `STATUS_ACCESS_DENIED`.
 
 AGAINST:
-- Not a crash/security/corruption fix
-- Affects one consumer trackball model
-- Author is not a regular HID contributor; patch notes `Assisted-by:
-  LLM` (mitigated by maintainer apply + dump + test)
+- Not a crash/UAF.
+- NTACL SD lives in `security.*`, so this is not a direct ACL overwrite
+  on default ksmbd.
+- Commit message is partly a test fix.
+- Lore review UNVERIFIED.
 
 UNRESOLVED:
-- Could not fetch lore.kernel.org (403) or search stable@ archives
-  directly; discussion recovered from b4/patchew/openwall
+- Original lore thread / reviewer stable nomination (lore blocked).
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — offsets match; author
-   tested; maintainer applied
-2. Fixes a real bug that affects users? **PASS** — Fn button unusable
-   without the quirk
-3. Important issue? **PASS** under the hardware-quirk / new-ID exception
-   (severity MEDIUM, not CRITICAL)
-4. Small and contained? **PASS** — 8 insertions / 4 deletions, 3 files
-5. No new features or APIs? **PASS** — ID + existing fixup only
-6. Can apply to the local tree? **PASS** — clean apply to v6.18.57;
-   prerequisites present
+**Step 9.2 — Stable rules**
+1. Obviously correct and tested? **PASS** (applies cleanly; smbtorture
+   named; maintainer).
+2. Real user-visible bug? **PASS** (EA write/list of private metadata).
+3. Important (crash/security/corruption/deadlock)? **PASS** (HIGH:
+   metadata/stream integrity on an SMB server; security-boundary).
+4. Small and contained? **PASS** (+22/-6, one file).
+5. No new features/APIs? **PASS** (reject/filter only).
+6. Applies to this tree? **PASS** (`git apply --check` succeeded).
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: **Device ID addition to existing driver** and **hardware
-quirk/workaround**. Both qualify for stable.
+**Step 9.3 — Exceptions**
+- Record: Not a device-ID/quirk/DT/build/docs exception. Qualifies as a
+  normal security/integrity bug fix.
 
-**Step 9.4: MAKE YOUR DECISION**
-YES. This is the same HID-elecom USB-ID + report-descriptor quirk 6.18.y
-has already taken for 018C. It does not add a driver or API; it makes a
-current ELECOM trackball’s sixth button work.
+**Step 9.4 — Decision**
+Backport to this 6.12 tree. The important part is not the Samba test
+name; it is that authenticated clients can currently smash DOS attribute
+and named-stream xattrs that ksmbd treats as private.
 
-What the commit solves: the 2025 M-XT4DRBK-G (`056e:018e`) ships a
-descriptor that only declares five button usages, so Linux reports the
-Fn button as a duplicate of button 5. The fix binds that ID to hid-
-elecom and reuses the 018C `mouse_button_fixup()`.
+---
 
-Risk vs benefit: benefit is a working extra button on real hardware;
-risk is a few table entries and a pattern-checked 3-byte descriptor
-edit. 00FD behavior is unchanged.
+### What this solves for 6.12 users
 
-No extra prerequisites; 018C’s helper and case are already in this tree.
+ksmbd maps SMB EAs to `user.*`. It stores DOS attributes in
+`user.DOSATTRIB` and streams in `user.DosStream.*`. `smb2_set_ea()` does
+not reject those names, so a client with `FILE_WRITE_EA` can overwrite
+that metadata. Query already hid some of those names, but not `NTACL`
+and not case variants. The patch closes SET and GET.
 
-Verification:
-- [Phase 1] Parsed tags: author + Jiri Kosina SOB; no Fixes/Cc
-  stable/Reported-by; LLM-assisted
-- [Phase 1] Body: 056e:018e, Usage Maximum 5 vs Count 8, sixth button
-  unusable; tested on Pi 5 / 6.12
-- [Phase 2] Diff: +8/-4 in hid-elecom.c, hid-ids.h, hid-quirks.c; rename
-  00FD define; add 018E to 018C fixup
-- [Phase 2] Descriptor offsets 16/22/24/30 verified against the dump
-- [Phase 3] `git describe HEAD` / Makefile: local tree is 6.18.57
-- [Phase 3] `git merge-base --is-ancestor a6dbbf8a1601a v6.18.57` → not
-  in v6.18.57 (exit 1)
-- [Phase 3] 00FD support `fbb77e88f08ce` and 018C `da1880c7b6b83` are
-  ancestors of v6.18.57
-- [Phase 3] v6.18.57 still uses `USB_DEVICE_ID_ELECOM_M_XT4DRBK` only;
-  no 018E
-- [Phase 3] Author has no other hid-elecom commits here
-- [Phase 4] `b4 dig -c`: msgid
-  20260907184719.25042-1-berke.durak@gmail.com; v1 only
-- [Phase 4] `b4 dig -w`: Kosina + Tissoires + linux-input; Kosina
-  applied
-- [Phase 4] lore.kernel.org 403; patchew/openwall used instead
-- [Phase 4] UNVERIFIED: stable@ archive search (403)
-- [Phase 5] Callers: hid-core `report_fixup` on probe; hid-generic skips
-  via `HID_QUIRK_HAVE_SPECIAL_DRIVER`
-- [Phase 6] `patch --dry-run` onto v6.18.57 files: success
-- [Phase 6] Related 018C/018F/HUGE Plus ID patches already in 6.18.57
-- [Phase 8] Failure mode: extra button unusable, not a kernel crash
-- UNVERIFIED: original lore HTML (403); does not affect the decision
+### Stable-rules / risk
+
+Meets all six criteria. Benefit is integrity of ksmbd private xattrs;
+risk is a tight ACCESS_DENIED on reserved names that Samba has treated
+as private for years.
+
+### Verification
+- [Phase 1] Parsed message/tags on `4ea46ea602fc`; only author SOB; no
+  Fixes/Link.
+- [Phase 2] Full `git show 4ea46ea602fc` diff: helper + SET `-EACCES` +
+  GET filter.
+- [Phase 2] Confirmed `-EACCES` → `STATUS_ACCESS_DENIED` at
+  `smb2_set_info` err_out (~6761) and CREATE err_out (~3812).
+- [Phase 2] Confirmed `XATTR_NAME_DOS_ATTRIBUTE` = `user.`+`DOSATTRIB`,
+  `XATTR_NAME_STREAM` = `user.`+`DosStream.`, `XATTR_NAME_SD` =
+  `security.`+`NTACL` in `xattr.h`.
+- [Phase 3] `git blame` SET/GET: `e2f34481b24db` (2021); ancestor of
+  HEAD.
+- [Phase 3] `git merge-base --is-ancestor 4ea46ea602fc HEAD` → no (not
+  in 6.12).
+- [Phase 4] `b4 dig -c 4ea46ea602fc` → lore error. UNVERIFIED mailing-
+  list discussion.
+- [Phase 4] Samba `torture_smb2_acl_xattr` expects SET ACCESS_DENIED and
+  no list leak.
+- [Phase 4] Merge `61a09cfc12147` mentions smbtorture protocol fixes /
+  security hardening.
+- [Phase 4] `smb2_is_private_ea` still in v7.3-rc1; no revert.
+- [Phase 5] Callers: CREATE EA context, SET_INFO FULL_EA, QUERY_INFO EA.
+- [Phase 6] `git describe HEAD` = `p-6.12-3-gc504cf0baa3d8`;
+  kernelversion 6.12.111.
+- [Phase 6] `git apply --check` of the commit succeeded with line
+  offsets only.
+- [Phase 8] Same-namespace overwrite of DOSATTRIB/streams verified in
+  `vfs.c` / `smb2_update_xattrs`.
+- UNVERIFIED: lore reviewers, CVE assignment, whether any distro already
+  carries a different backport.
 
 **YES**
 
- drivers/hid/hid-elecom.c | 6 ++++--
- drivers/hid/hid-ids.h    | 3 ++-
- drivers/hid/hid-quirks.c | 3 ++-
- 3 files changed, 8 insertions(+), 4 deletions(-)
+ fs/smb/server/smb2pdu.c | 28 ++++++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/hid/hid-elecom.c b/drivers/hid/hid-elecom.c
-index 37d88ce57f671..d21ead40bb076 100644
---- a/drivers/hid/hid-elecom.c
-+++ b/drivers/hid/hid-elecom.c
-@@ -79,7 +79,7 @@ static const __u8 *elecom_report_fixup(struct hid_device *hdev, __u8 *rdesc,
- 	case USB_DEVICE_ID_ELECOM_M_XT3URBK_00FB:
- 	case USB_DEVICE_ID_ELECOM_M_XT3URBK_018F:
- 	case USB_DEVICE_ID_ELECOM_M_XT3DRBK_00FC:
--	case USB_DEVICE_ID_ELECOM_M_XT4DRBK:
-+	case USB_DEVICE_ID_ELECOM_M_XT4DRBK_00FD:
- 		/*
- 		 * Report descriptor format:
- 		 * 12: button bit count
-@@ -104,6 +104,7 @@ static const __u8 *elecom_report_fixup(struct hid_device *hdev, __u8 *rdesc,
- 		mouse_button_fixup(hdev, rdesc, *rsize, 12, 30, 14, 20, 8);
- 		break;
- 	case USB_DEVICE_ID_ELECOM_M_XT3DRBK_018C:
-+	case USB_DEVICE_ID_ELECOM_M_XT4DRBK_018E:
- 		/*
- 		 * Report descriptor format:
- 		 * 22: button bit count
-@@ -148,7 +149,8 @@ static const struct hid_device_id elecom_devices[] = {
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3URBK_018F) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3DRBK_00FC) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3DRBK_018C) },
--	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK) },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK_00FD) },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK_018E) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT1URBK) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT1DRBK) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT2DRBK) },
-diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
-index a10b4ae0e3d8e..ca5c62f29aebe 100644
---- a/drivers/hid/hid-ids.h
-+++ b/drivers/hid/hid-ids.h
-@@ -466,7 +466,8 @@
- #define USB_DEVICE_ID_ELECOM_M_XT3URBK_018F	0x018f
- #define USB_DEVICE_ID_ELECOM_M_XT3DRBK_00FC	0x00fc
- #define USB_DEVICE_ID_ELECOM_M_XT3DRBK_018C	0x018c
--#define USB_DEVICE_ID_ELECOM_M_XT4DRBK	0x00fd
-+#define USB_DEVICE_ID_ELECOM_M_XT4DRBK_00FD	0x00fd
-+#define USB_DEVICE_ID_ELECOM_M_XT4DRBK_018E	0x018e
- #define USB_DEVICE_ID_ELECOM_M_DT1URBK	0x00fe
- #define USB_DEVICE_ID_ELECOM_M_DT1DRBK	0x00ff
- #define USB_DEVICE_ID_ELECOM_M_DT2DRBK	0x018d
-diff --git a/drivers/hid/hid-quirks.c b/drivers/hid/hid-quirks.c
-index 8d2ac32c5ac12..debd00ed9062a 100644
---- a/drivers/hid/hid-quirks.c
-+++ b/drivers/hid/hid-quirks.c
-@@ -431,7 +431,8 @@ static const struct hid_device_id hid_have_special_driver[] = {
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3URBK_018F) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3DRBK_00FC) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT3DRBK_018C) },
--	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK) },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK_00FD) },
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_XT4DRBK_018E) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT1URBK) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT1DRBK) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_ELECOM, USB_DEVICE_ID_ELECOM_M_DT2DRBK) },
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index e73edf006df72..4f8e2a6307602 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2378,6 +2378,22 @@ static noinline int create_smb2_pipe(struct ksmbd_work *work)
+ 	return err;
+ }
+ 
++static bool smb2_is_private_ea(const char *name, size_t name_len)
++{
++	if (name_len == SD_PREFIX_LEN &&
++	    !strncasecmp(name, SD_PREFIX, SD_PREFIX_LEN))
++		return true;
++	if (name_len == DOS_ATTRIBUTE_PREFIX_LEN &&
++	    !strncasecmp(name, DOS_ATTRIBUTE_PREFIX,
++			   DOS_ATTRIBUTE_PREFIX_LEN))
++		return true;
++	if (name_len >= STREAM_PREFIX_LEN &&
++	    !strncasecmp(name, STREAM_PREFIX, STREAM_PREFIX_LEN))
++		return true;
++
++	return false;
++}
++
+ /**
+  * smb2_set_ea() - handler for setting extended attributes using set
+  *		info command
+@@ -2419,6 +2435,10 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
+ 			rc = -EINVAL;
+ 			break;
+ 		}
++		if (smb2_is_private_ea(eabuf->name, eabuf->EaNameLength)) {
++			rc = -EACCES;
++			break;
++		}
+ 
+ 		memcpy(attr_name, XATTR_USER_PREFIX, XATTR_USER_PREFIX_LEN);
+ 		memcpy(&attr_name[XATTR_USER_PREFIX_LEN], eabuf->name,
+@@ -4828,17 +4848,13 @@ static int smb2_get_ea(struct ksmbd_work *work, struct ksmbd_file *fp,
+ 		if (strncmp(name, XATTR_USER_PREFIX, XATTR_USER_PREFIX_LEN))
+ 			continue;
+ 
+-		if (!strncmp(&name[XATTR_USER_PREFIX_LEN], STREAM_PREFIX,
+-			     STREAM_PREFIX_LEN))
+-			continue;
+-
+ 		if (req->InputBufferLength &&
+ 		    strncmp(&name[XATTR_USER_PREFIX_LEN], ea_req->name,
+ 			    ea_req->EaNameLength))
+ 			continue;
+ 
+-		if (!strncmp(&name[XATTR_USER_PREFIX_LEN],
+-			     DOS_ATTRIBUTE_PREFIX, DOS_ATTRIBUTE_PREFIX_LEN))
++		if (smb2_is_private_ea(&name[XATTR_USER_PREFIX_LEN],
++				       name_len - XATTR_USER_PREFIX_LEN))
+ 			continue;
+ 
+ 		if (!strncmp(name, XATTR_USER_PREFIX, XATTR_USER_PREFIX_LEN))
 -- 
 2.53.0
 
