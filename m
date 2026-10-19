@@ -1,79 +1,109 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E7C648FF74;
-	Mon, 19 Oct 2026 09:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F9B4B44C5;
+	Mon, 19 Oct 2026 09:23:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401799; cv=none; b=lbKhxYx+kQWRhqdJk1lDXQVXdWnvl2vNb5mxoLUKW1gbrR6AM3ks5Ub71dTe8G0xFqtgMFVHBYRFTepb08SgerRvWpUoG3h2kv2aCclG5dqrH1kZlSZ6/BsqvPgoh9hhBxYRky+DGdNJVpGreZr79cEWH4C0byQLXrnTd0Z1XGA=
+	t=1792401803; cv=none; b=J9x/ansHE1x4P+CLOf5KdYrTlBNqATeMdyiLfAvtXW3jP3uvyNFzB34VPZyg46/+4obkgdwNvIhzZFntcs6wHRQGDE/+D6QIoNaHOW9g0WaAk5ZiJm2OoVEoN/nISgmmcqXh90VL16D1tTeNReyPk/3lPP83/qAVKgKVFuqTfKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401799; c=relaxed/simple;
-	bh=9PebdIH/SVuVj9MRbPB/1J1o0shLFs/Jpdx34TKGXEg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Jlr1noSM+lth8ejndvjbJhoWVKCbxmdlCsDLhzY/dkHLRwbtppXnYzw/mprQ+bQDv3S3bKoF12Fav0MNiA4JB4JlvrADn5jHhuLMtpTKyV1++UihNuquiYAMqscrsLkcn4Bk2fDg5RlxXBXHzeOAdKihImvoxtCwo+efGhTCSTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C+Y1yTco; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792401803; c=relaxed/simple;
+	bh=I9nPWRv3+3lvwszg1uS4J+C2eHUQtLbwYbzC4gJf5ck=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MTdWKKqQpXUMfIuCHuBDor96jdJ7K6CzSttlMjRF5aYBCkc5q3h/GtP8+B5o2o5xjKhDjPUySq6GTP7XAquiFTo09Lwcm2wmHnO7dRFCQi8/yvNYVDA/oyX1TUEa0ihOut0Oss+qvyHqzQlYgvwLFUW1c5rftctcHmLTOcrjHew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L5KDTlRL; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C+Y1yTco"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CB0351477;
-	Mon, 19 Oct 2026 02:23:12 -0700 (PDT)
-Received: from [10.0.152.204] (e121487-lin.cambridge.arm.com [10.0.152.204])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8BF463F7D8;
-	Mon, 19 Oct 2026 02:23:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792401796; bh=9PebdIH/SVuVj9MRbPB/1J1o0shLFs/Jpdx34TKGXEg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=C+Y1yTcoKKTeRGxeqTyg1bb//zBo/34B94yQoPCY8Z3TFTWlPLYAqR+kfzFP/WUTg
-	 wcMt2ARDZEf2af+mvA9gjVQuj5IIGdx+Cvs/7LSXLhe70k4TcVAJprfzM2ozRDBJKM
-	 AD6JEGRA9yLKmyScnBGv/fMHzUKKr7+ir8KeI1Cc=
-Message-ID: <494fd8b9-b7cc-43ef-af0a-218c6afe0fed@arm.com>
-Date: Mon, 19 Oct 2026 10:23:09 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L5KDTlRL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792401803; x=1823937803;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=I9nPWRv3+3lvwszg1uS4J+C2eHUQtLbwYbzC4gJf5ck=;
+  b=L5KDTlRLmInoG54n4cyQ/gk5gjkTdsxwbIq8QdkOzNpWgKuqP45OMtBE
+   WSZR7I0aawaBmkhNvTeScqqYp8vkz7ejG6oKSuS6WqheDlMJ9tHFAFARP
+   2nwLfioySfcmwgZpxuOv0p2ZM5OCg/cNi/RYAWWbUSembjOZR3Q27PwI3
+   E1oSGsBsOwl3PWn5IrmctfTPWedxZIw5rFfE3mFDQvYxVCawba5h1gklx
+   mrOgotiqYkPrMItLMQW+VWaqqU83ogUkhiK3i6aNFwJv1lgQQV8rYVCg6
+   waJAbvTfsRRPmplX47iEaMusdK+Wt8JoKkGnRnOvwtFC6UNoeEtehVOfl
+   w==;
+X-CSE-ConnectionGUID: k7/fEk1YS92e4ddHaAq5Sg==
+X-CSE-MsgGUID: pMUJS7VzR0Sx5qNfBt37Hg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="960331"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="960331"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:23:22 -0700
+X-CSE-ConnectionGUID: TW5JLCuFSuGqXGuUKwNapw==
+X-CSE-MsgGUID: 9ex9tOGPQ3ycr+0vKkoODg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2594965"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 02:23:19 -0700
+Date: Mon, 19 Oct 2026 12:23:16 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Melih Emik <melihemik@noirlang.tr>, jic23@kernel.org,
+	gregkh@linuxfoundation.org, nuno.sa@analog.com,
+	Michael.Hennerich@analog.com, dlechner@baylibre.com,
+	andy@kernel.org, linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux@analog.com
+Subject: Re: [PATCH] staging: iio: frequency: ad9832: use guard(mutex)
+Message-ID: <atXhhJoQ86jOUSMS@ashevche-desk.local>
+References: <20261018102604.73380-1-melihemik@noirlang.tr>
+ <20261018175558.71739ebc@systembl0wer>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] arm64: tlb: Add tlbi workaround for FUJITSU-MONAKA
- Erratum E#030001
-To: Tomohiro Misono <misono.tomohiro@fujitsu.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
- Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>
-Cc: Kohei Enju <enju.kohei@fujitsu.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org,
- kvmarm@lists.linux.dev
-References: <20261016-monaka-fix-for-upstream-v2-0-fc7ede7f9f48@fujitsu.com>
- <20261016-monaka-fix-for-upstream-v2-2-fc7ede7f9f48@fujitsu.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20261016-monaka-fix-for-upstream-v2-2-fc7ede7f9f48@fujitsu.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018175558.71739ebc@systembl0wer>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi,
+On Sun, Oct 18, 2026 at 05:55:58PM +0200, Joshua Crofts wrote:
+> On Sun, 18 Oct 2026 13:26:04 +0300
+> Melih Emik <melihemik@noirlang.tr> wrote:
+> 
+> > In ad9832_write(), manual mutex handling via mutex_lock() and
+> > mutex_unlock() necessitates error-exit trampolines (goto error_ret),
+> > intermediate variables, and deferred returns. This pattern is prone
+> > to unlock-omission bugs during refactoring and clutters the control
+> > flow.
+> > 
+> > Modernize the locking by using guard(mutex) from <linux/cleanup.h>.
+> > Scope-based resource management automatically releases the lock upon
+> > exiting the lexical scope, which enables immediate error propagation
+> > at call sites, removes the error_ret label, and simplifies the control
+> > flow across all switch cases.
+> > 
+> > Tested:
+> > - Compiled with W=1 on x86_64 with zero warnings.
+> > - Verified with lockdep and debug mutexes enabled
+> >   (CONFIG_PROVE_LOCKING=y, CONFIG_DEBUG_MUTEXES=y).
+> > - Boot-tested full bzImage in QEMU with initcall_debug, confirming
+> >   successful driver initialization (ad9832_driver_init returned 0)
+> >   and zero lockdep warnings.
+> > - Disassembly inspected via objdump to ensure mutex_unlock on all
+> >   exit paths.
+> > - Verified with scripts/checkpatch.pl (0 errors, 0 warnings).
+> 
+> The Tested: part goes under the ---, no need to preserve this info
+> in the git log.
 
-On 10/16/26 11:00, Tomohiro Misono wrote:
-> +#ifdef CONFIG_FUJITSU_ERRATUM_030001
-> +	{
-> +		.desc = "FUJITSU-MONAKA Erratum E#030001",
-> +		.capability = ARM64_WORKAROUND_FUJITSU_030001,
-> +		ERRATA_MIDR_RANGE_LIST(((const struct midr_range[]) {
-> +					MIDR_ALL_VERSIONS(MIDR_FUJITSU_MONAKA),
-> +					{}
-> +				})),
-I reckon that can be simplified to
+If it was tested on a real HW, the summary (like a couple of words only)
+is still good to have in the commit message to leave a trail of the actual
+HW that makes the change appear.
 
-+	ERRATA_MIDR_ALL_VERSIONS(MIDR_FUJITSU_MONAKA),
-
-Cheers
-Vladimir
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
