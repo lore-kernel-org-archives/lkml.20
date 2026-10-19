@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792431985;
-	b=mcZulIDA/pwXzZdP3RGxbsOgmivNt8ww3WAdygPUV86vsuDmKzAdiBrbBnHlg937mw1B
-	 VSvQuXI4pZgUEjKG5Z3z1vHUW9BnEOlrZ4lIJs/r7w6xscb1FaAM8GuwC7tiBrGM38Z0E
-	 0acE4SI4Ze6GPw2LCQgQxiZftWVB9mCAwaGhR296ORbTi/d8WCEdH3ZjQGpMapZabzJa4
-	 49bL5QNZEnvzXwA1reMvqAqas8hAgc0mMKg9PPbBoZmtqwRmgf3EOdPjTceXQyaqgx61l
-	 iUe4tEJMs0KC8zXFPmHbwSUysW9TsDNZEBli4xJjRwkxgWP00i3H9kOwLN2R4GiFA2Q==
+	t=1792431988;
+	b=QQfPq6iqxDW+Zv6blnQhVQ3k92660LXMRF1inZqVBqgp0mI1IkWNzO8TFDa/7yoYSvNn
+	 8mJ87caTq5mewCwz0GgSYuuBMJFZ/wDNBcclhNU5TLj8IS4i542ZpAJbwZwHog1Hg0a8c
+	 L1pKegUs34h5L/xb2HAXqkpd2MEmGgDJjgpng/5zcBhNGXAUz+mgdtadXP7wLh1DmG8Ml
+	 MOS1HK8qjGJnfiRvJ2z0iYk8Ue8xEJjYLp22vAgHim2OkGbvM90RmQMXRuyseaQ/k63SO
+	 1jGChOTNElGJVbnm14/XPBz/S13xS0mvOByQXRcgaAnEhoX+V0N4yinlckkhwN481mQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792431985;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792431988;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=TJbxrlIxGFbTqxo7ja0zKyGEZWI2mxh8uSPXQLCwGk4=;
-	b=xKBnCveG6y63R5lOp8AINzCml3SNGdPayUIxeVNfEfs67KbNSP1a/INqUFnUzttK0RwH
-	 mj579g3cX6uQ8So31URxygww5vv+4tFarysK4VQ8xP5tE+HZk7RABbINTG1csBykLmRnA
-	 lapG0N8ZbEc6ERdUs9HZzeXnKSa0JUzuOkgozzf7rIP+8X8jvmiec43b3WpLdLbXF+0d9
-	 zFK2Vw+dMu5IDs619Trx1ZrQu4onh8d7CBCdky+THe+B0fzGsst2ZPjr1/8O+IC34ngJx
-	 /cm8ieANPAa4+GaU5IojtDx0nIffxouhXhkyAc9IFwaXkF9CAXS+NfXyX6iHm55Rdhg==
+	bh=Jkf2p3Yvk86JX0dg/KREj4i5SusGhhmuiwUVlhZfCCI=;
+	b=sOSnhwW9nOHL1XBsrSj8Uw/QXFsG7aPeI6VCSmvx0EeAhZy5xGFtLi2PDiNQlI76W9aY
+	 pVkXnKW0StUA9SXmQRFksuHiiRFm49jb9dw43MZFLZp4pPEruJ5b3XrViTJ3WvIYIZnQs
+	 55jBbKG6Hr6XPZHZrYvSACscNERrZl6YTZKThWPI0D2rV63gk0ICDmn6vDILcRbmJe/PK
+	 agYtTkcLyKbTf+1a5hjTLa1Gcwo/3IYXHrm3yorZWjHAssoW0ihp/QVzCgGgWQMUQAfCw
+	 rSWPOMvFd/jEZw6TBrH5nzpufjURdxETN1ks5+mICf5e8o1hgkELBudub/xD1QXtFww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KNXCiS4j;
-	arc=none smtp.remote-ip=209.85.221.170
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X301t+EK;
+	arc=none smtp.remote-ip=209.85.222.47
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA4760A2612
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:46:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA4760A2612
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12A560A2623
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:46:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C12A560A2623
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KNXCiS4j
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5e9528732b4so1967778e0c.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:46:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X301t+EK
+Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-99071945aa7so1437960241.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:46:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792431982; x=1793036782; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792431987; x=1793036787; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TJbxrlIxGFbTqxo7ja0zKyGEZWI2mxh8uSPXQLCwGk4=;
-        b=KNXCiS4jR7GFgrb6MqrW6jIWl2Y5R8o5EzVPkK6wKTTMMRDpTehrA/tR2drA6Buq8z
-         sPUjmNRV7naT7ZwJ+crbkgBn7wExzWwugLTNNp7ydoJKU00ClZB52X01y/V5uH2NAaZR
-         Uw/e2iteSiqu8sxXqcan0n7YpLT4XRfX+0NiskQLCB1MUY9cvYnCjVuZ5/ONnzcnIrHs
-         N/eXJ4lTRdS3BQCx+NS7wDx3XjWmwgO0hpz1K2piy/3iSKdOtPJl+AMdYRgO/AcyInGW
-         iY2+kND34rFDOaMCLsoavfyG11SF2DFz33sF3klnvXe0arTeAagOEdKX/0Pcm2h0VObi
-         DxSQ==
+        bh=Jkf2p3Yvk86JX0dg/KREj4i5SusGhhmuiwUVlhZfCCI=;
+        b=X301t+EKsyNqRx4opKqYt48MLDjEzst8liwu3GyXkUv4vK6e+cAL07Kwq6607YMb5e
+         cghucPC6sU/eO82WL3HnYZ1oZrtxVq/TV/xEnMBS6CXZx/nnSHMDoCPlR9dYylVLWZmp
+         UAat/dBembiBtyC2UrYeCbtu2XW83Txrz7SJn2WucJrfCFqH0IyNZf/6GNNJmQOzQT6x
+         RxUgq5nrLo5kT7SDsECTQ5zzJp0rZuS4Sc2XKh2ua2lf8MWrF42BgyHo+Jrapm12DMUj
+         7BTBnZRQS+DxHqmMTDXNy9qcjrD4KkNs/Id6o/4BH4QMGmjgaDMYZvyVm6yzFb4urfhr
+         KNjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792431982; x=1793036782;
+        d=1e100.net; s=20260707; t=1792431987; x=1793036787;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TJbxrlIxGFbTqxo7ja0zKyGEZWI2mxh8uSPXQLCwGk4=;
-        b=0e6IQoiUjZE3ZVvJf2YpBzWnrD2P2gJC6aMkk2IqIh91UtiMQpS4KiTU6bhJWIaTts
-         92iOxAjaqgDI0M0zzN4qZ0QAQ5E5cBEc+x66Fa9tTRSX5tFIOqOHbIHm2iN/pgZqqXks
-         NXLkIhcoo+MTSHDxNZNoY0sIDEG6kxPVON9tvTvhEyOn27uMSup7pjvp4UnUJb/+AZjy
-         bjL0p6l3sHtMrLPmgic1MAlKO4st8AfxLv/A30A9uTwbcbYDZyakqK6jYWA+Mn9UGzc2
-         BU0chD6hvGLv4r0K12oOwrhjQUITukPNeP/29L3bB3P7nTW483vG1BUiX/v4+7E7Grxt
-         AZ0A==
-X-Forwarded-Encrypted: i=1; AKwUvBws6t/WnfMbUrzVGMeJxQ6Kg/3hSi9KVhJsjwwNiMq7Oo1OAVpE+oivehU8O0eShv5fRKFiiDu/6Sz2aCw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0dNqylRQZrP3VAXbtRPCPJzEJR9fGGr/jGbZs5/o9rBRBq/CS
-	YPu2V/y3BhNzbbUCE8BlvphatyfHjtnb7r8Vx2QWUDUd5wMtdyOO2PNI
-X-Gm-Gg: AYBFou23ejQht80t7miHUxeDUY7ToLW9JSpsGqCMdm9TNKVz4iI1ndtll49kw1LazmN
-	dAamdFOMFpjgozfawQlHiZc+t5KsLtJY/Fgw1ZCIEnDZUgNw23nLXTtWN8sLtkajCEI+LpxorHy
-	yjZ9ULx3uAElocfo0tY7GVoeaBq/EGYtLgKRE5eJBCq0iCEy8EA0KaqnRlAOuj3nCsNvutIOMvF
-	C8w93lJB6A0r2B/hqVz4MVG8LGq57OD1I3Ht2dbR9jtL/9GxJ44sxuONpuk5fPf5KA2jS2eMMSf
-	NG0cQLw9wKXaWfUf5jnlzPfvXd1GnGbLFX5tQSXjktU/TCc4jYG4lQuLS/C9Xy6mYQ85z1BIBvQ
-	hgOt82vj4m/ktCo5rC1bcZSjcQ3MLVX4AtMPf6L64dlQPGLtv5ju0SZQAXv7CnbSNt1Gls2Ig7d
-	ofDsEawEiFRn43j8fNX6JbBppycmxNwpQtU4MFhOVD14SI9sJR55t+PWyGqWdeOf4YN+2lEjKsG
-	aylDpyymX1PbXu5kbwUDX+EWRrZkK06O+i7tV0jNOPTgMMtcoAGeQAtoskY0hvTBd+IeOlrG0+5
-	o9QUII+4fqvNpuHY0h2SqYcSVEtn80HN
-X-Received: by 2002:a05:6102:5346:b0:7c2:7a0:ae28 with SMTP id ada2fe7eead31-7cc36ae3f00mr2580379137.30.1792431982096;
-        Mon, 19 Oct 2026 10:46:22 -0700 (PDT)
+        bh=Jkf2p3Yvk86JX0dg/KREj4i5SusGhhmuiwUVlhZfCCI=;
+        b=TJwK8Yv15As+/AroKfgI6/ec+S+os53Qjt7zprpG8+kHfYvnnxRYYqKF6vc/Zwy1uf
+         f2VcsZ+VbttobdiJ078kR/pyXe7PGHuImJMgSvG1zUdvnDSE2nlaIHSZlqMDobNZ9Zkx
+         MJCME+Qb6e4jR+uAz2tUTPkmcqgzW6nBLItHwJ+sKxoIceSrrx1IZMcgQOYXmAmFHXku
+         GMMkqBbRLtNWc7dMMbKm+8I3g50rz8tRZmy8PFjIU5PyEKiwW7GrfNKq6KxWXbM2Ezb+
+         ZNwExlm0p1DEfn59t0RrRZECZzEtc9ZYNjsWdBM4Ef0Frjf9CVpLyoqr+S5JXDnh36NF
+         jNNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwFKkQyg5y2Kh8nm6+5uhgUmZt2YfGmJFivZtjPKmS1SeeEjK2s932K25OAK5T1FxNRK1H4/2bydMLCqqw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgFaciLcVwptIP+qDd9U2ouMvuW7pBHEK6hBfsjcAV+MdDlj5k
+	27d7XKS/yaE7PjBAyFeobIrE3xE692zynyQwuYndfqaRhe6xhTSfHTA2
+X-Gm-Gg: AYBFou0P0KYCQ0583ZtBRNnTOJ61agm++XEJbjP4FH44t6yDn7iKTYvykY3SG0GAePU
+	lIT4ZlAxZQHA5m6YRJ3TZU7k1zbjP+6KRswRf0bS3Xux6ELc2JD1pQaReWhcQZfcuK3tZqpc6Xo
+	JxoibxJFyK/uHlstdVZTeX2+OvtbhxyPboTTJbAKN2ye2V7+bFk1gYiF97gUrqErSrw6cSbFrh0
+	kFPygpmuwdh/k9uLJvlc847k3gyj4Zn297zDoOofk9EJzBWEQU2CC/h5+VoyIzJf+/e0DvDlinQ
+	1JJRwNH5CKTugQoF7He974BQtPG/EC2PxFDybRjXJzYYzTeaYs55FtXofQRB8O21zAwCvkLivwB
+	a+u7fb1yAnoR1aW54OYIQF+mKX8FxSyR0s87dliDqytqrK4XFppE0iiDHIixTA+D6lLiotmwHd7
+	g7m/YWUMv0ikzNh9k2R2LASG4QrHlS2+XXWvlHEJm0SB2QlwDbsEhXFQPiVjR9gHEKUhdbi3oiB
+	9z35et6XliC58iqifviQIOm6S/m5mOjw2xRy9NOwKankv/6vDbBJhcjC+lH94X3Z0S4V2ZtNFHf
+	lcAtK65X6kFK8e7Nd/3CJfCGSGKscCo=
+X-Received: by 2002:a05:6102:f0e:b0:7cc:2086:34e0 with SMTP id ada2fe7eead31-7cc3672e0b9mr2437979137.4.1792431986523;
+        Mon, 19 Oct 2026 10:46:26 -0700 (PDT)
 Received: from alsa-dev.int.suenodeluz.com.do ([74.244.193.177])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb3adfd0sm790707241.12.2026.10.19.10.46.20
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb3adfd0sm790707241.12.2026.10.19.10.46.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:46:21 -0700 (PDT)
+        Mon, 19 Oct 2026 10:46:25 -0700 (PDT)
 From: Frank van de Pol <fvdpol@gmail.com>
 To: tiwai@suse.de,
 	perex@perex.cz
@@ -87,9 +87,9 @@ Cc: corbet@lwn.net,
 	fvdpol@gmail.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 05/13] ALSA: jockey3: Add KUnit tests for the Ploytec codec
-Date: Mon, 19 Oct 2026 13:44:37 -0400
-Message-ID: <20261019174445.1931263-6-fvdpol@gmail.com>
+Subject: [PATCH v5 07/13] ALSA: jockey3: Coalesce several packets into one URB
+Date: Mon, 19 Oct 2026 13:44:39 -0400
+Message-ID: <20261019174445.1931263-8-fvdpol@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261019174445.1931263-1-fvdpol@gmail.com>
 References: <20261019174445.1931263-1-fvdpol@gmail.com>
@@ -104,1776 +104,488 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add KUnit tests to confirm that the bit-plane encoder and decoder are
-correct.
+Let one bulk URB carry up to eight Ploytec packets, to cut the rate of
+completion interrupts.
 
-The codec is a bit permutation between ALSA's S24_3LE frames and the
-Ploytec wire format, and it has to give the same result on every
-architecture. That becomes especially important with the optimized
-implementations in the next patch. They work on whole words rather than
-single bits, so they are not obviously correct by reading, and their
-result must not depend on the byte order or the word size of the
-machine. The tests use fixed vectors and a seeded generator, so every
-architecture, big-endian or little-endian, runs identical data.
+A Ploytec packet is 512 bytes, which is the high-speed bulk maximum
+packet size. A transfer of N packets is therefore the same on the wire
+as N transfers of one packet, and the device cannot tell them apart.
 
-The tests land before the optimized implementations, so that those are
-added against a suite that already passes on the readable reference
-implementation.
-
-The tests check the codec against a declarative bit map of the wire
-format, not against a second copy of the conversion loops. A bit
-permutation is linear over GF(2). The tests establish that linearity
-holds and measure the result for every basis vector, which together
-determine the output for every possible input. Golden vectors from an
-independent Python model of the format guard against the codec and the
-bit map agreeing on a wrong layout.
-
-Further cases cover batching, buffer overruns, unaligned buffers and
-the wire bytes and bits the device does not use.
-
-The codec functions are not exported, so the test object is linked into
-the driver module. Nothing in the codec is changed to make it testable.
-
-ploytec_codec_test_vectors.h is generated; its header comment says how.
+.hw_params picks N per direction as the largest power of two whose
+packets fit in one period, so a small period falls back to one packet
+per URB. The transfer buffers are allocated at the maximum. Changing N
+only changes the transfer length of each URB at its next resubmission;
+the ring is not torn down.
 
 Assisted-by: LLM
 Signed-off-by: Frank van de Pol <fvdpol@gmail.com>
 ---
- sound/usb/jockey3/.kunitconfig                |  12 +
- sound/usb/jockey3/Kconfig                     |  26 +
- sound/usb/jockey3/Makefile                    |   4 +
- sound/usb/jockey3/ploytec_codec_kunit.c       | 855 ++++++++++++++++++
- .../usb/jockey3/ploytec_codec_test_vectors.h  | 793 ++++++++++++++++
- 5 files changed, 1690 insertions(+)
- create mode 100644 sound/usb/jockey3/.kunitconfig
- create mode 100644 sound/usb/jockey3/ploytec_codec_kunit.c
- create mode 100644 sound/usb/jockey3/ploytec_codec_test_vectors.h
+ sound/usb/jockey3/jockey3.c | 249 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 219 insertions(+), 30 deletions(-)
 
-diff --git a/sound/usb/jockey3/.kunitconfig b/sound/usb/jockey3/.kunitconfig
-new file mode 100644
-index 0000000000000..a562106b37b8f
---- /dev/null
-+++ b/sound/usb/jockey3/.kunitconfig
-@@ -0,0 +1,12 @@
-+CONFIG_KUNIT=y
-+
-+CONFIG_SOUND=y
-+CONFIG_SND=y
-+CONFIG_SND_PCM=y
-+
-+CONFIG_USB_SUPPORT=y
-+CONFIG_USB=y
-+CONFIG_SND_USB=y
-+
-+CONFIG_SND_USB_JOCKEY3=y
-+CONFIG_SND_USB_JOCKEY3_CODEC_KUNIT_TEST=y
-diff --git a/sound/usb/jockey3/Kconfig b/sound/usb/jockey3/Kconfig
-index 83135d65b3ffd..09939ec9691e8 100644
---- a/sound/usb/jockey3/Kconfig
-+++ b/sound/usb/jockey3/Kconfig
-@@ -14,3 +14,29 @@ config SND_USB_JOCKEY3
+diff --git a/sound/usb/jockey3/jockey3.c b/sound/usb/jockey3/jockey3.c
+index d2f4714dbd8b9..74fe5676273d2 100644
+--- a/sound/usb/jockey3/jockey3.c
++++ b/sound/usb/jockey3/jockey3.c
+@@ -15,12 +15,14 @@
+ #include <linux/delay.h>
+ #include <linux/jiffies.h>
+ #include <linux/bitops.h>
++#include <linux/log2.h>
+ #include <linux/mutex.h>
+ #include <linux/wait.h>
+ #include <linux/cleanup.h>
+ #include <sound/core.h>
+ #include <sound/initval.h>
+ #include <sound/pcm.h>
++#include <sound/pcm_params.h>
+ #include "ploytec_proto.h"
+ #include "ploytec_codec.h"
  
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called snd-reloop-jockey3.
-+
-+config SND_USB_JOCKEY3_CODEC_KUNIT_TEST
-+	bool "KUnit tests for the Ploytec codec" if !KUNIT_ALL_TESTS
-+	depends on SND_USB_JOCKEY3
-+	depends on KUNIT
-+	depends on KUNIT=y || SND_USB_JOCKEY3=m
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Enable KUnit tests for the Ploytec bit-plane encoder and decoder.
-+	  The tests validate the codec against a declarative description
-+	  of the wire format, and prove the mapping is a complete bit
-+	  permutation.
-+
-+	  Because the codec functions are internal to the driver, the tests
-+	  are linked into the snd-reloop-jockey3 module itself rather than
-+	  built separately.
-+
-+	  KUnit tests run during boot and output the results to the debug
-+	  log in TAP format (https://testanything.org/). Only useful for
-+	  kernel devs running KUnit test harness and are not for inclusion
-+	  into a production build.
-+
-+	  For more information on KUnit and unit tests in general, refer
-+	  to the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+	  If unsure, say N.
-diff --git a/sound/usb/jockey3/Makefile b/sound/usb/jockey3/Makefile
-index 0e81aea50f9ac..381f006134930 100644
---- a/sound/usb/jockey3/Makefile
-+++ b/sound/usb/jockey3/Makefile
-@@ -1,3 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_SND_USB_JOCKEY3) += snd-reloop-jockey3.o
- snd-reloop-jockey3-y := jockey3.o ploytec_proto.o ploytec_codec.o
-+
-+# The codec functions are not exported, so the KUnit tests are
-+# linked into the driver module rather than built as a separate test module.
-+snd-reloop-jockey3-$(CONFIG_SND_USB_JOCKEY3_CODEC_KUNIT_TEST) += ploytec_codec_kunit.o
-\ No newline at end of file
-diff --git a/sound/usb/jockey3/ploytec_codec_kunit.c b/sound/usb/jockey3/ploytec_codec_kunit.c
-new file mode 100644
-index 0000000000000..2b7eeb3a1b11b
---- /dev/null
-+++ b/sound/usb/jockey3/ploytec_codec_kunit.c
-@@ -0,0 +1,855 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
+@@ -145,6 +147,37 @@ MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
+ 
+ #define JOCKEY3_N_URBS 8
+ 
 +/*
-+ *   ALSA driver for Reloop Jockey 3 devices
-+ *   KUnit tests for the Ploytec bit-plane codec
++ * Maximum Ploytec packets per URB ("N"), per direction. Several packets are
++ * coalesced into one USB bulk transfer to cut the completion-interrupt rate
++ * (rationale and measurements in re/streaming_overhead.md).
 + *
-+ *   Copyright (c) 2026 by Frank van de Pol <fvdpol@gmail.com>
++ * The live N is not fixed: jockey3_pcm_hw_params() picks it per stream open,
++ * per direction, as the largest power of two that fits the requested period
++ * size, and stores it in struct jockey3_pcm_urb_stream's @n_shift/@n_pkts.
++ * These two values are only the *ceiling* on that choice, and the width the
++ * URB transfer buffers are allocated at (JOCKEY3_*_XFER_SIZE) -- which is why
++ * the ceiling has to be a compile-time constant. Two separate constants, not
++ * one, so the ceiling can be tuned per direction if the firmware ever turns
++ * out to accept coalescing on one direction but not the other.
++ *
++ * Changing the live N never reallocates or tears down the URB ring: only
++ * urb->transfer_buffer_length varies. PLOYTEC_PKT_SIZE (512) is exactly the
++ * USB high-speed bulk max-packet size, so an N x 512 B transfer is
++ * indistinguishable on the wire from N separate 512 B ones; the firmware
++ * cannot tell the two apart. The buffers stay allocated JOCKEY3_*_XFER_SIZE
++ * wide regardless of the N in use.
++ *
++ * A live N of 1 in both directions must be byte-for-byte identical to a
++ * driver without coalescing: every packet loop below is keyed off the live
++ * @n_pkts and degenerates to the original single-packet code path at N=1.
 + */
-+
-+/**
-+ * DOC: Proving the Ploytec codec correct
-+ *
-+ * ploytec_codec.c implements a bit-scatter/gather algorithm: the conversion
-+ * between ALSA's S24_3LE frames and the Ploytec bit-plane wire format.
-+ *
-+ * These tests validate it through the public ploytec_encode_batch() /
-+ * ploytec_decode_batch() entry points. No symbols are exported and the codec
-+ * is not modified to be testable; the test object is simply linked into the
-+ * same module.
-+ *
-+ * The strategy is stronger than sampling random inputs:
-+ *
-+ * 1. The oracle is a *declarative bit map* (ploytec_encode_map[] and
-+ *    ploytec_decode_map[] below), not a second copy of the driver's loops.
-+ *    Because it states the format as data rather than as control flow, a
-+ *    transcription error cannot propagate symmetrically into both.
-+ *
-+ * 2. The codec is a pure bit permutation, so as a function over GF(2) it is
-+ *    linear. ploytec_test_*_is_linear() establishes that linearity holds, and
-+ *    ploytec_test_*_permutation_complete() measures the map's action on every
-+ *    single basis vector. A linear map is *fully determined* by its action on
-+ *    the basis, so together those two cases pin down the result for all 2^96
-+ *    (encode) and 2^512 (decode) possible inputs.
-+ *
-+ *    The residual risk is a non-linearity that the sampled pairs happen to
-+ *    miss; the tests are not a formal proof, but they are far more than spot
-+ *    checks.
-+ *
-+ * 3. Golden vectors generated by an independent Python model of the format
-+ *    (tests/codec/ploytec_model.py) guard against the codec and the oracle
-+ *    drifting away from the wire format together.
-+ *
-+ * Randomized cases use a small seeded xorshift generator rather than the
-+ * kernel RNG, so every architecture exercises identical data and any failure
-+ * reproduces exactly.
-+ */
-+
-+#include <kunit/test.h>
-+#include <linux/string.h>
-+#include "ploytec_codec.h"
-+#include "ploytec_codec_test_vectors.h"
-+
-+/* Largest batch either direction is ever asked for, from jockey3.c */
-+#define PLOYTEC_TEST_MAX_ENCODE_FRAMES	PLOYTEC_PLAYBACK_FRAMES
-+#define PLOYTEC_TEST_MAX_DECODE_FRAMES	PLOYTEC_CAPTURE_FRAMES
-+
-+/* How many random frames the sampling-based cases run through */
-+#define PLOYTEC_TEST_RANDOM_FRAMES	4096
-+#define PLOYTEC_TEST_LINEARITY_PAIRS	2048
-+
-+/* Guard region used to catch writes outside the destination buffer */
-+#define PLOYTEC_TEST_GUARD		64
-+#define PLOYTEC_TEST_GUARD_BYTE		0xA5
-+
-+/* Wire bytes the capture decoder must never read */
-+#define PLOYTEC_TEST_UNUSED0_START	0x18
-+#define PLOYTEC_TEST_UNUSED0_END	0x20
-+#define PLOYTEC_TEST_UNUSED1_START	0x38
-+#define PLOYTEC_TEST_UNUSED1_END	0x40
-+
-+/*
-+ * The format, stated as data.
-+ *
-+ * Playback packs 4 channels into 48 wire bytes as two pairs: (ch0, ch2) in
-+ * bytes 0..23 and (ch1, ch3) in bytes 24..47. Each 24-byte block holds three
-+ * 8-byte planes ordered most-significant sample byte first. Within a plane,
-+ * wire byte i carries bit (7 - i) of the sample byte, and a channel's index
-+ * within its pair picks the bit of the wire byte it lands in.
-+ */
-+struct ploytec_encode_map_entry {
-+	u8 src_idx;	// byte of the 12-byte PCM frame
-+	u8 dst_base;	// first wire byte of the plane it scatters into
-+	u8 dst_bit;	// bit of each wire byte it occupies
-+};
-+
-+static const struct ploytec_encode_map_entry ploytec_encode_map[] = {
-+	{  2,  0, 0 }, {  8,  0, 1 },	/* ch0 / ch2, most significant byte */
-+	{  1,  8, 0 }, {  7,  8, 1 },	/* ch0 / ch2, middle byte */
-+	{  0, 16, 0 }, {  6, 16, 1 },	/* ch0 / ch2, least significant byte */
-+	{  5, 24, 0 }, { 11, 24, 1 },	/* ch1 / ch3, most significant byte */
-+	{  4, 32, 0 }, { 10, 32, 1 },	/* ch1 / ch3, middle byte */
-+	{  3, 40, 0 }, {  9, 40, 1 },	/* ch1 / ch3, least significant byte */
-+};
-+
-+/*
-+ * Capture unpacks 6 channels from 48 of the 64 wire bytes, as two groups of
-+ * three: group 0 at 0x00..0x17 holds ch0, ch2, ch4 and group 1 at
-+ * 0x20..0x37 holds ch1, ch3, ch5. Plane ordering matches playback, and a
-+ * channel's index within its group picks the bit of the wire byte it was
-+ * packed into. Wire bytes 0x18..0x1f and 0x38..0x3f carry nothing.
-+ */
-+struct ploytec_decode_map_entry {
-+	u8 dst_idx;	// byte of the 18-byte PCM frame
-+	u8 src_base;	// first wire byte of the plane it gathers from
-+	u8 src_bit;	// bit of each wire byte it was packed into
-+};
-+
-+static const struct ploytec_decode_map_entry ploytec_decode_map[] = {
-+	{ 0x00, 0x10, 0 }, { 0x01, 0x08, 0 }, { 0x02, 0x00, 0 },	/* ch0 */
-+	{ 0x03, 0x30, 0 }, { 0x04, 0x28, 0 }, { 0x05, 0x20, 0 },	/* ch1 */
-+	{ 0x06, 0x10, 1 }, { 0x07, 0x08, 1 }, { 0x08, 0x00, 1 },	/* ch2 */
-+	{ 0x09, 0x30, 1 }, { 0x0A, 0x28, 1 }, { 0x0B, 0x20, 1 },	/* ch3 */
-+	{ 0x0C, 0x10, 2 }, { 0x0D, 0x08, 2 }, { 0x0E, 0x00, 2 },	/* ch4 */
-+	{ 0x0F, 0x30, 2 }, { 0x10, 0x28, 2 }, { 0x11, 0x20, 2 },	/* ch5 */
-+};
-+
-+/**
-+ * ploytec_oracle_encode() - Encode one frame straight from the bit map
-+ * @dest: 48-byte destination buffer
-+ * @src: 12-byte source buffer
-+ */
-+static void ploytec_oracle_encode(u8 *dest, const u8 *src)
-+{
-+	memset(dest, 0, PLOYTEC_PLAYBACK_FRAME_SIZE);
-+
-+	for (size_t e = 0; e < ARRAY_SIZE(ploytec_encode_map); e++) {
-+		const struct ploytec_encode_map_entry *m = &ploytec_encode_map[e];
-+
-+		for (int i = 0; i < 8; i++)
-+			dest[m->dst_base + i] |=
-+				((src[m->src_idx] >> (7 - i)) & 1) << m->dst_bit;
-+	}
-+}
-+
-+/**
-+ * ploytec_oracle_decode() - Decode one frame straight from the bit map
-+ * @dest: 18-byte destination buffer
-+ * @src: 64-byte source buffer
-+ */
-+static void ploytec_oracle_decode(u8 *dest, const u8 *src)
-+{
-+	memset(dest, 0, PLOYTEC_CAPTURE_PCM_FRAME_SIZE);
-+
-+	for (size_t e = 0; e < ARRAY_SIZE(ploytec_decode_map); e++) {
-+		const struct ploytec_decode_map_entry *m = &ploytec_decode_map[e];
-+
-+		for (int i = 0; i < 8; i++)
-+			dest[m->dst_idx] |=
-+				((src[m->src_base + i] >> m->src_bit) & 1) << (7 - i);
-+	}
-+}
-+
-+/* xorshift64*, seeded per test; see the determinism note at the top of this file. */
-+struct ploytec_test_rng {
-+	u64 state;
-+};
-+
-+static void ploytec_rng_init(struct ploytec_test_rng *rng, u64 seed)
-+{
-+	rng->state = seed ? seed : 1;
-+}
-+
-+static u64 ploytec_rng_next(struct ploytec_test_rng *rng)
-+{
-+	u64 x = rng->state;
-+
-+	x ^= x >> 12;
-+	x ^= x << 25;
-+	x ^= x >> 27;
-+	rng->state = x;
-+
-+	return x * 0x2545F4914F6CDD1DULL;
-+}
-+
-+static void ploytec_rng_fill(struct ploytec_test_rng *rng, u8 *buf, size_t len)
-+{
-+	size_t off = 0;
-+
-+	while (off < len) {
-+		u64 v = ploytec_rng_next(rng);
-+
-+		for (int i = 0; i < 8 && off < len; i++, off++)
-+			buf[off] = (v >> (i * 8)) & 0xFF;
-+	}
-+}
-+
-+/* Is this wire byte one the capture decoder is allowed to read? */
-+static bool ploytec_capture_byte_used(int idx)
-+{
-+	if (idx >= PLOYTEC_TEST_UNUSED0_START && idx < PLOYTEC_TEST_UNUSED0_END)
-+		return false;
-+	if (idx >= PLOYTEC_TEST_UNUSED1_START && idx < PLOYTEC_TEST_UNUSED1_END)
-+		return false;
-+
-+	return true;
-+}
-+
-+/* Count set bits in a buffer, recording the position of the last one seen. */
-+static int ploytec_count_set_bits(const u8 *buf, size_t len, int *last_pos)
-+{
-+	int count = 0;
-+
-+	for (size_t i = 0; i < len; i++) {
-+		for (int b = 0; b < 8; b++) {
-+			if (buf[i] & (1 << b)) {
-+				count++;
-+				if (last_pos)
-+					*last_pos = i * 8 + b;
-+			}
-+		}
-+	}
-+
-+	return count;
-+}
-+
-+/* --- Golden vectors from the independent Python model --------------------- */
-+
-+static void ploytec_encode_vector_desc(const struct ploytec_encode_vector *v,
-+				       char *desc)
-+{
-+	strscpy(desc, v->name, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(ploytec_encode_vector, ploytec_encode_vectors,
-+		  ploytec_encode_vector_desc);
-+
-+static void ploytec_decode_vector_desc(const struct ploytec_decode_vector *v,
-+				       char *desc)
-+{
-+	strscpy(desc, v->name, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(ploytec_decode_vector, ploytec_decode_vectors,
-+		  ploytec_decode_vector_desc);
-+
-+static void ploytec_test_encode_known_vectors(struct kunit *test)
-+{
-+	const struct ploytec_encode_vector *v = test->param_value;
-+	u8 dest[PLOYTEC_PLAYBACK_FRAME_SIZE];
-+
-+	memset(dest, 0xFF, sizeof(dest));
-+	ploytec_encode_batch(dest, v->src, 1);
-+
-+	KUNIT_EXPECT_MEMEQ_MSG(test, dest, v->expect, sizeof(dest),
-+			       "encode of vector '%s' does not match the model",
-+			       v->name);
-+}
-+
-+static void ploytec_test_decode_known_vectors(struct kunit *test)
-+{
-+	const struct ploytec_decode_vector *v = test->param_value;
-+	u8 dest[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+
-+	memset(dest, 0xFF, sizeof(dest));
-+	ploytec_decode_batch(dest, v->src, 1);
-+
-+	KUNIT_EXPECT_MEMEQ_MSG(test, dest, v->expect, sizeof(dest),
-+			       "decode of vector '%s' does not match the model",
-+			       v->name);
-+}
-+
-+/* --- Agreement with the declarative bit map ------------------------------- */
-+
-+static void ploytec_test_encode_matches_oracle(struct kunit *test)
-+{
-+	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
-+	u8 got[PLOYTEC_PLAYBACK_FRAME_SIZE];
-+	u8 want[PLOYTEC_PLAYBACK_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
-+
-+	ploytec_rng_init(&rng, 0x0123456789ABCDEFULL);
-+
-+	for (int t = 0; t < PLOYTEC_TEST_RANDOM_FRAMES; t++) {
-+		ploytec_rng_fill(&rng, src, sizeof(src));
-+
-+		/* Prefill with noise so a short write is visible. */
-+		memset(got, 0x5A, sizeof(got));
-+		ploytec_encode_batch(got, src, 1);
-+		ploytec_oracle_encode(want, src);
-+
-+		KUNIT_ASSERT_MEMEQ_MSG(test, got, want, sizeof(got),
-+				       "encode disagrees with the bit map at iteration %d",
-+				       t);
-+	}
-+}
-+
-+static void ploytec_test_decode_matches_oracle(struct kunit *test)
-+{
-+	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE];
-+	u8 got[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+	u8 want[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
-+
-+	ploytec_rng_init(&rng, 0x0123456789ABCDEFULL);
-+
-+	for (int t = 0; t < PLOYTEC_TEST_RANDOM_FRAMES; t++) {
-+		ploytec_rng_fill(&rng, src, sizeof(src));
-+
-+		memset(got, 0x5A, sizeof(got));
-+		ploytec_decode_batch(got, src, 1);
-+		ploytec_oracle_decode(want, src);
-+
-+		KUNIT_ASSERT_MEMEQ_MSG(test, got, want, sizeof(got),
-+				       "decode disagrees with the bit map at iteration %d",
-+				       t);
-+	}
-+}
-+
-+/* --- The map is a complete, injective bit permutation --------------------- */
-+
-+/*
-+ * Encode: feed a one-hot input for each of the 96 input bits. Each must land
-+ * on exactly one output bit, at the position the map predicts, and no two
-+ * inputs may collide. That determines the map's action on every basis vector.
-+ */
-+static void ploytec_test_encode_permutation_complete(struct kunit *test)
-+{
-+	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
-+	u8 dest[PLOYTEC_PLAYBACK_FRAME_SIZE];
-+	DECLARE_BITMAP(seen, PLOYTEC_PLAYBACK_FRAME_SIZE * 8);
-+	int covered = 0;
-+
-+	bitmap_zero(seen, PLOYTEC_PLAYBACK_FRAME_SIZE * 8);
-+
-+	for (int byte = 0; byte < PLOYTEC_PLAYBACK_PCM_FRAME_SIZE; byte++) {
-+		for (int bit = 0; bit < 8; bit++) {
-+			int pos = -1, count, want_pos = -1;
-+
-+			memset(src, 0, sizeof(src));
-+			src[byte] = 1 << bit;
-+
-+			memset(dest, 0, sizeof(dest));
-+			ploytec_encode_batch(dest, src, 1);
-+
-+			count = ploytec_count_set_bits(dest, sizeof(dest), &pos);
-+			KUNIT_ASSERT_EQ_MSG(test, count, 1,
-+					    "src[%d] bit %d set %d output bits, expected 1",
-+					    byte, bit, count);
-+
-+			/* Where the bit map says it should have landed. */
-+			for (size_t e = 0; e < ARRAY_SIZE(ploytec_encode_map); e++) {
-+				const struct ploytec_encode_map_entry *m =
-+					&ploytec_encode_map[e];
-+
-+				if (m->src_idx == byte)
-+					want_pos = (m->dst_base + (7 - bit)) * 8 +
-+						   m->dst_bit;
-+			}
-+
-+			KUNIT_ASSERT_EQ_MSG(test, pos, want_pos,
-+					    "src[%d] bit %d landed at output bit %d, map says %d",
-+					    byte, bit, pos, want_pos);
-+			KUNIT_ASSERT_FALSE_MSG(test, test_bit(pos, seen),
-+					       "output bit %d is written by two different input bits",
-+					       pos);
-+			__set_bit(pos, seen);
-+			covered++;
-+		}
-+	}
-+
-+	KUNIT_EXPECT_EQ(test, covered, PLOYTEC_PLAYBACK_PCM_FRAME_SIZE * 8);
-+}
-+
-+/*
-+ * Decode: sweep all 512 input bits. The 144 meaningful ones must each land on
-+ * a distinct output bit; every other input bit must be ignored entirely, which
-+ * checks the unused byte ranges and unused bits in the same pass.
-+ */
-+static void ploytec_test_decode_permutation_complete(struct kunit *test)
-+{
-+	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE];
-+	u8 dest[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+	DECLARE_BITMAP(seen, PLOYTEC_CAPTURE_PCM_FRAME_SIZE * 8);
-+	int covered = 0;
-+
-+	bitmap_zero(seen, PLOYTEC_CAPTURE_PCM_FRAME_SIZE * 8);
-+
-+	for (int byte = 0; byte < PLOYTEC_CAPTURE_FRAME_SIZE; byte++) {
-+		for (int bit = 0; bit < 8; bit++) {
-+			bool meaningful = ploytec_capture_byte_used(byte) && bit < 3;
-+			int pos = -1, count, want_pos = -1;
-+
-+			memset(src, 0, sizeof(src));
-+			src[byte] = 1 << bit;
-+
-+			memset(dest, 0, sizeof(dest));
-+			ploytec_decode_batch(dest, src, 1);
-+
-+			count = ploytec_count_set_bits(dest, sizeof(dest), &pos);
-+
-+			if (!meaningful) {
-+				KUNIT_ASSERT_EQ_MSG(test, count, 0,
-+						    "wire byte %#04x bit %d is unused but changed the output",
-+						    byte, bit);
-+				continue;
-+			}
-+
-+			KUNIT_ASSERT_EQ_MSG(test, count, 1,
-+					    "wire byte %#04x bit %d set %d output bits, expected 1",
-+					    byte, bit, count);
-+
-+			for (size_t e = 0; e < ARRAY_SIZE(ploytec_decode_map); e++) {
-+				const struct ploytec_decode_map_entry *m =
-+					&ploytec_decode_map[e];
-+
-+				if (m->src_bit == bit && byte >= m->src_base &&
-+				    byte < m->src_base + 8)
-+					want_pos = m->dst_idx * 8 +
-+						   (7 - (byte - m->src_base));
-+			}
-+
-+			KUNIT_ASSERT_EQ_MSG(test, pos, want_pos,
-+					    "wire byte %#04x bit %d landed at output bit %d, map says %d",
-+					    byte, bit, pos, want_pos);
-+			KUNIT_ASSERT_FALSE_MSG(test, test_bit(pos, seen),
-+					       "output bit %d is written by two different wire bits",
-+					       pos);
-+			__set_bit(pos, seen);
-+			covered++;
-+		}
-+	}
-+
-+	KUNIT_EXPECT_EQ(test, covered, PLOYTEC_CAPTURE_PCM_FRAME_SIZE * 8);
-+}
-+
-+/* --- Linearity over GF(2) ------------------------------------------------- */
-+
-+static void ploytec_test_encode_is_linear(struct kunit *test)
-+{
-+	u8 a[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE], b[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
-+	u8 ab[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
-+	u8 ea[PLOYTEC_PLAYBACK_FRAME_SIZE], eb[PLOYTEC_PLAYBACK_FRAME_SIZE];
-+	u8 eab[PLOYTEC_PLAYBACK_FRAME_SIZE], want[PLOYTEC_PLAYBACK_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
-+
-+	ploytec_rng_init(&rng, 0xFEEDFACECAFEBEEFULL);
-+
-+	for (int t = 0; t < PLOYTEC_TEST_LINEARITY_PAIRS; t++) {
-+		ploytec_rng_fill(&rng, a, sizeof(a));
-+		ploytec_rng_fill(&rng, b, sizeof(b));
-+
-+		for (size_t i = 0; i < sizeof(ab); i++)
-+			ab[i] = a[i] ^ b[i];
-+
-+		ploytec_encode_batch(ea, a, 1);
-+		ploytec_encode_batch(eb, b, 1);
-+		ploytec_encode_batch(eab, ab, 1);
-+
-+		for (size_t i = 0; i < sizeof(want); i++)
-+			want[i] = ea[i] ^ eb[i];
-+
-+		KUNIT_ASSERT_MEMEQ_MSG(test, eab, want, sizeof(want),
-+				       "encode(a^b) != encode(a)^encode(b) at iteration %d",
-+				       t);
-+	}
-+}
-+
-+static void ploytec_test_decode_is_linear(struct kunit *test)
-+{
-+	u8 a[PLOYTEC_CAPTURE_FRAME_SIZE], b[PLOYTEC_CAPTURE_FRAME_SIZE];
-+	u8 ab[PLOYTEC_CAPTURE_FRAME_SIZE];
-+	u8 da[PLOYTEC_CAPTURE_PCM_FRAME_SIZE], db[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+	u8 dab[PLOYTEC_CAPTURE_PCM_FRAME_SIZE], want[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
-+
-+	ploytec_rng_init(&rng, 0xFEEDFACECAFEBEEFULL);
-+
-+	for (int t = 0; t < PLOYTEC_TEST_LINEARITY_PAIRS; t++) {
-+		ploytec_rng_fill(&rng, a, sizeof(a));
-+		ploytec_rng_fill(&rng, b, sizeof(b));
-+
-+		for (size_t i = 0; i < sizeof(ab); i++)
-+			ab[i] = a[i] ^ b[i];
-+
-+		ploytec_decode_batch(da, a, 1);
-+		ploytec_decode_batch(db, b, 1);
-+		ploytec_decode_batch(dab, ab, 1);
-+
-+		for (size_t i = 0; i < sizeof(want); i++)
-+			want[i] = da[i] ^ db[i];
-+
-+		KUNIT_ASSERT_MEMEQ_MSG(test, dab, want, sizeof(want),
-+				       "decode(a^b) != decode(a)^decode(b) at iteration %d",
-+				       t);
-+	}
-+}
-+
-+/* --- Batching ------------------------------------------------------------- */
-+
-+static void ploytec_test_encode_batch_equals_single(struct kunit *test)
-+{
-+	const size_t src_len = PLOYTEC_TEST_MAX_ENCODE_FRAMES *
-+				PLOYTEC_PLAYBACK_PCM_FRAME_SIZE;
-+	const size_t out_len = PLOYTEC_TEST_MAX_ENCODE_FRAMES *
-+				PLOYTEC_PLAYBACK_FRAME_SIZE;
-+	struct ploytec_test_rng rng;
-+	u8 *src, *batched, *single;
-+
++#define JOCKEY3_PLAYBACK_N	8
++#define JOCKEY3_CAPTURE_N	8
++
++#define JOCKEY3_PLAYBACK_XFER_SIZE	(JOCKEY3_PLAYBACK_N * PLOYTEC_PKT_SIZE)
++#define JOCKEY3_CAPTURE_XFER_SIZE	(JOCKEY3_CAPTURE_N * PLOYTEC_PKT_SIZE)
++
+ /* Consecutive URB transport errors tolerated before a direction is given up on */
+ #define JOCKEY3_MAX_URB_ERRORS 8
+ 
+@@ -153,7 +186,8 @@ MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
+  * @substream: the open ALSA substream, or NULL; @lock
+  * @anchor: anchor holding the submitted URBs, for stop/kill
+  * @urbs: the URB ring
+- * @bufs: transfer buffer for each URB
++ * @bufs: transfer buffer for each URB, allocated at the maximum N; @n_pkts,
++ *	not this width, governs how many bytes an URB actually transfers
+  * @urbs_in_flight: number of submitted URBs; diagnostic, must reach 0 after a stop
+  * @lock: protects the fields marked "@lock" below; IRQ-safe leaf
+  * @dma_off: byte offset into runtime->dma_area, i.e. the hardware pointer; @lock
+@@ -171,6 +205,13 @@ MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
+  *	re-anchor a URB after the kill has drained the anchor.
+  * @consec_errors: consecutive URB transport errors; @lock. Reset on any
+  *	successful completion and by jockey3_start_urbs().
++ * @n_shift: log2 of the Ploytec packets per URB ("N") the next resubmission
++ *	will carry, in [0, 3]; @lock. Set by jockey3_pcm_hw_params() from the
++ *	period size and reset to the default by jockey3_pcm_close(), so an idle
++ *	direction never runs at a stale N. Changing it does not tear the ring
++ *	down -- the wire cannot tell one N x 512 B transfer from N separate ones
++ *	-- so each URB picks up the value at its next resubmission.
++ * @n_pkts: 1 << @n_shift, mirrored for loop bounds; @lock
+  */
+ struct jockey3_pcm_urb_stream {
+ 	struct snd_pcm_substream *substream;
+@@ -186,6 +227,8 @@ struct jockey3_pcm_urb_stream {
+ 	wait_queue_head_t drain_wait;
+ 	bool stopping;
+ 	unsigned int consec_errors;
++	u8 n_shift;
++	u8 n_pkts;
+ };
+ 
+ /**
+@@ -581,11 +624,12 @@ static void jockey3_capture_callback(struct urb *urb)
+ 	struct jockey3_chip *chip = urb->context;
+ 	struct jockey3_pcm_urb_stream *urb_stream = &chip->capture;
+ 	struct snd_pcm_substream *substream = NULL;
++	int n_pkts = 0;
+ 	bool period_elapsed = false;
+ 	bool data_valid = true;
+ 	bool active = false;
+ 	bool stopping;
+-	int ret;
++	int sp, ret;
+ 
+ 	atomic_dec(&urb_stream->urbs_in_flight);
+ 
+@@ -608,11 +652,32 @@ static void jockey3_capture_callback(struct urb *urb)
+ 	if (unlikely(jockey3_is_disconnected(chip)))
+ 		return;
+ 
+-	if (data_valid && unlikely(urb->actual_length < PLOYTEC_PKT_SIZE)) {
+-		dev_err_ratelimited(&chip->intf0->dev,
+-				    "Capture URB too small: %d; required at least %d\n",
+-				    urb->actual_length, PLOYTEC_PKT_SIZE);
+-		data_valid = false;
 +	/*
-+	 * Heap-allocated: on the stack, src + batched + single alone exceed
-+	 * the 32-bit CONFIG_FRAME_WARN limit (reported by kernel test robot,
-+	 * see alsa-jockey3#53).
++	 * The firmware fills a multi-packet capture URB completely rather than
++	 * terminating at one 512 B packet, so the expected case is
++	 * actual_length == JOCKEY3_CAPTURE_XFER_SIZE. Derive the count from
++	 * what actually came back rather than assuming N, in case that
++	 * changes under load or on other firmware revisions.
 +	 */
-+	src = kunit_kzalloc(test, src_len, GFP_KERNEL);
-+	batched = kunit_kzalloc(test, out_len, GFP_KERNEL);
-+	single = kunit_kzalloc(test, out_len, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, src);
-+	KUNIT_ASSERT_NOT_NULL(test, batched);
-+	KUNIT_ASSERT_NOT_NULL(test, single);
-+
-+	ploytec_rng_init(&rng, 0xD1CE0FF1CE0FF1CEULL);
-+	ploytec_rng_fill(&rng, src, src_len);
-+
-+	for (int n = 1; n <= PLOYTEC_TEST_MAX_ENCODE_FRAMES; n++) {
-+		memset(batched, 0, out_len);
-+		memset(single, 0, out_len);
-+
-+		ploytec_encode_batch(batched, src, n);
-+
-+		for (int f = 0; f < n; f++)
-+			ploytec_encode_batch(single + f * PLOYTEC_PLAYBACK_FRAME_SIZE,
-+					     src + f * PLOYTEC_PLAYBACK_PCM_FRAME_SIZE,
-+					     1);
-+
-+		KUNIT_EXPECT_MEMEQ_MSG(test, batched, single,
-+				       n * PLOYTEC_PLAYBACK_FRAME_SIZE,
-+				       "batch of %d differs from %d single-frame calls",
-+				       n, n);
-+	}
-+}
-+
-+static void ploytec_test_decode_batch_equals_single(struct kunit *test)
-+{
-+	const size_t src_len = PLOYTEC_TEST_MAX_DECODE_FRAMES *
-+				PLOYTEC_CAPTURE_FRAME_SIZE;
-+	const size_t out_len = PLOYTEC_TEST_MAX_DECODE_FRAMES *
-+				PLOYTEC_CAPTURE_PCM_FRAME_SIZE;
-+	struct ploytec_test_rng rng;
-+	u8 *src, *batched, *single;
-+
-+	src = kunit_kzalloc(test, src_len, GFP_KERNEL);
-+	batched = kunit_kzalloc(test, out_len, GFP_KERNEL);
-+	single = kunit_kzalloc(test, out_len, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, src);
-+	KUNIT_ASSERT_NOT_NULL(test, batched);
-+	KUNIT_ASSERT_NOT_NULL(test, single);
-+
-+	ploytec_rng_init(&rng, 0xD1CE0FF1CE0FF1CEULL);
-+	ploytec_rng_fill(&rng, src, src_len);
-+
-+	for (int n = 1; n <= PLOYTEC_TEST_MAX_DECODE_FRAMES; n++) {
-+		memset(batched, 0, out_len);
-+		memset(single, 0, out_len);
-+
-+		ploytec_decode_batch(batched, src, n);
-+
-+		for (int f = 0; f < n; f++)
-+			ploytec_decode_batch(single + f * PLOYTEC_CAPTURE_PCM_FRAME_SIZE,
-+					     src + f * PLOYTEC_CAPTURE_FRAME_SIZE,
-+					     1);
-+
-+		KUNIT_EXPECT_MEMEQ_MSG(test, batched, single,
-+				       n * PLOYTEC_CAPTURE_PCM_FRAME_SIZE,
-+				       "batch of %d differs from %d single-frame calls",
-+				       n, n);
-+	}
-+}
-+
-+/*
-+ * jockey3.c computes the batch size from the ALSA ring-buffer wrap and can in
-+ * principle arrive at zero, so the codec must treat that as a no-op rather
-+ * than walking off the buffer.
-+ */
-+static void ploytec_test_encode_batch_zero_frames(struct kunit *test)
-+{
-+	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE] = { 0 };
-+	u8 dest[PLOYTEC_PLAYBACK_FRAME_SIZE];
-+
-+	memset(dest, PLOYTEC_TEST_GUARD_BYTE, sizeof(dest));
-+	ploytec_encode_batch(dest, src, 0);
-+
-+	for (size_t i = 0; i < sizeof(dest); i++)
-+		KUNIT_EXPECT_EQ_MSG(test, dest[i], PLOYTEC_TEST_GUARD_BYTE,
-+				    "encode of 0 frames wrote to dest[%zu]", i);
-+}
-+
-+static void ploytec_test_decode_batch_zero_frames(struct kunit *test)
-+{
-+	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE] = { 0 };
-+	u8 dest[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+
-+	memset(dest, PLOYTEC_TEST_GUARD_BYTE, sizeof(dest));
-+	ploytec_decode_batch(dest, src, 0);
-+
-+	for (size_t i = 0; i < sizeof(dest); i++)
-+		KUNIT_EXPECT_EQ_MSG(test, dest[i], PLOYTEC_TEST_GUARD_BYTE,
-+				    "decode of 0 frames wrote to dest[%zu]", i);
-+}
-+
-+static void ploytec_test_encode_batch_no_overrun(struct kunit *test)
-+{
-+	const size_t payload = PLOYTEC_TEST_MAX_ENCODE_FRAMES *
-+			       PLOYTEC_PLAYBACK_FRAME_SIZE;
-+	u8 src[PLOYTEC_TEST_MAX_ENCODE_FRAMES * PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
-+	u8 *buf;
-+
-+	buf = kunit_kzalloc(test, payload + 2 * PLOYTEC_TEST_GUARD, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, buf);
-+
-+	ploytec_rng_init(&rng, 0xBEEFCAFEBEEFCAFEULL);
-+	ploytec_rng_fill(&rng, src, sizeof(src));
-+
-+	memset(buf, PLOYTEC_TEST_GUARD_BYTE, payload + 2 * PLOYTEC_TEST_GUARD);
-+	ploytec_encode_batch(buf + PLOYTEC_TEST_GUARD, src,
-+			     PLOYTEC_TEST_MAX_ENCODE_FRAMES);
-+
-+	for (int i = 0; i < PLOYTEC_TEST_GUARD; i++) {
-+		KUNIT_EXPECT_EQ_MSG(test, buf[i], PLOYTEC_TEST_GUARD_BYTE,
-+				    "encode wrote %d bytes before the destination",
-+				    PLOYTEC_TEST_GUARD - i);
-+		KUNIT_EXPECT_EQ_MSG(test, buf[PLOYTEC_TEST_GUARD + payload + i],
-+				    PLOYTEC_TEST_GUARD_BYTE,
-+				    "encode wrote %d bytes past the destination",
-+				    i + 1);
-+	}
-+}
-+
-+static void ploytec_test_decode_batch_no_overrun(struct kunit *test)
-+{
-+	const size_t payload = PLOYTEC_TEST_MAX_DECODE_FRAMES *
-+			       PLOYTEC_CAPTURE_PCM_FRAME_SIZE;
-+	u8 src[PLOYTEC_TEST_MAX_DECODE_FRAMES * PLOYTEC_CAPTURE_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
-+	u8 *buf;
-+
-+	buf = kunit_kzalloc(test, payload + 2 * PLOYTEC_TEST_GUARD, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, buf);
-+
-+	ploytec_rng_init(&rng, 0xBEEFCAFEBEEFCAFEULL);
-+	ploytec_rng_fill(&rng, src, sizeof(src));
-+
-+	memset(buf, PLOYTEC_TEST_GUARD_BYTE, payload + 2 * PLOYTEC_TEST_GUARD);
-+	ploytec_decode_batch(buf + PLOYTEC_TEST_GUARD, src,
-+			     PLOYTEC_TEST_MAX_DECODE_FRAMES);
-+
-+	for (int i = 0; i < PLOYTEC_TEST_GUARD; i++) {
-+		KUNIT_EXPECT_EQ_MSG(test, buf[i], PLOYTEC_TEST_GUARD_BYTE,
-+				    "decode wrote %d bytes before the destination",
-+				    PLOYTEC_TEST_GUARD - i);
-+		KUNIT_EXPECT_EQ_MSG(test, buf[PLOYTEC_TEST_GUARD + payload + i],
-+				    PLOYTEC_TEST_GUARD_BYTE,
-+				    "decode wrote %d bytes past the destination",
-+				    i + 1);
-+	}
-+}
-+
-+/* --- Alignment ------------------------------------------------------------ */
-+
-+/*
-+ * In the driver the wire buffer happens to be 8-byte aligned, so a codec that
-+ * assumed alignment would go unnoticed on x86 and only surface as a fault on
-+ * a strict-alignment architecture. Run every byte offset explicitly.
-+ */
-+static void ploytec_test_encode_unaligned_buffers(struct kunit *test)
-+{
-+	u8 reference[PLOYTEC_PLAYBACK_FRAME_SIZE];
-+	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
-+	u8 *src_buf, *dst_buf;
-+
-+	src_buf = kunit_kzalloc(test, PLOYTEC_PLAYBACK_PCM_FRAME_SIZE + 8, GFP_KERNEL);
-+	dst_buf = kunit_kzalloc(test, PLOYTEC_PLAYBACK_FRAME_SIZE + 8, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, src_buf);
-+	KUNIT_ASSERT_NOT_NULL(test, dst_buf);
-+
-+	ploytec_rng_init(&rng, 0x1234ABCD5678EF90ULL);
-+	ploytec_rng_fill(&rng, src, sizeof(src));
-+	ploytec_oracle_encode(reference, src);
-+
-+	for (int src_off = 0; src_off < 8; src_off++) {
-+		for (int dst_off = 0; dst_off < 8; dst_off++) {
-+			memcpy(src_buf + src_off, src, sizeof(src));
-+			memset(dst_buf, 0, PLOYTEC_PLAYBACK_FRAME_SIZE + 8);
-+
-+			ploytec_encode_batch(dst_buf + dst_off, src_buf + src_off, 1);
-+
-+			KUNIT_ASSERT_MEMEQ_MSG(test, dst_buf + dst_off, reference,
-+					       PLOYTEC_PLAYBACK_FRAME_SIZE,
-+					       "encode differs at src offset %d, dst offset %d",
-+					       src_off, dst_off);
++	if (data_valid) {
++		n_pkts = urb->actual_length / PLOYTEC_PKT_SIZE;
++		if (unlikely(n_pkts == 0)) {
++			dev_err_ratelimited(&chip->intf0->dev,
++					    "Capture URB too small: %d; required at least %d\n",
++					    urb->actual_length, PLOYTEC_PKT_SIZE);
++			data_valid = false;
++		} else if (unlikely(urb->actual_length % PLOYTEC_PKT_SIZE)) {
++			/*
++			 * A short trailing partial packet: use the
++			 * complete ones and drop the rest, but this should
++			 * not happen on firmware behaving as described above
++			 * -- log it once so a change in device behavior is
++			 * visible instead of silently discarded audio.
++			 */
++			dev_warn_once(&chip->intf0->dev,
++				      "Capture URB length %d not a multiple of %d, using %d packet(s)\n",
++				      urb->actual_length, PLOYTEC_PKT_SIZE, n_pkts);
 +		}
+ 	}
+ 
+ 	/* Step 1: Safely fetch the pointer and join the safe zone */
+@@ -626,7 +691,9 @@ static void jockey3_capture_callback(struct urb *urb)
+ 			active = true;
+ 			substream = urb_stream->substream;
+ 
+-			period_elapsed = jockey3_process_in_packet(chip, urb->transfer_buffer);
++			for (sp = 0; sp < n_pkts; sp++)
++				period_elapsed |= jockey3_process_in_packet(chip,
++					urb->transfer_buffer + sp * PLOYTEC_PKT_SIZE);
+ 		}
+ 	}
+ 
+@@ -653,6 +720,7 @@ static void jockey3_capture_callback(struct urb *urb)
+ 		 * to an anchor jockey3_stop_urbs() has already drained.
+ 		 */
+ 		if (!urb_stream->stopping && !jockey3_is_disconnected(chip)) {
++			urb->transfer_buffer_length = urb_stream->n_pkts * PLOYTEC_PKT_SIZE;
+ 			atomic_inc(&urb_stream->urbs_in_flight);
+ 			usb_anchor_urb(urb, &urb_stream->anchor);
+ 			ret = usb_submit_urb(urb, GFP_ATOMIC);
+@@ -687,8 +755,14 @@ static void jockey3_silence_out_packet(u8 *buf)
+  */
+ static void jockey3_init_out_packet(u8 *buf)
+ {
+-	buf[PLOYTEC_MIDI_OUT_OFFSET] = PLOYTEC_MIDI_IDLE_BYTE;
+-	buf[PLOYTEC_SYNC_BYTE_OFFSET] = PLOYTEC_SYNC_BYTE_VALUE;
++	int sp;
++
++	for (sp = 0; sp < JOCKEY3_PLAYBACK_N; sp++) {
++		u8 *sub = buf + sp * PLOYTEC_PKT_SIZE;
++
++		sub[PLOYTEC_MIDI_OUT_OFFSET] = PLOYTEC_MIDI_IDLE_BYTE;
++		sub[PLOYTEC_SYNC_BYTE_OFFSET] = PLOYTEC_SYNC_BYTE_VALUE;
 +	}
-+}
+ }
+ 
+ static void jockey3_playback_callback(struct urb *urb)
+@@ -697,11 +771,12 @@ static void jockey3_playback_callback(struct urb *urb)
+ 	struct jockey3_pcm_urb_stream *urb_stream = &chip->playback;
+ 	unsigned char *buf = (unsigned char *)urb->transfer_buffer;
+ 	struct snd_pcm_substream *substream = NULL;
++	unsigned int submit_pkts;
+ 	bool period_elapsed = false;
+ 	bool data_valid = true;
+ 	bool active = false;
+ 	bool stopping;
+-	int i, ret;
++	int i, sp, ret;
+ 
+ 	atomic_dec(&urb_stream->urbs_in_flight);
+ 
+@@ -723,8 +798,21 @@ static void jockey3_playback_callback(struct urb *urb)
+ 	if (unlikely(jockey3_is_disconnected(chip)))
+ 		return;
+ 
+-	/* Step 1: Safely fetch the pointer and join the safe zone */
++	/*
++	 * Step 1: Safely fetch the pointer and join the safe zone.
++	 *
++	 * @n_pkts is captured once here and reused below for the MIDI/sync
++	 * loop and the resubmit's transfer_buffer_length, rather than re-read
++	 * at each site: jockey3_pcm_hw_params() can change it concurrently
++	 * (under the same lock), and this URB's buffer must only ever claim
++	 * to carry as many freshly written packets as it actually filled
++	 * this callback. Reading a larger value at resubmit than was used to
++	 * fill would send stale packets left over from an earlier, larger N
++	 * instead of tearing the ring down.
++	 */
+ 	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
++		submit_pkts = urb_stream->n_pkts;
 +
-+static void ploytec_test_decode_unaligned_buffers(struct kunit *test)
-+{
-+	u8 reference[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
-+	u8 *src_buf, *dst_buf;
+ 		if (data_valid)
+ 			urb_stream->consec_errors = 0;
+ 
+@@ -734,9 +822,12 @@ static void jockey3_playback_callback(struct urb *urb)
+ 			active = true;
+ 			substream = urb_stream->substream;
+ 
+-			period_elapsed = jockey3_process_out_packet(chip, buf);
++			for (sp = 0; sp < submit_pkts; sp++)
++				period_elapsed |= jockey3_process_out_packet(chip,
++					buf + sp * PLOYTEC_PKT_SIZE);
+ 		} else {
+-			jockey3_silence_out_packet(buf);
++			for (sp = 0; sp < submit_pkts; sp++)
++				jockey3_silence_out_packet(buf + sp * PLOYTEC_PKT_SIZE);
+ 		}
+ 	}
+ 
+@@ -744,12 +835,16 @@ static void jockey3_playback_callback(struct urb *urb)
+ 	 * Every packet reserves one slot for a MIDI OUT byte. Nothing feeds it
+ 	 * yet, so it carries the idle byte.
+ 	 */
+-	buf[PLOYTEC_MIDI_OUT_OFFSET] = PLOYTEC_MIDI_IDLE_BYTE;
++	for (sp = 0; sp < submit_pkts; sp++) {
++		u8 *sub = buf + sp * PLOYTEC_PKT_SIZE;
+ 
+-	/* Ploytec Sync byte and gap padding */
+-	buf[PLOYTEC_SYNC_BYTE_OFFSET] = PLOYTEC_SYNC_BYTE_VALUE;
+-	for (i = PLOYTEC_SYNC_BYTE_OFFSET + 1; i < PLOYTEC_PKT_SIZE; i++)
+-		buf[i] = 0x00;
++		sub[PLOYTEC_MIDI_OUT_OFFSET] = PLOYTEC_MIDI_IDLE_BYTE;
 +
-+	src_buf = kunit_kzalloc(test, PLOYTEC_CAPTURE_FRAME_SIZE + 8, GFP_KERNEL);
-+	dst_buf = kunit_kzalloc(test, PLOYTEC_CAPTURE_PCM_FRAME_SIZE + 8, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, src_buf);
-+	KUNIT_ASSERT_NOT_NULL(test, dst_buf);
-+
-+	ploytec_rng_init(&rng, 0x1234ABCD5678EF90ULL);
-+	ploytec_rng_fill(&rng, src, sizeof(src));
-+	ploytec_oracle_decode(reference, src);
-+
-+	for (int src_off = 0; src_off < 8; src_off++) {
-+		for (int dst_off = 0; dst_off < 8; dst_off++) {
-+			memcpy(src_buf + src_off, src, sizeof(src));
-+			memset(dst_buf, 0, PLOYTEC_CAPTURE_PCM_FRAME_SIZE + 8);
-+
-+			ploytec_decode_batch(dst_buf + dst_off, src_buf + src_off, 1);
-+
-+			KUNIT_ASSERT_MEMEQ_MSG(test, dst_buf + dst_off, reference,
-+					       PLOYTEC_CAPTURE_PCM_FRAME_SIZE,
-+					       "decode differs at src offset %d, dst offset %d",
-+					       src_off, dst_off);
-+		}
++		/* Ploytec Sync byte and gap padding */
++		sub[PLOYTEC_SYNC_BYTE_OFFSET] = PLOYTEC_SYNC_BYTE_VALUE;
++		for (i = PLOYTEC_SYNC_BYTE_OFFSET + 1; i < PLOYTEC_PKT_SIZE; i++)
++			sub[i] = 0x00;
 +	}
-+}
+ 
+ 	/*
+ 	 * Step 2: Safe Zone. ALSA core can't free 'substream' because
+@@ -774,6 +869,7 @@ static void jockey3_playback_callback(struct urb *urb)
+ 		 * to an anchor jockey3_stop_urbs() has already drained.
+ 		 */
+ 		if (!urb_stream->stopping && !jockey3_is_disconnected(chip)) {
++			urb->transfer_buffer_length = submit_pkts * PLOYTEC_PKT_SIZE;
+ 			atomic_inc(&urb_stream->urbs_in_flight);
+ 			usb_anchor_urb(urb, &urb_stream->anchor);
+ 			ret = usb_submit_urb(urb, GFP_ATOMIC);
+@@ -941,6 +1037,7 @@ static int jockey3_start_urbs(struct jockey3_chip *chip)
+ {
+ 	int i, ret, first_err = 0;
+ 	int n_playback = 0, n_capture = 0;
++	u8 playback_n_pkts, capture_n_pkts;
+ 
+ 	if (jockey3_is_disconnected(chip))
+ 		return -ENODEV;
+@@ -966,7 +1063,23 @@ static int jockey3_start_urbs(struct jockey3_chip *chip)
+ 		chip->midi_consec_errors = 0;
+ 	}
+ 
++	/*
++	 * Each direction's ring is armed at its own current N, which at probe is
++	 * the JOCKEY3_PLAYBACK_N/JOCKEY3_CAPTURE_N default.
++	 *
++	 * Both are read once here rather than per iteration: they are written
++	 * under the stream lock, which is not held here, so a re-load could
++	 * leave URBs in the same ring armed at different lengths.
++	 */
++	playback_n_pkts = READ_ONCE(chip->playback.n_pkts);
++	capture_n_pkts = READ_ONCE(chip->capture.n_pkts);
 +
-+/* --- Format invariants ---------------------------------------------------- */
+ 	for (i = 0; i < JOCKEY3_N_URBS; i++) {
++		chip->playback.urbs[i]->transfer_buffer_length =
++			playback_n_pkts * PLOYTEC_PKT_SIZE;
++		chip->capture.urbs[i]->transfer_buffer_length =
++			capture_n_pkts * PLOYTEC_PKT_SIZE;
 +
-+static void ploytec_test_encode_zero_input(struct kunit *test)
-+{
-+	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE] = { 0 };
-+	u8 dest[PLOYTEC_PLAYBACK_FRAME_SIZE];
-+	u8 want[PLOYTEC_PLAYBACK_FRAME_SIZE] = { 0 };
+ 		atomic_inc(&chip->playback.urbs_in_flight);
+ 		usb_anchor_urb(chip->playback.urbs[i], &chip->playback.anchor);
+ 		ret = usb_submit_urb(chip->playback.urbs[i], GFP_KERNEL);
+@@ -1099,10 +1212,12 @@ static const struct snd_pcm_hardware jockey3_pcm_hw_playback = {
+ 	.channels_max		= 4,
+ 	.buffer_bytes_max	= 1024 * 1024,
+ 	/*
+-	 * One playback URB carries one packet of 10 frames * 4 channels * 3
+-	 * bytes = 120 bytes. A URB reports at most one elapsed period, so the
+-	 * minimum must cover at least one packet, or a period boundary inside a
+-	 * URB could be missed entirely.
++	 * One playback URB carries a packet count chosen per open by
++	 * jockey3_pcm_hw_params(), of 10 frames * 4 channels * 3 bytes = 120
++	 * bytes each. period_elapsed is OR'd across the packet loop in
++	 * jockey3_playback_callback(), so the minimum must cover at least one
++	 * packet, the smallest a URB can ever carry (N=1), or a period boundary
++	 * inside a URB could be missed entirely.
+ 	 */
+ 	.period_bytes_min	= PLOYTEC_PLAYBACK_FRAMES * 4 * 3,
+ 	.period_bytes_max	= 512 * 1024,
+@@ -1120,9 +1235,10 @@ static const struct snd_pcm_hardware jockey3_pcm_hw_capture = {
+ 	.channels_max		= 6,
+ 	.buffer_bytes_max	= 1024 * 1024,
+ 	/*
+-	 * One capture URB carries one packet of 8 frames * 6 channels * 3 bytes
+-	 * = 144 bytes; see the playback .period_bytes_min comment above for why
+-	 * the minimum must cover at least one packet.
++	 * One capture URB carries a packet count chosen per open (see
++	 * jockey3_pcm_hw_params()) of up to 8 frames * 6 channels * 3 bytes =
++	 * 144 bytes each; see the playback .period_bytes_min comment above for
++	 * why the minimum must cover at least one packet.
+ 	 */
+ 	.period_bytes_min	= PLOYTEC_CAPTURE_FRAMES * 6 * 3,
+ 	.period_bytes_max	= 512 * 1024,
+@@ -1164,6 +1280,8 @@ static int jockey3_pcm_close(struct snd_pcm_substream *substream)
+ 	struct jockey3_chip *chip = snd_pcm_substream_chip(substream);
+ 	struct jockey3_pcm_urb_stream *urb_stream =
+ 		jockey3_get_pcm_urb_stream(chip, substream->stream);
++	unsigned int default_n = substream->stream == SNDRV_PCM_STREAM_PLAYBACK ?
++				 JOCKEY3_PLAYBACK_N : JOCKEY3_CAPTURE_N;
+ 
+ 	dev_dbg(&chip->intf0->dev, "PCM close stream %d\n", substream->stream);
+ 
+@@ -1175,6 +1293,16 @@ static int jockey3_pcm_close(struct snd_pcm_substream *substream)
+ 	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
+ 		urb_stream->substream = NULL;
+ 		urb_stream->running = false;
 +
-+	memset(dest, 0xFF, sizeof(dest));
-+	ploytec_encode_batch(dest, src, 1);
-+
-+	KUNIT_EXPECT_MEMEQ_MSG(test, dest, want, sizeof(dest),
-+			       "silence did not encode to an all-zero wire frame");
-+}
-+
-+/*
-+ * Playback packs only two channels into each wire byte, so bits 2..7 carry
-+ * nothing. jockey3.c relies on this: it writes the MIDI and sync bytes into
-+ * the same 512-byte packet and would be corrupted by a codec that spilled
-+ * into the upper bits.
++		/*
++		 * A closed direction is not covered by jockey3_pcm_hw_params()
++		 * any more, so its N would otherwise sit at whatever the last
++		 * open left it at -- possibly a small, period-tuned value that
++		 * has nothing to do with the next stream to open it. Reset to
++		 * the default here so an idle direction always runs at a safe N.
++		 */
++		WRITE_ONCE(urb_stream->n_shift, ilog2(default_n));
++		WRITE_ONCE(urb_stream->n_pkts, default_n);
+ 	}
+ 
+ 	return 0;
+@@ -1304,9 +1432,61 @@ static int jockey3_initialize_ploytec(struct jockey3_chip *chip, u32 *fw_version
+ 	return 0;
+ }
+ 
++/**
++ * jockey3_pcm_set_n() - choose and arm this direction's packets per URB
++ * @chip: driver state
++ * @substream: the substream hw_params was just called for
++ * @hw_params: the negotiated parameters
++ *
++ * Chooses how many Ploytec packets each USB bulk URB on this direction
++ * carries, called "N" below for brevity: the largest power of two with
++ * N * pkt_bytes <= period_bytes. A big period gets the full coalescing
++ * saving, a tiny one falls back to N=1 automatically via .period_bytes_min.
++ * Takes effect without tearing the URB ring down -- the firmware cannot tell
++ * an N x 512 B bulk transfer apart from N separate 512 B ones, so each URB on
++ * this direction simply picks up the new N at its own next resubmission; the
++ * ring turns over onto it within at most JOCKEY3_N_URBS completions. See
++ * re/streaming_overhead.md for the rationale and measurements.
 + */
-+static void ploytec_test_encode_reserved_bits_clear(struct kunit *test)
++static void jockey3_pcm_set_n(struct jockey3_chip *chip, struct snd_pcm_substream *substream,
++			      struct snd_pcm_hw_params *hw_params)
 +{
-+	u8 src[PLOYTEC_PLAYBACK_PCM_FRAME_SIZE];
-+	u8 dest[PLOYTEC_PLAYBACK_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
++	struct jockey3_pcm_urb_stream *urb_stream =
++		jockey3_get_pcm_urb_stream(chip, substream->stream);
++	unsigned int period_bytes = params_period_bytes(hw_params);
++	bool is_playback = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
++	unsigned int pkt_bytes = is_playback ? PLOYTEC_PLAYBACK_FRAMES * 4 * 3 :
++						  PLOYTEC_CAPTURE_FRAMES * 6 * 3;
++	unsigned int max_n = is_playback ? JOCKEY3_PLAYBACK_N : JOCKEY3_CAPTURE_N;
++	unsigned int n = max(period_bytes / pkt_bytes, 1U);
++	u8 n_shift = clamp_t(u8, ilog2(n), 0, ilog2(max_n));
 +
-+	ploytec_rng_init(&rng, 0x0F0F0F0FF0F0F0F0ULL);
-+
-+	/* All ones is the worst case, then sample the space. */
-+	memset(src, 0xFF, sizeof(src));
-+
-+	for (int t = 0; t < 256; t++) {
-+		memset(dest, 0, sizeof(dest));
-+		ploytec_encode_batch(dest, src, 1);
-+
-+		for (size_t i = 0; i < sizeof(dest); i++)
-+			KUNIT_ASSERT_EQ_MSG(test, dest[i] & 0xFC, 0,
-+					    "wire byte %zu has reserved bits set (%#04x)",
-+					    i, dest[i]);
-+
-+		ploytec_rng_fill(&rng, src, sizeof(src));
++	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
++		WRITE_ONCE(urb_stream->n_shift, n_shift);
++		WRITE_ONCE(urb_stream->n_pkts, 1 << n_shift);
 +	}
++
++	dev_dbg(&chip->intf0->dev, "hw_params: %s using %u packet(s)/URB (period_bytes=%u)\n",
++		is_playback ? "playback" : "capture", 1U << n_shift, period_bytes);
 +}
 +
-+static void ploytec_test_decode_ignores_unused_bytes(struct kunit *test)
++static int jockey3_pcm_hw_params(struct snd_pcm_substream *substream,
++				 struct snd_pcm_hw_params *hw_params)
 +{
-+	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE];
-+	u8 probe[PLOYTEC_CAPTURE_FRAME_SIZE];
-+	u8 want[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+	u8 got[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
++	struct jockey3_chip *chip = snd_pcm_substream_chip(substream);
 +
-+	ploytec_rng_init(&rng, 0xABCDEF0123456789ULL);
-+	ploytec_rng_fill(&rng, src, sizeof(src));
-+	ploytec_decode_batch(want, src, 1);
++	if (jockey3_is_disconnected(chip))
++		return -ENODEV;
 +
-+	for (int t = 0; t < 256; t++) {
-+		memcpy(probe, src, sizeof(probe));
++	jockey3_pcm_set_n(chip, substream, hw_params);
 +
-+		/* Scribble over everything the decoder should not be reading. */
-+		for (size_t i = 0; i < sizeof(probe); i++) {
-+			if (!ploytec_capture_byte_used(i))
-+				probe[i] = ploytec_rng_next(&rng) & 0xFF;
-+		}
-+
-+		ploytec_decode_batch(got, probe, 1);
-+		KUNIT_ASSERT_MEMEQ_MSG(test, got, want, sizeof(want),
-+				       "decode result changed when unused wire bytes changed");
-+	}
++	return 0;
 +}
 +
-+static void ploytec_test_decode_ignores_unused_bits(struct kunit *test)
-+{
-+	u8 src[PLOYTEC_CAPTURE_FRAME_SIZE];
-+	u8 probe[PLOYTEC_CAPTURE_FRAME_SIZE];
-+	u8 want[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+	u8 got[PLOYTEC_CAPTURE_PCM_FRAME_SIZE];
-+	struct ploytec_test_rng rng;
-+
-+	ploytec_rng_init(&rng, 0x9988776655443322ULL);
-+	ploytec_rng_fill(&rng, src, sizeof(src));
-+	ploytec_decode_batch(want, src, 1);
-+
-+	for (int t = 0; t < 256; t++) {
-+		/* Only bits 0..2 of each wire byte carry channel data. */
-+		for (size_t i = 0; i < sizeof(probe); i++)
-+			probe[i] = (src[i] & 0x07) |
-+				   (ploytec_rng_next(&rng) & 0xF8);
-+
-+		ploytec_decode_batch(got, probe, 1);
-+		KUNIT_ASSERT_MEMEQ_MSG(test, got, want, sizeof(want),
-+				       "decode result changed when unused wire bits changed");
-+	}
-+}
-+
-+/* --- Suite ---------------------------------------------------------------- */
-+
-+static struct kunit_case ploytec_codec_test_cases[] = {
-+	KUNIT_CASE_PARAM(ploytec_test_encode_known_vectors,
-+			 ploytec_encode_vector_gen_params),
-+	KUNIT_CASE_PARAM(ploytec_test_decode_known_vectors,
-+			 ploytec_decode_vector_gen_params),
-+	KUNIT_CASE(ploytec_test_encode_matches_oracle),
-+	KUNIT_CASE(ploytec_test_decode_matches_oracle),
-+	KUNIT_CASE(ploytec_test_encode_permutation_complete),
-+	KUNIT_CASE(ploytec_test_decode_permutation_complete),
-+	KUNIT_CASE(ploytec_test_encode_is_linear),
-+	KUNIT_CASE(ploytec_test_decode_is_linear),
-+	KUNIT_CASE(ploytec_test_encode_batch_equals_single),
-+	KUNIT_CASE(ploytec_test_decode_batch_equals_single),
-+	KUNIT_CASE(ploytec_test_encode_batch_zero_frames),
-+	KUNIT_CASE(ploytec_test_decode_batch_zero_frames),
-+	KUNIT_CASE(ploytec_test_encode_batch_no_overrun),
-+	KUNIT_CASE(ploytec_test_decode_batch_no_overrun),
-+	KUNIT_CASE(ploytec_test_encode_unaligned_buffers),
-+	KUNIT_CASE(ploytec_test_decode_unaligned_buffers),
-+	KUNIT_CASE(ploytec_test_encode_zero_input),
-+	KUNIT_CASE(ploytec_test_encode_reserved_bits_clear),
-+	KUNIT_CASE(ploytec_test_decode_ignores_unused_bytes),
-+	KUNIT_CASE(ploytec_test_decode_ignores_unused_bits),
-+	{},
-+};
-+
-+static struct kunit_suite ploytec_codec_suite = {
-+	.name = "ploytec-codec",
-+	.test_cases = ploytec_codec_test_cases,
-+};
-+
-+kunit_test_suite(ploytec_codec_suite);
-diff --git a/sound/usb/jockey3/ploytec_codec_test_vectors.h b/sound/usb/jockey3/ploytec_codec_test_vectors.h
-new file mode 100644
-index 0000000000000..894d5f830d7f2
---- /dev/null
-+++ b/sound/usb/jockey3/ploytec_codec_test_vectors.h
-@@ -0,0 +1,793 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Golden test vectors for the Ploytec bit-plane codec.
-+ *
-+ * GENERATED FILE - DO NOT EDIT.
-+ *
-+ * Produced by genvectors.py from ploytec_model.py, an independent model
-+ * that derives the wire format structurally rather than from this driver's
-+ * code, so the two cannot agree on a wrong answer. The same vectors drive a
-+ * user-space bench, which is why they live in a header of their own.
-+ *
-+ * Both generator and model belong to the driver's test tooling and are not
-+ * part of the kernel tree. They live under tests/codec at
-+ * https://github.com/fvdpol/alsa-jockey3, where ./genvectors.py regenerates
-+ * this file.
-+ *
-+ * ploytec_model.py sha256: 09fdf2831f9de572ee3a0e06b20807ee6235fc67ac79481469d616e965e8f0f3
-+ *
-+ * Copyright (c) 2026 by Frank van de Pol <fvdpol@gmail.com>
-+ */
-+
-+#ifndef PLOYTEC_CODEC_TEST_VECTORS_H
-+#define PLOYTEC_CODEC_TEST_VECTORS_H
-+
-+struct ploytec_encode_vector {
-+	const char *name;
-+	u8 src[12];
-+	u8 expect[48];
-+};
-+
-+struct ploytec_decode_vector {
-+	const char *name;
-+	u8 src[64];
-+	u8 expect[18];
-+};
-+
-+static const struct ploytec_encode_vector ploytec_encode_vectors[] = {
-+	{
-+		.name = "zeros",
-+		.src = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "ones",
-+		.src = {
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+		},
-+		.expect = {
-+			0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
-+			0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
-+			0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
-+			0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
-+		},
-+	},
-+	{
-+		.name = "alternating_55",
-+		.src = {
-+			0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55,
-+		},
-+		.expect = {
-+			0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03,
-+			0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03,
-+			0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03,
-+			0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03,
-+		},
-+	},
-+	{
-+		.name = "alternating_aa",
-+		.src = {
-+			0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa, 0xaa,
-+		},
-+		.expect = {
-+			0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00,
-+			0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00,
-+			0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00,
-+			0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 0x00,
-+		},
-+	},
-+	{
-+		.name = "ramp",
-+		.src = {
-+			0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x02, 0x02, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x02, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x02, 0x01, 0x02, 0x03, 0x00, 0x00, 0x00, 0x00,
-+			0x02, 0x01, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x01, 0x03,
-+		},
-+	},
-+	{
-+		.name = "channel0_full",
-+		.src = {
-+			0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+		.expect = {
-+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "channel1_full",
-+		.src = {
-+			0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+		},
-+	},
-+	{
-+		.name = "channel2_full",
-+		.src = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00,
-+		},
-+		.expect = {
-+			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-+			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "channel3_full",
-+		.src = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-+			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-+		},
-+	},
-+	{
-+		.name = "channel0_sign",
-+		.src = {
-+			0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+		.expect = {
-+			0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "channel1_sign",
-+		.src = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "channel2_sign",
-+		.src = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00,
-+		},
-+		.expect = {
-+			0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "channel3_sign",
-+		.src = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "distinct",
-+		.src = {
-+			0x56, 0x34, 0x12, 0xbc, 0x9a, 0x78, 0x12, 0xf0, 0xde, 0x78, 0x56, 0x34,
-+		},
-+		.expect = {
-+			0x02, 0x02, 0x00, 0x03, 0x02, 0x02, 0x03, 0x00, 0x02, 0x02, 0x03, 0x03,
-+			0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x03, 0x00, 0x01, 0x03, 0x00,
-+			0x00, 0x01, 0x03, 0x03, 0x01, 0x02, 0x00, 0x00, 0x01, 0x02, 0x00, 0x03,
-+			0x01, 0x02, 0x03, 0x00, 0x01, 0x02, 0x03, 0x03, 0x03, 0x01, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "random00",
-+		.src = {
-+			0xc5, 0x21, 0x5c, 0x0d, 0x13, 0xea, 0x2d, 0xa6, 0x6b, 0x90, 0x77, 0x77,
-+		},
-+		.expect = {
-+			0x00, 0x03, 0x02, 0x01, 0x03, 0x01, 0x02, 0x02, 0x02, 0x00, 0x03, 0x00,
-+			0x00, 0x02, 0x02, 0x01, 0x01, 0x01, 0x02, 0x00, 0x02, 0x03, 0x00, 0x03,
-+			0x01, 0x03, 0x03, 0x02, 0x01, 0x02, 0x03, 0x02, 0x00, 0x02, 0x02, 0x03,
-+			0x00, 0x02, 0x03, 0x03, 0x02, 0x00, 0x00, 0x02, 0x01, 0x01, 0x00, 0x01,
-+		},
-+	},
-+	{
-+		.name = "random01",
-+		.src = {
-+			0xd2, 0x2b, 0xc8, 0xf8, 0x5d, 0x0f, 0xc4, 0x8b, 0xf0, 0x91, 0xa2, 0x96,
-+		},
-+		.expect = {
-+			0x03, 0x03, 0x02, 0x02, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x01, 0x00,
-+			0x03, 0x00, 0x03, 0x03, 0x03, 0x03, 0x00, 0x01, 0x00, 0x02, 0x01, 0x00,
-+			0x02, 0x00, 0x00, 0x02, 0x01, 0x03, 0x03, 0x01, 0x02, 0x01, 0x02, 0x01,
-+			0x01, 0x01, 0x02, 0x01, 0x03, 0x01, 0x01, 0x03, 0x01, 0x00, 0x00, 0x02,
-+		},
-+	},
-+	{
-+		.name = "random02",
-+		.src = {
-+			0xc2, 0xc6, 0xd5, 0xf1, 0xf7, 0x91, 0xbb, 0xd9, 0xdb, 0x54, 0x93, 0x29,
-+		},
-+		.expect = {
-+			0x03, 0x03, 0x00, 0x03, 0x02, 0x01, 0x02, 0x03, 0x03, 0x03, 0x00, 0x02,
-+			0x02, 0x01, 0x01, 0x02, 0x03, 0x01, 0x02, 0x02, 0x02, 0x00, 0x03, 0x02,
-+			0x01, 0x00, 0x02, 0x01, 0x02, 0x00, 0x00, 0x03, 0x03, 0x01, 0x01, 0x03,
-+			0x00, 0x01, 0x03, 0x03, 0x01, 0x03, 0x01, 0x03, 0x00, 0x02, 0x00, 0x01,
-+		},
-+	},
-+	{
-+		.name = "random03",
-+		.src = {
-+			0x4f, 0xb4, 0xf2, 0x70, 0x17, 0x6f, 0xe3, 0x64, 0xc0, 0xcd, 0x51, 0xa4,
-+		},
-+		.expect = {
-+			0x03, 0x03, 0x01, 0x01, 0x00, 0x00, 0x01, 0x00, 0x01, 0x02, 0x03, 0x01,
-+			0x00, 0x03, 0x00, 0x00, 0x02, 0x03, 0x02, 0x00, 0x01, 0x01, 0x03, 0x03,
-+			0x02, 0x01, 0x03, 0x00, 0x01, 0x03, 0x01, 0x01, 0x00, 0x02, 0x00, 0x03,
-+			0x00, 0x01, 0x01, 0x03, 0x02, 0x03, 0x01, 0x01, 0x02, 0x02, 0x00, 0x02,
-+		},
-+	},
-+	{
-+		.name = "random04",
-+		.src = {
-+			0x5d, 0xf8, 0xb4, 0xe8, 0x5a, 0x5b, 0xe5, 0x10, 0x69, 0xd0, 0x02, 0xa9,
-+		},
-+		.expect = {
-+			0x01, 0x02, 0x03, 0x01, 0x02, 0x01, 0x00, 0x02, 0x01, 0x01, 0x01, 0x03,
-+			0x01, 0x00, 0x00, 0x00, 0x02, 0x03, 0x02, 0x01, 0x01, 0x03, 0x00, 0x03,
-+			0x02, 0x01, 0x02, 0x01, 0x03, 0x00, 0x01, 0x03, 0x00, 0x01, 0x00, 0x01,
-+			0x01, 0x00, 0x03, 0x00, 0x03, 0x03, 0x01, 0x02, 0x01, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "random05",
-+		.src = {
-+			0x67, 0x49, 0x0c, 0x85, 0xfd, 0x37, 0xc7, 0xf9, 0xd8, 0xcb, 0x7d, 0x90,
-+		},
-+		.expect = {
-+			0x02, 0x02, 0x00, 0x02, 0x03, 0x01, 0x00, 0x00, 0x02, 0x03, 0x02, 0x02,
-+			0x03, 0x00, 0x00, 0x03, 0x02, 0x03, 0x01, 0x00, 0x00, 0x03, 0x03, 0x03,
-+			0x02, 0x00, 0x01, 0x03, 0x00, 0x01, 0x01, 0x01, 0x01, 0x03, 0x03, 0x03,
-+			0x03, 0x03, 0x00, 0x03, 0x03, 0x02, 0x00, 0x00, 0x02, 0x01, 0x02, 0x03,
-+		},
-+	},
-+	{
-+		.name = "random06",
-+		.src = {
-+			0x49, 0x2c, 0x4f, 0x41, 0x86, 0x56, 0xf0, 0x2f, 0xa1, 0x33, 0x30, 0xb9,
-+		},
-+		.expect = {
-+			0x02, 0x01, 0x02, 0x00, 0x01, 0x01, 0x01, 0x03, 0x00, 0x00, 0x03, 0x00,
-+			0x03, 0x03, 0x02, 0x02, 0x02, 0x03, 0x02, 0x02, 0x01, 0x00, 0x00, 0x01,
-+			0x02, 0x01, 0x02, 0x03, 0x02, 0x01, 0x01, 0x02, 0x01, 0x00, 0x02, 0x02,
-+			0x00, 0x01, 0x01, 0x00, 0x00, 0x01, 0x02, 0x02, 0x00, 0x00, 0x02, 0x03,
-+		},
-+	},
-+	{
-+		.name = "random07",
-+		.src = {
-+			0x4e, 0x19, 0xe5, 0x1a, 0xcd, 0x69, 0xf2, 0x66, 0x4c, 0xe6, 0x5c, 0x61,
-+		},
-+		.expect = {
-+			0x01, 0x03, 0x01, 0x00, 0x02, 0x03, 0x00, 0x01, 0x00, 0x02, 0x02, 0x01,
-+			0x01, 0x02, 0x02, 0x01, 0x02, 0x03, 0x02, 0x02, 0x01, 0x01, 0x03, 0x00,
-+			0x00, 0x03, 0x03, 0x00, 0x01, 0x00, 0x00, 0x03, 0x01, 0x03, 0x00, 0x02,
-+			0x03, 0x03, 0x00, 0x01, 0x02, 0x02, 0x02, 0x01, 0x01, 0x02, 0x03, 0x00,
-+		},
-+	},
-+	{
-+		.name = "random08",
-+		.src = {
-+			0x22, 0x2a, 0xe7, 0xf8, 0xfb, 0x9c, 0x1e, 0xb4, 0x2a, 0x71, 0xcd, 0x54,
-+		},
-+		.expect = {
-+			0x01, 0x01, 0x03, 0x00, 0x02, 0x01, 0x03, 0x01, 0x02, 0x00, 0x03, 0x02,
-+			0x01, 0x02, 0x01, 0x00, 0x00, 0x00, 0x01, 0x02, 0x02, 0x02, 0x03, 0x00,
-+			0x01, 0x02, 0x00, 0x03, 0x01, 0x03, 0x00, 0x00, 0x03, 0x03, 0x01, 0x01,
-+			0x03, 0x02, 0x01, 0x03, 0x01, 0x03, 0x03, 0x03, 0x01, 0x00, 0x00, 0x02,
-+		},
-+	},
-+	{
-+		.name = "random09",
-+		.src = {
-+			0x1d, 0xf3, 0x3e, 0x4c, 0x48, 0x1a, 0xc5, 0x59, 0x5a, 0xfc, 0xf5, 0x5a,
-+		},
-+		.expect = {
-+			0x00, 0x02, 0x01, 0x03, 0x03, 0x01, 0x03, 0x00, 0x01, 0x03, 0x01, 0x03,
-+			0x02, 0x00, 0x01, 0x03, 0x02, 0x02, 0x00, 0x01, 0x01, 0x03, 0x00, 0x03,
-+			0x00, 0x02, 0x00, 0x03, 0x03, 0x00, 0x03, 0x00, 0x02, 0x03, 0x02, 0x02,
-+			0x01, 0x02, 0x00, 0x02, 0x02, 0x03, 0x02, 0x02, 0x03, 0x03, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "random10",
-+		.src = {
-+			0x92, 0x19, 0xf2, 0x2e, 0xb9, 0xb6, 0xf6, 0x71, 0xa3, 0x48, 0xd9, 0x10,
-+		},
-+		.expect = {
-+			0x03, 0x01, 0x03, 0x01, 0x00, 0x00, 0x03, 0x02, 0x00, 0x02, 0x02, 0x03,
-+			0x01, 0x00, 0x00, 0x03, 0x03, 0x02, 0x02, 0x03, 0x00, 0x02, 0x03, 0x00,
-+			0x01, 0x00, 0x01, 0x03, 0x00, 0x01, 0x01, 0x00, 0x03, 0x02, 0x01, 0x03,
-+			0x03, 0x00, 0x00, 0x03, 0x00, 0x02, 0x01, 0x00, 0x03, 0x01, 0x01, 0x00,
-+		},
-+	},
-+	{
-+		.name = "random11",
-+		.src = {
-+			0x84, 0xea, 0x64, 0x8c, 0xce, 0x29, 0xff, 0x18, 0xb5, 0xaa, 0xd9, 0xc2,
-+		},
-+		.expect = {
-+			0x02, 0x01, 0x03, 0x02, 0x00, 0x03, 0x00, 0x02, 0x01, 0x01, 0x01, 0x02,
-+			0x03, 0x00, 0x01, 0x00, 0x03, 0x02, 0x02, 0x02, 0x02, 0x03, 0x02, 0x02,
-+			0x02, 0x02, 0x01, 0x00, 0x01, 0x00, 0x02, 0x01, 0x03, 0x03, 0x00, 0x02,
-+			0x03, 0x01, 0x01, 0x02, 0x03, 0x00, 0x02, 0x00, 0x03, 0x01, 0x02, 0x00,
-+		},
-+	},
-+	{
-+		.name = "random12",
-+		.src = {
-+			0xcd, 0x3f, 0x4e, 0x27, 0xbb, 0x31, 0x06, 0x7a, 0xba, 0x97, 0xd3, 0xd4,
-+		},
-+		.expect = {
-+			0x02, 0x01, 0x02, 0x02, 0x03, 0x01, 0x03, 0x00, 0x00, 0x02, 0x03, 0x03,
-+			0x03, 0x01, 0x03, 0x01, 0x01, 0x01, 0x00, 0x00, 0x01, 0x03, 0x02, 0x01,
-+			0x02, 0x02, 0x01, 0x03, 0x00, 0x02, 0x00, 0x01, 0x03, 0x02, 0x01, 0x03,
-+			0x01, 0x00, 0x03, 0x03, 0x02, 0x00, 0x01, 0x02, 0x00, 0x03, 0x03, 0x03,
-+		},
-+	},
-+	{
-+		.name = "random13",
-+		.src = {
-+			0x3b, 0x64, 0x49, 0xd4, 0x40, 0x3f, 0xab, 0xf0, 0x0f, 0x87, 0x9a, 0xde,
-+		},
-+		.expect = {
-+			0x00, 0x01, 0x00, 0x00, 0x03, 0x02, 0x02, 0x03, 0x02, 0x03, 0x03, 0x02,
-+			0x00, 0x01, 0x00, 0x00, 0x02, 0x00, 0x03, 0x01, 0x03, 0x00, 0x03, 0x03,
-+			0x02, 0x02, 0x01, 0x03, 0x03, 0x03, 0x03, 0x01, 0x02, 0x01, 0x00, 0x02,
-+			0x02, 0x00, 0x02, 0x00, 0x03, 0x01, 0x00, 0x01, 0x00, 0x03, 0x02, 0x02,
-+		},
-+	},
-+	{
-+		.name = "random14",
-+		.src = {
-+			0x03, 0x13, 0x49, 0x5c, 0x3b, 0xc2, 0x1f, 0xb2, 0x71, 0x9a, 0x11, 0x17,
-+		},
-+		.expect = {
-+			0x00, 0x03, 0x02, 0x02, 0x01, 0x00, 0x00, 0x03, 0x02, 0x00, 0x02, 0x03,
-+			0x00, 0x00, 0x03, 0x01, 0x00, 0x00, 0x00, 0x02, 0x02, 0x02, 0x03, 0x03,
-+			0x01, 0x01, 0x00, 0x02, 0x00, 0x02, 0x03, 0x02, 0x00, 0x00, 0x01, 0x03,
-+			0x01, 0x00, 0x01, 0x03, 0x02, 0x01, 0x00, 0x03, 0x03, 0x01, 0x02, 0x00,
-+		},
-+	},
-+	{
-+		.name = "random15",
-+		.src = {
-+			0x53, 0x46, 0x16, 0xdb, 0xce, 0x68, 0x55, 0x35, 0x6d, 0x11, 0xe3, 0x4a,
-+		},
-+		.expect = {
-+			0x00, 0x02, 0x02, 0x01, 0x02, 0x03, 0x01, 0x02, 0x00, 0x01, 0x02, 0x02,
-+			0x00, 0x03, 0x01, 0x02, 0x00, 0x03, 0x00, 0x03, 0x00, 0x02, 0x01, 0x03,
-+			0x00, 0x03, 0x01, 0x00, 0x03, 0x00, 0x02, 0x00, 0x03, 0x03, 0x02, 0x00,
-+			0x01, 0x01, 0x03, 0x02, 0x01, 0x01, 0x00, 0x03, 0x01, 0x00, 0x01, 0x03,
-+		},
-+	},
-+};
-+
-+static const struct ploytec_decode_vector ploytec_decode_vectors[] = {
-+	{
-+		.name = "zeros",
-+		.src = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "ones",
-+		.src = {
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+			0xff, 0xff, 0xff, 0xff,
-+		},
-+		.expect = {
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+		},
-+	},
-+	{
-+		.name = "ramp",
-+		.src = {
-+			0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b,
-+			0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
-+			0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f, 0x20, 0x21, 0x22, 0x23,
-+			0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
-+			0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b,
-+			0x3c, 0x3d, 0x3e, 0x3f,
-+		},
-+		.expect = {
-+			0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33,
-+			0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f,
-+		},
-+	},
-+	{
-+		.name = "bitplane0_only",
-+		.src = {
-+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+			0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+			0x01, 0x01, 0x01, 0x01,
-+		},
-+		.expect = {
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "bitplane1_only",
-+		.src = {
-+			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-+			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-+			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-+			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-+			0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-+			0x02, 0x02, 0x02, 0x02,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "bitplane2_only",
-+		.src = {
-+			0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
-+			0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
-+			0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
-+			0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
-+			0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
-+			0x04, 0x04, 0x04, 0x04,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+		},
-+	},
-+	{
-+		.name = "group0_only",
-+		.src = {
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00,
-+		},
-+		.expect = {
-+			0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00,
-+			0xff, 0xff, 0xff, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "group1_only",
-+		.src = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff,
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff,
-+			0x00, 0x00, 0x00, 0xff, 0xff, 0xff,
-+		},
-+	},
-+	{
-+		.name = "unused_bytes_only",
-+		.src = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff,
-+			0xff, 0xff, 0xff, 0xff,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "unused_bits_only",
-+		.src = {
-+			0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
-+			0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
-+			0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
-+			0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
-+			0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8, 0xf8,
-+			0xf8, 0xf8, 0xf8, 0xf8,
-+		},
-+		.expect = {
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+			0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+		},
-+	},
-+	{
-+		.name = "random00",
-+		.src = {
-+			0xc6, 0xd8, 0x5e, 0x8e, 0xac, 0x3a, 0xa9, 0x38, 0x25, 0x20, 0xcb, 0x47,
-+			0x26, 0xd0, 0x86, 0xb5, 0xf4, 0xfd, 0x71, 0x3c, 0xb2, 0xed, 0x50, 0x06,
-+			0xa5, 0x48, 0x62, 0xc1, 0xa5, 0x7f, 0xc7, 0xc5, 0xcd, 0x91, 0x98, 0xa8,
-+			0x8b, 0x35, 0x5a, 0x0c, 0x3e, 0xdc, 0x33, 0xf7, 0x3d, 0x8a, 0x15, 0xf6,
-+			0x5e, 0xac, 0x64, 0x96, 0x33, 0x8c, 0x4b, 0xf4, 0x83, 0xa5, 0x41, 0x86,
-+			0xfd, 0x51, 0xe5, 0x15,
-+		},
-+		.expect = {
-+			0x64, 0xb1, 0x02, 0x0a, 0x3a, 0xcc, 0x09, 0x3a, 0xb4, 0x9a, 0xb5, 0x0a,
-+			0xd5, 0x9b, 0xb8, 0xf5, 0xdb, 0x85,
-+		},
-+	},
-+	{
-+		.name = "random01",
-+		.src = {
-+			0xcd, 0xae, 0xb2, 0x51, 0xf0, 0x30, 0xf7, 0xf1, 0xda, 0x22, 0x94, 0x5d,
-+			0xd4, 0x48, 0x69, 0xa6, 0x37, 0x76, 0xd1, 0x4e, 0x58, 0xb0, 0xdf, 0x86,
-+			0x19, 0xa5, 0x1d, 0x27, 0x62, 0x3a, 0x41, 0x4a, 0x1d, 0xa6, 0xe1, 0x9a,
-+			0x44, 0xe0, 0x6a, 0x40, 0xf5, 0xc2, 0x2f, 0x9b, 0xf4, 0x8e, 0xcb, 0x7c,
-+			0x9c, 0xfd, 0x51, 0x89, 0x40, 0x75, 0x99, 0x2d, 0x4b, 0xda, 0x29, 0x14,
-+			0xfc, 0xd2, 0x9b, 0x13,
-+		},
-+		.expect = {
-+			0xa2, 0x12, 0x93, 0x77, 0xb2, 0xa0, 0xd3, 0xc1, 0x62, 0x00, 0x76, 0x52,
-+			0xd3, 0x39, 0xc2, 0xc5, 0xad, 0xc8,
-+		},
-+	},
-+	{
-+		.name = "random02",
-+		.src = {
-+			0x8e, 0xae, 0x5e, 0x59, 0x19, 0x93, 0xfd, 0x3b, 0x27, 0x0a, 0x8e, 0x06,
-+			0xfe, 0x31, 0xb2, 0xab, 0x7e, 0xc0, 0xaa, 0xe8, 0x13, 0x52, 0x24, 0x71,
-+			0x4b, 0x2f, 0x0d, 0x71, 0xf6, 0x9c, 0xc5, 0x3f, 0x12, 0x07, 0x45, 0xb1,
-+			0xff, 0x89, 0xe3, 0x86, 0x60, 0x41, 0xd4, 0x82, 0xc2, 0xbe, 0x01, 0x48,
-+			0x17, 0x7c, 0x8c, 0x42, 0x4f, 0xba, 0xc1, 0xed, 0xb9, 0xf3, 0xb4, 0xfc,
-+			0xa8, 0xb9, 0x1e, 0xc0,
-+		},
-+		.expect = {
-+			0x09, 0x85, 0x1f, 0x8b, 0x42, 0x7e, 0xac, 0xfb, 0xe5, 0x9c, 0x1c, 0xcb,
-+			0x82, 0xb8, 0xe2, 0xe9, 0x24, 0x69,
-+		},
-+	},
-+	{
-+		.name = "random03",
-+		.src = {
-+			0xb4, 0xbd, 0x6e, 0x34, 0xa0, 0x24, 0x1f, 0x6f, 0x5d, 0x79, 0x0e, 0xa6,
-+			0x86, 0x6e, 0xfd, 0x0d, 0x27, 0xa3, 0x08, 0x71, 0x06, 0xc2, 0xd9, 0x68,
-+			0xc4, 0xbc, 0x4e, 0xd6, 0x36, 0x0c, 0x5a, 0xaa, 0x7c, 0xf0, 0xbb, 0x88,
-+			0xc4, 0x96, 0xb2, 0x49, 0x76, 0x66, 0xee, 0xae, 0x3e, 0x2b, 0xaa, 0x14,
-+			0x6d, 0x6f, 0xcd, 0x58, 0x3e, 0x59, 0x50, 0x2b, 0xf7, 0x92, 0x3b, 0xf0,
-+			0x80, 0x8d, 0xd4, 0x16,
-+		},
-+		.expect = {
-+			0xd2, 0xc3, 0x43, 0xe5, 0x04, 0x21, 0xcc, 0x3c, 0x23, 0x49, 0xfe, 0x26,
-+			0x88, 0xbf, 0xf7, 0xe8, 0xf9, 0x8c,
-+		},
-+	},
-+	{
-+		.name = "random04",
-+		.src = {
-+			0xef, 0x44, 0xa5, 0x78, 0x0f, 0x7d, 0xfe, 0x17, 0xa4, 0xd2, 0x30, 0x98,
-+			0xbf, 0xc5, 0xb6, 0xda, 0x4f, 0x6b, 0xde, 0x5f, 0x1d, 0x3c, 0xe7, 0xe6,
-+			0x46, 0x7f, 0x70, 0x00, 0xa4, 0x5d, 0xa3, 0xef, 0x7b, 0x9f, 0x64, 0x0e,
-+			0xc4, 0x09, 0x25, 0xfa, 0x85, 0x83, 0x13, 0x18, 0x06, 0x26, 0x87, 0x6b,
-+			0x94, 0x56, 0x89, 0xc6, 0x12, 0x38, 0xd1, 0xd5, 0xd1, 0x76, 0xf4, 0x00,
-+			0x1d, 0xe9, 0xa4, 0xd8,
-+		},
-+		.expect = {
-+			0xda, 0x0c, 0xad, 0x23, 0xe3, 0xc6, 0xf3, 0x4b, 0x8b, 0x58, 0x6f, 0xd1,
-+			0xbf, 0x8e, 0xef, 0xd1, 0x8e, 0x7a,
-+		},
-+	},
-+	{
-+		.name = "random05",
-+		.src = {
-+			0x3d, 0x21, 0xf0, 0x7d, 0x1b, 0xd9, 0xf9, 0x41, 0xad, 0x31, 0xe2, 0xea,
-+			0x59, 0x26, 0x84, 0xbb, 0x9a, 0xf8, 0x6c, 0xaa, 0x7f, 0x9a, 0x5a, 0x9a,
-+			0xb7, 0x58, 0x2d, 0x47, 0xc8, 0xd9, 0x26, 0x94, 0x16, 0xac, 0xc8, 0x30,
-+			0x03, 0xd0, 0x65, 0x2b, 0x36, 0xba, 0x6f, 0xf8, 0xdb, 0x56, 0xbf, 0x58,
-+			0x2d, 0xb9, 0x98, 0x21, 0xe8, 0x60, 0x2f, 0xe8, 0x08, 0xad, 0xb8, 0x29,
-+			0xe0, 0xe1, 0x30, 0xb4,
-+		},
-+		.expect = {
-+			0x08, 0xc9, 0xdf, 0xd2, 0x2a, 0x0b, 0x9f, 0x35, 0x08, 0x02, 0xee, 0x89,
-+			0x28, 0x86, 0x90, 0x82, 0xa6, 0xc2,
-+		},
-+	},
-+	{
-+		.name = "random06",
-+		.src = {
-+			0xee, 0x50, 0x9e, 0xc6, 0x2f, 0x39, 0xbe, 0xdc, 0xdf, 0x36, 0x4a, 0xea,
-+			0x87, 0x86, 0x56, 0x36, 0xe2, 0xd8, 0x5e, 0x9c, 0x30, 0xb7, 0x21, 0x54,
-+			0x3d, 0x11, 0x84, 0x67, 0x00, 0xb9, 0x0c, 0x21, 0x7a, 0x27, 0x27, 0xd5,
-+			0x78, 0xc0, 0xf2, 0x12, 0xcb, 0x75, 0xb6, 0x4a, 0x6e, 0x0e, 0xc6, 0x4f,
-+			0x19, 0xe5, 0x27, 0xcb, 0xef, 0x20, 0xa9, 0x7e, 0x8f, 0x71, 0xcc, 0x67,
-+			0x01, 0x24, 0x65, 0x42,
-+		},
-+		.expect = {
-+			0x06, 0x88, 0x0c, 0xfa, 0xc1, 0x70, 0xa4, 0xff, 0xba, 0x39, 0xbf, 0xe3,
-+			0x35, 0xcf, 0xbb, 0x69, 0x6f, 0x70,
-+		},
-+	},
-+	{
-+		.name = "random07",
-+		.src = {
-+			0xe5, 0xe6, 0xd4, 0x3d, 0x9c, 0x02, 0xbe, 0xd4, 0x8e, 0x97, 0x53, 0x62,
-+			0x8c, 0xad, 0x44, 0x9f, 0x92, 0x01, 0xf2, 0x87, 0xcc, 0xd6, 0x89, 0xd6,
-+			0x2a, 0xa3, 0xe1, 0xa8, 0xc6, 0xde, 0x45, 0x14, 0x35, 0x48, 0xec, 0x8e,
-+			0xa3, 0x67, 0x56, 0x9b, 0x7e, 0x39, 0x88, 0xc5, 0x1a, 0x8e, 0xc9, 0x9f,
-+			0x15, 0xbe, 0x04, 0x2a, 0xb4, 0xaa, 0x51, 0xa4, 0xe4, 0x64, 0x9c, 0x0f,
-+			0x6d, 0xe9, 0x01, 0x87,
-+		},
-+		.expect = {
-+			0x52, 0x65, 0x90, 0x82, 0x53, 0x8d, 0xb5, 0xf1, 0x46, 0x54, 0x8d, 0x1f,
-+			0x1d, 0xcf, 0xfb, 0xe9, 0x95, 0xb6,
-+		},
-+	},
-+	{
-+		.name = "random08",
-+		.src = {
-+			0xe6, 0x2a, 0xbf, 0xe4, 0x65, 0x8e, 0xe8, 0x56, 0xcc, 0xf7, 0x9c, 0xce,
-+			0xcc, 0x26, 0xbf, 0x43, 0xde, 0xac, 0x2f, 0x15, 0x21, 0xd6, 0x96, 0x2a,
-+			0x41, 0xe3, 0x77, 0x00, 0x97, 0xe8, 0xde, 0x17, 0xcc, 0x3f, 0xe4, 0x68,
-+			0x81, 0x04, 0xae, 0x8e, 0x5c, 0xec, 0x4b, 0x75, 0x91, 0x3f, 0xe6, 0x4c,
-+			0xa4, 0xbb, 0xdd, 0xf0, 0x78, 0xee, 0xf1, 0x61, 0xee, 0x9b, 0xff, 0xed,
-+			0xd4, 0x1d, 0x08, 0x4d,
-+		},
-+		.expect = {
-+			0x38, 0x43, 0x28, 0x63, 0x3c, 0x48, 0xa7, 0x57, 0xe5, 0x44, 0x26, 0x43,
-+			0xf6, 0xfe, 0xbd, 0xa4, 0xd7, 0xe7,
-+		},
-+	},
-+	{
-+		.name = "random09",
-+		.src = {
-+			0x79, 0xce, 0xe6, 0x42, 0xf3, 0xe2, 0x01, 0xc7, 0x00, 0x7c, 0x86, 0xab,
-+			0x74, 0x1c, 0x27, 0x73, 0xe4, 0x11, 0x64, 0x17, 0xe3, 0x04, 0x8c, 0x6d,
-+			0xac, 0xc7, 0xb4, 0x76, 0x0f, 0xda, 0x0e, 0x8e, 0x56, 0x3d, 0x2d, 0x21,
-+			0x1b, 0xee, 0xf3, 0x57, 0x94, 0xf1, 0xed, 0x35, 0x3b, 0x68, 0x4d, 0x96,
-+			0x62, 0x84, 0xaa, 0xe3, 0xb1, 0x68, 0xdf, 0x21, 0x0b, 0xc5, 0xe2, 0x36,
-+			0x7d, 0x34, 0xb7, 0xab,
-+		},
-+		.expect = {
-+			0x59, 0x13, 0x8b, 0x1b, 0x7a, 0x7b, 0x18, 0x33, 0x7d, 0xb2, 0x09, 0x8f,
-+			0xb7, 0x6e, 0x61, 0x42, 0xb3, 0xe5,
-+		},
-+	},
-+	{
-+		.name = "random10",
-+		.src = {
-+			0x15, 0x04, 0xd5, 0x8f, 0x8a, 0xd6, 0x4a, 0x71, 0xed, 0x8e, 0xdc, 0xb1,
-+			0x95, 0x6a, 0xec, 0x57, 0xf2, 0x4e, 0x55, 0xbc, 0x7e, 0x1b, 0xb4, 0x21,
-+			0x7d, 0xbe, 0x5f, 0xf7, 0x04, 0x0f, 0x47, 0x7d, 0x02, 0xce, 0x92, 0x6c,
-+			0xce, 0xd7, 0x1d, 0x7d, 0x93, 0xb6, 0x79, 0x7a, 0x75, 0x10, 0xb9, 0x96,
-+			0x68, 0x14, 0xae, 0x41, 0xe1, 0x3b, 0x3a, 0x6e, 0xa3, 0x47, 0x26, 0x8f,
-+			0x26, 0xe7, 0x7c, 0x79,
-+		},
-+		.expect = {
-+			0x25, 0x99, 0xb1, 0x1c, 0xaa, 0x07, 0xcc, 0x45, 0x1e, 0x27, 0xd1, 0xec,
-+			0x7a, 0xeb, 0xf4, 0x61, 0x49, 0x5f,
-+		},
-+	},
-+	{
-+		.name = "random11",
-+		.src = {
-+			0x6c, 0x13, 0x40, 0xe8, 0x4e, 0x10, 0x1c, 0x98, 0xee, 0x6d, 0xa3, 0x78,
-+			0x32, 0x8b, 0x6a, 0x99, 0x70, 0x92, 0x40, 0xe3, 0x69, 0x54, 0x3b, 0x3b,
-+			0x4e, 0xc1, 0x42, 0xdf, 0xb3, 0xe5, 0x65, 0x1b, 0x54, 0x27, 0xf5, 0x3f,
-+			0xba, 0xb0, 0x6c, 0x27, 0x0a, 0x05, 0xde, 0x53, 0xb7, 0x7c, 0xf3, 0x50,
-+			0xc3, 0xa5, 0xdf, 0xef, 0x83, 0xbf, 0x4f, 0x10, 0xfd, 0xd9, 0x75, 0xea,
-+			0x57, 0x43, 0xf8, 0xf0,
-+		},
-+		.expect = {
-+			0x1b, 0x65, 0x40, 0xfe, 0x5a, 0x71, 0x53, 0xae, 0x48, 0xbe, 0xba, 0x59,
-+			0x04, 0xc0, 0x8a, 0x76, 0x6c, 0xf3,
-+		},
-+	},
-+	{
-+		.name = "random12",
-+		.src = {
-+			0xd8, 0x7b, 0xd5, 0x75, 0x28, 0xb5, 0x18, 0x63, 0x15, 0xbc, 0xf2, 0xac,
-+			0xcd, 0x26, 0x4f, 0xbe, 0xdf, 0x80, 0x99, 0xa0, 0x33, 0x2e, 0x99, 0xe7,
-+			0xd0, 0x8a, 0x60, 0x0b, 0x6a, 0xd6, 0x17, 0xed, 0x0e, 0xd3, 0x84, 0xa6,
-+			0x12, 0xe5, 0x88, 0xaa, 0x66, 0xac, 0x45, 0x64, 0x7e, 0x9d, 0xf3, 0x9c,
-+			0xae, 0xa3, 0x18, 0x10, 0x64, 0x0f, 0xdd, 0xd8, 0x8a, 0xaa, 0xd6, 0xde,
-+			0x63, 0x16, 0xc0, 0x12,
-+		},
-+		.expect = {
-+			0xab, 0x8a, 0x75, 0x46, 0x26, 0x44, 0x8d, 0x27, 0x41, 0xc4, 0x8a, 0xd9,
-+			0x85, 0xdf, 0x34, 0x8e, 0xfd, 0xb4,
-+		},
-+	},
-+	{
-+		.name = "random13",
-+		.src = {
-+			0x9a, 0x97, 0x1c, 0x40, 0x5b, 0xdf, 0x25, 0xd2, 0xc3, 0x5b, 0xa8, 0xfe,
-+			0xf0, 0x61, 0x70, 0x8a, 0xbe, 0x66, 0x51, 0x59, 0xc0, 0x69, 0x4c, 0xc3,
-+			0xf7, 0x2f, 0xb5, 0x48, 0xd2, 0x7a, 0xff, 0x5a, 0x15, 0xd2, 0xa6, 0x5e,
-+			0xa6, 0x0c, 0xad, 0xdf, 0xce, 0xf6, 0x19, 0x27, 0x28, 0x85, 0x13, 0xd5,
-+			0xbd, 0x68, 0xd5, 0x5f, 0x39, 0x8b, 0x34, 0xd0, 0x95, 0x9c, 0x48, 0x29,
-+			0xd7, 0x89, 0x14, 0xc0,
-+		},
-+		.expect = {
-+			0x35, 0xc4, 0x4e, 0xbc, 0x37, 0x83, 0xc1, 0xd1, 0xcd, 0x14, 0xd2, 0x79,
-+			0xc2, 0x10, 0x66, 0xb2, 0xd5, 0xbf,
-+		},
-+	},
-+	{
-+		.name = "random14",
-+		.src = {
-+			0xbf, 0x78, 0x65, 0x38, 0xf3, 0x58, 0x09, 0x9f, 0x34, 0x5c, 0x40, 0x2d,
-+			0xb6, 0xd3, 0x47, 0x04, 0xdb, 0x5f, 0x69, 0x4b, 0x4f, 0xc3, 0xbd, 0xd9,
-+			0x5f, 0xf5, 0xcd, 0x94, 0x3b, 0x0c, 0x59, 0xe3, 0x13, 0xc4, 0xd3, 0x34,
-+			0x07, 0x47, 0xa5, 0x1a, 0xc3, 0xb8, 0xe3, 0x45, 0xc8, 0x0b, 0x11, 0x9d,
-+			0xb3, 0x9a, 0x87, 0x4a, 0x61, 0xb2, 0x99, 0x65, 0xcb, 0xc8, 0x69, 0xb4,
-+			0xa3, 0x98, 0x72, 0xd4,
-+		},
-+		.expect = {
-+			0xff, 0x16, 0xab, 0xab, 0xb7, 0xae, 0xdc, 0x0e, 0x89, 0xf4, 0xa4, 0xad,
-+			0x4a, 0xdb, 0xa1, 0x21, 0x11, 0x5e,
-+		},
-+	},
-+	{
-+		.name = "random15",
-+		.src = {
-+			0x55, 0xab, 0x93, 0x08, 0xcd, 0x6a, 0x50, 0x3b, 0x0e, 0xc6, 0x2b, 0x52,
-+			0x3c, 0x10, 0xc8, 0x4f, 0x37, 0xfc, 0x1c, 0xde, 0x49, 0x6f, 0x08, 0x0a,
-+			0x4a, 0x39, 0xa9, 0x99, 0x14, 0xb6, 0x91, 0xf2, 0x4d, 0x09, 0x00, 0x3f,
-+			0xf2, 0x8c, 0x48, 0xdf, 0x3f, 0x05, 0xfb, 0xb1, 0xec, 0xb3, 0xee, 0x42,
-+			0xb7, 0x8d, 0xce, 0xc9, 0x3e, 0x81, 0xcc, 0x94, 0x0b, 0x63, 0x8d, 0xbf,
-+			0xa3, 0xc9, 0xa8, 0x24,
-+		},
-+		.expect = {
-+			0x8c, 0x21, 0xe9, 0xd4, 0xf4, 0xd1, 0x95, 0xf1, 0x65, 0xa8, 0xa7, 0x19,
-+			0xf4, 0xc9, 0x88, 0xeb, 0xca, 0x95,
-+		},
-+	},
-+};
-+
-+#endif /* PLOYTEC_CODEC_TEST_VECTORS_H */
+ static const struct snd_pcm_ops jockey3_pcm_ops = {
+ 	.open = jockey3_pcm_open,
+ 	.close = jockey3_pcm_close,
++	.hw_params = jockey3_pcm_hw_params,
+ 	.prepare = jockey3_pcm_prepare,
+ 	.trigger = jockey3_pcm_trigger,
+ 	.sync_stop = jockey3_pcm_sync_stop,
+@@ -1454,7 +1634,7 @@ static int jockey3_init_playback_urbs(struct jockey3_chip *chip)
+ 	int i;
+ 
+ 	for (i = 0; i < JOCKEY3_N_URBS; i++) {
+-		chip->playback.bufs[i] = kzalloc(PLOYTEC_PKT_SIZE, GFP_KERNEL);
++		chip->playback.bufs[i] = kzalloc(JOCKEY3_PLAYBACK_XFER_SIZE, GFP_KERNEL);
+ 		if (!chip->playback.bufs[i])
+ 			return -ENOMEM;
+ 
+@@ -1466,7 +1646,7 @@ static int jockey3_init_playback_urbs(struct jockey3_chip *chip)
+ 
+ 		usb_fill_bulk_urb(chip->playback.urbs[i], dev,
+ 				  usb_sndbulkpipe(dev, PLOYTEC_EP_NUM_PCM_OUT),
+-				  chip->playback.bufs[i], PLOYTEC_PKT_SIZE,
++				  chip->playback.bufs[i], JOCKEY3_PLAYBACK_XFER_SIZE,
+ 				  jockey3_playback_callback, chip);
+ 	}
+ 
+@@ -1479,7 +1659,7 @@ static int jockey3_init_capture_urbs(struct jockey3_chip *chip)
+ 	int i;
+ 
+ 	for (i = 0; i < JOCKEY3_N_URBS; i++) {
+-		chip->capture.bufs[i] = kzalloc(PLOYTEC_PKT_SIZE, GFP_KERNEL);
++		chip->capture.bufs[i] = kzalloc(JOCKEY3_CAPTURE_XFER_SIZE, GFP_KERNEL);
+ 		if (!chip->capture.bufs[i])
+ 			return -ENOMEM;
+ 
+@@ -1489,7 +1669,7 @@ static int jockey3_init_capture_urbs(struct jockey3_chip *chip)
+ 
+ 		usb_fill_bulk_urb(chip->capture.urbs[i], dev,
+ 				  usb_rcvbulkpipe(dev, PLOYTEC_EP_NUM_PCM_IN),
+-				  chip->capture.bufs[i], PLOYTEC_PKT_SIZE,
++				  chip->capture.bufs[i], JOCKEY3_CAPTURE_XFER_SIZE,
+ 				  jockey3_capture_callback, chip);
+ 	}
+ 
+@@ -1697,6 +1877,15 @@ static int jockey3_probe(struct usb_interface *intf, const struct usb_device_id
+ 	 */
+ 	atomic_set(&chip->playback.urbs_in_flight, 0);
+ 	atomic_set(&chip->capture.urbs_in_flight, 0);
++	/*
++	 * Default N until the first hw_params() picks a period-tuned value
++	 * (jockey3_pcm_set_n()); matches the width the URB buffers below are
++	 * actually allocated at, and jockey3_init_out_packet() primes.
++	 */
++	chip->playback.n_shift = ilog2(JOCKEY3_PLAYBACK_N);
++	chip->playback.n_pkts = JOCKEY3_PLAYBACK_N;
++	chip->capture.n_shift = ilog2(JOCKEY3_CAPTURE_N);
++	chip->capture.n_pkts = JOCKEY3_CAPTURE_N;
+ 
+ 	chip->xfer_buf = kmalloc(USB_XFER_BUF_SIZE, GFP_KERNEL);
+ 	if (!chip->xfer_buf) {
 -- 
 2.47.3
 
