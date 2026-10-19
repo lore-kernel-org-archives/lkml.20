@@ -1,104 +1,111 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B981F367B9B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0B64AA1CD
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:43:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403025; cv=none; b=HRQg3ZwhcQprGGs6e/yS3N3plwROUs5u1UKQ988WTTdx9jMaOfB38ctyAvOFX+c/0u7zyGHaHlHBfic6pCSowx+2E0yl+fS4Gnx6WnWmP0HC8Jr3rg+Pf7fUKGe9wOAI/XmGCWIfA+8QBsYiVlLErytiFZM/ny3KTuKuew2ucRo=
+	t=1792403027; cv=none; b=WqUkwAe9n7cCQfu1JcfaCNk65BbpDFH6anc063n9uy9oko2A4mOj7RkQdbUBYMP48JVxjFSkWLAqBV1Ojn/EL6KeI9Kl9tNwRF7DOFwjuihUlvZ7mknUaMYZkqO2B4IjpHAeeP6uzN3iDQfYWTXh+vmFTiu7Lr7KdmjXDR4pko8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403025; c=relaxed/simple;
-	bh=wjXWIDX6E9efo9SoSpjdI20BZtWXx7eS+3XUoeg9ZNQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bhWPAxu4YH3boioCmIjLs5cfZ0Q5P6rtqksnMGj4tWI4EPhFZQ9FcOrgoTIqOJAdGy1/8GwfV8GJ5gWVQMjUjbK2cWkRjKGegTNsLbId5zZdg3xi3EKBLNV8pd8hXnBED1xz5oKtzPc9MrQgmpx+pZCs1WlfKXxxSzk+BiLuc+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kzoGYgAt; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792403027; c=relaxed/simple;
+	bh=Pf5auVrKMgDnMWWbNxu/l4Lc3KB3RvGuDckatQ4rOPg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pgPX1xS4TabpPO3PYVjowvKU1aN3PnbDNytPmfijXV2kdwoPIKKJHWTvOekm3lSwPgNSVAxBj11p5z3gouVLh5kbhh0ycM/Ef7G3v/1q13IjnxEZFNqsf5QjDKmX2+aQwXE0ql28IqZl0Fhsa14yyImhmewVQziOxO2XfoGcUQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cz6njLRr; arc=none smtp.client-ip=74.125.229.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kzoGYgAt"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B27381477;
-	Mon, 19 Oct 2026 02:43:39 -0700 (PDT)
-Received: from [10.164.19.55] (unknown [10.164.19.55])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2A0C03F7D8;
-	Mon, 19 Oct 2026 02:43:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792403022; bh=wjXWIDX6E9efo9SoSpjdI20BZtWXx7eS+3XUoeg9ZNQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=kzoGYgAtae0nazZp7bpP9KyWhmuMn3GVItwvwoGbReeCO+g83J2C/FwjVqg3gdYK5
-	 oeHmWsJ7W14jhVHG3L1eZ4ixsojf/Z07R9Z5ntxW8WLBmXhk6N+dGG96jlP7OXeyaG
-	 zkAU0KehFADdXdCZubV6ojQ/bgMqg9GYgpeTcezk=
-Message-ID: <f4b8c610-abc4-4c0c-8d15-5d2de679a409@arm.com>
-Date: Mon, 19 Oct 2026 15:13:33 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cz6njLRr"
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-35adc681e1aso4272964eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:43:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792403025; x=1793007825; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=knrHyzES/QXTzztJhLzmWRpJR+Ay5sPD9k7TLCcmxn4=;
+        b=cz6njLRr26uzvJQnM2o1NsSJ9ZuB92ZxbzhPCjyjAw4PilfbmQ17Kpa5UThDuSblUY
+         QekfGhmB4o/PFjeWgDj2dVA3uoOlwBlKUU5g3HcJkFooVBvaySyg58GZ6EVDPp7/5Dyc
+         z+cZu/8pQkg44ad6wsIR0XftKSnnOH7Jto+mpYX386u4EfhHLvwd876U0Xnw/5/assbW
+         Rju2jEkW92ilvS0n9JiQRctJd8i1J8W+gE8edsq0OefbMf1d7qfYXnOJD96yGHOzqjW/
+         znHjtm4I81DzFBeOy+dYsxF6D1fwY22wW8zL17GUXCdxRMVv3sv6O4kutTObevmWeFFM
+         wUhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792403025; x=1793007825;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=knrHyzES/QXTzztJhLzmWRpJR+Ay5sPD9k7TLCcmxn4=;
+        b=TrPJR1+DtksC79kliUpiecuP7Fb529PomY52LlVVnbDRuZebFOHZ3koFQtIOcRXqRU
+         /vuImdbbB9kZtmlCjQ8IimlcgJ/xvY3O/mzHdwEUVb3BzdAu5Zc2P0oqsHdTym1j7NyL
+         zNcO4JMEu1gufJP647Y2PGbqpJ6FQf+DO/7LCr55XwR+X+2yxxP7M1scPdHUrFoY5He0
+         Onp+1QenVFwBx5i6/DdjiZSY9/vXGkJXO0oK+L04zVq+K1Lmc9yExpof/rlHzSgxMLGy
+         9PHqupNUgKCeH4UOXyVKndpmfeYVlufJbTPi0SnXHdI/lwBakE46nRedAx0Yzf9PvZ8L
+         cdgA==
+X-Forwarded-Encrypted: i=1; AKwUvBy0LeuhNdDlWIzuB/90YgfwdVH18Rby+CZENXb5tBUt/U41W42G6g+hrAI86kFwX7HU6H3peH0VbEcEy/U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+p6x8YU+hv60+3CjnLg2K8p28Mll03kAi/O76G0PkdjHUAkPY
+	d9ZfaSJHICgHCdPJoif/qsaBbqgs1tCE1bhcEupE2aYuF8S6XW4FqBEY
+X-Gm-Gg: AYBFou2xi2D4QWDWuQjdycGkjcNqdDd9FTG/bM1loZ7LzsOzZgvxTSOvnL279LctfhS
+	EQMw8RXPflFUtC3c1IA43AWXOZt8ObTcWDTAjOClR+dCEu8+rFpG3/7PUti/5Co1/a0vDsRYdqF
+	FY0Qe/20ybDbOqI+cHvgJJydt0BkId1RZ7lFcYpPHouudtOpn3f6tZbIDrgE5AveZNEuXyFMTID
+	aNyI2elsG+KFbJoatfxEQLNk0cI04/kc6Z9j/cWgolF09nyx0Wc0AF5RUXGm9IhSWihN7p0ZXhU
+	NxNTEAWAAAQx/RYtWUgZg9btSd6ZnaLmoLLsrZsmcS4s8CqlIXouI9cYMlVtpIomszP3ZeDI/Bx
+	WwvOUyB1MQy8B07r980QSxCnqDCRapWhGJNVbxNjGzhJKcdAPDgbTRHg17k0D3NQoWaZBVTiGe5
+	s4NRmdFdDuGz/3jlCLd7G4nq6plJUJpgJQUgVAtoBLg0vwS0PHfOW7jA0XWFCZokAtaYgMmvCm9
+	jfrBXfe82F5YHNqNVQC9ll/8EeXfiCyNsYO
+X-Received: by 2002:a05:7301:2727:b0:35d:a10d:11ef with SMTP id 5a478bee46e88-361a186599emr11742279eec.11.1792403025311;
+        Mon, 19 Oct 2026 02:43:45 -0700 (PDT)
+Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607bc950f9sm34370074eec.0.2026.10.19.02.43.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 02:43:44 -0700 (PDT)
+From: Yao Yiqi <yyaqia@gmail.com>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yaoyiqi3@huawei.com,
+	Yao Yiqi <yyaqia@gmail.com>
+Subject: [PATCH v5 0/3] fbcon: fix rotated font buffer handling on font change
+Date: Mon, 19 Oct 2026 17:43:28 +0800
+Message-ID: <20261019094331.1128871-1-yyaqia@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 4/4] mm: compaction: skip unmovable blocks for
- non-costly proactive mTHP compaction
-To: Bo Zhang <zhangbo0325@gmail.com>, akpm@linux-foundation.org,
- vbabka@kernel.org, david@kernel.org
-Cc: surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
- hannes@cmpxchg.org, ziy@nvidia.com, ljs@kernel.org, liam@infradead.org,
- rppt@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev,
- kasong@tencent.com, baohua@kernel.org, axelrasmussen@google.com,
- yuanchu@google.com, weixugc@google.com, zhaonanzhe@xiaomi.com,
- lipengfei28@xiaomi.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Bo Zhang <zhangbo56@xiaomi.com>
-References: <20261001001412.3837085-1-zhangbo56@xiaomi.com>
- <20261001001412.3837085-5-zhangbo56@xiaomi.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261001001412.3837085-5-zhangbo56@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Fix out-of-bounds reads of the rotated font buffer when the console
+font changes on a rotated console (fbcon=rotate:N). KDFONTOP installs
+the new geometry and vc_resize() redraws before par->rotated.buf is
+updated, so the old buffer is indexed with the new cell size.
 
+Patch 1 keys the rotated font cache on the font geometry. Patch 2
+rebuilds it on font changes, saving and restoring the whole cache if
+the change fails. Patch 3 retries a failed allocation.
 
-On 01/10/26 5:44 am, Bo Zhang wrote:
-> Proactive compaction scans all pageblocks including unmovable/reclaimable
-> ones. For non-costly mTHP orders (<= PAGE_ALLOC_COSTLY_ORDER), those blocks
-> are dominated by non-migratable kernel allocations (slab, page tables) and
-> scanning them wastes cycles: a small order is easily satisfied from movable
-> blocks alone, so there is no need to scavenge the few migratable fallback
-> pages inside unmovable blocks.
-> 
-> Costly orders keep scanning all blocks: they are hard to form and benefit
-> from any migratable page available, including allocator fallbacks inside
-> unmovable blocks.
+Changes since v4: save, clear and restore the entire par->rotated
+state instead of only the buffer; restoring just the buffer left the
+cache key describing the rejected font, which could make a later
+switch skip the rebuild and index the smaller buffer with the larger
+font's geometry (found by the Sashiko review).
 
-I think this is a reasonable compromise for now.
+v4: https://lore.kernel.org/all/20261019090206.1094958-1-yyaqia@gmail.com/
+v1: https://lore.kernel.org/all/20261014085102.497789-1-yaoyiqi3@huawei.com/
 
-> 
-> Restrict non-costly proactive compaction to movable/CMA blocks.
-> 
-> Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
-> ---
->  mm/compaction.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/mm/compaction.c b/mm/compaction.c
-> index 0ff454ee5604..deddf931d0f2 100644
-> --- a/mm/compaction.c
-> +++ b/mm/compaction.c
-> @@ -1404,10 +1404,19 @@ static bool suitable_migration_source(struct compact_control *cc,
->  							struct page *page)
->  {
->  	int block_mt;
-> +	unsigned int order = compact_hpage_order();
-> +	bool costly = order > PAGE_ALLOC_COSTLY_ORDER;
->  
->  	if (pageblock_skip_persistent(page))
->  		return false;
->  
-> +	if (is_via_compact_memory(cc->order) && !costly) {
-> +		block_mt = get_pageblock_migratetype(page);
-> +		if (block_mt == MIGRATE_MOVABLE || is_migrate_cma(block_mt))
-> +			return true;
-> +		return false;
-> +	}
-> +
->  	/*
->  	 * Background compaction produces blocks for the zone at
->  	 * large, with no particular allocation context. Allow al
+Yao Yiqi (3):
+  fbcon: Include font geometry in the rotated font cache
+  fbcon: Rebuild rotated font buffer on font change
+  fbcon: Retry rotated font allocation after failure
+
+ drivers/video/fbdev/core/fbcon.c        | 46 ++++++++++++++++++++++++++
+ drivers/video/fbdev/core/fbcon.h        | 19 ++++++----
+ drivers/video/fbdev/core/fbcon_rotate.c | 10 ++++++-
+ 3 files changed, 68 insertions(+), 7 deletions(-)
+
+-- 
+2.56.0
+
