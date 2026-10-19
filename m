@@ -1,102 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792428713;
-	b=TsOVCnmL1O8S34lwlu9VCKBjXAP/SVas9LY8h6uOh+F+KMZiB2bpNe9JjqbFf1o6tbP1
-	 4tWubCXFOXP4FgFWr4TOxJkPI7bKbctKuP3fWXg/j6aCf0yCvZ58gbSYZzrjiAkMwM5zH
-	 y1P6KWxDHErcjVDuIab7c9trYlp/MU+7sg10z9QWCxaPp1vyg0tVL46rTs66z5OyIUvhh
-	 9SG31/WMEVtQAQ7XRamfnRctO9wehWkpgst57nZ7m5RiEl2B/NIgUmLF/y9zHkL2Hb7lH
-	 rSHa4xJuG15rEB7g07mUx4ZBV+xyQ7oI5eY2fz/zPg59X7Yqz6Bty11qU6tizu9AQwA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428713;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=GGZr1o3aGctzMnwygsbHm91Fqbk3LTUuMaHfiMRf6n8=;
-	b=r0U0wXJXnMB4RqS+GIUO4/wtm0wf2ne71E6N/oMaSK087PAp6iMv9R96UzmsJsq3QycT
-	 WPVFrd5jYtWMosQm30KywU2392y7pR42z1aSucUUXwLboZBSoJwMTFazX4BLAgZB5A8lF
-	 qcW/qArsARCoDl4mfs9DQqbsBlqjGrhRHBld3tDjBHkR3LGmyHBYo+ydRidApw5lkgk+4
-	 fTr3TodepRUOSFbHJS2/6c1mjR/vUt+iDKZdqi9IQpIlVynXw6Khsd6KUVS9bKm/a0vBJ
-	 1JxGUap0yTK23fFboo23rifYpntvjdofdzBTWSY9s3lR0nFovOX026nJwXXr47WupiQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudflare.com;
-	spf=pass smtp.mailfrom=cloudflare.com;
-	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=EUsLt7ZY;
-	arc=none smtp.remote-ip=209.85.160.54
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792428733;
+	b=aBhZ/O/eP94TnADY5xvZBpsYOeRdObDFgF+Ru7i0oGx8T4nfYbnq4SB83TuhfdHx3VVd
+	 WzyPg4t02THNdrAlGdYT4v8hXTRCMda+iKklqckM02y8wJrKl/3ZhWe8hlbnEYxKKqR7X
+	 CzS5vwYRK5EPv0KhqDc3H8a8SyQ70InGbP+hOpUA76CP6GOwlwHHwOn7MQsu5dSuOv7Px
+	 AzBOASLMPucsuQCZwMgC0ysud6Qkwva7jdLQMbsli3Ikw7AXgWUrSkZU64YfV68peQB6k
+	 TCs4bl+JtUEBuN4ZA+WVv/coUc6iyGj75IjdJLb6XsOtMf0TFFRn/roa5VqsDLAPP5w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428733;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fu5voAbElW63uM3SAR19Q3o+cbRKHCuYO8s3mZwbL2I=;
+	b=qrobpyiuI5pU1S2JecztFeRBXXIABvFQyvYIrn1s+koA/XJahdVFc8GEfCisrCDR+xd2
+	 FbBh83YFs+KYlpfm8jAHSeCjiku1oI3clmU7DfFVYgwvxQ7iCw3nHGPjNtSFPbK+zx/rl
+	 5Wu5xeBqGzR/8UXGrmW5cd2quZt5U7h18CtlCd0wyLP13PynizwxLO90iWrHVXW04hSkW
+	 hwXwg51Zgt+FILZdRD7m+QImfIKx6QIwPyfKYpvMpr8ykdRx4lysUK4ruetQ6KloLYcqz
+	 ddj25tT9TCTMUGqX44SWSWr0G4th2V3a9tjsklNGNW2cM4lKmv95rud9/NiclQn2zbQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nokia.com;
+	spf=fail smtp.mailfrom=nokia.com;
+	dkim=pass header.d=nokia.com header.i=@nokia.com header.a=rsa-sha256 header.s=selector1 header.b=TR3uh8vY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.53
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011053.outbound.protection.outlook.com [52.101.57.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D75606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:51:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93D75606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7FD606A31A;
+	Mon, 19 Oct 2026 16:52:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F7FD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=EUsLt7ZY
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-43bf9548df4so2161957fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:51:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1792428711; x=1793033511; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GGZr1o3aGctzMnwygsbHm91Fqbk3LTUuMaHfiMRf6n8=;
-        b=EUsLt7ZYqcow/jOpknGbgQQ0c4KxNjKZ1Nc1GdO7VOBwb2g7S+Pk6l+/v/T2BDKmUE
-         cra+UEnGQnuPqaw9rv7n65snT4N3J8c/p7kGVNvT9YcYKTNJn0Kt7HlVVIFQjM07QKRR
-         dun7gyYqekqsArEHSMfzpio6eRx90H6l5NKSMpXls/eR7yJKQzwPpFz2aJPtX62sQ4UQ
-         qkm5HkmXwWKaI9rCmS3kpsbsWZGCNLNTLw2lmDKf4QLwwDbAKgX3vivV8HiBUpOS6NPm
-         n8iV308M1uts+672F8yrAzSx5fKIiMK01whwsfrXGS2Neqw6mfa3eUYNb3aH6H3jFPnf
-         hmJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792428711; x=1793033511;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GGZr1o3aGctzMnwygsbHm91Fqbk3LTUuMaHfiMRf6n8=;
-        b=MJghM2zfIGzNZiWVAclaZ2HtNsZB0er/zB/o0CdM9hDQPydAZFXsEEbRFg7oC31pj8
-         bwJuGPQhlz2bYAFa0kf22bNeN+CXABXc4eppK79C+YZ6hwDSUrhJiPTf8Cu+ZJEUEvcI
-         BTx4jcDdCQejRDTIgRLObfW5Ocv0dYiq5j+xPfrjDAUCeoWt113+Px/hGep416DjzTqz
-         UZ5L6FyounR5Xgu19HokZxENoNFMyUq0O2nKiyDSAcLskojesiBv3/ee2EyKptxR0Tew
-         A4V/1aJtYtCfsLTVfiPtev6qFXIFf8wT9O7UotQbEkPUqZBx0etp7+YfO3OoABHdYvEd
-         mcqw==
-X-Gm-Message-State: AFq9FYKORuru46/kqXMxhzxg5WDzQbbXqsqWIBziTluO1CkKdA3W0Ef2
-	9qN7ofl9HcBG4P9FmuWlEqILu0fMEoGWnuGyi/u2ucb8rcCwVOlZyetGJvCjhLtoGHmMAZhapIf
-	7AZ2nSVBPRw==
-X-Gm-Gg: AYBFou2K5MlWqgE1folMajcBwIPGTxbGgToNFrDcH0JZ6JY+R+7bOIBR/FOylXxkeHf
-	1by8jopABzbXsDfGGo0f8d2I9Ih7TX9K+mApk9zPIwylLFgmkMBcx2PbXA7rr/FgImMA3bCDR9F
-	mueiSaowi8fWFy0MlIs1o/nvjmH75c8zF+pxXPceBKf+DY/GmnH4+T6ZoRkJopeQvvRNy3xB7N/
-	HttL5d6+PTe4l3NTZKUQrftoRG94iKmoL3J3986eoJdrcViZQdjWA2na+6ByvtX0D6iP0uwO4N7
-	hHtvKMZechjthxRv+2Eec/lQIZ/HUDCOkl2UEnJkpqi9JBxF49+Navm/DqRVjlIRqe1TrkfEJV0
-	MsO+lmY/jxJ9j+6K2e5v0CvwP3e9M9EBNxihHZRbzZnkZMDg79TyAqwcIdygePOmVk/hLN1H9Gv
-	th7lZTOt69Crq4fm+/9yDQbmqkcSdCZxGeN5Z0lGsKzRqaVUDmHvH69Z5tc9dqaSNY9WV4euJHq
-	YEXFANrY8ZqCF7SYz42uYFqSODWnHmjG9g8s00=
-X-Received: by 2002:a05:6870:3c13:b0:494:b8f4:9a22 with SMTP id 586e51a60fabf-4a757917efemr6305805fac.28.1792428710995;
-        Mon, 19 Oct 2026 09:51:50 -0700 (PDT)
-Received: from 20HS2G4 ([2a09:bac6:bf21:1c64::2d4:c2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a73b640adesm8785424fac.10.2026.10.19.09.51.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 09:51:49 -0700 (PDT)
-Date: Mon, 19 Oct 2026 11:51:46 -0500
-From: Chris Arges <carges@cloudflare.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, virtualization@lists.linux.dev,
-	Max Krasnyansky <maxk@qualcomm.com>,
-	Rusty Russell <rusty@rustcorp.com.au>
-Subject: Re: [PATCH net v3 0/8] more virtio-net csum hardening
-Message-ID: <atZKogiEAkStdgQ2@20HS2G4>
-References: <cover.1792411304.git.mst@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nokia.com header.i=@nokia.com header.a=rsa-sha256 header.s=selector1 header.b=TR3uh8vY
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sWlHBi9tUBLSRTTnQqznZ2eUISK5GGbWmr6q71JU+hyMbQeFvIXwFavcLz+N3mo3uoNHomZIvVxrfxIg3lAcUMWzYHrH3dF6P2lhyiZ3CIlvivydqJ7yTC+WhicfCTkTwyiUo3GzWDqWrAjRrtHAdutIxx/ZuCtfisd7HVd1uPM6r5I+Sq+eiOy7z1iJ5DQl9+EDZjwEI/jFgfPJ/hoIQylR01UmZfS0P0CFE2V8ONHaVed5gl3tA3lfiUghhdJfeKjTk4yrDGf7Dm/zF8hfK7/xn14hSCms4G/O0L3tJngOz9iBghgYtE7sn2hmlYLCUq1a2WXsIkHAZFRrkVnQqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fu5voAbElW63uM3SAR19Q3o+cbRKHCuYO8s3mZwbL2I=;
+ b=m2Sl54m5IQrIjLpeEdWU9leMl4ywmg/FKX98/E/NXhWM47INy1W/Hz7YvyZVWjZfraXqxNg1pfRZhNx2lKHuUnXoFXJqKAPxDFXJSQugZSoPKY+mtdquGQUi3SJ8yPETpL2+MuoJkGvt+osFUkXz5gBh+GQjwh2nfMFbG98OOpVYWxXhdZ0nv8xRPAIIg7k/sN7KG7lwhxlrd0FeaeKu3K0CyG4hhEh0ZoQLdbaydlYJX60YGIH1wllQ/V7pEgc8ouI/haKgN5anL9Yy9TzxiQi35+DBnsGvEacO85NiWuWVDUohca4JVwCeSRf50t1yZxatSWmcRql1SfssNK2srA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nokia.com; dmarc=pass action=none header.from=nokia.com;
+ dkim=pass header.d=nokia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fu5voAbElW63uM3SAR19Q3o+cbRKHCuYO8s3mZwbL2I=;
+ b=TR3uh8vYm2VnQ0+M+4Vd3VV38MAIcjOGuvcgomfxxmm7bJ8qwp042zAC57ndaDu1YXnAdNSGSwphIIS+AesJ/ZGEWpcKb432jFHUrI3KRlQZjei1mOBmVEFYtXICcZ4rPxPjJ0PBmUwx3zIlByTFcmEojD9IkkIQWwpN49vAwYO3D38cH2sRnZ7Rm68aH1HG6fZv+UHFNhEQTijwK7jCU403+q7fvcgnFGlBCIY9ofLbMazLX979xQLtmDslNNrHgy83ANYf63gDozpr9r2+ITauQ7j+Z+hZwDtygjyMB4j+Pfe6638GuldhufwBmOZdyie7rzmKH8oLiO2sCN/ovQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nokia.com;
+Received: from BN0PR08MB6951.namprd08.prod.outlook.com (2603:10b6:408:128::14)
+ by CH1PR08MB10740.namprd08.prod.outlook.com (2603:10b6:610:2b1::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 16:52:04 +0000
+Received: from BN0PR08MB6951.namprd08.prod.outlook.com
+ ([fe80::4dd1:e1e:56b0:b178]) by BN0PR08MB6951.namprd08.prod.outlook.com
+ ([fe80::4dd1:e1e:56b0:b178%5]) with mapi id 15.21.0496.015; Mon, 19 Oct 2026
+ 16:52:02 +0000
+From: Anthony Pighin <anthony.pighin@nokia.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Hans Zhang <18255117159@163.com>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] PCI: Don't read config space of disconnected devices in ext cap search
+Date: Mon, 19 Oct 2026 12:51:59 -0400
+Message-ID: <20261019165159.1268120-1-anthony.pighin@nokia.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CH5PR02CA0007.namprd02.prod.outlook.com
+ (2603:10b6:610:1ed::29) To BN0PR08MB6951.namprd08.prod.outlook.com
+ (2603:10b6:408:128::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,133 +96,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.1792411304.git.mst@redhat.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN0PR08MB6951:EE_|CH1PR08MB10740:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6165f1b1-f904-41c7-9456-08df2e014c2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|18002099003|11063799006|10067099003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	EglmbGSFIRbW13s4N/07QMRgfC+NCK0ReDRBeIcapcZbUD78Vya9tNYmQmeHfPVh7dRE6psltjuEnrzPKeWTE0UJ25RYgKb7KYeLnfPyEFNbYRItLO8IP0Hlj9z/w8UQD8UXTGwTH8B+p01jCzNsUHIZYEIiw5Rc+D3w21zf32JjUIVklhPGuXskO56/nxSBA/XNSo52s2gcobrY4VBw6b4Q7RKnZUnUhgrGWxs0/w4oeDE4qYyje4pJQkyBWwnyYOLc52QhJr8pGmHoHJ2sRK5h/KNXLWEfoT17WUYfhJIkttNShcdlkBe2mm3WTSVdoWxXx2DzRuSKMkswn/nRD2WXRYGNTzD2WI9OJb5hQYvBjVCAWPd1h4b0ieYbJXalshAtEDeGzrHDXgKD2ftTH5PrwB2QxhLg2xuxZYtBqsWqdT4TnFIYEup1pvGO7acGUP6ggkLW+TQfPlY6Bn/K4rsg/fEfyqxiCopMA92mRgFWoZkG88JmHmbtsHQAGHUpcoInzP65ZQDsc/19nTDq0bDp0Tahpnf06VdWbaTrS+kxQnbcwdNWJ2Oks3p6uo0nPhFhrcRClPJ8Gbm978duHTu6sZo1WPAFgwOkU0r0Gbf06a8yA5QbIQcwMA+Gs8BNcvIiTvCc5pHO4kSU/vx8qGQr0Vc4onMnme9lQv0PLok=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0PR08MB6951.namprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(11063799006)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Gn0DBgBuBLEiJF8VxN7WcdcpXB0C86/QQkv++H3iHBEztg5JDI7snXqRbEOg?=
+ =?us-ascii?Q?WeX35ume60JV6Sqbn81Qz1nNB/QraXlJA55NtOP7y1UtKEW4SDHFqNsMFSgQ?=
+ =?us-ascii?Q?XNugpWAfAbKtedSJ85m39jT5/5cR1YYGkgvau9UzAT2T3/aJ8CfYLVr7bark?=
+ =?us-ascii?Q?lfb5DW88e1wBwr9BpGj5EbMIRjb6lMwY/0t+k+C6dWYe0/JXBcHSaPQf9uS0?=
+ =?us-ascii?Q?m6ysznIkIVpl5RcOP4lYZFN4aCQcBb31FXbOqKCRsPfoKPA9CBJYrYiGZ/yv?=
+ =?us-ascii?Q?H2ndQjz5byQkrkuY14o/NaUJHBic0UXUIk90D7IRdIsBuvfDyoQHDW+1m53E?=
+ =?us-ascii?Q?wMWanyt+42LtGsYpWwug8iICjtPUuhLaY0GPk47JNnQQsw2Uten5D2Sx5ctV?=
+ =?us-ascii?Q?pnMFlhu6XFB8lMPGTUz5ZA29RxN/8Ais/JkcgnvqS8YUtPnLRtGdk5m3I/+8?=
+ =?us-ascii?Q?cVQCl33/BqCwgMj378p0zELWOtlNVgnv6MI/8wqAzbk/K58+Yj2V3uHF5D9p?=
+ =?us-ascii?Q?HxONXQT0iR4BibgbfnJabkvK7l7vSa8bY0GYsAyX5o8UgyolHjuyXeqC0M7J?=
+ =?us-ascii?Q?M2Y2KMjts8CRf5zG4RlgoAaUK0nigfRMAgM11dM030oe1od3I88O7XJM/gwg?=
+ =?us-ascii?Q?4rUaZQaXz3a1Cf0arpJAyWC+JnmQ5DESF7muKhYzGdjOMU9QhLdSQl2t4IMC?=
+ =?us-ascii?Q?vafnYUtkqH1xwO9X0NU2N8IciETY3b11Udcam09eWEsli3cUtPucglaAFO80?=
+ =?us-ascii?Q?KDbUXUq2EpnGn0+MAsC5cR4CsvofcolQaOJbZFff/TiT7CQvY3Je7YRn/dP5?=
+ =?us-ascii?Q?TsP7LtZ7+/i16fdOCf7B2SECUf5zVA6ATsq5Zz3pDMWTi8l9uHu6p93gyNs2?=
+ =?us-ascii?Q?TeqieoXfxoDIavO30muyJ3jwigFPs0sxQbz7pmaikUd2ohcRJYfzSUB67uT1?=
+ =?us-ascii?Q?0rmbgzrmFCjKunQYXzMfS/OmmYq3OgfIDmfLTGXCgkSzKC3MvECcmFRNgpMh?=
+ =?us-ascii?Q?PW0NdnaPLjv3S++82P7lSOfpEyPxo1Y2L3WQOrj+6MAh1flCjUlyvcXUC4Zq?=
+ =?us-ascii?Q?nuMA7GBFPqfhxmWXFyPXBx48RkvRIFeGJflMTwxbJsSieaZaBav2hAZs3mmi?=
+ =?us-ascii?Q?J9tc2LskDvXjON4RjEfAKVoZ50poXwrqwoOe4M/IFxWzyy7PgCmUAuc3M6Kj?=
+ =?us-ascii?Q?nfUf2/P/fv6m6alA1vyBtrFwgI493dgXVH6+xuvywgDdlcmfsY6w1YIZLVEi?=
+ =?us-ascii?Q?xHIo95tzCVDg3vTpHo6eyqhUzPVxifdHC6HKgHwGIM18eUDZJDoc5WWvtiWR?=
+ =?us-ascii?Q?QVJRlUAFkEAv/8T684Cg+ZIk8MosOZ1yOsoGwDpU03V2U1z3oTs4u99UpE2P?=
+ =?us-ascii?Q?MGjrWSHKyowflUQXu2H1UxIJ2VthBxBE9yA2gYqDte38yY+GlQ0oFy75xFo0?=
+ =?us-ascii?Q?G7QhQ0b3+SuuubyA4HT6axaEMiNOsds0YP+lLwZbXxLBmKuXaJ1k4mEPjfSN?=
+ =?us-ascii?Q?H5twEb5D/CK32aFv2BhPrKLqbvYRSCroJG2KKKPTvQYIkZXbHNzq/l9VDvHt?=
+ =?us-ascii?Q?l1iTBLc71LCxgiUjufqsPczZhqLqNQBBACRCUX27J7Zj0OH9+QLoEh52XMa2?=
+ =?us-ascii?Q?YHF4e6fD2WAwPZYZIPe/wZsoDjEpHd4xp33kZbBSEcEG29ZzAhZdRmPLRyIC?=
+ =?us-ascii?Q?i741og6tvZJmZcO6KCWNEzTkLfLd3NF1/QujnIIwRbC4e32n2CsChpyVr6b6?=
+ =?us-ascii?Q?bP1LMEmuBA=3D=3D?=
+X-OriginatorOrg: nokia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6165f1b1-f904-41c7-9456-08df2e014c2b
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR08MB6951.namprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:52:01.9433
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jJPTvTMKUT8EO/pjzaUoop0B0kHkVY/5JHZus2bdMPbPxgwWdAntgYTdSmHhWixWLKEO8A/MsoX5zxYOxGiuWw7n0RHX2tMVKO5l7l6M/sI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR08MB10740
 
-On 2026-10-19 08:03:00, Michael S. Tsirkin wrote:
-> 
-> As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
-> others, credited below, found more ways the bug can affect users):
-> 
-> allowing untrusted hardware to specify csum start/offset for
-> CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
-> outside the actual checksum, and depending on the setup, the networking
-> stack could be looking at the packet both before and after the edit, and
-> seeing different results.
-> 
-> Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
-> completing checksum") validated all known instances where this
-> causes the most grief, but the real fix is to make sure
-> that either only actual checksum fields are ever edited,
-> or the checksum is completed before the net stack looks at it,
-> so it is always consistent.
-> 
-> 
-> This basically goes back to
-> what we did before f43798c27684 ("tun: Allow GSO using virtio_net_hdr"),
-> except in a narrow list of specified known good cases.
-> 
-> 
-> Summary of the patchset:
-> 
-> These are definitely net material (and seem to be too big for stable,
-> or I would recommend backporting there, too):
-> 
->   net: account for ingress-resolved virtio net hdr state
-> 	- accounting, not the fix itself, dependency of the next one
->   net: resolve uncommon partial checksums at ingress
-> 	- fix itself
->   net: add a sysctl to opt out of virtio net hdr checksum validation
-> 	- reducing risk of the fix by adding a sysctl to disable it
-> 
-> These are cleanups, can be deferred to net-next, too:
-> 
->   net: add ip4_parse()
->   virtio_net: cleanup protocol calculation
-> 	- cleanup resulting code duplication
-> 	 (kept separate to simplify backporting)
-> 
-> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-> 
-> Changes since v1:
-> 	- reorder patches to fix bisectability, addressing
-> 	  a comment by Björn Töpel.
-> 	- code refactoring, different patch splitup,
-> 	  a sysctl knob to disable as suggested by Willem de Bruijn.
-> 	- fix a bunch of minor issues spotted by LLMs
-> 
-> 
-> Changes since v2:
-> 
-> virtio_net: parse tunnel csum_start little-endian
->   - new patch. correctly parsing the header is a dependency
->     of validating it, otherwise i do not know what to validate
-> 
-> net: account for ingress-resolved virtio net hdr state
->   - make rx_csum_sw counter 64 bit so it won't wrap
->     (spotted by LLM review)
-> 
-> net: resolve uncommon partial checksums at ingress
->   - tunnel fixes to bugs noticed by Willem de Bruijn and
->     Chris Arges
->   - restore the csum_offset checks as suggested by Willem
->   - parse csum_start in the tunnel header little-endian like
->     the rest of it (spotted by LLM review)
-> 
-> net: add a sysctl to opt out of virtio net hdr checksum validation
->   - the knob is no longer writable by root inside a user
->     namespace: changing it now requires capable(CAP_NET_ADMIN)
->     suggested by Willem de Bruijn
-> 
-> net: add ip4_parse()
->   - comment converted to kernel-doc format (Willem de Bruijn)
-> 
-> um: vector: honor virtio net hdr conversion failures
->   - commit log tweaks
-> 
-> New patch:
->   um: vector: trim skbs before verifying the header
-> 	found by code review
-> 
-> Somewhat tested, tunnel also tested now, um part compiled only
->
+Commit 4d909bf1a53e ("PCI: Refactor extended capability search into
+PCI_FIND_NEXT_EXT_CAP()") moved the extended capability search from the
+device config accessor to the bus config accessor. The bus accessor
+skips the disconnected device check, so walking the extended capability
+list of a device already marked disconnected (surprise removal, AER/DPC
+recovery) now issues real config reads to it. A dead device returns all
+ones for the first extended capability header. That decodes as a next
+pointer to the last dword of config space, so the walk keeps re-reading
+that dword until its TTL expires, roughly 480 config reads per call.
 
-I was able to run my tests and can confirm no more KASAN errors. I did
-not test the um patches.
+Restore the device accessor so the walk stops without touching hardware
+once the device is disconnected.
 
-Tested-by: Chris Arges <carges@cloudflare.com>
+Fixes: 4d909bf1a53e ("PCI: Refactor extended capability search into PCI_FIND_NEXT_EXT_CAP()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Anthony Pighin <anthony.pighin@nokia.com>
+---
+ drivers/pci/pci.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> 
-> Michael S. Tsirkin (8):
->   net: account for ingress-resolved virtio net hdr state
->   um: vector: honor virtio net hdr conversion failures
->   um: vector: trim skbs before verifying the header
->   virtio_net: parse tunnel csum_start little-endian
->   net: resolve uncommon partial checksums at ingress
->   net: add a sysctl to opt out of virtio net hdr checksum validation
->   net: add ip4_parse()
->   virtio_net: cleanup protocol calculation
-> 
->  Documentation/admin-guide/sysctl/net.rst |  19 ++
->  arch/um/drivers/vector_kern.c            |   6 +-
->  arch/um/drivers/vector_transports.c      |   4 +-
->  drivers/net/tap.c                        |   4 +-
->  drivers/net/tun.c                        |  41 +++-
->  drivers/net/virtio_net.c                 |   2 +-
->  include/linux/ip.h                       |  27 +++
->  include/linux/virtio_net.h               | 272 ++++++++++++++++++++++-
->  include/net/netns/core.h                 |   1 +
->  net/bridge/br_netfilter_hooks.c          |  15 +-
->  net/core/dev.c                           |   6 +
->  net/core/net_namespace.c                 |   1 +
->  net/core/sysctl_net_core.c               |  60 +++++
->  net/ipv4/ip_input.c                      |  13 +-
->  net/ipv4/netfilter/nf_reject_ipv4.c      |  13 +-
->  net/packet/af_packet.c                   |   4 +-
->  16 files changed, 445 insertions(+), 43 deletions(-)
-> 
-> -- 
-> MST
-> 
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index d79d2ee4ac69..908d2273466b 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -519,8 +519,7 @@ u16 pci_find_next_ext_capability(struct pci_dev *dev, u16 start, int cap)
+ 	if (dev->cfg_size <= PCI_CFG_SPACE_SIZE)
+ 		return 0;
+ 
+-	return PCI_FIND_NEXT_EXT_CAP(pci_bus_read_config, start, cap,
+-				     NULL, dev->bus, dev->devfn);
++	return PCI_FIND_NEXT_EXT_CAP(pci_read_config, start, cap, NULL, dev);
+ }
+ EXPORT_SYMBOL_GPL(pci_find_next_ext_capability);
+ 
+-- 
+2.43.0
+
