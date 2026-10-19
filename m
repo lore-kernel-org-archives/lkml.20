@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD175649E6;
-	Mon, 19 Oct 2026 13:57:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA63565E40;
+	Mon, 19 Oct 2026 13:57:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418256; cv=none; b=Svo3EXtUaIuFHP1B45uOXIvvb+LJK+kmoADlbJpn9rK0ljTRwZfSUWE5YJyEr72Jh6xC7RN40LaTWW0mxqSfIXuxM0ZUQgQ+SgsmQxVbu9SXuME2WOh94/8ta/U+qSVq9Hc99D2pDBDHPIkag2dDRbZ1Vg3qgsSQcWFfQHZEIzo=
+	t=1792418258; cv=none; b=Y3kmtWowbKHgp0oGo7aZOtiVMntj+RSMuR2uhjxp7+TW7gBj1jgEzQYehy1d71rX3fsgmq5dDKaDP2dY05tVnDwznuaQRVUoKgohrAxzn8XJpc7Rukl1xw2F0lPXfW9vcbx5HBHZKTOVpaOpIyb5fdbbKY1bZmm1RIyS5SoAr2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418256; c=relaxed/simple;
-	bh=BNhNsQmaXwNiVrbxLU475n6RzUFg9AVVU338Vk7f6R8=;
+	s=arc-20240116; t=1792418258; c=relaxed/simple;
+	bh=M5XM9HaoQiGM9BZJH+jPgXy2su8hIgg6upvggy9PP5k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DGqYUOcGOKMhpHbYpwsaH7foF5eYqV9Yws+AkFJnZUmJW4jgjcFh0eb9eoQYTYQd4DCk1qwS4apBp46BEL7XwvQEk/bXcuNzsBM1KOL7N8M8ab+j8UlAWsscbAQ/jB7nYnaI/g1Dy0YG9Zmv72LYPJOkgMg6jjbiwDLCTP9/Gq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8NtNGoA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cQzUvCYw1cZeH8foTYqylV2fA5/twwelOFDL/q15OPe3N7cOVKFO+oqUWGBqqr7nW0scVKATRl0COBwZlUJW+e/IV8hKnU5Cl5npQQzzi3t8+oc93M9poWdIijH0HH8qBPOiUUzLipI6c9EpeQBAJa7oIArrJESMvwOswtIYrUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDoNx92P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8NtNGoA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42C211F000C7;
-	Mon, 19 Oct 2026 13:57:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDoNx92P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D69FB1F000C8;
+	Mon, 19 Oct 2026 13:57:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418253;
-	bh=n7+Oe27eSt/CYawxJQEUCht00laB/j73DqAE8wC3WOc=;
+	s=k20260515; t=1792418255;
+	bh=aMcfynlMOHxkyjhDuUZ8R9aOY86TSgCExMN0NKpOhlE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D8NtNGoAFZ0TCZ6QZKcy3kPtd6jlKC+Q2GKoojRYOFRD6Bv+6wrvg4mV1jN+1QkbR
-	 JKkYO5n4+nwiZSbiVLLefK+dT913itaShCeezg/xSBdIQu/S1M1RjBuVGLsHgA7E06
-	 KdeVbLb4O7i9WJobThb6Rwdw8i12LsnO1aQuNZVqKZ6s41BsTE3Az3aNtqZXCc78bm
-	 caNjghOAvYVxbkOYe2ygfHpaqcNzURLFu4srffyRxEvkZaHmQPrRGNgwrwUmPSXVxj
-	 eosrroJR21F9fSG3WcHoFY6I84mVoeBMOBl5r0hQhqDKdteQBFiMutX8m0Wl+Z8wgg
-	 QaKiQ9Toj4Ozg==
+	b=VDoNx92PDxyJlMtJaAEtWyx0DQcNk8BOPisLn1zZ91DLR9j8d4hvW77xqFRnxHdur
+	 Van+w9MJF8QEhTz/4IK/K32IJNUeh12/TeHVvzG34Y1wJt5Cq1KdnIwG9mPXK3E5Fv
+	 sHyb2iWG4+0l/CySFVwgzApXtcGW8XLPlKwBD1Moj9T43aPnDRBt2f0cJXQxqlwvD4
+	 kZ+IcJ+2Huxu00zFDjdG/p8RdGuCagZY4Y9UN2MUkKe86mzxoOPDmd9xzEENFwdiXT
+	 AygALZyLbMyRGNzqHoW2r8p07N04uzZdp5GVI2EcLtvnLQqgKrhj4qX+GfwkgRHtm6
+	 oCBvaY5dhL1Fg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: liulhong617 <liulhong617@gmail.com>,
-	Will Deacon <will@kernel.org>,
+Cc: Even Xu <even.xu@intel.com>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>,
-	catalin.marinas@arm.com,
-	linux-arm-kernel@lists.infradead.org,
+	xinpeng.sun@intel.com,
+	jikos@kernel.org,
+	bentiss@kernel.org,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] arm64: mm: fix accidental linear mapping of no-map reserved memory
-Date: Mon, 19 Oct 2026 09:46:52 -0400
-Message-ID: <20261019135441.1420968-121-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] HID: Intel-thc-hid: Intel-quicki2c: Fix buffer overflow
+Date: Mon, 19 Oct 2026 09:46:54 -0400
+Message-ID: <20261019135441.1420968-123-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -47,494 +49,401 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.57
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: liulhong617 <liulhong617@gmail.com>
+From: Even Xu <even.xu@intel.com>
 
-[ Upstream commit 7ace06a01efaba1ec585630aa4c98ac39b38452a ]
+[ Upstream commit 5e5c3b9db1c5910d6a9175c97b76a95566e4dc32 ]
 
-When reserved-memory regions with the "no-map" property are not
-page-aligned, the kernel may accidentally map them into the linear
-mapping, contradicting the no-map semantics.
+The input and output buffers are used to store complete HID-over-I2C
+packets, including their protocol headers. However, their sizes are
+currently calculated from the payload length only.
 
-The root cause is a mismatch between /proc/iomem's address boundaries
-and the actual page table mapping boundaries:
+Allocate enough space for both the payload and the packet header to
+prevent a buffer overflow when the payload reaches its maximum size.
 
-1. /proc/iomem derives its ranges from memblock via
-   memblock_region_reserved_base_pfn/memblock_region_reserved_end_pfn,
-   which perform PFN rounding so the displayed boundaries are
-   page-aligned. This gives the impression that the no-map region
-   occupies whole pages.
-
-2. However, memblock_mark_nomap() splits memblock.memory regions at
-   exact byte boundaries (memblock_isolate_range preserves raw DT
-   base/size with no alignment). When for_each_mem_range iterates the
-   non-NOMAP regions adjacent to a no-map region, it returns start/end
-   values that are NOT page-aligned — they are the precise byte
-   boundaries from the memblock split.
-
-3. These sub-page-aligned values are passed to
-   __create_pgd_mapping_locked(), which does:
-     phys &= PAGE_MASK;
-     addr = virt & PAGE_MASK;
-     end = PAGE_ALIGN(virt + size);
-   The downward rounding of phys via PAGE_MASK extends the mapped
-   range backward into the adjacent no-map region, effectively
-   including no-map memory in the linear mapping.
-
-For example, with 64K pages, reserved_region@A2000000 (base=0xA2000000,
-size=0x8000, no-map) causes for_each_mem_range to return
-start=0xA2008000 for the next mappable region. After phys &= PAGE_MASK,
-the actual mapping starts at 0xA2000000 — the entire no-map region is
-incorrectly mapped.
-
-Fix this by rounding the mappable range inward to PAGE_SIZE boundaries
-before passing it to __map_memblock: start is rounded UP and end is
-rounded DOWN. This ensures the mapped area never overlaps with adjacent
-no-map regions. The cost is at most one page of unmapped gap at each
-boundary, which is preferable to violating no-map semantics.
-
-Signed-off-by: liulhong617 <liulhong617@gmail.com>
-Signed-off-by: Will Deacon <will@kernel.org>
+Signed-off-by: Even Xu <even.xu@intel.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This tree is **6.12.111** (`pending-6.12`). The candidate is
-`7ace06a01efab` (“arm64: mm: fix accidental linear mapping of no-map
-reserved memory”). It is not in this checkout. The buggy path is, and
-the original patch was written against this `map_mem()` shape.
+This is a two-line allocation-size fix for a real HID-over-I2C buffer
+overflow in a driver that already exists on this 6.18.y tree. It should
+be backported.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: `[arm64: mm:] [fix] [do not linearly map sub-page-aligned DT no-
-map reserved memory]`
+**Step 1.1: PARSE THE SUBJECT LINE**
+- Record: **[HID / Intel-thc-hid / Intel-quicki2c] [Fix] [buffer
+  overflow]**
+- Subsystem prefix: `HID: Intel-thc-hid: Intel-quicki2c`
+- Action verb: **Fix**
+- Claimed intent: prevent overflow of HID-over-I2C input/output buffers
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-Record:
-- `Signed-off-by: liulhong617 <liulhong617@gmail.com>` (author)
-- `Signed-off-by: Will Deacon <will@kernel.org>` (arm64 maintainer;
-  applied to for-next/mm)
-- No `Fixes:`
-- No `Reported-by:` / `Tested-by:` / `Reviewed-by:` / `Acked-by:` /
-  `Link:` / `Cc: stable`
-- Absence of `Fixes:`/`Cc: stable` is expected for this review and is
-  not a negative signal
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+- Record:
+  - `Signed-off-by: Even Xu <even.xu@intel.com>` (author; listed
+    maintainer of INTEL THC)
+  - `Signed-off-by: Jiri Kosina <jkosina@suse.com>` (HID maintainer)
+  - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+    by:`, `Link:`, or `Cc: stable` (absence of those tags is expected
+    for this review)
+  - Pipeline-only tags ignored per instructions
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
-Record:
-- **Bug:** `no-map` reserved-memory that is not page-aligned can still
-  land in the arm64 linear map.
-- **Symptom:** `/proc/iomem` looks page-aligned (PFN rounding), but page
-  tables map the no-map bytes because `memblock_mark_nomap()` splits at
-  byte precision and `__create_pgd_mapping_locked()` does `phys &=
-  PAGE_MASK` (start rounded down into the hole).
-- **Example:** 64K pages, `reserved_region@A2000000` size `0x8000`; next
-  mappable start `0xA2008000` becomes mapping start `0xA2000000`.
-- **Root cause:** byte-precise NOMAP split + PAGE_MASK downward
-  rounding.
-- **Fix:** round the mappable range inward (`PAGE_ALIGN(start)`, `end &
-  PAGE_MASK`) before `__map_memblock`. Cost: at most one unmapped page
-  per boundary.
-- **Version info in message:** none. Mailing-list follow-up (verified)
-  was on v6.1.177-rt, 64K pages.
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+- Record:
+  - **Bug:** `input_buf` and `report_buf` hold complete HID-over-I2C
+    packets (`__le16 len` + payload), but they are allocated from
+    payload length only (`max_input_len` / `max_output_len`, floored at
+    4K).
+  - **Symptom/failure mode:** buffer overflow when the payload reaches
+    that maximum (2 bytes past the end: `HIDI2C_LENGTH_LEN ==
+    sizeof(__le16)`).
+  - **Version info:** none in the message.
+  - **Root cause:** allocation size omitted the 2-byte HID-over-I2C
+    length header.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not hidden. Explicit isolation/correctness fix, not cleanup.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+- Record: Not a hidden fix. The subject and body state a buffer overflow
+  and the diff matches that claim.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## PHASE 2: DIFF ANALYSIS - LINE BY LINE
 
-Step 2.1: INVENTORY THE CHANGES
-Record:
-- File: `arch/arm64/mm/mmu.c` (+14 / −0)
-- Function: `map_mem()` / `map_mem(pgd_t *pgdp)` in this tree
-- Scope: single-file surgical change in the boot-time linear-map loop
+**Step 2.1: INVENTORY THE CHANGES**
+- Record:
+  - File: `drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c` (+4
+    / −2; net +2)
+  - Function: `quicki2c_alloc_report_buf()`
+  - Scope: **single-file surgical fix**
 
-Committed hunk (origin/master `map_mem(void)`):
-```
-for_each_mem_range(i, &start, &end) {
-+       start = PAGE_ALIGN(start);
-+       end = end & PAGE_MASK;
-+       if (start >= end)
-+               continue;
-        __map_memblock(...);
-}
-```
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+- Record:
+  - **Hunk 1 (input_buf):** `devm_kzalloc(..., max_report_len)` →
+    `devm_kzalloc(..., HIDI2C_PACKET_LEN(max_report_len))`
+  - **Hunk 2 (report_buf):** same change
+  - Path: probe-time allocation (`quicki2c_probe` →
+    `quicki2c_alloc_report_buf`). Runtime use of those buffers is
+    unchanged.
 
-The mailing-list v1 was against `map_mem(pgd_t *pgdp)` and kept this
-tree’s existing `if (start >= end) break;` before the new inward
-rounding — that is the 6.12 shape.
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+- Record:
+  - **Category:** memory safety / buffer overflow (out-of-bounds write)
+  - **Mechanism:** packets are `struct hidi2c_report_packet { __le16
+    len; u8 data[]; }`. `HIDI2C_PACKET_LEN(data_len)` is `(data_len) +
+    HIDI2C_LENGTH_LEN`. Allocation used payload size only.
+  - Verified consumers:
+    - `handle_input_report()` DMA-copies into `input_buf` via
+      `thc_rxdma_read()` → `sg_copy_to_buffer(..., read_buff, mes_len)`
+      with **no destination-size argument**.
+    - `quicki2c_get_report()` SWDMA-reads into `input_buf`.
+    - `quicki2c_init_write_buf()` / `write_cmd_to_txdma()` build framed
+      packets in `report_buf` (length field + payload, plus command
+      bytes).
+  - This is **not** a lock/refcount/init/API change.
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Record:
-- **Before:** `for_each_mem_range` skips `MEMBLOCK_NOMAP` via
-  `should_skip_region()`, but adjacent ranges keep raw byte boundaries.
-  Those go to `__map_memblock` → `__create_pgd_mapping_locked()`, which
-  rounds `phys` down and `end` up, pulling no-map bytes into
-  `PAGE_KERNEL`.
-- **After:** start rounded up, end rounded down; empty leftover skipped.
-  Linear map never overlaps the no-map hole.
-- Path: boot-time linear map only (`paging_init` → `map_mem`).
+**Step 2.4: ASSESS THE FIX QUALITY**
+- Record:
+  - **Quality:** obviously correct. Uses an existing macro from
+    `include/linux/hid-over-i2c.h` that this tree already has.
+  - **Minimal:** two allocation sizes in one function.
+  - **Regression risk:** very low. Extra 2 bytes per buffer; no API,
+    locking, or control-flow change.
+  - **Caveat (not a reason to reject):** `qcdev->report_len` is still
+    set to `max_report_len`, not `HIDI2C_PACKET_LEN(max_report_len)`.
+    The write-side bound check (`if (buf_len > write_buf_len) return
+    -EINVAL`) can still reject a max-sized SET_REPORT. That is fail-safe
+    (no overflow), pre-existing, and not a regression. Command framing
+    can need more than +2 bytes; this commit only claims the 2-byte
+    packet length header, which is what `HIDI2C_PACKET_LEN` adds.
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
-Record:
-- **Category:** logic/correctness + hardware isolation (linear-map over-
-  coverage).
-- **Mechanism:** unaligned NOMAP split + `phys &= PAGE_MASK` over-maps.
-  Verified in this tree at `arch/arm64/mm/mmu.c:443-445`:
-  `phys &= PAGE_MASK; addr = virt & PAGE_MASK; end = PAGE_ALIGN(virt +
-  size);`
-- DT `no-map` (this tree, `reserved-memory.yaml`): OS must not create a
-  standard mapping **and** must not allow speculative access except
-  under the owning driver.
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-Step 2.4: ASSESS THE FIX QUALITY
-Record:
-- Obviously correct for the stated failure: inward rounding matches
-  buddy `__free_memory_core()` (`PFN_UP(start)` / `PFN_DOWN(end)` in
-  `mm/memblock.c` of this tree). Those slivers were never allocator RAM.
-- Minimal; comment-only plus three functional lines.
-- Regression risk: low. Worst case is one unmapped page at a no-map
-  boundary (memory the buddy already does not own). Ard noted a
-  theoretical firmware hazard if something like initramfs sat in that
-  wasted page; Will still applied it after Ard confirmed
-  `for_each_mem_range()` coalesces sub-page *mappable* pieces.
+**Step 3.1: BLAME THE CHANGED LINES**
+- Record: buggy allocations introduced by `66b59bfce6d93` (“HID: intel-
+  thc-hid: intel-quicki2c: Complete THC QuickI2C driver”, Even Xu,
+  2025-01-06). Present since the driver became functional. Driver
+  skeleton: `61bb2714dc3a1`. First appeared around **v6.13**, so it is
+  in this 6.18 tree.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 3.2: FOLLOW THE FIXES: TAG**
+- Record: no `Fixes:` tag. Not applicable. The introducing commit is in
+  this tree (`git merge-base --is-ancestor 66b59bfce6d93 v6.18.57`
+  succeeded).
 
-Step 3.1: BLAME THE CHANGED LINES
-Record:
-- `phys &= PAGE_MASK`: `9c4e08a3022b6` (Mark Rutland, 2015, “allow
-  sections for unaligned bases”)
-- Linear-map bank loop: `98d2e1539b84a` (2017) / `b10d6bca87204`
-  (`for_each_mem_range`, 2020)
-- This is old code, present long before 6.12.
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+- Record: recent work on this file is driver completion, ACPI, PM,
+  device IDs, WOT. Related but distinct: `d08a1049659aa` (ACPI u16
+  truncation, not this overflow). Sibling series patch: `HID: Intel-thc-
+  hid: Intel-quickspi: Fix buffer overflow` (different file). This
+  commit is **standalone**; it does not need the QuickSPI patch.
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record: No `Fixes:` tag. Bug is the long-standing interaction of NOMAP
-byte splits + page-table rounding, not a single recent commit.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+- Record: Even Xu is listed in MAINTAINERS as maintainer of `INTEL TOUCH
+  HOST CONTROLLER (THC) DRIVER` (`drivers/hid/intel-thc-hid/`). This is
+  a maintainer fix, not drive-by.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- This tree: no commit on `arch/arm64/mm/mmu.c` already doing inward
-  `PAGE_ALIGN` in `map_mem`.
-- `7ace06a01efab` is **not** an ancestor of HEAD (`git merge-base --is-
-  ancestor` exit 1).
-- Upstream later dropped the `pgd_t *` argument (`2e527667a3b9b`,
-  2026-06-02) — **not** in this tree, **not** required for the fix.
-- Follow-up `fb0f3ef5601a6` (unmap data/bss from linear map) is
-  independent.
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+- Record: `HIDI2C_PACKET_LEN` was added in `6fc761385bcf6` (“Add HIDI2C
+  protocol implementation”) and is present on **v6.18.57** in
+  `include/linux/hid-over-i2c.h`. No missing helpers. Patch applies
+  cleanly to the v6.18.57 blob (`patch --dry-run` exit 0).
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Only this arm64 commit on `origin/master`. Applied by Will
-Deacon (arm64 maintainer). Ard Biesheuvel reviewed on-list and called it
-conceptually sound.
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: Standalone. Needs `for_each_mem_range`, `__map_memblock`,
-`__create_pgd_mapping_locked` — all present. The committed diff does not
-apply byte-for-byte (later `map_mem(void)` / no `if (start >= end)
-break;`); the **original** patch context matches this tree. Backport is
-a small context adaptation, not a missing-API rewrite.
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+- Record:
+  - `b4 dig -c 5e5c3b9db1c5910d6a9175c97b76a95566e4dc32` →
+    https://patch.msgid.link/20260922024638.932865-2-even.xu@intel.com
+  - Cover: `[PATCH 0/2] HID: Intel-thc-hid: Fix potential buffer
+    overflow` (`20260922024638.932865-1`)
+  - `b4 dig -a`: **v1 only** (no v2/v3). Applied as submitted.
+  - Jiri Kosina (2026-09-23): “Applied to hid.git#for-7.3/upstream-
+    fixes, thanks.” No NAK.
+  - No human reviewer asked for `Cc: stable`. An automated review noted
+    `report_len` not updated and SET_REPORT framing possibly needing
+    more than 2 bytes. HID maintainer applied the series as-is.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+- Record (`b4 dig -w`): To/Cc `bentiss@kernel.org`, `jikos@kernel.org`,
+  `srinivas.pandruvada@linux.intel.com`, `linux-input@vger.kernel.org`.
+  HID maintainers were on the original mail. Jiri applied it.
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Record:
-- `b4 dig -c 7ace06a01efab` →
-  https://patch.msgid.link/20260513010255.3764038-1-liulhong617@163.com
-- Single revision (v1 only). `b4 dig -a`: only that v1.
-- Thread saved to mbox and read in full.
-- Will (16 Jul 2026): worried firmware with many tiny adjacent regions
-  could leave pages unmapped; preferred warn-and-do-nothing; asked for
-  practical symptoms.
-- Author (27 Jul): 64K pages, debugger showed `phys` rounded from
-  `0xa2008000` to `0xa2000000`.
-- Will (4 Aug): not convinced by that reply.
-- Ard (4 Aug): change is conceptually sound; `for_each_mem_range()`
-  coalesces; only sane handling is to round no-map **outward** (i.e.
-  linear map **inward**). Suggested maybe moving rounding into
-  `__create_pgd_mapping_locked()` later.
-- Will (6 Aug): “Aha, that's the part I was missing.” Applied v1: “I can
-  take this patch for now.”
-- Apply mail: https://git.kernel.org/arm64/c/7ace06a01efa (`for-
-  next/mm`).
-- Author (9 Aug, after apply): real platform is Cortex-A78AE,
-  **v6.1.177-rt**, 64K pages; two sub-page no-map TEE regions; DStream
-  showed them folded into one `PAGE_KERNEL` span; cache prefetcher hit
-  TEE and firmware raised “REE accessed secure memory” faults.
-- No NAK of the applied patch. No `Cc: stable` in review.
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+- Record: no `Reported-by` / syzbot / bugzilla. Author-found from code
+  inspection (“potential buffer overflow”). No user crash log in the
+  thread.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`): To Catalin Marinas, Will Deacon; Cc linux-arm-
-kernel, linux-kernel. Ard added later. Maintainer applied it.
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+- Record: 2/2 is the QuickSPI analogue (`HIDSPI_INPUT_BODY_SIZE`).
+  Independent file; this I2C patch does not depend on it.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record: No syzbot/bugzilla. Evidence is the author’s debugger dump and
-firmware faults (mbox, 9 Aug 2026). Severity from reporter: isolation
-break + spurious secure-memory faults.
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+- Record: lore.kernel.org HTTP fetch returned 403. **UNVERIFIED**
+  whether linux-stable discussed this SHA. Decision does not rely on
+  that.
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Standalone 1/1. Ard/Will mentioned a possible later rounding
-cleanup in `__create_pgd_mapping_locked()`; `origin/master` still has
-this loop-local fix only (no follow-up required).
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable WebFetch returned 403. UNVERIFIED whether
-stable@ already discussed it. Not used as a NO reason.
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+- Record: `quicki2c_alloc_report_buf()` only.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+**Step 5.2: TRACE CALLERS**
+- Record: single caller, `quicki2c_probe()` (after reading the HID-
+  over-I2C device descriptor). Probe of Intel THC I2C-port PCI devices
+  (Lunar Lake, Panther Lake, Wildcat Lake IDs in `quicki2c_pci_tbl`).
+  Not a hot path, but every successful probe allocates these buffers,
+  then IRQ/DMA/HID traffic uses them.
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `map_mem()` (this tree: `static void __init map_mem(pgd_t
-*pgdp)` at `arch/arm64/mm/mmu.c:623`).
+**Step 5.3: TRACE CALLEES**
+- Record: `devm_kzalloc()`, `le16_to_cpu()`, `HIDI2C_PACKET_LEN()`. No
+  new callees.
 
-Step 5.2: TRACE CALLERS
-Record: `paging_init()` → `map_mem(swapper_pg_dir)` (`mmu.c:812-814` in
-this tree). Boot-time, all arm64 configs. Not a syscall path; result is
-the linear map used by the whole kernel.
+**Step 5.4: FOLLOW THE CALL CHAIN**
+- Record: PCI probe → descriptor read → alloc → DMA init → HID
+  registration → `handle_input_report()` on IRQ. Reachable on machines
+  with Intel THC + HID-over-I2C touch. Unprivileged HID input does not
+  size the kernel buffer; overflow is on kernel DMA/copy into an
+  undersized `input_buf` when the device sends a max-sized packet.
 
-Step 5.3: TRACE CALLEES
-Record: `for_each_mem_range` → `__next_mem_range` / `should_skip_region`
-(skips NOMAP unless `MEMBLOCK_NOMAP` requested). Then `__map_memblock` →
-`__create_pgd_mapping` → `__create_pgd_mapping_locked`.
-`memblock_mark_nomap` → `memblock_isolate_range` (byte splits, no page
-align) — verified in `mm/memblock.c`.
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+- Record: same author applied the same header-vs-payload fix to
+  QuickSPI. Confirms a systematic off-by-header bug, not a one-off typo.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: Reachable on every arm64 boot. User/firmware trigger is a sub-
-page `no-map` reserved-memory node (common with 16K/64K pages).
-Unprivileged userspace does not need to do anything after boot; the bad
-mapping already exists. Speculative CPU access of TEE pages is enough.
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Second `for_each_mem_range` in this file is
-`validate_bootmem_online()` under `CONFIG_DEBUG_VM` — not page-table
-creation. No sibling fix already in this tree.
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+- Record: **Yes.** Local tree is **6.18.57** (`git describe HEAD` →
+  `v6.18.57-155-gcdf239ca885b2`; Makefile `VERSION=6 PATCHLEVEL=18
+  SUBLEVEL=57`).
+- On **v6.18.57** (this series’ base), `quicki2c_alloc_report_buf()`
+  still does:
+  - `input_buf = devm_kzalloc(..., max_report_len)`
+  - `report_buf = devm_kzalloc(..., max_report_len)`
+- `HIDI2C_PACKET_LEN` already exists in this tree’s header. Driver is
+  `CONFIG_INTEL_QUICKI2C` under `INTEL_THC_HID` (`X86_64 && PCI &&
+  ACPI`).
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+- Record: **clean apply** on the v6.18.57 file. Surrounding function
+  matches the patch. No refactor in the way.
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: **Yes.**
-- `map_mem()` loop: `mmu.c:660-670` passes raw `start`/`end` to
-  `__map_memblock`.
-- Rounding-down: `mmu.c:443-445`.
-- NOMAP skip: `should_skip_region()` in `mm/memblock.c:1081-1083`.
-- Byte isolate: `memblock_isolate_range()`.
-- Introduced: rounding 2015, loop 2017/2020 — well before 6.12.
-- `7ace06a01efab` not in HEAD.
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+- Record: no other commit on this file in 6.18.y enlarges these two
+  allocations. The 4K floor (`max(..., SZ_4K)`) is a workaround for
+  devices that under-declare max length; it does **not** add the 2-byte
+  header. When `max_input_len`/`max_output_len` is ≥ 4K (HID max buffer
+  is 16K), that floor provides no slack.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **Minor adaptation, not a rewrite.** Committed patch fails `git
-apply --check` because this tree still has `if (start >= end) break;`
-and `map_mem(pgd_t *pgdp)`. That is exactly v1’s context. Insert the
-three rounding lines after the existing `break`. No need for
-`2e527667a3b9b`.
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: None. `git log --grep="accidental linear mapping"` /
-`--grep="no-map"` on this file in HEAD does not contain this fix.
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+- Record: **HID Intel THC QuickI2C** (`drivers/hid/intel-thc-hid/`).
+  **IMPORTANT** for Intel laptops/tablets with THC touch (LNL/PTL/WCL),
+  not core mm/VFS. Still production input hardware.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+- Record: actively maintained through 6.18 (device IDs, WOT, ACPI
+  advanced features). Bug is in original 2025 driver completion, not
+  brand-new 7.x-only code.
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: `arch/arm64/mm` linear map. **CORE for arm64** (every arm64
-boot). `no-map` is how firmware hides TEE/DSP/GPU carveouts.
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Mature; this file still changes, but the bank-mapping loop has
-been stable for years in 6.12. Bug is old, not a new-subsystem leftover.
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+- Record: **driver-specific / config-specific:** `CONFIG_INTEL_QUICKI2C`
+  on x86_64 with Intel THC HID-over-I2C devices.
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+- Record: HID-over-I2C input/feature/output packet whose payload equals
+  the allocated max (`max(declared max, 4K)`). Typical small touch
+  reports may not hit it; max-sized reports and devices that declare
+  large `wMaxInputLength` can. Not a userspace-crafted syscall overflow;
+  it is device-facing DMA/copy. Still a kernel memory-safety bug on a
+  standard probe/IRQ path.
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: arm64 systems whose DT/firmware has **sub-page-aligned `no-map`
-reserved-memory**. More likely with 16K/64K pages. Author hit it on
-6.1.rt; 6.12 has the same mapping logic.
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+- Record: **buffer overflow (2 bytes) into heap** via
+  `sg_copy_to_buffer` / packet construction. **HIGH** (memory
+  corruption; crash or worse). Not a panic on every boot, but it is a
+  real overflow, not a warning.
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Boot + unaligned `no-map` region. No extra userspace trigger.
-Cache prefetch can then touch TEE. Commonness: not every board, but real
-on 64K TEE/embedded SoCs.
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+- Record:
+  - **Benefit:** high for THC HID-over-I2C users — closes a heap
+    overflow the driver author and HID maintainer treated as real.
+  - **Risk:** very low — +2 bytes on two `devm_kzalloc`s, existing
+    macro, no behavior change except not writing past the buffer.
+  - **Ratio:** strongly favors backport.
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record:
-- Isolation break: `no-map` (including TEE) mapped `PAGE_KERNEL`.
-- Speculative access / firmware “REE accessed secure memory” faults
-  (verified report).
-- DT forbids speculative access to `no-map`.
-- Severity: **HIGH** (security isolation + platform faults). Not a
-  universal oops, but it is an important real bug, not a nit.
+## PHASE 9: FINAL SYNTHESIS
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
-Record:
-- **Benefit:** high for affected boards (TEE/firmware faults, linear-map
-  leak of carveouts).
-- **Risk:** low (≤1 unused page per boundary; matches buddy PFN
-  rounding; maintainer-acked).
-- Ratio favors backport.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-Step 9.1: COMPILE THE EVIDENCE
+**Step 9.1: COMPILE THE EVIDENCE**
 
 FOR:
-- Real bug in this tree’s `map_mem()` / `__create_pgd_mapping_locked()`.
-- Hardware report: Cortex-A78AE, 64K, TEE `no-map`, firmware faults;
-  also seen conceptually on 6.1, so 6.12 is in range.
-- DT `no-map` contract violated (must not map, must not speculate).
-- 14-line, single-function, no new API.
-- Will applied; Ard endorsed the approach.
-- Original patch context matches 6.12 `map_mem(pgd_t *pgdp)`.
-- Inward rounding matches `__free_memory_core()` so it does not unmap
-  buddy-owned pages.
+- Real buffer overflow: complete HID-over-I2C packets stored in buffers
+  sized from payload only
+- DMA copy into `input_buf` has no dest-size check
+- Small, obviously correct (+2 bytes via existing `HIDI2C_PACKET_LEN`)
+- Driver and macro exist in this 6.18.57 tree; introducing commit is in
+  this tree
+- Applies cleanly
+- Written by the THC maintainer; applied by HID maintainer
+- Same class of bug independently fixed in QuickSPI
 
 AGAINST:
-- Trigger is firmware/DT-dependent (unaligned `no-map`), not every arm64
-  box.
-- Committed mainline hunk needs a trivial context tweak (`break` still
-  present here).
-- Will first preferred warn-only; that was withdrawn after Ard’s
-  coalescing point, not a standing NAK.
-- Theoretical firmware footgun if a needed image lived in the discarded
-  page remainder (Ard); sliver is already not buddy memory.
+- No public reproducer / syzbot report (author-found “potential”)
+- 4K floor hides the overflow for devices with small `max_input_len`
+- `report_len` not updated; write path may still `-EINVAL` at max size
+  (fail-safe, not a new bug)
+- Affects only Intel THC QuickI2C, not all machines
 
 UNRESOLVED:
-- lore.kernel.org/stable search 403; whether stable@ already took it is
-  UNVERIFIED.
+- Could not query lore.kernel.org/stable (HTTP 403)
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — mechanism verified in-tree;
-   debugger + maintainer apply.
-2. Fixes a real bug that affects users? **PASS** — TEE/linear-map
-   isolation break and firmware faults.
-3. Important issue? **PASS** — security isolation / platform abort, not
-   a log nit.
-4. Small and contained? **PASS** — +14 lines, one loop.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — bug present; v1 context
-   matches; committed diff needs only local `map_mem` context.
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — two allocation sizes; HID
+   maintainer applied v1; macro already in tree
+2. Fixes a real bug that affects users? **PASS** — overflow on max-sized
+   HID-over-I2C packets in a shipping Intel touch driver
+3. Important issue? **PASS** — heap buffer overflow / memory corruption
+   (**HIGH**)
+4. Small and contained? **PASS** — one function, two sites, ~4 lines
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — clean on v6.18.57;
+   `HIDI2C_PACKET_LEN` already present
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: Not ID/quirk/DT-board/build/docs. Ordinary important bugfix.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+- Record: none needed. This is a normal memory-safety bug fix, not a
+  device-ID/quirk/DT/build/docs exception.
 
-Step 9.4: MAKE YOUR DECISION
-Backport to this 6.12 tree. The bug is here, the fix is small, and
-leaving `no-map` (especially TEE) in the linear map is a real isolation
-and stability failure on 64K systems.
+**Step 9.4: MAKE YOUR DECISION**
+Backport. The bug is in this 6.18.y driver, the fix is surgical, and
+leaving a 2-byte heap overflow in a HID DMA path is worse than adding
+two bytes to the buffers.
 
-------------------------------------------------
-What the commit solves for stable users
-------------------------------------------------
-On this 6.12 tree, boot builds the linear map in `map_mem()` from
-`for_each_mem_range()`. NOMAP regions are skipped, but neighbors keep
-byte-accurate edges. `__create_pgd_mapping_locked()` then rounds
-physical start **down** to `PAGE_MASK`, so a 32KiB `no-map` hole on a
-64K page is mapped as normal RAM. That contradicts DT `no-map` and can
-let the CPU speculate into firmware/TEE memory.
+## What the commit solves for this tree
 
-Rounding the mapped range inward before `__map_memblock` stops that
-overlap. At most one page per boundary stays unmapped; those bytes were
-already excluded from the buddy allocator.
+On 6.18.57, QuickI2C still allocates `input_buf`/`report_buf` as
+`max(payload, 4K)` and then stores HID-over-I2C packets that include a
+2-byte length header. When the payload is that maximum,
+`thc_rxdma_read()` / SWDMA copies past the end of the kmalloc buffer.
+The fix allocates `HIDI2C_PACKET_LEN(max_report_len)` instead.
 
-------------------------------------------------
-Stable rules / risk
-------------------------------------------------
-Surgical, no API, code is in 6.12, original submission matches this
-`map_mem(pgd_t *)` loop. Benefit is isolation and avoiding firmware
-aborts; risk is a conservative hole the allocator already does not use.
+That matches stable rules: real overflow, tiny diff, no new API, applies
+cleanly, no missing prerequisites.
 
-------------------------------------------------
-Verification
-------------------------------------------------
-- [Phase 1] `git describe HEAD` / `make kernelversion`:
-  `p-6.12-3-g88406e77611c6`, **6.12.111**. Tags: author SOB + Will
-  Deacon SOB only.
-- [Phase 2] `git show 7ace06a01efab`: +14 in `map_mem`; this tree
-  `Read`/`Grep`: `phys &= PAGE_MASK` at `mmu.c:443`; loop at
-  `mmu.c:660-670`.
-- [Phase 2] `reserved-memory.yaml`: `no-map` forbids standard mapping
-  and speculative access.
-- [Phase 2] `__free_memory_core()`: `PFN_UP`/`PFN_DOWN` in
-  `mm/memblock.c:2153-2158`.
-- [Phase 3] blame: `9c4e08a3022b6` (2015) PAGE_MASK; `98d2e1539b84a`
-  (2017) / `b10d6bca87204` (2020) loop.
-- [Phase 3] `git merge-base --is-ancestor 7ace06a01efab HEAD` → not in
-  tree (exit 1).
-- [Phase 3] `2e527667a3b9b` (drop `pgd_t*`) not in HEAD; not a
-  prerequisite.
-- [Phase 3] `git log origin/master --grep="accidental linear mapping" --
-  arch/arm64/mm/mmu.c`: `7ace06a01efab`; `git describe --contains
-  --match 'v*'`: `v7.3-rc1~...`
-- [Phase 4] `b4 dig -c/-a/-w/-m`: v1 only; lore msgid
-  `20260513010255.3764038-1-liulhong617@163.com`; Will + Ard discussion;
-  applied 6 Aug 2026; author follow-up on v6.1.177-rt TEE faults.
-- [Phase 4] lore WebFetch 403 on lore.kernel.org/all and /stable —
-  thread recovered via `b4 dig -m`.
-- [Phase 5] `paging_init()` calls `map_mem(swapper_pg_dir)`;
-  `should_skip_region()` skips NOMAP.
-- [Phase 6] `git apply --check` of committed diff **fails** (context);
-  6.12 loop still has `if (start >= end) break;` matching v1.
-- [Phase 6] `origin/master` `map_mem` still has `PAGE_ALIGN(start)` /
-  `end & PAGE_MASK`.
-- [Phase 8] Failure mode from mbox + DT: TEE mapped, prefetcher,
-  firmware abort — HIGH.
-- UNVERIFIED: whether stable@ already queued it (HTTP 403).
+Risk vs benefit: +2 bytes of allocation vs heap corruption on Intel THC
+HID-over-I2C devices (Lunar Lake / Panther Lake / Wildcat Lake). Benefit
+dominates. The unfixed `report_len` bound is conservative, not a
+regression.
+
+## Verification
+- [Phase 1] Parsed subject/body/tags: overflow fix; Even Xu + Jiri
+  Kosina SOBs; no Fixes/Reported-by
+- [Phase 2] Diff: two `devm_kzalloc` sizes in
+  `quicki2c_alloc_report_buf()` wrap `HIDI2C_PACKET_LEN`
+- [Phase 2] `include/linux/hid-over-i2c.h`: `HIDI2C_PACKET_LEN(data_len)
+  = data_len + sizeof(__le16)`
+- [Phase 2] `handle_input_report()` / `read_dma_buffer()`:
+  `sg_copy_to_buffer` into `input_buf` without dest capacity
+- [Phase 3] `git blame` on v6.18.57: allocations from `66b59bfce6d93`
+  (2025-01, driver completion)
+- [Phase 3] `git merge-base --is-ancestor 66b59bfce6d93 v6.18.57`:
+  introducing commit is in this tree
+- [Phase 3] `HIDI2C_PACKET_LEN` added in `6fc761385bcf6`; present on
+  v6.18.57
+- [Phase 3] Author Even Xu is MAINTAINERS owner of `drivers/hid/intel-
+  thc-hid/`
+- [Phase 4] `b4 dig -c 5e5c3b9db1c5910d6a9175c97b76a95566e4dc32`: lore
+  thread found; v1 only
+- [Phase 4] mbox: Jiri Kosina applied to hid.git#for-7.3/upstream-fixes;
+  no NAK
+- [Phase 4] `b4 dig -w`: HID maintainers on original To/Cc
+- [Phase 4] UNVERIFIED: lore.kernel.org/stable HTTP 403
+- [Phase 5] Single caller `quicki2c_probe()`; PCI IDs LNL/PTL/WCL THC
+  I2C ports
+- [Phase 6] `git describe HEAD` / `make kernelversion`: 6.18.57
+- [Phase 6] `git show v6.18.57:drivers/hid/intel-thc-hid/intel-
+  quicki2c/pci-quicki2c.c`: buggy sizes still present
+- [Phase 6] `patch --dry-run` of this commit onto the v6.18.57 file:
+  exit 0
+- [Phase 8] Failure mode: 2-byte heap overflow on max-sized HID-over-I2C
+  packets; severity HIGH
 
 **YES**
 
- arch/arm64/mm/mmu.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index 71841b5c31928..7c3f560df6529 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -1179,6 +1179,20 @@ static void __init map_mem(pgd_t *pgdp)
- 	for_each_mem_range(i, &start, &end) {
- 		if (start >= end)
- 			break;
-+		/*
-+		 * for_each_mem_range may return sub-page-aligned boundaries
-+		 * after memblock_mark_nomap() splits regions at byte precision.
-+		 * __create_pgd_mapping_locked aligns phys down to PAGE_MASK,
-+		 * which could accidentally map no-map memory on the boundary.
-+		 * Round the mappable range inward: start UP, end DOWN, so
-+		 * that the mapped area never overlaps with adjacent no-map
-+		 * regions. The cost is at most one page of unmapped gap at
-+		 * each boundary.
-+		 */
-+		start = PAGE_ALIGN(start);
-+		end = end & PAGE_MASK;
-+		if (start >= end)
-+			continue;
- 		/*
- 		 * The linear map must allow allocation tags reading/writing
- 		 * if MTE is present. Otherwise, it has the same attributes as
+diff --git a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
+index c6ba6886072ad..4588c55cf255d 100644
+--- a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
++++ b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
+@@ -586,7 +586,8 @@ static int quicki2c_alloc_report_buf(struct quicki2c_device *qcdev)
+ 	 */
+ 	max_report_len = max(le16_to_cpu(qcdev->dev_desc.max_input_len), SZ_4K);
+ 
+-	qcdev->input_buf = devm_kzalloc(qcdev->dev, max_report_len, GFP_KERNEL);
++	qcdev->input_buf = devm_kzalloc(qcdev->dev,
++					HIDI2C_PACKET_LEN(max_report_len), GFP_KERNEL);
+ 	if (!qcdev->input_buf)
+ 		return -ENOMEM;
+ 
+@@ -596,7 +597,8 @@ static int quicki2c_alloc_report_buf(struct quicki2c_device *qcdev)
+ 	max_report_len = max(le16_to_cpu(qcdev->dev_desc.max_output_len),
+ 			     max_report_len);
+ 
+-	qcdev->report_buf = devm_kzalloc(qcdev->dev, max_report_len, GFP_KERNEL);
++	qcdev->report_buf = devm_kzalloc(qcdev->dev,
++					 HIDI2C_PACKET_LEN(max_report_len), GFP_KERNEL);
+ 	if (!qcdev->report_buf)
+ 		return -ENOMEM;
+ 
 -- 
 2.53.0
 
