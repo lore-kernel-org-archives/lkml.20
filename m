@@ -1,100 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792429513;
-	b=R6HHxZO9SzoyiEvADWnVQOKrSmtfo0mD4X5wMoG56ARhcOl7wIDIgUrJqW4amPduld7i
-	 sHImbgZ5OC0ANgu8recYYf14OYVJYWi88LwDbl47Ne/ie6QboWmwAPQ105061TY+888oW
-	 pYt4FDCL1+Hrdjekw1Zc4BJoof3w+UhFZvDjq96CNvoWFTfU1Kz8gyCG41YYat+igNzdm
-	 vDkVF9XqK+U/XzUcZCf3jyaxqFKkG5QAdEFd81NiToWr2RXsKGutWf467e7Yg8SXB7wM6
-	 EuvXNgjaAXiq/vS8gty8oDwEr8PRzwhNBa9GUCZvt1HREmwEskKblCsGrP5ypVDoSNw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429513;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792429566;
+	b=t2v3VJCfEhUzlJden1rjhQBW1Tkvu8XOzHd6yhynKchAAAc19VUZiFlOlI6mcyLQgila
+	 C+sHI/ie6dneIgwwRVbA5B2brr4ZZuoSmclEn7fg1NEizF/vGL2SJUenFkLFqjNidu2yA
+	 jcB4xfT+LYUIzWoakZQD5KyuC4vGSoW0+dgNKFS5tcg40bLSnrqPhuSV45ZruinMGI4Ud
+	 FqQZOb/RIUbWEXP6ZLCWPEOJtZjVwu/DYlyuMvpdp+47b/UiHiuNAX8KR3VBCn74DXTAR
+	 tRgchGWNe0nyakAG71n4F2nE8KaIClbFFiNoEXk2sczYZxXFzWGcQApXBIW/CfSPgLQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429566;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BkBjly+LHsknLECyAEOd0tYT9t7Wy38UeBkcMQMiCbY=;
-	b=0qHNA2z/gyo3EoQWmdGNsmNBDi3lKmMCLqGiIUVJyQc5KlfkUh2WrZ+UBQYdmn/FI60/
-	 27icVmYTgoAhV/i5Cqq4nS1fgzZct1lLnTyB8av1Kp7jKrCSLZvb4zI7e+FlUP0lvwbSb
-	 1t9c2gOo5MHam3ORSb3NKyi6mnnrLaiLOle/dikzyWB+1RbvmvdxDU5ofCa118WF1xNcA
-	 ePUPi8ovrTcjab8rPYZNBIFjbZptrQSyRzAGOwVmGQIXu9qJpqbQYlYgij+Wsy0rpnjwz
-	 CmD/KhNOfbk40p+asaILmglJ9GSeB7/OLN7F8Z2PyMJpzPH/LS77GBBWGQ2bc29Gv7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=vVSHtBh7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=z7k9TuVV+IXStztuF//XuAzNkSqfI9bVeAMGeD1Iu/U=;
+	b=b211LwUJ1lwyZf5enBnwlE+V/0neaoIqPamJ+M+uW/n+fvfp+WaODVQtWlpTuDJn9yH/
+	 Zu5YFuVbVwxP+BnZbrG51aafsL3796hldF7IWPSrYi4CR5VogC1CYbdbHbxC+3dQw5Z91
+	 dQ8iL25qCpuZe13hQL4UvZqXW151gc/YQ3G7tcNI3ULZlPvc2L5P49XCHex6bpa9qtdss
+	 1mwfoHMf6F0fYvMkYgxhQsemkqvuNjBXReoy6NCFvPG0Vv5Z4eENb31HgehuO/dcwgEQo
+	 0F5zy8g4fmAnVH24oAdDN3FW4AlxnSLwcvbDdDCNxAa+Ge59GP6FzpI6OlgWi2lSkgw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pqulcYrP;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B725606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:05:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B725606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C190B606A31D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:06:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C190B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=vVSHtBh7
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-533202fe429so5241cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:05:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792429512; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UsMrWSdyDRZn6iAbgMISVt4tg+SuLNS3a6meuXQSVnE4/cTSc/41F2hK6QhL9VzmGe
-         f4QL1Rg+A3JBVViS9szgqy9L/1HZ9X4DvQAeqCKasJxUweNSEht4gyPI4gMjXQQ/3r4n
-         LCNFFWayrJIaOn+rD5HQaF1sJ52XY9ENwyBYdslJkRhJUsRArPamLQXzCg3U4pz8tNrP
-         wMIdtGyUQiQKz3/dVsQhczAc+OkApsGNvYQPW4vz4k1aEFAEurVcgxZJSS/IwiQbM5cM
-         7rapeyCtOk/NtHjF+i6NpI1goCTX3a9WUqf/nJEkN4o0BNEZbkErCE75XBrfq/DCOi03
-         UxEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BkBjly+LHsknLECyAEOd0tYT9t7Wy38UeBkcMQMiCbY=;
-        fh=v/JR3t2TrPdVbaIv5hr9VB7yiXYQJ0h3HmW7e7ii9tQ=;
-        b=arVF3UAiKuOLMVPBMw/jd2glpr5AqLbJQwYDIj6aY+h7r4CZF6HR1mt+9GVvyVUmqj
-         PQYiQdjWG4+EaFizxVdQCSYPXCS1CwwXlFr7T/Md/e7oFMCSGsMzHjVfe9mXipnfQtwO
-         v2RKs4LopP/OveUZ8pJdMrgArFo2Xyhtg+2mYwk7DCK+iajFew6Bn5uKBqcKcs2xOO5W
-         BXjSv8EAfdLdLwkA/ALUK25NJ8wrXX1+xzrD8EUoMOb8w4lf7UtNSp3b/iKG5EVDPkGN
-         XcJaAErr3O7YrWUhgCTmfEj1ooldtGesqjP8zW4RS2PLRWE9ovP5wXLOzEQCtqgBW5d5
-         Fu8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pqulcYrP
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2dc63f8d8aso384062666b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:06:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792429512; x=1793034312; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BkBjly+LHsknLECyAEOd0tYT9t7Wy38UeBkcMQMiCbY=;
-        b=vVSHtBh7bA3USHSkkuSNXo8JSP6ERd30LPh3fYC/Uky8beFHXnryRPPyadGAuRzE8K
-         ULEpPk3C/DHo2iilr2/f4twQdL3dHs2S0FQY5OxeHagyh94uDxhVP/WczTy8IyINFMT/
-         uB23BBN5e9Jh1TifQHk9FBpHu1zeya8l03uSwEWwT7IjTzhBeX7Uy3tv2uu0BK3t9PJ9
-         lxyBhBsAKLLHzsQ76jPLpaGDiIvSv+CXqzAknkTaj1KmNVAmdMhAvWR+GDIadoXJxx5p
-         fJf3NV+3WmpOKfUVTrs7F66mI0xO38D8wvZSGHxFOeTMbL2UW7vqo5ZWRmFIPMoet79l
-         LpXA==
+        d=gmail.com; s=20251104; t=1792429564; x=1793034364; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z7k9TuVV+IXStztuF//XuAzNkSqfI9bVeAMGeD1Iu/U=;
+        b=pqulcYrPSYpmsFx+zqD6O7xQbP2t0qODrzNSzNr6O3zDG31qwlciq4Tl4864z7pnOK
+         wshvpAD3WZw7+151lYgI4cYUBd6rgpfD9eUHzgvYpQGjbEUrzpDQNqoD+FlChTM8HGkV
+         LtSjkzOBW5A0Vc++jM24oGqMBJ+4gmS0EslWKc8mqXNhzRwg9x1PM3JUo5JKN5JWwZJa
+         Aw4Rvf2l5mHerXPAFgeluqon9KYYKNIV0hO+aQzIs3WARsnhRYEjFr6w08ZZGTAsrZqz
+         05ke3PH5x66iCw0Cd5OyEzdiku7vP11nY0L9ZQmnnvmvTwFP4OfCSCCzDvv+RvRBYjoa
+         jFDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792429512; x=1793034312;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BkBjly+LHsknLECyAEOd0tYT9t7Wy38UeBkcMQMiCbY=;
-        b=Ma28j+0dSbe42kduZ6+acSyEhVHo8Cwyhvdi98fGFgO9qjt4Kidsi+XZPTFTeq5bUT
-         bf62rOAXOXPwuXadgb5EBst9s6xu/SuMxQRM0q1r5ae9UpQxu433LHe7FFZull+hbPyT
-         bwe2Ld8uU/TKXpaqyvb6qygwC/ZqdnkqB7e2u2OTPEQw2Lf5zlNTjjV6YEuP2cYof0lA
-         EtWh90Fqjlu1sgUXjsf7JxssNMDga3RZnV1VVChWTujm1ajO/KOZVRK5ooGii6z6bQ7h
-         gAEHJnm2LTbN94kxJ+VBQvYWJiDBD+a61Edmy3pZfYYlngRH6XCzvN+fWqhjuT5BFQgH
-         4nNA==
-X-Forwarded-Encrypted: i=1; AKwUvBzMZhUUaKoq3+aFdScj6r3LkLtLsIoFQ9M5Ll/FUztS8D3ZxHhsSQSiDmzxgt4gHu6qdrtDCVvcfa5/IQ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPI0V+hvYVsnr8v/9IcLDmVZPJkkxlA24lzEjTqsG6quH8Hbpc
-	3y6Xdr+fdktq+QlHSeOHhsq8zSDwwqD2+6LDte5boH4n54ECwR0rXN2rsxrptflWfX6FahXTa2h
-	SxMTUtiAfQpxkQhQ8qnn1G7cvFBPhATvG7VwaTE8o
-X-Gm-Gg: AYBFou0Ez4bMppiu6IaGdFfwoUUsu7R0Uy/K43sqoA2mtnqDuRHoEoHbaeOtkPghNMG
-	cTZZuGkFV1HKRcZnOIhGIlISSPFykjnOyWMeru9GIUA9SCSSkMmUbBX0AwLQDl05PyW5CGBwdjN
-	HXhqKDP8ASSMU+J6OC2E3ZkQbalv8cTXAkrcJpkagh1pwkdVTfbmxBBaOK4l1z6Pop8fPNp3uWk
-	M+6JC8swrWeNqQEJ+Qme9ikftCz0nd9D01a8tZO3wpvH6QjOXg4ULOyndLdxuvR8qZ+kmAtcgB0
-	dnOuUaXNgYINNOnFe0ZDPLZEuwd7Nl4psdIp9heDi48ZqbQ4o8ED2JAPZgwmXtU0ai+1N8UkfCn
-	sbziKbFajknddPUbrHHi3
-X-Received: by 2002:a05:622a:1312:b0:532:eff8:3491 with SMTP id
- d75a77b69052e-5362b49596fmr1327911cf.14.1792429507178; Mon, 19 Oct 2026
- 10:05:07 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792429564; x=1793034364;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z7k9TuVV+IXStztuF//XuAzNkSqfI9bVeAMGeD1Iu/U=;
+        b=1jPLvSyl1cgwJoimnD24N8jt6+a8H6jRUaL4iF0P9Vx95utDeI2rv+fy+04wkigPJw
+         eZYIzEuyl2Eul6RpxW2rqmllZjpymiTO2XJNMk+4q0GAf486FO8TevhqYFSF33qbWlKf
+         no7mRlWM8U/zbwa/leVTdkySDTDnPnLpXSh5yFO21xTSg0WCjHh7T570Qf/zTfXFFwL6
+         eoJvhKNnf5870KvUzcC0+wb1LKrOB8QuN+4QRfk24w8JCOjgom4odHJzi5T62VJfzdV6
+         0Qvp6F1qeUmqCszLFizvVvApxmF1oZ7WgKvOFNdDMM4B1kkvN4eHOJf1+azYVa795PQO
+         XjdQ==
+X-Gm-Message-State: AFq9FYIcqNGMqA6pQza3JSMkBRNnobJhgM1VDQLQsibLhvvpQYOj1Vz7
+	9YkxnuwyRc+khot6nqdiQ44ke+cu8zhAbSmNailfEgiPCzenxatTXMk0
+X-Gm-Gg: AYBFou3v3qSAFKCnSCZXuecfBYEoU6WH5kETUHLc3KYCWY0/gA1Z6Mlc+Gy0bFC8CIr
+	vYKDO7NaZQLbfj/5C6bSURNfBEve41ehXtyJ04giNYQk1vK6xIiO19OnNrgim/ijEmQz1fKiu+E
+	YaRp1gefx7xDfpKBoAdKQFcZmkfio+sELS5dW67A8H1LpDUPva0gtKP/HkqsQVprQD4dEtuyt69
+	SVAnY73ZO0OfgGDWYJmRh9PmDO1N8DlD/Cq5cZ2zyiKaq6KGJkii1I51gtM7iMzF6KFpHFkf1Kg
+	0o8qp5zrVs6KGA+U6HMewb+qAN4/IbKGIChcQguKV9/gfUR1vOwhB+Gjef1/JaDNWYvKFL05g4s
+	t2ZGzYkbnxEfunPaNfG7bxEcdBlyeLrLUzLIS8AjR6YUc8vE/pGN6ZFsmU+63pNWWTs1+mxiXqA
+	HgOVMhz4apupTEaNI+efizb4KCRqPQo2uJwljf7ePGS3l7S034SxChlkfLUFQMmFM=
+X-Received: by 2002:a17:907:d19:b0:c2a:6c3:9e98 with SMTP id a640c23a62f3a-c419fbf0da4mr577216266b.40.1792429563840;
+        Mon, 19 Oct 2026 10:06:03 -0700 (PDT)
+Received: from localhost ([2a03:2880:32ff:6::])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bde49sm370822766b.55.2026.10.19.10.06.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 10:06:03 -0700 (PDT)
+From: Vlad Poenaru <vlad.wing@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Waiman Long <longman@redhat.com>
+Cc: linux-kernel@vger.kernel.org,
+	Breno Leitao <leitao@debian.org>,
+	Eric Dumazet <edumazet@kernel.org>
+Subject: [PATCH] lockdep: Walk only in-use lock chains in zap_class()
+Date: Mon, 19 Oct 2026 10:06:01 -0700
+Message-ID: <20261019170601.805087-1-vlad.wing@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,138 +95,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20251016205126.2882625-1-irogers@google.com> <20251016205126.2882625-3-irogers@google.com>
- <47f8c30b-e326-4ff0-a2bc-5683209a9e2d@pengutronix.de> <20261006-dynamic-succinct-woodpecker-a36c7f-mkl@pengutronix.de>
- <2f6094ff-f585-4b8b-8c25-20c11d1bfc7d@app.fastmail.com> <CAP-5=fVt81pYz_EXj+QNG+hFGomb-xcpm-6=ZNzNm+c2sbP6UA@mail.gmail.com>
- <b2a50293-d6f7-41eb-854c-c43bc9874ffa@app.fastmail.com> <CAP-5=fW25k8uOeamGRhwbFUUZ8D0D1n5YK-NFF7_2JMJcGOsiw@mail.gmail.com>
- <20261019-rapid-loutish-porpoise-ac4efb-mkl@pengutronix.de>
- <CAP-5=fUwDOv9k1Ptz22h9kKYFJowg9UPa+LzWnnswJ72ptF8tA@mail.gmail.com> <18c92ae1-deaa-4c09-adca-157819cf005b@app.fastmail.com>
-In-Reply-To: <18c92ae1-deaa-4c09-adca-157819cf005b@app.fastmail.com>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 19 Oct 2026 10:04:55 -0700
-X-Gm-Features: AclHuK9s8M81LMMCa7xmlryJvuLxnVX-sdVr-aPQdHuwyY-V8mqF5fwa1fnyc5w
-Message-ID: <CAP-5=fV5OBeri3T5U9BsKyjDRUiFr7bgFiV62yQr7fO7Hf3rvA@mail.gmail.com>
-Subject: Re: [Regression] [PATCH v5 2/4] vdso: Switch get/put unaligned from
- packed struct to memcpy
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, Thomas Gleixner <tglx@linutronix.de>, 
-	Stefan Kerkmann <s.kerkmann@pengutronix.de>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
-	Andy Lutomirski <luto@kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
-	Arnaldo Carvalho de Melo <acme@redhat.com>, linux-parisc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Eric Biggers <ebiggers@google.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christophe Leroy <christophe.leroy@csgroup.eu>, 
-	"Jason A . Donenfeld" <Jason@zx2c4.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 9:28=E2=80=AFAM Arnd Bergmann <arnd@arndb.de> wrote=
-:
->
-> On Mon, Oct 19, 2026, at 17:10, Ian Rogers wrote:
-> > On Mon, Oct 19, 2026 at 5:37=E2=80=AFAM Marc Kleine-Budde <mkl@pengutro=
-nix.de> wrote:
-> >> On 10.10.2026 08:04:42, Ian Rogers wrote:
-> >
-> > It is a little more manual than automagic :-) When perf builds there
-> > is a script that complains if the tools' version of files is
-> > out-of-sync with the kernel's:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/tools/perf/check-headers.sh#n28
-> > It doesn't break the perf build, it just adds noise to it.
->
-> I see that the include/linux/unaligned.h and tools/include/linux/unaligne=
-d.h
-> headers have not been in sync for a long time, so maybe it's just not
-> a big deal there.
->
-> > My understanding, biased by my opinions, is that the preferred option
-> > is to add a config variable controlling whether to use memcpy or a
-> > packed struct. My preference, to avoid undefined behavior, is to
-> > default to memcpy but set it to use packed structs for ARMv5. I will
-> > vibe code this up, and apologize in advance for any offense such a
-> > patch series may cause (ie I'm sure someone on LKML will want to
-> > complain at me for using memcpy at all and give me a lecture about
-> > strict aliasing being nonsense, etc.). Arnd or someone else may have a
-> > different preferred solution, to which I'm more than happy to defer.
->
-> As I wrote, we need the packed struct version at least on mips32,
-> mips64, openrisc, riscv32, riscv64, sh4, sparc32, and sparc64 to avoid
-> the external library calls the same as on armv5, but I would prefer
-> to just always use that in the kernel. My guess is that this list
-> is actually the same as the architectures that lack unaligned word
-> access instructions in hardware, and armv5 is certainly not
-> a special case.
+remove_class_from_lock_chains() visits every bucket of chainhash_table,
+which has MAX_LOCKDEP_CHAINS / 2 buckets however many chains exist. With
+CONFIG_LOCKDEP_CHAINS_BITS=20 that is 512K buckets per zapped class,
+walked with IRQs disabled under the graph lock, on every
+lockdep_unregister_key().
 
-Is it more than conjecture that these architectures have regressed? I
-have a hard time believing the codegen on say riscv64 is lagging
-aarch64. When the series originally landed the issue was looked at and
-workarounds were added, for example, to PA-RISC.
+That hurts users that unregister keys often. Almost every qdisc has a
+dynamic key, so "tc qdisc replace dev eth0 root mq" on a multi-queue NIC
+unregisters one key per TX queue, all under RTNL.
 
-> For 7.4 (and stable kernels) reverting the in-kernel header seems
-> best to me, and then we can think about what to use for the tools.
->
-> Looking at the uses of get_unaligned() in the tools directory,
-> I notice that at least some of them should just not exist, e.g.
-> struct debug_entry in tools/perf/util/jitdump.h is just
-> needs a __packed attribute to correctly describe what it does,
-> and tools/testing/cxl/test/mem.c does not need the unaligned
-> helpers at all because the structs are all packed already.
+Iterate lock_chains_in_use instead. Scanning the bitmap costs
+MAX_LOCKDEP_CHAINS / BITS_PER_LONG words (16K at CHAINS_BITS=20); the
+rest of the cost follows the number of chains actually allocated. To
+tell hashed chains apart from slots that are allocated but not hashed:
 
-There was supposed to be an 8-byte alignment requirement for perf
-events and unfortunately some events broke this and we added __packed
-as a workaround. The unaligned accesses wouldn't trip a sanitizer in
-our tests because we sadly lack testing on old perf.data files. There
-is a difference in using __packed as an attribute and using type
-punning to achieve an unaligned access.
+ - unhash with hlist_del_init_rcu(), so a chain waiting for its RCU
+   grace period is hlist_unhashed(); RCU readers still follow ->next;
+ - initialise ->entry in alloc_lock_chain(), so a slot orphaned when
+   alloc_chain_hlocks() fails in add_chain_cache() is unhashed too;
+ - have lockdep_reset() release the chain slots along with the hash
+   buckets, and forget pending frees of them, instead of leaving them
+   marked in use.
 
-> I'm also a bit suspicious of the usage in
-> tools/testing/selftests/bpf/test_kmods/bpf_testmod.c, which
-> looks like it may run into a corner case:
->
-> __bpf_kfunc int bpf_kfunc_test_uninit_alias(int *out__uninit, const int *=
-in)
-> {
->         int value =3D get_unaligned(in);
->         put_unaligned(42, out__uninit);
->         return value;
-> }
->
-> The current version of get_unaligned() turns into __builtin_memcpy(),
-> and the function prototype defines both arguments as pointers
-> to naturally aligned objects. Do you see anything that would
-> stop the compiler from replacing the __builtin_memcpy() with
->  an invalid pointer dereference? This bit is probably fine
-> because of the way gcc handles __builtin_memcpy() optimization,
-> but I'm not sure if that's an implementation detail or required
-> by the C standard, especially if strict aliasing rules say
-> that the int* argument cannot overlap a misaligned int*.
+On an x86_64 KASAN + PROVE_LOCKING kernel with LOCKDEP_BITS=20 and
+LOCKDEP_CHAINS_BITS=20 (64 vCPU KVM guest, mq on a 64-queue netdevsim
+device), the chain walk per zap_class() drops from 7.3 ms to 0.09 ms
+with 8K chains in use, and from 14.8 ms to 1.2 ms with 214K chains.
 
-I agree the pointers should be aligned given their types, ubsan
-doesn't currently fail for this and waits for use of the pointer. So
-there is the specification and also what sanitizers enforce.
-For clang, when lowering from parsed C to machine code the compiler
-will use alloca to model local variables and memcpy as an intrinsic
-for aggregate copies. So:
+Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
+---
+ kernel/locking/lockdep.c | 48 +++++++++++++++++++++++++++++-----------
+ 1 file changed, 35 insertions(+), 13 deletions(-)
 
-  struct point { int x, y; } a, b;
-  a =3D b; // Compiler will generate a builtin memcpy to copy b into a
+diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+index c3dc84a7cef26..3a42811b37d39 100644
+--- a/kernel/locking/lockdep.c
++++ b/kernel/locking/lockdep.c
+@@ -3761,6 +3761,8 @@ static struct lock_chain *alloc_lock_chain(void)
+ 	if (unlikely(idx >= ARRAY_SIZE(lock_chains)))
+ 		return NULL;
+ 	__set_bit(idx, lock_chains_in_use);
++	/* Unhashed until add_chain_cache() succeeds, see zap_class(). */
++	INIT_HLIST_NODE(&lock_chains[idx].entry);
+ 	return lock_chains + idx;
+ }
+ 
+@@ -6279,15 +6281,22 @@ void lockdep_reset(void)
+ 	debug_locks = 1;
+ 	for (i = 0; i < CHAINHASH_SIZE; i++)
+ 		INIT_HLIST_HEAD(chainhash_table + i);
++#ifdef CONFIG_PROVE_LOCKING
++	/* The chains are gone from the hash, release their slots too. */
++	bitmap_zero(lock_chains_in_use, ARRAY_SIZE(lock_chains));
++	for (i = 0; i < ARRAY_SIZE(delayed_free.pf); i++)
++		bitmap_zero(delayed_free.pf[i].lock_chains_being_freed,
++			    ARRAY_SIZE(lock_chains));
++#endif
+ 	raw_local_irq_restore(flags);
+ }
+ 
++#ifdef CONFIG_PROVE_LOCKING
+ /* Remove a class from a lock chain. Must be called with the graph lock held. */
+ static void remove_class_from_lock_chain(struct pending_free *pf,
+ 					 struct lock_chain *chain,
+ 					 struct lock_class *class)
+ {
+-#ifdef CONFIG_PROVE_LOCKING
+ 	int i;
+ 
+ 	for (i = chain->base; i < chain->base + chain->depth; i++) {
+@@ -6309,29 +6318,42 @@ static void remove_class_from_lock_chain(struct pending_free *pf,
+ 	dec_chains(chain->irq_context);
+ 
+ 	/*
+-	 * Note: calling hlist_del_rcu() from inside a
+-	 * hlist_for_each_entry_rcu() loop is safe.
++	 * Use the _init variant so that hlist_unhashed() tells
++	 * remove_class_from_lock_chains() to skip this chain while it waits
++	 * for an RCU grace period. Concurrent RCU readers can still follow
++	 * ->next.
+ 	 */
+-	hlist_del_rcu(&chain->entry);
++	hlist_del_init_rcu(&chain->entry);
+ 	__set_bit(chain - lock_chains, pf->lock_chains_being_freed);
+ 	nr_zapped_lock_chains++;
+-#endif
+ }
++#endif
+ 
+-/* Must be called with the graph lock held. */
++/*
++ * Must be called with the graph lock held.
++ *
++ * Walk the lock_chains_in_use bitmap rather than every bucket of
++ * chainhash_table: the hash table has MAX_LOCKDEP_CHAINS / 2 buckets
++ * whether or not they are in use, so walking it costs the same with a
++ * nearly empty table as with a full one. That walk dominates
++ * lockdep_unregister_key() with large CONFIG_LOCKDEP_CHAINS_BITS values.
++ * Slots that are allocated but not hashed (being freed, or orphaned when
++ * chain_hlocks ran out) are skipped.
++ */
+ static void remove_class_from_lock_chains(struct pending_free *pf,
+ 					  struct lock_class *class)
+ {
++#ifdef CONFIG_PROVE_LOCKING
+ 	struct lock_chain *chain;
+-	struct hlist_head *head;
+-	int i;
++	unsigned long i;
+ 
+-	for (i = 0; i < ARRAY_SIZE(chainhash_table); i++) {
+-		head = chainhash_table + i;
+-		hlist_for_each_entry_rcu(chain, head, entry) {
+-			remove_class_from_lock_chain(pf, chain, class);
+-		}
++	for_each_set_bit(i, lock_chains_in_use, ARRAY_SIZE(lock_chains)) {
++		chain = lock_chains + i;
++		if (hlist_unhashed(&chain->entry))
++			continue;
++		remove_class_from_lock_chain(pf, chain, class);
+ 	}
++#endif
+ }
+ 
+ /*
+-- 
+2.53.0-Meta
 
-This is why I have a hard time believing the lowering is broken on so
-many architectures. Calling memcpy to copy aggregates everywhere would
-be madness. I believe, especially given the period of time this code
-has been in the kernel, that this problem is specific to GCC and
-ARMv5. Clearly fixing a bug in GCC and ARMv5 should be done, but in
-the meantime, a config option workaround in the kernel is pragmatic. I
-also don't want to start a religious war, a solid -fno-strict-aliasing
-stance, including with packed type punning quirks, I'm cool with. It
-is better than libbpf that has a no -fno-strict-aliasing but let's
-violate strict aliasing stance [1].
-
-Thanks,
-Ian
-
-[1] https://lore.kernel.org/linux-perf-users/CAADnVQLKv6LOQw5=3D8_ZagRXdU7d=
-RPYA+fxJsXiGncqJjZ2hK1w@mail.gmail.com/
-
->        Arnd
