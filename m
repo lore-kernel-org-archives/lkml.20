@@ -1,93 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp052.goneo.de (smtp052.goneo.de [85.220.129.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86A54DA535;
-	Mon, 19 Oct 2026 10:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20174E0204;
+	Mon, 19 Oct 2026 11:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.129.60
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407494; cv=none; b=APOR1ooE9EYJja84T2tv7GZLlM8rl460PIWqifPS3lG2qnlklY5DhdUxK9BY0CBO7fJBCRmd5DWl3AYgD3UMY6tsjdAsoGCgAS96og/s23c1pr8Sseycq6p7iTj8naZnoEXhyeekINV2NtGvZFKehlb3Hhz0Dfv0GcCLmdgS2ws=
+	t=1792407636; cv=none; b=RIOpnY7hiM2lHfpJEuYSsuaJEHSULn9n0EAhAP9r5Wqz9xnx0y4acvxT+fwvMZauyeerYpJdS3NRUxwAtKYg3HkZBXx/8NPwUM5Yt86X/FzKh5ZRn34y3MsnYIZmwEmcmNWtBkp5v6rzZrdB9CUUHAKNrCl1bL9p/qxncnAFBdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407494; c=relaxed/simple;
-	bh=zxCw7LM35gSBCwkwViMSJmmfnBJ863fFFLzm1ixlyBo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jRQgtEnAlSTUJZDigxSOAhF6AwOMOqPAjtct+zx4rJzIelF/GFrYcvWTI8mIRw1YrycopVxqM7JJYkp2w1U1hpb63tp4TtJU9m62e+sY9viDAqnRZUF6qUN7zuwWho9Oa8rg/p+OvnrdOLn5Jm70AWe8mvKKtgzd95jkPJdIUeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nnzFnmXy; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792407636; c=relaxed/simple;
+	bh=jYoztW5ZAzdHi8HfincA4CFV9xX3X9eAwegE7CacxUM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eTFgaBDD7F1HhfGVLgpo8WjydzaJiXMz1h+2wrGnBkmDIWVjym2OpaFAupakKr6f48ZVAfrbQ0+UnonVWkpzrMKybLdqFSlHnLxnp67RPzHW+bkMID4u/XhpOkyYPhAJdQs00uuUrJeJdyJpb3h3yLhc+/c0sM+7w04upniogN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=YZ7zWdrT; arc=none smtp.client-ip=85.220.129.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nnzFnmXy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792407493; x=1823943493;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zxCw7LM35gSBCwkwViMSJmmfnBJ863fFFLzm1ixlyBo=;
-  b=nnzFnmXyFGwyT+vzb+/Ydo15HoZ1L9DOVk0gKHuyldgUle7xxMKki81A
-   LS1DCGb0QFcFTAsb2QVQZKNbAWxUg4d0Rjyek9swNpkoPlrmaVyjOB2/z
-   I1e5mbKzsT+pWqwa6QoYv5PjOVeEMtz3bZNefTh0CH+xgqHGART8Agi5r
-   2i4ughxaMkrLbpyLfsc1HyTaqiribr++WC9dDn51/Y9XOqllCE0QTlIta
-   atQgt+VoVaSjN+GX0diSqDPRV837hmpHUqfmX+/CDyXWf4dqRgK9+SIl+
-   jKA8lf61RUFttidGDxR9vTTw4XgpLA++q8Yuz+TctpyYRoJ9warTEsr60
-   Q==;
-X-CSE-ConnectionGUID: TkdngWUJTwW8U/IfDI6wEA==
-X-CSE-MsgGUID: PkBmw6AGTU+tizRGpij4SA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1096236"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="1096236"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:58:12 -0700
-X-CSE-ConnectionGUID: YqohVtC6Qt6aYquL0muSJg==
-X-CSE-MsgGUID: eS3B/quwTqqx05hLssKdhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2392023"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:58:09 -0700
-Date: Mon, 19 Oct 2026 13:58:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Christopher Hoover <ch@murgatroid.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] iio: humidity: hid-sensor-humidity: Use
- per-instance callbacks
-Message-ID: <atX3vi_iQ--p1Pha@ashevche-desk.local>
-References: <20261019023420.83976-1-ch@murgatroid.com>
- <20261019023420.83976-4-ch@murgatroid.com>
+	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="YZ7zWdrT"
+Received: from hub2.goneo.de (hub2.goneo.de [85.220.129.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by smtp5.goneo.de (Postfix) with ESMTPS id 0D198240A1A;
+	Mon, 19 Oct 2026 13:00:23 +0200 (CEST)
+Received: from hub2.goneo.de (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by hub2.goneo.de (Postfix) with ESMTPS id C817524045B;
+	Mon, 19 Oct 2026 13:00:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
+	t=1792407620;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q/FP0aSKPLpVvvZrQy0imcxS48xnjj4SOrgBH9s2RA0=;
+	b=YZ7zWdrTp2Inj1yTtWlYs2in9EnAZNjEwA+iFre8zhWwx94NUlhC5K5S5dtnSFMFYpOd+3
+	EQep8cYFCZ/PnAudrxDhMrE0SV/0EvRF4KNXIivpNqhCNQV5fICVcB5U+8O7hoTITTVTN8
+	opr7wLi0S0Ncn7tKIMbIG7rVnTIEQtTXWzo57ksFv1AHu71XhD+R9I1jQLCqPfBhWY5k4K
+	3C+XpP0YsCrKNCkRoSGe87zme7hUedIcoILOgszrxuUNm6fn3998xaqSaO6zy2AmajTAjW
+	/eAJX2YoET8DGzqR6THtAji1IaCq4Ezmxhqf1n8XJT4deLg0JwU+dmmxliX6qg==
+Received: from CASE (unknown [195.37.88.189])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hub2.goneo.de (Postfix) with ESMTPSA id 29AB1240061;
+	Mon, 19 Oct 2026 13:00:18 +0200 (CEST)
+From: Til Kaiser <mail@tk154.de>
+To: netdev@vger.kernel.org
+Cc: jie.luo@oss.qualcomm.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 1/1] net: ethernet: qualcomm: ppe: Fix multicast queue admission control access
+Date: Mon, 19 Oct 2026 12:59:50 +0200
+Message-ID: <20261019105950.3977665-2-mail@tk154.de>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261019105950.3977665-1-mail@tk154.de>
+References: <20261019105950.3977665-1-mail@tk154.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019023420.83976-4-ch@murgatroid.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Rspamd-UID: 92cace
+X-Rspamd-UID: 454d19
 
-On Sun, Oct 18, 2026 at 07:34:20PM -0700, Christopher Hoover wrote:
-> hid-sensor-humidity keeps a single static struct
-> hid_sensor_hub_callbacks for all instances and overwrites its pdev in
-> every probe, so with two humidity sensors, input reports for one are
-> delivered with the other's platform device, and a NULL dereference
-> follows once that device is removed.  The same bug was found in
-> hid-sensor-temperature, which shares this code.
-> 
-> Keep the callbacks in struct hid_humidity_state, as the other HID
-> sensor drivers (accel, gyro, als, ...) do.
+Multicast queues have global IDs 256 through 299, but their admission
+control table has 44 entries indexed from zero. Using the global queue
+ID accesses registers beyond that table, leaving the multicast
+thresholds unconfigured. Subtract the unicast queue count when
+addressing the multicast table. Keep the global IDs for enqueue and
+dequeue operations.
 
-Same comment as per previous patch.
+Each multicast admission control entry contains three words at a 16-byte
+stride. Limit the bulk accesses to those three words instead of
+accessing five words, which also reaches the next entry.
 
+The indexing issue was reported by Sashiko.
+
+Fixes: 806268dc7efd ("net: ethernet: qualcomm: Initialize PPE queue management for IPQ9574")
+Link: https://lore.kernel.org/netdev/179143027873.434549.15034517641240789690@kernel.org/
+Signed-off-by: Til Kaiser <mail@tk154.de>
+---
+ drivers/net/ethernet/qualcomm/ppe/ppe_config.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c b/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
+index 125b73be92b1..95b29db45580 100644
+--- a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
++++ b/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
+@@ -1474,7 +1474,7 @@ static int ppe_config_qm(struct ppe_device *ppe_dev)
+ {
+ 	const struct ppe_qm_queue_config *queue_cfg;
+ 	int ret, i, queue_id, queue_cfg_count;
+-	u32 reg, multicast_queue_cfg[5];
++	u32 reg, multicast_queue_cfg[3];
+ 	u32 unicast_queue_cfg[4];
+ 	u32 group_cfg[3];
+ 
+@@ -1530,8 +1530,11 @@ static int ppe_config_qm(struct ppe_device *ppe_dev)
+ 				if (ret)
+ 					goto qm_config_fail;
+ 			} else {
++				int mc_queue_id = queue_id -
++					PPE_AC_UNICAST_QUEUE_CFG_TBL_ENTRIES;
++
+ 				reg = PPE_AC_MULTICAST_QUEUE_CFG_TBL_ADDR +
+-				      PPE_AC_MULTICAST_QUEUE_CFG_TBL_INC * queue_id;
++				      PPE_AC_MULTICAST_QUEUE_CFG_TBL_INC * mc_queue_id;
+ 
+ 				ret = regmap_bulk_read(ppe_dev->regmap, reg,
+ 						       multicast_queue_cfg,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
