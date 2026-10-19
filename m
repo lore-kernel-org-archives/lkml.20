@@ -1,228 +1,126 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03F53DAADB
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123893F54D1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792389966; cv=none; b=gF6w2S/QMhGvAh66twBegEb95y7K/KjPdqkUqrXl5ubZMbE+MoSovzCGjDrBhiOULdEvOqS9YlXtzl5yEvZm9jfSe1K9rSGn9CT8xH/83yydg4+/2NSkNeSXYQiquf7O/8g4F/4ZoD9uULhvsuWUHFMgUnqv07lnIARlI0mGk18=
+	t=1792389981; cv=none; b=lVV/IbD0nZe/p0jf30D+rN0QD0tcab+3ZhRpuiVeSwF8c+xrQ8c8kH9G4l0MO+WPO2LEjgZYp6Kd1gIunNsOiYsg/DuC+6ZS1Lmr2JYfjeHxYsMUarOXFxgiCfI2tDYhHdrcxCyjpZKG3Z2VKhIYTSMld25i4pobnARLRlDw3X4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792389966; c=relaxed/simple;
-	bh=6LwTmVt0WwD7hvgGsw8DPupUoKZXFuHF3AJCdQqKNqI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UVpHhuFnZRlBXBA06CQ6gK+RmotfisOuX+sqBMLXkPMX5iyj+KaFHGvG9/8zT18ZdjADNzwzt4L+7rvi+PMVyrb9UbPZbvv+GBxRIzyw6T/EIXjRyX1RasxIFSCH3yu1qv4OJ0WN9u/JhOWjSG0B0q8c1MVOOxXGwJUNKVgPWTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pC1tnusJ; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792389981; c=relaxed/simple;
+	bh=AGZwW4rJfV+3Jgi6TsQvRI9xODW9i1jtyOVPpMKaweM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hf6rmBB2/Wycguyl+5XCOGZPklLMWbVaFoJfySX6y65sUp1Nrh6ZdYpvdAs3vfVqr0ZCaeiWMZHFBOJuXshGugxwG59WZm7FtWo1VwZJEHlqSMQoEr11dkTQ7bb2BAvRchl+NiY5Zz0UO5M6tvR4ZEGvK1fI8mX6uu6s1dkTVlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev; spf=pass smtp.mailfrom=seanlyon.dev; dkim=pass (2048-bit key) header.d=seanlyon.dev header.i=@seanlyon.dev header.b=rzTZA+9P; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=XMfdTDB2; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pC1tnusJ"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48b060ec084so1043185f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:06:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792389963; x=1792994763; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=xfNDVcCLMyws7NZEalRZx3KM792JOu/3dZx8XrnMr4E=;
-        b=pC1tnusJeAN0rPNSgLi4hLJc0Wg88TU6ItH9cSzTX1joY4XVrY4oqe4IY8UHMeahYt
-         6lskKdFBG36Ka6OV1lF9vHA5U8uY6DoAd/8u+jyeAKPlK6H2uvxjrs+6lF13d2lNh9Vx
-         eztzIakkkHZymu3Ky5Gvg5vsOSf9k8ZUyTfneKDciXS7M5LANrzoVXHgrAcnhRw+jRQw
-         TkPv73zSjpUbcJjoTLQUwWQ+UWHSXz6Dh6cDu9Ydw6YYFSAfTBZwifHjh0gRGzIMS3Mx
-         1XhwZ050GXhOiIj8Wh7IHtTlBjMhXr784GXn+lerBAa50Vj9WV6hS5bUSjgdxh/h834+
-         ++3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792389963; x=1792994763;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xfNDVcCLMyws7NZEalRZx3KM792JOu/3dZx8XrnMr4E=;
-        b=VYzK3OeqzFJ5liQ8VdEVaUaUliabAqSc7exKWnSaDrdnJTKG0qVgdCEVbhGDWDm8Dd
-         /QCfx5V5a72n+m2+xVNb9urXk7EBrX9gqoXoGektjQAfewSubU5wPeN6oKo3IBZ2RHsK
-         fSPWa7zCrPoo4t5H92i4d4VdODFbcXCV+lmM0wXiwsNTTT+p06c3OKTft0a85gOtLgBz
-         B98USseoTRIy0I9BHFL3qGO7h1sTrGU+Ojjpv2x1rVMgeXJAKt/udbtVucNTuiPuhWuU
-         3uf00LAA02pJ0iDM5hZ0ZMUTrWKtNIkStWZDgSavwfv+YbQCh/zLknuzT8LkX922zF7p
-         WSKw==
-X-Forwarded-Encrypted: i=1; AKwUvBzah56aMCFnfpZGQym9cpdnHeMDghed1uO+/1/jEf574jDr99yKJlyeg7l1SaNT343B48tvaS4EtA2CKGM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/avDkjlgtPTVX1dPobXmkRTdDcR3iDfqIF6oQUURwgqOUBqYm
-	GZODishSKnBsNfeRI8j5qqsuBU8Vm4dJIZLxqnu3DFm0mSAAQq2bRRzr
-X-Gm-Gg: AYBFou1Kw3KCf86q5WF5FrY0L1Ivq11oye8VjukHJH3Nke4cVIqQot4+HGzYpW7BjZ8
-	+r4zhqNVWOyMvav8ukWL4TuW1ScxPiezdMD9zwWkcwHQRAB8wOpJj/klT9SKV9L5ZSiY67tGavv
-	eRePJ5nP9cLBEq1LRRe5C8hn75xDHEEkkJxX9XV6NPX6K50gEICKbes8LOAwJceTHyf9T7bJZST
-	obmyCBbXukX/OcsItrEAObik+jqcINbZNEjf76PxxX6HJRiwsH7zpn+FxABqOrZqaVK/gxPfKRy
-	6NTJTW3xN8ixIhMGsKMi6P/eYGbYdalRvjetIt8Juk5xRe2yu2tFhx2cRPVVdhHnrQtmm+uM+Er
-	sw/x2SiOHdg5ACRNVibhqgn21AJVx+AWFC8DuFZxGR5N/4vwlq1DeKVvsrHCvhtpWX5Qk3DrLze
-	ffiQ9wFTvTlQsNoHyXb/hXzXam+zOGbzQNvWMBBM8GrjMqlGvG+PQEXPLtLljIowRSLG5FJ1+GR
-	PQ1wMrjg+/43+qtKMGrRSzq2pKhrQJ5YEnwvpn+MJs1n6pypwRw3xSUiYc7123j0KZRR+jcSOqL
-	2EQ9aA==
-X-Received: by 2002:a05:6000:4549:b0:48b:69d4:bb35 with SMTP id ffacd0b85a97d-48e07bbe545mr7818984f8f.12.1792389963039;
-        Sun, 18 Oct 2026 23:06:03 -0700 (PDT)
-Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd540bc4sm21248191f8f.2.2026.10.18.23.06.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 23:06:02 -0700 (PDT)
-Message-ID: <c1cb1b7ca3f69d5d456d6940f5dd8d93a0a91e8e.camel@gmail.com>
-Subject: Re: [PATCH 02/10] iio: backend: add devm_iio_backend_get_optional()
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, Nuno =?ISO-8859-1?Q?S=E1?=
-	 <nuno.sa@analog.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Rodrigo Alencar	
- <455.rodrigo.alencar@gmail.com>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org,
- 	linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org, Olivier Moysan	
- <olivier.moysan@foss.st.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>, Michael Hennerich
- <Michael.Hennerich@analog.com>, Rob Herring	 <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,  Jonathan Corbet	
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap	
- <rdunlap@infradead.org>
-Date: Mon, 19 Oct 2026 07:07:34 +0100
-In-Reply-To: <20261017212834.002392c6@jic23-hlaptop>
-References: <20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com>
-		<20261015-ad9910-backend-support-v1-2-3c21648c8e26@analog.com>
-		<atEeZPOLASHAcnjF@ashevche-desk.local>	<atHjHqyxXj6jkObW@nsa>
-		<w7waqang6lriwbcq6o5s5yuedouuwgacmnj55qsjpzjrv3jut2@cthvkakgyhpi>
-		<atIkZa0noHjcl13X@ashevche-desk.local>	<atIt3eXNeTT7cqxH@nsa>
-	 <20261017212834.002392c6@jic23-hlaptop>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key) header.d=seanlyon.dev header.i=@seanlyon.dev header.b="rzTZA+9P";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="XMfdTDB2"
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfout.phl.internal (Postfix) with ESMTP id 40B40EC014C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:06:19 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-11.internal (MEProxy); Mon, 19 Oct 2026 02:06:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1792389979; x=1792476379; bh=skCSu7vCsP
+	1jAvEBrU1FAT0EWBykKqwMlXtfcXHLl7g=; b=rzTZA+9PrWJSpoS7RK0PmeuMqD
+	WiRGXZCDpi8fN3EXg1QsoDsY7Yo03+n4Op2nW9XPMkSe9nGXE1232hTjOY0FZUXn
+	GQdNy/ar8p7nZt8Za/s/fkrmo+qJonIcbpDq+crB/rBwCK68ziA/C1T27JP9TZAb
+	GiQJIZ9E/BRQZW7h+x3D6ZzpMTJTL7w0VmnAX0R5l36G8kOow1Pf+qJi65a+a7fp
+	KofYNNn2hHKxEa2Itp3Qt50PSzuLoAOy3Rq/Ynub2eRncLEKT49vv0wiPh/ehSnJ
+	KoJ3ip9BqN3kOkkJ4rhKPvgFhYsqKsaK1CWSCtB6EnY0Bq7wM0GWeRpSjnvQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792389979; x=1792476379; bh=skCSu7vCsP1jAvEBrU1FAT0EWBykKqwMlXt
+	fcXHLl7g=; b=XMfdTDB2JGLtTMrNiBLYIkhEIfTJw9Xf958WtG0u5IavH65166k
+	zD13oEC+GGTZ0LDQRr5iRQbC+1WF0x/uR4r1p1jqmY35LhzlNwhaJC+cW9JOYNUp
+	UkMIywimvjBXk1/AFeIzZSCY7aww/2wsRo/4mTLyrxzC6rgjF+NJBKRxV0tJ1sDd
+	OdOgpCvkJBhvcrVxDu9XITLsTrkLL029V72SKypmsqFG3IM93r+8E/KlESvnDIlQ
+	UWXt1DpLCqwX571dDC9cOoU4+3KgQdJl2ZUsBEC3/a52DB3CHTrIsfLJe4Cemu8f
+	+mfToQzex7YRrfIwjywbXs7Zt6jXIBOcoKg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=seanlyon.dev a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792389979; d=seanlyon.dev;
+	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:LFROPKAr/zKHXZmBxP7PuU42sx/IpSjL6YN9BJTTnvv03Ue
+	clWfuktnlqPonLPOLxyIv5QzH72hx+X++/jn1dcLtqjnpMBwUffLx7srKkHdRk5s
+	qXUdQpI4PVrCRsme/6Wzt/pF7xjy6APVUfmEYyET7nPAaUwAzLlE60bCrzV3gQLB
+	66oZehQsrR8HBwqPbGL2mTaksqJ5ak4FnK1zpxdbGGdeAF94Ut8WbwRmtZz2vFU4
+	d6TyUrxASbemvf2YU0MOB0MKwGL/7tSlaO17PMGUw7cPYHoL3SXWgM1fo8OBsBFy
+	gZ8BQlqPXnOhCOyv9Kge1v7EsjQhHHz7Jc5igrg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:RzE7BBSI4URxbarKubWmUC8KRp6/fqCeHsfWtq56+lk=:AGZwW4rJfV+3Jgi6TsQvRI9xODW9i1jtyOVPpMKaweM=;
+X-ME-Sender: <xms:WrPVal6mOY3rSg81sT0-A9NSdZ7jgsZOuKOniukXHK8ok3LxSYDqIw>
+    <xme:WrPVauyYr6t__PEoVFJuvOlnV9tdQV477dvyrqxkdKHnqau8Dp2U45oC-afzIzJKr
+    NmLh9fXEfURSq2fNBzghjpKmrsETITS-Elzyo9ZH3bPYzxMoO4vkCZV>
+X-ME-Received: <xmr:WrPVan8LzIf26vZzEPfK04GwEDvxJLlpVrrvSDuoy5mm8nCzCOOvK7mFY6lixPhc17VB6mPuy983biGP9xBuKhyTMvc>
+X-ME-Proxy-Cause: dmFkZTE+hzeJAZQnGrgLhmSW9gh/tQXt9DaFejGM570UW0kAlfkbKUO/i4O0N5sEnRhUhq
+    6/YaxA5ux0CJfN5JfG3K0/FCNnt3PuSbFKfF62ypE+ZI4Vw0iL7W8Gl4s0awi35f/5rhmQ
+    tA6DJ53sxwc9wDhkCoXVtR5SY84HXgmRKi3r0lMtCLHGbpiDtF9BEn66ulkg8komwp+QuK
+    p9E0a+6botTksQxdE9E230skmR3By5GWLKYHAMMfTvIciY9IdGkiSfGWDnWNS32hE13qvn
+    yExIF4LQxpmlqUM2w/QiMpY06JA63uTXp1XmC7xz+lH1p5sRf01m2uU0m1b/1hQvaFNJfP
+    5XpJnRszuH+3xzNUd/8MZdpnggzhYsXPRzcNLVO9RCk5QhIOCTJUQgV+9xRuwsi3opYP0X
+    rHi3lRSMDgnFMtAO7Dtn0e+gxYgPqsvkw9Zy9mLe2xVBO5LebTEyHujEngdRh8Ps599slf
+    1bIqq9g4/JuKWzBUll3lVfl/oxAgmmhYDsREljwwIQmx0/z+hmoj7yUQPXuLA6am8h6bxf
+    6GJ5UXSKCF0CW/P54/KODmi/M76VxRuN999PN9+w93adwvwJwSUj6lMmyLnNKt9/xvpD2P
+    HMPnyW4yFyof0eNsQZKBWIMoRjgJMGYS3PgQJtS+Ac4Iw41vFuHuNhsKgcdw
+X-ME-Proxy: <xmx:WrPVaiHpuzLG227CRr3P0zbUh891oShNjaV8Wdoc_WAS-zjRILvWTw>
+    <xmx:WrPVahCiTXHzweTDrTNF4z2JVny8Uzut_301Oxq8Yjg9ZtTU2fQn3A>
+    <xmx:WrPVamn3wwQ1miiZf4EzWcDZ0FGG5rLcZG71KWyNuS-WmAujs8rdHw>
+    <xmx:WrPVakTPTkSnmhrsj-xYZVIORCGNjjUqE0CyCaU0XGDM-nMQ6WCNaA>
+    <xmx:W7PVarN7iuc--8U8c0KlmpBZGL80sD93cX0u_ct7Di0G5MWgIccONjf1>
+Feedback-ID: i07c64b5b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 02:06:18 -0400 (EDT)
+Date: Mon, 19 Oct 2026 02:06:17 -0400
+From: Sean Lyon <sean@seanlyon.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 00/10] 7.2.12-rc1 review
+Message-ID: <atWzWVLwz3JlH5iy@ncase>
+References: <20261017155059.698368299@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017155059.698368299@linuxfoundation.org>
 
-On Sat, 2026-10-17 at 21:28 +0100, Jonathan Cameron wrote:
-> On Fri, 16 Oct 2026 15:07:02 +0100
-> Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
->=20
-> > On Fri, Oct 16, 2026 at 04:19:33PM +0300, Andy Shevchenko wrote:
-> > > On Fri, Oct 16, 2026 at 08:18:08AM -0300, Rodrigo Alencar wrote:=C2=
-=A0=20
-> > > > On 16/10/26 09:45, Nuno S=C3=A1 wrote:=C2=A0=20
-> > > > > On Thu, Oct 15, 2026 at 09:41:40PM +0300, Andy Shevchenko wrote:=
-=C2=A0=20
-> > > > > > On Thu, Oct 15, 2026 at 01:49:42PM -0300, Rodrigo Alencar via B=
-4 Relay
-> > > > > > wrote:
-> > > > > > =C2=A0=20
-> > > > > > > Frontend devices might not need a backend driver to rely on. =
-An IIO
-> > > > > > > device
-> > > > > > > that supports backends can behave differently when they are n=
-ot
-> > > > > > > available
-> > > > > > > and that should be acceptable. Such parts may provide basic
-> > > > > > > functionality
-> > > > > > > solely using the control interface (SPI for instance), being =
-able to
-> > > > > > > have
-> > > > > > > extended features when a backend is present.
-> > > > > > >=20
-> > > > > > > Add devm_iio_backend_get_optional(), which returns NULL when =
-the
-> > > > > > > backend
-> > > > > > > is not described in firmware, i.e., when the io-backends prop=
-erty is
-> > > > > > > not
-> > > > > > > present or, for a named lookup, when the name is not listed i=
-n the
-> > > > > > > io-backend-names property. Other errors, such as probe deferr=
-al, are
-> > > > > > > still returned.
-> > > > > > >=20
-> > > > > > > To make that possible, a named lookup that does not match any=
- entry of
-> > > > > > > io-backend-names now fails with -ENOENT, the same error retur=
-ned when
-> > > > > > > the
-> > > > > > > io-backends reference is missing. Also, the missing reference=
- is no
-> > > > > > > longer
-> > > > > > > logged as an error, leaving that to the caller.=C2=A0=20
-> > >=20
-> > > ...
-> > > =C2=A0=20
-> > > > > > > =C2=A0		ret =3D device_property_match_string(dev, "io-backend=
--
-> > > > > > > names", name);
-> > > > > > > +		if (ret =3D=3D -EINVAL || ret =3D=3D -ENODATA)
-> > > > > > > +			return ERR_PTR(-ENOENT);=C2=A0=20
-> > > > > >=20
-> > > > > > No. Please, use device_property_present() instead.=C2=A0=20
-> > > > >=20
-> > > > > Oh right! Totally forgot about that internally :). And it fits in=
-to my
-> > > > > internal point where I don't agree much in treating -ENODATA the =
-same
-> > > > > way as property does not exist.=C2=A0=20
-> > >=20
-> > > +1
-> > > =C2=A0=20
-> > > > Say a frontend consumes multiple backends, but some of them are opt=
-ional.
-> > > > If we care only about the presence of the property we would fail wh=
-en
-> > > > trying to acquire the optional ones when the required ones are defi=
-ned.
-> > > > am I thinking correctly?=C2=A0=20
-> > >=20
-> > > If there is an empty property for names, shouldn't we simply fail? I =
-rather
-> > > would consider the firmware table to be broken in such a case.=C2=A0=
-=20
-> >=20
-> > What Rodrigo is saying is that an IIO frontend driver can have multiple
-> > backends. So in practice:
-> >=20
-> > io-backend-names =3D "foo", "bar";
-> >=20
-> > But we might want to have foo as optional while bar is mandatory so tha=
-t
-> >=20
-> > io-backend-names =3D "bar"
->=20
-> Not sure mandatory or not is relevant.=C2=A0 Two optional backends where =
-the
-> driver can run with either or both of them would hit the same problem of
-> present property but particular backend not being there.
->=20
+On Sat, Oct 17, 2026 at 05:54:29PM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.12 release.
+> There are 10 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-True.
+Built, booted, and tested on hardware for x86_64:
 
-> >=20
-> > So if we treat all errors (after checking for presence) the same we wil=
-l fail
-> > in the optional one. Note -ENODATA also means match_string() failed.
-> >=20
-> > As of now there's no such usecase in tree or oeven out of tree (that I'=
-m
-> > aware of) but to support it is also fairly simple that I don't mind to
-> > have it now.
->=20
-> I'm in two minds over this. It's unused complexity, but it also makes the
-> function behave how a user might expect.=C2=A0 Definitely needs some
-> good justifying comments in the code though as it will look weird!
->=20
+- AMD Ryzen 9 5900X, Nvidia RTX 3080 (nouveau)
 
-Agreed! Yes, already asked for it as well special because of the non common=
- -ENODATA
-check.
+No regressions found.
 
-- Nuno S=C3=A1
+Tested-by: Sean Lyon <sean@seanlyon.dev>
 
-> Jonathan
->=20
->=20
-> >=20
-> > - Nuno S=C3=A1
-> >=20
-> > >=20
-> > > --=20
-> > > With Best Regards,
-> > > Andy Shevchenko
-> > >=20
-> > > =C2=A0=20
+Thanks!
+Sean
