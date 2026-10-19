@@ -1,63 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792433445;
-	b=4a7bx0Q+sRT25Jd8DMEopcKigRzDdbZ9CAsJItEnSBW8QRV77yJB8+t5thwxdQDvObuy
-	 A6meoIYeBw/ZVRDf23mRki8vWQuaYXPu+dVjhTK2H27u0zGLlFzp6G3S/68zb2KGKHx2a
-	 kg4ZP0XVGzBHqUpRGC0KbDLz4fECtinnfguHeSsZwu0Uw5iuYMZ8AnyLGhymAByiwpwev
-	 5iBFi1yy3OpXxqZnWTilOqm/o4HlQNnj12BTqYkg9vCQ4G9FLS5m4gvzCSvWBWZqQ+M8i
-	 QBEmfMI+frmbLpLQUHiYmGbtTzotMD90ZMGZdCOEoWus3lB/zDAJFZD+A9FUESsrJNQ==
+	t=1792433451;
+	b=f0uWRw02Kb4z8qleoDh+d5OHBhLtPkxScX0pgQMZI3VOmMeNEC6BdofHYRufPCtltpZP
+	 7XAopY3EjVrNlTCYFzsD5mppS/NwyBnqDPye6C+iciC0Pw9aiFNgdz/SEuKfw15U1dPnp
+	 SUn6DLJ3Dd+FCeNn9GL/ctZfL2mcSUKN+LwnQYHGpJ7Ft6oXqIoJtTgpMPYKF2UZud3IQ
+	 Nn2XwMICPzmOtCIKxG83sbwJ91ZneAS5KiZjHGnb1US6v7gF8TPkQISYMwBJJvofhC5iN
+	 2qjm9P+UOdWvHo8BrEQAFzbuuRtK83lf2TacUZAseLK+wWNrgkHvZda+D1iSbLv83yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792433445;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792433451;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=rVBdJ6yJMaQPx6GERzuHZnG8FVacMhnzi0aZeMf4c/M=;
-	b=4pwydPExKrPJ2EXtuhfLWn/UwC36n+jXFlmpRccBsgTo+dNuMjnRsDwFEbehf1Reu+Qq
-	 uQ8wd0+WNGjGiHJ2Hv8fjetvkp/mE1mxF4gKwKAu03ViYMUa03JFRH+976zaJCctRQzDf
-	 Zn7sAbNOHhfV617dkrHMrTZbt2+XHE/MWJ97xMojsD+8mOFMZCSVirCCghY1trYTPni5z
-	 bcwx2R6KfS46qhNEW9f7kXcUWr1oA8Aa/azEkyzWMOvEm2jyOFIEJ1BCBfGBI+7Js7ec3
-	 ugLczKAMJWuKtbxEFUTQ90YleTwhri58tL+rOPh76E6YSo1FHXC4jmf2b1a6QDqse9w==
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=SVvib7IvDFKVhLJxve8I9C62Hf50rN4ShcZWZYoSaU8=;
+	b=jCUKrWmw5RrSX7Lm5NE25p/Dn4/kRZjLrXpVbEkrrXl9zoRwiGJ7GDsufyMuLnTQRFbf
+	 eFTuup0wgI1xw+OefopYbic4nGoC/Q1136AcV2wKSDFeRd9zArXTJQ68umCWyP0Y8G2Pf
+	 PYkAfCEv9oia46PUC/sk9Q2QkIjcUiLVZ7AADHO4ORATumUzKy8kIxOWiInKIe/VZKhHB
+	 Fzp2XTjl/u3IEcGb8ShM7VVrGYF96I2pgoAJsSq0S6ZLwtngZLzpB7sStxurrcm5NQovh
+	 f3u5AbRS6EoFXgFLpexgkv8P6sWIz0RDXe+vLCXehx8dzyGGHvQvgmemGkfHodVJlvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VVxcX7Bx;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hwexPJVg;
 	arc=none smtp.remote-ip=170.10.129.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1421E606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:10:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1421E606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C3E606A333
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:10:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69C3E606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VVxcX7Bx
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hwexPJVg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792433444;
+	s=mimecast20190719; t=1792433450;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=rVBdJ6yJMaQPx6GERzuHZnG8FVacMhnzi0aZeMf4c/M=;
-	b=VVxcX7BxbGok13NCytw5aQZGpKb+BARUpgusVQ7yHKFmlp4TC1pfZGKGn9NhZo5EYigVQy
-	GfpHxUtL5t6YC8yrt/Lxn4Thy881HbqLZOIGi/myPTtgOYOJ8f0/nbiK8Pez4gaZ25MNNz
-	tLhNqEiL5MVuEg9akXOw0NjGUAFmlfU=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SVvib7IvDFKVhLJxve8I9C62Hf50rN4ShcZWZYoSaU8=;
+	b=hwexPJVgno9T5EXTcNUcsLKtnFxdeY5O95CJ/443KCL0eIWzM1ho1n3tCMqHEo4AstVdwH
+	2vBZW8+Lnh6M/xt5p0Htq/biqPjhdH9UF2SV8lPd5AEVgH9wydhrbdRqMS/+JBWzbqo3lT
+	fYM1Hu5IpUpZmDDduNJ6EtNicsD2kXM=
 Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-381-x0pb6JNaNIulsyF7emrWJA-1; Mon,
- 19 Oct 2026 18:10:34 +0000
-X-MC-Unique: x0pb6JNaNIulsyF7emrWJA-1
-X-Mimecast-MFC-AGG-ID: x0pb6JNaNIulsyF7emrWJA_1792433432
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-445-kXlfb2kiPW6_LwUBJ3PR4g-1; Mon,
+ 19 Oct 2026 18:10:46 +0000
+X-MC-Unique: kXlfb2kiPW6_LwUBJ3PR4g-1
+X-Mimecast-MFC-AGG-ID: kXlfb2kiPW6_LwUBJ3PR4g_1792433444
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0826C18015FA;
-	Mon, 19 Oct 2026 18:10:32 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8C8E41801BD5;
+	Mon, 19 Oct 2026 18:10:43 +0000 (UTC)
 Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7542B418;
-	Mon, 19 Oct 2026 18:10:28 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D5B6A41B;
+	Mon, 19 Oct 2026 18:10:40 +0000 (UTC)
 From: Waiman Long <longman@redhat.com>
 To: Ridong Chen <ridong.chen@linux.dev>,
 	Tejun Heo <tj@kernel.org>,
@@ -72,10 +74,13 @@ Cc: cgroups@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>,
 	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH-next v4 0/9] cgroup/cpuset: Fix various housekeeping check problems
-Date: Mon, 19 Oct 2026 14:10:11 -0400
-Message-ID: <20261019181020.1069325-1-longman@redhat.com>
+	Waiman Long <longman@redhat.com>,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH-next v4 4/9] cgroup/cpuset: Do housekeeping check before converting invalid partition to valid
+Date: Mon, 19 Oct 2026 14:10:15 -0400
+Message-ID: <20261019181020.1069325-5-longman@redhat.com>
+In-Reply-To: <20261019181020.1069325-1-longman@redhat.com>
+References: <20261019181020.1069325-1-longman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,65 +93,41 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
- v4:
-  - Adjust a number of patches to fix issues reported by Sashiko and
-    Guopeng Zhang.
-  - Add more test cases to test_cpuset_prs.sh to improve test coverage.
+When a hotplug event happens or when update_cpumasks_hier() is called, an
+invalid partition may be converted back to valid. However check against
+housekeeping conflict isn't being done which can lead to a partition
+state that violates the housekeeping rules. Update the code to allow
+reviving an invalid partition only if it can pass the housekeeping check.
 
- v3:
-  - https://lore.kernel.org/lkml/20261014140548.575122-1-longman@redhat.com
-  - Further revise the code based on feedback from sashiko and
-    reviewers.
-  - Add a new fix patch which fixes a bug found during the testing process.
-  - Add a patch to impose a new restriction that creating a child root
-    partition under an isolated parent partition is not allowed.
+Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
+Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Signed-off-by: Waiman Long <longman@redhat.com>
+---
+ kernel/cgroup/cpuset.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
- v2:
-  - Update patches 2 and 3 to address bugs reported by sashiko.
-  - Add a new test_cpuset_prs.sh patch to skip the test if some of the
-    required CPUs are offline.
-
-
-Commit 4a74e418881f ("cgroup/cpuset: Check partition conflict with
-housekeeping setup") and commit 103b08709e8a ("cgroup/cpuset: Fail if
-isolated and nohz_full don't leave any housekeeping") add housekeeping
-checks to fail partition changes that will violate the housekeeping
-rules. However there are several issues that make the check incomplete and
-missing in some cases. This series fixes the various known housekeeing
-check issues as well as imposing a new restriction that a local root
-partition cannot be created underneath an isolated partition. This
-new restriction will eliminate a number of hard to tackle corner cases
-which are unlikely to be used by the end users at all.
-
-The first patch fixes a bug found in the testing process which is not
-directly related to the goal of tackling the housekeeping check problem.
-This series also updates test_cpuset_prs.sh by adding new test cases
-to test the new code.
-
-Waiman Long (9):
-  cgroup/cpuset: Fix a missing isolated_cpus update in
-    update_cpumasks_hier()
-  cgroup/cpuset: Consolidate isolated_cpus_can_update() into
-    prstate_housekeeping_conflict()
-  cgroup/cpuset: Consider all the exclusive CPUs when doing housekeeping
-    check
-  cgroup/cpuset: Do housekeeping check before converting invalid
-    partition to valid
-  cgroup/cpuset: Properly disabling partition when partition state
-    switching fails
-  cgroup/cpuset: Don't allow a child root partition under an isolated
-    parent
-  selftests/cgroup: Add tests for isolcpus housekeeping check
-  selftests/cgroup: Add tests for nohz_full housekeeping check
-  selftests/cgroup: Skip test_cpuset_prs.sh test if some required CPUs
-    are offline
-
- Documentation/admin-guide/cgroup-v2.rst       |   4 +-
- kernel/cgroup/cpuset-internal.h               |   1 +
- kernel/cgroup/cpuset.c                        | 268 ++++++++++++------
- .../selftests/cgroup/test_cpuset_prs.sh       | 248 ++++++++++++----
- 4 files changed, 381 insertions(+), 140 deletions(-)
-
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index cef3cd0a6906..046c7ce5a037 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -1981,9 +1981,15 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+ 			bool exclusive = true;
+ 
+ 			/*
+-			 * Convert invalid partition to valid has to
+-			 * pass the cpu exclusivity test.
++			 * Convert invalid partition to valid has to pass the
++			 * cpu exclusivity test as well as the housekeeping
++			 * check.
+ 			 */
++			if (prstate_housekeeping_conflict(cs->partition_root_state,
++							  parent_prs, xcpus, NULL)) {
++				part_error = PERR_HKEEPING;
++				goto write_error;
++			}
+ 			rcu_read_lock();
+ 			cpuset_for_each_child(child, css, parent) {
+ 				if (child == cs)
 -- 
 2.55.0
 
