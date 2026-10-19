@@ -1,107 +1,246 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9254DAF96
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:16:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21484CE685
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:17:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408599; cv=none; b=HMLISOA3GOrICZcqLQM2dQ5s2WN08u2Pwk8HQzRFHWLg5qpQ5V9qFbmnPHOUweeyjqbf8Ox6MWhbhYodVmzEcj1gioyODPiS0XnuBBQvkOBZfiXNKt4HMUBtjnviiCpRrgvQJoizJ7PdSq2Mh5SsNna0/7xyF3QkW+KsAQxUhYQ=
+	t=1792408625; cv=none; b=m9efpEWCNg3xs52kPB29IfN9bkXaSDt5fjaG4YPpcgkLvCSoZVkjns7uXe1ETZVISQE4meWXYdmaYesqneBtTx4NmnSql6lBArgNF6As8uF8uR2Dn/oju3NFq7tBMJ1fSVWXA7YRhqvs4kaQn7zZxerp0yhVrqA3W2n0AmqU3L8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408599; c=relaxed/simple;
-	bh=EWf5c8ljj/09dklnGXsFMrD980MsIpsyxtjkVc+RqkA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LCbbq5ku/G5y+tuKQfstZc1xLS8iSBq4Gg0y9w95kCWifjL/hNgAe0DPIjQSCZ2S69MH3Qu5wVOpeMYRF0VnKyBhYpHnuOKiICIHnxK3qsHh82i3ztY4JkACUno3EN7J0RLS3C+BQh5aPYLaEnCGZrkzTC+ljkBYRNhbCyQSYlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=WsKynFkP; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	s=arc-20240116; t=1792408625; c=relaxed/simple;
+	bh=O+NWByob2gVZL0+tsbFgHWpFXaQuqITlhKc4tDqFErw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=o4RBcL2lYNmj3ajHZTnf88jVCOhqGsVX0ZexCBrSlIYjw3wnqe2edPwYARhgNpdH8GsKO8lyzGwZwpfhKUPz3sF+KcoVN1e73KKp5Bs4wzCzL7cEvGagMZ25SFbdRGeWYApwarltegZvnbkiwx65m7IuJhAOPgp0khpzXOmElOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=b9d7dDhE; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rDB3KOnx; arc=none smtp.client-ip=202.12.124.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="WsKynFkP"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso2282673a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:16:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1792408594; x=1793013394; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fGQ+9YD2bGTiX9CIhcjMfZ/cpyi6knaOi/h3v5oGsFg=;
-        b=WsKynFkPeL99ECm9Gqb1tfUTap0V/zRLCWSnbmNpjJr3xgaY958BOuR5aUwvcRrtAK
-         X6wJDFEAbXVYj1xDqgZDplKYnjPNfb7YbMNCfv/AMRmMybsl9Uh6dT8UfYqadrhm+uUu
-         507BcFi74m51r591jRl1dUgQ0S4oskznqQTbhfiT+etWfDWuFN5ccGZJQdJfbQ2iYQ98
-         6B3LF2wQCh9djcI3TcMYnE69W9usn+TAmTeVDItvoXpqNwS2qKYgCIbf6xPTXvePK8VA
-         Q14xAg+EhwV+4mf/dSKpvkdZnNcjSYoYe0BfutMcDPazTvpVOUOIuPJm7z9BDRZOIa31
-         mDBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792408594; x=1793013394;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=fGQ+9YD2bGTiX9CIhcjMfZ/cpyi6knaOi/h3v5oGsFg=;
-        b=FHqmIeMXoe1ys6iQmY7X9fooqjxZwhkiu8t5G4FW3KlwbFpIeW6q0u6kc3mk9Nq17t
-         SQ1hM/+luVNxLptJiw+KEFhfMCzgdcIsEN4mntd6gpM7URykoEPhNlnIhvWyYkfTnCVQ
-         INvyX4nku9o+/+rj5fgJyphS6BREXx0qtjGqoluJVKGz6uQ8Ip3Hh9wr57r+PWoizT+3
-         o0jEzKA/ADhgvG+1ZpyeINgo0tbsdytr9+1SzWwv+BZYTuBYVPn95SFCFeB/RKEI5PAi
-         fKbz0SqsxAOe6nyrQbA5ha5yOPjnnj9WPueSxx3KL5B48uvNCjVM8+dYhl2VGydO17uC
-         eDPg==
-X-Forwarded-Encrypted: i=1; AKwUvBwxEFI8nS9BnWYCmRt5M6K2UvMIxFE2FQ7xyr74K6HRfrc0yMJzkTZo0RwAkFz4SCUk0LAl4PDboj7zgMM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+0E/s8UL+bE7IP34+O9dqwU3AGUDvM+pGvcHl41WID3V00BFj
-	LbEoY62fVdyVvXxBaLntjhS4unJfexyyQxWj8kPRXfBURoDBq6q3jKV9R5Z5zEKFDy0=
-X-Gm-Gg: AYBFou0hi1q1gJA7/DRxkHhjWL9Qm9N+kE5/BZuSEey0VBSQbgxjsZpAVQ2N7vzk3/g
-	VajKhF0Fax7duh4Ia5hj91ooUvCpayObxx0ZVQBzMkF+FwPFVf21iguqHTrppheG5UfmKK/lVqK
-	bLy9s4fVs+fYwh1Qfh/ex41i0eWYWXRSf1tdZ+zUsiH6zqX/uKiqqd/fPMDquGHwtYFn5PdU0EJ
-	9kgMOXzmQIPkwO3hiUlu4lERmA9jFM53LcqzpkQmvZhA7lSXexr+Mm0KKJYdQk0GhnY0Qyo6/Aw
-	ObLak4z+L2qnrF/JfObDsbRm/44iJxMJCcIBFme2O8l17+vv6QWj5cdJWsrwlgz5J1IkjK21jDE
-	yd/uK1mevOAH6tqkuFkrKsi1lNUsqU2DbRNuhtFM7kIUFy+++N88pAJFV8n2NYlZP7gFW1ALmMi
-	jZo9zTWqG7evVm3Hj6tqZUPtkrVfLXw1HebLN0z1rz+B62IPmkYNp5IK7X0ZWD
-X-Received: by 2002:a05:6402:270d:b0:6b1:c7d9:b631 with SMTP id 4fb4d7f45d1cf-6b3a8191a46mr4712969a12.23.1792408594035;
-        Mon, 19 Oct 2026 04:16:34 -0700 (PDT)
-Received: from cloudflare.com ([2a09:bac6:5067:2dc::49:220])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1e9e44sm3663824a12.32.2026.10.19.04.16.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 04:16:33 -0700 (PDT)
-From: Jakub Sitnicki <jakub@cloudflare.com>
-To: Michal Luczaj <mhal@rbox.co>
-Cc: Alexei Starovoitov <ast@kernel.org>,  Daniel Borkmann
- <daniel@iogearbox.net>,  Andrii Nakryiko <andrii@kernel.org>,  Eduard
- Zingerman <eddyz87@gmail.com>,  Kumar Kartikeya Dwivedi
- <memxor@gmail.com>,  Martin KaFai Lau <martin.lau@linux.dev>,  Song Liu
- <song@kernel.org>,  Yonghong Song <yonghong.song@linux.dev>,  Jiri Olsa
- <jolsa@kernel.org>,  Emil Tsalapatis <emil@etsalapatis.com>,  Ihor
- Solodrai <ihor.solodrai@linux.dev>,  Shuah Khan <shuah@kernel.org>,  John
- Fastabend <john.fastabend@gmail.com>,  Lorenz Bauer <lmb@cloudflare.com>,
-  bpf@vger.kernel.org,  linux-kselftest@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH bpf-next 2/3] bpf, sockmap: Restrict iter-context
- sockmap updates to iter/sockmap
-In-Reply-To: <20261016-sockmap-update-limit-iter-v1-2-23fa946db59e@rbox.co>
-	(Michal Luczaj's message of "Fri, 16 Oct 2026 23:09:14 +0200")
-References: <20261016-sockmap-update-limit-iter-v1-0-23fa946db59e@rbox.co>
-	<20261016-sockmap-update-limit-iter-v1-2-23fa946db59e@rbox.co>
-User-Agent: mu4e 1.14.1; emacs 30.2
-Date: Mon, 19 Oct 2026 13:16:31 +0200
-Message-ID: <874ieiey9c.fsf@cloudflare.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="b9d7dDhE";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rDB3KOnx"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 083C77A00AB
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:16:59 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 07:17:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792408615;
+	 x=1792495015; bh=zgLYa/JnxT/8EIQ/TE2CX6B+wBarwWr0qwjQhA9dpNI=; b=
+	b9d7dDhE9PatOGwZBYyfkXv3N3OjEFxIPcP3FItJP4pZeMhgK9InPcYIaBjpDOtq
+	d+FKaldDcFyG6HsPEjdruPhwf/rhWdfenmcIQWxN2M7Qn/QKcI8AJNgw8nolYIsK
+	DTGExytUlEnhp0xBt81fHxzcRUQ9oCHG8PuzUQexVOfVA4fjfkUuRksqs1admKbs
+	nWP33JQCAWF1VOnM6wk2x0CzGkBRr+r4SVb9HkWvNtPmGYwfN/FphQzxzd0s++3A
+	mFF1EdItiemGEvO0PN9jQm7KUeA7lA8kx2MneLi8J/VERryhqT5TgcdoOBSDYzaV
+	6MaLNbD2m+VG+U0SyQkkEg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792408615; x=
+	1792495015; bh=zgLYa/JnxT/8EIQ/TE2CX6B+wBarwWr0qwjQhA9dpNI=; b=r
+	DB3KOnxG8B8v7pIH2IVJwBK6wpdcjQl1Rr5eZjm2eVJrvU5Eel78XLQOP0QWnl5E
+	VFct/6DAZOU7ozsnfU+nPmpi/4U7dOqcDpa2PGLigpf3dPKyKFb2sizoCJlzxZcA
+	6638nm7LgI41Jp+ElTp6OxN/jc/Kbh8MMLGcY9k2/97fn3esDoMvy90+ZxS6w+Hx
+	Z8uS2qNH1IBsLVryeS6ciLmyca0GOMJGu34urEui/ka1AgkUoM8l06jxVNhOh+Or
+	AA9YfqAuZ1WOCOAGqL5n/TzJYcmxumjxhJYJn+iQKVmeNEGCrJgHJYdDHRt2AxRw
+	9c53KgKiX/V700NJvz1IA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792408615; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:h6ZSe2L/XMiIva8fcHUDH15bZeLm2gE/uN9TRFzN4kTh8u5
+	q4xINu8rWd5mLhr2uDr4ydkDLpyMAyH0BKii6Tu7xLdiEgwO5lS8mDROlwIbRxYv
+	T2pc2BEpoRLfrdWKy7cNagRTUFVUNwWOgA89xT0dMR94Yd6fCu3WAKGSvCtuKyBl
+	zBbufhtIVXWNk471Pi5skfAhPbpY5k0hjlW1HleB4oClZtv5TDI3RwckTKVMAa3O
+	0/xX92pgFjci1XIbedeo770KCHuZtWLhoCSa0f+og8FwinLDpfPYFhYY1By2IRB1
+	0kybPliU/5TPGseyJflb5wGSdlfyPCtEk2juQhg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:zJKx6kBh4q2kkDyKsibzk02wNoyknxOpIXYcNiMoR90=:O+NWByob2gVZL0+tsbFgHWpFXaQuqITlhKc4tDqFErw=;
+X-ME-Sender: <xms:I_zVarT5Lgv-2DoJUZgLQMZFY97RfuFlkPOeDxLbChcpwDkB2Qksvg>
+    <xme:I_zVannd1hxnR8nmeYawmXognSuRkBoL3a_hs9rbym3hZQJt8IjFV1glt28N99gQY
+    fu6w9bRmiYXB-nWDWe1G6hFJ-SghD1tmgYdCicUU8KWRLCeQT4tpufs>
+X-ME-Proxy-Cause: dmFkZTEePN2YjTBxNqBq6SGh7R9IGsuxzB9KQLpmOmK8t2xw8fGIOVtNR0QZoXk1P/Q/g8
+    OZkIR4pW2xOs+HI1XHcf+t3+iGN20YB/VTDRi4vrloTts1K8NgzN7aN5327SNIuAdTv0Q+
+    5Ecv0zod5j88/5rvNstwTWrgPmUQCScJJlL6HsmGB9E4+Rn5sVUO3X32XsclpFyb50Vsmf
+    MDGOrh8xHZmUqqduCMKeCeXdnrT2XpHr1ajdCNwUikRiFq8J+7h/2XWE5S/qFlSpZPUwBe
+    o5UPjj51lL0iGsTrdo2NNCpri1PwEv6O2DvJpnWeqk2HX0AGUcLvuxKBmaeeuV7JCfy3Z7
+    6NBS/rrbaeTm8NwGyEwtTfVp0wMI6Cuf5GhOq1BoBYD/8a1ZoTEJtGZcAYkueo0jSq/zzA
+    Y9V6WDXeM6wQrG9B9vYcuphhepJHG4ekCh1ZGYTOetk22buwMQVjBMyT7CUsS/LwXo/+er
+    /Df7BxOS2YRh2E+zDNem3o3CNOV0C9PEX7Jy3k33LXVU7hSMkZ3wopMqF3jeHmDEcFrNWM
+    Mlj3yB6zOtWaruwSGlFZUK6WV66erjBVjCEyUskQ3owvfv9iiLHZAFfvWIoEvsuQ3AU+SD
+    c0pGq6O1qaHeG3qT88Uu4eqisdG9ZLZhSAwYM8log1bxF8ZXMuAO3rMqC+DQ
+X-ME-Proxy: <xmx:JfzValXUnZpTpDusRZV1vLvtQNbAWaxKSU_Ak8W6Lc_-sq4oelrcog>
+    <xmx:JfzVai-ecXK3lnBb4vQ-CR1vgF378ComkXeXPHiPsaIpauZrZ1Bx-Q>
+    <xmx:JfzVaosL1TyTy9XB4kT8GI18YvMZt0yb62eACVS7DlxHs2B85iIcDQ>
+    <xmx:JfzVai01-RAq6QmJxGw7hgGwPqm4wTvrzdsD_gLN5rNWuOW874IkTg>
+    <xmx:J_zVajy6JIXpwrovofzYrk4T4uBzCgl6TpTFIuJIaSYYt_YkaFgkYAtw>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 6352A32A008E; Mon, 19 Oct 2026 07:16:51 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-ThreadId: A2HaaWELKR9F
+Date: Mon, 19 Oct 2026 13:16:14 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+ "Dinh Nguyen" <dinguyen@kernel.org>,
+ "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>,
+ "Ley Foon Tan" <lftan@altera.com>
+Cc: linux-kernel@vger.kernel.org, "kernel test robot" <lkp@intel.com>,
+ linux-snps-arc@lists.infradead.org, linux-parisc@vger.kernel.org,
+ "linux-openrisc@vger.kernel.org" <linux-openrisc@vger.kernel.org>
+Message-Id: <47eb6b48-d664-440f-84b6-ba09f34d5e08@app.fastmail.com>
+In-Reply-To: <20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de>
+References: <20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de>
+Subject: Re: [PATCH] nios2: ksyms: Declare __mulsi3 export
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 16, 2026 at 11:09 PM +02, Michal Luczaj wrote:
-> @@ -10341,7 +10342,12 @@ static bool may_update_sockmap(struct bpf_verifier_env *env, int func_id)
->  	 */
->  	switch (type) {
->  	case BPF_PROG_TYPE_TRACING:
-> -		if (eatype == BPF_TRACE_ITER)
-> +		/* iter/sockmap only; type check rejects a freplace of any
-> +		 * iterator's bpf_iter_sockmap() subprog.
-> +		 */
-> +		if (eatype == BPF_TRACE_ITER &&
-> +		    env->prog->type == BPF_PROG_TYPE_TRACING &&
-> +		    !strcmp(afname + strlen(BPF_ITER_FUNC_PREFIX), "sockmap"))
->  			return true;
->  		break;
->  	case BPF_PROG_TYPE_SOCK_OPS:
+On Mon, Oct 19, 2026, at 11:49, Thomas Wei=C3=9Fschuh wrote:
+> GCC may emit libcalls to __mulsi3(). As modpost is not aware that this
+> function is provided through the linked in libgcc, it fails:
+>
+> ERROR: modpost: kernel/locking/test-ww_mutex.ko: symbol '__mulsi3' und=
+efined!
+> ERROR: modpost: kernel/time/test_udelay.ko: symbol '__mulsi3' undefine=
+d!
+> ERROR: modpost: kernel/resource_kunit.ko: symbol '__mulsi3' undefined!
+> ERROR: modpost: fs/fuse/virtiofs.ko: symbol '__mulsi3' undefined!
+> etc.
+>
+> Make sure modpost can see the symbol from libgcc.
+>
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes:=20
+> https://lore.kernel.org/oe-kbuild-all/202610171933.J4bFOfL8-lkp@intel.=
+com/
+> Fixes: 2fc8483fdcde ("nios2: Build infrastructure")
+> Signed-off-by: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
 
-Explicit bailout when prog->type == BPF_PROG_TYPE_EXT might be more
-self-explanatory.
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+
+The patch looks correct to me, but it would also be nice to not use
+libgcc at all. What I see is that only arc, nios2, openrisc and
+parisc still link against the toolchain-provided libgcc, everything
+else uses the kernel's own runtime.
+
+It's probably not even that hard to do right, here is what I found
+is imported from libgcc.
+
+* Generic library helper exists, can be enabled through Kconfig:
+
+=3D=3D=3D __lshrdi3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+arch/nios2/kernel/nios2_ksyms.c
+arch/openrisc/kernel/or32_ksyms.c
+arch/parisc/kernel/parisc_ksyms.c
+-> lib/lshrdi3.c
+=3D=3D=3D __ashldi3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+arch/nios2/kernel/nios2_ksyms.c
+arch/openrisc/kernel/or32_ksyms.c
+arch/parisc/kernel/parisc_ksyms.c
+-> lib/ashldi3.c
+=3D=3D=3D __ashrdi3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+arch/nios2/kernel/nios2_ksyms.c
+arch/openrisc/kernel/or32_ksyms.c
+arch/parisc/kernel/parisc_ksyms.c
+-> lib/ashrdi3.c
+=3D=3D=3D __cmpdi2 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+-> lib/cmpdi2.c
+=3D=3D=3D __muldi3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+arch/nios2/kernel/nios2_ksyms.c
+arch/openrisc/kernel/or32_ksyms.c
+arch/parisc/kernel/parisc_ksyms.c
+-> lib/muldi3.c
+=3D=3D=3D __ucmpdi2 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+arch/nios2/kernel/nios2_ksyms.c
+arch/openrisc/kernel/or32_ksyms.c
+arch/parisc/kernel/parisc_ksyms.c
+-> lib/ucmpdi2.c
+
+* 64-bit division probably should not be provided on arc or
+  nios2 (and sparc32, which has a private copy).
+  parisc64 should get these from libgcc/libgcc2.c.
+
+=3D=3D=3D __divdi3 =3D=3D=3D
+arch/parisc/kernel/parisc_ksyms.c
+=3D=3D=3D __udivmoddi4 =3D=3D=3D
+arch/nios2/kernel/nios2_ksyms.c
+=3D=3D=3D __udivdi3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+arch/parisc/kernel/parisc_ksyms.c
+=3D=3D=3D __umoddi3 =3D=3D=3D
+arch/nios2/kernel/nios2_ksyms.c
+arch/parisc/kernel/parisc_ksyms.c
+=3D=3D=3D __moddi3 =3D=3D=3D
+arch/nios2/kernel/nios2_ksyms.c
+arch/parisc/kernel/parisc_ksyms.c
+
+* floating-point math should not be provided by kernel:
+
+=3D=3D=3D __divdf3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+=3D=3D=3D __divsf3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+=3D=3D=3D __fixunsdfsi =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+=3D=3D=3D __floatunsidf =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+=3D=3D=3D __floatunsisf =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+=3D=3D=3D __muldf3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+
+* no generic implementation in kernel, need to copy from
+  libgcc/lib1funcs.S code:
+
+=3D=3D=3D __divsi3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+arch/nios2/kernel/nios2_ksyms.c
+arch/openrisc/kernel/or32_ksyms.c
+-> arch/arm/lib/lib1funcs.S
+   arch/m68k/lib/divsi3.S
+   arch/microblaze/lib/divsi3.S
+   arch/xtensa/lib/divsi3.S
+=3D=3D=3D __modsi3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+arch/nios2/kernel/nios2_ksyms.c
+arch/openrisc/kernel/or32_ksyms.c
+-> arch/m68k/lib/modsi3.S
+   arch/microblaze/lib/modsi3.S
+   arch/xtensa/lib/modsi3.S
+=3D=3D=3D __udivsi3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+arch/nios2/kernel/nios2_ksyms.c
+arch/openrisc/kernel/or32_ksyms.c
+-> arch/arm/lib/lib1funcs.S
+   arch/m68k/lib/udivsi3.S
+   arch/microblaze/lib/udivsi3.S
+   arch/sh/lib/udivsi3.S
+   arch/xtensa/lib/udivsi3.S
+=3D=3D=3D __umodsi3 =3D=3D=3D
+arch/arc/kernel/arcksyms.c
+arch/nios2/kernel/nios2_ksyms.c
+arch/openrisc/kernel/or32_ksyms.c
+-> arch/arm/lib/lib1funcs.S
+   arch/m68k/lib/umodsi3.S
+   arch/microblaze/lib/umodsi3.S
+   arch/xtensa/lib/umodsi3.S
