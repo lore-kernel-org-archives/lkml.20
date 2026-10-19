@@ -1,82 +1,117 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A43346ADB;
-	Mon, 19 Oct 2026 08:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FF448F03C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398685; cv=none; b=ZLKdLNO54ohcT/QjAmQrC/wu2VWdCVITktbwlbaHiCcWQX89yV++oN7BG6++fQ3b+cNayNfnv/bdGBKiS7Vv5l0wUGUsGbWcyNiEcn5ksFsieqhwn17axtDWd4VZHjr5Eicftz5Uj7se9ibCI+kytjXoV41eKvDD0Sdi7APSpuc=
+	t=1792398698; cv=none; b=a5ZWLAHpVK8Rc/kYHHmdATw3Xgf9yhwc9U5JiRig9bujpRj/brrZN/JZtMjsezRX6SCiXCUwkhMWP6NwJLHf3otbxZN5dWpQIJPABK1gfFQIKcFgmXSxq/lxjOuyooF6Dt/kKJ0t2gb/TDSIlbla187DkoGZnQWn/LU9aPdx2aA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398685; c=relaxed/simple;
-	bh=IaDoVIhFumhvjvfFsGDYQfKMeoHMs8XG9grWqugVlfY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=CP4vU5MR/Vf0R95dFZjYsvT+FaBAUG7aTKtdJr49a1cDMKPIdGpXvU1usKzZC0KK56FfmWDDE4N39wYArQXmtaqd11uf6xwPl4kATdY5yV5LtwXqgXgAwG1AM0bh9eZhuWD/ShWNJAEdk25+iiny7PemyQAd6xu419xGkhNz+q8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Lb/oag14; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792398698; c=relaxed/simple;
+	bh=PBtDG7IaGArA5oidyV57104ug2/3g9vZYpC1ajDvsoU=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=iIE36WTNU7Xai9dEGm2zEMzNZrVyG7ZPzxDfzMyMVlhmdj+1C+nXiugS1CECom3+DzF50EunbZJ0M9NH4sbXuaG9jZ+akTTZOhRi63v3YXUQUJaSSqz/Jz5qcc+ROOGtV1hqZTWJDMIcLXdmTkD6CJdXRfXI3akvIP5PLVQyNxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=mvJ9/HZD; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Lb/oag14"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=IaDoVIhFumhvjvfFsGDYQfKMeoHMs8XG9grWqugVlfY=; b=L
-	b/oag14J+si+qWoAvcKx9Qhwr4XOHkyJechbW/wfe3XLlf0dW1ZMEJyB+0oKub6X
-	yBiUAzRIUHf4QaX77Nwqu3v/V/HKxyvsyCIJ97PPZnRmvpLJ/65niurymCyprMY7
-	ZH8yNT3zAHA2Z4ynHfJUOk57i7RqSERULs17nXxumg=
-Date: Mon, 19 Oct 2026 16:31:09 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Ming Qian" <ming.qian@nxp.com>, "Zhou Peng" <eagle.zhou@nxp.com>,
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:[PATCH 1/2] media: amphion: handle core runtime resume failures
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261019082754.1806443-2-yaojiale02@163.com>
-References: <20261019082754.1806443-1-yaojiale02@163.com>
- <20261019082754.1806443-2-yaojiale02@163.com>
-X-NTES-SC: AL_Qu2SAP+St04t7yafbekcn08ShO49XMOyvfoi2YFTc+sEsgbPyy4KU3RyIkLM8cuONRuwiCKtbD1I7O9AZ4B6oLgdbofoj73BjULeu0ccng==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="mvJ9/HZD"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1df146015so8800165e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:31:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792398695; x=1793003495; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=l7oxDA8ZM54hjX0LF1jWr12XxVGQQXbDbmOXq61AZsk=;
+        b=mvJ9/HZDzZB2wM3g/ie6rVcnirtaSOu5DlB3Wbsps4hKIxmXMhNzWC+hTdWPR29f/b
+         CwywdBBQI2kFJzCgVKG9slZuEYh4rpGXIt2kiFbN3Q6tOaCJ6zx51WgkxE0Q+ryZd+WQ
+         3xrH6aoU09vUVrBlUoLb+XjPy3FuDDQAqHEPwZMKAf43HAD1PQSoxmJFTvv3uwtghShG
+         fRvF3UdGmmCRFDLOz/y7LkPabp8pp+G5R2IY53T2IUlh/98GApglWd4TrnWeMvcXEx8a
+         OAH4FgBleSgFZIE58NtVRz8NWvb9UDqoOfFxMAl0bo+tT1i5K2uah8UHcrdrBY37Ze5P
+         tOmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792398695; x=1793003495;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l7oxDA8ZM54hjX0LF1jWr12XxVGQQXbDbmOXq61AZsk=;
+        b=PkgpQSt2Ba/y3pb3dLZQ5ZYtXJnQGaX2eBbGWQdAF0jJm5LKLBYGAuQ6fHLAmfJRYK
+         uobf5CU8fvraUZOA+f/jTNrEqQS/k2c5ijfldcmYCq82zLZmGPjMFC8+FrrWADaNAORC
+         zwrsoU9kiOAUHVoq4zKVUxQ/qlYkGmQbK9ij3ps0kOmotM5Gz7g5RvF3vdsj4HvJCGoJ
+         36M0M6fi+aYG8fxytYx/ULKEUNU5awB7uBE253ISz94MAafAVQ5XmhancyFIW6b2jJ62
+         Ygsfd6nXKdzfYK75w0kOGxNMHDq51lbSr+ALBTwJzB8Nux678taKRLQCUl3VYf1p9/GB
+         2bwg==
+X-Forwarded-Encrypted: i=1; AKwUvBz/olQrM7/IoJtZ8eeEEFXvdmABm+6zSe5JIiJNdsslcSigBHXWbIwGe0RbF8lHY5crnatW8eW3TkaRqV0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTSfSEC3uo0xSBjmVK8LSOZ5kggcCMxZd3VjD+WAB56l2i8f20
+	ey0FJO3IowVEErv6Arf1myUsWwPR0KA/0wawVBRiBoXGoaPLt0/K2N78dvCGJ0Obmt0=
+X-Gm-Gg: AYBFou3LMYUmwgG8WtTIXVEkBqvjGoOC7vioQd9Aj6ed6+hCQ2eT178qHzKdkhxxuVI
+	jZyZ+21GSqfoQIQ8k5dafro4p4rn0EZ47Y9/vJ4T5+9QKgQL2otV4qlGT3nTwjXZT/Yep8zlrPj
+	m1u2mkmzlyCvgiUZdA9T3xvF/TtDQ8I4ivWiWf0ifyuJ5YKeqFlRXYxSEp3i5xseKgLJ9XAf1K5
+	bAMMRAlu0qsnQT2PWGFo+mq52nIzmPSUXgVuhWHjoTRY6JaKzDIfv5JH1EOLkBoU01fTPRo4eZ7
+	p2BGlYpUF32FJRGWGLMqKl/5bDDK/F1lJ620+FFdUAH2FsXAHauzSb/WlTVcyAgy7KKJS5XQA83
+	6DO5xTAx1MmL48umSoLZUALvT+M11G0kYcaT+qWJo9ssAC3fpkDkFW0BO5vpA4OaawJeN7CTHRt
+	vJa51RGzsbYRZ0XeznFDIWrTh7flRlpf3DizPSn16PCgmh6ZGngF9aI5GXmpqaehM0UQvDois1Q
+	bygr2cCYGQClpQFxURKCZ5Q7FEWwwRS
+X-Received: by 2002:a05:600c:37cf:b0:4a1:df14:ad07 with SMTP id 5b1f17b1804b1-4a1df14b4d3mr115190655e9.18.1792398694579;
+        Mon, 19 Oct 2026 01:31:34 -0700 (PDT)
+Received: from [192.168.7.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1c10fe9d3sm316410855e9.13.2026.10.19.01.31.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 01:31:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <14fa9461.7966.1a153493777.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZCgvCgD3XyNN1dVqnupbAA--.1242W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A2Y0mrV1U105AAA3A
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH PARTIAL-RESEND v12 0/5] Add support MT6316/6363/MT6373
+ PMICs regulators and MFD
+From: Alexandre Mergnat <amergnat@baylibre.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-mediatek@lists.infradead.org, lee@kernel.org, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+ lgirdwood@gmail.com, broonie@kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kernel@collabora.com, wenst@chromium.org
+In-Reply-To: <20260511101355.122478-1-angelogioacchino.delregno@collabora.com>
+References: <20260511101355.122478-1-angelogioacchino.delregno@collabora.com>
+Date: Mon, 19 Oct 2026 10:31:10 +0200
+Message-Id: <179239867012.642420.15110854236483587234.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=409; i=amergnat@baylibre.com;
+ h=from:subject:message-id; bh=PBtDG7IaGArA5oidyV57104ug2/3g9vZYpC1ajDvsoU=;
+ b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBq1dVWFu5n7LST9XjNvuRmDW3m8PImRaa/WwJvF
+ aGMwo1WH0WJAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCatXVVgAKCRArRkmdfjHU
+ RYoYD/9v5gmSdVR1pNcJamGYwCTaV5rT+OL0L7Hy0d0zenqBBKLBoB5ULjy1XzRycl4z3uzaIyh
+ HQUxpufXinchYoRParULVTDzEU4bDge3j+RivbJcNFkvXnPCQgkpifnmkNcDXTB9oUboxK1rI7r
+ +tAfXnNtM2XECrhINjZemeKSzTK4o8hFFQJpNqZ4vaEGd+p+yQ4OydfroxrsQ4ussOJJPt11pGq
+ XYPpjNtd0I0txUKPm4uxzqeKXpecqVNan77gYpf2Zy4bqjyPIJ4J8QL6kPbR5WqdRvNYsOHGDqJ
+ dl7xZBqbcEbBuPZcPfrVa/SSbEyzcEhseR1YtAQVTAC6839HIwcR1jpJFaDI9G9Ir3/FpYJQLmE
+ aeNNSiYLiXr7xplXwVUPfNl1T2lJVnqdJG3AIkiGgPrgG/ejs1a4kvLbqWOHQj/tmmEwDk4AIfb
+ xtYYBpnPtu5B8G7FThL3jY6+qKUYBxCqmMmqQlOJspghF2IILNdA+7mnxsIhLRfzU2Rl6nFTl8z
+ Geg76d4ZObp7A2TIzxpiApY+ZYVr1BBhu+N8aEMC2oJlVTeBUzWsCz0zgnTHPk8MSX7lzXsUqAV
+ Us+8pkPLCQTVvlh75nO0i+L8I/yvjmltf99bYdYnK2F2Zi6T6c96vwUg8+NuXxvyDa5WIYTa2nc
+ 0xA7MHt6FvBAylQ==
+X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
+ fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
 
-QXQgMjAyNi0xMC0xOSAxNjoyNzo1MywgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
-d3JvdGU6Cj5UaGUgY29yZSByZXF1ZXN0IGFuZCByZXN1bWUgcGF0aHMgY29udGludWUgd2l0aCBW
-UFUgc3RhdGUgYW5kIGhhcmR3YXJlCj5hY2Nlc3MgYWZ0ZXIgcG1fcnVudGltZV9yZXN1bWVfYW5k
-X2dldCgpIGZhaWxzLiBBIGZhaWxlZCBydW50aW1lIHJlc3VtZQo+bGVhdmVzIHRoZSBkZXZpY2Ug
-dW5hdmFpbGFibGUsIHNvIHRob3NlIGFjY2Vzc2VzIGNhbiBmYWlsIGFuZCB0aGUgbGF0ZXIKPnJ1
-bnRpbWUgUE0gcHV0IGRvZXMgbm90IG1hdGNoIGFuIGFjcXVpcmVkIHJlZmVyZW5jZS4KPgo+Q2hl
-Y2sgdGhlIHJ1bnRpbWUgcmVzdW1lIHJlc3VsdCBiZWZvcmUgYWNjZXNzaW5nIHRoZSBWUFUuIFJl
-bGVhc2UgdGhlCj5jb3JlIGxvY2sgYW5kIHJldHVybiB3aXRob3V0IHRvdWNoaW5nIHRoZSBoYXJk
-d2FyZSB3aGVuIHJlc3VtZSBmYWlscy4KPgoKRml4ZXM6IGY0NDUwMTRhMjI5MSAoIm1lZGlhOiBh
-bXBoaW9uOiBmaXggYW4gaXNzdWUgdGhhdCB1c2luZyBwbV9ydW50aW1lX2dldF9zeW5jIGluY29y
-cmVjdGx5IikKCj5TaWduZWQtb2ZmLWJ5OiBKaWFsZSBZYW8gPHlhb2ppYWxlMDJAMTYzLmNvbT4K
-Pi0tLQo+IGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vYW1waGlvbi92cHVfY29yZS5jIHwgMTMgKysr
-KysrKysrKystLQo+IDEgZmlsZSBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9u
-cygtKQo+Cj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9hbXBoaW9uL3ZwdV9j
-b3JlLmMgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL2FtcGhpb24vdnB1X2NvcmUuYwo+aW5kZXgg
-YWQ1NGYwMTRkOC4uM2Q3MTQ0MjgwNyAxMDA2NDQKPi0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZv
-cm0vYW1waGlvbi92cHVfY29yZS5jCj4rKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL2FtcGhp
-b24vdnB1X2NvcmUuYwo+QEAgLTM3Miw3ICszNzIsMTIgQEAgc3RydWN0IHZwdV9jb3JlICp2cHVf
-cmVxdWVzdF9jb3JlKHN0cnVjdCB2cHVfZGV2ICp2cHUsIGVudW0gdnB1X2NvcmVfdHlwZSB0eXBl
-KQo+IAkJZ290byBleGl0Owo+IAo+IAltdXRleF9sb2NrKCZjb3JlLT5sb2NrKTsKPi0JcG1fcnVu
-dGltZV9yZXN1bWVfYW5kX2dldChjb3JlLT5kZXYpOwo+KwlyZXQgPSBwbV9ydW50aW1lX3Jlc3Vt
-ZV9hbmRfZ2V0KGNvcmUtPmRldik7Cj4rCWlmIChyZXQgPCAwKSB7Cj4rCQltdXRleF91bmxvY2so
-JmNvcmUtPmxvY2spOwo+KwkJY29yZSA9IE5VTEw7Cj4rCQlnb3RvIGV4aXQ7Cj4rCX0KPiAKPiAJ
-aWYgKGNvcmUtPnN0YXRlID09IFZQVV9DT1JFX0RFSU5JVCkgewo+IAkJaWYgKHZwdV9pZmFjZV9n
-ZXRfcG93ZXJfc3RhdGUoY29yZSkpCj5AQCAtNzYwLDcgKzc2NSwxMSBAQCBzdGF0aWMgaW50IF9f
-bWF5YmVfdW51c2VkIHZwdV9jb3JlX3Jlc3VtZShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4gCWludCBy
-ZXQgPSAwOwo+IAo+IAltdXRleF9sb2NrKCZjb3JlLT5sb2NrKTsKPi0JcG1fcnVudGltZV9yZXN1
-bWVfYW5kX2dldChkZXYpOwo+KwlyZXQgPSBwbV9ydW50aW1lX3Jlc3VtZV9hbmRfZ2V0KGRldik7
-Cj4rCWlmIChyZXQgPCAwKSB7Cj4rCQltdXRleF91bmxvY2soJmNvcmUtPmxvY2spOwo+KwkJcmV0
-dXJuIHJldDsKPisJfQo+IAl2cHVfY29yZV9nZXRfdnB1KGNvcmUpOwo+IAo+IAlpZiAoY29yZS0+
-cmVxdWVzdF9jb3VudCkgewo+LS0gCj4yLjM0LjEK
+Hi Angelo,
+
+I'm working on mainline support for the MT6363 MFD PMIC.
+
+Are you planning to send a new revision addressing the review feedback
+on v12? If you don't have time to pick it up again, I'd be happy to
+help address the remaining comments and prepare a new revision,
+if that works for you.
+
+Thanks for your work on this!
+
+Cheers,
+Alexandre
+
+-- 
+Alexandre Mergnat <amergnat@baylibre.com>
