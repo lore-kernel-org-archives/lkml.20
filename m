@@ -1,88 +1,124 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45FA48BD5E;
-	Mon, 19 Oct 2026 08:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC74149B209
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398495; cv=none; b=cuanzqSOOwhy9UWXOeFNEP6yiZA31rBLXnf7s1xckYdeuNlKlaxIxbNmleTCtpQKaMYLPIXqhiXaR8qkvxqVlmcnrZjQsnbvxdqBf3GEaOXa2nVU4ETFgKbs2X3nQBGeM9yOiqSi6YZr3+QeHWCQg0RYYiLQdd9McM9Jr8DxGEE=
+	t=1792398499; cv=none; b=Br9XCkkJtJT+iJddAT+W5ZfJ2g1o0HIu7sje7huWb9N76g+BzTZSywvC893Nj/vTGn7PjM4CF8C/aWO+gPf+kYzIpZIonb0apxhd4v+6xRw98xzdrTKaigC+fl7oud1xabcIQmdImIKKZc07jSinXrR6K2WP4crGMaF4jm1tCVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398495; c=relaxed/simple;
-	bh=qW5MnbBEMI8M7YzjdENpCjkoUJ3AxTh3jeGmJ6S+JW8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=f7v53flTgym4t3O74IbH66b35W5LI6Poj3HwP9vY7ggv/QzxKZ13i1BPZzIn6aR5NVImgr66tFfMfrvh+MwdvGLf4u4sESrnxkNaFacmQhkYJnQP3cENJJkjnxuUpuWfI69imWslw1A6mtWrUQu9rMjdDxSevB3/4Onx4jHUDVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OfxOGuku; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792398499; c=relaxed/simple;
+	bh=vP/erouG01Q3Jo+KBHNH0VtorkMVsOnWd5Q4NOmBMzc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pLSKeVx1ukhB7NR5YBoLX6WK4e29Ui7e2b+52QFac69mpc+odkFKeAYYVcYp8tNy87DEWLvPP5oh4fgCTxlPOOVGo09Le0jq/1NLrQGxVLjNWArFLpiaohBRiG2/7YjmRJuSiiB4wUU0LgckD7Jdoh479vZwgG2hgM2YuRzqLVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lt0iu5yi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OfxOGuku"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Lf
-	sJqURvb6ojx1dXkNHrC2raxVgiZ7FHMcGGyqxaCD4=; b=OfxOGukuDg4deJBoBb
-	XeofWHOXa1qhfhIfuFy9T+VQvgixwK7R5iRB+jjNbkP67pJko1L4e4GQwS+e9Gs8
-	q9pDM+GZs5eGLCyplBDIcaEN9GyoUeNVZ/8uwe5XtvD0a8STKvWIHYTx66WNT5VM
-	H4ZlZMotNagK/WS6kcIzTZs5k=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3H8GM1NVqEBsIBQ--.60267S4;
-	Mon, 19 Oct 2026 16:27:59 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Ming Qian <ming.qian@nxp.com>,
-	Zhou Peng <eagle.zhou@nxp.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH 2/2] media: amphion: handle debug runtime resume failure
-Date: Mon, 19 Oct 2026 16:27:54 +0800
-Message-Id: <20261019082754.1806443-3-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261019082754.1806443-1-yaojiale02@163.com>
-References: <20261019082754.1806443-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lt0iu5yi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366D41F000C7
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792398497;
+	bh=a7NuP9Mmd/niqWds8h4TLzPA0U0+f5BoktGRSIL7us4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lt0iu5yiNf8YZH+2758ytAclkHk04UD329o2FRJvnFXeiXLMJKsxkI2oysfd1UDWj
+	 Oi5JDCQqLlAfyeoxh7DzmHLg2Hivx8/5QgKoyhmL6Y0G5UOJCK+0Dl3IWp44NCCBe6
+	 clb7tmBnvyKEoUuye0+BdI4lMVFm8Mp6oopwAlB/gZyuUOau5gWIid0owSfZnGbLtY
+	 Nyd2xIf3siK8uGuPaWqFwB30soXWwd6OQrOPmg7y+cKRG7BioMDuXH5+JDg9i97tmH
+	 NP9qcPxgpHA5+JaVCgG/3BWeGe41X9jfAG15ogZLfDfNMVb7KQOmLtT5pDlHY9jQYP
+	 EQr7TBt9B8nTw==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5ba328513b9so1577260e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:28:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwYStk34p6ykYCcLOHAOtoA8sgQyN/NDtAC/oLbIv493KPSdwY0s5pDH1uSBGzHyMQYAtjVvbN00KZWet0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIx4acowxR7/PH915tYx1QvobTlcXykhBRvFhD/m7ZY/hbVGPCA
+	158z+yH7sgEG9YWKub03BHfTJZjRtPQ59j5h3FQ58rcyCOxthJm95nHHKFqMPezAAOfBf1P/bve
+	vMetWoFRmO5iaOUNvIQ4hMxtCHv0T6ho=
+X-Received: by 2002:a05:6512:2243:b0:5bc:b8f0:7a0d with SMTP id
+ 2adb3069b0e04-5be50a7132fmr2147053e87.47.1792398495968; Mon, 19 Oct 2026
+ 01:28:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H8GM1NVqEBsIBQ--.60267S4
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Xr1UWrykArWkKFyfGrykZrb_yoWkZwc_G3
-	4SgFZrXr48JF1Dtr47JryfZ34IgrWkur1ruF1aq3W3Z3y5Z34DJryq9rs3Zw17Zw48C3Z5
-	Kr4UKF1xCF9xGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_UGYtUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8A9oomrV1I9h0wAA3j
+References: <5a4715dd-89e0-4868-9ffb-c8fb73b18d04@yahoo.com>
+ <75829f0c-69d4-4c16-8300-142023f840d7@yahoo.com> <CAJq09z5ZAxca0rRT0mSiU_3xp2wxEU4qahbDM3SBGpwe1vbMRw@mail.gmail.com>
+In-Reply-To: <CAJq09z5ZAxca0rRT0mSiU_3xp2wxEU4qahbDM3SBGpwe1vbMRw@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 19 Oct 2026 10:28:03 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnTJNBBKyD0oBL9X9jg084sd-=Au8a1rMhQTO5_tuf23w@mail.gmail.com>
+X-Gm-Features: AclHuK9NakDrk9fKpI7K6rebx5OdnmJoE51eWXbFykt45TgltrZzPkFIZbWm3Io
+Message-ID: <CAD++jLnTJNBBKyD0oBL9X9jg084sd-=Au8a1rMhQTO5_tuf23w@mail.gmail.com>
+Subject: Re: [PATCH net-next v6 3/9] net: dsa: realtek: rtl8365mb: set speed
+ for family D
+To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Cc: Mieczyslaw Nalewaj <namiltd@yahoo.com>, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org, 
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, 
+	linux@armlinux.org.uk, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The debugfs core write handler reads the VPU power state after
-pm_runtime_resume_and_get() fails. The device may be unavailable after
-a failed runtime resume, and the final runtime PM put does not match an
-acquired reference.
+On Mon, Oct 19, 2026 at 12:41=E2=80=AFAM Luiz Angelo Daros de Luca
+<luizluca@gmail.com> wrote:
 
-Return the resume error before taking the core lock or accessing VPU
-hardware.
+> >  #define RTL8365MB_PORT_SPEED_10M       0
+> >  #define RTL8365MB_PORT_SPEED_100M      1
+> >  #define RTL8365MB_PORT_SPEED_1000M     2
+> > +#define RTL8365MB_D_PORT_SPEED_2500M   5
+>
+> I also used the same _<FAMILY>_ tag trick previously, but it gets
+> confusing quickly. Does RTL8365MB_D_xxx mean something exclusive to
+> family D, or family D and later? I hope a more seasoned reviewer can
+> weigh in on this.
 
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/media/platform/amphion/vpu_dbg.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+I'm not seasoned.
 
-diff --git a/drivers/media/platform/amphion/vpu_dbg.c b/drivers/media/platform/amphion/vpu_dbg.c
-index 497ae4e8a2..fff4df4f45 100644
---- a/drivers/media/platform/amphion/vpu_dbg.c
-+++ b/drivers/media/platform/amphion/vpu_dbg.c
-@@ -382,8 +382,12 @@ static ssize_t vpu_dbg_core_write(struct file *file,
- {
- 	struct seq_file *s = file->private_data;
- 	struct vpu_core *core = s->private;
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(core->dev);
-+	if (ret < 0)
-+		return ret;
- 
--	pm_runtime_resume_and_get(core->dev);
- 	mutex_lock(&core->lock);
- 	if (vpu_iface_get_power_state(core) && !core->request_count) {
- 		dev_info(core->dev, "reset\n");
--- 
-2.34.1
+But in the Microchip switches there are a ton of different
+devices and it is managed by way of family-specific
+files, includes etc. But we bake everything into one single
+module in the end, the only optional part is PTP.
 
+Here the family is somewhat and piecemal encoded in the
+hardware registers so:
+
+#define REG_CHIP_ID0                    0x00
+
+#define SW_FAMILY_ID_M                  GENMASK(15, 8)
+#define KSZ84_FAMILY_ID                 0x84
+#define KSZ87_FAMILY_ID                 0x87
+#define KSZ88_FAMILY_ID                 0x88
+#define KSZ8895_FAMILY_ID               0x95
+
+#define SW_CHIP_ID_M                    GENMASK(7, 4)
+#define KSZ87_CHIP_ID_94                0x6
+#define KSZ87_CHIP_ID_95                0x9
+#define KSZ88_CHIP_ID_63                0x3
+#define KSZ8895_CHIP_ID_95XA            0x0
+#define KSZ8895_CHIP_ID_95              0x4
+#define KSZ8895_CHIP_ID_95R             0x6
+
+it all comes pretty naturally from this.
+
+Then we go on to define boolean family deduction helpers:
+
+static inline bool ksz_is_ksz87xx(struct ksz_device *dev)
+{
+        return dev->chip_id =3D=3D KSZ8795_CHIP_ID ||
+               dev->chip_id =3D=3D KSZ8794_CHIP_ID ||
+               dev->chip_id =3D=3D KSZ8765_CHIP_ID;
+}
+
+static inline bool ksz_is_ksz88x3(struct ksz_device *dev)
+{
+        return dev->chip_id =3D=3D KSZ88X3_CHIP_ID;
+}
+
+This makes it pretty straight-forward to code it up.
+
+The same can be achived even if you don't have any hardware
+ID registersm with made-up family enums and using DT match
+data obviously.
+
+Yours,
+Linus Walleij
