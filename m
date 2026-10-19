@@ -1,51 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98F6621505;
-	Mon, 19 Oct 2026 14:04:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0597F621530;
+	Mon, 19 Oct 2026 14:04:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418683; cv=none; b=l70Qf47RsxSFARAZg7JXuKFemmUpqHJIIXmb+WmqFD216lPoeOCom78Br+/8xbMHXLraCTMPfgiZxui/OyJ5ujLkKFZS1C2zTisjYHNwAUYwcloxUdRd5srPGequAXywYLQ6rxZT6He6m05zznZqirAEWDsB8/U9or2GRFnd8Ug=
+	t=1792418686; cv=none; b=B9m4MNXuSxMkq52zUyhizQaO99BqkQSgoA6RXoDcyBm8r+BipAG7Z8ubzwvyjH4JGseoH8jBSnfjHarMpIM2MlKCFyuN8nFLVo+N127EdiAkI/FtVkhiCjWipKzQ8K+M5WeP+ewBxXpaXdJm07jrJPgGdsyRg9cw1umAih7lvQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418683; c=relaxed/simple;
-	bh=GBPku60R2y3boWA+imjMNAAs0VVD1lQgUGv/Vo/Fyp0=;
+	s=arc-20240116; t=1792418686; c=relaxed/simple;
+	bh=UxgYAVt7T7mKJm1EEapzlYzDOLV68JxCW59NobJA8xI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GsLVszVshuXAFbcMfNYev5eu0GAOzgopx9yoEk2js+CSGksGEI0f/OxHc5FixbphrGLY7gnGt2DDI6i/XgBY0Zx/xiNS+Y+HjbyeW0CMnUnwjGqVQJZ4hMEMThKAOtLnO6Rxi/VdR2ZG11rOJJnMdBnQL/JYp1uP6lM1C//TjHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmmUh9J5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Dq2+INt8Gn4koinFJiClFfIbKYYF0SNz6eIZ3TFu9HPitROoFhDK/rE9nkMeq73/FgFbdMobxJiYp9EtJjwBcBvSspw79Her9JfEZ8d94+uaQIqrVzqHtdCqp3HFmyTNjNNwhiECMQ7Q6DiEDV7Ikn1Pqp4wRk8hPRwui7Qrd7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jza5pUxA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmmUh9J5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E2C41F000C5;
-	Mon, 19 Oct 2026 14:04:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jza5pUxA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B581F000C4;
+	Mon, 19 Oct 2026 14:04:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418680;
-	bh=w9tYo1ePiywHlsnDPw2BYj7IYsINTi3MQ626nFcaKGo=;
+	s=k20260515; t=1792418682;
+	bh=28ddZe0ZAUTWgPWrbXLSWvpXeelnwH5XNSDrOpcjeMQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HmmUh9J5MNelStFykMUhj8x9GoR8t9pqXQ+TRzVvBg7Jowxk6Y4lBiP1AjjGU5in0
-	 fXCeEpTldbAd5Shby84u9tvZii/CPJXf4o+5ilEFCQMQ5fXNRT+3XkWAptxjBdgdPb
-	 cHLcNvIGFVoNakjji/Y2SZ+N3GLLJ3wHOXJy2X5BHE3MaANQJK3SRtnd4tlh+5jVFj
-	 UIcp7aEgM2JMPWIlaij7PYj4i5O6M9M8/g7ViiLjdRK0S+tMxHOJ3gzPR8nPlAP+eA
-	 gv6zle60pL+VzFTSrhv/WPs/voXxw+ar7vMEjx9Fqrdcgmnkhgx6Xk4n1bZU0hWy9d
-	 i2QS0q3ZfEikQ==
+	b=jza5pUxAfrQcps4/981xHjGpUzdFnb49+zN1BEcGMwKw6ZNGJjNA613otOo59Kpjo
+	 miaew/pvmEYW83rBZBOLK2DkSkmvJWynDBRZQnfuo1GCAmjW7dkXSIJHLEDnrG4wPX
+	 emeGzV3f6E+xWzox1wy5O0wYP1qCASO0HbMlkJZKNY5zu14EwCw8AmMu9hSJ2PeI/L
+	 pIQLOQY1vDHmFgMSPoPVa00mtQm/I60hTszNwft8SxexYMKy9X3c9q2g/+NwXYMSJ1
+	 juklYgk25aTigfiq/zEy2BWMhvcqdl4qHgWaOzD2LNWFuiXvmU6xD4JG78Gcte8QDd
+	 +Chduc6jpDwVA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Johan Alvarado <contact@c127.dev>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	syzbot+905d785c4923bea2c1db@syzkaller.appspotmail.com,
+	Dmitry Antipov <dmantipov@yandex.ru>,
 	Sasha Levin <sashal@kernel.org>,
-	maxime.chevallier@bootlin.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
+	ntfs3@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] net: stmmac: raise TX completion interrupt at the end of an xmit burst
-Date: Mon, 19 Oct 2026 09:51:51 -0400
-Message-ID: <20261019135441.1420968-420-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.15] ntfs3: fix info-leak in ntfs_rename()
+Date: Mon, 19 Oct 2026 09:51:53 -0400
+Message-ID: <20261019135441.1420968-422-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -61,493 +53,412 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Johan Alvarado <contact@c127.dev>
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-[ Upstream commit d21a374995df9d7cfd193427748a19dcc87956a9 ]
+[ Upstream commit 2fa56613b25d0c983ef3ff6d3e865d4254280abe ]
 
-The TX mitigation logic only sets the Interrupt on Completion bit once
-every tx_coal_frames descriptors (STMMAC_TX_FRAMES = 25), with the
-tx_coal_timer hrtimer (STMMAC_COAL_TX_TIMER = 5000 us) as the only
-fallback. TX skbs are freed exclusively from the TX completion path,
-so any flow that keeps fewer than 25 frames in flight has all of its
-skbs held for up to 5 ms after transmission.
+Hard to say about copy_to_user_iter(), but at least the first splat
+looks correct. At the end of fill_name_de(), data layout is:
 
-Paced flows never queue enough frames to reach the frame threshold:
-TCP Small Queues caps the amount of unfreed data at roughly two pacing
-intervals worth, which at moderate pacing rates is only a couple of
-packets. Every small burst then stalls until the coalesce timer fires,
-and throughput collapses to approximately tsq_limit / tx_coal_timer
-regardless of link capacity.
+struct NTFS_DE *e = buf;
+...
 
-This is easily reproducible with BBR, which paces its output and thus
-keeps only a few frames in flight at a time. On a YT6801
-(dwmac-motorcomm) equipped Orange Pi 5 Pro, a BBR upload over a ~23 ms
-RTT path is capped at 5.24 Mbit/s, while CUBIC reaches 207 Mbit/s on
-the same path. BBR measures the stalled send rate as the path
-bandwidth and locks its estimate near the floor, so the connection
-never recovers. Lowering the coalesce settings with ethtool -C
-(tx-usecs 100 tx-frames 1) lifts the same transfer to 447 Mbit/s,
-confirming the mechanism.
+    |<- data_size + sizeof(struct NTFS_DE) ->|<- XXX ->|
+buf |-----------------------------------------------------------
+    |<- ALIGN(data_size, 8) + sizeof(struct NTFS_DE) ->|   ;; e->size
 
-Fix this by setting the IC bit on the last descriptor of every xmit
-burst, i.e. whenever netdev_xmit_more() reports that no further frames
-are pending in the current dequeue batch. Frame-based coalescing still
-applies within a burst, bulk traffic keeps batching through qdisc bulk
-dequeue and NAPI polling, and the coalesce timer becomes a pure
-fallback instead of the primary completion mechanism for lightly
-queued flows.
+If 'buf' was allocated with kmalloc(), XXX remains uninitialized and
+passed as such to memcpy() called from hdr_insert_de().
 
-tx-frames 0 keeps its meaning of timer-based mitigation only.
+So using kzalloc() for all buffers passed to fill_name_de() looks
+the simplest and most safe solution. OTOH if someone would have
+said that an overhead of PAGE_SIZE'd memset() is too large, more
+fine-granted solution is to memset() XXX only.
 
-Signed-off-by: Johan Alvarado <contact@c127.dev>
-Link: https://patch.msgid.link/20260731194522.55069-1-contact@c127.dev
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Reported-by: syzbot+905d785c4923bea2c1db@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=905d785c4923bea2c1db
+Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is **6.12.111**. The TX-coalesce stall is in this
-checkout; the four-line IC-on-burst-end change is a real, tested fix for
-a severe paced-TCP collapse on stmmac.
+This is a real KMSAN kernel infoleak in ntfs3 rename: 8-byte alignment
+padding in directory entries is copied from uninitialized `kmalloc()`
+memory onto the volume. The local tree is **7.3.0-rc4**
+(`v7.3-rc4-27-gf0100363d8c37`); ntfs3 and `fill_name_de()` exist here,
+and the fix is small, correct, and reachable from `rename(2)`.
 
 ===============================================================
 PHASE 1: COMMIT MESSAGE FORENSICS
 ===============================================================
 
-Step 1.1: PARSE THE SUBJECT LINE
-Record: [net: stmmac] [raise] [set TX Interrupt-on-Completion on the
-last descriptor of each xmit burst so lightly queued/paced flows are not
-stuck on the 5 ms coalesce timer]
+**Step 1.1: PARSE THE SUBJECT LINE**
+Record: **[ntfs3] [fix] info-leak in `ntfs_rename()`**
 
-Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- Link: https://patch.msgid.link/20260731194522.55069-1-contact@c127.dev
-- Signed-off-by: Johan Alvarado \<contact@c127.dev\> (author)
-- Signed-off-by: Jakub Kicinski \<kuba@kernel.org\> (netdev maintainer,
-  applied)
-- No Reported-by / Tested-by / Reviewed-by / Acked-by / Cc: stable in
-  the committed message
-- No Fixes: in the committed message (expected for this pipeline)
+- **Reported-by:**
+  `syzbot+905d785c4923bea2c1db@syzkaller.appspotmail.com` (syzbot /
+  KMSAN)
+- **Closes:**
+  `https://syzkaller.appspot.com/bug?extid=905d785c4923bea2c1db`
+- **Signed-off-by:** Dmitry Antipov (author of the analysis/patch);
+  Konstantin Komarov (ntfs3 maintainer, applied it)
+- **No Fixes:** tag on the committed version (v1 on-list had `Fixes:
+  ca2a04e84af7`, dropped later)
+- **No Cc: stable** (expected for this review)
+- **No Tested-by / Reviewed-by / Acked-by / Link:** (Closes URL is the
+  bug tracker)
 
-Original mailing-list submission (v1 and RESEND) DID carry:
-- Fixes: da2024510031 ("net: stmmac: Tune-up default coalesce settings")
-That tag is treated as technical evidence of the introducing commit, not
-as a “already selected for stable” marker.
+Notable: syzbot + maintainer SOB.
 
-Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- Bug: TX IC is set only every `tx_coal_frames` descriptors (default
-  25). The 5 ms `tx_coal_timer` is the only fallback. TX skbs are freed
-  only from the completion path, so a flow with fewer than 25 frames in
-  flight holds those skbs for up to 5 ms.
-- Symptom: TCP Small Queues + pacing (BBR) never queues 25 frames. Each
-  small burst waits for the timer. Throughput collapses to ~tsq_limit /
-  tx_coal_timer. BBR then treats that stalled rate as path bandwidth and
-  never recovers.
-- Measured on Orange Pi 5 Pro / YT6801: BBR 5.24 Mbit/s vs CUBIC 207
-  Mbit/s; ethtool `-C tx-usecs 100 tx-frames 1` raises the same transfer
-  to 447 Mbit/s.
-- Root cause: coalescing designed for deep queues; lightly queued flows
-  only complete via the timer.
-- Fix: set IC when `!netdev_xmit_more()` (end of current dequeue batch).
-  Frame coalescing still applies inside a burst; `tx-frames 0` stays
-  timer-only.
+- **Bug:** After `fill_name_de()`, `e->size` is 8-byte-aligned
+  (`ALIGN(data_size, 8) + sizeof(NTFS_DE)`). The pad between `data_size
+  + sizeof(NTFS_DE)` and that aligned size (`XXX`) is never written if
+  `buf` came from `kmalloc()`.
+- **Failure mode:** That pad is `memcpy()`’d in `hdr_insert_de()`,
+  written out with the index/MFT record, then observed as a **KMSAN
+  kernel-infoleak** when the block is later read into userspace
+  (`copy_to_user_iter` / `filemap_read`).
+- **Root cause (author):** uninitialized alignment padding, not a
+  `rename()` copy_to_user of the name buffer itself.
+- **Fix chosen:** memset only `XXX` (0–7 bytes), instead of
+  `kzalloc(PATH_MAX)` for every caller.
+- **Version info in message:** none.
 
-Step 1.4: DETECT HIDDEN BUG FIXES
-Record: Not a disguised cleanup. Submitted as `[PATCH net]` (bugfix
-tree, not net-next). It is a logic/correctness fix for TX completion
-starvation interacting with TSQ, not a style change.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+Record: Not hidden. Subject and body describe a KMSAN infoleak. The
+“fine-grained memset” wording is the fix, not cleanup.
 
 ===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
+PHASE 2: DIFF ANALYSIS
 ===============================================================
 
-Step 2.1: INVENTORY THE CHANGES
+**Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/net/ethernet/stmicro/stmmac/stmmac_main.c`
-- +4 / −0 (two identical two-line insertions)
-- Functions: `stmmac_tso_xmit()`, `stmmac_xmit()`
-- Scope: single-file surgical fix
+- **File:** `fs/ntfs3/namei.c` only (`+7 / -2`)
+- **Function:** `fill_name_de()`
+- **Scope:** single-file surgical fix
 
-Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 Record:
-- Before (both functions): set_ic if HW timestamp, else if
-  `tx_coal_frames==0` never set IC, else if this skb’s descriptor count
-  exceeds the threshold, else if the running modulo wrapped, else false.
-  Then arm the 5 ms timer.
-- After: same, plus `else if (!netdev_xmit_more()) set_ic = true`
-  immediately after the `tx_coal_frames==0` check, so the last skb of a
-  dequeue batch gets IC unless the user asked for timer-only (`tx-frames
-  0`).
-- Path: normal `ndo_start_xmit`, not an error/init path.
+- **Before:** `e->size = cpu_to_le16(ALIGN(data_size, 8) + sizeof(struct
+  NTFS_DE));` with no write of the pad.
+- **After:** compute `real_size` and `aligned_size`; if they differ,
+  `memset` the pad; then set `e->size` to `aligned_size`.
+- **Path:** every `fill_name_de()` caller (rename still uses
+  `kmalloc(PATH_MAX)`; create/link/unlink already `kzalloc`).
 
-Step 2.3: IDENTIFY THE BUG MECHANISM
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
 Record:
-- Category: logic / correctness (TX completion starvation vs TCP Small
-  Queues)
-- Mechanism: IC density was bounded by frame count only. Paced flows
-  never reach 25 in-flight frames, so completion waits for the hrtimer.
-  TSQ will not queue more until skbs are freed, so send rate is timer-
-  capped. Setting IC on burst end completes those skbs promptly; intra-
-  burst coalescing and the timer remain as fallback.
+- **Category:** uninitialized data / kernel infoleak (KMSAN)
+- **Mechanism:** `hdr_insert_de()` does `memcpy(before, de, de_size)`
+  with `de_size = le16_to_cpu(de->size)` including alignment pad. Pad
+  bytes are slab leftovers. They land in the directory index, get
+  written via `ni_write_inode` → `ntfs_write_bh`, then leak through
+  `blkdev_read_iter` / `filemap_read`.
 
-Step 2.4: ASSESS THE FIX QUALITY
+**Step 2.4: ASSESS THE FIX QUALITY**
 Record:
-- Obviously correct: `netdev_xmit_more()` is the standard “more packets
-  in this dequeue” signal; many other NIC drivers already use it this
-  way. Placement after `!tx_coal_frames` preserves timer-only mode.
-- Minimal: four lines, no API/data-structure change.
-- Regression risk: more TX IRQs on short bursts. Author measured ~3.3k
-  IRQs/s (~12 packets/IRQ) at 447 Mbit/s. Bulk traffic still coalesces
-  inside qdisc bulk dequeue / TSO. XSK/XDP paths intentionally unchanged
-  (`netdev_xmit_more()` is not meaningful there; no TSQ). Maciej
-  Fijalkowski asked whether coalescing could be dropped entirely; the
-  author kept the frame bound so a bulk batch larger than the ring
-  cannot drain with zero IC bits. Low regression risk.
+- Obviously correct: pad length is `ALIGN(x,8)-x` ∈ [0,7]; memset only
+  when needed.
+- Minimal; no API/locking/refcount changes.
+- Regression risk very low: those bytes were garbage; NTFS index entries
+  are 8-byte aligned and pad should be zero.
+- Completeness: this matches the KMSAN “Bytes 404-407 of 1536” (4-byte
+  pad). `ni_add_name()` still fills `ref`/`home`/`dup` after
+  `fill_name_de()`, so this is not trying to zero the whole
+  `ATTR_FILE_NAME`.
 
 ===============================================================
 PHASE 3: GIT HISTORY INVESTIGATION
 ===============================================================
 
-Step 3.1: BLAME THE CHANGED LINES
+**Step 3.1: BLAME THE CHANGED LINES**
 Record:
-- Core IC logic: c2837423cb5455 (“net: stmmac: Rework TX Coalesce
-  logic”, 2019-11-14)
-- `!tx_coal_frames` / per-queue threshold: db2f2842e6f560 (2021-03-17)
-- Default TX_FRAMES 1→25: da2024510031 (v5.5-rc1, 2019-11) — this is
-  what made “every frame gets IC” into “every 25 descriptors”
-- Timer 1 ms→5 ms: 039550960a223 (2023-10-19), present in this tree —
-  same stall, worse ceiling
-- Buggy pattern has been in tree since ~v5.5; this is long-standing, not
-  new-in-6.13+ code
+- Alignment-in-`e->size` comes from **4342306f0f0d5** (`fs/ntfs3: Add
+  file operations and implementation`, 2021-08-13; originally
+  `QuadAlign(data_size)`).
+- **fa3cacf544636** only switched `QuadAlign` to `ALIGN`.
+- Bug present since ntfs3 was added (**v5.15-era**).
 
-Step 3.2: FOLLOW THE FIXES: TAG
-Record:
-- Original submission tagged Fixes: da2024510031
-- `git merge-base --is-ancestor da2024510031 HEAD` → yes (exit 0)
-- That commit only retuned defaults (`STMMAC_TX_FRAMES` 1→25). Combined
-  with timer-only fallback, that is exactly the stall.
-- Intermediate related work already in this tree: c2837423cb5455
-  (rework), 2d1a42cf7f77c (timer arm vs NAPI, 2023), 039550960a223 (5 ms
-  timer). None of those set IC at burst end.
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: Committed version has **no Fixes:** tag. On-list v1 used `Fixes:
+ca2a04e84af7` (`ntfs: ->d_compare() must not block`), which swapped
+`__getname()` for `kmalloc()` — both uninitialized. That tag is
+**wrong**; the leak is as old as `fill_name_de()`. `ca2a04e84af79`
+**is** an ancestor of this HEAD, but is **not** a prerequisite for the
+memset.
 
-Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record:
-- Recent `stmmac_main.c` work is TSO descriptor checks, PTP lock init,
-  XDP, etc. Nothing equivalent to this IC-on-burst-end change.
-- `git log --grep=netdev_xmit_more --
-  drivers/net/ethernet/stmicro/stmmac/` → empty; the helper is unused in
-  stmmac here.
-- Standalone 4-line fix, not patch N/M.
+**Step 3.3: CHECK FILE HISTORY**
+Record: Recent `namei.c` work is ADS, mkdir, vfs `->create`. **No
+follow-up** to this infoleak. Not patch X/Y. Standalone.
 
-Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record:
-- Johan Alvarado has no prior stmmac commits in this tree (end-user
-  reporter/fixer, not the subsystem maintainer).
-- Maintainers CC’d on the list: Alexandre Torgue, Jose Abreu. Applied by
-  Jakub Kicinski.
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Record: Dmitry Antipov has no other recent ntfs3 commits in this
+history. Konstantin Komarov is the ntfs3 maintainer and applied the
+memset form.
 
-Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record:
-- Needs `netdev_xmit_more()` — present in `include/linux/netdevice.h`
-  (this tree).
-- Needs the existing `set_ic` / `stmmac_set_tx_ic` / `tx_coal_frames`
-  block — present in both xmit paths.
-- Mainline context uses `CIRC_CNT` / `stmmac_get_tx_desc`; those helpers
-  are not required. The added lines sit in context that is identical
-  here:
-  `else if (!priv->tx_coal_frames[queue]) set_ic = false;`
-- Applies standalone.
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+Record: Uses existing `fill_name_de`, `ALIGN`, `fname_full_size`,
+`NTFS_DE`. **Applies standalone.** `ntfs_rename` can keep `kmalloc`.
 
 ===============================================================
 PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 ===============================================================
 
-Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- b4 dig on the msgid did not resolve a local commit (this SHA is not in
-  the 6.12 checkout). Fallback: openwall + patchew.
-- v1: 2026-07-06, Message-ID `0100019f35ea26e0-42ad009c-01ab-4a8f-b126-
-  fa65fbacae5c-000000@email.amazonses.com`
-- RESEND: 2026-07-31, msgid `20260731194522.55069-1-contact@c127.dev`
-  after netdev queue overflow (Jakub asked for a repost). Author: no
-  code changes vs v1.
-- Reviewer Maciej Fijalkowski: agreed each TX batch should get IC at the
-  end; asked if coalescing could be dropped. Author explained why the
-  frame bound must stay (ring-full with xmit_more set on every frame
-  until the queue stops → zero IC → timer stall on the bulk path). Kept
-  the patch minimal for `net`.
-- No NAK. No reviewer concern that the change is unsafe for the IC-on-
-  burst-end approach.
-- No explicit “Cc: stable” in the thread. Submitted to `net` as a
-  bugfix.
+- **b4 dig:**
+  https://patch.msgid.link/20260609123618.712961-1-dmantipov@yandex.ru
+- **Series:** v1 only (`[PATCH] ntfs3: fix info-leak in ntfs_rename()`),
+  2026-06-09
+- **v1 diff:** `kmalloc` → `kzalloc` in `ntfs_rename` only
+- **Al Viro** asked how that buffer reaches `copy_to_user_iter()`, then
+  guessed a deeper metadata/bh reuse bug
+- **Dmitry** explained the pad/`hdr_insert_de` path and posted the
+  memset version (what landed)
+- **Konstantin (2026-07-15):** “The patch is applied, thank you.” No
+  NAK. No Cc: stable in-thread.
 
-Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record:
-- To/Cc: netdev maintainers (Kicinski, Abeni, Dumazet, Daleck, Lunn),
-  stmmac (Torgue, Abreu, Coquelin), Pavel Machek (historical reporter),
-  linux-stm32, linux-arm-kernel.
-- Substantive review: Maciej Fijalkowski. Applied by Jakub Kicinski.
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Record (**b4 dig -w**): Dmitry Antipov, Konstantin Komarov, Al Viro,
+`ntfs3@lists.linux.dev`, `lvc-project@linuxtesting.org`, syzbot.
+Maintainer applied it after VFS questions.
 
-Step 4.3: SEARCH FOR THE BUG REPORT
-Record:
-- Concrete iperf3 numbers from the author on real hardware (Orange Pi 5
-  Pro).
-- Historical same class of bug: Pavel Machek 2016 UDP burst pauses (40
-  ms low-res timer); his “disable coalescing” patch was rejected in
-  favor of a real solution. hrtimer conversion later fixed resolution
-  but left timer-as-only-completion for light flows.
-- Severity from reporter: BBR unusable (~5 Mbit/s vs hundreds).
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+Record (syzkaller):
+- Title: **KMSAN: kernel-infoleak in filemap_read**
+- First crash 2023-12-20; C repro; **9090** crashes; prio:high
+- Uninit created at `kmalloc` in `ntfs_rename`; stored in
+  `hdr_insert_de` → `indx_insert_into_root` → `ni_rename`; written via
+  `ntfs_write_bh`; copied out via `blkdev_read_iter` (sample: **udevd**)
+- Syzbot lists **2fa56613b25d** as the fix commit
 
-Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Single standalone patch. Author deferred any coalescing rework
-to net-next. XSK/XDP IC logic deliberately not included.
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+Record: Standalone. Related local infoleak: `35d1ea92c7d94` (LZNT
+decompress) — different path.
 
-Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: lore.kernel.org/stable search returned 403. No evidence on
-openwall/patchew that stable rejected this. UNVERIFIED that it was
-discussed on stable@ specifically.
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Record: **UNVERIFIED** — lore.kernel.org/stable returned 403. No local
+evidence this was rejected for stable.
 
 ===============================================================
 PHASE 5: CODE SEMANTIC ANALYSIS
 ===============================================================
 
-Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: `stmmac_tso_xmit`, `stmmac_xmit`. Helper used:
-`netdev_xmit_more`. Callee already present: `stmmac_set_tx_ic`.
+**Step 5.1: KEY FUNCTIONS**
+Record: `fill_name_de()`; leak sink `hdr_insert_de()`; user entry
+`ntfs_rename()` → `ni_rename()` → `ni_add_name()` →
+`indx_insert_entry()`.
 
-Step 5.2: TRACE CALLERS
-Record:
-- `stmmac_xmit` is `ndo_start_xmit` (`stmmac_netdev_ops` at line 7155).
-- `stmmac_tso_xmit` is called from `stmmac_xmit` for TSO/GSO packets
-  (lines 4529/4531).
-- Context: process / softirq xmit (BH off). Userspace sockets, not
-  probe-only.
+**Step 5.2: TRACE CALLERS**
+Record (`git grep`):
+- `ntfs_rename()` — `rename(2)`; `kmalloc(PATH_MAX)` (**the syzbot
+  path**)
+- `ntfs_create_inode()` — create/mkdir/symlink; already `kzalloc`
+- `ntfs_link_inode()` — `link(2)`; already `kzalloc`
+- `ntfs_unlink_inode()` — unlink/rmdir; already `kzalloc`
 
-Step 5.3: TRACE CALLEES
-Record: `stmmac_set_tx_ic` sets the hardware IC bit;
-`stmmac_tx_timer_arm` still runs after xmit (lines 4461 and 4750). Timer
-remains the fallback if IC is not set or NAPI is not scheduled.
+**Step 5.3: TRACE CALLEES**
+Record: `ntfs_nls_to_utf16` / `memcpy` for the name; `fname_full_size`;
+then `memset` of pad.
 
-Step 5.4: FOLLOW THE CALL CHAIN
-Record: userspace send/write → TCP → qdisc → `ndo_start_xmit` →
-`stmmac_xmit` / `stmmac_tso_xmit`. Reachable on every stmmac Ethernet
-device. Unprivileged users who can send on the interface (typical
-networked host) trigger it. BBR/pacing makes it easy to hit.
+**Step 5.4: FOLLOW THE CALL CHAIN**
+Record: Userspace `rename()` on ntfs3 → directory index insert →
+MFT/index write → later `read()` of the block device (udev) copies pad
+to userspace. **Reachable from a normal syscall** on a mounted ntfs3
+volume.
 
-Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: `netdev_xmit_more()` is already used for doorbell/IC batching in
-many drivers in this tree (r8169, mlx5, virtio_net, qede, ionic, sfc,
-forcedeth, …). stmmac is the outlier. XSK/XDP in the same file still use
-frame-count-only IC; that is intentional and not a missed copy of this
-bug (no TSQ).
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+Record: Other `fill_name_de` callers already `kzalloc`. Rename is the
+remaining `kmalloc` caller; fixing `fill_name_de` covers all of them.
 
 ===============================================================
 PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 ===============================================================
 
-Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: Yes. `stmmac_tso_xmit` ~4380–4390 and `stmmac_xmit` ~4645–4655:
-same if/else IC logic, no `netdev_xmit_more()` branch. Defaults in this
-tree: `STMMAC_TX_FRAMES` 25, `STMMAC_COAL_TX_TIMER` 5000 (`common.h`).
-`git describe HEAD` → `p-6.12-2-gd38d58a4e0359`; `make kernelversion` →
-6.12.111.
+**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
+Record:
+- Tree: **7.3.0-rc4** (`git describe`: `v7.3-rc4-27-gf0100363d8c37`)
+- `fs/ntfs3/namei.c` and `fill_name_de()` exist
+- Bug introduced **4342306f0f0d5** (ntfs3 add, ~5.15); **is ancestor of
+  HEAD**
+- Current `fill_name_de()` **already contains** this memset (`git merge-
+  base --is-ancestor 2fa56613b25d0 HEAD` → yes)
+- `ntfs_rename` still does `de = kmalloc(PATH_MAX, GFP_KERNEL)` — the
+  memset is what stops the leak
 
-dwmac-motorcomm / YT6801 is not in this tree; that was only the
-reporter’s NIC. The bug lives in common `stmmac_main.c`, which 6.12
-already uses for dwmac-rk, dwmac-sunxi, dwmac-stm32, dwmac-intel, dwmac-
-imx, dwmac-qcom-ethqos, dwmac-ipq806x, dwmac-meson, etc.
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+Record: Hunk is local to `fill_name_de` and matches the long-standing
+function shape (`QuadAlign`/`ALIGN` + `e->size`). **Clean apply** on any
+tree with original `fill_name_de`. No structural prereq.
 
-Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: Expected apply: clean for the four added lines. Surrounding
-mainline helpers (`CIRC_CNT`, `stmmac_get_tx_desc`) differ, but they are
-not part of this hunk. Insertion context matches 6.12 exactly.
-
-Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: 2d1a42cf7f77c (don’t re-arm timer while NAPI is scheduled) and
-039550960a223 (5 ms timer) are in this tree. They do not set burst-end
-IC. No equivalent fix present.
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
+Record: This **is** the fix (`2fa56613b25d0`). No later replacement.
+LZNT infoleak is separate.
 
 ===============================================================
 PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 ===============================================================
 
-Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: [net / stmmac Ethernet] [IMPORTANT — not mm/core, but the common
-DWMAC driver for a large set of ARM/x86 embedded and laptop NICs]
+**Step 7.1: SUBSYSTEM AND CRITICALITY**
+Record: **fs/ntfs3** — **IMPORTANT** (in-tree RW NTFS since 5.15; not
+core VFS, but a real production FS). Not staging.
 
-Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Actively maintained (recent TSO, XDP, PTP, FPE fixes). Coalesce
-core has been stable since 2019 with only timer-arm tweaks in 2023.
+**Step 7.2: SUBSYSTEM ACTIVITY**
+Record: Actively maintained (Paragon / Komarov); mix of features and
+sanitizer/bounds fixes.
 
 ===============================================================
 PHASE 8: IMPACT AND RISK ASSESSMENT
 ===============================================================
 
-Step 8.1: DETERMINE WHO IS AFFECTED
-Record: Driver-specific, but a widely used driver. Anyone using stmmac
-with default coalescing and paced/TSQ-limited TCP (BBR is
-`CONFIG_TCP_CONG_BBR` in this tree). CUBIC is less affected because it
-queues more deeply (207 vs 5 Mbit/s in the report).
+**Step 8.1: WHO IS AFFECTED**
+Record: **Filesystem-specific** — `CONFIG_NTFS3_FS` users who rename on
+ntfs3. Trigger is rename, not an obscure ioctl.
 
-Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record: Normal TCP upload with pacing/TSQ and default ethtool coalesce
-(tx-frames 25, tx-usecs 5000). Common on WAN/RTT paths, not a rare error
-path. Unprivileged users sending data can trigger it. Workaround exists
-(`ethtool -C`) but is not discoverable for most users.
+**Step 8.2: TRIGGER CONDITIONS**
+Record: `rename(2)` when the new name is inserted into a directory
+index. Common. Unprivileged users with write access to an ntfs3 mount
+can write slab leftovers into on-disk index entries. The syzbot read
+path is `blkdev_read_iter` (typically privileged udev), but the
+**confidentiality failure is writing kernel heap into the volume**.
 
-Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: [TCP TX completion stall / order-of-magnitude throughput
-collapse; BBR bandwidth lock-in] [HIGH for affected workloads — not a
-panic/UAF/corruption, but the NIC is effectively unusable for paced TCP]
+**Step 8.3: FAILURE MODE SEVERITY**
+Record: **KMSAN kernel-infoleak** of uninitialized kmalloc memory onto
+disk / into a later userspace read. **Severity: HIGH** (security
+infoleak; not a panic). Syzbot prio:high; C repro; thousands of crashes.
 
-Step 8.4: CALCULATE RISK-BENEFIT RATIO
+**Step 8.4: RISK-BENEFIT RATIO**
 Record:
-- Benefit: high for stmmac + BBR/pacing (5 → 447 Mbit/s in the report);
-  restores TSQ-friendly completion.
-- Risk: low (4 lines, well-known helper, coalescing preserved in-burst,
-  `tx-frames 0` unchanged). 2023 ipq806x pain was timer-arm frequency
-  under bulk load; this patch does not change timer arming and keeps the
-  25-descriptor IC bound so a full ring cannot drain with zero IC.
-- Ratio: benefit clearly outweighs risk.
+- **Benefit:** high — stops a real, fuzzer-reproduced kernel infoleak on
+  a syscall path
+- **Risk:** very low — 5-line memset of 0–7 pad bytes
+- **Ratio:** strongly favors taking the fix
 
 ===============================================================
 PHASE 9: FINAL SYNTHESIS
 ===============================================================
 
-Step 9.1: COMPILE THE EVIDENCE
+**Step 9.1: COMPILE THE EVIDENCE**
+
 FOR:
-- Real, measured bug: BBR ~5 Mbit/s vs CUBIC ~207 Mbit/s; ethtool
-  experiment confirms mechanism.
-- TSQ/pacing vs delayed TX completion is a known correctness class, not
-  a micro-optimization.
-- Introducing change da2024510031 (TX_FRAMES 1→25) is in this tree since
-  v5.5; 5 ms timer (039550960a223) is also here.
-- Four-line, obviously correct change; `netdev_xmit_more()` already in
-  this tree.
-- Applies on identical context in `stmmac_xmit` / `stmmac_tso_xmit`.
-- `[PATCH net]`, reviewed, applied by netdev maintainer; reviewer agreed
-  IC belongs at batch end.
-- Workaround requires non-default ethtool; default shipped settings are
-  the broken ones.
+- Syzbot KMSAN kernel-infoleak with C repro and a clear `kmalloc` →
+  `hdr_insert_de` → disk → `copy_to_user` chain
+- Small, obviously correct memset of alignment padding
+- ntfs3 maintainer applied it after discussion with Al Viro
+- Bug present since ntfs3 introduction; code exists in this tree
+- No new API, no locking, no series dependencies
+- Rename still uses `kmalloc`; without this, the leak remains
 
 AGAINST:
-- Not a crash, UAF, deadlock, or security bug.
-- Changes IRQ pattern (more interrupts on short bursts).
-- Test NIC (dwmac-motorcomm) is not in 6.12 (common-path bug still is).
-- Original thread did not Cc stable@.
-- 2023 work raised the timer specifically to cut IRQ rate on some SoCs —
-  theoretical regression if burst-end IC is too aggressive under bulk
-  load. Mitigated by remaining in-burst coalescing and author’s IRQ
-  measurements.
+- Al Viro first wondered if `copy_to_user` meant a deeper metadata-reuse
+  bug; Dmitry’s pad explanation is what was applied, and it matches the
+  first splat
+- Infoleak, not a crash (still stable-worthy)
+- lore.kernel.org HTTP 403; stable-list history not independently
+  fetched
 
 UNRESOLVED:
-- Could not fetch lore.kernel.org (403) or spinics (500); used
-  openwall/patchew instead.
-- Could not search stable@ archives (403).
-- No follow-up fix SHA in this tree (expected; this commit is not here).
+- Whether older stable series already carried a different zeroing
+  approach (not this 7.3 tree)
+- Whether KMSAN instances still listed as “missing” are stale vs. a
+  second leak
 
-Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? PASS — 4 lines, list review,
-   before/after iperf3, IRQ rate reported.
-2. Fixes a real bug that affects users? PASS — paced TCP/TSQ stall with
-   measured multi-10x drop.
-3. Important issue? PASS — HIGH functional failure of a standard
-   congestion controller on a common NIC; not a panic, but the device is
-   unusable for that workload at default settings.
-4. Small and contained? PASS — +4 lines, one file, two functions.
-5. No new features or APIs? PASS — uses existing `netdev_xmit_more()` /
-   IC bit.
-6. Can apply to the local tree? PASS — buggy code and helper exist;
-   insertion context matches.
+**Step 9.2: STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — pad math is local; syzbot +
+   maintainer apply
+2. Fixes a real bug that affects users? **PASS** — KMSAN infoleak, C
+   repro, udev read of written metadata
+3. Important (crash/security/corruption/deadlock)? **PASS** — kernel
+   infoleak / security, HIGH
+4. Small and contained? **PASS** — `fill_name_de` only, ~5 lines
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — same function exists; no
+   missing helpers
 
-Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: None of device-ID / quirk / DT / build / docs. Qualifies as a
-normal small net driver correctness fix.
+**Step 9.3: EXCEPTION CATEGORIES**
+Record: None (not an ID/quirk/DT/build/doc exception). It is a normal
+memory-safety fix.
 
-Step 9.4: MAKE YOUR DECISION
-This is a small, tested fix for a long-standing TX completion stall that
-makes paced TCP (notably BBR) collapse on stmmac at default coalesce
-settings. The buggy path and the only dependency (`netdev_xmit_more`)
-are in 6.12.y. Benefit to stable users is large; regression risk is low.
+**Step 9.4: DECISION**
+This tree has ntfs3 and the buggy `fill_name_de`/`ntfs_rename` design.
+The change is a contained KMSAN infoleak fix with a documented syscall
+trigger. It meets stable criteria on technical merit.
 
 Verification:
-- [Phase 1] Parsed subject/body/tags from the candidate message; Link
-  msgid used to find the original `[PATCH net]` / RESEND threads.
-- [Phase 1] Original list post (openwall/patchew) still had Fixes:
-  da2024510031; committed copy in the pipeline does not.
-- [Phase 2] Diff is +4 lines in `stmmac_tso_xmit` and `stmmac_xmit`
-  only; both insertions are `else if (!netdev_xmit_more()) set_ic =
-  true` after the `tx_coal_frames==0` check.
-- [Phase 2] Read local `stmmac_main.c` 4380–4390 and 4645–4667: same IC
-  ladder, no xmit_more branch; timer still armed at 4461 and 4750.
-- [Phase 2] `STMMAC_TX_FRAMES` 25 and `STMMAC_COAL_TX_TIMER` 5000
-  confirmed in `common.h`.
-- [Phase 3] `git blame` on those lines: c2837423cb5455 (2019) and
-  db2f2842e6f560 (2021).
-- [Phase 3] `git merge-base --is-ancestor da2024510031 HEAD` exit 0;
-  `git show da2024510031` changed TX_FRAMES 1→25.
-- [Phase 3] `git merge-base --is-ancestor 039550960a223 HEAD` exit 0 (5
-  ms timer present).
-- [Phase 3] `git log --grep=netdev_xmit_more --
-  drivers/net/ethernet/stmicro/stmmac/` empty.
-- [Phase 3] `git describe HEAD` → p-6.12-2-gd38d58a4e0359; kernelversion
-  6.12.111.
-- [Phase 4] b4 dig on msgid: no local matching commit (expected).
-- [Phase 4] Openwall RESEND and patchew v1: Maciej Fijalkowski review,
-  Jakub apply-after-RESEND, no NAK; author kept frame coalescing for
-  ring-full IC bound.
-- [Phase 4] lore.kernel.org and stable@ fetches: 403. UNVERIFIED on
-  stable@ specifically.
-- [Phase 5] `stmmac_xmit` is `ndo_start_xmit`; `stmmac_tso_xmit` called
-  from it; `netdev_xmit_more()` defined in `include/linux/netdevice.h`
-  4989–5002.
-- [Phase 5] Grep: many other NIC drivers already use
-  `netdev_xmit_more()`; stmmac does not.
-- [Phase 6] Grep `netdev_xmit_more` under stmmac: no matches. Grep
-  YT6801/dwmac-motorcomm: no matches. Glob `dwmac-*.c`: 25 platform
-  files including dwmac-rk, dwmac-ipq806x, dwmac-intel, dwmac-stm32.
-- [Phase 6] Insertion context in 6.12 matches the patch;
-  CIRC_CNT/get_tx_desc differences are mainline-only context, not
-  required.
-- [Phase 7] MAINTAINERS: STMMAC ETHERNET DRIVER, Alexandre Torgue / Jose
-  Abreu.
-- [Phase 8] `CONFIG_TCP_CONG_BBR` exists in `net/ipv4/Kconfig`.
-- UNVERIFIED: whether a later mainline follow-up refined this patch (not
-  in this tree; lore search blocked).
-
-The stall is in this 6.12 tree, the fix is four obviously correct lines,
-and paced TCP is a real user-visible failure at default coalesce
-settings.
+- [Phase 1] Tags: syzbot Reported-by + Closes URL; maintainer SOB; no
+  Fixes on committed form
+- [Phase 2] Diff: +7/-2 in `fill_name_de`; memset of `aligned_size -
+  real_size`
+- [Phase 2] `hdr_insert_de` (index.c:873): `memcpy(before, de, de_size)`
+  with `de_size` from `de->size`
+- [Phase 3] Blame: 4342306f0f0d5 introduced QuadAlign size;
+  fa3cacf544636 switched to ALIGN
+- [Phase 3] `git merge-base --is-ancestor 4342306f0f0d5 HEAD` → 0 (bug
+  origin in this tree)
+- [Phase 3] `git merge-base --is-ancestor 2fa56613b25d0 HEAD` → 0 (this
+  SHA is in HEAD)
+- [Phase 3] Original v1 Fixes: ca2a04e84af79 is in HEAD but is not
+  required for the memset
+- [Phase 4] `b4 dig -c 2fa56613b25d0`: lore msgid
+  `20260609123618.712961-1-dmantipov@yandex.ru`
+- [Phase 4] `b4 dig -a`: v1 only; committed code is Dmitry’s follow-up
+  memset, not v1 kzalloc
+- [Phase 4] `b4 dig -w`: ntfs3 list, Komarov, Al Viro, syzbot, lvc-
+  project
+- [Phase 4] mbox: Viro questions; Dmitry pad diagram; Komarov “patch is
+  applied”
+- [Phase 4] WebFetch lore.kernel.org → 403; used b4 mbox instead
+- [Phase 4] syzbot: KMSAN infoleak, C repro, uninit at ntfs_rename
+  kmalloc, store at hdr_insert_de
+- [Phase 5] Callers: rename (kmalloc), create/link/unlink (kzalloc)
+- [Phase 5] `ni_add_name` fills ref/home/dup after fill_name_de; then
+  `indx_insert_entry`
+- [Phase 6] `git describe HEAD` = v7.3-rc4-27-gf0100363d8c37; `make
+  kernelversion` = 7.3.0-rc4
+- [Phase 6] Current namei.c lines 56–61 already have the memset
+- [Phase 8] Failure mode: kernel heap bytes written into NTFS index and
+  readable via blkdev read
+- UNVERIFIED: stable@ mailing-list discussion (lore 403)
 
 **YES**
 
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ fs/ntfs3/namei.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 63c045616c9b7..7dbb5e9bcb54b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4400,6 +4400,8 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 		set_ic = true;
- 	else if (!priv->tx_coal_frames[queue])
- 		set_ic = false;
-+	else if (!netdev_xmit_more())
-+		set_ic = true;
- 	else if (tx_packets > priv->tx_coal_frames[queue])
- 		set_ic = true;
- 	else if ((tx_q->tx_count_frames %
-@@ -4687,6 +4689,8 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 		set_ic = true;
- 	else if (!priv->tx_coal_frames[queue])
- 		set_ic = false;
-+	else if (!netdev_xmit_more())
-+		set_ic = true;
- 	else if (tx_packets > priv->tx_coal_frames[queue])
- 		set_ic = true;
- 	else if ((tx_q->tx_count_frames %
+diff --git a/fs/ntfs3/namei.c b/fs/ntfs3/namei.c
+index 64cde1a856f44..f547ce82520f8 100644
+--- a/fs/ntfs3/namei.c
++++ b/fs/ntfs3/namei.c
+@@ -22,7 +22,7 @@ int fill_name_de(struct ntfs_sb_info *sbi, void *buf, const struct qstr *name,
+ {
+ 	int err;
+ 	struct NTFS_DE *e = buf;
+-	u16 data_size;
++	u16 data_size, real_size, aligned_size;
+ 	struct ATTR_FILE_NAME *fname = (struct ATTR_FILE_NAME *)(e + 1);
+ 
+ #ifndef CONFIG_NTFS3_64BIT_CLUSTER
+@@ -53,7 +53,12 @@ int fill_name_de(struct ntfs_sb_info *sbi, void *buf, const struct qstr *name,
+ 	fname->type = FILE_NAME_POSIX;
+ 	data_size = fname_full_size(fname);
+ 
+-	e->size = cpu_to_le16(ALIGN(data_size, 8) + sizeof(struct NTFS_DE));
++	real_size = data_size + sizeof(struct NTFS_DE);
++	aligned_size = ALIGN(data_size, 8) + sizeof(struct NTFS_DE);
++	if (aligned_size > real_size)
++		memset((char *)buf + real_size, 0, aligned_size - real_size);
++
++	e->size = cpu_to_le16(aligned_size);
+ 	e->key_size = cpu_to_le16(data_size);
+ 	e->flags = 0;
+ 	e->res = 0;
 -- 
 2.53.0
 
