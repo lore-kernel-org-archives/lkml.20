@@ -1,258 +1,306 @@
-Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A024DA9D6
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7694E3220
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411155; cv=none; b=ZMjwFgQk15LBmhKKcPSKi/mNZMRIYF0EmvsUXQgy0XfrPSZ9lWahFS7bNqgY2BiSIYCvGAeavMZIVE/gKjzxrG9mut4w3BmO07YiKmoXnWP2pTCzFwrLWUPlcMr9U/XbD0o7S+ebKSkag0+OpbKLZDADrBjjsL77dS7rt3J/50E=
+	t=1792411203; cv=none; b=sDjB/uszd6bGvfvXE0CDciC84BmVBOaSIbljN2vICLS6lLMKKRC9Gj+t4SUg8MR+muMJJoZC02KF1TatqniUEM8556gx4oj/vbvM5qxvQ2R4gMfPF3UpGCF9pebztBpBjH1gY4NgwQAosRfrJtLFY7f4eRYomp9iZF3DTa5jy+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411155; c=relaxed/simple;
-	bh=v2kbENe1Gg16GvJP/V2xAlfnNkYrM6uk/4A1vvTDCQw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P1FDLjyiccGFZDNVQd/Xt1ZZkxZQeDkszpLB0qg7JNqb2MGzlEM4tRyrZJf89Ts08rMOZHwjxSiQV9hGZ4PjJhCL3Fd3GS8LRUqOSKgoIIbUANcsuazJUP1xG8WGZytwpBQFJ4ED2z8yfC0rEpT4IdCNh2HA9jcr0OK5hyYTcSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s/VA0W+R; arc=none smtp.client-ip=74.125.231.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792411203; c=relaxed/simple;
+	bh=FcqLpKSfKJ1yko+5OFV+nW7H7B0lBHV0bW98aHKRh3c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vEJiPjWGyGNtitGxoxejoD1uPuHZQ3KONO+neMDjNSXRKGb45SJWuIrt9KluTqFgOm2bAqTNhV22opU25BXOEutntx+k4/BfaJFUxXExnqH8iF9pEx6E5grkjF0r8Q7m5grqs8qZGzZJUNWMI8cTgvrdlC3UWoKqT2xRTdNpv+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Lajoh6zg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XGFc6+0C; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s/VA0W+R"
-Received: by mail-oo2-f4.google.com with SMTP id 006d021491bc7-70399d7f076so957735eaf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:59:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lajoh6zg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XGFc6+0C"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8Ym332688775
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:00:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6w/w7NyM2M/WyE9YFhQuhHJ6Ubd2mIWba5kyEyLKMtE=; b=Lajoh6zg6aeyfvP4
+	Sa5jc/Rmq4UMjtfNhnnjO80rfSIba2GV5TaiOWau76x3INtb7/usAcQRd5Zv+r3c
+	vG/LFFOKIGetdbNWidFyyiZpa8ichrbiSxW/JPSfleiKhdI83HYr/6wBqu3Okj05
+	YHgkcypdjQCOcxRBctbhROuOs8fsWmlNVR7r4Y0ayt4ExE3XhMX3lD6c0egctb5d
+	9xeoUOzlLUSrcWZlCtxKXNudhBTOQQXVQYWKEvFIEsppL2LxtdegQwYF64omDzYa
+	eEHkEjOLxlhZPc3qYNGrCiCa0ZBEUDnpF2NZmahPzUuAUIYsrhsPderw7RC0AQkJ
+	8gCSvw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdftn0rq6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:00:00 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5338bd59032so3133581cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:00:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792411151; x=1793015951; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2YosuWQAMqgNnl5wsrtp23mKOAS1Y5WXgHfA79f3F4k=;
-        b=s/VA0W+RWEwBfpwDXyPrMsig8sxTan6aJb7bJQCo7L9KtJOC1SQwEb97fz0OQ7HJLc
-         Z0yW4o7lwM2PeKk9ZC/t3AjJvK5XSpAyYSYypSWU3V4Ym7y0m2+v+SCcoqNy4amybOoX
-         7HlUxfBkEvDLs7U7TxhSg1Io/NN9795Jh9VZpImGaFWz9CP1ssXKJ4Ml7RSaQv5qDhOB
-         fE3767prkceZvwU6IqZz30A23TnZ+qnVTwxr5BZhsh0qFHcUPXlAHTIjM1IENt/4/sxo
-         ynrpd7d535P0mM6I2BIbgN0yCIpu/X8YwBsI5jW4ODRya0ClHWvUhlOjm8DYkQKeCiEs
-         vIAw==
+        d=oss.qualcomm.com; s=google; t=1792411200; x=1793016000; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6w/w7NyM2M/WyE9YFhQuhHJ6Ubd2mIWba5kyEyLKMtE=;
+        b=XGFc6+0C5KfPdctG8Z81tRBNg4V0qAUwwlJD27mm9XaNSzChxs2ifOyFwRXZhYnCdq
+         H/iuEeVN8yg6QbtKhzLBxxG6jSpXCeu2j0WYKe8Gu8UZ5UAvvmUR+JPGl6F/sQePd/Fd
+         y/1ymhV6uau9mgunvhE/PP+kLSGbQjJGORBAYDkIH5OHAKo12gY8el0LjisJsgm4FpwJ
+         KbYlJ47rXgVHmnNjGF8X97HjkREmv2C90RUjmLLrFhW0EMRX2nEwIivRKxn5dGIvrMSQ
+         jWckeVvYC0gOSyirOAj46hyG1sj8hu4O1nujh+vMOv2TsOKYDmq+z5siH6bsjI2//GHS
+         0fOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792411151; x=1793015951;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2YosuWQAMqgNnl5wsrtp23mKOAS1Y5WXgHfA79f3F4k=;
-        b=O5YV3xe0Mb94NSKTYi9jEP09gxxLSRQqSqv/z/zvssigm1pYzaZivRYSySihaDzNiT
-         AgFCJBviPFe+VjB9IclIWt7yYTK16bbCUHctfexNIUg4V1NaPwYUaW3DSXRO+t9/lzmA
-         KQ0mSOPi4tBKHBdkrgmgbBfZ33kqQTKix41s2YgEl5a5czywkkiiZxFwr0fp9dfahnKD
-         x+di+L7jWIaNzEGFg+e6hvUI5AhdWyUNtgyqhVN9U7sUXACGZT8sVylfnYHWs6WmJGpO
-         R7q8ZD09cQO5PRF0DHeXeeB9OdAaTh9nNjPcYxst2ZMzssGVi7OVG8l/targIpbpg57T
-         C93g==
-X-Forwarded-Encrypted: i=1; AKwUvBz9RMKeeAU9ZZ0lY8Xmf0yBBG++NhEwH7djqkbn31mRZtjIjcCDCdQsS3pW8zvRBXcMIxZZeggup7UYVlA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIma8tKue/4QT/uciqjRf2reWiOp+RNVoBFZKTkkOWJq9zMTDhV
-	EMSA2Zy6rQ9DxjrFfK51M532wA08ryEoymEETSYlZgcPfsIf3yfZlhnt
-X-Gm-Gg: AYBFou1DRBtp/bkFY9O2PFrZMoD1Y4kAgq4AHOEcHq9B0H/KYnYHX5UkfQig2SdRPqs
-	tHoVb9TO8ENxvedX5xwDDSCd/pZX0jhH/cvzSnATOsZIQepGTOvz1VW0CX2bqFkueIPfKwA7YOB
-	voe3SIog3iawY2T5TKF6Hug3PzuY1w6LXvpGGthsvtOuU55JUdxGLKobpF/RFnT11W7eE6RPdfM
-	+tBPtQ1BqKmDw4ljcU7o87clZ2vs8vjTRzPJFZcxtYpLKiXeZVhdYI3/WUMaBgAY2eHTlqLGEYI
-	O1UA4YuHHlEcqJmgXc+A6DKRt/Ew/AWWDOB883eN9fgXgjKYq7g4+seu1Dw9S0jL0EVwoMSrmZu
-	OKct50Dt0nWLI2he9YSSoLuDgu3hdrkiouKSfAzrarWGIsx23PMuxpE2YLGgbJwJMRv8u9QM8e6
-	wuvG3ZcF1hVrbZAvadRDi4Wdz3zwx6D635ZbT21spaw/jijxJEj6WMviXf7gvYARvxAdKbekoug
-	qOQdaJfUYjHEzyAkMPAQ7VEgQPvmTmY1P8PFg==
-X-Received: by 2002:a05:6820:168e:b0:6fd:4277:16dc with SMTP id 006d021491bc7-703559911aamr4763075eaf.20.1792411151233;
-        Mon, 19 Oct 2026 04:59:11 -0700 (PDT)
-Received: from localhost.localdomain ([14.116.239.37])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-701900719c6sm7602973eaf.11.2026.10.19.04.59.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 04:59:09 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Jon Maloy <jmaloy@redhat.com>,
-	Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ying Xue <ying.xue@windriver.com>
-Cc: netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v4] tipc: fix broadcast sender hang on last acker departure
-Date: Mon, 19 Oct 2026 19:58:59 +0800
-Message-ID: <20261019115859.3471295-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <AM7P189MB113757F05921D6EAE994B0BEC6982@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
-References: <AM7P189MB113757F05921D6EAE994B0BEC6982@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
+        d=1e100.net; s=20260707; t=1792411200; x=1793016000;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6w/w7NyM2M/WyE9YFhQuhHJ6Ubd2mIWba5kyEyLKMtE=;
+        b=WINvka7GAshZpdWI/i4zutG5ZszazY4LE4IjW8krh3WxDDQofL+PRIBMnKR56sEufy
+         RZbj0LHQZp1HiYKAeU+YmbrBKnyvb9F087CirbiPEJFXpB0Dnu59KPwuxt7jfrcL7Tnk
+         Gm03EJ6uoJSwEWK4Ck+ErT8nQnFpIe4qHcSIDob6iRsDT58+TK+7RP6lUlhL4dKNjF0U
+         XKojLI8LRV1QUekRCjrKdIJ1xb+edlEraf4FYN99Ke+tnPdZebcGmy26rE1f/F2latgd
+         jcIvH71wDFyoIayPpmTT/6ag0j0ZcP2A/lVMowF6XJVTY7ISZypn0Qkib3C85M/STlts
+         eH9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwDsA1LTDhzdHhe1ShRrQB4XGJBGVbch6kwmvf3jAF8tA/ipB9ECmdIjnpniUqhstbYHTKCNna9TbqNbD0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxIPuU/16c0fLAgkpfvtyg6hLdIMZF8mqH7t5bs2nss8169dHx
+	Nswy4/0Qu9cptWz0AFIqkwpq3iUPx1Fk9zAiWaTd3GeliSzq0pwY8Eu9JA4O1eCksHAoTEYOiJS
+	DwIM9kk50AkLtGHDNxBFp4eZnAVl0GE1gtV+oJRXNd4q6/lP7nSZGNPLaBUxz934V3OU=
+X-Gm-Gg: AYBFou3FSWs6sKrRR37SJGmJVgsAsfG9v9reVzj20utKZqwu17TibJKufKBrxhhTww/
+	vdQdkRaQGCkAjdmuDm7JO1wi9GCZ5tnBB3u3DlKymD6933EUbyxXRWCyD5sNsuYECOusXJbIN0C
+	cwqpkk8vFeWvCvUUML/HiLW0MrSwj1Mxx6XPTUnDClPFaC/O4Epz/EHk74c0ieeoV2A1FX8h6Y1
+	G7N6nJTJ7hvfSD41BCrESRQtE8ChUN3676pbJXqumijZ7jvYf3zshfS8SIxa+39p/N3WmgA9syf
+	oxkqioznyFVXNE2/Imydq8GJJznfqmixXQj2GPJLhKZjT3MoBpEyam62gV8wSsJh4DHjSvAUdy+
+	1isBp37UALv+gxUpF1Ny81A==
+X-Received: by 2002:a05:622a:411:b0:535:162c:2e81 with SMTP id d75a77b69052e-5364616cceemr134121091cf.5.1792411199608;
+        Mon, 19 Oct 2026 04:59:59 -0700 (PDT)
+X-Received: by 2002:a05:622a:411:b0:535:162c:2e81 with SMTP id d75a77b69052e-5364616cceemr134120601cf.5.1792411199024;
+        Mon, 19 Oct 2026 04:59:59 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ce122sm364995966b.32.2026.10.19.04.59.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 04:59:57 -0700 (PDT)
+Message-ID: <0829d45e-a55a-43f6-a9f3-f445337fa00f@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 13:59:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/8] regulator: add Qualcomm LCDB driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+        Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+        Kiran Gunda <quic_kgunda@quicinc.com>,
+        Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, mfd@lists.linux.dev
+References: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
+ <20261019-sm8150-display-card-v2-4-86c05068efc5@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261019-sm8150-display-card-v2-4-86c05068efc5@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NyBTYWx0ZWRfX8xg6WqgjEgR6
+ 6jiFJukVHBzU/fh+ESYoWIJ3bmc6hpM9BXQnLjukZjFhr5iPgN031KP5ouJlYFJUCqqNXnZbb3E
+ oI4MgFPrNbzZDo9+1rmzs4YRR8fNyYU=
+X-Proofpoint-GUID: YnlS8YXXYvbxTiweI-mYsoehwHzBI5dQ
+X-Proofpoint-ORIG-GUID: YnlS8YXXYvbxTiweI-mYsoehwHzBI5dQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NyBTYWx0ZWRfX1It0vP1Mo+Mu
+ BK7eIctXtr+5+8TLSXM+ccUuXOZl1/Q7vxKO8JkIY07UK9Xfx6YIhB48aFpZ3GcDHgNKGBudbzE
+ yCE3UGgkpU2gjmLAKCemO4V+8uY15IF28k1kDkKFSTsgLK1z7SN6i/uea5CP6WYrZ/tQ862y5l7
+ bFhpel0cu1wxhf7mSwdRaDYRxWzJFVG50GRjaaTR4dzKySowWfx9EBr8LaJYPqyeuYQ7yG0/+X5
+ 3mpbhxKrappUaRqtk4Ug7GWMSgPHqyTA3SHSAAmSqbuvPzhYH0thHNWzMzkCLVJYP/sCgMyIHn0
+ iToOlkPi36B0OZ+P+JHrNELVUJERqOcrGiKd8yESDoJdbC9VOBni6h6i6/GUFzcoPJCpmY7viDe
+ DXbF/Y9ggE3EDqhx0prCVv3/Tw3QMbknP7Tx5wML1/KA+T8FvJWARNZIKMMm1wsTh/0wGBFuBdt
+ q9Of4CDeXZArzpoTzIg==
+X-Authority-Analysis: v=2.4 cv=OvTaWC/t c=1 sm=1 tr=0 ts=6ad60640 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=6RkV1gTEqpm7dquCeG8A:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610190047
 
-TIPC group broadcast senders are blocked while a replicast still has
-outstanding member acks: tipc_group_bc_cong() returns true as long as
-grp->bc_ackers is non-zero, and clears *grp->open, which is what
-tipc_poll() uses to report EPOLLOUT (via tsk->group_is_open).
+On 10/19/26 1:25 PM, Dmitry Baryshkov wrote:
+> LCD panels on boards with PMI632, PM6150L or PM8150L take their bias
+> rails from the LCDB block. Without a driver they only work as long as
+> the bootloader has enabled it and nothing turns it off.
 
-When the last outstanding acker departs before acking,
-tipc_group_delete_member() decrements grp->bc_ackers to zero but
-never restores *grp->open.  As a result poll(EPOLLOUT) never fires
-again.  A writer blocked in sendmsg() is only released if some other
-wakeup happens after the deletion: with TIPC_GROUP_MEMBER_EVTS the
-leave event delivery calls sk_data_ready() and wakes it, but without
-member events nothing does and it sleeps indefinitely, since the
-default send timeout is MAX_SCHEDULE_TIMEOUT.
+[...]
 
-Commit 99cc2a62e07a ("tipc: reject invalid and unexpected
-GRP_ACK_MSG to prevent bc_ackers underflow") already calls this out
-in its changelog as a pre-existing issue.
+> +static bool qcom_lcdb_handle_sc(struct qcom_lcdb *lcdb)
+> +{
+> +	guard(mutex)(&lcdb->lock);
+> +
+> +	if (!lcdb->enabled_mask || lcdb->sc_disabled)
+> +		return false;
+> +
+> +	qcom_lcdb_module_disable(lcdb);
+> +
+> +	if (ktime_us_delta(ktime_get(), lcdb->sc_time) > LCDB_SC_RESET_CNT_DLY_US) {
+> +		lcdb->sc_count = 0;
+> +	} else if (lcdb->sc_count > LCDB_SC_CNT_MAX) {
+> +		dev_err(lcdb->dev, "persistent short circuit, keeping the outputs off\n");
+> +		lcdb->sc_disabled = true;
+> +		return true;
+> +	}
+> +
+> +	lcdb->sc_count++;
+> +	lcdb->sc_time = ktime_get();
 
-Restore the open state exactly on the 1->0 transition in the delete
-path, mirroring the GRP_ACK_MSG completion path, and invoke
-sk->sk_write_space() from tipc_sk_filter_rcv() when the group just
-became writable again.
 
-Also make the ack accounting precise.  The delete path used to test
-less(m->bc_acked, grp->bc_snd_nxt - 1), which also matches members
-that were never counted for the current replicast (JOINING/LEAVING
-members keep a stale bc_acked), and the GRP_ACK_MSG handler accepted
-an ack from any member whose bc_acked differed from the expected
-value.  Either could zero bc_ackers on behalf of a member that owes
-nothing and silently void an ack still owed by a real acker.  Track
-whether a member owes an ack for the current replicast in a new
-per-member bc_pending flag, set when the member is counted and
-cleared when its ack arrives, and use it both to accept an ack and
-to decide on deletion.  bc_acked has no remaining user and is
-removed.  Suggested by Tung Quang Nguyen.
+GPT:
 
-This issue was discovered by Tencent CodeBuddy Security.
+The commit message says to restart up to ten times within one second,
+but sc_time is updated on every fault.
 
-Cc: stable@vger.kernel.org
-Fixes: 2f487712b893 ("tipc: guarantee that group broadcast doesn't bypass group unicast")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
+Konrad
 
-v4: Assign bc_pending inside the receiver loop body in the simple
-    form requested by Jon Maloy (m->bc_pending = ack); bc_ackers==0
-    implies no member has bc_pending set (a pending flag is cleared
-    either by the member's ack or by its deletion), so skipping
-    non-receivers cannot leave stale state.
-
-v3: Correct the changelog: tipc_group_bc_cong() only writes *grp->open,
-    and a blocked sendmsg() hangs only when nothing wakes it after the
-    deletion (e.g. member events disabled); also require bc_pending
-    in the GRP_ACK_MSG handler so an uncounted member cannot decrement
-    bc_ackers, and drop the now unused bc_acked field.
-
-v2: Subject no longer claims a leak; add the reproduction; the delete
-    path now discriminates members that were actually counted for the
-    current replicast via a new per-member bc_pending flag instead
-    of comparing a possibly stale bc_acked (Tung Quang Nguyen).
-
-Reproduction (two QEMU guests, TIPC over UDP bearer, groups joined
-without member events; the acking peer withheld GRP_ACK_MSG via a
-test-only knob to emulate the lossy peer, the sender's kernel ran
-unmodified TIPC):
-
-    UNPATCHED (#88/#90, fix absent):
-      sender:  NO POLLOUT for 30s after member departed -> STALL
-      sender2: R2 NEVER returned in 32s (blocked writer not woken)
-    PATCHED (#89, v1 of this patch):
-      sender:  POLLOUT at t=18.5s, when the leave event was delivered
-      sender2: R2 returned at t=18.6s, EHOSTUNREACH on now-empty group
-
- net/tipc/group.c  | 19 ++++++++++---------
- net/tipc/socket.c | 12 +++++++++++-
- 2 files changed, 21 insertions(+), 10 deletions(-)
-
-diff --git a/net/tipc/group.c b/net/tipc/group.c
-index 74f6d3dac0784..0c6a762000b02 100644
---- a/net/tipc/group.c
-+++ b/net/tipc/group.c
-@@ -74,7 +74,7 @@ struct tipc_member {
- 	u16 window;
- 	u16 bc_rcv_nxt;
- 	u16 bc_syncpt;
--	u16 bc_acked;
-+	bool bc_pending;
- };
- 
- struct tipc_group {
-@@ -316,7 +316,6 @@ static struct tipc_member *tipc_group_create_member(struct tipc_group *grp,
- 	m->node = node;
- 	m->port = port;
- 	m->instance = instance;
--	m->bc_acked = grp->bc_snd_nxt - 1;
- 	ret = tipc_group_add_to_tree(grp, m);
- 	if (ret < 0) {
- 		kfree(m);
-@@ -340,9 +339,12 @@ static void tipc_group_delete_member(struct tipc_group *grp,
- 	rb_erase(&m->tree_node, &grp->members);
- 	grp->member_cnt--;
- 
--	/* Check if we were waiting for replicast ack from this member */
--	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1))
--		grp->bc_ackers--;
-+	/* If this member owed an ack for the current replicast and it
-+	 * was the last one, restore the open state so blocked broadcast
-+	 * senders can proceed.
-+	 */
-+	if (grp->bc_ackers && m->bc_pending && !--grp->bc_ackers)
-+		*grp->open = true;
- 
- 	list_del_init(&m->list);
- 	list_del_init(&m->small_win);
-@@ -394,7 +396,6 @@ void tipc_group_update_member(struct tipc_member *m, int len)
- 
- void tipc_group_update_bc_members(struct tipc_group *grp, int len, bool ack)
- {
--	u16 prev = grp->bc_snd_nxt - 1;
- 	struct tipc_member *m;
- 	struct rb_node *n;
- 	u16 ackers = 0;
-@@ -403,8 +404,8 @@ void tipc_group_update_bc_members(struct tipc_group *grp, int len, bool ack)
- 		m = container_of(n, struct tipc_member, tree_node);
- 		if (tipc_group_is_receiver(m)) {
- 			tipc_group_update_member(m, len);
--			m->bc_acked = prev;
- 			ackers++;
-+			m->bc_pending = ack;
- 		}
- 	}
- 
-@@ -800,9 +801,9 @@ void tipc_group_proto_rcv(struct tipc_group *grp, bool *usr_wakeup,
- 		if (!m || !grp->bc_ackers)
- 			return;
- 		acked = msg_grp_bc_acked(hdr);
--		if (acked != grp->bc_snd_nxt || m->bc_acked == acked)
-+		if (acked != grp->bc_snd_nxt || !m->bc_pending)
- 			return;
--		m->bc_acked = acked;
-+		m->bc_pending = false;
- 		if (--grp->bc_ackers)
- 			return;
- 		list_del_init(&m->small_win);
-diff --git a/net/tipc/socket.c b/net/tipc/socket.c
-index d5d70eb230b56..65cc0c4964b31 100644
---- a/net/tipc/socket.c
-+++ b/net/tipc/socket.c
-@@ -2356,8 +2356,18 @@ static void tipc_sk_filter_rcv(struct sock *sk, struct sk_buff *skb,
- 	if (unlikely(!msg_isdata(hdr)))
- 		tipc_sk_proto_rcv(sk, &inputq, xmitq);
- 
--	if (unlikely(grp))
-+	if (unlikely(grp)) {
-+		bool was_open = tsk->group_is_open;
-+
- 		tipc_group_filter_msg(grp, &inputq, xmitq);
-+		/* A departing member may have held the last outstanding
-+		 * replicast ack, which can restore the open state inside
-+		 * tipc_group_filter_msg(); wake up senders blocked in
-+		 * poll()/write() if the group just became writable.
-+		 */
-+		if (!was_open && tsk->group_is_open)
-+			sk->sk_write_space(sk);
-+	}
- 
- 	if (unlikely(!grp) && mtyp == TIPC_MCAST_MSG)
- 		tipc_mcast_filter_msg(net, &tsk->mc_method.deferredq, &inputq);
--- 
-2.43.7
+> +
+> +	if (qcom_lcdb_module_enable(lcdb)) {
+> +		dev_err(lcdb->dev, "failed to recover from a short circuit\n");
+> +		lcdb->sc_disabled = true;
+> +		return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+> +static irqreturn_t qcom_lcdb_sc_irq(int irq, void *data)
+> +{
+> +	struct qcom_lcdb *lcdb = data;
+> +	unsigned int val;
+> +	int ret, i;
+> +
+> +	ret = regmap_read(lcdb->regmap, lcdb->base + LCDB_INT_RT_STS, &val);
+> +	if (ret || !(val & LCDB_SC_ERROR_RT_STS))
+> +		return IRQ_HANDLED;
+> +
+> +	/* Blanking time, a real short circuit is still reported afterwards */
+> +	usleep_range(2000, 2100);
+> +
+> +	ret = regmap_read(lcdb->regmap, lcdb->base + LCDB_INT_RT_STS, &val);
+> +	if (ret || !(val & LCDB_SC_ERROR_RT_STS))
+> +		return IRQ_HANDLED;
+> +
+> +	if (qcom_lcdb_handle_sc(lcdb)) {
+> +		for (i = 0; i < LCDB_NUM_RAILS; i++)
+> +			regulator_notifier_call_chain(lcdb->rdev[i],
+> +						      REGULATOR_EVENT_FAIL, NULL);
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int qcom_lcdb_hw_init(struct qcom_lcdb *lcdb)
+> +{
+> +	unsigned int val;
+> +	int ret, i;
+> +
+> +	for (i = 0; i < LCDB_NUM_RAILS; i++) {
+> +		ret = regmap_read(lcdb->regmap, lcdb->base + qcom_lcdb_vreg[i], &val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		lcdb->uV[i] = qcom_lcdb_sel_to_uV(val & LCDB_OUTPUT_VOLTAGE_MASK);
+> +	}
+> +
+> +	ret = regmap_read(lcdb->regmap, lcdb->base + LCDB_ENABLE_CTL1, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (val & LCDB_MODULE_EN) {
+> +		lcdb->enabled_mask = GENMASK(LCDB_NUM_RAILS - 1, 0);
+> +		return 0;
+> +	}
+> +
+> +	return regmap_set_bits(lcdb->regmap, lcdb->base + LCDB_MODULE_RDY,
+> +			       LCDB_MODULE_RDY_BIT);
+> +}
+> +
+> +static int qcom_lcdb_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct regulator_config cfg = {};
+> +	struct qcom_lcdb *lcdb;
+> +	int irq, ret, i;
+> +
+> +	lcdb = devm_kzalloc(dev, sizeof(*lcdb), GFP_KERNEL);
+> +	if (!lcdb)
+> +		return -ENOMEM;
+> +
+> +	lcdb->dev = dev;
+> +
+> +	lcdb->regmap = dev_get_regmap(dev->parent, NULL);
+> +	if (!lcdb->regmap)
+> +		return dev_err_probe(dev, -ENODEV, "failed to get the parent regmap\n");
+> +
+> +	ret = device_property_read_u32(dev, "reg", &lcdb->base);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get the base address\n");
+> +
+> +	ret = devm_mutex_init(dev, &lcdb->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = qcom_lcdb_hw_init(lcdb);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to read the initial state\n");
+> +
+> +	cfg.dev = dev;
+> +	cfg.regmap = lcdb->regmap;
+> +	cfg.driver_data = lcdb;
+> +
+> +	for (i = 0; i < LCDB_NUM_RAILS; i++) {
+> +		lcdb->rdev[i] = devm_regulator_register(dev, &qcom_lcdb_descs[i], &cfg);
+> +		if (IS_ERR(lcdb->rdev[i]))
+> +			return dev_err_probe(dev, PTR_ERR(lcdb->rdev[i]),
+> +					     "failed to register %s\n",
+> +					     qcom_lcdb_descs[i].name);
+> +	}
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		return irq;
+> +
+> +	return devm_request_threaded_irq(dev, irq, NULL, qcom_lcdb_sc_irq,
+> +					 IRQF_ONESHOT, "lcdb-sc", lcdb);
+> +}
+> +
+> +static const struct of_device_id qcom_lcdb_match[] = {
+> +	{ .compatible = "qcom,pm8150l-lcdb" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, qcom_lcdb_match);
+> +
+> +static struct platform_driver qcom_lcdb_driver = {
+> +	.driver = {
+> +		.name = "qcom-lcdb-regulator",
+> +		.of_match_table = qcom_lcdb_match,
+> +	},
+> +	.probe = qcom_lcdb_probe,
+> +};
+> +module_platform_driver(qcom_lcdb_driver);
+> +
+> +MODULE_DESCRIPTION("Qualcomm LCDB (LCD bias) regulator driver");
+> +MODULE_LICENSE("GPL");
+> 
