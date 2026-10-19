@@ -1,123 +1,168 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21134F3921
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:39:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF114DEC16;
+	Mon, 19 Oct 2026 12:39:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413557; cv=none; b=Fh0cYPK509Q2pm0bj+RFvw3DSqsFRaLAI+Zuk5iZ6WiNGWgL1XvfUdiC2HlYdaW8AwA8A0JtqhCvCBLtQtyEvQ3E5X6ZtrFrdb6sxH+zAK2GkCUn/t2oj0dUXjzJ7kSNizz4E6GqPo/E36ZgfF6oLPDL36DtMNQRfVBuketLjxU=
+	t=1792413601; cv=none; b=uw60S6OXjtfopYuwe7EZIXtyZhHzwWcUhB5+wabgFxXbHts37yEXw00QXb/6STY7G82ftBx0QQ8VN5VfxcMmiZJ2S/FY/4pUo6luJkUL424itr8dQHuIdcokuqC7bGskQbpa9lz6P5aunpOuSPGQ3gnd3R64hgLYlQgRqbd7Gko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413557; c=relaxed/simple;
-	bh=TIpwsXEtH/kqw15lohv1lzbLaGX2CVOAovNsREW9MmA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sCDaral2LBw0aMDNsZ+95tTHTCpNtR1nhD9RP/8EiI+KR51a8b3PyL+gvlwhVME7tXxYlCAVOfh3cURAYwgKyR7PfnE0uNodSV6teEWFByvaphG99wFhKCg5SeTZAmIg5a76wRyd+3/ZnYN+RAOfTQ+a//ZglbxywaBEk1knOQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZOme2roE; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1792413601; c=relaxed/simple;
+	bh=bZ9pF06liX4tKdE9Fse0dLwASnhtZWIDydorL1pJbDc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=J0jPAtgDpi/nSs1HrLvIsLuk+mDilnZQz7baHl9UMvlW0XVZ03MwrgY18rAAbpsYQVWWoSf1nOSXlzxZL/cr0moSu2he1L6LviazOmQYjgtS3v7PComvJ1hg9ZRjEotjVpq9q8Pa087t6IcpWmUaDjYFI8dahlNYwhj55UyQNrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQspWQIA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZOme2roE"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1e1dade31so8608485e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:39:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792413546; x=1793018346; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TGmjTl0WYTodj16FKC7BqXqbPxH6xsiMEijaRRuXBds=;
-        b=ZOme2roEazhFOZKl6BZ37bYCUueaJHV36njgTXgWf7iYIZOdB68926Ip84mxsjHeFm
-         reLyJ9vqKbJHrXVwldH98MEW7HNkSH9USTQj9Ii42+GTGub14OzcbUHL8Ysa72/2YwjK
-         TrXYYDXdufvBjMXVRP7CS/21HZ9KyLf14sv48VoAgapWKP3mWM5nrznIW+/TEdVquC6b
-         bIMoTuQ6QmUfJxl+KlwGLbqr4GrX0EfUKG74WrkWateIKZJWVYN4fSX9ZipmSXmKLkwT
-         sGldKOVgADR3e/+/TG0+Fb0WzxMJieqJfMI+nnTXchXyQgoJqrkc/TQGlO4AyjYykxa3
-         DNog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792413546; x=1793018346;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TGmjTl0WYTodj16FKC7BqXqbPxH6xsiMEijaRRuXBds=;
-        b=nZUo+Il347yjK+Uiu1f5cwmi6fqya51KiOO8emkuLb5rxgbUUnTVhIeOIyAPrirtJC
-         +405lZnx+jAPuIMoa/HpHm7x3lw/Xr/4Xjtg2jBOvxQqh/SbeCtcX8RTfY81CHnxfrcK
-         JGesc24zLP6B3GCrvifai0rhWsC5H8ayEXQkvo6AFToOmhDWxTzWW1UlMLT5ee91Bqgh
-         JCnfmyBkZ68YDjk5nZQ0Tyl3s3nWnlyGT0l8PxyHrd3tJ1BP8WWEZuE4vtuKOQRGyGPA
-         3J8teZgxGohF9W8I2yieKX1kGfvURw+Xw4WbSSbgZahkt18QGXc5ELtZF3wYFYS3i/hn
-         sR/Q==
-X-Forwarded-Encrypted: i=1; AKwUvByZWGS9XmP2cRyaZ5eL11854FVw9uyxdV+mKOgti2irRR24+TTR1mGSE/t0ywTPYMLYqv5jYr37AYjBtYo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlhPvh/USak6R3gr+5Y6HTdJK8AljagoL1T5bkz4hUmIHDreeI
-	gjuEEjvZqJL2lBMpScBAZgvltO3oEeKYnovymTBllnMM2CdjXK55KZ99JywfbXuRRQ==
-X-Gm-Gg: AYBFou1rDU3v3HgVgbuTxYpcE6uqg2wPKH90urrDdKqyfe6lHIbLKU35GRkXUEw3Guu
-	W6hEccuYTaQExcTMLcdXZNe49hbeCLapk7C1N30Hm42Xi4A3r63ZUCcTT1fR8HW/W2dLFFBTeBf
-	bxWCcgduVEfqOk8yhMcmL3YK+5tn9WT0e0CRpCLFLIebA7YOS7sJX7jbK5hBRzeSvi8MP7A3nsc
-	et32oWG3DXKtJ5uzjMdIMoTRc1U1baT/2vNxiu9msGTd63+wLwgA29sMXhbt+K6c63VAmVNZAYI
-	E1ppk9BadOJ9DZZxNOo3RHilLC5lrdQwb7c05FXlw0Hp686HIJ7SdY4rizYMYNDRMnGf+4V3PlW
-	kdVLaM0vREHk6DHXoOhszWiW/hlZH6L6Z1o+fznllCV9nE9zSqr1+tyJycHajnGm5FJsCglGEmb
-	bypaTQ0Ij7B9UlljUYphaAUA47iQiGjoEQ0WpVqNNz13V5JEN4i6JLmMc3BwcEi7ln+6s7pHXhS
-	gqhX+pqSR7eI0KgqRo0Zbht6atZYNjOSPHSR1cGOMNcISapn0AMzg==
-X-Received: by 2002:a05:600c:a417:b0:4a1:efd3:987a with SMTP id 5b1f17b1804b1-4a1efd39a78mr14321995e9.6.1792413545350;
-        Mon, 19 Oct 2026 05:39:05 -0700 (PDT)
-Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d85f92d9sm199554545e9.4.2026.10.19.05.39.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 05:39:04 -0700 (PDT)
-Date: Mon, 19 Oct 2026 13:39:01 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] KVM: arm64: Ensure TLBs and I-cache are private to
- each vCPU in pKVM
-Message-ID: <atYPZeJuw2grFDlz@google.com>
-References: <20261014125510.2928306-1-fuad.tabba@linux.dev>
- <20261014125510.2928306-3-fuad.tabba@linux.dev>
- <atXqLxU5bBtJ8U9W@google.com>
- <20261019114357.3528498-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQspWQIA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291811F000C4;
+	Mon, 19 Oct 2026 12:39:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792413591;
+	bh=OInJnL8OBndhCi8qsJ1iK0rfOnGd3etOMK+eOrTqThk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jQspWQIA3V0mH+S98nf9UxVgzloM0XfnHQOkXjJGcMr9yyPo38H9Lgar/RdTdzcCX
+	 B2q7WOpGgZMLAWsMAlxom2ACfxHA52OgkpuwGzGaC3KsKYc5cE/5V227/l2pnoUHw2
+	 PKvVpvChwk7r6Y2raZ8iEf4EpFK5HdoycdrgeQme7WlFocSQhEqktEBlPjYN+V+d+b
+	 5YEPIeQqBEwPUEXBEgjLmRuqitBaz8T/TepRa0O5iXA+tOtZfdVmebP9ZGHL7iOE46
+	 WBcORQIBu5IoPILoGOVmE2inDC3UC/K1lcr04m9WPWEqgYaD96Eks4/nI5t6fMwlpH
+	 YE4AN3cLltZdw==
+Subject:
+ Re: [PATCH net v2 2/2] bnge: fix RSS table sizing for large RX ring counts
+From: netdev-bot+sashiko@kernel.org
+To: vikas.gupta@broadcom.com
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com,
+ vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com,
+ dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
+Date: Mon, 19 Oct 2026 12:39:49 +0000
+Message-ID: <179241358967.3135.12651975554831459971@kernel.org>
+In-Reply-To: <20261015121847.1933308-3-vikas.gupta@broadcom.com>
+References: <20261015121847.1933308-3-vikas.gupta@broadcom.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019114357.3528498-1-fuad.tabba@linux.dev>
 
-On Mon, Oct 19, 2026 at 12:43:57PM +0100, Fuad Tabba wrote:
-> Hi Vincent,
-> 
-> On Mon, 19 Oct 2026 11:00:15 +0100, Vincent Donnefort <vdonnefort@google.com> wrote:
-> [...]
-> > > diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-> [...]
-> > > @@ -54,6 +54,9 @@ struct pkvm_hyp_vm {
-> > >          unsigned short refcount;
-> > >          hyp_spinlock_t lock;
-> > >  
-> > > +        /* Per physical CPU, the vcpu_idx of the last vCPU of this VM loaded there. */
-> > > +        int *last_vcpu_ran;
-> > 
-> > Unlikely to be a problem in pratice, but vcpu_idx is "unsigned int". I wonder if
-> > this shouldn't be unsigned int here too and initialised to UINT_MAX?
-> 
-> I'd copied int and -1 from the host's mmu->last_vcpu_ran, but the
-> vcpu_idx it's comparing against here is unsigned int, so I'll switch to
-> unsigned int and UINT_MAX in v2.
-> 
-> Thanks,
-> /fuad
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Also,
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-as it is always allocated when pkvm_hyp_vm is, Would it make sense to add this
-to pkvm_get_hyp_vm_size() instead of allocating separately?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] This patch adds a new helper, bnge_calc_nr_ring_pages()
+  (drivers/net/ethernet/broadcom/bnge/bnge_resc.h:90-102), that keeps…
+
+--
+
+bnge: fix RSS table sizing for large RX ring counts
+
+This commit changes bnge_adjust_pow_two() so it always adds one block
+before rounding up to a power of two. With that change the RSS indirection
+table covers every RX ring. Ring page sizing moves to a new
+bnge_calc_nr_ring_pages() helper, which keeps the original rounding.
+
+> diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_resc.h b/drivers/net/ethernet/broadcom/bnge/bnge_resc.h
+> index b62a634669f62..58462524939fe 100644
+> --- a/drivers/net/ethernet/broadcom/bnge/bnge_resc.h
+> +++ b/drivers/net/ethernet/broadcom/bnge/bnge_resc.h
+> @@ -81,6 +81,17 @@ bnge_adjust_pow_two(u32 total_ent, u16 ent_per_blk)
+>  {
+>  	u32 blks = total_ent / ent_per_blk;
+>  
+> +	if (!blks)
+> +		return 1;
+> +
+> +	return roundup_pow_of_two(blks + 1);
+> +}
+> +
+> +static inline u32
+> +bnge_calc_nr_ring_pages(u32 total_ent, u16 ent_per_blk)
+> +{
+> +	u32 blks = total_ent / ent_per_blk;
+> +
+>  	if (blks == 0 || blks == 1)
+>  		return ++blks;
+>  
+
+[Severity: Medium]
+Can this new helper size a ring smaller than total_ent?
+
+The rest of bnge_calc_nr_ring_pages() is:
+
+	if (!is_power_of_2(blks))
+		blks = roundup_pow_of_two(blks);
+
+	return blks;
+
+If the floored quotient is already a power of two of 2 or more, blks is
+returned unchanged and the partial last page is lost. The ring then has
+blks * ent_per_blk slots, which is never more than total_ent.
+
+The commit message says "bnxt_calc_nr_ring_pages() always adds one, which
+is correct". This helper has the same name but keeps the rounding that the
+message calls wrong.
+
+In bnge_set_ring_params(), the completion ring budget includes
+max_tpa_v2. bnge_hwrm_vnic_qcaps() takes that value from the firmware's
+max_aggs_supported without any cap:
+
+	max_rx_cmpl = bn->rx_ring_size;
+
+	if (bn->priv_flags & BNGE_NET_EN_TPA)
+		max_rx_cmpl += bd->max_tpa_v2;
+	ring_size = max_rx_cmpl * 2 + agg_ring_size + bn->tx_ring_size;
+	bn->cp_ring_size = ring_size;
+
+	bn->cp_nr_pages = bnge_calc_nr_ring_pages(ring_size, CP_DESC_CNT);
+	...
+	bn->cp_bit = bn->cp_nr_pages * CP_DESC_CNT;
+	bn->cp_ring_mask = bn->cp_bit - 1;
+
+hwrm_ring_alloc_send_msg() then sets the CMPL and NQ ring lengths from
+that mask:
+
+	req->length = cpu_to_le32(bn->cp_ring_mask + 1);
+
+Take 4K pages, rx/tx ring size 511, agg_factor 4 (TPA is on by default)
+and CP_DESC_CNT 256. Then ring_size is 3577 + 2 * max_tpa_v2.
+
+Any max_tpa_v2 from 260 to 387 gives a ring_size of 4097 to 4351. That
+means blks = 16 and a 4096-entry completion ring, while bn->cp_ring_size
+keeps the larger budget. The MAX_CP_PAGES clamp cannot catch this,
+because the page count has already been rounded down.
+
+With 64K pages (agg_factor 2, CP_DESC_CNT 4096), any max_tpa_v2 from 2819
+to 4866 gives blks = 2. That is 8192 slots for up to 12287 budgeted
+completions.
+
+Could the completion ring overflow if the driver reaches that worst case?
+I could not confirm whether shipping firmware reports max_aggs_supported
+in those ranges.
+
+The RX, RX agg and TX ring sizing use the same helper. They are only safe
+today because the ring sizes are fixed at 511 and bnge has no
+set_ringparam. A tx_ring_size between 512 and 767 would give
+tx_ring_mask = 511, and bnge_tx_avail() would then report more free space
+than the ring has.
+
+The helper also breaks the rule encoded in BNGE_MAX_RX_DESC_CNT and
+BNGE_MAX_TX_DESC_CNT, which keep the ring size below pages * DESC_CNT.
+
+Should ring pages use the always-add-one rounding as well, the way
+bnxt_calc_nr_ring_pages() does? If dropping the remainder is safe, could a
+comment or the commit message explain why?
 
 -- 
-Vincent
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015121847.1933308-1-vikas.gupta%40broadcom.com
