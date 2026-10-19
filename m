@@ -1,115 +1,138 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7B14FD78B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4DA4F96B9;
+	Mon, 19 Oct 2026 14:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419468; cv=none; b=sBGa0ejDoV3s2oeJnkXrcUaN/hVXfIY8CNg44YXULC6ZkC38ND4Dic/tj6ufbdeJ34HkC4EesG0d4sW/FUF91WZldevPrR9SFES0hKHY6FikUTlV8G3oAUEXW7bNA+FgskRBHlP7/qnR0T99VLekQ4Ts5uD1c64w6AZPmIlWRrk=
+	t=1792419472; cv=none; b=rIRd0iy5NiEuBtD6HiWDOzWYFDgb5cbX6TtSyqJxxa1+N6Yo1uLkpytytz34yBR3iKRAzsqZUKxBMwTaReTBNNN+NgOz1Rr116MT5bkobS4xvp630H/KsUF7qE+cLjEHy5pm6BFOVlNGhkeNmnhzg0DXYbGEiaMTAnGbK2iz7SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419468; c=relaxed/simple;
-	bh=a9xujErffccRWJmb2kmaLMfqp7WKEG50k3ZOPDrgYt4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a8Lgy1wZA9fuggwTjYmcyTtf2wsuRCWo0c5L1ij8UZdaIZkqs4YOC91tMwcIF/6J+6QIxDU1V/1YJa2wryerlFhQr51FcJZ3Cu4Hd0sg+JWB6d5Yvk53WB+tM66Yq1aQ/K28Gr6PGUn+i1X72Y+nkCefhxqeuBL+fSTpue9bMvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K/VnZ6TQ; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792419472; c=relaxed/simple;
+	bh=ybd3RMKLk8UzOSctVZ4igUBt2OoAf+H6jNbegGq1x9U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EcvS/wiX4u9ZNjQ9GLch2Q2edWHjfnPJs0BViPESCHTJdKxarDnFOhel9KQTsiAiH4dvNNuVL0644Jf58ZFKf2D2zMt/o02deXqgx/E5uacz08yYyBXrCJPiiSIX4+YYIdzJEwGeccIsZFlMGr0olUJSn7kktBDp9ZN4ZEZt9rY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=timmermann.space; spf=pass smtp.mailfrom=timmermann.space; dkim=pass (2048-bit key) header.d=timmermann.space header.i=@timmermann.space header.b=d9qmCoZw; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=timmermann.space
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timmermann.space
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K/VnZ6TQ"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2dd76b1361dso11027985ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:17:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792419467; x=1793024267; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a9xujErffccRWJmb2kmaLMfqp7WKEG50k3ZOPDrgYt4=;
-        b=K/VnZ6TQhGV1S/Cr3yChf3UqaHTZH79/pnidNGz5C+Y+OL17/CDMALm708UH9kahtm
-         qCJcPdOvJt9PzLTP2xjcqZShKQps6cS+lZPMczxIzwQhMQwWAFw4gIbifiEy6Z+y+mjX
-         tRsuwjzy1Wa2cyQDAe4Drx6jOcJIuLLbQjYAlCLcEfFxYjWRrju9gDFb9LmzvoFUd8jR
-         KmIr7yg92rZ7hXwGl9UzcHeKb111C3ps844unsueJ4r0GY/BDhp4UkY1NqMXFe5Cu6aA
-         kIL7snopLCuopIctLLOiZGcL/MEEKebPXp7aR0k2KK/GcqI+MzOJCqKsUdI9MAV9CtqK
-         FkhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792419467; x=1793024267;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a9xujErffccRWJmb2kmaLMfqp7WKEG50k3ZOPDrgYt4=;
-        b=YHFvh1pYrjAIHKWlLry3v9dhN9WBBBkZxW7TOGTDqsI/yv01zeKo5ErvQDzpGxcfoY
-         EoINC49PdFjfNDdpTBiD6VgFG7xUM0bWsVCRR2ZfNTjpLdPE/PwAK1Z1mRSGsfeUIQGZ
-         1F1mBvabS9otZJ7LIF5JBo6kygQKA1vy8vuaPeKxp4CItkj0fFHFOaD7eoeeG21HSGSX
-         ngwyVRnfVYsVPtetX8yY1EhWGC7DSuL5CRXCkC1yye2YZobVQMM6+CP+d2u63gVkZTiY
-         HNN57mQOo0nZZ8v9bWORlAcId7+Ak5AMEfwmAdRK9+a/LA133Qc6D9it4TPbFVGEtjYn
-         F49A==
-X-Forwarded-Encrypted: i=1; AKwUvBxKQBFkXWIEresAT5eNAal8qvWQ7e1vzOmO8Pd4apE9j8PR2fRPcFZiF9ZQjMKgECEjd3PTdbjYJUstOfI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJg//OUGxWNeO/NSuEnuYSloQalsxPkVLMaJ6VOey+TpyheZUQw
-	FZKg9GePiFPzydpPNaDyR9Ma5zm3V5H3yl5cn3jJIUI2c3NLs++5IVWYR7ZJo5NmH5A=
-X-Gm-Gg: AYBFou1ffgjULJCm/ZSB+Pz9aTrEbXgiDKEuvkbnyyLJQBv6zdQf6GY9k7TMprlKN+8
-	fpQDUMXANKY59XMDWzx3iSXykeavwBbr5H8ru3Nz/UQzfod3MJNy7FnHSd2K7nqtyOBE1cs964E
-	SV0m016fSwgRWQc/qaf54+3FlgvbvXMrAnE/WmZf9I3qF8ep2MVJ9P0lCEsBR4RdP+8wOyLOWu+
-	4qH6bbkirh7IN4MnIF1KJJ3LNIw11wZ7ZwewZjlYUSh1O3OQuSEaiTIH+0R5pLne8VI0BdhM0+g
-	vAi/4/tI6b1cDakkUYzKGjhIRiK5giUF2i7OueA4dRxpzDJytB+7nQ35Z277qve4qOupWHhUtz3
-	aoqLc/AWgypkmaH7wAj/UbNRCK6zSwYkOV9TKNL/2XQiKoN5SuctRT8gPp/4z40w32PYRfg9vcB
-	j6rrXjy6vGs6V9Jwv5qhiRRlBRToylskKog5biMzINcBa8ecd7s0beYlIHpt+b25Z7/gIFviu3/
-	43Qyc6JPbtM6NlDnN/EiOHww8T6wIdq4r9ZCcjZEDEyRllPHaq2LHQcanmVWNDPRcT43SDXU0tU
-	iieRseF+zig/Y887ZpGTcZCrhjC/3CIXQOjHIe5V4H67CmbhGEo4yw==
-X-Received: by 2002:a17:902:e943:b0:2e9:79db:449c with SMTP id d9443c01a7336-2e9a6f55653mr62822605ad.47.1792419466462;
-        Mon, 19 Oct 2026 07:17:46 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea1501f933sm1697925ad.50.2026.10.19.07.17.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 07:17:46 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: E Shattow <e@freeshell.de>
-Cc: Yixun Lan <dlan@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] riscv: dts: spacemit: k1: mark boot-critical SoC nodes bootph-pre-ram
-Date: Mon, 19 Oct 2026 22:17:38 +0800
-Message-ID: <20261019141740.2077086-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <05e0c9e4-4e27-4114-866a-ec55c33ba349@freeshell.de>
-References: <20261017180141.3477743-2-alan.tseng.cs@gmail.com> <05e0c9e4-4e27-4114-866a-ec55c33ba349@freeshell.de>
+	dkim=pass (2048-bit key) header.d=timmermann.space header.i=@timmermann.space header.b="d9qmCoZw"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j7d150VHmz8tVt;
+	Mon, 19 Oct 2026 16:17:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timmermann.space;
+	s=MBO0001; t=1792419465;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6PLBPDXxkh3JA0G8W5MUw7ro8kFkYJAvC/ayKENpzFo=;
+	b=d9qmCoZwS9DveT8hVG6HQp79Uzj2L3tD254UNI9UmriRArjVLik7wgmIg6MHc6dX74SNz+
+	0BvIm3XNz4IVArbXEFWNyhzfbWeeDMwOqXwKx1pCr6YiP8/R2O+vc8VAJSjf4FT1QusDwi
+	XhyWBuFbiYfzawiua/wdgeLNQxlfiWbeTdeuSxS+G0TtB8bV9Eu4dzrPhbHVDAp5JAzDRz
+	S7dFgTFOJeAioa5fzCauvIp4VuYNSXVf43dk9JUrn96vOXathyLqcJjhgc92cjXD/87RCO
+	wdkDQS6Nl7/7EBTzPmpDYHCUkbOhkdXUME9mRtOvUJmD97CD/gjqmbJ+P3f5+w==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of linux@timmermann.space designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=linux@timmermann.space
+Date: Mon, 19 Oct 2026 16:17:41 +0200
+From: Lukas Timmermann <linux@timmermann.space>
+To: Krzysztof Kozlowski <krzk@kernel.org>, 
+	Lukas Timmermann <foss@timmermann.space>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, =?utf-8?B?QW5kcsOp?= Draszik <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH 1/7] dt-bindings: input: touchscreen: samsung,s6sy761:
+ Add S6SY791 and reset GPIO
+Message-ID: <atYlyqHToGjAr22T@archstation>
+References: <20261011-lat3st-google-raven-touch-upstream-v1-0-2a9f55159b9e@timmermann.space>
+ <20261011-lat3st-google-raven-touch-upstream-v1-1-2a9f55159b9e@timmermann.space>
+ <0a486a08-8d6c-4ca5-8a54-e7499630095c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0a486a08-8d6c-4ca5-8a54-e7499630095c@kernel.org>
+X-Rspamd-Queue-Id: 4j7d150VHmz8tVt
 
-Hi E,
+On Mon, Oct 12, 2026 at 01:30:48PM +0200, Krzysztof Kozlowski wrote:
+> On 11/10/2026 14:44, Lukas Timmermann wrote:
+> > S6SY791 is the SPI-based counterpart of S6SY761. The register map and
+> > commands are identical for the subset the kernel currently implements.
+> > Therefore add S6SY791 as a related touch controller.
+> > 
+> > Optionally, the reset line can be controlled on some boards,
+> > such as the Google Pixel 6 Pro (raven).
+> > 
+> > Also reference spi-peripheral-props for the SPI bus properties.
+> > 
+> > Signed-off-by: Lukas Timmermann <foss@timmermann.space>
+> > ---
+> >  .../input/touchscreen/samsung,s6sy761.yaml         | 37 +++++++++++++++++++++-
+> >  1 file changed, 36 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+> > index 1ffd17af3c53..d24f35038934 100644
+> > --- a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+> > +++ b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+> > @@ -8,13 +8,17 @@ title: Samsung S6SY761 touchscreen controller
+> >  
+> >  maintainers:
+> >    - Andi Shyti <andi.shyti@kernel.org>
+> > +  - Lukas Timmermann <foss@timmermann.space>
+> >  
+> >  allOf:
+> >    - $ref: touchscreen.yaml#
+> > +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
 
-E Shattow wrote:
-> Drop this last paragraph/sentence or place after scissors line, not for
-> the commit message itself.
+Should I also hide this behind an if-else? 
 
-Thanks, I will drop it in v3.
+> >  
+> >  properties:
+> >    compatible:
+> > -    const: samsung,s6sy761
+> > +    enum:
+> > +      - samsung,s6sy761
+> > +      - samsung,s6sy791
+> >  
+> >    reg:
+> >      maxItems: 1
+> > @@ -22,9 +26,19 @@ properties:
+> >    interrupts:
+> >      maxItems: 1
+> >  
+> > +  reset-gpios:
+> > +    maxItems: 1
+> > +    description: GPIO connected to the reset pin of the controller
+> > +
+> >    avdd-supply: true
+> >    vdd-supply: true
+> >  
+> > +  spi-max-frequency: true
+> 
+> Drop
+> 
 
-> Presumably the BootROM does configure all of the above?
+Noted.
 
-Mostly. The boot straps select SD, eMMC, SPI NOR or NAND, and the
-BootROM loads the SPL from there, so the SPL needs the same
-controllers and the clock and reset controllers behind them. The
-BootROM also prints to the console UART.
+> > +
+> > +  spi-cpha: true
+> > +
+> > +  spi-cpol: true
+> 
+> These two should be probably required for the new device.
+> 
 
-i2c8 is different. The BootROM does not touch the PMIC, but the SPL
-has to set the PMIC regulators over i2c8 before it can bring up DRAM.
-I will give that as the reason in v3 instead of the U-Boot sentence.
+Thanks.
 
-The BootROM can also load the SPL over USB fastboot. I left USB out
-of this series and can add it in a follow-up.
-
-Thanks for the review.
-
-Hung-Chun
+Best regards,
+Lukas
