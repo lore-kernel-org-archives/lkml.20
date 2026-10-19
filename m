@@ -1,51 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792436358;
-	b=NLIrgS2F9csYq0nMPnImK7B9bvjaty551lOb4oBfqBSklEbhXMJGJ4zsK2isQD8W3FNE
-	 SdSh3I1zWSAWljSnfMZ1GOe9yFKsibbyEiQ7cjRBeT67jWwhZ2ZRtgbvFR2z5uYe1spA3
-	 Q17EC0D66wAImdXeA4WwVlY5syqExyvSl3Lqug0n6R6xd9JR5qH/JmdWui/PXNTTW002Z
-	 r+0W5QP026cSoSbW5wf9Nif0qBX0qK5VHbMD4Ks0RrTcNQalsQAFNrSsgBuDm9yO4MLoM
-	 OliM1wIN9o+MPmt7DYN8qda/pw0N9Qh2EccQR9ihzykdDp49RiMz36FryG2NuiZ70TQ==
+	t=1792436376;
+	b=QWtWeBonnXt4mmqN6Y30LMOhIIvjGg55cEJ1uyicSikX/TkVtMnOWLeHu6lF4PfXdE03
+	 nmiU1RDj3oeygjfQyw5xbGISj/wHdTXtENPGokncHe05LFF1oZetoz8rKuZ06ieargRu2
+	 Ig9quu1mZ4dxCRuHE7HFc4GLoMPDCwd0qFW0IiRTJBPE5Ygaq4pzvJONUhBHb5l8TBq+N
+	 K2unTp7mWjGYbMi6YMSxvaWNCnmQVUtahSz8tq1RzyMFTxMN8854TfnVILs5Eri22cFnB
+	 BENjllKDI2MDRdtysCpbxIcD+s37SKKLLUPEiwj09fVUnd8yk8ACHVDRInFPr29HeAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792436358;
-	h=DMARC-Filter:X-Pm-Submission-Id:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=/LL+etfeO7ZopKYgEHJoqIogqNww18O7Xdbf95eBubw=;
-	b=F6r1c3RIjsYiDyQqd0hdkmPk6E/Z9kf8DXHm+5iZlGomHM5EWuL59+t9jzKg7kfiqNm/
-	 LzjM7O32qPYWCzg6+gURhqAKyjb+73f7LirIVehO6fgAmsY/Rl9lBrkBovMstvlrqOV3w
-	 2Us25C0+qyv11lBJy0KdsrnRgUJaX9UPiD+na+MMK1OcnZ6kuT6+Ro+NP+tozGpot6PTO
-	 d5q1KYM5ReVahomceENVCabsCtk8GsUfFXln/ORBnfyFAP0MllolgeXx8KKRCvttVE/07
-	 BzrINJ4PZ75984XJqUGxhmQN/1DDMHH+s6H+mlnhsp8Gj4b1M9EbjDTA2DaAUY+/W4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792436376;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zoyh8PAgPweCx8C3cpUvmV8evCTbiZYAS+eT3cUFbpg=;
+	b=zdFVTkr21DKymN3WsvCZ7VjPoweJ7YrsBHtjpavN6ZkhnEHF6ib7h+XpQRMrS6bM54SQ
+	 m2dxNzkCDm4LLyYytHVY7ZyQLxYirjcbkPej9ub7LzAacniJpPagFK+VRRuuPqAVSjF3j
+	 kahDfn48T+PdzWpmeQpkvIl4lyDYJR8isY61Cp/EJ7/ezpXP2hiKfrNqiTZYDm8QYcUvV
+	 As53cxZg4G0puTK4xH2yu5U5KjFKMqVRqkjqPolsAzoikaX6nOWNreKlk+PhBoGPOx6zA
+	 SrAUQcjfvZpiCD6NIO/v6VDIYg0opo4a/5n8JEW9DIeuDhIcr3aGPHP4XSCXMCFgwlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=phorex.org;
-	spf=pass smtp.mailfrom=phorex.org;
-	arc=none smtp.remote-ip=109.224.244.106
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+	dmarc=pass header.from=csail.mit.edu;
+	spf=pass smtp.mailfrom=csail.mit.edu;
+	arc=none smtp.remote-ip=128.30.2.78
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C15606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:59:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0C15606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phorex.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phorex.org
-X-Pm-Submission-Id: 4j7lFp5vPPz1DDs3
-From: Luke Macken <luke@phorex.org>
-To: dianders@chromium.org,
-	neil.armstrong@linaro.org,
-	jesszhan0024@gmail.com
-Cc: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B65C606A31E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:59:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B65C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xIsZm-00ByBD-2I;
+	Mon, 19 Oct 2026 14:59:14 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Alexey Gladkov <legion@kernel.org>,
+	"Eric W. Biederman" <ebiederm@xmission.com>,
+	Christian Brauner <brauner@kernel.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Serge Hallyn <serge@hallyn.com>,
+	Bradley Morgan <bradley@mainlining.org>,
 	linux-kernel@vger.kernel.org,
-	Luke Macken <luke@phorex.org>
-Subject: [PATCH v2] drm/panel-edp: Add BOE NE140WUM-N41 (0x0d9b) panel
-Date: Mon, 19 Oct 2026 12:58:57 -0600
-Message-ID: <20261019185857.2381360-1-luke@phorex.org>
-X-Mailer: git-send-email 2.43.0
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v2] ucount: take the rlimit reference before checking the limit
+Date: Mon, 19 Oct 2026 14:59:13 -0400
+Message-ID: <20261019185913.805378-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,55 +59,125 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Lenovo ThinkPad T14s Gen 7 (Snapdragon X2 Elite) uses this 14"
-1920x1200 panel. Without an entry panel-edp warns at every boot ("Unknown
-panel BOE 0x0d9b, using conservative timings").
+inc_rlimit_get_ucounts() takes the reference that pins a ucounts level
+while its rlimit count is non-zero only in the walk whose increment is
+the 0 -> 1 transition, and only after that walk passed the limit check.
+A walk that raises the count from zero and then fails the limit backs
+out without the reference, while a concurrent walk that raised it past
+one keeps its increment and never takes one either:
 
-The panel's timing requirements are not published, so use the same delays
-as the other BOE NE140WUM entries (delay_200_500_e80). With them the panel
-trains and lights up reliably on this machine.
+  CPU0 (obeys the limit)              CPU1 (overrides it)
+  new = add_return(1) -> 1
+                                      new = add_return(1) -> 2
+                                      new != 1, no get_ucounts()
+  new > max -> dec_unwind
+  sub_return(1) -> 1   (no put)
 
-edid-decode (hex):
+The count is 1 with no reference held. When CPU1 drops its charge,
+dec_rlimit_put_ucounts() takes the count to 0 and puts a reference
+nobody took, which frees the live struct ucounts, and the user_namespace
+it pins, with kfree_rcu(). The mirror interleaving leaks the reference
+instead.
 
-00 ff ff ff ff ff ff 00 09 e5 9b 0d 00 00 00 00
-0c 23 01 04 a5 1e 13 78 03 ce 51 9a 5f 58 8d 26
-16 4f 53 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 33 3f 80 dc 70 b0 3c 40 30 20
-36 00 2e bc 10 00 00 1a 00 00 00 fd 00 28 3c 4c
-4c 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 42
-4f 45 20 4e 4a 0a 20 20 20 20 20 20 00 00 00 fc
-00 4e 45 31 34 30 57 55 4d 2d 4e 34 31 0a 01 ca
+An unprivileged user reaches this on a kernel with CONFIG_USER_NS=y: in
+a user namespace with RLIMIT_SIGPENDING 0, one process taking
+synchronous SIGSEGVs (forced, so override_rlimit is set) races a second
+process in the same namespace and uid that queues real-time signals,
+which obey the limit. The two hold different sighand->siglock but charge
+the same per-namespace SIGPENDING ucounts. Unpatched, with rcuref
+debugging:
 
-70 20 79 02 00 81 00 15 74 1a 00 00 03 01 28 3c
-00 00 60 42 60 42 3c 00 00 00 00 8d 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 cc 90
+  rcuref - imbalanced put()
+  WARNING: lib/rcuref.c:266 at rcuref_put_slowpath+0xf4/0x120
+   put_ucounts+0x5a/0x180
+   do_dec_rlimit_put_ucounts+0x70/0x90
+   __sigqueue_free+0x33/0xc0
+   get_signal+0x56f/0xd20
+   arch_do_signal_or_restart+0x87/0x380
+   irqentry_exit+0x243/0x650
+   asm_exc_page_fault+0x26/0x30
 
+Take the reference on the 0 -> 1 transition before the limit is checked,
+so the walk that raises the count from zero owns that level's reference
+even when its request is rejected, and unwind a rejected level through
+do_dec_rlimit_put_ucounts(), which releases the reference when the count
+returns to 0. The get_ucounts() failure path is unchanged. With the
+patch the same interleaving, forced some 80000 times in a KASAN build,
+produces no warning and no KASAN report.
+
+Fixes: 15bc01effefe ("ucounts: Fix signal ucount refcounting")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Luke Macken <luke@phorex.org>
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Acked-by: Alexey Gladkov <legion@kernel.org>
 ---
-Changes in v2:
-- Include the panel's EDID in the commit message (Doug Anderson)
 
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+Notes:
+    Changes in v2:
+      - Cc: stable (Andrew Morton)
+      - changelog: the racing walks run in two processes under different
+        sighand->siglock that charge one ucounts; rcuref output added
+        (Andrew Morton); shortened
+      - shorter comment in inc_rlimit_get_ucounts() (Bradley Morgan)
+      - Acked-by: Alexey Gladkov
+    v1: https://lore.kernel.org/all/20261017234834.797456-1-nickolai@csail.mit.edu/
+    
+    The window is narrow, so the before/after runs forced the interleaving
+    with a test-only delay applied identically to both trees: an obeying walk
+    that observes new == 1 at the nested SIGPENDING level parks until an
+    override walk arrives. x86_64 under QEMU, CONFIG_USER_NS=y, CONFIG_KASAN=y,
+    rcuref debug: unpatched, the imbalanced put() within ~0.1 s (the
+    interleaving occurred ~80000 times in 15 s); patched, ~82000 times, no
+    warning and no KASAN report.
+    
+    A userspace reproducer exists and is available on request; it is not
+    posted.
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 5d7d696b7..6d6bce01f 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2078,6 +2078,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d45, &delay_200_500_e80, "NV116WHM-N4B"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d73, &delay_200_500_e80, "NE140WUM-N6S"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d98, &delay_200_500_e50_po2e200_d100, "NV140FHM-N5B"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d9b, &delay_200_500_e80, "NE140WUM-N41"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0db3, &delay_200_500_e80, "NV153WUM-N42"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ddf, &delay_200_500_e80, "NV116WHM-T01"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x386e, &delay_200_500_e80, "NV116WH2-M30"),
+ kernel/ucount.c | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
+
+diff --git a/kernel/ucount.c b/kernel/ucount.c
+index ec8b1445e287..c3de5b94d25f 100644
+--- a/kernel/ucount.c
++++ b/kernel/ucount.c
+@@ -308,23 +308,26 @@ long inc_rlimit_get_ucounts(struct ucounts *ucounts, enum rlimit_type type,
+ 
+ 	for (iter = ucounts; iter; iter = iter->ns->ucounts) {
+ 		long new = atomic_long_add_return(1, &iter->rlimit[type]);
+-		if (new < 0 || new > max)
++		/*
++		 * Take the extra reference on the 0 -> 1 transition before the
++		 * limit check: a rejected walk must not leave a concurrent one
++		 * holding the surviving increment with no reference.
++		 */
++		if (new == 1 && !get_ucounts(iter))
+ 			goto dec_unwind;
++		if (new < 0 || new > max) {
++			/* undo iter too, releasing the reference taken above */
++			do_dec_rlimit_put_ucounts(ucounts, iter->ns->ucounts, type);
++			return 0;
++		}
+ 		if (iter == ucounts)
+ 			ret = new;
+ 		if (!override_rlimit)
+ 			max = get_userns_rlimit_max(iter->ns, type);
+-		/*
+-		 * Grab an extra ucount reference for the caller when
+-		 * the rlimit count was previously 0.
+-		 */
+-		if (new != 1)
+-			continue;
+-		if (!get_ucounts(iter))
+-			goto dec_unwind;
+ 	}
+ 	return ret;
+ dec_unwind:
++	/* get_ucounts() failed for iter: undo iter without a put */
+ 	dec = atomic_long_sub_return(1, &iter->rlimit[type]);
+ 	WARN_ON_ONCE(dec < 0);
+ 	do_dec_rlimit_put_ucounts(ucounts, iter, type);
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 -- 
-2.43.0
+2.53.0
 
