@@ -1,129 +1,264 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0C24E1C78
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:06:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792407991; cv=pass; b=qMCCfI04Mf//LPbLOUSADW9DVATlQSNd1bn0ImjFo/Cve7eXEJ3lXS1N36I7zcIvaHdgRGEAIz2C/Lq40g/Y7MvVsY1HXtIbno7pSxS3wDcHSP3kjaETlPnQ65wB4ejAHDPGqBxp3g4XlXsIfF0MoVLD9c0BtNkZ5hIoqJqpxxc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792407991; c=relaxed/simple;
-	bh=ast1zHJ9Uz2YssWCBu1jREzUx8HTb4eQoYAKdnW9yDE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Bm5sFmeMYEx3cR4oToYjaCrZajmguEXjEu991BB5QEVDtrAoxoVid8Q3UFDFEuryiswjAD/Nldg6YAHHympONzIMToAFqDd64MGzkorr5z6fVKRqii0J8485pOUXtmf8ymy9wjI7wnPo2jKRMNIZh8iz7gtl95mg1sjPkjtWv44=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=royPCape; arc=pass smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2B03DAAD2;
+	Mon, 19 Oct 2026 11:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792408033; cv=none; b=XZF4DbbH2XeE8kGz9r3PTHY1jeMHz4pl80oN7HXNU0A0qx4fH+Gaav8sVHpGryuDQeaQvG/ylsHFh4FtFhvwVoBVPKl//fWd0vigb9dI8lTWfnX7bqMw+677HgWOL0I8ABPlXyQ5uUNtPiHsrmZCOZDmbvbV77JZexLkd0K5vI4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792408033; c=relaxed/simple;
+	bh=T7+V7YcGQwKV8ta8N7BmsNldMBh9i6o2i1/fr27PY20=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J7cxicu58DCXbKbyAf6Aq/PXMlod/LLvDeLrH6MFhs7B6GsxbcDxmKevlV28ot78IRCnBHwwdevHuewi+ZgDRBQpR9KkHBofVsaGUdsw9CWeUtiCdxy+nwDfuf0Oxok9+IPBC/OMKrrFBi12aMYas/1kjrfvsLj/5y8Bl8FVaaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=edzFwTsa; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="royPCape"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-679a2b5fe87so1685823d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:06:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792407989; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gXQcD8Bt5Y93vWb33ls6K4kmn/i9CCzj0GJ12Q7HOtqgMDenSXqvz07r6U6p6+05UM
-         Zx9qN8YaCUQSdhMKtPkyeC81RkTYPc4ibqs8FAaeFfKROdpZHgQ+TJ+QQoEsa6+UK9Ov
-         dMxLp2XQb9O5D//kP/mnmbTpcSPsPYjsn6p2bfYAcNp2En/6SQ72UlWgSPNsN3x22SFu
-         8uKFoGoNpACz/iJOtprzCjpOqKrx8NE2g1ckhEUWlLSyyl6Jr8ecQvP52nFIHNU3ge31
-         AepOs5VfQJpwydZAdW+iYhyn196vNCn6B9s/38yWC8yAecHOPAEn79E6855n/esdGiLC
-         gZsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ast1zHJ9Uz2YssWCBu1jREzUx8HTb4eQoYAKdnW9yDE=;
-        fh=I8YhnQIWUNGQslerpPUI0gLxe5Hbs5D/V0Pkho5rEV4=;
-        b=me5Qx2LLaRWDk2EhVpMFyC+PvcyIEcjRPDYdnctsm32c0NpGVnhw+aY/d7w1YIvNGb
-         bHH43COvjdph3Gf75xwevZK/cfYvB5294vVVSphpCDdtJRi4xb+Xa2UUb12VgoN/OS5E
-         AqOJnUymGPGQ/Gmwy9ZmDqm0N+5nEOg/2FjcqB1JsT6M7jfAwgplSDAjYf+GhCCwLVcH
-         0VJkWvFuEqWeyXRpp5XKGAGl3ueBR71qVH3vDa9SWNOhc0ZqBVWb4aKggZMCsEt415/H
-         NemtZ7NmCaeFFe2UlYMe8vVzcDsaCyuhAxHSfSjbv+O96bFtoy27VI513pm0Ysmk+fhN
-         ou+g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792407989; x=1793012789; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ast1zHJ9Uz2YssWCBu1jREzUx8HTb4eQoYAKdnW9yDE=;
-        b=royPCapeeg/TQgjtdyW6XI1Z3Y9e0kRCaONDaRN4LR9+5/t2f+H0XhtfNxbSsaAPSZ
-         7i3m8d7zAS5+SENiU/wHZU2/Te3ph1w8kjCx19pE0D++Xt3XA6TtH0yu9xuJIlS9MpKA
-         q2o4pB+JXo499xZg3jH9iivZgQH1EFi2QlrvuHZPxqp2IwMTVSEUj/JSbrN8kADmBlYA
-         5JfLtbg1dRt6PlOBtRpDvYrISOrrLEGMV9wSQ2T2gKTQrNT+WD+PLc0y/l5ZlHXGmCS5
-         ULU6yinAJQlOC8/TC1Lg+Q2LMxFj7MrJp4+0qF2AEfNPsK6sXkpZ+ejwMsDUyKWBZiGa
-         0XdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792407989; x=1793012789;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ast1zHJ9Uz2YssWCBu1jREzUx8HTb4eQoYAKdnW9yDE=;
-        b=lklAt7VDAzfeuOqz8lqwZt4EjSP26up0KIxdxB02TrIXbReXTfwRQ3ImJ+hO6VVF0r
-         pYwP2pm49qxxVA5M5WIGtczetKyU6AqjcfoeUcjLGzpaLRv6Tl3KcCLj4/Py1LL08ro/
-         X8RiwuycNb1yzNQ2je4h9YxaVIqaOGg8V7WbetYtj5s/DFzNqxOiXwqM4frwQuo1eJt7
-         nKiEpuIIiC+eKAA587l5jRWTB/EoLNmwJCZBcSpIEpLyMXQVU1bgvGYGezhu2eZu0NL9
-         vIDKXQb6lRubyxTK5339nqgud0r93xz+g0/DF/d91U34E+UL+5/d8ONyJEw6lAE+3Ww5
-         8a2w==
-X-Forwarded-Encrypted: i=1; AKwUvByE9Mk/GZw2V6i+Bup7eqXuTwoPZZ6a0F92wTnXUbkaEnJ/58JAelttA0+UFQWE9CLei/XE2fPlYPifqfw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIWr5viOjj1ETXh7RRTCA54e8Am2TrlDDQXsL8TqG/BlTGsRGd
-	JsX3o4xXEMEd9KO4yk6ithBfQUpEPV7Q70pm8rukFYm9y32qFkXxOuwKn7dO4aF3R7JX2Y543C3
-	LKrYEFhSVjxyAr3OhPkL04snq5ZHWj74=
-X-Gm-Gg: AYBFou1YEcnY43wM4gQCuRmKVru342jVR6T114N1mOC9eeagG0PrDgfkWhiYVnd9yaX
-	WhysKNWMKc99CdbKBItisnhy+y+iT4/68LqbRnH9YRaB/Qtr0i+QNo5oUiKgGiJ+f5tIn+WCRk9
-	j71tnxgNCvmDV77CQ4lOtqYwC+ybtF3aObIJcM5k4cssEN75xrlvRMlUDiaWsL0mVJGPCXl2nGk
-	QTSAZr3F8uwLt4ryC4G27MF9OZls2LXSW3O8v7ulS6s8gq2kU9Vk4R9g6LMXUxEYhhWmaupoLO3
-	4hP2cvU6RFsfG4Mc1Vd9gtBOQM01xd5aSBk7sRxNrfwVkAiYQQKs3e1hchUMok43nd4P7bLjv8Y
-	zkqvJqCq6S507eLcIb66xAK6Q4cnFeMD+IbZMnoImZAnjWjoLTMPYhtYWoQkpxq7vTq39ienADF
-	fA+gnLnw==
-X-Received: by 2002:a05:690e:4004:b0:676:e85e:5ec with SMTP id
- 956f58d0204a3-679ca93e9c2mr2047972d50.139.1792407988921; Mon, 19 Oct 2026
- 04:06:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="edzFwTsa"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792408019; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=jrUkv26B1C6NaItb/E+Hw7PsSN9vMKY+vIwrSV/qETY=;
+	b=edzFwTsazEJcTU663I/9t5y0LlGTtOj7/8/j+1xjNZasgxtIxtZFWmC+Fje3RYYQRnt4Om5dM56s9CMk/x23VsRP+do8UvNM5OSR0iIe8AoPO5DVlMhq076QVh0xDGHuOTujwgMv5Ge3vBibfuFYAKViXdOCC45cX9gpWJCVnCw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R611e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XD5d2iT_1792408018;
+Received: from 30.251.227.55(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XD5d2iT_1792408018 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 19 Oct 2026 19:06:58 +0800
+Message-ID: <6cb5a64a-02cd-4230-a49b-08c704d10871@linux.alibaba.com>
+Date: Mon, 19 Oct 2026 19:06:57 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261016162912.64581-1-lukapanio@gmail.com> <20261016162912.64581-3-lukapanio@gmail.com>
- <atX2Sf4GJNFYq2ZY@aspen.lan>
-In-Reply-To: <atX2Sf4GJNFYq2ZY@aspen.lan>
-From: Luka Panio <lukapanio@gmail.com>
-Date: Mon, 19 Oct 2026 13:06:17 +0200
-X-Gm-Features: AclHuK9BPbEV3xXNig3O4K-KotL1JMndrdN2hrEB4vNyiT7qjydGuoSSOSI_klY
-Message-ID: <CACi=Ov4qxW_HmgcjRJLg3SWGKd2S+3rcevjpp8ELf6z7RBP3qw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] backlight: Add Awinic AW99703 backlight driver
-To: Daniel Thompson <daniel@riscstar.com>
-Cc: lee@kernel.org, danielt@kernel.org, jingoohan1@gmail.com, pavel@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, deller@gmx.de, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: Pin refcount trees before dropping the lookup lock
+To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0037-v4-9f1a261dfbc341721689@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0037-v4-9f1a261dfbc341721689@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Daniel,
 
-On Mon, Oct 19, 2026 at 12:51=E2=80=AFPM Daniel Thompson <daniel@riscstar.c=
-om> wrote:
->
-> On Fri, Oct 16, 2026 at 06:29:12PM +0200, Luka Panio wrote:
-> > Add a driver for the Awinic AW99703 3-string WLED backlight controller.
-> >
-> > Register values follow the AW99703 datasheet (V1.6), the structure
-> > follows the aw99706 driver.
->
-> Given how much the structure follows the aw99706 driver I'd expect there
-> to be more code sharing between the drivers.
->
-> Cold AW99703 support be implemented by extending the existing aw99706
-> driver?
-Thanks for the review. The register maps differ completely (chip ID,
-brightness split, enable bit, current range, boost options), but the
-driver flow is the same, so I'll turn aw99706 into a per-chip-data
-driver and add AW99703 support to it in v2.
->
->
-> Daniel.
 
-Thanks,
-Luka
+On 10/14/26 11:47 AM, Cen Zhang wrote:
+> A refcount tree returned to ocfs2_lock_refcount_tree() must stay alive
+> until that caller releases its operation reference. However,
+> ocfs2_get_refcount_tree() returns the cached pointer after dropping
+> osb_lock, and the caller only takes its kref afterwards. The registry
+> reference does not protect this gap from concurrent removal.
+> 
+> This can happen when another node frees a refcount root and reuses its
+> block with a different generation while this mount retains the old
+> cached tree. Two local operations on different inodes sharing the new
+> root, such as data CoW and an external xattr update, can then look up
+> the same stale tree. Their inode locks are independent, and both the
+> REFCOUNT DLM lock and rf_sem are acquired after the first operation
+> reference.
+> 
+> The following ordering is possible, with no other operation references:
+> 
+>   Data CoW                         Xattr update
+>   --------                         ------------
+>   Look up the old tree under
+>     osb_lock, then drop osb_lock
+>                                    Look up the same tree and take a kref
+>                                    Acquire the tree locks and read the
+>                                      new on-disk generation
+>                                    Erase the old tree under osb_lock
+>                                    Unlock and drop the operation kref
+>                                    Drop the registry kref, freeing tree
+>   Take a kref through the
+>     freed tree pointer
+> 
+> The final kref_get() accesses freed rf_getcnt storage, and subsequent
+> accesses in ocfs2_lock_refcount_tree() also use the freed allocation.
+> 
+> Take the operation reference in ocfs2_get_refcount_tree() before
+> releasing osb_lock, including when an insertion loses to another lookup.
+> Removal must acquire the same lock, so it cannot drop the registry
+> reference before the lookup has pinned the tree. Keep the existing
+> unlock and error path puts. The two callers that already hold the
+> refcount tree lock keep their borrowed lookup behavior and do not
+> acquire an extra reference.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in ocfs2_lock_refcount_tree+0x94a/0x9b0
+>     Read of size 4 at addr ffff888117212820 by task python3/497
+> 
+> [Kernel and hardware identification omitted.]
+> 
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? ocfs2_lock_refcount_tree+0x94a/0x9b0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? ocfs2_lock_refcount_tree+0x94a/0x9b0
+>      kasan_report+0xe0/0x110
+>      ? ocfs2_lock_refcount_tree+0x94a/0x9b0
+>      ocfs2_lock_refcount_tree+0x94a/0x9b0
+>      ? __pfx_ocfs2_lock_refcount_tree+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? ocfs2_refcount_cow+0x3b6/0xd90
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __kmalloc_cache_noprof+0x28d/0x610
+>      ? ocfs2_refcount_cow+0x3b6/0xd90
+>      ocfs2_refcount_cow+0x410/0xd90
+>      ? __pfx_ocfs2_refcount_cow+0x10/0x10
+>      ? __pfx___might_resched+0x10/0x10
+>      ? down_write+0x11a/0x1f0
+>      ? __pfx_down_write+0x10/0x10
+>      ? ocfs2_inode_unlock+0x1a9/0x260
+>      ? __pfx_ocfs2_inode_unlock+0x10/0x10
+>      ? ocfs2_file_write_iter+0x1413/0x1d30
+>      ocfs2_file_write_iter+0x157b/0x1d30
+>      ? __pfx_ocfs2_file_write_iter+0x10/0x10
+>      ? lock_acquire+0x190/0x300
+>      ? __x64_sys_pwrite64+0x1b7/0x220
+>      ? __pfx___might_resched+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? security_file_permission+0x26/0x80
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_is_held_type+0x8f/0x100
+>      vfs_write+0x639/0x1010
+>      ? __pfx_ocfs2_file_write_iter+0x10/0x10
+>      ? lock_vma_under_rcu+0x154/0x4a0
+>      ? __pfx_vfs_write+0x10/0x10
+>      ? lock_release+0x121/0x290
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      __x64_sys_pwrite64+0x1b7/0x220
+>      ? __pfx___x64_sys_pwrite64+0x10/0x10
+>      ? irqentry_exit+0xbe/0x820
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on_prepare+0x11d/0x150
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> [Register dump omitted.]
+> 
+>      </TASK>
+> 
+>     Allocated by task 491:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x28d/0x610
+>      ocfs2_allocate_refcount_tree+0x49/0x1a0
+>      ocfs2_create_refcount_tree+0x5d7/0x1630
+>      ocfs2_attach_refcount_tree+0x57d/0x1100
+>      __ocfs2_reflink.isra.0+0x1c4/0x1940
+>      ocfs2_reflink+0x501/0x9b0
+>      ocfs2_reflink_ioctl+0x6b2/0x920
+>      ocfs2_ioctl+0x538/0x640
+>      __x64_sys_ioctl+0x163/0x1d0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 498:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x308/0x580
+>      ocfs2_lock_refcount_tree+0x672/0x9b0
+>      ocfs2_xattr_set+0x72c/0x2530
+>      ocfs2_xattr_user_set+0xaf/0xf0
+>      __vfs_setxattr+0x143/0x1b0
+>      __vfs_setxattr_noperm+0x112/0x5b0
+>      __vfs_setxattr_locked+0xfe/0x2b0
+>      vfs_setxattr+0x13c/0x370
+>      do_setxattr+0x128/0x170
+>      filename_setxattr+0x147/0x190
+>      path_setxattrat+0x1ac/0x260
+>      __x64_sys_setxattr+0xcb/0x140
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     The buggy address belongs to the object at ffff888117212800
+>      which belongs to the cache kmalloc-1k of size 1024
+>     The buggy address is located 32 bytes inside of
+>      freed 1024-byte region [ffff888117212800, ffff888117212c00)
+> 
+> [Page and memory dumps omitted.]
+> 
+> Fixes: 374a263e790c ("ocfs2: Add refcount tree lock mechanism.")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Assisted-by: LLM
+> 
+
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+
+> ---
+> diff --git a/fs/ocfs2/refcounttree.c b/fs/ocfs2/refcounttree.c
+> index 3e9cccf06e48..4f13b5a6faa7 100644
+> --- a/fs/ocfs2/refcounttree.c
+> +++ b/fs/ocfs2/refcounttree.c
+> @@ -375,8 +375,10 @@ ocfs2_allocate_refcount_tree(struct ocfs2_super *osb, u64 rf_blkno)
+>  	return new;
+>  }
+>  
+> +/* Callers without the refcount tree lock must request a reference. */
+>  static int ocfs2_get_refcount_tree(struct ocfs2_super *osb, u64 rf_blkno,
+> -				   struct ocfs2_refcount_tree **ret_tree)
+> +				   struct ocfs2_refcount_tree **ret_tree,
+> +				   bool get_ref)
+>  {
+>  	int ret = 0;
+>  	struct ocfs2_refcount_tree *tree, *new = NULL;
+> @@ -433,6 +435,8 @@ static int ocfs2_get_refcount_tree(struct ocfs2_super *osb, u64 rf_blkno,
+>  	new = NULL;
+>  
+>  out:
+> +	if (get_ref)
+> +		ocfs2_refcount_tree_get(tree);
+>  	*ret_tree = tree;
+>  
+>  	osb->osb_ref_tree_lru = tree;
+> @@ -506,14 +510,12 @@ int ocfs2_lock_refcount_tree(struct ocfs2_super *osb,
+>  	struct ocfs2_refcount_block *rb;
+>  
+>  again:
+> -	ret = ocfs2_get_refcount_tree(osb, ref_blkno, &tree);
+> +	ret = ocfs2_get_refcount_tree(osb, ref_blkno, &tree, true);
+>  	if (ret) {
+>  		mlog_errno(ret);
+>  		return ret;
+>  	}
+>  
+> -	ocfs2_refcount_tree_get(tree);
+> -
+>  	ret = __ocfs2_lock_refcount_tree(osb, tree, rw);
+>  	if (ret) {
+>  		mlog_errno(ret);
+> @@ -2355,7 +2357,8 @@ int ocfs2_decrease_refcount(struct inode *inode,
+>  		goto out;
+>  	}
+>  
+> -	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb), ref_blkno, &tree);
+> +	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb), ref_blkno,
+> +				      &tree, false);
+>  	if (ret) {
+>  		mlog_errno(ret);
+>  		goto out;
+> @@ -2590,7 +2593,7 @@ int ocfs2_prepare_refcount_change_for_del(struct inode *inode,
+>  	BUG_ON(!ocfs2_is_refcount_inode(inode));
+>  
+>  	ret = ocfs2_get_refcount_tree(OCFS2_SB(inode->i_sb),
+> -				      refcount_loc, &tree);
+> +				      refcount_loc, &tree, false);
+>  	if (ret) {
+>  		mlog_errno(ret);
+>  		goto out;
+
