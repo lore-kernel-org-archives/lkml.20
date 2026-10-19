@@ -1,138 +1,120 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 253493B2FD9;
-	Mon, 19 Oct 2026 04:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF353B2FD9;
+	Mon, 19 Oct 2026 04:55:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792385511; cv=none; b=ZihRQJchFinMaXtFk4enX5K3nNzFk+TJWlazmBQTvPtuSdNZcKEJXIyrWS73tHmy0fMid4UhSecqsA2a80dEresTzG2ZkZCFuRy7ph4xiGFBWEufw7uN6LWHQLzkfzre39fd3wLRupFaPEsuqQUqnYP2wWSQvLEpLHrLYjPVmxI=
+	t=1792385746; cv=none; b=M9egtPPy5BR0ubGUuokN/4jcJIkXuGxcc7vNIGj0mbPA7KKFvfxqDorM1nUp/u2V7s1s3qZEhP3eu3s1xgfezEkJmUc+/wK539KUyw/kfy0Kxh10Ebj2PyFtvRQpXMdxRE4RQ9PHDQODnjMOh9SAyWUsBXVtcBjw+8EIv0qasBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792385511; c=relaxed/simple;
-	bh=5WEYiF0irBJpRs6F1IhKzRhrLDDCuuESsN66/V4Jl08=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m4Tb/5aFvbLL3sMK3aif3052VLWhTuPEH1J01VkmLY1ZGqlNsSr4HRba5CfwkK0IZ8P3gXvqmOIBuoAG1AD5k+q6/hjWLEItq+S5IOpCStKjBfOy0oBidOFZDcszbZ6p8kiQ80lRmH+65gw5vJynyv2vUbqx/z7CFjKs2ECZ12Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iG9JOxw4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1792385746; c=relaxed/simple;
+	bh=pKXmsCQJW+PpDlYYrKN/8PfNUOO/bnI2lQYYcxu5qrk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=cIye3okXOpwol/ZD8BPoSpn3innGicMKF6o0vLLDw4ZOLx3AUm18ltWvm8OJBKUI+6oLaek444PMGCufwv577HeSeFCSQJBTWFR7zEQhkviWYwdT+Hb5S6DEzYyRi3brAcrBkwMlzF4rAHMJUprAIyJM6BwJlJzvpLfuMZ0l7k0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KJvlNo7P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iG9JOxw4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 082BC1476;
-	Sun, 18 Oct 2026 21:51:42 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3FF973F673;
-	Sun, 18 Oct 2026 21:51:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792385505; bh=5WEYiF0irBJpRs6F1IhKzRhrLDDCuuESsN66/V4Jl08=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iG9JOxw4rscU6r/UL82N8mypUm+ghnV4mG+JArN39f2sj4gp6w0JICTrXUnkJUUj7
-	 88zLUmGtHEFeyM5Ki14JCXsPA+zOXuv7FY5DjyvGsesvrDrfNjbHLVgP6Lpc7HEQLY
-	 YP+OUOlHmUsQ5qt6fgLmaB1/DJhAGbIRKi2XN3TA=
-Message-ID: <db446de6-bd87-44b6-b9db-c4533ee047fa@arm.com>
-Date: Mon, 19 Oct 2026 10:21:38 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KJvlNo7P"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 39FE5C4AF09;
+	Mon, 19 Oct 2026 04:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792385746;
+	bh=pKXmsCQJW+PpDlYYrKN/8PfNUOO/bnI2lQYYcxu5qrk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=KJvlNo7Pmyz+r3JXHuhTXf3CW1YV9TFTL2fp8aR+QYdiBY3/KKVoyrnaKkG62GxKI
+	 GiseyMtsZFmCuuDNX2vxkALKhk8w5/d42g6BJVLEgKg9D0mL7CoCC/+xmKZARptAQb
+	 ptec6X0kFQwtiZYfASeVe8/KDtOigtYAkbhXjJ4qtydRDcAYojg+CywY5NPh7sIezu
+	 iknHFtRo4/iuMC1xC1T/Qo1gNPsgS3Emr90QzfEzXIYjpGL6whC7cTMzopaycTRTre
+	 bnarFa+Me5VXsidGaiwcwV9YEAKbgGvCWV8yEXL9lOVCf9+puBobDA9pItDHsMtWhn
+	 mdxxPJ8dN++Cw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E4EFCCF2D3;
+	Mon, 19 Oct 2026 04:55:46 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Mon, 19 Oct 2026 12:55:39 +0800
+Subject: [PATCH v10 1/5] dt-bindings: arm: add Ambarella CV75 platforms
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] selftests/mm: check MADV_PAGEOUT file permissions
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-kselftest@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, shuah@kernel.org
-References: <20261014175756.2035176-1-gourry@gourry.net>
- <20261014175756.2035176-8-gourry@gourry.net>
- <cba2a01d-630c-42d3-b6e4-b498f10c4b45@arm.com>
- <atImwW1ONQQ9Hv7p@gourry-fedora-PF4VCD3F>
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-Content-Language: en-US
-In-Reply-To: <atImwW1ONQQ9Hv7p@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261019-cv75-soc-v10-1-d386065e2dd5@ambarella.com>
+References: <20261019-cv75-soc-v10-0-d386065e2dd5@ambarella.com>
+In-Reply-To: <20261019-cv75-soc-v10-0-d386065e2dd5@ambarella.com>
+To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, linux-clk@vger.kernel.org, 
+ Brian Masney <masneyb@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
+ linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792385743; l=1278;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=3/nmC3518iJUv3pa+4TrYyrJ8fmY9AVoXsn+4KhycZM=;
+ b=kCPCquAEIZ4+mZuo73vZAYpkDemx6PEB1H0KTBjDoNQIJl2u0Kfhf/ZJpMJ/kPW941DLmlc/k
+ mcL+RuIbsZRAlZPf7s3mm7pT8aelu9XTunmk03CFgYaQ8X5eQ79jh3a
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
 
+From: Long Zhao <longzhao@ambarella.com>
 
+Document the CV75 EVK board compatible for the initial SoC bring-up.
+The ambarella vendor prefix is already applied in the devicetree tree.
 
-On 10/16/26 7:18 PM, Gregory Price wrote:
-> On Fri, Oct 16, 2026 at 05:48:11PM +0530, Sarthak Sharma wrote:
->>> +/*
->>> + * The owner of a file may page out its clean page-cache pages. Run as an
->>> + * unprivileged owner, so that capabilities cannot stand in for ownership.
->>> + */
->>> +TEST_F(madvise, pageout_evicts_owned_file_page)
->>> +{
->>> +   char *mapping, *control;
->>> +
->>> +   if (!geteuid() && !drop_privileges())
->>> +      SKIP(return, "could not drop privileges");
->>> +   pin_to_current_cpu(_metadata);
->>
->> Is there a reason why we are pinning to the current CPU here and not in
->> the next two tests?
-> 
-> Oversight on my part.  I added it where i got a failure, but didn't
-> carry it forward to the other tests.
-> 
->>> +   ASSERT_EQ(mapping[0], 0);
->>> +   ASSERT_EQ(mapping[page_size], 0);
->>> +   mapping[0] = 1;
->>
->> If both pages are on CPU 1's per CPU LRU batch here and then hte task
->> migrates to CPU 2 here
->>
->>> +
->>> +   ASSERT_EQ(madvise(mapping, 2 * page_size, MADV_PAGEOUT), 0);
->>
->> Then this can cause lru_add_drain() on CPU 2, and therefore both pages
->> do not reach the main LRU list. Thus they won't be reclaimed and the
->> test can skip here since the CoW page wasn't swapped.
-> 
-> I think there are other corner cases here as well. So yes i'll set up
-> thei pinning - probably worth it to just pin the entire suite of tests.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
+---
+ .../devicetree/bindings/arm/ambarella.yaml         | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-Yup, that would be better.
+diff --git a/Documentation/devicetree/bindings/arm/ambarella.yaml b/Documentation/devicetree/bindings/arm/ambarella.yaml
+new file mode 100644
+index 000000000000..72946e94fa76
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/ambarella.yaml
+@@ -0,0 +1,24 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/ambarella.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ambarella SoC platforms
++
++maintainers:
++  - Long Zhao <longzhao@ambarella.com>
++
++properties:
++  $nodename:
++    const: "/"
++
++  compatible:
++    oneOf:
++      - description: Ambarella CV75 boards
++        items:
++          - enum:
++              - ambarella,cv75-evk
++          - const: ambarella,cv75
++
++additionalProperties: true
 
-> 
-> My original set had a bunch of this tested more explicitly, but this is
-> really implementation details that are not worth the additional test
-> complexity.  I think we can just rid ourselves of that and just pin
-> every test and make sure it does what we expect in that case.
-> 
->>
->>> +   ASSERT_TRUE(pagemap_is_populated(self->pagemap_fd,
->>> +                mapping + page_size));
->>> +   swapped = pagemap_is_swapped(self->pagemap_fd, mapping);
->>> +   ASSERT_EQ(mapping[0], 1);
->>> +   ASSERT_EQ(mapping[page_size], 0);
->>> +   if (!swapped)
->>> +      SKIP(return, "MADV_PAGEOUT did not swap the COW page");
->>
->> Also, here we skip if we couldn't swap out the CoW page. Won't it make
->> more sense to check with pageout_until_swapped() first if pages can be
->> skipped, and then fail here if the CoW page wasn't skipped after all the
->> retries, similar to how some other tests implement it?
->>
-> 
-> Ah yeah good catch.  I'll adjust like this:
-> 
->    /* Ensure pageout-swap actually works first with a control page */
->    control[0] = 1;
->    if (!pageout_until_swapped(_metadata, control, page_size,
->                               self->pagemap_fd))
->       SKIP(return, "MADV_PAGEOUT did not swap the control page");
-> 
->    /* Run the actual test */
->    ASSERT_EQ(mapping[0], 0);  
->    ASSERT_EQ(mapping[page_size], 0);
->    mapping[0] = 1;
-> 
->    ASSERT_TRUE(pageout_until_swapped(_metadata, mapping, 2 * page_size,
->                                      self->pagemap_fd));
->    ASSERT_TRUE(pagemap_is_populated(self->pagemap_fd,
->                                     mapping + page_size));
->    ASSERT_EQ(mapping[0], 1);         
->    ASSERT_EQ(mapping[page_size], 0);
+-- 
+2.34.1
 
-Yes, that looks good. Thanks!
 
