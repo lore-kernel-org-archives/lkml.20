@@ -1,481 +1,271 @@
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC694E3EEF
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:41:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C4E4E2372
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:42:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413728; cv=none; b=rqbvYkyhxRYReQHciiyA81gGnRMg7xri8nHMoaIyBe8hXGxDiDAOx4ZXgzksZvspsqhSY0SeXT1yOSZUcNjz9Dy9TR1ou6rKQyQMbNFscbMWlhomwGlmP74Mv9xRyQIHv3FTM4iWhbYe9XQr8xKRyNrjXlwdzWaS2PkMpC4e850=
+	t=1792413741; cv=none; b=GCECZBNymKYstcXAgMs1EGXWnSy00tqLi4qswtjRkDDVyWUJU91zCgs+REkismqajRQUeNJA8h1SZqi8qfHTgAI4w26OaFJ3vrud5szvXj777i0EYcMvQHZsu6Go1/qkt6nZSYwRqmXJruBZJuw15fGr+jkj7p/9Im7nMhR1E9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413728; c=relaxed/simple;
-	bh=ZNLuTc8gE5NNQJi9vg7Z76C3tg8d7AQXs3xOO/TvhiU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Gcny0ZYTsO6RbNf1nCU9zzNabfazTbQ1e0DhVM1/Z+6UboUWyeCjcYU8ytbsLK44jjBtFZb1BF1rjpNAejyYDN4vPwQDwg3V9z8e7JbICvWz7jKGcPO2MZk0YgYzoOL8cvgaz4+5bZsVjy1XVBQpz9LkkaF8NOk/ldJ2IPuQJMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V7Ee72Rm; arc=none smtp.client-ip=209.85.218.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com
+	s=arc-20240116; t=1792413741; c=relaxed/simple;
+	bh=9SyRt0vs5u4zAF9/nqfVAV8wqLrGyp9BsmmJtXiL1lc=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version; b=M/cAiIygxfcgj+v2zO+Up80IPeW8wF3aVQvp/IP9iJDoVHgLxnzLBDG+HpOOC5xAYJwgrEr40T8nRcmvHFNZdW+U7A7eNv1eXso9gcetx6y+AC/fDTjApj3YJoFgNwy9T/cjDsh4nSXhWPbrc1cPJ3To4a/QXKJaSenAlGui4Bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=qOWDSvfb; arc=none smtp.client-ip=46.14.118.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V7Ee72Rm"
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c42f98f351eso144430066b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:41:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792413717; x=1793018517; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GgPXMuB+g5wQ8+L15m6p/2aJGw3OM2Uar8iP2WpZrGw=;
-        b=V7Ee72RmS+NBzI9RhpCezAxpH2LYeYDzKyrU/NPTEIp0V9mvtRpAHGh5l3QlgnxTj1
-         vMbpRpznSnUwRF0DCX873Dw06/kkQQJgWy34jrCGVTRou5nYViXB7gyCnozgHoRa7zqC
-         xPfX6U3CuoHZYJ5bkRHEaK7KpUnlmleRErAaDgxkXrEr1kCgmYBzAeuPDCf3sVq9cD3K
-         YnApt7+5znZ8BL1MJroqrMat8jo15h+hWl4cyt2N3NV9fgVIjTlnkOKYNCgLs68wDcmW
-         Z6qFH+vW0CeOm71kpj2Ek2YMlToZSsf74TDxo10dENVtu9GlyoWMA9WlRsV3eriHmICY
-         Kt+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792413717; x=1793018517;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GgPXMuB+g5wQ8+L15m6p/2aJGw3OM2Uar8iP2WpZrGw=;
-        b=xEqZ6pnrdroG1qLfEIRZZpuvNglv8ns8y/WpSZ6izz8Fh77gx0lJ2T8gNwvd/HDI6/
-         9nE+9B6+kfYWTrIS9GDOFEV3Iqcg2tja9A2CMntMTqKcdWXUER9u8Hs/S2eC2GGuWMmz
-         1TKl/Ewn9btEgGyxDRQ/jk4GLSgcMSakSYH34KGyPp0V5SM98nGcFmSr+IXvyL4ZoDWh
-         uQvu70fpx9wMbox4p6Yo+1PPpnZ1mprx842d/8ADmNagZtnQRPzCZTtdKWjiumyb9g4l
-         l488xqU/J9N/QxGCQIDM/+TQp7Ii5QmcdSBht7b798ZRl7a4qn5dwzK9yNRk8JriVVTP
-         6jvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxkJ97XneAgE7PVImo2/ReURveVbA/S2sP/FxUEIFYDpUtihnEXHyeUZIQNqXTM75mo17utIGiCQSllebw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLm7FyTMl3OM0rzGIWUxMWp7FveVn3J+ZG55w1/W15HWlQf+KWx
-	BHlPtZLVIv40WmapElxyGGCFk5Xmd3gUXHqePPJaulHYDrM0/jd2EnLVasAvyy1iiVdxSwqVtco
-	dsPoQBKqVX/VETbCDSg==
-X-Received: from ejfs8.prod.google.com ([2002:a17:906:c08:b0:c3a:ebc5:c1d2])
- (user=michalblk job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:c008:b0:c3f:dce3:20d5 with SMTP id a640c23a62f3a-c419e53bfe2mr551078066b.22.1792413715946;
- Mon, 19 Oct 2026 05:41:55 -0700 (PDT)
-Date: Mon, 19 Oct 2026 12:41:46 +0000
-In-Reply-To: <20261019124146.3582127-1-michalblk@google.com>
+	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="qOWDSvfb"
+Received: from [192.168.16.44] (port=13801 helo=remote.fiveco.ch)
+	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <valentin.kindschi@fiveco.ch>)
+	id 1xImgL-000000007R8-0lUQ;
+	Mon, 19 Oct 2026 14:41:37 +0200
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
+	t=1792413697; h=from:subject:to:date:message-id;
+	bh=9SyRt0vs5u4zAF9/nqfVAV8wqLrGyp9BsmmJtXiL1lc=;
+	b=qOWDSvfbfUZdzo6L3YdjG5F+GWq7463Xx/5nZqfj2k8PX5k7+6TKUYicssHE63EGTAFqPKpsYSc
+	39OxuUtSmaMJFM0h0n0tdgp1/vJRBnOau26ZbOV/maMMdBILCr1c14YtsoD+s8kg2lb01jaBdC4Ry
+	bNREt88d0NiD8iradGo=
+Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
+ FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Mon, 19 Oct 2026 14:41:36 +0200
+From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+To: <linux-bluetooth@vger.kernel.org>
+CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
+	<linux-kernel@vger.kernel.org>, Valentin Kindschi
+	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
+Subject: [PATCH v7 2/2] Bluetooth: hci_sync: pause advertising for the scan address update
+Date: Mon, 19 Oct 2026 14:41:28 +0200
+Message-ID: <20261019124128.48159-2-valentin.kindschi@fiveco.ch>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261019124128.48159-1-valentin.kindschi@fiveco.ch>
+References: <20261019124128.48159-1-valentin.kindschi@fiveco.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261019124146.3582127-1-michalblk@google.com>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261019124146.3582127-3-michalblk@google.com>
-Subject: [PATCH 2/2] selftests/sched_ext: Add class_switch_stall test
-From: Michal Blaszczyk <michalblk@google.com>
-To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
-	Changwoo Min <changwoo@igalia.com>
-Cc: sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, Kuba Piecuch <jpiecuch@google.com>, 
-	Michal Blaszczyk <michalblk@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
+ FIVECO-MX01.fiveco.local (192.168.16.44)
+X-Sophos-OBS: success
+X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.10.19.115719
+X-SASI-RCODE: 200
+X-SASI-SpamProbability: 8%
+X-SASI-Hits: BODY_SIZE_8000_8999 0.000000, CTE_8BIT 0.000000,
+ DKIM_ALIGNS 0.000000, DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000,
+ HTML_00_10 0.050000, IN_REP_TO 0.000000, MULTIPLE_RCPTS 0.100000,
+ NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000, NO_URI_HTTPS 0.000000,
+ OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000, REFERENCES 0.000000,
+ SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000,
+ WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000,
+ __BULK_NEGATE 0.000000, __CC_NAME 0.000000, __CC_NAME_DIFF_FROM_ACC 0.000000,
+ __CC_REAL_NAMES 0.000000, __CT 0.000000, __CTE 0.000000,
+ __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000, __DKIM_ALIGNS_2 0.000000,
+ __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000, __DQ_NEG_IP 0.000000,
+ __FRAUD_CONTACT_ADDY 0.000000, __FUR_RDNS_SOPHOS 0.000000,
+ __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000, __HAS_MSGID 0.000000,
+ __HAS_REFERENCES 0.000000, __HAS_XOIP 0.000000, __HAS_X_MAILER 0.000000,
+ __IN_REP_TO 0.000000, __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000,
+ __MIME_TEXT_P1 0.000000, __MIME_VERSION 0.000000,
+ __MSGID_DOMAIN_IN_REFERENCES 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
+ __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
+ __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
+ __PHISH_SPEAR_SUBJ_PREDICATE 0.000000, __RCVD_CTE 0.000000,
+ __RCVD_EXIM_4_96_AES_128 0.000000, __RCVD_FROM_HOMEUSER 0.000000,
+ __REFERENCES 0.000000, __SANE_MSGID 0.000000, __SHIPPING_ACTION 0.000000,
+ __SL_HEAVY 0.000000, __SL_LIGHT 0.000000, __SUBJ_ALPHA_END 0.000000,
+ __SUBJ_ALPHA_NEGATE 0.000000, __SUBJ_STARTS_S_BRACKETS 0.000000,
+ __TO_MALFORMED_2 0.000000, __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000,
+ __URI_NO_WWW 0.000000, __URI_NS 0.000000
 
-Add a test for a task which leaves SCHED_EXT while it's waiting. Its
-scheduler keeps the task waiting on a DSQ after it wakes up. The test
-switches the task to SCHED_OTHER while it's waiting, lets it sleep outside
-of SCHED_EXT for three times the watchdog timeout, then switches it back
-and wakes it up. The scheduler keeps it waiting again, for longer than the
-watchdog interval but shorter than the timeout, which the watchdog must not
-report as a stall.
+hci_active_scan_sync() programs a non-resolvable private address with LE
+Set Random Address on every active scan start.
 
-Without the previous patch, the watchdog charges the task for the time it
-spent outside of SCHED_EXT and aborts the scheduler.
+BLUETOOTH CORE SPECIFICATION Vol 4, Part E, 7.8.4 says the controller
+shall return Command Disallowed (0x0C) for that command while legacy
+advertising or scanning is enabled. hci_pause_addr_resolution(), called
+just above, only stops advertising when LL privacy is in use, so on a
+controller without it the command is issued while advertising is still
+on:
 
-Assisted-by: LLM
-Signed-off-by: Michal Blaszczyk <michalblk@google.com>
+  Bluetooth: hci0: Opcode 0x2005 failed: -16
+
+It does not converge either. hdev->random_addr is only set on a
+successful command complete, so it stays BDADDR_ANY, and the deferral
+added by commit c2994b008492 ("Bluetooth: hci_sync: Fix not setting
+Random Address when required") requires it to be set. Unlike the
+resolvable address a few lines above, which is reused while rpa_valid(),
+the non-resolvable one is regenerated and rewritten on every call, so a
+controller that refuses the write is asked again at the scan restart
+period of about 10 s, for as long as discovery keeps restarting.
+Observed on a BCM43455, which has no LL privacy and no extended
+advertising, 190 rejections in one capture, every one retrying the same
+address:
+
+  < LE Set Random Address  Address: 02:16:91:90:F1:D4 (Non-Resolvable)
+  > Command Complete       LE Set Random Address, Command Disallowed
+  < LE Set Random Address  Address: 26:90:57:96:9A:3E (Non-Resolvable)
+  > Command Complete       LE Set Random Address, Command Disallowed
+
+Pause advertising for the address update, and resume it once the update
+is done and before the scan is started. The pause does not outlive the
+function: it is taken only when nothing else holds it, and every exit
+resumes advertising, which also releases the pause taken by
+hci_pause_addr_resolution(). A failed pause returns before marking
+anything paused, so the error path is a no-op.
+
+The resume in the error path is no longer guarded by ll_privacy_capable().
+That guard matched a pause taken only under LL privacy; the pause added
+here is unconditional, and hci_resume_advertising_sync() returns early
+when nothing was paused.
+
+One caveat this widens, raised on the previous posting. When
+HCI_ADVERTISING is set, hci_pause_advertising_sync() also clears
+HCI_DISCOVERABLE and HCI_LIMITED_DISCOVERABLE and zeroes discov_timeout,
+and hci_resume_advertising_sync() restores only HCI_ADVERTISING, so the
+discoverable state is lost. It reproduces today on an LL privacy
+controller through hci_pause_addr_resolution(); the unconditional pause
+makes it reachable without LL privacy as well. hci_suspend_sync() also
+pauses unconditionally, so a device that suspends loses the same state
+on any controller today. That asymmetry is pre-existing and is left
+alone here rather than folded into a scan path fix.
+
+Legacy controllers have one random address register, shared by the
+scanner and the advertiser. Restoring the advertiser here can reprogram
+it when the advertiser is non-connectable, so the scan then uses that
+address rather than the one generated for it. Both are non-resolvable
+and neither is linkable to the identity address. With privacy enabled
+both roles already share one resolvable address the same way.
+
+With the patch, on the same hardware:
+
+  < LE Set Advertising Enable    Enable: 0x00              Success
+  < LE Set Random Address                                  Success
+  < LE Set Advertising Parameters                          Success
+  < LE Set Advertising Enable    Enable: 0x01              Success
+  < LE Set Scan Parameters                                 Success
+  < LE Set Scan Enable           Enable: 0x01              Success
+
+The address write is accepted, and advertising is restored before the
+scan is started.
+
+Over 119369 btmon records and about 12 minutes of the normal workload of
+that device, alternating active and passive scanning with ten outgoing
+connection attempts, every LE Set Random Address succeeded and there were
+no Command Disallowed responses of any opcode, against one per scan
+restart before.
+
+Patch 1 is required: without it the resume added here returns -EPERM on
+the controllers this fixes and leaves advertising disabled.
+
+Fixes: 3c44a431d62b ("Bluetooth: hci_sync: Resume adv with no RPA when active scan")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5.5 btmon
+Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
 ---
- tools/testing/selftests/sched_ext/Makefile    |   1 +
- .../sched_ext/class_switch_stall.bpf.c        | 121 +++++++++
- .../selftests/sched_ext/class_switch_stall.c  | 240 ++++++++++++++++++
- 3 files changed, 362 insertions(+)
- create mode 100644 tools/testing/selftests/sched_ext/class_switch_stall.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/class_switch_stall.c
+Changes in v7:
+- Reword the commit message: the resume on the error path also releases the
+  pause taken by hci_pause_addr_resolution(), so it is not conditional on
+  this function having taken a pause.
 
-diff --git a/tools/testing/selftests/sched_ext/Makefile b/tools/testing/selftests/sched_ext/Makefile
-index c5d3a2eaea7da..44083f1c65969 100644
---- a/tools/testing/selftests/sched_ext/Makefile
-+++ b/tools/testing/selftests/sched_ext/Makefile
-@@ -165,6 +165,7 @@ all_test_bpfprogs := $(foreach prog,$(wildcard *.bpf.c),$(INCLUDE_DIR)/$(patsubs
+Changes in v6:
+- Drop the comment from the Cc: stable trailer; it exceeded the line length
+  gitlint enforces. The dependency on patch 1 is stated in the commit message.
+
+Changes in v5:
+- Split into two patches. v4's resume was reached through
+  hci_schedule_adv_instance_sync(), which refuses HCI_ADVERTISING on a
+  controller without extended advertising, so advertising was never
+  re-enabled. Patch 1 fixes that and is a prerequisite for this one.
+- Do not resume on the success path. hci_resume_advertising_sync()
+  reaches hci_update_random_address_sync(), which for a non-connectable
+  advertiser programs a fresh address, and doing that with the scan
+  already enabled is refused the same way. Resume before the scan is
+  started instead.
+- Take the pause only when nothing else holds it and release it on every
+  exit, so it cannot be released by another user of
+  hdev->advertising_paused.
+- v4 claimed the resume commands in the capture were issued with the scan
+  already running and succeeded. That capture came from a build whose
+  resume ran elsewhere; the claim is dropped. The capture above is from
+  this version, on the device, under its normal workload.
+- Fixes: now points at 3c44a431d62b, where the pause became conditional
+  on LL privacy, rather than at the introduction of the scan function.
+
+Changes in v4:
+- Report the HCI_DISCOVERABLE asymmetry raised in review rather than fix
+  it, with a reproducer in the commit message.
+- Keep the explicit return on the success path, so the resume runs there
+  and the function no longer falls through into failed:.
+- Shorten the added comments to one line each.
+
+Changes in v3:
+- Resend, no code change; v2 had no reply. Rechecked that it still applies
+  to bluetooth-next.
+- Added the second capture described above, taken with the two patches from
+  the "endless adv params retry" series applied, since in bluetooth-next,
+  confirming the fix holds with cancelled outgoing connections in the mix.
+
+Changes in v2:
+- Rebased onto bluetooth-next: mainline renamed use_ll_privacy() to
+  ll_privacy_capable(). No functional change.
+
+ net/bluetooth/hci_sync.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+index d215432db..e9b2d28ff 100644
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+@@ -6339,6 +6339,7 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 	u8 filter_policy = 0x00;
+ 	/* Default is to enable duplicates filter */
+ 	u8 filter_dup = LE_SCAN_FILTER_DUP_ENABLE;
++	bool paused;
+ 	int err;
  
- auto-test-targets :=			\
- 	cgroup_nr_cpus			\
-+	class_switch_stall		\
- 	create_dsq			\
- 	dequeue				\
- 	dequeue_iter			\
-diff --git a/tools/testing/selftests/sched_ext/class_switch_stall.bpf.c b/tools/testing/selftests/sched_ext/class_switch_stall.bpf.c
-new file mode 100644
-index 0000000000000..d7c1a8f8ec838
---- /dev/null
-+++ b/tools/testing/selftests/sched_ext/class_switch_stall.bpf.c
-@@ -0,0 +1,121 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * A scheduler that keeps the target task waiting on a DSQ when it wakes up,
-+ * until it's switched out of SCHED_EXT or, if @park_ns is set, for @park_ns.
-+ * This lets userspace switch the target out while it's waiting.
-+ *
-+ * Copyright (c) 2026 Google LLC.
-+ */
+ 	bt_dev_dbg(hdev, "");
+@@ -6362,6 +6363,12 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 	if (err)
+ 		goto failed;
+ 
++	/* LE Set Random Address is disallowed while advertising is enabled. */
++	paused = !hdev->advertising_paused;
++	err = hci_pause_advertising_sync(hdev);
++	if (err)
++		goto failed;
 +
-+#include <scx/common.bpf.h>
+ 	/* All active scans will be done with either a resolvable private
+ 	 * address (when privacy feature has been enabled) or non-resolvable
+ 	 * private address.
+@@ -6371,6 +6378,9 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 	if (err < 0)
+ 		own_addr_type = ADDR_LE_DEV_PUBLIC;
+ 
++	if (paused)
++		hci_resume_advertising_sync(hdev);
 +
-+char _license[] SEC("license") = "GPL";
-+
-+#define PARK_DSQ 0
-+
-+UEI_DEFINE(uei);
-+
-+s32 target_pid;		/* set by userspace */
-+bool park;		/* set by userspace, cleared when parking */
-+u64 park_ns;		/* set by userspace, how long to park, 0 for no limit */
-+u64 nr_parked;		/* how many times the target has been parked */
-+u64 nr_released;	/* how many times the target has been released */
-+
-+static bool released;	/* set by the timer, cleared when parking */
-+static s32 target_cpu;	/* CPU to kick when the timer fires */
-+
-+struct release_timer {
-+	struct bpf_timer timer;
-+};
-+
-+struct {
-+	__uint(type, BPF_MAP_TYPE_ARRAY);
-+	__uint(max_entries, 1);
-+	__type(key, u32);
-+	__type(value, struct release_timer);
-+} release_timer SEC(".maps");
-+
-+static int release_timerfn(void *map, int *key, struct bpf_timer *timer)
-+{
-+	released = true;
-+	scx_bpf_kick_cpu(target_cpu, 0);
-+	return 0;
-+}
-+
-+s32 BPF_STRUCT_OPS(class_switch_stall_select_cpu, struct task_struct *p,
-+		   s32 prev_cpu, u64 wake_flags)
-+{
-+	/* Don't dispatch directly so that wakeups go to ops.enqueue(). */
-+	return prev_cpu;
-+}
-+
-+void BPF_STRUCT_OPS(class_switch_stall_enqueue, struct task_struct *p,
-+		    u64 enq_flags)
-+{
-+	struct release_timer *rt;
-+	u32 key = 0;
-+
-+	if (p->pid != target_pid || !park || !(enq_flags & SCX_ENQ_WAKEUP)) {
-+		scx_bpf_dsq_insert(p, SCX_DSQ_GLOBAL, SCX_SLICE_DFL, enq_flags);
-+		return;
-+	}
-+
-+	park = false;
-+	released = false;
-+	target_cpu = scx_bpf_task_cpu(p);
-+	scx_bpf_dsq_insert(p, PARK_DSQ, SCX_SLICE_DFL, enq_flags);
-+	__sync_fetch_and_add(&nr_parked, 1);
-+
-+	if (!park_ns)
-+		return;
-+
-+	rt = bpf_map_lookup_elem(&release_timer, &key);
-+	if (!rt) {
-+		scx_bpf_error("failed to look up the release timer");
-+		return;
-+	}
-+	bpf_timer_start(&rt->timer, park_ns, 0);
-+}
-+
-+void BPF_STRUCT_OPS(class_switch_stall_dispatch, s32 cpu,
-+		    struct task_struct *prev)
-+{
-+	if (released && scx_bpf_dsq_move_to_local(PARK_DSQ, 0))
-+		__sync_fetch_and_add(&nr_released, 1);
-+}
-+
-+s32 BPF_STRUCT_OPS_SLEEPABLE(class_switch_stall_init)
-+{
-+	struct release_timer *rt;
-+	u32 key = 0;
-+	s32 ret;
-+
-+	ret = scx_bpf_create_dsq(PARK_DSQ, -1);
-+	if (ret)
-+		return ret;
-+
-+	rt = bpf_map_lookup_elem(&release_timer, &key);
-+	if (!rt)
-+		return -ESRCH;
-+
-+	bpf_timer_init(&rt->timer, &release_timer, CLOCK_MONOTONIC);
-+	bpf_timer_set_callback(&rt->timer, release_timerfn);
-+	return 0;
-+}
-+
-+void BPF_STRUCT_OPS(class_switch_stall_exit, struct scx_exit_info *ei)
-+{
-+	UEI_RECORD(uei, ei);
-+}
-+
-+SEC(".struct_ops.link")
-+struct sched_ext_ops class_switch_stall_ops = {
-+	.select_cpu		= (void *)class_switch_stall_select_cpu,
-+	.enqueue		= (void *)class_switch_stall_enqueue,
-+	.dispatch		= (void *)class_switch_stall_dispatch,
-+	.init			= (void *)class_switch_stall_init,
-+	.exit			= (void *)class_switch_stall_exit,
-+	.flags			= SCX_OPS_SWITCH_PARTIAL,
-+	.timeout_ms		= 1000U,
-+	.name			= "class_switch_stall",
-+};
-diff --git a/tools/testing/selftests/sched_ext/class_switch_stall.c b/tools/testing/selftests/sched_ext/class_switch_stall.c
-new file mode 100644
-index 0000000000000..489d23c777f05
---- /dev/null
-+++ b/tools/testing/selftests/sched_ext/class_switch_stall.c
-@@ -0,0 +1,240 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Check that a task which leaves SCHED_EXT while it's waiting doesn't carry
-+ * that wait over to its next stay on SCHED_EXT. If it did, the watchdog would
-+ * count the time the task spent outside SCHED_EXT as waiting and abort the
-+ * scheduler.
-+ *
-+ * Copyright (c) 2026 Google LLC.
-+ */
-+#define _GNU_SOURCE
-+
-+#include <bpf/bpf.h>
-+#include <poll.h>
-+#include <sched.h>
-+#include <scx/common.h>
-+#include <signal.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+#include "class_switch_stall.bpf.skel.h"
-+#include "scx_test.h"
-+
-+#ifndef SCHED_EXT
-+#define SCHED_EXT 7
-+#endif
-+
-+/* class_switch_stall_ops.timeout_ms, the watchdog checks every half of it */
-+#define TIMEOUT_MS 1000
-+/* longer than the watchdog interval, but shorter than the timeout */
-+#define PARK_MS 750
-+/* time spent outside of SCHED_EXT, a stale wait would exceed the timeout */
-+#define OUTSIDE_MS (3 * TIMEOUT_MS)
-+
-+static enum scx_test_status setup(void **ctx)
-+{
-+	struct class_switch_stall *skel;
-+
-+	skel = class_switch_stall__open();
-+	SCX_FAIL_IF(!skel, "Failed to open");
-+	SCX_ENUM_INIT(skel);
-+	SCX_FAIL_IF(class_switch_stall__load(skel), "Failed to load skel");
-+
-+	*ctx = skel;
-+
-+	return SCX_TEST_PASS;
-+}
-+
-+/* Echoes back each byte from @in_fd. */
-+static void child_main(int in_fd, int out_fd)
-+{
-+	char c;
-+
-+	while (read(in_fd, &c, 1) == 1) {
-+		if (write(out_fd, &c, 1) != 1)
-+			_exit(1);
-+	}
-+	_exit(0);
-+}
-+
-+static bool read_byte(int fd, int timeout_ms)
-+{
-+	struct pollfd pfd = { .fd = fd, .events = POLLIN };
-+	char c;
-+
-+	return poll(&pfd, 1, timeout_ms) == 1 && read(fd, &c, 1) == 1;
-+}
-+
-+/* Waits for up to 1s for @pid to be in interruptible sleep. */
-+static bool wait_for_sleeping(pid_t pid)
-+{
-+	char path[64], buf[512], *state;
-+	bool sleeping;
-+	FILE *f;
-+	int i;
-+
-+	snprintf(path, sizeof(path), "/proc/%d/stat", pid);
-+
-+	for (i = 0; i < 1000; i++) {
-+		f = fopen(path, "r");
-+		if (!f)
-+			return false;
-+		/* The state follows "(comm)", and comm may contain ')'. */
-+		state = fgets(buf, sizeof(buf), f) ? strrchr(buf, ')') : NULL;
-+		sleeping = state && !strncmp(state, ") S", 3);
-+		fclose(f);
-+		if (sleeping)
-+			return true;
-+		usleep(1000);
-+	}
-+	return false;
-+}
-+
-+/* Waits for up to 1s for the target to have been parked @cnt times in total. */
-+static bool wait_for_parked(struct class_switch_stall *skel, u64 cnt)
-+{
-+	int i;
-+
-+	for (i = 0; i < 1000; i++) {
-+		if (skel->bss->nr_parked >= cnt)
-+			return true;
-+		usleep(1000);
-+	}
-+	return false;
-+}
-+
-+static bool set_policy(pid_t pid, int policy)
-+{
-+	struct sched_param param = {};
-+
-+	return !sched_setscheduler(pid, policy, &param);
-+}
-+
-+static enum scx_test_status run(void *ctx)
-+{
-+	struct class_switch_stall *skel = ctx;
-+	enum scx_test_status status = SCX_TEST_FAIL;
-+	int to_child[2] = { -1, -1 }, from_child[2] = { -1, -1 };
-+	struct bpf_link *link = NULL;
-+	pid_t pid = -1;
-+	int i;
-+
-+	if (pipe(to_child) || pipe(from_child)) {
-+		SCX_ERR("Failed to create pipes");
-+		goto out;
-+	}
-+
-+	link = bpf_map__attach_struct_ops(skel->maps.class_switch_stall_ops);
-+	if (!link) {
-+		SCX_ERR("Failed to attach scheduler");
-+		goto out;
-+	}
-+
-+	pid = fork();
-+	if (pid == 0)
-+		child_main(to_child[0], from_child[1]);
-+	if (pid < 0) {
-+		SCX_ERR("Failed to fork");
-+		goto out;
-+	}
-+	skel->bss->target_pid = pid;
-+
-+	if (!wait_for_sleeping(pid) || !set_policy(pid, SCHED_EXT)) {
-+		SCX_ERR("Failed to switch the child to SCHED_EXT");
-+		goto out;
-+	}
-+
-+	/*
-+	 * Keep the child waiting on the DSQ after it wakes up, and switch it to
-+	 * SCHED_OTHER while it's still waiting.
-+	 */
-+	skel->bss->park_ns = 0;
-+	skel->bss->park = true;
-+	if (write(to_child[1], "a", 1) != 1 || !wait_for_parked(skel, 1)) {
-+		SCX_ERR("The child wasn't parked");
-+		goto out;
-+	}
-+	if (!set_policy(pid, SCHED_OTHER) || !read_byte(from_child[0], 1000)) {
-+		SCX_ERR("The child didn't run after leaving SCHED_EXT");
-+		goto out;
-+	}
-+
-+	/* Let time pass while the child sleeps outside of SCHED_EXT. */
-+	if (!wait_for_sleeping(pid)) {
-+		SCX_ERR("The child didn't block in read()");
-+		goto out;
-+	}
-+	usleep(OUTSIDE_MS * 1000);
-+
-+	/*
-+	 * Bring the child back and keep it waiting for longer than the watchdog
-+	 * interval, but shorter than the timeout. Its wait must start now, not
-+	 * when it started waiting before it left SCHED_EXT.
-+	 */
-+	if (!set_policy(pid, SCHED_EXT)) {
-+		SCX_ERR("Failed to switch the child back to SCHED_EXT");
-+		goto out;
-+	}
-+	skel->bss->park_ns = PARK_MS * 1000000ULL;
-+	skel->bss->park = true;
-+	if (write(to_child[1], "b", 1) != 1 || !wait_for_parked(skel, 2)) {
-+		SCX_ERR("The child wasn't parked again");
-+		goto out;
-+	}
-+	if (!read_byte(from_child[0], 3000)) {
-+		SCX_ERR("The child didn't run after the second wait");
-+		goto out;
-+	}
-+
-+	/*
-+	 * Only the watchdog aborting the scheduler lets the child run before
-+	 * it's released. The exit info is recorded asynchronously, wait for it.
-+	 */
-+	if (skel->bss->nr_released != 1)
-+		SCX_TIMED_WAIT_UEI(skel, uei, 1000);
-+
-+	if (UEI_EXITED(skel, uei)) {
-+		SCX_ERR("Scheduler exited (kind=%llu): %s",
-+			(unsigned long long)skel->data->uei.kind,
-+			skel->data->uei.msg);
-+		goto out;
-+	}
-+	if (skel->bss->nr_released != 1) {
-+		SCX_ERR("The child was released %llu times, expected 1",
-+			(unsigned long long)skel->bss->nr_released);
-+		goto out;
-+	}
-+
-+	status = SCX_TEST_PASS;
-+out:
-+	if (pid > 0) {
-+		kill(pid, SIGKILL);
-+		waitpid(pid, NULL, 0);
-+	}
-+	if (link)
-+		bpf_link__destroy(link);
-+	for (i = 0; i < 2; i++) {
-+		if (to_child[i] >= 0)
-+			close(to_child[i]);
-+		if (from_child[i] >= 0)
-+			close(from_child[i]);
-+	}
-+	return status;
-+}
-+
-+static void cleanup(void *ctx)
-+{
-+	struct class_switch_stall *skel = ctx;
-+
-+	class_switch_stall__destroy(skel);
-+}
-+
-+struct scx_test class_switch_stall = {
-+	.name = "class_switch_stall",
-+	.description = "Verify that leaving SCHED_EXT ends a task's wait",
-+	.setup = setup,
-+	.run = run,
-+	.cleanup = cleanup,
-+};
-+REGISTER_SCX_TEST(&class_switch_stall)
+ 	if (hci_is_adv_monitoring(hdev) ||
+ 	    (hci_test_quirk(hdev, HCI_QUIRK_STRICT_DUPLICATE_FILTER) &&
+ 	    hdev->discovery.result_filtering)) {
+@@ -6394,9 +6404,8 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+ 		return err;
+ 
+ failed:
+-	/* Resume advertising if it was paused */
+-	if (ll_privacy_capable(hdev))
+-		hci_resume_advertising_sync(hdev);
++	/* No-op when advertising was not paused. */
++	hci_resume_advertising_sync(hdev);
+ 
+ 	/* Resume passive scanning */
+ 	hci_update_passive_scan_sync(hdev);
 -- 
-2.56.0.176.g3575e65682-goog
+2.34.1
 
