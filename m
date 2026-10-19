@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F45E2D949C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F1A2E62AC;
 	Mon, 19 Oct 2026 00:40:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792370443; cv=none; b=af4ypz0t8UXR4a5QU5RQ3UNjLCtehnG4o56YAHOEAy8ry7HMBUzrw6V8K2ewjGctx4qXUxj4mcUfDaySVDxZdUzJylSSqn2UJXcYErzYmWkkSTz1g+Xcs/CCuWLr8yvb+/bWNrM4t/rCT8wmlLvZjcz+x9H982nvmetV9P4BCXE=
+	t=1792370443; cv=none; b=WMCAEmZFkw+I6JxXyjrqrU9SeHfLLhv1Us5dFpHhMz1N1WZ0ey/6zspbmbBcBn+zSw/jbLNCVC67n1ZJ3oglA/0Nf7tq5MZ7C8la8v8Q3xcddwryeH5LUKL4cS19Vtwd8csywPBxgbSG+8uUQmAlJs5GLgrtXCIPentsjZVSznY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792370443; c=relaxed/simple;
-	bh=Ul8j6b/OMgDbNJmDs3HrzxJ8CN+a8ZabmqPVjjzsVr8=;
+	bh=7PwLVEQ1l/CWam5avwfDAl4WzI+bbNpJUldCYiORND8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ptkHfzuaAQtipDKSh4ffiQScNdHDaxq6qr+UMCjBMUpXpYCJm6+jXm7UnPjKP6EFbKsj4Pw94u2okNfdrZYz8BKhENwvdiNnDGEzDCPkWHfZfy930nT0vZtn8MAy5vm5uOi0WRdvxR+a1Ys5q3AkibSazWhgH1HPStoN4LnLeeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alMLu22L; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=G4wUgGPv97Ncci9UuFxejx29g0q2YS7k93gB0CFoFZYk5LHyRofOJYmVthAN0kmSQBjjbhDgBgQevj/DOcjW0+pdw1ve07RXVD0l0kDJ18HSgvd8CPPM5l8KAqoNfNUiDmUflxB//6hlhIeBqlfvpv3Euu6ECPmsC79Sz50DlEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eEBuS4j6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alMLu22L"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3CD80C2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eEBuS4j6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 68A45C4AF0F;
 	Mon, 19 Oct 2026 00:40:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1792370443;
-	bh=Ul8j6b/OMgDbNJmDs3HrzxJ8CN+a8ZabmqPVjjzsVr8=;
+	bh=7PwLVEQ1l/CWam5avwfDAl4WzI+bbNpJUldCYiORND8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=alMLu22LKFZ7YkTXPG7zwtua6wuvDBTNgra11qMpwXe+QW0+/x32hU0FoqWptPRCH
-	 Lbxm+uFnOn2oZokv9CXVa31OlD57sFRC3eT4ONDPSs734sb80eywyNk3rwHmlJul2v
-	 XI+Mla3zJChs5Gfji5YP7BaYTrq3eczlBauwiNcaS/61DDuoqnXQJOYcp33LIYP1YJ
-	 GOSZPm3LIcEPFPkzXfNwz4ggox/eJ6dnaXlm9BPaLkoM8OLY2AZ5tjCWommMsBIOxT
-	 3g7n5pDbPbrwcBCH2SpnNPWo7DHqHjU8vW+6DML0eEakL+HN5VUlwTCVVxzJZ+u9x2
-	 u9tDtjTssy3Rg==
+	b=eEBuS4j6b6pUwZfrmcJCBnqwXgIM/7gbc3kGHmVa4Tvqgt0KWBYxFoH95nFUdgor1
+	 NIZEPFzqzLlJcwwjgJbwvBnuuvcDzUFuxeKnFX/jzsS+piaN/kO6MbBaeMZrg8XHBi
+	 KP0jcl21DwmxhDF3TRQfuKKTS/ePSSbY/fRtVXguqtZoWIynM/sD6oVmw4iFJ3saPE
+	 P5y+G/flE2WekDqyfBJ6vS9uELUcCKbpY6AeaqAhUXDN5gcmjcIKElqHtvm42XSuxC
+	 cO6ujVVpYs0RrYpir6Q6+ZSwM8OubP0115S8rcomdQwoKId4uCt4XsilzON80N8KaM
+	 Tpb1D6TEuDj5w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D8ABCCF2D5;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5549BCCF2D5;
 	Mon, 19 Oct 2026 00:40:43 +0000 (UTC)
 From: Ben Grisdale via B4 Relay <devnull+bengris32.protonmail.ch@kernel.org>
-Date: Mon, 19 Oct 2026 01:39:58 +0100
-Subject: [PATCH 2/8] dt-bindings: interrupt-controller:
- mediatek,mt6577-sysirq: Add MT8163
+Date: Mon, 19 Oct 2026 01:40:01 +0100
+Subject: [PATCH 5/8] dt-bindings: watchdog: mediatek,mtk-wdt: Add MT8163
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-arm64-initial-support-for-mediatek-mt8163-soc-v1-2-f2462b2d2437@protonmail.ch>
+Message-Id: <20261019-arm64-initial-support-for-mediatek-mt8163-soc-v1-5-f2462b2d2437@protonmail.ch>
 References: <20261019-arm64-initial-support-for-mediatek-mt8163-soc-v1-0-f2462b2d2437@protonmail.ch>
 In-Reply-To: <20261019-arm64-initial-support-for-mediatek-mt8163-soc-v1-0-f2462b2d2437@protonmail.ch>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -59,11 +58,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-serial@vger.kernel.org, linux-watchdog@vger.kernel.org, 
  Ben Grisdale <bengris32@protonmail.ch>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792370441; l=1057;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792370441; l=2097;
  i=bengris32@protonmail.ch; s=20261018; h=from:subject:message-id;
- bh=HZvnmqsfzINWEfrRhIepftjE6COAYK/b8YuTyS5bQgM=;
- b=698Q+CEQDCJ3A6XknWlGTDX7ayPZNsO1KMPbAIxSubRinrTQ0EQaaqli2OXhKRvU6rXAPmmso
- 1Nc/WpE3cMmDvpAyWejudA1XtX9HcPbCDNk8M3oW9KI3KTfX3pjkzNl
+ bh=Vulm21NvWmavPeagurzk/kzAQkRmOdO7M6nqGQtWAlM=;
+ b=GVu4gT99GFaTJ/F/Oke2/vOoYoNcqwzj/sP4S54j3BL0yNla+HRzsTkjX4BSOY8+11cfZic1H
+ /SoNNOWwGP2AHpfZTYtLPOlNvzIOAD+gaa3Y1WtvjoihU+2PT9Kz8Dc
 X-Developer-Key: i=bengris32@protonmail.ch; a=ed25519;
  pk=4ewFRC2yNph/tXokHVzIDlgOA9Hxecf1AlBuD4eOnaU=
 X-Endpoint-Received: by B4 Relay for bengris32@protonmail.ch/20261018 with
@@ -73,26 +72,57 @@ Reply-To: bengris32@protonmail.ch
 
 From: Ben Grisdale <bengris32@protonmail.ch>
 
-Add a compatible string for the SYSIRQ interrupt polarity controller on
-the MediaTek MT8163 SoC, which is compatible with the MT6577 SYSIRQ.
+Add a compatible string for the Top Reset Generation Unit (TOPRGU) and
+watchdog timer on the MediaTek MT8163 SoC, along with a header defining
+the reset IDs it provides.
 
 Signed-off-by: Ben Grisdale <bengris32@protonmail.ch>
 ---
- .../devicetree/bindings/interrupt-controller/mediatek,mt6577-sysirq.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ .../bindings/watchdog/mediatek,mtk-wdt.yaml        |  1 +
+ include/dt-bindings/reset/mediatek,mt8163-wdt.h    | 23 ++++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/mediatek,mt6577-sysirq.yaml b/Documentation/devicetree/bindings/interrupt-controller/mediatek,mt6577-sysirq.yaml
-index b94fc3cec175..9d2fc15fc81d 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/mediatek,mt6577-sysirq.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/mediatek,mt6577-sysirq.yaml
-@@ -36,6 +36,7 @@ properties:
-               - mediatek,mt7629-sysirq
-               - mediatek,mt8127-sysirq
-               - mediatek,mt8135-sysirq
-+              - mediatek,mt8163-sysirq
-               - mediatek,mt8173-sysirq
-               - mediatek,mt8183-sysirq
-               - mediatek,mt8365-sysirq
+diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+index f9b725592c27..8e8991ac95ea 100644
+--- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+@@ -26,6 +26,7 @@ properties:
+           - mediatek,mt6795-wdt
+           - mediatek,mt7986-wdt
+           - mediatek,mt7988-wdt
++          - mediatek,mt8163-wdt
+           - mediatek,mt8167-wdt
+           - mediatek,mt8183-wdt
+           - mediatek,mt8186-wdt
+diff --git a/include/dt-bindings/reset/mediatek,mt8163-wdt.h b/include/dt-bindings/reset/mediatek,mt8163-wdt.h
+new file mode 100644
+index 000000000000..e6add5281e65
+--- /dev/null
++++ b/include/dt-bindings/reset/mediatek,mt8163-wdt.h
+@@ -0,0 +1,23 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++
++#ifndef _DT_BINDINGS_RESET_MEDIATEK_MT8163_WDT_H_
++#define _DT_BINDINGS_RESET_MEDIATEK_MT8163_WDT_H_
++
++/* TOPRGU resets */
++#define MT8163_TOPRGU_INFRA_RST		0
++#define MT8163_TOPRGU_MM_RST		1
++#define MT8163_TOPRGU_MFG_RST		2
++#define MT8163_TOPRGU_VENC_RST		3
++#define MT8163_TOPRGU_VDEC_RST		4
++#define MT8163_TOPRGU_IMG_RST		5
++#define MT8163_TOPRGU_DDRPHY_RST	6
++#define MT8163_TOPRGU_MD_RST		7
++#define MT8163_TOPRGU_INFRA_AO_RST	8
++#define MT8163_TOPRGU_CONN_RST		9
++#define MT8163_TOPRGU_APMIXED_RST	10
++#define MT8163_TOPRGU_PWRAP_SPICTL_RST	11
++#define MT8163_TOPRGU_CONN_MCU_RST	12
++#define MT8163_TOPRGU_MJC_RST		13
++#define MT8163_TOPRGU_MDLITE_RST	14
++
++#endif /* _DT_BINDINGS_RESET_MEDIATEK_MT8163_WDT_H_ */
 
 -- 
 2.56.0
