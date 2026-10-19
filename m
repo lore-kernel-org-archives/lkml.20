@@ -1,151 +1,282 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630CE4B9228;
-	Mon, 19 Oct 2026 10:19:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDCA54D9541;
+	Mon, 19 Oct 2026 10:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405141; cv=none; b=npL5qJME/7E9xUiSg5Gy8buLkjdgoS8NoIbtIqxyFCEa2eVJoKOffikGAYk6u9QPRjg10ebXlJbxN3dI+qf2bP7or3FmQDPkqzu6sJVm/LQPGSSOa7oAEZAX2tM+1pyNblOGpY28Vkchbzx6jwfL4s2p00tqFtGRxngW/dHrr4Q=
+	t=1792405155; cv=none; b=PfqLkOOdaNVuBZU2HRcLUpxcIlwtnahvpAs9Q0NynKYj4UNS3s1ExxrRvC5eF8HPERpojHeeLv5kTuU4Rno3bU5VBh3GMumMzWJe5WQQYWjMSDPQ4/0i9MYnFdJQp+KvPGcT0JwDTE3eIJXLgMow08rIenxLaT3Y6QI4dmXK6/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405141; c=relaxed/simple;
-	bh=Kvj7U+htv62wu1W25tLgpZ2lnkSbDbIkj9ib7QhUVmc=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=TPShNIHJhRR7jn/os9pvlTqud7UMz/l36yxewSJiijrS5laPc9IiDwvS7t6W0o0Cn7TjBnPvObvS0S5GOwwPRkYjMCBfY/k5C+1kRLZVSQgjXQFxK1UHpj2XS5VwyJu8mJiZ6M20XzjYZ26IDKhHEMHSjk2UZqvf4IdDEBWQ2XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=1tU/bg3U; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1792405155; c=relaxed/simple;
+	bh=z6/IkXLIpFcCN2TBlWNQA0+Xh4hbbYfcC8hvHO0uxYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gdOrY6PGmgDExf+u8pNhImDt4t8w7XhuSA60w4DND7TlxKG7cAsQ1p8WVX4QRG4BLIrpDq2OEsFXLH4aDFT6x1MQmR/dYQabWYsH6a815bvxjxDXp8ip/OvLwj8axzXskFy+4436Ib60mEVxa1/1o6BPbYQpnjgG3k3MLy7xO7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=KtUKOrGC; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="1tU/bg3U"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 808B4A1579;
-	Mon, 19 Oct 2026 12:18:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792405137; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ka/0d3LLne3RrfKFSIrCbrXaRogskK8tc0o3eKeKKrM=;
-	b=1tU/bg3UsRO82BuED9h4OJflhZptef/DttY1VDlE7EO9i8LIILYIARAEZ157p9q/3tw6tV
-	SPFlAMfOGgSPuGMnq9PhFVF34Li2xgyskh5m2fD3a2AG1h0PHZQE8VF5HwL+U5TcLjoGvd
-	02FtDugg1/hO0YYTCzqlcrCzRFfG8kPKY6nepfS6otDQpd6wgp966pdazeO+x8DpmmRNLY
-	91yP1rCmthQTziDcpTpptV+HGuR0rSGhRZFMdo7oBbIbdO+9VeqAea7Q1dTU6TlR/lqMmH
-	zNQm6IVK0jEF6bbDIM8eB+yEBCxxbb5+VSrh4YLS9Yp0TP45j0areYL1j4BUcQ==
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="KtUKOrGC"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8iDm13449410;
+	Mon, 19 Oct 2026 10:19:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=r4YBy/SHvgVV9nXhi
+	YBv1r8DYq8G0AiO7fdNVfHKjfY=; b=KtUKOrGCnnRYcuPJn1iMknkgr5rH3B4Iy
+	uHxbbtAnmYGso4jD8V7n52ewGonX4EdADiBlkNAXaRbtwewUj7NaYuUZHYvZTHb4
+	RDsuNIIrneVRcKEq0q9J7YFAN4B8eOP4+Td2yTUFz+cmCsbARXhqF1r8vz7h9KH5
+	XmPluk8Xe7tjdaEDhQ1ViBS8ywsAIoUZvHNFrVB22YTru7ol276jWyi9rEJeTEBL
+	v5uKPKJFMLzUQKPJKjIXe5WDtj+nSKziFTpPQSU/aG48aiFSciySEsxc3b/jWzRq
+	U+LPVdQTYOUHLMaJS8GTBPo1T/3NaT1FKkT3+oY2B4Wol9ShP0xBQ==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hc0h5ajqk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 19 Oct 2026 10:18:59 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8YqaQ3802387;
+	Mon, 19 Oct 2026 10:18:58 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hcmbjw7qa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 19 Oct 2026 10:18:57 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69JAIrxm17039828
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 19 Oct 2026 10:18:53 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1D7402005A;
+	Mon, 19 Oct 2026 10:18:53 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6C6162004D;
+	Mon, 19 Oct 2026 10:18:49 +0000 (GMT)
+Received: from Narayanas-MacBook-Pro.ibm.com (unknown [9.124.217.62])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 19 Oct 2026 10:18:49 +0000 (GMT)
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        "Oliver O'Halloran" <oohall@gmail.com>,
+        Timothy Pearson <tpearson@raptorengineering.com>,
+        Alex Williamson <alex@shazbot.org>
+Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <chleroy@kernel.org>,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org, sbhat@linux.ibm.com,
+        harshpb@linux.ibm.com
+Subject: [PATCH v5 1/5] powerpc/rtas: Handle ibm,open-errinjct return format
+Date: Mon, 19 Oct 2026 15:48:09 +0530
+Message-ID: <20261019101813.45085-2-nnmlinux@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261019101813.45085-1-nnmlinux@linux.ibm.com>
+References: <20261019101813.45085-1-nnmlinux@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 19 Oct 2026 12:18:56 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Chris Babroski <cbabroski@nvidia.com>
-Cc: bryan.whitehead@microchip.com, UNGLinuxDriver@microchip.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, richardcochran@gmail.com,
- linux@armlinux.org.uk, maxime.chevallier@bootlin.com,
- Raju.Lakkaraju@microchip.com, davthompson@nvidia.com
-Subject: Re: [PATCH net-next v1 1/5] net: lan743x: reset DMA channels that
- fail to stop
-In-Reply-To: <bf487e5d01fe6352069d4314087f680fea717cc5.1792008404.git.cbabroski@nvidia.com>
-References: <cover.1792008404.git.cbabroski@nvidia.com>
- <bf487e5d01fe6352069d4314087f680fea717cc5.1792008404.git.cbabroski@nvidia.com>
-Message-ID: <3b3ef1c5d926ddeddc3eec1b2388caa8@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0MCBTYWx0ZWRfX+m4gXMRb9RBs
+ Sfj5csr2SJQxPnSBVzIXwnCaettsf1mjmjgYg4sY7pIfhV5CbbzeJin5FwQ2f0AofhLKkWjoe5p
+ PmyjcBinG2Cn9Pgiqu11ycJWGiwwuA0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0MCBTYWx0ZWRfX12rG+6P9KBZg
+ Df1XPOZc7zP/A1bML3hj7ly5mkQVnvOf5mx9fVTkqVpt78ztwC6ZCEsSY6Js2Hja7h3d9Whg5Kd
+ 0XKKTllYORA2JHpDyUrMrHtQf6TihURl9KLc7LGnLWWztYxiegd9jBptsPITSbcAH+rlDjCn5Ed
+ 7XMPevLazqPD3UKgnk0k8BteM6PhrdvEl0T/Jxh78OcEZBy1ZPRZCEo+mYNfSG+W36v2Vunubz5
+ Pcmf3DLBmjq/1u0rib8g2ctfKuqc2/W6cQ1vn5AL03Mt7bdH44Dm+0uumgbDdJAIGDUrp9VzSSM
+ Ntd9hTKEJdGUEgfMR0mH6HF/JHRuxmY9qmWYh7mhqdlASQsX8izMBzyPO7wVGxDDSUgNIDpJsiI
+ MpotzByEzsfO+Xdfjdka374Chx1FX1kV/OSDjt6G3k/zOpZVbq8O4hqV6Y+7ftSuaqnDpA1MMeK
+ g+0h57vcYVRs2xk5cyw==
+X-Proofpoint-ORIG-GUID: z-RH3erF_FHn4Jg02LOi6IGMWgEl1EGY
+X-Proofpoint-GUID: TGf_DjKllITPfWpLQUZASBICsgvIAqhZ
+X-Authority-Analysis: v=2.4 cv=KujYSmWN c=1 sm=1 tr=0 ts=6ad5ee93 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=1mVJ_uiqAAAA:8 a=VnNF1IyMAAAA:8
+ a=UsokGn5mh7P9jOUuuDIA:9 a=h67g7WpEjx8dfGT80pje:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
+ clxscore=1015 lowpriorityscore=0 spamscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190040
 
-Hi Chris
+ibm,open-errinjct uses a non-standard RTAS return layout:
 
-On 15.10.2026 17:00, Chris Babroski wrote:
-> lan743x_tx_close() and lan743x_rx_close() ask the DMA controller to 
-> stop
-> the channel and wait for it, but ignore the result. If the channel is
-> still stop-pending when the wait gives up, the descriptor ring, the 
-> head
-> write-back buffer and the packet buffers are unmapped and freed while
-> the channel may still be fetching from or writing to them.
-> 
-> A TX channel has been seen to stop making progress, with its head index
-> no longer advancing while DMAC_CMD still reports it as started. A
-> channel in that state may not honour the stop request either, and
-> closing the interface would then free memory the engine can still
-> access.
-> 
-> If the channel is still stop-pending after the wait, or still reads as
-> started, issue a channel soft reset and wait for it before anything is
-> freed, and log when that happens.
-> 
-> Use the same helpers for the channel resets that lan743x_tx_open() and
-> lan743x_rx_open() already open-code, and log there too if the reset
-> times out.
-> 
-> Fixes: 23f0703c125b ("lan743x: Add main source files for new lan743x 
-> driver")
-> Assisted-by: LLM
-> Signed-off-by: Chris Babroski <cbabroski@nvidia.com>
-> ---
->  drivers/net/ethernet/microchip/lan743x_main.c | 64 +++++++++++++++----
->  1 file changed, 52 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/microchip/lan743x_main.c 
-> b/drivers/net/ethernet/microchip/lan743x_main.c
-> index 82d3ec20ba25..9e1276cf313c 100644
-> --- a/drivers/net/ethernet/microchip/lan743x_main.c
-> +++ b/drivers/net/ethernet/microchip/lan743x_main.c
+  rets[0] = session token  (output parameter)
+  rets[1] = status code
 
-> [...]
+Unlike all other RTAS functions which use:
 
-> @@ -2221,11 +2239,22 @@ static int lan743x_tx_ring_init(struct 
-> lan743x_tx *tx)
->  static void lan743x_tx_close(struct lan743x_tx *tx)
->  {
->  	struct lan743x_adapter *adapter = tx->adapter;
-> +	int ret;
-> 
->  	lan743x_csr_write(adapter,
->  			  DMAC_CMD,
->  			  DMAC_CMD_STOP_T_(tx->channel_number));
-> -	lan743x_dmac_tx_wait_till_stopped(adapter, tx->channel_number);
-> +	ret = lan743x_dmac_tx_wait_till_stopped(adapter, tx->channel_number);
-> +	if (ret < 0 || ret == DMAC_CHANNEL_STATE_STARTED) {
-> +		netdev_warn(adapter->netdev,
-> +			    "TX channel %d failed to stop, resetting it\n",
-> +			    tx->channel_number);
-> +		ret = lan743x_dmac_tx_reset(adapter, tx->channel_number);
-> +		if (ret)
-> +			netdev_err(adapter->netdev,
-> +				   "TX channel %d reset timed out\n",
-> +				   tx->channel_number);
-> +	}
-> 
->  	lan743x_csr_write(adapter,
->  			  DMAC_INT_EN_CLR,
-> @@ -2271,11 +2300,11 @@ static int lan743x_tx_open(struct lan743x_tx 
-> *tx)
->  			  FCT_TX_CTL_EN_(tx->channel_number));
-> 
->  	/* reset tx channel */
-> -	lan743x_csr_write(adapter, DMAC_CMD,
-> -			  DMAC_CMD_TX_SWR_(tx->channel_number));
-> -	lan743x_csr_wait_for_bit(adapter, DMAC_CMD,
-> -				 DMAC_CMD_TX_SWR_(tx->channel_number),
-> -				 0, 1000, 20000, 100);
-> +	ret = lan743x_dmac_tx_reset(adapter, tx->channel_number);
-> +	if (ret)
-> +		netdev_err(adapter->netdev,
-> +			   "TX channel %d reset timed out\n",
-> +			   tx->channel_number);
+  rets[0] = status code
+  rets[1..] = output parameters
 
-Not a bug, but what's the benefit of keeping going here?
+Add rtas_token_is_open_errinjct() to identify this call, and
+rtas_status_from_args() to extract status from the correct position.
 
-If the channel never came out of reset, lan743x_tx_open() and
-lan743x_rx_open() could return the error instead of starting it anyway.
+Add an early guard in rtas_call() that rejects ibm,open-errinjct
+invocations where nret < 2, since reading rets[1] would be out of
+bounds.  This is a kernel-side call-convention error, so -EINVAL is
+returned rather than an RTAS firmware status code:
 
-With the reset work from 4/5 a failed reopen then ends in dev_close(),
-which seems like the better place to end up. It would also settle the
-open question from the cover letter.
+  if (rtas_token_is_open_errinjct(token) && nret < 2) {
+          WARN_ON_ONCE(1);
+          return -EINVAL;
+  }
 
-> [...]
+Adjust the output-copy loop so that for ibm,open-errinjct:
 
-Thanks,
-Nicolai
+  return value = rets[1]   (status)
+  outputs[0]   = rets[0]   (session token)
+
+For all other functions the existing convention is preserved:
+
+  return value = rets[0]   (status)
+  outputs[0..] = rets[1..] (non-status outputs)
+
+Move the "/* A -1 return code... */" comment immediately before the
+ret == -1 check so it documents the check it guards.
+
+Also fix sys_rtas() last-error status detection: add the same early
+nret < 2 validation at the syscall boundary (returning -EINVAL) to
+avoid entering RTAS with an invalid ibm,open-errinjct return layout.
+After that guard, use rtas_status_from_args() to obtain the RTAS
+status for last-error handling.
+The prominent user librtas already passes nret = 2 for this function
+as required by PAPR, so well-formed callers are unaffected.
+
+Reference: OpenPOWER PAPR documentation
+           https://files.openpower.foundation/s/XFgfMaqLMD5Bcm8
+Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+---
+ arch/powerpc/kernel/rtas.c | 78 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 69 insertions(+), 9 deletions(-)
+
+diff --git a/arch/powerpc/kernel/rtas.c b/arch/powerpc/kernel/rtas.c
+index 8d81c1e7a8db..38f3d08d4228 100644
+--- a/arch/powerpc/kernel/rtas.c
++++ b/arch/powerpc/kernel/rtas.c
+@@ -1117,6 +1117,28 @@ static bool token_is_restricted_errinjct(s32 token)
+ 	       token == rtas_function_token(RTAS_FN_IBM_ERRINJCT);
+ }
+ 
++/*
++ * ibm,open-errinjct uses a non-standard return layout:
++ *   rets[0] = session token  (output parameter)
++ *   rets[1] = status code
++ *
++ * All other RTAS functions use the standard layout:
++ *   rets[0] = status code
++ *   rets[1..] = output parameters
++ */
++static inline bool rtas_token_is_open_errinjct(int token)
++{
++	return token == rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT);
++}
++
++static int rtas_status_from_args(int token, struct rtas_args *args, int nret)
++{
++	if (rtas_token_is_open_errinjct(token))
++		return be32_to_cpu(args->rets[1]);
++
++	return nret > 0 ? be32_to_cpu(args->rets[0]) : 0;
++}
++
+ /**
+  * rtas_call() - Invoke an RTAS firmware function.
+  * @token: Identifies the function being invoked.
+@@ -1198,6 +1220,16 @@ int rtas_call(int token, int nargs, int nret, int *outputs, ...)
+ 			return -1;
+ 	}
+ 
++	/*
++	 * ibm,open-errinjct returns rets[0]=session_token, rets[1]=status.
++	 * We need nret >= 2 to read status from rets[1].  Reject early if
++	 * the caller forgot to account for the extra return cell.
++	 */
++	if (rtas_token_is_open_errinjct(token) && nret < 2) {
++		WARN_ON_ONCE(1);
++		return -EINVAL;
++	}
++
+ 	if ((mfmsr() & (MSR_IR|MSR_DR)) != (MSR_IR|MSR_DR)) {
+ 		WARN_ON_ONCE(1);
+ 		return -1;
+@@ -1213,15 +1245,33 @@ int rtas_call(int token, int nargs, int nret, int *outputs, ...)
+ 	va_rtas_call_unlocked(args, token, nargs, nret, list);
+ 	va_end(list);
+ 
++	ret = rtas_status_from_args(token, args, nret);
++
+ 	/* A -1 return code indicates that the last command couldn't
+-	   be completed due to a hardware error. */
+-	if (be32_to_cpu(args->rets[0]) == -1)
++	 * be completed due to a hardware error.
++	 */
++	if (ret == -1)
+ 		buff_copy = __fetch_rtas_last_error(NULL);
+ 
+-	if (nret > 1 && outputs != NULL)
+-		for (i = 0; i < nret-1; ++i)
+-			outputs[i] = be32_to_cpu(args->rets[i + 1]);
+-	ret = (nret > 0) ? be32_to_cpu(args->rets[0]) : 0;
++	/*
++	 * Copy non-status outputs to the caller's buffer.
++	 *
++	 * For ibm,open-errinjct the layout is:
++	 *   rets[0] = session token  -> outputs[0]
++	 *   rets[1] = status         (returned, not copied)
++	 *
++	 * For all other RTAS functions:
++	 *   rets[0] = status         (returned, not copied)
++	 *   rets[1..nret-1] -> outputs[0..nret-2]
++	 */
++	if (outputs) {
++		if (rtas_token_is_open_errinjct(token)) {
++			outputs[0] = be32_to_cpu(args->rets[0]);
++		} else if (nret > 1) {
++			for (i = 0; i < nret - 1; ++i)
++				outputs[i] = be32_to_cpu(args->rets[i + 1]);
++		}
++	}
+ 
+ 	lockdep_unpin_lock(&rtas_lock, cookie);
+ 	raw_spin_unlock_irqrestore(&rtas_lock, flags);
+@@ -1896,6 +1946,14 @@ SYSCALL_DEFINE1(rtas, struct rtas_args __user *, uargs)
+ 	if (block_rtas_call(func, nargs, &args))
+ 		return -EINVAL;
+ 
++	/*
++	 * ibm,open-errinjct places status at rets[1]; reject calls with
++	 * fewer than 2 return cells before entering RTAS, since reading
++	 * rets[1] for the -1 sentinel would be out of bounds.
++	 */
++	if (rtas_token_is_open_errinjct(token) && nret < 2)
++		return -EINVAL;
++
+ 	if (token_is_restricted_errinjct(token)) {
+ 		int err;
+ 
+@@ -1942,9 +2000,11 @@ SYSCALL_DEFINE1(rtas, struct rtas_args __user *, uargs)
+ 	do_enter_rtas(&rtas_args);
+ 	args = rtas_args;
+ 
+-	/* A -1 return code indicates that the last command couldn't
+-	   be completed due to a hardware error. */
+-	if (be32_to_cpu(args.rets[0]) == -1)
++	/*
++	 * A -1 return code indicates that the last command couldn't
++	 * be completed due to a hardware error.
++	 */
++	if (rtas_status_from_args(token, &args, nret) == -1)
+ 		errbuf = __fetch_rtas_last_error(buff_copy);
+ 
+ 	lockdep_unpin_lock(&rtas_lock, cookie);
+-- 
+2.54.0
+
