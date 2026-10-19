@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792429394;
-	b=CziNhBqQf1XuPYLUoYV/u20mRnC/3I/S2yqAC3Z5+p6XhaGxPit3kP+g+dtzXIP/VfBi
-	 muq/2z8c+twQ9cVM2GAN/bn7Nuv9dd0QX1UGjPuol8XasZPOLG435z400OpJTMKUTrqOI
-	 oWDppFPtAucj+POHXLkAyyQcDMQpsWoXlPAPIItnS5XAaoO0mD0+5UJWPlRf7fVkA+nOQ
-	 KTW0JjJI3D40bo9iAdce/eyHxp6bSWpdPat7g2Uqvx1OGzX+44SSvXjbPCWbckrpuePLI
-	 QEAZe3gw8N35pfKoM7nvs2DxIn8/DN2VQQUnLkzBLqF0oBUEocgJPGl08rfPUacrPrA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429394;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aE/ApdweHqbDn8tPYpZEvkT83zo8gImkOax/EesADG0=;
-	b=wXMFL7dnhsnuy7Fa+Qj1W/lTnqyLvpwGvHp9Y1NvHICx+pRsoA9G8GbZ5W3m2DTyFcCF
-	 VeZDkmr60bXinVuU4pO13y0/wxJ+nZekuL/nTQkVl4qk10uv2AO5RWGgAhlJu00MnZtbL
-	 OMDj9EDhVIQRxr6E9oP/se/QMCZ6IYHVujVUPAovN1cI4YsMNcdEEP7DwU5+DmNGTVmWa
-	 k4SyePZ1Taq+p9fb9qrzA6XiBqYtLwl0qr3je69cE9ZM7FY2644nvNk/X03o/Yfsrx58i
-	 GTQXGqC0AjbPaVnJWZrSIr4OW7I4qARFe8cDXGuBKfjtWzsstWst6kGhwxr6nQK13Sw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pZME4in2;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792429450;
+	b=QaJgobGl8vfJkdGVMQiPVTbOBMCQNhMnVZqmuYsFQzkJ75ald8pxdM1ct9Wvk5Y/YH5C
+	 hD6yuOpUM01xOaGrRfGXNg2l6JJF+7Q+8ARh7m549eubrwgk3ON7SebVog+INQ/YqGHus
+	 uQ6x289m+8jMTxBe5TNbuSD8sNVbWMchqKvCAhf17bPUEwOBYFKRUw8xuR+8u7JwythR7
+	 d1fZF2Gz4ICShwTaNYEU41UoyRFM81SJzRQGtA3evRWadNdJfAXCYxyPqJ2zVTpUSMht1
+	 eCY2T1MB2XqrlRD304kOyv+Jf5dBLJIXjpuwE1qkuRR9RaNWPZS16TE4E0MzVrG+F2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429450;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 Content-Language:To:CC:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=VnsXX21rMe4Aa+Xef7Ubwo1TerT0QV1dBqZfO98Kc6c=;
+	b=4kHk9SJvvgXMXLVmCQx5aG6PEwusItBhD+/X7AdtdrQM7Jw4Bz/g/rh7LcMLe4LTCOcA
+	 sSbEIQXTO2NxLc//KWscsTAPdj/uP7KgiHMPe00PefN2bBYBipGMB3+PQ0tv2syzn2y3N
+	 hFMj17hSuXdKTfdtThspgiBjqiSKEkgyQFHm6axIP1VNA5wDAs7hFvyxAgvfL5uT5vTxk
+	 SSYx0VGzCyoB42m2u4r3PFypffU1vf/QjWQY9wC6tL9IFy4SxeQ4oFFpG9TG+ETl+iu5W
+	 wdROvsjurEcHnUxMP8OIxbOH3moW12a1WcynxRHyM9WnWLRV+1VAM2kC4MjA80JglZg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZB1S4fUq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.50
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012050.outbound.protection.outlook.com [40.107.209.50])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FD0606A324
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:03:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58FD0606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA6F606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:04:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FA6F606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pZME4in2
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so839693a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:03:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792429393; x=1793034193; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aE/ApdweHqbDn8tPYpZEvkT83zo8gImkOax/EesADG0=;
-        b=pZME4in2/dovMnIJC1alUj04UbIDFKIvNIIUQzlCLJRJQ1igaXXGunRER55yDQ/h9+
-         q+PWrDGkI0JrvmvTFD3Okb7MAOw2zCCWgU8QzfMIQ1/eQQq6en9WrkC8QRhtaHMGzRuF
-         K7N7K+1D566unZhGmpvSjbpmRRWFVcmysqvp4VquNqD2W3bAFP4M+pzzr5UenjVzap8L
-         kQ9rxmmv9qr0A6Yem9CJrpH6vU58MQlvn8BrmeBUC2xPkRLyFsMAhVHM90HfxvKzzp6D
-         cwt+I7BKTjCKAxMaAKV1jF0nIkUWRvDHXZCtWkOzhrYqcObEm6OfMkKYthMjqlS4YrwQ
-         WecA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792429393; x=1793034193;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aE/ApdweHqbDn8tPYpZEvkT83zo8gImkOax/EesADG0=;
-        b=mnt89cd7QSYG5yIyKH+C9rO5nrSfpUhBBUcsuKSXHWeCwwhyvrD2/aKwqFRUcLCmPV
-         yUb+3+z8IlOyd/jdXoXXIbs3MaUtClIiYUrdNL488tcKshzAg6nhUUmU1ri7SY0Av2wO
-         ih/houK0To/9kMzLJk2k60jxVKW95KKEeQWg2ls6mwZHd1fUqxb6lEVDO4yfCdUdBkfm
-         ZwdAiIYQCduTCma2hujWWnAoASWkj2ZzWQlGP6pX2gXJmjqeh0RdEwDJfV/RPhi1p51f
-         F4gDDwQtb1sTvMqsq/NZ4ebsieL9m9ycWE6RQtJnC+voNJDZwMP8uBVVaoBwjMJksUou
-         cwaw==
-X-Forwarded-Encrypted: i=1; AKwUvBxDbU3ji/ghCXExyN9BH2brRq7tOTCqEQrvRw9tR1TsGo9HFJSZO6FJuoBVuQoQps8d92ABv72+2ETQMfI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKY25vciBWXeEquohpcPGnbDNmaoCdf+2FvuviE/0t5Y3ZFTpL
-	SpkxiI5M46arauZ2C4VAUmbPXZ84K+wt7bpS+pOiHU1lt0i8qq2mYeIB
-X-Gm-Gg: AYBFou1SGwvyz9f5CiuVgWKvtdUXGFrDDgxSfqy/KOGlixI3T9G48W+0knzn+Jrm87J
-	2zfGZNegSr16BenoU6G2Eum13Glbv7OJavXIOnDxx8RyrNzmAZJVZ1Dwbl+MHCTbKNT5Gp7ZlLz
-	DAQzl6W0siPYN/sqPFIJUC9ctA222R+nkuXmzMca4HUHqq5iQk8AnRDmydDmR9vp2JuRu/MdoI5
-	uHBuyvQfojj7NQR1iCYz9nDMqtKCRExyQc/TZWA53Zobo+uF0XVJ5NnKXmKVeMmI6sIlhb1BTkk
-	DnvJ6vEYIogV6R1RuiU+o8ChjmLvl4wGqR0DWDqulQwcrOTX5Ow3+Ks9SG0Gw5Wl0Fo9wVcL4Se
-	H+SnpslSd2CrK/bURM4+5VB7jBjLsGHrOI8OgfXUGETR3m7ERB2nfPDp3Q2uPmYz8x7sieHrcxy
-	zHmR29TWT1aFYY6W4zB+5QdUp50AwmzfcirxlAXps+RUqy2u3FpRJnOVieSW4jYDeF2aNMZR+gP
-	T7MLKqZnAe7jd0=
-X-Received: by 2002:a05:6a21:9147:b0:3e0:dbf5:59f1 with SMTP id adf61e73a8af0-3e226435453mr6238043637.91.1792429393230;
-        Mon, 19 Oct 2026 10:03:13 -0700 (PDT)
-Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549c5621sm4317511a12.17.2026.10.19.10.03.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:03:10 -0700 (PDT)
-From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] soundwire: qcom: restore port reservations on registration failure
-Date: Tue, 20 Oct 2026 02:02:03 +0900
-Message-ID: <20261019170203.2533974-3-pocj8ur4in@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019170203.2533974-1-pocj8ur4in@gmail.com>
-References: <20261019170203.2533974-1-pocj8ur4in@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZB1S4fUq
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hsXwax4b9Wyd0IDnfOQFGi/QCUnGgf350vpiIZ4hbAR7MIeD23HS9COkL7/1jd8U1cTojSP/l2XYsXzBg985xfChIhL9hJwpmBtCUZh00AAXUbkB5Zf5CvMKTbr6ZghbOqWdVvvnC+BlJtd0TK+2ND+EO4eUvPe9qJ8JeuEWXzpOA31dpnJOmxF3wrE7tUo/5W8vOyahTGH+6pjuojhT5gZE1ls1ubgYPTizp7vPTGbHQnjB8D76VQrTEp6llWl5fbTBxaih+DRiZzmKvRMMMFJkf80OwmwrFtkyI9SdsW/uP3aEXnJJKSW41g3/2J4kJiympX3wa4i7bSTMcD7lHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VnsXX21rMe4Aa+Xef7Ubwo1TerT0QV1dBqZfO98Kc6c=;
+ b=PRdNawGrzwdf3mnau3xOBluIdpd+9ADTRt6p+3e75kPXQLox/A3fnoaVY2TIotc6q7WHZx1Igw32ILUCsqkzSyYeQA+8idaZ51xZpbL/1OJCJjTRb61Vuzk5y/tR49JqxFsRlieeImY96XJL8C8nyQMVmd306K11c/9M6jvOZXR4Fu6CawYRgGstnJGspwwZd6i6FzN6yD+bcGX2NC5kDEFAaKdk99IY0JR8guYilLEahZivrrNdJR58Jrwbxdibr+ThSFlx4g5Sx+DylPOnkvJGGKfTHswj3Zdgmx+aHg67SOIF4SABk3ce0ByH08+3N+KuzAEjxgBdOuIPYtMlJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VnsXX21rMe4Aa+Xef7Ubwo1TerT0QV1dBqZfO98Kc6c=;
+ b=ZB1S4fUquI+AfZTnAKitMtpITRFG8E9YnP0PGll2i78epKc1RZxCA5S2qhEM14BZRh7b3BBeKQI+smn7GaWwVbmBABTKl0wV70dd4mtXDiEa4vPK1X41nWOZxY375SDAl0xlTIg7RmREnJuAmXIqSU4AGmAOSo2kWwBXwLUz/D0=
+Received: from DS7P220CA0047.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:224::15) by
+ IA1PR12MB7613.namprd12.prod.outlook.com (2603:10b6:208:42a::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Mon, 19 Oct
+ 2026 17:04:04 +0000
+Received: from DM2PEPF00003FC6.namprd04.prod.outlook.com
+ (2603:10b6:8:224:cafe::a3) by DS7P220CA0047.outlook.office365.com
+ (2603:10b6:8:224::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Mon, 19
+ Oct 2026 17:04:02 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DM2PEPF00003FC6.mail.protection.outlook.com (10.167.23.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 17:04:02 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
+ 2026 12:03:54 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Mon, 19 Oct 2026 12:03:54 -0500
+Message-ID: <ea571031-8265-5b08-9a9b-9d623fe2191f@amd.com>
+Date: Mon, 19 Oct 2026 10:03:56 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,105 +101,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V5 14/19] accel/amdxdna: Move HMM invalidate wait into
+ common GEM code
+Content-Language: en-US
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, Hayden Laccabue
+	<Hayden.Laccabue@amd.com>
+References: <yidong.zhang@amd.com>
+ <20261019164746.827277-1-yidong.zhang@amd.com>
+ <20261019164746.827277-15-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261019164746.827277-15-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC6:EE_|IA1PR12MB7613:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85a96933-87f5-4890-39b9-08df2e02f9c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|22082099003|18002099003|10067099003|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	9XRR+diXXrmGqHiesLM/o8moHXashCUMS7qfmmazRS2dLE0Aw9fbNjKVpSQIOZjpwweGdwVvWPCkNmKE6+YVU6E72p9WqFWTMP+wuJQy04koLiC5jeW11COYsUVZ06gsb4wgywb5zArv44tX4cHo5rVqApMfknKwypIP6wr1gxlXGhK7JHSqguj8bsVL7/qTyTcpteJLfX1r0XNWznWvLWsbH2/Utb/Gtow8je/nYy4+UhR2Uyuo0P74W46n1KPrncSiyPBY3YRwktXk9GFYEURw6XSZNYY+dsQk3Hm8prnKJqsgrk72pxHpK28fDuJoL4vOgcTReVGKdAALem4SzA1oImCruMolh3+yPsVzKRBG1DmjCyaSEjHMxBc6NIt8atRl2hn5MTRhOxdiz6eRvBQlpVgZFlm4ZOWtKNZCrhXDQ6uyR+zqFYRsFD83mNrAEJbnM+3iF/A2cD2pcxAMRnAViYcbrrMHWbSIg+lbuMeUevwelAjzAyEIMy16Tjl05yeiYGxb/FCJSCAebgn4VnmuneAJTiJC14Uq+MIWwL6//vMQlht0bHdPV5nPzlmLp315s3ghWwF8dZXE4nD2cgEnlYCl2edGrCXXhfEgydabWmhiuUCUT4FUr5qTxeMtUB+LyZVKqRGqnFJo3ErRZ7eVWl6OLWpHviwMPE9XNh/YEmvQtrLqQlGLEe2p01dF9cgoEwmbtjxdQ/OF07yp+Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	wOLStMDKMbxQOjTCQh5sfG1Ae1X6B1z/xhejQscFH+SpcVWfnnSqbYhJbNca6gC/Sk/FAmCRlB//t3I456jIZctxDqwyC5VqRcL2NColOB3OcCfoyGyKWajEthEjYyCU7Vu5973q4ByXW+jc8ysFK28K7HwPG8LlcAo7r2Rqh9R52yN97jTVWxrO5MaK8TGIMqKE3uGZqS3eXa6YMldRQikJPs4XYLyONkFxvsqGR7USYd4rEWf1WG8pGTrjjGwxN1WpmNTZFv+3QzJ9GZCM0CTRaMzYIDxpB+/rhNaFO9T9QZuIlLPOpjUY8yWGBgwq7lryquQ9Qgheja9BOgw/VHajOKJe0lye1XQnQhw1xhyViVDujtegqc2owZPt/kPmox8mt7hdjOT2iMe1/X1VU7ccqhdkrXC1zsxVgrSyIBMcVyWzKmVgh8GVIl/hxOj2
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 17:04:02.4575
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85a96933-87f5-4890-39b9-08df2e02f9c8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM2PEPF00003FC6.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7613
 
-qcom_swrm_stream_alloc_ports() ignores sdw_stream_add_master() errors and
-returns success after master registration fails. Reservations made before
-registration, or before discovering that all ports are busy, also remain
-set in the controller bitmap.
 
-For example, failing the second of two master port allocations returns
--ENOMEM from the core, but hw_params reports success and retains the new
-port reservations. The stream is marked as configured despite incomplete
-master registration.
-
-Save the bitmap under port_lock and restore it on either failure, then
-return the original error. This preserves earlier reservations and allows
-a failed stream to retry. Remove the hw_params error cleanup that walks
-master runtime ports: that list does not reliably describe reservations
-made by the failed attempt. The allocation helper now restores its own
-reservations before returning.
-
-This patch depends on patch 1/2, which rolls back partial master port
-allocation and failed stream configuration in the SoundWire core.
-
-Fixes: 02efb49aa805 ("soundwire: qcom: add support for SoundWire controller")
-Fixes: 5c68b66d4d7e ("soundwire: qcom: drop unneeded qcom_swrm_stream_alloc_ports() cleanup")
-Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
----
-Tested with ARM64 QEMU KUnit using synthetic devices. Failing the second
-master port allocation made hw_params return success and retain
-reservations before the fix. With both patches, it returns -ENOMEM,
-restores the original bitmap, and allows a successful retry. No physical
-Qualcomm audio hardware was tested.
-
- drivers/soundwire/qcom.c | 26 ++++++++++++++------------
- 1 file changed, 14 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 55678a30cd4a..586bdd17171a 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -1241,7 +1241,8 @@ static int qcom_swrm_stream_alloc_ports(struct qcom_swrm_ctrl *ctrl,
- 	struct sdw_port_runtime *p_rt;
- 	struct sdw_slave *slave;
- 	unsigned long *port_mask;
--	int maxport, pn, nports = 0;
-+	int maxport, pn, nports = 0, ret;
-+	unsigned long saved_port_mask;
- 	unsigned int m_port;
- 	struct sdw_port_config *pconfig __free(kfree) = kzalloc_objs(*pconfig,
- 								     ctrl->nports);
-@@ -1260,6 +1261,7 @@ static int qcom_swrm_stream_alloc_ports(struct qcom_swrm_ctrl *ctrl,
- 	sconfig.bps = 1;
- 
- 	guard(mutex)(&ctrl->port_lock);
-+	saved_port_mask = ctrl->port_mask;
- 
- 	list_for_each_entry(m_rt, &stream->master_list, stream_node) {
- 		/*
-@@ -1286,7 +1288,8 @@ static int qcom_swrm_stream_alloc_ports(struct qcom_swrm_ctrl *ctrl,
- 
- 				if (pn >= maxport) {
- 					dev_err(ctrl->dev, "All ports busy\n");
--					return -EBUSY;
-+					ret = -EBUSY;
-+					goto restore_mask;
- 				}
- 				set_bit(pn, port_mask);
- 				pconfig[nports].num = pn;
-@@ -1296,10 +1299,14 @@ static int qcom_swrm_stream_alloc_ports(struct qcom_swrm_ctrl *ctrl,
- 		}
- 	}
- 
--	sdw_stream_add_master(&ctrl->bus, &sconfig, pconfig,
--			      nports, stream);
-+	ret = sdw_stream_add_master(&ctrl->bus, &sconfig, pconfig,
-+				    nports, stream);
-+	if (!ret)
-+		return 0;
- 
--	return 0;
-+restore_mask:
-+	ctrl->port_mask = saved_port_mask;
-+	return ret;
- }
- 
- static int qcom_swrm_hw_params(struct snd_pcm_substream *substream,
-@@ -1308,14 +1315,9 @@ static int qcom_swrm_hw_params(struct snd_pcm_substream *substream,
- {
- 	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dai->dev);
- 	struct sdw_stream_runtime *sruntime = ctrl->sruntime[dai->id];
--	int ret;
- 
--	ret = qcom_swrm_stream_alloc_ports(ctrl, sruntime, params,
--					   substream->stream);
--	if (ret)
--		qcom_swrm_stream_free_ports(ctrl, sruntime);
--
--	return ret;
-+	return qcom_swrm_stream_alloc_ports(ctrl, sruntime, params,
-+					    substream->stream);
- }
- 
- static int qcom_swrm_hw_free(struct snd_pcm_substream *substream,
+On 10/19/26 09:47, David Zhang wrote:
+> When a user mapping of a BO is invalidated, the driver must wait for
+> the BO's reservation fences before the pages are released. AIE2 does
+> this in aie2_hmm_invalidate() through the .hmm_invalidate callback,
+> and AIE4 needs the same wait.
+>
+> Do the wait directly in amdxdna_hmm_invalidate() in amdxdna_gem.c and
+> remove the .hmm_invalidate callback and aie2_hmm_invalidate(). Devices
+> that do not attach fences to user BOs return from the wait at once.
+>
+> Co-developed-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
+> Signed-off-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
+> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> ---
+>   drivers/accel/amdxdna/aie2_ctx.c        | 11 -----------
+>   drivers/accel/amdxdna/aie2_pci.c        |  1 -
+>   drivers/accel/amdxdna/aie2_pci.h        |  1 -
+>   drivers/accel/amdxdna/amdxdna_gem.c     |  9 +++++++--
+>   drivers/accel/amdxdna/amdxdna_pci_drv.h |  1 -
+>   5 files changed, 7 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+> index 6f63a8f94215..1c3cc32f119b 100644
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -1288,17 +1288,6 @@ int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
+>   	return ret;
+>   }
+>   
+> -void aie2_hmm_invalidate(struct amdxdna_gem_obj *abo,
+> -			 unsigned long cur_seq)
+> -{
+> -	/*
+> -	 * The pages must not be released while the device may still access
+> -	 * them, so this wait must be neither interruptible nor time limited.
+> -	 */
+> -	dma_resv_wait_timeout(to_gobj(abo)->resv, DMA_RESV_USAGE_BOOKKEEP,
+> -			      false, MAX_SCHEDULE_TIMEOUT);
+> -}
+> -
+>   int aie2_hwctx_heap_expand(struct amdxdna_hwctx *hwctx,
+>   			   struct amdxdna_gem_obj *heap)
+>   {
+> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
+> index 1b029d33a24b..690ad035463c 100644
+> --- a/drivers/accel/amdxdna/aie2_pci.c
+> +++ b/drivers/accel/amdxdna/aie2_pci.c
+> @@ -1228,7 +1228,6 @@ const struct amdxdna_dev_ops aie2_ops = {
+>   	.hwctx_config = aie2_hwctx_config,
+>   	.hwctx_sync_debug_bo = aie2_hwctx_sync_debug_bo,
+>   	.cmd_submit = aie2_cmd_submit,
+> -	.hmm_invalidate = aie2_hmm_invalidate,
+>   	.get_array = aie2_get_array,
+>   	.get_dev_revision = aie2_get_dev_rev,
+>   	.hwctx_heap_expand = aie2_hwctx_heap_expand,
+> diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
+> index 709e7545c65f..13391275df31 100644
+> --- a/drivers/accel/amdxdna/aie2_pci.h
+> +++ b/drivers/accel/amdxdna/aie2_pci.h
+> @@ -272,7 +272,6 @@ int aie2_hwctx_sync_debug_bo(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl);
+>   void aie2_hwctx_suspend(struct amdxdna_client *client);
+>   int aie2_hwctx_resume(struct amdxdna_client *client);
+>   int aie2_cmd_submit(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job, u64 *seq);
+> -void aie2_hmm_invalidate(struct amdxdna_gem_obj *abo, unsigned long cur_seq);
+>   int aie2_hwctx_heap_expand(struct amdxdna_hwctx *hwctx, struct amdxdna_gem_obj *heap);
+>   
+>   #endif /* _AIE2_PCI_H_ */
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index 37bfa5058095..0af1506f6363 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -12,6 +12,7 @@
+>   #include <drm/gpu_scheduler.h>
+>   #include <linux/dma-buf.h>
+>   #include <linux/dma-direct.h>
+> +#include <linux/dma-resv.h>
+>   #include <linux/iosys-map.h>
+>   #include <linux/pagemap.h>
+>   #include <linux/swap.h>
+> @@ -249,8 +250,12 @@ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
+>   	mmu_interval_set_seq(&mapp->notifier, cur_seq);
+>   	up_write(&xdna->notifier_lock);
+>   
+> -	if (xdna->dev_info->ops->hmm_invalidate)
+> -		xdna->dev_info->ops->hmm_invalidate(abo, cur_seq);
+> +	/*
+> +	 * The pages must not be released while the device may still access
+> +	 * them, so this wait must be neither interruptible nor time limited.
+> +	 */
+> +	dma_resv_wait_timeout(to_gobj(abo)->resv, DMA_RESV_USAGE_BOOKKEEP,
+> +			      false, MAX_SCHEDULE_TIMEOUT);
+>   
+>   	if (range->event == MMU_NOTIFY_UNMAP) {
+>   		down_write(&xdna->notifier_lock);
+> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> index b27492e2bf8a..274e5b609882 100644
+> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+> @@ -63,7 +63,6 @@ struct amdxdna_dev_ops {
+>   	int (*hwctx_config)(struct amdxdna_hwctx *hwctx, u32 type, u64 value, void *buf, u32 size);
+>   	int (*hwctx_sync_debug_bo)(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl);
+>   	int (*hwctx_heap_expand)(struct amdxdna_hwctx *hwctx, struct amdxdna_gem_obj *heap);
+> -	void (*hmm_invalidate)(struct amdxdna_gem_obj *abo, unsigned long cur_seq);
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   	int (*cmd_submit)(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job, u64 *seq);
+>   	int (*cmd_wait)(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
+>   	int (*get_aie_info)(struct amdxdna_client *client, struct amdxdna_drm_get_info *args);
