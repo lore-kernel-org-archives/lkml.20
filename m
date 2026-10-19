@@ -1,53 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792432169;
-	b=BYgKo2hdsbqGqxOZPWcdgisQvoV5wB0IU2tT3jHPZi62HXdFjZ1rWuAEqAWmJT4fITwQ
-	 e+Zd0qe/IIA9Oem8HL8lvUHohiUOGfxKoI/Ww7f3Ra3EiYsdrP8KhIAgwpX0xFFinHFyc
-	 H/HwTc4rWSLqr97zEx2gTyUu8JWbCg1tjXRJ4pAnOBkiE8CTT9LxVy3kWsd6aPfSfRjQ7
-	 H0inKy7aEUqOlXVJaMAQ08vNEeoKuutWrmj5aQ9w9rdYFpNjasS47kB28WiCxi+2xvi/R
-	 lCs0kxZ2Y4IxKW6fagC9vMHfmwXWnaFrFtTw1K5lJliD0PJ5MO3NPscKbOOhZ3BiHLA==
+	t=1792432198;
+	b=5bXypxmoWVo83oBreCbmrHZfUiNS7rn+16HCyVp/k73d0YmkttTIdKzPeD1EeSB/SFxd
+	 PgfAKxXr37zpmthbbnd+e/6YUaoDEfFLI3Tfb/vllUgvkfiBRG4Mj/04uirMEec/nw6UH
+	 xR2DmyP4In7suKl6a5y0RhkwFKHqNWrlDKhV125QrDxkNQsXCM7o/JF6Mh50cV6smIUv/
+	 et4ZUdByDQcRJYEZcqBsVcYEiFkJJp1rN8bnmZtiDmRcOGZBtJ2q/KxT8gCu7y1eGjY87
+	 OYBHPSnPlWjKxUFFQqtpdPgBCk2M0WJTnhRCaJBGwPgJ6zhis10rsaBASACALLmZX/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792432169;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=84vZokJdy1G2Wp0ECYuYujiRQot5ob2MnqXlmNb25mQ=;
-	b=tguOddrZHL650Oip1Dtg1J5VwdDZmL8vyfiywLu+YOlsRTAcEnrVsbbTqcCIcsKLCkUV
-	 EFCoUUtTgBav9zWAzfm0fiy6zDiclIB/RJqDDOffRuXvnnyuwEUVmQnRi4I1QccNUrOhW
-	 mxTRMwKW/eB7evYlGXkOT8txDZ8mxVAFManmpvPzdUPYxTT6xnq6900dpoRrAznq8odv8
-	 s+NbP9BpJDU8+RYbfjRIsLARhD7PIMSDfMNQSqnKyJnL9ysoYW+PNfBR9w8N4O1GueEW8
-	 b0NnKckLZD/D2AysA70VYXtF193msVzyjiL70CAWEhIZdNyn8dfOWHcPNSYjydQLWlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792432198;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=639/CBjTq+N5Owb6RBW7UK/oNchKs9KrTos6BTqd4Y0=;
+	b=oz54N9S6kd43oYoR9AVzyPeE+gSiD/Tg8FgAyPAGbuL0Em7vL5Wz8N/8Vgiov91p06w+
+	 fP+9IDKnsXGU8XOgKKqfOQa9COKRa4uN5zUJmTmwsCmRuWyvWceHMtpu2K/AZF4NQ9wcy
+	 3/zlN/va2QwgI3NvjIm5dM7fEPp1MlaqQOtjjx2KBOyKULe6Jjr4zH7QXt5AnENLDdaxx
+	 oEUbCMRx3ga4LGa/O4EJ5iADfelQ8C/DEagx1oTcBFgdZhTv6jVYA9P+LTWL24QjU9W4v
+	 OnlOrnjmNsIrItbVtkS4sj+qVgwQg/VwKc65ov8xdfd7kPg2xhNBnaKjtf3/uTW32iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5ZEqEz+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TrpmEFI7;
+	arc=none smtp.remote-ip=209.85.222.172
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE0E606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:49:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A11606A31F
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:49:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33A11606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5ZEqEz+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E051F000C4;
-	Mon, 19 Oct 2026 17:49:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792432168;
-	bh=84vZokJdy1G2Wp0ECYuYujiRQot5ob2MnqXlmNb25mQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M5ZEqEz+0N8eLpvUxe5VAvH52RopY+l1Q2dtq/dgjRTIT5zyLGqAynY3wXGzxPxdV
-	 ynoZvlXZm6uUe4LjEjw9qEJgcpCIVREb7qyvEq2KQWPjqrjhn/yJ4XzkCvSv0czel/
-	 7kfOXqhCAOdCXq0W9ad+68B7nra4FtCSmHbH6xKBQG7ZtKctlq2cUoPqlEK/R/MGZD
-	 LiGqowNpethjEgsQt4zzThq0G6BwcvZhPltZW5pz4lF/ltN3nJKHGQQOg5GJzVbuOK
-	 Qu2K9VddvwVGPJejoaqk6u6dRqZFq6AJW9t8D8Lh50YaAUVNlG61nbmp/2s2MjjZvJ
-	 b8TGdBo5D8tYQ==
-Date: Mon, 19 Oct 2026 18:49:26 +0100
-From: Harry Yoo <harry@kernel.org>
-To: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] mm/percpu: clean up callers of pcpu_obj_full_size()
-Message-ID: <atZWW7V0MI--HOke@thinkstation>
-References: <20261019162803.281810-1-joshua.hahnjy@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TrpmEFI7
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93cb1c0e851so172353885a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:49:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792432197; x=1793036997; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=639/CBjTq+N5Owb6RBW7UK/oNchKs9KrTos6BTqd4Y0=;
+        b=TrpmEFI7tgmuxaiLFhOG1AfLDCzh9t38tdaNq4TC34QmZWpMMsIQhLwWy3Sh7ijCYx
+         pzpvDD5z0Y69K9YZ35fk6nObTGwLtHSvnI6MbVCXdWKVcbDG5zdaWKWMLhC9rr/koPKK
+         y4ZPae8rIOQWAY3VgxcGUftjggF5vUPeVVsPkoaC8TPxtSguw9get4ubsu/KYfBMBn6D
+         Ll7UNzML1468VNpDI46hqB310SFY+K7icsuHYIPtj66PBlOIo5H3xk3qL2PHBQirAt9H
+         2ZNYdYwBob2Z+jiH28e6HL/xN9qHQJ2DIl5BKOcB/gZaIx8duypZz54wIoGpVlgzPcTu
+         4qwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792432197; x=1793036997;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=639/CBjTq+N5Owb6RBW7UK/oNchKs9KrTos6BTqd4Y0=;
+        b=lNqzjsOE/AOuRzKXnJmIVRk9oVr1ru7xWQs8e4pRkyr6+gEEwl4IMGJzs4PQhdqagY
+         cMT+DVBSTY5xf3LzvM8povEZ/GabtcIZHpcISNA9EZaRTxvgb1J6Rr1de8bsMMcBMJ/H
+         ujfbNlHnRE0mj64zMLq8ZXmjvoc4YsDpD3TbjJyNNFdWf/S6WZt4JHQkc7m6ditDbsiF
+         WS8cn6baDguBqSGo6LOtyrXyUMrtVVQ2pgbTOlqB3CJx7/j2OY+gkNpS0sEmRreqmNZR
+         tUMI3NKDYiqdWqwPOmUAJXApmzxeKock6mDMG3A6tBu/TvJafDzug4mlGUbkbgQkxcxu
+         nFnA==
+X-Forwarded-Encrypted: i=1; AKwUvBxNv/cpUv23QcVdl3MzLlcsUXqO102iqsMqaHxnEFZ4+Phieczd7lxx1/ELBiCeTv7lvg7XI610WMc9bs0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQWEfe6V9EGRcuWH+bm6tbVdDH0L8hD7PR8+2HANtWPQRQ1kiP
+	w7HppqcZ0m1PllwEGRpQQlXKQsdVf9ANL7tXZos1Omn8OyuZ9RjMskpB
+X-Gm-Gg: AYBFou3NDoE2DjviDqlWgi6xbtk1e54V3uQf++IY3yxrb0fykSwN4srucMAtoGJEvd2
+	+BOozeqkffmyPI4hZxSjmjR5Vjvb+yWlVDFr86TAC7H6kjOlJbfIn60HpaOjXFFa6xUi2RF1X3F
+	5iaJcRqdFiEZhyA8CtCsFmQoxZpLUFW5vOHYpbQnGQaae5rBzBnu9Cje6lZNd6iHe+wwD84mRjK
+	/tOwOw/hrqzIdws4tMGfRBzYPrzac+bCqA+KqT/oW6DHnAkeLnmuVNcNxqAyVII70haJUWoQG6X
+	TnrK9EzAYmraMdIabe7+t310o/Y0dn59fKXTISOgqE/B93+zpAcySMwUpD813i7o+lYihDn1o+N
+	TMy2eePIWb5hnRK280Y4vD0XLRz1/R1xkYrQ9xuWxStwp1WsMQra4Hg0cLSkiWfM1gbgb4D1E4W
+	TU5b6mFtIy8zCQwAZeBpw8qyURaLJlzhd3aXSqeyvm1BpBnF3GZMPRV6QO/55w+IF5kf+JGiJRf
+	hK4CuU+Ub3nEckpVi6gcrdm
+X-Received: by 2002:a05:620a:410a:b0:93e:c12c:f127 with SMTP id af79cd13be357-93f29db24f9mr1288869885a.83.1792432196991;
+        Mon, 19 Oct 2026 10:49:56 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f4af465c2sm17387785a.4.2026.10.19.10.49.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 10:49:55 -0700 (PDT)
+Message-ID: <41fd012e-e699-4165-8224-e0f65f4a4a8d@gmail.com>
+Date: Mon, 19 Oct 2026 10:49:38 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,67 +91,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019162803.281810-1-joshua.hahnjy@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/869] 6.12.114-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261017160036.979869304@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261017160036.979869304@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 09:28:02AM -0700, Joshua Hahn wrote:
-> The size of a pcpu allocation can be interpreted in two ways:
-> 1. The size of the allocation attributable to a single CPU.
-> 2. The total size of the allocation across all CPUs, including the
->    allocation overhead (for obj_cgroup membership).
+On 10/17/26 08:47, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.114 release.
+> There are 869 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> In most accounting paths for percpu memory, we need the second
-> definition (total size). Make this more obvious by coalescing the
-> callers of pcpu_obj_full_size().
+> Responses should be made by Mon, 19 Oct 2026 15:59:15 +0000.
+> Anything received after that time might be too late.
 > 
-> No functional changes intended.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.114-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 > 
-> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-> ---
->  mm/percpu.c | 39 +++++++++++++++++++--------------------
->  1 file changed, 19 insertions(+), 20 deletions(-)
+> thanks,
 > 
-> diff --git a/mm/percpu.c b/mm/percpu.c
-> index d7883507dc151..76848e096caee 100644
-> --- a/mm/percpu.c
-> +++ b/mm/percpu.c
-> @@ -1623,7 +1623,7 @@ static bool pcpu_memcg_pre_alloc_hook(size_t size, gfp_t gfp,
->  	if (!objcg || obj_cgroup_is_root(objcg))
->  		return true;
->  
-> -	if (obj_cgroup_charge(objcg, gfp, pcpu_obj_full_size(size)))
-> +	if (obj_cgroup_charge(objcg, gfp, size))
->  		return false;
->  
->  	*objcgp = objcg;
-> @@ -1642,11 +1642,10 @@ static void pcpu_memcg_post_alloc_hook(struct obj_cgroup *objcg,
->  		chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].cgroup = objcg;
->  
->  		rcu_read_lock();
-> -		mod_memcg_state(obj_cgroup_memcg(objcg), MEMCG_PERCPU_B,
-> -				pcpu_obj_full_size(size));
-> +		mod_memcg_state(obj_cgroup_memcg(objcg), MEMCG_PERCPU_B, size);
->  		rcu_read_unlock();
->  	} else {
-> -		obj_cgroup_uncharge(objcg, pcpu_obj_full_size(size));
-> +		obj_cgroup_uncharge(objcg, size);
->  	}
->  }
->  
-> @@ -1662,11 +1661,10 @@ static void pcpu_memcg_free_hook(struct pcpu_chunk *chunk, int off, size_t size)
+> greg k-h
 
-Perhaps it's better to rename 'size' parameter to 'full_size' in those
-memcg hooks to make it clear it's expecting total size?
+perf fails to build for ARM/ARM64/BMIPS_GENERIC with:
 
-Otherwise LGTM!
-Thanks for cleaning this up.
-
-And it might be beyond the scope of this patch, but I think
-trace_percpu_alloc_percpu_fail() should take full_size instead of size.
-
-Wdyt?
+util/event.c: In function 'machine__resolve':
+util/event.c:775:32: warning: implicit declaration of function 
+'perf_env__get_cpu_topology'; did you mean 
+'perf_env__read_cpu_topology_map'? [-Wimplicit-function-declaration]
+   775 |                         topo = perf_env__get_cpu_topology(env, 
+(struct perf_cpu){ al->cpu });
+       |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~
+       |                                perf_env__read_cpu_topology_map
+util/event.c:775:30: warning: assignment to 'struct cpu_topology_map *' 
+from 'int' makes pointer from integer without a cast [-Wint-conversion]
+   775 |                         topo = perf_env__get_cpu_topology(env, 
+(struct perf_cpu){ al->cpu });
+       |                              ^
 
 -- 
-Cheers,
-Harry / Hyeonggon
+Florian
