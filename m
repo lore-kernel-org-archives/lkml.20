@@ -1,105 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434290;
-	b=iMbPLn35I+4dH1cpxFRLXeiinU68IipH3a3utsYsLOcHA0Gu/q8wlaCqyX0BccYQ+QQK
-	 /bS4EBl/rRPkAATU4scYp14AIhVTiPWdtqcAdJmNaDaldKCEolewbyNiYDgWzDmhXr1n4
-	 JCFtjtXcImcTS/YzbBzN3t5nt1I1fVe51ApdpDU1KII4TLJCNQL+UztcaxmctPzgk9q9I
-	 lNeSnAFv+x7cW2H3eeHy/YsQmFXnIlXfTQ4g3OfCh+PhdlhAaljzaYyx7CKBpOd5ls4ih
-	 I8x+tTbfTTqQe3XAeqbXf+RBffFDl2GP7ZdsVzdx5CmhCYlaKBhyZyJLet5K/Jgv5cg==
+	t=1792434301;
+	b=XNtkd1AzxEyMo/wOnY3WAAK3MeYiE3rymaNmwAm9xNCbImrH1yWJelmfNjln2gU4iCYa
+	 cL+l3CjLs/pBc6sw9C0k8KG+wxpd34varfChaz82WhP7QUOC28cyf3VZfJ3FP3Aj4dOFI
+	 cumFHQIhL26uq79mZygaswZ2sBKBsmp0uRLyOT06WFqL5OElsa6bQ/tQzihPhPPa/xPLK
+	 7kYDQTryKtXhzDbjAx8Ulvxfe9HN4ogm0W5Hdg0Cu6cyv4D0UqaXO1Gazr4o/+kDRYCKi
+	 lwyXJ11TjJZT/l7PRUUMOOOcw3qAt09UqBcWVaxUlOVs8GRSUJSwCXDX0hXWcIPfWIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434290;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434301;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7AqszT9JK11llslLQymtoeL6/CVsiRkIvN5VK7Yksp8=;
-	b=g+rNRY/RpvqnMuPz8GJDerjiZPo+/RVUqIGKqjFOfYfm04xMgT9USPJkBxRJTGbftnbB
-	 wRHA2kvykK0zh+5TJRHXjNU7BEmYvHDlqp8M0Vej8/6hbjzG4HUfJ5DxGvr4kfSvnDB2o
-	 K1VALPKx+6W86VMMxAuJ5jKoJWugb2jzDPCALzqxN7HJwKmYAMFNjD6yBTt0qRLQfO24F
-	 UzSZCm2A7xI/4CxZDrW+7d+gOQIcIxas+lVPpMGW6ehzC0wxz2rPpRmxTMX2f7H5jq4Zp
-	 eoghyojHUzNfGYrBe4FjmmGsFIkWMXU5K23fngFfhGGJGY2DDCbM78RvB41OaH0qRlQ==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jtPccQqJ2uVD863ndD5Pql7lUKykf7N9xt+2EMl4boQ=;
+	b=1L7RlkmnlKk1Qn1BdRQFLDRx8n1B3U3d58AIub5/fHbVU7jPjTC47eVoXobzItj0D/ET
+	 qu1LKXkS1DEU/eCj0BPaVl6hPuGNdYqth2WogZFNjKtABcRdq4hrK1yWPgm6sdQHudOSW
+	 0dMPNDuqJ3JmqABFDmrvjLfVB6DneV52lmH78U+He5s3snzBMlgPLeOn7vMG2Bb+ukyt8
+	 RQSEmG+0RLCFnQCfh+1tqKvvUfRiZzzzv1tUY2d7kKKVJdy4ay0nXL9biGc35c9pCcs2h
+	 OmTgsjCCM4Q0uj26FRHseYFSWS0VjYJxgJ209tBYJ/crc1/z+HdEYnIJtu4nTk/HHXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AAEQoXKH;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dmarc=none header.from=okonski.org;
+	spf=none smtp.mailfrom=okonski.org;
+	dkim=pass header.d=okonski-org.20251104.gappssmtp.com header.i=@okonski-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=X4UC2tzT;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB6D606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:24:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB6D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D4D606A319
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:25:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22D4D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=okonski.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=okonski.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AAEQoXKH
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so18487985e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:24:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=okonski-org.20251104.gappssmtp.com header.i=@okonski-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=X4UC2tzT
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c247f6687dcso181435966b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:25:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792434288; x=1793039088; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7AqszT9JK11llslLQymtoeL6/CVsiRkIvN5VK7Yksp8=;
-        b=AAEQoXKHc4qVf2HIjiQ8hLWltD/WNmxMWjj8qt5UwN5hy1+/yKrcck/VhWskWsunqF
-         yo0007HiGPNS/iWFOfPU+uMkVzFV0mVFotObqlrQ2gGZ1h5uzaOtd/PZAvrllk3OKRkO
-         H0N/htnBfc9Th6zrFhkmNfUNHTOSduebN3AKmub6tijY53xDOZwxBXoXLyJnUkvACQu2
-         z8f9zH3xplsg9qACQcCSLXriJf66GOnJZb4HrOCvyTuUJ1c+zEEZw8pWQy+Xje2QmB3o
-         isUsgzbXIR3XQwRcpIrTdp+wNcw0rWutNAbNpJR7cLXoOL/M1OBQW7JSRiSMfkm4wo1d
-         nkyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792434288; x=1793039088;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=okonski-org.20251104.gappssmtp.com; s=20251104; t=1792434299; x=1793039099; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7AqszT9JK11llslLQymtoeL6/CVsiRkIvN5VK7Yksp8=;
-        b=PWM7huoTbvGc61HhNvnrDOLiUn/ncVqqZu34vwlCFqiwrfanxNoSmhmD9FJBCUyppN
-         +2P0Jc7xmcoBMZO6In4mUAg+Nry1WrxygxPtTwNYEOHCb9aeQYvKsjIfSomsM5ViURQ0
-         W59+5/RVj6GsSGbVW5QI/aRVLWqZhnf336IMVnO1NO5beuKlA/ZY8ItER7Ov+0oGpNEy
-         8M7ykJ1LdmsJ1qPISJ2r4UPyYtZy33DCVKy07ycLlynjyITEho7Vw8da21Pu6l3hWx3j
-         bJXXSpdERjraLEUBmtCzKXwQI+g8IeNEruh7B3a529kx3D5gNfX9Ke4HuDwfsuV+LRRL
-         1flw==
-X-Forwarded-Encrypted: i=1; AKwUvBwn/8NYg9l8G0Fahz+NpTbAb/JXi1yYnFe8XGQgLHlscnx5Eu4YgY1qAznMYxVCfZgTALJ3y3yi3zAJrOE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQOUjC8gwGYImJiW0ww4tshibGk87fLtuBHO0FFZQjjO4rhuLJ
-	cF0qIpFoVT3CSubj9J6LUMYIm+EPig/ZwnyMUVqex6HKsfb39EHw9ZTJ
-X-Gm-Gg: AYBFou0dT5Y2RzaXeUIwfc+YOLXgMmsP15ZC86Giyj8V08c0bJbKkeq+stznHVrMWpY
-	K9/7v1NUIq2DOjuKeXV29+Y7Y58L9Pn9ZFg+PNVqnu8m/oIPs2G52QNULM58CRSbi7lmbgYXdUH
-	qKuf8/S+e6KuzCHviuAUocYIF20XVKx9whJ79xO+D4od10b+nwZ+9pjW60Esru1r6eCPuG1exzX
-	X6tvIpw7LiALgoPCBejelzp6ao9Ai3o+W5zC6LDOY86SoOeu0iZlN1JQ7Cr7QUczTaagA7LLWMb
-	L6GW8ZgDUJ2Pzl0VyDsAiVPdKWY7Kbl5LPNfaVRMcHa3X6o0TIWVr8FSb7knfF21DTCCvcd0J7c
-	Kinftd6wloEicLgOgt0d6FxSbJQPV+CToWuO430UAN6FQyW7ESomdDsHV2ZiCuzxItVwbEl/bVC
-	rtBe3Q8g3dGzSuHRxW7XYvS82Puf2XeBtZ6aTE/OK3YdCnrqH5kFhquu504j7zOMVdD/9LsyD13
-	LjkEsLZfH6Y8F2wRMBZg4Vfgzz0Bbl3mza6KmLMFJnUmZcoCWAKykWIid+F6GyWYwCsqTXWVlw=
-X-Received: by 2002:a05:600c:4684:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a1d76001e9mr174049105e9.16.1792434287773;
-        Mon, 19 Oct 2026 11:24:47 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d6db78csm613743f8f.2.2026.10.19.11.24.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 11:24:47 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>,
-	Hao Yao <hao.yao@intel.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Date: Mon, 19 Oct 2026 19:24:45 +0100
-Message-ID: <179243379000.31842.4735750009847702427@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019162722.25587-3-lsa.uz@pm.me>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-3-lsa.uz@pm.me>
+        bh=jtPccQqJ2uVD863ndD5Pql7lUKykf7N9xt+2EMl4boQ=;
+        b=X4UC2tzTUDZMrZcRbRquqMSyNAEOAKxUZtciQ+klss0scatPZpmv25j24B9UxdZEd/
+         xE62JUeiUGNFiVcWffAloXMa0JMZr+o8SsYSLbmCAVGPl8DFTqvqeUbompo6CKj2nMEd
+         oVgiaPNxN27Sjag2nS8ZbA8JGhC+/GdREmTUpnpubIMCtnx7EiDY0aeTRjl0mc1Gyc0d
+         GfpPgSxGEPBQatqNabT0jsPj7Myzvg1n7aECT4hFEmF1PHdrj1jxPY0i/HsngGe1exd3
+         8NemxlzCAzGve5Olrt3xFbOQtq9/jyuRFJUcKqGvCRtwq6juCC1lfQ5/Ea78iNT+4cSj
+         48/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792434299; x=1793039099;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jtPccQqJ2uVD863ndD5Pql7lUKykf7N9xt+2EMl4boQ=;
+        b=AL/r/G+OMgP/l9q/16xGtLTgpnz7VmeMMemcX2MDHx4+CT9V4p+Hm/vaz6orVYYsPC
+         Q4oV1+we5yLGu9uiVK8Hi8H453TxQkBxt7PRDme2z3xeS3ybovxnCqaaUnE9j9Mw3Sp1
+         DD35Ssy4Y/lIJUKTdBa8jFs7bwZRLYy2DTGvCJ1AT9pOzDFhoWQHu/ALa8DKADoXI7G5
+         HdHmJR5gAQtE6mP2YMp7dChTzzft+zBTavgkWnjV++9KVQRW8Ox1YxHbibTtnVJcYuke
+         jjjCU5YknHdZDKXarPVcx0ID8NWl2VILuDYWK32F6Jicf54vYfDy4pBO2y6cIFA9+0aG
+         R+XA==
+X-Forwarded-Encrypted: i=1; AKwUvBzk9lZxjofrT0FDcr9DjDsqMdOGzbwuljjtWssZPWg/23Ce2pV/P2Oqq7JSXGazuKk9r0Nk4o/0Ob+bHKU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLS9jflca3lPbMkuNeYOgS6w+938k1AmSFkGUCVt53YB1xNQEhU
+	paajTBOqxyDQph9B/dCr2nWEYEf5+l+DK0TOLr5krLiofinczSoH5zzfe/qDgfpHrHI=
+X-Gm-Gg: AYBFou19U5V9O0yPPKIe+ShUJpBs5wTrFI3ktnXNtxs1DCLATaS6R3w625aTrIzDRAy
+	9FXLRy3ZN0oGBvRJMAovriyefpjWIfZiU8MVpC/+/4mM+aQr8JZSDvcHtwMU9+FPCNQ1ml0p5nw
+	PyC/vxAaOAhvmwDNV+9PVQzR5VO61oYjDF1Foisc0o9FNpoKKL2Bpw3T3w4WEbA/kTR86qiuddH
+	H+vuQcgTNcF/5yHOzajK0mD6LiKFql/Qft+E4ucbarveK4iYEjX1cj1xa2kUlkKvCu4k+DtkMzy
+	IKNiiGdayMB8qOsR4+s2RAGDrbWWo0m9jPbErnZvajoACBW+NpSLRS51kHwCUkzl3s97BoN4Wxj
+	eKel2DbQCVzE6wVhDGYZOEw5O37QR7pX+RnSpjEK+yceQJiR3DDMMX8JvzhfdlS7fiIbMY2oz5y
+	+Pqwx2s2XQk3oqbzLEOFm6tDhFWKDbSZErsvNMoR9yTRKZuIInT5oELV1JSBOWeQcImCcduVfGp
+	MYORQ6NTgw3N0Hi8+byFNTOTlE0g3gnUP1EiTrPmTXmbEo8aNmEyq0qU630zGyjd87wmbIHEq7g
+	Tbay7Mv4B47HOXq8fkq4SIAFV7TxcPopZ2r4KUrcQHY=
+X-Received: by 2002:a17:907:b046:20b0:c42:102f:15d7 with SMTP id a640c23a62f3a-c42102f36d2mr336567366b.10.1792434299287;
+        Mon, 19 Oct 2026 11:24:59 -0700 (PDT)
+Received: from ?IPV6:2a02:21a0:10:748:1::2? ([2a02:21a0:10:748:1::2])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40919bc147sm388919966b.50.2026.10.19.11.24.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 11:24:58 -0700 (PDT)
+Message-ID: <01e25832-955c-4f39-a902-6cc253a2791c@okonski.org>
+Date: Mon, 19 Oct 2026 20:24:57 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,40 +92,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/7] sched/eevdf: Move to a single runqueue
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Mike Galbraith <efault@gmx.de>, Peter Zijlstra <peterz@infradead.org>,
+ mingo@kernel.org, longman@redhat.com, chenridong@huaweicloud.com,
+ juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, tj@kernel.org,
+ hannes@cmpxchg.org, mkoutny@suse.com, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jstultz@google.com, kprateek.nayak@amd.com,
+ qyousef@layalina.io
+References: <20260605105513.354837583@infradead.org>
+ <20260605124052.227463677@infradead.org>
+ <58dc8e8a-7260-43ce-aebb-8d9c29a6afc9@okonski.org>
+ <b1002150c3e4f877d04790cd8e85d2149d17722f.camel@gmx.de>
+ <atZM6uF0CqCNh__I@vingu-cube>
+ <f1d0fc39-6939-4fb3-a422-273cd5c347c4@okonski.org>
+ <CAKfTPtB_gMM7axqM167_Tb=WiChskGPXFDgQ4YjVz4Bj+ZiJ0g@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Jakub_Oko=C5=84ski?= <jakub@okonski.org>
+In-Reply-To: <CAKfTPtB_gMM7axqM167_Tb=WiChskGPXFDgQ4YjVz4Bj+ZiJ0g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 04:27:50PM +0000, Sergey Lebedev wrote:
-> The clock tree is computed from the input clock and the one link frequency
-> the endpoint gives, as in vd55g1. The MIPI rate must be an integer multiple
-> of the input clock, or the sensor would run at another one, so any other
-> link frequency fails probe.
+On 10/19/26 20:04, Vincent Guittot wrote:
+> On Mon, 19 Oct 2026 at 19:36, Jakub Okoński <jakub@okonski.org> wrote:
+>>
+>> top of 7.3.0, it still regresses from 7.2.9 if you test with a nice 19
+>> spinner in the same cgroup. I think it's incomplete.
+> 
+> This patch only aims to fix the sched_idle task group case. I will
+> have a closer look at the nice 19 case. Have you checked the different
+> cgroup_mode with nice 19 ?
+> 
+> Vincent
 
-Thank you for posting this. I tested v1 on the Snapdragon Surface Pro 11
-(X1E80100), where the endpoint is 420 MHz link frequency (840 Mbps) with
-a 19.2 MHz xclk.
-
-As posted, patch 2/4 fails probe at the integer-multiple check because
-840 MHz is not an integer multiple of 19.2 MHz.
-
-For a test only, I removed that rejection and left the rest of the driver
-unchanged. The sensor then probes, the CAMSS media graph completes, and
-capture delivers one complete 644x604 Y10 frame. A continuous five-frame
-capture then times out waiting for frame 2.
-
-The 1200-pixel line length below 900 Mbps is already present in this
-standalone driver, so this is not the earlier line-length issue. I also
-tried the ST one-lane OIF_CTRL value 0x81; the behaviour was unchanged.
-
-For comparison, Peter's generalized vd55g1 series, with the 1200-pixel
-line-length fix, streams continuously on this same machine with the same
-19.2 MHz xclk and nominal 840 Mbps endpoint setting. Whether the sensor
-internally rounds that rate is a separate question, but rejecting the
-configuration outright prevents this Snapdragon model from probing.
-
-There also appears to be a second difference to narrow down after the
-first frame. I'm continuing to bisect that and will report the exact
-cause/delta once I have it, so I can't give this a Tested-by yet.
-
-Best regards,
-George
+Same result in my nice 19 test for all of up/smp/concur/max/tasks.
