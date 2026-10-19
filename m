@@ -1,118 +1,151 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5C34848BF
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A6840D578
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792396925; cv=none; b=bHMV3tWzFNUtH8PDvNntyF3nfOEZhRuQwYBWua0uz2uaYozu2WO2/G3AOLbTnIsnhttJNahPhp9JlAFfxILkxdjmFH5nklmFZtuC/b2mHNiNRrDLB4L9NCSmTbZ2qg4BSuoHpqbP0cpzpTMlZm5rL6+XNVg7o9jpoGA56Glki6w=
+	t=1792396949; cv=none; b=Ex2EFbAVsBSSs6mRt1G0+iEy/P/dr5uvrUEOXQCIEdLcCF6inU6XD7AWIy0ifE0r//yTqlF9HzQBaH/BUIsh/i8MHi+DvDOGxXrdthsxbGSiVwUGg9D19H7OLGT+upF02Kfw87izdLUs4ZXwKvVj4f6B92AUnniNf5VWNoSBHyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792396925; c=relaxed/simple;
-	bh=NlaG1q+ONGQJbaGNkUUh9mATkYcGFJVJQJg6b3/oBZk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=MedV7GSA/xQsQQbU10BsarJfd4DSG0+jEStwrqCKFJydtqk1axuYg6NPz8aeh2SEj2njQuJoEqUPxtcQ63q6X3v+/DJLR8IKvPYHVP2z8Ka1kwI+dVG+AIVvB3xRaMKrA0WSK+7wvf09X4+dQidyv54SqK9pZiYxrmDR2gBpLJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Hxmg3v7i; arc=none smtp.client-ip=209.85.128.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1792396949; c=relaxed/simple;
+	bh=kYlPJuAuIKr5qyWDVfbS3K51caxRUyA4HeA7cellua8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UFxKUB8pIguThpna0SFMDjnXz6uwKFOsn85Mvcl27AQHCDZlxLhFvSC53DK1CM5iyJhRatViXS3siKlpt12ZijlzFJFDg+8CLWvF6S8thAgrfEpC1o25LCR6YHjlxkHvVeTPEPqtECpw1ZBX9IQCWcD1GUeTAvUR6Db2F6Xm+O4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m51zfZxG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KYOZX9Xz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Hxmg3v7i"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1e489f97fso8096425e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:02:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m51zfZxG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KYOZX9Xz"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J4jRBR1555803
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:02:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TRUwB6B7dL/KKexklkwCA5XaycFB7zAaLIgeh4JyMR0=; b=m51zfZxG6tsszrz7
+	5+GVSh7lRNYenON9mj/Cu50y0dYSUhsQLPY9IBZ4HC6hKHC6dySawbLFVZQqbRps
+	THoMxUczMSeM3Gnt8836HH0l2gi+7L6+zaw56XFJFswrnFY0A7tinCwiasQq+DYm
+	2f7AI0OnNaF2Mx90/XiDteQBJd/LleaQQZthHTslrYrAcG2ky2CfdAB7PiMucl9f
+	4Ev3FGjj97He8hzcrl9Zm1yo126ysY5qi2PxoKLGoyIcKW11extuBPdnXUNkAYWb
+	FsuV36I+OiQXTg4pMzFehWDYz2K1ZdldY9frtMKxlUdneRlkhIK5b7MSO9C1U44n
+	lWXBqg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hd5ur1pth-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:02:26 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f13c143c8so354228685a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:02:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792396921; x=1793001721; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G0t3iuUoGIZRca4fYcmBoqCEhSRJmAHTnYpYvfOnYow=;
-        b=Hxmg3v7iSQQ1mreaWN+mNDovW3eqXKEyFrVVnCI0lFOVEruTiG6zM/jDaeE9CyUZy/
-         uSLSAPjMbp5Rs8A47VNOU/LPHL60ngCIfiVk1BH64u9KYedu/9dhkHmjfI9cTeCrqD0j
-         yOtCzxKO1gcGhRkq0N3HcRbmLM9MxtLwXNT7XsUIJmFdcyS335rnWJ5OjfgMKK5T85Yx
-         25QlFxrJaQpgfpWSYVdVbHAOUvZZoILrxLCNsEzq3iOLd2tLfAdPdhm5IKeEHa0EeAAO
-         sv7IMafKpH2XtA/M3TD9d1u3ThwUqMNC3I330pKeqIcE4jrDuJrfHEvHObh+SCsPhwNU
-         DqCQ==
+        d=oss.qualcomm.com; s=google; t=1792396944; x=1793001744; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TRUwB6B7dL/KKexklkwCA5XaycFB7zAaLIgeh4JyMR0=;
+        b=KYOZX9Xz52bNVG1I5wOypRyEyhx247XuvvDFuazByz1NzGdUKEScMFSIkgeiE17skp
+         jgAZQwmTESN2b8D0gTwl5/0YNbEJkNfwDRRWLO6uYol5PaSV2OZc/N+qGd3Ug/K6Ze1c
+         AFeULePvcv0hVJwNlk3khB8d1sFnyRlc/EDZp4+ZmMtD3AYokN5jdRG/ZqnJDD64a5nJ
+         ibjJ4mSg1AG3sVXGClXzHia13AOUjqQnVV0vC7f8oQMGafDQZUtNpngbJAOaXKjH4TlW
+         Yy2hnB0CwWZRKmB1A3TMYFXYYN4SWNhO7RUq8WzJmUic/BWRJw9s0fFoFO2CMf9ngba9
+         0QgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792396921; x=1793001721;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G0t3iuUoGIZRca4fYcmBoqCEhSRJmAHTnYpYvfOnYow=;
-        b=AXxGbD+wVlMjQ4nBq7RvAafE7RGPQ2jdknPig16j3A/VYLGFWByXImyyg97RJVIM6T
-         hHk9JS89kvto0RKriCF4y+Cn9cI+TT7XIiOvjCSMoTzn2dH5ikJRGFknk1O5fb4/MbmH
-         6ZN7SLQIaF2zabh/mpuqyOEcnnRG7oSuuv13amdhzEEYbsd3wiKyxdWcIVt0z1V8lQiA
-         SjXDy4M6fj0l2WtdjxL/5bYg/yVJDcqYzfSMZqnpR7x2CJP7ZHal8Zw5mlCcBS32X2+9
-         RT0goPa5XsSooZHF3wS9CXEX4Fdu4cY6F7VUtCZalXQjpFaACgUDKVXDt5WHu/T6j1F3
-         VT3Q==
-X-Forwarded-Encrypted: i=1; AKwUvByfNKKOnyiK4c6xPvZ9AjOFxHyTCvHG3ujNE94MaoLz6wgMUnkVowRmjILM3E7uoFH0m536MTxQHYG1jfc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOUfrbEexvNV/ttuJ2ZOscJ16qmtf3sqv8WgxKbKoSfMCdGui/
-	Nybu1/HBMnERi84NL9lqR1HImHIENSEG3wBErwcBobdHFoGvXn7FRwcGH6AZZkXqKOVXsHCc22m
-	BE7hBuqjcpZHCKIX/KQ==
-X-Received: from wmjk23.prod.google.com ([2002:a7b:c317:0:b0:4a1:c221:789b])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:3b22:b0:4a1:7690:d878 with SMTP id 5b1f17b1804b1-4a1d7615cb9mr143326165e9.17.1792396921174;
- Mon, 19 Oct 2026 01:02:01 -0700 (PDT)
-Date: Mon, 19 Oct 2026 08:01:59 +0000
-In-Reply-To: <20261016-b4-dev_query_fixes-v3-2-f8071cda3515@collabora.com>
+        d=1e100.net; s=20260707; t=1792396944; x=1793001744;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TRUwB6B7dL/KKexklkwCA5XaycFB7zAaLIgeh4JyMR0=;
+        b=zj17U2hP6EfnjGveag1TFas9L4gcTWUm+bvdunxeuyz0FZdZie/2t3bCrHyRQ61LSE
+         mfgPitblgk03fiC7h7l5Wt9GJCNp0Kfm4EYQz20fZmwkGj1OEjN2m4uv5sU3OmOPZBWa
+         HBMEs20NFezB5dQX2WxdrGFsKU6EUb4m1z+H+Egit2KV+zBaZl3YK/9P3HkfN8ZbU3Yn
+         zS1n2QiCe87uEzk+fL2Tyfauk34keNC+3yrapXa66aTvQtXTwhFtuNm38udGJDvEuJhw
+         6DhA6ggsnnC/cwAudcDwEl8Pk2sXOm8GYdSabkY3lio8sHJl9Zo9DY89FXfJlaWfR+2H
+         XM/Q==
+X-Forwarded-Encrypted: i=1; AKwUvByQC636x/XHjVLc9YCtFcNXgJRgizZwF+n2BwQRXArzUhdbvRW8aM9E5rDhsWrngYpIAsNQtUATGb0+9d4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBBpwHXDcf8SyG7KL8L6ZkF/QPRhDYtNL9sL7nPnfn4mXS5/kw
+	UrzlLjpKoyBjtC3Lr324JfDY1pX5+w/fgCSNVrnKUSVFP5oo9yN0WZ123gbP5yXUj033iwFz98d
+	ICEmH5p/GUmS9mKrr+zZYDoOqYL/ox7Gwnx5XfEjjsNiXR7voB/pErvP/CsaoqPy+5+o=
+X-Gm-Gg: AYBFou0hgv1rXMpsZP9mvHZRXrc0Cfe6tljDQdD8fb0VwC+ya76AU4X1r3AhYYzmPK6
+	feDlHeFER2yJJqNEA4Pv0s/45Nfl02SjBemggPxkVxi75K8eb7dyvLTfu/RF9qwQqqYRoA4/rZ4
+	nQXigAY9xqehI4R71SJaRuamh5XlIKLYyG4gfiqVVePtZf+BuEuwrtiMIGFN5bXHmCPGvrvVSdl
+	lpEsxIAYMVQ1jWMW36YGmVd264meYXho6tvEtkmiJWjL6MS1Fsx1i3k3fUep6Yq/C+YtEhmVTt1
+	MNg3ZgnNJfRJkuP+Buxzn//V6ZAjRrbsV0GIOkKJ23F0koiCfBNmthchDLCPP4r3xfbePR5PPA2
+	LnDxJg6xlABaE9nsGZ40rT5dISW8=
+X-Received: by 2002:a05:620a:3903:b0:93e:fa30:f1dc with SMTP id af79cd13be357-93f29db40ccmr994242085a.72.1792396944229;
+        Mon, 19 Oct 2026 01:02:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:3903:b0:93e:fa30:f1dc with SMTP id af79cd13be357-93f29db40ccmr994239885a.72.1792396943788;
+        Mon, 19 Oct 2026 01:02:23 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ccc15aa1sm251269315e9.14.2026.10.19.01.02.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 01:02:22 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Kent Gibson <warthog618@gmail.com>, Dipen Patel <dipenp@nvidia.com>,
+        Thierry Reding <treding@nvidia.com>, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpiolib: clear the event clock flags when a line is released
+Date: Mon, 19 Oct 2026 10:02:19 +0200
+Message-ID: <179239693683.5934.5426638278693207577.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261012-gpiolib-event-clock-v1-1-aambrozewicz@nvidia.com>
+References: <20261012-gpiolib-event-clock-v1-1-aambrozewicz@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261016-b4-dev_query_fixes-v3-0-f8071cda3515@collabora.com> <20261016-b4-dev_query_fixes-v3-2-f8071cda3515@collabora.com>
-Message-ID: <atXOd-EeFkdA-trn@google.com>
-Subject: Re: [PATCH v3 2/2] drm/tyr: allow userspace buffers to be mismatched
-From: Alice Ryhl <aliceryhl@google.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAzMSBTYWx0ZWRfXy/KUL6sqBkZ9
+ LLUhvGF0Xy19TisJBdRTXmLv+rqXtjI3IURTdWAXvTuwkxB/vMFRL2ZFudFN4HMCNH47ZOtCvDQ
+ gt471Z0bv6aB4Z4Rt1Z4AQK7Q72AW+k=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAzMSBTYWx0ZWRfXxHkmq5EtzYOf
+ fhD6IO/xKbSt1LqMTqplTHlcqwa4PukvAm+MAyoMRBlTIJPU1qpGlRwFLAeHuaBon5GqsJ3bbne
+ 7y893O4DZVqSwnkjShPn1sbkx0dYSA7d3b68rOCHqfZyFrX+4PDQLGpirnJeZgrijqeTF3Pc0BX
+ yRGD7QUxpX/sCLhUZAy7HundoUI29CYJSYFd6OPq8UjIiK+baxLDkXUhrN4ChltJcXrnRkr/mW8
+ Vq1Wnc1hOKkSO4e9PchRBy+PdglhpMKpuh2+DY0w1V0vw3t+8RSxyFFTvZyArH5GLewXAOtUSEE
+ xxEIamjVp6UXfGwrecvk8jGMtJl3a138orfvzl4WC2tSjfmC6IVFwim3uywSz9s2X/1Pk1UXktB
+ UyU6zkkeFJzWuGnKTZT6bJnPEMdd42aZkxZD/RPzWHRZ5nbDnWKEEcoL/T/zk+s7NJb8fSG+NUH
+ benVknYI21gvOzI4nWw==
+X-Proofpoint-ORIG-GUID: aUW9Gydv8nLGCj3BUR0cd9yeYUflyah6
+X-Proofpoint-GUID: aUW9Gydv8nLGCj3BUR0cd9yeYUflyah6
+X-Authority-Analysis: v=2.4 cv=CP6/zhrD c=1 sm=1 tr=0 ts=6ad5ce92 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=oiBmWXjJytMpFWU2:21 a=xqWC_Br6kY4A:10
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=NdVV1Al409Mjye1PRQwA:9 a=QEXdDO2ut3YA:10
+ a=ZXulRonScM0A:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_02,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190031
 
-On Fri, Oct 16, 2026 at 01:44:21PM -0700, Deborah Brouwer wrote:
-> Allow userspace to provide a buffer that is smaller or larger than the
-> object that the kernel expects to write into it.
+
+On Mon, 12 Oct 2026 16:49:45 +0300, Adrian Ambrozewicz wrote:
+> gpiod_free_commit() clears the flags that a request sets on a line, but
+> not GPIOD_FLAG_EVENT_CLOCK_REALTIME and GPIOD_FLAG_EVENT_CLOCK_HTE,
+> which gpio_v2_line_config_flags_to_desc_flags() sets from the uAPI v2
+> line config. Once a line requested with
+> GPIO_V2_LINE_FLAG_EVENT_CLOCK_REALTIME or
+> GPIO_V2_LINE_FLAG_EVENT_CLOCK_HTE is released, GPIO_V2_GET_LINEINFO_IOCTL
+> and the line info changed events, the "released" one included, keep
+> reporting that event clock for the free line:
 > 
-> Set a minimum buffer size to match those in PANTHOR_UOBJ_MIN_SIZE. If
-> userspace provides at least the minimum buffer size, then simply write
-> until the buffer is full.
-> 
-> If userspace provides a larger buffer than necessary, then zero out the
-> remaining buffer.
-> 
-> This ensures UAPI compatibility with Panthor.
-> 
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> ---
->  drivers/gpu/drm/tyr/file.rs | 47 +++++++++++++++++++++++++++++++++++++--------
->  1 file changed, 39 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-> index 9f60a90d4948..a153aa453ed1 100644
-> --- a/drivers/gpu/drm/tyr/file.rs
-> +++ b/drivers/gpu/drm/tyr/file.rs
-> @@ -1,11 +1,18 @@
->  // SPDX-License-Identifier: GPL-2.0 or MIT
->  
-> +use core::mem::{
-> +    offset_of,
-> +    size_of_val, //
-> +};
+> [...]
 
-size_of_val is present in kernel::prelude::* and does not need explicit
-import.
+Applied, thanks!
 
-> +    transmute::AsBytes,
+[1/1] gpiolib: clear the event clock flags when a line is released
+      https://git.kernel.org/brgl/c/d35f61581ee67f8d4d58c325bac813cea528b6b9
 
-Use the trait from zerocopy instead.
-
-> +    let mut writer = UserSlice::new(UserPtr::from_addr(usr_dst as usize), size).writer();
-
-On 32-bit this will truncate upper bits. I guess that probably matches
-what Panthor does. Is it what we want?
-
-Alice
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
