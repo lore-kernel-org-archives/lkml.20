@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792429900;
-	b=o+1tGLTi5nvKAGgmlhmuZfRvkRuIHKTuvgcQ3u7X4Y8moLMyb/EwZwSbXS7+JfDrisUW
-	 +RbdNtl2DnWLwl4qlMaZgSrdDUArRMdIuGoSYNScsPj6e9IfTkqaKbSHgXKLz2yuFwBIe
-	 2OzJgd/3gtzyBSLIp2yEAau2hQy1tueDU5Vo1FGpeRex7AesHM2Ul/K8w7KX3XLrs0XmX
-	 NojUFVtqoW/CB/5PsgLeeOVKmKr5fAG+ZARi/2xKus/89uuVageGLbkhEf83mWulaDqG/
-	 3nBufmgyBk0vCRZJxdVv0AQU07yPyTStP1t8XmT/R2b+raDVZhPAo3J9q7C6wrP5/tw==
+	t=1792429899;
+	b=YgTE20X+W4eYhKLlAXRWWnuwIm3989kP5QnMz1fgMpgNSEyXwYrhKI+UBoAhZYcYFKVW
+	 YY19ouO9H/1TV4N6ZsvHd/xhiLBF0VX64J0tzdoyqTKVse+9W56U9lB0e3aYC8LESkwKe
+	 +QiHd2bv+WV/nIjvSiEjA7gdkE3kgY9FfSwBN/rAwnJ6RFAUor2HQ2KXExRdD9L9UiUK8
+	 aqqOwD83POLrBfHygVuH3lf+6ydOcWcSjYFrSF6pDxBZyCEiXr6r5TvgRMe2SdPK9h/X1
+	 GjirNQBv0o/EEgkMpqVeeRW/ww9P64m0GubwkgJQni3TgphCmE94JNiM4/J/h3eUcPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429900;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429899;
 	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
 	 In-Reply-To:References;
-	bh=YetlC2DWrTczo/ff9ftzwmRiksXgWppu1i+EPuNzzb4=;
-	b=1Nkr7IRGLi/Ap8dHK5bUIBHqSK1uSFPJzeguF+Ho/s7AWJ2mHAH694qU8VZV+3I2VC3O
-	 LkxvtrsHfRboRy/YAfpgtB5tnFVvutYW+EUqglaDWJs0Q7wixvZ8oHwZYU5V58CBwI049
-	 J4roncGhd73V4R6DsbY5b0qshfU8DoahqLq3PnvUOdMIQOx6rCs2VlMMeE9szFUda8sVQ
-	 LCikCD53Oxm6fM37MurArJXBkTJ3vBqRGd23K5kplvLriIM8cX/exl5D/r47ni6623fQj
-	 27XmcZdGiPLW9pj3lFeEkk8BPEuxXvIOukxviWYaADM65fmCsXeSk5OmS5iWc7geBFA==
+	bh=xmuXHhRfdZJiWO9pcue2VV3XCRgsivcHNxf26+zNoZI=;
+	b=wee7RG550m8hkvfIHWJSR9yVUVXiXtq/GGFhBYhTk8aa0oonc5Ntzv3h8g6qbbVsD6Mv
+	 QPHHrC1zK2ms3nEcYWwZM8lOuK+PMovJ+/r4hmd8qkF9mNiwFZIUihHHWd4Hk17y7AQrH
+	 jDzDykS0/hbCx4/rrHyAtRdQbsBiLKVwFBYQ4AZ1yQ9OrE4oNrShq1qdK7gDqgkbw7dDN
+	 DmMLLkIygO1RKZfxKjSrk9435zWQ0GRUcwyOnrSFEKSXjB4U1lMPhFBQe3zo8YnGHFPWh
+	 l4GTv6davRdt1FedtrmwQeWbbUBkw9j6j8sQdWYpBw8GfPU18dNaIT7JAOLcLNLH5pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlXZido4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lWFN3zEn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91AD606A322;
-	Mon, 19 Oct 2026 17:11:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBAB3606A31A;
+	Mon, 19 Oct 2026 17:11:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlXZido4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C2651F000C4;
-	Mon, 19 Oct 2026 17:11:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lWFN3zEn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39F1A1F000C4;
+	Mon, 19 Oct 2026 17:11:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792429899;
-	bh=YetlC2DWrTczo/ff9ftzwmRiksXgWppu1i+EPuNzzb4=;
+	s=k20260515; t=1792429898;
+	bh=xmuXHhRfdZJiWO9pcue2VV3XCRgsivcHNxf26+zNoZI=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YlXZido4oeGqEoNTsCfSLUQPrcias3BpVYyLDJrCoED7b7Hjc28hjYp5dz/xPQ1O6
-	 nq79pLrIBdYcavs5MDOFjOd00/YUUnGlnhn1WMGKVqpRYHvj72tTMS/NhiQpjNuk6J
-	 WqepAXFxM5GQXtCWrRYWBT0DFnj/dn4zqQJo/I8mW6q+DKf1fiebF7/3n3007On0K/
-	 UHMWi+k1umvNhLt2ML1tQ/aFIA1IN26GXjz56PlV7Hqu79X+cquI8HucQVh+N4Wr57
-	 7zmKpo6VTfskyv1w2+mbWy/VlWXPLD0t+Inm8DqC8I7iV1nRB18sVTitldQYvrBP2Q
-	 FWFlElIGe0fuw==
-Date: Mon, 19 Oct 2026 07:11:38 -1000
-Message-ID: <803525ea614f78908df69335e909f748@kernel.org>
+	b=lWFN3zEnyKK0cjiF8iim7IZT/vb0NwSoqP+6sgRXVlR0y6SkRZIxFxxw4KBblMwMP
+	 NsiMonAfjGzk2gOXvLD78yAbjViXxFjL7g/DxOnc2gpxtoJR461o8uRmoQbaPBaJdt
+	 YV61nWvj0EQA6jpyga/P0zGivMzwGj2xV5TAyutj+JSket/+N4AGCzEwfXb2uAoZp5
+	 VxzbOhuEnR2gj6DtZNw8cWhF1ShjTwmW16bVFe5eDPLQDCMMk7iJkHlns1sBkptiJU
+	 2nIarCeEo7+JjYmuZuYJSzuZhdlLTtn1HFj7fpiLSchYgM68Ak9wpdhQqGzds0saTi
+	 5pnIRExRwbOqg==
+Date: Mon, 19 Oct 2026 07:11:37 -1000
+Message-ID: <16f993e261e43155c853c62c3e2d3507@kernel.org>
 From: Tejun Heo <tj@kernel.org>
 To: Mark Brown <broonie@kernel.org>
-Cc: Andrea Righi <arighi@nvidia.com>, Kuba Piecuch <jpiecuch@google.com>,
+Cc: Kuba Piecuch <jpiecuch@google.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Usama Arif <usama.arif@linux.dev>
 Subject: Re: linux-next: manual merge of the sched-ext tree with the origin tree
-In-Reply-To: <atZM-tXvYuR1bE3z@sirena.co.uk>
-References: <atZM-tXvYuR1bE3z@sirena.co.uk>
+In-Reply-To: <atZM9nFiaMvuX9kP@sirena.co.uk>
+References: <atZM9nFiaMvuX9kP@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,12 +61,14 @@ Precedence: list
 
 Hello, Mark.
 
-This one is also already resolved in sched_ext/for-next by a5ba5c61951d
-("sched_ext: Merge branch 'for-7.3-fixes' into for-7.4"), which applies
-the rename where scx_reenq_reject() now lives in ext.c. The sched-ext
+This conflict is already resolved in sched_ext/for-next by a5ba5c61951d
+("sched_ext: Merge branch 'for-7.3-fixes' into for-7.4"). The sched-ext
 side of your diff matches for-next as of Oct 9 (a8acb152ff95), from
 before that merge. The current for-next (24c453aa8598) merges cleanly
 into mainline.
+
+Ours differs from yours in one spot: in unlink_dsq_and_switch_rq_lock(),
+scx_wait_dispatching() comes after clearing p->scx.dsq, not before.
 
 Thanks.
 
