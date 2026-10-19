@@ -1,73 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792425011;
-	b=mdcWCjrjGihuI8oowkZmfDFSyDl5gFnusDS2c6cP2S4xVMpvX/R2t30C1zn4GtjBr+2F
-	 FPMzHVxdALBQ26Sl44Z40qLlObcMuVZOwRnxIUMWsYizOOxXeysZ5ZTNZOMoNTMd9XJ+L
-	 YIy3kzXI+QiYEJC1XZRZUUZE/XBcrJsPpuLDKP1vucjhoAKBgfgxLJ8GERX2rhuYFx40L
-	 lYPxzX1CEGctlqQtUvH/11IyB49YvN6VZM+uh3/mFmmJivIp/EJcoV7QPBNbkso9AR3xr
-	 MW7shKozzh12Vhw15/Jq1gl7fDlj/cnHJMyEKAq7wODRfg7Y1r6LIjcFHc8Lf5gJumw==
+	t=1792424986;
+	b=quq/i1GNrCP6HZH3dZRvTg7wkrmNa03BnAps9maeZN/VvbJd4LW9e/nbphBExK8GZvBB
+	 e4gvqjDNco1idRsocsYDS3E7Qk7liMD56KUv02zejxsUQdMvXe7T2MsvZOxUVSGSoVhPh
+	 1+bgzr//3+okCkqgegdh1aoFZzPnCdkejm2h8Pv8TSnxW1GLfBKxoZGYZCtbVaFkIPGaK
+	 PD/nHXc4hBtamlQuHy+DZDW8oaq5txKbaQCwy7pKcUi5BagUpeJPrXowgIh+owKF7ssqf
+	 JI0zwthcrgT+DJ6DEk62OTrrAwR9fkausOR4P+dOjYdmY1mYzOuj3yzzHSQ8K473rLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424986;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=JIYW0lKY8r5WbgU97oH0sqdYNOmLWzVfRBL2C79VgiY=;
-	b=1o2AMvJtCabq4E2z7o27T3kLMCeY/EFXhcXNOVD88nKeWci1Jny1daYlUpYOOZwYIGCN
-	 JgdYnX0nly36VdGwkApXQ6bnvNooi/O8PsGKU2O5aUwli4/kdUnPHrQyzLrPXjKfl7omC
-	 1dKWeOGnJpfRJItY6m0QhYG273yvIaaK7MEcFOrZ9gda+O01BB4wNjPxN7352MLj+QvCl
-	 Yd/vWLwbbfQl+kHM4rD6oyzeUBMQ7B949NvzBK8ofcIiIghdtkAolQ5itgmJ5IfrfAj4T
-	 9xjo5f7r1eLc1j4CJW1BCxm6OjjwwIIkHiOyf+2NZKOiZMIbkgA6a/zRyQLA7qMSBuQ==
+	bh=Kbgj/cbxLipXGxpjxY36dW9YWtUesmr6PYKnaG71cGs=;
+	b=qe2ZL9T0RuKMeZ6gzpxOBDRCmEg2DAyMeYwOqBDmll7uAlJ7M7lIjEReQbyLQkPRTbRS
+	 ln+trqCAtTIPyusbI4JbxWEx8Zf1UdTE2ePoyxN/pZueudERZ8ssVcQubQyjvTkggGZ/j
+	 GijqO5DshDFKShiLaRaLJJCQz9vvqfb9jtWO8lxkRv0+bS2Ktnb7ru5NHgs7xfrvii2XJ
+	 Tq14Tp3FRrTYEU68xaHMU0xLV150irzjUbVQKqJiMQ6USrJ2Uupyfb/iIUuJ5iG8UGd5q
+	 fQuBzubiQzSILu48o4TJlaN9R4CxEKXDJ4RStoNSnbUWLX+ahJ7j5C6w78CAGe1NEvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IO1bSDKP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UpAdjgpJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE656080A8F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:50:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B3A6078840;
+	Mon, 19 Oct 2026 15:49:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IO1bSDKP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F321F000C6;
-	Mon, 19 Oct 2026 15:50:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UpAdjgpJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A49A1F000CB;
+	Mon, 19 Oct 2026 15:49:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792425010;
-	bh=JIYW0lKY8r5WbgU97oH0sqdYNOmLWzVfRBL2C79VgiY=;
+	s=k20260515; t=1792424986;
+	bh=Kbgj/cbxLipXGxpjxY36dW9YWtUesmr6PYKnaG71cGs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IO1bSDKPLcp5IZ4j9DF2iUY/nVHpZ2Ua0hkxJ6hhDfn4XuI+p75xy/G4r12EwpmwA
-	 u9N5UFn4VQTIPcGtGn+FunQM+L/IUiwrGwWSdASYj22meM02+hUe9iJdx4w2g9/hpm
-	 6EvB+V2jVdcwqhAuOd1RGButeU0lqT8lGyfFWLVsHnWAMzjvnX/fXhxjElIFl1wDRL
-	 CJTXpI5NNpvcFFihmZEID+cEwWNKcW1me9dnqOYGh90fzo+k4IG0wHY+XhfWK3ozkn
-	 F2STF+Yn1sN26tiX/PEvx0pNYiohQ5Ov6fO8BwCeRW0izBfF0UVQjPYxlSmBYAE0q7
-	 w7OKXhO8OSpqg==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 5C68E1980047;
-	Mon, 19 Oct 2026 11:50:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 19 Oct 2026 11:50:08 -0400
-X-ME-Sender: <xms:KzzWaq2lTI6dLRfP62uXpQXMn8_acHRa54NMXdgTD-WoThywbrSZng>
-    <xme:KzzWaiUM1eukMYRUhELWiDlsX76CyWwwqpiBCcQzGIeO5cTVXpuFqHmy9BV8vsR0C
-    WMowq0G623oHJIwuahUxFyUtOd-kqIwYkCr7JlcDCcYlkEbQJOVHQNp>
-X-ME-Received: <xmr:KzzWali5Bz8kXGXrP0nbvODy2zgeQyZ6Baw6DyzchOg375U0aFlZ9XHLdjA>
-X-ME-Proxy-Cause: dmFkZTFpjrG+2jfVBfklNRE95oThC60xlhUtv5sioyJrfpDDHbEB/2cXkTI411oJriXTLs
-    N7RLfOUdBbmoibSFu4zT/f1BKPPyxkEYUp5eDeafGhPQjcnfJv/29ZtYwE6q77Fr7A6zQu
-    C94bEu3EPqJJ50fLC5xP9PtYZOq3sS+jMfKkgkZFNUAdZxkDiyHArLijwBk9MwzijLWdvR
-    4raSXvkSyIGvp9XYd2doZUGuEANzDQejgJzzg3ARZCjBL2yZfXIvLZCg0AMujDeTHEemYv
-    cvWt94P7AS+P1mtikHZvyS9eAaK3Fy2/TwDlvaPXULPDsZK9f0sj0aca+uCBBoNs4d3uh7
-    RoQzewG/TY6u0dk9M/RDUi+4K1yv+yK67j7jmtVzymHX894+Uihg0lcvs6emCinqbM6wyi
-    +gUxb773pqkq1jVVcdmSvAhK/XxD/KPCg7Hxilx6E+9oYQ5WMSaJWUvVlcniwS0w+KhrFB
-    aoikZIMYd0Nt7GpLtgtIaE3vQKln+pJStVB0vtonatrWvsHTRAgHwTcxLdOTPe/K6HQPJR
-    iuTIfSH64MefXniZjMOLCO5Col3kGmDlFai90qTMVtRjt8vCPwHCFc3lid8qi/aWvaM4wi
-    UDelk5nM3XO9TE5wjafiWBoWVJEtmtWZsXCTxgC48VOvrEqJLpl2xs9xf8yA
-X-ME-Proxy: <xmx:KzzWargWtrUdbQgWlyLvDyj2Sh9WS2ythi6pZMOd2Wsvz6_ZhGhiIg>
-    <xmx:KzzWatuKqS1ChJwAImpgrQb5jS0sXRsqBayf8up18aNXoL3EpLm9UA>
-    <xmx:KzzWasTzLfXJWgsa7vWNhOzbf8t3G4NQleJe7kFJZjBlXivczFykRg>
-    <xmx:KzzWamEcw6XHsPbckM2mv5_oUhFq5uFaBjpv_Uw7xLhjwfQtNPdSeg>
-    <xmx:KzzWauiA2en7YXSRag6_TQGTMYyPKCsLXaQw5TAYPN6_31Ex2FRtRRgv>
+	b=UpAdjgpJLRrZt5vfapGYdm4s0/UzT09h2EUGkaB2CvZLAUbX7ETxtYHlcqaWNpg1g
+	 eXbT5UAX6QRWY1N0d7O2jyoj+FytTUf/zuWrdHOBHp9K7lcvo2+qUHcjUj6mtIrIIQ
+	 g2Lil7vJ5nw3PLkI/zpVBy7eeSwCPW5q+OHhZeRwH1BPDPIK6E/kKZpAkimGd2i61q
+	 aEyTkBE8TLTHOPAdDdibTE7PkGGNx/ofoUxyZbNjYcSKlZQlm5ulqA7mqCsTzTY/8V
+	 rhFsuVbHxzNj8PCeL3V+TGHpxS7tnF3GEXUuPQDMBG9QPEqSeH4BJpBcCeOdpd55Y7
+	 5kzc6h820HMFg==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 6B6CF1980047;
+	Mon, 19 Oct 2026 11:49:37 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Mon, 19 Oct 2026 11:49:41 -0400
+X-ME-Sender: <xms:EDzWalKKW2rLUrzcCGmEAjXNjh6INGLxQ9OY3FD-cACD_m0UdU6DtA>
+    <xme:EDzWamaktN3t914H6nnQAtvre-q1v5NfKuv_Dc5jNOSSVyARhyTGBJTk9i4wk_wEP
+    jkAOhnejOeO_MprDjcuBlZbK9uQ7lO5uHYC_z7B_bgFUvB7DGFlG1KA0Q>
+X-ME-Received: <xmr:EDzWagXz8dftMhBzFjNvkUMrqN8Lf81lQ0KWnLgXpAniddrNFAczEmxc9iI>
+X-ME-Proxy-Cause: dmFkZTESqR4vElUNfwe4Wb1kabMg9MdYUtHyNIvlHi5jfGRsEd0tjiYfzpqh5FemuLlMuA
+    +QzWL/iolJzzDzQk8vzuoT2/u2xyL/YZG/CihU2eaSQe3uAw7YKu/Z/hQfgMIJpEQrBQkK
+    hH3KJVpCmjg+gNXnnOIkdBMKpJa1pvTLqzuojrt68Uovke10kpOzVhZrNEf3d58NDgoR+6
+    GBwzdAiHoLFFDGJo3/r+XBHeUTBbw+IeFaYdgC0j5JEQlKAOMB5I7tBUfVMuw5hMfUnXf2
+    vE1DwOk7N/x2FbtU++Y3QX/1ODQhD5sTVGp3EMvK4jUTItTZrn4RBPsK+PhnbeHfl8Jcd/
+    yYYEKmAGT8vWogHsS/MLpG4mGVeUeUcl8fzs7/zHA9gd8BbEgXpb1CoSUIZuL9AsGdcCeL
+    +gXC3GBZVeiw6q1+GKFOmx8OVmgLnX3toJ5chCtufQcBsun6EpjJaG+M15ijPymLjtuB1N
+    FD7FJ16WFMZH3bHDTYwl4ViatPxmQL4lcXqk/pVAVOGizVyQLMIwi0unAXmKltJ2BEqr5S
+    32YVsgd9l8nrPOu7EChRRHchU7/xpjfB5k04bMWbcc2A+1JkfyBbqlxnUaxqdwKP/Ztfj7
+    OS9iW/9oAv4Gm0mAtI4sFlKSdYDo0XfmQz3m1GzlmlQx0HIQJKcwJvH46hFA
+X-ME-Proxy: <xmx:EDzWamETvnJHnrvb_jfF9MCEbmlHlDHpGhYwRKQmxJ86rD3lcu0nSg>
+    <xmx:EDzWatD021DoQamQf30N_3YICdTTwNu1Jps7NLmgwrtOpkbTEqX8RA>
+    <xmx:EDzWahUvs2AcCacNO783zoF_zNcXGlND7aaU_HULAoExtTs4KErymA>
+    <xmx:EDzWat4jdA356dqYToLkpgozhEiRUV-5PoXbZAsqKgZUgGQSDbx5Cg>
+    <xmx:ETzWaiH_L2oQ-xKhUgvpq5FBLVZGJO_fk39Fvf4EAZDrZXkYkOu14-KP>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 11:50:02 -0400 (EDT)
+ 19 Oct 2026 11:49:36 -0400 (EDT)
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
@@ -116,9 +116,9 @@ Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
 	linux-fsdevel@vger.kernel.org,
 	fuse-devel@lists.linux.dev,
 	kernel-team@meta.com
-Subject: [RFC PATCH 07/18] mm: free the pages waiting for a grace period before isolation fails
-Date: Mon, 19 Oct 2026 16:49:00 +0100
-Message-ID: <20261019154913.1765974-8-kas@kernel.org>
+Subject: [RFC PATCH 03/18] fuse: don't move a folio with PG_rcu_free into a fuse file
+Date: Mon, 19 Oct 2026 16:48:56 +0100
+Message-ID: <20261019154913.1765974-4-kas@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261019154913.1765974-1-kas@kernel.org>
 References: <20261019154913.1765974-1-kas@kernel.org>
@@ -133,125 +133,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-alloc_contig_range() and offline_pages() migrate the folios out of a
-range and then check with test_pages_isolated() that every page is free.
-A migrated folio that had PG_rcu_free waits for a grace period after its
-free, so the check fails.  alloc_contig_range() returns -EBUSY, and a
-CMA or gigantic page allocation can fail; offline_pages() retries until
-the grace period ends.
+fuse_try_move_folio() takes the folio of a pipe buffer and puts it into
+a fuse file, where writes change it.  A folio with PG_rcu_free may still
+be copied by a lockless page cache read that found it before it left
+the page cache.
 
-When the check fails and the zone has pages waiting, free them first.
-alloc_contig_range() then finds the start of the free range again, as
-the freed folio can merge with a free buddy below it.
-offline_pages() does so only after a pass that migrated folios: an
-offline stuck on a busy page would otherwise start an expedited grace
-period on every retry.
+Such a folio reaches fuse when a mapped file page is gifted with
+vmsplice(SPLICE_F_GIFT) and its file is then truncated.
+fuse_check_folio() refuses it only because the flag is not among those
+it allows, and with a dump_page().
+
+Copy such a folio instead, as fuse does whenever it cannot take one.
 
 Assisted-by: LLM
 Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- mm/memory_hotplug.c |  7 +++++++
- mm/page_alloc.c     | 28 +++++++++++++++++++++++++++-
- mm/page_alloc.h     |  1 +
- 3 files changed, 35 insertions(+), 1 deletion(-)
+ fs/fuse/dev.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 226ab9cb078a..a8f0c95627ee 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -1967,6 +1967,7 @@ int offline_pages(unsigned long start_pfn, unsigned long nr_pages,
- 		.nid = NUMA_NO_NODE,
- 	};
- 	unsigned long flags;
-+	bool migrated;
- 	char *reason;
- 	int ret;
- 	unsigned long normal_pages = 0;
-@@ -2050,6 +2051,7 @@ int offline_pages(unsigned long start_pfn, unsigned long nr_pages,
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 4fec31fc0b84..526929c7b3f1 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -1152,6 +1152,10 @@ static int fuse_try_move_folio(struct fuse_copy_state *cs, struct folio **foliop
  
- 	do {
- 		pfn = start_pfn;
-+		migrated = false;
- 		do {
- 			/*
- 			 * Historically we always checked for any signal and
-@@ -2071,6 +2073,7 @@ int offline_pages(unsigned long start_pfn, unsigned long nr_pages,
- 				 * out
- 				 */
- 				do_migrate_range(pfn, end_pfn);
-+				migrated = true;
- 			}
- 		} while (!ret);
+ 	newfolio = page_folio(buf->page);
  
-@@ -2092,6 +2095,10 @@ int offline_pages(unsigned long start_pfn, unsigned long nr_pages,
- 
- 		ret = test_pages_isolated(start_pfn, end_pfn,
- 					  PB_ISOLATE_MODE_MEM_OFFLINE);
-+		/* What this pass migrated can wait for a grace period */
-+		if (ret && migrated &&
-+		    zone_page_state_snapshot(zone, NR_FREE_RCU_PAGES))
-+			rcu_free_sync();
- 
- 	} while (ret);
- 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index bec9128d80db..e63628e64cbb 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -1468,6 +1468,23 @@ static void rcu_free_drain(void)
- 	mutex_unlock(&lock);
- }
- 
-+/* Free every waiting folio, including those a work took off the lists */
-+void rcu_free_sync(void)
-+{
-+	int cpu;
++	/* A lockless page cache read may still be copying from it */
++	if (folio_test_rcu_free(newfolio))
++		goto out_fallback_unlock;
 +
-+	if (!IS_ENABLED(CONFIG_PAGE_RCU_FREE))
-+		return;
-+
-+	rcu_free_drain();
-+	for_each_possible_cpu(cpu) {
-+		struct rcu_free_pcpu *r = per_cpu_ptr(&rcu_free_pcpu, cpu);
-+
-+		flush_work(&r->rwork.work);
-+		flush_work(&r->expedite);
-+	}
-+}
-+
- static void __init rcu_free_init(void)
- {
- 	int cpu;
-@@ -7632,7 +7649,16 @@ int alloc_contig_frozen_range_noprof(unsigned long start, unsigned long end,
- 	outer_start = find_large_buddy(start);
+ 	folio_clear_uptodate(newfolio);
+ 	folio_clear_mappedtodisk(newfolio);
  
- 	/* Make sure the range is really isolated. */
--	if (test_pages_isolated(outer_start, end, mode)) {
-+	ret = test_pages_isolated(outer_start, end, mode);
-+	if (ret && zone_page_state_snapshot(cc.zone, NR_FREE_RCU_PAGES)) {
-+		rcu_free_sync();
-+
-+		/* A freed folio can merge with a free buddy below start */
-+		outer_start = find_large_buddy(start);
-+		ret = test_pages_isolated(outer_start, end, mode);
-+	}
-+
-+	if (ret) {
- 		ret = -EBUSY;
- 		goto done;
- 	}
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index b9259deddb59..f9e200581e2f 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -235,6 +235,7 @@ struct page *__alloc_frozen_pages_noprof(gfp_t gfp, unsigned int order, int nid,
- 	alloc_hooks(__alloc_frozen_pages_noprof(__VA_ARGS__))
- void free_frozen_pages(struct page *page, unsigned int order);
- void free_unref_folios(struct folio_batch *fbatch);
-+void rcu_free_sync(void);
- 
- #ifdef CONFIG_NUMA
- struct page *alloc_frozen_pages_noprof(gfp_t, unsigned int order);
 -- 
 2.54.0
 
