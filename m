@@ -1,75 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422119;
-	b=093ojuAKLf+zQr19OUiBIrSMpPf1K4byXXsZaGKwPYvWv1AkOLhlZN7sGHRZn9tytkar
-	 3eewxWjvn6otWXb6AEP+MCtdFnpmkE7i7Qwa8c8+Cc+YsEfV6CUGHmsCXkcFfNxKl1gZq
-	 2IGIaQ+T7X3pxuE4PSd60fx/7UHw8one/fbKvi/GNm8OCvw6ko4RKSrHoNWsBCWktP1pp
-	 I6Jfi5S653vsRvaI0KmZmTJiOo/zvT/E7ahIza0Olg6ldOsGobKlT67YoUtpFjLid65yH
-	 vy3s+vvKmjHXNeKUKj+Fs/GRoS1PQoSZMCcHQNIdJMg4ZZtyvc7yAyXM51ceOrTa4aw==
+	t=1792422550;
+	b=EFsbos9j5AYP7RUufuJUywsQxAA9+XOAuzmIfbwMg5m2jAhEk+jr9TvBlytHL25mOEum
+	 5prGQ/tElKUzcdHlPNfE1V4OUnxwI/m1UfndXANeRsoKNRb9Nk7XsES8J7Rzap4LxZCbK
+	 ShEiCmD0lvBBJ6fOGb9syPwFJIt+teAH0qDuz4xphWaHs5jy0mBPUcxaQeMxmEAZ2X9CT
+	 oNbtxrNbR+xIk4lGL239cNI5bT8to4Kw40xcfHRBT7sKa+1NdYBCus7QQMGv6/ocwI2Tn
+	 GP1FUIn74YfZH3ejdvfC5edR2U1h+CGcSFTs7dj/C2OkUEyHLarLQ3OMFrfW+1hvr9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422119;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=V5Scv+S8IrXgj+5/CeTTqsxC/iiG0yrpaL3kmiKglBQ=;
-	b=3/tiuSib9PQUtJo7BrCWEaVR7Q8qMS3EEr3kkEdTKkV8HWQ5p73TAbqohlDD45jtdd2K
-	 F3YamIiXtidZC9FPl6WmY+eT6IOfrMs/CHBKyBpxTb7dfleBliFbMiu0IuPVSKKKSw0hf
-	 +CzAjsZgdW3DKWguslnbe3WtdfTgD6uykmdoquEyeGD+0ot1do9G1o5vcmMd6/N6NMB1a
-	 Ia7wDtyuntxOXtms2NNifhkdTrw2eh0iUtFtD/cg/IL10W3VBP8Zlzr2VXgMkLwJp0Ttw
-	 Y3nkKLU1Yo2nSr2WBD5ifBPgV3qCrhkiowu02t54B3MrqBfY/8x1B0qf4psk0+JEMag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422550;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=OpGtpRe3PDwE0TpF75JebLJBygVriDdxLs7RdURsK+4=;
+	b=JWqxQCKtD6jizafPWNpuvzes9Y9UCVXX7dAwTvIVZF0lh8k42kaUOpCjHbndOxpv3zWC
+	 3mXw7ksKDbvlLPd3BioaFSlS5XR06SseUN0lv14WzvaMmsw4B/vz4rn+yMQTuHNMH1ab8
+	 PAuQh/IhlHBC5M/9uGNJuPympltPLj8ijTK0Tmbmf/wfMazzHg5Y8B/hNbgZG1lET3Hum
+	 nV3FKI0I3AiaWXv7gGlyAooo7NoawWvX4xCoNKy3PcIqzV1E77UCMAyYbmFy1sKkr/9yp
+	 NAFt0hQnclby0GDnQCXLLAP/jChrlReT81oBBDHfOSocVgTVA0OWcR6ZK5YqLGKVIgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.172
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Z+3njHN4;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=haUOTJMd;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA34607AF39
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:01:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EA34607AF39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5ead9f60e26so131537e0c.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:01:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792422118; x=1793026918;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=V5Scv+S8IrXgj+5/CeTTqsxC/iiG0yrpaL3kmiKglBQ=;
-        b=SaSGVgXXeaaoqKIn9PtDnhGsdfBHGAxMOoGW+0HAEPRERAJIQpf5LRJrbVvEm2p/7C
-         V+6HS8jtMeXZ1OcG/xgBgywyhAbbJO9v8P6V4gsEm09DRTC2B8MvJFH0YrjPZ70bAlTM
-         kv0sV1h5XjGV/KIEXzBcGu1H80bUSJwMrSb5Bf3WhUyGPlIqFlWyO8NWmVNbbPZOow/s
-         kBnxvLcxUTXptPMgk5YVXDClFJ7WPNwspJ4TXlQkgpd9m0ulFaJ5f9SpPgPc0royuQ0f
-         qF4OrtqhNt5y4QIUVH8D6lGQNoVssZM9bJ6i97uH3NuwAd6gW6wq5aoENfszEwo1+aM8
-         /IhA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlyAy0W4HBlP6Lv4oPcfSMlPsFdWKA4DyNdWGivGMA29YFiPVGLWFHXKOUD5ZxvCq0ZG2spwU3qv3lQ7Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJb+GflvFE7meWvKNiskRwU045kpZt+jOLafjq6UVWVgctAeJEx
-	9AGQ4bEdHYCiYPhR0NZyXgdQccab9Usxoae5CHSMkeIKYOY85hzUjJM3uGtohdGdnhI=
-X-Gm-Gg: AYBFou2fCJqIwDUGUNNtsW/MugAqQcoHyI2NlWm+hwqzfMqFv7YELuxEdlDxZpg8QE2
-	Qmy3biAJ1IeKkIk23wsnZJDx7Nhh7k/8svF9n6zxpKpjLiuR8F7rqWFsO/56ibackahs5Y61rt4
-	Fx0y0ZmQk3JitJodY7La2UOLmoso3TzGewHMsv3RxUjErNBJmLou5xP+OP+ziAA/B5ZE0LhgUWf
-	+Y2ybY28k550pBnDYHt60skxv6P6GsNohijr8JFV6RDb7ayqCe6VcxtP0auBI6EiG5gwIwy6Gqn
-	lnsJQ4fINFbp8AKVbiF/ZiyuderQePGqtRnZugcVP8y4l3uZLIl/RyqJqp4MqMTxjNOivrZ6+Hn
-	M2hZHAvgoD7niFxcnRkzMduSMgpWirZ+5hm9Xfsqbed93TTQjtIm/CVsouf64KRnjZ2HrFutojA
-	Fx+7MVbMSZ2bu8VAddQIuchS+UIM9Yj/RAH6P/OeIW+AAbeoGr2fJc5R6DlKXHt05b+b09C82C7
-	hsrgEhn4kubej31XgrUKbrg6NinSC5hdTNqe9af
-X-Received: by 2002:a05:6122:6418:b0:5ea:d474:246b with SMTP id 71dfb90a1353d-5ead4742e8amr296014e0c.8.1792422117365;
-        Mon, 19 Oct 2026 08:01:57 -0700 (PDT)
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com. [209.85.221.180])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eac2c68171sm4219938e0c.8.2026.10.19.08.01.54
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 08:01:55 -0700 (PDT)
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5eaa1b5b84aso2618145e0c.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:01:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwgE/hCaVGCdvlqjTAhcXI2Nie9nP1naV68BNYZ7x6493iWfOqoX9wtuV2ATtn6kJGATlApVgFwyygUBQQ=@vger.kernel.org
-X-Received: by 2002:a05:6122:25f9:b0:5ea:bc01:a2f9 with SMTP id
- 71dfb90a1353d-5eabc01a9b5mr1023930e0c.0.1792422113935; Mon, 19 Oct 2026
- 08:01:53 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E666086067
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:09:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1E666086067
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Z+3njHN4;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=haUOTJMd
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792422540;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OpGtpRe3PDwE0TpF75JebLJBygVriDdxLs7RdURsK+4=;
+	b=Z+3njHN4+Wrivh+EZ+KE10BKGifjCgslIJ3pwMtIKSRK3KO6aewW+I9ILn5REcW+CbFtNP
+	2qtGbZuJbjSaKfpWu1EQIhVAUykcWon2XpHBJPPyo9u32icpSt6wY7rBFtsABP5IJWD/a1
+	BOZc7VDsAjGJQ5SaXoMtj9eab3flJYMyrNlFbRuh10lTfiRhQZkSMf8D5YdM+cNYC8bUIG
+	pk9Uls0vnj+IH9MhE71nZvW5Km4RBycG+ipS/8DN1nqrj8uVO6lnHkMvEpi1JW1AeT9a/H
+	/D5oYJvNtWiZHeKhe6xxx/akUklSvuILcfZgAAyq8n5MXRO+QMYZbJBOHf4n8A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792422540;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OpGtpRe3PDwE0TpF75JebLJBygVriDdxLs7RdURsK+4=;
+	b=haUOTJMd4U3S3cdhp6RPPO4SJusTcEWYj9U0wCFl2PY5TtUZOiYtb06Nyxs5FExkaDLhbc
+	HBuELag9u6FsOOAg==
+To: Wang Wensheng <wsw9603@163.com>, pmladek@suse.com, rostedt@goodmis.org,
+ senozhatsky@chromium.org, d-tatianin@yandex-team.ru,
+ linux-kernel@vger.kernel.org
+Cc: wsw9603@163.com
+Subject: Re: [PATCH] printk_ringbuffer: Fix space_used() when blk_lpos->next
+ overflows
+In-Reply-To: <20261004075755.363989-1-wsw9603@163.com>
+References: <20261004075755.363989-1-wsw9603@163.com>
+Date: Mon, 19 Oct 2026 17:14:59 +0206
+Message-ID: <87h5ihpw1g.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,66 +73,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261010065442.23780-1-rosenp@gmail.com> <202610131201.wWk11MLy-lkp@intel.com>
- <alpine.DEB.2.21.2610190013300.22065@angie.orcam.me.uk> <CAMuHMdVoAthYZFzuMmVb8awHUia4xeEfFKK=1PA23iCV0SsFbw@mail.gmail.com>
- <alpine.DEB.2.21.2610191519120.22065@angie.orcam.me.uk>
-In-Reply-To: <alpine.DEB.2.21.2610191519120.22065@angie.orcam.me.uk>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 19 Oct 2026 17:01:41 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXCKXN5PiDwRJiEj9aBGcU0J+H=q5tQoO7OfPEboCWGJg@mail.gmail.com>
-X-Gm-Features: AclHuK-kMNll2TJ6SQ0HmyWWYBoxtNWt2Z3yCcXPLPClFSyKDfXs1dfr7tIH4kE
-Message-ID: <CAMuHMdXCKXN5PiDwRJiEj9aBGcU0J+H=q5tQoO7OfPEboCWGJg@mail.gmail.com>
-Subject: Re: [PATCH] MIPS: lib: prefetch ahead in csum_partial()
-To: "Maciej W. Rozycki" <macro@orcam.me.uk>
-Cc: kernel test robot <lkp@intel.com>, Rosen Penev <rosenp@gmail.com>, linux-mips@vger.kernel.org, 
-	oe-kbuild-all@lists.linux.dev, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-Hi Maciej,
-
-On Mon, 19 Oct 2026 at 16:47, Maciej W. Rozycki <macro@orcam.me.uk> wrote:
-> > >  So oddly enough we're missing Tx49 support in the toolchain and we've
-> > > only managed to survive with CPU_HAS_PREFETCH enabled for CPU_TX49XX
-> > > because it also implies DMA_NONCOHERENT via MACH_TX49XX -> MACH_TXX9,
-> > > which in turn disables stuff in arch/mips/lib/memcpy.S.
-> > >
-> > >  Quite straighforward to fix in binutils since docs are available (as in:
-> > > I have a copy), but do we have any users?  Geert?
-> >
-> > Yes, I still boot test rbtx4927 regularly.
+On 2026-10-04, Wang Wensheng <wsw9603@163.com> wrote:
+> Since commit 67e1b0052f6b ("printk_ringbuffer: don't needlessly wrap data
+> blocks around") blk_lpos is treated as not wrapped when blk_lpos->next
+> overflows to the start of data_ring. We use the indices of blk_lpos->next
+> and blk_lpos->start to calculate the size of the data_block. This computes
+> zero minus a small positive value, resulting in underflow and an
+> unexpectedly large value. Simply using the original lpos with wrap-counts
+> solves the problem.
 >
->  Thanks for confirming.
->
-> > I never touched binutils sources, though...
->
->  No worries, this seems straightforward: just PREF, MADD/U plus [D]MULT/U
-> extensions, and DERET/SDBBP debug stuff, much of which shared with the
-> Tx39 we already support, so just a matter of sticking another flag onto
-> the existing opcode table entries.
->
->  I'd estimate it as one day worth of engineering effort plus maybe another
-> one for machines to work through verification, for the binutils side and
-> the associated changes needed for GCC, i.e. a `-march=' option update plus
-> maybe enabling a couple of existing machine description patterns for the
-> Tx49 too.  Would you be able to run GCC verification with your system?
+> Fixes: 67e1b0052f6b ("printk_ringbuffer: don't needlessly wrap data blocks around")
+> Signed-off-by: Wang Wensheng <wsw9603@163.com>
 
-The rbtx4927 is about the slowest system I still do regular testing on.
-It uses a Debian 8 nfsroot (over 10 Mbps Ethernet), which is the latest
-Debian release still supporting the instruction subset suppported
-by TX49XX.
-So as long as no native compilation of large packages is required,
-it can be done.  I can also give you remote access?
+Reviewed-by: John Ogness <john.ogness@linutronix.de>
 
-Thanks!
+Yes, this is a real bug and this is the correct fix. Thank you.
 
-Gr{oetje,eeting}s,
+Fortunately the bug does not cause any problems for the kernel because
+setup_log_buf() does not actually care if the "free space" has run
+out. And if the ringbuffer has filled, then the free space is 0 anyway,
+so even the reported "early log buf free" is correct.
 
-                        Geert
+For that reason, I do not think it is strictly necessary to backport
+this to stable kernels. prb_record_text_space() is not exported.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+But still, this is a bug and needs to be fixed.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+The bug is easily visible using the kunit test by applying the following
+trivial patch.
+
+Before the fix I see max sizes of 4294959248. After the fix I see the
+correct max sizes of 280.
+
+diff --git a/kernel/printk/printk_ringbuffer_kunit_test.c b/kernel/printk/printk_ringbuffer_kunit_test.c
+index 2282348e869a6..d100e6bd79120 100644
+--- a/kernel/printk/printk_ringbuffer_kunit_test.c
++++ b/kernel/printk/printk_ringbuffer_kunit_test.c
+@@ -113,6 +113,7 @@ static int prbtest_writer(void *data)
+ 	u32 record_size, text_size;
+ 	unsigned long count = 0;
+ 	struct printk_record r;
++	unsigned long max = 0;
+ 
+ 	kunit_info(tr->test_data->test, "start thread %03lu (writer)\n", tr->num);
+ 
+@@ -154,6 +155,9 @@ static int prbtest_writer(void *data)
+ 			prb_commit(&e);
+ 
+ 			wake_up_interruptible(&tr->test_data->new_record_wait);
++
++			if (prb_record_text_space(&e) > max)
++				max = prb_record_text_space(&e);
+ 		}
+ 
+ 		if ((count++ & 0x3fff) == 0)
+@@ -163,7 +167,7 @@ static int prbtest_writer(void *data)
+ 			break;
+ 	}
+ 
+-	kunit_info(tr->test_data->test, "end thread %03lu: wrote=%lu\n", tr->num, count);
++	kunit_info(tr->test_data->test, "end thread %03lu: wrote=%lu max=%lu\n", tr->num, count, max);
+ 
+ 	return 0;
+ }
+
+John Ogness
