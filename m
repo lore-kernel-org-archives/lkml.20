@@ -1,140 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604134848AC;
-	Mon, 19 Oct 2026 09:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57CC34A483C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403324; cv=none; b=BLLInjKfwVOXzQdPP4BuX/4ik7ui+CTV5FWm8FjzfdbLuxg+DfC0qJNphk8C0rhemvk3mLePimHDcFbtawT2REkIoxrFJEOOBPFsxz4iHHl9hK9clmu6QrkdCxhULXmPtykY9o0Km51WCGtTWLOBOrh2iFtPc1C2h/Nh4V2SSmI=
+	t=1792403356; cv=none; b=Enjow/eJuZ57tzdCbN7ii2CFxTE4y0tF8d5JQ/OTT0O/9oG8Uw44frcKDQ0A/mri7qwljByNyRrCd2rmoqwpRZKFBDUiCRA/1U85GB6zJ+tB5kJB3HterMZ7/QIF0EA761eGLGB1z2Hm+EIEdUyVaQ3gL1ZND778qqtXS5/X5sI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403324; c=relaxed/simple;
-	bh=y38c6Wh+JrRWNLBK/e115pdKqMSFQP0EX+kdXPPe+yk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c0oAIzdYwIREFI9QCKmTXAGlHrbyB0hY7DvPdFUI/QndrCmpvM/OohhYfhKOH433b+EnOy013ejowU9Xj63uoENF5cW0G7KMnuw3a2CPnpx7ApcO0aGRjxc4dVvHv/u5YtEN/pLi+hJWRwGbVrlGOQ0rdU7OE9Yce4cINam0D5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUVqNXuh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792403356; c=relaxed/simple;
+	bh=EoEqtYipkjC2mL9reFxpmMHbI4GZb+vsw7XSp5wGiOU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hOxzDSROuJDscX3kP3n3FHOvjjBkbDACQefrWNQcl316wgXqXRWWA62r0UY2wyhY3aQDVZjuvrqkUVTa1hkns/6T1D40f8ZQSTwV0x82iW6eD3lDKh+9AxX6cXQPWEptyGi83H0XYscquDayeO52evFJWkmmXH7RgcoIIYvsgMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=X7OPz6kG; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=eo0tsd31; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUVqNXuh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD83F1F000C4;
-	Mon, 19 Oct 2026 09:48:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792403323;
-	bh=kxYpOKeNE1GtVJhZEKyHa5DQN9VTfVaw7R5GeyyShr8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kUVqNXuhw67wpa517IY0Ef+gOzCTXJ9z1qfR4Gv4/xhOdzusCmOvJA82ZVuskQbq6
-	 a8z2NHGfBT2msPVz1fYsqVrThrWLS2M+za1Au2Rn0bVNv4bXdoshiw2oB+2LTq1dYd
-	 bsU55W/HjQdKjERA/34g/zOUFrvZsN8NRKs0w0dtkuGtOLEKcB7ozGIHz8abA2YIMg
-	 /g/bsloLYWA9WdusRAOlKTL3GKa1JknAnfkp7THoN16OAGbgOpJg4NlM27baLp3Czc
-	 fydllsmnjtJqd6p3Sq4geid0d7rpA0T/IUhbpQiA5uYJ+Aoe/5K466zpyDt4qGZYTt
-	 mxT7ECqLVpkpQ==
-Date: Mon, 19 Oct 2026 11:48:39 +0200
-From: Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>, 
-	linux-kernel@vger.kernel.org, soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH] platform: cznic: turris-omnia-mcu: stop button emulation
- producers
-Message-ID: <atXYWrNAI5pmyMHD@solitude>
-References: <20261016013918.3492835-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="X7OPz6kG";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="eo0tsd31"
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792403353;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ZZduDr86lxQRZs6t2MnFvS7B3F4YUnObuB3EBvjKUqQ=;
+	b=X7OPz6kGfrnlPysLILZCln2B3DTiMGmTN7RF0w3vyTKnoLrSw9zUi3ZoV6nAbEH5Fm+S2G
+	osqq3T9vOtncpeEQ5yooPDlHLhCF/771maVVN7y9o6Gmaj5FQq8D7oGnBBW2asjYyijiWU
+	ttP7tDNULEyhOqwFrb67aYOW3qxtKlcE7NgRsXCKVNjZhAPsTdmdkZv/gmQ0+YAXtstjqo
+	v74P+PV0rP/bae2OwudGiZujgqhXa51CCXM86xeg8uiJ4pyq4HtzgctS6Z+jra6hma6mRw
+	vslJzNjEM8G0kHncW8ZwEq6+kjMaAgJFjVddO+WxGNhj2vzO75t1DY6wTbWsfw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792403353;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ZZduDr86lxQRZs6t2MnFvS7B3F4YUnObuB3EBvjKUqQ=;
+	b=eo0tsd31qzVKz4oZKQlVVZI2E2HFdMEbLSpJc81iFiZyzkxLXRHm58iYmR3rQUSB66GByd
+	BTSpIXAGlsajMcCg==
+Date: Mon, 19 Oct 2026 11:49:04 +0200
+Subject: [PATCH] nios2: ksyms: Declare __mulsi3 export
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261016013918.3492835-1-mhun512@gmail.com>
+Message-Id: <20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0NL3bzM/GIj3dzSnOJMY11DY2NLkzRT81Rj8yQloJaCotS0zAqwcdG
+ xtbUAwfScZF4AAAA=
+X-Change-ID: 20261019-nios2-mulsi3-13394f57e37b
+To: Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ Ley Foon Tan <lftan@altera.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792403351; l=1453;
+ i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
+ bh=EoEqtYipkjC2mL9reFxpmMHbI4GZb+vsw7XSp5wGiOU=;
+ b=Bt7uzXx24nb90/SUi3EyrHxJDqMLLRW2qsxVr2SL51CA/HzD4dU/zOxmlHlTkGmGgXV6wUuEt
+ lCA7WbbGsiLAzP27orD8Dpiq5bYOVqqJxupoSoyymGsa9oL15Gw73qK
+X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
+ pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
 
-Acked-by: Marek Beh�n <kabel@kernel.org>
+GCC may emit libcalls to __mulsi3(). As modpost is not aware that this
+function is provided through the linked in libgcc, it fails:
 
-This makes sense.
+ERROR: modpost: kernel/locking/test-ww_mutex.ko: symbol '__mulsi3' undefined!
+ERROR: modpost: kernel/time/test_udelay.ko: symbol '__mulsi3' undefined!
+ERROR: modpost: kernel/resource_kunit.ko: symbol '__mulsi3' undefined!
+ERROR: modpost: fs/fuse/virtiofs.ko: symbol '__mulsi3' undefined!
+etc.
 
-But I wonder whether the devm_delayed_work_drop() from devm-helpers.h
-should not be changed to use disable_delayed_work_sync() instead of
-cancel_delayed_work_sync().
+Make sure modpost can see the symbol from libgcc.
 
-In this case the initialization function in devm-helpers should be called
-devm_delayed_work_autodisable() instead of devm_delayed_work_autocancel(),
-though.
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610171933.J4bFOfL8-lkp@intel.com/
+Fixes: 2fc8483fdcde ("nios2: Build infrastructure")
+Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+---
+ arch/nios2/kernel/nios2_ksyms.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Thu, Oct 15, 2026 at 09:39:18PM -0400, Myeonghun Pak wrote:
-> The legacy MCU IRQ thread can requeue button-release emulation work
-> after its managed cleanup has canceled it. Since the IRQ is still active
-> at that point, the newly queued work can outlive device teardown and
-> access freed MCU state.
-> 
-> Use disable_delayed_work_sync() to prevent further queueing and drain
-> the worker before the IRQ action is released. Keep the parent IRQ active
-> while the worker completes. devm_add_action_or_reset() also drains the
-> work if action registration fails.
-> 
-> This issue was identified as part of our ongoing research while
-> reviewing kernel code.
-> 
-> Fixes: dfa556e45ae9 ("platform: cznic: turris-omnia-mcu: Add support for MCU connected GPIOs")
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  .../platform/cznic/turris-omnia-mcu-gpio.c    | 31 +++++++++----------
->  1 file changed, 15 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/platform/cznic/turris-omnia-mcu-gpio.c b/drivers/platform/cznic/turris-omnia-mcu-gpio.c
-> index 4e430d6c3fc4..8f43bfa92373 100644
-> --- a/drivers/platform/cznic/turris-omnia-mcu-gpio.c
-> +++ b/drivers/platform/cznic/turris-omnia-mcu-gpio.c
-> @@ -11,7 +11,6 @@
->  #include <linux/bug.h>
->  #include <linux/cleanup.h>
->  #include <linux/device.h>
-> -#include <linux/devm-helpers.h>
->  #include <linux/errno.h>
->  #include <linux/gpio/consumer.h>
->  #include <linux/gpio/driver.h>
-> @@ -841,6 +840,18 @@ static void button_release_emul_fn(struct work_struct *work)
->  	generic_handle_irq_safe(mcu->client->irq);
->  }
->  
-> +static void omnia_disable_button_release_work(void *data)
-> +{
-> +	struct delayed_work *work = data;
-> +
-> +	/*
-> +	 * The IRQ thread may requeue this work while the IRQ remains active.
-> +	 * Disable and drain it before releasing the IRQ action and the MCU
-> +	 * state used by the worker.
-> +	 */
-> +	disable_delayed_work_sync(work);
-> +}
-> +
->  static void
->  fill_int_from_sts(unsigned long *rising, unsigned long *falling,
->  		  unsigned long rising_sts, unsigned long falling_sts,
-> @@ -1082,21 +1093,9 @@ int omnia_mcu_register_gpiochip(struct omnia_mcu *mcu)
->  		return dev_err_probe(dev, err, "Cannot request IRQ\n");
->  
->  	if (!new_api) {
-> -		/*
-> -		 * The button_release_emul_work has to be initialized before the
-> -		 * thread is requested, and on driver remove it needs to be
-> -		 * canceled before the thread is freed. Therefore we can't use
-> -		 * devm_delayed_work_autocancel() directly, because the order
-> -		 *   devm_delayed_work_autocancel();
-> -		 *   devm_request_threaded_irq();
-> -		 * would cause improper release order:
-> -		 *   free_irq();
-> -		 *   cancel_delayed_work_sync();
-> -		 * Instead we first initialize the work above, and only now
-> -		 * after IRQ is requested we add the work devm action.
-> -		 */
-> -		err = devm_add_action(dev, devm_delayed_work_drop,
-> -				      &mcu->button_release_emul_work);
-> +		err = devm_add_action_or_reset(dev,
-> +					       omnia_disable_button_release_work,
-> +					       &mcu->button_release_emul_work);
->  		if (err)
->  			return err;
->  	}
+diff --git a/arch/nios2/kernel/nios2_ksyms.c b/arch/nios2/kernel/nios2_ksyms.c
+index c40aa39e8658..e8710a269b39 100644
+--- a/arch/nios2/kernel/nios2_ksyms.c
++++ b/arch/nios2/kernel/nios2_ksyms.c
+@@ -38,6 +38,7 @@ DECLARE_EXPORT(__udivsi3);
+ DECLARE_EXPORT(__umoddi3);
+ DECLARE_EXPORT(__umodsi3);
+ DECLARE_EXPORT(__muldi3);
++DECLARE_EXPORT(__mulsi3);
+ DECLARE_EXPORT(__ucmpdi2);
+ DECLARE_EXPORT(__lshrdi3);
+ DECLARE_EXPORT(__ashldi3);
+
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261019-nios2-mulsi3-13394f57e37b
+
+Best regards,
+--  
+Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+
