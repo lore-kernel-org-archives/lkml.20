@@ -1,127 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792425070;
-	b=dP17+Y6gXAyewgJ7brDAGTlcd7HZRVPXSuuyd+znS2I3mtaKk+PSCVSd8bkQ2pBJkDby
-	 /9IuB7HU8Y3zBKezgPMhXlj6u5ofsk3XLJM3NmTvxYdKefPI2TY/trH6dMZ1VTnmB2CaN
-	 N4jgcwwaqBINSj09AMlspvQxNWCXlbY4D+UcXdJQdu2w9Es//KPf89Nd4cN/cNY0z0m4+
-	 iNiKib7EfujMlpkGS+8QTYTwKdZcPNYWmHz5t/DM9br/cpwCShxFRsFtZMUFjvJFK/faI
-	 a9Dy7/ECAalmC1R+cP1dQ3obA2v1sV5RNHoc/05gAk3qxPipMjx/lvPA19rKpIs9JZw==
+	t=1792425064;
+	b=ttZFgRphbHCMdzVb5jYYe2A22SSWYfgBY1FUGtY7SYO4NPhP3PLAN++Ko2nOgJ+HQ/9l
+	 hjYFq+fX0GwRHDpVb5mHysqdQHkjhOab3n7dcYfoiWOlXzgXoZyTMzLeFVy8zPpnX0BKp
+	 VABElN75bN0Lh1vWimJt8TTbecAMOCvotcOtpgybJoRSSZjlYU7KffzpQppkE7cVF42wH
+	 4kjNt1FORpdaRdnGZiM6hPR0kpTuSdfK3IhUXSCieB5G5gHe9VcLmgAfdPKooLp66rs6C
+	 DkLMFg2YTxt6dSVAuqiaZooY8OX2Q7wWtEcPhYCG8cMTIxmZsuSY25QcP+IfEVidULA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425070;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nzf5AOZecE/pgMusAub/Smm2ReUG3xW+PWHZuYHUyt4=;
-	b=ePBeMUiMdfcu9Vvjd98YkXuIPZ/V4eo4HX+cKJTBsBWeGxj+ZNsG43uXyaM/NYagDuDK
-	 /yluGBQZi0DrwVU+LrQp3QDlqIrFkdZLa0sC0hWQ3p+o5F7e/ts+OASJj905Yp+h9p5Vs
-	 nSnxIUrKl1lU4IfR5wGBH+ZfU68W8yiNRH5x7uaAS931H+8PV9rWBoZx/RQDHNOmvdXxE
-	 dl6YK1naPV2TuSc7ty32gSXo326LhQ/jBb8wD9h+uXFFwZ6dfxOGXR2+qVTLtk87rSq6t
-	 seGD5nZqLK4uiFBESZfTHq/Dv6V30gKIOnUW2/l2o7NIaI847MBGo7GxtM2+Mjg8IrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792425064;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=FnQ2J49HpRqmPpQE8xJNKjzZwCJRVru+IexOjX3ZKk8=;
+	b=Bzwnnb+XKkKtXtZgp7ZFP/tFogzDznWEfPYbyLNsQEvqH/sqHtoLyr/LT09eKo9/6FO0
+	 oSUcjBolxLonAv8V7SbLV0Zd3Zcc2rtYhkK3YWl8x+Ui+v2TKtH+cz81RVA//Q2IB9bkz
+	 hwpWYTAygvVHMZ82ou2SiPKQatWTnc9e/ubY6vkDefyCpJVS4HiS5HGJOQYwaqNZIc24l
+	 z075YZzF6a6UXJK2lZxReP734DDn0auG9EdMi5+ePagMIwCdbhPbKnNzQfRPKELYz3Iz1
+	 /Dlgm/Lihm0hn50yp2b889kAMT/vzvJnCKwg3P2fn0WfNw/umqM3rDdxV9CnouWe5sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P76XqEwv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K1hgTw7o;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FE5606C911
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:51:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54E0606AF90
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:51:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D54E0606AF90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P76XqEwv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78451F000CF;
-	Mon, 19 Oct 2026 15:51:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792425070;
-	bh=nzf5AOZecE/pgMusAub/Smm2ReUG3xW+PWHZuYHUyt4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P76XqEwvYvtRiChGcMWUkKRntAV/ce5/WAbDoQUHDxuyq/aB6KdTUrY78u0cXtIP6
-	 epFp7w4oJ6TMIyqBYj5OwvupZvIxx0sVNv4byNU0buBm+RiKpLfEHmKJSfAOG/Wvm8
-	 dWNlpOHY9hcSDqH8t/aAoNR9F+d1gHDYB1HIylmtVlV/y+P+pwexEONeAlTgLhIeqX
-	 n44jzEdIsOgrDlvXmwtwKaCZp3TblM1Qe2Ptl0PKcvwZQFDv5pQyvSvCvTHuLzqDMN
-	 yJOUDq31Ztf8n9aWV5p9MFOraPQhZN/taiRlQxrki7CSdHLaBr9ku45PVpfKHgQLOD
-	 mT9xN3yE6tpsA==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 9F85D198003A;
-	Mon, 19 Oct 2026 11:51:03 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Mon, 19 Oct 2026 11:51:07 -0400
-X-ME-Sender: <xms:ZzzWagvnHzpi2QV3TgoGU420L-mLrWpe4ZeZ3YsBGoAYKAOlKwHuPA>
-    <xme:ZzzWakaRmRX07FGWx-lFgXP_y55PfBey5tiqcPlbsYljwRnVNudZgeGeuMi9oI-MP
-    l3nFIYQPYr3VDIZDhdI-wKfeNfkILHkWdqsvKtI1CvawJgwDAqx_xo>
-X-ME-Received: <xmr:ZzzWag7bNo07-OVAYs9B8KdVDMf0PsYoWGshMCbKlaITt0nmYvXi_P-P5p4>
-X-ME-Proxy-Cause: dmFkZTESqR4vElUNfwe4Wb1kabMg9MdYUtHyNIvlHi5jfGRsEd0tjiYfzpqh5FemuLlMuA
-    +QzWL/iolJzzDzQk8vzuoT2/u2xyL/YZG/CihU2eaSQe3uAw7YKu/Z/hQfgMIJpEQrBQkK
-    hH3KJVpCmjg+gNXnnOIkdBMKpJa1pvTLqzuojrt68Uovke10kpOzVhZrNEf3d58NDgoR+6
-    GBwzdAiHoLFFDGJo3/r+XBHeUTBbw+IeFaYdgC0j5JEQlKAOMB5I7tBUfVMuw5hMfUnXf2
-    vE1DwOk7N/x2FbtU++Y3QX/1ODQhD5sTVGp3EMvK4jUTItTZrn4RBPsK+PhnbeHfl8JcpJ
-    c2LUHcVVlnTmrxA40olgviWRl9T+26cUEoz3aZJIdT1EfpFsU+0thKqzxFC9q6r9alkT7P
-    UjijYajoIbQcUwCvES00HGkFx6tcOfQlzfxTtLaIAWuifAZVmXruOnjSB2KfmIGd1Tp9h8
-    pT7XR7J6tU0+2PVC3G7YK2c6UKb8RdB87PPzk5qtMsP2YH1aNuaOcR9AoL/bstgEKQzsbg
-    t6Ubf6j8Uiwe5o955Rjad4bmK7153G+aKl6kgw9QxprBMlsBHQpSij80iErZkMlHPp5FCS
-    lHriB7oqc0/oTiW+ZSU9MPqkYvzaUVlCHKrJhXKPuBMUw+OJ0rG24eS8p+yg
-X-ME-Proxy: <xmx:ZzzWanlnKjOnpqouLmcZBHTvvQZAhOmIx28gpgaFrGTPuBZ4WXkrpQ>
-    <xmx:ZzzWagrX6Xgxxskve5xmxtyfDhrB1FnQjMlC3CRer3mcBjheEo2dGA>
-    <xmx:ZzzWai_Fe8OhMS5ikxCMThpHx3RGb5NTGTJgIUNrfuKyzoKEY0ZniQ>
-    <xmx:ZzzWap50Crsvkz0DJ5oSQ2M8pG2fFH-AZ9Ga4gWMwCxQvkjGLJdxxQ>
-    <xmx:ZzzWasaRQDbFeEJeYYHn_EpIsUNRWZjO0GImBaEDkaeVCkMQ5avkpNes>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Oct 2026 11:51:02 -0400 (EDT)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Hugh Dickins <hughd@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Harry Yoo <harry@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=K1hgTw7o
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35159e0092aso249858eec.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:51:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792425063; x=1793029863; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FnQ2J49HpRqmPpQE8xJNKjzZwCJRVru+IexOjX3ZKk8=;
+        b=K1hgTw7olQJYl1is5iNMVH8jOlFOu7ZO43rL+X91wBQ023CC9KLv1BILDcsogNa6ks
+         lDDDy6EkZcbEC/ChCpPLY4IXLjBRy3pOhpcSrbSJIo5SFvMP8oSBI8281qLTOIrIwEk7
+         nJ0PJKRpZkWDf94SCc9NFjtwgFwWEXS/EIPJaTPfBot8X7gjAWlntXANtV2WczPqXcIr
+         knshuL/R/eAawJ9S0lvUlc07kqexYVgUI5KNmrMw3inb0GqYwobxxrYbAyQZvEOoNOm0
+         /2BPUtmGx87omhdq2aiQf+ZNR3d5KBsjXjlWEht/vlLaZKKMHCfiKOzbPbHmX8DJX1Ji
+         rkXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792425063; x=1793029863;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FnQ2J49HpRqmPpQE8xJNKjzZwCJRVru+IexOjX3ZKk8=;
+        b=aoVXAsIoGVkfGrAJNNnHYHF5LhxIaPL6CmSpt5ZZk5M1n3x3MFi8FztYEWl5ikesi1
+         R53IqAvbEewJd9fqDVCLxfL7sTdZbBA4ZHtW604Fs0r8D+Z0l5jjcpAzp+sehmGWBE3T
+         ifstSvpMskokJ9LTNBuR6sQ7qRibd5ZVPt9bJxKGOeGCJf9YOMy+0NfwHGIKnN1vSU5o
+         ZHu442RVe77842wyGCpZskfsOjWYFsqB45NfSlxHjl0zgeHdEyoxLWqSue7CgoAhFUi+
+         mSMr6stz1hJU4letMJMaQA7BqoK9yD5oqFggMEsBY2MtbHE9BYh58bmcmt5jQZTh2bA5
+         u2ug==
+X-Forwarded-Encrypted: i=1; AKwUvByegFAa7cA0WP++pvtp7jsHZx+Jzx+ueA7+DsYcm69rVCId8pN57tOJc1WqBq18QVb9Qw2o2pMrFt8bFyw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWToCfjOKXVfcEtuQo0vZyXWPr0wEHFl2uhBzqd3EOgp7Et6zj
+	8dIMf0Lk1dAMNJi088OkucAFPl+5EaZINPCaTvg5E0yI1E05yU2qeXcU
+X-Gm-Gg: AYBFou0Qh0yr+lYe6g+UFej+E3keyMWA3XrFK8KDqbApe7t+8HrtT5/wnxcCpE5Xp0t
+	WoOuBDhASLqNApMvY2RkaICVDBlyWkmge52fiXBOkifhMsPi1QeabWQ1qsyB2RrU2nFCVga0aOQ
+	78a40eUR25GA+nLcQGcl7pZKf3qkmRvdvozNQVYI8WtvFwslR7vQZmZ2KB/Dk4v2oCalx86cQHi
+	CVPQHQD3cjIdtqbCQAsWzqaPbIXigwc5CHnozGNF6xoGv2Ua89/p+XNd5nTfWIeSjjIZtbhvlKJ
+	qlxRaHvPIKDWepqstsgQmX7uVkJNqYKNd0WpTmly+v3qVsKXEPlRmJU9ML62obF/nqUc4Iv3Cqc
+	SEi/MqKuNGQ8+PsNMEm5OR1bzLnBDSFRa5/jP661lzF4Rd/8J+40LPPaqB8K+fUO9A9R5vkey68
+	a/5pTJc65VHDMS+oS+p5KD+NJPTTw0qPFxeivqs0rBWQeJHnVlXOfQYcEpih0PfGqwEFS877gxh
+	PJvDvuVEM0/JYcZieishLCJKruX9YZ5nj4vYHsZj/S5kVZZ
+X-Received: by 2002:a05:693c:409c:b0:35b:cb8a:8ce7 with SMTP id 5a478bee46e88-361a06a6544mr21354226eec.1.1792425062580;
+        Mon, 19 Oct 2026 08:51:02 -0700 (PDT)
+Received: from o6.lan ([2602:fce1:44f:115e::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6ca5sm31475194eec.9.2026.10.19.08.50.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 08:51:00 -0700 (PDT)
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+To: zhangbo0325@gmail.com
+Cc: akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	david@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	kasong@tencent.com,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	zhaonanzhe@xiaomi.com,
+	lipengfei28@xiaomi.com,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	fuse-devel@lists.linux.dev,
-	kernel-team@meta.com
-Subject: [RFC PATCH 16/18] mm/shmem: count accesses to a folio the way filemap_read() does
-Date: Mon, 19 Oct 2026 16:49:09 +0100
-Message-ID: <20261019154913.1765974-17-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261019154913.1765974-1-kas@kernel.org>
-References: <20261019154913.1765974-1-kas@kernel.org>
+	zhangbo56@xiaomi.com,
+	Xueyuan Chen <xueyuan.chen21@gmail.com>
+Subject: Re: [RFC PATCH v2 0/4] mm: compaction: mTHP-friendly memory compaction
+Date: Mon, 19 Oct 2026 23:50:48 +0800
+Message-ID: <20261019155048.3916405-1-xueyuan.chen21@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261001001412.3837085-1-zhangbo56@xiaomi.com>
+References: <20261001001412.3837085-1-zhangbo56@xiaomi.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,116 +119,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-shmem_file_read_iter() marks a folio accessed only when a read starts at
-the beginning of the folio.  Small reads that start anywhere else never
-count, so a folio that is read over and over at one offset ages as if it
-were never read.
 
-Count accesses with filemap_read_accessed(), as filemap_read() does: a
-read marks the folio accessed unless it goes on in the folio that the
-previous read through the file ended in.  Reading the same bytes again
-through one open file counts once, as for other files, where it used to
-count each time it started at the beginning of the folio.  The end of
-the previous read is kept in f_ra.prev_pos, as for other files.
+On Thu, Oct 01, 2026 at 08:14:08AM +0800, Bo Zhang wrote:
+>Hi all,
+>
+>This series improves memory compaction to better serve mTHP (multi-size
+>THP) allocations, particularly for small orders like order-2 (16KB).
+>The changes focus on the proactive (kcompactd) compaction path.
+>
+>Problem:
+>
+>The current proactive compaction targets COMPACTION_HPAGE_ORDER (order-9,
+>2MB), which is unfriendly to mTHP in two ways:
+>
+>1. It migrates folios that already satisfy mTHP allocation needs. For
+>   example, an order-2 folio is a valid mTHP page, yet compaction still
+>   moves it around trying to form order-9 blocks. This is unnecessary
+>   work and wastes energy.
+>
+>2. Compaction designed for 2MB huge pages is too heavyweight for mTHP.
+>   mTHP allocations are frequent and only require small contiguous blocks
+>   (e.g., 4 pages for order-2). A lighter-weight, mTHP-aware compaction
+>   strategy is needed to reduce overhead and power consumption.
+>
+>Approach:
+>
+>This series makes four changes:
+>
+>1. Generalize the fragmentation score functions to accept an order
+>   parameter. This is a pure refactor with no functional change; all
+>   callers still pass COMPACTION_HPAGE_ORDER.
+>
+>2. Use the highest always-enabled mTHP order as the proactive compaction
+>   target. Because a fragmentation score for a small order is naturally
+>   much lower than for order-9 under the same fragmentation state, the
+>   proactive watermark is scaled down in proportion to the target order;
+>   otherwise a small order would almost never reach the trigger threshold.
+>
+>3. During proactive compaction (compact_memory), skip isolating folios
+>   that already satisfy mTHP requirements, avoiding unnecessary migration
+>   overhead.
+>
+>4. For non-costly mTHP orders, restrict proactive compaction to movable
+>   (and CMA) pageblocks. Unmovable/reclaimable blocks are dominated by
+>   non-migratable kernel allocations. scanning them wastes cycles because
+>   a small order can be satisfied from movable blocks alone. Costly orders
+>   keep scanning all blocks, since they are harder to form and benefit
+>   from any migratable page available.
+>
+>Test setup:
+>
+>x86 host, arm64 cross-build (defconfig + CONFIG_DEBUG_INFO=y,
+>CONFIG_DEBUG_INFO_DWARF5=y), booted with mem=4G. order-3 (32KB) mTHP is
+>set to "always"; ext4 root mounted data=journal. The kernel build
+>naturally fragments order-3 free memory during the run.
+>
+>Runtime (two defrag modes were tested, see Results):
+>  echo always > .../hugepages-32kB/enabled
+>  echo madvise > .../transparent_hugepage/defrag   # or: always
+>  echo 20 > /proc/sys/vm/compaction_proactiveness
+>
+>A background loop keeps proactiveness poked every 100ms so kcompactd
+>re-evaluates promptly (its default 500ms interval is too coarse to catch
+>the transient order-3 fragmentation peaks under this workload):
+>
+>  while true; do
+>      echo 20 > /proc/sys/vm/compaction_proactiveness
+>      sleep 0.1
+>  done
+>
+>Workload: make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- vmlinux -j28
+>5 rounds per configuration; each round: make clean + drop_caches, then
+>counter deltas around the build. The baseline is the unmodified kernel.
+>
+>Results (5-round means). anon_fault_alloc is within 1% between kernels,
+>so the fallback numbers are directly comparable.
+>
+>defrag=madvise:
+>                              w/o patch     w/ patch    change
+>  --------------------------  -----------  -----------  --------
+>  anon_fault_alloc             14,307,597   14,401,699    +1%
+>  anon_fault_fallback              97,701       40,975   -58%
+>  fallback ratio                    0.68%        0.28%
+>  compact_isolated              8,479,773    1,458,949   -83%
+>  compact_migrate_scanned      78,198,828   22,900,359   -71%
+>  kcompactd cpu (s)                    43            7   -84%
+>  sys (kernel build)                6m34s        6m34s    ~0%
+>
+>defrag=always:
+>                              w/o patch     w/ patch    change
+>  --------------------------  -----------  -----------  --------
+>  anon_fault_alloc             14,370,984   14,404,234    ~0%
+>  anon_fault_fallback                 619          823
+>  compact_stall                       979          585   -40%
+>  compact_isolated              6,390,940    2,431,800   -62%
+>  compact_migrate_scanned      86,171,095   46,339,911   -46%
+>  kcompactd cpu (s)                    36           13   -62%
+>  sys (kernel build)                6m34s        6m27s   -1.8%
+>
+>1. With defrag=madvise, the patch cuts mTHP fallback by 58% (ratio
+>   0.68% -> 0.28%).
+>
+>2. With defrag=always, direct compaction already keeps fallback near
+>   zero, and the patch instead cuts direct compaction stalls by 40%.
+>
+>In both cases the compaction is done far more cheaply (kcompactd CPU
+>-62..84%, compact_isolated/scanned -46..83%).
 
-This also sets PG_rcu_free on the tmpfs folios that reads keep coming
-back to.  On a shmem folio the PG_readahead bit is PG_reclaim, and shmem
-does no readahead, so do not let that bit keep the flag off.  A write
-marks a tmpfs folio accessed too, so a folio written in several pieces
-can get the flag on its first read.
+Hi Bo,
 
-Assisted-by: LLM
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- mm/filemap.c  |  9 +++++----
- mm/internal.h |  1 +
- mm/shmem.c    | 11 ++++++-----
- 3 files changed, 12 insertions(+), 9 deletions(-)
+With proactive compaction enabled, have you measured the change in power
+consumption on Android devices after applying this patch series?
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index ace6b1fd6b9e..4b5b7ba78f39 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -2778,8 +2778,10 @@ static void filemap_mark_hot(struct folio *folio)
- 	if (!IS_ENABLED(CONFIG_PAGE_RCU_FREE))
- 		return;
- 	if (folio_test_rcu_free(folio) || !folio_test_uptodate(folio) ||
--	    folio_test_readahead(folio) || folio_test_dropbehind(folio) ||
--	    folio_test_unevictable(folio))
-+	    folio_test_dropbehind(folio) || folio_test_unevictable(folio))
-+		return;
-+	/* shmem does no readahead: there the bit is PG_reclaim */
-+	if (folio_test_readahead(folio) && !folio_test_swapbacked(folio))
- 		return;
- 	if (folio_test_set_rcu_free(folio))
- 		return;
-@@ -2802,8 +2804,7 @@ static void filemap_mark_hot(struct folio *folio)
-  * LRU records, or when this open file goes back to data that it has just
-  * read.
-  */
--static void filemap_read_accessed(struct folio *folio, loff_t pos,
--				  loff_t last_pos)
-+void filemap_read_accessed(struct folio *folio, loff_t pos, loff_t last_pos)
- {
- 	bool hot;
- 
-diff --git a/mm/internal.h b/mm/internal.h
-index 38b1165212c9..18391dc50418 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1248,6 +1248,7 @@ struct migration_target_control {
-  */
- size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
- 			      struct folio *folio, loff_t fpos, size_t size);
-+void filemap_read_accessed(struct folio *folio, loff_t pos, loff_t last_pos);
- 
- static inline bool vma_is_single_threaded_private(struct vm_area_struct *vma)
- {
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 848316eaa7f4..43ddb50974a5 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -3309,6 +3309,7 @@ static ssize_t shmem_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 	struct file *file = iocb->ki_filp;
- 	struct inode *inode = file_inode(file);
- 	struct address_space *mapping = inode->i_mapping;
-+	loff_t last_pos = file->f_ra.prev_pos;
- 	pgoff_t index;
- 	unsigned long offset;
- 	int error = 0;
-@@ -3378,11 +3379,7 @@ static ssize_t shmem_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 					flush_dcache_page(page);
- 			}
- 
--			/*
--			 * Mark the folio accessed if we read the beginning.
--			 */
--			if (!offset)
--				folio_mark_accessed(folio);
-+			filemap_read_accessed(folio, iocb->ki_pos, last_pos);
- 			/*
- 			 * Ok, we have the page, and it's up-to-date, so
- 			 * now we can copy it to user space...
-@@ -3410,6 +3407,7 @@ static ssize_t shmem_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 
- 		retval += ret;
- 		iocb->ki_pos += ret;
-+		last_pos = iocb->ki_pos;
- 
- 		if (!iov_iter_count(to))
- 			break;
-@@ -3421,6 +3419,9 @@ static ssize_t shmem_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 	}
- 
- 	file_accessed(file);
-+	/* Readers sharing the file would bounce the line for nothing */
-+	if (file->f_ra.prev_pos != last_pos)
-+		file->f_ra.prev_pos = last_pos;
- 	return retval ? retval : error;
- }
- 
--- 
-2.54.0
-
+>
+>Open questions:
+>
+>1. In skip_isolation_on_order() and elsewhere, the target order is read
+>   from huge_anon_orders_always directly, since during proactive
+>   compaction cc->order is -1 (via compact_memory) and there is no clean
+>   way to plumb the mTHP order down. This variable can change under
+>   userspace at any time, making the semantics fragile. Ideas on how to
+>   pass the target order through the proactive path cleanly are welcome.
+>
+>2. The proactive watermark is scaled linearly by the target order
+>   (wmark * order / COMPACTION_HPAGE_ORDER). This is empirical; a more
+>   principled cross-order normalization of the fragmentation score would
+>   be welcome.
+>
+>Changes since v1
+>================
+>
+>The series is now scoped to the proactive compaction path only. Two
+>patches from v1 were dropped, and two new mechanisms were added:
+>
+>- Dropped v1 patch 3 ("don't skip proactive compaction for non-costly
+>  mTHP", i.e. running proactive compaction concurrently with kswapd).
+>  Follow-up testing showed it lowered fallback mainly by driving extra
+>  anonymous reclaim/swap rather than by better compaction; keeping the
+>  original kswapd back-off avoids trading workingset for mTHP fallback.
+>
+>- Dropped v1 patch 4 (mTHP-aware zone_effective_free_pages() watermark):
+>  it added reclaim pressure without a clear net benefit in this scope.
+>
+>- Split the former patch 1 into a pure refactor (parameterize the
+>  fragmentation score by order) plus the mTHP-targeting change, so the
+>  mechanical and behavioural parts can be reviewed independently.
+>
+>- Added the proactive watermark scaling by target order, so a small mTHP
+>  order can actually reach the trigger threshold.
+>
+>- Added patch 4 (skip unmovable blocks for non-costly proactive mTHP
+>  compaction). Without it, proactive compaction wastes most of its
+>  scanning on unmovable blocks full of kernel allocations; with it,
+>  kcompactd's CPU and the scanned/isolated counters drop by an order of
+>  magnitude while fallback still improves.
+>
+>- compact_hpage_order() uses __fls() (highest always-enabled mTHP order)
+>  guarded by #ifdef CONFIG_TRANSPARENT_HUGEPAGE (m68k allmodconfig build
+>  fix from the kernel test robot).
+>
+>- Refreshed test data on an mem=4G, order-3, data=journal kernel-build
+>  workload; see Results above.
+>
+>Bo Zhang (4):
+>  mm: compaction: parameterize fragmentation score by order
+>  mm: compaction: target mTHP order for proactive compaction
+>  mm: compaction: skip isolating large folios that already satisfy mTHP
+>  mm: compaction: skip unmovable blocks for non-costly proactive mTHP
+>    compaction
+>
+> mm/compaction.c | 85 +++++++++++++++++++++++++++++++++++++++----------
+> 1 file changed, 68 insertions(+), 17 deletions(-)
+>
+>-- 
+>2.34.1
+>
+>
