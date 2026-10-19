@@ -1,87 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792437058;
-	b=uv25hp52rj5dfphheO8ve9jieTl+BZbzLXhlf1vgz3yWvSJLWEbCZXDdAntg10NI/q3w
-	 QgHEFSNVrSWTb5786X7MRNMtVJw4AqLnjkT44ZLxL9GZrENO//wfAXZFvU0yipurRBW1D
-	 a/rDzNa2Vy8BjQmGsWgB6PKPJYoRXr/VMq1m+YBdiZzMkHlPGZqvre3fKRauKPSvTfNAF
-	 LmfvYqyR/RuT5RhScRwuzv5cvf5yJwQA9ZI+0ESL1wOfOjX2MsH9Cv0FPH0r4lEBzKRmt
-	 WXYPQCzkDnX1TPdf00Z5FR9lqnziGlVzQdByczCbhT7IYiFdcey1Ecns1pDWL4aPeaA==
+	t=1792437081;
+	b=CoDCnJS/hbJJyJpYcj3Pi+wNJLrS4YBZB8k2sIbzam4XgoEDDsjhGE2Rzm1A+fc/yOkr
+	 n97D4RrLbFa/Ep7cRZNLQwMo5iz5qJ2EPMVof3gxIl+l8uorBXlcqZwrtwu0zCpxl6Le/
+	 H3Hrmp1KqR6jyJq/fIhYZ+2FQogYwRxST5aint3lz5YaH08PbKIHWHtyLj4SoCyq7/Mi3
+	 qx7KlnVSWqr9NmAsTPqfTr76fSa+cFDxYfK/NSrbMuteaMtMa0gM91DIPf54oSdpFqFip
+	 6HgdIWFG4UvzXo19yI8CNPrOA+6mZK6wKfnsfW2NbvIMyA5ITT++xfiRgf9jlZQ0tCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792437058;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792437081;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sJxESkmKTsLQ7pnSvDLN4hJFLb0j+Zil8xbu1xibV5w=;
-	b=aQ1gWHecprgYWYvx4COz2V+b3SrsXvre3GxoUxvYwHcvhAv1Q3E6eJwIyj/1Q21fEcQ6
-	 9RnnPzGC/T7BNwqmqLwkxEEn+K3z17ojzv3Yvp75TtuqMLtBSBSeKm3C8U7z9ONj0/uwF
-	 udTKP8WrPRMAVfbX6N4/B44crbJ3Uz19zz5suhBOZAuuTspM18qOjQGGUmYstR1htaVWz
-	 wBNpJQprjV6yXga25lmnWd2ExKONwup9ikU28AVwF7jB3z/AdWd57DJO3A7OrplvXeMY1
-	 Siok5fGGWsSFUJyXWSi2LhAS94JoyUbShuDubdSP0mJIqhCXbIIGiyCw8gdzebBI+cw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Xu+NpaofIcN+A5gy42F4xAEqWNUCxA2rO9+p7TSllso=;
+	b=ozaGQ+YQRTfKxA2Pv9mA99LTSnDGe5TBwy5RsetLSzeujMZSsfhpEUFk87CuNpxm+jsz
+	 /Rg4lGAVRqxGgPlp08Wph8Qk3CCYkBbCLb+xOzycLGOD5wsnsyIvkADQ/YdrikWt5S69j
+	 K4VllVYFJx1Au+1g5nj2nsZogaSINaBURtEzGtw3kkZ6pAQCuWpmkSt5eSB7ZPDQFdrPX
+	 QTeJQcxULs6CoKfYW4kPAU/Vrj3PS2Zw1rDYtxLiwcgz3sT5CdSU+Un2yKggUddwG3P69
+	 ydGqLIbAhayHofHurmIgH7ZbjAgkwOfxJRL6WKXolVmUl3yBkvpiJ7X3rFsMUKszvbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20251104 header.b=ldeLHpfJ;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=R0MFGAlv;
+	arc=none smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A86606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:10:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51A86606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37024606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:11:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37024606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20251104 header.b=ldeLHpfJ
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4956869750eso19935735e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:10:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=R0MFGAlv
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso2859878a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:11:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1792437052; x=1793041852; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sJxESkmKTsLQ7pnSvDLN4hJFLb0j+Zil8xbu1xibV5w=;
-        b=ldeLHpfJGodTfp+uG8f1t9UORb8i3CxKdHT6ZyCntkGt8eFRPj3qFA0D0Pz1t6xmnO
-         Y/Soakl2WPqrReiZjdyGMMg1QCMqolx5JCGujXUf3jZ9CKCxDgrkXmssOhytnsg/bRGn
-         CAONf0OoT03gMuGW7eaxVhHm4LEysswugQBfHPCaOke/74njLOjlGt3P6tzdqIGpaHTy
-         XTrLjbE1nOH8lBhaiV1qA1jJ/sg90BYby0fAm0szKjyUhUQjgr9SieXt8tfZ09LCxOAu
-         yNPWJGXVALRhk/zDDNFrXiocId2pWthkbFV4+9WLcB3qFnSFB7rebw+fLUUnwgSf5DtI
-         o5mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792437052; x=1793041852;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792437080; x=1793041880; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sJxESkmKTsLQ7pnSvDLN4hJFLb0j+Zil8xbu1xibV5w=;
-        b=R7FWAk1M7/HuQnpTkkOkRE2ua0ZOJO6p8zdQDMN6fn2A+WU23+CmqZPzeXck+aD5gc
-         SGs3KU9bovy9vMP9eeabB8TOhWTdP+bRZEn/hTwhojncZf9Tr5tct7tlUry8Tac53m3E
-         5vT1/RTpMHLDE11XKUpRFPgYKCUTReRuN/X/MZWK8cV6Ldb1QVtEsxwkxQmaFcFlFhaZ
-         4+Wz8ECSdy9W2VrNkv/RgoI9vVqF1dGZYZLXRsYAdWUpA6E8tp7rqIVefiXAlS4VMzCe
-         UYLeTZl9RxK35WhHUhN1fBo+14sCSWFF2ubeqlBuE+9ROu+3tL26abyE6cQaYpu+bVjC
-         XgFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxVhlg9YYrAztCz6lElfegBFjO2l8EctfBecIeI7OLoA2llDuf8N+E8K0wSlpQ6xeG2XJvvWTOt2wEOUvw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvBIcfQRBhypuKxhARbPB4Vq/6TIP/XQ4wSfXBJBF0KQX3VEjh
-	I8udqIwVMTfuVOmQm/lC7PuUewst+podxFbQAUqeTwK9vKwBeG5KOEU=
-X-Gm-Gg: AYBFou3ubcA1r+L3Ksxt/xm2Wfu0737LFhe94D0XhDXe6v/CI/e16p7kSlPvYaeLY4D
-	pha7LllAVQAk9p7DWKosGXWCMZEfUhs6eMZprgxGlxZF4ovEpBe3dLNu6t32TUt2CObjtmqa718
-	0KpJUfc2Dl+z1F8/xZ64PB7mMapqtTIDVzuFnWj53dCy135LkqpxZwCjVf+wIBiBO5qmuc4aImZ
-	nRL2Ccv82Ih8fMJiozYRh1gTGQlbxFDYtfYlhXYx+/ne4oyG/YnO3806cMrMb8a5+XPk8BBW0Et
-	nRp21DzpGWw7hqhfCsg7no8b7T2+SP10j03L/DYTgOArt662J7JjNGA4TNAsG5dgG0cU7WGXzRF
-	aAEBWKCVgAI8d1gZxH9f2mE4cU8rU/P9wp3x7p4LubWUuaBOfB2IidtlUcXiyvgjPtXlRThGhFz
-	/5Gdb7vJ+ox7yaMT6bVXQDVLMpUEBrB8LuC2AKQ4G3c9hccc0T6xFZ0BPrA89HBlKoxuIwBUNVp
-	qUD33rFOKC9obSLr2TBo0rn7e35itVCV8hM7ESBQhwPgD9+tg==
-X-Received: by 2002:a05:600c:8709:b0:4a1:ac85:9696 with SMTP id 5b1f17b1804b1-4a1d75f926cmr159050985e9.17.1792437051530;
-        Mon, 19 Oct 2026 12:10:51 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2ac02b.dip0.t-ipconnect.de. [91.42.192.43])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2ce2b8bsm13688775e9.15.2026.10.19.12.10.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 12:10:51 -0700 (PDT)
-Message-ID: <892078c7-7fa1-4e32-a00f-1ac907c0ebcc@googlemail.com>
-Date: Mon, 19 Oct 2026 21:10:50 +0200
+        bh=Xu+NpaofIcN+A5gy42F4xAEqWNUCxA2rO9+p7TSllso=;
+        b=R0MFGAlvryqL/A5EjTzKCxn6pLcLyqx8O4ghtU4WQYS8HyL87Mp65nitNmm7x/0R2V
+         QsFZGb2NsBQU92H4UQm/YaPoalKMdIHw1rsvYJA6N3ybe1U4NGc+moNn4XAhXr65TLZS
+         G7WNzJYftIMKOTkfXim0+2GBrjFk69PKAM8UcGXkxggnju8cEBLZ9D3ayGw6pZT5uYKy
+         F3fCwLgPEQYSAZ96mGN4JpUZgbg4VjmkbWBsHtHQ0jmwJbrkr4Akiyggwijf5yJ1dT1s
+         DZn+9P58qY7rSMTRBCbMzM6ci5/YnXYJJK9LLQbOVtL5P7Bf6KClQ9PK29Q4zCJKpGXm
+         vocw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792437080; x=1793041880;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xu+NpaofIcN+A5gy42F4xAEqWNUCxA2rO9+p7TSllso=;
+        b=Oce2asBNRfT81zhQWkXPT56c8uv2Z8eatwJdBYlZDDt8FqvN/VWGvszRqTp9Vx6MHJ
+         IYN3qY+MhNK71vmFdxnSA4wv82UX41pb252Vr6thYy6OqUl9dbGj6ugla/VMnXjMarFB
+         bdspYM/igAaOc8CcLlVX6wh4tDkQoXuOdZzpxSrpIhZtOnDpA/YIBCnYSXjg2OtIUkrW
+         j7WJ9wO6d5SmuSuCczBLKvZpNbtNVpMMJPrNSajqhDBa3pabsGsYT/wQbYvKj/PVNMbO
+         YSprluO1DyhylTXpLEt4J0rqu/Y5QORBOp3njnrZRGsoZgdDnCDYD3nWaYTmrhzh9yyT
+         VZPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxh8yOZv0Zk+PjyenY9qSgH9ZvZGybGkQQ8iIkbvzt171smwMkUzwWpgPJd8Fe45V8uB+6pCpq5Xlg4rWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbJYLlkU+5SPYGzNRYG+b+qH0BXeMok+5lGv3depRLIPurUcF6
+	6Mx5BvL8EWC+uEzt2GW9EiHsCukZ2lYZfhi1gRJXCqKn+oxvjFNMxR3w
+X-Gm-Gg: AYBFou3mf0hAfBIUbT237P0CHcs4ooAwgn4vgeAJcm18brAXvuTHFs0re1sxG6PcFAx
+	snBojDJvxEv4XQE3wP/iJpqvRq6MAsdnkTiKeFjWNwu7VOToMmgWx0VdH4eecoZoZeaxX1gbKpV
+	xNf7tfRwDkDGFNu36HlmFZavd0wnp+1KvTHbQokWFFiWnlBdxiwD34QFZsgEulReDpfXYi5mw2q
+	pDQHp5NYp3cDcfyvmtvYrZZzRwMWHX3w4mni0yxR0zs1Isv7SGADBVV8hAzw3RgZtIHdp4OlYch
+	UwEfTDh55c5Ttz0yzX1Sywc3XZV0fJoV6KFvAt2RI0JZZe9SidC2yHhYJH1mhqz4+Mk+DQlptlI
+	FsVDc7dQg7cgEEegsqVWK5xSNlpCqIzKu30SpHMkARA9HwxFGUm4AjOD0x5Cb02WXeH+hiZqMgR
+	X9TrYfSar2oV3lJcDlnsDoj2f2A/fNGEGrF8DMUWg8EoSFGkKqcQfn1FNyuRj+UHL5DcxkQ/FCY
+	Im5ElGs1dPNzDNX+7AWyXFxIqZjSo/zUBNzk4KXMbF9zzkSDNvieExVRvXabfKL5iiSDJgrdJM8
+	KcYVtNqg7A==
+X-Received: by 2002:a05:6402:a203:20b0:6af:dccb:acbe with SMTP id 4fb4d7f45d1cf-6b3a8102132mr4036341a12.5.1792437079322;
+        Mon, 19 Oct 2026 12:11:19 -0700 (PDT)
+Received: from wlan-199066.nbw.tue.nl (wlan-199066.nbw.tue.nl. [131.155.199.66])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1d5262sm4341114a12.22.2026.10.19.12.11.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 19 Oct 2026 12:11:18 -0700 (PDT)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: linkinjeon@kernel.org
+Cc: farhad.alemi@berkeley.edu,
+	smfrench@gmail.com,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Subject: [PATCH] ksmbd: accept share config responses from ksmbd-tools before 3.5.3
+Date: Mon, 19 Oct 2026 21:11:16 +0200
+Message-ID: <20261019191116.31291-1-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <CAKYAXd-Z_H2O3W=_KrUifR44yisJJhR=-bQQp1mML7vHgfcdDw@mail.gmail.com>
+References: <CAKYAXd-Z_H2O3W=_KrUifR44yisJJhR=-bQQp1mML7vHgfcdDw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,56 +103,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.6 0000/1674] 6.6.160-rc1 review
-To: Sasha Levin <sashal@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261017160431.119607952@linuxfoundation.org>
- <827e9f8d-5654-4964-a999-5ce94bd98fd4@googlemail.com>
- <7201018c-20e8-4187-832a-aeb0e5db98ca@googlemail.com>
- <rc-reply-0001-6f27dc9abcab@kernel.org>
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <rc-reply-0001-6f27dc9abcab@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 19.10.2026 um 18:54 schrieb Sasha Levin:
-> On Mon, Oct 19, 2026 at 06:02:37AM +0200, Peter Schneider wrote:
->> # first bad commit: [7c1e132b0967210526de05e7af6f1c26ad0c1516] sysfs: Introduce a mechanism to hide static attribute_groups
-> 
-> Thanks for bisecting this.
-> 
->> I think the problem is, that if you take this patch for stable, you need to also take the patch which is upstream [
->> cd69fedf58f8ab1ab511f7c6ac1969cebf1c935f] sysfs: Fix crash on empty group attributes array. It addresses the exact crash
->> that I've run into.
-> 
-> Rather than adding cd69fedf58f8, I dropped d87c295f599c ("sysfs: Introduce a
-> mechanism to hide static attribute_groups") and its dependent c7fbb8218b4a
-> ("sysfs: check visibility before changing group attribute ownership") from the
-> 6.6 and 6.1 queues.
-> 
+ksmbd-tools releases before 3.5.2 do not have the payload_sz field in
+struct ksmbd_share_config_response; the field occupies the last word of
+their reserved[] area, so the kernel always sees payload_sz == 0 from
+them.  ipc_validate_msg() and share_config_request() used to treat
+payload_sz == 0 as "legacy userspace" and skip the payload size checks.
 
-Yeah, that seems to be the cleaner approach. I just tested this, and this works fine, too.
+That case was removed by
+commit f25e93768fcc ("ksmbd: prevent out-of-bounds reads in share config responses").
+With payload_sz == 0:
 
-Will there be an -rc2?
+ - the IPC$ (pipe) response fails the final message size comparison:
+   these tools always send a one-byte payload, so msg_sz is
+   sizeof(*resp) + 1, but the expected size is now computed as
+   sizeof(*resp) + 0;
+ - every other share fails "payload_sz <= veto_list_sz".
 
-Beste Grüße,
-Peter Schneider
+In addition, ksmbd-tools before 3.5.3 copy a global "veto files" setting
+into the IPC$ response, so with such a configuration IPC$ also fails the
+now unconditional "veto_list_sz > payload_sz" check, even though pipe
+shares never use a veto list.
 
+ksmbd_ipc_share_config_request() then returns NULL and every tree
+connect fails with STATUS_BAD_NETWORK_NAME, so ksmbd cannot serve any
+share when used with these ksmbd-tools releases, for example the 3.5.1
+package shipped by Ubuntu 24.04.  Login still works, which makes the
+failure look like a configuration problem:
+
+  CIFS: VFS: BAD_NETWORK_NAME: \\127.0.0.1\IPC$
+  CIFS: VFS: \\127.0.0.1 failed to connect to IPC (rc=-2)
+
+When payload_sz is zero, derive it from the size of the message actually
+received and store it back in the response, so that the checks in
+ipc_validate_msg() and the path and veto list parsing in
+share_config_request() all use the same bound.  The response is the
+kernel's own copy made by handle_response(), and msg_sz has already been
+checked to be at least sizeof(*resp), so this cannot underflow.  All
+checks added by that commit then apply unchanged, bounded by the bytes
+that really arrived, and newer ksmbd-tools that fill in payload_sz are
+unaffected.  Also skip the veto list size check for pipe shares:
+share_config_request() reads neither the path nor the veto list for
+them.
+
+Tested in QEMU with ksmbd-tools 3.5.1 and 3.5.7 and the in-kernel SMB
+client over loopback, with and without a global "veto files" setting.
+
+Fixes: f25e93768fcc ("ksmbd: prevent out-of-bounds reads in share config responses")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+---
+Found with AI assistance.
+
+f25e93768fcc was also backported to 5.15.222, 6.1.189, 6.6.158,
+6.12.111, 6.18.53 and 7.2.6, so those stable lines are affected too;
+this patch applies to all of them (5.15 with the older fs/ksmbd/
+paths) and to ksmbd-for-next.
+
+It keeps that commit's OOB fix: the payload size is taken from the bytes
+actually received, so a short response like the one in Farhad's report
+is still rejected.
+
+Tested in QEMU (KASAN) on 7.3 and on ksmbd-for-next (1db57ad99d46) with
+the in-kernel SMB client over loopback, using ksmbd-tools 3.5.1 and
+3.5.7, with and without "veto files" in [global]. Unpatched, 3.5.1
+fails to connect to every share; patched, all combinations mount, IPC$
+connects, reads/writes work and veto files are still enforced.
+
+ fs/smb/server/transport_ipc.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
+index e550aa41ad..f5cfc32050 100644
+--- a/fs/smb/server/transport_ipc.c
++++ b/fs/smb/server/transport_ipc.c
+@@ -532,11 +532,25 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
+ 		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
+ 			return -EINVAL;
+ 
++		/*
++		 * ksmbd-tools releases before 3.5.2 leave payload_sz zero.
++		 * Derive it from the size of the message actually received so
++		 * the checks below bound the payload for those releases too.
++		 */
++		if (!resp->payload_sz)
++			resp->payload_sz = entry->msg_sz -
++				sizeof(struct ksmbd_share_config_response);
++
+ 		if (strnlen(resp->share_name, sizeof(resp->share_name)) ==
+ 		    sizeof(resp->share_name))
+ 			return -EINVAL;
+ 
+-		if (resp->veto_list_sz > resp->payload_sz)
++		/*
++		 * Pipe shares carry no veto list, but ksmbd-tools before 3.5.3
++		 * copy a global "veto files" setting into the IPC$ response.
++		 */
++		if (!(resp->flags & KSMBD_SHARE_FLAG_PIPE) &&
++		    resp->veto_list_sz > resp->payload_sz)
+ 			return -EINVAL;
+ 
+ 		if (resp->flags != KSMBD_SHARE_FLAG_INVALID &&
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+2.43.0
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
