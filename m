@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792437814;
-	b=KLnS7nZBEmSJrY0rQ/17MCIhUPmlUfTYnVwlV8B9NUL9rnfbiFM+mot9FAnDX0SytwcB
-	 xXxLUaDI4srz334/5vXpSF+zvn9GVOoschTbRm/A61zmej8SA4BSZiSqHyyQ3yb3OAGZh
-	 +4NWiWX6KBkGdYazFL4dASyIo6F6f8KxEX4Hd3zoaScybpeMo9J28TWrFf1bsEhPXbYuV
-	 JYwbdEKluFy/PRIZHZ7i3BE/77Ff0Wm1Q1GNq1rgZsct9jJtNlK9cekGHJ9N83U3E8zhL
-	 6q0GKn5vt5LgMNOhPj0u3DvFJ6T6GIZwiLOxvgsaWztTpKiZq9gB6KYM/JZlMeutHdg==
+	t=1792437840;
+	b=vn969rirVXlE9tANNeXIRhbUgzM0vDugB97jbx8EWeRfhfAwIH+uFrhvamPaGGgsybni
+	 X9/gGzmO55gACGZJGJpFcATMuX/MyacSpJ6bsDmVZ/AtQe/T+BDy5UpyyWkd5Z/cFsyvD
+	 RQa4FUHIVVui29+NXL4f9SV/gFFsgQ/soWVnaI6I+FkGDUnvkJx3UF3fUXc9uUx9SsWLo
+	 pzfAsEzw8WmA1StLkF9PgsmLW1u/g24o8vW6RqB4ISSSynzyouJTmap50z3vhJAZEt7EO
+	 z4oIYn9xYXIyQgOiacjgdWf1T9xuVEc70xLXZqUg6gGSsE44G1sGlmVpZEQ5evdZxAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792437814;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Syyh9as21Eq1SGsHwieN5MqC5jTlcLjU/4/08M/9bU4=;
-	b=PbSSdU5+9xfb/nvq+3RGI7qrsIb2A1n+S1nci9EpPcGsPTkhxa9Dxw6y+/AGO4EEs7Xi
-	 /923e0YtLE0cwfOdg7R/ehTqCLHcwHkwoeNvJXdwtnVLpsiP331mW5s5dH4p8xHMRL6Bw
-	 vsVPFAhRFbTbmvZ0OW2Xn2X36lCsJ9sw07DhAUsuBvJ4QYwGJslmsXxzua+S4iXq8KXEt
-	 /hagQsmdCVgCNl47wZrfychroBS6UJj3AP5C9DBQujeFbdepVOKwNFNHW99+vAvIOM2XW
-	 0gEuQ94ppkwLuiVspIZV8OPIgH3F3ETZGWMPCkdpfTId1U4Oh0nznh5/uVkVwoo1gtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792437840;
+	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
+	 Cc:Subject;
+	bh=mnnStGPg4uQa1kneQDAbe7N52BBAyMS/YJfL9Oqp4RU=;
+	b=xXh+zf3reD4l7XFjXBjtAIFthQQ6KBlFB+bzIu0w/ScJuUEiesVOuUhyWgSEXqW6f5iC
+	 Qo6BeiKRWSmpZdHYyj3SJMzf0zEvLysAdRtpFhNDPJvgcqbhH2vz0QuWQobyuFk7ajRJ5
+	 TaVnGqSXHpm1prYWTZUrdYjENQIKAl3IQGhXGoklGbOOKtS1vGUzClnvEBXqlzDkeFGC3
+	 k6kIxayUXSda5U3EtvAgCDhpkDpyhoZkCtT/6hhJIK1klBPydvR/yDu9jM+Vu9cfTjoCQ
+	 FiBOZ0aFoySr9YD21xyVyioGJPbIKJQGuEQJY7unkR+4F/X3xbuk2iRf19321dh7oTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgRRD7Rg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ji23I/jR";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28735606A326;
-	Mon, 19 Oct 2026 19:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F4B606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:24:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgRRD7Rg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66D3D1F000C4;
-	Mon, 19 Oct 2026 19:23:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ji23I/jR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86791F000C4;
+	Mon, 19 Oct 2026 19:23:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792437813;
-	bh=Syyh9as21Eq1SGsHwieN5MqC5jTlcLjU/4/08M/9bU4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QgRRD7Rg+wnRcwhnQlvBnqZDd/ZJNA3MnrFxqnD2Doh7dkfunNI4w7uUaW5ZjZt18
-	 B2w3Ovhq76e1oiSDVdKBmkdbM4omsU0RYY+SU1ccSwIbFoqTzgb3IkNyXJIK+Vjs2E
-	 CFxCOlLQ/TBnlbKgVyDPz9yI82pOod5JZtn0CkK1H6f6Nu1n1uHj9bFMhekC+uCoH9
-	 v6g0k/MCdB3ScZz/YgqLxxiOwiqTKs5IPit2MES7rFfsxoDysJHu7sYBatNdC9qSwk
-	 wTmo+dR/fK9098pxjEUlHzIjaruEbVdZK9qS2mzqjtd1kjJKcd8Dmlo36cwpWPj11r
-	 K/6AYmMf74g/g==
-Date: Mon, 19 Oct 2026 12:23:32 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, Andrew Morton <akpm@osdl.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 3/6] KEYS: Prevent overflow of user->{qnkeys,qnbytes}
- in key_alloc()
-Message-ID: <20261019192332.GC65095@quark>
-References: <20261019181732.449591-1-jarkko@kernel.org>
- <20261019181732.449591-4-jarkko@kernel.org>
+	s=k20260515; t=1792437839;
+	bh=mnnStGPg4uQa1kneQDAbe7N52BBAyMS/YJfL9Oqp4RU=;
+	h=Date:From:To:Cc:Subject;
+	b=ji23I/jRcXL+NbHl1HRfhR9FFWKZjL4xcIqFpLe0LXxANTCZrcxJoTCI00VUPyX3n
+	 4DU3Eya2kKHfnAM70ZG/kt7MLn6WyKGbsAQMo6vLZ+jkWbzintTcFoelv029L8Pkl4
+	 hRbrAGgSTjJS/yTJ0TmS/jM052Noyzrtf9EWSId7NKdx27sdGstZMYYaxR28ZkznFz
+	 uA2AdvUhPMdajAYfrprdyrnQY3D4T1BKksVPXJSGbMS5W9D9Bjxa8CpfHiwPmFEfGe
+	 UTsX6BzC7q77LtBHFCeKAhup/J2m9Tvnljr2fWUJGKoemktyTQe8zWxl7Yu73+7fJ2
+	 fOqspy9eSiDfA==
+Received: from rostedt by gandalf with local (Exim 4.100.1)
+	(envelope-from <rostedt@kernel.org>)
+	id 1xIsxj-00000001eEj-0LQX;
+	Mon, 19 Oct 2026 15:23:59 -0400
+Message-ID: <20261019192344.004592683@kernel.org>
+User-Agent: quilt/0.69
+Date: Mon, 19 Oct 2026 15:23:44 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [for-next][PATCH 0/9] tracing: Updates for 7.4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,22 +61,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019181732.449591-4-jarkko@kernel.org>
 
-On Mon, Oct 19, 2026 at 09:17:23PM +0300, Jarkko Sakkinen wrote:
-> Add the missing overflow checks for user->qnkeys and user->qnbytes
-> in order keep calculations within INT_MAX range, which is the
-> absolute maximum quota.
-> 
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Fixes: 7e047ef5fe2d ("[PATCH] keys: sort out key quota system")
-> Reviewed-by: David Howells <dhowells@redhat.com>
-> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+ftrace/for-next
 
-Don't keyctl_chown_key() and key_payload_reserve() need similar fixes?
+Head SHA1: e1f339ff3b83857b93baf8b88186275a413d445e
 
-- Eric
+
+Aaron Ahmed (1):
+      ftrace: Initialize modname and offset in print_rec()
+
+Jose Fernandez (Anthropic) (2):
+      ftrace: Do not leak a module's empty page group
+      ftrace: Let ftrace_call_adjust() reject a patch site
+
+Steven Rostedt (1):
+      ftrace: Have stacktrace option work with func-args
+
+Yun Zhou (1):
+      ftrace: Add max field to function profiler stats
+
+pengdonglin (4):
+      tracing: Avoid BTF lookup in atomic context
+      ftrace: Build trace_btf.c when CONFIG_DEBUG_INFO_BTF is enabled
+      fgraph: Enhance funcgraph-retval with BTF-based type-aware output
+      tracing: Update funcgraph-retval documentation
+
+----
+ Documentation/trace/ftrace.rst       | 96 ++++++++++++++++++++++--------------
+ kernel/trace/Kconfig                 |  2 +-
+ kernel/trace/Makefile                |  2 +-
+ kernel/trace/ftrace.c                | 32 ++++++++++--
+ kernel/trace/trace_btf.c             | 86 ++++++++++++++++++++++++++++++++
+ kernel/trace/trace_btf.h             | 18 +++++++
+ kernel/trace/trace_functions.c       |  5 +-
+ kernel/trace/trace_functions_graph.c | 56 ++++++++++++++++-----
+ 8 files changed, 239 insertions(+), 58 deletions(-)
