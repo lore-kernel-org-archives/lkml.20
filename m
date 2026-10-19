@@ -1,108 +1,169 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07F452BE2D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904DE500A8A;
+	Mon, 19 Oct 2026 14:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792419700; cv=none; b=d3L46ZckZOgnZ/7SJZd3fucRoYNnODNgM+HlwTMk4TlV05mBSKRgM2qDo/PK556POsJK914K7ucacHpElO42zYFN99z7wNXSP7FNQFdA2mIlAvCnsdfcPO4mXBtgw5sh5o093zezsb5YwRgshvqpQRmmGwE5a9aNwK5feZzHGKg=
+	t=1792419729; cv=none; b=KHuxoCj+3XFl+1RZCOKCikaHKU9T9RSiqdI4oqcTtYhPdld5Cdiq+j8l2EDt35NFuj7WsyImFPCvBTAlh35KFQLyoLluciGsiEXhr7afDAxYCA2Fe+JKWUPAMS+H+CWcy2GrC9Q2MS+0RLyEbhfm7V2Xv0vWvmB9tUMX3Yra+Lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792419700; c=relaxed/simple;
-	bh=SNGLc1dRo+r2RFwuwPeYSacsXpa5s/1i0LqchSr1mA0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WppQB5vZF0oGgwBt0mZWt3wDOGWI2z08BwYKk+sE8tsTxtQeoPzaV/+S50om+CbTgCKbHP0tcioQqDLNCI91IQQxb1gT9yMJKRTQYGyPOBxNW7xTuBhqfHJhqytBzmt0g9JkNr3DG0Y/sKXvw6oW/q3chX3+q12AsmWFrOLp97s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6af9a90e4bbso2072074a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:21:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792419697; x=1793024497;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=r5Un3tcFd0CWzR3WfawxmOsdbODnCsUjJ4VgKeoks+s=;
-        b=fW9dO8JSlcj8WUjnbYQymaZKACl8Z+mDLeyEfP7OKGLhGEZzqHXCRMZvdmI2WvY9S8
-         XpKtVDRX60WaeGtnwg/YsFrs9Oz7oGXZ3uAGHFRfu4jK51X+bp5IDjyj5YJ2Fj+fO0he
-         CI23CzErhvuwevrq4liYa1oro0HiklI9iTd6m/EHXkLvJInhfsTg0Z305O+KvnpoGeNQ
-         Wa4PvOENPjM7eehBIfszUbTx6zuW4VIDYloLOKi/7wjBXUGDzk0CqJ3paZ2Ne9aRicil
-         4TptSSWfI7pPadf93W/HvnLGDHlZ4tcWuOyhoDIhcgXcLbVmFYqunEbLutkFdanSe2iu
-         0aPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzgM4jER1h6kns9XaA4sxisVJEsbb4uPIjJ7QA/8ruxyU+kEZ+QMcfCnnroWa6D6rxd4fwyfc9d4WgBMxc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEUdUB6z/k6C8kjhB7iO8+qcKTMoHjIQGQ9ElHYtz3iTwCa3G5
-	t9selDLRZRWyvFcgnIHAuNSExGPyqMHyR2Ky/DdWq1Jq+lTtEWXiJTAORFUiJ1Wt8sw=
-X-Gm-Gg: AYBFou2kp1OseggYq6GrX40Lkxw4wE9c4N8l7FntDB5rZPjfqU8CalH7iEUWu7Smh8E
-	kERfzF8F4FUBXUBMOEAzZi+3PSWibfDxu25aOOfmvWUV3yOeBbi9mCSGaRgNUM74NwjyCXObu8i
-	jnnSQ2ZWeIjlXDuL8Y7N04Rmo/f4UpssJgLmvKgpRNSjDNc+htI6aY8tDYrejENGfoJTewKZ/xf
-	VnXw6xv7k+ndtYD++AEKx/7wMxSgi2O/0vV36TUlmLRkz8WRxd47E6PWrKd/pQvCPkf9hqQunk/
-	sWJ8casFwagC4n+4oDmXfa76oyWQmZ9IJG63lNUEjuRtnZ4pBnDR/5Y4Uic0Uy5bkHopdmLJ2Op
-	oaez7FeOQsQVjXGC625FUKs6hpbFe9WAeM2CCkLWIL93o9PnedA8Ym9TQsZVuDox7oO6/CnmqAX
-	sBlAs3SjbN7lu07GjkS3KGJ5ns5KuvjOOrg8icnkX5/OsnxVMb7RHBW6EtYUkZkd9u6/7V9VJUG
-	Q2AfhRA1PSyWBslO4s7E97O4rjOftvB+AvN
-X-Received: by 2002:a17:906:c114:b0:c34:d75b:dde9 with SMTP id a640c23a62f3a-c419e83aa22mr540142666b.26.1792419696873;
-        Mon, 19 Oct 2026 07:21:36 -0700 (PDT)
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com. [209.85.208.53])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c40912ca7f2sm384778866b.46.2026.10.19.07.21.35
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 07:21:35 -0700 (PDT)
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so2588802a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:21:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx41Ggsv250FitPJh0q44mxZkl/B14a8wmrNn0JTDcgC79P+5j4kdokFNM8sSQHJYVwwAFIdhKnRTP1OQM=@vger.kernel.org
-X-Received: by 2002:a17:907:720b:b0:c3f:153a:8663 with SMTP id
- a640c23a62f3a-c419e63930cmr576763166b.23.1792419694998; Mon, 19 Oct 2026
- 07:21:34 -0700 (PDT)
+	s=arc-20240116; t=1792419729; c=relaxed/simple;
+	bh=ZdfX0Nanzy4EcV0T0a7O+qQxy6lo+1BO1eB1RtJ0N7Y=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eC0sALXzDi2ApCJOIKSy9hRInLUJO6KX9ffhfPtxPPvoXoxaPYVJdt5Ku1ebvpgzx18Y+IeQSRuwzPOZFd6MCYkibItgMXjrtD/NkR/hPiiVMYi0IKHedaZ65tqRjdGqz5yT5RQCn/LhqbkCHG/0cAGEHQZK3zWruedSKFuwovA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wqd3EWyo; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9dNDu6qv; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wqd3EWyo; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9dNDu6qv; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wqd3EWyo";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9dNDu6qv";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wqd3EWyo";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9dNDu6qv"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A441421C64;
+	Mon, 19 Oct 2026 14:22:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792419726; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vF0Olg4YvIthv/sPhgSo3kpD1iVaKfFVtNL8I+lNbro=;
+	b=wqd3EWyof9G4nhkOB5yJqJ5F9Q0V4ycIe/dM6w6NdZEQdXtPKT//3H/TboMMbraVADwaE2
+	RMJJgsZovVo+WhSva1yquK9raVEiudjbYcQn1LoAtDWOrx8heUUMn+C+SvD9nhG7+o4UD5
+	J9ijOsAjKjLV/ozaFNIfdxmnX02hSuk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792419726;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vF0Olg4YvIthv/sPhgSo3kpD1iVaKfFVtNL8I+lNbro=;
+	b=9dNDu6qvXtomakfryfQBBUUDfsPPSOJ4646hSw6Pgt81qL9JyKQwegJN/NU7Q6wQswAbZa
+	1Eb8NUbwE0kK4vCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792419726; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vF0Olg4YvIthv/sPhgSo3kpD1iVaKfFVtNL8I+lNbro=;
+	b=wqd3EWyof9G4nhkOB5yJqJ5F9Q0V4ycIe/dM6w6NdZEQdXtPKT//3H/TboMMbraVADwaE2
+	RMJJgsZovVo+WhSva1yquK9raVEiudjbYcQn1LoAtDWOrx8heUUMn+C+SvD9nhG7+o4UD5
+	J9ijOsAjKjLV/ozaFNIfdxmnX02hSuk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792419726;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vF0Olg4YvIthv/sPhgSo3kpD1iVaKfFVtNL8I+lNbro=;
+	b=9dNDu6qvXtomakfryfQBBUUDfsPPSOJ4646hSw6Pgt81qL9JyKQwegJN/NU7Q6wQswAbZa
+	1Eb8NUbwE0kK4vCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 46684136CC;
+	Mon, 19 Oct 2026 14:22:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3J+nB44n1mqyYgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 19 Oct 2026 14:22:06 +0000
+Date: Mon, 19 Oct 2026 16:22:05 +0200
+Message-ID: <875wyxahyq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: ivan.orlov0322@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
+Subject: Re: [PATCH] ALSA: pcmtest: Pin the module while pattern files are open
+In-Reply-To: <pm-pmb-1ce354e709dbab28e563-v2-6b2ea0aa16ec39442f6d@gmail.com>
+References: <pm-pmb-1ce354e709dbab28e563-v2-6b2ea0aa16ec39442f6d@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com> <20261013-paul-v7-3-rc1-edac-v6-2-2f1d6f2f74db@bootlin.com>
-In-Reply-To: <20261013-paul-v7-3-rc1-edac-v6-2-2f1d6f2f74db@bootlin.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 19 Oct 2026 16:21:21 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUkhM3OtWnckc-ou69ZYFMfRT+DmU5AgUctJ0uY9w_GDw@mail.gmail.com>
-X-Gm-Features: AclHuK-siV4JYKFbtDQyYh3ROQEzSATnv4TCER_6U2XNGxIXypq0WsoD3L-uWls
-Message-ID: <CAMuHMdUkhM3OtWnckc-ou69ZYFMfRT+DmU5AgUctJ0uY9w_GDw@mail.gmail.com>
-Subject: Re: [PATCH v6 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Herve Codina <herve.codina@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Score: -1.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,perex.cz,suse.com,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-Hi Paul,
+On Mon, 19 Oct 2026 11:04:42 +0200,
+Cen Zhang wrote:
+> 
+> The fill_pattern_fops table must remain alive until the final release
+> of each pattern debugfs file. It has no .owner, so the fops_get() call
+> in full_proxy_open_regular() does not take a PCMTest module reference.
+> 
+> With snd-pcmtest loaded as a module, a user with permission to open a
+> fill_patternN file and unload the module can retain the descriptor
+> across normal unload, provided no PCM file or other module reference
+> prevents it. The following ordering is possible:
+> 
+>   Pattern file user                   Module unload
+>   -----------------                   -------------
+>   open(fill_patternN)
+>     full_proxy_open_regular()
+>       fops_get(fill_pattern_fops)
+>         owner == NULL: no module pin
+>   keep the descriptor open
+>                                       mod_exit()
+>                                         clear_debug_files()
+>                                           debugfs_remove_recursive()
+>                                           drain active operations
+>                                       return from mod_exit()
+>                                       free_module()
+>                                         free the module image
+>   close(fd)
+>     full_proxy_release()
+>       read real_fops->release -> UAF
+>       fops_put(real_fops)
+>         read real_fops->owner
+>       access freed module memory
+> 
+> Even though the table has no release callback, reading those fields
+> is a use-after-free and can fault. The retained dentry keeps the
+> proxy's bookkeeping alive, but does not retain the module storage.
+> 
+> Set .owner to THIS_MODULE so the existing fops_get()/fops_put() pair
+> pins PCMTest until final release has finished accessing the table.
+> Normal module unload is then blocked while any pattern file is open.
+> 
+> Fixes: 315a3d57c64c ("ALSA: Implement the new Virtual PCM Test Driver")
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> Assisted-by: LLM
 
-On Tue, 13 Oct 2026 at 12:45, Paul Louvel <paul.louvel@bootlin.com> wrote:
-> Add the Cadence EDAC driver found on Renesas RZ/N1x SoC.
-> The memory controller supports ECC, software scrubbing, and SECDED.
->
-> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
+Applied now.  Thanks.
 
-Thanks for the update!
 
-> --- /dev/null
-> +++ b/drivers/edac/cadence_edac.c
-
-> +static const struct of_device_id cdns_ddr_ctrl_of_match[] = { { .compatible = "cdns,ddr-edac" },
-> +                                                             {} };
-
-Why this weird formatting?
-
-> +MODULE_DEVICE_TABLE(of, cdns_ddr_ctrl_of_match);
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Takashi
