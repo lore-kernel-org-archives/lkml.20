@@ -1,84 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792429128;
-	b=EJocG8l6xTxLmMHeLcwpsxGXlO+fn/faYb0EJayUniy4NsjxXbG67UsyjBtkbrzFQumV
-	 NT4YnAHX4B/WofB1uGuSzV+IkVtRrOEUvkj3Yu3ApZzUZdjzcC4HBzTb8Nj/agWcRmg12
-	 1mj36JNgM3OIJcIXEHZX7kTkgwe7i8vbGjOlUQOoiX1wdQNku07b17MrEhKSZiqwrNlj3
-	 qjtT4Vwne5lCYfXsQmn+DKZ0BTG1T6aFak1ndOZfhM51BP8KbPMMM228P33+y6j6ZAEUH
-	 IF7HT7Ym1nYmubkRS8QSH69kMYKUOEEKRhuRfcMR8NbM4R6+R9FoBRdwLHAWapOWtVw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429128;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Subject:From:To:Cc:X-Mailer:References:In-Reply-To;
-	bh=KkMdWlrPdSNNduqxUUOw/TuQSGBXGO9cH3ilJ+obI3E=;
-	b=2+sk2QgWxnJlFuFFsKQjD0rqu7fPIfMYVdw4tw11mRbSno7m2/7oT7Z+fZX9xvlCELJc
-	 14Vp+lhxfB0k9f7UIGd58EgbzwNdiuZ8Bx82itLabaMIbYw+6mGWRAIeHeAqOm73FnNCp
-	 8unCZ37A3VrTjVPTdFVHPvUGTmFzYpNTnlGnVZnP9zkUUbjxWg+F/MBiSFvslB2KHDxL9
-	 WJ/i1n7cDLx2l0TkQFqhtlowHd8nrxam2RjbBQAms6kvEUuYWyMjDEZIo7oBskYxiLPGc
-	 j2gwky7cqKBwNBypoVHDmeeUy5shCYNbB4gPiVVHmrOc/BWenHuqP036y1PFQvgUDIQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g4MaDUX2;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792429161;
+	b=EMhwnYIjMdBwOHqabVc7EkmT6ZXyd4unIQ2Y1yp5cBcWaqtYBXAF8Xr3rSNZ3/Wa/vfZ
+	 MB/hseGS2r+eEoq2HWDhIptJsIO5d/DZjImlacZETB9GshLtumD7jtZNQo27AAMvoqmMr
+	 /z4M2+gumz4dL+PxHXmIE+Cs/Ud50y9CEU/K4DJhLPahbhzD353uDhepmc82MFab0BqfZ
+	 JhejqPMMduxwSV4PW82eK1qWMOzWeBEaWeAFVOeUBEm/7HzyuNwyUQMBkAx9e9hFYn2MS
+	 Uli46Sj62wOCeDI2vzdivTdgyesx1ktFsZRu537QFilcDS66cSEhegUY/0eIeuIjafA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429161;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Q4aYhkB2itPdq3Ct70W2y+9Taz2ofJkTpwrucY+7bQY=;
+	b=HC+OznxFWgXb7KBdCO8i8GWSHl/svadbQLQkxDMFFL0Ub+MaDwJg7PeQTvTvzWMKjdhr
+	 R4tm1uNx9Dr/N8uByLrj86o2eWtz/BWdoYQh11fFu+jiqqClmHJxIQWh4TbS9anQyC16P
+	 ovC7C6OGzSHXUBKksYljLOOScvwu3OsZn/i1S5TRwgcci1LoljMFMKLerOZNSRf6+6a6F
+	 B9NHW84W8CuA1QOzCP5jw0evwx/2Z+q6wPkrCm4v98Ad2MYYu35XbvJBo3gEoo+t7DATl
+	 Aq/fRhhw4eczPdXBN2QBWI4lv8jUwlxEc3KOJyxUIk0NdBYTYz+xBU5OZC+9TU3TWJg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="drSwN5/a";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.6
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010006.outbound.protection.outlook.com [52.101.193.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E066A606A31E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:58:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E066A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCF1606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:59:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BCF1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g4MaDUX2
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e9eb579c0eso7121165ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:58:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792429127; x=1793033927; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KkMdWlrPdSNNduqxUUOw/TuQSGBXGO9cH3ilJ+obI3E=;
-        b=g4MaDUX28LQh6dEGXiyEcLOoXECScCKHQHOS02TSMQ4RJBsO+uWD5pVHNxxFeeKNex
-         HzWdXWT89sanXVLsc0E7jADPCeouWDQfAf/5b0Dsn+UQuUqdp7gZDMSVj+jJdM0C/5Tg
-         xWQpDZdTdX9KwyEVxyVSfMaCpKglGkDw3LM2BiL3/8O7AIXVDl0CxLglNrpMcimbjBTq
-         ItJyoOEFkmPQc5NkjyDXV27xdT87ngyP95XEYmjw7jZiR7yI795FbWx6l+Op6y6iee1H
-         WTWFceyt0Wi8EOqk/mRTc5sTXBSE2PdlPtjJQz4sARhLqvNEduFZO01UJmpgcXcwZnYn
-         XmvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792429127; x=1793033927;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KkMdWlrPdSNNduqxUUOw/TuQSGBXGO9cH3ilJ+obI3E=;
-        b=lRlrTWJI76ljuQ8YIvzHqBAmy/OGhvfQa8nP927MiX6r5/S1/dBbQoSJsYtbZ7o1sP
-         2HqePKNlOoiWY56hS78L34bx8sDBw0wYgM7YgaQsHVcuPWELbqV6IRqrqB4eaU9NQO2v
-         x7DbRhkmW0HJ4+qnq6Syc4CeC46LDU92UzM3IBqv1lsPBJBhMPd5TPWU3ncGgflww+Bn
-         IH1HVsghIqI9m2zaukI3DQJwmmF2G2PgunuprfjJTj9gAXn6KlK59mTOv6u5ON7TMkux
-         adjmdjyQvnizQdt3gTZkt+h/rH3tLI1TGpS8FOozJUYnZbBNPlSShxkQXwIb9je36Cow
-         zSsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8EBbCsRRD2IbWc9HXdiu1bHlVgw+7lGCTYzL1WSARKq1Lh/Q+enpXErFkdC1oOEpbZEEu/nNAgxH+eKo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILu+n+2BP/fVDtraM7DTRuTTqkJuQJngM5KTUk2KqmU2GNzec5
-	54E/cZfLAtmQYZ+O871mK3Y6qlZ45j6s0UwVJD370UtHsQus4FGsj/P5
-X-Gm-Gg: AYBFou30IgBeZCxa3tu4QmJTHhCAJ8AU5po+vkpCXlCnMgp7m3W0KEznPoQKw3xFOtq
-	xgR7wuadrhwSPZ128eQnEoRphzXblY4FLmHZl3CuEbIDfaZ+I1zQxcwnQoE4OiR5l8P9u+Y7v8E
-	v58yeRvQ90NOQM3WH5s/zexl9lszNVW05aDE6YODHhi4ZaCGmpFNoO9EReKS9KJwC2RVHaM8ScB
-	PLmLD/nVrD5d/HhH2u6U+fmJKPIwvPoft0iRfe0ETTB/XFWjj/FQgVO0Xak/a4WAdX22hfk+y2N
-	LXc+m0tkVby1fYoiefZf27DieaxZNECdgrTAQCpjPWlYlWJ2gB5BQck4ccBV5XJq98TXrdePbIs
-	+xSZZFGhk+7EmYV6S+J+iAvPObvP2Fb7Zzs+2ppVpkYA+oJI0CFBBRlIjhIwpq0KWoy+freD2Ie
-	+cRLhTBILtmuyLAQhg4DkojMm9AQ4G2wRNmCb9/hGV/BomT56ScoSc6l3gfoDlOzj1/bUH0EsHZ
-	iQO6lSln5WOIaqdHnBbH+xB04/X5fZakCmKzo8QFMbnUHiWobKlli3gRGZafQaBdPZnqIf8FBip
-	Inz/XzPin7GI4wzCfyvlDJu0w9/5kt5zqwSh8ZcFv8EdGirAXp+Zqqw1QQ9P
-X-Received: by 2002:a17:903:3503:b0:2dd:ad73:c989 with SMTP id d9443c01a7336-2e9a69e9d24mr66985745ad.33.1792429127112;
-        Mon, 19 Oct 2026 09:58:47 -0700 (PDT)
-Received: from localhost ([153.61.198.248])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea1501f4a7sm3688635ad.43.2026.10.19.09.58.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 09:58:46 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=drSwN5/a
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VZWFarqAAJp3ncSBcsMdfdzoxBDEwoYltA5qjiQx7b2bUR0F+eu10v9ORQPp2koymNJXHxpZUVE7fsVg5okCmVWbPs/u+/exr7h1DpBmV8pbEFpjO4OwosBM+vqjz/NGnW5G+JOG78YlaXheokm1DrAWixeuwswfJmPopP8ff/UJNNDm3DGE44sPSx4c9AO7xYGEFea0IROGkVyu7bGhI5xzlZRk6quw736kcfohy8IVwpkx0VYb/xye2hyNevfixS08EXMULl/d8qQ3EC1GXPmunfEfH0tJLXeN5ZWRUfWiW7L4iBcos6n2prVzmfqTP0DsH9eBvnQz5G7NrF/UhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q4aYhkB2itPdq3Ct70W2y+9Taz2ofJkTpwrucY+7bQY=;
+ b=jTFqJaNGvH56WAAnzH+w1xd/MwvM1JFpMVtwr0trW7pkvJKaY74NLy0sFC5xkqn2zTbD8FDP9ZYRRpMbAJ1zot0phBMy5b7DNeA+xhBCJQTUE6uL+XgDVJM4fEjB3he4ukljGKIIaXAFhqJFb3Mo9yzh3rjuKDOUzAMIOT33zhcuTS8MOC5Jm1VkeBcOXv8giSHYg6mYEon8+t76QLWLBA/z+EXg5vsMLSD6dNRpSZXOeJtJFRNVWVDnEA27yn8JGZJTgnYiQfJi/zfqgYK7ds1kX67t7tP2a1o3iWuEN0pfHvOWwm8mkYtS2RIkRhdSkoUTgBqo2FlakYDWroxJ4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q4aYhkB2itPdq3Ct70W2y+9Taz2ofJkTpwrucY+7bQY=;
+ b=drSwN5/aG6yLdcg63HFx3uF2U9gKC4yVSOLJ8QZQHndJTUJFUEyyWdC/P6Y4NrxRtsLZGcn+qAN5U8FwC5NpubpLv/tWx8zZBcYtvWxF6apqeQauvoOzG37Nb8bKsK1dTVdHR2o9dWsJhWiimD3ppN2qaV6lY/MtcHQik5tRSjI=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by LV8PR12MB9358.namprd12.prod.outlook.com (2603:10b6:408:201::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Mon, 19 Oct
+ 2026 16:59:17 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 16:59:17 +0000
+Message-ID: <99d50810-b040-4162-bf7c-e782beeaac8f@amd.com>
+Date: Mon, 19 Oct 2026 22:28:58 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 13/24] iommu/amd: Program IOMMU DTE with the private
+ IPA domain
+To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
+ jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com, chrisl@kernel.org,
+ wvw@google.com, wnliu@google.com, dantuluris@google.com, kpsingh@google.com,
+ alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com,
+ guanghuifeng@linux.alibaba.com
+References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
+ <20260930092344.5616-14-suravee.suthikulpanit@amd.com>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20260930092344.5616-14-suravee.suthikulpanit@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0106.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:af::16) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,44 +103,162 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 16:58:45 +0000
-Message-Id: <DM8Z3GGUEUFH.2WBEEIG5RKMRL@gmail.com>
-Subject: Re: [PATCH bpf-next 0/5] bpf: Expose pinned arenas as sized bpffs
- files
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Andrii Nakryiko" <andrii.nakryiko@gmail.com>
-Cc: "Andrea Righi" <arighi@nvidia.com>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
- Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
- <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
- <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
- Solodrai" <ihor.solodrai@linux.dev>, "John Fastabend"
- <john.fastabend@gmail.com>, "Josh Don" <joshdon@google.com>, "Vineeth
- Pillai" <vineethrp@google.com>, "Balbir Singh" <balbirs@nvidia.com>,
- "Shameer Kolothum" <skolothumtho@nvidia.com>, "Himadri Chhaya-Shailesh"
- <himadrics@protonmail.com>, "NchangRoy" <royfru44@gmail.com>,
- <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.20.1-349-gb940a4174a3e-dirty
-References: <20261010224902.1232178-1-arighi@nvidia.com>
- <DM6HVNSP3USV.AJSWS289Z3I9@gmail.com>
- <CAEf4BzZZRrD86ZswsB2r-swqNi7D1p52Vs=fQ9MXSgGATN31Jg@mail.gmail.com>
- <DM7JXB4PREVH.1BHG31CCNRXF1@gmail.com>
- <CAEf4BzaeXxoPqtcV6E1x8zh-Uv_C1cfNjzUYLKDWwod=k2ttLQ@mail.gmail.com>
-In-Reply-To: <CAEf4BzaeXxoPqtcV6E1x8zh-Uv_C1cfNjzUYLKDWwod=k2ttLQ@mail.gmail.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|LV8PR12MB9358:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5ad33c4-383c-466a-95e2-08df2e024ed6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|11063799006|10067099003|4143699003|56012099006|18002099003|22082099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	QT173y2sQlPZUAQFB1J3GC57DK5RzoS2mEG9KhaoUoz4X9Ip1GsaRbjCpbNe2VZBmyYVNa8GtXROvb3HtjEa1GaBFsy5wjWprPQ7ueZFqz4vDXwR8HSiOBKHGn3vHC0Ba9KXNr5UN8gXcSKWnaq7L6gJyus9yG+SI5ZE6M9y+TLnH4FRQ4Yg8yey4HxoaE+upX8WudI9cFRivSnRAsjuuWRS2yl8e36Cz11uVjvL0nO78AubsJpJ+1lJLQ303LRm7PQ/VXfaqcqg9sbqGx+UM3Yajxueokcrp5HO6bdnmGbaxTFobGQYtY4dq172CPCH4q4IohHmOjVuqcpC3oJh2I27hAQD/pfwfarmY63005z3ttEmZPJBYwff1m3cg3xktfMups00EbHuz8/lyoC18H+xxShgsArch5Ra+SuqtxePwHwzUcD2PixfsJOE2+H0A2YdJwKvt3cT/E5zJVVI01nGwqg3p6LF0hlBAQ5070WW9Q/I4OkwoALoHZz9EK18cQyaXZy1XZ6TEagEumZZk1EBJfGAAMfrCR4qIgZ17Z2nUFvFc4pkBHnrsiQCmJ0/zn6xMAQ5v6mi24N3dtB8TY/vZa21PMAsDTqtl0jNMcrrd/S63lp8Grmx7E28jDtM8jUsfmDwnlvAXa/Hae5RS+Mog+/KM2Rx6Hvlra5lKp4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(11063799006)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RnZvdHBkRThpU0lqbGllL3ZRcnd4YnNDcWo2eGxNNGhZS0tFejBOemlRZlVZ?=
+ =?utf-8?B?NGpkbndBKzdBeWF3UUczK3FTMmdOZHRYUmlubE94cjNZcGJEVmJMWTczRmxG?=
+ =?utf-8?B?S01aeW5NR3NxVVdjbFk2dDQ5MXNObWh1TEhuM3I2N1l0aVV2elpwYzNGa0w1?=
+ =?utf-8?B?UmZUQ25VYUc4R244ZXBrTW9YYllubmNUVHYvVyszaEQ0ZDEzbFpsbktSZFNG?=
+ =?utf-8?B?S3o0UmZxVkpZN0s0azdrVXkrSVllbm54Q2gveXl5emxTZFN0K21qaE03Ujdv?=
+ =?utf-8?B?cjh6Zkt4OGgydzZlTURldC9zK243V1o2N084ckJTYlZBcmRKYkdlc2ZMekhF?=
+ =?utf-8?B?amRCWm9zS3ZLbjd3RzZiWW1SR3A0NXhPMFVrc0VUNXJ5Y3NKZ0krbllpK2g4?=
+ =?utf-8?B?ZnBCRjVpdHZEUXdSUGFxck5UQjJORXpOYVRnYkVXRlB1bFRBc1NhQkhxdVVF?=
+ =?utf-8?B?L21vdXVZLzhlbmFyMkx6SWNJZkVudHNmNmx2VERTM2VKWnBkTjduR2t3Sjhy?=
+ =?utf-8?B?UEdTd3kxdVRwTEdzQnpQWUs5TjQ3ZjRFNlF2UG5jcUFXa1FTa0paTWpPUE00?=
+ =?utf-8?B?b0dQRWFwZklqUFVLSzlVUzJ5Zk4zaUQ5dk1MdU9iQ0Y0ZmVwUmRJK0VreGh2?=
+ =?utf-8?B?eklLS2c5ZTdIS1IvMTRQWGErNlU1V1ZBWXhMYmFndXFCNVB4dVRzcEhKcmhE?=
+ =?utf-8?B?RmRwQ05EY3Z0Y2txRlNLalh0RFAzMldxK2lkc1pWRHUvc0dVRFZwWUNMOEJt?=
+ =?utf-8?B?M0p2YnlRK2ZvZGZwSnQ2MFM4bDJBNnE0Y2MycnlCZExnVk0vbnR0UDh5a2wv?=
+ =?utf-8?B?UzNZbmticUtFNzVBRHllY1ljRlZURVNLK1BXNmNtSW5paS9XQk9kbUJMd0g2?=
+ =?utf-8?B?SFlrV3F4YTdiSHpOcXlIVmxpelRURHBsblUzVEhpODZaZzkvTGpxdXU2ZFJk?=
+ =?utf-8?B?M2Q3emJqV1FTemRQWXRMY0ZBbGdub2o1eW5qbHUvRlRLMUpOWGVLcW5zdG1p?=
+ =?utf-8?B?Ym1EWmM1QWMxZkV6cWJYb01kekdsaEhtUEswdFBaQmhHemd3b3oyd2xiMUxv?=
+ =?utf-8?B?dDJZWW81V2xlNkIvZ01NQXVNU2pNWUhCc0JKS00wNE9sTXBGNXduQ1Q2QjRo?=
+ =?utf-8?B?TytKS1l3VDRZS0Jza3BWSWFwaFJqbzNybXRPWFVicjRCaFFwbW5POWxuZFdy?=
+ =?utf-8?B?a2E2SGZwUXowbFNRdDUyWCtRQjVSaWJKdDlhMjMxSUtPVDV6RTlmRk51MnJW?=
+ =?utf-8?B?RmhQclh0c1dhbkpvMitKVHl1d29rOExXSjVBRWlBTy91eDZOWEJ3Q2lkS2s3?=
+ =?utf-8?B?VCtNaDZyQndld2wzMm9kK1NnWW92TU1xbW1sckRZaXc0dkVXRVMvbE5YMU5i?=
+ =?utf-8?B?TmdudVpZQy9RRUJraWhYeDVSUVVBYU5vVERWcW80OVVCSjh5R1dIRGl6MlA5?=
+ =?utf-8?B?UlVIN1EvK2RaNmxmRVBNVU84aXlPV1FhcVUrVkZNRUdJWE1zaXRhMkFyVHNQ?=
+ =?utf-8?B?b1piUGRnV053YTBjbjFrMWNkbDJTbE15L0RTQ1hyK1B4dk5GbGtFZUkzY2Vj?=
+ =?utf-8?B?LzgyT1RNUDllZlF0YjV1V0M2TW43NmgwS09nRC8yNGFjek1QS09jUnlXaFpy?=
+ =?utf-8?B?MmtPUHpPd09RRFJTTllpb0tqajBjc3BKSEw0aU1naWRKMnp4a2VvZEVrdXhW?=
+ =?utf-8?B?WGRENk1hMVdQSllmWHBreVBta3ZzbnAxQVNHTW5CRWdEcEJ6NlJFeW45MGNw?=
+ =?utf-8?B?U0hzZFA1WjJZYkFWdFE5aHRGa2ZZRElwbmZ2VHl2Z1ZOaVFKUU9pa1luc0Y3?=
+ =?utf-8?B?dmNycTB4MTZPS2U1dDJ4NjRzWSs3T1ZjdkZndDZMUzF0R2VtbjVXNEluYlhP?=
+ =?utf-8?B?WE1pY0pyb25NV3RFTGhFYjluMzg5ZE9PTm0xNFZhZmFFTnZRUUpFNGZiWXdO?=
+ =?utf-8?B?S1lLbjRMTThWWlhicW9SSTRNNFdCMGg2TGVaSW9mcEgrMngxNUlFVllIVmJm?=
+ =?utf-8?B?cmRYTnE4OGR1L1orS1QzSytEZFY3eDNvMWhIZ2dKTHp1bTJhemx6NVZtZVdz?=
+ =?utf-8?B?MTVaVjcxZis3Z2M1b3NzVVI5VnUrZmFSMHZKR2pHU3pRbVpZblU0RCswc0JL?=
+ =?utf-8?B?ak50RUx6YlFxVTNqb0FDM09ENHVuN3V1WVRYWFh2ZVUyWmR3aTFKQzdCY2da?=
+ =?utf-8?B?NHZGNWo1ZGorQ21vVXdLQUN2MW95cVZEaC9JNzI5TWdOVmtTamxHbEZyMW9o?=
+ =?utf-8?B?cVRwNjBMYkJNaHh1Y2t3aWJEZTdSTW9MQkpNVGZRYVBNQjRuM0dsYWVVQ1hH?=
+ =?utf-8?B?MXltV1ViYWF5VmxIUWo1QVYyR3BpSnZIZE1tbmFKdnZGWkptRmZRdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5ad33c4-383c-466a-95e2-08df2e024ed6
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 16:59:16.5844
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /+d6fLw/lHRjCtIPfBy6gpSS6lWW2UoA/0jCpSTZcSwcQQV/Hi/e/CJVjUAz+ZLZrZaDr2MmWYWFADVn1kgx6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9358
 
-On Mon Oct 19, 2026 at 4:19 PM UTC, Andrii Nakryiko wrote:
->
-> Yeah, there are just so many cases where we have some memory that is
-> special in some way (e.g., huge page-backed memory, or some IOMMU,
-> e.g., that doorbell stuff, which, if I understand correctly, is done
-> though writes to specially set up memory ranges), and we can't shove
-> all this into BPF_MAP_CREATE interface if we want to have BPF program
-> accessing that memory. So having a generic way to just bolt ARRAY on
-> top of already created memory seems like a useful primitive.
 
-I see. In such light the use case makes sense to me.
+
+On 9/30/2026 2:53 PM, Suravee Suthikulpanit wrote:
+> The IOMMU PCI function does not go through the normal device attach
+> path, so it has no iommu_dev_data. Add amd_iommu_alloc_dev_data()
+> and amd_iommu_free_dev_data() for a synthetic object that is not
+> interned in pci_seg->dev_data_xa. Program that DTE with the private
+> IPA domain's v1 page table so the IOMMU can DMA to its own vIOMMU
+> backing store.
+> 
+> Leave the synthetic DTE off pdom->dev_list and with no struct
+> device so clone_aliases() is skipped; it is only iommu->devid.
+> Rewrite it from amd_iommu_change_top() when the IPA table grows
+> so later high maps remain reachable.
+> 
+> Do this after viommu_private_space_init() so viommu_pdom exists.
+> On teardown, clear the DTE only while CONTROL_CMDBUF_EN is set,
+> then free the object. After disable_iommus() the INV_DTE flush
+> would time out, so skip it and still free the object. Failed
+> self DTE allocation unwinds through amd_viommu_uninit().
+> 
+> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+> ---
+>  drivers/iommu/amd/amd_iommu.h       |   4 ++
+>  drivers/iommu/amd/amd_iommu_types.h |   2 +
+>  drivers/iommu/amd/init.c            |   7 +-
+>  drivers/iommu/amd/iommu.c           | 102 +++++++++++++++++++++++++---
+>  drivers/iommu/amd/viommu.c          |  57 ++++++++++++++++
+>  5 files changed, 161 insertions(+), 11 deletions(-)
+> 
+
+
+.../...
+
+> +
+> +static bool viommu_cmdbuf_enabled(struct amd_iommu *iommu);
+> +
+> +static void viommu_free_self_dev_data(struct amd_iommu *iommu)
+> +{
+> +	struct iommu_dev_data *dev_data = iommu->viommu_dev_data;
+> +	struct dev_table_entry new = {};
+> +
+> +	if (!dev_data)
+> +		return;
+> +
+> +	/*
+> +	 * INV_DTE needs the command buffer. Skip it after
+> +	 * disable_iommus() clears CONTROL_CMDBUF_EN. The init
+> +	 * unwind still flushes while the buffer is enabled.
+> +	 */
+> +	if (viommu_cmdbuf_enabled(iommu)) {
+
+As mentioned in previous patch, do we really need this check?
+
+> +		amd_iommu_make_clear_dte(iommu, dev_data->devid, &new);
+> +		amd_iommu_update_dte(iommu, dev_data, &new);
+> +	}
+> +	amd_iommu_free_dev_data(iommu, dev_data);
+> +	iommu->viommu_dev_data = NULL;
+> +}
+> +
+> +static int viommu_alloc_self_dev_data(struct amd_iommu *iommu)
+> +{
+> +	struct protection_domain *pdom = iommu->viommu_pdom;
+> +	struct pt_iommu_amdv1_hw_info pt_info;
+> +	struct iommu_dev_data *dev_data;
+> +	struct dev_table_entry new = {};
+> +
+> +	dev_data = amd_iommu_alloc_dev_data(iommu->devid);
+
+I am not getting why we can't call allc_dev_data? So that we can track these
+devid (including translation devid) in dev_data_xa. So that we can catch
+duplicate allocations?
+
+
+
+> +	if (!dev_data) {
+> +		pr_err("%s: Failed to allocate dev_data\n", __func__);
+> +		return -ENOMEM;
+> +	}
+> +	/*
+> +	 * Synthetic DTE for iommu->devid only: no struct device, so
+> +	 * amd_iommu_update_dte() skips clone_aliases(), and not on
+> +	 * pdom->dev_list (not an IOMMU-API attach).
+> +	 */
+> +	dev_data->dev = NULL;
+
+I am not able to figureout why we cannot track iommu device structure here. Does
+it mess up anything? if we hook this to pdom->dev_list then we don't need
+special update_viommu_self_dte().
+
+
+-Vasant
 
