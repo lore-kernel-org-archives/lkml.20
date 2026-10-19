@@ -1,95 +1,103 @@
-Received: from mail-m127157.xmail.ntesmail.com (mail-m127157.xmail.ntesmail.com [115.236.127.157])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885534F85DF;
-	Mon, 19 Oct 2026 13:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4674F96A7;
+	Mon, 19 Oct 2026 13:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.38.247.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792417646; cv=none; b=BPAWpbBkp+QOS0+aodZCmltbb5C0Fijm2HM+qFjJtPq+EKzNLhAYgX7NPdiXBj0wknUJShCyIYBgQMGqclJ7cKRUAF3bhpBYkBeMSzbCZiY3rPzFjvFii5MhbpmGhovb1kijCioTr9RsDeU0ckns0cPIftXJ7UUBH7yoe0F0+Y0=
+	t=1792417641; cv=none; b=QQ7iLNzBesnc2wo6h+PwsNO2ku6oz5T0ZwU+ztf5VqaClrp7ENf57It3HurEgOAvdFWYr1ZKEFbtfKOSFm3yMKIeN/tpNpZDsCbdW/689GxyQtw5NZ8pi4sxXYl88WETFYchkP7PUPwLlukCtiFUVDQR/vbrSdiOacTbYToqyzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792417646; c=relaxed/simple;
-	bh=J6NtuUtpROTJlVrKqRqylUNrQQBAVI6o3ixTqT2jp98=;
-	h=Content-Type:Message-ID:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:From:Date; b=PGXc1j1AISDfh4kJisvECCVRGEy3SPdnDcJquut3Fqvykb+QxhWwKFrMdhb2D25yabQ40T+Ez80/o8ZQ8VYa6L8INwRAiMuGjSi8GvN9PjlU+/ARtwcMFoer234GEDJYxVDHD8pKL/yoPA58ecwGBnI4MocL1J7HESwlbUWp2xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn; spf=pass smtp.mailfrom=hdu.edu.cn; dkim=pass (1024-bit key) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.b=hIWvxHdr; arc=none smtp.client-ip=115.236.127.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hdu.edu.cn
+	s=arc-20240116; t=1792417641; c=relaxed/simple;
+	bh=YNKMO+U3lthxm+K4hM8ZjNmnNKm0FYUbQBfDIReK6zc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DgiMyYDKMC0sgejsbpSO8mbhioQ+zO83Z8WIFgFh/tgeMyNnEgqfx3/X3okvWh3u50mdD/cka0s+N6zktNfRneP55eGq0I5lMsV1GF5WCDpRJ/cD9lk/HJDTe66MouloW7woxkugpTs1/dj2JXA0E2Qn6r33ecetiGBRzyOYWoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=gpr0cQZ9; arc=none smtp.client-ip=46.38.247.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hdu.edu.cn header.i=@hdu.edu.cn header.b="hIWvxHdr"
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <AMoAIAAtLCMmxKHlfyhDJarK.3.1792416715880.Hmail.252270051@hdu.edu.cn>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: jirislaby@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org
-Subject: =?UTF-8?B?W1BBVENIXSB0dHk6IHRpbWJ1YXJ0OiBraWxsIHRhc2tsZXQgYWZ0ZXIgZnJlZWluZyBJUlE=?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
-In-Reply-To: <2026101954-snarl-frenzy-da86@gregkh>
-References: <AHQArwC2LDgmty1sqnW35KqM.1.1792408152646.Hmail.252270051@hdu.edu.cn> <2026101954-snarl-frenzy-da86@gregkh>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="gpr0cQZ9"
+Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4j7cG22w3Yz8HnD;
+	Mon, 19 Oct 2026 15:43:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1792417434;
+	bh=YNKMO+U3lthxm+K4hM8ZjNmnNKm0FYUbQBfDIReK6zc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gpr0cQZ9ya/AeveVduxB4wIMO6Bjfms+lNCuvXls3aK9QE3YWYXRlakP9dgUS7L7Y
+	 Svz4xaz/G8FvV6xQkAIBJ1B/owU2Xn6bFYzPFkCKiMFjuh7YBIwU7G9+O4QSQUlgBA
+	 Jf/yoyqzLWjGz5Lh0++XIGEATZd90yjKhGOin8yUwsRPyT8hgk75lrK1V9QjNApCQL
+	 aywuu7XeBjqgUttkHiPCGsig7lB7PoUQpUKVTYUcfVJZI8Yppve2YmhWhrOsukj6DH
+	 4x7+ai+DnI7qBV/zt8WTD8ITP6Jhpzu9CoJrrKejP0TEpv//mibOVlJl7oYaco4WIT
+	 Wg03kn1xNggeg==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4j7cFY6WDzz4ymd;
+	Mon, 19 Oct 2026 15:43:29 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.901
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4j7cFW3thqz8tkD;
+	Mon, 19 Oct 2026 15:43:27 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id A1D5C5F8E8;
+	Mon, 19 Oct 2026 15:43:21 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <c3c4d140-07ec-4402-a18b-389520df188e@leemhuis.info>
+Date: Mon, 19 Oct 2026 15:43:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Received: from 252270051@hdu.edu.cn( [183.157.177.89] ) by ajax-webmail ( [127.0.0.1] ) ; Mon, 19 Oct 2026 21:31:55 +0800 (GMT+08:00)
-From: LI xiao <lixiao0@hdu.edu.cn>
-Date: Mon, 19 Oct 2026 21:31:55 +0800 (GMT+08:00)
-X-HM-Tid: 0aa1544398c7d458kusy5b9bea15c217
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDS0lDVk1KQ01NQk5CQklIT1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSk5MVUpMTFVDQllXWRYaDxIVHRRZQVlPS0hVSk
-	tISkxDSlVKS0tVSkJLS1kG
-DKIM-Signature: a=rsa-sha256;
-	b=hIWvxHdrmv04UUsxcSygzMB/9VH7DmKw4OV3cr5v5kqaxoc6Mb/t6fhfrZkRBilpegsjG2lWhYadN2J2GMJyQEQVf9xce721iNFsl5tcuvxtIo+f+8D+uI2OKSQ7meGxVq3jsQh3D8v7CroPFaw7eVqNW/HRac4ffqVeTHSBvhA=; s=default; c=relaxed/relaxed; d=hdu.edu.cn; v=1;
-	bh=J6NtuUtpROTJlVrKqRqylUNrQQBAVI6o3ixTqT2jp98=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] drm/msm/a8xx: Enable CLX feature on Adreno X2-85
+To: Oleg Keri <okerixx@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev
+References: <ar_AuRr1eaZzOfw9@baldur>
+ <179096320161.1973.2852858792260211089@gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <179096320161.1973.2852858792260211089@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179241740268.799053.7614387115975151164@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: A1D5C5F8E8
+X-NC-CID: mZAHi/GmfJ9xo2HkEE4KHVNY31ngGahIZ3EtVrBm6I8qAw8W4Po=
 
-VGhlIHRpbWJ1YXJ0IGRyaXZlciBjYWxscyB0YXNrbGV0X2tpbGwoKSBiZWZvcmUgdWFydF9yZW1v
-dmVfb25lX3BvcnQoKS4KQW4gaW50ZXJydXB0IGNhbiBzY2hlZHVsZSB0aGUgdGFza2xldCBhZ2Fp
-biBhZnRlciB0YXNrbGV0X2tpbGwoKQpyZXR1cm5zIGJ1dCBiZWZvcmUgdGltYnVhcnRfc2h1dGRv
-d24oKSBmcmVlcyB0aGUgSVJRLiBUaGUgc3Vic2VxdWVudApmcmVlX2lycSgpIHN5bmNocm9uaXpl
-cyB0aGUgSVJRIGhhbmRsZXIsIGJ1dCBkb2VzIG5vdCBkcmFpbiBhIHRhc2tsZXQKdGhhdCB0aGUg
-aGFuZGxlciBoYXMgYWxyZWFkeSBxdWV1ZWQuCgpNb3ZlIHRhc2tsZXRfa2lsbCgpIHRvIHRpbWJ1
-YXJ0X3NodXRkb3duKCksIGltbWVkaWF0ZWx5IGFmdGVyCmZyZWVfaXJxKCksIHNvIHRoYXQgYW55
-IHRhc2tsZXQgcXVldWVkIGJ5IHRoZSBJUlEgaGFuZGxlciBpcyBkcmFpbmVkCmJlZm9yZSB1YXJ0
-X3JlbW92ZV9vbmVfcG9ydCgpIHJlbGVhc2VzIHRoZSBwb3J0IHJlc291cmNlcy4KCkkgdGVzdGVk
-IHRoZSBpbnRlbmRlZCBzeW5jaHJvbml6YXRpb24gb3JkZXJpbmcgd2l0aCBhIEtBU0FOLWVuYWJs
-ZWQKa2VybmVsIGluIGEgUUVNVSBndWVzdCB1c2luZyBhIHRlc3QgbW9kdWxlLiBUaGUgbW9kdWxl
-IHF1ZXVlZAp0aGUgdGFza2xldCwgd2FpdGVkIGZvciB0aGUgc2ltdWxhdGVkIElSUSBoYW5kbGVy
-IHRvIGV4aXQsIGNhbGxlZAp0YXNrbGV0X2tpbGwoKSwgYW5kIHRoZW4gZnJlZWQgdGhlIFVBUlQg
-b2JqZWN0LiBUaGUgdGFza2xldCBjb21wbGV0ZWQKd2l0aG91dCBhIEtBU0FOIHJlcG9ydCBvciBz
-Y2hlZHVsaW5nIHdhcm5pbmcuCgpUaGlzIHdhcyBhIGNvbnRyb2xsZWQgdGVzdCBvZiB0aGUgc3lu
-Y2hyb25pemF0aW9uIG9yZGVyaW5nLiBJdCBkaWQKbm90IGV4ZXJjaXNlIHRpbWJ1YXJ0J3MgYWN0
-dWFsIElSUSBoYW5kbGVyIG9yIFRpbWJlcmRhbGUgVUFSVCBoYXJkd2FyZSwKd2hpY2ggaXMgbm90
-IG1vZGVsZWQgYnkgUUVNVS4KCgpTaWduZWQtb2ZmLWJ5OiBMSSBYaWFvIDxsaXhpYW8wQGhkdS5l
-ZHUuY24+CgotLS0KIGRyaXZlcnMvdHR5L3NlcmlhbC90aW1idWFydC5jIHwgMiArLQogMSBmaWxl
-IGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy90dHkvc2VyaWFsL3RpbWJ1YXJ0LmMgYi9kcml2ZXJzL3R0eS9zZXJpYWwvdGltYnVhcnQu
-YwppbmRleCA3YTAzMjZlNzEuLmM1NjFjYTcwMiAxMDA2NDQKLS0tIGEvZHJpdmVycy90dHkvc2Vy
-aWFsL3RpbWJ1YXJ0LmMKKysrIGIvZHJpdmVycy90dHkvc2VyaWFsL3RpbWJ1YXJ0LmMKQEAgLTI1
-NCw2ICsyNTQsNyBAQCBzdGF0aWMgdm9pZCB0aW1idWFydF9zaHV0ZG93bihzdHJ1Y3QgdWFydF9w
-b3J0ICpwb3J0KQogCQljb250YWluZXJfb2YocG9ydCwgc3RydWN0IHRpbWJ1YXJ0X3BvcnQsIHBv
-cnQpOwogCWRldl9kYmcocG9ydC0+ZGV2LCAiJXNcbiIsIF9fZnVuY19fKTsKIAlmcmVlX2lycShw
-b3J0LT5pcnEsIHVhcnQpOworCXRhc2tsZXRfa2lsbCgmdWFydC0+dGFza2xldCk7CiAJaW93cml0
-ZTMyKDAsIHBvcnQtPm1lbWJhc2UgKyBUSU1CVUFSVF9JRVIpOwogCiAJdGltYnVhcnRfZmx1c2hf
-YnVmZmVyKHBvcnQpOwpAQCAtNDc0LDcgKzQ3NSw2IEBAIHN0YXRpYyB2b2lkIHRpbWJ1YXJ0X3Jl
-bW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpkZXYpCiB7CiAJc3RydWN0IHRpbWJ1YXJ0X3Bv
-cnQgKnVhcnQgPSBwbGF0Zm9ybV9nZXRfZHJ2ZGF0YShkZXYpOwogCi0JdGFza2xldF9raWxsKCZ1
-YXJ0LT50YXNrbGV0KTsKIAl1YXJ0X3JlbW92ZV9vbmVfcG9ydCgmdGltYnVhcnRfZHJpdmVyLCAm
-dWFydC0+cG9ydCk7CiAJdWFydF91bnJlZ2lzdGVyX2RyaXZlcigmdGltYnVhcnRfZHJpdmVyKTsK
-IAlrZnJlZSh1YXJ0KTsKLS0gCjIuMzQuMQoKCgoKCkZyb206IEdyZWcgS0ggPGdyZWdraEBsaW51
-eGZvdW5kYXRpb24ub3JnPgpEYXRlOiAyMDI2LTEwLTE5IDE5OjQ2OjQwClRvOiAgTEkgeGlhbyA8
-bGl4aWFvMEBoZHUuZWR1LmNuPgpDYzogIGppcmlzbGFieUBrZXJuZWwub3JnLGxpbnV4LWtlcm5l
-bEB2Z2VyLmtlcm5lbC5vcmcsbGludXgtc2VyaWFsQHZnZXIua2VybmVsLm9yZwpTdWJqZWN0OiBS
-ZTogdHR5OiB0aW1idWFydDogdGFza2xldCBtYXkgdHJpZ2dlciBVQUYgZHVyaW5nIHJlbW92ZT5P
-biBNb24sIE9jdCAxOSwgMjAyNiBhdCAwNzowOToxMlBNICswODAwLCBMSSB4aWFvIHdyb3RlOgo+
-PiBIZWxsbywKPj4gSSBzdXNwZWN0IGEgdGFza2xldCBsaWZldGltZSByYWNlIGluIHRoZSB0aW1i
-dWFydCBkcml2ZXIuCj4KPjxzbmlwPgo+Cj5HcmVhdCEgIENhbiB5b3UgcGxlYXNlIHByb3ZpZGUg
-YSB3b3JraW5nIHBhdGNoIGZvciB0aGlzIGlzc3VlIGFzIHlvdQo+aGF2ZSBhIHJlcHJvZHVjZXIg
-Zm9yIGl0Pwo+Cj5BbHNvLCBodG1sIGVtYWlscyBhcmUgcmVqZWN0ZWQgYnkgdGhlIG1haWxpbmcg
-bGlzdHMsIGFzIHlvdSBoYXZlIHNlZW4uCj5QbGVhc2UgcmVhZCB0aGUga2VybmVsIGRvY3VtZW50
-YXRpb24gZm9yIGhvdyB0byBmaXggdXAgeW91ciBlbWFpbCBjbGllbnQKPnRvIHdvcmsgcHJvcGVy
-bHkuCj4KPnRoYW5rcywKPgo+Z3JlZyBrLWgKPgo=
+On 10/2/26 19:47, Oleg Keri wrote:
+>> This patch landed in next-20261001 and while it works on my Glymur CRD
+>> (COB), on the Asus Zenbook A14 I see the following failure during boot:
+>
+> Same on a Lenovo Yoga Slim 7x Gen 11 (Glymur) with next-20261001, GMU
+> firmware v5.2.38:
+> 
+> [    1.632277] platform 3d6c000.gmu: [drm:a6xx_hfi_wait_for_msg_interrupt] *ERROR* Message HFI_H2F_MSG_GX_BW_PERF_VOTE id 11 timed out waiting for response
+> [    1.642345] platform 3d6c000.gmu: [drm:a6xx_gmu_set_oob] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x4
+> [    1.642360] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* gpu hw init failed: -110
+> [    8.053367] platform 3d6c000.gmu: [drm:a6xx_gmu_resume] *ERROR* GMU firmware initialization timed out
+> [    8.053584] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* Couldn't power up the GPU: -110
+> 
+> Compositor fails on the first start and works on the second.
+> 
+> Reverting this patch fixes it here as well.
+What's the status here? Was this fixed meanwhile? Or is this regression
+how heading towards mainline now that the merge window is open?
+
+Ciao, Thorsten
