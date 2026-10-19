@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706885440B7;
-	Mon, 19 Oct 2026 13:56:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD285548361;
+	Mon, 19 Oct 2026 13:56:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418189; cv=none; b=V6FHvtVS8928PXS7jwJfKfqmE/oMUqNrnnhB61vA5d0fbc0Xbv5kfej/6kXFmE0sG3tlMUJSlopE2YWTH3/j7CYWhZwGC9E1otn41gwE6H0/FIFyHjJ+N7+LQ2DRd+bmSKm7rjSV+Ud3PITbvPCrlNzsgY3F3ShzjDdA6bAZqrE=
+	t=1792418192; cv=none; b=Ov4ZJ1po31c7b3E6cv+qZruTFT4hkn+8WnQLzrF/fMRKNILMQgFXr5hBvWFVazf3ZYd5CiPq5VOSdNKBEasTwjylV9Cby9YUNPJ8VM9xTetD3eAFg1DI1sSIDymTTCgweV0BaEzNslTcTcGgBx3Qd9akf/G/Ibem8f8NaDwXfFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418189; c=relaxed/simple;
-	bh=Su7odCwld2ZEjjMbvsIuAfENW70V/LsYaDrgciEWvtQ=;
+	s=arc-20240116; t=1792418192; c=relaxed/simple;
+	bh=YIgvDSLFUYaxwCXW75fGzmzMToDiAVGmeTXCss3DLEQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u9p7F9maHicTOQPeCz2UB69urLhkn9c2n5XOigZ8zdBUn2yF3tDGfwMXJISc4A7wFMzJu+E5fFCUSyEboCm1N6UOOlE+oPsmEsHbgEcrWLJZPhiRG5wEjUrgQUhOztQA79K1V1FIJb9pHpYMl5XzuRuS6rCyN+PyOyte2T8xc1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnAchmJu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=G/Dty8cP20U6/v36meMuYuRujjxywgXby+5jqMeiihph7LR33wXknxaVsYJ/H+luINyn8jHwNBupCGcU2F8JxCd+526HXlXf0KVvrsKhX7T12Bv3RseV417I17aBL8yM0S9OmNDFtfi55d4PEPLS3IqkrzwQ4fn7Np68CaZn0/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViOgBH/J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnAchmJu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE1C1F000C7;
-	Mon, 19 Oct 2026 13:56:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViOgBH/J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A7881F000C4;
+	Mon, 19 Oct 2026 13:56:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418186;
-	bh=IADk5RTBOjulE82dL7hv754PZj7PHSe/oQHD0jA6uiI=;
+	s=k20260515; t=1792418190;
+	bh=GBDQnJH235L1jol/o3nhffq/7PZ9JTvYNaSZcRr7Cpc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SnAchmJuKWxMjqrZ70rMAeemhFBNJZwEb7A9EofkYIvYL+sd7cSl3yuLG4teHT/nU
-	 0tpeE9qFFJNc2rDAx+H0VocfFDakI1kzTW1cI9aqxn/NoA4Mk0ollcpj2oq4pb5HZE
-	 0qvuJqN3RAPHGT4vLJLBoc3gXSDX3hJOKNE1zL/h8ZxvowPQAZ+djNJCjEDgyTgQWB
-	 e1D92CnkUeVqtXw6ebZWzt7rQLTEtRBpv6PueXkH2frMp+HgvPR3+zZr9uBnEriXAm
-	 bsO/Ecj0cJB2VJMrmhlJ8le7YLlAE/TLpO4ChvldKfB4eTmRi3v53b6JXj/5VPDd+5
-	 jbMSrS9eTqPrw==
+	b=ViOgBH/JD9oEtouHZ7LboM7mCl/oTm9IC9Bz20zzr+YZAvXiQy2Wpz9Eh8Q1yqb82
+	 pvNGKETY/gyKpRv6Q23pq7Oi15CIrIIL47nxsWkwz3IVG2zdYAqdmOpL+uVZkBqkq2
+	 LEdHsV6xG/bTRcOGh84/306v8FY6dgksqvOhKPWdVePcl1fzJtBMvKMNSmm9Mnles7
+	 cpQqziWPSeZ3NNVvcluRm6vovOXzGHY7+YZ5k2mwwIXEXLZ/0GmEEHo1lvqKvHthZQ
+	 ZEfwlDDhahzMs8ZEp/ekkyBGuIu81+KxF9hzBIPCPwpM2ogYI97SQwVoUVOxhOcUVo
+	 nrYnWxqYqt93Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: David Maximiliano Hermitte <davemadmaxxx@gmail.com>,
-	syzbot+97e301b4b82ae803d21b@syzkaller.appspotmail.com,
-	George Anthony Vernon <contact@gvernon.com>,
-	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
+Cc: =?UTF-8?q?Israel=20T=C3=A9llez=20Garc=C3=ADa?= <i.tellez@btesa.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	frank.li@vivo.com,
-	linux-fsdevel@vger.kernel.org,
+	eddyz87@gmail.com,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	memxor@gmail.com,
+	bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] hfs: validate catalog CNIDs before instantiating inodes
-Date: Mon, 19 Oct 2026 09:46:04 -0400
-Message-ID: <20261019135441.1420968-73-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] libbpf: Fix ring buffer consumer loop on 32-bit position wrap
+Date: Mon, 19 Oct 2026 09:46:07 -0400
+Message-ID: <20261019135441.1420968-76-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -50,586 +50,438 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.57
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: David Maximiliano Hermitte <davemadmaxxx@gmail.com>
+From: Israel Téllez García <i.tellez@btesa.com>
 
-[ Upstream commit 53c3c138d672765c26884c55728307a65c634328 ]
+[ Upstream commit fdd4fad0bbbd08501465c5f9b556963093c5d58a ]
 
-hfs_cat_find_brec() first resolves a catalog thread record by CNID and
-then looks up the corresponding catalog record by parent/name. On a
-corrupted filesystem image, the second lookup may find a record whose
-CNID does not match the CNID that was requested.
+ringbuf_process_ring() walks the records between the consumer and the
+producer with an ordering comparison:
 
-Validate the record found by the second lookup before returning it.
-Read the already-found record with hfs_bnode_read(), require the exact
-fixed size for file and directory records, reject other record types,
-and verify that the stored CNID matches the requested CNID.
+	while (cons_pos < prod_pos) {
 
-Also validate reserved CNIDs in hfs_read_inode() before populating the
-inode, propagate hfs_read_inode() failures from the resource-fork lookup
-path, and reject bad resource-fork and root inodes.
+cons_pos and prod_pos mirror the kernel's ring positions and are
+unsigned long here too, so on 32-bit they wrap at 2^32 bytes of traffic.
+When producer_pos has wrapped and consumer_pos has not, prod_pos is the
+smaller of the two, the loop body never runs and no record is consumed.
+Since consumer_pos only advances inside that loop, it never wraps either
+and the consumer stops delivering samples for good, with no error
+returned to the caller: ring_buffer__poll() keeps reporting zero
+records while the kernel side fills up and starts dropping.
 
-Keep hfs_write_inode() unchanged, so corrupted catalog records are
-rejected before reaching its existing reserved-CNID BUG() path.
+Compare the distance instead. The consumer never runs ahead of the
+producer, so prod_pos - cons_pos is the amount of unconsumed data and
+stays correct across the wrap.
 
-Reported-by: syzbot+97e301b4b82ae803d21b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=97e301b4b82ae803d21b
-Cc: George Anthony Vernon <contact@gvernon.com>
-Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Signed-off-by: David Maximiliano Hermitte <davemadmaxxx@gmail.com>
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Link: https://lore.kernel.org/r/20260708215636.73815-1-davemadmaxxx@gmail.com
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+64-bit hosts are unaffected in practice: the counters would need 16 EiB
+to wrap. This is the userspace counterpart of the kernel-side walk fixed
+in "bpf: Fix pending_pos walk on 32-bit ring position wrap"; a 32-bit
+consumer hits whichever of the two comes first.
+
+Signed-off-by: Israel Téllez García <i.tellez@btesa.com>
+Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
+Link: https://lore.kernel.org/bpf/20260814124843.22041-5-i.tellez@btesa.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local checkout is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
-commit is `53c3c138d6727` and is already in this mainline history (first
-contained in `v7.3-rc1`). The evaluation below is whether that fix is
-suitable to take into stable from this tree: HFS is present, the `BUG()`
-path is ancient, and the patch is self-contained.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Phase 1: Commit message forensics
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[hfs] [validate] Validate catalog CNIDs before instantiating
-inodes** — “validate” here is a correctness/safety check, not a feature.
+Record: **[libbpf] [Fix] ring buffer consumer loop on 32-bit position
+wrap**
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- **Reported-by:** syzbot+97e301b4b82ae803d21b@syzkaller.appspotmail.com
-  (fuzzer, reproducible)
-- **Closes:**
-  https://syzkaller.appspot.com/bug?extid=97e301b4b82ae803d21b
-- **Cc:** George Anthony Vernon, Tetsuo Handa
-- **Signed-off-by:** David Maximiliano Hermitte (author); Viacheslav
-  Dubeyko (HFS maintainer, twice)
-- **Reviewed-by:** Viacheslav Dubeyko
-- **Link:** https://lore.kernel.org/r/20260708215636.73815-1-
-  davemadmaxxx@gmail.com
-- **No Fixes:** tag (expected)
-- **No Cc: stable** (expected; not a negative)
+- **Signed-off-by:** Israel Téllez García `<i.tellez@btesa.com>`
+  (author)
+- **Signed-off-by:** Andrii Nakryiko `<andrii@kernel.org>` (libbpf/BPF
+  maintainer)
+- **Link:** `https://lore.kernel.org/bpf/20260814124843.22041-5-
+  i.tellez@btesa.com`
+- No `Reported-by`, `Tested-by`, `Reviewed-by`, `Acked-by`, or `Cc:
+  stable` on the original patch
+- Original submission had **no `Fixes:` tag**. `b4 am` later attached a
+  lore trailer: `Fixes: bf99c936f947 ("libbpf: Add BPF ring buffer
+  support")` (DKIM/kernel.org). That SHA is the 2020 introduction of BPF
+  ringbuf in libbpf, and it is in this tree.
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- **Bug:** `hfs_cat_find_brec()` resolves a thread by CNID, then looks
-  up the catalog record by parent/name. On a corrupted image that second
-  lookup can return a record whose stored CNID does not match the
-  requested CNID.
-- **Symptom/failure mode:** A corrupted catalog record is turned into an
-  inode with a reserved CNID (`i_ino < HFS_FIRSTUSER_CNID` and not
-  root/extents/catalog). Later writeback hits `BUG()` in
-  `hfs_write_inode()`.
-- **Version info:** none in the message; syzbot first crash is
-  2022-11-25.
-- **Root cause (author):** missing validation of the second catalog
-  lookup, plus missing reserved-CNID checks at inode instantiation;
-  resource-fork lookup ignored `hfs_read_inode()` failures.
+- **Bug:** `ringbuf_process_ring()` uses `while (cons_pos < prod_pos)`
+  on `unsigned long` positions. On 32-bit those wrap at 2^32 bytes.
+  After producer wrap, `prod_pos` is small and `cons_pos` is still
+  large, so the loop never runs.
+- **Symptom:** `ring_buffer__poll()` / consume APIs keep returning 0
+  with no error; the kernel ring fills and drops samples permanently.
+- **Root cause:** ordering comparison is not wrap-safe; consumer_pos
+  only advances inside that loop, so it never wraps either.
+- **Version info:** 64-bit is unaffected in practice (16 EiB to wrap).
+  Explicitly the userspace counterpart of the kernel `pending_pos` walk.
+  Field data for that sibling: four armv7 i.MX7 Dual devices on 6.6.52
+  stalled after exactly 4295491360 bytes (~2^32 + one 512 KiB ring).
+- **Author’s fix:** `prod_pos - cons_pos > 0` (unsigned distance).
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a disguised cleanup. Explicit syzbot crash fix: reject bad
-catalog records so they never reach the reserved-CNID `BUG()`.
+Record: Not hidden. Subject and body describe a real wrap-induced stall.
+Not cleanup/refactor.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS - LINE BY LINE
+## Phase 2: Diff analysis
 
 **Step 2.1: INVENTORY THE CHANGES**
 Record:
-- `fs/hfs/catalog.c`: +40 / -1 — add `hfs_cat_validate_found_cnid()`,
-  call it from `hfs_cat_find_brec()`
-- `fs/hfs/hfs_fs.h`: +19 — add inline `hfs_is_valid_cnid()`
-- `fs/hfs/inode.c`: +12 / -1 — CNID checks in `hfs_read_inode()`;
-  propagate errors and `is_bad_inode()` in `hfs_file_lookup()`
-- `fs/hfs/super.c`: +5 — reject bad root inode in `hfs_fill_super()`
-- **Total:** +76 / -2 across 4 HFS files
-- **Scope:** single-subsystem surgical fix
+- File: `tools/lib/bpf/ringbuf.c` — **1 line changed** (`+1 / -1`)
+- Function: `ringbuf_process_ring()`
+- Scope: single-file surgical fix
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 Record:
-- **`hfs_cat_find_brec`:** Before: thread lookup, then `return
-  hfs_brec_find(fd)` with no check that the found record’s CNID matches.
-  After: on success, read the found record, require exact file/dir size,
-  reject other types, require `found_cnid == cnid`, else `-EIO`.
-- **`hfs_read_inode`:** Before: populate inode from any file/dir record,
-  including reserved CNIDs 0,1,5–15. After: `hfs_is_valid_cnid()`;
-  invalid → `-EIO` before `i_ino` is set.
-- **`hfs_file_lookup` (rsrc):** Before: ignored `hfs_read_inode()`
-  return, then `mark_inode_dirty()`. After: propagate errors;
-  `is_bad_inode()` → `-EIO` + `iput`.
-- **`hfs_fill_super`:** After `hfs_iget()`, `is_bad_inode(root)` →
-  `iput` and fail mount instead of `d_make_root()` on a bad inode.
+- **Before:** `while (cons_pos < prod_pos)` — fails after producer wrap
+  on 32-bit.
+- **After:** `while (prod_pos - cons_pos > 0)` — unsigned modular
+  distance; stays true while unconsumed data exists.
+- Path: normal consume path (`ring_buffer__poll` / `__consume` /
+  `__consume_n` / `ring__consume*`), not an error/init-only path.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
 Record:
-- **Category:** memory-safety / logic — corrupted on-disk metadata →
-  kernel `BUG()` (oops, invalid opcode).
-- **Mechanism:** Reserved CNIDs instantiated as normal inodes; writeback
-  `hfs_write_inode()` does `BUG()` in the default branch of
-  `inode->i_ino < HFS_FIRSTUSER_CNID`. Also bounds/type checks on
-  catalog record length.
-- **Not:** leak, UAF, or locking fix.
+- **Category:** logic/correctness (32-bit wrap / unsigned comparison)
+- **Mechanism:** same class as kernel `pending_pos`. Unsigned `unsigned
+  long` counters are documented to wrap
+  (`Documentation/bpf/ringbuf.rst`). Distance arithmetic is already used
+  in this tree in `ring__avail_data_size()` (`return prod_pos -
+  cons_pos`) and kernel `ringbuf_avail_data_sz()`.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
 Record:
-- Obviously correct relative to HFS CNID rules: user CNIDs ≥ 16;
-  reserved 2=root dir, 3=extents file, 4=catalog file; others invalid
-  for catalog-instantiated inodes.
-- `iget5_locked` `set()` returning non-zero → `inode_insert5()` returns
-  NULL; `hfs_iget()` already treats NULL as failure.
-- New `hfs_read_inode()` code does not sleep (safe under
-  `inode_hash_lock`).
-- Maintainer asked to leave `hfs_write_inode()` unchanged; defense is at
-  instantiation. Remaining `BUG()` is only if some other path still
-  creates a reserved-CNID inode.
-- **Regression risk:** low. Could reject a theoretically weird volume
-  with catalog entries using CNIDs 1 or 5–15; that is invalid HFS and
-  those inodes would `BUG()` on writeback anyway.
-- No public API / data-structure change.
+- Obviously correct: matches the kernel-side pattern already in this
+  tree (`while (prod_pos - pend_pos > 0)` in `kernel/bpf/ringbuf.c`).
+- Minimal: one condition.
+- Regression risk: low. On 64-bit equivalent until astronomical wrap. If
+  consumer ever ran ahead of producer, the new check would wrap and keep
+  looping; the author and kernel invariant say that does not happen.
+  Same assumption the kernel pending_pos fix already shipped here.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git history investigation
 
 **Step 3.1: BLAME THE CHANGED LINES**
-Record: `hfs_write_inode()` reserved-CNID `BUG()` and
-`hfs_cat_find_brec()` date to **1da177e4c3f41 (Linux-2.6.12-rc2,
-2005)**. Long-standing, not a newly introduced bug.
+Record: Buggy `while (cons_pos < prod_pos)` introduced in
+**`bf99c936f9478`** (“libbpf: Add BPF ring buffer support”, 2020-06-01)
+by Andrii Nakryiko. Present since BPF ringbuf existed. Surrounding `cnt
+>= n` bits are later (`13e8125a22763`, 2024) and unrelated.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. Buggy behavior is original HFS catalog/inode
-code, not a recent regression.
+Record: Original mail had no `Fixes:`. Trailer names `bf99c936f947`,
+which **is in this tree**. Kernel sibling `19de99ea47e3c` (“bpf: Fix
+pending_pos walk on 32-bit ring position wrap”) **is already in this
+tree**; its `Fixes:` target `cfa1a2329a691` is also here.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Nearby HFS work (`hfs_correct_next_unused_CNID`, MDB locking) is
-independent. This commit is standalone, not `patch X/Y`. After it, later
-`fs/hfs/{inode,catalog,super,hfs_fs.h}` commits are unrelated (MDB,
-delayed work, ENOSPC). No follow-up fix to this patch.
+Record: Recent `tools/lib/bpf/ringbuf.c` commits are consume_n
+overflow/return-value fixes, not wrap handling. This is standalone:
+series patch 4/4. Cover letter: patches 1–3 are kernel; 4 is libbpf.
+Patches 2–3 are overwrite-mode `ringbuf_avail_data_sz()` —
+**overwrite_pos does not exist in this 6.12 tree**. Nakryiko dropped
+patch 3 anyway.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Only this HFS commit from David Maximiliano Hermitte. Weight
-comes from **Reviewed-by / Signed-off-by Viacheslav Dubeyko** (HFS
-maintainer). Earlier related attempts: George Vernon, Tetsuo Handa
-(syzbot thread).
+Record: Israel Téllez García authored the kernel wrap fix already on
+this branch (`19de99ea47e3c`). Andrii Nakryiko (libbpf maintainer)
+applied both.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Uses existing `hfs_bnode_read()`, `hfs_brec_find()`,
-`is_bad_inode()`, `HFS_*_CNID`, `hfs_read_inode()` already returning
-`int` since 2.6.12. **Can apply standalone.**
+Record: No code dependency. One-line condition change in a function that
+already exists. `git apply --check` on the original mbox succeeded (exit
+0). Does not need overwrite-mode patches.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing list and external research
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- **b4 dig:**
-  https://patch.msgid.link/20260708215636.73815-1-davemadmaxxx@gmail.com
-- **Revisions:** v1 (2026-07-02) → v3 RESEND → v4 → **v5 (applied)**
-- Maintainer review drove exact size checks, signed `rec_len`, keep
-  `hfs_write_inode()` unchanged, preserve `hfs_file_lookup()` error
-  codes
-- v5: Slava: “Looks good. Thanks a lot for the fix.” + Reviewed-by
-- Tetsuo: not a NAK; points at sashiko notes on *pre-existing* issues
-- Author revalidated with HFS build and QEMU syzbot repro
-- **No NAKs** of the committed approach
+- Series: **[PATCH v2 bpf 0/4] bpf: Fix ring buffer position wrap
+  handling on 32-bit**
+- Lore: `https://lore.kernel.org/bpf/20260814124843.22041-1-
+  i.tellez@btesa.com`
+- This patch: `...22041-5-i.tellez@btesa.com` (4/4)
+- v1: `https://lore.kernel.org/bpf/20260806130214.66028-1-
+  i.tellez@btesa.com/` (kernel pending_pos only; v2 added sites 2–4)
+- v2 change for patch 1: drop `(long)` cast per Nakryiko; unsigned
+  difference is enough
+- Cover: patch 1 was the field-observed stall; patch 4 is the userspace
+  counterpart. “A 32-bit consumer hits whichever of the two comes
+  first.”
+- No NAK on patch 4. Patch 3 was dropped by both author and Nakryiko
+  (ordering of overwrite_pos loads).
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (b4 dig -w): Viacheslav Dubeyko, Tetsuo Handa, George Vernon,
-Jori Koolstra, linux-fsdevel, syzbot. Maintainer reviewed and merged.
+Record (`b4 dig -w`): To/Cc included Andrii Nakryiko, Alexei
+Starovoitov, Daniel Borkmann, Eduard Zingerman, Martin KaFai Lau, Song
+Liu, Jiri Olsa, `bpf@vger.kernel.org`. Applied by Nakryiko.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-Record (syzbot, live page):
-- Title: **kernel BUG in hfs_write_inode**
-- First crash: **2022-11-25**; last listed ~35d before the page
-  snapshot; **243695 crashes**; C and syz reproducers
-- Stack: `hfs_write_inode` ← writeback `wb_workfn` (kworker), invalid
-  opcode at `BUG()`
-- Security assessment: DenialOfService yes, FilesystemTrigger yes,
-  **Unprivileged: no** (needs a mountable image)
-- Duplicate: “invalid opcode in hfs_write_inode”
-- Fix commit listed as `53c3c138d672`
+Record: No syzbot/bugzilla for the libbpf loop itself. Field evidence is
+on the kernel sibling: four armv7 devices, exact 2^32-byte trigger, 8–17
+h uptime, one patched device then passed 10 GiB. Cover: “Userspace kept
+consuming normally until the producer stopped” — meaning the kernel
+stall fired first. Once that kernel fix is in (it is, here), this libbpf
+loop is the next wrap failure.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Single-patch series (v1–v5 of the same change). Earlier
-alternate approaches (replace `BUG()` with `-EIO`/`-EFSCORRUPTED`,
-broader `BUG()` removal) were **not** what merged; this validation-at-
-instantiation patch is standalone.
+Record:
+1. Kernel pending_pos — **already in this tree**
+2. Overwrite-mode avail-data — **N/A here** (no overwrite_mode)
+3. producer_pos vs overwrite_pos load order — dropped; **N/A here**
+4. **This libbpf loop** — candidate
+- User-ringbuf peek (`u64` locals, `cons_pos >= prod_pos`) was called
+  out as a separate issue and is **not** this commit. Confirmed still
+  present at `kernel/bpf/ringbuf.c:687`.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: **UNVERIFIED** — lore.kernel.org fetches returned 403. No `Cc:
-stable` in the fsdevel thread. That absence is not a reason to reject.
+Record: **UNVERIFIED** — lore.kernel.org/stable returned Anubis bot-
+challenge (403/HTML). No stable-list discussion retrieved.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code semantic analysis
 
 **Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: `hfs_cat_validate_found_cnid` (new), `hfs_cat_find_brec`,
-`hfs_is_valid_cnid` (new inline), `hfs_read_inode`, `hfs_file_lookup`,
-`hfs_fill_super`. `hfs_write_inode` unchanged.
+Record: `ringbuf_process_ring()` only. (semcode MCP not available; used
+hunk headers + grep.)
 
 **Step 5.2: TRACE CALLERS**
-Record:
-- `hfs_cat_find_brec()` — only `hfs_fill_super()` (root at mount)
-- `hfs_read_inode()` — `iget5_locked` set callback from `hfs_iget()`
-  (`hfs_lookup` / `hfs_fill_super`) and direct call from
-  `hfs_file_lookup()` (rsrc)
-- `hfs_write_inode()` — `s_op->write_inode` from writeback (crash site)
+Record: All in-tree callers of `ringbuf_process_ring()`:
+- `ring_buffer__consume_n()`
+- `ring_buffer__consume()`
+- `ring_buffer__poll()`
+- `ring__consume_n()` / `ring__consume()`
+
+These are the public libbpf ringbuf consume APIs. Reachable from any
+userspace consumer of `BPF_MAP_TYPE_RINGBUF` (tracing, networking,
+etc.). `bpftool` in this tree links `tools/lib/bpf`.
 
 **Step 5.3: TRACE CALLEES**
-Record: `hfs_bnode_read`, `hfs_brec_find`, `be32_to_cpu`,
-`is_bad_inode`, `iput`. No new allocations/locks.
+Record: `smp_load_acquire` on positions/len, `roundup_len()`,
+`r->sample_cb()`, `smp_store_release` of consumer_pos. No
+allocation/locking in the changed condition.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Reachable from **mounting an HFS image** and from **lookup /
-rsrc** on a mounted volume. Syzbot C repro mounts a crafted image;
-writeback then `BUG()`s. Userspace-triggerable if the caller can mount
-HFS (`CONFIG_HFS_FS`).
+Record: Userspace path: app/bpftool → `ring_buffer__poll/consume` →
+`ringbuf_process_ring`. Trigger: ~4 GiB cumulative ring traffic on
+32-bit. Unprivileged if the process already has the map fd (typical
+tracing daemon). Not a kernel oops, but permanent event loss.
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: HFS+ already special-cases reserved vs user CNIDs in
-`hfsplus_iget()` (`fs/hfsplus/super.c`). Classic HFS lacked that for
-catalog-instantiated inodes. Same class of bug, HFS-only fix.
+Record:
+- Same buggy compare in
+  `tools/testing/selftests/bpf/benchs/bench_ringbufs.c:305` (benchmark
+  only; not this commit).
+- Wrap-safe distance already in `ring__avail_data_size()` and kernel
+  `ringbuf_avail_data_sz()`.
+- Kernel pending_pos already converted to distance in this tree.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+## Phase 6: Cross-referencing against the local tree
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes. `BUG()` still in `hfs_write_inode()` at `fs/hfs/inode.c`
-(lines 479–491), present since 2.6.12. Validation from this commit is
-already applied here (`hfs_is_valid_cnid` in `hfs_fs.h`,
-`hfs_cat_validate_found_cnid` in `catalog.c`). Introduced: original HFS
-port, not post-7.3.
+Record: **Yes.** Local tree is **6.12.111** (`git describe`:
+`p-6.12-3-gc504cf0baa3d8`, Makefile `VERSION=6 PATCHLEVEL=12
+SUBLEVEL=111`).
+
+```247:247:tools/lib/bpf/ringbuf.c
+                while (cons_pos < prod_pos) {
+```
+
+`struct ring` uses `unsigned long *consumer_pos` / `*producer_pos`
+(lines 29–30). Bug introduced in v5.8-era libbpf ringbuf
+(`bf99c936f9478`), long before 6.12. Positions are still `unsigned long`
+in kernel `struct bpf_ringbuf`.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: **Expected apply: clean / minor context** on trees that still
-have `hfs_cat_find_brec`, `hfs_read_inode`, `hfs_file_lookup`,
-`hfs_fill_super`. New code does not depend on `inode_set_ctime_to_ts`,
-`set_default_d_op`, or CNID-correction helpers. Constants live in
-`include/linux/hfs_common.h` here; older trees may still have them in
-`fs/hfs/hfs.h` — only a context/include issue, not a logic dependency.
+Record: **Clean apply.** `git apply --check` on the original patch mbox
+exited 0. Function shape matches the hunk (`ringbuf_process_ring(struct
+ring *r, size_t n)` with `cons_pos`/`prod_pos` as `unsigned long`).
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: This is the fix (`53c3c138d6727`). No earlier equivalent in-
-tree. Not in `v7.2`.
+Record: Kernel pending_pos wrap fix **is** here (`19de99ea47e3c`).
+Userspace loop still has `cons_pos < prod_pos`. No alternate libbpf wrap
+fix in this file.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## Phase 7: Subsystem and maintainer context
 
 **Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **fs/hfs** — **PERIPHERAL** (legacy Mac HFS, `CONFIG_HFS_FS`,
-not the VFS core). Still a real on-disk filesystem; a `BUG()` on
-corrupted images is a kernel crash, not a cosmetic warning.
+Record: **libbpf** (`tools/lib/bpf/`) — userspace helper shipped with
+the kernel, used by bpftool and in-tree BPF tools. Criticality:
+**IMPORTANT** for BPF users, especially 32-bit embedded collectors. Not
+core mm/sched, but this tree already backports libbpf ringbuf fixes
+(`087d757fb4736`, `00f0e08f23fc0`).
 
 **Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Actively maintained under Viacheslav Dubeyko (`hfs-v7.3-tag1`
-and other recent HFS tags). Mature code with ongoing syzbot/hardening.
+Record: Actively maintained; libbpf ringbuf APIs grew through 6.12
+(`ring__consume_n`, etc.). The wrap bug is old (2020), not a new-feature
+leftover.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 8: Impact and risk assessment
 
 **Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: **Config/driver-specific:** `CONFIG_HFS_FS`. Anyone who can
-mount HFS (including fuzzers, forensic mounts, old Mac volumes). Not
-universal.
+Record: **Config/platform-specific:** 32-bit hosts using in-tree libbpf
+to consume `BPF_MAP_TYPE_RINGBUF` (armv7/i.MX and similar LTS/embedded).
+64-bit unaffected in practice.
 
 **Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Mount / use a **corrupted HFS image**. Syzbot has a C repro;
-240k+ crashes over ~4 years. Not unprivileged without mount capability.
-Timing-independent once the bad inode is instantiated and dirtied
-(`hfs_file_lookup` does `mark_inode_dirty` on rsrc).
+Record: After ~4 GiB of ring traffic, if producer wraps while consumer
+still has unconsumed bytes. Common with epoll/batching. Timing-dependent
+at the wrap, then **sticky forever**. Unprivileged if the process
+already holds the map. The sibling bug was reproduced at 441–862
+records/s over hours — not a theoretical corner.
 
 **Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: **`BUG()` / invalid opcode in writeback kworker → oops.**
-**Severity: CRITICAL** (kernel crash). DoS, not a demonstrated
-privilege-escalation.
+Record: Permanent silent stop of sample delivery; kernel then drops
+events; APIs return 0 with no error. **HIGH** data/event loss (not a
+kernel oops). Restart of the consumer is required.
 
 **Step 8.4: CALCULATE RISK-BENEFIT RATIO**
 Record:
-- **Benefit:** high for HFS users and any tree that enables HFS — stops
-  a years-old reproducible `BUG()`.
-- **Risk:** low — +76 lines, HFS-only, reviewed, tested with QEMU repro;
-  failure mode on bad images becomes `-EIO` / failed mount instead of
-  oops.
-- **Ratio:** strongly favors backport.
+- **Benefit: high for 32-bit BPF consumers.** Kernel producer wrap is
+  already fixed here, so this is now the remaining stall. Same class as
+  a field-proven 6.6.52 armv7 outage.
+- **Risk: very low.** One comparison, same idiom as kernel code already
+  on this branch.
+- Ratio: strongly favors backport.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final synthesis
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
 **FOR:**
-- Syzbot kernel `BUG()` since 2022, C repro, hundreds of thousands of
-  crashes
-- Crash in writeback (`wb_workfn` → `hfs_write_inode`)
-- Small, contained HFS-only change (+76/-2)
-- Maintainer Reviewed-by after v1–v5
-- Bug in code since 2.6.12; no missing prerequisites in this tree
-- Matches stable rules: real crash, obviously correct validation, no new
-  API
+- Real wrap bug; documented that 32-bit positions wrap
+- Permanent silent event loss, no error
+- One-line, obviously correct, applies cleanly
+- Kernel counterpart already in this 6.12.y tree — without this,
+  producer keeps going and userspace is the next stall
+- Field-proven sibling on armv7 (core LTS/embedded)
+- Maintainer SOB (Nakryiko); v2 reviewed
+- No new APIs; no overwrite-mode dependency
 
 **AGAINST:**
-- HFS is a legacy/peripheral FS
-- Needs ability to mount HFS (not unprivileged syscall-only)
-- `hfs_write_inode()` `BUG()` remains as a backstop if another path
-  instantiates a reserved CNID
-- No `Cc: stable` (expected for this review queue)
+- Userspace libbpf (some distros use github libbpf, not in-tree)
+- 32-bit only in practice
+- Original field report hit kernel pending_pos first
+- No `Cc: stable` on the original mail (expected for this review queue;
+  not a negative)
 
 **UNRESOLVED:**
-- lore.kernel.org/stable search (HTTP 403)
-- Whether every older stable series has identical hunk context
-  (`hfs_common.h` vs `hfs.h`)
+- Could not query lore.kernel.org/stable (bot wall)
+- Could not confirm whether standalone libbpf already carries this
+  (irrelevant: verdict is for in-tree `tools/lib/bpf`)
 
 **Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — maintainer review, QEMU
-   repro, syzbot
-2. Fixes a real bug that affects users? **PASS** — reproducible `BUG()`
-   on corrupted HFS
-3. Important issue? **PASS** — kernel oops (CRITICAL)
-4. Small and contained? **PASS** — 4 files, +76/-2, HFS only
-5. No new features or APIs? **PASS** — validation only
-6. Can apply to the local tree? **PASS** — code is present; patch is
-   self-contained (already merged here as of 7.3-rc1)
+1. Obviously correct and tested? **PASS** — same unsigned-distance idiom
+   as kernel code already here; series tested on armv7 for the sibling;
+   maintainer applied it.
+2. Fixes a real bug that affects users? **PASS** — 32-bit ringbuf
+   consumers stall after wrap.
+3. Important issue (crash, security, corruption, deadlock)? **PASS** at
+   HIGH — permanent silent event loss, not an oops, but equivalent
+   operational failure for tracing/telemetry.
+4. Small and contained? **PASS** — 1 line, 1 file.
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — `git apply --check`
+   succeeded; buggy loop present.
 
 **Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Not ID/quirk/DT/docs. Ordinary **crash fix** on filesystem
-corruption.
+Record: Not a device-ID/quirk/DT/docs exception. Ordinary small bugfix.
 
-**Step 9.4: MAKE YOUR DECISION**
-This is a real, long-standing, syzbot-reproduced kernel `BUG()` on
-corrupted HFS catalog data. The fix is small, reviewed, and stops bad
-CNIDs from becoming inodes that writeback will crash on. That is
-appropriate for stable.
+**Step 9.4: DECISION**
+
+This belongs on **this** 6.12.y tree. The buggy `cons_pos < prod_pos`
+loop is here; the matching kernel wrap fix is already here; the one-line
+change applies cleanly and closes the remaining 32-bit stall for in-tree
+libbpf consumers.
+
+### What the commit solves and why it matters here
+
+On 32-bit, ring positions are 32-bit `unsigned long` and are documented
+to wrap. After producer wrap, the consumer loop never runs, never
+advances `consumer_pos`, and never recovers. `ring_buffer__poll()`
+reports 0 forever while the kernel drops samples. 6.12.y already
+contains the kernel `pending_pos` wrap fix, so a 32-bit producer can now
+wrap; this userspace loop is the next failure. 32-bit ARM collectors are
+a real LTS audience (the sibling was seen on i.MX7 Dual).
+
+### Risk vs benefit
+
+Benefit is high for 32-bit BPF ringbuf users; risk is a one-line
+comparison already used in-kernel on this branch.
 
 ---
 
-### What the commit solves and why it matters
-On a corrupted HFS catalog, a thread lookup by CNID can be followed by a
-parent/name lookup that returns a **different** record. That record can
-carry a reserved CNID (0, 1, 5–15, …). Instantiating it and dirtying it
-(notably the resource-fork path, which previously ignored
-`hfs_read_inode()` errors) causes **writeback to `BUG()`** in
-`hfs_write_inode()`. Stable kernels that still ship HFS will oops the
-same way; rejecting the record with `-EIO` is the right user-visible
-behavior.
-
-### Stable rules / risk
-Surgical, HFS-only, no new APIs, maintainer-acked, fuzzer-proven.
-Residual risk is failing mount/lookup on already-invalid volumes that
-used to oops instead.
-
-### Concerns
-Older trees may need a trivial context tweak if CNID macros are still in
-`fs/hfs/hfs.h`. No semantic prerequisites. The remaining `BUG()` in
-`hfs_write_inode()` is intentional per the maintainer.
-
 ### Verification
-- **[Phase 1]** Tags: syzbot Reported-by, Closes syzkaller URL,
-  Reviewed-by Dubeyko, lore Link; no Fixes/Cc-stable
-- **[Phase 2]** Diff: +76/-2 in catalog.c, hfs_fs.h, inode.c, super.c;
-  validation + error propagation
-- **[Phase 3]** `git describe HEAD` → v7.3-rc4-27-gf0100363d8c37; `make
-  kernelversion` → 7.3.0-rc4
-- **[Phase 3]** Commit `53c3c138d6727`; `git merge-base --is-ancestor
-  53c3c138d6727 HEAD` → yes
-- **[Phase 3]** `git merge-base --is-ancestor 53c3c138d6727 v7.2` → not
-  in v7.2; `git describe --contains` → v7.3-rc1~222^2~9
-- **[Phase 3]** Blame: `BUG()` in `hfs_write_inode` from 1da177e4c3f41
-  (2.6.12-rc2)
-- **[Phase 3]** `hfs_read_inode` already `static int` since 2.6.12; pre-
-  fix `hfs_file_lookup` discarded its return value
-- **[Phase 4]** `b4 dig -c 53c3c138d6727` → msgid
-  20260708215636.73815-1; v1/v3/v4/v5; v5 applied
-- **[Phase 4]** `b4 dig -w`: Dubeyko, Handa, fsdevel, syzbot
-- **[Phase 4]** `b4 dig -m`: Slava “Looks good” + Reviewed-by; asked to
-  leave `hfs_write_inode` unchanged
-- **[Phase 4]** WebFetch syzbot: kernel BUG in hfs_write_inode,
-  2022-11-25, C repro, 243695 crashes
-- **[Phase 4]** lore.kernel.org WebFetch: 403 — stable-list search
-  UNVERIFIED
-- **[Phase 5]** Callers: `hfs_cat_find_brec` only from `hfs_fill_super`;
-  `hfs_iget` from dir lookup + mount; rsrc via `hfs_file_lookup`
-- **[Phase 5]** `inode_insert5()` treats failed `set()` as NULL inode
-  (verified `fs/inode.c`)
-- **[Phase 6]** Local files already contain the new helpers; `BUG()`
-  path still present
-- **[Phase 8]** Failure mode: oops in kworker writeback, severity
-  CRITICAL
-- **UNVERIFIED:** stable@ discussion (lore 403); exact hunk context on
-  every LTS series
+- **[Phase 1]** Parsed subject/tags/body from the candidate and from
+  `/tmp/ringbuf-mbox/wrap-p5`; `Fixes:` only as a later lore trailer to
+  `bf99c936f947`
+- **[Phase 2]** Diff is one condition in `ringbuf_process_ring()`;
+  current tree still has `while (cons_pos < prod_pos)` at line 247
+- **[Phase 3]** `git blame` → `bf99c936f9478` (2020); `git merge-base
+  --is-ancestor` confirms that SHA, `cfa1a2329a691`, and kernel wrap fix
+  `19de99ea47e3c` are in HEAD
+- **[Phase 3]** `git log --oneline -- tools/lib/bpf/ringbuf.c` — no
+  userspace wrap fix present
+- **[Phase 4]** `b4 dig -c 19de99ea47e3c -a/-w` → v2 4-patch series;
+  this is 4/4
+- **[Phase 4]** Cover letter and patches from `/tmp/ringbuf-
+  series/*.cover` and `.mbx`; Nakryiko dropped patch 3 (`/tmp/ringbuf-
+  mbox/nakryiko`)
+- **[Phase 4]** lore.kernel.org HTTP 403 / Anubis; used `b4` mboxes
+  instead
+- **[Phase 5]** grep callers of `ringbuf_process_ring` in
+  `tools/lib/bpf/ringbuf.c`; public consume/poll APIs
+- **[Phase 6]** `git describe HEAD` → `p-6.12-3-gc504cf0baa3d8`; `make
+  kernelversion` → `6.12.111`
+- **[Phase 6]** `git apply --check /tmp/ringbuf-mbox/wrap-p5` exit 0
+- **[Phase 6]** `overwrite_pos` / `overwrite_mode` absent from
+  `kernel/bpf/ringbuf.c` in this tree
+- **[Phase 7/8]** `Documentation/bpf/ringbuf.rst` documents 32-bit wrap;
+  kernel sibling commit describes four armv7 devices
+- **UNVERIFIED:** stable@ lore discussion; whether distro standalone
+  libbpf already has this
 
 **YES**
 
- fs/hfs/catalog.c | 41 ++++++++++++++++++++++++++++++++++++++++-
- fs/hfs/hfs_fs.h  | 19 +++++++++++++++++++
- fs/hfs/inode.c   | 13 ++++++++++++-
- fs/hfs/super.c   |  5 +++++
- 4 files changed, 76 insertions(+), 2 deletions(-)
+ tools/lib/bpf/ringbuf.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/hfs/catalog.c b/fs/hfs/catalog.c
-index ccdbbffaaf7c1..f3fd84cffed5f 100644
---- a/fs/hfs/catalog.c
-+++ b/fs/hfs/catalog.c
-@@ -182,6 +182,40 @@ int hfs_cat_keycmp(const btree_key *key1, const btree_key *key2)
- 			  key2->cat.CName.name, key2->cat.CName.len);
- }
+diff --git a/tools/lib/bpf/ringbuf.c b/tools/lib/bpf/ringbuf.c
+index 00ec4837a06de..c8fe57401a8b5 100644
+--- a/tools/lib/bpf/ringbuf.c
++++ b/tools/lib/bpf/ringbuf.c
+@@ -244,7 +244,7 @@ static int64_t ringbuf_process_ring(struct ring *r, size_t n)
+ 	do {
+ 		got_new_data = false;
+ 		prod_pos = smp_load_acquire(r->producer_pos);
+-		while (cons_pos < prod_pos) {
++		while (prod_pos - cons_pos > 0) {
+ 			len_ptr = r->data + (cons_pos & r->mask);
+ 			len = smp_load_acquire(len_ptr);
  
-+static int hfs_cat_validate_found_cnid(struct hfs_find_data *fd, u32 cnid)
-+{
-+	hfs_cat_rec rec;
-+	u32 found_cnid;
-+	int rec_len;
-+
-+	rec_len = fd->entrylength;
-+	if (rec_len <= 0 || (size_t)rec_len > sizeof(rec))
-+		return -EIO;
-+
-+	memset(&rec, 0, sizeof(rec));
-+	hfs_bnode_read(fd->bnode, &rec, fd->entryoffset, rec_len);
-+
-+	switch (rec.type) {
-+	case HFS_CDR_FIL:
-+		if ((size_t)rec_len != sizeof(struct hfs_cat_file))
-+			return -EIO;
-+		found_cnid = be32_to_cpu(rec.file.FlNum);
-+		break;
-+	case HFS_CDR_DIR:
-+		if ((size_t)rec_len != sizeof(struct hfs_cat_dir))
-+			return -EIO;
-+		found_cnid = be32_to_cpu(rec.dir.DirID);
-+		break;
-+	default:
-+		return -EIO;
-+	}
-+
-+	if (found_cnid != cnid)
-+		return -EIO;
-+
-+	return 0;
-+}
-+
- /* Try to get a catalog entry for given catalog id */
- // move to read_super???
- int hfs_cat_find_brec(struct super_block *sb, u32 cnid,
-@@ -208,7 +242,12 @@ int hfs_cat_find_brec(struct super_block *sb, u32 cnid,
- 		return -EIO;
- 	}
- 	memcpy(fd->search_key->cat.CName.name, rec.thread.CName.name, len);
--	return hfs_brec_find(fd);
-+
-+	res = hfs_brec_find(fd);
-+	if (res)
-+		return res;
-+
-+	return hfs_cat_validate_found_cnid(fd, cnid);
- }
- 
- static inline
-diff --git a/fs/hfs/hfs_fs.h b/fs/hfs/hfs_fs.h
-index 86b5ae62247be..724b28bb8c6c4 100644
---- a/fs/hfs/hfs_fs.h
-+++ b/fs/hfs/hfs_fs.h
-@@ -156,6 +156,25 @@ extern int hfs_cat_move(u32 cnid, struct inode *src_dir,
- extern void hfs_cat_build_key(struct super_block *sb, btree_key *key,
- 			      u32 parent, const struct qstr *name);
- 
-+/*
-+ * Validate the CNID of a catalog record.
-+ */
-+static inline bool hfs_is_valid_cnid(u32 cnid, u8 type)
-+{
-+	if (likely(cnid >= HFS_FIRSTUSER_CNID))
-+		return true;
-+
-+	switch (cnid) {
-+	case HFS_ROOT_CNID:
-+		return type == HFS_CDR_DIR;
-+	case HFS_EXT_CNID:
-+	case HFS_CAT_CNID:
-+		return type == HFS_CDR_FIL;
-+	default:
-+		return false;
-+	}
-+}
-+
- /* dir.c */
- extern const struct file_operations hfs_dir_operations;
- extern const struct inode_operations hfs_dir_inode_operations;
-diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-index f1796e4b07e83..e815e9a8ac6f2 100644
---- a/fs/hfs/inode.c
-+++ b/fs/hfs/inode.c
-@@ -365,6 +365,9 @@ static int hfs_read_inode(struct inode *inode, void *data)
- 	rec = idata->rec;
- 	switch (rec->type) {
- 	case HFS_CDR_FIL:
-+		if (!hfs_is_valid_cnid(be32_to_cpu(rec->file.FlNum), rec->type))
-+			return -EIO;
-+
- 		if (!HFS_IS_RSRC(inode)) {
- 			hfs_inode_read_fork(inode, rec->file.ExtRec, rec->file.LgLen,
- 					    rec->file.PyLen, be16_to_cpu(rec->file.ClpSize));
-@@ -386,6 +389,9 @@ static int hfs_read_inode(struct inode *inode, void *data)
- 		inode->i_mapping->a_ops = &hfs_aops;
- 		break;
- 	case HFS_CDR_DIR:
-+		if (!hfs_is_valid_cnid(be32_to_cpu(rec->dir.DirID), rec->type))
-+			return -EIO;
-+
- 		inode->i_ino = be32_to_cpu(rec->dir.DirID);
- 		inode->i_size = be16_to_cpu(rec->dir.Val) + 2;
- 		HFS_I(inode)->fs_blocks = 0;
-@@ -565,13 +571,18 @@ static struct dentry *hfs_file_lookup(struct inode *dir, struct dentry *dentry,
- 	res = hfs_brec_read(&fd, &rec, sizeof(rec));
- 	if (!res) {
- 		struct hfs_iget_data idata = { NULL, &rec };
--		hfs_read_inode(inode, &idata);
-+		res = hfs_read_inode(inode, &idata);
- 	}
- 	hfs_find_exit(&fd);
- 	if (res) {
- 		iput(inode);
- 		return ERR_PTR(res);
- 	}
-+
-+	if (is_bad_inode(inode)) {
-+		iput(inode);
-+		return ERR_PTR(-EIO);
-+	}
- 	HFS_I(inode)->rsrc_inode = dir;
- 	HFS_I(dir)->rsrc_inode = inode;
- 	igrab(dir);
-diff --git a/fs/hfs/super.c b/fs/hfs/super.c
-index 97546d6b41f47..933aa04480899 100644
---- a/fs/hfs/super.c
-+++ b/fs/hfs/super.c
-@@ -372,6 +372,11 @@ static int hfs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	if (!root_inode)
- 		goto bail_no_root;
- 
-+	if (is_bad_inode(root_inode)) {
-+		iput(root_inode);
-+		goto bail_no_root;
-+	}
-+
- 	set_default_d_op(sb, &hfs_dentry_operations);
- 	res = -ENOMEM;
- 	sb->s_root = d_make_root(root_inode);
 -- 
 2.53.0
 
