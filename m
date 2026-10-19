@@ -1,77 +1,52 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A124A3F1B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CF3485925
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:37:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792399004; cv=none; b=fHCV/bjkyVCTs7CmX1+GLM78Q6Gvh1cGhQUwBhUPhtH5YLBpM7I1TOAWswHgwXI0bUR+ZFClKTthh4ASSg1GvjMNF38G73xpdb5GARxlvJY2ROEPP7b3zaFTsVOHkNsfnQL8ExYd+i3ruGUlFp6AF54YvxCYy7ZXhFhhf2Ct6eE=
+	t=1792399036; cv=none; b=ed3JAKcmeS5uCiVGszLObK6hM0EcOF8grQFIjySIYsfePkIgCZoXXvTdOYmDEAnFprQOHAeU8hJpVuMzfLf7dEzGWGjox2vrJ9gzPDJ/HMO9Nu1tBlKA0YFINhMd7zYUi9RrH9WQkooWYetF+rFQeExjmuLDfBURchhsfvSgx1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792399004; c=relaxed/simple;
-	bh=wopnKdIWquQ/19iqJ+7yuXZ+uNue8zlPP3xAl38VlP0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PuhrUxM1RqsdWBUbc3sYrass1hmKTOG590qmfy6XP415/n1mwJpbGXROyTKeMySI0DcT3xcRAESufb+tITz8VURzee++fP/Dk3d0m7Wrxvtjp+4+AUegctDIfAyBIIgjix9q9uEbMmkEy+uh1o94S4OdQQx83f+xo0mG/w7qKpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=cbMwav/M; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="cbMwav/M"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso8982875ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:36:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792398998; x=1793003798; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XHO8V/wDfiBEINRArRhvsbbx6Jsua2LG1hGVoz5r0fs=;
-        b=cbMwav/MduEe4QE+8peVSBdNdzulLpla3wI2ZY4h/2+ET8qgncd8zbm9wMcuiPKy15
-         CMCjqDYi47hyd8wsvbxDtEcSL23Iv7WXQpaIYhNLPNMJ7MF5MXZEqB/OcKvgUhZjc9Gy
-         Va311ZGojuT4Z0Aq0Wvt2Xd0rodzNhlJCj/WbKq0vVu5e0T25dn3rW0iZDGMvmXORSQf
-         9AeVc5NMosU9NpgwPpWvDmvOLTxfKqWWYWB1Obd5Tw3tw59f40vbVLhGimVMyhdlZ2AP
-         STI+bhxkpcLBtnAsxVZk0ZM1WhMU69BHjI/WCqAN2cP+B8lURw8cQgjHrt4CDllDrC/a
-         QuVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792398998; x=1793003798;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XHO8V/wDfiBEINRArRhvsbbx6Jsua2LG1hGVoz5r0fs=;
-        b=X77vJaKmPr1ce6UyOH7gu6Bf66BKj5mQsD7lSg/4KAx6JtJKTi8W2UiQF3+c6CILaH
-         B+7rb/XgE8eJQf36AVr/4aUs61dNpUjbmMO+a9ISGD/JZVai3fPNb8vky1JfwNmwuUQy
-         tFH1zUIwLIRnmoUX74G/KMiXOSvJGzNNySaMj3ZxkzenDdU/YqDnkmjQVJYsIWZ/8+a4
-         NrwBQ7ealHafKD25t5u2DpX8/R/aUVh5DiVX4N2wMV9A6Xb+3oGYPRusbZPh0T9vOCcl
-         dqdLAXgoyeO7ZUxn52+66XJ1SHqIVJl/32qhrNFe5NHvYJfNXSSNJoAvM+7vYh1IvFYJ
-         nlFg==
-X-Forwarded-Encrypted: i=1; AKwUvBwMzxMYIQYnrRLS0nYhA+95vJSNP2t8K8CPQHbdsIlrHX5kkNX/IlrdH+jqclzk7Ou9bOlitbe3FFL2cTE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgxOOTrEj3mMRw5UdhbxurWq5uS4bxWV0yWwCoSsoy6i+U45wy
-	fHyuxedqFlO7aTcLHZCJSJ6wDSUVEoe0Zm5P/KT81Sq7nb3DGtcLeb0vCUlo88TjwV0=
-X-Gm-Gg: AYBFou1K7KNLZMiWU3liOnQBBN/UK/j00ovz93QtNvAxHvwpGA7C5TXLt96BiE6Uyep
-	SwMd+ltEC3QkQfPoKSE4Pd5gjeJXzxp4eYKG4NoZlFCzJnxEiSmhcbdGntYw0pMYNluzYLcr49m
-	WF3TohRrJTDgUPD5PQRPysf6AMj4IjwwGp6DmRlKqdJBUgVv9Jq4Wsrfu8PHZU+4QxzD1jBpsnB
-	NvKWBXKk5sFdrizCpgZD/Ufy3Hv+eGEVpXu5rO9/OG4pPvajeNXcu7YA5wMk+TFP3YK4Q8GQf1F
-	d/KAwhGD5KLMynW8mrw5t3tD7yZhOK8oS80NyuUL5XrJ7a6sTqnaN3nOrPybVnvj9u8bpHPkCgL
-	rrMy/tGn7cp1XB81QNhq9yNAYH6u0sfXjJnGuKeQa8WWO1n8qLi+3lLkM2TtHuHvkeE1ZysqK/H
-	p06/rSfOzrl4xAorGkLmDJbHHbWZncK7PRr1lXX+dNq/36c7GgMIYHZCO1NyPclsbpes+0ol/nW
-	FjIafpH+umgw8Hf
-X-Received: by 2002:a17:902:e84c:b0:2e9:6b5b:3db6 with SMTP id d9443c01a7336-2e9a69e93d4mr64066135ad.30.1792398998323;
-        Mon, 19 Oct 2026 01:36:38 -0700 (PDT)
-Received: from yhlee-960QFG.. ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804c11sm35469425ad.22.2026.10.19.01.36.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 01:36:37 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: skashyap@marvell.com,
-	jhasan@marvell.com,
-	mkp@kernel.org,
-	James.Bottomley@HansenPartnership.com
-Cc: GR-QLogic-Storage-Upstream@marvell.com,
-	mrangankar@marvell.com,
-	linux-scsi@vger.kernel.org,
+	s=arc-20240116; t=1792399036; c=relaxed/simple;
+	bh=ZHCQroNngKeckgZXECdRhqBoIG9zlpblU5OFaFkBjoc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=B0mMcw325l/cFRq0Lx7clpbHi8nZZsuA+Z8LLkfeLAwqWwPSCVJgzXRIwBBb9k+dRbKnN6gpV2JB7lI3J30R51R6yhRGss7o4Suh8e3XXQpNPtZuFXu3daLHLSZQqR/LUJcNjtg5kzHDlBXCva1UNowrm9Ak+S4cP/xW9vH1rlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 439bde90cb9811f19a56ed5b684f684d-20261019
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:40f6eb13-f796-4f05-8a77-5e38376972e8,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:8f3520c8e780fa2c22df261c230c53de,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|123|850|865|898,TC:nil,Content:0|1
+	5|50|99,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,
+	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 439bde90cb9811f19a56ed5b684f684d-20261019
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <yaolu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 15019227; Mon, 19 Oct 2026 16:37:05 +0800
+From: yaolu@kylinos.cn
+To: christian.koenig@amd.com
+Cc: alexander.deucher@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	andrealmeid@igalia.com,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH] scsi: qedf: bound the unsolicited frame length the firmware reports
-Date: Mon, 19 Oct 2026 17:36:22 +0900
-Message-ID: <20261019083622.718838-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	yaolu@kylinos.cn
+Subject: Re: Re: [PATCH] drm/amdgpu: Fix out-of-bounds write in amdgpu_debugfs_gfxoff_count_read()
+Date: Mon, 19 Oct 2026 16:36:58 +0800
+Message-Id: <20261019083658.259000-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <b6ce551d-b37c-40a7-a2b0-07eae754a156@amd.com>
+References: <b6ce551d-b37c-40a7-a2b0-07eae754a156@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,164 +55,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-qedf_process_unsol_compl() takes the length of an unsolicited FCoE frame
-out of the completion queue entry and copies that many bytes out of the BDQ
-buffer the firmware put the frame in:
+So, may I need to make the change? Such as a conversion of all gfxoff handlers
+to seq_file text output, following amdgpu_debugfs_test_ib_show() in this file.
 
-	uint16_t pktlen = cqe->cqe_info.unsolic_info.pkt_len;
-	...
-	bdq_addr = qedf->bdq[bdq_idx].buf_addr;
-	if (!bdq_addr) {
-	...
-	memcpy(fh, (void *)bdq_addr, pktlen);
+Another issue is switching these files from raw u32/u64 to text
+changes what existing consumers read.Is this approach acceptable?
 
-The BDQ index and a NULL buffer are both checked; the length is not.  A BDQ
-buffer is a QEDF_BDQ_BUF_SIZE coherent DMA allocation and pkt_len is a
-__le16, so a frame the firmware reports as longer than 2072 bytes reads up
-to 63 KiB past the end of one.  The print_hex_dump() under qedf_dump_frames
-a few lines earlier reads the same length out of the same buffer.
-
-The destination is not where this goes wrong.  fc_frame_alloc() is handed
-pktlen - sizeof(struct fc_frame_header) and sets the frame length to that
-plus the header again, so there is room for exactly pktlen bytes from
-fc_frame_header_get() onwards.  Only the source runs off the end.
-
-How much room there is was the driver's decision in the first place: it
-advertises QEDF_BDQ_BUF_SIZE to the firmware as rq_buffer_size while
-setting up its PF parameters, and allocates every BDQ buffer at exactly
-that size. A pkt_len above it contradicts the size the driver itself handed
-over, so there is nothing to be gained by trying to honour it.
-
-A lower bound belongs with the upper one, and not merely for tidiness.
-payload_len underflows for any length below an FC header, and
-fc_frame_alloc() then takes the fc_frame_alloc_fill() path whenever the
-result is not a multiple of four.  That passes payload_len + fill on to
-_fc_frame_alloc(), where alloc_skb_fclone() and skb_put() both take an
-unsigned int and quietly truncate it, so the allocation succeeds at a few
-dozen bytes while payload_len stays at 0xffffffff.  The
-
-	memset((char *) fr_hdr(fp) + payload_len, 0, fill);
-
-that follows then writes a byte roughly 4 GiB past the frame.
-
-Drop such a frame rather than clamping it.  A truncated FC frame is not
-something libfc can do anything useful with, and the out-of-range cases
-this handler already has take the increment_prod exit so that the producer
-index still advances and the BDQ entry goes back to the firmware.
-
-Driving the handler with a reported length one byte past a BDQ buffer shows
-the copy running off the source.  The harness is a KUnit test that is not
-part of this patch; it calls the real handler with the BDQ buffer swapped
-for kmalloc() of the same size, because coherent DMA allocations are page
-granular and KASAN does not track them:
-
-  BUG: KASAN: slab-out-of-bounds in qedf_process_unsol_compl+0x336/0x10b0
-  Read of size 2073 at addr 00000000627ca000 by task kunit_try_catch/25
-  
-  CPU: 0 UID: 0 PID: 25 Comm: kunit_try_catch Tainted: G                 N  7.3.0-rc7-g58161ead29e5-dirty #3 VOLUNTARY
-  Tainted: [N]=TEST
-  Stack:
-   6133bca2 00000000 00000000 00000000
-   ffffff00 6133bca2 61343506 627ca000
-   613d1680 600c3c61 62893d00 6004301e
-  Call Trace:
-   [<600c3c61>] ? dump_stack_lvl+0x5e/0x7a
-   [<6004301e>] ? _printk+0x0/0xd7
-   [<6004fc1a>] ? print_report+0x14b/0x517
-   [<603b68e4>] ? __kmalloc_node_track_caller_noprof+0x1a4/0x3c0
-   [<60ada41d>] ? __alloc_skb+0x1bd/0x9c0
-   [<603b6740>] ? __kmalloc_node_track_caller_noprof+0x0/0x3c0
-   [<6004301e>] ? _printk+0x0/0xd7
-   [<609437f6>] ? qedf_process_unsol_compl+0x336/0x10b0
-   [<603e0d0b>] ? kasan_report+0x11b/0x160
-   [<609437f6>] ? qedf_process_unsol_compl+0x336/0x10b0
-   [<60932a10>] ? qedf_test_pool_alloc+0x0/0x30
-   [<603e1cc0>] ? kasan_check_range+0x0/0x1c0
-   [<603e1e0e>] ? kasan_check_range+0x14e/0x1c0
-   [<603e2891>] ? __asan_memcpy+0x31/0x80
-   [<609437f6>] ? qedf_process_unsol_compl+0x336/0x10b0
-   [<600e147d>] ? os_nsecs+0x2d/0x40
-   [<60944ec1>] ? qedf_unsol_oob_2073+0xc1/0x260
-   [<602453a0>] ? ktime_get_ts64+0x0/0x2c0
-   [<6071e2ac>] ? kunit_try_run_case+0x1bc/0x310
-   [<6071e0f0>] ? kunit_try_run_case+0x0/0x310
-   [<601d9b30>] ? sched_setscheduler_nocheck+0x180/0x220
-   [<600e0e70>] ? um_set_signals+0x0/0x60
-   [<600e0e70>] ? um_set_signals+0x0/0x60
-   [<6016021d>] ? __kthread_parkme+0xdd/0x1c0
-   [<6071e0f0>] ? kunit_try_run_case+0x0/0x310
-   [<60724370>] ? kunit_generic_run_threadfn_adapter+0x0/0x100
-   [<607243ec>] ? kunit_generic_run_threadfn_adapter+0x7c/0x100
-   [<6016649e>] ? kthread+0x36e/0x560
-   [<60166130>] ? kthread+0x0/0x560
-   [<600c80de>] ? new_thread_handler+0xce/0x130
-  
-  The buggy address belongs to the object at 00000000627ca000
-   which belongs to the cache kmalloc-4k of size 4096
-  The buggy address is located 0 bytes inside of
-   allocated 2072-byte region [00000000627ca000, 00000000627ca818)
-  
-  The buggy address belongs to the physical page:
-  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x27c8
-  head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-  flags: 0x40(head|zone=0)
-  page_type: f5(slab)
-  raw: 0000000000000040 0000000061802140 0000000000000122 0000000000000000
-  raw: 0000000000000000 0000000000040004 00000000f5000000
-  head: 0000000000000040 0000000061802140 0000000000000122 0000000000000000
-  head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000003
-  head: 000000009f28b3c1 00000000ffffffff 00000000ffffffff 0000000000000000
-  head: 0000000000000000 00000000ffffffff
-  page dumped because: kasan: bad access detected
-  
-  Memory state around the buggy address:
-   00000000627ca700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-   00000000627ca780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  >00000000627ca800: 00 00 00 fc fc fc fc fc fc fc fc fc fc fc fc fc
-                              ^
-   00000000627ca880: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-   00000000627ca900: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-  ==================================================================
-
-Reported lengths of 4097 and 65535 report the same way at their own sizes.
-A reported length of 23 takes the kernel down instead, with
-fc_frame_alloc_fill() and qedf_process_unsol_compl() the two frames above
-memset_orig in the trace and payload_len still in RBX:
-
-  RIP: 0033:memset_orig+0x81/0xaf
-  RSP: 00000000628c3d68  EFLAGS: 00010246
-  RAX: 0000000000000000 RBX: 00000000ffffffff RCX: 0000000000000000
-  RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000161a2439f
-  RBP: 00000000628a2c00 R08: 0000000000000001 R09: 0000000000000007
-  R10: 0000000161a2439f R11: 00000000609128c0 R12: 0000000000000001
-  R13: 0000000062740608 R14: 00000000611f1d40 R15: 00000000628c8000
-  Kernel panic - not syncing: Segfault with no mm
-
-With the length checked, the three over-reads and the panic all go away,
-while a frame that fills a BDQ buffer exactly and an ordinary small one are
-both still handed to libfc.
-
-Fixes: 61d8658b4a43 ("scsi: qedf: Add QLogic FastLinQ offload FCoE driver framework.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
-diff --git a/drivers/scsi/qedf/qedf_io.c b/drivers/scsi/qedf/qedf_io.c
-index a120f0e37a644..807202f575499 100644
---- a/drivers/scsi/qedf/qedf_io.c
-+++ b/drivers/scsi/qedf/qedf_io.c
-@@ -2504,6 +2504,15 @@ void qedf_process_unsol_compl(struct qedf_ctx *qedf, uint16_t que_idx,
- 		  le32_to_cpu(p_bd_info->opaque.fcoe_opaque.lo),
- 		  qedf->bdq_prod_idx, pktlen);
- 
-+	/* The firmware can only have filled the buffer it was given. */
-+	if (pktlen < sizeof(struct fc_frame_header) ||
-+	    pktlen > QEDF_BDQ_BUF_SIZE) {
-+		QEDF_ERR(&qedf->dbg_ctx,
-+			 "pkt_len %u out of range, dropping unsolicited frame.\n",
-+			 pktlen);
-+		goto increment_prod;
-+	}
-+
- 	bdq_idx = le32_to_cpu(p_bd_info->opaque.fcoe_opaque.lo);
- 	if (bdq_idx >= QEDF_BDQ_SIZE) {
- 		QEDF_ERR(&(qedf->dbg_ctx), "bdq_idx is out of range %d.\n",
+Regards,
+Lu
+>Regards,
+>Christian.
+>
+>>  	}
+>>  
+>>  	r = result;
