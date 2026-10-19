@@ -1,134 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792425016;
-	b=dkQ4QnSHRmAopJ5SQsLQQnSQINaD6ErkrvBG423CN/+xNYODW2KOsjLcrQt51Y1W8/go
-	 m3JT3ckcFPRN4zMo6rR4Jz6kdJSERT+U/fbx9B9pWl+3V2lYWRx5pNsa4+Gend335fTEy
-	 8+9vm+aTtpJEhR1kEI4WrABDptgJT4GCv5w4/etDyQp8DxxNMpB+bnip8meCZQLOCgVJ1
-	 iunYyQELg3FgOLaVa4LCgiAU2pM480IvmG6jbZcXxRP0d3N1S1tn/bqKPmtVlqfdDRx0y
-	 JshpDCRV453kOZvLidHNRqrtwBJN/9E32AxR7xmgVa4IW3W734TEF9fUzHT3JMmbnlQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792425016;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=o6yApKGP8VHXJcJA7GvHCJR7/pOFvP9g1sQ2RIQgNrg=;
-	b=hsuKLZxAdrKUrZYLCG04sAG3R2Y6e5MULB5nwszgkLziUjZjM+OIYEb1o3an/D/0vRs5
-	 6od9HJAMVjHdwVjeqd8A0yXCFbuAAeLmlrGG5bPcMjYu2+nU8VcsAakSWGOsF992Pj6Ia
-	 xP9wHu0paaKifYuE+ItWimNWtjXA33R+gGiTuvFz4i/7qs3J2Oeq66FbuL7kbWWR3uNei
-	 zz1+K+wCuRrJ/sPu5+m3+0jhPVlZr09sB1B5ts3YhvuUPT781bPL+cGHR2iWjQ9lmC+jg
-	 FdW01eG3Hr1L0GMTHXSlxMDuQmLR3JqmZMtcle7gJ1oyAdJm/x8LfIQJ4N27+1HW9yw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="YleDZi6/";
-	arc=fail smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792425000;
+	b=1z6ujXwZJqFewu4dpEaWyDRUV4a4/RsFFfcbPs9KkEhXMNwKJ4cz1y8vzZtRf39Qqkr6
+	 gdkgP3VhBJ/kpqM0U4l2J1buwsrRA7NCiXuWYTqd4FQwTPz30KRHu95fL7UHoHL85ta6D
+	 /CEkLuUK74uCjSZ6IbuV/N3FF4AcMZuKXk05XEu3855CuN9qS47RrmlM5rbhAynWx1cQ4
+	 Og51ecs3GBWU45/1TZQwQHlcGwRDVGfruoL1353nXtFUQUxNv2d+P7rk/G7lFkxggEHjU
+	 12J6RPB7RlP5kVdjyKczreewWLiDHjQ/pyWZGLdWzjUttXGuRtM5Cr3TZ7lTt4T2/7w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792425000;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=aT5uOJVtAeeBUAkpAajdbtjwvX4raqbOzSyMQgzblSU=;
+	b=Ny7Y0PdN/9RQns2wEzOqOfKkJ0uSLNoc1sZHxc3/wlRYmR56BoGYNesxHcQmeYQ+Rjz7
+	 TcamSMV4mGlId6Ow5NKbKszymxyq/rp1x4fvNr2NX1nfJ2vZIDmmuuJX5oQWs3WC3ZLb2
+	 ltOoNK8XGjrn3tIDShRnGq3wS5+1Pef6cg3GFrGTvgke6UequBMOlKBr2rSwonFiCOhIg
+	 jYxygbcMB8aoQnerT+ie5ppGf907qHxV2Yi636vIh2d6VMoyglHmogmj1lnsQMQciaXQK
+	 uI1n6NweSwNfZwMGmRAC5IJ9w6EIWgw422sr/LpOKVc2dQhU6zFbeX5D3HUFh8iJX6A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=osf7yqoJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776F760A2609
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:50:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 776F760A2609
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CE2609A551;
+	Mon, 19 Oct 2026 15:49:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YleDZi6/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792425015; x=1823961015;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=eUTKvkQnTi/zHdZ5WWb3V0WygZKhvcigIHHBySGjYrE=;
-  b=YleDZi6/cqOC4pHNbQcnHMIeNDEDYrvIfmcNxRpwu3y5Z89ub1bwAPDV
-   cqY37In3obmo7c0O2tTTiiKcQVmznlV/llTzBuWtoubhceD2Cd17QOvrf
-   uFFjF+WVyV5zHnGGqpxD6U0AzN6HyHIW9KthXMBF5MEKcTxYNOdb0Xocm
-   lfxBbNdCcDipMRoEgAiTu6XxvAvDV5LHz4KLHM+y7XWDaOPyoEyhTI0Ug
-   VkrgvAseWPpoYkdgcs7TJqCbAUJe/N5XrIHk1TzrtkyJr6z2CyqjlduZm
-   J/yEGuDHL2oTTBbzolQb9NAX4ehjYa8UkwXeJUfXVMV+bObhCZXl9IM0n
-   w==;
-X-CSE-ConnectionGUID: pSI0NLPUS6Wx3kxS2zbv4Q==
-X-CSE-MsgGUID: mn+99DdWTbe7VYw3qckFrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="995016"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="995016"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:50:12 -0700
-X-CSE-ConnectionGUID: Lg6NNJk6TR6HY+zEnVdVxA==
-X-CSE-MsgGUID: +p5Vy/qpRiKbumacL0a7EA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2567395"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:50:12 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 08:50:11 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 19 Oct 2026 08:50:11 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.35)
- by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 19 Oct 2026 08:50:11 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CmCphu27w9Vfv4kC9vpvIaSSBVeCoOsnoeERNLLOrZn9LHnW/q0N48s8+3zK//rg5XfYzUM2mSyYbPyK+vPhLAvjSfOOezHWOnXxKhqLZsg0aQYjZcUzoNsfKviFiSAZHDuXIZJGnrErg+v8rSoWRr1TLZLxYiV/xT7N2DfA0L8yhuPztr/OaAR82mCFsr47ZXA+8ubVUDVjwwxkOs4kvNZtQKQXc2F96LKjzVaeEIVSl9n+QhXKwfcWrhSH5e1lGHyudHUnnSNYd6WDIGAEUzOCVy1Yt82p7ht1awkhcCGBIfH58/RKRmmm41acLD/apWBCQbN6OeVQ/VgXzhERDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o6yApKGP8VHXJcJA7GvHCJR7/pOFvP9g1sQ2RIQgNrg=;
- b=DR2HmbMwiJtMdFG2YMHNafNmr5uleafbvN1zW7hqslBoNpru32do5VBVdHsMrLvhNdqGDyHoSA1Dd+ge9zJhJNIfLoeoIWs0ScfXijCOvDgHODSGzu7mRBofHPez+1STzuRo0DbKycl8M19D5HRsGqvkJLmhfEskVDZAe01JaIFvy0GrLJcIfTbS0jcvw2A6MdnaHo9UdC6a1WICkG9Se1Aub8SN+O2sbBOf2KYkc7zQKn/0kuzGTTTh+OZHWyxSmVS0coKc9MUWtCSy1ap6pVkr0fqFL6K4T7bv2i2Dn/2w4c2kjn/ahaMmgtoRxvA5MA8nTXaBT6EHL+1U+ymhCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- PH0PR11MB5109.namprd11.prod.outlook.com (2603:10b6:510:3e::11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.20; Mon, 19 Oct 2026 15:50:07 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%3]) with mapi id 15.21.0496.021; Mon, 19 Oct 2026
- 15:50:06 +0000
-Date: Mon, 19 Oct 2026 23:37:06 +0800
-From: Chen Yu <yu.c.chen@intel.com>
-To: Tony Luck <tony.luck@intel.com>
-CC: Fenghua Yu <fenghuay@nvidia.com>, Reinette Chatre
-	<reinette.chatre@intel.com>, Maciej Wieczor-Retman
-	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
- Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, "David E
- Box" <david.e.box@intel.com>, <x86@kernel.org>, Christoph Hellwig
-	<hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-Subject: Re: [PATCH v13 03/25] x86/resctrl: Check if monitoring features are
- supported
-Message-ID: <atY5IoVB_WL7TB5U@chenyu-dev>
-References: <20260928221509.68002-1-tony.luck@intel.com>
- <20260928221509.68002-4-tony.luck@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260928221509.68002-4-tony.luck@intel.com>
-X-ClientProxiedBy: KU0P306CA0078.MYSP306.PROD.OUTLOOK.COM
- (2603:1096:d10:2b::10) To DM4PR11MB6020.namprd11.prod.outlook.com
- (2603:10b6:8:61::19)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=osf7yqoJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C327D1F000CB;
+	Mon, 19 Oct 2026 15:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792424999;
+	bh=aT5uOJVtAeeBUAkpAajdbtjwvX4raqbOzSyMQgzblSU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=osf7yqoJhKlrME8EhhoSbtGjAm6gNPmqKAsmvl2kCGjexpFvrN8nHScNaqxrShnWs
+	 rx3pQs0xuoOLnh5Bk7/rgrzAPYwYcJHMP1X7+DeOs9eDwQREbuS0pw/fa/evwvP96u
+	 I4uQ+MN+FcvOcyvZzvvcViGnKdfaP0JIXI+oDtH3AlwWeTC+UfsZhCFWQrG43VzuRm
+	 DSy6SAGU8+HHl3aJR+g44pVkVL8BDXWnqJhIShLBw6WNeI/pqXGajX7YlMQI0UWzBG
+	 YIGRzvOZ2TvtVAqi57Thvnc/H7wchLUka9mybYRKPQD1tEWoLbL4MjqJHa7ba2azba
+	 Q9/+FUsq0JeFA==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 620B51980047;
+	Mon, 19 Oct 2026 11:49:50 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Mon, 19 Oct 2026 11:49:54 -0400
+X-ME-Sender: <xms:HTzWamok5UWFR8ANGfxdeoFbD9Ximmd0pQOUMN_r9x8pvYyoHLYpIw>
+    <xme:HTzWap7Q3NW-2VZqpYyj-229kkB_zabELmWEIrmlDtGbYAryTHIwgTJqNqQ2ZaDbW
+    NQu-3P5QT4eYwM1FniJmOwkPHYO-uQXdRbznDnZL1Zk8Z0oc7B7dx4d>
+X-ME-Received: <xmr:HTzWat0WZ-ym_d0AkN5_hfvYG0Q9Foyga1fm-cfgFLnNnpJqVKrFEYUcpxg>
+X-ME-Proxy-Cause: dmFkZTESqR4vElUNfwe4Wb1kabMg9MdYUtHyNIvlHi5jfGRsEd0tjiYfzpqh5FemuLlMuA
+    +QzWL/iolJzzDzQk8vzuoT2/u2xyL/YZG/CihU2eaSQe3uAw7YKu/Z/hQfgMIJpEQrBQkK
+    hH3KJVpCmjg+gNXnnOIkdBMKpJa1pvTLqzuojrt68Uovke10kpOzVhZrNEf3d58NDgoR+6
+    GBwzdAiHoLFFDGJo3/r+XBHeUTBbw+IeFaYdgC0j5JEQlKAOMB5I7tBUfVMuw5hMfUnXf2
+    vE1DwOk7N/x2FbtU++Y3QX/1ODQhD5sTVGp3EMvK4jUTItTZrn4RBPsK+PhnbeHfl8JcRn
+    8N9/3E1xHLQzkStTAM1kYcniVBbKweqHzIBqUZ0NEcBBHDz6IupfY1aF3rRGHQ7LEKorpQ
+    gVm1/ZBoA9VHbQ2f0U4WL3yW8ieJn87dOng4oTtEeVM77LlnanTJPqYvdg7zkq63FOQgKl
+    3kot45HjaQuhK8dJORgnME5BEO93itG6PuiaOezy3CdEINnT/QZfplvecCCoMpOpirmntr
+    okr8m3b9OCWqKNQ40j0/FGLxSIYnrEYpesykRn74vh+bLDj7UqIqVtDJTDUCObB8Dmfwl9
+    3IkUZlxtEaJ6iiXBMcXuT4X8iGRYOeLYeWrgJmoHU/RRiZrC5LOhzjWwUwYQ
+X-ME-Proxy: <xmx:HTzWallm8sG8Aup5VZsl5PzNa3cpKK_EC_wAItU7rJav44IhcfYKfw>
+    <xmx:HTzWamgYTpnBo_nKl0qojFyfNN3YF6V9kwBxTCSAWrqrrzIwOtQA3g>
+    <xmx:HTzWas3mZmVCAWowCp3n3NhDyKfzK8Ci8PWV01R2-pMks0q4jOrz7A>
+    <xmx:HTzWajatqHLVXJjoVLB9hIZgmfusCt-Y06NkaWv29lW15FACmNkb6w>
+    <xmx:HTzWapmJE6JyTcysaC0rWG8eI7DRl6oGhQTupYC9K73Q5SDPdWJ5qSeS>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Oct 2026 11:49:49 -0400 (EDT)
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Hugh Dickins <hughd@google.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Harry Yoo <harry@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	fuse-devel@lists.linux.dev,
+	kernel-team@meta.com,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: [RFC PATCH 05/18] mm: expedite the grace period when a CPU has many deferred frees
+Date: Mon, 19 Oct 2026 16:48:58 +0100
+Message-ID: <20261019154913.1765974-6-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261019154913.1765974-1-kas@kernel.org>
+References: <20261019154913.1765974-1-kas@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,76 +131,199 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|PH0PR11MB5109:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bb46c65-6327-4004-df9d-08df2df8a561
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|22082099003|4143699003|11063799006|56012099006|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: Mprn5SChZTbmlKqhX0yebAo7jbx7oNkXD9/rJNnTg0nf+Snngh7TKohjQopUgdGNLyyHrZfbvxWBTULxTULGVOGI/3K3IQoiiTkgR+HKoIQp3qAYVovmDJSTxdmV185CSnOXc/U90Q0qtsLUZGqBeuooLkvbZzsspkUmu5jvfr10zxS9NNcmLAOCFXy0PUaJ8kWWSZnuTjtKTVwH8owY8m+RC97BtadNr1VhvZdNr1BpzDREHF1kiG30BjIgJUpN5X4d2TR/Als77X+/eHzSjjdoCBIcyTwNvxYeb0KbosFmGAMi1+5N8+3DFxIswqo1FIcAjQYhmpqWmAUz0mrckv6CgB0NizRGYvP4KjmlqzICTGV+tdDYb+T/dyE0Sn5uOKXL74bnOngJdIAodrJsWHaVDff8ta2tVBUrFPi/+7ds/aGwzSSceiBBL99xIi3b/csEFoyEl26SnJmxTsvEOX0t9o7c8iZj2ibSvAj/D/f/08MT/b81Y6CDbVuTgmq6gqr6tZNhoQa2ysfUxOo63wwqYRibjesNk/ofsFYCJ+1roQ/QIEOfymfKxIEDwLTzKbrcEY/y3lAd34EGWPuyjI2CsEzEZxa9coOXyseSIc7d/rtX+dzzz0OKkUfJVPkRlAWiWo9op/Eisj4eff+0TgU21ynCrLhuFCbPKD6kIZk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(22082099003)(4143699003)(11063799006)(56012099006)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?GmREnfopkG0W0ZdZJ9wMnh3w2YGHrEwwL8M9eESN++Q4ASam1lS+Q9prSP9V?=
- =?us-ascii?Q?5eWJNNN8ThQ873XChJA46D4LvyWD0khKFGU8CLHmhmLqjtQmngBnbzVKdoEE?=
- =?us-ascii?Q?oF+xeuPReChWGkKU740mX7sdf26O36CTDdiILqVnXsUygr/xJYGX93BCBSHj?=
- =?us-ascii?Q?DAmSQKsL/egunJB9poSGaZfyduW5xq911flj1NWGJTNacNCb6gnooWFQD/Ws?=
- =?us-ascii?Q?WEM0INq12g2mX7QdHJYwC2pAlxqj8e8lUgn3cWgPNG95CRLEEfQwcj+WM29C?=
- =?us-ascii?Q?lEJ0U73CCVqazubWQfcSNqBRawwVqUA2LmWNY3G8LSbsqKoZh1pB6d1CY9XR?=
- =?us-ascii?Q?tB0QasCyuO0aCgGWVdy+kVJDoMAQ06z/W2GFYLqj42X/SZ+VdIBTcp3PbDTJ?=
- =?us-ascii?Q?01W8/YnYdEKmYVJm672XgVwBn8wHAPSmDTog3w9uitoOVoqa1JYteXpsj+HY?=
- =?us-ascii?Q?/drgDoL4IRrMtwjn6VBZjV0nozzLqEZCq8vhg4Ixx5k6CcocRirbsVh/Yko7?=
- =?us-ascii?Q?mw0I/M/JMMEZdsuDxwJZEPMZOkp5EWoPR5u1O6QuB+Zewx59BD/PgsgfBav0?=
- =?us-ascii?Q?rxygo6ZT+brcNoOXV5u5n0Cu3o+QiLBts7MLh6AUP7fGFMfKLd5l21bwc6Da?=
- =?us-ascii?Q?YwGIUB6v9KA5upxf0QvxRTK/8xv7T1nFbr8+g2n25MA4tzPTj9HOom+byTR1?=
- =?us-ascii?Q?ijSppk3pf9Y8nmXOaAsdLzeCpnql441AnMW4z5olu6dzVfXPaHJsHKIuw27/?=
- =?us-ascii?Q?Li0vj5U+4se0e/A4YNsSk0F7BS4p3uY9bTLct7sPNR76QJK7+oqz1FSxg+p2?=
- =?us-ascii?Q?TwNeoKgwFmrrAy6IwMHMU7ivHmBhIf1P4i2N1ITdeJCyrwwUL0xbopdvSdEc?=
- =?us-ascii?Q?/87AL2xI4TMBmsW8v2BXi2n1cBHuEvSh+Y0FCW1RFCNa/8HK4/ZGUTD4ZISX?=
- =?us-ascii?Q?umsE99DoUj7SY1xMkeviVjlLkThA99Ej2GusAXm57wmT5fLbskMdrdEtVSWi?=
- =?us-ascii?Q?S1qrFmrAts3J9DZeOatQMWoMVMOPlyPZheJ4gaWcS4bvRcIHzNX344QA/v9O?=
- =?us-ascii?Q?UB/uA9C+PH536tmjXhVi/P/QpjYfLwcBmEyBdXt2q9SedNOua4ynMMEJH72N?=
- =?us-ascii?Q?a/9g9rD1TjbLjPZeYmnAe70F+k0+6LYEij+6lD1Q4O7qIyhbqfN9OU5h9EHg?=
- =?us-ascii?Q?GXUaYa+WzYqnirlz/shqzPRIeQsWR1doGyTDltD0zabews8blf/iS9FCwbhJ?=
- =?us-ascii?Q?fMIMkYa9sor4IwqArvFkUuGeQj6EQDDUWDV2xaAyw+Z9465oPb1sgSSX4CjD?=
- =?us-ascii?Q?A2lnFCLkrZmREW8EHrGja0KPztGM1eaFgJA+kCQkjegmMyuW0fDln2+/XUtK?=
- =?us-ascii?Q?8GDcouoQsahwueaIxmlCU2XfWyTLrqj7vA+calgJfhXXvVspypPYYykvdT4N?=
- =?us-ascii?Q?1MfCc7oRLIai/B+pugQlwZLKEZHcn53AKevfpEgJvAVOjAFrdIqqXkDQKdOh?=
- =?us-ascii?Q?dj2mBTBrEpx68UD6i7LLBAC+vSuj0GMk5HFjPwMGRZryZM7ArlfLSyxM0+ZD?=
- =?us-ascii?Q?chGbEu8o95hJO3ocI4LZDasry/n65iegxYAfaGezvb7LnK4KlFYp25xSoEhk?=
- =?us-ascii?Q?SYMh5KZnEaG6wH5hW7fWMbnTe6sz8Ygd76UeIINecFEwfQ7wtdx24PMc6P9C?=
- =?us-ascii?Q?nquTqhIh9EbuT1unx/NS9fuZa4iFc75TO8/oFNfF1HUTglyGYzfYJerAVthL?=
- =?us-ascii?Q?3HabxUZD1Q=3D=3D?=
-X-Exchange-RoutingPolicyChecked: XyRkXNiXbEXnehImKSNfBSz4uaAe8yN/7K/N15i2hE+szcW3K+1PJ+A4caIXygMTij7aV5o9ANjdc8RW0TBspIl2GQLtWePNzY8+JinXmlzD0P4W1W9oTtGT72kdo4n3dAFaEiJrVF9g8D8QDkCopibgQ4MFysLLbP2IwY7Lo92Iv+mhMLbZ4tf86EqhPgCZJvilYt3CmhPC7fYj/JcyL82zxpVUNpsGhnfj4nHYxaDYO4hP4N50oer+84nrQU16flvko0fePW5w1c6M88SbSP3HS99guKBm+Du0RGERYohmO1v/HzOK1OSusc6ef5lWEZU1UmGoHrycCpEL8iBAQQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bb46c65-6327-4004-df9d-08df2df8a561
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 15:50:06.4609
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BlHHizD4ja2Wnw7baOQWcF0E49nGynWhXT/kJzNKX7JuXQ3aVgeNEK3Ukce++Xy8iSCxoVVFwOdRy7HfUbumXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5109
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 03:14:47PM -0700, Tony Luck wrote:
-> Both Intel and AMD manuals say that software must first check
-> CPUID(0x7,0x0).EBX[12] to see if any monitoring features are supported before
-> checking for resource specific features supported in subleaves.
-> 
-> Each of the L3 monitoring features is further gated by CPUID(0xF,0x0).EDX[1].
-> 
-> Add checks for these feature bits.
-> 
-> Maintainer note: No need to backport this fix. No issues have been seen
-> from this failure to follow the exact enumeration process in the manual.
-> 
-> Fixes: cbc82b172638 ("x86: Add support for Intel Cache QoS Monitoring (CQM) detection")
-> Signed-off-by: Tony Luck <tony.luck@intel.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
 
-Apply MMIO-based CMT patches on top of this one,
+A deferred folio waits one to two grace periods on its CPU's list, where
+the page allocator cannot use it.  A CPU that frees many flagged folios
+at once, for example when a file is truncated, can hold a lot of memory
+there.
 
-Tested-by: Chen Yu <yu.c.chen@intel.com>
+When more than 4 MiB is pending on a CPU, a work takes both of the CPU's
+lists and frees them after an expedited grace period.  That grace period
+starts after the take, so it covers every reader that found one of the
+folios.  The task that frees them does not wait.
 
-thanks,
-Chenyu
+An expedited grace period interrupts every CPU, so keep it for when the
+memory matters.  That is when the zone is below its high watermark, or
+when the pages waiting in it are more than an eighth of its free pages.
+The watermark alone comes too late for a bulk free.  A truncate or
+fadvise(POSIX_FADV_DONTNEED) of a hot range defers all of it while the
+zone still has memory.  When the readers that refill the range then run
+short, nothing is freed that would check again.
+
+With rcu_normal, as on PREEMPT_RT, the expedited grace period is a
+normal one.
+
+pgfree_rcu_expedite in /proc/vmstat counts the expedite runs that freed
+something.
+
+Assisted-by: LLM
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+[kas: take both lists, expedite only when the memory matters, rewrote
+ the changelog]
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+---
+ include/linux/vm_event_item.h |  2 +-
+ mm/page_alloc.c               | 61 ++++++++++++++++++++++++++++++++++-
+ mm/vmstat.c                   |  1 +
+ 3 files changed, 62 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/vm_event_item.h b/include/linux/vm_event_item.h
+index cbe849701653..45527fa7d0c1 100644
+--- a/include/linux/vm_event_item.h
++++ b/include/linux/vm_event_item.h
+@@ -36,7 +36,7 @@ enum vm_event_item { PGPGIN, PGPGOUT, PSWPIN, PSWPOUT,
+ 		FOR_ALL_ZONES(ALLOCSTALL)
+ 		FOR_ALL_ZONES(PGSCAN_SKIP)
+ 		PGFREE, PGACTIVATE, PGDEACTIVATE, PGLAZYFREE,
+-		PGFREE_RCU,
++		PGFREE_RCU, PGFREE_RCU_EXPEDITE,
+ 		PGFAULT, PGMAJFAULT,
+ 		PGLAZYFREED,
+ 		PGREUSE,
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 15bb66e36304..a9058d414f92 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -1313,6 +1313,8 @@ static inline void pgalloc_tag_sub_pages(struct alloc_tag *tag, unsigned int nr)
+ 
+ #endif /* CONFIG_MEM_ALLOC_PROFILING */
+ 
++#define RCU_FREE_EXPEDITE	(SZ_4M >> PAGE_SHIFT)
++
+ /*
+  * Each CPU has at most one grace period in flight (@queued), covering
+  * @batch.  Folios freed meanwhile wait on @pending for the next one.
+@@ -1322,7 +1324,9 @@ struct rcu_free_pcpu {
+ 	bool queued;
+ 	struct list_head pending;
+ 	struct list_head batch;
++	unsigned long nr_pending;
+ 	struct rcu_work rwork;
++	struct work_struct expedite;
+ };
+ 
+ static DEFINE_PER_CPU(struct rcu_free_pcpu, rcu_free_pcpu);
+@@ -1337,17 +1341,29 @@ static void rcu_free_start(struct rcu_free_pcpu *r)
+ 		return;
+ 
+ 	list_splice_init(&r->pending, &r->batch);
++	r->nr_pending = 0;
+ 	r->queued = true;
+ 	WARN_ON_ONCE(!queue_rcu_work(rcu_free_wq, &r->rwork));
+ }
+ 
+-static void rcu_free_pages(struct list_head *list)
++static void rcu_free_take(struct rcu_free_pcpu *r, struct list_head *list)
++{
++	lockdep_assert_held(&r->lock);
++
++	list_splice_tail_init(&r->batch, list);
++	list_splice_tail_init(&r->pending, list);
++	r->nr_pending = 0;
++}
++
++static unsigned long rcu_free_pages(struct list_head *list)
+ {
+ 	struct folio_batch fbatch;
+ 	struct folio *folio, *next;
++	unsigned long nr = 0;
+ 
+ 	folio_batch_init(&fbatch);
+ 	list_for_each_entry_safe(folio, next, list, lru) {
++		nr += folio_nr_pages(folio);
+ 		mod_zone_page_state(folio_zone(folio), NR_FREE_RCU_PAGES,
+ 				    -folio_nr_pages(folio));
+ 		if (!folio_batch_add(&fbatch, folio)) {
+@@ -1357,6 +1373,17 @@ static void rcu_free_pages(struct list_head *list)
+ 	}
+ 	if (folio_batch_count(&fbatch))
+ 		free_unref_folios(&fbatch);
++	return nr;
++}
++
++/* Free what rcu_free_take() took: the grace period starts after that */
++static unsigned long rcu_free_flush(struct list_head *list)
++{
++	if (list_empty(list))
++		return 0;
++
++	synchronize_rcu_expedited();
++	return rcu_free_pages(list);
+ }
+ 
+ static void rcu_free_workfn(struct work_struct *work)
+@@ -1374,17 +1401,48 @@ static void rcu_free_workfn(struct work_struct *work)
+ 	rcu_free_pages(&done);
+ }
+ 
++static void rcu_free_expedite_workfn(struct work_struct *work)
++{
++	struct rcu_free_pcpu *r = container_of(work, struct rcu_free_pcpu,
++					       expedite);
++	LIST_HEAD(list);
++
++	spin_lock_irq(&r->lock);
++	rcu_free_take(r, &list);
++	spin_unlock_irq(&r->lock);
++
++	if (rcu_free_flush(&list))
++		count_vm_event(PGFREE_RCU_EXPEDITE);
++}
++
+ static void rcu_free_defer(struct folio *folio)
+ {
+ 	struct rcu_free_pcpu *r = raw_cpu_ptr(&rcu_free_pcpu);
+ 	struct zone *zone = folio_zone(folio);
++	unsigned long free, waiting;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&r->lock, flags);
+ 	__mod_zone_page_state(zone, NR_FREE_RCU_PAGES, folio_nr_pages(folio));
+ 	list_add_tail(&folio->lru, &r->pending);
++	r->nr_pending += folio_nr_pages(folio);
+ 	rcu_free_start(r);
+ 	spin_unlock_irqrestore(&r->lock, flags);
++
++	/* Unlocked: a stale count delays the expedite by one free */
++	if (data_race(r->nr_pending) <= RCU_FREE_EXPEDITE ||
++	    work_pending(&r->expedite))
++		return;
++
++	/*
++	 * An expedited grace period interrupts every CPU: only while the
++	 * zone is short of memory, or while more than an eighth of what it
++	 * has free waits here.
++	 */
++	free = zone_page_state(zone, NR_FREE_PAGES);
++	waiting = zone_page_state(zone, NR_FREE_RCU_PAGES);
++	if (free < high_wmark_pages(zone) || waiting > free / 8)
++		queue_work(rcu_free_wq, &r->expedite);
+ }
+ 
+ static void __init rcu_free_init(void)
+@@ -1404,6 +1462,7 @@ static void __init rcu_free_init(void)
+ 		INIT_LIST_HEAD(&r->pending);
+ 		INIT_LIST_HEAD(&r->batch);
+ 		INIT_RCU_WORK(&r->rwork, rcu_free_workfn);
++		INIT_WORK(&r->expedite, rcu_free_expedite_workfn);
+ 	}
+ }
+ 
+diff --git a/mm/vmstat.c b/mm/vmstat.c
+index 64068d73d6d2..aa7280b5e69c 100644
+--- a/mm/vmstat.c
++++ b/mm/vmstat.c
+@@ -1345,6 +1345,7 @@ const char * const vmstat_text[] = {
+ 	[I(PGDEACTIVATE)]			= "pgdeactivate",
+ 	[I(PGLAZYFREE)]				= "pglazyfree",
+ 	[I(PGFREE_RCU)]				= "pgfree_rcu",
++	[I(PGFREE_RCU_EXPEDITE)]		= "pgfree_rcu_expedite",
+ 
+ 	[I(PGFAULT)]				= "pgfault",
+ 	[I(PGMAJFAULT)]				= "pgmajfault",
+-- 
+2.54.0
+
