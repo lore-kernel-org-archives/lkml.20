@@ -1,198 +1,124 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053D9353A72
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E811535B125
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792375150; cv=none; b=uoBkYSVb9c19kDPmWc1+gCCJ/GLpKh93h/J5Z2HawB2qmj4Dg4tGioLzMzZgi/c6PHZUlf9sQuUPMgsBQd5NGaZSz9XLplqaRDM6Gl+HbOIuq2he84emWnp1YRP/jFw2ATvwmJLcVMRZg5l9kTiN0jFrP5zGNIFs1rSkNyTvj3U=
+	t=1792375155; cv=none; b=oMxjs7KzGqZyR0zifQrMetc2ePmisjYZ1WpkRPkZhxlkq2AwLGTXHz2YXJpBMyCnY1uJI/lKty8+wl55//QQxjH2FtD6oKw18vDxe4ZOR1h8//z3gNgwaXcn7+u7IJ080wJv62htexOMbMcXZuEvLzMzrjmM8bwIkwYzFZ4v29Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792375150; c=relaxed/simple;
-	bh=Si3qx/laftTYJ+RacUVnTVoPA350XVCs5qAtOZjp2HY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jyzgKMcfCEghuhVzb+83jpGe5bFBPZjHmcreprLfxZ35Lk2tz2ml69GpzokAnDCuCliQm2hK5xwiIGCe3r7S0zH2RPcFA8LDDi7Lww3IlUm5fCBdzA7HgVKIlZHmkMuKPlL3wUV1Mn8ej1oBLTGa2R6+WBXZVty2C0EYcBvishU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net; spf=pass smtp.mailfrom=themaw.net; dkim=pass (2048-bit key) header.d=themaw.net header.i=@themaw.net header.b=imZrchW3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KST25SaB; arc=none smtp.client-ip=202.12.124.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themaw.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themaw.net
+	s=arc-20240116; t=1792375155; c=relaxed/simple;
+	bh=7fnx3dXsI2wRJdwIsrpwQJW0BoY5IQYr8pQyudxvv9Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=brSot9PxLdP4LCPHss+dbEACxkiC7e3b7zb9aG1BKuDelPtZIBYRmGEMggNzYnMfW1hfYQt3Wm5SRNsnxcGEC8yFnTvgLn+7rqfx+NRTFYvH30kro7q9RVJynlYJc6AjPqW4jjzA46oGnqvL5EByokadSbTrzv8kW2rRqL4kpNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EoSTO2+R; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=themaw.net header.i=@themaw.net header.b="imZrchW3";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KST25SaB"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id 560DA1D00165
-	for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:59:08 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Sun, 18 Oct 2026 21:59:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792375147;
-	 x=1792461547; bh=Si3qx/laftTYJ+RacUVnTVoPA350XVCs5qAtOZjp2HY=; b=
-	imZrchW3anuR4ZvAYbqx4v339+BNQMmtlXOGQP+qSlK7jOWuv3NhmmN2cB596FAT
-	HNL8wioamGNmPVP7RlY/XsO0jZEO1LhRqpUJeNHNIS3l6ilZs/2gX5BYwPzLhHbh
-	4xjPqnFlVtsa/JG0SVZXyV0GNNttrCRQ6ipcllG6HO0HtKoANw+62iaLkOTiKoYW
-	x4y1zfozMmd83DAB9+rCKilUEYAvgYPoeS7iUvdSJM2ieqoXhsDmxXTnAthANFNY
-	gNW7JutB7740t1pS90KaoiCJr69ebFbbwKReAmWRxBJKgbig1eMlpfpFjRal6y6w
-	qbbrwE72UsZ1iyUhLxTL3A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792375147; x=
-	1792461547; bh=Si3qx/laftTYJ+RacUVnTVoPA350XVCs5qAtOZjp2HY=; b=K
-	ST25SaBNBp58EzWmtUnoNF39hHKBANS47D3GBVdCE4WzABKJD557tCJ9hywn+gep
-	3VFTtvo7sSAo8hrp8eUTCUG+3uqbf4UUVIt1vGvpBYdOrZkd58pnQXyVSVz/U8S0
-	ciSnMyt8yJQepICn+wrd8f2xyWR0Rq7/CcRiMeo7/hylLFe0iVLyYsbsj0Yjcyk4
-	L5dplvYIF00UXtCHjQR/ljCLGY+afJV03OIWY6BBo2weHIUeNGSCoE7i9osyUr6l
-	ua8OvCCKO0Xs1b8o7mAqnr6B36EHk9iYv4vQjryH4gZINpwJkLOm8PH2+wno8DUt
-	evD7Z6K1zwHveLnuvev9Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=themaw.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792375147; d=themaw.net;
-	mf=PHJhdmVuQHRoZW1hdy5uZXQ+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:EIUpWK4WmBYqP5StyOnOaKouPneYOyc8Fw8fNmiCC7nKiHZ
-	VmhpWJCtvBQmCuTdSScf4vlfIIdE4LsVusb6xPuTBcZfbCVEVEwqmPb7Y1eAX2AY
-	ljLoY9kdTBaZO00YKe6OkksT092MoDn+BsvH9s+NzeT9agdp3tHfOaS8XZoL/dYr
-	onqUmXuoLCC2StZVnFlVH6HQJCJIumA/TSKG15oxAW25AAC/2CGcyec03DRzmzmS
-	mhADqxyx0e3vMim7aOxkCZNsWxxPiz6bxGEuoARPvj/si/KKadqkGjAytEhAROFX
-	Iyp0KrG/ZCu4qoYtf7EcWJGJ8dY1dMF6XX8PgLA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:IXGdCl/HQgICm++E3ct2bHAOlGPo8AK4fy6wnykcFBA=:Si3qx/laftTYJ+RacUVnTVoPA350XVCs5qAtOZjp2HY=;
-X-ME-Sender: <xms:annVavVNcoi7HMMETp7Wq40siNLDceQUIRU7XrNayAR2OxnlazJBJw>
-    <xme:annVaqIvRVEDTUdvI91lj-obb95Jd3Z1TnfYw0Ns-IQR_59QI9nzD8HV-xZiM4RHv
-    EQhQO2OWXZeTPQ-UE3eDRyc5JJ92W9y3LOJsAs98kNVysm2>
-X-ME-Received: <xmr:annVavCotq82FIMpq7rxyxN0t1Bj1wQQ5Vz41CjcK6aJkwLe_AdzOMoJq3qK01DBCHqNWurNRMX5vynaCqp9NWB1VK6C6b1_CXI-FA2jOFrcZ6BuX9IhT-JcmEE>
-X-ME-Proxy-Cause: dmFkZTEmBgOaIB2cYNDY3XWg3ZtDTpZLOd7qiHniQRmI/Z8IfwAqPOpFoD5Wz/pHShf/W2
-    8q4AOomLKaRb8j4ZYgLzbV8yo+1CPOPiQ+GnmD3XADZLywC7Z+BazyuqadiVkvwSVifYzc
-    xrWiqmQ2bowbH1U2Hai/9SHPJe42a+FIt7RlblresvWsPPRjrazoKiG6Ap3V9yYJI850hR
-    NMofRyUuarbfM/VZx4j4Blj9FKzb+U54hA2Uqyp+REllKWT4+Dr0Yy8luHUOIX/TSwUbzX
-    b2zaTvAbevSkd9dcTMmqaeOyaMFAjdNLdYTrD4oVVW7RiOWPUw2R1g6wdwC8ecKdedz4eF
-    +t3aaUrfd0T4W8p4NP6YjJs++xqR+HCOWLaVMmknfCSWqfF43iwbeOZowGg50Q4ot6Jmzo
-    jXHWx9sJyrqM49OyH2EdeR5hwyQaobeYJzEtQBIR9En6bhiqYE+Goy1TjdPK3iRdCORaBm
-    kBaS3RKbcZUPaMUSHOKj9aEupPxtamOSTa/ojFJH4Glj/7tz5UofBWr2NMBRHLeaINqmCr
-    ferqx4xWSNeceHdcy/XH0NdmuDNtfcv7U3cqr6JMWsOnLee3kOi2GVCPMekrRUnPz4LQfY
-    xrIhEunFXfD4IMcGuP52eNAFwrHJpoNPBvDu+QH+73LVFV8Rs9v/Pij17Z3A
-X-ME-Proxy: <xmx:annVaqdDWteFgxKw7cYyGGqIrZwXrVPfcPiNswCCUGvDs6YSmH6TeA>
-    <xmx:annVau0Hq3sxYT5AV0IE-XBz1FyjVnAr1r8tVJzZJ1zrAKsuB3xzTQ>
-    <xmx:annVahgEDze5mMgbAbCplFpLEwgsLMzrbwLKos3jgCBYthlOdhB66A>
-    <xmx:annVanlKOU4V8XgkY9okJsgdZVdlL15l3gQK9KwdONOYnuCQBj8jtg>
-    <xmx:a3nVaspT51FPDtHBtCpQs9dlvRrQ121XNvByf-44kVM-Na_D3eOSCAPh>
-Feedback-ID: i31e841b0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 18 Oct 2026 21:59:03 -0400 (EDT)
-Message-ID: <f1c42d0bd125c6b1c39f1ebaee41340b5f6f03f6.camel@themaw.net>
-Subject: Re: [PATCH v4 0/5] Fix easy bits of the negative dentry problem
-From: Ian Kent <raven@themaw.net>
-To: NeilBrown <neil@brown.name>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner	 <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Amir
- Goldstein <amir73il@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, Jake Edge
-	 <jake@lwn.net>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EoSTO2+R"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792375152; x=1823911152;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=7fnx3dXsI2wRJdwIsrpwQJW0BoY5IQYr8pQyudxvv9Y=;
+  b=EoSTO2+RxBzHDNb29PJ+qdNAIuFFwDCpnV0SOAt9ilOaa83QxIWibjnH
+   HVlnyFb69JxjaRELshlNjvIorlTVO7yFjyoCGlskHf+x/a8Ntugf/nNco
+   Hys3tl95X+IIkSi08ZDUQylEQWgf+Xigxl9NmQlKMx+08O3UywHfknIfK
+   NlWfzF31AhBVBK/FyPLO592+gHbPzcgymBwIn654/PP5KocpeaTiZO6IH
+   3xYGaWaqnl4/xP2bR80IRiaTqQNlCJdRNXYVHPGwigdIKlc1PcCSYBrmx
+   EdMfJ3d0ZxbxL1kv2QzqMZ969XZlnxb7Ivb8kB3b2s3WxxMMmW4iu3fSJ
+   g==;
+X-CSE-ConnectionGUID: s2y2VsQwThWUOByxsD5xEQ==
+X-CSE-MsgGUID: vjnIdHEJThGKbIrGSkvrfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="924652"
+X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
+   d="scan'208";a="924652"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 18:59:11 -0700
+X-CSE-ConnectionGUID: peGbbfOhSn2jwTT84XRp+A==
+X-CSE-MsgGUID: rwe68dC6Tkma6YgMmPfUFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
+   d="scan'208";a="2839779"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 18:59:06 -0700
 Date: Mon, 19 Oct 2026 09:59:01 +0800
-In-Reply-To: <20261019000810.1837917-1-neilb@ownmail.net>
-References: <20261019000810.1837917-1-neilb@ownmail.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
+From: kernel test robot <yi1.lai@intel.com>
+To: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	linux-mm@kvack.org, yi1.lai@intel.com
+Subject: [linus:master] [mm]  7625cb5673:  stress-ng.mincore.ops_per_sec
+ 28.1% improvement
+Message-ID: <202610190930.7aeab52b-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, 2026-10-19 at 11:00 +1100, NeilBrown wrote:
-> For this v4 I decided to focus on just fsnotify, as that is where
-> I've
-> received the most useful review, and that is where problem reports
-> seem
-> to focus.
->=20
-> Other places that walk the ->d_children list (and don't already use
-> cond_resched()) are specific to just one file-system-type.=C2=A0 fsnotify
-> can
-> affect (almost) any file-system.=C2=A0 So it is reasonable that it gets
-> priority.
->=20
-> So here we just fix the refcount overflow, and the ->d_children walk
-> for
-> fsnotify.
->=20
-> If/when this lands, I can suggest patches to various file-system
-> maintainers.
->=20
-> Thanks,
-> NeilBrown
->=20
->=20
-> Original intro - revised:
->=20
-> =C2=A0I was reading about the negative dentry problem in
-> =C2=A0https://lwn.net/Articles/1079407/=C2=A0and thought I would have a g=
-o at
-> the
-> =C2=A0easy bits.=C2=A0 Given how involved some of that was I'm glad I did=
-n't
-> try
-> =C2=A0the tricky bits!
->=20
-> =C2=A0So I didn't try to reduce the number of negative dentries or handle
-> =C2=A0them differently to positive dentries.=C2=A0 I just tried to addres=
-s
-> =C2=A0specific symptoms.
->=20
-> =C2=A0This series addresses two reported symptoms.
-> =C2=A0 1/ refcounts on parents can potentially overflow if there are
-> billions
-> =C2=A0=C2=A0=C2=A0=C2=A0 of (negative) children.=C2=A0 This was the easie=
-st easy bit.=C2=A0 The
-> first
-> =C2=A0=C2=A0=C2=A0=C2=A0 patch is all that is needed.
->=20
-> =C2=A0 2/ Walking the ->d_children list can take arbitrarily long and can
-> =C2=A0=C2=A0=C2=A0=C2=A0 trigger soft lockups.=C2=A0 I haven't addresses =
-the "arbitrarily
-> long"
-> =C2=A0=C2=A0=C2=A0=C2=A0 part, but the "soft lockups" is relatively easy.
-> =C2=A0=C2=A0=C2=A0=C2=A0 With this in place I would feel more confident a=
-ddressing
-> =C2=A0=C2=A0=C2=A0=C2=A0 the "arbitrarily long" part if that seemed worth=
- while.
->=20
-> =C2=A0The core idea is to use a common helper for all walking of
-> =C2=A0->d_children, and teach it to drop the lock and schedule when
-> needed,
-> =C2=A0inserting a cursor to keep its place.=C2=A0 This simple idea requir=
-es
-> that
-> =C2=A0nothing should be holding any other lock while walking ->d_children
 
-As is so often the case you've come up with an interesting and useful
-proposal, ;)
 
-Nothing stood to me out as problematic given the scope of the series.
+Hello,
 
->=20
->=20
-> =C2=A0[PATCH v4 1/5] VFS: don't count references through ->d_parent
-> =C2=A0[PATCH v4 2/5] fsnotify: update children flags only when adding mas=
-k
-> =C2=A0[PATCH v4 3/5] fsnotify: don't hold i_lock while walking d_children
-> =C2=A0[PATCH v4 4/5] Add d_for_each_positive_child family of iterators
-> =C2=A0[PATCH v4 5/5] Use d_for_each_positive_child() in fsnotify.
+kernel test robot noticed a 28.1% improvement of stress-ng.mincore.ops_per_sec on:
 
-Did you have any thoughts on how to contain the number of negative
-dentries, (perhaps) including directory entry counts, in an intelligent
-way (meaning "as you go" rather than "brute force" when needed)?
 
-A significant problem, particularly on systems that count their memory
-in TBs rather than GBs.
+commit: 7625cb56733bfd470e9fae69a1b8b78aa8b1d3eb ("mm: mincore: replace __get_free_page() with kmalloc()") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
 
-Ian
+testcase: stress-ng
+config: x86_64-rhel-9.4
+compiler: gcc-14
+test machine: 256 threads 4 sockets INTEL(R) XEON(R) PLATINUM 8592+ (Emerald Rapids) with 256G memory
+parameters:
+
+	nr_threads: 100%
+	testtime: 60s
+	test: mincore
+	cpufreq_governor: performance
+
+
+Details are as below:
+-------------------------------------------------------------------------------------------------->
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261019/202610190930.7aeab52b-lkp@intel.com
+
+=========================================================================================
+compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
+  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-emr-2sp1/mincore/stress-ng/60s
+
+commit: 
+  006943a9b4 ("mm: mincore: remove special handling for VM_PFNMAP")
+  7625cb5673 ("mm: mincore: replace __get_free_page() with kmalloc()")
+
+006943a9b437b2d4 7625cb56733bfd470e9fae69a1b
+---------------- --------------------------- 
+         %stddev     %change         %stddev
+             \          |                \  
+    547.22           -25.4%     408.24        stress-ng.mincore.nanosecs_per_mincore_call
+  27632999           +28.1%   35386493        stress-ng.mincore.ops
+    460725           +28.1%     590032        stress-ng.mincore.ops_per_sec
+      1729            +7.1%       1852        stress-ng.time.user_time
+
+
+Disclaimer:
+Results have been estimated based on internal Intel analysis and are provided
+for informational purposes only. Any difference in system hardware or software
+design or configuration may affect actual performance.
+
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
+
