@@ -1,100 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792423041;
-	b=2nYhEqvFJUlxZFM8hQw8wsShTc3PV7KxBeX2qytstyUJAaXNYgzdKDh4HEk3yeMn1M86
-	 FCGU/EZeH3uZW9Ghl2g/ksE/zR04NGCvhez2bcw4mxNKY+GKR/Swqi/bx1xpZbaW/wuXt
-	 9xaNrDKZzslttU68Y1suFTehiBeEyVJ31phmTh1GMlvY8X7yvAjhK06SavUTBZhi0C75m
-	 7NunRvnBydnUxJeqzg9LRPhYlypuEEAjfoU9s3IT1jFXWRTm7ma8rXjCd452sytCeyE3q
-	 JSkKxXqJgKA2ArGH+24Di4GKJmD862CYQ/UnPnuahozd6YdDnr/zqqyg8DG1zz/ktsQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423041;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=g80TJgftAYOuY1eEY8Pj3cKxe/RJlcWG/Y9dI5fdM0I=;
-	b=S4lD6u5yVeC/LUPZX8HnolB9nV4SmQL9SPO6ESYtrEGwnVWKcnQGLO8eCJpTzIZ1kBHX
-	 dW8J9unNkzF62d1ZTjBxjGumiyjz0JVD5OVCLBB5dBb/NcL0A+aBZfDkto5CMTIESt6x/
-	 0QCkZLmOc4KpOqGQ5y8jNWnzjAviRVPWxttCvESPTAa5hZ16tKBiwZLwQf9/Z1ex32bN0
-	 Y1Pzhg7bw0JnudQTVUfmH9MHzOUn98N3n9EZSAo3cQSNj1kl2wQBlcAq1Om/KXBBZu2Id
-	 m9HB/Vu9W5whDz3tEZRKf5gCB3y/8NKGgo7FV3nIgxV4AhutoSa4/LJEl+eH9Z57EJw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ezLXwHIz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792423299;
+	b=ewGa7tRQNovKdeu31dtlyy8xcaPKhp/Gjhwvst+s9lJ1th9o4beBYEhyFpeEaW891/F/
+	 iZttxmKCIfb63n7/g60/s8Y81md6lReb+iTAvVpUxjj8GplQ9Ok0b8KGAXpr33CqG9aUE
+	 ROU3GGAq4w3qhI4YLn1H/dXrB8MkxLuECu8HR7ADF6XNIOIsAMuSQJzfJv020H0jHYE3Y
+	 2hl5tldabOiqA6r52MOfu6az9eRDPg4agRVv7wL2QDcHLnrphNWN2aKWzFfTPwKFjQZhS
+	 faNcWtiECblxk+pAa22VL1OWgKfMMAZrE6qfjFMSb+65ITJvIlH1uV+0BaUkqwPej5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792423299;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=YwaKnHbySTdduqYIAo0uIt5iSJ/S/CGViQ8hARGAuYE=;
+	b=CUaqvzsZ9SzcSaM1/G/SVqcHsaavDlVF6hRR6JRVYlQi5AivqrWWC30Pns/F6gclvpZA
+	 t0Uwpr5W/qu3Hd/FWI98u3YkfK+hv2/DIxsn6mS7DXZICR30oSTsZUjLjMdVEi01wwNiV
+	 pBNnyuR9Fjb9W1L570QwJosfKtuZxGYGlW+GNZlDBDRJOxjs5PNohS2c0TCEVd2dpwCSn
+	 lrRYwDf8tNRlFYLZ3x9gOdlYQveF5P2W+lHSCjZG1DtTUzUD5wM1kvW3Ch8V2CROnjJC9
+	 /JHQAq9AZjWgK7Qd2oYdeQI0pbLwuS7wXLWbon8cmg+5Ja7luZV4hpthA7jbJXfyGTw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lv7dncuT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B4A60A2602
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:17:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91B4A60A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324C060A8F5C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:21:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ezLXwHIz
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so18004a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:17:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792423040; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kiNnZaXFAgFMoUgxuJtxECkOeLN2zPda7bHLQdc8glpxB+2Al94gcJFUkXAvTbuNSI
-         Wf0N9Ocq0bkT/SyBOSntvB7L+SlP7OUXzFs2n/o67jiVGdo6UMkgj9CLczyMVke0nYw3
-         uq3DZVCVNYzA6xPnugLKibrYlsopRBm1xm1kxr24ol/me260kKDmzCrMUiXYwvLIbyzf
-         eQfImehKAppwyHSGItWGDfTRFpW2vNffEYHPOa7NoVZGikFCVnzb4tkEOfw5RIHGBO/6
-         5ErlSBPZYsCXRT8u+4jJK4D/EgvYv5gg6xmN0BXR2mRffdd+w1cOtDSkNerXeCxnF9LY
-         Yu9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=g80TJgftAYOuY1eEY8Pj3cKxe/RJlcWG/Y9dI5fdM0I=;
-        fh=KNRZLusofPx79UZ8cgk+yc4jxck6EoUpaA1TdaAYUVc=;
-        b=fOJJ/oOGGPu6FidMFSjiqc2zPJ3cVrlSucYyXS+wYuMCyBZ0jAY5L5xRXz59WHbBMw
-         gTmez70ZoLlaMSoFkkF8qPtuzRZdKBVpMyRBL+nfGKWDREMLp2PwuzVgqjpZ/Ix9Ec4l
-         dDvSXRb5t8Ov3zXC6X8DHkxvB4OE5ImKdpRluHTu7ftyL2kZhAW+RbiiNC3hbjxh4C6Y
-         Y/J8fSjLvxE8hoO6svnMMSPueFeATKrfNr3eAe0R7m8P5Da+wB8kodgnFJO8vpvb2s/F
-         oMtfszcT7BsONSKT75tZ77CokhrKHeOxJP+/APgsd/uoU0U8ODglrJ9t/gHS4Xu4PYlF
-         cJSA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792423040; x=1793027840; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g80TJgftAYOuY1eEY8Pj3cKxe/RJlcWG/Y9dI5fdM0I=;
-        b=ezLXwHIzPfS4sEb4a/lZXhXGEhuDtOUs1if1P/9Ak+Qq4maPAojdQ/9u0w1JCobLs6
-         X2qdgAH/pLcQQVTxacqSHUYx6U1JRUcIZn4tCqNb3LkXxjpcgVHNqa3WoTOGvqyOills
-         BiT2SHvEyuzjoiUDwEqrkKaqqIzh6GuaX4ulvYHeJnHQYLR1ElbgGP4U4xx7Lagi2fO0
-         Vynf2ZaV+Wzz0LcbAkKRjY0IP9jZkLPwazVoJg22qEttAj4FtBF1o+o2OJakE541fU8u
-         FgKrm31Dik2dQYyZFm8ilfQpMr5pGVDf4JR9znCUx7KiyvzqmlL+y1djjhWdf7HTbGCf
-         568A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792423040; x=1793027840;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g80TJgftAYOuY1eEY8Pj3cKxe/RJlcWG/Y9dI5fdM0I=;
-        b=Wu7PjfO1syCqP6E9SVfp3b/nVaGAr48nXeDngHUHPeq5yh+SIvg7RRYa0CWgTQ973C
-         rFFZHiwH5oSxuyyhQUlcFKYgRAjkmzNb7Wx9RuTWM12JNPSAp63T7Ph993x8Xgk5SW1n
-         51L6FDNZBfRVpQnaMdJUiCSJchMnOfm8T09mf3MxkNx6hIihhiQHINoWYSlSWIAff6Ji
-         uqcZP80KUm4peKUbvN2ATTylSNYQPu5N34fgxTXZmEsZVjdcdk3J/7xbq3jLn54kydJW
-         D22gra2SjWusWENVhdhxTUAubAlSuF1Zvg5dece+Eg0e92GvPSxoHMB3U5DGVUIGPuyB
-         /lBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzdq3thwclasD+R3C7NFdPutNyzhq7XfFNLdsWCCVQwu8iFTgSh4PZRGWlUXaCnxgVphHPj74za4gVCJB4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3y6R4NVQRpwi1lECW5eWe3wbhNAB7cKsZ+lpmgw3HggdjTBJy
-	wa2BkrV3mT20pFZt8ptIq23e0wN1RYqGueEN8SPBfiPPC+H1hA9XJJcDYB2CF+bs7QKlL+SFEL+
-	YJ0iSv2IPPN0XJD12/w1BGy0kRLzwchsSGFvWNeBO
-X-Gm-Gg: AYBFou2fNu6t305IpcYQ+5JxoeFMXindyCXerLL34Xe2M+2YpZechI3JNhHpQ5h2re/
-	xmPpOTt2X3ka4JY6XRN6SjjC5xm/bSdSpc8ztTa8P/WODZontRCUFRgndS3zi67EgftUts8akFa
-	RGXlyv7uFArOAj+4EmHB5buON0IncjjCvQHh+v7lUwrSSVeBFwLmSmf9nKwaRpi7eXyrvturQCs
-	HOjXE/kBHeiyQghMyVhQe3oRVcQ3YrlwLjfe1Q8A0z14XPTP3sPveKZrybQW89ZRM+COqZlH0cO
-	U0bghfj8q0HpCzbcOtvSZHElzVyEsxHabVb5Y28VuaOdmUnkskzqkFVQ5zFIs7FOR9ugrPvJs4h
-	1x++1C3SS6A==
-X-Received: by 2002:a05:6402:24ca:10b0:6b1:cee4:8d8e with SMTP id
- 4fb4d7f45d1cf-6b3c73e2b3amr54877a12.14.1792423039402; Mon, 19 Oct 2026
- 08:17:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lv7dncuT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412731F000C5;
+	Mon, 19 Oct 2026 15:21:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792423298;
+	bh=YwaKnHbySTdduqYIAo0uIt5iSJ/S/CGViQ8hARGAuYE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Lv7dncuT0A5cXTc4DnHQrJuxWL83mt/CqJrazSkUg5smuYKcwpLRehvvxY/Uc2PA2
+	 WqQ8y8v6iCcmmS0kJP4dAA23IEvgneEX5LT43jLujLj80VxuE4JVDTYj/NIF3N/a9r
+	 l+mk16TPti32HCMeMg25qG47ug4GbJ9J618E2u1BdhfM9xRWUXCydQrXdYzyp/mnoT
+	 IEECHdqharsOcA8fBv2/BOBOtluIOX4dSYB4LpebwhdvOjvKgNrHn/GUSa7dAaaX7Z
+	 y3NHvXd2opjA9+I9Sh55q2qrXV9dumn/NbB1qFCMGrRO5nsp1867QDKNt5yVSvyhl0
+	 MMhO4FrQfOh+g==
+Date: Mon, 19 Oct 2026 15:21:36 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Nanzhe Zhao <nzzhao@126.com>
+Cc: Nanzhe Zhao <nzzhao.sigma@gmail.com>, Barry Song <baohua@kernel.org>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	Juan Yescas <jyescas@google.com>,
+	Daeho Jeong <daehojeong@google.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
+	linux-kernel@vger.kernel.org,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Subject: Re: [f2fs-dev] [PATCH v5 00/16] f2fs: support & optimize large
+ folios for writable files
+Message-ID: <atY1gNfX9Lhg3zC6@google.com>
+References: <20261014064445.2835813-1-zhaonanzhe@xiaomi.com>
+ <atAO6ykqwGgZq77y@google.com>
+ <atA24UMtAqkmz_R8@google.com>
+ <63e416aa.2fb2.1a13d9f3491.Coremail.nzzhao@126.com>
+ <atD9Csw1-lj5_SR_@google.com>
+ <atFFXafuVyyimmUk@google.com>
+ <15373a26.1e3d.1a1494e8d1a.Coremail.nzzhao@126.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,51 +73,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014173945.373295-5-almasrymina@google.com> <179209666252.434549.1850964039919625643@kernel.org>
-In-Reply-To: <179209666252.434549.1850964039919625643@kernel.org>
-From: Mina Almasry <almasrymina@google.com>
-Date: Mon, 19 Oct 2026 08:17:07 -0700
-X-Gm-Features: AclHuK-S5bmzvfsy_xN2FySxs-CZRN_0ke8ew0HfEdZQ0PJrgt9ujVcZv4HD-hY
-Message-ID: <CAHS8izPkWy4mMj+mDyHq8rKfthzj3n7dj7=Phzq2sut79JydkA@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 4/6] net: skbuff: replace __skb_frag_ref()
- with symmetric skb_netmem_ref()
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-rdma@vger.kernel.org, bpf@vger.kernel.org, ayush.sawal@chelsio.com, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, tariqt@nvidia.com, horms@kernel.org, 
-	steffen.klassert@secunet.com, herbert@gondor.apana.org.au, 
-	ncardwell@google.com, kuniyu@google.com, john.fastabend@gmail.com, 
-	sd@queasysnail.net, ebiggers@kernel.org, kees@kernel.org, 
-	aleksandr.loktionov@intel.com, petrm@nvidia.com, u.kleine-koenig@baylibre.com, 
-	j.raczynski@samsung.com, wang.zhan@smartx.com, willemb@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <15373a26.1e3d.1a1494e8d1a.Coremail.nzzhao@126.com>
 
-On Thu, Oct 15, 2026 at 1:37=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] The commit fixes reachable page_pool refcount imbalances but
->   has no Fixes: tag, so the fix will not be picked up for stable.
+On 10/17, Nanzhe Zhao wrote:
+> 
+> 
+> 
+> Hi Jaeguk,
+>   
+>   I am trying to reproduce the failure in your log: sd 0:0:0:4: Retrying unaligned write for zone 2639 → critical target error → sde:
+>   zone 2639: Aborting plugged BIOs → f2fs_stop_checkpoint (kernel 6.12.81-android16-6) and got two two questions.
+>   
+>   1. Kernel baseline. Could you confirm that the kernel you tested has Bart Van Assche's zoned write pipelining, i.e. multiple in-flight
+>   sequential writes per zone, with the order kept by BLK_FEAT_ORDERED_HWQ and the per-zone from_cpu in block/blk-zoned.c? And that it
+>   does not include these three follow-up fixes:
+>   
+>   - "ANDROID: block: Preserve the submission order of zoned writes"
+>   - "ANDROID: block: Preserve the order of zoned REQ_FUA writes"
+>   - "ANDROID: block: Restore the write pointer offset check"
+>   
+>   In AOSP they are 050de570f, c616f7c1a, d50601d0f on android16-6.12, and 6068ed9f0, d786f8609, f08430f80 on android17-6.18. The
+>   simplest check is whether REQ_ZONE_SERIALIZED and work_busy(&zwplug->bio_work) appear in your block/blk-zoned.c. The output of git log
+>   --oneline -- block/blk-zoned.c would also do.
 
-Yes, this series completely cleans up the skb frag refcounting IMO and
-makes it all make sense and touches a lot of the skb frag refcounting
-call sites. It's a bit too drastic to mark this refactor to net. I'm
-suggesting just fixnig this forward for net-next.
+I'm testing on android16-6.12 where it has all Bart's previous patches.
 
---=20
-Thanks,
-Mina
+>   
+>   2. Test workload. If that is the case, could you share the test workload that triggers it?  So far I have not been able to reproduce it using null_blk to simulate 
+> zone devices with qemu and android17-6.18 gki kernel. Any suggestions would be much appreciated.
+
+I'm testing the kernel on my primary phone. After applying the latest ones
+again, I haven't hit the panic yet. So, could you please send v6? Then, I'll
+reapply all and keep testing.
+
+> Thanks,
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
