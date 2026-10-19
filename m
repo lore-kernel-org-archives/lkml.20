@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792432003;
-	b=py1TLGoxn+OgHZ0H/VA8YeLfILhhwJFSQeGUNm3K2nl9joW6wq/7I2IxWoKXDM4suWeD
-	 /chRl3Hklh8HxylAbpofJD7tDQ3qpPKA7xUTwu82l4CZyi9SxRyWVlCrTaGi50P0ZUTR0
-	 tVmzfQntuuS3WX+0LCwJrvTxsN8NZJ7wVEshDoY7mmi9UiyIvh23qeoPF86vUFGRoi5cn
-	 Z0kfDJ0W0fwFXWxmKZbaSVv0RbYp9bzppHYW4uZD0PRa/0AurkW7Cjae/vmcZlW1z/DYc
-	 V0NreQs92OSXUWRZv/MEWWlvbwTkDj6gcSfiZ21RP9KQWDsKtyBEno1Vj82keUp8duQ==
+	t=1792432000;
+	b=QN1ZH+jydH+wcEM6beLWS48jJzdEiWWWMG1lpgt20AiNM0T/xExQHnU1c3UsxPa6opzF
+	 3DnjWeD5DvgGtCr0B0fLcQ9kCNXzFiKEawHChGUXMat6Hy5fLUCCWVGqSY/fYYfVOkTrU
+	 PZW7lWSN1jvbvQBvh9CHRk6f/H3IIWQu75LzwBiNBzEpKpzOz97GlunNmALbDN4a49NUh
+	 EQn5KFD62kLh5KNGN6HCXUuojbMSX88ad4fvYTXDAEETGlrbO8Uy8mSCk77LAAuJ5lVT/
+	 3pRZUCuEUBtUjy4XiO7HroH77TuAiiVQC9YED6fOj6X3h/gezd9OX86xRSA/lxdNkdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792432003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792432000;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=h0ATgNxnFHXA5Bzp5Sr8ZKdegv09gu1IG2YXohICA0Q=;
-	b=X8MIoD/nCmD+BVPH1+VyUB24Zq1ZeZ/Cr13PRMF49zr2qzdXylHvsCtm74g5JvAnTFqI
-	 ZSkVoeZjveK45J0TG84KgtmNM9yV2mVnk2OiW7Dp+f+CJSk6qhMd2o9cU93Q6L1OSWC9E
-	 m+gdcMJ9b6fBNvQmYxBK+hCeebTzIFHptilNsu2S8Gq/LDxGzZh9foLWoI1bGiCP4fZC1
-	 2F2aLOnrYYUBXNNg4Qr67078Tbtv/tWOcw8rr9OIpUukJCBWO84BYu/Br56hfDsg01OLZ
-	 ooEYms4/wPwsShP0PF8VEJaCYz53muNDyCQnX1nT255H0avx8YQiSJ4b9hZeuvB6KdQ==
+	bh=/j+L9c85Zmk9gdLPRB45/y1VrP4yGCXm6RLIZSp5kzw=;
+	b=HMZPoB1BXsGZCdRm+8Fcmufz0hA7//8BRHjyeZs0VCarQT7v78KUCd/jZz3GbiWfDPDc
+	 0U4LMPw2PDaSh4s5Yli71YzvKX6ezEEsnw8uoFeiUrgpQc86DXcJ5dSqdPOeup+/3snPc
+	 BLBGvHnbhJOEzpVTSbpdOvPVoH6GbI3vh5cnwtY6Vowz/X9QxJjtqa9d7xxZG+qQ27sYo
+	 umVgwLa6tZwS/+Lm8NnvjmohdXQmNo9eHbprYhQLI05W2C6XRBOlwvgO+JlgCtuIt9LDo
+	 QGZmgN+VdFjPOR7blXbdD9a5v+ucR4xSaEAquOuLC6AkypwIc0bhuFKXWBNahdmdeXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PgqOr8kW;
-	arc=none smtp.remote-ip=209.85.217.51
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AmpSduC3;
+	arc=none smtp.remote-ip=209.85.217.43
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E61606A331
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:46:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51E61606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABF6606A31C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:46:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ABF6606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PgqOr8kW
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7c33cc572e6so2248501137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:46:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AmpSduC3
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7c3b6e8225dso1534531137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:46:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792432002; x=1793036802; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792431998; x=1793036798; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=h0ATgNxnFHXA5Bzp5Sr8ZKdegv09gu1IG2YXohICA0Q=;
-        b=PgqOr8kWr7TFLgrtFLTrVOe4loI3PqOLoFh9zNTrKqV9hgdPPuvSKeOAZdQ6ZQrfOx
-         EbOn0A3ryRERocTqOfKRbQU2XdpbuWPZFfQYd3PHLgwXYJwd8EOfrdVC97DaJODzvHhM
-         W6NrBbpLkkf7IO+fa4g6QQ3hPgAFXdomDRri0JkC6haYTCJwD4L+VWzZP1cAW8H+N8aH
-         prS6NWrrpFKuEPevOyL0JtG7iFeuZqQDY7fM0gc6m13FkS0tEnyrvg4tRp4zsw04FHn5
-         J1wm4QRoXjiYKSHrG6rJM+LTv80kLkQEFhp67MW1jedD9k+Hv9fHuxK3Djo5cJVb5y6b
-         16Ww==
+        bh=/j+L9c85Zmk9gdLPRB45/y1VrP4yGCXm6RLIZSp5kzw=;
+        b=AmpSduC3UfBn+AzvxVn+pVam6OOmCc3dzILgnDfMxVUlGJ+/lBEFLhnrp5Gb58wcJJ
+         nq55YP+IMz9QMPLf5JdqzaY3OxJJOSSrF6imo/mXQL+maDYsDv7D4nVHns2S5IaGMKuI
+         55ckGaCDQafa3OCOAKzAd+YdoCPXNC41YwMKryBlmhev7nPu5gMOh+4wj0vWxDp2sxLe
+         s1lqtb/bm9z8RytRurd/0GftCprHndxQT00p5w0cjj4nwYR4udgc7QIByDIQam3A8y8D
+         Er5Xi1M3d1L5/++/rMu5PkcV9Q4a8ipMIYBuFm4omY2ZgZcHXmxIaT9r5dvZrGTso5Er
+         9T6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792432002; x=1793036802;
+        d=1e100.net; s=20260707; t=1792431998; x=1793036798;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h0ATgNxnFHXA5Bzp5Sr8ZKdegv09gu1IG2YXohICA0Q=;
-        b=eXrC8xzgo7bs0OUrTimNFQD12guykqS4hYxiOkQBeuCJuShdflByKTFxJW7mtRp51Q
-         pg4I5YU3TRzrWUDyVKkXdL6qdg7scvSN60BBhL+mSaav+8HlrqfH5XWteDyNZezq8oWS
-         BQMxuoO4xT0RA18u6PoVYDXpXtG8/oo7zZX55aigfDuwt/xG67JocZASO2qcNqHbambi
-         ofa2JDojaP8q+bxhZzDfh9c4EHwd9BE0xXWgMS8zdILIIumAzcSC+tJV3aR4gViJoMr2
-         cAr1lD8ELn3+HN/h6L1X80jyIWdInP3SKUP3AoKsyyi6W8P3bCRh+bkcjN3TqRIE21eu
-         obBw==
-X-Forwarded-Encrypted: i=1; AKwUvBybZ8IWgntna1eIaY38vciSPD/f26J7Zy8l1bXBC7Tu2l/3tRnpUfaATs5E2XVpvxhgHxQbHHtEeeGsHmY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPPmeu2dl+aJB+0kzdMa0hxxLZR5iV/ub+SSuFEYV2LNTM8O+B
-	Yad28Ki3lW7W7LNzwJSJFpLYn1iTd0hfCVqLSwyK9gC2yJLp75IaMErg
-X-Gm-Gg: AYBFou0o/4nmF8ifRYQy60dmWSDj0WXOeYMxAHDAHTVmOA+1xKqs8kLnJhwpNuSgGxL
-	AIB9WobVBoLwz6ewHYDLThKZbN8ZYTbnWieVWHicUMIZXMjhxR4LpdW/b3WNBR2eibiDgS+8ut2
-	wKlWMFfUA39l9oC5g/bLgX7W/1TiN+pgtEK8LYaB4oZ1m7hFphsEyNj+cneMogvXVMXFARHDY6J
-	QYBEEX8bwaFGTSwHS/2swVvbaT08pI4t7cB0YX2pmt3Sa+otWTM33t1LHPLlGHuLNo1rtZE7Rsw
-	sB/xneq1E9bEhn5gooU2uPy/CIvNTGQoNDlr55tOcvwe9yuMtJHtNrrEd/E8WSpkyxKlnkC41wW
-	U2vNAVHFxYR2ZsNO5fzwMSlXjN4ZgiFQZTEdBfv8goa9ufiNFZMDqwmdCgncLjTPDYvTGyXORJ+
-	aKekJDg0XPi95peLg+MVhewowEw9YM+gBxH2BTygK82g/tGq3I6HcvmaXL0AWkfdfg68GEHKvfJ
-	qziFX7LiUbjwxFSBovNyc9aLQ4jwyKrfYeNu+R10ZNsuZVYKl3FeFdss+/gJWBo2GYBhBo+QCT+
-	5gfJ7oqeA4l0flXzD3ehYigrvccowIc=
-X-Received: by 2002:a67:f34d:0:b0:7cc:ace:24ad with SMTP id ada2fe7eead31-7cc17c72bd9mr2203969137.0.1792432001912;
-        Mon, 19 Oct 2026 10:46:41 -0700 (PDT)
+        bh=/j+L9c85Zmk9gdLPRB45/y1VrP4yGCXm6RLIZSp5kzw=;
+        b=lpxGMuMRW8abEwJ+Vfp4DTakbEFC2KDQCKufWtZT4mbzMRCbZ2wnlYJWlMZmoi85ey
+         eAQKS7okCeXax0zJfHp97RAX1pjJ6p5r2P10aAE7lzKHPPbXrRy0fS+05xCXOCqGMrgx
+         KUPTusk5/Z52yVDsljf+o6d9vYQ3iEYqfLaRHWlp6IcdBTrcbi+Tf/1xGCJL/El51G6u
+         iuoaRjsgqdTPyjsLwqTHl4CsUACsHS8CP0setHF0eNJYKIOnWfb2vb+zvk9xa/pMIrcM
+         dw/JSRSfXrgj3jqsAY44/Iu0Rhg83khlSpR3ic7NH+GGcu+wyFDXsGC9NIAI2bT8i+8v
+         9yPg==
+X-Forwarded-Encrypted: i=1; AKwUvBzgmT3QtFSwZ6DluK0RsKbfey6/Ur4OxaPPL8p/kHwx6cOQsQlgnpMyPlJIP0bTaMvQaiEwysUYEDUPQP4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4j4x8FAwwAPpCo/Rx3+++VhC8/d4reH586oYfghcBw7sNfv/D
+	LWDpEjqHa4lsTz9OZshm+W9br2QV01/QrScEzBYjd+505cEK5oGfxySf
+X-Gm-Gg: AYBFou2W+Yl03DXjHJ+Kx33uk4J8z5TlWgQm+uHTNaTHN+v0nPGKgAssuv6uYNM4QDP
+	GG8Dr/0/e5Z6nmxU8BWQn3O3vp/+lS1m40uXjuvscH7+GqK1q05szoFeIT7FpdKLnfS2aEOlCm5
+	wRAUvcUfN2C13BUfJ8d4h55UKrMMo447kTzUO09r2M5dlXdt8WauA6QROwFMqTqyynolsHJ8fVo
+	gxsOarxAq9JFxZZCxCntnKD1HJd6iD7u0jtCiwRmJx091vi/+4rX0/DIwDD/T56jtYZeXGFPbW3
+	S8csOcC8fi0/uWKaOw7C04O++nblPvZU86uRKrmJuBN2shpBIcbpsQ2xHbOG+I1mfq66saZFueD
+	C+QRJOqnsK1P0XU5AzxPa8li+CoELRz4Peyn8qaZJpCyJp/bfVPuWie7gLz4cTRAK/oCHEeDfA2
+	2dIsXYAatQaPCMBmOU4Jk5WqXZJ48/daArDytznpmiYPjxxqAQcJ0fq7+xxhaOmccSriFQpl1sx
+	xvc1wFyadV9g6YlcZLJ9piszLZ7dTCWfQg77CQrk6HzPPjUohyoZ3cRJBxCPHeBXdm6zJzC1wNr
+	bZ3Qne6wYb1Y9/eb50aCHzPa8qRULos=
+X-Received: by 2002:a05:6102:849b:20b0:7cc:3eb0:6ef5 with SMTP id ada2fe7eead31-7cc3eb09b24mr1525700137.11.1792431997928;
+        Mon, 19 Oct 2026 10:46:37 -0700 (PDT)
 Received: from alsa-dev.int.suenodeluz.com.do ([74.244.193.177])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb3adfd0sm790707241.12.2026.10.19.10.46.39
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990bb3adfd0sm790707241.12.2026.10.19.10.46.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:46:39 -0700 (PDT)
+        Mon, 19 Oct 2026 10:46:36 -0700 (PDT)
 From: Frank van de Pol <fvdpol@gmail.com>
 To: tiwai@suse.de,
 	perex@perex.cz
@@ -87,9 +87,9 @@ Cc: corbet@lwn.net,
 	fvdpol@gmail.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 13/13] ALSA: jockey3: Add driver documentation
-Date: Mon, 19 Oct 2026 13:44:45 -0400
-Message-ID: <20261019174445.1931263-14-fvdpol@gmail.com>
+Subject: [PATCH v5 12/13] ALSA: jockey3: Add power management
+Date: Mon, 19 Oct 2026 13:44:44 -0400
+Message-ID: <20261019174445.1931263-13-fvdpol@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261019174445.1931263-1-fvdpol@gmail.com>
 References: <20261019174445.1931263-1-fvdpol@gmail.com>
@@ -104,316 +104,345 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add Documentation/sound/cards/jockey3.rst and link it from the card
-index and from the MAINTAINERS entry.
+Add suspend, resume and reset_resume callbacks.
 
-The document describes the supported devices, the audio channel layout,
-the MIDI device, how the driver detects and recovers a stalled stream,
-the module parameters and Kconfig options, and how the driver is
-tested.
+Suspend stops the URBs. Resume programs the rate again and restarts
+them; reset_resume also repeats the initialization handshake first.
 
-The channel map comment in jockey3.c now points at it.
+SNDRV_PCM_INFO_RESUME is not set. The device loses stream
+synchronization across a suspend, so userspace has to prepare the
+stream again.
+
+A watchdog tick or a recovery that is already running must not restart
+or reset a device that is being suspended. JOCKEY3_FLAG_SUSPENDED is
+set before the URBs are stopped, and the watchdog and the recovery
+ladder test it at each point where they would otherwise act.
 
 Assisted-by: LLM
 Signed-off-by: Frank van de Pol <fvdpol@gmail.com>
 ---
- Documentation/sound/cards/index.rst   |   1 +
- Documentation/sound/cards/jockey3.rst | 249 ++++++++++++++++++++++++++
- MAINTAINERS                           |   1 +
- sound/usb/jockey3/jockey3.c           |   2 +-
- 4 files changed, 252 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/sound/cards/jockey3.rst
+ sound/usb/jockey3/jockey3.c | 183 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 161 insertions(+), 22 deletions(-)
 
-diff --git a/Documentation/sound/cards/index.rst b/Documentation/sound/cards/index.rst
-index e68bbb13c384b..7afea6fa88bff 100644
---- a/Documentation/sound/cards/index.rst
-+++ b/Documentation/sound/cards/index.rst
-@@ -18,4 +18,5 @@ Card-Specific Information
-    hdspm
-    serial-u16550
-    img-spdif-in
-+   jockey3
-    pcmtest
-diff --git a/Documentation/sound/cards/jockey3.rst b/Documentation/sound/cards/jockey3.rst
-new file mode 100644
-index 0000000000000..8fd65db9316cf
---- /dev/null
-+++ b/Documentation/sound/cards/jockey3.rst
-@@ -0,0 +1,249 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+=========================================
-+Reloop Jockey 3 DJ Controller Driver
-+=========================================
-+
-+The ``snd-reloop-jockey3`` driver supports the Reloop Jockey 3 family of USB DJ
-+controllers. These devices do not implement USB Audio Class; they use a
-+proprietary protocol from Ploytec GmbH, which this driver implements from
-+reverse engineering.
-+
-+Supported devices
-+=================
-+
-+=================================  ===========  =========
-+Device                             VID:PID      Status
-+=================================  ===========  =========
-+Reloop Jockey 3 Remix              200c:1037    Tested
-+Reloop Jockey 3 Master Edition     200c:1019    Tested
-+=================================  ===========  =========
-+
-+The Master Edition is confirmed to be protocol-compatible. The driver author
-+does not own one, but user feedback on the Master Edition has been received
-+confirming the device is fully functional with this driver.
-+
-+Audio
-+=====
-+
-+The device provides 4 playback and 6 capture channels, all S24_3LE, at 44.1,
-+48, 88.2 or 96 kHz. The sample rate is a device-wide property: if one stream is
-+already running, a second stream opening is constrained to the rate in use.
-+
-+Channel layout
-+--------------
-+
-+Playback:
-+
-+=======  ==========================
-+Channel  Signal
-+=======  ==========================
-+1-2      Master Out L/R
-+3-4      Headphone (cue) L/R
-+=======  ==========================
-+
-+Capture:
-+
-+=======  ==========================
-+Channel  Signal
-+=======  ==========================
-+1-2      Input 1 L/R
-+3-4      Input 2 L/R
-+5-6      Microphone
-+=======  ==========================
-+
-+The line inputs are only routed to the ADC when the input selector on the unit
-+is in the ``SW`` (software) position.
-+
-+The microphone is **mono**. Its balanced input stage feeds the same analog
-+signal to both converters, so channels 5 and 6 carry identical content -- though
-+not bit-identical, since each has its own ADC and picks up independent
-+converter noise. Applications may treat the pair as a stereo stream with mono
-+content, or simply use one of the two channels.
-+
-+The channel map advertised to userspace marks only the playback Master pair as
-+``FL``/``FR``, so that audio servers can identify the primary output. The
-+remaining pairs are reported as ``UNKNOWN``: they are discrete inputs and
-+outputs rather than a speaker arrangement, and giving them surround positions
-+would invite applications to route, for example, the headphone cue output to
-+rear speakers.
-+
-+Microphone level
-+----------------
-+
-+The microphone level appears to be quieter than when using the vendor
-+software. The ADC is a PCM1803A with fixed gain, and the only gain control in
-+the signal path is analog, so any additional gain must be applied digitally
-+somewhere in the vendor stack; whether that happens in the driver or in the
-+application has not been established. This driver applies no digital gain of
-+its own, so apply it in userspace if required.
-+
-+MIDI
-+====
-+
-+The control surface is exposed as a standard ALSA rawmidi device, with input
-+and output ports.
-+
-+MIDI output is multiplexed into the audio playback stream: every outgoing
-+packet reserves one byte for MIDI. As a result the playback URBs run
-+continuously whether or not any PCM stream is open, and MIDI output throughput
-+is bounded by the packet rate. The driver rate-limits MIDI output to roughly
-+2500 bytes/sec, as the device otherwise overruns its internal buffers,
-+truncates messages, and/or the control surface becomes unresponsive.
-+
-+The device does not accept MIDI Running Status, so the driver expands the
-+outgoing stream to give every message an explicit status byte.
-+
-+Stream liveness and recovery
-+============================
-+
-+Changing the sample rate requires stopping the URBs, reprogramming the device
-+over the control endpoint, and restarting them. During testing and
-+validation, cases have been observed where one of the USB streams failed to
-+start or stalled afterwards -- the control transfers reported success, but
-+the endpoint delivered no data, which surfaces to applications as ``EIO`` on
-+the affected direction. The driver guards against this:
-+
-+* After every rate change, and whenever a stream is prepared, each direction
-+  is checked for liveness by watching for URB completion activity.
-+
-+* A stalled direction is first recovered with a lightweight URB stop/restart.
-+  If that does not bring it back, recovery escalates to a full USB device
-+  reset, subject to a bounded retry budget: a chip-wide limit on how many
-+  resets may be attempted within a rolling time window, so a persistently
-+  misbehaving device is reported instead of being reset in a tight loop.
-+
-+* Playback also carries MIDI output, so a playback stall is always recovered
-+  immediately through this path.
-+
-+* A capture stall is recovered immediately the same way only if a capture
-+  stream is currently open. Otherwise it is left alone at that moment, to
-+  avoid an audible reset glitch on working playback audio for the sake of a
-+  direction nobody is using; the same liveness check and recovery catch it
-+  the next time a capture stream is opened instead.
-+
-+A stall that triggers immediate recovery is logged with ``dev_warn()``; a
-+stall on an idle, unused capture endpoint whose recovery is deferred is
-+logged at ``dev_dbg()`` instead, since it is an expected, tolerated state
-+rather than something acted on right away. Recovery outcomes -- a successful
-+URB restart, an escalated reset, an exhausted retry budget, or a stream still
-+dead after a reset -- are always logged with ``dev_warn()`` or ``dev_err()``,
-+so real-world frequency and severity can be tracked via ``dmesg``.
-+
-+URB liveness watchdog
-+=====================
-+
-+The checks above run at specific moments: after a rate change, and when a stream
-+is prepared. A device that stops completing URBs at any other time is invisible
-+to them, and to every other error path in the driver, because all of those hang
-+off a URB completion. When completions stop, nothing runs and nothing is logged.
-+A playback stream in that state does not even report an underrun, since the
-+hardware pointer never advances far enough to overtake the application.
-+
-+A periodic work item therefore checks both directions for liveness for as long
-+as the device is bound. It runs over the device's whole lifetime rather than
-+only while a PCM stream is open, because the URBs do too: MIDI output is carried
-+in every playback packet, so there is no idle state in which a total absence of
-+completions is legitimate.
-+
-+The watchdog acts as well as reports. A new stall onset enters the same
-+recovery ladder described above -- a lightweight URB stop/start, escalating to
-+a full device reset if that does not take. This is the only place recovery can
-+begin without a PCM ioctl re-entering the driver first, which matters because a
-+long-running, uninterrupted stream never re-enters otherwise. Escalation to a
-+reset is drawn from a chip-wide bounded budget, so a device that keeps stalling
-+is not reset in a tight loop, and only one recovery ladder runs at a time.
-+
-+Logging is edge-triggered: one line when a direction stops completing URBs, one
-+when it starts again, with nothing repeated in between. The message carries the
-+measured age of the stall rather than a fixed threshold, since the threshold
-+alone would only bound it to the width of one poll interval.
-+
-+An idle, unused capture endpoint stalling is the one case the driver
-+deliberately tolerates without treating it as a fault: recovery for it is
-+deferred to the next capture open, as described above, so it can persist
-+indefinitely with nothing wrong. Every other persistent stall means recovery
-+did not succeed, and the ``dev_err()`` logged for an exhausted retry budget
-+or a stream still dead after a reset should already explain why.
-+
-+Module parameters
-+=================
-+
-+The driver takes the standard ALSA ``index``, ``id`` and ``enable`` parameters.
-+
-+Kconfig
-+=======
-+
-+``CONFIG_SND_USB_JOCKEY3``
-+    Build the driver.
-+
-+``CONFIG_SND_USB_JOCKEY3_REFERENCE_CODEC``
-+    Use the portable reference implementation of the sample codec instead of
-+    the architecture-optimized one. The optimized codec is the default and is
-+    what should normally be used; the reference implementation is much slower,
-+    and exists as a readable definition of the wire format and as a fallback.
-+    This option depends on ``CONFIG_EXPERT``.
-+
-+``CONFIG_SND_USB_JOCKEY3_CODEC_KUNIT_TEST``
-+    Build the KUnit tests for the sample codec. Because the codec functions
-+    are internal to the driver, the tests are linked into the driver module
-+    rather than built as a separate one. See `Testing`_ below.
-+
-+Testing
-+=======
-+
-+The sample codec has KUnit coverage. It is worth running after any change to
-+``ploytec_codec.c``, and on any architecture the optimized codec has not been
-+exercised on before::
-+
-+    tools/testing/kunit/kunit.py run --kunitconfig=sound/usb/jockey3 \
-+        --arch=x86_64
-+
-+Running under UML needs three extra options::
-+
-+    tools/testing/kunit/kunit.py run --kunitconfig=sound/usb/jockey3 \
-+        --kconfig_add CONFIG_VIRTIO=y \
-+        --kconfig_add CONFIG_VIRTIO_UML=y \
-+        --kconfig_add CONFIG_UML_PCI_OVER_VIRTIO=y
-+
-+UML disables IOMEM by default, which puts ``CONFIG_USB`` - and with it the
-+whole of ``sound/usb`` - out of reach. ``UML_PCI_OVER_VIRTIO`` selects
-+``UML_PCI``, which brings in the IOMEM emulation that makes it selectable
-+again. These are passed on the command line rather than placed in
-+``.kunitconfig`` because they only exist under ``arch/um``, and kunit.py
-+treats a requested option it cannot satisfy as an error - so putting them in
-+the shared fragment would break configuration on every other architecture.
-+
-+Other architectures run under QEMU, which is the point of the exercise: the
-+codec assumes a little-endian sample format and reaches for 32- and 64-bit
-+words through the unaligned accessors, so word size, alignment strictness and
-+byte order all matter::
-+
-+    tools/testing/kunit/kunit.py run --kunitconfig=sound/usb/jockey3 \
-+        --arch=arm --cross_compile=arm-linux-gnueabihf-
-+
-+s390 is worth a run as the only readily available big-endian target, and needs
-+``--kconfig_add CONFIG_PCI=y``: on s390 ``HAS_IOMEM`` is ``def_bool PCI``, so
-+without it there is no sound subsystem to build against.
-+
-+The suite has been run on um, i386, arm, arm64, riscv and s390.
-+
-+Only one of the three codec variants is compiled into any given build, so the
-+portable reference deserves a run of its own::
-+
-+    tools/testing/kunit/kunit.py run --kunitconfig=sound/usb/jockey3 \
-+        --kconfig_add CONFIG_EXPERT=y \
-+        --kconfig_add CONFIG_SND_USB_JOCKEY3_REFERENCE_CODEC=y
-+
-+The tests check the compiled-in variant against a declarative description of
-+the wire format rather than against a second copy of the same loops. They also
-+exploit the fact that the codec is a bit permutation, and therefore linear over
-+GF(2): one case enumerates the mapping's action on every input bit, another
-+establishes linearity, and a linear map is fully determined by its action on
-+the basis vectors.
-+
-+Further information
-+===================
-+
-+Protocol notes, USB captures and ongoing reverse-engineering work are kept at
-+https://github.com/fvdpol/alsa-jockey3.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c1da7806b0dc1..e20b790887c09 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23089,6 +23089,7 @@ M:	Frank van de Pol <fvdpol@gmail.com>
- L:	linux-sound@vger.kernel.org
- S:	Maintained
- W:	https://github.com/fvdpol/alsa-jockey3
-+F:	Documentation/sound/cards/jockey3.rst
- F:	sound/usb/jockey3/
- 
- REGISTER MAP ABSTRACTION
 diff --git a/sound/usb/jockey3/jockey3.c b/sound/usb/jockey3/jockey3.c
-index db351c42d85c3..2cedcd33f7206 100644
+index 17c014f2e69d0..db351c42d85c3 100644
 --- a/sound/usb/jockey3/jockey3.c
 +++ b/sound/usb/jockey3/jockey3.c
-@@ -3597,7 +3597,7 @@ static int jockey3_validate_endpoints(struct usb_interface *intf0, struct usb_in
-  * There is no equivalent notion for the inputs, so capture is left entirely
-  * unpositioned.
+@@ -170,17 +170,18 @@ MODULE_PARM_DESC(enable, "Enable " CARD_NAME " soundcard.");
   *
-- * Physical layout:
-+ * Physical layout (see Documentation/sound/cards/jockey3.rst):
-  *   Playback: 1-2 Master Out L/R, 3-4 Headphone L/R
-  *   Capture:  1-2 Input 1 L/R, 3-4 Input 2 L/R, 5-6 Microphone
+  * The watchdog work item adds one rule: rate_mutex must never be held across
+  * cancel_delayed_work_sync(&chip->watchdog_work). jockey3_stop_urbs() is called
+- * from inside rate_mutex at three sites, so it disarms with the non-sync
++ * from inside rate_mutex at four sites, so it disarms with the non-sync
+  * cancel_delayed_work(), which is safe under any lock; a tick that is already
+  * running when the cancel lands re-reads 'stopping' and does nothing. The sync
+  * form appears only in jockey3_disconnect(), in probe's error path and in
+  * jockey3_free_resources(), none of which holds a mutex.
   *
+  * Because that disarm does not wait, a tick can be parked on rate_mutex while
+- * jockey3_pre_reset() takes the device down, then wake to the timestamps it
+- * zeroed and read the stream as stalled. So jockey3_recover_urb_stream()
+- * re-tests DISCONNECTED and RESETTING under the mutex and leaves the restart
+- * to jockey3_post_reset().
++ * jockey3_suspend() or jockey3_pre_reset() takes the device down, then wake to
++ * the timestamps they zeroed and read the stream as stalled. So
++ * jockey3_recover_urb_stream() re-tests DISCONNECTED, SUSPENDED and RESETTING
++ * under the mutex and leaves the restart to whichever path is bringing the
++ * device back.
+  *
+  * jockey3_watchdog_work() itself may call jockey3_recover_urb_stream(),
+  * which takes rate_mutex and calls jockey3_stop_urbs() -- i.e. the watchdog's
+@@ -450,7 +451,10 @@ struct jockey3_pcm_urb_stream {
+  *	registered or the watchdog armed, so it is the only user in existence.
+  * @rate_mutex: serializes sample-rate changes and the URB stop/start that goes
+  *	with them; process context only, outermost lock
+- * @flags: JOCKEY3_FLAG_* bits, atomic bitops
++ * @flags: JOCKEY3_FLAG_* bits, atomic bitops. SUSPENDED is set before
++ *	jockey3_suspend() takes @rate_mutex and cleared by
++ *	jockey3_restore_device() under it, so a tick blocked on that mutex sees
++ *	it on the way out.
+  * @current_rate: sample rate the hardware is programmed to; @rate_mutex
+  * @dev_idx: card slot held in jockey3_devices_used
+  * @reset_done: completed by jockey3_post_reset(), and by jockey3_disconnect()
+@@ -483,7 +487,7 @@ struct jockey3_pcm_urb_stream {
+  *	callers elsewhere poll rather than block on recovery finishing.
+  * @warm_start: true if the current URB ring was last started by the stall
+  *	watchdog's own lightweight restart, false for every other (re)start
+- *	(first open, rate change, USB reset, probe). Both kinds share
++ *	(first open, rate change, USB reset, resume, probe). Both kinds share
+  *	one start_grace_ms; this only labels which one is in effect, for
+  *	dev_dbg(). Chip-wide, not per-direction: jockey3_start_urbs() restarts
+  *	the shared ring for both directions at once. Plain bool, written by
+@@ -585,6 +589,7 @@ static void jockey3_release_slot(unsigned int dev_idx)
+ /* Chip flags */
+ #define JOCKEY3_FLAG_DISCONNECTED	0
+ #define JOCKEY3_FLAG_RESETTING		1
++#define JOCKEY3_FLAG_SUSPENDED		2
+ 
+ static inline bool jockey3_is_disconnected(const struct jockey3_chip *chip)
+ {
+@@ -596,6 +601,11 @@ static inline bool jockey3_is_resetting(const struct jockey3_chip *chip)
+ 	return test_bit(JOCKEY3_FLAG_RESETTING, &chip->flags);
+ }
+ 
++static inline bool jockey3_is_suspended(const struct jockey3_chip *chip)
++{
++	return test_bit(JOCKEY3_FLAG_SUSPENDED, &chip->flags);
++}
++
+ /*
+  * Publish a new sample rate.
+  *
+@@ -1711,7 +1721,7 @@ static void jockey3_submit_failed(struct jockey3_chip *chip, int err,
+  * @chip: driver state
+  * @warm: true only for the stall watchdog's own lightweight restart of a ring
+  *	that was streaming a moment earlier; false for a cold start (first open,
+- *	rate change, USB reset, probe). Both share start_grace_ms; this
++ *	rate change, USB reset, resume, probe). Both share start_grace_ms; this
+  *	only labels the restart for dev_dbg() and is recorded chip-wide in
+  *	@chip->warm_start.
+  *
+@@ -1736,6 +1746,13 @@ static int jockey3_start_urbs(struct jockey3_chip *chip, bool warm)
+ 	if (jockey3_is_disconnected(chip))
+ 		return -ENODEV;
+ 
++	/*
++	 * Belt and braces; jockey3_recover_urb_stream() is what actually bails.
++	 * jockey3_restore_device() clears the flag before its own restart.
++	 */
++	if (jockey3_is_suspended(chip))
++		return -ESHUTDOWN;
++
+ 	dev_dbg(&chip->intf0->dev, "Starting all URBs (%s start, grace %u ms)\n",
+ 		warm ? "warm" : "cold", jockey3_start_grace_ms());
+ 
+@@ -1891,6 +1908,13 @@ static void jockey3_start_urbs_failed(struct jockey3_chip *chip, int err, const
+ 		return;
+ 	}
+ 
++	if (err == -ESHUTDOWN || jockey3_is_suspended(chip)) {
++		dev_dbg(&chip->intf0->dev,
++			"Could not start URBs after %s: device is suspended; the resume path will start them\n",
++			context);
++		return;
++	}
++
+ 	if (err == -ENOENT) {
+ 		dev_err(&chip->intf0->dev,
+ 			"Endpoints are disabled after %s; the device needs a reset to restore them\n",
+@@ -2139,7 +2163,7 @@ static void jockey3_watchdog_check(struct jockey3_chip *chip, const int directio
+ 
+ 	scoped_guard(spinlock_irqsave, &urb_stream->lock) {
+ 		/*
+-		 * One flag covers every deliberate stop -- rate change,
++		 * One flag covers every deliberate stop -- rate change, suspend,
+ 		 * pre_reset and teardown all reach jockey3_stop_urbs(). Checked
+ 		 * before now/last/age_ns are sampled, not after: this tick can
+ 		 * have been sitting on system_long_wq for a while before it got
+@@ -2272,7 +2296,15 @@ static void jockey3_watchdog_work(struct work_struct *work)
+ 	struct jockey3_chip *chip = container_of(to_delayed_work(work),
+ 						 struct jockey3_chip, watchdog_work);
+ 
+-	if (jockey3_is_disconnected(chip))
++	/*
++	 * Suspend as well as teardown: jockey3_stop_urbs() disarms with the
++	 * non-sync cancel_delayed_work(), which leaves a tick that is already
++	 * running to finish. Without this it would requeue itself and keep
++	 * ticking for the whole suspend, for no purpose -- every check below
++	 * bails out on the suspended flag anyway. Resume re-arms via
++	 * jockey3_start_urbs().
++	 */
++	if (jockey3_is_disconnected(chip) || jockey3_is_suspended(chip))
+ 		return;
+ 
+ 	/*
+@@ -2327,11 +2359,11 @@ static bool jockey3_wait_urb_stream_started(struct jockey3_chip *chip, const int
+ 
+ 	while (time_before(jiffies, deadline)) {
+ 		/*
+-		 * A device that went away mid-wait completes nothing more;
+-		 * spinning out the grace only delays the caller's next decision,
+-		 * which in the recovery path is whether to reset.
++		 * A device that went down mid-wait completes nothing until it is
++		 * restored; spinning out the grace only delays the caller's next
++		 * decision, which in the recovery path is whether to reset.
+ 		 */
+-		if (jockey3_is_disconnected(chip))
++		if (jockey3_is_disconnected(chip) || jockey3_is_suspended(chip))
+ 			return false;
+ 
+ 		if (require_healthy ? jockey3_stream_streaming_healthy(chip, urb_stream)
+@@ -2434,14 +2466,16 @@ static int jockey3_run_recovery_ladder(struct jockey3_chip *chip, const int dire
+ 		/*
+ 		 * Stale for the same reason the alive check above is repeated: a
+ 		 * tick that blocked here may have been waiting on
+-		 * jockey3_pre_reset(), and wakes to a stream that looks dead
+-		 * only because that zeroed the timestamps. Restarting on that
+-		 * would submit URBs to a device that is in the middle of a reset.
++		 * jockey3_suspend() or jockey3_pre_reset(), and wakes to a
++		 * stream that looks dead only because they zeroed the
++		 * timestamps. Restarting on that would submit URBs to a
++		 * suspended device, then escalate to resetting one.
+ 		 *
+-		 * Bailing loses nothing: jockey3_post_reset() restarts the ring
+-		 * itself on the way back up.
++		 * Bailing loses nothing: both paths restart the ring themselves
++		 * on the way back up.
+ 		 */
+-		if (jockey3_is_disconnected(chip) || jockey3_is_resetting(chip)) {
++		if (jockey3_is_disconnected(chip) || jockey3_is_suspended(chip) ||
++		    jockey3_is_resetting(chip)) {
+ 			dev_dbg(&chip->intf0->dev,
+ 				"%s stream stalled (%s), but the device is being taken down; leaving the restart to the resume path\n",
+ 				type, context);
+@@ -2474,12 +2508,21 @@ static int jockey3_run_recovery_ladder(struct jockey3_chip *chip, const int dire
+ 	 * timeout on a reset that will never come. Ahead of the budget, so this
+ 	 * spends no attempt.
+ 	 *
+-	 * Racy by construction -- a disconnect arriving just after the test still
++	 * Suspended as well as disconnected, and this is not the same check as
++	 * the one under rate_mutex above. That one covers a tick that arrives
++	 * after jockey3_suspend() has run. A tick which passed it earlier, while
++	 * the device was still live, is legitimately mid-recovery and reaches
++	 * here only after its grace has elapsed -- by which time suspend may have
++	 * happened. Resetting from there was observed to queue a reset the
++	 * suspended device could not complete, leaving the resume path waiting
++	 * out jockey3_wait_for_reset_completion() twice over.
++	 *
++	 * Racy by construction -- either state arriving just after the test still
+ 	 * hits it. The timeout bounds that; closing it properly would mean
+ 	 * serializing against jockey3_disconnect(), which must not block on
+ 	 * driver locks.
+ 	 */
+-	if (jockey3_is_disconnected(chip)) {
++	if (jockey3_is_disconnected(chip) || jockey3_is_suspended(chip)) {
+ 		dev_dbg(&chip->intf0->dev,
+ 			"%s stream still stalled after URB restart, but the device is down; not resetting (%s)\n",
+ 			type, context);
+@@ -2584,6 +2627,10 @@ static int jockey3_recover_urb_stream(struct jockey3_chip *chip, const int direc
+  * SNDRV_PCM_INFO_BATCH: the hardware pointer only advances once per completed
+  * bulk URB (a whole Ploytec frame group), never per sample, so userspace must
+  * not assume a sample-accurate position.
++ *
++ * SNDRV_PCM_INFO_RESUME is deliberately absent: the device loses stream
++ * synchronization across a suspend, so the ALSA core should return -ESTRPIPE
++ * and have userspace re-prepare rather than issue TRIGGER_RESUME.
+  */
+ #define JOCKEY3_PCM_INFO	(SNDRV_PCM_INFO_MMAP |		\
+ 				 SNDRV_PCM_INFO_INTERLEAVED |	\
+@@ -2895,6 +2942,7 @@ static int jockey3_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ 			urb_stream->running = true;
+ 			break;
+ 		case SNDRV_PCM_TRIGGER_STOP:
++		case SNDRV_PCM_TRIGGER_SUSPEND:
+ 			urb_stream->running = false;
+ 			break;
+ 		default:
+@@ -3953,6 +4001,94 @@ static int jockey3_post_reset(struct usb_interface *intf)
+ 	return 0;
+ }
+ 
++static int jockey3_suspend(struct usb_interface *intf, pm_message_t message)
++{
++	struct jockey3_chip *chip = usb_get_intfdata(intf);
++
++	if (chip && intf == chip->intf0) {
++		dev_dbg(&intf->dev, "USB suspend, stopping URBs\n");
++
++		/*
++		 * Before rate_mutex below: a tick blocked on that mutex resumes
++		 * the moment this drops it, and the flag is what stops it
++		 * restarting the ring. See jockey3_recover_urb_stream().
++		 */
++		set_bit(JOCKEY3_FLAG_SUSPENDED, &chip->flags);
++
++		/* Notify ALSA core to transition state and unblock userspace */
++		if (chip->pcm)
++			snd_pcm_suspend_all(chip->pcm);
++
++		/*
++		 * Stop the physical URBs under rate_mutex, matching
++		 * jockey3_restore_device() on the resume side -- otherwise a
++		 * suspend could land in the middle of a rate change.
++		 */
++		scoped_guard(mutex, &chip->rate_mutex)
++			jockey3_stop_urbs(chip);
++	}
++	return 0;
++}
++
++static int jockey3_restore_device(struct jockey3_chip *chip, bool reset)
++{
++	int ret;
++
++	guard(mutex)(&chip->rate_mutex);
++
++	/*
++	 * Cleared under the mutex, before the restart below that
++	 * jockey3_recover_urb_stream() defers to. A tick cannot slip in between:
++	 * it needs this same mutex to restart anything.
++	 */
++	clear_bit(JOCKEY3_FLAG_SUSPENDED, &chip->flags);
++
++	if (reset) {
++		ret = jockey3_initialize_ploytec(chip, NULL);
++		if (ret < 0)
++			return ret;
++	}
++
++	ret = jockey3_set_rate(chip, chip->current_rate, true);
++	if (ret < 0)
++		return ret;
++
++	/*
++	 * Report the failure up: the PM core logs a failed resume, and unlike the
++	 * reset path there is no queued recovery on the way that would pick this
++	 * up on its own.
++	 */
++	ret = jockey3_start_urbs(chip, false);
++	if (ret < 0) {
++		dev_err(&chip->intf0->dev, "Failed to start URBs while restoring device: %d\n",
++			ret);
++		return ret;
++	}
++	return 0;
++}
++
++static int jockey3_resume(struct usb_interface *intf)
++{
++	struct jockey3_chip *chip = usb_get_intfdata(intf);
++
++	if (chip && intf == chip->intf0) {
++		dev_dbg(&intf->dev, "USB resume, restoring device\n");
++		return jockey3_restore_device(chip, false);
++	}
++	return 0;
++}
++
++static int jockey3_reset_resume(struct usb_interface *intf)
++{
++	struct jockey3_chip *chip = usb_get_intfdata(intf);
++
++	if (chip && intf == chip->intf0) {
++		dev_dbg(&intf->dev, "USB reset resume, restoring device\n");
++		return jockey3_restore_device(chip, true);
++	}
++	return 0;
++}
++
+ static const struct usb_device_id jockey3_ids[] = {
+ 	{ USB_DEVICE(RELOOP_VENDOR_ID, RELOOP_JOCKEY3_ME_PID), .driver_info = JOCKEY3_ME },
+ 	{ USB_DEVICE(RELOOP_VENDOR_ID, RELOOP_JOCKEY3_REMIX_PID), .driver_info = JOCKEY3_REMIX },
+@@ -3981,6 +4117,9 @@ static struct usb_driver jockey3_driver = {
+ 	.disconnect = jockey3_disconnect,
+ 	.pre_reset = jockey3_pre_reset,
+ 	.post_reset = jockey3_post_reset,
++	.suspend = jockey3_suspend,
++	.resume = jockey3_resume,
++	.reset_resume = jockey3_reset_resume,
+ 	.id_table = jockey3_ids
+ };
+ 
 -- 
 2.47.3
 
