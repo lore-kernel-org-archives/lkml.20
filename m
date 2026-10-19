@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792437840;
-	b=Xzs06L5du2Ore705nDxtHH2Bo230rIqQwf0ZQyH8xcWpd124tObOIkHjvpnIc+2jWHcV
-	 w3xTYzvZQWN6375VxZ1B3QqsMBxI7im12TUlVFswubjUmBdA6WUp3r3kc8QIE/K9np8TP
-	 xWGaKZbbJBmhfr8AI8HYweEtoIoxNWurV7oa/2MnPgTdC7qogbWZPNU5Vnu1p0tTxli/w
-	 55ejxOHpGgiTkfUmZXETse6feu2kbKz8/KoXTeXFkKYqSEqepkzbXJiE9sNo22ou9/9su
-	 GtLuotT/EecGVVrOphdunXgWZvxKqa2wf0wBTbNhOKsRDBGpdzlcbFL8wUpv3LCzL8A==
+	t=1792437842;
+	b=QzJ2gIpO7ozKlA0HqO7vI3+3sbX+3P0ECOsyO3HYV0980JB21oIcxl/9lzuEinSuidtM
+	 AljFN6Z8L4tAE18ajCWVuxPecPApIiRDzDPqWLuPIvZYqF5mrGi5WHD4v4XD/tZPa/G0f
+	 ZlwZeOUEOKDevHa/pzJYpo4MEteF2FQ4D107TN3wvWtmKgP2YnuC3xeho02nnS8MMllSY
+	 5/6lZbaE08yejSjuFU1AHcb9eJieXZaGZmQXXbnuA9GiGiXMih32pRgzYzXtlyXks5KJD
+	 X9hnpd8bb/THZnoVM+qwqrzRTW1V0/2STViVvTFEmgoegDk6qLwXGqlnjGO8WhFfGAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792437840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792437842;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
 	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=459kuKB1b+17lJ4lns0LLD9p6b/pQluJod5IZf8SiR4=;
-	b=gInt8kUi76Mcfr5xJaM4MoLnQrV74Y08MeKRblW5uO/AvdPLBrULvY71NIwg0L00bFFH
-	 XcDhuNgEZLcPtMrqN/ZMEG+sOwweSH2dLP0DArqIHC1UsinVKJYjoF82xGtDtPYYfpoe7
-	 EYcpnaws6sHgdkJorRaGFSEtkR3dujiaW0FVlUXHX+obVg1xZHbfd4/Cjjwwk7IvqFwuA
-	 /0Y2XgvTY/DpSy9cm49mt9OzHUQ5zD74rgh2kfDBCdRCA+cpgV+qiYtX5U0WdPeWR9+jP
-	 RgfqD6TwUPbIYKatvdLkyRx88FD+SreC1GA7UkteBQHk+OtrundZFX53hUBXscUxTtQ==
+	bh=qvo4bbQ/ofSmszMuiXKQj2CYkjAHtS+en8Odnv1yaQc=;
+	b=HEb7yX1FUDUFXX/Vnwd+GrZE6WFn6y14lffOETTtGB8Wrdse7e81UDUGgNhDcB4+PJ1I
+	 X6p3/QsHF5Q+UlKc5fmYXVRIoZreLqMig5EcWgZ5x2o1IHgXpYwgnEOak1JwpPt82Ncs6
+	 E5SPkWus/LOGRB49wLikoUn6DbicYMTNIDOam9WRCjmuw2nuI2VQkOmqMdN1PU5RE1zs2
+	 LiKTenFNE+HBNmXXHYzid3IaRJd9/44s4tX90/xr0wdwsbypmW7VV0nmUZZueww2UoW2w
+	 YGmnlU+gayCoT3O04fDlg7PErr+tAWl0huDNIw9ScMNmI5rIU0lAje6wmThxNsfuF0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FOff1bBM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nhGE3IOa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A511606A321
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:24:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C2B606A31F;
+	Mon, 19 Oct 2026 19:24:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FOff1bBM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8EF1F000C5;
-	Mon, 19 Oct 2026 19:23:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nhGE3IOa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB5131F000CD;
+	Mon, 19 Oct 2026 19:24:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792437840;
-	bh=459kuKB1b+17lJ4lns0LLD9p6b/pQluJod5IZf8SiR4=;
+	s=k20260515; t=1792437841;
+	bh=qvo4bbQ/ofSmszMuiXKQj2CYkjAHtS+en8Odnv1yaQc=;
 	h=Date:From:To:Cc:Subject:References;
-	b=FOff1bBMYaUgNqlPu8w2wkbIR0z8Z24SXbFfiZ8p06lT3oFVNfBFBqJezsG7poKE7
-	 p+kXX3b1lefMeyZHDZ9/Ip9daC3Pw0j/Ks057BcD04rH+pUKoqcAH+lPnLj6P2nwpI
-	 0tjGh6wCfzS+/VZUvtGGKaAyQExicvxuzlyNocv0+dEYb9ZpeAQ7cLjvKVJAaZ6Kg8
-	 zw3zCvqiInWNhi9/HwfuBYLczRN0MVJeW783gTd/lY+tMJmSRDhcvbQasExFMOvg2v
-	 1hQzA8GuOEz4QOdReU3HI3iRVnfd7m5VOwA/BECAw7kOEB3QCSGdV7Q8uIMWQmbZlN
-	 RHqxRmczBj2vQ==
+	b=nhGE3IOa9e7MlwMMkSKbH8E+KHWEoKO7IgMbDUJOyMCNPE+VhKTgsTKtnwWwscMiq
+	 hCnWkd01Xqgag2SD2r8U98a6DSoL9yZWAhtNj+g14GNW8W+DcARG1ClTSkBKodtst/
+	 97jwaKz5snV3WAsQmHpMOjxBhDnP8x6SWGkiJ1kGo6c2mFfFBo7nq57NTb9g5tO4DN
+	 VkQ6qucrAqB6K0HNYeaGBjw0VC8GRpoXQgKiGpPTJ1HnR/uAaatAz1RyfCQnvt6CNr
+	 D+kgG4kIUU5h4iQpsUj23BaCm1jA9QAC11bstbty4VLblGk5xN7lcl80ykqGmKc+oy
+	 Y3yI9YIwsWbDQ==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xIsxj-00000001eFK-1GvS;
-	Mon, 19 Oct 2026 15:23:59 -0400
-Message-ID: <20261019192359.110757402@kernel.org>
+	id 1xIsxk-00000001eJp-47N9;
+	Mon, 19 Oct 2026 15:24:00 -0400
+Message-ID: <20261019192400.787979601@kernel.org>
 User-Agent: quilt/0.69
-Date: Mon, 19 Oct 2026 15:23:45 -0400
+Date: Mon, 19 Oct 2026 15:23:53 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: [for-next][PATCH 1/9] ftrace: Have stacktrace option work with func-args
+ Andrew Morton <akpm@linux-foundation.org>,
+ stable@vger.kernel.org,
+ Gavin Inglis <giinglis@amazon.com>,
+ Aaron Ahmed <aarnahmd@amazon.com>
+Subject: [for-next][PATCH 9/9] ftrace: Initialize modname and offset in print_rec()
 References: <20261019192344.004592683@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,43 +68,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Steven Rostedt <rostedt@goodmis.org>
+From: Aaron Ahmed <aarnahmd@amazon.com>
 
-When both the func_stack_trace option is enabled first, the func-args
-option can not be enabled. Same if the func-args option is enabled first,
-the func_stack_trace option can not be enabled.
+print_rec() leaves 'modname' and 'offset' uninitialized and
+kallsyms_lookup() only sets them on success. When the lookup fails like
+when a module is being loaded or unloaded, 'modname' holds a garbage
+value, passes the 'if (modname)' check, and is dereferenced by
+seq_printf().
 
-Allow the two to work together. The stack trace is already slow and
-testing the current tracer flags should be in the noise of overhead.
+  Oops: general protection fault
+  RIP: 0010:string+0x48/0xe0
+  Call Trace:
+   vsnprintf+0x1f5/0x650
+   seq_printf+0x8e/0xb0
+   print_rec+0x6c/0xc0
+   t_show+0x4c/0x440
+   seq_read_iter+0x119/0x480
 
-Link: https://patch.msgid.link/20260825191036.11b19036@gandalf.local.home
+This can be triggered by reading available_filter_functions while a
+module is being loaded or unloaded.
+
+Initialize both variables so a failed lookup skips the module name.
+
+Cc: stable@vger.kernel.org
+Fixes: b39181f7c690 ("ftrace: Add FTRACE_MCOUNT_MAX_OFFSET to avoid adding weak function")
+Link: https://patch.msgid.link/20261016230403.4916-1-aarnahmd@amazon.com
+Tested-by: Gavin Inglis <giinglis@amazon.com>
+Signed-off-by: Aaron Ahmed <aarnahmd@amazon.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_functions.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ kernel/trace/ftrace.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/trace/trace_functions.c b/kernel/trace/trace_functions.c
-index c879d43a5fbb..acaba990aaaa 100644
---- a/kernel/trace/trace_functions.c
-+++ b/kernel/trace/trace_functions.c
-@@ -121,6 +121,7 @@ static ftrace_func_t select_trace_function(u32 flags_val)
- 	case TRACE_FUNC_OPT_ARGS:
- 		return function_args_trace_call;
- 	case TRACE_FUNC_OPT_STACK:
-+	case TRACE_FUNC_OPT_STACK | TRACE_FUNC_OPT_ARGS:
- 		return function_stack_trace_call;
- 	case TRACE_FUNC_OPT_NO_REPEATS:
- 		return function_no_repeats_trace_call;
-@@ -295,7 +296,9 @@ function_stack_trace_call(unsigned long ip, unsigned long parent_ip,
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index b2597eb9581b..c7d74b33d36d 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -4431,9 +4431,9 @@ subsys_initcall(ftrace_check_for_weak_functions);
  
- 	if (likely(disabled == 1)) {
- 		trace_ctx = tracing_gen_ctx_flags(flags);
--		trace_function(tr, ip, parent_ip, trace_ctx, NULL);
-+		if (!(tr->current_trace_flags->val & TRACE_FUNC_OPT_ARGS))
-+			fregs = NULL;
-+		trace_function(tr, ip, parent_ip, trace_ctx, fregs);
- #ifdef CONFIG_UNWINDER_FRAME_POINTER
- 		if (ftrace_pids_enabled(op))
- 			skip++;
+ static int print_rec(struct seq_file *m, unsigned long ip)
+ {
+-	unsigned long offset;
++	unsigned long offset = 0;
+ 	char str[KSYM_SYMBOL_LEN];
+-	char *modname;
++	char *modname = NULL;
+ 	const char *ret;
+ 
+ 	ret = kallsyms_lookup(ip, NULL, &offset, &modname, str);
 -- 
 2.53.0
