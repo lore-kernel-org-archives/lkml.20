@@ -1,89 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792435599;
-	b=3z1g0OIEP5lU2wUFNPuB2NbLKjDJiIwlUHssA4kptzpdn0jLxxmq65YMo7yFY8JeuC+P
-	 Jer4A+dTh56UZGOV7NrhQcMkL7zRVjoJ0Nfm9r0OUwy4BIwYCDdvXUg4SrTtY9jdunDMi
-	 6FDDrFZtS3GmeCZZPZFDWBxfddeI4PQSU56NfZY/76KtVew7+MUU3aJIXH7iGBe9SbfR5
-	 IXF5vRPsFcK+ll7WHItnT5DiUDfM5wtHSAKdEI8gN5tGLG5/D8ULaQNJv2++H+RAsopVp
-	 S0VLekN/EdGWZgo1iQA4QVqncK6n5ndBoD66ZvUEyPbMfg3JgenfYsGEUDWRynsRpmA==
+	t=1792435610;
+	b=gdoHH1PKqA83xCDVT08ww9LlsiSsjiqzSpFyZ2PRt7Pg2hYAd6QSPT00xWLT7kb5kR5s
+	 ZjnRkh+PjbzCxJMQ5+4dTO1ZT1Mz2juOOX69TrmBb0Np0NP38X7kNiFlP62zPdBbltTxv
+	 bYasEcavVVq+G4ybc2/5Gby7ansHLxsJpSBP/M0B8yysaIdVfsh0PfWFnpsVSr0MT8qw3
+	 j8lnNqzB4gYNQKADvAzB+aAi68zalwp5oMrhCznMnFTqrdpjaNUWYB0ZcsaiC6zsk7VdL
+	 PsdcJVE89WXX2bZTZ3M31DCKIVrmZyOTbT8c0i9B7ih2j3msgKmlSnObvWAMRI5W5Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435599;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=GrZgAedNjjfc1Cat6H/JuMrMooH5xXHjvJkahsdj4AA=;
-	b=ydR5lXiiSie7zVU1ZYimkPPLNFliYNr3EpDob9E/WGEMQX8kxzpV7VmKllk4xtttcOg6
-	 ppb1YrfJHL0TimF37O8KEC2aB2jO0oOQWZXnnJ6fSH47d/WU/0P7b41RJdt67+MsNjIJZ
-	 U3+PA1YuxV2Wh8j/yMng+Nn2Ydxp5A2YKsgtIKs8k/V9+bu0ukJCvi+GPT409CSGbKjpc
-	 T5yYmLpus+GWiD3v1iZEvesgQ6uq0kgSvcCZsunB0HFpJ4ANZWbQfRwV1u/zcY77abcPt
-	 HLwAc4b+Np6yNbLSFYebMyiFcbvQBRk/pDRsEHPtrDBhNuN6YYpDlA7rgi0uLyYDnlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435610;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=JlVIuNAvJb8BGxks+PwmXWerlM3I1JQR3FPq2M7uegA=;
+	b=EhvJoObobz7Em9+rtb6W7UWomg//ervOLxWN+K0WVzUqrSLZnjc2hkD8xuF3RrE38DNp
+	 cxkzP8tgzZQUc5f4aisk75I4iBIks0HxBfHZNNjbnhStJfpU6El2xyu+FsQy2XDCEMJub
+	 FszJYiYpzbyIsPD5xV3RovH4m/mVvCYNUaFZA7pP3Q1WPBnelG7os5g3yRMD8B/KQfl9S
+	 AuGkye455ePIgETyifHLzDtDO1s7duhEzqdRCFJ6/bMAp8Ivm1upRbhAyGWxEafbo036+
+	 nypc8dxxhjYkTbdO22lJtO2jVELEfddCnFNtphRR4sZinKyoFZTbhRq6r+NPpg50VuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="Z5CFZUP/";
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=m2TZ2Ye7;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398FD606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 18:46:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 398FD606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C76606A31C;
+	Mon, 19 Oct 2026 18:46:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C76606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Z5CFZUP/
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so3651771a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:46:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792435597; x=1793040397; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GrZgAedNjjfc1Cat6H/JuMrMooH5xXHjvJkahsdj4AA=;
-        b=Z5CFZUP/fC9aRll/uqty9SC8XdKFsdsHi6Zm57fNXicwgewr+DN1Gm5+Ea7GK6QS/g
-         xPA4S6aQfT0VldEUPkzMuq2vdG6MbrbJuGdSJ8HULHBjs//svJ2dnnsciVqyMregnENs
-         4ruLS8xXoDa3mo53OOVMhcrFBG0sU4gVLFxtU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792435597; x=1793040397;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GrZgAedNjjfc1Cat6H/JuMrMooH5xXHjvJkahsdj4AA=;
-        b=lNViRb6Dhptrj6bXAGIYqjenU1f8XxSAtiTEVJ987FkJ7IES4kSjtIG4NFF2lxMs7Z
-         svKYDcTs6h0uXBzDf6iZPKXU5+76F4JFTUTC0Ju5LshzD9eObzmL2TJsHixIspR4Pc6Z
-         mxiSCDa6Xg33bFmBh1VHfMBGYvtNXLXjxD5jhU0D54nbMRSk2sShoqSLBzgdU907jSDB
-         NYzHHFuJ5MYpL1RntXkZTvr1841v78K5OGq5LIUpMyN7ESvgR1cgmKSCGRP+DXDCJ7tN
-         JJAyXLWDy+70fkVftokTT9Rijc9CJz+dcasapQsWI5+EMqwQ1Q8jv2UqYxZ7/VtaUvNI
-         5DBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPJbOBYJQD6qi9OXgfScZ9BWfGpftq7UYq6E/enFGL1XyiI5VRFvql6CFbh9UtGJwJWglbXyfIAtt/bxs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhWREregDKy7G+GaBaDYR8jHB00coRlScFAJ1KILmnXxRbxx+S
-	qFky8q6AQw/q7Fo11kXYK7QHP7KSCt0bmw0O5e445Eju5yrPdhUi71cJX5uxWV/rRbxe86X+DQn
-	j24hBzw==
-X-Gm-Gg: AYBFou2TqqyQeS4J6G6ALRTIXkgQM9R4ttQsrCm1BF+qbdbCWRgpwL493LigxLHh0JZ
-	3jsXlTQQG0Bq5O4+Rl8MUCwYHWeNTciad6VlOCk9mR/ZRXYr8xD8i+iRdKHVsLqlvHPL13HAgEm
-	Lc2/C+cReOAP9M1Y7nAoxEA++ldC9rfoeoLAKibZCqvdvSn9zoCClp3cGSeYdD7q18ZrbdnXfxX
-	B1wasBVEMC/KnZrdbkGG95O2Po1SBnxXUEPueXyCSa1G4fxH3tcVtlP6inpJDqK5AnbxyxRs9r0
-	WKrVm/JYE/0eJDOnRihyn/396KmFxPsnijnY7Z3lbiqPnGrDKYy1Kdg49eC45Z5gN4Y3yjda/Mv
-	3a87RYutZ9XnOGXeVocRkxWtvgVczJrNuHswRGGMGsdy1oAbJDsgFHopNDtYaq7r2FmWessbSX9
-	rvZPvViG1Kok+jJfrWnJQ5H6HcwOV9eREXnugmX9SOOISGnWjF6U00Wd5AWDa6R8KJVaDIS3TM8
-	5rBEgAXVimpnt7NnSuSUN+HIxZ7tIrTbRp39jucZKpYGTZn
-X-Received: by 2002:a05:6402:a2c5:20b0:6af:dd04:bb21 with SMTP id 4fb4d7f45d1cf-6b3a814b1e3mr4187132a12.15.1792435597561;
-        Mon, 19 Oct 2026 11:46:37 -0700 (PDT)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com. [209.85.128.42])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b38a1d5262sm4319324a12.22.2026.10.19.11.46.35
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 11:46:37 -0700 (PDT)
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a01933b584so17517265e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:46:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxIcj61aHDYrsR7qlyLo1xVpoJRpKDsfcaqY7AafiPe+c7cHTfYZnbiFl150Qwr3G/5n5zWOSUip5HnoRw=@vger.kernel.org
-X-Received: by 2002:a05:600c:1395:b0:4a1:d73d:4137 with SMTP id
- 5b1f17b1804b1-4a1d760f94dmr197402015e9.28.1792435594264; Mon, 19 Oct 2026
- 11:46:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=m2TZ2Ye7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1792435608;
+	bh=CvGsFWoLph0v+hKiQvOUscsSmU0yUXST+5yRJ1mIOi0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=m2TZ2Ye7AiHEN44px2Vuf6F6ZnMo1fQQD5US1cC8KUGTyrqAsLXAPwLbrhwsyIn2c
+	 7jHe+rYm8fut1HwLETzeD8fqOD+2Dn+wA9TqAhNV2Htlzq/OLYLZPu98/ykj1mcBJ1
+	 3QmKQ+0VzZs0EhiqPL7wZR30qtwbkrV5Jiy2y/0GbXwlgvtohF2hMYEACkf7IQgeop
+	 ypcOC5lwrc8+I5Uj6+NTeWHxDYNW27wTXZu2CEFZ4G9DeIlrIwD3Ex4WNCh9+AsD7G
+	 wRi1VY1mdYqtzdPgVXOV7MiMAhZkaF7oRJunkxduileB181wC94/OOe/vHstJvbRol
+	 av620AHk0u+Hg==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 06A5017E006F;
+	Mon, 19 Oct 2026 20:46:46 +0200 (CEST)
+Message-ID: <6242e4c3ecdc7e55a0e32a6cd73b776a0e86f4bd.camel@collabora.com>
+Subject: Re: [PATCH] media: chips-media: wave5: Account for sizeimage 0 case
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Brandon Brnich <b-brnich@ti.com>, nas.chung@chipsnmedia.com, 
+	jackson.lee@chipsnmedia.com, mchehab@kernel.org, hverkuil@kernel.org, 
+	heiko@sntech.de, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ 	linux-arm-kernel@lists.infradead.org
+Cc: devarsht@ti.com, stable@vger.kernel.org
+Date: Mon, 19 Oct 2026 14:46:45 -0400
+In-Reply-To: <20261019160003.2375198-1-b-brnich@ti.com>
+References: <20261019160003.2375198-1-b-brnich@ti.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-fR05QOiHm7Ab/PiRZ46L"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,43 +87,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014235035.1731419-1-luke@phorex.org>
-In-Reply-To: <20261014235035.1731419-1-luke@phorex.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 19 Oct 2026 11:46:22 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=U51TQF8r1Afv5D6HkRcE6CpnFJDJ_H1S+N6VGFaj9zLw@mail.gmail.com>
-X-Gm-Features: AclHuK-9HZBpXRo11uBNzUEGmEbKurAg5Xd6yd5l18lGII7-MYI5avJghYF_wM0
-Message-ID: <CAD=FV=U51TQF8r1Afv5D6HkRcE6CpnFJDJ_H1S+N6VGFaj9zLw@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel-edp: Add BOE NE140WUM-N41 (0x0d9b) panel
-To: Luke Macken <luke@phorex.org>
-Cc: neil.armstrong@linaro.org, jesszhan0024@gmail.com, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
-	airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
+
+
+--=-fR05QOiHm7Ab/PiRZ46L
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-On Wed, Oct 14, 2026 at 4:51=E2=80=AFPM Luke Macken <luke@phorex.org> wrote=
-:
->
-> The Lenovo ThinkPad T14s Gen 7 (Snapdragon X2 Elite) uses this 14"
-> 1920x1200 panel. Without an entry panel-edp warns at every boot ("Unknown
-> panel BOE 0x0d9b, using conservative timings").
->
-> The panel's timing requirements are not published, so use the same delays
-> as the other BOE NE140WUM entries (delay_200_500_e80). With them the pane=
-l
-> trains and lights up reliably on this machine.
->
-> Assisted-by: LLM
-> Signed-off-by: Luke Macken <luke@phorex.org>
+Le lundi 19 octobre 2026 =C3=A0 11:00 -0500, Brandon Brnich a =C3=A9crit=C2=
+=A0:
+> V4L2 uAPI states that sizeimage can be set to 0 in struct
+> v4l2_pix_format_mplane if client wants the driver to configure a proper
+> sizeimage. If client leaves this field unset and configures an encode wit=
+h
+> high bitrate, low QP, or any other parameters resulting in high quality
+> encode, then the driver-calculated bitstream buffer size (MIN_BS_SIZE) wi=
+ll
+> be too small resulting in undetermined behavior.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 88ff31fd0181 ("media: chips-media: wave5: Use helpers to calculate=
+ bytesperline and sizeimage.")
+> Signed-off-by: Brandon Brnich <b-brnich@ti.com>
 > ---
->  drivers/gpu/drm/panel/panel-edp.c | 1 +
->  1 file changed, 1 insertion(+)
+>=20
+> Current DEFAULT_BS_SIZE is just a placeholder value - I can lower if
+> required so memory consumption doesn't go up drastically if sizeimage is
+> set 0 by user. I saw this was the common equation in rockchip and hantro
+> driver.
+>=20
+> Link to uAPI requirement: https://docs.kernel.org/userspace-api/media/v4l=
+/pixfmt-v4l2-mplane.html
+>=20
+>  .../media/platform/chips-media/wave5/wave5-helper.c  | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/chips-media/wave5/wave5-helper.c b/dr=
+ivers/media/platform/chips-media/wave5/wave5-helper.c
+> index c3d34be833ff0..384a0a9aac3ae 100644
+> --- a/drivers/media/platform/chips-media/wave5/wave5-helper.c
+> +++ b/drivers/media/platform/chips-media/wave5/wave5-helper.c
+> @@ -7,7 +7,10 @@
+> =20
+>  #include "wave5-helper.h"
+> =20
+> -#define DEFAULT_BS_SIZE(width, height) ((width) * (height) / 8 * 3)
+> +/* Smallest bitstream buffer accepted when the client provides a sizeima=
+ge */
+> +#define MIN_BS_SIZE(width, height) ((width) * (height) * 3 / 8)
 
-Looks fine, but please follow the example of all other recent similar
-patches and include the EDID in the commit message. Thanks!
+Does that change put us at risk of integer overflow ? I just don't remember=
+ the
+max width/height, but please do that math to be sure.
 
--Doug
+> +/* Worst case: Allocate bitstream buffer size based on resolution and ma=
+x depth */
+> +#define DEFAULT_BS_SIZE(width, height) ((width) * (height) * 2)
+
+Should be adjust based on the sub-sampling and depth? We could use 12 and 1=
+5 bit
+for YUV420, and then 16 (what you do now) and 20 for YUV422. Though, as far=
+ I
+remember, 10bit has not been included as the TI hardware it was tested on d=
+idn't
+have it.
+
+> =20
+>  const char *state_to_str(enum vpu_instance_state state)
+>  {
+> @@ -261,8 +264,11 @@ void wave5_update_pix_fmt(struct v4l2_pix_format_mpl=
+ane *pix_mp,
+>  		pix_mp->height =3D height;
+>  		pix_mp->num_planes =3D 1;
+>  		pix_mp->plane_fmt[0].bytesperline =3D 0;
+> -		pix_mp->plane_fmt[0].sizeimage =3D max(DEFAULT_BS_SIZE(width, height),
+> -						     pix_mp->plane_fmt[0].sizeimage);
+> +		if (!pix_mp->plane_fmt[0].sizeimage)
+> +			pix_mp->plane_fmt[0].sizeimage =3D DEFAULT_BS_SIZE(width, height);
+> +		else
+> +			pix_mp->plane_fmt[0].sizeimage =3D max(MIN_BS_SIZE(width, height),
+> +							     pix_mp->plane_fmt[0].sizeimage);
+>  	} else {
+>  		v4l2_fill_pixfmt_mp(pix_mp, pix_mp->pixelformat, width, height);
+>  	}
+
+This is overall an improvement for userspace that is not picking a size, so=
+ in
+any case:
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
+regards,
+Nicolas
+
+--=-fR05QOiHm7Ab/PiRZ46L
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCatZllQAKCRDZQZRRKWBy
+9PuQAP4u43q21p62RL/xpnhjv3g+Yw7nND0OOmWXaxG8okzuYwD/YLIymZqG+bTn
+4x0mw6ZS3kdg5E3571Hr+MlXFSvsLQQ=
+=r/WP
+-----END PGP SIGNATURE-----
+
+--=-fR05QOiHm7Ab/PiRZ46L--
