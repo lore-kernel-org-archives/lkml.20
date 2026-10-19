@@ -1,82 +1,93 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA153DEAE3
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039363E8C70
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792397164; cv=none; b=mUEDmESaapgxC/eNWUWtL97vTwLH36xYUwT4xVS/Wpn6wQLxK9QPtev1PXH8JXQmU7fuFhK8KgzxwGLczsjofaXviKEAiXAd1rGgpiH8S0isz42qpT5sNb8kggBGjPLiXcic3DYUNvPuDiTrhz0TpWcs3J/HGBGwVhUZ2e+vJSI=
+	t=1792397194; cv=none; b=FdEIp08CgaMHQXsVjkl1KiQ+AuaO2DebjEHbzskJNrRkKp8YBt26fgURQTrUgmoxQwLMHgcQh9I7z463TLcN2eGQyXSqfw5Hv/U9NFTm68APN9PiAr41XNZHJzipHAYJxCb3mZT+DEnQp+vXCr960BwslVw78DTd3weVRY+BytU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792397164; c=relaxed/simple;
-	bh=10VSFqHZKbVqeMTxWAn9JCH1fTHbqXXOw9U9JkQuUT0=;
+	s=arc-20240116; t=1792397194; c=relaxed/simple;
+	bh=FY0qcanD1yswML7l/dRsnVFaY2lJmQx9u8YM3zGuotM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ACpa2tvnVeYDvyOwT69XvZlFQL1d/S8Cr2Pon86rF28ZttIRtkAUTQAMCnsB/kZhDE5IBvrG6uKWCeBHe5xXkcr8don/7La7/KIRX8Bh6hUIvMY/tH4T4iOroWuisyuqODl2kUQNuc7GiTWSoyPoyPpbO3Al7VeEi2HZNIJdgY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=WI0/0niG; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=UIq89lQ3BfNiyFzYtfZwvvG++RegdV7qqP9e70T4TpWUuwKRu2/cz3xVLTC9VuXfUsp0oKDNHYWfFSp4quZoq05BANIfB+N4VC0/+1e62wsXnOva+RdwaraMPOjd/PM75qfz7WlejWbtl8Ofw+973nhIILKVr4BCAg1d6/SQxnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=c8fWEbwz; arc=none smtp.client-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="WI0/0niG"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c20ce3c118aso331297166b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:06:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="c8fWEbwz"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-169be2dfbacso6611c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:06:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792397161; x=1793001961; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792397192; x=1793001992; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4OS48Qr0CZvLG5JGazX9ZFM2Vl3rE95sPji6iuRYp1w=;
-        b=WI0/0niGa21B5+WZeEX5IBwiWTGgDJ3hTESN7tfk+RGhdcF950yU87Oq9wSxOGHRgj
-         e8aV+Ly9b282k5Izn21xzrmo/3PLHS4YH5peSuuNVi+o2uQlYvdemm0de4bwpkM8Vyhu
-         9aYj2NC+Fs8D7kgIFi8YD2EBpJn3rdbwejRWGD6TJA4BC3k05OOK8uJMhEsLilHLqO04
-         NUkPqI/VmgaLNKSwNK0LUMaUklIne3NBjQVxCSqVUUIUQHWaKNvAWDYl2CIpYEozkZU/
-         e49biOZd56OcB4i1T8UPsG3AkDbQ0EFF/S+odzp7pS1FRlmMr408sjgwguFd5AybPB2Z
-         eLmw==
+        bh=zKlllSkaDqzD1U/0lTr5RBP4KobTu9kcdCFVa+N+5rc=;
+        b=c8fWEbwzCRQB00rQILKwPKPJKuV/JB8Z1yNEf7xZLjXdw4Qc9JZY0InayBST807xyI
+         aCDKFyinjdNVfraJ5AFygI5NpPrD2+/RIo6ZTsZ9sc/RKu/rBKbvN954KogShKVbvC54
+         h4uRFIqUqnqYiqtLezZ6DA7AH/e8Hf1wnLGfSCNV8pHYbBTTAutOoCHDCAPXkwl6Gv7o
+         +Logu2Frqgz1O87B4EUXC+pni4yz8t4jA+HCiEgCGPiERjzBctWkYRiWfKmndlRHadxa
+         xXs0l+LV0UcBZvzOIYR2B+/ew0dRhW3eHDIU4L4boAWCoqU1clheo8YW8EfCP09Hs8Ce
+         k7zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792397161; x=1793001961;
+        d=1e100.net; s=20260707; t=1792397192; x=1793001992;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4OS48Qr0CZvLG5JGazX9ZFM2Vl3rE95sPji6iuRYp1w=;
-        b=DOCT3QvpOdx3TqHqzD6ahPUlVh7ixYDi3L5S+xjHs26nK10sOaczMfjO+/XfFwajan
-         OtV4EOaHm6fBbfLzN76YQbia/m9gd7nLL+hpyScQ8qQMEr4Z4Rs6GCQ3grg6/qzW0MSs
-         V+cVNx/KwQQeWOyMKIbHTQqXdbKO93PeI5t5SrYhtWWAJ1JPGonS/sUH8lRc3fgYKL9I
-         SK0CJLw8gIAv/UuNeMTiUTumFq/HuvOF1c8rKPm/YQOXAMJUzLs+m/gu7uFcqSAuq+G0
-         eEnB7X3AchwqUjrzLvqybQAYkfaNFFScU3t3d0rlsNZBEBKBGG7ydnc8m1higErA/Kk3
-         faiA==
-X-Forwarded-Encrypted: i=1; AKwUvBzmPZdZ8PZI1FjpG2iohtKQdpeXa3mk0YvzpsFBZkCUbCOspFT3OyU+frzaUFUz1WGM67NKtCNQbIkvZhc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5h4YB7yI94iNPGjP5/LxKbp+D4QDEWQg5pwjD9JmCvZOzwOQ6
-	LtBge/LLKhXNYAgFXeF3LmdRxN4SIzOBtO2wowQIj/Ricoj9bZ+rMpRKb/WOBdXvUeA=
-X-Gm-Gg: AYBFou3YFHHB79us62UBNKhCo9uLi/kdnG5NXKIBGCaqjTtehz/F+fzvHlFxrQ8iIAW
-	RpWSJDY7JtN2wKkjBAUnkKjeMABCTTp9Z36qhHvzFzyXLAZBMVR9akubUzfNJRzBmpXJDfVLT/q
-	KwRgArybmIdObPYkVBViL9ndBKwFQqCfT7OdN+X/34Xe7z2WX0IF97PpdyTXQw/wKF1GGzI2nuW
-	1gQnB5MOwa9qK5l1u41eGW//rwvXPjgnIFCznCglNUBqswXxQAh7Lidjzr7QCbmip71MS0Ttqe0
-	AOwHfHnwZTcQ9K6oiddNXrezG2qxXEmSyMm9tHRIgTKSMe+mix7WMiW4S6Azs58q8gfq76Ig1yG
-	hYbBndx89KYDT2z+Iy+w1YbxMUrAiotvLBuQAD/6hgbCTKtoUOjgTIeN6uwkOurUCCJ9Xd9oMCF
-	tUDNJT3Kp0Asc6XSyn7vEjLMh6u+t7OKEn1zcjdYiHXJwPD7uIft7Bj34lUF2c+4ilZ/0i0DlMa
-	6yzyfyVhsfjhw==
-X-Received: by 2002:a17:907:72cf:b0:c2e:22f7:59c5 with SMTP id a640c23a62f3a-c40206fb12emr782141466b.7.1792397160793;
-        Mon, 19 Oct 2026 01:06:00 -0700 (PDT)
-Received: from localhost (109-81-30-108.rct.o2.cz. [109.81.30.108])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd5033a2sm21427563f8f.45.2026.10.19.01.06.00
+        bh=zKlllSkaDqzD1U/0lTr5RBP4KobTu9kcdCFVa+N+5rc=;
+        b=WxPwuBeH9rb53HBliBENaegvpyAHVPCPX1Erwyg+ZEVIUQmbIsiLJqwFtffGFs3dVS
+         NgfDMqK9ulPny+pZSPjykfMvRusGvlFp1mtP2hPHHl/qUQXByuy/Xf+15FnFkur97GpG
+         lSiYTqzdTGxXlYpiydZ6W8iq8l/Na93p1rvMx0jMCQg3SB+hDi5Ct+4hA+KMajHbLiUe
+         fo5zPz2bmNXBUy+IZuYPQxETLFeELOB2c7y4BhjjfVrVPoIv31j3VqC4rAt3hjH5oy63
+         FNrr2tbGMEJqpx1VJ3AOezR7TwQoXbK6Arv1Hqqd9wWySlG+W6KBid1OBfjhqA1R6FTO
+         cnDA==
+X-Forwarded-Encrypted: i=1; AKwUvBzCMJgBeH6TDLwxYYW/PysmiWNFOtXnjdbt8HQ8Um8GFHIgrqKbbeHUfnCD/R70JG5670Z45D+z/xyRVtE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBKkIdQN5xkVBybEF4dXODeqn6K4pm+p1Oz+Ocmznx5JC0n912
+	JH/VNOwECcrLPp5oIis8kSHXYfR4sM4e2D12IDaUCo2EoLWglh/bCntUBH1OPziiVg==
+X-Gm-Gg: AYBFou2KUOVbQ7UBLl6NeFu4JGZsYKswRtRiu0yrk5E/nbQMyrbT/FzvfmDMISL6Q/t
+	KVynOm0FRdZ+69g8UT+aCc3q/AyCsnx4q6efaoZRRilEt/+8E8yRBG4YtoXu08SWHgOhdBDIn5C
+	q6LltpjNnhXT7kT06kKSJcbCCrnbAp/V0MvMANtTdN3Cx/CalRkiVOp3eHXKJQJ98L+IQqg6SZA
+	lXMxayqBs4U7hS35xmGvOZwR70qudECwhRYKPMZMjFzhJz1K5k7gjFQBPK1fqFRZu3tLZpL6qDM
+	YbNiyLtZRfAp0ZK2USQsx9jSV987JdgDZtVeiy+WTraj953ourdJsghYg/t8M/HQ0/HsvyQ0/9y
+	NDCSh577gD1OYsEOySYY1eljnqOE7arLv4IgGtoiK1Y3BdEWpF3nlu7kTL0CsFOaqTOJM8NREq0
+	FTWa29W4Q79dgDiZmFYINZKGAfybQuAx/6U1p/jnOzJ2EKWEC2AXlnrBAn6VS+zW+brWkIgBy63
+	MJRAtD6O6NdsXgNEzclA/0mFy5ZBdLm+MVcyLa0PI0piL0=
+X-Received: by 2002:a05:7023:d0c:b0:184:6afb:b26c with SMTP id a92af1059eb24-185b79b5548mr344812c88.18.1792397184354;
+        Mon, 19 Oct 2026 01:06:24 -0700 (PDT)
+Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082e81a06sm28999611eec.26.2026.10.19.01.06.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 01:06:00 -0700 (PDT)
-Date: Mon, 19 Oct 2026 10:05:59 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Alexis Bouzigues <BouziguesAlexis@johndeere.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] mm: nommu: set MMF_OOM_SKIP in exit_mmap()
-Message-ID: <atXPZ4QB7qoCt3di@tiehlicka>
-References: <20261013-fix-nommu-exit-mmap-oom-skip-v1-1-cb957cdbfcc3@JohnDeere.com>
- <as80Rpm-VHhP14aK@tiehlicka>
- <BY3PR05MB82607AF910C023253C48CD26A09D2@BY3PR05MB8260.namprd05.prod.outlook.com>
- <atB63fzpLyfWpzPn@tiehlicka>
- <BY3PR05MB826006B6F1E2D97E247104BFA09B2@BY3PR05MB8260.namprd05.prod.outlook.com>
- <atHKQFi0ckwxLa-P@tiehlicka>
- <BY3PR05MB8260C9F9055EB094183544A9A09A2@BY3PR05MB8260.namprd05.prod.outlook.com>
+        Mon, 19 Oct 2026 01:06:23 -0700 (PDT)
+Date: Mon, 19 Oct 2026 08:06:13 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, iommu@lists.linux.dev,
+	Will Deacon <will@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Daniel Mentz <danielmentz@google.com>,
+	Ashish Mhetre <amhetre@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rafael@kernel.org,
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev
+Subject: Re: [PATCH v11 11/16] iommu/arm-smmu-v3: Add CMDQ_PROD_STOP_FLAG to
+ gate CMDQ submissions
+Message-ID: <atXPdbcX0XADEdh7@google.com>
+References: <20260929034510.2023173-1-praan@google.com>
+ <20260929034510.2023173-12-praan@google.com>
+ <ar1yNtr7Kp2OTcDd@nvidia.com>
+ <ar3yWUmi8E0k37Ml@google.com>
+ <ar6gY9grmdMZcN/M@nvidia.com>
+ <20261002164748.GD3481470@ziepe.ca>
+ <asAeCz_rmpe5hbsh@google.com>
+ <asUvUf4PZJ7JCLXp@nvidia.com>
+ <20261017174912.GK14213@ziepe.ca>
+ <atO7jTV+XNReShT+@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,81 +96,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <BY3PR05MB8260C9F9055EB094183544A9A09A2@BY3PR05MB8260.namprd05.prod.outlook.com>
+In-Reply-To: <atO7jTV+XNReShT+@nvidia.com>
 
-On Sat 17-10-26 04:32:37, Alexis Bouzigues wrote:
-> On Fri, Oct 16, 2026 at 08:54:56AM +0200, Michal Hocko wrote:
-> > Correct. The question is why killing the child, which has passed
-> > exit_mmap stage sucessfully didn't help.
+On Sat, Oct 17, 2026 at 11:16:45AM -0700, Nicolin Chen wrote:
+> On Sat, Oct 17, 2026 at 02:49:12PM -0300, Jason Gunthorpe wrote:
+> > On Tue, Oct 06, 2026 at 10:26:41AM -0700, Nicolin Chen wrote:
+> > > > pci_dev_reset_iommu_prepare/done() pair (with slight refactoring) in EP's
+> > > > suspend/resume?
+> > > 
+> > > That sounds right to me, though a different API for suspend/resume
+> > > will be required. And call them in pci_pm_runtime_suspend/resume()
+> > > maybe.
+> > > 
+> > > Jason, how do you think about this?
+> > 
+> > Maybe lets just start by refusing power management when ATS is on? For
+> > PCIe devices too?
+> > 
+> > It isn't just ARM that has this issue, every iommu is busted if you
+> > suspend the PCI device while an ATS domain is still active..
 > 
-> There needs to be ongoing memory pressure otherwise the
-> parent's allocation succeeds and does not hit oom_kill.c or a livelock.
+> So, should we put that refuse guard in pci_pm_runtime_suspend()?
 > 
-> If there is memory pressure, then the allocation hits out_of_memory() and
-> then blocked in the __alloc_pages_slowpath/oom_evaluate_task retry loop.
+> I am thinking about splitting the iommu and pci patches out of my
+> smmmuv3_atc_timeout series. They could be get merged alone.
 > 
-> > a) a corner case of a valid nommu application or this is
-> >    a theoretical problem
-> 
-> I think it is mainly a correctness fix (see below). I have only hit it
-> with benchmarks, including the /init provided earlier from which I obtained
-> the backtrace. I encountered this bug initially while running a
-> benchmark to test memory reductions.
+> Then, we add a new API for pci_pm_runtime_suspend/resume() with a
+> new BLOCKED_SUSPEND reason in the list:
 
-Make sure you describe this in the changelog. Along with an explanation
-why this benchmakr matters or represent any real life scenario.
-Especially in the context of how oom situation on nommu is inherently
-fragile.
+The guard doesn't sound too bad, but what if we refactor the reset APIs
+instead and use them from the PCI core to disable ATS + flush the ATC
+right before the EP suspends, as discussed earlier? That'd fix it for
+every IOMMU without taking PM away from anyone.
 
-> > b) why this doesn't break otherwise very fragile nommu oom
-> >    handling
-> 
-> It does not break nommu oom handling because it places the flag only in
-> exit_mmap() right after the process has called the last delete_vma,
-> guaranteeing it has freed all of its private memory.
-> 
-> This flag is used similarly on mmu (mmap.c) and in previous versions of
-> nommu, until the Fixes tag 212925802454 ("mm: oom: let oom_reap_task
-> and exit_mmap run concurrently"). It took it away from the shared
-> __mmput() and only kept it in the mmu-only path (exit_mmap of
-> mm/mmap.c).
-> 
->   void exit_mmap(struct mm_struct *mm)
->   {
->           ...
->           unmap_vmas(&tlb, &unmap);
->           mmap_read_unlock(mm);
-> 
->           /*
->            * Set MMF_OOM_SKIP to hide this task from the oom killer/reaper
->            * because the memory has been already freed.
->            */
->           mm_flags_set(MMF_OOM_SKIP, mm);
->           ...
-> 
-> This change places it in the same exit_mmap() of nommu.c.
-> 
-> The MMF_OOM_SKIP mm flag comes from your commit a while ago
-> 862e3073b3ee ("mm, oom: get rid of signal_struct::oom_victims") and had
-> the same rationale for nommu to mark the pid's mm to hide the process from
-> oom killer:
-> 
->     After "oom: keep mm of the killed task available" we can safely detect
->     an oom victim by checking task->signal->oom_mm so we do not need the
->     signal_struct counter anymore so let's get rid of it.
-> 
->     This alone wouldn't be sufficient for nommu archs because
->     exit_oom_victim doesn't hide the process from the oom killer anymore.
->     We can, however, mark the mm with a MMF flag in __mmput.  We can reuse
->     MMF_OOM_REAPED and rename it to a more generic MMF_OOM_SKIP.
-> 
-> Let me know if this answers your questions!
+FWIW, AFAICT VT-d and AMD-Vi already enable ATS for ATS-capable devices
+attached to the default DMA domain, so a blanket refusal might end up
+disabling RPM for some internal devices (e.g. dGPUs / NVMe) that rely on
+it today.
 
-Fair enough. And now I see where the Fixes tag came from. This was a
-side effect of that change because oom victims are not hidden anymore.
-Would be good to clarify that in the changelog.
+On the PCI side, I could roughly:
 
-Thanks
--- 
-Michal Hocko
-SUSE Labs
+  - Base on Nicolin's split out iommu/pci patches (blocked reason list)
+  - Add a suspend flavour of pci_dev_reset_iommu_prepare/done() with a
+    BLOCKED_SUSPEND reason, i.e. RID/PASIDs parked on the blocking
+    domain, group->domain retained (so dma_map/unmap keep working),
+    ATS-capable devices only
+  - Call prepare() in pci_pm_runtime_suspend() after the driver's
+    callback but before D3, and done() in pci_pm_runtime_resume() after
+    D0 + pci_restore_state() but before the driver's callback. Same for
+    the system sleep (noirq) paths
+  - Keep the guard only as a fallback, i.e. -EBUSY the suspend if
+    prepare() fails
+
+That flushes the ATC while the EP can still respond and stops any new
+ATC_INVs to it. On the SMMU side, we'd then never see a suspended ATS
+master with ATS still enabled, so a WARN_ON_ONCE() at suspend would do.
+
+WDYT?
+
+Thanks,
+Praan
