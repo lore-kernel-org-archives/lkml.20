@@ -1,130 +1,258 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A963644C1;
-	Mon, 19 Oct 2026 11:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A024DA9D6
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411144; cv=none; b=etCo/T/ZI6D/gGgwC53ZggfOTdhOQi+OoX0llz+4jWhfcsodBBPji69IY51U6nCeAj/gXOlxrU1X6CmOyFsdKiZXI+WfUwQvafkQcsf+kDYeEkiR1oReK/Rj5etzqkAdMXqpy9Yb3XYEWdctZd8RmGvoIMmmOvAcCDH81HTvCwQ=
+	t=1792411155; cv=none; b=ZMjwFgQk15LBmhKKcPSKi/mNZMRIYF0EmvsUXQgy0XfrPSZ9lWahFS7bNqgY2BiSIYCvGAeavMZIVE/gKjzxrG9mut4w3BmO07YiKmoXnWP2pTCzFwrLWUPlcMr9U/XbD0o7S+ebKSkag0+OpbKLZDADrBjjsL77dS7rt3J/50E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411144; c=relaxed/simple;
-	bh=1P2yaxxJpP7qzNDDrXWV9ssvFit25736jZ5DTAdp9sk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ifrl/rGtGQxcel6jXopx04zrD9OJcqYCSuNbdjXD7P9rImi0fo+o9Fb8VTlDerTaSeo+yzmt1ASL5Nz58m1SYSuWxJIbkrgxow8bgpgKlYzekvbdhSTN7gumfX9g7BLDCNV/0Dhcb1S5SwFoFe5ZR9jX6SEAo+hYzFrpmt4PZm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WsRb9jq3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792411155; c=relaxed/simple;
+	bh=v2kbENe1Gg16GvJP/V2xAlfnNkYrM6uk/4A1vvTDCQw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P1FDLjyiccGFZDNVQd/Xt1ZZkxZQeDkszpLB0qg7JNqb2MGzlEM4tRyrZJf89Ts08rMOZHwjxSiQV9hGZ4PjJhCL3Fd3GS8LRUqOSKgoIIbUANcsuazJUP1xG8WGZytwpBQFJ4ED2z8yfC0rEpT4IdCNh2HA9jcr0OK5hyYTcSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s/VA0W+R; arc=none smtp.client-ip=74.125.231.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WsRb9jq3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9407C1F000C4;
-	Mon, 19 Oct 2026 11:59:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792411143;
-	bh=Zt72IrKC2ghWoNgvmBFIkIB7w0ruT8503Thne6gkNQM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WsRb9jq3OMzaMO/pcQGtFHkN0mVIeMmATtTOrkPk7C+SEFS5dtRlT1cHeVwroIB1a
-	 qGp12nTfeWbWBId1YLP5Mn/KrYbtXLHqbFFrieXWRXp+ZZ8rAj8aa2Otb3RkCBi/xD
-	 CWymOKqgFSKpSNKH+G6Nzl6joUx1zb/YgN3bcbEg6Yey0iVAywj3tG5y+gGy2XniVM
-	 c9CRx5D8HiF6XskcKIF8qT2Um2+KvnSKDJgsadYrvaQmsTOcZ761VvfK+uiJHzC+qc
-	 bdain2mpQOO3sIrvWL3GJw14Ywt9xuaRQnwe1hgm8mgy6urB65tX7mQ5UWQPbEnTrU
-	 O3JPpo1/vbhgg==
-Message-ID: <d8eeb6b8-70c0-4629-b140-34e283678c37@kernel.org>
-Date: Mon, 19 Oct 2026 13:59:00 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s/VA0W+R"
+Received: by mail-oo2-f4.google.com with SMTP id 006d021491bc7-70399d7f076so957735eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:59:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792411151; x=1793015951; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2YosuWQAMqgNnl5wsrtp23mKOAS1Y5WXgHfA79f3F4k=;
+        b=s/VA0W+RWEwBfpwDXyPrMsig8sxTan6aJb7bJQCo7L9KtJOC1SQwEb97fz0OQ7HJLc
+         Z0yW4o7lwM2PeKk9ZC/t3AjJvK5XSpAyYSYypSWU3V4Ym7y0m2+v+SCcoqNy4amybOoX
+         7HlUxfBkEvDLs7U7TxhSg1Io/NN9795Jh9VZpImGaFWz9CP1ssXKJ4Ml7RSaQv5qDhOB
+         fE3767prkceZvwU6IqZz30A23TnZ+qnVTwxr5BZhsh0qFHcUPXlAHTIjM1IENt/4/sxo
+         ynrpd7d535P0mM6I2BIbgN0yCIpu/X8YwBsI5jW4ODRya0ClHWvUhlOjm8DYkQKeCiEs
+         vIAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792411151; x=1793015951;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2YosuWQAMqgNnl5wsrtp23mKOAS1Y5WXgHfA79f3F4k=;
+        b=O5YV3xe0Mb94NSKTYi9jEP09gxxLSRQqSqv/z/zvssigm1pYzaZivRYSySihaDzNiT
+         AgFCJBviPFe+VjB9IclIWt7yYTK16bbCUHctfexNIUg4V1NaPwYUaW3DSXRO+t9/lzmA
+         KQ0mSOPi4tBKHBdkrgmgbBfZ33kqQTKix41s2YgEl5a5czywkkiiZxFwr0fp9dfahnKD
+         x+di+L7jWIaNzEGFg+e6hvUI5AhdWyUNtgyqhVN9U7sUXACGZT8sVylfnYHWs6WmJGpO
+         R7q8ZD09cQO5PRF0DHeXeeB9OdAaTh9nNjPcYxst2ZMzssGVi7OVG8l/targIpbpg57T
+         C93g==
+X-Forwarded-Encrypted: i=1; AKwUvBz9RMKeeAU9ZZ0lY8Xmf0yBBG++NhEwH7djqkbn31mRZtjIjcCDCdQsS3pW8zvRBXcMIxZZeggup7UYVlA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIma8tKue/4QT/uciqjRf2reWiOp+RNVoBFZKTkkOWJq9zMTDhV
+	EMSA2Zy6rQ9DxjrFfK51M532wA08ryEoymEETSYlZgcPfsIf3yfZlhnt
+X-Gm-Gg: AYBFou1DRBtp/bkFY9O2PFrZMoD1Y4kAgq4AHOEcHq9B0H/KYnYHX5UkfQig2SdRPqs
+	tHoVb9TO8ENxvedX5xwDDSCd/pZX0jhH/cvzSnATOsZIQepGTOvz1VW0CX2bqFkueIPfKwA7YOB
+	voe3SIog3iawY2T5TKF6Hug3PzuY1w6LXvpGGthsvtOuU55JUdxGLKobpF/RFnT11W7eE6RPdfM
+	+tBPtQ1BqKmDw4ljcU7o87clZ2vs8vjTRzPJFZcxtYpLKiXeZVhdYI3/WUMaBgAY2eHTlqLGEYI
+	O1UA4YuHHlEcqJmgXc+A6DKRt/Ew/AWWDOB883eN9fgXgjKYq7g4+seu1Dw9S0jL0EVwoMSrmZu
+	OKct50Dt0nWLI2he9YSSoLuDgu3hdrkiouKSfAzrarWGIsx23PMuxpE2YLGgbJwJMRv8u9QM8e6
+	wuvG3ZcF1hVrbZAvadRDi4Wdz3zwx6D635ZbT21spaw/jijxJEj6WMviXf7gvYARvxAdKbekoug
+	qOQdaJfUYjHEzyAkMPAQ7VEgQPvmTmY1P8PFg==
+X-Received: by 2002:a05:6820:168e:b0:6fd:4277:16dc with SMTP id 006d021491bc7-703559911aamr4763075eaf.20.1792411151233;
+        Mon, 19 Oct 2026 04:59:11 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.37])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-701900719c6sm7602973eaf.11.2026.10.19.04.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 04:59:09 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Jon Maloy <jmaloy@redhat.com>,
+	Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Ying Xue <ying.xue@windriver.com>
+Cc: netdev@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4] tipc: fix broadcast sender hang on last acker departure
+Date: Mon, 19 Oct 2026 19:58:59 +0800
+Message-ID: <20261019115859.3471295-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <AM7P189MB113757F05921D6EAE994B0BEC6982@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
+References: <AM7P189MB113757F05921D6EAE994B0BEC6982@AM7P189MB1137.EURP189.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] block: annotate lockless task ioprio accesses
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
- Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+feeb9b5352b9ff89618a@syzkaller.appspotmail.com
-References: <20261018071636.79198-1-ngocthang2710.1999@gmail.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261018071636.79198-1-ngocthang2710.1999@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2026/10/18 9:16, Nguyen Ngoc Thang wrote:
-> __get_task_ioprio() reads task->io_context and ioc->ioprio without
-> task_lock() when called on current, e.g. from init_sync_kiocb() on every
-> write.  set_task_ioprio() can update both for another task at any time,
-> including the first publication of a new io_context.  KCSAN reports it:
-> 
->   BUG: KCSAN: data-race in __kernel_write_iter / set_task_ioprio
->   value changed: 0x0000000000000000 -> 0xffff888109813730
-> 
-> A stale or torn value is harmless, a task simply gets the old or new
-> priority, but the compiler may tear or refetch the accesses and the
-> io_context fields must be visible before the pointer is.
-> 
-> Publish the pointer with smp_store_release(), read it with READ_ONCE()
-> (address dependency orders the ioprio load), and mark the ioprio
-> accesses.
-> 
-> Reported-by: syzbot+feeb9b5352b9ff89618a@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=feeb9b5352b9ff89618a
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
-> Tested with a KCSAN kernel in QEMU. syzbot's coredump repro is too slow to hit
-> the window, so a thread loops pwrite() on a tmpfs file while the main thread
-> does the first ioprio_set() on its tid (~35k iterations per run). Same pair,
-> same "0 -> pointer" value change: 26 reports per run before, 0 in two runs
-> after. No Fixes: tag, the history I have is grafted.
->  block/blk-ioc.c        | 5 +++--
->  include/linux/ioprio.h | 5 +++--
->  2 files changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/block/blk-ioc.c b/block/blk-ioc.c
-> index d15918d7fabb..12ddc672f41d 100644
-> --- a/block/blk-ioc.c
-> +++ b/block/blk-ioc.c
-> @@ -277,9 +277,10 @@ int set_task_ioprio(struct task_struct *task, int ioprio)
->  		if (task->io_context)
->  			kmem_cache_free(iocontext_cachep, ioc);
->  		else
-> -			task->io_context = ioc;
-> +			/* Pairs with READ_ONCE() in __get_task_ioprio() */
-> +			smp_store_release(&task->io_context, ioc);
->  	}
-> -	task->io_context->ioprio = ioprio;
-> +	WRITE_ONCE(task->io_context->ioprio, ioprio);
->  out:
->  	task_unlock(task);
->  	return 0;
-> diff --git a/include/linux/ioprio.h b/include/linux/ioprio.h
-> index 5210e8371238..56371e9ea306 100644
-> --- a/include/linux/ioprio.h
-> +++ b/include/linux/ioprio.h
-> @@ -56,7 +56,8 @@ static inline int task_nice_ioclass(struct task_struct *task)
->   */
->  static inline int __get_task_ioprio(struct task_struct *p)
->  {
-> -	struct io_context *ioc = p->io_context;
-> +	/* Paired with smp_store_release() in set_task_ioprio() */
-> +	struct io_context *ioc = READ_ONCE(p->io_context);
+TIPC group broadcast senders are blocked while a replicast still has
+outstanding member acks: tipc_group_bc_cong() returns true as long as
+grp->bc_ackers is non-zero, and clears *grp->open, which is what
+tipc_poll() uses to report EPOLLOUT (via tsk->group_is_open).
 
-How does this help with the ioc dereference below? By the time we access
-ioc->ioprio without task_lock() held, ioc could have been freed already, no?
-So it feels like this should be using rcu.
+When the last outstanding acker departs before acking,
+tipc_group_delete_member() decrements grp->bc_ackers to zero but
+never restores *grp->open.  As a result poll(EPOLLOUT) never fires
+again.  A writer blocked in sendmsg() is only released if some other
+wakeup happens after the deletion: with TIPC_GROUP_MEMBER_EVTS the
+leave event delivery calls sk_data_ready() and wakes it, but without
+member events nothing does and it sleeps indefinitely, since the
+default send timeout is MAX_SCHEDULE_TIMEOUT.
 
->  	int prio;
->  
->  	if (!ioc)
-> @@ -66,7 +67,7 @@ static inline int __get_task_ioprio(struct task_struct *p)
->  	if (p != current)
->  		lockdep_assert_held(&p->alloc_lock);
->  
-> -	prio = ioc->ioprio;
-> +	prio = READ_ONCE(ioc->ioprio);
->  	if (IOPRIO_PRIO_CLASS(prio) == IOPRIO_CLASS_NONE)
->  		prio = IOPRIO_PRIO_VALUE(task_nice_ioclass(p),
->  					 task_nice_ioprio(p));
+Commit 99cc2a62e07a ("tipc: reject invalid and unexpected
+GRP_ACK_MSG to prevent bc_ackers underflow") already calls this out
+in its changelog as a pre-existing issue.
 
+Restore the open state exactly on the 1->0 transition in the delete
+path, mirroring the GRP_ACK_MSG completion path, and invoke
+sk->sk_write_space() from tipc_sk_filter_rcv() when the group just
+became writable again.
 
+Also make the ack accounting precise.  The delete path used to test
+less(m->bc_acked, grp->bc_snd_nxt - 1), which also matches members
+that were never counted for the current replicast (JOINING/LEAVING
+members keep a stale bc_acked), and the GRP_ACK_MSG handler accepted
+an ack from any member whose bc_acked differed from the expected
+value.  Either could zero bc_ackers on behalf of a member that owes
+nothing and silently void an ack still owed by a real acker.  Track
+whether a member owes an ack for the current replicast in a new
+per-member bc_pending flag, set when the member is counted and
+cleared when its ack arrives, and use it both to accept an ack and
+to decide on deletion.  bc_acked has no remaining user and is
+removed.  Suggested by Tung Quang Nguyen.
+
+This issue was discovered by Tencent CodeBuddy Security.
+
+Cc: stable@vger.kernel.org
+Fixes: 2f487712b893 ("tipc: guarantee that group broadcast doesn't bypass group unicast")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+
+v4: Assign bc_pending inside the receiver loop body in the simple
+    form requested by Jon Maloy (m->bc_pending = ack); bc_ackers==0
+    implies no member has bc_pending set (a pending flag is cleared
+    either by the member's ack or by its deletion), so skipping
+    non-receivers cannot leave stale state.
+
+v3: Correct the changelog: tipc_group_bc_cong() only writes *grp->open,
+    and a blocked sendmsg() hangs only when nothing wakes it after the
+    deletion (e.g. member events disabled); also require bc_pending
+    in the GRP_ACK_MSG handler so an uncounted member cannot decrement
+    bc_ackers, and drop the now unused bc_acked field.
+
+v2: Subject no longer claims a leak; add the reproduction; the delete
+    path now discriminates members that were actually counted for the
+    current replicast via a new per-member bc_pending flag instead
+    of comparing a possibly stale bc_acked (Tung Quang Nguyen).
+
+Reproduction (two QEMU guests, TIPC over UDP bearer, groups joined
+without member events; the acking peer withheld GRP_ACK_MSG via a
+test-only knob to emulate the lossy peer, the sender's kernel ran
+unmodified TIPC):
+
+    UNPATCHED (#88/#90, fix absent):
+      sender:  NO POLLOUT for 30s after member departed -> STALL
+      sender2: R2 NEVER returned in 32s (blocked writer not woken)
+    PATCHED (#89, v1 of this patch):
+      sender:  POLLOUT at t=18.5s, when the leave event was delivered
+      sender2: R2 returned at t=18.6s, EHOSTUNREACH on now-empty group
+
+ net/tipc/group.c  | 19 ++++++++++---------
+ net/tipc/socket.c | 12 +++++++++++-
+ 2 files changed, 21 insertions(+), 10 deletions(-)
+
+diff --git a/net/tipc/group.c b/net/tipc/group.c
+index 74f6d3dac0784..0c6a762000b02 100644
+--- a/net/tipc/group.c
++++ b/net/tipc/group.c
+@@ -74,7 +74,7 @@ struct tipc_member {
+ 	u16 window;
+ 	u16 bc_rcv_nxt;
+ 	u16 bc_syncpt;
+-	u16 bc_acked;
++	bool bc_pending;
+ };
+ 
+ struct tipc_group {
+@@ -316,7 +316,6 @@ static struct tipc_member *tipc_group_create_member(struct tipc_group *grp,
+ 	m->node = node;
+ 	m->port = port;
+ 	m->instance = instance;
+-	m->bc_acked = grp->bc_snd_nxt - 1;
+ 	ret = tipc_group_add_to_tree(grp, m);
+ 	if (ret < 0) {
+ 		kfree(m);
+@@ -340,9 +339,12 @@ static void tipc_group_delete_member(struct tipc_group *grp,
+ 	rb_erase(&m->tree_node, &grp->members);
+ 	grp->member_cnt--;
+ 
+-	/* Check if we were waiting for replicast ack from this member */
+-	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1))
+-		grp->bc_ackers--;
++	/* If this member owed an ack for the current replicast and it
++	 * was the last one, restore the open state so blocked broadcast
++	 * senders can proceed.
++	 */
++	if (grp->bc_ackers && m->bc_pending && !--grp->bc_ackers)
++		*grp->open = true;
+ 
+ 	list_del_init(&m->list);
+ 	list_del_init(&m->small_win);
+@@ -394,7 +396,6 @@ void tipc_group_update_member(struct tipc_member *m, int len)
+ 
+ void tipc_group_update_bc_members(struct tipc_group *grp, int len, bool ack)
+ {
+-	u16 prev = grp->bc_snd_nxt - 1;
+ 	struct tipc_member *m;
+ 	struct rb_node *n;
+ 	u16 ackers = 0;
+@@ -403,8 +404,8 @@ void tipc_group_update_bc_members(struct tipc_group *grp, int len, bool ack)
+ 		m = container_of(n, struct tipc_member, tree_node);
+ 		if (tipc_group_is_receiver(m)) {
+ 			tipc_group_update_member(m, len);
+-			m->bc_acked = prev;
+ 			ackers++;
++			m->bc_pending = ack;
+ 		}
+ 	}
+ 
+@@ -800,9 +801,9 @@ void tipc_group_proto_rcv(struct tipc_group *grp, bool *usr_wakeup,
+ 		if (!m || !grp->bc_ackers)
+ 			return;
+ 		acked = msg_grp_bc_acked(hdr);
+-		if (acked != grp->bc_snd_nxt || m->bc_acked == acked)
++		if (acked != grp->bc_snd_nxt || !m->bc_pending)
+ 			return;
+-		m->bc_acked = acked;
++		m->bc_pending = false;
+ 		if (--grp->bc_ackers)
+ 			return;
+ 		list_del_init(&m->small_win);
+diff --git a/net/tipc/socket.c b/net/tipc/socket.c
+index d5d70eb230b56..65cc0c4964b31 100644
+--- a/net/tipc/socket.c
++++ b/net/tipc/socket.c
+@@ -2356,8 +2356,18 @@ static void tipc_sk_filter_rcv(struct sock *sk, struct sk_buff *skb,
+ 	if (unlikely(!msg_isdata(hdr)))
+ 		tipc_sk_proto_rcv(sk, &inputq, xmitq);
+ 
+-	if (unlikely(grp))
++	if (unlikely(grp)) {
++		bool was_open = tsk->group_is_open;
++
+ 		tipc_group_filter_msg(grp, &inputq, xmitq);
++		/* A departing member may have held the last outstanding
++		 * replicast ack, which can restore the open state inside
++		 * tipc_group_filter_msg(); wake up senders blocked in
++		 * poll()/write() if the group just became writable.
++		 */
++		if (!was_open && tsk->group_is_open)
++			sk->sk_write_space(sk);
++	}
+ 
+ 	if (unlikely(!grp) && mtyp == TIPC_MCAST_MSG)
+ 		tipc_mcast_filter_msg(net, &tsk->mc_method.deferredq, &inputq);
 -- 
-Damien Le Moal
-Western Digital Research
+2.43.7
