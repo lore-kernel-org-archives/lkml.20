@@ -1,83 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-115.ptr.blmpb.com (va-2-115.ptr.blmpb.com [209.127.231.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC412701B8;
-	Mon, 19 Oct 2026 07:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1882701B8
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792393850; cv=none; b=VUoZ0TXCxfsgvj/Jri1pPk2dqgGhvwbmYm8LRHY1hU0silhqMz5bM5Y1r/qhwrCX4rNOj3D9hmt2FOxqH/HmBQnEQpfZ51vCPhhbqvrHEpPj3lyNRUG0o5dZDfjqX+fGave3oRdzHR50rcuAvagObV5NeYvn9dhPNYWdcB+/PNM=
+	t=1792393871; cv=none; b=QL80NV5y9TzU+WkYvGoK/vQIScv/fXTivBq+Z7cM6yGSkZ3qOPl8Texhu/uTj1R9G5NPMtsNWEDUYEHQaKpgW/msZlX+GrlrWHdHi2mgg86PdN31VnB6aRCPKZQUkt8tuEXYeDwTnAiDyltcKOy+VSUq1CJUUFl/vL5cEN8wuLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792393850; c=relaxed/simple;
-	bh=w91k1QsKRkrtOeUpf3w7FWHdc9ZLG8doEONCwCERito=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nuuhGYpRjfiW/oa9mkkoA7YUJtYF2afDTU/DhzgBzp35sOiYc3d0b0w2Ju7Lq84ZE8XlkMV6kpmw1Y71e3crtFc4hrshBSvoG4+LbYoB2iAYW7Ilu+mwlyiwzBafpExuPdpbU5LPohJq1cM+lqHSfdiNBxhij3VFMnK82JHUddI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nXTb5rrh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792393871; c=relaxed/simple;
+	bh=oqimCLVgz/o8GpIucRoOPUuoH44Ba2QAp45QgclHUd4=;
+	h=From:Subject:To:Cc:Date:References:Message-Id:Mime-Version:
+	 In-Reply-To:Content-Type; b=GPNsFdfl95LIrrUmuaX46FXBhIj9gbX63hWjZU7tUlnTqlPX2gZdxXaw3d6hT/YojL0Z7ohzuBWgZ9hSwZsrQcr2pf8DWa3P78Vx3CfW+DBvfOW00MjC/zq+vAFv5/iPxyQ7VClHsstAOVgT/fiecwTgNGUc1IdFJfBPQ73ueV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=kYdDaaBI; arc=none smtp.client-ip=209.127.231.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nXTb5rrh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70FE61F000C4;
-	Mon, 19 Oct 2026 07:10:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792393849;
-	bh=iwXXc6E0ACOnd4/DDvcelYvl1dfFyQdOSpned7ICjQ0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nXTb5rrhH+KebbOEeF3fmeeH4VjyxBY0J6wmXjvlCrhcheIkVj/2Q+8ICwLRulY3Y
-	 RbcW90N+zAxElmoHLwgK8shnmrXvUJxRnFMJpZQvfYer6pdOD43I3PPn8RD+QOsCj0
-	 b1auBFGCu/20rPTfNt+zsBrME67H7ko9aXZOiXsgZfR9BYb6OLtVUSZb71ZgwatXY7
-	 uGNrBYe2OShivP+2usfUJm1LD54JIKYErqlfUJDKm3ogV+IjlSDwOZjSDd23fNfGWK
-	 7nySOn+7v5W0q2DwlV3qxB2rKVaoZtWQBwyGikO6iTX1RBi7wiJIil2dB9psUi4Grc
-	 QmB2CH/ugYDnQ==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xIhWB-00000008Fcu-0oLD;
-	Mon, 19 Oct 2026 09:10:47 +0200
-Date: Mon, 19 Oct 2026 09:10:47 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] greybus: operation: arm the timeout timer before
- sending the request
-Message-ID: <atXCd0ywMCTDi_5J@hovoldconsulting.com>
-References: <20261018151340.62626-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="kYdDaaBI"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792393858; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=nHPmq2WlguBeJi/Zj2mPBIP3oN0WpTMEjCrzt8cxejQ=;
+ b=kYdDaaBIfWRuIzxcg9Q27am+d8SfQhR1+Xe5N7UeU1EaXVHXxZUNOkF7LNGv53aB5xbtRV
+ eViyCiVMIITcqGOSPEExrLjWvhSAiXXWPYz+Tgp2l0fV5ou8Ck1UaP3WWJTntjEUrzKrfD
+ DvRfb4mMf1BV8ki11qC9P874LcVg0Y6FeagbNoqAZ/tGH603z/vZ9BsCZzPBn0Ze1gmTPx
+ NSjmt6NsCbIuB1KKat/+c/17oxlKWpsXHmVQUCtJUJK6j9oGUhZr5VyurRqzpW/PYieIQm
+ 8NXZWiseRxlbjYXAPSF+dGGdmxB3h1yRbi3Zhdj0kIvv85p0RgwJzhgweSX15A==
+From: "Qi Zheng" <zhengqi.arch@bytedance.com>
+Subject: Re: [PATCH 3/5] mm: hugetlb: track CMA reservations by page order
+Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+	"Qi Zheng" <qi.zheng@linux.dev>, <muchun.song@linux.dev>, 
+	<osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
+Date: Mon, 19 Oct 2026 15:10:40 +0800
+References: <cover.1792136742.git.zhengqi.arch@bytedance.com> <57cd5cac5e2749cba24c502bcd9682ad8b9f2bcd.1792136742.git.zhengqi.arch@bytedance.com> <ac34f212-2e51-4298-a281-9380fb0d073c@gmail.com>
+X-Lms-Return-Path: <lba+26ad5c280+b8a6c3+vger.kernel.org+zhengqi.arch@bytedance.com>
+Message-Id: <61c88ac2-43e9-4e78-98c4-a1879da6f79e@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261018151340.62626-1-ngocthang2710.1999@gmail.com>
+Mime-Version: 1.0
+X-Original-From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <ac34f212-2e51-4298-a281-9380fb0d073c@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 
-On Sun, Oct 18, 2026 at 10:13:40PM +0700, Nguyen Ngoc Thang wrote:
-> gb_operation_request_send() sends the request message and only then arms
-> the operation timer. The host driver can complete the operation before
-> add_timer() runs, e.g. when the transfer fails right away. The completion
-> work then calls timer_delete_sync() on a timer that is not armed yet,
-> the synchronous caller wakes up and drops the last reference, and
-> the operation is freed while the timer is still pending:
+Hi Jose,
+
+On 10/18/26 2:41 AM, Jose A. Perez de Azpillaga wrote:
+> On 10/16/26 12:07 PM, Qi Zheng wrote:
+>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>
+>> Prepare for a separate CMA pool for PMD-sized HugeTLB pages by organizing
+>> CMA areas and reservation parameters into pools identified by page order.
+>>
+>> Select the corresponding pool for allocation, CMA-only checks and
+>> boot-time allocation decisions. Release folios through the CMA area that
+>> owns their physical memory, including after demotion.
+>>
+>> Record each pool's successfully reserved capacity. Remove
+>> hugetlb_cma_validate_params(), since the per-pool CMA-only check already
+>> handles missing or empty pools.
+>>
+>> Continue accepting only the architecture's existing CMA page size and
+>> preserve the default pool's use by all gigantic sizes. PMD-sized pool
+>> support will be added in a subsequent patch.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 > 
->   ODEBUG: free active (active state 0) object type: timer_list
->           hint: gb_operation_timeout+0x0/0xc0
->   WARNING: lib/debugobjects.c:629 at debug_print_object+0x198/0x2b0
->    kmem_cache_free+0xfd/0x6d0
->    gb_operation_sync_timeout+0x1c7/0x270
->    gb_svc_process_deferred_request+0x5f3/0x1150
+> [snip]
 > 
-> Arm the timer before the message is sent. If sending fails, delete the
-> timer again. If it has already fired, its work is queued and drops the
-> active and operation references itself, so the error path must not drop
-> them a second time.
+>> +static struct hugetlb_cma_pool hugetlb_cma[HUGE_MAX_HSTATE] __ro_after_init;
+>> +static struct hugetlb_cma_config hugetlb_cma_config[HUGE_MAX_HSTATE] __initdata;
+>> +static unsigned int hugetlb_cma_nr __ro_after_init;
+> 
+> the commit message prepares for one more pool, the PMD one, and
+> hugetlb_cma_pool() folds every gigantic order into the default pool.
+> would a fixed pair work instead of an order-keyed array?
 
-Fixing this is going to be a bit more involved, for example, as you now
-have to deal with the request message potentially being cancelled before
-it has been submitted.
+Do you mean keeping two fixed pools, like this:
 
-Sashiko also flagged this, and some other implications:
+enum {
+	HUGETLB_CMA_DEFAULT,
+	HUGETLB_CMA_PMD,
+	HUGETLB_CMA_POOLS,
+};
 
-	https://sashiko.dev/#/patchset/20261017171743.24612-1-ngocthang2710.1999%40gmail.com
+If so, I agree. That is sufficient for this series and simpler than an
+order-keyed array.
 
-Johan
+Thanks,
+Qi
+
