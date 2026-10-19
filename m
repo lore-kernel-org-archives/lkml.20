@@ -1,302 +1,241 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80AFC48CD4B;
-	Mon, 19 Oct 2026 07:27:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44A648821A
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:27:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394839; cv=none; b=AjZQS+N2jyvgtkWaBiMSMMUCZW7YBldsr5DtysTEL6gC17Dx9BVoraJuS7q9SpC0EfyXh3KmZ/P1MxNriwff7XGKZxGaIsqV7Hz/djl1z5XqzPHB0NqwknycdXh0Q+l+nG9OTPU/tiVmovwSV9G34OyWKjhtkhCdX8eq31zVLao=
+	t=1792394855; cv=none; b=egh3hH/eetghjxBKsjEYWeOiewSE+0fpRhx24i9WytczZdVnsWa4k2Zhsr7OsXGTCDhTI3aGDiX79WnqZAfekPS3sY3Ev95JXU3KinNZzVtONh39mKmKd1sQEjahFRUKrLV/jVHtxqLzEYDpVJxYUvQppxv/3FFe85s9K51tmNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394839; c=relaxed/simple;
-	bh=YVbo28BUEwouo/P77sudfurzugaL+C1ljbMo0rMVfD0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OJXl9UfeSNjLEEWBVVpPDSg07pECUmiG5GZk/V9r3h5tKd3XVcrquIbM02obOPFGREMnVTmcqJ5RksKPxM4lqjy3E7G5Lx9Myj9BNsccFYzCjfzE4cux2nyvY/rFK22Axd6N/ZB3EMcQA8B+9CSF9GtChCyg7RRNMLFh6DP705o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5ae4b8U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792394855; c=relaxed/simple;
+	bh=bqrg4G8cr5p+2Mmdoh8Z8d3C8MJQK+UFJ0LEd5n1mXU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z2VHRjJY9aC7GI+cDXdHFthg6Kp+S/71AtJYKHr+bih4diahykN1p16vTr4g+5kScC2LUQ+oU4MTLYliPaKXKwphb9NCsMZJO95B3R7EpOqpnNaZ13BAEBPCwbw1ggVhs4PRw4RWg1bv80PEyAhZwecvOz+ALMsAGxizAA1we2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=aEE1aBwN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=g28J2IZr; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=y0vs1p13; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jVnNHByn; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5ae4b8U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D41C1F000C6;
-	Mon, 19 Oct 2026 07:27:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792394838;
-	bh=4SNvH1f7t9Ik7aTrNof4lio5aOvBqmVCpb1gRipbZQM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Q5ae4b8UNwHXFJ0OsUc8BC9+unt1fTV1L+TV/Ivyqja9UfO2ToKHS1MzFLf1YZL36
-	 dp75C3PKN+0FtUJk/fKOfht9lDDADimE9tVcyf0UqDTnKPRJFFkAUhEOb1+Z06GBek
-	 yFGNVCmHGYJpCW955Ol/t9zNnq1TWxOxnqzN4qGtx5Z2gn0RSFZmBNZb5vfYxbFIgF
-	 aIZsegPZy6KY3UGEV4SMhbtLMosTPBUQ2eG1fLZ4zvpiMPcTI+B8b0MRwcDMqO3IHG
-	 l0cVtdWJdFWBkE8Ln4v9E8ETnQViqR4a+JGaC64V7xAP1rprhps5wARHhlAkkYeZgh
-	 RzmFXm1/5sWuQ==
-Subject: Re: [PATCH net-next v3 5/6] net: ftgmac100: Add AST2700 upper DMA
- address support
-From: netdev-bot+sashiko@kernel.org
-To: jacky_chou@aspeedtech.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 19 Oct 2026 07:27:17 +0000
-Message-ID: <179239483709.3135.1495121226484390316@kernel.org>
-In-Reply-To: <20261015-support_ast2700-v3-5-8d7999171ac4@aspeedtech.com>
-References: <20261015-support_ast2700-v3-5-8d7999171ac4@aspeedtech.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aEE1aBwN";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="g28J2IZr";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="y0vs1p13";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jVnNHByn"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E10AA21EE0;
+	Mon, 19 Oct 2026 07:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792394852; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8gwtEvnBP0BVtb6VtjfUzVpvxKMZWMiqNCiCewKifPI=;
+	b=aEE1aBwNaUsYCvtYkgJT0aubqeudC+6DC5FERQaNMZqA/VQV016QVcmT5o4ySIKuXVM58d
+	i24qZ1Dg1VsLcY4t4bIGxQPukc5K8DfPIiICxR5+RAccK8LVydXfX/WmCNpYC+Dh/nslOo
+	YBt8CZNhy2FfZgv4l1UGxnEbVclYOgY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792394852;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8gwtEvnBP0BVtb6VtjfUzVpvxKMZWMiqNCiCewKifPI=;
+	b=g28J2IZrZK5U1x3oNoMxiviKFQVX77ZoIDu/RJJXQjQAsardnBaDD7sLjloZFbAi/ii197
+	tTJM0c9j1H1vyYDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=y0vs1p13;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=jVnNHByn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792394851; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8gwtEvnBP0BVtb6VtjfUzVpvxKMZWMiqNCiCewKifPI=;
+	b=y0vs1p13x2BUW2wsa8KfSlJMy7xFLxC4jhXhWoK4IV6b9FDmlXi6AcZY3zadOmBGPcsdLv
+	aujF57TytioXfG6LzgXsQKYWdrpBE8+soUeO0QCExo+qMQJa+MF2XgTmSTl62n41mi5pll
+	AigHcK6NJHc2BodA7jWWGtG4nNM+CVY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792394851;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=8gwtEvnBP0BVtb6VtjfUzVpvxKMZWMiqNCiCewKifPI=;
+	b=jVnNHBynE+nXE7Qu7joKu6WKymIxNks9qXyezA5EA3enbXJdZ8k7D5VppiwjVvu20Ua+Xd
+	sMgEE7WDf2hAsWAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 75BA4134B3;
+	Mon, 19 Oct 2026 07:27:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ha4aFGPG1WpFIgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Mon, 19 Oct 2026 07:27:31 +0000
+Message-ID: <f91ca908-689f-4732-bfb3-0e254c22361d@suse.de>
+Date: Mon, 19 Oct 2026 09:27:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: inline drm_simple_encoder_init()
+To: Melih Emik <melihemik@noirlang.tr>, airlied@redhat.com,
+ kraxel@redhat.com, dmitry.osipenko@collabora.com
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261018112844.360262-1-melihemik@noirlang.tr>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20261018112844.360262-1-melihemik@noirlang.tr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spam-Score: -4.50
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.50 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	MX_GOOD(-0.01)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[chromium.org,gmail.com,linux.intel.com,kernel.org,ffwll.ch,lists.freedesktop.org,lists.linux.dev,vger.kernel.org];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: E10AA21EE0
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 1
+Am 18.10.26 um 13:28 schrieb Melih Emik:
+> The helper drm_simple_encoder_init() is deprecated because it adds an
+> unnecessary intermediate layer between atomic modesetting and DRM drivers,
+> as documented in Documentation/gpu/todo.rst.
+>
+> Inline the functionality by calling drm_encoder_init() directly with a
+> local instance of struct drm_encoder_funcs. This allows removing the
+> dependency on <drm/drm_simple_kms_helper.h> in favor of
+> <drm/drm_encoder.h>.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+These have all been fixed already. You need to work on drm-tip, drm-misc 
+or a driver-specific git tree for development.
 
-- [Medium] The patch keeps the only copy of buffer DMA address bits 34:32
-  in rxdes2[18:16].
-- [Low] After this patch the descriptor layout comments in ftgmac100.h
-  contradict the code.
+Best regards
+Thomas
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the TX
-  completion path has no read-side barrier pairing with the producer's…
-- [High] This problem wasn't introduced by this patch, but the
-  ftgmac100_open() failure path for ncsi_start_dev() frees the RX…
 
---
-
-net: ftgmac100: Add AST2700 upper DMA address support
-
-This patch programs the high RX and TX descriptor ring base registers on
-AST2700 and stores DMA address bits 34:32 in bits 18:16 of descriptor
-word 2. It rebuilds the full 64-bit DMA address from the descriptors
-before unmapping and sets a 35-bit DMA mask. All of this is gated by a
-new FTGMAC100_QUIRK_DMA_35BIT match-data quirk.
-
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> index 5a578a62df67..263594de0e07 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-
-[ ... ]
-
-> @@ -474,7 +482,10 @@ static int ftgmac100_alloc_rx_buf(struct ftgmac100 *priv, unsigned int entry,
->  	priv->rx_skbs[entry] = skb;
->  
->  	/* Store DMA address into RX desc */
-> -	rxdes->rxdes3 = cpu_to_le32(map);
-> +	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-> +		rxdes->rxdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_RXDES2_RXBUF_BADR_HI,
-> +						       upper_32_bits(map)));
-> +	rxdes->rxdes3 = cpu_to_le32(lower_32_bits(map));
->  
->  	/* Ensure the above is ordered vs clearing the OWN bit */
->  	dma_wmb();
-> @@ -601,6 +612,9 @@ static bool ftgmac100_rx_packet(struct ftgmac100 *priv, int *processed)
->  
->  	/* Tear down DMA mapping, do necessary cache management */
->  	map = le32_to_cpu(rxdes->rxdes3);
-> +	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-> +		map |= (u64)FIELD_GET(FTGMAC100_RXDES2_RXBUF_BADR_HI,
-> +				     le32_to_cpu(rxdes->rxdes2)) << 32;
-
-[Severity: Medium]
-With this patch, rxdes2 bits 18:16 are the only copy of the upper RX
-buffer address bits. The driver reads them back here after the MAC has
-completed the descriptor. Does the AST2700 MAC always leave
-rxdes2[18:16] untouched when it writes the descriptor back?
-
-The header still describes this word as one the hardware writes:
-
-	__le32	rxdes2; /* length/type on AST2500 */
-
-If the MAC does write it, map would no longer match the address that
-ftgmac100_alloc_rx_buf() mapped. dma_unmap_single() would then get a
-handle that was never mapped, so the real mapping leaks and the cache
-maintenance or swiotlb/IOMMU unmap hits the wrong range.
-ftgmac100_free_buffers() rebuilds the address the same way.
-
-The drop path in ftgmac100_rx_packet() also gives the descriptor back to
-the MAC by rewriting only rxdes0:
-
-drop:
-	/* Clean rxdes0 (which resets own bit) */
-	rxdes->rxdes0 = cpu_to_le32(status & priv->rxdes0_edorr_mask);
-
-A clobbered rxdes2 would then send the next frame for that slot to
-lower_32_bits(map) | (clobbered_hi << 32). AST2700 DRAM starts at
-0x4_0000_0000, so every buffer has non-zero high bits.
-
-Would it be safer to keep the full dma_addr_t for each RX slot in driver
-memory (for example a priv->rx_dma[] array) and rewrite rxdes2 every
-time a descriptor is handed back? If not, could the hardware guarantee
-be documented?
-
-[ ... ]
-
-> @@ -677,9 +691,14 @@ static void ftgmac100_free_tx_packet(struct ftgmac100 *priv,
->  				     struct ftgmac100_txdes *txdes,
->  				     u32 ctl_stat)
->  {
-> -	dma_addr_t map = le32_to_cpu(txdes->txdes3);
-> +	dma_addr_t map;
->  	size_t len;
->  
-> +	map = le32_to_cpu(txdes->txdes3);
-> +	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-> +		map |= (u64)FIELD_GET(FTGMAC100_TXDES2_TXBUF_BADR_HI,
-> +				     le32_to_cpu(txdes->txdes2)) << 32;
+>
+> Signed-off-by: Melih Emik <melihemik@noirlang.tr>
+> ---
+> Tested:
+> - Compiled with W=1 on x86_64 with zero warnings or errors.
+> - Verified with lockdep and debug mutexes enabled
+>    (CONFIG_PROVE_LOCKING=y, CONFIG_DEBUG_MUTEXES=y).
+> - Boot-tested full bzImage in QEMU with -device virtio-gpu-pci and
+>    initcall_debug, confirming successful probe and initialization
+>    (probe of virtio0 with driver virtio_gpu returned 0) and zero
+>    lockdep/kernel warnings.
+> - Verified with scripts/checkpatch.pl (0 errors, 0 warnings).
+>
+>   drivers/gpu/drm/virtio/virtgpu_display.c | 11 +++++++++--
+>   1 file changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
+> index a1a875a0c706..1bdbf452d111 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_display.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_display.c
+> @@ -28,11 +28,11 @@
+>   #include <drm/drm_atomic_helper.h>
+>   #include <drm/drm_damage_helper.h>
+>   #include <drm/drm_edid.h>
+> +#include <drm/drm_encoder.h>
+>   #include <drm/drm_fourcc.h>
+>   #include <drm/drm_gem_framebuffer_helper.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_probe_helper.h>
+> -#include <drm/drm_simple_kms_helper.h>
+>   #include <drm/drm_vblank.h>
+>   #include <drm/drm_vblank_helper.h>
+>   
+> @@ -232,6 +232,10 @@ static enum drm_mode_status virtio_gpu_conn_mode_valid(struct drm_connector *con
+>   	return MODE_BAD;
+>   }
+>   
+> +static const struct drm_encoder_funcs virtio_gpu_encoder_funcs = {
+> +	.destroy = drm_encoder_cleanup,
+> +};
 > +
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the TX completion path
-has no read barrier to pair with the producer's smp_wmb(). This patch
-adds the txdes2 read to the same unordered set of loads.
-
-The producer side in ftgmac100_hard_start_xmit():
-
-	dma_wmb();
-	first->txdes0 = cpu_to_le32(f_ctl_stat);
-	smp_wmb();
-	priv->tx_pointer = pointer;
-
-The consumer side in NAPI on another CPU, via
-ftgmac100_poll()->ftgmac100_tx_complete():
-
-ftgmac100_tx_buf_cleanable()
-	return priv->tx_pointer != priv->tx_clean_pointer;
-
-ftgmac100_tx_complete_packet()
-	ctl_stat = le32_to_cpu(txdes->txdes0);
-	if (ctl_stat & FTGMAC100_TXDES0_TXDMA_OWN)
-		return false;
-
-	skb = priv->tx_skbs[pointer];
-	netdev->stats.tx_packets++;
-	netdev->stats.tx_bytes += skb->len;
-
-Nothing like smp_rmb() or smp_load_acquire() sits between the
-tx_pointer load and the txdes0 and tx_skbs[] loads. There is only a
-control dependency, and that does not order a load against later loads
-on ARMv7/ARMv8.
-
-Can the consumer see the new tx_pointer together with a stale txdes0?
-The stale value would have OWN clear, because ftgmac100_init_rings()
-writes 0 and an earlier completion writes ctl_stat & txdes0_edotr_mask.
-
-In that case a stale NULL tx_skbs[pointer] would be dereferenced at
-skb->len. Alternatively, a stale txdes3/txdes2 address would be unmapped
-and the skb freed while TX DMA is still reading it.
-
-[ ... ]
-
-> @@ -936,7 +961,12 @@ static void ftgmac100_free_buffers(struct ftgmac100 *priv)
->  	for (i = 0; i < priv->rx_q_entries; i++) {
->  		struct ftgmac100_rxdes *rxdes = &priv->rxdes[i];
->  		struct sk_buff *skb = priv->rx_skbs[i];
-> -		dma_addr_t map = le32_to_cpu(rxdes->rxdes3);
-> +		dma_addr_t map;
-> +
-> +		map = le32_to_cpu(rxdes->rxdes3);
-> +		if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-> +			map |= (u64)FIELD_GET(FTGMAC100_RXDES2_RXBUF_BADR_HI,
-> +					     le32_to_cpu(rxdes->rxdes2)) << 32;
->  
->  		if (!skb)
->  			continue;
-
-[Severity: High]
-This is a pre-existing issue, but it concerns how this function is used.
-When ncsi_start_dev() fails in ftgmac100_open(), are the RX buffers and
-rings freed while the MAC DMA engines are still running?
-
-ftgmac100_open()
-  ftgmac100_init_all()
-    ftgmac100_init_hw()    <- ring bases, RX autopoll via APTC
-    ftgmac100_start_hw()   <- MACCR TXDMA_EN | RXDMA_EN | ...
-  ncsi_start_dev() fails
-    goto err_ncsi
-
-err_ncsi:
-	phy_stop(netdev->phydev);
-	napi_disable(&priv->napi);
-	netif_stop_queue(netdev);
-err_alloc:
-	ftgmac100_free_buffers(priv);
-	free_irq(netdev->irq, netdev);
-err_irq:
-	netif_napi_del(&priv->napi);
-err_hw:
-	iowrite32(0, priv->base + FTGMAC100_OFFSET_IER);
-	ftgmac100_free_rings(priv);
-
-Unlike ftgmac100_stop(), this path never calls ftgmac100_stop_hw() to
-clear MACCR. Could the MAC keep polling the freed descriptor rings and
-DMA incoming frames into the freed skb data and the freed rx_scratch
-buffer? That would last until the next open resets the MAC, or forever
-if the interface is never reopened.
-
-ncsi_start_dev() returns -ENOTTY when nd->state is neither registered
-nor functional. An up/down/up sequence while the asynchronous NC-SI
-probe from the first open is still running looks like it can reach
-this, because ncsi_stop_dev() does not reset the state.
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ethernet/faraday/ftgmac100.h
-> index 8c35c895b146..0c244b1c0a35 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.h
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.h
-
-[ ... ]
-
-> @@ -226,6 +229,7 @@ struct ftgmac100_txdes {
->  #define FTGMAC100_TXDES1_TX2FIC		(1 << 30)
->  #define FTGMAC100_TXDES1_TXIC		(1 << 31)
->  
-> +#define FTGMAC100_TXDES2_TXBUF_BADR_HI	GENMASK(18, 16)
->  /*
->   * Receive descriptor, aligned to 16 bytes
->   */
-> @@ -272,4 +276,6 @@ struct ftgmac100_rxdes {
->  #define FTGMAC100_RXDES1_UDP_CHKSUM_ERR	(1 << 26)
->  #define FTGMAC100_RXDES1_IP_CHKSUM_ERR	(1 << 27)
->  
-> +#define FTGMAC100_RXDES2_RXBUF_BADR_HI	GENMASK(18, 16)
-> +
->  #endif /* __FTGMAC100_H */
-
-[Severity: Low]
-This isn't a bug, but the descriptor layout comments in this header now
-disagree with the code:
-
-struct ftgmac100_txdes {
-	...
-	__le32	txdes2; /* Reserved */
-	...
-};
-
-struct ftgmac100_rxdes {
-	...
-	__le32	rxdes2; /* length/type on AST2500 */
-	...
-};
-
-ftgmac100_hard_start_xmit(), ftgmac100_alloc_rx_buf() and
-ftgmac100_init_rings() now write buffer address bits 34:32 into these
-words. ftgmac100_free_tx_packet(), ftgmac100_rx_packet() and
-ftgmac100_free_buffers() read them back.
-
-Could the comments say that with FTGMAC100_QUIRK_DMA_35BIT (AST2700),
-bits 18:16 of word 2 hold buffer address bits 34:32?
+>   static const struct drm_encoder_helper_funcs virtio_gpu_enc_helper_funcs = {
+>   	.mode_set   = virtio_gpu_enc_mode_set,
+>   	.enable     = virtio_gpu_enc_enable,
+> @@ -306,7 +310,10 @@ static int vgdev_output_init(struct virtio_gpu_device *vgdev, int index)
+>   	if (vgdev->has_edid)
+>   		drm_connector_attach_edid_property(connector);
+>   
+> -	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
+> +	ret = drm_encoder_init(dev, encoder, &virtio_gpu_encoder_funcs,
+> +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+> +	if (ret)
+> +		return ret;
+>   	drm_encoder_helper_add(encoder, &virtio_gpu_enc_helper_funcs);
+>   	encoder->possible_crtcs = 1 << index;
+>   
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015-support_ast2700-v3-0-8d7999171ac4%40aspeedtech.com
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
+
