@@ -1,97 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424047;
-	b=MCbXB1ioyZZnl2QWZq4k3BAzGQp7I33SB6P9PieMYx/RwrzcyU9XuT2iVdxfgRJKdDSp
-	 9XpBxr83qqQOQXF1sGN//q2j2AGh4/MljoZoYmmwk1k+/wrC2B/NvalBrVg87M8WJ6VIO
-	 8FJoaJc2oeX76elITmcXo6PVFXE3Oi5f9ptJYUeAUNSXl/7Egzq5hZF7Xc8eQ7TJsbSko
-	 9Q5f/VOumhfjj1Y7w2IU1A1wICONE7WqCvSDs4mj+0WXOjMX9X4yUV9jzt73hiScskM4V
-	 97o+XiIZe2k7nusMWmFKZgUW11KMYqMbzlB5ZNbX+uBQbBwN1TDhYzFP5K7DopeGC+A==
+	t=1792424081;
+	b=2T0JAqj8ebYJP0m/hm1BzQil26j0gUlZmRQQS4TQ+Rt7uv7Z/rZpQw+hxY2A1YWJ2E1+
+	 72TYT4EEfZHTX6VC6T9bW/wjo7Qlp6elcGU8/vKoMbbkOG/Kkt+NRYuQk3K3Y4MOzFKmy
+	 fCKwuASLeCpASxHZvQekz3TyxFQMDR03fVPzMbuMwZdbQ/2c8998k+a42hKs/MaRNyDWs
+	 x0pINRiA30wgL3AScsTpQrZYt1030qFQhEhHoCk+uCe2Ze6hAMIuD/tXaanWAniksi+NM
+	 6QwS9Nw9E5Sh+SsIR+glVXCrsSCPWsrKZRUSdmlfxSmsp9+/F0NlRp0JBpeRM1ASBEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424047;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=037pbkZpfZs6WmkCXWU1bQZKknfpzZlqCAFxJxn68Ng=;
-	b=hxm54epFnBWBdCgCw4au0ZmzKAIixpBoLzSt4SUlxicLuh3zEla2mJtqClEJMUpjQMCa
-	 Z6Erl/EIJCjeVgXa7vO7lN95KYTmufunRLD1UY29f8sYTte9u3dpKnGKXEb1hOCdB0EEe
-	 gLUEfrG11UXH1vlg0zU07XjpMUn9HxRQFvzUw0fL5z1vw7tMTrtTlTik+VtoJEblEPSxA
-	 I5uW7XzUhU4AyaFKQvkcex6R8BA2qPF1B/fQ3SULdfXosOUKhAo8K9EXOOgNaZ9soLbjw
-	 hRa/zvqkAzulUi88+p3t2vlggdqWu8cHEXg+a6c3bXX8dVP5TBaSS9LhN0Z7Enz/MXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424081;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Ol5KfRbE0V7ARBDfrVK6WqnyQtx7i9RhSPG6UytwSUo=;
+	b=NSWz3YS5/wwLt83ukqRYhiU87cpsmu8tIm3I6HDT3EpROme6COn1VjhyOaoy0z8fIvZo
+	 /Mz7eXhwumvsVJfZau/vbF72aifAgNijMSPthQJye9YVUi8UcMnR9X9m+3JQ8wv6zXDb8
+	 GSzQ+Qtdbd58/SosujcwRumiGWHGe1PWtLK2RwhomlPveIDsjcd5QSNmGnjoPWvEFddkb
+	 TMIQhKv10km5vTa1eqkAN4JCK0xPRTdES0uq5DTx7CXC8+JjIaFhPK+VBlBz0V2rDfffF
+	 TBkt/FZHchb1YemOrAPcoC5IDlGBgu8ahMbi2n/OVUOJ+u4mGybnGO6ypA6rce0BX2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=XTjEsxF1;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lE60bAzs;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2073760740BA
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:34:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2073760740BA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FAD606C16D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:34:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56FAD606C16D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=XTjEsxF1
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so20201215e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:34:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792424045; x=1793028845; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=037pbkZpfZs6WmkCXWU1bQZKknfpzZlqCAFxJxn68Ng=;
-        b=XTjEsxF1u8ZPjfobm2yPWsdk3tKUGKgx6p6zaEX4jn2GCBBXLO3emhbQ/XsLSeNd3V
-         scBbc+pjaYeAcSRvNIxasSW1d5zT4T8NUGxqKACuO2TJaCP7HdRB87wU1hIuVIpCRhvL
-         snuDJgZFRPULy0IL9SvXMzndqeSkGjjeUtm5im82sQjW2in9AckIECh0XOsQgh+jIqES
-         xN5Q1I3aNKHR0fwrE90I8AZx1QnVgMsrsxnMzZ01P55zXrz+jNAjC9zOLhj7bdA5+Onu
-         v4wx6U1Px3qPmSyQ+OMh8qcVVjJD2DiTtUJo9ziqwI+RIskq/649DKw2erOsrz6OKJ1X
-         UqeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792424045; x=1793028845;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=037pbkZpfZs6WmkCXWU1bQZKknfpzZlqCAFxJxn68Ng=;
-        b=X74MsUd1E235Ob2c6isnUqGZsqQdwJc8xtHD5NyIhCxVXyxhHH/8I+dSB4H3rQ0LuC
-         V6JMjYynA/Q6k2Jb+SCmfOCunotwWOAp5pGc6zfjXXLfqdZFTQRrPhTRjXXGBvl5hv4H
-         MNu7M4/1hxaf0KEGWjhzWU9Y2i6WfRQ9IRAviCGt4y4dgpzQEXaGKtusqkvHsm0wa0D7
-         oOwcnMsI0FgXMuw9rrlcA9P1hqlImQnGsPlvxH1Yq3mN6xWHRdGBQM00LdiDqX/PRv/k
-         0Gx/lbiJ3eWiCJPRevHUxE69wYXuL/y2GyUpXZEVVlWJrS2Cj5y03yzkSeAHDWe5rV2s
-         UuEw==
-X-Gm-Message-State: AFq9FYKB1y5bkhS1Jqs3TsBQVSdFNfRYBvd7Wb+r41HwKlAsRulkukP0
-	uymjh0dN2lbja6GHTfWGdzXe6ookMGV7hdFRzvXGxRfBXkvJF9yqZzyhVfbBt+BsH4A=
-X-Gm-Gg: AYBFou0wyBLG6BsrzWKtHmZ86O4O5E/HWRZxKBmtBAOA6YUMBu4eh3hImRDdNyak/zo
-	ks9ziu4TjfxM2VrEPVPztXV9cuM/bUQ6EY3j2dd+7h0YkEtbUoxSHCpO7PrwxGUK/6JUGyYjsiG
-	Aq/H+tCAE6f02DqTQNUjWK9vCZklIGTRnieR53DFM2g+TZvwb/jkubzHFxFsXXy3LA0v0Ky8p+8
-	rRRNNzQ6pdJA0RdgCxCReEBgW2RoUXlRra0HC0HGRUJSIRIZijU3Sg6CCQt13LUJS87CYgx1Qz8
-	JK1JAv/sCUWrRa52RBmCI0cSRdCiKx24R85pYKz8Q0crsFLjhxRbGNqubEiuYjVZhLoSZC2D4P4
-	JWCKKBscyPPLqFYn81dT89ZD/ehOPRlkaRTmnNbYA27E0LXVFjAicDykMVXb+mXqZZv3S1U6vyL
-	OtncoNrcBRdv+kB96rJhOtAg4E5ZiKVSmcotJp6lJucos6myHicEYSP0AsArNcQRO2R8ptGueM
-X-Received: by 2002:a05:600c:4689:b0:4a1:ddf6:fd78 with SMTP id 5b1f17b1804b1-4a1ddf6ff41mr133241885e9.26.1792424045415;
-        Mon, 19 Oct 2026 08:34:05 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd50aafbsm25272820f8f.52.2026.10.19.08.34.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 08:34:04 -0700 (PDT)
-Date: Mon, 19 Oct 2026 17:34:02 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Kees Cook <kees@kernel.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tycho Andersen <tycho@tycho.pizza>,
-	Namhyung Kim <namhyung@kernel.org>
-Subject: Re: [PATCH v4 2/2] kallsyms: Don't leak pointers for unresolved
- symbols
-Message-ID: <atY4apm9PB_vQpKB@pathway.suse.cz>
-References: <20261019-vsprintf_kallsym-v4-0-ffd3c012d00c@linutronix.de>
- <20261019-vsprintf_kallsym-v4-2-ffd3c012d00c@linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lE60bAzs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792424080; x=1823960080;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=vRkJE7srJOwkAN+Ze8OSeE7zFU73F4wk4XyUrxD6UJE=;
+  b=lE60bAzsRjrUV6GXTweeJKbxrSbRHR+vYuQTLUlad5zPEdJ5HFA909z8
+   5eHGyO37ZBdJEqN5Vh3pYdhKNG2+RIDy9i6qCVDDg9Y+UCUHZGCvUT6sp
+   or0BI+ty0QgT5HjF0TKQGSLW/XJ1IqDumhRbRvvKP9NMV7XDf9N55Knve
+   5M2njzqVOHaQj6B8FgNMvkoRJs2w7Vz/jEuiAKXuev6ECn0453MmaQWlz
+   KviixFWqMwCLIkALkNb+PCH+rSBfNOOQ5CyKFmxWJMfxXjth1LVFsF7dK
+   G25yvm1PBKnqpeU2spXkG9NGTuloLtOKjFCHXUsi5yMITV6llmvuGKQ4d
+   A==;
+X-CSE-ConnectionGUID: tuD9h9NsR6CS9FlX8TEeiw==
+X-CSE-MsgGUID: gStdzQULS2u43PfpzYptnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="995617"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="995617"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:34:39 -0700
+X-CSE-ConnectionGUID: W7UH4C35QVCMBktlwDNQrg==
+X-CSE-MsgGUID: lR7b/tn/TXa9ySiRgpBKNg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="4397680"
+Received: from smtp.ostc.intel.com ([10.54.69.131])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:34:40 -0700
+Received: from ray2.intel.com (unknown [10.125.111.15])
+	by smtp.ostc.intel.com (Postfix) with ESMTP id 4019C6393;
+	Mon, 19 Oct 2026 08:34:39 -0700 (PDT)
+From: Dave Hansen <dave.hansen@linux.intel.com>
+To: torvalds@linux-foundation.org
+Cc: x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Subject: [GIT PULL] x86/misc for 7.4-rc1
+Date: Mon, 19 Oct 2026 08:34:37 -0700
+Message-ID: <20261019153437.1871645-1-dave.hansen@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,105 +82,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-vsprintf_kallsym-v4-2-ffd3c012d00c@linutronix.de>
+Content-Transfer-Encoding: 8bit
 
-On Mon 2026-10-19 12:21:51, Sebastian Andrzej Siewior wrote:
-> __sprint_symbol() is supposed to resolve the passed address to a symbol
-> name. If the symbol can not be resolved it will print the actual pointer
-> that was passed. The pointer policy is to not reveal actual pointer
-> values.
-> For post-mortem analysis the pointer in the backtrace shouldn't be
-> relevant. In BUG(), WARN() and panic() related backtraces the PC
-> register will contain the actual value.
-> 
-> Add snprintf_default_pointer() as a wrapper around default_pointer() and
-> use it __sprint_symbol() if the pointer has not been resolved.
-> 
-> Cc: Namhyung Kim <namhyung@kernel.org>
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> ---
->  include/linux/sprintf.h |  1 +
->  kernel/kallsyms.c       |  3 ++-
->  lib/vsprintf.c          | 27 +++++++++++++++++++++++++++
->  3 files changed, 30 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/sprintf.h b/include/linux/sprintf.h
-> index f06f7b7850911..596c73a57371e 100644
-> --- a/include/linux/sprintf.h
-> +++ b/include/linux/sprintf.h
-> @@ -24,6 +24,7 @@ __scanf(2, 0) int vsscanf(const char *, const char *, va_list);
->  /* These are for specific cases, do not use without real need */
->  extern bool no_hash_pointers;
->  void hash_pointers_finalize(bool slub_debug);
-> +int snprintf_default_pointer(char *buf, unsigned int len, const void *ptr);
->  
->  /* Used for Rust formatting ('%pA') */
->  char *rust_fmt_argument(char *buf, char *end, const void *ptr);
-> diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-> index aec2f06858afd..5d51c825c1e71 100644
-> --- a/kernel/kallsyms.c
-> +++ b/kernel/kallsyms.c
-> @@ -483,7 +483,8 @@ static int __sprint_symbol(char *buffer, unsigned long address,
->  	len = kallsyms_lookup_buildid(address, &size, &offset, &modname, &buildid,
->  				       buffer);
->  	if (!len)
-> -		return sprintf(buffer, "0x%lx", address - symbol_offset);
-> +		return snprintf_default_pointer(buffer, KSYM_SYMBOL_LEN,
-> +						(void *)(address - symbol_offset));
+Hi Linus,
 
-I do not see any obvious problem with using:
+Please pull a single x86/misc change for 7.4-rc1. The "itmt" scheduler
+tweaks are getting disabled if debugfs is not available.
 
-	return snprintf(buffer, KSYM_SYMBOL_LEN, "%p",
-			(void *)(address - symbol_offset));
+Allow initialization to proceed even in the face of debugfs failures.
 
-What was the motivation to create a custom wrapper, please?
+--
 
-Best Regards,
-Petr
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
->  
->  	offset -= symbol_offset;
->  
-> diff --git a/lib/vsprintf.c b/lib/vsprintf.c
-> index 40565c857913d..b2ca1d195bc9e 100644
-> --- a/lib/vsprintf.c
-> +++ b/lib/vsprintf.c
-> @@ -849,6 +849,33 @@ static char *default_pointer(char *buf, char *end, const void *ptr,
->  	return ptr_to_id(buf, end, ptr, spec);
->  }
->  
-> +/**
-> + * snprintf_default_pointer - Format a pointer and place it in a buffer
-> + * @buf: The buffer to place the result into
-> + * @len: The size of the buffer, including the trailing null space
-> + * @ptr: The pointer to format
-> + *
-> + * Formats the passed pointer the same way as the %p modifier. Does not write
-> + * more than len bytes to buf including the NULL terminator.
-> + *
-> + * See the vsnprintf() documentation for the return value.
-> + */
-> +int snprintf_default_pointer(char *buf, unsigned int len, const void *ptr)
-> +{
-> +	struct printf_spec spec = {
-> +		.base = 10,
-> +		.precision = -1,
-> +		.field_width = -1,
-> +	};
-> +	unsigned int w;
-> +	char *endp;
-> +
-> +	endp = default_pointer(buf, buf + len, ptr, spec);
-> +	w = min_t(unsigned int, len - 1, endp - buf);
-> +	buf[w] = '\0';
-> +	return endp - buf;
-> +}
-> +
->  int kptr_restrict __read_mostly;
->  EXPORT_SYMBOL_FOR_MODULES(kptr_restrict, "printf_kunit");
->  
-> 
-> -- 
-> 2.55.0
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tags/x86_misc_for_7.4-rc1
+
+for you to fetch changes up to 4a673a0026b95030ee727f1f8578c46a42107011:
+
+  x86/itmt: Don't make ITMT enablement depend on debugfs (2026-09-02 14:01:08 -0700)
+
+----------------------------------------------------------------
+ * Don't make ITMT enablement depend on debugfs
+
+----------------------------------------------------------------
+Mario Limonciello (1):
+      x86/itmt: Don't make ITMT enablement depend on debugfs
+
+ arch/x86/kernel/itmt.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
