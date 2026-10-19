@@ -1,131 +1,161 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4904F484256
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7024148489C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394923; cv=none; b=aHjRZYUNXI3l2YjXreBzeDPp0hU3zbr1AAQqiCiQgzo8n45jb2xTcabcXADg8+JK8iXRJGkYLOtJ0Z8IDTfc92W5432GePng8OPOa9EM5hVLRPZ/dk5ZnNv6BFPM0Vc46bhcqlpb1+ZzLdjCWk/23T4ttUpN/LFFoGRUfb6VwlY=
+	t=1792394951; cv=none; b=BdQDqK4M+WpRz3XRz4YHI1MHQZxxOn1k3Xex+8zCR7dJp3++TPd8BIlmRoDT7/BYZI1wpSthRy38KeGkIiCdWbdA5ROBh6UjAmo9jY1KG1i7AwvLXaNqlrdBKUsITo6wrrBPF9cwS1pyv9v6cdf1Bsb71IKiDXiU3BZFi44Rbpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394923; c=relaxed/simple;
-	bh=+EWke+kegKWW2B563dpfhTyACjX4Bih9IB1dZgkly3I=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=IN2uY2+8gl63lN/wIlsDBm3RzWaUFmUXsflDymtmC+lfAn9dq3vBQj/1dlIgo/ACh75+L00stfy70NOYT9tRoHqntDYmdGpC0WPH0/JvPVFWy5RgSHbTpO6t3h53ScKWq8LH8rIE8e452nO+QxR9fuWmMvnVDQqrHmUvqZ4qg/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=dAZcgL1X; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VrQOALa1; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1792394951; c=relaxed/simple;
+	bh=sdFPBQUW0+7qu3i2UI/fkNQB/u3ppR1kyFa9mKz79xQ=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=hjuH1eMKWn/K+9xBcC4vJNQKHYZ9PXowncPRJ97UFlFbGyaI7BFIKQCuJWg6yRGW0XfVDmsyMVquXQ8ERHffnvOkdZ1/P0Slp3Be09gCAb1cU+ZYRBaYifYBsMhTNTL0MHvE7ubCnXy7zDA9ItAJB/EsNojSO8cYLNCdcnaqAi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Ktsf3uuR; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="dAZcgL1X";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VrQOALa1"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 5D2A87A011C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:28:41 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 03:28:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792394916;
-	 x=1792481316; bh=PLHYJfXPw5eZbHRCcZ0a6KnmTa621kQU2YjXteB/tC0=; b=
-	dAZcgL1Xda48bGQNimvV+30TMDWB34dW9GlC5BFaeug0K5leO6Iipw9N7StnEGIS
-	cNAIRj+KjBBi1Y2XcWg66eQfdT1Ifu/Q/JhNWHudkDtwO98sGq/DVAoD0AFppOVO
-	TgBLbF0VeNMEWgfJthmS0MY8uEpLj/me+9TA/n5nGF9XDzJEWVfWv1xCwUlQXnzM
-	/1IkmutlUP3oaoAGMiUAYZq2XWQWO9SFKTSwighnSjjQoXLXJZNG5oEatSWrTQ6V
-	jHOAhMSFYC53fq3ah7ewK13fPzf6/0Tx3gbWr2HiBOIgurSaaAHq6gwVjj+3L8ZZ
-	gba1EwKudsVvN9OD8TaSFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792394916; x=
-	1792481316; bh=PLHYJfXPw5eZbHRCcZ0a6KnmTa621kQU2YjXteB/tC0=; b=V
-	rQOALa1QDxzsdLrV+6cFGUFFFIhTiUQQr5UwqTAkG8kJf3tOcPXalv6cKmDbcVzx
-	rAqGa0o9t2HivL+B8t9oDRt43k4QoXvzMsVDjxqzKXSP7KjSxlNmljaF2/uk/ukE
-	Q9wdV0kylvNP5hwwpCf8Au+uxqRB7/H4YElPhiQ4JH8o2FEkVjQnN7vuBSDG4Crf
-	SKKHaakVwV/CmQHWmM1DWF/DYQ7eyth7SXlsRLOwOqSr07yRctuhsKpwdvIsiDTy
-	gYUTi+wV/ZnzI6MR+1wbXKb6fGmNVfLwQakupcWSNM07PFqcJ9/r6zCXuOY6B184
-	cjxbKef++G2StWTbzq1Bg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792394916; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:bqchnVerCImw3jj6mNyOUSxZ5RCPupAmBTPUft9Irxeag0w
-	bjK8qzgz3ejbaDQr059wEwveI2QGK9Y+PmQ5T+6xqcpbSSoxG7bnljaADylXshu2
-	JM4AZ7kE+Xpp62rq0lBvyRlqTyjodVWM0xDU3zayoU4z/pap0v0Dx85xP3Jz6GIN
-	fmB6XMzKighzsEfdf1gZgejCHQ71XkH8/re2lRSgKmv4vV8JW68S9jBSxFLfEXqP
-	gxTBPj7i4fADPmi8d1VWJ9xh6BlM9VKF6MjGN4VyQJiUctOXPakq42gR8B4T/q5M
-	ne8T2+uXUgu1VIrBvR5cH2sqqOcuYvJTgJ6oHxw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:mjPdJaOz8JVVi9EZGnwjC/k/+t6i0OU5KJZVz1cg+XA=:+EWke+kegKWW2B563dpfhTyACjX4Bih9IB1dZgkly3I=;
-X-ME-Sender: <xms:n8bVar0hR9ty6kHHUR1QfQ75S-iQUsyT9fJHkfkfNPeFK0dVkydCiA>
-    <xme:n8bVak7_YyElYRzuvT3GNX5FqzEKmky4a_dcj5BRAC99SKMbmzsmZAsqr79qSE5Vw
-    yBysE5zCE5Es7pwcGNr9dOqxeTKtoSIux7CT2fqjEut8BEGBIBeoDsQew>
-X-ME-Proxy-Cause: dmFkZTEgTR2xr3LjwoQxTz4QE7mX+5PH46bNXCriRkEqgyvLMfGBx4gYCV93emLUYy/l5M
-    Uj0lDN5V7zucVcFPXh1K6dNdKEEFwfXHUAHartXABXQj/TBlb8Sd2SoVVoaHQnzMj+JH4u
-    rHfVcJFfbgA92Lex/Nk6wLuWq0JDbqWI9Sx+NsXOzqG0RJWZ3apQcBaysEfF8kv9uVnEjX
-    3tdLlo1+2Tv3+DpYfHNghLqk99BH+v7W0mmQ9RosYwG6Q2Mx/Np754/4x9TNHahfr53oOi
-    qVGBqJ98QI0LAARUdiTHlPZMJwD+rLIpw09e8M0Yykv4qtjMhkSxktzahgs/WxhsSbjAHX
-    JVI/h7iHJ6Cvm/7eR+xhyoKmzMJDHXjSbueGBGFrhiOHS01V7UfR8ldnhfigDagAUjH5Pi
-    lL2viOH/uQEpCEHZZt7oRLZNpi0mn07ge3xyABkkcIcoRp5HuVUCjRykLaY6Fh7IpCocMT
-    Rc1CShHHTCYtzf/kuPU02sKSJfCiRBQJ4TisBDVU8iY3R/Pd8x+ZlSl19LcMqREnO2Fq/O
-    kmLfzkbfNTVy1d02F8djTzJ7HtdiR03t0rlKldRLVaeAPSMIf6hYND5uP997F4j+82i28u
-    fHtZ8l8i+SeM16P3hjDa4n16/IHIFRWkfb6u9WgEbaXn1M65duq+3wZS0v8w
-X-ME-Proxy: <xmx:ocbVasb1HjVuJubc-t3mapr6ddPtKOWHhY5rOIm4Sr0iUEGCqzN51Q>
-    <xmx:ocbVavmZ-Hcw3Io5zJ_6bHf3W4o-UF5yf12p5-N6h20zRWvP1V-NRQ>
-    <xmx:ocbVaigHNthuBahyYD7Qq7buCImw9V4_idiE0y9HP9P7OBQD7m8d8A>
-    <xmx:ocbVahSCx0Q7hjy_DGU--Ab_5Wo6I5cOJl-7cdar0GVA3QfgXzq2yw>
-    <xmx:pMbVasjnztBiCuEhrfCJBjyRwPp0KnpeJ--w7f6o7Hf3WNuPTQYJTOas>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 1F95632A008E; Mon, 19 Oct 2026 03:28:31 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Ktsf3uuR"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48de6a62a4cso1416355f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:29:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792394949; x=1792999749; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CTmZAXM73d5UutovYrMzHxjVi/hMLxPmTYLuwel/w7Q=;
+        b=Ktsf3uuRYJVVd44h2NkBEdEn9j0jIbGaxsGzTB8Gj14wlMusgC/eTdPXLoky4SHBFU
+         3Yeq8rAw15DWm0WkjjaXEY32xff5crETMp3LGjPgyDHNSCU3Mur1f6LFg83KUhj6Sj1+
+         mZ8BPscfOkcu8ifY6uyXpJzRkCP07NgC5/e02TYK8iG5DLRG0uJXwO96J0s0y0FfaNIB
+         ZbnzFSz5lDxfCSciKTcPeJ7ALPyiLD1oMBE/Rf+iIoOwWoOVhKMDC4x8tNTX2ZDW1bxr
+         ns9+g9ikqU3beFaEvw1SUErCwogprh1SLSEBZTv3l+k2dwTS5i1qoR5F3AxZDc1x7E8l
+         mJOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792394949; x=1792999749;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CTmZAXM73d5UutovYrMzHxjVi/hMLxPmTYLuwel/w7Q=;
+        b=eUbT65AGPQ83Nt/BSA19KTDr4HyZ+GVABdL61oX1FvGkygeEHjKfBaU1whgSiO8CxH
+         2GtoCvoESmIIawKqxqF4X4TI8GKhtKk0HQ7KyB9IYOxnCafzuhkcS723JSYrxKh/ARE0
+         jvNUhUtMXbcDTdt8isqfWa3KJTBXd7a2GpetXgoHSmc8VnFvRj5tOBHn/56aWOvQkqCi
+         pVqfR1cdC26SuL6LoErTuNP+UU0h7B1tANP7M3W9YREjWwxr/J4SxxPPLgY/kghZl/q7
+         v5+N5wEvnEVOXU9pRnHx+1aUAwzyvU+D9DBXhVzfd7oglPAvvxHaNlDxzHopsgGXOPdq
+         08HA==
+X-Forwarded-Encrypted: i=1; AKwUvBwpHxT4fciosOMBBSlTQ95JhrWsJEf1UlGpKTiRZlvmhPd+OCvX+91Zyg1eh0lwJQEcFrC6znSvnl3cQW8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxSpGIi9YcKmVWGZQksGhqAcnqAsG/ESrFLdz5lu/k1fsAAOdO
+	WubY6MKsM0TKizfp1EQCKlaeXxqMOaFTHFg3L+W3O5kwmlOqCZPSaM70ArP02BPDI3E=
+X-Gm-Gg: AYBFou1SoLGzzC4/MIHcPTEec1BnIKYgzjXrgtvO1q5cdsaCK/fu1+fdg9wqDCFQQsf
+	pm8fGJdGniTXKQNT7u0Sh4W0xeMKDxOVSCmzoLo/G73zrfDgzqAnOSHILd1K9ZetBBJBhRAWaG2
+	71N2Q6eub1gFeH9IfhimKZyIrMmiObHF14QCGCUjBq5jpuZ2O6Kv215yGGQmApKPtJ86PqFSXfX
+	8ZJey6moFOm2clKqK1o6VMAXFxAjyhBYgQQOtOCzWD0k1QEIcXsGe/RKIizKqUfpmQK/HDe6q7e
+	zLCTLYjcTdK5cIEUM+GHN49H/z2nib/A5v+pTQKhUAFCjNd/yXTqGNnDoF7eX0ueRnAxveuGsUr
+	e483QMRd0E8AMhjNVBqWUlKhzhReUcsZqYjVRBt57dkeYQ9elzjDpH55Fe11/+ZJKtqJRgoGnEC
+	cDkMEfx/CwU3wDso6XfFbCyQa4/h3eEpfKarXAxmp054GXnlTGimaVE3oEqAqyVkeLKfKvw3S37
+	wAT695jYBFZbu3RkIT0F6Xa4ZXysRBwRkysjlV5XfvicP4PpcDUsw==
+X-Received: by 2002:a5d:414d:0:b0:487:219e:5e20 with SMTP id ffacd0b85a97d-48e07fa8ce2mr9406189f8f.51.1792394948485;
+        Mon, 19 Oct 2026 00:29:08 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:6674:33bf:38d6:bc10? ([2a01:e0a:106d:1080:6674:33bf:38d6:bc10])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd5033a2sm21249024f8f.45.2026.10.19.00.29.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 00:29:08 -0700 (PDT)
+Message-ID: <0b5c28f0-0a43-42b3-a07e-4ecf39b2380d@linaro.org>
+Date: Mon, 19 Oct 2026 09:29:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AzLNdjRv6F_B
-Date: Mon, 19 Oct 2026 09:28:10 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Huacai Chen" <chenhuacai@loongson.cn>,
- "Huacai Chen" <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev, "Xuefeng Li" <lixuefeng@loongson.cn>,
- guoren <guoren@kernel.org>, "WANG Xuerui" <kernel@xen0n.name>,
- "Jiaxun Yang" <jiaxun.yang@flygoat.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, "kernel test robot" <lkp@intel.com>
-Message-Id: <7f22dbbf-98e9-42ac-9c12-f6b4377ee430@app.fastmail.com>
-In-Reply-To: <20261019031436.3523632-1-chenhuacai@loongson.cn>
-References: <20261019031436.3523632-1-chenhuacai@loongson.cn>
-Subject: Re: [PATCH] soc: loongson: Make Loongson-2 drivers depend on MACH_LOONGSON64
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] arm64: dts: amlogic: odroid-go-ultra: use the RK818 RTC
+ as rtc0
+To: Shigeaki Asai <y-asai.0816@docomonet.jp>,
+ Kevin Hilman <khilman@baylibre.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261017110743.3555391-1-y-asai.0816@docomonet.jp>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261017110743.3555391-1-y-asai.0816@docomonet.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026, at 05:14, Huacai Chen wrote:
-> Loongson-2 is 64bit CPU series, their SoC drviers are not supposed to be
-> used with 32bit. So make Loongson-2 drivers depend on MACH_LOONGSON64 to
-> avoid build warnings:
->
->    drivers/soc/loongson/loongson2_pm.c: In function 'loongson2_pm_probe':
->>> drivers/soc/loongson/loongson2_pm.c:178:49: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
->      178 |                 loongson_sysconf.suspend_addr = 
-> (u64)phys_to_virt(suspend_addr);
->          |
->
-> Cc: stable@vger.kernel.org
-> Fixes: 3d9aba6618d1 ("LoongArch: Adjust build infrastructure for 
-> 32BIT/64BIT")
+Hi,
 
-I would prefer just fixing the trivial portability issue here and keep
-the COMPILE_TEST option around. loongson_sysconf.suspend_addr is
-'unsigned long', so just cast to that instead of u64, or
-change the suspend_addr type to 'void *'.
+On 10/17/26 13:07, Shigeaki Asai wrote:
+> The ODROID-GO Ultra has two PMICs with an RTC each, RK818 and RK817,
+> and the SoC has the meson virtual RTC. Only vrtc has an alias, rtc0.
+> 
+> An RTC without an alias takes the lowest free number, and the RK817
+> RTC registers early, so it usually becomes rtc0, the RTC the system
+> time is set from at boot. The RK817 RTC seems to run without a 32kHz
+> crystal on this board: it ran about 1.5% fast while the board was on
+> and 14-17% slow while it was off. The RK818 RTC keeps time well:
+> with it as rtc0, the clock was off by less than a second after the
+> board was off, with no charger connected, for 12 hours 40 minutes.
+> 
+> Use the RK818 RTC as rtc0, and give the other two RTCs an alias as
+> well, so that the numbering does not depend on probe order.
+> 
+> Fixes: 62e73f000696 ("arm64: dts: amlogic: add initial Odroid Go Ultra DTS")
+> Assisted-by: claude-opus-5-5
+> Signed-off-by: Shigeaki Asai <y-asai.0816@docomonet.jp>
+> ---
+>   arch/arm64/boot/dts/amlogic/meson-g12b-odroid-go-ultra.dts | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-g12b-odroid-go-ultra.dts b/arch/arm64/boot/dts/amlogic/meson-g12b-odroid-go-ultra.dts
+> index 348baa4e6d84..86902f68d7d4 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-g12b-odroid-go-ultra.dts
+> +++ b/arch/arm64/boot/dts/amlogic/meson-g12b-odroid-go-ultra.dts
+> @@ -18,7 +18,9 @@ / {
+>   
+>   	aliases {
+>   		serial0 = &uart_AO;
+> -		rtc0 = &vrtc;
+> +		rtc0 = &rk818;
+> +		rtc1 = &vrtc;
+> +		rtc2 = &rk817;
 
-      Arnd
+The vrtc was used as rtc0 because it's the defaut wakeup rtc,
+can the rk818 and rk817 wakeup the system when in system suspend ?
+
+Neil
+
+>   	};
+>   
+>   	adc-joystick-left {
+
