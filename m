@@ -1,343 +1,151 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010012.outbound.protection.outlook.com [52.101.201.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809554848AC;
-	Mon, 19 Oct 2026 11:14:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408453; cv=fail; b=h6a4PPk1TJ8frbww/unOkEiyHhNVo+D7ZoaXP3mOoMNer9xN3dNZkCVwJTGttsc3f6082losLZpltTXfUsyI0+tj89LPj7nP0CDSPfr9q56I+Lm/3c2w1wPvemaR2vbjHJBik+JguGmVOvPi0WEptgDZZEVNJRLnHBLH0FgVT9A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408453; c=relaxed/simple;
-	bh=4V1EeEIDpUZPJwumvCNO2Vk/v8ckyTzKFq7FJVmmFL8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=awLGBLtJ7llpgnkb0HI10RzOFJC1fxZLCzbgEkMcHk52Wf6sFhqKkOzT/dN0KV313hWak0DA+eqJNME4GwZiHGMCNL9Ci52ufbyPcR9l0VD4fOtpkaUfHDOx8Z3S7/G7REYtfh/ouiQkGCPLbvJy+CtOvMIE9hJtXyWVxFW5LRM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bf5oWsbk; arc=fail smtp.client-ip=52.101.201.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bf5oWsbk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xeJOHZdym07a1vAVtLmDlJkYXhzgCVBOpgyBQ+NunwXiVbLGIc3SrGUAzvgHAG57yNpzN2CIGzJR7x53hyLsXhkozh2SDzurcSvpx0L+iUAYKTudj9neLTIVpLHi0UFDo/rUu7UuMBrjyLdFw8SvygLEC0pDUWtQMKMMbDzdJjeowGTs0QMeBg8jdqBGLf5j/q8ASl6yBfX5myJCyaja7tcCVvQFRF5scDm2TBQq5NBHRSxs455xNQiGrgO3bhpK617jxPQMRAljS8gWWtNNjb/dIpH6Ct1PXgXF/valM0Hg8wkQnl/PiHvlH8yAPhSFfjGTGwJp+X8r+VquOWGeIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wP8wBXIBuq5ZdlxvFkMbU13JOKJfZV7kPsxH+W00P78=;
- b=nGvPIhUEbhRb2pSFggftw0M0ZKcnpsWj7GWZujSKXvTHHKYFEYMSIUXjNJrDvd7Vrka2EuGb/O99P2KbaM9ydcg6Ck8FXzgK5Wf+ZgzdlHNgNcE0G6GlGW72d2ZAzUwQe88G7TWDls9mzcX54EqEKOjPdTxdU0EkpwPI2QTakdcwFoJbqsKhwFeMv3nh34waSs5cXOxDxuYbIF/lG+H3W/xfC6Ia3Xu200rulpTwBrYl2LU496UDlVrHAbkn0NrjQn1wdWgBbHrCPzbG0v2TZ5l0FvcyCGQ+j17veXkbAcBPrIe7lMqCGcALMVVOwrZsgRU1Gyama2BXY4L5UilUUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wP8wBXIBuq5ZdlxvFkMbU13JOKJfZV7kPsxH+W00P78=;
- b=bf5oWsbkjlBtIdRymuPO94REd2561ZiTUt4psTwzKEuW/N4Me8qNonLgx1tA/+xpvvZwEAeOtxOtE0Jh5OwYYR0kIdUg5Lt0kkjekhWvp76Yv36e24Tm4meQEqDHLNhDyuIMg7N9tFAYZfY21DljHrbXgUb7lncBwsnoI2qj3lJ/HdoF3jHEwbOw5f3Ozu+cMmu04GBs+u66QndfCB6AcDV5BwPQa+03zfnevg8RDVinxSOGV6xxXNF7Zu5TmDsE2WGRVxoDFzzx6GkxKPLGTLiLG5j5V3k79EDUBO3ZAQED8LJSCbMnw/wN2Fzf3jn5cPWoMMDnWY09CugkYpZ7vA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB8245.namprd12.prod.outlook.com (2603:10b6:8:f2::16) by
- SA3PR12MB8045.namprd12.prod.outlook.com (2603:10b6:806:31d::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.24; Mon, 19 Oct 2026 11:14:07 +0000
-Received: from DS0PR12MB8245.namprd12.prod.outlook.com
- ([fe80::e7c5:cfca:a597:7fa4]) by DS0PR12MB8245.namprd12.prod.outlook.com
- ([fe80::e7c5:cfca:a597:7fa4%3]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 11:14:07 +0000
-Message-ID: <549bbe12-d171-4874-902e-bd38bb900957@nvidia.com>
-Date: Mon, 19 Oct 2026 16:43:57 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/11] PCI: endpoint: test: Do not relocate fixed MSI-X
- tables
-To: Koichiro Den <den@valinux.co.jp>,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
- Niklas Cassel <cassel@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Krzysztof Wilczynski <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, "linux-pci@vger.kernel.org"
- <linux-pci@vger.kernel.org>, Rob Herring <robh@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>, Jon Hunter
- <jonathanh@nvidia.com>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Vidya Sagar <vidyas@nvidia.com>,
- Marco Crivellari <marco.crivellari@suse.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260923072237.1139013-1-mmaddireddy@nvidia.com>
- <20260923072237.1139013-12-mmaddireddy@nvidia.com> <arPjAeYzVbe5_qo8@ryzen>
- <179198883276.63727.4456977474157450415.b4-reply@b4>
- <wfzi6cojnam2flqksk55i2nghpovhteeirsy3phfa6zxlloy66@oajxjlhqusrb>
-Content-Language: en-US
-X-Nvconfidentiality: public
-From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-In-Reply-To: <wfzi6cojnam2flqksk55i2nghpovhteeirsy3phfa6zxlloy66@oajxjlhqusrb>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN0PR01CA0003.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:4f::8) To DS0PR12MB8245.namprd12.prod.outlook.com
- (2603:10b6:8:f2::16)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0395A4E36EC
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792408519; cv=none; b=CzUFv56cvffzNxL/suJOuYqv+x9OTzMXi6r/deg3xlwHb2Rh2RqqMgdZh8C3SCIXHHv8eM45LRIBMOCA0tPooi4ddJB0YEuijXRbnzwJAOFjvUV/enr0ZwqLERnT/pSix4c8Y+RlMnh848VvfPIGyrSM4qzv74q8Ftost+zTe40=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792408519; c=relaxed/simple;
+	bh=n4FqSLmVAEsXOHXlDEkGaq3c/eruqmAn//5DvPsyRXA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=fS453HmZZMreA5rWh/5xjJsBxQQFQ8SJdhNbsassGDSGEWIcBiD5YQjd3DBWUk9JV4QYnuHYyS9bppbZU57HEheMG5F6zTzJ4vXOVtLt6Qd3etQCwgb954nmJQU2jcYu93lMybTb/KA8T6njzC1adt95gd47v5baPRH/NAqAN2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so1878167a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:15:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792408516; x=1793013316;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=59Dzn78qm0Ddey/ClDGdUsV3GOFiBhJV+gV58rFFcGc=;
+        b=Gp1H411P31aM3LaM/Lfhqw4UrpTtrOBhj4h85nrtOI73SuP/xS98s22Pvm8LD7P1rL
+         hk/LLO+V46NrAR9voQdzV3hAB5bMr1IIdGPUN4zWMjwj/QPoGn5kvO19yEChvUy8Z2xI
+         scfrhV1evFkxcB4zGGE7Y23v30EmAOPS0264BN7/gYjbC34ALk2GdyhRyobrW2SuNHUA
+         1CeNR1QBtMHb58E71nPyzHpaxQcvbmbOVoboH+sAp+4VNbqQsKjLg5j+pEHMr8KqDLTq
+         KVdLYvBgP57BARuE9zEZxByBFDRGLnUIDQ58MS7z9X9aEV0Yi/9XcO4Of+uZ9NxnZvrv
+         96Lw==
+X-Forwarded-Encrypted: i=1; AKwUvByvUFJNpjhlKPe00XKWk58IWkf+BzqRGWG2EnaMLy46PmHVnMv3lxuj1k1/ZKbJNJWWKOgmXWW6YfFRdnM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTLU1nSbOCxQ/ms4lcYLjyY8JYDSvGg2gkcxqwcknoRQUh/Tnh
+	4X1YHovjF3NRamSTG+0HFwf5pKc5jWkb5BvVTSTWJmlXoPrvYKRMU0BI
+X-Gm-Gg: AYBFou0QsIWIr1BNGHp3hvw8Wv1Q6GqAiKryT7tYrPTi0FBthNgRagcJeflVU+qbILu
+	n4BT7ygxTwUzzHc2MhMUxL1sFjKCVy63N7JjkP/Et0MVWfvv80Uu37QN/g3bwFixWa3HCuN3XfT
+	4cSektE5qb/+0UxJD/UyV51ii1o3LVQ0AZjH01CcvygWIEnrJ3twpszaj1Otku7RYgvKQp8gExl
+	n0V4gUj3yjQVHUqjDPZKrKzT44H9TWDBZ7Iu/ucFZRplsjAbD4s3JaYrRD0ykWo5BddPBREUg5b
+	BBZjhlbVVzzl6OxzqLj4bStbaAaUBGchVr1Biz+ecAFR08MoMsv7FysMQgjgvQ0mLtDfkhSIWK7
+	1ChZIKSk8mEwT++jsZ/ZDoiSKCNk1dnuu0vaLKmgi0h4SSohqafEpAWzZuz68sNec/wBLvF/bF5
+	MSl078P29Rs5kVqb/cLhj3FMVdZIqVXOnljBhgYeAvnCXfigQmJZyGno7dLEUPz0K80/xJzkW1F
+	5TFDwGsuaZuoLcu4SQc3Q==
+X-Received: by 2002:a17:90b:2e45:b0:3a6:dc51:cce9 with SMTP id 98e67ed59e1d1-3acef10a75fmr6456476a91.57.1792408515890;
+        Mon, 19 Oct 2026 04:15:15 -0700 (PDT)
+Received: from localhost.localdomain ([116.162.92.112])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654a3a592sm3907989a12.30.2026.10.19.04.15.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 04:15:15 -0700 (PDT)
+From: Hongyu Xie <xiehongyu1@kylinos.cn>
+To: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Cc: Hongyu Xie <xiehongyu1@kylinos.cn>,
+	speakup@linux-speakup.org,
+	linux-kernel@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	chris@the-brannons.com,
+	kirk@reisers.ca,
+	w.d.hubbs@gmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] speakup: Do not hold spk_mutex across catch_up()
+Date: Mon, 19 Oct 2026 19:15:05 +0800
+Message-Id: <20261019111505.2048-1-xiehongyu1@kylinos.cn>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <atUPbjRxDtzBZ4Vc@end>
+References: <atUPbjRxDtzBZ4Vc@end>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB8245:EE_|SA3PR12MB8045:EE_
-X-MS-Office365-Filtering-Correlation-Id: 683e58a6-20b9-40e4-d601-08df2dd2174f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|7416014|23010399003|5023799004|10067099003|6133799003|56012099006|4143699003|11063799006|18002099003|261009223027099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	sVCo4w4rk2D5ORWLwltqeSVXVG/e5hjE2OKqUlSpCkx8fzFcODGKBVouciQJEB2R7Du9PhNkQRpKax1lYX7TNDMmo5GvbTmx9rjp6ZznKmnrMW3mnovTrQAA4BhMEDHTlEvj18/mESdsR0GgNMu+SbsTYoFSqm1k/ojATCClSVTAG22W/D7zry+/kDFvmcELkeUfpXBc0Oaa32/XtJ05EQdJP2i8vLX7eXhbjySbhgafCLjWEcBfiTg0tleUs3sn1W+Mbds6Hu4mFvOHkFgztCM17nGOP8NAohMPeWFyfotwQpaP8YE3NBZBiLzqhrfFIXb7CrtGXjIHRemUY5ZVh5a5zON8TRW9309N3a+9LUjyfnnQRHdSjamzkXWXgihEzLSi/ZMFE+aADj8LKLX4xt/V5n1d6niDKeHxUzJuky7E83Pn3cDxm7BssG3Rd6FfJoBQUYtQ41bwMsBXi/7E8klE0OLoomDn7yUXTcyM6q9QfOvOqeR4sznkIqvNsAPMyTT1tDVEL63jNqocQmDvjPMoUATaU10GM2yJABO3S3LrGC/F0nYO6zVCC1FeFxfXpsin0DYJL6fu3XM0QDDHifOYBcCXT7GfJ+TF2ZPsOBlPN81GHAKvIJrDQuCrRd/6E35LyIJxrHARpeltaknR1GTfLy8vcGFCZn1llFL3Ftc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB8245.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7416014)(23010399003)(5023799004)(10067099003)(6133799003)(56012099006)(4143699003)(11063799006)(18002099003)(261009223027099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NERoWHpBUDdlM0tUSmhoUy9nZTY2TG0rbGpqcjFDNEVUalBIM2QzWHI0Y3px?=
- =?utf-8?B?VnhCYmR5dmZyMldBUlJESUI1Q3pienRhSlNCWldPbXp1dTFUMGlxcmhhUnVW?=
- =?utf-8?B?bVc1VnlmWjhFNTJzZit2SktmckJvUkhRWWpROGJtNVhMSkxwTXpaMldxNkVL?=
- =?utf-8?B?b3dPZmpLZml2dzhONmNMYjRoT29jZk9DUXlPM2YydHhBQzZBRTNwUWRJZmFW?=
- =?utf-8?B?NnVIWlAwVDhldkl6U3l2bFhtWlYwVjRUeG5FSk9wWSs3Mm5uNThWUWlCVnF1?=
- =?utf-8?B?T3dtdkE0b3dPNDBYajNGY0RBZTZJSVF2cGFtclRGYmQyellyOGZFcUxYeWtG?=
- =?utf-8?B?dWZndmV4ZHBvRDBZSzFuaWlUd2xIYUtLaTFaM1hpbGFMbTVuOVprNFJ2NG9B?=
- =?utf-8?B?ZUFZa0dnOEZTK25hM3dqSmlLS2R0citTeGdDajlvb2pXWG5rVXVHYTJrOW96?=
- =?utf-8?B?WFJlemZXbTVwdkpJN2Z5YWxreE1GTkdJZFQ1SkY2MjI2ZitqUktSZlJJYjA5?=
- =?utf-8?B?NlJQZW5aUlFsY09Qb1M1bmVpWmFEaEtIdEUzVFBxQk91SzdxWVpNZnFzTXM5?=
- =?utf-8?B?UEFUbEJxY3hDK3NtQjllRWNOQzEra1QzdDVoVkdnRmFjcTR1QWQ2RlNZM0lY?=
- =?utf-8?B?Z2NHTGlGWFh4UjRjTkVrRFJFallycjR3dG8xYnk4Wno5VmplZDFza2VDNUl3?=
- =?utf-8?B?YVBjNkpPRzJiMnlXWjJKbU1Vd1pPb1plZHhKbktLTlJJK3ZhZ1lDYy9HTk5i?=
- =?utf-8?B?U1RucEJUeFBZRG1sdHRyZGZDK3lzTENUSVhONjRQUkNyMlFrZlBiWUd0U1J5?=
- =?utf-8?B?b1hHNjNQZlFhTHBiekZCL1BGNGVlUXAraGFWTGd0ZlFoZkVQcG44WHBWSGJB?=
- =?utf-8?B?VCs0bTBhTFJXOStoWXlZaUsxeGVVTjFwcHdTNk9iMmpWVEdHbWNyRnJwbURV?=
- =?utf-8?B?U01nVXlsajdUSVZEWjVLMjJDRFRsSVFid1BmUUtsWmZDSCtxV3hIQmtwT2lh?=
- =?utf-8?B?N0hwVWRIWUhVYStPTWpseFQ1OUVXSzRJRGtkSllEL2N2cXBaRUx1YjJRa0lZ?=
- =?utf-8?B?ZE1PWUdGUjFZcFpUZ3lORDdONjRwYzB1cGRlRGJjZ1lyS1ZPWFZXM21Wc3ps?=
- =?utf-8?B?c2tQZm5qNXY5T2t3QTBkcWRhWnBzUnhYS3VNRGhFdW1YcDNNdElab1lzMkJn?=
- =?utf-8?B?V0I5SWMvaFFmM0Z0Z2RsbDA5N3Uzb0xmQ0IzRUpoTWpKeVBDcFRQZGt2akdS?=
- =?utf-8?B?MCtCczhBNnVBN2xmM01DTk9UWnJ5QXd6WENJZnRubkJiTSt1MjNuMzhTVVJN?=
- =?utf-8?B?eG0yZXhDb1pCZVh4WUZ0QkUvL3hVZUlCMVFRbFFpTWU1REVVOE9pZU1yZTBa?=
- =?utf-8?B?VExRck1TNVZMcWwzQ0hCY0l1UHFWNUg3L1cycXFid3B3NW5Mbmhxc2FRak9W?=
- =?utf-8?B?bFJQeCthdVRtaFRyRllnNXgyRWU4eGVrZXJyVUJWTVlUN2xORmV0a1lBZmNh?=
- =?utf-8?B?SnlpQ29VM2JzQm51QXVSeFplRTgzeHdSaklrSjB3RzM2R0dwVkgxZWJ1cmFU?=
- =?utf-8?B?bEx6Skt6Uzhwa2VHeDJIb1V1YmVtV0ZWZ1c0bzllNHpnYjRHUDNJTTFmQ0hO?=
- =?utf-8?B?VkY5YU9kNDE1eDdCY3M2M2ExNTY1L2VnWWFzcFdOaytLbmJ0V0R3OEszMnVp?=
- =?utf-8?B?ZlJyeUpOQ3F3aTdKaFR6dkl4dTd2WEpJQzQydnJ4OVhkU2FBdllERE1OSkZD?=
- =?utf-8?B?MzNQa2tPYU0zc2ptQlNsRzVqTFZ0MWt1QTJCYzdiVC9XZk1scG1MbHdyekZI?=
- =?utf-8?B?OXFjWC9Na3VMRFQrQnNJdUxoOWpLdzZzM0QvMVRQcS8xR0RGak92MndqWjVD?=
- =?utf-8?B?ZzJBZFBud3dHTlB4Mnl0WVdZZm04aFNIdzY2OGRwOVZuZW55a3NUbmZ3U2RS?=
- =?utf-8?B?dlJXMThTUFhJQ1gyM0hCZFRDcHZyeWM0TTlqbEIyOFltTGRGOUthTmliRUlF?=
- =?utf-8?B?bXRPNTNXWjJFN25wcUtJZlh4MzRvWUVsSWhzYTZrMTlYRmZDUENUaGI4ZVlK?=
- =?utf-8?B?T3o2TUNBMXdOQWU5SCtUdk0zRitDWm40cHFpWnhnOUpXUysyd2I1d0ZKOEFm?=
- =?utf-8?B?MVJEKzRhWkp4cE9yVm9sdFFmR3RZc2dmNkFra01ObWM2MnAwR29KNnR5N05i?=
- =?utf-8?B?VVlaa1RoZm53alpmVkVWYWhUK0xkalRCeEJXK0ZRUEJ5Si9IZDBSaERZZFhr?=
- =?utf-8?B?M1RocFlRVmc3Y0tJRzVIZnV3NFZ6RVpzUEdaN1daT2NHZ1R6c0xqTHBzdEl2?=
- =?utf-8?B?OVBIdmlUbUNwL20rOC8wNVM5MDJtQ0FjSEs4ZG5LdjI5OUNZUFp1QT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 683e58a6-20b9-40e4-d601-08df2dd2174f
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB8245.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 11:14:06.9259
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0K4sriuQcmQ0AmjHZIIBe25SQEqBerVNzb4Z8K1N5QLzQorlBz4hqT7aUd3bb5gl0ahsNM9Z2Y95aJ+2MEnbFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8045
+Content-Transfer-Encoding: 8bit
 
+Hi Samuel,
 
+Thanks for reviewing the series.
 
-On 15/10/26 11:13 pm, Koichiro Den wrote:
-> On Wed, Oct 14, 2026 at 08:10:32PM +0530, Manivannan Sadhasivam wrote:
->> On 2026-09-23 16:32 +0200, Niklas Cassel wrote:
->>> On Wed, Sep 23, 2026 at 12:52:37PM +0530, Manikanta Maddireddy wrote:
->>>> Some endpoint controllers expose MSI-X table/PBA storage at fixed,
->>>> hardware-owned BARs. Such BARs are described to endpoint functions as
->>>> BAR_RESERVED with PCI_EPC_BAR_RSVD_MSIX_TBL_RAM, so the function driver
->>>> must not reprogram the MSI-X Table/PBA capability to point into ordinary
->>>> function BAR memory.
->>>>
->>>> pci_epf_test always allocates MSI-X storage after its test registers and
->>>> calls pci_epc_set_msix(). On controllers with fixed MSI-X storage, this
->>>> overwrites the controller-defined MSI-X layout. For example, the generic
->>>> DesignWare path derives the PBA offset from the number of vectors, which
->>>> can make the host program the wrong MSI-X storage and prevent MSI-X
->>>> delivery.
->>>>
->>>> Detect fixed MSI-X table BARs and leave the controller-owned MSI-X
->>>> capability layout unchanged. Keep allocating and programming MSI-X
->>>> storage in the test BAR only for controllers that do not advertise fixed
->>>> MSI-X table storage.
->>>>
->>>> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
->>>> ---
->>>>   drivers/pci/endpoint/functions/pci-epf-test.c | 27 +++++++++++++++++--
->>>>   1 file changed, 25 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/pci/endpoint/functions/pci-epf-test.c b/drivers/pci/endpoint/functions/pci-epf-test.c
->>>> index d4905aa8e4c0..82d4714e998c 100644
->>>> --- a/drivers/pci/endpoint/functions/pci-epf-test.c
->>>> +++ b/drivers/pci/endpoint/functions/pci-epf-test.c
->>>> @@ -83,6 +83,7 @@ struct pci_epf_test {
->>>>   	struct config_group	group;
->>>>   	enum pci_barno		test_reg_bar;
->>>>   	size_t			msix_table_offset;
->>>> +	bool			msix_table_fixed;
->>>>   	struct delayed_work	cmd_handler;
->>>>   	struct dma_chan		*dma_chan_tx;
->>>>   	struct dma_chan		*dma_chan_rx;
->>>> @@ -98,6 +99,26 @@ struct pci_epf_test {
->>>>   	size_t			bar_size[PCI_STD_NUM_BARS];
->>>>   };
->>>>   
->>>> +static bool pci_epf_test_msix_table_fixed(const struct pci_epc_features *features)
->>>> +{
->>>> +	enum pci_barno bar;
->>>> +	int i;
->>>> +
->>>> +	for (bar = BAR_0; bar < PCI_STD_NUM_BARS; bar++) {
->>>> +		const struct pci_epc_bar_desc *desc = &features->bar[bar];
->>>> +
->>>> +		if (desc->type != BAR_RESERVED)
->>>> +			continue;
->>>> +
->>>> +		for (i = 0; i < desc->nr_rsvd_regions; i++) {
->>>> +			if (desc->rsvd_regions[i].type == PCI_EPC_BAR_RSVD_MSIX_TBL_RAM)
->>>> +				return true;
->>>> +		}
->>>> +	}
->>>> +
->>>> +	return false;
->>>> +}
->>>> +
->>>>   struct pci_epf_test_reg {
->>>>   	__le32 magic;
->>>>   	__le32 command;
->>>> @@ -1214,7 +1235,7 @@ static int pci_epf_test_epc_init(struct pci_epf *epf)
->>>>   		}
->>>>   	}
->>>>   
->>>> -	if (epc_features->msix_capable) {
->>>> +	if (epc_features->msix_capable && !epf_test->msix_table_fixed) {
->>>>   		ret = pci_epc_set_msix(epc, epf->func_no, epf->vfunc_no,
->>>>   				       epf->msix_interrupts,
->>>>   				       epf_test->test_reg_bar,
->>>> @@ -1282,7 +1303,9 @@ static int pci_epf_test_alloc_space(struct pci_epf *epf)
->>>>   
->>>>   	test_reg_bar_size = ALIGN(sizeof(struct pci_epf_test_reg), 128);
->>>>   
->>>> -	if (epc_features->msix_capable) {
->>>> +	epf_test->msix_table_fixed = pci_epf_test_msix_table_fixed(epc_features);
->>>> +
->>>> +	if (epc_features->msix_capable && !epf_test->msix_table_fixed) {
->>>>   		msix_table_size = PCI_MSIX_ENTRY_SIZE * epf->msix_interrupts;
->>>>   		epf_test->msix_table_offset = test_reg_bar_size;
->>>>   		/* Align to QWORD or 8 Bytes */
->>>
->>> Here you are only updating pci-epf-test. What about the other EPF drivers?
->>>
->>
->> How can we test those other EPF drivers if there is no hw setup available? TBH,
->> we don't need to add all functionalities to all EPF drivers. Adding them to
->> pci-epf-test driver is enough. If other EPF driver maintainers want to add the
->> missing features, then they can add them after testing on relevant hw setup.
-> 
-> I wonder if nvmet-pci-epf was one of the cases Niklas had in mind.
-> Patch #10 sets .msix_capable = true, so with msix_interrupts set to a non-zero
-> value, nvmet_pci_epf_init_irq() selects MSI-X and calls pci_epc_set_msix() with
-> BAR0, which looks like the concern this patch #11 itself wants to resolve.
-> 
-> So, Manikanta, have you tested nvmet-pci-epf with MSI-X on Tegra with and
-> without this series? I don't have the hardware, so please correct me if I'm
-> missing something.
-> 
->>
->>>
->>> Also, if you run then pci_endpoint kselftest, with the default 2048 MSI-X
->>> interrupts. Are really all 2048 MSI-X successful?
-> 
-> This also reminds me of the unresolved entry #0 issue Niklas and I saw on
-> RK3588... The kselftest's final status hid the failure when a later vector was
-> skipped, so it's worth checking the individual results. If the same symptom
-> appears on Tegra, it would be useful to compare the two.
-> 
->>>
->>> It seems that often the "hardware owned" MSI-X table is much smaller than
->>> that. See e.g. Koichiro's series which tries to use "hardware owned" MSI-X
->>> table, but if the "hardware owned" MSI-X table is too small to hold all
->>> 2048 MSI-X IRQs, then "hardware owned" MSI-X table would not be used:
->>>
->>> https://lore.kernel.org/linux-pci/20260830151948.3547577-2-den@valinux.co.jp/
->>>
->>> +	if (layout->table_size < table_size || layout->pba_size < pba_size)
->>> +		return -ENOSPC;
-> 
-> Unlike my previous series, this patch skips pci_epc_set_msix(), so as I
-> understand it, msix_interrupts does not change the Table Size advertised to the
-> host. Assuming the existing Table Size matches the hardware, that would avoid
-> advertising more entries than it has.
-> 
-> (BTW, skipping pci_epc_set_msix() alone would not be enough for RK3588. Its
-> upstream driver does not yet advertise the fixed MSI-X Table/PBA regions, so
-> this patch does not change its behaviour. But if we add those regions later, the
-> interrupt path may need to change too. dw_pcie_ep_raise_msix_irq() reads an
-> EPF-owned Table through ep_func->epf_bar[], which is not populated for the
-> reserved BAR4. The rockchip driver would need to select the controller doorbell
-> when using the fixed Table.)
-> 
-> Best regards,
-> Koichiro Den
+You asked whether the blocking this patch removes is really a problem,
+since an operator who loads/unloads/switches a synth knows speech is
+being played and can stop it first.  The report that motivated this
+series is a case where that cannot happen: it comes from automated
+module load/unload testing on arm64 boards that have a serial port but
+no synthesizer attached.  The sequence is:
 
-I verified only with pci-epf-test driver.
+    modprobe speakup
+    modprobe speakup_acntsa
+    modprobe -r speakup_acntsa
 
-Tegra MSI-X HW supports maximum 8 vectors. pci_endpoint_test drivers 
-supports MSI-X allocation from 1 to 2048, so this driver is allocating 8 
-MSI-X vectors and I could see 8 MSI-X vector and the count increase on 
-all 8 vectors.
+speakup_acntsa attaches to the serial port and becomes the active
+synth, but nothing on the other end of the port consumes the output,
+so the tty write never makes progress and catch_up() keeps looping
+while holding spk_mutex.  modprobe -r never returns - the original
+report is a hung task warning on a stock 6.6 distro kernel.  The trace
+below is from a qemu reproduction of the same sequence with the serial
+port backpressured:
 
-  152:          2          0          0          0          0          0 
-          0          0          0          0          0          0 
-DW-PCI-MSIX-0005:01:00.0    0 Edge      pci-endpoint-test.0
-  153:          2          0          0          0          0          0 
-          0          0          0          0          0          0 
-DW-PCI-MSIX-0005:01:00.0    1 Edge      pci-endpoint-test.0
-  154:          2          0          0          0          0          0 
-          0          0          0          0          0          0 
-DW-PCI-MSIX-0005:01:00.0    2 Edge      pci-endpoint-test.0
-  155:          2          0          0          0          0          0 
-          0          0          0          0          0          0 
-DW-PCI-MSIX-0005:01:00.0    3 Edge      pci-endpoint-test.0
-  156:          2          0          0          0          0          0 
-          0          0          0          0          0          0 
-DW-PCI-MSIX-0005:01:00.0    4 Edge      pci-endpoint-test.0
-  157:          2          0          0          0          0          0 
-          0          0          0          0          0          0 
-DW-PCI-MSIX-0005:01:00.0    5 Edge      pci-endpoint-test.0
-  158:          2          0          0          0          0          0 
-          0          0          0          0          0          0 
-DW-PCI-MSIX-0005:01:00.0    6 Edge      pci-endpoint-test.0
-  159:          2          0          0          0          0          0 
-          0          0          0          0          0          0 
-DW-PCI-MSIX-0005:01:00.0    7 Edge      pci-endpoint-test.0
+    INFO: task rmmod:84 blocked for more than 10 seconds.
+    task:rmmod   state:D
+    Call Trace:
+     __mutex_lock
+     synth_remove+0x16/0x60 [speakup]
+     __x64_sys_delete_module
 
+    INFO: task rmmod:84 is blocked on a mutex likely owned by task speakup:76.
+    task:speakup   state:S
+    Call Trace:
+     schedule_timeout
+     _spk_do_catch_up+0x1d4/0x2d0 [speakup]
+     speakup_thread+0xd6/0x240 [speakup]
+    locks held by speakup/76:
+     #0: (spk_mutex){+.+.}, at: speakup_thread+0x1b8/0x240 [speakup]
 
-For now, I will drop msix feature from this series.
+There is nobody at these machines to stop speech first: they are
+headless test boxes, and no speech is being produced at all - there is
+no synthesizer connected, the port simply never drains.  The same
+mutex hold also blocks loading another synth module (synth_add) and
+any synth switch, which is how the load-side variant of the test hangs
+as well.
 
-> 
->>>
->>>
->>>
->>> Apparently NTB EPF needs to read the MSI-X table from RAM:
->>> https://lore.kernel.org/linux-pci/pj5vpwwd5tr5tuvhdq3bcpefnq27r6ljvwoysguz2o4tglcqx5@l7zmb6wjnhla/
->>>
->>> Which is why he also decided to let an EPF driver choose if it should
->>> use "hardware owned" MSI-X table or not.
->>>
->>
->> Yeah, makes sense. Otherwise, we will see kselftests failures.
->>
->> - Mani
->>
+The "stop it manually first" route itself hangs the same way, because
+the synth sysfs store handler takes spk_mutex too:
 
--- 
-nvpublic
+    echo none > /sys/accessibility/speakup/synth
 
+reproduces the identical D state on the same mutex:
+
+    INFO: task sh:79 is blocked on a mutex likely owned by task speakup:73.
+    locks held by sh/79:
+     #3: (spk_mutex){+.+.}, at: synth_init+0xab/0xe0 [speakup]
+
+and a task in D state ignores SIGTERM, so even timeout(1) cannot get
+the shell back.
+
+Patch 1 alone does not unblock this sequence: it adds the loop exit on
+!synth->alive, but in this scenario nothing ever clears synth->alive -
+the port stays open, the synth stays alive, its output just never
+drains.  It is synth_release() in patch 2 that clears ->alive and
+waits for the in-flight catch_up() to leave before releasing the
+resources, so the unload terminates the loop instead of waiting for
+output that will never complete.  As the cover letter says, patch 1
+provides the loop exit, patch 2 provides the deactivation and the
+drain.
+
+For real hardware the same holds with a finite per-utterance but
+unbounded aggregate wait: /dev/synth accepts arbitrary amounts of text
+and with the current code a switch or unload first waits for all
+queued text to be spoken.  Patch 2 does not add locking on the read
+paths - it drops the mutex from the longest-held path and replaces it
+with a catch-up counter plus a drain wait in synth_release(), so the
+synth structures stay valid for the whole call without holding
+spk_mutex.
+
+Hongyu
