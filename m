@@ -1,332 +1,249 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8586E4CF490
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868684CF490;
+	Mon, 19 Oct 2026 02:33:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792377172; cv=none; b=HQtLrIyO7CPzjncRiLvspTGtR4442Zq2v/huPaS9d4oJIs8GU6QV/pO3TG2IxQtOovOQecZiIhPlM6s8u/z677ag0JvmFcbfuNHerDH8XRFADL+F7QL89/ItfAyZhG2mteZErlh3wuKBLbC7/esGyEpBvrexcttY3h6jc0aK/c0=
+	t=1792377224; cv=none; b=djksrPzGKajafojh82WFFuX1vh+VGZ41iJBGkVOkgDw3Pb5rFiZ4blMxvYGjP88AAc7CkYeGU7hXgQJntoKxt6Q0HmZd5rp6d5vHyrg2JCc5AxHpi1PHARe5qCpAHJKIvCS1feI4LeY/onlsAi+bQfrtEgZusL1UMdrRjds4bT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792377172; c=relaxed/simple;
-	bh=s3uBS4ihuKTQWe8m1RLKJGQnEg56WWqg5oBiUkfw+ow=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=RuvpM0tLXIgoZUkDvOpgCVx/j3M47G1jo9XxpZ4TkdYYnsQuZKGN3P9XnOTdxvXHevj+mQ9KmV1KPf6qLbj61GukaXoxuoeXcvfFxzfENk3Scds3h7sh7x7jnesb3otuuGQ2GZIQe1XW9iSgQLGhQU5GmT7zb+6r3iqyYTOwSdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H4goCOBV; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792377224; c=relaxed/simple;
+	bh=rRYTXlW3a2/O6jvsFU1ne7Pzp59ueV9oYoOM2DFy9tg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=uiZ6Wpi97IxCS001YyNgztiOTEPFK3qASvB7zyGTD7BSIySbtNvZBv444lQMONJo4hvdcsbXF17pBeHmqX/CXTJ95XO37vvBY7hcyR0+LFgcT+5CoWF8bOaKXTJh3m1WloGXbkCMK+VTLUmMOf/hoA6oHgnq7jxY+62pEj0zfHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=coEZwt0F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H4goCOBV"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e985106c0cso10485745ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:32:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792377170; x=1792981970; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=52O/O9Vce8b6cN3TTkvORp7Ll1G8WlmxbJgfpaiFrzU=;
-        b=H4goCOBVTJbArAe9jUUclfeNl0DQCD6mMrpBiPlCZl+PnhdHeZ5HBWQc2rdrs5cNmd
-         LNZ2tt3X0hGSUNROaSsZFvRTrERqJMQIjo6UqschQGzdY8d9MR17LD3F2hXU0QnbL1SW
-         8KxirBT/ZGpcsK2vuWB1zX2MTbRYFA/6DbJN+mRW337FhFYqbx4mgr8HZzDXmgrMfjtk
-         HR2rRiRoYA/c6XmM4nXTabNzO/sm/iY68TRW8iQoag/ziExplNB8sKvstnOVN5de0zGr
-         xOEcKpAUuk74vJnP8VM3kTeUcLwGqoaUcZ8dBT260sDio/M9xKU16ho1XvMp9Lr/9LVz
-         WHhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792377170; x=1792981970;
-        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=52O/O9Vce8b6cN3TTkvORp7Ll1G8WlmxbJgfpaiFrzU=;
-        b=uhZNq3TGEzw/Gbx2PgtbgFlLZ0XhUrxbBOUnioO4lSiGAGf1MZKjzeNvt75jOZ68jR
-         8bF/hnTHpmXKzPgD7+Uqy+bkoiGl0OT3H4/BWZ9ZyIYwZhv1AIw47pfq4oFvjOCDKN5W
-         X0qq1AKhfT3EMD/MJwxrE7THqyer7GMQO6Y7SaRIfernQmeJKLmZ4Ek9ujEZPxhoMFTO
-         i6xBZY+61G9bQtc4ii6W9Zg4U63JqkyMcNOpEs/3pjJNRJE+ElQNxY2qujduMl7wRpb4
-         mQs+TFyPxJWvEikymJgyanWy5gHOkEHtLty7PAlHGm4M/oNsjdIq8m3Gzi4HQYpu645p
-         Vi6A==
-X-Forwarded-Encrypted: i=1; AKwUvBypKNyOK8na+HkdvrWL7ooYKsxc0d2dQpTyHwDFxtsefsHpdnJ0Q1FSRdSPa37/2eFYgU0+aX0d37ZPkww=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmRCIsVB6tFCqRBLtFXtFRBDv4iGf9FRbQXTOpMcOoDQdDAxO2
-	7SUg191XFA/s7GUl1hNlZYY8xinlC5bVHfprP73wkSiR0SMM9ynLGNbLij/Ry1qN
-X-Gm-Gg: AYBFou2SxsfjkHqCHQniL63AtVYeBo3gabz+8et715HTfVLFWMIwIJGVP4dM0FFa+6e
-	RxxMYW4Mug7CyqQi3M5EvicKsqfsMhyvcm+BYeKdJhFYo3h27vpReuHwnLy+rGZDDlkzUgwcvit
-	1fabs5H5VgnF09mFbAlzc3K82/8Yei007kSJqO5Jb+cYu6dmXQyLlecXnFkXVk3u0o3kTlkVXq4
-	Z2r2of8sX7OyIp+UzstolO94mNK04FA5CrQPdbgR8wOoCoBwmGa7b0ycw/kQuZJIx4JYIoyKkKF
-	ky0BORKc88K62g3pqnQvK74FTcjXBliKn1tmbcviExen1y8BfwRp5Af1UHuUY0+7TS9xA0zH1jD
-	cqgbDu9cVI5NiMcwP+4jGHu6wO2PyDtH0nMWCWxDRRWlYe4Y5NQFlu6kqR61HZkXJ6LJdEpAcCk
-	WEMfvaw406ymXqs/ePiYZuCz9Fcle2mOCk5g71sMtiIQ2c4aoMfeaiEl2d1GrCQ3AL+RrGjAgGf
-	iJEWsex57kYbXOBWfT5MsknHhZQC6OFGbQ=
-X-Received: by 2002:a17:903:98c:b0:2dd:c100:a5df with SMTP id d9443c01a7336-2e9a7255681mr54071555ad.51.1792377169818;
-        Sun, 18 Oct 2026 19:32:49 -0700 (PDT)
-Received: from [192.168.21.192] ([24.18.106.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e8b2001sm33038105ad.71.2026.10.18.19.32.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 19:32:49 -0700 (PDT)
-Message-ID: <a2a30450-bca0-42ba-a895-7534d771892e@gmail.com>
-Date: Sun, 18 Oct 2026 19:32:48 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="coEZwt0F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C891F1F000C4;
+	Mon, 19 Oct 2026 02:33:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792377223;
+	bh=SFyyNl3bEdn5C8Lf6zGhp41i6GNwOrEmHr79SMuCVgU=;
+	h=Date:From:To:Cc:Subject;
+	b=coEZwt0Ff7XZMufA1M6gvw3SAjLn6c4YFRVEaftaImIA5AxYrhTMQS4ABCIXxp6s+
+	 R+ux8WCLJWIAcy5bHCiKk/0din1egLuZkLadafTOWm1ek6cWtC+Hp7sIbr9yXLaWHJ
+	 TE6xZXqDOJs+5mjZAqaLmaWCABOduVHsu2NN8njaSJR1rlRNxB72Vrcj/C7QEVxMAc
+	 YFsToAYq/0I/8WmwQ3XCBglYaaz1dgb2/R6lI9MIUzEZIwG+ynnhr/FGrb04egtNvs
+	 yakUKh1QFv8tjOky3/OyYAZsF5WNZG4uFWTvp+MN/FBD+9CucZpRiMdmZyBE2Va5hq
+	 efo7myQlUNNVQ==
+Date: Sun, 18 Oct 2026 19:33:41 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
+	Stian Halseth <stian@itx.no>, Thomas Huth <thuth@redhat.com>,
+	Vladimir Kukharenko <vladimir@genproof.com>
+Subject: [GIT PULL] Crypto library updates for 7.4
+Message-ID: <20261019023341.GA3270@sol>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH] sparc: populate sysfs cache topology information on sun4v
-Content-Language: en-US
-From: Tony Rodriguez <unixpro1970@gmail.com>
-To: Jan Engelhardt <jengelh@inai.de>, davem@davemloft.net
-Cc: sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Stian Halseth <stian@itx.no>
-References: <20261018222723.43442-1-jengelh@inai.de>
- <b69a7cd6-7f9d-4c8e-80b9-701a77a6805a@gmail.com>
- <0593b88f-6151-4975-a840-ef21f3df06e8@gmail.com>
-In-Reply-To: <0593b88f-6151-4975-a840-ef21f3df06e8@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Jan,
+The following changes since commit 572af6872e520c7102e58362ef7cd7c2ed4342be:
 
->>
->> On 10/18/26 3:27 PM, Jan Engelhardt wrote:
->>> The SPARC port does not publish any cache topology information. The
->>> lscpu utility therefore falls back to assuming the published cache
->>> sizes are for unshared caches, and as a result, reports way more
->>> cache than there really is present in the system. On a T5240 machine:
->>>
->>> ```
->>> $ lscpu
->>> Architecture:          sparc64
->>>    CPU op-mode(s):      32-bit, 64-bit
->>>    Byte Order:          Big Endian
->>> CPU(s):                128
->>>    On-line CPU(s) list: 0-127
->>> Model name:            UltraSparc T2 (Niagara2)
->>>    Thread(s) per core:  4
->>>    Core(s) per socket:  16
->>>    Socket(s):           2
->>>    Flags:               sun4v
->>> Caches (sum of all):
->>>    L1d:                 1 MiB (128 instances)
->>>    L1i:                 2 MiB (128 instances)
->>>    L2:                  512 MiB (128 instances)
->>> ```
->>>
->>> This patch implements population of the sysfs cacheinfo structures
->>> for sun4v (systems with mdesc). The proper amount is now reflected in
->>> lscpu's output:
->>>
->>> ```
->>> Caches (sum of all):
->>>    L1d:                 128 KiB (16 instances)
->>>    L1i:                 256 KiB (16 instances)
->>>    L2:                  8 MiB (2 instances)
->>> ```
->>>
->>> Signed-off-by: Jan Engelhardt <jengelh@inai.de>
->>> ---
->>>   arch/sparc/include/asm/cpudata_64.h |  8 +++-
->>>   arch/sparc/kernel/mdesc.c           | 61 
->>> +++++++++++++++++++++++++++++
->>>   2 files changed, 68 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/arch/sparc/include/asm/cpudata_64.h 
->>> b/arch/sparc/include/asm/cpudata_64.h
->>> index 056b3c0e7ef9..e28b841ffe23 100644
->>> --- a/arch/sparc/include/asm/cpudata_64.h
->>> +++ b/arch/sparc/include/asm/cpudata_64.h
->>> @@ -18,13 +18,19 @@ typedef struct {
->>>       unsigned int    irq0_irqs;
->>>       unsigned int    __pad2;
->>>   -    /* Dcache line 2, rarely used */
->>> +    /* Dcache line 2+3, rarely used */
->>>       unsigned int    dcache_size;
->>>       unsigned int    dcache_line_size;
->>> +    unsigned int    dcache_assoc;
->>> +    unsigned int    dcache_id;
->>>       unsigned int    icache_size;
->>>       unsigned int    icache_line_size;
->>> +    unsigned int    icache_assoc;
->>> +    unsigned int    icache_id;
->>>       unsigned int    ecache_size;
->>>       unsigned int    ecache_line_size;
->>> +    unsigned int    ecache_assoc;
->>> +    unsigned int    ecache_id;
->>>       unsigned short    sock_id;    /* physical package */
->>>       unsigned short    core_id;
->>>       unsigned short  max_cache_id;    /* groupings of highest 
->>> shared cache */
->>> diff --git a/arch/sparc/kernel/mdesc.c b/arch/sparc/kernel/mdesc.c
->>> index 23b51a32e96e..029d9d812074 100644
->>> --- a/arch/sparc/kernel/mdesc.c
->>> +++ b/arch/sparc/kernel/mdesc.c
->>> @@ -818,6 +818,7 @@ static void fill_in_one_cache(cpuinfo_sparc *c, 
->>> struct mdesc_handle *hp, u64 mp)
->>>       const u64 *level = mdesc_get_property(hp, mp, "level", NULL);
->>>       const u64 *size = mdesc_get_property(hp, mp, "size", NULL);
->>>       const u64 *line_size = mdesc_get_property(hp, mp, "line-size", 
->>> NULL);
->>> +    const u64 *assoc = mdesc_get_property(hp, mp, "associativity", 
->>> NULL);
->>>       const char *type;
->>>       int type_len;
->>>   @@ -828,15 +829,21 @@ static void fill_in_one_cache(cpuinfo_sparc 
->>> *c, struct mdesc_handle *hp, u64 mp)
->>>           if (of_find_in_proplist(type, "instn", type_len)) {
->>>               c->icache_size = *size;
->>>               c->icache_line_size = *line_size;
->>> +            c->icache_assoc = assoc ? *assoc : 0;
->>> +            c->icache_id = mp;
->>>           } else if (of_find_in_proplist(type, "data", type_len)) {
->>>               c->dcache_size = *size;
->>>               c->dcache_line_size = *line_size;
->>> +            c->dcache_assoc = assoc ? *assoc : 0;
->>> +            c->dcache_id = mp;
->>>           }
->>>           break;
->>>         case 2:
->>>           c->ecache_size = *size;
->>>           c->ecache_line_size = *line_size;
->>> +        c->ecache_assoc = assoc ? *assoc : 0;
->>> +        c->ecache_id = mp;
->>>           break;
->>>         default:
->>> @@ -1251,6 +1258,60 @@ void mdesc_fill_in_cpu_data(cpumask_t *mask)
->>>       smp_fill_in_sib_core_maps();
->>>   }
->>>   +int init_cache_level(unsigned int cpu)
->>> +{
->>> +    struct cpu_cacheinfo *i = get_cpu_cacheinfo(cpu);
->>> +    i->num_levels = 2;
->>> +    i->num_leaves = 3;
->>> +    return 0;
->>> +}
->>> +
->>> +int populate_cache_leaves(unsigned int cpu)
->>> +{
->>> +    struct cacheinfo *leaf = get_cpu_cacheinfo(cpu)->info_list;
->>> +    cpuinfo_sparc *cs = &cpu_data(cpu);
->>> +
->>> +    leaf->id                    = cs->icache_id;
->>> +    leaf->attributes            = CACHE_ID;
->>> +    leaf->level                 = 1;
->>> +    leaf->type                  = CACHE_TYPE_INST;
->>> +    leaf->coherency_line_size   = cs->icache_line_size;
->>> +    leaf->ways_of_associativity = cs->icache_assoc;
->>> +    leaf->size                  = cs->icache_size;
->>> +    leaf->priv                  = cs;
->>> +    if (cs->icache_line_size > 0 && cs->icache_assoc > 0)
->>> +        leaf->number_of_sets = cs->icache_size / 
->>> cs->icache_line_size /
->>> +                               cs->icache_assoc;
->>> +    ++leaf;
->>> +
->>> +    leaf->id                    = cs->dcache_id;
->>> +    leaf->attributes            = CACHE_ID;
->>> +    leaf->level                 = 1;
->>> +    leaf->type                  = CACHE_TYPE_DATA;
->>> +    leaf->coherency_line_size   = cs->dcache_line_size;
->>> +    leaf->ways_of_associativity = cs->dcache_assoc;
->>> +    leaf->size                  = cs->dcache_size;
->>> +    leaf->priv                  = cs;
->>> +    if (cs->dcache_line_size > 0 && cs->dcache_assoc > 0)
->>> +        leaf->number_of_sets = cs->dcache_size / 
->>> cs->dcache_line_size /
->>> +                               cs->dcache_assoc;
->>> +    ++leaf;
->>> +
->>> +    leaf->id                    = cs->ecache_id;
->>> +    leaf->attributes            = CACHE_ID;
->>> +    leaf->level                 = 2;
->>> +    leaf->type                  = CACHE_TYPE_UNIFIED;
->>> +    leaf->coherency_line_size   = cs->ecache_line_size;
->>> +    leaf->ways_of_associativity = cs->ecache_assoc;
->>> +    leaf->size                  = cs->ecache_size;
->>> +    leaf->priv                  = cs;
->>> +    if (cs->ecache_line_size > 0 && cs->ecache_assoc > 0)
->>> +        leaf->number_of_sets = cs->ecache_size / 
->>> cs->ecache_line_size /
->>> +                               cs->ecache_assoc;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>>   /* mdesc_open() - Grab a reference to mdesc_handle when /dev/mdesc is
->>>    * opened. Hold this reference until /dev/mdesc is closed to ensure
->>>    * mdesc data structure is not released underneath us. Store the
->
-I’ve applied the patch to a dual‑socket SPARC S7‑2 (16 cores total, 128 
-threads) and wanted to share the resulting lscpu output, since it 
-clarifies what the patch fixes and what still needs work for 3‑level parts.
+  crypto: aes - Fix undesired override of some optimized AES modes (2026-09-30 08:38:06 -0700)
 
-Before the patch:
+are available in the Git repository at:
 
-L1d: 2 MiB (128 instances)
-L1i: 2 MiB (128 instances)
-L2:  32 MiB (128 instances)
+  https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git tags/libcrypto-for-linus
 
-After the patch:
+for you to fetch changes up to 20ec6916d8712e84d58e8c688a25cd368ddeb82b:
 
-L1d: 256 KiB (16 instances)
-L1i: 256 KiB (16 instances)
-L2:  2 MiB (8 instances)
+  lib/crypto: md5: remove unused header (2026-10-16 00:28:55 -0700)
 
-A) The L1 reporting is now correct. Each of the 16 cores has a private 
-16 KB L1I and 16 KB L1D, so 256 KiB in 16 instances is exactly right. 
-The per‑thread inflation is gone for L1, and the sharing/instance counts 
-are sensible. The generic leaf->id grouping is clearly doing its job.
+----------------------------------------------------------------
 
-* B)  L2 is only half‑reported on S7:  This may be true for S7, T7, and 
-T8 CPUs.
+- Migrate the x86 and riscv optimized implementations of various AES
+  modes (ECB, CBC, CBC-CTS, CTR, XCTR, XTS) into lib/crypto/.
 
-For the L2 split (On S7):
+  This makes the library APIs be properly accelerated on these
+  architectures, while still accelerating crypto_skcipher as well.
 
-     L2D: 256 KB shared by every 2 cores -> 8 instances × 256 KB = 2 
-MiB  (matches the output)
+  It removes a lot of redundant glue code, since the crypto API
+  boilerplate no longer needs to be duplicated for these architectures.
 
-     L2I: 256 KB shared by every 4 cores ->4 instances × 256 KB = 1 MiB  
-(missing)
+  It also fixes the longstanding issue where optimizations for these
+  AES modes were disabled by default on these architectures.
 
-So the total L2 on this box should  be 3 MiB across 12 instances , or 
-shown as separate L2D/L2I lines. It looks like MDESC reports the L2I and 
-L2D nodes separately, and the current case 2: overwrites one with the 
-other in ecache_*. Supporting S7 properly would need either separate 
-storage for L2I/L2D or a way to handle multiple level‑2 nodes.
+- Optimize AES-XTS on SPARC64 using the SPARC crypto opcodes
 
-* C) Need "level 3" cache details for (useful for T4, T5, S7, T7, T8).
+- Move the SipHash code into lib/crypto/
 
-As expected, the S7’s 16 MB per‑socket L3 (32 MiB total, 2 instances on 
-this box) does not appear at all. init_cache_level() hardcodes 
-num_levels = 2 / num_leaves = 3, and fill_in_one_cache() has no case 3:, 
-so the MDESC level‑3 node is dropped in default.
+- Update the ChaCha and Poly1305 functions to take size_t lengths,
+  resolving issues where lengths over INT_MAX were mishandled
 
-Adding an L3 leaf may need?
+- Make frame pointer unwinding work properly in some of the x86
+  assembly functions, by following the standard %rbp convention
 
-     l3_* fields in cpuinfo_sparc,
+- Add helper functions for zeroizing structs
 
-     a case 3: in fill_in_one_cache(),
+- Make a few documentation improvements
 
-     num_levels = 3 / num_leaves = 4 in init_cache_level(),
+----------------------------------------------------------------
+Eric Biggers (31):
+      Documentation: libcrypto: Add additional testing information
+      MAINTAINERS: Place libcrypto docs under CRYPTO LIBRARY
+      lib/crypto: aes-xctr: Pass counter by value to aes_xctr_arch()
+      lib/crypto: x86/aes: Clean up aes-aesni.S in preparation for AES modes
+      lib/crypto: x86/aes-ecb: Add AES-NI optimization
+      lib/crypto: x86/aes-cbc: Add AES-NI optimization
+      lib/crypto: x86/aes-ctr: Add AES-NI optimization
+      lib/crypto: x86/aes-xts: Add AES-NI optimization
+      crypto: x86/aes - Drop superseded 32-bit build support
+      crypto: x86/aes-ecb - Remove superseded ECB skcipher
+      crypto: x86/aes-cbc - Remove superseded CBC skciphers
+      crypto: x86/aes-ctr - Remove superseded CTR skcipher
+      crypto: x86/aes-xts - Remove superseded XTS skcipher
+      lib/crypto: x86/aes-ctr: Migrate AVX-optimized code into library
+      lib/crypto: x86/aes-xts: Migrate AVX-optimized code into library
+      lib/crypto: riscv/aes: Copy aes-macros.S to library
+      lib/crypto: riscv/aes: Pass key struct to assembly code
+      lib/crypto: riscv/aes-ecb: Migrate optimized code into library
+      lib/crypto: riscv/aes-cbc: Migrate optimized code into library
+      lib/crypto: riscv/aes-ctr: Migrate optimized code into library
+      lib/crypto: riscv/aes-xts: Migrate optimized code into library
+      lib/crypto: x86/aes: Set RNDKEY in aes_cbc_encrypt_aesni()
+      crypto: aes - Boost priority of encryption modes further
+      crypto: x86/aesni-intel - Add transitional selections
+      lib/crypto: x86/aes-ctr: Remove some unreachable code
+      lib: Move SipHash into lib/crypto/
+      lib/crypto: x86/sha1: Follow the normal %rbp convention
+      lib/crypto: x86/sha256: Follow the normal %rbp convention
+      lib/crypto: x86/sha512: Follow the normal %rbp convention
+      lib/crypto: poly1305: Use size_t length
+      lib/crypto: chacha: Use size_t length
 
-     a 4th leaf in populate_cache_leaves().
+Mohamad Raizudeen (2):
+      lib/crypto: chacha20poly1305: zeroize state in __chacha20poly1305_decrypt
+      lib/crypto: md5: remove unused header
 
-For T7‑1/T8‑1 this would surface  their 64 MiB per‑socket L3; for S7‑2 
-it would show 32 MiB in 2 instances (16 MiB per cpu). The T5240 result 
-looks correct because that machine is 2‑level only, so the missing case 
-3: doesn’t show up there.
+Stian Halseth (1):
+      lib/crypto: sparc/aes-xts: Add optimization using the AES opcodes
 
-Summary:
+Thomas Huth (13):
+      lib/crypto: aes: Provide functions for zeroizing aes_key and aes_enckey
+      lib/crypto: aes-xts: Provide function for zeroizing aes_xts_key
+      lib/crypto: aes-gcm: Provide functions for zeroizing aes_gcm* structures
+      lib/crypto: aes-ccm: Provide functions for zeroizing aes_ccm* structures
+      lib/crypto: md5: Provide functions for zeroizing hmac_md5 structures
+      lib/crypto: sm3: Provide a function for zeroizing the sm3_ctx structure
+      lib/crypto: blake2: Provide functions for zeroizing blake2*_ctx structures
+      lib/crypto: sha1: Provide functions for zeroizing hmac_sha1 structures
+      security: keys: trusted: always clear the hmac_sha1_ctx before returning
+      x86/purgatory: Compile purgatory with -D__NO_FORTIFY and -D__DISABLE_EXPORTS
+      lib/crypto: sha2: Provide functions for zeroizing SHA2 hmac_sha* structures
+      smb: client: Use hmac_sha256_zeroize_ctx function to clear hmac_sha256_ctx
+      lib/crypto: Add documentation about zeroization of key and context data
 
-The patch is an improvement but needs more work.  It fixes the L1 (and 
-L2D) inflation on S7‑2. To make it complete for the 3‑level SPARC parts, 
-it needs improved L2I/L2D handling and an L3 leaf. It would be great to 
-have L3 cache details shown via lscpu as well.
+Vladimir Kukharenko (2):
+      lib/crypto: arm/chacha: Handle lengths of 2 GiB or more in scalar code
+      lib/crypto: mips/chacha: Handle lengths of 2 GiB or more
 
-
-Tested-By: Tony Rodriguez <unixpro1970@gmail.com>
-
-
-Regards,
-
-Tony
-
-
-
+ Documentation/crypto/libcrypto-hash.rst            |    5 +
+ Documentation/crypto/libcrypto-zeroization.rst     |  150 +++
+ Documentation/crypto/libcrypto.rst                 |   14 +
+ MAINTAINERS                                        |    9 +-
+ arch/riscv/crypto/Kconfig                          |   15 -
+ arch/riscv/crypto/Makefile                         |    4 -
+ arch/riscv/crypto/aes-riscv64-glue.c               |  566 ---------
+ arch/riscv/crypto/aes-riscv64-zvkned.S             |  312 -----
+ arch/sparc/include/asm/opcodes.h                   |    6 +
+ arch/x86/crypto/Kconfig                            |   18 +-
+ arch/x86/crypto/Makefile                           |   10 +-
+ arch/x86/crypto/aesni-intel_asm.S                  | 1338 --------------------
+ arch/x86/crypto/aesni-intel_glue.c                 |  792 +-----------
+ arch/x86/purgatory/Makefile                        |    3 +-
+ crypto/aes.c                                       |   31 +-
+ fs/smb/client/smb2transport.c                      |    3 +-
+ include/crypto/aes-ccm.h                           |   22 +-
+ include/crypto/aes-gcm.h                           |   22 +-
+ include/crypto/aes-xts.h                           |   13 +-
+ include/crypto/aes.h                               |   18 +
+ include/crypto/blake2b.h                           |    9 +
+ include/crypto/blake2s.h                           |    9 +
+ include/crypto/chacha.h                            |    6 +-
+ include/crypto/internal/poly1305.h                 |    4 +-
+ include/crypto/md5.h                               |   19 +
+ include/crypto/poly1305.h                          |    4 +-
+ include/crypto/sha1.h                              |   19 +
+ include/crypto/sha2.h                              |   73 ++
+ include/crypto/sm3.h                               |   10 +
+ lib/Kconfig.debug                                  |   11 -
+ lib/Makefile                                       |    2 +-
+ lib/crypto/.kunitconfig                            |    1 +
+ lib/crypto/Makefile                                |   20 +
+ lib/crypto/aes.c                                   |   34 +-
+ lib/crypto/arm/chacha-scalar-core.S                |   10 +-
+ lib/crypto/arm/chacha.h                            |   16 +-
+ lib/crypto/arm/poly1305.h                          |    8 +-
+ lib/crypto/arm64/chacha.h                          |   10 +-
+ lib/crypto/arm64/poly1305.h                        |    6 +-
+ lib/crypto/blake2b.c                               |    2 +-
+ lib/crypto/blake2s.c                               |    2 +-
+ lib/crypto/chacha.c                                |    8 +-
+ lib/crypto/chacha20poly1305.c                      |   11 +-
+ lib/crypto/md5.c                                   |    3 +-
+ lib/crypto/mips/chacha-core.S                      |    8 +-
+ lib/crypto/mips/chacha.h                           |   23 +-
+ lib/crypto/mips/poly1305.h                         |    2 +-
+ lib/crypto/poly1305-donna32.c                      |    2 +-
+ lib/crypto/poly1305-donna64.c                      |    2 +-
+ lib/crypto/poly1305.c                              |   10 +-
+ lib/crypto/powerpc/chacha-p10le-8x.S               |    2 +-
+ lib/crypto/powerpc/chacha.h                        |   10 +-
+ lib/crypto/powerpc/poly1305-p10le_64.S             |   23 +-
+ lib/crypto/powerpc/poly1305.h                      |    8 +-
+ .../riscv/crypto => lib/crypto/riscv}/aes-macros.S |   25 +-
+ .../crypto/riscv}/aes-riscv64-zvkned-zvbb-zvkg.S   |   99 +-
+ .../crypto/riscv}/aes-riscv64-zvkned-zvkb.S        |   23 +-
+ lib/crypto/riscv/aes-riscv64-zvkned.S              |  305 ++++-
+ lib/crypto/riscv/aes.h                             |  244 +++-
+ lib/crypto/riscv/chacha.h                          |    6 +-
+ lib/crypto/riscv/poly1305.h                        |    2 +-
+ lib/crypto/s390/chacha.h                           |    2 +-
+ lib/crypto/sha1.c                                  |    2 +-
+ lib/{ => crypto}/siphash.c                         |    0
+ lib/crypto/sm3.c                                   |    2 +-
+ lib/crypto/sparc/aes.h                             |   75 ++
+ lib/crypto/sparc/aes_asm.S                         |  165 +++
+ lib/crypto/tests/Kconfig                           |    9 +
+ lib/crypto/tests/Makefile                          |    1 +
+ lib/{ => crypto}/tests/siphash_kunit.c             |    0
+ lib/crypto/x86/aes-aesni.S                         |  817 ++++++++++--
+ .../crypto => lib/crypto/x86}/aes-ctr-avx-x86_64.S |  117 +-
+ .../crypto => lib/crypto/x86}/aes-xts-avx-x86_64.S |  179 +--
+ lib/crypto/x86/aes.h                               |  381 +++++-
+ lib/crypto/x86/chacha.h                            |   40 +-
+ lib/crypto/x86/poly1305.h                          |    4 +-
+ lib/crypto/x86/sha1-avx2-asm.S                     |   10 +-
+ lib/crypto/x86/sha1-ssse3-and-avx.S                |    9 +-
+ lib/crypto/x86/sha256-avx-asm.S                    |   10 +-
+ lib/crypto/x86/sha256-avx2-asm.S                   |   10 +-
+ lib/crypto/x86/sha256-ni-asm.S                     |    9 +-
+ lib/crypto/x86/sha256-ssse3-asm.S                  |    8 +-
+ lib/crypto/x86/sha512-avx-asm.S                    |   11 +-
+ lib/crypto/x86/sha512-avx2-asm.S                   |   11 +-
+ lib/crypto/x86/sha512-ssse3-asm.S                  |   11 +-
+ lib/tests/Makefile                                 |    1 -
+ security/keys/trusted-keys/trusted_tpm1.c          |    2 +-
+ tools/testing/selftests/bpf/progs/test_siphash.h   |    2 +-
+ 88 files changed, 2670 insertions(+), 3660 deletions(-)
+ create mode 100644 Documentation/crypto/libcrypto-zeroization.rst
+ delete mode 100644 arch/riscv/crypto/aes-riscv64-glue.c
+ delete mode 100644 arch/riscv/crypto/aes-riscv64-zvkned.S
+ delete mode 100644 arch/x86/crypto/aesni-intel_asm.S
+ rename {arch/riscv/crypto => lib/crypto/riscv}/aes-macros.S (90%)
+ rename {arch/riscv/crypto => lib/crypto/riscv}/aes-riscv64-zvkned-zvbb-zvkg.S (74%)
+ rename {arch/riscv/crypto => lib/crypto/riscv}/aes-riscv64-zvkned-zvkb.S (93%)
+ rename lib/{ => crypto}/siphash.c (100%)
+ rename lib/{ => crypto}/tests/siphash_kunit.c (100%)
+ rename {arch/x86/crypto => lib/crypto/x86}/aes-ctr-avx-x86_64.S (88%)
+ rename {arch/x86/crypto => lib/crypto/x86}/aes-xts-avx-x86_64.S (81%)
