@@ -1,87 +1,73 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302734119FD
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D94390224
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:53:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392791; cv=none; b=hZEtKEsPwcm4XvWHoMEL1N9/TC6VYiS4sMJClbd7xE7BrqMdyYlOkISLkrAb9osZDW12Zpl2vz0cru63u1LnUXx+1qirH1FPGMKr+pdzeAOHjfyKgt5yttAqNuXOkTvyK4/vVeULHy2Wxc/4L7G6BtYqsJFKDefjFfDAslM8Dyw=
+	t=1792392801; cv=none; b=g1vO3uY5cYZtvpIkp99JYZRUx6Rnjsy8QT+HQ5qDnpM6EWMZvHqIkkSRlRGwt0y1qW8QDTNm707pjuBRJuUbBxGmNr6Y3b2zyWXI7stbgWxaiO4vgkQ6hUs7UIvEEgnXMBtk8ZURucYjKmiI7a661A93pPQkazCn3eEoY54wd6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392791; c=relaxed/simple;
-	bh=ICWosO4Iw+3uASSl4S01prJwFvtuCvRIE1kqXegzmpY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L3Xe6yNmOHCcm4RzvzBgotFdlQ9bLUSigXtc9LlJdg363CVuLROeIBV7o9QMyzDh5qzeaasa84NFAjgJjUITeiIo9Ium6fysoh/AsLx5Y67PsF53VtyWTRCz9/M3BhY2ZXQQB9h9tY4IwCdnYBlpxso2TOd4UNwdeb+gCBwET7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aQpQBQ8p; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792392801; c=relaxed/simple;
+	bh=p+X+Xl8+cPLsbpBhfIlv3qel9raJ5+zSbCI5QqSPwB4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tg4bwYIWOonMzlNXrGnwTdQTMU0FSGcyTEmlOxyz44N8Zu0BHJHboPk0egNez4r/WA9+zdAw40OHVprphoNqJQfNMt0O3Aas3isrkuhiGjQmJCXSghR3qaBmxTbMKbFoggVTdoCuRPd3f9ubJHFmkIdWfwGE6UoxOR7NlQ15Xf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QPCYRmIm; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aQpQBQ8p"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e011d370dso1427803f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:53:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792392788; x=1792997588; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V9XPtOkvY2xGoEM32FGfKxcwuTkJk/35iPrfDKXNDEk=;
-        b=aQpQBQ8p7Z9pnVRyZ5jNKZ2tHJjV5Z1e8yxK2xV8D1F9kmyxNphJQTvusON6js5Gtn
-         IOPJeLvGWko+livZkIfgZckERraUMQxDVGWv4/2pwgV5YmOB6n8Cy/NdOFF872DkYL/U
-         uEn17ngFjAPTw17Q1hqdGIzB80ccAOopCnQLQ2sLmDm82GLWiTG0E45UmoVM8BuhHbtq
-         kopCGg0JEhRWvuGMabGv0aJ80d5fXy6xPplBTImaxRKKoV6XrZOiasslKf0qnbMPisSO
-         QgFYn+P7GIkE7m2ORkKPpEksDQcEQ9yjZdVzeFOPbXHKiAvX0vxgDHSmMsOwcHXKbhpO
-         MC5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792392788; x=1792997588;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V9XPtOkvY2xGoEM32FGfKxcwuTkJk/35iPrfDKXNDEk=;
-        b=Hen+w6PZaKPpKqacq65JPxTle10WpW6XZLsrEBaGEQmmioMy/BNGiQSPX/pOLWBn1i
-         aMhFiZAGhb692gA1CYtuAWiZmoQ1xYS8HELUcuBKq0aawbAdt2FLmQ8AttonPPeQTXlq
-         hrIpntGq29JH8IEj7BRwhXj0qe28z5W+hBnRRiBbqw3xyGUxiwes1dd3g0SFRGJAIS/Q
-         ZPerMxEhGMNeH1EkV+1i6zTyPK24UK73CE4oJQN0dtYR67O5sAEkX5KyYFF2A0a+H7Qj
-         uOdFOe3yi2puG75TgJyL1mQE8RZPesLRUccFpmYL2GUCW66Zh6K1BsRsKT/wrH/LQsKK
-         nrBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ4CLFxdoNJcnef1UxiGA7i6tKxK0ZKRwZKWgU4OafPEFrmff3DbjpJ7Heo4uWQQGdrm86j4gcYLM2rEw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfcRKp3/d1xHx1rgNimGdq3cHI0g0Ed6FHtlV3DyImjMGwxCfM
-	b0BY1Og7Bk22D0Zhz2Cy/MFE6noKVo0mwdZKOdJG7y8a3VjJXpTVbl+s
-X-Gm-Gg: AYBFou2zfLtNrydOd6xMNKjL+Daw1VsEXbOMf9LSdGwJN3UCajeYuhd2PyULs2oZT1C
-	rX+xVpsW9qjaDEU/6qv+q25BGJ33TleuYs48qXKRsooh7oP5gA3SIhlGC4m5ND/wxSrjZ/zVDaM
-	Cvt5snMbtiWGWSkVn72UANRCMixutIusz0D/vbWsJGYYl31rhJscUZt5UEChoo/zP47/Zu9roUn
-	CgDeVJMb9Tjj1JjNt8ffvSGJNIRFjsU4uzIBsMbvrfZ0D+F5oMJZFWVqiLOHJtN7I2U4iwd3u98
-	ICeScZnyw9BpAv2DS335J2S7SEtfrXaiI7cD6ukhuRwiZVfvgapi+NIJtZtSD+dn7oKadwrBcAE
-	mF2Inxk+12imMidTvWLJykFUMCXZTZdMELn2WYmIbBcccnGOvHoLHB2HWIYFw9wrImmSNBJ1cIA
-	26GjqHzYSueJ526yyxO/Czhrzn75NgyDpGnBMDQhVihPS/jufQ6Uer9vkIM7x2fAlhyAbqZJHia
-	T3ip2P2FNwAoJr8xNxngdsuy0piy4gnSY2EENzpuqSV0pzVJyzrG5UHKIC/
-X-Received: by 2002:a05:6000:29d2:b0:48d:ff71:dd97 with SMTP id ffacd0b85a97d-48e07975c0emr7979526f8f.7.1792392788079;
-        Sun, 18 Oct 2026 23:53:08 -0700 (PDT)
-Received: from SVR.localdomain ([158.173.154.181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8cfesm18545783f8f.37.2026.10.18.23.53.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 23:53:07 -0700 (PDT)
-Sender: Semih Baskan <strstgs@gmail.com>
-From: Semih Baskan <strst.gs@gmail.com>
-To: Bjorn Helgaas <helgaas@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QPCYRmIm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792392798;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Ia+ZEym176fLK/VRzqajkyY5xZ/llz9gMIBRTMQe8QA=;
+	b=QPCYRmImIEUwMfgm4Zu+Pcb9t/7+lJgsXuoecGgOqxGE11iRoeFl1NLcL0rlrTBCAJsF2C
+	TnF1JRWHW5VT78EdhLqtEmt3jxvAhCERNggyu2UkvCetzEVKgVnc07HF2kQDJ+FbHAXZE8
+	JmnNE1TFQvf4nrOu+48JChmAVa07wgA=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-532-RhZmXjyNMK-bjT8GInK8pA-1; Mon,
+ 19 Oct 2026 06:53:16 +0000
+X-MC-Unique: RhZmXjyNMK-bjT8GInK8pA-1
+X-Mimecast-MFC-AGG-ID: RhZmXjyNMK-bjT8GInK8pA_1792392793
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C677F1955F74;
+	Mon, 19 Oct 2026 06:53:12 +0000 (UTC)
+Received: from poros-thinkpadp16vgen1.tpbc.com (unknown [10.44.48.130])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 279441955F03;
+	Mon, 19 Oct 2026 06:53:03 +0000 (UTC)
+From: Petr Oros <poros@redhat.com>
+To: netdev@vger.kernel.org
+Cc: Petr Oros <poros@redhat.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Dave Ertman <david.m.ertman@intel.com>,
+	Shiraz Saleem <shiraz.saleem@intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Kamil Maziarz <kamil.maziarz@intel.com>,
+	Rafal Rogalski <rafalx.rogalski@intel.com>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Michal Schmidt <mschmidt@redhat.com>,
+	linux-rdma@vger.kernel.org,
+	intel-wired-lan@lists.osuosl.org,
 	linux-kernel@vger.kernel.org,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Semih Baskan <strst.gs@gmail.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: [PATCH] PCI: iproc: Skip BCMA-attached controllers in the platform bus driver
-Date: Mon, 19 Oct 2026 06:52:49 +0000
-Message-ID: <20261019065249.552-1-strst.gs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mateusz Palczewski <mateusz.palczewski@intel.com>,
+	linux-rt-devel@lists.linux.dev
+Subject: [PATCH iwl-net 0/3] ice: fix RTNL vs auxiliary device lock inversion
+Date: Mon, 19 Oct 2026 08:52:58 +0200
+Message-ID: <20261019065301.3983537-1-poros@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,72 +75,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Since commit 767012397976 ("ARM: dts: BCM5301X: Describe PCIe
-controllers fully"), the Northstar PCIe nodes under the "brcm,bus-axi"
-node have compatible = "brcm,iproc-pcie". bcma_bus_register() creates
-platform devices for the children of that node before it registers its
-own cores, so pcie-iproc-platform probes these controllers before
-pcie-iproc-bcma does, as IPROC_PCIE_PAXB.
+ice takes the auxiliary device lock of its RDMA auxiliary device from
+three places that run with the RTNL lock held. The RDMA auxiliary probe
+takes the same two locks in the opposite order, because __driver_attach()
+holds the auxiliary device lock across ib_register_device(), which needs
+the RTNL lock. ib_query_port() reaches ib_get_eth_speed() first from the
+port immutable setup and again from ib_cache_setup_one(). The result is
+a hard deadlock that leaves the whole RTNL-serialised part of the stack
+stuck, so the boot never completes:
 
-IPROC_PCIE_PAXB sets has_apb_err_disable, so the first config read on
-bus 1 reads APB_ERR_EN at offset 0xf40. The report in the Closes: link
-shows that read taking an external abort. On a BCM47081 (PCIe core
-revision 0x01) with a device behind the root port, the board does not
-boot, and it boots when has_apb_err_disable is cleared.
+  systemd-udevd   state:D
+    really_probe                  <- holds device_lock(&adev->dev)
+    icrdma_probe
+    irdma_ib_register_device
+    ib_register_device
+    setup_device
+    irdma_roce_port_immutable
+    ib_query_port
+    irdma_query_port
+    ib_get_eth_speed              <- blocks on rtnl_lock()
 
-Return -ENODEV for a controller whose parent is "brcm,bus-axi", before
-the driver allocates or maps anything, so that the controller is left
-to pcie-iproc-bcma. The devicetree stays as it is. The check does not
-depend on CONFIG_PCIE_IPROC_BCMA, because a kernel with only
-pcie-iproc-platform does not boot on the BCM47081 either. On a BCM47094
-(core revision 0x07) pcie-iproc-platform enumerates the devices on its
-own, so there a kernel without CONFIG_PCIE_IPROC_BCMA loses PCIe, as
-before v7.1. CONFIG_PCIE_IPROC_BCMA defaults to y on ARCH_BCM_5301X.
+  lldpad          state:D
+    rtnetlink_rcv_msg             <- holds rtnl_lock()
+    dcb_doit
+    dcbnl_ieee_set
+    ice_dcbnl_setets
+    ice_pf_dcb_cfg
+    ice_send_event_to_aux         <- blocks on device_lock(&adev->dev)
 
-Tested on an ASUS RT-N18U (BCM47081) on a 6.18 kernel with the
-controller/iproc-bcma changes backported. With both drivers enabled,
-pcie-iproc-bcma binds controller 0, the BCM4360 behind it enumerates
-and the platform driver logs nothing. With only pcie-iproc-platform
-enabled, the board boots without PCIe. Without this change, neither
-configuration boots on this board.
+linkwatch, addrconf, NetworkManager and every ethtool ioctl then pile up
+behind lldpad. On a PREEMPT_RT kernel with CONFIG_DEBUG_RT_MUTEXES the
+rtmutex chain walker reports "rtmutex deadlock detected" from whichever
+task closes the cycle instead of hanging silently. Plain lockdep cannot
+flag it, because device_initialize() marks dev->mutex with
+lockdep_set_novalidate_class().
 
-Fixes: 767012397976 ("ARM: dts: BCM5301X: Describe PCIe controllers fully")
-Reported-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Closes: https://lore.kernel.org/r/0dcfb2db-5536-465a-bee1-afe160535748@broadcom.com
-Suggested-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Semih Baskan <strst.gs@gmail.com>
----
-This is on controller/iproc-bcma in pci.git and needs 9850907ee1dd
-("PCI: iproc: Use the EROM outbound window on BCMA"). Without that
-commit, pcie-iproc-bcma fails with -EBUSY on v7.1 and later, so this
-change alone would leave Northstar without PCIe. If this goes to
-stable, 39d1c645bb99 and 9850907ee1dd have to go with it.
+The probe side cannot be changed, so the three ice callers stop blocking
+and use device_trylock() instead. Contention is only possible while the
+driver core is binding, unbinding or suspending the auxiliary device,
+since all three sites already serialise against each other under
+pf->adev_mutex, and ice_unplug_aux_dev() clears cdev->adev under that
+mutex before calling auxiliary_device_delete(). ice_unplug_aux_dev()
+itself is never reached with the RTNL lock held, so there is no fourth
+site to convert.
 
-Mani's sketch [1] returned -EINVAL; this returns -ENODEV, which the
-driver core does not log as a probe failure.
+Patch 1 then handles a contended lock per event, because the right
+answer differs. BEFORE_TC_CHANGE has to arrive before the traffic
+classes change, so the DCB reconfiguration is refused with -EBUSY. The
+MTU change and critical error events are sent from the service task,
+which consumes their pending bits before sending, so they are re-armed
+for the next run. AFTER_TC_CHANGE keeps its existing fire and forget
+behaviour, and the commit message explains why deferring that one is
+not safe. Patches 2 and 3 only turn the lock into a trylock, where a
+contended lock means the operation is refused with -EBUSY and can be
+retried, which is what the existing check already does when the RDMA
+driver is bound.
 
-[1] https://lore.kernel.org/r/179197555828.38040.6359970121400952902.b4-reply@b4
+This keeps the fix small enough to backport. It does not address the
+underlying layering problem, which is that ice reaches for the driver
+core lock of a foreign device at all. i40e and mlx5 both solve the same
+need with provider-owned registration instead, and converting IIDC to
+that model would make the inversion impossible by construction. That is
+a net-next change across ice, irdma and iidc_rdma.h, and I am happy to
+follow up with it if there is interest.
 
- drivers/pci/controller/pcie-iproc-platform.c | 3 +++
- 1 file changed, 3 insertions(+)
+Tested on an E810-XXV with two PFs, irdma bound to both auxiliary
+devices, on net tip commit 191aa41548b2d2 ("MAINTAINERS: add Bobby
+Eshleman as vsock reviewer") with and without this series, same config
+otherwise. A reproducer binds the irdma auxiliary driver while driving
+one of the three RTNL-held callers into the probe window:
 
-diff --git a/drivers/pci/controller/pcie-iproc-platform.c b/drivers/pci/controller/pcie-iproc-platform.c
-index 4c9a0c4bb923..63560c733a8f 100644
---- a/drivers/pci/controller/pcie-iproc-platform.c
-+++ b/drivers/pci/controller/pcie-iproc-platform.c
-@@ -45,6 +45,9 @@ static int iproc_pltfm_pcie_probe(struct platform_device *pdev)
- 	struct pci_host_bridge *bridge;
- 	int ret;
- 
-+	if (of_device_is_compatible(np->parent, "brcm,bus-axi"))
-+		return -ENODEV;
-+
- 	bridge = devm_pci_alloc_host_bridge(dev, sizeof(*pcie));
- 	if (!bridge)
- 		return -ENOMEM;
+                        without the series   with the series
+  ethtool set_channels  deadlock 10/10       0/10, window entered 300x
+  ndo_setup_tc mqprio   deadlock             0/10, window entered 50x
+  dcbnl ets set         deadlock             0/10, window entered 30x
 
-base-commit: 9850907ee1dd4376c09c4129e0adbe3b39d191b7
+A window entry is a contended device_trylock(), that is, the exact
+moment really_probe() holds the auxiliary device lock and waits for the
+RTNL lock, so each one is an occasion that used to close the cycle.
+Without the series the console shows both halves and the box only
+returns through hung_task_panic. 25 reboots on the patched kernel were
+clean.
+
+Petr Oros (3):
+  ice: avoid RTNL deadlock when notifying the RDMA auxiliary driver
+  ice: do not block on the aux device lock in ethtool set_channels
+  ice: do not block on the aux device lock in ndo_setup_tc
+
+ drivers/net/ethernet/intel/ice/ice_dcb_lib.c |  9 +++++++-
+ drivers/net/ethernet/intel/ice/ice_ethtool.c |  6 +++++-
+ drivers/net/ethernet/intel/ice/ice_idc.c     | 20 ++++++++++++++----
+ drivers/net/ethernet/intel/ice/ice_idc_int.h |  2 +-
+ drivers/net/ethernet/intel/ice/ice_main.c    | 22 +++++++++++++++-----
+ 5 files changed, 47 insertions(+), 12 deletions(-)
+
 -- 
-2.43.0
+2.56.0
 
