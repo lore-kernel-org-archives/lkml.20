@@ -1,88 +1,100 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7F9234ABBA9;
-	Mon, 19 Oct 2026 09:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mailgate01.uberspace.is (mailgate01.uberspace.is [95.143.172.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5AD4ABBBC
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.172.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401861; cv=none; b=Oxq959QrNCxeXgE7CuEMTniK3TVZe44aXEZBULsejyE23igcJVij9LVdSGzBV6bQnfqX3FmhzeblAtMFGs0Vfigljtuq6AgVxHP0Js+hu+PFqKCOYKh4X65m6iS00CJJ/LNqRLQoHfRnhJxOiVO25wlO4wK9k0RbBumiQPSY/M0=
+	t=1792401867; cv=none; b=aSP7YXxl+B2V8jbJHGdw7SbBhUyQp43dgnXOxYJAwlbcQXS3VStUH+JearESYRQnJnUcnvkcXALONUDdK0KeKCJFXDtSv3/bvGNWxq5I/aTEiKSPUjFT04ZSK1qjz6ezMeJnMf70j5QMZUVjMkLHZ6XSFJ6ZY2i+WKXtylra0kw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401861; c=relaxed/simple;
-	bh=zuxTAK6KYrdRdHEVJDHRu5Jqv/nDM1EsaUddarXo/J0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=vC/OmaDM9bRu0RvzXyTEDWatLIpI6PNIipTt9Sm+WPlkJAqpT9GeJzlkclgrDHpfAYNPD+Oqf5dB9d7Pebv5dDeGbttUR1gCDqg1kSNeCpTs85HP9bVQTxGpgUvpET5FzJb4ybG8Tyu6xtsJFkP0fnVLdPX0Y7TTTWXNqfLWjvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=jZ6BfK+V; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1792401867; c=relaxed/simple;
+	bh=opmJhQyRutddC51J+UVfKfOELmccvq4ueY+QZcg7O50=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=icXEyrWjz24XukVQkgMrMo3CSdaAciif7oo9Q4QyW0UjtPQfkUGNDrG4wM7GDu6ACZhSyt4Qi+VdzA1QLl2MkEXIXAf9wZ766hqrIS2uEAnVrCHmTmKSmwh+8X6865+2JT9hZ/O0WD6jzDoQ/A0Pru3lZXlDIcNl+6RhVhWrRmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl; spf=pass smtp.mailfrom=lausen.nl; dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b=xEVa71Hf; arc=none smtp.client-ip=95.143.172.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lausen.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lausen.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="jZ6BfK+V"
-Received: from [10.95.64.89] (unknown [52.172.102.253])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 7657820B7168;
-	Mon, 19 Oct 2026 02:24:10 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7657820B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1792401852;
-	bh=gPrmHuhoX8V91KtuoqSxyz/GmQaJJNckFAKFVgbE3kI=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=jZ6BfK+VHrgnw+3mxVojoaeU0fNkGlCWCiFGDylNIbE5ijdkPaeVwq8/fZ71mDFoM
-	 1O9wmXgHVHK3ducLcSeydLNwYoqx+rLnkZT1W9bKDyAaY2Z9JiIDjPXH6zWDccqg3Y
-	 Z9kMDnnzP7PrevkFPXEuOT+E9TxSxt7Sjn7plPFs=
-Message-ID: <65524c06-55e1-4340-b7a7-b038d20e6b74@linux.microsoft.com>
-Date: Mon, 19 Oct 2026 14:54:13 +0530
+	dkim=pass (4096-bit key) header.d=lausen.nl header.i=@lausen.nl header.b="xEVa71Hf"
+Received: from devico.uberspace.de (devico.uberspace.de [185.26.156.185])
+	by mailgate01.uberspace.is (Postfix) with ESMTPS id 53AAC610F4
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:24:24 +0200 (CEST)
+Received: (qmail 17388 invoked by uid 990); 19 Oct 2026 09:24:24 -0000
+Authentication-Results: devico.uberspace.de;
+	auth=pass (plain)
+Received: from unknown (HELO unknown) (::1)
+	by devico.uberspace.de (Haraka/3.1.1) with ESMTPSA; Mon, 19 Oct 2026 11:24:23 +0200
+From: Leonard Lausen <leonard@lausen.nl>
+To: ulfh@kernel.org,
+	heiko@sntech.de
+Cc: leonard@lausen.nl,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	detlev.casanova@collabora.com,
+	finley.xiao@rock-chips.com,
+	zhangqing@rock-chips.com,
+	inindev@gmail.com,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	gahing@gahingwoo.com
+Subject: [PATCH 0/2] Fix Panfrost boot hang on NanoPi M5
+Date: Mon, 19 Oct 2026 09:24:14 +0000
+Message-ID: <20261019092417.391522-1-leonard@lausen.nl>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Drivers: hv: vmbus: Check ACPI companion before use
-To: Jiale Yao <yaojiale02@163.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261017064313.3816553-1-yaojiale02@163.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20261017064313.3816553-1-yaojiale02@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Bar: /
+X-Rspamd-Report: SUSPICIOUS_RECIPS(1.5) MIME_GOOD(-0.1) MID_CONTAINS_FROM(1) BAYES_HAM(-2.99944) R_MISSING_CHARSET(0.5)
+X-Rspamd-Score: -0.09944
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=lausen.nl; s=uberspace;
+	h=from:to:cc:subject:date;
+	bh=opmJhQyRutddC51J+UVfKfOELmccvq4ueY+QZcg7O50=;
+	b=xEVa71HfxgzTXjABTg3LFhDeiY+KPhHuBBLKFjWpvaMgE158Dm1ZrlJzK95jpAGL7N0fd7IpkM
+	AqjSk9GAzbbvO5yPzF755FOljuK3bPGTtgofYiwuU8DtUV0MtFeae6tlaJg4XdbsMzwa9+bFJD+c
+	R/kRHNdL46B9QjDvse8ZpRsOc9k48uDmwpOYZCOc4ZOSwQpeekfA9iYrxAQMqfmPkOf2rSGxRhKY
+	hspsVJPtZW/jznh7ZeSKecyjW/BeW3xTAc5aVi758lFQgMbrOdUA3VPK/kuArPxDkHlqwAF37GBO
+	wXgzwbs8r1ZBv/73yO5tMzFBSx2ndkgyS+xbP1J2po8Rbogrux5mo0HfWQeSjckAWA3yZ3yqMXn2
+	1UhpHAyK4AYL1szvzY3RCtlZem9oNPMtah119Hi/pR6g2jmnmI/k9HwQDP2zsrNw0Sghv/20Yr+7
+	yPXkb3muAca5Emc+XtN+tn1xmLSD4su6bOgkj9VmQ/LNCQ3QQfcQFCFxHYq3KGk3FnDZhfWcPWv5
+	F/6JKMd5rzj0XvZfAEVOK88vPsVyDxeo5GTVCgoQhN4MX4IOu1qVMqkxPX6E0IPpjoMC5g/EUXQ0
+	PcoIuKn73shWMzhh/mAaaGqC8PjKrF9l+bxUSfWr+nkFUC2m6Ht/DLg7o3Po7cMQ7ndBLTMEt1L2
+	0=
+
+On the NanoPi M5, boot hangs during Panfrost initialization. Before this
+fix, booting required blacklisting Panfrost on the kernel command line.
+Loading Panfrost after boot reports a GPU power-domain acknowledgment
+timeout.
+
+Enable regulator management for the RK3576 GPU power domain and connect
+its supply to the NanoPi M5 GPU rail.
+
+The regulator-capable descriptor is based on Jiaxing Hu's RK3576 NPU work:
+https://lore.kernel.org/all/20260924102135.92217-10-gahing@gahingwoo.com/
+
+On the NanoPi M5 with CONFIG_DRM_PANFROST=m, boot and Panfrost
+initialization succeed, and GPU workloads run successfully. W=1 driver
+and DTB builds and schema validation pass.
+
+Leonard Lausen (2):
+  pmdomain: rockchip: Manage the RK3576 GPU domain supply
+  arm64: dts: rockchip: Fix GPU domain supply on NanoPi M5
+
+ arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts |  4 ++++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi          |  2 +-
+ drivers/pmdomain/rockchip/pm-domains.c            | 10 +++++++---
+ 3 files changed, 12 insertions(+), 4 deletions(-)
 
 
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.47.3
 
-On 10/17/2026 12:13 PM, Jiale Yao wrote:
-> Platform drivers can be forced to bind to devices outside their match
-> tables through driver_override. vmbus_acpi_add() assumes that every bound
-> device has an ACPI companion and dereferences it without checking.
-> 
-> Return -ENODEV when the companion is absent to avoid a NULL pointer
-> dereference.
-> 
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->   drivers/hv/vmbus_drv.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-> index 4692687cdbf3..28f459679406 100644
-> --- a/drivers/hv/vmbus_drv.c
-> +++ b/drivers/hv/vmbus_drv.c
-> @@ -2571,10 +2571,14 @@ EXPORT_SYMBOL_GPL(vmbus_free_mmio);
->   #ifdef CONFIG_ACPI
->   static int vmbus_acpi_add(struct platform_device *pdev)
->   {
-> +	struct acpi_device *ancestor;
-> +	struct acpi_device *device;
->   	acpi_status result;
->   	int ret_val = -ENODEV;
-> -	struct acpi_device *ancestor;
-> -	struct acpi_device *device = ACPI_COMPANION(&pdev->dev);
-> +
-> +	device = ACPI_COMPANION(&pdev->dev);
-> +	if (!device)
-> +		return -ENODEV;
->   
->   	vmbus_root_device = &device->dev;
->   
-
-Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
-
-Regards,
-Naman
