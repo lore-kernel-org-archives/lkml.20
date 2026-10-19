@@ -1,136 +1,98 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ocn-ckd-mts-119c39.ocn.ad.jp (ocn-ckd-mts-119c39.ocn.ad.jp [122.28.130.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90B04E8E15
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:04:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F8F4E8E15;
+	Mon, 19 Oct 2026 13:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=122.28.130.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792415082; cv=none; b=n/cG5GVJMuIQmG10y7+teGHNE6SqP5buWFsVzidAZRaoQqa9aVLjRYo3Vic+/B26ppALIjju2zCM3Z7WQIYvKHJIMhq6JwnLidxPPMqVG2rDwaqYvbQqcXOUK/oIBDX7vp1jY+dvpquhoDglzQsYwHEa8qSQihz2ylVfU+t28c0=
+	t=1792415099; cv=none; b=QMGJWw4H7bKC5srucbjFvU51WhuCrbFTTfDcUj/sK+CsT1ex+jjzg7eXYubW3ct/FtbtXFJSsYGHXL+eBgNxQz5w+qqHuO4OUy9ACVvwVb7jQXK/Q+sK6Tkl3OWf65X+aCqPsFg9iaxWwEHvcTzwMjSQBvprv4+MZNFKOlxGn+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792415082; c=relaxed/simple;
-	bh=ypi3osWI8gP8xyKWXAity7kWnhHwA/VpXlB9i/wvPi4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=PwB1MAFMSrWZOeisqkWEsB/dR2WMHMq2nTdrYHEdmdjV5Po/+03V1BHxbSEv8T9T18faIO6sJEQFFOiglq9kFtQaufYNSoj4B0g0g1InCl584a+vJmhQgYTUx5MFWVj+7f6YU6Q7/hMip5hMyhdwD9de11TWrMyk67RM92sUO0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zw2Ro5NT; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792415099; c=relaxed/simple;
+	bh=YT55gpGm8NrjkJARCGxiUjSTkL4aw7n4zEtZ9T9agNM=;
+	h=From:To:Cc:Subject:Date:MIME-Version:Content-Type:In-Reply-To:
+	 References:Message-Id; b=aV/xhyPJn7GdkhF/MlrFaAEaxc5mlvuJZ33QsX5pBAUpb2663u6ZkyflMyIin80/++I37P3ceaNx170XCARF8brJVmJF963Q7QjkINLNXj/3ZZTt2WW1/nfo+brH6h7X9Y1ECBGGJCt/CiH3ndtd9LvdrPSW++ECPeOtas2YUdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=docomonet.jp; spf=pass smtp.mailfrom=docomonet.jp; dkim=pass (1024-bit key) header.d=docomonet.jp header.i=@docomonet.jp header.b=tIBMJsGb; arc=none smtp.client-ip=122.28.130.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=docomonet.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=docomonet.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zw2Ro5NT"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91b8b456dbeso28723976d6.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:04:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792415080; x=1793019880; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ypi3osWI8gP8xyKWXAity7kWnhHwA/VpXlB9i/wvPi4=;
-        b=Zw2Ro5NTFeqeRpPaUDiAoqDBBEVA4vrR/egIYDXbODNDfzxRKXaLD1RJK11z0W2Nfo
-         v4ChuE6+1Sfi4K+VMqUl/ZYJB0btqAXli5pJHKqFcJ5+/uVwztEMPyj+J7yGeSc02FBk
-         C6CLlRLhQJl0jM8HTwn917o5vL1wfF9ZSDi+dhXi+InmnwfjUMcBIiA70sapE8VxKTcE
-         fF9GSx6VUK6IsUY0dHiKY4mYq2w+na9GwH3Hpjy1mWZGcO69wec5JKb27RNOnTs3sqsM
-         01rhQF+lRKg5rrHh7r063fn0ukbU+Iv3/sufzKGp/PEF1gaM6y90GfQ/oOuPO+W+XT/y
-         jCvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792415080; x=1793019880;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ypi3osWI8gP8xyKWXAity7kWnhHwA/VpXlB9i/wvPi4=;
-        b=QW8SpIaSCVi2gml9xLRS/mCVqU1hftmmnAJdzjOorM+s8lHBuiMpUaGRCCCfhAqwN4
-         FYNpj7OteSZojgcG41dzV4m3E2FdRQk5QmkZ2wXwTTJpJht9TEgGDEKbpbH8OkmXcmoH
-         884IoYNi0uJ1AhB/5CkWFGUH+tzsRu9ETYxA1H7rvPs+aJNTs9E8a4sb8b6HYGKyTkIa
-         qXq7N9C/Gqp3c4JEUUQHIDeE6e4eFpXQAleazZ+wxaQAWPt2SuVbKuQ+f7UC6ocDDbJu
-         hBOEz1d98/K8nZmuOqYUf+fzhj0GVx9mvSQfdVs9euJgTxwG/KTvS/6TNS+XAU+ggk7g
-         PPDQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXR++Exxle3MzuGODd/0oi14G+U5aWEGshKTaIPhoeRdW6j5WT5lBRitK3NB6HX+mHj5ZAsvqCzMecybM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQzL6P6FCbnWIGkI0LZlIdVkNccewXbT11dERBi2wsySmKKq7s
-	+koZ3fe8KnvsrohUKLqXKZtknSoq2m2NzMn1H+OOGvvpyv5owIM5YX3S
-X-Gm-Gg: AYBFou2GyVg+Pry6VicUfqhhOZDzIAKW+aF+7DvDBJl0hotqvUn5ute/lzz27l6hfiD
-	qz2rzN7/YcI2G2RsjCgdfn/zvRUyr8buCRDqu5/8amdjcSqNwynIo2QM1GKafDLNrqmE/BeXdsZ
-	WBpPLCGCss4U8FAiqRHg0qfA86e41kjJFozJPwXhgw+e/aevw4Y1MHz1Lr9lmkOmDOxZ87XWGMM
-	mnsy/+0HXhr/xFdR0nIBoG3vfOESrw6Y4GH2hyxn5mlEMcDm1GM54Y4Pw52dOBjKX4QpI6RxLo4
-	nsPppN1xR5lDr5Sa3eJCK0VLAG0ihEFPAw7hDS+cKM53ruL0scZGPMKgpg3DUt607ETBM5UCggX
-	p1nDaMjAWFzmxbkM4Znz3XhlvtU+jyyuqpUX6XTaAUvqJJiGapBs61YxHYdvYyxkk0/BuaQJ/68
-	FAWYYdUyVWhC37n7y/GayJ/QjdKgu0MuG+NkB5WOZ0TcZTUkExkorEee7Y1F0a+LPAn7rzeRwjH
-	kM=
-X-Received: by 2002:a05:620a:7119:b0:93e:fc4e:c490 with SMTP id af79cd13be357-93f29cf1c9bmr1378673385a.15.1792415079619;
-        Mon, 19 Oct 2026 06:04:39 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f3cb855a0sm328418385a.4.2026.10.19.06.04.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 06:04:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=docomonet.jp header.i=@docomonet.jp header.b="tIBMJsGb"
+Received: from ocn-spm-mts-101c1.ocn.ad.jp (ocn-spm-mts-101c1.ocn.ad.jp [153.128.190.226])
+	by ocn-ckd-mts-119c39.ocn.ad.jp (Postfix) with ESMTP id 80D65340032D4;
+	Mon, 19 Oct 2026 22:04:53 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=docomonet.jp;
+	s=20240125; t=1792415093;
+	bh=YT55gpGm8NrjkJARCGxiUjSTkL4aw7n4zEtZ9T9agNM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=tIBMJsGbiGZiKZ75I7veh1BI6/gydbuy61XWC2+0onOVYvykJsR2MBz3cOnAgaaHt
+	 KQTZAJicCuEf2DXcVfZmQUA6FAlPcYKsrWZBLN/M+xFlr7rGDhO/vjVTFn74qjx8kh
+	 +UIm+BDzb1/kaspyTo5b5E+xtMWmqaLDqiV23/x8=
+Received: from ocn-vc-mts-108c1.ocn.ad.jp ([153.149.236.202])
+ by ocn-spm-mts-101c1 with ngmta
+ id 0feac299-18dff007e611286f; Mon, 19 Oct 2026 22:04:53 +0900
+Received: from ocn-sdpx-mts-113c1.ocn.ad.jp ([153.128.117.211])
+ by ocn-vc-mts-108c1 with ngmta
+ id d83a9b4e-18dff0079f7349be; Mon, 19 Oct 2026 22:04:52 +0900
+Received: from docomonet.jp (p3688129-ipoe.ipoe.ocn.ne.jp [153.238.101.128])
+	by ocn-sdpx-mts-113c1.ocn.ad.jp (Postfix) with ESMTPA;
+	Mon, 19 Oct 2026 22:04:52 +0900 (JST)
+From: "Asai, Shigeaki" <y-asai.0816@docomonet.jp>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: amlogic: odroid-go-ultra: use the RK818 RTC as rtc0
+Date: Mon, 19 Oct 2026 22:04:51 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 Oct 2026 09:04:38 -0400
-Message-Id: <DM8U47F4MNK3.2V54CCQ9YTNBY@gmail.com>
-To: "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>, "Daniel Zahka"
- <daniel.zahka@gmail.com>
-Cc: "Alexander Duyck" <alexanderduyck@fb.com>, "Jakub Kicinski"
- <kuba@kernel.org>, <kernel-team@meta.com>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Paolo
- Abeni" <pabeni@redhat.com>, "Alexei Starovoitov" <ast@kernel.org>, "Daniel
- Borkmann" <daniel@iogearbox.net>, "Jesper Dangaard Brouer"
- <hawk@kernel.org>, "John Fastabend" <john.fastabend@gmail.com>, "Stanislav
- Fomichev" <sdf@fomichev.me>, "Eric Dumazet" <edumazet@kernel.org>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <bpf@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 1/4] eth: mpnic: count packets, bytes, and
- drops per ring
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20261012-mpnic-counters3-v2-0-8afba81c2d5a@gmail.com>
- <20261012-mpnic-counters3-v2-1-8afba81c2d5a@gmail.com>
- <20261016220930.i32JEcqe@linutronix.de>
-In-Reply-To: <20261016220930.i32JEcqe@linutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Mailer: HidemaruMail 7.42 (WinNT,A00)
+In-Reply-To: <0b5c28f0-0a43-42b3-a07e-4ecf39b2380d@linaro.org>
+References: <20261017110743.3555391-1-y-asai.0816@docomonet.jp> <0b5c28f0-0a43-42b3-a07e-4ecf39b2380d@linaro.org>
+Message-Id: <10DD5FCA6DA7B692F3006A@docomonet.jp>
 
-On Fri Oct 16, 2026 at 6:09 PM EDT, Sebastian Andrzej Siewior wrote:
-> On 2026-10-12 05:04:34 [-0700], Daniel Zahka wrote:
->> Keep packet, byte and drop counters on each Tx work, Tx completion, and
->> Rx completion queue. Report them to the core via the rtnl_link_stats64
->> interface.
->>=20
->> Rx completion queues also count errors. Frames the device marked with an
->> uncorrectable error are counted as errors, and frames that fail for any
->> other reason are counted as drops.
->>=20
->> All packets cleaned from the TWQ during mpnic_flush() are counted as
->> drops, though completions for some of them may have been DMA'd into
->> the completion ring between the time mpnic_poll() last ran and before
->> mpnic_wait_all_queues_idle() returns. This is done for code simplicity.
->>=20
->> An RCU approach is used because ndo_get_stats64 is not called with the
->> instance lock.
->
-> Why do you have the two mpnic_base_stats and fold the stats into into
-> it? My guess would be that on stop the counters are reset and you want
-> to preserve the stats.
->
+Hi Neil,
 
-Not sure I understand. I think you are asking about two things:
+On 10/19/26, Neil Armstrong wrote:
+> The vrtc was used as rtc0 because it's the defaut wakeup rtc,
+> can the rk818 and rk817 wakeup the system when in system suspend ?
 
-1. Why have two mpnic_base_stats?
+Thank you for the review. I did not think about wakeup, sorry. I tried
+it on my board:
 
-To avoid a separate heap allocation that can fail. Handling an
-allocation failure in the ndo_stop path when doing the aggregation into
-the base stats is tricky.
+- s2idle: with Igor's "irqchip/meson-gpio: Allow the GPIO interrupts to
+  wake the system" applied, an alarm on the RK818 RTC woke the board
+  4/4, and the power key on the RK817 3/3. Without it, neither of them
+  woke the board.
 
-2. Why split stats into base stats and per queue stats, and why reset
-the per queue counts when the device transitions down?
+- deep: an alarm on the vrtc (rtc1 with this patch) woke up BL30, but
+  the system did not come back to Linux, and I had to disconnect the
+  battery. An alarm on the RK818 RTC and the power key did not wake it
+  up at all. So deep suspend does not seem to work on this board for
+  now, which looks like a separate problem.
 
-This is the way the stats in netdev.yaml are exposed depending on the
-'scope' request attribute. My reading of the relevant kernel docs is
-that the per queue counters are counting events for the current live
-queue, so it makes sense to reset them and fold those counts into the
-base stats when the interface is transitioned down.
+On the other hand, the vrtc does not keep the time, and the RK817 RTC
+drifts, so only the RK818 RTC gives the correct time at boot. Also,
+before this patch, the vrtc was not rtc0 on my board even with the
+rtc0 alias: the RK817 and RK818 RTCs registered first and took rtc0
+and rtc1, and the vrtc became rtc2.
 
->> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
->
-> Sebastian
+Would it be OK to keep this patch as it is? If you prefer to keep the
+vrtc as rtc0 for deep suspend, I can send a v2 with rtc0 = vrtc,
+rtc1 = RK818 and rtc2 = RK817 instead.
 
+(This reply was written with the help of Claude.)
+
+Thanks
+Asai, Shigeaki
