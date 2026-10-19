@@ -1,91 +1,127 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B574F30E9
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:18:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B3C94EC665;
+	Mon, 19 Oct 2026 13:18:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.38.64.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792415928; cv=none; b=fOF8W1hm5s4lFs0U+9LWu3Gds5xR+sNETLg3bXiycNpVtC06MgvQ5x5FHJHDbaGGISoJbhpuKzGXD6NeB1QklztT/NtH2+969jd1eKpbBQVEkyMKoCGVT2k2MYR1yQ5cDqsu1oyEZY7X4APMo7MKgFy8u4Evr0aF13uhAWp6aAE=
+	t=1792415937; cv=none; b=KIFwvKZfHvFMWOF/sLLVte+DNE1VIFSPVIWaq8ZjO0hiEOmBPeifkpTLAKaWvmGSG6SwPQHV/WKqoUhFKe838V7K0NCtdWQAo4ozxHfoYNzRlt5kVLrj7en7WL+p4BYHirvfUCwgH9pEvyS/4BXtPKTXEgaiSp+b4xZsHLFXRvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792415928; c=relaxed/simple;
-	bh=wHsgS7FBj/xFYolQNhaUfjMoV6ciEmQHxlP7VTz2dQQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=p/LuUimljT2/h3RZm0FN7eXnczpcxJsESST6Cy6WmRtgvMN5ZlrDxrbjcskMfnHG31gdwHdb8sb1H60v9PB7ThtG+nubcXnlMY9i0aZovin12cRV3Lz/6mbb66TAHH2SK+b1CXLWUH8syHMbvQBX5QKNht374irsN0SFml76E7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=grKfAOwx; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1792415937; c=relaxed/simple;
+	bh=ie2xRdvhW6XEpWHVnEjd1mxBQnEX5/KxMdAhk8NRWm4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Im1qottPw3/BEmCBbGs9Q37mQslkZhVUy854ThTZup+v/Ww3qHzA/VWJSZorU1qFKlLgPt+d6ArUBJjQGXKgQT1NybqUUDQRi22uBXMUO66OYHzV5QMRzZMOUJLEogE0rGl4aDvqgwRhhoQmkdt1NGA5YxK2WFCtG0QOATm5/zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn; spf=pass smtp.mailfrom=mail.ustc.edu.cn; dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b=qxEI6b6P; arc=none smtp.client-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="grKfAOwx"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 30C50C653EB;
-	Mon, 19 Oct 2026 13:19:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 13CF860582;
-	Mon, 19 Oct 2026 13:18:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EDEB710328D37;
-	Mon, 19 Oct 2026 15:18:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792415920; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=eGBaNcGre/pDcsajAEndciG0acG4qabHIlcIpQeDfW8=;
-	b=grKfAOwx5gq5RDunt2eyoowf7wN2fPbPXEyq2S41J1sHa3xbmG3KEgpPBHu2Xdb+zgrx9R
-	/CUIVLMUIebdv+qT4ITGMfkoLkfqcJsBWa4SEHtBP/hx/uzp4V77ov2bxkhs/WXUHpesHM
-	5TAQBJO6dqT8740xBcaffIJnLfnA9TmqUqBpdzOUuyEx9pcReG89ZoIM7NOwUbmXmHheWc
-	Z9C4SCvFbt/TMTaQQaA7+87puSTbFIJ1qwb6+YmOnuPRkJ6KvwEdpdsV+6pBNFNWSLtYaC
-	rrRxLJeUnYBqDS+8re38066UCUN9oKB2shfql1SGSrzoDxwPOLRu6Md5S3zxiw==
-Date: Mon, 19 Oct 2026 15:18:34 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 04/74] libfdt: Introduce
- fdt_get_structured_tag_data()
-Message-ID: <20261019151834.435671cb@bootlin.com>
-In-Reply-To: <atVjIcRxUPyak50o@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
-	<20260826094950.1088288-5-herve.codina@bootlin.com>
-	<atVjIcRxUPyak50o@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.b="qxEI6b6P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=xR3GgYpgStYUF1iuqM1eQngTFywt2HRYv3
+	7KJeA9g1U=; b=qxEI6b6P3KEImeOCcQxi1sQovRwOayit9sQUWHcvUrMJS062s8
+	IEtfhIbBjXZ86iLdPaIWFrDarKAqUWzate/WKULT0R/9vlK10ivZrRG0cjUq9/wJ
+	Rx99gcrx/DR6UK0yrTwrpe1zAv+Ni/2OfVAd3xVGwamn/DKdZA2b0/wqE=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.183.93])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAnoze4GNZquR0TAA--.3173S2;
+	Mon, 19 Oct 2026 21:18:49 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v3 0/2] USB: describe two connectors sharing one DWC3 HS data bus
+Date: Mon, 19 Oct 2026 21:18:46 +0800
+Message-ID: <20261019131848.344689-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261017081320.220525-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261017081320.220525-1-xiaqinghuan@mail.ustc.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-CM-TRANSID:3pYKCgAnoze4GNZquR0TAA--.3173S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxurWDtr4rXr13JFy3ZrWkWFg_yoW5Xry7pF
+	ZxKrWrtr4DtFWfCwnFv3W8Ca4rua1kGFW7Jr4DXw1UAa15GrWrWrWxtFyYvFyUCrsaq34Y
+	vwn0g3s8W3ZrurJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r1q6r43
+	MxkIecxEwVAFwVW5GwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
+	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
+	Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
+	vEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
+	14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf
+	9x07bYtCcUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREFB2rVHlSR7ABIsS
 
-Hi David,
+This is v3 of the series describing two USB-C receptacles that share one
+DWC3 High Speed data bus.  It is deliberately an RFC for the shape: the
+driver part is not included yet.
 
-On Mon, 19 Oct 2026 11:24:17 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Changes since v2:
+- Drop port@2.  The shared HS bus is now port@0 with two numbered
+  endpoints, endpoint@0 and endpoint@1, so "ports" keeps describing the
+  controller's own buses.
+- Require "ports" when port-select-gpios is present, and reject the
+  endpoint properties when it is not.
+- Constrain the two mux-state values to be complementary.
+- Move the per-connector role-switch lookup into a generic helper,
+  usb_role_switch_at_endpoint() (new patch 2/2).  v2 relied on the
+  lookup walking from the endpoint up to the parent device, which is not
+  what usb_role_switch_get() does upstream, so a consumer would never
+  find the switch.  With the helper the switch is registered against the
+  remote endpoint and found from the connector's endpoint.
+- Do not describe driver switching policy in the binding.
 
-> On Wed, Aug 26, 2026 at 11:48:33AM +0200, Herve Codina wrote:
-> > With structured tag, data len can be encoded in the tag itself (no data,
-> > 1 cell data, 2 cells) or with a dedicated cell (varlen) added between
-> > the tag and the data.
-> > 
-> > In multiple places, getting the data related to the tag will be needed.
-> > 
-> > To avoid code duplication, introduce fdt_get_structured_tag_data() which
-> > purpose is to get the tag data part and its length based on the tag
-> > value.  
-> 
-> I'd prefer to see this folded into the series introducing structured
-> tags:  the final result is no more complex than it started, so folding
-> th patches reduces churn and makes it easier to review.
-> 
+Two questions for you:
 
-Ok, will be moved.
+1. Why not the standard mux bindings?
+   The GPIO only routes the HS D+/D- pair.  What the driver needs is role
+   arbitration between two connectors (the oldest active request owns the
+   data path, and a connector reports its role only while it owns the
+   path).  The mux subsystem can select a state but has no notion of
+   ownership or of USB roles, and drivers/usb/ has no mux_control
+   consumer today.  gpio-mux also drives its mux-gpio to the idle state
+   at probe time, which would override the level left by the bootloader
+   on this board.  So the arbitration stays in the controller and the
+   binding only describes the wiring.  If you would still prefer the mux
+   bindings we will rework it -- that is why this is RFC.
 
-Best regards,
-Hervé
+2. Is "usb-role-switch" on a graph endpoint acceptable, given that the
+   property normally means "this device registers a role switch"?  Here
+   it declares that this connector endpoint has its own role switch, and
+   the new helper looks it up from the connector's endpoint.  A separate
+   property name is possible if you prefer.
+
+The board is the same as in v2: two USB-C receptacles, Super Speed pairs
+independent, only the HS D+/D- pair goes through a 2:1 mux controlled by
+TLMM GPIO 29; both connectors have data-role = "dual" and are handled by
+pmic-glink.
+
+Once the shape is acked I will send the DWC3 driver part as v4, including
+the fixes from the review of v2.
+
+Qianhui Xu (2):
+  dt-bindings: usb: snps,dwc3: describe two connectors sharing one HS
+    bus
+  usb: roles: look up role switches attached to a graph endpoint
+
+ .../bindings/usb/snps,dwc3-common.yaml        | 109 +++++++++++++++++-
+ drivers/usb/roles/class.c                     |  40 +++++++
+ 2 files changed, 148 insertions(+), 1 deletion(-)
+
+-- 
+2.53.0
+
