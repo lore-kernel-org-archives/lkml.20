@@ -1,114 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422211;
-	b=rBEq9kGzlS+V5E0E9pz8+2Ji1dtNKVThV/lOhdpm757I0i6EIyPR/pN1OBI9y4kMsnQZ
-	 mQhqxzQtXH/Fl+P5g+iUw2/BZi7KE7WB8neLriweDRivxJK/l7+e7WFHcQ49cnCF9TaSB
-	 mK+MkxELjClZT/onqpX4dx7c17J5tbFfB2w1cyqjAWX1pX0h0rWhNHKrgRWJCrpilbXpt
-	 a1ixRsW26sGyZuVwBoGzMhAbRfwiHmszS3DaVWfs80qtcp19PZOUMNGxpYjhe14tILl97
-	 CkOfX0dF/DwpCJNh8/UIiD6Je7VB+nDxoAWUShy9uB80pRrAGUUDNn1aOAyNbV97Erg==
+	t=1792422882;
+	b=c9vG1k1qa61APJHQSEMYLx33MbBe3dTI6wL9yGuI29qUGUay8IgzNUnOqi3h7lrsgteX
+	 hWZVpDzZOmULN1cyaC3JgByoPfM1TV9qGPwRdCd2rYiGp8VKTKp/QNYlu6AF14dvmPFeJ
+	 LimCiwMnH9DfzHZH212rFAesqXmRk59Kb1Jt3EOrXa69KA2PpJTOGZ+q5jowCkYgfdRgV
+	 q3Bg6H4DGsvs/+1BYKoVbMsOytTLmB2vHz487dP4/1tK6UVWfpjlTCg5ou2wJwbQFq+kU
+	 L06zsDQg65/Leo4pOlGZ2n4nzXsVWmvA/VC/uVHfCUcXENPyVzsyraCKTDXRdQbcpsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422211;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kKFgXAWOd0iYwNRMqtKFlgfZbmk+9qhcBIiWIQuiCC0=;
-	b=bXDwFunwlVRO3+Ecgdwrd8Xu378zsKI/fQHF9CvuZ2KmX3u4Bc5vZH1s5b855/D0lL4I
-	 aFjAxHb+KcWr7G1LirlFfrFokDWMxDWTQoGgKD9HcwyOWJngCwubFU+0+rm/Ru9Ku+rkB
-	 1K+jfcWR22Vdcb9MZAWF7Au2stoLJ3oYuy8uV9za68XGXCOctzq3Ywq9LnS8C6IBaDLc3
-	 Hlk1ywepIJreOWVAfMosvZZyMUJ+c02wzjDLAn8FeKnWrs28mKlLPVWaSy3fHPTDMUMV1
-	 bGazcGUd2dYLC+8/jB2r/5eyjlyOaryPU70kSdQosQ6szwV1gSdiqAKagMjL801iKSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792422882;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=O9DFPRtsvFa1wF4eZGI4Ud3A05lAczg6QVi/FUJ5XMw=;
+	b=e5ab+d9D/eW05t7amjD+OVpwzgaSyuktGusyF7oBQ51nzCqEI1POQFY5igBfidQaqKGI
+	 kmiLxpOjagzxN8N891oOQv4+u9p695eZqK5yHKc3xKA4Hql6+2cbaFj9I1Ms80FQPCAxV
+	 kjX2LivmpT+byLmQzWQcfJYQL4/oJIotSGuLjGw0cEbXQX9vUaGaWk/QIL0lb9hF8HQCR
+	 0vLdvlrjSCVJEN5JYjel7A3lZWPOAWGyeVrreRaTLTrvhV3F/hVhGrDGeJ2aj9mVvHBjS
+	 6ZLE68MoTyV0pfFrrIBjhEYjV8WhwaJVVeTFOO2w2bztghc85zjPkySwiRfI+g3057w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=swXVzvoO;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WpHIvtzw;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1F9607DC46
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:03:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C1F9607DC46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBF1609CEE5;
+	Mon, 19 Oct 2026 15:14:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DBF1609CEE5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=swXVzvoO
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso144319eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:03:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792422210; x=1793027010; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kKFgXAWOd0iYwNRMqtKFlgfZbmk+9qhcBIiWIQuiCC0=;
-        b=swXVzvoOIS9tRIxsqOPkx3Yes0Qbd3d4yFtW23aGSulXrO5qMfUOvZzdCIqsbAZQfq
-         5KOK0kzD1Jc1Tphru6k6Nxf2FSgPGozCshr7iNoo5uABSyrUb2aqFClA+IT3I4GJ2vBO
-         5fHF2G84i6WMSzUA8cEY2Gv96WihJXgOc4VQELyuTsdEGrNQGSBH6OK6raSD3q1RhqWN
-         ntgISS458qWnSQf1tl4eCi7nGCaAde/tJqGKS4oUyLJGHXLHOxQZmNzC3CUXVHQ1B5or
-         l5PrF77DCgM6ojEtC8GqDK7wYk772bgnZjmk1wLOhwZ5m/UxVjbbr8Fd6V7ZyjKKwDSP
-         Ohgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792422210; x=1793027010;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kKFgXAWOd0iYwNRMqtKFlgfZbmk+9qhcBIiWIQuiCC0=;
-        b=2zdQCaAWgO3Kazj8WVsH1EqR3jK8ihDWC+bfr0CWDgtk1obQVGYzW2tWZYHq4qpaw9
-         +zDHui9rhG1O7UBFiC2E1dI27JCnSjawMryLahqsV9BfLw+CZTeHpS59NcEhoBjWgx2v
-         yxFVY/YC+ilISeIrp0rohegkwjuT5aO2DjOi3gDAZ+Oy/Oa5aDOZ2Ejmejq3las3pAhy
-         5eajeUeMXzXO8z9hnLxscvn11wGssrd/qk9yOmqmyFMv9ml9Sy9K9OpssE3rcz10rw4w
-         Gj77+OcfBnr7tMHPkjnYo0RdCtXmyVqOEYE3BCY7XcpmspiVRW4YrvOd5DnwdYCvWvSS
-         5UGw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQVMo/ZyKf4bR1/3axeXRW/aCSvpVfbrFSdKzMD8G8LPim/h2LeYBAnK95vBOKk8Akwugq+hw1tjdVSVI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqbhnYdHJyhXcOzXtq2K0enyY3oq6pNBnkDf0anhOvr1q9kboM
-	x0ylEp3lgiEc6dDergnfgCN8cp8EeLgY4q5LM9kUS0aXhfDxDctuvF0q
-X-Gm-Gg: AYBFou3+1Q1bgs58Jm4OSZ+WW5p4IOxtrzqVd8JyFLtEnLnS0rfgkPT/UJW0e+A6g8a
-	A1MO5P/i8Pu74wpbNQg7Lp1w9FYVC10GNZGRAxFcsgmmb/Fqkg+QqVTXYzrVZSREr7PurlXWQ5M
-	i2CrRo7ZQMm/ggEhO50EGDAeBrrQVZJ7rSkCDsHq9wbZVXezQ9Ie3B1FLXhjsORHRXofPwOBX25
-	xpl/XRTPuY+2LWA2SisKgxNDHv/3EXW1VNMSksoB9RsxFEDAgJju65LCAtTHYAc37RPWN/3K1R3
-	HcWmrrNUCe8Muxz1lw3nBlzbPWi21UDpbd/4hbx7zjbyviuPd5oqker+nbk5BpPtSf9PV3d6UOR
-	KfjkQ4Nj5t6us0NreXZmZ3iL7Q8C4v9Jdw8zYD7NnVe96Qic0f5d5PwMmWMLqptrCLQSCNBwXY9
-	estcQrbOWyPn2qjs2HEafOkEtcpYVLMxJtC/kvQw6oFYg1mHZbNCQiT9uwreZx3+nzPgTjT5jUr
-	KruqWRqAuoZJdIwJvPz78yTGvaN
-X-Received: by 2002:a05:693c:87db:b0:35d:9516:eb26 with SMTP id 5a478bee46e88-361a1366c56mr10050323eec.13.1792422204963;
-        Mon, 19 Oct 2026 08:03:24 -0700 (PDT)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360813b6e33sm34648900eec.7.2026.10.19.08.03.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 08:03:24 -0700 (PDT)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: dev.jain@arm.com
-Cc: akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	david@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	zhaonanzhe@xiaomi.com,
-	lipengfei28@xiaomi.com,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WpHIvtzw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792422881; x=1823958881;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=xpv4f6XP1D6XhVQhRlWNeBRPenANWbW+HGesP3n05aQ=;
+  b=WpHIvtzw6Z1v31YMnuwVjlQ3EYKH3HpZyrNKXc6ojRcrPaLBmmnmca2I
+   pN+KSjhD4fKsCGCmknMbkc1bE1VmjOzr07N4NZ+gSfy1oCDUAZhPCIbww
+   pJnR4Itt6glYXLe6atxcRaBzbH6OJh5I1s3jfllDtTJKflD7tMoxzqpJ3
+   dMS9pk/sGydMEFD+6CEaLzUD0d3sa0GRSKRSIuhwC5vZWgsmGjytwOL72
+   mEj3x71MY3tM2a7jOhsCoLgNN5k4vVQuOiRDN9+n2tLJJ6F3AWIPVlRT0
+   Xndgefe2vDJGy1TXIrYJK6r3pbmvlpNtycP5Q4bg7VKZbRFRlhX3Oway7
+   w==;
+X-CSE-ConnectionGUID: 1eBNpD7kTwu8nd1fC8Sx8A==
+X-CSE-MsgGUID: NYo4SZctQlWlHn191BQj2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986936"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="986936"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:35 -0700
+X-CSE-ConnectionGUID: qdidTF+eSdqLLnpMq7JVzw==
+X-CSE-MsgGUID: aZ8vhuKzTWKrSaueGeo0pA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2536999"
+Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
+  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:34 -0700
+From: Daniel Byrne <daniel1.byrne@intel.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>
+Cc: Fenghua Yu <fenghua.yu@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	Kristen Accardi <kristen.c.accardi@intel.com>,
+	dmaengine@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Bo Zhang <zhangbo56@xiaomi.com>
-Subject: Re: [RFC PATCH v2 2/4] mm: compaction: target mTHP order for proactive compaction
-Date: Mon, 19 Oct 2026 23:03:15 +0800
-Message-Id: <20261019150315.2018934-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <8e54025a-03da-4cba-bae8-1604463c7622@arm.com>
-References: <8e54025a-03da-4cba-bae8-1604463c7622@arm.com>
+	stable@vger.kernel.org
+Subject: [PATCH 15/17] dmaengine: idxd: flush the work queues on every halt type
+Date: Mon, 19 Oct 2026 08:06:28 -0700
+Message-ID: <20261019150630.4026341-16-daniel1.byrne@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261019150630.4026341-1-daniel1.byrne@intel.com>
+References: <20261019150630.4026341-1-daniel1.byrne@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,67 +92,356 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 19/10/26 1:42 pm, Dev Jain wrote:
-> I wonder if this function should be left alone?
->
-> compaction_proactiveness, as I understand is given as a sysfs knob to
-> ensure that the user can control how much power they want to invest into
-> compacting. So suppose the value is 20, and the highest mTHP order is
-> only 2. This gives wmark = 90 * 2 / 9 = 20. So, even if 80% of the memory
-> can serve order-2 allocations, we will still perform compaction for
-> order-2. This seems "extremely proactive" :)
+A device halt ends the engines, so nothing in flight completes and a
+client waiting on one of those descriptors waits forever. Only the FLR
+branch of idxd_halt() flushed the kernel work queues. The software-reset
+branch only queued the reinit, which re-enables the queues with the dead
+descriptors still on their lists and their slots held, and the
+system-reset branch only quiesced the queues.
 
-Thanks a lot for looking at this closely, and you are right that the
-scaling factor is the weakest part of this patch. I called it out as an
-open question in the cover letter and I don't have a solid theoretical
-basis for the linear order/COMPACTION_HPAGE_ORDER form.
+Flush on every halt type. The flush hands descriptors back, so no
+submitter may still own one: a submitter that passed the state check
+before the halt holds its descriptor on the pending list while ENQCMDS
+retries, and aborts and frees it itself when the submit fails. Every
+halt branch therefore kills wq_active and waits for the last submitter
+before it flushes, and the abort now runs before the submitter drops
+its reference, so the wait covers it. Each queue is handled in one hold
+of wq_lock, from the state check through the revive. The software reset
+revives the queues afterwards, but only what its own flush killed and
+only a queue whose interrupt handle a failed revoke has not
+invalidated. That revive comes before the reinit enables the device
+again, so the submit checks the state again once it holds the reference
+and fails with -EIO while the device is not enabled.
 
-What pushed me towards scaling the watermark at all was the opposite
-problem on the measurement side: without any scaling, the order-9
-threshold is essentially never reached for a small order, so proactive
-compaction effectively never runs for order-2.
+Every killer of wq_active runs under wq_lock and waits for the last
+reference before it unlocks, so a reference found dying under the lock
+is already dead and the kill is idempotent. A halt branch that does not
+revive the queue leaves the reference dead, and the recovery's unbind
+and a later halt skip the kill rather than drop the count below zero
+and wait forever for a release that cannot come.
 
-I instrumented fragmentation_score_node() for order-2 on an 8G,
-data=journal kernel-build workload and sampled it at ~100ms. On the
-unpatched kernel the order-2 score looks like this:
+The software-reset branch flushes queues that its reinit enables again
+without requesting new interrupt handles, which is safe only because
+the flush no longer releases them since "dmaengine: idxd: keep the
+interrupt handle across terminate_all".
 
-  order-2 score (unpatched, same workload):
-    mean      17.3
-    p90       47
-    p99       91
-    max       100
+Fixes: f019d7814bce ("dmaengine: idxd: Flush kernel workqueues on Function Level Reset")
+Assisted-by: Claude:claude-opus-5
+Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
+---
+ drivers/dma/idxd/device.c | 49 ++++++++++++++++++++++++---------
+ drivers/dma/idxd/idxd.h   |  2 ++
+ drivers/dma/idxd/irq.c    | 57 ++++++++++++++++++++++++++++++++++++---
+ drivers/dma/idxd/submit.c | 54 ++++++++++++++++++++++++++++++-------
+ 4 files changed, 135 insertions(+), 27 deletions(-)
 
-  fraction of time the score exceeds a given threshold:
-    > 90 (unscaled, the current order-9 wmark):  1.0%
-    > 20 (scaled down to order-2):              27.2%
+diff --git a/drivers/dma/idxd/device.c b/drivers/dma/idxd/device.c
+index a33c4309f5d4..158c141650e3 100644
+--- a/drivers/dma/idxd/device.c
++++ b/drivers/dma/idxd/device.c
+@@ -483,13 +483,32 @@ int idxd_wq_init_percpu_ref(struct idxd_wq *wq)
+ }
+ EXPORT_SYMBOL_NS_GPL(idxd_wq_init_percpu_ref, "IDXD");
+ 
+-void __idxd_wq_quiesce(struct idxd_wq *wq)
++/*
++ * Kill wq_active and wait for the last submitter to drop its reference.
++ * Every killer runs under wq_lock and waits before it unlocks, so a
++ * reference found dying here was killed and waited out by an earlier
++ * caller, such as a halt flush that did not revive the queue. Killing
++ * it again would drop the count below zero and wait forever. A
++ * reference that percpu_ref_exit() released reads as dying too, so a
++ * queue the device re-enabled behind an unbind is skipped as well.
++ * Returns whether this call killed the reference.
++ */
++bool idxd_wq_kill(struct idxd_wq *wq)
+ {
+ 	lockdep_assert_held(&wq->wq_lock);
++	if (percpu_ref_is_dying(&wq->wq_active))
++		return false;
+ 	reinit_completion(&wq->wq_resurrect);
+ 	percpu_ref_kill(&wq->wq_active);
+-	complete_all(&wq->wq_resurrect);
+ 	wait_for_completion(&wq->wq_dead);
++	return true;
++}
++
++void __idxd_wq_quiesce(struct idxd_wq *wq)
++{
++	idxd_wq_kill(wq);
++	/* Let parked submitters retry and fail on the dead reference. */
++	complete_all(&wq->wq_resurrect);
+ }
+ EXPORT_SYMBOL_NS_GPL(__idxd_wq_quiesce, "IDXD");
+ 
+@@ -1627,14 +1646,15 @@ void idxd_wq_quarantine_free(struct idxd_wq *wq, struct list_head *list)
+ 
+ /*
+  * A halt killed every descriptor the device held: the quarantined slots
+- * are free, and the fence a failed drain raised can be lifted. Under
+- * wq_lock, since an unbind racing the halt may free the pool.
++ * are free, and the fence a failed drain raised can be lifted. The halt
++ * flush calls this under wq_lock, since an unbind racing the halt may
++ * free the pool.
+  */
+ void idxd_wq_halt_release(struct idxd_wq *wq)
+ {
+ 	LIST_HEAD(dead_descs);
+ 
+-	guard(mutex)(&wq->wq_lock);
++	lockdep_assert_held(&wq->wq_lock);
+ 
+ 	if (wq->state != IDXD_WQ_ENABLED || wq->type != IDXD_WQT_KERNEL)
+ 		return;
+@@ -1697,13 +1717,14 @@ void idxd_wq_free_irq(struct idxd_wq *wq)
+  * @quarantine: the device keeps running, so the slots of the descriptors
+  * it has not finished stay out of use until a drain covers them. A halt
+  * has killed them and frees their slots at once.
++ * The caller holds wq_lock.
+  */
+-void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
++void __idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
+ {
+ 	struct idxd_irq_entry *ie = &wq->ie;
+ 	bool killed = false;
+ 
+-	guard(mutex)(&wq->wq_lock);
++	lockdep_assert_held(&wq->wq_lock);
+ 
+ 	if (wq->state != IDXD_WQ_ENABLED || wq->type != IDXD_WQT_KERNEL)
+ 		return;
+@@ -1714,12 +1735,8 @@ void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
+ 	 * descriptor in the device, where the drain that frees the
+ 	 * quarantine covers it. A halt flush has done this itself.
+ 	 */
+-	if (quarantine && !percpu_ref_is_dying(&wq->wq_active)) {
+-		reinit_completion(&wq->wq_resurrect);
+-		percpu_ref_kill(&wq->wq_active);
+-		wait_for_completion(&wq->wq_dead);
+-		killed = true;
+-	}
++	if (quarantine)
++		killed = idxd_wq_kill(wq);
+ 	idxd_flush_pending_descs(ie, quarantine);
+ 	if (killed) {
+ 		percpu_ref_reinit(&wq->wq_active);
+@@ -1727,6 +1744,12 @@ void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
+ 	}
+ }
+ 
++void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine)
++{
++	guard(mutex)(&wq->wq_lock);
++	__idxd_wq_flush_descs(wq, quarantine);
++}
++
+ int idxd_wq_request_irq(struct idxd_wq *wq)
+ {
+ 	struct idxd_device *idxd = wq->idxd;
+diff --git a/drivers/dma/idxd/idxd.h b/drivers/dma/idxd/idxd.h
+index 3caf9fc00f83..0ad61bc233e8 100644
+--- a/drivers/dma/idxd/idxd.h
++++ b/drivers/dma/idxd/idxd.h
+@@ -826,11 +826,13 @@ int idxd_wq_map_portal(struct idxd_wq *wq);
+ void idxd_wq_unmap_portal(struct idxd_wq *wq);
+ int idxd_wq_set_pasid(struct idxd_wq *wq, int pasid);
+ int idxd_wq_disable_pasid(struct idxd_wq *wq);
++bool idxd_wq_kill(struct idxd_wq *wq);
+ void __idxd_wq_quiesce(struct idxd_wq *wq);
+ void idxd_wq_quiesce(struct idxd_wq *wq);
+ int idxd_wq_init_percpu_ref(struct idxd_wq *wq);
+ void idxd_wq_free_irq(struct idxd_wq *wq);
+ int idxd_wq_request_irq(struct idxd_wq *wq);
++void __idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine);
+ void idxd_wq_flush_descs(struct idxd_wq *wq, bool quarantine);
+ void idxd_wq_quarantine_take(struct idxd_wq *wq, struct list_head *list);
+ void idxd_wq_quarantine_put_back(struct idxd_wq *wq, struct list_head *list);
+diff --git a/drivers/dma/idxd/irq.c b/drivers/dma/idxd/irq.c
+index 1ec3d360eea8..99b2df7fc2de 100644
+--- a/drivers/dma/idxd/irq.c
++++ b/drivers/dma/idxd/irq.c
+@@ -422,15 +422,61 @@ static void idxd_device_flr(struct work_struct *work)
+ 		dev_err(&idxd->pdev->dev, "FLR failed\n");
+ }
+ 
+-static void idxd_wqs_flush_descs(struct idxd_device *idxd)
++/*
++ * Complete what the halted engines will never finish, or a client waiting
++ * on one of those descriptors waits forever. The flush hands descriptors
++ * back, so no submitter may still own one: a submitter that passed the
++ * state check before the halt can hold a descriptor on the pending list
++ * while its ENQCMDS retries, and it aborts and frees that descriptor
++ * itself when the submit fails. Killing wq_active and waiting for the
++ * last submitter to drop its reference orders the flush after that.
++ * Each queue is handled in one hold of wq_lock, from the state check
++ * through the revive. A driver remove that quiesces the queue in one
++ * hold and disables it in another, as iaa_crypto's does, would otherwise
++ * find the reference dying between the kill and the revive, skip its
++ * own kill, and have the revive undo its quiesce before its disable
++ * frees the queue.
++ * @resurrect: revive the queues afterwards for a reset that keeps them.
++ */
++static void idxd_wqs_halt_flush(struct idxd_device *idxd, bool resurrect)
+ {
++	bool killed;
+ 	int i;
+ 
+ 	for (i = 0; i < idxd->max_wqs; i++) {
+ 		struct idxd_wq *wq = idxd->wqs[i];
+ 
+-		idxd_wq_flush_descs(wq, false);
++		mutex_lock(&wq->wq_lock);
++		if (wq->state != IDXD_WQ_ENABLED || wq->type != IDXD_WQT_KERNEL) {
++			mutex_unlock(&wq->wq_lock);
++			continue;
++		}
++		killed = idxd_wq_kill(wq);
++		__idxd_wq_flush_descs(wq, false);
+ 		idxd_wq_halt_release(wq);
++
++		if (resurrect) {
++			/*
++			 * Revive only what this flush killed, and only if no
++			 * failed interrupt handle revoke killed it for good,
++			 * which leaves the handle invalid. The state changes
++			 * without the lock only to enabled, in the reinit of
++			 * an earlier halt, or on a queue that an FLR recovery
++			 * has unbound, whose reference reads as dying, so this
++			 * flush did not kill it. A reference an earlier halt
++			 * left dead stays dead, since that halt's recovery
++			 * unbinds the queue. The revive has to stay in this
++			 * hold: moved to the reinit, it would reopen the
++			 * window described above.
++			 */
++			if (killed && wq->ie.int_handle != INVALID_INT_HANDLE)
++				percpu_ref_reinit(&wq->wq_active);
++			complete_all(&wq->wq_resurrect);
++		} else {
++			/* Let blocked submitters retry and fail on the state. */
++			complete_all(&wq->wq_resurrect);
++		}
++		mutex_unlock(&wq->wq_lock);
+ 	}
+ }
+ 
+@@ -442,6 +488,8 @@ static irqreturn_t idxd_halt(struct idxd_device *idxd)
+ 	if (gensts.state == IDXD_DEVICE_STATE_HALT) {
+ 		idxd->state = IDXD_DEV_HALTED;
+ 		if (gensts.reset_type == IDXD_DEVICE_RESET_SOFTWARE) {
++			/* The reinit below re-enables the queues, so revive them. */
++			idxd_wqs_halt_flush(idxd, true);
+ 			/*
+ 			 * If we need a software reset, we will throw the work
+ 			 * on a system workqueue in order to allow interrupts
+@@ -460,7 +508,7 @@ static irqreturn_t idxd_halt(struct idxd_device *idxd)
+ 			 * device command; they are requested again when a work
+ 			 * queue is re-enabled after the reset.
+ 			 */
+-			idxd_wqs_flush_descs(idxd);
++			idxd_wqs_halt_flush(idxd, false);
+ 			for (i = 0; i < idxd->max_wqs; i++) {
+ 				struct idxd_wq *wq = idxd->wqs[i];
+ 
+@@ -474,7 +522,8 @@ static irqreturn_t idxd_halt(struct idxd_device *idxd)
+ 
+ 		} else {
+ 			idxd->state = IDXD_DEV_HALTED;
+-			idxd_wqs_quiesce(idxd);
++			/* Same as above: nothing in flight will ever complete. */
++			idxd_wqs_halt_flush(idxd, false);
+ 			idxd_wqs_unmap_portal(idxd);
+ 			idxd_device_clear_state(idxd);
+ 			dev_err(&idxd->pdev->dev,
+diff --git a/drivers/dma/idxd/submit.c b/drivers/dma/idxd/submit.c
+index fab3e0176cba..cf8536e94c15 100644
+--- a/drivers/dma/idxd/submit.c
++++ b/drivers/dma/idxd/submit.c
+@@ -132,10 +132,14 @@ static void llist_abort_desc(struct idxd_wq *wq, struct idxd_irq_entry *ie,
+ 			}
+ 
+ 			/*
+-			 * A finished descriptor goes on the work list for
+-			 * the interrupt thread, as one still in flight does,
+-			 * rather than being completed in the submitter's
+-			 * context.
++			 * A completion runs a client's callback or another
++			 * driver's handler, and either may submit or terminate
++			 * and so wait for a killer, which waits for this
++			 * submitter's wq_active reference. iaa_crypto's verify
++			 * of a compression may also wait for a free descriptor
++			 * while this submitter holds one. A finished
++			 * descriptor therefore goes on the work list for the
++			 * interrupt thread, as one still in flight does.
+ 			 */
+ 			if (d->completion->status)
+ 				wake = true;
+@@ -156,10 +160,16 @@ static void llist_abort_desc(struct idxd_wq *wq, struct idxd_irq_entry *ie,
+ 
+ 	/*
+ 	 * The device never took the descriptor, so its record is still
+-	 * clear. The interrupt thread and another submitter's abort sort
+-	 * the lists under the list lock and leave one with a clear record
+-	 * on a list, so the search finds the descriptor, and once off the
+-	 * lists it is the submitter's alone. Marking it aborted before
++	 * clear. While this submitter holds wq_active, only the interrupt
++	 * thread and another submitter's abort may take descriptors off
++	 * the lists, and both sort them under the list lock and leave one
++	 * with a clear record on a list. A flush takes them all, so every
++	 * flusher must kill wq_active and wait for this reference before
++	 * it takes the lists, and nothing may revive the reference before
++	 * the flush runs. The error path of iaa_crypto_probe() breaks the
++	 * rule: it disables a queue it has already published without a
++	 * quiesce. Otherwise the search finds the descriptor, and once off
++	 * the lists it is the submitter's alone. Marking it aborted before
+ 	 * that would let another context that saw the mark on a list
+ 	 * complete and free it, and the caller frees it as well.
+ 	 */
+@@ -215,6 +225,22 @@ int idxd_submit_desc(struct idxd_wq *wq, struct idxd_desc *desc)
+ 			return -ENXIO;
+ 	}
+ 
++	/*
++	 * A software-reset halt revives wq_active before its reinit enables
++	 * the device again. A submitter that passed the check above before
++	 * the halt and got its reference after the revive would post to the
++	 * halted device, which drops the descriptor, and nothing would
++	 * complete an interrupt-armed one. The halt stores the state before
++	 * its kill and revives the reference after the wait. The barrier
++	 * pairs with the release in percpu_ref_reinit() and orders this
++	 * read after the tryget that saw the revive.
++	 */
++	smp_rmb();
++	if (idxd->state != IDXD_DEV_ENABLED) {
++		percpu_ref_put(&wq->wq_active);
++		return -EIO;
++	}
++
+ 	portal = idxd_wq_portal_addr(wq);
+ 
+ 	/*
+@@ -239,10 +265,18 @@ int idxd_submit_desc(struct idxd_wq *wq, struct idxd_desc *desc)
+ 	} else {
+ 		rc = idxd_enqcmds(wq, portal, desc->hw);
+ 		if (rc < 0) {
+-			percpu_ref_put(&wq->wq_active);
+-			/* abort operation frees the descriptor */
++			/*
++			 * Abort before dropping the reference: a halt flush
++			 * waits for wq_active to die before it takes the
++			 * pending descriptors, and this one must not still be
++			 * listed when it does. The abort takes the descriptor
++			 * off the lists and runs no callback, which could wait
++			 * for this reference to die. The caller completes or
++			 * frees the descriptor.
++			 */
+ 			if (ie)
+ 				llist_abort_desc(wq, ie, desc);
++			percpu_ref_put(&wq->wq_active);
+ 			return rc;
+ 		}
+ 	}
+-- 
+2.43.0
 
-So with the current (unscaled) watermark, the order-2 score crosses the
-trigger only 1% of the time, which in practice proactive compaction almost
-never fires for order-2.
-
-That said, your example shows the linear scaling clearly overshoots in
-the other direction: a scaled wmark of ~20 can keep compacting while a
-large fraction of memory is already usable, which is not what the
-proactiveness knob is supposed to express. So I agree the current formula
-is not the right answer.
-
-I'd appreciate your thoughts on the direction here. A couple of options
-I can see:
-
-  1. Leave fragmentation_score_wmark() alone and instead make the score
-     itself order-aware / normalized, so that a given proactiveness value
-     maps to a comparable amount of work regardless of the target order.
-     This keeps the knob's meaning intact.
-
-  2. Keep scaling the watermark but with a floor / non-linear mapping so
-     it cannot collapse to a value that triggers when memory is clearly
-     sufficient.
-
-I haven't settled on either yet and would rather hear which direction you
-think makes more sense before reworking it.
-
-Also, thanks for the review on patch 4 -- good to know the
-costly/non-costly split seems like a reasonable compromise.
-
-Thanks,
-Bo
