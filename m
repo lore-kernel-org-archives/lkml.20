@@ -1,78 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424081;
-	b=2T0JAqj8ebYJP0m/hm1BzQil26j0gUlZmRQQS4TQ+Rt7uv7Z/rZpQw+hxY2A1YWJ2E1+
-	 72TYT4EEfZHTX6VC6T9bW/wjo7Qlp6elcGU8/vKoMbbkOG/Kkt+NRYuQk3K3Y4MOzFKmy
-	 fCKwuASLeCpASxHZvQekz3TyxFQMDR03fVPzMbuMwZdbQ/2c8998k+a42hKs/MaRNyDWs
-	 x0pINRiA30wgL3AScsTpQrZYt1030qFQhEhHoCk+uCe2Ze6hAMIuD/tXaanWAniksi+NM
-	 6QwS9Nw9E5Sh+SsIR+glVXCrsSCPWsrKZRUSdmlfxSmsp9+/F0NlRp0JBpeRM1ASBEw==
+	t=1792424132;
+	b=UwPd6Y/JxKrRDeC83DSsMiA544t+ZVOLnJEgPNNN43slZbubjS4FOnO5MxG4TqjsbWvE
+	 nENFIfEMgc85Cb4hg8G60OfcZ1fZt54JRztpiaJRxpPLrqLjkVG1jooBdHII1uFjpbcUg
+	 lvm/2Nh+9HOIW/wmfF/w1qa7y/RMoV3tZDndxD//2yi+FSeu2JL4xNgM73uu+0Vv4mIe2
+	 2dOuve6uBAeecyh/8twQGBt/MtOrQZR+K7Fh9doVtwz3HER4G9Zqh/IMPtzGfRhhndkxR
+	 olXNi/KbQ1wACFkYuO6Tlxlg8VB2XPZ/X1zsfxUh1ITZ+aaXrGupziOJQwbLUylvCdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424081;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424132;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Ol5KfRbE0V7ARBDfrVK6WqnyQtx7i9RhSPG6UytwSUo=;
-	b=NSWz3YS5/wwLt83ukqRYhiU87cpsmu8tIm3I6HDT3EpROme6COn1VjhyOaoy0z8fIvZo
-	 /Mz7eXhwumvsVJfZau/vbF72aifAgNijMSPthQJye9YVUi8UcMnR9X9m+3JQ8wv6zXDb8
-	 GSzQ+Qtdbd58/SosujcwRumiGWHGe1PWtLK2RwhomlPveIDsjcd5QSNmGnjoPWvEFddkb
-	 TMIQhKv10km5vTa1eqkAN4JCK0xPRTdES0uq5DTx7CXC8+JjIaFhPK+VBlBz0V2rDfffF
-	 TBkt/FZHchb1YemOrAPcoC5IDlGBgu8ahMbi2n/OVUOJ+u4mGybnGO6ypA6rce0BX2A==
+	bh=pctsoJTIi3PIcREBl4WC4IIZ1RXf5gRECxbUB6cpZoM=;
+	b=ukk7t8iIeByximaYe2RGfxPe+zRDuQJDcb6JVbMQSBf31hnu7j/wmOSZ50WkyO5iORSd
+	 g+7inWcyKwQSF5qY2mgwsGbAnr1m49cqGwovp+2X+dq62zKzpxbtMVN3P9hf3Yt6wfbN3
+	 Pqnll/rl+GiQzsI5Fb/mCO4UhhLCPITTKOW12x2FHSk3F0OV0nKagT9QKByYEgEdh0sxW
+	 RWsswouqfHJExoyw/f6Qhfo81SG+O67QzFpOPht+RM7BpJuK5uUtWKHfKh1TNd+QLRPo8
+	 0xGi3GftsqYTa7/jlEslJWMvNaijlcfP32fWzDLWnswe3qZVUJYJfRDicXj4BtmaoTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lE60bAzs;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YYbUVaVN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FAD606C16D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:34:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56FAD606C16D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 383586072499
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:35:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lE60bAzs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792424080; x=1823960080;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=vRkJE7srJOwkAN+Ze8OSeE7zFU73F4wk4XyUrxD6UJE=;
-  b=lE60bAzsRjrUV6GXTweeJKbxrSbRHR+vYuQTLUlad5zPEdJ5HFA909z8
-   5eHGyO37ZBdJEqN5Vh3pYdhKNG2+RIDy9i6qCVDDg9Y+UCUHZGCvUT6sp
-   or0BI+ty0QgT5HjF0TKQGSLW/XJ1IqDumhRbRvvKP9NMV7XDf9N55Knve
-   5M2njzqVOHaQj6B8FgNMvkoRJs2w7Vz/jEuiAKXuev6ECn0453MmaQWlz
-   KviixFWqMwCLIkALkNb+PCH+rSBfNOOQ5CyKFmxWJMfxXjth1LVFsF7dK
-   G25yvm1PBKnqpeU2spXkG9NGTuloLtOKjFCHXUsi5yMITV6llmvuGKQ4d
-   A==;
-X-CSE-ConnectionGUID: tuD9h9NsR6CS9FlX8TEeiw==
-X-CSE-MsgGUID: gStdzQULS2u43PfpzYptnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="995617"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="995617"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:34:39 -0700
-X-CSE-ConnectionGUID: W7UH4C35QVCMBktlwDNQrg==
-X-CSE-MsgGUID: lR7b/tn/TXa9ySiRgpBKNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="4397680"
-Received: from smtp.ostc.intel.com ([10.54.69.131])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:34:40 -0700
-Received: from ray2.intel.com (unknown [10.125.111.15])
-	by smtp.ostc.intel.com (Postfix) with ESMTP id 4019C6393;
-	Mon, 19 Oct 2026 08:34:39 -0700 (PDT)
-From: Dave Hansen <dave.hansen@linux.intel.com>
-To: torvalds@linux-foundation.org
-Cc: x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: [GIT PULL] x86/misc for 7.4-rc1
-Date: Mon, 19 Oct 2026 08:34:37 -0700
-Message-ID: <20261019153437.1871645-1-dave.hansen@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YYbUVaVN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5701F0283C;
+	Mon, 19 Oct 2026 15:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792424130;
+	bh=pctsoJTIi3PIcREBl4WC4IIZ1RXf5gRECxbUB6cpZoM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YYbUVaVNFOS3ikdPPAI0feyllwwC0JAn5J9+vzlGaHw385Cbra4uKCOAehI4fLL8d
+	 lHqVkJr9iabcTmrdzSgeBqF6ufaO1VZQSw1fIO7wQjJxWubhEDsZZl+opqfQn0DQtO
+	 x5+6ZpH9ghkNIilJ1vs0fiqHzhnyP3e7b78PTCkQ=
+Date: Mon, 19 Oct 2026 08:35:29 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+Cc: Sean Christopherson <seanjc@google.com>, Borislav Petkov <bp@alien8.de>,
+ David Laight <david.laight.linux@gmail.com>, Rik van Riel
+ <riel@surriel.com>, ljs@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, david@kernel.org, Mike Rapoport
+ <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, Pedro Falcato
+ <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>, luizcap@redhat.com,
+ pbonzini@redhat.com, Tal Zussman <tz2294@columbia.edu>, Matt Fleming
+ <matt@readmodwrite.com>, Yosry Ahmed <yosry@kernel.org>
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-Id: <20261019083529.a81910ac0976c1a5687d4c6a@linux-foundation.org>
+In-Reply-To: <atY1vWRBRUwpISKb@pcnci.linuxbox.cz>
+References: <aszH4vpXFAOQP1WG@pcnci.linuxbox.cz>
+	<20261014235736.GCatAW8GD0GlYumL4l@fat_crate.local>
+	<20261015172820.7961d2c0def74d41cc6c4b0c@linux-foundation.org>
+	<20261016031242.GDatGWKo98YSOhEOOn@fat_crate.local>
+	<20261015211832.45d87fab15bb3e0bbc2f47cb@linux-foundation.org>
+	<20261016054954.GEatG7AgMNFRkiTo1H@fat_crate.local>
+	<atI_yuCc4BiweBQP@google.com>
+	<atT5TYyLapHO5ZoX@pcnci.linuxbox.cz>
+	<20261018201538.d0957878f378a9821852836f@linux-foundation.org>
+	<atXXma5NXxoSWJO0@pcnci.linuxbox.cz>
+	<atY1vWRBRUwpISKb@pcnci.linuxbox.cz>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,36 +71,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+On Mon, 19 Oct 2026 17:22:37 +0200 Nikola Ciprich <nikola.ciprich@linuxbox.cz> wrote:
 
-Please pull a single x86/misc change for 7.4-rc1. The "itmt" scheduler
-tweaks are getting disabled if debugfs is not available.
+> > 
+> > Sure! And I have more good news: after applying 55780d8a1dcc
+> > to 6.18.56, I was able to perform more than 30 migrations without
+> > a glitch. After booting back into 6.18.56 without it, both VMs
+> > crashed within 2-3 migrations. Furthermore, some memory apparently
+> > got corrupted on one of the hosts, since various commands started
+> > crashing too:
+> > 
+> > [  303.466091] traps: systemd-logind[3085] trap invalid opcode ip:7f7b5667e616 sp:7ffe1afdec38 error:0 in libsystemd-shared-252.so[7e616,7f7b5666d000+22e000]
+> > [  303.493810] traps: systemd-coredum[11269] trap invalid opcode ip:7fc6bf67f614 sp:7ffc075da958 error:0 in libsystemd-shared-252.so[7f614,7fc6bf66d000+22e000]
+> > [  377.528955] traps: systemd[5607] trap invalid opcode ip:7f791447e616 sp:7ffe83e61cf8 error:0 in libsystemd-shared-252.so[7e616,7f791446d000+22e000]
+> > [  377.556993] traps: systemd-coredum[12080] trap invalid opcode ip:7f97ce07f614 sp:7ffe28b56a88 error:0 in libsystemd-shared-252.so[7f614,7f97ce06d000+22e000]
+> > [ 3746.173043] traps: hostnamectl[45846] trap invalid opcode ip:7fe00cc7f614 sp:7fff89916e48 error:0 in libsystemd-shared-252.so[7f614,7fe00cc6d000+22e000]
+> > [ 3746.202305] traps: systemd-coredum[45847] trap invalid opcode ip:7f7fe9e7f614 sp:7ffea227cfa8 error:0 in libsystemd-shared-252.so[7f614,7f7fe9e6d000+22e000]
+> > [ 3750.581940] traps: systemctl[45903] trap invalid opcode ip:7fbb8967f614 sp:7fff733e5748 error:0 in libsystemd-shared-252.so[7f614,7fbb8966d000+22e000]
+> > [ 3750.612651] traps: systemd-coredum[45904] trap invalid opcode ip:7f90d347f614 sp:7ffdc7f55148 error:0 in libsystemd-shared-252.so[7f614,7f90d346d000+22e000]
+> > 
+> > I'm not sure if this is of any use, but I collected a vmcore of
+> > this state by intentionally crashing the host via /proc/sysrq-trigger.
+> > 
+> > Anyway, I'll give 55780d8a1dcc some more migration rounds, but it looks
+> > promising.
+> 
+> 500+ migrations back and forth, no issues. I consider this solved and am rolling
+> out the patched kernel; I’ll report if anything new turns up.
 
-Allow initialization to proceed even in the face of debugfs failures.
+Great, thanks.
 
---
+oops, we haven't been cc'ing Yosry.
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+> Definitely a -stable candidate. Andrew, will you send it to Greg, or shall I?
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+I volunteer Yosry or Sean ;)
 
-are available in the Git repository at:
+I think 55780d8a1dcc should be repackaged before sending over to the
+-stable people.  Its changelog is very wrong: "The bug is benign
+though".  Update the changelog to explain that the bug is in fact evil.
+Otherwise -stable and further downstream won't understand why we sent
+it to them and won't understand the impact.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tags/x86_misc_for_7.4-rc1
+And that repackaging would be an opportunity to add
+Reported-by:/Closes:/Tested-by: you, which is the least we can do to
+thank you for all this diligent work!
 
-for you to fetch changes up to 4a673a0026b95030ee727f1f8578c46a42107011:
-
-  x86/itmt: Don't make ITMT enablement depend on debugfs (2026-09-02 14:01:08 -0700)
-
-----------------------------------------------------------------
- * Don't make ITMT enablement depend on debugfs
-
-----------------------------------------------------------------
-Mario Limonciello (1):
-      x86/itmt: Don't make ITMT enablement depend on debugfs
-
- arch/x86/kernel/itmt.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
