@@ -1,75 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792445484;
-	b=t9NmFXrrfNbxMovAppj+SJoxkoqEydM3/5LjQ04VSbDOcsbPf5YBPVSDyK3EpgcLTsvy
-	 reGFHMvW92uq0Ikq75MPtIE1SZG6mfQmRVn3go5ScL+4VXC29yLi6gdor+G+ml2WxrEWr
-	 r/XDODtV8gFXAGOpcNNDPbUeLnmN3dyfx2pAUI2mTv/Ta5TCl9ww4AkokRdQnTz3BXX/v
-	 z7JU1h4XxsyKSABC1GxX6w81yWtgANZiJS6dQ4kOcVy5sBfefSKyOmF0HlTlBii0B26c6
-	 Rk9p/JtJNFyiB+SW9+PpBEA8TbIe7o/Ks4r6ZfMALhR2Exlb8XgegafVYvkh6RbQKfw==
+	t=1792445528;
+	b=T7eXc+4Ddi7AH/eiJlgi3W1pO8czTMwZbPN3VX+0GuTb5O9HdlSIcawu/AXNuJ4MhmxU
+	 XBcUwWlYr0VRxouFtAFxfr+lAzQ6WRUyWftHV9P8/s9ROjFevi3FXdDWsHNOMASBETvn+
+	 BxZ1Q7xOVw/gxL7DaSBNxBSAOYfnnRjyhvC/Wumh3Nj4aKTXjFxraQRXiCc5dfQR+W5sU
+	 TJfBuyF7K8SuFp9MeEB4RUKO61hnQXuwzrR3Nkm7JgSRKjCacfHFZYpXwWIOTnwQc5ZVo
+	 btfvIOVv0KOtgKOl7E8QcpFRXFPT90zjobLF+RYLDT2W1tKsSyKXioBakTZzpCq4oig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792445484;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792445528;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=OlOiZMSQAlq56d5O025wMJ9SWaeJFCSne26CemMgHno=;
-	b=cUCqgh8BB0es4bIwR2d0hTxwhat5bAxOJxRurb2wTEHu6D0/c28MJKOZ6pQUZf3iEvb2
-	 G7RHMny+Hm6EbbsuIocPqTI10E9y03tDo1yMDgTX3W9yCWaHDG0DRbsiMRvqRmvhJzw/z
-	 l59k9cD5s41I2/YxarnVEB9iqSQEM7PSOuZLp05/mgWyrzk2cRRuXGMOgx1HCQ5tV6C4M
-	 6k+kCsW7+5vyAk/GR7eZOlcOtnOGoDv40LxDjQ7/Md9iVGjFF+sdB3k2+Be2Ja2zfRI32
-	 aeSHSQteySOaWjIrVUNbA5oAGksGo9wemuLPPh9oGkG/HIia0XWIukib/+hWNn1ffZg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=TuVHoTWOLcCyB9PSRvxtA5wjt2JdJw+LyuZbMuRvoqU=;
+	b=pYoxLpd2M+F6OQS8ZPenznhnvJFphninMrYuq3kfjBy5y4OYe+VGvTCmLahDy2NlLVAJ
+	 srRDXMeBnlwVcYcjuHVPFGgwLKZ67T1fOpqwtTF+e3PoDZKdTtrWjVede0quS3EsyzD/r
+	 cA78sOWwCeRLxaikrOOtifT3LvfuZuHQB1xctWuDmxC6+Tdhqw7dOi1UYuCAgubIudDwM
+	 JgkyBVhjSGFGg+8JjaWtploaNLnKTGsQJC1/5wW/qMXOli/y3cy/BhzOs/MqC4D7pjaJ4
+	 Af87NJxcE552GuQ+n3Q+12m6cXkNlVOYwJEQxX2ITH175OVRxrgU/0Mf2En2GxfEknA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cRVrNlCF;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sB0vLkAE;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937BD606A32F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:31:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 937BD606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D723606A320
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:32:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D723606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=cRVrNlCF
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e8ad8c5f80so40418525ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:31:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sB0vLkAE
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35ef6b49813so4867271eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:32:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792445484; x=1793050284; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OlOiZMSQAlq56d5O025wMJ9SWaeJFCSne26CemMgHno=;
-        b=cRVrNlCF9w/4azGXpmG9dwZuRXxSnQTSYK1LT3QO69unTOKZnx3YicN4/TwXs/Cox8
-         vDBR/+QohvszWXvUxx8fuoL05UU6h4TEpVotDQeG2x3vRtGzK0hdKNOIlG70IsSPkkrC
-         sUl2hdcOiv9zTd5zvBKZ+hm5P4cVcAMMQLrf/GImmSjTJrZk6q26qXqGP6SocFlgQ0JR
-         1D1DzAv2LnBH6FKBUCGJGdsyHrJBqqzu6k78x4WU3fiB1QvU2XVJnIp4w8GXnatzrYm6
-         DPP3femYI/qGSVOvkSALLf+3Qn/XX+HD0WeCA0dmSgr7ESz4g/nx0KDzxpOV4ONuYKqe
-         blFg==
+        d=gmail.com; s=20251104; t=1792445527; x=1793050327; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TuVHoTWOLcCyB9PSRvxtA5wjt2JdJw+LyuZbMuRvoqU=;
+        b=sB0vLkAEH+wKhJ8Cxe/5ZMP162nPvlE5GdfkvBekaDyBFLX0p/o/PJGYJ3m5YN3CQQ
+         rE89zT5uCaC49tspBnG8VEmCCJazzuLMfdmqU77AYNC0IN3+CRUM7ufo/V2ry+fwvyTF
+         5bYx67SjVPyM5xZL9GakJ9GcWKHEH+Wkgjkj0cQN40K2z4LXR65r6ShUPPfNzzyK/A2E
+         UXUmfrHJ8Hj4MLHs8sNiLM9ScEayvARU4cHzABtX2K3eULznPMq25pkjXuBjrbpNLV/M
+         Mu8fYVIX14Q/24xaNeJQV6G6lp/fKKlBp/AuY3x1nx7+fezvo/wOsXPwDvxl9okBAeTK
+         X4Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792445484; x=1793050284;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OlOiZMSQAlq56d5O025wMJ9SWaeJFCSne26CemMgHno=;
-        b=De2c6rOYRVKbgbFKRRHKk9AffWTu7U2l3/nYQ4xy953cHKLlXzGrXARN3xciqnnNHn
-         CkFFs2btQCIdxa5j2JdsnmCj0cxiGIYa5zevkZXcQqE7xwTb1X/ICkEBDNE8m0oEx4mM
-         Rl7L+3aYW7B5g9xWjh6I266gomQJz2y/UfG+59VUGV2dzccg200MHtronkH/2BbZekbN
-         amZllkYPtlHOHAap8DHo/KKI1m8fD+vRlQFUSLU9jL7fFetEYEiDpHgOdf5QWE0EHvI6
-         3Wuqpcd64EhNXmFYSjc/pEhpeqVH51HXSBB/n5UxI7IES1NRSsolg5teygoNd8gYhLHJ
-         H6/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwGwyzpoF/ecqXRXTyQkIdik7cMqsg+vgabEuMYkvDYnwjKYzwCxcCzsx71KWA4wnE9in2P3IGi/87cKzY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsFEmwEImsK+4KWifyk+ul6kRCpNKcr7+wbNhT8hFvROM/7xZZ
-	+rUhEAQ7Gmyj7S2iZJ6rdGj609eovBdzpNAP6Z9q3IxgZ1xuHDq1ewEkYqWFHbqB9nqJ0RweNWc
-	QEd2I0i8gvPGZRw==
-X-Received: from pllx8.prod.google.com ([2002:a17:902:7c08:b0:2e8:31af:11b0])
- (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:f607:b0:2e9:8505:5471 with SMTP id d9443c01a7336-2e9a68343d5mr79186475ad.7.1792445483766;
- Mon, 19 Oct 2026 14:31:23 -0700 (PDT)
-Date: Mon, 19 Oct 2026 21:30:47 +0000
-In-Reply-To: <20261019213054.3157159-1-dmatlack@google.com>
+        d=1e100.net; s=20260707; t=1792445527; x=1793050327;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TuVHoTWOLcCyB9PSRvxtA5wjt2JdJw+LyuZbMuRvoqU=;
+        b=vn+sURz3x6vDazYVq5dq8FbptHFwtkcfFjksldZuVB2HvSfc4MmE9HzGWChLQH3L1r
+         Nkr+JWpjeGk/1RP61ajiGqh8HmHzEz+Ni6cel+n7KBQ5CiFEOtpeYNhB1MPPPH4s1K0D
+         zBm3m3Uo3BXEbPdBf5fZU/5q3O9/HtNvH8FPy7hXjm2tBaJyjWsGYIGLqpAxrG5hGF7N
+         6Qpc40GtpPf+Yw3Jrm0kWxSqKLRe7PTcBl/QmIjpW2UxgwNe+G7I7x3UGP8n8PHODEis
+         KI1E38yNxGpNOd4WW8jBmmh9s+hTw/VvaiKtm7hg8OdHVsLl00M8CE19eDGe0JaGysu5
+         7PRg==
+X-Forwarded-Encrypted: i=1; AKwUvBx4cgiGpzmyJSle9FdoIPcFOsR/CW08juX4Cm7ilY9fkioYkhjwUZiO3yJtIUl3NpvLwfI2gHSelKCwKww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1kxShfip3CeTGH/4A3dvR0gaPsab3GVPqO3FqTEydwUIMmmdX
+	RywETmuJvosu2XH59qkTM1Piw6mzY4XpsCrjaxJq+JOtszpyOXbhTugI
+X-Gm-Gg: AYBFou2tEKX/jtGZmWRaJZm095kkWeQ9HEUDc7fDUm7iVRiKpHsu39RQPx1GFqjZw+h
+	ZSl1YplHXKX80ugzpOBgV/uUUMmx9GVDs6vIh6vm8WcGIsqntqv5FizAku3KXoyJsmTIxGHmIhZ
+	+mXfLgFeuvq86ek3znedSE02hUhTjqPMLFBwnnTCS11F4DJjaO+i/yoge8m6d0oOgvkZf7cGiOS
+	figJZ/eZ82XUdIGHPDhmsVQ6j8XgniC3ik0UNgWQJkJpPH/cdvbf5n8fq0xXS6RrnWlJfbiw9ux
+	cVMVgDIYy4d3ENnt+8p8GUnNYbNdD/Jkn4aWEq768g9G1JGEH6oaMGYgO+Nhf37feiUPBeHOidy
+	sP74h1PIgYOxZ/sJ8UYjJOuPEhUjGVjzdJyspVfR+rTNgy3nzs7QUEnPwM+Bst/XgiFc3M3NwRQ
+	bOobQf31sc4IpPS+Te8WGxUKjuWXbSZ63STV0Yzk7ldZzDxPYHRDgftc429Q82Q7pmd2t+Vxun/
+	biKbziHxkkHmNNhR+qSiHrfR5Np7H4CEXtTafs1
+X-Received: by 2002:a05:693c:87d9:20b0:365:b147:b458 with SMTP id 5a478bee46e88-365b147b492mr1344116eec.3.1792445527063;
+        Mon, 19 Oct 2026 14:32:07 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:7c21:7991:4e59:de42])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082a7b33bsm63920435eec.24.2026.10.19.14.32.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 14:32:05 -0700 (PDT)
+Date: Mon, 19 Oct 2026 14:32:02 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Frank.Li@oss.nxp.com
+Cc: Support Opensource <support.opensource@diasemi.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	"open list:INPUT (KEYBOARD, MOUSE, JOYSTICK, TOUCHSCREEN)..." <linux-input@vger.kernel.org>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev, 
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v2 1/1] dt-bindings: input: dlg,da9062-onkey: Allow
+ wakeup-source property
+Message-ID: <ataMRZc7a0y6IUnG@google.com>
+References: <20261012210054.2848389-1-Frank.Li@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,118 +99,21 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261019213054.3157159-1-dmatlack@google.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261019213054.3157159-4-dmatlack@google.com>
-Subject: [PATCH 03/10] PCI: Factor out bridge window probing from pci_read_bridge_windows()
-From: David Matlack <dmatlack@google.com>
-To: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, linux-pci@vger.kernel.org
-Cc: Adithya Jayachandran <ajayachandra@nvidia.com>, Alexander Graf <graf@amazon.com>, 
-	Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	David Matlack <dmatlack@google.com>, 
-	"=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, Jacob Pan <jacob.pan@linux.microsoft.com>, 
-	Jason Gunthorpe <jgg@nvidia.com>, Josh Hilke <jrhilke@google.com>, Leon Romanovsky <leonro@nvidia.com>, 
-	Logan Gunthorpe <logang@deltatee.com>, Lukas Wunner <lukas@wunner.de>, Mike Rapoport <rppt@kernel.org>, 
-	Parav Pandit <parav@nvidia.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pranjal Shrivastava <praan@google.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	Saeed Mahameed <saeedm@nvidia.com>, Samiullah Khawaja <skhawaja@google.com>, 
-	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012210054.2848389-1-Frank.Li@oss.nxp.com>
 
-Move the code that determines which windows a bridge implements, which
-requires temporarily writing to the window registers, out of
-pci_read_bridge_windows() and into a new helper,
-pci_probe_bridge_windows(). Probe all windows before reading any of
-them.
+On Mon, Oct 12, 2026 at 05:00:53PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> Allow wakeup-source property to fix below CHECK_DTBS warnings:
+>   arch/arm/boot/dts/nxp/imx/imx6dl-emcon-avari.dtb: onkey (dlg,da9063-onkey): 'wakeup-source' does not match any of the regexes: 'pinctrl-[0-9]+'
+> 
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-A subsequent commit will obtain which windows are implemented by bridges
-preserved across Live Update from the previous kernel instead of probing
-them, since probing can temporarily disable windows.
+Applied, thank you.
 
-No functional change intended.
-
-Assisted-by: LLM
-Signed-off-by: David Matlack <dmatlack@google.com>
----
- drivers/pci/probe.c | 44 ++++++++++++++++++++++++++++----------------
- 1 file changed, 28 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 3cb2e481eddf..473e4389ffae 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -520,19 +520,14 @@ static void pci_read_bridge_mmio_pref(struct pci_dev *dev, struct resource *res,
- 	}
- }
- 
--static void pci_read_bridge_windows(struct pci_dev *bridge)
-+/*
-+ * Determine which windows @bridge implements. This requires temporarily
-+ * writing to the window registers of windows that read as zero.
-+ */
-+static void pci_probe_bridge_windows(struct pci_dev *bridge)
- {
--	u32 buses;
- 	u16 io;
- 	u32 pmem, tmp;
--	struct resource res;
--
--	pci_read_config_dword(bridge, PCI_PRIMARY_BUS, &buses);
--	res.flags = IORESOURCE_BUS;
--	res.start = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
--	res.end = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
--	pci_info(bridge, "PCI bridge to %pR%s\n", &res,
--		 bridge->transparent ? " (subtractive decode)" : "");
- 
- 	pci_read_config_word(bridge, PCI_IO_BASE, &io);
- 	if (!io) {
-@@ -540,12 +535,8 @@ static void pci_read_bridge_windows(struct pci_dev *bridge)
- 		pci_read_config_word(bridge, PCI_IO_BASE, &io);
- 		pci_write_config_word(bridge, PCI_IO_BASE, 0x0);
- 	}
--	if (io) {
-+	if (io)
- 		bridge->io_window = 1;
--		pci_read_bridge_io(bridge, &res, true);
--	}
--
--	pci_read_bridge_mmio(bridge, &res, true);
- 
- 	/*
- 	 * DECchip 21050 pass 2 errata: the bridge may miss an address
-@@ -582,8 +573,29 @@ static void pci_read_bridge_windows(struct pci_dev *bridge)
- 		if (tmp)
- 			bridge->pref_64_window = 1;
- 	}
-+}
-+
-+static void pci_read_bridge_windows(struct pci_dev *bridge)
-+{
-+	u32 buses;
-+	struct resource res;
-+
-+	pci_read_config_dword(bridge, PCI_PRIMARY_BUS, &buses);
-+	res.flags = IORESOURCE_BUS;
-+	res.start = FIELD_GET(PCI_SECONDARY_BUS_MASK, buses);
-+	res.end = FIELD_GET(PCI_SUBORDINATE_BUS_MASK, buses);
-+	pci_info(bridge, "PCI bridge to %pR%s\n", &res,
-+		 bridge->transparent ? " (subtractive decode)" : "");
-+
-+	pci_probe_bridge_windows(bridge);
-+
-+	if (bridge->io_window)
-+		pci_read_bridge_io(bridge, &res, true);
-+
-+	pci_read_bridge_mmio(bridge, &res, true);
- 
--	pci_read_bridge_mmio_pref(bridge, &res, true);
-+	if (bridge->pref_window)
-+		pci_read_bridge_mmio_pref(bridge, &res, true);
- }
- 
- void pci_read_bridge_bases(struct pci_bus *child)
 -- 
-2.56.0.212.g129ede20d9-goog
-
+Dmitry
