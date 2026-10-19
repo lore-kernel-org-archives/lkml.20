@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792440655;
-	b=S/ZRHTb/73MLPUQV9XwDsYq4+r5bsuJ0DpM9/Mnn/qeiP76L9woEGQPVSgCCB07TR5h9
-	 EKMPnl6crZIc1r5Al4ZTdXwoC4ytmzlSVINKAPYHMcr/CN3I4YOeq+vEL9gCQlCXzhvum
-	 bWZVm+uzLwZm+DYIcR36p4DRernyozRjYhlxS96IA8PqF3ovCtWIGnuNq9uQS89yjoUO0
-	 8YkSKvZPOX1wUafJLqSGkwI1w5m8pnRy7WNi8qtrSSB0gtrZv4Nof1LNenL5KWdno1ttC
-	 mofRXnFCZ0Vha4RwDtUCGfNxw2Fcp4kxc9ibHaWM3SeGqDpeDDxFdwTgK54VJTeO4fQ==
+	b=h3p5dHjiZnlclRUnFl1m/DSKXYkU9N/mshvXkIxR3nVgfKJbQfH29+z/3Wa7tqTlcdKP
+	 34/Wrt/vOc2wRji4r6oRpBiSEyBXkBEoZTTXKYUY6QhpAQrjLKCiy5EpcUyUIk/6QjVMt
+	 TmF/9NfOhwRUy768P6pzKtCgVcaYqzMRlsRlWBpNqt8n+I56ZoAd2v4+QRxD/XRigKgx4
+	 jbm6cmLFMbUnkaRUPjcKHiyu1jxIz6Hfo4bfIKKbUugNZK1FmJv7KZaUtEh8DH9qt0Uow
+	 NbvaRVPBTY5FHBeol81fyV8Wp2RjDV6eKtK3bB9KvPFwWBX86HkdESAbqEOB+p/+A3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792440655;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:MIME-Version:Content-Type:Content-Disposition;
-	bh=qidcyy0hfoTCKGqGDR7rx4LiUit+fnvx+mfaoo40PIs=;
-	b=4q0uuG+m1F983D14Roe01DaiKeCi6K+caubJvh0ociQ+yyhTdjwsW31l9S5PUUO7ktmX
-	 7AML1R76MFDqcAIpjSXzoXV1fsF2g0PxgkPUqks9eIN3+Uu7n/hDrulZJdG7HCWReTq40
-	 2g2RstykTXb1itByScBvyJ45ZY4reuqzhTBs6bbBGHywAHRAws2WayBDhbFGqDTDBMUPv
-	 vDfbDc5iGJv8o2Gr484+MQ3N7PlYq900fFY5+NyHMPljlaDk2CWu0ggKONd4JV8yxa9zk
-	 DXDvYhDi+uKF7rpy6UOE3Jju88K7W4eSz5RPrJSVz5kJ1RmOpn6WrtOcG+Jdr3mIEIQ==
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=fDn/k7hpvMCdeXjRyAYzAoy0wAxqkiDt4fpprxKuVcc=;
+	b=IdMErOhkV1c8SnaG5s3I15DVyk8gMFoS0Tws0NPGFPWsv71bFFhKOteIMzHxfcKtk7Xc
+	 sBn0MpQlMdWZBG9/ISsQIAhgIHFq1I21WmbxbP8ZZwnp6rjbfKztptTPmK9rcc7claVAv
+	 wN5zO0wP0iIIKBO6RdxcygM3RB16DgLknAi26PkxomUyK3IeQKx2CJ/lDxojdZ7kCFNYK
+	 4ls2bRDulX7D4voHN6g3yafGpHtmKwR9ADyVYBP7Bs3+aZCrpQSqs33G0bjlohOohkui4
+	 U1RFQFFZaOag4Xmy1R5tMw0iY9GnLTyxIDeL+o6T9LGwMjnaQQVg3vpkeLmMdRGd88w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HhX7jsHF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="k/n2b7BW";
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7BE606A319
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:10:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF060606A31A;
+	Mon, 19 Oct 2026 20:10:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF060606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HhX7jsHF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0181F000C4;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k/n2b7BW
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 5D308C5CD5C;
+	Mon, 19 Oct 2026 20:11:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 23A3860582;
 	Mon, 19 Oct 2026 20:10:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792440654;
-	bh=qidcyy0hfoTCKGqGDR7rx4LiUit+fnvx+mfaoo40PIs=;
-	h=Date:From:To:Cc:Subject;
-	b=HhX7jsHFE6lelJYBSux0lB7vMAvDLPWpxRsOJYXUChc6CpiA8Y/nprIN1uNmNclVs
-	 IXCoB532F3waUePdBuO2Zpj9yEAQXGHcKQl/Ta+wX7e2z5+OLFbJzEHAnpkcI4gmst
-	 aC5IfMj6MdFY4/Mtg6WHzVVHn6KjJgi92O1eekpuEaqt4AeDOPMr3iwT/n18ODyhMH
-	 guVpfw70wmYBzTjwJEpxuLKM3UdGpVxAEv0bRRs1VSbohJ3OzDkd1eX8Di1fmDteSE
-	 6tFtlbfxv8OewnojPtbMHtYXRJ8FtUzFurug5T/pwUi3excPFLxaMK9xsuEm0lrAqz
-	 KiZHd0ulv1j8A==
-Date: Mon, 19 Oct 2026 22:10:41 +0200
-From: Gao Xiang <xiang@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-erofs@lists.ozlabs.org, LKML <linux-kernel@vger.kernel.org>,
-	Binglei Wang <l3b2w1@gmail.com>,
-	Giuseppe Scrivano <giuseppe@scrivano.org>,
-	Chao Yu <chao@kernel.org>, Jingbo Xu <jefflexu@163.com>,
-	Gyokhan Kochmarla <gyokhan@amazon.de>,
-	Christian Brauner <brauner@kernel.org>
-Subject: [GIT PULL] erofs updates for 7.4-rc1
-Message-ID: <atZ5QThkCK8UnB28@XiangdeMacBook-Pro.local>
-Mail-Followup-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	linux-erofs@lists.ozlabs.org, LKML <linux-kernel@vger.kernel.org>,
-	Binglei Wang <l3b2w1@gmail.com>,
-	Giuseppe Scrivano <giuseppe@scrivano.org>,
-	Chao Yu <chao@kernel.org>, Jingbo Xu <jefflexu@163.com>,
-	Gyokhan Kochmarla <gyokhan@amazon.de>,
-	Christian Brauner <brauner@kernel.org>
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 51DDD10328C22;
+	Mon, 19 Oct 2026 22:10:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792440651; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=fDn/k7hpvMCdeXjRyAYzAoy0wAxqkiDt4fpprxKuVcc=;
+	b=k/n2b7BWnoC2ybI0vGNW/AqPLKHjVCtNSnGkB4M8Wi4tkLjrY22NH37BxtA5Va4gfEGHbm
+	FmlEXnAapypfZiOMEktiHjiKwteEihj07lJ5LAtPu83PRpqIVE32gTL/QT0K9ZFKrcxzfX
+	Kw+9sA27+vvwMhGi3Tzjxw2dVaOg7Jhkeq6GneCg0nlpWiJSWessTCTy+StgiWbJRvQ3wk
+	9Tv66nhBpktneNwQcOPLcVP0c2Xgefdb/3jGq+5lOkWububAJpcthy+6hCHtuBhzm5EOx3
+	iqBgZPQ/cuLQaZ9txp9LcnyrPPrxEKasZMfhFreh4M46ige8Ljfs3jt5Bu6SdA==
+Date: Mon, 19 Oct 2026 22:10:49 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Igor Velkov <iav@iav.lv>
+Cc: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] rtc: pcf8563: pass the driver data to the alarm
+ interrupt handler
+Message-ID: <179244056631.104236.1622190236820625826.b4-ty@b4>
+References: <20261004-pcf8563-irq-data-v1-1-f176763ddf2f@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,84 +67,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261004-pcf8563-irq-data-v1-1-f176763ddf2f@iav.lv>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Linus,
+On Sun, 04 Oct 2026 23:56:53 +0000, Igor Velkov wrote:
+> pcf8563_irq() takes its dev_id as struct pcf8563, but probe still
+> registers the interrupt with the i2c client. The handler then takes the
+> regmap pointer from the wrong structure: the first alarm oopses, the
+> level-low INT is never acknowledged, and the interrupt gets disabled as
+> spurious.
+> 
+> Only an RTC that has an interrupt (client->irq > 0) reaches this path.
+> 
+> [...]
 
-Could consider these commits for 7.4-rc1?
+Applied, thanks!
 
-The most notable change is to support superblock sharing for composefs,
-thanks to Giuseppe again: it needs a vfs change, which already goes
-through vfs tree [1] so I merge the corresponding vfs branch.
+[1/1] rtc: pcf8563: pass the driver data to the alarm interrupt handler
+      https://git.kernel.org/abelloni/c/5831f5fef100
 
-Another one switches to iomap for file-backed mounts on unencoded inodes,
-which enables efficient sub-folio I/Os. The others are all random ones.
+Best regards,
 
-All commits have been in -next and no potential merge conflict is
-observed.
-
-Thanks,
-Gao Xiang
-
-[1] https://lore.kernel.org/r/20261016-vfs-7.4-rc1.shared.super-9c2de4415e8b@brauner
-
-The following changes since commit a90ee4305c4a5df72c11b31dacfdc76e00fcf78a:
-
-  Linux 7.3-rc6 (2026-10-04 13:45:25 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git tags/erofs-for-7.4-rc1
-
-for you to fetch changes up to 1137aa577a35e2684e8046c3e53f920e79c7cc60:
-
-  erofs: enable iomap for file-backed mounts on unencoded inodes (2026-10-17 17:29:36 +0200)
-
-----------------------------------------------------------------
-Changes since last update:
-
- - Support superblock sharing for file-backed mounts
-
- - Use iomap for file-backed mounts on unencoded inodes
-
- - Minor fixes and cleanups
-
-----------------------------------------------------------------
-Binglei Wang (1):
-      erofs: fix xattrs handling when metadata compression is used
-
-Chao Yu (1):
-      MAINTAINERS: erofs: add dev branch to git tree entry
-
-Christian Brauner (1):
-      Merge patch "erofs: share the superblock for file-backed mounts"
-
-Gao Xiang (3):
-      Merge branch 'vfs-7.4.shared.super' of git://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-      mailmap: update entry for Gao Xiang
-      erofs: enable iomap for file-backed mounts on unencoded inodes
-
-Giuseppe Scrivano (2):
-      fs: rename vfs_get_super() to get_tree_super() and export it
-      erofs: reuse superblock for file-backed mounts
-
-Gyokhan Kochmarla (1):
-      erofs: use on-disk blkszbits for lz4 max pcluster bound
-
-Jingbo Xu (1):
-      MAINTAINERS: erofs: update my email address
-
- .mailmap                            |   1 +
- Documentation/filesystems/erofs.rst |   7 ++
- MAINTAINERS                         |   4 +-
- fs/erofs/data.c                     |  34 ++++----
- fs/erofs/decompressor.c             |   2 +-
- fs/erofs/fileio.c                   | 157 +++++++++++-------------------------
- fs/erofs/internal.h                 |  12 ++-
- fs/erofs/ishare.c                   |   4 +-
- fs/erofs/super.c                    |  56 ++++++++++++-
- fs/super.c                          |  19 ++++-
- include/linux/fs_context.h          |   4 +
- 11 files changed, 161 insertions(+), 139 deletions(-)
-
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
