@@ -1,107 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792444833;
-	b=LSa9/a2j3U1lrMopZLy+CEIMnN06pqmuKQsMF6bdLbbZpPraYYgQisQPHu3GjJjDoc/M
-	 5Ok2Y/VnrYyy4u1EPNJy9PYu7QQPgBw+fNAuKQgNVkMPRuzwpuANX4SJv7tKUpvBYgEKr
-	 NkUCJYWxd+8ha5v8a8n6eZsSQpeENe2DoykW+6vzrstBvfQA3VoYu637mG7hFx9gYbraA
-	 nbrW2E8CtMBe1kBSmcmVYHO2a0LOOTQJ4k7Gcslf4KBLefkiKsnzoLnoiN9GcyVicMtJm
-	 uXBMlAJXmrSqYTJJt+P7AhWGYyIWlOKCxZwgwMBLKpQqJSOH7pcNWiMtb2tRoIS6phg==
+	t=1792444854;
+	b=IVnaWEPF0OZNLu+Dr+1458LIiwPHgOSm1XE7IeEi8+LpohnG+YFuPKt4S6AoViO/ZwPd
+	 UzhG0NY0bOmybP8E1dLZzfPbhuEGRN/aWqpZ9UHIwPNOLFC+MXY2sRY6kvKtfIykemuCo
+	 fCyTNdC2fuXAto76NbLfMRQEZ2Z5FnBiCTe6PMM7MDBCHcSLLvvdfUQAJ5pRjkg3Zj225
+	 Y98eo/yC3+PmBd0Fhfiw5CDxRXINEDupNgqjlqVtpa7MMBFo8GqVjHSA7ynXlSYS4bwjN
+	 1ajrwiN0E+NH0cHkgNBYt13icunyyrQmvNmbNMdwSCJMuR1llmilDnBFytE+5S2s1PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792444833;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=a9nGiHEGE/ethkm4nwdGSIfsDZebiNvAoo/1PpN/d2Y=;
-	b=0anv2zc0i1p3Lk0skZyL4N+ntvEohIpgFn0NqlRMaBvnwBU83LsaDqn/GfSFWF7h1jyT
-	 oYxYCHwVnDVr8HxVitoHLIOm3B/n7mgLl/GGMUfLCSnVHWzrDcV/mrgEUmJmU9KB5/N5j
-	 LUv+W1bsMdNtHssqmggJE14HsQLGdAgbK+yIVieXnKqhyV/qFZXSA8h1MolO6WArIGxkq
-	 e841HhXHcWQsW0Mg3LWKWaVCb8jOJ4N65CBUejcYZx71GIYyuGlk3GjfOjzRgNfFOZMve
-	 tTBWII1D0MqEg7q+HXoEb1m+HdQxYuWw3afk64erUoxBx+1hoTNJzx8yl+MNvuZLh4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792444854;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ptUqxl+FSgqXww7qutPBzfxssS1laHZAufEmAd4CAbg=;
+	b=ejVJVDZ8AJ5pHlA+qtzP677kdCj0/DYXGYdUBa/AcOI+vzklboibYTHKmrPVJCg7FwGA
+	 GvRL5gXt5h/Z1x72WQrCrvGnc1ZSU54vR5gxza0ewBUte9tm1hPzIbYbvtQHJjaLI+Ia7
+	 MJS6ZofkQ9PWHFkDgJ+GzY5u6Rkatcr1leSGXqfkf5unjuF5n37K8iyLWEaDjnp4CW486
+	 nqnrc3BbudEuugagci/94yLIpPbbvDmKErVWwBU3JlUgHM5BvrqRnH/KWEqtntDR6YbsL
+	 SC8O4FEbz9wwNiV1HyN3t4DWOJQSIckoCL+Dl9QkBfApHcLlWHwA126yXcA+/f/MM7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ot9BcSTR;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZO1g0dwR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31E0606A31A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 21:20:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B31E0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F19B606A31A;
+	Mon, 19 Oct 2026 21:20:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ot9BcSTR
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ccce6d9abfeso1790480a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 14:20:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792444832; x=1793049632; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a9nGiHEGE/ethkm4nwdGSIfsDZebiNvAoo/1PpN/d2Y=;
-        b=Ot9BcSTRPFSCycD31/akOPwFiA7j3uWcueEHQZw2ejy/vS+7LzzlJ0gk0TL39C0RGY
-         hBQLkQIiSW3S7KhsSn2bp3nUrRvQIUeUmStxjQP48JBOB6rTtlWq34NiWfpWmOv65r+B
-         ZIQTLOlw9xjFwlFrIpzF4whV36UFViF+DrEmpvl8PqMLe596150DGxKN62isuHz6TJiv
-         zoWMV4UFJEmWeFRBCl02XY5L2WhIrsVqwFHnFmIU47qsDDG0M10qz170rYRqDl9cgeMy
-         ooq0WwHB9rH1k9yOw0Vxy5TdHhtojIYw8fomnu+JcXQHmxsGJ2EfcJW4IATDM0O3NIfA
-         TKtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792444832; x=1793049632;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a9nGiHEGE/ethkm4nwdGSIfsDZebiNvAoo/1PpN/d2Y=;
-        b=elyqHZnbj52QH70qJ8LY2OtToLknZyf5ptPhvb2bweAfT8Ww9wjf2NReaNMX/Nsm4d
-         AUNC/qzIbPPFNQIs8efMbaf2c9zmWFFw759Tk1UDXW5lQwNmAkeb+Id+9IpE23N4a+Jz
-         tkE+MfbyrhkQS/WosvCcc22JQw06boQE8EYYIJasm8R8H7NjGWeSbIHrBFYCG6je6t43
-         hYqiAix+rDAtm0Cy7miF41ZOnQ0qab5wGv+AhLRXyv7XW9n3vJqJ7hs/saCb1yTTSLcH
-         9XbH3jcB+sM26NH/hVh1tgmrCr0P966N016o52eiJel8AnPgR4sptKfIrXV3HX+axi0F
-         IDfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzqeWpDhKlb0uuBVwjJNCDD7NkoP84efm8eE91zwj6eYom1Y08IcBxRqlp4lizRVDPmVF8L7b+cr8AKKBA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaKjr93xGlgnNMEskVUhoSGUBDJDRbvzvUjiO7rIRecVKqcMGw
-	v65T3A3wRapLTAyTZA/TeeLzj+lgMFDRq5MZcrk1wDe4a8aZffm3LZQq
-X-Gm-Gg: AYBFou0Xho/erbRoLbtkUj74hm1bYUsP+3pYN9Z4dhKn2QP9It+O2yXzU1ukokp5iEf
-	Gp9LMwaUNdDmG2D3R1saAiG9rCRzOsJBoSFpZbOiBo1Qo12GbeDZfwRSMockhJJfOJIp2Qdb8L2
-	72tdnF/F0yc19PryX8NH3aYsCFQjqVC34UzcUgfudcwifzCxvQ80LU7X1xydHqt0RcOsHx+r8AE
-	h/y+3fA+Yh7+2+94/HsppZ2sOpjhlMQeL7XV4zoX5ZgDHxzA5mnfIcVZkp+mQQVXOERQ1ojAGcg
-	H8cLG/SnqbAKyQVXeYj7jF3Ur1Ibi+KnSV+qkp5MmHcJ3qKb9QFNzHblzKVMqMPMq0LKGJ7Jc0K
-	4fmJI4Vr84F9tijd51BRSli+xt7BDs+nWwkMcoR53lJ1bFJgUiewQmS+mLKAteJumEEAkYbx/95
-	na+fx8ELuxsoi853zRREvnSvLAevSkIeEytboonvAJ0ANFTvcHQwt0ma7jD3DHD0Z9EMkNBGKz1
-	blCuEdWXEETwOguKnymA557zkqThlmrBrXT38z0K5D9QmEnpONvXcEN58k=
-X-Received: by 2002:a17:90b:39ad:b0:3ac:4e18:238e with SMTP id 98e67ed59e1d1-3acef56d59emr7934717a91.46.1792444832023;
-        Mon, 19 Oct 2026 14:20:32 -0700 (PDT)
-Received: from celestia ([2402:1980:8cc:45bf:2ff5:22f4:3884:844f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad60fee653sm839652a91.15.2026.10.19.14.20.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 14:20:31 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: Ravi Bangoria <ravi.bangoria@amd.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Manali Shukla <manali.shukla@amd.com>,
-	Jim Mattson <jmattson@google.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Liew Rui Yan <aethernet65535@gmail.com>
-Cc: linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	x86@kernel.org
-Subject: perf/amd/ibs: [BUG?] ibs_op sampling silently stops on Zen3: MSR_AMD64_IBSOPCTL latched, no NMI delivered
-Date: Tue, 20 Oct 2026 05:20:19 +0800
-Message-ID: <20261019212028.119312-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZO1g0dwR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B5FC1F000C4;
+	Mon, 19 Oct 2026 21:20:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792444854;
+	bh=ptUqxl+FSgqXww7qutPBzfxssS1laHZAufEmAd4CAbg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZO1g0dwR2An6DWTYT1MnRSMy0VDM3lT2LPQ4okidvUTthZv9inrUnniecU775G5v/
+	 IwLDeAYpkFiHXGIcKPYk+00oVgSlARzg/q3CRw/dtv/UQpMJ/CuvQkD9RLKURTc1ts
+	 0Mo2k0XFL8Db7+9a7nN7ptrIDTBUtHafTOMp5f2222OHcFxmcMHkSShXVldqgwjS2t
+	 6ofKlh6RWERZAUhWbI+YcbuIDpkSKgMCXyxVc35VBndwRXW3whm/Q0c2suU1n1LSL7
+	 JcQJj0Lve42/9/rgOTFsFnIetEg27twNWpp7hgoYhxXqU3HA0TE/cB4MyORyZ+iuM1
+	 z4JDvU6goV5wQ==
+Date: Mon, 19 Oct 2026 22:20:52 +0100
+From: Harry Yoo <harry@kernel.org>
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Matthew Wilcox <willy@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Jan Kara <jack@suse.cz>, Hugh Dickins <hughd@google.com>, 
+	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+	"Liam R . Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	"Paul E . McKenney" <paulmck@kernel.org>, Pedro Falcato <pfalcato@suse.de>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Ilya Gladyshev <ilya.gladyshev@linux.dev>, 
+	Jaegeuk Kim <jaegeuk@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev, kernel-team@meta.com
+Subject: Re: [RFC PATCH 00/18] mm: read the page cache without folio
+ references
+Message-ID: <atZurH8mp-yW3Upg@thinkstation>
+References: <20261019154913.1765974-1-kas@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,131 +75,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019154913.1765974-1-kas@kernel.org>
 
-Hi Perf Community,
+On Mon, Oct 19, 2026 at 04:48:53PM +0100, Kiryl Shutsemau (Meta) wrote:
+> Small reads of one file from many CPUs all take and drop a reference on
+> the same folio, and its refcount bounces between the CPUs.  This series
+> lets filemap_read() and shmem copy from the page cache without taking a
+> reference.  It is Linus' RFC [1], reworked: a folio that such a reader
+> may copy from is freed only after an RCU grace period.
+>
+> Only the folios that reads keep coming back to get the flag,
+> PG_rcu_free: those that folio_mark_accessed() finds as accessed as the
+> LRU records.  Streaming reads and data that never gets hot are not
+> deferred, so the memory held back stays small and most frees are not
+> touched.
 
+By applying this to hot folios only, small reads would benefit only when
+they contend on the refcount. That further narrows down the scope of
+workload that would benefit from this. Random or sequential small reads
+still perform the atomics on the refcount.
 
-I found an issue with ibs_op sampling that I can reproduce on my AMD
-Zen3 laptop.  Under full CPU load, sampling PMIs stop arriving on each
-CPU, one after another.  Reading MSR_AMD64_IBSOPCTL (0xc0011033) while
-perf is still running shows the hardware has latched a completed sample
-(IBS_OP_ENABLE=1, IBS_OP_VAL=1, IBS_OP_CUR_CNT frozen) and is waiting
-for an NMI that never arrives.  The CPU never recovers on its own.
+Looking at what Linus mentioned as "Willy reported real users having
+scalability issues in that area a couple of years ago in a discussion
+about buffereed IO scalability limits:
 
-I am really not very familiar with CPU, so I would appreciate any
-guidance on whether this is known and what to test next.
+  https://lore.kernel.org/all/Zds8T9O4AYAmdS9d@casper.infradead.org/
+"
 
+On that thread, from Willy:
+> Not artificial; this was a real customer with a real workload.  I don't
+> know how much about it I can discuss publically, but my memory of it was a
+> system writing a log with 64 byte entries, millions of entries per second.
+> Occasionally the system would have to go back and look at an entry in the
+> last few seconds worth of data (so it would still be in the page cache).
+> 
+> This customer was quite savvy, so they actually implemented and tested
+> the lookup-copy-lookup-again algorithm in their custom kernel, and saw
+> a speedup from it.
 
-Environment
-===========
+https://lore.kernel.org/all/Zdz9p_Kn0puI1KEL@casper.infradead.org
 
-- CPU:    AMD Ryzen 5 5600H with Radeon Graphics (family 25 model 80,
-          Zen3/Cezanne), 12 cores, microcode 0xa500012
-- Kernel: 7.3.0-rc5-mm-new-damon-1 (self-built from the mm tree)
-- perf:   perf version 7.2.11-1
-- Also running: stress-ng 0.21.01
+Again from willy, from the same thread:
+> On Mon, Feb 26, 2024 at 09:17:33AM -0800, Linus Torvalds wrote:
+> > Willy - tangential side note: I looked closer at the issue that you
+> > reported (indirectly) with the small reads during heavy write
+> > activity.
+> > 
+> > Our _reading_ side is very optimized and has none of the write-side
+> > oddities that I can see, and we just have
+> > 
+> >   filemap_read ->
+> >     filemap_get_pages ->
+> >         filemap_get_read_batch ->
+> >           folio_try_get_rcu()
+> > 
+> > and there is no page locking or other locking involved (assuming the
+> > page is cached and marked uptodate etc, of course).
+> > 
+> > So afaik, it really is just that *one* atomic access (and the matching
+> > page ref decrement afterwards).
+>  
+> Yep, that was what the customer reported on their ancient kernel, and
+> we at least didn't make that worse ...
 
+https://lore.kernel.org/all/Zduto30LUEqIHg4h@casper.infradead.org
 
-How to reproduce
-================
+From the discussion I'm not sure if the scenario above would benefit
+from this.
 
-Reproducer is here:
+Maybe we should try to either 1) find a better heuristic to mark
+which folios should have PG_rcu_free to make it beneficial for wider
+range of workloads or 2) identify workload that heavly contends on the
+refcount of a small set of folios...
 
-    https://github.com/aethernet65535/amd-zen3-nmi-lost-reproducer.git
-
-The essence is a system-wide ibs_op record on top of a full CPU load:
-
-    perf record -a -e ibs_op// -c 100000 -- stress-ng --cpu 0 &
-
-and then watch the per-CPU PMI counters in /proc/interrupts once a
-second.  To rule perf's dynamic throttling out as a factor, I set
-kernel.perf_event_max_sample_rate=100000 and
-kernel.perf_cpu_time_max_percent=0 before starting.
-
-Reproduction is fast and consistent: the first CPU goes silent ~20 s
-after perf starts, and all 12 CPUs are silent within ~5 minutes.
-
-
-Observed behaviour
-==================
-
-Found that per-CPU PMI counters (/proc/interrupts) stop incrementing.
-From the most recent run, time from perf start until each CPU was
-detected silent (zero PMI delta for 3 consecutive 1 s windows):
-
-    CPU 1,5:        +23.7 s
-    CPU 2,3:        +31.6 s
-    CPU 8:          +62.2 s
-    CPU 9:          +68.3 s
-    CPU 10:         +96.9 s
-    CPU 6:          +166.9 s
-    CPU 4:          +192.5 s
-    CPU 0:          +198.5 s
-    CPU 11:         +220.0 s
-    CPU 7:          +271.3 s
-
-The run then continued for another 120 s to confirm if CPU comes back;
-none did.
-
-For each CPU at the moment it went silent, I read MSR_AMD64_IBSOPCTL
-three times, via rdmsr while perf was still running.  Decoding
-IBS_OP_ENABLE (bit 17), IBS_OP_VAL (bit 18) and IBS_OP_CUR_CNT (bits
-32-58):
-
-Live control CPU 0 -- IBS_OP_VAL=0, IBS_OP_CUR_CNT keeps moving between
-reads:
-
-  read 1: raw=0x231f0002186a  IBS_OP_ENABLE=1 IBS_OP_VAL=0 IBS_OP_CUR_CNT=8991
-  read 2: raw=0x10ca50002186a  IBS_OP_ENABLE=1 IBS_OP_VAL=0 IBS_OP_CUR_CNT=68773
-  read 3: raw=0x15fa10002186a  IBS_OP_ENABLE=1 IBS_OP_VAL=0 IBS_OP_CUR_CNT=90017
-
-Silent CPU 0 -- three reads are bit-for-bit identical:
-
-  read 1: raw=0xc80006186a  IBS_OP_ENABLE=1 IBS_OP_VAL=1 IBS_OP_CUR_CNT=200
-  read 2: raw=0xc80006186a  IBS_OP_ENABLE=1 IBS_OP_VAL=1 IBS_OP_CUR_CNT=200
-  read 3: raw=0xc80006186a  IBS_OP_ENABLE=1 IBS_OP_VAL=1 IBS_OP_CUR_CNT=200
-
-perf report --header-only excerpt (trimmed):
-
-    # os release : 7.3.0-rc5-mm-new-damon-1
-    # perf version : 7.2.11-1
-    # arch : x86_64
-    # nrcpus online : 12
-    # cpudesc : AMD Ryzen 5 5600H with Radeon Graphics
-    # cpuid : AuthenticAMD,25,80,0
-    # event : name = ibs_op//, , type = 11 (ibs_op), config = 0,
-      { sample_period, sample_freq } = 100000,
-      sample_type = IP|TID|TIME|ID|CPU, read_format = ID|LOST
-    # pmu mappings: ... ibs_fetch = 10, ibs_op = 11 ...
-    # cpu pmu capabilities: max_precise=0
-
-
-What I think I have ruled out
-=============================
-
-- Not perf's dynamic throttling: it is disabled (percent=0) for every
-  run.
-- Not the kernel stopping the event: IBS_OP_ENABLE stays 1; the event is
-  still armed.
-- Sampling does work normally for a while before it stops, so the setup
-  itself is fine.
-
-
-One more observation
-====================
-
-In earlier testing I noticed there is a workaround -- enable NMI
-watchdog.  PMI counters start incrementing again after it is enabled.
-
-
-Questions
-=========
-
-1. Is this known on Zen3/Cezanne?
-2. Any recommended next step?
-
-Thank you for your time, and for all your work on perf.
-
-Best regards,
-Rui Yan
+-- 
+Cheers,
+Harry / Hyeonggon
