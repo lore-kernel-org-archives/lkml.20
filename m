@@ -1,88 +1,89 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEDF4E73DF
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C484E431D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:25:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792409160; cv=none; b=q7OR1uLGzQinCf2/SBf4LiIdFaMKBMShQNQXPDPB6n/DZ0n218wdIumfS6PZYJl7HWNp7+fwlJbtfP9a0zFhv/sJbsD+5SZzy/9P2ONl6PbjLaoNgN6L8W7ISDJvMRqJv267GRpEJrGEre7b6hqbLwgxutXR0TpJq1vRKK3EOAU=
+	t=1792409161; cv=none; b=SgO0ETi4Oq+b4g5kE987RYG2GA4UVa2SNBZb2K8MLoBFAb1HYDmsnhECKEmbjoE8iagrg4lfssr3ChRoWmWfwS5r82OwGLzqsxZfENT7MBkpG95lRuOtvhZFvjHvl3I3yGYihDb+MNvbubLC1gDH7hV9J8+QlLRx74nQ0t0NFdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792409160; c=relaxed/simple;
-	bh=3SFfXzC0bHwD78fBjVebg7PPYXaNP6Xkrxk92qxdGA8=;
+	s=arc-20240116; t=1792409161; c=relaxed/simple;
+	bh=3nXXqhpzf8K/+hXUe7l+H8MG2OcKbb9smch8ETujRsw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DI0nE+n2btKRaV89AN8r1AOFM0jtewOFTQo9zlpmNF4wuYJA4XpStUVgROi3InP3noFO4x5IcGEOt+YWxx155LideoC7ctb1oYIJr8hpGKGj7EIKb7KZbdISP9XKWvWR4K2OU41QQ6npVXWwuvhyiLXlIzoB90BdSAHJHKkUv1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZQuWuBsf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Eec23Yu1; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=dIhafd3c64tZgVAPKQjU9g1rUsrbHtNGpbdaj65PIQNRiVyW6dL09OECi5UpqondWwnXF54pS586gkrkcUiaY5NNLagogc1+qX8niCZ8ruLV0ZMjwUX3z/DjkBes1RqRacK7Df+RmSQwe/MY6/l/AJ+FLn25lnuorKShOPEb7d4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UIFem/zo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YRIed5od; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZQuWuBsf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Eec23Yu1"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8Orq63256601
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:25:55 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UIFem/zo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YRIed5od"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J8OkDL1348030
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:25:53 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5CG1ZmhSBv17Pssznbk9lW+JHvH1kxpH7x7K0dZwnyo=; b=ZQuWuBsfSgRd0sNe
-	dyrPqEQvVipR82/HE8/GBSJ1dqFVvxGJJ3kdtH9mVxOfOZmNa4Dz1Nlqd/6N+6G8
-	fIUclXJEIn1BRvvBhBAqUSB7MA52Zsh+qe1CBfcS5P6TKZE1DJVK7qTNXjCO0IKd
-	vC5yASYhHbUpe6kkmQzNpgM1D0uYziw7AW28tY8vlT1naB/x95W+xhUq68F0GCne
-	4BSu7FMjakh9NDNxSZxcNChJ+n+G1L1p2if4Ed+KBwGnrOAOKTWU/JOsFhHgAEyZ
-	iXrUr9Gycv3OfAsFdsKfa9n6HPUSADwfFIMc2OI24dKtoru5VjGpHIsP9QgYFU6u
-	uwbvnw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf3f8tjt-1
+	6xC4OVordP6iIQiBzMB05d4qBQ+iHW7wsc04Plsjz2A=; b=UIFem/zoWNDHQCPl
+	3DA7+TickshegyHDg59S4MZEFkAYyvMUDurzAA42UiqpF3CVDAcFIE2xvTZViT9M
+	zjOSA0QE6Cfi/QqZmnkZKU7rn4dtlWxqBFw+lQzFTNxQViCoiaMVGkpmrzqCMPVy
+	lScB0WeQLD+wGCNTIo5dx8X3RwleXaDu2NzM9W+uZX4+FAn6QZuNQIyvax2/AZTM
+	2N9x9AVPj5IJO2Foclidry4TBDmRBNTNhd2FDQ9JZXvBb9FGH4Q7u/O62nTDEn8x
+	q2V6yEKVRyO8jm48HDr+5wfL4IXnC2U2cBvPwfTRxmSyUfxKLYT0peLXpPO7a3uu
+	rDgLkA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf4rgtbt-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:25:54 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb6391e89so457867885a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:25:54 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:25:52 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-936aa34873bso398906385a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:25:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792409154; x=1793013954; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792409152; x=1793013952; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5CG1ZmhSBv17Pssznbk9lW+JHvH1kxpH7x7K0dZwnyo=;
-        b=Eec23Yu1MVsMwj9srxXNf0HYiEc6j/oaUSkCny/x1KrvIiqdDCpYinCofFS84CvI7T
-         Pg6RpOaoKFxNisapRlk0+hqoqOAMeuxg0+X39oDAKeNtawPFjEHvm9TazU+GILRDI8bH
-         m3wuEv7YDiUNtkUf7w0BVkfmY08QZDT6wSTXurQpBQLb2tXd98NZRCx26vCN1/ZdVQ9e
-         7JPCv6Zue8U9+zLIM6ahPYMOu23lDijfBZjxv39r11xIJV0KVsWtOcd7noC7b4YFPu33
-         1mFN95azNDSuUfSHGJzUF+cHiMDVtN9k7vR13x1AiLiPMOF2Gks7K1Mvai4DaRUVt0j0
-         psEg==
+        bh=6xC4OVordP6iIQiBzMB05d4qBQ+iHW7wsc04Plsjz2A=;
+        b=YRIed5od4JriAkw6+dvb9Giz3FHCF8o6vmqbbrxeCw8OXC+UuTCo2NRK3dxP2442Cd
+         1nGbJbNeLOHUJ++Dw+U9V4tGYWR+j7rwh7SgXsNEWuA6D2+Tnw0gweafM51aHHT8X1kZ
+         iX93deZBElWXmC+Ma7N7MdcnA/Ab7dKJ+/33dK9IFNApIJE01FiRzCLU93MWTLvv83D5
+         J/+wVUrAzSbAScJfARXEEYU67BZA3krQdRGpaFEGQp8zpgvGT4jgw0/jLvPbm9qm6osT
+         ujjkuCANQ0wIKw5tMZAY8DkYj1+/J36qm4WGpEJwvKp6NqPETiI6UmcnVRA4lrqiwFvZ
+         ZV5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792409154; x=1793013954;
+        d=1e100.net; s=20260707; t=1792409152; x=1793013952;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5CG1ZmhSBv17Pssznbk9lW+JHvH1kxpH7x7K0dZwnyo=;
-        b=bZyavDCM/LjOcjTT4FBkdRZDgnKwGDhJHrqKgO8s1MPMLv/Ke9X5SvZCZoNQuF2LBR
-         5VwLui73ZLB+nrn8nK1+07fInI6s7m9xfxxvROAYAK9dE7n8syPYIV3Hyq6siR9pbGn+
-         PPIIgMU/KsHnmXlB45qMgyJxC0cl1O9Vxn2pQHZY9SrAqogywfmIf/MErnMUwomeCUgC
-         sQq9ic48/xfVyS/+hn40BXaLRo+WRrFT0FKeRW8kUGam0/UaU4fG8mzcr3J2QSzP0tEx
-         bRxTP+Ro46WJzBNYMU4pkR/K+Y6rDpTZUfVl9wETEGKl79/QeGSLxxdJ1CtBymdp+OGG
-         NLEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzauonvtGmE1bvSGSm9K0Jr2gD0NDPHB8Wi0oAqKmjKSE2V+MVwMLuqzwdpdSDpbR/N50Pr+5z+V2474IA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbISd/IE4eUOyXaZOFGflQhMXcDslwSRNMdJhn2s8E/hAVsIIe
-	j2ZTcV1VxGH6/uyT/YUq1Z5RmquwzszumY9PyNAZl/DQqT+Wh5JVlgiKaeEBRLXdtLnTj+GJicg
-	THfjOSimEodOax2FywWd+hK91ot2pytGXBvyBSbGk9YCjGyMmK4T37L4AWugTP24ERBo=
-X-Gm-Gg: AYBFou0EvcuMmhVLrP9brii0mJVez4KMzijU0xH+8Sassw9cd2K05NXmif5cHG/ESCe
-	nbYWQnvWAi26daSxNKs8z3aI4y0+Zw2qMgKXc6ZZdg10PjXiBo6DieNb0k1YsjRE0+SnktWKmaW
-	U8WTMfsuwnNwzjt3FTem1f2FSD0AfM1j73W4TqcNjb7j97uAKQeIjvgnF+gCWncaXsdQHifOYJ8
-	Gm0Uz5J2mknCAgfV7VphWXTUPS1pCYfGue+NEx4JocMvJwUgGvzTs/X2Pp8G0yUE8gt4laM5b7c
-	BT+q9sARI3cjXPmtBxJ0c2mP6lsIJ+AvNZT6N8O3xaTSiKUL3d+Damk0gzLY9mJcjXqIxUHNkhm
-	rOBWiNRpRichjMUtHdVmXcC98FUztgDSvWQhoiKmbQj1Wu3D67jQiAI4G/aIKbhY+ejcb524mSc
-	vkhneZbz/T2kPa
-X-Received: by 2002:a05:620a:7113:b0:93e:96cb:3083 with SMTP id af79cd13be357-93f29d38660mr1173729685a.33.1792409153785;
-        Mon, 19 Oct 2026 04:25:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:7113:b0:93e:96cb:3083 with SMTP id af79cd13be357-93f29d38660mr1173726485a.33.1792409153274;
-        Mon, 19 Oct 2026 04:25:53 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab37ba8851sm12807621fa.22.2026.10.19.04.25.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=6xC4OVordP6iIQiBzMB05d4qBQ+iHW7wsc04Plsjz2A=;
+        b=Z5113eGs7mwf/cdfZtUyYCGuZlItVzWIXncdGd9yYXGZyoRny1HycRyRiRA4YprXaL
+         mtD3xlZRoaDl7RG4EFlZCliVPnUmHYibnHfkk3khkRvYBUMTAoTrjptMptWEX8ZVWt4e
+         ElwAvWIWa/Kk67Syhq6iq+aC6A/o5/7E1KzwigaC7ONVQwmOTn7P8U8LVljry6Uc7SCa
+         z8+rkcpelaxBybs6Ikf5Q9ooK8GDKyviCfJoKis+XnUYTa8sI59TjgkdeLlB06L9MpaW
+         ylONrrnkpco86eaiTr4RdtChxUI6iymJYdfclIVhMbIB6upWLElydJydkh1pR5wDqPA8
+         PUnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQWEyRPTJp3/KRAkxEtH09J8NejN9O8r4idS4OcwcU++tzuKi2rlzCe18BtgWixZcn1RrNtkOMbdtQRdw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILaLrqLrAVcvwQatSOkIEn3utYvMbRmUHG/qRlK1MW6wzbE5CH
+	wryIlfZuEYmY/2FYJa9YrzCCXVWEDbFAqxlcWDseNSYepVL5OLalOXs3abGg7vhFF7a6pcLwMrf
+	iWcYNER85/5V+gRAxKH4vCevs0dqZQH1QEAmd/tdPVGBB47eL9ZNj21z6iNmQbvPkjVU=
+X-Gm-Gg: AYBFou0bTh9eEaLpiFVdVhHRAh0FDXdB6pyTYCwO+0LgQHHsdjA0+PkYebUfyFg+z54
+	E8+ybXygOtihfWAQhsdbZ58k5tc+U7JHzOtmlmK+xsgwJFYiKzs94BXyfqwY0PG3mG/0OWQ842B
+	hsyHGAB1Me2Y4dMLNQapEH4MC+B+pyyzgeBZ/E6YLxeFtH63uX7oR9KpzSo0WYoXWXKl8guW3VJ
+	eSaXPVsc4axPm8oaTfH5wRDH9f3AVeQlsBY6IdX0h5i+VQL6ciY+5VB3aeCpJhQQokVFMJ0NanF
+	WHusAoccY/mQYQKeHuxCgIRLOHwCez8g9q9RqlH879zDuO4M5Dwha8FGjcG7/65OzOMBAO2v7T4
+	Bj9kWUl4lDaaiNVFRMYi3uWSf2W+/66gS3vHStJCyGCY+4k3kXSWJfLahpgSBSsg2dqwLgZ+012
+	YNXH/+iYEI5Da6
+X-Received: by 2002:a05:620a:4589:b0:939:1222:b9f1 with SMTP id af79cd13be357-93f29a04e12mr1226299085a.0.1792409151737;
         Mon, 19 Oct 2026 04:25:51 -0700 (PDT)
+X-Received: by 2002:a05:620a:4589:b0:939:1222:b9f1 with SMTP id af79cd13be357-93f29a04e12mr1226295185a.0.1792409151143;
+        Mon, 19 Oct 2026 04:25:51 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab37ba8851sm12807621fa.22.2026.10.19.04.25.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 04:25:50 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 14:25:38 +0300
-Subject: [PATCH v2 2/8] regulator: dt-bindings: add Qualcomm LCDB regulator
+Date: Mon, 19 Oct 2026 14:25:37 +0300
+Subject: [PATCH v2 1/8] backlight: qcom-wled: fix string detection
+ brightness on WLED5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,7 +92,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-sm8150-display-card-v2-2-86c05068efc5@oss.qualcomm.com>
+Message-Id: <20261019-sm8150-display-card-v2-1-86c05068efc5@oss.qualcomm.com>
 References: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
 In-Reply-To: <20261019-sm8150-display-card-v2-0-86c05068efc5@oss.qualcomm.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
@@ -108,152 +109,169 @@ To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
         linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org, mfd@lists.linux.dev,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3168;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4040;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=3SFfXzC0bHwD78fBjVebg7PPYXaNP6Xkrxk92qxdGA8=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq1f45ExUy8zE6GyGWTzcNpkND1+27Rx4Pfw9BQ
- 6UtgAofC8aJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatX+OQAKCRCLPIo+Aiko
- 1Ts2B/98bk/jBz49LoQOXRdknyPydiybtL39hdFjjUGkcUHaKwplQ7TB1JRybSNObZRTkyXdxJB
- +BY7yezNBzGTD+08+W14ZBvaWsk86BhzCqaB6d4XxP5ecFSPMPMhBylrI3MNfacfRYcv1UOnTlV
- M2lGTsjcb08YUJuAnPh5ufW5YvynS+xVBEFAboQhhSr7CgiJdBhCyInbkmbO7DfPrh/CUv6QT4b
- or2F/y1PNr9t+uOm1JN1a3Gpq1PkkFpjOnL53qsT9+Len7Mr7HVhgXuL4ryBLhsNs195CJKtkAk
- K/+8RsTwGCIjT/CQUApvfXUNC0xQzg9VpQvknt9zraXr0Ofo
+ bh=3nXXqhpzf8K/+hXUe7l+H8MG2OcKbb9smch8ETujRsw=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq1f44JBbEvJI7ao/F7pVDoA9QA3FdEnuTWMXG1
+ 9mEYCtrJkSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCatX+OAAKCRCLPIo+Aiko
+ 1eB6B/9XXxaG1spzShZks/wIC8Z0XwqpE6aoNNn8zhK4sg7GP5JCjXeYh/h1U+9QR/GK6j7xTto
+ QFOmZ/kLOfZXMqlVlposw0b8AuIu6Z1WOyWcfLDbnl2vxLekiVTxa3V9TRPKm7IbUGzY7j4ansr
+ Ru2MOcMUt+lPMfvMHUCOOusAb8sbx7zFrec5PgQf3+TWLmM9jMj/TWFLKhLt6ZMwDcc9jfC2VF+
+ VdJ31VYpQxu0SDoP1qGKN26HhsTuujZYrCgkHwkj3oV7N9+g9BzgNuQzkBdMXoQ1Hkpy/PZp9zc
+ EjQKQZk2dTjqHc319u+F5r2KaBsXFiNcuAv5fPvLH5GkHDas
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: 0odugjgxnY2i_LCYhs_SekHWdWNrAddv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NSBTYWx0ZWRfX5igoxvW41+W9
- +2DfcZcjp8XWiEIFaJtUw2AdR7vvu+BXZ5dLYr9ftt1a/y2D2Mkxdmu8kMORwXnXL0yx9ntoRUc
- IHPf3duE4ZypZ8Ak/2ekZtbgx+6ygDZ3204ig/PdI3ywoLFajSvdnUnwBk0Mr+1PekpF/pktzTe
- ZmgGOGlkKM+T0D4EEeiAi80PZKgyxKVDj8C2suuqTSJ71Uk02JA38borH6XHiV/QSJRxqcNxgbm
- cGKuYtyIL5/D44juoqkj+CR+1ndsaoSx4rrJlpAk3FJF+xdE8AozxkZpdMaOzdTFHtAOYmryBTU
- m+XznyULXkvug1FNbfsEv9mh5Cq5dZYJZk6jePgdiRC/o5bBX7e3drFmToW7vP6uQrzWDCKEO17
- v5s5pjUKL6ZgDEPvItEUCp93yIdJRYc6ZUf1lx5Ypb11rkty7vRyEkWBgrUgenaYIuvKiJYuveY
- O8jdeccMA+WUpmIprkg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NSBTYWx0ZWRfX9lsD4/cUm2QV
- 9gFdr/h53noBkR28oLINozAWs4lNE5OpDt7ymq3EBIxRbQ1Lcfn5xxqUrbnoC/KJ0zuCbdx2rTI
- draDi7xafMyq6TrZumyRL1vR9JmGaKI=
-X-Proofpoint-GUID: 0odugjgxnY2i_LCYhs_SekHWdWNrAddv
-X-Authority-Analysis: v=2.4 cv=OaANnRTY c=1 sm=1 tr=0 ts=6ad5fe42 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: 55uiE695LwkKEyRSQcX6sF11LqyIYg0R
+X-Proofpoint-GUID: 55uiE695LwkKEyRSQcX6sF11LqyIYg0R
+X-Authority-Analysis: v=2.4 cv=H7NOUOYi c=1 sm=1 tr=0 ts=6ad5fe40 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=SXD4J7xBejkBiF3T0k4A:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=GhjHCLKht-b4gqHrCnQA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA0NSBTYWx0ZWRfX4lymlOMi5R30
+ uR0YxDxkEFOqznkDc3TYAOzHyzoif0yOvHC81FQVCGuuW9CguvCKj9bs5InJfzW3ZK430XaJJlF
+ MtRVAu5Ih9ZWtNcUFaAhWAJGvDsTSWd2Noe24AVg8QnipTFLvUcK8Ec7f+LeEAnW87pxuHvbwQw
+ +ZO9NmM5eThVsrqAJvlD4ehn1CJ073YvNv6EcV6MLkX6UyUB7org7hlvz+2L6clZwqbGddxA3z1
+ d095v3lx2mFSbJyiJqtoezocDg8zHI208PUCqzNwuj5ev6seeZaxMxWKVhxMF4KELxXqO9uwn5g
+ T95o833jtI38YAZw7UZLN82uIXF/7oUvbn2LapPHJDDacQCaQk7B681I1+8zhgGD1/yeeIzKMrd
+ EL+TdZY0SkTe5sexXmkg2TMNG6Fel/QfNryKbKtB9HmLxBBz9Sy59HewC2ZHSmV4T8w6LAWIjZq
+ IxZBW/bG7pEK5MKziIg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA0NSBTYWx0ZWRfXy9f6u4WhmB16
+ 6OwmSUiW4E178m86lFQEGlJWjIIXbxl8l2+L03e+6EQv1pjDE9Hcr8WRyZ7IBIZGuJxkzmlKRM0
+ Nv+Vx2SQb5jbWHYCVP5nZUyZcOkmVsk=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-19_03,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 bulkscore=0 adultscore=0 clxscore=1015
- malwarescore=0 suspectscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ suspectscore=0 spamscore=0 bulkscore=0 adultscore=0 malwarescore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
  definitions=main-2610190045
 
-Several Qualcomm PMICs have an LCDB block providing the positive and
-negative bias rails for LCD panels. It is not supported by Linux, so
-boards using it either model the rails as dummy fixed regulators and
-depend on the state left by the bootloader.
+The string detection sets the test brightness through
+wled4_set_brightness(). On WLED5 that writes to unrelated registers and
+the detection runs with whatever brightness has been programmed before.
 
-Describe the LCDB regulator present on the PM8150L. Use it as a fallback
-compatible for LCDB blocks on PMI632 and PM6150L. PM660L has a different
-version of LCDB block, so it's not being covered.
+Use the per-version callback. A WLED5 brightness write also only takes
+effect once the module sync bit is toggled, which so far was done by
+wled_update_status() alone. Toggle it in wled5_set_brightness() instead,
+so that every caller of the callback gets the new value.
 
+Fixes: 62a1d3f623ac ("backlight: qcom-wled: Add support for WLED5 peripheral that is present on PM8150L PMICs")
 Assisted-by: LLM
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- .../bindings/regulator/qcom,pm8150l-lcdb.yaml      | 81 ++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+ drivers/video/backlight/qcom-wled.c | 56 ++++++++++++++++---------------------
+ 1 file changed, 24 insertions(+), 32 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/regulator/qcom,pm8150l-lcdb.yaml b/Documentation/devicetree/bindings/regulator/qcom,pm8150l-lcdb.yaml
-new file mode 100644
-index 000000000000..d3cba1aa0c2e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/qcom,pm8150l-lcdb.yaml
-@@ -0,0 +1,81 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/qcom,pm8150l-lcdb.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
+index ca350f320e17..c5243a6d547e 100644
+--- a/drivers/video/backlight/qcom-wled.c
++++ b/drivers/video/backlight/qcom-wled.c
+@@ -269,6 +269,24 @@ static int wled4_set_brightness(struct wled *wled, u16 brightness)
+ 	return 0;
+ }
+ 
++static int wled5_mod_sync_toggle(struct wled *wled)
++{
++	int rc;
++	u8 val;
 +
-+title: Qualcomm LCDB (LCD Bias) regulator
++	rc = regmap_update_bits(wled->regmap,
++				wled->sink_addr + WLED5_SINK_REG_MOD_SYNC_BIT,
++				WLED5_SINK_REG_SYNC_MASK, 0);
++	if (rc < 0)
++		return rc;
 +
-+maintainers:
-+  - Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
++	val = (wled->cfg.mod_sel == MOD_A) ? WLED5_SINK_REG_SYNC_MOD_A_BIT :
++					     WLED5_SINK_REG_SYNC_MOD_B_BIT;
++	return regmap_update_bits(wled->regmap,
++				  wled->sink_addr + WLED5_SINK_REG_MOD_SYNC_BIT,
++				  WLED5_SINK_REG_SYNC_MASK, val);
++}
 +
-+description:
-+  LCDB is the LCD panel bias supply found on Qualcomm PMICs such as PMI632,
-+  PM6150L and PM8150L. It consists of a boost converter feeding an LDO, which
-+  provides the positive bias rail, and an inverting charge pump (NCP), which
-+  provides the negative one. Both rails are switched together by a single
-+  module enable.
+ static int wled5_set_brightness(struct wled *wled, u16 brightness)
+ {
+ 	int rc, offset;
+@@ -287,7 +305,10 @@ static int wled5_set_brightness(struct wled *wled, u16 brightness)
+ 
+ 	rc = regmap_bulk_write(wled->regmap, wled->sink_addr + offset,
+ 			       &v, sizeof(v));
+-	return rc;
++	if (rc < 0)
++		return rc;
 +
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: qcom,pm8150l-lcdb
-+      - items:
-+          - enum:
-+              - qcom,pm6150l-lcdb
-+              - qcom,pmi632-lcdb
-+          - const: qcom,pm8150l-lcdb
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    items:
-+      - description: short circuit on one of the outputs
-+
-+  ldo:
-+    type: object
-+    $ref: regulator.yaml#
-+    unevaluatedProperties: false
-+    description: Positive bias rail.
-+
-+  ncp:
-+    type: object
-+    $ref: regulator.yaml#
-+    unevaluatedProperties: false
-+    description:
-+      Negative bias rail. The voltage is specified as an absolute value.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    pmic {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        regulator@ec00 {
-+            compatible = "qcom,pm8150l-lcdb";
-+            reg = <0xec00>;
-+            interrupts = <0x5 0xec 0x1 IRQ_TYPE_EDGE_RISING>;
-+
-+            ldo {
-+                regulator-min-microvolt = <5500000>;
-+                regulator-max-microvolt = <5500000>;
-+            };
-+
-+            ncp {
-+                regulator-min-microvolt = <5500000>;
-+                regulator-max-microvolt = <5500000>;
-+            };
-+        };
-+    };
-+
-+...
++	return wled5_mod_sync_toggle(wled);
+ }
+ 
+ static int wled_read_brightness(struct wled *wled)
+@@ -391,24 +412,6 @@ static int wled3_sync_toggle(struct wled *wled)
+ 	return rc;
+ }
+ 
+-static int wled5_mod_sync_toggle(struct wled *wled)
+-{
+-	int rc;
+-	u8 val;
+-
+-	rc = regmap_update_bits(wled->regmap,
+-				wled->sink_addr + WLED5_SINK_REG_MOD_SYNC_BIT,
+-				WLED5_SINK_REG_SYNC_MASK, 0);
+-	if (rc < 0)
+-		return rc;
+-
+-	val = (wled->cfg.mod_sel == MOD_A) ? WLED5_SINK_REG_SYNC_MOD_A_BIT :
+-					     WLED5_SINK_REG_SYNC_MOD_B_BIT;
+-	return regmap_update_bits(wled->regmap,
+-				  wled->sink_addr + WLED5_SINK_REG_MOD_SYNC_BIT,
+-				  WLED5_SINK_REG_SYNC_MASK, val);
+-}
+-
+ static int wled_ovp_fault_status(struct wled *wled, bool *fault_set)
+ {
+ 	int rc;
+@@ -494,17 +497,6 @@ static int wled_update_status(struct backlight_device *bl)
+ 				dev_err(wled->dev, "wled sync failed rc:%d\n", rc);
+ 				goto unlock_mutex;
+ 			}
+-		} else {
+-			/*
+-			 * For WLED5 toggling the MOD_SYNC_BIT updates the
+-			 * brightness
+-			 */
+-			rc = wled5_mod_sync_toggle(wled);
+-			if (rc < 0) {
+-				dev_err(wled->dev, "wled mod sync failed rc:%d\n",
+-					rc);
+-				goto unlock_mutex;
+-			}
+ 		}
+ 	}
+ 
+@@ -651,7 +643,7 @@ static void wled_auto_string_detection(struct wled *wled)
+ 	}
+ 
+ 	/* Set low brightness across all sinks */
+-	rc = wled4_set_brightness(wled, AUTO_DETECT_BRIGHTNESS);
++	rc = wled->wled_set_brightness(wled, AUTO_DETECT_BRIGHTNESS);
+ 	if (rc < 0) {
+ 		dev_err(wled->dev, "Failed to set brightness for auto detection rc=%d\n",
+ 			rc);
+@@ -791,7 +783,7 @@ static void wled_auto_string_detection(struct wled *wled)
+ 	}
+ 
+ 	/* Restore brightness */
+-	rc = wled4_set_brightness(wled, wled->brightness);
++	rc = wled->wled_set_brightness(wled, wled->brightness);
+ 	if (rc < 0) {
+ 		dev_err(wled->dev, "Failed to set brightness after auto detection rc=%d\n",
+ 			rc);
 
 -- 
 2.47.3
