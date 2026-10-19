@@ -1,74 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424533;
-	b=RVldlRNSvDnBBsgxiiHGVhrxkGTCcbUUcbS+ovTImBvAwkHgavpp/vOm/AZ0qQZxRD4M
-	 jT5NOGWDEJg3mxvFx4pCKxtDsaWqjWKFJus7pIRAOI2hwnWmw39x8MxFuvYkK+YpBV0uM
-	 8XQbInl/nyvg+W3QJeDM34MBwCcySHvfjuM2yFeHdf++3w+yvKJv1Ck+ojs2/Gou17IpH
-	 HpMhBJiMKCTYuw17MgE0w9jymP27qSJwLy7otyhtnC25CX9YaWWytqfVEbCU11DC/O/nj
-	 Urvrbm9I+9355cF7BrUiYcO3cYxk3YRcsIAZbaqccfmsAEAyIpq59tV06fdgVQzoECg==
+	t=1792424539;
+	b=scGveMHGYY4Tw+gv9eW5gcRDW/B8DITVlQGl2HATBAnwjxkTj9MesW+z7RWhKWXMCj+Y
+	 Yl/1oWCBysbrvu+o9TQIv/vYuya5iYqE8tUJTbITBcA6EFa5Q8cqmN+iZzhkHw2MdPDI9
+	 99OJa/RfNsEKdI6WBh6SFkqMdiGl5k8t1Wa+fFAuVduTWeNhQPWHnpjJZ7gUxauGY3QNd
+	 H+ywOm4vJFg+u0QGduR6h2kDmMFHaxAnizxNAUrPNr41N4UxVxBxWJyY9cmy9mBCRuX6l
+	 8Evk0omP0nzI8assh0ZnWoogsJPEf6HW9PPolEIcRbxSs3tET8KwCE+7Emryu12rK0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424533;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/vZOZ0DITBQE3q2ngSgmeVEJiFO9VWq7HjXqqg8rEgw=;
-	b=s8wGctHQJQgMiVz1lGBUbOh3/K6Ad23qAsHXw8wKkgErF01Vt1IGhgVBjxBrq5HuLduV
-	 4evLNX+GBMaIaOJHRkcZoI7U0e2L+l4BSPLF/wsw2azmJ8QLvDTQcdmu9NIwks7fy2wVz
-	 yuT00jFC5IWiWI27lpiTBuYqlgopo55lJ9em+upT3QJMYZy1cpy/qT38pfcU497AEYRQS
-	 AqB3dPd7cGfPcbLKL/OTEcoM6BUHRjNPtNiqaI3nLsnt3Qjakl8puZccR6mDJ7qomij3N
-	 sDT4DYExn3m31xlyAmTJ0CyAyyxowXqur8OVVRujgC0+IhqujzBc8BMchaVEARNnJXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424539;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=iMgrhjGDM6hEQh8Aw9yzZbHzALMwxiGfaVEBL4NiDa0=;
+	b=DKGUBdeVoMWoUyMmNy7w2UAKBP2KMDba875A6jh5mSbBrgsRW+jr4vMwiO0DdaIHpQ7A
+	 hlUSlBC3Edt+lhmCBu/wx7/BN60Ndg3b+Hll7KSdGGhiyM2rVcQSIQHCM8GfYB4jhGI+R
+	 Eio2y2eHN0EcjGZUib7HvaNVkhB302NZaHDIXKNu9K3RlFs/cWgFtw2TwXKirIowdCejY
+	 9/Y4XGBuFjYDu7Y4DdmaRHQP1FLP1s7iA4z2h2Iaw+ehHohmHA0abdAwuTew6MSVIYa6p
+	 9u8ZptG53dOGQv0QO2aTQjqFGETwWu+U+NxlAB3qi2we1gny+9KRoSU/vN+LbIJ9P8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=WEuHiMof;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mtrAjbZ7;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8658606A32D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:42:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8658606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564B7607408E
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 564B7607408E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=WEuHiMof
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792424525;
-	bh=9SYUPA29Depy26fMYMQfLIdt1Nw9Lt93MRy58VvOflo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=WEuHiMofR6iCPYzMzOhSJ8CThFh2CRLYTnipclAJUfBUQChpVlxal/piFSr3GDMoh
-	 IuyvzsaC7tCnU0UqE5i0g32nymgZi6afLXnzjSl/Yo7HAUrqgAUAWxkKmRs3pqZqbo
-	 msUi33jYqaopxn86EAruVoIiHqikE1/58omUYlIt98j23/b0Q232dYwpRip8n8mDWo
-	 ydLygSh648CIQooCPWWixAeRbYyfxDIuB3Jqqm0jNJH2MCkAHMfj5Z22DNPS+Jjnlj
-	 mRcRNKB7jNWSM8X87j4ZRiP9UH2573vQlC1eDQ1PzbfTT2T7wQpWXvJQ0qZDVuCJlT
-	 gNNOQGSq9Nq1w==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id BCD4917E02EB;
-	Mon, 19 Oct 2026 17:42:04 +0200 (CEST)
-Date: Mon, 19 Oct 2026 17:41:59 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Florent
- Tomasin <florent.tomasin@arm.com>, Paul Toadere <paul.toadere@arm.com>,
- Samuel Percival <samuel.percival@arm.com>
-Subject: Re: [PATCH v4 05/12] drm/panthor: Add support for entering and
- exiting protected mode
-Message-ID: <20261019174159.20771c0d@fedora-21.home>
-In-Reply-To: <20261012125940.3291951-6-ketil.johnsen@arm.com>
-References: <20261012125940.3291951-1-ketil.johnsen@arm.com>
-	<20261012125940.3291951-6-ketil.johnsen@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mtrAjbZ7
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso1517827a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:42:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792424539; x=1793029339; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iMgrhjGDM6hEQh8Aw9yzZbHzALMwxiGfaVEBL4NiDa0=;
+        b=mtrAjbZ7SAOmcOlZpgZxkhF3asxHxfJiQO3A09sNBNjc7sZcnqZ8/tI8OPhNsV76aL
+         icwHtvXRU8zBKnGPZBb8g8/atROCdBAspRO3AOnTaGDloW5UL1AOKpaCJgfFA0w61vUt
+         Wb6OWovFSxtr/1+hN3+q3+/ImDqABvueQrSaunej4SdbfvoDodpzUp3Osj1Qw9PdvBY3
+         Fd1GKV2p+YYThzzjPGaZ+cjSiaCCN9iUM+Yz95vkA71FreJNIZ1JM+VsZ1kT44ehlZy2
+         hgfjd37pjAxY6+EaGK0TzqFpaiZIvSdFGjXfbDIrCMGIkDkngyQji0Dmd7OkpBImGojh
+         pUwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792424539; x=1793029339;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iMgrhjGDM6hEQh8Aw9yzZbHzALMwxiGfaVEBL4NiDa0=;
+        b=gOlCT/qpZeHoDGBNqkICZrTBFxYwjVdyfnhorUBlZgPjRApZ2s549e1hfTVJlbBmry
+         BfuSKSvt1NtL8gido0GSU9Obcfc7+HB6tr/O+mWJSFcRpI7hhNqY3GZef4+lTjF1GYjS
+         dm76g0WQD5AoOyANGG3q3MdKz+SefHNlYzlRJ+libtEULHTqryEd+M8KIgeZ+9aURSFr
+         RZAQJ7fLwU7KA6bv2FgGvMl9/6MetprlU4Xsw8W+bSW1K6TiSbk1Vhfmgsa/8ZIvoX1U
+         sn4CabUB8OGb0sQ4ga25JFFWe9XQhqCalZ9wm9vvuRbkJqtkAmpP6XbUuj+he9YABpw0
+         bbtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwtBLvxTqZAGO3RCLBlCp54plzp0pdYV5SczgUiRIMLNtVC3aVI/SFeAUtkvkksJ+V1DCP+BN9xQbO8v84=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnsFh1aBRhwXlrglSjl0vJyNDQewjgsVbPgoY8vKpPYIR8ZraZ
+	o6PZSzWeny51glK/sVNurYP5dJ/yGrvf3VqWdDMb9SqG8YtTZGTHSAQV
+X-Gm-Gg: AYBFou0KhrgeaHcUAmhZ+vDzl4lFbYKiIYfGyFu/as4vHm6v98lMlSAAXDvVh0xLclZ
+	h1DUiYp78Q1PPoBIsm00Y3IiQrLpZI6UPtg3MT8gi51xOVsaztcUI062cwA1pwL+C3EapMBYYa/
+	2PbR26ym3oHvTtuvsoZT6Hu5/5Ah/Zz7u3IKftAxqE/MhzEw437/Z0Q9s/1ykMts8tUATZMtN+Z
+	9p/6+sawsXnCSTrH2baT4QQJx6/a060HbKt12NP0eH33xnQ5XazsaesWcDdJOXRu6zMRxa7YppM
+	69SQxRLlItMWS1RSgzcnA7WqF5nQe1TF0+5M7BCCwA9DwOqnSRVg609sH316AwU/XP/TFBIlqpk
+	fGAMvYfMv3TRMkFR6JhHzIsjaCjZ9kpyH/jomvuJa6JzG2As9OqRereWQYQv2qjNxaP2xPy0tC2
+	HECEXHbkPl3udPVx0pZ2HpLRYYQ1LAQYd8cCan8pco46aNmVjGjcSd/tDlJp6ddU/V8d12
+X-Received: by 2002:a17:90b:3d4e:b0:3ab:2c2b:1026 with SMTP id 98e67ed59e1d1-3acef0c8911mr6398917a91.34.1792424538542;
+        Mon, 19 Oct 2026 08:42:18 -0700 (PDT)
+Received: from hachimi ([101.5.170.156])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549ee946sm3926364a12.20.2026.10.19.08.42.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 08:42:18 -0700 (PDT)
+From: Lanfeng Wei <xlfylawarthur@gmail.com>
+To: tzimmermann@suse.de
+Cc: airlied@gmail.com,
+	decui@microsoft.com,
+	dri-devel@lists.freedesktop.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	longli@microsoft.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	regressions@lists.linux.dev,
+	simona@ffwll.ch,
+	ssengar@linux.microsoft.com,
+	stable@vger.kernel.org,
+	xlfylawarthur@gmail.com
+Subject: Re: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
+Date: Mon, 19 Oct 2026 23:40:43 +0800
+Message-ID: <20261019154121.6257-1-xlfylawarthur@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
+References: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,476 +106,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Ketil,
+Hi Thomas, 
 
-On Mon, 12 Oct 2026 14:59:33 +0200
-Ketil Johnsen <ketil.johnsen@arm.com> wrote:
+> Yeah, what's the cause of it? Switching off features does not fix any
+> bugs or improve the status quo.
 
-> From: Florent Tomasin <florent.tomasin@arm.com>
-> 
-> This patch modifies the Panthor driver code to allow handling
-> of the GPU HW protected mode enter and exit.
-> 
-> The logic added by this patch includes:
-> - the mechanisms needed for entering and exiting protected mode.
-> - the handling of protected mode IRQs and FW interactions.
-> - the scheduler changes needed to decide when to enter
->   protected mode based on CSG scheduling.
-> - GPU fault handling during protected mode execution.
-> 
-> Note that the submission of protected mode jobs are done
-> from the user space.
-> 
-> The following is a summary of how protected mode is entered
-> and exited:
-> - When the GPU detects a protected mode job needs to be
->   executed, an IRQ is sent to the CPU to notify the kernel
->   driver that the job is blocked until the GPU has entered
->   protected mode. The entering of protected mode is controlled
->   by the kernel driver.
-> - The Mali Panthor CSF driver will schedule a tick and evaluate
->   which CS in the CSG to schedule on slot needs protected mode.
->   If the priority of the CSG is not sufficiently high, the
->   protected mode job will not progress until the CSG is
->   scheduled at top priority.
-> - The Panthor scheduler notifies the GPU that the blocked
->   protected jobs will soon be able to progress.
-> - Once all CSG and CS slots are updated, the scheduler
->   requests the GPU to enter protected mode and waits for
->   it to be acknowledged.
-> - If successful, all protected mode jobs will resume execution
->   while normal mode jobs block until the GPU exits
->   protected mode, or the kernel driver rotates the CSGs
->   and forces the GPU to exit protected mode.
-> - If unsuccessful, the scheduler will request a GPU reset.
-> - Faults during protected mode are reported GPU wide, and not as
->   CSG/CS errors. We allow only one CSG to run in protected mode at a
->   time so we know which CSG to blame for the fault.
-> - All faults during protected mode are handled with a GPU reset.
-> 
-> This sequence will continue so long the user space is
-> submitting protected mode jobs.
-> 
-> Signed-off-by: Florent Tomasin <florent.tomasin@arm.com>
-> Co-developed-by: Paul Toadere <paul.toadere@arm.com>
-> Signed-off-by: Paul Toadere <paul.toadere@arm.com>
-> Co-developed-by: Samuel Percival <samuel.percival@arm.com>
-> Signed-off-by: Samuel Percival <samuel.percival@arm.com>
-> Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
-> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
-> 
+You are right that the module parameter is only a workaround for users
+affected; it does not fix the underlying scheduling problem.
 
-[...]
+The cause is that the synthetic vblank timer is used to pace completion
+of atomic updates triggered by dirtyfb, in addition to providing
+synthetic vblank events. In Xorg's software-cursor path, pointer motion
+damages the primary framebuffer and the damage is instantly submitted
+via DRM_IOCTL_MODE_DIRTYFB. The Hyper-V dirtyfb path performs a
+synchronous atomic commit, and with the vblank timer enabled that commit
+can wait for the next simulated vblank. Under continuous pointer motion,
+these commits dominate the update path and delay normal client updates,
+resulting in sever frame-rate drops. 
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 3e5f20768d545..38e9986416dd9 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -77,6 +77,12 @@ struct panthor_mmu {
->  		/** @as.faulty_mask: Bitmask encoding the faulty slots. */
->  		unsigned long faulty_mask;
->  
-> +		/** @as.delay_update_mask: Bitmask encoding slots which must use delayed updates */
-> +		u32 delay_update_mask;
-> +
-> +		/** @as.delayed_update_mask: Bitmask encoding slots with pending delayed updates */
-> +		u32 delayed_update_mask;
+This particular regression results from the combination of the blocking
+dirtyfb path, synthetic vblank pacing, and the absence of a Linux DRM
+cursor plane in Hyper-V. While the Hyper-V video protocol does have a
+hardware-cursor command path, the upstream hyperv_drm driver currently
+exposes only a primary plane. Cursor plane support was deferred during
+the initial upstreaming [1]. Without a cursor plane, Xorg has to fall
+back to software cursor-rendering path and it competes with periodic
+graphical updates on the primary plane.
 
-The naming is a bit confusing, because the only thing being
-postponed is the GPU cache flush, not the PT update.
+So the proper long-term fix could be adding cursor plane support in the
+Hyper-V DRM driver, which may take some time. Providing that the stated
+purpose of the offending commit is to rate-limit display updates, while
+its current implementation regresses the existing software-cursor path,
+I think adding a switch or reverting the commit until the requested
+features in the driver is ready, is a reasonable short-term fix. 
 
-> +
->  		/** @as.slots: VMs currently bound to the AS slots. */
->  		struct panthor_as_slot slots[MAX_AS_SLOTS];
->  
+> We had another fix for a problem with vblank timers:
+>
+> https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
+>
+> Did you validate that this fix is unrelated?
 
-[...]
+Yes I tested that fix and confirmed that it is irrelevant. It solves
+issues with excessively long frame durations, however this problem is
+found in normal frame updates (in my case 60Hz / 16.7 ms per frame, way
+below INT_MAX).
 
-> +void panthor_mmu_protm_enter_event(struct panthor_device *ptdev,
-> +				   struct panthor_vm *vm)
-> +{
-> +	/* Scheduler is entering protm mode with specified VM (AS).
-> +	 * Scheduler now promises it will not run any work using any other VM
-> +	 * than the provided vm and the FW VM until further notice.
-> +	 * This means we can do page table updates for all the other VMs, even
-> +	 * in protected mode, as long as we do the necessary cache operations
-> +	 * before normal scheduling is resumed. This is done on protm exit,
-> +	 * see panthor_mmu_protm_exit_event().
-> +	 */
-> +	if (drm_WARN_ON(&ptdev->base, !vm))
-> +		return;
-> +
-> +	if (drm_WARN_ON(&ptdev->base, vm->as.id < 0))
-> +		return;
-> +
-> +	guard(mutex)(&ptdev->mmu->as.slots_lock);
-> +
-> +	drm_WARN_ON(&ptdev->base, ptdev->mmu->as.delay_update_mask);
-> +
-> +	ptdev->mmu->as.delay_update_mask = ~(BIT(0) | BIT(vm->as.id));
+Best regards,
 
-We should really stop the drm_gpu_scheduler attached to the VM entering
-PROTM before returning so we don't end up with asynchronous VM binds
-interfering with the PROTM jobs. I know the 5ms-before-interrrupting +
-2x-job-timeout-before-failure is supposed to cover for this, but that's
-not how ::run_job() is supposed to work. When ::run_job() is called,
-it's assumed that all the deps are met, and any lock that are supposed
-to be taken in this path are only briefly waited on. The PROTM is
-implemented here breaks this assumption.
+Lanfeng Wei
 
-> +}
-> +
-> +void panthor_mmu_protm_exit_event(struct panthor_device *ptdev)
-> +{
-> +	/* We left protected mode and scheduler is about to resume normal
-> +	 * scheduling. Do the necessary cache operation so any page table
-> +	 * updates we might have done during protm is correctly visible
-> +	 * to the GPU.
-> +	 */
-> +	int ret;
-> +
-> +	guard(mutex)(&ptdev->mmu->as.slots_lock);
-> +
-> +	ptdev->mmu->as.delay_update_mask = 0;
-> +
-> +	if (!ptdev->mmu->as.delayed_update_mask)
-> +		return;
-> +
-> +	ret = panthor_gpu_flush_caches(ptdev, CACHE_CLEAN | CACHE_INV,
-> +				       CACHE_CLEAN | CACHE_INV, CACHE_INV);
-
-We've noticed a flush elimination bug on v13 that prevents full-flushes
-from the host [1], so let's just drop the other-inval request.
-
-> +	if (ret)
-> +		panthor_device_schedule_reset(ptdev);
-> +}
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
-> index e262fe2303f6c..9f9d690953ead 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.h
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
-> @@ -106,6 +106,12 @@ void panthor_vm_update_resvs(struct panthor_vm *vm, struct drm_exec *exec,
->  int panthor_mmu_pt_cache_init(void);
->  void panthor_mmu_pt_cache_fini(void);
->  
-> +bool panthor_vm_for_mcu(struct panthor_vm *vm);
-> +
-> +void panthor_mmu_protm_enter_event(struct panthor_device *ptdev,
-> +				   struct panthor_vm *vm);
-> +void panthor_mmu_protm_exit_event(struct panthor_device *ptdev);
-> +
->  #ifdef CONFIG_DEBUG_FS
->  void panthor_mmu_debugfs_init(struct drm_minor *minor);
->  #endif
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index db801705f0d27..fff805fd794a5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -307,6 +307,50 @@ struct panthor_scheduler {
->  		 */
->  		struct list_head stopped_groups;
->  	} reset;
-> +
-> +	/** @protm: Protected mode related fields. */
-> +	struct {
-> +		/**
-> +		 * @lock: Lock for the protected mode state (active_group)
-> +		 *
-> +		 * This lock is used to manage current protected mode state,
-> +		 * as represented by the member active_group.
-> +		 *
-> +		 * Knowing this state is critical for MMU operations, because:
-> +		 * - The MMU will silently ignore commands issued when the GPU
-> +		 *   is in protected mode.
-> +		 * - There can not be any pending MMU LOCKS in place when
-> +		 *   entering protected mode.
-> +		 *
-> +		 * Code which interacts with the MMU, typically by calling
-> +		 * panthor_vm_lock_region(), should therefore ensure the
-> +		 * scheduler is not in and will not enter protected mode first.
-> +		 * This is done by calling either
-> +		 * - panthor_sched_protm_block_timeout(), or
-> +		 * - panthor_sched_protm_try_block()
-> +		 *
-> +		 * Once the MMU operations have completed, call
-> +		 * panthor_sched_protm_unblock() to tell the scheduler that
-> +		 * it is safe to enter protected mode again.
-> +		 */
-> +		struct rw_semaphore lock;
-> +
-> +		/**
-> +		 * @active_group: The active protected group.
-> +		 *
-> +		 * We only allow one protected group to run at the same time,
-> +		 * as it makes it easier to handle faults in protected mode.
-> +		 *
-> +		 * If the active_group member is set, then the scheduler
-> +		 * believes the GPU is in protected mode. If not set, then the
-> +		 * GPU is for sure not in normal mode.
-> +
-
-Missing
-
-		*
-
-here.
-
-> +		 * Changes are done with both panthor_scheduler::lock and
-> +		 * panthor_scheduler::protm::lock held as writer.
-> +		 * This means you only need to hold one of these locks for read.
-> +		 */
-> +		struct panthor_group *active_group;
-> +	} protm;
->  };
->  
->  /**
-> @@ -571,6 +615,16 @@ struct panthor_group {
->  	 */
->  	atomic_t fatal_queues;
->  
-> +	/**
-> +	 * @protm_pending_queues: Bitmask reflecting the queues that have raised
-> +	 *                        a CS_PROTM_PENDING.
-> +	 *
-> +	 * The GPU will set the bit associated to the queue pending protected
-> +	 * mode when a PROT_REGION command is executing or when trying to resume
-> +	 * previously suspended protected mode jobs.
-> +	 */
-> +	atomic_t protm_pending_queues;
-> +
->  	/** @tiler_oom: Mask of queues that have a tiler OOM event to process. */
->  	atomic_t tiler_oom;
->  
-> @@ -1154,8 +1208,9 @@ cs_slot_reset_locked(struct panthor_device *ptdev, u32 csg_id, u32 cs_id)
->  	lockdep_assert_held(&ptdev->scheduler->lock);
->  
->  	panthor_fw_update_reqs(cs_iface, req,
-> -			       CS_STATE_STOP,
-> -			       CS_STATE_MASK);
-> +			       CS_STATE_STOP | (cs_iface->output->ack &
-> +						CS_PROTM_PENDING),
-
-			       CS_STATE_STOP |
-			       (cs_iface->output->ack & CS_PROTM_PENDING),
-
-> +			       CS_STATE_MASK | CS_PROTM_PENDING);
->  
->  	queue_suspend_timeout(queue);
->  
-
-[...]
-
->  static void
->  cs_slot_process_fatal_event_locked(struct panthor_device *ptdev,
->  				   u32 csg_id, u32 cs_id)
-> @@ -1642,6 +1718,10 @@ static bool cs_slot_process_irq_locked(struct panthor_device *ptdev,
->  	if (events & CS_TILER_OOM)
->  		cs_slot_process_tiler_oom_event_locked(ptdev, csg_id, cs_id);
->  
-> +	if (events & CS_PROTM_PENDING)
-> +		cs_slot_process_protm_pending_event_locked(ptdev, csg_id,
-> +							   cs_id);
-
-Limit has been bumped to 100 lines a while ago, so let's not introduce
-unnecessary multi-line function calls. Beside, I'd to keep the curly
-braces when a multi-line statement is under an if/else branch.
-
-> +
->  	/* We don't acknowledge the TILER_OOM event since its handling is
->  	 * deferred to a separate work.
->  	 */
-> @@ -1856,6 +1936,30 @@ static void sched_process_idle_event_locked(struct panthor_device *ptdev)
->  	sched_queue_delayed_work(ptdev->scheduler, tick, 0);
->  }
->  
-
-[...]
-
->  
->  /**
-> @@ -1983,6 +2090,69 @@ group_unbind_locked(struct panthor_group *group)
->  	return 0;
->  }
->  
-> +static void handle_protm_fault(struct panthor_device *ptdev)
-> +{
-> +	struct panthor_scheduler *sched = ptdev->scheduler;
-> +	u32 csg_id;
-> +	struct panthor_group *protm_group;
-> +
-> +	guard(mutex)(&sched->lock);
-> +
-> +	protm_group = sched->protm.active_group;
-> +
-> +	if (!protm_group || !panthor_gpu_protm_fault_pending(ptdev))
-> +		return;
-> +
-> +	atomic_set(&protm_group->fatal_queues,
-> +		   GENMASK(protm_group->queue_count - 1, 0));
-> +
-> +	/* Different kinds of faults during protected mode can give different
-> +	 * behavior/state.
-> +	 * Case 1) The fault keeps the GPU in protected mode.
-> +	 *         In this case, the request to exit protected mode below will
-> +	 *         fail and we need to take some further action.
-> +	 * Case 2) The fault do not keep the GPU in protected mode.
-> +	 *         In this case, the request to exit protected
-> +	 *         mode below will succeed, and we don't need to take any
-> +	 *         further action right here.
-> +	 */
-> +	if (!panthor_fw_protm_exit(ptdev, 500))
-> +		return;
-> +
-> +	/* GPU failed to exit protected mode.
-> +	 * Mark all CSGs as suspended and unbind them, so that they are
-> +	 * unaffected by the GPU reset itself.
-> +	 * We can not suspend the groups in this case, because we are stuck
-> +	 * in protected mode. That is also the reason it is safe to unbind
-> +	 * without suspending first (the groups are already "suspended").
-> +	 * The failing protected group will be scheduled for termination.
-
-Question is, why are those groups considered bound in the first place if
-they are not resident. I doubt writing to the CSG/CS iface is what takes
-time, so I'd make sure those groups are suspended/unbound in the tick when
-the scheduler decides to pick a single group to execute in PROTM rather than
-doing it here.
-
-> +	 */
-> +
-
-Drop the extra blank line.
-
-> +	for (csg_id = 0; csg_id < sched->csg_slot_count; csg_id++) {
-> +		struct panthor_group *group = sched->csg_slots[csg_id].group;
-> +
-> +		if (!group)
-> +			continue;
-> +
-> +		group_get(group);
-> +
-> +		group->state = PANTHOR_CS_GROUP_SUSPENDED;
-> +		group_unbind_locked(group);
-> +
-> +		drm_WARN_ON(&group->ptdev->base, !list_empty(&group->run_node));
-> +
-> +		if (group_can_run(group)) {
-> +			list_add(&group->run_node,
-> +				 &sched->groups.idle[group->priority]);
-> +		} else {
-> +			list_del_init(&group->wait_node);
-> +			group_queue_work(group, term);
-> +		}
-> +
-> +		group_put(group);
-> +	}
-> +}
-> +
-
-[...]
-
->  
-> +bool panthor_sched_protm_block_timeout(struct panthor_device *ptdev,
-> +				      struct panthor_vm *vm)
-> +{
-> +	struct panthor_scheduler *sched = ptdev->scheduler;
-> +	int ret;
-> +
-> +	if (!sched)
-> +		return true;
-> +
-> +	down_read(&sched->protm.lock);
-> +
-> +	if (!sched->protm.active_group)
-> +		return true; /* All good, we are in normal mode */
-> +
-> +	/* We will only exit protected mode for the passed vm and the MCU VM.
-> +	 * Other VMs have no active CSG work, so MMU updates can proceed,
-> +	 * although with special caution (delayed updates)!
-> +	 */
-> +	if (sched->protm.active_group->vm != vm && !panthor_vm_for_mcu(vm))
-> +		return true; /* Specified VM can proceed, with caution. */
-> +
-> +	/* Give GPU a chance to finish ongoing protm work by itself */
-> +	ret = panthor_fw_protm_exit_wait(ptdev, 5);
-> +	if (!ret)
-> +		return true; /* All good, we are back to normal mode */
-
-Sorry, but I'm still not convinced this is where this timeout should
-live. I'd rather have a shorter tick period in the scheduler (or a separate
-delayed work) when a group enters PROTM so we can re-evaluate if we should
-exit PROTM more often. If we do that, we can make
-panthor_sched_protm_block() non-fallible and let the reset logic unblock
-things if we're really stuck in PROTM for some reason.
-
-> +
-> +	/* We do not want this function to fail, because that can lead to
-> +	 * innocent processes failing. That is why we wait up to 2x the job
-> +	 * timeout for GPU to exit protm here. This shall cover the worst case
-> +	 * where protm work hangs and we must rely on job timeout to recover.
-> +	 */
-> +	ret = panthor_fw_protm_exit(ptdev, JOB_TIMEOUT_MS << 1);
-> +	if (ret)
-> +		up_read(&sched->protm.lock);
-
-Same here. We really want the per-queue timeout to handle that for us.
-And this is where waiting with the protm lock held gets messy, because
-I suspect the reset logic will need to reset the PROTM state, and that
-can only be done with this lock held in write mode.
-
-Overall, I'm worried we're adding a lot of complex inter-locking
-situations with this PROTM implementation, and rw_sem+state-machine
-doesn't look like the right tool to solve that.
-dma_resv sounds like a better fit, because each party can request
-access to the VM (exclusive or shared) and wait for any previously
-recorded access to land before proceeding. It also integrates well
-with reclaim and async VM_BIND, but not so much with the ability to
-randomly request exclusive VM access from a tick (because we're not
-supposed to allocate or lock resv objects from this path). I'm sorry
-the only answer I can give you now is "doesn't sounds right, but I
-don't know how to do it properly". I'll try to sleep on it, and see
-if I can come up with something simpler.
-
-> +
-> +	return ret ? false : true;
-> +}
-> +
-> +bool panthor_sched_protm_try_block(struct panthor_device *ptdev)
-> +{
-> +	struct panthor_scheduler *sched = ptdev->scheduler;
-> +	int ret;
-> +
-> +	if (!sched)
-> +		return false;
-> +
-> +	ret = down_read_trylock(&sched->protm.lock);
-> +	if (ret) {
-> +		/* Unlike panthor_sched_protm_block_timeout(), we don't bother
-> +		 * checking against a particular vm. It is not that important
-> +		 * to succeed in this use case.
-> +		 */
-> +		if (sched->protm.active_group) {
-> +			up_read(&sched->protm.lock);
-
-Hm, are we sure we want to skip reclaim on idle and inactive VMs? Feels
-a bit too conservative to me.
-
-> +			return false;
-> +		}
-> +
-> +		return true;
-> +	}
-> +
-> +	return false;
-> +}
-
-Stopping here for now. I'll try to get back to you with more useful
-insight shortly.
-
-Regards,
-
-Boris
-
-[1]https://lore.kernel.org/dri-devel/20260924-panthor-mmu-fixes-v1-0-e25f9b106466@collabora.com/
+[1] https://lore.kernel.org/dri-devel/20200622110623.113546-1-drawat.floss@gmail.com/ 
