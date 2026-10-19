@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424413;
-	b=p28TA0YqDFzdoUcps5rxeJ/y4yrPmu+AH13XugLcvmtVRWfcUIg0gQaQpOLIu8ClmjI2
-	 LJZjR0NoqWSofPyv7yTJNrGU2r99ktwMbFnb8YC27PXeN3HguuwpWmD8P2xCMjyDewWPE
-	 FdWC8PKBWza3Z4n6PCca/zwhjHxechzr8eFI4pnjf7qTVcAXdORc5rO2TRmJNjH4x+BbQ
-	 DUFCsl4KZmZHCMx5DzWWlzZpGxPZaCmWMJd2tFkb5Js4IZKUz8qCx07rCS2a9Yuadpq/a
-	 703fuZKgfr/XAMCt0at0KLNx95s+/XAaN4Q5sy+LYqkRpV5+nJBu8+9qp4EndQCYEIA==
+	t=1792424414;
+	b=Ceae+wXrETrGc2IqaD4p94KmILMhRZIyUls6TYXWViCxrdQtCPDWnOtVLJ7Z0MfOBvAX
+	 O3yFXTk0F0biOktRBbqPyX9OSUoD2Obod69dXWoH1VBGT9yC2p3ToeYWsppIN/e2a3Eoc
+	 NZVR4pAO6660DEDcbUSVejeICGKZq6tmkSojfJleVEMNKHVPkmX3hWmTD/zL77hjXXzIS
+	 5JS6BZI+M4c/pybHwtUO2pQoq7sx5bPEJcvroKVQcu1DaKw2dONSwbF9y0LVhSN2OBGTL
+	 mT9lxUFiBdlP8A55F9kW5tp7iwEiplaaGpyJfd8UPPuB/4OMbBu5xOjsDtl+CZeTlFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424413;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424414;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=ci68KtTSQTCl4pbfvwKLg1OkLhRNMIEHq1Jt8ehNTxo=;
-	b=drmqNs5JcuQ8MnRlWiAfTYs35RFwErrlTZ048swS93L3qqAGvWYbp4QDIDGs4VottqrR
-	 LYZ+DRIq6vZjL2p/2Bny+vNVt11pS/mGs+VbiM9P7+HTuhho7etWW+Qv4/ihHl5Qm0Y7r
-	 1tP8sT477q6RuULXFVbk+CAtmg6ZAqdCxQh6wbQOBTE2p6SSGyJbZAiWpi8huHwbeQLin
-	 VMCROW1F3Nq/hK8P50BQn1prVYCfIolWSwmUgYuVKmiTK24PR7+vKbH7mhVMdh1sj5Qwq
-	 ZFxLXj2uqHszy/e83hoHKiOb1mEPzG0X1gItfnTf8YtXogMkj+mjSMhPACMOKj1yrog==
+	bh=G+V77N/C1hhL9FyqAqomXKSSOjqKQTkqb31ANrBdi4k=;
+	b=Me8fukumnhERKN8tjLHFtq9Q+PG6wEMOm3iFMCIwf7MKH4IYW+NzTsPpclAPxPaIFncr
+	 P0LlzRVIMosUDnzhg21MLkAblzLn5CMnKO+DqhfCjd3d0e4m4zLz6myRCe2aPvIamxl39
+	 7KWNUO9/PCJusFhI5X5Xz2gesYrBljIQPU9Mr+/iiTsjZUig9wO2k/hxXTZiJF0xmk876
+	 h/Ajf3NWIefivg0rGrr858FNRDR0E2nO4Dj7PaSlSv+HF3lDqnK0hyw5VQZbOG1EZ4MYd
+	 awXd7ClkDWQEqgWb0rYgNUJOQ3HKrKqmAkQvvM5vJ51BfrSuSaoS49/uxbfa3G0iw8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GkONaV4H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T9li19/3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF19E607DC56
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:40:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE4E607DC4D
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 15:40:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GkONaV4H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8428C1F000CB;
-	Mon, 19 Oct 2026 15:40:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9li19/3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A96F1F000C4;
+	Mon, 19 Oct 2026 15:40:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792424412;
-	bh=ci68KtTSQTCl4pbfvwKLg1OkLhRNMIEHq1Jt8ehNTxo=;
+	s=k20260515; t=1792424414;
+	bh=G+V77N/C1hhL9FyqAqomXKSSOjqKQTkqb31ANrBdi4k=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=GkONaV4HRj8e4w3XbHTPLKmyvsviiS7aCu3NNC0DfdaN7+IJMrsTQG6M3XnflUFVe
-	 ll1qY4GGT8sjT4DkcJDY6l6HSCz+C2BdNOw/TJ8c2VxXCNi9r2smBYZAkplUfbaPXc
-	 7HEWWUC7R5hZm/CIe0qa88eyQDjaZ0ta30zyHnK6t9M4aTJF3TJxErSa20daSknFET
-	 S06VW3S+ZP1dBVhcOxqwI6RUupWtfpIZjlZSTT9BxPhAOKtViG/62nvNmY0wjsnD5w
-	 XOtJZussZOpV5HezZDeOdutJ7+4iFb/qX3Kgo/LpJNm4IJI00ZE5ICxRjyBLX1WPll
-	 EcKpeKpORF5eQ==
+	b=T9li19/3fZy52ILjRKJqVsjGWYfINbXA8858L5XmVyCnH7WghntxOSPg6VboSID57
+	 CjsneiJm3CNeusbrI3ClAU7R7JbbIYjkrEQ6DelqbYXedZii0zFrCIKD5L3Qx7v6AK
+	 2MsR6XEbqt1kbqWkaDe/jjOpHVvIVlA6vX2kQYdFGnr2KfQfcy8FtpWZoWnZkD6xCw
+	 VA3KMWAN16k008CRM7yvZYQ3BVbxivcFGRMsx3LezV2Tqxx+XxNrb7P1a3oCYTERiV
+	 v58FZPjwNfT6tTQbwd3jSCvRSeXdYMqbboMQ5/KGviGFsYvuyJhMv0zabeFUiC6KkV
+	 5OrzODbwt8O6Q==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7741A3811A71;
-	Mon, 19 Oct 2026 15:40:12 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F151E3811A71;
+	Mon, 19 Oct 2026 15:40:13 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,38 +54,37 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH] f2fs: don't use truncate_inode_pages_final()
- on
- live inodes
+Subject: Re: [f2fs-dev] [PATCH] f2fs: fix submit accounting for IPU writeback
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <179242441102.2714099.12259742398143364059.git-patchwork-notify@kernel.org>
-Date: Mon, 19 Oct 2026 15:40:11 +0000
-References: <20261015161714.1586334-1-daeho43@gmail.com>
-In-Reply-To: <20261015161714.1586334-1-daeho43@gmail.com>
-To: Daeho Jeong <daeho43@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- kernel-team@android.com, daehojeong@google.com
+ <179242441252.2714099.14576361716575033852.git-patchwork-notify@kernel.org>
+Date: Mon, 19 Oct 2026 15:40:12 +0000
+References: <20261014112629.59861-1-jsjlee1020@gmail.com>
+In-Reply-To: <20261014112629.59861-1-jsjlee1020@gmail.com>
+To: Seongjae Jeong <jsjlee1020@gmail.com>
+Cc: jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net
 
 Hello:
 
 This patch was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Thu, 15 Oct 2026 16:17:14 +0000 you wrote:
-> From: Daeho Jeong <daehojeong@google.com>
+On Wed, 14 Oct 2026 11:26:29 +0000 you wrote:
+> f2fs_write_cache_pages() uses the submitted count, which is set to
+> fio.submitted in f2fs_write_single_data_page(), to update nwritten
+> and decrement wbc->nr_to_write.
 > 
-> truncate_inode_pages_final() is meant to be called from ->evict_inode.
-> It sets AS_EXITING on the mapping, and nothing ever clears it, to tell
-> the VM that the inode is going away.
-> 
-> f2fs calls it in two places where the inode stays live:
+> In the OPU path, f2fs_submit_page_write() sets fio->submitted to 1.
+> However, in the IPU path, fio->submitted is never set and remains zero.
+> As a result, successful IPU writes are not accounted for.
+> This can cause asynchronous writeback to continue beyond its budget.
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev] f2fs: don't use truncate_inode_pages_final() on live inodes
-    https://git.kernel.org/jaegeuk/f2fs/c/256d5e27eda8
+  - [f2fs-dev] f2fs: fix submit accounting for IPU writeback
+    https://git.kernel.org/jaegeuk/f2fs/c/6d1f622b9c06
 
 You are awesome, thank you!
 -- 
