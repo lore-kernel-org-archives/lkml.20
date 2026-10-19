@@ -1,196 +1,482 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012043.outbound.protection.outlook.com [52.101.43.43])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1434FC34F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6397C4FB9D5;
 	Mon, 19 Oct 2026 13:54:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418089; cv=fail; b=HGV6RgzrkTgfohiwXZaPGWCNnBg2HHWPjtaOz6cPWVoYDqVcAvGDvdGxpeseIzbPCeZdDhy70/4qEok5s8UQ0hZLqkcOEDo7MU74n7LsF4OoS9U1TVAUYGVowyYmBQU9D3TMtGqSqbCx3kmdp2tEPvfCipumfH1LAlWg9nQ/8oo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418089; c=relaxed/simple;
-	bh=JM0YjG8nvVw9pjYzBghFmu0oK+bi83RM+sJvVxEtPz4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Uk9IpyC2CW1nSVvXESPDh11QPi41N0cE+0EGuHcdzst6yu1uD9XJf0AR/HYH6J0Dt5Hr8V08N98vWC1G6QAsWQrkHoo93poylI6+1CrpEBVy95Yj/GjCkLorqV9dmJc4BMpXuWFQI9EZvPpgYeeC+cfuiv55Rut/WgGSe4TEpqQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IKnlaSY2; arc=fail smtp.client-ip=52.101.43.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792418090; cv=none; b=QKrmVFJwU75lC8mVIon+Ruvq6NGH36+eXPhUd+mJJfeIdUBMTaQT6kZkVqynykvEB58x3eUHTp7PFIxvLzSecvvVPTH4GR+o1hjcvC6hrCCJxAzxkmgdnFM/XgfadtT6GjK422WTfKwuGvWgz5cqYmj9RUbOZc8cT+KLT1FoYfc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792418090; c=relaxed/simple;
+	bh=tmqPc6UZCJQUzYP/TCc+RhS4jDKHImkL64fnuWK2zYk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UF1rqgwh1o4cp0LcrGvc1JtB8Hel0eFojK7i3IbrpINhU144bz7wyfbq5FU4Ryb0GrCg+ubJuFGUr35eQKGjt7kO7pg6iJhl4GSwq2aN9IkMJAhdzbqEqapzX8Eo10FQr+b3T5B7zBVmsj06nQCj3r1Xhsaozy5jH9i1bx3mFBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ghIxZkxD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IKnlaSY2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fIAceooJjo0FD9VK27TSCCb4GtTOtqtjaKiNFAG/BbxGi2BK05MBj8sWUG5TcsV+HPE9T5117OZ2TwoY6cMymN776AtHmKEd2Slsj6TAtmgM2iY7W+foQ+mbuUlsZlSX5ZQS4+yYlr1mhM4gT62udOyzb/xl9ouDHdAdejfWVj+IZAW6HRRMkCV7AgqtYyscXr8F8O0lGAQfRdxHdowIbJQr9uPdGtjqdUz4stReI2hKZMSEKrYWxXpwXb8swICAq3reJUuQBOC09BlsV252SfQmAre6pZautSR0GBrYv4joXu0gyS7H7kjpe1RaNPrH8n0ll0Cg0YCe2rO8uKh1DA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+dD9/hvy8CjdpytNmMTQelv0WDFvgfCSAODHd8XjH8g=;
- b=aSJYNk/V89xWXyUQawe2DTjIKUY7bVI0xChXWHrAFDvytoNpj4rTBat+MPbY7hMvxuA8ImudXQar2ULiDo1oaNYztT5w1yU3GJpaQpnVIPMBN7pjw5Lo2uSYwMTYEAmsipPeDqNLa/TuF+T5uf1YuxKAinFPuwOm1rpLET0EA6X0uFqCsLgt1OQwaUherLNYIcPkAZL2yv7w73VYIlPYSvoyKzIFodqimeHZHY+DCL7gBBGDdi6SbbzvaPykc7rZSrSIadf1RXmhqsyXvnaaRPks9A80iCjJ69podBpE56PnCMwHL5lymAzemSS8/cMttxaAT3HuHYMQ4Ufr2i1bTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+dD9/hvy8CjdpytNmMTQelv0WDFvgfCSAODHd8XjH8g=;
- b=IKnlaSY2ZMNZQnnRFGJGnBqF2+zjvpv/7OLYdyIm9ZDWlFlekSSP4FZ7wi0xHWj00R4JpszZEN8wSLjMViYutwF+vsNCPjOiKcsrWLpNtY80ddnC0rTLLUCl5ZPgbrwIr2Kir/enTORRFyHQ79Uq0ASn8u0J/4Ti7G4JfSSa2J0x/GRaWklkGiW+w8u0wwhmJFq56ZsaVA7L5Ku3+qeWg+wjkePqbloqIZJYPIufe5qBgjHwDFvR0McgegKfADY8ERYL47wmZY6QEiPrZNTS7oP/uiKVrysqhWARzYQQnjl7babSp3Ugx5jxHMiTq9v+AJvQ3tVtVWIGgTBUZwgqWQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by MW3PR12MB4491.namprd12.prod.outlook.com (2603:10b6:303:5c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 13:54:45 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 13:54:45 +0000
-Date: Mon, 19 Oct 2026 15:54:38 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Michal Blaszczyk <michalblk@google.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Kuba Piecuch <jpiecuch@google.com>
-Subject: Re: [PATCH 2/2] selftests/sched_ext: Add class_switch_stall test
-Message-ID: <atYhHvJAxLp01QbT@gpd4>
-References: <20261019124146.3582127-1-michalblk@google.com>
- <20261019124146.3582127-3-michalblk@google.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019124146.3582127-3-michalblk@google.com>
-X-ClientProxiedBy: ZR0P278CA0014.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:16::24) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ghIxZkxD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478D31F000C7;
+	Mon, 19 Oct 2026 13:54:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792418087;
+	bh=UT703PQW66foZVKNkQrObg9w1QyCa8II10FWAWp7oss=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ghIxZkxD7vtIYYioc0con473xy6ahvb8RXFcjPVZv39zayXcwzNRDOmWy2eyUFKTx
+	 ysNzwN6N0pUuI0zoSmwaU2HtyLRJioUe4zPWe9q82YrXqOfhrCO4PNJUUvX4hkmmlf
+	 PvuyDG/8xekutukzkkdNnhcSvSHGYbWO5DUW0iPXxWdKUhXdbzN31HP8/8r8CHb9h+
+	 qqK1QxT001nHwc7OJc4yHgVOmW+PprmGJM8F2UZCkqI/heFmQweEchQgklLreP0EWA
+	 3YmlbKT8jnFPKRTNh3KAQQ22qC7rQ63XafpZGqDAemKBGv0lnxgFjupOnzhYS5OnfR
+	 ed+DsLKBLjmog==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Christian Brauner <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	corbet@lwn.net,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] docs: update the unmount propagation rule
+Date: Mon, 19 Oct 2026 09:44:54 -0400
+Message-ID: <20261019135441.1420968-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
+References: <20261019135441.1420968-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|MW3PR12MB4491:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5de77641-1864-41b4-1226-08df2de8882b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|6133799003|18002099003|22082099003|11063799006|4143699003|10067099003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	+6ajNGDDpyztVfWwoQ7QCMk/4Er442QzhH8bq64r/L7BHaG8UnM+6AaEy4BY/yF4OpTPwB1o/PtTxJ3RsdponlkmukAGpMEftXpxHjGusVhrF/z9aQJPB4SduCjOakpg9wXpikKHNSUFfnhwC1lNvC2q/7rEoXH5LGREYtg4vx25he/cswsEyYZvq2y6ZE474R1/SIWw10soyo2zxYLqqQQbXuBB6oJvtCpNpFIUURmj/inNp1PtFOK/2AVVqF/5Wb2UVbktKaxgl4Ka/GhmHd88bgdMsghMxsNp8fh0r/PN5lpAuoWpViFRq2/6B6e6i6ODIesDXACrNfPOZLL5UJy6BZacNp8eXUrzsv3BH7rwE1jUGV/fDAnO/dzrOAh1pDFhgGlhNMLny6xJn+iQm3qsHtz6a0/VTC6rCjuG7CiVxjEsc0Cz67G4YewuDN8nATGNYFZoxcG1yr9ymAuPPGRXKedhwI1KXpE5bvS5WMvfvzA8Fv6mzUPQO2jIafbdvnx/UmgsVpwkhcKgAQlCHI6zPFa/X0Zj98LmGAOHOELbyOCBX+ZtXTvXixZOU4foRhVOJMcgiYxCSxWrdbWuDNuY5vZ1b4myctJVn2bOoKF1mL2WhMdKeahAZoLG8JDHXAgmtIHH8eLKOiZcehJ3HvaM+Bj25l+Ypj7csGVLf58=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(6133799003)(18002099003)(22082099003)(11063799006)(4143699003)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rYXPqEIEybstq6ZvLv+Aoe9m4IYi6wYLvbRZdwUHJOqWI+OUUUpgG4B2XIly?=
- =?us-ascii?Q?0AHFMvf8FDFqfK2E/OpJo2hH9Z2crUPfOT8yC5tlafOmN9YXn02IJtpsaLGf?=
- =?us-ascii?Q?qfXw1/21+1iITafrgGgmReVurzK4EeS3jVNfipUjdRMcx9jvEB/jlF9Xs3UI?=
- =?us-ascii?Q?VyamxCud//616J1JCpVZ+qPrAVaVP8P1oby+08oA1TJBSgpqQAiGEocBcIhv?=
- =?us-ascii?Q?4y2d45b+Q6boDx6VQIPyvx/VFHJ/8Ntdd4oymF8RCZkwQXDtu5m2mwPIenSP?=
- =?us-ascii?Q?8hwEKrj/38Khs7na7K0ry5lq4kzmeYtfYqka3kegrMkqUdEVKN86fvPBFWQt?=
- =?us-ascii?Q?kTvrb4lHOH8f+VFkJCebf2hZ/YsL1I64tG5Uf1MmWUY/9Xg9RvFOUyhE9S9Q?=
- =?us-ascii?Q?4KvwSZGIPK/Rvipd0agX6OERPoLomyQDGheICO2CxWQ/Fi9zbNXgAbi1Mujz?=
- =?us-ascii?Q?X96LqAEh6+MuGazgbKiTf05I3gBK3CEha07fX8pfRdCmycCL5kHOXcRdmvGq?=
- =?us-ascii?Q?0RIlQXCTmbh0LB3oOiXLVigYIc3LPTwP15OAITmYeFVM2HWW16UR+e9oOx8r?=
- =?us-ascii?Q?bAfTiisjs64tIhQZ7fUOUoBsRRAozIzVsj8E6iAkI9uTQYi9m/AA6cne2Nmr?=
- =?us-ascii?Q?aQ0/YW1mMeU4V2agudTJTVyB7m4KPlFeCn9p1AWoGCfOIyo1R49uffUQRnS+?=
- =?us-ascii?Q?wVtW31F1dUYHtYJ0cMN293HEgZ4NUjkjjBkK0QaSJ7aPmLyWF2MddfESLMne?=
- =?us-ascii?Q?zXiUHvjwdiqWzq3/oU/p7VMwSSAWZPu5p85pRRm6ubIqprTA8LEUwR4ZKwmt?=
- =?us-ascii?Q?Rtjo/l1RUjV6CG0cL1j72uc4kPi8n9GhdW0xx+FS7oLk8CcrBRcbVDKt0xGJ?=
- =?us-ascii?Q?/SYnozPMIVuT2Jvu8J2nAEW62a2aUAn0ZQjatxBvimC+8L92zRYFZ0xdrG5m?=
- =?us-ascii?Q?/tw5nFqz9jY6M1r0bOiqHe8VBHpQkxPMv7cT6pyRuSWk4w+i2o4U6arvwLXN?=
- =?us-ascii?Q?N5pz2Ida/34TWy8ALu7KfKY/tb4Ra2Y4m8OGJ9C3sRdWPbEHeXkiXg0X2JRH?=
- =?us-ascii?Q?qcrQCa5VTkdveYSz5s/iQO69UGmWi3dh4a9St/bVQM8wy/cGYosFA6ZjV2Tk?=
- =?us-ascii?Q?KJprWZi1dMjKE6Q+DTvndLpDJ6SCwModcZ7qSQE270DUVET++LC7sN+eQi37?=
- =?us-ascii?Q?C1BxyX8rVyLlBnrnqc/7C+CTouOWArD8QxTs5WRCsW6vSNqP4xItWYhFYQg1?=
- =?us-ascii?Q?Bc+Xka3zQnuDmqBdZoHQdUt0GfkcT96SmCDVgPD6/hPaCmcOxmSfcZXp+uFD?=
- =?us-ascii?Q?r0R4AqZ8rdqyqYP3m20m4cLQzyXLJlycKrCms+KbXnBM2kzXonfKj7RE/fw8?=
- =?us-ascii?Q?H1R14XN8Cfk8YSEdkM0N0Y0ucvaRDMb3uoEfjEE9km5uiZA9Gmwfe/T+IxJI?=
- =?us-ascii?Q?SmfpkkWJntZBzfu8HwlFfmVYbPVooPmvRrh4iURMTrbJKN0soyef7YklypX+?=
- =?us-ascii?Q?EAMRZ5M7L7AamABAqMgvowVzZ2zt1o9r5O3ZHPS1I13hoSCmMR9SitALYnz6?=
- =?us-ascii?Q?lU01uQjuo77Lggy+TxmKEzW5uqyBdlL/ynYEEExYqGGxoB8Ny47voTxxX/OC?=
- =?us-ascii?Q?uaOpj2TxcxNqfSjuSk/0MsjbACWmrf12iIh2WzZxc7gt5i+nlXDTYllrsGCm?=
- =?us-ascii?Q?jQVVE3XxbmMy1q7J+cxeHxTERMqniUvF+oyeq+CFxOYGoGJHdAIsEtpbH5R1?=
- =?us-ascii?Q?WzUemmsDlA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5de77641-1864-41b4-1226-08df2de8882b
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 13:54:45.0766
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9t3U78GOSvXcV9s+SKz/e2RUPZHe6sYPcyAVV02vSoVYsk8MpCJ/tU9FqGbxPWZAfeLoq/aVlxR7JlUZ6PqFCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4491
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.18.57
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Michal,
+From: Christian Brauner <brauner@kernel.org>
 
-On Mon, Oct 19, 2026 at 12:41:46PM +0000, Michal Blaszczyk wrote:
-> Add a test for a task which leaves SCHED_EXT while it's waiting. Its
-> scheduler keeps the task waiting on a DSQ after it wakes up. The test
-> switches the task to SCHED_OTHER while it's waiting, lets it sleep outside
-> of SCHED_EXT for three times the watchdog timeout, then switches it back
-> and wakes it up. The scheduler keeps it waiting again, for longer than the
-> watchdog interval but shorter than the timeout, which the watchdog must not
-> report as a stall.
-> 
-> Without the previous patch, the watchdog charges the task for the time it
-> spent outside of SCHED_EXT and aborts the scheduler.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Michal Blaszczyk <michalblk@google.com>
+[ Upstream commit 3f5dc09141a7bfe286620a6869d1d70ffe32d6b8 ]
 
-...
+Section 5f still describes the rule propagate_umount() used before
+commit f0d0ba19985d ("Rewrite of propagate_umount()"). It states that a
+mount that receives the unmount by propagation is left alone as soon as
+it has any submount. That's not true anymore.
 
-> diff --git a/tools/testing/selftests/sched_ext/class_switch_stall.c b/tools/testing/selftests/sched_ext/class_switch_stall.c
-> new file mode 100644
-> index 0000000000000..489d23c777f05
-> --- /dev/null
-> +++ b/tools/testing/selftests/sched_ext/class_switch_stall.c
-> @@ -0,0 +1,240 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Check that a task which leaves SCHED_EXT while it's waiting doesn't carry
-> + * that wait over to its next stay on SCHED_EXT. If it did, the watchdog would
-> + * count the time the task spent outside SCHED_EXT as waiting and abort the
-> + * scheduler.
-> + *
-> + * Copyright (c) 2026 Google LLC.
-> + */
-> +#define _GNU_SOURCE
-> +
-> +#include <bpf/bpf.h>
-> +#include <poll.h>
-> +#include <sched.h>
-> +#include <scx/common.h>
-> +#include <signal.h>
-> +#include <stdio.h>
-> +#include <string.h>
-> +#include <sys/wait.h>
-> +#include <unistd.h>
-> +#include "class_switch_stall.bpf.skel.h"
-> +#include "scx_test.h"
-> +
-> +#ifndef SCHED_EXT
-> +#define SCHED_EXT 7
-> +#endif
-> +
-> +/* class_switch_stall_ops.timeout_ms, the watchdog checks every half of it */
-> +#define TIMEOUT_MS 1000
-> +/* longer than the watchdog interval, but shorter than the timeout */
-> +#define PARK_MS 750
-> +/* time spent outside of SCHED_EXT, a stale wait would exceed the timeout */
-> +#define OUTSIDE_MS (3 * TIMEOUT_MS)
+A propagated unmount unmounts a mount with sub-mounts as long as every
+sub-mount gets unmounted together with it. This is the case when the
+sub-mounts are unmounted by the same propagation. Only a sub-mount that
+cannot be unmounted keeps its parent mounted.
 
-Could we increase the watchdog timeout to 3s and the park duration to
-2s, updating timeout_ms accordingly?
+The section also only describes a single mount without sub-mounts. But
+lazy unmounts take a tree and every mount of the tree propagates its
+unmount from its parent mount.
 
-With the current values, there is only about 250ms of headroom for timer
-delivery, dispatch, and the child actually getting CPU time before it
-becomes eligible for a watchdog stall The first phase also depends on
-userspace switching the parked child out within 1s.
+Link: https://patch.msgid.link/20260923-work-mount-fixes-v1-8-f424cf8d3242@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
 
-I haven't observed a false failure, so this is a robustness suggestion
-(I'm thinking at loaded CI VMs) rather than an observed problem. A 2s
-park would still span the nominal 1.5s watchdog interval while leaving
-more headroom.
+LLM Generated explanations, may be completely bogus:
 
-Thanks,
--Andrea
+This is a documentation-only correction of stale unmount-propagation
+text. The local tree is **6.18.57** (`v6.18.57-155-gcdf239ca885b2`). The
+rewrite it documents is already in that tree, so the question is whether
+this docs update belongs here.
+
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
+
+Step 1.1: PARSE THE SUBJECT LINE
+Record: **[docs]** **[update]** Update the unmount propagation rule in
+shared-subtree documentation.
+
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+Record:
+- Link: `https://patch.msgid.link/20260923-work-mount-
+  fixes-v1-8-f424cf8d3242@kernel.org`
+- Signed-off-by: Christian Brauner (Amutable) \<brauner@kernel.org\>
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, or Cc:
+  stable on this patch itself
+- Cover letter of the same series (`[PATCH 0/8] mount: a few gnarly
+  fixes`) did Cc stable; this 8/8 docs patch did not
+- Ignore pipeline tags: `[Upstream commit 3f5dc09141a7…]`, `Signed-off-
+  by: Sasha Levin`
+
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
+Record:
+- **Bug:** Section 5f of `sharedsubtree.rst` still describes pre-rewrite
+  `propagate_umount()`: a receiver with any sub-mount is left mounted.
+- **Symptom:** Documentation disagrees with current kernel behavior. A
+  propagated unmount may take a mount that has children if those
+  children are also unmounted by the same propagation. Only a child that
+  cannot be unmounted keeps its parent.
+- **Also missing:** Lazy `MNT_DETACH` unmounts a tree; every mount in
+  that tree propagates from its own parent.
+- **Version info:** Behavior changed in `f0d0ba19985d` (“Rewrite of
+  propagate_umount()”).
+- **Root cause:** Overview docs were not updated when
+  `propagate_umount()` was rewritten.
+
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not a hidden runtime fix. It is an explicit documentation
+correction of obsolete unmount semantics. No code, locking, or error-
+path change.
+
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
+
+Step 2.1: INVENTORY THE CHANGES
+Record:
+- File: `Documentation/filesystems/sharedsubtree.rst` (+14 / −6)
+- One section: “f) Unmount semantics”
+- Scope: single-file documentation, surgical
+
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record:
+- Before: receivers at dentry `b` are unmounted only if they have no
+  sub-mounts. Any child on C2/C3 blocks that receiver; C1 with sub-
+  mounts fails the whole umount.
+- After: receivers are unmounted if every mount below them is also
+  unmounted. A child unmounted by the same propagation does not pin its
+  parent. Adds lazy-umount tree propagation and a pointer to
+  `Documentation/filesystems/propagate_umount.txt`.
+- Path affected: documentation of umount/propagation semantics only.
+
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record:
+- Category: documentation correctness (obsolete comment/docs)
+- Mechanism: overview text still described the old “any sub-mount blocks
+  the receiver” rule. Code after `f0d0ba19985d` unmounts a receiver when
+  remaining children are themselves candidates (`trim_one()` / non-
+  shifting set).
+
+Step 2.4: ASSESS THE FIX QUALITY
+Record:
+- Obviously correct relative to this tree’s `propagate_umount()` and
+  `propagate_umount.txt`
+- Minimal; no unrelated edits
+- Regression risk: none (no executable code)
+- Red flags: none
+
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
+
+Step 3.1: BLAME THE CHANGED LINES
+Record:
+- Original unmount-semantics prose: `9cfcceea8f7e8f` (Ram Pai,
+  2005-11-07, `Documentation/sharedsubtree.txt`)
+- ReST conversion/formatting: Bagas Sanjaya, 2025-08 (`a8886b42d57b8`,
+  `b293fd55a1b89`)
+- Behavior change that made the text wrong: `f0d0ba19985d` (Al Viro,
+  2025-06-29, ~v6.17)
+- That rewrite **is** an ancestor of this 6.18.y tree
+
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. Expected. The related behavioral commit is
+`f0d0ba19985d`, already in `v6.18.57`.
+
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record:
+- Recent `sharedsubtree.rst` work is formatting/ReST, not semantics
+- Precise rules already live in
+  `Documentation/filesystems/propagate_umount.txt` (added by the
+  rewrite)
+- Standalone: patch 8/8 of Brauner’s “mount: a few gnarly fixes”; this
+  hunk does not depend on patches 1–7
+
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record:
+- Author is VFS maintainer (`FILESYSTEMS (VFS and infrastructure)` in
+  MAINTAINERS)
+- Same series includes real umount/mount bugfixes (busy propagated
+  umount, unbindable copy, etc.)
+- This patch is the docs companion, not one of those code fixes
+
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record:
+- Depends only on the rewrite already present here, and on
+  `propagate_umount.txt`, which exists at `v6.18.57`
+- Can apply standalone. No new helpers or struct changes.
+
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
+
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Record:
+- `b4 dig -c 3f5dc09141a7…` matched patch-id `0b2df883901084c2…`
+- Lore URL: https://patch.msgid.link/20260923-work-mount-
+  fixes-v1-8-f424cf8d3242@kernel.org
+- Series: v1 only (`[PATCH 8/8] docs: update the unmount propagation
+  rule`), 2026-09-23
+- Cover letter: `[PATCH 0/8] mount: a few gnarly fixes`
+- Direct replies in the saved thread are about patch 5/8 (`fs: don't
+  silently unmount busy mounts`), not this docs patch
+- No NAK, no reviewer concern, no stable nomination on 8/8 itself
+- WebFetch of lore.kernel.org returned 403; thread recovered via `b4 dig
+  -m`
+
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record (`b4 dig -w`):
+- Recipients: Christian Brauner, linux-fsdevel, Linus Torvalds,
+  Alexander Viro, Jan Kara
+- Right maintainers/lists. No extra Reviewed-by on 8/8. Brauner is both
+  author and VFS maintainer.
+
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No user/syzbot report for the docs. The body is the author’s
+observation that section 5f lagged the rewrite. Severity is
+documentation inaccuracy, not a crash.
+
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record:
+- Series of 8: unbindable copy, MOVE_MOUNT_SET_GROUP, busy propagated
+  umount, migrating-task ref, plus selftests, plus this docs update
+- 8/8 does not implement those fixes; it only restates
+  `propagate_umount()` after the 2025 rewrite
+- Self-contained
+
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record:
+- Cover letter Cc’d `stable@vger.kernel.org`
+- Patches 1/8 and 5/8 had explicit `Cc: stable` in the body; 8/8 did not
+- Direct lore.kernel.org/stable search was blocked (bot challenge). No
+  additional stable-thread evidence beyond the series headers.
+
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
+
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: None. Documentation only. Semcode tools are not available.
+
+Step 5.2: TRACE CALLERS
+Record: N/A for the diff. Documented behavior is implemented by
+`propagate_umount()` in `fs/pnode.c`, called from `fs/namespace.c`
+(`umount_tree` / `do_umount` path).
+
+Step 5.3: TRACE CALLEES
+Record: `propagate_umount()` gathers candidates, `trim_one()` /
+`trim_ancestors()` enforce the non-shifting set, `handle_locked()`
+enforces locked-mount (non-revealing) rules. That matches “unmount a
+parent if every child is also unmounted; a child that cannot be
+unmounted keeps the parent.”
+
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: Reachable from `umount(2)` / `umount2(MNT_DETACH)` on
+shared/slave mounts. Common container/namespace path. The **patch**
+itself is not on that path; it only describes it.
+
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: Detailed rules already in
+`Documentation/filesystems/propagate_umount.txt`. This change makes the
+overview consistent with that file instead of contradicting it.
+
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
+
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record:
+- Local tree: VERSION 6.18.57 (`v6.18.57-155-gcdf239ca885b2`)
+- Stale section 5f is present at
+  `v6.18.57:Documentation/filesystems/sharedsubtree.rst` (identical to
+  the candidate’s pre-image)
+- Rewrite `f0d0ba19985d` **is** in `v6.18.57`
+- So this tree’s kernel already uses the new rule, while the overview
+  still documents the old one
+- Bug introduced (as a docs mismatch) when the rewrite landed (~v6.17),
+  i.e. before this 6.18 branch
+
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: Clean apply. `diff` of `v6.18.57` vs the candidate pre-image is
+empty (both 994 lines). Context matches.
+
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record:
+- Precise notes (`propagate_umount.txt`) already here
+- Related code fix `bf2c8dec26fb7` (“fs: don't silently unmount busy
+  mounts”) is already in `v6.18.57`; that does not replace this overview
+  correction
+- No earlier equivalent rewrite of section 5f
+
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
+
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record:
+- Subsystem: VFS / mount namespace documentation
+  (`Documentation/filesystems/`)
+- Documents CORE mount/umount propagation used by containers
+- The change itself is docs, not core code
+- Criticality of the **text**: IMPORTANT for people who rely on shared-
+  subtree docs; runtime criticality: none
+
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Mount/namespace code is actively maintained (Brauner/Viro).
+`sharedsubtree.rst` itself is old and mostly formatting churn; the
+semantics gap dates to the 2025 rewrite.
+
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
+
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: Anyone reading shared-subtree unmount docs (container/namespace
+users and developers). No runtime user population is changed.
+
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record: Not a runtime trigger. The mismatch is visible whenever someone
+reads section 5f and compares it to `umount` on shared mounts with
+nested children.
+
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record:
+- Failure mode: incorrect documentation of `umount(2)` propagation
+- Userspace that trusts the old “any child blocks the receiver” rule can
+  mis-predict which mounts disappear
+- Accurate rules already exist in `propagate_umount.txt`
+- Severity: **LOW** for runtime; **MEDIUM** as a docs bug about user-
+  visible mount semantics
+
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record:
+- Benefit: overview matches this tree’s actual `propagate_umount()`;
+  avoids a documented lie about umount
+- Risk: none (14 insertions / 6 deletions, docs only)
+- Ratio: favorable — small, zero-risk correction of obsolete docs for
+  behavior that is already here
+
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
+
+Step 9.1: COMPILE THE EVIDENCE
+
+FOR:
+- Section 5f is factually wrong in this 6.18.y tree because
+  `f0d0ba19985d` is present
+- Stable exception for documentation/comment fixes applies
+- Small, contained, maintainer-authored
+- Applies cleanly to `v6.18.57`
+- Points at `propagate_umount.txt`, which already exists here
+- Zero runtime regression risk
+
+AGAINST:
+- No crash, UAF, deadlock, corruption, or security fix
+- This patch was not itself Cc’d to stable (1/8 and 5/8 were)
+- Precise behavior is already documented in `propagate_umount.txt`
+- No user report of the docs bug
+
+UNRESOLVED:
+- lore.kernel.org HTTP fetch returned 403; thread was recovered with `b4
+  dig`
+- Could not search lore.kernel.org/stable beyond a bot wall
+- No Reviewed-by on 8/8 (unverified whether silent acks existed off-
+  thread)
+
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — text matches
+   `propagate_umount()` / `propagate_umount.txt` in this tree
+2. Fixes a real bug that affects users? **PASS** — obsolete description
+   of user-visible umount semantics (not a runtime bug)
+3. Important issue (crash, security, corruption, deadlock)? **FAIL** as
+   a runtime issue; **PASS** under the documentation exception
+4. Small and contained? **PASS** — +14/−6, one rst file
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — context at `v6.18.57` is
+   identical
+
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: **Documentation fix** — correcting obsolete comments/docs. Zero
+runtime risk.
+
+Step 9.4: MAKE YOUR DECISION
+The rewrite this documents is already in 6.18.y, the overview is still
+wrong, and the patch is a tiny docs-only correction that applies
+cleanly. That is exactly the documentation exception. It should be
+backported to this tree.
+
+Verification:
+- [Phase 1] Parsed subject/tags: docs update; Link to patch 8/8 of work-
+  mount-fixes; no Fixes/Reported-by/Cc:stable on this patch
+- [Phase 1] Cover letter Cc’d stable; patches 1/8 and 5/8 had `Cc:
+  stable` in the body; 8/8 did not
+- [Phase 2] Diff: `Documentation/filesystems/sharedsubtree.rst` +14/−6;
+  section 5f only
+- [Phase 3] `git describe HEAD` / Makefile: 6.18.57
+- [Phase 3] `git merge-base --is-ancestor f0d0ba19985d v6.18.57`:
+  rewrite is in this tree
+- [Phase 3] Blame: original text Ram Pai 2005; stale vs rewrite 2025-06
+- [Phase 3] `git show
+  v6.18.57:Documentation/filesystems/sharedsubtree.rst`: old “any sub-
+  mounts” wording still present
+- [Phase 4] `b4 dig -c 3f5dc09141a7`:
+  https://patch.msgid.link/20260923-work-mount-
+  fixes-v1-8-f424cf8d3242@kernel.org
+- [Phase 4] `b4 dig -a`: v1 only, series of 8
+- [Phase 4] `b4 dig -w`: vfs maintainers + linux-fsdevel
+- [Phase 4] mbox: no NAK on 8/8; discussion was about 5/8
+- [Phase 4] WebFetch lore: 403; UNVERIFIED beyond b4 mbox
+- [Phase 5] Semcode unavailable; `propagate_umount()`/`trim_one()` in
+  `fs/pnode.c` match the new wording
+- [Phase 6] File at v6.18.57 identical to candidate pre-image (994
+  lines, empty diff) — clean apply
+- [Phase 6] `propagate_umount.txt` exists at v6.18.57
+- [Phase 7] Author is VFS maintainer in MAINTAINERS
+- [Phase 8] Failure mode: stale umount-propagation docs; severity LOW
+  runtime / docs exception
+- UNVERIFIED: stable-list discussion beyond series headers
+
+This is a small, obviously correct documentation fix for mount-namespace
+behavior that this tree already implements. Risk is zero.
+
+**YES**
+
+ Documentation/filesystems/sharedsubtree.rst | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/Documentation/filesystems/sharedsubtree.rst b/Documentation/filesystems/sharedsubtree.rst
+index 8b7dc91590837..8bae6d9a7e047 100644
+--- a/Documentation/filesystems/sharedsubtree.rst
++++ b/Documentation/filesystems/sharedsubtree.rst
+@@ -564,8 +564,8 @@ f) Unmount semantics
+    where 'A' is a mount mounted on mount 'B' at dentry 'b'.
+ 
+    If mount 'B' is shared, then all most-recently-mounted mounts at dentry
+-   'b' on mounts that receive propagation from mount 'B' and does not have
+-   sub-mounts within them are unmounted.
++   'b' on mounts that receive propagation from mount 'B' are unmounted as
++   well, if every mount below them is also unmounted.
+ 
+    Example: Let's say 'B1', 'B2', 'B3' are shared mounts that propagate to
+    each other.
+@@ -584,10 +584,18 @@ f) Unmount semantics
+ 
+    So all 'C1', 'C2' and 'C3' should be unmounted.
+ 
+-   If any of 'C2' or 'C3' has some child mounts, then that mount is not
+-   unmounted, but all other mounts are unmounted. However if 'C1' is told
+-   to be unmounted and 'C1' has some sub-mounts, the umount operation is
+-   failed entirely.
++   If any of 'C2' or 'C3' has a child mount that cannot be unmounted
++   then that mount is not unmounted. But all other mounts are unmounted.
++   A child mount that is itself unmounted by the same unmount
++   propagation does not keep its parent mounted. However if 'C1' is
++   supposed to be unmounted and 'C1' has some sub-mounts, the unmount
++   fails.
++
++   A lazy umount (MNT_DETACH) takes a whole tree. Every mount of the
++   tree then propagates its unmount from its own parent as described
++   above, so the mounts that receive propagation lose the corresponding
++   trees as well. Documentation/filesystems/propagate_umount.txt has the
++   precise rules, including the ones for locked mounts.
+ 
+ g) Clone Namespace
+ 
+-- 
+2.53.0
+
