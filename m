@@ -1,170 +1,77 @@
-Received: from bee.birch.relay.mailchannels.net (bee.birch.relay.mailchannels.net [23.83.209.14])
+Received: from out28-193.mail.aliyun.com (out28-193.mail.aliyun.com [115.124.28.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B53DEECB
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.209.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B447353A95;
+	Mon, 19 Oct 2026 01:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792374791; cv=none; b=evfgEJEA5tZqaIfMU0RxIXI0yuyJMVIRjkKNH2zP1ec3BFlRQKIMAYhbr6ozKww9cczxzW9tjHVb6nAJBejukIDmlFygmrFOluiRmH3amzvmrqDKgcPj0bIy2Zu+RqtIEELJllXoY3Rt0P9lUR2TczThAvKwPMWZR1nvh064aho=
+	t=1792374866; cv=none; b=P2Hb7dr6RyggQbsHqHE0zAyWsQmJ97JGALFcW616qMMcYsxhKJUGMi10FzGG8l+vb9cq42Dt8P1lm6QObQrS/eIuaukmiocWJbJCn1ytuy38y+CzzMxCdVrHgo+bkr1MY8MCV5WRfN+D2W43aRpbYJMc3Mt4ZebkFC389zDzxdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792374791; c=relaxed/simple;
-	bh=J1xRBo8oWJWQh/bE8A9/RXL9xSzWaVfZb5GiXxnIUXo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dmPJRY2IU5pD5dkGMNBu5lurisw4NU3Qu5aHNIb/p4FrE6lsWj49y19cor3fe1ZL9V52gLYsR6otmLcl1Ce0ZVWXt/zupUgGUzFQC2yC6hcpuxztKIpbR34tufLO4bayFA48WeCfFcCe17WRBVuLDoJlM0SkKmPR0JN6eHYxIj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net; spf=fail smtp.mailfrom=stgolabs.net; dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b=p8rGh+pu; arc=none smtp.client-ip=23.83.209.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stgolabs.net header.i=@stgolabs.net header.b="p8rGh+pu"
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 92563461F9B;
-	Mon, 19 Oct 2026 01:35:06 +0000 (UTC)
-Received: from pdx1-sub0-mail-a217.dreamhost.com (100-96-7-166.trex-nlb.outbound.svc.cluster.local [100.96.7.166])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 2BFA2461E98;
-	Mon, 19 Oct 2026 01:35:02 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Exultant-Well-Made: 527d0515463621f7_1792373706455_3594791401
-X-MC-Loop-Signature: 1792373706455:4251318137
-X-MC-Ingress-Time: 1792373706455
-Received: from pdx1-sub0-mail-a217.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.96.7.166 (trex/8.0.2);
-	Mon, 19 Oct 2026 01:35:06 +0000
-Received: from offworld.tailf5af7a.ts.net (unknown [76.167.199.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a217.dreamhost.com (Postfix) with ESMTPSA id 4j7J513j12zPK;
-	Sun, 18 Oct 2026 18:35:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1792373702;
-	bh=1yFSlPhXf+ABAGiQCmcQHVBU3wg4SKS/vtsXYTbxkJE=;
-	h=From:To:Cc:Subject:Date:Content-Transfer-Encoding;
-	b=p8rGh+puOj8/luOGdZJjR++9KIJadf4MK26ALO0jhZOEwt0zzqrzHJIBfKzO95jEM
-	 YY7gco2uGnQWvR2j2NKebHdjhFim4jherr9SHPoCGlBe8DnrndQVnI8td8uUmxjb+/
-	 zDNHOI8QH37XhQcB16VP/+ZhJUM8ZN/alt1KdV4RA4OATM285mqrUhVTEV+iJMjGOH
-	 hMzhOt0jPQM+Y8VP/cooBS0LjsrgYnmv14hOHR6d5WNJjigqEzHSzMSTjwRrsEkE27
-	 LVtCIN48O1H/O7aC7SSwlbKUz7hKgguDFYGY8wnlQ9eIdHJ5QVNhYJRgCye5LJ5bFT
-	 oT4xLZMDlmI+w==
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu
-Cc: alex@ghiti.fr,
-	parri.andrea@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	dave@stgolabs.net
-Subject: [PATCH] riscv: Avoid smp_mb__after_spinlock() fences on non-SMP
-Date: Sun, 18 Oct 2026 18:34:56 -0700
-Message-Id: <20261019013456.1898839-1-dave@stgolabs.net>
-X-Mailer: git-send-email 2.39.5
+	s=arc-20240116; t=1792374866; c=relaxed/simple;
+	bh=8vjHJeYZsJVSDI+E8mHJdGuyJxa8mzSi7S72x5z3vgw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xce01tIyyeGh7whUbBy+qm9XqOp1U/NCgEwAGLGvMkDemtZ4yvJmih1l12D9rLnb7JNxsv9218vZDLKzTgBG1ORGJzUTX6L+XINyTLHD+N0lOLbmY1Pio4v8KBh5KlaU5GhABzL679kzaUA9bZNNQhExLcJhsVO5WL8so5j0E2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1033654|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_enroll_verification|0.0289942-0.0041458-0.96686;FP=5558288521628470933|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jjc-LXz_1792374847;
+Received: from 172.18.24.170(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.jjc-LXz_1792374847 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 19 Oct 2026 09:54:10 +0800
+Message-ID: <ee5dbd51-0318-431d-a7b3-31a6859b1331@open-hieco.net>
+Date: Mon, 19 Oct 2026 09:54:07 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/7] x86/hygon: Add Family 0x18 DF node enumeration
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: Borislav Petkov <bp@alien8.de>,
+ Mario Limonciello <mario.limonciello@amd.com>, Pu Wen <puwen@hygon.cn>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Tony Luck <tony.luck@intel.com>, x86@kernel.org, linux-edac@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261009090111.151878-1-wanglin@open-hieco.net>
+ <20261009090111.151878-2-wanglin@open-hieco.net>
+ <20261017145226.GA359037@yaz-khff2.amd.com>
+Content-Language: en-US
+From: Lin Wang <wanglin@open-hieco.net>
+In-Reply-To: <20261017145226.GA359037@yaz-khff2.amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-smp_mb__after_spinlock() is defined in asm/barrier.h, which
-linux/spinlock.h includes unconditionally, so non-SMP kernels get
-RISCV_FENCE(iorw, iorw) as well and emit a full fence.
+Hi Yazen,
 
-The other architectures that override it, arm64, csky, powerpc and
-xtensa, define it in asm/spinlock.h, which linux/spinlock.h only
-includes for CONFIG_SMP, so their non-SMP builds get the generic
-kcsan_mb() fallback. Move the riscv definition, the SMP fence is
-unchanged.
+On 10/17/2026 10:52 PM, Yazen Ghannam wrote:
+>> +EXPORT_SYMBOL_GPL(hygon_pci_dev_to_df_node);
+>> +
+> These exported functions don't have any callers in this set.
+> 
+> This issue was mentioned in the last revision for a different function.
+> But the guidance should be followed in general.
 
-Signed-off-by: Davidlohr Bueso <dave@stgolabs.net>
----
- arch/riscv/include/asm/barrier.h  | 27 ---------------------------
- arch/riscv/include/asm/spinlock.h | 27 +++++++++++++++++++++++++++
- 2 files changed, 27 insertions(+), 27 deletions(-)
+I'll keep the node helpers local and remove their public declarations,
+stubs and exports until they have in-tree users.
 
-diff --git a/arch/riscv/include/asm/barrier.h b/arch/riscv/include/asm/barrier.h
-index 700ba3f922cb..2284473844d8 100644
---- a/arch/riscv/include/asm/barrier.h
-+++ b/arch/riscv/include/asm/barrier.h
-@@ -24,33 +24,6 @@
- #define __smp_rmb()	RISCV_FENCE(r, r)
- #define __smp_wmb()	RISCV_FENCE(w, w)
- 
--/*
-- * This is a very specific barrier: it's currently only used in two places in
-- * the kernel, both in the scheduler.  See include/linux/spinlock.h for the two
-- * orderings it guarantees, but the "critical section is RCsc" guarantee
-- * mandates a barrier on RISC-V.  The sequence looks like:
-- *
-- *    lr.aq lock
-- *    sc    lock <= LOCKED
-- *    smp_mb__after_spinlock()
-- *    // critical section
-- *    lr    lock
-- *    sc.rl lock <= UNLOCKED
-- *
-- * The AQ/RL pair provides a RCpc critical section, but there's not really any
-- * way we can take advantage of that here because the ordering is only enforced
-- * on that one lock.  Thus, we're just doing a full fence.
-- *
-- * Since we allow writeX to be called from preemptive regions we need at least
-- * an "o" in the predecessor set to ensure device writes are visible before the
-- * task is marked as available for scheduling on a new hart.  While I don't see
-- * any concrete reason we need a full IO fence, it seems safer to just upgrade
-- * this in order to avoid any IO crossing a scheduling boundary.  In both
-- * instances the scheduler pairs this with an mb(), so nothing is necessary on
-- * the new hart.
-- */
--#define smp_mb__after_spinlock()	RISCV_FENCE(iorw, iorw)
--
- #define __smp_store_release(p, v)					\
- do {									\
- 	compiletime_assert_atomic_type(*p);				\
-diff --git a/arch/riscv/include/asm/spinlock.h b/arch/riscv/include/asm/spinlock.h
-index 52f11bfd0079..54bd8db8eb4f 100644
---- a/arch/riscv/include/asm/spinlock.h
-+++ b/arch/riscv/include/asm/spinlock.h
-@@ -3,6 +3,33 @@
- #ifndef __ASM_RISCV_SPINLOCK_H
- #define __ASM_RISCV_SPINLOCK_H
- 
-+#include <asm/fence.h>
-+
-+/*
-+ * This is a very specific barrier.  See include/linux/spinlock.h for the two
-+ * orderings it guarantees, but the "critical section is RCsc" guarantee
-+ * mandates a barrier on RISC-V.  The sequence looks like:
-+ *
-+ *    lr.aq lock
-+ *    sc    lock <= LOCKED
-+ *    smp_mb__after_spinlock()
-+ *    // critical section
-+ *    lr    lock
-+ *    sc.rl lock <= UNLOCKED
-+ *
-+ * The AQ/RL pair provides a RCpc critical section, but there's not really any
-+ * way we can take advantage of that here because the ordering is only enforced
-+ * on that one lock.  Thus, we're just doing a full fence.
-+ *
-+ * Since we allow writeX to be called from preemptive regions we need at least
-+ * an "o" in the predecessor set to ensure device writes are visible before the
-+ * task is marked as available for scheduling on a new hart.  While I don't see
-+ * any concrete reason we need a full IO fence, it seems safer to just upgrade
-+ * this in order to avoid any IO crossing a scheduling boundary.  The
-+ * scheduler pairs this with an mb(), so nothing is necessary on the new hart.
-+ */
-+#define smp_mb__after_spinlock()	RISCV_FENCE(iorw, iorw)
-+
- #ifdef CONFIG_QUEUED_SPINLOCKS
- #define _Q_PENDING_LOOPS	(1 << 9)
- #endif
--- 
-2.39.5
+>> +		return ret;
+>> +	}
+>> +
+> Have you considered cases where the cache build fails but that are
+> expected?
+> 
+> We've had similar issues recently like this related to virtualization.
+> 
+> In summary: this failure is a true issue on bare metal, so the user
+> should be warned. But the failure is expected within a guest VM.
 
+Agreed. I'll avoid warning when a guest does not expose DF devices,
+while keeping the warning for failures on bare metal. The error
+returns and cleanup will remain unchanged.
+
+Thanks for the review.
+
+Lin
