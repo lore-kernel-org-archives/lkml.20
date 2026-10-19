@@ -1,88 +1,82 @@
-Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937F4483BF3
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC55489885
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394995; cv=none; b=f9xZgmqM3xtXnMZXKYnPADlgb6LieVU0FWyI2PKPrYoKE5WrCaPLa7fOtHeNpwDBfNIx5FAIQFZclmIj4vcKf4L9Kk4oVfIy7MIAfMbEoLrfY1DcPQwLI1F74ItfOJULIAzB/nT4yfhDEW5tzUZ+JBmvcHBGh7voD6gYBlS6v4I=
+	t=1792395011; cv=none; b=lllddXdMU4vEeYzHNtB1fYQlnegjqUiOFy/PejVmgaggb3jVelDpG3sbK3tsM1ocYrj8YmDotWQyAmauOt7aTaqjeA8Z+ZZpnGufJp9PSsw1nzfmuRH5jVqKtQUyfmIANSqY5Gi1B9THrcnjJ19Y76bEeMb2XyV3GFSXtJGzNW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394995; c=relaxed/simple;
-	bh=TUk/f2h5dUmQhXAbNJFZQPS1I9HpuENXc/lJ6dCxZEQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sImz+Xft30kFcgD+kGO2iYp8h/9ClxWqHhZCDIF+RfHn0jOYwteXZz/Rsa/NmbxZ1KDKsuFBkisxVCba5qjXWAsM7aGi8hJH7nPyDlXkEATORXpZCVRwS0EUYTDkMqNyHQzf5m8i6zA3Sgc/AX+vCgFXPzTNrYVddOMJhd2RQek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fovdQcVt; arc=none smtp.client-ip=74.125.230.71
+	s=arc-20240116; t=1792395011; c=relaxed/simple;
+	bh=KSLxsLECDBlglJ5ok09mHe2q8VxULP0ESynDUsj7NjM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ibnmq8V02kVj+EfP4kB/JFRW+/H/D7OC5csLQr7W9chz8CqXijC6wBnGNnk+dt+HXddGkBKuBSsCD6caBM4flIKOsHCewjGInlTvZnFvHjRCLCs2ai6ABxyCN67ETWxZDvm1rbvNRNikYde8UP/qCfsF5qiCdrwssOW2JvWaYio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YEuLeHx+; arc=none smtp.client-ip=74.125.82.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fovdQcVt"
-Received: by mail-lr2-f7.google.com with SMTP id 38308e7fff4ca-3a5d1645d85so17148931fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:29:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YEuLeHx+"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-16079d54c17so4274942c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:30:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792394992; x=1792999792; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NmCIEe5EaGzU2U41ZTSvmQME4aOaTYAEh4vnVX7+bKI=;
-        b=fovdQcVtvAmL1ZU+/wl5jZSiyUww8uufahjFR0K21SE2qem6T/FF182URjJ1kQT7Hq
-         vD0tAv6c5GFVKwk79zK8lX9AgaxYrPcUP2j9PoEy99/10TJFREqXAcGdsdCm04KT8ePT
-         n9RbRG7d6wAhDrb2EXoQZzFc/wBsJKeDbH6Kp3V3JiVeJrTwLS/nOi8bba5JfPvjhAPR
-         JNA0TaAQbV+1wcAwpG5Ggnjk1PY0vpYGDHfe+7tQahVxKtC0nn+8DPaZ7dYK7emv7GjZ
-         UL8A1VYNudJsbzraMyR6I7/yvTzUp+hsmyRbqq1uWCRvlAGzOBIXyqjIK71QISxS6dSG
-         8Yeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792394992; x=1792999792;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792395008; x=1792999808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NmCIEe5EaGzU2U41ZTSvmQME4aOaTYAEh4vnVX7+bKI=;
-        b=tsOor1S7k25zelPFaCK28AEJx09CbiJExfnIUwjkzRkCMVe4Gh/W+c2iTwJ/Wq1PTY
-         eapnUn2Bhuzm2ZVH4e2VsycTVPRByTf096/HpdQai0zmAeBL4HXqv+CUuunstcB0ng7x
-         VbOGboyQT0JVWz7W3odc4voaIHqw+YBCDfSJILwtW0l6cZwI3ff7YzEDSLfuTXo3c2sg
-         tHmad0ph6pKrd7oNfUQDL58OWkCx+02gEdvMx6KrzY9+kNiVQvt4SfL5s7JwDJQWU2ZU
-         dDZfPwZy724bX/dbKA/fbfvGv6kmV8y3379bTYpFxIBEmO9ZkjLiMoG8DRwE17RODw6D
-         lJEg==
-X-Forwarded-Encrypted: i=1; AKwUvBx7zEk5sS40w3ZhRc6GbI33fvpX9XIZPkrj6ysmD52FkgJpww1xuVZCsk9Ss2IykuqHpr+jVKR51KHDwhg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTesZUfuijNrKmUzg8P7J76hVL1iIwAG0DpB4w9zPEd5DHnVJg
-	uVLtAq4DtEQijlF89PDHr0x5k7DANzkciyrw91kYDsVTrfCVKSRPjfgG
-X-Gm-Gg: AYBFou0BceF8YDcf7Ao6iW5mM1cF/whF+lsSE7hiaVeT8l0njF31E3BonFEgWjhgEkp
-	x+Amc5ZzFIIFniu+fJI1l6Ojh1vB8KsSRjy0EgQ3InIdqsYDksjNeKglNvF2pbr/LTyvjokZCsT
-	M2kYzWV4ZC9ylqIx/1KobDQTunYC0yQGV86ASKSoZwHE8VCf9r+CEbc0NCHihwDPU3h7npdN5n0
-	GWUJMPTbTzGD+KXRWKhmMmybFI5tr09LmOH3MqcUWn/fm2ngYv/TegK4M1R28+Ak/R+8uD43YXe
-	AaUxEhfr9cdo/mXwKYAcEBc7wXlSN3jKNeS2SsJNuuxVnVxmq+e62x7zGGyECVgUT7kirycfZFU
-	1qsUuQ7tv/f8BNj3oB+X8jygb5nOB/C+wic8dTvn18hGbxMsVEK20U9CC+tllzQ/at4S1nDQ2+J
-	Ixzsro1fRYleLim+4jIiTiFhtSOA/2DqCYA7+FC3P4J2mLEYYeXVAZMvqZCNNc3V0EacoPn/97w
-	HMZT9J9IsFSnrM5
-X-Received: by 2002:a05:651c:324b:b0:3a3:3170:5420 with SMTP id 38308e7fff4ca-3ab28f5a366mr14469931fa.3.1792394991368;
-        Mon, 19 Oct 2026 00:29:51 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ab3afed52fsm8290511fa.8.2026.10.19.00.29.50
+        bh=W7q+tRZEp7x1zsFqvPs4W277M15/fE06QNYP4aD/T7c=;
+        b=YEuLeHx+oIDYF0/1zs0ioFged4Rid3sTaRson+OVR/O/l3fgz5++mImkgtx4AfMjfR
+         SypSb3MxBgv5LzQzRRRicI9LNbRYNloaMkt0jSsddSk+SPG7yUNCj84xwoEredJaJwhd
+         xBhJ+9fxyT7iO8Sgq7v57XxlnXB64E7LHtxBO2IRczqUkoJCM4HaQZgSu+tidQDz6Wzk
+         rUB5pK8SIRpVMem2bX2hXiSOmK08baUt02nCvRgQyGGsNEt1JS3l7WHh8dmtmgjNnrG9
+         opf0F466B7ahWHi4VMDqCZHlRLLmTyd/CSAFK400Q6ixNxmZlCFCxG6iVcGsXyScxpSh
+         ABjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792395008; x=1792999808;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W7q+tRZEp7x1zsFqvPs4W277M15/fE06QNYP4aD/T7c=;
+        b=dQ7chPGwUVjBAuEuQ5TuoqSbiK5fq8ZYgzHFgBy4l6Ozes8cG++/Gb7XKo6pvvLnZ0
+         746GrppJAs9wOsPDsy064JBTh9CZo+v1NUkfezvbCPNJ6s2PfYt580CCAl6v2oIMhfW5
+         FUojzYo2VrBseaKes7dkvQSa24n6kni0kNfnuDqjKjZ/ukdcY2JZB2D4Xt7Ph691ntut
+         qi2+mYgJMPSIZt/WQaHp1t6GpGy2T1CDxwahq5+SSiSLLN+iJq8f7CQurroxpezeC+g8
+         ub0zFqowLu3vjWzSE1OfIFo2VLcu1ukb5onXLC9UwXUFNXSGBw1zFFi719QJwEitaFAV
+         p0FA==
+X-Forwarded-Encrypted: i=1; AKwUvBzPciJEZrlKDe1C1n6hG461M129nro09OGt/WSY7zIh1c7XwvhZ6HvQ9XqUkd0BtuGqr9L8ysFV1fozzJ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKf6qW5GW/KGGbOBgts/8eHUlmNSayYOgSfeNec8I4lknkXgrTo
+	aBufFSgsTI5RWGse2sted5MgyN6u5PJ3/0+g16P69kPDH5wAoeOei58g
+X-Gm-Gg: AYBFou3lT0uChMq/MTfwZoT8+Bm1URzwQ/AenbxpUzvgNBipHcRLjdDD0XwkEe+pUK/
+	704qtEFW3VA/uvT4oGi9cOXEWnx+vE+GkJanYEzcsGdEfO/8oc/1jpkHBk6nY27GcJS5Z7O4gv9
+	8sdJx/oPK1O0kAkWP+ZcQfEcOcYR3dwkUeK8Izv6ZawZhyvbavyeG6TWT3ggbmoh5YUIUtmLfFE
+	ZWVASG4OYsEVUsMabiA01y2Cs5TgcvJdCtMZbMCnQbPR6SZT4zpwNG3BEJjiqcUSP1tCZJKVxRw
+	iS2X9A0Nn+naLuTfY9mMhu8KFL9NEfwQWPz5BJbSjWs5zmgjV4hpSEGuYYJnizsGO/KhlwWr6X0
+	ezOI8R8l4PtqnBQPPEd3PTS7VqJg+U93Q7Fm7nff11+PqjG6SudSYrPnleC7+QcKmYBfFbhtUFW
+	8LO89n+jX5zOQFykHUz0tR6QQXT3i4t/GEeR1ph4X1s/WodptCiav+5pewalx+H9d4Os2SbclmG
+	Lm+29nbT4ckB+j9eekvwXNtBtFex9JqqMnoBTTPY1zJ8jmETUAMSdtIWgLBOJe79oetwDzKSP1d
+	kvHfmw==
+X-Received: by 2002:a05:701a:ca05:b0:17e:6de6:6a1a with SMTP id a92af1059eb24-18511ad9debmr11070852c88.8.1792395007422;
+        Mon, 19 Oct 2026 00:30:07 -0700 (PDT)
+Received: from codespaces-393231.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net ([4.240.39.204])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831b75be5esm35134155c88.16.2026.10.19.00.30.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 00:29:51 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dillon Varone <dillon.varone@amd.com>,
-	Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
-	James Lin <pinglei.lin@amd.com>,
-	Austin Zheng <austin.zheng@amd.com>,
-	Bhuvanachandra Pinninti <BhuvanaChandra.Pinninti@amd.com>,
-	Kees Cook <kees@kernel.org>,
-	Wenjing Liu <wenjing.liu@amd.com>,
-	Alvin Lee <alvin.lee2@amd.com>,
-	Fangzhi Zuo <Jerry.Zuo@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+        Mon, 19 Oct 2026 00:30:06 -0700 (PDT)
+From: Eklavya Singh <eklavyasingh2106@gmail.com>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Heming Zhao <heming.zhao@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH] drm/amd/display: Fix NULL deref in dcn401_update_clocks_update_dtb_dto
-Date: Mon, 19 Oct 2026 10:29:37 +0300
-Message-ID: <20261019072938.10074-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Eklavya Singh <eklavyasingh2106@gmail.com>,
+	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
+Date: Mon, 19 Oct 2026 07:29:35 +0000
+Message-ID: <20261019072936.2279-1-eklavyasingh2106@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
+References: <20261018163121.128911-1-eklavyasingh2106@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,38 +85,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[Why]
-resource_get_otg_master_for_stream() can return NULL if no OTG master pipe
-is found for a given stream. The current code dereferences this pointer
-without a NULL check. This may lead to a possible NULL pointer
-dereference.
+o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
+is already started, but nothing stops two writers from doing that at
+the same time. configfs only serializes writes through the same open
+file, so two processes that each open the dev attribute can both get
+past the check:
 
-[How]
-Add an explicit NULL check and skip the stream if the OTG master is not
-found. This is similar to dcn60_update_clocks_update_dtb_dto().
+  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
+  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
+  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
+  B: start fails, fput(NULL)
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
+so the error paths can free the slot data twice.
 
-Fixes: b6d508533fa1 ("drm/amd/display: fix a crash when clock source is reference for non otg master pipe")
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+syzbot hit the fput(NULL) with an unbound loop device, where every
+start fails with -EIO. With four threads doing the same thing on a
+KASAN kernel I get both crashes within a second:
+
+  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
+  BUG: kernel NULL pointer dereference, address: 0000000000000158
+
+Add a mutex to the region and hold it in dev_store(), in the
+block_bytes, start_block and blocks stores, and in dev_show(), since
+they all look at hr_bdev_file. dev_store() cleans up with goto, so it
+takes the mutex in a small wrapper rather than with guard(). It sleeps
+with the mutex held while it waits for the heartbeat thread. That is
+fine because neither the thread nor the teardown paths take it.
+
+With the patch the same test ran for 10 minutes with lockdep on and
+nothing was reported.
+
+Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Reported-by: syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+Cc: stable@vger.kernel.org
+Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c | 3 +++
- 1 file changed, 3 insertions(+)
+v2: take the mutex in a wrapper around dev_store() instead of with
+guard(), since dev_store() uses goto for its cleanup. No other changes.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
-index 6ee3da89d058..135eeef68ac4 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
-@@ -538,6 +538,9 @@ static void dcn401_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr
- 		otg_master = resource_get_otg_master_for_stream(
- 				&context->res_ctx, context->streams[i]);
- 		ASSERT(otg_master);
-+		if (!otg_master)
-+			continue;
+v1: https://lore.kernel.org/all/20261018163121.128911-1-eklavyasingh2106@gmail.com/
+
+ fs/ocfs2/cluster/heartbeat.c | 32 ++++++++++++++++++++++++++------
+ 1 file changed, 26 insertions(+), 6 deletions(-)
+
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 1c3def99bb0..003c398366e 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -269,6 +269,8 @@ struct o2hb_region {
+ 	struct list_head	hr_handler_list;
+ 	/* Serializes timeout arming against failed-start and teardown. */
+ 	struct mutex		hr_arming_mutex;
++	/* Serializes the region's configfs attributes against dev_store(). */
++	struct mutex		hr_dev_mutex;
+ 	bool			hr_stopping;
+ 
+ 	/* last hb status, 0 for success, other value for error. */
+@@ -1676,6 +1678,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
+ 	unsigned long block_bytes;
+ 	unsigned int block_bits;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1705,6 +1708,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
+ 	char *p = (char *)page;
+ 	ssize_t ret;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1731,6 +1735,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 	char *p = (char *)page;
+ 	int ret;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1748,10 +1753,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 
+ static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
+ {
++	struct o2hb_region *reg = to_o2hb_region(item);
+ 	unsigned int ret = 0;
+ 
+-	if (to_o2hb_region(item)->hr_bdev_file)
+-		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
++	guard(mutex)(&reg->hr_dev_mutex);
++	if (reg->hr_bdev_file)
++		ret = sprintf(page, "%pg\n", reg_bdev(reg));
+ 
+ 	return ret;
+ }
+@@ -1867,11 +1874,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
+  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
+  * nothing
+  */
+-static ssize_t o2hb_region_dev_store(struct config_item *item,
+-				     const char *page,
+-				     size_t count)
++static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
++				       const char *page, size_t count)
+ {
+-	struct o2hb_region *reg = to_o2hb_region(item);
+ 	struct task_struct *hb_task;
+ 	long fd;
+ 	int sectsize;
+@@ -2032,6 +2037,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	return ret;
+ }
+ 
++static ssize_t o2hb_region_dev_store(struct config_item *item,
++				     const char *page,
++				     size_t count)
++{
++	struct o2hb_region *reg = to_o2hb_region(item);
++	ssize_t ret;
 +
- 		ASSERT(otg_master->clock_source);
- 		ASSERT(otg_master->clock_source->funcs->program_pix_clk);
- 		ASSERT(otg_master->stream_res.pix_clk_params.controller_id >= CONTROLLER_ID_D0);
++	mutex_lock(&reg->hr_dev_mutex);
++	ret = __o2hb_region_dev_store(reg, page, count);
++	mutex_unlock(&reg->hr_dev_mutex);
++
++	return ret;
++}
++
+ static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
+ {
+ 	struct o2hb_region *reg = to_o2hb_region(item);
+@@ -2156,6 +2175,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 	reg->hr_key = crc32_le(reg->hr_region_num + O2NM_MAX_REGIONS,
+ 		name, strlen(name));
+ 	mutex_init(&reg->hr_arming_mutex);
++	mutex_init(&reg->hr_dev_mutex);
+ 	reg->hr_stopping = true;
+ 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+ 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
 -- 
-2.53.0
+2.55.0
 
