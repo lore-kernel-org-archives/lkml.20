@@ -1,95 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792439967;
-	b=Q52b+S2L7rCOnnn9wgcDHkPdT0WoGfJpQ5sMIDRqPCB7ost8LbWHLGi6pXFap1z/FK0I
-	 SjA4FpoRyDS1ulavH9KncaAoZIK/IHG5m5UQu2zqDvjkhzJLatYBBlxXRH1ZKwOUW2P5H
-	 gAGDCt7dpU8F7f3PD1JJGxZqmRUHSKGI3r7qHEuS1++uDYIysLMx4VMCPCOQGo7Gp1nBc
-	 jCyz/Su1Cat40KL1iWPv1fIvHqQddOGY0fnmEZAw/pyZWXh+Cn6aZhUD4NPUW2OE6+8yf
-	 rw6pUjhWQWQkknP3rBGSlViPfqOC/AmbZylgX1l213M3a92UqT3JfXJQ1eGg16ygzIQ==
+	t=1792440033;
+	b=ixs9Su7vad2PqOtPIom2zul8/quFGo7bojsR4lHYhXE49gjobxnEMLdDKbPVaZAKLpUq
+	 rnEadXsKGeIB8CGBk8Eo+QMBdu+6iN5z3EUSx2AC5irQTxdsdpjJepGO2fyTB68a/YSvb
+	 hCZLgWGD6CxzQypaUhJ2Takp26y/qjWdX6jDGBm0HORnY2vWvfyWszwy0yBRY8jh85pDS
+	 V+Cqlm2gjQfftJnj2F9yNcWtGzz03Vg6n2ayp9iUQ+MefXaXSY1unjdjbJf4f+97Hi7MY
+	 sOVED+9Koe1UCc7GKzb4Y2jJV0uSDYzKE4dKyzCHlIb7z7kvjkjS7g2OOLu5c2QS5iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792439967;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792440033;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dTBafA1HBU6e1TqYuvQux9YV24HUZp1NWVg5MWo+jd8=;
-	b=lmlKys8r7MuKPJLvvLKlX5edaFiBDTAYmvSjJjkeDaddcDQyuc2PUTnBJIEihr1PlR+8
-	 r+3wkn3bnMSq0A6cUVVLTcgm28FbL2w2T9259bRrQekUiPX5oGAJJ+EEY7oxPbmcBMI+E
-	 +SfXj8qUX0Tdv6M8ntAQMb3DQeCymP+retN2quQPIL1eQpsAABhDCvAj+sjxzMCN8B4oT
-	 eqN53pc2L871kvn7HibKcaNEjL7qsb59FxqFv+rC0dMtli59jqYD27T7DZS6r1mf0mNum
-	 q4L0ol8+vyez1/vuscc0vrM3bFAMfjOuHkw9H+ozprHXg0sjaMzAlFf+EwYbJnZcsjw==
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=SAJLNdbLDS8yWOmrPFOnw0Q3UOenAvsVBK6o5nZWKOY=;
+	b=AXr55F9H2bswyX/V1kYW3gGrEMDmTHrf3kvZ/Cax6bubryF4SGGQWXCUvtoFtAcItx5U
+	 pewm8B8LtwUV0t7iIYm9gd46p1EM4MT7NTxpCJhtuqtzADCW6rpL/7vZYmkW3IjEc78CV
+	 UcxPWyeP5XmHl+yLztfqaggTzYIdem8BQOWp+fxqcx5NFtQDsz/9EMRSODP/4bB6l73PG
+	 HSvQ+NHCOSENT5HQai4TpLoloqjWFrbxGAJ8hcwNoTHMB3nttvLI9RHf5t0kgl0uF/tYy
+	 tSVXuHQpBz9avzDsrVf1DhroGUWiRkO7jAxlQTQl56qJgaxbWxL1nY4ALGVPIt29wwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YfEkR3lZ;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RSrgOWeQ;
+	arc=none smtp.remote-ip=74.125.82.72
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22565606A31D
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 19:59:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22565606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64178606A324
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 20:00:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64178606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--abhishekbapat.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YfEkR3lZ
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e04773687so664836f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:59:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RSrgOWeQ
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1383723dfddso4809830c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 13:00:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792439965; x=1793044765; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792440031; x=1793044831; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dTBafA1HBU6e1TqYuvQux9YV24HUZp1NWVg5MWo+jd8=;
-        b=YfEkR3lZ8U3Gllaj+ZiNbnRUyAKxNyhzqduUGbPQAH37lJcQId1iTnGRtbudgCuNnV
-         FIC5HPiV5zE87N0ctGaKlqfaoe++UhyLF7TwDHZhn8rBzn2jtO0U/SzcCEd/JtvGQhKn
-         Cd+3gsrA3O54n0pQSOjn3EAtMRJxlHedIfCbv5Lj7DZY+vU+1Xhy12JAJO8x2kgOfISf
-         S0qb06JX5/xlBwdqz1Ut382V+gVFeySubvQtXAjn+/YYm1YvzD3tDRJrynx/2vawrCcf
-         Cl57k5Lq5D3N1iZN8MAdJqKHKZs5ZlSNzOSYP+QBXvuKP3TTwQCq9+FwM2CBXBIbmPhp
-         PSbQ==
+        bh=SAJLNdbLDS8yWOmrPFOnw0Q3UOenAvsVBK6o5nZWKOY=;
+        b=RSrgOWeQZxkUbq6RcvLzYGaggscw7c8st0DUxSHMUCdu8M+MigYSg0OIf0mlA4K/wu
+         d6Nrd5hHuJySMxcZf1OtdepG/uqOCCxojY/b76yd/NnCnUDgiAOYoXYc9nrIl8M/xn9D
+         CJhUJxBRyoGev0N9LvdpIa6+8GTA+nqqkzVBcf42/Cdfy0SHJ1QQxLeu9fSIr+n2Y2Vu
+         +vfHv4WS6aXsF0vDfWJwm7tm78uWEv8qz2yXkLuVr0xyqBtS+USWieAgn/5rtzdPfSsu
+         YzllzUnVNAxDkXE5KrhX2DAvo8yRR3jsWDNJMSh7SlSPT4jHXkbrgCqLHN+qdAplUvq1
+         7cGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792439965; x=1793044765;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dTBafA1HBU6e1TqYuvQux9YV24HUZp1NWVg5MWo+jd8=;
-        b=1hvA0cV5nwxeV4M4BfCh8WQ8gttORKp6to2eZ9wQCM+kf4nBWl2PZkzCN9K9dqljSz
-         nQTGcoStI8MTSUwc6hN87NWz0FVt1PMGyfIeC2x/O2gN2GkFAYRdxmtg0O4TbVtbWoD/
-         qJYTJmBKoCKZ1/qLP2YqD3r61wg0L3yXYceqhXrSwmZqK81g7Z5nwpFNWcNK2C94BQOt
-         2BdNU0NER8HPzcPpj58mGoCl8dXWdhamWkMjjrRIcidFTyChPAh8CvMtFgRfIVwPMtbX
-         yKgdR+U41OEJcysWHZyRaS9q5s4vRTqcR6wkXV2EIJQNj+j6nX5Ag7Mwd5DwowDtlhsE
-         pejQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzEapN3o5wHxMPcOvXAmktVbJr8+hIbVI6XY3nT+bIQlYuxQuBF8W/cnfIwq5jCBWADT4UBK++4I5Mrymo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKw7npAPGYchaZDY0CNvSXNeW7cg8eT2qIN82Nhjk0J771jAqyb
-	LeUyeCpY9d1IYA6y7y3aTUBTLZcB1vmU9TR/bLk4uHnqXhDMYH67P3ui
-X-Gm-Gg: AYBFou1i000H6ex+9Rp4kgFFytDBlcsHf0kDRQzAdTnZLISur/lBi4CB/r+ih5v/9I6
-	HCUeIMmfmG5q9qv8HBgj1D3Vv/SaNBCT93M9DSFmjslZQjQZebSUJcWPA+qeLFgWeclYRcT/dnK
-	ZtGfufchQIIV3xgk2+jCRjh+EkGQJpfGKq+9pYKVkxkFgVhoALfjmdNg5XarGleiPk1dF5OM2Fc
-	7iX+ya5SRcQ+XzlICuk+g39UiWrszbAGqRO5Wi0RB2Q5zO3nbI7ZFqZsfSSIG5LwCvU5w9nzf3h
-	6tFAXNHJ+e0l5W7251iJtnxIrSR6Lv+Kupbx/LZsRD6yCmb1dA9kG3XZJUNDrxd5yWgcxsdMRgd
-	/9a8D2KwRWkmiPDds8cZ46jgGWgQOebXO+Gkf7lcvsZ44Ens0shNNh79Dn3hh4BIslX0+cjpSLE
-	ogEzS4o5phKCRDfQfSS22/1k2kxLBhe3rNMMpzp0mQhMVf33bAYhvQVd//zWOysYtupQnfxgq1p
-	8Xnkh8eikY=
-X-Received: by 2002:a5d:5a48:0:b0:487:169f:d339 with SMTP id ffacd0b85a97d-48e07fb8f86mr12588654f8f.54.1792439965195;
-        Mon, 19 Oct 2026 12:59:25 -0700 (PDT)
-Received: from ADRIAN-PC.lan ([171.22.87.31])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d823ca7sm875448f8f.38.2026.10.19.12.59.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 12:59:23 -0700 (PDT)
-From: =?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>
-Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
-Subject: [PATCH bpf-next] bpf: Add __printf attribute to bpf_diag_source()
-Date: Mon, 19 Oct 2026 21:59:16 +0200
-Message-Id: <20261019195916.186225-1-adriangarciacasado42@gmail.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20260707; t=1792440031; x=1793044831;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SAJLNdbLDS8yWOmrPFOnw0Q3UOenAvsVBK6o5nZWKOY=;
+        b=cgJaXX5mhMjjEhQoUI8PjVyriKhQ+KuBKUDHzJjBh4+IIqG4VdY6wECDlmGsGY/Lsp
+         Y/S2TCplXd8b3U+ZQgL31yi5NYmxECWrg08HUTQQSt9x0NPZhDhA9TJ6yJbkthRoPJ54
+         TmqybpE/Dd+aZH9PxCIM9K5Ear1oCOuUbGntgKYcABrOVuh/jhkdkvFL6UEmgj9Fu847
+         SgZPydvdHWBPK92zKRiAZf9z0/x+yjgGL8/ieQrb7TGRVMUbKi5Cg//lurV+UzjnA+A5
+         QjMON/X4/mBQdZVQmLfUr5K6ej3TSJ3CQIEN0oigrCulIEH1cbpNSZJst1GxoHRo7b3/
+         FtMA==
+X-Gm-Message-State: AFq9FYJnnNeGpphz+/zgUDyF4xl+KwLnKrNsLeN+hy5WIjcmzK3PqFmY
+	YDaNn2TYShlaHia/dWrbyCHE1XoYAN8QXWP1GgLKwVZbAEiTQnQ70NIMAtW84P47PYMIDnKc69v
+	yeGbi4qfY7hmMoFHQ9rXMDGc3Bz4loKVYMg==
+X-Received: from dldyq17-n2.prod.google.com ([2002:a05:701b:4551:20b0:14e:8121:6eda])
+ (user=abhishekbapat job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:2319:b0:175:525c:90b4 with SMTP id a92af1059eb24-185125792bamr11610444c88.20.1792440031096;
+ Mon, 19 Oct 2026 13:00:31 -0700 (PDT)
+Date: Mon, 19 Oct 2026 20:00:24 +0000
+In-Reply-To: <cover.1792439751.git.abhishekbapat@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,41 +76,530 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <cover.1792439751.git.abhishekbapat@google.com>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <323077f96bca23b512a86a6781ebc9dfe6ae9ec1.1792439751.git.abhishekbapat@google.com>
+Subject: [PATCH v3 1/4] alloc_tag: Add trace events for tracing allocations
+From: Abhishek Bapat <abhishekbapat@google.com>
+To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-trace-kernel@vger.kernel.org, Abhishek Bapat <abhishekbapat@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Building kernel/bpf/diagnostics.o with W=1 triggers the following
-compiler warning:
+The memory allocation profiling framework intercepts allocations across
+the core subsystems, but currently lacks runtime tracing hooks for
+standard observability tools to dynamically track the context (stack
+traces and lifecycles of the individual memory chunks) of the
+allocations made.
 
-  kernel/bpf/diagnostics.c:828:9: warning: function 'bpf_diag_source'
-  might be a candidate for 'gnu_printf' format attribute
-  [-Wsuggest-attribute=format]
+Introduce three standard trace events to allow this tracking:
 
-bpf_diag_source() forwards its format string and variadic arguments to
-bpf_diag_vfmt(), which is annotated with __printf(2, 0).
+1. `alloc_tag_hit`: Fired at the exact call site. This allows userspace
+   tools to trigger and capture a call stack.
+2. `alloc_tag_mem_alloced`: Fired in alloc_tag_add upon successful
+   allocation. It records the allocated size, the tag, and the uniquely
+   generated `ptr` value which is `codetag_ref` for slab and percpu
+   allocators and the pointer to the head `struct page` for the page
+   allocator.
+3. `alloc_tag_mem_freed`: Fired in alloc_tag_sub right before memory is
+   freed, yielding the same `ptr` value to allow tracing tools to find
+   the corresponding allocation.
 
-Add the missing __printf(4, 5) attribute to bpf_diag_source() to silence
-the W=1 warning and enable compile-time format string checking for its
-callers.
+Because the introduced trace events occur at different stages in the
+call stack, userspace tracing tools must stitch them together to form a
+complete picture of a buffer's lifetime. Here's an example of how
+userspace correlates these three events:
 
-Signed-off-by: Adrián García Casado <adriangarciacasado42@gmail.com>
+1. On `alloc_tag_hit`: The tool captures the stack trace and caches it,
+   keyed by the combination of the current thread's PID and the `tag`.
+2. On `alloc_tag_mem_alloced`: The tool extracts the PID and `tag` from
+   the event and looks up the stack trace cached in step 1. It creates a
+   new active allocation record, mapping the new provided `ptr` value
+   to this cached stack trace and the newly returned allocation size.
+3. On `alloc_tag_mem_freed`: When the memory is freed, the event yields
+   the same `ptr` value. The tool uses this reference to look up the
+   original allocation record, correlates the free, and safely retires
+   the tracking entry.
+
+Modify `alloc_tag_add()` and `alloc_tag_sub()` with a `ptr` argument to
+map frees to allocations in the trace events. Slab and percpu pass the
+address of the object's `codetag_ref`. The page allocator passes the
+head `struct page` because its `codetag_ref` is a temporary copy on the
+stack.
+
+Also, introduce `alloc_tag_trace_key` static key to minimize the
+overhead when no tags are being traced (the usual case). Once tracing
+for any tag is requested, the key is set, opening the path to check
+whether tracing is enabled for the current tag.
+Note that the mechanism to enable tag tracing is implemented in the next
+patch, therefore for now, `alloc_tag_trace_key` stays always unset.
+
+Signed-off-by: Abhishek Bapat <abhishekbapat@google.com>
+Acked-by: Hao Ge <hao.ge@linux.dev>
+Acked-by: Suren Baghdasaryan <surenb@google.com>
 ---
- kernel/bpf/diagnostics.c | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/mm/allocation-profiling.rst |  53 ++++++++++
+ MAINTAINERS                               |   1 +
+ include/linux/alloc_tag.h                 |  67 +++++++++---
+ include/trace/events/alloc_tag.h          | 122 ++++++++++++++++++++++
+ mm/alloc_tag.c                            |  28 +++++
+ mm/page_alloc.c                           |   4 +-
+ mm/percpu.c                               |  13 ++-
+ mm/slub.c                                 |   6 +-
+ 8 files changed, 269 insertions(+), 25 deletions(-)
+ create mode 100644 include/trace/events/alloc_tag.h
 
-diff --git a/kernel/bpf/diagnostics.c b/kernel/bpf/diagnostics.c
-index 0abbbe177e..2421f52eec 100644
---- a/kernel/bpf/diagnostics.c
-+++ b/kernel/bpf/diagnostics.c
-@@ -794,6 +794,7 @@ static void diag_print_insn_context(struct bpf_verifier_env *env, u32 insn_idx,
+diff --git a/Documentation/mm/allocation-profiling.rst b/Documentation/mm/allocation-profiling.rst
+index b11ea77c0673..b241450394df 100644
+--- a/Documentation/mm/allocation-profiling.rst
++++ b/Documentation/mm/allocation-profiling.rst
+@@ -129,6 +129,59 @@ To do so:
+ - Then, use the following form for your allocations:
+   alloc_hooks_tag(ht->your_saved_tag, kmalloc_noprof(...))
+ 
++Tracing
++=======
++
++Three trace events are available under `/sys/kernel/tracing/events/alloc_tag` to
++expose the full call stack and the lifetime of individual allocations:
++
++- `alloc_tag_hit`: Fired at the exact call site, before the allocation happens.
++  Can be used to capture the call stack of the caller.
++
++- `alloc_tag_mem_alloced`: Fired once the allocation succeeds. Carries the `ptr`,
++  `tag` and `bytes` for each allocation.
++
++- `alloc_tag_mem_freed`: Fired before memory is freed. Carries the same
++  `ptr`, `tag` and `bytes` as the matching alloc event.
++
++`ptr` identifies the allocation, and its meaning depends on the allocator:
++
++- slab and percpu: the address of the object's `codetag_ref`
++- page allocator: the `struct page` pointer of the head page
++
++Correlating the events
++----------------------
++
++`alloc_tag_hit` and `alloc_tag_mem_alloced` come from different points in the
++call stack, so they have to be stitched together by the user consuming the
++events. Here's a typical flow:
++
++1. On `alloc_tag_hit`: Capture the stack trace and cache it keyed by `(pid, tag)`.
++
++2. On `alloc_tag_mem_alloced`: Look up the cached stack trace by `(pid, tag)`,
++   then create an active allocation record keyed by `ptr` that holds the stack
++   trace and `bytes`.
++
++3. On `alloc_tag_mem_freed`: Look up the record by `ptr` and retire it.
++
++Limitations
++-----------
++
++- For the page allocator, events are generated for the original allocation and
++  the free only. If the tag reference is split or moved to another folio in
++  between, no event is generated for that. As a result:
++
++  - a free event may carry a `ptr` that never appeared in an alloc event;
++  - `bytes` in a free event may be smaller than in the matching alloc event.
++
++  Tools should correlate on `ptr` but must not assume that freed bytes equal
++  allocated bytes, or that every free has a matching alloc.
++
++- Freeing a non-compound high-order page with `__free_pages()` while another CPU
++  holds a reference frees the tail pages immediately and the head page later when
++  the reference is dropped. The free event is emitted at the second point and
++  reports `PAGE_SIZE` rather than the full size.
++
+ Notes
+ =====
+ 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6f1f35a017a6..fb2df7b8e9ee 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17100,6 +17100,7 @@ S:	Maintained
+ F:	Documentation/mm/allocation-profiling.rst
+ F:	include/linux/alloc_tag.h
+ F:	include/linux/pgalloc_tag.h
++F:	include/trace/events/alloc_tag.h
+ F:	include/uapi/linux/alloc_tag.h
+ F:	mm/alloc_tag.c
+ F:	tools/testing/selftests/alloc_tag/
+diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
+index 7f2d80a59792..0319c2f1e4e2 100644
+--- a/include/linux/alloc_tag.h
++++ b/include/linux/alloc_tag.h
+@@ -128,12 +128,33 @@ DECLARE_PER_CPU(struct alloc_tag_counters, _shared_alloc_tag);
+ DECLARE_STATIC_KEY_MAYBE(CONFIG_MEM_ALLOC_PROFILING_ENABLED_BY_DEFAULT,
+ 			mem_alloc_profiling_key);
+ 
++DECLARE_STATIC_KEY_FALSE(alloc_tag_trace_key);
++
+ static inline bool mem_alloc_profiling_enabled(void)
+ {
+ 	return static_branch_maybe(CONFIG_MEM_ALLOC_PROFILING_ENABLED_BY_DEFAULT,
+ 				   &mem_alloc_profiling_key);
+ }
+ 
++static inline bool alloc_tag_trace_enabled(void)
++{
++	return static_branch_unlikely(&alloc_tag_trace_key);
++}
++
++void alloc_tag_trace_mem_alloc(const void *ptr, struct alloc_tag *tag,
++			       size_t bytes);
++
++void alloc_tag_trace_mem_free(const void *ptr, struct alloc_tag *tag,
++			      size_t bytes);
++
++void __alloc_tag_trace_hit(struct alloc_tag *tag);
++
++static __always_inline void alloc_tag_trace_hit(struct alloc_tag *tag)
++{
++	if (alloc_tag_trace_enabled())
++		__alloc_tag_trace_hit(tag);
++}
++
+ bool mem_alloc_profiling_permanently_disabled(void);
+ 
+ static inline struct alloc_tag_counters alloc_tag_read(struct alloc_tag *tag)
+@@ -198,13 +219,19 @@ static inline bool alloc_tag_ref_set(union codetag_ref *ref, struct alloc_tag *t
+ 	return true;
+ }
+ 
+-static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_tag *tag, size_t bytes)
++static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_tag *tag, size_t bytes,
++				 const void *ptr)
+ {
+-	if (likely(alloc_tag_ref_set(ref, tag)))
++	if (likely(alloc_tag_ref_set(ref, tag))) {
+ 		this_cpu_add(tag->counters->bytes, bytes);
++
++		if (alloc_tag_trace_enabled())
++			/* Trace successful allocs with their unique ptr */
++			alloc_tag_trace_mem_alloc(ptr, tag, bytes);
++	}
+ }
+ 
+-static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes)
++static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes, const void *ptr)
+ {
+ 	struct alloc_tag *tag;
+ 
+@@ -222,6 +249,10 @@ static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes)
+ 	this_cpu_sub(tag->counters->bytes, bytes);
+ 	this_cpu_dec(tag->counters->calls);
+ 
++	if (alloc_tag_trace_enabled())
++		/* Trace frees with their unique ptr */
++		alloc_tag_trace_mem_free(ptr, tag, bytes);
++
+ 	ref->ct = NULL;
+ }
+ 
+@@ -243,25 +274,29 @@ static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag)
+ static inline bool mem_alloc_profiling_enabled(void) { return false; }
+ static inline bool mem_alloc_profiling_permanently_disabled(void) { return true; }
+ static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_tag *tag,
+-				 size_t bytes) {}
+-static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes) {}
++				 size_t bytes, const void *ptr) {}
++static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes,
++				 const void *ptr) {}
+ static inline void alloc_tag_set_inaccurate(struct alloc_tag *tag) {}
+ static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag) { return false; }
++#define alloc_tag_trace_hit(_tag)	/* NOOP */
+ #define alloc_tag_record(p)	do {} while (0)
+ 
+ #endif /* CONFIG_MEM_ALLOC_PROFILING */
+ 
+-#define alloc_hooks_tag(_tag, _do_alloc)				\
+-({									\
+-	typeof(_do_alloc) _res;						\
+-	if (mem_alloc_profiling_enabled()) {				\
+-		struct alloc_tag * __maybe_unused _old;			\
+-		_old = alloc_tag_save(_tag);				\
+-		_res = _do_alloc;					\
+-		alloc_tag_restore(_tag, _old);				\
+-	} else								\
+-		_res = _do_alloc;					\
+-	_res;								\
++#define alloc_hooks_tag(_tag, _do_alloc)					\
++({										\
++	typeof(_do_alloc) _res;							\
++	if (mem_alloc_profiling_enabled()) {					\
++		struct alloc_tag * __maybe_unused _old;				\
++		/* Fired here to capture the caller's stack trace */	\
++		alloc_tag_trace_hit(_tag);					\
++		_old = alloc_tag_save(_tag);					\
++		_res = _do_alloc;						\
++		alloc_tag_restore(_tag, _old);					\
++	} else									\
++		_res = _do_alloc;						\
++	_res;									\
+ })
+ 
+ #define alloc_hooks(_do_alloc)						\
+diff --git a/include/trace/events/alloc_tag.h b/include/trace/events/alloc_tag.h
+new file mode 100644
+index 000000000000..58d420e64516
+--- /dev/null
++++ b/include/trace/events/alloc_tag.h
+@@ -0,0 +1,122 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM alloc_tag
++
++#if !defined(_TRACE_ALLOC_TAG_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _TRACE_ALLOC_TAG_H
++
++#include <linux/tracepoint.h>
++
++/*
++ * alloc_tag_hit is generated at the exact allocation call site and can be
++ * used to capture a stack trace.
++ *
++ * To link this stack trace to the actual allocated memory chunk, tools must
++ * correlate this event with the resulting alloc_tag_mem_alloced event. Since
++ * multiple threads can hit the same tag simultaneously, tools must match BOTH
++ * the `tag` field and the implicitly recorded PID provided by the core
++ * tracing subsystem.
++ */
++TRACE_EVENT(alloc_tag_hit,
++	TP_PROTO(struct alloc_tag *tag),
++
++	TP_ARGS(tag),
++
++	TP_STRUCT__entry(__field(struct alloc_tag *, tag)
++			 __string(modname, tag->ct.modname ? tag->ct.modname : "NONE")
++			 __string(filename, tag->ct.filename)
++			 __string(function, tag->ct.function)
++			 __field(unsigned int, lineno)
++	),
++
++	TP_fast_assign(__entry->tag = tag;
++		       __assign_str(modname);
++		       __assign_str(filename);
++		       __assign_str(function);
++		       __entry->lineno = tag->ct.lineno;
++	),
++
++	TP_printk("tag %p, module: %s, filename: %s, function %s, lineno %u",
++		  __entry->tag,
++		  __get_str(modname),
++		  __get_str(filename),
++		  __get_str(function),
++		  __entry->lineno
++	)
++);
++
++/*
++ * alloc_tag_mem_alloced is generated after memory is successfully allocated.
++ * It captures the exact byte size.
++ *
++ * The `ptr` value identifies the memory chunk for tracking its lifecycle
++ * (e.g., matching it with alloc_tag_mem_freed).
++ * - slab and percpu allocators: address of the object's codetag_ref
++ * - page allocator: the head struct page of the allocation
++ *
++ * Because the kernel isolates active allocations within the task struct
++ * (current->alloc_tag), this event will always share the same implicit PID as
++ * its corresponding alloc_tag_hit event. Tools should use the combination
++ * PID + `tag` to correlate them.
++ */
++TRACE_EVENT(alloc_tag_mem_alloced,
++	TP_PROTO(const void *ptr, struct alloc_tag *tag, size_t bytes),
++
++	TP_ARGS(ptr, tag, bytes),
++
++	TP_STRUCT__entry(__field(const void *, ptr)
++			 __field(struct alloc_tag *, tag)
++			 __field(size_t, bytes)
++	),
++
++	TP_fast_assign(__entry->ptr = ptr;
++		       __entry->tag = tag;
++		       __entry->bytes = bytes;
++	),
++
++	TP_printk("ptr %p, tag %p, bytes %zu",
++		  __entry->ptr,
++		  __entry->tag,
++		  __entry->bytes
++	)
++);
++
++/*
++ * alloc_tag_mem_freed event is generated immediately before memory is
++ * freed. The `ptr` value matches the one emitted during allocation,
++ * allowing tools to match it to its corresponding allocation and
++ * call stack.
++ *
++ * Page allocator caveat: Pages can be split or moved to another folio
++ * after the alloc event with no new events generated for that. As a
++ * result, a free event may carry a `ptr` that never appeared in an
++ * alloc event, and the `bytes` may be smaller than in the matching
++ * alloc event. Tools must not assume alloc bytes == free bytes, nor
++ * that every free has a matching alloc.
++ */
++TRACE_EVENT(alloc_tag_mem_freed,
++	TP_PROTO(const void *ptr, struct alloc_tag *tag, size_t bytes),
++
++	TP_ARGS(ptr, tag, bytes),
++
++	TP_STRUCT__entry(__field(const void *, ptr)
++			 __field(struct alloc_tag *, tag)
++			 __field(size_t, bytes)
++	),
++
++	TP_fast_assign(__entry->ptr = ptr;
++		       __entry->tag = tag;
++		       __entry->bytes = bytes;
++	),
++
++	TP_printk("ptr %p, tag %p, bytes %zu",
++		  __entry->ptr,
++		  __entry->tag,
++		  __entry->bytes
++	)
++);
++
++#endif /* _TRACE_ALLOC_TAG_H */
++
++/* This part must be outside protection */
++#include <trace/define_trace.h>
+diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+index 82e2c3448dcf..ca2412a67312 100644
+--- a/mm/alloc_tag.c
++++ b/mm/alloc_tag.c
+@@ -18,6 +18,9 @@
+ #include <linux/kmemleak.h>
+ #include <uapi/linux/alloc_tag.h>
+ 
++#define CREATE_TRACE_POINTS
++#include <trace/events/alloc_tag.h>
++
+ #include "internal.h"
+ #include "page_alloc.h"
+ 
+@@ -54,6 +57,9 @@ EXPORT_SYMBOL(mem_alloc_profiling_key);
+ 
+ DEFINE_STATIC_KEY_FALSE(mem_profiling_compressed);
+ 
++DEFINE_STATIC_KEY_FALSE(alloc_tag_trace_key);
++EXPORT_SYMBOL(alloc_tag_trace_key);
++
+ struct alloc_tag_kernel_section kernel_tags = { NULL, 0 };
+ unsigned long alloc_tag_ref_mask;
+ int alloc_tag_ref_offs;
+@@ -484,6 +490,28 @@ static const struct proc_ops allocinfo_proc_ops = {
+ #endif
+ };
+ 
++void __alloc_tag_trace_hit(struct alloc_tag *tag)
++{
++	if (unlikely(!tag))
++		return;
++	trace_alloc_tag_hit(tag);
++}
++EXPORT_SYMBOL(__alloc_tag_trace_hit);
++
++void alloc_tag_trace_mem_alloc(const void *ptr, struct alloc_tag *tag,
++			       size_t bytes)
++{
++	trace_alloc_tag_mem_alloced(ptr, tag, bytes);
++}
++EXPORT_SYMBOL(alloc_tag_trace_mem_alloc);
++
++void alloc_tag_trace_mem_free(const void *ptr, struct alloc_tag *tag,
++			      size_t bytes)
++{
++	trace_alloc_tag_mem_freed(ptr, tag, bytes);
++}
++EXPORT_SYMBOL(alloc_tag_trace_mem_free);
++
+ size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, bool can_sleep)
+ {
+ 	struct codetag_iterator iter;
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 2daf358269ae..e8bb12a6a721 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -1241,7 +1241,7 @@ void __pgalloc_tag_add(struct page *page, struct task_struct *task,
+ 	union codetag_ref ref;
+ 
+ 	if (likely(get_page_tag_ref(page, &ref, &handle))) {
+-		alloc_tag_add(&ref, task->alloc_tag, PAGE_SIZE * nr);
++		alloc_tag_add(&ref, task->alloc_tag, PAGE_SIZE * nr, page);
+ 		update_page_tag_ref(handle, &ref);
+ 		put_page_tag_ref(handle);
+ 	} else {
+@@ -1270,7 +1270,7 @@ void __pgalloc_tag_sub(struct page *page, unsigned int nr)
+ 	union codetag_ref ref;
+ 
+ 	if (get_page_tag_ref(page, &ref, &handle)) {
+-		alloc_tag_sub(&ref, PAGE_SIZE * nr);
++		alloc_tag_sub(&ref, PAGE_SIZE * nr, page);
+ 		update_page_tag_ref(handle, &ref);
+ 		put_page_tag_ref(handle);
+ 	}
+diff --git a/mm/percpu.c b/mm/percpu.c
+index d7883507dc15..16f29020bcad 100644
+--- a/mm/percpu.c
++++ b/mm/percpu.c
+@@ -1695,16 +1695,19 @@ static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
+ 				      size_t size)
+ {
+ 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts)) {
+-		alloc_tag_add(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
+-			      current->alloc_tag, pcpu_obj_full_size(size));
++		union codetag_ref *ref = &chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag;
++
++		alloc_tag_add(ref, current->alloc_tag, pcpu_obj_full_size(size), ref);
  	}
  }
  
-+__printf(4, 5)
- static void bpf_diag_source(struct bpf_verifier_env *env, u32 insn_idx, const char *label,
- 			    const char *fmt, ...)
+ static void pcpu_alloc_tag_free_hook(struct pcpu_chunk *chunk, int off, size_t size)
  {
+-	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts))
+-		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
+-			      pcpu_obj_full_size(size));
++	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts)) {
++		union codetag_ref *ref = &chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag;
++
++		alloc_tag_sub(ref, pcpu_obj_full_size(size), ref);
++	}
+ }
+ #else
+ static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
+diff --git a/mm/slub.c b/mm/slub.c
+index 544cff39762c..a866576ccb98 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -2404,7 +2404,7 @@ __alloc_tagging_slab_alloc_hook(struct kmem_cache *s, void *object, gfp_t flags,
+ 		obj_ext = slab_obj_ext(s, slab, obj_exts, object);
+ 		ref = slab_obj_ext_codetag_ref(slab, obj_ext);
+ 
+-		alloc_tag_add(ref, current->alloc_tag, s->size);
++		alloc_tag_add(ref, current->alloc_tag, s->size, ref);
+ 
+ 		put_slab_obj_exts(obj_exts);
+ 	} else {
+@@ -2444,9 +2444,11 @@ __alloc_tagging_slab_free_hook(struct kmem_cache *s, struct slab *slab, void **p
+ 	get_slab_obj_exts(obj_exts);
+ 	for (int i = 0; i < objects; i++) {
+ 		struct slabobj_ext *ext;
++		union codetag_ref *ref;
+ 
+ 		ext = slab_obj_ext(s, slab, obj_exts, p[i]);
+-		alloc_tag_sub(slab_obj_ext_codetag_ref(slab, ext), s->size);
++		ref = slab_obj_ext_codetag_ref(slab, ext);
++		alloc_tag_sub(ref, s->size, ref);
+ 	}
+ 	put_slab_obj_exts(obj_exts);
+ }
 -- 
-2.39.5
+2.56.0.218.g1ec904b173-goog
 
