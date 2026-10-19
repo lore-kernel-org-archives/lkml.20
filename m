@@ -1,134 +1,114 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A11148822A
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:10:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E6F463B92;
+	Mon, 19 Oct 2026 09:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401002; cv=none; b=HE25hA6R5ce9xlOQg25X/urS7OlXSrHVv8XsnT0SrSg3JfBm5Lo8MSL+rW1m/T+kDLZvOC0FZJpaP9CYCBygxOs++7UqLxKnAJsnlBeaDaPpu/wK2U2vfuXd6lbhCCsqKD+/I89s199iV7JwxM7sKpYCfjRn5hmcnXgc8UI654U=
+	t=1792401029; cv=none; b=OPcAhQC5RIAV3xkfENEmYXS+fmPOiTEnx8NpSPm94vMqTg9E2VPQ9StayqApZ6JxtXdXl0PExBgrzgpwQndINF4dy5TglIcxu2roELV+ZxXXC3KtIUYQlkJDOhY6kEPKQ437dx41Sh19/T3sKcQ8csnOFALdU6qiLQ4qHlp9xQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401002; c=relaxed/simple;
-	bh=kj8LYuKMfDF1niDZrCZLI/kPUrlYb1+h/IT5kGPJW8A=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=gdWFT5LsFUPYQJPK5CV635hiRJg3GaoYR5J97q//mYaHaB8lVxtiBr7dIbTom0Bbj3cVEpoYCUcNUyahahcK/C9VM4U0GPO6xG+eFFW6IyJTkuEe4BqYmAgLHeAE8RBbSdL6CHj/h6IaiKwga+ttg+af6M0eIHJ6bC80qHYoFRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=L3f9jObg; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=o0si0j4d; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1792401029; c=relaxed/simple;
+	bh=QZvmOBsCZKiBl07Joeh3dh1Uae4OCenSx2c1nJxFszA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WXdbRG2EeOgg/uBSptAbgAGsCb8iazYoYk9BJ2SDxpUnDoQCxBKQm88BCHnGsqN/nUiw5G121z+dv3BwT/skKbWrlf3gYV1QdzEEufhvjZsbI4ecsoOAOHF3CBfJ0qiEA4YMsAYfUTq0A/gqiqJYpiF9Sx9Oyu0GpbK0Y+74vpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TCaz3bgD; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=jdJxnczf; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="L3f9jObg";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="o0si0j4d"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 9BEE91D000C2
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:10:00 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Mon, 19 Oct 2026 05:10:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792400994;
-	 x=1792487394; bh=VRrkh9ufsavwUzGW+kYYPeIwYlUPaQhcxxu+q1D/UVU=; b=
-	L3f9jObgZ3Y2ryEcxFVe4eWz9ruWVwAZQKXuzDfBLLT3BVXPvhosOkgbOhc/xE6Q
-	QSpqvBn/ezYeqXvlEqKHan+S6ZE4Hfg/xIF7HrO6VdJMjzxR/G5PhRSIXncyeYhP
-	od6NaTE+aV39GtkEMxS2RS5dO9vDOF0obvGpB4N+FzGXWwTHsYVaFjJ73/13w0eL
-	aTSb3UlflJOwfZaxIy5j00kuNQTFesCg3me+7/Hl61Ymj0uHUgxV34D3OzOGmYO5
-	CPGMKB13D0gFqJ/3id7L3pNMvhRQ/UyF7JTKZwFkCi5XXJYK+5K362BiwQOnpYTM
-	jN1pCdZK0W7qYDu96Ef3sg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792400994; x=
-	1792487394; bh=VRrkh9ufsavwUzGW+kYYPeIwYlUPaQhcxxu+q1D/UVU=; b=o
-	0si0j4d5WZXMd2S/CGg+i7LWgV8QTkJKVbzYEQ3SSu/0odececm5N8pXpU4nd9WL
-	O5L0+xpLqEsDXIHfZy3zfuwVCfxsk0FUHoQcG/cxcWS8MpQj89X8gzG4DbDwjDYc
-	S/QjI/JexPmTIHyEztVQe58MfdG1gFg1w0uvJwkiKHxXbRcIc+fFPtJSJ9++Etvt
-	T0eCsRxmcb+SfU9fyf7xCurbcmi/3innids7AfkEIQUx1jqfa2WqHd7LQwGiTh/U
-	/2usFcToWLtiprR7vdKEcSKWnt7FU73gao0WOljJ+Fnk0O+yT7LZblFW4TcfAuZm
-	fWmIVcw1PfSxIr/LQDrMg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792400994; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:REkvffFMb1zb3aTcIePadV+rFHEtsDBzV+65GuTFW7VII0Z
-	3ZVnhFCWF5DYO/lG6FC0M8xU8gMyR8E4WWObpgt10AzjeUgzRNmXdysGoz64+5VT
-	Qz70T78rpNuwvNiEF9PBsPh6CgPpZ5r0oygDvn/SwCkM7gUSj89N2uukKE6QLGxv
-	7ZFIRJ4Y/a7+1N2+aHs7xLxm0D6TlYxeUdrQtGTqYazBIaUvZtUV2enqssW/M0FZ
-	AL1vpOyEHAYyOsrAkEBq2+wNZAqIpG2ElkXEAnfXYjwCVxpYievYrysUKAB7gzvl
-	dc2OueEjFxod2yy+EO5zaOW2FCvGbme0SgCJ7dQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:GpfjWsuTedn1PGgZB4VWlRUwOsUX/+Z2h6AxJHYaHpQ=:kj8LYuKMfDF1niDZrCZLI/kPUrlYb1+h/IT5kGPJW8A=;
-X-ME-Sender: <xms:Xt7Vas3ysSKFfiNJy1wYno_yUkPuQEdXrabYyR9YAJwy9aBhPT286g>
-    <xme:Xt7Vah5jcxzIqhvq8DIghfSEWPrG_QFj9PbXEcdjJAwLddOrgJHrWslYGgsluZvgt
-    y8-H8jefJtcTu6FD2CPWr9GdVPVfgkeg2M7yXGVo3I69Hixu2YBJPE>
-X-ME-Proxy-Cause: dmFkZTFYRXPUPX60vo5NxXURpLeDTBW2NZI8Nhg9EestjprxOOBQDyI1yFGxcHxaZcxo8F
-    MJn2vy/9vxZ8o20eiDpdEw5ftI0w1ITcqw5ykPXIOBdMPtdJLJW47TMfiRwM4lk7ZcV9qh
-    zvGtQO9noFJm3b0FJHHoOxqcLFtawzHomex3BgSOg/9OTwGheY5wzKL7BQg4GJFnyCtzxT
-    1CajZ9QN8sQMu9tRvX9eDNhZoRqevBaBn1ivC6bmI3MFnz25M93FUeFiKJlKyzPL2iIAmx
-    k/iYk8h9BVtnzHNACvekCVXHWy3RbL66CyT24pBVKaCNMWkEIM4sTJxkpZ8kg1Awh7b1rw
-    hebVjsrHJEUhKZwpf9TM+E9/iKnmqSq8vzm69uam1kByTTT/HHAZrLcvcCsjddTZtgtLTi
-    V+PYDQETbpZXbil9OwqhkH+gxPBxJRmSUaFsawAHxjC1Iodch2aAzI8yMUX/rbOe4w1+yy
-    dNdJTGcLn5lyBrHS5U+yQx9ICcHlRrm1LHS05NVipPJOKBEfDorfmv7YUBl7sIUD8VzoyX
-    CBBuIJhtchKVXExiDR2tStF3lZwpaB4U3igqg51y37CaXAYppxaGikser/Fy2l7apZ60Np
-    lQpUtKnFODoPj3jKtYmBLZe2+Kvx5wU855/3gXNrTlsXdlmJ+nRr7yaRiIZQ
-X-ME-Proxy: <xmx:YN7VakYRfolVWoq2U4Kc3lbavYH85MB3dAyNB7UvaZUhBGIhJqp41Q>
-    <xmx:YN7VarQRn2XCVfUnO_i8Vs0O-uaURChmxxCsF7vt5XyyBNKOfKJxmg>
-    <xmx:YN7Var9cXWiXeIPHCcUxPBdgYXGeGmE2bHWi-zq2U4RYlY5qdbfpfg>
-    <xmx:YN7VajiCWTDaHDx0Q0CqXJRwJGMthixVQRM4fNhG9TqfDqF_K09CBQ>
-    <xmx:Yt7VatpnyFMnmfC90QxOuCEVgX2unZyDCh70RbGe5e0ToZeFdFPMMhtu>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 4BEE432A008E; Mon, 19 Oct 2026 05:09:50 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TCaz3bgD";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="jdJxnczf"
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792401026;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mHZ3qYBNpxGqi8iGBwXZTR+KofiAQ5y+KIHBjZ1X8yo=;
+	b=TCaz3bgD7sZlgZvJes4zR2feEoyA20nEtvTgfESjtfSlo/V5rObYZH/AGvPEibvyQXL7HA
+	Ypv53qNsnIm15lcka49pgOfr2Sk7m8Cg7ozx+PgaaaDZ9l+30uVZAA1coR+W3grjfLdUmD
+	hmS7UyLwrvmowHe94e2D1O+4Dh0gAulxbezrEPKWlds/DHcWOhsDTB9hkOTtwJg9WuqKO0
+	eM8C1V3OgRY52qCTpz9+F1XgnyrgaB7E+GQZzG4pj4qaIRssM71PKKnKSwcQSzhAprSPHQ
+	DK0xYJbX3OxzLVcEQkS7MIozVe+E2o1yw79EMcDXPKXddMVppwr6W3uc27yLcA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792401026;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mHZ3qYBNpxGqi8iGBwXZTR+KofiAQ5y+KIHBjZ1X8yo=;
+	b=jdJxnczfVaVLLsnpGOEnU4SA/yXheEy/4yEy4+nrSkWhI+AuloHyW+lUjAReWGaYWrHd9n
+	BGOiTLPEdjVhPHBQ==
+To: Gabriele Monaco <gmonaco@redhat.com>, Alexei Starovoitov
+ <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Steven Rostedt
+ <rostedt@goodmis.org>
+Cc: Nam Cao <namcao@linutronix.de>, Wen Yang <wen.yang@linux.dev>, Tobias
+ Schaffner <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
+Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
+In-Reply-To: <b76dfd3e5a118e30ab25910f243db1cbcedc1c00.camel@redhat.com>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+ <20261001152042.124445-11-gmonaco@redhat.com>
+ <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
+ <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
+ <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
+ <878q3xtptq.fsf@jogness.linutronix.de>
+ <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
+ <87bj8s8ih9.fsf@jogness.linutronix.de>
+ <b76dfd3e5a118e30ab25910f243db1cbcedc1c00.camel@redhat.com>
+Date: Mon, 19 Oct 2026 11:16:25 +0206
+Message-ID: <871p9mqcn2.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A4WN0AQLOakc
-Date: Mon, 19 Oct 2026 11:09:29 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Jiri Slaby" <jirislaby@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- "Hugo Villeneuve" <hvilleneuve@dimonoff.com>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev
-Message-Id: <2ef6314b-989e-4982-8964-1d6fdd123f4e@app.fastmail.com>
-In-Reply-To: <0ec5fddf-f8de-4c82-a42d-6abca1e06091@kernel.org>
-References: <20261016130328.1037616-1-arnd@kernel.org>
- <0ec5fddf-f8de-4c82-a42d-6abca1e06091@kernel.org>
-Subject: Re: [PATCH 1/2] tty: serial: remove hub6 multiport support
 Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026, at 10:15, Jiri Slaby wrote:
-
+On 2026-10-19, Gabriele Monaco <gmonaco@redhat.com> wrote:
+>> > We are missing stack traces (which I'd optionally add only on errors)
+>> > and perhaps other events (e.g. the -e in either tool if you aren't
+>> > only interested in errors/events of the monitor).
+>> 
+>> I don't see the point of reinventing tools that already do the job
+>> well. I do not mind if developers want to create their own tools that
+>> provide some small subset of existing features. But I am concerned
+>> about removing the in-kernel RV support for ftrace and perf.
 >
-> Great, you would have saved me a headache if you had sent these long 
-> time ago ;).
->
-> So I will Ack both, once you repost with the reported issues fixed.
+> That's valid too. We'd need at least the rv tool to start/stop
+> monitors in addition to ftrace/perf. Kind of what you already do now
+> with sysfs.
 
-Ok, sent the updated patches as v3 now. I accidentally ended up
-sending them separately instead of a series, I hope that's still ok.
+I do not expect the rv tool to start/stop ftrace/perf. Nor would I
+consider that useful. When I am using ftrace/perf, I am interested in
+additionally related events. The rv tool can not know what what else I
+need and I do not want the rv tool to become a wrapper for ftrace/perf.
 
-I have a few more patches to remove serial port drivers (lpc18xx, mps2,
-21285, acorn, sa1100), but those all depend on Arm platform removal
-patches that I had planned for 7.4 and deferred to 7.5. I'll probably
-send the driver removals for 7.6 then unless you prefer them in 7.5.
+I would use the rv tool only to start the monitor. It would be enough if
+the tool would report the bpf_trace:bpf_trace_printk globs that are
+needed for the various possible violations. Then, with the monitor
+started, I would start ftrace/perf for my own investigations (also
+capturing any violation events).
 
-I also have an older series to rework 8250 so the ISA, PnP and
-platform portions can be left out from the core support, this one
-needs to be properly rebased and tested. If anyone else wants to
-give this a shot, I'd be happy to send what I have as a suggestion.
+If you want the rv tool to provide some basic stdout data from the
+monitors, I am fine with that. That is certainly useful to easily see if
+a violation occurred.
 
-       Arnd
+But for serious investigations, I really just need the tool to
+start/stop the monitor and tell me how to grab the violation events.
+
+> I'm trying to keep this use-case in mind though.
+
+Thank you.
+
+> I assume you aren't interested in the "event" events (transitions in
+> the model), those are useful when developing models, at least in
+> DA. And those do not trigger a reaction (stdout only for now).
+
+As an RV-monitor _user_ I am not interested in RV state transitions. I
+do not know if RV-monitor _developers_ might need that. I would think it
+would be useful when debugging RV-monitor false-positives or missed
+violations.
+
+@namcao: Maybe you could chime in if you want the transitions as events.
+
+John
