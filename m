@@ -1,300 +1,446 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBB4490C1E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84DF48E0CB
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395608; cv=none; b=cz11QWK5nFEqksrYwfL2Vx8j4DHAmfQbQmyvSiIP10JmA70RQ0xzOPT2iWZsWGZEo5p2Hr5zqiIrXymTLDcyUjO4uj2YGX4CWRK4NTReNEVJnPvk4USvW8DdRXzSvTo2VBmAi+bq+tW4Zww/CB2ZqjWHSDSglQs0w1KC0fxWiGI=
+	t=1792395614; cv=none; b=ayajB7w6ysM8oDRjP/hCnz4FrrfRxiQS2rmsY3OoXDaXHJtY9JF2R9JbSlmKGtsHGCk610FHRmMKb3TCUb7QeiLTbuiCUan5I4TypOzqpUfoKDdED7Aok1BYQd/0WNA+dm3qhCpgWMsCA9yWHq6q8k/k2A0j0fpo24jpX70lK38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395608; c=relaxed/simple;
-	bh=UAKxb2sO19EjjUuXra2lzxhVdgml7sw5ft9FMCzbe1A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DRRsK5ta6SEpDky2Vow0YDZonWgIXHfcpPCKJzrNQ8ZdsED0UoQlLo32ZRvUUgxRW3xVsPXMm4Dh4amLiYJGkIXFSVFRajH5ZCqeWVoYlJI45tDQQNPuHn17VQnGxU/ZPWCF+mf1cFGDXaW2myRHofFKbVZJqN1hGs1ptcRVDcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a0RKcATq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jG6+3AUW; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792395614; c=relaxed/simple;
+	bh=DT7tWGRorHL45umJe9t2q7qTRzJoJLjHRBL+ufDbIcQ=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=IJRXMY139s5UUTJTB2V8g6koZXNyRFeX2qaADGR+dY3T4ROkOPfvsfNwtVVR639psly6LTgO+Uru/LIPqehZ/UQPI3zbk3/wa3WdNJTFr0kz/71bBT1Ol8Ot+OBVSJXkPQa+qEIiFCuZbMWPycJymO/fXL8zIaN0+5b4H4OIU78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=V8PhslIJ; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a0RKcATq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jG6+3AUW"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J4jO231751539
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:40:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=/6zJMYsjAxH
-	JLinn/mQnZ7v0Rd1A8UU3vQ1u2rl25ww=; b=a0RKcATqF2EChomZWgY1lOK6Z9h
-	EEkuT9nCDSTZ8eYMh47J/ja+L5HULtAUZM7+WOcquRc3udvadcf6C3J/hbxUQ8gJ
-	nQiANiYMEhYn5b5Ye7p87vt+F7ZY940q3AaBaf9yRvE6hh+LnTikb/WgrFaAQveb
-	3ka2tPjFhSI+xTZJ3ztWEf7wyPiqHHUPSMrU4uo8nIXz06SfwgPkv2XI/h2mOFTH
-	RLzUOcA64puAqhQoDlxVHXTsya77r0h7DShQ+20UPX2LLlkG+/yqCTEuj1NzXROz
-	M2Dn0snaoqgx0Ltasl9RPklFPERDAJDNgiH6MsmkvkePmNdt4O2FJ8ig7Jw==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hc183dgvf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:40:03 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9197553d398so41778346d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:40:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="V8PhslIJ"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e10a70540so464621f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 00:40:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792395602; x=1793000402; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1792395605; x=1793000405; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/6zJMYsjAxHJLinn/mQnZ7v0Rd1A8UU3vQ1u2rl25ww=;
-        b=jG6+3AUWy5s/EdJew6zXIUxRNudC9ne2/XII1pGdRlrMjXgOnM7l6TjI4WJe+AvzQ1
-         A8FZH7U3LazY0V+Ijk7+Iqs8XL9hVBglOwTuz7KuhIUcmWgDwuk7NiRQp6odCikLTkau
-         U8WQCvjEqmlh0o4QIT9U47dpH7AA09zMkrqEKQ13nG0Dujf0fb4NpYhZcA4S3T0Bzerb
-         ZuoeE7WQDj9KlJQ/6QbGyE/H4ltSPT/G81iJPVWFghh6hNrb2zKfJu+lB/ZTolrtqSYv
-         5JRdjcdTQnmIA/did+SuXwcv7hpexPujGVZSHH08KvAUXUbEcilSAQfrHXgfcUPkmFRH
-         45og==
+        bh=M0SUy48Ueh56GzaTiRmwygfsPwqE3Nw6AJaFjvfAhy4=;
+        b=V8PhslIJ14XACrtgoMAmVuPVPo2pHG4PYU/w4DtQwo4DnFh0YXKu0WtcrkGz2W4sRJ
+         f2fHYtbLEzMf7wpRMPwMGYIywrxcqjUwmpCwczxQqxpvk0E1EIbud96W3tttWNQrjASR
+         t7gfNVbcaQ777RXYT3yuxK4hUC6fJ15bPprWIzQ9/TAbvjMr8nK7Jjo7bdum2L7G1Cjb
+         i8Dc/LDVU3CNqUQcD/9aTgJZE3DNAIM7sr/qdjWSzsPzsFzvXir2rER5hiZNh4yU4N1d
+         jBRAMNlE0JRREDTI7/6ZZuT94P99f1bqW8YSX6UqrxSxIXnKXweEPp/WbukboCA/jrdu
+         uIkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792395602; x=1793000402;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/6zJMYsjAxHJLinn/mQnZ7v0Rd1A8UU3vQ1u2rl25ww=;
-        b=OBo7VpSsBW8Jl9/AU0SlDi1rk4u8jzpLSw1SUd0tFy/8xvNBeIEYOBvZdvJNxI1khj
-         RbJ+aqeatSmR2Rcy5T5y5TVqAM8CsIj00p1cJtoNtxSv9DzGD6MDgzWTow1KwbcgRhEF
-         JHPWIYoviZ7efgOfI+pHdm+nGkHmdqvF5B+JcH/ZSIm+23uKdyXeB5Fms744n7fKD4Aw
-         y0OrJrXLK+r26tG2r70kZuFI2t1GYAIcXzrPL3My7n8UD65YZkt/eYG/tGJcxn73/hTt
-         uBu+Z9vOnLsL2lE4JnNrCWm9/45tr8iKYcUGEvWn+i+Wb41pC5FO2Z8KhIimy+IfS6Mo
-         a4/w==
-X-Forwarded-Encrypted: i=1; AKwUvBzc/Sc4IBNWO/F1IMEoZjs3RtjzElA478XqKLpfuK48hjoGmYK0k/vNdkTzxy7JWO2RA9+DWuQx9unBbYw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKU8ZptUpp3FkZI9Kpc8foRAaKj0N+zaYUZNWYOJo8+biTRNVkn
-	tGBkkuUm/ta2nFDX9N/MUc6Akob1n7Kah4skzxybJHHbazVI9QfNe24EiwtO/BOofGXGOVJTQee
-	P9Ph++YpoUYdl9K74UaW51/i1UCKpXQh1bsUV2gYTYLsoQBKvPAyXWyD0+xgjtS7y2hE=
-X-Gm-Gg: AYBFou0MZ5lV7Z0mQM6ZWMJe8qxokmmu/5kCM74b7ZSzbNAsv2bDfHffGJdX2HguVue
-	P94DckSOkYl0UiF+TZU3++amUXh54K+0g2+L4/8uJgGjh4OgBC8uWY5Jh1wascXGVDw7ksblSeF
-	ExmA12aGOiCvUSUg9OzsAz14wB9xKSrXN/+STLtIlVdCBNzO3hzW+nj6JoEozMqooAYyalD8Ti7
-	+ijOZzj6OplwoQv42ZCNSg/STLGXzhBDUXfKgywOY+Euyx/zL+LfpJckmP8do2RiO7V7WkMXgEP
-	/LY5KAWi4+UXvv0s3uhuGc0v6uP1hZs9u/oFubE0tKuS05+l9luZ8UTYz0qF/+28InBmfgBRTMT
-	oLOjc74F1DlNu6k0xgDmDAYPWmmQ=
-X-Received: by 2002:a05:620a:2989:b0:937:6de8:b40 with SMTP id af79cd13be357-93f29ceec65mr1174372785a.15.1792395602399;
-        Mon, 19 Oct 2026 00:40:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:2989:b0:937:6de8:b40 with SMTP id af79cd13be357-93f29ceec65mr1174368785a.15.1792395601887;
-        Mon, 19 Oct 2026 00:40:01 -0700 (PDT)
-Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:d01d:2002:4b7d:4c30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce325107sm212812955e9.3.2026.10.19.00.40.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 00:40:01 -0700 (PDT)
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-To: rafael@kernel.org
-Cc: Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>,
-        Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Maximilian Luz <luzmaximilian@gmail.com>,
-        Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
-        Mark Pearson <mpearson-lenovo@squebb.ca>,
-        "Derek J. Clark" <derekjohn.clark@gmail.com>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Armin Wolf <W_Armin@gmx.de>, Jai Luthra <jai.luthra@ideasonboard.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Mario Limonciello (AMD)" <superm1@kernel.org>,
-        Jack Wu <jackbb_wu@compal.com>,
-        Mario Limonciello <mario.limonciello@amd.com>,
-        Zhang DM <jixianqiang1540@gmail.com>, linux-acpi@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 4/5] platform profile: Document firmware-independent profile selection
-Date: Mon, 19 Oct 2026 09:39:07 +0200
-Message-ID: <20261019073930.2352283-5-daniel.lezcano@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261019073930.2352283-1-daniel.lezcano@oss.qualcomm.com>
-References: <20261019073930.2352283-1-daniel.lezcano@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1792395605; x=1793000405;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M0SUy48Ueh56GzaTiRmwygfsPwqE3Nw6AJaFjvfAhy4=;
+        b=iC3MIo3QmLSzUtsapqVluvRvqOnIpVawX2X5+i6qbaFvDX9syuEkCORjnfInzeQC6J
+         NJLJbB0e/SDbgFLkAHeXlicYxmfh4reyqiJpM+G4dM5JC7qq7jftSYgir/edKB0oDcHg
+         z+eXclQFn11BxAKqE7CFpqzXlxTEvJXR3JY5WQPeul9FQZwKWuFjNFMmA0Z0BY2FSdeq
+         r9vRsUjsK98oe/Ebcle2NPT0BbehgERQXJf4VOyAhIjjtfpt7+hXrHAGnGG4tZ4RyKlC
+         s6HAZ8lsAtODyh63BzwDMABkgWhIITXq72K4QPZStx7hQY/M3vZHQa56uQoucA/9rQX8
+         9CIw==
+X-Forwarded-Encrypted: i=1; AKwUvByUIBUxvpBhWi5Z/ESJSmVmbA8jODgUugRyVDqpgbQsOCskI/G0enc4A+aa0idFaD9Q9H+5hRReO3m1/+Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtpvTM4GaLYdyfAqiVGIAvGGCHVNccSHgVbECN7k5sTB6FsFYa
+	XbildgzZmY/TPYDzKW8q6yK5pCebXPpB/rvxomp7FmDucUWADILS51s4ndZaGMOVcaU=
+X-Gm-Gg: AYBFou29rSCn1xqwkHsuowpMU2wZXppaJ1IT+cT02gO1jdduojUW2Py7dE2uB9yA53S
+	iapMCPKdjWVsWLld7LxqayAuocw0b4m0O/bS9zZ3swIErOHJ41EoctX+JywajLXR4PLRvuRlG+0
+	CGmL3rjWe04HqwPlDZipK+m+2SE42J46wU6LH81vmXn3jMIg3INkoXxNGsNvpIqxYC9iwRzFKob
+	3Mf+DgEQKrXIb3DzY57HhqUqn12zntpGfe2b6H8Ppwysdrmo6LFYkjNozDHOOC65itQEjjBEXt4
+	hCc896qgKVpCWRHi7Bq84ymsW2pqV011uEXPHx1xsmEv7t2QEpgvkF5k5OhvEarIROW0fkrW2Eo
+	TWl+aythRICZ+rrJJnYy3IXUyCNqlDh5U1ROFFwp2LZxi4zzFcWjbfLeYqLK8Wumo2cRSRpR86E
+	+E7brdVzVw5H+7+1x4lCs1BAe5CNlTA0VlEJ7UV9tu2t9Lih9gWmHbcK5U2EJMPbOziGWxiDBGj
+	gx5Fc7JsTnyfmUasrEkHpVwN6jGWm3AeDLXeuhf2+nldoQQgwb2XA==
+X-Received: by 2002:a05:6000:29c6:b0:48b:5e2:52dd with SMTP id ffacd0b85a97d-48e07bbd36emr9726692f8f.11.1792395604385;
+        Mon, 19 Oct 2026 00:40:04 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:6674:33bf:38d6:bc10? ([2a01:e0a:106d:1080:6674:33bf:38d6:bc10])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8bd9sm22298261f8f.35.2026.10.19.00.40.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 00:40:03 -0700 (PDT)
+Message-ID: <98df3ac1-c6ae-4acb-b0ee-ddda92487660@linaro.org>
+Date: Mon, 19 Oct 2026 09:40:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAzMCBTYWx0ZWRfX35BncjAMpNLB
- MYpOgwILePKUI0v30iWMsmmafWjbvHEjbfNLO08BujbPK5YbX1fspmh4i3vhjKazDIGWPpbrlZQ
- 6h3FEQ9Uk20v682zFAn6cWC+TsUWfts=
-X-Proofpoint-GUID: udDvb2UvxpnNk8v9zNT0e3A-KMRs8ypZ
-X-Authority-Analysis: v=2.4 cv=Bu8IUoX5 c=1 sm=1 tr=0 ts=6ad5c953 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=uEqVyaLVsi9FIuCuvY4A:9 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAzMCBTYWx0ZWRfX9NtcIjTRcDjz
- bv9WWkq/Y77mkHS56zbCGe05C/1abQfiGA+yeYLePYzb4LA5/83Y4HcVn20J5cn+GdYtV2JVNBB
- QP4CRF1H879L5Mo0g1S53296q43yGIJNRBNMsVq6WXqQe2/61lmRuIJ3elRgX2lrEuar0GDKGLY
- 1PiJs/7y3nsBsG+uyxl5wjHiCzwCckvCX6zIu49DR4PcehZNg2HxAPmaThS9503aPBYujfJKIbN
- wTJmOADv8/x3xa5zXUokjhTWFwOZqV/iM5cKcxSzkPtVcG1q7kzidK7W/uKkYhvB/y+FEpAVABj
- EuxFf2K9EfwoWxwnmd+IhrM8dG2YHW2XXlutQi0Naz88hgfML/0EGFrzwRwxVIZUuo93b/ommyU
- s0tMoHESFwdBdeePVX8cFnIBnsjKoyqUUXQPXErcpSzSEsdE5UwCeI50twaubFiYgjgXHl84o7c
- xhwgglO2ClFH/ake5sQ==
-X-Proofpoint-ORIG-GUID: udDvb2UvxpnNk8v9zNT0e3A-KMRs8ypZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015
- adultscore=0 priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190030
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 3/3] i3c: master: svc: Add Amlogic A9 glue layer
+To: junyi.zhao@amlogic.com, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
+ linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
+ Kelvin.Zhang@amlogic.com
+References: <20261019-a9_i3c-v1-0-329d819d621f@amlogic.com>
+ <20261019-a9_i3c-v1-3-329d819d621f@amlogic.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261019-a9_i3c-v1-3-329d819d621f@amlogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Describe the existing per-provider class devices as the firmware-neutral
-userspace interface. Explain that providers can use any firmware transport
-or implement profiles in software, without an ACPI companion or firmware
-node on their parent device.
+On 10/19/26 07:34, Junyi Zhao via B4 Relay wrote:
+> From: Junyi Zhao <junyi.zhao@amlogic.com>
+> 
+> Add support for the Amlogic A9 implementation of the Silvaco
+> SVC I3C controller.
+> 
+> The glue layer provides Amlogic-specific operations and resource
+> handling while reusing the common SVC I3C core driver.
+> 
+> Add a corresponding MAINTAINERS entry for the Amlogic I3C
+> controller.
+> 
+> Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
+> ---
+>   MAINTAINERS                          |   6 +
+>   drivers/i3c/master/svc/Kconfig       |   7 +
+>   drivers/i3c/master/svc/Makefile      |   1 +
+>   drivers/i3c/master/svc/i3c-amlogic.c | 250 +++++++++++++++++++++++++++++++++++
+>   4 files changed, 264 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index dffc63af2..478979446 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1398,6 +1398,12 @@ F:	Documentation/userspace-api/media/v4l/metafmt-c3-isp.rst
+>   F:	drivers/media/platform/amlogic/c3/isp/
+>   F:	include/uapi/linux/media/amlogic/
+>   
+> +AMLOGIC I3C DRIVER
+> +M:	Junyi Zhao <junyi.zhao@amlogic.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/i3c/amlogic,i3c-a9.yaml
+> +F:	drivers/i3c/master/svc/i3c-amlogic.c
+> +
+>   AMLOGIC MIPI ADAPTER DRIVER
+>   M:	Keke Li <keke.li@amlogic.com>
+>   L:	linux-media@vger.kernel.org
+> diff --git a/drivers/i3c/master/svc/Kconfig b/drivers/i3c/master/svc/Kconfig
+> index 14fa1e542..df3528bc1 100644
+> --- a/drivers/i3c/master/svc/Kconfig
+> +++ b/drivers/i3c/master/svc/Kconfig
+> @@ -18,4 +18,11 @@ config I3C_SILVACO
+>   	  compatible strings such as "silvaco,i3c-master-v1" and
+>   	  "nuvoton,npcm845-i3c".
+>   
+> +config I3C_AMLOGIC
+> +	tristate "Amlogic I3C support"
+> +	default y
+> +	help
+> +	  This selects the Amlogic SoC glue layer support for
+> +	  the Silvaco device driver. This driver is used for A9, C5 SoCs.
+> +
+>   endif # SVC_I3C
+> diff --git a/drivers/i3c/master/svc/Makefile b/drivers/i3c/master/svc/Makefile
+> index cf18c5da6..695863d1f 100644
+> --- a/drivers/i3c/master/svc/Makefile
+> +++ b/drivers/i3c/master/svc/Makefile
+> @@ -3,3 +3,4 @@
+>   
+>   obj-$(CONFIG_SVC_I3C)	+= i3c-main.o
+>   obj-$(CONFIG_I3C_SILVACO)	+= i3c-silvaco.o
+> +obj-$(CONFIG_I3C_AMLOGIC)	+= i3c-amlogic.o
+> diff --git a/drivers/i3c/master/svc/i3c-amlogic.c b/drivers/i3c/master/svc/i3c-amlogic.c
+> new file mode 100644
+> index 000000000..82300d6ae
+> --- /dev/null
+> +++ b/drivers/i3c/master/svc/i3c-amlogic.c
+> @@ -0,0 +1,250 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
+> +/*
+> + * Copyright (C) 2026 Amlogic, Inc. All rights reserved
+> + */
+> +#include "i3c-main.h"
+> +#include <linux/math64.h>
+> +
+> +/* Amlogic specific registers */
+> +#define I3C_BG_RD_ADDR			0x200
+> +#define I3C_BG_WR_ADDR			0x204
+> +#define I3C_BG_WR_CTRL			0x208
+> +#define I3C_BG_R_TT_LEN			0x20c
+> +#define I3C_BG_X_CNT			0x210
+> +#define I3C_BUS_MON_CTRL		0x214
+> +#define I3C_BUS_MON_ADDR		0x218
+> +#define I3C_BUS_MON_DATA		0x21c
+> +#define I3C_BUS_MON_DATA_MAK		0x220
+> +#define I3C_CLK_SLOW_DIV_CTRL		0x224
+> +#define I3C_BG_R_WCNT_CLR		0x228
+> +#define I3C_DEBUG_MODIFY		0x22c
+> +
+> +#define I3C_AO_CLK_SLOW_DIV_CTRL	0x300
+> +#define I3C_AO_FCLK_DIV_CTRL		0x304
+> +#define I3C_AO_FCLK_DIV_MASK		GENMASK(7, 0)
+> +#define I3C_AO_FCLK_DIV_EN		BIT(8)
+> +#define I3C_AO_FCLK_EN			BIT(9)
+> +#define I3C_AO_DEBUG_MODIFY		0x308
+> +
+> +#define I3C_DEFAULT_FCLK_RATE		25000000UL
+> +
+> +struct amlogic_i3c_priv {
+> +	int num_clks;
+> +	struct clk_bulk_data *clks;
+> +};
+> +
+> +struct amlogic_i3c_drvdata {
+> +	int (*fclk_rate_init)(struct svc_i3c_master *master,
+> +			      struct clk *fclk, unsigned long rate);
+> +};
+> +
+> +static int default_i3c_fclk_rate_init(struct svc_i3c_master *master,
+> +				      struct clk *fclk, unsigned long rate)
+> +{
+> +	int err;
+> +
+> +	err = clk_set_rate(fclk, rate);
+> +	if (err)
+> +		return dev_err_probe(master->dev, err,
+> +				     "setting fast clock rate failed\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static int ao_i3c_fclk_rate_init(struct svc_i3c_master *master,
+> +				 struct clk *fclk, unsigned long rate)
+> +{
+> +	unsigned int div_cnt, reg_val;
+> +	unsigned long fin_freq = clk_get_rate(fclk);
+> +
+> +	if (!fin_freq)
+> +		return dev_err_probe(master->dev, -EINVAL,
+> +				     "can't get I3C fast clock rate\n");
+> +
+> +	div_cnt = div64_u64(fin_freq, rate);
+> +	if (!div_cnt || div_cnt > I3C_AO_FCLK_DIV_MASK)
+> +		return dev_err_probe(master->dev, -EINVAL,
+> +				     "requested fast clock frequency too low\n");
+> +
+> +	reg_val = I3C_AO_FCLK_DIV_EN | I3C_AO_FCLK_EN | (div_cnt - 1);
+> +	writel(reg_val, master->regs + I3C_AO_FCLK_DIV_CTRL);
+> +
+> +	return 0;
+> +}
 
-Retain the ACPI paths as compatibility interfaces for aggregate selection.
-Clarify that non-ACPI userspace selects individual providers and document
-the sequential application of aggregate writes and their partial-failure
-behavior. No new userspace ABI is introduced.
+You could also create a clock divider, register it and use a common clk_set_rate()
+for both setups.
 
-Correct the per-provider choices attribute reference and extend existing
-ACPI maintainer coverage to the extracted core and its interfaces.
+Neil
 
-Assisted-by: OpenCode:gpt-6.1-sol
-Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
----
- .../ABI/testing/sysfs-class-platform-profile  |  2 +-
- .../userspace-api/sysfs-platform_profile.rst  | 46 ++++++++++++++-----
- MAINTAINERS                                   |  5 ++
- include/linux/platform_profile.h              |  3 ++
- 4 files changed, 43 insertions(+), 13 deletions(-)
-
-diff --git a/Documentation/ABI/testing/sysfs-class-platform-profile b/Documentation/ABI/testing/sysfs-class-platform-profile
-index fcab26894ec3..75e0f6e2c128 100644
---- a/Documentation/ABI/testing/sysfs-class-platform-profile
-+++ b/Documentation/ABI/testing/sysfs-class-platform-profile
-@@ -35,7 +35,7 @@ Date:		March 2025
- KernelVersion:	6.14
- Description:	Reading this file gives the current selected profile for this
- 		device. Writing this file with one of the strings from
--		platform_profile_choices changes the profile to the new value.
-+		choices changes the profile to the new value.
- 
- 		This file can be monitored for changes by polling for POLLPRI,
- 		POLLPRI will be signaled on any changes, independent of those
-diff --git a/Documentation/userspace-api/sysfs-platform_profile.rst b/Documentation/userspace-api/sysfs-platform_profile.rst
-index 6613e188242a..a85ede3fb8e5 100644
---- a/Documentation/userspace-api/sysfs-platform_profile.rst
-+++ b/Documentation/userspace-api/sysfs-platform_profile.rst
-@@ -1,6 +1,8 @@
--=====================================================================
--Platform Profile Selection (e.g. /sys/firmware/acpi/platform_profile)
--=====================================================================
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+==========================
-+Platform Profile Selection
-+==========================
- 
- On modern systems the platform performance, temperature, fan and other
- hardware related characteristics are often dynamically configurable. The
-@@ -15,6 +17,21 @@ operation or towards performance.
- The purpose of the platform_profile attribute is to offer a generic sysfs
- API for selecting the platform profile of these automatic mechanisms.
- 
-+The framework is independent of the firmware interface used by a provider.
-+Drivers can implement profile selection using ACPI, an embedded controller,
-+or another platform-specific mechanism. The core does not discover providers
-+or interpret firmware descriptions.
-+
-+The firmware-independent userspace interface is available under
-+``/sys/class/platform-profile/platform-profile-X/``, with ``name``,
-+``choices`` and ``profile`` attributes for each registered provider.
-+
-+On ACPI systems, ``/sys/firmware/acpi/platform_profile_choices`` and
-+``/sys/firmware/acpi/platform_profile`` remain available as compatibility
-+interfaces for aggregate profile selection across registered providers.
-+On non-ACPI systems, userspace selects profiles through the individual
-+provider class devices.
-+
- Note that this API is only for selecting the platform profile, it is
- NOT a goal of this API to allow monitoring the resulting performance
- characteristics. Monitoring performance is best done with device/vendor
-@@ -52,13 +69,14 @@ Multiple driver support
- =======================
- When multiple drivers on a system advertise a platform profile handler, the
- platform profile handler core will only advertise the profiles that are
--common between all drivers to the ``/sys/firmware/acpi`` interfaces.
-+common between all drivers to the ``/sys/firmware/acpi`` interfaces, when
-+ACPI is active.
- 
- This is to ensure there is no ambiguity on what the profile names mean when
- all handlers don't support a profile.
- 
--Individual drivers will register a 'platform_profile' class device that has
--similar semantics as the ``/sys/firmware/acpi/platform_profile`` interface.
-+Individual drivers register a ``platform-profile`` class device with
-+``name``, ``choices`` and ``profile`` attributes.
- 
- To discover which driver is associated with a platform profile handler the
- user can read the ``name`` attribute of the class device.
-@@ -71,10 +89,14 @@ by writing to the ``profile`` attribute of the driver's class device.
- 
- This will allow users to set different profiles for different drivers on the
- same system. If the selected profile by individual drivers differs the
--platform profile handler core will display the profile 'custom' to indicate
--that the profiles are not the same.
-+ACPI aggregate interface will display the profile 'custom' to indicate that
-+the profiles are not the same.
-+
-+While the ACPI ``platform_profile`` attribute has the value ``custom``,
-+writing a common profile from ``platform_profile_choices`` to it will set
-+the profile for all drivers. ``custom`` cannot be written to this aggregate
-+interface.
- 
--While the ``platform_profile`` attribute has the value ``custom``, writing a
--common profile from ``platform_profile_choices`` to the platform_profile
--attribute of the platform profile handler core will set the profile for all
--drivers.
-+Aggregate profile changes are applied to providers sequentially. If a provider
-+returns an error, providers updated earlier are not rolled back. Userspace can
-+read the per-provider interfaces to determine their resulting state.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8014b9f8253e..929e1e095f17 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -285,10 +285,14 @@ B:	https://bugzilla.kernel.org
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm
- F:	Documentation/ABI/testing/configfs-acpi
- F:	Documentation/ABI/testing/sysfs-bus-acpi
-+F:	Documentation/ABI/testing/sysfs-class-platform-profile
-+F:	Documentation/ABI/testing/sysfs-platform_profile
- F:	Documentation/firmware-guide/acpi/
-+F:	Documentation/userspace-api/sysfs-platform_profile.rst
- F:	arch/x86/kernel/acpi/
- F:	arch/x86/pci/acpi.c
- F:	drivers/acpi/
-+F:	drivers/platform/profile/
- F:	drivers/pci/*/*acpi*
- F:	drivers/pci/*acpi*
- F:	drivers/pnp/pnpacpi/
-@@ -296,6 +300,7 @@ F:	include/acpi/
- F:	include/linux/acpi.h
- F:	include/linux/fwnode.h
- F:	include/linux/fw_table.h
-+F:	include/linux/platform_profile.h
- F:	lib/fw_table.c
- F:	rust/helpers/acpi.c
- F:	rust/kernel/acpi.rs
-diff --git a/include/linux/platform_profile.h b/include/linux/platform_profile.h
-index 855b28340e95..f23f9827eac6 100644
---- a/include/linux/platform_profile.h
-+++ b/include/linux/platform_profile.h
-@@ -2,6 +2,9 @@
- /*
-  * Platform profile sysfs interface
-  *
-+ * Providers may use any firmware interface or implement profiles in software.
-+ * The parent device does not need an ACPI companion or a firmware node.
-+ *
-  * See Documentation/userspace-api/sysfs-platform_profile.rst for more
-  * information.
-  */
--- 
-2.43.0
+> +
+> +static int amlogic_i3c_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	const struct amlogic_i3c_drvdata *data;
+> +	struct svc_i3c_master *master;
+> +	struct amlogic_i3c_priv *priv;
+> +	struct clk *fclk;
+> +	int ret, i;
+> +
+> +	master = svc_i3c_master_alloc(dev);
+> +	if (!master)
+> +		return -ENOMEM;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	master->drvdata = of_device_get_match_data(dev);
+> +	if (!master->drvdata)
+> +		return -EINVAL;
+> +
+> +	data = master->drvdata->bsp_data;
+> +	if (!data)
+> +		return -EINVAL;
+> +
+> +	master->regs = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(master->regs))
+> +		return PTR_ERR(master->regs);
+> +
+> +	master->irq = platform_get_irq(pdev, 0);
+> +	if (master->irq < 0)
+> +		return master->irq;
+> +
+> +	priv->num_clks = devm_clk_bulk_get_all(dev, &priv->clks);
+> +	if (priv->num_clks < 0)
+> +		return dev_err_probe(dev, -EINVAL, "can't get I3C clocks\n");
+> +
+> +	for (i = 0; i < priv->num_clks; i++) {
+> +		if (!strcmp(priv->clks[i].id, "fast_clk"))
+> +			break;
+> +	}
+> +
+> +	if (i == priv->num_clks)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "can't get I3C peripheral clock\n");
+> +
+> +	if (IS_ERR(priv->clks[i].clk))
+> +		return PTR_ERR(priv->clks[i].clk);
+> +	fclk = priv->clks[i].clk;
+> +
+> +	ret = clk_bulk_prepare_enable(priv->num_clks, priv->clks);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "can't enable I3C clocks\n");
+> +
+> +	master->dev = dev;
+> +	master->bsp_priv = priv;
+> +	ret = data->fclk_rate_init(master, fclk, I3C_DEFAULT_FCLK_RATE);
+> +	if (ret)
+> +		goto err_disable_clks;
+> +	master->fclk_rate = I3C_DEFAULT_FCLK_RATE;
+> +
+> +	pm_runtime_set_autosuspend_delay(dev, SVC_I3C_PM_TIMEOUT_MS);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_get_noresume(dev);
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
+> +
+> +	ret = svc_i3c_master_probe(pdev, master);
+> +	if (ret)
+> +		goto rpm_disable;
+> +
+> +	platform_set_drvdata(pdev, master);
+> +	pm_runtime_put_autosuspend(dev);
+> +
+> +	return 0;
+> +
+> +rpm_disable:
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	pm_runtime_put_noidle(dev);
+> +	pm_runtime_disable(dev);
+> +	pm_runtime_set_suspended(dev);
+> +
+> +err_disable_clks:
+> +	clk_bulk_disable_unprepare(priv->num_clks, priv->clks);
+> +
+> +	return ret;
+> +}
+> +
+> +static void amlogic_i3c_remove(struct platform_device *pdev)
+> +{
+> +	struct svc_i3c_master *master = platform_get_drvdata(pdev);
+> +
+> +	svc_i3c_master_remove(master);
+> +
+> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
+> +	pm_runtime_disable(&pdev->dev);
+> +}
+> +
+> +static int __maybe_unused amlogic_i3c_runtime_suspend(struct device *dev)
+> +{
+> +	struct svc_i3c_master *master = dev_get_drvdata(dev);
+> +	struct amlogic_i3c_priv *priv = master->bsp_priv;
+> +
+> +	svc_i3c_save_regs(master);
+> +	clk_bulk_disable_unprepare(priv->num_clks, priv->clks);
+> +	pinctrl_pm_select_sleep_state(dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused amlogic_i3c_runtime_resume(struct device *dev)
+> +{
+> +	struct svc_i3c_master *master = dev_get_drvdata(dev);
+> +	struct amlogic_i3c_priv *priv = master->bsp_priv;
+> +	int ret;
+> +
+> +	pinctrl_pm_select_default_state(dev);
+> +	ret = clk_bulk_prepare_enable(priv->num_clks, priv->clks);
+> +	if (ret)
+> +		return ret;
+> +
+> +	svc_i3c_restore_regs(master);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct dev_pm_ops amlogic_i3c_pm_ops = {
+> +	SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+> +				      pm_runtime_force_resume)
+> +	SET_RUNTIME_PM_OPS(amlogic_i3c_runtime_suspend,
+> +			   amlogic_i3c_runtime_resume, NULL)
+> +};
+> +
+> +static const struct amlogic_i3c_drvdata amlogic_i3c_data = {
+> +	.fclk_rate_init = default_i3c_fclk_rate_init,
+> +};
+> +
+> +static const struct amlogic_i3c_drvdata amlogic_i3c_ao_data = {
+> +	.fclk_rate_init = ao_i3c_fclk_rate_init,
+> +};
+> +
+> +static const struct svc_i3c_drvdata amlogic_a9_drvdata = {
+> +	.quirks = SVC_I3C_QUIRK_FIFO_EMPTY |
+> +		SVC_I3C_QUIRK_FALSE_SLVSTART |
+> +		SVC_I3C_QUIRK_DAA_CORRUPT,
+> +	.bsp_data = &amlogic_i3c_data,
+> +};
+> +
+> +static const struct svc_i3c_drvdata amlogic_a9_ao_drvdata = {
+> +	.quirks = SVC_I3C_QUIRK_FIFO_EMPTY |
+> +		SVC_I3C_QUIRK_FALSE_SLVSTART |
+> +		SVC_I3C_QUIRK_DAA_CORRUPT,
+> +	.bsp_data = &amlogic_i3c_ao_data,
+> +};
+> +
+> +static const struct of_device_id amlogic_i3c_of_match_tbl[] = {
+> +	{ .compatible = "amlogic,i3c-a9", .data = &amlogic_a9_drvdata },
+> +	{ .compatible = "amlogic,i3c-ao-a9", .data = &amlogic_a9_ao_drvdata },
+> +	{ /* sentinel */ },
+> +};
+> +MODULE_DEVICE_TABLE(of, amlogic_i3c_of_match_tbl);
+> +
+> +static struct platform_driver amlogic_i3c_master = {
+> +	.probe = amlogic_i3c_probe,
+> +	.remove = amlogic_i3c_remove,
+> +	.driver = {
+> +		.name = "amlogic-i3c-master",
+> +		.of_match_table = amlogic_i3c_of_match_tbl,
+> +		.pm = &amlogic_i3c_pm_ops,
+> +	},
+> +};
+> +module_platform_driver(amlogic_i3c_master);
+> +
+> +MODULE_AUTHOR("Junyi Zhao <junyi.zhao@amlogic.com>");
+> +MODULE_DESCRIPTION("Amlogic I3C master driver");
+> +MODULE_LICENSE("GPL");
+> 
 
