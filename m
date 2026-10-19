@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7A55DE9A6;
-	Mon, 19 Oct 2026 14:02:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AE15DE9B6;
+	Mon, 19 Oct 2026 14:02:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418537; cv=none; b=MEBAmZTszustPiP4hmyRO9lQ+Xmw0s6hpGp/Jvv3xnZnrpKABCKoNRRb4GYRiCK/vhCMlIB5fiCgeEHWO7dU2O5oL2jF+Fe5cak5YELgsSOU0iGsESoqgK5u40q9gkGa+KCBNnZO+jinLTk3QkdFCCvTxmLctRpZoKaawoSfxok=
+	t=1792418538; cv=none; b=VrBXJ4i//Pu9qcKfg5eWsAmxwUzm4oifQZXkM3LqI93xwaVDllO9qZoscaLlVss4rC2g1MIvkg0drb2318gOmiYyXsyF86pZipaCknAqDivoheMik7jKht0GGytM3KJCJlkyHOuIfinWo6MVaHezdFQ0MHlvvEOOcfLQZTAP/EY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418537; c=relaxed/simple;
-	bh=OoAODBPG7JuGh6KFSqk77Miq0NaF5LnnMtJ/XBIQmi0=;
+	s=arc-20240116; t=1792418538; c=relaxed/simple;
+	bh=wYz2ykWVtMcmbYXF98u+dcQ2DEnpsBrSBPHeuumRTNc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jkORyY07WInFfXp4Kaw0MvJgoEGZq/Cf/A4u7I4H0EAHer+kbOWbf+FsH3Bw1XffNInc0+fcopHM1uxIYEWygO8b7S3brhz6RatyVNk9xXWynYIr2B9ctuKaFkbZYFR6P8etkXQ4piybcqVzQUaYprjshnD4BGIgC+mfOAoPxeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjzZ2xGK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=bdY131atQg1LGpBTWvEKupM/K557L1WLaKaV47jkpWhXe4sZFXPAgTx86lUiC7ie/OVsm34ycoiGvrbbxM2ife2bVwqaOaipGrTju864X6tSjI/F7wlq9VOL8eRV4vkVYyuGXM7mEpqa5Qmlypztn3sJkoWlIwEHh/5foGgNYLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BGT/9LEi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjzZ2xGK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17421F000C9;
-	Mon, 19 Oct 2026 14:02:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BGT/9LEi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF3B01F000C6;
+	Mon, 19 Oct 2026 14:02:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418535;
-	bh=r2RDo+R5bPz8ehvpSEPrSMIYkGdL2eQ9N6e7gpsV5Rc=;
+	s=k20260515; t=1792418536;
+	bh=lnmMdiRihI7doar/6y0AnWxtq+WHN77C7jiP0sBXVD4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NjzZ2xGKGp3ZlF1VpUsuTRFSYzjC3VZPE1PfCUgcS0I4KCj2sgWUZCeJelhcbR2mz
-	 DL/YhX0Vm/G/cFACH2d4sMonGXi2wF7KD1E8wB6l86S4fMTuj/2JxvimA3PIHopWw1
-	 AsZKqxuZkUS2Fnhsg3th44xn39+wQIMxOV8TulZChsyCb4+cG+hy+9QRJr5uLseK/Y
-	 DPFnY7N5MZklxSZgTc8YeQe6d4SX+0iuTUhNyeC11uJBt6vJUe2irNCuL4Z9Ho0slp
-	 PJPqjfqN6s2vzX9DgvWrjrLz5ea9Fy8u+n8bOjwF5biqOYRg8y1C6cumWXKzGwaGVu
-	 vJkaxb10/IjSA==
+	b=BGT/9LEiZkP3EIftAR+QPOL4gp09fbxsejQKh6y1FEU1oOrE5R8+sW8DmFql2ort3
+	 7V/JufhzJPmUMmC3wkrYQaARLuN+bHJJORl7yPZrOXnIKyDFbve2rhRvBmO9hEuVCX
+	 lVlKTI6EDWEbIi+YeXDleAQ0QFlJjdU7RUx9XUVBx7EKYzbGOCaDeqJW7tBkBaCIfW
+	 UqEOSDgyqTTCLhuIm56MdhPnVZg0wksj0jpck/lmIk/awHeMp9DzNNj5G5+ioUvj07
+	 EYMTSGcy6wC93xVMtxg9xgSygxgjQ50dYeCaWMhIl1bwH/gXoQtsODu1hhPPAKEvQ1
+	 K64+DPXXGJoDA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Michail Tatas <michail.tatas@gmail.com>,
-	Corey Minyard <corey@minyard.net>,
+Cc: David Heidelberg <david@ixit.cz>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	openipmi-developer@lists.sourceforge.net,
+	konradybcio@kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] ipmi: Fix leak in __ipmi_bmc_register
-Date: Mon, 19 Oct 2026 09:50:08 -0400
-Message-ID: <20261019135441.1420968-317-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] soc: qcom: socinfo: Add SoC ID for SDM850
+Date: Mon, 19 Oct 2026 09:50:09 -0400
+Message-ID: <20261019135441.1420968-318-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -52,426 +54,369 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Michail Tatas <michail.tatas@gmail.com>
+From: David Heidelberg <david@ixit.cz>
 
-[ Upstream commit 18e633dd9674c8bf118ea8583bb5a531edc2728a ]
+[ Upstream commit 743af1d6a8b4bfa62dd01b5c2d81b1c62ea597f7 ]
 
-In case that ida_alloc(&ipmi_bmc_ida,...) succeeds and then
-platform_device_register() fails, ipmi_bmc_ida is leaked.
-Fix by freeing the error path
+Recognize the SDM850 SoC.
 
-Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
-Message-ID: <anUK_HOy_pCgvsBm@michalis-linux>
-Signed-off-by: Corey Minyard <corey@minyard.net>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20260627-sda850-v2-2-44bf46ade42e@ixit.cz
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a one-line IDA leak fix in IPMI BMC registration. The buggy
-error path is in this 6.12.111 tree, the patch applies cleanly, and the
-maintainer treated it as a bug fix.
+This tree is **Linux 7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
+verdict below is only for this checkout: the socinfo table and
+`QCOM_ID_SDM850` are present here, so the one-line SoC ID addition is a
+valid hardware-ID backport.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[ipmi] [Fix] leak in __ipmi_bmc_register` — explicit leak fix
-in BMC registration.
+Step 1.1: PARSE THE SUBJECT LINE
+Record: **[soc: qcom: socinfo]** **[Add]** **SoC ID table entry so
+SDM850 is recognized by qcom-socinfo**
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- No `Fixes:` tag (expected for this review pipeline)
-- No `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-by:`, `Cc:
-  stable`, or `Link:`
-- `Signed-off-by: Michail Tatas <michail.tatas@gmail.com>` (author)
-- `Message-ID: <anUK_HOy_pCgvsBm@michalis-linux>`
-- `Signed-off-by: Corey Minyard <corey@minyard.net>` (IPMI maintainer;
-  not a pipeline SOB)
-- Ignore any pipeline `Signed-off-by: Sasha Levin` / `[Upstream commit
-  ...]` if present
+- Fixes: none (expected for this review)
+- Reported-by: none
+- Tested-by: none
+- Reviewed-by: none on this commit (patch 1 of the series has Reviewed-
+  by Konrad Dybcio)
+- Acked-by: Krzysztof Kozlowski \<krzysztof.kozlowski@oss.qualcomm.com\>
+- Link:
+  https://lore.kernel.org/r/20260627-sda850-v2-2-44bf46ade42e@ixit.cz
+- Cc: stable: none (expected)
+- Signed-off-by: David Heidelberg \<david@ixit.cz\> (author); Bjorn
+  Andersson \<andersson@kernel.org\> (qcom SoC maintainer). Ignored: any
+  Sasha Levin SOB (none in the provided message)
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- Bug: `ida_alloc(&ipmi_bmc_ida, ...)` succeeds, then
-  `platform_device_register()` fails, and the IDA ID is never freed.
-- Symptom: leaked IDA ID (IDs cannot be reused). Not a kmalloc leak of
-  the `bmc` object itself — that is already freed via `put_device()`.
-- Failure mode: resource leak on the BMC registration error path; can
-  retry (see Phase 5).
-- Root cause: `out_list_del` calls `put_device(&bmc->pdev.dev)` (which
-  `kfree`s the BMC via `release_bmc_device`) but never `ida_free()`.
-- No version range in the message.
+- Bug description: SDM850 (numeric SMEM id 348) is not in the socinfo
+  `soc_id[]` table, so the driver cannot map it to a name.
+- Symptom/failure mode: `/sys/devices/soc0/machine` is omitted (NULL
+  machine name). Numeric `soc_id` still works. Not a crash.
+- Version information: none in the message. Cover letter (from the lore
+  mbox): “Useful for sdm850 devices in tree and also will be used by
+  Comma AI comma three.”
+- Root cause: missing table entry, not a logic bug.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not disguised. Subject and body both say “Fix leak”. This is a
-straightforward error-path resource leak.
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: Not a hidden crash/UAF/leak fix. It is an explicit **missing
+hardware ID**. That is the documented stable exception for new device
+IDs on an existing driver.
 
-## PHASE 2: DIFF ANALYSIS
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-**Step 2.1: INVENTORY THE CHANGES**
+Step 2.1: INVENTORY THE CHANGES
 Record:
-- File: `drivers/char/ipmi/ipmi_msghandler.c` (+1 / −0)
-- Function: `__ipmi_bmc_register()` error label `out_list_del`
-- Scope: single-file, one-line surgical fix
-- Upstream SHA: `18e633dd9674c8bf118ea8583bb5a531edc2728a`
+- File: `drivers/soc/qcom/socinfo.c` — **+1 / −0**
+- Function: static table `soc_id[]` (not a function body)
+- Scope: **single-file surgical ID addition**
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record: Before — on `platform_device_register()` failure, the code
-unlinks the BMC, resets `intf->bmc`, then `put_device()`. After — same
-path, but `ida_free(&ipmi_bmc_ida, bmc->pdev.id)` runs **before**
-`put_device()`, because `put_device()` → `release_bmc_device()` →
-`kfree(bmc)` would make `bmc->pdev.id` unusable.
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record: Before, `socinfo_machine()` walked `soc_id[]` and returned NULL
+for id 348. After, id 348 matches `QCOM_ID_SDM850` and returns
+`"SDM850"`. Path: `qcom_socinfo_probe()` → `socinfo_machine()` →
+`soc_device_register()`. Normal probe path only; no error-path or
+locking change.
 
-Verified local error path:
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record: **[Hardware ID / device-ID table]** Missing
+`qcom_board_id(SDM850)` so SMEM id 348 is unnamed. Macro expands to
+`QCOM_ID_SDM850, "SDM850"` via `qcom_board_id()`.
 
-```3255:3261:drivers/char/ipmi/ipmi_msghandler.c
-out_list_del:
-        mutex_lock(&bmc->dyn_mutex);
-        list_del(&intf->bmc_link);
-        mutex_unlock(&bmc->dyn_mutex);
-        intf->bmc = &intf->tmp_bmc;
-        put_device(&bmc->pdev.dev);
-        goto out;
-```
+Step 2.4: ASSESS THE FIX QUALITY
+Record: Obviously correct one-liner, same pattern as neighboring IDs
+(SDM636/SDM632). Regression risk is very low: table is append-only
+lookup; no lock, alloc, or API change. Compile dependency:
+`QCOM_ID_SDM850` must exist in `include/dt-bindings/arm/qcom,ids.h` (it
+does in this tree).
 
-And the only jump to that label:
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
-```3188:3194:drivers/char/ipmi/ipmi_msghandler.c
-                rv = platform_device_register(&bmc->pdev);
-                if (rv) {
-                        dev_err(intf->si_dev,
-                                "Unable to register bmc device: %d\n",
-                                rv);
-                        goto out_list_del;
-                }
-```
+Step 3.1: BLAME THE CHANGED LINES
+Record: Insertion sits between SDA636 and SDM632, both from
+`34ec89e68db26` (2022-10-17, “soc: qcom: socinfo: create soc_id table
+from bindings”). The table format has been stable since then. SDM850 DT
+has been in tree much longer (`44acee2078447` Yoga C630, 2019-09-05;
+`6be4ba5467bed` sdm850.dtsi, 2021-01-15).
 
-Successful-registration cleanup already frees the ID in
-`cleanup_bmc_work()`:
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: No Fixes: tag. Not applicable. This fills a gap for hardware
+whose DT was added years ago, not a regression from a specific commit.
 
-```3048:3056:drivers/char/ipmi/ipmi_msghandler.c
-static void cleanup_bmc_work(struct work_struct *work)
-{
-        struct bmc_device *bmc = container_of(work, struct bmc_device,
-                                              remove_work);
-        int id = bmc->pdev.id; /* Unregister overwrites id */
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record: This is **patch 2/2** of “Recognize Snapdragon SDM850”. Patch 1:
+`dt-bindings: arm: qcom,ids: Add SoC ID for Snapdragon SDM 850`
+(`d529495c991a2b` in the qcom tree; also `4e926dc3d6ad3` via arm-soc).
+Recent socinfo history is mostly other SoC/PMIC ID adds. Standalone on
+this tree because the `#define` is already here.
 
-        platform_device_unregister(&bmc->pdev);
-        ida_free(&ipmi_bmc_ida, id);
-}
-```
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record: David Heidelberg authored both series patches on these paths.
+Not the subsystem maintainer. Maintainer path: Ack from Krzysztof
+Kozlowski, merge by Bjorn Andersson.
 
-That work is queued only from `kref_put(&bmc->usecount,
-cleanup_bmc_device)`. `out_list_del` uses `put_device()`, not
-`kref_put()`, so `ida_free` currently never runs on this failure.
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: **Depends on `QCOM_ID_SDM850` (348)** in `qcom,ids.h`. Verified
+present at `include/dt-bindings/arm/qcom,ids.h:187`. `git merge-base
+--is-ancestor` confirms both the socinfo commit `743af1d6a8b4b` and the
+header commit are ancestors of HEAD. Can apply standalone **on this
+tree**. Applying only socinfo without the define would not compile
+(`QCOM_ID_SDM850` undeclared). Parent of `743af1d6a8b4b` did **not**
+have the define (header landed on a different path/timing).
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: Category **(a) error-path resource leak**. Mechanism: IDA ID
-allocated, never returned on `platform_device_register()` failure. Fix:
-add the missing `ida_free()` before the device is released.
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
-Not a kmalloc UAF: `release_bmc_device()` still frees the BMC. Not a
-double-free of the ID: `cleanup_bmc_work` is not queued on this path.
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct. `ida_free` must precede `put_device` (object
-containing the id is freed there). Minimal, no unrelated edits, no
-API/lock/hot-path changes. Regression risk is very low.
-Double-`ida_free` is not a concern because this path does not go through
-`cleanup_bmc_work`.
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-**Step 3.1: BLAME THE CHANGED LINES**
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
 Record:
-- IDA numbering: `68e7e50f195f` (“ipmi: Don't use BMC product/dev ids in
-  the BMC name”, Corey Minyard, 2017)
-- `out_list_del` + `put_device`: `a2cb600fa22a87` (“ipmi: Rework BMC
-  registration”, 2017)
-- `ida_alloc` conversion: `9bd9fbd9032a3` (2023) — API rename only; leak
-  already existed with `ida_simple_get`
-- Partial sibling leak: `4aa7afb0ee20a` (2019) freed `bmc` on
-  `ida_simple_get()` failure, but did **not** free the ID after
-  `platform_device_register()` failure
+- Lore/msgid:
+  https://patch.msgid.link/20260627-sda850-v2-2-44bf46ade42e@ixit.cz
+- Direct lore.kernel.org fetch: **403** (could not read HTML); full
+  thread saved via `b4 dig -m` to `/tmp/sdm850-thread.mbox`
+- Revisions: **v1** (2026-06-23) was only the dt-bindings patch, titled
+  SDA 850; **v2** (2026-06-27) renamed to SDM850 (Konrad) and added this
+  socinfo consumer (Krzysztof). Applied version is v2/2, the latest.
+- Reviewer feedback: Ack from Krzysztof on both patches; Reviewed-by
+  Konrad on patch 1; Bjorn Andersson applied both on 2026-07-05. No
+  NAKs. No reviewer `Cc: stable`.
+- Cover letter: in-tree SDM850 devices + Comma AI comma three.
 
-Bug has been in-tree since ~2017. All of the above are ancestors of this
-HEAD.
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record (`b4 dig -w`): To/Cc included Bjorn Andersson, Konrad Dybcio, Rob
+Herring, Krzysztof Kozlowski, Conor Dooley, linux-arm-msm, devicetree,
+linux-kernel. Right maintainers were on the thread.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. Closest introducer is `68e7e50f195f` (IDA IDs)
-plus `a2cb600fa22a87` (error path that omits `ida_free`). Both are in
-this tree (`git merge-base --is-ancestor` returned 0).
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: No syzbot/bugzilla. Motivation is missing ID for already-
+supported boards, not a crash report.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Nearby IPMI fixes in this 6.12 tree (`d4be659a3e56f` SI NULL
-deref, `e2a3b77df6aef` refcount leak) are unrelated. Upstream neighbor
-`b6c46ab0bdee9` (“Remove all sysfs files on registration failure”) is a
-**different** leak in `ipmi_add_smi()` sysfs attributes, not a
-prerequisite. This commit is standalone.
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: Two-patch series only. No further enablement patches in the
+thread. Patch 1 is the header define (already in this tree).
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Michail Tatas has no other IPMI commits on `origin/master`
-besides this one. Corey Minyard (MAINTAINERS: IPMI SUBSYSTEM) authored
-the registration rewrite and SOB’d this patch. Maintainer-acked.
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: **UNVERIFIED** — lore.kernel.org/stable search and WebSearch
+both failed (403 / tool error). No stable discussion in the captured
+msm/devicetree thread.
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Needs `ida_free` / `ida_alloc` / `ipmi_bmc_ida` /
-`out_list_del`, all present here. `git apply --check` of `18e633dd9674c`
-succeeded at offset −44 lines. Standalone.
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: Table `soc_id[]` only. Consumers: `socinfo_machine()`, called
+from `qcom_socinfo_probe()`.
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- `b4 dig -c 18e633dd9674c` →
-  https://patch.msgid.link/anUK_HOy_pCgvsBm@michalis-linux
-- `b4 dig -a`: single **v1**, no later revisions
-- Patchew: Corey Minyard replied *“You are correct, added to my next
-  tree. Thank you.”* — no NAK, no requested changes
-- Included in `[GIT PULL] IPMI bug fixes for 7.3` as “Several cleanup on
-  error fixes”
+Step 5.2: TRACE CALLERS
+Record: `socinfo_machine()` is static, one caller:
+`qcom_socinfo_probe()`. Platform driver `qcom-socinfo`
+(`CONFIG_QCOM_SOCINFO`, default `m` if `ARCH_QCOM`). Probe at Qualcomm
+SoC boot via SMEM `SMEM_HW_SW_BUILD_ID`. Not IRQ/hot-path. Userspace-
+visible via soc bus sysfs.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To Corey Minyard (`corey@minyard.net`); Cc
-`openipmi-developer@lists.sourceforge.net`, `linux-
-kernel@vger.kernel.org`. Subsystem maintainer received and applied it.
+Step 5.3: TRACE CALLEES
+Record: Probe uses `qcom_smem_get()`, `soc_device_register()`, debugfs
+init, `add_device_randomness()`. This patch does not change those calls.
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No syzbot/bugzilla/`Reported-by`. Found by code inspection.
-Maintainer confirmed the leak.
+Step 5.4: FOLLOW THE CALL CHAIN
+Record: Boot on SDM850 (Yoga C630, Samsung W737, Huawei Matebook E,
+etc.) → qcom-socinfo probe → SMEM id 348 → name lookup. Reachable on
+real shipped ARM64 laptops already described in this tree’s DT. Not a
+syscall fuzzer path.
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Standalone `[PATCH]`, not `n/m`. Same pull also had unrelated
-IPMI error-path fixes (sysfs leftover attrs, SI NULL deref already in
-this tree as `d4be659a3e56f`). None required for this one-liner.
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: Many sibling “Add SoC ID for …” commits in the same table. No
+in-tree `soc_device_match()` on `"SDM850"` / `"SDM845"` (grep of
+drivers). Impact is sysfs/userspace identification, not in-kernel quirk
+matching.
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: Web search of lore.kernel.org/stable for this subject found no
-prior stable discussion or rejection. UNVERIFIED that nobody ever asked
-for it on stable@; absence of hits is not a reason to skip it.
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record: Yes. `drivers/soc/qcom/socinfo.c` `soc_id[]` and
+`socinfo_machine()` exist. Header define exists. SDM850 DT:
+`arch/arm64/boot/dts/qcom/sdm850.dtsi` plus board files. Without this
+line, id 348 stays unnamed. The gap existed from the 2022 table
+conversion until this 2026 add; hardware DT is from 2019–2021.
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: `__ipmi_bmc_register()` only. Helpers involved:
-`ida_alloc`/`ida_free`, `platform_device_register`, `put_device`,
-`release_bmc_device`, `cleanup_bmc_work`.
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: **Clean apply** on this tree: neighbors SDA636/SDM632 match the
+hunk. Same `qcom_board_id()` helper. Prerequisite `#define
+QCOM_ID_SDM850 348` is present.
 
-**Step 5.2: TRACE CALLERS**
-Record: Sole call site is `__bmc_get_device_id()` when BMC identity is
-new/changed (`!intf->bmc_registered` or GUID/device/product id change).
-That is called from:
-- `ipmi_add_smi()` (interface probe)
-- `bmc_get_device_id()` used by sysfs attrs (`device_id_show` and
-  siblings) and `ipmi_get_version()`
-- `redo_bmc_reg()` work scheduled when `!intf->bmc_registered`
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: This exact line is already in HEAD (`git merge-base --is-
+ancestor 743af1d6a8b4b HEAD` succeeded; blame line 428 is that commit).
+Per instructions that is **not** used as a “already selected” veto; it
+confirms the change is valid in this codebase. No alternate fix for id
+348.
 
-**Step 5.3: TRACE CALLEES**
-Record: Allocates BMC, takes an IDA id, registers a platform device
-`ipmi_bmc.<id>`, creates sysfs links. Error path in question is
-register-fail.
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
 
-**Step 5.4: FOLLOW THE CALL CHAIN (reachability)**
-Record: Reachable on IPMI SMI probe and on BMC id refresh. If
-`__ipmi_bmc_register()` fails:
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record: **drivers/soc/qcom** (Qualcomm socinfo). **IMPORTANT** for
+ARCH_QCOM users, not core mm/net. Identification only; does not bind a
+new driver.
 
-```2674:2675:drivers/char/ipmi/ipmi_msghandler.c
-                if (__ipmi_bmc_register(intf, &id, guid_set, &guid,
-intf_num))
-                        need_waiter(intf); /* Retry later on an error.
-*/
-```
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: Actively updated (many recent SoC/PMIC ID commits). Table-add
+pattern is mature and repetitive.
 
-`need_waiter()` arms `ipmi_timer` (1s: `IPMI_TIMEOUT_TIME == 1000`).
-`ipmi_timeout_handler()` sees `!intf->bmc_registered` and schedules
-`redo_bmc_reg()` → `bmc_get_device_id()` again. Persistent
-`platform_device_register()` failure therefore retries about once per
-second and leaks one IDA ID per retry. Userspace can also hit
-`__bmc_get_device_id` via sysfs BMC attributes and `ipmi_get_version()`.
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
 
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: Only one `ida_free(&ipmi_bmc_ida, ...)` in this file today
-(`cleanup_bmc_work`). The 2019 commit `4aa7afb0ee20a` fixed the sibling
-leak (kfree BMC if `ida_simple_get` fails). This patch is the missing
-half of that cleanup.
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: **Platform-specific** — Qualcomm SDM850 boards (in-tree: Lenovo
+Yoga C630, Samsung Galaxy Book2 / w737, Huawei Matebook E 2019). Cover
+letter also cites Comma three. Only if `CONFIG_QCOM_SOCINFO` is enabled
+(default on ARCH_QCOM).
 
-## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record: Every boot on SDM850 once socinfo probes. Not a race.
+Unprivileged users only observe sysfs; they cannot trigger a crash with
+this bug.
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes. Tree is **6.12.111** (`git describe HEAD` →
-`p-6.12-3-gc504cf0baa3d8`, `VERSION=6 PATCHLEVEL=12 SUBLEVEL=111`).
-`18e633dd9674c` is **not** an ancestor (`merge-base --is-ancestor` exit
-1). Local `out_list_del` still has `put_device` without `ida_free`. Bug
-dates to 2017 (`68e7e50f195f` / `a2cb600fa22a87`).
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record: Missing `/sys/devices/soc0/machine` (attribute mode 0 when
+`machine` is NULL in `soc_attribute_mode()`). Numeric soc_id still
+exported. **Severity: LOW** as a crash/corruption issue; **hardware
+identification** as a device-ID exception.
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: `git show 18e633dd9674c | git apply --check` → **Hunk #1
-succeeded at 3257 (offset -44 lines)**. Expected difficulty: **clean
-apply**. Surrounding `out_list_del` context matches upstream parent.
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record: Benefit: correct SoC name for real shipping devices already
+supported by this tree. Risk: **very low** (1 line, data-only). Ratio:
+favorable under the device-ID exception.
 
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: `4aa7afb0ee20a` is present (ida_alloc-failure kfree). No other
-`ida_free` on `out_list_del`. No substitute fix.
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `drivers/char/ipmi/` — IPMI message handler. **IMPORTANT** for
-servers/enterprise/BMC out-of-band management (typical LTS users). Not
-core mm/scheduler, not staging.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Mature (IPMI since 2.6-era). Recent 6.12.y history is bugfixes,
-not redesign. Long-lived leak, not a brand-new subsystem.
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Config-specific: `CONFIG_IPMI_HANDLER`. Driver-specific: systems
-with an IPMI BMC (most servers). Not universal desktop, but core for
-enterprise stable.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: `platform_device_register(&bmc->pdev)` failure after a
-successful `ida_alloc`. Typical causes: `-ENOMEM`, or platform namespace
-issues. Not every boot. If it fails, the 1s retry loop can fire
-repeatedly. Not a userspace-triggered security primitive by itself, but
-BMC sysfs/`ipmi_get_version` can re-enter registration.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: IDA ID leak (and IDA bitmap growth). BMC object is freed. Not
-oops/deadlock/corruption. Persistent retry can leak one ID per second.
-ID space is large (`ida_alloc` without max ≈ 0..INT_MAX), so exhaustion
-is slow, but it is a real unbounded leak on a retry path, not a one-shot
-init leak.
-
-Severity: **MEDIUM** (resource leak on error/retry path). Still matches
-the class of error-path leak fixes that stable regularly takes.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- Benefit: stops a verified ID leak in IPMI BMC registration, including
-  the retry loop. High value relative to patch size for IPMI-using
-  servers.
-- Risk: **very low** — one line, error path only, ordering is required
-  and correct.
-- Ratio: strongly favors backport.
-
-## PHASE 9: FINAL SYNTHESIS
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
+Step 9.1: COMPILE THE EVIDENCE
 FOR:
-- Real IDA leak on a live error path that can retry every second
-- One-line, obviously correct, `ida_free` before `put_device`
-- Buggy code present in this 6.12.111 tree since 2017
-- Applies cleanly (offset only)
-- IPMI maintainer confirmed and merged it as a bug fix
-- Completes the 2019 leak fix that only covered `ida_alloc` failure
-- No new API, no refactor, no dependencies missing here
+- Documented stable exception: new device/SoC ID on an existing driver
+- One line, same idiom as the rest of `soc_id[]`
+- Real hardware: in-tree SDM850 DTs since 2019–2021
+- Acked by Krzysztof Kozlowski; applied by Bjorn Andersson
+- Prerequisite `QCOM_ID_SDM850` is in this 7.3-rc4 tree
+- No locking/API/behavior change for other SoCs
 
 AGAINST:
-- Trigger is `platform_device_register()` failure (uncommon)
-- Not a crash/UAF/security hole
-- No `Reported-by` from production
-- ID space is large, so practical exhaustion is slow
+- Not a crash, UAF, deadlock, or data-corruption fix
+- No Cc: stable / Fixes (expected; not a negative)
+- Userspace-visible name fill-in, not driver probe
 
 UNRESOLVED:
-- Direct lore.kernel.org fetch returned 403; discussion recovered via
-  `b4 dig` + Patchew
-- No stable@ thread found for this subject
+- Could not query lore.kernel.org/stable (HTTP 403 / search failure)
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — 1 line; maintainer: “You are
-   correct”
-2. Fixes a real bug that affects users? **PASS** — IDA leak; retry can
-   repeat it
-3. Important issue? **PASS** (MEDIUM leak, same class as other stable
-   error-path leaks; IPMI is enterprise-relevant). Not CRITICAL crash,
-   but important enough.
-4. Small and contained? **PASS** — +1 line, one function
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — `git apply --check` succeeded
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — one table entry; maintainer
+   ack; merged to qcom/arm-soc
+2. Fixes a real bug that affects users? **PASS** — missing ID for
+   shipping SDM850 machines (Yoga C630 and others)
+3. Important issue (crash, security, corruption, deadlock)? **FAIL** as
+   those classes; **PASS** via device-ID exception
+4. Small and contained? **PASS** — +1 line, one file
+5. No new features or APIs? **PASS** — no new syscall/sysfs ABI; fills
+   existing soc bus `machine` attribute
+6. Can apply to the local tree? **PASS** — table and `QCOM_ID_SDM850`
+   exist here
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary small
-bugfix.
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: **NEW DEVICE ID** on an existing driver (`qcom-socinfo`).
+Analogous to adding a PCI/USB ID.
 
-**Step 9.4: DECISION**
-Backport. The leak exists here, the fix is trivial and correct, and IPMI
-BMC registration is used on the servers that run this LTS tree.
+Step 9.4: MAKE YOUR DECISION
+This is a one-line SoC ID for hardware this tree already describes. It
+does not add a driver or API. Benefit is correct identification on
+SDM850; risk is negligible. That matches the stable device-ID exception,
+so it should be backported to this tree.
 
-### What the commit solves for this tree
-If BMC platform-device registration fails after `ida_alloc`, 6.12
-currently drops the BMC (`put_device`) but keeps the ID.
-`__ipmi_bmc_register` failure then schedules a 1s retry, so a sticky
-failure leaks IDs continuously. Adding `ida_free(&ipmi_bmc_ida,
-bmc->pdev.id)` before `put_device` closes that path.
+**What it solves for stable users:** SDM850 reports as an
+unknown/unnamed SoC in socinfo sysfs. Users of Yoga C630-class machines
+and similar need the name for inventory/userspace matching.
 
-### Risk vs benefit
-Benefit is a real resource-leak fix in a long-lived IPMI path. Risk is
-essentially nil.
+**Risk vs benefit:** Data-only lookup add; no runtime regression path
+identified.
 
-### Concerns
-None for 6.12: no missing helpers, no conflicting refactor, apply is
-clean.
-
----
+**Concerns:** Must keep the header define (`QCOM_ID_SDM850` / 348). That
+define is already in this checkout, so this commit is self-contained
+here.
 
 Verification:
-- [Phase 1] Parsed tags: author SOB Michail Tatas; maintainer SOB Corey
-  Minyard; Message-ID `anUK_HOy_pCgvsBm@michalis-linux`; no
-  Fixes/Reported-by/Cc:stable
-- [Phase 2] Diff: +1 `ida_free(&ipmi_bmc_ida, bmc->pdev.id)` in
-  `out_list_del` of `__ipmi_bmc_register`
-- [Phase 2] Confirmed `out_list_del` is only reached from
-  `platform_device_register()` failure; success-path `ida_free` is in
-  `cleanup_bmc_work` via `kref_put`, not this path
-- [Phase 3] `git blame`: IDA intro `68e7e50f195f` (2017); error label
-  `a2cb600fa22a87` (2017); sibling kfree fix `4aa7afb0ee20a` (2019)
-- [Phase 3] `git merge-base --is-ancestor` of those three vs HEAD: all
-  present; `18e633dd9674c` **not** in HEAD
-- [Phase 3] Neighbor `b6c46ab0bdee9` is a different sysfs leak; not a
-  prerequisite
-- [Phase 4] `b4 dig -c 18e633dd9674c`: lore match
-  `https://patch.msgid.link/anUK_HOy_pCgvsBm@michalis-linux`
-- [Phase 4] `b4 dig -a`: v1 only
-- [Phase 4] `b4 dig -w`: To Corey Minyard, Cc openipmi-developer + LKML
-- [Phase 4] Patchew: maintainer “You are correct, added to my next tree”
-- [Phase 4] GIT PULL “IPMI bug fixes for 7.3” lists this commit
-- [Phase 4] lore.kernel.org WebFetch 403; discussion taken from
-  b4/Patchew instead
-- [Phase 5] Callers: `__bmc_get_device_id` ← `ipmi_add_smi`, sysfs BMC
-  attrs, `ipmi_get_version`, `redo_bmc_reg`
-- [Phase 5] Retry: `need_waiter` → 1s `ipmi_timer` → `bmc_reg_work`
-  while `!bmc_registered`
-- [Phase 6] `git describe HEAD`: `p-6.12-3-gc504cf0baa3d8`; `make
-  kernelversion`: 6.12.111
-- [Phase 6] `git apply --check`: hunk succeeded at line 3257 (offset
-  −44)
-- [Phase 7] MAINTAINERS: IPMI SUBSYSTEM → Corey Minyard
-- [Phase 8] Failure mode: IDA ID leak on error/retry; severity MEDIUM;
-  risk very low
-- UNVERIFIED: Direct lore.kernel.org HTML of the thread (403); no
-  stable@ archive hit for this subject
+- [Phase 1] Subject/tags: Add SoC ID; Acked-by Krzysztof Kozlowski; Link
+  msgid 20260627-sda850-v2-2; no Fixes/Reported-by/Cc: stable
+- [Phase 1] Cover letter from mbox: in-tree sdm850 devices + Comma AI
+  comma three; v2 renamed SDA850→SDM850
+- [Phase 2] Diff: +1 line `{ qcom_board_id(SDM850) }` in `soc_id[]` of
+  `drivers/soc/qcom/socinfo.c`
+- [Phase 2] `qcom_board_id(id)` → `QCOM_ID_ ## id, __stringify(id)` at
+  socinfo.c:25
+- [Phase 2] `socinfo_machine()` returns NULL if no match (lines
+  562–571); probe sets `qs->attr.machine` (913–914)
+- [Phase 2] `soc_attribute_mode()` hides machine sysfs when machine is
+  NULL (drivers/base/soc.c:54–55)
+- [Phase 3] `git describe HEAD` / `make kernelversion`: v7.3-rc4-27 /
+  7.3.0-rc4
+- [Phase 3] `git merge-base --is-ancestor 743af1d6a8b4b HEAD`: yes; also
+  in v7.3-rc1
+- [Phase 3] Prerequisite header commits `d529495c991a2b` and
+  `4e926dc3d6ad3` are ancestors of HEAD; `#define QCOM_ID_SDM850 348` at
+  qcom,ids.h:187
+- [Phase 3] Parent of socinfo commit lacked the define (would not
+  compile alone against that parent)
+- [Phase 3] Blame: neighbors from 34ec89e68db26 (2022); this line from
+  743af1d6a8b4b
+- [Phase 3] SDM850 DT: `git log --diff-filter=A` → 44acee2078447 (2019),
+  6be4ba5467bed (2021)
+- [Phase 4] `b4 dig -c 743af1d6a8b4b`: matched v2 2/2; `-a` showed v1
+  then v2; `-w` listed qcom/dt maintainers; `-m` saved thread
+- [Phase 4] mbox: Krzysztof Ack both; Konrad Reviewed-by on patch 1;
+  Bjorn “Applied, thanks!”; no NAK, no Cc: stable
+- [Phase 4] lore.kernel.org WebFetch 403; stable list search UNVERIFIED
+- [Phase 5] Only caller of `socinfo_machine` is `qcom_socinfo_probe`; no
+  in-tree `soc_device_match` on SDM850
+- [Phase 6] Local files exist; insertion context matches;
+  `CONFIG_QCOM_SOCINFO` in drivers/soc/qcom/Kconfig
+- [Phase 8] Failure mode: missing sysfs machine name, not oops; SDM850
+  boards listed under arch/arm64/boot/dts/qcom/
 
 **YES**
 
- drivers/char/ipmi/ipmi_msghandler.c | 1 +
+ drivers/soc/qcom/socinfo.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/char/ipmi/ipmi_msghandler.c b/drivers/char/ipmi/ipmi_msghandler.c
-index 0247079db185e..dc4704b067b94 100644
---- a/drivers/char/ipmi/ipmi_msghandler.c
-+++ b/drivers/char/ipmi/ipmi_msghandler.c
-@@ -3306,6 +3306,7 @@ static int __ipmi_bmc_register(struct ipmi_smi *intf,
- 	list_del(&intf->bmc_link);
- 	mutex_unlock(&bmc->dyn_mutex);
- 	intf->bmc = &intf->tmp_bmc;
-+	ida_free(&ipmi_bmc_ida, bmc->pdev.id);
- 	put_device(&bmc->pdev.dev);
- 	goto out;
- }
+diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
+index 963772f45489d..79a0defe73227 100644
+--- a/drivers/soc/qcom/socinfo.c
++++ b/drivers/soc/qcom/socinfo.c
+@@ -359,6 +359,7 @@ static const struct soc_id soc_id[] = {
+ 	{ qcom_board_id(IPQ8078) },
+ 	{ qcom_board_id(SDM636) },
+ 	{ qcom_board_id(SDA636) },
++	{ qcom_board_id(SDM850) },
+ 	{ qcom_board_id(SDM632) },
+ 	{ qcom_board_id(SDA632) },
+ 	{ qcom_board_id(SDA450) },
 -- 
 2.53.0
 
