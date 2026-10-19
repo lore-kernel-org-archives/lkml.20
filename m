@@ -1,78 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792428070;
-	b=FQosHKIcwVou1P7qW66i3bbi1m29fr2KLRMiRtLc8k0RzD2P6XdpA5EFhCjqffY+isoe
-	 5TM9/xAwnVbfNbn3NWD/mAm281bB/6pkqVsYxPGt95nK+OfjmyNa0bjd0LEKvrOyPAAbm
-	 zRE8kK8CvS3MKQJUga65HdZiliI5cqHwBgxBwqKBK0fq/hL670hlgbTQu/aUmXq/wAXPp
-	 TVDHIMN42a08rrwtzMlECkaS+ygLEhZJQ3qs/O7DUxAuiuAWaXsQc14b9HlWxbfi+xMTx
-	 zkgens2TR+0Ds5qAs2v3ITJMQ8h7oo3Fl7PJRuxwqU/rfAv4BDZD3AZxclYfwdLskFw==
+	t=1792428115;
+	b=1zaqlKDUomj3O9BRpKKMMRPGmIVE+n9KAi3cV6NjzA3VzoSqvEyGNFITsp/a6ihdbQpB
+	 Cz690efCt8odCsaJ7+U8IkdPAVlSlh2B3gF8c1P2pwT+IvTNKQ20CO85B3DKHpSl2NyJd
+	 zSJpackmFWStLZYQyJTVtuZr2yXyjr497uaMUhxEN5FPJX9G1jr3UVL3FryoF2sCsWmQy
+	 pcdgQUljG4zwrCM034Mia2GKg5MoaZfLUpoH3tSjYW6h3Du8MhsmIzfd0CTY33/mQLB98
+	 LVUviMGYgJbQAeb9qk0e9Kam0PVJ3a2/l2A1kbbZQqqkCM05Uk5gi5XOdLWGTN7IQSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792428070;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=rbdfVHO0AKwNo2sneKiVEbPJk3OuiQ8lKgq/D/YXIj4=;
-	b=NORRN6wWWgQwM1rROhRJ1ISkRrgkxaJlXtJLBbR54+MsqU4sFFfHye8T4e4AflaUVOJD
-	 wHkOKGCeDwMPT/s+tGUICuvD3++Q7iDA1sA/WrrLQmLcCS1FzXTahDDnRi0nHresIex4r
-	 ZZF50HPCQr8PTF8vk9CrmY0YvjgYSij+uQJxOcr8a1BVlbtltNty6+uKt5r0c8plSLOFY
-	 txVIreWcp/iDlKg7DK/Qd6RKy3RSt+NEvZn5ns5SroxU/Z4/GF77wVTUTsNUkiT7wPeau
-	 dFu0JQ0EkWZUBNIPdzbqTwtX9nNtzz0aIgaHiy6RzDTQQ5M92W+l9g37ZZ0CkMJjb5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792428115;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=x95JnSTAGKgQoctI7x0v2xKm15KaSPE+6GLlSALF+i4=;
+	b=IlIRoq3tZmVzxcACRvYC+0ED8TXY0eVtoxUtEYix+jS1vkJ6sedc7g8cVeHisLrinG/M
+	 D1MbQZj+dOLUWzpZ5H3PGJXCNv+I+5GHVNkFGCz088T4OiARVCgX+WHIiK3/KwtcK/JZh
+	 lmjKRPpp2wqxN/mrUFzDEzxcTpImpWwXR4uDpqmgn04TbxnwKLBBYNN9o3Q6jV1jFlYt4
+	 LJ51Lpv/Peq5Sjhjr9fDtU2EFAz+FNaYVzAO1JUvyPLyD0NQTenUklueZl6QjkXQj4PFO
+	 zlexeTfcEO7sjAKepgo+Tb//nX/6pYpPCVJzRIUHxlouFCSPmTpdIaOy3/bJLFkw4tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJoCE9DB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSAB7NW2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7FA606A31A;
-	Mon, 19 Oct 2026 16:41:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BD5606A31A;
+	Mon, 19 Oct 2026 16:41:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJoCE9DB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 360D71F000C4;
-	Mon, 19 Oct 2026 16:41:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSAB7NW2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E71F71F000C4;
+	Mon, 19 Oct 2026 16:41:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792428069;
-	bh=rbdfVHO0AKwNo2sneKiVEbPJk3OuiQ8lKgq/D/YXIj4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=iJoCE9DB2Dexn5w31cqx1Is7Akz7QHS7QDtEZIpsTaGyksewCOPOZTkDqQFoFXl+3
-	 jBRd8C4q7edopIozvLloPBDNK3De5o3NttHYOvP8Eo008bFd8/DnmmMrUrm4nB41BG
-	 MIvMGQ4PSLNxua+sGZCv85rrFQ1T7HEmNPZ9g/qrAyRvDH8TiGgsTMuFEvWG04rQq+
-	 jk4MA9aJ9cBcS3saD9IRKX4TpRZX/gP0WD5D8ngtDXmn4E8uMaDvVWOm+MM4eIyPBy
-	 ykoktRYSXdG5lGcbVm3YRyoxpty48Z9EQLQI68IEg4ZBND6XSDDirexkSRygLMrqLR
-	 U1juSrQeIUKsA==
-Date: Mon, 19 Oct 2026 11:41:08 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
-	Niklas Cassel <cassel@kernel.org>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Randolph Lin <randolph@andestech.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Alex Elder <elder@riscstar.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Vidya Sagar <vidyas@nvidia.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v7 1/6] PCI: spacemit-k1: Add device data support
-Message-ID: <20261019164108.GA2177470@bhelgaas>
+	s=k20260515; t=1792428114;
+	bh=x95JnSTAGKgQoctI7x0v2xKm15KaSPE+6GLlSALF+i4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fSAB7NW20JCAiLixJGlTa7CjLWqMJDWZgD12mgzeun5xFvFsWyDR4GqfEVYbvrC/I
+	 iEaKWjR+VSugmhXEWPc4hQEATJoflD5rXgGsRgBfnvOYuvFNYDG5EyqlDLXsvSBCk0
+	 1Ga79NvuSti/pKjA4DyNTyQyjZ2QNjOy/ktmfcPbBLoDlzFNO5+ERlL9SY/xhzZ3sY
+	 ldcWLD89xFA/9xXjarUgBK6hR2JhiUjG//L5CECQs6tF5Rh2g3grJy07Xuq7bp1nKn
+	 lEPDLUOHiuBjmlAGPzS/NbnBZFx/dl/WLpcBbhItHFJtPVuIRyXs+X9OCeX6BHtGe6
+	 EW0/Ue3RbSTRw==
+Message-ID: <805cfff2-1856-4b48-9afc-174a56405283@kernel.org>
+Date: Mon, 19 Oct 2026 18:41:50 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,109 +51,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929083755.458238-2-inochiama@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] cgroup/cpuset: use mems_allowed_seq when checking a
+ policy nodemask
+Content-Language: en-US
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
+ cgroups@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, longman@redhat.com,
+ ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com,
+ akpm@linux-foundation.org, mgorman@suse.de
+References: <20261019162138.3271947-1-gourry@gourry.net>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261019162138.3271947-1-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2026 at 04:37:47PM +0800, Inochi Amaoto wrote:
-> To reuse the K1 PCIe driver logic for K3 PCIe controller, add device
-> data to handle the K1 specific logic and make room for the incoming
-> logic for K3.
+On 10/19/26 18:21, Gregory Price (Meta) wrote:
+> A cpuset update changes the task's mems_allowed and rebinds its
+> mempolicy in separate steps under mems_allowed_seq, but the check
+> reads both without it.  This can cause a spurious numa placement
+> miss under some cpuset/mempolicy combinations.
 > 
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> A reader that loads one mask before the update and the other after
+> it can see a spurious empty intersection and drop the nodemask.
+> 
+> For example, a task with cpuset.mems={0} and MPOL_BIND={0}.  If the
+> cpuset moves to mems={1,2}, the policy is rebound to {1}.
+> 
+> The allocator can race and compare the old mems_allowed {0} against
+> the new policy {1} - which will result in a dropped nodemask and a
+> misplaced allocation on node 2.
+
+And since this can have only performance implications and not cause a
+functional issue, we don't need Cc: stable.
+
+(unlike violating a __GFP_THISNODE allocation which could be quite bad and
+has happened in the past)
+
+> Simply retry the intersection until mems_allowed_seq is stable.
+> 
+> This covers the task policy, which is rebound under mems_allowed_seq.
+> VMA policies are rebound afterwards by mpol_rebind_mm(), outside
+> mems_allowed_seq, and are not covered by this change.
+> 
+> Fixes: cc9a6c877661 ("cpuset: mm: reduce large amounts of memory barrier related damage v3")
+> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> Reviewed-by: Waiman Long <longman@redhat.com>
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 > ---
->  drivers/pci/controller/dwc/pcie-spacemit-k1.c | 30 ++++++++++++++++---
->  1 file changed, 26 insertions(+), 4 deletions(-)
+> v2: there is no real update here, i'm breaking it off of the page_alloc
+>     series so the page_alloc fixes backport collectively cleaner.
 > 
-> diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> index 0564c46e2f48..ab2953ad8f56 100644
-> --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> @@ -45,8 +45,17 @@
->  #define PCIE_CONTROL_LOGIC			0x0004
->  #define PCIE_SOFT_RESET			BIT(0)
->  
-> +struct k1_pcie;
-> +
-> +struct k1_pcie_device_data {
-> +	const struct dw_pcie_host_ops *host_ops;
-> +	const struct dw_pcie_ops *ops;
-> +	int (*parse_port)(struct k1_pcie *k1);
-> +};
-
-Does the "const" here add anything useful?  This patch suggests maybe
-not:
-
-  https://lore.kernel.org/all/20260911233541.1650895-2-james.quinlan@broadcom.com/
-
-> +
->  struct k1_pcie {
->  	struct dw_pcie pci;
-> +	const struct k1_pcie_device_data *data;
->  	struct phy *phy;
->  	void __iomem *link;
->  	struct regmap *pmu;	/* Errors ignored; MMIO-backed regmap */
-> @@ -274,14 +283,21 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
->  
->  static int k1_pcie_probe(struct platform_device *pdev)
+>  kernel/cgroup/cpuset.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 3f52717c19654..8ee239d5c6b48 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -4354,10 +4354,21 @@ nodemask_t cpuset_mems_allowed(struct task_struct *tsk)
+>   * @nodemask: the nodemask to be checked
+>   *
+>   * Are any of the nodes in the nodemask allowed in current->mems_allowed?
+> + *
+> + * A cpuset update rebinds the task's mempolicy and changes mems_allowed in
+> + * separate steps, so retry if an update raced with the check.
+>   */
+>  int cpuset_nodemask_valid_mems_allowed(const nodemask_t *nodemask)
 >  {
-> +	const struct k1_pcie_device_data *data;
->  	struct device *dev = &pdev->dev;
->  	struct k1_pcie *k1;
->  	int ret;
->  
-> +	data = device_get_match_data(dev);
-> +	if (!data)
-> +		return -ENODATA;
+> -	return nodes_intersects(*nodemask, current->mems_allowed);
+> +	unsigned int seq;
+> +	int ret;
 > +
->  	k1 = devm_kzalloc(dev, sizeof(*k1), GFP_KERNEL);
->  	if (!k1)
->  		return -ENOMEM;
->  
-> +	k1->data = data;
+> +	do {
+> +		seq = read_mems_allowed_begin();
+> +		ret = nodes_intersects(*nodemask, current->mems_allowed);
+> +	} while (read_mems_allowed_retry(seq));
 > +
->  	k1->pmu = syscon_regmap_lookup_by_phandle_args(dev_of_node(dev),
->  						       SYSCON_APMU, 1,
->  						       &k1->pmu_off);
-> @@ -295,11 +311,11 @@ static int k1_pcie_probe(struct platform_device *pdev)
->  				     "failed to map \"link\" registers\n");
->  
->  	k1->pci.dev = dev;
-> -	k1->pci.ops = &k1_pcie_ops;
-> +	k1->pci.ops = data->ops;
->  	k1->pci.pp.num_vectors = MAX_MSI_IRQS;
->  	dw_pcie_cap_set(&k1->pci, REQ_RES);
->  
-> -	k1->pci.pp.ops = &k1_pcie_host_ops;
-> +	k1->pci.pp.ops = data->host_ops;
->  
->  	/* Hold the PHY in reset until we start the link */
->  	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CLK_RESET_CONTROL,
-> @@ -316,7 +332,7 @@ static int k1_pcie_probe(struct platform_device *pdev)
->  
->  	platform_set_drvdata(pdev, k1);
->  
-> -	ret = k1_pcie_parse_port(k1);
-> +	ret = data->parse_port(k1);
->  	if (ret)
->  		return dev_err_probe(dev, ret, "failed to parse root port\n");
->  
-> @@ -334,8 +350,14 @@ static void k1_pcie_remove(struct platform_device *pdev)
->  	dw_pcie_host_deinit(&k1->pci.pp);
+> +	return ret;
 >  }
 >  
-> +static const struct k1_pcie_device_data k1_pcie_device_data = {
-> +	.host_ops	= &k1_pcie_host_ops,
-> +	.ops		= &k1_pcie_ops,
-> +	.parse_port	= k1_pcie_parse_port,
-> +};
-> +
->  static const struct of_device_id k1_pcie_of_match_table[] = {
-> -	{ .compatible = "spacemit,k1-pcie", },
-> +	{ .compatible = "spacemit,k1-pcie", .data = &k1_pcie_device_data },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, k1_pcie_of_match_table);
-> -- 
-> 2.55.0
-> 
+>  /*
+
