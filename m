@@ -1,75 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792422852;
-	b=CyaNhmPvrAjhj78hOI/gfdrP2E20hnwP3iWgcQ6omDForiLBhmIgMc0PkTgw137k5Res
-	 3Zhdu+QA6/5kbJ1QDDbiYEkYd4JTEYkH7tX10sqmbja+LDl5M0fIhcIJbInZ/xr9dgHR0
-	 cPLW1vaYaG8vNRVdiud9aUwwAIF+5ibXPxmKWE7UBz3UiojIEIL/XSd9V+ArTBhOS37gF
-	 j5nkqpVoiQehhrjCtt6dQj7xmyiw60c36TufL9Sv+NzveNR4cRmrSzGTf/osPWBkj/i1W
-	 g2XaYcHD1XzoCJ5mwOoiswv/omyMs5T5eDeqD2NC1XJ7VvcJICzUrQqXGlYAmJ2Omkg==
+	t=1792423245;
+	b=TeEWk6bmNvyBOI2KXVLzxNjdMl52JKzuNKcJEzNq3yAj3IfCfqu8UulRvZBNYJDZg9aj
+	 WBa3iEUc64y0wXv9x76Fs0hGeE4mPG7ZnXVdnNVPjZEZktSFK1fe3FYgnaVVVwUsG1Yuy
+	 8iQm3D59fjFXBT87Fc6ohEw8of0DQqa87SKucJJahk5jQKmmGWzR/MFG26hHb/V9v+npb
+	 I9Km9XVPYU5n/HY/0zwPX/mx24j4GUUcnsYljCa1c9q4WRn5ECBqRcAbODPk7C/4wI3ti
+	 qVE1nwV0HarAVePP9wr5D4gu3ZabX/hMnTrBQGFFtPzkig6ffcZ7gAsOCcXff5rM0YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792422852;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ExRw9WuWIr0p5AYjgul5hezibf1JXB0BJmVlaNloBdA=;
-	b=ul17uyEyNWNaqHrM64exOFfWI1vC+BXy/RyMtoZaLlsuA3O+iIOaPuN2L3yR0DX1pXEz
-	 W0Y9GqTimRm17+ibnjWT+F8GV/wgr87/QcHdyz3zBKwcj8YE1n1pSC8E482wW+EQpcEE+
-	 PwBxl3+ZrOMaRRQm6vXYN2VVCEg7lgTDLvsmABG+M18kwdk4pTvpIixgG0sgar9dg1vML
-	 Di1w8utLc2jSym19Wg8GL6vOKYQh327q4efeMT7cP3/9Q5E4yeZ1UxWzfLR7rMJEungpb
-	 kh2bPKmWw+RtgSpOWGvujQynbbJdn58iHRqBIhG1671I2WTkMyy27Tbs08n9osndnTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792423245;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=ZtF3pLjwdO/EjU6H/l0B9QYdOBekN6Mz1r0HXeqWce0=;
+	b=iq+wlgNW4zFW3G4DZ2x7FWlC3ACDHRdpUVrbwZqVuIzVdIU+Ux8z6FdEfdISXwHlI2jR
+	 ne3PxSQiwvtbnHNkc9QrDNfpOvgMZA7xqOA445e1zMHTbWADmaTQq09+GsujKhPINb3tK
+	 Wh/9HrFLBjYqAYUg/y+zac5+bkfbHt+JIUEoGyeigLP6gQccwIg18dK6qdM2EyEQdn7g6
+	 cxUF5bxJ8PkXdGU33QpZLOsAvkBQXfnKm2tijB4v2PvHJIypAfAAw5/DfX3RNwrfsjpcQ
+	 yJ0+ukLVwXukC9eosoKbYrKraTLdcNyDtifWAQYx85XJZiGxabzVSbhjnjNsfmHdC1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mWWAch4u;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rbox.co;
+	spf=pass smtp.mailfrom=rbox.co;
+	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=DY6YxkkD;
+	arc=none smtp.remote-ip=185.226.149.37
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33250609B66C;
-	Mon, 19 Oct 2026 15:14:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33250609B66C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB1160A7E4E;
+	Mon, 19 Oct 2026 15:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DB1160A7E4E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mWWAch4u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792422851; x=1823958851;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=9f4xcAeEk4Y2XZsQrlSHLA8dr7zRkDfjKkFP/Y8XoTs=;
-  b=mWWAch4uCn64BSVq7LhyXfnDLUdx7YDhPcL2a0xlnQSnN+vUYZGus2pw
-   q5r7/TGee8L2gVGRBwhruWU85u61jOPf9XVUyGnwbrtnnFGNyX+X1t5iL
-   xGqupbif1/sHPa7IFoexg+CAP8W1fFm+1NK7qbCRh/uwdTrcEguUEmYJy
-   +m9QqBq3VPyUkZTtOrMLJ7kz4UzHnzj3k0VkuRMirpKdI36DKMfVNa1qk
-   85sOK8pDovPbNP2iy5AyrJh4Ah4p70uw17P5IbT4TnlYWqFEKHN/Anc/+
-   XRi8dFC/XdvzoWSymNS3hebkDv3mCbvSk/GHER8TQ6vfBgTl7Mu3TW1TO
-   A==;
-X-CSE-ConnectionGUID: 9SiRVx6PRmSOmG0ydAQ7DA==
-X-CSE-MsgGUID: WCJhci1PSpuv0qoNGt2DAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="986871"
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="986871"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 08:14:10 -0700
-X-CSE-ConnectionGUID: zJZvmXxpROKsCJn1yJ8EoA==
-X-CSE-MsgGUID: PnyO1OXHR3S41b0OX43Iow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
-   d="scan'208";a="2536877"
-Received: from jf5300-15a101203tc.jf.intel.com (HELO meta-crater2c.jf.intel.com) ([10.54.113.49])
-  by orviesa003.jf.intel.com with ESMTP; 19 Oct 2026 08:14:10 -0700
-From: Daniel Byrne <daniel1.byrne@intel.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] io_uring: don't sleep on a claimed DEFER_TASKRUN wakeup
-Date: Mon, 19 Oct 2026 08:06:07 -0700
-Message-ID: <20261019150607.4026170-1-daniel1.byrne@intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=DY6YxkkD
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1xIpA5-0033bO-0y; Mon, 19 Oct 2026 17:20:29 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
+	bh=ZtF3pLjwdO/EjU6H/l0B9QYdOBekN6Mz1r0HXeqWce0=; b=DY6YxkkDUmTX8UqWgioRvLjJS5
+	DANrdy1OniLaalx1SR0mZq7QLxopCq7qV5bnROKJBfaN32xs8gP0nROCCbutICsSP189kbbd2cVeI
+	pqebf+IM+G+6z+qii/pnOCfqHV2rUTwdIZOA6yKQJvEufAPztRnRExCEK+Py7MN+mgDMC74eJUzo0
+	/qQYskF0+QsDO/n/DsfZts2fVqZAntNQTbnB1T7XndkanQ73SSEhbFOVFR8sfI3fGb1QFa35OxFgD
+	SBTYmu8cxjatHZp2fpuJzELYETqR7xhi2FZR6eDuJKKXd+kNZxT9yIFJfM+Ixiua5CQKF2v0Qb08w
+	yYx0PV5w==;
+Received: from [10.9.9.72] (helo=submission01.runbox)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1xIp9y-0008Ot-A1; Mon, 19 Oct 2026 17:20:22 +0200
+Received: by submission01.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1xIp9p-006D8P-CR;
+	Mon, 19 Oct 2026 17:20:13 +0200
+Message-ID: <a9ba4549-4bae-4516-85ef-ee38f13551cd@rbox.co>
+Date: Mon, 19 Oct 2026 17:20:12 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,200 +66,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Michal Luczaj <mhal@rbox.co>
+Subject: Re: [PATCH bpf-next 2/3] bpf, sockmap: Restrict iter-context sockmap
+ updates to iter/sockmap
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Lorenz Bauer <lmb@cloudflare.com>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+ Jakub Sitnicki <jakub@cloudflare.com>
+References: <20261016-sockmap-update-limit-iter-v1-0-23fa946db59e@rbox.co>
+ <20261016-sockmap-update-limit-iter-v1-2-23fa946db59e@rbox.co>
+ <DM6O08VBRY20.1PFUYACCZ38JL@gmail.com>
+Content-Language: pl-PL, en-GB
+In-Reply-To: <DM6O08VBRY20.1PFUYACCZ38JL@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-A producer that stalls between publishing local task work and
-running the cq_wait_nr wake protocol can claim an arm from a later
-wait cycle than the one its work belongs to. The waiter may already
-have drained that work and re-armed for its next sleep. The claimed
-wake then fires through wake_up_state() while the waiter is still
-TASK_RUNNING, before it has set its task state for the sleep, and
-is a no-op. The arm is spent and nothing restores it in time, so
-every later producer reads a non-positive cq_wait_nr and skips the
-wake. No producer wakes the waiter, which sleeps while the
-completions it waits for pile up on ctx->work_list.
+On 10/17/26 01:52, Alexei Starovoitov wrote:
+> On Fri, Oct 16, 2026 at 11:09 PM Michal Luczaj <mhal@rbox.co> wrote:
+>> [2]: commit 64c2f93fc325 ("bpf, sockmap: Take state lock for af_unix iter")
+> 
+> unix_state_lock() in bpf_iter_unix_seq_show() was added only for
+> unix_stream_bpf_update_proto() called from the iter prog.
+> iter/unix cannot get there anymore.
+> can we drop it ? can be a follow up...
 
-Three waiters arm cq_wait_nr. io_cqring_wait() and the BPF loop
-waiter io_loop_wait() arm it a few instructions before
-set_current_state(). The third waiter is the cancel wait in
-io_uring_cancel_generic(), where exec waits for all of a task's
-inflight requests and exit waits for its tracked ones, such as
-futex waits. There, io_uring_try_cancel_requests() arms cq_wait_nr
-at the start of each cancel pass. The task state is set only after
-the whole pass, so the window spans the io-wq cancel, the local
-work run and the cancel walkers. That wait has no timeout. A
-stranded exec sleeps until a signal arrives, and a stranded exit of
-the last thread, which no longer receives signals, can sleep for
-good.
+So we don't care about having a stable socket state while iterating? Which
+is the case for iter/sockmap, but is unlike iter/{tcp,udp}.
 
-A prototype that busy-polls device completions in TASK_RUNNING from
-io_cqring_wait_schedule() while armed (to be posted separately, as part of
-the io_uring DMA copy offload) widens the io_cqring_wait() window to
-tens of microseconds, and those completions push local work from many
-CPUs, so what is a narrow race in upstream io_cqring_wait() wedged fio
-reliably within seconds there. Every ring was parked in
-io_cqring_wait() with exactly its queue depth of completions stranded
-on ctx->work_list and cq_wait_nr at IO_CQ_WAKE_INIT.
+>> +		if (eatype == BPF_TRACE_ITER &&
+>> +		    env->prog->type == BPF_PROG_TYPE_TRACING &&
+>> +		    !strcmp(afname + strlen(BPF_ITER_FUNC_PREFIX), "sockmap"))
+>>  			return true;
+> 
+> iter/sockmap prog is not limited to ctx->sk it seems.
+> bpf_skc_to_unix_sock(ctx->sk)->peer is a plain PTR_TO_BTF_ID and
+> the value arg of bpf_map_update_elem() accepts it.
+> The peer doesn't have to be in any map, so it has no psock,
+> and sock_map_seq_show() holds nothing but rcu.
+> sock_map_update_elem() takes bh_lock_sock(), then sock_map_link() does
+> sk_psock_init() and unix_stream_bpf_update_proto() on a socket
+> that unix_release_sock() can be tearing down.
+> That's the same unlocked socket as in iter/task_file.
 
-Add io_cq_wait_arm_spent() and refuse to sleep in all three waiters
-once the arm is spent. io_cqring_wait() runs its wait loop again,
-and io_loop_wait() returns to the loop in __io_run_loop(). Both
-loops drain anything pending and re-arm. The cancel wait runs
-another pass, which re-arms. Each check follows the setting of the
-task state, so a later claim can no longer be lost. The cancel wait
-checks only the rings whose deferred work the task runs, because an
-arm wakes only ctx->submitter_task. wait.h documents the rule next
-to IO_CQ_WAKE_INIT.
+I'm not sure I see the (stream sock) issue above. psock->sk_pair holds the
+peer, so peer pointer remains valid during proto update. iter/sockmap is
+safe, because sk is held by RCU. And for iter/unix we currently take
+unix_state_lock().
 
-The check relies on nothing else restoring a spent arm before it
-runs. The min_wait timer stores an arm only during the timed sleep,
-which starts after the check and cancels the timer before the
-waiter checks again. io_uring_try_cancel_requests() also arms the
-ring when io_ring_exit_work() runs it or when a task that does not
-own the ring runs it, such as the creator of an R_DISABLED ring
-that another task enabled. Such a store that lands between the
-owner's test for pending local work and its check hides a spent
-arm, and the owner sleeps on work that no later producer wakes it
-for. Arm only in the owner's passes, the ones that also run the
-ring's local work, as the owner is the only task an arm wakes.
-io_ring_exit_work() never sleeps on the arm and runs stranded work
-itself, so it needs no arm.
+But iter/sockmap dgram peer is a problem, right? No sk_pair, no lock, and
+connect(AF_UNSPEC) can get the peer dropped.
 
-Fixes: d46ab2c98aba ("io_uring: switch local task_work to a mpscq")
-Cc: stable@vger.kernel.org # v7.2
-Assisted-by: Claude:claude-fable-5-1
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Daniel Byrne <daniel1.byrne@intel.com>
----
- io_uring/cancel.c | 25 +++++++++++++++++++++++--
- io_uring/loop.c   |  3 ++-
- io_uring/wait.c   | 19 +++++++++++++++++++
- io_uring/wait.h   | 20 ++++++++++++++++++++
- 4 files changed, 64 insertions(+), 3 deletions(-)
+> Should we restrict it to ctx->sk somehow?
 
-diff --git a/io_uring/cancel.c b/io_uring/cancel.c
-index 4f706aff14fc..0ed7544851f8 100644
---- a/io_uring/cancel.c
-+++ b/io_uring/cancel.c
-@@ -520,8 +520,18 @@ __cold bool io_uring_try_cancel_requests(struct io_ring_ctx *ctx,
- 	enum io_wq_cancel cret;
- 	bool ret = false;
- 
--	/* set it so io_req_local_work_add() would wake us up */
--	if (ctx->flags & IORING_SETUP_DEFER_TASKRUN) {
-+	/*
-+	 * Arm so that io_req_local_work_add() wakes ->submitter_task. An
-+	 * arm wakes no other task, so only that task's passes arm, the same
-+	 * ones that run the local work below. A store from another task
-+	 * could restore an arm that a stalled add spent while the owner was
-+	 * getting ready to sleep, and so hide the spent arm from the
-+	 * owner's test. See the comment above IO_CQ_WAKE_INIT. This leaves
-+	 * out io_ring_exit_work(), which never sleeps on the arm and runs
-+	 * stranded work itself.
-+	 */
-+	if ((ctx->flags & IORING_SETUP_DEFER_TASKRUN) &&
-+	    io_allowed_defer_tw_run(ctx)) {
- 		atomic_set(&ctx->cq_wait_nr, 1);
- 		smp_mb();
- 	}
-@@ -639,6 +649,17 @@ __cold void io_uring_cancel_generic(bool cancel_all, struct io_sq_data *sqd)
- 			if (io_local_work_pending(node->ctx) &&
- 			    io_allowed_defer_tw_run(node->ctx))
- 				goto end_wait;
-+			/*
-+			 * The pass armed ->cq_wait_nr while running, so a
-+			 * stalled add may have spent the arm with a lost
-+			 * wake up. See the comment above IO_CQ_WAKE_INIT.
-+			 * Run another pass, which re-arms, instead of
-+			 * sleeping. An arm only wakes the ring's
-+			 * submitter_task.
-+			 */
-+			if (io_allowed_defer_tw_run(node->ctx) &&
-+			    io_cq_wait_arm_spent(node->ctx))
-+				goto end_wait;
- 		}
- 		/*
- 		 * If we've seen completions, retry without waiting. This
-diff --git a/io_uring/loop.c b/io_uring/loop.c
-index 3d472b7827fa..55acd9580940 100644
---- a/io_uring/loop.c
-+++ b/io_uring/loop.c
-@@ -29,7 +29,8 @@ static void io_loop_wait(struct io_ring_ctx *ctx, struct iou_loop_params *lp,
- 
- 	if (unlikely(io_local_work_pending(ctx) ||
- 		     io_loop_nr_cqes(ctx, lp) <= 0) ||
--		     READ_ONCE(ctx->check_cq)) {
-+		     READ_ONCE(ctx->check_cq) ||
-+		     io_cq_wait_arm_spent(ctx)) {
- 		io_loop_wait_finish(ctx);
- 		return;
- 	}
-diff --git a/io_uring/wait.c b/io_uring/wait.c
-index a48523c2f356..221b5181dd25 100644
---- a/io_uring/wait.c
-+++ b/io_uring/wait.c
-@@ -178,6 +178,25 @@ static inline int io_cqring_wait_schedule(struct io_ring_ctx *ctx,
- 		return -EINTR;
- 	if (unlikely(io_should_wake(iowq)))
- 		return 0;
-+	/*
-+	 * A DEFER_TASKRUN producer that stalls between publishing its work
-+	 * and claiming the wake can claim an arm from a later wait cycle
-+	 * than the one its work belongs to: this task may already have
-+	 * drained that work while disarmed and re-armed for the next sleep.
-+	 * The claimed wake then lands via wake_up_state() while this task
-+	 * is still TASK_RUNNING, between the arm and set_current_state(),
-+	 * and is a no-op. The arm is gone, so every later producer reads a
-+	 * non-positive ->cq_wait_nr and skips the wake, and this task would
-+	 * sleep unwakeable under a non-empty work list. If the arm set at
-+	 * the top of the wait loop is no longer intact, a claim has fired:
-+	 * re-run the loop, which drains anything pending and re-arms,
-+	 * instead of sleeping. From here to schedule() the state stays
-+	 * TASK_INTERRUPTIBLE, so any later claim delivers its wake.
-+	 */
-+	if (io_cq_wait_arm_spent(ctx)) {
-+		__set_current_state(TASK_RUNNING);
-+		return 1;
-+	}
- 
- 	return __io_cqring_wait_schedule(ctx, iowq, ext_arg, start_time);
- }
-diff --git a/io_uring/wait.h b/io_uring/wait.h
-index b7b9c46b1b01..a07c64696697 100644
---- a/io_uring/wait.h
-+++ b/io_uring/wait.h
-@@ -11,9 +11,29 @@
-  * wake up is to be issued: IO_CQ_WAKE_INIT when no task is waiting (also
-  * what a forced wake up resets it to when claiming one), zero once the
-  * countdown has fired.
-+ *
-+ * An add can stall between publishing its work and claiming the wake up,
-+ * and the waiter may run that work and arm a later cycle in between. The
-+ * add then claims the new arm, and if the waiter has not set its task state
-+ * yet, that wake up is a no-op. Every later add sees the spent arm and
-+ * issues none. A waiter must therefore test io_cq_wait_arm_spent() after
-+ * setting its task state and must not sleep if it returns true.
-+ *
-+ * The test is sound only if nothing but the waiter stores an arm while it
-+ * gets ready to sleep, as such a store could restore a spent arm and hide
-+ * it. io_uring_try_cancel_requests() therefore arms only in the
-+ * submitter_task's own passes, and the min_wait timer stores an arm only
-+ * during the timed sleep, which cancels the timer before the waiter tests
-+ * again.
-  */
- #define IO_CQ_WAKE_INIT		(-1)
- 
-+static inline bool io_cq_wait_arm_spent(struct io_ring_ctx *ctx)
-+{
-+	return (ctx->flags & IORING_SETUP_DEFER_TASKRUN) &&
-+	       atomic_read(&ctx->cq_wait_nr) <= 0;
-+}
-+
- struct ext_arg {
- 	size_t argsz;
- 	struct timespec64 ts;
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
--- 
-2.43.0
-
+I recall a discussion about having BPF helpers accept only trusted
+pointers:
+https://lore.kernel.org/bpf/CAADnVQK_93g_KkNFYXSr8ZvA1fYh4hoFRJCJFPS-zs4ox0HhAA@mail.gmail.com/
+Restricting only iter/unix seems better?
