@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792426693;
-	b=CrOPfwl+LJwfxNEhbunpL9Qk/OPiGjxiwd9AVa3pGK1Dg7ockixARbujyPzhpFpFZcHS
-	 CrYap1uKPsMBimVvS2pRD+GuaEqkYE00PLTBsrFxq0YgH5VPW3R22oSZeSkPhCOwBhGuu
-	 hn64RMFdXqgBFZONgrbZcUwjW6UbgTz9xnKw4qnLwdSQfQhh8oM8zh3jGfs86Pnx2fVgR
-	 eZHswz4GyNE+um3CRU9gzs1YyV1DtTh76D5rCItHXPRuB8PwgcSxw1+3fRmdNo8lLJ22+
-	 IsJnx38Gt8tfhvH1quUDnmutAmULCIfPxZcRxq89RyMEewdXfHrO0f6ZzmcQaewTMmQ==
+	t=1792426691;
+	b=uOZQdlCOpx/Mk93zqChfjg6c7bzP6FcFMW4pLKicysEOTWeXmLtV2XZupFVFLEgdBMV8
+	 Y+oLPwiHGn76kVdz72NpyE85ciIcci0/W+Ns78L5TUVYdDNKr5g3gabeN/6lkSJQellOA
+	 x3HlZwe54SnsZeCpWaM43Zl93vMbl9kwtsZPKcFEfia7JGOZpodtXGl/baECnLgwo3gjl
+	 51pB2UUTHJpi6aDI4PJ+5g/bzKjiALc42hkSgnPtufTOXn+ilUGm4xXi/IjaPzlFvPXf0
+	 6yM2HO+X/OceJ2vBCcT4ZHulPCN65MNKZl8nYU/VGHjWBhyb7RQfqvqKPuA2Z2pe4xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792426693;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cdJPCWnGkorpLO32ktzbPWjsu9IZRJbbXQIGeOMqDBs=;
-	b=oGQARmElQbT0lOP21+hKLD0/L5cA6IoR8P09ULaznaZ7udeHwiKyWIWUqw643FnpcYPP
-	 G54dSnInFxwQmWB1m1tAFjllu9pHUIqUtxSsnlKGCYG9bwsog36tPF6JxePky/yIfX4go
-	 LdFjjf+DZxj/MusOd2JkNPaKi4CnOSqaaaWUq2KMDp/qyxl1oBAfgEKPM39TQRIvMHs29
-	 lFwo0YoKjt/H2i875suaIi2qTsfPxhlg2jlwsK4h0Ysn1YUNm9dWp6OLIswCAg2lLlFxZ
-	 HQHVSG9G48jz58xU/OsZ1O+f3t6EH4MT6Tt3MzKFi6JMUCmKJk7fwcT/Xlxqj+BYFRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792426691;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Spamd-Result;
+	bh=BoY4kFq1xTE2soRWfhV3QnUWiJD903xadYDoRPjUcwk=;
+	b=MIKviHQFZanWNjASvSn7+DIkgQ0xplQwAeo3nfBH/2JC0IvaXqiaujuxl7EH2ATp2JWI
+	 RvhvFIkUN2URM0OV8ebjrQWxfgDa1AOSNRfnDEGxDfMleoAvEczz8rYTrfMYEjGuQmr7B
+	 Er0XWo8dfWbLu8NwvT6nGrGjyMrs9IWRUA2LaTU0cZK5VCxWW4CEz8oDqgZ/HQQGApXS1
+	 Kms1SqmvPP/Qp8C8NJtTH/avkn9BAGPpRiiosfl30YrW3aZhXYuErbd8DIcQqkpYP04Fw
+	 q5tuwnW+76fa90TvRckYOyOq97qhv2GwPbeV8XRhQ98NbtOCOU71o5E8TxUHDQSfijg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NlghLLUF;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Hf5Vn2C5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VouBd5eY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Hf5Vn2C5;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VouBd5eY;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8A3606A32E
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:18:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A8A3606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2922D606A31B
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:18:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2922D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NlghLLUF
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35c76e9614aso4427036eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:18:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792426692; x=1793031492; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cdJPCWnGkorpLO32ktzbPWjsu9IZRJbbXQIGeOMqDBs=;
-        b=NlghLLUF2FbNboWwLud4VJ9BQloVK1P5Z2CdqbcQVhDho2r5kJ6nuKmYD2aZL9lSgs
-         XUyzYjjjAJWcpCFbC2L7wWmGJ1bFk7fZtKpmansYVFVyVdjhcuxFTq6Crym1jiqGsQ9J
-         FQBjTcuqfrizyKhzORa8P4iWbh9/Y7y/7IVE5ay/ZGzQri8bQfODzav9KGpIwmSlWGLR
-         RyuVHwcQKGhVzV5SQ61QFz7pE8CfLm2JeaT8beVGh6vi6F2qSlanO2cXcbAOFYavlFT4
-         bz32NgQe6uyP+9PGDwiSYq0APKnYZsxSvyKkH0fE8hwEJg7LgbQD8CANBFqDMHZFpSgd
-         Mm3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792426692; x=1793031492;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cdJPCWnGkorpLO32ktzbPWjsu9IZRJbbXQIGeOMqDBs=;
-        b=x4rPBrJRXu/yzBgS7PzT5c6dCa/Ghx1Q0LnmRB57ZF2NJ4qQ48guT91KIkh61TwNpF
-         0aoh0iGKaJ6bx3IEiI1UaqXgX54rq+RcFfq694jPPACnyWA+amzcA5f9x3EBz//uUhvd
-         j/ObonuzCpaBo0BL7ipNvn/BskkzvGin0fn8X8hddkm1dWP1rSO0Q1WW31kGe+8LPa93
-         hgXt0LDxrl00wiGr0Rw1U5xBAQyZA5EhF6ORMeAg6fEuPT51lA0wZBU5pNeA0AKEmosi
-         1U2VHHp89MJRXzjj8QVeNmJR4GOCaWP2tfuhRlni2v/O7ikaeEvjSe6ymQFzPP5O88C4
-         ZO/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxbqvSBC7PGLBlq1EgH9ClWHkNUQJkoYEJUuEj/oKj+AOFweygCGRx4ei3ulSVZp+ednMrIYHkyl056/Mw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKK5d9IHMIrqzksoVw3vxGCsh/k9I/y1z0Kb9eKYI5nbwQ8JPKS
-	luvHZjBOw0SvcgcwE04uan+I1xn6s5+vQ1xA1Dm6ds53Dc27XBkCizyd
-X-Gm-Gg: AYBFou2jRxLfcW9Jk4NRkzhah4mqdOAK1lMZ7i1D6tqhzUWPj+Dgyuv6o22/SmDbCIP
-	s/HqNEuKzOk9oyc8k7HPCNAoHFfjcEaPmXgeKW8ibmy8bz3BnOwxc6YRNAkHiQDp37P9UVEmmNp
-	94A7xfEaLGVjR/eCqG85OBE0KC3yubu8EbPQXnsdajvO1vyNhaESI7+ueeh5dVn4g78QVc9W/Sk
-	uorXW6jt8/msW6G3ejDv84sX5tYATt0LTJqGr69WUBJ+ZL9SslhXIQ9Pa0vfOs1h1ki98IA3+Jp
-	jYNCzGgKbDR1EcTBqBbykq9lHf6pUPabVY78Zq4kKQr7syeK/jLV84HpUCFPr/lQnEq22JMX/vB
-	IUKCtkcysrivnwe0IQXBDKf1IJPLn9HVuwvgcduD0+sI8yUR8EV6UoSexjeIL8Qyz0Dm4nYj5VX
-	4vutUTF/IEbBD9YQUO5BJ9vKo0RWpSfQJAex8GHiNJzqdggpgqGWSTPEMj2syw8I8BAW8mZmzrn
-	sNq4ikRmcHMybZ3kh9XTw==
-X-Received: by 2002:a05:7301:4305:b0:35f:227b:f8bc with SMTP id 5a478bee46e88-361a1465355mr10294813eec.11.1792426692027;
-        Mon, 19 Oct 2026 09:18:12 -0700 (PDT)
-Received: from redducc.localdomain ([183.83.156.125])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36082b8573dsm33412914eec.25.2026.10.19.09.18.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 09:18:11 -0700 (PDT)
-From: redducc <sushmit718@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: qcom: q6apm: Fix the wait for SHARED_MEM_UNMAP_REGIONS
-Date: Mon, 19 Oct 2026 16:18:05 +0000
-Message-ID: <20261019161805.2427-1-sushmit718@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Hf5Vn2C5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VouBd5eY;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Hf5Vn2C5;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VouBd5eY
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 623061F7A0;
+	Mon, 19 Oct 2026 16:18:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792426689; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BoY4kFq1xTE2soRWfhV3QnUWiJD903xadYDoRPjUcwk=;
+	b=Hf5Vn2C5R4Arlr1GMdoOQlJKsd1hCxXJMFFQYl9uC+/yzq+PQlAiEfcX1SD20Y1mh2vSVJ
+	n+4WKV02mY7kGbkufsLS8Lsx6zQOw0hVSOVXo3fFhqgWnycNo+myJCxXLDlOcgSusaaj9b
+	XcrDAJivK94NX4xXHNVgx2osPSFAsSI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792426689;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BoY4kFq1xTE2soRWfhV3QnUWiJD903xadYDoRPjUcwk=;
+	b=VouBd5eYuVv+39qauP4gdyTSNJIb8OzY0blYuzN5FtWML7M55zAaR15+uvwxSNjbzkZ9IV
+	Phc4iVpBYbBr2aAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792426689; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BoY4kFq1xTE2soRWfhV3QnUWiJD903xadYDoRPjUcwk=;
+	b=Hf5Vn2C5R4Arlr1GMdoOQlJKsd1hCxXJMFFQYl9uC+/yzq+PQlAiEfcX1SD20Y1mh2vSVJ
+	n+4WKV02mY7kGbkufsLS8Lsx6zQOw0hVSOVXo3fFhqgWnycNo+myJCxXLDlOcgSusaaj9b
+	XcrDAJivK94NX4xXHNVgx2osPSFAsSI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792426689;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BoY4kFq1xTE2soRWfhV3QnUWiJD903xadYDoRPjUcwk=;
+	b=VouBd5eYuVv+39qauP4gdyTSNJIb8OzY0blYuzN5FtWML7M55zAaR15+uvwxSNjbzkZ9IV
+	Phc4iVpBYbBr2aAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2D06B136CC;
+	Mon, 19 Oct 2026 16:18:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id g6toAMFC1mr1XQAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Mon, 19 Oct 2026 16:18:09 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,45 +104,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 04/18] nvmet: Implement CCR logpage
+From: Daniel Wagner <dwagner@suse.de>
+To: Mohamed Khalfella <mkhalfella@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Justin Tee <justin.tee@broadcom.com>, 
+ Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
+ Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
+ Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
+ Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260920182936.2317916-5-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-5-mkhalfella@purestorage.com>
+Date: Mon, 19 Oct 2026 18:18:02 +0200
+Message-Id: <179242668212.3619480.10236174568142270641.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Spam-Flag: NO
+X-Spam-Score: -3.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org,suse.de];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,purestorage.com:email,grimberg.me:email,imap1.dmz-prg2.suse.org:helo]
 
-The DSP acknowledges APM_CMD_SHARED_MEM_UNMAP_REGIONS with a
-GPR_BASIC_RSP_RESULT packet. apm_callback() stores the packet opcode,
-GPR_BASIC_RSP_RESULT, as the result opcode, but
-audioreach_send_cmd_sync() waits for the result opcode to match the
-command, APM_CMD_SHARED_MEM_UNMAP_REGIONS. The wait never completes,
-so every unmap blocks for the full 5 s timeout and logs
-"CMD timeout".
+> Defined by TP8028 Rapid Path Failure Recovery, CCR (Cross-Controller
+> Reset) log page contains an entry for each CCR request submitted to
+> source controller. Implement CCR logpage for nvme linux target.
+> 
+> Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+> Reviewed-by: Hannes Reinecke <hare@suse.de>
+> Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 
-Store the opcode of the command being acknowledged, as the other
-GPR_BASIC_RSP_RESULT cases already do.
+Reviewed-by: Daniel Wagner <dwagner@suse.de>
 
-Fixes: 8ea6e25c8536 ("ASoC: qcom: q6apm: Add support for early buffer mapping on DSP")
-Assisted-by: LLM
-Signed-off-by: redducc <sushmit718@gmail.com>
----
- sound/soc/qcom/qdsp6/q6apm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
-index b6b1ef6833b3..379b15b7e503 100644
---- a/sound/soc/qcom/qdsp6/q6apm.c
-+++ b/sound/soc/qcom/qdsp6/q6apm.c
-@@ -960,7 +960,7 @@ static int apm_callback(const struct gpr_resp_pkt *data, void *priv, int op)
- 			wake_up(&apm->wait);
- 			break;
- 		case APM_CMD_SHARED_MEM_UNMAP_REGIONS:
--			apm->result.opcode = hdr->opcode;
-+			apm->result.opcode = result->opcode;
- 			apm->result.status = 0;
- 			rsp = data->payload;
- 
-
-base-commit: 6a56f4f29711dd2da49f03a5b99ce53779e638d7
-prerequisite-patch-id: 154550924ab1d2c1bc95517c058aaee0bb242f92
-prerequisite-patch-id: 22bca48e48813fb55976db043f9c35c926c61e3d
-prerequisite-patch-id: cd21b1ff6a4fef14c706cea97fc906d7a0331b5c
-prerequisite-patch-id: ce4057205dd2c2a6650c3a36c60664bd2737e202
 -- 
-2.43.0
-
+Daniel Wagner <wagi@kernel.org>
