@@ -1,164 +1,251 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2744E5341
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 12:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E293E4E5341;
+	Mon, 19 Oct 2026 12:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792414699; cv=none; b=SxF76hOsVkNHL9L8W1iubLNH1n7yyShvEFUBYIVqeTgOa7zsPXfEfNv46tO/MbUAjYR4VasQtWEDmKXM2mbtYt1LbRcdjrH6bMmwrfjeTNSjwPzhOEhSptJfN07E+G7t0XsTQuCKS7zxUBw6e3MdK2mBgEKvSeI0U+NOZxNwMbA=
+	t=1792414707; cv=none; b=IYCzeFGDvUjocsN5yym8Di0sUY8oKD1xtWchxsAYa8X5KhbfMYMKjXsAaeke2Fi6cSjN3m8PY5mXhblq3DSTmmRQvqMENDloI8L4+4V/DtnP9BFulHkSWi2dxi2+503W5xWIen7l3JrnP6uql1rpdJHIERaQrTRmsfuY03dYZuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792414699; c=relaxed/simple;
-	bh=uyOP+tG8v685A3a1n/dqAIYQe1Z74x5GrtGIbaRiQnI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vl4wE3OBUHZAPEDCcaK/wOp4Ao2tz5O9SaF/qNsyE+UYNDoGplXqrvs5GbDcLcitNQWWGrpp2HuC8XRuOHun9WhHVEXMQ5Tqr8twrmL0PhdhTwMuRBc+XizSkQ68CLLEpyjjQfrbz6N7d3FUfXqpCg45Sa+n7UgN+Czev4M0z7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P6un1pXa; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792414707; c=relaxed/simple;
+	bh=jkwrL9SqjiHAM4XC9CAH0pUcXzr6TDF91vmBkt3Y7+k=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=VilfDaFyf09e7bxt9Khk9fKuEdnrUZhFxDotc4XMBhCSS4idj9Ln1glIQT8Bb3jteLTBS1Hxx2Hfet6Xr3RvP3UznE67pgODQAeC7KtX0ucU0/bEWvnaZ8fbZqaQ3BCZLM7uV6I6yAmcLK8nMXlM/lTQUZaeGYZixm+TbAx7Rss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=Tj3drLej; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P6un1pXa"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8520161fdb9so1213361b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 05:58:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792414697; x=1793019497; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VkMZq+uSgui/Ahp3XWrqkllCggzYIHX41EJvO2PAjAg=;
-        b=P6un1pXaVtfzK70KlSPubB1v9Ar9FrQ6N0TUJcrEOEYjtjgDGRBl/08MXgvuukYaSI
-         rJGmCLMf+6d/6/J402GTfAvcjzXEUqiTmhRR/tUIZE86Nqg9qvY5jYl77ftwrh+kCMOp
-         GkgqaTkN+0qyq8n+kHW9HPfXNlpBE2OewcS8Y3VNOGqQJgd7pKTdXTM2FZQ/TgTYpyKr
-         u1LmZEX1JSUY6p+EbHD8+Z8CIN7tl+u/e1PAM4czaZ/M+r9cN76RGho5ffFHJ8/ZpThJ
-         J3A68Si8xDmjl8/qzq/jntJEw/DOOv/Ejb8cnu81h2abAI0xlMxRDWZ1/eG/hZafspQx
-         UuOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792414697; x=1793019497;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VkMZq+uSgui/Ahp3XWrqkllCggzYIHX41EJvO2PAjAg=;
-        b=VBJ/LJTN6LzaTehoAmR1uRBGopJphOyV0QCSEqe6+maJClFVR+oyaImXDtENK1d2iG
-         e+6kNcJOC+54gJs8ABLK+cjyOcaLRLW7PvUsTgU3tj5ByzEJ5NVj3/iFazop2ZWg92hc
-         lJu7JcuS398o+ynoc4piFmGqKjooMGbHkXgVI63YQvGCbf8w4ygtPMYBwSpESed+Sjce
-         0bNeG2J2Ti7zNEsti5602fvPTqsG0IwhfOsp2iGE9E+4kpRiwpTeYMEiKGJiDInRh1VA
-         SRPPL2tIWuVUyN3/Gf/qrj+kVQOIKdlXorpQ9nXUXRwMH6OdBvGzTGgiCDnX7qx8YvAs
-         HLXA==
-X-Forwarded-Encrypted: i=1; AKwUvBy70XxyLbfXHPAYJQ+Fd/YWGb9EQfVxm8/yOTNarMOInMHRokfzeqZYjnLTrbhmCBrf86K0o+6V4IYZ9rc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLl1vf65qZV3Wn+AfpvKWVe4MIQ55stCXOtNweaQ8woY3zoiUUJ
-	Jg3APEtraPPji2uC9zQ0UJFZy5hTTqncwp2PYKLraqJ9+vERTrFrJ0hH
-X-Gm-Gg: AYBFou1r8ChgV848Vo/ZNIEGB5lpMNKY3mMJ7qzlyB+1flMfqC6gYkBJyq42k1QzDG+
-	xoEnVgEaPH00LzlJYoZjj0ojGGXPtDAOa3HXBxa4sd8DdyWSUaruq8mElszAv5g0Icet1p4D4Wk
-	yU4rFqsQNNhG9pnmJqzNV8GdlJQyK1co+cUcqut9kFyZgM12TZ62Ii1MKZJFOekJOdJY2ydTkLS
-	oS/RaAyQNc975HkxGWB88wdRlryPhqbJ8hw9Vj17+C490/sB6kuNI57BcQ2DegQKL3eNenri5AT
-	wyo/ZMFC2TQ6sRNvcE3k+yTvZztaRPbJ98klrtO8wxggq2LDho72zPP1+oi4VzjjCAW2KUa0jBV
-	3RarBZhtEhqQcSwmbEaO52XiEcGD1jFm1+GIRbQ69Bt554jjd+81HEf8OJbEitRnZzuv1Obn9VV
-	5M1fUao/iYbwGM7Q0rKJfgYJjNBQP6jkmQz63cguzTOxDfnUhokiobfKhUNS+QDbLBvZ26Ww==
-X-Received: by 2002:a05:6a00:1f12:b0:880:973d:597a with SMTP id d2e1a72fcca58-8a04d04e513mr6085397b3a.53.1792414696945;
-        Mon, 19 Oct 2026 05:58:16 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac1:7a80:50::3cf:67])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a076ea456asm277972b3a.6.2026.10.19.05.58.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 05:58:16 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Damien Le Moal <dlemoal@kernel.org>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+feeb9b5352b9ff89618a@syzkaller.appspotmail.com
-Subject: [PATCH v2] block: annotate lockless task ioprio accesses
-Date: Mon, 19 Oct 2026 19:58:11 +0700
-Message-ID: <20261019125811.21666-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261018071636.79198-1-ngocthang2710.1999@gmail.com>
-References: <20261018071636.79198-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="Tj3drLej"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 829D8A156A;
+	Mon, 19 Oct 2026 14:58:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792414702; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=f40FzgG6SThcTbG2AbDyY38pPngCPmk/NPimEK3lJ2o=;
+	b=Tj3drLejj4yRUoSbUwI/IWkwoA1ESlO7xcjI2YsmpZnYMrQJmNz69axqttXgTRPXMYTNAQ
+	X2g4Qt2PzM76OkD75oxgL81kuAAGiw/oP03KgYzCHS3gq57TI1tate+bXWyxf/R0nIJD/C
+	KuHvPCl8Pq6UdCtIw8Hzbnc0PLW8JIeX4TBzbSyy/qh5khFwJhihy2VEkROGFang0Pkdn1
+	usl2N0RYI/qTsBf19CmpcMwkaLvOLf9scpTJ3d1Ih2n+J3854LKcls4e0B2oDS34Kl8qbk
+	TLLhaNnqN6pTZ/L5Ja04LE4cp5crK0Dw6JD/ro2lSuojGo4P9oIdasejMGePaw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Mon, 19 Oct 2026 14:58:21 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Paolo Valerio <pvalerio@redhat.com>, Vladimir Kondratiev
+ <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
+ <gregory.clement@bootlin.com>, =?UTF-8?Q?Beno=C3=AEt_Monin?=
+ <benoit.monin@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH net-next v5 3/3] net: macb: distribute evenly Tx SRAM
+ segments
+In-Reply-To: <20261016-macb-set-channels-v5-3-90ce0c0b8e75@bootlin.com>
+References: <20261016-macb-set-channels-v5-0-90ce0c0b8e75@bootlin.com>
+ <20261016-macb-set-channels-v5-3-90ce0c0b8e75@bootlin.com>
+Message-ID: <1113dac19771ff7881b60bfdd14b0af6@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-__get_task_ioprio() reads task->io_context and ioc->ioprio without
-task_lock() when called on current, e.g. from init_sync_kiocb() on every
-write.  set_task_ioprio() can update both for another task at any time,
-including the first publication of a new io_context.  KCSAN reports it:
+Hi Théo
 
-  BUG: KCSAN: data-race in __kernel_write_iter / set_task_ioprio
-  value changed: 0x0000000000000000 -> 0xffff888109813730
+On 16.10.2026 18:58, Théo Lebrun wrote:
+> GEM has registers to configure the Tx SRAM segments distribution across
+> queues. The reset value is apprioriate (even spread) but we need to
+> care if/when number of active queues is modified (or if we inherited
+> unevenly initialised hardware from bootloader).
+> 
+> To distribute segments, we take as input the number of queues
+> (bp->num_queues) and the number of segments (found inside DCFG6).
+> Its output is a number of segments for each queue, formatted as
+> powers-of-two (eg 2 for queue 0 means it has 2^2=4 segments).
+> 
+> As the distribution logic is quite complex (at least its initial
+> versions had bugs), it is kunit-tested in macb_kunit.c and the
+> implementation lives in macb_utils.c. To test:
+> 
+> ⟩ env --unset=CROSS_COMPILE make ARCH=um mrproper
+> ⟩ env --unset=CROSS_COMPILE ./tools/testing/kunit/kunit.py run \
+>         --kconfig_add CONFIG_NET=y \
+>         --kconfig_add CONFIG_COMMON_CLK=y macb
+> 
+> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+> ---
+>  drivers/net/ethernet/cadence/Kconfig      | 12 +++++
+>  drivers/net/ethernet/cadence/Makefile     |  5 +-
+>  drivers/net/ethernet/cadence/macb.h       | 17 +++++++
+>  drivers/net/ethernet/cadence/macb_kunit.c | 78 
+> +++++++++++++++++++++++++++++++
+>  drivers/net/ethernet/cadence/macb_main.c  | 19 +++++++-
+>  drivers/net/ethernet/cadence/macb_utils.c | 60 
+> ++++++++++++++++++++++++
+>  6 files changed, 188 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/cadence/Kconfig 
+> b/drivers/net/ethernet/cadence/Kconfig
+> index 5b2a461dfd28..a901f74fd4ab 100644
+> --- a/drivers/net/ethernet/cadence/Kconfig
+> +++ b/drivers/net/ethernet/cadence/Kconfig
+> @@ -51,4 +51,16 @@ config MACB_PCI
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called macb_pci.
+> 
+> +config MACB_KUNIT_TEST
+> +	tristate "KUnit test for MACB" if !KUNIT_ALL_TESTS
+> +	depends on KUNIT
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	  Build KUnit tests for the MACB driver.
+> +
+> +	  For more information on KUnit and unit tests in general,
+> +	  please refer to the KUnit documentation.
+> +
+> +	  If unsure, say N.
+> +
+>  endif # NET_VENDOR_CADENCE
+> diff --git a/drivers/net/ethernet/cadence/Makefile 
+> b/drivers/net/ethernet/cadence/Makefile
+> index 1f33cdca9a3c..a0740da68649 100644
+> --- a/drivers/net/ethernet/cadence/Makefile
+> +++ b/drivers/net/ethernet/cadence/Makefile
+> @@ -2,7 +2,7 @@
+>  #
+>  # Makefile for the Atmel network device drivers.
+>  #
+> -macb-y	:= macb_main.o
+> +macb-y	:= macb_main.o macb_utils.o
+> 
+>  ifeq ($(CONFIG_MACB_USE_HWSTAMP),y)
+>  macb-y	+= macb_ptp.o
+> @@ -10,3 +10,6 @@ endif
+> 
+>  obj-$(CONFIG_MACB) += macb.o
+>  obj-$(CONFIG_MACB_PCI) += macb_pci.o
+> +
+> +obj-$(CONFIG_MACB_KUNIT_TEST) += macb_test.o
+> +macb_test-y := macb_kunit.o macb_utils.o
 
-A stale or torn value is harmless, a task simply gets the old or new
-priority, but the compiler may tear or refetch the accesses and the
-io_context fields must be visible before the pointer is.
+With MACB=m and MACB_KUNIT_TEST=m (so allmodconfig) kbuild complains:
 
-The io_context itself needs no extra protection: only the owning task
-drops it, in exit_io_context(), so it cannot be freed under a lockless
-reader running as current.
+   drivers/net/ethernet/cadence/Makefile: macb_utils.o is added to 
+multiple modules: macb macb_test
 
-Publish the pointer with smp_store_release(), read it with READ_ONCE()
-(address dependency orders the ioprio load), and mark the ioprio
-accesses.
+Maybe build the test into macb.ko instead, or use 
+EXPORT_SYMBOL_IF_KUNIT()?
 
-Reported-by: syzbot+feeb9b5352b9ff89618a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=feeb9b5352b9ff89618a
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-v2:
-- Document why no RCU is needed: only the owning task drops its io_context
-  (Damien).  Comment in __get_task_ioprio() and a paragraph in the commit
-  message.  No code change.
-- v1: https://lore.kernel.org/r/20261018071636.79198-1-ngocthang2710.1999@gmail.com
+> diff --git a/drivers/net/ethernet/cadence/macb.h 
+> b/drivers/net/ethernet/cadence/macb.h
+> index 51835de0f2a1..60d61efbf3e4 100644
+> --- a/drivers/net/ethernet/cadence/macb.h
+> +++ b/drivers/net/ethernet/cadence/macb.h
+> @@ -194,6 +194,10 @@
+>  /* Screener Type 2 match registers */
+>  #define GEM_SCRT2		0x540
+> 
+> +/* Tx queue segment allocation */
+> +#define GEM_TXQSEGALLOC_LOWER	0x05A0
+> +#define GEM_TXQSEGALLOC_UPPER	0x05A4
 
-Tested with a KCSAN kernel in QEMU: 26 data-race reports per run before, 0
-in two runs after (v1 code, v2 differs only in comments).
- block/blk-ioc.c        | 5 +++--
- include/linux/ioprio.h | 9 +++++++--
- 2 files changed, 10 insertions(+), 4 deletions(-)
+nit: unused now?
 
-diff --git a/block/blk-ioc.c b/block/blk-ioc.c
-index d15918d7fabb..12ddc672f41d 100644
---- a/block/blk-ioc.c
-+++ b/block/blk-ioc.c
-@@ -277,9 +277,10 @@ int set_task_ioprio(struct task_struct *task, int ioprio)
- 		if (task->io_context)
- 			kmem_cache_free(iocontext_cachep, ioc);
- 		else
--			task->io_context = ioc;
-+			/* Pairs with READ_ONCE() in __get_task_ioprio() */
-+			smp_store_release(&task->io_context, ioc);
- 	}
--	task->io_context->ioprio = ioprio;
-+	WRITE_ONCE(task->io_context->ioprio, ioprio);
- out:
- 	task_unlock(task);
- 	return 0;
-diff --git a/include/linux/ioprio.h b/include/linux/ioprio.h
-index 5210e8371238..d148548691c7 100644
---- a/include/linux/ioprio.h
-+++ b/include/linux/ioprio.h
-@@ -56,7 +56,12 @@ static inline int task_nice_ioclass(struct task_struct *task)
-  */
- static inline int __get_task_ioprio(struct task_struct *p)
- {
--	struct io_context *ioc = p->io_context;
-+	/*
-+	 * Only the task itself drops its io_context (exit_io_context()), so
-+	 * for p == current a non-NULL ioc stays valid.  Another task can
-+	 * still install it or change ->ioprio, hence the annotations.
-+	 */
-+	struct io_context *ioc = READ_ONCE(p->io_context);
- 	int prio;
- 
- 	if (!ioc)
-@@ -66,7 +71,7 @@ static inline int __get_task_ioprio(struct task_struct *p)
- 	if (p != current)
- 		lockdep_assert_held(&p->alloc_lock);
- 
--	prio = ioc->ioprio;
-+	prio = READ_ONCE(ioc->ioprio);
- 	if (IOPRIO_PRIO_CLASS(prio) == IOPRIO_CLASS_NONE)
- 		prio = IOPRIO_PRIO_VALUE(task_nice_ioclass(p),
- 					 task_nice_ioprio(p));
--- 
-2.43.0
+> [...]
 
+> diff --git a/drivers/net/ethernet/cadence/macb_kunit.c 
+> b/drivers/net/ethernet/cadence/macb_kunit.c
+
+> [...]
+
+> +static void macb_sram_segments_test(struct kunit *test)
+> +{
+> +	const struct macb_sram_segments_case *p = test->param_value;
+> +	u32 val = gem_sram_distribute_segments(p->num_queues, 
+> p->num_segments);
+> +	unsigned int i, sum_segments = 0, max_assigned_segments;
+> +	unsigned int num_queues = min(p->num_queues, p->num_segments);
+> +
+> +	for (i = 0; i < num_queues; i++) {
+> +		unsigned int q_segments = field_get(GEM_TXQSEGALLOC_MASK(i),
+> +						    val);
+> +
+> +		q_segments = 1U << q_segments;
+> +		sum_segments += q_segments;
+> +		KUNIT_ASSERT_GT_MSG(test, q_segments, 0, "queue %d, val %#x",
+> +				    i, val);
+
+This can't fail, 1U << x is always at least 1.
+
+> +	}
+> +
+> +	for (i = num_queues; i < MACB_MAX_QUEUES; i++) {
+> +		unsigned int pow = field_get(GEM_TXQSEGALLOC_MASK(i), val);
+> +
+> +		KUNIT_ASSERT_EQ_MSG(test, pow, 0, "queue %d, val %#x", i, val);
+> +	}
+> +
+> +	max_assigned_segments = min(p->num_segments,
+> +				    MACB_MAX_QUEUES * num_queues);
+> +	KUNIT_ASSERT_EQ_MSG(test, sum_segments, max_assigned_segments,
+> +			    "val %#x", val);
+> +}
+> +
+> +struct macb_sram_segments_case macb_sram_segments_cases[] = {
+
+static const ... ?
+
+> [...]
+
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c 
+> b/drivers/net/ethernet/cadence/macb_main.c
+> index 2d069454795b..b70b81f51161 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+> @@ -3163,6 +3163,20 @@ static void macb_init_hw(struct macb *bp)
+>  	if (bp->caps & MACB_CAPS_JUMBO)
+>  		bp->rx_frm_len_mask = MACB_RX_JFRMLEN_MASK;
+> 
+> +	/* Distribute Tx SRAM segments evenly based on active number of 
+> queues.
+> +	 * TXQSEGALLOC is only documented for some GEM integrations.
+> +	 */
+> +	if (bp->caps & MACB_CAPS_TXQSEGALLOC) {
+> +		unsigned int num_segments;
+> +		u32 val;
+> +
+> +		num_segments = 1U << GEM_BFEXT(SEGMENTS_BIT_SIZE,
+> +					       gem_readl(bp, DCFG6));
+> +		val = gem_sram_distribute_segments(bp->num_queues,
+> +						   num_segments);
+> +		gem_writel(bp, TXQSEGALLOC_LOWER, val);
+> +	}
+> +
+>  	macb_configure_dma(bp);
+> 
+>  	/* Enable RX partial store and forward and set watermark */
+> @@ -5854,6 +5868,7 @@ static const struct macb_config zynqmp_config = {
+>  	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE |
+>  		MACB_CAPS_JUMBO |
+>  		MACB_CAPS_GEM_HAS_PTP | MACB_CAPS_BD_RD_PREFETCH |
+> +		MACB_CAPS_TXQSEGALLOC |
+>  		MACB_CAPS_USRIO_HAS_MII,
+
+AFAIU zynqmp can't change the queue count,so this only rewrites the 
+reset value there?
+
+Also, where does the limit of 8 segments per queue come from? With a 
+single queue
+and 16 segments half of the Tx SRAM stays unused.
+
+> [...]
+
+Thanks,
+Nicolai
