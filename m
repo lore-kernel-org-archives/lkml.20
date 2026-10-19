@@ -1,778 +1,134 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65C23596F8;
-	Mon, 19 Oct 2026 11:17:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769E9381E8C
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 11:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792408641; cv=none; b=iPzUmoC4ZWiVKWPxmxmVYfz6YIL6TrT65LaN5mZmz5G2dQviTQ6m6HOGyV4xPplSR6WW0QLjL/RLBEygvHuTxUsJyBYY2CzYcAcjDmnlvU5PWrWRCI610J4Lh7bqZ4azriStjmQpwQ4teeEki/PlqzGKhNKZALlhpqbyrq+HAF8=
+	t=1792408724; cv=none; b=dZ85QV64tDJG1JE+0nJkVeO0sObQWzH3uytn3xUC4/7jWEyG3GCakQ1SSK5unkIKJoX16BIxzBS6xxrIl3hzcCnU4c+kiWl1O61N0Xh+5XEK6yWG2pZ+W8ZqcDJ3TxlUt7aHwrErx6hrNJpreqz+LSzs8kUv0TrKusaeUd1xgj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792408641; c=relaxed/simple;
-	bh=gu5Tu/8XaNtg1a6wZX38758V5qpZ+or3uZGrsS/pjmU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tLXKkzDu73rTQWpxn1LcczftdnNZMBHU5R4ZGq4Opo0TajnVwLvbefceHE27Qp1MgEoMtrG8xRfY4se1BN6ZiltefUAR2r2sxL4f1BH2n1sYNylc6cUDKQXjGL2k08v29PnU1xIDYKiZeU2RjcIZKrntOfM1BWKQRB0y3GE4bgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=EzFBH6Hy; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1792408724; c=relaxed/simple;
+	bh=sibS6+PbzNU0PLhMfzlVYE7Xqoew+WZ9iiOgUjlOo0c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ieXJ/RTF451vqeU0sTaYNLum410fpnixf0GyUUW9CPlE0aneqkG/WDeo4kcWLRaoa0Jv8BnwH47rvu240YYz0hTJAZziea+PiaSuzqFsEOegcNePNuVY7o4NMgPnmxrjjU9mb21jBa7zbR72YawwkOgzUs6/hgZ8l0w7Y/s0uTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9jQvef4; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="EzFBH6Hy"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DD18615BF;
-	Mon, 19 Oct 2026 13:15:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792408508;
-	bh=gu5Tu/8XaNtg1a6wZX38758V5qpZ+or3uZGrsS/pjmU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EzFBH6HyraRGu5/qFZEj4vR/ODq58JryJIFneXG96JgBsmYwnCTXogpoby955pawa
-	 450kSrqPhCJ7CBGz+W4/XQktkyiPwUkdmdE4g2sSBS7zQRgWOY3tlwt2NhJ/l10Lcv
-	 2C9GJYPxOLP2+76sjV6d4p/T03T3tLGytJ5bNIEs=
-Date: Mon, 19 Oct 2026 14:17:12 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ostashow@gmail.com
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Add quirk to retry SET_INTERFACE for
- SVBONY SV105C
-Message-ID: <20261019111712.GP595565@killaraus.ideasonboard.com>
-References: <20261019-sv105c-retry-set-interface-v1-1-ab2f08bc3fcb@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9jQvef4"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dfdd431dcso1573220f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:18:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792408720; x=1793013520; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gU+rM/4AoM2OmLlkODpIkEr5BcTOLpyqHtt4WEM8bII=;
+        b=o9jQvef4QMmvhdBDnKHZmXqLoOETCkIPM6pAVAGuDC7o25jSFuvEgPMEGgnIhBXkBE
+         bQJRYJQPvlvQf/N+qT8iOq3Lr/fvjEvhJ3bzY3jjACsbc8pzoupUux4l6S4fz0+hJGHY
+         X16MzB0gj3h3OZEgPFG/u7bncI+rPSdWfZYxh0iE04Bbewn2Rw0YWBKzzaH90Mz7yekH
+         1l49CAOOJmd6R7z9lC7b9J+/PIAP+nXUfD9uwvTNtH3mtl+r9s5bacC8D9AYU1tYmGAw
+         Uzk+2Y96rU+A1TtnGyq1J13xwlPRk6hpZMbT7tMgq5pXbMiKXlfqn1pnOtZemy0rlfxo
+         Ni4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792408720; x=1793013520;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gU+rM/4AoM2OmLlkODpIkEr5BcTOLpyqHtt4WEM8bII=;
+        b=GomHzeM++jgNW7MWdk5osnvkg/nVM8ZfpCsmKAjF0iIZpcGdETkSppMkvox6MDIa33
+         Mkg1p5IsYy3KJ7TE3QRXiQdZ0ocQd/5+2Y/gKc0+cetVmk3Kybd27q2nmauhXEbvqBcm
+         GiONcD2srsagN/7FbQtoTwfhyu+PunB42ZAzPmIvZyZE8fxNaKXW/72MFgbYdlEmryXV
+         NPiDsu5SJvGIoCihj1lKhUobxuFQIm8LtiFGAgb+31ygAKWe+UHeMdmxbAtfH8HuqJf3
+         lqkO+1yPc0FdxHljk7EzGm4HAAoR1KlIRPQ3wRvfbVC+wQRlDAQu1Di2sm06VRBvqAcT
+         g+9Q==
+X-Forwarded-Encrypted: i=1; AKwUvByy+Z8OMEOQe5bFCc4S9ab893tP4gJnQxTzMG5X2uT+LyjtP8s0kYIwx3vQ1T9jAMm5DqHWkqzIxi0SYg4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuXNbA56EPbFBIl5bhWQI/JruVJFICfiNdpsIyNHWPq0zLVQnF
+	Mh4tzhbaDyjky8Xa6qhX6NMVtM3sgRYcFhCX9jQ5UrBX+k7FXsUTiZqj
+X-Gm-Gg: AYBFou1v4qw9gakae32nKP9F9QI0WV4bO8TzOC7imY2naauJhILlo3lCu+x+tOpvX+3
+	LHsMeAxx4yVViRq6I4bRWHfM8MV3+m4586ckX3P1wN4mtk/Sc1GvPPIbMbChfZwcU7xkjMkUZCu
+	HX3m0yIZwHorQMmcj0+0d50oH5Ve10tC7WozJTh1Y4vFJI+080/SEQKQXjRs7D45+0xz+1mP0w8
+	zdhVqAWw/E5dLIPejsGIMydyb8LeAeXzPV2lli8w6+TPFpY6xs3mf0bx1nwpCCJWQ3P6SObBUae
+	h1oeRVp9l/QVSiUduozj+wIdwwc4/99JWa2zc92FScgduUv2VT/6gs2i0jepj+uhAdSsPYjasO9
+	ZzAQpfzDjDwcgIykDGgw+bHGUlkdm6eLJl0D2lQpfTwXJYwYtM7jQKTHrV0RpfSKL2Ld+ZCAbUb
+	3hjU5hgfE90A8x+iSKkzKUVWLrGuYODZeXkSBNaCBwOcfxfOMwhfqDTCbT9ojb1oexv24n7k14j
+	+Ykv3VyWcJMRYBukTIyFRzQFpkElR2CyVs8yvpARkObX7+fvNWCSK1v+E48hnvougyaAiV4+zWf
+	zAfwftfBXa38/vYxcs+Big==
+X-Received: by 2002:a05:600c:1f83:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a1d7612128mr156524285e9.16.1792408720439;
+        Mon, 19 Oct 2026 04:18:40 -0700 (PDT)
+Received: from [10.0.0.136] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e3ebb3aasm193183505e9.0.2026.10.19.04.18.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 04:18:40 -0700 (PDT)
+From: Antoine Gouby <antoine.gouby@gmail.com>
+Subject: [PATCH 0/5] ARM: dts: Add Colibri iMX6 overlays
+Date: Mon, 19 Oct 2026 13:18:29 +0200
+Message-Id: <20261019-colibri-imx6-overlays-v1-0-e4d028727382@toradex.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261019-sv105c-retry-set-interface-v1-1-ab2f08bc3fcb@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0atI1gZs0fq5irioNWpAraRQFPHuF
+ pdvMfNAIGEK0GUPCEUO7I8ElWfgVnsshDwlgy60UYVq0fmNR2Hk/TLoI8lm74C2mmxT0jgrXUN
+ qT6GZr//bD+/7AXR7kt5nAAAA
+X-Change-ID: 20261019-colibri-imx6-overlays-a5da84ebf127
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Antoine Gouby <antoine.gouby@toradex.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1531;
+ i=antoine.gouby@toradex.com; h=from:subject:message-id;
+ bh=sibS6+PbzNU0PLhMfzlVYE7Xqoew+WZ9iiOgUjlOo0c=;
+ b=owGbwMvMwCWm0rPo7MxLN2YynlZLYsi6+qdvk9Gbh8e+i0/dPTuiabXL8+MPu7zneko6NZo6H
+ ysSLHX07ShlYRDjYpAVU2TJeKIqyKcQIuvB0ZwMM4eVCWQIAxenAExkxg6G/3miV6822KTwsHi/
+ N39z4Ihps1nPpVmfIizZXEQvOy1/sIuRYcshkQVL3rQvK9EX3+EabK0vOzHaqKks+vDdX4uZy4O
+ YGAA=
+X-Developer-Key: i=antoine.gouby@toradex.com; a=openpgp;
+ fpr=68E425110E20541D48088363248CA2CD99D2D899
 
-On Mon, Oct 19, 2026 at 02:07:28PM +0300, Ostashow Constantine via B4 Relay wrote:
-> From: Ostashow Constantine <ostashow@gmail.com>
-> 
-> The SVBONY SV105C (0c45:636b, Sonix based) fails most SET_INTERFACE
-> requests that select a streaming alternate setting right after a
-> VS_COMMIT control. The request completes with -EPROTO, so
-> VIDIOC_STREAMON fails and capture applications see the camera
-> randomly failing to start.
-> 
-> A usbmon capture of a failing VIDIOC_STREAMON:
-> 
->   S Co:1:003:0 s 21 01 0200 0001 001a 26 = 01000104 15160500 ...
->   C Co:1:003:0 0 26 >
->   S Co:1:003:0 s 01 0b 0004 0001 0000 0
->   C Co:1:003:0 -71 0
->   S Co:1:003:0 s 01 0b 0000 0001 0000 0
->   C Co:1:003:0 0 0
-> 
-> The failure rate is around 80% and does not depend on the alternate
-> setting (alt 1, the smallest one with 128 bytes per microframe, fails
-> as often as alt 6), on a delay between VS_COMMIT and SET_INTERFACE
-> (0 to 100 ms tested), or on USB autosuspend. SET_INTERFACE without a
-> preceding VS_COMMIT succeeded 15 out of 15 times, and an immediate
-> retry after the -EPROTO failure succeeded 15 out of 15 times. Once
-> streaming has started, the camera works reliably. It also works with
-> the Windows UVC driver.
+This series adds device tree overlays for the Colibri iMX6 SoM. The
+overlays cover HDMI, VGA and parallel displays.
 
-What does Windows do differently then ?
+The series adds support for:
 
-> Add a UVC_QUIRK_RETRY_SET_INTERFACE quirk that retries SET_INTERFACE
-> up to three times when it fails with -EPROTO, and enable it for the
-> SV105C. With the quirk, 35 out of 35 stream starts succeeded, 29 of
-> them needed a retry, and no start needed more than one.
-> 
-> lsusb -v:
-> 
-> Bus 001 Device 003: ID 0c45:636b Microdia SVBONY SV105C
-> Negotiated speed: High Speed (480Mbps)
-> Device Descriptor:
->   bLength                18
->   bDescriptorType         1
->   bcdUSB               2.01
->   bDeviceClass          239 Miscellaneous Device
->   bDeviceSubClass         2 [unknown]
->   bDeviceProtocol         1 Interface Association
->   bMaxPacketSize0        64
->   idVendor           0x0c45 Microdia
->   idProduct          0x636b SVBONY SV105C
->   bcdDevice            1.00
->   iManufacturer           2 Sonix Technology Co., Ltd.
->   iProduct                1 SVBONY SV105C
->   iSerial                 3 SN0001
->   bNumConfigurations      1
->   Configuration Descriptor:
->     bLength                 9
->     bDescriptorType         2
->     wTotalLength       0x032e
->     bNumInterfaces          2
->     bConfigurationValue     1
->     iConfiguration          0
->     bmAttributes         0x80
->       (Bus Powered)
->     MaxPower              500mA
->     Interface Association:
->       bLength                 8
->       bDescriptorType        11
->       bFirstInterface         0
->       bInterfaceCount         2
->       bFunctionClass         14 Video
->       bFunctionSubClass       3 Video Interface Collection
->       bFunctionProtocol       0
->       iFunction               5
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        0
->       bAlternateSetting       0
->       bNumEndpoints           1
->       bInterfaceClass        14 Video
->       bInterfaceSubClass      1 Video Control
->       bInterfaceProtocol      0
->       iInterface              5
->       VideoControl Interface Descriptor:
->         bLength                13
->         bDescriptorType        36
->         bDescriptorSubtype      1 (HEADER)
->         bcdUVC               1.00
->         wTotalLength       0x0050
->         dwClockFrequency       15.000000MHz
->         bInCollection           1
->         baInterfaceNr( 0)       1
->       VideoControl Interface Descriptor:
->         bLength                 9
->         bDescriptorType        36
->         bDescriptorSubtype      3 (OUTPUT_TERMINAL)
->         bTerminalID             4
->         wTerminalType      0x0101 USB Streaming
->         bAssocTerminal          0
->         bSourceID               3
->         iTerminal               0
->       VideoControl Interface Descriptor:
->         bLength                29
->         bDescriptorType        36
->         bDescriptorSubtype      6 (EXTENSION_UNIT)
->         bUnitID                 3
->         guidExtensionCode         {28f03370-6311-4a2e-ba2c-6890eb334016}
->         bNumControls           32
->         bNrInPins               1
->         baSourceID( 0)          2
->         bControlSize            4
->         bmControls( 0)       0x9f
->         bmControls( 1)       0x07
->         bmControls( 2)       0x07
->         bmControls( 3)       0x07
->         iExtension              0
->       VideoControl Interface Descriptor:
->         bLength                18
->         bDescriptorType        36
->         bDescriptorSubtype      2 (INPUT_TERMINAL)
->         bTerminalID             1
->         wTerminalType      0x0201 Camera Sensor
->         bAssocTerminal          0
->         iTerminal               0
->         wObjectiveFocalLengthMin      0
->         wObjectiveFocalLengthMax      0
->         wOcularFocalLength            0
->         bControlSize                  3
->         bmControls           0x0000000e
->           Auto-Exposure Mode
->           Auto-Exposure Priority
->           Exposure Time (Absolute)
->       VideoControl Interface Descriptor:
->         bLength                11
->         bDescriptorType        36
->         bDescriptorSubtype      5 (PROCESSING_UNIT)
->       Warning: Descriptor too short
->         bUnitID                 2
->         bSourceID               1
->         wMaxMultiplier          0
->         bControlSize            2
->         bmControls     0x0000177f
->           Brightness
->           Contrast
->           Hue
->           Saturation
->           Sharpness
->           Gamma
->           White Balance Temperature
->           Backlight Compensation
->           Gain
->           Power Line Frequency
->           White Balance Temperature, Auto
->         iProcessing             0
->         bmVideoStandards     0x31
->           None
->           NTSC - 625/50
->           PAL - 525/60
->       Endpoint Descriptor:
->         bLength                 7
->         bDescriptorType         5
->         bEndpointAddress     0x83  EP 3 IN
->         bmAttributes            3
->           Transfer Type            Interrupt
->           Synch Type               None
->           Usage Type               Data
->         wMaxPacketSize     0x0010  1x 16 bytes
->         bInterval               6
->         VideoControl Endpoint Descriptor:
->           bLength                 5
->           bDescriptorType        37
->           bDescriptorSubtype      3 (EP_INTERRUPT)
->           wMaxTransferSize      128
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        1
->       bAlternateSetting       0
->       bNumEndpoints           0
->       bInterfaceClass        14 Video
->       bInterfaceSubClass      2 Video Streaming
->       bInterfaceProtocol      0
->       iInterface              0
->       VideoStreaming Interface Descriptor:
->         bLength                            15
->         bDescriptorType                    36
->         bDescriptorSubtype                  1 (INPUT_HEADER)
->         bNumFormats                         2
->         wTotalLength                   0x024f
->         bEndpointAddress                 0x81  EP 1 IN
->         bmInfo                              0
->         bTerminalLink                       4
->         bStillCaptureMethod                 2
->         bTriggerSupport                     1
->         bTriggerUsage                       1
->         bControlSize                        1
->         bmaControls( 0)                     0
->         bmaControls( 1)                     0
->       VideoStreaming Interface Descriptor:
->         bLength                            11
->         bDescriptorType                    36
->         bDescriptorSubtype                  6 (FORMAT_MJPEG)
->         bFormatIndex                        1
->         bNumFrameDescriptors                8
->         bFlags                              0
->           Fixed-size samples: No
->         bDefaultFrameIndex                  1
->         bAspectRatioX                       0
->         bAspectRatioY                       0
->         bmInterlaceFlags                 0x00
->           Interlaced stream or variable: No
->           Fields per frame: 1 fields
->           Field 1 first: No
->           Field pattern: Field 1 only
->         bCopyProtect                        0
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  7 (FRAME_MJPEG)
->         bFrameIndex                         1
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                           1920
->         wHeight                          1080
->         dwMinBitRate                995328000
->         dwMaxBitRate                995328000
->         dwMaxVideoFrameBufferSize     4147789
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            333333
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  7 (FRAME_MJPEG)
->         bFrameIndex                         2
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                           1280
->         wHeight                          1024
->         dwMinBitRate                629145600
->         dwMaxBitRate                629145600
->         dwMaxVideoFrameBufferSize     2622029
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            333333
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  7 (FRAME_MJPEG)
->         bFrameIndex                         3
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                           1280
->         wHeight                           960
->         dwMinBitRate                589824000
->         dwMaxBitRate                589824000
->         dwMaxVideoFrameBufferSize     2458189
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            333333
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  7 (FRAME_MJPEG)
->         bFrameIndex                         4
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                           1280
->         wHeight                           720
->         dwMinBitRate                442368000
->         dwMaxBitRate                442368000
->         dwMaxVideoFrameBufferSize     1843789
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            333333
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  7 (FRAME_MJPEG)
->         bFrameIndex                         5
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                            800
->         wHeight                           600
->         dwMinBitRate                230400000
->         dwMaxBitRate                230400000
->         dwMaxVideoFrameBufferSize      960589
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            333333
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  7 (FRAME_MJPEG)
->         bFrameIndex                         6
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                            640
->         wHeight                           480
->         dwMinBitRate                147456000
->         dwMaxBitRate                147456000
->         dwMaxVideoFrameBufferSize      614989
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            333333
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  7 (FRAME_MJPEG)
->         bFrameIndex                         7
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                            480
->         wHeight                           640
->         dwMinBitRate                147456000
->         dwMaxBitRate                147456000
->         dwMaxVideoFrameBufferSize      614989
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            333333
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  7 (FRAME_MJPEG)
->         bFrameIndex                         8
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                           1920
->         wHeight                          1080
->         dwMinBitRate                995328000
->         dwMaxBitRate                995328000
->         dwMaxVideoFrameBufferSize     4147789
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            333333
->       VideoStreaming Interface Descriptor:
->         bLength                            34
->         bDescriptorType                    36
->         bDescriptorSubtype                  3 (STILL_IMAGE_FRAME)
->         bEndpointAddress                 0x00  EP 0 OUT
->         bNumImageSizePatterns               7
->         wWidth( 0)                       1920
->         wHeight( 0)                      1080
->         wWidth( 1)                       1280
->         wHeight( 1)                       720
->         wWidth( 2)                        800
->         wHeight( 2)                       600
->         wWidth( 3)                        640
->         wHeight( 3)                       480
->         wWidth( 4)                        640
->         wHeight( 4)                       360
->         wWidth( 5)                        320
->         wHeight( 5)                       240
->         wWidth( 6)                        320
->         wHeight( 6)                       180
->         bNumCompressionPatterns             0
->       VideoStreaming Interface Descriptor:
->         bLength                            27
->         bDescriptorType                    36
->         bDescriptorSubtype                  4 (FORMAT_UNCOMPRESSED)
->         bFormatIndex                        2
->         bNumFrameDescriptors                8
->         guidFormat                            {32595559-0000-0010-8000-00aa00389b71}
->         bBitsPerPixel                      16
->         bDefaultFrameIndex                  1
->         bAspectRatioX                       0
->         bAspectRatioY                       0
->         bmInterlaceFlags                 0x00
->           Interlaced stream or variable: No
->           Fields per frame: 2 fields
->           Field 1 first: No
->           Field pattern: Field 1 only
->         bCopyProtect                        0
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  5 (FRAME_UNCOMPRESSED)
->         bFrameIndex                         1
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                           1920
->         wHeight                          1080
->         dwMinBitRate                165888000
->         dwMaxBitRate                165888000
->         dwMaxVideoFrameBufferSize     4147200
->         dwDefaultFrameInterval        2000000
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)           2000000
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  5 (FRAME_UNCOMPRESSED)
->         bFrameIndex                         2
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                           1280
->         wHeight                          1024
->         dwMinBitRate                104857600
->         dwMaxBitRate                104857600
->         dwMaxVideoFrameBufferSize     2621440
->         dwDefaultFrameInterval        2000000
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)           2000000
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  5 (FRAME_UNCOMPRESSED)
->         bFrameIndex                         3
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                           1280
->         wHeight                           960
->         dwMinBitRate                 98304000
->         dwMaxBitRate                 98304000
->         dwMaxVideoFrameBufferSize     2457600
->         dwDefaultFrameInterval        2000000
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)           2000000
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  5 (FRAME_UNCOMPRESSED)
->         bFrameIndex                         4
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                           1280
->         wHeight                           720
->         dwMinBitRate                147456000
->         dwMaxBitRate                147456000
->         dwMaxVideoFrameBufferSize     1843200
->         dwDefaultFrameInterval        1000000
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)           1000000
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  5 (FRAME_UNCOMPRESSED)
->         bFrameIndex                         5
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                            800
->         wHeight                           600
->         dwMinBitRate                153600000
->         dwMaxBitRate                153600000
->         dwMaxVideoFrameBufferSize      960000
->         dwDefaultFrameInterval         500000
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            500000
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  5 (FRAME_UNCOMPRESSED)
->         bFrameIndex                         6
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                            640
->         wHeight                           480
->         dwMinBitRate                147456000
->         dwMaxBitRate                147456000
->         dwMaxVideoFrameBufferSize      614400
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            333333
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  5 (FRAME_UNCOMPRESSED)
->         bFrameIndex                         7
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                            480
->         wHeight                           640
->         dwMinBitRate                147456000
->         dwMaxBitRate                147456000
->         dwMaxVideoFrameBufferSize      614400
->         dwDefaultFrameInterval         333333
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)            333333
->       VideoStreaming Interface Descriptor:
->         bLength                            30
->         bDescriptorType                    36
->         bDescriptorSubtype                  5 (FRAME_UNCOMPRESSED)
->         bFrameIndex                         8
->         bmCapabilities                   0x00
->           Still image unsupported
->         wWidth                           1920
->         wHeight                          1080
->         dwMinBitRate                165888000
->         dwMaxBitRate                165888000
->         dwMaxVideoFrameBufferSize     4147200
->         dwDefaultFrameInterval        2000000
->         bFrameIntervalType                  1
->         dwFrameInterval( 0)           2000000
->       VideoStreaming Interface Descriptor:
->         bLength                            18
->         bDescriptorType                    36
->         bDescriptorSubtype                  3 (STILL_IMAGE_FRAME)
->         bEndpointAddress                 0x00  EP 0 OUT
->         bNumImageSizePatterns               3
->         wWidth( 0)                       1920
->         wHeight( 0)                      1080
->         wWidth( 1)                       1280
->         wHeight( 1)                       720
->         wWidth( 2)                        640
->         wHeight( 2)                       480
->         bNumCompressionPatterns             0
->       VideoStreaming Interface Descriptor:
->         bLength                             6
->         bDescriptorType                    36
->         bDescriptorSubtype                 13 (COLORFORMAT)
->         bColorPrimaries                     1 (BT.709,sRGB)
->         bTransferCharacteristics            1 (BT.709)
->         bMatrixCoefficients                 4 (SMPTE 170M (BT.601))
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        1
->       bAlternateSetting       1
->       bNumEndpoints           1
->       bInterfaceClass        14 Video
->       bInterfaceSubClass      2 Video Streaming
->       bInterfaceProtocol      0
->       iInterface              0
->       Endpoint Descriptor:
->         bLength                 7
->         bDescriptorType         5
->         bEndpointAddress     0x81  EP 1 IN
->         bmAttributes            5
->           Transfer Type            Isochronous
->           Synch Type               Asynchronous
->           Usage Type               Data
->         wMaxPacketSize     0x0080  1x 128 bytes
->         bInterval               1
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        1
->       bAlternateSetting       2
->       bNumEndpoints           1
->       bInterfaceClass        14 Video
->       bInterfaceSubClass      2 Video Streaming
->       bInterfaceProtocol      0
->       iInterface              0
->       Endpoint Descriptor:
->         bLength                 7
->         bDescriptorType         5
->         bEndpointAddress     0x81  EP 1 IN
->         bmAttributes            5
->           Transfer Type            Isochronous
->           Synch Type               Asynchronous
->           Usage Type               Data
->         wMaxPacketSize     0x0100  1x 256 bytes
->         bInterval               1
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        1
->       bAlternateSetting       3
->       bNumEndpoints           1
->       bInterfaceClass        14 Video
->       bInterfaceSubClass      2 Video Streaming
->       bInterfaceProtocol      0
->       iInterface              0
->       Endpoint Descriptor:
->         bLength                 7
->         bDescriptorType         5
->         bEndpointAddress     0x81  EP 1 IN
->         bmAttributes            5
->           Transfer Type            Isochronous
->           Synch Type               Asynchronous
->           Usage Type               Data
->         wMaxPacketSize     0x0320  1x 800 bytes
->         bInterval               1
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        1
->       bAlternateSetting       4
->       bNumEndpoints           1
->       bInterfaceClass        14 Video
->       bInterfaceSubClass      2 Video Streaming
->       bInterfaceProtocol      0
->       iInterface              0
->       Endpoint Descriptor:
->         bLength                 7
->         bDescriptorType         5
->         bEndpointAddress     0x81  EP 1 IN
->         bmAttributes            5
->           Transfer Type            Isochronous
->           Synch Type               Asynchronous
->           Usage Type               Data
->         wMaxPacketSize     0x0b20  2x 800 bytes
->         bInterval               1
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        1
->       bAlternateSetting       5
->       bNumEndpoints           1
->       bInterfaceClass        14 Video
->       bInterfaceSubClass      2 Video Streaming
->       bInterfaceProtocol      0
->       iInterface              0
->       Endpoint Descriptor:
->         bLength                 7
->         bDescriptorType         5
->         bEndpointAddress     0x81  EP 1 IN
->         bmAttributes            5
->           Transfer Type            Isochronous
->           Synch Type               Asynchronous
->           Usage Type               Data
->         wMaxPacketSize     0x1320  3x 800 bytes
->         bInterval               1
->     Interface Descriptor:
->       bLength                 9
->       bDescriptorType         4
->       bInterfaceNumber        1
->       bAlternateSetting       6
->       bNumEndpoints           1
->       bInterfaceClass        14 Video
->       bInterfaceSubClass      2 Video Streaming
->       bInterfaceProtocol      0
->       iInterface              0
->       Endpoint Descriptor:
->         bLength                 7
->         bDescriptorType         5
->         bEndpointAddress     0x81  EP 1 IN
->         bmAttributes            5
->           Transfer Type            Isochronous
->           Synch Type               Asynchronous
->           Usage Type               Data
->         wMaxPacketSize     0x1400  3x 1024 bytes
->         bInterval               1
-> 
-> Cc: stable@vger.kernel.org
-> Assisted-by: claude-opus-5-5
-> Signed-off-by: Ostashow Constantine <ostashow@gmail.com>
-> ---
-> Notes for reviewers (not part of the commit message):
-> 
-> Testing:
-> - Runtime-tested on a Raspberry Pi 4 (VL805 xHCI) running 6.18.57, with
->   this patch applied to the 6.18.57 uvcvideo sources (it applies with
->   line offsets only). Results are in the commit message. Before the
->   patch, 3/20 and 5/20 stream starts succeeded.
-> - Built with W=1 without new warnings: as part of the 6.18.57 module,
->   and the patched media/next sources against 6.18 headers plus the
->   media/next include/linux/usb/uvc.h.
-> - Not runtime-tested on media/next itself, and not tested on other host
->   controllers (e.g. x86 xHCI). I can't tell whether the failure depends
->   on the host controller.
-> 
-> Tool disclosure (Documentation/process/generated-content.rst):
-> The root-cause analysis (usbmon capture, libusb experiments varying the
-> alternate setting, the delay after VS_COMMIT and retries), the patch and
-> this changelog were produced by an AI coding assistant (Claude Code,
-> claude-opus-5-5) in an interactive session, at my request, on my
-> hardware. I have reviewed the patch and take responsibility for it.
-> ---
->  drivers/media/usb/uvc/uvc_driver.c |  9 +++++++++
->  drivers/media/usb/uvc/uvc_video.c  | 14 ++++++++++++++
->  drivers/media/usb/uvc/uvcvideo.h   |  1 +
->  3 files changed, 24 insertions(+)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index cbc145697..9e1f855cd 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -2928,6 +2928,15 @@ static const struct usb_device_id uvc_ids[] = {
->  	  .bInterfaceSubClass	= 1,
->  	  .bInterfaceProtocol	= 0,
->  	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_MJPEG_NO_EOF) },
-> +	/* SVBONY SV105C */
-> +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-> +				| USB_DEVICE_ID_MATCH_INT_INFO,
-> +	  .idVendor		= 0x0c45,
-> +	  .idProduct		= 0x636b,
-> +	  .bInterfaceClass	= USB_CLASS_VIDEO,
-> +	  .bInterfaceSubClass	= 1,
-> +	  .bInterfaceProtocol	= 0,
-> +	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_RETRY_SET_INTERFACE) },
->  	/* MT6227 */
->  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
->  				| USB_DEVICE_ID_MATCH_INT_INFO,
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index a92a986ab..3a3b1d1d7 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -2100,6 +2100,20 @@ static int uvc_video_start_transfer(struct uvc_streaming *stream,
->  		}
->  
->  		ret = usb_set_interface(stream->dev->udev, intfnum, altsetting);
-> +
-> +		/*
-> +		 * Some devices, namely the SVBONY SV105C, fail most of the
-> +		 * SET_INTERFACE requests that follow a VS_COMMIT control with
-> +		 * a protocol error. Retrying the request immediately succeeds.
-> +		 */
-> +		for (i = 0; ret == -EPROTO && i < 3 &&
-> +		     (stream->dev->quirks & UVC_QUIRK_RETRY_SET_INTERFACE); ++i) {
-> +			uvc_dbg(stream->dev, VIDEO,
-> +				"SET_INTERFACE failed (%d), retrying\n", ret);
-> +			ret = usb_set_interface(stream->dev->udev, intfnum,
-> +						altsetting);
-> +		}
-> +
->  		if (ret < 0)
->  			return ret;
->  
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index af8cef94f..19851c3d2 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -81,6 +81,7 @@
->  #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
->  #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
->  #define UVC_QUIRK_MSXU_META		0x00040000
-> +#define UVC_QUIRK_RETRY_SET_INTERFACE	0x00080000
->  
->  /* Format flags */
->  #define UVC_FMT_FLAG_COMPRESSED		0x00000001
-> 
-> ---
-> base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-> change-id: 20261019-sv105c-retry-set-interface-759a92a1e7b5
+- HDMI Displays
+- Toradex Capacitive and Resistive Touch 7" Parallel Displays
+- VGA Displays
 
+The Makefile entries build the standalone overlays as DTBOs, and add
+ready-to-use composed DTBs for selected carrier boards and accessory
+combinations, for build-time coverage.
+
+Signed-off-by: Antoine Gouby <antoine.gouby@toradex.com>
+---
+Antoine Gouby (5):
+      ARM: dts: imx6dl-colibri: Add HDMI overlay
+      ARM: dts: imx6dl-colibri: Add Toradex Capacitive Touch Display 7" Parallel
+      ARM: dts: imx6dl-colibri: Add Toradex Capacitive Touch Display 7" Parallel with Touch Adapter
+      ARM: dts: imx6dl-colibri: Add Toradex Resistive Touch Display 7" Parallel
+      ARM: dts: imx6dl-colibri: Add VGA overlay
+
+ arch/arm/boot/dts/nxp/imx/Makefile                 | 85 ++++++++++++++++++++++
+ arch/arm/boot/dts/nxp/imx/imx6dl-colibri-hdmi.dtso | 27 +++++++
+ ...nel-cap-touch-7inch-parallel-touch-adapter.dtso | 57 +++++++++++++++
+ ...6dl-colibri-panel-cap-touch-7inch-parallel.dtso | 38 ++++++++++
+ ...6dl-colibri-panel-res-touch-7inch-parallel.dtso | 29 ++++++++
+ arch/arm/boot/dts/nxp/imx/imx6dl-colibri-vga.dtso  | 67 +++++++++++++++++
+ 6 files changed, 303 insertions(+)
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261019-colibri-imx6-overlays-a5da84ebf127
+
+Best regards,
 -- 
-Regards,
+Antoine Gouby <antoine.gouby@toradex.com>
 
-Laurent Pinchart
