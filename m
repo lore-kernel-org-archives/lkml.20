@@ -1,164 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A594ED1A5;
-	Mon, 19 Oct 2026 12:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF4129E116;
+	Mon, 19 Oct 2026 12:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792411657; cv=none; b=sQzUtcJug97FzK08S5DhVPRlFn6wmZWxpx24nutfzcrXvwblcC+IX7GLnuDQFzmfzgLaJQesuTTAyCpW0cuJZY3sfuZkdq5B0KBjgyGFaaUIKriugB1/6YTkVcipFM1TmV8R1oxFRJUugtWnKCObo3+nSN1s2BHqmujWhbYctjc=
+	t=1792411689; cv=none; b=sjxiJhRdooh9zn2YVEJLMn0/gjumW82zRJMgk8dXimjn3mbUT7v8tQfqgW6pf2ahuduT+Jw3k1SpJt+LFFQPkFB3Jff7ncXapTwMfQnfUTnXusNTCqGcZgjakPvOesb6lmjCRZ7BlymNhe33jeRpwUaMJFDJfG9ALO3NAS8C68M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792411657; c=relaxed/simple;
-	bh=0VD279vbdOS0EiyvVxP/U5jXF1MFq44rMijcaDVhVNc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FhM/jOCSh/ueGvW/xwl4hM/7xkDUPwwBiqBMPju3fKaZV2vV4KNSuTwWsD43SbEjgdSdWuipaNcehY+e4dzbs8OWACr6TCYd6DvGfhQr5oDUjy9/woiquz9opD5CH+GYvd96PGBTaEWSVteGlii97uJOWm/myiGUUJkv4Fl3Lso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jW0uv/+P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792411689; c=relaxed/simple;
+	bh=w/hph4ER0YkrhJQPiR4aU48CqXYO8evQ2VX++Wqlenw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f4FFefioIJ7IMuVHiIgxu0co4QDr72Zchu9supq8Hxz0KZVy6BGvxEJELQuU43J8vHONzfYQM3f8hk7r3HLMwq2DSk7jDm0fNiIItbXPjXd3LxUv1G4JqCqTyX1kS0T+xeWjMUtxiCo8J4ntKuUv3DflGUQ9kRcndE7HJBMpKkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=mzwHE7VT; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jW0uv/+P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2871F000C6;
-	Mon, 19 Oct 2026 12:07:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792411654;
-	bh=RF1BCrenhcVKcdUJCeYXXIn58WVKEsWB0QjtqkJFbPY=;
-	h=From:To:Cc:Subject:Date;
-	b=jW0uv/+P1WZ7NmnDqoeL1W5d6JLqGiqZ9qff4O2AtRpYHx86WoKa8B6/b/cW4ypPi
-	 CskWQJImUMnuy9XwYK/np6IlxHWjr3AVQINzxHILh/v3XaP0HXoVuGY7hN+QwBg4A/
-	 wUOFcDBwZgtLA/Gfu/8zVftH1F8lllmzvYrWjBh+QfN7rXiiKOWf581PGAB4XvCHY9
-	 Wp8oOnRDUHRKAWa/OM64a2YH9L0jjiDVAACfa+RYySnwDCUB47bIGJxv9UOQ+xhW7H
-	 aT1E5nkvYgMuuwkJtxkawSrs4YhtlPPvHI4p4XEIJfFELJfgS4G4u6GMjMZveuauk8
-	 Ur6wLkTQay09w==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
-	Fengguang Wu <fengguang.wu@intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] tracing/histograms: Verify event_call identity when updating synth_event refcount
-Date: Mon, 19 Oct 2026 12:07:29 +0000
-Message-ID: <20261019120730.2342739-1-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="mzwHE7VT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=MQhzuftN3IBNJW2MfPPSv2gfeHMpUPXUNgzYh3G684Q=; b=mzwHE7VTd+ddtNKbg/UUfniP4T
+	88fAYX/aZvG6dpQl1K8utJvl6zNsfEmpBXX2zMVS3YpM6w0/o1hWMw4/yAth0mSlgc8zaq9tM+nDg
+	Wi0nANbgVbIcLVkikpVRqRdag6B6FXRPx2ltA6WHv4KZxPjipkPYrFtqFWHkCgbppo7k=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xIm9e-00BciC-VN; Mon, 19 Oct 2026 14:07:50 +0200
+Date: Mon, 19 Oct 2026 14:07:50 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kyle Switch <kyle.switch@motor-comm.com>
+Cc: olteanv@gmail.com, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
+	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
+	wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
+Subject: Re: [PATCH net-next v15 5/5] net: dsa: motorcomm: Add support for
+ Motorcomm YT922x
+Message-ID: <549c71e6-fc23-4258-8673-24194b1d7687@lunn.ch>
+References: <20261019110543.2999419-1-kyle.switch@motor-comm.com>
+ <20261019110543.2999419-6-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019110543.2999419-6-kyle.switch@motor-comm.com>
 
-In event_hist_trigger_parse() and hist_unreg_all(), the histogram
-registration and unregistration paths look up find_synth_event() using
-trace_event_name(file->event_call) and adjust se->ref if a match is
-found.
+On Mon, Oct 19, 2026 at 07:05:43PM +0800, Kyle Switch wrote:
+> Add support for Motorcomm YT922X, which is series of
+> ethernet switches developed by Motorcomm Electronic
+> Technology, includes YT9224 and YT9228.
+> 
+> This patch only adds support for the YT9224 variant.
+> YT9228 is not supported yet.
+> 
+> This patch adds basic support for a working DSA switch,
+> includes .port_setup, .setup, .phylink_get_caps,
+> .get_tag_protocol.
+> 
+> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
 
-Because find_synth_event() only compares the event basename, registering
-or removing a histogram on a non-synthetic trace event whose basename
-matches a synthetic event erroneously modifies the synthetic event's
-reference count.  If a histogram is registered on the non-synthetic
-event before the synthetic event is created and removed afterwards,
-se->ref is decremented without a matching increment, allowing the
-synthetic event to be freed while an active histogram action still holds
-a pointer to it.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Introduce find_synth_event_call() to verify that &se->call matches
-file->event_call before adjusting se->ref.
-
-Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
-v1 -> v2:
-  - Introduce find_synth_event_call() helper instead of open-coding the
-    &se->call == file->event_call check at each call site (Steven).
-
- kernel/trace/trace_events_hist.c  | 11 +++--------
- kernel/trace/trace_events_synth.c | 10 ++++++++++
- kernel/trace/trace_synth.h        |  1 +
- 3 files changed, 14 insertions(+), 8 deletions(-)
-
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 00a1d8522036..9a789f57ed95 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6792,7 +6792,6 @@ static void hist_unreg_all(struct trace_event_file *file)
- 	struct event_trigger_data *test, *n;
- 	struct hist_trigger_data *hist_data;
- 	struct synth_event *se;
--	const char *se_name;
- 
- 	lockdep_assert_held(&event_mutex);
- 
-@@ -6805,8 +6804,7 @@ static void hist_unreg_all(struct trace_event_file *file)
- 			list_del_rcu(&test->list);
- 			trace_event_trigger_enable_disable(file, 0);
- 
--			se_name = trace_event_name(file->event_call);
--			se = find_synth_event(se_name);
-+			se = find_synth_event_call(file->event_call);
- 			if (se)
- 				se->ref--;
- 
-@@ -6830,7 +6828,6 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 	struct hist_trigger_data *hist_data;
- 	char *param, *filter, *p, *start;
- 	struct synth_event *se;
--	const char *se_name;
- 	bool remove;
- 	int ret = 0;
- 
-@@ -6924,8 +6921,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 		}
- 
- 		event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
--		se_name = trace_event_name(file->event_call);
--		se = find_synth_event(se_name);
-+		se = find_synth_event_call(file->event_call);
- 		if (se)
- 			se->ref--;
- 		ret = 0;
-@@ -6960,8 +6956,7 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 	if (ret)
- 		goto out_unreg;
- 
--	se_name = trace_event_name(file->event_call);
--	se = find_synth_event(se_name);
-+	se = find_synth_event_call(file->event_call);
- 	if (se)
- 		se->ref++;
-  out:
-diff --git a/kernel/trace/trace_events_synth.c b/kernel/trace/trace_events_synth.c
-index dc15658a887c..e2870212e58d 100644
---- a/kernel/trace/trace_events_synth.c
-+++ b/kernel/trace/trace_events_synth.c
-@@ -914,6 +914,16 @@ struct synth_event *find_synth_event(const char *name)
- 	return NULL;
- }
- 
-+struct synth_event *find_synth_event_call(struct trace_event_call *call)
-+{
-+	struct synth_event *se;
-+	const char *name;
-+
-+	name = trace_event_name(call);
-+	se = find_synth_event(name);
-+	return se && &se->call == call ? se : NULL;
-+}
-+
- static struct trace_event_fields synth_event_fields_array[] = {
- 	{ .type = TRACE_FUNCTION_TYPE,
- 	  .define_fields = synth_event_define_fields },
-diff --git a/kernel/trace/trace_synth.h b/kernel/trace/trace_synth.h
-index 43f6fb6078db..d4ebf01b7049 100644
---- a/kernel/trace/trace_synth.h
-+++ b/kernel/trace/trace_synth.h
-@@ -37,5 +37,6 @@ struct synth_event {
- };
- 
- extern struct synth_event *find_synth_event(const char *name);
-+extern struct synth_event *find_synth_event_call(struct trace_event_call *call);
- 
- #endif /* __TRACE_SYNTH_H */
--- 
-2.56.0.212.g129ede20d9-goog
-
+    Andrew
