@@ -1,299 +1,165 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B68648D874;
-	Mon, 19 Oct 2026 07:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA83489FB1
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792395376; cv=none; b=sNB44X5jSlsxSkq9W7wN4W8jA+SZ+JwAw64NE6xW7pmqFz5vaVQgGtQordHSA8TBo72bR5tL9/TkOkuLHFH9J58bnQRSqAAur/Pz6Y7kDQbfyEehqWnw6ANws2fVPb2s6rZgmGrgoIrEUhlG8ikGeBiJW9HNHkPdNAdjmBcwuAQ=
+	t=1792395401; cv=none; b=iFa750H2YKdDLzTZAacxKk+1wR+a1jIL9khBiIckOWNjMBGcw0yLDmgsP5xJWM7hIfGg51LSsWpdlw7iUWpJqdhjTAErTS7BkD6RQl6bUfPDMn7wx5aQ/kmBgA6JmaNHMp9UOfynpvemKH75UgFE1wuX/ENAACA2iseOq7WRiGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792395376; c=relaxed/simple;
-	bh=4XfcpeDqELvt1DkF3dbMuEEccglxwIYHWZ58GO1+JxE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FZC27zb83oITmIte2ygOR6Y9bPS7qGtts5CGkupoGi0skfqst1o76b76rJvjiDYj1k1HGyY63Il1lYLLJU7YVAHokP+66QfV3B3ZHUH9rOg8prosDZ4dtQtWS3/uy89l2ShNLqo3sGSdjh2RDyQo9bbRzFZBfOUEslUMxiVohkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=k9jY//tn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rkQsG9ms; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=k9jY//tn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rkQsG9ms; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1792395401; c=relaxed/simple;
+	bh=ZnhBH6xejyos4DyoGWw62BoGBRcmHEc6anlCo0N1LH0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:In-Reply-To:
+	 Content-Type:References; b=kmWv4mKItrlP2powrO5C7pTk6geT9F42pO42J+iv8ePNvqR8raNOu8wl+Hh0bBPkHrKpTZygLcJ+p173rH04VGE6DukPU1GRqecpBOq7LkVl4NDipRoTUM96XWcRnqt2RTJr3oY8+UXXgF5VsZdzpiXUASXLTpeVB7OfkcMzC9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=gSEOh5fV; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="k9jY//tn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rkQsG9ms";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="k9jY//tn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rkQsG9ms"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 11EC821E2D;
-	Mon, 19 Oct 2026 07:36:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792395373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
-	b=k9jY//tnFJOaiF1B2azDwhv244Q9WuB1EseGtNaBO0wKHsjrzHi0ehT6l9Co/c+x6oO2TG
-	1VNPAEq/p8ioYWkfJGEjOCa2BaY8teplu6qLAtfgmsryCbMihFMON7EHxFwdAJ562sg3EF
-	otm1I6F/7X7KaGi76tNVErv0ZTnCidU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792395373;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
-	b=rkQsG9ms9IacDQzBS4ihfUIE5DXdZQE6DKwjAEgyq6W+R8lEJsXsp9jashArTNqqHA70bZ
-	OJoXluJ18bQCTHBg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="k9jY//tn";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=rkQsG9ms
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792395373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
-	b=k9jY//tnFJOaiF1B2azDwhv244Q9WuB1EseGtNaBO0wKHsjrzHi0ehT6l9Co/c+x6oO2TG
-	1VNPAEq/p8ioYWkfJGEjOCa2BaY8teplu6qLAtfgmsryCbMihFMON7EHxFwdAJ562sg3EF
-	otm1I6F/7X7KaGi76tNVErv0ZTnCidU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792395373;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=8nQUL6BAT1jXGqmh3FAOn1A9KYuAO9FbrCjrnMbJpDc=;
-	b=rkQsG9ms9IacDQzBS4ihfUIE5DXdZQE6DKwjAEgyq6W+R8lEJsXsp9jashArTNqqHA70bZ
-	OJoXluJ18bQCTHBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8CEBB134B3;
-	Mon, 19 Oct 2026 07:36:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 4tfuGGzI1Wo7KwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Mon, 19 Oct 2026 07:36:12 +0000
-Message-ID: <c238f4ff-d5d8-4a9a-8773-793bd9056c9b@suse.de>
-Date: Mon, 19 Oct 2026 09:36:11 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="gSEOh5fV"
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261019072925epoutp039048ef532eaa8ed2380e59e043890365~f3bmZjb070258002580epoutp03J
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 07:29:25 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261019072925epoutp039048ef532eaa8ed2380e59e043890365~f3bmZjb070258002580epoutp03J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1792394965;
+	bh=zsA3QPvVoDO5xet0EVA3xJCoFnkSHMjMs4TsySAJyME=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=gSEOh5fVPqLM+hqHc0AY3GQFekxWEe28QqKLfrhkFqtl0qbPiXHCle2vF6tTjImAC
+	 ZAy4xzWAD+PpPz+OKJiRKtGs1Cs+PxM69erXyqSPDRz1Or/2BgKTKFlhRkVIVTm0Kp
+	 tvmd8lEhP9V7Q6mea0AUa9xSnVhulxYPDH2tl0s4=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261019072925epcas2p1a0fde087bb8affcc22a720a2c4e2d4a3~f3bl56fJW2455924559epcas2p1E;
+	Mon, 19 Oct 2026 07:29:25 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.207]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4j7Rxx06z4z6B9m4; Mon, 19 Oct
+	2026 07:29:25 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261019072924epcas2p1d445e24b396d930a9f23659594f868a6~f3blAvTvc3241732417epcas2p1B;
+	Mon, 19 Oct 2026 07:29:24 +0000 (GMT)
+Received: from ubuntu (unknown [12.81.221.204]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261019072924epsmtip2dca62f5eabde878a763363de3018f2d4~f3bk9uL1I0877308773epsmtip22;
+	Mon, 19 Oct 2026 07:29:24 +0000 (GMT)
+Date: Mon, 19 Oct 2026 16:25:15 +0900
+From: Daehwan Jung <dh10.jung@samsung.com>
+To: Avichal Rakesh <arakesh@google.com>
+Cc: "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>, open list
+	<linux-kernel@vger.kernel.org>, selvarasu.g@samsung.com, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, jchowdhary@google.com
+Subject: Re: [PATCH] usb: gadget: uvc: reserve frame interval headroom for
+ the zero length backlog
+Message-ID: <atXF1OT2GUkSgRi+@ubuntu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/hyperv: add a parameter to disable the vblank timer
-To: Lanfeng Wei <xlfylawarthur@gmail.com>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-hyperv@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev, stable@vger.kernel.org
-References: <20261017153524.8870-1-xlfylawarthur@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261017153524.8870-1-xlfylawarthur@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spam-Score: -4.50
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.50 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FREEMAIL_TO(0.00)[gmail.com,microsoft.com,linux.microsoft.com];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,vger.kernel.org,lists.freedesktop.org,lists.linux.dev];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url,suse.de:dkim]
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 11EC821E2D
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+In-Reply-To: <ebf20112-a767-4eb6-a6cd-4d2f724bd19f@google.com>
+X-CMS-MailID: 20261019072924epcas2p1d445e24b396d930a9f23659594f868a6
+X-Msg-Generator: CA
+Content-Type: multipart/mixed;
+	boundary="----RPJGqzha0o.ukxohDL6eKGn_d.IhylQoay3C4kM4INy2jZlW=_1ab9b8_"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261012034422epcas2p486b38818b542d2fff5b5fed58863ec6e
+References: <CGME20261012034422epcas2p486b38818b542d2fff5b5fed58863ec6e@epcas2p4.samsung.com>
+	<20261012034018.3193146-1-dh10.jung@samsung.com>
+	<ebf20112-a767-4eb6-a6cd-4d2f724bd19f@google.com>
 
-Hi
+------RPJGqzha0o.ukxohDL6eKGn_d.IhylQoay3C4kM4INy2jZlW=_1ab9b8_
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
 
-Am 17.10.26 um 17:34 schrieb Lanfeng Wei:
-> A performance regression has been observed on Hyper-V causing serious
-> frame rate drops since commit 52e6b1988334 ("drm/hypervdrm: Use vblank
-> timer").
->
-> The regression occurs when using Xorg with a software rendered cursor.
-> The offending commit uses the DRM vblank hrtimer to pace atomic update
-> completion events, making each event wait for the next simulated vblank.
-> However, cursor damage invoked by mouse movement is unconstrained by
-> screen refresh rate, and therefore consumes most of Xorg's update
-> opportunities, starving normal graphical updates, resulting in
-> plummeting frame rate.
->
-> Hyper-V virtual display framebuffer is able to accept multiple writes in
-> one update window, so the commit broke this expected behavior.
->
-> The regression is also reported by other users:
->
-> Link: https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/msg6302857.html
->
-> Add a read-only module parameter hyperv_drm.vblank_timer, which is
-> enabled by default. Disabling it prevents the timer's enable callback
-> from starting the timer. The vblank framework and the existing atomic
-> callbacks remain registered. When disabled, the first
-> drm_crtc_vblank_get() fails through the callback, so the existing helper
-> sends the atomic event immediately and skips the vblank wait, matching
-> the behavior before the timer was introduced.
+On Tue, Oct 13, 2026 at 02:15:36PM -0700, Avichal Rakesh wrote:
+> 
+> On 10/11/26 8:40 PM, Daehwan Jung wrote:
+> > uvc_video_prep_requests() spreads a frame over every service interval of
+> > the negotiated frame interval:
+> > 
+> > 	nreq = DIV_ROUND_UP(video->interval, interval_duration);
+> > 
+> > and uvc_buffer_prepare() then splits every buffer into exactly
+> > reqs_per_frame requests - only the request size varies, never the count.
+> > So transmitting one frame always occupies nreq service intervals, 100% of
+> > the frame interval, with nothing left over.
+> > 
+> > That budget cannot be met. While no video buffer is available,
+> > uvcg_video_hw_submit() deliberately keeps a backlog of zero length
+> > requests queued to the endpoint:
+> > 
+> > 	if (list_empty(&video->req_free) ||
+> > 	    (atomic_read(&video->queued) > UVCG_REQ_MAX_ZERO_COUNT)) {
+> > 
+> > Up to UVCG_REQ_MAX_ZERO_COUNT + 1 of them are in flight whenever the
+> > encoder is late, each occupying a service interval that carries no
+> > payload, and the ring is FIFO so they all drain before the next frame's
+> > payload moves. The frame period is therefore reqs_per_frame plus that
+> > backlog, always longer than the frame interval the host asked for. The
+> > UVCG_REQ_MAX_ZERO_COUNT compensation already in this function only sizes
+> > the request pool; it buys the backlog no time.
+> > 
+> > At 60fps over SuperSpeed with bInterval 1 the backlog is 33 of the 133
+> > intervals a frame interval has - 4.125ms, a quarter of the budget. The
+> > waste is a fixed count, so it hurts in inverse proportion to the frame
+> > interval: 24.8% at 60fps down to 6.2% at 15fps.
+> > 
+> > Reserve it. Measured on a SuperSpeed gadget (isoc IN, wMaxPacketSize
+> > 1024, bMaxBurst 2, bInterval 1) running the Android DeviceAsWebcam
+> > service, as reported by the CTS Verifier "Camera - Webcam" test, next to
+> > the rate the microframe accounting predicts:
+> > 
+> >    target   predicted  measured  |  predicted  measured
+> >              (before)  (before)  |   (after)    (after)
+> >      60        47.9       46     |    59.7        56
+> >      30        26.7       26     |    30.0        28
+> >      24        21.8       22     |    24.5        22
+> >      15        14.1       13     |    16.0        13
+> 
+> We recently fixed this exact issue in Android's DeviceAsWebcam client. In
+> our case, DeviceAsWebcam was only queuing a frame when the previous one was
+> returned.
+> 
+> With the changes to uvc_video_prep_requests(), a frame stays queued for one
+> frame interval, and subsequent ioctl/scheduling delays meant that the gadget
+> driver had to insert empty requests between two frames bringing down the
+> effective FPS.
+> 
+> Our fix was to maintain two queued buffers to UVC Gadget Driver ensuring
+> that the UVC gadget driver has a frame ready to send immediately after one
+> is complete. This prevents insertion of zero length requests between two
+> consecutive frames (fixing the FPS degradation you see) and gives
+> DeviceAsWebcam a little bit of breathing room for ioctl and scheduling
+> delays.
+> 
+> It is not clear if you are working with Android or not. If not, it is well
+> worth checking if you have the same issue as us instead of adding an
+> arbitrary headroom here. The numbers you report are extremely similar to
+> what we were seeing.
+> 
+> If this was motivated from Android's DeviceAsWebcam, take a look at
+> https://android-review.googlesource.com/c/platform/packages/services/DeviceAsWebcam/+/4353888
+> and the comments in that change.
+> 
+> The change itself has been abandoned but it has context on the underlying
+> issue, fix, and where to find the fix until it makes its way to AOSP.
+> 
+> Best Regards,
+> Avi
+> 
 
-Yeah, what's the cause of it? Switching off features does not fix any 
-bugs or improve the status quo.
+Thanks for sharing it. I'm working with Android.
+Let me check AOSP.
+
+Best Regards,
+Daehwan Jung
+
+------RPJGqzha0o.ukxohDL6eKGn_d.IhylQoay3C4kM4INy2jZlW=_1ab9b8_
+Content-Type: text/plain; charset="utf-8"
 
 
-We had another fix for a problem with vblank timers:
-
-https://lore.kernel.org/dri-devel/20260914110004.211027-1-tzimmermann@suse.de/
-
-Did you validate that this fix is unrelated?
-
-Best regards
-Thomas
-
-
->
-> This provides an opt-out for affected virtual display users.
->
-> Benchmark results:
->
-> Workload: Inject mouse movement at 125 Hz against a flashing
-> animation running at 60 Hz, matching the screen refresh rate, for 4
-> seconds.
->
-> Tested versions: 6.18 (the last major version before the offending
-> commit), version 6.19 (the first major version containing that commit),
-> version 7.1.8 (on which the patch is based), and its patched version.
->
-> Version  Anim. Hz            Mouse Hz         Max client-request gap
-> ====================================================================
-> 6.18     59.66-60.00        122.00-123.33     17.0 ms
-> 6.19     0-0.162            59.73-59.86       7.53 s
-> 7.1.8    0.133-0.162        59.83-59.86       6.16 s
-> Patched  59.75-60.00        122.75-124.50     14.0 ms
->
-> The patch restores both animation and mouse update rates, and reduces
-> the maximum client-request gap from seconds to milliseconds.
->
-> Fixes: 52e6b1988334 ("drm/hypervdrm: Use vblank timer")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lanfeng Wei <xlfylawarthur@gmail.com>
-> ---
-> The parameter defaults to enabled to preserve the current kernel
-> behavior. I do not know the full set of users who rely on the vblank
-> timer, so changing the default could introduce a different regression.
-> Affected users can set hyperv_drm.vblank_timer=0.
->
-> If the maintainers prefer the parameter to default to disabled, or if
-> there is a better way to detect the affected configuration
-> automatically, I'm happy to send a v2.
->   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 23 ++++++++++++++++++++-
->   1 file changed, 22 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-> index d48ca6c23..527385748 100644
-> --- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
-> @@ -4,6 +4,7 @@
->    */
->   
->   #include <linux/hyperv.h>
-> +#include <linux/moduleparam.h>
->   
->   #include <drm/drm_atomic.h>
->   #include <drm/drm_crtc_helper.h>
-> @@ -25,6 +26,19 @@
->   
->   #include "hyperv_drm.h"
->   
-> +static bool vblank_timer = true;
-> +module_param(vblank_timer, bool, 0444);
-> +MODULE_PARM_DESC(vblank_timer,
-> +		 "Enable the Hyper-V DRM vblank timer (default: true)");
-> +
-> +static int hyperv_crtc_enable_vblank(struct drm_crtc *crtc)
-> +{
-> +	if (!vblank_timer)
-> +		return -EOPNOTSUPP;
-> +
-> +	return drm_crtc_vblank_helper_enable_vblank_timer(crtc);
-> +}
-> +
->   static int hyperv_blit_to_vram_rect(struct drm_framebuffer *fb,
->   				    const struct iosys_map *vmap,
->   				    struct drm_rect *rect)
-> @@ -132,7 +146,14 @@ static const struct drm_crtc_funcs hyperv_crtc_funcs = {
->   	.page_flip = drm_atomic_helper_page_flip,
->   	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
->   	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
-> -	DRM_CRTC_VBLANK_TIMER_FUNCS,
-> +	/*
-> +	 * expanded DRM_CRTC_VBLANK_TIMER_FUNCS to override
-> +	 * enable_vblank with hyperv_crtc_enable_vblank
-> +	 */
-> +	.enable_vblank = hyperv_crtc_enable_vblank,
-> +	.disable_vblank = drm_crtc_vblank_helper_disable_vblank_timer,
-> +	.get_vblank_timestamp =
-> +		drm_crtc_vblank_helper_get_vblank_timestamp_from_timer,
->   };
->   
->   static int hyperv_plane_atomic_check(struct drm_plane *plane,
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
-
+------RPJGqzha0o.ukxohDL6eKGn_d.IhylQoay3C4kM4INy2jZlW=_1ab9b8_--
