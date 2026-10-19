@@ -1,329 +1,225 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011022.outbound.protection.outlook.com [52.101.52.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221934A64D5
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404437; cv=fail; b=sQ6lzBolB3pTEIK91blnYZordfdarNni0Rqpz6D6K5wI2AzMfXeah7wtbx2mSqxi/CvSBshW6Yu8PKFB0fCECdX6aLtUCZTSAoSVXrGKjqV25ow40AvtwIsYIuo+DNmhNjnq1OaaI3dTCTYE5uTfcpmJ0wR+fY46D/+W9G7odvM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404437; c=relaxed/simple;
-	bh=6iQx6KasaLl1kq58Kcqxmere8fMu7t7yefW75a2YvpU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=bIeJ7sUmEUo9mc/kMKfcOxJTVUhpAEvNRBnbfvkA05hH0wgjNIzHFHnUz0JVXtec69ZulXu463VjSX8eBxGL6TaeVbdolrw3aMJr4A5pR1QSOfLoDMhz7DRLBj7b3F0FO20A0v4npoqAnEHg6sskp0xxyIw/6Gchm778C++p2eY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=w6pMnSp0; arc=fail smtp.client-ip=52.101.52.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7E626F289;
+	Mon, 19 Oct 2026 10:08:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792404509; cv=none; b=ur4WJUFb30a71yvgqFRSAOT1WRfnJGtPCKgTSWiSPSKk2Y/Udav/a5pVCyM/dbl0FkP42POU/7cWjTkchhm0lOHAMMX4+6jLzB6yaO+1phIOEod0XTxEXhT2CcU1msRPe12pGNxtEQ7sF+AvNfxTxKHn3/T3SgUs9g7SpV/REDs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792404509; c=relaxed/simple;
+	bh=sSyDmkyVT/dhanTdK837i1+kyD20aLuR6WspTbHELYY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QH3JpivnLIJpOzs4mN7IOtmyn2R/upL1/lPIdsuL0EdtyUCXB+XAVdB7ZFScSsDkEanh6T9VtgNqVsElztp/eJ6IXl0JIaYVtetW9TOZQyMEd5UHyXy7gAwAwFDQeiMItFct1lCArJ58Kxr3tH7NSEXsDBAQzZwUpvulbU2nuvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=2j6yhaJO; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=4+XFpOjI; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=g7uDNZIP; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=y3evbgPT; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="w6pMnSp0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wiAh8HMZZ+VEgJ3N5ENhDI51RQYc59bxzOYIiMFizUi5so3EO6LqR1ZtRKULmvNZ/dq+B4XooTpCgYuU1JUcgk4M1XOqYzovQd8G6BQnPGqOZKu7t4UCo3a2qJoP7YcuE4vgmCd6YYCOKYcjyWocuGW0E5x2vg1oWVQrYeAXQhHRljJVgXeiSaBlh+IVRDxvZKicgHZz3CfLBR3uHlOtPHO4QFehRIAs0dSLOPslmxIbBkUZxar9+eIOLXTKZenpIehDt7wF39USUjWSCWutymk7YBtO7EQoLPRm+sDZYsR3pACPcXhxA7lw4tg1pvoFg61PeAMUzNMwUlYA31LOhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yakViHTuIHYx+7xYz1UncR/GL4/FdYLSzwOIUDtzh8s=;
- b=VO4LOZrq7tWsQdXRVKvmmJHWp2yYmOHicsKea38rRf/RUObEk2mtN+Y1SBg2/G5sbbXuKowl09bRbQlYjGNuCTHkjbZB4yuELFmKOUH/lQ/CCONM0s4CSqJp2H+Lv3Sa9XR4wDo+8sjsAsTjoWHLaacmQjFw072hMC37OlUI5XskCbA88aQKbDCIEWP0OwhRq4pbIF4bb47h3L9xZ1SIOqc/FCcPFCrQyGlYxVmYMw2Nx5YoSjF9Rp4Y8JX5DBYPOlQel8yy57WHiAX0PdTLlVchQhE5JeFtjb19KPmenFYf/NCvd8+sGSsgRoaU7+pzGHQjQswtqAqw2mlB8yxZSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yakViHTuIHYx+7xYz1UncR/GL4/FdYLSzwOIUDtzh8s=;
- b=w6pMnSp0AScusqzuSOg1yzK0sIbqC1IKybKvA4zVb8Isi+gY/+uIvlb7JHnITcZkrJbXDojZf80esCNjYdgq3xyshYm6w5+66HzvzXH/cHYDWx+6XPICUshgnGMkRFJ+dgYzxKjGW0ErOlILdOGueUZKkx10gzKZ5jF/SiXZcio=
-Received: from CY8PR11CA0037.namprd11.prod.outlook.com (2603:10b6:930:4a::29)
- by CH8PR12MB999205.namprd12.prod.outlook.com (2603:10b6:610:35a::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 10:07:10 +0000
-Received: from CY7PEPF000000F7.namprd05.prod.outlook.com
- (2603:10b6:930:4a:cafe::96) by CY8PR11CA0037.outlook.office365.com
- (2603:10b6:930:4a::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
- 19 Oct 2026 10:07:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY7PEPF000000F7.mail.protection.outlook.com (10.167.247.155) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 19 Oct 2026 10:07:10 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 19 Oct
- 2026 05:06:56 -0500
-From: Shivank Garg <shivankg@amd.com>
-Date: Mon, 19 Oct 2026 10:06:49 +0000
-Subject: [PATCH RFC v2] mm: introduce copy_mc_highpages() and batch copy in
- folio_mc_copy()
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="2j6yhaJO";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="4+XFpOjI";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="g7uDNZIP";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="y3evbgPT"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BCB9E21C12;
+	Mon, 19 Oct 2026 10:08:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792404506; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Onx+JeZfqT4n7RqEsTp5HZW4tzK5tNL6plqqoY4dhVk=;
+	b=2j6yhaJOCaIivir0SE6H+TxgSjRNEeEo8Y7vd/UgyirvA4Lbll3mdscbM7KESQGVWMU3n0
+	Nw6A/+8o7FcmauMj1J/vidT0P0+uiI3EbR2BVtYpYl3eIRFjDc2QjtyCe5CQ++CTqPDpAv
+	Y/BcUj717agCPF2s6G3xABDGSRdp6Lg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792404506;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Onx+JeZfqT4n7RqEsTp5HZW4tzK5tNL6plqqoY4dhVk=;
+	b=4+XFpOjIhT5MYmu6nuoe8mbULZGnUBeLqtc0OVg0M2rjvj9bmQDysZPeWHotyf6uCH4kVi
+	HxP6FlJl4MUi/KBQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=g7uDNZIP;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=y3evbgPT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792404504; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Onx+JeZfqT4n7RqEsTp5HZW4tzK5tNL6plqqoY4dhVk=;
+	b=g7uDNZIPEpg2kFzeIAwWJt0X1jbKHGG/3UmOkhLl59qCjVe3OiPcjYTA5R1rg7LiIFVCM5
+	/oCPGceBaNjA1I3QeI9F6cGDDFa/RDZrcZtFBEYB0+Tc/jBnA44zDTf0vv8ZWmIbDIEBGL
+	mjWqztuXStAcA5BZtDgyoDaKxX+1taY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792404504;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Onx+JeZfqT4n7RqEsTp5HZW4tzK5tNL6plqqoY4dhVk=;
+	b=y3evbgPTXWaM6PrgtT/BQ6enNXBnrmxMlayO1rf0Oce++uNu1CJR59WkO+SuFk8tUozpcF
+	cmOZpAGq0xXkhsDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 951BB136CC;
+	Mon, 19 Oct 2026 10:08:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id O/jdGxjs1WrSSgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 10:08:24 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 230CDA1413; Mon, 19 Oct 2026 12:08:24 +0200 (CEST)
+Date: Mon, 19 Oct 2026 12:08:24 +0200
+From: Jan Kara <jack@suse.cz>
+To: Liz Fong-Jones <lizf@honeycomb.io>
+Cc: Tejun Heo <tj@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Christian Brauner <brauner@kernel.org>, "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, ian@honeycomb.io
+Subject: Re: [PATCH v2] writeback: keep cleanup_offline_cgwb()'s scan out of
+ syncs
+Message-ID: <lw7ovj3ubo27lfhyyklzt6cevl2silk7g7dv62wlk76l462thg@nnskkgjljah5>
+References: <20261015114307.1041273-1-lizf@honeycomb.io>
+ <20261017040710.1174009-1-lizf@honeycomb.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID: <20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHQUlJIzE
- vPSU3UzU4B8JSMDIzMDc0MT3aTEkoLE9NTk/IJKXdNEoyQTU0tDg1TTFCWgjoKi1LTMCrBp0Up
- Bbs5KsbW1ADn9hXJiAAAA
-X-Change-ID: 20260714-batpagecopy-5a2b45910e5d
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
-	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
-	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
-	<mhocko@suse.com>, Borislav Petkov <bp@alien8.de>, Ankur Arora
-	<ankur.a.arora@oracle.com>, Dave Hansen <dave.hansen@linux.intel.com>,
-	"Thomas Gleixner" <tglx@kernel.org>, Bharata B Rao <bharata@amd.com>,
-	"Hrushikesh Salunke" <hsalunke@amd.com>, Ingo Molnar <mingo@redhat.com>, "H .
- Peter Anvin" <hpa@zytor.com>, David Laight <david.laight.linux@gmail.com>,
-	David Rientjes <rientjes@google.com>, Linus Torvalds
-	<torvalds@linuxfoundation.org>, "Teja Vojjala" <tejavojjala@google.com>, Huan
- Nguyen <nhuhuan@google.com>
-CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, <x86@kernel.org>,
-	Shivank Garg <shivankg@amd.com>
-X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792404423; l=7839;
- i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=6iQx6KasaLl1kq58Kcqxmere8fMu7t7yefW75a2YvpU=;
- b=hp1w9hClg5UwIVAd6hhcwRpdpKsCYOraTjVmCGTXb+LdpZpshlpPrXnFNvGcb4wRWiJQnbiND
- HEZPNgYplBFAD4m0ViOM2pw5BrdVq8dOudGwKL9PHDMaUUg9qycHKlr
-X-Developer-Key: i=shivankg@amd.com; a=ed25519;
- pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY7PEPF000000F7:EE_|CH8PR12MB999205:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9fb7a0ec-432f-4d41-72d9-08df2dc8bd4d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|7416014|1800799024|18002099003|3023799007|13003099007|921020|11063799006|10067099003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	brzgqzCXX+hRBp6P7SnMaQzF+l+s/Yhe8A3u1IXMomZccLffNzR5l9Ge1847uGqpA/fCez2pp8+8KrFWKgaWScGlrokpc2iK8HLzB5rsayqOy+6+xOIlL7bs3XemXEy8nDz//k645ise9/Eps8r+5kFfCV/1L8YC69J9iqKz8eyxguhHQ4TcyAYgh9KVRQYgS4+TO1kTSkunpycbCieQEq4Ni1EIECYwpI4zlfuMfI9Rut7uB4Qx85KE+hLBF+qYY7oBrBX9g1jV+WeTJHZNUZLxHzoyxcI5FompdgOaiC/ha4GAINP8FPSYeMAN5TKJyqmQre5Cz0IzK+YlA8EBV7KJ0/iqfiJLF87xBtvO0Mxlo8WHqWZ8i7jNjTVEbtvePM3x5Mk8h7mmz5YpWQ54BIPzU/fSeAD4VRHdJ4qduAC+b8/NeeELO1ju8natPc28DIs3qmVza1NVMVldwyw7ARajqJokMWJtN37orHDL+Xa3+pzq5jrP715r1OM0mESralOx9fQaIEytzLODC5fR5bFje5ZeN2CUmo5SDfl8evgCR3Yquu4P6j5CqGyWTenxQPX1zJpzLUXhA0naX+Ls2SDV+za0q2NAgQxjhydPqVM/5jMDGANjTw8828NZXtC7O+gHITrOIV/NRHsKIlCSkgFQLKnQtp2+YNt3mertfY5hxyY38QbdDO8bN6w5Gc7Wlyh3/nMyHfpg4HZt7Amaog==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(7416014)(1800799024)(18002099003)(3023799007)(13003099007)(921020)(11063799006)(10067099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	R3iFvDzjpbg/xETnEIhqsORn187OjNLx1d4BZZhmQanIIxXh8sYFORU/un3BHny3cBYT2C3gusr66tPHDTy2v5NatjMoIoRZk5xYb+kAJ1ZjpbVjJh3ZkaoIw2VrPy74NzagvRQsk8pTlzYtEcD6e6QCozPd/CZjt4QYg6kR/RhVNwojZI/CsJ2I8xBm4yHseMq7hVgi9GFuKLCf8h/wQ9NxNHKDyLsqEjClZ44wPSllCarPZYSmneOkAq7cUq1WL6yykMCbPcYkLIba3uJeK1+nlmSD8CjtoNrwVAqiP1EzoTJW+SiJH6pyVrNSTQLqMmjJlO2+isHs4jMD2Ocnc7O+hiIUahW1BVvc7IJdJxdpp4HVONzWXqwbqiJPOrXWwe3p4dLCEwXQglZ1hqwOBYxY+s5WzF4zKDSqt36RWcx1h8EVY8uZ6xEUZovibkWu
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 10:07:10.1683
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fb7a0ec-432f-4d41-72d9-08df2dc8bd4d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY7PEPF000000F7.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB999205
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017040710.1174009-1-lizf@honeycomb.io>
+X-Rspamd-Action: no action
+X-Spam-Score: -2.51
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,suse.cz,gmail.com,linux.dev,zeniv.linux.org.uk,vger.kernel.org,kvack.org,honeycomb.io];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[honeycomb.io:email,suse.com:email,suse.cz:email,suse.cz:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Level: 
+X-Rspamd-Queue-Id: BCB9E21C12
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 
-folio_mc_copy() copies a folio one page at a time with copy_mc_highpage(),
-so a 2MB folio makes 512 separate copy_mc_to_kernel() calls. Each page
-pays the startup cost of the string instruction ("REP; MOVSB" on x86
-CPUs with ERMS) plus a cond_resched().
+On Sat 17-10-26 04:07:11, Liz Fong-Jones wrote:
+> On a filesystem mounted with lazytime, sync() and syncfs() can return
+> without persisting timestamp updates of inodes attached to a dying
+> cgroup wb, so a crash after the sync loses them. File data and sizes are
+> not affected.
+> 
+> Since commit f6988c90671e ("writeback: bound cleanup_offline_cgwb()
+> rescans by rotating scanned inodes"), isw_prepare_wbs_switch() moves the
+> inodes it walks to the newest end of the list. When a pass fills its isw
+> before reaching an inode that got its lazytime update after a sync's
+> cutoff, the walked inodes land past it on b_dirty_time, and the sync's
+> queue_io(), which stops at the first inode dirtied after the cutoff,
+> misses them. The late inode has to be one without a pending lazytime
+> update; one already on b_dirty_time keeps its position.
+> 
+> The window is narrow. cleanup_offline_cgwbs_workfn() skips wbs with
+> anything on b_dirty, b_io or b_more_io, so the scan has to land between
+> wb_writeback() fixing dirtied_before and taking list_lock for its first
+> queue_io(), unless a multi-pass drain started before the wb got dirty
+> IO.
+> 
+> Take wb_switch_rwsem for read across the scan, as
+> process_inode_switch_wbs() does for the switches.
+> 
+> Fixes: f6988c90671e ("writeback: bound cleanup_offline_cgwb() rescans by rotating scanned inodes")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Tejun Heo <tj@kernel.org>
+> Link: https://lore.kernel.org/all/0bc5d58533f10b4841807be3025daa11@kernel.org/
+> Assisted-by: Claude:claude-opus-5-5 checkpatch
+> Assisted-by: Claude:claude-fable-5-1
+> Acked-by: Tejun Heo <tj@kernel.org>
+> Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 
-Introduce copy_mc_highpages(), the page range variant of
-copy_mc_highpage(). When copy_mc_to_kernel() is available and the pages
-are in the linear map, copy the whole range with a single
-copy_mc_to_kernel() call, so the CPU can optimize for the larger extent.
-Otherwise, fall back to copy_mc_highpage() one page at a time.
+Thanks! The fix looks good to me. Feel free to add:
 
-On a machine check, queue the poisoned source page for memory_failure()
-and return -EHWPOISON, as copy_mc_highpage() does.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-copy_mc_to_kernel() cannot reschedule, so copying a large folio with one
-call can run for a long time under cooperative preemption models. Add
-COPY_MC_PAGES_NON_PREEMPT_BATCH to bound how much is copied in one go:
-32MB, the same bound clear_pages() gets from
-PROCESS_PAGES_NON_PREEMPT_BATCH, or one page on the fallback path.
+								Honza
 
-Switch folio_mc_copy() to copy_mc_highpages(): the whole folio at once
-under preemptible models, COPY_MC_PAGES_NON_PREEMPT_BATCH pages at a time
-otherwise.
-
-Assisted-by: LLM
-Signed-off-by: Shivank Garg <shivankg@amd.com>
----
-On a Zen 6 system with CXL memory, move_pages() gets ~1.4x faster for
-2MB THPs and up to ~2.8x faster for 1GB hugetlb pages (numbers below).
-When demoting to CXL, kswapd uses ~31% less CPU per GB demoted.
-
-Changes in v2:
-- Drop the folio_copy() changes as there is little to gain here.
-  On architectures without copy_mc_to_kernel(), copy_mc_highpages()
-  falls back to the per-page copy_mc_highpage(), which ends up in
-  copy_highpage(). A batched copy_highpages() could help there too,
-  but I haven't tested it on those architectures, so that is left for
-  a follow-up.
-- Add COPY_MC_PAGES_NON_PREEMPT_BATCH to limit how much is copied
-  between cond_resched() calls on non-preemptible kernels.
-- Rebase onto mm-new (2887e63d2e8e).
-- v1: https://lore.kernel.org/all/20260427142036.111940-2-shivankg@amd.com
-
-Test setup: AMD EPYC Zen 6, single socket, NPS2 (nodes 0 and 1 are
-DRAM, node 2 is CXL), with and without this patch.
-
-move_pages() throughput
------------------------
-A single move_pages() call migrates 1GB of anonymous memory, as 512
-2MB THPs or as four 1GB hugetlb pages. Mean ± stddev (10 runs each),
-in GiB/s:
-
-2MB THP:
-  direction         base            patched         speedup
-  DRAM0 -> DRAM1    19.57 ± 0.17    27.51 ± 0.78    1.41x
-  DRAM1 -> DRAM0    19.44 ± 0.12    27.33 ± 0.27    1.41x
-  DRAM0 -> CXL      18.66 ± 0.18    26.90 ± 0.51    1.44x
-  CXL   -> DRAM0    15.38 ± 0.59    16.60 ± 0.24    1.08x
-
-1GB hugetlb:
-  direction         base            patched         speedup
-  DRAM0 -> DRAM1    20.34 ± 0.13    53.88 ± 1.48    2.65x
-  DRAM1 -> DRAM0    19.10 ± 2.65    53.78 ± 0.55    2.82x
-  DRAM0 -> CXL      19.53 ± 0.08    44.10 ± 0.19    2.26x
-  CXL   -> DRAM0    16.41 ± 0.07    20.89 ± 0.06    1.27x
-
-kswapd demotion
----------------
-Node 0 is limited to 16GB of free memory and demotion is enabled. A
-single thread bound to node 0 writes 96GB of anonymous THP memory, so
-~80GB has to be demoted to CXL. Median of 10 runs:
-
-                               base        patched
-  kswapd CPU time              4.25 s      3.44 s     (-19%)
-  kswapd CPU per GB demoted    63.6 ms     44.1 ms    (-31%)
-  demoted by direct reclaim    14.1 GB     0.46 GB
-  allocstall                   7427        370
-
-With the patch, kswapd keeps up with the writer, so the writer rarely
-falls back to direct reclaim.
-
-Other workloads
----------------
-- Memory tiering (numa_balancing=2) with Redis, GAPBS PR/BC, a B-tree
-  benchmark and Graph500: copying 2MB folios during demotion is
-  1.18-1.49x faster.
-- A userspace daemon moving 1GB hugetlb pages between DRAM and CXL
-  with move_pages() while GUPS runs on them: demotion is 1.43x faster
-  and promotion 1.28x faster.
----
- include/linux/highmem.h | 59 +++++++++++++++++++++++++++++++++++++++++++++++++
- mm/util.c               | 18 +++++++++++----
- 2 files changed, 73 insertions(+), 4 deletions(-)
-
-diff --git a/include/linux/highmem.h b/include/linux/highmem.h
-index d7aac9de1c8a..e43459dc58b0 100644
---- a/include/linux/highmem.h
-+++ b/include/linux/highmem.h
-@@ -484,6 +484,65 @@ static inline int copy_mc_highpage(struct page *to, struct page *from)
- }
- #endif
- 
-+#if defined(copy_mc_to_kernel) && !defined(CONFIG_HIGHMEM) && \
-+	!defined(__HAVE_ARCH_COPY_HIGHPAGE)
-+/*
-+ * copy_mc_highpages() copies the whole range with a single
-+ * copy_mc_to_kernel() call, which cannot reschedule. That is fine under
-+ * preemptible models, but under cooperatively scheduled models callers
-+ * should copy at most COPY_MC_PAGES_NON_PREEMPT_BATCH pages at a time.
-+ *
-+ * With a value of 32MB and assuming a memory bandwidth of ~10GBps, this
-+ * should result in a worst case preemption latency of around 3ms when
-+ * copying pages.
-+ */
-+#define COPY_MC_PAGES_NON_PREEMPT_BATCH		(SZ_32M >> PAGE_SHIFT)
-+
-+/**
-+ * copy_mc_highpages() - copy a page range with machine check handling
-+ * @to: first destination page
-+ * @from: first source page
-+ * @nr_pages: number of pages
-+ *
-+ * Range variant of copy_mc_highpage(). On a machine check, the poisoned
-+ * source page is queued for memory_failure().
-+ *
-+ * Does not call cond_resched(). Under cooperatively scheduled models the
-+ * caller is expected to limit @nr_pages to COPY_MC_PAGES_NON_PREEMPT_BATCH.
-+ *
-+ * Return: 0 on success, -EHWPOISON if a machine check was handled.
-+ */
-+static inline int copy_mc_highpages(struct page *to, struct page *from,
-+		unsigned long nr_pages)
-+{
-+	unsigned long len = nr_pages << PAGE_SHIFT;
-+	unsigned long ret, i;
-+
-+	ret = copy_mc_to_kernel(page_address(to), page_address(from), len);
-+	if (!ret) {
-+		for (i = 0; i < nr_pages; i++)
-+			kmsan_copy_page_meta(to + i, from + i);
-+		return 0;
-+	}
-+	memory_failure_queue(page_to_pfn(from) + ((len - ret) >> PAGE_SHIFT), 0);
-+	return -EHWPOISON;
-+}
-+#else
-+
-+#define COPY_MC_PAGES_NON_PREEMPT_BATCH		1
-+
-+static inline int copy_mc_highpages(struct page *to, struct page *from,
-+		unsigned long nr_pages)
-+{
-+	unsigned long i;
-+
-+	for (i = 0; i < nr_pages; i++)
-+		if (copy_mc_highpage(to + i, from + i))
-+			return -EHWPOISON;
-+	return 0;
-+}
-+#endif
-+
- static inline void memcpy_page(struct page *dst_page, size_t dst_off,
- 			       struct page *src_page, size_t src_off,
- 			       size_t len)
-diff --git a/mm/util.c b/mm/util.c
-index 7f374bb8bf36..5015cfdfeaa5 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -763,13 +763,23 @@ EXPORT_SYMBOL(folio_copy);
- 
- int folio_mc_copy(struct folio *dst, struct folio *src)
- {
--	long nr = folio_nr_pages(src);
--	long i = 0;
-+	const unsigned long nr_pages = folio_nr_pages(src);
-+	/*
-+	 * Copy the largest extent possible to allow for architecture specific
-+	 * extent based optimizations. copy_mc_highpages() does not call
-+	 * cond_resched(), so limit the unit size when running under
-+	 * non-preemptible scheduling models.
-+	 */
-+	const unsigned long unit = preempt_model_preemptible() ?
-+				   nr_pages : COPY_MC_PAGES_NON_PREEMPT_BATCH;
-+	unsigned long i = 0, count;
- 
- 	for (;;) {
--		if (copy_mc_highpage(folio_page(dst, i), folio_page(src, i)))
-+		count = min(unit, nr_pages - i);
-+		if (copy_mc_highpages(folio_page(dst, i), folio_page(src, i), count))
- 			return -EHWPOISON;
--		if (++i == nr)
-+		i += count;
-+		if (i == nr_pages)
- 			break;
- 		cond_resched();
- 	}
-
----
-base-commit: 2887e63d2e8e0cf55402612d8996ce955a2c3e55
-change-id: 20260714-batpagecopy-5a2b45910e5d
-
-Best regards,
+> ---
+> Changes in v2, all from Tejun's review:
+> - Correct the trigger and the reordering description, and note how
+>   narrow the window is
+> - Reword the code comment
+> - Move the test details here and trim the description
+> 
+> Test, with a debug-only delay holding a syncfs's work on the wb between
+> its cutoff and queue_io() to widen the window: 300 files on a cgroup's
+> wb with lazytime atime updates, one more read after the cutoff, then
+> the cgroup removed so the cleanup ran. Without this patch, syncfs()
+> queued 48 of the 300 and after a crash 252 atime updates were lost, on
+> ext4 (-I 4096, so neighbours' timestamps are not written along) in 3 of
+> 3 runs and on XFS in 1 of 1; with it, none were lost. arm64 KVM guests,
+> 7.3-rc7.
+> 
+> v1: https://lore.kernel.org/all/20261015114307.1041273-1-lizf@honeycomb.io/
+> 
+>  fs/fs-writeback.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+> index ea3eb40bf828..372ac9785e03 100644
+> --- a/fs/fs-writeback.c
+> +++ b/fs/fs-writeback.c
+> @@ -789,6 +789,13 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+>  		new_wb = &wb->bdi->wb; /* wb_get() is noop for bdi's wb */
+>  
+>  	nr = 0;
+> +	/*
+> +	 * The scan moves walked inodes to the newest end of b_dirty_time,
+> +	 * past ones it didn't reach. If one of those was dirtied after a
+> +	 * sync's cutoff, the sync's queue_io() stops there and misses the
+> +	 * moved ones. Exclude syncs as process_inode_switch_wbs() does.
+> +	 */
+> +	down_read(&wb->bdi->wb_switch_rwsem);
+>  	spin_lock(&wb->list_lock);
+>  	/*
+>  	 * In addition to the inodes that have completed writeback, also switch
+> @@ -803,6 +810,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+>  		restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time,
+>  						 &nr);
+>  	spin_unlock(&wb->list_lock);
+> +	up_read(&wb->bdi->wb_switch_rwsem);
+>  
+>  	/* no attached inodes? bail out */
+>  	if (nr == 0) {
+> 
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> -- 
+> 2.53.0
+> 
 -- 
-Shivank Garg <shivankg@amd.com>
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
