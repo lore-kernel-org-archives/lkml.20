@@ -1,213 +1,114 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F289C3AA4E1
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 06:42:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA74485925;
+	Mon, 19 Oct 2026 06:42:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392147; cv=none; b=qWLStUUdBsAHzUXUUWBb2v7aAzl80GFFqyxUH7ACbgDa2fs6iVwUwAfLtvfeECyxEaHYyGZAYohuFfd5q+Cva42/zyiof+gsxByXRFwEd3fdpvENFL/rAKkDQW8w7AFH7J4eFhDQ9lLAkYscvCp24uXdjQrDDbtha+BPs94+Q8M=
+	t=1792392150; cv=none; b=vEuJM/8SfH+LNVysjMRtIn4Fxx2MUUyfMkrVddJG/CPpq2S1AQAItwZ8T+BCR3V84yDFKIH+vjH3YFBfyAMTM+7t1FUmwpd0qmZjmeb0eDl9NtOdFnbqLK4SI2VUI0WDePS3cMJNBfEdjJODfvB40ftTHwT8FPISOSSUzwnJLoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392147; c=relaxed/simple;
-	bh=TMf4L6EYM1qs1Erd/XrvCnOaNfETZAZH+a6a9gHs124=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BviUYFY+hHft06mKNPPzqKyZxodJA5wYnNLx2HWPTrB3mcJGlD4/ufbQ7Vs7neuDoF2BheHx6pVeGz4YI/VoqTTPfNcDhOW/UlcM2YwiahpA892VnkFxDTBj8/qlwuvum6zI8UJ6wJJZ3JeewWnmNZQmTBDC0v/WJ9yJ+aZdxwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c2M5hThj; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792392150; c=relaxed/simple;
+	bh=Bw7YGFSpO7vAHQjLibwCqXB/U0UXs4Wf2BuWaM8BLTY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Hcs6lIE6aT9VkPecvYR0k6k6OFgzK4584WlnRLxl01VxBZklDkcw6vpnePVShLci95aARADcjl4LTegObKsC6NOjVfEMOyUOm9igKGJ1DL03lRKmi3iZE8QiiK+F0hWXyn63cLb1JWULTYUn+nSoDwTG3n74JZfw2vlKq5/OJvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fd/IfN04; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c2M5hThj"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a04d34e294so666410b3a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 23:42:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792392145; x=1792996945; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f5XFXarYDugU15GvRn4heGPbOvz9Qo8H6YKk5rO58RE=;
-        b=c2M5hThjdSAFxuUT1kbDQdYoSiYgR51kAVaElp35pY6C6OIiN+j4IfwpxH+MyBrY5m
-         yFSdvgfaeIUGYFYInBsePL2qqDCRKnHi/Px2Hd72UZJGbyJWLiuX/dY7BMRa7/U/X+et
-         /2fFS0J26z6ad8TtkflMqIAmLKFz7a92Zr2Rhn+WBzUGjninEZ0nZmAmJDzP6Pnr8+kX
-         beT/fqB7iECCVKcQtlcU0eK70eU69pyU5PCnerCpVD0wHFd10WOMufxwf670/zeQ6pWR
-         xvgIJEnAL9RoOZ/0JTor9dlrcodOjf5BerpbuhjlemZLizAsjTam8dh54I1Wm+lZZ4uE
-         0esQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792392145; x=1792996945;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f5XFXarYDugU15GvRn4heGPbOvz9Qo8H6YKk5rO58RE=;
-        b=lOcnuonmpKPhtiKFUFNpjgCB8fbXp2CNZMq8YD4H6AnjS20/spUkPOp3/qv3I0fNck
-         gl8bHgQXPzdENSrL1xz8o+gI9XTrHl0TuRDNQAxoGCecrYqNJ5RZpTzbQLp3N9NPP2d6
-         gWNn9pHuCRuXrKV9CKSwoVn1Yku9t09HkLV4ppwSH5YYR7bD8nbJHw327cN4xKNOzB/8
-         8ZbAGvYZIJNMRSg32rflhWyIMwYjqVQFdTPUQrK4u5BqejshThHUEd7jzNxBTO8f7nol
-         5SfwaBNPOPZM2nKw+y7GtlHeRjjIlBpzXbAdczIxcwu5Nte7s++z9ZOjr6oDiqpUnVRU
-         Zmbw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQ3DcZsAIyySh+v9RyBVoCT+3+BOrRCh9vDl928p0T1tvzxWR0MDYHw8Nf+B00Pfok+ZxdiBe8ICIBdHg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuhz3xR/Pn6UfkabViAIUjn4mQjI4iMd15AEbBBrTYtpVDhgVt
-	xb8irMJpTppFWnuzYZXSwlOs1uMFygToWh/vyWg6G3hLf+KyGKm2Jv35
-X-Gm-Gg: AYBFou0+kRn5VpRyBXuw0+D3Iv3es1aVCaFt6bzqgXMd15X+ZTfgy9rMSAcsIGN9+fs
-	ERdz3Sl4+zoZJOL4uKqCdT2FUYnrBrc/lDWe+KFFCkyyfNggxGZYDwNyBAS/hdwdsbvhGriNBId
-	64X+6VZqYMDkYzp/v4otzwnAdat+D7vjLt82FABdRWPdSvSFKLFXtHOVLmIMh0Dmy5Fusuvtxsp
-	/9RwqaNMLemHoxhdXD9zZSDXDUA/eLjSm/s8aELFUAPFq9wE4C7GFXrjLWQt0KLjy1AoP7VXfm4
-	Dt8LYOM/vI4snjDhfDDuQAr0cqrNCqmb2xhEqRudarbYJepPEG0iOV2ky49KUgZ2AvhNq6yDJY5
-	GQaqKZ7khKELwGNHmwPwIV1ku0YMMyOehKa6zKNVl4MJiZnAKvNiw2ZbF8OISJXaLabZvUUDGg0
-	QK6Vz4L1qTXtHlfvuIXPwEvkw2cz/MwxvmzeKc84cj3cix3n8Lzyw57tCAFqNhT1xbx6qXptWDM
-	fDtKSMf4rYww0o49PmxoQYn2QCVImUgSqgzsiywflPhWLKLwff9/7Jzp8wsC+B9JvwwFw==
-X-Received: by 2002:a05:6a20:e30b:b0:3e1:c6e6:d101 with SMTP id adf61e73a8af0-3e225f7674emr5446422637.29.1792392145181;
-        Sun, 18 Oct 2026 23:42:25 -0700 (PDT)
-Received: from localhost.localdomain ([240e:46d:2100:3fed:6938:3f14:63eb:c479])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd654a3a592sm3688960a12.30.2026.10.18.23.42.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 18 Oct 2026 23:42:24 -0700 (PDT)
-From: Yafang Shao <laoar.shao@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	gourry@gourry.net,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shakeel.butt@linux.dev,
-	roman.gushchin@linux.dev,
-	yu.c.chen@intel.com,
-	zhao1.liu@intel.com,
-	tim.c.chen@linux.intel.com,
-	lizhe.67@bytedance.com
-Cc: bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yafang Shao <laoar.shao@gmail.com>
-Subject: [RFC PATCH v3 bpf-next 0/5] BPF-based per-cgroup NUMA balancing mode selection
-Date: Mon, 19 Oct 2026 14:41:52 +0800
-Message-ID: <20261019064157.29885-1-laoar.shao@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fd/IfN04"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF701F000C8;
+	Mon, 19 Oct 2026 06:42:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792392148;
+	bh=2xxoK1FDypwC9Z6n8YowignAlDeNAk6UDGY6eU7ojHI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fd/IfN04x+0VNvB9lJK9gaqnxhmGAnpNRjgZPdaQaudGfhsw1kpLdR0owRXXdH+NO
+	 VkIY+GgVqrmd/O9e7kqKlZrg3OOueZFlMzc/BmScoYZ3IlIIZF2KxeH6HPXmRCjM9q
+	 HGkMsbe7rj+ALVdHhqSD9GzJG7T5rrYRvCF5DzDZ3HadiO0ltgznhQMGcJixqIZKLF
+	 iSdZeumFj/6hBQd7iDE2/ex7djRn16kZDMc+Sxw2VJHS2LWo34b0eWNs8A7i28om9N
+	 TJT8rwYTCn7ZtrmFQ+t0+qGHuCuUBrrwhJEMzRkjZjEf2XZCROg2XbYb0hcToMDzx0
+	 8XVBVBjd6xvHw==
+Message-ID: <838923cd-0689-45bc-9174-a4d6c37dc64c@kernel.org>
+Date: Mon, 19 Oct 2026 08:42:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] regulator: dt-bindings: add hi3798cv200 regulator
+To: David Yang <mmyangfl@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261009214404.722628-1-mmyangfl@gmail.com>
+ <20261009214404.722628-2-mmyangfl@gmail.com>
+ <20261012-taupe-grebe-of-nirvana-f32c6e@quoll>
+ <828d3e2e-f204-4bcb-99e8-341a5c799335@sirena.org.uk>
+ <CAAXyoMPYuL321B+yWYyCFA_uod+G5F6JCdBkVGFWqBo+37KD=w@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAAXyoMPYuL321B+yWYyCFA_uod+G5F6JCdBkVGFWqBo+37KD=w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The Problem
-===========
+On 18/10/2026 06:15, David Yang wrote:
+>>
+>>>> +        compatible = "hisilicon,hi3798cv200-regulator";
+>>>> +        reg = <0x8a23018 0x4>;
+>>
+>>> And one word is rarely a device, which adds to the confusion.
+>>
+>> It is possible for a simple analog block...
+> 
+> Hi, I'm planning to spin up with another version. What should I do
+> with the binding next?
 
-In our large fleet of Kubernetes-managed servers, NUMA balancing has
-been historically disabled globally on each server. With the increasing
-deployment of multi-socket AMD EPYC servers, cross-NUMA access has
-become a critical performance issue, which made us reconsider enabling NUMA
-balancing to address it.
+You received some comments, no? BTW, Did you do prior-art research to
+avoid duplicated code?
 
-Enabling NUMA balancing globally is still not acceptable since it can
-introduce latency spikes for latency-sensitive workloads. What we need is
-to choose per workload whether NUMA balancing runs at all, and which mode
-it runs in. A latency-sensitive service wants NUMA balancing disabled,
-while a batch service wants its PMEM-resident memory promoted when hot
-without paying for scheduler-driven migration. No single global setting
-serves both.
-
-The Design
-==========
-
-This series introduces the fine-grained per-cgroup NUMA balancing
-control. It grows out of Tejun's suggestion to store the existing
-NUMA_BALANCING_* bitmask per cgroup and expose it through BPF kfuncs.
-cgroup::numab_mode holds the request: NUMAB_FOLLOW_SYSTEM (-1) defers
-to the global sysctl state, anything else is a bitmask.
-bpf_numab_set_mode() writes a request, bpf_numab_get_mode() reads the
-combined request of the cgroup and of every ancestor back. The hot
-paths walk the same chain at read time behind a static key, so while no
-cgroup makes a request the overhead is one patched-out branch.
-
-An opt-out wins and binds the subtree: a DISABLED request anywhere in
-the chain opts the cgroup's tasks out entirely. Otherwise the requested
-bits OR together and the kernel reads them independently, the way
-kernel.numa_balancing reads them, so a combined NORMAL|TIERING engages
-both modes. A DISABLED request only speaks for the cgroup's tasks,
-never for its memory, which follows the remaining requests of its
-ancestors.
-
-The cost of the additive combination is that an ancestor cannot cap
-tiering short of a full opt-out: a descendant's TIERING request
-re-engages promotion for its own memory, and promotion is the mode that
-consumes the shared fast tier.
-
-The readback contract is worth spelling out: bpf_numab_get_mode()
-returns the combined request of the cgroup and its ancestors, and the
-kernel reads it the same way it reads a single request, each bit
-independently as kernel.numa_balancing does, so a combined
-NORMAL|TIERING engages both modes. When any cgroup in the chain makes a
-request, the value read back is the mode in effect for the cgroup's tasks;
-when none does, the readback is NUMAB_FOLLOW_SYSTEM (-1) and the sysctl
-decides. The answer speaks for the cgroup's tasks only: its memory follows
-the remaining requests of its chain when it opts out, and that folio-side
-view is not exposed by the kfuncs. These are deliberate simplifications;
-both can be revisited if callers turn out to need them.
-
-The sysctl's own documentation is untouched; the override is documented
-where it lives, in the CONFIG_BPF_NUMAB Kconfig help and the kfunc docs.
-
-The override was measured with schbench, 384 workers, on a two-node
-384-core machine. Whatever kernel.numa_balancing is set to, a cgroup
-request puts the cgroup at the throughput of the equivalent
-system-wide setting, within a fraction of a percent: the override
-itself costs nothing measurable, performance follows the effective
-state alone. The two states themselves differ by less than a percent
-under this load.
-
-Changes
-=======
-
-RFC v2->RFC v3:
-- The struct_ops interface is replaced by two kfuncs, following
-  Tejun's suggestion.
-- Improve on the function naming and simplify the code (David)
-
-RFC v2: https://lwn.net/Articles/1099962/
-
-RFC v1->RFC v2:
-v1 keyed the hook on the memory cgroup and temporarily embedded the cgroup
-id into the struct-ops value, because the cgroup struct_ops integration was
-still under development. v2 attaches through the cgroup struct_ops support
-that has since landed in bpf-next, keys the task surface on the task's
-cgroup and the memory surface on the folio's memcg, and adds the
-memory-tiering mode alongside enable and disable.
-
-RFC v1: https://lwn.net/Articles/1054030/
-
-Yafang Shao (5):
-  sched: fix stale get_pref_llc() stub for !CONFIG_SCHED_CACHE
-  sched: use static_branch_likely() for the NUMA balancing tick check
-  sched: add helpers for numa balancing
-  sched: add BPF-based per-cgroup NUMA balancing mode selection
-  selftests/bpf: add tests for the numab kfuncs
-
- include/linux/cgroup-defs.h                   |  10 +
- include/linux/sched/numa_balancing.h          | 149 ++++++++++++
- init/Kconfig                                  |  20 ++
- kernel/cgroup/cgroup.c                        |  14 ++
- kernel/sched/bpf_numab.c                      | 195 +++++++++++++++
- kernel/sched/build_policy.c                   |   4 +
- kernel/sched/fair.c                           |  33 +--
- kernel/sched/sched.h                          |   1 -
- mm/memory-tiers.c                             |   9 +-
- mm/mempolicy.c                                |   3 +-
- mm/migrate.c                                  |   7 +-
- mm/vmscan.c                                   |   6 +-
- .../selftests/bpf/prog_tests/bpf_numab.c      | 227 ++++++++++++++++++
- tools/testing/selftests/bpf/progs/bpf_numab.c |  32 +++
- 14 files changed, 681 insertions(+), 29 deletions(-)
- create mode 100644 kernel/sched/bpf_numab.c
- create mode 100644 tools/testing/selftests/bpf/prog_tests/bpf_numab.c
- create mode 100644 tools/testing/selftests/bpf/progs/bpf_numab.c
-
--- 
-2.52.0
-
+Best regards,
+Krzysztof
