@@ -1,183 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4863644725D;
-	Mon, 19 Oct 2026 08:22:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5271341057
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 08:24:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398179; cv=none; b=EHqPYHzBTsXJ0P2/dbzl2+cfSx/cQMW+oTmXXeAQ4vXvsjQvz8fhGI8pgSee7Qk05tHBLqu+Cu8U96LFcWueRh+ZH5SSLUnSxOj67FhNZEZkkOUYE+03vDTGL1MtEsROEe87o0vxUAegfuQDk89YObytUqxehNs1zhZCiOQ8UhI=
+	t=1792398245; cv=none; b=N14b6eKySLABtskdbcbgLHqskdCqgbvgALgvEgWabYriRHH/5UAAkYdvJ5D2HcZIeMzKKzuzFiZYVWjzxoAr+IDq48j2Nud1vYQB/NxbtSlQWEesS4foD87FuhSG7JtZrOpM0OD3CY2uJlJVGZ9dX5dfvKID+Ifp807Xb+E0ff8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398179; c=relaxed/simple;
-	bh=ss+Ay5ky+oMHizLDR1kIYc6Phpgh2tmXwdEs6PiiD9Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=NOx57GgETn+O91AuMUxHM3mt4hst99QDerP42ht3a1O9ePknXSvUESu7RB3z+5Q/NClPjiM9dko2RU9FFAZYkq4wYv2ZbyyzkhY0I5LvS3eJ2bUaXKQCrr6mtuqLWBJ9tATv7vx10CQY9E869k3FSGLdkdgujHxgfY+HnE27wWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XDTqMeG9; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XDTqMeG9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C72A3C2BCF4;
-	Mon, 19 Oct 2026 08:22:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792398178;
-	bh=ss+Ay5ky+oMHizLDR1kIYc6Phpgh2tmXwdEs6PiiD9Q=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=XDTqMeG9J05nMX5grZXxC7LnYPRb3PsL8ZQc0AQuoTuPSv8M0QolrnBHnV6JN9RJe
-	 FT1312DSw0EhdxqpqgROVo3kR4SOONZdwtJBphWxaBbPGdaornQLs7pCEfuzmrwVND
-	 P0ctUfRHjNAqFy7E24AwqLkunPjFw10GHTBLQopwq/niwSz6m13H3b0xPg/ya8fTJQ
-	 az245IWVOECSZ/s0Systbpl3YcSK/AlVOHTBky+LYmReTHhkPW6scKhBA/pTv5QO+w
-	 6+HC1/oRF0Xsne7E2sUIdhizOkTi6+jvGYYQ85w7werIkwerg5azI/r85aQ3jHaIYN
-	 nA+ghCYzDp3oA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E175CCF2DA;
-	Mon, 19 Oct 2026 08:22:58 +0000 (UTC)
-From: Marcin Knap via B4 Relay <devnull+marcin.knap.vecima.com@kernel.org>
-Date: Mon, 19 Oct 2026 10:22:02 +0200
-Subject: [PATCH bpf] xsk: Do not free ZC Rx buffer when the Rx ring is full
+	s=arc-20240116; t=1792398245; c=relaxed/simple;
+	bh=WFLnp0hPlVy3erezBuIX5aX46rRbltxXyYIbUBfqLQ4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=S76EX69AdlrJb5Es9BuHQMsgD9RdD97Pch73ZjoQylh3QjRQOTCkJTB1HdawqdILTIsPeBLVV9etAfV7PRBvqoTJE0lp+tJ9NToPdjP6VIYyLmt3yfq4bKbq3CF0Y7fd4NaQc93tuj2rVcxao/460XMkQmry2FXZeVi6DJGIpEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f8281066c4so2639140b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:24:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792398242; x=1793003042;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=R/ah/To1CIdpGARcS+q7GPLb811GQpXoClQOeYRwNKY=;
+        b=NUsICfcXa+ikJYDYVNzio9z9MBLnpI3WhVasjGGsvSzW2MTpkrUo3Jp3cDvyra3vmR
+         PcNQ/IJilOkq6kgK0XwxL8L7o7+8r8Oy21z+eT780EpDu72VydoNqg1McgyYsvGb7OaM
+         xzbFcrPjLJ1y2Dp6LK7aewbie7c038AB7MMZUOaFO3SQZLGZJhnEyzgB45mbRx7B/02x
+         9h9pi3nc+FT69laCWLHwGB/BElwu13VJphK3RuIsADOkOts6Zr917MtUAbAQun3qmDTc
+         AZiGxe3rjH+O0qEr4YOiDnSPxO4mAANVGcNNWPdykSLkaQFdiQIhhifZhkcs9gPvKqI6
+         CcAg==
+X-Forwarded-Encrypted: i=1; AKwUvBxownDltpA1NfEgOnXIY0hcvgvNmXtwxgrnaFILCzaY+dRwOjEggAiZ4al61xQHWpNfm85tblqUxcnNqqY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGWch6OyFrZoU3yHKu2MFSkZczwU1HPIiPM/NmS5TFBXU69eTl
+	ensR8p1mJxh7n7xYKkbFGiRFakQ7HpeJzNUTXBMKebnrhvrkAq13vJBMZyW4dZ8cSpHeR3VQRDt
+	ttL/8uK1WCVpBHkV4SKTQVRutvp+vQ5HabMvF8EgVbPxUyVuUxZkKnvUJ/Lo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-xsk-zc-rx-double-free-v1-1-2aa19f6628fb@vecima.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0Q6CMAwAf4X02SYrKgn+ivGBbR1UDZBWzCLh3
- 53yeJfcrWCswgaXagXlt5hMYwE6VBCGbuwZJRaG2tUNOWox2wM/ATVjnBb/ZEzKjNQdvTu3IZ4
- oQWln5ST5/72CnxPcdmmLv3N4/Y6wbV+jyIs7fgAAAA==
-X-Change-ID: 20261019-xsk-zc-rx-double-free-1a3b059cd41f
-To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Magnus Karlsson <magnus.karlsson@intel.com>, 
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, jtollet@cisco.com
-Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- Marcin Knap <marcin.knap@vecima.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792398177; l=3895;
- i=marcin.knap@vecima.com; s=20261019; h=from:subject:message-id;
- bh=s6M5ShvilqT323SiSxSUh6dP4sF4L+nlpgOVCpDnEy4=;
- b=HFs2SdpG1CqBqkvoJRwEfJGWNfBJ7ooY+MScmp5JkPzPFwlIAXQjDAdi23OedaFro/Z459wVH
- WUhia9cS1xdDc452zTPEUkNgfr0sWLUaj7fqvb7FkxgW6e/kSnBincv
-X-Developer-Key: i=marcin.knap@vecima.com; a=ed25519;
- pk=rCvVOuopf4s4BHtLE+FRnv0x83PoFHgBPo9mtNlvzLk=
-X-Endpoint-Received: by B4 Relay for marcin.knap@vecima.com/20261019 with
- auth_id=1237
-X-Original-From: Marcin Knap <marcin.knap@vecima.com>
-Reply-To: marcin.knap@vecima.com
+X-Received: by 2002:a05:6808:3a19:b0:4f4:550a:3a86 with SMTP id
+ 5614622812f47-53cd6a9fabemr5067101b6e.53.1792398242641; Mon, 19 Oct 2026
+ 01:24:02 -0700 (PDT)
+Date: Mon, 19 Oct 2026 01:24:02 -0700
+In-Reply-To: <20261019080458.821-1-hdanton@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad5d3a2.6814cce4.34c49f.018a.GAE@google.com>
+Subject: Re: [syzbot] [rdma?] possible deadlock in rds_trans_get_preferred
+From: syzbot <syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com>
+To: hdanton@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Marcin Knap <marcin.knap@vecima.com>
+Hello,
 
-When an XDP program redirects a zero-copy buffer to an XSK and the
-socket's Rx ring is full, xsk_rcv_zc() frees the buffer and returns
--ENOBUFS to xdp_do_redirect().
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-A failed xdp_do_redirect() leaves the buffer owned by the caller, and
-drivers rely on that: mlx5e treats the failure as XDP_DROP and releases
-the buffer when the Rx WQE is refilled, and i40e and ice free it on
-XDP_CONSUMED. The buffer is therefore freed twice. It gets reused for
-another Rx descriptor, the second free puts an in-use buffer back on
-the pool free list, and the same UMEM frame is later handed to user
-space twice. On mlx5 with striding RQ this also ended in a NULL pointer
-dereference in mlx5e_post_rx_wqes().
+Reported-by: syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com
+Tested-by: syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com
 
-Leave the buffer with the caller on both the single-buffer and the
-multi-buffer -ENOBUFS paths, as xsk_rcv() and xsk_rcv_check() already
-do. i40e and ice relied on the core freeing the buffer on their
-need_wakeup -ENOBUFS (XDP_EXIT) path, so make them free it there.
+Tested on:
 
-Seen on Mellanox ConnectX-6 DX MT2892 (FW 22.47.1026) with AF_XDP
-zero-copy on 7.3.0-rc6 when the user-space consumer could not keep up
-with the Rx ring. With this change no duplicate frames were seen with
-striding RQ on or off.
+commit:         70dd4ee7 Merge tag 'pinctrl-v7.3-3' of git://git.kerne..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1618693e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=44ac479246d4559b
+dashboard link: https://syzkaller.appspot.com/bug?extid=ccdb5058c3df2d94811c
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=150f4895580000
 
-Fixes: 269009893146 ("xsk: recycle buffer in case Rx queue was full")
-Signed-off-by: Marcin Knap <marcin.knap@vecima.com>
----
-Tested on mlx5 (ConnectX-6 DX) in zero-copy single-buffer mode.
-The i40e and ice changes and the multi-buffer path are build-tested
-only, as I don't have that hardware available.
----
- drivers/net/ethernet/intel/i40e/i40e_xsk.c |  1 +
- drivers/net/ethernet/intel/ice/ice_xsk.c   |  1 +
- net/xdp/xsk.c                              | 15 +++------------
- 3 files changed, 5 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/i40e/i40e_xsk.c b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-index 9f47388eaba5..d32c7255f0b3 100644
---- a/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-+++ b/drivers/net/ethernet/intel/i40e/i40e_xsk.c
-@@ -358,6 +358,7 @@ static void i40e_handle_xdp_result_zc(struct i40e_ring *rx_ring,
- 		return;
- 
- 	if (xdp_res == I40E_XDP_EXIT) {
-+		xsk_buff_free(xdp_buff);
- 		*failure = true;
- 		return;
- 	}
-diff --git a/drivers/net/ethernet/intel/ice/ice_xsk.c b/drivers/net/ethernet/intel/ice/ice_xsk.c
-index 0643017541c3..7c1dd4c87a71 100644
---- a/drivers/net/ethernet/intel/ice/ice_xsk.c
-+++ b/drivers/net/ethernet/intel/ice/ice_xsk.c
-@@ -636,6 +636,7 @@ int ice_clean_rx_irq_zc(struct ice_rx_ring *rx_ring,
- 		if (likely(xdp_res & (ICE_XDP_TX | ICE_XDP_REDIR))) {
- 			xdp_xmit |= xdp_res;
- 		} else if (xdp_res == ICE_XDP_EXIT) {
-+			xsk_buff_free(first);
- 			failure = true;
- 			first = NULL;
- 			break;
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index 33475b180ea6..0edc160c660f 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -224,21 +224,15 @@ static int xsk_rcv_zc(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
- 	struct list_head *xskb_list;
- 	u32 contd = 0;
- 	u32 num_desc;
--	int err;
- 
--	if (likely(!frags)) {
--		err = __xsk_rcv_zc(xs, xskb, len, contd);
--		if (err)
--			goto err;
--		return 0;
--	}
-+	if (likely(!frags))
-+		return __xsk_rcv_zc(xs, xskb, len, contd);
- 
- 	contd = XDP_PKT_CONTD;
- 	num_desc = xdp_get_shared_info_from_buff(xdp)->nr_frags + 1;
- 	if (xskq_prod_nb_free(xs->rx, num_desc) < num_desc) {
- 		xs->rx_queue_full++;
--		err = -ENOBUFS;
--		goto err;
-+		return -ENOBUFS;
- 	}
- 
- 	__xsk_rcv_zc_safe(xs, xskb, len, contd);
-@@ -252,9 +246,6 @@ static int xsk_rcv_zc(struct xdp_sock *xs, struct xdp_buff *xdp, u32 len)
- 	}
- 
- 	return 0;
--err:
--	xsk_buff_free(xdp);
--	return err;
- }
- 
- static void *xsk_copy_xdp_start(struct xdp_buff *from)
-
----
-base-commit: ff47652a4b66c067c765a7ad464d930b5a9367cc
-change-id: 20261019-xsk-zc-rx-double-free-1a3b059cd41f
-
-Best regards,
---  
-Marcin Knap <marcin.knap@vecima.com>
-
-
+Note: testing is done by a robot and is best-effort only.
