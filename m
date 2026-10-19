@@ -1,141 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427818;
-	b=R1Ou97Mi7dUYUkeJVJ8zefrMyeWeiFxOV63UYd8Sq5+yXyDNZrIemGJB/zD0DtudBoGy
-	 q4xdWQ8Z4K3ivF2GlRu7fu8KavQKAXPylzP+7FVauQ5itqhc1flQlaDDO9Z0aOcwjvB07
-	 kxyYQPgRCdP/NliXEIGxj/0R5WemHjYTuuWdOvb61W1TwfyXAy/AI8H7+Ed1b3yAuC2nY
-	 IMZIgzIcJiINj0j4YDn05NpJDYYEVrPCkOdzRlIvQMX34YwnhyNoqawFJCYSpJ6eGsw8O
-	 WScmMm9wUzUN3ka6e1bDzNkAUwpS8kaaBqZf6eWw6KuS8A/2Cfc0jS/eFQZ2g0sYIsw==
+	t=1792427878;
+	b=vqywS7r2Jhm6fljRRDZH5g32XUwEkl1jIk3iPK/dBPhMLhPNNaAqXzsk1MBeqTcTn9N6
+	 7OiXMymTgP1pIVampHEtRIWSLUG9zip+n7z3GUSeV68VkXP6sdAmoluxI/YbczYYCnkFt
+	 2VrPLNHwZHFpc3IH8NB4zducLQYVeo3oGT3MSpdqGmiFDZhR2QIiIxw/UXhgq9i2+w2d8
+	 azEM4zNXP3i+Pqz7DuCwB7MUNxz3euLmzK2oLqH6/03Oe/hRZuZ0hjscUuNkNfpKqfq5E
+	 TvDy6XBJ5QJ7IFxFN0/aiEq96hwKVdSclUJm4fPaAEUEEcHoRe2W9SWfJ7ZblS13s1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427818;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=uTVSO8ab0jQ/KjHFQURA4S+jRgewRPU6KcTy4l+JKt4=;
-	b=EA4QP2tfrxFwIglMC+41qESXGrQX1ynIoEVbsh3eKGOYha2uraxjqMmjxCInMdQEqpWf
-	 E9b/3XYEFtvaLsiElE4YHGLC0NBSsmIjlNIoMgw94B/QBF0USQen3JtwXU3gAJcf3Inu2
-	 X+T2gFlPyfzQqEs48RP+XWQwROoWNLsa3r01XZGahzctD5/BQpwWJ9YlA6ZxpQFMMaZjH
-	 8iFqqaZHFz4yOxTIR0+GqQJ7F+CFNKl1bPU9/Zx5+R6sSlqXZ1Ue3xcpMBb1yQ//XMMRV
-	 SH4HU7favwlu/LDGeEuOpLGvuaDv/T/MXGsLSQcRqz2OXMNswssgU+l5/PCnHgTLTVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792427878;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=H+3Jzbs0/J+IBCVHh3CjTGM4uhBYtoVtzxePGU+3JPg=;
+	b=d9MaPtlgMZeTZYzAxUDOEjcz/FHRy0oEp9CRj8pIkaEkNTBOH/y5UnQzTgUoY1bKHLPU
+	 U1XncaiwoetDzqjOKpL+KIt21/zIpRcQXVZO54Z4d+6IHQe/XPWnaLx3mMJ9kmDaikYIu
+	 jYo1Y4ga0vUS4+RHMxDqvlArM36rVxtpHZMaw/UfWhqdxEySv625FAGgwl7Y+sr10/6IC
+	 /EwuSeXyv83+1KnK0jVOgT7g2UGe+0kzI7bzTQ4HCpDYaHaHNNVUNgAfUT1IYDEkeEI5I
+	 vqsAfELHAkWvgcu+t8emjV/RvR/VO/4S4p5mplEZ2kbclxjfRCjAMV2MpqKq790H23w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=azHp1q7f;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=G2Z2JlTn;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j/rtf65e";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C07606A31B
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:36:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72C07606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6FCBF606A321;
+	Mon, 19 Oct 2026 16:37:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=azHp1q7f;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=G2Z2JlTn
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JFP0GB3159062
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:36:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uTVSO8ab0jQ/KjHFQURA4S+jRgewRPU6KcTy4l+JKt4=; b=azHp1q7fFlayj682
-	T/VARjrDTiPkCoAzbrEhkv5N4zr9RyByqFCSUaojW32+2aUJK1SkDMuw39ScaRKc
-	OnvAmeMXBTQdg/azB3dFJt2fog+F/NLMl9/aubFu74LcqLgotTAuJ+rKPqBvWIqN
-	6NvzGdqW8yQ/ru2SjpIwNuGOPnJT+qOPA6NJCVLDqN/NHp3tyEZQlayHYaDfWx4S
-	uy0S/gBW7qBIXOj3IBUTkQ5jFZhu8Zz1ngzQ/PnSDPjzx9eDTmFTQgkKkYBS6hzc
-	me0gddDb9T/COwyB/Mn8kWfh156r5vLsUaygLKEOgNSYwhBqu65yYt3uvUWtSx4K
-	aLcSXw==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf3xa874-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:36:56 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35a04491c56so2669196eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:36:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792427816; x=1793032616; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=uTVSO8ab0jQ/KjHFQURA4S+jRgewRPU6KcTy4l+JKt4=;
-        b=G2Z2JlTnCQObFnglXbWhjlwKZbzzNZSy9LvfaWBKq+nU/9ftzJ8i3tNYCMiBENuf8N
-         HG/0Be72qS8GdVSSg5Qr3uchXfRrNlRkVfj0chISzazgA1malT9mtZHNzfYUheJucrm2
-         YngrLpm0GGW9wu97gpSBywoI5fIsGARfoPWHYZ6muMHoJ6dKJCWruZWyRL+eU9VGJgej
-         6Ac6TdqK7AVwUnEU9zbabhfyGHqNOplEke98+U1L3BgaAl7B5kvVwbS0130xXnSoplmo
-         8GfJsqXzQfrfT8EpyQ5992MBHVlbID18PiIfVoH5U774oj6N9r6kS3eeysBVRHNHEUeX
-         IiSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792427816; x=1793032616;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uTVSO8ab0jQ/KjHFQURA4S+jRgewRPU6KcTy4l+JKt4=;
-        b=skG8np4ixMSyo2l0NAnns5jOdf1J2kmkwO5d8NiMN3bQaTYMJJOfbQtqNdhbMiNKus
-         Pz5zQRtvFvF3VQ6XBV0i12a/DKISUP0LFbyQB/wEiNK9eJ5uTGGONZr1Xyy+k4X8vkLm
-         2GwzhsTgFKK0re7x3ZsmPPG9j/lyTr7MQYJd6NHpOsk/F9bjWfUVbU8XOHvkJJ61ScXo
-         Sf1rUOFC/tXkp1/fsG2EYJ0sREWuvdvH7guEQeTkHjHOPhnV6ibsUwRyxgxre+vJot2p
-         /4ljlAnpCZSOhJGOWrZTHUYSJgA0COGPJRyJb1+hP1PrOLkSm7hZxkOB5nfO/HOwKTeM
-         3t5g==
-X-Gm-Message-State: AFq9FYIaNuGRTUORHqMcCkYR5xguUR3R+QplQGmI+9pbuKbpU8dJlFLh
-	51vxiMvoo5CXjbPKYMzYzQxLjVzg/5+LcqA3gn8cQnBuLJcCC6YqZt0lu+Y9+aIOvkQHk4y88CQ
-	TnClFQrOtj089LZ8nxH5YV9VErVHlVWnwsPA3Je+NGgSECxCP3psWAsT69675jFcaZHU=
-X-Gm-Gg: AYBFou1T8VuF3fiIx0L5ZweYvyqogeeDkYtO28u3gM8h7dqeiQg9e3owUOaPndTNvDA
-	MUYta8SlQ0+9TiXPzQgEQ505d3r8gK2KsBSymKlZxT0KFo1+HQ8vcgUDqrEXBjSHPdLFKJkvL6s
-	nkx1qAsBLtCyFleF/Ek1+nlIxXOnZ2zf73r6rF31kI2tBuzIzam0H7gLury44kVBnr/VnU61wl4
-	7QZklNMxYwEXtOc+3uFVM8LlfPnsOe/WbRz3VkDdElhlyAWH4amZDGXxWxKBWcLLiK8zHq81c26
-	4FuSjA19X3vURoYnjR32gnukBgH5I0GbfUK51sbTAbH8EIHGYhzlO0B9XJvDBwPDZ1rbpRAYo/u
-	X1yfyyiysiETOUEI3sEEcQVu8KBQORE6PwQiP/8gA4lE=
-X-Received: by 2002:a05:7300:f0c3:b0:35f:ab1:4792 with SMTP id 5a478bee46e88-3602d6e460dmr15502782eec.6.1792427815662;
-        Mon, 19 Oct 2026 09:36:55 -0700 (PDT)
-X-Received: by 2002:a05:7300:f0c3:b0:35f:ab1:4792 with SMTP id 5a478bee46e88-3602d6e460dmr15502724eec.6.1792427814904;
-        Mon, 19 Oct 2026 09:36:54 -0700 (PDT)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608219f838sm33529919eec.19.2026.10.19.09.36.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 09:36:54 -0700 (PDT)
-Date: Mon, 19 Oct 2026 09:36:48 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Pierre Gondois <pierre.gondois@arm.com>
-Cc: linux-kernel@vger.kernel.org, James Morse <james.morse@arm.com>,
-        Mark
- Brown <broonie@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>, Len
- Brown <lenb@kernel.org>,
-        Tony Luck <tony.luck@intel.com>, Borislav Petkov
- <bp@alien8.de>,
-        Hanjun Guo <guohanjun@huawei.com>,
-        Mauro Carvalho Chehab
- <mchehab@kernel.org>,
-        Shuai Xue <xueshuai@linux.alibaba.com>,
-        Maciej
- Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-        Pawel Chmielewski
- <pawel.chmielewski@intel.com>,
-        Dave Jiang <dave.jiang@intel.com>,
-        "Fabio M.
- De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-        Breno Leitao
- <leitao@debian.org>, Terry Bowman <terry.bowman@amd.com>,
-        Dan Williams
- <djbw@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
-        Morduan Zang
- <zhangdandan@uniontech.com>, linux-acpi@vger.kernel.org,
-        linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev
-Subject: Re: [PATCH 1/6] ACPI: extlog: fix extlog_mem_event build issue
-Message-ID: <20261019093648.00002db2@oss.qualcomm.com>
-In-Reply-To: <20261019145643.1877246-2-pierre.gondois@arm.com>
-References: <20261019145643.1877246-1-pierre.gondois@arm.com>
-	<20261019145643.1877246-2-pierre.gondois@arm.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j/rtf65e
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 72DF51F000C6;
+	Mon, 19 Oct 2026 16:37:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792427878;
+	bh=H+3Jzbs0/J+IBCVHh3CjTGM4uhBYtoVtzxePGU+3JPg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j/rtf65ezRr+4pYztgbYk+EtmKOKHf5CwJN8oJwIXD0EDlBNXM9QlNr+rteeSWmKc
+	 xEZ8/o+vGEihtnaa8aeBIvsT3+uBKrEqWHQhUoXC6faQUZo9Cl8CJkEVl9oGWsOVaI
+	 e7CHuut92MjopEQP39eOzB2wquVcuGl0RIQo7lwhArJnfXJfa9OUBISwaEluf5szfI
+	 +SpnlUsU+02lzcHU9sfQMm89+rC78YaQ6viEMGTc/6Z7oBnpjmi5J8RZhLRpzO9geO
+	 KC6vsJpM5+OqUusPHXTMo/ZhzQqvfOnBrNPfTWgiCocsGh54y8DYRUGzy2KyeQY3h+
+	 LXXeGuPVaO4wg==
+Date: Mon, 19 Oct 2026 19:37:54 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org, Eric Biggers <ebiggers@kernel.org>,
+	stable@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 8/8] KEYS: Verify the key identity in __keyctl_unlink
+Message-ID: <atZHYltB-Fndn17J@kernel.org>
+References: <20261019142516.300040-9-jarkko@kernel.org>
+ <20261019142516.300040-1-jarkko@kernel.org>
+ <2610587.1792425313@warthog.procyon.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -145,94 +62,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: GtsZb8pu0lqEvaBk5vV4AD1eRjG5xjDr
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA2NiBTYWx0ZWRfX6v44vYyoiQMZ
- AIX534BkAYqOmQA1HAhI3yVcaO5n+rj8dliGe9H+fAzgcQnNS4ofMa5T4Wsvulk48evTcQFD7Sr
- RvnXaxrJWTRmIYDz2yYk0aVaf8XeJkk=
-X-Authority-Analysis: v=2.4 cv=XPOl2ghE c=1 sm=1 tr=0 ts=6ad64728 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=7CQSdrXTAAAA:8 a=crxqeblGBJ-rV0e4J-MA:9 a=CjuIK1q_8ugA:10
- a=bBxd6f-gb0O0v-kibOvt:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-GUID: GtsZb8pu0lqEvaBk5vV4AD1eRjG5xjDr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA2NiBTYWx0ZWRfX7ikccHJikUzD
- 8tWOT6sWtxQziIh8Rnyrj9Ih5bNY5TOOgk+s61rO/YsNGEexk6piTKBUKcet3+PwPTIyTI3bJUS
- vea79lgfDiVqhoGjbUED7qaqBLxDeiwfPTHQC8Ib6dT+USeoSYgo2YkEO4TI7BNU3fsG+WX7V41
- PwWULiSa1IK6zXhPMDMFEXW0oHtQaUoF2+04VakDWmwGvXkY7aWo+AclkW7EOngBZsTNBfKEj9R
- LrrMYGltFgK2oO+G1skAx9Rj0zlvbu4VvPcjiTR70PyK9nXQkMgv/24s4f+Fl0cPJxyYrnEuThU
- XBT87VfyKdoVzhTNI/SW1rQSan5vOVAsFaggnSU4iuccnOLx6gslsH+OEl/gdRKA0FQCQjscpKv
- 8IbmkLaKroU13m6S2XxaDmlaEkv/Vbn+g5IBW8PC2dfSFNaPJNryJKLOfAgvTtva2iKcpSaxS2j
- a5kAMvpf535rcn6V/ng==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_05,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 phishscore=0 suspectscore=0
- clxscore=1015 priorityscore=1501 bulkscore=0 lowpriorityscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610190066
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2610587.1792425313@warthog.procyon.org.uk>
 
-On Mon, 19 Oct 2026 16:56:08 +0200
-Pierre Gondois <pierre.gondois@arm.com> wrote:
-
-> With CONFIG_ACPI_EXTLOG=n and with the following command:
-> make -j4 drivers/acpi/acpi_extlog.o drivers/acpi/
+On Mon, Oct 19, 2026 at 04:55:13PM +0100, David Howells wrote:
+> This will show it:
 > 
-> trace_extlog_mem_event() is not defined. Add a extlog_mem_err_event()
-> wrapper to fix the build issue.
+> 	keyctl newring ring_a @s
+> 	keyctl newring ring_b @s
+> 	A=`keyctl add user A ss %:ring_a`
+> 	B=`keyctl add user A qq %:ring_b`
+> 	keyctl newring R @s
+> 	keyctl show
+> 	keyctl link $A %:R
+> 	keyctl show
+> 	keyctl link $B %:R
+> 	keyctl show
+> 	keyctl unlink $A %:R
+> 	keyctl show  # R is now incorrectly empty
 > 
-> Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
+> Reviewed-by: David Howells <dhowells@redhat.com>
 
-I'm lost.  This file is normally only built if
-CONFIG_ACPI_EXTLOG is not = "n" so how do you get to this code.
-Ah you are forcing build of a file...
+I'll actually add this to my own test harness, thanks.
 
-If you do need to do this sort of ifdefery it belongs in a header with
-the function cleanly stubbed rather than in here.
+I'm a slightly worried of this patch given that you can
+technically interpret it as a uapi change. I guess here it
+is acceptable, and if a tree falls down, we'll respond
+to that.
 
-Anyhow, far as I can tell this doesn't make any sense for
-upstream.
-
-J
-
-> ---
->  drivers/acpi/acpi_extlog.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/acpi/acpi_extlog.c b/drivers/acpi/acpi_extlog.c
-> index 7ad3b36013cc..e764d61f71ca 100644
-> --- a/drivers/acpi/acpi_extlog.c
-> +++ b/drivers/acpi/acpi_extlog.c
-> @@ -180,6 +180,15 @@ extlog_cxl_cper_handle_prot_err(struct cxl_cper_sec_prot_err *prot_err,
->  #endif
->  }
->  
-> +static void
-> +extlog_mem_err_event(struct cper_sec_mem_err *mem, u32 err_seq,
-> +		     const guid_t *fru_id, const char *fru_text, u8 sev)
-> +{
-> +#if defined(CONFIG_ACPI_EXTLOG) || defined(CONFIG_ACPI_EXTLOG_MODULE)
-> +	trace_extlog_mem_event(mem, err_seq, fru_id, fru_text, sev);
-> +#endif
-> +}
-> +
->  static int extlog_print(struct notifier_block *nb, unsigned long val,
->  			void *data)
->  {
-> @@ -229,8 +238,9 @@ static int extlog_print(struct notifier_block *nb, unsigned long val,
->  			struct cper_sec_mem_err *mem = acpi_hest_get_payload(gdata);
->  
->  			if (gdata->error_data_length >= sizeof(*mem))
-> -				trace_extlog_mem_event(mem, err_seq, fru_id, fru_text,
-> -						       (u8)gdata->error_severity);
-> +				extlog_mem_err_event(mem, err_seq, fru_id,
-> +						     fru_text,
-> +						     (u8)gdata->error_severity);
->  		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
->  			struct cxl_cper_sec_prot_err *prot_err =
->  				acpi_hest_get_payload(gdata);
-
+Br, Jarkko
