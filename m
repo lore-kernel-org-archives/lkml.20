@@ -1,48 +1,43 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD8D47FB03;
-	Mon, 19 Oct 2026 05:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8EC4825AC;
+	Mon, 19 Oct 2026 05:52:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792389215; cv=none; b=cxkKrgJWDvldbnVzoHXcMldrvu/iTO6Ytna/2Ox6Y/91SkU9KfoLr8jhG/KqK/qxfECxGVgJvsle3kTKLZskMLHMGuVUYgvJ5WkauBEFdS6AhpRLWvqymzifF+1FHHZBTLnuzKMnz+w64VHQASPoyvXJ/KP3BjzIesoUJAkD2tM=
+	t=1792389223; cv=none; b=SdE8Pp68+pIWM8iZSu8BZ9QoUEJOkIAMsP9RINN5LnFJTDvCDbadbLxBHrTG5f97jTPkhxNaWNRravoMC+ILhkm7r9x8lHFYrw+zUWmp1+3A9D3ptV/nu3vkcxMPqbpLtZLvmhj0WaYBZ8PwgpfKBMVQv3GBdCCIm1KzH4WALO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792389215; c=relaxed/simple;
-	bh=LMG43NqcQfJ148dhWlyjibA5KAuInktHbpK8fPMBNtY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uNgopf6lYUax9lTAaMj3Xm/sYqLXbtMmn+cq38txy766FD5TSHcvXa8oAB12GerEZTHP2mlfb1FGx5fDV+BHNy8H/rM2nJzdFtj2dZR1sExUlzu1gOghGGSx9czlCWWZJNq09ASnDsxWFsXrW2XE8hHBR1FfAyZ6UeJV5sBF/SQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QVRabffd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792389223; c=relaxed/simple;
+	bh=ieraK7cBVZEsMFvVD0EcLiGEZhvYM4rku4qNKyw0Jyk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gZzgTFxKpZtP5PiSTOcxUXx9uF9Dua10j0rbgKZfp0uE39X/HZFtPjy3OIf8oy4t1fsqJtDgzuYbIY16ixMKtMIly/CQPDhdU06TEdLDqgzo6ec7g9LfieU7pmff2MKdiH7zE5Flf4WDt6zZU149HqrzVFzSB29lpYMIoBpKS5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GMOKiqft; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QVRabffd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905EB1F000CA;
-	Mon, 19 Oct 2026 05:52:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792389135;
-	bh=y5Wy01xpK8hobA0iInohLJNNLk/FC76Ixr2R8ArYJUM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QVRabffdAbW1iF3OiTm7AYdCU7ErbCVa4hQCPiibRM0uTmsUtVppTcL/wzAKTHv1n
-	 lkBzquvUMzcT3k4/xq4NWne1vZh8e0c+z0pwxLmsg0Dv5scbn4cRBSW43kNIxidM/y
-	 j5qCT00xYxGZUKEpv9DW5wKB/PzI1ycadSlQdK7I9AyQ9P6rf/QBrr0gPATriA//8p
-	 xVhjXTZyVsuLl4IjwvT1PCBTsqcxzJfCJiyr+oVqutqz8GMA4CxYOsMvmmBxyhO5nC
-	 sQT54DuceW/dFAWiBwrAKpKVzDxbPJdFfM58rCy6CB+KWL6tx2IFqwSXDQ1cRR5xkn
-	 ThFUou+3+NO9g==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>
-Cc: Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2 1/5] perf test: Fix a memory leak in PE file parsing test
-Date: Sun, 18 Oct 2026 22:52:03 -0700
-Message-ID: <20261019055207.39325-2-namhyung@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019055207.39325-1-namhyung@kernel.org>
-References: <20261019055207.39325-1-namhyung@kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GMOKiqft"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=bj
+	C0C9sNmjVdhV/IrzHeBVtTgO0BbAu7HQvpAPfRZB0=; b=GMOKiqftSRSgHEHprg
+	CxAkWAgQa1T8sLq9Ut1q/BxKrsUR0BoGVncEnUKOeolLGnUUZQSXrjnJxRrXUCCM
+	+ub2QZ7Ve+5llkpK6PAIpx6sj17E2+yXuKslmtvwzPDRTdix2oZd87MUsjpbOPKu
+	Ykus0Kb5RiePTHWqRwg2V/NUQ=
+Received: from jbd-ThinkPad-X1-Carbon-Gen-14 (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3H8HQr9VqeNjjBA--.48161S2;
+	Mon, 19 Oct 2026 13:51:13 +0800 (CST)
+From: Slark Xiao <slark_xiao@163.com>
+To: mani@kernel.org,
+	jeff.hugo@oss.qualcomm.com,
+	krishna.chundru@oss.qualcomm.com
+Cc: loic.poulain@oss.qualcomm.com,
+	mhi@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Slark Xiao <slark_xiao@163.com>
+Subject: [PATCH] bus: mhi: host: pci_generic: Update the default autosuspend_delay_ms as 5000ms
+Date: Mon, 19 Oct 2026 13:51:09 +0800
+Message-ID: <20261019055109.49922-1-slark_xiao@163.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,52 +45,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H8HQr9VqeNjjBA--.48161S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJr48tF4fXrW7XF1xWFWUtwb_yoW8XryDpa
+	yF9F45tr48Zr1UKa4qyr1qq345W3y3Gry2gryvkw1Y9398tw1DKryqvFy3KF10yrZ5WF43
+	tF4jgrW5ur10ya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piH7KxUUUUU=
+X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC6BEwlGrVr9FMuwAA3r
 
-The get_argv_exec_path() returns a dynamically allocated string so it
-should be freed.  Let's check the return value first so that it
-doesn't crash snprintf().
+For some MHI devices in some specific scenario, the default value
+of autosuspend_delay_ms may not enough to handle last wake event.
+This may lead to some unexpected problems.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/sashiko-outbox-168781@kernel.org
-Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+Refer to the Qualcomm's Windows settings and we checked this with
+Quaclomm over case, Qualcomm recommend us to set this as 5000ms.
+Qualcomm also suggests us to update this for all MHI devices.
+Since this setting has affected some existed kernel versions, it's
+better to be applied to stable version.
+
+Fixes: d3800c1dce24 ("bus: mhi: pci_generic: Add support for runtime PM")
+Cc: stable@vger.kernel.org
+Signed-off-by: Slark Xiao <slark_xiao@163.com>
 ---
- tools/perf/tests/pe-file-parsing.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ drivers/bus/mhi/host/pci_generic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/perf/tests/pe-file-parsing.c b/tools/perf/tests/pe-file-parsing.c
-index 190520ffc3ad6d0c..ed95aa5d8ca2af92 100644
---- a/tools/perf/tests/pe-file-parsing.c
-+++ b/tools/perf/tests/pe-file-parsing.c
-@@ -74,19 +74,26 @@ static int test__pe_file_parsing(struct test_suite *test __maybe_unused,
- {
- 	struct stat st;
- 	char path_dir[PATH_MAX];
--	const char * const tests_dirs[] = {
-+	static const char * const tests_dirs[] = {
- 		"./tools/perf/tests",
- 		"./tests",
- 		"./source/tests",
--		path_dir,
- 	};
--	snprintf(path_dir, PATH_MAX, "%s/tests", get_argv_exec_path());
-+	char *exec_path;
+diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
+index 7193a384cca4..40735beb46cb 100644
+--- a/drivers/bus/mhi/host/pci_generic.c
++++ b/drivers/bus/mhi/host/pci_generic.c
+@@ -1483,7 +1483,7 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
  
- 	for (size_t i = 0; i < ARRAY_SIZE(tests_dirs); ++i) {
- 		if (!lstat(tests_dirs[i], &st))
- 			return run_dir(tests_dirs[i]);
- 	}
- 
-+	exec_path = get_argv_exec_path();
-+	TEST_ASSERT_VAL("Failed to allocate exec_path", exec_path);
-+	snprintf(path_dir, PATH_MAX, "%s/tests", exec_path);
-+	free(exec_path);
-+
-+	if (!lstat(path_dir, &st))
-+		return run_dir(path_dir);
-+
- 	pr_debug("cannot find the tests directory\n");
- 	return TEST_SKIP;
- }
+ 	/* Allow runtime suspend only if both PME from D3Hot and M3 are supported */
+ 	if (pci_pme_capable(pdev, PCI_D3hot) && !(info->no_m3)) {
+-		pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
++		pm_runtime_set_autosuspend_delay(&pdev->dev, 5000);
+ 		pm_runtime_use_autosuspend(&pdev->dev);
+ 		pm_runtime_mark_last_busy(&pdev->dev);
+ 		pm_runtime_put_noidle(&pdev->dev);
 -- 
-2.56.0
+2.53.0
 
