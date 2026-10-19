@@ -1,101 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792426133;
-	b=ICqYc19T4RYy9qghpXBX7ASgoZuOjlN/LehVGF1FtOhCDLEolg0mcgiwpxNeyn8V/20O
-	 3rbwQESaXtZ4BEv5h7SxnnmpNRpA1D93NhM3iVslL/8V8keDuc0cbtIqTLs4ZHFaPnFwj
-	 Gjalbg31YTtgbSEHpcUI4nNVq1JUXJtk4Jwu6CXoklBB0gChP982P3hHVM4RGK4mCCpBI
-	 /RzRZZtZZF7JEAoKqbZlQyctspRFxRPRIa1+bLThvrHiET7Bamg21wqsSZ0cbtWZSrCDd
-	 ILLt/wPiP2zRaX8Y24s9q22bY7ZQIyAyhzo5aCSG0y96tBF/XLJfsmQPewnnow1qjJw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792426133;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=msDS2Uc5/Enhh4r5B5bWo/aF5i1pI4GZznS9tXeODFc=;
-	b=QUjfRKd9/FNeb0YMsw1K4Je9A9ikQzgH7UqWJtfZNLo93qngispWGVGxEQy7zrsU1MqA
-	 jjRwihUfJKQVYHfvPjANm92CaoJV+IGKY+pHSQMddjDfMpXB+mYMILNRjCw5vnZSNPU7n
-	 hUHDxed0NDl6xwKEGTqkC/hg01htXuiUJ6OK91RgKGeJc7xEzTPMrDKGFwZ8OEUydynhG
-	 43NL85tDQWVrp7Ak1JZM1xhyVvdNp9QiKKdCn4RjBoTfLsCprEgSSsAofS5MTzpLbUiny
-	 inYjcOU5XLwvipgpRzzSZoYsgXoVAGsmk+4VTYFYQSv/0z1ceZ0EnVP0IySiAzzt+pg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=m12T2hZV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792426132;
+	b=HAgCE+8yBnRtmUxgHamHW+uaaEdPTHqLBp+JeiD9mBdtaRoB7d5FwVsyv7p95dsPwGIY
+	 WIuGkdbMB2UvTIL6NhumDz5U5NALXxEq0cXV0kotoIyhIdVP8Oii8QFIk8YKyokT93z/L
+	 dxxb1ztZR1YUDWD5m59e6BopC5K0tzR9Sk94aPY7gMGZPClF5A9X/ZNUWojzsBPPNImP4
+	 KwP/KmsLBTw3jT7Cc5NL8uZ+zq+BSrYQJRE4XbygPc0GlBjSF1KhesIGc950hNxGHtqME
+	 k5QoN1g6wVRpzjsvNpSFXPoSMTBHjEx6uGiguBNN/r7M4QsLgzyexRBgv9JA7njc51g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792426132;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=poUPYDGsy3A3qaMJ9gfhwR/7k9/rzOgPJFd+QviZSu4=;
+	b=dCBuWDXFD4WxyT7J1U7lfYOdzQnosFhEhkKG5oxaJUwpgKhCmtsoeXfpAh6/QPWfTL0l
+	 mM3bHRChR0APpXVcUM+H9LqTP0AWgoTCEl3QE56yut7FUQVi5elPe5z9ZMEGy3o0yTKgg
+	 JzBuRU+1qsvxnbCC1Xi4V1c0XhTnlAHMlLMtR+QqPyLooDzx7TuuNtxMOFIhZH/WbA9b8
+	 v9MokzjqttUlXaSM8Y9p8MUgbxchvNCOzLqxbZmAlpeDeeQS6ztuJqsi2Akfivg/bljGY
+	 ibY0FqlHoZZ3DQlyzIlPtR8j+X9lDj3BpA01O2Md3w5oZsYsXqgKfJl4/cBeDGgI1WA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KugTD+Zt;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EEE606A33F
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 16:08:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EEE606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92394606A319;
+	Mon, 19 Oct 2026 16:08:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92394606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=m12T2hZV
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38759bcd877so1392737a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:08:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792426133; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RJXOg0eKduDMm7+Axo89tTYd1eBstM5FXzUTWkllkdM7MN0+zakM+BeLSreI78Tcyw
-         HonkTFSTLL8aM36yeWtV4wpeaRtN5H/e2KY1RTSWWlZN6vSZIqVvIMGjMIJlNZm16CaO
-         sxn4NqgBS4F13RpwD9D6cU81AXJ8eYj6D8wGYdS0ADukKmdasFsUvcWbr/9DKdDfNBGh
-         EZ2vYa8klu7Uj6jYpkdN2ZKcW+vr7ksEQF6N6uMKBcflJ9/rGKDzsagoH+KuJopF+AgY
-         vxP1ZVI0bGaVNnjydEgRTzau5GDrKSqt64YXArgXhdjHG6rl9LOl0R/6mvGYOGD97/Xu
-         q9NQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=msDS2Uc5/Enhh4r5B5bWo/aF5i1pI4GZznS9tXeODFc=;
-        fh=NYtwXodbk5LE8TYWn6M+v/pJUOUgEqFsoNwkV5pG02g=;
-        b=Ygmy8AUNQhLVdoQX9vYmOaCuurgtJLmIdZ/9QD5gXNteMWrJ1awQufI7f0MEWoLpCr
-         vLStBHT27VaFw0ukbc97p3HvLErOtHmftVlkvnTd4WC9bm79mQMalYl5qjUbpzdOPj9/
-         HqqAP9uCS83gefr/CbbfVvt0IxUh7+Lm/QoJLDaPgwmc3W4Af/9/X/NBpa4fTN9EM/ce
-         GyYEWfmpHOLEJTXPmrKsH4uZzSUSyGJjAPY1/EjLaDgx962J0SvGTLZZUmwPSVfBWRw6
-         pBcVxh6RarSQB6wHG0Gn8offCLmj4xH2VHql7MS9EdHNqB5pz7ee+Jf3eDuTE8LlkKCU
-         kCEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792426133; x=1793030933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=msDS2Uc5/Enhh4r5B5bWo/aF5i1pI4GZznS9tXeODFc=;
-        b=m12T2hZVaWUMbmCqdm9gVfugj/lXfdK+nmnfQA22fKj2jBfRrHywGX36XLxQA+ZbnQ
-         Boj2/YgXC5SnV2N0DnStQ3awnauG5JLVr+Jc7ZzQ6NyuBV5XS9AoV8E7/ogNOv8CXMPD
-         KrFFcxoZN1YvxhSfAXbZJdZSK4axGx5A/60laZgZZC+Z4gifvMOl2RYRD4uDXQC6LZva
-         xQbDR3EaGDoSr7hWq6u/ei1M82R+fT2bNodj7CQtpOS335QnFEyDjH40JDgHgjihW7FI
-         fT3RD5huikbzB+KqacRvyQksW/E2xge0qZ36TN7LcBtntIjCGttV9WPRE2KCxFto6snl
-         RUFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792426133; x=1793030933;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=msDS2Uc5/Enhh4r5B5bWo/aF5i1pI4GZznS9tXeODFc=;
-        b=ImZiuQYZvEa3P1anV4VtXTO5CrtSHtx3kpuA2WUxxWhKp/z697t3xwc/DHWQA6M5Pv
-         iIM82f9y3RmvU2lOs2Nad4GPWp9wlhG79mdwG/dtQXKU2LSfxWfGyoyi/DicX/tJbHkP
-         ptxuXf5M1mRkhXcoiodz735pwLM+nFFjE6wnfRbDfKedDZp3S7DVfpPsPKHzMhqf6TCe
-         9AhHCUdQJzhKkMnnVoMbjPo7byfRt1UMhSCMGN28IcofPU8qhp8DlLCc8vthWPHbBb6A
-         RLYMmjHaFZUMJ8PO65GRzVYVK5lo9gNcOVQLGavT3lmInK8j8Gv8OiEChg4snCUgTwRZ
-         Vdtw==
-X-Forwarded-Encrypted: i=1; AKwUvBzCHY1Jh6NcArfQq/RibriOe6ZiwuM8OLNuBS6S7gVWQIqKu34HZD/ebBU8XlGE8pKexGusOwtjMGwVPa8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJleVbTsRR/Z80T1CQMOmSRRR1F7zosX2vF6XNkMEBquvtRv9ZV
-	sObUjCJKIjFFSEyUFwE31pEx9U467brGo+v9BMh0BlkESL7LZrO05kc/xNUVbnOhw0BPdhyhS29
-	z6wZf93t/vqKHFTPq65A/lxw0vYAN784=
-X-Gm-Gg: AYBFou0CLlQtLBVviQ7OOSJ1Q1XVQI1de0cM/zhVnzjEqqhYQ0L46KRwFYgH+3tweKi
-	FFSLY3VqIoOdHV0gJj61gwuAc5t49YLIm+LRbkdz8dZuFOdTpMbbamPBDlH8TSCQ2SohMbpv/b6
-	RP+El4QSEVPa6EfRtZvDe16wcuw6d0HhOzhOcDosOKu/9bc1RoB42qmkYTYlpNVCR6CePa/lbN7
-	c0ZZ13AjMJXqwWlK4k9j2Zg90SjwAXf8mFg7MgWv2um0KukIn5A0Md8OBM2yT2OciRen1xS3B7g
-	+2ps0Ed5uYTO6WhXmIqLsd7KrC07s5BYQgYQRxSLiTIIDiC63ONJMxD1eIVHjIXTuF4Cr8fBZmV
-	lBgdUt26p0sFAVyQL9r4i8E2PvW4hiERXiAgyrLSuBEEfFvlk/eVGT2HBonoGJNgoM9XvGZ8rfV
-	JdHPYswf2GO0Shuqj5HM5LcF7JV0gnwVcVvQ==
-X-Received: by 2002:a17:90b:3c05:b0:3a0:e4ce:31fd with SMTP id
- 98e67ed59e1d1-3aceefc4ef4mr6323225a91.10.1792426132592; Mon, 19 Oct 2026
- 09:08:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KugTD+Zt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792426131; x=1823962131;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tYhhhR8eq9pKvNN5fuGWDReozGHrqdOYBbHVTcKvxBc=;
+  b=KugTD+Zt7PqoHvngfvaYdD3o+2ULemqzgkL7KUWAJiYyv+rG3iea1Dta
+   5JAe+fUthnIHrlygmvqESBNL8qHE9cUvnlcuHHpLVQbO2RRh3iTyeiGFC
+   27PMgarxWwKbK5m5pM0in6yvsBE0tU4fQKekEIxA8g2ADARmcUen09M6j
+   nkBQbuumik+j3+ixvSu+6Tn2TVqDLzCymQzJnxB6KcW3YvfIPfeFBNolR
+   Rs5ZOF+B6za9Cog7oFDx90n0wXCJ10+2aVsnZQESK0UrhxEn4Fv3KZu2v
+   n2W3h2P8q1SS+HCXvm7D95l1Z5eJD31XONn1v4RM3/zKSrpkXHQPfS770
+   A==;
+X-CSE-ConnectionGUID: 5m5KIbayQASJcPXGdismwA==
+X-CSE-MsgGUID: zECmI0blRMKATO8hOjuUhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1115517"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1115517"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 09:08:50 -0700
+X-CSE-ConnectionGUID: jYCtRLUTTomG131lll5p9A==
+X-CSE-MsgGUID: JXzuwFcEQkOgnWp/q2l9oQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2452806"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 19 Oct 2026 09:08:47 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xIpum-00000000Lv4-1g5f;
+	Mon, 19 Oct 2026 16:08:44 +0000
+Date: Tue, 20 Oct 2026 00:07:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: David Laight <david.laight.linux@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Petr Mladek <pmladek@suse.com>, Kees Cook <kees@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	bpf@vger.kernel.org, Jim Cromie <jim.cromie@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v2 next 03/15] kallsyms: Improve selftest
+ test_perf_kallsyms_lookup_name() output
+Message-ID: <202610192356.CItNLOke-lkp@intel.com>
+References: <20261018155206.132411-4-david.laight.linux@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,69 +91,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019080709.477548-1-18983559317@163.com> <atX2FsqHIkOvhrLy@redhat.com>
-In-Reply-To: <atX2FsqHIkOvhrLy@redhat.com>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Mon, 19 Oct 2026 09:08:39 -0700
-X-Gm-Features: AclHuK_1vW8c3v9yVgPeu8TsfazzwGD9-e2JI_KbLz2M4NCvt5GeP6hDT09wjMk
-Message-ID: <CAEf4BzbX7vmpd2da4eKphX1r8=QXGey_1m32-KP=-8FOkFk15Q@mail.gmail.com>
-Subject: Re: [PATCH v1] uprobe: Assign session ID before publishing consumer
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Binbin Deng <18983559317@163.com>, mhiramat@kernel.org, peterz@infradead.org, 
-	mingo@redhat.com, acme@kernel.org, namhyung@kernel.org, mark.rutland@arm.com, 
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, 
-	adrian.hunter@intel.com, james.clark@linaro.org, andrii@kernel.org, 
-	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018155206.132411-4-david.laight.linux@gmail.com>
 
-On Mon, Oct 19, 2026 at 3:51=E2=80=AFAM Oleg Nesterov <oleg@redhat.com> wro=
-te:
->
-> On 10/19, Binbin Deng wrote:
-> >
-> > consumer_add() publishes a consumer on uprobe->consumers
-> > before assigning its session ID.  handler_chain() traverses the consume=
-r
-> > list under the trace RCU read-side critical section and can therefore
-> > observe the new consumer while uc->id still contains its initial value.
-> >
-> > The race is reachable when an uprobe at the same inode:offset is alread=
-y
-> > active and a task hits its entry breakpoint while another CPU registers=
- a
-> > second session consumer.  handler_chain() may store the stale ID in the
-> > return_instance consumer array.  By the time the function returns,
-> > uc->id has been assigned a nonzero value, so return_consumer_find() fai=
-ls
-> > to match the saved ID and the session ret_handler is incorrectly skippe=
-d.
->
-> I guess we don't really care, this doesn't differ from the case when
-> consumer_add() is called right after list_for_each_entry_rcu() in
-> handler_chain().
+Hi David,
 
-that uc->id is important for "uprobe session" semantics, which seems a
-bit different situation compared to barely missing consumer_add() in
-handler_chain(), but regardless, the fix looks good, we should apply
-it
+kernel test robot noticed the following build warnings:
 
-Acked-by: Andrii Nakryiko <andrii@kernel.org>
+[auto build test WARNING on akpm-mm/mm-everything]
+[also build test WARNING on linus/master v7.3]
+[cannot apply to next-20261016 next-20261016]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
->
-> But the patch looks "obviously good" to me anyway, so
->
-> > @@ -1032,8 +1032,8 @@ static void consumer_add(struct uprobe *uprobe, s=
-truct uprobe_consumer *uc)
-> >       static atomic64_t id;
-> >
-> >       down_write(&uprobe->consumer_rwsem);
-> > -     list_add_rcu(&uc->cons_node, &uprobe->consumers);
-> >       uc->id =3D (__u64) atomic64_inc_return(&id);
-> > +     list_add_rcu(&uc->cons_node, &uprobe->consumers);
-> >       up_write(&uprobe->consumer_rwsem);
-> >  }
->
-> Acked-by: Oleg Nesterov <oleg@redhat.com>
->
+url:    https://github.com/intel-lab-lkp/linux/commits/David-Laight/kallsyms-scripts-kallsyms-c-Avoid-overrunning-on-stack-buffer/20261018-165152
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20261018155206.132411-4-david.laight.linux%40gmail.com
+patch subject: [PATCH v2 next 03/15] kallsyms: Improve selftest test_perf_kallsyms_lookup_name() output
+config: nios2-randconfig-1000-20261019 (https://download.01.org/0day-ci/archive/20261019/202610192356.CItNLOke-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 10.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261019/202610192356.CItNLOke-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610192356.CItNLOke-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> kernel/kallsyms_selftest.c:70:1: warning: 'The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_shoes_and_ships_and_sealing_wax_Of_cabbages_and_kings_And_why_the_sea_is_boiling_hot_And_whether_pigs_have_wings_O_Oysters_said_the_Carpenter_Youve_had_a_pleasant_run_Shall_we_be_trotting_home_again_But_answer_came_there_none_And_this_was_scarcely_odd_because_Theyd_eaten_every_one_The_moon_was_shining_sulkily_Because_she_thought_the_sun_Had_got_no_business_to_be_there_After_the_day_was_done_Its_very_rude_of_him_she_said_To_come_and_spoil_the_fun' defined but not used [-Wunused-variable]
+      70 | The_time_has_come_the_Walrus_said_To_talk_of_many_things\
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      71 | _Of_shoes_and_ships_and_sealing_wax_Of_cabbages_and_kings\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      72 | _And_why_the_sea_is_boiling_hot_And_whether_pigs_have_wings\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      73 | \
+         | ~
+      74 | _O_Oysters_said_the_Carpenter_Youve_had_a_pleasant_run\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      75 | _Shall_we_be_trotting_home_again_But_answer_came_there_none\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      76 | _And_this_was_scarcely_odd_because_Theyd_eaten_every_one\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      77 | \
+         | ~
+      78 | _The_moon_was_shining_sulkily_Because_she_thought_the_sun\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      79 | _Had_got_no_business_to_be_there_After_the_day_was_done\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      80 | _Its_very_rude_of_him_she_said_To_come_and_spoil_the_fun
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   kernel/kallsyms_selftest.c:70:1: note: in definition of macro 'kallsyms_very_long_name'
+      70 | The_time_has_come_the_Walrus_said_To_talk_of_many_things\
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      71 | _Of_shoes_and_ships_and_sealing_wax_Of_cabbages_and_kings\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      72 | _And_why_the_sea_is_boiling_hot_And_whether_pigs_have_wings\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      73 | \
+         | ~
+      74 | _O_Oysters_said_the_Carpenter_Youve_had_a_pleasant_run\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      75 | _Shall_we_be_trotting_home_again_But_answer_came_there_none\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      76 | _And_this_was_scarcely_odd_because_Theyd_eaten_every_one\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      77 | \
+         | ~
+      78 | _The_moon_was_shining_sulkily_Because_she_thought_the_sun\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      79 | _Had_got_no_business_to_be_there_After_the_day_was_done\
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      80 | _Its_very_rude_of_him_she_said_To_come_and_spoil_the_fun
+         | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/The_time_has_come_the_Walrus_said_To_talk_of_many_things_Of_shoes_and_ships_and_sealing_wax_Of_cabbages_and_kings_And_why_the_sea_is_boiling_hot_And_whether_pigs_have_wings_O_Oysters_said_the_Carpenter_Youve_had_a_pleasant_run_Shall_we_be_trotting_home_again_But_answer_came_there_none_And_this_was_scarcely_odd_because_Theyd_eaten_every_one_The_moon_was_shining_sulkily_Because_she_thought_the_sun_Had_got_no_business_to_be_there_After_the_day_was_done_Its_very_rude_of_him_she_said_To_come_and_spoil_the_fun +70 kernel/kallsyms_selftest.c
+
+    67	
+    68	/* This is 509 characters, compresses to about 330 */
+    69	#define kallsyms_very_long_name \
+  > 70	The_time_has_come_the_Walrus_said_To_talk_of_many_things\
+    71	_Of_shoes_and_ships_and_sealing_wax_Of_cabbages_and_kings\
+    72	_And_why_the_sea_is_boiling_hot_And_whether_pigs_have_wings\
+    73	\
+    74	_O_Oysters_said_the_Carpenter_Youve_had_a_pleasant_run\
+    75	_Shall_we_be_trotting_home_again_But_answer_came_there_none\
+    76	_And_this_was_scarcely_odd_because_Theyd_eaten_every_one\
+    77	\
+    78	_The_moon_was_shining_sulkily_Because_she_thought_the_sun\
+    79	_Had_got_no_business_to_be_there_After_the_day_was_done\
+    80	_Its_very_rude_of_him_she_said_To_come_and_spoil_the_fun
+    81	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
