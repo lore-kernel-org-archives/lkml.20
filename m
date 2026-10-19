@@ -1,209 +1,103 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671FE29B8E1;
-	Mon, 19 Oct 2026 01:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F5544CF461;
+	Mon, 19 Oct 2026 01:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792373909; cv=none; b=E2HLgcZ6ozaIDT9TglNkjGt4HnDstNScjWPb+nZr8JGh2WoJcZONO23j35IHfuXJjQqxZmbsDfGCRGdm34mzTwEqoj64iaqow0x/JYOsvVRKSfmu6W5t9K5FXmPBX5zJ0sSAcefP1s9N2TWkQfimrQMLZDOjVXIwjDQMiIMyl3Q=
+	t=1792373943; cv=none; b=DdJ7KvGtEyQ1TodnrjSo6U+E+h4sZEMpRbLR+owVtgO3DHf+gkHZW50NPtpATWEQpzrZSY7/CWdv1mu0yrinFHCF2uwHfhmhiHfapcRlxp5HBj1V1yQIp3NZSIHa51i+B36dOO7XgXWfcCTK7XmeProGx2Pm1GvT6SEGDQmZhdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792373909; c=relaxed/simple;
-	bh=xZp69AcqqcLYdgTjDKNCo6arObT7ZYaZKk2Uqmy/dbo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d97o96I1ZWwtj3ZbreTLplsqm1y72xmSCjz/qFxFK2Tmet2vexlbHFlXE85AC8oZ0J6KTmdn3jT7N1aqEiYBxEESK020XZHWOVUs66XM6T4eOgxHOC9eTg/zImO3j8Ke7YMrUgVzcQ70wKszxCXFzm5Mg2SYy3O4e2AKdBzWKHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HjnntV9y; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1792373943; c=relaxed/simple;
+	bh=RreUa/+7Oqna8RlPFjAydSh64cclg4SxJjc0aYUjW5I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JYzoeTqaTw7Y9iwiHyfe3fJx8vIPIGMSUfBCw1rWGB0LQPWlSVVvbPGh7uW0UwEQs5utAmhTjIA6irTQLaPBRAa1rQCUiaQ70xK95XbD25xV+CKjO2iBJdf13UweyFj/jx+wbBNeHEaEqTSSZCRiaW5XwZ1hTUufUISPJJ2ZDqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=XS2O2QFf; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HjnntV9y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=C1
-	hlcy8uosj/hXxugJg3frVYFqDhWTyUwRZR33eXhdo=; b=HjnntV9yRRunbt4eM3
-	B52dNuBqX/ZXpKtEOMQy9VR7TMGRl3bJrnvybbptxKfMoRJRHlHVeP00KUpjUBNq
-	K4EKS+NfTp7PVqxvLhNb12H4MAQ0Bfnc4xDKZ30OZq6FKuC4oO9VCBxfeX0sY6+L
-	bONlg3G4K05MUe55PscafdUac=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDn14ZldNVqANBiBA--.31905S2;
-	Mon, 19 Oct 2026 09:37:41 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: sam@mendozajonas.com,
-	fercerpav@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	gwshan@linux.vnet.ibm.com,
-	joel@jms.id.au
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH net v2 1/2] net/ncsi: fix use-after-free of ncsi_dev_priv in ncsi_unregister_dev()
-Date: Mon, 19 Oct 2026 09:37:39 +0800
-Message-ID: <20261019013739.450017-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="XS2O2QFf"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=UYSr5t9Me/2+kseI0M7kxouyDPY24DZfSxw67dym17k=; 
+	b=XS2O2QFfMCYvtNTkFYEQ3C/pPZey7mrSbEHTIZJAugCQpIf41Haezhs+L32uXqL57LTD6b+WR42
+	XJCgGNCwyPObaLWjfy4JR5Ahi0kUZBjAnfJWHvYwguevy5rDHaDZMdyi3Zu7SfrpMCd9FUsV4eaG3
+	l+W0q0A+6JkGm86L0zKQhABbFDSBBUN2HFRsMlnvM1P/X3ZBeRfrwmm7AEO5mCBFGMVDRuO3lOhhq
+	Cv0COUuPv4q+l55FerNuuUKtzGSN4hOGuA1t2Hd3/Pf3a7nnfYWa6kl1tlb9i65cSykVaj+1+amBy
+	nn5mbkTtgFbJHekYbFybwnXesI01kCI45QMA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xIcKd-00000005Ctw-32by;
+	Mon, 19 Oct 2026 09:38:32 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 19 Oct 2026 09:38:31 +0800
+Date: Mon, 19 Oct 2026 09:38:31 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Cc: Yosry Ahmed <yosry@kernel.org>, hannes@cmpxchg.org, nphamcs@gmail.com,
+	chengming.zhou@linux.dev, akpm@linux-foundation.org,
+	linux-mm@kvack.org, davem@davemloft.net,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	rientjes@google.com, willy@infradead.org, senozhatsky@chromium.org
+Subject: Re: [PATCH v1 0/8] Batched zswap_store() with compression batching
+Message-ID: <atV0l54Q43b1KSHF@gondor.apana.org.au>
+References: <CAO9r8zMaaUsBaS0TJumochRKt2ShV7nRaLnYPWv3=S-wUFgitw@mail.gmail.com>
+ <CACpmpoecz4tjr-qvFRy22CGuF+4NBWbE7HVjdTGFqQOheK3CLg@mail.gmail.com>
+ <CAO9r8zOAcf4=TscCXjMYvowUx-_u9qLGqY2-p7cK-z5CUU_x8w@mail.gmail.com>
+ <CACpmpofYXDMviE6FS-BZdVntmQFvS+_xvfmOnJ2caZFerz6vyg@mail.gmail.com>
+ <atGqPIpUfX0LDokV@gondor.apana.org.au>
+ <CACpmpofyLW5z1DYEY2YAty0VOAhRR+Leic8O-B0N9hrzdW_=Ew@mail.gmail.com>
+ <atL1ok1YkHbA4AaI@gondor.apana.org.au>
+ <CACpmpoe_RXcJM42sTVwk_Qvt3zjAOZhzYZNsRD4xz_1HxDmadg@mail.gmail.com>
+ <atMCfhB63koot230@gondor.apana.org.au>
+ <CACpmpocZGHpTTOq+xa2bTnS-=gdUa8+E_KKJm41H_dSfbGikYQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn14ZldNVqANBiBA--.31905S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3XF1fJr18AF48Ar1rWF1DAwb_yoW7Kr4DpF
-	W3Ja43K3ykZr1jgrZ3Zr43uF1rXrs7Zw17C3sIgw4aya45G34jvryIyay09Fy5GFZ7Ga12
-	vr4DWws09rs8X3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziiL08UUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC3wZGKmrVdGYvugAA3N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CACpmpocZGHpTTOq+xa2bTnS-=gdUa8+E_KKJm41H_dSfbGikYQ@mail.gmail.com>
 
-ncsi_unregister_dev() releases every package and channel, unlinks the
-device from the global ncsi_dev_list with list_del_rcu() and
-immediately frees it with kfree().  The generic netlink handlers
-resolve the device through that list (ndp_from_ifindex() ->
-ncsi_find_dev()) and walk ndp->packages with no lock and no RCU
-protection, so a reader that overlaps the teardown dereferences freed
-memory.  NCSI_CMD_PKG_INFO has no GENL_ADMIN_PERM, so an
-unprivileged user can race it against rmmod of the driver:
+On Sun, Oct 18, 2026 at 06:35:01PM -0700, Kanchana P. Sridhar wrote:
+>
+> Please let me know if [2] looks good and I can include this in v2, thanks!
+> 
+> [2]:
+> 
+> int crypto_acomp_compress(struct acomp_req *req)
+> {
+> struct crypto_acomp *tfm = crypto_acomp_reqtfm(req);
+> 
+> if (unlikely(acomp_req_on_stack(req) && acomp_is_async(tfm)))
+> return -EAGAIN;
+> 
+> if (likely(req->unit_size && acomp_request_issg(req))) {
+> if (likely(!crypto_acomp_req_seg(tfm))) {
+> if (likely(req->unit_size == req->slen)) {
+> int err = tfm->compress(req);
+> 
+> req->dst->length = unlikely(err) ? err : req->dlen;
+> return err;
+> } else {
+> return acomp_do_req_chain(req, true);
+> }
+> }
+> 
+> return tfm->compress(req);
+> }
+> 
+> if (crypto_acomp_req_virt(tfm) || acomp_request_issg(req))
+> return tfm->compress(req);
+> 
+> return acomp_do_req_chain(req, true);
+> }
 
-  writer: rmmod ftgmac100
-            -> ftgmac100_remove() -> ncsi_unregister_dev() -> kfree(ndp)
-  reader: sendmsg(NETLINK_GENERIC, NCSI_CMD_PKG_INFO)
-            -> ncsi_pkg_info_nl() -> ncsi_write_package_info()
+This looks good to me.
 
-The genlmsg_new(GFP_KERNEL) allocation between the resolution and the
-walk makes the window wide enough to hit even without preemption.
-
-KASAN report (arm multi_v7, QEMU ast2600-evb, KASAN + SLUB + PREEMPT):
-
-  BUG: KASAN: use-after-free in ncsi_write_package_info+0xf50/0xf84
-  Read of size 4 at addr c9f100a0 by task poc_dump/62
-
-which is ndp->package_num at offset 160, the bounds check at the
-entry of ncsi_write_package_info(); the page had already been
-returned to the buddy allocator.  A second capture of the same access
-shows the object as an 8K kmalloc region still in the slab.
-
-Two kernel-side users keep running into the objects as well:
-
-  * The per-channel monitor timers keep running while the removal
-    loop frees the packages: ncsi_remove_channel() stops the monitor
-    only of the channel it is about to free, so the monitor of a
-    channel on a later package can fire concurrently with the loop.
-
-  * Every outstanding request has a one second timeout timer in
-    ndp->requests[].  dev_remove_pack() has already cut off the
-    responses, so these timers are all certain to fire, and
-    ncsi_request_timeout() would run on an ndp that the deferred
-    free has already released, with the timer_list still linked into
-    the timer wheel.  Their command and response skbs leak.
-
-Quiesce everything that walks the objects before releasing them, and
-defer the final free:
-
-    dev_remove_pack(&ndp->ptype);   no more responses
-    disable_work_sync(&ndp->work);  worker cannot re-arm monitors
-    stop every channel monitor;
-    ncsi_free_request() every used request
-                                     (deletes its timer, frees skbs);
-    ncsi_remove_package() loop;
-    list_del_rcu(&ndp->node);
-    kfree_rcu(ndp, rcu);
-
-The rcu_head sits at the head of struct ncsi_dev_priv because
-kfree_rcu() requires its offset to be below 4096 and the structure is
-about 17 KB on arm32 (requests[256]).
-
-This is the free side of the fix for the device object: the packages
-and channels are deferred by the companion series "net/ncsi: fix
-use-after-free of ncsi_package in ncsi_remove_package()" and
-"net/ncsi: fix use-after-free of ncsi_channel in ncsi_remove_channel()",
-which also adds the rcu_read_lock() to the genl readers.  The driver
-side that walks the released objects from ftgmac100_stop() during
-unregister_netdev() is fixed by the second patch of this series.
-
-Found by a Coccinelle rule matching kfree() immediately after
-list_del_rcu(); the code inspection and the fix were LLM-assisted,
-and the race was confirmed at runtime with KASAN as above.
-
-Fixes: 2d283bdd079c ("net/ncsi: Resource management")
-Signed-off-by: Binbin Deng <18983559317@163.com>
----
- net/ncsi/internal.h    |  4 ++++
- net/ncsi/ncsi-manage.c | 36 +++++++++++++++++++++++++++++++++---
- 2 files changed, 37 insertions(+), 3 deletions(-)
-
-diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-index cb41953..3630ee4 100644
---- a/net/ncsi/internal.h
-+++ b/net/ncsi/internal.h
-@@ -317,6 +317,10 @@ struct vlan_vid {
- 
- struct ncsi_dev_priv {
- 	struct ncsi_dev     ndev;            /* Associated NCSI device     */
-+	/* RCU deferred free; must sit near the head of the struct as
-+	 * kfree_rcu() requires the offset to be below 4096
-+	 */
-+	struct rcu_head     rcu;
- 	unsigned int        flags;           /* NCSI device flags          */
- #define NCSI_DEV_PROBED		1            /* Finalized NCSI topology    */
- #define NCSI_DEV_HWA		2            /* Enabled HW arbitration     */
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 237e041..70cb31e 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -1956,11 +1956,42 @@ int ncsi_reset_dev(struct ncsi_dev *nd)
- void ncsi_unregister_dev(struct ncsi_dev *nd)
- {
- 	struct ncsi_dev_priv *ndp = TO_NCSI_DEV_PRIV(nd);
-+	struct ncsi_request *nr;
- 	struct ncsi_package *np, *tmp;
-+	struct ncsi_channel *nc;
- 	unsigned long flags;
-+	bool used;
-+	int i;
- 
- 	dev_remove_pack(&ndp->ptype);
- 
-+	/* Quiesce everything that walks the packages and channels
-+	 * before releasing them.  The monitors are stopped after the
-+	 * worker so that ncsi_configure_channel() cannot re-arm them.
-+	 */
-+	disable_work_sync(&ndp->work);
-+	NCSI_FOR_EACH_PACKAGE(ndp, np)
-+		NCSI_FOR_EACH_CHANNEL(np, nc)
-+			ncsi_stop_channel_monitor(nc);
-+
-+	/* With the Rx handler gone no response can complete an
-+	 * outstanding request any more.  Free every request so that
-+	 * its timer is deleted and its command and response skbs are
-+	 * released; otherwise ncsi_request_timeout() would fire on
-+	 * @ndp after the deferred free below, with the timer still
-+	 * linked into the timer wheel.
-+	 */
-+	for (i = 0; i < ARRAY_SIZE(ndp->requests); i++) {
-+		nr = &ndp->requests[i];
-+
-+		spin_lock_irqsave(&ndp->lock, flags);
-+		used = nr->used;
-+		spin_unlock_irqrestore(&ndp->lock, flags);
-+
-+		if (used)
-+			ncsi_free_request(nr);
-+	}
-+
- 	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
- 		ncsi_remove_package(np);
- 
-@@ -1968,8 +1999,7 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
- 	list_del_rcu(&ndp->node);
- 	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
- 
--	disable_work_sync(&ndp->work);
--
--	kfree(ndp);
-+	/* Netlink readers may still hold the device */
-+	kfree_rcu(ndp, rcu);
- }
- EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
+Thanks,
 -- 
-2.43.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
