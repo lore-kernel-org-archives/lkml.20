@@ -1,129 +1,166 @@
-Received: from out-2uec-a116.jellyfish.systems (out-2uec-a116.jellyfish.systems [63.250.43.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE5B4A6CE6
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 09:40:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1857E3DDB18;
+	Mon, 19 Oct 2026 09:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792402834; cv=none; b=FSStCqe+3fYfjRBBKrkNIt1adDdUtayVre65exrZnMM+0Qgn2XMQygmWl9sPzkBKzjV2ljAcGOo8YqyKaf2FRBAgnX4d8zB3WmY6uhTFlqMqac45Tf586HsuzTWu81nbCYB8mOgkkrlFZkLKXsQyh83MtweCPdBlYB88c8pZ4f0=
+	t=1792402856; cv=none; b=duFAIiGYhIfTT160vVbasx442gaEie2JVDKFSkmmruqUhO4eYAlMpil5cQ9ZipF6151NgOdVXBySmOcZ3v9M34WbSR7opo944EvcGulvcJg4+N/ckZ0zQIfRL2UcCgFoO+w+s9b8fuLj3LKWVq3MJb4H4lx3XCalxYt0wk4QT84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792402834; c=relaxed/simple;
-	bh=UClMkYBS145x75YYlnwvo5OtDimcpH8JH6ZsP6dQZtY=;
-	h=From:Date:Subject:To:Cc:Message-ID:MIME-Version:Content-Type; b=JXZnh683cShnTfAWcGyG1yDkWwX44EUdisezmkHOG2WL708CIbuIFZq+5oUSaXFBq0woWvOVddL3ZbvuDsWNaGZz1HoTUk3Q+YyWECzef3H/YuO1QQiwJP5rHolORCPxm/RJYgQ5WuUI2MbENsKPdkhDQbBSG/175C2YoLsBlKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=YzBDFhBc; arc=none smtp.client-ip=63.250.43.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
+	s=arc-20240116; t=1792402856; c=relaxed/simple;
+	bh=bYMhRnn3Ys7bVTRjDrIXGn9ao7cKT1MrN9XZppj0Rys=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZTLCI+/FOgJe94AJtjNBw1oNFfwkNfw2nuBDRnNbKbQVT08Fa+V+S9dfRvOmyYt+0ojkLtI7hEZF7kN1ADspb29NSXWd5l9Q2A7zMHWoczA5H4KwqeeC78HyBW19pYZBDmGBzyQl5GwwyKeoackCYeOMcpZDaqI6w/xYRvRJ948=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ayTCBYW/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="YzBDFhBc"
-Received: from [10.18.116.108] (unknown [151.145.76.168])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4j7Vs50Zd2z6tkN;
-	Mon, 19 Oct 2026 09:40:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1792402827;
-	bh=AMgrGG42i9dcBRekdy3ZB4NasAQz7tvPBfGn1moPkiA=;
-	h=From:Date:Subject:To:Cc:From;
-	b=YzBDFhBckXvxr+vtblb9bjPozDLfAyKZKYWpC75FvlUYFV8oGNqPj1y/l1VtAlD4Z
-	 /r/CMl82W52/HBn39+3cxnswe1aL86bg5msa1Za5Zs+Sxk7agiO1ELlh4rAKSbIoQ4
-	 Fck+2k3pn6xlM4YC9RZFdf3RsEjxyWhi2C5fBsGCVCiBVtvNCy6gAN1dvo88PJwfTD
-	 XU67lsJUYnCvgonM9f++AmuTRvU1pL+L8CHajomhkJP9in0xpGUoDoGZeRFkoVzmMn
-	 Yv1fWqKUHiuAvSlASewtfoE6f2RS9qcs7bUPk2Dx9XxuwBA1WrTuIKsz4ht27LFGgQ
-	 rQ81bb2juvL/Q==
-From: Tianyi Chen <hi@tychen.cc>
-Date: Mon, 19 Oct 2026 18:39:27 +0900
-Subject: [PATCH] eventpoll: propagate wakeup source creation failure in
- ep_modify()
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-    Christian Brauner <brauner@kernel.org>,
-    Jan Kara <jack@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org,    linux-kernel@vger.kernel.org,
-    Rafael J. Wysocki <rjw@rjwysocki.net>,
-    Arve =?utf-8?q?Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
-    NeilBrown <neil@brown.name>
-Message-ID: <179240281988.1700986.8309527041821666235@tychen.cc>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ayTCBYW/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EA951F000C4;
+	Mon, 19 Oct 2026 09:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792402854;
+	bh=j9L674EJ7rCVTR0pk+yaIZVnIOzbjN/HtbEw2/wdYc8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ayTCBYW/v3onPRM2I7TAQ/fXMI3U0UrtqkvWUsRFMO6X1gVspWoVlZ6r4AyxFksPa
+	 7qSuQpGqlY4swFCou8SCtVOCrSL2PF4QS44mQ8KANFiXyx+Pn3WZNMMCa3jepqD7pG
+	 OszX+0gUUkLkKYLisfPNLAItFim1vfIbQVaTKPzBPv6N75ryOfkuTtPHSbA37N7Rgf
+	 +6DzIhXbC/wOXHhSsV9L+5p8gTMjhLsgF5N61h9aYdfmo4gTenGo0mU0lXlU7WGKE5
+	 gK3peJReESA//rFjEJuz3vSkYmadL417V7+wKPYLkfXYLZNDjQvM1l5GKqY/piOS0/
+	 4x3gFFq52Z43Q==
+Subject: Re: [PATCH net v4 1/3] xfrm: run the receive callback before dropping
+ the skb->dev reference
+From: netdev-bot+sashiko@kernel.org
+To: q.h.hack.winter@gmail.com
+Cc: netdev@vger.kernel.org, steffen.klassert@secunet.com, chopps@labn.net,
+ herbert@gondor.apana.org.au, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
+ idosch@nvidia.com, linux-kernel@vger.kernel.org
+Date: Mon, 19 Oct 2026 09:40:53 +0000
+Message-ID: <179240285359.3135.15828109727773891242@kernel.org>
+In-Reply-To: <20261018090638.55686-2-q.h.hack.winter@gmail.com>
+References: <20261018090638.55686-2-q.h.hack.winter@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Envelope-From: hi@tychen.cc
 
-When EPOLL_CTL_MOD adds EPOLLWAKEUP, ep_modify() ignores the return
-value of ep_create_wakeup_source(). If allocation fails, it returns
-success with EPOLLWAKEUP set but no per-item wakeup source, so the
-requested suspend protection is missing.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-This can happen without fault injection on SELinux systems: creating
-the wakeup source's sysfs nodes can require GFP_KERNEL_ACCOUNT
-allocations for security.selinux xattrs, which can fail when the
-caller's memory cgroup is over its limit.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Create the wakeup source before updating the event mask and data, and
-return the error if creation fails. Leave any newly created per-epoll
-source in place until ep_free(), as ep_insert() does on failure.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 4d7e30d98939 ("epoll: Add a flag, EPOLLWAKEUP, to prevent suspend while epoll events are ready")
-Assisted-by: LLM
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
----
-Tested on v7.3-rc2 in QEMU/KVM:
-- fail-nth: MOD 256 trials, ADD 270 trials, and MOD with an existing
-  per-epoll source 120 trials; no contract violations.
-- SELinux + memcg: 20/20 MOD calls returned ENOMEM with the old mask.
-- tools/testing/selftests/filesystems/epoll/: 66/66 passed.
+- [High] This patch makes the async drop path in xfrm_input()
+  (net/xfrm/xfrm_input.c) run xfrm_rcv_cb() before the async…
 
- fs/eventpoll.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+--
 
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index e0c4bf88a838..872396a0ad64 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -1982,11 +1982,22 @@ static int ep_modify(struct eventpoll *ep, struct epitem *epi,
- {
- 	int pwake = 0;
- 	poll_table pt;
-+	int error;
- 
- 	lockdep_assert_irqs_enabled();
- 
- 	init_poll_funcptr(&pt, NULL);
- 
-+	/*
-+	 * Create the wakeup source before committing the new event mask.
-+	 * Leave the old mask and data unchanged if allocation fails.
-+	 */
-+	if ((event->events & EPOLLWAKEUP) && !ep_has_wakeup_source(epi)) {
-+		error = ep_create_wakeup_source(epi);
-+		if (error)
-+			return error;
-+	}
-+
- 	/*
- 	 * Set the new event interest mask before calling f_op->poll();
- 	 * otherwise we might miss an event that happens between the
-@@ -1994,12 +2005,9 @@ static int ep_modify(struct eventpoll *ep, struct epitem *epi,
- 	 */
- 	epi->event.events = event->events; /* need barrier below */
- 	epi->event.data = event->data; /* protected by mtx */
--	if (epi->event.events & EPOLLWAKEUP) {
--		if (!ep_has_wakeup_source(epi))
--			ep_create_wakeup_source(epi);
--	} else if (ep_has_wakeup_source(epi)) {
-+	if (!(epi->event.events & EPOLLWAKEUP) &&
-+	    ep_has_wakeup_source(epi))
- 		ep_destroy_wakeup_source(epi);
--	}
- 
- 	/*
- 	 * The following barrier has two effects:
+xfrm: run the receive callback before dropping the skb->dev reference
 
-base-commit: df2908090cda368b01ff43709f51890076c56157
+This patch reorders the drop label in xfrm_input() so that xfrm_rcv_cb()
+runs before the async dev_put(dev). It also makes the early drop for an
+invalid state let the drop label release the reference. The goal is to
+keep callbacks such as xfrmi_rcv_cb() from touching skb->dev after its
+reference has been dropped.
+
+> diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
+> index 5ed87d51392a5..94de4f698c331 100644
+> --- a/net/xfrm/xfrm_input.c
+> +++ b/net/xfrm/xfrm_input.c
+
+[ ... ]
+
+> @@ -779,9 +779,9 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+>  drop_unlock:
+>  	spin_unlock(&x->lock);
+>  drop:
+> +	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
+>  	if (async)
+>  		dev_put(dev);
+> -	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
+>  	kfree_skb(skb);
+>  	return 0;
+>  }
+
+[Severity: High]
+The commit message says the drop path now drops the reference "like the
+success path does". Is that true for the tunnel-mode (decaps) success
+path in xfrm_input()? That branch still drops the async reference before
+handing the skb to GRO:
+
+net/xfrm/xfrm_input.c:xfrm_input() {
+    ...
+	if (decaps) {
+		...
+		if (async)
+			dev_put(dev);
+		gro_cells_receive(&gro_cells, skb);
+		rcu_read_unlock();
+		return 0;
+	}
+    ...
+}
+
+gro_cells_receive() reads skb->dev right away:
+
+net/core/gro_cells.c:gro_cells_receive() {
+	struct net_device *dev = skb->dev;
+	...
+	if (unlikely(!(dev->flags & IFF_UP)))
+		goto drop;
+	...
+	if (!gcells->cells || skb_cloned(skb) || netif_elide_gro(dev)) {
+	...
+drop:
+	dev_core_stats_rx_dropped_inc(dev);
+    ...
+}
+
+For a plain tunnel-mode SA where no xfrmi or vti callback rewrote
+skb->dev, skb->dev is still the local dev. The async reference is the
+only thing pinning that device while the crypto request is pending.
+
+During unregister, netdev_wait_allrefs_any() returns as soon as
+netdev_refcnt_read(dev) == 1. netdev_run_todo() then calls
+netdev_do_free_pcpu_stats(), priv_destructor and free_netdev() without
+waiting for another RCU grace period. The rcu_read_lock() held in
+xfrm_input() therefore does not protect the device after the dev_put().
+
+Can this sequence free the netdev while gro_cells_receive() is still
+using it?
+
+esp_input() returns -EINPROGRESS with dev_hold(dev) taken
+  underlay device is deleted, unregister waits for refs
+crypto completes
+  xfrm_input_resume()->xfrm_input(skb, nexthdr, 0, -1), async = 1
+    resume_decapped sets decaps = 1
+    xfrm_rcv_cb() succeeds, skb->dev == dev
+    dev_put(dev)                 <- last outside reference dropped
+      waiter sees refcnt == 1, frees dev
+    gro_cells_receive()          <- dereferences skb->dev
+
+On the IFF_UP-cleared branch, dev_core_stats_rx_dropped_inc() also
+writes through the freed dev->core_stats pointer.
+
+The decaps ordering comes from the same commit named in the Fixes tag,
+1c428b038400. The rest of this series does not change it either: in the
+final tree the async dev_put(dev) still comes before
+xfrm_input_take_tunnel_dev() and gro_cells_receive(). The transport and
+xfrm_gro branch already drops dev after transport_finish() and
+gro_cells_receive().
+
+Should this patch also move the decaps dev_put(dev) after
+gro_cells_receive(), and should the commit message be updated so it
+doesn't say the drop path matches all of the success paths?
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261018090638.55686-1-q.h.hack.winter%40gmail.com
