@@ -1,260 +1,182 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010030.outbound.protection.outlook.com [52.101.61.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96244D1797
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405090; cv=none; b=t84tldJ5EQZc7HTIHLj16c8Yh3bYlbn5JypiSoBvI7OGxI87JZwlapw+rK5PHJT5JZaDi5PClSMOViDEflKPLrI3pq/0ada6NVjb42hMqrv4l8KHDslYxc6NEKIb+FAgWvYgH+zSpobplg1fU49xSo2YDnzxRpDLMLnup+9WA3E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405090; c=relaxed/simple;
-	bh=sqCIMnD8UHq4cYgyih9RIt9I2cXXCk78at9FV6ocUlk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AZil9ZisKkbNa+BR2cCVl/+1abEgFSLnnzfR87RyWFGtPFDxPdbCpj6W/qQFjnL8LhWdaxGd2e/Q1dYh+pLfvCFTWl/5vjk8lKY2GfLHmrnb8OzHiOkuRc5S3rDxCDxGLXaDWXirrudmnLm9vfoH0WcL1pFbsCtFOs/V6xjYMB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QyEE4bjA; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B564CEE4D;
+	Mon, 19 Oct 2026 10:18:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792405104; cv=fail; b=sOjBk5qFSnl1ZxqsVDUUj91mC4a/Z64KU19120YDtr700rp/po5enPCp6xKvrSeK/CJJcDPqcL5nbk4fj1tE4GQXh6euZjorDEM4nIV6aa7/IBMv8Xj8iBjR8YhqFWGumXlP+CofspkM0eh+HNOzPRBmaYg37s50ULlA1jOooFo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792405104; c=relaxed/simple;
+	bh=KtpLEAMedcDmqmo+1AI61z2tOlLrb49gDM6h++lOXJc=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=JbApA8899BSm7IRX7CG1qpawIixpZHxDxikbZ86YgMt3QETLjikAXSUzPkUVYDnG4m6/ddzbUmJHXOnTV0m5a/gpfUfqEszCCVsYOrMx9u5fStv90CMCBLC8YTLuwGKocEjVJL8xn09jAvXuxAWzSqBA//Dcw5e/VZwck8q6vZA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=gDWtb6Op; arc=fail smtp.client-ip=52.101.61.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QyEE4bjA"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1e2957d7eso9820605e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 03:18:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792405085; x=1793009885; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XNkLZTwapqyq2r44IWjpZEsiFPN5BHL3ClrmVJTbINs=;
-        b=QyEE4bjASux9tklGWF2dPM4JMhUec9zcoLpwcwD3/AsRyA6jmV1rnFdrLQQja/g7dc
-         6x7kg7SeFBQWTjW2iaVzCSy3GWFYLxtsjV+mKkYqOsxw+trqBbyWvJTlAEvuYilE8wUL
-         AJRLQoCRLhbDPqgS/7tYSs9NqFOCvGH/NB54CiBJKNivdHPoxAaMsi+BFf433oMTrmbc
-         gEF/cuoXgmuFwNtOVBGQ6I9bv2RIm6qtRQnAbVYoUfhuiQoXENKt7yuuU6Z440kOMjjJ
-         o6LOXkLxUl6CjQfCF3Dwnir0Mbxgl+tngdWCDWFWZYnWQrfXIkjja19vbow10VcKWb4a
-         yUfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792405085; x=1793009885;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XNkLZTwapqyq2r44IWjpZEsiFPN5BHL3ClrmVJTbINs=;
-        b=iA2dGbTLu16prD961bT+23KT2kol/p6txm2mYaklXhfkFMsxNjE6gHBcwGDRMJKfWG
-         2t9HyDpIT1GuZ6UoflfCN4Ls+plBfHfAxWcp7Y58Pcc0W5ZrpOmm3kQV486ruNBNARtn
-         Wfol1ZyH9KUrsMFOM9wjnqXhalm+mIsySWHw0w6uwmWGrlYyCICHBITlFd0t4f3tlDfe
-         OzF2B3SAXKbI30rFY++FH0fTqwudOSRGdtKv6Yo0hqqr9IhSfnlq+6JIcMoTGxyiDkie
-         ZKK7qp2Caecxwe6yyHIcJB1dAAYtfpwGx34xiz4gHhmk52Uik3itmEfxECg8caydV4Wv
-         trvg==
-X-Gm-Message-State: AFq9FYLhIvBX47xmyr3cYGza9Lz/nEX3WOTsj+VXi4s3GP8tMi87DkWh
-	m+GDXKq15bs75KyumvHMmp8l7+6nws1SW/5RAnlO/ASNPgdfDSbc4B4c
-X-Gm-Gg: AYBFou2aWAKCbXdlOPoPhUwVfcqnU0/n5/ruMtNQ3lC628PNqpMej7L1IZyKTfFr2GM
-	ubM6OLrkUfjdDAA/TlG6s9U7XB74NcoH4KQhPEfPYAXDrihrPl58moWx+NlPZwfutHX1wu6IcBy
-	ZXtW8AuN9fh0l1i+D9HTCrCeaSMZS+UoXjhpf3JtZqCThfvjeSFZAuM8evrgP8kO35AzkOYX2+D
-	FGQn/TzU5oHyOwxNulz2jZcuhNruMWAEPS0LN7p+iDpwClCsSy8IxPkhhHM8q4sCwd5HLqieidF
-	ZjYcAGYRlDWKHjZysKN0ebziwjdY3zHhDHqawvWbt1TFQQncd6Zd+74oJNXtQj2b21H29MXiu0N
-	DqAQNbQ3HDLdhdwnIPF/snLNitmAHqscU2vmGbseUNmtnLFsVHWf2TmZwAvIGA0aDsz1hSKuuTR
-	cmJjwNYBZLN0Px7M5Cq/0AddT6udwHuydrqv40Fm0AkplyBQdVJCEiWMQmsK/qtEbGovYYUeI4p
-	ZDx4d01sQtlk+P3CH9QQEjSmYOiXg==
-X-Received: by 2002:a05:600c:19c6:b0:4a1:e01e:1927 with SMTP id 5b1f17b1804b1-4a1e01e1f69mr98023875e9.5.1792405085021;
-        Mon, 19 Oct 2026 03:18:05 -0700 (PDT)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f576asm23913237f8f.32.2026.10.19.03.18.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 03:18:04 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: [PATCH v3 3/4] mfd: max8907: Switch to resource-managed versions of helpers
-Date: Mon, 19 Oct 2026 13:17:49 +0300
-Message-ID: <20261019101750.125439-4-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019101750.125439-1-clamor95@gmail.com>
-References: <20261019101750.125439-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="gDWtb6Op"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Epmxl7TYZmqsFSM7YB3tZC3iy9KgTVdFWt1tj/2pvABX7vSKGacxAk60tkN3US5Xkhnk75/ULgy33Q2rU8Hqxs8POfkYByxG/Qz7WDEgefStP0W0uxMgTHt6FzbTRU98aoXmE9Gzb3UHa3nbd89XE/ONk0rkx/2Y0cgEcusTqp7Gl6sHlNcdmN4xdQQk/Z7Gt2plkFYZd22VdQiTGt0phbwmTmIOEJhljGjYvltg13bU+Smru1NAbxj8QVCfL/A7uXKuX48AE9Hqb0GCyaIdJUkowitByAOm/k8WPUZ+XoOWpCSe7QCu36HPnalgHQD3Xmo0cEK3QwacABb9QLAIdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vc6Jm7+Aeccmg1mqNeB3ioH7q7Qrpp/NGeJrCwZ2Pso=;
+ b=I30VM5BogyBczMdleF+6dZS6sV8QXyrfBLLUhA0RMfgaGtx+9F29Va5JranhJhp3+JSxEloBF0/zA4EfgJ5xTDWUbwl86VRRDZOTi9muH3EAfbVp2U4pMnLH67EiOKP8EjI+Ce+BiFm4AO4ceej4IL0/X40NabaWSJ8wQzZPigy1Yo6hUfx4Rs9Nvrq4ZyQT6PsmSzz0YQ/+iU31Htdt7FOz5/4IiBH/MAUugJ45ZSwze+h8loLc33ZA1UgFpdwScqcXa9nIoExCHLtzQBCgaK4Wm4LLwUZkKMLuZcDXHMxvj2kCz6Jn3jP17CaKFsxOM/AHGIjB4z7qhBfHYBNg7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vc6Jm7+Aeccmg1mqNeB3ioH7q7Qrpp/NGeJrCwZ2Pso=;
+ b=gDWtb6OpaGSUBx9RyFxot/cLtGwn1XGZd4gNJL7wbmaamXUE4jdgItjpuc5UkWbRti5bqN/NaapmxLmiWIA+IJaHWMjw9614H9kzew1qBZu/5zheVUtdksABdTuWyQAtsD1CvXYe3EXAZU1DCHmIY9ANMauyrRSk1J31wDSNj8nYcJiTnPrE9PJ5QiVRYg8oKRsCyv0zVUbvTZ6rek00N11IbLVzW6ed2XG5j122vKdEfMkgRUrWYKAe7piV/zeRI8vAQIGOP6dBJSZpc6dZo3NZelsdVwc+f1f6BI9aUZP4gqgOuZPxhtMI78ajfEK4/aPlbZoGflWOhKFHZkp+lg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
+ by CY5PR12MB6276.namprd12.prod.outlook.com (2603:10b6:930:f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 10:18:14 +0000
+Received: from PH8PR12MB7110.namprd12.prod.outlook.com
+ ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
+ ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 10:18:14 +0000
+Message-ID: <8e765406-3ba3-47d7-bba6-e15a2cb56857@nvidia.com>
+Date: Mon, 19 Oct 2026 11:18:07 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 0000/1674] 6.6.160-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, f.fainelli@gmail.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
+References: <20261017160431.119607952@linuxfoundation.org>
+From: Jon Hunter <jonathanh@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <20261017160431.119607952@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0011.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::17) To PH8PR12MB7110.namprd12.prod.outlook.com
+ (2603:10b6:510:22e::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|CY5PR12MB6276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8df24943-25d2-4aaf-101e-08df2dca48d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10070799003|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	J2V7O0EURw/Gz6t1zXWFSI70/Hj3dwIGG6QxVBQ9qSnvKCM5ymXaPDGdRdKS4LG7oXf7Mf/zMf3FvJpU2tCX2brU+LijtObE9Sg35+8DC+Att53rnrCQx3LAkatKTZTRef5jlGI2wHYvL9irtaWlVc9wQ5ck1aXUWMbGM/+C79PlpcSyDUPchY4jD7SSYe02Ct5/z5pRZoBy3daB5xcW2hrlk+QuBc7uSBnxHJMuLWh556wJSYY6mt8zZrksE+Q300dky1GZyTEaXYV9G8IY2iDA17yiFfh3EQqP7MAlgNpc242WsAyQaMg6edIzoCRjuaPdUows2MOyLowwwnocsiiYF3YB2oPLIIysRab1uDWY/BZ+ICyI2HBIpGoppTslYG0uX6h8MbYXXe07wGm70prjQFgMWdt8z8AoljMJ2Zro0urokilQ0/371g5rKAskugIPS7bUuqDFP5HZxob7CMEhyiVAAQ/f1MYk5L6Y6tcRaNrSmsVG4mWxlxl5hB/tdqhymu7yIo5SrvjbGIN/WWsvg0Oe+BlKI9toN1KAkNjcwTHZXQ9UnFcm5v/GuaiVhiqfjHozEP/Wn2iWbEdLk4E9ExGYpezmZtTvdfvCpkwLA4Et2ITu3tBw9OOARgmXSz8iR+qcI4aB2yGUDBG27X/aCWvAZxNBL1ZvDaaV7nU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10070799003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OWxPdnlwWitMTEpXc1JwR0dVQllzTFZXUGJzUlhSRHhRMjFhZEE4Zm1SaTBW?=
+ =?utf-8?B?UFBmSzJFSlhEYStkNU4vcWhBK2F0QzZFQkN6clZDUnNrMWVKeEtzb1hucUor?=
+ =?utf-8?B?WGl4TXJMYXc4ZmNJY3VXOUZlblV6U3d3SEsrK2lxTm11RldXOFljZlNZa0Fj?=
+ =?utf-8?B?dHR1SHVOaDRZV2tIYWkvaWNXblEzSnUyUmZqU2p4WTNlbGJVNDExblhvWlMy?=
+ =?utf-8?B?NWZFRzBPR3BoV1g0aWNscmE0bW5qYm9abjZsMUQ2cHBBc1p3REYzVlhFanVk?=
+ =?utf-8?B?ZmJTSDhUWlYrazBPd0F0WVZnMW5kYUUyY0h4eHhodEpxQjhzbnpkOU5Yd095?=
+ =?utf-8?B?dXBqTkordDNoMzBHN0lYaXNyM1VvR0tKanQ2dmh0TDFzTmNWWUJ4VmVrSGlL?=
+ =?utf-8?B?b0lRNlZ4bFJ3MGdPVm9RcEVLY3haZDRsM2o4OUhuNS9NeWszU0xqMyttbGF2?=
+ =?utf-8?B?Zi9IbG1CSW1kZVYrM3ZEMXFXMkpQQ1czTmRhVWdwZnMyUE1kRkFYVFZXcmVM?=
+ =?utf-8?B?dHVwOU1zK1JsOVpEampVZDFUZlAzYlJMcXJxaEJDYWNTZWM1ajdoeFVaWjA5?=
+ =?utf-8?B?T2d6TGJBQWI5Q0ZMSjR5VHBZQmV1MGwxTmI3QnpHRElHYWw5eDI5ZjJhU1M5?=
+ =?utf-8?B?TkdmODg1R2V2YmZIRmRBdVQ5M2NpL01rTDgvT0VOdWcwQ1Q1MEdRVHFDUjFB?=
+ =?utf-8?B?SXBIckpKeTY5dElxb2E1U241R0xaRDY2WE9saTNRTWQyS2JKRVdsSHgvdmlW?=
+ =?utf-8?B?a2xaeHFSRy91UTMvOUxvQ3JEYWFzaUZuc3FXZWgrNjJqY29yVlV2ZUV1ZHlQ?=
+ =?utf-8?B?R2I0bFBBTlVSbmxzZ2Y4MEhWdFVXRmFVV2Q1d0NLVUxqVVdlaUlUK05nbUE4?=
+ =?utf-8?B?MTd3QzR4bmMydWhza1VzK0ptUElnRTRPV3hBZExBaENxVWU5WHBDUGsvN3A2?=
+ =?utf-8?B?QU0rOUJ3NHpJSEx6Z2VZZ1F2c2VHVU9GL0xGWEkrZGFCSzk4V0ZKOHc3MFNR?=
+ =?utf-8?B?NmVnODBGd1h1NDhWTnVOdExkZUdxdHY1QjhQeDNrTXFIYmo1c3hHc01vWVZL?=
+ =?utf-8?B?clF6NUxqZGdPc09GWFV5VHpBdnBPK1RRMytrSjlOM1NWRmRmNlpzT01xUkd2?=
+ =?utf-8?B?NGJ0WmVHYkJjaysrQk1Fc2NFTldyMHJRQUJKM2dWMDkrSGVYNDI1Y1hhbDU0?=
+ =?utf-8?B?V29tUHNPd05MQlZPK2RSOHBMY3ZIcml4SkZpWkhoMkswVVVXWU4yVUxrMEp5?=
+ =?utf-8?B?aWJrS2Z1dUVHdm11MTFnMmsyb3BMMzRmb0FHL2xBZjkvSjlOUlR1VGZBRHFQ?=
+ =?utf-8?B?SXFveUFZYmxGQ1JYYVdRYUF2Vm5CNjBQVDE3djI4ejYxQ3JzVTBUVytYS1d1?=
+ =?utf-8?B?bmRmWGhhaUsxclBUdmtaRXlPWXhvOWxXYzVBT1NobFR5YjdpU2dYLyt0Nldi?=
+ =?utf-8?B?STNWak5PNjkyUmRqT1pQNEwzbXJWVk9OMzNmVjkrYzNnSHg3TG5OL0QwTHIv?=
+ =?utf-8?B?cXd6OTZ1cTlqRDRPb3paRnBOS2ZJcitpdUI4QnVsSkVpL0EyRTRlVGt4MVdG?=
+ =?utf-8?B?Q2NtS3N1RnlxS250V0FxSHR3djREUkFRT0JHR0RKc0dzcGlaTVBKUUtWNnNZ?=
+ =?utf-8?B?ZG5qNnltbUFkK2hmd0ZsZUs1cjBPSGlsbXZmNWtpeStsQmNXRlVFVThWM1JL?=
+ =?utf-8?B?TDlUV0Z5Tk5mcC84Rkgrb0U0NWN0Nkh1WkxnbERIUCs0QlRxNy9DRmppa1dC?=
+ =?utf-8?B?eDQ4ajVFNngyT0xpK2JvRWdjbFV3T2Y1ZTNxZlk5YUpHbkExNjNBY1hqaGNr?=
+ =?utf-8?B?bFB4cVJ1OXlwREZjYWZUdFN2bDF5U1cxblJ0akg0K0g3Q0F4WW9XSmM5ZXhv?=
+ =?utf-8?B?WmlIU0FQQkJ6NlJWYm04Q3orUmluWS9pT2pMRlBhd3Z2M0VYZzA2Slk3Z3Rn?=
+ =?utf-8?B?UVhQVUF6SVljZWdGOG8zT0ZzdmZiNWo2M1hFekUrT0dxUGRObjdPd1dHOFV4?=
+ =?utf-8?B?Y016ekpLQVQrSm5DVUIrSzFEUmtNcWZVa1Z6N2Z5WUJXa3U5YXBVMWZRekxW?=
+ =?utf-8?B?RjFLdlk2YzkveXByTkI1ZzEvUkhpK1hSNkF6SWs5M0t3dVB4QXd4WnYvUnBX?=
+ =?utf-8?B?bEZLay9lcTRQYnIvRGJGc1ZkNUg0MEJvOWxkNW8zU1pZYW1NaFh4OC8rZVVw?=
+ =?utf-8?B?VlF4K2xXVUtnWUJxSmN6YjBCZGtIcEtLemExL0tNS1N4YzA5VmNYbktiMnEv?=
+ =?utf-8?B?Vk5XcUxHeEVUcEh0b1pXY0t1UFZEMC9rQkU4Zy9EbDZaSkJJcXgvYjk3OTFa?=
+ =?utf-8?B?ME9LOE9vMGtxV3JIbi8vMi9vL2tGM3FZREdZY09Xam5XNTh0ZWN4eTU0WU9C?=
+ =?utf-8?Q?l8vUlyQI0ZfrPUfexFvvTNYRlYFiqTwykSuT4TC5zsYCz?=
+X-MS-Exchange-AntiSpam-MessageData-1: ZNdmOYZkSMJoOA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8df24943-25d2-4aaf-101e-08df2dca48d1
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 10:18:13.9825
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Bl+xooj/J60mPY0Qwm/Lu4v6oHce/SnkKUmcIgPIVkSeMBM+EGPTUBLmUKCHZnKkEST1Bp8Til1fAmfR80qpCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6276
 
-Switch to resource-managed versions of regmap_add_irq_chip() and
-i2c_new_dummy_device(). This involves probe refactoring in order to
-remove jumps and allows to drop the .remove callback.
+Hi Greg, Sasha,
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/max8907.c | 128 +++++++++++++++---------------------------
- 1 file changed, 44 insertions(+), 84 deletions(-)
+On 17/10/2026 16:37, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.160 release.
+> There are 1674 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 19 Oct 2026 16:02:05 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.160-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
+> -------------
+> Pseudo-Shortlog of commits:
 
-diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-index 363ac80c0593b..fab44be7ced57 100644
---- a/drivers/mfd/max8907.c
-+++ b/drivers/mfd/max8907.c
-@@ -182,73 +182,61 @@ static void max8907_power_off(void)
  
- static int max8907_i2c_probe(struct i2c_client *i2c)
- {
-+	struct device *dev = &i2c->dev;
- 	struct max8907 *max8907;
- 	int ret;
--	bool pm_off = of_property_read_bool(i2c->dev.of_node,
-+	bool pm_off = of_property_read_bool(dev->of_node,
- 					"maxim,system-power-controller");
- 
--	max8907 = devm_kzalloc(&i2c->dev, sizeof(struct max8907), GFP_KERNEL);
--	if (!max8907) {
--		ret = -ENOMEM;
--		goto err_alloc_drvdata;
--	}
-+	max8907 = devm_kzalloc(dev, sizeof(*max8907), GFP_KERNEL);
-+	if (!max8907)
-+		return -ENOMEM;
- 
--	max8907->dev = &i2c->dev;
-+	max8907->dev = dev;
- 	max8907->i2c_gen = i2c;
- 	i2c_set_clientdata(i2c, max8907);
-+
- 	max8907->regmap_gen = devm_regmap_init_i2c(i2c,
--						&max8907_regmap_gen_config);
--	if (IS_ERR(max8907->regmap_gen)) {
--		ret = PTR_ERR(max8907->regmap_gen);
--		dev_err(&i2c->dev, "gen regmap init failed: %d\n", ret);
--		goto err_regmap_gen;
--	}
-+						   &max8907_regmap_gen_config);
-+	if (IS_ERR(max8907->regmap_gen))
-+		return dev_err_probe(dev, PTR_ERR(max8907->regmap_gen),
-+				     "GEN regmap init failed\n");
- 
--	max8907->i2c_rtc = i2c_new_dummy_device(i2c->adapter, MAX8907_RTC_I2C_ADDR);
--	if (IS_ERR(max8907->i2c_rtc)) {
--		ret = PTR_ERR(max8907->i2c_rtc);
--		goto err_dummy_rtc;
--	}
--	i2c_set_clientdata(max8907->i2c_rtc, max8907);
--	max8907->regmap_rtc = devm_regmap_init_i2c(max8907->i2c_rtc,
--						&max8907_regmap_rtc_config);
--	if (IS_ERR(max8907->regmap_rtc)) {
--		ret = PTR_ERR(max8907->regmap_rtc);
--		dev_err(&i2c->dev, "rtc regmap init failed: %d\n", ret);
--		goto err_regmap_rtc;
--	}
-+	max8907->i2c_rtc = devm_i2c_new_dummy_device(dev, i2c->adapter, MAX8907_RTC_I2C_ADDR);
-+	if (IS_ERR(max8907->i2c_rtc))
-+		return PTR_ERR(max8907->i2c_rtc);
- 
--	ret = regmap_add_irq_chip(max8907->regmap_gen, max8907->i2c_gen->irq,
--				  IRQF_ONESHOT | IRQF_SHARED,
--				  -1, &max8907_chg_irq_chip,
--				  &max8907->irqc_chg);
--	if (ret != 0) {
--		dev_err(&i2c->dev, "failed to add chg irq chip: %d\n", ret);
--		goto err_irqc_chg;
--	}
--	ret = regmap_add_irq_chip(max8907->regmap_gen, max8907->i2c_gen->irq,
--				  IRQF_ONESHOT | IRQF_SHARED, -1,
--				  &max8907_on_off_irq_chip,
--				  &max8907->irqc_on_off);
--	if (ret != 0) {
--		dev_err(&i2c->dev, "failed to add on off irq chip: %d\n", ret);
--		goto err_irqc_on_off;
--	}
--	ret = regmap_add_irq_chip(max8907->regmap_rtc, max8907->i2c_gen->irq,
--				  IRQF_ONESHOT | IRQF_SHARED, -1,
--				  &max8907_rtc_irq_chip,
--				  &max8907->irqc_rtc);
--	if (ret != 0) {
--		dev_err(&i2c->dev, "failed to add rtc irq chip: %d\n", ret);
--		goto err_irqc_rtc;
--	}
-+	i2c_set_clientdata(max8907->i2c_rtc, max8907);
- 
--	ret = mfd_add_devices(max8907->dev, -1, max8907_cells,
--			      ARRAY_SIZE(max8907_cells), NULL, 0, NULL);
--	if (ret != 0) {
--		dev_err(&i2c->dev, "failed to add MFD devices %d\n", ret);
--		goto err_add_devices;
--	}
-+	max8907->regmap_rtc = devm_regmap_init_i2c(max8907->i2c_rtc,
-+						   &max8907_regmap_rtc_config);
-+	if (IS_ERR(max8907->regmap_rtc))
-+		return dev_err_probe(dev, PTR_ERR(max8907->regmap_rtc),
-+				     "RTC regmap init failed\n");
-+
-+	ret = devm_regmap_add_irq_chip(dev, max8907->regmap_gen, max8907->i2c_gen->irq,
-+				       IRQF_ONESHOT | IRQF_SHARED, -1, &max8907_chg_irq_chip,
-+				       &max8907->irqc_chg);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add chg irq chip\n");
-+
-+	ret = devm_regmap_add_irq_chip(dev, max8907->regmap_gen, max8907->i2c_gen->irq,
-+				       IRQF_ONESHOT | IRQF_SHARED, -1, &max8907_on_off_irq_chip,
-+				       &max8907->irqc_on_off);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add on off irq chip\n");
-+
-+	ret = devm_regmap_add_irq_chip(dev, max8907->regmap_rtc, max8907->i2c_gen->irq,
-+				       IRQF_ONESHOT | IRQF_SHARED, -1, &max8907_rtc_irq_chip,
-+				       &max8907->irqc_rtc);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add rtc irq chip\n");
-+
-+	ret = devm_mfd_add_devices(dev, -1, max8907_cells, ARRAY_SIZE(max8907_cells),
-+				   NULL, 0, NULL);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add MFD devices\n");
- 
- 	if (pm_off && !pm_power_off) {
- 		max8907_pm_off = max8907;
-@@ -256,33 +244,6 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
- 	}
- 
- 	return 0;
--
--err_add_devices:
--	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_rtc);
--err_irqc_rtc:
--	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_on_off);
--err_irqc_on_off:
--	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_chg);
--err_irqc_chg:
--err_regmap_rtc:
--	i2c_unregister_device(max8907->i2c_rtc);
--err_dummy_rtc:
--err_regmap_gen:
--err_alloc_drvdata:
--	return ret;
--}
--
--static void max8907_i2c_remove(struct i2c_client *i2c)
--{
--	struct max8907 *max8907 = i2c_get_clientdata(i2c);
--
--	mfd_remove_devices(max8907->dev);
--
--	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_rtc);
--	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_on_off);
--	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_chg);
--
--	i2c_unregister_device(max8907->i2c_rtc);
- }
- 
- #ifdef CONFIG_OF
-@@ -305,7 +266,6 @@ static struct i2c_driver max8907_i2c_driver = {
- 		.of_match_table = of_match_ptr(max8907_of_match),
- 	},
- 	.probe = max8907_i2c_probe,
--	.remove = max8907_i2c_remove,
- 	.id_table = max8907_i2c_id,
- };
- 
+> Pei Xiao <xiaopei01@kylinos.cn>
+>     mmc: atmel-mci: Fix use-after-free in atmci_remove due to race condition
+
+
+The above commit is causing the following build failure for ARM with the
+multi_v7_defconfig:
+
+drivers/mmc/host/atmel-mci.c: In function ‘atmci_remove’:                 
+drivers/mmc/host/atmel-mci.c:2661:31: error: ‘struct atmel_mci’ has no member named ‘bh_work’                                                                                                    
+ 2661 |         cancel_work_sync(&host->bh_work);
+      |                               ^~
+make[6]: *** [scripts/Makefile.build:243: drivers/mmc/host/atmel-mci.o] Error 1        
+
+
+Jon
+
 -- 
-2.53.0
+nvpublic
 
