@@ -1,65 +1,65 @@
 Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623223603E0
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:11:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9093596F8
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 02:11:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792375883; cv=none; b=Xbi8xpFKsDxqmk1y4OI90YZ7b4LRkNrOkSmhvauud3gC9r5Lp6Tj6jEqEz2Td7crwTBc9tCpOZe8iaF4YVxJIcpFiUN14OLNyqCe17+7cWGikgtT1oQhqT4a0oBTDc74i4K/tw7rrf7AE8fkTJyipr44l1vXgqnOgVKlf1cggwI=
+	t=1792375887; cv=none; b=AobL937YgWldvBbgPLDx6E/b27WH1djygvlbcKZGL60JJsWNLGiXVS1kTzV2IvWOXlg9ubgYciZ6iS6qdkHTy7S+OqJUwqiDpBX18ZVdbc3qqmbU3j3KG0OVDciT2bpc2RYL8Zlz7ITrsf3quTPVxHX33NwnQo4ROaQuOc4JsK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792375883; c=relaxed/simple;
-	bh=G+rxqRoYHDZpAabOCoPNGLYVfYbnr3Z0F+bjlcO/IjA=;
+	s=arc-20240116; t=1792375887; c=relaxed/simple;
+	bh=yEG8AcAGFaZQJcqSqjpjUwp6DdocXK0MT8prbUyfCWI=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K65Lx5gIYpMJPzjMaXiyBce9vLHntB/n1GzcWFXk7RbTqea91X276VqaK3XaY8s80CCG0/r7jm5G5SaAqLbLGN7dDteA4V5gFr89zzaoJxMg35qSyvzhGqAFFMNgTOwtVBbuXxbdUNzFqJIAM6pAcUe/wOFEbztEhACDID1+NsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=TXb/2YlW; arc=none smtp.client-ip=209.85.221.179
+	 MIME-Version; b=sPmvTlQ4y2+WwOjZJJM+yD8S0CUr1GWvrcam2LVCEgpqalkhJoP0H0bcgrCZJnXBEFgk+NJEgXqi4fO5RCUl44D+Sn7qg5/6eVAORYDYErzFYDOdAostp8+7M9OOUChSSHB+m1v8JiSiCmTKjpFogvGVVkdjfToNP00SFmpxiU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=SN2wOjVe; arc=none smtp.client-ip=209.85.221.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="TXb/2YlW"
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5eabf7d5bbeso1086742e0c.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:11:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="SN2wOjVe"
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5e519c39196so454873e0c.3
+        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 19:11:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1792375880; x=1792980680; darn=vger.kernel.org;
+        d=soleen.com; s=google; t=1792375884; x=1792980684; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=7ti3YkcfnTEBL5joWie6hwuLUXl2KXMMFurkAbb61S4=;
-        b=TXb/2YlW7eDY1yl+OyZwDHSlmS+up4cWAmYl+hcOePNv890tLSeshV/5PyYTrZ8T0Z
-         GPoCW3LoAMjr1iw0DDxjEScgC1arNam0Fi1oKCo2N3suBrl0l24xwW6+Ph2s7w0P+hAR
-         uFKSKiamZrNsO3EGMOnkRL3JfmUMEjSVEoqNEv047WhuqLifNheZj3PCMhU6DKjW+tXo
-         AS0XiFFafxJ3puR7oNcBPbw6eN5LodqCkAqD9RlONGC4l3Ax+esrLiZtpBs3qZE47a3b
-         PcBLq6cQk8AxCxy3OOiPOWseH6PbP4jwrwjkcgwGTXC9ZNoiFxSAv78ywmzMgzi63Ihf
-         PxmQ==
+        bh=HFKyVkuGCKpOVLuQsnhKod7q0RL600zFuUYepG6R/FE=;
+        b=SN2wOjVeTNBbwr1PVrBSc6+QHzRxPQcXYHqcW/0lG0xVB3dcguknspbJqE/JJRz8eh
+         jARFkMflUGn2MKp3IB/XiaZDDJCDGszCaplOeGhaCWl17SWcXPVi4vjytHn3MFwtJ10n
+         TBkFZdCEop5KlOJx+9/rGyTnvQRHiwWERZIAhpiCBR8vSr8iBlh/FMX8d34vdXlSJW3x
+         Gfdo1FtBzMZMmWvaJL26tu08ursDA2RGxnUAN2QIapE7A5kM8JNsPdFndLSj4ALdl1se
+         CIF7suD8am+ga/fbX/19E0mppnkJMAgSx+L2rdgsnc5Gdcu+e5cPQyle8aBz0rH0uHuV
+         36VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792375880; x=1792980680;
+        d=1e100.net; s=20260707; t=1792375884; x=1792980684;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=7ti3YkcfnTEBL5joWie6hwuLUXl2KXMMFurkAbb61S4=;
-        b=trf/+eHCzRdNBgSiZC7nUxhwzVzP95FxyvJPs5B0eb8g/iqJBW+E02bdEercZ+J3R8
-         FMZCTao+mTRwcsnScnKsC7FJqPTIocVv1b4WDhcDqvrPrWeUcZTjzz4sIriWekIIE8MR
-         8D5LcgKV1uJW/r6JFpCp4tZ9B5C3fOtkDXT7nmW2DGmYLrbAg+hOlsiLqnw6910vlVKA
-         vsc4NVib0Xq2Dd5Nir4o5c51VpURVa7NEqwqiXEOmpmgb+baVSVhtTXiohyI815q8gcA
-         9IdKjk3oEEA/dHuwWxQBhGkd6ECKVsYEDYTkaDJeSpwOg7WvNQjEmoy0pO0AHdCp24kv
-         /0lw==
-X-Forwarded-Encrypted: i=1; AKwUvBwWS6cCR1+cgKtkTWyZDUBmyFkZq5+zTStup604dXsnqgJqmJoYzXfr5+b71NEGpje8+n96GyuZskDYW/A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFHfEBSokcDHcNqISVmjqL6TR/J7nD6Rsu7QvCG6t07C1m6Qd6
-	dDp15G7GLTKqzRkXMoendOKDiwhPnzZC4neWqi3QwhdodvDJUONiv/Q64RwoggVq3N4=
-X-Gm-Gg: AYBFou3PMzb1a+6xiFVgFHEgOg2314uyq7LTPFsbFu25XlGHxOobmUs2RM/AydnaHt3
-	7TxudaQEaAMactY5J/iNiNKeDJIP0/jXpZhX/zPhm2jSSOj279snYYWkQPVATxxZpd1JwDmagQ2
-	GpKuBli4RgZh8ftNNV7KT/tjXlApr7lBNsf4iYxeVZN9VfJupoHNqTc3l+4rQr4HwE1c9mkjQ5g
-	9WN5WhgRXn0PYnC5j4hICbwnuhz7Rki6VV3h5WY+Pj9HPraQ7A164/3fNOVFj/4tyGQungNP8Tc
-	9M6YaHUwllOAojBHhPqTw5SbB9E3U9SUyQjKs656AMZ7Quu/o8kIYIdkeJ2IL691nDGe+F8iXUC
-	9SnSrfsIXALVX50mFBe5Ht9+y7e5G3djIXnAtKJIIvzUpQWZD7aI6gITNASnQLIDMxNlTOqUaer
-	Q/xEjTQtAl6gieILmdBilZww0dQ1E+DhpKreIuczE/cde4eLUKJN5Moji5RZcUydvD+rF5mP3Tm
-	UmJWJSMP8LvsWaUVmrFb76MU7UjeqbTzQirhAa1sVJWspUzWN0sj08vbXiV1osztOOOZnO+DNrw
-	n/Tbuk0SAvFh+fa+OFs=
-X-Received: by 2002:a05:6102:26d0:b0:7cc:1192:5636 with SMTP id ada2fe7eead31-7cc36905d1emr2154033137.12.1792375880231;
-        Sun, 18 Oct 2026 19:11:20 -0700 (PDT)
+        bh=HFKyVkuGCKpOVLuQsnhKod7q0RL600zFuUYepG6R/FE=;
+        b=xV5JuVIs+PzXqCUoIl/1NqRHtmXFfKObgNFsARa/QjW9OLL6XK0GUHi2yyvbzIB6yr
+         LaUu2a+F2evm6ecKCbTQxNNafJcgr3y3/dbN+0mncjI9DVW/ZEbcQZBFM1xv1EO7eF/p
+         cBnrMbXfp1Tw/i4noi1hs/9BdNa2puLqyYtLd7dM36fl7YqbiGMgrkyCw6eKCIOG7HD1
+         jLyR1JQkbdrjytbJ+hDHp2blGZYC8cG4JK3gCOmdKdw+doC1M60CPHqjWZDugvULwCEO
+         cDttA6P9CSMdOp6LHLNSo2bQBnLx52CS53EzaxNYx8+FG1702cGO1whwC91W0BpCzRm9
+         0dcQ==
+X-Forwarded-Encrypted: i=1; AKwUvByMqeZPurpK4LZ7pdezutKdBnaMu/Cbzw1g18N/US8uUyFpaCGaBb1AA7r3nUYulh9W9j5CJWVzmLHUs1Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRCV6NW+Cf4ItlaDXl+qBG1KhSoZjC3Kwr0Q6g7OVRNTBgEvmG
+	Jr0VM6PTPwUbWCHipsooHTgs6dSyu5q1RddxJROolP0OcqLnwujC1Nu+wSF1jvTa7uA=
+X-Gm-Gg: AYBFou1IyTgURSPA1RmjD9VIkwKe0iD9tZDDQ+sHHFU/mPFqwAf0JStlP9wFDqfr5G4
+	Gzh6liux1jyLTP6dAOHLuw7+0MGVJTKVxQVzSk6EBjAKnka1jRj9f8HhGwlNddnz6F6w85jisaO
+	TrggvKKRicgdOQsDngBn08RPlY+maxHrDLzDXaeHJ7aU2D4Fv0bsyR3737fOdGLJTfMG5MBvJJF
+	Vx51LsQBQCUP3vIuCTDxSxcVYOL+cDEjGRXnE41jSQTFxsuFE3OmyOt7BsYTbsgROe6zRvFk7XQ
+	/VWSke/m4DtcwljO3PFZ9grf3hSJctfKHGsdkGouTZ7MGhgHDIMGHepbUUf1O62Mbx1H1x7YIkR
+	yVHt327u8wpiuafNOomxnh0X8vqH14NR2n5ZkMw7syuJLGG2QsfcaDi9OrdYC2YqF5S393J0Yi4
+	r6rg0GcQJB4+SVm3I1dKaqtr+9uGk/j2bNy5dCQV+lr4QgE8kpzs1a61LX4HD0dkiZwYX1pejLS
+	9u89ROw9fkA2jUHaRCh3adQhAe553oCq55O1i16updfVDQO1tHxBWN/hjyEi2RthIE7BxyJkxJ9
+	shhvlsRawKfQ8mbofO0tKiHIfNbBhQ==
+X-Received: by 2002:a05:6122:4b10:b0:5ea:b9b5:8c43 with SMTP id 71dfb90a1353d-5eab9b59387mr1211022e0c.18.1792375883763;
+        Sun, 18 Oct 2026 19:11:23 -0700 (PDT)
 Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eabbd9ea2bsm4271383e0c.2.2026.10.18.19.11.18
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eabbd9ea2bsm4271383e0c.2.2026.10.18.19.11.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 19:11:19 -0700 (PDT)
+        Sun, 18 Oct 2026 19:11:22 -0700 (PDT)
 From: Pasha Tatashin <pasha.tatashin@soleen.com>
 To: linux-kselftest@vger.kernel.org,
 	rppt@kernel.org,
@@ -88,9 +88,9 @@ To: linux-kselftest@vger.kernel.org,
 	lirongqing@baidu.com,
 	liam@infradead.org,
 	jlayton@kernel.org
-Subject: [PATCH v1 2/8] kho: move radix tree, vmalloc, and FDT helpers to internal header
-Date: Sun, 18 Oct 2026 22:11:05 -0400
-Message-ID: <20261019021111.990394-3-pasha.tatashin@soleen.com>
+Subject: [PATCH v1 4/8] kho: do not modify incoming serialized blocks
+Date: Sun, 18 Oct 2026 22:11:07 -0400
+Message-ID: <20261019021111.990394-5-pasha.tatashin@soleen.com>
 X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
 In-Reply-To: <20261019021111.990394-1-pasha.tatashin@soleen.com>
 References: <20261019021111.990394-1-pasha.tatashin@soleen.com>
@@ -102,342 +102,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move the shared KHO radix tree key encoding and indexing helpers,
-vmalloc flag conversion helpers, and FDT validation and lookup helpers
-from kexec_handover.c into kexec_handover_internal.h as static inline
-functions.
+When restoring an incoming block set via kho_block_set_restore(), the
+physical chain of blocks is already linked and bs->head_pa is already
+set. However, kho_block_add() unconditionally rewrites last->ser->next
+and bs->head_pa, and kho_block_set_shrink_one() clears
+new_last->ser->next even when operating on an incoming block set.
 
-The radix tree and vmalloc flag helpers are small bit-manipulation
-routines, and the FDT helpers are small wrappers with a single call site
-per translation unit, so it is natural to inline them in the internal
-header.
-
-This is going to be used by the upcoming KHO read-only mode to walk
-preserved KHO radix trees, vmalloc preservation chains, and FDT
-subtrees without duplicating the implementation.
+In the upcoming KHO read-only mode, incoming serialized blocks are
+mapped read-only and must not be modified. Guard the ser->next and
+bs->head_pa updates in kho_block_add() and kho_block_set_shrink_one()
+with !bs->incoming.
 
 Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 ---
- kernel/liveupdate/kexec_handover.c          | 115 +----------------
- kernel/liveupdate/kexec_handover_internal.h | 134 ++++++++++++++++++++
- 2 files changed, 136 insertions(+), 113 deletions(-)
+ kernel/liveupdate/kho_block.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index ce5983abf181..f427cdd9a969 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -113,29 +113,6 @@ static const void *kho_get_fdt(void)
- 	return kho_in.fdt_phys ? phys_to_virt(kho_in.fdt_phys) : NULL;
- }
+diff --git a/kernel/liveupdate/kho_block.c b/kernel/liveupdate/kho_block.c
+index 0d2a342ef422..a4e945f28fad 100644
+--- a/kernel/liveupdate/kho_block.c
++++ b/kernel/liveupdate/kho_block.c
+@@ -93,10 +93,12 @@ static int kho_block_add(struct kho_block_set *bs,
+ 	list_add_tail(&block->list, &bs->blocks);
+ 	bs->nblocks++;
  
--/**
-- * kho_encode_radix_key - Encodes a physical address and order into a radix key.
-- * @phys: The physical address of the page.
-- * @order: The order of the page.
-- *
-- * This function combines a page's physical address and its order into a
-- * single unsigned long, which is used as a key for all radix tree
-- * operations.
-- *
-- * Return: The encoded unsigned long radix key.
-- */
--static unsigned long kho_encode_radix_key(phys_addr_t phys, unsigned int order)
--{
--	/* The physical address is encoded by shifting the PFN by its order. */
--	unsigned long shift = PAGE_SHIFT + order;
--	/* Order bit goes right before the shifted PFN. */
--	unsigned long h = 1UL << (64 - shift);
--	/* Shifted PFN. */
--	unsigned long l = phys >> shift;
--
--	return h | l;
--}
--
- /**
-  * kho_decode_radix_key - Decodes a radix key back into a physical address and order.
-  * @key: The unsigned long key to decode.
-@@ -161,20 +138,6 @@ static phys_addr_t kho_decode_radix_key(unsigned long key, unsigned int *order)
- 	return phys;
- }
+-	if (last)
+-		last->ser->next = virt_to_phys(ser);
+-	else
+-		bs->head_pa = virt_to_phys(ser);
++	if (!bs->incoming) {
++		if (last)
++			last->ser->next = virt_to_phys(ser);
++		else
++			bs->head_pa = virt_to_phys(ser);
++	}
  
--static unsigned long kho_radix_get_bitmap_index(unsigned long key)
--{
--	return key % (1 << KHO_BITMAP_SIZE_LOG2);
--}
--
--static unsigned long kho_radix_get_table_index(unsigned long key,
--					       unsigned int level)
--{
--	int s;
--
--	s = ((level - 1) * KHO_TABLE_SIZE_LOG2) + KHO_BITMAP_SIZE_LOG2;
--	return (key >> s) % (1 << KHO_TABLE_SIZE_LOG2);
--}
--
- static void __ref *kho_radix_alloc_node(void)
- {
- 	struct kho_radix_node *node;
-@@ -634,21 +597,6 @@ static int __init kho_preserved_memory_reserve(unsigned long key, void *data)
  	return 0;
  }
+@@ -133,10 +135,10 @@ static void kho_block_set_shrink_one(struct kho_block_set *bs)
+ 	kfree(last);
  
--/* Returns physical address of the preserved memory map from FDT */
--static phys_addr_t __init kho_get_mem_map_phys(const void *fdt)
--{
--	const void *mem_ptr;
--	int len;
--
--	mem_ptr = fdt_getprop(fdt, 0, KHO_FDT_MEMORY_MAP_PROP_NAME, &len);
--	if (!mem_ptr || len != sizeof(u64)) {
--		pr_err("failed to get preserved memory map\n");
--		return 0;
--	}
--
--	return get_unaligned((const u64 *)mem_ptr);
--}
--
- static void __init *kho_get_mem_map(const void *fdt)
- {
- 	phys_addr_t phys = kho_get_mem_map_phys(fdt);
-@@ -1287,13 +1235,6 @@ void kho_unpreserve_pages(struct page *page, unsigned long nr_pages)
- }
- EXPORT_SYMBOL_GPL(kho_unpreserve_pages);
- 
--/* vmalloc flags KHO supports */
--#define KHO_VMALLOC_SUPPORTED_FLAGS	(VM_ALLOC | VM_ALLOW_HUGE_VMAP)
--
--/* KHO internal flags for vmalloc preservations */
--#define KHO_VMALLOC_ALLOC	0x0001
--#define KHO_VMALLOC_HUGE_VMAP	0x0002
--
- static unsigned short vmalloc_flags_to_kho(unsigned int vm_flags)
- {
- 	unsigned short kho_flags = 0;
-@@ -1306,18 +1247,6 @@ static unsigned short vmalloc_flags_to_kho(unsigned int vm_flags)
- 	return kho_flags;
+ 	new_last = list_last_entry_or_null(&bs->blocks, struct kho_block, list);
+-	if (new_last)
+-		new_last->ser->next = 0;
+-	else
++	if (!new_last)
+ 		bs->head_pa = 0;
++	else if (!bs->incoming)
++		new_last->ser->next = 0;
  }
  
--static unsigned int kho_flags_to_vmalloc(unsigned short kho_flags)
--{
--	unsigned int vm_flags = 0;
--
--	if (kho_flags & KHO_VMALLOC_ALLOC)
--		vm_flags |= VM_ALLOC;
--	if (kho_flags & KHO_VMALLOC_HUGE_VMAP)
--		vm_flags |= VM_ALLOW_HUGE_VMAP;
--
--	return vm_flags;
--}
--
- static struct kho_vmalloc_chunk *new_vmalloc_chunk(struct kho_vmalloc_chunk *cur)
- {
- 	struct kho_vmalloc_chunk *chunk;
-@@ -1660,37 +1589,7 @@ EXPORT_SYMBOL_GPL(is_kho_boot);
-  */
- int kho_retrieve_subtree(const char *name, phys_addr_t *phys, size_t *size)
- {
--	const void *fdt = kho_get_fdt();
--	const u64 *val;
--	int offset, len;
--
--	if (!fdt)
--		return -ENOENT;
--
--	if (!phys)
--		return -EINVAL;
--
--	offset = fdt_subnode_offset(fdt, 0, name);
--	if (offset < 0)
--		return -ENOENT;
--
--	val = fdt_getprop(fdt, offset, KHO_SUB_TREE_PROP_NAME, &len);
--	if (!val || len != sizeof(*val))
--		return -EINVAL;
--
--	*phys = (phys_addr_t)*val;
--
--	val = fdt_getprop(fdt, offset, KHO_SUB_TREE_SIZE_PROP_NAME, &len);
--	if (!val || len != sizeof(*val)) {
--		pr_warn("broken KHO subnode '%s': missing or invalid blob-size property\n",
--			name);
--		return -EINVAL;
--	}
--
--	if (size)
--		*size = (size_t)*val;
--
--	return 0;
-+	return __kho_retrieve_subtree(kho_get_fdt(), name, phys, size);
- }
- EXPORT_SYMBOL_GPL(kho_retrieve_subtree);
- 
-@@ -1981,18 +1880,8 @@ void __init kho_populate(phys_addr_t fdt_phys, u64 fdt_len,
- 		pr_warn("setup: failed to memremap FDT (0x%llx)\n", fdt_phys);
- 		goto report;
- 	}
--	err = fdt_check_header(fdt);
--	if (err) {
--		pr_warn("setup: handover FDT (0x%llx) is invalid: %d\n",
--			fdt_phys, err);
-+	if (kho_check_fdt(fdt, fdt_phys))
- 		goto unmap_fdt;
--	}
--	err = fdt_node_check_compatible(fdt, 0, KHO_FDT_COMPATIBLE);
--	if (err) {
--		pr_warn("setup: handover FDT (0x%llx) is incompatible with '%s': %d\n",
--			fdt_phys, KHO_FDT_COMPATIBLE, err);
--		goto unmap_fdt;
--	}
- 
- 	mem_map_phys = kho_get_mem_map_phys(fdt);
- 	if (!mem_map_phys)
-diff --git a/kernel/liveupdate/kexec_handover_internal.h b/kernel/liveupdate/kexec_handover_internal.h
-index 38181076f603..094b4917a0f1 100644
---- a/kernel/liveupdate/kexec_handover_internal.h
-+++ b/kernel/liveupdate/kexec_handover_internal.h
-@@ -3,8 +3,142 @@
- #define LINUX_KEXEC_HANDOVER_INTERNAL_H
- 
- #include <linux/kexec_handover.h>
-+#include <linux/kho/abi/kexec_handover.h>
-+#include <linux/libfdt.h>
- #include <linux/list.h>
-+#include <linux/mm.h>
-+#include <linux/printk.h>
- #include <linux/types.h>
-+#include <linux/unaligned.h>
-+#include <linux/vmalloc.h>
-+
-+/* vmalloc flags KHO supports */
-+#define KHO_VMALLOC_SUPPORTED_FLAGS	(VM_ALLOC | VM_ALLOW_HUGE_VMAP)
-+
-+/* KHO internal flags for vmalloc preservations */
-+#define KHO_VMALLOC_ALLOC	0x0001
-+#define KHO_VMALLOC_HUGE_VMAP	0x0002
-+
-+static inline unsigned int kho_flags_to_vmalloc(unsigned short kho_flags)
-+{
-+	unsigned int vm_flags = 0;
-+
-+	if (kho_flags & KHO_VMALLOC_ALLOC)
-+		vm_flags |= VM_ALLOC;
-+	if (kho_flags & KHO_VMALLOC_HUGE_VMAP)
-+		vm_flags |= VM_ALLOW_HUGE_VMAP;
-+
-+	return vm_flags;
-+}
-+
-+/**
-+ * kho_encode_radix_key - Encodes a physical address and order into a radix key.
-+ * @phys: The physical address of the page.
-+ * @order: The order of the page.
-+ *
-+ * This function combines a page's physical address and its order into a
-+ * single unsigned long, which is used as a key for all radix tree
-+ * operations.
-+ *
-+ * Return: The encoded unsigned long radix key.
-+ */
-+static inline unsigned long kho_encode_radix_key(phys_addr_t phys,
-+						 unsigned int order)
-+{
-+	/* The physical address is encoded by shifting the PFN by its order. */
-+	unsigned long shift = PAGE_SHIFT + order;
-+	/* Order bit goes right before the shifted PFN. */
-+	unsigned long h = 1UL << (64 - shift);
-+	/* Shifted PFN. */
-+	unsigned long l = phys >> shift;
-+
-+	return h | l;
-+}
-+
-+static inline unsigned long kho_radix_get_bitmap_index(unsigned long key)
-+{
-+	return key % (1 << KHO_BITMAP_SIZE_LOG2);
-+}
-+
-+static inline unsigned long kho_radix_get_table_index(unsigned long key,
-+						      unsigned int level)
-+{
-+	int s;
-+
-+	s = ((level - 1) * KHO_TABLE_SIZE_LOG2) + KHO_BITMAP_SIZE_LOG2;
-+	return (key >> s) % (1 << KHO_TABLE_SIZE_LOG2);
-+}
-+
-+static inline int kho_check_fdt(const void *fdt, phys_addr_t fdt_phys)
-+{
-+	int err;
-+
-+	err = fdt_check_header(fdt);
-+	if (err) {
-+		pr_warn("handover FDT (0x%llx) is invalid: %d\n",
-+			(unsigned long long)fdt_phys, err);
-+		return err;
-+	}
-+
-+	err = fdt_node_check_compatible(fdt, 0, KHO_FDT_COMPATIBLE);
-+	if (err) {
-+		pr_warn("handover FDT (0x%llx) is incompatible with '%s': %d\n",
-+			(unsigned long long)fdt_phys, KHO_FDT_COMPATIBLE, err);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
-+/* Returns physical address of the preserved memory map from FDT */
-+static inline phys_addr_t kho_get_mem_map_phys(const void *fdt)
-+{
-+	const void *mem_ptr;
-+	int len;
-+
-+	mem_ptr = fdt_getprop(fdt, 0, KHO_FDT_MEMORY_MAP_PROP_NAME, &len);
-+	if (!mem_ptr || len != sizeof(u64)) {
-+		pr_err("failed to get preserved memory map\n");
-+		return 0;
-+	}
-+
-+	return get_unaligned((const u64 *)mem_ptr);
-+}
-+
-+static inline int __kho_retrieve_subtree(const void *fdt, const char *name,
-+					 phys_addr_t *phys, size_t *size)
-+{
-+	const u64 *val;
-+	int offset, len;
-+
-+	if (!fdt)
-+		return -ENOENT;
-+
-+	if (!phys)
-+		return -EINVAL;
-+
-+	offset = fdt_subnode_offset(fdt, 0, name);
-+	if (offset < 0)
-+		return -ENOENT;
-+
-+	val = fdt_getprop(fdt, offset, KHO_SUB_TREE_PROP_NAME, &len);
-+	if (!val || len != sizeof(*val))
-+		return -EINVAL;
-+
-+	*phys = (phys_addr_t)get_unaligned(val);
-+
-+	val = fdt_getprop(fdt, offset, KHO_SUB_TREE_SIZE_PROP_NAME, &len);
-+	if (!val || len != sizeof(*val)) {
-+		pr_warn("broken KHO subnode '%s': missing or invalid blob-size property\n",
-+			name);
-+		return -EINVAL;
-+	}
-+
-+	if (size)
-+		*size = (size_t)get_unaligned(val);
-+
-+	return 0;
-+}
- 
- #ifdef CONFIG_KEXEC_HANDOVER_DEBUGFS
- #include <linux/debugfs.h>
+ /**
 -- 
 2.56.0.176.g3575e65682-goog
 
