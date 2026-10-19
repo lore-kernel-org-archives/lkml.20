@@ -1,128 +1,108 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AD2221F24
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 04:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E93403955E4;
+	Mon, 19 Oct 2026 04:01:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792382457; cv=none; b=j30GPijvVKOAQmLA9fQnpWsjIFF5QVbp78CG06gafnQNO/d9Z8YZa79wT1YxnHrnOmiJMW4kmMCyb05Rc26jHhzcXwfqo9oyLCqP0m/8uIEeYK8GActsoJ9Mss89lxN++dbWYhrvGb46WCO3A1UM5A/6+cUfYsGtGx+NffSqT7k=
+	t=1792382472; cv=none; b=rbpioHazSTAq9lOibg6216ihc0ap7XWXOBxNFwIMmKOjPgJ2X+8isfcyEhveMuaIpCZbh18NtRxebKyqIGlUOC5d7GRVpfab+AQ+6mGsRUIDezME2l4KGlV1mFKVIbjWZgvxqn5hY1rLkw6aKjasmFX55QzRsMvAaQc8fvUi59I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792382457; c=relaxed/simple;
-	bh=czjGtQCylPKGOxgwRT4H3LIqs4PEQr/yg9uE5mWxNEA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=A7AO1Va0ZQyHolvHFsRt/19500UaQLIv/1hxAN7w64yF1jc3ztWzBaHRDj1O5fR/E5VLYgM1qp/jOOLievbdQzcXMdAR+tt32oQrQM8NN17S7U8CFBWtkWNxWNY00CNaBtI10+lcgAAM8UWTkgW3AT59Op6snyQ1N+7JaCIBWIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+7uTkkX; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+7uTkkX"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd5e2d696e0so1139144a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 21:00:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792382455; x=1792987255; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HFoWvp0cIKmjLdrdC+FIWOJcYRrNmj2fb+vTIhO0WMk=;
-        b=G+7uTkkXpdtNA2uYFLNGoRqnvRHU5+i70JoCtsHzGFy7THRDJ04W/KXHtzvT0Big6N
-         EcGM9pe6TtC4DrQ0PPuOP6wHCKrD4+6kw6xKSn7hgpm7hvux/fg6bsXlvYi6H/iCtr7U
-         e0YEOE0SU+1Iu7QEMTWRBUTESjcp8wPADPqHNcU9zxvtLwFB2EFQzFCH8AL3IjSviMni
-         Fc+rLwqf2YejZzrk4Eekt3xO725QDgXvuYg6JYXEloJgsAnTuMSGWzLS99nfDNuZ/con
-         ajzz2MWmN/Y4P87D7ZU4n8UVNstuouJt5+5Gi3mTKFajAJCkxZC7cMFfb7JRUMFirIAy
-         fuVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792382455; x=1792987255;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HFoWvp0cIKmjLdrdC+FIWOJcYRrNmj2fb+vTIhO0WMk=;
-        b=XsjR8eSvBLnjeaPOnyBARSdHCIVuRwFOULEnAf+HucohIFZANVXH/FPH9yc38btfuu
-         fRMhOVJ625VoAfC9162tb5w6CFL7pegGBFXBK7GzhUZC7wn7tgKvCGvj4aAPOWQgrENC
-         /XBhlDht6f/6+5o8aXqPop17I+FrRBCdkUSmiySnZ6zHL/yjRU9ML0Ajis+iSwxu494q
-         vm3YlIgMxRXbfYzx0LDzfkQJSfK7aXuzidDrwJYy9PbT051QtZ6djVTNhAziPWaSmUOJ
-         AoWwRLoHVc+4rNG5gdgfBjBRlrU9mimwMKPlBuLvzyIuqWeCrWQ+PtXBnj3gYe3gjJC1
-         MNJA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIbp5b21Ev6ezRlpNj8O4dhALNnjAYGDvOL0T0wZ6OklERxwKAgcRaUJdEs3WuAf6Gq2GeRTE9EXPI8DY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLeVEDOsEQObltkHLV2z+fouyN1C5Ok5OLbQwcSGNSUQUz/D/9
-	1KMKKhzj0hrjuwe54N08R6XrtqnkB8jFfGYn6FpboFSg3BytXDLtEA3W
-X-Gm-Gg: AYBFou14Vne6+5YyTj5YLWgNDZtz6tFU8zzd6ETdKcT5Gqwq4/I4+E3jO9kAYu5L6Py
-	k5WvbQwbREN1VHXRUTl9WIrxzl841royBOuei8iWA7xVfPnlf4V9RYb9jtgoXAavhu70fYwuNLG
-	yvqUkpz45omeNEe3mMUk1Z5pwWpf8zJ+wsxguE6G9/CdXkS2UyK7laErYP5QEm9mKTqFmbys3LY
-	degEdhUQLKklcEMcPYe918+GJKALi/0GSH9Tm5ScFikDcVmqHBBOWXUeW7dWTnWFhZztqdcLyQJ
-	q8/r3IqAlH+xiZZtb7lX8yN8CwkkfcHuSKVKC8ksSJl4gIo9IDOcNXNWeqhwi93rI9m9T+svZIq
-	YLBZg9goD29XjzA5MT0x30JcRLDOQfX2bxMmYKErfFiN3/CLa0KBC06E7nrr0IPvJ9jxgPuqmuQ
-	01aaGtnW590rUVJoJZYVI2KKmaekJ+aW/TUb7QIJMW1h/T5M5ovWoTnusWY3AY6ElT2aXfLmr/t
-	8Shxd0Wos7HGFAk
-X-Received: by 2002:a17:90b:570d:b0:3ac:397c:574b with SMTP id 98e67ed59e1d1-3acef3cc8bamr6000770a91.54.1792382455469;
-        Sun, 18 Oct 2026 21:00:55 -0700 (PDT)
-Received: from smtpclient.apple ([202.8.105.123])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acd0939725sm7800291a91.3.2026.10.18.21.00.51
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 18 Oct 2026 21:00:54 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1792382472; c=relaxed/simple;
+	bh=hML0u60eL3ia2fxzAGEOE6MtfiYK0ZmVCWLTbbvcHG0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aI7eyl9wyLjI9BbKiNmWbqHjvWi6Xs81oZIiIvzu7d0xwBnGbmsukAoBgh6gucEK7Zsn2gmzZsgP5VsulppaV0zWRgt5cn51VWiO9zzAbF+wq1Vhhj8d0xu7OtQ5Y/vQKFMJ2grE3n+BeGgsp6EA/poU90NLIHibIRZ2empectg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8DxD9MEltVqqCsXAA--.1944S3;
+	Mon, 19 Oct 2026 12:01:08 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJCxPs8DltVqbeEtAA--.30517S2;
+	Mon, 19 Oct 2026 12:01:08 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v2] selftests/bpf: Use snake_case for subtest descriptions in jit_insns_arena.c
+Date: Mon, 19 Oct 2026 12:01:06 +0800
+Message-ID: <20261019040106.27309-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [tip:sched/core 35/37] ld.lld: error: relocation refers to a
- symbol in a discarded section: __UNIQUE_ID_addressable_overflowuid_553
-From: Jemmy Wong <jemmywong512@gmail.com>
-In-Reply-To: <202610170544.6hPndDUW-lkp@intel.com>
-Date: Mon, 19 Oct 2026 12:00:29 +0800
-Cc: Jemmy Wong <jemmywong512@gmail.com>,
- llvm@lists.linux.dev,
- oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- x86@kernel.org,
- Peter Zijlstra <peterz@infradead.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <629C00D8-BEF2-4B35-A056-2D8699F355FD@gmail.com>
-References: <202610170544.6hPndDUW-lkp@intel.com>
-To: kernel test robot <lkp@intel.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxPs8DltVqbeEtAA--.30517S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7uFW3ZryUWw4UWFW7WFy5ZFc_yoW8CF4kpa
+	ykWw13trWrAF1a934kZF47W3WruFn3JFnxWr48Xw4fAF15JF1qgrWxKF15t3ZFkrWfZwnY
+	9w4Iyr9rWF4UCrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE
+	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
+	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
+	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcV
+	C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jnUUUUUUUU=
 
+Normalize two inline assembly test descriptions in jit_insns_arena.c
+from space-separated strings to snake_case.
 
-> On Oct 18, 2026, at 3:46=E2=80=AFPM, kernel test robot <lkp@intel.com> =
-wrote:
->=20
-> <Mail Attachment>
+It is done for consistency with other neighboring subtests registered
+in test_jit_insns() (such as alu_imm, alu_reg, etc.). This also makes
+it convenient to execute these subtests directly from the command line
+without being forced to use shell quoting.
 
-Hi,
+Otherwise, unquoted shell word-splitting causes test_progs to reject
+the extra arguments before the filter code runs:
 
-I reproduced discarded-section relocation errors on tip's sched/core
-branch using the reported configuration, adjusted by olddefconfig:
+$ sudo ./test_progs -t jit_insns/arena access with zero offset
+Usage: test_progs [OPTION...]
+Try `test_progs --help' or `test_progs --usage' for more information.
 
-- fcceb7da9465 ("sched/cache: Avoid publishing partial LLC utilization")
-- Its parent, 96a494c9cfd8 ("sched/cputime: Don't account idle time =
-twice after dyntick-idle")
-- The earlier ancestor 840e23085b03 ("Merge branch 'tip/sched/urgent'")
+$ sudo ./test_progs -t jit_insns/cast to a user address
+Usage: test_progs [OPTION...]
+Try `test_progs --help' or `test_progs --usage' for more information.
 
-ALl were tested with Clang/LLD with 23.1.3. It fails similarly.
-All tests used separate build directories on macOS, with a host-only
-gen_init_cpio compatibility workaround and no kernel source changes.
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+v2: update the commit message to make it accurate.
 
-The generated ELF32 `vmlinux.o` files contain:
+ tools/testing/selftests/bpf/progs/jit_insns_arena.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-  fcceb7da9465: 21,371,209 symbols
-  96a494c9cfd8: 21,370,053 symbols
-  840e23085b03: 21,370,091 symbols
+diff --git a/tools/testing/selftests/bpf/progs/jit_insns_arena.c b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
+index b396d5aefb5a..16276ec192ac 100644
+--- a/tools/testing/selftests/bpf/progs/jit_insns_arena.c
++++ b/tools/testing/selftests/bpf/progs/jit_insns_arena.c
+@@ -34,7 +34,7 @@ struct {
+ 
+ #if defined(__BPF_FEATURE_ADDR_SPACE_CAST)
+ SEC("syscall")
+-__description("arena access with zero offset")
++__description("arena_access_with_zero_offset")
+ __success __retval(0)
+ int arena_zero_off(void *ctx)
+ {
+@@ -82,7 +82,7 @@ int arena_zero_off(void *ctx)
+ }
+ 
+ SEC("syscall")
+-__description("cast to a user address")
++__description("cast_to_a_user_address")
+ __success __retval(0)
+ int cast_to_user(void *ctx)
+ {
+-- 
+2.42.0
 
-These exceed the 24-bit symbol-index range of ELF32 relocations. In the
-840e23085b03 build, I inspected the relocation for the basic_stm_init
-initcall:
-
-  Encoded symbol index:       1,427,711 -> unrelated .L0 label
-  Encoded index plus 2^24:    18,204,927 -> basic_stm_init
-
-This demonstrates symbol-index wrap in the local build, explains
-the references to unrelated symbols and suggests a toolchain issue=20
-requiring a fix in ELF32 relocation handling.=20
-The local failure occurs without my scheduler patch.
-
-
-Thanks,
-Jemmy=
