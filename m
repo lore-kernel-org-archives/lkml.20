@@ -1,81 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792429930;
-	b=f4kh5Jll6Zy/6IQTataUEXl2bMeCj8B0jFL3pDfutj9695Dg/VlFxaUoGZNEBYUmERn7
-	 GWMCR+yIdbBlIfzpK7F7lh7OP3nIdaXLF5WQ0A0eF7y2bsr8dl9ozQMwtDWupgG7YIyLg
-	 R+OQrlB1u2m0BH9XfhvboReDslx27YCAy71hN5Y/74IfLkdHVnVHGYD4/Rx3TYD8wT/FS
-	 8gmca0nu4iFXWdMyn4GjRYZs8KUQw4AHAEQ1A0FhCQbwNzPY2PDvC5wL8VovcWK9yhbsa
-	 zWx5zMWZuP0M8ANPD6dFTKcGD82vaNSnw7taF3ZEMCUc1GQkxKY5i/wBHJRJV2Fn9CA==
+	t=1792429934;
+	b=dt/0g9Y4+G+SgP2n/PFk0168hgVs51md708r2I+H1tmlqwQWg3QfCqITcs9E2p9UjLCr
+	 fIOnEfYpdge39c95tN8GjaJ+uzjPEP16OlP81ghTJOtWK8oul2r1R7oRlUAt0HCr85ySU
+	 sTFLVJshiJf/kwkz/Bo5j3FXd/MF2245AlfICDG7+P28pDjKnCN30uwh5/kdo/IJZwyaW
+	 5Ml8A9ROALp5ce1LsBIdbdA44qQ4pIIFYE6oFncfFIVezajApTWzRGhxf7WUSrGwTGWKX
+	 SJUC7Tc3MUkcJVqAatgLwjB3scnXy3vWYsjgx6MfJmQNmd3HBJ8wLLz3svg51RfvkXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792429930;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792429934;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=m1D9F1bqmtuCwdKBGEYxURhHSspZbk4MECxRgLpYlqU=;
-	b=DpmTg9/Dr8NXfOLaO08A+mV/vz6EznyIkS15vfRkl5M+XNWpKzy9MfNWlNK6+wbN7R/B
-	 2anmWuzrTJovKqtTz9HgWBRksFp7Sy2QPeJ07z9U/2wB01wmwuUn/XoAWvXSMDspfDgjr
-	 weUtRpmgzgS38yTG+MZx45Hx54CdKfZeyshELicSd5Zt5+BiB/lnR9LUglYrZNqnh60uS
-	 eXcrPxQROJSYFEfFvpFchU2TRxDAporteWk2K+CG6RWIbS0wjItJG2eYx/VJv7bHlwLpT
-	 LX29QSL3p/EeSZH8LxOuPERuCz3P0k39bkmQRyDb2khjhpibd2FjQaDtmxOwn5VUI2g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NSkebjJriJxD8huVKtJ/dZPvDeRsYwUsy6nc9NLY9s4=;
+	b=fV8Q5wzmjl7qIKCNJ1We6/+KzO6eHiP5iSNxCdEouFL4a8dOWprPhnQNxjVQJRhCiiSw
+	 UwDTv9/7Bp7fWj0lq5WzYWlIOfxuvUVyfyUCuBAAJnhHnhqVXfu6UWuYTwWv6IPdxE011
+	 yx6zrWvHoPFOijOKYTOxULjoINbNDW0Ly2g4IOtnCgYtDC+vG+ShrJmPQmjB5NGG/U4n+
+	 PghOxlPCk9D4Y0IB7VbYWJvjX+HmOsYbfGnGqCxraWtctA5iiZSCk66jRdf63TIPmUSL7
+	 Xd1Hq6UmJpW8Jmh7BpPxSVNm3tegH2vGw4xOinYeceJ1aEo3lCNkS9HE55arl2BQ02A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Gke81E9Y;
-	arc=none smtp.remote-ip=209.85.219.45
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Rs+IINv8;
+	arc=none smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F48606A320
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:12:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44F48606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782A8606A335
+	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 17:12:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 782A8606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Gke81E9Y
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91b9e758c50so34736066d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:12:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Rs+IINv8
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91beb36fcc6so15513726d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 10:12:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792429929; x=1793034729; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m1D9F1bqmtuCwdKBGEYxURhHSspZbk4MECxRgLpYlqU=;
-        b=Gke81E9YMRqD70QbPYOKY8+egqIdtFY/NtyhSJsQB6BmNXSACg2i/H31knMUYZBP1X
-         pLfR4sIgZzXFWvrGVeIsNkphVTx1KBEV7BjYpEgDXFc95t3ZjAiq/iwc4zH8Pt3Y99Up
-         S2HnfxegeKneF0K7JT+Ith0wRzxjwacP8fXjV69cR1adfZVnME4r/RzvXQ9HbORUUPV5
-         s6nlVjAC1GeYquzTD7HEV2wzaOrOHSr6kRFczm7rBRXr1HcxBTjwvOHpLH126SytE50E
-         HIciMomjjX/1UDoHmWIh0qwC7j9XcdvTOarcBgXStUqBc93DlhRL96Oh6jFPWoy/nkRo
-         qZ4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792429929; x=1793034729;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gourry.net; s=google; t=1792429932; x=1793034732; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m1D9F1bqmtuCwdKBGEYxURhHSspZbk4MECxRgLpYlqU=;
-        b=JqkmtjFh+oGd0jq1cZwyBsX18a3n5lQmHaE3i0i9f+Q0mHduHVm6O4hKFzdyXLZMWM
-         bYS7HwRULNCoyZKlZv/5jJdxzuSnStja2eBczYJRgCH7Ro1aMh1fEKWQ/tCnkS8DGQHU
-         Tq3XdX+zl/0yPM+v/OSkWHvozf5z2hLX4FrnrWBxz2TmO0dscehJsUDZV57C4EKyUXPj
-         mPPe33kXVHZwD0K4Zml/Z+uFvYL+RorOyEnaQtpNawwu11RTpQblW2dafaaL4LnlQvgB
-         WjarV6C461Ms0EQTOQ/wfU7ZK+D2rN6SxhawH/TgTb/aVCRzaPn53q5n0GMZwGtcT5k5
-         6bnw==
-X-Forwarded-Encrypted: i=1; AKwUvBybUH0gAj3TU8tEIT0HDD98HoK45A/iunbRKlLd5zUyouGBUy9KTAdlYfcy2qXua0eIN4l/Z+ldZ0FEZ2I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdDT+MRP/IRRL8t++lG3wfaHAzs65zGULJkKGjNQJxoOVquW3t
-	UmBWf6kXBgyK62ls/Yw5UOgc0es9+m2/yE7uFE3shaCxFOkD+DL4SUBJHDlm586ToK4=
-X-Gm-Gg: AYBFou3DKoF9jmyzJr+RWxc2PkFDIiYtVT2+5SdpJl9h8/42zxhaQ3GU/jgzqoc6Myc
-	Lf0zmWuNr2af3QCL4DFKoQndf8/sVi2AW+OWHw5XipDZyt3iYo2avOQIrOCdsI7AuavrcxsyZeD
-	uOW9BdKs8o8xhJRHnndRYgYUWgPjWZqJJ3yZqN0xR5cc0WY8Itp0gA89JWmuMriu11gMdEsch1Z
-	J/S0ne1bm+U3zDla294mGgULgW055R9shtw6oYogG7elaazzIt4bCGsBLtR3rnU4Q9HqpvBg/Gi
-	b+W7qTKB7MeL2UWHP12GaeXgZPpjhYtTqxfqpyGfUbGvWR5TFhJEzfBvZB/1S61REMGMPDsV7qL
-	NV+5T2U61tB8sJvvADewmsSbpEbxCBI88HEfmGI4MqLNrhuMeKjpUjDpsh8ALIWiMXxNzMpHs3U
-	AoT5FXBL+hN25WFYrwWaCLfpbM2u0UG4Vme0lHFe8jloKA49IqVJMTD0jNZbGWcQ5bkxCFkGfgE
-	Px8aCu9o+p8nX7/ApozilkpsG/6TVFpi2KvsnmivRis2QEVZnqgUAYkzPfB
-X-Received: by 2002:a05:6214:19ca:b0:91b:5d39:e135 with SMTP id 6a1803df08f44-91bc96fb591mr195486326d6.32.1792429929055;
-        Mon, 19 Oct 2026 10:12:09 -0700 (PDT)
+        bh=NSkebjJriJxD8huVKtJ/dZPvDeRsYwUsy6nc9NLY9s4=;
+        b=Rs+IINv8Uo+hZJT3YE39Kmz26IQAlH6dRyDbzyySNky+H3Ni9TN5xhTkyRn5QcuYhP
+         2vN7m9R/1Xt46k76AXo9EXqR++vmoi78dYd5cSFme9Y3nZDYVqITIWItHVyThfn1DB4b
+         awwOjsoO0Kqo1XMIaO9QoOkCmFJSMOl5tTicC4HGI24n3qy501m2sYzf6im3g+bRBYEG
+         hkbRlDCmn1fXcyKl9cRdQhcvupU45rHa5OUJRxpuk/J3rtvEb/0HOnO13Kg9fmTG3foG
+         SUnMh1fyQHg0NkLqgf9JPmwSSmEtuRAyFAiaQnwukYFKIPjfmqQxflkagNpS1JBz4w2y
+         ROlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792429932; x=1793034732;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NSkebjJriJxD8huVKtJ/dZPvDeRsYwUsy6nc9NLY9s4=;
+        b=2qbu/ySDjDYx4KMxclUPVbx5Z/5cyoaRZ7c4yuAyfhYy3obJMIuhm9Il453Rc+Emeo
+         3seAaZFCLPipSgm7rWckC/NTgg65fcL6rDg+kQG6sdBWVvBwXgIi9nAaBsj4pdPYu2jc
+         QW0GT2udx+BJwqOwj/QjBMXkB4F4pBWpCU5aNuKk7vLwFGT9suG+McsewHcZ+atUkXw/
+         MkCJf/+ZLKH90vtcZKCBzxSGAa6dHwtTP5kzp6xH7RQVb/RTk3JgdrOpUrE97bSk1Fnx
+         9glJ1+fn+5lPKp1urP/zn5bSy6gF3b7qHwUWQ2XRYWcJMIhl9mIvU0aNyMubbjNVu0Er
+         sYqA==
+X-Forwarded-Encrypted: i=1; AKwUvBxe0oDoqZQqGuDlFsUQ3caFY9YsLaIxWcq/v/ZImP9vSmrDkjy+B0k4XoJTg9VSxvuq8uu20rQ9UmYmmDo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAdgORF65ZsL+G+zvagUlsF+TYUNcSvTpCKYXg5QUm6dgQ5nkG
+	O/UH0SN7XZ5WnOsTqDvC3UR1UG+txNctgKN8gulVTDO5EmFLmVBqcOOXZp67Hj6VMtQ=
+X-Gm-Gg: AYBFou2fZZtLMesK22SmCk/V5uh1NG74krQTkWlj34kdT4UJ+KqSp8Qx/JzaeQQHiSH
+	iowbiFlQkJwdlmHHmMg87yUwVOtpi1qddmJDs1ZsZV2qx9B700GjZ5KvoLCtRM5nKBB5TN7M2+j
+	hPRJwLFGNsh9wYkdjGPEplm9KMoTIaqbp/N2OjHmbFh2uoXzGqzWSguOuFsyCvsj0/3c0QMpQ2p
+	xcr25KOzhe8//t8ugdXa1sYa4JlfQt7ZO+YZ17nWD0jGSc/HB9yFVLIRGAaiadagxXYp6Ia9zSq
+	oUD4xU1l0fbkbWIewkcnuwYG7YKl0TAxtZu15dCtvnqxd6TRS/SCxIkoGnTsdnUq3qcffdd87Lb
+	3DLTMgxVbyg5bmCmcCECub/Cvm4HDGda/nSaLveTk3Xd1/irVA6sxYCKlQZWNTKELSL0/tp0ZUl
+	XK1QimLcojdJFfI8uVMyZm8Trk/exk2T28YEA71M9xONbBMU9ZQkajVEqqEbY+95P+kjZn6Mqu6
+	vG1MvUtzUEG2/5EiQzbnWjji6p9IBOemRDLjgZ6bhw0Gl6RCLbsHbEaEmLZG/eCnpvnm2sljLEk
+	DC0OhmEkJuL6ui+FkPO+nU122jD4drSYtjmT5UItlA==
+X-Received: by 2002:a05:6214:dcd:b0:91b:9061:b7f7 with SMTP id 6a1803df08f44-91bdf059500mr152667696d6.20.1792429932077;
+        Mon, 19 Oct 2026 10:12:12 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c040d4cedsm723116d6.34.2026.10.19.10.12.08
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c040d4cedsm723116d6.34.2026.10.19.10.12.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 10:12:08 -0700 (PDT)
+        Mon, 19 Oct 2026 10:12:11 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-kselftest@vger.kernel.org
 Cc: linux-mm@kvack.org,
@@ -90,10 +92,12 @@ Cc: linux-mm@kvack.org,
 	surenb@google.com,
 	mhocko@suse.com,
 	shuah@kernel.org
-Subject: [PATCH v3 0/7] selftests/mm: add MADV_COLD and MADV_PAGEOUT contract tests
-Date: Mon, 19 Oct 2026 13:11:59 -0400
-Message-ID: <20261019171206.3331374-1-gourry@gourry.net>
+Subject: [PATCH v3 2/7] selftests/mm: check MADV_COLD and MADV_PAGEOUT range handling
+Date: Mon, 19 Oct 2026 13:12:01 -0400
+Message-ID: <20261019171206.3331374-3-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261019171206.3331374-1-gourry@gourry.net>
+References: <20261019171206.3331374-1-gourry@gourry.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,89 +109,111 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MADV_COLD and MADV_PAGEOUT share a page-table walker in mm/madvise.c
-that handles ordinary PTEs, PTE-mapped large folios and huge PMDs.
-Existing selftests cover little of its range, folio and permission
-handling.
+madvise(2) accepts a zero-length range, rejects an unaligned start, and
+reports an unmapped gap in the range with ENOMEM while still applying the
+advice to the mapped pages on either side.
 
-The walker has needed several fixes recently, and it's clear we need
-to refactor this walker to make it maintainable.  Ahead of that, let's
-add some selftests to at least cover contractual behaviors.
+Check each of these for both hints. Around the gap, only MADV_PAGEOUT has
+an effect the test can observe, so only MADV_PAGEOUT is checked for
+paging out both neighbors, and only if MADV_PAGEOUT can swap at all.
+Both hints' ENOMEM is checked first, so it is covered without swap.
 
-This series adds tools/testing/selftests/mm/madv_cold_pageout.c to test
-only behaviors userspace can rely on, so that it stays valid across
-changes to the walker's implementation.
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ .../testing/selftests/mm/madv_cold_pageout.c  | 80 +++++++++++++++++++
+ 1 file changed, 80 insertions(+)
 
-Each patch adds one group of tests, simplest first:
-
-  1. neither hint populates a hole, faults a swapped page back in, or
-     accepts a locked VMA
-  2. a zero-length range succeeds, an unaligned start fails, and a gap
-     fails with ENOMEM after both sides are advised
-  3. neither hint accepts a hugetlb VMA
-  4. both hints preserve shared memory, and MADV_PAGEOUT leaves a
-     SHM_LOCK'd page mapped
-  5. paging out all or half of a THP reclaims only the advised pages,
-     and MADV_COLD on half a THP leaves it intact
-  6. only a caller that owns or can write a file may page out its pages;
-     anyone else only gets their private COW pages paged out
-  7. nor may anyone else split a large file folio, whether a PMD or PTEs
-     map it
-
-We check whether MADV_PAGEOUT can swap/evict pages at all and skip
-relevant tests that would fail if it can't.  We do expect that the
-swap/eviction will happen within 1 second with retries, but this has
-been reliable on a reasonably unloaded system. We may need to increase
-that timeout if it becomes an issue.
-
-Tests that need root, THP, or hugetlbs skip accordingly as well.
-
-All 24 tests pass over three consecutive runs, with no skips and no
-warnings in dmesg, as root in a virtme-ng guest with 4 CPUs, two NUMA
-nodes, a 2G swap disk, THP set to always, CONFIG_DEBUG_VM and
-CONFIG_PROVE_LOCKING.
-
-In the same guest:
-  - unprivileged: 18 pass, 6 skip (5 need root, 1 needs hugetlb pages)
-  - root without CAP_SYS_ADMIN: 22 pass, 2 skip (need page flags)
-  - no swap: 16 pass, 8 skip (need swap)
-
-Changes since v2:
-  - renamed to madv_cold_pageout.c (Sarthak)
-  - pin to one CPU for the whole run (Sarthak)
-  - check swap and file unmapping once in main() instead of per-test.
-  - COW test retries, and fails if the COW page isn't swapped (Sarthak)
-  - gap test checks ENOMEM before it needs swap (Sarthak)
-  - reserve a hugetlb page as root, since run_vmtests.sh doesn't
-  - ignore /proc/kpageflags when pagemap hides PFNs (no CAP_SYS_ADMIN)
-  - shmem tests no longer require swap
-  - owned file test no longer needs /tmp writable by nobody
-  - folded patch 2 into patch 1 since it's really the same thing.
-  - comment and changelog fixes
-
-v2: https://lore.kernel.org/linux-mm/20261014175756.2035176-1-gourry@gourry.net/
-original set: https://lore.kernel.org/linux-mm/20260922235830.2350770-2-gourry@gourry.net/
-
-Gregory Price (Meta) (7):
-  selftests/mm: add MADV_COLD and MADV_PAGEOUT contract tests
-  selftests/mm: check MADV_COLD and MADV_PAGEOUT range handling
-  selftests/mm: check that MADV_COLD and MADV_PAGEOUT reject hugetlb
-  selftests/mm: check that MADV_COLD and MADV_PAGEOUT preserve shared
-    memory
-  selftests/mm: check MADV_COLD and MADV_PAGEOUT on partly advised THPs
-  selftests/mm: check MADV_PAGEOUT file permissions
-  selftests/mm: check that unauthorized MADV_PAGEOUT skips large file
-    folios
-
- tools/testing/selftests/mm/Makefile           |   2 +
- .../selftests/mm/ksft_madv_cold_pageout.sh    |   4 +
- .../testing/selftests/mm/madv_cold_pageout.c  | 971 ++++++++++++++++++
- tools/testing/selftests/mm/run_vmtests.sh     |   5 +
- tools/testing/selftests/mm/vm_util.h          |   1 +
- 5 files changed, 983 insertions(+)
- create mode 100755 tools/testing/selftests/mm/ksft_madv_cold_pageout.sh
- create mode 100644 tools/testing/selftests/mm/madv_cold_pageout.c
-
+diff --git a/tools/testing/selftests/mm/madv_cold_pageout.c b/tools/testing/selftests/mm/madv_cold_pageout.c
+index 5d451d409937..8cbbfd4c24c4 100644
+--- a/tools/testing/selftests/mm/madv_cold_pageout.c
++++ b/tools/testing/selftests/mm/madv_cold_pageout.c
+@@ -141,6 +141,86 @@ TEST_F(madv_cold_pageout, locked_vma_is_rejected)
+ 	ASSERT_EQ(munmap(mapping, page_size), 0);
+ }
+ 
++/* A zero-length range is accepted. */
++TEST_F(madv_cold_pageout, zero_length_is_accepted)
++{
++	char *mapping;
++
++	mapping = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
++		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	ASSERT_NE(mapping, MAP_FAILED);
++
++	ASSERT_EQ(madvise(mapping, 0, MADV_COLD), 0);
++	ASSERT_EQ(madvise(mapping, 0, MADV_PAGEOUT), 0);
++
++	ASSERT_EQ(munmap(mapping, page_size), 0);
++}
++
++/* The start of the range must be page-aligned. */
++TEST_F(madv_cold_pageout, unaligned_start_is_rejected)
++{
++	char *mapping;
++
++	mapping = mmap(NULL, 2 * page_size, PROT_READ | PROT_WRITE,
++		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	ASSERT_NE(mapping, MAP_FAILED);
++	mapping[0] = 1;
++
++	ASSERT_EQ(madvise(mapping + 1, page_size, MADV_COLD), -1);
++	ASSERT_EQ(errno, EINVAL);
++	ASSERT_EQ(madvise(mapping + 1, page_size, MADV_PAGEOUT), -1);
++	ASSERT_EQ(errno, EINVAL);
++	ASSERT_EQ(mapping[0], 1);
++
++	ASSERT_EQ(munmap(mapping, 2 * page_size), 0);
++}
++
++/*
++ * An unmapped gap in the range makes either hint fail with ENOMEM, after
++ * advising the mapped pages on both sides of the gap. Only MADV_PAGEOUT has
++ * an effect on those pages that the test can observe.
++ */
++TEST_F(madv_cold_pageout, unmapped_gap_fails_after_advising)
++{
++	bool swapped = false;
++	char *mapping;
++	int retry;
++
++	mapping = mmap(NULL, 3 * page_size, PROT_READ | PROT_WRITE,
++		       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	ASSERT_NE(mapping, MAP_FAILED);
++	mapping[0] = 1;
++	mapping[2 * page_size] = 1;
++	ASSERT_EQ(munmap(mapping + page_size, page_size), 0);
++
++	ASSERT_EQ(madvise(mapping, 3 * page_size, MADV_COLD), -1);
++	ASSERT_EQ(errno, ENOMEM);
++	ASSERT_EQ(madvise(mapping, 3 * page_size, MADV_PAGEOUT), -1);
++	ASSERT_EQ(errno, ENOMEM);
++	ASSERT_EQ(mapping[0], 1);
++	ASSERT_EQ(mapping[2 * page_size], 1);
++
++	if (!can_swap)
++		SKIP(return, "MADV_PAGEOUT cannot swap");
++
++	for (retry = 0; retry < PAGEOUT_RETRIES && !swapped; retry++) {
++		ASSERT_EQ(madvise(mapping, 3 * page_size, MADV_PAGEOUT), -1);
++		ASSERT_EQ(errno, ENOMEM);
++		swapped = pagemap_is_swapped(self->pagemap_fd, mapping) &&
++			  pagemap_is_swapped(self->pagemap_fd,
++					     mapping + 2 * page_size);
++		if (!swapped)
++			usleep(10000);
++	}
++	ASSERT_TRUE(swapped)
++		TH_LOG("MADV_PAGEOUT did not page out both sides of the gap");
++	ASSERT_EQ(mapping[0], 1);
++	ASSERT_EQ(mapping[2 * page_size], 1);
++
++	ASSERT_EQ(munmap(mapping, page_size), 0);
++	ASSERT_EQ(munmap(mapping + 2 * page_size, page_size), 0);
++}
++
+ /* Neither hint may fault a swapped page back in. */
+ static void check_skips_swapped_pte(struct __test_metadata *_metadata,
+ 				    int pagemap_fd, int advice)
 -- 
 2.56.0
 
