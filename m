@@ -1,197 +1,150 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BEC31194C
-	for <linux-kernel@vger.kernel.org>; Mon, 19 Oct 2026 01:17:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3904D2701B8;
+	Mon, 19 Oct 2026 01:18:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792372633; cv=none; b=dN/JZsSd/+8+5EczChHNh+YnCORE+AEc6eyfj/IXSEM/6W6ITEq1tHciCTAx1Vxah5tVAscqOLSWAHB7T7ft3s/8OYd9qg7TNC/lER9QUTpY5fO4CU/ytQsXUss/7WTWeEWmC3O8J+F9167+qqds9n4Lirzpp/KNRa0aOhpBwcc=
+	t=1792372711; cv=none; b=Pq8N9Dq7P4i4RDq3Kq6I3xjMGchFNlu1SvPMoPcJdx+fsmBf+I9HCw6xpF5JwFfosGeHE+kHYRGPjFxBuC+UZ6xjEtvSswFRunY7v0y06xbI24+LiDKpdrOjk/iFGkfnmZWKzMf6HxKnYSt4k2lsafAlR1tztdkZGr55fpx5HV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792372633; c=relaxed/simple;
-	bh=lHZqNYYXwhP6kUYddjnLkScGt2Qj0fv+ATQPgasBkTM=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=Pe043yvdc6X6kR0LUVoofSYJG9kr0KrB2j59jcdPD79cMwilfo6ZscKIe4TsFoZRXAeR7B/SjsDGPtTyjiWaMBt5fGCblpV2e/8BJgXIGOf/Ki0jh5umQFxACeH7takiG331yfj3B62FgudPv1+Skcr0LP7W5ur7fPYuJRvMAjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MuIFT9o2; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792372711; c=relaxed/simple;
+	bh=QOLXutMGhg/dsjCWuURQEaaUGGiFKTyeKyDmSz97Gw8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eLFmmfQA34LVu/Gth4Wn8I1FXicXp+rDJnYVIOpN5c3ehchPRXZi5THYn552Tu16NOwIJFWV1ELtOfqMb5NxJK5iC/t8oMNnHEx27eagd3Rv6fg0vxmz0+o5FHjpFlMt4tq2F/4QANPP39f7dCh9bRnSvHA+Zod9hNAHbHc6VfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=V47D3As3; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MuIFT9o2"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-17bc533fda3so1714590c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 18 Oct 2026 18:17:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792372629; x=1792977429; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=GYcC1zpNIexSJ7Tb92Jn1IVQJ53RYnQjIQBtHmGKTjk=;
-        b=MuIFT9o2xzQmtsPkAnK4pZuWyF13ir2Zz43lEYKp5iDRN2Ss+NknUBtFv87TNLMrmT
-         0zdFUYxl1Ph6H29bnHzAy3q84wKGsc22nGNivfNIoLTfY7Orvnf8ugbNfNJT0cK8EDYG
-         U2pg+kEAzyD8bI96KV2ZuwNP4Wtvy/awhajoCfuLnwzIYB9w4SpqwVTiIZc+n4v/5Ufb
-         nARqyTNIwtqhuzW++qfpERVbWcKaVdAhz2P+6OT8RS2VWhveNVEL0ppkvJ+lHw8jdlQD
-         fzGWIdKaXrXK+YENW8s4KobLpxmnzVUqPBjhatktUSfc349gFmgpoa+UjN0ORBdyW9dS
-         7vew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792372629; x=1792977429;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GYcC1zpNIexSJ7Tb92Jn1IVQJ53RYnQjIQBtHmGKTjk=;
-        b=RV3U9ScODtp0szxDiET0GGfhilosSC3iqa8UrBGi7RahQA6uhZVlRhZAyHqDu8Ledo
-         vFv76hdDWat70iq7TR9lj0JEscztLX5/wHVkVIPFJoJKwxNRPSNyPZKICIrBw0F6bISv
-         SF+pZupg9M2FHdNxcT+i7mjxlpYJJNdVSmmQ/VUpiS9dHeC9amjiEsNTB2ziTHwo+t3Q
-         YmNTh7Q8WjmkgohBd3vM3mQaOFlY7HPHSPmX/v2ZpJIHGJNtT1kI3Q4W4cyvmZgJsWEJ
-         ta7AhM3BKtU5xoBjTwgguLnjueGENEvz0StWZzevXJWxgbmhhF2Ka1A0QQmXzqqc84PM
-         7lxA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFIvcrg0TfBT913iVIxQrpXoSGbKk+KwQ2Tt6mQw/srPMAQEahquV6nF3isRmcvRr9py7l5zevlxU4ecQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZaicDw4GjDo0rj0D7CBzgxph8GygV/RptNQ8NIkZlu+29d5he
-	PgCalF5CxClv7p29PYhXt9hoT2qPy2UWgDn6CplAoyWkQ166DOrE1/hG
-X-Gm-Gg: AYBFou2M8TyTzULtl1RznvfW/WgeAyBGDoOAqFbkBzQfZ3liBV5CFAxHR4uJG1v7mrf
-	qXUVYOGZ5tLEFeTe358Dwqvo4vfQYO+7kf2u03KO1PlwdxjTSI7Zq5BiTjw/F2Hyn/k2rsNduHw
-	bWpyNu9VDx3qxgrsA+FM1xNeFiQiEjdBa+Cxlj3X9WUHuGXvx5I2kzMiOkAOewoz8VH6PazX12d
-	elj1MSaRjwTlX9R9Fa1nti4SnxEBo57WHOnH83D5JJU/V10vljrGFRq+3PDTd0ogVsI/KOB1wQF
-	PM2U2ArVQ2PWuhW7Yf4mw97Dmx5LSC170Ehal0RbK5D89jaYEbtvCBpY4FKCymGXjlmYeW7YlUw
-	Eva+CsdXROv4nzpkEKXXfHbqQHZ/lD7yMcSa5kWlkZBkK8pH998XGjVyi9Nqr7160yrl/KodPxC
-	9GQeaCZRKqL9qvDub1h2PMAy7Xdvboa059HGF3NS5VuVlM5PZhigWiDfhyIN7CyO0npmb1ep5uB
-	n9/D4IGene+4oSDG1ejaAfee61ZWEAP7f+taUUmkEPZqXqcF01oTZ3K0yrQqopxEniI
-X-Received: by 2002:a05:7022:b043:20b0:189:d6bf:7ec7 with SMTP id a92af1059eb24-189d6bf8278mr2830707c88.19.1792372629290;
-        Sun, 18 Oct 2026 18:17:09 -0700 (PDT)
-Received: from ehlo.thunderbird.net (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831c2e7bf4sm21803582c88.20.2026.10.18.18.17.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 18 Oct 2026 18:17:09 -0700 (PDT)
-Date: Sun, 18 Oct 2026 18:17:09 -0700
-From: "Derek J. Clark" <derekjohn.clark@gmail.com>
-To: Rong Zhang <i@rong.moe>, Ike Panhc <ikepanhc@gmail.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>, Hans de Goede <hansg@kernel.org>,
- =?ISO-8859-1?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-CC: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_0/2=5D_platform/x86=3A_ideapad-lap?=
- =?US-ASCII?Q?top=3A_Fix_unexpected_charge=5Ftypes_on_probe?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <e7e6423eb2a358faa0d2a26fddd0f992e3d03448.camel@rong.moe>
-References: <20261018-ideapad-fix-charge-types-v1-0-db52e3bb061a@rong.moe> <DB59F3C0-040F-4663-9750-C387963DCFE3@gmail.com> <e7e6423eb2a358faa0d2a26fddd0f992e3d03448.camel@rong.moe>
-Message-ID: <C49666E5-E76A-42E9-8CEA-6195D066A02B@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="V47D3As3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=3Q
+	P+wIe4QmUY+tlCZQ6eAhcTPkQre7gSIKJlJZj1oM8=; b=V47D3As3MCXylmv7zy
+	txM2J4Hv11qbk/UYg6UwwVVj7qGxzB2i033doLb+/Q9OL0urvK96yHXbeb3O3QLc
+	h3dQbp6lM2ACrowrfu53ojxaQ9zn98djvl4/PGbroEfF/b39cvl/vgnV8bc+pvWU
+	CCxZKgEjTTWEn+Kb8/KhZreos=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD333iWb9Vqfw8vAw--.37579S2;
+	Mon, 19 Oct 2026 09:17:13 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: netdev@vger.kernel.org
+Cc: sam@mendozajonas.com,
+	fercerpav@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	gwshan@linux.vnet.ibm.com,
+	joel@jms.id.au,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v1] net/ncsi: fix use-after-free of ncsi_dev_priv in ncsi_unregister_dev()
+Date: Mon, 19 Oct 2026 09:17:09 +0800
+Message-ID: <20261019011709.432664-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261017015315.415794-1-18983559317@163.com>
+References: <20261017015315.415794-1-18983559317@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD333iWb9Vqfw8vAw--.37579S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCr45Jw15GF1fWr4fCr43trb_yoWrCw43pF
+	W5WFWYy3ykZrWUXFWkJF4fXFyruw47Jw45Z398KrW7Cay5uryIvryfKa1UZFy5CFs7uw40
+	vw4jvw4rXa1kAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jbGYLUUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4BkS9WrVb5mnqAAA3Y
 
-On October 18, 2026 7:19:33 AM PDT, Rong Zhang <i@rong=2Emoe> wrote:
->Hi Derek,
->
->Thanks for you information=2E
->
->On Sat, 2026-10-17 at 22:30 -0700, Derek J=2E Clark wrote:
->> On October 17, 2026 4:16:17 PM PDT, Rong Zhang <i@rong=2Emoe> wrote:
->> > It was reported [1] that some unfortunate combinations of BIOS and
->> > Lenovo utilities (e=2Eg=2E, Legion Go 2 + Legion Space) may enable Ra=
-pid
->> > Charge and Conservation Mode at the same time, which is very out of
->> > sepc=2E
->> >=20
->> > If both are enabled during a previous Windows boot, ideapad-laptop wi=
-ll
->> > see both bits set and correctly shout "unexpected charge_types"=2E
->> >=20
->> > A planned BIOS update will address this=2E Before that, if unexpected
->> > charge_types are encountered on probe, enforce [Long_Life] to prevent
->> > the device from operating in an out-of-spec state=2E On check or fix
->> > failure, skip registering the battery hook and the conservation_mode
->> > attribute=2E
->> >=20
->> > Note: the switches never enable themselves autonomously, so there is =
-no
->> > need to fix it during runtime=2E
->> >=20
->>=20
->> Hi Rong,
->>=20
->> Note that this isn't strictly true=2E A known bug in multiple Lenovo de=
-vices is that querying the EC too quickly can cause it to reset into an inv=
-alid state=2E I=2Ee=2E some games run under wine for check the state of the=
- AC adapter multiple times a second=2E In such a case they can reset and th=
-en report both modes on=2E=C2=A0
->>=20
->
->Could you confirm if it's a completely different issue compared to
->https://msgid=2Elink/58586fa666f09c209f9d7fe8c692a8bdda6d4410=2Ecamel@ron=
-g=2Emoe
->(i=2Ee=2E, an ACPI mutex ABBA deadlock cause the GBMD method to return
->garbage data)?
->
+Thank you for the review. All four Highs are legitimate and will be
+addressed in v2. One note first: of the two remedies you suggest for the
+ftgmac100 teardown, the reorder regresses a BUG_ON; the clearing variant is
+the one to take (item 4).
 
-I believe it is=2E The invalid state survives a power cycle and is precede=
-d by a process hanging for a few seconds before the EC resets=2E It can be =
-reproduced repeatedly by a simple bash loop that reads the state multiple t=
-imes a second=2E
+1. [High] monitors still running during the removal loop; request timers
+   never cancelled
 
-- Derek=20
->> I don't believe the device re-enumerates in this case=2E This is docume=
-nted in the driver [1]=2E
->
->The comments and the relevant fix was added in a patch of mine=2E They ar=
-e
->about yet another different issue, in which querying the EC with an
->interval < 50 *us* causes the EC to shut down the platform=2E
->
->Then the user must press the power button to power on the platform again=
-=2E
->It's a cold boot=2E All kernel drivers are loaded from scratch, so the
->probe-time fix here takes effects=2E
->
->That being said, as far as I can recall, running into the issue doesn't
->set both modes to enabled=2E Besides, userspace checking the state of the
->AC adapter multiple times a second must have an interval much larger than
->50 us, so I don't think the issue you described is the same as the issue
->described in the comments either=2E
->
->>=20
->> Lenovo ha mentioned to me a BIOS fix for this issue will be coming for =
-the Go S and Go 2 at some point as well, but this isn't exclusive to Go mod=
-els=2E It may be prudent to fix any time an invalid state is detected=2E
->
->I am OK with the fix-whenever-seen approach, but in this manner it'd be
->better to wait until
->https://msgid=2Elink/20261018122348=2E679126-1-aliamemis@disroot=2Eorg is
->applied to solve the ABBA deadlock issue, so that false positives during
->runtime are reduced=2E
->
->Thanks,
->Rong
->
->>=20
->> Thanks,
->> - Derek
->>=20
->> [1] https://github=2Ecom/torvalds/linux/blob/32c52ec87d6245ee2d12ed5dd5=
-09e40062939b50/drivers/platform/x86/lenovo/ideapad-laptop=2Ec#L286-L296
->>=20
->> > Fixes: 90430ea98f55 ("platform/x86: ideapad-laptop: Add charge_types:=
-Fast (Rapid Charge)")
->> > Closes: https://github=2Ecom/ValveSoftware/SteamOS/issues/2876 [1]
->> > Signed-off-by: Rong Zhang <i@rong=2Emoe>
->> > ---
->> > Rong Zhang (2):
->> >      platform/x86: ideapad-laptop: Factor out charge_types methods fo=
-r internal use
->> >      platform/x86: ideapad-laptop: Fix unexpected charge_types on pro=
-be
->> >=20
->> > drivers/platform/x86/lenovo/ideapad-laptop=2Ec | 113 ++++++++++++++++=
-++++-------
->> > 1 file changed, 84 insertions(+), 29 deletions(-)
->> > ---
->> > base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
->> > change-id: ef28eda4-ideapad-fix-charge-types-067d46d08945
->> >=20
->> > Thanks,
->> > Rong
->> >=20
+   Agreed, this is the real hole in v1: dev_remove_pack() has already cut
+   off responses, so every in-flight request's one-second timer is certain
+   to fire, and a monitor GLS armed between dev_remove_pack() and the
+   removal loop is queued behind kfree_rcu(ndp). v2 quiesces everything
+   before the first package is released, in this order:
+
+       dev_remove_pack(&ndp->ptype);
+       disable_work_sync(&ndp->work);
+       NCSI_FOR_EACH_PACKAGE(ndp, np)
+               NCSI_FOR_EACH_CHANNEL(np, nc)
+                       ncsi_stop_channel_monitor(nc);
+       for (i = 0; i < ARRAY_SIZE(ndp->requests); i++) {
+               nr = &ndp->requests[i];
+               spin_lock_irqsave(&ndp->lock, flags);
+               used = nr->used;
+               spin_unlock_irqrestore(&ndp->lock, flags);
+               if (used)
+                       ncsi_free_request(nr);
+       }
+       list_for_each_entry_safe(np, tmp, &ndp->packages, node)
+               ncsi_remove_package(np);
+
+   disable_work_sync() runs first so ncsi_configure_channel() cannot
+   re-arm a monitor afterwards; stopping all monitors before any free
+   closes the GLS window; ncsi_free_request() then takes each outstanding
+   request down, deleting nr->timer synchronously and releasing the cmd
+   and rsp skbs (nr->used is read under ndp->lock).
+
+2. [High] only the outermost ncsi_dev_priv gets an RCU-deferred free
+
+   Agreed; the channels and their filter arrays are deferred in the
+   companion series "net/ncsi: fix use-after-free of ncsi_channel in
+   ncsi_remove_channel()" (msgid
+   20261017024947.420683-1-18983559317@163.com) and the packages in
+   "net/ncsi: fix use-after-free of ncsi_package in ncsi_remove_package()"
+   (msgid 20261017012431.413648-1-18983559317@163.com).
+
+3. [High] kfree_rcu() does not protect the netlink reader, which resolves
+   ndp through ndp_from_ifindex() without RCU
+
+   Agreed. The readers enter rcu_read_lock() in the channel companion
+   series, which also keeps the genlmsg_new(GFP_KERNEL) allocation of the
+   PKG_INFO doit outside the critical section -- that sleep window between
+   ndp_from_ifindex() and ncsi_write_package_info() is exactly the
+   "ndp->package_num at offset 160" access of the first KASAN trace. The
+   residual you sketch at the end (a CAP_NET_ADMIN NCSI_CMD_SEND_CMD
+   slipping a request in between the request sweep here and the deferred
+   free) cannot be closed by RCU lifetime alone; it needs serialization
+   between the genl handlers and unregistration, and I would like to leave
+   that for follow-up work rather than widen this series.
+
+4. [High] the ftgmac100 teardown UAF is only made less likely
+
+   Agreed that the fix must not depend on grace period length, but the
+   first suggested remedy is not viable: registering the NCSI Rx handler
+   sets ndp->ptype.dev = dev, so it sits on the netdev's
+   dev->ptype_specific, and netdev unregistration runs
+   BUG_ON(!list_empty(&dev->ptype_specific)) -- unregistering the netdev
+   before ncsi_unregister_dev() hits that BUG_ON. This is exactly the
+   crash that 3d5179458d22 ("net: ftgmac100: Fix crash when removing
+   driver", 2020) fixed by putting ncsi_unregister_dev() first. I will
+   take your second option instead: v2 adds a second patch to the series
+   that clears priv->ndev and priv->use_ncsi in ftgmac100_remove() right
+   after ncsi_unregister_dev(), so the unregister_netdev() ->
+   __dev_close_many() -> ftgmac100_stop() -> ncsi_stop_dev() path no
+   longer walks the released objects (it becomes a no-op), with its own
+   Fixes: 3d5179458d22.
+
+5. Pre-existing issues
+
+   - The ncsi_vlan_rx_kill_vid() use-after-free against set_one_vid() is
+     fixed by 9c7e89fc1b68 ("ncsi: Fix use-after-free in the VLAN id
+     list removal"), which is in net-next already.
+
+   - The ndp->vlan_vids leak on unregister is real: after ncsi_unregister_
+     dev() has removed ndp from ncsi_dev_list, the later
+     ncsi_vlan_rx_kill_vid() from the 8021q NETDEV_UNREGISTER path finds
+     no device and the entries leak. Freeing them from
+     ncsi_unregister_dev() with kfree_rcu() (same release discipline as
+     9c7e89fc1b68) is a natural separate follow-up patch.
+
+pw-bot: cr
 
