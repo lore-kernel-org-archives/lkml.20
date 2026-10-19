@@ -1,137 +1,306 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013055.outbound.protection.outlook.com [40.107.201.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6D63FB7DE;
-	Mon, 19 Oct 2026 13:05:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792415151; cv=fail; b=tu5ZqG+83zGAbJ4B0cFcGq6JwL90xmmr8ltttpQezdXbuverjoqNrnQ49/L4pXPBR1whAfhtfq32bl7w1edkHVJz5QQ7x2q21bhOxXFjpRqaPAid1QQYXh3NKSdFRz10JXFEXlPYLnGPfM36pKZVnwcNZl2gihRN6iIvPPI+WFo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792415151; c=relaxed/simple;
-	bh=WrSzJMktk1a9r9X0r/SN/rrqjWVkahLeSXibidoVxjk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=q+CSQCrCTzfrn/vz+IGlnjkWGzQVTy9AQa0R3r6gv5x4yX454wJE2HJ7JlzEYRT3+43cu4W8d2DXPobRqOqjMDZ+AzQeuWPK9i3bF3e3ORAYLLBYqsbW9VQDayGt2I3KfmimTo9WJWfZauTH8jY9HYHbHhQ5otepS+vGPCSz11k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GJpUmi9e; arc=fail smtp.client-ip=40.107.201.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9290C4E50A2;
+	Mon, 19 Oct 2026 13:05:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792415152; cv=none; b=Icq0FhEnhqyXJKxIWx+A5GBgvtn9ksJszVmINtoH6DVxMPb3dkIphZTeoH6PQ+C5J7zIiKDsTJi0U5VyzhepGw1nSplUdtCAqon2nhsRzuWzzrDDGsDP58c6wwOJidYQblCScSbu+C3qxCEmoiZW93N/9AVcXljUnqwx67uOxCk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792415152; c=relaxed/simple;
+	bh=3Ijrg3nEW+Z17uhEmZsWAsOO3cT9MIRzO2ioDezjdyU=;
+	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:MIME-Version:
+	 Date:Content-Type; b=tuaxGxFS00nUXL1oNTpFYBSJtGDl9NvAHeImMIeJOz3oPDnfQVWUJTK77AApg5KimOL7K1XUr+s6Tf6bsFqs9BcbBBw0VFQXmxb/wLRE/RMRljPhiZidfOm0NLs9i6qV2imTCviJkHsgB2jvjm3EFr8KV4W5GRj9n8SYh5CCIqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ra2+o0mG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GJpUmi9e"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pwg/v4G8LGDp+Nqx91OwVl8MJ204BfvAwMrkcPBXhJMSbvviU9x7Q+8BMW5WuhNLeXWusOYuFAVQ/PFp5eG75gCNU6q2oE7kvDXqSzkscxjWQ9TW+uTK3BqQ5YSC3myBw9I5381ocA/9gxJVHFinSfRcqIHLm2gUMeyfL5nV7GDLvzEUnYtgK5ctUDDeMWyjPDacQ5/4DMaHYAPCRHcmrC6m6ELALYPj8z+MS4HZKzKKCWnPXWiRpWiPapj5zMoFUeFrypaGwHwy9Dzb7pTdTz6cY99UdA/BHWIN6UGMX7URKl4/BN9tMNUFL+0ru/xdv3CGtWrb+siqu1KY52G9vA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vV9mNTSUg7EC72LOwcSOQqQ6ZUexSemRPO01pc7mC6s=;
- b=Dn4NzwicSpq2mQ+3Sv9qc+Taxgkmp+K08uS59065d4ZzcM0r5rf+ENksX6zR/7l4kTNu75FouH+j32wPOt/dUF8cuUvMF1efXDqutjounpZBfy1O4/T2JUCrUm22Nj+wiW0KVi6U8zugNmM/w8MHgEc9hpOeLmelSpocUUQff+PN4VXFq06qzDKPPLvCVOF1khyS24PaVzlgy1zcM5CA7vEim0TnX8Wsv/6To7OVuTNorMi3G8QWDSbsP7Cl1HLt2OAnVMb2qo1H8p5+7DsYhHxao53o92iP2SRbCf7z46wEEBMZjBiRcFt+H7NTu+zeF+lPk+eWA48fBzPDu0E2ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vV9mNTSUg7EC72LOwcSOQqQ6ZUexSemRPO01pc7mC6s=;
- b=GJpUmi9eyDnZetujbrpgpjn5vPWsS/8Qiy57Oa7rWE4xzwEf3hgsd9rlWGmrweA1F6ZCLOsbCR21OrX9fByYcy+lvN9vNDA3PeZo3tQAUa6TuT4cs/utcAx4imOy4CiwtSbhHQKN3jRzHZWH6Cxw2Qr+bjvJ7r/krA8Afo38WfI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- PH7PR12MB9101.namprd12.prod.outlook.com (2603:10b6:510:2f9::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 13:05:44 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 13:05:44 +0000
-Date: Mon, 19 Oct 2026 09:05:35 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Guixiong Wei <weiguixiong@bytedance.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Muralidhara M K <muralidhara.mk@amd.com>,
-	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] EDAC/mce_amd: Add missing long names for SMCA bank types
-Message-ID: <20261019130535.GA1517@yaz-khff2.amd.com>
-References: <20261009020447.90758-2-weiguixiong@bytedance.com>
- <20261012140330.GC15198@yaz-khff2.amd.com>
- <20261017195145.GAatPR0dQVZGEMHglh@fat_crate.local>
- <20261018223431.GA3236@yaz-khff2.amd.com>
- <451788d5e97cba38274e663d2b7952c593e959be.461d4034.890c.4720.915c.a7839a9cc59e@bytedance.com>
- <20261019041909.GDatWaPatyL2pHDLKo@fat_crate.local>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019041909.GDatWaPatyL2pHDLKo@fat_crate.local>
-X-ClientProxiedBy: MN2PR18CA0028.namprd18.prod.outlook.com
- (2603:10b6:208:23c::33) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ra2+o0mG"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0BB01C2BD00;
+	Mon, 19 Oct 2026 13:05:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792415152;
+	bh=3Ijrg3nEW+Z17uhEmZsWAsOO3cT9MIRzO2ioDezjdyU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Reply-To:From;
+	b=ra2+o0mGX8n/DndFX5/8mCiymm8uBR61LUtcji4+ocdNJGPjDobg3nT8IpoivUT3q
+	 isR/tjokCbGuoHfaaKeWd9d1t9ICP0fI3ZXvHm91UzU3ZVH7pCTEE286vftqkl3ORZ
+	 Uj6BYVP5E18XVtLVaY8UyfMOAaNJzxKSLowjDrqJl38Auglc4hXvbo2fUID3p+s02F
+	 fI50CqDxDW5kXKThLiwys3VQGViX/nGQ0ssGhv6Acyzo/tuPQHtaM4ICJPaG520fuK
+	 aKEukE/tb3GeN2VtFiM80vduY8pHHvqOGa10DK6nCzQyoxQ3lEr7krojekVN//6QrC
+	 VykaUZd/U1QlQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3FAFCCF2DB;
+	Mon, 19 Oct 2026 13:05:51 +0000 (UTC)
+From: Wenqiang Zhao via B4 Relay <devnull+berringtoni36.gmail.com@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, linux@analog.com, 
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Lothar Rubusch <l.rubusch@gmail.com>, 
+ Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: [PATCH v4] iio: accel: adxl345: separate event state from query
+ errors
+Message-ID: <20261019-adxl345-event-v4-1@gmail.com>
+In-Reply-To: <20261018-adxl345-event-state-v3-1@gmail.com>
+References: <20261018-adxl345-event-state-v3-1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|PH7PR12MB9101:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8cd5b01-f382-4c0e-9fa8-08df2de1af5d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|4143699003|11063799006|18002099003|10067099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	L8wlniowukMJw6327P8Pyfa2RmGvrf5RyPhVRMgIoggaVcP0sHW3GATOIJ15C3OAy79d7aelZpQ2OuWse1P3THVQB2g+mBoNtHgpNZn1T/XNxBZglU4KW4AfrjldtQP6hp5umVuIWqtWokIoqq1TI2SEJBe1BXpVT+1+bNL+7L4NaX1BaLd2NY2yHApHNDc7WUxJbm25BJ5js/7lQZX5phv8WgOhJvst4JMikaRK43Wp/N2oL7Dhog7CfGmD9nBRQsUF1DmhvwjLYSne81IRyc8XXW2mXCIc4kTuL3qLQNnsVnZu+3ia5qrOVycI5dev8AOtQaaeS6Ao4vfJ9ImdLQBx6Amp1uzaS052dtV4tOYvrF8caNKTQ7CsPqcAxmYeobngvHRoSJ7WA/puausCJdXFh9H7IgKjxwimf952QIFrDDDehYS9/YtSoBsmKvpyWUYsMB0f8aoX4z58nK94ZGkmwpiq5fRkCgMwC39PLXF79BUZxne+MHeGkai8Tr0ZhBSYNaUAp3FzXA6RgHVJHmseLyA4d9h/u5X2CHE4/EkWiAVw6pMk1qtuaAAox5G8NFUYWs0aIUrMAW4VLkdsuWPfRfFS6J2R/+VOS1s5ZK3C9vPqUC/DxPcuYD6N68LTj2uasTjIpTRXtW7YlylwxX2dRWjPim9DaiYs03Pwfhw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(4143699003)(11063799006)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cbRKYbA1rdPdwM45PhG/i/qYdvKi+55tl3clisY2lC8+Z1lY6fvbICJ7lRam?=
- =?us-ascii?Q?4M934mL/jitB+M1VICyQfOzjKto0Kdma9KHYojsL7l8ZvGLsOfh96WuVN2Ml?=
- =?us-ascii?Q?/Hrm3RKNcjlNuMOBf9/PlIV9xj9iKTNGBGIjqRW0W8RgXJ6HV4i/F8PGlfjl?=
- =?us-ascii?Q?eb/iAGvNbA4jIx8gDuZAXMPNmnLY6PB+rgBVlV6r0k9laWdZGgEBgxqGOZPJ?=
- =?us-ascii?Q?Xu5cYiBKbdtm35Ez3xbT9s8d7u/wWOzELUn8aN8YhNcbmmJ3taG5T7ataP6V?=
- =?us-ascii?Q?OPsxNt08mdlJRdb9M1cdvaHtu9YIjERDUY+cDv7GdaRLkjlJyxtO/YKWfUfJ?=
- =?us-ascii?Q?KgFlYvx+3U1RrjYMI+sVIZT5xhvnFK+z8vdqc9ie8Pam84pWund64puK61M0?=
- =?us-ascii?Q?zJ5cv+OIbs48TEz/9/5ZEShOGGXVWpKvy9Cbq+9kOEsqu7eyh6PTBi294EOb?=
- =?us-ascii?Q?81ejY4Pa8A44SrG2g6zdxNA8IgfPImpu3PaEpvVchiG4PWatCf8yVWPREZs5?=
- =?us-ascii?Q?2UmiTL+2nBYHuzgkx88DLA0S92DmOMLmsPYTolg4iwbM9Rd2dZWW8azuVRp8?=
- =?us-ascii?Q?V9bCoZ/z78Smc0VQ1PXl0vGnZeL1ez2ETWs6xxu7SRaLD50D7IfXcgopcxr1?=
- =?us-ascii?Q?yHVyJHQqMfCPalyKEf7dfsczHsspHzhGMFYqj7BPD3m2hOh4MAvYNyDkZTH7?=
- =?us-ascii?Q?EC3V93boSAMwq0RZFFyWII/CNSnfyP1NKskxpuaPpJRuvUFswjoovCGn9zCu?=
- =?us-ascii?Q?1LFqFwyngveoUpWjKMs1dkI4GkBLo2UhJEoTwahrlNF/GD5qv4Y3lpGmLVj8?=
- =?us-ascii?Q?IU8ZrXxwrc6Z2fA52qh1AsCgCWG2Hon83I4xekak0AHknzZrVkudOFisSOIj?=
- =?us-ascii?Q?onyFcIY7afRby5S7SUMQZyPfJwsUoY+Ub5vXq1hytFqhJ4Wp9JU3xJowo1yQ?=
- =?us-ascii?Q?EPVQhdvBd/R2SNyTbKguprdqGnOjbGW60CCKQ4PBQr3MH4gQ/vQ99IzVCI7m?=
- =?us-ascii?Q?ODmn/r5bwpRTEu0+PucjtY45tZr2gU2mCB8TQ3uWSn1M8iuwXxPxjD3NJdhv?=
- =?us-ascii?Q?gWsnW64fx/ut0lsm329miJw+173sAJnCMsZ2l4BjCZp9px7Odcqfb7y2//CT?=
- =?us-ascii?Q?PogbqlSKw/xNQ7AnTSMPzAsdFVks89EnKRlDhgCusupliH49OKAFyWxRRnfL?=
- =?us-ascii?Q?k8eFHbrFBi9/aVZC0dycHuB2cgA0cQ0n2xTNKK/nCjwcuyRJOKS5XGv4zkWr?=
- =?us-ascii?Q?MyIF+QfKPcNlP76pkTKauC4jAZ9YFUw0na+z4P9pRou6P9OBJVhpSIfliD8T?=
- =?us-ascii?Q?dIo4uVfdmoycy47EaE9mhZk8coh6mOrufyXkkRq38g2VnqjBkuxEl8z6B/H/?=
- =?us-ascii?Q?bqo9NpsEPaMZXBYX6xIxj2H9OfuS0SxiZD5sdzxHj8UAsqPZprjjmh8b3/0J?=
- =?us-ascii?Q?CyKW7udDy9vfXE3D+j9A5ELw6YmU4mw0sX616tUNjApdN8hQfPrpflZhGE5v?=
- =?us-ascii?Q?85lTYtP2q5IAtyb4Z+L9TzOd+YSDxCwcgh4Ba5StKhU09mH8f0G4jZ4qJ8ja?=
- =?us-ascii?Q?a5EiwLNuq7rblEbyaCrU5KhhDB/GuLrHzjcx/FobQC9Wj/qw0btvEeM07S4r?=
- =?us-ascii?Q?5K8jGB5jtr1mdcke8gfgFNBFXejFeKdsncDx9eFGeTNppigIi9IYC7paL5mc?=
- =?us-ascii?Q?xu2i0/ymugTbIu7mNLJAkfE8Z4RGxmCVph6kIa9UgYmeFlpu?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8cd5b01-f382-4c0e-9fa8-08df2de1af5d
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 13:05:44.4442
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tBJf15pcut+M8NAetL2Utoh8rgmUz9CYlWw4GpAJnKkkqxI1LzdUTEbZXEyvZSmihQ6KJpo3C75lgKQISWmUcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9101
+Date: Mon, 19 Oct 2026 21:05:20 +0800
+X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792415121; l=7771;
+ i=berringtoni36@gmail.com; s=review-20261018; h=from:subject:message-id;
+ bh=t6MX/8oGIufvmp0907rushGQ7MJGcxeEuUhw9O58mVY=;
+ b=+iD6jIob0adQBB1sjk0Xq5Pw44m5vRn96DkCexoxkzhaufm15fjX1fwISukvuOG/es5J6//Er
+ wCJVik6qpHYB0zorUtTwkVqt5wygZCGkANYyJlk0mgQ7fSei05z/VdS
+X-Developer-Key: i=berringtoni36@gmail.com; a=ed25519;
+ pk=rRiAvRvS4MMqogNnloZgVnqWliVWNDq+PcP6vMYXOvs=
+X-Endpoint-Received: by B4 Relay for
+ berringtoni36@gmail.com/review-20261018 with auth_id=1226
+X-Original-From: Wenqiang Zhao <berringtoni36@gmail.com>
+Reply-To: berringtoni36@gmail.com
 
-On Sun, Oct 18, 2026 at 09:19:09PM -0700, Borislav Petkov wrote:
-> On Mon, Oct 19, 2026 at 10:16:32AM +0800, Guixiong Wei wrote:
-> > Regarding Boris's earlier comment, I agree that the Cc: stable tag
-> > was not justified here and will drop it.
-> 
-> You don't have to resend - I'll fix it up.
-> 
+From: Wenqiang Zhao <berringtoni36@gmail.com>
 
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+The activity/inactivity query helpers return either a boolean result or a
+negative regmap error. adxl345_read_mag_config() converts the latter to 1
+with !!, reporting a failed read as an enabled event. The disable path
+also turns a coupling query error into a successful write.
 
-Thanks,
-Yazen
+Return query status separately from the boolean result by passing bool
+output parameters to both helpers. Rename them from is_* to get_* and
+update the event read, disable and link-bit callers to check the status
+before using the result. Preserve the successful coupling-mismatch
+no-op when disabling an event.
+
+Fixes: 66a1af6d8a63 ("iio: accel: adxl345: add activity event feature")
+Fixes: 31f7679bb69a ("iio: accel: adxl345: add coupling detection for activity/inactivity")
+Assisted-by: LLM
+Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
+---
+v4:
+- Return directly from the coupling-query switch cases, as Andy suggested.
+- Check query errors inside each event-read direction case.
+
+v3:
+- Return query status separately from bool output parameters.
+- Update the coupling helper and all event-read, disable and link-bit callers.
+- Combine the previous two patches because both paths share the helpers.
+
+Validation: 534 host function-chain cases pass with UBSan, including
+register-read fault injection, link-bit updates and free-fall queries.
+The upstream baseline reproduces 36 event-read and 12 event-disable failures.
+No full kernel build or sensor hardware test was performed.
+Assistance: Codex implemented the requested control-flow changes and reran
+the existing host tests.
+
+ drivers/iio/accel/adxl345_core.c | 94 ++++++++++++++++++++++++----------------
+ 1 file changed, 57 insertions(+), 37 deletions(-)
+
+diff --git a/drivers/iio/accel/adxl345_core.c b/drivers/iio/accel/adxl345_core.c
+index 6c9080d88c60bde088c3a00083bfe0f0c111bc89..e5b5075e41f6c037f0c6a40410aa81d2507083c9 100644
+--- a/drivers/iio/accel/adxl345_core.c
++++ b/drivers/iio/accel/adxl345_core.c
+@@ -463,27 +463,25 @@ static int adxl345_set_inact_time(struct adxl345_state *st, u32 val_int,
+ }
+ 
+ /**
+- * adxl345_is_act_inact_ac() - Verify if AC or DC coupling is currently enabled.
+- *
++ * adxl345_get_act_inact_ac() - Check the configured coupling.
+  * @st: The device data.
+  * @type: The activity or inactivity type.
++ * @matches: Whether the configured coupling matches the provided type.
+  *
+- * Given a type of activity / inactivity combined with either AC coupling set or
+- * default to DC, this function verifies if the combination is currently
+- * configured, hence enabled or not.
+- *
+- * Return: true if configured coupling matches the provided type, else a negative
+- *         error value.
++ * Return: 0 on success, or a negative error value.
+  */
+-static int adxl345_is_act_inact_ac(struct adxl345_state *st,
+-				   enum adxl345_activity_type type)
++static int adxl345_get_act_inact_ac(struct adxl345_state *st,
++				    enum adxl345_activity_type type,
++				    bool *matches)
+ {
+ 	unsigned int regval;
+ 	bool coupling;
+ 	int ret;
+ 
+-	if (type == ADXL345_INACTIVITY_FF)
+-		return true;
++	if (type == ADXL345_INACTIVITY_FF) {
++		*matches = true;
++		return 0;
++	}
+ 
+ 	ret = regmap_read(st->regmap, ADXL345_REG_ACT_INACT_CTRL, &regval);
+ 	if (ret)
+@@ -494,10 +492,12 @@ static int adxl345_is_act_inact_ac(struct adxl345_state *st,
+ 	switch (type) {
+ 	case ADXL345_ACTIVITY:
+ 	case ADXL345_INACTIVITY:
+-		return coupling == ADXL345_COUPLING_DC;
++		*matches = coupling == ADXL345_COUPLING_DC;
++		return 0;
+ 	case ADXL345_ACTIVITY_AC:
+ 	case ADXL345_INACTIVITY_AC:
+-		return coupling == ADXL345_COUPLING_AC;
++		*matches = coupling == ADXL345_COUPLING_AC;
++		return 0;
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -567,14 +567,17 @@ static int adxl345_set_act_inact_ac(struct adxl345_state *st,
+ 				  adxl345_act_acdc_msk[type], act_inact_ac);
+ }
+ 
+-static int adxl345_is_act_inact_en(struct adxl345_state *st,
+-				   enum adxl345_activity_type type)
++static int adxl345_get_act_inact_en(struct adxl345_state *st,
++				    enum adxl345_activity_type type,
++				    bool *enabled)
+ {
+ 	unsigned int axis_ctrl;
+ 	unsigned int regval;
+ 	bool int_en, en;
+ 	int ret;
+ 
++	*enabled = false;
++
+ 	ret = regmap_read(st->regmap, ADXL345_REG_ACT_INACT_CTRL, &axis_ctrl);
+ 	if (ret)
+ 		return ret;
+@@ -585,13 +588,13 @@ static int adxl345_is_act_inact_en(struct adxl345_state *st,
+ 	case ADXL345_ACTIVITY_AC:
+ 		en = FIELD_GET(ADXL345_ACT_XYZ_EN, axis_ctrl);
+ 		if (!en)
+-			return false;
++			return 0;
+ 		break;
+ 	case ADXL345_INACTIVITY:
+ 	case ADXL345_INACTIVITY_AC:
+ 		en = FIELD_GET(ADXL345_INACT_XYZ_EN, axis_ctrl);
+ 		if (!en)
+-			return false;
++			return 0;
+ 		break;
+ 	case ADXL345_INACTIVITY_FF:
+ 		en = true;
+@@ -607,37 +610,39 @@ static int adxl345_is_act_inact_en(struct adxl345_state *st,
+ 
+ 	int_en = adxl345_act_int_reg[type] & regval;
+ 	if (!int_en)
+-		return false;
++		return 0;
+ 
+ 	/* Check if configured coupling matches provided type */
+-	return adxl345_is_act_inact_ac(st, type);
++	return adxl345_get_act_inact_ac(st, type, enabled);
+ }
+ 
+ static int adxl345_set_act_inact_linkbit(struct adxl345_state *st,
+ 					 enum adxl345_activity_type type,
+ 					 bool en)
+ {
+-	int act_ac_en, inact_ac_en;
+-	int act_en, inact_en;
++	bool act_ac_en, inact_ac_en;
++	bool act_en, inact_en;
++	int ret;
+ 
+-	act_en = adxl345_is_act_inact_en(st, ADXL345_ACTIVITY);
+-	if (act_en < 0)
+-		return act_en;
++	ret = adxl345_get_act_inact_en(st, ADXL345_ACTIVITY, &act_en);
++	if (ret)
++		return ret;
+ 
+-	act_ac_en = adxl345_is_act_inact_en(st, ADXL345_ACTIVITY_AC);
+-	if (act_ac_en < 0)
+-		return act_ac_en;
++	ret = adxl345_get_act_inact_en(st, ADXL345_ACTIVITY_AC, &act_ac_en);
++	if (ret)
++		return ret;
+ 
+ 	if (type == ADXL345_INACTIVITY_FF) {
+ 		inact_en = false;
+ 	} else {
+-		inact_en = adxl345_is_act_inact_en(st, ADXL345_INACTIVITY);
+-		if (inact_en < 0)
+-			return inact_en;
++		ret = adxl345_get_act_inact_en(st, ADXL345_INACTIVITY, &inact_en);
++		if (ret)
++			return ret;
+ 
+-		inact_ac_en = adxl345_is_act_inact_en(st, ADXL345_INACTIVITY_AC);
+-		if (inact_ac_en < 0)
+-			return inact_ac_en;
++		ret = adxl345_get_act_inact_en(st, ADXL345_INACTIVITY_AC,
++					       &inact_ac_en);
++		if (ret)
++			return ret;
+ 
+ 		inact_en = inact_en || inact_ac_en;
+ 	}
+@@ -656,6 +661,7 @@ static int adxl345_set_act_inact_en(struct adxl345_state *st,
+ 	unsigned int axis_ctrl;
+ 	unsigned int threshold;
+ 	unsigned int period;
++	bool matches;
+ 	int ret;
+ 
+ 	if (cmd_en) {
+@@ -692,7 +698,10 @@ static int adxl345_set_act_inact_en(struct adxl345_state *st,
+ 		 * current call attempts to turn off a DC-coupled activity, this
+ 		 * inconsistency should be detected here.
+ 		 */
+-		if (adxl345_is_act_inact_ac(st, type) <= 0)
++		ret = adxl345_get_act_inact_ac(st, type, &matches);
++		if (ret)
++			return ret;
++		if (!matches)
+ 			return 0;
+ 	}
+ 
+@@ -1174,14 +1183,25 @@ static int adxl345_read_mag_config(struct adxl345_state *st,
+ 				   enum adxl345_activity_type type_act,
+ 				   enum adxl345_activity_type type_inact)
+ {
++	bool enabled;
++	int ret;
++
+ 	switch (dir) {
+ 	case IIO_EV_DIR_RISING:
+-		return !!adxl345_is_act_inact_en(st, type_act);
++		ret = adxl345_get_act_inact_en(st, type_act, &enabled);
++		if (ret)
++			return ret;
++		break;
+ 	case IIO_EV_DIR_FALLING:
+-		return !!adxl345_is_act_inact_en(st, type_inact);
++		ret = adxl345_get_act_inact_en(st, type_inact, &enabled);
++		if (ret)
++			return ret;
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
++
++	return enabled;
+ }
+ 
+ static int adxl345_write_mag_config(struct adxl345_state *st,
+
+base-commit: 9ee8306121495d2a25aa5d1bfd519f2748786b83
+
+
